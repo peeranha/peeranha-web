@@ -1,18 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { TEXT_SECONDARY } from 'style-constants';
 
 import * as routes from 'routes-config';
 
 import noAvatar from 'images/ico-user-no-photo.png';
+import telegram from 'images/telegram-sm.svg?inline';
 
 import { getFormattedDate } from 'utils/datetime';
 import { MONTH_3LETTERS__DAY_YYYY_TIME } from 'utils/constants';
 
 import RatingStatus from 'components/RatingStatus';
-import MediumImage from 'components/Img/MediumImage';
+import AchievementsStatus from 'components/AchievementsStatus';
+import MediumImage, { MediumImageWrapper } from 'components/Img/MediumImage';
+
 import Span from 'components/Span';
 import A from 'components/A';
+import TelegramUserLabel from 'components/Labels/TelegramUserLabel';
 
 import { COMMENT_TYPE } from './constants';
 
@@ -24,15 +29,23 @@ export const UserInfo = ({
   type,
   postTime,
   locale,
+  achievementsCount,
+  isTemporaryAccount,
+  isComment,
 }) => (
-  <A to={routes.profileView(account)} className="d-flex">
+  <A to={routes.profileView(account)} className="d-flex flex-shrink-0">
     {type !== COMMENT_TYPE && (
-      <MediumImage
-        className="mr-2"
-        isBordered
-        src={avatar || noAvatar}
-        alt="avatar"
-      />
+      <MediumImageWrapper>
+        <MediumImage
+          className="mr-2"
+          isBordered
+          src={avatar || noAvatar}
+          alt="avatar"
+        />
+        {isTemporaryAccount && (
+          <TelegramUserLabel id={`temporary-account-${account}-label`} locale={locale} />
+        )}
+      </MediumImageWrapper>
     )}
 
     <div
@@ -40,11 +53,12 @@ export const UserInfo = ({
         type !== COMMENT_TYPE ? 'flex-column' : 'flex-row'
       }`}
     >
-      <span className="d-flex align-items-center mr-2">
+      <span className={`d-flex align-items-center ${isComment ? '' : 'mr-2'}`}>
         <Span className="mr-2" fontSize="14" lineHeight="18">
           {name}
         </Span>
         <RatingStatus rating={rating} size="sm" isRankOff />
+        <AchievementsStatus count={achievementsCount} />
       </span>
 
       <Span color={TEXT_SECONDARY} fontSize="14" lineHeight="18">
@@ -62,6 +76,9 @@ UserInfo.propTypes = {
   type: PropTypes.string,
   postTime: PropTypes.number,
   locale: PropTypes.string,
+  achievementsCount: PropTypes.number,
+  isComment: PropTypes.bool,
+  isTemporaryAccount: PropTypes.bool,
 };
 
 export default React.memo(UserInfo);

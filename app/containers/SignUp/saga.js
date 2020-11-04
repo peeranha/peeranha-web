@@ -19,7 +19,9 @@ import {
   followCommunity,
 } from 'utils/communityManagement';
 
-import loginMessages from 'containers/Login/messages';
+import loginMessages, {
+  getAccountNotSelectedMessageDescriptor,
+} from 'containers/Login/messages';
 
 import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
 import { successHandling } from 'containers/Toast/saga';
@@ -31,7 +33,6 @@ import {
   EMAIL_FIELD as EMAIL_LOGIN_FIELD,
   PASSWORD_FIELD as PASSWORD_LOGIN_FIELD,
   SCATTER_MODE_ERROR,
-  USER_IS_NOT_SELECTED,
   REFERRAL_CODE,
 } from 'containers/Login/constants';
 
@@ -165,7 +166,7 @@ export function* iHaveEosAccountWorker({ val }) {
 
     let isActiveKeyValid = true;
     let isOwnerKeyValid = true;
-    
+
     const eosActivePublicKey = yield call(
       eosService.privateToPublic,
       val[EOS_ACTIVE_PRIVATE_KEY_FIELD],
@@ -222,7 +223,7 @@ export function* iHaveEosAccountWorker({ val }) {
       password: val[PASSWORD_FIELD],
       eosAccountName: val[EOS_ACCOUNT_FIELD],
     };
-    
+
     const storeKeys = Boolean(val[STORE_KEY_FIELD]);
 
     const response = yield call(
@@ -370,7 +371,11 @@ export function* showScatterSignUpFormWorker() {
 
     if (!eosService.selectedAccount) {
       throw new WebIntegrationError(
-        translations[loginMessages[USER_IS_NOT_SELECTED].id],
+        translations[
+          getAccountNotSelectedMessageDescriptor(
+            eosService.isScatterExtension,
+          ).id
+        ],
       );
     }
 

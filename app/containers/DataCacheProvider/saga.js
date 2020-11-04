@@ -6,6 +6,7 @@ import { getProfileInfo } from 'utils/profileManagement';
 import { getStat } from 'utils/statisticsManagement';
 import { getMD } from 'utils/mdManagement';
 import { setCookie } from 'utils/cookie';
+import { getUserAchievementsCount } from 'utils/achievementsManagement';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
@@ -103,6 +104,26 @@ export function* getUserProfileWorker({ user, getFullProfile }) {
 
     // take userProfile from STORE
     if (cachedUserInfo && !getFullProfile) {
+      if (!cachedUserInfo.achievements_reached) {
+        const userAchievementsCount = yield getUserAchievementsCount(
+          user,
+          eosService,
+        );
+        const updatedUserInfo = {
+          ...cachedUserInfo,
+          achievements_reached: userAchievementsCount,
+        };
+        setCookie({
+          name: PROFILE_INFO_LS,
+          value: JSON.stringify(updatedUserInfo),
+          options: {
+            defaultPath: true,
+            allowSubdomains: true,
+          },
+        });
+        yield put(getUserProfileSuccess(updatedUserInfo));
+        return updatedUserInfo;
+      }
       return yield cachedUserInfo;
     }
 
@@ -113,6 +134,14 @@ export function* getUserProfileWorker({ user, getFullProfile }) {
       eosService,
       getFullProfile,
     );
+
+    if (!updatedUserInfo.achievements_reached) {
+      const userAchievementsCount = yield getUserAchievementsCount(
+        user,
+        eosService,
+      );
+      updatedUserInfo.achievements_reached = userAchievementsCount;
+    }
 
     if (
       (updatedUserInfo && !cachedUserInfo) ||

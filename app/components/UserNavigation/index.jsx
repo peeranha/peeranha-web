@@ -53,6 +53,7 @@ const UserNavigation = ({
   profile: { permissions },
   questionsLength,
   questionsWithUserAnswersLength,
+  userAchievementsLength,
   redirectToEditProfilePage,
 }) => {
   const path = window.location.pathname + window.location.hash;
@@ -162,11 +163,27 @@ const UserNavigation = ({
           </NavigationLink>
 
           <NavigationLink
-            className={userId !== account ? 'd-none' : ''}
             to={routes.userAchievements(userId)}
             isLink={path !== routes.userAchievements(userId)}
           >
-            <FormattedMessage {...messages.achievements} />
+            <FormattedMessage
+              {...messages.achievementsNumber}
+              values={{
+                number: (
+                  <Span
+                    className="ml-1"
+                    fontSize="14"
+                    color={
+                      path !== routes.userAchievements(userId)
+                        ? TEXT_SECONDARY
+                        : 'inherit'
+                    }
+                  >
+                    {userAchievementsLength}
+                  </Span>
+                ),
+              }}
+            />
           </NavigationLink>
 
           {permissions &&
@@ -234,6 +251,7 @@ UserNavigation.propTypes = {
   account: PropTypes.string,
   questionsLength: PropTypes.number,
   questionsWithUserAnswersLength: PropTypes.number,
+  userAchievementsLength: PropTypes.number,
   loginData: PropTypes.object,
   profile: PropTypes.object,
   redirectToEditProfilePage: PropTypes.func,

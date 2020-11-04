@@ -4,6 +4,7 @@ import {
   COMMUNITY_ADMIN_OFFICIAL_ANSWER,
   COMMUNITY_ADMIN_QUESTION_TYPE,
   COMMUNITY_ADMIN_TOP_QUESTIONS,
+  MODERATOR_CREATE_COMMUNITY,
   OFFICIAL_ANSWER_KEYS,
   PERMISSION_GRANTED,
   moderatorPermissions,
@@ -100,3 +101,6 @@ export const communityAdminInfiniteImpactPermission = (
   !!findAllPropertiesByKeys(properties, [
     COMMUNITY_ADMIN_INFINITE_IMPACT,
   ]).filter(({ community }) => communityId === community).length;
+
+export const communityModeratorCreatePermission = properties =>
+  !!findAllPropertiesByKeys(properties, [MODERATOR_CREATE_COMMUNITY]).length;

@@ -19,11 +19,18 @@ import Ul from 'components/Ul/SpecialOne';
 import Span from 'components/Span';
 import A from 'components/A';
 import RatingStatus from 'components/RatingStatus';
+import AchievementsStatus from 'components/AchievementsStatus';
 import { MediumSpecialImage } from 'components/Img/MediumImage';
 import { IconLg } from 'components/Icon/IconWithSizes';
 import Logout from 'containers/Logout';
 
 import { selectIsMenuVisible } from '../AppWrapper/selectors';
+
+const StatusBox = styled.span`
+  display: inline-flex;
+  font-size: 14px;
+  margin-top: 2px;
+`;
 
 const Info = styled.span`
   padding: 0 10px;
@@ -47,7 +54,10 @@ const B = ({ profileInfo, onClick, isMenuVisible }) => (
       isMenuVisible={isMenuVisible}
     >
       <Span bold>{profileInfo?.['display_name']}</Span>
-      <RatingStatus rating={profileInfo.rating} size="sm" isRankOff />
+      <StatusBox>
+        <RatingStatus rating={profileInfo.rating} size="sm" isRankOff />
+        <AchievementsStatus count={profileInfo.achievements_reached} />
+      </StatusBox>
     </Info>
   </span>
 );

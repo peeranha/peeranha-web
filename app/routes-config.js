@@ -71,6 +71,8 @@ export const termsAndConditions = section =>
   `/terms-and-conditions/${section ? `#${section}` : ''}`;
 
 export const communitiesCreate = () => `/communities/create`;
+export const communitiesEdit = communityId =>
+  `/communities/${communityId}/edit`;
 export const communitiesCreatedBanner = () => `/communities/create#banner`;
 export const suggestedCommunities = () => `/communities/suggested`;
 

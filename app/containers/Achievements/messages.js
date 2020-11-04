@@ -7,107 +7,163 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  QUESTION_ASKED: {
-    title: {
-      id: 'app.containers.Achievements.questionAsked.title',
+  progressBarPopover: {
+    ratingRelated: {
+      id: 'app.containers.Achievements.progressBarPopover.ratingRelated',
     },
-    multipleTitle: {
-      id: 'app.containers.Achievements.questionAsked.multipleTitle',
+    questionAskedRelated: {
+      id: 'app.containers.Achievements.progressBarPopover.questionAskedRelated',
     },
-    description: {
-      id: 'app.containers.Achievements.questionAsked.description',
+    answerGivenRelated: {
+      id: 'app.containers.Achievements.progressBarPopover.answerGivenRelated',
     },
-    bronzeTitle: {
-      id: 'app.containers.Achievements.questionAsked.bronzeTitle',
+    bestAnswerRelated: {
+      id: 'app.containers.Achievements.progressBarPopover.bestAnswerRelated',
     },
-    bronzeDescription: {
-      id: 'app.containers.Achievements.questionAsked.bronzeDescription',
+    firstAnswerIn15Related: {
+      id:
+        'app.containers.Achievements.progressBarPopover.firstAnswerIn15Related',
     },
-    silverTitle: {
-      id: 'app.containers.Achievements.questionAsked.silverTitle',
-    },
-    silverDescription: {
-      id: 'app.containers.Achievements.questionAsked.silverDescription',
-    },
-    goldTitle: {
-      id: 'app.containers.Achievements.questionAsked.goldTitle',
-    },
-    goldDescription: {
-      id: 'app.containers.Achievements.questionAsked.goldDescription',
+    firstAnswerRelated: {
+      id: 'app.containers.Achievements.progressBarPopover.firstAnswerRelated',
     },
   },
-  ANSWER_GIVEN: {
+
+  // Answers and questions related achievements with levels
+
+  QUESTION_ASKED_BRONZE: {
     title: {
-      id: 'app.containers.Achievements.answerGiven.title',
-    },
-    multipleTitle: {
-      id: 'app.containers.Achievements.answerGiven.multipleTitle',
+      id: 'app.containers.Achievements.questionAsked.bronze.title',
     },
     description: {
-      id: 'app.containers.Achievements.answerGiven.description',
-    },
-    bronzeTitle: {
-      id: 'app.containers.Achievements.answerGiven.bronzeTitle',
-    },
-    bronzeDescription: {
-      id: 'app.containers.Achievements.answerGiven.bronzeDescription',
-    },
-    silverTitle: {
-      id: 'app.containers.Achievements.answerGiven.silverTitle',
-    },
-    silverDescription: {
-      id: 'app.containers.Achievements.answerGiven.silverDescription',
-    },
-    goldTitle: {
-      id: 'app.containers.Achievements.answerGiven.goldTitle',
-    },
-    goldDescription: {
-      id: 'app.containers.Achievements.answerGiven.goldDescription',
+      id: 'app.containers.Achievements.questionAsked.bronze.description',
     },
   },
-  CORRECT_ANSWER: {
+  QUESTION_ASKED_SILVER: {
     title: {
-      id: 'app.containers.Achievements.correctAnswer.title',
-    },
-    multipleTitle: {
-      id: 'app.containers.Achievements.correctAnswer.multipleTitle',
+      id: 'app.containers.Achievements.questionAsked.silver.title',
     },
     description: {
-      id: 'app.containers.Achievements.correctAnswer.description',
-    },
-    bronzeTitle: {
-      id: 'app.containers.Achievements.correctAnswer.bronzeTitle',
-    },
-    bronzeDescription: {
-      id: 'app.containers.Achievements.correctAnswer.bronzeDescription',
-    },
-    silverTitle: {
-      id: 'app.containers.Achievements.correctAnswer.silverTitle',
-    },
-    silverDescription: {
-      id: 'app.containers.Achievements.correctAnswer.silverDescription',
-    },
-    goldTitle: {
-      id: 'app.containers.Achievements.correctAnswer.goldTitle',
-    },
-    goldDescription: {
-      id: 'app.containers.Achievements.correctAnswer.goldDescription',
+      id: 'app.containers.Achievements.questionAsked.silver.description',
     },
   },
-  FIRST_10K_REGISTERED: {
+  QUESTION_ASKED_GOLD: {
     title: {
-      id: 'app.containers.Achievements.first10kregistered.title',
+      id: 'app.containers.Achievements.questionAsked.gold.title',
     },
     description: {
-      id: 'app.containers.Achievements.first10kregistered.description',
+      id: 'app.containers.Achievements.questionAsked.gold.description',
     },
   },
-  STRANGER: {
+
+  ANSWER_GIVEN_BRONZE: {
     title: {
-      id: 'app.containers.Achievements.stanger.title',
+      id: 'app.containers.Achievements.answerGiven.bronze.title',
     },
     description: {
-      id: 'app.containers.Achievements.stanger.description',
+      id: 'app.containers.Achievements.answerGiven.bronze.description',
+    },
+  },
+  ANSWER_GIVEN_SILVER: {
+    title: {
+      id: 'app.containers.Achievements.answerGiven.silver.title',
+    },
+    description: {
+      id: 'app.containers.Achievements.answerGiven.silver.description',
+    },
+  },
+  ANSWER_GIVEN_GOLD: {
+    title: {
+      id: 'app.containers.Achievements.answerGiven.gold.title',
+    },
+    description: {
+      id: 'app.containers.Achievements.answerGiven.gold.description',
+    },
+  },
+
+  BEST_ANSWER_BRONZE: {
+    title: {
+      id: 'app.containers.Achievements.bestAnswer.bronze.title',
+    },
+    description: {
+      id: 'app.containers.Achievements.bestAnswer.bronze.description',
+    },
+  },
+  BEST_ANSWER_SILVER: {
+    title: {
+      id: 'app.containers.Achievements.bestAnswer.silver.title',
+    },
+    description: {
+      id: 'app.containers.Achievements.bestAnswer.silver.description',
+    },
+  },
+  BEST_ANSWER_GOLD: {
+    title: {
+      id: 'app.containers.Achievements.bestAnswer.gold.title',
+    },
+    description: {
+      id: 'app.containers.Achievements.bestAnswer.gold.description',
+    },
+  },
+
+  FIRST_ANSWER_IN_15_BRONZE: {
+    title: {
+      id: 'app.containers.Achievements.firstIn15.bronze.title',
+    },
+    description: {
+      id: 'app.containers.Achievements.firstIn15.bronze.description',
+    },
+  },
+  FIRST_ANSWER_IN_15_SILVER: {
+    title: {
+      id: 'app.containers.Achievements.firstIn15.silver.title',
+    },
+    description: {
+      id: 'app.containers.Achievements.firstIn15.silver.description',
+    },
+  },
+  FIRST_ANSWER_IN_15_GOLD: {
+    title: {
+      id: 'app.containers.Achievements.firstIn15.gold.title',
+    },
+    description: {
+      id: 'app.containers.Achievements.firstIn15.gold.description',
+    },
+  },
+
+  FIRST_ANSWER_BRONZE: {
+    title: {
+      id: 'app.containers.Achievements.firstAnswer.bronze.title',
+    },
+    description: {
+      id: 'app.containers.Achievements.firstAnswer.bronze.description',
+    },
+  },
+  FIRST_ANSWER_SILVER: {
+    title: {
+      id: 'app.containers.Achievements.firstAnswer.silver.title',
+    },
+    description: {
+      id: 'app.containers.Achievements.firstAnswer.silver.description',
+    },
+  },
+  FIRST_ANSWER_GOLD: {
+    title: {
+      id: 'app.containers.Achievements.firstAnswer.gold.title',
+    },
+    description: {
+      id: 'app.containers.Achievements.firstAnswer.gold.description',
+    },
+  },
+
+  // Rating related achievements
+
+  WELCOME_STRANGER: {
+    title: {
+      id: 'app.containers.Achievements.welcomeStranger.title',
+    },
+    description: {
+      id: 'app.containers.Achievements.welcomeStranger.description',
     },
   },
   NEWBIE: {
@@ -158,56 +214,63 @@ export default defineMessages({
       id: 'app.containers.Achievements.superhero.description',
     },
   },
-  ANSWER_15_MINUTES: {
+
+  // Unique achievements
+
+  FOUNDING_MEMBER: {
     title: {
-      id: 'app.containers.Achievements.answer15minutes.title',
+      id: 'app.containers.Achievements.foundingMember.title',
     },
     description: {
-      id: 'app.containers.Achievements.answer15minutes.description',
-    },
-    bronzeTitle: {
-      id: 'app.containers.Achievements.answer15minutes.bronzeTitle',
-    },
-    bronzeDescription: {
-      id: 'app.containers.Achievements.answer15minutes.bronzeDescription',
-    },
-    silverTitle: {
-      id: 'app.containers.Achievements.answer15minutes.silverTitle',
-    },
-    silverDescription: {
-      id: 'app.containers.Achievements.answer15minutes.silverDescription',
-    },
-    goldTitle: {
-      id: 'app.containers.Achievements.answer15minutes.goldTitle',
-    },
-    goldDescription: {
-      id: 'app.containers.Achievements.answer15minutes.goldDescription',
+      id: 'app.containers.Achievements.foundingMember.description',
     },
   },
-  FIRST_ANSWER: {
+  ACTIVIST: {
     title: {
-      id: 'app.containers.Achievements.firstAnswer.title',
+      id: 'app.containers.Achievements.activist.title',
     },
     description: {
-      id: 'app.containers.Achievements.firstAnswer.description',
+      id: 'app.containers.Achievements.activist.description',
     },
-    bronzeTitle: {
-      id: 'app.containers.Achievements.firstAnswer.bronzeTitle',
+  },
+  RESEARCHER: {
+    title: {
+      id: 'app.containers.Achievements.researcher.title',
     },
-    bronzeDescription: {
-      id: 'app.containers.Achievements.firstAnswer.bronzeDescription',
+    description: {
+      id: 'app.containers.Achievements.researcher.description',
     },
-    silverTitle: {
-      id: 'app.containers.Achievements.firstAnswer.silverTitle',
+  },
+  HONORABLE_RESIDENT: {
+    title: {
+      id: 'app.containers.Achievements.honorableResident.title',
     },
-    silverDescription: {
-      id: 'app.containers.Achievements.firstAnswer.silverDescription',
+    description: {
+      id: 'app.containers.Achievements.honorableResident.description',
     },
-    goldTitle: {
-      id: 'app.containers.Achievements.firstAnswer.goldTitle',
+  },
+  THE_WISEST: {
+    title: {
+      id: 'app.containers.Achievements.theWisest.title',
     },
-    goldDescription: {
-      id: 'app.containers.Achievements.firstAnswer.goldDescription',
+    description: {
+      id: 'app.containers.Achievements.theWisest.description',
+    },
+  },
+  MODERN_HERO: {
+    title: {
+      id: 'app.containers.Achievements.modernHero.title',
+    },
+    description: {
+      id: 'app.containers.Achievements.modernHero.description',
+    },
+  },
+  KING_OF_THE_HILL: {
+    title: {
+      id: 'app.containers.Achievements.kingOfTheHill.title',
+    },
+    description: {
+      id: 'app.containers.Achievements.kingOfTheHill.description',
     },
   },
 });

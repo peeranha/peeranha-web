@@ -48,7 +48,6 @@ import {
   LOGIN_WITH_EMAIL,
   LOGIN_WITH_SCATTER,
   SCATTER_MODE_ERROR,
-  USER_IS_NOT_SELECTED,
   USER_IS_NOT_REGISTERED,
   EMAIL_FIELD,
   PASSWORD_FIELD,
@@ -59,7 +58,7 @@ import {
   REFERRAL_CODE,
 } from './constants';
 
-import messages from './messages';
+import messages, { getAccountNotSelectedMessageDescriptor } from './messages';
 import { makeSelectEosAccount } from './selectors';
 import { addToast } from '../Toast/actions';
 import { initEosioSuccess } from '../EosioProvider/actions';
@@ -138,7 +137,11 @@ export function* loginWithScatterWorker() {
 
     if (!eosService.selectedAccount) {
       throw new WebIntegrationError(
-        translations[messages[USER_IS_NOT_SELECTED].id],
+        translations[
+          getAccountNotSelectedMessageDescriptor(
+            eosService.isScatterExtension,
+          ).id
+        ],
       );
     }
 

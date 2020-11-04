@@ -1,9 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import styled from 'styled-components';
 
 import commonMessages from 'common-messages';
 import { TEXT_DARK, TEXT_SECONDARY } from 'style-constants';
+import { LABEL_SIZE_LG } from 'components/Img/MediumImage';
+import {
+  MONTH_3LETTERS__DAY_YYYY,
+  TEMPORARY_ACCOUNT_KEY,
+} from 'utils/constants';
 
 import { getFormattedDate } from 'utils/datetime';
 import { getUserAvatar } from 'utils/profileManagement';
@@ -15,11 +21,18 @@ import Base from 'components/Base';
 import Ul from 'components/Ul';
 import Span from 'components/Span';
 import RatingStatus from 'components/RatingStatus';
+import AchievementsStatus from 'components/AchievementsStatus/index';
 
 import LargeImage from 'components/Img/LargeImage';
+import TelegramUserLabel from 'components/Labels/TelegramUserLabel';
+import LoadingIndicator from 'components/LoadingIndicator';
 
 import messages from 'containers/Profile/messages';
-import { MONTH_3LETTERS__DAY_YYYY } from 'utils/constants';
+
+const InlineLoader = styled(LoadingIndicator)`
+  margin: auto;
+  margin-top: 5px;
+`;
 
 export const UlStyled = Ul.extend`
   display: flex;
@@ -100,80 +113,109 @@ export const Box = Base.extend`
   }
 `;
 
+const LargeImageButton = styled.button`
+  position: relative;
+`;
+
 const MainUserInformation = ({
   profile,
   userId,
   account,
   locale,
   redirectToEditProfilePage,
-}) => (
-  <Box position="middle">
-    <div>
-      <div>
-        <button
-          onClick={redirectToEditProfilePage}
-          data-user={userId}
-          disabled={account !== userId}
-        >
-          <LargeImage
-            src={getUserAvatar(profile.ipfs_avatar, userId, account)}
-            alt="avatar"
-            isBordered
-          />
-        </button>
-      </div>
+}) => {
+  const isTemporaryAccount = !!profile?.['integer_properties'].find(
+    x => x.key === TEMPORARY_ACCOUNT_KEY && x.value,
+  );
 
+  return (
+    <Box position="middle">
       <div>
-        <div className="d-flex align-items-center">
-          <Span fontSize="38" lineHeight="47" mobileFS="28" bold>
-            {profile?.['display_name']}
-          </Span>
+        <div>
+          <LargeImageButton
+            onClick={redirectToEditProfilePage}
+            data-user={userId}
+            disabled={account !== userId}
+          >
+            <LargeImage
+              src={getUserAvatar(profile.ipfs_avatar, userId, account)}
+              alt="avatar"
+              isBordered
+            />
+            {isTemporaryAccount && (
+              <TelegramUserLabel
+                id={`temporary-account-${userId}-label`}
+                locale={locale}
+                size={LABEL_SIZE_LG}
+              />
+            )}
+          </LargeImageButton>
         </div>
 
-        <div className="d-flex align-items-center">
-          <UlStyled>
-            <li>
-              <FormattedMessage {...messages.reputation} />
-              <RatingStatus rating={profile.rating} size="lg" />
-            </li>
+        <div>
+          <div className="d-flex align-items-center">
+            <Span fontSize="38" lineHeight="47" mobileFS="28" bold>
+              {profile?.['display_name']}
+            </Span>
+          </div>
 
-            <li>
-              <FormattedMessage {...commonMessages.questions} />
-              <span>
-                <img src={questionRoundedIcon} alt="icon" />
-                {profile.questions_asked}
-              </span>
-            </li>
+          <div className="d-flex align-items-center">
+            <UlStyled>
+              <li>
+                <FormattedMessage {...messages.reputation} />
+                <RatingStatus rating={profile.rating} size="lg" />
+              </li>
 
-            <li>
-              <FormattedMessage {...commonMessages.answers} />
-              <span>
-                <img src={answerIcon} alt="icon" />
-                {profile.answers_given}
-              </span>
-            </li>
+              <li>
+                <FormattedMessage {...commonMessages.questions} />
+                <span>
+                  <img src={questionRoundedIcon} alt="icon" />
+                  {profile.questions_asked}
+                </span>
+              </li>
 
-            <li>
-              <FormattedMessage {...commonMessages.eosAccount} />
-              <span>{userId}</span>
-            </li>
+              <li>
+                <FormattedMessage {...commonMessages.answers} />
+                <span>
+                  <img src={answerIcon} alt="icon" />
+                  {profile.answers_given}
+                </span>
+              </li>
 
-            <li>
-              <span>
-                <FormattedMessage {...messages.memberSince} />
-                {getFormattedDate(
-                  profile.registration_time,
-                  locale,
-                  MONTH_3LETTERS__DAY_YYYY,
+              <li>
+                <FormattedMessage {...messages.achievements} />
+                {typeof profile.achievements_reached === 'number' ? (
+                  <AchievementsStatus
+                    count={profile.achievements_reached}
+                    size="lg"
+                  />
+                ) : (
+                  <InlineLoader width={7} height={7} margin={3} />
                 )}
-              </span>
-            </li>
-          </UlStyled>
+              </li>
+
+              <li>
+                <FormattedMessage {...commonMessages.eosAccount} />
+                <span>{userId}</span>
+              </li>
+
+              <li>
+                <span>
+                  <FormattedMessage {...messages.memberSince} />
+                  {getFormattedDate(
+                    profile.registration_time,
+                    locale,
+                    MONTH_3LETTERS__DAY_YYYY,
+                  )}
+                </span>
+              </li>
+            </UlStyled>
+          </div>
         </div>
       </div>
-    </div>
-  </Box>
-);
+    </Box>
+  );
+};
 
 MainUserInformation.propTypes = {
   profile: PropTypes.object,

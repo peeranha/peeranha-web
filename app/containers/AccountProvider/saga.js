@@ -16,12 +16,8 @@ import { makeSelectLocale } from '../LanguageProvider/selectors';
 import { selectQuestionData } from '../ViewQuestion/selectors';
 import { makeSelectProfileInfo } from './selectors';
 
-import {
-  getUserProfileSuccess,
-} from 'containers/DataCacheProvider/actions';
-import {
-  getUserTelegramDataSuccess,
-} from 'containers/TelegramAccountAction/actions';
+import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
+import { getUserTelegramDataSuccess } from 'containers/TelegramAccountAction/actions';
 import { addToast } from 'containers/Toast/actions';
 import {
   addLoginData,
@@ -42,7 +38,7 @@ import { redirectToEditAnswerPageWorker } from 'containers/EditAnswer/saga';
 import { redirectToEditProfilePageWorker } from 'containers/EditProfilePage/saga';
 import { updateStoredQuestionsWorker } from 'containers/Questions/saga';
 import { getNotificationsInfoWorker } from 'components/Notifications/saga';
-import { getUserAchievementsWorker } from 'containers/Achievements/saga';
+import { updateUserAchCountWorker } from 'containers/Achievements/saga';
 import { getWeekStatWorker } from 'containers/Wallet/saga';
 import { getQuestionData } from '../ViewQuestion/saga';
 
@@ -126,6 +122,10 @@ export const getCurrentAccountWorker = function*(initAccount) {
       }
     }
 
+    if (typeof account === 'object') {
+      account = account.eosAccountName;
+    }
+
     if (!prevProfileInfo) {
       const profileLS = JSON.parse(getCookie(PROFILE_INFO_LS) || null);
       if (
@@ -150,9 +150,11 @@ export const getCurrentAccountWorker = function*(initAccount) {
       call(getBalance, eosService, account),
     ]);
 
+    // update user achievements count
+    yield call(updateUserAchCountWorker, profileInfo.user);
+
     if (profileInfo) {
       yield call(getNotificationsInfoWorker, profileInfo.user);
-      yield call(getUserAchievementsWorker);
       yield call(getWeekStatWorker);
 
       // Update info for question depending on user

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { injectIntl, intlShape } from 'react-intl';
 
 import {
@@ -22,7 +23,11 @@ import Icon from 'components/Icon';
 
 import options from './options';
 
-import RatingStatusStyled from './RatingStatusStyled';
+const RatingStatusStyled = styled.span`
+  display: flex;
+  align-items: center;
+  margin-right: 0.5rem;
+`;
 
 const getStatus = rating =>
   Object.keys(options).filter(
@@ -85,7 +90,7 @@ const RatingStatus = ({ rating = 0, size, intl, isRankOff }) => {
     <RatingStatusStyled>
       <IconWithStatus size={size} rating={rating} />
       <Span
-        className={isRankOff ? 'd-none' : 'd-none d-lg-inline-block'}
+        className={isRankOff ? 'd-none' : 'd-none d-lg-inline-block ml-1'}
         fontSize={size === 'lg' ? 16 : 14}
         color={size === 'lg' ? TEXT_DARK : TEXT_SECONDARY}
       >

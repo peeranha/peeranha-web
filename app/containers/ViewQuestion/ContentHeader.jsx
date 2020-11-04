@@ -19,7 +19,7 @@ import blockIcon from 'images/blockIcon.svg?external';
 import changeTypeIcon from 'images/change-type.svg?external';
 
 import { getUserAvatar } from 'utils/profileManagement';
-import { MODERATOR_KEY } from 'utils/constants';
+import { MODERATOR_KEY, TEMPORARY_ACCOUNT_KEY } from 'utils/constants';
 import { useOnClickOutside } from 'utils/click-listners';
 
 import { IconSm, IconMd } from 'components/Icon/IconWithSizes';
@@ -102,6 +102,7 @@ const ContentHeader = props => {
     isChangeTypeAvailable,
     infiniteImpact,
   } = props;
+
   const [isModalOpen, setModalOpen] = useState(false);
   const ref = useRef(null);
 
@@ -110,6 +111,11 @@ const ContentHeader = props => {
   const isGlobalModerator = useMemo(
     () => !!profile?.['integer_properties'].find(x => x.key === MODERATOR_KEY),
     [profile],
+  );
+
+  const isTemporaryAccount = useMemo(
+    () => !!userInfo?.['integer_properties'].find(x => x.key === TEMPORARY_ACCOUNT_KEY && x.value),
+    [userInfo],
   );
 
   const isItWrittenByMe = useMemo(
@@ -137,6 +143,8 @@ const ContentHeader = props => {
           type={type}
           postTime={postTime}
           locale={locale}
+          achievementsCount={userInfo.achievements_reached}
+          isTemporaryAccount={isTemporaryAccount}
         />
 
         <div className="d-flex align-items-center">

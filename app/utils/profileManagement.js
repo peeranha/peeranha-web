@@ -4,6 +4,7 @@ import editUserNoAvatar from 'images/editUserNoAvatar.png';
 
 import { DISPLAY_NAME_FIELD } from 'containers/Profile/constants';
 import { saveText, getText, saveFile, getFileUrl } from './ipfs';
+import { getUserAchievementsCount } from './achievementsManagement';
 
 import {
   ACCOUNT_TABLE,
@@ -213,6 +214,14 @@ export async function getProfileInfo(user, eosService, getExtendedProfile) {
 
   if (!profile || profile.user !== user) return null;
 
+  if (!profile.achievements_reached) {
+    const achievements_reached = await getUserAchievementsCount(
+      profile.user,
+      eosService,
+    );
+    profile.achievements_reached = achievements_reached;
+  }
+
   if (getExtendedProfile) {
     const ipfsProfile = await getText(profile.ipfs_profile);
     const parsedIpfsProfile = JSON.parse(ipfsProfile);
@@ -255,17 +264,9 @@ export async function getUserTelegramData(eosService, userName) {
 }
 
 export async function confirmTelegramAccount(eosService, user) {
-  await eosService.sendTransaction(
-    user,
-    CONFIRM_TELEGRAM_ACCOUNT,
-    { user },
-  );
+  await eosService.sendTransaction(user, CONFIRM_TELEGRAM_ACCOUNT, { user });
 }
 
 export async function unlinkTelegramAccount(eosService, user) {
-  await eosService.sendTransaction(
-    user,
-    UNLINK_TELEGRAM_ACCOUNT,
-    { user },
-  );
+  await eosService.sendTransaction(user, UNLINK_TELEGRAM_ACCOUNT, { user });
 }

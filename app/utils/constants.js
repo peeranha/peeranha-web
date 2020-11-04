@@ -109,6 +109,8 @@ export const INVITED_USERS_TABLE = 'invited';
 export const ALL_TOP_QUESTIONS_TABLE = 'topquestion';
 export const ALL_PROPERTY_COMMUNITY_TABLE = 'propertycomm';
 export const TG_ACCOUNT_TABLE = 'telegramacc';
+export const USER_ACHIEVEMENTS_TABLE = 'accachieve';
+export const PROJECT_ACHIEVEMENTS_TABLE = 'achieve';
 
 // Scopes
 
@@ -122,6 +124,7 @@ export const INVITED_USERS_SCOPE = 'allinvited';
 export const ALL_TOP_QUESTIONS_SCOPE = 'alltopquest';
 export const ALL_PROPERTY_COMMUNITY_SCOPE = 'allprprtcomm';
 export const ALL_TG_ACCOUNTS_SCOPE = 'alltelacc';
+export const ALL_ACHIEVEMENTS_SCOPE = 'allachieve';
 
 // Inf. limit
 export const INF_LIMIT = -1;
@@ -157,6 +160,7 @@ export const MARK_AS_CORRECT_METHOD = 'mrkascorrect';
 export const UNFOLLOW_COMM = 'unfollowcomm';
 export const FOLLOW_COMM = 'followcomm';
 export const CREATE_COMMUNITY = 'crcommunity';
+export const EDIT_COMMUNITY = 'editcomm';
 export const VOTE_TO_CREATE_COMMUNITY = 'vtcrcomm';
 export const VOTE_TO_DELETE_COMMUNITY = 'vtdelcomm';
 export const CREATE_TAG = 'crtag';
@@ -194,3 +198,6 @@ export const APP_CURRENCY = 'PEER';
 // Social Media Data
 export const APP_TWITTER_NICKNAME = 'peeranhaio';
 export const APP_MAIN_NAME = 'Peeranha';
+
+// Temporary Account Data
+export const TEMPORARY_ACCOUNT_KEY = 15;
