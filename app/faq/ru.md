@@ -30,28 +30,9 @@ Est autem, reprehenderit doloremque ipsa, quos dolores, quisquam accusantium ut 
 
 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis porro esse molestias. Ex veniam itaque, quia quidem assumenda vitae in, aperiam fugit harum, consequuntur tempora blanditiis excepturi, temporibus?
 
-## Energe
+## Энергия
 
-### What is energy?
-
-Est autem, reprehenderit doloremque ipsa, quos dolores, quisquam accusantium ut tempora molestias eaque explicabo voluptatum incidunt odit. Ex veniam itaque, quia quidem assumenda vitae in, aperiam fugit harum, consequuntur tempora blanditiis excepturi, temporibus?
-
-- Item
-- Item
-- Item
-- Item
-
-### How to charge my energy?
-
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis porro esse molestias. Ex veniam itaque, quia quidem assumenda vitae in, aperiam fugit harum, consequuntur tempora blanditiis excepturi, temporibus?
-
-### Value of actions?
-
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis porro esse molestias. Ex veniam itaque, quia quidem assumenda vitae in, aperiam fugit harum, consequuntur tempora blanditiis excepturi, temporibus?
-
-## Communities
-
-### What is community?
+### Что такое энергия?
 
 Est autem, reprehenderit doloremque ipsa, quos dolores, quisquam accusantium ut tempora molestias eaque explicabo voluptatum incidunt odit. Ex veniam itaque, quia quidem assumenda vitae in, aperiam fugit harum, consequuntur tempora blanditiis excepturi, temporibus?
 
@@ -60,13 +41,17 @@ Est autem, reprehenderit doloremque ipsa, quos dolores, quisquam accusantium ut 
 - Item
 - Item
 
-### Who manages the communities?
+### Как мне восполнить энергию?
 
 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis porro esse molestias. Ex veniam itaque, quia quidem assumenda vitae in, aperiam fugit harum, consequuntur tempora blanditiis excepturi, temporibus?
 
-## Tags
+### Сколько я трачу энергии на действия?
 
-### What is a tag?
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis porro esse molestias. Ex veniam itaque, quia quidem assumenda vitae in, aperiam fugit harum, consequuntur tempora blanditiis excepturi, temporibus?
+
+## Сообщества
+
+### Что такое сообщества?
 
 Est autem, reprehenderit doloremque ipsa, quos dolores, quisquam accusantium ut tempora molestias eaque explicabo voluptatum incidunt odit. Ex veniam itaque, quia quidem assumenda vitae in, aperiam fugit harum, consequuntur tempora blanditiis excepturi, temporibus?
 
@@ -75,13 +60,13 @@ Est autem, reprehenderit doloremque ipsa, quos dolores, quisquam accusantium ut 
 - Item
 - Item
 
-### How to use it?
+### Кто управляет сообществами?
 
 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis porro esse molestias. Ex veniam itaque, quia quidem assumenda vitae in, aperiam fugit harum, consequuntur tempora blanditiis excepturi, temporibus?
 
-## Registration
+## Теги
 
-### Why I have to wait?
+### Что такое теги?
 
 Est autem, reprehenderit doloremque ipsa, quos dolores, quisquam accusantium ut tempora molestias eaque explicabo voluptatum incidunt odit. Ex veniam itaque, quia quidem assumenda vitae in, aperiam fugit harum, consequuntur tempora blanditiis excepturi, temporibus?
 
@@ -90,27 +75,42 @@ Est autem, reprehenderit doloremque ipsa, quos dolores, quisquam accusantium ut 
 - Item
 - Item
 
-### When can I start?
+### Как использовать теги?
 
 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis porro esse molestias. Ex veniam itaque, quia quidem assumenda vitae in, aperiam fugit harum, consequuntur tempora blanditiis excepturi, temporibus?
 
-### What is EOS account for?
+## Регистрация
+
+### Почему мне надо ждать?
+
+Est autem, reprehenderit doloremque ipsa, quos dolores, quisquam accusantium ut tempora molestias eaque explicabo voluptatum incidunt odit. Ex veniam itaque, quia quidem assumenda vitae in, aperiam fugit harum, consequuntur tempora blanditiis excepturi, temporibus?
+
+- Item
+- Item
+- Item
+- Item
+
+### Когда я смогу начать?
 
 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis porro esse molestias. Ex veniam itaque, quia quidem assumenda vitae in, aperiam fugit harum, consequuntur tempora blanditiis excepturi, temporibus?
 
-### Why do I need this service?
+### Для чего нужен EOS аккаунт?
 
 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis porro esse molestias. Ex veniam itaque, quia quidem assumenda vitae in, aperiam fugit harum, consequuntur tempora blanditiis excepturi, temporibus?
 
-### How much does it cost?
+### Для чего мне этот сервис?
 
 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis porro esse molestias. Ex veniam itaque, quia quidem assumenda vitae in, aperiam fugit harum, consequuntur tempora blanditiis excepturi, temporibus?
 
-### Is this website safe?
+### Сколько это стоит?
 
 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis porro esse molestias. Ex veniam itaque, quia quidem assumenda vitae in, aperiam fugit harum, consequuntur tempora blanditiis excepturi, temporibus?
 
-### What does it keys and how to use them?
+### Это безопасно?
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis porro esse molestias. Ex veniam itaque, quia quidem assumenda vitae in, aperiam fugit harum, consequuntur tempora blanditiis excepturi, temporibus?
+
+### Что такое ключи и как их использовать?
 
 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis porro esse molestias. Ex veniam itaque, quia quidem assumenda vitae in, aperiam fugit harum, consequuntur tempora blanditiis excepturi, temporibus?
 
@@ -126,9 +126,9 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis porro esse
 
 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis porro esse molestias. Ex veniam itaque, quia quidem assumenda vitae in, aperiam fugit harum, consequuntur tempora blanditiis excepturi, temporibus?
 
-## Questions
+## Вопросы
 
-### How to ask?
+### Как задать вопрос?
 
 Est autem, reprehenderit doloremque ipsa, quos dolores, quisquam accusantium ut tempora molestias eaque explicabo voluptatum incidunt odit. Ex veniam itaque, quia quidem assumenda vitae in, aperiam fugit harum, consequuntur tempora blanditiis excepturi, temporibus?
 
@@ -137,11 +137,11 @@ Est autem, reprehenderit doloremque ipsa, quos dolores, quisquam accusantium ut 
 - Item
 - Item
 
-### How to format?
+### Как форматировать вопрос?
 
 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis porro esse molestias. Ex veniam itaque, quia quidem assumenda vitae in, aperiam fugit harum, consequuntur tempora blanditiis excepturi, temporibus?
 
-### How to tag?
+### Как добавить тег?
 
 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis porro esse molestias. Ex veniam itaque, quia quidem assumenda vitae in, aperiam fugit harum, consequuntur tempora blanditiis excepturi, temporibus?
 
