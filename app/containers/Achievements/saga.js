@@ -6,7 +6,7 @@ import {
   selectUserRatingDCP,
   selectQuestionsAskedValue,
   selectAnswersGivenValue,
-  selectAnswersBestValue,
+  selectBestAnswersValue,
   selectFirstAnswersValue,
   selectFirstIn15AnswersValue,
 } from 'containers/DataCacheProvider/selectors';
@@ -123,8 +123,8 @@ export function* getUserAchievementsWorker() {
       const answersGivenValue = yield select(
         selectAnswersGivenValue(viewProfileAccount),
       );
-      const answersBestValue = yield select(
-        selectAnswersBestValue(viewProfileAccount),
+      const bestAnswersValue = yield select(
+        selectBestAnswersValue(viewProfileAccount),
       );
       const firstAnwersValue = yield select(
         selectFirstAnswersValue(viewProfileAccount),
@@ -147,7 +147,7 @@ export function* getUserAchievementsWorker() {
         answerGivenArr,
       );
       const nextAnswerBestAchId = getNextAchievementId(
-        answersBestValue,
+        bestAnswersValue,
         bestAnswerArr,
       );
       const nextAnswerFirstAchId = getNextAchievementId(
@@ -201,9 +201,9 @@ export function* getUserAchievementsWorker() {
           [ratingRelated]: userRating,
           [questionAskedRelated]: questionsAskedValue,
           [answerGivenRelated]: answersGivenValue,
-          [bestAnswerRelated]: answersBestValue,
-          [firstAnswerIn15Related]: firstAnwersValue,
-          [firstAnswerRelated]: firstIn15AnwersValue,
+          [bestAnswerRelated]: bestAnswersValue,
+          [firstAnswerIn15Related]: firstIn15AnwersValue,
+          [firstAnswerRelated]: firstAnwersValue,
         }),
       );
 
