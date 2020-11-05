@@ -54,6 +54,10 @@ import {
 import Form from './Form';
 import Tips from './Tips';
 import Header from './Header';
+import { getSuggestedTags } from '../Tags/actions';
+import { selectSuggestedTags } from '../Tags/selectors';
+import tagsReducer from '../Tags/reducer';
+import tagsSaga from '../Tags/saga';
 
 const single = isSingleCommunityWebsite();
 
@@ -69,6 +73,8 @@ const CreateTag = ({
   userEnergy,
   isGlobalModerator,
   accountIsLoading,
+  suggestedTags,
+  getSuggestedTagsDispatch,
 }) => {
   const commId = useMemo(() => single || +match.params.communityid, [match]);
 
@@ -118,6 +124,7 @@ const CreateTag = ({
               createTagLoading={createTagLoading}
               createTag={createTag}
               translations={translationMessages[locale]}
+              getSuggestedTagsDispatch={getSuggestedTagsDispatch}
             />
           </BaseSpecialOne>
 
@@ -154,6 +161,8 @@ CreateTag.propTypes = {
 export default compose(
   injectReducer({ key: 'createTag', reducer }),
   injectSaga({ key: 'createTag', saga }),
+  injectReducer({ key: 'tags', reducer: tagsReducer }),
+  injectSaga({ key: 'tags', saga: tagsSaga }),
   connect(
     createStructuredSelector({
       locale: makeSelectLocale(),
@@ -171,6 +180,7 @@ export default compose(
     }),
     dispatch => ({
       suggestTagDispatch: bindActionCreators(suggestTag, dispatch),
+      getSuggestedTagsDispatch: bindActionCreators(getSuggestedTags, dispatch),
     }),
   ),
 )(CreateTag);
