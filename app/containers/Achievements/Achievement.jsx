@@ -80,9 +80,15 @@ const Achievement = ({
           <ProgressBar
             width="60%"
             progress={getProgress()}
-            message={`${pointsToNext} ${
-              translations[(messages.progressBarPopover[groupType]?.id)]
-            }`}
+            pointsToNext={pointsToNext}
+            messageSingle={
+              translations[(messages.progressBarPopover[groupType]?.single.id)]
+            }
+            messageMultiple={
+              translations[
+                (messages.progressBarPopover[groupType]?.multiple.id)
+              ]
+            }
           />
         )}
       </ImageBlock>

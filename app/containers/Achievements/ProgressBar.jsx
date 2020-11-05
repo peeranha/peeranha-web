@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { showPopover, closePopover } from 'utils/popover';
+import { showPopover } from 'utils/popover';
 
 const Wrapper = styled.span`
   position: relative;
@@ -24,11 +24,22 @@ const Progress = styled.span`
   border-radius: 7px;
 `;
 
-const ProgressBar = ({ width, progress, message = '' }) => {
+const ProgressBar = ({
+  width,
+  progress,
+  pointsToNext,
+  messageSingle = '',
+  messageMultiple = '',
+}) => {
   const id = `progress_bar_${Math.floor(Math.random() * 100000)}`;
 
+  const currentMessage =
+    pointsToNext === 1
+      ? `${pointsToNext} ${messageSingle}`
+      : `${pointsToNext} ${messageMultiple}`;
+
   const showTooltip = () => {
-    if (message) showPopover(id, message);
+    if (currentMessage) showPopover(id, currentMessage);
   };
 
   return (
@@ -41,7 +52,9 @@ const ProgressBar = ({ width, progress, message = '' }) => {
 ProgressBar.propTypes = {
   width: PropTypes.string,
   progress: PropTypes.number,
-  message: PropTypes.string,
+  pointsToNext: PropTypes.number,
+  messageSingle: PropTypes.string,
+  messageMultiple: PropTypes.string,
 };
 
 export default ProgressBar;
