@@ -4,4 +4,4 @@
 *
 */
 
-export const scrollToTopPaths = ['/', '/feed/'];
+export const scrollToTopPaths = [/^\/$/, /^\/questions\/community\/\d+\/?$/];
