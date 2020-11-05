@@ -1,5 +1,17 @@
 import { USER_ACHIEVEMENTS_TABLE } from './constants';
 
+export async function getAchievements(eosService, tableTitle, scope) {
+  const selectFromId = 0;
+  const limit = 100;
+  const { rows } = await eosService.getTableRows(
+    tableTitle,
+    scope,
+    selectFromId,
+    limit,
+  );
+  return rows;
+}
+
 export async function getUserAchievementsCount(user, eosService) {
   const tableTitle = USER_ACHIEVEMENTS_TABLE;
   const scope = user;
