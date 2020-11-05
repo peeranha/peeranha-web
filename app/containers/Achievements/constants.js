@@ -12,7 +12,6 @@ export const uniqueAchievementsArr = [
     title: 'FOUNDING_MEMBER',
     lowerValue: -Infinity,
     upperValue: 99,
-    nextId: 31,
     limit: 10000,
   },
   {
@@ -20,7 +19,6 @@ export const uniqueAchievementsArr = [
     title: 'ACTIVIST',
     lowerValue: 100,
     upperValue: 499,
-    nextId: 32,
     limit: process.env.ENV === 'prod' ? 700 : 5,
   },
   {
@@ -28,7 +26,6 @@ export const uniqueAchievementsArr = [
     title: 'RESEARCHER',
     lowerValue: 500,
     upperValue: 999,
-    nextId: 33,
     limit: process.env.ENV === 'prod' ? 500 : 5,
   },
   {
@@ -36,7 +33,6 @@ export const uniqueAchievementsArr = [
     title: 'HONORABLE_RESIDENT',
     lowerValue: 1000,
     upperValue: 2499,
-    nextId: 34,
     limit: process.env.ENV === 'prod' ? 300 : 5,
   },
   {
@@ -44,7 +40,6 @@ export const uniqueAchievementsArr = [
     title: 'THE_WISEST',
     lowerValue: 2500,
     upperValue: 4999,
-    nextId: 35,
     limit: process.env.ENV === 'prod' ? 150 : 5,
   },
   {
@@ -52,7 +47,6 @@ export const uniqueAchievementsArr = [
     title: 'MODERN_HERO',
     lowerValue: 5000,
     upperValue: 9999,
-    nextId: 36,
     limit: process.env.ENV === 'prod' ? 50 : 5,
   },
   {
@@ -60,7 +54,6 @@ export const uniqueAchievementsArr = [
     title: 'KING_OF_THE_HILL',
     lowerValue: 10000,
     upperValue: Infinity,
-    nextId: null,
     limit: 10,
   },
 ];
@@ -79,19 +72,17 @@ export const achievementsArr = [
     title: 'WELCOME_STRANGER',
     lowerValue: -Infinity,
     upperValue: 99,
-    nextId: 41,
   },
-  { id: 41, title: 'NEWBIE', lowerValue: 100, upperValue: 499, nextId: 42 },
-  { id: 42, title: 'JUNIOR', lowerValue: 500, upperValue: 999, nextId: 43 },
-  { id: 43, title: 'RESIDENT', lowerValue: 1000, upperValue: 2499, nextId: 44 },
-  { id: 44, title: 'SENIOR', lowerValue: 2500, upperValue: 4999, nextId: 45 },
-  { id: 45, title: 'HERO', lowerValue: 5000, upperValue: 9999, nextId: 46 },
+  { id: 41, title: 'NEWBIE', lowerValue: 100, upperValue: 499 },
+  { id: 42, title: 'JUNIOR', lowerValue: 500, upperValue: 999 },
+  { id: 43, title: 'RESIDENT', lowerValue: 1000, upperValue: 2499 },
+  { id: 44, title: 'SENIOR', lowerValue: 2500, upperValue: 4999 },
+  { id: 45, title: 'HERO', lowerValue: 5000, upperValue: 9999 },
   {
     id: 46,
     title: 'SUPERHERO',
     lowerValue: 10000,
     upperValue: Infinity,
-    nextId: null,
   },
 ];
 
@@ -101,7 +92,6 @@ export const questionsAskedArr = [
     title: 'QUESTION_ASKED_BRONZE',
     lowerValue: process.env.ENV === 'prod' ? 10 : 2,
     upperValue: process.env.ENV === 'prod' ? 49 : 4,
-    nextId: 2,
     level: 'bronze',
   },
   {
@@ -109,7 +99,6 @@ export const questionsAskedArr = [
     title: 'QUESTION_ASKED_SILVER',
     lowerValue: process.env.ENV === 'prod' ? 50 : 5,
     upperValue: process.env.ENV === 'prod' ? 99 : 9,
-    nextId: 3,
     level: 'silver',
   },
   {
@@ -117,7 +106,6 @@ export const questionsAskedArr = [
     title: 'QUESTION_ASKED_GOLD',
     lowerValue: process.env.ENV === 'prod' ? 100 : 10,
     upperValue: Infinity,
-    nextId: null,
     level: 'gold',
   },
 ];
@@ -128,7 +116,6 @@ export const answerGivenArr = [
     title: 'ANSWER_GIVEN_BRONZE',
     lowerValue: process.env.ENV === 'prod' ? 10 : 2,
     upperValue: process.env.ENV === 'prod' ? 49 : 4,
-    nextId: 11,
     level: 'bronze',
   },
   {
@@ -136,7 +123,6 @@ export const answerGivenArr = [
     title: 'ANSWER_GIVEN_SILVER',
     lowerValue: process.env.ENV === 'prod' ? 50 : 5,
     upperValue: process.env.ENV === 'prod' ? 99 : 9,
-    nextId: 12,
     level: 'silver',
   },
   {
@@ -144,7 +130,6 @@ export const answerGivenArr = [
     title: 'ANSWER_GIVEN_GOLD',
     lowerValue: process.env.ENV === 'prod' ? 100 : 10,
     upperValue: Infinity,
-    nextId: null,
     level: 'gold',
   },
 ];
@@ -155,7 +140,6 @@ export const bestAnswerArr = [
     title: 'BEST_ANSWER_BRONZE',
     lowerValue: process.env.ENV === 'prod' ? 5 : 1,
     upperValue: process.env.ENV === 'prod' ? 24 : 2,
-    nextId: 21,
     level: 'bronze',
   },
   {
@@ -163,7 +147,6 @@ export const bestAnswerArr = [
     title: 'BEST_ANSWER_SILVER',
     lowerValue: process.env.ENV === 'prod' ? 25 : 3,
     upperValue: process.env.ENV === 'prod' ? 49 : 4,
-    nextId: 22,
     level: 'silver',
   },
   {
@@ -171,7 +154,6 @@ export const bestAnswerArr = [
     title: 'BEST_ANSWER_GOLD',
     lowerValue: process.env.ENV === 'prod' ? 50 : 5,
     upperValue: Infinity,
-    nextId: null,
     level: 'gold',
   },
 ];
@@ -182,7 +164,6 @@ export const firstIn15Arr = [
     title: 'FIRST_ANSWER_IN_15_BRONZE',
     lowerValue: process.env.ENV === 'prod' ? 5 : 1,
     upperValue: process.env.ENV === 'prod' ? 24 : 2,
-    nextId: 51,
     level: 'bronze',
   },
   {
@@ -190,7 +171,6 @@ export const firstIn15Arr = [
     title: 'FIRST_ANSWER_IN_15_SILVER',
     lowerValue: process.env.ENV === 'prod' ? 25 : 3,
     upperValue: process.env.ENV === 'prod' ? 49 : 4,
-    nextId: 52,
     level: 'silver',
   },
   {
@@ -198,7 +178,6 @@ export const firstIn15Arr = [
     title: 'FIRST_ANSWER_IN_15_GOLD',
     lowerValue: process.env.ENV === 'prod' ? 50 : 5,
     upperValue: Infinity,
-    nextId: null,
     level: 'gold',
   },
 ];
@@ -209,7 +188,6 @@ export const firstAnswerArr = [
     title: 'FIRST_ANSWER_BRONZE',
     lowerValue: process.env.ENV === 'prod' ? 5 : 1,
     upperValue: process.env.ENV === 'prod' ? 24 : 2,
-    nextId: 61,
     level: 'bronze',
   },
   {
@@ -217,7 +195,6 @@ export const firstAnswerArr = [
     title: 'FIRST_ANSWER_SILVER',
     lowerValue: process.env.ENV === 'prod' ? 25 : 3,
     upperValue: process.env.ENV === 'prod' ? 49 : 4,
-    nextId: 62,
     level: 'silver',
   },
   {
@@ -225,7 +202,6 @@ export const firstAnswerArr = [
     title: 'FIRST_ANSWER_GOLD',
     lowerValue: process.env.ENV === 'prod' ? 50 : 5,
     upperValue: Infinity,
-    nextId: null,
     level: 'gold',
   },
 ];

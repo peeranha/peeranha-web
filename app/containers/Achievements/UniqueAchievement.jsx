@@ -68,9 +68,15 @@ const UniqueAchievement = ({
           <ProgressBar
             width="60%"
             progress={getProgress()}
-            message={`${pointsToNext} ${
-              translations[messages.progressBarPopover.ratingRelated.id]
-            }`}
+            pointsToNext={pointsToNext}
+            messageSingle={
+              translations[messages.progressBarPopover.ratingRelated.single.id]
+            }
+            messageMultiple={
+              translations[
+                messages.progressBarPopover.ratingRelated.multiple.id
+              ]
+            }
           />
         )}
       </ImageBlock>

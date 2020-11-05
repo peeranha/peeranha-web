@@ -163,7 +163,7 @@ const selectAnswersGivenValue = user =>
     substate => substate?.users[user].answers_given,
   );
 
-const selectAnswersBestValue = user =>
+const selectBestAnswersValue = user =>
   createSelector(
     selectDataCacheProviderDomain,
     substate => substate?.users[user].correct_answers,
@@ -208,7 +208,7 @@ export {
   selectUserRatingDCP,
   selectQuestionsAskedValue,
   selectAnswersGivenValue,
-  selectAnswersBestValue,
+  selectBestAnswersValue,
   selectFirstAnswersValue,
   selectFirstIn15AnswersValue,
 };

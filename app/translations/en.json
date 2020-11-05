@@ -942,14 +942,14 @@
   "app.containers.Achievements.firstIn15.bronze.title":
     "Bronze - Fastest hand in the West",
   "app.containers.Achievements.firstIn15.bronze.description":
-    "Be the first one to post an answer in 15 minutes for 5 different question",
+    "Be the first one to post an answer in 15 minutes for 5 different questions",
   "app.containers.Achievements.firstIn15.silver.title":
     "Silver - Pedal to the metal",
   "app.containers.Achievements.firstIn15.silver.description":
-    "Be the first one to post an answer in 15 minutes for 10 different question",
+    "Be the first one to post an answer in 15 minutes for 10 different questions",
   "app.containers.Achievements.firstIn15.gold.title": "Gold - Lightning",
   "app.containers.Achievements.firstIn15.gold.description":
-    "Be the first one to post an answer in 15 minutes for 20 different question",
+    "Be the first one to post an answer in 15 minutes for 20 different questions",
 
   "app.containers.Achievements.firstAnswer.bronze.title": "Bronze - Quick help",
   "app.containers.Achievements.firstAnswer.bronze.description":
@@ -1004,20 +1004,32 @@
     "Be the one of first 50 Users to achieve the \"Hero\" status",
   "app.containers.Achievements.kingOfTheHill.title": "King of the hill",
   "app.containers.Achievements.kingOfTheHill.description":
-    "Be the one of first 10 Users to achieve the \"Superhero\" status..",
+    "Be the one of first 10 Users to achieve the \"Superhero\" status",
 
-  "app.containers.Achievements.progressBarPopover.ratingRelated":
-    "rating points left until the next achievement",
-  "app.containers.Achievements.progressBarPopover.questionAskedRelated":
-    "questions left until the next achievement",
-  "app.containers.Achievements.progressBarPopover.answerGivenRelated":
-    "answers left until the next achievement",
-  "app.containers.Achievements.progressBarPopover.bestAnswerRelated":
-    "best answers left until the next achievement",
-  "app.containers.Achievements.progressBarPopover.firstAnswerIn15Related":
-    "first answers in 15 minutes left until the next achievement",
-  "app.containers.Achievements.progressBarPopover.firstAnswerRelated":
-    "first answers left until the next achievement",
+  "app.containers.Achievements.progressBarPopover.ratingRelated.single":
+    "rating point left to unlock this achievement",
+  "app.containers.Achievements.progressBarPopover.ratingRelated.multiple":
+    "rating points left to unlock this achievement",
+  "app.containers.Achievements.progressBarPopover.questionAskedRelated.single":
+    "question left to unlock this achievement",
+  "app.containers.Achievements.progressBarPopover.questionAskedRelated.multiple":
+    "questions left to unlock this achievement",
+  "app.containers.Achievements.progressBarPopover.answerGivenRelated.single":
+    "answer left to unlock this achievement",
+  "app.containers.Achievements.progressBarPopover.answerGivenRelated.multiple":
+    "answers left to unlock this achievement",
+  "app.containers.Achievements.progressBarPopover.bestAnswerRelated.single":
+    "best answer left to unlock this achievement",
+  "app.containers.Achievements.progressBarPopover.bestAnswerRelated.multiple":
+    "best answers left to unlock this achievement",
+  "app.containers.Achievements.progressBarPopover.firstAnswerIn15Related.single":
+    "first answer in 15 minutes left to unlock this achievement",
+  "app.containers.Achievements.progressBarPopover.firstAnswerIn15Related.multiple":
+    "first answers in 15 minutes left to unlock this achievement",
+  "app.containers.Achievements.progressBarPopover.firstAnswerRelated.single":
+    "first answer left to unlock this achievement",
+  "app.containers.Achievements.progressBarPopover.firstAnswerRelated.multiple":
+    "first answers left to unlock this achievement",
 
   "app.containers.TelegramInfo.confirm": "Confirm",
   "app.containers.TelegramInfo.unlink": "Unlink"
