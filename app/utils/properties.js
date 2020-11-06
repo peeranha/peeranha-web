@@ -9,6 +9,7 @@ import {
   PERMISSION_GRANTED,
   moderatorPermissions,
   communityAdminPermissions,
+  MODERATOR_KEY,
 } from './constants';
 
 const findAllPropertiesByKeys = (properties, keys) =>
@@ -30,7 +31,9 @@ export const getModeratorPermissions = (
   communities,
   translations,
 ) => {
-  const values = isGlobal ? globalPermissions : communityPermissions;
+  const values = isGlobal
+    ? [globalPermissions.find(({ key }) => key === MODERATOR_KEY)]
+    : communityPermissions;
   const perms = isGlobal ? moderatorPermissions : communityAdminPermissions;
   const permissions = {};
   permissions.blocks = values.reduce((acc, { community, value }, index) => {
