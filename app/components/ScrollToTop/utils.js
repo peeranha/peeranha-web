@@ -1,4 +1,4 @@
-import { scrollToTopPaths } from './constants';
+import { scrollToTopRegExps } from './constants';
 
 export const showScrollToTop = path =>
-  !!scrollToTopPaths.find(regExp => regExp.test(path));
+  !!scrollToTopRegExps.find(regExp => regExp.test(path));
