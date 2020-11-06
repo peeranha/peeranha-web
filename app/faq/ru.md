@@ -1,170 +1,5 @@
 # Часто задаваемые вопросы
 
-## Как спрашивать
-
-### Какие темы я могу обсудить здесь?
-
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis porro esse molestias. Sapiente assumenda, eius autem illo. Est autem, reprehenderit doloremque ipsa, quos dolores, quisquam accusantium ut tempora molestias eaque explicabo voluptatum incidunt odit. Ex veniam itaque, quia quidem assumenda vitae in, aperiam fugit harum, consequuntur tempora blanditiis excepturi, temporibus?
-
-- Элемент
-- Элемент
-- Элемент
-- Элемент
-
-### Какие вопросы мне следует избегать?
-
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis porro esse molestias. Sapiente assumenda, eius autem illo. Ex veniam itaque, quia quidem assumenda vitae in, aperiam fugit harum, consequuntur tempora blanditiis excepturi, temporibus?
-
-## Мой аккаунт
-
-### Я потерял свой аккаунт, как жить дальше?
-
-Est autem, reprehenderit doloremque ipsa, quos dolores, quisquam accusantium ut tempora molestias eaque explicabo voluptatum incidunt odit. Ex veniam itaque, quia quidem assumenda vitae in, aperiam fugit harum, consequuntur tempora blanditiis excepturi, temporibus?
-
-- Элемент
-- Элемент
-- Элемент
-- Элемент
-
-### Как удалить мой аккаунт?
-
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis porro esse molestias. Ex veniam itaque, quia quidem assumenda vitae in, aperiam fugit harum, consequuntur tempora blanditiis excepturi, temporibus?
-
-## Энергия
-
-### Что такое энергия?
-
-Est autem, reprehenderit doloremque ipsa, quos dolores, quisquam accusantium ut tempora molestias eaque explicabo voluptatum incidunt odit. Ex veniam itaque, quia quidem assumenda vitae in, aperiam fugit harum, consequuntur tempora blanditiis excepturi, temporibus?
-
-- Item
-- Item
-- Item
-- Item
-
-### Как мне восполнить энергию?
-
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis porro esse molestias. Ex veniam itaque, quia quidem assumenda vitae in, aperiam fugit harum, consequuntur tempora blanditiis excepturi, temporibus?
-
-### Сколько я трачу энергии на действия?
-
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis porro esse molestias. Ex veniam itaque, quia quidem assumenda vitae in, aperiam fugit harum, consequuntur tempora blanditiis excepturi, temporibus?
-
-## Сообщества
-
-### Что такое сообщества?
-
-Est autem, reprehenderit doloremque ipsa, quos dolores, quisquam accusantium ut tempora molestias eaque explicabo voluptatum incidunt odit. Ex veniam itaque, quia quidem assumenda vitae in, aperiam fugit harum, consequuntur tempora blanditiis excepturi, temporibus?
-
-- Item
-- Item
-- Item
-- Item
-
-### Кто управляет сообществами?
-
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis porro esse molestias. Ex veniam itaque, quia quidem assumenda vitae in, aperiam fugit harum, consequuntur tempora blanditiis excepturi, temporibus?
-
-## Теги
-
-### Что такое теги?
-
-Est autem, reprehenderit doloremque ipsa, quos dolores, quisquam accusantium ut tempora molestias eaque explicabo voluptatum incidunt odit. Ex veniam itaque, quia quidem assumenda vitae in, aperiam fugit harum, consequuntur tempora blanditiis excepturi, temporibus?
-
-- Item
-- Item
-- Item
-- Item
-
-### Как использовать теги?
-
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis porro esse molestias. Ex veniam itaque, quia quidem assumenda vitae in, aperiam fugit harum, consequuntur tempora blanditiis excepturi, temporibus?
-
-## Регистрация
-
-### Почему мне надо ждать?
-
-Est autem, reprehenderit doloremque ipsa, quos dolores, quisquam accusantium ut tempora molestias eaque explicabo voluptatum incidunt odit. Ex veniam itaque, quia quidem assumenda vitae in, aperiam fugit harum, consequuntur tempora blanditiis excepturi, temporibus?
-
-- Item
-- Item
-- Item
-- Item
-
-### Когда я смогу начать?
-
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis porro esse molestias. Ex veniam itaque, quia quidem assumenda vitae in, aperiam fugit harum, consequuntur tempora blanditiis excepturi, temporibus?
-
-### Для чего нужен EOS аккаунт?
-
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis porro esse molestias. Ex veniam itaque, quia quidem assumenda vitae in, aperiam fugit harum, consequuntur tempora blanditiis excepturi, temporibus?
-
-### Для чего мне этот сервис?
-
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis porro esse molestias. Ex veniam itaque, quia quidem assumenda vitae in, aperiam fugit harum, consequuntur tempora blanditiis excepturi, temporibus?
-
-### Сколько это стоит?
-
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis porro esse molestias. Ex veniam itaque, quia quidem assumenda vitae in, aperiam fugit harum, consequuntur tempora blanditiis excepturi, temporibus?
-
-### Это безопасно?
-
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis porro esse molestias. Ex veniam itaque, quia quidem assumenda vitae in, aperiam fugit harum, consequuntur tempora blanditiis excepturi, temporibus?
-
-### Что такое ключи и как их использовать?
-
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis porro esse molestias. Ex veniam itaque, quia quidem assumenda vitae in, aperiam fugit harum, consequuntur tempora blanditiis excepturi, temporibus?
-
-### First FAQ AlmostDone question?
-
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis porro esse molestias. Ex veniam itaque, quia quidem assumenda vitae in, aperiam fugit harum, consequuntur tempora blanditiis excepturi, temporibus?
-
-### Second FAQ AlmostDone question?
-
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis porro esse molestias. Ex veniam itaque, quia quidem assumenda vitae in, aperiam fugit harum, consequuntur tempora blanditiis excepturi, temporibus?
-
-### Third FAQ AlmostDone question?
-
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis porro esse molestias. Ex veniam itaque, quia quidem assumenda vitae in, aperiam fugit harum, consequuntur tempora blanditiis excepturi, temporibus?
-
-## Вопросы
-
-### Как задать вопрос?
-
-Est autem, reprehenderit doloremque ipsa, quos dolores, quisquam accusantium ut tempora molestias eaque explicabo voluptatum incidunt odit. Ex veniam itaque, quia quidem assumenda vitae in, aperiam fugit harum, consequuntur tempora blanditiis excepturi, temporibus?
-
-- Item
-- Item
-- Item
-- Item
-
-### Как форматировать вопрос?
-
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis porro esse molestias. Ex veniam itaque, quia quidem assumenda vitae in, aperiam fugit harum, consequuntur tempora blanditiis excepturi, temporibus?
-
-### Как добавить тег?
-
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis porro esse molestias. Ex veniam itaque, quia quidem assumenda vitae in, aperiam fugit harum, consequuntur tempora blanditiis excepturi, temporibus?
-
-### How do eeeeeeeeeee?
-
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis porro esse molestias. Ex veniam itaque, quia quidem assumenda vitae in, aperiam fugit harum, consequuntur tempora blanditiis excepturi, temporibus?
-
-### How do dsds?
-
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis porro esse molestias. Ex veniam itaque, quia quidem assumenda vitae in, aperiam fugit harum, consequuntur tempora blanditiis excepturi, temporibus?
-
-### How do d2112 sds?
-
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis porro esse molestias. Ex veniam itaque, quia quidem assumenda vitae in, aperiam fugit harum, consequuntur tempora blanditiis excepturi, temporibus?
-
-### How do as das sa dsds?
-
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis porro esse molestias. Ex veniam itaque, quia quidem assumenda vitae in, aperiam fugit harum, consequuntur tempora blanditiis excepturi, temporibus?
-
-### How do w ew w w d2112 sds?
-
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis porro esse molestias. Ex veniam itaque, quia quidem assumenda vitae in, aperiam fugit harum, consequuntur tempora blanditiis excepturi, temporibus?
-
 ## О Peeranha
 
 ### Что такое Peeranha?
@@ -209,11 +44,182 @@ Peeranha еженедельно выпускает новые токены, до
 
 ### Где я могу получить больше информации?
 
-Лучший способ больше информации о проекте это присоединиться к нашему твиттеру, прочитать наш блог или отправить нам письмо на hello@peeranha.io.
+Лучший способ получить больше информации о проекте это присоединиться к нашему твиттеру, прочитать наш блог или отправить нам письмо на hello@peeranha.io.
 
-## Статус, рейтинг, привелегии
 
-### Какие достижения доступны пользователю Peeranha?
+## Аккаунт
+
+### В безопасности ли мои ключи, если я зарегистрируюсь по электронной почте?
+
+Мы считаем, что вы должны быть единственным, кто имеет доступ к вашим закрытым ключам. Централизованные серверы представляют собой единую точку отказа и потенциальный риск массового взлома учетных записей пользователей.
+Peeranha будет передавать и хранить ваши личные ключи только в зашифрованном виде.
+
+Если вы создаете новую учетную запись, ваши закрытые ключи генерируются внутри приложения на вашем устройстве.
+Две зашифрованные копии ваших ключей отправляются в API Peeranha и сохраняются в нашей базе данных:
+
+- Первая копия зашифрована с использованием вашего пароля и используется при обычном использовании учетной записи;
+- Вторая копия зашифровывается с помощью вашего Мастер-ключа и используется для восстановления доступа к учетной записи в случае, если вы забудете пароль.
+
+**Очень важно сохранить мастер-ключ в надежном месте. Мы не сможем восстановить доступ к вашей учетной записи, если ваш Мастер-ключ утерян.**
+
+При доступе к вашей учетной записи зашифрованные ключи отправляются в приложение и расшифровываются внутри приложения с помощью вашего пароля или Мастер-ключа.
+
+### Могу ли я зарегистрироваться по электронной почте, если у меня уже есть учетная запись Telos?
+
+Да, вы можете. Вам нужно будет предоставить активный ключ для вашей учетной записи. Однако мы никогда не будем передавать или хранить ваш ключ в незашифрованном виде. Ключ будет зашифрован с использованием вашего пароля и Мастер-ключа в приложении, и только после того, как он будет зашифрован, он будет отправлен в наш API.
+
+### Могу ли я удалить свою учетную запись Peeranha?
+
+Вы сможете удалить свою учетную запись кошелька Peeranha (хранилище ключей) в любое время, если выберете вариант регистрации, используя свой адрес электронной почты. Однако удалить свою учетную запись Telos из блокчейна после ее создания невозможно.
+
+### Что такое мой Мастер-ключ?
+
+Ваш Мастер-ключ необходим для восстановления доступа к вашей учетной записи, если вы забудете свой пароль.
+
+**Очень важно сохранить Мастер-ключ в надежном месте. Мы не сможем восстановить доступ к вашей учетной записи, если ваш Мастер-ключ утерян.**
+
+## Сообщества
+
+### Что такое сообщество?
+
+Сообщества - это область на веб-сайте, посвященная вопросам и ответам по определенной теме.
+
+### Как создаются новые сообщества и теги?
+
+Сообщества и теги создаются путем голосования сообщества. В течение первого года команда Peeranha сможет создавать сообщества без голосования. Свяжитесь со службой поддержки по адресу hello@peeranha.io, если вы заинтересованы в создании сообщества для своего проекта.
+
+## Вопросы, ответы и комментарии
+
+### Какой вопрос является хорошим?
+
+1. Постарайтесь задавать вопросы, актуальные для сообщества, в котором вы его задаете.
+2. Задавайте вопросы, требующие решения или объяснения, а не высказывайте свое мнение.
+3. Предоставьте как можно больше подробностей
+4. Приведите примеры кода, если применимо.
+
+### В чем разница между общим и экспертным вопросом?
+
+#### Критерии:
+
+Общий вопрос:
+Вопрос, не требующий для ответа специальных знаний или опыта, может быть одним из следующих:
+
+- Обмен субъективным мнением;
+- Мозговой штурм;
+- Отзыв или запрос на обзор;
+- Ответ широко известен.
+
+Вопрос эксперта:
+Вопрос, требующий что-либо из перечисленного:
+
+- Решение проблемы, требующее экспертных знаний или опыта;
+- Источник информации или ресурсов по конкретной теме, которую нелегко найти;
+- Спросите инструкцию или рецепт;
+- Объяснение или уточнение информации, которую сложно понять.
+
+#### Вознаграждения:
+
+Общий вопрос:
+Награда за голосование за вопрос - 1 балл, за ответ - 2 балла.
+
+Пользователи могут отметить ответ как лучший, чтобы получить 1 дополнительный балл и наградить отвечающего 3 баллами.
+
+Экспертный вопрос:
+Награда за голосование за вопрос - 5 баллов, за ответ - 10 баллов.
+
+Пользователи могут отметить ответ как лучший, чтобы получить 2 дополнительных балла и наградить отвечающего 15 баллами.
+
+#### Модерация:
+
+Если модераторы решат, что был выбран неправильный тип вопроса, они могут изменить его тип, и награды будут меняться в зависимости от типа вопроса.
+
+### Как мне форматировать вопросы и ответы?
+
+Вопросы и ответы можно форматировать с помощью редактора HTML или синтаксиса разметки.
+
+Шпаргалку по синтаксису разметки можно найти здесь: https://www.markdownguide.org/cheat-sheet/
+
+### Нужно ли мне помечать свой вопрос тегом?
+
+Да, для каждого вопроса требуется хотя бы один тег. Вы должны выбрать теги, наиболее релевантные вопросу.
+
+### Как модерируются вопросы, ответы и комментарии?
+
+Вопросы, ответы и комментарии модерируются сообществом посредством голосования.
+
+В течение первого года команда Peeranha будет выступать в качестве модераторов (может удалять вопросы, ответы и комментарии без голосования), но по мере развития сообщества эта функция будет передана другим участникам сообщества.
+
+### Как можно удалить вопросы, ответы и комментарии?
+
+Пользователи должны проголосовать за удаление вопроса, ответа или комментария.
+
+Вес Пользователя в голосовании зависит от его статуса.
+
+### Получу ли я уведомление, если мой вопрос будет удален?
+
+Уведомления пока недоступны. Эта функция будет добавлена в будущих обновлениях.
+
+## Статус, рейтинг и привилегии
+
+### Какие статусы пользователей доступны на Peeranha?
+
+| Статус      | Очки рейтинга |
+| ----------- | ------------- |
+| Незнакомец  | 0 ... 99      |
+| новичок     | 100 ... 499   |
+| Начинающий  | 500-999       |
+| Резидент    | 1000 ... 2499 |
+| Знаток      | 2500 ... 4999 |
+| Герой       | 5000 ... 9999 |
+| Супергерой  | 10000         |
+
+### Как я могу заработать или потерять рейтинговые очки?
+
+| Действие или событие                              | Очки рейтинга |
+| ------------------------------------------------- | ------------- |
+| Ответ эксперта принят как правильный              | 15            |
+| Общий ответ принят как правильный                 | 3             |
+| Проголосовать за вопрос                           | 0             |
+| Проголосовать против вопроса                      | -1            |
+| Проголосовать за ответ                            | -1            |
+| За экспертный вопрос проголосовали                | 5             |
+| За общий вопрос проголосовали                     | 1             |
+| За экспертный ответ проголосовали                 | 10            |
+| За общий ответ проголосовали                      | 1             |
+| За экспертный вопрос проголосовали против         | -2            |
+| За общий вопрос проголосовали против              | -1            |
+| За экспертный ответ проголосовали против          | -2            |
+| За общий ответ проголосовали против               | -1            |
+| Удалить свой вопрос                               | -1            |
+| Удалить свой ответ                                | -1            |
+| Удалить свой комментарий                          | 0             |
+| Принять ответ на экспертный вопрос как правильный | 2             |
+| Принять ответ на общий вопрос как правильный      | 1             |
+| Вопрос удален модератором                         | -2            |
+| Ответ удален модератором                          | -2            |
+| Комментарий удален модератором                    | -1            |
+| Предлагаемый тег создан                           | 75            |
+| Предлагаемый тег удален                           | -50           |
+| Предлагаемое сообщество создано                   | 200           |
+| Предлагаемое сообщество удалено                   | -150          |
+
+### Какие привилегии доступны пользователям Peeranha и каковы требования к рейтингу?
+
+| Действие или событие                                      | Требуемый рейтинг |
+| --------------------------------------------------------- | ----------------- |
+| Задать вопрос                                             | 0                 |
+| Опубликовать ответ                                        | 0                 |
+| Оставить комментарий под собственным вопросом или ответом | 0                 |
+| Оставить комментарий под вопросом или чужим комментарием  | 35                |
+| Проголосовать за вопрос или ответ                         | 35                |
+| Проголосовать против вопроса или ответа                   | 100               |
+| Проголосовать за удаление вопроса, комментария или ответа | 100               |
+| Предложить тег                                            | 100               |
+| Предложить создание сообщества                            | 500               |
+| Проголосовать за новый тег                                | 35                |
+| Проголосовать за новое сообщество                         | 100               |
+
+### Какие достижения доступны пользователям Peeranha?
 
 | Значок              | Заслуга                         |
 | ------------------- | ------------------------------- |
@@ -230,6 +236,52 @@ Peeranha еженедельно выпускает новые токены, до
 | Почётный знаток     | Получен рейтинг от 2500 до 4999 |
 | Почётный герой      | Получен рейтинг от 5000 до 9999 |
 | Почётный супергерой | Получен рейтинг от 10000        |
+
+## Токен
+
+### Как называется токен Peeranha?
+
+PEER
+
+### Котируется ли PEER на какой-либо бирже?
+
+Нет, PEER еще не зарегистрирован ни на одной бирже. Мы уведомим сообщество, как только это произойдет.
+
+### Каково общей количество PEER токенов?
+
+Общее количество токенов PEER составляет 100000000 PEER.
+
+### Каково распределение токенов?
+
+- 60% PEER будет создано путем эмиссии и будет использоваться в качестве начального вознаграждения пользователям за их вклад
+- 20% для учредителей и командных вознаграждений
+- 20% на финансирование
+
+### Как часто создаются новые токены?
+
+Новые токены создаются раз в неделю. Максимальный начальный вброс составляет 100 000 PEER в неделю (зависит от активности пользователя). Эмиссия снижается на 10% каждые 52 недели.
+
+## Награды
+
+### Когда выплачиваются награды?
+
+Награды выплачиваются еженедельно, начиная с даты запуска Peeranha 16 декабря 2019 года.
+
+Чтобы предотвратить злоупотребление системой, существует еще одна дополнительная неделя безопасности, прежде чем вознаграждения станут доступны пользователям.
+
+Например:
+
+- Неделя 1: пользователи взаимодействуют с сайтом.
+- Неделя 2: награды распределяются, но не отправляются пользователям.
+- Неделя 3: пользователи получают награды от вкладов на 1-й неделе. Предполагаемые награды для 1-й недели будут видны после начала 2-й недели, но доступны для получения только после начала 3-й недели.
+
+### Как рассчитываются вознаграждения пользователей?
+
+Точное вознаграждение пользователя зависит от активности пользователя в течение определенного периода. Максимальный размер еженедельного пула вознаграждения равен максимальной еженедельной эмиссии токена.
+
+Если общее количество рейтинговых баллов, заработанных всеми пользователями в течение недели, умноженное на 10, меньше максимальной эмиссии токенов, то награда составит просто 10 PEER за каждое рейтинговое очко.
+
+В противном случае размер пула вознаграждения равен максимальной еженедельной эмиссии токенов, а токены распределяются пропорционально рейтинговым баллам, заработанным пользователями.
 
 ## Боты мессенджеров
 
