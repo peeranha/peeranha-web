@@ -1,18 +1,12 @@
 import React from 'react';
-import * as routes from 'routes-config';
 import { FormattedMessage } from 'react-intl';
 
 import commonMessages from 'common-messages';
-
-import { TEXT_PRIMARY } from 'style-constants';
 import moderationPageHeader from 'images/incognito.svg?inline';
-import infoIcon from 'images/icon-information.svg?inline';
 
 import { MediumImageStyled } from 'components/Img/MediumImage';
 import H3 from 'components/H3';
-import Span from 'components/Span';
-import A from 'components/A';
-import Wrapper, { WrapperRightPanel } from 'components/Header/Simple';
+import Wrapper from 'components/Header/Simple';
 
 import messages from './messages';
 
@@ -29,17 +23,6 @@ const Header = () => (
         <FormattedMessage {...commonMessages.moderationHeader} />
       </span>
     </H3>
-
-    <WrapperRightPanel className="right-panel">
-      <A to={routes.support()}>
-        <button>
-          <img className="mr-1" src={infoIcon} alt="x" />
-          <Span color={TEXT_PRIMARY} className="button-label">
-            <FormattedMessage {...commonMessages.support} />
-          </Span>
-        </button>
-      </A>
-    </WrapperRightPanel>
   </Wrapper>
 );
 

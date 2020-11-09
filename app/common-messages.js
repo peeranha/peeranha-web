@@ -38,6 +38,7 @@ export default defineMessages({
   },
   globalModerator: {
     id: 'app.common.globalModerator',
+  },
   achievementsNumber: {
     id: 'app.common.achievementsNumber',
   },
