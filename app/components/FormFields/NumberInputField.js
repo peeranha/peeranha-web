@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 
 import Input from 'components/Input';
 import Wrapper from './Wrapper';
+import Logo from '../../containers/Header/Logo';
+import { SmallSpecialImage } from '../Img/SmallImage';
+import logo from 'images/1.png'
+import Img from '../Img';
 
 export const NumberInputField = ({
   input,

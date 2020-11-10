@@ -29,7 +29,7 @@ export default defineMessages({
     id: 'app.containers.QuestionForm.tagsLabel',
   },
   bountyLabel: {
-    id: 'app.common.bounty',
+    id: 'app.containers.QuestionForm.bountyLabel',
   },
   previewLabel: {
     id: 'app.containers.QuestionForm.previewLabel',
@@ -42,6 +42,9 @@ export default defineMessages({
   },
   tagsTip: {
     id: 'app.containers.QuestionForm.tagsTip',
+  },
+  bountyTip: {
+    id: 'app.containers.QuestionForm.bountyTip',
   },
   questionType: {
     id: 'app.containers.QuestionForm.questionType',

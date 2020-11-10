@@ -17,7 +17,7 @@ import {
   FORM_CONTENT,
   FORM_COMMUNITY,
   FORM_TAGS,
-  FORM_TYPE,
+  FORM_TYPE, FORM_BOUNTY,
 } from 'components/QuestionForm/constants';
 
 import { isAuthorized, isValid } from 'containers/EosioProvider/saga';
@@ -51,9 +51,10 @@ export function* postQuestionWorker({ val }) {
       content: val[FORM_CONTENT],
       chosenTags: val[FORM_TAGS],
       type: +val[FORM_TYPE],
+      bounty: +val[FORM_BOUNTY],
       community,
     };
-
+    debugger;
     yield call(postQuestion, selectedAccount, questionData, eosService);
 
     yield put(askQuestionSuccess());

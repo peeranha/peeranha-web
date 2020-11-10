@@ -29,7 +29,7 @@ import {
   FORM_TYPE,
   FORM_CONTENT,
   FORM_COMMUNITY,
-  FORM_TAGS,
+  FORM_TAGS, FORM_BOUNTY,
 } from './constants';
 
 import Header from './Header';
@@ -235,6 +235,7 @@ export default memo(
                   ),
                 },
                 [FORM_TAGS]: question?.chosenTags,
+                [FORM_BOUNTY]: question?.bounty,
               }
             : {}),
           ...(single
