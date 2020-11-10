@@ -28,6 +28,9 @@ export default defineMessages({
   tagsLabel: {
     id: 'app.containers.QuestionForm.tagsLabel',
   },
+  bountyLabel: {
+    id: 'app.common.bounty',
+  },
   previewLabel: {
     id: 'app.containers.QuestionForm.previewLabel',
   },

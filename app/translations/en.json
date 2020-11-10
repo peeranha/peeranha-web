@@ -86,6 +86,7 @@
   "app.common.peers": "PEER",
   "app.common.submit": "Submit",
   "app.common.amount": "Amount",
+  "app.common.bounty": "Bounty",
   "app.common.password": "Password",
   "app.common.eosAccount": "Telos account",
   "app.common.successMessage": "Action completed successfully",

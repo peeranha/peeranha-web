@@ -2,7 +2,7 @@ import React, { memo, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { reduxForm } from 'redux-form/immutable';
+import { Field, reduxForm } from 'redux-form/immutable';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 
 import commonMessages from 'common-messages';
@@ -40,6 +40,12 @@ import TypeForm from './TypeForm';
 import TitleForm from './TitleForm';
 import ContentForm from './ContentForm';
 import TagsForm from './TagsForm';
+import NumberInputField from '../FormFields/NumberInputField';
+import { AMOUNT_FIELD } from '../../containers/SendTips/constants';
+import { translationMessages } from '../../i18n';
+import _get from 'lodash/get';
+import { required, valueHasToBeLessThan } from '../FormFields/validate';
+import BountyForm from './BountyForm';
 
 const single = isSingleCommunityWebsite();
 
@@ -142,6 +148,23 @@ export const QuestionForm = ({
             <SuggestTag
               formValues={formValues}
               redirectToCreateTagDispatch={redirectToCreateTagDispatch}
+            />
+
+            {/*<Field
+              name={AMOUNT_FIELD}
+              disabled={false}
+              label={translationMessages[locale][commonMessages.bounty.id]}
+              component={NumberInputField}
+              // dotRestriction={_get(currencyValue, 'precision', 6)}
+              // validate={!isPeer ? [required] : [required, valueHasToBeLessThan]}
+              // warn={!isPeer ? [required] : [required, valueHasToBeLessThan]}
+            />*/}
+
+            <BountyForm
+              intl={intl}
+              questionLoading={questionLoading}
+              formValues={formValues}
+              change={change}
             />
 
             <Button
