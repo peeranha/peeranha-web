@@ -40,6 +40,10 @@ import TypeForm from './TypeForm';
 import TitleForm from './TitleForm';
 import ContentForm from './ContentForm';
 import TagsForm from './TagsForm';
+import {
+  EXPERT_TYPE,
+  GENERAL_TYPE,
+} from '../../containers/CreateCommunity/constants';
 
 const single = isSingleCommunityWebsite();
 
@@ -80,6 +84,7 @@ export const QuestionForm = ({
   existingQuestions,
   doSkipExistingQuestions,
   skipExistingQuestions,
+  communityQuestionType,
 }) => {
   useEffect(
     () => {
@@ -104,15 +109,17 @@ export const QuestionForm = ({
               questionLoading={questionLoading}
             />
 
-            {!questionid && (
-              <TypeForm
-                intl={intl}
-                change={change}
-                questionLoading={questionLoading}
-                locale={locale}
-                formValues={formValues}
-              />
-            )}
+            {communityQuestionType !== GENERAL_TYPE &&
+              communityQuestionType !== EXPERT_TYPE &&
+              !questionid && (
+                <TypeForm
+                  intl={intl}
+                  change={change}
+                  questionLoading={questionLoading}
+                  locale={locale}
+                  formValues={formValues}
+                />
+              )}
 
             <TitleForm intl={intl} questionLoading={questionLoading} />
 

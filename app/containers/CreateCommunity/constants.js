@@ -1,4 +1,5 @@
 export const FORM_NAME = 'app/CreateCommunity/FORM_NAME';
+export const FORM_TYPE = 'app/CreateCommunity/FORM_TYPE';
 export const CREATE_COMMUNITY_BUTTON =
   'app_CreateCommunity_CREATE_COMMUNITY_BUTTON';
 
@@ -30,3 +31,7 @@ export const SET_DEFAULT_STORE = 'app/CreateCommunity/SET_DEFAULT_STORE';
 
 export const MIN_RATING_TO_CREATE_COMMUNITY = 500;
 export const MIN_ENERGY_TO_CREATE_COMMUNITY = 125;
+
+export const ANY_TYPE = '0';
+export const GENERAL_TYPE = '1';
+export const EXPERT_TYPE = '2';

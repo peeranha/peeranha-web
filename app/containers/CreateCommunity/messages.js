@@ -100,4 +100,28 @@ export default defineMessages({
   maxTagsNumberReached: {
     id: 'app.containers.CreateCommunity.maxTagsNumberReached',
   },
+  questionsType: {
+    id: 'app.containers.CreateCommunity.questionsType',
+  },
+  questionsTypeTip: {
+    id: 'app.containers.QuestionForm.questionTypeTip',
+  },
+  anyQuestionDescriptionLabel: {
+    id: 'app.containers.CreateCommunity.anyQuestionDescriptionLabel',
+  },
+  generalQuestionDescriptionLabel: {
+    id: 'app.containers.QuestionForm.generalQuestionDescriptionLabel',
+  },
+  expertQuestionDescriptionLabel: {
+    id: 'app.containers.QuestionForm.expertQuestionDescriptionLabel',
+  },
+  anyQuestionDescriptionList: {
+    id: 'app.containers.CreateCommunity.anyQuestionDescriptionList',
+  },
+  generalQuestionDescriptionList: {
+    id: 'app.containers.QuestionForm.generalQuestionDescriptionList',
+  },
+  expertQuestionDescriptionList: {
+    id: 'app.containers.QuestionForm.expertQuestionDescriptionList',
+  },
 });

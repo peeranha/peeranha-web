@@ -112,6 +112,7 @@
   "app.common.signUpViaWallet": "Sign up via wallet",
   "app.common.general": "General",
   "app.common.expert": "Expert",
+  "app.common.any": "Any",
   "app.common.tipQuestion": "Tip question",
   "app.common.chooseCrypto": "Choose Crypto",
   "app.common.chooseWallet": "Choose Wallet",
@@ -376,6 +377,10 @@
   "app.containers.CreateCommunity.goToList": "Go to list",
   "app.containers.CreateCommunity.maxTagsNumberReached":
     "Max tags number was reached",
+  "app.containers.CreateCommunity.questionsType": "Questions Type",
+  "app.containers.CreateCommunity.anyQuestionDescriptionLabel":
+    "You can choose the type of question when you are creating it.",
+  "app.containers.CreateCommunity.anyQuestionDescriptionList": [],
 
   "app.containers.EditCommunity.communityTitleTip": "Name of the community",
   "app.containers.EditCommunity.description": "Description of EditCommunity",

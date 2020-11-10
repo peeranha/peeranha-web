@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Field, reduxForm, FormSection } from 'redux-form/immutable';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 
 import { TEXT_SECONDARY_LIGHT } from 'style-constants';
 
@@ -13,6 +13,8 @@ import { formatStringToHtmlId, scrollToErrorField } from 'utils/animation';
 import { showPopover } from 'utils/popover';
 
 import { ExtendedBase } from 'components/Base/AvatarBase';
+
+import TypeForm from './QuestionsTypeForm';
 
 import Wrapper from 'components/FormFields/Wrapper';
 import TextareaField from 'components/FormFields/TextareaField';
@@ -64,11 +66,14 @@ for (let i = 0; i < MIN_TAGS_NUMBER; i++) {
 // TODO: return language for multi lang.
 
 const CreateCommunityForm = ({
+  locale,
   handleSubmit,
   createCommunity,
   createCommunityLoading,
   translations,
   change,
+  formValues,
+  intl,
 }) => {
   const [tags, changeTags] = useState(DEFAULT_TAGS_ARRAY);
 
@@ -119,6 +124,13 @@ const CreateCommunityForm = ({
           warn={[strLength3x20, required]}
           tip={translations[messages.communityTitleTip.id]}
           splitInHalf
+        />
+
+        <TypeForm
+          locale={locale}
+          change={change}
+          formValues={formValues}
+          intl={intl}
         />
 
         <Field
@@ -247,10 +259,11 @@ CreateCommunityForm.propTypes = {
   invalid: PropTypes.bool,
   submitting: PropTypes.bool,
   change: PropTypes.func,
+  formValues: PropTypes.object,
 };
 
 /* eslint import/no-mutable-exports: 0, consistent-return: 0 */
-let FormClone = reduxForm({
+const FormCloneRedux = reduxForm({
   form: FORM_NAME,
   onSubmitFail: err => {
     const errors = {
@@ -264,19 +277,24 @@ let FormClone = reduxForm({
   },
 })(CreateCommunityForm);
 
-FormClone = connect(state => {
-  const form = state.toJS().form[FORM_NAME] || { values: {} };
-
-  if (form.values && form.values.tags) {
-    const { tags } = form.values;
-    const tagNames = Object.keys(tags)
-      .filter(x => tags[x])
-      .map(x => tags[x][TAG_NAME_FIELD]);
-
-    return {
-      valueHasNotBeInListValidate: tagNames,
-    };
-  }
-})(FormClone);
-
-export default FormClone;
+export default memo(
+  injectIntl(
+    connect(state => {
+      const form = state.toJS().form[FORM_NAME] || { values: {} };
+      if (form.values && form.values.tags) {
+        const { tags } = form.values;
+        const tagNames = Object.keys(tags)
+          .filter(x => tags[x])
+          .map(x => tags[x][TAG_NAME_FIELD]);
+        form.values = { fuck: 'fuck' };
+        return {
+          valueHasNotBeInListValidate: tagNames,
+          formValues: form?.values ?? {},
+        };
+      }
+      return {
+        formValues: form?.values ?? {},
+      };
+    })(FormCloneRedux),
+  ),
+);

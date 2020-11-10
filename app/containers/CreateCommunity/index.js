@@ -105,6 +105,7 @@ export const CreateCommunity = ({
     createCommunity: createCommunityMethod,
     createCommunityLoading,
     translations: translationMessages[locale],
+    locale,
   };
 
   const path = window.location.pathname + window.location.hash;
