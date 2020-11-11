@@ -160,22 +160,77 @@ export const getNextUniqueAchievementId = (
 };
 
 const isProfileInfoUpdated = (currProfileInfo, prevProfileInfo) => {
+  // profile info has initial values or undefined
+
   if (!currProfileInfo || !prevProfileInfo) return true;
-  const firstAnswersValue = profileInfo =>
+
+  // check whether values, that influence on render have changed
+
+  const maxRatingLowerValue = achievementsArr.find(
+    el => el.upperValue === Infinity,
+  ).lowerValue;
+
+  const maxQuestionLowerValue = questionsAskedArr.find(
+    el => el.upperValue === Infinity,
+  ).lowerValue;
+
+  const maxAnswersLowerValue = answerGivenArr.find(
+    el => el.upperValue === Infinity,
+  ).lowerValue;
+
+  const maxBestAnswersLowerValue = bestAnswerArr.find(
+    el => el.upperValue === Infinity,
+  ).lowerValue;
+
+  const maxFirstAnswerLowerValue = firstAnswerArr.find(
+    el => el.upperValue === Infinity,
+  ).lowerValue;
+
+  const maxFirstIn15LowerValue = firstIn15Arr.find(
+    el => el.upperValue === Infinity,
+  ).lowerValue;
+
+  const firstAnswerValue = profileInfo =>
     profileInfo.integer_properties.find(el => el.key === 13)?.value ?? 0;
 
   const answersIn15Value = profileInfo =>
     profileInfo.integer_properties.find(el => el.key === 12)?.value ?? 0;
 
+  const ratingRelatedUpdate =
+    currProfileInfo.rating !== prevProfileInfo.rating &&
+    currProfileInfo.rating < maxRatingLowerValue;
+
+  const questionRelatedUpdate =
+    currProfileInfo.questions_asked !== prevProfileInfo.questions_asked &&
+    currProfileInfo.questions_asked < maxQuestionLowerValue;
+
+  const answersRelatedUpdate =
+    currProfileInfo.answers_given !== prevProfileInfo.answers_given &&
+    currProfileInfo.answers_given < maxAnswersLowerValue;
+
+  const bestAnswersRelatedUpdate =
+    currProfileInfo.correct_answers !== prevProfileInfo.correct_answers &&
+    currProfileInfo.correct_answers < maxBestAnswersLowerValue;
+
+  const firstAnswersRelatedUpdate =
+    firstAnswerValue(currProfileInfo) !== firstAnswerValue(prevProfileInfo) &&
+    firstAnswersValue(currProfileInfo) < maxFirstAnswerLowerValue;
+
+  const answersIn15RelatedUpdate =
+    answersIn15Value(currProfileInfo) !== answersIn15Value(prevProfileInfo) &&
+    answersIn15Value(currProfileInfo) < maxFirstIn15LowerValue;
+
   if (
-    currProfileInfo.rating !== prevProfileInfo.rating ||
-    currProfileInfo.questions_asked !== prevProfileInfo.questions_asked ||
-    currProfileInfo.answers_given !== prevProfileInfo.answers_given ||
-    currProfileInfo.correct_answers !== prevProfileInfo.correct_answers ||
-    firstAnswersValue(currProfileInfo) !== firstAnswersValue(prevProfileInfo) ||
-    answersIn15Value(currProfileInfo) !== answersIn15Value(prevProfileInfo)
+    ratingRelatedUpdate ||
+    questionRelatedUpdate ||
+    answersRelatedUpdate ||
+    bestAnswersRelatedUpdate ||
+    firstAnswersRelatedUpdate ||
+    answersIn15RelatedUpdate
   )
     return true;
+
+  // no changes that influence on render
 
   return false;
 };
@@ -183,7 +238,6 @@ const isProfileInfoUpdated = (currProfileInfo, prevProfileInfo) => {
 export function* getUserAchievementsWorker() {
   try {
     const viewProfileAccount = yield select(selectViewProfileAccount());
-
     const profileInfo = yield select(selectUsers(viewProfileAccount));
 
     const memorizedUserAchievements = yield select(
