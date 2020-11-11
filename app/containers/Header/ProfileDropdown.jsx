@@ -56,7 +56,7 @@ const B = ({ profileInfo, onClick, isMenuVisible }) => (
       <Span bold>{profileInfo?.['display_name']}</Span>
       <StatusBox>
         <RatingStatus rating={profileInfo.rating} size="sm" isRankOff />
-        <AchievementsStatus count={profileInfo.achievements_reached} />
+        <AchievementsStatus count={profileInfo.achievements_reached?.length} />
       </StatusBox>
     </Info>
   </span>

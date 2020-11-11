@@ -28,10 +28,11 @@ const ProgressBar = ({
   width,
   progress,
   pointsToNext,
+  groupType,
   messageSingle = '',
   messageMultiple = '',
 }) => {
-  const id = `progress_bar_${Math.floor(Math.random() * 100000)}`;
+  const id = `progress_bar_${groupType}`;
 
   const currentMessage =
     pointsToNext === 1
@@ -53,6 +54,7 @@ ProgressBar.propTypes = {
   width: PropTypes.string,
   progress: PropTypes.number,
   pointsToNext: PropTypes.number,
+  groupType: PropTypes.string,
   messageSingle: PropTypes.string,
   messageMultiple: PropTypes.string,
 };

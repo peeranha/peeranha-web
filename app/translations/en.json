@@ -276,7 +276,7 @@
   "app.components.RatingStatus.legResident": "Superhero",
   "app.components.RatingStatus.banned": "Banned",
 
-  "app.containers.Profile.reputation": "Reputation",
+  "app.containers.Profile.status": "Status",
   "app.containers.Profile.risen": "Risen",
   "app.containers.Profile.memberSince": "Member since ",
   "app.containers.Profile.informationIsBlank":
@@ -942,14 +942,14 @@
   "app.containers.Achievements.firstIn15.bronze.title":
     "Bronze - Fastest hand in the West",
   "app.containers.Achievements.firstIn15.bronze.description":
-    "Be the first one to post an answer in 15 minutes for 5 different questions",
+    "Post answers for 5 different questions in 15 minutes after questions were asked",
   "app.containers.Achievements.firstIn15.silver.title":
     "Silver - Pedal to the metal",
   "app.containers.Achievements.firstIn15.silver.description":
-    "Be the first one to post an answer in 15 minutes for 10 different questions",
+    "Post answers for 10 different questions in 15 minutes after questions were asked",
   "app.containers.Achievements.firstIn15.gold.title": "Gold - Lightning",
   "app.containers.Achievements.firstIn15.gold.description":
-    "Be the first one to post an answer in 15 minutes for 20 different questions",
+    "Post answers for 10 different questions in 15 minutes after questions were asked",
 
   "app.containers.Achievements.firstAnswer.bronze.title": "Bronze - Quick help",
   "app.containers.Achievements.firstAnswer.bronze.description":
@@ -1023,13 +1023,22 @@
   "app.containers.Achievements.progressBarPopover.bestAnswerRelated.multiple":
     "best answers left to unlock this achievement",
   "app.containers.Achievements.progressBarPopover.firstAnswerIn15Related.single":
-    "first answer in 15 minutes left to unlock this achievement",
+    "answer in 15 minutes left to unlock this achievement",
   "app.containers.Achievements.progressBarPopover.firstAnswerIn15Related.multiple":
-    "first answers in 15 minutes left to unlock this achievement",
+    "answers in 15 minutes left to unlock this achievement",
   "app.containers.Achievements.progressBarPopover.firstAnswerRelated.single":
     "first answer left to unlock this achievement",
   "app.containers.Achievements.progressBarPopover.firstAnswerRelated.multiple":
     "first answers left to unlock this achievement",
+
+  "app.containers.Achievements.separators.ratingRelated": "Rating",
+  "app.containers.Achievements.separators.questionAskedRelated": "Questions",
+  "app.containers.Achievements.separators.answerGivenRelated": "Answers",
+  "app.containers.Achievements.separators.bestAnswerRelated":
+    "The best answers",
+  "app.containers.Achievements.separators.firstAnswerIn15Related":
+    "Answers in 15 minutes",
+  "app.containers.Achievements.separators.firstAnswerRelated": "First answers",
 
   "app.containers.TelegramInfo.confirm": "Confirm",
   "app.containers.TelegramInfo.unlink": "Unlink"

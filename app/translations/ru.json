@@ -281,7 +281,7 @@
   "app.components.RatingStatus.banned": "Заблокирован",
 
   "app.containers.Profile.activity": "Активность",
-  "app.containers.Profile.reputation": "Репутация",
+  "app.containers.Profile.status": "Статус",
   "app.containers.Profile.risen": "Понравилось",
   "app.containers.Profile.memberSince": "Резидент с ",
   "app.containers.Profile.informationIsBlank":
@@ -1034,6 +1034,14 @@
     "первый ответ остался до следующего досижения",
   "app.containers.Achievements.progressBarPopover.firstAnswerRelated.multiple":
     "первых ответов осталось до следующего досижения",
+
+  "app.containers.Achievements.separators.ratingRelated": "Рейтинг",
+  "app.containers.Achievements.separators.questionAskedRelated": "Вопросы",
+  "app.containers.Achievements.separators.answerGivenRelated": "Ответы",
+  "app.containers.Achievements.separators.bestAnswerRelated": "Лучшие ответы",
+  "app.containers.Achievements.separators.firstAnswerIn15Related":
+    "Первые ответы в течение 15 минут",
+  "app.containers.Achievements.separators.firstAnswerRelated": "Первые ответы",
 
   "app.containers.TelegramInfo.confirm": "Подтвердить",
   "app.containers.TelegramInfo.unlink": "Удалить зависимость"

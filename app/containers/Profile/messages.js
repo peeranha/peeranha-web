@@ -13,8 +13,8 @@ export default defineMessages({
   profileDescription: {
     id: 'app.containers.Profile.profileDescription',
   },
-  reputation: {
-    id: 'app.containers.Profile.reputation',
+  status: {
+    id: 'app.containers.Profile.status',
   },
   risen: {
     id: 'app.containers.Profile.risen',

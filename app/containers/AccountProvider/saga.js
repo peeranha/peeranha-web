@@ -38,7 +38,7 @@ import { redirectToEditAnswerPageWorker } from 'containers/EditAnswer/saga';
 import { redirectToEditProfilePageWorker } from 'containers/EditProfilePage/saga';
 import { updateStoredQuestionsWorker } from 'containers/Questions/saga';
 import { getNotificationsInfoWorker } from 'components/Notifications/saga';
-import { updateUserAchCountWorker } from 'containers/Achievements/saga';
+import { updateUserAchievementsWorker } from 'containers/Achievements/saga';
 import { getWeekStatWorker } from 'containers/Wallet/saga';
 import { getQuestionData } from '../ViewQuestion/saga';
 
@@ -87,6 +87,7 @@ import {
   DELETE_ANSWER_SUCCESS,
   DELETE_COMMENT_SUCCESS,
   DELETE_QUESTION_SUCCESS,
+  POST_ANSWER_SUCCESS,
   SAVE_COMMENT_SUCCESS,
 } from 'containers/ViewQuestion/constants';
 import {
@@ -150,8 +151,10 @@ export const getCurrentAccountWorker = function*(initAccount) {
       call(getBalance, eosService, account),
     ]);
 
-    // update user achievements count
-    yield call(updateUserAchCountWorker, profileInfo.user);
+    // update user achievements
+    yield call(updateUserAchievementsWorker, profileInfo.user, {
+      profileInfo: profileInfo,
+    });
 
     if (profileInfo) {
       yield call(getNotificationsInfoWorker, profileInfo.user);
@@ -380,6 +383,7 @@ export default function* defaultSaga() {
       GET_CURRENT_ACCOUNT,
       SHOW_SCATTER_SIGNUP_FORM_SUCCESS,
       ASK_QUESTION_SUCCESS,
+      POST_ANSWER_SUCCESS,
       CREATE_COMMUNITY_SUCCESS,
       SUGGEST_TAG_SUCCESS,
       EDIT_ANSWER_SUCCESS,
