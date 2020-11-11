@@ -258,12 +258,13 @@ export function* getUserAchievementsWorker() {
       } = memorizedUserAchievements;
 
       yield put(
-        getUserAchievementsSuccess(userAchievements, projectAchievements),
+        getUserAchievementsSuccess({
+          userAchievements,
+          projectAchievements,
+          nextUserAchievements,
+          userProgressValues,
+        }),
       );
-      yield put(setNextUserAchievements(nextUserAchievements));
-      yield put(setUserProgressValues(userProgressValues));
-
-      yield put(setUserAchievementLoading(false));
     }
 
     // get new achievements data
@@ -381,16 +382,17 @@ export function* getUserAchievementsWorker() {
       };
 
       yield put(
-        getUserAchievementsSuccess(userAchievements, projectAchievements),
+        getUserAchievementsSuccess({
+          userAchievements,
+          projectAchievements,
+          nextUserAchievements,
+          userProgressValues,
+        }),
       );
-      yield put(setNextUserAchievements(nextUserAchievements));
-      yield put(setUserProgressValues(userProgressValues));
 
       yield put(
         setMemorizedAchievementData(viewProfileAccount, memorizedAchievData),
       );
-
-      yield put(setUserAchievementLoading(false));
     }
   } catch (err) {
     yield put(getUserAchievementsErr(err));
