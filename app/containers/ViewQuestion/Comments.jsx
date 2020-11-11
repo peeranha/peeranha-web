@@ -144,7 +144,7 @@ const CommentView = item => {
           name={item.userInfo?.display_name ?? ''}
           rating={item.userInfo.rating}
           account={item.userInfo.user}
-          achievementsCount={item.userInfo.achievements_reached}
+          achievementsCount={item.userInfo.achievements_reached?.lenght}
           postTime={item.post_time}
           locale={item.locale}
           isComment

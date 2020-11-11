@@ -6,7 +6,8 @@ import { getProfileInfo } from 'utils/profileManagement';
 import { getStat } from 'utils/statisticsManagement';
 import { getMD } from 'utils/mdManagement';
 import { setCookie } from 'utils/cookie';
-import { getUserAchievementsCount } from 'utils/achievementsManagement';
+import { getAchievements } from 'utils/achievementsManagement';
+import { USER_ACHIEVEMENTS_TABLE } from 'utils/constants';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
@@ -105,13 +106,16 @@ export function* getUserProfileWorker({ user, getFullProfile }) {
     // take userProfile from STORE
     if (cachedUserInfo && !getFullProfile) {
       if (!cachedUserInfo.achievements_reached) {
-        const userAchievementsCount = yield getUserAchievementsCount(
-          user,
+        const userAchievements = yield call(
+          getAchievements,
           eosService,
+          USER_ACHIEVEMENTS_TABLE,
+          user,
         );
+
         const updatedUserInfo = {
           ...cachedUserInfo,
-          achievements_reached: userAchievementsCount,
+          achievements_reached: userAchievements,
         };
         setCookie({
           name: PROFILE_INFO_LS,
@@ -136,11 +140,13 @@ export function* getUserProfileWorker({ user, getFullProfile }) {
     );
 
     if (!updatedUserInfo.achievements_reached) {
-      const userAchievementsCount = yield getUserAchievementsCount(
-        user,
+      const userAchievements = yield call(
+        getAchievements,
         eosService,
+        USER_ACHIEVEMENTS_TABLE,
+        user,
       );
-      updatedUserInfo.achievements_reached = userAchievementsCount;
+      updatedUserInfo.achievements_reached = userAchievements;
     }
 
     if (

@@ -4,7 +4,7 @@ import editUserNoAvatar from 'images/editUserNoAvatar.png';
 
 import { DISPLAY_NAME_FIELD } from 'containers/Profile/constants';
 import { saveText, getText, saveFile, getFileUrl } from './ipfs';
-import { getUserAchievementsCount } from './achievementsManagement';
+import { getAchievements } from './achievementsManagement';
 
 import {
   ACCOUNT_TABLE,
@@ -15,6 +15,7 @@ import {
   ALL_TG_ACCOUNTS_SCOPE,
   CONFIRM_TELEGRAM_ACCOUNT,
   UNLINK_TELEGRAM_ACCOUNT,
+  USER_ACHIEVEMENTS_TABLE,
 } from './constants';
 import {
   callService,
@@ -215,11 +216,13 @@ export async function getProfileInfo(user, eosService, getExtendedProfile) {
   if (!profile || profile.user !== user) return null;
 
   if (!profile.achievements_reached) {
-    const achievements_reached = await getUserAchievementsCount(
-      profile.user,
+    const userAchievements = await getAchievements(
       eosService,
+      USER_ACHIEVEMENTS_TABLE,
+      user,
     );
-    profile.achievements_reached = achievements_reached;
+
+    profile.achievements_reached = userAchievements;
   }
 
   if (getExtendedProfile) {
