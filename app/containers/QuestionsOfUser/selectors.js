@@ -1,4 +1,7 @@
 import { createSelector } from 'reselect';
+
+import { STATE_KEY } from './constants';
+
 import { initialState } from './reducer';
 
 /**
@@ -6,7 +9,7 @@ import { initialState } from './reducer';
  */
 
 const selectQuestionsOfUserDomain = state =>
-  state.get('questionsOfUser', initialState);
+  state.get(STATE_KEY, initialState);
 
 const selectQuestions = () =>
   createSelector(

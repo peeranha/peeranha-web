@@ -18,7 +18,7 @@ const QuestionCommunity = ({ communities, communityId, className }) => {
     return null;
   }
 
-  const com = getFollowedCommunities(communities, [communityId])[0];
+  const com = getFollowedCommunities(communities, [communityId])[0] || {};
 
   let route = null;
   let Link = A;

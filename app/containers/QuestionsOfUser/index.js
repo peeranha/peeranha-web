@@ -7,8 +7,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import { bindActionCreators, compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
+
+import injectSaga from 'utils/injectSaga';
+import injectReducer from 'utils/injectReducer';
+import { DAEMON } from 'utils/constants';
+
+import { STATE_KEY } from './constants';
+import reducer from './reducer';
+import saga from './saga';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
@@ -76,16 +84,20 @@ QuestionsOfUser.propTypes = {
   getQuestionsDispatch: PropTypes.func,
 };
 
-export default connect(
-  createStructuredSelector({
-    locale: makeSelectLocale(),
-    account: makeSelectAccount(),
-    questions: selectQuestions(),
-    questionsLoading: selectQuestionsLoading(),
-    isLastFetch: selectIsLastFetch(),
-    communities: selectCommunities(),
-  }),
-  dispatch => ({
-    getQuestionsDispatch: bindActionCreators(getQuestions, dispatch),
-  }),
+export default compose(
+  injectReducer({ key: STATE_KEY, reducer }),
+  injectSaga({ key: STATE_KEY, saga, mode: DAEMON }),
+  connect(
+    createStructuredSelector({
+      locale: makeSelectLocale(),
+      account: makeSelectAccount(),
+      questions: selectQuestions(),
+      questionsLoading: selectQuestionsLoading(),
+      isLastFetch: selectIsLastFetch(),
+      communities: selectCommunities(),
+    }),
+    dispatch => ({
+      getQuestionsDispatch: bindActionCreators(getQuestions, dispatch),
+    }),
+  ),
 )(QuestionsOfUser);
