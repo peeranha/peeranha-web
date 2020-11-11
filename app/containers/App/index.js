@@ -114,6 +114,13 @@ const App = ({
     }
   }, []);
 
+  useEffect(
+    () => {
+      window.goto = page => history.push(page);
+    },
+    [history],
+  );
+
   return (
     <ErrorBoundary>
       <Toast />
