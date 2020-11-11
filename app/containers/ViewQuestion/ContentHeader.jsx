@@ -114,7 +114,10 @@ const ContentHeader = props => {
   );
 
   const isTemporaryAccount = useMemo(
-    () => !!userInfo?.['integer_properties'].find(x => x.key === TEMPORARY_ACCOUNT_KEY && x.value),
+    () =>
+      !!userInfo?.['integer_properties'].find(
+        x => x.key === TEMPORARY_ACCOUNT_KEY && x.value,
+      ),
     [userInfo],
   );
 
@@ -143,7 +146,7 @@ const ContentHeader = props => {
           type={type}
           postTime={postTime}
           locale={locale}
-          achievementsCount={userInfo.achievements_reached}
+          achievementsCount={userInfo.achievements_reached?.length}
           isTemporaryAccount={isTemporaryAccount}
         />
 

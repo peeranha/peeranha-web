@@ -7,6 +7,27 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
+  separators: {
+    ratingRelated: {
+      id: 'app.containers.Achievements.separators.ratingRelated',
+    },
+    questionAskedRelated: {
+      id: 'app.containers.Achievements.separators.questionAskedRelated',
+    },
+    answerGivenRelated: {
+      id: 'app.containers.Achievements.separators.answerGivenRelated',
+    },
+    bestAnswerRelated: {
+      id: 'app.containers.Achievements.separators.bestAnswerRelated',
+    },
+    firstAnswerIn15Related: {
+      id: 'app.containers.Achievements.separators.firstAnswerIn15Related',
+    },
+    firstAnswerRelated: {
+      id: 'app.containers.Achievements.separators.firstAnswerRelated',
+    },
+  },
+
   progressBarPopover: {
     ratingRelated: {
       single: {
@@ -72,7 +93,7 @@ export default defineMessages({
 
   // Answers and questions related achievements with levels
 
-  QUESTION_ASKED_BRONZE: {
+  QUESTIONS_ASKED_BRONZE: {
     title: {
       id: 'app.containers.Achievements.questionAsked.bronze.title',
     },
@@ -80,7 +101,7 @@ export default defineMessages({
       id: 'app.containers.Achievements.questionAsked.bronze.description',
     },
   },
-  QUESTION_ASKED_SILVER: {
+  QUESTIONS_ASKED_SILVER: {
     title: {
       id: 'app.containers.Achievements.questionAsked.silver.title',
     },
@@ -88,7 +109,7 @@ export default defineMessages({
       id: 'app.containers.Achievements.questionAsked.silver.description',
     },
   },
-  QUESTION_ASKED_GOLD: {
+  QUESTIONS_ASKED_GOLD: {
     title: {
       id: 'app.containers.Achievements.questionAsked.gold.title',
     },
@@ -97,7 +118,7 @@ export default defineMessages({
     },
   },
 
-  ANSWER_GIVEN_BRONZE: {
+  ANSWERS_GIVEN_BRONZE: {
     title: {
       id: 'app.containers.Achievements.answerGiven.bronze.title',
     },
@@ -105,7 +126,7 @@ export default defineMessages({
       id: 'app.containers.Achievements.answerGiven.bronze.description',
     },
   },
-  ANSWER_GIVEN_SILVER: {
+  ANSWERS_GIVEN_SILVER: {
     title: {
       id: 'app.containers.Achievements.answerGiven.silver.title',
     },
@@ -113,7 +134,7 @@ export default defineMessages({
       id: 'app.containers.Achievements.answerGiven.silver.description',
     },
   },
-  ANSWER_GIVEN_GOLD: {
+  ANSWERS_GIVEN_GOLD: {
     title: {
       id: 'app.containers.Achievements.answerGiven.gold.title',
     },
@@ -122,7 +143,7 @@ export default defineMessages({
     },
   },
 
-  BEST_ANSWER_BRONZE: {
+  BEST_ANSWERS_BRONZE: {
     title: {
       id: 'app.containers.Achievements.bestAnswer.bronze.title',
     },
@@ -130,7 +151,7 @@ export default defineMessages({
       id: 'app.containers.Achievements.bestAnswer.bronze.description',
     },
   },
-  BEST_ANSWER_SILVER: {
+  BEST_ANSWERS_SILVER: {
     title: {
       id: 'app.containers.Achievements.bestAnswer.silver.title',
     },
@@ -138,7 +159,7 @@ export default defineMessages({
       id: 'app.containers.Achievements.bestAnswer.silver.description',
     },
   },
-  BEST_ANSWER_GOLD: {
+  BEST_ANSWERS_GOLD: {
     title: {
       id: 'app.containers.Achievements.bestAnswer.gold.title',
     },
@@ -147,7 +168,7 @@ export default defineMessages({
     },
   },
 
-  FIRST_ANSWER_IN_15_BRONZE: {
+  ANSWERS_IN_15_BRONZE: {
     title: {
       id: 'app.containers.Achievements.firstIn15.bronze.title',
     },
@@ -155,7 +176,7 @@ export default defineMessages({
       id: 'app.containers.Achievements.firstIn15.bronze.description',
     },
   },
-  FIRST_ANSWER_IN_15_SILVER: {
+  ANSWERS_IN_15_SILVER: {
     title: {
       id: 'app.containers.Achievements.firstIn15.silver.title',
     },
@@ -163,7 +184,7 @@ export default defineMessages({
       id: 'app.containers.Achievements.firstIn15.silver.description',
     },
   },
-  FIRST_ANSWER_IN_15_GOLD: {
+  ANSWERS_IN_15_GOLD: {
     title: {
       id: 'app.containers.Achievements.firstIn15.gold.title',
     },
@@ -172,7 +193,7 @@ export default defineMessages({
     },
   },
 
-  FIRST_ANSWER_BRONZE: {
+  FIRST_ANSWERS_BRONZE: {
     title: {
       id: 'app.containers.Achievements.firstAnswer.bronze.title',
     },
@@ -180,7 +201,7 @@ export default defineMessages({
       id: 'app.containers.Achievements.firstAnswer.bronze.description',
     },
   },
-  FIRST_ANSWER_SILVER: {
+  FIRST_ANSWERS_SILVER: {
     title: {
       id: 'app.containers.Achievements.firstAnswer.silver.title',
     },
@@ -188,7 +209,7 @@ export default defineMessages({
       id: 'app.containers.Achievements.firstAnswer.silver.description',
     },
   },
-  FIRST_ANSWER_GOLD: {
+  FIRST_ANSWERS_GOLD: {
     title: {
       id: 'app.containers.Achievements.firstAnswer.gold.title',
     },
