@@ -230,15 +230,18 @@
   "app.containers.Moderation.permissionCreateTagDescription":
     "Позволяет мгновенно создать тег",
 
-  "app.containers.Moderation.permissionChangeQuestionType": "Изменение типа вопроса",
+  "app.containers.Moderation.permissionChangeQuestionType":
+    "Изменение типа вопроса",
   "app.containers.Moderation.permissionChangeQuestionTypeDescription":
     "Позволяет изменить тип вопроса",
 
-  "app.containers.Moderation.permissionSelectTopQuestion": "Выбор «Top» вопроса",
+  "app.containers.Moderation.permissionSelectTopQuestion":
+    "Выбор «Top» вопроса",
   "app.containers.Moderation.permissionSelectTopQuestionDescription":
     "Позволяет выбрать вопрос, который будет отображаться на «Top» странице",
 
-  "app.containers.Moderation.permissionOfficialAnswer": "Публикация официального ответа",
+  "app.containers.Moderation.permissionOfficialAnswer":
+    "Публикация официального ответа",
   "app.containers.Moderation.permissionOfficialAnswerDescription":
     "Позволяет опубликовать официальный ответ",
 

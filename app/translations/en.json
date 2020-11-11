@@ -230,11 +230,13 @@
   "app.containers.Moderation.permissionCreateTagDescription":
     "Allows you to instantly create a tag",
 
-  "app.containers.Moderation.permissionChangeQuestionType": "Change question type",
+  "app.containers.Moderation.permissionChangeQuestionType":
+    "Change question type",
   "app.containers.Moderation.permissionChangeQuestionTypeDescription":
     "Allows you to change question type",
 
-  "app.containers.Moderation.permissionSelectTopQuestion": "Select top question",
+  "app.containers.Moderation.permissionSelectTopQuestion":
+    "Select top question",
   "app.containers.Moderation.permissionSelectTopQuestionDescription":
     "Allows you to select a question that will be displayed on \"Top\" page",
 
