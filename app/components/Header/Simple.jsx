@@ -70,6 +70,7 @@ export const C3 = isColumnForSM => `
       }
     }
 
+    background-color: white;
     .right-panel {
       margin-left: 12px !important;
 
