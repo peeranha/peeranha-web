@@ -324,7 +324,7 @@ FormClone = connect(
             wallets[0],
           ),
       [EOS_SEND_TO_ACCOUNT_FIELD]: cryptoAccounts[initialCurrency],
-      [EOS_SEND_FROM_ACCOUNT_FIELD]: null,
+      [EOS_SEND_FROM_ACCOUNT_FIELD]: fromAccountValue,
       [AMOUNT_FIELD]: tipsPreselect
         ? _get(tipsPreselect, [AMOUNT_FIELD, tipsPreselect[CURRENCY_FIELD]], '')
         : '',
