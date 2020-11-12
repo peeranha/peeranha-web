@@ -1,4 +1,7 @@
+import _max from 'lodash/max';
+
 import messages from 'common-messages';
+
 import {
   COMMUNITY_ADMIN_INFINITE_IMPACT,
   COMMUNITY_ADMIN_OFFICIAL_ANSWER,
@@ -12,17 +15,34 @@ import {
   MODERATOR_KEY,
 } from './constants';
 
-const findAllPropertiesByKeys = (properties, keys) =>
-  properties.filter(({ value }) =>
-    keys.every(
+const findAllPropertiesByKeys = (properties, keys, exact = false) =>
+  properties.filter(({ value }) => {
+    const restKeys = Array.from(new Array(_max(keys)).keys()).filter(
+      x => !keys.includes(x),
+    );
+
+    const match = keys.every(
       key =>
         value
           .toString(2)
           .split('')
           .reverse()
           .join('')[key] === '1',
-    ),
-  );
+          );
+
+    const restMatch =
+      exact &&
+      restKeys.every(
+        key =>
+          value
+            .toString(2)
+            .split('')
+            .reverse()
+            .join('')[key] === '0',
+      );
+      
+    return exact ? match && restMatch : match;
+});
 
 export const getModeratorPermissions = (
   communityPermissions = [],
@@ -78,6 +98,7 @@ export const isAnswerOfficial = ({ id, properties }) =>
       !!findAllPropertiesByKeys(
         [{ key: value, value: key }],
         OFFICIAL_ANSWER_KEYS,
+        true,
       ).length,
   ).length;
 
