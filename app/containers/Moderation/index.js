@@ -14,7 +14,7 @@ import {
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 
-import { SECTION_ID } from 'utils/constants';
+import { MODERATOR_KEY, SECTION_ID } from 'utils/constants';
 import { getModeratorPermissions } from 'utils/properties';
 
 import Header from './Header';
@@ -25,14 +25,17 @@ export const Moderation = ({
   locale,
   communities,
   isGlobalModerator: isGlobal,
-  profile: { permissions, integer_properties: globalProperties },
+  profile: { permissions, integer_properties },
 }) => {
   const translations = translationMessages[locale]
     ? translationMessages[locale]
     : null;
+  const globalModeratorProps = integer_properties.find(
+    ({ key }) => key === MODERATOR_KEY,
+  );
   const moderatorPermissions = getModeratorPermissions(
     permissions,
-    globalProperties,
+    globalModeratorProps,
     isGlobal,
     communities,
     translations,
