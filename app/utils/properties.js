@@ -12,7 +12,6 @@ import {
   PERMISSION_GRANTED,
   moderatorPermissions,
   communityAdminPermissions,
-  MODERATOR_KEY,
 } from './constants';
 
 const findAllPropertiesByKeys = (properties, keys, exact = false) =>
@@ -46,40 +45,38 @@ const findAllPropertiesByKeys = (properties, keys, exact = false) =>
 
 export const getModeratorPermissions = (
   communityPermissions = [],
-  globalPermissions = [],
+  globalModeratorProps = [],
   isGlobal,
   communities,
   translations,
 ) => {
-  const values = isGlobal
-    ? [globalPermissions.find(({ key }) => key === MODERATOR_KEY)]
-    : communityPermissions;
-  const perms = isGlobal ? moderatorPermissions : communityAdminPermissions;
+  const values = [globalModeratorProps, ...communityPermissions];
   const permissions = {};
   permissions.blocks = values.reduce((acc, { community, value }, index) => {
     const permission = [];
+    const perms = community ? communityAdminPermissions : moderatorPermissions;
     value
       .toString(2)
       .split('')
+      .reverse()
       .forEach((perm, permIndex) => {
         if (perm === PERMISSION_GRANTED) permission.push(permIndex);
       });
     return [
       ...acc,
       {
-        h2: isGlobal
-          ? translations[messages.globalModerator.id]
-          : communities.find(({ id }) => id === community).name,
+        h2: community
+          ? communities.find(({ id }) => id === community).name
+          : translations[messages.globalModerator.id],
         sectionCode: index,
-        blocks: Object.values(perms).map(({ title }, permissionIndex) => ({
-          permissionCode: permissionIndex,
-          title,
+        blocks: Object.entries(perms).map(([key, permValue]) => ({
+          permissionCode: perms[key].code,
+          title: permValue.title,
         })),
         permission,
       },
     ];
   }, []);
-
   return permissions;
 };
 
