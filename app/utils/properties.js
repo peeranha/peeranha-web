@@ -39,18 +39,20 @@ const findAllPropertiesByKeys = (properties, keys, exact = false) =>
             .reverse()
             .join('')[key] === '0',
       );
-      
+
     return exact ? match && restMatch : match;
 });
 
 export const getModeratorPermissions = (
   communityPermissions = [],
-  globalModeratorProps = [],
+  globalModeratorProps,
   isGlobal,
   communities,
   translations,
 ) => {
-  const values = [globalModeratorProps, ...communityPermissions];
+  const values = isGlobal
+    ? [globalModeratorProps, ...communityPermissions]
+    : communityPermissions;
   const permissions = {};
   permissions.blocks = values.reduce((acc, { community, value }, index) => {
     const permission = [];
