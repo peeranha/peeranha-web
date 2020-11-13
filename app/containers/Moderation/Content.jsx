@@ -87,6 +87,7 @@ const PermissionBox = BaseTransparent.extend`
 
   h5 span {
     color: ${x => (x.isOpened ? TEXT_PRIMARY : TEXT_DARK)};
+    margin-bottom: 5px;
   }
 
   &:first-child {
@@ -119,11 +120,11 @@ const Permission = ({
 
       <PermissionBoxBody>
         <h5 className="d-flex align-items-center">
-          <Span fontSize="20" lineHeight="35" mobileFS="16">
+          <Span fontSize="20" lineHeight="35" mobileFS="18">
             <FormattedMessage {...messages.permissions[title].title} />
           </Span>
         </h5>
-        <Span fontSize="16" mobileFS="12">
+        <Span fontSize="16" mobileFS="14">
           <FormattedMessage {...messages.permissions[title].description} />
         </Span>
       </PermissionBoxBody>
