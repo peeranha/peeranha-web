@@ -45,7 +45,7 @@ const Div = styled.div`
   }
 `;
 
-const hashes = ['#questions', '#answers', '#settings'];
+const hashes = ['#questions', '#answers', '#settings', '#moderation'];
 
 const UserNavigation = ({
   userId,
