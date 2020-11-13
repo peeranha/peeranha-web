@@ -18,7 +18,6 @@ import { DAEMON } from 'utils/constants';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
-import { singleCommunityColors } from 'utils/communityManagement';
 import { rangeUnionWithIntersection } from 'utils/rangeOperations';
 
 import {
@@ -52,9 +51,7 @@ import Wrapper from '../Header/Complex';
 import Notification from './Notification';
 import MarkAllAsReadButton from './MarkAllAsReadButton';
 import reducer from './reducer';
-import WidthCentered from '../LoadingIndicator/WidthCentered';
-
-const colors = singleCommunityColors();
+import WidthCentered, { LoaderContainer } from '../LoadingIndicator/WidthCentered';
 
 const Container = styled.div`
   @media only screen and (max-width: 576px) {
@@ -79,16 +76,6 @@ const SubHeader = styled.div`
   width: 100%;
   padding: 0 10px;
   border-bottom: 1px solid ${BORDER_SECONDARY_LIGHT};
-`;
-
-const LoaderContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 68px;
-  background: ${colors.mainBackground
-    ? colors.mainBackground
-    : 'rgb(234, 236, 244)'};
 `;
 
 const Notifications = ({

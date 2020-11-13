@@ -40,7 +40,7 @@ const ExistingQuestions = ({ questions, skip, intl }) => (
     </Label>
     <List>
       {questions.map(q => (
-        <ListItem>
+        <ListItem key={q.link}>
           <a href={q.link}>{q.title}</a>
         </ListItem>
       ))}

@@ -4,6 +4,10 @@ import {
   CREATE_COMMUNITY_ERROR,
   SET_DEFAULT_STORE,
   REDIRECT_TO_CREATE_COMMUNITY,
+  GET_FORM,
+  GET_FORM_PROCESSING,
+  GET_FORM_SUCCESS,
+  GET_FORM_ERROR,
 } from './constants';
 
 export function redirectToCreateCommunity(ev) {
@@ -37,5 +41,31 @@ export function createCommunityErr(createCommunityError) {
 export function setDefaultStore() {
   return {
     type: SET_DEFAULT_STORE,
+  };
+}
+
+export function getForm() {
+  return {
+    type: GET_FORM,
+  };
+}
+
+export function getFormProcessing() {
+  return {
+    type: GET_FORM_PROCESSING,
+  };
+}
+
+export function getFormSuccess(isFormAvailable) {
+  return {
+    type: GET_FORM_SUCCESS,
+    isFormAvailable,
+  };
+}
+
+export function getFormError(getFormError) {
+  return {
+    type: GET_FORM_ERROR,
+    getFormError,
   };
 }

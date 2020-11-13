@@ -390,7 +390,7 @@ class EosioService {
       const request = {
         json: true,
         code: code || process.env.EOS_CONTRACT_ACCOUNT,
-        scope: typeof scope === 'object' ? scope.eosAccountName : scope,
+        scope: scope && typeof scope === 'object' ? scope.eosAccountName : scope,
         table,
         lower_bound: lowerBound,
         upper_bound: upperBound,
