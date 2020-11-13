@@ -135,6 +135,7 @@
   "app.common.fileSizeErrorMsg": "Размер файла больше 2Мб. Выберите другой...",
   "app.common.chooseFile": "Выберите файл",
   "app.common.skip": "Пропустить",
+  "app.common.showMore": "Показать больше",
   "app.common.questionIsAnswered": "Вы уже ответили на этот вопрос",
 
   "app.telegram.user": "Телеграм пользователь",

@@ -80,6 +80,8 @@ export const QuestionForm = ({
   existingQuestions,
   doSkipExistingQuestions,
   skipExistingQuestions,
+  doShowMoreExistingQuestions,
+  showMoreExistingQuestions,
 }) => {
   useEffect(
     () => {
@@ -120,9 +122,15 @@ export const QuestionForm = ({
               (existingQuestions?.length ?? 0) > 0 &&
               !doSkipExistingQuestions && (
                 <ExistingQuestions
-                  questions={existingQuestions}
+                  questions={
+                    doShowMoreExistingQuestions
+                      ? existingQuestions
+                      : existingQuestions.slice(0, 4)
+                  }
                   skip={skipExistingQuestions}
+                  show={showMoreExistingQuestions}
                   intl={intl}
+                  communities={communities}
                 />
               )}
 

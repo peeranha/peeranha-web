@@ -19,6 +19,9 @@ export default defineMessages({
   skipExistingQuestions: {
     id: 'app.common.skip',
   },
+  showMoreExistingQuestions: {
+    id: 'app.common.showMore',
+  },
   questionBodyLabel: {
     id: 'app.containers.QuestionForm.questionBodyLabel',
   },
