@@ -64,6 +64,13 @@ export default React.memo(({ profile, isMenuVisible }) => {
             <FormattedMessage {...messages.achievements} />
           </A>
 
+          {profile.permissions &&
+            !!profile.permissions.length && (
+              <A to={routes.userModeration(profile.user)}>
+                <FormattedMessage {...messages.moderation} />
+              </A>
+            )}
+
           <Logout>
             <FormattedMessage {...messages.logout} />
           </Logout>

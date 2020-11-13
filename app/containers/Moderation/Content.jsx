@@ -80,7 +80,7 @@ const ImgWrapper = styled.div`
 const PermissionBox = BaseTransparent.extend`
   display: flex;
   align-items: baseline;
-  padding: 10px 30px;
+  padding: 15px 30px;
   background: ${x => (x.isOpened ? BG_SECONDARY_SPECIAL_4 : BG_TRANSPARENT)};
   border: 1px solid
     ${x => (x.isOpened ? BORDER_PRIMARY_LIGHT : BORDER_TRANSPARENT)};
@@ -119,11 +119,11 @@ const Permission = ({
 
       <PermissionBoxBody>
         <h5 className="d-flex align-items-center">
-          <Span fontSize="20" lineHeight="30" mobileFS="16">
+          <Span fontSize="20" lineHeight="35" mobileFS="16">
             <FormattedMessage {...messages.permissions[title].title} />
           </Span>
         </h5>
-        <Span fontSize="12" mobileFS="9">
+        <Span fontSize="16" mobileFS="12">
           <FormattedMessage {...messages.permissions[title].description} />
         </Span>
       </PermissionBoxBody>
