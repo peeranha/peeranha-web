@@ -31,6 +31,7 @@ export const getModeratorPermissions = (
   communities,
   translations,
 ) => {
+  debugger;
   const values = isGlobal
     ? [globalPermissions.find(({ key }) => key === MODERATOR_KEY)]
     : communityPermissions;

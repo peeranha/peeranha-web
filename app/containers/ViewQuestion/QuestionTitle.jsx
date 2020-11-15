@@ -29,6 +29,7 @@ import SendTips from '../SendTips';
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 
 import messages from './messages';
+import { Bounty, SpanStyled } from './Bounty';
 
 const styles = singleCommunityStyles();
 
@@ -47,6 +48,10 @@ const QuestionName = H3.extend`
 
 const Div = styled.div`
   min-width: 140px;
+`;
+const TitleContainer = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 const Top = styled.div`
@@ -88,7 +93,7 @@ export const QuestionTitle = ({
   } = questionData;
 
   const isItWrittenByMe = profileInfo ? user === profileInfo.user : false;
-  
+
   return title ? (
     <Base
       paddingTop="5"
@@ -137,7 +142,10 @@ export const QuestionTitle = ({
           </>
         ) : null}
 
-        <QuestionName>{title}</QuestionName>
+        <TitleContainer>
+          <Bounty className="bounty" amount={50} show={true} />
+          <QuestionName>{title}</QuestionName>
+        </TitleContainer>
 
         <TagList
           className="my-2"
