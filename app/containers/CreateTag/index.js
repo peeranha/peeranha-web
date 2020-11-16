@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback } from 'react';
+import React, { useMemo, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -24,14 +24,6 @@ import {
 } from 'containers/DataCacheProvider/selectors';
 
 import {
-  selectUserRating,
-  selectUserEnergy,
-  makeSelectAccount,
-  selectIsGlobalModerator,
-  makeSelectAccountLoading,
-} from 'containers/AccountProvider/selectors';
-
-import {
   WHAT_IS_TAG_QUESTION,
   HOW_TO_USE_IT_QUESTION,
 } from 'containers/Faq/constants';
@@ -41,19 +33,22 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 
-import { suggestTag } from './actions';
+import { suggestTag, getForm } from './actions';
 
 import {
   NAME_FIELD,
   DESCRIPTION_FIELD,
   FORM_COMMUNITY,
-  MIN_RATING_TO_CREATE_TAG,
-  MIN_ENERGY_TO_CREATE_TAG,
+  STATE_KEY,
 } from './constants';
 
 import Form from './Form';
 import Tips from './Tips';
 import Header from './Header';
+
+import { getSuggestedTags } from '../Tags/actions';
+import tagsReducer from '../Tags/reducer';
+import tagsSaga from '../Tags/saga';
 
 const single = isSingleCommunityWebsite();
 
@@ -64,12 +59,15 @@ const CreateTag = ({
   match,
   faqQuestions,
   suggestTagDispatch,
-  account,
-  userRating,
-  userEnergy,
-  isGlobalModerator,
-  accountIsLoading,
+  getSuggestedTagsDispatch,
+  getFormDispatch,
+  isFormLoading,
+  isFormAvailable,
 }) => {
+  useEffect(() => {
+    getFormDispatch();
+  }, []);
+
   const commId = useMemo(() => single || +match.params.communityid, [match]);
 
   const createTag = useCallback(
@@ -88,15 +86,9 @@ const CreateTag = ({
     [suggestTagDispatch],
   );
 
-  if (accountIsLoading) return <LoadingIndicator />;
+  if (isFormLoading) return <LoadingIndicator />;
 
-  if (
-    !account ||
-    ((userRating < MIN_RATING_TO_CREATE_TAG ||
-      userEnergy < MIN_ENERGY_TO_CREATE_TAG) &&
-      !isGlobalModerator)
-  )
-    return <Redirect to={tags()} />;
+  if (!isFormAvailable) return <Redirect to={tags()} />;
 
   return (
     <div>
@@ -130,13 +122,6 @@ const CreateTag = ({
   );
 };
 
-/*
-export class CreateTag extends React.PureComponent {
-
-
-  render() {
-}
-*/
 CreateTag.propTypes = {
   locale: PropTypes.string,
   match: PropTypes.object,
@@ -144,16 +129,16 @@ CreateTag.propTypes = {
   suggestTagDispatch: PropTypes.func,
   communities: PropTypes.array,
   faqQuestions: PropTypes.array,
-  account: PropTypes.string,
-  userRating: PropTypes.number,
-  userEnergy: PropTypes.number,
-  isGlobalModerator: PropTypes.bool,
-  accountIsLoading: PropTypes.bool,
+  isFormLoading: PropTypes.bool,
+  getFormDispatch: PropTypes.func.isRequired,
+  isFromAvailable: PropTypes.bool,
 };
 
 export default compose(
-  injectReducer({ key: 'createTag', reducer }),
-  injectSaga({ key: 'createTag', saga }),
+  injectReducer({ key: STATE_KEY, reducer }),
+  injectSaga({ key: STATE_KEY, saga }),
+  injectReducer({ key: 'tags', reducer: tagsReducer }),
+  injectSaga({ key: 'tags', saga: tagsSaga }),
   connect(
     createStructuredSelector({
       locale: makeSelectLocale(),
@@ -163,14 +148,13 @@ export default compose(
       ]),
       communities: selectCommunities(),
       createTagLoading: selectors.selectSuggestTagLoading(),
-      account: makeSelectAccount(),
-      userRating: selectUserRating(),
-      userEnergy: selectUserEnergy(),
-      isGlobalModerator: selectIsGlobalModerator(),
-      accountIsLoading: makeSelectAccountLoading(),
+      isFormLoading: selectors.selectIsFormLoading(),
+      isFormAvailable: selectors.selectIsFormAvailable(),
     }),
     dispatch => ({
       suggestTagDispatch: bindActionCreators(suggestTag, dispatch),
+      getSuggestedTagsDispatch: bindActionCreators(getSuggestedTags, dispatch),
+      getFormDispatch: bindActionCreators(getForm, dispatch),
     }),
   ),
 )(CreateTag);

@@ -278,6 +278,8 @@ FormClone = connect(state => {
       valueHasNotBeInListValidate: tagNames,
     };
   }
+
+  return {};
 })(FormClone);
 
 export default FormClone;
