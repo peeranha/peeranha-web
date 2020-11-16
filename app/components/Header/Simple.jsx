@@ -70,7 +70,6 @@ export const C3 = isColumnForSM => `
       }
     }
 
-    background-color: white;
     .right-panel {
       margin-left: 12px !important;
 
@@ -92,6 +91,17 @@ export default BaseRounded.extend`
     align-items: ${({ single }) => (single ? 'flex-start' : 'center')};
     &:nth-child(2) {
       justify-items: flex-start;
+    }
+
+    .right-panel {
+      width: auto !important;
+      margin-top: 5px !important;
+    }
+
+    button {
+      .button-label {
+        display: none;
+      }
     }
   }
 `;
