@@ -98,25 +98,24 @@ export const QuestionTitle = ({
       withoutBR
     >
       <Top>
-        {!!profileInfo &&
-          !isItWrittenByMe &&
-          !isTemporaryAccount && (
-            <SendTips
-              form="tip-question"
-              questionId={id}
-              answerId={0}
-              account={user}
-            >
-              <B>
-                <IconMd
-                  className="mr-1"
-                  icon={styles.coinsIcon ? styles.coinsIcon : coinsIcon}
-                  color={BUTTON_COLOR}
-                />
-                <FormattedMessage {...commonMessages.tipQuestion} />
-              </B>
-            </SendTips>
-          )}
+        {((!profileInfo && !isTemporaryAccount) ||
+          (!!profileInfo && !isItWrittenByMe && !isTemporaryAccount)) && (
+          <SendTips
+            form="tip-question"
+            questionId={id}
+            answerId={0}
+            account={user}
+          >
+            <B>
+              <IconMd
+                className="mr-1"
+                icon={styles.coinsIcon ? styles.coinsIcon : coinsIcon}
+                color={BUTTON_COLOR}
+              />
+              <FormattedMessage {...commonMessages.tipQuestion} />
+            </B>
+          </SendTips>
+        )}
 
         {!isGeneral && (
           <QuestionType size="md" top="0px" topMedia="0px">
