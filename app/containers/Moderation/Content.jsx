@@ -113,7 +113,7 @@ const Permission = ({
   const permissionId = getPermissionCode(sectionCode, permissionCode);
   const ico = permission.includes(permissionCode) ? okayGreen : notOkay;
   return (
-    <PermissionBox id={permissionId} isOpened={false}>
+    <PermissionBox key={permissionId} id={permissionId} isOpened={false}>
       <ImgWrapper>
         <IconSm icon={ico} />
       </ImgWrapper>
@@ -181,7 +181,7 @@ const Section = ({
           {blocks.map(x => (
             <Permission
               {...x}
-              key={x.h3}
+              key={getPermissionCode(sectionCode, x.permissionCode)}
               permission={permission}
               sectionCode={sectionCode}
               getPermissionCode={getPermissionCode}

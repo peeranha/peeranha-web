@@ -1,6 +1,5 @@
-import React, { memo, useState, useEffect, useCallback, useMemo } from 'react';
+import React, { memo, useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 
 import {
@@ -193,7 +192,7 @@ const View = ({
                     id="header-ask-question"
                     onClick={redirectToAskQuestionPage}
                   >
-                    <IconSm icon={addIcon} />
+                    <IconSm fill={BG_LIGHT} icon={addIcon} />
 
                     <span className="d-none d-lg-inline ml-2">
                       <FormattedMessage {...messages.askQuestion} />

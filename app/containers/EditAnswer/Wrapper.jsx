@@ -35,7 +35,7 @@ const Wrapper = ({ children, questionid, answerid }) => (
         <A to={routes.questionView(questionid, answerid)}>
           <button>
             <IconMd className="mr-1" icon={closeIcon} fill={TEXT_PRIMARY} isColorImportant={true} />
-            <Span color={TEXT_PRIMARY}>
+            <Span color={TEXT_PRIMARY} className="button-label">
               <FormattedMessage {...commonMessages.close} />
             </Span>
           </button>
