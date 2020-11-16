@@ -77,11 +77,11 @@ export const BestAnswerMarker = ({
     : false;
 
   const isTemporaryAccount = !!userInfo?.['integer_properties'].find(
-      x => x.key === TEMPORARY_ACCOUNT_KEY && x.value,
-    );
+    x => x.key === TEMPORARY_ACCOUNT_KEY && x.value,
+  );
 
   const displayTips =
-    !profileInfo || (!!profileInfo && !isItWrittenByMe && answerId !== 0 && !isTemporaryAccount);
+    !!profileInfo && !isItWrittenByMe && answerId !== 0 && !isTemporaryAccount;
 
   return (
     <Div>

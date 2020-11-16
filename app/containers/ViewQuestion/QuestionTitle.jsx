@@ -88,7 +88,7 @@ export const QuestionTitle = ({
   } = questionData;
 
   const isItWrittenByMe = profileInfo ? user === profileInfo.user : false;
-  
+
   return title ? (
     <Base
       paddingTop="5"
@@ -98,23 +98,25 @@ export const QuestionTitle = ({
       withoutBR
     >
       <Top>
-        {(!profileInfo || (!!profileInfo && !isItWrittenByMe && !isTemporaryAccount)) && (
-          <SendTips
-            form="tip-question"
-            questionId={id}
-            answerId={0}
-            account={user}
-          >
-            <B>
-              <IconMd
-                className="mr-1"
-                icon={styles.coinsIcon ? styles.coinsIcon : coinsIcon}
-                color={BUTTON_COLOR}
-              />
-              <FormattedMessage {...commonMessages.tipQuestion} />
-            </B>
-          </SendTips>
-        )}
+        {!!profileInfo &&
+          !isItWrittenByMe &&
+          !isTemporaryAccount && (
+            <SendTips
+              form="tip-question"
+              questionId={id}
+              answerId={0}
+              account={user}
+            >
+              <B>
+                <IconMd
+                  className="mr-1"
+                  icon={styles.coinsIcon ? styles.coinsIcon : coinsIcon}
+                  color={BUTTON_COLOR}
+                />
+                <FormattedMessage {...commonMessages.tipQuestion} />
+              </B>
+            </SendTips>
+          )}
 
         {!isGeneral && (
           <QuestionType size="md" top="0px" topMedia="0px">
