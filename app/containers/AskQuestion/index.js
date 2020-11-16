@@ -41,9 +41,6 @@ export const AskQuestion = ({
   const getQuestionsDispatchDebounced = _debounce(getQuestionsDispatch, 250);
 
   const [skipExistingQuestions, setSkipExistingQuestions] = useState(false);
-  const [showMoreExistingQuestions, setShowMoreExistingQuestions] = useState(
-    false,
-  );
 
   useEffect(() => () => {
     getQuestionsDispatchDebounced.cancel();
@@ -71,8 +68,6 @@ export const AskQuestion = ({
         existingQuestions={existingQuestions}
         doSkipExistingQuestions={skipExistingQuestions}
         skipExistingQuestions={() => setSkipExistingQuestions(true)}
-        doShowMoreExistingQuestions={showMoreExistingQuestions}
-        showMoreExistingQuestions={() => setShowMoreExistingQuestions(true)}
       />
     </div>
   );

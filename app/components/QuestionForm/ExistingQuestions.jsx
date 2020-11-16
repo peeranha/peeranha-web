@@ -47,6 +47,7 @@ const getQuestionTitleWithoutCommunity = (str, communities) => {
 
 const ExistingQuestions = ({ questions, skip, show, intl, communities }) => {
   const commNames = communities.map(comm => comm.name);
+  const findQuestions = questions.slice(0, 4);
   return (
     <Container>
       <Label>
@@ -56,14 +57,14 @@ const ExistingQuestions = ({ questions, skip, show, intl, communities }) => {
         </Link>
       </Label>
       <List>
-        {questions.map(q => (
+        {findQuestions.map(q => (
           <ListItem>
             <a href={q.link}>
               {getQuestionTitleWithoutCommunity(q.title, commNames)}
             </a>
           </ListItem>
         ))}
-        {questions.length === 4 && (
+        {questions.length > 4 && (
           <ListItem>
             <a href="#" onClick={show}>
               {intl.formatMessage(messages.showMoreExistingQuestions)}

@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useMemo } from 'react';
+import React, { memo, useCallback, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -40,6 +40,9 @@ import TypeForm from './TypeForm';
 import TitleForm from './TitleForm';
 import ContentForm from './ContentForm';
 import TagsForm from './TagsForm';
+import createdHistory from '../../createdHistory';
+import * as routes from '../../routes-config';
+import { changeText } from '../../containers/Header/SearchForm';
 
 const single = isSingleCommunityWebsite();
 
@@ -80,8 +83,6 @@ export const QuestionForm = ({
   existingQuestions,
   doSkipExistingQuestions,
   skipExistingQuestions,
-  doShowMoreExistingQuestions,
-  showMoreExistingQuestions,
 }) => {
   useEffect(
     () => {
@@ -91,6 +92,11 @@ export const QuestionForm = ({
     },
     [formValues[FORM_TITLE]],
   );
+
+  const showMoreQuestions = e => {
+    e.preventDefault();
+    createdHistory.push(routes.search(formValues[FORM_TITLE]));
+  };
 
   return (
     <div>
@@ -122,13 +128,9 @@ export const QuestionForm = ({
               (existingQuestions?.length ?? 0) > 0 &&
               !doSkipExistingQuestions && (
                 <ExistingQuestions
-                  questions={
-                    doShowMoreExistingQuestions
-                      ? existingQuestions
-                      : existingQuestions.slice(0, 4)
-                  }
+                  questions={existingQuestions}
                   skip={skipExistingQuestions}
-                  show={showMoreExistingQuestions}
+                  show={showMoreQuestions}
                   intl={intl}
                   communities={communities}
                 />
