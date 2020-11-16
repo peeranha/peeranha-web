@@ -54,8 +54,14 @@ import reducer from './reducer';
 import WidthCentered, { LoaderContainer } from '../LoadingIndicator/WidthCentered';
 
 const Container = styled.div`
+  ${Wrapper} {
+    margin-bottom: 15px;
+  }
+
   @media only screen and (max-width: 576px) {
-    background: ${BG_LIGHT};
+    ${Wrapper} {
+      margin-bottom: 0;
+    }
   }
 `;
 
@@ -76,6 +82,16 @@ const SubHeader = styled.div`
   width: 100%;
   padding: 0 10px;
   border-bottom: 1px solid ${BORDER_SECONDARY_LIGHT};
+`;
+
+const SubHeaderSeparator = styled.hr`
+  margin: 0;
+  border: 0;
+
+  @media only screen and (max-width: 576px) {
+    height: 0.5px;
+    background-color: ${BORDER_SECONDARY_LIGHT};
+  }
 `;
 
 const Notifications = ({
@@ -179,6 +195,7 @@ const Notifications = ({
     },
     [containerRef.current],
   );
+  
   useEffect(
     () => {
       recalculateRanges();
@@ -213,7 +230,7 @@ const Notifications = ({
 
   return isAvailable ? (
     <Container className={`${className} overflow-hidden`}>
-      <Wrapper className="mb-3" position="bottom">
+      <Wrapper position="bottom">
         <Header notificationsNumber={allCount} />
       </Wrapper>
 
@@ -222,9 +239,12 @@ const Notifications = ({
           innerRef={containerRef}
           height={notifications.length * rowHeight + ROW_HEIGHT}
         >
-          <SubHeader innerRef={ref} height={ROW_HEIGHT} top="0">
-            {!!unreadCount && <MarkAllAsReadButton />}
-          </SubHeader>
+          {!!unreadCount ?
+            <SubHeader innerRef={ref} height={ROW_HEIGHT} top="0">
+              <MarkAllAsReadButton />
+            </SubHeader> :
+            <SubHeaderSeparator />
+          }
           <WindowScroller onResize={onResize} onScroll={onScroll}>
             {({ height, isScrolling, registerChild, scrollTop }) => (
               <div ref={registerChild}>
