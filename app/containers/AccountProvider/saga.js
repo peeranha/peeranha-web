@@ -123,7 +123,7 @@ export const getCurrentAccountWorker = function*(initAccount) {
       }
     }
 
-    if (typeof account === 'object') {
+    if (account && typeof account === 'object') {
       account = account.eosAccountName;
     }
 
@@ -151,12 +151,12 @@ export const getCurrentAccountWorker = function*(initAccount) {
       call(getBalance, eosService, account),
     ]);
 
-    // update user achievements
-    yield call(updateUserAchievementsWorker, profileInfo.user, {
-      profileInfo: profileInfo,
-    });
-
     if (profileInfo) {
+      // update user achievements
+      yield call(updateUserAchievementsWorker, profileInfo.user, {
+        profileInfo: profileInfo,
+      });
+
       yield call(getNotificationsInfoWorker, profileInfo.user);
       yield call(getWeekStatWorker);
 

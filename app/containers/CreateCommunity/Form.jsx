@@ -236,6 +236,7 @@ const CreateCommunityForm = ({
           {translations[messages.createCommunity.id]}
         </LargeButton>
       </FormBox>
+    
     </ExtendedBase>
   );
 };
@@ -278,6 +279,8 @@ FormClone = connect(state => {
       valueHasNotBeInListValidate: tagNames,
     };
   }
+
+  return {};
 })(FormClone);
 
 export default FormClone;
