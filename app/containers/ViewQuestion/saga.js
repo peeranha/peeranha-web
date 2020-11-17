@@ -339,6 +339,7 @@ export function* deleteCommentWorker({
         buttonId,
         translationMessages[locale],
       ),
+      questionData.community_id,
     );
 
     yield call(
@@ -379,6 +380,7 @@ export function* deleteAnswerWorker({ questionId, answerId, buttonId }) {
         translationMessages[locale],
         profileInfo,
       ),
+      questionData.community_id,
     );
 
     yield call(
@@ -410,6 +412,7 @@ export function* deleteQuestionWorker({ questionId, buttonId }) {
         translationMessages[locale],
         profileInfo,
       ),
+      questionData.community_id,
     );
 
     yield call(deleteQuestion, profileInfo.user, questionId, eosService);
@@ -500,6 +503,7 @@ export function* postCommentWorker({
         answerId,
         translationMessages[locale],
       ),
+      questionData.community_id,
     );
 
     yield call(
@@ -561,6 +565,7 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
         POST_ANSWER_BUTTON,
         translationMessages[locale],
       ),
+      questionData.community_id,
     );
 
     yield call(
@@ -619,6 +624,7 @@ export function* downVoteWorker({
         answerId,
         translationMessages[locale],
       ),
+      questionData.community_id,
     );
 
     yield call(downVote, profileInfo.user, questionId, answerId, eosService);
@@ -669,6 +675,7 @@ export function* upVoteWorker({
         answerId,
         translationMessages[locale],
       ),
+      questionData.community_id,
     );
 
     yield call(upVote, profileInfo.user, questionId, answerId, eosService);
@@ -718,6 +725,7 @@ export function* markAsAcceptedWorker({
         buttonId,
         translationMessages[locale],
       ),
+      questionData.community_id,
     );
 
     yield call(
@@ -767,6 +775,7 @@ export function* voteToDeleteWorker({
           commentId,
         },
       ),
+      questionData.community_id,
     );
 
     yield call(
