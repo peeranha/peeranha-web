@@ -49,6 +49,7 @@ import {
   INVITED_USERS_TABLE,
   MODERATOR_KEY,
   REWARD_REFER,
+  COMMUNITY_ADMIN_VALUE,
 } from 'utils/constants';
 import { SHOW_SCATTER_SIGNUP_FORM_SUCCESS } from 'containers/SignUp/constants';
 import {
@@ -205,11 +206,15 @@ export const getCurrentAccountWorker = function*(initAccount) {
 
 export function* isAvailableAction(isValid) {
   const profileInfo = yield select(makeSelectProfileInfo());
-
+  
   if (profileInfo.integer_properties.find(x => x.key === MODERATOR_KEY)) {
     return true;
   }
-
+  
+  if (profileInfo.permissions.find(x => x.value === COMMUNITY_ADMIN_VALUE)) {
+    return true;
+  }
+  
   yield call(isValid);
 }
 
@@ -337,14 +342,14 @@ export function* getCommunityPropertyWorker(profile) {
   try {
     const profileInfo = profile || (yield select(makeSelectProfileInfo()));
     const eosService = yield select(selectEos);
-
+    
     const info = yield call(
       eosService.getTableRow,
       ALL_PROPERTY_COMMUNITY_TABLE,
       ALL_PROPERTY_COMMUNITY_SCOPE,
       profileInfo.user,
     );
-
+    
     yield put(
       getUserProfileSuccess({
         ...profile,

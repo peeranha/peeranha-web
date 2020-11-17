@@ -11,6 +11,8 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
+import { COMMUNITY_ADMIN_VALUE } from 'utils/constants';
+
 import Seo from 'components/Seo';
 import TipsBase from 'components/Base/TipsBase';
 import { BaseSpecialOne } from 'components/Base/BaseTransparent';
@@ -22,6 +24,10 @@ import {
   selectCommunities,
   selectFaqQuestions,
 } from 'containers/DataCacheProvider/selectors';
+
+import {
+  selectPermissions,
+} from 'containers/AccountProvider/selectors';
 
 import {
   WHAT_IS_TAG_QUESTION,
@@ -59,6 +65,7 @@ const CreateTag = ({
   match,
   faqQuestions,
   suggestTagDispatch,
+  permissions,
   getSuggestedTagsDispatch,
   getFormDispatch,
   isFormLoading,
@@ -86,6 +93,16 @@ const CreateTag = ({
     [suggestTagDispatch],
   );
 
+  const isCommunityAdmin = useMemo(
+    () => permissions.find(x => x.value === COMMUNITY_ADMIN_VALUE),
+    [permissions],
+  );
+
+  const rightCommunitiesIds = useMemo(
+    () => isCommunityAdmin ? permissions.map(x => x.community) : communities.map(x => x.id),
+    [],
+  );
+
   if (isFormLoading) return <LoadingIndicator />;
 
   if (!isFormAvailable) return <Redirect to={tags()} />;
@@ -106,7 +123,7 @@ const CreateTag = ({
           <BaseSpecialOne>
             <Form
               communityId={commId}
-              communities={communities}
+              communities={communities.filter(x => rightCommunitiesIds.includes(x.id))}
               createTagLoading={createTagLoading}
               createTag={createTag}
               translations={translationMessages[locale]}
@@ -130,6 +147,7 @@ CreateTag.propTypes = {
   suggestTagDispatch: PropTypes.func,
   communities: PropTypes.array,
   faqQuestions: PropTypes.array,
+  permissions: PropTypes.array,
   isFormLoading: PropTypes.bool,
   getFormDispatch: PropTypes.func.isRequired,
   isFromAvailable: PropTypes.bool,
@@ -149,6 +167,7 @@ export default compose(
       ]),
       communities: selectCommunities(),
       createTagLoading: selectors.selectSuggestTagLoading(),
+      permissions: selectPermissions(),
       isFormLoading: selectors.selectIsFormLoading(),
       isFormAvailable: selectors.selectIsFormAvailable(),
     }),
