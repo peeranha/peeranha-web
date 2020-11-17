@@ -139,6 +139,7 @@
   "app.common.chooseFile": "Choose a file",
   "app.common.skip": "Skip",
   "app.common.questionIsAnswered": "You have already answered this question",
+  "app.common.activateSuperPower": "Activate SuperPower",
 
   "app.telegram.user": "Telegram user",
   "app.telegram.userLabelPopover":
@@ -176,6 +177,7 @@
   "app.containers.Wallet.registrationWeek": "Registration week",
   "app.containers.Wallet.yourWalletWasSuccessfullySet":
     "Your wallet was successfully set during this period",
+  "app.containers.Wallet.getMoreWithSuperPower": "Get more rewards with SuperPower",
 
   "web_integration.errors.unknownError":
     "Unknown error. Please submit bug report!",

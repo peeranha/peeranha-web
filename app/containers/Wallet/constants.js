@@ -11,3 +11,5 @@ export const GET_WEEK_STAT_ERROR = 'app/Wallet/GET_WEEK_STAT_ERROR';
 export const PICKUP_REWARD = 'app/Wallet/PICKUP_REWARD';
 export const PICKUP_REWARD_SUCCESS = 'app/Wallet/PICKUP_REWARD_SUCCESS';
 export const PICKUP_REWARD_ERROR = 'app/Wallet/PICKUP_REWARD_ERROR';
+
+export const ACTIVATE_SUPERPOWER_BUTTON_ID = 'app_containers_ACTIVATE_SUPERPOWER_BUTTON_ID';

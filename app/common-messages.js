@@ -405,4 +405,7 @@ export default defineMessages({
   questionIsAnswered: {
     id: 'app.common.questionIsAnswered',
   },
+  activateSuperPower: {
+    id: 'app.common.activateSuperPower',
+  },
 });

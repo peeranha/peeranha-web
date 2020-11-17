@@ -52,4 +52,7 @@ export default defineMessages({
   yourWalletWasSuccessfullySet: {
     id: 'app.containers.Wallet.yourWalletWasSuccessfullySet',
   },
+  getMoreWithSuperPower: {
+    id: 'app.containers.Wallet.getMoreWithSuperPower',
+  }
 });
