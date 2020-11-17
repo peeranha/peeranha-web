@@ -42,6 +42,57 @@ export const COMMUNITY_ADMIN_CREATE_TAG = 4;
 export const COMMUNITY_ADMIN_QUESTION_TYPE = 5;
 export const COMMUNITY_ADMIN_TOP_QUESTIONS = 6;
 export const COMMUNITY_ADMIN_OFFICIAL_ANSWER = 7;
+export const SECTION_ID = 'section_id';
+export const PERMISSION_GRANTED = '1';
+
+export const moderatorPermissions = {
+  MODERATOR_INFINITE_IMPACT: {
+    code: 1,
+    title: 'permissionInfinite',
+  },
+  MODERATOR_IGNORE_RATING: {
+    code: 2,
+    title: 'permissionIgnoreRating',
+  },
+  MODERATOR_CREATE_COMMUNITY: {
+    code: 3,
+    title: 'permissionCreateCommunity',
+  },
+  MODERATOR_CREATE_TAG: {
+    code: 4,
+    title: 'permissionCreateTag',
+  },
+  MODERATOR_QUESTION_TYPE: {
+    code: 5,
+    title: 'permissionChangeQuestionType',
+  },
+};
+export const communityAdminPermissions = {
+  COMMUNITY_ADMIN_INFINITE_IMPACT: {
+    code: 1,
+    title: 'permissionInfinite',
+  },
+  COMMUNITY_ADMIN_IGNORE_RATING: {
+    code: 2,
+    title: 'permissionIgnoreRating',
+  },
+  COMMUNITY_ADMIN_CREATE_TAG: {
+    code: 4,
+    title: 'permissionCreateTag',
+  },
+  COMMUNITY_ADMIN_QUESTION_TYPE: {
+    code: 5,
+    title: 'permissionChangeQuestionType',
+  },
+  COMMUNITY_ADMIN_TOP_QUESTIONS: {
+    code: 6,
+    title: 'permissionSelectTopQuestion',
+  },
+  COMMUNITY_ADMIN_OFFICIAL_ANSWER: {
+    code: 7,
+    title: 'permissionOfficialAnswer',
+  },
+};
 
 export const GET_QUESTIONS_FILTERED_BY_COMMUNITY_INDEX_POSITION = 2;
 export const GET_QUESTIONS_KEY_TYPE = 'i64';

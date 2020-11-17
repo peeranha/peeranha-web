@@ -162,7 +162,7 @@ const MainUserInformation = ({
           <div className="d-flex align-items-center">
             <UlStyled>
               <li>
-                <FormattedMessage {...messages.reputation} />
+                <FormattedMessage {...messages.status} />
                 <RatingStatus rating={profile.rating} size="lg" />
               </li>
 
@@ -184,9 +184,9 @@ const MainUserInformation = ({
 
               <li>
                 <FormattedMessage {...messages.achievements} />
-                {profile.achievements_reached ? (
+                {typeof profile.achievements_reached === 'object' ? (
                   <AchievementsStatus
-                    count={profile.achievements_reached}
+                    count={profile.achievements_reached.length}
                     size="lg"
                   />
                 ) : (

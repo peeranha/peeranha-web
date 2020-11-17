@@ -67,6 +67,7 @@ export const EditProfilePage = ({
       <UserNavigation
         userId={id}
         account={account}
+        profile={profile}
         questionsLength={_get(profile, 'questions_asked', 0)}
         questionsWithUserAnswersLength={_get(profile, 'answers_given', 0)}
         loginData={loginData}

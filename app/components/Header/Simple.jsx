@@ -92,5 +92,16 @@ export default BaseRounded.extend`
     &:nth-child(2) {
       justify-items: flex-start;
     }
+
+    .right-panel {
+      width: auto !important;
+      margin-top: 5px !important;
+    }
+
+    button {
+      .button-label {
+        display: none;
+      }
+    }
   }
 `;

@@ -4,6 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import * as routes from 'routes-config';
 
 import commonMessages from 'common-messages';
+import { BORDER_PRIMARY } from 'style-constants';
 
 import createCommunityIcon from 'images/createCommunity.svg?inline';
 import addIcon from 'images/add.svg?external';
@@ -62,7 +63,11 @@ const Header = ({
                 alt="icon"
               />
 
-              <IconSm className="d-inline-flex d-sm-none" icon={addIcon} />
+              <IconSm
+                className="d-inline-flex d-sm-none"
+                fill={BORDER_PRIMARY}
+                icon={addIcon}
+              />
             </span>
 
             <span className="ml-1 button-label">

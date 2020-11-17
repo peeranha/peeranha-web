@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import isMobile from 'ismobilejs';
 import { bindActionCreators } from 'redux';
 import { Field, reduxForm } from 'redux-form/immutable';
 import { FormattedMessage } from 'react-intl';
@@ -291,16 +292,23 @@ FormClone = connect(
       walletValue.name === WALLETS.PEERANHA.name &&
       profile
     );
+    const isMobileDevice = isMobile(window.navigator).any;
+    const mobileWallets = [];
+    Object.entries(WALLETS).forEach(([key, value]) => {
+      WALLETS[key].isMobile && mobileWallets.push(value);
+    });
 
-    const wallets = currencyValue
-      ? currencyValue.wallets.filter(
-          wallet =>
-            !(
-              wallet.name === WALLETS.PEERANHA.name &&
-              (!profile || withScatter)
-            ),
+    let wallets = [];
+    if (currencyValue) {
+      const walletsToFilter = isMobileDevice
+        ? mobileWallets
+        : currencyValue.wallets;
+      wallets = walletsToFilter.filter(wallet => !(
+          wallet.name === WALLETS.PEERANHA.name &&
+          (!profile || withScatter)
         )
-      : [];
+      );
+    }
 
     const initialValues = {
       [CURRENCY_FIELD]: tipsPreselect
@@ -316,7 +324,7 @@ FormClone = connect(
             wallets[0],
           ),
       [EOS_SEND_TO_ACCOUNT_FIELD]: cryptoAccounts[initialCurrency],
-      [EOS_SEND_FROM_ACCOUNT_FIELD]: null,
+      [EOS_SEND_FROM_ACCOUNT_FIELD]: fromAccountValue,
       [AMOUNT_FIELD]: tipsPreselect
         ? _get(tipsPreselect, [AMOUNT_FIELD, tipsPreselect[CURRENCY_FIELD]], '')
         : '',

@@ -56,7 +56,7 @@ const B = ({ profileInfo, onClick, isMenuVisible }) => (
       <Span bold>{profileInfo?.['display_name']}</Span>
       <StatusBox>
         <RatingStatus rating={profileInfo.rating} size="sm" isRankOff />
-        <AchievementsStatus count={profileInfo.achievements_reached} />
+        <AchievementsStatus count={profileInfo.achievements_reached?.length} />
       </StatusBox>
     </Info>
   </span>
@@ -68,7 +68,7 @@ export const Button = connect(state => ({
 
 const Menu = memo(
   ({
-    profileInfo: { user },
+    profileInfo: { user, permissions },
     questionsLength,
     questionsWithUserAnswersLength,
   }) => (
@@ -103,6 +103,12 @@ const Menu = memo(
         <A to={routes.userAchievements(user)}>
           <FormattedMessage {...messages.achievements} />
         </A>
+        {permissions &&
+          !!permissions.length && (
+            <A to={routes.userModeration(user)}>
+              <FormattedMessage {...messages.moderation} />
+            </A>
+          )}
       </Ul>
 
       <Ul>

@@ -16,12 +16,8 @@ import { makeSelectLocale } from '../LanguageProvider/selectors';
 import { selectQuestionData } from '../ViewQuestion/selectors';
 import { makeSelectProfileInfo } from './selectors';
 
-import {
-  getUserProfileSuccess,
-} from 'containers/DataCacheProvider/actions';
-import {
-  getUserTelegramDataSuccess,
-} from 'containers/TelegramAccountAction/actions';
+import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
+import { getUserTelegramDataSuccess } from 'containers/TelegramAccountAction/actions';
 import { addToast } from 'containers/Toast/actions';
 import {
   addLoginData,
@@ -42,7 +38,7 @@ import { redirectToEditAnswerPageWorker } from 'containers/EditAnswer/saga';
 import { redirectToEditProfilePageWorker } from 'containers/EditProfilePage/saga';
 import { updateStoredQuestionsWorker } from 'containers/Questions/saga';
 import { getNotificationsInfoWorker } from 'components/Notifications/saga';
-import { getUserAchievementsWorker } from 'containers/Achievements/saga';
+import { updateUserAchievementsWorker } from 'containers/Achievements/saga';
 import { getWeekStatWorker } from 'containers/Wallet/saga';
 import { getQuestionData } from '../ViewQuestion/saga';
 
@@ -92,6 +88,7 @@ import {
   DELETE_ANSWER_SUCCESS,
   DELETE_COMMENT_SUCCESS,
   DELETE_QUESTION_SUCCESS,
+  POST_ANSWER_SUCCESS,
   SAVE_COMMENT_SUCCESS,
 } from 'containers/ViewQuestion/constants';
 import {
@@ -127,6 +124,10 @@ export const getCurrentAccountWorker = function*(initAccount) {
       }
     }
 
+    if (account && typeof account === 'object') {
+      account = account.eosAccountName;
+    }
+
     if (!prevProfileInfo) {
       const profileLS = JSON.parse(getCookie(PROFILE_INFO_LS) || null);
       if (
@@ -152,8 +153,12 @@ export const getCurrentAccountWorker = function*(initAccount) {
     ]);
 
     if (profileInfo) {
+      // update user achievements
+      yield call(updateUserAchievementsWorker, profileInfo.user, {
+        profileInfo: profileInfo,
+      });
+
       yield call(getNotificationsInfoWorker, profileInfo.user);
-      yield call(getUserAchievementsWorker);
       yield call(getWeekStatWorker);
 
       // Update info for question depending on user
@@ -383,6 +388,7 @@ export default function* defaultSaga() {
       GET_CURRENT_ACCOUNT,
       SHOW_SCATTER_SIGNUP_FORM_SUCCESS,
       ASK_QUESTION_SUCCESS,
+      POST_ANSWER_SUCCESS,
       CREATE_COMMUNITY_SUCCESS,
       SUGGEST_TAG_SUCCESS,
       EDIT_ANSWER_SUCCESS,

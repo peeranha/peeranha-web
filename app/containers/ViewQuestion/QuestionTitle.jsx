@@ -76,6 +76,7 @@ export const QuestionTitle = ({
   user,
   questionData,
   profileInfo,
+  isTemporaryAccount,
 }) => {
   const {
     tags,
@@ -97,7 +98,8 @@ export const QuestionTitle = ({
       withoutBR
     >
       <Top>
-        {(!profileInfo || (!!profileInfo && !isItWrittenByMe)) && (
+        {((!profileInfo && !isTemporaryAccount) ||
+          (!!profileInfo && !isItWrittenByMe && !isTemporaryAccount)) && (
           <SendTips
             form="tip-question"
             questionId={id}
@@ -169,6 +171,7 @@ QuestionTitle.propTypes = {
   user: PropTypes.string,
   questionData: PropTypes.object,
   profileInfo: PropTypes.object,
+  isTemporaryAccount: PropTypes.bool,
 };
 
 export default React.memo(

@@ -349,6 +349,8 @@ export function* signUpWithScatterWorker({ val }) {
     }
 
     yield put(signUpWithScatterSuccess());
+
+    yield call(createdHistory.push, routes.questions());
   } catch (err) {
     yield put(signUpWithScatterErr(err));
   }

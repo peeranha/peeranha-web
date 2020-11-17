@@ -26,6 +26,7 @@ import TransparentButton from 'components/Button/Contained/Transparent';
 
 import {
   required,
+  strLength2x15,
   strLength3x20,
   strLength20x1000,
   strLength15x250,
@@ -187,12 +188,12 @@ const CreateCommunityForm = ({
                   component={TextInputField}
                   placeholder={translations[messages.tagTitle.id]}
                   validate={[
-                    strLength3x20,
+                    strLength2x15,
                     required,
                     valueHasNotBeInListMoreThanOneTime,
                   ]}
                   warn={[
-                    strLength3x20,
+                    strLength2x15,
                     required,
                     valueHasNotBeInListMoreThanOneTime,
                   ]}
@@ -235,6 +236,7 @@ const CreateCommunityForm = ({
           {translations[messages.createCommunity.id]}
         </LargeButton>
       </FormBox>
+    
     </ExtendedBase>
   );
 };
@@ -277,6 +279,8 @@ FormClone = connect(state => {
       valueHasNotBeInListValidate: tagNames,
     };
   }
+
+  return {};
 })(FormClone);
 
 export default FormClone;

@@ -126,7 +126,11 @@ export const Header = ({
               />
             </MediumIcon>
 
-            <IconSm className="d-inline-flex d-sm-none" icon={addIcon} />
+            <IconSm
+              className="d-inline-flex d-sm-none"
+              fill={BORDER_PRIMARY}
+              icon={addIcon}
+            />
 
             <span className="ml-1 button-label">
               <FormattedMessage {...commonMessages.suggestTag} />

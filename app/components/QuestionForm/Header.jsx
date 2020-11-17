@@ -33,7 +33,7 @@ const Header = ({ formTitle, questionId, intl }) => (
         <A to={routes.questionView(questionId)}>
           <button>
             <IconMd className="mr-1" icon={closeIcon} fill={TEXT_PRIMARY} isColorImportant={true} />
-            <Span color={TEXT_PRIMARY}>
+            <Span color={TEXT_PRIMARY} className="button-label">
               {intl.formatMessage(commonMessages.close)}
             </Span>
           </button>

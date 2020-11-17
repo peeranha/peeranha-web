@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
 import { BG_PRIMARY, BG_PRIMARY_RGB, BUTTON_COLOR } from 'style-constants';
+import { TEMPORARY_ACCOUNT_KEY } from 'utils/constants';
 
 import { formatStringToHtmlId } from 'utils/animation';
 import { singleCommunityStyles } from 'utils/communityManagement';
@@ -75,8 +76,16 @@ export const BestAnswerMarker = ({
     ? userInfo.user === profileInfo.user
     : false;
 
+  const isTemporaryAccount = !!userInfo?.['integer_properties'].find(
+    x => x.key === TEMPORARY_ACCOUNT_KEY && x.value,
+  );
+
   const displayTips =
-    !profileInfo || (!!profileInfo && !isItWrittenByMe && answerId !== 0);
+    (!profileInfo && !isTemporaryAccount) ||
+    (!!profileInfo &&
+      !isItWrittenByMe &&
+      answerId !== 0 &&
+      !isTemporaryAccount);
 
   return (
     <Div>

@@ -4,16 +4,17 @@ import { FormattedMessage } from 'react-intl';
 
 import * as routes from 'routes-config';
 import commonMessages from 'common-messages';
-import { TEXT_PRIMARY } from 'style-constants';
+import { TEXT_PRIMARY, BORDER_PRIMARY } from 'style-constants';
 
 import createCommunityHeader from 'images/communitiesHeader.svg?inline';
-import closeIcon from 'images/closeCircle.svg?inline';
+import closeIcon from 'images/closeCircle.svg?external';
 
 import A from 'components/A';
 import H3 from 'components/H3';
 import Span from 'components/Span';
 import Wrapper, { WrapperRightPanel } from 'components/Header/Simple';
 import { MediumImageStyled } from 'components/Img/MediumImage';
+import { IconMd } from 'components/Icon/IconWithSizes';
 
 export const Header = ({ headerDescriptor }) => (
   <Wrapper className="mb-to-sm-0 mb-from-sm-3">
@@ -25,7 +26,12 @@ export const Header = ({ headerDescriptor }) => (
     <WrapperRightPanel className="right-panel">
       <A to={routes.communities()}>
         <button>
-          <img className="mr-1" src={closeIcon} alt="x" />
+          <IconMd
+            className="mr-1"
+            icon={closeIcon}
+            fill={BORDER_PRIMARY}
+            isColorImportant={true}
+          />
           <Span color={TEXT_PRIMARY} className="button-label">
             <FormattedMessage {...commonMessages.close} />
           </Span>

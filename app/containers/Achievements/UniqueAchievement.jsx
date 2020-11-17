@@ -12,6 +12,8 @@ import ProgressBar from './ProgressBar';
 
 import messages from './messages';
 
+import { uniqueRatingRelated } from './constants';
+
 const ImageBlock = styled.div`
   margin-right: 15px;
   text-align: center;
@@ -19,6 +21,10 @@ const ImageBlock = styled.div`
 
 const TitleBlock = styled(Span)`
   display: block;
+
+  & > span {
+    font-weight: 600;
+  }
 `;
 
 const DescriptionBlock = styled(TitleBlock)`
@@ -41,17 +47,17 @@ const UniqueAchievement = ({
   reached,
   limit,
   totalAwarded,
-  next,
+  lowerValue,
+  currentValue,
+  isNext,
+  pointsToNext,
   title,
   description,
   locale,
 }) => {
   const availiableCount = limit - totalAwarded;
 
-  const getProgress = () => {
-    const { minRating, userRating } = next;
-    return (userRating / minRating) * 100;
-  };
+  const getProgress = () => (currentValue / lowerValue) * 100;
 
   const translations = translationMessages[locale]
     ? translationMessages[locale]
@@ -64,19 +70,26 @@ const UniqueAchievement = ({
         {!reached && (
           <Icon icon={achievementNotReached} width="80" height="74" />
         )}
-        {next && (
+        {isNext && (
           <ProgressBar
             width="60%"
             progress={getProgress()}
-            message={`${next.pointsToNext} ${
-              translations[messages.progressBar.nextByRating.id]
-            }`}
+            pointsToNext={pointsToNext}
+            groupType={uniqueRatingRelated}
+            messageSingle={
+              translations[messages.progressBarPopover.ratingRelated.single.id]
+            }
+            messageMultiple={
+              translations[
+                messages.progressBarPopover.ratingRelated.multiple.id
+              ]
+            }
           />
         )}
       </ImageBlock>
       <div>
         <TitleBlock>
-          <strong>{title}</strong>
+          <span>{title}</span>
         </TitleBlock>
         <DescriptionBlock>
           {description}
@@ -95,9 +108,12 @@ UniqueAchievement.propTypes = {
   reached: PropTypes.bool,
   title: PropTypes.string,
   limit: PropTypes.number,
+  isNext: PropTypes.bool,
+  lowerValue: PropTypes.number,
+  currentValue: PropTypes.number,
+  pointsToNext: PropTypes.number,
   totalAwarded: PropTypes.number,
   description: PropTypes.string,
-  next: PropTypes.object,
   locale: PropTypes.string,
 };
 

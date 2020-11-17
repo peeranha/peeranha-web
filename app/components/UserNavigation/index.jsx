@@ -45,11 +45,12 @@ const Div = styled.div`
   }
 `;
 
-const hashes = ['#questions', '#answers', '#settings'];
+const hashes = ['#questions', '#answers', '#settings', '#moderation'];
 
 const UserNavigation = ({
   userId,
   account,
+  profile: { permissions },
   questionsLength,
   questionsWithUserAnswersLength,
   userAchievementsLength,
@@ -185,6 +186,17 @@ const UserNavigation = ({
             />
           </NavigationLink>
 
+          {permissions &&
+            !!permissions.length && (
+              <NavigationLink
+                className={userId !== account ? 'd-none' : ''}
+                to={routes.userModeration(userId)}
+                isLink={path !== routes.userModeration(userId)}
+              >
+                <FormattedMessage {...messages.moderation} />
+              </NavigationLink>
+            )}
+
           <NavigationButton
             className={
               userId === account && path === routes.profileView(account)
@@ -241,6 +253,7 @@ UserNavigation.propTypes = {
   questionsWithUserAnswersLength: PropTypes.number,
   userAchievementsLength: PropTypes.number,
   loginData: PropTypes.object,
+  profile: PropTypes.object,
   redirectToEditProfilePage: PropTypes.func,
 };
 
