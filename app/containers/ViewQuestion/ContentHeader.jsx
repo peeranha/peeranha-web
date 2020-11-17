@@ -154,9 +154,7 @@ const ContentHeader = props => {
           {type === QUESTION_TYPE && (
             <Button
               id={`${type}_change_type_with_rating_restore_${answerId}`}
-              show={
-                isGlobalModerator || isChangeTypeAvailable
-              }
+              show={isGlobalModerator || isChangeTypeAvailable}
               onClick={changeQuestionTypeWithRatingRestore}
               disabled={ids.includes(
                 `${type}_change_type_with_rating_restore_${answerId}`,
