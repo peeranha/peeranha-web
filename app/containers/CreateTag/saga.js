@@ -47,20 +47,22 @@ export function* suggestTagWorker({ tag, reset }) {
   }
 }
 
-export function* checkReadinessWorker({ buttonId }) {
+export function* checkReadinessWorker({ buttonId, communityId }) {
   yield call(isAuthorized);
 
   yield call(isValid, {
     buttonId: buttonId || CREATE_TAG_BUTTON,
     minRating: MIN_RATING_TO_CREATE_TAG,
     minEnergy: MIN_ENERGY_TO_CREATE_TAG,
+    communityId,
   });
 }
 
 /* eslint no-empty: 0 */
 export function* redirectToCreateTagWorker({ buttonId, communityId }) {
   try {
-    yield call(checkReadinessWorker, { buttonId });
+    yield call(checkReadinessWorker, { buttonId, communityId });
+
     yield call(createdHistory.push, routes.tagsCreate(communityId));
   } catch (err) {}
 }

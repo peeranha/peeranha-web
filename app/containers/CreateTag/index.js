@@ -105,7 +105,7 @@ const CreateTag = ({
 
   if (isFormLoading) return <LoadingIndicator />;
 
-  if (!isFormAvailable) return <Redirect to={tags()} />;
+  if (!isFormAvailable && !isCommunityAdmin) return <Redirect to={tags()} />;
 
   return (
     <div>

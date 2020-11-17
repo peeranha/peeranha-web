@@ -44,6 +44,7 @@ export function* upVoteWorker({ communityId, tagId, buttonId }) {
       buttonId,
       minRating: MIN_RATING_TO_UPVOTE,
       minEnergy: MIN_ENERGY_TO_UPVOTE,
+      communityId,
     });
 
     yield call(upVoteToCreateTag, eosService, account, communityId, tagId);
@@ -78,6 +79,7 @@ export function* downVoteWorker({ communityId, tagId, buttonId }) {
       buttonId,
       minRating: MIN_RATING_TO_DOWNVOTE,
       minEnergy: MIN_ENERGY_TO_DOWNVOTE,
+      communityId,
     });
 
     yield call(downVoteToCreateTag, eosService, account, communityId, tagId);

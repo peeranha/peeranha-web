@@ -82,7 +82,7 @@ export function* isAuthorized() {
   }
 }
 
-export function* isValid({ creator, buttonId, minRating, minEnergy }) {
+export function* isValid({ creator, buttonId, minRating, minEnergy, communityId, }) {
   const locale = yield select(makeSelectLocale());
   const profileInfo = yield select(makeSelectProfileInfo());
   const selectedAccount = yield select(makeSelectAccount());
@@ -98,6 +98,7 @@ export function* isValid({ creator, buttonId, minRating, minEnergy }) {
       minRating,
       minEnergy,
     }),
+    communityId
   );
 }
 
