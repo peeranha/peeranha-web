@@ -81,7 +81,11 @@ export const BestAnswerMarker = ({
   );
 
   const displayTips =
-    !!profileInfo && !isItWrittenByMe && answerId !== 0 && !isTemporaryAccount;
+    (!profileInfo && !isTemporaryAccount) ||
+    (!!profileInfo &&
+      !isItWrittenByMe &&
+      answerId !== 0 &&
+      !isTemporaryAccount);
 
   return (
     <Div>
