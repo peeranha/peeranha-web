@@ -37,6 +37,7 @@ export const ContentBody = ({
   isTheLargestRating,
   ids,
   isItWrittenByMe,
+  infiniteImpact,
 }) => {
   const isOfficial = useMemo(
     () =>
@@ -90,6 +91,7 @@ export const ContentBody = ({
         sendCommentLoading={postCommentLoading}
         sendComment={postComment}
         ids={ids}
+        infiniteImpact={infiniteImpact}
       />
     </Base>
   );
@@ -120,6 +122,7 @@ ContentBody.propTypes = {
   ids: PropTypes.array,
   answerId: PropTypes.number,
   isItWrittenByMe: PropTypes.bool,
+  infiniteImpact: PropTypes.bool,
 };
 
 export default React.memo(ContentBody);

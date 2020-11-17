@@ -86,6 +86,8 @@ import {
   UP_VOTE_SUCCESS,
   VOTE_TO_DELETE,
   VOTE_TO_DELETE_SUCCESS,
+  QUESTION_TYPE,
+  ANSWER_TYPE,
 } from './constants';
 
 import {
@@ -109,6 +111,7 @@ import {
   postCommentSuccess,
   saveCommentErr,
   saveCommentSuccess,
+  setVoteToDeleteLoading,
   upVoteErr,
   upVoteSuccess,
   voteToDeleteErr,
@@ -778,25 +781,74 @@ export function* voteToDeleteWorker({
       eosService,
     );
 
-    let item;
+    const isDeleteCommentButton = buttonId.includes('delete-comment-');
+    const isDeleteAnswerButton = buttonId.includes(`${ANSWER_TYPE}_delete_`);
+    const isDeleteQuestionButton = buttonId.includes(
+      `${QUESTION_TYPE}_delete_`,
+    );
 
-    if (!answerId && !commentId) {
-      item = questionData;
-    } else if (!answerId && commentId) {
-      item = questionData.comments.find(x => x.id === commentId);
-    } else if (answerId && !commentId) {
-      item = questionData.answers.find(x => x.id === answerId);
-    } else if (answerId && commentId) {
-      item = questionData.answers
-        .find(x => x.id === answerId)
-        .comments.find(x => x.id === commentId);
+    const isModeratorDelete =
+      isDeleteCommentButton || isDeleteAnswerButton || isDeleteQuestionButton;
+
+    // handle moderator delete action
+    if (isModeratorDelete) {
+      if (isDeleteCommentButton) {
+        // delete comment
+        if (answerId === 0) {
+          questionData.comments = questionData.comments.filter(
+            x => x.id !== commentId,
+          );
+        } else if (answerId > 0) {
+          const answer = questionData.answers.find(x => x.id === answerId);
+          answer.comments = answer.comments.filter(x => x.id !== commentId);
+        }
+
+        yield put(deleteCommentSuccess({ ...questionData }, buttonId));
+      }
+
+      if (isDeleteAnswerButton) {
+        // delete answer
+        questionData.answers = questionData.answers.filter(
+          x => x.id !== answerId,
+        );
+
+        yield put(deleteAnswerSuccess({ ...questionData }, buttonId));
+      }
+
+      if (isDeleteQuestionButton) {
+        // delete question
+        yield put(
+          deleteQuestionSuccess({ ...questionData, isDeleted: true }, buttonId),
+        );
+
+        yield call(createdHistory.push, routes.questions());
+      }
+
+      yield put(setVoteToDeleteLoading(false));
     }
 
-    item.votingStatus.isVotedToDelete = true;
+    // handle common vote to delete action
+    else {
+      let item;
 
-    yield put(
-      voteToDeleteSuccess({ ...questionData }, usersForUpdate, buttonId),
-    );
+      if (!answerId && !commentId) {
+        item = questionData;
+      } else if (!answerId && commentId) {
+        item = questionData.comments.find(x => x.id === commentId);
+      } else if (answerId && !commentId) {
+        item = questionData.answers.find(x => x.id === answerId);
+      } else if (answerId && commentId) {
+        item = questionData.answers
+          .find(x => x.id === answerId)
+          .comments.find(x => x.id === commentId);
+      }
+
+      item.votingStatus.isVotedToDelete = true;
+
+      yield put(
+        voteToDeleteSuccess({ ...questionData }, usersForUpdate, buttonId),
+      );
+    }
   } catch (err) {
     yield put(voteToDeleteErr(err, buttonId));
   }
