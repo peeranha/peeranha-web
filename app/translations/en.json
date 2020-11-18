@@ -140,6 +140,7 @@
   "app.common.skip": "Skip",
   "app.common.questionIsAnswered": "You have already answered this question",
   "app.common.activateSuperPower": "Activate SuperPower",
+  "app.common.superPower": "SuperPower",
 
   "app.telegram.user": "Telegram user",
   "app.telegram.userLabelPopover":
@@ -178,6 +179,17 @@
   "app.containers.Wallet.yourWalletWasSuccessfullySet":
     "Your wallet was successfully set during this period",
   "app.containers.Wallet.getMoreWithSuperPower": "Get more rewards with SuperPower",
+  "app.containers.Wallet.lockedOnSuperPower": "Locked on SuperPower",
+  "app.containers.Wallet.available": "Available",
+
+  "app.containers.SuperPower.currentPeriod": "Current period",
+  "app.containers.SuperPower.nextPeriod": "Next period",
+  "app.containers.SuperPower.betsPool": "Bets pool",
+  "app.containers.SuperPower.users": "Users",
+  "app.containers.SuperPower.yourBet": "Your bet",
+  "app.containers.SuperPower.yourSuperPower": "Your SuperPower",
+  "app.containers.SuperPower.superPowerPrediction": "SuperPower prediction",
+  "app.containers.SuperPower.transferedToNextPeriod": "Transfered to the next period",
 
   "web_integration.errors.unknownError":
     "Unknown error. Please submit bug report!",

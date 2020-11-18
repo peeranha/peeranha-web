@@ -2,9 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import NavHeader from 'components/WalletNavigation';
-import SubHeader from './SubHeader';
+import SubHeader from 'containers/Wallet/SubHeader';
 import Weeks from './Weeks';
-import SuperPowerBanner from './SuperPowerBanner';
 
 const View = ({
   userId,
@@ -13,24 +12,16 @@ const View = ({
   balance,
   weekStat,
   getWeekStatProcessing,
-  pickupRewardDispatch,
-  pickupRewardProcessing,
-  ids,
 }) => (
   <>
     <NavHeader userId={userId} />
     
     <SubHeader account={account} balance={balance} />
 
-    <SuperPowerBanner activateSuperPower={() => {}} />
-
     <Weeks
       locale={locale}
       weekStat={weekStat}
       getWeekStatProcessing={getWeekStatProcessing}
-      pickupRewardDispatch={pickupRewardDispatch}
-      pickupRewardProcessing={pickupRewardProcessing}
-      ids={ids}
     />
   </>
 );
@@ -41,10 +32,7 @@ View.propTypes = {
   account: PropTypes.string,
   balance: PropTypes.number,
   weekStat: PropTypes.array,
-  ids: PropTypes.array,
   getWeekStatProcessing: PropTypes.bool,
-  pickupRewardDispatch: PropTypes.func,
-  pickupRewardProcessing: PropTypes.bool,
 };
 
 export default React.memo(View);

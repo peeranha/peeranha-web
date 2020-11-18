@@ -408,4 +408,7 @@ export default defineMessages({
   activateSuperPower: {
     id: 'app.common.activateSuperPower',
   },
+  superPower: {
+    id: 'app.common.superPower',
+  },
 });

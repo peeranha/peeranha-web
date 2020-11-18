@@ -137,6 +137,7 @@
   "app.common.skip": "Пропустить",
   "app.common.questionIsAnswered": "Вы уже ответили на этот вопрос",
   "app.common.activateSuperPower": "Активировать SuperPower",
+  "app.common.superPower": "SuperPower",
 
   "app.telegram.user": "Телеграм пользователь",
   "app.telegram.userLabelPopover":
@@ -175,6 +176,17 @@
   "app.containers.Wallet.yourWalletWasSuccessfullySet":
     "Ваш кошелёк был успешно настроен в этот период",
   "app.containers.Wallet.getMoreWithSuperPower": "Получите больше наград с SuperPower",
+  "app.containers.Wallet.lockedOnSuperPower": "Заблокировано на SuperPower",
+  "app.containers.Wallet.available": "Доступно",
+
+  "app.containers.SuperPower.currentPeriod": "Текущий период",
+  "app.containers.SuperPower.nextPeriod": "Следующий период",
+  "app.containers.SuperPower.betsPool": "Пул ставок",
+  "app.containers.SuperPower.users": "Пользователи",
+  "app.containers.SuperPower.yourBet": "Ваша ставка",
+  "app.containers.SuperPower.yourSuperPower": "Ваша SuperPower",
+  "app.containers.SuperPower.superPowerPrediction": "SuperPower прогноз",
+  "app.containers.SuperPower.transferedToNextPeriod": "Перенесено на следующий период",
 
   "web_integration.errors.unknownError":
     "Неизвестная ошибка. Пожалуйста, отправьте отчет об ошибке!",

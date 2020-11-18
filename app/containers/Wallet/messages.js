@@ -54,5 +54,11 @@ export default defineMessages({
   },
   getMoreWithSuperPower: {
     id: 'app.containers.Wallet.getMoreWithSuperPower',
-  }
+  },
+  lockedOnSuperPower: {
+    id: 'app.containers.Wallet.lockedOnSuperPower',
+  },
+  available: {
+    id: 'app.containers.Wallet.available',
+  },
 });

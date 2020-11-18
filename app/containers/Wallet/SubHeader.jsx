@@ -11,12 +11,13 @@ import {
 } from 'style-constants';
 
 import currencyPeerImage from 'images/currencyPeer.svg?external';
+import lockSuperPowerImage from 'images/lock.svg?external';
+import availableImage from 'images/available.svg?external';
 import walletCoinsImage from 'images/walletCoins.svg?inline';
 
 import { getFormattedNum3 } from 'utils/numbers';
 
-import Icon from 'components/Icon';
-import { IconLg } from 'components/Icon/IconWithSizes';
+import { IconLg, IconSm } from 'components/Icon/IconWithSizes';
 import Span from 'components/Span';
 import LargeImage from 'components/Img/LargeImage';
 import { Box, UlStyled } from 'containers/ViewProfilePage/MainUserInformation';
@@ -60,8 +61,32 @@ const SubHeader = ({ account, balance }) => (
         <div className="d-flex align-items-center">
           <UlStyled>
             <li>
+              <FormattedMessage {...messages.available} />
+              <Span>
+                <IconSm
+                  className="mr-2"
+                  icon={availableImage}
+                  color={TEXT_PRIMARY}
+                  fill={TEXT_PRIMARY}
+                />
+                <span>0</span>
+              </Span>
+            </li>
+            <li>
+              <FormattedMessage {...messages.lockedOnSuperPower} />
+              <Span>
+                <IconSm
+                  className="mr-2"
+                  icon={lockSuperPowerImage}
+                  color={TEXT_PRIMARY}
+                  fill={TEXT_PRIMARY}
+                />
+                <span>0</span>
+              </Span>
+            </li>
+            <li>
               <FormattedMessage {...messages.eosAccount} />
-              <span>{account}</span>
+              <Span>{account}</Span>
             </li>
           </UlStyled>
         </div>

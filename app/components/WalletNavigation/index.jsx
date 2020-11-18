@@ -28,6 +28,11 @@ const WalletNavigation = ({ userId, showSendTokensModalDispatch }) => {
             <FormattedMessage {...messages.wallet} />
           </NavigationButton>
         </A>
+        <A to={routes.userSuperPower(userId)}>
+          <NavigationButton isLink={path !== routes.userSuperPower(userId)}>
+            <FormattedMessage {...messages.superPower} />
+          </NavigationButton>
+        </A>
       </ul>
 
       <WrapperRightPanel className="right-panel">
