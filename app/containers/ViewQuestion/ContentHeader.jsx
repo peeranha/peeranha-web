@@ -166,7 +166,11 @@ const ContentHeader = props => {
           )}
 
           <Button
-            show={!profile || (!!profile && !isItWrittenByMe)}
+            show={
+              !profile ||
+              (!!profile &&
+                (!isItWrittenByMe && !isGlobalModerator && !infiniteImpact))
+            }
             id={`${type}_vote_to_delete_${answerId}`}
             params={buttonParams}
             onClick={voteToDelete}
@@ -217,10 +221,15 @@ const ContentHeader = props => {
 
           <div id={`${type}_delete_${answerId}`}>
             <AreYouSure
-              submitAction={deleteItem}
+              submitAction={
+                isGlobalModerator || infiniteImpact ? voteToDelete : deleteItem
+              }
               Button={({ onClick }) => (
                 <Button
-                  show={!!profile && isItWrittenByMe}
+                  show={
+                    !!profile &&
+                    (isItWrittenByMe || isGlobalModerator || infiniteImpact)
+                  }
                   id={`${type}_delete_${answerId}`}
                   params={buttonParams}
                   onClick={onClick}
