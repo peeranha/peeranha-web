@@ -76,7 +76,7 @@ const WalletDropdown = ({
     <div className="position-relative">
       <Dropdown
         id={`profile_id_${Math.random()}`}
-        className="d-none d-md-flex mr-3 wallet-dropdown"
+        className="d-none d-md-flex mr-1 wallet-dropdown"
         button={<WalletButton balance={balance} locale={locale} />}
         menu={<Menu user={user} number={number} locale={locale} />}
       />

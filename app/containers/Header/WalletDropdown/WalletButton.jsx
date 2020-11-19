@@ -5,7 +5,9 @@ import { FormattedMessage } from 'react-intl';
 
 import {
   BG_PRIMARY,
+  BG_WARNING_LIGHT,
   BORDER_PRIMARY,
+  BORDER_WARNING_LIGHT,
   TEXT_LIGHT,
   TEXT_SECONDARY,
 } from 'style-constants';
@@ -13,10 +15,12 @@ import {
 import messages from 'common-messages';
 
 import currencyPeerIcon from 'images/currencyPeer.svg?external';
+import superPowerWalletIcon from 'images/superpower-wallet-icon.svg?external';
 
 import { getFormattedNum4 } from 'utils/numbers';
 
 import { IconLg } from 'components/Icon/IconWithSizes';
+import Icon from 'components/Icon';
 import Span from 'components/Span';
 import { MediumSpecialImage } from 'components/Img/MediumImage';
 import { SmallSpecialImage } from 'components/Img/SmallImage';
@@ -26,10 +30,12 @@ const ButtonStyled = styled.span`
   position: relative;
   display: flex;
   align-items: center;
-  border: 1px solid ${BORDER_PRIMARY};
+  border-width: 1px;
+  border-style: ${({isSuperPower}) => isSuperPower ? 'dashed' : 'solid'};
+  border-color: ${({isSuperPower}) => isSuperPower ? BORDER_WARNING_LIGHT : BORDER_PRIMARY};
   border-left: 0px;
   border-radius: 23px;
-  padding-right: 25px;
+  padding-right: ${({isSuperPower}) => isSuperPower ? 40 : 25}px;
   height: 47px;
 
   ${MediumSpecialImage}, ${SmallSpecialImage} {
@@ -50,40 +56,70 @@ const IconBG = MediumSpecialImage.extend`
   color: ${x => x.color};
 `.withComponent('span');
 
+const IconWrapper = styled.span`
+  margin-top: 4px;
+  margin-right: 7px;
+  margin-left: -5px;
+`;
+
+const SuperPowerPrediction = styled.span`
+  position: absolute;
+  top: -5px;
+  right: -7px;
+  padding: 3px 6px 3.5px;
+  font-size: 14px;
+  color: ${TEXT_LIGHT};
+  background-color: ${BG_WARNING_LIGHT};
+  border-radius: 10px;
+`;
+
 const isPositiveNumber = number => Number.isFinite(number) && number > 0;
 
-const WalletButton = ({ balance, mobile, number, locale }) => (
-  <div className="position-relative">
-    <ButtonStyled>
-      <IconBG className="mr-2" bg={BG_PRIMARY} color={TEXT_LIGHT}>
-        <IconLg icon={currencyPeerIcon} />
-      </IconBG>
+const WalletButton = ({ balance, mobile, number, locale }) => {
+  const isSuperPower = false;
 
-      <span className="d-flex flex-column text-left">
-        <Span className="align-middle" fontSize="16" bold>
-          {getFormattedNum4(balance)}
-        </Span>
-        <Span
-          className="align-middle"
-          fontSize="14"
-          lineHeight="18"
-          color={TEXT_SECONDARY}
-        >
-          <FormattedMessage {...messages.peers} />
-        </Span>
-      </span>
-    </ButtonStyled>
-    {mobile &&
-      isPositiveNumber(number) && (
-        <NotificationIcon
-          mobile={mobile}
-          number={number}
-          iconId="WalletButton_NotificationIconMobile"
-          locale={locale}
-        />
-      )}
-  </div>
-);
+  return (
+    <div className="position-relative">
+      <ButtonStyled isSuperPower={!!isSuperPower}>
+        {!!isSuperPower ?
+          <>
+            <SuperPowerPrediction>×1.25</SuperPowerPrediction>
+            <IconWrapper>
+              <Icon width="50" icon={superPowerWalletIcon} />
+            </IconWrapper>
+          </>
+          :
+          <IconBG className="mr-2" bg={BG_PRIMARY} color={TEXT_LIGHT}>
+            <IconLg icon={currencyPeerIcon} />
+          </IconBG>
+        }        
+
+        <span className="d-flex flex-column text-left">
+          <Span className="align-middle" fontSize="16" bold>
+            {getFormattedNum4(balance)}
+          </Span>
+          <Span
+            className="align-middle"
+            fontSize="14"
+            lineHeight="18"
+            color={TEXT_SECONDARY}
+          >
+            <FormattedMessage {...messages.peers} />
+          </Span>
+        </span>
+      </ButtonStyled>
+      {mobile &&
+        isPositiveNumber(number) && (
+          <NotificationIcon
+            mobile={mobile}
+            number={number}
+            iconId="WalletButton_NotificationIconMobile"
+            locale={locale}
+          />
+        )}
+    </div>
+  );
+}
 
 WalletButton.propTypes = {
   balance: PropTypes.number,
