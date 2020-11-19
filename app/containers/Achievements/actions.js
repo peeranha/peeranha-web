@@ -9,9 +9,10 @@ import {
   GET_USER_ACHIEVEMENTS_ERROR,
   GET_USER_ACHIEVEMENTS_SUCCESS,
   SET_VIEW_PROFILE_ACCOUNT,
-  SET_PREV_VIEW_PROFILE_ACCOUNT,
+  RESET_VIEW_PROFILE_ACCOUNT,
   USER_ACHIEVEMENTS_LOADING,
   SET_MEMORIZED_ACHIEV_DATA,
+  SET_MAX_GROUPS_LOWER_VALUES,
 } from './constants';
 
 export function getUserAchievements() {
@@ -56,10 +57,16 @@ export function setViewProfileAccount(viewProfileAccount) {
   };
 }
 
-export function setPrevViewProfile(prevViewProfileAccount) {
+export function resetViewProfileAccount() {
   return {
-    type: SET_PREV_VIEW_PROFILE_ACCOUNT,
-    prevViewProfileAccount,
+    type: RESET_VIEW_PROFILE_ACCOUNT,
+  };
+}
+
+export function setMaxGroupsLowerValues(maxGroupsLowerValues) {
+  return {
+    type: SET_MAX_GROUPS_LOWER_VALUES,
+    maxGroupsLowerValues,
   };
 }
 
