@@ -31,4 +31,19 @@ export default defineMessages({
   transferedToNextPeriod: {
     id: 'app.containers.SuperPower.transferedToNextPeriod',
   },
+  formTitle: {
+    id: 'app.containers.SuperPower.formTitle',
+  },
+  formSubmit: {
+    id: 'app.containers.SuperPower.formSubmit',
+  },
+  formBetType: {
+    id: 'app.containers.SuperPower.formBetType',
+  },
+  formSuperPowerPrediction: {
+    id: 'app.containers.SuperPower.formSuperPowerPrediction',
+  },
+  formCurrentBet: {
+    id: 'app.containers.SuperPower.formCurrentBet',
+  },
 });

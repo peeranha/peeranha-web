@@ -190,6 +190,11 @@
   "app.containers.SuperPower.yourSuperPower": "Your SuperPower",
   "app.containers.SuperPower.superPowerPrediction": "SuperPower prediction",
   "app.containers.SuperPower.transferedToNextPeriod": "Transfered to the next period",
+  "app.containers.SuperPower.formTitle": "Place your bet for the next period",
+  "app.containers.SuperPower.formSubmit": "Change my bet",
+  "app.containers.SuperPower.formBetType": "Transfer bet automatically to the next reward period",
+  "app.containers.SuperPower.formSuperPowerPrediction": "SuperPower prediction",
+  "app.containers.SuperPower.formCurrentBet": "Current bet",
 
   "web_integration.errors.unknownError":
     "Unknown error. Please submit bug report!",

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import NavHeader from 'components/WalletNavigation';
 import SubHeader from 'containers/Wallet/SubHeader';
 import Weeks from './Weeks';
+import Form from './Form';
 
 const View = ({
   userId,
@@ -23,6 +24,8 @@ const View = ({
       weekStat={weekStat}
       getWeekStatProcessing={getWeekStatProcessing}
     />
+
+    <Form />
   </>
 );
 

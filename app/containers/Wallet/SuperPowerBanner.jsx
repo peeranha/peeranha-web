@@ -13,7 +13,7 @@ import activateSuperPowerBanner from 'images/superpower.svg?inline';
 
 import Wrapper from 'components/Banner';
 import Button from 'components/Button/Contained/InfoLarge';
-import A, { ADefault } from 'components/A';
+import A from 'components/A';
 import Span from 'components/Span';
 
 import { ACTIVATE_SUPERPOWER_BUTTON_ID } from './constants';
