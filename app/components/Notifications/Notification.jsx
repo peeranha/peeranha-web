@@ -21,10 +21,11 @@ import {
   singleCommunityStyles,
 } from 'utils/communityManagement';
 
+import { IconMd } from 'components/Icon/IconWithSizes';
+
 import { NOTIFICATIONS_TYPES, ROW_HEIGHT } from './constants';
 
 import Span from '../Span';
-import { IconMd } from 'components/Icon/IconWithSizes';
 
 const single = isSingleCommunityWebsite();
 const styles = singleCommunityStyles();
@@ -203,12 +204,15 @@ const Notification = ({
       paddingHorizontal={paddingHorizontal || 0}
     >
       <Span fontSize="16">
-        <FormattedMessage id={NOTIFICATIONS_TYPES[type].id} values={values} />
+        <FormattedMessage
+          id={NOTIFICATIONS_TYPES[type || 0].id}
+          values={values}
+        />
       </Span>
       <div className="d-flex align-items-center justify-content-between">
         <Link to={href} href={href} className="d-flex align-items-center">
           <IconMd
-            icon={NOTIFICATIONS_TYPES[type].src}
+            icon={NOTIFICATIONS_TYPES[type || 0].src}
             color={
               (type === 9 || type === 10) && !isCommunityMood
                 ? BORDER_WARNING_LIGHT
