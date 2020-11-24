@@ -10,20 +10,22 @@ import {
   GET_USER_ACHIEVEMENTS_SUCCESS,
   GET_USER_ACHIEVEMENTS_ERROR,
   SET_VIEW_PROFILE_ACCOUNT,
-  SET_PREV_VIEW_PROFILE_ACCOUNT,
+  RESET_VIEW_PROFILE_ACCOUNT,
   USER_ACHIEVEMENTS_LOADING,
   SET_MEMORIZED_ACHIEV_DATA,
+  SET_MAX_GROUPS_LOWER_VALUES,
 } from './constants';
 
 export const initialState = fromJS({
   viewProfileAccount: null,
-  prevViewProfileAccount: null,
   achievements: [],
-  userAchievementsError: null,
-  userAchievementsLoading: true,
+  projectAchievements: [],
   nextUserAchievements: {},
   userProgressValues: {},
   memorizedAchievData: {},
+  maxGroupsLowerValues: {},
+  userAchievementsError: null,
+  userAchievementsLoading: true,
 });
 
 function achievementsReducer(state = initialState, action) {
@@ -35,8 +37,8 @@ function achievementsReducer(state = initialState, action) {
     nextUserAchievements,
     userProgressValues,
     viewProfileAccount,
-    prevViewProfileAccount,
     memorizedAchievData,
+    maxGroupsLowerValues,
     loading,
   } = action;
 
@@ -55,15 +57,16 @@ function achievementsReducer(state = initialState, action) {
         memorizedAchievData,
       );
 
+    case SET_MAX_GROUPS_LOWER_VALUES:
+      return state.set('maxGroupsLowerValues', maxGroupsLowerValues);
+
     case SET_VIEW_PROFILE_ACCOUNT:
       return state
         .set('viewProfileAccount', viewProfileAccount)
         .set('userAchievementsLoading', true);
 
-    case SET_PREV_VIEW_PROFILE_ACCOUNT:
-      return state
-        .set('prevViewProfileAccount', prevViewProfileAccount)
-        .set('viewProfileAccount', null);
+    case RESET_VIEW_PROFILE_ACCOUNT:
+      return state.set('viewProfileAccount', null);
 
     case USER_ACHIEVEMENTS_LOADING:
       return state.set('userAchievementsLoading', loading);

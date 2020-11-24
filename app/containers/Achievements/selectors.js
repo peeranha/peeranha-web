@@ -30,22 +30,28 @@ const selectViewProfileAccount = () =>
     substate => substate.toJS().viewProfileAccount,
   );
 
-const selectPrevViewProfileAccount = () =>
+const selectMaxGroupsLowerValues = () =>
   createSelector(
     selectUserAchievementsDomain,
-    substate => substate.toJS().prevViewProfileAccount,
+    substate => substate.toJS().maxGroupsLowerValues,
   );
 
 const selectMemorizedUserAchievements = userAccount =>
   createSelector(
     selectUserAchievementsDomain,
-    substate => substate.toJS().memorizedAchievData[userAccount] ?? null,
+    substate => substate.toJS().memorizedAchievData[userAccount] ?? {},
   );
 
 const selectUserAchievements = () =>
   createSelector(
     selectUserAchievementsDomain,
     substate => substate.toJS().achievements,
+  );
+
+const selectAchievementsLoading = () =>
+  createSelector(
+    selectUserAchievementsDomain,
+    substate => substate.toJS().userAchievementsLoading,
   );
 
 const getReachedAchievementsIds = substate =>
@@ -244,16 +250,9 @@ const selectUniqueAchievements = () =>
     },
   );
 
-const selectAchievementsLoading = () =>
-  createSelector(
-    selectUserAchievementsDomain,
-    substate => substate.toJS().userAchievementsLoading,
-  );
-
 export {
   selectUserAchievementsDomain,
   selectViewProfileAccount,
-  selectPrevViewProfileAccount,
   selectRatingAchievements,
   selectQuestionAskedAchievements,
   selectAnwerGivenAchievements,
@@ -269,4 +268,5 @@ export {
   getReachedAchievements,
   getUnreachedAchievements,
   selectMemorizedUserAchievements,
+  selectMaxGroupsLowerValues,
 };
