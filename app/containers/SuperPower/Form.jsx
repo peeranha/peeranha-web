@@ -59,7 +59,7 @@ export const InputProgressBar = styled.div`
   position: absolute;
   bottom: 0;
   left: 0;
-  width: ${({ width }) => width || 100}%;
+  width: ${({ width }) => width || 0}%;
   height: 4px;
   background-color: ${SECONDARY_SPECIAL};
 `;
@@ -80,22 +80,40 @@ const Title = styled.p`
   }
 `;
 
-const Form = ({ handleSubmit, formValues, currentBetValue, }) => {
+const Form = ({
+  handleSubmit,
+  formValues,
+  currentBetValue,
+  changeBet,
+  changeBetLoading,
+  changeCurrentBet,
+  superPowerPrediction,
+  maxBet,
+  onChangeCurrentBet,
+  locale,
+}) => {
 
   return (
     <>
       <Title><FormattedMessage {...messages.formTitle} /></Title>
       <TipsBase>
         <BaseSpecialOne>
-          <FormBox onSubmit={handleSubmit(() => console.log('submit'))}>
-            <PredictionForm value={1.25} />
+          <FormBox onSubmit={handleSubmit(changeBet)}>
+            <PredictionForm value={superPowerPrediction} locale={locale} />
 
-            <CurrentBetForm maxValue={99959.25001} value={currentBetValue} />
+            <CurrentBetForm
+              maxValue={maxBet}
+              value={+currentBetValue}
+              onClickBetTag={v => changeCurrentBet(v)}
+              disabled={changeBetLoading}
+              onChange={onChangeCurrentBet}
+            />
 
             <Field
               name={BET_TYPE_FORM}
               component={Checkbox}
               label={<FormattedMessage {...messages.formBetType} />}
+              disabled={changeBetLoading}
             />
             <Button type="submit">
               <FormattedMessage {...messages.formSubmit} />
@@ -113,6 +131,13 @@ Form.propTypes = {
   handleSubmit: PropTypes.func,
   formValues: PropTypes.object,
   currentBetValue: PropTypes.number,
+  changeBet: PropTypes.func,
+  changeBetLoading: PropTypes.bool,
+  changeCurrentBet: PropTypes.func,
+  superPowerPrediction: PropTypes.number,
+  maxBet: PropTypes.number,
+  onChangeCurrentBet: PropTypes.func,
+  locale: PropTypes.string,
 };
 
 const FormClone = reduxForm({
@@ -123,16 +148,19 @@ const FormClone = reduxForm({
 export default memo(
   injectIntl(
     connect(
-      (state) => {
+      (
+        state,
+        { currentBet, superPowerPrediction }
+      ) => {
         const form = state.toJS().form[FORM_TYPE] || { values: {} };
 
         return {
           formValues: form,
-          currentBetValue: form.values[CURRENT_BET_FORM],
+          currentBetValue: +form.values[CURRENT_BET_FORM],
           initialValues: {
-            [BET_TYPE_FORM]: false,
-            [SUPERPOWER_PREDICTION_FORM]: `×${1.25}`,
-            [CURRENT_BET_FORM]: 9959.25001,
+            [BET_TYPE_FORM]: form.values[BET_TYPE_FORM] || false,
+            [SUPERPOWER_PREDICTION_FORM]: `x${superPowerPrediction}`,
+            [CURRENT_BET_FORM]: currentBet.toString(),
           },
           enableReinitialize: true,
         };

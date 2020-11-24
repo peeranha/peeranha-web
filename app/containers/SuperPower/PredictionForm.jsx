@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form/immutable';
 import styled from 'styled-components';
-import { FormattedMessage } from 'react-intl';
+import { translationMessages } from 'i18n';
 
 import {
   SUPERPOWER_PREDICTION_FORM,
@@ -19,12 +19,6 @@ import {
 
 import messages from './messages';
 
-import {
-  strLength15x100,
-  required,
-  maxByteLength,
-  withoutDoubleSpace,
-} from 'components/FormFields/validate';
 import TextInputField from 'components/FormFields/TextInputField';
 import { InputWrapper, InputProgressBar } from './Form';
 import Span from 'components/Span';
@@ -101,9 +95,9 @@ const separators = amount => {
   );
 }
 
-const PredictionForm = ({ value }) => {
+const PredictionForm = ({ locale, value }) => {
   const extraPosition = (MAX_BET_PREDICTION - MIN_BET_PREDICTION - 1) * 100 / (MAX_BET_PREDICTION - MIN_BET_PREDICTION);
-  const progressWidth = (value - MIN_BET_PREDICTION) * 100 / (MAX_BET_PREDICTION - MIN_BET_PREDICTION);
+  const progressWidth = value ? (value - MIN_BET_PREDICTION) * 100 / (MAX_BET_PREDICTION - MIN_BET_PREDICTION) : 0;
 
   return (
     <>
@@ -119,10 +113,7 @@ const PredictionForm = ({ value }) => {
           name={SUPERPOWER_PREDICTION_FORM}
           component={TextInputField}
           disabled={true}
-          label={<FormattedMessage {...messages.formSuperPowerPrediction} />}
-          // validate={[withoutDoubleSpace, strLength15x100, maxByteLength, required]}
-          // warn={[strLength15x100, required]}
-          value={`x${value}`}
+          label={translationMessages[locale][messages.formSuperPowerPrediction.id]}
         />
         <ExtraLabel left={extraPosition}>Extra</ExtraLabel>
         {separators(MAX_BET_PREDICTION - MIN_BET_PREDICTION + 1)}
@@ -134,6 +125,7 @@ const PredictionForm = ({ value }) => {
 
 PredictionForm.propTypes = {
   value: PropTypes.number,
+  locale: PropTypes.string,
 };
 
 export default memo(PredictionForm);

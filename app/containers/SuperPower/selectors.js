@@ -4,27 +4,27 @@ import { STATE_KEY } from './constants';
 
 import { initialState } from './reducer';
 
-/**
- * Direct selector to the wallet state domain
- */
-
-const selectWalletDomain = state => state.get(STATE_KEY, initialState).toJS();
+const selectSuperPowerDomain = state => state.get(STATE_KEY, initialState).toJS();
 
 const selectGetWeekStatProcessing = () =>
   createSelector(
-    selectWalletDomain,
+    selectSuperPowerDomain,
     substate => substate.getWeekStatProcessing,
   );
 
 const selectGetWeekStatError = () =>
-  createSelector(selectWalletDomain, substate => substate.getWeekStatError);
+  createSelector(selectSuperPowerDomain, substate => substate.getWeekStatError);
 
 const selectWeekStat = () =>
-  createSelector(selectWalletDomain, substate => substate.weekStat);
+  createSelector(selectSuperPowerDomain, substate => substate.weekStat);
+
+const selectChangeBetLoading = () =>
+  createSelector(selectSuperPowerDomain, substate => substate.changeBetLoading);
 
 export {
-  selectWalletDomain,
+  selectSuperPowerDomain,
   selectGetWeekStatProcessing,
   selectWeekStat,
   selectGetWeekStatError,
+  selectChangeBetLoading,
 };

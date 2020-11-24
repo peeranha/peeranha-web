@@ -192,6 +192,7 @@
   "app.containers.SuperPower.formBetType": "Автоматически переносить ставку на следующий период",
   "app.containers.SuperPower.formSuperPowerPrediction": "SuperPower прогноз",
   "app.containers.SuperPower.formCurrentBet": "Текущая ставка",
+  "app.containers.SuperPower.formTakeABet": "Сделайте ставку",
 
   "web_integration.errors.unknownError":
     "Неизвестная ошибка. Пожалуйста, отправьте отчет об ошибке!",

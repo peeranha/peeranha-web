@@ -11,7 +11,7 @@ import messages from './messages';
 
 import reducer from './reducer';
 import saga from './saga';
-import { getWeekStat } from './actions';
+import { getWeekStat, changeBet } from './actions';
 import * as selectors from './selectors';
 
 import injectSaga from 'utils/injectSaga';
@@ -36,6 +36,8 @@ const SuperPower = ({
   weekStat,
   getWeekStatDispatch,
   getWeekStatProcessing,
+  changeBetDispatch,
+  changeBetLoading,
 }) => {
   useEffect(
     () => {
@@ -64,19 +66,23 @@ const SuperPower = ({
         balance={balance}
         weekStat={weekStat}
         getWeekStatProcessing={getWeekStatProcessing}
+        changeBetDispatch={changeBetDispatch}
+        changeBetLoading={changeBetLoading}
       />
     </div>
   );
 };
 
 SuperPower.propTypes = {
-  balance: PropTypes.string,
+  balance: PropTypes.number,
   locale: PropTypes.string,
   account: PropTypes.string,
   match: PropTypes.object,
   weekStat: PropTypes.array,
   getWeekStatDispatch: PropTypes.func,
   getWeekStatProcessing: PropTypes.bool,
+  changeBetDispatch: PropTypes.func,
+  changeBetLoading: PropTypes.bool,
 };
 
 export default memo(
@@ -90,9 +96,11 @@ export default memo(
         balance: makeSelectBalance(),
         weekStat: selectors.selectWeekStat(),
         getWeekStatProcessing: selectors.selectGetWeekStatProcessing(),
+        changeBetLoading: selectors.selectChangeBetLoading(),
       }),
       dispatch => ({
         getWeekStatDispatch: bindActionCreators(getWeekStat, dispatch),
+        changeBetDispatch: bindActionCreators(changeBet, dispatch),
       }),
     ),
   )(SuperPower),

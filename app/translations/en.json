@@ -195,6 +195,7 @@
   "app.containers.SuperPower.formBetType": "Transfer bet automatically to the next reward period",
   "app.containers.SuperPower.formSuperPowerPrediction": "SuperPower prediction",
   "app.containers.SuperPower.formCurrentBet": "Current bet",
+  "app.containers.SuperPower.formTakeABet": "Take a bet",
 
   "web_integration.errors.unknownError":
     "Unknown error. Please submit bug report!",

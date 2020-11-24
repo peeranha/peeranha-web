@@ -46,4 +46,7 @@ export default defineMessages({
   formCurrentBet: {
     id: 'app.containers.SuperPower.formCurrentBet',
   },
+  formTakeABet: {
+    id: 'app.containers.SuperPower.formTakeABet',
+  },
 });
