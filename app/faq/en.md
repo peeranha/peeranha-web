@@ -291,3 +291,15 @@ To set it in group/channel click "Add members" and add @PeeranhaBot.
 /communities - displays the communities that are available for subscription
 
 /subscriptions - displays current subscriptions
+
+**Commands for private chat:**
+
+/postquestion - ask a question
+
+/linkaccount - add telos account
+
+/unlinkaccount - unlink telos account
+
+/updatedisplayname - update display name
+
+*Post an answer directly from Telegram by using "Reply" action on a notification message about a posted question.*
