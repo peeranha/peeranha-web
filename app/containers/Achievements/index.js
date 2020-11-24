@@ -118,7 +118,7 @@ const Achievements = ({
       getUserAchievementsDispatch();
 
       // ComponentWillUnmount
-      return () => resetViewProfileAccountDispatch(userId);
+      return () => resetViewProfileAccountDispatch();
     },
     [userId],
   );
