@@ -154,7 +154,7 @@ export const isProfileInfoUpdated = (
 
   if (!currProfileInfo || !prevProfileInfo) return true;
 
-  // check whether values, that influence on render have changed
+  // check whether values, that influence on render, have changed
 
   const {
     maxRatingLowerValue,
