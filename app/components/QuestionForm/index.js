@@ -30,6 +30,7 @@ import {
   FORM_CONTENT,
   FORM_COMMUNITY,
   FORM_TAGS,
+  KEY_QUESTIONS_TYPE,
 } from './constants';
 
 import Header from './Header';
@@ -40,10 +41,7 @@ import TypeForm from './TypeForm';
 import TitleForm from './TitleForm';
 import ContentForm from './ContentForm';
 import TagsForm from './TagsForm';
-import {
-  EXPERT_TYPE,
-  GENERAL_TYPE,
-} from '../../containers/CreateCommunity/constants';
+import { ANY_TYPE } from '../../containers/CreateCommunity/constants';
 
 const single = isSingleCommunityWebsite();
 
@@ -84,8 +82,15 @@ export const QuestionForm = ({
   existingQuestions,
   doSkipExistingQuestions,
   skipExistingQuestions,
-  communityQuestionType,
+  communityQuestionsType,
 }) => {
+  const handleSubmitWithType = sendQuestion => {
+    if (communityQuestionsType !== ANY_TYPE) {
+      change(FORM_TYPE, communityQuestionsType);
+    }
+    return handleSubmit(sendQuestion);
+  };
+
   useEffect(
     () => {
       if (formValues[FORM_TITLE] && getQuestions) {
@@ -101,7 +106,7 @@ export const QuestionForm = ({
 
       <TipsBase>
         <BaseSpecialOne>
-          <FormBox onSubmit={handleSubmit(sendQuestion)}>
+          <FormBox onSubmit={handleSubmitWithType(sendQuestion)}>
             <CommunityForm
               intl={intl}
               communities={communities}
@@ -109,17 +114,15 @@ export const QuestionForm = ({
               questionLoading={questionLoading}
             />
 
-            {communityQuestionType !== GENERAL_TYPE &&
-              communityQuestionType !== EXPERT_TYPE &&
-              !questionid && (
-                <TypeForm
-                  intl={intl}
-                  change={change}
-                  questionLoading={questionLoading}
-                  locale={locale}
-                  formValues={formValues}
-                />
-              )}
+            {communityQuestionsType === ANY_TYPE && (
+              <TypeForm
+                intl={intl}
+                change={change}
+                questionLoading={questionLoading}
+                locale={locale}
+                formValues={formValues}
+              />
+            )}
 
             <TitleForm intl={intl} questionLoading={questionLoading} />
 
@@ -199,49 +202,57 @@ const FormClone = reduxForm({
 export default memo(
   injectIntl(
     connect(
-      (state, { question, form: formName, communities }) => ({
-        formValues: state.toJS().form[formName]?.values ?? {},
-        initialValues: {
-          [FORM_TYPE]: QUESTION_TYPES.GENERAL.value,
-          ...(question
-            ? {
-                [FORM_TITLE]: question?.title,
-                [FORM_CONTENT]: question?.content,
-                [FORM_COMMUNITY]: {
-                  ...question?.community,
-                  tags: _uniqBy(
-                    question?.community?.tags?.concat(
-                      communities.find(
-                        ({ id }) => id === question?.community?.id,
-                      )?.tags,
-                    ),
-                    'id',
-                  ),
-                },
-                [FORM_TAGS]: question?.chosenTags,
-              }
-            : {}),
-          ...(single
-            ? {
-                [FORM_COMMUNITY]: {
-                  ...communities?.find(({ id }) => id === single),
-                  tags: _uniqBy(
-                    communities
-                      .find(({ id }) => id === single)
-                      ?.tags?.concat(
+      (state, { question, form: formName, communities }) => {
+        const questionsType = state
+          .toJS()
+          .form[formName]?.values[FORM_COMMUNITY]?.integer_properties.find(
+            prop => prop.key === KEY_QUESTIONS_TYPE,
+          )?.value;
+        return {
+          formValues: state.toJS().form[formName]?.values ?? {},
+          communityQuestionsType: questionsType ?? ANY_TYPE,
+          initialValues: {
+            [FORM_TYPE]: question?.type ?? QUESTION_TYPES.GENERAL.value,
+            ...(question
+              ? {
+                  [FORM_TITLE]: question?.title,
+                  [FORM_CONTENT]: question?.content,
+                  [FORM_COMMUNITY]: {
+                    ...question?.community,
+                    tags: _uniqBy(
+                      question?.community?.tags?.concat(
                         communities.find(
                           ({ id }) => id === question?.community?.id,
                         )?.tags,
-                      )
-                      .filter(x => x),
-                    'id',
-                  ),
-                },
-              }
-            : {}),
-        },
-        enableReinitialize: true,
-      }),
+                      ),
+                      'id',
+                    ),
+                  },
+                  [FORM_TAGS]: question?.chosenTags,
+                }
+              : {}),
+            ...(single
+              ? {
+                  [FORM_COMMUNITY]: {
+                    ...communities?.find(({ id }) => id === single),
+                    tags: _uniqBy(
+                      communities
+                        .find(({ id }) => id === single)
+                        ?.tags?.concat(
+                          communities.find(
+                            ({ id }) => id === question?.community?.id,
+                          )?.tags,
+                        )
+                        .filter(x => x),
+                      'id',
+                    ),
+                  },
+                }
+              : {}),
+          },
+          enableReinitialize: true,
+        };
+      },
       dispatch => ({
         redirectToCreateTagDispatch: bindActionCreators(
           redirectToCreateTag,

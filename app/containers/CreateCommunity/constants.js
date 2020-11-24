@@ -32,6 +32,6 @@ export const SET_DEFAULT_STORE = 'app/CreateCommunity/SET_DEFAULT_STORE';
 export const MIN_RATING_TO_CREATE_COMMUNITY = 500;
 export const MIN_ENERGY_TO_CREATE_COMMUNITY = 125;
 
-export const ANY_TYPE = '0';
-export const GENERAL_TYPE = '1';
-export const EXPERT_TYPE = '2';
+export const ANY_TYPE = 2;
+export const GENERAL_TYPE = 1;
+export const EXPERT_TYPE = 0;

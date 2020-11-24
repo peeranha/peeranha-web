@@ -30,6 +30,7 @@ import messages from './messages';
 
 import { getAskedQuestion, editQuestion } from './actions';
 import { EDIT_QUESTION_FORM, EDIT_QUESTION_BUTTON } from './constants';
+import { FORM_TYPE } from '../../components/QuestionForm/constants';
 
 const EditQuestion = ({
   match: {
@@ -60,6 +61,7 @@ const EditQuestion = ({
           content: val[FORM_CONTENT],
           community: val[FORM_COMMUNITY],
           chosenTags: val[FORM_TAGS],
+          type: val[FORM_TYPE],
         },
         questionid,
       );
@@ -79,6 +81,7 @@ const EditQuestion = ({
       communities,
       question,
       questionid,
+      locale,
     }),
     [questionid, question, communities, editQuestionLoading, sendQuestion],
   );

@@ -28,6 +28,7 @@ import {
   makeSelectAccount,
   selectIsGlobalModerator,
   makeSelectAccountLoading,
+  makeSelectProfileInfo,
 } from 'containers/AccountProvider/selectors';
 
 import {
@@ -53,6 +54,7 @@ import {
   COMM_AVATAR_FIELD,
   MIN_RATING_TO_CREATE_COMMUNITY,
   MIN_ENERGY_TO_CREATE_COMMUNITY,
+  FORM_TYPE,
 } from './constants';
 
 import Form from './Form';
@@ -73,6 +75,7 @@ export const CreateCommunity = ({
   createCommunityDispatch,
   setDefaultStoreDispatch,
   accountIsLoading,
+  profile,
 }) => {
   const createCommunityMethod = (...args) => {
     const { reset } = args[2];
@@ -94,6 +97,7 @@ export const CreateCommunity = ({
       description: values[COMM_SHORT_DESCRIPTION_FIELD],
       main_description: values[COMM_MAIN_DESCRIPTION_FIELD],
       officialSite: values[COMM_OFFICIAL_SITE_FIELD],
+      questionsType: parseInt(values[FORM_TYPE] ?? 0),
       tags,
     };
     createCommunityDispatch(community, reset);
@@ -106,6 +110,7 @@ export const CreateCommunity = ({
     createCommunityLoading,
     translations: translationMessages[locale],
     locale,
+    profile,
   };
 
   const path = window.location.pathname + window.location.hash;
@@ -154,6 +159,7 @@ CreateCommunity.propTypes = {
   userEnergy: PropTypes.number,
   isGlobalModerator: PropTypes.bool,
   accountIsLoading: PropTypes.bool,
+  profile: PropTypes.object,
 };
 
 const withConnect = connect(
@@ -169,6 +175,7 @@ const withConnect = connect(
     isGlobalModerator: selectIsGlobalModerator(),
     createCommunityLoading: selectors.selectCreateCommunityLoading(),
     accountIsLoading: makeSelectAccountLoading(),
+    profile: makeSelectProfileInfo(),
   }),
   dispatch => ({
     createCommunityDispatch: bindActionCreators(createCommunity, dispatch),

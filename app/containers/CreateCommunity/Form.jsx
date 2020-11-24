@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Field, reduxForm, FormSection } from 'redux-form/immutable';
@@ -51,6 +51,7 @@ import {
   TAG_SECTION,
   CREATE_COMMUNITY_BUTTON,
 } from './constants';
+import { communityModeratorCreatePermission } from '../../utils/properties';
 
 const MIN_TAGS_NUMBER = 5;
 const MAX_TAGS_NUMBER = 25;
@@ -74,8 +75,15 @@ const CreateCommunityForm = ({
   change,
   formValues,
   intl,
+  profile,
 }) => {
   const [tags, changeTags] = useState(DEFAULT_TAGS_ARRAY);
+
+  const profileWithModeratorRights = useMemo(
+    () =>
+      communityModeratorCreatePermission(profile?.['integer_properties'] || []),
+    [profile],
+  );
 
   const removeTag = e => {
     const { key } = e.currentTarget.dataset;
@@ -126,13 +134,6 @@ const CreateCommunityForm = ({
           splitInHalf
         />
 
-        <TypeForm
-          locale={locale}
-          change={change}
-          formValues={formValues}
-          intl={intl}
-        />
-
         <Field
           disabled={createCommunityLoading}
           name={COMM_SHORT_DESCRIPTION_FIELD}
@@ -166,6 +167,15 @@ const CreateCommunityForm = ({
           tip={translations[messages.whyWeNeedItTip.id]}
           splitInHalf
         />
+
+        {profileWithModeratorRights && (
+          <TypeForm
+            locale={locale}
+            change={change}
+            formValues={formValues}
+            intl={intl}
+          />
+        )}
 
         <div>
           <Wrapper label={translations[messages.tags.id]} splitInHalf>

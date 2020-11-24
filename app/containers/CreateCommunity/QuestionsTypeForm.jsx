@@ -7,9 +7,14 @@ import DescriptionList from '../../components/DescriptionList';
 import PropTypes from 'prop-types';
 import { intlShape } from 'react-intl';
 
-const QuestionsTypeForm = ({ change, locale, formValues, intl }) => {
+const QuestionsTypeForm = ({
+  change,
+  locale,
+  formValues,
+  intl,
+  initialValue = 0,
+}) => {
   const onChange = useCallback(val => {
-    console.log(val);
     return change(FORM_TYPE, val[0]);
   }, []);
   const [descriptionListLabel, descriptionListItems] = useMemo(
