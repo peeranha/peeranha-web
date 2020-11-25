@@ -1,4 +1,6 @@
 {
+  "app.common.bountyStatus": "Bounty Status",
+
   "app.common.peeranha": "Peeranha",
   "app.common.copyrightPeeranha": "©{year} Peeranha",
   "app.common.profile": "Profile",

@@ -6,6 +6,11 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
+
+  bountyStatus: {
+    id: 'app.common.bountyStatus',
+  },
+
   peeranha: {
     id: 'app.common.peeranha',
   },

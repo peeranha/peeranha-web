@@ -9,9 +9,10 @@ const Base = styled.div`
   position: absolute;
   background-color: ${BG_LIGHT};
   width: 290px;
+  text-align: left;
   z-index: 100;
-  left: 235px;
-  top: 25px;
+  // left: 135px;
+  top: 30px;
   border-radius: 5px;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
   padding: 15px;
@@ -41,7 +42,8 @@ const ExpertPopover = ({ locale }) => (
   <Base>
     <DescriptionList
       locale={locale}
-      label={commonMessages.expertPopoverLabel.id}
+      // label={commonMessages.expertPopoverLabel.id}
+      label={commonMessages.bountyStatus.id}
       items={commonMessages.expertPopoverList.id}
     />
   </Base>

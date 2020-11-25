@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import { APP_FONT, TEXT_PRIMARY, TEXT_WARNING } from 'style-constants';
+import Container from 'components/Labels/BountyLabel';
 
 import { svgDraw } from 'components/Icon/IconStyled';
 import TransparentButton from 'components/Button/Contained/Transparent';
+import BountyPopover from './BountyPopover';
 
 /* eslint no-nested-ternary: 0, indent: 0 */
 export const SpanStyled = TransparentButton.extend`
@@ -32,10 +34,22 @@ export const SpanStyled = TransparentButton.extend`
 `;
 
 export const Bounty = ({ id, tip, show, amount, disabled, className }) => {
+  const [visible, changeVisibility] = useState(false);
+
+  const onMouseEnter = useCallback(() => changeVisibility(true), []);
+  const onMouseLeave = useCallback(() => changeVisibility(false), []);
+
   return show ? (
-    <SpanStyled id={id} className={className} disabled={disabled}>
-      +{amount}
-    </SpanStyled>
+    <Container
+      size="sm"
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
+      {visible && <BountyPopover locale={'en'} />}
+      <SpanStyled id={id} className={className} disabled={disabled}>
+        +{amount}
+      </SpanStyled>
+    </Container>
   ) : null;
 };
 

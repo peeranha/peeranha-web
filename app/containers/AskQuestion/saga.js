@@ -7,6 +7,8 @@ import {
   getQuestionsPostedByUser,
 } from 'utils/questionsManagement';
 
+import { getBounty } from 'utils/walletManagement';
+
 import { GET_RESULTS } from 'containers/Search/constants';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
@@ -17,7 +19,8 @@ import {
   FORM_CONTENT,
   FORM_COMMUNITY,
   FORM_TAGS,
-  FORM_TYPE, FORM_BOUNTY,
+  FORM_TYPE,
+  FORM_BOUNTY,
 } from 'components/QuestionForm/constants';
 
 import { isAuthorized, isValid } from 'containers/EosioProvider/saga';
@@ -39,6 +42,7 @@ import {
 } from './constants';
 
 import { getResults } from '../../utils/custom-search';
+import { getFormattedNum3 } from '../../utils/numbers';
 
 export function* postQuestionWorker({ val }) {
   try {
@@ -52,10 +56,24 @@ export function* postQuestionWorker({ val }) {
       chosenTags: val[FORM_TAGS],
       type: +val[FORM_TYPE],
       bounty: +val[FORM_BOUNTY],
+      bountyFull: `${getFormattedNum3(+val[FORM_BOUNTY])} PEER`,
       community,
     };
     debugger;
-    yield call(postQuestion, selectedAccount, questionData, eosService);
+    const question = yield call(
+      postQuestion,
+      selectedAccount,
+      questionData,
+      eosService,
+    );
+
+    yield call(
+      getBounty,
+      selectedAccount,
+      questionData.bountyFull,
+      228,
+      eosService,
+    );
 
     yield put(askQuestionSuccess());
 

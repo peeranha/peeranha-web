@@ -4,6 +4,7 @@ import { getFormattedNum3 } from './numbers';
 import {
   ACCOUNTS_TABLE,
   ALL_PERIODS_SCOPE,
+  GET_BOUNTY_METHOD,
   INF_LIMIT,
   PERIOD_RATING_TABLE,
   PERIOD_REWARD_TABLE,
@@ -208,6 +209,20 @@ export async function pickupReward(eosService, user, periodIndex) {
     {
       user,
       period,
+    },
+    process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
+    true,
+  );
+}
+
+export async function getBounty(user, bounty, questionId, eosService) {
+  await eosService.sendTransaction(
+    user,
+    GET_BOUNTY_METHOD,
+    {
+      user,
+      bounty,
+      question_id: +questionId,
     },
     process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
     true,

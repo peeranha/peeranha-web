@@ -17,13 +17,10 @@ const SIZE_CONFIG = {
 
 export const TypeContainer = styled.div`
   position: relative;
-  float: right;
-  top: ${({ top }) => top || '-15px'};
-  right: ${({ right }) => right || '-25px'};
+  // top: ${({ top }) => top || '-15px'};
+  // right: ${({ right }) => right || '-25px'};
 
   display: inline-block;
-  flex-grow: 1;
-
   text-align: right;
 
   @media only screen and (max-width: 576px) {
@@ -35,13 +32,14 @@ export const TypeContainer = styled.div`
 const Type = styled.div`
   height: ${({ size }) => SIZE_CONFIG[size].height}px;
   font-size: ${({ size }) => SIZE_CONFIG[size].fontSize}px;
-  background: ${BG_PRIMARY_SPECIAL_2};
+  // background: ${BG_PRIMARY_SPECIAL_2};
   color: ${TEXT_PRIMARY};
   position: relative;
   padding: 0 9px;
   display: inline-flex;
   align-items: center;
   border-radius: ${BORDER_RADIUS_M};
+  z-index: 999;
 
   > span {
     white-space: nowrap;

@@ -93,6 +93,8 @@ export const QuestionTitle = ({
   } = questionData;
 
   const isItWrittenByMe = profileInfo ? user === profileInfo.user : false;
+  const bountyProp = questionData.properties.find(({ key }) => key === 5);
+  const bounty = bountyProp ? bountyProp.value : 0;
 
   return title ? (
     <Base
@@ -143,7 +145,7 @@ export const QuestionTitle = ({
         ) : null}
 
         <TitleContainer>
-          <Bounty className="bounty" amount={50} show={true} />
+          <Bounty className="bounty" amount={bounty} show={!!bounty} />
           <QuestionName>{title}</QuestionName>
         </TitleContainer>
 

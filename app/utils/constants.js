@@ -142,6 +142,7 @@ export const VOTE_TO_DELETE_METHOD = 'reportforum';
 export const CHANGE_QUESTION_TYPE_METHOD = 'chgqsttype';
 
 export const POST_QUESTION_METHOD = 'postquestion';
+export const GET_BOUNTY_METHOD = 'getbounty';
 export const EDIT_QUESTION_METHOD = 'modquestion';
 export const DEL_QUESTION_METHOD = 'delquestion';
 
