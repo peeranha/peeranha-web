@@ -6,6 +6,7 @@ const links = {
     linkedin: 'https://www.linkedin.com/company/peeranha/about/',
     medium: 'https://medium.com/peeranha',
     telegram: 'https://t.me/peeranhaio',
+    email: 'mailto:someone@yoursite.com',
   },
   ru: {
     facebook: 'https://www.facebook.com/peeranha1/',
@@ -14,6 +15,7 @@ const links = {
     linkedin: 'https://www.linkedin.com/company/peeranha/about/',
     medium: 'https://medium.com/peeranha',
     telegram: 'https://t.me/peeranhaio',
+    email: 'mailto:someone@yoursite.com',
   },
 };
 

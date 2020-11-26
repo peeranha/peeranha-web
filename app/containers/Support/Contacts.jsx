@@ -6,7 +6,6 @@ import { FormattedMessage } from 'react-intl';
 import commonMessages from 'common-messages';
 import { getLinks } from 'media-links';
 import { TEXT_PRIMARY } from 'style-constants';
-import * as routes from 'routes-config';
 
 import mediumIcon from 'images/mediumsupport.svg?inline';
 import twitterIcon from 'images/twittersupport.svg?inline';
@@ -21,7 +20,7 @@ import H3 from 'components/H3';
 import Base from 'components/Base/BaseRounded';
 import Wrapper from 'components/Header/Simple';
 
-import { CONTACTS_ID, FORM_ID } from './constants';
+import { CONTACTS_ID } from './constants';
 
 const MediaItem = Base.extend`
   display: ${x => (x.href ? 'flex' : 'none')};
@@ -29,6 +28,8 @@ const MediaItem = Base.extend`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 20px;
+  white-space: nowrap;
 
   img {
     width: 25px;
@@ -45,6 +46,10 @@ const MediaList = styled.div`
     margin-right: 15px;
   }
 
+  ${MediaItem} :last-child {
+    padding: 20px 15px;
+  }
+
   @media only screen and (max-width: 768px) {
     flex-direction: column;
 
@@ -56,7 +61,7 @@ const MediaList = styled.div`
 `;
 
 const EmailSpan = Span.extend`
-  font-size: 12px;
+  color: ${TEXT_PRIMARY};
 `;
 
 const Contacts = ({ locale }) => (
@@ -98,9 +103,9 @@ const Contacts = ({ locale }) => (
         <Span bold>Telegram</Span>
       </MediaItem>
 
-      <MediaItem href={routes.support(FORM_ID)}>
+      <MediaItem href={getLinks(locale).email}>
         <img src={calendarIcon} alt="calendar" />
-        <EmailSpan color={TEXT_PRIMARY}>hello@peeranha.io</EmailSpan>
+        <EmailSpan>hello@peeranha.io</EmailSpan>
       </MediaItem>
     </MediaList>
   </div>
