@@ -6,11 +6,16 @@
   "app.common.questions": "Questions",
   "app.common.answers": "Answers",
   "app.common.posts": "Posts",
+  "app.common.achievements": "Achievements",
   "app.common.questionsNumber": "Questions {number}",
   "app.common.answersNumber": "Answers {number}",
   "app.common.postsNumber": "Posts {number}",
+  "app.common.achievementsNumber": "Achievements {number}",
   "app.common.settings": "Settings",
   "app.common.notifications": "Notifications",
+  "app.common.achievements": "Achievements",
+  "app.common.moderation": "Moderation",
+  "app.common.uniqueAchievements": "Unique achievements",
   "app.common.notificationCenter": "Notification Center",
   "app.common.archive": "Archive",
   "app.common.markAllAsRead": "Mark all as Read",
@@ -29,6 +34,8 @@
   "app.common.users": "Users",
   "app.common.usersShort": "Users",
   "app.common.faq": "FAQ",
+  "app.common.moderationHeader": "Moderator permissions",
+  "app.common.tutorial": "Tutorial",
   "app.common.subscribeMore": "Subscribe more",
   "app.common.top": "Top",
   "app.common.see": "See",
@@ -126,6 +133,17 @@
   "app.common.hoursAgo": "{hours} hours ago",
   "app.common.yesterday": "Yesterday",
   "app.common.official": "Official",
+  "app.common.profilesUsersInfo": "File size should not exceed 2Mb",
+  "app.common.fileSizeErrorMsg":
+    "File size is more than 2Mb. Choose another one...",
+  "app.common.chooseFile": "Choose a file",
+  "app.common.skip": "Skip",
+  "app.common.questionIsAnswered": "You have already answered this question",
+
+  "app.telegram.user": "Telegram user",
+  "app.telegram.userLabelPopover":
+    "This is a temporary account provided by Telegram Bot",
+
   "app.containers.TermsOfService.title": "Terms of Service",
   "app.containers.TermsOfService.description": "Terms of Service: description",
   "app.containers.Search.title": "Search",
@@ -186,12 +204,53 @@
   "web_integration.errors.emailAlreadyInUse": "Email already in use",
   "web_integration.errors.unableToBuildModel": "Unable to build model",
 
+  "app.containers.Header.walletTooltipPart1": "You have ",
+  "app.containers.Header.walletTooltipPart2": " rewards ready",
+
   "app.containers.Faq.title": "FAQ",
   "app.containers.Faq.description": "FAQ: description",
   "app.containers.Faq.faq": "Frequently asked questions",
-  "app.containers.Faq.help": "Help",
-  "app.containers.Faq.didntFindAnswer": "Didn’t find the answer?",
-  "app.containers.Faq.freeFeelToAsk":
+
+  "app.containers.Moderation.title": "Moderator permissions",
+  "app.common.globalModerator": "Global moderator",
+
+  "app.containers.Moderation.permissionInfinite": "Infinite Impact",
+  "app.containers.Moderation.permissionInfiniteDescription":
+    "Allows you to delete questions, answers and comments in one click",
+
+  "app.containers.Moderation.permissionIgnoreRating": "Ignore rating",
+  "app.containers.Moderation.permissionIgnoreRatingDescription":
+    "Allows you to perform actions that are rating restricted",
+
+  "app.containers.Moderation.permissionCreateCommunity": "Create community",
+  "app.containers.Moderation.permissionCreateCommunityDescription":
+    "Allows you to instantly create a community",
+
+  "app.containers.Moderation.permissionCreateTag": "Create tag",
+  "app.containers.Moderation.permissionCreateTagDescription":
+    "Allows you to instantly create a tag",
+
+  "app.containers.Moderation.permissionChangeQuestionType":
+    "Change question type",
+  "app.containers.Moderation.permissionChangeQuestionTypeDescription":
+    "Allows you to change question type",
+
+  "app.containers.Moderation.permissionSelectTopQuestion":
+    "Select top question",
+  "app.containers.Moderation.permissionSelectTopQuestionDescription":
+    "Allows you to select a question that will be displayed on \"Top\" page",
+
+  "app.containers.Moderation.permissionOfficialAnswer": "Post official answer",
+  "app.containers.Moderation.permissionOfficialAnswerDescription":
+    "Allows you to post an official answer",
+
+  "app.containers.Tutorial.title": "Tutorial",
+  "app.containers.Tutorial.description": "Tutorial: description",
+  "app.containers.Tutorial.tutorial": "Tutorial",
+
+  "app.components.AskQuestionBanner.help": "Help",
+  "app.components.AskQuestionBanner.didntFindAnswer": "Didn’t find the answer?",
+  "app.components.AskQuestionBanner.freeFeelToAsk":
     "Feel free to ask our team.  We will help to find the answer.",
 
   "app.containers.Users.title": "Users",
@@ -205,17 +264,19 @@
 
   "app.containers.ExistingCommunities.voteForNewCommunities":
     "Vote for new communities",
+  "app.containers.ExistingCommunities.singleCommunityTooltip":
+    "This community has Q&A website on another domain",
 
   "app.components.RatingStatus.stranger": "Stranger",
   "app.components.RatingStatus.newbie": "Newbie",
-  "app.components.RatingStatus.jrResident": "Junior Resident",
+  "app.components.RatingStatus.jrResident": "Junior",
   "app.components.RatingStatus.resident": "Resident",
-  "app.components.RatingStatus.srResident": "Senior Resident",
-  "app.components.RatingStatus.heroResident": "Hero Resident",
-  "app.components.RatingStatus.legResident": "Legendary Resident",
+  "app.components.RatingStatus.srResident": "Senior",
+  "app.components.RatingStatus.heroResident": "Hero",
+  "app.components.RatingStatus.legResident": "Superhero",
   "app.components.RatingStatus.banned": "Banned",
 
-  "app.containers.Profile.reputation": "Reputation",
+  "app.containers.Profile.status": "Status",
   "app.containers.Profile.risen": "Risen",
   "app.containers.Profile.memberSince": "Member since ",
   "app.containers.Profile.informationIsBlank":
@@ -228,6 +289,7 @@
   "app.containers.Profile.answered": "Answered",
   "app.containers.Profile.lastAnswer": "Last answer",
   "app.containers.Profile.noAnswersYet": "No answers yet",
+  "app.containers.Profile.achievements": "Achievements",
   "app.containers.Profile.editProfile": "Edit profile",
   "app.containers.Profile.authorizationData": "Authorization data",
   "app.containers.Profile.referralProgram": "Referral Program",
@@ -309,6 +371,8 @@
   "app.containers.CreateCommunity.title": "Community | Create",
   "app.containers.CreateCommunity.description":
     "Description of CreateCommunity",
+  "app.containers.CreateCommunity.officialSite": "Official site",
+  "app.containers.CreateCommunity.officialSiteTip": "Optional",
   "app.containers.CreateCommunity.avatar": "Avatar",
   "app.containers.CreateCommunity.communityTitle": "Title",
   "app.containers.CreateCommunity.shortDescription": "Short description",
@@ -348,6 +412,12 @@
   "app.containers.CreateCommunity.goToList": "Go to list",
   "app.containers.CreateCommunity.maxTagsNumberReached":
     "Max tags number was reached",
+
+  "app.containers.EditCommunity.communityTitleTip": "Name of the community",
+  "app.containers.EditCommunity.description": "Description of EditCommunity",
+  "app.containers.EditCommunity.editCommunity": "Edit community",
+  "app.containers.EditCommunity.header": "Edit community",
+  "app.containers.EditCommunity.pageTitle": "Community | Edit",
 
   "app.containers.Communities.didntFindAnyInteresting":
     "Didn’t find anything interesting?",
@@ -582,6 +652,8 @@
     "Value must be no longer than {max} characters",
   "app.components.FormFields.fileSize": "The file is too large",
   "app.components.FormFields.wrongEmail": "Wrong email",
+  "app.components.FormFields.wrongURL":
+    "Use valid URL format http(s)://example.com",
   "app.components.FormFields.wrongBase58Format":
     "Wrong data format. Recheck your inputs.",
   "app.components.FormFields.itemAlreadyExists":
@@ -615,7 +687,6 @@
   "app.containers.TagsCollection.title": "Tags collection",
   "app.containers.TagsCollection.description": "Tags Description",
 
-  "app.containers.TagsCollection.title": "Tags collection",
   "app.components.Footer.header": "Copyright: Peeranha",
 
   "app.containers.Login.authUserHasMore": "An authorized user has more options",
@@ -623,6 +694,8 @@
   "app.containers.Login.iForgotPassword": "I forgot password",
   "app.containers.Login.scatterIsNotInstalled":
     "Check whether the wallet and network settings are installed",
+  "app.containers.Login.scatterBrowserExtensionNotConfigured":
+    "Check whether the wallet browser extension is configured",
   "app.containers.Login.userIsNotRegistered": "User is not registered",
   "app.containers.Login.userIsNotSelected": "User is not selected",
   "app.containers.Login.weAreHappyYouAreHere": "We are happy, you are here",
@@ -701,6 +774,7 @@
     "Registration is successfully passed. Now you can login and continue work in our app!",
   "app.containers.SignUp.autogenerated": "Autogenerated",
   "app.containers.SignUp.myOwn": "My own",
+  "app.containers.SignUp.tgAccountID": "Telegram account ID",
 
   "app.containers.Profile.profile": "Profile",
   "app.containers.Profile.profileDescription": "Profile description",
@@ -752,6 +826,7 @@
   "app.containers.Questions.thisIsNewCommunity":
     "This is a new community, you can be the first post a question. Your question may become the most popular.",
   "app.containers.Questions.readMyFeed": "Read my feed",
+  "app.containers.Questions.goToCommunities": "Go to communities",
   "app.containers.Questions.topQuestionPopover":
     "Top question of this community",
   "app.containers.Questions.showAllQuestions": "Show all questions",
@@ -788,7 +863,9 @@
     "Tags that are relevant to the question",
   "app.containers.QuestionForm.title": "Ask question",
   "app.containers.QuestionForm.titleLabel": "Title",
-  "app.containers.QuestionForm.contentLabel": "Body",
+  "app.containers.QuestionForm.existingQuestionsLabel":
+    "To avoid duplicates check existed questions.",
+  "app.containers.QuestionForm.questionBodyLabel": "Body",
   "app.containers.QuestionForm.communityLabel": "Community",
   "app.containers.QuestionForm.tagsLabel": "Tags",
   "app.containers.QuestionForm.previewLabel": "Preview",
@@ -810,6 +887,9 @@
     "Explanation or clarification of the information that is complicated to comprehend;",
     "Ask for an instruction or a recipe."
   ],
+
+  "app.containers.AnswerForm.titleLabel": "Your Answer",
+
   "app.components.TextEditor.tips": "Tips",
   "app.components.TextEditor.putReturnsBetweenParagraphs":
     "markdown is supported",
@@ -822,5 +902,144 @@
   "app.components.TextEditor.quoteByPlacing":
     "quote by placing > at start of line",
   "app.components.TextEditor.toMakeLinks":
-    "to make links &lt;http://foo.com&gt;[foo](http://foo.com)&lt;a href=&quot;http://foo.com&quot;&gt;fo"
+    "to make links &lt;http://foo.com&gt;[foo](http://foo.com)&lt;a href=&quot;http://foo.com&quot;&gt;fo",
+
+  "app.containers.Achievements.questionAsked.bronze.title":
+    "Bronze - The learner",
+  "app.containers.Achievements.questionAsked.bronze.description":
+    "Ask 10 Questions",
+  "app.containers.Achievements.questionAsked.silver.title":
+    "Silver - Digging deep",
+  "app.containers.Achievements.questionAsked.silver.description":
+    "Ask 50 Questions",
+  "app.containers.Achievements.questionAsked.gold.title":
+    "Gold - I want to know everything!",
+  "app.containers.Achievements.questionAsked.gold.description":
+    "Ask 100 Questions",
+
+  "app.containers.Achievements.answerGiven.bronze.title": "Bronze - Expert",
+  "app.containers.Achievements.answerGiven.bronze.description":
+    "Answer 20 questions",
+  "app.containers.Achievements.answerGiven.silver.title": "Silver - Master",
+  "app.containers.Achievements.answerGiven.silver.description":
+    "Answer 100 questions",
+  "app.containers.Achievements.answerGiven.gold.title": "Gold - Guru",
+  "app.containers.Achievements.answerGiven.gold.description":
+    "Answer 200 questions",
+
+  "app.containers.Achievements.bestAnswer.bronze.title":
+    "Bronze - A true professional",
+  "app.containers.Achievements.bestAnswer.bronze.description":
+    "Receive 5 marks as \"The best\"",
+  "app.containers.Achievements.bestAnswer.silver.title": "Silver - Erudite",
+  "app.containers.Achievements.bestAnswer.silver.description":
+    "Receive 25 marks as \"The best\"",
+  "app.containers.Achievements.bestAnswer.gold.title":
+    "Gold - Artificial Intelligence",
+  "app.containers.Achievements.bestAnswer.gold.description":
+    "Receive 50 marks as \"The best\"",
+
+  "app.containers.Achievements.firstIn15.bronze.title":
+    "Bronze - Fastest hand in the West",
+  "app.containers.Achievements.firstIn15.bronze.description":
+    "Post answers for 5 different questions in 15 minutes after questions were asked",
+  "app.containers.Achievements.firstIn15.silver.title":
+    "Silver - Pedal to the metal",
+  "app.containers.Achievements.firstIn15.silver.description":
+    "Post answers for 10 different questions in 15 minutes after questions were asked",
+  "app.containers.Achievements.firstIn15.gold.title": "Gold - Lightning",
+  "app.containers.Achievements.firstIn15.gold.description":
+    "Post answers for 10 different questions in 15 minutes after questions were asked",
+
+  "app.containers.Achievements.firstAnswer.bronze.title": "Bronze - Quick help",
+  "app.containers.Achievements.firstAnswer.bronze.description":
+    "Be the first one, who posts an answer for 10 different questions",
+  "app.containers.Achievements.firstAnswer.silver.title":
+    "Silver - I was here first!",
+  "app.containers.Achievements.firstAnswer.silver.description":
+    "Be the first one, who posts an answer for 25 different questions",
+  "app.containers.Achievements.firstAnswer.gold.title":
+    "Gold - Undisputed champion",
+  "app.containers.Achievements.firstAnswer.gold.description":
+    "Be the first one, who posts an answer for 50 different questions",
+
+  "app.containers.Achievements.welcomeStranger.title": "Welcome, Stranger",
+  "app.containers.Achievements.welcomeStranger.description":
+    "Successfully register on Peeranha",
+  "app.containers.Achievements.newbie.title": "A beginning of a great journey",
+  "app.containers.Achievements.newbie.description":
+    "Achieve the \"Newbie\" status",
+  "app.containers.Achievements.junior.title": "Don't call me Junior!",
+  "app.containers.Achievements.junior.description":
+    "Achieve the \"Junior\" status",
+  "app.containers.Achievements.resident.title": "Peeranha is my home",
+  "app.containers.Achievements.resident.description":
+    "Achieve the \"Resident\" status",
+  "app.containers.Achievements.senior.title": "I can teach you anything",
+  "app.containers.Achievements.senior.description":
+    "Achieve the \"Senior\" status",
+  "app.containers.Achievements.hero.title": "This website needs a hero",
+  "app.containers.Achievements.hero.description": "Achieve the \"Hero\" status",
+  "app.containers.Achievements.superhero.title": "A living Legend",
+  "app.containers.Achievements.superhero.description":
+    "Achieve the \"Superhero\" status",
+
+  "app.containers.Achievements.foundingMember.title": "Founding Member",
+  "app.containers.Achievements.foundingMember.description":
+    "Be the one of first 10 000 Users to successfully register on Peeranha",
+  "app.containers.Achievements.activist.title": "Activist",
+  "app.containers.Achievements.activist.description":
+    "Be the one of first 700 Users to achieve the \"Newbie\" status",
+  "app.containers.Achievements.researcher.title": "Researcher",
+  "app.containers.Achievements.researcher.description":
+    "Be the one of first 500 Users to achieve the \"Junior\" status",
+  "app.containers.Achievements.honorableResident.title": "Honorable Resident",
+  "app.containers.Achievements.honorableResident.description":
+    "Be the one of first 300 Users to achieve the \"Resident\" status",
+  "app.containers.Achievements.theWisest.title": "The wisest",
+  "app.containers.Achievements.theWisest.description":
+    "Be the one of first 150 Users to achieve the \"Senior\" status",
+  "app.containers.Achievements.modernHero.title": "Modern hero",
+  "app.containers.Achievements.modernHero.description":
+    "Be the one of first 50 Users to achieve the \"Hero\" status",
+  "app.containers.Achievements.kingOfTheHill.title": "King of the hill",
+  "app.containers.Achievements.kingOfTheHill.description":
+    "Be the one of first 10 Users to achieve the \"Superhero\" status",
+
+  "app.containers.Achievements.progressBarPopover.ratingRelated.single":
+    "rating point left to unlock this achievement",
+  "app.containers.Achievements.progressBarPopover.ratingRelated.multiple":
+    "rating points left to unlock this achievement",
+  "app.containers.Achievements.progressBarPopover.questionAskedRelated.single":
+    "question left to unlock this achievement",
+  "app.containers.Achievements.progressBarPopover.questionAskedRelated.multiple":
+    "questions left to unlock this achievement",
+  "app.containers.Achievements.progressBarPopover.answerGivenRelated.single":
+    "answer left to unlock this achievement",
+  "app.containers.Achievements.progressBarPopover.answerGivenRelated.multiple":
+    "answers left to unlock this achievement",
+  "app.containers.Achievements.progressBarPopover.bestAnswerRelated.single":
+    "best answer left to unlock this achievement",
+  "app.containers.Achievements.progressBarPopover.bestAnswerRelated.multiple":
+    "best answers left to unlock this achievement",
+  "app.containers.Achievements.progressBarPopover.firstAnswerIn15Related.single":
+    "answer in 15 minutes left to unlock this achievement",
+  "app.containers.Achievements.progressBarPopover.firstAnswerIn15Related.multiple":
+    "answers in 15 minutes left to unlock this achievement",
+  "app.containers.Achievements.progressBarPopover.firstAnswerRelated.single":
+    "first answer left to unlock this achievement",
+  "app.containers.Achievements.progressBarPopover.firstAnswerRelated.multiple":
+    "first answers left to unlock this achievement",
+
+  "app.containers.Achievements.separators.ratingRelated": "Rating",
+  "app.containers.Achievements.separators.questionAskedRelated": "Questions",
+  "app.containers.Achievements.separators.answerGivenRelated": "Answers",
+  "app.containers.Achievements.separators.bestAnswerRelated":
+    "The best answers",
+  "app.containers.Achievements.separators.firstAnswerIn15Related":
+    "Answers in 15 minutes",
+  "app.containers.Achievements.separators.firstAnswerRelated": "First answers",
+
+  "app.containers.TelegramInfo.confirm": "Confirm",
+  "app.containers.TelegramInfo.unlink": "Unlink"
 }

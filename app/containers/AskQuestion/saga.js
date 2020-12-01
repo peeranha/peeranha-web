@@ -1,5 +1,3 @@
-/* eslint consistent-return: 0 */
-
 import { takeLatest, call, put, select } from 'redux-saga/effects';
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
@@ -8,6 +6,8 @@ import {
   postQuestion,
   getQuestionsPostedByUser,
 } from 'utils/questionsManagement';
+
+import { GET_RESULTS } from 'containers/Search/constants';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
@@ -21,15 +21,24 @@ import {
 } from 'components/QuestionForm/constants';
 
 import { isAuthorized, isValid } from 'containers/EosioProvider/saga';
+import { searchWorker } from 'containers/Search/saga';
 
-import { askQuestionSuccess, askQuestionError } from './actions';
+import {
+  askQuestionSuccess,
+  askQuestionError,
+  getExistingQuestionSuccess,
+  getExistingQuestionError,
+} from './actions';
 
 import {
   ASK_QUESTION,
   POST_QUESTION_BUTTON,
   MIN_RATING_TO_POST_QUESTION,
   MIN_ENERGY_TO_POST_QUESTION,
+  GET_EXISTING_QUESTIONS,
 } from './constants';
+
+import { getResults } from '../../utils/custom-search';
 
 export function* postQuestionWorker({ val }) {
   try {
@@ -68,6 +77,15 @@ export function* postQuestionWorker({ val }) {
   }
 }
 
+function* qetExistingQuestionsWorker({ query }) {
+  try {
+    const existingQuestions = yield call(getResults, query);
+    yield put(getExistingQuestionSuccess(existingQuestions));
+  } catch (err) {
+    yield put(getExistingQuestionError(err));
+  }
+}
+
 export function* checkReadinessWorker({ buttonId }) {
   yield call(isAuthorized);
 
@@ -84,6 +102,10 @@ export function* redirectToAskQuestionPageWorker({ buttonId }) {
     yield call(checkReadinessWorker, { buttonId });
     yield call(createdHistory.push, routes.questionAsk());
   } catch (err) {}
+}
+
+export function* existingQuestionSaga() {
+  yield takeLatest(GET_EXISTING_QUESTIONS, qetExistingQuestionsWorker);
 }
 
 export default function*() {

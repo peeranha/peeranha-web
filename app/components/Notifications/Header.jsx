@@ -11,26 +11,24 @@ import {
   TEXT_SECONDARY_LIGHT,
 } from 'style-constants';
 
-import notificationsIcon from 'images/Notifications_Bright.svg?external';
-
 import H3 from '../H3';
 import Span from '../Span';
-import Icon from 'components/Icon';
-import { MediumIconStyled } from 'components/Icon/MediumIcon';
 
 const Container = styled.div`
   display: flex;
   align-items: center;
+
   > h3 {
     margin-right: 20px;
+  }
+
+  > span {
+    flex-shrink: 0;
   }
 `;
 
 const Header = ({ notificationsNumber }) => (
   <Container>
-    <MediumIconStyled>
-      <Icon icon={notificationsIcon} width="25" />
-    </MediumIconStyled>
     <H3>
       <FormattedMessage {...messages.notificationCenter} />
     </H3>
@@ -40,6 +38,7 @@ const Header = ({ notificationsNumber }) => (
       color={TEXT_SECONDARY_LIGHT}
       bold
       whiteSpace="nowrap"
+      mobileFS="30"
     >
       {notificationsNumber}
     </Span>

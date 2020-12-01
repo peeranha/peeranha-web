@@ -49,14 +49,14 @@ export const AnswersList = props => {
             key={`${ANSWER_TYPE}${id}`}
             answerId={id}
             comments={comments}
-            content={content}
+            content={`${content}`}
             rating={rating}
             isTheLargestRating={isTheLargestRating}
             questionFrom={props.questionData.user}
             isItWrittenByMe={isItWrittenByMe}
             history={history}
             userInfo={userInfo}
-            postTime={postTime}
+            postTime={+postTime}
             lastEditedDate={lastEditedDate}
             votingStatus={votingStatus}
             deleteItem={props.deleteAnswer}

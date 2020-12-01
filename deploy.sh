@@ -7,7 +7,7 @@ bucket="prod.peeranha.io"
 npm run build:prod
 elif [ "$1" == "test" ];
 then
-bucket="testpeeranha.io"
+bucket="test--website-bucket"
 npm run build:test
 fi
 if [ ! -d "./build" ];

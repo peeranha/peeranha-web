@@ -15,6 +15,7 @@ import editProfileReducer from 'containers/EditProfilePage/reducer';
 import signUpReducer from 'containers/SignUp/reducer';
 import questionsReducer from 'containers/Questions/reducer';
 import askQuestionReducer from 'containers/AskQuestion/reducer';
+import existingQuestionReducer from 'containers/AskQuestion/reducer';
 import viewQuestionReducer from 'containers/ViewQuestion/reducer';
 import editQuestionReducer from 'containers/EditQuestion/reducer';
 import editAnswerReducer from 'containers/EditAnswer/reducer';
@@ -42,6 +43,7 @@ import sendTokensReducer from 'containers/SendTokens/reducer';
 import searchReducer from 'containers/Search/reducer';
 import termsOfServiceReducer from 'containers/TermsOfService/reducer';
 import appWrapperReducer from 'containers/AppWrapper/reducer';
+import telegramAccountActionReducer from './containers/TelegramAccountAction/reducer';
 import notificationsReducer from './components/Notifications/reducer';
 
 /*
@@ -88,6 +90,7 @@ export default injectedReducers =>
     editProfileReducer,
     questionsReducer,
     askQuestionReducer,
+    existingQuestionReducer,
     viewQuestion: viewQuestionReducer,
     editQuestion: editQuestionReducer,
     editAnswer: editAnswerReducer,
@@ -116,5 +119,6 @@ export default injectedReducers =>
     appWrapper: appWrapperReducer,
     sendTips: searchReducer,
     notifications: notificationsReducer,
+    telegramAccountAction: telegramAccountActionReducer,
     ...injectedReducers,
   });

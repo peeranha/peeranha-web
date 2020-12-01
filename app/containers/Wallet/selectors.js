@@ -19,6 +19,16 @@ const selectGetWeekStatError = () =>
 const selectWeekStat = () =>
   createSelector(selectWalletDomain, substate => substate.weekStat);
 
+const selectRewardsWeeksNumber = () =>
+  createSelector(
+    selectWalletDomain,
+    substate =>
+      substate.weekStat
+        ? substate.weekStat.filter(el => el.reward > 0 && el.hasTaken === false)
+            .length
+        : null,
+  );
+
 const selectPickupRewardProcessing = () =>
   createSelector(
     selectWalletDomain,
@@ -39,4 +49,5 @@ export {
   selectPickupRewardProcessing,
   selectPickupRewardError,
   selectIds,
+  selectRewardsWeeksNumber,
 };

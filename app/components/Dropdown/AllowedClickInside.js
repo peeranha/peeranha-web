@@ -34,6 +34,10 @@ const Chevron = styled.span`
     transform: rotate(${({ isOpen }) => (isOpen ? '180deg' : '0deg')});
     transition: 0.5s;
   }
+
+  @media only screen and (max-width: 576px) {
+    padding-left: 5px;
+  }
 `;
 
 const Dropdown = ({ children, isOpen, target, toggle, isArrowed }) => (

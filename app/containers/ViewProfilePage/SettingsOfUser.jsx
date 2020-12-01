@@ -57,6 +57,10 @@ export const BaseStyled = Base.extend`
         padding: 0;
         text-align: right;
         white-space: nowrap;
+
+        @media only screen and (max-width: 576px) {
+          padding-bottom: 20px;
+        }
       }
     }
   }
@@ -79,7 +83,7 @@ export const BaseStyled = Base.extend`
 
   @media only screen and (max-width: 576px) {
     > :nth-child(2) {
-      margin: 20px 0;
+      margin: 20px 0 0;
       padding: 0;
     }
 
@@ -113,6 +117,7 @@ const SettingsOfUser = ({
   isAvailable,
   account,
   profile,
+  tgData,
 }) => {
   const writeToBuffer = event => {
     clipboard.writeText(event.currentTarget.dataset.key);
@@ -131,6 +136,7 @@ const SettingsOfUser = ({
         activeKey={activeKey}
         className={className}
         writeToBuffer={writeToBuffer}
+        tgData={tgData}
       />
 
       <ReferralProgram
@@ -158,6 +164,7 @@ SettingsOfUser.propTypes = {
   isAvailable: PropTypes.bool,
   profile: PropTypes.object,
   account: PropTypes.string,
+  tgData: PropTypes.object,
 };
 
 export default React.memo(SettingsOfUser);

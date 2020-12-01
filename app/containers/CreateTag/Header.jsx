@@ -11,7 +11,7 @@ import closeIcon from 'images/closeCircle.svg?external';
 import A from 'components/A';
 import H3 from 'components/H3';
 import Span from 'components/Span';
-import Wrapper from 'components/Header/Simple';
+import Wrapper, { WrapperRightPanel } from 'components/Header/Simple';
 import Icon from 'components/Icon';
 import { IconMd } from 'components/Icon/IconWithSizes';
 import { MediumIconStyled } from 'components/Icon/MediumIcon';
@@ -32,16 +32,21 @@ export const Header = () => (
       <FormattedMessage {...messages.newTag} />
     </H3>
 
-    <div className="right-panel">
+    <WrapperRightPanel className="right-panel">
       <A to={routes.tags()}>
         <button>
-          <IconMd className="mr-1" icon={closeIcon} fill={BORDER_PRIMARY} isColorImportant={true} />
-          <Span color={TEXT_PRIMARY}>
+          <IconMd
+            className="mr-1"
+            icon={closeIcon}
+            fill={BORDER_PRIMARY}
+            isColorImportant={true}
+          />
+          <Span color={TEXT_PRIMARY} className="button-label">
             <FormattedMessage {...commonMessages.close} />
           </Span>
         </button>
       </A>
-    </div>
+    </WrapperRightPanel>
   </Wrapper>
 );
 

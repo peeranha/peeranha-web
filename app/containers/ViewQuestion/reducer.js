@@ -99,6 +99,7 @@ function viewQuestionReducer(state = initialState, action) {
         .set('questionData', questionData);
     case GET_QUESTION_DATA_ERROR:
       return state
+        .set('questionData', null)
         .set('questionDataLoading', false)
         .set('getQuestionDataError', getQuestionDataError);
 

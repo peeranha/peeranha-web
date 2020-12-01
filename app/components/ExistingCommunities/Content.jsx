@@ -1,18 +1,21 @@
 /* eslint no-unused-vars: 0 */
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 import orderBy from 'lodash/orderBy';
 
 import * as routes from 'routes-config';
+import createdHistory from 'createdHistory';
 import { TEXT_PRIMARY, TEXT_SECONDARY } from 'style-constants';
 
+import { communityModeratorCreatePermission } from 'utils/properties';
 import { getFormattedNum2 } from 'utils/numbers';
 import { getDifferenceInMonths } from 'utils/datetime';
 
 import commonMessages from 'common-messages';
 
+import InfoButton from 'components/Button/Outlined/InfoMedium';
 import P from 'components/P';
 import A, { ADefault } from 'components/A';
 import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
@@ -20,6 +23,8 @@ import { BaseSpecial } from 'components/Base/BaseTransparent';
 import FollowCommunityButton from 'containers/FollowCommunityButton/StyledButton';
 import { MediumImageStyled } from 'components/Img/MediumImage';
 import { hasCommunitySingleWebsite } from '../../utils/communityManagement';
+import OfficialSiteLink from './OfficialSiteLink';
+import SingleCommunityIcon from './SingleCommunityIcon';
 
 export const Base = BaseRoundedNoPadding.extend`
   margin-bottom: 15px;
@@ -77,8 +82,14 @@ const Info = styled.div`
   }
 `;
 
-const Content = ({ communities, sorting, locale, language }) => {
+const Content = ({ communities, sorting, locale, language, profile }) => {
   if (!communities || !communities.length) return null;
+
+  const communityEditingAllowed = useMemo(
+    () =>
+      communityModeratorCreatePermission(profile?.['integer_properties'] || []),
+    [profile],
+  );
 
   return (
     <Base>
@@ -86,19 +97,26 @@ const Content = ({ communities, sorting, locale, language }) => {
         .filter(x => (language.sortBy ? x.language === language.sortBy : true))
         .map(
           (
-            { value, avatar, name, id, description, tags, ...x },
+            { value, avatar, name, id, description, officialSite, tags, ...x },
             index,
             arr,
           ) => {
             const origin = hasCommunitySingleWebsite(id);
 
+            const getShortUrl = url => {
+              if (/^https?:\/\//.test(url)) url.replace(/https?:\/\//, '');
+              if (/(\.$)|(\/$)/.test(url)) url.replace(/(\.$)|(\/$)/, '');
+              return url;
+            };
+
+            const getFullUrl = url => {
+              if (/(\.$)|(\/$)/.test(url)) url.replace(/(\.$)|(\/$)/, '');
+              if (!/^https?:\/\//.test(url)) return `https://${url}`;
+              return url;
+            };
+
             return (
               <BaseSpecial
-                origin={(origin || '').toString()}
-                overOrigin={
-                  index !== arr.length - 1 &&
-                  hasCommunitySingleWebsite(arr[index + 1].id)
-                }
                 last={arr.length - 1 === index}
                 first={!index}
                 className="d-flex align-items-start flex-column flex-md-row align-items-stretch align-items-md-start"
@@ -113,8 +131,14 @@ const Content = ({ communities, sorting, locale, language }) => {
 
                   <div>
                     <P fontSize="24" lineHeight="31" bold>
-                      <ADefault href={origin || routes.questions(id)}>
+                      <ADefault
+                        href={origin || routes.questions(id)}
+                        css={{ position: 'relative' }}
+                      >
                         {name}
+                        {origin && (
+                          <SingleCommunityIcon locale={locale} id={id} />
+                        )}
                       </ADefault>
                     </P>
                     {/* <P className="d-none d-md-block" fontSize="14" lineHeight="18">
@@ -123,13 +147,8 @@ const Content = ({ communities, sorting, locale, language }) => {
                     <P fontSize="14" lineHeight="18">
                       {description}
                     </P>
-                    {origin && (
-                      <ADefault
-                        style={{ fontSize: '14px', color: TEXT_PRIMARY }}
-                        href={origin}
-                      >
-                        {origin?.replace('https://', '') || ''}
-                      </ADefault>
+                    {officialSite && (
+                      <OfficialSiteLink officialSite={officialSite} />
                     )}
                   </div>
                 </DescriptionBlock>
@@ -170,7 +189,18 @@ const Content = ({ communities, sorting, locale, language }) => {
                     </P>
                   </Info>
 
-                  <FollowCommunityButton communityIdFilter={id} />
+                  <Info>
+                    {communityEditingAllowed && (
+                      <InfoButton
+                        onClick={() =>
+                          createdHistory.push(routes.communitiesEdit(id))
+                        }
+                      >
+                        <FormattedMessage {...commonMessages.edit} />
+                      </InfoButton>
+                    )}
+                    <FollowCommunityButton communityIdFilter={id} />
+                  </Info>
                 </InfoBlock>
               </BaseSpecial>
             );
@@ -185,6 +215,7 @@ Content.propTypes = {
   sorting: PropTypes.object,
   locale: PropTypes.string,
   language: PropTypes.object,
+  profile: PropTypes.object,
 };
 
 export default React.memo(Content);

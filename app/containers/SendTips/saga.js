@@ -44,8 +44,10 @@ import {
   selectAccountErr,
   addTipsEosService,
 } from './actions';
-import messages from '../Login/messages';
-import { SCATTER_MODE_ERROR, USER_IS_NOT_SELECTED } from '../Login/constants';
+import messages, {
+  getAccountNotSelectedMessageDescriptor,
+} from '../Login/messages';
+import { SCATTER_MODE_ERROR } from '../Login/constants';
 import { selectTipsEosService } from './selectors';
 import { selectEos } from '../EosioProvider/selectors';
 import { formName } from './SendTipsForm';
@@ -173,7 +175,11 @@ export function* selectAccountWorker() {
       selectedAccount = yield call(tipsEosService.selectAccount);
       if (!selectedAccount) {
         throw new WebIntegrationError(
-          translations[messages[USER_IS_NOT_SELECTED].id],
+          translations[
+            getAccountNotSelectedMessageDescriptor(
+              tipsEosService.isScatterExtension,
+            ).id
+          ],
         );
       }
     }

@@ -13,8 +13,14 @@ export default defineMessages({
   titleLabel: {
     id: 'app.containers.QuestionForm.titleLabel',
   },
-  contentLabel: {
-    id: 'app.containers.QuestionForm.contentLabel',
+  existingQuestionsLabel: {
+    id: 'app.containers.QuestionForm.existingQuestionsLabel',
+  },
+  skipExistingQuestions: {
+    id: 'app.common.skip',
+  },
+  questionBodyLabel: {
+    id: 'app.containers.QuestionForm.questionBodyLabel',
   },
   communityLabel: {
     id: 'app.containers.QuestionForm.communityLabel',

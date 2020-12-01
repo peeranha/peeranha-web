@@ -14,6 +14,7 @@ import {
   APP_FONT,
   BORDER_PRIMARY,
   BORDER_DARK,
+  ICON_TRASPARENT_BLUE,
 } from 'style-constants';
 
 import * as routes from 'routes-config';
@@ -32,6 +33,7 @@ import communitiesIcon from 'images/communities.svg?external';
 import tagsIcon from 'images/tags.svg?external';
 import usersIcon from 'images/users.svg?external';
 import faqIcon from 'images/faq.svg?external';
+import tutorialIcon from 'images/tutorial.svg?external';
 
 import A from 'components/A';
 import { IconLg } from 'components/Icon/IconWithSizes';
@@ -60,6 +62,9 @@ const A1 = A.extend`
     .fill {
       fill: ${BORDER_PRIMARY};
     }
+    .semitransparent{
+      fill: ${ICON_TRASPARENT_BLUE}
+    }
     :hover {
       color: ${colors.mainLinks};
     }
@@ -75,6 +80,9 @@ const A1 = A.extend`
     }
     .fill {
       fill: ${BORDER_DARK};
+    }
+    .semitransparent {
+      fill: none;
     }  
     :hover {
       .fill {
@@ -137,6 +145,13 @@ const MainLinks = ({ profile }) => {
         <A1 to={routes.faq()} name="faq" route={route}>
           <IconLg className="mr-2" icon={faqIcon} fill={BORDER_PRIMARY} />
           <FormattedMessage {...messages.faq} />
+        </A1>
+      )}
+
+      {!singleCommId && (
+        <A1 to={routes.tutorial()} name="tutorial" route={route}>
+          <IconLg className="mr-2" icon={tutorialIcon} fill={BORDER_PRIMARY} />
+          <FormattedMessage {...messages.tutorial} />
         </A1>
       )}
     </Box>

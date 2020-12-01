@@ -14,7 +14,7 @@ import Dropdown from 'components/Dropdown';
 import { getStatus } from 'components/RatingStatus';
 import userStatusOptions from 'components/RatingStatus/options';
 
-import { IconBG } from './WalletDropdown';
+import { IconBG } from './WalletDropdown/WalletButton';
 
 export const Button = ({ energy }) => (
   <IconBG className="d-flex flex-column" bg={BG_LIGHT}>
@@ -50,7 +50,9 @@ const Menu = ({ energy, maxEnergy, faqQuestions }) => (
 );
 
 const EnergyDropdown = ({ energy, rating, faqQuestions }) => {
-  const { maxEnergy } = userStatusOptions[getStatus(rating)];
+  const { maxEnergy } = userStatusOptions[getStatus(rating)] || {
+    maxEnergy: 0,
+  };
 
   // TODO: return if energy will be needed
   if (process.env.ENV === 'prod') {

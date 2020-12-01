@@ -10,13 +10,17 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { translationMessages, DEFAULT_LOCALE } from 'i18n';
 import { compose, bindActionCreators } from 'redux';
+import { Redirect } from 'react-router-dom';
 import * as routes from 'routes-config';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import { DAEMON } from 'utils/constants';
 
 import Seo from 'components/Seo';
 import TipsBase from 'components/Base/TipsBase';
+import Loader from 'components/LoadingIndicator/WidthCentered';
+
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
 
@@ -30,16 +34,18 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 
-import { createCommunity, setDefaultStore } from './actions';
+import { createCommunity, setDefaultStore, getForm } from './actions';
 
 import {
   COMM_NAME_FIELD,
   COMM_SHORT_DESCRIPTION_FIELD,
   COMM_MAIN_DESCRIPTION_FIELD,
+  COMM_OFFICIAL_SITE_FIELD,
   TAG_NAME_FIELD,
   LANGUAGE_FIELD,
   TAG_DESCRIPTION_FIELD,
   COMM_AVATAR_FIELD,
+  STATE_KEY,
 } from './constants';
 
 import Form from './Form';
@@ -55,7 +61,16 @@ export const CreateCommunity = ({
   createCommunityLoading,
   createCommunityDispatch,
   setDefaultStoreDispatch,
+  isFormLoading,
+  getFormDispatch,
+  isFormAvailable,
 }) => {
+  useEffect(() => {
+    setDefaultStoreDispatch();
+
+    getFormDispatch();
+  }, []);
+
   const createCommunityMethod = (...args) => {
     const { reset } = args[2];
     const values = args[0].toJS();
@@ -75,13 +90,11 @@ export const CreateCommunity = ({
         : DEFAULT_LOCALE,
       description: values[COMM_SHORT_DESCRIPTION_FIELD],
       main_description: values[COMM_MAIN_DESCRIPTION_FIELD],
+      officialSite: values[COMM_OFFICIAL_SITE_FIELD],
       tags,
     };
-
     createCommunityDispatch(community, reset);
   };
-
-  useEffect(() => setDefaultStoreDispatch, []);
 
   const sendProps = {
     createCommunity: createCommunityMethod,
@@ -90,6 +103,10 @@ export const CreateCommunity = ({
   };
 
   const path = window.location.pathname + window.location.hash;
+
+  if (isFormLoading) return <Loader />;
+
+  if (!isFormAvailable) return <Redirect to={routes.communities()} />;
 
   return (
     <div>
@@ -100,7 +117,7 @@ export const CreateCommunity = ({
         index={false}
       />
 
-      <Header />
+      <Header headerDescriptor={messages.newCommunity} />
 
       {path === createCommunityRoute && (
         <TipsBase className="overflow-hidden">
@@ -120,6 +137,9 @@ CreateCommunity.propTypes = {
   locale: PropTypes.string.isRequired,
   createCommunityLoading: PropTypes.bool.isRequired,
   faqQuestions: PropTypes.array,
+  isFormLoading: PropTypes.bool,
+  getFormDispatch: PropTypes.func.isRequired,
+  isFromAvailable: PropTypes.bool,
 };
 
 const withConnect = connect(
@@ -130,18 +150,18 @@ const withConnect = connect(
       WHO_MANAGES_COMMUNITY_QUESTION,
     ]),
     createCommunityLoading: selectors.selectCreateCommunityLoading(),
+    isFormLoading: selectors.selectIsFormLoading(),
+    isFormAvailable: selectors.selectIsFormAvailable(),
   }),
   dispatch => ({
     createCommunityDispatch: bindActionCreators(createCommunity, dispatch),
     setDefaultStoreDispatch: bindActionCreators(setDefaultStore, dispatch),
+    getFormDispatch: bindActionCreators(getForm, dispatch),
   }),
 );
 
-const withReducer = injectReducer({ key: 'createCommunity', reducer });
-const withSaga = injectSaga({ key: 'createCommunity', saga });
-
 export default compose(
-  withReducer,
-  withSaga,
+  injectReducer({ key: STATE_KEY, reducer }),
+  injectSaga({ key: STATE_KEY, saga, mode: DAEMON }),
   withConnect,
 )(CreateCommunity);

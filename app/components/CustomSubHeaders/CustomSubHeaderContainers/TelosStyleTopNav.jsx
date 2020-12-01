@@ -1,9 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-
-import * as routes from 'routes-config';
 
 import communitiesConfig from 'communities-config';
 
@@ -16,22 +13,14 @@ import peeranhaLogo from 'images/LogoBlack.svg?inline';
 
 import { LocalLink, Subitems } from '../CustomSubHeader';
 
-const TopContainer = styled.div`
+const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
-const TopLeftContainer = styled.div`
-  flex: 1 1 0px;
-`;
-
-const TopCenterContainer = styled.div`
-  flex: 0 0 auto;
-`;
-
-const TopRightContainer = styled.div`
-  flex: 1 1 0px;
+const SubHeaderNav = styled.div`
+  flex: 1 1 0;
   display: flex;
   justify-content: flex-end;
 
@@ -43,15 +32,17 @@ const TopRightContainer = styled.div`
 
 const SubHeaderLogo = styled.a`
   display: inline-block;
+  padding: 10px;
 
   img {
-    width: 140px;
-    height: 49px;
+    width: 120px;
+    height: auto;
   }
 `;
 
 const NavItem = styled.div`
   position: relative;
+  z-index: 9999;
 
   > div {
     left: auto;
@@ -67,12 +58,12 @@ const NavItem = styled.div`
 
 const Links = ({ links, styles }) => (
   <div>
-    {links.map(({ text, href, isHighlighted, subitems }) => (
+    {links.map(({ text, href, isHighlighted, subitems, target }) => (
       <NavItem>
         {href ? (
           <LocalLink
             href={href}
-            target="_blank"
+            target={target || '_blank'}
             styles={styles}
             isHighlighted={isHighlighted}
           >
@@ -84,14 +75,14 @@ const Links = ({ links, styles }) => (
         {subitems ? (
           <Subitems styles={styles.subitems}>
             <div>
-              {subitems.map(({ text, href }) => (
+              {subitems.map(item => (
                 <LocalLink
                   styles={styles}
-                  key={href}
-                  href={href}
-                  target="_blank"
+                  key={item.href}
+                  href={item.href}
+                  target={item.target || '_blank'}
                 >
-                  {text}
+                  {item.text}
                 </LocalLink>
               ))}
             </div>
@@ -107,7 +98,7 @@ Links.propTypes = {
   styles: PropTypes.object,
 };
 
-const LogoCenterMenuRight = () => {
+const TelosStyleTopNav = () => {
   const src = singleCommunityStyles().withoutSubHeader
     ? communitiesConfig[isSingleCommunityWebsite()].src
     : peeranhaLogo;
@@ -115,18 +106,16 @@ const LogoCenterMenuRight = () => {
   const { links, styles } = singleCommunityStyles().customSubHeaderConfig;
 
   return (
-    <TopContainer>
-      <TopLeftContainer />
-      <TopCenterContainer>
-        <SubHeaderLogo href={singleCommunityStyles().domainName}>
-          <img src={src} alt="logo" />
-        </SubHeaderLogo>
-      </TopCenterContainer>
-      <TopRightContainer>
+    <Container>
+      <SubHeaderLogo href={singleCommunityStyles().domainName}>
+        <img src={src} alt="logo" />
+      </SubHeaderLogo>
+
+      <SubHeaderNav>
         {!!links && !!styles ? <Links links={links} styles={styles} /> : null}
-      </TopRightContainer>
-    </TopContainer>
+      </SubHeaderNav>
+    </Container>
   );
 };
 
-export default LogoCenterMenuRight;
+export default TelosStyleTopNav;

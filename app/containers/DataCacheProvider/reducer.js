@@ -13,6 +13,9 @@ import {
   GET_FAQ,
   GET_FAQ_ERROR,
   GET_FAQ_SUCCESS,
+  GET_TUTORIAL,
+  GET_TUTORIAL_ERROR,
+  GET_TUTORIAL_SUCCESS,
   GET_STAT,
   GET_STAT_ERROR,
   GET_STAT_SUCCESS,
@@ -20,6 +23,7 @@ import {
   GET_USER_PROFILE_ERROR,
   GET_USER_PROFILE_SUCCESS,
   REMOVE_USER_PROFILE,
+  UPDATE_USER_ACHIEVEMENTS,
 } from './constants';
 
 export const initialState = fromJS({
@@ -35,6 +39,9 @@ export const initialState = fromJS({
   faq: null,
   getFaqLoading: false,
   getFaqError: null,
+  tutorial: null,
+  getTutorialLoading: false,
+  getTutorialError: null,
 });
 
 /* eslint no-param-reassign: 0, indent: 0, no-case-declarations: 0 */
@@ -50,6 +57,10 @@ function dataCacheProviderReducer(state = initialState, action) {
     getStatError,
     faq,
     getFaqError,
+    tutorial,
+    getTutorialError,
+    userForUpdate,
+    updatedAchCount,
   } = action;
 
   switch (type) {
@@ -66,6 +77,15 @@ function dataCacheProviderReducer(state = initialState, action) {
       return state.set('getFaqLoading', false).set('faq', faq);
     case GET_FAQ_ERROR:
       return state.set('getFaqLoading', false).set('getFaqError', getFaqError);
+
+    case GET_TUTORIAL:
+      return state.set('getTutorialLoading', true);
+    case GET_TUTORIAL_SUCCESS:
+      return state.set('getTutorialLoading', false).set('tutorial', tutorial);
+    case GET_TUTORIAL_ERROR:
+      return state
+        .set('getTutorialLoading', false)
+        .set('getTutorialError', getTutorialError);
 
     case GET_COMMUNITIES_WITH_TAGS:
       return state.set('communitiesLoading', true);
@@ -103,6 +123,12 @@ function dataCacheProviderReducer(state = initialState, action) {
       return state
         .set('usersLoading', false)
         .set('getUserProfileError', getUserProfileError);
+
+    case UPDATE_USER_ACHIEVEMENTS:
+      return state.setIn(
+        ['users', `${userForUpdate}`, 'achievements_reached'],
+        updatedAchCount,
+      );
 
     default:
       return state;

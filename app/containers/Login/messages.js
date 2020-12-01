@@ -6,11 +6,12 @@ import { defineMessages } from 'react-intl';
 
 import {
   SCATTER_MODE_ERROR,
+  SCATTER_BROWSER_EXTENSION_NOT_CONFIGURED,
   USER_IS_NOT_REGISTERED,
   USER_IS_NOT_SELECTED,
 } from './constants';
 
-export default defineMessages({
+const messages = defineMessages({
   authUserHasMore: {
     id: 'app.containers.Login.authUserHasMore',
   },
@@ -32,6 +33,9 @@ export default defineMessages({
   [SCATTER_MODE_ERROR]: {
     id: 'app.containers.Login.scatterIsNotInstalled',
   },
+  [SCATTER_BROWSER_EXTENSION_NOT_CONFIGURED]: {
+    id: 'app.containers.Login.scatterBrowserExtensionNotConfigured',
+  },
   [USER_IS_NOT_REGISTERED]: {
     id: 'app.containers.Login.userIsNotRegistered',
   },
@@ -48,3 +52,10 @@ export default defineMessages({
     id: 'app.containers.Login.iDontHaveAnAccount',
   },
 });
+
+export const getAccountNotSelectedMessageDescriptor = isExtension =>
+  isExtension
+    ? messages[SCATTER_BROWSER_EXTENSION_NOT_CONFIGURED]
+    : messages[USER_IS_NOT_SELECTED];
+
+export default messages;

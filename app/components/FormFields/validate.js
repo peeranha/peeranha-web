@@ -47,6 +47,16 @@ const validateEmail = email => {
   return email && !re.test(email) ? messages.wrongEmail : undefined;
 };
 
+const validateURL = url => {
+  const re = /^(?:(?:https?):\/\/)(?:www\.|(?!www))([\da-z\-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
+  const isUrl = re.test(url);
+  const hasDotSlashSeries = /(\.\.)|(\.\/)|(\/\/.*\/.*\.)|(\s)/g.test(url);
+  const hasDoubleSlash = url && url.match(/\/\//g)?.length > 1;
+  return url && (!isUrl || hasDotSlashSeries || hasDoubleSlash)
+    ? messages.wrongURL
+    : undefined;
+};
+
 const required = value => {
   let val = value;
 
@@ -162,6 +172,7 @@ const strLength1x1000 = stringLength(1, 1000);
 const strLength2x15 = stringLength(2, 15);
 const strLength8x100 = stringLength(8, 100);
 const strLength254Max = stringLengthMax(254);
+const strLength100Max = stringLengthMax(100);
 const strLength3x20 = stringLength(3, 20);
 const strLength15x100 = stringLength(15, 100);
 const strLength15x250 = stringLength(15, 250);
@@ -172,6 +183,7 @@ export {
   imageValidation,
   stringLength,
   validateEmail,
+  validateURL,
   required,
   requiredForObjectField,
   strLength1x5,
@@ -179,6 +191,7 @@ export {
   strLength2x15,
   strLength8x100,
   strLength254Max,
+  strLength100Max,
   strLength3x20,
   strLength15x100,
   strLength15x250,

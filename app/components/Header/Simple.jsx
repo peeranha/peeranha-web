@@ -1,12 +1,28 @@
+import styled from 'styled-components';
+
 import BaseRounded from 'components/Base/BaseRounded';
+
+export const WrapperRightPanel = styled.div`
+  align-self: center;
+  width: auto !important;
+  margin-top: 5px !important;
+
+  button {
+    .button-label {
+      @media only screen and (max-width: 576px) {
+        display: none;
+      }
+    }
+  }
+`;
 
 const C1 = `
   flex-direction: column;
   align-items: flex-start;
 
   > div:nth-child(2) {
+    width: 100%;
     margin-top: 15px;
-    margin-left: 5px;
   }
 `;
 
@@ -17,9 +33,14 @@ const C2 = `
     img {
       margin-right: 0 !important;
     }
+  }
 
-    span {
-      display: none;
+  @media only screen and (max-width: 690px) {
+    flex-wrap: wrap;
+
+    > div:nth-child(2) {
+      width: 100%;
+      margin-top: 15px;
     }
   }
 `;
@@ -40,16 +61,20 @@ export const C3 = isColumnForSM => `
     background: none;
     box-shadow: none;
 
-    > *:nth-child(1) {
-      margin-right: 20px;
-    }
-
     h3 {
-      font-size: 28px;
-      line-height: 28px;
+      font-size: 24px;
+      line-height: 1;
 
       img {
         margin-right: 8px;
+      }
+    }
+
+    .right-panel {
+      margin-left: 12px !important;
+
+      button {
+        padding: 5px;
       }
     }
 
@@ -66,6 +91,17 @@ export default BaseRounded.extend`
     align-items: ${({ single }) => (single ? 'flex-start' : 'center')};
     &:nth-child(2) {
       justify-items: flex-start;
+    }
+
+    .right-panel {
+      width: auto !important;
+      margin-top: 5px !important;
+    }
+
+    button {
+      .button-label {
+        display: none;
+      }
     }
   }
 `;

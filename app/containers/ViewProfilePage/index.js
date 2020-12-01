@@ -3,49 +3,51 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators, compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
+
 import * as routes from 'routes-config';
+
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import { redirectToEditProfilePage } from 'containers/EditProfilePage/actions';
+
 import { DAEMON } from 'utils/constants';
 
 import Profile from 'containers/Profile';
+import Achievements from 'containers/Achievements';
+import Moderation from 'containers/Moderation';
 import Notifications from 'components/Notifications';
 import UserNavigation from 'components/UserNavigation';
-
 import QuestionsOfUser from 'containers/QuestionsOfUser';
 import QuestionsWithAnswersOfUser from 'containers/QuestionsWithAnswersOfUser';
+import ProfileViewForm from './ProfileViewForm';
+import SettingsOfUser from './SettingsOfUser';
 
 import {
   makeSelectAccount,
   makeSelectLoginData,
 } from 'containers/AccountProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-
 import {
   selectCommunities,
   selectUsers,
 } from 'containers/DataCacheProvider/selectors';
-
 import {
   selectQuestions,
   selectQuestionsLoading,
 } from 'containers/QuestionsOfUser/selectors';
-
 import {
   selectQuestionsLoading as selectQuestionsWithAnswersLoading,
   selectQuestionsWithUserAnswers,
 } from 'containers/QuestionsWithAnswersOfUser/selectors';
-
-import { redirectToEditProfilePage } from 'containers/EditProfilePage/actions';
-
 import { selectActiveKey } from 'containers/ShowActiveKey/selectors';
 import { selectOwnerKey } from 'containers/ShowOwnerKey/selectors';
+import { selectGetUserTgData } from '../TelegramAccountAction/selectors';
 
-import ProfileViewForm from './ProfileViewForm';
-import SettingsOfUser from './SettingsOfUser';
 import saga from '../QuestionsWithAnswersOfUser/saga';
+
 import questionsWithAnswersOfUserReducer from '../QuestionsWithAnswersOfUser/reducer';
 import questionsOfUserReducer from '../QuestionsOfUser/reducer';
+import telegramAccountActionReducer from '../TelegramAccountAction/reducer';
 
 const ViewProfilePage = ({
   match,
@@ -61,6 +63,7 @@ const ViewProfilePage = ({
   activeKey,
   ownerKey,
   redirectToEditProfilePageDispatch,
+  userTgData,
 }) => {
   const path = window.location.pathname + window.location.hash;
   const userId = match.params.id;
@@ -70,9 +73,11 @@ const ViewProfilePage = ({
       <UserNavigation
         userId={userId}
         account={account}
+        profile={profile}
         loginData={loginData}
         questionsLength={profile?.questions_asked ?? 0}
         questionsWithUserAnswersLength={profile?.answers_given ?? 0}
+        userAchievementsLength={profile?.achievements_reached?.length ?? null}
         redirectToEditProfilePage={redirectToEditProfilePageDispatch}
       />
 
@@ -101,11 +106,31 @@ const ViewProfilePage = ({
         account={account}
         user={profile?.user ?? null}
         isAvailable={profile && account === profile.user}
+        tgData={userTgData}
       />
 
       {path === routes.userNotifications(userId) && (
         <Notifications
           className={path === routes.userNotifications(userId) ? '' : 'd-none'}
+          isAvailable={account === profile?.user}
+        />
+      )}
+
+      {path === routes.userAchievements(userId) && (
+        <Achievements
+          className={path === routes.userAchievements(userId) ? '' : 'd-none'}
+          isAvailable={account === profile?.user}
+          userId={userId}
+        />
+      )}
+
+      {path === routes.userModeration(userId) && (
+        <Moderation
+          className={path === routes.userModeration(userId) ? '' : 'd-none'}
+          userId={userId}
+          account={account}
+          profile={profile}
+          loginData={loginData}
           isAvailable={account === profile?.user}
         />
       )}
@@ -146,6 +171,7 @@ ViewProfilePage.propTypes = {
   questionsLoading: PropTypes.bool,
   questionsWithAnswersLoading: PropTypes.bool,
   redirectToEditProfilePageDispatch: PropTypes.func,
+  userTgData: PropTypes.object,
 };
 
 const withConnect = connect(
@@ -161,6 +187,7 @@ const withConnect = connect(
     questionsWithAnswersLoading: selectQuestionsWithAnswersLoading(),
     activeKey: selectActiveKey(),
     ownerKey: selectOwnerKey(),
+    userTgData: selectGetUserTgData(),
   }),
   dispatch => ({
     redirectToEditProfilePageDispatch: bindActionCreators(
@@ -171,6 +198,10 @@ const withConnect = connect(
 );
 
 const key = 'questionsOfUser';
+const withTelegramAccountActionReducer = injectReducer({
+  key,
+  reducer: telegramAccountActionReducer,
+});
 const withQuestionsWithAnswersReducer = injectReducer({
   key,
   reducer: questionsWithAnswersOfUserReducer,
@@ -185,6 +216,7 @@ const withSaga = injectSaga({ key, saga, mode: DAEMON });
 export default compose(
   withQuestionsWithAnswersReducer,
   withQuestionsReducer,
+  withTelegramAccountActionReducer,
   withSaga,
   withConnect,
 )(ViewProfilePage);

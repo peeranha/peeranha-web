@@ -1,13 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { injectIntl, intlShape } from 'react-intl';
 
 import {
-  TEXT_WARNING_LIGHT,
-  TEXT_WARNING,
-  TEXT_PRIMARY,
   TEXT_DARK,
   TEXT_SECONDARY,
+  PEER_PRIMARY_COLOR,
+  PEER_PRIMARY_TRANSPARENT_COLOR,
+  PEER_WARNING_COLOR,
+  PEER_WARNING_TRANSPARENT_COLOR,
+  PEER_ERROR_COLOR,
+  PEER_PREMIUM_COLOR,
+  PEER_PREMIUM_TRANSPARENT_COLOR,
 } from 'style-constants';
 
 import { getFormattedNum } from 'utils/numbers';
@@ -18,7 +23,11 @@ import Icon from 'components/Icon';
 
 import options from './options';
 
-import RatingStatusStyled from './RatingStatusStyled';
+const RatingStatusStyled = styled.span`
+  display: flex;
+  align-items: center;
+  margin-right: 0.5rem;
+`;
 
 const getStatus = rating =>
   Object.keys(options).filter(
@@ -31,13 +40,22 @@ const IconWithStatus = ({ className, size, rating }) => {
   let color = TEXT_DARK;
   let fill = '';
 
-  if (rating > options.resident.minRating && size === 'sm') {
-    color = TEXT_WARNING_LIGHT;
-    fill = '#FDE2DF';
-  } else if (rating <= options.banned.maxRating) {
-    color = TEXT_WARNING;
-  } else if (rating <= options.resident.minRating && size === 'sm') {
-    color = TEXT_PRIMARY;
+  if (rating <= options.banned.maxRating) {
+    // banned
+    color = PEER_ERROR_COLOR;
+    fill = PEER_ERROR_COLOR;
+  } else if (rating <= options.jrResident.maxRating) {
+    // stranger - junior
+    color = PEER_PRIMARY_COLOR;
+    fill = PEER_PRIMARY_TRANSPARENT_COLOR;
+  } else if (rating <= options.heroResident.maxRating) {
+    // resident - hero
+    color = PEER_WARNING_COLOR;
+    fill = PEER_WARNING_TRANSPARENT_COLOR;
+  } else {
+    // superhero
+    color = PEER_PREMIUM_COLOR;
+    fill = PEER_PREMIUM_TRANSPARENT_COLOR;
   }
 
   return (
@@ -72,7 +90,7 @@ const RatingStatus = ({ rating = 0, size, intl, isRankOff }) => {
     <RatingStatusStyled>
       <IconWithStatus size={size} rating={rating} />
       <Span
-        className={isRankOff ? 'd-none' : 'd-none d-lg-inline-block'}
+        className={isRankOff ? 'd-none' : 'd-none d-lg-inline-block ml-1'}
         fontSize={size === 'lg' ? 16 : 14}
         color={size === 'lg' ? TEXT_DARK : TEXT_SECONDARY}
       >

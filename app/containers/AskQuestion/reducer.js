@@ -10,11 +10,16 @@ import {
   ASK_QUESTION,
   ASK_QUESTION_SUCCESS,
   ASK_QUESTION_ERROR,
+  GET_EXISTING_QUESTIONS,
+  GET_EXISTING_QUESTIONS_SUCCESS,
+  GET_EXISTING_QUESTIONS_ERROR,
 } from './constants';
 
 export const initialState = fromJS({
   askQuestionLoading: false,
+  getExistingQuestionsLoading: false,
   questionError: '',
+  getExistingQuestionsError: '',
 });
 
 function askQuestionReducer(state = initialState, action) {
@@ -29,6 +34,32 @@ function askQuestionReducer(state = initialState, action) {
       return state
         .set('askQuestionLoading', false)
         .set('questionError', questionError);
+
+    default:
+      return state;
+  }
+}
+
+export function existingQuestionReducer(state = initialState, action) {
+  const { type, existingQuestions, getExistingQuestionsError } = action;
+
+  switch (type) {
+    case GET_EXISTING_QUESTIONS:
+      return state.set('getExistingQuestionsLoading', true);
+    case GET_EXISTING_QUESTIONS_SUCCESS:
+      return state
+        .set('getExistingQuestionsLoading', false)
+        .set(
+          'existingQuestions',
+          existingQuestions
+            ? existingQuestions.slice(0, 4)
+            : initialState.get('existingQuestions'),
+        );
+    case GET_EXISTING_QUESTIONS_ERROR:
+      return state
+        .set('getExistingQuestionsLoading', false)
+        .set('getExistingQuestionsError', getExistingQuestionsError);
+
     default:
       return state;
   }

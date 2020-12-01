@@ -22,7 +22,7 @@ import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 
 import Span from 'components/Span';
 import Icon from 'components/Icon';
-import Textarea from 'components/Textarea';
+import { TextareaStyled } from 'components/Textarea';
 import Button from './Button';
 import UserInfo from './UserInfo';
 import CommentOptions from './CommentOptions';
@@ -58,7 +58,7 @@ const CommentManage = styled.div`
 `;
 
 const CommentEditStyled = styled.li`
-  ${Textarea} {
+  ${TextareaStyled} {
     height: 90px;
   }
 `;
@@ -144,8 +144,10 @@ const CommentView = item => {
           name={item.userInfo?.display_name ?? ''}
           rating={item.userInfo.rating}
           account={item.userInfo.user}
+          achievementsCount={item.userInfo.achievements_reached?.length}
           postTime={item.post_time}
           locale={item.locale}
+          isComment
         />
 
         <CommentManage>
@@ -158,7 +160,7 @@ const CommentView = item => {
             }}
             onClick={() => item.toggleView(!item.isView)}
           >
-            <Icon icon={editSmallIcon} width={13} fill={BORDER_PRIMARY} />
+            <Icon icon={editSmallIcon} width="13" fill={BORDER_PRIMARY} />
             <FormattedMessage {...messages.editButton} />
           </Button>
 
@@ -179,7 +181,11 @@ const CommentView = item => {
                     `delete-comment-${item.answerId}${item.id}`,
                   )}
                 >
-                  <Icon icon={deleteSmallIcon} width={13} fill={BORDER_PRIMARY} />
+                  <Icon
+                    icon={deleteSmallIcon}
+                    width="13"
+                    fill={BORDER_PRIMARY}
+                  />
                   <FormattedMessage {...messages.deleteButton} />
                 </Button>
               )}

@@ -19,7 +19,9 @@ import {
   followCommunity,
 } from 'utils/communityManagement';
 
-import loginMessages from 'containers/Login/messages';
+import loginMessages, {
+  getAccountNotSelectedMessageDescriptor,
+} from 'containers/Login/messages';
 
 import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
 import { successHandling } from 'containers/Toast/saga';
@@ -31,7 +33,6 @@ import {
   EMAIL_FIELD as EMAIL_LOGIN_FIELD,
   PASSWORD_FIELD as PASSWORD_LOGIN_FIELD,
   SCATTER_MODE_ERROR,
-  USER_IS_NOT_SELECTED,
   REFERRAL_CODE,
 } from 'containers/Login/constants';
 
@@ -212,9 +213,11 @@ export function* iHaveEosAccountWorker({ val }) {
         activeKey: {
           private: val[EOS_ACTIVE_PRIVATE_KEY_FIELD],
         },
-        ownerKey: {
-          private: val[EOS_OWNER_PRIVATE_KEY_FIELD],
-        },
+        ownerKey: val[EOS_OWNER_PRIVATE_KEY_FIELD]
+          ? {
+              private: val[EOS_OWNER_PRIVATE_KEY_FIELD],
+            }
+          : null,
       },
       masterKey: val[MASTER_KEY_FIELD],
       password: val[PASSWORD_FIELD],
@@ -256,7 +259,6 @@ export function* idontHaveEosAccountWorker({ val }) {
     const locale = yield select(makeSelectLocale());
     const keys = yield select(selectKeys());
     const translations = translationMessages[locale];
-
     const email = yield select(selectEmail());
     const encryptionKey = yield select(selectEncryptionKey());
 
@@ -347,6 +349,8 @@ export function* signUpWithScatterWorker({ val }) {
     }
 
     yield put(signUpWithScatterSuccess());
+
+    yield call(createdHistory.push, routes.questions());
   } catch (err) {
     yield put(signUpWithScatterErr(err));
   }
@@ -369,7 +373,11 @@ export function* showScatterSignUpFormWorker() {
 
     if (!eosService.selectedAccount) {
       throw new WebIntegrationError(
-        translations[loginMessages[USER_IS_NOT_SELECTED].id],
+        translations[
+          getAccountNotSelectedMessageDescriptor(
+            eosService.isScatterExtension,
+          ).id
+        ],
       );
     }
 

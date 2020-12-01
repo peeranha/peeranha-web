@@ -19,11 +19,18 @@ import Ul from 'components/Ul/SpecialOne';
 import Span from 'components/Span';
 import A from 'components/A';
 import RatingStatus from 'components/RatingStatus';
+import AchievementsStatus from 'components/AchievementsStatus';
 import { MediumSpecialImage } from 'components/Img/MediumImage';
 import { IconLg } from 'components/Icon/IconWithSizes';
 import Logout from 'containers/Logout';
 
 import { selectIsMenuVisible } from '../AppWrapper/selectors';
+
+const StatusBox = styled.span`
+  display: inline-flex;
+  font-size: 14px;
+  margin-top: 2px;
+`;
 
 const Info = styled.span`
   padding: 0 10px;
@@ -47,7 +54,10 @@ const B = ({ profileInfo, onClick, isMenuVisible }) => (
       isMenuVisible={isMenuVisible}
     >
       <Span bold>{profileInfo?.['display_name']}</Span>
-      <RatingStatus rating={profileInfo.rating} size="sm" isRankOff />
+      <StatusBox>
+        <RatingStatus rating={profileInfo.rating} size="sm" isRankOff />
+        <AchievementsStatus count={profileInfo.achievements_reached?.length} />
+      </StatusBox>
     </Info>
   </span>
 );
@@ -58,7 +68,7 @@ export const Button = connect(state => ({
 
 const Menu = memo(
   ({
-    profileInfo: { user },
+    profileInfo: { user, permissions },
     questionsLength,
     questionsWithUserAnswersLength,
   }) => (
@@ -90,6 +100,15 @@ const Menu = memo(
         <A to={routes.userNotifications(user)}>
           <FormattedMessage {...messages.notifications} />
         </A>
+        <A to={routes.userAchievements(user)}>
+          <FormattedMessage {...messages.achievements} />
+        </A>
+        {permissions &&
+          !!permissions.length && (
+            <A to={routes.userModeration(user)}>
+              <FormattedMessage {...messages.moderation} />
+            </A>
+          )}
       </Ul>
 
       <Ul>

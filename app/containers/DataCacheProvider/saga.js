@@ -6,6 +6,8 @@ import { getProfileInfo } from 'utils/profileManagement';
 import { getStat } from 'utils/statisticsManagement';
 import { getMD } from 'utils/mdManagement';
 import { setCookie } from 'utils/cookie';
+import { getAchievements } from 'utils/achievementsManagement';
+import { USER_ACHIEVEMENTS_TABLE } from 'utils/constants';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
@@ -31,6 +33,8 @@ import {
   getFaqErr,
   getFaqSuccess,
   getCommunitiesWithTags,
+  getTutorialSuccess,
+  getTutorialErr,
 } from './actions';
 
 import {
@@ -38,6 +42,7 @@ import {
   GET_USER_PROFILE,
   GET_STAT,
   GET_FAQ,
+  GET_TUTORIAL,
 } from './constants';
 
 export function* getStatWorker() {
@@ -80,6 +85,18 @@ export function* getFaqWorker() {
   }
 }
 
+export function* getTutorialWorker() {
+  try {
+    const prefix = 'tutorial';
+    const locale = yield select(makeSelectLocale());
+    const tutorial = yield call(getMD, prefix, locale);
+
+    yield put(getTutorialSuccess(tutorial));
+  } catch (err) {
+    yield put(getTutorialErr(err));
+  }
+}
+
 /* eslint consistent-return: 0 */
 export function* getUserProfileWorker({ user, getFullProfile }) {
   try {
@@ -88,6 +105,29 @@ export function* getUserProfileWorker({ user, getFullProfile }) {
 
     // take userProfile from STORE
     if (cachedUserInfo && !getFullProfile) {
+      if (!cachedUserInfo.achievements_reached) {
+        const userAchievements = yield call(
+          getAchievements,
+          eosService,
+          USER_ACHIEVEMENTS_TABLE,
+          user,
+        );
+
+        const updatedUserInfo = {
+          ...cachedUserInfo,
+          achievements_reached: userAchievements,
+        };
+        setCookie({
+          name: PROFILE_INFO_LS,
+          value: JSON.stringify(updatedUserInfo),
+          options: {
+            defaultPath: true,
+            allowSubdomains: true,
+          },
+        });
+        yield put(getUserProfileSuccess(updatedUserInfo));
+        return updatedUserInfo;
+      }
       return yield cachedUserInfo;
     }
 
@@ -98,6 +138,16 @@ export function* getUserProfileWorker({ user, getFullProfile }) {
       eosService,
       getFullProfile,
     );
+
+    if (!updatedUserInfo.achievements_reached) {
+      const userAchievements = yield call(
+        getAchievements,
+        eosService,
+        USER_ACHIEVEMENTS_TABLE,
+        user,
+      );
+      updatedUserInfo.achievements_reached = userAchievements;
+    }
 
     if (
       (updatedUserInfo && !cachedUserInfo) ||
@@ -129,6 +179,7 @@ export default function*() {
   yield takeEvery(GET_USER_PROFILE, getUserProfileWorker);
   yield takeLatest(GET_STAT, getStatWorker);
   yield takeLatest(GET_FAQ, getFaqWorker);
+  yield takeLatest(GET_TUTORIAL, getTutorialWorker);
   yield takeLatest(
     [
       LOGOUT_SUCCESS,

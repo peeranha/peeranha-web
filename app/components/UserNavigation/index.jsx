@@ -24,27 +24,36 @@ const Ul = styled.ul`
   align-items: center;
   width: 100%;
 
+  > * {
+    flex-shrink: 0;
+  }
+
   @media only screen and (max-width: 576px) {
     overflow: auto;
     display: flex;
-
-    > * {
-      flex-shrink: 0;
-    }
   }
 `;
 
 const Div = styled.div`
   white-space: nowrap;
+  flex-wrap: wrap;
+  flex-grow: 1;
+  max-width: ${({ isProfilePage = true }) => (isProfilePage ? '94%' : '100%')};
+
+  @media only screen and (max-width: 767px) {
+    max-width: 100%;
+  }
 `;
 
-const hashes = ['#questions', '#answers', '#settings'];
+const hashes = ['#questions', '#answers', '#settings', '#moderation'];
 
 const UserNavigation = ({
   userId,
   account,
+  profile: { permissions },
   questionsLength,
   questionsWithUserAnswersLength,
+  userAchievementsLength,
   redirectToEditProfilePage,
 }) => {
   const path = window.location.pathname + window.location.hash;
@@ -62,10 +71,18 @@ const UserNavigation = ({
     [window.location.hash],
   );
 
+  const isProfilePage =
+    userId === account &&
+    (path === routes.profileView(account) ||
+      path === routes.userCommunities(account));
+
   return (
     <Wrapper position="top" ref={ref}>
       <Ul>
-        <Div className="d-flex align-items-center">
+        <Div
+          className="d-flex align-items-center"
+          isProfilePage={isProfilePage}
+        >
           <NavigationLink
             to={routes.profileView(userId)}
             isLink={
@@ -145,6 +162,41 @@ const UserNavigation = ({
             <FormattedMessage {...messages.notifications} />
           </NavigationLink>
 
+          <NavigationLink
+            to={routes.userAchievements(userId)}
+            isLink={path !== routes.userAchievements(userId)}
+          >
+            <FormattedMessage
+              {...messages.achievementsNumber}
+              values={{
+                number: (
+                  <Span
+                    className="ml-1"
+                    fontSize="14"
+                    color={
+                      path !== routes.userAchievements(userId)
+                        ? TEXT_SECONDARY
+                        : 'inherit'
+                    }
+                  >
+                    {userAchievementsLength}
+                  </Span>
+                ),
+              }}
+            />
+          </NavigationLink>
+
+          {permissions &&
+            !!permissions.length && (
+              <NavigationLink
+                className={userId !== account ? 'd-none' : ''}
+                to={routes.userModeration(userId)}
+                isLink={path !== routes.userModeration(userId)}
+              >
+                <FormattedMessage {...messages.moderation} />
+              </NavigationLink>
+            )}
+
           <NavigationButton
             className={
               userId === account && path === routes.profileView(account)
@@ -164,11 +216,7 @@ const UserNavigation = ({
           <button
             onClick={redirectToEditProfilePage}
             className={`align-items-center ${
-              userId === account &&
-              (path === routes.profileView(account) ||
-                path === routes.userCommunities(account))
-                ? 'd-inline-flex'
-                : 'd-none'
+              isProfilePage ? 'd-inline-flex' : 'd-none'
             }`}
             id={`redireact-to-edit-${userId}-user-page-2`}
             data-user={userId}
@@ -187,7 +235,7 @@ const UserNavigation = ({
             }`}
             to={routes.profileView(account)}
           >
-            <IconMd icon={closeIcon} fill={BORDER_PRIMARY} isColorImportant={true} />
+            <IconMd icon={closeIcon} fill={BORDER_PRIMARY} isColorImportant />
             <Span className="ml-1" color={TEXT_PRIMARY}>
               <FormattedMessage {...messages.close} />
             </Span>
@@ -203,7 +251,9 @@ UserNavigation.propTypes = {
   account: PropTypes.string,
   questionsLength: PropTypes.number,
   questionsWithUserAnswersLength: PropTypes.number,
+  userAchievementsLength: PropTypes.number,
   loginData: PropTypes.object,
+  profile: PropTypes.object,
   redirectToEditProfilePage: PropTypes.func,
 };
 

@@ -1,9 +1,11 @@
-import React, { useMemo, useCallback } from 'react';
+import React, { useMemo, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { translationMessages } from 'i18n';
 import { compose, bindActionCreators } from 'redux';
+import { Redirect } from 'react-router-dom';
+import { tags } from 'routes-config';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -31,13 +33,22 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 
-import { suggestTag } from './actions';
+import { suggestTag, getForm } from './actions';
 
-import { NAME_FIELD, DESCRIPTION_FIELD, FORM_COMMUNITY } from './constants';
+import {
+  NAME_FIELD,
+  DESCRIPTION_FIELD,
+  FORM_COMMUNITY,
+  STATE_KEY,
+} from './constants';
 
 import Form from './Form';
 import Tips from './Tips';
 import Header from './Header';
+
+import { getSuggestedTags } from '../Tags/actions';
+import tagsReducer from '../Tags/reducer';
+import tagsSaga from '../Tags/saga';
 
 const single = isSingleCommunityWebsite();
 
@@ -48,7 +59,15 @@ const CreateTag = ({
   match,
   faqQuestions,
   suggestTagDispatch,
+  getSuggestedTagsDispatch,
+  getFormDispatch,
+  isFormLoading,
+  isFormAvailable,
 }) => {
+  useEffect(() => {
+    getFormDispatch();
+  }, []);
+
   const commId = useMemo(() => single || +match.params.communityid, [match]);
 
   const createTag = useCallback(
@@ -66,6 +85,10 @@ const CreateTag = ({
     },
     [suggestTagDispatch],
   );
+
+  if (isFormLoading) return <LoadingIndicator />;
+
+  if (!isFormAvailable) return <Redirect to={tags()} />;
 
   return (
     <div>
@@ -99,13 +122,6 @@ const CreateTag = ({
   );
 };
 
-/*
-export class CreateTag extends React.PureComponent {
-
-
-  render() {
-}
-*/
 CreateTag.propTypes = {
   locale: PropTypes.string,
   match: PropTypes.object,
@@ -113,11 +129,16 @@ CreateTag.propTypes = {
   suggestTagDispatch: PropTypes.func,
   communities: PropTypes.array,
   faqQuestions: PropTypes.array,
+  isFormLoading: PropTypes.bool,
+  getFormDispatch: PropTypes.func.isRequired,
+  isFromAvailable: PropTypes.bool,
 };
 
 export default compose(
-  injectReducer({ key: 'createTag', reducer }),
-  injectSaga({ key: 'createTag', saga }),
+  injectReducer({ key: STATE_KEY, reducer }),
+  injectSaga({ key: STATE_KEY, saga }),
+  injectReducer({ key: 'tags', reducer: tagsReducer }),
+  injectSaga({ key: 'tags', saga: tagsSaga }),
   connect(
     createStructuredSelector({
       locale: makeSelectLocale(),
@@ -127,9 +148,13 @@ export default compose(
       ]),
       communities: selectCommunities(),
       createTagLoading: selectors.selectSuggestTagLoading(),
+      isFormLoading: selectors.selectIsFormLoading(),
+      isFormAvailable: selectors.selectIsFormAvailable(),
     }),
     dispatch => ({
       suggestTagDispatch: bindActionCreators(suggestTag, dispatch),
+      getSuggestedTagsDispatch: bindActionCreators(getSuggestedTags, dispatch),
+      getFormDispatch: bindActionCreators(getForm, dispatch),
     }),
   ),
 )(CreateTag);

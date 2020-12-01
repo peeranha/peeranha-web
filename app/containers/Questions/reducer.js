@@ -151,6 +151,7 @@ function questionsReducer(state = initialState, action) {
         .set('topQuestionsInfoLoaded', true)
         .set('questionFilter', questionFilter)
         .set('lastLoadedTopQuestionIndex', lastIndex)
+        .set('questionsLoading', false)
         .set(
           'questions',
           fromJS({

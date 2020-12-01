@@ -21,6 +21,7 @@ import twitter from 'images/twitter.svg?external';
 import linkedin from 'images/in.svg?external';
 import github from 'images/github.svg?external';
 import facebook from 'images/facebook.svg?external';
+import telegram from 'images/social-media-logos/logo-telegram-glyph-24.svg?external';
 
 import * as routes from 'routes-config';
 
@@ -115,6 +116,7 @@ const Footer = ({ locale }) => (
             <MediaLink href={getLinks(locale).github} src={github} />
             <MediaLink href={getLinks(locale).medium} src={medium} />
             <MediaLink href={getLinks(locale).linkedin} src={linkedin} />
+            <MediaLink href={getLinks(locale).telegram} src={telegram} />
           </div>
         </div>
       </div>

@@ -16,18 +16,22 @@ export function getIpfsApi() {
 export async function saveText(text) {
   let parsedText;
 
-  try {
-    parsedText = JSON.parse(text);
-
-    Object.keys(parsedText).forEach(x => {
-      if (typeof parsedText[x] === 'string') {
-        parsedText[x] = parsedText[x].trim();
-      }
-    });
-
-    parsedText = JSON.stringify(parsedText);
-  } catch (err) {
+  if (typeof text === 'string') {
     parsedText = text;
+  } else {
+    try {
+      parsedText = JSON.parse(text);
+
+      Object.keys(parsedText).forEach(x => {
+        if (typeof parsedText[x] === 'string') {
+          parsedText[x] = parsedText[x].trim();
+        }
+      });
+
+      parsedText = JSON.stringify(parsedText);
+    } catch (err) {
+      parsedText = text;
+    }
   }
 
   const buf = Buffer.from(parsedText, 'utf8');

@@ -3,21 +3,33 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Avatar from 'react-avatar-edit';
 import styled from 'styled-components';
+import { FormattedMessage } from 'react-intl';
 
-import { BG_PRIMARY_SPECIAL, BORDER_DARK } from 'style-constants';
+import messages from 'common-messages';
+
+import {
+  BG_PRIMARY_SPECIAL,
+  BORDER_DARK,
+  TEXT_PRIMARY,
+  TEXT_WARNING,
+} from 'style-constants';
 import avatarCloseIcon from 'images/avatarCloseIcon.png';
 import addIcon from 'images/tick.png';
 
+import { NO_AVATAR } from 'utils/constants';
 import { getUserAvatar } from 'utils/profileManagement';
 import { formatStringToHtmlId } from 'utils/animation';
 
 import LargeImage from 'components/Img/LargeImage';
 import { ErrorHandling, DisableHandling } from 'components/Input/InputStyled';
 
+import { AVATAR_FIELD } from 'containers/Profile/constants';
+
 import WarningMessage, { Div as WarningMessageDiv } from './WarningMessage';
 
 // < 1000 chars - hash, >> 1000 - is base64 (new image)
 export const HASH_CHARS_LIMIT = 1000;
+const IMG_SIZE_LIMIT_B = 2 * 1024 * 1024;
 
 const Div = styled.div`
   position: relative;
@@ -33,13 +45,60 @@ const Div = styled.div`
   }
 
   > :first-child {
+    overflow: hidden;
     position: relative;
     width: inherit;
     height: 120px;
 
+    @media (min-width: 992px) {
+      border-radius: 50%;
+
+      &:hover {
+        .remove-avatar-action-container {
+          bottom: 0;
+        }
+      }
+    }
+
+    .remove-avatar-action-container {
+      height: 14px;
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 14px;
+      z-index: 1;
+
+      @media (min-width: 992px) {
+        background-color: #fff;
+        bottom: -25%;
+        height: 25%;
+        opacity: 75%;
+        top: initial;
+        transition: bottom 0.5s;
+        width: 100%;
+      }
+    }
+
+    .remove-avatar-action {
+      background: url(${avatarCloseIcon}) center center / 10px 10px no-repeat;
+      height: 10px;
+      left: 50%;
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 10px;
+
+      @media (min-width: 992px) {
+        top: 25%;
+        transform: translateX(-50%);
+      }
+    }
+
     label {
       width: 100%;
       height: 100%;
+
+      line-height: 1.2 !important;
     }
 
     .reload-bg {
@@ -125,17 +184,40 @@ const Div = styled.div`
   }
 `;
 
+const InfoMessage = styled.div`
+  width: 120px;
+  margin-top: 10px;
+
+  font-size: 13px;
+  line-height: 1.2;
+  color: ${TEXT_PRIMARY};
+  text-align: center;
+  font-style: italic;
+
+  opacity: 0.9;
+`;
+
 function AvatarField({ input, meta, disabled }) {
   const [s, setS] = useState(false);
   const [y, setY] = useState(null);
   const [v, setV] = useState(true);
+  const [isFileTooLarge, setIsFileTooLarge] = useState(false);
 
   const isPhone = window.screen.width <= 576;
 
   const reload = () => {
     setS(false);
     setV(false);
+    setIsFileTooLarge(false);
     setTimeout(() => setV(true), 0);
+  };
+
+  const labelErrorStyle = {
+    fontSize: '1.2em',
+    fontWeight: '500',
+    color: TEXT_WARNING,
+    padding: '65px 15px 0',
+    cursor: 'pointer',
   };
 
   return (
@@ -156,7 +238,20 @@ function AvatarField({ input, meta, disabled }) {
                 cropRadius={60}
                 closeIconColor="transparent"
                 onCrop={setY}
-                onBeforeFileLoad={() => {
+                label={
+                  isFileTooLarge ? (
+                    <FormattedMessage {...messages.fileSizeErrorMsg} />
+                  ) : (
+                    <FormattedMessage {...messages.chooseFile} />
+                  )
+                }
+                labelStyle={isFileTooLarge ? labelErrorStyle : {}}
+                onBeforeFileLoad={e => {
+                  if (e.target.files[0].size > IMG_SIZE_LIMIT_B) {
+                    setIsFileTooLarge(true);
+                    e.target.value = '';
+                  }
+
                   setS(true);
                 }}
                 onClose={() => {
@@ -180,8 +275,19 @@ function AvatarField({ input, meta, disabled }) {
           }
           alt="icon"
         />
+        {input.name === AVATAR_FIELD &&
+          input.value !== NO_AVATAR && (
+            <div className="remove-avatar-action-container">
+              <button
+                className="remove-avatar-action"
+                onClick={() => input.onChange(NO_AVATAR)}
+              />
+            </div>
+          )}
       </div>
-
+      <InfoMessage>
+        <FormattedMessage {...messages.profilesUsersInfo} />
+      </InfoMessage>
       <WarningMessage {...meta} isSpecialPosition />
     </Div>
   );

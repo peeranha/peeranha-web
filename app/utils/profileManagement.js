@@ -4,12 +4,18 @@ import editUserNoAvatar from 'images/editUserNoAvatar.png';
 
 import { DISPLAY_NAME_FIELD } from 'containers/Profile/constants';
 import { saveText, getText, saveFile, getFileUrl } from './ipfs';
+import { getAchievements } from './achievementsManagement';
 
 import {
   ACCOUNT_TABLE,
   ALL_ACCOUNTS_SCOPE,
   SAVE_PROFILE_METHOD,
   NO_AVATAR,
+  TG_ACCOUNT_TABLE,
+  ALL_TG_ACCOUNTS_SCOPE,
+  CONFIRM_TELEGRAM_ACCOUNT,
+  UNLINK_TELEGRAM_ACCOUNT,
+  USER_ACHIEVEMENTS_TABLE,
 } from './constants';
 import {
   callService,
@@ -209,6 +215,16 @@ export async function getProfileInfo(user, eosService, getExtendedProfile) {
 
   if (!profile || profile.user !== user) return null;
 
+  if (!profile.achievements_reached) {
+    const userAchievements = await getAchievements(
+      eosService,
+      USER_ACHIEVEMENTS_TABLE,
+      user,
+    );
+
+    profile.achievements_reached = userAchievements;
+  }
+
   if (getExtendedProfile) {
     const ipfsProfile = await getText(profile.ipfs_profile);
     const parsedIpfsProfile = JSON.parse(ipfsProfile);
@@ -238,3 +254,22 @@ export const getNotificationsInfo = async user => {
   );
   return response.OK ? response.body : { all: 0, unread: 0 };
 };
+
+export async function getUserTelegramData(eosService, userName) {
+  const { rows } = await eosService.getTableRows(
+    TG_ACCOUNT_TABLE,
+    ALL_TG_ACCOUNTS_SCOPE,
+  );
+
+  const userTgData = rows.filter(item => item.user === userName);
+
+  return userTgData.length > 0 ? userTgData[0] : null;
+}
+
+export async function confirmTelegramAccount(eosService, user) {
+  await eosService.sendTransaction(user, CONFIRM_TELEGRAM_ACCOUNT, { user });
+}
+
+export async function unlinkTelegramAccount(eosService, user) {
+  await eosService.sendTransaction(user, UNLINK_TELEGRAM_ACCOUNT, { user });
+}

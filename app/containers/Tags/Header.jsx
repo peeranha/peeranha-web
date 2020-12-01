@@ -19,7 +19,9 @@ import Ul from 'components/Ul';
 import MediumIcon from 'components/Icon/MediumIcon';
 import { IconSm, IconMd } from 'components/Icon/IconWithSizes';
 import CheckedItem from 'components/Li/CheckedItem';
-import Wrapper from 'components/Header/Complex';
+import Wrapper, {
+  SubHeaderWrapperRightPanel as WrapperRightPanel,
+} from 'components/Header/Complex';
 import { MediumImageStyled } from 'components/Img/MediumImage';
 import NavigationButton from 'components/Button/Contained/Navigation';
 import A from 'components/A';
@@ -109,7 +111,7 @@ export const Header = ({
           </A>
         </div>
 
-        <div className="right-panel">
+        <WrapperRightPanel className="right-panel">
           <NavigationButton
             data-communityid={currentCommunity.id}
             onClick={goToCreateTagScreen}
@@ -126,13 +128,17 @@ export const Header = ({
               />
             </MediumIcon>
 
-            <IconSm className="d-inline-flex d-sm-none" icon={addIcon} />
+            <IconSm
+              className="d-inline-flex d-sm-none"
+              fill={BORDER_PRIMARY}
+              icon={addIcon}
+            />
 
-            <span className="ml-1">
+            <span className="ml-1 button-label">
               <FormattedMessage {...commonMessages.suggestTag} />
             </span>
           </NavigationButton>
-        </div>
+        </WrapperRightPanel>
       </Wrapper>
 
       <Wrapper position="bottom">
@@ -159,14 +165,14 @@ export const Header = ({
         </H3>
 
         {displaySortTagDropdown && (
-          <div className="right-panel">
+          <WrapperRightPanel className="right-panel">
             <Dropdown
               button={<Button sorting={sorting} />}
               menu={<Menu sortTags={sortTags} sorting={sorting} />}
               id="tags-dropdown"
               isArrowed
             />
-          </div>
+          </WrapperRightPanel>
         )}
       </Wrapper>
     </div>

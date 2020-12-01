@@ -4,13 +4,16 @@ import { FormattedMessage } from 'react-intl';
 import * as routes from 'routes-config';
 
 import commonMessages from 'common-messages';
+import { BORDER_PRIMARY } from 'style-constants';
 
 import createCommunityIcon from 'images/createCommunity.svg?inline';
 import addIcon from 'images/add.svg?external';
 
 import { IconSm } from 'components/Icon/IconWithSizes';
 import TransparentButton from 'components/Button/Contained/Transparent';
-import SubHeaderWrapper from 'components/Header/Complex';
+import SubHeaderWrapper, {
+  SubHeaderWrapperRightPanel,
+} from 'components/Header/Complex';
 import NavigationButton from 'components/Button/Contained/Navigation';
 import A from 'components/A';
 
@@ -49,25 +52,31 @@ const Header = ({
           </A>
         </div>
 
-        <div className="right-panel">
+        <SubHeaderWrapperRightPanel className="right-panel">
           <TransparentButton
             id={`${GO_TO_CREATE_COMMUNITY_SCREEN_BUTTON_ID}_header`}
             onClick={goToCreateCommunityScreen}
             className="d-flex align-items-center"
           >
-            <img
-              className="d-none d-sm-inline-block"
-              src={createCommunityIcon}
-              alt="icon"
-            />
+            <span>
+              <img
+                className="d-none d-sm-inline-block"
+                src={createCommunityIcon}
+                alt="icon"
+              />
 
-            <IconSm className="d-inline-flex d-sm-none" icon={addIcon} />
+              <IconSm
+                className="d-inline-flex d-sm-none"
+                fill={BORDER_PRIMARY}
+                icon={addIcon}
+              />
+            </span>
 
-            <span className="ml-1">
+            <span className="ml-1 button-label">
               <FormattedMessage {...messages.suggestCommunity} />
             </span>
           </TransparentButton>
-        </div>
+        </SubHeaderWrapperRightPanel>
       </SubHeaderWrapper>
 
       <SubHeader

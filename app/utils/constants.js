@@ -41,13 +41,63 @@ export const COMMUNITY_ADMIN_CREATE_TAG = 4;
 export const COMMUNITY_ADMIN_QUESTION_TYPE = 5;
 export const COMMUNITY_ADMIN_TOP_QUESTIONS = 6;
 export const COMMUNITY_ADMIN_OFFICIAL_ANSWER = 7;
+export const SECTION_ID = 'section_id';
+export const PERMISSION_GRANTED = '1';
+
+export const moderatorPermissions = {
+  MODERATOR_INFINITE_IMPACT: {
+    code: 1,
+    title: 'permissionInfinite',
+  },
+  MODERATOR_IGNORE_RATING: {
+    code: 2,
+    title: 'permissionIgnoreRating',
+  },
+  MODERATOR_CREATE_COMMUNITY: {
+    code: 3,
+    title: 'permissionCreateCommunity',
+  },
+  MODERATOR_CREATE_TAG: {
+    code: 4,
+    title: 'permissionCreateTag',
+  },
+  MODERATOR_QUESTION_TYPE: {
+    code: 5,
+    title: 'permissionChangeQuestionType',
+  },
+};
+export const communityAdminPermissions = {
+  COMMUNITY_ADMIN_INFINITE_IMPACT: {
+    code: 1,
+    title: 'permissionInfinite',
+  },
+  COMMUNITY_ADMIN_IGNORE_RATING: {
+    code: 2,
+    title: 'permissionIgnoreRating',
+  },
+  COMMUNITY_ADMIN_CREATE_TAG: {
+    code: 4,
+    title: 'permissionCreateTag',
+  },
+  COMMUNITY_ADMIN_QUESTION_TYPE: {
+    code: 5,
+    title: 'permissionChangeQuestionType',
+  },
+  COMMUNITY_ADMIN_TOP_QUESTIONS: {
+    code: 6,
+    title: 'permissionSelectTopQuestion',
+  },
+  COMMUNITY_ADMIN_OFFICIAL_ANSWER: {
+    code: 7,
+    title: 'permissionOfficialAnswer',
+  },
+};
 
 export const GET_QUESTIONS_FILTERED_BY_COMMUNITY_INDEX_POSITION = 2;
 export const GET_QUESTIONS_KEY_TYPE = 'i64';
 
-const GOOGLE_SEARCH_FORM_KEY = 'AIzaSyA8OYoejHkhBWJnokE78JYndPY8M-4eN7U';
-const GOOGLE_SEARCH_FORM_CX = '012465490266412806753:wrajkcmcuob';
-export const GOOGLE_SEARCH_FORM_PATH = `https://www.googleapis.com/customsearch/v1?key=${GOOGLE_SEARCH_FORM_KEY}&cx=${GOOGLE_SEARCH_FORM_CX}`;
+export const GOOGLE_SEARCH_FORM_PATH = (key, cx) =>
+  `https://www.googleapis.com/customsearch/v1?key=${key}&cx=${cx}`;
 
 // Tables
 
@@ -69,6 +119,9 @@ export const USER_SUPPLY_TABLE = 'stat';
 export const INVITED_USERS_TABLE = 'invited';
 export const ALL_TOP_QUESTIONS_TABLE = 'topquestion';
 export const ALL_PROPERTY_COMMUNITY_TABLE = 'propertycomm';
+export const TG_ACCOUNT_TABLE = 'telegramacc';
+export const USER_ACHIEVEMENTS_TABLE = 'accachieve';
+export const PROJECT_ACHIEVEMENTS_TABLE = 'achieve';
 
 // Scopes
 
@@ -81,6 +134,8 @@ export const USER_SUPPLY_SCOPE = 'PEER';
 export const INVITED_USERS_SCOPE = 'allinvited';
 export const ALL_TOP_QUESTIONS_SCOPE = 'alltopquest';
 export const ALL_PROPERTY_COMMUNITY_SCOPE = 'allprprtcomm';
+export const ALL_TG_ACCOUNTS_SCOPE = 'alltelacc';
+export const ALL_ACHIEVEMENTS_SCOPE = 'allachieve';
 
 // Inf. limit
 export const INF_LIMIT = -1;
@@ -116,6 +171,7 @@ export const MARK_AS_CORRECT_METHOD = 'mrkascorrect';
 export const UNFOLLOW_COMM = 'unfollowcomm';
 export const FOLLOW_COMM = 'followcomm';
 export const CREATE_COMMUNITY = 'crcommunity';
+export const EDIT_COMMUNITY = 'editcomm';
 export const VOTE_TO_CREATE_COMMUNITY = 'vtcrcomm';
 export const VOTE_TO_DELETE_COMMUNITY = 'vtdelcomm';
 export const CREATE_TAG = 'crtag';
@@ -124,6 +180,9 @@ export const VOTE_TO_DELETE_TAG = 'vtdeltag';
 
 export const SEND_TOKEN_METHOD = 'transfer';
 export const PICKUP_REWARD_METHOD = 'pickupreward';
+
+export const CONFIRM_TELEGRAM_ACCOUNT = 'apprvacc';
+export const UNLINK_TELEGRAM_ACCOUNT = 'dsapprvacc';
 
 // Top community questions methods
 export const ADD_TO_TOP_COMMUNITY_METHOD = 'addtotopcomm';
@@ -136,6 +195,7 @@ export const MOVE_QUESTION_METHOD = 'movequestion';
 export const MONTH_3LETTERS__DAY_TIME = 'datetime/MONTH_3LETTERS__DAY_TIME';
 export const MONTH_3LETTERS__DAY_YYYY_TIME =
   'datetime/MONTH_3LETTERS__DAY_YYYY_TIME';
+export const MONTH_3LETTERS__DAY_YYYY = 'datetime/MONTH_3LETTERS__DAY_YYYY';
 export const DD_MM_YYYY = 'datetime/DD_MM_YYYY';
 export const DD_MM_YY = 'datetime/DD_MM_YY';
 export const FULL_MONTH_NAME_DAY_YEAR = 'datetime/FULL_MONTH_NAME_DAY_YEAR';
@@ -149,3 +209,6 @@ export const APP_CURRENCY = 'PEER';
 // Social Media Data
 export const APP_TWITTER_NICKNAME = 'peeranhaio';
 export const APP_MAIN_NAME = 'Peeranha';
+
+// Temporary Account Data
+export const TEMPORARY_ACCOUNT_KEY = 15;

@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as routes from 'routes-config';
+import styled from 'styled-components';
 
 import { injectIntl, intlShape } from 'react-intl';
 import messages from 'common-messages';
@@ -25,6 +26,17 @@ import QuestionFilter from './QuestionFilter';
 import { selectQuestions, selectTopQuestionsInfoLoaded } from './selectors';
 
 const single = isSingleCommunityWebsite();
+
+const PageContentHeader = styled.div`
+  @media only screen and (max-width: 576px) {
+    justify-content: space-between;
+    width: 100%;
+  }
+`;
+
+const PageContentHeaderRightPanel = styled.div`
+  flex-shrink: 0;
+`;
 
 export const Header = ({
   intl,
@@ -84,7 +96,7 @@ export const Header = ({
       className="d-flex mb-to-sm-0 mb-from-sm-3"
       isColumnForSM
     >
-      <div className="d-flex align-items-center">
+      <PageContentHeader className="d-flex align-items-center">
         <CommunitySelector
           isArrowed
           Button={Button}
@@ -98,14 +110,16 @@ export const Header = ({
           selectedCommunityId={communityIdFilter}
         />
         {!!displaySubscribeButton && (
-          <div className={`right-panel m-0 ml-${single ? 3 : 4}`}>
+          <PageContentHeaderRightPanel
+            className={`right-panel m-0 ml-${single ? 3 : 4}`}
+          >
             <FollowCommunityButton
               communityIdFilter={single || communityIdFilter}
               followedCommunities={followedCommunities}
             />
-          </div>
+          </PageContentHeaderRightPanel>
         )}
-      </div>
+      </PageContentHeader>
       <QuestionFilter
         display={displayQuestionFilter}
         questionFilterFromCookies={questionFilterFromCookies}

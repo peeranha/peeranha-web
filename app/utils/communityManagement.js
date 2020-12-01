@@ -1,5 +1,8 @@
 import JSBI from 'jsbi';
-import communitiesConfig from 'communities-config';
+
+import communitiesConfig, {
+  googleVerificationConfig,
+} from 'communities-config';
 
 import _get from 'lodash/get';
 
@@ -7,6 +10,7 @@ import { saveText, getText, getFileUrl } from './ipfs';
 import { uploadImg } from './profileManagement';
 
 import {
+  EDIT_COMMUNITY,
   TAGS_TABLE,
   COMMUNITIES_TABLE,
   CREATED_TAGS_TABLE,
@@ -36,9 +40,12 @@ export const singleCommunityColors = () =>
 export const singleCommunityFonts = () =>
   _get(singleCommunityStyles(), 'fonts', {});
 
-export function hasCommunitySingleWebsite(commId) {
-  return communitiesConfig[commId] ? communitiesConfig[commId].origin : false;
-}
+export const hasCommunitySingleWebsite = commId =>
+  communitiesConfig[commId] ? communitiesConfig[commId].origin : false;
+
+export const getGoogleVerificationData = () =>
+  googleVerificationConfig.communities?.[isSingleCommunityWebsite()] ||
+  googleVerificationConfig.default;
 
 export function getFollowedCommunities(allcommunities, followedcommunities) {
   if (!allcommunities || !followedcommunities) return [];
@@ -51,6 +58,47 @@ export function getUnfollowedCommunities(allcommunities, followedcommunities) {
 
   return allcommunities.filter(x => !followedcommunities.includes(x.id));
 }
+
+export const editCommunity = async (
+  eosService,
+  selectedAccount,
+  communityId,
+  communityData,
+) => {
+  const ipfsHash = await saveText(JSON.stringify(communityData));
+
+  await eosService.sendTransaction(
+    selectedAccount,
+    EDIT_COMMUNITY,
+    {
+      user: selectedAccount,
+      community_id: communityId,
+      name: communityData.name,
+      ipfs_description: ipfsHash,
+    },
+    null,
+    true,
+  );
+};
+
+export const getCommunityById = async (eosService, communityId) => {
+  const row = await eosService.getTableRow(
+    COMMUNITIES_TABLE,
+    ALL_COMMUNITIES_SCOPE,
+    communityId,
+  );
+
+  const community = JSON.parse(await getText(row.ipfs_description));
+
+  const { avatar, name, description, officialSite = null } = community;
+
+  return {
+    avatar,
+    name,
+    description,
+    officialSite,
+  };
+};
 
 /* eslint-disable */
 export function getTagScope(communityId) {
@@ -183,9 +231,13 @@ export const getAllCommunities = async (eosService, count) => {
 
   const updatedRows = await Promise.all(
     rows.map(async x => {
-      const { description, main_description, language, avatar } = JSON.parse(
-        await getText(x.ipfs_description),
-      );
+      const {
+        description,
+        main_description,
+        language,
+        avatar,
+        officialSite,
+      } = JSON.parse(await getText(x.ipfs_description));
       const { rows: tagRows } = await eosService.getTableRows(
         TAGS_TABLE,
         getTagScope(x.id),
@@ -201,6 +253,7 @@ export const getAllCommunities = async (eosService, count) => {
         description,
         main_description,
         language,
+        officialSite: officialSite || null,
         tags: tagRows.map(tag => ({ ...tag, label: tag.name, value: tag.id })),
       };
     }),
@@ -219,14 +272,19 @@ export async function getSuggestedCommunities(eosService, lowerBound, limit) {
 
   await Promise.all(
     rows.map(async x => {
-      const { avatar, description, main_description, language } = JSON.parse(
-        await getText(x.ipfs_description),
-      );
+      const {
+        avatar,
+        description,
+        main_description,
+        language,
+        officialSite,
+      } = JSON.parse(await getText(x.ipfs_description));
 
       x.avatar = getFileUrl(avatar);
       x.description = description;
       x.main_description = main_description;
       x.language = language;
+      x.officialSite = officialSite || null;
     }),
   );
 

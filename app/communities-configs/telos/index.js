@@ -28,12 +28,11 @@ const domainName = 'https://www.telos.net/';
 const domainDocs = 'https://docs.telos.net';
 const domainStudio = 'https://studio.telos.net';
 const domainBloks = 'https://telos.bloks.io';
-const domainFaq = 'https://faq.telos.net/';
 const domainExplore = 'https://explore.telos.net';
 const domainStaker = 'https://telos.staker.one';
 
 export const CustomSubHeaderConfig = {
-  design: 'logo_center__menu_right',
+  design: 'telos_style',
   styles: {
     bg: {
       header: '#020038',
@@ -50,7 +49,7 @@ export const CustomSubHeaderConfig = {
       background: '#020038',
     },
     CustomSubHeader: `
-      padding: 27px 0;
+      padding: 20px 0;
 
       font-weight: bolder;
     `,
@@ -93,20 +92,6 @@ export const CustomSubHeaderConfig = {
   },
   links: [
     {
-      text: 'HQ',
-      href: `${domainName}foldershq`,
-      subitems: [
-        {
-          text: 'Home',
-          href: `${domainName}home`,
-        },
-        {
-          text: 'Foundation',
-          href: `${domainName}foundation`,
-        },
-      ],
-    },
-    {
       text: 'Developers',
       href: `${domainName}dev`,
       subitems: [
@@ -137,6 +122,20 @@ export const CustomSubHeaderConfig = {
         {
           text: 'Developer Updates',
           href: `${domainName}dev-signup-for-updates`,
+        },
+      ],
+    },
+    {
+      text: 'Use Cases',
+      href: `${domainName}use-cases-1`,
+      subitems: [
+        {
+          text: 'Social Media',
+          href: `${domainName}social`,
+        },
+        {
+          text: 'Gaming',
+          href: `${domainName}gaming`,
         },
       ],
     },
@@ -183,8 +182,13 @@ export const CustomSubHeaderConfig = {
           href: `${domainName}branding-and-guidelines`,
         },
         {
+          text: 'Foundation',
+          href: `${domainName}foundation`,
+        },
+        {
           text: 'FAQ',
-          href: domainFaq,
+          href: '/',
+          target: '_self',
         },
       ],
     },
@@ -194,7 +198,8 @@ export const CustomSubHeaderConfig = {
     },
     {
       text: 'FAQ',
-      href: domainFaq,
+      href: '/',
+      target: '_self',
     },
     {
       text: 'Explore',
@@ -204,10 +209,6 @@ export const CustomSubHeaderConfig = {
         {
           text: 'Ecosystem',
           href: domainExplore,
-        },
-        {
-          text: 'Gaming',
-          href: `${domainName}gaming`,
         },
         {
           text: 'Works',

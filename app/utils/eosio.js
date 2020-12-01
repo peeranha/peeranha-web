@@ -40,6 +40,7 @@ class EosioService {
 
   constructor() {
     this.initialized = false;
+    this.isScatterExtension = false;
     this.scatterInstalled = null;
     this.node = null;
     this.isScatterWindowOpened = false;
@@ -65,6 +66,7 @@ class EosioService {
 
       this.selectedAccount = await this.selectAccount();
       this.initialized = true;
+      this.isScatterExtension = ScatterJS.scatter.isExtension;
       this.scatterInstalled = true;
       this.withScatter = true;
 
@@ -388,7 +390,8 @@ class EosioService {
       const request = {
         json: true,
         code: code || process.env.EOS_CONTRACT_ACCOUNT,
-        scope,
+        scope:
+          scope && typeof scope === 'object' ? scope.eosAccountName : scope,
         table,
         lower_bound: lowerBound,
         upper_bound: upperBound,

@@ -19,13 +19,13 @@ import { selectFaq } from 'containers/DataCacheProvider/selectors';
 
 import Seo from 'components/Seo';
 import AsideBox from 'components/Base/Aside';
+import Banner from 'components/AskQuestionBanner';
 
 import messages from './messages';
 
 import Header from './Header';
 import Content from './Content';
 import Aside from './Aside';
-import Banner from './Banner';
 import { SECTION_ID } from './constants';
 
 export const Faq = /* istanbul ignore next */ ({ locale, faq }) => {

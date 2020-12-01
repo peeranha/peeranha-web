@@ -47,7 +47,7 @@ async function registerComplete(
     activeKey: encryptObject(keys.activeKey, hashMasterKey.encryptionKey),
   };
 
-  if (includeOwnerKeys) {
+  if (includeOwnerKeys && keys.ownerKey) {
     encryptedPwdEosKeys.ownerKey = encryptObject(
       keys.ownerKey,
       hashPassword.encryptionKey,

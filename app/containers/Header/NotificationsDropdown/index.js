@@ -4,19 +4,14 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { bindActionCreators } from 'redux';
 
-import {
-  BG_LIGHT,
-  BG_WARNING_LIGHT,
-  BORDER_PRIMARY,
-  BORDER_SECONDARY_LIGHT,
-} from 'style-constants';
+import { BG_LIGHT, BG_WARNING_LIGHT, BORDER_PRIMARY } from 'style-constants';
 
 import Span from 'components/Span';
+import { IconEm } from 'components/Icon/IconWithSizes';
 
 import notificationsActiveIcon from 'images/Notifications_Gray.svg?external';
 import notificationsDisabledIcon from 'images/Notifications_Disabled.svg?external';
 import Menu from './Menu';
-import { IconEm } from 'components/Icon/IconWithSizes';
 
 import {
   selectUnreadNotifications,

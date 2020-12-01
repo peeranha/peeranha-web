@@ -154,12 +154,13 @@
     "moduleNameMapper": {
       ".*\\.(css|less|styl|scss|sass)$": "<rootDir>/internals/mocks/cssModule.js",
       ".*\\.svg.*$": "<rootDir>/internals/mocks/image.js",
-      ".*\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/internals/mocks/image.js"
+      ".*\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga|ico)$": "<rootDir>/internals/mocks/image.js"
     },
     "setupTestFrameworkScriptFile": "<rootDir>/internals/testing/test-bundler.js",
     "setupFiles": [
       "raf/polyfill",
-      "<rootDir>/internals/testing/enzyme-setup.js"
+      "<rootDir>/internals/testing/enzyme-setup.js",
+      "<rootDir>/internals/testing/environment-variables.js"
     ],
     "testRegex": "tests/.*\\.test\\.js$",
     "snapshotSerializers": [
@@ -192,6 +193,7 @@
     "invariant": "2.2.4",
     "ip": "1.1.5",
     "ipfs-api": "24.0.1",
+    "ismobilejs": "^1.1.1",
     "jquery": "3.4.0",
     "jsbi": "^3.1.3",
     "lodash": "4.17.13",
@@ -208,12 +210,14 @@
     "react-helmet": "5.2.0",
     "react-intl": "2.4.0",
     "react-loadable": "5.4.0",
+    "react-player": "^2.6.0",
     "react-redux": "5.0.7",
     "react-router-dom": "^4.3.1",
     "react-router-redux": "5.0.0-alpha.9",
     "react-select": "^3.1.0",
     "react-share": "^4.1.0",
-    "react-simplemde-editor": "^3.6.22",
+    "react-simplemde-editor": "^4.1.3",
+    "react-textarea-autosize": "^8.2.0",
     "react-virtualized": "^9.21.2",
     "redux": "4.0.0",
     "redux-form": "^7.4.3",
@@ -224,6 +228,7 @@
     "sanitize.css": "4.1.0",
     "scatterjs-core": "^2.7.18",
     "scatterjs-plugin-eosjs": "^1.5.1",
+    "simplemde": "^1.11.2",
     "styled-components": "3.3.2",
     "warning": "4.0.1",
     "whatwg-fetch": "2.0.4"
@@ -242,6 +247,8 @@
     "@babel/preset-env": "7.4.3",
     "@babel/preset-react": "7.0.0",
     "@babel/register": "7.4.0",
+    "@testing-library/react": "^11.1.0",
+    "@types/jest": "^26.0.15",
     "add-asset-html-webpack-plugin": "3.1.3",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "10.0.1",

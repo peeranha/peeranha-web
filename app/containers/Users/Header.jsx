@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+
 import { TEXT_SECONDARY } from 'style-constants';
 
 import commonMessages from 'common-messages';
@@ -18,7 +19,7 @@ import CheckedItem from 'components/Li/CheckedItem';
 import MediumIcon, { MediumIconStyled } from 'components/Icon/MediumIcon';
 import Icon from 'components/Icon';
 import { IconMd } from 'components/Icon/IconWithSizes';
-import Wrapper from 'components/Header/Simple';
+import Wrapper, { WrapperRightPanel } from 'components/Header/Simple';
 
 import options from './options';
 
@@ -60,14 +61,14 @@ export const Header = ({ sorting, dropdownFilter, userCount }) => (
       </span>
     </H3>
 
-    <div className="right-panel">
+    <WrapperRightPanel className="right-panel">
       <Dropdown
         button={<Button sorting={sorting} />}
         menu={<Menu sort={dropdownFilter} sorting={sorting} />}
         id="users-dropdown"
         isArrowed
       />
-    </div>
+    </WrapperRightPanel>
   </Wrapper>
 );
 

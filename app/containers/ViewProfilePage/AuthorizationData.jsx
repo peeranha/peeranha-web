@@ -1,8 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import { translationMessages } from 'i18n';
 import { FormattedMessage } from 'react-intl';
+
+import {
+  CONFIRM_TG_ACCOUNT,
+  UNLINK_TG_ACCOUNT,
+} from '../TelegramAccountAction/constants';
 
 import H3 from 'components/H3';
 import InfoLabel from 'components/InfoLabelWithPopover';
@@ -20,6 +24,7 @@ import ShowOwnerKeyButton from '../ShowOwnerKey';
 import ShowActiveKeyButton from '../ShowActiveKey';
 import DeleteAccountButton from '../DeleteAccount';
 import ChangePasswordButton from '../ChangePasswordByPrevious';
+import TelegramAccountAction from '../TelegramAccountAction';
 
 const AuthorizationData = ({
   locale,
@@ -28,11 +33,14 @@ const AuthorizationData = ({
   className,
   activeKey,
   writeToBuffer,
+  tgData,
 }) => (
   <BaseStyled
     position="bottom"
     notRoundedStyle
-    className={`${className}${loginData.loginWithScatter ? ' d-none' : ''}`}
+    className={`${className}${
+      loginData.loginWithScatter && !tgData ? ' d-none' : ''
+    }`}
   >
     <H3>
       <FormattedMessage {...profileMessages.authorizationData} />
@@ -40,108 +48,137 @@ const AuthorizationData = ({
 
     <div>
       <table>
-        <thead>
-          <tr>
-            <td>
-              <FormattedMessage {...signupMessages.email} />
-            </td>
-            <td>{loginData?.email ?? null}</td>
-            <td>
-              <ChangeEmailButton>
-                <FormattedMessage {...commonMessages.change} />{' '}
-              </ChangeEmailButton>
-            </td>
-          </tr>
-        </thead>
+        {!loginData.loginWithScatter && (
+          <thead>
+            <tr>
+              <td>
+                <FormattedMessage {...signupMessages.email} />
+              </td>
+              <td>{loginData?.email ?? null}</td>
+              <td>
+                <ChangeEmailButton>
+                  <FormattedMessage {...commonMessages.change} />{' '}
+                </ChangeEmailButton>
+              </td>
+            </tr>
+          </thead>
+        )}
+
         <tbody>
-          <tr>
-            <td>
-              <FormattedMessage {...signupMessages.password} />
-            </td>
-            <td>• • • • • • • • • • • • •</td>
-            <td>
-              <ChangePasswordButton>
-                <FormattedMessage {...commonMessages.change} />{' '}
-              </ChangePasswordButton>
-            </td>
-          </tr>
+          {!loginData.loginWithScatter && (
+            <tr>
+              <td>
+                <FormattedMessage {...signupMessages.password} />
+              </td>
+              <td>• • • • • • • • • • • • •</td>
+              <td>
+                <ChangePasswordButton>
+                  <FormattedMessage {...commonMessages.change} />{' '}
+                </ChangePasswordButton>
+              </td>
+            </tr>
+          )}
 
-          <tr>
-            <td>
-              <InfoLabel
-                id="wallet_settings_eos_active"
-                message={
-                  translationMessages[locale][
-                    forgotPasswordMessages.youGotThisKey.id
-                  ]
+          {tgData && (
+            <tr>
+              <td>
+                <FormattedMessage {...signupMessages.tgAccountID} />
+              </td>
+              <td>{tgData.telegram_id}</td>
+              <td>
+                {!tgData.confirmed && (
+                  <TelegramAccountAction actionType={CONFIRM_TG_ACCOUNT} />
+                )}
+
+                <TelegramAccountAction actionType={UNLINK_TG_ACCOUNT} />
+              </td>
+            </tr>
+          )}
+
+          {!loginData.loginWithScatter && (
+            <>
+              <tr>
+                <td>
+                  <InfoLabel
+                    id="wallet_settings_eos_active"
+                    message={
+                      translationMessages[locale][
+                        forgotPasswordMessages.youGotThisKey.id
+                      ]
+                    }
+                  >
+                    <FormattedMessage {...signupMessages.eosActivePrivateKey} />
+                  </InfoLabel>
+                </td>
+                <td>{activeKey || `• • • • • • • • • •`}</td>
+
+                <td>
+                  <button
+                    id="viewprofile-settings-activekey"
+                    className={!activeKey ? 'd-none' : 'mr-3'}
+                    data-key={activeKey}
+                    onClick={writeToBuffer}
+                  >
+                    <FormattedMessage {...commonMessages.copy} />
+                  </button>
+
+                  <ShowActiveKeyButton activeKey={activeKey}>
+                    <FormattedMessage
+                      {...commonMessages[!activeKey ? 'show' : 'hide']}
+                    />
+                  </ShowActiveKeyButton>
+                </td>
+              </tr>
+
+              <tr
+                className={
+                  !loginData || !loginData.hasOwnerEosKey ? 'd-none' : ''
                 }
               >
-                <FormattedMessage {...signupMessages.eosActivePrivateKey} />
-              </InfoLabel>
-            </td>
-            <td>{activeKey || `• • • • • • • • • •`}</td>
+                <td>
+                  <InfoLabel
+                    id="wallet_settings_eos_owner"
+                    message={
+                      translationMessages[locale][
+                        forgotPasswordMessages.youGotThisKey.id
+                      ]
+                    }
+                  >
+                    <FormattedMessage {...signupMessages.eosOwnerPrivateKey} />
+                  </InfoLabel>
+                </td>
+                <td>{ownerKey || `• • • • • • • • • •`}</td>
+                <td>
+                  <button
+                    id="viewprofile-settings-ownerkey"
+                    className={!ownerKey ? 'd-none' : 'mr-3'}
+                    data-key={ownerKey}
+                    onClick={writeToBuffer}
+                  >
+                    <FormattedMessage {...commonMessages.copy} />
+                  </button>
 
-            <td>
-              <button
-                id="viewprofile-settings-activekey"
-                className={!activeKey ? 'd-none' : 'mr-3'}
-                data-key={activeKey}
-                onClick={writeToBuffer}
-              >
-                <FormattedMessage {...commonMessages.copy} />
-              </button>
-
-              <ShowActiveKeyButton activeKey={activeKey}>
-                <FormattedMessage
-                  {...commonMessages[!activeKey ? 'show' : 'hide']}
-                />
-              </ShowActiveKeyButton>
-            </td>
-          </tr>
-
-          <tr
-            className={!loginData || !loginData.hasOwnerEosKey ? 'd-none' : ''}
-          >
-            <td>
-              <InfoLabel
-                id="wallet_settings_eos_owner"
-                message={
-                  translationMessages[locale][
-                    forgotPasswordMessages.youGotThisKey.id
-                  ]
-                }
-              >
-                <FormattedMessage {...signupMessages.eosOwnerPrivateKey} />
-              </InfoLabel>
-            </td>
-            <td>{ownerKey || `• • • • • • • • • •`}</td>
-            <td>
-              <button
-                id="viewprofile-settings-ownerkey"
-                className={!ownerKey ? 'd-none' : 'mr-3'}
-                data-key={ownerKey}
-                onClick={writeToBuffer}
-              >
-                <FormattedMessage {...commonMessages.copy} />
-              </button>
-
-              <ShowOwnerKeyButton ownerKey={ownerKey}>
-                <FormattedMessage
-                  {...commonMessages[!ownerKey ? 'show' : 'hide']}
-                />
-              </ShowOwnerKeyButton>
-            </td>
-          </tr>
+                  <ShowOwnerKeyButton ownerKey={ownerKey}>
+                    <FormattedMessage
+                      {...commonMessages[!ownerKey ? 'show' : 'hide']}
+                    />
+                  </ShowOwnerKeyButton>
+                </td>
+              </tr>
+            </>
+          )}
         </tbody>
       </table>
 
-      <DeleteAccountButton
-        render={({ onClick }) => (
-          <InfoButton onClick={onClick}>
-            <FormattedMessage {...deleteAccountMessages.deleteAccount} />
-          </InfoButton>
-        )}
-      />
+      {!loginData.loginWithScatter && (
+        <DeleteAccountButton
+          render={({ onClick }) => (
+            <InfoButton onClick={onClick}>
+              <FormattedMessage {...deleteAccountMessages.deleteAccount} />
+            </InfoButton>
+          )}
+        />
+      )}
     </div>
   </BaseStyled>
 );
@@ -154,6 +191,7 @@ AuthorizationData.propTypes = {
   loginData: PropTypes.object,
   isAvailable: PropTypes.bool,
   writeToBuffer: PropTypes.func,
+  tgData: PropTypes.object,
 };
 
 export default AuthorizationData;

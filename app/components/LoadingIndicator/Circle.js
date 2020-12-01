@@ -4,12 +4,12 @@ import { BG_PRIMARY } from 'style-constants';
 
 /* eslint indent: 0 */
 const Circle = styled.div`
-  width: 10px;
-  height: 10px;
+  width: ${props => (props.width ? `${props.width}px` : '10px')};
+  height: ${props => (props.height ? `${props.height}px` : '10px')};
   background: #d3daf6;
   border-radius: 50%;
   background-color: ${BG_PRIMARY};
-  margin: 6px;
+  margin: ${props => (props.margin ? `${props.margin}px` : '10px')};
   display: flex;
   justify-content: center;
   align-items: center;
@@ -30,8 +30,8 @@ const Circle = styled.div`
 
   &:before {
     content: '';
-    width: 10px;
-    height: 10px;
+    width: ${props => (props.width ? `${props.width}px` : '10px')};
+    height: ${props => (props.height ? `${props.height}px` : '10px')};
     border-radius: 50%;
     background-color: ${BG_PRIMARY};
     opacity: 0.7;

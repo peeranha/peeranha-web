@@ -1,4 +1,4 @@
-import React, { memo, useMemo, useCallback } from 'react';
+import React, { memo, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -35,6 +35,7 @@ import {
 import Header from './Header';
 import { QUESTION_TYPES } from './QuestionTypeField';
 import CommunityForm from './CommunityForm';
+import ExistingQuestions from './ExistingQuestions';
 import TypeForm from './TypeForm';
 import TitleForm from './TitleForm';
 import ContentForm from './ContentForm';
@@ -75,7 +76,20 @@ export const QuestionForm = ({
   intl,
   questionid,
   redirectToCreateTagDispatch,
+  getQuestions,
+  existingQuestions,
+  doSkipExistingQuestions,
+  skipExistingQuestions,
 }) => {
+  useEffect(
+    () => {
+      if (formValues[FORM_TITLE] && getQuestions) {
+        getQuestions(formValues[FORM_TITLE], true);
+      }
+    },
+    [formValues[FORM_TITLE]],
+  );
+
   return (
     <div>
       <Header formTitle={formTitle} questionId={questionid} intl={intl} />
@@ -101,6 +115,16 @@ export const QuestionForm = ({
             )}
 
             <TitleForm intl={intl} questionLoading={questionLoading} />
+
+            {formValues[FORM_TITLE] &&
+              (existingQuestions?.length ?? 0) > 0 &&
+              !doSkipExistingQuestions && (
+                <ExistingQuestions
+                  questions={existingQuestions}
+                  skip={skipExistingQuestions}
+                  intl={intl}
+                />
+              )}
 
             <ContentForm
               intl={intl}
@@ -155,6 +179,10 @@ QuestionForm.propTypes = {
   formValues: PropTypes.object,
   communities: PropTypes.array,
   intl: intlShape.isRequired,
+  getQuestions: PropTypes.func,
+  existingQuestions: PropTypes.array,
+  doSkipExistingQuestions: PropTypes.bool,
+  skipExistingQuestions: PropTypes.func,
 };
 
 const FormClone = reduxForm({

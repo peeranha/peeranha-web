@@ -65,11 +65,11 @@ const options = {
     maxEnergy: 100,
     messageId: messages.newbie.id,
     icon: {
-      sm: newbieSm,
+      sm: srResidentSm,
       lg: newbieLg,
       size: {
         sm: {
-          width: '13',
+          width: '15',
           height: '9',
         },
         lg: {
@@ -85,11 +85,11 @@ const options = {
     maxEnergy: 150,
     messageId: messages.jrResident.id,
     icon: {
-      sm: jrResidentSm,
+      sm: heroResidentSm,
       lg: jrResidentLg,
       size: {
         sm: {
-          width: '17',
+          width: '21',
           height: '9',
         },
         lg: {

@@ -25,6 +25,8 @@ export const userCommunities = userRedirect('#communities');
 export const userAnswers = userRedirect('#answers');
 export const userSettings = userRedirect('#settings');
 export const userNotifications = userRedirect('#notifications');
+export const userAchievements = userRedirect('#achievements');
+export const userModeration = userRedirect('#moderation');
 export const userWallet = userRedirect('/wallet');
 export const uniqueAnswerId = answerId => `ans${answerId}`;
 
@@ -56,7 +58,9 @@ export const tags = () => `/tags`;
 
 export const users = () => '/users';
 
+export const tutorial = code => `/tutorial/${code ? `#${code}` : ``}`;
 export const faq = code => `/faq/${code ? `#${code}` : ``}`;
+export const moderation = code => `#moderation${code ? `#${code}` : ``}`;
 export const support = section => `/support/${section ? `#${section}` : ''}`;
 export const search = q => `/search/${q || ''}`;
 
@@ -67,6 +71,8 @@ export const termsAndConditions = section =>
   `/terms-and-conditions/${section ? `#${section}` : ''}`;
 
 export const communitiesCreate = () => `/communities/create`;
+export const communitiesEdit = communityId =>
+  `/communities/${communityId}/edit`;
 export const communitiesCreatedBanner = () => `/communities/create#banner`;
 export const suggestedCommunities = () => `/communities/suggested`;
 
@@ -86,6 +92,14 @@ export const registrationStage = 'signup';
 export const preloaderPage = () => '/preloader-page';
 
 export const referralPage = user => `/?${REFERRAL_CODE_URI}=${user}`;
+
+export const redirectRoutesForSCM = [
+  faq(),
+  privacyPolicy(),
+  termsAndConditions(),
+  support(),
+  home(),
+];
 
 export const signup = {
   email: {

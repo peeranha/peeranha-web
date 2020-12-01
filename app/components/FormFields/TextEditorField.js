@@ -20,13 +20,15 @@ const Div = styled.div`
     border: none;
   }
 
-  .editor-toolbar {
-    border-bottom: 1px solid ${BORDER_SECONDARY} !important;
-  }
-
   .CodeMirror {
+    border: none;
+    border-top: 1px solid ${BORDER_SECONDARY};
     border-bottom-right-radius: ${BORDER_RADIUS_M};
     border-bottom-left-radius: ${BORDER_RADIUS_M};
+  }
+
+  .editor-toolbar {
+    border: none;
   }
 
   @media only screen and (max-width: 768px) {

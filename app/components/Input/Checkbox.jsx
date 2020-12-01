@@ -27,8 +27,7 @@ export const Icon = styled.span`
   border-radius: 3px;
   margin-right: 10px;
   display: inline-block;
-  background-image: url(${x => (x.value ? checkedIcon : '')});
-  background-color: ${x => (x.value ? BG_PRIMARY_DARK : BG_LIGHT)};
+  background-color: ${BG_LIGHT};
   background-repeat: no-repeat;
   background-position: center;
   z-index: 10;
@@ -37,16 +36,28 @@ export const Icon = styled.span`
   ${({ error }) => ErrorHandling(error)};
   ${({ disabled }) => DisableHandling(disabled)};
 
-  border: 1px solid ${x => (x.value ? BORDER_PRIMARY_DARK : BORDER_SECONDARY)};
+  border: 1px solid ${BORDER_SECONDARY};
 `;
 
-const Input = Icon.extend`
+const Input = styled.input`
   opacity: 0;
   position: absolute;
   left: 0;
   top: 0;
   z-index: 20;
-`.withComponent('input');
+
+  width: calc(100% - 10px);
+  height: 100%;
+
+  cursor: pointer;
+
+  :checked + span {
+    background-image: url(${checkedIcon});
+    background-color: ${BG_PRIMARY_DARK};
+
+    border: 1px solid ${BORDER_PRIMARY_DARK};
+  }
+`;
 
 export const Label = Span.extend`
   font-size: 16px;
@@ -60,17 +71,18 @@ export const Label = Span.extend`
 const Checkbox = ({ input, label, disabled, meta, width }) => (
   <Container width={width} className="d-flex align-items-start">
     <div className="position-relative d-inline-flex">
-      <Icon
-        value={input.value}
-        disabled={disabled}
-        error={meta.touched && (meta.error || meta.warning)}
-      />
       <Input
         {...input}
+        value={input.value}
         type="checkbox"
         id={formatStringToHtmlId(input.name)}
         name={input.name}
         disabled={disabled}
+        checked={input.value}
+      />
+      <Icon
+        disabled={disabled}
+        error={meta.touched && (meta.error || meta.warning)}
       />
     </div>
 

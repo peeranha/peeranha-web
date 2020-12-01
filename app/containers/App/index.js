@@ -33,8 +33,10 @@ import Wrapper from 'containers/AppWrapper';
 
 import saga from './saga';
 import {
+  EditCommunity,
   HomePage,
   Faq,
+  Tutorial,
   Users,
   EditQuestion,
   EditProfilePage,
@@ -79,14 +81,6 @@ import { redirectToFeed } from './actions';
 
 const single = isSingleCommunityWebsite();
 
-const redirectRoutes = [
-  routes.faq(),
-  routes.privacyPolicy(),
-  routes.termsAndConditions(),
-  routes.support(),
-  routes.home(),
-];
-
 const App = ({
   location: { pathname, search, hash },
   redirectToFeedDispatch,
@@ -118,18 +112,14 @@ const App = ({
     } else if (hash === '#allquestions') {
       history.push(pathname);
     }
-
-    if (single && pathname !== '/') {
-      if (redirectRoutes.find(route => route.startsWith(pathname))) {
-        window.open(
-          `${process.env.APP_LOCATION}${window.location.pathname}${
-            window.location.hash
-          }`,
-          '_parent',
-        );
-      }
-    }
   }, []);
+
+  useEffect(
+    () => {
+      window.goto = page => history.push(page);
+    },
+    [history],
+  );
 
   return (
     <ErrorBoundary>
@@ -187,6 +177,13 @@ const App = ({
 
         {!single && (
           <Route
+            path={routes.communitiesEdit(':communityId')}
+            render={props => Wrapper(EditCommunity, props)}
+          />
+        )}
+
+        {!single && (
+          <Route
             path={routes.suggestedCommunities()}
             render={props => Wrapper(SuggestedCommunities, props)}
           />
@@ -197,6 +194,14 @@ const App = ({
             exact
             path={routes.tags()}
             render={props => Wrapper(TagsCollection, props)}
+          />
+        )}
+
+        {!single && (
+          <Route
+            exact
+            path={routes.tutorial()}
+            render={props => Wrapper(Tutorial, props)}
           />
         )}
 

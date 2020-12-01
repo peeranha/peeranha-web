@@ -87,10 +87,10 @@ export const ViewQuestion = ({
   useEffect(() => {
     window.isRendered = false;
     resetStoreDispatch();
-    getQuestionDataDispatch(match.params.id);
 
     return () => {
       window.$(window).off();
+      resetStoreDispatch();
     };
   }, []);
 
@@ -134,6 +134,9 @@ export const ViewQuestion = ({
     [profile, questionData],
   );
 
+  const isAnswered = !!questionData?.answers.filter(x => x.user === account)
+    .length;
+
   const sendProps = {
     account,
     locale,
@@ -165,6 +168,7 @@ export const ViewQuestion = ({
     ids,
     isChangeTypeAvailable,
     infiniteImpact,
+    isAnswered,
   };
 
   const helmetTitle =

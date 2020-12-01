@@ -2,12 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import isMobile from 'ismobilejs';
 
 import { TEXT_DARK, BG_SECONDARY_SPECIAL_4, BG_LIGHT } from 'style-constants';
 import messages from 'common-messages';
 
 import scatterLogo from 'images/scatterLogo.svg?inline';
 import sqrlLogo from 'images/sqrl.svg?inline';
+import wombatLogo from 'images/wombat.png';
 
 import Button from 'components/Button/Outlined/SecondaryLarge';
 
@@ -36,28 +38,40 @@ const Wallets = styled.div`
   justify-content: center;
   padding-top: 15px;
 
-  > img:not(:last-child) {
-    margin-right: 20px;
+  > img {
+    &:not(:last-child) {
+      margin-right: 20px;
+    }
 
     &[alt='scatter'] {
       height: 16px;
     }
 
     &[alt='sqrl'] {
-      height: 26px;
+      height: 28px;
+    }
+
+    &[alt='wombat'] {
+      height: 22px;
     }
   }
 `;
 
-export const LoginViaWallet = ({ action, processing, text }) => (
+export const LoginViaWallet = ({
+  action,
+  processing,
+  text,
+  isMobileDevice,
+}) => (
   <>
     <B onClick={action || null} disabled={!!processing}>
       {text || <FormattedMessage {...messages.loginViaWallet} />}
     </B>
 
     <Wallets>
-      <img src={scatterLogo} alt="scatter" />
-      <img src={sqrlLogo} alt="sqrl" />
+      {!isMobileDevice && <img src={scatterLogo} alt="scatter" />}
+      {!isMobileDevice && <img src={sqrlLogo} alt="sqrl" />}
+      <img src={wombatLogo} alt="wombat" />
     </Wallets>
   </>
 );
@@ -69,6 +83,10 @@ LoginViaWallet.propTypes = {
 
 export default React.memo(({ action, processing }) => (
   <Box>
-    <LoginViaWallet action={action} processing={processing} />
+    <LoginViaWallet
+      action={action}
+      processing={processing}
+      isMobileDevice={isMobile(window.navigator).any}
+    />
   </Box>
 ));

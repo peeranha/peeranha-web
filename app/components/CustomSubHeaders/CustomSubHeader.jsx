@@ -157,7 +157,7 @@ export const Subitems = styled.div`
   position: absolute;
   top: 100%;
   left: -30px;
-  z-index: 99;
+  z-index: 9999;
 
   display: none;
   min-width: 152px;
@@ -220,10 +220,10 @@ const ArrowButton = styled.button`
   }
 `;
 
-export const A = ({ href, text, isHighlighted, styles }) => (
+export const A = ({ href, text, isHighlighted, styles, target }) => (
   <LocalLink
     href={href}
-    target="_blank"
+    target={target ? target : '_blank'}
     styles={styles}
     isHighlighted={isHighlighted}
   >
@@ -243,7 +243,8 @@ export const B = ({
   device,
   isDropdownMenuArrow,
   href,
-  isHighlighted
+  isHighlighted,
+  target,
 }) => {
   const [visible, setVisibility] = useState(false);
   const setVis = useCallback(() => setVisibility(!visible), [visible]);
@@ -260,6 +261,7 @@ export const B = ({
                 key={href}
                 styles={styles}
                 isHighlighted={isHighlighted}
+                target={target ? target : '_blank'}
               />
             ) : (
               <span>{text}</span>
@@ -267,24 +269,23 @@ export const B = ({
 
             {isDropdownMenuArrow && (
               <ArrowButton onClick={setVis}>
-              <Arrow
-                className="mt-auto mb-auto"
-                color={'small'}
-                rotate={visible}
-                
-              />
+                <Arrow
+                  className="mt-auto mb-auto"
+                  color={'small'}
+                  rotate={visible}
+                />
               </ArrowButton>
             )}
           </SubitemsTitleButton>
           {visible && (
             <Subitems styles={styles.subitems}>
               <div>
-                {subitems.map(({ text, href }) => (
+                {subitems.map(({ text, href, target }) => (
                   <LocalLink
                     styles={styles}
                     key={href}
                     href={href}
-                    target="_blank"
+                    target={target ? target : '_blank'}
                   >
                     {text}
                   </LocalLink>
@@ -303,12 +304,12 @@ export const B = ({
           </SubitemsTitle>
           <Subitems styles={styles.subitems}>
             <div>
-              {subitems.map(({ text, href }) => (
+              {subitems.map(({ text, href, target }) => (
                 <LocalLink
                   styles={styles}
                   key={href}
                   href={href}
-                  target="_blank"
+                  target={target ? target : '_blank'}
                 >
                   {text}
                 </LocalLink>
@@ -333,7 +334,7 @@ export const Links = ({
   isDropdownMenuArrow = true,
 }) => (
   <div>
-    {links.map(({ text, href, isHighlighted, subitems }) => (
+    {links.map(({ text, href, isHighlighted, subitems, target }) => (
       <>
         {href &&
           !subitems && (
@@ -343,6 +344,7 @@ export const Links = ({
               key={href}
               styles={styles}
               isHighlighted={isHighlighted}
+              target={target ? target : '_blank'}
             />
           )}
         {subitems && (

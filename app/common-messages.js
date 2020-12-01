@@ -30,6 +30,21 @@ export default defineMessages({
   notifications: {
     id: 'app.common.notifications',
   },
+  achievements: {
+    id: 'app.common.achievements',
+  },
+  moderation: {
+    id: 'app.common.moderation',
+  },
+  globalModerator: {
+    id: 'app.common.globalModerator',
+  },
+  achievementsNumber: {
+    id: 'app.common.achievementsNumber',
+  },
+  uniqueAchievements: {
+    id: 'app.common.uniqueAchievements',
+  },
   notificationCenter: {
     id: 'app.common.notificationCenter',
   },
@@ -86,6 +101,12 @@ export default defineMessages({
   },
   faq: {
     id: 'app.common.faq',
+  },
+  moderationHeader: {
+    id: 'app.common.moderationHeader',
+  },
+  tutorial: {
+    id: 'app.common.tutorial',
   },
   about: {
     id: 'app.common.about',
@@ -371,5 +392,17 @@ export default defineMessages({
   },
   official: {
     id: 'app.common.official',
+  },
+  profilesUsersInfo: {
+    id: 'app.common.profilesUsersInfo',
+  },
+  fileSizeErrorMsg: {
+    id: 'app.common.fileSizeErrorMsg',
+  },
+  chooseFile: {
+    id: 'app.common.chooseFile',
+  },
+  questionIsAnswered: {
+    id: 'app.common.questionIsAnswered',
   },
 });

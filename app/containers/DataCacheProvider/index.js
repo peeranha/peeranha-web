@@ -16,16 +16,18 @@ import { DAEMON } from 'utils/constants';
 import reducer from './reducer';
 import saga from './saga';
 
-import { getStat, getFaq } from './actions';
+import { getStat, getFaq, getTutorial } from './actions';
 
 export const DataCacheProvider = ({
   children,
   getStatDispatch,
   getFaqDispatch,
+  getTutorialDispatch,
 }) => {
   useEffect(() => {
     getStatDispatch();
     getFaqDispatch();
+    getTutorialDispatch();
   });
 
   return children;
@@ -42,6 +44,7 @@ const withConnect = connect(
   dispatch => ({
     getStatDispatch: bindActionCreators(getStat, dispatch),
     getFaqDispatch: bindActionCreators(getFaq, dispatch),
+    getTutorialDispatch: bindActionCreators(getTutorial, dispatch),
   }),
 );
 

@@ -1,3 +1,4 @@
+import { selectEditCommunityLoading } from 'containers/EditCommunity/selectors';
 import { selectFollowHandlerLoading } from 'containers/FollowCommunityButton/selectors';
 import { selectAskQuestionLoading } from 'containers/AskQuestion/selectors';
 import {
@@ -70,10 +71,15 @@ import {
   selectSendTipsProcessing,
 } from '../SendTips/selectors';
 import { selectTopQuestionActionProcessing } from '../Questions/selectors';
+import {
+  selectGetConfirmTelegramAccountProcessing,
+  selectGetUnlinkTelegramAccountProcessing,
+} from '../TelegramAccountAction/selectors';
 
 export default {
   selectAskQuestionLoading: selectAskQuestionLoading(),
   selectChangeEmailProcessing: selectChangeEmailProcessing(),
+  selectEditCommunityLoading: selectEditCommunityLoading(),
   selectSendOldEmailProcessing: selectSendOldEmailProcessing(),
   selectConfirmOldEmailProcessing: selectConfirmOldEmailProcessing(),
   selectSendEmailProcessing: selectSendEmailProcessing(),
@@ -122,4 +128,6 @@ export default {
   selectedAccountProcessing: selectedAccountProcessingSelector(),
   selectSendTipsProcessing: selectSendTipsProcessing(),
   selectPinActionProcessing: selectTopQuestionActionProcessing(),
+  selectGetConfirmTelegramAccountProcessing: selectGetConfirmTelegramAccountProcessing(),
+  selectGetUnlinkTelegramAccountProcessing: selectGetUnlinkTelegramAccountProcessing(),
 };

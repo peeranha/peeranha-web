@@ -5,9 +5,6 @@ import { translationMessages } from 'i18n';
 import { createStructuredSelector } from 'reselect';
 import { compose, bindActionCreators } from 'redux';
 
-import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
-
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import {
@@ -17,12 +14,10 @@ import {
 
 import Seo from 'components/Seo';
 
-import reducer from './reducer';
-import saga from './saga';
 import messages from './messages';
 import * as selectors from './selectors';
 
-import { getWeekStat, pickupReward } from './actions';
+import { pickupReward, getWeekStat } from './actions';
 
 import View from './View';
 
@@ -34,11 +29,11 @@ const Wallet = ({
   account,
   balance,
   weekStat,
+  getWeekStatDispatch,
   getWeekStatProcessing,
   pickupRewardDispatch,
   pickupRewardProcessing,
   ids,
-  getWeekStatDispatch,
 }) => {
   useEffect(
     () => {
@@ -80,18 +75,19 @@ Wallet.propTypes = {
   locale: PropTypes.string,
   account: PropTypes.string,
   match: PropTypes.object,
-  getWeekStatDispatch: PropTypes.func,
   pickupRewardDispatch: PropTypes.func,
   weekStat: PropTypes.array,
   ids: PropTypes.array,
+  getWeekStatDispatch: PropTypes.func,
   getWeekStatProcessing: PropTypes.bool,
   pickupRewardProcessing: PropTypes.bool,
 };
 
 export default memo(
   compose(
-    injectReducer({ key: 'wallet', reducer }),
-    injectSaga({ key: 'wallet', saga }),
+    /* 
+    * reducer and saga injections are produced in WalletDropdown container
+    */
     connect(
       createStructuredSelector({
         locale: makeSelectLocale(),
@@ -103,8 +99,8 @@ export default memo(
         ids: selectors.selectIds(),
       }),
       dispatch => ({
-        getWeekStatDispatch: bindActionCreators(getWeekStat, dispatch),
         pickupRewardDispatch: bindActionCreators(pickupReward, dispatch),
+        getWeekStatDispatch: bindActionCreators(getWeekStat, dispatch),
       }),
     ),
   )(Wallet),

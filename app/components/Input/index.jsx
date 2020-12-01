@@ -25,7 +25,7 @@ const Handler = ({
   const src = useMemo(
     () => {
       if (isSearchable) {
-        return value ? closeIcon : searchIcon;
+        return searchIcon;
       } else if (isRefreshable) {
         return refreshIcon;
       } else if (isPassword[0] && !isPassword[1]) {

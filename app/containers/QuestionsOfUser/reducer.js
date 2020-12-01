@@ -17,19 +17,23 @@ export const initialState = fromJS({
 function questionsOfUserReducer(state = initialState, action) {
   const { type, getQuestionsError, questions, init } = action;
 
+  const { questions: stateQuestions } = state.toJS();
+
+  const {
+    questions: initialStateQuestions,
+    number: initialStateNumber,
+  } = initialState.toJS();
+
   switch (type) {
     case GET_QUESTIONS:
       return state
         .set('questionsLoading', true)
-        .set(
-          'questions',
-          init ? initialState.get('questions') : state.get('questions'),
-        );
+        .set('questions', init ? initialStateQuestions : stateQuestions);
     case GET_QUESTIONS_SUCCESS:
       return state
         .set('questionsLoading', false)
-        .set('questions', state.get('questions').concat(questions))
-        .set('isLastFetch', questions.length < initialState.get('number'));
+        .set('questions', [...stateQuestions, ...questions])
+        .set('isLastFetch', questions.length < initialStateNumber);
     case GET_QUESTIONS_ERROR:
       return state
         .set('questionsLoading', false)

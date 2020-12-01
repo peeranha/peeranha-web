@@ -7,6 +7,7 @@ import { LINK_COLOR, TEXT_SECONDARY } from 'style-constants';
 
 import Span from 'components/Span';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
+import TextBlock from 'components/FormFields/TextBlock';
 
 import {
   POSITION_FIELD,
@@ -43,15 +44,19 @@ const Blank = ({ profile, userId, account, redirectToEditProfilePage }) =>
     </p>
   );
 
-const Row = ({ nameField, value }) =>
+const Row = ({ nameField, value, asHtml }) =>
   value ? (
     <div className="d-flex align-items-start mb-2">
       <Span color={TEXT_SECONDARY} fontSize="14" lineHeight="24">
         <FormattedMessage {...messages[nameField]} />
       </Span>
-      <Span mobileFS="16" lineHeight="24" mobileLH="20">
-        {value}
-      </Span>
+      {asHtml ? (
+        <TextBlock content={value} />
+      ) : (
+        <Span mobileFS="16" lineHeight="24" mobileLH="20">
+          {value}
+        </Span>
+      )}
     </div>
   ) : null;
 
@@ -79,7 +84,11 @@ const AdditionalUserInformation = ({
             nameField="positionLabel"
             value={profile.profile[POSITION_FIELD]}
           />
-          <Row nameField="aboutLabel" value={profile.profile[ABOUT_FIELD]} />
+          <Row
+            nameField="aboutLabel"
+            value={profile.profile[ABOUT_FIELD]}
+            asHtml
+          />
 
           <Blank
             profile={profile.profile}
@@ -102,6 +111,7 @@ AdditionalUserInformation.propTypes = {
 Row.propTypes = {
   nameField: PropTypes.string,
   value: PropTypes.string,
+  asHtml: PropTypes.bool,
   isColumn: PropTypes.bool,
 };
 

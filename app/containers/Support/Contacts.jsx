@@ -14,6 +14,7 @@ import linkedinIcon from 'images/linkedinsupport.svg?inline';
 import githubIcon from 'images/guthubsupport.svg?inline';
 import facebookIcon from 'images/facebook.svg?inline';
 import calendarIcon from 'images/ico_email.svg?inline';
+import telegramIcon from 'images/telegramOfficialBlue.svg?inline';
 
 import Span from 'components/Span';
 import H3 from 'components/H3';
@@ -54,6 +55,10 @@ const MediaList = styled.div`
   }
 `;
 
+const EmailSpan = Span.extend`
+  font-size: 12px;
+`;
+
 const Contacts = ({ locale }) => (
   <div id={CONTACTS_ID}>
     <Wrapper className="mb-to-sm-0 mb-from-sm-3">
@@ -88,9 +93,14 @@ const Contacts = ({ locale }) => (
         <Span bold>Medium</Span>
       </MediaItem>
 
+      <MediaItem href={getLinks(locale).telegram} target="_blank">
+        <img src={telegramIcon} alt="telegram" />
+        <Span bold>Telegram</Span>
+      </MediaItem>
+
       <MediaItem href={routes.support(FORM_ID)}>
         <img src={calendarIcon} alt="calendar" />
-        <Span color={TEXT_PRIMARY}>hello@peeranha.io</Span>
+        <EmailSpan color={TEXT_PRIMARY}>hello@peeranha.io</EmailSpan>
       </MediaItem>
     </MediaList>
   </div>

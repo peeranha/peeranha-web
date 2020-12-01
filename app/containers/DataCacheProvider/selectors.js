@@ -130,6 +130,69 @@ const selectGetFaqLoading = () =>
     substate => substate.getFaqLoading,
   );
 
+const selectTutorial = () =>
+  createSelector(selectDataCacheProviderDomain, substate => substate.tutorial);
+
+const selectGetTutorialError = () =>
+  createSelector(
+    selectDataCacheProviderDomain,
+    substate => substate.getTutorialError,
+  );
+
+const selectGetTutorialLoading = () =>
+  createSelector(
+    selectDataCacheProviderDomain,
+    substate => substate.getTutorialLoading,
+  );
+
+const selectUserRatingDCP = user =>
+  createSelector(
+    selectDataCacheProviderDomain,
+    substate => substate?.users[user].rating,
+  );
+
+const selectQuestionsAskedValue = user =>
+  createSelector(
+    selectDataCacheProviderDomain,
+    substate => substate?.users[user].questions_asked,
+  );
+
+const selectAnswersGivenValue = user =>
+  createSelector(
+    selectDataCacheProviderDomain,
+    substate => substate?.users[user].answers_given,
+  );
+
+const selectBestAnswersValue = user =>
+  createSelector(
+    selectDataCacheProviderDomain,
+    substate => substate?.users[user].correct_answers,
+  );
+
+const selectFirstIn15AnswersValue = user =>
+  createSelector(selectDataCacheProviderDomain, substate => {
+    const answersIn15Data = substate?.users[user]?.integer_properties
+      ? substate.users[user].integer_properties.find(el => el.key === 12)
+      : null;
+    const answersIn15Value = answersIn15Data ? answersIn15Data.value : 0;
+    return answersIn15Value;
+  });
+
+const selectFirstAnswersValue = user =>
+  createSelector(selectDataCacheProviderDomain, substate => {
+    const firstAnswersData = substate?.users[user]?.integer_properties
+      ? substate.users[user].integer_properties.find(el => el.key === 13)
+      : null;
+    const firstAnswersValue = firstAnswersData ? firstAnswersData.value : 0;
+    return firstAnswersValue;
+  });
+
+const selectUserAchievementsDCP = userAccount =>
+  createSelector(
+    selectDataCacheProviderDomain,
+    substate => substate.users[userAccount]?.achievements_reached,
+  );
+
 export {
   selectDataCacheProviderDomain,
   selectCommunities,
@@ -145,4 +208,14 @@ export {
   selectGetFaqError,
   selectFaqQuestions,
   selectGetFaqLoading,
+  selectTutorial,
+  selectGetTutorialError,
+  selectGetTutorialLoading,
+  selectUserRatingDCP,
+  selectQuestionsAskedValue,
+  selectAnswersGivenValue,
+  selectBestAnswersValue,
+  selectFirstAnswersValue,
+  selectFirstIn15AnswersValue,
+  selectUserAchievementsDCP,
 };

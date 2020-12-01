@@ -3,17 +3,17 @@ import PropTypes from 'prop-types';
 import { Field } from 'redux-form/immutable';
 import { intlShape, FormattedMessage } from 'react-intl';
 
-import commonMessages from 'common-messages';
-import { TEXT_SECONDARY } from 'style-constants';
-
 import Span from 'components/Span';
 import { strLength25x30000, required } from 'components/FormFields/validate';
+import TextBlock from 'components/FormFields/TextBlock';
 import TextEditorField from 'components/FormFields/TextEditorField';
-import TextBlock from 'containers/ViewQuestion/TextBlock';
 
+import commonMessages from 'common-messages';
+import messages from './messages';
+
+import { TEXT_SECONDARY } from 'style-constants';
 import { FORM_CONTENT } from './constants';
 
-import messages from './messages';
 import { PreviewWrapper } from '../AnswerForm';
 import Wrapper from '../FormFields/Wrapper';
 
@@ -23,7 +23,7 @@ const ContentForm = ({ questionLoading, intl, formValues }) => (
       name={FORM_CONTENT}
       component={TextEditorField}
       disabled={questionLoading}
-      label={intl.formatMessage(messages.contentLabel)}
+      label={intl.formatMessage(messages.questionBodyLabel)}
       validate={[strLength25x30000, required]}
       warn={[strLength25x30000, required]}
     />

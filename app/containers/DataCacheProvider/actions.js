@@ -11,6 +11,7 @@ import {
   GET_USER_PROFILE,
   GET_USER_PROFILE_SUCCESS,
   GET_USER_PROFILE_ERROR,
+  UPDATE_USER_ACHIEVEMENTS,
   REMOVE_USER_PROFILE,
   GET_STAT,
   GET_STAT_SUCCESS,
@@ -18,6 +19,9 @@ import {
   GET_FAQ,
   GET_FAQ_SUCCESS,
   GET_FAQ_ERROR,
+  GET_TUTORIAL,
+  GET_TUTORIAL_SUCCESS,
+  GET_TUTORIAL_ERROR,
 } from './constants';
 
 export function getCommunitiesWithTags() {
@@ -69,6 +73,14 @@ export function removeUserProfile(user) {
   };
 }
 
+export function updateCachedUserAchievements(userForUpdate, updatedAchCount) {
+  return {
+    type: UPDATE_USER_ACHIEVEMENTS,
+    userForUpdate,
+    updatedAchCount,
+  };
+}
+
 // Get stat
 export function getStat() {
   return {
@@ -108,5 +120,26 @@ export function getFaqErr(getFaqError) {
   return {
     type: GET_FAQ_ERROR,
     getFaqError,
+  };
+}
+
+// Get TUTORIAL
+export function getTutorial() {
+  return {
+    type: GET_TUTORIAL,
+  };
+}
+
+export function getTutorialSuccess(tutorial) {
+  return {
+    type: GET_TUTORIAL_SUCCESS,
+    tutorial,
+  };
+}
+
+export function getTutorialErr(getTutorialError) {
+  return {
+    type: GET_TUTORIAL_ERROR,
+    getTutorialError,
   };
 }

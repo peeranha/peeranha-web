@@ -36,9 +36,11 @@ export const WarningMessage = ({
   active,
   warning,
   className,
+  containerIsSplittedInHalf,
   tip,
   isSpecialPosition,
   visited,
+  touched,
 }) => {
   const err = error || warning;
 
@@ -46,12 +48,15 @@ export const WarningMessage = ({
     err.id = err.get('id');
   }
 
-  return ((visited || (err && err.visited)) && err) || (active && tip) ? (
+  return ((touched || visited || (err && err.visited)) && err) ||
+    (active && tip) ? (
     <Div className={className} isSpecialPosition={isSpecialPosition}>
       <div>
         {(tip || isSpecialPosition) && (
           <img
-            className={`${!isSpecialPosition ? 'd-none' : ''} d-md-inline`}
+            className={`${!isSpecialPosition ? 'd-none' : ''} ${
+              containerIsSplittedInHalf ? 'd-md-inline' : ''
+            }`}
             src={validationArrowIcon}
             alt="icon"
           />
@@ -76,8 +81,10 @@ WarningMessage.propTypes = {
   error: PropTypes.object,
   warning: PropTypes.object,
   className: PropTypes.string,
+  containerIsSplittedInHalf: PropTypes.bool,
   tip: PropTypes.string,
   visited: PropTypes.bool,
+  touched: PropTypes.bool,
   active: PropTypes.bool,
   isSpecialPosition: PropTypes.bool,
 };
