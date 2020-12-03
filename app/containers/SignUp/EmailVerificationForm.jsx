@@ -32,11 +32,15 @@ const EmailVerificationForm = ({ handleSubmit }) => (
       showLoginModal,
       showScatterSignUpForm,
       showScatterSignUpProcessing,
+      showKeycatSignUpForm,
+      showKeycatSignUpProcessing,
     }) => (
       <SignUpOptions
         showLoginModal={showLoginModal}
         showScatterSignUpForm={showScatterSignUpForm}
         showScatterSignUpProcessing={showScatterSignUpProcessing}
+        showKeycatSignUpForm={showKeycatSignUpForm}
+        showKeycatSignUpProcessing={showKeycatSignUpProcessing}
       >
         <div className="text-center">
           <img src={letterImg} alt="check your email" />

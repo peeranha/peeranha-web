@@ -59,6 +59,7 @@ import {
   EmailEnteringForm,
   EmailVerificationForm,
   ScatterSignUpForm,
+  KeycatSignUpForm,
   IHaveEOSAccountForm,
   IdontHaveEOSAccountForm,
   RegistrationAlmostDoneWithAccount,
@@ -333,6 +334,12 @@ const App = ({
         <Route path={routes.signup.displayName.name}>
           <React.Suspense fallback={null}>
             <ScatterSignUpForm />
+          </React.Suspense>
+        </Route>
+
+        <Route path={routes.signup.keycatDisplayName.name}>
+          <React.Suspense fallback={null}>
+            <KeycatSignUpForm />
           </React.Suspense>
         </Route>
 

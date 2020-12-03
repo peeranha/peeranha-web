@@ -27,6 +27,7 @@ import {
 } from 'containers/ForgotPassword/selectors';
 import {
   selectLoginWithScatterProcessing,
+  selectLoginWithKeycatProcessing,
   selectFinishRegistrationProcessing,
   makeSelectLoginProcessing,
 } from 'containers/Login/selectors';
@@ -41,6 +42,8 @@ import {
   selectIHaveEosAccountProcessing,
   selectIdontHaveEosAccountProcessing,
   selectSignUpWithScatterProcessing,
+  selectSignUpWithKeycatProcessing,
+  selectShowKeycatSignUpProcessing,
   selectShowScatterSignUpProcessing,
 } from 'containers/SignUp/selectors';
 import {
@@ -99,6 +102,7 @@ export default {
   makeSelectLoginProcessing: makeSelectLoginProcessing(),
   selectFinishRegistrationProcessing: selectFinishRegistrationProcessing(),
   selectLoginWithScatterProcessing: selectLoginWithScatterProcessing(),
+  selectLoginWithKeycatProcessing: selectLoginWithKeycatProcessing(),
   selectSendTokensProcessing: selectSendTokensProcessing(),
   selectShowActiveKeyProcessing: selectShowActiveKeyProcessing(),
   selectShowOwnerKeyProcessing: selectShowOwnerKeyProcessing(),
@@ -107,7 +111,9 @@ export default {
   selectIHaveEosAccountProcessing: selectIHaveEosAccountProcessing(),
   selectIdontHaveEosAccountProcessing: selectIdontHaveEosAccountProcessing(),
   selectSignUpWithScatterProcessing: selectSignUpWithScatterProcessing(),
+  selectSignUpWithKeycatProcessing: selectSignUpWithKeycatProcessing(),
   selectShowScatterSignUpProcessing: selectShowScatterSignUpProcessing(),
+  selectShowKeycatSignUpProcessing: selectShowKeycatSignUpProcessing(),
   selectPostAnswerLoading: selectPostAnswerLoading(),
   selectPostCommentLoading: selectPostCommentLoading(),
   selectUpVoteLoading: selectUpVoteLoading(),

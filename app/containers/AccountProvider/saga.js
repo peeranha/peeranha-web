@@ -112,6 +112,12 @@ export const getCurrentAccountWorker = function*(initAccount) {
     const eosService = yield select(selectEos);
     const prevProfileInfo = yield select(makeSelectProfileInfo());
 
+    if (eosService.withScatter)
+      yield put(addLoginData({ loginWithScatter: true }));
+
+    if (eosService.withKeycat)
+      yield put(addLoginData({ loginWithKeycat: true }));
+
     let account = yield typeof initAccount === 'string'
       ? initAccount
       : call(eosService.getSelectedAccount);
@@ -121,6 +127,22 @@ export const getCurrentAccountWorker = function*(initAccount) {
 
       if (autoLoginData) {
         account = autoLoginData.eosAccountName;
+      }
+
+      if (autoLoginData.loginWithScatter) {
+        put(
+          yield put(
+            addLoginData({ loginWithScatter: autoLoginData.loginWithScatter }),
+          ),
+        );
+      }
+
+      if (autoLoginData.loginWithKeycat) {
+        put(
+          yield put(
+            addLoginData({ loginWithKeycat: autoLoginData.loginWithKeycat }),
+          ),
+        );
       }
     }
 
@@ -154,9 +176,7 @@ export const getCurrentAccountWorker = function*(initAccount) {
 
     if (profileInfo) {
       // update user achievements
-      yield call(updateUserAchievementsWorker, profileInfo.user, {
-        profileInfo: profileInfo,
-      });
+      yield call(updateUserAchievementsWorker, profileInfo.user);
 
       yield call(getNotificationsInfoWorker, profileInfo.user);
       yield call(getWeekStatWorker);
@@ -211,7 +231,11 @@ export function* isAvailableAction(isValid, comunityID) {
     return true;
   }
 
-  if (profileInfo.permissions.find(x => x.value == COMMUNITY_ADMIN_VALUE && x.community == comunityID)) {
+  if (
+    profileInfo.permissions.find(
+      x => x.value == COMMUNITY_ADMIN_VALUE && x.community == comunityID,
+    )
+  ) {
     return true;
   }
 
@@ -342,14 +366,14 @@ export function* getCommunityPropertyWorker(profile) {
   try {
     const profileInfo = profile || (yield select(makeSelectProfileInfo()));
     const eosService = yield select(selectEos);
-    
+
     const info = yield call(
       eosService.getTableRow,
       ALL_PROPERTY_COMMUNITY_TABLE,
       ALL_PROPERTY_COMMUNITY_SCOPE,
       profileInfo.user,
     );
-    
+
     yield put(
       getUserProfileSuccess({
         ...profile,

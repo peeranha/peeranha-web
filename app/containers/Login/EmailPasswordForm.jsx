@@ -26,7 +26,6 @@ import loginMessages from './messages';
 
 import Header from './Header';
 import Footer from './Footer';
-import IDontHaveAnAccount from './IdontHaveAnAccount';
 
 const EmailPasswordForm = ({
   handleSubmit,
@@ -36,6 +35,8 @@ const EmailPasswordForm = ({
   showIForgotPasswordModal,
   loginWithScatter,
   loginWithScatterProcessing,
+  loginWithKeycatProcessing,
+  loginWithKeycat,
 }) => (
   <div>
     <Header />
@@ -84,11 +85,15 @@ const EmailPasswordForm = ({
           <FormattedMessage {...loginMessages.iForgotPassword} />
         </TransparentButton>
       </div>
-
-      <IDontHaveAnAccount disabled={loginProcessing} />
     </form>
 
-    <Footer action={loginWithScatter} processing={loginWithScatterProcessing} />
+    <Footer
+      walletAction={loginWithScatter}
+      walletProcessing={loginWithScatterProcessing}
+      keycatAction={loginWithKeycat}
+      keycatProcessing={loginWithKeycatProcessing}
+      loginProcessing={loginProcessing}
+    />
   </div>
 );
 
@@ -100,6 +105,8 @@ EmailPasswordForm.propTypes = {
   loginWithScatterProcessing: PropTypes.bool,
   showIForgotPasswordModal: PropTypes.func,
   loginWithScatter: PropTypes.func,
+  loginWithKeycat: PropTypes.func,
+  loginWithKeycatProcessing: PropTypes.bool,
 };
 
 const formName = 'EmailPasswordForm';

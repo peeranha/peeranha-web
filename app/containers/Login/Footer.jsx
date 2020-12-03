@@ -1,46 +1,45 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import isMobile from 'ismobilejs';
 
-import { TEXT_DARK, BG_SECONDARY_SPECIAL_4, BG_LIGHT } from 'style-constants';
+import { TEXT_DARK, BG_LIGHT, TEXT_SECONDARY } from 'style-constants';
 import messages from 'common-messages';
 
 import scatterLogo from 'images/scatterLogo.svg?inline';
 import sqrlLogo from 'images/sqrl.svg?inline';
 import wombatLogo from 'images/wombat.png';
+import keycatLogo from 'images/keycat.svg?external';
+import keycatTextLogo from 'images/keycatText.svg?external';
 
 import Button from 'components/Button/Outlined/SecondaryLarge';
+import Icon from 'components/Icon';
+import IdontHaveAnAccount from './IdontHaveAnAccount';
 
 const Box = styled.div`
-  margin-top: 30px;
+  margin-top: 15px;
   margin-left: -30px;
   margin-right: -30px;
   margin-bottom: -30px;
   padding: 30px 30px 20px 30px;
-  background: ${BG_SECONDARY_SPECIAL_4};
 
   @media only screen and (max-width: 576px) {
     padding-top: 20px;
   }
 `;
 
-const B = Button.extend`
-  background: ${BG_LIGHT};
-  color: ${TEXT_DARK};
-  width: 100%;
-`;
-
-const Wallets = styled.div`
+const WalletsLogosStyles = css`
   display: flex;
   align-items: start;
   justify-content: center;
-  padding-top: 15px;
+  background: ${BG_LIGHT};
+  color: ${TEXT_DARK};
+  padding: 10px;
 
   > img {
     &:not(:last-child) {
-      margin-right: 20px;
+      margin-right: 14px;
     }
 
     &[alt='scatter'] {
@@ -48,40 +47,98 @@ const Wallets = styled.div`
     }
 
     &[alt='sqrl'] {
-      height: 28px;
+      height: 24px;
     }
 
     &[alt='wombat'] {
-      height: 22px;
+      height: 18px;
     }
   }
 `;
 
-export const LoginViaWallet = ({ action, processing, text, isMobileDevice }) => (
-  <>
-    <B onClick={action || null} disabled={!!processing}>
-      {text || <FormattedMessage {...messages.loginViaWallet} />}
-    </B>
+export const WalletButton = styled(Button)`
+  ${WalletsLogosStyles};
+`;
 
-    <Wallets>
-      {!isMobileDevice && <img src={scatterLogo} alt="scatter" />}
-      {!isMobileDevice && <img src={sqrlLogo} alt="sqrl" />}
-      <img src={wombatLogo} alt="wombat" />
-    </Wallets>
-  </>
+export const KeycatButton = styled(Button)`
+  ${WalletsLogosStyles};
+  align-items: center;
+
+  svg {
+    fill: #222;
+  }
+`;
+
+const Heading = styled.div`
+  width: 100%;
+  text-align: center;
+  margin-bottom: 14px;
+
+  span {
+    color: ${TEXT_SECONDARY};
+  }
+`;
+
+export const LoginViaWallet = ({ action, processing, isMobileDevice }) => (
+  <WalletButton onClick={action || null} disabled={processing}>
+    {!isMobileDevice && <img src={scatterLogo} alt="scatter" />}
+    {!isMobileDevice && <img src={sqrlLogo} alt="sqrl" />}
+    <img src={wombatLogo} alt="wombat" />
+  </WalletButton>
 );
 
 LoginViaWallet.propTypes = {
-  loginWithScatter: PropTypes.func,
-  loginWithScatterProcessing: PropTypes.bool,
+  action: PropTypes.func,
+  processing: PropTypes.bool,
+  isMobileDevice: PropTypes.bool,
 };
 
-export default React.memo(({ action, processing }) => (
+export const LoginViaKeycat = ({ action, processing }) => (
+  <KeycatButton onClick={action || null} disabled={processing}>
+    <Icon icon={keycatLogo} width="16" height="16" className="mr-2 mb-0" />
+    <Icon icon={keycatTextLogo} height="16" className="mt-1 mb-0" />
+  </KeycatButton>
+);
+
+LoginViaKeycat.propTypes = {
+  action: PropTypes.func,
+  processing: PropTypes.bool,
+};
+
+const Footer = ({
+  walletAction,
+  walletProcessing,
+  keycatAction,
+  keycatProcessing,
+  loginProcessing,
+  signUpText = null,
+}) => (
   <Box>
-    <LoginViaWallet
-      action={action}
-      processing={processing}
-      isMobileDevice={isMobile(window.navigator).any}
-    />
+    <Heading>
+      {signUpText || <FormattedMessage {...messages.loginViaWallet} />}
+    </Heading>
+    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+      <LoginViaWallet
+        action={walletAction}
+        processing={walletProcessing || keycatProcessing || loginProcessing}
+        isMobileDevice={isMobile(window.navigator).any}
+      />
+      <LoginViaKeycat
+        action={keycatAction}
+        processing={keycatProcessing || walletProcessing || loginProcessing}
+      />
+    </div>
+    {!signUpText && <IdontHaveAnAccount disabled={loginProcessing} />}
   </Box>
-));
+);
+
+Footer.propTypes = {
+  walletAction: PropTypes.func,
+  walletProcessing: PropTypes.bool,
+  keycatAction: PropTypes.func,
+  keycatProcessing: PropTypes.bool,
+  loginProcessing: PropTypes.bool,
+  signUpText: PropTypes.string,
+};
+
+export default React.memo(Footer);

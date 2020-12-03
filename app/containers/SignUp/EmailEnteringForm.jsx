@@ -29,11 +29,15 @@ const EmailEnteringForm = ({ handleSubmit }) => (
       showLoginModal,
       showScatterSignUpForm,
       showScatterSignUpProcessing,
+      showKeycatSignUpForm,
+      showKeycatSignUpProcessing,
     }) => (
       <SignUpOptions
         showLoginModal={showLoginModal}
         showScatterSignUpForm={showScatterSignUpForm}
         showScatterSignUpProcessing={showScatterSignUpProcessing}
+        showKeycatSignUpForm={showKeycatSignUpForm}
+        showKeycatSignUpProcessing={showKeycatSignUpProcessing}
       >
         <Form onSubmit={handleSubmit(checkEmail)}>
           <Field

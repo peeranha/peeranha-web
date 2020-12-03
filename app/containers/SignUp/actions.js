@@ -28,6 +28,13 @@ import {
   SHOW_SCATTER_SIGNUP_FORM_ERROR,
   SEND_ANOTHER_CODE,
   SIGNUP_WITH_SCATTER_REFERRAL_ERROR,
+  SIGNUP_WITH_KEYCAT,
+  SHOW_KEYCAT_SIGNUP_FORM,
+  SHOW_KEYCAT_SIGNUP_FORM_SUCCESS,
+  SHOW_KEYCAT_SIGNUP_FORM_ERROR,
+  SIGNUP_WITH_KEYCAT_SUCCESS,
+  SIGNUP_WITH_KEYCAT_ERROR,
+  SIGNUP_WITH_KEYCAT_REFERRAL_ERROR,
 } from './constants';
 
 /*
@@ -174,6 +181,37 @@ export const signUpWithScatterReferralErr = signUpWithScatterReferralError => ({
 
 /*
  *
+ * sign up with keycat
+ *
+ */
+
+export function signUpWithKeycat(val) {
+  return {
+    type: SIGNUP_WITH_KEYCAT,
+    val: val.toJS(),
+  };
+}
+
+export function signUpWithKeycatSuccess() {
+  return {
+    type: SIGNUP_WITH_KEYCAT_SUCCESS,
+  };
+}
+
+export function signUpWithKeycatErr(signUpWithKeycatError) {
+  return {
+    type: SIGNUP_WITH_KEYCAT_ERROR,
+    signUpWithKeycatError,
+  };
+}
+
+export const signUpWithKeycatReferralErr = signUpWithKeycatReferralError => ({
+  type: SIGNUP_WITH_KEYCAT_REFERRAL_ERROR,
+  signUpWithKeycatReferralError,
+});
+
+/*
+ *
  * open window for scatter registration
  *
  */
@@ -195,6 +233,32 @@ export function showScatterSignUpFormErr(showScatterSignUpFormError) {
   return {
     type: SHOW_SCATTER_SIGNUP_FORM_ERROR,
     showScatterSignUpFormError,
+  };
+}
+
+/*
+ *
+ * open window for keycat registration
+ *
+ */
+
+export function showKeycatSignUpForm() {
+  return {
+    type: SHOW_KEYCAT_SIGNUP_FORM,
+  };
+}
+
+export function showKeycatSignUpFormSuccess(keycatAccountName) {
+  return {
+    type: SHOW_KEYCAT_SIGNUP_FORM_SUCCESS,
+    keycatAccountName,
+  };
+}
+
+export function showKeycatSignUpFormErr(showKeycatSignUpFormError) {
+  return {
+    type: SHOW_KEYCAT_SIGNUP_FORM_ERROR,
+    showKeycatSignUpFormError,
   };
 }
 

@@ -20,7 +20,7 @@ const Base = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 15px;
+  margin-top: 60px;
 
   > span {
     font-size: 14px;

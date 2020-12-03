@@ -22,6 +22,10 @@ import {
   FINISH_REGISTRATION_ERROR,
   EMAIL_FORM,
   FINISH_REGISTRATION_REFERRAL_ERROR,
+  LOGIN_WITH_KEYCAT,
+  LOGIN_WITH_KEYCAT_SUCCESS,
+  LOGIN_WITH_KEYCAT_ERROR,
+  SET_REDIRECT_TO_MAIN_PAGE,
 } from './constants';
 
 export const initialState = fromJS({
@@ -33,8 +37,11 @@ export const initialState = fromJS({
   eosAccount: null,
   loginWithScatterProcessing: false,
   loginWithScatterError: null,
+  loginWithKeycatProcessing: false,
   finishRegistrationProcessing: false,
   finishRegistrationWithDisplayNameError: null,
+  loginWithKeycatError: null,
+  redirectToMainPage: false,
 });
 
 function loginReducer(state = initialState, action) {
@@ -45,14 +52,21 @@ function loginReducer(state = initialState, action) {
     loginWithEmailError,
     eosAccount,
     loginWithScatterError,
+    loginWithKeycatError,
     finishRegistrationWithDisplayNameError,
+    redirectToMainPage,
   } = action;
 
   switch (type) {
     case SHOW_LOGIN_MODAL:
-      return state.set('showModal', true).set('content', EMAIL_FORM);
+      return state
+        .set('showModal', true)
+        .set('content', EMAIL_FORM)
+        .set('redirectToMainPage', redirectToMainPage);
     case HIDE_LOGIN_MODAL:
       return state.set('showModal', false);
+    case SET_REDIRECT_TO_MAIN_PAGE:
+      return state.set('redirectToMainPage', redirectToMainPage);
 
     case SHOW_EMAIL_PASSWORD_MODAL:
       return state.set('email', email).set('content', EMAIL_PASSWORD_FORM);
@@ -81,6 +95,18 @@ function loginReducer(state = initialState, action) {
       return state
         .set('loginWithScatterProcessing', false)
         .set('loginWithScatterError', loginWithScatterError);
+
+    case LOGIN_WITH_KEYCAT:
+      return state.set('loginWithKeycatProcessing', true);
+    case LOGIN_WITH_KEYCAT_SUCCESS:
+      return state
+        .set('loginWithKeycatProcessing', false)
+        .set('showModal', initialState.get('showModal'))
+        .set('content', initialState.get('content'));
+    case LOGIN_WITH_KEYCAT_ERROR:
+      return state
+        .set('loginWithKeycatProcessing', false)
+        .set('loginWithKeycatError', loginWithKeycatError);
 
     case FINISH_REGISTRATION:
       return state.set('finishRegistrationProcessing', true);

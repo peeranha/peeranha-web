@@ -18,6 +18,8 @@ export const WE_ARE_HAPPY_FORM = 'WE_ARE_HAPPY_FORM';
 // Action types
 export const SHOW_LOGIN_MODAL = 'app/containers/Login/SHOW_LOGIN_MODAL';
 export const HIDE_LOGIN_MODAL = 'app/containers/Login/HIDE_LOGIN_MODAL';
+export const SET_REDIRECT_TO_MAIN_PAGE =
+  'app/containers/Login/SET_REDIRECT_TO_MAIN_PAGE';
 export const SHOW_EMAIL_PASSWORD_MODAL =
   'app/containers/Login/SHOW_EMAIL_PASSWORD_MODAL';
 
@@ -32,6 +34,12 @@ export const LOGIN_WITH_SCATTER_SUCCESS =
   'app/containers/Login/LOGIN_WITH_SCATTER_SUCCESS';
 export const LOGIN_WITH_SCATTER_ERROR =
   'app/containers/Login/LOGIN_WITH_SCATTER_ERROR';
+
+export const LOGIN_WITH_KEYCAT = 'app/containers/Login/LOGIN_WITH_KEYCAT';
+export const LOGIN_WITH_KEYCAT_SUCCESS =
+  'app/containers/Login/LOGIN_WITH_KEYCAT_SUCCESS';
+export const LOGIN_WITH_KEYCAT_ERROR =
+  'app/containers/Login/LOGIN_WITH_KEYCAT_ERROR';
 
 export const FINISH_REGISTRATION = 'app/containers/Login/FINISH_REGISTRATION';
 export const FINISH_REGISTRATION_SUCCESS =

@@ -45,6 +45,16 @@ const selectLoginWithScatterProcessing = () =>
     substate.get('loginWithScatterProcessing'),
   );
 
+const selectLoginWithKeycatProcessing = () =>
+  createSelector(selectLoginDomain, substate =>
+    substate.get('loginWithKeycatProcessing'),
+  );
+
+const selectRedirectToMainPage = () =>
+  createSelector(selectLoginDomain, substate =>
+    substate.get('redirectToMainPage'),
+  );
+
 export {
   selectLoginDomain,
   makeSelectContent,
@@ -57,4 +67,6 @@ export {
   selectFinishRegistrationProcessing,
   selectFinishRegistrationError,
   selectLoginWithScatterProcessing,
+  selectLoginWithKeycatProcessing,
+  selectRedirectToMainPage,
 };

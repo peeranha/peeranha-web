@@ -25,7 +25,10 @@ import {
   getReferralInfo,
   getCommunityPropertyWorker,
 } from 'containers/AccountProvider/saga';
-import { showScatterSignUpFormWorker } from 'containers/SignUp/saga';
+import {
+  showKeycatSignUpFormWorker,
+  showScatterSignUpFormWorker,
+} from 'containers/SignUp/saga';
 
 import { ACCOUNT_NOT_CREATED_NAME } from 'containers/SignUp/constants';
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
@@ -41,6 +44,9 @@ import {
   finishRegistrationWithDisplayNameErr,
   hideLoginModal,
   finishRegistrationReferralErr,
+  loginWithKeycatSuccess,
+  loginWithKeycatErr,
+  setRedirectToMainPage,
 } from './actions';
 
 import {
@@ -56,10 +62,11 @@ import {
   DISPLAY_NAME,
   AUTOLOGIN_DATA,
   REFERRAL_CODE,
+  LOGIN_WITH_KEYCAT,
 } from './constants';
 
 import messages, { getAccountNotSelectedMessageDescriptor } from './messages';
-import { makeSelectEosAccount } from './selectors';
+import { makeSelectEosAccount, selectRedirectToMainPage } from './selectors';
 import { addToast } from '../Toast/actions';
 import { initEosioSuccess } from '../EosioProvider/actions';
 import { getNotificationsInfoWorker } from '../../components/Notifications/saga';
@@ -179,6 +186,57 @@ export function* loginWithScatterWorker() {
   }
 }
 
+export function* loginWithKeycatWorker() {
+  try {
+    const eosService = yield select(selectEos);
+    const locale = yield select(makeSelectLocale());
+    const translations = translationMessages[locale];
+
+    const keycatUserData = yield call(eosService.keycatSignIn);
+
+    yield call(getCurrentAccountWorker, keycatUserData.accountName);
+    const profileInfo = yield select(makeSelectProfileInfo());
+
+    if (!profileInfo) {
+      yield call(showKeycatSignUpFormWorker, {
+        loginAccountName: keycatUserData.accountName,
+      });
+
+      yield put(hideLoginModal());
+
+      throw new ApplicationError(
+        translations[messages[USER_IS_NOT_REGISTERED].id],
+      );
+    }
+
+    yield call(getNotificationsInfoWorker, profileInfo.user);
+
+    yield call(getCommunityPropertyWorker);
+
+    const autologinData = { keycatUserData, loginWithKeycat: true };
+
+    setCookie({
+      name: AUTOLOGIN_DATA,
+      value: JSON.stringify(autologinData),
+      options: {
+        allowSubdomains: true,
+        defaultPath: true,
+      },
+    });
+
+    yield put(addLoginData({ loginWithKeycat: true }));
+    yield put(loginWithKeycatSuccess());
+
+    const redirectToMainPage = yield select(selectRedirectToMainPage());
+    if (redirectToMainPage) {
+      yield call(createdHistory.push, routes.questions());
+      yield put(setRedirectToMainPage(false));
+    }
+  } catch (err) {
+    yield put(loginWithKeycatErr(err));
+  }
+}
+
 export function* sendReferralCode(
   accountName,
   referralCode,
@@ -265,5 +323,6 @@ export function* redirectToFeedWorker() {
 export default function*() {
   yield takeLatest(LOGIN_WITH_EMAIL, loginWithEmailWorker);
   yield takeLatest(LOGIN_WITH_SCATTER, loginWithScatterWorker);
+  yield takeLatest(LOGIN_WITH_KEYCAT, loginWithKeycatWorker);
   yield takeLatest(FINISH_REGISTRATION, finishRegistrationWorker);
 }

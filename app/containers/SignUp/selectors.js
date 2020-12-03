@@ -84,6 +84,21 @@ const selectEosAccountName = () =>
     substate.get('eosAccountName'),
   );
 
+const selectKeycatAccountName = () =>
+  createSelector(selectSignUpDomain, substate =>
+    substate.get('keycatAccountName'),
+  );
+
+const selectShowKeycatSignUpProcessing = () =>
+  createSelector(selectSignUpDomain, substate =>
+    substate.get('showKeycatSignUpProcessing'),
+  );
+
+const selectSignUpWithKeycatProcessing = () =>
+  createSelector(selectSignUpDomain, substate =>
+    substate.get('signUpWithKeycatProcessing'),
+  );
+
 export {
   selectSignUpDomain,
   selectEmail,
@@ -100,7 +115,10 @@ export {
   selectSignUpWithScatterProcessing,
   selectSignUpWithScatterError,
   selectShowScatterSignUpProcessing,
+  selectShowKeycatSignUpProcessing,
   selectShowScatterSignUpFormError,
   selectEncryptionKey,
   selectEosAccountName,
+  selectKeycatAccountName,
+  selectSignUpWithKeycatProcessing,
 };

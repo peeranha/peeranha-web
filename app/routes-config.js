@@ -112,6 +112,11 @@ export const signup = {
     name: `/${registrationStage}/with-wallet/display-name`,
     scatter: true,
   },
+  keycatDisplayName: {
+    step: 1,
+    name: `/${registrationStage}/with-keycat/display-name`,
+    scatter: false,
+  },
   emailVerification: {
     step: 2,
     name: `/${registrationStage}/email-verification`,

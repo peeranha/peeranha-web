@@ -28,6 +28,7 @@ import {
   showEmailPasswordForm,
   loginWithEmail,
   loginWithScatter,
+  loginWithKeycat,
   finishRegistrationWithDisplayName,
 } from './actions';
 
@@ -60,11 +61,13 @@ export class Login extends React.Component {
       email,
       loginProcessing,
       finishRegistrationProcessing,
-      loginWithScatterDispatch,
       showEmailPasswordFormDispatch,
       loginWithEmailDispatch,
-      finishRegistrationDispatch,
+      loginWithScatterDispatch,
       loginWithScatterProcessing,
+      loginWithKeycatProcessing,
+      loginWithKeycatDispatch,
+      finishRegistrationDispatch,
     } = this.props;
 
     return (
@@ -75,6 +78,8 @@ export class Login extends React.Component {
             loginWithScatter={loginWithScatterDispatch}
             showEmailPasswordForm={showEmailPasswordFormDispatch}
             loginWithScatterProcessing={loginWithScatterProcessing}
+            loginWithKeycat={loginWithKeycatDispatch}
+            loginWithKeycatProcessing={loginWithKeycatProcessing}
           />
         )}
 
@@ -87,6 +92,8 @@ export class Login extends React.Component {
             showIForgotPasswordModal={this.showIForgotPasswordModal}
             loginWithScatterProcessing={loginWithScatterProcessing}
             email={email}
+            loginWithKeycat={loginWithKeycatDispatch}
+            loginWithKeycatProcessing={loginWithKeycatProcessing}
           />
         )}
 
@@ -111,9 +118,11 @@ Login.propTypes = {
   loginProcessing: PropTypes.bool,
   finishRegistrationProcessing: PropTypes.bool,
   loginWithScatterProcessing: PropTypes.bool,
+  loginWithKeycatProcessing: PropTypes.bool,
   loginWithScatterDispatch: PropTypes.func,
   showEmailPasswordFormDispatch: PropTypes.func,
   loginWithEmailDispatch: PropTypes.func,
+  loginWithKeycatDispatch: PropTypes.func,
   finishRegistrationDispatch: PropTypes.func,
   showForgotPasswordModalDispatch: PropTypes.func,
 };
@@ -126,6 +135,7 @@ const mapStateToProps = createStructuredSelector({
   loginProcessing: selectors.makeSelectLoginProcessing(),
   finishRegistrationProcessing: selectors.selectFinishRegistrationProcessing(),
   loginWithScatterProcessing: selectors.selectLoginWithScatterProcessing(),
+  loginWithKeycatProcessing: selectors.selectLoginWithKeycatProcessing(),
 });
 
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
@@ -137,6 +147,7 @@ export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
     ),
     loginWithEmailDispatch: bindActionCreators(loginWithEmail, dispatch),
     loginWithScatterDispatch: bindActionCreators(loginWithScatter, dispatch),
+    loginWithKeycatDispatch: bindActionCreators(loginWithKeycat, dispatch),
     showForgotPasswordModalDispatch: bindActionCreators(
       showForgotPasswordModal,
       dispatch,

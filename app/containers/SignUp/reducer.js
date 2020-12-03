@@ -30,6 +30,13 @@ import {
   SHOW_SCATTER_SIGNUP_FORM,
   SHOW_SCATTER_SIGNUP_FORM_SUCCESS,
   SHOW_SCATTER_SIGNUP_FORM_ERROR,
+  SHOW_KEYCAT_SIGNUP_FORM,
+  SHOW_KEYCAT_SIGNUP_FORM_SUCCESS,
+  SHOW_KEYCAT_SIGNUP_FORM_ERROR,
+  SIGNUP_WITH_KEYCAT,
+  SIGNUP_WITH_KEYCAT_SUCCESS,
+  SIGNUP_WITH_KEYCAT_ERROR,
+  SIGNUP_WITH_KEYCAT_REFERRAL_ERROR,
 } from './constants';
 
 export const initialState = fromJS({
@@ -48,8 +55,15 @@ export const initialState = fromJS({
   signUpWithScatterError: null,
   showScatterSignUpProcessing: false,
   showScatterSignUpFormError: null,
+  signUpWithScatterReferralError: null,
   keys: null,
   eosAccountName: null,
+  signUpWithKeycatProcessing: false,
+  signUpWithKeycatError: null,
+  showKeycatSignUpProcessing: false,
+  keycatAccountName: null,
+  showKeycatSignUpFormError: null,
+  signUpWithKeycatReferralError: null,
 });
 
 function signUpReducer(state = initialState, action) {
@@ -62,10 +76,15 @@ function signUpReducer(state = initialState, action) {
     idontHaveEosAccountError,
     signUpWithScatterError,
     showScatterSignUpFormError,
+    signUpWithScatterReferralError,
     keys,
     verificationCode,
     encryptionKey,
     eosAccountName,
+    keycatAccountName,
+    signUpWithKeycatError,
+    showKeycatSignUpFormError,
+    signUpWithKeycatReferralError,
   } = action;
 
   switch (type) {
@@ -118,7 +137,9 @@ function signUpReducer(state = initialState, action) {
         .set('signUpWithScatterError', signUpWithScatterError)
         .set('signUpWithScatterProcessing', false);
     case SIGNUP_WITH_SCATTER_REFERRAL_ERROR:
-      return state.set('signUpWithScatterProcessing', false);
+      return state
+        .set('signUpWithScatterProcessing', false)
+        .set('signUpWithScatterReferralError', signUpWithScatterReferralError);
 
     case SHOW_SCATTER_SIGNUP_FORM:
       return state.set('showScatterSignUpProcessing', true);
@@ -130,6 +151,30 @@ function signUpReducer(state = initialState, action) {
       return state
         .set('showScatterSignUpFormError', showScatterSignUpFormError)
         .set('showScatterSignUpProcessing', false);
+
+    case SIGNUP_WITH_KEYCAT:
+      return state.set('signUpWithKeycatProcessing', true);
+    case SIGNUP_WITH_KEYCAT_SUCCESS:
+      return state.set('signUpWithKeycatProcessing', false);
+    case SIGNUP_WITH_KEYCAT_ERROR:
+      return state
+        .set('signUpWithKeycatError', signUpWithKeycatError)
+        .set('signUpWithKeycatProcessing', false);
+    case SIGNUP_WITH_KEYCAT_REFERRAL_ERROR:
+      return state
+        .set('signUpWithKeycatProcessing', false)
+        .set('signUpWithKeycatReferralError', signUpWithKeycatReferralError);
+
+    case SHOW_KEYCAT_SIGNUP_FORM:
+      return state.set('showKeycatSignUpProcessing', true);
+    case SHOW_KEYCAT_SIGNUP_FORM_SUCCESS:
+      return state
+        .set('showKeycatSignUpProcessing', false)
+        .set('keycatAccountName', keycatAccountName);
+    case SHOW_KEYCAT_SIGNUP_FORM_ERROR:
+      return state
+        .set('showKeycatSignUpFormError', showKeycatSignUpFormError)
+        .set('showKeycatSignUpProcessing', false);
 
     case PUT_KEYS_TO_STATE:
       return state.set(

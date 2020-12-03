@@ -16,7 +16,6 @@ import { EMAIL_FIELD } from './constants';
 
 import Header from './Header';
 import Footer from './Footer';
-import IDontHaveAnAccount from './IdontHaveAnAccount';
 
 const EmailForm = ({
   handleSubmit,
@@ -24,6 +23,9 @@ const EmailForm = ({
   locale,
   loginWithScatter,
   loginWithScatterProcessing,
+  loginWithKeycatProcessing,
+  loginWithKeycat,
+  loginProcessing,
 }) => (
   <div>
     <Header />
@@ -40,11 +42,15 @@ const EmailForm = ({
       <Button className="w-100">
         <FormattedMessage {...signupMessages.continue} />
       </Button>
-
-      <IDontHaveAnAccount />
     </form>
 
-    <Footer action={loginWithScatter} processing={loginWithScatterProcessing} />
+    <Footer
+      walletAction={loginWithScatter}
+      walletProcessing={loginWithScatterProcessing}
+      keycatAction={loginWithKeycat}
+      keycatProcessing={loginWithKeycatProcessing}
+      loginProcessing={loginProcessing}
+    />
   </div>
 );
 
@@ -54,6 +60,9 @@ EmailForm.propTypes = {
   loginWithScatter: PropTypes.func,
   locale: PropTypes.string,
   loginWithScatterProcessing: PropTypes.bool,
+  loginWithKeycatProcessing: PropTypes.bool,
+  loginWithKeycat: PropTypes.func,
+  loginProcessing: PropTypes.bool,
 };
 
 export default reduxForm({

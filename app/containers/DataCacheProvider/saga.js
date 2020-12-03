@@ -18,6 +18,7 @@ import { updateStoredQuestionsWorker } from 'containers/Questions/saga';
 import {
   LOGIN_WITH_EMAIL,
   LOGIN_WITH_SCATTER,
+  LOGIN_WITH_KEYCAT,
   PROFILE_INFO_LS,
 } from 'containers/Login/constants';
 
@@ -184,6 +185,7 @@ export default function*() {
     [
       LOGOUT_SUCCESS,
       LOGIN_WITH_SCATTER,
+      LOGIN_WITH_KEYCAT,
       LOGIN_WITH_EMAIL,
       SAVE_PROFILE_SUCCESS,
     ],

@@ -19,19 +19,31 @@ import {
   FINISH_REGISTRATION_SUCCESS,
   FINISH_REGISTRATION_ERROR,
   FINISH_REGISTRATION_REFERRAL_ERROR,
+  LOGIN_WITH_KEYCAT,
+  LOGIN_WITH_KEYCAT_SUCCESS,
+  LOGIN_WITH_KEYCAT_ERROR,
+  SET_REDIRECT_TO_MAIN_PAGE,
 } from './constants';
 
 // Show | Hide (modal)
 
-export function showLoginModal() {
+export function showLoginModal({ redirectToMainPage = false }) {
   return {
     type: SHOW_LOGIN_MODAL,
+    redirectToMainPage,
   };
 }
 
 export function hideLoginModal() {
   return {
     type: HIDE_LOGIN_MODAL,
+  };
+}
+
+export function setRedirectToMainPage(redirectToMainPage) {
+  return {
+    type: SET_REDIRECT_TO_MAIN_PAGE,
+    redirectToMainPage,
   };
 }
 
@@ -60,6 +72,27 @@ export function loginWithScatterErr(loginWithScatterError) {
   return {
     type: LOGIN_WITH_SCATTER_ERROR,
     loginWithScatterError,
+  };
+}
+
+// Login with Keycat
+
+export function loginWithKeycat() {
+  return {
+    type: LOGIN_WITH_KEYCAT,
+  };
+}
+
+export function loginWithKeycatSuccess() {
+  return {
+    type: LOGIN_WITH_KEYCAT_SUCCESS,
+  };
+}
+
+export function loginWithKeycatErr(loginWithKeycatError) {
+  return {
+    type: LOGIN_WITH_KEYCAT_ERROR,
+    loginWithKeycatError,
   };
 }
 
