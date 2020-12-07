@@ -79,7 +79,7 @@ const Heading = styled.div`
   }
 `;
 
-export const LoginViaWallet = ({ action, processing, isMobileDevice }) => (
+export const LoginViaScatter = ({ action, processing, isMobileDevice }) => (
   <WalletButton onClick={action || null} disabled={processing}>
     {!isMobileDevice && <img src={scatterLogo} alt="scatter" />}
     {!isMobileDevice && <img src={sqrlLogo} alt="sqrl" />}
@@ -87,7 +87,7 @@ export const LoginViaWallet = ({ action, processing, isMobileDevice }) => (
   </WalletButton>
 );
 
-LoginViaWallet.propTypes = {
+LoginViaScatter.propTypes = {
   action: PropTypes.func,
   processing: PropTypes.bool,
   isMobileDevice: PropTypes.bool,
@@ -119,7 +119,7 @@ const Footer = ({
       {signUpText || <FormattedMessage {...messages.loginViaWallet} />}
     </Heading>
     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-      <LoginViaWallet
+      <LoginViaScatter
         action={() => walletAction({ scatter: true })}
         processing={
           loginWithWalletProcessing ||
