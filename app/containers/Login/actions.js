@@ -12,38 +12,26 @@ import {
   LOGIN_WITH_EMAIL_SUCCESS,
   LOGIN_WITH_EMAIL_ERROR,
   EMAIL_FIELD,
-  LOGIN_WITH_SCATTER,
-  LOGIN_WITH_SCATTER_SUCCESS,
-  LOGIN_WITH_SCATTER_ERROR,
   FINISH_REGISTRATION,
   FINISH_REGISTRATION_SUCCESS,
   FINISH_REGISTRATION_ERROR,
   FINISH_REGISTRATION_REFERRAL_ERROR,
-  LOGIN_WITH_KEYCAT,
-  LOGIN_WITH_KEYCAT_SUCCESS,
-  LOGIN_WITH_KEYCAT_ERROR,
-  SET_REDIRECT_TO_MAIN_PAGE,
+  LOGIN_WITH_WALLET,
+  LOGIN_WITH_WALLET_SUCCESS,
+  LOGIN_WITH_WALLET_ERROR,
 } from './constants';
 
 // Show | Hide (modal)
 
-export function showLoginModal({ redirectToMainPage = false }) {
+export function showLoginModal() {
   return {
     type: SHOW_LOGIN_MODAL,
-    redirectToMainPage,
   };
 }
 
 export function hideLoginModal() {
   return {
     type: HIDE_LOGIN_MODAL,
-  };
-}
-
-export function setRedirectToMainPage(redirectToMainPage) {
-  return {
-    type: SET_REDIRECT_TO_MAIN_PAGE,
-    redirectToMainPage,
   };
 }
 
@@ -54,45 +42,26 @@ export function showEmailPasswordForm(val) {
   };
 }
 
-// Login with scatter
+// Login with Wallet
 
-export function loginWithScatter() {
+export function loginWithWallet({ keycat, scatter }) {
   return {
-    type: LOGIN_WITH_SCATTER,
+    type: LOGIN_WITH_WALLET,
+    keycat,
+    scatter,
   };
 }
 
-export function loginWithScatterSuccess() {
+export function loginWithWalletSuccess() {
   return {
-    type: LOGIN_WITH_SCATTER_SUCCESS,
+    type: LOGIN_WITH_WALLET_SUCCESS,
   };
 }
 
-export function loginWithScatterErr(loginWithScatterError) {
+export function loginWithWalletErr(loginWithWalletError) {
   return {
-    type: LOGIN_WITH_SCATTER_ERROR,
-    loginWithScatterError,
-  };
-}
-
-// Login with Keycat
-
-export function loginWithKeycat() {
-  return {
-    type: LOGIN_WITH_KEYCAT,
-  };
-}
-
-export function loginWithKeycatSuccess() {
-  return {
-    type: LOGIN_WITH_KEYCAT_SUCCESS,
-  };
-}
-
-export function loginWithKeycatErr(loginWithKeycatError) {
-  return {
-    type: LOGIN_WITH_KEYCAT_ERROR,
-    loginWithKeycatError,
+    type: LOGIN_WITH_WALLET_ERROR,
+    loginWithWalletError,
   };
 }
 

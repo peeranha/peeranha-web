@@ -27,29 +27,29 @@ const EmailEnteringForm = ({ handleSubmit }) => (
       locale,
       emailChecking,
       showLoginModal,
-      showScatterSignUpForm,
-      showScatterSignUpProcessing,
-      showKeycatSignUpForm,
-      showKeycatSignUpProcessing,
+      showWalletSignUpForm,
+      showWalletSignUpProcessing,
     }) => (
       <SignUpOptions
         showLoginModal={showLoginModal}
-        showScatterSignUpForm={showScatterSignUpForm}
-        showScatterSignUpProcessing={showScatterSignUpProcessing}
-        showKeycatSignUpForm={showKeycatSignUpForm}
-        showKeycatSignUpProcessing={showKeycatSignUpProcessing}
+        showWalletSignUpForm={showWalletSignUpForm}
+        showWalletSignUpProcessing={showWalletSignUpProcessing}
+        emailChecking={emailChecking}
       >
         <Form onSubmit={handleSubmit(checkEmail)}>
           <Field
             name={EMAIL_FIELD}
-            disabled={emailChecking}
+            disabled={emailChecking || showWalletSignUpProcessing}
             label={translationMessages[locale][messages.email.id]}
             component={TextInputField}
             validate={[validateEmail, required, strLength254Max]}
             warn={[validateEmail, required, strLength254Max]}
           />
 
-          <Button disabled={emailChecking} className="w-100">
+          <Button
+            disabled={emailChecking || showWalletSignUpProcessing}
+            className="w-100"
+          >
             <FormattedMessage {...messages.continue} />
           </Button>
         </Form>

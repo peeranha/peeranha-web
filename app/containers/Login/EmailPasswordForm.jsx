@@ -31,12 +31,10 @@ const EmailPasswordForm = ({
   handleSubmit,
   login,
   locale,
-  loginProcessing,
+  loginWithEmailProcessing,
   showIForgotPasswordModal,
-  loginWithScatter,
-  loginWithScatterProcessing,
-  loginWithKeycatProcessing,
-  loginWithKeycat,
+  loginWithWalletProcessing,
+  loginWithWallet,
 }) => (
   <div>
     <Header />
@@ -44,7 +42,7 @@ const EmailPasswordForm = ({
     <form onSubmit={handleSubmit(login)}>
       <Field
         name={EMAIL_FIELD}
-        disabled={loginProcessing}
+        disabled={loginWithEmailProcessing || loginWithWalletProcessing}
         label={translationMessages[locale][signupMessages.email.id]}
         component={TextInputField}
         validate={[validateEmail, required]}
@@ -53,7 +51,7 @@ const EmailPasswordForm = ({
 
       <Field
         name={PASSWORD_FIELD}
-        disabled={loginProcessing}
+        disabled={loginWithEmailProcessing || loginWithWalletProcessing}
         label={translationMessages[locale][signupMessages.password.id]}
         component={TextInputField}
         validate={required}
@@ -61,14 +59,17 @@ const EmailPasswordForm = ({
         type="password"
       />
 
-      <Button disabled={loginProcessing} className="w-100 mb-3">
+      <Button
+        disabled={loginWithEmailProcessing || loginWithWalletProcessing}
+        className="w-100 mb-3"
+      >
         <FormattedMessage {...signupMessages.continue} />
       </Button>
 
       <div className="d-flex align-items-center justify-content-between">
         <Field
           name={REMEMBER_ME_FIELD}
-          disabled={loginProcessing}
+          disabled={loginWithEmailProcessing || loginWithWalletProcessing}
           component={Checkbox}
           label={
             <Span fontSize="14" lineHeight="20" color={TEXT_PRIMARY}>
@@ -78,7 +79,7 @@ const EmailPasswordForm = ({
         />
 
         <TransparentButton
-          disabled={loginProcessing}
+          disabled={loginWithEmailProcessing || loginWithWalletProcessing}
           onClick={showIForgotPasswordModal}
           type="button"
         >
@@ -88,11 +89,9 @@ const EmailPasswordForm = ({
     </form>
 
     <Footer
-      walletAction={loginWithScatter}
-      walletProcessing={loginWithScatterProcessing}
-      keycatAction={loginWithKeycat}
-      keycatProcessing={loginWithKeycatProcessing}
-      loginProcessing={loginProcessing}
+      walletAction={loginWithWallet}
+      loginWithWalletProcessing={loginWithWalletProcessing}
+      loginWithEmailProcessing={loginWithEmailProcessing}
     />
   </div>
 );
@@ -101,12 +100,10 @@ EmailPasswordForm.propTypes = {
   handleSubmit: PropTypes.func,
   login: PropTypes.func,
   locale: PropTypes.string,
-  loginProcessing: PropTypes.bool,
-  loginWithScatterProcessing: PropTypes.bool,
+  loginWithEmailProcessing: PropTypes.bool,
   showIForgotPasswordModal: PropTypes.func,
-  loginWithScatter: PropTypes.func,
-  loginWithKeycat: PropTypes.func,
-  loginWithKeycatProcessing: PropTypes.bool,
+  loginWithWallet: PropTypes.func,
+  loginWithWalletProcessing: PropTypes.bool,
 };
 
 const formName = 'EmailPasswordForm';

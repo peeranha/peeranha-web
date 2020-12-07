@@ -18,14 +18,12 @@ import Header from './Header';
 import Footer from './Footer';
 
 const EmailForm = ({
+  locale,
   handleSubmit,
   showEmailPasswordForm,
-  locale,
-  loginWithScatter,
-  loginWithScatterProcessing,
-  loginWithKeycatProcessing,
-  loginWithKeycat,
-  loginProcessing,
+  loginWithEmailProcessing,
+  loginWithWallet,
+  loginWithWalletProcessing,
 }) => (
   <div>
     <Header />
@@ -37,32 +35,32 @@ const EmailForm = ({
         component={TextInputField}
         validate={[validateEmail, required]}
         warn={[validateEmail, required]}
+        disabled={loginWithEmailProcessing || loginWithWalletProcessing}
       />
 
-      <Button className="w-100">
+      <Button
+        className="w-100"
+        disabled={loginWithEmailProcessing || loginWithWalletProcessing}
+      >
         <FormattedMessage {...signupMessages.continue} />
       </Button>
     </form>
 
     <Footer
-      walletAction={loginWithScatter}
-      walletProcessing={loginWithScatterProcessing}
-      keycatAction={loginWithKeycat}
-      keycatProcessing={loginWithKeycatProcessing}
-      loginProcessing={loginProcessing}
+      walletAction={loginWithWallet}
+      loginWithWalletProcessing={loginWithWalletProcessing}
+      loginWithEmailProcessing={loginWithEmailProcessing}
     />
   </div>
 );
 
 EmailForm.propTypes = {
+  locale: PropTypes.string,
   handleSubmit: PropTypes.func,
   showEmailPasswordForm: PropTypes.func,
-  loginWithScatter: PropTypes.func,
-  locale: PropTypes.string,
-  loginWithScatterProcessing: PropTypes.bool,
-  loginWithKeycatProcessing: PropTypes.bool,
-  loginWithKeycat: PropTypes.func,
-  loginProcessing: PropTypes.bool,
+  loginWithWalletProcessing: PropTypes.bool,
+  loginWithWallet: PropTypes.func,
+  loginWithEmailProcessing: PropTypes.bool,
 };
 
 export default reduxForm({

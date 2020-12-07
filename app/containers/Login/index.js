@@ -27,8 +27,7 @@ import {
   hideLoginModal,
   showEmailPasswordForm,
   loginWithEmail,
-  loginWithScatter,
-  loginWithKeycat,
+  loginWithWallet,
   finishRegistrationWithDisplayName,
 } from './actions';
 
@@ -59,14 +58,12 @@ export class Login extends React.Component {
       hideLoginModalDispatch,
       locale,
       email,
-      loginProcessing,
+      loginWithEmailProcessing,
       finishRegistrationProcessing,
       showEmailPasswordFormDispatch,
       loginWithEmailDispatch,
-      loginWithScatterDispatch,
-      loginWithScatterProcessing,
-      loginWithKeycatProcessing,
-      loginWithKeycatDispatch,
+      loginWithWalletProcessing,
+      loginWithWalletDispatch,
       finishRegistrationDispatch,
     } = this.props;
 
@@ -75,11 +72,10 @@ export class Login extends React.Component {
         {content === EMAIL_FORM && (
           <EmailForm
             locale={locale}
-            loginWithScatter={loginWithScatterDispatch}
             showEmailPasswordForm={showEmailPasswordFormDispatch}
-            loginWithScatterProcessing={loginWithScatterProcessing}
-            loginWithKeycat={loginWithKeycatDispatch}
-            loginWithKeycatProcessing={loginWithKeycatProcessing}
+            loginWithEmailProcessing={loginWithEmailProcessing}
+            loginWithWallet={loginWithWalletDispatch}
+            loginWithWalletProcessing={loginWithWalletProcessing}
           />
         )}
 
@@ -87,13 +83,11 @@ export class Login extends React.Component {
           <EmailPasswordForm
             locale={locale}
             login={loginWithEmailDispatch}
-            loginProcessing={loginProcessing}
-            loginWithScatter={loginWithScatterDispatch}
+            loginWithEmailProcessing={loginWithEmailProcessing}
             showIForgotPasswordModal={this.showIForgotPasswordModal}
-            loginWithScatterProcessing={loginWithScatterProcessing}
             email={email}
-            loginWithKeycat={loginWithKeycatDispatch}
-            loginWithKeycatProcessing={loginWithKeycatProcessing}
+            loginWithWallet={loginWithWalletDispatch}
+            loginWithWalletProcessing={loginWithWalletProcessing}
           />
         )}
 
@@ -115,14 +109,12 @@ Login.propTypes = {
   hideLoginModalDispatch: PropTypes.func,
   locale: PropTypes.string,
   email: PropTypes.string,
-  loginProcessing: PropTypes.bool,
+  loginWithEmailProcessing: PropTypes.bool,
   finishRegistrationProcessing: PropTypes.bool,
-  loginWithScatterProcessing: PropTypes.bool,
-  loginWithKeycatProcessing: PropTypes.bool,
-  loginWithScatterDispatch: PropTypes.func,
+  loginWithWalletProcessing: PropTypes.bool,
   showEmailPasswordFormDispatch: PropTypes.func,
   loginWithEmailDispatch: PropTypes.func,
-  loginWithKeycatDispatch: PropTypes.func,
+  loginWithWalletDispatch: PropTypes.func,
   finishRegistrationDispatch: PropTypes.func,
   showForgotPasswordModalDispatch: PropTypes.func,
 };
@@ -132,10 +124,9 @@ const mapStateToProps = createStructuredSelector({
   content: selectors.makeSelectContent(),
   showModal: selectors.makeSelectShowModal(),
   email: selectors.makeSelectEmail(),
-  loginProcessing: selectors.makeSelectLoginProcessing(),
+  loginWithEmailProcessing: selectors.selectLoginWithEmailProcessing(),
   finishRegistrationProcessing: selectors.selectFinishRegistrationProcessing(),
-  loginWithScatterProcessing: selectors.selectLoginWithScatterProcessing(),
-  loginWithKeycatProcessing: selectors.selectLoginWithKeycatProcessing(),
+  loginWithWalletProcessing: selectors.selectLoginWithWalletProcessing(),
 });
 
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
@@ -146,8 +137,7 @@ export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
       dispatch,
     ),
     loginWithEmailDispatch: bindActionCreators(loginWithEmail, dispatch),
-    loginWithScatterDispatch: bindActionCreators(loginWithScatter, dispatch),
-    loginWithKeycatDispatch: bindActionCreators(loginWithKeycat, dispatch),
+    loginWithWalletDispatch: bindActionCreators(loginWithWallet, dispatch),
     showForgotPasswordModalDispatch: bindActionCreators(
       showForgotPasswordModal,
       dispatch,

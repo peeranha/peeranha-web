@@ -107,10 +107,11 @@ LoginViaKeycat.propTypes = {
 
 const Footer = ({
   walletAction,
-  walletProcessing,
-  keycatAction,
-  keycatProcessing,
-  loginProcessing,
+  loginWithWalletProcessing,
+  showWalletSignUpProcessing,
+  loginWithEmailProcessing,
+  emailVerificationProcessing,
+  emailChecking,
   signUpText = null,
 }) => (
   <Box>
@@ -119,26 +120,47 @@ const Footer = ({
     </Heading>
     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
       <LoginViaWallet
-        action={walletAction}
-        processing={walletProcessing || keycatProcessing || loginProcessing}
+        action={() => walletAction({ scatter: true })}
+        processing={
+          loginWithWalletProcessing ||
+          showWalletSignUpProcessing ||
+          emailChecking ||
+          emailVerificationProcessing ||
+          loginWithEmailProcessing
+        }
         isMobileDevice={isMobile(window.navigator).any}
       />
       <LoginViaKeycat
-        action={keycatAction}
-        processing={keycatProcessing || walletProcessing || loginProcessing}
+        action={() => walletAction({ keycat: true })}
+        processing={
+          loginWithWalletProcessing ||
+          showWalletSignUpProcessing ||
+          emailChecking ||
+          emailVerificationProcessing ||
+          loginWithEmailProcessing
+        }
       />
     </div>
-    {!signUpText && <IdontHaveAnAccount disabled={loginProcessing} />}
+    {!signUpText && (
+      <IdontHaveAnAccount
+        disabled={
+          loginWithWalletProcessing ||
+          loginWithEmailProcessing ||
+          showWalletSignUpProcessing
+        }
+      />
+    )}
   </Box>
 );
 
 Footer.propTypes = {
   walletAction: PropTypes.func,
-  walletProcessing: PropTypes.bool,
-  keycatAction: PropTypes.func,
-  keycatProcessing: PropTypes.bool,
-  loginProcessing: PropTypes.bool,
-  signUpText: PropTypes.string,
+  loginWithWalletProcessing: PropTypes.bool,
+  showWalletSignUpProcessing: PropTypes.bool,
+  loginWithEmailProcessing: PropTypes.bool,
+  emailVerificationProcessing: PropTypes.bool,
+  emailChecking: PropTypes.bool,
+  signUpText: PropTypes.element,
 };
 
 export default React.memo(Footer);

@@ -26,10 +26,9 @@ import {
   selectVerificationCodeLoading,
 } from 'containers/ForgotPassword/selectors';
 import {
-  selectLoginWithScatterProcessing,
-  selectLoginWithKeycatProcessing,
+  selectLoginWithWalletProcessing,
   selectFinishRegistrationProcessing,
-  makeSelectLoginProcessing,
+  selectLoginWithEmailProcessing,
 } from 'containers/Login/selectors';
 import { selectSendTokensProcessing } from 'containers/SendTokens/selectors';
 import { selectShowActiveKeyProcessing } from 'containers/ShowActiveKey/selectors';
@@ -41,10 +40,8 @@ import {
   selectEmailVerificationProcessing,
   selectIHaveEosAccountProcessing,
   selectIdontHaveEosAccountProcessing,
-  selectSignUpWithScatterProcessing,
-  selectSignUpWithKeycatProcessing,
-  selectShowKeycatSignUpProcessing,
-  selectShowScatterSignUpProcessing,
+  selectSignUpWithWalletProcessing,
+  selectShowWalletSignUpProcessing,
 } from 'containers/SignUp/selectors';
 import {
   selectPostAnswerLoading,
@@ -99,10 +96,9 @@ export default {
   selectVerificationCodeLoading: selectVerificationCodeLoading(),
   selectVerifyEmailLoading: selectVerifyEmailLoading(),
   selectChangePasswordLoading: selectChangePasswordLoading(),
-  makeSelectLoginProcessing: makeSelectLoginProcessing(),
+  selectLoginWithEmailProcessing: selectLoginWithEmailProcessing(),
   selectFinishRegistrationProcessing: selectFinishRegistrationProcessing(),
-  selectLoginWithScatterProcessing: selectLoginWithScatterProcessing(),
-  selectLoginWithKeycatProcessing: selectLoginWithKeycatProcessing(),
+  selectLoginWithWalletProcessing: selectLoginWithWalletProcessing(),
   selectSendTokensProcessing: selectSendTokensProcessing(),
   selectShowActiveKeyProcessing: selectShowActiveKeyProcessing(),
   selectShowOwnerKeyProcessing: selectShowOwnerKeyProcessing(),
@@ -110,10 +106,8 @@ export default {
   selectEmailVerificationProcessing: selectEmailVerificationProcessing(),
   selectIHaveEosAccountProcessing: selectIHaveEosAccountProcessing(),
   selectIdontHaveEosAccountProcessing: selectIdontHaveEosAccountProcessing(),
-  selectSignUpWithScatterProcessing: selectSignUpWithScatterProcessing(),
-  selectSignUpWithKeycatProcessing: selectSignUpWithKeycatProcessing(),
-  selectShowScatterSignUpProcessing: selectShowScatterSignUpProcessing(),
-  selectShowKeycatSignUpProcessing: selectShowKeycatSignUpProcessing(),
+  selectSignUpWithWalletProcessing: selectSignUpWithWalletProcessing(),
+  selectShowWalletSignUpProcessing: selectShowWalletSignUpProcessing(),
   selectPostAnswerLoading: selectPostAnswerLoading(),
   selectPostCommentLoading: selectPostCommentLoading(),
   selectUpVoteLoading: selectUpVoteLoading(),

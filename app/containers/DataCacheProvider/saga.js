@@ -17,8 +17,7 @@ import { updateStoredQuestionsWorker } from 'containers/Questions/saga';
 
 import {
   LOGIN_WITH_EMAIL,
-  LOGIN_WITH_SCATTER,
-  LOGIN_WITH_KEYCAT,
+  LOGIN_WITH_WALLET,
   PROFILE_INFO_LS,
 } from 'containers/Login/constants';
 
@@ -182,13 +181,7 @@ export default function*() {
   yield takeLatest(GET_FAQ, getFaqWorker);
   yield takeLatest(GET_TUTORIAL, getTutorialWorker);
   yield takeLatest(
-    [
-      LOGOUT_SUCCESS,
-      LOGIN_WITH_SCATTER,
-      LOGIN_WITH_KEYCAT,
-      LOGIN_WITH_EMAIL,
-      SAVE_PROFILE_SUCCESS,
-    ],
+    [LOGOUT_SUCCESS, LOGIN_WITH_WALLET, LOGIN_WITH_EMAIL, SAVE_PROFILE_SUCCESS],
     updateStoredQuestionsWorker,
   );
 }

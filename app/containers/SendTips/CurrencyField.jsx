@@ -1,14 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { translationMessages } from 'i18n';
+import { FormattedMessage } from 'react-intl';
 
+import { CURRENCIES, WALLETS } from 'wallet-config';
 import {
   BORDER_SECONDARY,
   BORDER_PRIMARY,
   BORDER_PRIMARY_RGB,
+  TEXT_PRIMARY,
 } from 'style-constants';
 
 import { Wrapper } from 'components/FormFields/Wrapper';
+import Label from 'components/FormFields/Label';
+
+import messages from '../Profile/messages';
 
 const Option = styled.div`
   padding: 8px 14px;
@@ -34,10 +41,41 @@ const Option = styled.div`
   ${x => (x.disabled ? `opacity: 0.6` : ``)};
 `;
 
-const CurrencyField = ({ input, label, disabled, meta, options }) => {
+const B = styled.button`
+  padding-bottom: 6px;
+  margin-left: 5px;
+  color: ${TEXT_PRIMARY};
+  cursor: pointer;
+`;
+
+const CurrencyField = ({
+  input,
+  label,
+  disabled,
+  meta,
+  options,
+  sendFromAccountFieldValue,
+  selectScatterAccount,
+  selectKeycatAccount,
+  isPeer,
+  locale,
+  isKeycatWalletSelected,
+  isScatterWalletSelected,
+}) => {
   if (!options) return null;
 
   const value = input.value.toJS ? input.value.toJS() : input.value;
+
+  const selectAccount = () => {
+    if (value.name === WALLETS.SCATTER_SQRL_WOMBAT.name) {
+      selectScatterAccount();
+    }
+    if (value.name === WALLETS.KEYCAT.name) selectKeycatAccount();
+  };
+
+  const isCurrency = Object.values(CURRENCIES)
+    .map(el => el.name)
+    .includes(value.name);
 
   return (
     <Wrapper
@@ -77,6 +115,27 @@ const CurrencyField = ({ input, label, disabled, meta, options }) => {
           )}
         </Option>
       ))}
+
+      {!isCurrency && (
+        <div className="d-flex">
+          <Label>
+            {translationMessages[locale]?.[messages.sendFromAccount.id]}
+          </Label>
+          {!isPeer && (
+            <B onClick={selectAccount} type="button">
+              {(isScatterWalletSelected || isKeycatWalletSelected) && (
+                <FormattedMessage
+                  {...messages[
+                    sendFromAccountFieldValue
+                      ? 'changeAccount'
+                      : 'chooseAccount'
+                  ]}
+                />
+              )}
+            </B>
+          )}
+        </div>
+      )}
     </Wrapper>
   );
 };
@@ -87,6 +146,13 @@ CurrencyField.propTypes = {
   disabled: PropTypes.bool,
   label: PropTypes.string,
   options: PropTypes.array,
+  isPeer: PropTypes.bool,
+  locale: PropTypes.string,
+  selectScatterAccount: PropTypes.func,
+  selectKeycatAccount: PropTypes.func,
+  sendFromAccountFieldValue: PropTypes.string,
+  isKeycatWalletSelected: PropTypes.bool,
+  isScatterWalletSelected: PropTypes.bool,
 };
 
 export default CurrencyField;

@@ -151,6 +151,8 @@ class EosioService {
 
   resetKeycatUserData = () => {
     this.keycatUserData = null;
+    this.selectedAccount = null;
+    this.withKeycat = false;
   };
 
   privateToPublic = privateKey => {

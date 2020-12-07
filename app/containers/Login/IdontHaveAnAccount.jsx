@@ -46,7 +46,7 @@ const IDontHaveAnAccount = ({ hideLoginModalDispatch, disabled }) => (
 
 IDontHaveAnAccount.propTypes = {
   hideLoginModalDispatch: PropTypes.func,
-  disabled: PropTypes.func,
+  disabled: PropTypes.bool,
 };
 
 export default connect(

@@ -14,34 +14,27 @@ import {
   LOGIN_WITH_EMAIL,
   LOGIN_WITH_EMAIL_SUCCESS,
   LOGIN_WITH_EMAIL_ERROR,
-  LOGIN_WITH_SCATTER,
-  LOGIN_WITH_SCATTER_SUCCESS,
-  LOGIN_WITH_SCATTER_ERROR,
   FINISH_REGISTRATION,
   FINISH_REGISTRATION_SUCCESS,
   FINISH_REGISTRATION_ERROR,
   EMAIL_FORM,
   FINISH_REGISTRATION_REFERRAL_ERROR,
-  LOGIN_WITH_KEYCAT,
-  LOGIN_WITH_KEYCAT_SUCCESS,
-  LOGIN_WITH_KEYCAT_ERROR,
-  SET_REDIRECT_TO_MAIN_PAGE,
+  LOGIN_WITH_WALLET,
+  LOGIN_WITH_WALLET_SUCCESS,
+  LOGIN_WITH_WALLET_ERROR,
 } from './constants';
 
 export const initialState = fromJS({
   content: null,
   showModal: false,
   email: null,
-  loginProcessing: false,
+  loginWithEmailProcessing: false,
   loginWithEmailError: null,
   eosAccount: null,
-  loginWithScatterProcessing: false,
-  loginWithScatterError: null,
-  loginWithKeycatProcessing: false,
+  loginWithWalletProcessing: false,
+  loginWithWalletError: null,
   finishRegistrationProcessing: false,
   finishRegistrationWithDisplayNameError: null,
-  loginWithKeycatError: null,
-  redirectToMainPage: false,
 });
 
 function loginReducer(state = initialState, action) {
@@ -51,62 +44,43 @@ function loginReducer(state = initialState, action) {
     content,
     loginWithEmailError,
     eosAccount,
-    loginWithScatterError,
-    loginWithKeycatError,
+    loginWithWalletError,
     finishRegistrationWithDisplayNameError,
-    redirectToMainPage,
   } = action;
 
   switch (type) {
     case SHOW_LOGIN_MODAL:
-      return state
-        .set('showModal', true)
-        .set('content', EMAIL_FORM)
-        .set('redirectToMainPage', redirectToMainPage);
+      return state.set('showModal', true).set('content', EMAIL_FORM);
     case HIDE_LOGIN_MODAL:
       return state.set('showModal', false);
-    case SET_REDIRECT_TO_MAIN_PAGE:
-      return state.set('redirectToMainPage', redirectToMainPage);
 
     case SHOW_EMAIL_PASSWORD_MODAL:
       return state.set('email', email).set('content', EMAIL_PASSWORD_FORM);
 
     case LOGIN_WITH_EMAIL:
-      return state.set('loginProcessing', true);
+      return state.set('loginWithEmailProcessing', true);
     case LOGIN_WITH_EMAIL_SUCCESS:
       return state
-        .set('loginProcessing', false)
+        .set('loginWithEmailProcessing', false)
         .set('eosAccount', eosAccount)
         .set('showModal', Boolean(content))
         .set('content', content || initialState.get('content'));
     case LOGIN_WITH_EMAIL_ERROR:
       return state
         .set('loginWithEmailError', loginWithEmailError)
-        .set('loginProcessing', false);
+        .set('loginWithEmailProcessing', false);
 
-    case LOGIN_WITH_SCATTER:
-      return state.set('loginWithScatterProcessing', true);
-    case LOGIN_WITH_SCATTER_SUCCESS:
+    case LOGIN_WITH_WALLET:
+      return state.set('loginWithWalletProcessing', true);
+    case LOGIN_WITH_WALLET_SUCCESS:
       return state
-        .set('loginWithScatterProcessing', false)
+        .set('loginWithWalletProcessing', false)
         .set('showModal', initialState.get('showModal'))
         .set('content', initialState.get('content'));
-    case LOGIN_WITH_SCATTER_ERROR:
+    case LOGIN_WITH_WALLET_ERROR:
       return state
-        .set('loginWithScatterProcessing', false)
-        .set('loginWithScatterError', loginWithScatterError);
-
-    case LOGIN_WITH_KEYCAT:
-      return state.set('loginWithKeycatProcessing', true);
-    case LOGIN_WITH_KEYCAT_SUCCESS:
-      return state
-        .set('loginWithKeycatProcessing', false)
-        .set('showModal', initialState.get('showModal'))
-        .set('content', initialState.get('content'));
-    case LOGIN_WITH_KEYCAT_ERROR:
-      return state
-        .set('loginWithKeycatProcessing', false)
-        .set('loginWithKeycatError', loginWithKeycatError);
+        .set('loginWithWalletProcessing', false)
+        .set('loginWithWalletError', loginWithWalletError);
 
     case FINISH_REGISTRATION:
       return state.set('finishRegistrationProcessing', true);

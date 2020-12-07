@@ -146,23 +146,19 @@ const LeftMenu = ({ faqQuestions }) => (
 const RightMenuWithoutScatter = ({
   children,
   showLoginModal,
-  showScatterSignUpForm,
-  showScatterSignUpProcessing,
-  showKeycatSignUpForm,
-  showKeycatSignUpProcessing,
+  showWalletSignUpForm,
+  showWalletSignUpProcessing,
+  emailVerificationProcessing,
+  emailChecking,
 }) => (
   <div className="py-5">
     {children}
     <Div>
       <Footer
-        walletAction={showScatterSignUpForm}
-        signUpProcessing={
-          showScatterSignUpProcessing || showKeycatSignUpProcessing
-        }
-        keycatAction={showKeycatSignUpForm}
-        // keycatProcessing={
-        //   showScatterSignUpProcessing || showKeycatSignUpProcessing
-        // }
+        walletAction={showWalletSignUpForm}
+        showWalletSignUpProcessing={showWalletSignUpProcessing}
+        emailVerificationProcessing={emailVerificationProcessing}
+        emailChecking={emailChecking}
         signUpText={<FormattedMessage {...commonMessages.signUpViaWallet} />}
       />
 
@@ -170,8 +166,12 @@ const RightMenuWithoutScatter = ({
         <FormattedMessage {...messages.doYouHaveAlreadyAccount} />{' '}
         <TransparentButton
           className="py-1"
-          onClick={() => showLoginModal({ redirectToMainPage: true })}
-          disabled={showScatterSignUpProcessing}
+          onClick={showLoginModal}
+          disabled={
+            showWalletSignUpProcessing ||
+            emailChecking ||
+            emailVerificationProcessing
+          }
         >
           <FormattedMessage {...commonMessages.login} />
         </TransparentButton>
@@ -183,24 +183,24 @@ const RightMenuWithoutScatter = ({
 export const SignUpOptions = ({
   children,
   showLoginModal,
-  showScatterSignUpForm,
-  showScatterSignUpProcessing,
-  withScatter,
-  showKeycatSignUpForm,
-  showKeycatSignUpProcessing,
+  showWalletSignUpForm,
+  showWalletSignUpProcessing,
+  emailVerificationProcessing,
+  emailChecking,
+  withWallet,
   faqQuestions,
 }) => (
   <SignUpWrapper
     LeftMenuChildren={<LeftMenu faqQuestions={faqQuestions} />}
     RightMenuChildren={
-      !withScatter ? (
+      !withWallet ? (
         <RightMenuWithoutScatter
           children={children}
           showLoginModal={showLoginModal}
-          showScatterSignUpForm={showScatterSignUpForm}
-          showScatterSignUpProcessing={showScatterSignUpProcessing}
-          showKeycatSignUpForm={showKeycatSignUpForm}
-          showKeycatSignUpProcessing={showKeycatSignUpProcessing}
+          showWalletSignUpForm={showWalletSignUpForm}
+          showWalletSignUpProcessing={showWalletSignUpProcessing}
+          emailVerificationProcessing={emailVerificationProcessing}
+          emailChecking={emailChecking}
           isMobileDevice={isMobile(window.navigator).any}
         />
       ) : (
@@ -217,21 +217,21 @@ LeftMenu.propTypes = {
 RightMenuWithoutScatter.propTypes = {
   children: PropTypes.any,
   showLoginModal: PropTypes.func,
-  showScatterSignUpForm: PropTypes.func,
-  showScatterSignUpProcessing: PropTypes.bool,
-  showKeycatSignUpForm: PropTypes.func,
-  showKeycatSignUpProcessing: PropTypes.bool,
+  showWalletSignUpForm: PropTypes.func,
+  showWalletSignUpProcessing: PropTypes.bool,
+  emailVerificationProcessing: PropTypes.bool,
+  emailChecking: PropTypes.bool,
   isMobileDevice: PropTypes.bool,
 };
 
 SignUpOptions.propTypes = {
   children: PropTypes.any,
   showLoginModal: PropTypes.func,
-  showScatterSignUpForm: PropTypes.func,
-  showScatterSignUpProcessing: PropTypes.bool,
-  showKeycatSignUpForm: PropTypes.func,
-  showKeycatSignUpProcessing: PropTypes.bool,
-  withScatter: PropTypes.bool,
+  showWalletSignUpForm: PropTypes.func,
+  showWalletSignUpProcessing: PropTypes.bool,
+  emailVerificationProcessing: PropTypes.bool,
+  emailChecking: PropTypes.bool,
+  withWallet: PropTypes.bool,
   faqQuestions: PropTypes.array,
 };
 
