@@ -192,6 +192,7 @@
   "app.containers.Boost.yourPredictedBoost": "Your predicted boost",
   "app.containers.Boost.formTitle": "Next period stake",
   "app.containers.Boost.formSubmit": "Save",
+  "app.containers.Boost.formCancel": "Cancel",
   "app.containers.Boost.formBoostPrediction": "Boost prediction",
   "app.containers.Boost.formCurrentStake": "Your stake",
   "app.containers.Boost.formTakeAStake": "Take a stake",

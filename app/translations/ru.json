@@ -189,6 +189,7 @@
   "app.containers.Boost.yourPredictedBoost": "Ваш прогнозируемый буст",
   "app.containers.Boost.formTitle": "Ставка на следующий период",
   "app.containers.Boost.formSubmit": "Сохранить",
+  "app.containers.Boost.formCancel": "Отмена",
   "app.containers.Boost.formBoostPrediction": "Boost прогноз",
   "app.containers.Boost.formCurrentStake": "Ваша ставка",
   "app.containers.Boost.formTakeAStake": "Сделайте ставку",

@@ -31,6 +31,9 @@ export default defineMessages({
   formSubmit: {
     id: 'app.containers.Boost.formSubmit',
   },
+  formCancel: {
+    id: 'app.containers.Boost.formCancel',
+  },
   formBoostPrediction: {
     id: 'app.containers.Boost.formBoostPrediction',
   },

@@ -25,6 +25,7 @@ import PredictionForm from './PredictionForm';
 import CurrentStakeForm from './CurrentStakeForm';
 import FormBox from 'components/Form';
 import Button from 'components/Button/Contained/InfoLarge';
+import TransparentButton from 'components/Button/Contained/Transparent';
 import Label from 'components/FormFields/Label';
 
 export const InputWrapper = styled.div`
@@ -103,9 +104,14 @@ const Form = ({
               onChange={onChangeCurrentStake}
             />
 
-            <Button type="submit" className="mt-5">
-              <FormattedMessage {...messages.formSubmit} />
-            </Button>
+            <div className="mt-5">
+              <Button type="submit" className="mr-4">
+                <FormattedMessage {...messages.formSubmit} />
+              </Button>
+              <TransparentButton type="reset">
+                <FormattedMessage {...messages.formCancel} />
+              </TransparentButton>
+            </div>
           </FormBox>
         </BaseSpecialOne>
 
