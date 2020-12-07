@@ -67,7 +67,7 @@ import {
   ForgotPassword,
   Toast,
   Wallet,
-  SuperPower,
+  Boost,
   Search,
   Support,
   PrivacyPolicy,
@@ -251,8 +251,8 @@ const App = ({
         />
 
         <Route
-          path={routes.userSuperPower(':id')}
-          render={props => Wrapper(SuperPower, props)}
+          path={routes.userBoost(':id')}
+          render={props => Wrapper(Boost, props)}
         />
 
         <Route

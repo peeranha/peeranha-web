@@ -405,10 +405,10 @@ export default defineMessages({
   questionIsAnswered: {
     id: 'app.common.questionIsAnswered',
   },
-  activateSuperPower: {
-    id: 'app.common.activateSuperPower',
+  activateBoost: {
+    id: 'app.common.activateBoost',
   },
-  superPower: {
-    id: 'app.common.superPower',
+  boost: {
+    id: 'app.common.boost',
   },
 });

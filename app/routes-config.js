@@ -28,7 +28,7 @@ export const userNotifications = userRedirect('#notifications');
 export const userAchievements = userRedirect('#achievements');
 export const userModeration = userRedirect('#moderation');
 export const userWallet = userRedirect('/wallet');
-export const userSuperPower = userRedirect('/superpower');
+export const userBoost = userRedirect('/boost');
 export const uniqueAnswerId = answerId => `ans${answerId}`;
 
 export const questions = communityId =>

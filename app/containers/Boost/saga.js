@@ -8,15 +8,15 @@ import {
 
 import {
   GET_WEEK_STAT,
-  CHANGE_BET,
+  CHANGE_STAKE,
 } from './constants';
 
 import {
   getWeekStatSuccess,
   getWeekStatErr,
-  changeBetProcessing,
-  changeBetSuccess,
-  changeBetErr,
+  changeStakeProcessing,
+  changeStakeSuccess,
+  changeStakeErr,
 } from './actions';
 
 export function* getWeekStatWorker() {
@@ -32,24 +32,23 @@ export function* getWeekStatWorker() {
   }
 }
 
-export function* changeBetWorker({ superPowerPrediction, currentBet, betType }) {
+export function* changeStakeWorker({ predictedBoost, currentStake }) {
   try {
-    yield put(changeBetProcessing());
+    yield put(changeStakeProcessing());
 
-    // TODO: post form bet data
+    // TODO: post form stake data
     console.log({
-      superPowerPrediction,
-      currentBet,
-      betType,
+      predictedBoost,
+      currentStake,
     })
 
-    yield put(changeBetSuccess());
+    yield put(changeStakeSuccess());
   } catch (err) {
-    yield put(changeBetErr(err));
+    yield put(changeStakeErr(err));
   }
 }
 
 export default function* defaultSaga() {
   yield takeLatest([GET_WEEK_STAT], getWeekStatWorker);
-  yield takeLatest(CHANGE_BET, changeBetWorker);
+  yield takeLatest(CHANGE_STAKE, changeStakeWorker);
 }

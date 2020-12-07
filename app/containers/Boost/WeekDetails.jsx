@@ -34,48 +34,33 @@ const PredictionPower = Span.extend`
 `;
 
 const WeekDetails = ({
-  betsPool,
-  users,
-  yourBet,
-  superPowerPrediction,
+  maximumStake,
+  yourStake,
+  predictedBoost,
   isCurrentWeek,
 }) => (
   <Base position="bottom">
     <BaseGroup>
       <P className="mb-1" fontSize="14" color={TEXT_SECONDARY}>
-        <FormattedMessage {...messages.betsPool} />
+        <FormattedMessage {...messages.maximumStake} />
       </P>
       <P className="d-flex align-items-center">
         <SmallImage className="mr-2" src={currencyPeerImage} alt="icon" />
-        <Span fontSize="20" mobileFS={14} bold>{getFormattedNum3(betsPool)}</Span>
+        <Span fontSize="20" mobileFS={14} bold>{getFormattedNum3(maximumStake)}</Span>
       </P>
     </BaseGroup>
     <BaseGroup>
       <P className="mb-1" fontSize="14" color={TEXT_SECONDARY}>
-        <FormattedMessage {...messages.users} />
-      </P>
-      <P className="d-flex align-items-center">
-        <Span fontSize="20" mobileFS={14} bold>{users}</Span>
-      </P>
-    </BaseGroup>
-    <BaseGroup>
-      <P className="mb-1" fontSize="14" color={TEXT_SECONDARY}>
-        <FormattedMessage {...messages.yourBet} />
+        <FormattedMessage {...messages.yourStake} />
       </P>
       <P className="d-flex align-items-center">
         <SmallImage className="mr-2" src={currencyPeerImage} alt="icon" />
-        <Span fontSize="20" mobileFS={14} bold>{getFormattedNum3(yourBet)}</Span>
-        <Span
-          className="ml-1"
-          fontSize="14"
-          mobileFS={12}
-          color={TEXT_SECONDARY}
-        ><FormattedMessage {...messages.transferedToNextPeriod} /></Span>
+        <Span fontSize="20" mobileFS={14} bold>{getFormattedNum3(yourStake)}</Span>
       </P>
     </BaseGroup>
     <BaseGroup>
       <P className="mb-1" fontSize="14" color={TEXT_SECONDARY}>
-        <FormattedMessage {...messages[isCurrentWeek ? 'yourSuperPower' : 'superPowerPrediction']} />
+        <FormattedMessage {...messages[isCurrentWeek ? 'yourBoost' : 'yourPredictedBoost']} />
       </P>
       <P className="d-flex align-items-center">
         <PredictionPower
@@ -83,7 +68,7 @@ const WeekDetails = ({
           mobileFS={14}
           isCurrentWeek={!!isCurrentWeek}
         >
-          ×{superPowerPrediction}
+          ×{predictedBoost}
         </PredictionPower>
       </P>
     </BaseGroup>
@@ -91,10 +76,9 @@ const WeekDetails = ({
 );
 
 WeekDetails.propTypes = {
-  betsPool: PropTypes.number,
-  users: PropTypes.number,
-  yourBet: PropTypes.number,
-  superPowerPrediction: PropTypes.number,
+  maximumStake: PropTypes.number,
+  yourStake: PropTypes.number,
+  predictedBoost: PropTypes.number,
   isCurrentWeek: PropTypes.bool,
 };
 

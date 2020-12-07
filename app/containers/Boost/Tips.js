@@ -6,14 +6,14 @@ import { createStructuredSelector } from 'reselect';
 
 import { TEXT_PRIMARY, BORDER_SECONDARY } from 'style-constants';
 import {
-  WHAT_IS_SUPERPOWER,
-  HOW_TO_MAKE_A_BET,
-  HOW_TO_MAKE_A_BET_AUTOMATICALLY,
+  WHAT_IS_BOOST,
+  HOW_TO_MAKE_A_STAKE,
+  HOW_TO_MAKE_A_STAKE_AUTOMATICALLY,
   WHY_ARE_MY_TOKENS_LOCKED,
   WHEN_I_CAN_GET_MY_REWARD,
 } from 'containers/Faq/constants';
 
-import superPowerImage from 'images/superpower-lg.svg?inline';
+import boostImage from 'images/boost-lg.svg?inline';
 
 import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
 
@@ -38,7 +38,7 @@ const ImgWrapper = styled.div`
 const Tips = ({ faqQuestions }) => (
   <div>
     <ImgWrapper>
-      <img src={superPowerImage} alt="superpower" />
+      <img src={boostImage} alt="boost" />
     </ImgWrapper>
 
     {faqQuestions && (
@@ -54,9 +54,9 @@ Tips.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   faqQuestions: selectFaqQuestions([
-    WHAT_IS_SUPERPOWER,
-    HOW_TO_MAKE_A_BET,
-    HOW_TO_MAKE_A_BET_AUTOMATICALLY,
+    WHAT_IS_BOOST,
+    HOW_TO_MAKE_A_STAKE,
+    HOW_TO_MAKE_A_STAKE_AUTOMATICALLY,
     WHY_ARE_MY_TOKENS_LOCKED,
     WHEN_I_CAN_GET_MY_REWARD,
   ]),

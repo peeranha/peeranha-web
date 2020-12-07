@@ -10,18 +10,18 @@ import {
   GET_WEEK_STAT,
   GET_WEEK_STAT_SUCCESS,
   GET_WEEK_STAT_ERROR,
-  CHANGE_BET,
-  CHANGE_BET_PROCESSING,
-  CHANGE_BET_SUCCESS,
-  CHANGE_BET_ERROR,
+  CHANGE_STAKE,
+  CHANGE_STAKE_PROCESSING,
+  CHANGE_STAKE_SUCCESS,
+  CHANGE_STAKE_ERROR,
 } from './constants';
 
 export const initialState = fromJS({
   getWeekStatProcessing: false,
   getWeekStatError: null,
   weekStat: null,
-  changeBetLoading: false,
-  changeBetError: null,
+  changeStakeLoading: false,
+  changeStakeError: null,
 });
 
 function walletReducer(state = initialState, action) {
@@ -29,7 +29,7 @@ function walletReducer(state = initialState, action) {
     type,
     getWeekStatError,
     weekStat,
-    changeBetError,
+    changeStakeError,
   } = action;
 
   switch (type) {
@@ -44,17 +44,17 @@ function walletReducer(state = initialState, action) {
         .set('getWeekStatProcessing', false)
         .set('getWeekStatError', getWeekStatError);
 
-    case CHANGE_BET:
-      return state.set('changeBetLoading', true);
-    case CHANGE_BET_PROCESSING:
-      return state.set('changeBetLoading', true);
-    case CHANGE_BET_SUCCESS:
+    case CHANGE_STAKE:
+      return state.set('changeStakeLoading', true);
+    case CHANGE_STAKE_PROCESSING:
+      return state.set('changeStakeLoading', true);
+    case CHANGE_STAKE_SUCCESS:
       return state
-        .set('changeBetLoading', false);
-    case CHANGE_BET_ERROR:
+        .set('changeStakeLoading', false);
+    case CHANGE_STAKE_ERROR:
       return state
-        .set('changeBetLoading', false)
-        .set('changeBetError', changeBetError);
+        .set('changeStakeLoading', false)
+        .set('changeStakeError', changeStakeError);
 
     default:
       return state;

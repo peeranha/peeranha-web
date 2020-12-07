@@ -32,7 +32,7 @@ const TagsCollection = React.lazy(() => import('containers/TagsCollection'));
 const CreateTag = React.lazy(() => import('containers/CreateTag'));
 const SuggestedTags = React.lazy(() => import('containers/SuggestedTags'));
 const Wallet = React.lazy(() => import('containers/Wallet'));
-const SuperPower = React.lazy(() => import('containers/SuperPower'));
+const Boost = React.lazy(() => import('containers/Boost'));
 const Search = React.lazy(() => import('containers/Search'));
 const Support = React.lazy(() => import('containers/Support'));
 const PrivacyPolicy = React.lazy(() => import('containers/PrivacyPolicy'));
@@ -82,7 +82,7 @@ export {
   ForgotPassword,
   Toast,
   Wallet,
-  SuperPower,
+  Boost,
   Search,
   Support,
   PrivacyPolicy,

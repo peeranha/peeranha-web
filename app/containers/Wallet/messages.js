@@ -52,13 +52,16 @@ export default defineMessages({
   yourWalletWasSuccessfullySet: {
     id: 'app.containers.Wallet.yourWalletWasSuccessfullySet',
   },
-  getMoreWithSuperPower: {
-    id: 'app.containers.Wallet.getMoreWithSuperPower',
+  getMoreWithBoost: {
+    id: 'app.containers.Wallet.getMoreWithBoost',
   },
-  lockedOnSuperPower: {
-    id: 'app.containers.Wallet.lockedOnSuperPower',
+  stakedInCurrentPeriod: {
+    id: 'app.containers.Wallet.stakedInCurrentPeriod',
   },
-  available: {
-    id: 'app.containers.Wallet.available',
+  stakedInNextPeriod: {
+    id: 'app.containers.Wallet.stakedInNextPeriod',
+  },
+  totalBalance: {
+    id: 'app.containers.Wallet.totalBalance',
   },
 });

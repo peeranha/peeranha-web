@@ -1,8 +1,8 @@
-import React, { memo, useState } from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { Field, reduxForm } from 'redux-form/immutable';
+import { reduxForm } from 'redux-form/immutable';
 import { injectIntl, FormattedMessage } from 'react-intl';
 
 import { scrollToErrorField } from 'utils/animation';
@@ -11,13 +11,10 @@ import messages from './messages';
 
 import {
   FORM_TYPE,
-  BET_TYPE_FORM,
-  CURRENT_BET_FORM,
-  SUPERPOWER_PREDICTION_FORM,
+  CURRENT_STAKE_FORM,
+  BOOST_PREDICTION_FORM,
 } from './constants';
 import {
-  BG_LIGHT,
-  BG_WARNING_LIGHT_TRANSPARENT,
   SECONDARY_SPECIAL,
 } from 'style-constants';
 
@@ -25,10 +22,9 @@ import TipsBase from 'components/Base/TipsBase';
 import { BaseSpecialOne } from 'components/Base/BaseTransparent';
 import Tips from './Tips';
 import PredictionForm from './PredictionForm';
-import CurrentBetForm from './CurrentBetForm';
+import CurrentStakeForm from './CurrentStakeForm';
 import FormBox from 'components/Form';
 import Button from 'components/Button/Contained/InfoLarge';
-import Checkbox from 'components/Input/Checkbox';
 import Label from 'components/FormFields/Label';
 
 export const InputWrapper = styled.div`
@@ -45,9 +41,8 @@ export const InputWrapper = styled.div`
     height: 45px;
     font-size: 20px;
     font-weight: bold;
-    ${({ extraPosition }) => extraPosition ? `
-      background: linear-gradient(90deg, ${BG_LIGHT} ${extraPosition}%, ${BG_WARNING_LIGHT_TRANSPARENT} ${extraPosition}%);
 
+    ${({ isPrediction }) => isPrediction ? `
       :disabled {
         opacity: 1;
       }
@@ -82,14 +77,13 @@ const Title = styled.p`
 
 const Form = ({
   handleSubmit,
-  formValues,
-  currentBetValue,
-  changeBet,
-  changeBetLoading,
-  changeCurrentBet,
-  superPowerPrediction,
-  maxBet,
-  onChangeCurrentBet,
+  currentStakeValue,
+  changeStake,
+  changeStakeLoading,
+  changeCurrentStake,
+  predictedBoost,
+  maxStake,
+  onChangeCurrentStake,
   locale,
 }) => {
 
@@ -98,24 +92,18 @@ const Form = ({
       <Title><FormattedMessage {...messages.formTitle} /></Title>
       <TipsBase>
         <BaseSpecialOne>
-          <FormBox onSubmit={handleSubmit(changeBet)}>
-            <PredictionForm value={superPowerPrediction} locale={locale} />
+          <FormBox onSubmit={handleSubmit(changeStake)}>
+            <PredictionForm value={predictedBoost} locale={locale} />
 
-            <CurrentBetForm
-              maxValue={maxBet}
-              value={+currentBetValue}
-              onClickBetTag={v => changeCurrentBet(v)}
-              disabled={changeBetLoading}
-              onChange={onChangeCurrentBet}
+            <CurrentStakeForm
+              maxValue={maxStake}
+              value={+currentStakeValue}
+              onClickStakeTag={v => changeCurrentStake(v)}
+              disabled={changeStakeLoading}
+              onChange={onChangeCurrentStake}
             />
 
-            <Field
-              name={BET_TYPE_FORM}
-              component={Checkbox}
-              label={<FormattedMessage {...messages.formBetType} />}
-              disabled={changeBetLoading}
-            />
-            <Button type="submit">
+            <Button type="submit" className="mt-5">
               <FormattedMessage {...messages.formSubmit} />
             </Button>
           </FormBox>
@@ -130,13 +118,13 @@ const Form = ({
 Form.propTypes = {
   handleSubmit: PropTypes.func,
   formValues: PropTypes.object,
-  currentBetValue: PropTypes.number,
-  changeBet: PropTypes.func,
-  changeBetLoading: PropTypes.bool,
-  changeCurrentBet: PropTypes.func,
-  superPowerPrediction: PropTypes.number,
-  maxBet: PropTypes.number,
-  onChangeCurrentBet: PropTypes.func,
+  currentStakeValue: PropTypes.number,
+  changeStake: PropTypes.func,
+  changeStakeLoading: PropTypes.bool,
+  changeCurrentStake: PropTypes.func,
+  predictedBoost: PropTypes.number,
+  maxStake: PropTypes.number,
+  onChangeCurrentStake: PropTypes.func,
   locale: PropTypes.string,
 };
 
@@ -150,17 +138,16 @@ export default memo(
     connect(
       (
         state,
-        { currentBet, superPowerPrediction }
+        { currentStake, predictedBoost }
       ) => {
         const form = state.toJS().form[FORM_TYPE] || { values: {} };
 
         return {
           formValues: form,
-          currentBetValue: +form.values[CURRENT_BET_FORM],
+          currentStakeValue: +form.values[CURRENT_STAKE_FORM],
           initialValues: {
-            [BET_TYPE_FORM]: form.values[BET_TYPE_FORM] || false,
-            [SUPERPOWER_PREDICTION_FORM]: `x${superPowerPrediction}`,
-            [CURRENT_BET_FORM]: currentBet.toString(),
+            [BOOST_PREDICTION_FORM]: `x${predictedBoost}`,
+            [CURRENT_STAKE_FORM]: currentStake.toString(),
           },
           enableReinitialize: true,
         };

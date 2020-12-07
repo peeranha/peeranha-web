@@ -4,9 +4,15 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 import { compose, bindActionCreators } from 'redux';
+import styled from 'styled-components';
 
 import * as routes from 'routes-config';
 import messages from 'common-messages';
+
+import {
+  BG_WARNING_LIGHT,
+  TEXT_LIGHT,
+} from 'style-constants';
 
 import Dropdown from 'components/Dropdown';
 import A from 'components/A';
@@ -34,6 +40,16 @@ import { getWeekStat } from 'containers/Wallet/actions';
 import NotificationIcon from './NotificationIcon';
 import WalletButton from './WalletButton';
 
+const BoostPrediction = styled.span`
+  padding: 3px 6px 3.5px;
+  margin-left: 5px;
+  font-size: 14px;
+  color: ${TEXT_LIGHT};
+  line-height: 1;
+  background-color: ${BG_WARNING_LIGHT};
+  border-radius: 10px;
+`;
+
 const isPositiveNumber = number => Number.isFinite(number) && number > 0;
 
 const Menu = memo(({ user, number, locale }) => (
@@ -48,6 +64,10 @@ const Menu = memo(({ user, number, locale }) => (
           locale={locale}
         />
       )}
+    </A>
+    <A to={routes.userBoost(user)}>
+      <FormattedMessage {...messages.boost} />
+      <BoostPrediction>×1.25</BoostPrediction>
     </A>
     <SendTokens>
       <FormattedMessage {...messages.sendTokens} />

@@ -28,9 +28,9 @@ const WalletNavigation = ({ userId, showSendTokensModalDispatch }) => {
             <FormattedMessage {...messages.wallet} />
           </NavigationButton>
         </A>
-        <A to={routes.userSuperPower(userId)}>
-          <NavigationButton isLink={path !== routes.userSuperPower(userId)}>
-            <FormattedMessage {...messages.superPower} />
+        <A to={routes.userBoost(userId)}>
+          <NavigationButton isLink={path !== routes.userBoost(userId)}>
+            <FormattedMessage {...messages.boost} />
           </NavigationButton>
         </A>
       </ul>

@@ -11,7 +11,7 @@ import {
 } from 'style-constants';
 
 import currencyPeerImage from 'images/currencyPeer.svg?external';
-import lockSuperPowerImage from 'images/lock.svg?external';
+import lockBoostImage from 'images/lock.svg?external';
 import availableImage from 'images/available.svg?external';
 import walletCoinsImage from 'images/walletCoins.svg?inline';
 
@@ -61,7 +61,7 @@ const SubHeader = ({ account, balance }) => (
         <div className="d-flex align-items-center">
           <UlStyled>
             <li>
-              <FormattedMessage {...messages.available} />
+              <FormattedMessage {...messages.totalBalance} />
               <Span>
                 <IconSm
                   className="mr-2"
@@ -69,15 +69,27 @@ const SubHeader = ({ account, balance }) => (
                   color={TEXT_PRIMARY}
                   fill={TEXT_PRIMARY}
                 />
+                <span>{getFormattedNum3(balance)}</span>
+              </Span>
+            </li>
+            <li>
+              <FormattedMessage {...messages.stakedInCurrentPeriod} />
+              <Span>
+                <IconSm
+                  className="mr-2"
+                  icon={lockBoostImage}
+                  color={TEXT_PRIMARY}
+                  fill={TEXT_PRIMARY}
+                />
                 <span>0</span>
               </Span>
             </li>
             <li>
-              <FormattedMessage {...messages.lockedOnSuperPower} />
+              <FormattedMessage {...messages.stakedInNextPeriod} />
               <Span>
                 <IconSm
                   className="mr-2"
-                  icon={lockSuperPowerImage}
+                  icon={lockBoostImage}
                   color={TEXT_PRIMARY}
                   fill={TEXT_PRIMARY}
                 />

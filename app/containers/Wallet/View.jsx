@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import NavHeader from 'components/WalletNavigation';
 import SubHeader from './SubHeader';
 import Weeks from './Weeks';
-import SuperPowerBanner from './SuperPowerBanner';
+import BoostBanner from './BoostBanner';
 
 const View = ({
   userId,
@@ -22,7 +22,7 @@ const View = ({
     
     <SubHeader account={account} balance={balance} />
 
-    <SuperPowerBanner activateSuperPower={() => {}} />
+    <BoostBanner userId={userId} />
 
     <Weeks
       locale={locale}

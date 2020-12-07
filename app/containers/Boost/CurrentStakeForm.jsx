@@ -12,7 +12,7 @@ import TextInputField from 'components/FormFields/TextInputField';
 import Label from 'components/FormFields/Label';
 import { InputWrapper, InputProgressBar } from './Form';
 
-import { CURRENT_BET_FORM } from './constants';
+import { CURRENT_STAKE_FORM } from './constants';
 import {
   SECONDARY_SPECIAL,
   TEXT_PRIMARY,
@@ -21,7 +21,7 @@ import {
 
 import messages from './messages';
 
-const BET_TAGS = [
+const STAKE_TAGS = [
   {
     text: '25%',
     value: 0.25,
@@ -40,18 +40,18 @@ const BET_TAGS = [
   }
 ];
 
-const Bet = styled.span`
+const Stake = styled.span`
   position: absolute;
   bottom: -20px;
   color: ${SECONDARY_SPECIAL};
   font-size: 14px;
 `;
 
-const MinBet = Bet.extend`
+const MinStake = Stake.extend`
   left: 0;
 `.withComponent('span');
 
-const MaxBet = Bet.extend`
+const MaxStake = Stake.extend`
   right: 0;
 `.withComponent('span');
 
@@ -78,38 +78,38 @@ const Tag = styled.button`
   }
 `;
 
-const CurrentBetForm = ({ value, maxValue, onClickBetTag, disabled, onChange }) => {
+const CurrentStakeForm = ({ value, maxValue, onClickStakeTag, disabled, onChange }) => {
   const progressWidth = value ? value * 100 / maxValue : 0;
 
   return (
     <InputWrapper>
-      <Label><FormattedMessage {...messages.formCurrentBet} /></Label>
+      <Label><FormattedMessage {...messages.formCurrentStake} /></Label>
       <Tags>
-        <TagsLabel><FormattedMessage {...messages.formTakeABet} />:</TagsLabel>
-        {BET_TAGS.map(item => <Tag key={item.value} onClick={() => onClickBetTag(item.value)}>{item.text}</Tag>)}
+        <TagsLabel><FormattedMessage {...messages.formTakeAStake} />:</TagsLabel>
+        {STAKE_TAGS.map(item => <Tag key={item.value} onClick={() => onClickStakeTag(item.value)}>{item.text}</Tag>)}
       </Tags>
       <Field
-        name={CURRENT_BET_FORM}
+        name={CURRENT_STAKE_FORM}
         component={TextInputField}
         disabled={disabled}
         onChange={onChange}
         // validate={[numberValue, required]}
         // warn={[numberValue, required]}
       />
-      <MinBet>0</MinBet>
-      <MaxBet>{maxValue}</MaxBet>
+      <MinStake>0</MinStake>
+      <MaxStake>{maxValue}</MaxStake>
 
       <InputProgressBar width={progressWidth} />
     </InputWrapper>
   );
 }
 
-CurrentBetForm.propTypes = {
+CurrentStakeForm.propTypes = {
   value: PropTypes.number,
   maxValue: PropTypes.number,
-  onClickBetTag: PropTypes.func,
+  onClickStakeTag: PropTypes.func,
   disabled: PropTypes.bool,
   onChange: PropTypes.func,
 };
 
-export default memo(CurrentBetForm);
+export default memo(CurrentStakeForm);
