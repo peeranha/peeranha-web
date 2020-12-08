@@ -67,7 +67,10 @@ const CurrencyField = ({
   const value = input.value.toJS ? input.value.toJS() : input.value;
 
   const selectAccount = () => {
-    if (value.name === WALLETS.SCATTER_SQRL_WOMBAT.name) {
+    if (
+      value.name === WALLETS.SCATTER_SQRL_WOMBAT.name ||
+      value.name === WALLETS.WOMBAT.name
+    ) {
       selectScatterAccount();
     }
     if (value.name === WALLETS.KEYCAT.name) selectKeycatAccount();

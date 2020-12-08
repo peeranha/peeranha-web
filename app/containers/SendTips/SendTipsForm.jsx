@@ -82,7 +82,8 @@ const SendTipsForm = ({
   const isPeeranhaWalletSelected = walletValue?.name === WALLETS.PEERANHA.name;
   const isKeycatWalletSelected = walletValue?.name === WALLETS.KEYCAT.name;
   const isScatterWalletSelected =
-    walletValue?.name === WALLETS.SCATTER_SQRL_WOMBAT.name;
+    walletValue?.name === WALLETS.SCATTER_SQRL_WOMBAT.name ||
+    walletValue?.name === WALLETS.WOMBAT.name;
 
   // set user account to EOS_SEND_FROM_ACCOUNT_FIELD
   useEffect(
@@ -304,7 +305,7 @@ FormClone = connect(
     const isMobileDevice = isMobile(window.navigator).any;
     const mobileWallets = [];
     Object.entries(WALLETS).forEach(([key, value]) => {
-      WALLETS[key].isMobile && mobileWallets.push(value);
+      if (WALLETS[key].isMobile) mobileWallets.push(value);
     });
 
     let wallets = [];
@@ -328,7 +329,8 @@ FormClone = connect(
       if (withScatter) return CURRENCIES[initialCurrency].wallets[1];
       if (withKeycat) return CURRENCIES[initialCurrency].wallets[2];
 
-      return CURRENCIES[initialCurrency].wallets[0];
+      // default value
+      return wallets[0];
     };
 
     const initialValues = {
@@ -368,11 +370,7 @@ FormClone = connect(
       currencies: Object.keys(cryptoAccounts).map(name => CURRENCIES[name]),
       selectedAccountProcessing: selectedAccountProcessingSelector()(state),
       enableReinitialize: true,
-      initialValues: {
-        ...initialValues,
-        [WALLET_FIELD]:
-          wallets.length === 1 ? wallets[0] : initialValues[WALLET_FIELD],
-      },
+      initialValues,
     };
   },
   dispatch => ({

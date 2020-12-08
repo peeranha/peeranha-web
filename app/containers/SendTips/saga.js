@@ -93,6 +93,7 @@ export function* sendTipsWorker({ resetForm, val, questionId, answerId }) {
     if (
       val[WALLET_FIELD].names ||
       val[WALLET_FIELD].name === WALLETS.SQRL.name ||
+      val[WALLET_FIELD].name === WALLETS.WOMBAT.name ||
       val[WALLET_FIELD].name === WALLETS.SCATTER.name
     ) {
       eosService = yield select(selectTipsScatterEosService());
