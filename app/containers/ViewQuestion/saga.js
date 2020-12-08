@@ -30,6 +30,7 @@ import {
   upVote,
   voteToDelete,
 } from 'utils/questionsManagement';
+import { getQuestionBounty, giveBounty } from 'utils/walletManagement';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { ACCOUNT_TABLE, ALL_ACCOUNTS_SCOPE } from 'utils/constants';
 
@@ -69,6 +70,8 @@ import {
   DOWN_VOTE_SUCCESS,
   GET_QUESTION_DATA,
   GET_QUESTION_DATA_SUCCESS,
+  GIVE_BOUNTY,
+  GIVE_BOUNTY_SUCCESS,
   ITEM_DNV_FLAG,
   ITEM_UPV_FLAG,
   ITEM_VOTED_TO_DEL_FLAG,
@@ -99,8 +102,11 @@ import {
   deleteQuestionSuccess,
   downVoteErr,
   downVoteSuccess,
+  getQuestionBountySuccess,
   getQuestionDataErr,
   getQuestionDataSuccess,
+  giveBountyError,
+  giveBountySuccess,
   markAsAcceptedErr,
   markAsAcceptedSuccess,
   postAnswerErr,
@@ -153,7 +159,8 @@ export function* getQuestionData({
       return null;
     }
   }
-
+  const bounty = yield call(getQuestionBounty, questionId, eosService);
+  yield put(getQuestionBountySuccess(bounty));
   question.isGeneral = isGeneralQuestion(question.properties);
 
   const getItemStatus = (historyFlag, constantFlag) =>
@@ -879,6 +886,24 @@ function* changeQuestionTypeWorker({ buttonId }) {
   }
 }
 
+function* giveBountyWorker({ buttonId }) {
+  try {
+    const { questionData, eosService, profileInfo } = yield call(getParams);
+
+    yield call(giveBounty, profileInfo?.user, questionData?.id, eosService);
+    yield put(giveBountySuccess(buttonId));
+
+    yield put(
+      getQuestionDataSuccess({
+        ...questionData,
+        isGeneral: !questionData.isGeneral,
+      }),
+    );
+  } catch (err) {
+    yield put(giveBountyError(err, buttonId));
+  }
+}
+
 export function* updateQuestionList({ questionData }) {
   if (questionData?.id) {
     yield put(getUniqQuestions([questionData]));
@@ -898,6 +923,7 @@ export default function*() {
   yield takeEvery(SAVE_COMMENT, saveCommentWorker);
   yield takeEvery(VOTE_TO_DELETE, voteToDeleteWorker);
   yield takeEvery(CHANGE_QUESTION_TYPE, changeQuestionTypeWorker);
+  yield takeEvery(GIVE_BOUNTY, giveBountyWorker);
   yield takeEvery(
     [
       POST_COMMENT_SUCCESS,
@@ -905,6 +931,7 @@ export default function*() {
       DOWN_VOTE_SUCCESS,
       MARK_AS_ACCEPTED_SUCCESS,
       DELETE_ANSWER_SUCCESS,
+      GIVE_BOUNTY_SUCCESS,
     ],
     updateQuestionDataAfterTransactionWorker,
   );
@@ -922,6 +949,7 @@ export default function*() {
       SAVE_COMMENT_SUCCESS,
       VOTE_TO_DELETE_SUCCESS,
       CHANGE_QUESTION_TYPE_SUCCESS,
+      GIVE_BOUNTY_SUCCESS,
     ],
     updateStoredQuestionsWorker,
   );

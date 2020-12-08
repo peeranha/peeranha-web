@@ -11,7 +11,6 @@ const Base = styled.div`
   width: 290px;
   text-align: left;
   z-index: 100;
-  // left: 135px;
   top: 30px;
   border-radius: 5px;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
@@ -38,19 +37,21 @@ const Base = styled.div`
   }
 `;
 
-const ExpertPopover = ({ locale }) => (
+const ExpertPopover = ({ locale, date }) => (
   <Base>
     <DescriptionList
       locale={locale}
-      // label={commonMessages.expertPopoverLabel.id}
       label={commonMessages.bountyStatus.id}
       items={commonMessages.expertPopoverList.id}
     />
+    <span>You can get this bounty until </span>
+    {date}
   </Base>
 );
 
 ExpertPopover.propTypes = {
   locale: PropTypes.string,
+  date: PropTypes.string,
 };
 
 export default memo(ExpertPopover);

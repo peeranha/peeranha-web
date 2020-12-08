@@ -29,7 +29,10 @@ import {
   FORM_TYPE,
   FORM_CONTENT,
   FORM_COMMUNITY,
-  FORM_TAGS, FORM_BOUNTY,
+  FORM_TAGS,
+  FORM_BOUNTY,
+  FORM_BOUNTY_DAYS,
+  FORM_BOUNTY_HOURS,
 } from './constants';
 
 import Header from './Header';
@@ -40,12 +43,8 @@ import TypeForm from './TypeForm';
 import TitleForm from './TitleForm';
 import ContentForm from './ContentForm';
 import TagsForm from './TagsForm';
-import NumberInputField from '../FormFields/NumberInputField';
-import { AMOUNT_FIELD } from '../../containers/SendTips/constants';
-import { translationMessages } from '../../i18n';
-import _get from 'lodash/get';
-import { required, valueHasToBeLessThan } from '../FormFields/validate';
 import BountyForm from './BountyForm';
+import BountyDateForm from './BountyDateForm';
 
 const single = isSingleCommunityWebsite();
 
@@ -150,21 +149,21 @@ export const QuestionForm = ({
               redirectToCreateTagDispatch={redirectToCreateTagDispatch}
             />
 
-            {/*<Field
-              name={AMOUNT_FIELD}
-              disabled={false}
-              label={translationMessages[locale][commonMessages.bounty.id]}
-              component={NumberInputField}
-              // dotRestriction={_get(currencyValue, 'precision', 6)}
-              // validate={!isPeer ? [required] : [required, valueHasToBeLessThan]}
-              // warn={!isPeer ? [required] : [required, valueHasToBeLessThan]}
-            />*/}
-
             <BountyForm
               intl={intl}
               questionLoading={questionLoading}
               formValues={formValues}
               change={change}
+              dotRestriction={6}
+            />
+
+            <BountyDateForm
+              intl={intl}
+              questionLoading={questionLoading}
+              formValues={formValues}
+              change={change}
+              dotRestriction={6}
+              show={formValues[FORM_BOUNTY]}
             />
 
             <Button
@@ -236,6 +235,8 @@ export default memo(
                 },
                 [FORM_TAGS]: question?.chosenTags,
                 [FORM_BOUNTY]: question?.bounty,
+                [FORM_BOUNTY_DAYS]: question?.bountyDays,
+                [FORM_BOUNTY_HOURS]: question?.bountyHours,
               }
             : {}),
           ...(single

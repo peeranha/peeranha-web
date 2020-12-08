@@ -3,8 +3,11 @@ import { getFormattedNum3 } from './numbers';
 
 import {
   ACCOUNTS_TABLE,
+  ALL_BOUNTIES_SCOPE,
   ALL_PERIODS_SCOPE,
+  BOUNTY_TABLE,
   GET_BOUNTY_METHOD,
+  GIVE_BOUNTY_METHOD,
   INF_LIMIT,
   PERIOD_RATING_TABLE,
   PERIOD_REWARD_TABLE,
@@ -215,18 +218,48 @@ export async function pickupReward(eosService, user, periodIndex) {
   );
 }
 
-export async function getBounty(user, bounty, questionId, eosService) {
+export async function getBounty(
+  user,
+  bounty,
+  questionId,
+  timestamp,
+  eosService,
+) {
   await eosService.sendTransaction(
     user,
     GET_BOUNTY_METHOD,
     {
       user,
       bounty,
-      question_id: +questionId,
+      question_id: questionId,
+      timestamp,
     },
     process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
     true,
   );
+}
+
+export async function giveBounty(user, questionId, eosService) {
+  await eosService.sendTransaction(
+    user,
+    GIVE_BOUNTY_METHOD,
+    {
+      user,
+      question_id: questionId,
+    },
+    process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
+    true,
+  );
+}
+
+export async function getQuestionBounty(questionId, eosService) {
+  const bountyrow = await eosService.getTableRow(
+    BOUNTY_TABLE,
+    ALL_BOUNTIES_SCOPE,
+    questionId,
+    process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
+  );
+  return bountyrow;
 }
 
 export function getNormalizedCurrency(quantity, precision, symbol) {

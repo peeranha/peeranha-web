@@ -29,7 +29,7 @@ import SendTips from '../SendTips';
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 
 import messages from './messages';
-import { Bounty, SpanStyled } from './Bounty';
+import { Bounty } from './Bounty';
 
 const styles = singleCommunityStyles();
 
@@ -52,6 +52,12 @@ const Div = styled.div`
 const TitleContainer = styled.div`
   display: flex;
   align-items: center;
+  .bountyActive {
+  }
+  .bountyPaid {
+  }
+  .bountyPending {
+  }
 `;
 
 const Top = styled.div`
@@ -80,6 +86,7 @@ export const QuestionTitle = ({
   communities,
   user,
   questionData,
+  questionBounty,
   profileInfo,
   isTemporaryAccount,
 }) => {
@@ -93,8 +100,6 @@ export const QuestionTitle = ({
   } = questionData;
 
   const isItWrittenByMe = profileInfo ? user === profileInfo.user : false;
-  const bountyProp = questionData.properties.find(({ key }) => key === 5);
-  const bounty = bountyProp ? bountyProp.value : 0;
 
   return title ? (
     <Base
@@ -145,7 +150,7 @@ export const QuestionTitle = ({
         ) : null}
 
         <TitleContainer>
-          <Bounty className="bounty" amount={bounty} show={!!bounty} />
+          <Bounty {...questionBounty} />
           <QuestionName>{title}</QuestionName>
         </TitleContainer>
 
@@ -179,6 +184,7 @@ QuestionTitle.propTypes = {
   answersNumber: PropTypes.number,
   user: PropTypes.string,
   questionData: PropTypes.object,
+  questionBounty: PropTypes.object,
   profileInfo: PropTypes.object,
   isTemporaryAccount: PropTypes.bool,
 };

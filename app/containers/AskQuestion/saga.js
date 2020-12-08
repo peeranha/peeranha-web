@@ -21,6 +21,8 @@ import {
   FORM_TAGS,
   FORM_TYPE,
   FORM_BOUNTY,
+  FORM_BOUNTY_DAYS,
+  FORM_BOUNTY_HOURS,
 } from 'components/QuestionForm/constants';
 
 import { isAuthorized, isValid } from 'containers/EosioProvider/saga';
@@ -43,6 +45,7 @@ import {
 
 import { getResults } from '../../utils/custom-search';
 import { getFormattedNum3 } from '../../utils/numbers';
+import { ONE_DAY_IN_SECONDS, ONE_HOUR_IN_SECONDS } from '../../utils/datetime';
 
 export function* postQuestionWorker({ val }) {
   try {
@@ -57,31 +60,33 @@ export function* postQuestionWorker({ val }) {
       type: +val[FORM_TYPE],
       bounty: +val[FORM_BOUNTY],
       bountyFull: `${getFormattedNum3(+val[FORM_BOUNTY])} PEER`,
+      bountyDays: +val[FORM_BOUNTY_DAYS],
+      bountyHours: +val[FORM_BOUNTY_HOURS],
       community,
     };
-    debugger;
-    const question = yield call(
-      postQuestion,
-      selectedAccount,
-      questionData,
-      eosService,
-    );
-
-    yield call(
-      getBounty,
-      selectedAccount,
-      questionData.bountyFull,
-      228,
-      eosService,
-    );
-
-    yield put(askQuestionSuccess());
+    yield call(postQuestion, selectedAccount, questionData, eosService);
 
     const questionsPostedByUser = yield call(
       getQuestionsPostedByUser,
       eosService,
       selectedAccount,
     );
+    const now = Math.round(new Date().valueOf() / 1000);
+    const bountyTime =
+      now +
+      questionData.bountyDays * ONE_DAY_IN_SECONDS +
+      questionData.bountyHours * ONE_HOUR_IN_SECONDS;
+
+    yield call(
+      getBounty,
+      selectedAccount,
+      questionData.bountyFull,
+      questionsPostedByUser[0].question_id,
+      bountyTime,
+      eosService,
+    );
+
+    yield put(askQuestionSuccess());
 
     yield call(
       createdHistory.push,

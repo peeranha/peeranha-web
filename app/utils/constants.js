@@ -93,6 +93,7 @@ export const GOOGLE_SEARCH_FORM_PATH = (key, cx) =>
 export const ACCOUNT_TABLE = 'account';
 export const ACCOUNTS_TABLE = 'accounts';
 export const QUESTION_TABLE = 'question';
+export const BOUNTY_TABLE = 'bounty';
 export const USER_QUESTIONS_TABLE = 'usrquestions';
 export const USER_ANSWERS_TABLE = 'usranswers';
 export const TAGS_TABLE = 'tags';
@@ -116,6 +117,7 @@ export const PROJECT_ACHIEVEMENTS_TABLE = 'achieve';
 
 export const ALL_ACCOUNTS_SCOPE = 'allaccounts';
 export const ALL_QUESTIONS_SCOPE = 'allquestions';
+export const ALL_BOUNTIES_SCOPE = 'allbounties';
 export const ALL_COMMUNITIES_SCOPE = 'allcomm';
 export const ALL_STAT_SCOPE = 'allstat';
 export const ALL_PERIODS_SCOPE = 'allperiods';
@@ -143,6 +145,7 @@ export const CHANGE_QUESTION_TYPE_METHOD = 'chgqsttype';
 
 export const POST_QUESTION_METHOD = 'postquestion';
 export const GET_BOUNTY_METHOD = 'getbounty';
+export const GIVE_BOUNTY_METHOD = 'givebounty';
 export const EDIT_QUESTION_METHOD = 'modquestion';
 export const DEL_QUESTION_METHOD = 'delquestion';
 
@@ -202,3 +205,8 @@ export const APP_MAIN_NAME = 'Peeranha';
 
 // Temporary Account Data
 export const TEMPORARY_ACCOUNT_KEY = 15;
+
+// Bounty Status
+export const BOUNTY_STATUS_ACTIVE = 1;
+export const BOUNTY_STATUS_PAID = 2;
+export const BOUNTY_STATUS_PENDING = 3;

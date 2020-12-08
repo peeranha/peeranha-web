@@ -60,6 +60,16 @@ export const CHANGE_QUESTION_TYPE_SUCCESS =
 export const CHANGE_QUESTION_TYPE_ERROR =
   'app/ViewQuestion/CHANGE_QUESTION_TYPE_ERROR';
 
+export const GIVE_BOUNTY = 'app/ViewQuestion/GIVE_BOUNTY';
+export const GIVE_BOUNTY_SUCCESS = 'app/ViewQuestion/GIVE_BOUNTY_SUCCESS';
+export const GIVE_BOUNTY_ERROR = 'app/ViewQuestion/GIVE_BOUNTY_ERROR';
+
+export const GET_QUESTION_BOUNTY = 'app/ViewQuestion/GET_QUESTION_BOUNTY';
+export const GET_QUESTION_BOUNTY_SUCCESS =
+  'app/ViewQuestion/GET_QUESTION_BOUNTY_SUCCESS';
+export const GET_QUESTION_BOUNTY_ERROR =
+  'app/ViewQuestion/GET_QUESTION_BOUNTY_ERROR';
+
 export const MARK_AS_ACCEPTED = 'app/ViewQuestion/MARK_AS_ACCEPTED';
 export const MARK_AS_ACCEPTED_SUCCESS =
   'app/ViewQuestion/MARK_AS_ACCEPTED_SUCCESS';

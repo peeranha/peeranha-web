@@ -1,11 +1,13 @@
 import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
-import { APP_FONT, TEXT_PRIMARY, TEXT_WARNING } from 'style-constants';
+import { APP_FONT } from 'style-constants';
 import Container from 'components/Labels/BountyLabel';
 
-import { svgDraw } from 'components/Icon/IconStyled';
 import TransparentButton from 'components/Button/Contained/Transparent';
 import BountyPopover from './BountyPopover';
+import { convertPeerValueToNumberValue } from '../../utils/walletManagement';
+import { getFormattedDate } from '../../utils/datetime';
+import { MONTH_3LETTERS__DAY_TIME } from '../../utils/constants';
 
 /* eslint no-nested-ternary: 0, indent: 0 */
 export const SpanStyled = TransparentButton.extend`
@@ -33,20 +35,37 @@ export const SpanStyled = TransparentButton.extend`
   }
 `;
 
-export const Bounty = ({ id, tip, show, amount, disabled, className }) => {
+export const Bounty = ({ user, bounty, status, timestamp, disabled }) => {
   const [visible, changeVisibility] = useState(false);
 
   const onMouseEnter = useCallback(() => changeVisibility(true), []);
   const onMouseLeave = useCallback(() => changeVisibility(false), []);
 
-  return show ? (
+  const amount = bounty ? convertPeerValueToNumberValue(bounty) : null;
+  const time = getFormattedDate(timestamp, 'en', MONTH_3LETTERS__DAY_TIME);
+
+  let className = '';
+  switch (status) {
+    case 1:
+      className = 'bountyActive';
+      break;
+    case 2:
+      className = 'bountyPaid';
+      break;
+    case 3:
+      className = 'bountyPending';
+      break;
+    default:
+      className = '';
+  }
+  return bounty ? (
     <Container
       size="sm"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      {visible && <BountyPopover locale={'en'} />}
-      <SpanStyled id={id} className={className} disabled={disabled}>
+      {visible && <BountyPopover date={time} locale="en" />}
+      <SpanStyled className={className} disabled={disabled}>
         +{amount}
       </SpanStyled>
     </Container>
@@ -54,11 +73,11 @@ export const Bounty = ({ id, tip, show, amount, disabled, className }) => {
 };
 
 Bounty.propTypes = {
-  id: PropTypes.string,
-  className: PropTypes.string,
-  show: PropTypes.bool,
+  user: PropTypes.string,
+  bounty: PropTypes.string,
+  status: PropTypes.number,
+  timestamp: PropTypes.number,
   disabled: PropTypes.bool,
-  amount: PropTypes.number,
 };
 
 export default React.memo(Bounty);

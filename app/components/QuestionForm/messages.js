@@ -31,6 +31,12 @@ export default defineMessages({
   bountyLabel: {
     id: 'app.containers.QuestionForm.bountyLabel',
   },
+  bountyDaysLabel: {
+    id: 'app.containers.QuestionForm.bountyDaysLabel',
+  },
+  bountyHoursLabel: {
+    id: 'app.containers.QuestionForm.bountyHoursLabel',
+  },
   previewLabel: {
     id: 'app.containers.QuestionForm.previewLabel',
   },

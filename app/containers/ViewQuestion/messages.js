@@ -127,4 +127,7 @@ export default defineMessages({
   officialAnswer: {
     id: 'app.containers.ViewQuestion.officialAnswer',
   },
+  getBounty: {
+    id: 'app.containers.ViewQuestion.getBounty',
+  },
 });

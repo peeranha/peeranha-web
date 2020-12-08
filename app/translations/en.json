@@ -639,6 +639,7 @@
   "app.containers.ViewQuestion.expertQuestion": "Expert question",
   "app.containers.ViewQuestion.changeQuestionType": "Change type",
   "app.containers.ViewQuestion.officialAnswer": "Official answer",
+  "app.containers.ViewQuestion.getBounty": "Get bounty",
   "app.components.FormFields.requiredField":
     "You cannot leave this field empty",
   "app.components.FormFields.wrongLength":
@@ -870,6 +871,8 @@
   "app.containers.QuestionForm.communityLabel": "Community",
   "app.containers.QuestionForm.tagsLabel": "Tags",
   "app.containers.QuestionForm.bountyLabel": "Bounty",
+  "app.containers.QuestionForm.bountyDaysLabel": "Bounty Days",
+  "app.containers.QuestionForm.bountyHoursLabel": "Bounty Hours",
   "app.containers.QuestionForm.bountyTip":  "Bounties to the best answer",
   "app.containers.QuestionForm.previewLabel": "Preview",
   "app.containers.QuestionForm.questionType": "Question Type",
