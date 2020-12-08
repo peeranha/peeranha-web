@@ -186,6 +186,7 @@ CommunitySelector.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
+  communities: selectCommunities(),
   followedCommunities: makeSelectFollowedCommunities(),
 });
 
