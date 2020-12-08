@@ -58,7 +58,7 @@ import {
   SuggestedCommunities,
   EmailEnteringForm,
   EmailVerificationForm,
-  ScatterSignUpForm,
+  WalletsSignUpForm,
   IHaveEOSAccountForm,
   IdontHaveEOSAccountForm,
   RegistrationAlmostDoneWithAccount,
@@ -332,7 +332,7 @@ const App = ({
 
         <Route path={routes.signup.displayName.name}>
           <React.Suspense fallback={null}>
-            <ScatterSignUpForm />
+            <WalletsSignUpForm />
           </React.Suspense>
         </Route>
 

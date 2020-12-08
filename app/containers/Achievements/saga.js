@@ -402,7 +402,7 @@ export function* getUserAchievementsWorker() {
 
 export function* updateUserAchievementsWorker(
   userAccount,
-  { updatedAchievements, updateRender = true },
+  { updatedAchievements, updateRender = true } = {},
 ) {
   try {
     const eosService = yield select(selectEos);

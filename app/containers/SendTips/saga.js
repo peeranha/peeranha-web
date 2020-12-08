@@ -13,6 +13,7 @@ import webIntegrationErrors from 'utils/web_integration/src/wallet/service-error
 import { WebIntegrationError } from 'utils/errors';
 import { SEND_TIPS_SCATTER_APP_NAME } from 'utils/constants';
 import { getCookie, setCookie } from 'utils/cookie';
+import Eosio from 'utils/eosio';
 import {
   callService,
   NOTIFICATIONS_TIPS_SERVICE,
@@ -20,9 +21,14 @@ import {
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
+import { selectEos } from 'containers/EosioProvider/selectors';
 
 import formFieldsMessages from 'components/FormFields/messages.js';
-import Eosio from 'utils/eosio';
+
+import messages, {
+  getAccountNotSelectedMessageDescriptor,
+} from '../Login/messages';
+import { SCATTER_MODE_ERROR, USER_IS_NOT_SELECTED } from '../Login/constants';
 
 import {
   SEND_TIPS,
@@ -30,7 +36,8 @@ import {
   PASSWORD_FIELD,
   CURRENCY_FIELD,
   WALLET_FIELD,
-  SELECT_ACCOUNT,
+  SELECT_SCATTER_ACCOUNT,
+  SELECT_KEYCAT_ACCOUNT,
   EOS_SEND_TO_ACCOUNT_FIELD,
   EOS_SEND_FROM_ACCOUNT_FIELD,
   TIPS_PRESELECT,
@@ -39,35 +46,33 @@ import {
 import {
   hideSendTipsModal,
   sendTipsSuccess,
-  selectAccountSuccess,
+  selectScatterAccountSuccess,
+  selectKeycatAccountSuccess,
   sendTipsErr,
   selectAccountErr,
-  addTipsEosService,
+  addScatterTipsEosService,
+  addTipsKeycatEosService,
 } from './actions';
-import messages, {
-  getAccountNotSelectedMessageDescriptor,
-} from '../Login/messages';
-import { SCATTER_MODE_ERROR } from '../Login/constants';
-import { selectTipsEosService } from './selectors';
-import { selectEos } from '../EosioProvider/selectors';
+
+import {
+  selectTipsScatterEosService,
+  selectTipsKeycatEosService,
+  selectedKeycatAccountSelector,
+} from './selectors';
+
 import { formName } from './SendTipsForm';
 
 export function* sendTipsWorker({ resetForm, val, questionId, answerId }) {
   try {
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
-    let eosService = yield select(selectTipsEosService());
-
-    if (!eosService) {
-      eosService = new Eosio();
-      yield put(addTipsEosService(eosService));
-    }
+    let eosService;
 
     const profile = yield select(makeSelectProfileInfo());
 
     const password = val[PASSWORD_FIELD];
 
-    // check password for users which logged with email
+    // check password and set eosService for users which logged with email
     if (val[WALLET_FIELD].name === WALLETS.PEERANHA.name) {
       eosService = yield select(selectEos);
       const response = yield call(
@@ -82,13 +87,37 @@ export function* sendTipsWorker({ resetForm, val, questionId, answerId }) {
           translations[webIntegrationErrors[response.errorCode].id],
         );
       }
-    } else if (
-      (val[WALLET_FIELD].names ||
-        val[WALLET_FIELD].name === WALLETS.SQRL.name ||
-        val[WALLET_FIELD].name === WALLETS.SCATTER.name) &&
-      !eosService.initialized
+    }
+
+    // set eosService for SCATTER wallet
+    if (
+      val[WALLET_FIELD].names ||
+      val[WALLET_FIELD].name === WALLETS.SQRL.name ||
+      val[WALLET_FIELD].name === WALLETS.WOMBAT.name ||
+      val[WALLET_FIELD].name === WALLETS.SCATTER.name
     ) {
-      yield call(eosService.initEosioWithScatter, SEND_TIPS_SCATTER_APP_NAME);
+      eosService = yield select(selectTipsScatterEosService());
+
+      if (!eosService) {
+        eosService = new Eosio();
+        yield put(addScatterTipsEosService(eosService));
+      }
+      if (!eosService.initialized) {
+        yield call(eosService.initEosioWithScatter, SEND_TIPS_SCATTER_APP_NAME);
+      }
+    }
+
+    // set eosService for KEYCAT wallet
+    if (val[WALLET_FIELD].name === WALLETS.KEYCAT.name) {
+      const selectedKeycatAccount = yield select(
+        selectedKeycatAccountSelector(),
+      );
+
+      if (val[EOS_SEND_FROM_ACCOUNT_FIELD] === selectedKeycatAccount) {
+        eosService = yield select(selectTipsKeycatEosService());
+      } else {
+        eosService = yield select(selectEos);
+      }
     }
 
     const { response, data } = yield call(sendTokens, eosService, {
@@ -144,15 +173,15 @@ export function* sendTipsWorker({ resetForm, val, questionId, answerId }) {
   }
 }
 
-export function* selectAccountWorker() {
+export function* selectScatterAccountWorker() {
   try {
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
-    let tipsEosService = yield select(selectTipsEosService());
+    let tipsEosService = yield select(selectTipsScatterEosService());
 
     if (!tipsEosService) {
       tipsEosService = new Eosio();
-      yield put(addTipsEosService(tipsEosService));
+      yield put(addScatterTipsEosService(tipsEosService));
       yield call(
         tipsEosService.initEosioWithScatter,
         SEND_TIPS_SCATTER_APP_NAME,
@@ -194,7 +223,7 @@ export function* selectAccountWorker() {
     }
 
     yield put(
-      selectAccountSuccess(
+      selectScatterAccountSuccess(
         selectedAccount.eosAccountName
           ? selectedAccount.eosAccountName
           : selectedAccount,
@@ -205,7 +234,48 @@ export function* selectAccountWorker() {
   }
 }
 
+export function* selectKeycatAccountWorker() {
+  try {
+    const locale = yield select(makeSelectLocale());
+    const translations = translationMessages[locale];
+    let tipsKeycatEosService = yield select(selectTipsKeycatEosService());
+
+    if (!tipsKeycatEosService) {
+      tipsKeycatEosService = new Eosio();
+      yield call(tipsKeycatEosService.initEosioWithoutScatter);
+      yield put(addTipsKeycatEosService(tipsKeycatEosService));
+    } else {
+      yield call(tipsKeycatEosService.resetKeycatUserData);
+    }
+
+    const { accountName: keycatAccount } = yield call(
+      tipsKeycatEosService.keycatSignIn,
+    );
+
+    if (!keycatAccount) {
+      throw new WebIntegrationError(
+        translations[messages[USER_IS_NOT_SELECTED].id],
+      );
+    }
+
+    const receiver = (yield select(getFormValues(formName))).get(
+      EOS_SEND_TO_ACCOUNT_FIELD,
+    );
+
+    if (receiver === keycatAccount) {
+      throw new WebIntegrationError(
+        translations[formFieldsMessages.exactFromAndToAccounts.id],
+      );
+    }
+
+    yield put(selectKeycatAccountSuccess(keycatAccount));
+  } catch (err) {
+    yield put(selectAccountErr(err));
+  }
+}
+
 export default function* defaultSaga() {
-  yield takeLatest(SELECT_ACCOUNT, selectAccountWorker);
+  yield takeLatest(SELECT_SCATTER_ACCOUNT, selectScatterAccountWorker);
+  yield takeLatest(SELECT_KEYCAT_ACCOUNT, selectKeycatAccountWorker);
   yield takeLatest(SEND_TIPS, sendTipsWorker);
 }

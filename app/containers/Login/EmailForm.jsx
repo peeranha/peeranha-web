@@ -16,14 +16,14 @@ import { EMAIL_FIELD } from './constants';
 
 import Header from './Header';
 import Footer from './Footer';
-import IDontHaveAnAccount from './IdontHaveAnAccount';
 
 const EmailForm = ({
+  locale,
   handleSubmit,
   showEmailPasswordForm,
-  locale,
-  loginWithScatter,
-  loginWithScatterProcessing,
+  loginWithEmailProcessing,
+  loginWithWallet,
+  loginWithWalletProcessing,
 }) => (
   <div>
     <Header />
@@ -35,25 +35,32 @@ const EmailForm = ({
         component={TextInputField}
         validate={[validateEmail, required]}
         warn={[validateEmail, required]}
+        disabled={loginWithEmailProcessing || loginWithWalletProcessing}
       />
 
-      <Button className="w-100">
+      <Button
+        className="w-100"
+        disabled={loginWithEmailProcessing || loginWithWalletProcessing}
+      >
         <FormattedMessage {...signupMessages.continue} />
       </Button>
-
-      <IDontHaveAnAccount />
     </form>
 
-    <Footer action={loginWithScatter} processing={loginWithScatterProcessing} />
+    <Footer
+      walletAction={loginWithWallet}
+      loginWithWalletProcessing={loginWithWalletProcessing}
+      loginWithEmailProcessing={loginWithEmailProcessing}
+    />
   </div>
 );
 
 EmailForm.propTypes = {
+  locale: PropTypes.string,
   handleSubmit: PropTypes.func,
   showEmailPasswordForm: PropTypes.func,
-  loginWithScatter: PropTypes.func,
-  locale: PropTypes.string,
-  loginWithScatterProcessing: PropTypes.bool,
+  loginWithWalletProcessing: PropTypes.bool,
+  loginWithWallet: PropTypes.func,
+  loginWithEmailProcessing: PropTypes.bool,
 };
 
 export default reduxForm({

@@ -23,6 +23,7 @@ export function* logoutWorker() {
     deleteCookie(AUTOLOGIN_DATA);
     deleteCookie(PROFILE_INFO_LS);
 
+    yield call(eosService.resetKeycatUserData);
     yield call(eosService.forgetIdentity);
     yield call(eosService.initEosioWithoutScatter);
 

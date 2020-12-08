@@ -17,8 +17,17 @@ const selectSendTipsProcessing = () =>
 const selectSendTipsError = () =>
   createSelector(selectSendTipsDomain, substate => substate.sendTipsError);
 
-const selectedAccountSelector = () =>
-  createSelector(selectSendTipsDomain, substate => substate.selectedAccount);
+const selectedScatterAccountSelector = () =>
+  createSelector(
+    selectSendTipsDomain,
+    substate => substate.selectedScatterAccount,
+  );
+
+const selectedKeycatAccountSelector = () =>
+  createSelector(
+    selectSendTipsDomain,
+    substate => substate.selectedKeycatAccount,
+  );
 
 const selectedAccountProcessingSelector = () =>
   createSelector(
@@ -26,8 +35,17 @@ const selectedAccountProcessingSelector = () =>
     substate => substate.selectAccountProcessing,
   );
 
-const selectTipsEosService = () =>
-  createSelector(selectSendTipsDomain, substate => substate.tipsEosService);
+const selectTipsScatterEosService = () =>
+  createSelector(
+    selectSendTipsDomain,
+    substate => substate.tipsScatterEosService,
+  );
+
+const selectTipsKeycatEosService = () =>
+  createSelector(
+    selectSendTipsDomain,
+    substate => substate.tipsKeycatEosService,
+  );
 
 const selectWhoWillBeTipped = () =>
   createSelector(selectSendTipsDomain, substate => substate.whoWillBeTipped);
@@ -37,8 +55,10 @@ export {
   selectShowModal,
   selectSendTipsProcessing,
   selectSendTipsError,
-  selectedAccountSelector,
+  selectedScatterAccountSelector,
+  selectedKeycatAccountSelector,
   selectedAccountProcessingSelector,
-  selectTipsEosService,
+  selectTipsScatterEosService,
+  selectTipsKeycatEosService,
   selectWhoWillBeTipped,
 };

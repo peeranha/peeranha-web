@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -7,7 +8,6 @@ import { createStructuredSelector } from 'reselect';
 import isMobile from 'ismobilejs';
 
 import * as routes from 'routes-config';
-import communitiesConfig from 'communities-config';
 import { LINK_COLOR } from 'style-constants';
 
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
@@ -15,10 +15,7 @@ import peeranhaLogo from 'images/LogoBlack.svg?inline';
 import commonMessages from 'common-messages';
 import messages from 'containers/SignUp/messages';
 
-import {
-  isSingleCommunityWebsite,
-  singleCommunityStyles,
-} from 'utils/communityManagement';
+import { singleCommunityStyles } from 'utils/communityManagement';
 
 import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
 
@@ -26,15 +23,15 @@ import H3 from 'components/H3';
 import Span from 'components/Span';
 import TransparentButton from 'components/Button/Contained/Transparent';
 import { Div } from 'containers/SignUp/IHaveEOSAccountForm';
-import { LoginViaWallet } from 'containers/Login/Footer';
-import SignUpWrapper from './index';
+import Footer from 'containers/Login/Footer';
 
 import {
   HOW_STORE_MY_KEYS_QUESTION,
   CAN_SIGN_UP_WITH_EAMIL_IF_HAVE_TELOS_ACCT_QUESTION,
   CAN_I_DELETE_ACCOUNT_QUESTION,
 } from 'containers/Faq/constants';
-import styled from 'styled-components';
+
+import SignUpWrapper from './index';
 
 export const P = Span.extend`
   font-size: 18px;
@@ -92,7 +89,11 @@ export const Logo = styled.span`
   background-image: url(${({ src }) => src});
 `;
 
-const single = isSingleCommunityWebsite();
+const LoginLink = styled.div`
+  text-align: center;
+  margin-top: 60px;
+`;
+
 const styles = singleCommunityStyles();
 
 const LeftMenu = ({ faqQuestions }) => (
@@ -104,7 +105,7 @@ const LeftMenu = ({ faqQuestions }) => (
             <Logo src={styles.signUpPageLogo} />
           </Link>
           <CommunityLogoDescr>
-            <span>{'Q&A on'}</span>
+            <span>Q&A on</span>
             <Link to={routes.questions()} href={routes.questions()}>
               <img src={peeranhaLogo} width="90px" alt="Peeranha logo" />
             </Link>
@@ -145,30 +146,36 @@ const LeftMenu = ({ faqQuestions }) => (
 const RightMenuWithoutScatter = ({
   children,
   showLoginModal,
-  showScatterSignUpForm,
-  showScatterSignUpProcessing,
-  isMobileDevice,
+  showWalletSignUpForm,
+  showWalletSignUpProcessing,
+  emailVerificationProcessing,
+  emailChecking,
 }) => (
   <div className="py-5">
     {children}
-    <Div className="py-5">
-      <LoginViaWallet
-        action={showScatterSignUpForm}
-        isMobileDevice={isMobileDevice}
-        processing={showScatterSignUpProcessing}
-        text={<FormattedMessage {...commonMessages.signUpViaWallet} />}
+    <Div>
+      <Footer
+        walletAction={showWalletSignUpForm}
+        showWalletSignUpProcessing={showWalletSignUpProcessing}
+        emailVerificationProcessing={emailVerificationProcessing}
+        emailChecking={emailChecking}
+        signUpText={<FormattedMessage {...commonMessages.signUpViaWallet} />}
       />
 
-      <div className="text-center mt-3">
+      <LoginLink>
         <FormattedMessage {...messages.doYouHaveAlreadyAccount} />{' '}
         <TransparentButton
           className="py-1"
           onClick={showLoginModal}
-          disabled={showScatterSignUpProcessing}
+          disabled={
+            showWalletSignUpProcessing ||
+            emailChecking ||
+            emailVerificationProcessing
+          }
         >
           <FormattedMessage {...commonMessages.login} />
         </TransparentButton>
-      </div>
+      </LoginLink>
     </Div>
   </div>
 );
@@ -176,20 +183,24 @@ const RightMenuWithoutScatter = ({
 export const SignUpOptions = ({
   children,
   showLoginModal,
-  showScatterSignUpForm,
-  showScatterSignUpProcessing,
-  withScatter,
+  showWalletSignUpForm,
+  showWalletSignUpProcessing,
+  emailVerificationProcessing,
+  emailChecking,
+  withWallet,
   faqQuestions,
 }) => (
   <SignUpWrapper
     LeftMenuChildren={<LeftMenu faqQuestions={faqQuestions} />}
     RightMenuChildren={
-      !withScatter ? (
+      !withWallet ? (
         <RightMenuWithoutScatter
           children={children}
           showLoginModal={showLoginModal}
-          showScatterSignUpForm={showScatterSignUpForm}
-          showScatterSignUpProcessing={showScatterSignUpProcessing}
+          showWalletSignUpForm={showWalletSignUpForm}
+          showWalletSignUpProcessing={showWalletSignUpProcessing}
+          emailVerificationProcessing={emailVerificationProcessing}
+          emailChecking={emailChecking}
           isMobileDevice={isMobile(window.navigator).any}
         />
       ) : (
@@ -206,17 +217,21 @@ LeftMenu.propTypes = {
 RightMenuWithoutScatter.propTypes = {
   children: PropTypes.any,
   showLoginModal: PropTypes.func,
-  showScatterSignUpForm: PropTypes.func,
-  showScatterSignUpProcessing: PropTypes.bool,
+  showWalletSignUpForm: PropTypes.func,
+  showWalletSignUpProcessing: PropTypes.bool,
+  emailVerificationProcessing: PropTypes.bool,
+  emailChecking: PropTypes.bool,
   isMobileDevice: PropTypes.bool,
 };
 
 SignUpOptions.propTypes = {
   children: PropTypes.any,
   showLoginModal: PropTypes.func,
-  showScatterSignUpForm: PropTypes.func,
-  showScatterSignUpProcessing: PropTypes.bool,
-  withScatter: PropTypes.bool,
+  showWalletSignUpForm: PropTypes.func,
+  showWalletSignUpProcessing: PropTypes.bool,
+  emailVerificationProcessing: PropTypes.bool,
+  emailChecking: PropTypes.bool,
+  withWallet: PropTypes.bool,
   faqQuestions: PropTypes.array,
 };
 

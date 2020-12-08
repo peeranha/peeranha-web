@@ -14,25 +14,25 @@ import {
   LOGIN_WITH_EMAIL,
   LOGIN_WITH_EMAIL_SUCCESS,
   LOGIN_WITH_EMAIL_ERROR,
-  LOGIN_WITH_SCATTER,
-  LOGIN_WITH_SCATTER_SUCCESS,
-  LOGIN_WITH_SCATTER_ERROR,
   FINISH_REGISTRATION,
   FINISH_REGISTRATION_SUCCESS,
   FINISH_REGISTRATION_ERROR,
   EMAIL_FORM,
   FINISH_REGISTRATION_REFERRAL_ERROR,
+  LOGIN_WITH_WALLET,
+  LOGIN_WITH_WALLET_SUCCESS,
+  LOGIN_WITH_WALLET_ERROR,
 } from './constants';
 
 export const initialState = fromJS({
   content: null,
   showModal: false,
   email: null,
-  loginProcessing: false,
+  loginWithEmailProcessing: false,
   loginWithEmailError: null,
   eosAccount: null,
-  loginWithScatterProcessing: false,
-  loginWithScatterError: null,
+  loginWithWalletProcessing: false,
+  loginWithWalletError: null,
   finishRegistrationProcessing: false,
   finishRegistrationWithDisplayNameError: null,
 });
@@ -44,7 +44,7 @@ function loginReducer(state = initialState, action) {
     content,
     loginWithEmailError,
     eosAccount,
-    loginWithScatterError,
+    loginWithWalletError,
     finishRegistrationWithDisplayNameError,
   } = action;
 
@@ -58,29 +58,29 @@ function loginReducer(state = initialState, action) {
       return state.set('email', email).set('content', EMAIL_PASSWORD_FORM);
 
     case LOGIN_WITH_EMAIL:
-      return state.set('loginProcessing', true);
+      return state.set('loginWithEmailProcessing', true);
     case LOGIN_WITH_EMAIL_SUCCESS:
       return state
-        .set('loginProcessing', false)
+        .set('loginWithEmailProcessing', false)
         .set('eosAccount', eosAccount)
         .set('showModal', Boolean(content))
         .set('content', content || initialState.get('content'));
     case LOGIN_WITH_EMAIL_ERROR:
       return state
         .set('loginWithEmailError', loginWithEmailError)
-        .set('loginProcessing', false);
+        .set('loginWithEmailProcessing', false);
 
-    case LOGIN_WITH_SCATTER:
-      return state.set('loginWithScatterProcessing', true);
-    case LOGIN_WITH_SCATTER_SUCCESS:
+    case LOGIN_WITH_WALLET:
+      return state.set('loginWithWalletProcessing', true);
+    case LOGIN_WITH_WALLET_SUCCESS:
       return state
-        .set('loginWithScatterProcessing', false)
+        .set('loginWithWalletProcessing', false)
         .set('showModal', initialState.get('showModal'))
         .set('content', initialState.get('content'));
-    case LOGIN_WITH_SCATTER_ERROR:
+    case LOGIN_WITH_WALLET_ERROR:
       return state
-        .set('loginWithScatterProcessing', false)
-        .set('loginWithScatterError', loginWithScatterError);
+        .set('loginWithWalletProcessing', false)
+        .set('loginWithWalletError', loginWithWalletError);
 
     case FINISH_REGISTRATION:
       return state.set('finishRegistrationProcessing', true);
