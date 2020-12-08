@@ -188,6 +188,29 @@ const ContentHeader = props => {
             />
           </Button>
 
+          <div id={`${type}_delete_${answerId}`}>
+            <AreYouSure
+              submitAction={
+                isGlobalModerator || infiniteImpact ? voteToDelete : deleteItem
+              }
+              Button={({ onClick }) => (
+                <Button
+                  show={
+                    !!profile &&
+                    (isItWrittenByMe || isGlobalModerator || infiniteImpact)
+                  }
+                  id={`${type}_delete_${answerId}`}
+                  params={buttonParams}
+                  onClick={onClick}
+                  disabled={ids.includes(`${type}_delete_${answerId}`)}
+                >
+                  <IconMd icon={deleteIcon} fill={BORDER_PRIMARY} />
+                  <FormattedMessage {...messages.deleteButton} />
+                </Button>
+              )}
+            />
+          </div>
+
           {type === QUESTION_TYPE && (
             <DropdownBox>
               <Button
@@ -218,29 +241,6 @@ const ContentHeader = props => {
             <IconMd icon={pencilIcon} />
             <FormattedMessage {...messages.editButton} />
           </Button>
-
-          <div id={`${type}_delete_${answerId}`}>
-            <AreYouSure
-              submitAction={
-                isGlobalModerator || infiniteImpact ? voteToDelete : deleteItem
-              }
-              Button={({ onClick }) => (
-                <Button
-                  show={
-                    !!profile &&
-                    (isItWrittenByMe || isGlobalModerator || infiniteImpact)
-                  }
-                  id={`${type}_delete_${answerId}`}
-                  params={buttonParams}
-                  onClick={onClick}
-                  disabled={ids.includes(`${type}_delete_${answerId}`)}
-                >
-                  <IconMd icon={deleteIcon} fill={BORDER_PRIMARY} />
-                  <FormattedMessage {...messages.deleteButton} />
-                </Button>
-              )}
-            />
-          </div>
         </div>
       </ItemInfo>
     </Box>
