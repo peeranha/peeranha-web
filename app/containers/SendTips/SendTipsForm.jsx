@@ -333,7 +333,7 @@ FormClone = connect(
         tipsPreselect &&
         wallets.find(wallet => wallet.name === tipsPreselect[WALLET_FIELD]);
 
-      if (tipsPreselect && isPreselectedInWalletsArray)
+      if (isPreselectedInWalletsArray)
         return Object.values(WALLETS).find(
           wallet => wallet.name === tipsPreselect[WALLET_FIELD],
         );
