@@ -8,7 +8,6 @@ import { createStructuredSelector } from 'reselect';
 import messages from 'common-messages';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 import { makeSelectFollowedCommunities } from 'containers/AccountProvider/selectors';
 
 import {
