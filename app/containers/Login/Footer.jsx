@@ -29,10 +29,11 @@ const Box = styled.div`
   }
 `;
 
-const WalletsLogosStyles = css`
+const WalletButtonStyles = css`
   display: flex;
   align-items: start;
   justify-content: center;
+  flex-grow: 1;
   background: ${BG_LIGHT};
   color: ${TEXT_DARK};
   padding: 10px;
@@ -57,13 +58,13 @@ const WalletsLogosStyles = css`
 `;
 
 export const WalletButton = styled(Button)`
-  ${WalletsLogosStyles};
+  ${WalletButtonStyles};
 `;
 
 export const KeycatButton = styled(Button)`
-  ${WalletsLogosStyles};
+  ${WalletButtonStyles};
   align-items: center;
-  margin-left: ${props => (props.isMobileDevice ? '20px' : '')};
+  margin-left: 10px;
 
   svg {
     fill: #222;
@@ -80,10 +81,8 @@ const Heading = styled.div`
   }
 `;
 
-const WalletsButtons = styled.div`
+const ButtonsGroup = styled.div`
   display: flex;
-  justify-content: ${props =>
-    props.isMobileDevice ? 'center' : 'space-between'};
 `;
 
 export const LoginViaScatter = ({ action, processing, isMobileDevice }) => (
@@ -101,11 +100,7 @@ LoginViaScatter.propTypes = {
 };
 
 export const LoginViaKeycat = ({ action, processing }) => (
-  <KeycatButton
-    onClick={action || null}
-    disabled={processing}
-    isMobileDevice={isMobile(window.navigator).any}
-  >
+  <KeycatButton onClick={action || null} disabled={processing}>
     <Icon icon={keycatLogo} width="16" height="16" className="mr-2 mb-0" />
     <Icon icon={keycatTextLogo} height="16" className="mt-1 mb-0" />
   </KeycatButton>
@@ -129,7 +124,7 @@ const Footer = ({
     <Heading>
       {signUpText || <FormattedMessage {...messages.loginViaWallet} />}
     </Heading>
-    <WalletsButtons isMobileDevice={isMobile(window.navigator).any}>
+    <ButtonsGroup>
       <LoginViaScatter
         action={() => walletAction({ scatter: true })}
         processing={
@@ -151,7 +146,7 @@ const Footer = ({
           loginWithEmailProcessing
         }
       />
-    </WalletsButtons>
+    </ButtonsGroup>
     {!signUpText && (
       <IdontHaveAnAccount
         disabled={

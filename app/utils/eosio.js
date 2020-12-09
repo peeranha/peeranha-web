@@ -113,8 +113,6 @@ class EosioService {
     this.#key = key;
 
     await this.initKeycat();
-    this.withKeycat = false;
-    this.keycatUserData = null;
   };
 
   initKeycat = async () => {
@@ -130,6 +128,8 @@ class EosioService {
     });
 
     this.keycat = keycat;
+    this.withKeycat = false;
+    this.keycatUserData = null;
   };
 
   keycatSignIn = async () => {
