@@ -59,6 +59,8 @@ const CurrencyField = ({
   selectKeycatAccount,
   isPeer,
   locale,
+  withKeycat,
+  withScatter,
   isKeycatWalletSelected,
   isScatterWalletSelected,
 }) => {
@@ -124,9 +126,10 @@ const CurrencyField = ({
           <Label>
             {translationMessages[locale]?.[messages.sendFromAccount.id]}
           </Label>
-          {!isPeer && (
-            <B onClick={selectAccount} type="button">
-              {(isScatterWalletSelected || isKeycatWalletSelected) && (
+          {!isPeer &&
+            !(withScatter && isScatterWalletSelected) &&
+            !(withKeycat && isKeycatWalletSelected) && (
+              <B onClick={selectAccount} type="button">
                 <FormattedMessage
                   {...messages[
                     sendFromAccountFieldValue
@@ -134,9 +137,8 @@ const CurrencyField = ({
                       : 'chooseAccount'
                   ]}
                 />
-              )}
-            </B>
-          )}
+              </B>
+            )}
         </div>
       )}
     </Wrapper>
@@ -154,6 +156,8 @@ CurrencyField.propTypes = {
   selectScatterAccount: PropTypes.func,
   selectKeycatAccount: PropTypes.func,
   sendFromAccountFieldValue: PropTypes.string,
+  withKeycat: PropTypes.bool,
+  withScatter: PropTypes.bool,
   isKeycatWalletSelected: PropTypes.bool,
   isScatterWalletSelected: PropTypes.bool,
 };

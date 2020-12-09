@@ -136,16 +136,18 @@ const Footer = ({
         }
         isMobileDevice={isMobile(window.navigator).any}
       />
-      <LoginViaKeycat
-        action={() => walletAction({ keycat: true })}
-        processing={
-          loginWithWalletProcessing ||
-          showWalletSignUpProcessing ||
-          emailChecking ||
-          emailVerificationProcessing ||
-          loginWithEmailProcessing
-        }
-      />
+      {!isMobile(window.navigator).any && (
+        <LoginViaKeycat
+          action={() => walletAction({ keycat: true })}
+          processing={
+            loginWithWalletProcessing ||
+            showWalletSignUpProcessing ||
+            emailChecking ||
+            emailVerificationProcessing ||
+            loginWithEmailProcessing
+          }
+        />
+      )}
     </ButtonsGroup>
     {!signUpText && (
       <IdontHaveAnAccount

@@ -93,7 +93,7 @@ const SendTipsForm = ({
         change(EOS_SEND_FROM_ACCOUNT_FIELD, loggedUserAccount);
       }
 
-      // scatter operations
+      // set scatter account
       if (isScatterWalletSelected && withScatter && !selectedScatterAccount) {
         change(EOS_SEND_FROM_ACCOUNT_FIELD, loggedUserAccount);
       }
@@ -104,7 +104,7 @@ const SendTipsForm = ({
         change(EOS_SEND_FROM_ACCOUNT_FIELD, selectedScatterAccount);
       }
 
-      // keycat operations
+      // set keycat account
       if (isKeycatWalletSelected && withKeycat && !selectedKeycatAccount) {
         change(EOS_SEND_FROM_ACCOUNT_FIELD, loggedUserAccount);
       }
@@ -192,6 +192,8 @@ const SendTipsForm = ({
             selectKeycatAccount={selectKeycatAccountDispatch}
             locale={locale}
             isPeer={isPeer}
+            withScatter={withScatter}
+            withKeycat={withKeycat}
             isKeycatWalletSelected={isKeycatWalletSelected}
             isScatterWalletSelected={isScatterWalletSelected}
           />
@@ -312,7 +314,9 @@ FormClone = connect(
     if (currencyValue) {
       const walletsToFilter = isMobileDevice
         ? mobileWallets
-        : currencyValue.wallets;
+        : currencyValue.wallets.filter(
+            wallet => wallet.name !== WALLETS.WOMBAT.name,
+          );
 
       wallets = walletsToFilter.filter(
         wallet =>
@@ -324,10 +328,27 @@ FormClone = connect(
     }
 
     const getInitialWallet = () => {
+      // there is saved data for send tips
+      const isPreselectedInWalletsArray =
+        tipsPreselect &&
+        wallets.find(wallet => wallet.name === tipsPreselect[WALLET_FIELD]);
+
+      if (tipsPreselect && isPreselectedInWalletsArray)
+        return Object.values(WALLETS).find(
+          wallet => wallet.name === tipsPreselect[WALLET_FIELD],
+        );
+
+      // there is no saved data for send tips
       if (profile && !withScatter && !withKeycat)
         return CURRENCIES[initialCurrency].wallets[0];
-      if (withScatter) return CURRENCIES[initialCurrency].wallets[1];
-      if (withKeycat) return CURRENCIES[initialCurrency].wallets[2];
+
+      if (withScatter && !isMobileDevice)
+        return CURRENCIES[initialCurrency].wallets[1];
+
+      if (withScatter && isMobileDevice)
+        return CURRENCIES[initialCurrency].wallets[2];
+
+      if (withKeycat) return CURRENCIES[initialCurrency].wallets[3];
 
       // default value
       return wallets[0];
@@ -337,11 +358,7 @@ FormClone = connect(
       [CURRENCY_FIELD]: tipsPreselect
         ? CURRENCIES[tipsPreselect[CURRENCY_FIELD]]
         : CURRENCIES[initialCurrency],
-      [WALLET_FIELD]: tipsPreselect
-        ? Object.values(WALLETS).find(
-            ({ name }) => name === tipsPreselect[WALLET_FIELD],
-          )
-        : getInitialWallet(),
+      [WALLET_FIELD]: getInitialWallet(),
       [EOS_SEND_TO_ACCOUNT_FIELD]: cryptoAccounts[initialCurrency],
       [AMOUNT_FIELD]: tipsPreselect
         ? _get(tipsPreselect, [AMOUNT_FIELD, tipsPreselect[CURRENCY_FIELD]], '')
