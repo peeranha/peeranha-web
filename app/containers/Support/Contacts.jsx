@@ -24,8 +24,8 @@ import { CONTACTS_ID } from './constants';
 
 const MediaItem = Base.extend`
   display: ${x => (x.href ? 'flex' : 'none')};
-  flex: 1;
   flex-direction: column;
+  flex-grow: 0;
   align-items: center;
   justify-content: center;
   padding: 20px;
@@ -37,26 +37,34 @@ const MediaItem = Base.extend`
     object-fit: contain;
     margin-bottom: 5px;
   }
+
+  &:last-of-type {
+    padding: 20px 15px;
+    img {
+      height: 15px;
+    }
+  }
+
+  @media only screen and (max-width: 379px) {
+    &:last-of-type {
+      span {
+        font-size: 14px;
+      }
+    }
+  }
 `.withComponent('a');
 
 const MediaList = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-gap: 15px;
 
-  ${MediaItem} :not(:last-child) {
-    margin-right: 15px;
+  @media only screen and (max-width: 1279px) {
+    grid-template-columns: repeat(3, 1fr);
   }
 
-  ${MediaItem} :last-child {
-    padding: 20px 15px;
-  }
-
-  @media only screen and (max-width: 768px) {
-    flex-direction: column;
-
-    ${MediaItem} :not(:last-child) {
-      margin-right: 0px;
-      margin-bottom: 15px;
-    }
+  @media only screen and (max-width: 576px) {
+    grid-template-columns: repeat(2, 1fr);
   }
 `;
 
