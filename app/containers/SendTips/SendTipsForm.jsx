@@ -62,7 +62,6 @@ const SendTipsForm = ({
   walletValue,
   cryptoAccounts,
   currencies,
-  profile,
   loggedUserAccount,
   selectedScatterAccount,
   selectedKeycatAccount,
@@ -126,26 +125,27 @@ const SendTipsForm = ({
     [],
   );
 
-  const changeCurrency = value => {
-    change(CURRENCY_FIELD, value);
-    change(
-      WALLET_FIELD,
-      CURRENCIES[value.name].wallets[
-        profile && !withScatter && !withKeycat ? 0 : 1
-      ],
-    );
-    change(EOS_SEND_TO_ACCOUNT_FIELD, cryptoAccounts[value.name]);
-    const amount = _get(tipsPreselect, [AMOUNT_FIELD, value.name], null);
+  const changeCurrency = currency => {
+    change(CURRENCY_FIELD, currency);
+
+    const newCurrencyWalletsNames = currency.wallets.map(wal => wal.name);
+    if (!newCurrencyWalletsNames.includes(walletValue.name)) {
+      change(WALLET_FIELD, wallets[0]);
+    }
+
+    change(EOS_SEND_TO_ACCOUNT_FIELD, cryptoAccounts[currency.name]);
+    const amount = _get(tipsPreselect, [AMOUNT_FIELD, currency.name], null);
 
     if (amount) {
       change(AMOUNT_FIELD, amount);
     }
   };
 
-  const changeWallet = value => {
+  const changeWallet = wallet => {
     if (!withScatter && !withKeycat) {
-      change(WALLET_FIELD, value);
+      change(WALLET_FIELD, wallet);
     }
+    change(EOS_SEND_FROM_ACCOUNT_FIELD, null);
   };
 
   const disabled = sendTipsProcessing || selectedAccountProcessing;
@@ -230,7 +230,7 @@ const SendTipsForm = ({
         )}
 
         <Button
-          disabled={sendTipsProcessing}
+          disabled={disabled}
           onClick={handleSubmit(sendTips)}
           className="w-100 mb-3"
         >
@@ -257,7 +257,6 @@ SendTipsForm.propTypes = {
   tipsPreselect: PropTypes.object,
   cryptoAccounts: PropTypes.object,
   currencies: PropTypes.array,
-  profile: PropTypes.object,
   loggedUserAccount: PropTypes.string,
   selectedScatterAccount: PropTypes.string,
   selectedKeycatAccount: PropTypes.string,
@@ -304,6 +303,7 @@ FormClone = connect(
       walletValue.name === WALLETS.PEERANHA.name &&
       profile
     );
+
     const isMobileDevice = isMobile(window.navigator).any;
     const mobileWallets = [];
     Object.entries(WALLETS).forEach(([key, value]) => {
@@ -339,16 +339,10 @@ FormClone = connect(
         );
 
       // there is no saved data for send tips
-      if (profile && !withScatter && !withKeycat)
-        return CURRENCIES[initialCurrency].wallets[0];
-
-      if (withScatter && !isMobileDevice)
-        return CURRENCIES[initialCurrency].wallets[1];
-
-      if (withScatter && isMobileDevice)
-        return CURRENCIES[initialCurrency].wallets[2];
-
-      if (withKeycat) return CURRENCIES[initialCurrency].wallets[3];
+      if (profile && !withScatter && !withKeycat) return WALLETS.PEERANHA;
+      if (withScatter && !isMobileDevice) return WALLETS.SCATTER_SQRL_WOMBAT;
+      if (withScatter && isMobileDevice) return WALLETS.WOMBAT;
+      if (withKeycat) return WALLETS.KEYCAT;
 
       // default value
       return wallets[0];
@@ -372,7 +366,6 @@ FormClone = connect(
 
     return {
       isPeer,
-      profile,
       wallets,
       withScatter,
       withKeycat,
