@@ -6,7 +6,11 @@ import { reduxForm } from 'redux-form/immutable';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 
 import commonMessages from 'common-messages';
-import { BORDER_PRIMARY, LINK_COLOR_SECONDARY } from 'style-constants';
+import {
+  BORDER_PRIMARY,
+  LINK_COLOR_SECONDARY,
+  TEXT_SECONDARY,
+} from 'style-constants';
 
 import icoTag from 'images/icoTag.svg?external';
 
@@ -41,7 +45,12 @@ import TypeForm from './TypeForm';
 import TitleForm from './TitleForm';
 import ContentForm from './ContentForm';
 import TagsForm from './TagsForm';
-import { ANY_TYPE } from '../../containers/CreateCommunity/constants';
+import {
+  ANY_TYPE,
+  GENERAL_TYPE,
+} from '../../containers/CreateCommunity/constants';
+import Span from '../Span';
+import { PreviewWrapper } from '../AnswerForm';
 
 const single = isSingleCommunityWebsite();
 
@@ -83,6 +92,8 @@ export const QuestionForm = ({
   doSkipExistingQuestions,
   skipExistingQuestions,
   communityQuestionsType,
+  questionTypeExpertDescription,
+  questionTypeGeneralDescription,
 }) => {
   const handleSubmitWithType = sendQuestion => {
     if (communityQuestionsType !== ANY_TYPE) {
@@ -114,7 +125,7 @@ export const QuestionForm = ({
               questionLoading={questionLoading}
             />
 
-            {communityQuestionsType === ANY_TYPE && (
+            {(communityQuestionsType === ANY_TYPE && (
               <TypeForm
                 intl={intl}
                 change={change}
@@ -122,7 +133,20 @@ export const QuestionForm = ({
                 locale={locale}
                 formValues={formValues}
               />
-            )}
+            )) ||
+              (communityQuestionsType === GENERAL_TYPE && (
+                <PreviewWrapper>
+                  <Span color={TEXT_SECONDARY} fontSize="14" isItalic>
+                    {questionTypeGeneralDescription}
+                  </Span>
+                </PreviewWrapper>
+              )) || (
+                <PreviewWrapper>
+                  <Span color={TEXT_SECONDARY} fontSize="14" isItalic>
+                    {questionTypeExpertDescription}
+                  </Span>
+                </PreviewWrapper>
+              )}
 
             <TitleForm intl={intl} questionLoading={questionLoading} />
 

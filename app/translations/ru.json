@@ -793,6 +793,10 @@
   "app.containers.AskQuestion.title": "Задать вопрос",
   "app.containers.AskQuestion.description": "Задать вопрос | Описание",
   "app.containers.AskQuestion.postQuestion": "Отправить",
+  "app.container.AskQuestion.onlyExpertQuestionsAllowed":
+    "Вы можете задать только экспертный вопрос в этом комьюнити",
+  "app.container.AskQuestion.onlyGeneralQuestionsAllowed":
+    "Вы можете задать только общий вопрос в этом комьюнити",
 
   "app.containers.ErrorPage.title": "Возникла ошибка...",
   "app.containers.ErrorPage.description": "Возникла ошибка... описание",

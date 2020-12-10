@@ -21,7 +21,7 @@ const TitleForm = ({ questionLoading, intl }) => (
     component={TextInputField}
     disabled={questionLoading}
     label={intl.formatMessage(messages.titleLabel)}
-    tip={intl.formatMessage(messages.titleTip)}
+    tip="intl.formatMessage(messages.titleTip)"
     validate={[withoutDoubleSpace, strLength15x100, maxByteLength, required]}
     warn={[strLength15x100, required]}
     splitInHalf

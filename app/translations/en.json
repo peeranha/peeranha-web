@@ -803,6 +803,10 @@
   "app.containers.AskQuestion.title": "Ask question",
   "app.containers.AskQuestion.description": "Ask question | Description",
   "app.containers.AskQuestion.postQuestion": "Post question",
+  "app.container.AskQuestion.onlyExpertQuestionsAllowed":
+    "You can ask only expert questions in this community",
+  "app.container.AskQuestion.onlyGeneralQuestionsAllowed":
+    "You can ask only general questions in this community",
 
   "app.containers.ErrorPage.title": "Some error occured...",
   "app.containers.ErrorPage.description": "Some error occured... description",
