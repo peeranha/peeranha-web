@@ -18,7 +18,7 @@ const IconCss = css`
   position: absolute;
   z-index: 1;
   top: -5px;
-  right: 11px;
+  right: 0;
   margin-left: 0;
   border-radius: 8.5px;
   min-width: 24px;

@@ -41,17 +41,12 @@ export function* getWeekStatWorker() {
   }
 }
 
-export function* changeStakeWorker({ predictedBoost, currentStake }) {
+export function* changeStakeWorker({ currentStake }) {
   try {
     yield put(changeStakeProcessing());
 
     const eosService = yield select(selectEos);
     const profile = yield select(makeSelectProfileInfo());
-
-    console.log('changeStakeWorker', {
-      predictedBoost,
-      currentStake,
-    });
 
     yield call(addBoost, eosService, profile.user, currentStake);
 

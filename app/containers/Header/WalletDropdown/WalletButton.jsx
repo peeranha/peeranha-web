@@ -10,8 +10,15 @@ import {
   TEXT_LIGHT,
   TEXT_SECONDARY,
 } from 'style-constants';
+import { STATE_KEY } from "containers/Boost/constants";
 
 import messages from 'common-messages';
+
+import reducer from 'containers/Boost/reducer';
+import saga from 'containers/Boost/saga';
+
+import injectSaga from 'utils/injectSaga';
+import injectReducer from 'utils/injectReducer';
 
 import currencyPeerIcon from 'images/currencyPeer.svg?external';
 import boostWalletIcon from 'images/boost-wallet-icon.svg?external';
@@ -63,57 +70,60 @@ const IconWrapper = styled.span`
 
 const isPositiveNumber = number => Number.isFinite(number) && number > 0;
 
-const WalletButton = ({ balance, mobile, number, locale }) => {
-  const isBoost = true;
+const WalletButton = ({
+  balance,
+  mobile,
+  number,
+  locale,
+  isBoost,
+}) => (
+  <div className="position-relative">
+    <ButtonStyled isBoost={!!isBoost}>
+      {!!isBoost ?
+        <>
+          <IconWrapper>
+            <Icon width="50" icon={boostWalletIcon} />
+          </IconWrapper>
+        </>
+        :
+        <IconBG className="mr-2" bg={BG_PRIMARY} color={TEXT_LIGHT}>
+          <IconLg icon={currencyPeerIcon} />
+        </IconBG>
+      }        
 
-  return (
-    <div className="position-relative">
-      <ButtonStyled isBoost={!!isBoost}>
-        {!!isBoost ?
-          <>
-            
-            <IconWrapper>
-              <Icon width="50" icon={boostWalletIcon} />
-            </IconWrapper>
-          </>
-          :
-          <IconBG className="mr-2" bg={BG_PRIMARY} color={TEXT_LIGHT}>
-            <IconLg icon={currencyPeerIcon} />
-          </IconBG>
-        }        
-
-        <span className="d-flex flex-column text-left">
-          <Span className="align-middle" fontSize="16" bold>
-            {getFormattedNum4(balance)}
-          </Span>
-          <Span
-            className="align-middle"
-            fontSize="14"
-            lineHeight="18"
-            color={TEXT_SECONDARY}
-          >
-            <FormattedMessage {...messages.peers} />
-          </Span>
-        </span>
-      </ButtonStyled>
-      {mobile &&
-        isPositiveNumber(number) && (
-          <NotificationIcon
-            mobile={mobile}
-            number={number}
-            iconId="WalletButton_NotificationIconMobile"
-            locale={locale}
-          />
-        )}
-    </div>
-  );
-}
+      <span className="d-flex flex-column text-left">
+        <Span className="align-middle" fontSize="16" bold>
+          {getFormattedNum4(balance)}
+        </Span>
+        <Span
+          className="align-middle"
+          fontSize="14"
+          lineHeight="18"
+          color={TEXT_SECONDARY}
+        >
+          <FormattedMessage {...messages.peers} />
+        </Span>
+      </span>
+    </ButtonStyled>
+    {mobile &&
+      isPositiveNumber(number) && (
+        <NotificationIcon
+          mobile={mobile}
+          number={number}
+          iconId="WalletButton_NotificationIconMobile"
+          locale={locale}
+        />
+      )}
+  </div>
+);
 
 WalletButton.propTypes = {
   balance: PropTypes.number,
   locale: PropTypes.string,
   mobile: PropTypes.bool,
   number: PropTypes.number,
+  isBoost: PropTypes.bool,
+  getWeekStatDispatch: PropTypes.func,
 };
 
 export { IconBG };

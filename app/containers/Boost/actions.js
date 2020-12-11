@@ -41,7 +41,6 @@ export function getWeekStatErr(getWeekStatError) {
 export function changeStake(val) {
   return {
     type: CHANGE_STAKE,
-    predictedBoost: val.get(BOOST_PREDICTION_FORM),
     currentStake: val.get(CURRENT_STAKE_FORM),
   };
 }

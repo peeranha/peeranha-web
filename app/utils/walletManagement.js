@@ -21,6 +21,12 @@ import {
 
 import { ApplicationError } from './errors';
 
+const PERIOD_LENGTH = {
+  development: 2*60*60, // two hours
+  test: 2*60*60, // two hours
+  production: 7*24*60*60, // one week
+}
+
 /**
  * @balance - string, example - '1000.000000 PEER'
  */
@@ -292,7 +298,6 @@ export async function getUserBoostStatistics(eosService, user) {
 }
 
 export async function addBoost(eosService, user, tokens) {
-  console.log('user, tokens', user, tokens)
   await eosService.sendTransaction(
     user,
     ADD_BOOST_METHOD,
@@ -303,4 +308,33 @@ export async function addBoost(eosService, user, tokens) {
     process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
     true,
   );
+}
+
+export function getBoostWeeks(weekStat, globalBoostStat, userBoostStat) {
+  const currentWeek = weekStat ? weekStat[0] : {};
+  const nextWeek = currentWeek ? 
+    {
+      period: currentWeek.period + 1,
+      periodStarted: currentWeek.periodFinished,  
+      periodFinished: currentWeek.periodFinished + PERIOD_LENGTH[process.env.NODE_ENV],
+    } : {};
+
+  if (globalBoostStat && globalBoostStat.length) {
+    currentWeek.maxStake = +globalBoostStat[
+      (globalBoostStat.length > 1) && (globalBoostStat[0].period === nextWeek.period) ? 1 : 0
+    ].max_stake;
+    nextWeek.maxStake = +globalBoostStat[0].max_stake;
+  }
+
+  if (userBoostStat && userBoostStat.length) {
+    currentWeek.userStake = +userBoostStat[
+      (userBoostStat.length > 1) && (userBoostStat[0].period === nextWeek.period) ? 1 : 0
+    ].staked_tokens;
+    nextWeek.userStake = +userBoostStat[0].staked_tokens;
+  }
+
+  return {
+    currentWeek: { ...currentWeek },
+    nextWeek: { ...nextWeek },
+  };
 }

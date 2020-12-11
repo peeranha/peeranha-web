@@ -39,7 +39,7 @@ const PredictionPower = Span.extend`
 
 const WeekDetails = ({
   maximumStake,
-  yourStake,
+  yourStake = 0,
   isCurrentWeek,
 }) => {
   let predictedBoost = yourStake / maximumStake * 
@@ -67,7 +67,7 @@ const WeekDetails = ({
           <Span fontSize="20" mobileFS={14} bold>{getFormattedNum3(yourStake)}</Span>
         </P>
       </BaseGroup>
-      {predictedBoost && (
+      {predictedBoost > 1 && (
         <BaseGroup>
           <P className="mb-1" fontSize="14" color={TEXT_SECONDARY}>
             <FormattedMessage {...messages[isCurrentWeek ? 'yourBoost' : 'yourPredictedBoost']} />
