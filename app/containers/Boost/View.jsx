@@ -14,6 +14,8 @@ const View = ({
   account,
   balance,
   weekStat,
+  globalBoostStat,
+  userBoostStat,
   getWeekStatProcessing,
   changeStakeDispatch,
   changeStakeLoading,
@@ -27,21 +29,24 @@ const View = ({
     [currentStake, setCurrentStake],
   );
 
-  const maximumCurrentStake = 9876543210.84736;
+  const maximumCurrentStake = 1003.84736;
 
-  const predictedBoost = 
-    Math.floor(currentStake / maximumCurrentStake * 100) / 100 * 
+  let predictedBoost = currentStake / maximumCurrentStake * 
     (MAX_STAKE_PREDICTION - MIN_STAKE_PREDICTION) + 1;
+
+  predictedBoost = Math.floor(predictedBoost * 100) / 100;
 
   return (
   <>
     <NavHeader userId={userId} />
     
-    <SubHeader account={account} balance={balance.toString()} />
+    <SubHeader account={account} balance={balance ? balance.toString() : ""} />
 
     <Weeks
       locale={locale}
       weekStat={weekStat}
+      globalBoostStat={globalBoostStat}
+      userBoostStat={userBoostStat}
       getWeekStatProcessing={getWeekStatProcessing}
     />
 
@@ -64,6 +69,8 @@ View.propTypes = {
   account: PropTypes.string,
   balance: PropTypes.number,
   weekStat: PropTypes.array,
+  globalBoostStat: PropTypes.array,
+  userBoostStat: PropTypes.array,
   getWeekStatProcessing: PropTypes.bool,
   changeStakeDispatch: PropTypes.func,
   changeStakeLoading: PropTypes.bool,

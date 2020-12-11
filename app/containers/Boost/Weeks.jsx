@@ -30,39 +30,56 @@ const CurrentPendingWeeks = styled.div`
   }
 `;
 
-/* eslint indent: 0 */
+const PERIOD_LENGTH = {
+  development: 2*60*60, // two hours
+  test: 2*60*60, // two hours
+  production: 7*24*60*60, // one week
+}
+
 const Weeks = ({
   locale,
   weekStat,
+  globalBoostStat,
+  userBoostStat,
   getWeekStatProcessing,
 }) => {
-  const currentWeeksNumber = weekStat && ((weekStat[0] && 1) || 0);
+  const currentWeek = weekStat ? weekStat[0] : {};
+  const nextWeek = currentWeek ? 
+    {
+      period: currentWeek.period + 1,
+      periodStarted: currentWeek.periodFinished,  
+      periodFinished: currentWeek.periodFinished + PERIOD_LENGTH[process.env.NODE_ENV],
+    } : {};
 
-  const pendingWeek = weekStat?.[1] ?? null;
+  if (globalBoostStat) {
+    currentWeek.maxStake = +globalBoostStat[
+      (globalBoostStat.length > 1) && (globalBoostStat[0].period === nextWeek.period) ? 1 : 0
+    ].max_stake;
+    nextWeek.maxStake = +globalBoostStat[0].max_stake;
+  }
 
-  const ref = useRef(null);
+  if (userBoostStat) {
+    currentWeek.userStake = +userBoostStat[
+      (userBoostStat.length > 1) && (userBoostStat[0].period === nextWeek.period) ? 1 : 0
+    ].staked_tokens;
+    nextWeek.userStake = +userBoostStat[0].staked_tokens;
+  }
 
   return (
     <>
-      {weekStat &&
+      {globalBoostStat &&
         !getWeekStatProcessing && (
-          <ul className="mt-3" ref={ref}>
-            <CurrentPendingWeeks inRow={weekStat.length >= 2}>
-              {weekStat.length > 1 && (
-                <CurrentWeek
-                  currentWeeksNumber={currentWeeksNumber}
-                  locale={locale}
-                  {...weekStat[currentWeeksNumber === 2 ? 1 : 0]}
-                  periodFinished={weekStat[0].periodFinished}
-                />
-              )}
+          <ul className="mt-3">
+            <CurrentPendingWeeks inRow>
+              <CurrentWeek
+                locale={locale}
+                {...currentWeek}
+              />
 
-              {pendingWeek && (
-                <NextWeek
-                  locale={locale}
-                  {...pendingWeek}
-                />
-              )}
+              <NextWeek
+                locale={locale}
+                {...nextWeek}
+              />
             </CurrentPendingWeeks>
           </ul>
         )}
@@ -74,6 +91,8 @@ const Weeks = ({
 
 Weeks.propTypes = {
   weekStat: PropTypes.array,
+  globalBoostStat: PropTypes.array,
+  userBoostStat: PropTypes.array,
   locale: PropTypes.string,
   getWeekStatProcessing: PropTypes.bool,
 };

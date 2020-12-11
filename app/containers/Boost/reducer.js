@@ -20,6 +20,8 @@ export const initialState = fromJS({
   getWeekStatProcessing: false,
   getWeekStatError: null,
   weekStat: null,
+  globalBoostStat: null,
+  userBoostStat: null,
   changeStakeLoading: false,
   changeStakeError: null,
 });
@@ -29,6 +31,8 @@ function walletReducer(state = initialState, action) {
     type,
     getWeekStatError,
     weekStat,
+    globalBoostStat,
+    userBoostStat,
     changeStakeError,
   } = action;
 
@@ -38,7 +42,9 @@ function walletReducer(state = initialState, action) {
     case GET_WEEK_STAT_SUCCESS:
       return state
         .set('getWeekStatProcessing', false)
-        .set('weekStat', weekStat);
+        .set('weekStat', weekStat.slice(0, 1))
+        .set('globalBoostStat', globalBoostStat.slice(0, 2))
+        .set('userBoostStat', userBoostStat.slice(0, 2));
     case GET_WEEK_STAT_ERROR:
       return state
         .set('getWeekStatProcessing', false)

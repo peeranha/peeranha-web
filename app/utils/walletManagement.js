@@ -13,6 +13,10 @@ import {
   TOTAL_REWARD_TABLE,
   USER_SUPPLY_SCOPE,
   USER_SUPPLY_TABLE,
+  BOOST_STATISTICS_TABLE,
+  BOOST_STATISTICS_SCOPE,
+  USER_BOOST_TABLE,
+  ADD_BOOST_METHOD,
 } from './constants';
 
 import { ApplicationError } from './errors';
@@ -251,4 +255,52 @@ export function createGetRewardPool(
 // TODO: test
 export function convertPeerValueToNumberValue(val) {
   return Number(val.replace(/[a-zA-Z]/gim, '').trim());
+}
+
+export async function getGlobalBoostStatistics(eosService) {
+  const limit = 100;
+
+  const { rows } = await eosService.getTableRows(
+    BOOST_STATISTICS_TABLE,
+    BOOST_STATISTICS_SCOPE,
+    undefined,
+    limit,
+    undefined,
+    undefined,
+    undefined,
+    process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
+  );
+
+  return rows;
+}
+
+export async function getUserBoostStatistics(eosService, user) {
+  const limit = 100;
+
+  const { rows } = await eosService.getTableRows(
+    USER_BOOST_TABLE,
+    user,
+    undefined,
+    limit,
+    undefined,
+    undefined,
+    undefined,
+    process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
+  );
+
+  return rows;
+}
+
+export async function addBoost(eosService, user, tokens) {
+  console.log('user, tokens', user, tokens)
+  await eosService.sendTransaction(
+    user,
+    ADD_BOOST_METHOD,
+    {
+      user,
+      tokens,
+    },
+    process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
+    true,
+  );
 }

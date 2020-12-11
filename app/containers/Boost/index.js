@@ -34,6 +34,8 @@ const Boost = ({
   account,
   balance,
   weekStat,
+  globalBoostStat,
+  userBoostStat,
   getWeekStatDispatch,
   getWeekStatProcessing,
   changeStakeDispatch,
@@ -65,6 +67,8 @@ const Boost = ({
         account={account}
         balance={balance}
         weekStat={weekStat}
+        globalBoostStat={globalBoostStat}
+        userBoostStat={userBoostStat}
         getWeekStatProcessing={getWeekStatProcessing}
         changeStakeDispatch={changeStakeDispatch}
         changeStakeLoading={changeStakeLoading}
@@ -79,6 +83,8 @@ Boost.propTypes = {
   account: PropTypes.string,
   match: PropTypes.object,
   weekStat: PropTypes.array,
+  globalBoostStat: PropTypes.array,
+  userBoostStat: PropTypes.array,
   getWeekStatDispatch: PropTypes.func,
   getWeekStatProcessing: PropTypes.bool,
   changeStakeDispatch: PropTypes.func,
@@ -95,6 +101,8 @@ export default memo(
         account: makeSelectAccount(),
         balance: makeSelectBalance(),
         weekStat: selectors.selectWeekStat(),
+        globalBoostStat: selectors.selectGlobalBoostStat(),
+        userBoostStat: selectors.selectUserBoostStat(),
         getWeekStatProcessing: selectors.selectGetWeekStatProcessing(),
         changeStakeLoading: selectors.selectChangeStakeLoading(),
       }),

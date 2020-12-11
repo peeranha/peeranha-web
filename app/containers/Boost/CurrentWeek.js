@@ -14,20 +14,20 @@ import messages from './messages';
 const CurrentWeek = ({
   period,
   locale,
+  maxStake,
+  userStake,
   periodStarted,
   periodFinished,
-  currentWeeksNumber,
 }) => (
   <li
-    className="flex-grow-1 mb-3"
+    className="d-flex flex-column flex-grow-1 mb-3"
     style={{border: `1px dashed ${BORDER_WARNING_LIGHT}`, borderRadius: BORDER_RADIUS_L}}
   >
-    <Base position="top">
+    <Base className="flex-grow-0" position="top">
       <P className="mb-1" color={TEXT_WARNING_LIGHT} fontSize="13">
         <FormattedMessage {...messages.currentPeriod} />
       </P>
       <WeekNumber
-        currentWeeksNumber={currentWeeksNumber}
         locale={locale}
         period={period}
         periodStarted={periodStarted}
@@ -35,10 +35,8 @@ const CurrentWeek = ({
       />
     </Base>
     <WeekDetails
-      maximumStake={9876543210.84736}
-      users={12038}
-      yourStake={9959.25001}
-      predictedBoost={2}
+      maximumStake={maxStake}
+      yourStake={userStake}
       isCurrentWeek
     />
   </li>
@@ -49,7 +47,8 @@ CurrentWeek.propTypes = {
   locale: PropTypes.string,
   periodStarted: PropTypes.number,
   periodFinished: PropTypes.number,
-  currentWeeksNumber: PropTypes.number,
+  maxStake: PropTypes.number,
+  userStake: PropTypes.number,
 };
 
 export default memo(CurrentWeek);

@@ -14,11 +14,13 @@ import messages from './messages';
 const NextWeek = ({
   period,
   locale,
+  maxStake,
+  userStake,
   periodStarted,
   periodFinished,
 }) => (
-  <li className="flex-grow-1 mb-3">
-    <Base position="top">
+  <li className="d-flex flex-column flex-grow-1 mb-3">
+    <Base className="flex-grow-0" position="top">
       <P className="mb-1" color={TEXT_WARNING_LIGHT} fontSize="13">
         <FormattedMessage {...messages.nextPeriod} />
       </P>
@@ -31,10 +33,8 @@ const NextWeek = ({
     </Base>
 
     <WeekDetails
-      maximumStake={4478546.00392}
-      users={3021}
-      yourStake={9959.25001}
-      predictedBoost={1.25}
+      maximumStake={maxStake}
+      yourStake={userStake}
     />
   </li>
 );
@@ -44,6 +44,8 @@ NextWeek.propTypes = {
   locale: PropTypes.string,
   periodStarted: PropTypes.number,
   periodFinished: PropTypes.number,
+  maxStake: PropTypes.number,
+  userStake: PropTypes.number,
 };
 
 export default memo(NextWeek);

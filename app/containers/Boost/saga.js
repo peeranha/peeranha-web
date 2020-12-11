@@ -1,5 +1,10 @@
 import { takeLatest, put, call, select } from 'redux-saga/effects';
-import { getWeekStat } from 'utils/walletManagement';
+import {
+  getWeekStat,
+  getGlobalBoostStatistics,
+  getUserBoostStatistics,
+  addBoost,
+} from 'utils/walletManagement';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 import {
@@ -26,7 +31,11 @@ export function* getWeekStatWorker() {
 
     const weekStat = yield call(getWeekStat, eosService, profile);
 
-    yield put(getWeekStatSuccess(weekStat));
+    const globalBoostStat = yield call(getGlobalBoostStatistics, eosService);
+
+    const userBoostStat = yield call(getUserBoostStatistics, eosService, profile.user);
+
+    yield put(getWeekStatSuccess(weekStat, globalBoostStat, userBoostStat));
   } catch (err) {
     yield put(getWeekStatErr(err));
   }
@@ -36,11 +45,15 @@ export function* changeStakeWorker({ predictedBoost, currentStake }) {
   try {
     yield put(changeStakeProcessing());
 
-    // TODO: post form stake data
-    console.log({
+    const eosService = yield select(selectEos);
+    const profile = yield select(makeSelectProfileInfo());
+
+    console.log('changeStakeWorker', {
       predictedBoost,
       currentStake,
-    })
+    });
+
+    yield call(addBoost, eosService, profile.user, currentStake);
 
     yield put(changeStakeSuccess());
   } catch (err) {

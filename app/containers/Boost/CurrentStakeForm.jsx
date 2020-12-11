@@ -86,7 +86,15 @@ const CurrentStakeForm = ({ value, maxValue, onClickStakeTag, disabled, onChange
       <Label><FormattedMessage {...messages.formCurrentStake} /></Label>
       <Tags>
         <TagsLabel><FormattedMessage {...messages.formTakeAStake} />:</TagsLabel>
-        {STAKE_TAGS.map(item => <Tag key={item.value} onClick={() => onClickStakeTag(item.value)}>{item.text}</Tag>)}
+        {STAKE_TAGS.map(item => (
+          <Tag
+            key={item.value}
+            onClick={(e) => {
+              e.preventDefault();
+              onClickStakeTag(item.value);
+            }}
+          >{item.text}</Tag>
+        ))}
       </Tags>
       <Field
         name={CURRENT_STAKE_FORM}

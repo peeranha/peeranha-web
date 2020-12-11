@@ -9,6 +9,10 @@ import {
   BG_WARNING_LIGHT,
   BG_PRIMARY,
 } from 'style-constants';
+import {
+  MAX_STAKE_PREDICTION,
+  MIN_STAKE_PREDICTION,
+} from './constants';
 
 import currencyPeerImage from 'images/currencyPeer.svg?inline';
 
@@ -36,49 +40,56 @@ const PredictionPower = Span.extend`
 const WeekDetails = ({
   maximumStake,
   yourStake,
-  predictedBoost,
   isCurrentWeek,
-}) => (
-  <Base position="bottom">
-    <BaseGroup>
-      <P className="mb-1" fontSize="14" color={TEXT_SECONDARY}>
-        <FormattedMessage {...messages.maximumStake} />
-      </P>
-      <P className="d-flex align-items-center">
-        <SmallImage className="mr-2" src={currencyPeerImage} alt="icon" />
-        <Span fontSize="20" mobileFS={14} bold>{getFormattedNum3(maximumStake)}</Span>
-      </P>
-    </BaseGroup>
-    <BaseGroup>
-      <P className="mb-1" fontSize="14" color={TEXT_SECONDARY}>
-        <FormattedMessage {...messages.yourStake} />
-      </P>
-      <P className="d-flex align-items-center">
-        <SmallImage className="mr-2" src={currencyPeerImage} alt="icon" />
-        <Span fontSize="20" mobileFS={14} bold>{getFormattedNum3(yourStake)}</Span>
-      </P>
-    </BaseGroup>
-    <BaseGroup>
-      <P className="mb-1" fontSize="14" color={TEXT_SECONDARY}>
-        <FormattedMessage {...messages[isCurrentWeek ? 'yourBoost' : 'yourPredictedBoost']} />
-      </P>
-      <P className="d-flex align-items-center">
-        <PredictionPower
-          fontSize="20"
-          mobileFS={14}
-          isCurrentWeek={!!isCurrentWeek}
-        >
-          ×{predictedBoost}
-        </PredictionPower>
-      </P>
-    </BaseGroup>
-  </Base>
-);
+}) => {
+  let predictedBoost = yourStake / maximumStake * 
+    (MAX_STAKE_PREDICTION - MIN_STAKE_PREDICTION) + 1;
+
+  predictedBoost = Math.floor(predictedBoost * 100) / 100;
+
+  return (
+    <Base position="bottom">
+      <BaseGroup>
+        <P className="mb-1" fontSize="14" color={TEXT_SECONDARY}>
+          <FormattedMessage {...messages.maximumStake} />
+        </P>
+        <P className="d-flex align-items-center">
+          <SmallImage className="mr-2" src={currencyPeerImage} alt="icon" />
+          <Span fontSize="20" mobileFS={14} bold>{getFormattedNum3(maximumStake)}</Span>
+        </P>
+      </BaseGroup>
+      <BaseGroup>
+        <P className="mb-1" fontSize="14" color={TEXT_SECONDARY}>
+          <FormattedMessage {...messages.yourStake} />
+        </P>
+        <P className="d-flex align-items-center">
+          <SmallImage className="mr-2" src={currencyPeerImage} alt="icon" />
+          <Span fontSize="20" mobileFS={14} bold>{getFormattedNum3(yourStake)}</Span>
+        </P>
+      </BaseGroup>
+      {predictedBoost && (
+        <BaseGroup>
+          <P className="mb-1" fontSize="14" color={TEXT_SECONDARY}>
+            <FormattedMessage {...messages[isCurrentWeek ? 'yourBoost' : 'yourPredictedBoost']} />
+          </P>
+          <P className="d-flex align-items-center">
+            <PredictionPower
+              fontSize="20"
+              mobileFS={14}
+              isCurrentWeek={!!isCurrentWeek}
+            >
+              ×{predictedBoost}
+            </PredictionPower>
+          </P>
+        </BaseGroup>
+      )}
+    </Base>
+  );
+}
 
 WeekDetails.propTypes = {
   maximumStake: PropTypes.number,
   yourStake: PropTypes.number,
-  predictedBoost: PropTypes.number,
   isCurrentWeek: PropTypes.bool,
 };
 

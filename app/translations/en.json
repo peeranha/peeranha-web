@@ -178,7 +178,7 @@
   "app.containers.Wallet.registrationWeek": "Registration week",
   "app.containers.Wallet.yourWalletWasSuccessfullySet":
     "Your wallet was successfully set during this period",
-  "app.containers.Wallet.getMoreWithSBoost": "Get more rewards with Boost",
+  "app.containers.Wallet.getMoreWithBoost": "Get more rewards with Boost",
   "app.containers.Wallet.stakedInCurrentPeriod": "Staked in the current period",
   "app.containers.Wallet.stakedInNextPeriod": "Staked in next period",
   "app.containers.Wallet.totalBalance": "Total balance",

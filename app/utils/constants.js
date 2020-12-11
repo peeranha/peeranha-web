@@ -123,6 +123,8 @@ export const ALL_PROPERTY_COMMUNITY_TABLE = 'propertycomm';
 export const TG_ACCOUNT_TABLE = 'telegramacc';
 export const USER_ACHIEVEMENTS_TABLE = 'accachieve';
 export const PROJECT_ACHIEVEMENTS_TABLE = 'achieve';
+export const BOOST_STATISTICS_TABLE = 'statboost';
+export const USER_BOOST_TABLE = 'boost';
 
 // Scopes
 
@@ -137,6 +139,7 @@ export const ALL_TOP_QUESTIONS_SCOPE = 'alltopquest';
 export const ALL_PROPERTY_COMMUNITY_SCOPE = 'allprprtcomm';
 export const ALL_TG_ACCOUNTS_SCOPE = 'alltelacc';
 export const ALL_ACHIEVEMENTS_SCOPE = 'allachieve';
+export const BOOST_STATISTICS_SCOPE = 'allboost';
 
 // Inf. limit
 export const INF_LIMIT = -1;
@@ -181,6 +184,7 @@ export const VOTE_TO_DELETE_TAG = 'vtdeltag';
 
 export const SEND_TOKEN_METHOD = 'transfer';
 export const PICKUP_REWARD_METHOD = 'pickupreward';
+export const ADD_BOOST_METHOD = 'addboost';
 
 export const CONFIRM_TELEGRAM_ACCOUNT = 'apprvacc';
 export const UNLINK_TELEGRAM_ACCOUNT = 'dsapprvacc';
