@@ -79,7 +79,7 @@ const Tag = styled.button`
 `;
 
 const CurrentStakeForm = ({ value, maxValue, onClickStakeTag, disabled, onChange }) => {
-  const progressWidth = value ? value * 100 / maxValue : 0;
+  const progressWidth = value && maxValue ? value * 100 / maxValue : 0;
 
   return (
     <InputWrapper>

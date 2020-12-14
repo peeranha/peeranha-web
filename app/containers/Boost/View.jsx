@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import { MAX_STAKE_PREDICTION, MIN_STAKE_PREDICTION } from './constants';
 
+import { getBoostWeeks } from 'utils/walletManagement';
+
 import NavHeader from 'components/WalletNavigation';
 import SubHeader from 'containers/Wallet/SubHeader';
 import Weeks from './Weeks';
@@ -29,39 +31,47 @@ const View = ({
     [currentStake, setCurrentStake],
   );
 
-  const maximumCurrentStake = 1003.84736;
+  const boostWeeks = getBoostWeeks(weekStat, globalBoostStat, userBoostStat);
 
-  let predictedBoost = currentStake / maximumCurrentStake * 
-    (MAX_STAKE_PREDICTION - MIN_STAKE_PREDICTION) + 1;
+  console.log('boostWeeks', boostWeeks)
+  const { currentWeek } = boostWeeks;
+  const { maxStake } = currentWeek;
 
-  predictedBoost = Math.floor(predictedBoost * 100) / 100;
+  let predictedBoost = 1;
+  if (maxStake && currentStake <= maxStake) {
+    predictedBoost = currentStake / maxStake * (MAX_STAKE_PREDICTION - MIN_STAKE_PREDICTION) + 1;
+    predictedBoost = Math.floor(predictedBoost * 100) / 100;
+  } else if (currentStake > 0) {
+    predictedBoost = MAX_STAKE_PREDICTION;
+  }
 
   return (
-  <>
-    <NavHeader userId={userId} />
-    
-    <SubHeader account={account} balance={balance ? balance.toString() : ""} />
+    <>
+      <NavHeader userId={userId} />
+      
+      <SubHeader account={account} balance={balance ? balance.toString() : ""} />
 
-    <Weeks
-      locale={locale}
-      weekStat={weekStat}
-      globalBoostStat={globalBoostStat}
-      userBoostStat={userBoostStat}
-      getWeekStatProcessing={getWeekStatProcessing}
-    />
+      <Weeks
+        locale={locale}
+        weekStat={weekStat}
+        globalBoostStat={globalBoostStat}
+        userBoostStat={userBoostStat}
+        getWeekStatProcessing={getWeekStatProcessing}
+      />
 
-    <Form
-      currentStake={currentStake}
-      predictedBoost={predictedBoost}
-      maxStake={balance}
-      changeCurrentStake={changeCurrentStake}
-      onChangeCurrentStake={e => setCurrentStake(+e.currentTarget.value)}
-      changeStake={changeStakeDispatch}
-      changeStakeLoading={changeStakeLoading}
-      locale={locale}
-    />
-  </>
-);}
+      <Form
+        currentStake={currentStake}
+        predictedBoost={predictedBoost}
+        maxStake={balance}
+        changeCurrentStake={changeCurrentStake}
+        onChangeCurrentStake={e => setCurrentStake(+e.currentTarget.value)}
+        changeStake={changeStakeDispatch}
+        changeStakeLoading={changeStakeLoading}
+        locale={locale}
+      />
+    </>
+  );
+}
 
 View.propTypes = {
   userId: PropTypes.string,

@@ -193,6 +193,7 @@
   "app.containers.Boost.formBoostPrediction": "Boost прогноз",
   "app.containers.Boost.formCurrentStake": "Ваша ставка",
   "app.containers.Boost.formTakeAStake": "Сделайте ставку",
+  "app.containers.Boost.notTokensToStake": "У вас нет токенов, чтобы сделать ставку",
 
   "web_integration.errors.unknownError":
     "Неизвестная ошибка. Пожалуйста, отправьте отчет об ошибке!",

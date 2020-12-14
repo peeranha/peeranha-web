@@ -298,6 +298,7 @@ export async function getUserBoostStatistics(eosService, user) {
 }
 
 export async function addBoost(eosService, user, tokens) {
+  console.log('user, tokens', user, tokens)
   await eosService.sendTransaction(
     user,
     ADD_BOOST_METHOD,
@@ -311,6 +312,8 @@ export async function addBoost(eosService, user, tokens) {
 }
 
 export function getBoostWeeks(weekStat, globalBoostStat, userBoostStat) {
+  const CURRENCY = ' PEER';
+
   const currentWeek = weekStat ? weekStat[0] : {};
   const nextWeek = currentWeek ? 
     {
@@ -320,17 +323,23 @@ export function getBoostWeeks(weekStat, globalBoostStat, userBoostStat) {
     } : {};
 
   if (globalBoostStat && globalBoostStat.length) {
-    currentWeek.maxStake = +globalBoostStat[
+    const currentWeekMaxStake = globalBoostStat[
       (globalBoostStat.length > 1) && (globalBoostStat[0].period === nextWeek.period) ? 1 : 0
     ].max_stake;
-    nextWeek.maxStake = +globalBoostStat[0].max_stake;
+    const nextWeekMaxStake = globalBoostStat[0].max_stake;
+
+    currentWeek.maxStake = +(currentWeekMaxStake.slice(0, currentWeekMaxStake.indexOf(CURRENCY)));
+    nextWeek.maxStake = +(nextWeekMaxStake.slice(0, nextWeekMaxStake.indexOf(CURRENCY)));
   }
 
   if (userBoostStat && userBoostStat.length) {
-    currentWeek.userStake = +userBoostStat[
+    const currentWeekUserStake = userBoostStat[
       (userBoostStat.length > 1) && (userBoostStat[0].period === nextWeek.period) ? 1 : 0
     ].staked_tokens;
-    nextWeek.userStake = +userBoostStat[0].staked_tokens;
+    const nextWeekUserStake = userBoostStat[0].staked_tokens;
+
+    currentWeek.userStake = +(currentWeekUserStake.slice(0, currentWeekUserStake.indexOf(CURRENCY)));
+    nextWeek.userStake = +(nextWeekUserStake.slice(0, nextWeekUserStake.indexOf(CURRENCY)));
   }
 
   return {

@@ -27,6 +27,7 @@ import FormBox from 'components/Form';
 import Button from 'components/Button/Contained/InfoLarge';
 import TransparentButton from 'components/Button/Contained/Transparent';
 import Label from 'components/FormFields/Label';
+import BlockedInfoArea from 'components/BlockedInfoArea';
 
 export const InputWrapper = styled.div`
   position: relative;
@@ -86,40 +87,43 @@ const Form = ({
   maxStake,
   onChangeCurrentStake,
   locale,
-}) => {
+}) => (
+  <div className="mb-5">
+    <Title><FormattedMessage {...messages.formTitle} /></Title>
+    <TipsBase>    
+      <BaseSpecialOne className="position-relative">
+        {!maxStake && (
+          <BlockedInfoArea>
+            <FormattedMessage {...messages.notTokensToStake} />
+          </BlockedInfoArea>
+        )}
 
-  return (
-    <>
-      <Title><FormattedMessage {...messages.formTitle} /></Title>
-      <TipsBase>
-        <BaseSpecialOne>
-          <FormBox onSubmit={handleSubmit(changeStake)}>
-            <PredictionForm value={predictedBoost} locale={locale} />
+        <FormBox onSubmit={handleSubmit(changeStake)}>
+          <PredictionForm value={predictedBoost} locale={locale} />
 
-            <CurrentStakeForm
-              maxValue={maxStake}
-              value={+currentStakeValue}
-              onClickStakeTag={v => changeCurrentStake(v)}
-              disabled={changeStakeLoading}
-              onChange={onChangeCurrentStake}
-            />
+          <CurrentStakeForm
+            maxValue={maxStake}
+            value={+currentStakeValue}
+            onClickStakeTag={v => changeCurrentStake(v)}
+            disabled={changeStakeLoading}
+            onChange={onChangeCurrentStake}
+          />
 
-            <div className="mt-5">
-              <Button type="submit" className="mr-4">
-                <FormattedMessage {...messages.formSubmit} />
-              </Button>
-              <TransparentButton type="reset">
-                <FormattedMessage {...messages.formCancel} />
-              </TransparentButton>
-            </div>
-          </FormBox>
-        </BaseSpecialOne>
+          <div className="mt-5">
+            <Button type="submit" className="mr-4">
+              <FormattedMessage {...messages.formSubmit} />
+            </Button>
+            <TransparentButton type="reset">
+              <FormattedMessage {...messages.formCancel} />
+            </TransparentButton>
+          </div>
+        </FormBox>
+      </BaseSpecialOne>
 
-        <Tips />
-      </TipsBase>
-    </>
-  );
-};
+      <Tips />
+    </TipsBase>
+  </div>
+);
 
 Form.propTypes = {
   handleSubmit: PropTypes.func,

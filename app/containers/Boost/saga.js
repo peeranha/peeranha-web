@@ -5,6 +5,7 @@ import {
   getUserBoostStatistics,
   addBoost,
 } from 'utils/walletManagement';
+import { getFormattedNum3 } from 'utils/numbers';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 import {
@@ -32,9 +33,9 @@ export function* getWeekStatWorker() {
     const weekStat = yield call(getWeekStat, eosService, profile);
 
     const globalBoostStat = yield call(getGlobalBoostStatistics, eosService);
-
+    console.log('globalBoostStat', globalBoostStat)
     const userBoostStat = yield call(getUserBoostStatistics, eosService, profile.user);
-
+    console.log('userBoostStat', userBoostStat)
     yield put(getWeekStatSuccess(weekStat, globalBoostStat, userBoostStat));
   } catch (err) {
     yield put(getWeekStatErr(err));
@@ -48,7 +49,7 @@ export function* changeStakeWorker({ currentStake }) {
     const eosService = yield select(selectEos);
     const profile = yield select(makeSelectProfileInfo());
 
-    yield call(addBoost, eosService, profile.user, currentStake);
+    yield call(addBoost, eosService, profile.user, `${getFormattedNum3(currentStake)} PEER`);
 
     yield put(changeStakeSuccess());
   } catch (err) {

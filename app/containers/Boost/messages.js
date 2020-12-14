@@ -43,4 +43,7 @@ export default defineMessages({
   formTakeAStake: {
     id: 'app.containers.Boost.formTakeAStake',
   },
+  notTokensToStake: {
+    id: 'app.containers.Boost.notTokensToStake',
+  },
 });
