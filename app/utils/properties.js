@@ -27,7 +27,7 @@ const findAllPropertiesByKeys = (properties, keys, exact = false) =>
           .split('')
           .reverse()
           .join('')[key] === '1',
-          );
+    );
 
     const restMatch =
       exact &&
@@ -41,7 +41,7 @@ const findAllPropertiesByKeys = (properties, keys, exact = false) =>
       );
 
     return exact ? match && restMatch : match;
-});
+  });
 
 export const getModeratorPermissions = (
   communityPermissions = [],

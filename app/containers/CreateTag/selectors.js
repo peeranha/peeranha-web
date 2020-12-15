@@ -23,13 +23,15 @@ const selectSuggestTagError = () =>
   );
 
 const selectIsFormLoading = () =>
-  createSelector(selectCreateTagDomain, substate => 
-    substate.toJS().isFormLoading,
+  createSelector(
+    selectCreateTagDomain,
+    substate => substate.toJS().isFormLoading,
   );
 
 const selectIsFormAvailable = () =>
-  createSelector(selectCreateTagDomain, substate =>
-    substate.toJS().isFormAvailable,
+  createSelector(
+    selectCreateTagDomain,
+    substate => substate.toJS().isFormAvailable,
   );
 
 export {

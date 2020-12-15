@@ -34,11 +34,7 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 
-import {
-  createCommunity,
-  setDefaultStore,
-  getForm,
-} from './actions';
+import { createCommunity, setDefaultStore, getForm } from './actions';
 
 import {
   COMM_NAME_FIELD,
@@ -114,23 +110,23 @@ export const CreateCommunity = ({
 
   return (
     <div>
-        <Seo
-          title={sendProps.translations[messages.title.id]}
-          description={sendProps.translations[messages.description.id]}
-          language={locale}
-          index={false}
-        />
+      <Seo
+        title={sendProps.translations[messages.title.id]}
+        description={sendProps.translations[messages.description.id]}
+        language={locale}
+        index={false}
+      />
 
-        <Header headerDescriptor={messages.newCommunity} />
- 
-        {path === createCommunityRoute && (
-          <TipsBase className="overflow-hidden">
-            <Form {...sendProps} />
-            <Tips faqQuestions={faqQuestions} />
-          </TipsBase>
-        )}
+      <Header headerDescriptor={messages.newCommunity} />
 
-        {path !== createCommunityRoute && <Banner />}
+      {path === createCommunityRoute && (
+        <TipsBase className="overflow-hidden">
+          <Form {...sendProps} />
+          <Tips faqQuestions={faqQuestions} />
+        </TipsBase>
+      )}
+
+      {path !== createCommunityRoute && <Banner />}
     </div>
   );
 };

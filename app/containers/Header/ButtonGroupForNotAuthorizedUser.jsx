@@ -18,10 +18,7 @@ import LargeContainedButton from 'components/Button/Contained/InfoLarge';
 
 const ButtonGroupForNotAuthorizedUser = ({ showLoginModal }) => (
   <>
-    <LargeOutlinedButton
-      className="d-none d-sm-flex"
-      onClick={showLoginModal}
-    >
+    <LargeOutlinedButton className="d-none d-sm-flex" onClick={showLoginModal}>
       <FormattedMessage {...messages.login} />
     </LargeOutlinedButton>
 
@@ -32,7 +29,6 @@ const ButtonGroupForNotAuthorizedUser = ({ showLoginModal }) => (
       <img className="mr-2" src={userIcon} alt="icon" />
       <FormattedMessage {...messages.signUp} />
     </LargeContainedButton>
-
   </>
 );
 

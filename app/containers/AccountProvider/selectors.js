@@ -86,7 +86,9 @@ const selectPermissions = () =>
     state => state,
     state => {
       const profileInfo = makeSelectProfileInfo()(state);
-      return profileInfo && profileInfo.hasOwnProperty('permissions') ? profileInfo.permissions : [];
+      return profileInfo && profileInfo.hasOwnProperty('permissions')
+        ? profileInfo.permissions
+        : [];
     },
   );
 

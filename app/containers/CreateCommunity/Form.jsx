@@ -236,7 +236,6 @@ const CreateCommunityForm = ({
           {translations[messages.createCommunity.id]}
         </LargeButton>
       </FormBox>
-    
     </ExtendedBase>
   );
 };

@@ -336,12 +336,14 @@ export function* deleteCommentWorker({
       getParams,
     );
 
-    yield call(isAvailableAction, () =>
-      deleteCommentValidator(
-        profileInfo,
-        buttonId,
-        translationMessages[locale],
-      ),
+    yield call(
+      isAvailableAction,
+      () =>
+        deleteCommentValidator(
+          profileInfo,
+          buttonId,
+          translationMessages[locale],
+        ),
       questionData.community_id,
     );
 
@@ -375,14 +377,16 @@ export function* deleteAnswerWorker({ questionId, answerId, buttonId }) {
       getParams,
     );
 
-    yield call(isAvailableAction, () =>
-      deleteAnswerValidator(
-        buttonId,
-        answerId,
-        questionData.correct_answer_id,
-        translationMessages[locale],
-        profileInfo,
-      ),
+    yield call(
+      isAvailableAction,
+      () =>
+        deleteAnswerValidator(
+          buttonId,
+          answerId,
+          questionData.correct_answer_id,
+          translationMessages[locale],
+          profileInfo,
+        ),
       questionData.community_id,
     );
 
@@ -408,13 +412,15 @@ export function* deleteQuestionWorker({ questionId, buttonId }) {
       getParams,
     );
 
-    yield call(isAvailableAction, () =>
-      deleteQuestionValidator(
-        buttonId,
-        questionData.answers.length,
-        translationMessages[locale],
-        profileInfo,
-      ),
+    yield call(
+      isAvailableAction,
+      () =>
+        deleteQuestionValidator(
+          buttonId,
+          questionData.answers.length,
+          translationMessages[locale],
+          profileInfo,
+        ),
       questionData.community_id,
     );
 
@@ -498,14 +504,16 @@ export function* postCommentWorker({
 
     yield call(isAuthorized);
 
-    yield call(isAvailableAction, () =>
-      postCommentValidator(
-        profileInfo,
-        questionData,
-        buttonId,
-        answerId,
-        translationMessages[locale],
-      ),
+    yield call(
+      isAvailableAction,
+      () =>
+        postCommentValidator(
+          profileInfo,
+          questionData,
+          buttonId,
+          answerId,
+          translationMessages[locale],
+        ),
       questionData.community_id,
     );
 
@@ -561,13 +569,15 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
 
     yield call(isAuthorized);
 
-    yield call(isAvailableAction, () =>
-      postAnswerValidator(
-        profileInfo,
-        questionData,
-        POST_ANSWER_BUTTON,
-        translationMessages[locale],
-      ),
+    yield call(
+      isAvailableAction,
+      () =>
+        postAnswerValidator(
+          profileInfo,
+          questionData,
+          POST_ANSWER_BUTTON,
+          translationMessages[locale],
+        ),
       questionData.community_id,
     );
 
@@ -619,14 +629,16 @@ export function* downVoteWorker({
 
     yield call(isAuthorized);
 
-    yield call(isAvailableAction, () =>
-      downVoteValidator(
-        profileInfo,
-        questionData,
-        buttonId,
-        answerId,
-        translationMessages[locale],
-      ),
+    yield call(
+      isAvailableAction,
+      () =>
+        downVoteValidator(
+          profileInfo,
+          questionData,
+          buttonId,
+          answerId,
+          translationMessages[locale],
+        ),
       questionData.community_id,
     );
 
@@ -670,14 +682,16 @@ export function* upVoteWorker({
 
     yield call(isAuthorized);
 
-    yield call(isAvailableAction, () =>
-      upVoteValidator(
-        profileInfo,
-        questionData,
-        buttonId,
-        answerId,
-        translationMessages[locale],
-      ),
+    yield call(
+      isAvailableAction,
+      () =>
+        upVoteValidator(
+          profileInfo,
+          questionData,
+          buttonId,
+          answerId,
+          translationMessages[locale],
+        ),
       questionData.community_id,
     );
 
@@ -721,13 +735,15 @@ export function* markAsAcceptedWorker({
 
     yield call(isAuthorized);
 
-    yield call(isAvailableAction, () =>
-      markAsAcceptedValidator(
-        profileInfo,
-        questionData,
-        buttonId,
-        translationMessages[locale],
-      ),
+    yield call(
+      isAvailableAction,
+      () =>
+        markAsAcceptedValidator(
+          profileInfo,
+          questionData,
+          buttonId,
+          translationMessages[locale],
+        ),
       questionData.community_id,
     );
 
@@ -766,18 +782,20 @@ export function* voteToDeleteWorker({
 
     yield call(isAuthorized);
 
-    yield call(isAvailableAction, () =>
-      voteToDeleteValidator(
-        profileInfo,
-        questionData,
-        translationMessages[locale],
-        buttonId,
-        {
-          questionId,
-          answerId,
-          commentId,
-        },
-      ),
+    yield call(
+      isAvailableAction,
+      () =>
+        voteToDeleteValidator(
+          profileInfo,
+          questionData,
+          translationMessages[locale],
+          buttonId,
+          {
+            questionId,
+            answerId,
+            commentId,
+          },
+        ),
       questionData.community_id,
     );
 

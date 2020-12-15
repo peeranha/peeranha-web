@@ -24,19 +24,13 @@ export const initialState = fromJS({
 });
 
 function createCommunityReducer(state = initialState, action) {
-  const {
-    type,
-    createCommunityError,
-    getFormError,
-    isFormAvailable,
-  } = action;
+  const { type, createCommunityError, getFormError, isFormAvailable } = action;
 
   switch (type) {
     case CREATE_COMMUNITY:
       return state.set('createCommunityLoading', true);
     case CREATE_COMMUNITY_SUCCESS:
-      return state
-        .set('createCommunityLoading', false);
+      return state.set('createCommunityLoading', false);
     case CREATE_COMMUNITY_ERROR:
       return state
         .set('createCommunityLoading', false)

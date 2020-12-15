@@ -51,7 +51,9 @@ import Wrapper from '../Header/Complex';
 import Notification from './Notification';
 import MarkAllAsReadButton from './MarkAllAsReadButton';
 import reducer from './reducer';
-import WidthCentered, { LoaderContainer } from '../LoadingIndicator/WidthCentered';
+import WidthCentered, {
+  LoaderContainer,
+} from '../LoadingIndicator/WidthCentered';
 
 const Container = styled.div`
   ${Wrapper} {
@@ -195,7 +197,7 @@ const Notifications = ({
     },
     [containerRef.current],
   );
-  
+
   useEffect(
     () => {
       recalculateRanges();
@@ -239,12 +241,13 @@ const Notifications = ({
           innerRef={containerRef}
           height={notifications.length * rowHeight + ROW_HEIGHT}
         >
-          {!!unreadCount ?
+          {!!unreadCount ? (
             <SubHeader innerRef={ref} height={ROW_HEIGHT} top="0">
               <MarkAllAsReadButton />
-            </SubHeader> :
+            </SubHeader>
+          ) : (
             <SubHeaderSeparator />
-          }
+          )}
           <WindowScroller onResize={onResize} onScroll={onScroll}>
             {({ height, isScrolling, registerChild, scrollTop }) => (
               <div ref={registerChild}>

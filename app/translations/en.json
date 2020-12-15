@@ -137,6 +137,7 @@
     "File size is more than 2Mb. Choose another one...",
   "app.common.chooseFile": "Choose a file",
   "app.common.skip": "Skip",
+  "app.common.showMore": "Show more",
   "app.common.questionIsAnswered": "You have already answered this question",
 
   "app.telegram.user": "Telegram user",
