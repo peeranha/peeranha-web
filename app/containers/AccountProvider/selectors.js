@@ -81,6 +81,17 @@ const selectIsGlobalModerator = () =>
     },
   );
 
+const selectPermissions = () =>
+  createSelector(
+    state => state,
+    state => {
+      const profileInfo = makeSelectProfileInfo()(state);
+      return profileInfo && profileInfo.hasOwnProperty('permissions')
+        ? profileInfo.permissions
+        : [];
+    },
+  );
+
 const selectUserEnergy = () =>
   createSelector(
     state => state,
@@ -103,4 +114,5 @@ export {
   selectUserRating,
   selectUserEnergy,
   selectIsGlobalModerator,
+  selectPermissions,
 };

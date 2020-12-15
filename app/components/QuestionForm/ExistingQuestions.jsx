@@ -58,7 +58,7 @@ const ExistingQuestions = ({ questions, skip, show, intl, communities }) => {
       </Label>
       <List>
         {findQuestions.map(q => (
-          <ListItem>
+          <ListItem key={q.link}>
             <a href={q.link}>
               {getQuestionTitleWithoutCommunity(q.title, commNames)}
             </a>

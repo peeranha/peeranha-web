@@ -26,9 +26,9 @@ import {
   selectVerificationCodeLoading,
 } from 'containers/ForgotPassword/selectors';
 import {
-  selectLoginWithScatterProcessing,
+  selectLoginWithWalletProcessing,
   selectFinishRegistrationProcessing,
-  makeSelectLoginProcessing,
+  selectLoginWithEmailProcessing,
 } from 'containers/Login/selectors';
 import { selectSendTokensProcessing } from 'containers/SendTokens/selectors';
 import { selectShowActiveKeyProcessing } from 'containers/ShowActiveKey/selectors';
@@ -40,8 +40,8 @@ import {
   selectEmailVerificationProcessing,
   selectIHaveEosAccountProcessing,
   selectIdontHaveEosAccountProcessing,
-  selectSignUpWithScatterProcessing,
-  selectShowScatterSignUpProcessing,
+  selectSignUpWithWalletProcessing,
+  selectShowWalletSignUpProcessing,
 } from 'containers/SignUp/selectors';
 import {
   selectPostAnswerLoading,
@@ -96,9 +96,9 @@ export default {
   selectVerificationCodeLoading: selectVerificationCodeLoading(),
   selectVerifyEmailLoading: selectVerifyEmailLoading(),
   selectChangePasswordLoading: selectChangePasswordLoading(),
-  makeSelectLoginProcessing: makeSelectLoginProcessing(),
+  selectLoginWithEmailProcessing: selectLoginWithEmailProcessing(),
   selectFinishRegistrationProcessing: selectFinishRegistrationProcessing(),
-  selectLoginWithScatterProcessing: selectLoginWithScatterProcessing(),
+  selectLoginWithWalletProcessing: selectLoginWithWalletProcessing(),
   selectSendTokensProcessing: selectSendTokensProcessing(),
   selectShowActiveKeyProcessing: selectShowActiveKeyProcessing(),
   selectShowOwnerKeyProcessing: selectShowOwnerKeyProcessing(),
@@ -106,8 +106,8 @@ export default {
   selectEmailVerificationProcessing: selectEmailVerificationProcessing(),
   selectIHaveEosAccountProcessing: selectIHaveEosAccountProcessing(),
   selectIdontHaveEosAccountProcessing: selectIdontHaveEosAccountProcessing(),
-  selectSignUpWithScatterProcessing: selectSignUpWithScatterProcessing(),
-  selectShowScatterSignUpProcessing: selectShowScatterSignUpProcessing(),
+  selectSignUpWithWalletProcessing: selectSignUpWithWalletProcessing(),
+  selectShowWalletSignUpProcessing: selectShowWalletSignUpProcessing(),
   selectPostAnswerLoading: selectPostAnswerLoading(),
   selectPostCommentLoading: selectPostCommentLoading(),
   selectUpVoteLoading: selectUpVoteLoading(),

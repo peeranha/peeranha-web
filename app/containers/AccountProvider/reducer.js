@@ -27,6 +27,7 @@ export const initialState = fromJS({
   encryptedKeys: null,
   hasOwnerEosKey: false,
   loginWithScatter: false,
+  loginWithKeycat: false,
 });
 
 function accountProviderReducer(state = initialState, action) {
@@ -42,6 +43,7 @@ function accountProviderReducer(state = initialState, action) {
     encryptedKeys,
     hasOwnerEosKey,
     loginWithScatter,
+    loginWithKeycat,
   } = action;
 
   switch (type) {
@@ -64,7 +66,8 @@ function accountProviderReducer(state = initialState, action) {
         .set('passwordUserPart', passwordUserPart)
         .set('encryptedKeys', encryptedKeys)
         .set('hasOwnerEosKey', hasOwnerEosKey)
-        .set('loginWithScatter', loginWithScatter);
+        .set('loginWithScatter', loginWithScatter)
+        .set('loginWithKeycat', loginWithKeycat);
     case REMOVE_LOGIN_DATA:
       return state
         .set('email', null)

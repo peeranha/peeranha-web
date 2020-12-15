@@ -74,7 +74,7 @@ export const editCommunity = async (
       user: selectedAccount,
       community_id: communityId,
       name: communityData.name,
-      ipfs_link: ipfsHash,
+      ipfs_description: ipfsHash,
     },
     null,
     true,

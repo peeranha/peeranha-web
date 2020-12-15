@@ -44,6 +44,7 @@ import {
   VOTE_TO_DELETE,
   VOTE_TO_DELETE_ERROR,
   VOTE_TO_DELETE_SUCCESS,
+  SET_VOTE_TO_DELETE_LOADING,
 } from './constants';
 
 export function getQuestionData(questionId) {
@@ -353,4 +354,9 @@ export const changeQuestionTypeErr = (changeQuestionTypeError, buttonId) => ({
   type: CHANGE_QUESTION_TYPE_ERROR,
   changeQuestionTypeError,
   buttonId,
+});
+
+export const setVoteToDeleteLoading = voteToDeleteLoading => ({
+  type: SET_VOTE_TO_DELETE_LOADING,
+  voteToDeleteLoading,
 });

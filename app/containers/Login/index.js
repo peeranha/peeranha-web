@@ -27,7 +27,7 @@ import {
   hideLoginModal,
   showEmailPasswordForm,
   loginWithEmail,
-  loginWithScatter,
+  loginWithWallet,
   finishRegistrationWithDisplayName,
 } from './actions';
 
@@ -58,13 +58,13 @@ export class Login extends React.Component {
       hideLoginModalDispatch,
       locale,
       email,
-      loginProcessing,
+      loginWithEmailProcessing,
       finishRegistrationProcessing,
-      loginWithScatterDispatch,
       showEmailPasswordFormDispatch,
       loginWithEmailDispatch,
+      loginWithWalletProcessing,
+      loginWithWalletDispatch,
       finishRegistrationDispatch,
-      loginWithScatterProcessing,
     } = this.props;
 
     return (
@@ -72,9 +72,10 @@ export class Login extends React.Component {
         {content === EMAIL_FORM && (
           <EmailForm
             locale={locale}
-            loginWithScatter={loginWithScatterDispatch}
             showEmailPasswordForm={showEmailPasswordFormDispatch}
-            loginWithScatterProcessing={loginWithScatterProcessing}
+            loginWithEmailProcessing={loginWithEmailProcessing}
+            loginWithWallet={loginWithWalletDispatch}
+            loginWithWalletProcessing={loginWithWalletProcessing}
           />
         )}
 
@@ -82,11 +83,11 @@ export class Login extends React.Component {
           <EmailPasswordForm
             locale={locale}
             login={loginWithEmailDispatch}
-            loginProcessing={loginProcessing}
-            loginWithScatter={loginWithScatterDispatch}
+            loginWithEmailProcessing={loginWithEmailProcessing}
             showIForgotPasswordModal={this.showIForgotPasswordModal}
-            loginWithScatterProcessing={loginWithScatterProcessing}
             email={email}
+            loginWithWallet={loginWithWalletDispatch}
+            loginWithWalletProcessing={loginWithWalletProcessing}
           />
         )}
 
@@ -108,12 +109,12 @@ Login.propTypes = {
   hideLoginModalDispatch: PropTypes.func,
   locale: PropTypes.string,
   email: PropTypes.string,
-  loginProcessing: PropTypes.bool,
+  loginWithEmailProcessing: PropTypes.bool,
   finishRegistrationProcessing: PropTypes.bool,
-  loginWithScatterProcessing: PropTypes.bool,
-  loginWithScatterDispatch: PropTypes.func,
+  loginWithWalletProcessing: PropTypes.bool,
   showEmailPasswordFormDispatch: PropTypes.func,
   loginWithEmailDispatch: PropTypes.func,
+  loginWithWalletDispatch: PropTypes.func,
   finishRegistrationDispatch: PropTypes.func,
   showForgotPasswordModalDispatch: PropTypes.func,
 };
@@ -123,9 +124,9 @@ const mapStateToProps = createStructuredSelector({
   content: selectors.makeSelectContent(),
   showModal: selectors.makeSelectShowModal(),
   email: selectors.makeSelectEmail(),
-  loginProcessing: selectors.makeSelectLoginProcessing(),
+  loginWithEmailProcessing: selectors.selectLoginWithEmailProcessing(),
   finishRegistrationProcessing: selectors.selectFinishRegistrationProcessing(),
-  loginWithScatterProcessing: selectors.selectLoginWithScatterProcessing(),
+  loginWithWalletProcessing: selectors.selectLoginWithWalletProcessing(),
 });
 
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
@@ -136,7 +137,7 @@ export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
       dispatch,
     ),
     loginWithEmailDispatch: bindActionCreators(loginWithEmail, dispatch),
-    loginWithScatterDispatch: bindActionCreators(loginWithScatter, dispatch),
+    loginWithWalletDispatch: bindActionCreators(loginWithWallet, dispatch),
     showForgotPasswordModalDispatch: bindActionCreators(
       showForgotPasswordModal,
       dispatch,

@@ -42,16 +42,16 @@ import {
 import {
   getUserAchievements,
   getUserAchievementsSuccess,
-  setNextUserAchievements,
-  setUserProgressValues,
   setMemorizedAchievementData,
   getUserAchievementsErr,
   setUserAchievementLoading,
+  setMaxGroupsLowerValues,
 } from './actions';
 
 import {
   selectViewProfileAccount,
   selectMemorizedUserAchievements,
+  selectMaxGroupsLowerValues,
 } from './selectors';
 
 export const getNextAchievementId = (
@@ -65,28 +65,6 @@ export const getNextAchievementId = (
   const sortedAchievements = [...possibleAchievements].sort(
     (next, curr) => next.lowerValue - curr.lowerValue,
   );
-
-  const valuesStartFrom = sortedAchievements[0].lowerValue;
-  const firstGroupId = sortedAchievements[0].id;
-
-  // current user value less than minimal achievement group lower value
-  if (
-    currentValue < valuesStartFrom &&
-    !reachedAchievementsIds.includes(firstGroupId)
-  )
-    return sortedAchievements[0].id;
-
-  // current user value within lower and upper values of some group achievement
-  // and next group achievement is not reached
-  const currAchIndex = sortedAchievements.findIndex(
-    (el, i) =>
-      currentValue >= el.lowerValue &&
-      currentValue <= el.upperValue &&
-      i < sortedAchievements.length - 1 &&
-      !reachedAchievementsIds.includes(sortedAchievements[i + 1].id),
-  );
-
-  if (currAchIndex >= 0) return sortedAchievements[currAchIndex + 1].id;
 
   // current user value less than lower achievement value
   const nextUnreachedAchievement = sortedAchievements.find(
@@ -116,42 +94,15 @@ export const getNextUniqueAchievementId = (
     el => userRating >= el.lowerValue && userRating <= el.upperValue,
   );
 
-  // curret unique achievement is the last in the group
-
-  if (currAchIndex === sortedAchievements.length - 1) return null;
-
-  // current user value within lower and upper values of unique achievement
-  // and next unique achievement is not reached and is not out of limit
-
-  const isNextByOrder = () => {
-    const nextAchievement = sortedAchievements[currAchIndex + 1];
-    const nextTotalAwarded =
-      projectAchievements.find(item => item.id === nextAchievement?.id)
-        ?.count || 0;
-
-    if (
-      !reachedAchievementsIds.includes(nextAchievement.id) &&
-      nextTotalAwarded < nextAchievement.limit
-    )
-      return true;
-
-    return false;
-  };
-
-  if (isNextByOrder()) return sortedAchievements[currAchIndex + 1].id;
-
-  // current user value less than lower achievement value
-  const nextUnreachedAchievement = sortedAchievements
-    .filter(
-      (el, index) =>
-        !reachedAchievementsIds.includes(el.id) && index !== currAchIndex + 1,
-    )
-    .find(el => {
-      const totalAwarded =
-        projectAchievements.find(item => item.id === el.id)?.count || 0;
-
-      return !reachedAchievementsIds.includes(el.id) && totalAwarded < el.limit;
-    });
+  const nextUnreachedAchievement = sortedAchievements.find(el => {
+    const totalAwarded =
+      projectAchievements.find(item => item.id === el.id)?.count || 0;
+    return (
+      userRating < el.lowerValue &&
+      !reachedAchievementsIds.includes(el.id) &&
+      totalAwarded < el.limit
+    );
+  });
 
   if (nextUnreachedAchievement) return nextUnreachedAchievement.id;
 
@@ -159,13 +110,7 @@ export const getNextUniqueAchievementId = (
   return null;
 };
 
-const isProfileInfoUpdated = (currProfileInfo, prevProfileInfo) => {
-  // profile info has initial values or undefined
-
-  if (!currProfileInfo || !prevProfileInfo) return true;
-
-  // check whether values, that influence on render have changed
-
+export const getMaxGroupsLowerValues = () => {
   const maxRatingLowerValue = achievementsArr.find(
     el => el.upperValue === Infinity,
   ).lowerValue;
@@ -190,43 +135,76 @@ const isProfileInfoUpdated = (currProfileInfo, prevProfileInfo) => {
     el => el.upperValue === Infinity,
   ).lowerValue;
 
+  return {
+    maxRatingLowerValue,
+    maxQuestionLowerValue,
+    maxAnswersLowerValue,
+    maxBestAnswersLowerValue,
+    maxFirstAnswerLowerValue,
+    maxFirstIn15LowerValue,
+  };
+};
+
+export const isProfileInfoUpdated = (
+  currProfileInfo,
+  prevProfileInfo,
+  maxGroupsLowerValues,
+) => {
+  // profile info has initial values or undefined
+
+  if (!currProfileInfo || !prevProfileInfo) return true;
+
+  // check whether values, that influence on render, have changed
+
+  const {
+    maxRatingLowerValue,
+    maxQuestionLowerValue,
+    maxAnswersLowerValue,
+    maxBestAnswersLowerValue,
+    maxFirstAnswerLowerValue,
+    maxFirstIn15LowerValue,
+  } = maxGroupsLowerValues;
+
   const firstAnswerValue = profileInfo =>
-    profileInfo.integer_properties.find(el => el.key === 13)?.value ?? 0;
+    profileInfo.integer_properties?.find(el => el.key === 13)?.value ?? 0;
 
   const answersIn15Value = profileInfo =>
-    profileInfo.integer_properties.find(el => el.key === 12)?.value ?? 0;
+    profileInfo.integer_properties?.find(el => el.key === 12)?.value ?? 0;
 
-  const ratingRelatedUpdate =
+  const ratingRelatedUpdated =
     currProfileInfo.rating !== prevProfileInfo.rating &&
-    currProfileInfo.rating < maxRatingLowerValue;
+    (!prevProfileInfo.rating || prevProfileInfo.rating < maxRatingLowerValue);
 
-  const questionRelatedUpdate =
+  const questionRelatedUpdated =
     currProfileInfo.questions_asked !== prevProfileInfo.questions_asked &&
-    currProfileInfo.questions_asked < maxQuestionLowerValue;
+    (!prevProfileInfo.questions_asked ||
+      prevProfileInfo.questions_asked < maxQuestionLowerValue);
 
-  const answersRelatedUpdate =
+  const answersRelatedUpdated =
     currProfileInfo.answers_given !== prevProfileInfo.answers_given &&
-    currProfileInfo.answers_given < maxAnswersLowerValue;
+    (!prevProfileInfo.answers_given ||
+      prevProfileInfo.answers_given < maxAnswersLowerValue);
 
-  const bestAnswersRelatedUpdate =
+  const bestAnswersRelatedUpdated =
     currProfileInfo.correct_answers !== prevProfileInfo.correct_answers &&
-    currProfileInfo.correct_answers < maxBestAnswersLowerValue;
+    (!prevProfileInfo.correct_answers ||
+      prevProfileInfo.correct_answers < maxBestAnswersLowerValue);
 
-  const firstAnswersRelatedUpdate =
+  const firstAnswersRelatedUpdated =
     firstAnswerValue(currProfileInfo) !== firstAnswerValue(prevProfileInfo) &&
-    firstAnswersValue(currProfileInfo) < maxFirstAnswerLowerValue;
+    firstAnswerValue(prevProfileInfo) < maxFirstAnswerLowerValue;
 
-  const answersIn15RelatedUpdate =
+  const answersIn15RelatedUpdated =
     answersIn15Value(currProfileInfo) !== answersIn15Value(prevProfileInfo) &&
-    answersIn15Value(currProfileInfo) < maxFirstIn15LowerValue;
+    answersIn15Value(prevProfileInfo) < maxFirstIn15LowerValue;
 
   if (
-    ratingRelatedUpdate ||
-    questionRelatedUpdate ||
-    answersRelatedUpdate ||
-    bestAnswersRelatedUpdate ||
-    firstAnswersRelatedUpdate ||
-    answersIn15RelatedUpdate
+    ratingRelatedUpdated ||
+    questionRelatedUpdated ||
+    answersRelatedUpdated ||
+    bestAnswersRelatedUpdated ||
+    firstAnswersRelatedUpdated ||
+    answersIn15RelatedUpdated
   )
     return true;
 
@@ -240,14 +218,28 @@ export function* getUserAchievementsWorker() {
     const viewProfileAccount = yield select(selectViewProfileAccount());
     const profileInfo = yield select(selectUsers(viewProfileAccount));
 
+    // get maximum achievements lowerValues of groups and set them to store
+
+    let maxGroupsLowerValues = yield select(selectMaxGroupsLowerValues());
+
+    if (Object.keys(maxGroupsLowerValues).length === 0) {
+      maxGroupsLowerValues = yield call(getMaxGroupsLowerValues);
+
+      yield put(setMaxGroupsLowerValues(maxGroupsLowerValues));
+    }
+
     const memorizedUserAchievements = yield select(
       selectMemorizedUserAchievements(viewProfileAccount),
     );
 
-    if (
-      memorizedUserAchievements &&
-      !isProfileInfoUpdated(profileInfo, memorizedUserAchievements.profileInfo)
-    ) {
+    const profileInfoUpdated = yield call(
+      isProfileInfoUpdated,
+      profileInfo,
+      memorizedUserAchievements.profileInfo,
+      maxGroupsLowerValues,
+    );
+
+    if (memorizedUserAchievements && !profileInfoUpdated) {
       // set memorized achievements
 
       const {
@@ -318,37 +310,45 @@ export function* getUserAchievementsWorker() {
         selectFirstIn15AnswersValue(viewProfileAccount),
       );
 
-      const nextUniqueRatingAch = getNextUniqueAchievementId(
+      const nextUniqueRatingAch = yield call(
+        getNextUniqueAchievementId,
         userRating,
         userAchievements,
         projectAchievements,
       );
-      const nextRatingAchId = getNextAchievementId(
+
+      const nextRatingAchId = yield call(
+        getNextAchievementId,
         userRating,
         userAchievements,
         achievementsArr,
       );
-      const nextQuestionAskedAchId = getNextAchievementId(
+      const nextQuestionAskedAchId = yield call(
+        getNextAchievementId,
         questionsAskedValue,
         userAchievements,
         questionsAskedArr,
       );
-      const nextAnswerGivenAchId = getNextAchievementId(
+      const nextAnswerGivenAchId = yield call(
+        getNextAchievementId,
         answersGivenValue,
         userAchievements,
         answerGivenArr,
       );
-      const nextAnswerBestAchId = getNextAchievementId(
+      const nextAnswerBestAchId = yield call(
+        getNextAchievementId,
         bestAnswersValue,
         userAchievements,
         bestAnswerArr,
       );
-      const nextAnswerFirstAchId = getNextAchievementId(
+      const nextAnswerFirstAchId = yield call(
+        getNextAchievementId,
         firstAnwersValue,
         userAchievements,
         firstAnswerArr,
       );
-      const nextAnswerFirstIn15AchId = getNextAchievementId(
+      const nextAnswerFirstIn15AchId = yield call(
+        getNextAchievementId,
         firstIn15AnwersValue,
         userAchievements,
         firstIn15Arr,
@@ -402,12 +402,10 @@ export function* getUserAchievementsWorker() {
 
 export function* updateUserAchievementsWorker(
   userAccount,
-  { updatedAchievements, updateRender = true },
+  { updatedAchievements, updateRender = true } = {},
 ) {
   try {
     const eosService = yield select(selectEos);
-
-    const viewProfileAccount = yield select(selectViewProfileAccount());
 
     // logged user achievements count changed
 
@@ -431,6 +429,9 @@ export function* updateUserAchievementsWorker(
     if (cachedUserAchievements?.length !== userAchievements.length) {
       yield put(updateCachedUserAchievements(userAccount, userAchievements));
 
+      const viewProfileAccount = yield select(selectViewProfileAccount());
+
+      // updated user achievements are currently displayed
       if (viewProfileAccount === userAccount && updateRender)
         yield put(getUserAchievements());
     }

@@ -18,14 +18,17 @@ import {
   isSingleCommunityWebsite,
 } from 'utils/communityManagement';
 
+import { redirectToFeed } from 'containers/App/actions';
+import { showWalletSignUpFormSuccess } from 'containers/SignUp/actions';
+
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+
 import {
   getCurrentAccountWorker,
   getReferralInfo,
   getCommunityPropertyWorker,
 } from 'containers/AccountProvider/saga';
-import { showScatterSignUpFormWorker } from 'containers/SignUp/saga';
 
 import { ACCOUNT_NOT_CREATED_NAME } from 'containers/SignUp/constants';
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
@@ -35,18 +38,17 @@ import { selectIsMenuVisible } from 'containers/AppWrapper/selectors';
 import {
   loginWithEmailSuccess,
   loginWithEmailErr,
-  loginWithScatterSuccess,
-  loginWithScatterErr,
   finishRegistrationWithDisplayNameSuccess,
   finishRegistrationWithDisplayNameErr,
   hideLoginModal,
   finishRegistrationReferralErr,
+  loginWithWalletSuccess,
+  loginWithWalletErr,
 } from './actions';
 
 import {
   FINISH_REGISTRATION,
   LOGIN_WITH_EMAIL,
-  LOGIN_WITH_SCATTER,
   SCATTER_MODE_ERROR,
   USER_IS_NOT_REGISTERED,
   EMAIL_FIELD,
@@ -56,6 +58,7 @@ import {
   DISPLAY_NAME,
   AUTOLOGIN_DATA,
   REFERRAL_CODE,
+  LOGIN_WITH_WALLET,
 } from './constants';
 
 import messages, { getAccountNotSelectedMessageDescriptor } from './messages';
@@ -95,13 +98,6 @@ export function* loginWithEmailWorker({ val }) {
     yield call(getCurrentAccountWorker, eosAccountName);
     const profileInfo = yield select(makeSelectProfileInfo());
 
-    yield put(loginWithEmailSuccess());
-
-    // If user is absent - show window to finish registration
-    if (!profileInfo) {
-      yield put(loginWithEmailSuccess(eosAccountName, WE_ARE_HAPPY_FORM));
-    }
-
     const eosService = yield select(selectEos);
 
     yield call(
@@ -115,44 +111,69 @@ export function* loginWithEmailWorker({ val }) {
     yield call(getCommunityPropertyWorker);
 
     yield put(initEosioSuccess(eosService));
+
+    if (
+      profileInfo &&
+      window.location.pathname.includes(routes.registrationStage)
+    )
+      yield put(redirectToFeed());
+
+    yield put(loginWithEmailSuccess());
+
+    // If user is absent - show window to finish registration
+    if (!profileInfo) {
+      yield put(loginWithEmailSuccess(eosAccountName, WE_ARE_HAPPY_FORM));
+    }
   } catch (err) {
     yield put(loginWithEmailErr(err));
   }
 }
 
-export function* loginWithScatterWorker() {
+export function* loginWithWalletWorker({ keycat, scatter }) {
   try {
     const eosService = yield select(selectEos);
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
 
-    yield call(eosService.forgetIdentity);
-    yield call(eosService.initEosioWithScatter);
+    let currentAccount;
+    let keycatUserData = null;
 
-    if (!eosService.scatterInstalled) {
-      throw new WebIntegrationError(
-        translations[messages[SCATTER_MODE_ERROR].id],
-      );
+    if (keycat) {
+      keycatUserData = yield call(eosService.keycatSignIn);
+      currentAccount = keycatUserData.accountName;
     }
 
-    if (!eosService.selectedAccount) {
-      throw new WebIntegrationError(
-        translations[
-          getAccountNotSelectedMessageDescriptor(
-            eosService.isScatterExtension,
-          ).id
-        ],
-      );
+    if (scatter) {
+      yield call(eosService.forgetIdentity);
+      yield call(eosService.initEosioWithScatter);
+
+      if (!eosService.scatterInstalled) {
+        throw new WebIntegrationError(
+          translations[messages[SCATTER_MODE_ERROR].id],
+        );
+      }
+
+      if (!eosService.selectedAccount) {
+        throw new WebIntegrationError(
+          translations[
+            getAccountNotSelectedMessageDescriptor(
+              eosService.isScatterExtension,
+            ).id
+          ],
+        );
+      }
+
+      currentAccount = eosService.selectedAccount;
     }
 
-    yield call(getCurrentAccountWorker, eosService.selectedAccount);
+    yield call(getCurrentAccountWorker, currentAccount);
     const profileInfo = yield select(makeSelectProfileInfo());
 
     if (!profileInfo) {
-      yield call(showScatterSignUpFormWorker);
+      yield put(showWalletSignUpFormSuccess(currentAccount));
+      yield call(createdHistory.push, routes.signup.displayName.name);
 
       yield put(hideLoginModal());
-
       throw new ApplicationError(
         translations[messages[USER_IS_NOT_REGISTERED].id],
       );
@@ -161,7 +182,10 @@ export function* loginWithScatterWorker() {
     yield call(getNotificationsInfoWorker, profileInfo.user);
 
     yield call(getCommunityPropertyWorker);
-    const autologinData = { loginWithScatter: true };
+
+    const autologinData = keycat
+      ? { keycatUserData, loginWithKeycat: true }
+      : { loginWithScatter: true };
 
     setCookie({
       name: AUTOLOGIN_DATA,
@@ -173,9 +197,13 @@ export function* loginWithScatterWorker() {
     });
 
     yield put(addLoginData(autologinData));
-    yield put(loginWithScatterSuccess());
+
+    if (window.location.pathname.includes(routes.registrationStage))
+      yield put(redirectToFeed());
+
+    yield put(loginWithWalletSuccess());
   } catch (err) {
-    yield put(loginWithScatterErr(err));
+    yield put(loginWithWalletErr(err));
   }
 }
 
@@ -264,6 +292,6 @@ export function* redirectToFeedWorker() {
 
 export default function*() {
   yield takeLatest(LOGIN_WITH_EMAIL, loginWithEmailWorker);
-  yield takeLatest(LOGIN_WITH_SCATTER, loginWithScatterWorker);
+  yield takeLatest(LOGIN_WITH_WALLET, loginWithWalletWorker);
   yield takeLatest(FINISH_REGISTRATION, finishRegistrationWorker);
 }

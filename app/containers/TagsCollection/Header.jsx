@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
 import messages from 'common-messages';
+import { BORDER_PRIMARY } from 'style-constants';
 
 import suggestTagIcon from 'images/tagsHeaderIcon.svg?inline';
 import icoTagIcon from 'images/icoTag.svg?inline';
@@ -31,7 +32,11 @@ const Header = ({ openTagForm }) => (
       >
         <img className="d-none d-sm-inline-block" src={icoTagIcon} alt="icon" />
 
-        <IconSm className="d-inline-flex d-sm-none" icon={addIcon} />
+        <IconSm
+          className="d-inline-flex d-sm-none"
+          fill={BORDER_PRIMARY}
+          icon={addIcon}
+        />
 
         <span className="ml-1 button-label">
           <FormattedMessage {...messages.suggestTag} />

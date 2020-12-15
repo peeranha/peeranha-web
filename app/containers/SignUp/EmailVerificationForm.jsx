@@ -30,13 +30,14 @@ const EmailVerificationForm = ({ handleSubmit }) => (
       emailVerificationProcessing,
       sendAnotherCode,
       showLoginModal,
-      showScatterSignUpForm,
-      showScatterSignUpProcessing,
+      showWalletSignUpForm,
+      showWalletSignUpProcessing,
     }) => (
       <SignUpOptions
         showLoginModal={showLoginModal}
-        showScatterSignUpForm={showScatterSignUpForm}
-        showScatterSignUpProcessing={showScatterSignUpProcessing}
+        showWalletSignUpForm={showWalletSignUpForm}
+        showWalletSignUpProcessing={showWalletSignUpProcessing}
+        emailVerificationProcessing={emailVerificationProcessing}
       >
         <div className="text-center">
           <img src={letterImg} alt="check your email" />
@@ -48,7 +49,7 @@ const EmailVerificationForm = ({ handleSubmit }) => (
         <Form onSubmit={handleSubmit(verifyEmail)}>
           <Field
             name={VERIFICATION_FIELD}
-            disabled={emailVerificationProcessing}
+            disabled={emailVerificationProcessing || showWalletSignUpProcessing}
             label={translationMessages[locale][messages.verificationCode.id]}
             component={TextInputField}
             validate={[required]}
@@ -59,12 +60,13 @@ const EmailVerificationForm = ({ handleSubmit }) => (
             onClick={sendAnotherCode}
             className="mb-3"
             type="button"
+            disabled={emailVerificationProcessing || showWalletSignUpProcessing}
           >
             <FormattedMessage {...messages.sendAnotherCode} />
           </SendAnotherCodeButton>
 
           <SubmitButton
-            disabled={emailVerificationProcessing}
+            disabled={emailVerificationProcessing || showWalletSignUpProcessing}
             className="w-100"
           >
             <FormattedMessage {...messages.verify} />

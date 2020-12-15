@@ -5,17 +5,20 @@
  */
 
 import {
-  SELECT_ACCOUNT,
-  SELECT_ACCOUNT_SUCCESS,
   SELECT_ACCOUNT_ERROR,
-  REMOVE_SELECTED_ACCOUNT,
+  REMOVE_SELECTED_ACCOUNTS,
   SHOW_SEND_TIPS_MODAL,
   HIDE_SEND_TIPS_MODAL,
   SEND_TIPS,
   SEND_TIPS_SUCCESS,
   SEND_TIPS_ERROR,
-  ADD_TIPS_EOS_SERVICE,
-  REMOVE_TIPS_EOS_SERVICE,
+  ADD_TIPS_SCATTER_EOS_SERVICE,
+  ADD_TIPS_KEYCAT_EOS_SERVICE,
+  REMOVE_TIPS_EOS_SERVICES,
+  SELECT_SCATTER_ACCOUNT,
+  SELECT_KEYCAT_ACCOUNT,
+  SELECT_KEYCAT_ACCOUNT_SUCCESS,
+  SELECT_SCATTER_ACCOUNT_SUCCESS,
 } from './constants';
 
 export const showSendTipsModal = (form, whoWillBeTipped) => ({
@@ -53,13 +56,22 @@ export function sendTipsErr(sendTipsError) {
   };
 }
 
-export const selectAccount = () => ({
-  type: SELECT_ACCOUNT,
+export const selectScatterAccount = () => ({
+  type: SELECT_SCATTER_ACCOUNT,
 });
 
-export const selectAccountSuccess = selectedAccount => ({
-  type: SELECT_ACCOUNT_SUCCESS,
-  selectedAccount,
+export const selectScatterAccountSuccess = selectedScatterAccount => ({
+  type: SELECT_SCATTER_ACCOUNT_SUCCESS,
+  selectedScatterAccount,
+});
+
+export const selectKeycatAccount = () => ({
+  type: SELECT_KEYCAT_ACCOUNT,
+});
+
+export const selectKeycatAccountSuccess = selectedKeycatAccount => ({
+  type: SELECT_KEYCAT_ACCOUNT_SUCCESS,
+  selectedKeycatAccount,
 });
 
 export const selectAccountErr = selectAccountError => ({
@@ -67,15 +79,20 @@ export const selectAccountErr = selectAccountError => ({
   selectAccountError,
 });
 
-export const removeSelectedAccount = () => ({
-  type: REMOVE_SELECTED_ACCOUNT,
+export const removeSelectedAccounts = () => ({
+  type: REMOVE_SELECTED_ACCOUNTS,
 });
 
-export const addTipsEosService = tipsEosService => ({
-  type: ADD_TIPS_EOS_SERVICE,
-  tipsEosService,
+export const addScatterTipsEosService = tipsScatterEosService => ({
+  type: ADD_TIPS_SCATTER_EOS_SERVICE,
+  tipsScatterEosService,
 });
 
-export const removeTipsEosService = () => ({
-  type: REMOVE_TIPS_EOS_SERVICE,
+export const addTipsKeycatEosService = tipsKeycatEosService => ({
+  type: ADD_TIPS_KEYCAT_EOS_SERVICE,
+  tipsKeycatEosService,
+});
+
+export const removeTipsEosServices = () => ({
+  type: REMOVE_TIPS_EOS_SERVICES,
 });

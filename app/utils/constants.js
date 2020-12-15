@@ -35,6 +35,7 @@ export const MODERATOR_CREATE_COMMUNITY = 3;
 export const MODERATOR_CREATE_TAG = 4;
 export const MODERATOR_QUESTION_TYPE = 5;
 
+export const COMMUNITY_ADMIN_VALUE = 255;
 export const COMMUNITY_ADMIN_INFINITE_IMPACT = 1;
 export const COMMUNITY_ADMIN_IGNORE_RATING = 2;
 export const COMMUNITY_ADMIN_CREATE_TAG = 4;
@@ -46,38 +47,49 @@ export const PERMISSION_GRANTED = '1';
 
 export const moderatorPermissions = {
   MODERATOR_INFINITE_IMPACT: {
+    code: 1,
     title: 'permissionInfinite',
   },
   MODERATOR_IGNORE_RATING: {
+    code: 2,
     title: 'permissionIgnoreRating',
   },
   MODERATOR_CREATE_COMMUNITY: {
+    code: 3,
     title: 'permissionCreateCommunity',
   },
   MODERATOR_CREATE_TAG: {
+    code: 4,
     title: 'permissionCreateTag',
   },
   MODERATOR_QUESTION_TYPE: {
+    code: 5,
     title: 'permissionChangeQuestionType',
   },
 };
 export const communityAdminPermissions = {
   COMMUNITY_ADMIN_INFINITE_IMPACT: {
+    code: 1,
     title: 'permissionInfinite',
   },
   COMMUNITY_ADMIN_IGNORE_RATING: {
+    code: 2,
     title: 'permissionIgnoreRating',
   },
   COMMUNITY_ADMIN_CREATE_TAG: {
+    code: 4,
     title: 'permissionCreateTag',
   },
   COMMUNITY_ADMIN_QUESTION_TYPE: {
+    code: 5,
     title: 'permissionChangeQuestionType',
   },
   COMMUNITY_ADMIN_TOP_QUESTIONS: {
+    code: 6,
     title: 'permissionSelectTopQuestion',
   },
   COMMUNITY_ADMIN_OFFICIAL_ANSWER: {
+    code: 7,
     title: 'permissionOfficialAnswer',
   },
 };

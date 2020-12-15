@@ -114,21 +114,21 @@ export const answerGivenArr = [
   {
     id: 10,
     title: 'ANSWERS_GIVEN_BRONZE',
-    lowerValue: process.env.ENV === 'prod' ? 10 : 2,
-    upperValue: process.env.ENV === 'prod' ? 49 : 4,
+    lowerValue: process.env.ENV === 'prod' ? 20 : 2,
+    upperValue: process.env.ENV === 'prod' ? 99 : 4,
     level: 'bronze',
   },
   {
     id: 11,
     title: 'ANSWERS_GIVEN_SILVER',
-    lowerValue: process.env.ENV === 'prod' ? 50 : 5,
-    upperValue: process.env.ENV === 'prod' ? 99 : 9,
+    lowerValue: process.env.ENV === 'prod' ? 100 : 5,
+    upperValue: process.env.ENV === 'prod' ? 199 : 9,
     level: 'silver',
   },
   {
     id: 12,
     title: 'ANSWERS_GIVEN_GOLD',
-    lowerValue: process.env.ENV === 'prod' ? 100 : 10,
+    lowerValue: process.env.ENV === 'prod' ? 200 : 10,
     upperValue: Infinity,
     level: 'gold',
   },
@@ -163,20 +163,20 @@ export const firstIn15Arr = [
     id: 50,
     title: 'ANSWERS_IN_15_BRONZE',
     lowerValue: process.env.ENV === 'prod' ? 5 : 1,
-    upperValue: process.env.ENV === 'prod' ? 24 : 2,
+    upperValue: process.env.ENV === 'prod' ? 9 : 2,
     level: 'bronze',
   },
   {
     id: 51,
     title: 'ANSWERS_IN_15_SILVER',
-    lowerValue: process.env.ENV === 'prod' ? 25 : 3,
-    upperValue: process.env.ENV === 'prod' ? 49 : 4,
+    lowerValue: process.env.ENV === 'prod' ? 10 : 3,
+    upperValue: process.env.ENV === 'prod' ? 19 : 4,
     level: 'silver',
   },
   {
     id: 52,
     title: 'ANSWERS_IN_15_GOLD',
-    lowerValue: process.env.ENV === 'prod' ? 50 : 5,
+    lowerValue: process.env.ENV === 'prod' ? 20 : 5,
     upperValue: Infinity,
     level: 'gold',
   },
@@ -186,7 +186,7 @@ export const firstAnswerArr = [
   {
     id: 60,
     title: 'FIRST_ANSWERS_BRONZE',
-    lowerValue: process.env.ENV === 'prod' ? 5 : 1,
+    lowerValue: process.env.ENV === 'prod' ? 10 : 1,
     upperValue: process.env.ENV === 'prod' ? 24 : 2,
     level: 'bronze',
   },
@@ -225,19 +225,22 @@ const GET_USER_ACHIEVEMENTS_SUCCESS =
   'containers/Achievements/GET_USER_ACHIEVEMENTS_SUCCESS';
 const SET_VIEW_PROFILE_ACCOUNT =
   'containers/Achievements/SET_VIEW_PROFILE_ACCOUNT';
-const SET_PREV_VIEW_PROFILE_ACCOUNT =
-  'containers/Achievements/SET_PREV_VIEW_PROFILE_ACCOUNT';
+const RESET_VIEW_PROFILE_ACCOUNT =
+  'containers/Achievements/RESET_VIEW_PROFILE_ACCOUNT';
 const USER_ACHIEVEMENTS_LOADING =
   'containers/Achievements/USER_ACHIEVEMENTS_LOADING';
 const SET_MEMORIZED_ACHIEV_DATA =
   'containers/Achievements/SET_MEMORIZED_ACHIEV_DATA';
+const SET_MAX_GROUPS_LOWER_VALUES =
+  'containers/Achievements/SET_MAX_GROUPS_LOWER_VALUES';
 
 export {
   GET_USER_ACHIEVEMENTS,
   GET_USER_ACHIEVEMENTS_ERROR,
   GET_USER_ACHIEVEMENTS_SUCCESS,
   SET_VIEW_PROFILE_ACCOUNT,
-  SET_PREV_VIEW_PROFILE_ACCOUNT,
+  RESET_VIEW_PROFILE_ACCOUNT,
   USER_ACHIEVEMENTS_LOADING,
   SET_MEMORIZED_ACHIEV_DATA,
+  SET_MAX_GROUPS_LOWER_VALUES,
 };

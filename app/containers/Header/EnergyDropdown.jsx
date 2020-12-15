@@ -50,7 +50,9 @@ const Menu = ({ energy, maxEnergy, faqQuestions }) => (
 );
 
 const EnergyDropdown = ({ energy, rating, faqQuestions }) => {
-  const { maxEnergy } = userStatusOptions[getStatus(rating)];
+  const { maxEnergy } = userStatusOptions[getStatus(rating)] || {
+    maxEnergy: 0,
+  };
 
   // TODO: return if energy will be needed
   if (process.env.ENV === 'prod') {
