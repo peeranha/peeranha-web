@@ -24,6 +24,8 @@ const View = ({
   locale,
   account,
   balance,
+  stakedInCurrentPeriod,
+  stakedInNextPeriod,
   weekStat,
   userBoostStat,
   getWeekStatProcessing,
@@ -45,7 +47,12 @@ const View = ({
   <>
     <NavHeader userId={userId} />
     
-    <SubHeader account={account} balance={balance} />
+    <SubHeader
+      account={account}
+      balance={balance}
+      stakedInCurrentPeriod={stakedInCurrentPeriod}
+      stakedInNextPeriod={stakedInNextPeriod}
+    />
 
     {(userBoostStat && !userBoostStat.length) && <BoostBanner userId={userId} />}
 
@@ -65,6 +72,8 @@ View.propTypes = {
   locale: PropTypes.string,
   account: PropTypes.string,
   balance: PropTypes.number,
+  stakedInCurrentPeriod: PropTypes.number,
+  stakedInNextPeriod: PropTypes.number,
   weekStat: PropTypes.array,
   userBoostStat: PropTypes.array,
   ids: PropTypes.array,

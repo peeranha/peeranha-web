@@ -15,6 +15,8 @@ const View = ({
   locale,
   account,
   balance,
+  stakedInCurrentPeriod,
+  stakedInNextPeriod,
   weekStat,
   globalBoostStat,
   userBoostStat,
@@ -22,7 +24,14 @@ const View = ({
   changeStakeDispatch,
   changeStakeLoading,
 }) => {
-  const [currentStake, setCurrentStake] = useState(0);
+  const boostWeeks = getBoostWeeks(weekStat, globalBoostStat, userBoostStat);
+  const { currentWeek, nextWeek } = boostWeeks;
+  const { userStake, maxStake } = nextWeek;
+
+  const [currentStake, setCurrentStake] = useState(userStake);
+
+  if (currentStake === undefined && !!userStake)
+    setCurrentStake(userStake);
 
   const changeCurrentStake = useCallback(
     x => {
@@ -30,12 +39,6 @@ const View = ({
     },
     [currentStake, setCurrentStake],
   );
-
-  const boostWeeks = getBoostWeeks(weekStat, globalBoostStat, userBoostStat);
-
-  console.log('boostWeeks', boostWeeks)
-  const { currentWeek } = boostWeeks;
-  const { maxStake } = currentWeek;
 
   let predictedBoost = 1;
   if (maxStake && currentStake <= maxStake) {
@@ -49,7 +52,12 @@ const View = ({
     <>
       <NavHeader userId={userId} />
       
-      <SubHeader account={account} balance={balance ? balance.toString() : ""} />
+      <SubHeader
+        account={account}
+        balance={balance ? balance.toString() : ""}
+        stakedInCurrentPeriod={stakedInCurrentPeriod}
+        stakedInNextPeriod={stakedInNextPeriod}
+      />
 
       <Weeks
         locale={locale}
@@ -63,8 +71,9 @@ const View = ({
         currentStake={currentStake}
         predictedBoost={predictedBoost}
         maxStake={balance}
+        initialUserStake={stakedInNextPeriod}
         changeCurrentStake={changeCurrentStake}
-        onChangeCurrentStake={e => setCurrentStake(+e.currentTarget.value)}
+        onChangeCurrentStake={setCurrentStake}
         changeStake={changeStakeDispatch}
         changeStakeLoading={changeStakeLoading}
         locale={locale}
@@ -78,6 +87,8 @@ View.propTypes = {
   locale: PropTypes.string,
   account: PropTypes.string,
   balance: PropTypes.number,
+  stakedInCurrentPeriod: PropTypes.number,
+  stakedInNextPeriod: PropTypes.number,
   weekStat: PropTypes.array,
   globalBoostStat: PropTypes.array,
   userBoostStat: PropTypes.array,

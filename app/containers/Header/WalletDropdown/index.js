@@ -123,7 +123,7 @@ const WalletDropdown = ({
           <WalletButton
             balance={balance}
             locale={locale}
-            isBoost={!!(!!userBoostStat && userBoostStat.length && +userBoostStat[0].staked_tokens)}
+            isBoost={boost > 1}
           />
         }
         menu={

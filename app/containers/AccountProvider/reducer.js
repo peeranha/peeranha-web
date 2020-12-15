@@ -19,6 +19,8 @@ export const initialState = fromJS({
   error: null,
   account: null,
   balance: null,
+  stakedInCurrentPeriod: null,
+  stakedInNextPeriod: null,
   lastUpdate: null,
   email: null,
   eosAccountName: null,
@@ -35,6 +37,8 @@ function accountProviderReducer(state = initialState, action) {
     err,
     account,
     balance,
+    stakedInCurrentPeriod,
+    stakedInNextPeriod,
     email,
     eosAccountName,
     authToken,
@@ -52,7 +56,9 @@ function accountProviderReducer(state = initialState, action) {
         .set('loading', false)
         .set('lastUpdate', Date.now())
         .set('account', account || initialState.get('account'))
-        .set('balance', balance || initialState.get('balance'));
+        .set('balance', balance || initialState.get('balance'))
+        .set('stakedInCurrentPeriod', stakedInCurrentPeriod || initialState.get('stakedInCurrentPeriod'))
+        .set('stakedInNextPeriod', stakedInNextPeriod || initialState.get('stakedInNextPeriod'));
     case GET_CURRENT_ACCOUNT_ERROR:
       return state.set('loading', false).set('error', err);
 

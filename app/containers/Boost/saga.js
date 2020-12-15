@@ -33,9 +33,8 @@ export function* getWeekStatWorker() {
     const weekStat = yield call(getWeekStat, eosService, profile);
 
     const globalBoostStat = yield call(getGlobalBoostStatistics, eosService);
-    console.log('globalBoostStat', globalBoostStat)
     const userBoostStat = yield call(getUserBoostStatistics, eosService, profile.user);
-    console.log('userBoostStat', userBoostStat)
+
     yield put(getWeekStatSuccess(weekStat, globalBoostStat, userBoostStat));
   } catch (err) {
     yield put(getWeekStatErr(err));

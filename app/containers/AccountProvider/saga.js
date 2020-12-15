@@ -7,6 +7,8 @@ import { updateAcc } from 'utils/accountManagement';
 import {
   convertPeerValueToNumberValue,
   getBalance,
+  getWeekStat,
+  getUserBoostStatistics,
 } from 'utils/walletManagement';
 
 import commonMessages from 'common-messages';
@@ -152,6 +154,9 @@ export const getCurrentAccountWorker = function*(initAccount) {
       call(getBalance, eosService, account),
     ]);
 
+    let stakedInCurrentPeriod = 0;
+    let stakedInNextPeriod = 0;
+
     if (profileInfo) {
       // update user achievements
       yield call(updateUserAchievementsWorker, profileInfo.user, {
@@ -179,6 +184,30 @@ export const getCurrentAccountWorker = function*(initAccount) {
       if (prevProfileInfo) {
         profileInfo.profile = prevProfileInfo.profile;
       }
+
+      // update user available balance
+      const weekStat = yield call(getWeekStat, eosService, profileInfo);
+      const currentWeek = weekStat[0];
+      
+      const userBoostStat = yield call(getUserBoostStatistics, eosService, profileInfo.user);
+      const userStakes = userBoostStat.length > 1 ? userBoostStat.slice(userBoostStat.length - 2) : [...userBoostStat];
+
+      let currentWeekIndex = 0;
+      if (userStakes.length > 1) {
+        currentWeekIndex = 
+          userStakes[userStakes.length - 1].period === currentWeek.period + 2 ? 
+          userStakes.length - 2 : 
+          userStakes.length - 1;
+      }
+
+      const currentWeekUserStake = userStakes[userStakes.length - 1];
+      const nextWeekUserStake = userStakes[userStakes.length - 1];
+
+      stakedInCurrentPeriod = currentWeekUserStake.staked_tokens;
+      stakedInCurrentPeriod = +(stakedInCurrentPeriod.slice(0, stakedInCurrentPeriod.indexOf(' PEER')));
+
+      stakedInNextPeriod = nextWeekUserStake.staked_tokens;
+      stakedInNextPeriod = +(stakedInNextPeriod.slice(0, stakedInNextPeriod.indexOf(' PEER')));
     }
 
     setCookie({
@@ -197,7 +226,7 @@ export const getCurrentAccountWorker = function*(initAccount) {
     );
     yield put(getUserProfileSuccess(profileInfo));
     yield call(getCommunityPropertyWorker, profileInfo);
-    yield put(getCurrentAccountSuccess(account, balance));
+    yield put(getCurrentAccountSuccess(account, balance, stakedInCurrentPeriod, stakedInNextPeriod));
     yield put(getUserTelegramDataSuccess(userTgInfo));
   } catch (err) {
     yield put(getCurrentAccountError(err));

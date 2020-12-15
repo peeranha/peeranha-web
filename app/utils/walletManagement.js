@@ -298,7 +298,6 @@ export async function getUserBoostStatistics(eosService, user) {
 }
 
 export async function addBoost(eosService, user, tokens) {
-  console.log('user, tokens', user, tokens)
   await eosService.sendTransaction(
     user,
     ADD_BOOST_METHOD,
@@ -311,9 +310,26 @@ export async function addBoost(eosService, user, tokens) {
   );
 }
 
-export function getBoostWeeks(weekStat, globalBoostStat, userBoostStat) {
+const setWeekDataByKey = (boostStat, key, nextWeekPeriod) => {
   const CURRENCY = ' PEER';
 
+  let currentWeekIndex = 0;
+  if (boostStat.length > 1) {
+    currentWeekIndex = 
+      boostStat[boostStat.length - 1].period === nextWeekPeriod ? 
+      boostStat.length - 2 : 
+      boostStat.length - 1;
+  }
+  const currentWeekMaxStake = boostStat[currentWeekIndex][key];
+  const nextWeekMaxStake = boostStat[boostStat.length - 1][key];
+
+  return [
+    +(currentWeekMaxStake.slice(0, currentWeekMaxStake.indexOf(CURRENCY))),
+    +(nextWeekMaxStake.slice(0, nextWeekMaxStake.indexOf(CURRENCY))),
+  ];
+}
+
+export function getBoostWeeks(weekStat, globalBoostStat, userBoostStat) {
   const currentWeek = weekStat ? weekStat[0] : {};
   const nextWeek = currentWeek ? 
     {
@@ -323,23 +339,17 @@ export function getBoostWeeks(weekStat, globalBoostStat, userBoostStat) {
     } : {};
 
   if (globalBoostStat && globalBoostStat.length) {
-    const currentWeekMaxStake = globalBoostStat[
-      (globalBoostStat.length > 1) && (globalBoostStat[0].period === nextWeek.period) ? 1 : 0
-    ].max_stake;
-    const nextWeekMaxStake = globalBoostStat[0].max_stake;
+    const [currentWeekMaxStake, nextWeekMaxStake] = setWeekDataByKey(globalBoostStat, 'max_stake', nextWeek.period);
 
-    currentWeek.maxStake = +(currentWeekMaxStake.slice(0, currentWeekMaxStake.indexOf(CURRENCY)));
-    nextWeek.maxStake = +(nextWeekMaxStake.slice(0, nextWeekMaxStake.indexOf(CURRENCY)));
+    currentWeek.maxStake = currentWeekMaxStake;
+    nextWeek.maxStake = nextWeekMaxStake;
   }
 
   if (userBoostStat && userBoostStat.length) {
-    const currentWeekUserStake = userBoostStat[
-      (userBoostStat.length > 1) && (userBoostStat[0].period === nextWeek.period) ? 1 : 0
-    ].staked_tokens;
-    const nextWeekUserStake = userBoostStat[0].staked_tokens;
+    const [currentWeekUserStake, nextWeekUserStake] = setWeekDataByKey(userBoostStat, 'staked_tokens', nextWeek.period);
 
-    currentWeek.userStake = +(currentWeekUserStake.slice(0, currentWeekUserStake.indexOf(CURRENCY)));
-    nextWeek.userStake = +(nextWeekUserStake.slice(0, nextWeekUserStake.indexOf(CURRENCY)));
+    currentWeek.userStake = currentWeekUserStake;
+    nextWeek.userStake = nextWeekUserStake;
   }
 
   return {

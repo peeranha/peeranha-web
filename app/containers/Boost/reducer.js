@@ -43,8 +43,18 @@ function walletReducer(state = initialState, action) {
       return state
         .set('getWeekStatProcessing', false)
         .set('weekStat', weekStat.slice(0, 1))
-        .set('globalBoostStat', globalBoostStat.slice(0, 2))
-        .set('userBoostStat', userBoostStat.slice(0, 2));
+        .set(
+          'globalBoostStat', 
+          globalBoostStat.length > 1 ? 
+            globalBoostStat.slice(globalBoostStat.length - 2) : 
+            [...globalBoostStat]
+        )
+        .set(
+          'userBoostStat',
+          userBoostStat.length > 1 ?
+            userBoostStat.slice(userBoostStat.length - 2) :
+            [...userBoostStat]
+        );
     case GET_WEEK_STAT_ERROR:
       return state
         .set('getWeekStatProcessing', false)

@@ -21,10 +21,13 @@ import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import {
   makeSelectAccount,
   makeSelectBalance,
+  makeSelectStakedInCurrentPeriod,
+  makeSelectStakedInNextPeriod,
 } from 'containers/AccountProvider/selectors';
 
 import Seo from 'components/Seo';
 import View from './View';
+import NotFound from 'containers/ErrorPage';
 
 const Boost = ({
   match: {
@@ -33,6 +36,8 @@ const Boost = ({
   locale,
   account,
   balance,
+  stakedInCurrentPeriod,
+  stakedInNextPeriod,
   weekStat,
   globalBoostStat,
   userBoostStat,
@@ -41,6 +46,14 @@ const Boost = ({
   changeStakeDispatch,
   changeStakeLoading,
 }) => {
+  if (!account) {
+    return (
+      <div>
+        <NotFound withSeo={false} />
+      </div>
+    )
+  }
+
   useEffect(
     () => {
       if (account) {
@@ -66,6 +79,8 @@ const Boost = ({
         locale={locale}
         account={account}
         balance={balance}
+        stakedInCurrentPeriod={stakedInCurrentPeriod}
+        stakedInNextPeriod={stakedInNextPeriod}
         weekStat={weekStat}
         globalBoostStat={globalBoostStat}
         userBoostStat={userBoostStat}
@@ -79,6 +94,8 @@ const Boost = ({
 
 Boost.propTypes = {
   balance: PropTypes.number,
+  stakedInCurrentPeriod: PropTypes.number,
+  stakedInNextPeriod: PropTypes.number,
   locale: PropTypes.string,
   account: PropTypes.string,
   match: PropTypes.object,
@@ -100,6 +117,8 @@ export default memo(
         locale: makeSelectLocale(),
         account: makeSelectAccount(),
         balance: makeSelectBalance(),
+        stakedInCurrentPeriod: makeSelectStakedInCurrentPeriod(),
+        stakedInNextPeriod: makeSelectStakedInNextPeriod(),
         weekStat: selectors.selectWeekStat(),
         globalBoostStat: selectors.selectGlobalBoostStat(),
         userBoostStat: selectors.selectUserBoostStat(),

@@ -10,6 +10,8 @@ import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import {
   makeSelectAccount,
   makeSelectBalance,
+  makeSelectStakedInCurrentPeriod,
+  makeSelectStakedInNextPeriod,
 } from 'containers/AccountProvider/selectors';
 
 import Seo from 'components/Seo';
@@ -28,6 +30,8 @@ const Wallet = ({
   locale,
   account,
   balance,
+  stakedInCurrentPeriod,
+  stakedInNextPeriod,
   weekStat,
   getWeekStatDispatch,
   getWeekStatProcessing,
@@ -60,6 +64,8 @@ const Wallet = ({
         locale={locale}
         account={account}
         balance={balance}
+        stakedInCurrentPeriod={stakedInCurrentPeriod}
+        stakedInNextPeriod={stakedInNextPeriod}
         weekStat={weekStat}
         getWeekStatProcessing={getWeekStatProcessing}
         pickupRewardDispatch={pickupRewardDispatch}
@@ -72,6 +78,8 @@ const Wallet = ({
 
 Wallet.propTypes = {
   balance: PropTypes.string,
+  stakedInCurrentPeriod: PropTypes.number,
+  stakedInNextPeriod: PropTypes.number,
   locale: PropTypes.string,
   account: PropTypes.string,
   match: PropTypes.object,
@@ -93,6 +101,8 @@ export default memo(
         locale: makeSelectLocale(),
         account: makeSelectAccount(),
         balance: makeSelectBalance(),
+        stakedInCurrentPeriod: makeSelectStakedInCurrentPeriod(),
+        stakedInNextPeriod: makeSelectStakedInNextPeriod(),
         weekStat: selectors.selectWeekStat(),
         getWeekStatProcessing: selectors.selectGetWeekStatProcessing(),
         pickupRewardProcessing: selectors.selectPickupRewardProcessing(),
