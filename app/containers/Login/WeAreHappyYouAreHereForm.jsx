@@ -61,7 +61,22 @@ const WeAreHappyYouAreHereForm = ({
       <Field
         name={REFERRAL_CODE}
         disabled={finishRegistrationProcessing}
-        label={translationMessages[locale][signupMessages.referralCode.id]}
+        label={
+          <FormattedMessage
+            {...signupMessages.referralCode}
+            values={{
+              optional: (
+                <text style={{ fontWeight: 'lighter' }}>
+                  {
+                    translationMessages[locale][
+                      loginMessages.optionalReferralCode.id
+                    ]
+                  }
+                </text>
+              ),
+            }}
+          />
+        }
         component={TextInputField}
         validate={[validateTelosName]}
       />

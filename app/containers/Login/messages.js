@@ -30,6 +30,9 @@ const messages = defineMessages({
   referralMessage: {
     id: 'app.containers.Login.referralMessage',
   },
+  optionalReferralCode: {
+    id: 'app.containers.Login.optionalReferralCode',
+  },
   [SCATTER_MODE_ERROR]: {
     id: 'app.containers.Login.scatterIsNotInstalled',
   },
