@@ -91,7 +91,7 @@ const Form = ({
   locale,
 }) => (
   <div className="mb-5">
-    {currentStake && (
+    {currentStake !== undefined && (
       <>
         <Title><FormattedMessage {...messages.formTitle} /></Title>
         <TipsBase>    
@@ -169,7 +169,6 @@ export default memo(
           enableReinitialize: true,
         };
       },
-      dispatch => ({}),
     )(FormClone),
   ),
 );

@@ -18,6 +18,8 @@ import Icon from 'components/Icon';
 import {
   makeSelectProfileInfo,
   makeSelectBalance,
+  makeSelectStakedInCurrentPeriod,
+  makeSelectStakedInNextPeriod,
 } from 'containers/AccountProvider/selectors';
 
 import { showLoginModal } from 'containers/Login/actions';
@@ -31,6 +33,8 @@ const LeftMenu = /* istanbul ignore next */ ({
   profile,
   isMenuVisible,
   balance,
+  stakedInCurrentPeriod,
+  stakedInNextPeriod,
   showLoginModalDispatch,
   showLeftMenuDispatch,
 }) => (
@@ -42,6 +46,8 @@ const LeftMenu = /* istanbul ignore next */ ({
       isMenuVisible={isMenuVisible}
       profile={profile}
       balance={balance}
+      stakedInCurrentPeriod={stakedInCurrentPeriod}
+      stakedInNextPeriod={stakedInNextPeriod}
       showLoginModal={showLoginModalDispatch}
     />
 
@@ -56,12 +62,16 @@ LeftMenu.propTypes = {
   showLoginModalDispatch: PropTypes.func,
   showLeftMenuDispatch: PropTypes.func,
   balance: PropTypes.number,
+  stakedInCurrentPeriod: PropTypes.number,
+  stakedInNextPeriod: PropTypes.number,
   isMenuVisible: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({
   profile: makeSelectProfileInfo(),
   balance: makeSelectBalance(),
+  stakedInCurrentPeriod: makeSelectStakedInCurrentPeriod(),
+  stakedInNextPeriod: makeSelectStakedInNextPeriod(),
   isMenuVisible: selectIsMenuVisible(),
 });
 

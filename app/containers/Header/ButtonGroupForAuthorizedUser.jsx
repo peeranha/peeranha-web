@@ -18,7 +18,12 @@ const ButtonGroupForAuthorizedUser = ({
       energy={profileInfo.energy}
       faqQuestions={faqQuestions}
     />
-    <WalletDropdown user={profileInfo.user} balance={profileInfo.balance} />
+    <WalletDropdown
+      user={profileInfo.user}
+      balance={profileInfo.balance}
+      stakedInCurrentPeriod={profileInfo.stakedInCurrentPeriod}
+      stakedInNextPeriod={profileInfo.stakedInNextPeriod}
+    />
     <ProfileDropdown profileInfo={profileInfo} />
   </React.Fragment>
 );

@@ -47,7 +47,7 @@ import { getWeekStat as getUserBoostStat } from 'containers/Boost/actions';
 import NotificationIcon from './NotificationIcon';
 import WalletButton from './WalletButton';
 
-const BoostPrediction = styled.span`
+export const BoostPrediction = styled.span`
   padding: 3px 6px 3.5px;
   margin-left: 5px;
   font-size: 14px;
@@ -85,6 +85,8 @@ const Menu = memo(({ user, number, locale, boost }) => (
 const WalletDropdown = ({
   user,
   balance,
+  stakedInCurrentPeriod = 0,
+  stakedInNextPeriod = 0,
   locale,
   getWeekStatDispatch,
   rewardsWeeksNumber: number,
@@ -114,6 +116,11 @@ const WalletDropdown = ({
     boost = Math.floor(boost * 100) / 100;
   }
 
+  const availableBalance =
+    stakedInCurrentPeriod >= stakedInNextPeriod ?
+      balance - stakedInCurrentPeriod :
+      balance - stakedInNextPeriod;
+
   return (
     <div className="position-relative">
       <Dropdown
@@ -121,7 +128,7 @@ const WalletDropdown = ({
         className="d-none d-md-flex mr-1 wallet-dropdown"
         button={
           <WalletButton
-            balance={balance}
+            balance={availableBalance}
             locale={locale}
             isBoost={boost > 1}
           />
@@ -156,6 +163,8 @@ Menu.propTypes = {
 WalletDropdown.propTypes = {
   user: PropTypes.string,
   balance: PropTypes.number,
+  stakedInCurrentPeriod: PropTypes.number,
+  stakedInNextPeriod: PropTypes.number,
   locale: PropTypes.string,
   getWeekStatDispatch: PropTypes.func,
   rewardsWeeksNumber: PropTypes.number,

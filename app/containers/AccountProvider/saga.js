@@ -9,6 +9,7 @@ import {
   getBalance,
   getWeekStat,
   getUserBoostStatistics,
+  setWeekDataByKey,
 } from 'utils/walletManagement';
 
 import commonMessages from 'common-messages';
@@ -137,8 +138,18 @@ export const getCurrentAccountWorker = function*(initAccount) {
         (account === profileLS.user ||
           (account && account.eosAccountName === profileLS.user))
       ) {
+        // user available balance
+        const weekStat = yield call(getWeekStat, eosService, profileLS);
+        const currentWeek = weekStat[0];
+
+        const userBoostStat = yield call(getUserBoostStatistics, eosService, profileLS.user);
+        const userStakes = userBoostStat.length > 1 ? userBoostStat.slice(userBoostStat.length - 2) : [...userBoostStat];
+
+        const [stakedInCurrentPeriod, stakedInNextPeriod] = 
+          yield call(setWeekDataByKey, userStakes, 'staked_tokens', currentWeek.period + 1);
+
         yield put(getUserProfileSuccess(profileLS));
-        yield put(getCurrentAccountSuccess(profileLS.user, profileLS.balance));
+        yield put(getCurrentAccountSuccess(profileLS.user, profileLS.balance, stakedInCurrentPeriod, stakedInNextPeriod));
 
         return null;
       }
@@ -192,22 +203,8 @@ export const getCurrentAccountWorker = function*(initAccount) {
       const userBoostStat = yield call(getUserBoostStatistics, eosService, profileInfo.user);
       const userStakes = userBoostStat.length > 1 ? userBoostStat.slice(userBoostStat.length - 2) : [...userBoostStat];
 
-      let currentWeekIndex = 0;
-      if (userStakes.length > 1) {
-        currentWeekIndex = 
-          userStakes[userStakes.length - 1].period === currentWeek.period + 2 ? 
-          userStakes.length - 2 : 
-          userStakes.length - 1;
-      }
-
-      const currentWeekUserStake = userStakes[userStakes.length - 1];
-      const nextWeekUserStake = userStakes[userStakes.length - 1];
-
-      stakedInCurrentPeriod = currentWeekUserStake.staked_tokens;
-      stakedInCurrentPeriod = +(stakedInCurrentPeriod.slice(0, stakedInCurrentPeriod.indexOf(' PEER')));
-
-      stakedInNextPeriod = nextWeekUserStake.staked_tokens;
-      stakedInNextPeriod = +(stakedInNextPeriod.slice(0, stakedInNextPeriod.indexOf(' PEER')));
+      [stakedInCurrentPeriod, stakedInNextPeriod] = 
+        yield call(setWeekDataByKey, userStakes, 'staked_tokens', currentWeek.period + 1);
     }
 
     setCookie({

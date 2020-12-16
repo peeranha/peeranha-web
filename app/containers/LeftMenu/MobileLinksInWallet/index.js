@@ -7,12 +7,21 @@ import { connect } from 'react-redux';
 import * as routes from 'routes-config';
 import messages from 'common-messages';
 
+import {
+  MAX_STAKE_PREDICTION,
+  MIN_STAKE_PREDICTION,
+} from 'containers/Boost/constants';
+
+import { getBoostWeeks } from 'utils/walletManagement';
+
 import arrowDownIcon from 'images/arrowDown.svg?external';
 
 import { selectRewardsWeeksNumber } from 'containers/Wallet/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import * as selectors from 'containers/Boost/selectors';
 
 import WalletButton from 'containers/Header/WalletDropdown/WalletButton';
+import { BoostPrediction } from 'containers/Header/WalletDropdown';
 import NotificationIcon from 'containers/Header/WalletDropdown/NotificationIcon';
 
 import A from 'components/A';
@@ -24,8 +33,13 @@ const MobileLinksInWallet = ({
   profile,
   isMenuVisible,
   balance,
+  stakedInCurrentPeriod = 0,
+  stakedInNextPeriod = 0,
   rewardsWeeksNumber,
   locale,
+  weekStat,
+  globalBoostStat,
+  userBoostStat,
 }) => {
   const [visibleWalletLinks, setVisibilityWalletLinks] = useState(false);
 
@@ -35,6 +49,21 @@ const MobileLinksInWallet = ({
     return null;
   }
 
+  const boostWeeks = getBoostWeeks(weekStat, globalBoostStat, userBoostStat);
+  const { currentWeek } = boostWeeks;
+  const { userStake, maxStake } = currentWeek;
+
+  let boost = 1;
+  if (userStake && maxStake) {
+    boost = userStake / maxStake * (MAX_STAKE_PREDICTION - MIN_STAKE_PREDICTION) + 1;
+    boost = Math.floor(boost * 100) / 100;
+  }
+
+  const availableBalance =
+    stakedInCurrentPeriod >= stakedInNextPeriod ?
+      balance - stakedInCurrentPeriod :
+      balance - stakedInNextPeriod;
+
   return (
     <div className="lightbg use-default-links">
       <button
@@ -42,9 +71,10 @@ const MobileLinksInWallet = ({
         onClick={() => setVisibilityWalletLinks(!visibleWalletLinks)}
       >
         <WalletButton
-          balance={balance}
+          balance={availableBalance}
           number={rewardsWeeksNumber}
           locale={locale}
+          isBoost={boost > 1}
           mobile
         />
         <Icon
@@ -69,7 +99,10 @@ const MobileLinksInWallet = ({
               />
             )}
           </A>
-
+          <A to={routes.userBoost(profile.user)}>
+            <FormattedMessage {...messages.boost} />
+            {boost > 1 && <BoostPrediction>×{boost}</BoostPrediction>}
+          </A>
           <SendTokens>
             <FormattedMessage {...messages.sendTokens} />
           </SendTokens>
@@ -81,10 +114,15 @@ const MobileLinksInWallet = ({
 
 MobileLinksInWallet.propTypes = {
   balance: PropTypes.number,
+  stakedInCurrentPeriod: PropTypes.number,
+  stakedInNextPeriod: PropTypes.number,
   profile: PropTypes.object,
   isMenuVisible: PropTypes.bool,
   rewardsWeeksNumber: PropTypes.number,
   locale: PropTypes.string,
+  weekStat: PropTypes.array,
+  globalBoostStat: PropTypes.array,
+  userBoostStat: PropTypes.array,
 };
 
 export default memo(
@@ -92,6 +130,9 @@ export default memo(
     createStructuredSelector({
       rewardsWeeksNumber: selectRewardsWeeksNumber(),
       locale: makeSelectLocale(),
+      weekStat: selectors.selectWeekStat(),
+      globalBoostStat: selectors.selectGlobalBoostStat(),
+      userBoostStat: selectors.selectUserBoostStat(),
     }),
   )(MobileLinksInWallet),
 );

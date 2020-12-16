@@ -310,7 +310,7 @@ export async function addBoost(eosService, user, tokens) {
   );
 }
 
-const setWeekDataByKey = (boostStat, key, nextWeekPeriod) => {
+export const setWeekDataByKey = (boostStat, key, nextWeekPeriod) => {
   const CURRENCY = ' PEER';
 
   let currentWeekIndex = 0;
