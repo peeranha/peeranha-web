@@ -32,6 +32,8 @@ const Wallet = ({
   stakedInCurrentPeriod,
   stakedInNextPeriod,
   weekStat,
+  globalBoostStat,
+  userBoostStat,
   getWeekStatDispatch,
   getWeekStatProcessing,
   pickupRewardDispatch,
@@ -66,6 +68,8 @@ const Wallet = ({
         stakedInCurrentPeriod={stakedInCurrentPeriod}
         stakedInNextPeriod={stakedInNextPeriod}
         weekStat={weekStat}
+        globalBoostStat={globalBoostStat}
+        userBoostStat={userBoostStat}
         getWeekStatProcessing={getWeekStatProcessing}
         pickupRewardDispatch={pickupRewardDispatch}
         pickupRewardProcessing={pickupRewardProcessing}
@@ -84,6 +88,8 @@ Wallet.propTypes = {
   match: PropTypes.object,
   pickupRewardDispatch: PropTypes.func,
   weekStat: PropTypes.array,
+  globalBoostStat: PropTypes.array,
+  userBoostStat: PropTypes.array,
   ids: PropTypes.array,
   getWeekStatDispatch: PropTypes.func,
   getWeekStatProcessing: PropTypes.bool,

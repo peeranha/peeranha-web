@@ -1,18 +1,5 @@
-import React, { memo, useEffect } from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { compose, bindActionCreators } from 'redux';
-import { createStructuredSelector } from 'reselect';
-
-import { STATE_KEY } from "containers/Boost/constants";
-
-import * as selectors from 'containers/Boost/selectors';
-import reducer from 'containers/Boost/reducer';
-import saga from 'containers/Boost/saga';
-import { getWeekStat } from 'containers/Boost/actions';
-
-import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
 
 import NavHeader from 'components/WalletNavigation';
 import SubHeader from './SubHeader';
@@ -27,23 +14,13 @@ const View = ({
   stakedInCurrentPeriod,
   stakedInNextPeriod,
   weekStat,
+  globalBoostStat,
   userBoostStat,
   getWeekStatProcessing,
-  getWeekStatDispatch,
   pickupRewardDispatch,
   pickupRewardProcessing,
   ids,
-}) => {
-  useEffect(
-    () => {
-      if (account) {
-        getWeekStatDispatch();
-      }
-    },
-    [account],
-  );
-
-  return (
+}) => (
   <>
     <NavHeader userId={userId} />
     
@@ -59,13 +36,15 @@ const View = ({
     <Weeks
       locale={locale}
       weekStat={weekStat}
+      globalBoostStat={globalBoostStat}
+      userBoostStat={userBoostStat}
       getWeekStatProcessing={getWeekStatProcessing}
       pickupRewardDispatch={pickupRewardDispatch}
       pickupRewardProcessing={pickupRewardProcessing}
       ids={ids}
     />
   </>
-);}
+);
 
 View.propTypes = {
   userId: PropTypes.string,
@@ -75,6 +54,7 @@ View.propTypes = {
   stakedInCurrentPeriod: PropTypes.number,
   stakedInNextPeriod: PropTypes.number,
   weekStat: PropTypes.array,
+  globalBoostStat: PropTypes.array,
   userBoostStat: PropTypes.array,
   ids: PropTypes.array,
   getWeekStatProcessing: PropTypes.bool,
@@ -83,17 +63,4 @@ View.propTypes = {
   pickupRewardProcessing: PropTypes.bool,
 };
 
-export default memo(
-  compose(
-    injectReducer({ key: STATE_KEY, reducer }),
-    injectSaga({ key: STATE_KEY, saga }),
-    connect(
-      createStructuredSelector({
-        userBoostStat: selectors.selectUserBoostStat(),
-      }),
-      dispatch => ({
-        getWeekStatDispatch: bindActionCreators(getWeekStat, dispatch),
-      }),
-    ),
-  )(View),
-);
+export default memo(View);

@@ -311,6 +311,12 @@ export async function addBoost(eosService, user, tokens) {
   );
 }
 
+export const getStakeNum = (stake) => {
+  const CURRENCY = ' PEER';
+
+  return +(stake.slice(0, stake.indexOf(CURRENCY)))
+}
+
 export const getPredictedBoost = (userStake, maxStake) => {
   let boost = 1;
 
@@ -330,8 +336,6 @@ export const getPredictedBoost = (userStake, maxStake) => {
 }
 
 export const setWeekDataByKey = (boostStat, key, nextWeekPeriod) => {
-  const CURRENCY = ' PEER';
-
   let currentWeekIndex = 0;
   if (boostStat.length > 1) {
     currentWeekIndex = 
@@ -343,8 +347,8 @@ export const setWeekDataByKey = (boostStat, key, nextWeekPeriod) => {
   const nextWeekMaxStake = boostStat[boostStat.length - 1][key];
 
   return [
-    +(currentWeekMaxStake.slice(0, currentWeekMaxStake.indexOf(CURRENCY))),
-    +(nextWeekMaxStake.slice(0, nextWeekMaxStake.indexOf(CURRENCY))),
+    getStakeNum(currentWeekMaxStake),
+    getStakeNum(nextWeekMaxStake),
   ];
 }
 
@@ -377,6 +381,29 @@ export function getBoostWeeks(weekStat, globalBoostStat, userBoostStat) {
   };
 }
 
-export const getRewardAmountByBoost = (user, amount, period) => {
-  return amount;
+export const getRewardAmountByBoost = (
+  currentPeriod, 
+  amount, 
+  globalBoostStat = [], 
+  userBoostStat = [],
+) => {
+  if (!amount || !userBoostStat.length) return amount;
+
+  const filtredUserBoostStat = userBoostStat.filter(item => item.period <= currentPeriod);
+
+  if (!filtredUserBoostStat.length) return amount;
+
+  const currentPeriodUserBoostStat = filtredUserBoostStat[filtredUserBoostStat.length - 1];
+  const userStake = getStakeNum(currentPeriodUserBoostStat.staked_tokens);
+
+  if (userStake === 0) return amount;
+  
+  const currentPeriodGlobalBoostStat = globalBoostStat.find(item => item.period === currentPeriodUserBoostStat.period);
+  const maxStake = currentPeriodGlobalBoostStat.max_stake;
+
+  const boost = getPredictedBoost(userStake, maxStake);
+
+  if (boost.value <= 1) return amount;
+
+  return amount * boost.value;
 }

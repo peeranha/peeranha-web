@@ -1,10 +1,9 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import styled from 'styled-components';
+
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 
-import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 import CurrentWeek from './CurrentWeek';
 import PendingWeek from './PendingWeek';
 import PaidOutWeeksContainer from './PaidOutWeeksContainer';
@@ -45,11 +44,12 @@ const CurrentPendingWeeks = styled.div`
 const Weeks = ({
   locale,
   weekStat,
+  globalBoostStat,
+  userBoostStat,
   getWeekStatProcessing,
   pickupRewardDispatch,
   pickupRewardProcessing,
   ids,
-  profile,
 }) => {
   const currentWeeksNumber = weekStat && ((weekStat[0] && 1) || 0);
 
@@ -90,12 +90,13 @@ const Weeks = ({
 
             <PaidOutWeeksContainer
               weekStat={weekStat.slice(2)}
+              globalBoostStat={globalBoostStat}
+              userBoostStat={userBoostStat}
               pickupRewardDispatch={pickupRewardDispatch}
               pickupRewardProcessing={pickupRewardProcessing}
               locale={locale}
               ids={ids}
               containerRef={ref}
-              account={profile.user}
             />
           </ul>
         )}
@@ -107,16 +108,13 @@ const Weeks = ({
 
 Weeks.propTypes = {
   weekStat: PropTypes.array,
+  globalBoostStat: PropTypes.array,
+  userBoostStat: PropTypes.array,
   ids: PropTypes.array,
   locale: PropTypes.string,
   pickupRewardDispatch: PropTypes.func,
   getWeekStatProcessing: PropTypes.bool,
   pickupRewardProcessing: PropTypes.bool,
-  profile: PropTypes.object,
 };
 
-export default React.memo(
-  connect(state => ({
-    profile: makeSelectProfileInfo()(state),
-  }))(Weeks),
-);
+export default React.memo(Weeks);

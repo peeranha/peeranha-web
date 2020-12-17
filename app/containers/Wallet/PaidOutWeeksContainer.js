@@ -14,12 +14,13 @@ const cache = new CellMeasurerCache({
 
 const PaidOutWeeksContainer = ({
   weekStat,
+  globalBoostStat,
+  userBoostStat,
   pickupRewardDispatch,
   pickupRewardProcessing,
   locale,
   ids,
   containerRef,
-  account,
 }) => {
   const [width, setWidth] = useState(0);
 
@@ -40,7 +41,8 @@ const PaidOutWeeksContainer = ({
           {...weekStat[index]}
           style={style}
           registrationWeek={index === weekStat.length - 1}
-          account={account}
+          globalBoostStat={globalBoostStat}
+          userBoostStat={userBoostStat}
         />
       </CellMeasurer>
     );
@@ -86,12 +88,13 @@ const PaidOutWeeksContainer = ({
 
 PaidOutWeeksContainer.propTypes = {
   weekStat: PropTypes.array,
+  globalBoostStat: PropTypes.array,
+  userBoostStat: PropTypes.array,
   ids: PropTypes.array,
   locale: PropTypes.string,
   pickupRewardDispatch: PropTypes.func,
   pickupRewardProcessing: PropTypes.bool,
   containerRef: PropTypes.object,
-  account: PropTypes.string,
 };
 
 export default memo(PaidOutWeeksContainer);
