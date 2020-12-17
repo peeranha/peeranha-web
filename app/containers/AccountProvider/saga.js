@@ -8,8 +8,10 @@ import {
   convertPeerValueToNumberValue,
   getBalance,
   getWeekStat,
+  getGlobalBoostStatistics,
   getUserBoostStatistics,
-  setWeekDataByKey,
+  getPredictedBoost,
+  getBoostWeeks,
 } from 'utils/walletManagement';
 
 import commonMessages from 'common-messages';
@@ -115,6 +117,8 @@ export const getCurrentAccountWorker = function*(initAccount) {
     const eosService = yield select(selectEos);
     const prevProfileInfo = yield select(makeSelectProfileInfo());
 
+    const globalBoostStat = yield call(getGlobalBoostStatistics, eosService);
+
     let account = yield typeof initAccount === 'string'
       ? initAccount
       : call(eosService.getSelectedAccount);
@@ -140,16 +144,22 @@ export const getCurrentAccountWorker = function*(initAccount) {
       ) {
         // user available balance
         const weekStat = yield call(getWeekStat, eosService, profileLS);
-        const currentWeek = weekStat[0];
-
         const userBoostStat = yield call(getUserBoostStatistics, eosService, profileLS.user);
-        const userStakes = userBoostStat.length > 1 ? userBoostStat.slice(userBoostStat.length - 2) : [...userBoostStat];
 
-        const [stakedInCurrentPeriod, stakedInNextPeriod] = 
-          yield call(setWeekDataByKey, userStakes, 'staked_tokens', currentWeek.period + 1);
+        const boostWeeks = yield call(getBoostWeeks, weekStat, globalBoostStat, userBoostStat);
+        const { currentWeek, nextWeek } = boostWeeks;
+        const { userStake, maxStake } = currentWeek;
+
+        const boost = yield call(getPredictedBoost, userStake, maxStake);
 
         yield put(getUserProfileSuccess(profileLS));
-        yield put(getCurrentAccountSuccess(profileLS.user, profileLS.balance, stakedInCurrentPeriod, stakedInNextPeriod));
+        yield put(getCurrentAccountSuccess(
+          profileLS.user,
+          profileLS.balance,
+          currentWeek.userStake,
+          nextWeek.userStake,
+          boost,
+        ));
 
         return null;
       }
@@ -167,6 +177,7 @@ export const getCurrentAccountWorker = function*(initAccount) {
 
     let stakedInCurrentPeriod = 0;
     let stakedInNextPeriod = 0;
+    let boost = {};
 
     if (profileInfo) {
       // update user achievements
@@ -198,13 +209,16 @@ export const getCurrentAccountWorker = function*(initAccount) {
 
       // update user available balance
       const weekStat = yield call(getWeekStat, eosService, profileInfo);
-      const currentWeek = weekStat[0];
-      
       const userBoostStat = yield call(getUserBoostStatistics, eosService, profileInfo.user);
-      const userStakes = userBoostStat.length > 1 ? userBoostStat.slice(userBoostStat.length - 2) : [...userBoostStat];
 
-      [stakedInCurrentPeriod, stakedInNextPeriod] = 
-        yield call(setWeekDataByKey, userStakes, 'staked_tokens', currentWeek.period + 1);
+      const boostWeeks = yield call(getBoostWeeks, weekStat, globalBoostStat, userBoostStat);
+      const { currentWeek, nextWeek } = boostWeeks;
+      const { userStake, maxStake } = currentWeek;
+
+      stakedInCurrentPeriod = currentWeek.userStake;
+      stakedInNextPeriod = nextWeek.userStake;
+
+      boost = yield call(getPredictedBoost, userStake, maxStake);
     }
 
     setCookie({
@@ -223,7 +237,7 @@ export const getCurrentAccountWorker = function*(initAccount) {
     );
     yield put(getUserProfileSuccess(profileInfo));
     yield call(getCommunityPropertyWorker, profileInfo);
-    yield put(getCurrentAccountSuccess(account, balance, stakedInCurrentPeriod, stakedInNextPeriod));
+    yield put(getCurrentAccountSuccess(account, balance, stakedInCurrentPeriod, stakedInNextPeriod, boost));
     yield put(getUserTelegramDataSuccess(userTgInfo));
   } catch (err) {
     yield put(getCurrentAccountError(err));

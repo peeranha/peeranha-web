@@ -6,6 +6,7 @@ import { FormattedMessage } from 'react-intl';
 import { TEXT_SECONDARY } from 'style-constants';
 
 import { getFormattedNum3 } from 'utils/numbers';
+import { getRewardAmountByBoost } from 'utils/walletManagement';
 
 import currencyPeerImage from 'images/currencyPeer.svg?inline';
 
@@ -64,6 +65,7 @@ const PaidOutWeek = ({
   ids,
   registrationWeek,
   style,
+  account,
 }) => (
   <Container style={style}>
     <BaseRoundedLi className="align-items-center">
@@ -86,7 +88,7 @@ const PaidOutWeek = ({
           <P className="d-flex align-items-center">
             <SmallImage className="mr-2" src={currencyPeerImage} alt="icon" />
             <Span fontSize="20" mobileFS={14} bold>
-              {getFormattedNum3(reward)}
+              {getFormattedNum3(getRewardAmountByBoost(account, period, reward))}
             </Span>
           </P>
 
@@ -137,6 +139,7 @@ PaidOutWeek.propTypes = {
   ids: PropTypes.array,
   registrationWeek: PropTypes.bool,
   style: PropTypes.object,
+  account: PropTypes.string,
 };
 
 export default memo(PaidOutWeek);

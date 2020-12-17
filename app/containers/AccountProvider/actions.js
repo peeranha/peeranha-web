@@ -23,12 +23,14 @@ export const getCurrentAccountSuccess = (
   balance,
   stakedInCurrentPeriod = 0,
   stakedInNextPeriod = 0,
+  boost,
 ) => ({
   type: GET_CURRENT_ACCOUNT_SUCCESS,
   account,
   balance,
   stakedInCurrentPeriod,
   stakedInNextPeriod,
+  boost,
 });
 
 export const getCurrentAccountError = err => ({

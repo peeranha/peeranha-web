@@ -121,7 +121,7 @@ const SubHeader = ({
 
 SubHeader.propTypes = {
   account: PropTypes.string,
-  balance: PropTypes.string,
+  balance: PropTypes.number,
   stakedInCurrentPeriod: PropTypes.number,
   stakedInNextPeriod: PropTypes.number,
 };

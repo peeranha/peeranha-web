@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
@@ -6,13 +6,6 @@ import { connect } from 'react-redux';
 
 import * as routes from 'routes-config';
 import messages from 'common-messages';
-
-import {
-  MAX_STAKE_PREDICTION,
-  MIN_STAKE_PREDICTION,
-} from 'containers/Boost/constants';
-
-import { getBoostWeeks } from 'utils/walletManagement';
 
 import arrowDownIcon from 'images/arrowDown.svg?external';
 
@@ -35,11 +28,9 @@ const MobileLinksInWallet = ({
   balance,
   stakedInCurrentPeriod = 0,
   stakedInNextPeriod = 0,
+  boost,
   rewardsWeeksNumber,
   locale,
-  weekStat,
-  globalBoostStat,
-  userBoostStat,
 }) => {
   const [visibleWalletLinks, setVisibilityWalletLinks] = useState(false);
 
@@ -47,16 +38,6 @@ const MobileLinksInWallet = ({
 
   if (!profile || !isMenuVisible) {
     return null;
-  }
-
-  const boostWeeks = getBoostWeeks(weekStat, globalBoostStat, userBoostStat);
-  const { currentWeek } = boostWeeks;
-  const { userStake, maxStake } = currentWeek;
-
-  let boost = 1;
-  if (userStake && maxStake) {
-    boost = userStake / maxStake * (MAX_STAKE_PREDICTION - MIN_STAKE_PREDICTION) + 1;
-    boost = Math.floor(boost * 100) / 100;
   }
 
   const availableBalance =
@@ -74,7 +55,7 @@ const MobileLinksInWallet = ({
           balance={availableBalance}
           number={rewardsWeeksNumber}
           locale={locale}
-          isBoost={boost > 1}
+          isBoost={boost.value > 1}
           mobile
         />
         <Icon
@@ -101,7 +82,7 @@ const MobileLinksInWallet = ({
           </A>
           <A to={routes.userBoost(profile.user)}>
             <FormattedMessage {...messages.boost} />
-            {boost > 1 && <BoostPrediction>×{boost}</BoostPrediction>}
+            {boost.value > 1 && <BoostPrediction>{boost.text}</BoostPrediction>}
           </A>
           <SendTokens>
             <FormattedMessage {...messages.sendTokens} />
@@ -116,13 +97,11 @@ MobileLinksInWallet.propTypes = {
   balance: PropTypes.number,
   stakedInCurrentPeriod: PropTypes.number,
   stakedInNextPeriod: PropTypes.number,
+  boost: PropTypes.object,
   profile: PropTypes.object,
   isMenuVisible: PropTypes.bool,
   rewardsWeeksNumber: PropTypes.number,
   locale: PropTypes.string,
-  weekStat: PropTypes.array,
-  globalBoostStat: PropTypes.array,
-  userBoostStat: PropTypes.array,
 };
 
 export default memo(
@@ -130,9 +109,6 @@ export default memo(
     createStructuredSelector({
       rewardsWeeksNumber: selectRewardsWeeksNumber(),
       locale: makeSelectLocale(),
-      weekStat: selectors.selectWeekStat(),
-      globalBoostStat: selectors.selectGlobalBoostStat(),
-      userBoostStat: selectors.selectUserBoostStat(),
     }),
   )(MobileLinksInWallet),
 );

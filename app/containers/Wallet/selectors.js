@@ -19,6 +19,12 @@ const selectGetWeekStatError = () =>
 const selectWeekStat = () =>
   createSelector(selectWalletDomain, substate => substate.weekStat);
 
+const selectGlobalBoostStat = () =>
+  createSelector(selectWalletDomain, substate => substate.globalBoostStat);
+
+const selectUserBoostStat = () =>
+  createSelector(selectWalletDomain, substate => substate.userBoostStat);
+
 const selectRewardsWeeksNumber = () =>
   createSelector(
     selectWalletDomain,
@@ -45,6 +51,8 @@ export {
   selectWalletDomain,
   selectGetWeekStatProcessing,
   selectWeekStat,
+  selectGlobalBoostStat,
+  selectUserBoostStat,
   selectGetWeekStatError,
   selectPickupRewardProcessing,
   selectPickupRewardError,

@@ -18,6 +18,7 @@ import {
   USER_BOOST_TABLE,
   ADD_BOOST_METHOD,
 } from './constants';
+import { MAX_STAKE_PREDICTION, MIN_STAKE_PREDICTION } from 'containers/Boost/constants';
 
 import { ApplicationError } from './errors';
 
@@ -310,6 +311,24 @@ export async function addBoost(eosService, user, tokens) {
   );
 }
 
+export const getPredictedBoost = (userStake, maxStake) => {
+  let boost = 1;
+
+  if (userStake && maxStake) {
+    if (userStake <= maxStake) {
+      boost = userStake / maxStake * (MAX_STAKE_PREDICTION - MIN_STAKE_PREDICTION) + 1;
+      boost = Math.floor(boost * 100) / 100;
+    } else if (userStake > 0) {
+      boost = MAX_STAKE_PREDICTION;
+    }
+  }
+
+  return {
+    text: `x${boost}`,
+    value: boost,
+  }
+}
+
 export const setWeekDataByKey = (boostStat, key, nextWeekPeriod) => {
   const CURRENCY = ' PEER';
 
@@ -356,4 +375,8 @@ export function getBoostWeeks(weekStat, globalBoostStat, userBoostStat) {
     currentWeek: { ...currentWeek },
     nextWeek: { ...nextWeek },
   };
+}
+
+export const getRewardAmountByBoost = (user, amount, period) => {
+  return amount;
 }

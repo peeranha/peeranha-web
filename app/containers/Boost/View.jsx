@@ -1,9 +1,7 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 
-import { MAX_STAKE_PREDICTION, MIN_STAKE_PREDICTION } from './constants';
-
-import { getBoostWeeks } from 'utils/walletManagement';
+import { getBoostWeeks, getPredictedBoost } from 'utils/walletManagement';
 
 import NavHeader from 'components/WalletNavigation';
 import SubHeader from 'containers/Wallet/SubHeader';
@@ -40,13 +38,10 @@ const View = ({
     [currentStake, setCurrentStake],
   );
 
-  let predictedBoost = 1;
-  if (maxStake && currentStake <= maxStake) {
-    predictedBoost = currentStake / maxStake * (MAX_STAKE_PREDICTION - MIN_STAKE_PREDICTION) + 1;
-    predictedBoost = Math.floor(predictedBoost * 100) / 100;
-  } else if (currentStake > 0) {
-    predictedBoost = MAX_STAKE_PREDICTION;
-  }
+  const predictedBoost = useMemo(
+    () => getPredictedBoost(currentStake, maxStake), 
+    [currentStake, maxStake]
+  );
 
   return (
     <>
@@ -54,7 +49,7 @@ const View = ({
       
       <SubHeader
         account={account}
-        balance={balance ? balance.toString() : ""}
+        balance={balance}
         stakedInCurrentPeriod={stakedInCurrentPeriod}
         stakedInNextPeriod={stakedInNextPeriod}
       />
@@ -69,7 +64,7 @@ const View = ({
 
       <Form
         currentStake={currentStake}
-        predictedBoost={predictedBoost}
+        predictedBoost={predictedBoost.value}
         maxStake={balance}
         initialUserStake={stakedInNextPeriod}
         changeCurrentStake={changeCurrentStake}

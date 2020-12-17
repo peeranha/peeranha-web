@@ -95,6 +95,7 @@ const Weeks = ({
               locale={locale}
               ids={ids}
               containerRef={ref}
+              account={profile.user}
             />
           </ul>
         )}

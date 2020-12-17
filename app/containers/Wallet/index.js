@@ -6,7 +6,6 @@ import { createStructuredSelector } from 'reselect';
 import { compose, bindActionCreators } from 'redux';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-
 import {
   makeSelectAccount,
   makeSelectBalance,
@@ -77,7 +76,7 @@ const Wallet = ({
 };
 
 Wallet.propTypes = {
-  balance: PropTypes.string,
+  balance: PropTypes.number,
   stakedInCurrentPeriod: PropTypes.number,
   stakedInNextPeriod: PropTypes.number,
   locale: PropTypes.string,
@@ -104,6 +103,8 @@ export default memo(
         stakedInCurrentPeriod: makeSelectStakedInCurrentPeriod(),
         stakedInNextPeriod: makeSelectStakedInNextPeriod(),
         weekStat: selectors.selectWeekStat(),
+        globalBoostStat: selectors.selectGlobalBoostStat(),
+        userBoostStat: selectors.selectUserBoostStat(),
         getWeekStatProcessing: selectors.selectGetWeekStatProcessing(),
         pickupRewardProcessing: selectors.selectPickupRewardProcessing(),
         ids: selectors.selectIds(),

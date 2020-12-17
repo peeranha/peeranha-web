@@ -13,12 +13,6 @@ import {
   BG_WARNING_LIGHT,
   TEXT_LIGHT,
 } from 'style-constants';
-import {
-  MAX_STAKE_PREDICTION,
-  MIN_STAKE_PREDICTION,
-} from 'containers/Boost/constants';
-
-import { getBoostWeeks } from 'utils/walletManagement';
 
 import Dropdown from 'components/Dropdown';
 import A from 'components/A';
@@ -31,7 +25,6 @@ import {
   selectRewardsWeeksNumber,
   selectGetWeekStatProcessing,
 } from 'containers/Wallet/selectors';
-import * as selectors from 'containers/Boost/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 
@@ -42,7 +35,6 @@ import reducer from 'containers/Wallet/reducer';
 import saga from 'containers/Wallet/saga';
 
 import { getWeekStat } from 'containers/Wallet/actions';
-import { getWeekStat as getUserBoostStat } from 'containers/Boost/actions';
 
 import NotificationIcon from './NotificationIcon';
 import WalletButton from './WalletButton';
@@ -74,7 +66,7 @@ const Menu = memo(({ user, number, locale, boost }) => (
     </A>
     <A to={routes.userBoost(user)}>
       <FormattedMessage {...messages.boost} />
-      {boost > 1 && <BoostPrediction>×{boost}</BoostPrediction>}
+      {boost.value > 1 && <BoostPrediction>{boost.text}</BoostPrediction>}
     </A>
     <SendTokens>
       <FormattedMessage {...messages.sendTokens} />
@@ -87,34 +79,20 @@ const WalletDropdown = ({
   balance,
   stakedInCurrentPeriod = 0,
   stakedInNextPeriod = 0,
+  boost,
   locale,
   getWeekStatDispatch,
   rewardsWeeksNumber: number,
   account,
-  weekStat,
-  globalBoostStat,
-  userBoostStat,
-  getUserBoostStatDispatch,
 }) => {
   useEffect(
     () => {
       if (account) {
         getWeekStatDispatch();
-        getUserBoostStatDispatch();
       }
     },
     [account],
   );
-
-  const boostWeeks = getBoostWeeks(weekStat, globalBoostStat, userBoostStat);
-  const { currentWeek } = boostWeeks;
-  const { userStake, maxStake } = currentWeek;
-
-  let boost = 1;
-  if (userStake && maxStake) {
-    boost = userStake / maxStake * (MAX_STAKE_PREDICTION - MIN_STAKE_PREDICTION) + 1;
-    boost = Math.floor(boost * 100) / 100;
-  }
 
   const availableBalance =
     stakedInCurrentPeriod >= stakedInNextPeriod ?
@@ -130,7 +108,7 @@ const WalletDropdown = ({
           <WalletButton
             balance={availableBalance}
             locale={locale}
-            isBoost={boost > 1}
+            isBoost={boost.value > 1}
           />
         }
         menu={
@@ -165,14 +143,11 @@ WalletDropdown.propTypes = {
   balance: PropTypes.number,
   stakedInCurrentPeriod: PropTypes.number,
   stakedInNextPeriod: PropTypes.number,
+  boost: PropTypes.object,
   locale: PropTypes.string,
   getWeekStatDispatch: PropTypes.func,
   rewardsWeeksNumber: PropTypes.number,
   account: PropTypes.string,
-  weekStat: PropTypes.array,
-  globalBoostStat: PropTypes.array,
-  userBoostStat: PropTypes.array,
-  getUserBoostStatDispatch: PropTypes.func,
 };
 
 export default memo(
@@ -186,13 +161,9 @@ export default memo(
         rewardsWeeksNumber: selectRewardsWeeksNumber(),
         getWeekStatProcessing: selectGetWeekStatProcessing(),
         account: makeSelectAccount(),
-        weekStat: selectors.selectWeekStat(),
-        globalBoostStat: selectors.selectGlobalBoostStat(),
-        userBoostStat: selectors.selectUserBoostStat(),
       }),
       dispatch => ({
         getWeekStatDispatch: bindActionCreators(getWeekStat, dispatch),
-        getUserBoostStatDispatch: bindActionCreators(getUserBoostStat, dispatch),
       }),
     ),
   )(WalletDropdown),

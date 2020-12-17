@@ -23,6 +23,7 @@ const ButtonGroupForAuthorizedUser = ({
       balance={profileInfo.balance}
       stakedInCurrentPeriod={profileInfo.stakedInCurrentPeriod}
       stakedInNextPeriod={profileInfo.stakedInNextPeriod}
+      boost={profileInfo.boost}
     />
     <ProfileDropdown profileInfo={profileInfo} />
   </React.Fragment>

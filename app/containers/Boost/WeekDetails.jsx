@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
@@ -9,14 +9,11 @@ import {
   BG_WARNING_LIGHT,
   BG_PRIMARY,
 } from 'style-constants';
-import {
-  MAX_STAKE_PREDICTION,
-  MIN_STAKE_PREDICTION,
-} from './constants';
 
 import currencyPeerImage from 'images/currencyPeer.svg?inline';
 
 import { getFormattedNum3 } from 'utils/numbers';
+import { getPredictedBoost } from 'utils/walletManagement';
 
 import P from 'components/P';
 import Span from 'components/Span';
@@ -42,10 +39,10 @@ const WeekDetails = ({
   yourStake = 0,
   isCurrentWeek,
 }) => {
-  let predictedBoost = yourStake / maximumStake * 
-    (MAX_STAKE_PREDICTION - MIN_STAKE_PREDICTION) + 1;
-
-  predictedBoost = Math.floor(predictedBoost * 100) / 100;
+  const predictedBoost = useMemo(
+    () => getPredictedBoost(yourStake, maximumStake), 
+    [yourStake, maximumStake]
+  );
 
   return (
     <Base position="bottom">
@@ -67,7 +64,7 @@ const WeekDetails = ({
           <Span fontSize="20" mobileFS={14} bold>{getFormattedNum3(yourStake)}</Span>
         </P>
       </BaseGroup>
-      {predictedBoost > 1 && (
+      {predictedBoost.value > 1 && (
         <BaseGroup>
           <P className="mb-1" fontSize="14" color={TEXT_SECONDARY}>
             <FormattedMessage {...messages[isCurrentWeek ? 'yourBoost' : 'yourPredictedBoost']} />
@@ -78,7 +75,7 @@ const WeekDetails = ({
               mobileFS={14}
               isCurrentWeek={!!isCurrentWeek}
             >
-              ×{predictedBoost}
+              {predictedBoost.text}
             </PredictionPower>
           </P>
         </BaseGroup>

@@ -21,6 +21,7 @@ export const initialState = fromJS({
   balance: null,
   stakedInCurrentPeriod: null,
   stakedInNextPeriod: null,
+  boost: null,
   lastUpdate: null,
   email: null,
   eosAccountName: null,
@@ -39,6 +40,7 @@ function accountProviderReducer(state = initialState, action) {
     balance,
     stakedInCurrentPeriod,
     stakedInNextPeriod,
+    boost,
     email,
     eosAccountName,
     authToken,
@@ -57,6 +59,7 @@ function accountProviderReducer(state = initialState, action) {
         .set('lastUpdate', Date.now())
         .set('account', account || initialState.get('account'))
         .set('balance', balance || initialState.get('balance'))
+        .set('boost', boost || initialState.get('boost'))
         .set('stakedInCurrentPeriod', stakedInCurrentPeriod || initialState.get('stakedInCurrentPeriod'))
         .set('stakedInNextPeriod', stakedInNextPeriod || initialState.get('stakedInNextPeriod'));
     case GET_CURRENT_ACCOUNT_ERROR:

@@ -23,6 +23,7 @@ const View = ({
   showLoginModal,
   stakedInCurrentPeriod,
   stakedInNextPeriod,
+  boost,
 }) => (
   <ViewStyled id={LEFT_MENU_ID} single={single} isMenuVisible={isMenuVisible}>
     {single && isMenuVisible ? <MobileSubHeader profile={!!profile} /> : null}
@@ -41,6 +42,7 @@ const View = ({
       balance={balance}
       stakedInCurrentPeriod={stakedInCurrentPeriod}
       stakedInNextPeriod={stakedInNextPeriod}
+      boost={boost}
     />
 
     <MobileAdditionalLinks profile={profile} isMenuVisible={isMenuVisible} />
@@ -56,6 +58,7 @@ View.propTypes = {
   balance: PropTypes.number,
   stakedInCurrentPeriod: PropTypes.number,
   stakedInNextPeriod: PropTypes.number,
+  boost: PropTypes.object,
   isMenuVisible: PropTypes.bool,
   showLoginModal: PropTypes.func,
 };

@@ -20,6 +20,7 @@ import {
   makeSelectBalance,
   makeSelectStakedInCurrentPeriod,
   makeSelectStakedInNextPeriod,
+  makeSelectBoost,
 } from 'containers/AccountProvider/selectors';
 
 import { showLoginModal } from 'containers/Login/actions';
@@ -35,6 +36,7 @@ const LeftMenu = /* istanbul ignore next */ ({
   balance,
   stakedInCurrentPeriod,
   stakedInNextPeriod,
+  boost,
   showLoginModalDispatch,
   showLeftMenuDispatch,
 }) => (
@@ -48,6 +50,7 @@ const LeftMenu = /* istanbul ignore next */ ({
       balance={balance}
       stakedInCurrentPeriod={stakedInCurrentPeriod}
       stakedInNextPeriod={stakedInNextPeriod}
+      boost={boost}
       showLoginModal={showLoginModalDispatch}
     />
 
@@ -64,6 +67,7 @@ LeftMenu.propTypes = {
   balance: PropTypes.number,
   stakedInCurrentPeriod: PropTypes.number,
   stakedInNextPeriod: PropTypes.number,
+  boost: PropTypes.object,
   isMenuVisible: PropTypes.bool,
 };
 
@@ -72,6 +76,7 @@ const mapStateToProps = createStructuredSelector({
   balance: makeSelectBalance(),
   stakedInCurrentPeriod: makeSelectStakedInCurrentPeriod(),
   stakedInNextPeriod: makeSelectStakedInNextPeriod(),
+  boost: makeSelectBoost(),
   isMenuVisible: selectIsMenuVisible(),
 });
 

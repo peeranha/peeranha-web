@@ -19,6 +19,7 @@ const PaidOutWeeksContainer = ({
   locale,
   ids,
   containerRef,
+  account,
 }) => {
   const [width, setWidth] = useState(0);
 
@@ -39,6 +40,7 @@ const PaidOutWeeksContainer = ({
           {...weekStat[index]}
           style={style}
           registrationWeek={index === weekStat.length - 1}
+          account={account}
         />
       </CellMeasurer>
     );
@@ -89,6 +91,7 @@ PaidOutWeeksContainer.propTypes = {
   pickupRewardDispatch: PropTypes.func,
   pickupRewardProcessing: PropTypes.bool,
   containerRef: PropTypes.object,
+  account: PropTypes.string,
 };
 
 export default memo(PaidOutWeeksContainer);
