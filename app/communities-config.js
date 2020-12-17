@@ -9,6 +9,7 @@ const communitiesConfig = {
     2: {
       origin: 'https://faq.telos.net',
       src: TelosLogo,
+      styles: TelosStyles,
     },
     3: {
       origin: 'https://ont.peeranha.io',

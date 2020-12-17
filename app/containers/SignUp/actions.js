@@ -20,14 +20,14 @@ import {
   I_HAVE_NOT_EOS_ACCOUNT_ERROR,
   PUT_KEYS_TO_STATE,
   VERIFICATION_FIELD,
-  SIGNUP_WITH_SCATTER,
-  SIGNUP_WITH_SCATTER_SUCCESS,
-  SIGNUP_WITH_SCATTER_ERROR,
-  SHOW_SCATTER_SIGNUP_FORM,
-  SHOW_SCATTER_SIGNUP_FORM_SUCCESS,
-  SHOW_SCATTER_SIGNUP_FORM_ERROR,
+  SIGNUP_WITH_WALLET,
+  SIGNUP_WITH_WALLET_SUCCESS,
+  SIGNUP_WITH_WALLET_ERROR,
+  SHOW_WALLET_SIGNUP_FORM,
+  SHOW_WALLET_SIGNUP_FORM_ERROR,
   SEND_ANOTHER_CODE,
-  SIGNUP_WITH_SCATTER_REFERRAL_ERROR,
+  SIGNUP_WITH_WALLET_REFERRAL_ERROR,
+  SHOW_WALLET_SIGNUP_FORM_SUCCESS,
 } from './constants';
 
 /*
@@ -147,29 +147,31 @@ export function idontHaveEosAccountErr(idontHaveEosAccountError) {
  *
  */
 
-export function signUpWithScatter(val) {
+export function signUpWithWallet(val, { scatter, keycat }) {
   return {
-    type: SIGNUP_WITH_SCATTER,
+    type: SIGNUP_WITH_WALLET,
     val: val.toJS(),
+    scatter,
+    keycat,
   };
 }
 
-export function signUpWithScatterSuccess() {
+export function signUpWithWalletSuccess() {
   return {
-    type: SIGNUP_WITH_SCATTER_SUCCESS,
+    type: SIGNUP_WITH_WALLET_SUCCESS,
   };
 }
 
-export function signUpWithScatterErr(signUpWithScatterError) {
+export function signUpWithWalletErr(signUpWithWalletError) {
   return {
-    type: SIGNUP_WITH_SCATTER_ERROR,
-    signUpWithScatterError,
+    type: SIGNUP_WITH_WALLET_ERROR,
+    signUpWithWalletError,
   };
 }
 
-export const signUpWithScatterReferralErr = signUpWithScatterReferralError => ({
-  type: SIGNUP_WITH_SCATTER_REFERRAL_ERROR,
-  signUpWithScatterReferralError,
+export const signUpWithWalletReferralErr = signUpWithWalletReferralError => ({
+  type: SIGNUP_WITH_WALLET_REFERRAL_ERROR,
+  signUpWithWalletReferralError,
 });
 
 /*
@@ -178,23 +180,25 @@ export const signUpWithScatterReferralErr = signUpWithScatterReferralError => ({
  *
  */
 
-export function showScatterSignUpForm() {
+export function showWalletSignUpForm({ scatter, keycat }) {
   return {
-    type: SHOW_SCATTER_SIGNUP_FORM,
+    type: SHOW_WALLET_SIGNUP_FORM,
+    scatter,
+    keycat,
   };
 }
 
-export function showScatterSignUpFormSuccess(eosAccountName) {
+export function showWalletSignUpFormSuccess(eosAccountName) {
   return {
-    type: SHOW_SCATTER_SIGNUP_FORM_SUCCESS,
+    type: SHOW_WALLET_SIGNUP_FORM_SUCCESS,
     eosAccountName,
   };
 }
 
-export function showScatterSignUpFormErr(showScatterSignUpFormError) {
+export function showWalletSignUpFormErr(showWalletSignUpFormError) {
   return {
-    type: SHOW_SCATTER_SIGNUP_FORM_ERROR,
-    showScatterSignUpFormError,
+    type: SHOW_WALLET_SIGNUP_FORM_ERROR,
+    showWalletSignUpFormError,
   };
 }
 

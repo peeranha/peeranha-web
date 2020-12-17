@@ -135,6 +135,7 @@
   "app.common.fileSizeErrorMsg": "Размер файла больше 2Мб. Выберите другой...",
   "app.common.chooseFile": "Выберите файл",
   "app.common.skip": "Пропустить",
+  "app.common.showMore": "Показать больше",
   "app.common.questionIsAnswered": "Вы уже ответили на этот вопрос",
   "app.common.activateBoost": "Активировать Boost",
   "app.common.boost": "Boost",
@@ -729,6 +730,7 @@
   "app.containers.Login.yourUsernameIsHow":
     "Имя, которое будет у Вас в Peeranha.",
   "app.containers.Login.referralMessage": "Это код, который друг дал тебе.",
+  "app.containers.Login.optionalReferralCode": "(опционально)",
   "app.containers.Login.accountNotCreatedName": "Аккаунт пока не создан",
   "app.containers.Login.inviterIsNotRegisterYet":
     "Пригласитель еще не зарегистрирован",

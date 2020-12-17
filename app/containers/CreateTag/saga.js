@@ -89,7 +89,7 @@ export function* getFormWorker() {
   } catch (err) {
     yield put(getFormError(err));
   }
-};
+}
 
 export default function*() {
   yield takeLatest(GET_FORM, getFormWorker);

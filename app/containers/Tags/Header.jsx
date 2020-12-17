@@ -19,7 +19,9 @@ import Ul from 'components/Ul';
 import MediumIcon from 'components/Icon/MediumIcon';
 import { IconSm, IconMd } from 'components/Icon/IconWithSizes';
 import CheckedItem from 'components/Li/CheckedItem';
-import Wrapper, {SubHeaderWrapperRightPanel as WrapperRightPanel} from 'components/Header/Complex';
+import Wrapper, {
+  SubHeaderWrapperRightPanel as WrapperRightPanel,
+} from 'components/Header/Complex';
 import { MediumImageStyled } from 'components/Img/MediumImage';
 import NavigationButton from 'components/Button/Contained/Navigation';
 import A from 'components/A';

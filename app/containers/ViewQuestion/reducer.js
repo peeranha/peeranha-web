@@ -39,6 +39,7 @@ import {
   VOTE_TO_DELETE,
   VOTE_TO_DELETE_SUCCESS,
   VOTE_TO_DELETE_ERROR,
+  SET_VOTE_TO_DELETE_LOADING,
   RESET_STORE,
   CHANGE_QUESTION_TYPE,
   CHANGE_QUESTION_TYPE_SUCCESS,
@@ -88,6 +89,7 @@ function viewQuestionReducer(state = initialState, action) {
     saveCommentError,
     voteToDeleteError,
     buttonId,
+    voteToDeleteLoading,
   } = action;
 
   switch (type) {
@@ -244,6 +246,8 @@ function viewQuestionReducer(state = initialState, action) {
         .set('voteToDeleteError', voteToDeleteError)
         .set('voteToDeleteLoading', false)
         .set('ids', state.toJS().ids.filter(x => x !== buttonId));
+    case SET_VOTE_TO_DELETE_LOADING:
+      return state.set('voteToDeleteLoading', voteToDeleteLoading);
 
     case CHANGE_QUESTION_TYPE:
       return state

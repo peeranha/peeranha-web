@@ -57,7 +57,7 @@ const EnergyDropdown = ({ energy, rating, faqQuestions }) => {
   // TODO: return if energy will be needed
   if (process.env.ENV === 'prod') {
     return null;
-  }  
+  }
 
   return (
     <Dropdown

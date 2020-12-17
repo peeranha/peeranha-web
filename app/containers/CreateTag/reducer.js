@@ -24,12 +24,7 @@ export const initialState = fromJS({
 });
 
 function createTagReducer(state = initialState, action) {
-  const {
-    type,
-    suggestTagError,
-    getFormError,
-    isFormAvailable,
-  } = action;
+  const { type, suggestTagError, getFormError, isFormAvailable } = action;
 
   switch (type) {
     case SUGGEST_TAG:

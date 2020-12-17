@@ -25,9 +25,7 @@ import {
   selectFaqQuestions,
 } from 'containers/DataCacheProvider/selectors';
 
-import {
-  selectPermissions,
-} from 'containers/AccountProvider/selectors';
+import { selectPermissions } from 'containers/AccountProvider/selectors';
 
 import {
   WHAT_IS_TAG_QUESTION,
@@ -99,7 +97,10 @@ const CreateTag = ({
   );
 
   const rightCommunitiesIds = useMemo(
-    () => isCommunityAdmin ? permissions.map(x => x.community) : communities.map(x => x.id),
+    () =>
+      isCommunityAdmin
+        ? permissions.map(x => x.community)
+        : communities.map(x => x.id),
     [],
   );
 
@@ -123,7 +124,9 @@ const CreateTag = ({
           <BaseSpecialOne>
             <Form
               communityId={commId}
-              communities={communities.filter(x => rightCommunitiesIds.includes(x.id))}
+              communities={communities.filter(x =>
+                rightCommunitiesIds.includes(x.id),
+              )}
               createTagLoading={createTagLoading}
               createTag={createTag}
               translations={translationMessages[locale]}

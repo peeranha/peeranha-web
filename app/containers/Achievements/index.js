@@ -43,7 +43,7 @@ import {
 import {
   getUserAchievements,
   setViewProfileAccount,
-  setPrevViewProfile,
+  resetViewProfileAccount,
 } from './actions';
 
 import reducer from './reducer';
@@ -110,7 +110,7 @@ const Achievements = ({
   achievementsLoading,
   getUserAchievementsDispatch,
   setViewProfileAccountDispatch,
-  setPrevViewProfileDispatch,
+  resetViewProfileAccountDispatch,
 }) => {
   useEffect(
     () => {
@@ -118,7 +118,7 @@ const Achievements = ({
       getUserAchievementsDispatch();
 
       // ComponentWillUnmount
-      return () => setPrevViewProfileDispatch(userId);
+      return () => resetViewProfileAccountDispatch();
     },
     [userId],
   );
@@ -275,7 +275,7 @@ Achievements.propTypes = {
   uniqueAchievements: PropTypes.array,
   getUserAchievementsDispatch: PropTypes.func,
   setViewProfileAccountDispatch: PropTypes.func,
-  setPrevViewProfileDispatch: PropTypes.func,
+  resetViewProfileAccountDispatch: PropTypes.func,
   achievementsLoading: PropTypes.bool,
 };
 
@@ -301,7 +301,10 @@ const mapDispatchToProps = dispatch => ({
     setViewProfileAccount,
     dispatch,
   ),
-  setPrevViewProfileDispatch: bindActionCreators(setPrevViewProfile, dispatch),
+  resetViewProfileAccountDispatch: bindActionCreators(
+    resetViewProfileAccount,
+    dispatch,
+  ),
 });
 
 const withConnect = connect(

@@ -5,7 +5,7 @@ import EmailEnteringForm from 'containers/SignUp/EmailEnteringForm';
 import EmailVerificationForm from 'containers/SignUp/EmailVerificationForm';
 import IHaveEOSAccountForm from 'containers/SignUp/IHaveEOSAccountForm';
 import IdontHaveEOSAccountForm from 'containers/SignUp/IdontHaveEOSAccountForm';
-import ScatterSignUpForm from 'containers/SignUp/ScatterSignUpForm';
+import WalletsSignUpForm from 'containers/SignUp/WalletsSignUpForm';
 import RegistrationAlmostDoneWithAccount from 'components/SignUpWrapper/AlmostDoneWithAccount';
 import RegistrationAlmostDoneNoAccount from 'components/SignUpWrapper/AlmostDoneNoAccount';
 import Login from 'containers/Login';
@@ -75,7 +75,7 @@ export {
   EmailVerificationForm,
   IHaveEOSAccountForm,
   IdontHaveEOSAccountForm,
-  ScatterSignUpForm,
+  WalletsSignUpForm,
   RegistrationAlmostDoneWithAccount,
   RegistrationAlmostDoneNoAccount,
   Login,

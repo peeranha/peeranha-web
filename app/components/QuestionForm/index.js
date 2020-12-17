@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useMemo } from 'react';
+import React, { memo, useCallback, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -40,6 +40,9 @@ import TypeForm from './TypeForm';
 import TitleForm from './TitleForm';
 import ContentForm from './ContentForm';
 import TagsForm from './TagsForm';
+import createdHistory from '../../createdHistory';
+import * as routes from '../../routes-config';
+import { changeText } from '../../containers/Header/SearchForm';
 
 const single = isSingleCommunityWebsite();
 
@@ -90,6 +93,11 @@ export const QuestionForm = ({
     [formValues[FORM_TITLE]],
   );
 
+  const showMoreQuestions = e => {
+    e.preventDefault();
+    createdHistory.push(routes.search(formValues[FORM_TITLE]));
+  };
+
   return (
     <div>
       <Header formTitle={formTitle} questionId={questionid} intl={intl} />
@@ -122,7 +130,9 @@ export const QuestionForm = ({
                 <ExistingQuestions
                   questions={existingQuestions}
                   skip={skipExistingQuestions}
+                  show={showMoreQuestions}
                   intl={intl}
+                  communities={communities}
                 />
               )}
 

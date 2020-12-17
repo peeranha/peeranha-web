@@ -26,7 +26,7 @@ const SeparatorBase = styled.div`
   }
 `;
 
-const GroupIcon = styled.div`
+const GroupLabel = styled.div`
   position: relative;
   z-index: 2;
   color: ${BORDER_SECONDARY};
@@ -44,7 +44,7 @@ const Separator = ({ groupType, locale }) => {
 
   return (
     <SeparatorBase>
-      <GroupIcon>{title}</GroupIcon>
+      <GroupLabel>{title}</GroupLabel>
     </SeparatorBase>
   );
 };

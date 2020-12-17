@@ -3,6 +3,7 @@ import sqrlWallet from 'images/sqrlWallet.svg?inline';
 import peeranhaLogo from 'images/currencyPeer.svg?inline';
 import scatterLogo from 'images/scatterLogo.svg?inline';
 import wombatLogo from 'images/wombat.png';
+import keycatTextLogo from 'images/keycatText.svg?inline';
 
 export const WALLETS = {
   PEERANHA: {
@@ -36,6 +37,12 @@ export const WALLETS = {
     isMobile: false,
     doNotShowName: true,
   },
+  KEYCAT: {
+    name: 'Keycat',
+    logo: keycatTextLogo,
+    isMobile: false,
+    doNotShowName: true,
+  },
 };
 
 export const CURRENCIES = {
@@ -46,7 +53,12 @@ export const CURRENCIES = {
     contractAccount: 'peeranhatken',
     blockchain: 'Telos',
     logo: peeranhaLogo,
-    wallets: [WALLETS.PEERANHA, WALLETS.SCATTER_SQRL_WOMBAT],
+    wallets: [
+      WALLETS.PEERANHA,
+      WALLETS.SCATTER_SQRL_WOMBAT,
+      WALLETS.WOMBAT,
+      WALLETS.KEYCAT,
+    ],
   },
   TLOS: {
     name: 'TLOS',
@@ -55,7 +67,12 @@ export const CURRENCIES = {
     contractAccount: 'eosio.token',
     blockchain: 'Telos',
     logo: telosWallet,
-    wallets: [WALLETS.PEERANHA, WALLETS.SCATTER_SQRL_WOMBAT],
+    wallets: [
+      WALLETS.PEERANHA,
+      WALLETS.SCATTER_SQRL_WOMBAT,
+      WALLETS.WOMBAT,
+      WALLETS.KEYCAT,
+    ],
   },
   SQRL: {
     name: 'SQRL',
@@ -64,6 +81,11 @@ export const CURRENCIES = {
     contractAccount: 'sqrlwalletio',
     blockchain: 'Telos',
     logo: sqrlWallet,
-    wallets: [WALLETS.PEERANHA, WALLETS.SCATTER_SQRL_WOMBAT],
+    wallets: [
+      WALLETS.PEERANHA,
+      WALLETS.SCATTER_SQRL_WOMBAT,
+      WALLETS.WOMBAT,
+      WALLETS.KEYCAT,
+    ],
   },
 };
