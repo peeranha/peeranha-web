@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { bindActionCreators } from 'redux';
 
+import { singleCommunityStyles } from 'utils/communityManagement';
+
 import { BG_LIGHT, BG_WARNING_LIGHT, BORDER_PRIMARY } from 'style-constants';
 
 import Span from 'components/Span';
@@ -19,6 +21,8 @@ import {
 } from '../../../components/Notifications/selectors';
 import { filterReadTimestamps } from '../../../components/Notifications/actions';
 
+const styles = singleCommunityStyles();
+
 const Container = styled.div`
   position: relative;
   border-radius: 50%;
@@ -26,8 +30,8 @@ const Container = styled.div`
   height: 47px;
   min-width: 47px;
   min-height: 47px;
-  background: ${BG_LIGHT};
-  border: 1px solid ${BORDER_PRIMARY};
+  background: ${styles.fullyTransparent || BG_LIGHT};
+  border: ${styles.communityBorderStyle || `1px solid ${BORDER_PRIMARY}`};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -95,6 +99,7 @@ const NotificationsDropdown = ({
       )}
       <IconEm
         icon={unreadCount ? notificationsActiveIcon : notificationsDisabledIcon}
+        css={styles.dropDownIconStyles}
       />
       {visible && (
         <Menu

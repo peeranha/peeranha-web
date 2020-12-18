@@ -1,8 +1,10 @@
 import OntLogo from './communities-configs/ont/images/ont.svg?inline';
 import TelosLogo from './communities-configs/telos/images/telos-logo-dark.svg?inline';
+import KandaLogo from './communities-configs/kanda/images/kanda.jpg';
 
 import { TelosStyles } from './communities-configs/telos';
 import { OntStyles } from './communities-configs/ont';
+import { KandaStyles } from './communities-configs/kanda';
 
 const communitiesConfig = {
   prod: {
@@ -15,6 +17,11 @@ const communitiesConfig = {
       origin: 'https://ont.peeranha.io',
       src: OntLogo,
       styles: OntStyles,
+    },
+    17: {
+      origin: 'https://kanda.peeranha.io',
+      src: KandaLogo,
+      styles: KandaStyles,
     },
   },
   test: {
@@ -33,6 +40,11 @@ const communitiesConfig = {
     },
     4: {
       origin: 'https://testcommunity.net',
+    },
+    5: {
+      origin: 'https://kanda.testpeeranha.io',
+      src: KandaLogo,
+      styles: KandaStyles,
     },
   },
   dev: {

@@ -25,7 +25,7 @@ export default React.memo(({ profile, isMenuVisible }) => {
         className="d-flex align-items-center justify-content-between w-100"
         onClick={() => setVisibilityProfileLinks(!visibleProfileLinks)}
       >
-        <ProfileButton profileInfo={profile} />
+        <ProfileButton profileInfo={profile} isMobile />
         <Icon
           className="mr-3"
           icon={arrowDownIcon}

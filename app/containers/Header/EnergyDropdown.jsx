@@ -5,6 +5,8 @@ import { FormattedMessage } from 'react-intl';
 import commonMessages from 'common-messages';
 import { BG_LIGHT, TEXT_SECONDARY } from 'style-constants';
 
+import { singleCommunityStyles } from 'utils/communityManagement';
+
 import energyIcon from 'images/energy.svg?external';
 
 import Ul, { Ul1 } from 'components/Ul/SpecialOne';
@@ -16,12 +18,18 @@ import userStatusOptions from 'components/RatingStatus/options';
 
 import { IconBG } from './WalletDropdown/WalletButton';
 
+const styles = singleCommunityStyles();
+
 export const Button = ({ energy }) => (
-  <IconBG className="d-flex flex-column" bg={BG_LIGHT}>
-    <Span fontSize="16" bold>
+  <IconBG
+    className="d-flex flex-column"
+    bg={styles.fullyTransparent || BG_LIGHT}
+    css={{ border: styles.communityBorderStyle }}
+  >
+    <Span fontSize="16" bold color={styles.commHeadElemColor}>
       {energy}
     </Span>
-    <IconEm icon={energyIcon} />
+    <IconEm icon={energyIcon} css={styles.dropDownIconStyles} />
   </IconBG>
 );
 
@@ -57,7 +65,7 @@ const EnergyDropdown = ({ energy, rating, faqQuestions }) => {
   // TODO: return if energy will be needed
   if (process.env.ENV === 'prod') {
     return null;
-  }  
+  }
 
   return (
     <Dropdown

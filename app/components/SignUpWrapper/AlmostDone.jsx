@@ -41,7 +41,7 @@ const LeftMenu = ({ faqQuestions }) => (
       {styles.withoutSubHeader ? (
         <CommunityLogoWrapper>
           <Link to={routes.questions()} href={routes.questions()}>
-            <Logo src={styles.signUpPageLogo} />
+            <Logo src={styles.signUpPageLogo} width={styles.signUpLogoWidth} />
           </Link>
           <CommunityLogoDescr>
             <span>Q&A on</span>

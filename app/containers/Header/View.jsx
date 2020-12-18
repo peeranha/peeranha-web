@@ -149,14 +149,14 @@ const View = ({
           </SingleModeSubHeader>
         )}
       {styles?.customSubHeader ?? null}
-      <MainSubHeader>
+      <MainSubHeader mainSubHeaderBgColor={styles.mainSubHeaderBgColor}>
         <div className="container">
           <div className="d-flex align-items-center justify-content-between">
             <div className="d-flex align-items-center">
               <button className="mt-1 mr-3 d-flex d-lg-none" onClick={showMenu}>
                 <IconLm
                   icon={headerNavigationIcon}
-                  color={TEXT_SECONDARY_LIGHT}
+                  color={styles.commHeadElemColor || TEXT_SECONDARY_LIGHT}
                 />
               </button>
 
