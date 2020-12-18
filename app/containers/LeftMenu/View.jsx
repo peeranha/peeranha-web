@@ -16,7 +16,15 @@ import MobileSubHeader from './MobileSubHeader';
 
 const single = isSingleCommunityWebsite();
 
-const View = ({ profile, isMenuVisible, balance, showLoginModal }) => (
+const View = ({
+  profile,
+  isMenuVisible,
+  balance,
+  showLoginModal,
+  stakedInCurrentPeriod,
+  stakedInNextPeriod,
+  boost,
+}) => (
   <ViewStyled id={LEFT_MENU_ID} single={single} isMenuVisible={isMenuVisible}>
     {single && isMenuVisible ? <MobileSubHeader profile={!!profile} /> : null}
 
@@ -32,6 +40,9 @@ const View = ({ profile, isMenuVisible, balance, showLoginModal }) => (
       profile={profile}
       isMenuVisible={isMenuVisible}
       balance={balance}
+      stakedInCurrentPeriod={stakedInCurrentPeriod}
+      stakedInNextPeriod={stakedInNextPeriod}
+      boost={boost}
     />
 
     <MobileAdditionalLinks profile={profile} isMenuVisible={isMenuVisible} />
@@ -45,6 +56,9 @@ const View = ({ profile, isMenuVisible, balance, showLoginModal }) => (
 View.propTypes = {
   profile: PropTypes.object,
   balance: PropTypes.number,
+  stakedInCurrentPeriod: PropTypes.number,
+  stakedInNextPeriod: PropTypes.number,
+  boost: PropTypes.object,
   isMenuVisible: PropTypes.bool,
   showLoginModal: PropTypes.func,
 };

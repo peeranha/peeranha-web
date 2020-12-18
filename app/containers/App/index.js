@@ -67,6 +67,7 @@ import {
   ForgotPassword,
   Toast,
   Wallet,
+  Boost,
   Search,
   Support,
   PrivacyPolicy,
@@ -247,6 +248,11 @@ const App = ({
         <Route
           path={routes.userWallet(':id')}
           render={props => Wrapper(Wallet, props)}
+        />
+
+        <Route
+          path={routes.userBoost(':id')}
+          render={props => Wrapper(Boost, props)}
         />
 
         <Route

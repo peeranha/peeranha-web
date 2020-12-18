@@ -405,4 +405,10 @@ export default defineMessages({
   questionIsAnswered: {
     id: 'app.common.questionIsAnswered',
   },
+  activateBoost: {
+    id: 'app.common.activateBoost',
+  },
+  boost: {
+    id: 'app.common.boost',
+  },
 });

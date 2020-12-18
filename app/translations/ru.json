@@ -137,6 +137,8 @@
   "app.common.skip": "Пропустить",
   "app.common.showMore": "Показать больше",
   "app.common.questionIsAnswered": "Вы уже ответили на этот вопрос",
+  "app.common.activateBoost": "Активировать Boost",
+  "app.common.boost": "Boost",
 
   "app.telegram.user": "Телеграм пользователь",
   "app.telegram.userLabelPopover":
@@ -174,6 +176,25 @@
   "app.containers.Wallet.registrationWeek": "Неделя регистрации",
   "app.containers.Wallet.yourWalletWasSuccessfullySet":
     "Ваш кошелёк был успешно настроен в этот период",
+  "app.containers.Wallet.getMoreWithBoost": "Получите больше наград с Boost",
+  "app.containers.Wallet.stakedInCurrentPeriod": "Ставка, сделанная в текущем периоде",
+  "app.containers.Wallet.stakedInNextPeriod": "Ставка, сделанная на следующий период",
+  "app.containers.Wallet.totalBalance": "Итоговый баланс",
+
+  "app.containers.Boost.currentPeriod": "Текущий период",
+  "app.containers.Boost.nextPeriod": "Следующий период",
+  "app.containers.Boost.maximumStake": "Максимальная ставка",
+  "app.containers.Boost.users": "Пользователи",
+  "app.containers.Boost.yourStake": "Ваша ставка",
+  "app.containers.Boost.yourBoost": "Ваш буст",
+  "app.containers.Boost.yourPredictedBoost": "Ваш прогнозируемый буст",
+  "app.containers.Boost.formTitle": "Ставка на следующий период",
+  "app.containers.Boost.formSubmit": "Сохранить",
+  "app.containers.Boost.formCancel": "Отмена",
+  "app.containers.Boost.formBoostPrediction": "Boost прогноз",
+  "app.containers.Boost.formCurrentStake": "Ваша ставка",
+  "app.containers.Boost.formTakeAStake": "Сделайте ставку",
+  "app.containers.Boost.notTokensToStake": "У вас нет токенов, чтобы сделать ставку",
 
   "web_integration.errors.unknownError":
     "Неизвестная ошибка. Пожалуйста, отправьте отчет об ошибке!",

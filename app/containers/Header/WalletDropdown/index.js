@@ -4,9 +4,15 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 import { compose, bindActionCreators } from 'redux';
+import styled from 'styled-components';
 
 import * as routes from 'routes-config';
 import messages from 'common-messages';
+
+import {
+  BG_WARNING_LIGHT,
+  TEXT_LIGHT,
+} from 'style-constants';
 
 import Dropdown from 'components/Dropdown';
 import A from 'components/A';
@@ -19,7 +25,6 @@ import {
   selectRewardsWeeksNumber,
   selectGetWeekStatProcessing,
 } from 'containers/Wallet/selectors';
-
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 
@@ -34,9 +39,19 @@ import { getWeekStat } from 'containers/Wallet/actions';
 import NotificationIcon from './NotificationIcon';
 import WalletButton from './WalletButton';
 
+export const BoostPrediction = styled.span`
+  padding: 3px 6px 3.5px;
+  margin-left: 5px;
+  font-size: 14px;
+  color: ${TEXT_LIGHT};
+  line-height: 1;
+  background-color: ${BG_WARNING_LIGHT};
+  border-radius: 10px;
+`;
+
 const isPositiveNumber = number => Number.isFinite(number) && number > 0;
 
-const Menu = memo(({ user, number, locale }) => (
+const Menu = memo(({ user, number, locale, boost }) => (
   <Ul>
     <A to={routes.userWallet(user)}>
       <FormattedMessage {...messages.wallet} />
@@ -49,6 +64,10 @@ const Menu = memo(({ user, number, locale }) => (
         />
       )}
     </A>
+    <A to={routes.userBoost(user)}>
+      <FormattedMessage {...messages.boost} />
+      {boost.value > 1 && <BoostPrediction>{boost.text}</BoostPrediction>}
+    </A>
     <SendTokens>
       <FormattedMessage {...messages.sendTokens} />
     </SendTokens>
@@ -58,6 +77,9 @@ const Menu = memo(({ user, number, locale }) => (
 const WalletDropdown = ({
   user,
   balance,
+  stakedInCurrentPeriod = 0,
+  stakedInNextPeriod = 0,
+  boost,
   locale,
   getWeekStatDispatch,
   rewardsWeeksNumber: number,
@@ -72,13 +94,31 @@ const WalletDropdown = ({
     [account],
   );
 
+  const availableBalance =
+    stakedInCurrentPeriod >= stakedInNextPeriod ?
+      balance - stakedInCurrentPeriod :
+      balance - stakedInNextPeriod;
+
   return (
     <div className="position-relative">
       <Dropdown
         id={`profile_id_${Math.random()}`}
-        className="d-none d-md-flex mr-3 wallet-dropdown"
-        button={<WalletButton balance={balance} locale={locale} />}
-        menu={<Menu user={user} number={number} locale={locale} />}
+        className="d-none d-md-flex mr-1 wallet-dropdown"
+        button={
+          <WalletButton
+            balance={availableBalance}
+            locale={locale}
+            isBoost={boost.value > 1}
+          />
+        }
+        menu={
+          <Menu
+            user={user}
+            number={number}
+            locale={locale}
+            boost={boost}
+          />
+        }
       />
       {isPositiveNumber(number) && (
         <NotificationIcon
@@ -101,6 +141,9 @@ Menu.propTypes = {
 WalletDropdown.propTypes = {
   user: PropTypes.string,
   balance: PropTypes.number,
+  stakedInCurrentPeriod: PropTypes.number,
+  stakedInNextPeriod: PropTypes.number,
+  boost: PropTypes.object,
   locale: PropTypes.string,
   getWeekStatDispatch: PropTypes.func,
   rewardsWeeksNumber: PropTypes.number,

@@ -18,10 +18,19 @@ export const getCurrentAccountProcessing = () => ({
   type: GET_CURRENT_ACCOUNT_PROCESSING,
 });
 
-export const getCurrentAccountSuccess = (account, balance) => ({
+export const getCurrentAccountSuccess = (
+  account,
+  balance,
+  stakedInCurrentPeriod = 0,
+  stakedInNextPeriod = 0,
+  boost,
+) => ({
   type: GET_CURRENT_ACCOUNT_SUCCESS,
   account,
   balance,
+  stakedInCurrentPeriod,
+  stakedInNextPeriod,
+  boost,
 });
 
 export const getCurrentAccountError = err => ({

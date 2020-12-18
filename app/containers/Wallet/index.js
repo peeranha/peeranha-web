@@ -6,10 +6,11 @@ import { createStructuredSelector } from 'reselect';
 import { compose, bindActionCreators } from 'redux';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-
 import {
   makeSelectAccount,
   makeSelectBalance,
+  makeSelectStakedInCurrentPeriod,
+  makeSelectStakedInNextPeriod,
 } from 'containers/AccountProvider/selectors';
 
 import Seo from 'components/Seo';
@@ -28,7 +29,11 @@ const Wallet = ({
   locale,
   account,
   balance,
+  stakedInCurrentPeriod,
+  stakedInNextPeriod,
   weekStat,
+  globalBoostStat,
+  userBoostStat,
   getWeekStatDispatch,
   getWeekStatProcessing,
   pickupRewardDispatch,
@@ -60,7 +65,11 @@ const Wallet = ({
         locale={locale}
         account={account}
         balance={balance}
+        stakedInCurrentPeriod={stakedInCurrentPeriod}
+        stakedInNextPeriod={stakedInNextPeriod}
         weekStat={weekStat}
+        globalBoostStat={globalBoostStat}
+        userBoostStat={userBoostStat}
         getWeekStatProcessing={getWeekStatProcessing}
         pickupRewardDispatch={pickupRewardDispatch}
         pickupRewardProcessing={pickupRewardProcessing}
@@ -71,12 +80,16 @@ const Wallet = ({
 };
 
 Wallet.propTypes = {
-  balance: PropTypes.string,
+  balance: PropTypes.number,
+  stakedInCurrentPeriod: PropTypes.number,
+  stakedInNextPeriod: PropTypes.number,
   locale: PropTypes.string,
   account: PropTypes.string,
   match: PropTypes.object,
   pickupRewardDispatch: PropTypes.func,
   weekStat: PropTypes.array,
+  globalBoostStat: PropTypes.array,
+  userBoostStat: PropTypes.array,
   ids: PropTypes.array,
   getWeekStatDispatch: PropTypes.func,
   getWeekStatProcessing: PropTypes.bool,
@@ -93,7 +106,11 @@ export default memo(
         locale: makeSelectLocale(),
         account: makeSelectAccount(),
         balance: makeSelectBalance(),
+        stakedInCurrentPeriod: makeSelectStakedInCurrentPeriod(),
+        stakedInNextPeriod: makeSelectStakedInNextPeriod(),
         weekStat: selectors.selectWeekStat(),
+        globalBoostStat: selectors.selectGlobalBoostStat(),
+        userBoostStat: selectors.selectUserBoostStat(),
         getWeekStatProcessing: selectors.selectGetWeekStatProcessing(),
         pickupRewardProcessing: selectors.selectPickupRewardProcessing(),
         ids: selectors.selectIds(),

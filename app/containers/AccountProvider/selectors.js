@@ -22,6 +22,15 @@ const makeSelectAccount = () =>
 const makeSelectBalance = () =>
   createSelector(selectAccountProviderDomain, substate => substate.balance);
 
+const makeSelectStakedInCurrentPeriod = () =>
+  createSelector(selectAccountProviderDomain, substate => substate.stakedInCurrentPeriod);
+
+const makeSelectStakedInNextPeriod = () =>
+  createSelector(selectAccountProviderDomain, substate => substate.stakedInNextPeriod);
+
+const makeSelectBoost = () =>
+  createSelector(selectAccountProviderDomain, substate => substate.boost);
+
 const selectLastUpdate = () =>
   createSelector(selectAccountProviderDomain, substate => substate.lastUpdate);
 
@@ -37,6 +46,9 @@ const makeSelectProfileInfo = () =>
     state => {
       const account = makeSelectAccount()(state);
       const balance = makeSelectBalance()(state);
+      const stakedInCurrentPeriod = makeSelectStakedInCurrentPeriod()(state);
+      const stakedInNextPeriod = makeSelectStakedInNextPeriod()(state);
+      const boost = makeSelectBoost()(state);
       const loginData = makeSelectLoginData()(state);
       const profileInfo = selectUsers(account)(state);
 
@@ -44,6 +56,9 @@ const makeSelectProfileInfo = () =>
         return {
           ...profileInfo,
           balance,
+          stakedInCurrentPeriod,
+          stakedInNextPeriod,
+          boost,
           loginData,
         };
       }
@@ -109,6 +124,9 @@ export {
   makeSelectProfileInfo,
   makeSelectFollowedCommunities,
   makeSelectBalance,
+  makeSelectStakedInCurrentPeriod,
+  makeSelectStakedInNextPeriod,
+  makeSelectBoost,
   makeSelectLoginData,
   selectLastUpdate,
   selectUserRating,

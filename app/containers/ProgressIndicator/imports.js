@@ -75,6 +75,7 @@ import {
   selectGetConfirmTelegramAccountProcessing,
   selectGetUnlinkTelegramAccountProcessing,
 } from '../TelegramAccountAction/selectors';
+import { selectChangeStakeLoading } from '../Boost/selectors';
 
 export default {
   selectAskQuestionLoading: selectAskQuestionLoading(),
@@ -130,4 +131,5 @@ export default {
   selectPinActionProcessing: selectTopQuestionActionProcessing(),
   selectGetConfirmTelegramAccountProcessing: selectGetConfirmTelegramAccountProcessing(),
   selectGetUnlinkTelegramAccountProcessing: selectGetUnlinkTelegramAccountProcessing(),
+  selectChangeStakeLoading: selectChangeStakeLoading(),
 };

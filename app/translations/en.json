@@ -139,6 +139,8 @@
   "app.common.skip": "Skip",
   "app.common.showMore": "Show more",
   "app.common.questionIsAnswered": "You have already answered this question",
+  "app.common.activateBoost": "Activate boost",
+  "app.common.boost": "Boost",
 
   "app.telegram.user": "Telegram user",
   "app.telegram.userLabelPopover":
@@ -176,6 +178,25 @@
   "app.containers.Wallet.registrationWeek": "Registration week",
   "app.containers.Wallet.yourWalletWasSuccessfullySet":
     "Your wallet was successfully set during this period",
+  "app.containers.Wallet.getMoreWithBoost": "Get more rewards with Boost",
+  "app.containers.Wallet.stakedInCurrentPeriod": "Staked in the current period",
+  "app.containers.Wallet.stakedInNextPeriod": "Staked in next period",
+  "app.containers.Wallet.totalBalance": "Total balance",
+
+  "app.containers.Boost.currentPeriod": "Current period",
+  "app.containers.Boost.nextPeriod": "Next period",
+  "app.containers.Boost.maximumStake": "Maximum stake",
+  "app.containers.Boost.users": "Users",
+  "app.containers.Boost.yourStake": "Your stake",
+  "app.containers.Boost.yourBoost": "Your boost",
+  "app.containers.Boost.yourPredictedBoost": "Your predicted boost",
+  "app.containers.Boost.formTitle": "Next period stake",
+  "app.containers.Boost.formSubmit": "Save",
+  "app.containers.Boost.formCancel": "Cancel",
+  "app.containers.Boost.formBoostPrediction": "Boost prediction",
+  "app.containers.Boost.formCurrentStake": "Your stake",
+  "app.containers.Boost.formTakeAStake": "Take a stake",
+  "app.containers.Boost.notTokensToStake": "You don't have tokens to stake",
 
   "web_integration.errors.unknownError":
     "Unknown error. Please submit bug report!",

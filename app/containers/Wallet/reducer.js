@@ -21,6 +21,8 @@ export const initialState = fromJS({
   pickupRewardProcessing: false,
   pickupRewardError: null,
   weekStat: null,
+  globalBoostStat: null,
+  userBoostStat: null,
   ids: [],
 });
 
@@ -29,6 +31,8 @@ function walletReducer(state = initialState, action) {
     type,
     getWeekStatError,
     weekStat,
+    globalBoostStat,
+    userBoostStat,
     pickupRewardError,
     buttonId,
   } = action;
@@ -39,7 +43,9 @@ function walletReducer(state = initialState, action) {
     case GET_WEEK_STAT_SUCCESS:
       return state
         .set('getWeekStatProcessing', false)
-        .set('weekStat', weekStat);
+        .set('weekStat', weekStat)
+        .set('globalBoostStat', globalBoostStat)
+        .set('userBoostStat', userBoostStat);
     case GET_WEEK_STAT_ERROR:
       return state
         .set('getWeekStatProcessing', false)

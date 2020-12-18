@@ -12,7 +12,6 @@ import Login from 'containers/Login';
 import ForgotPassword from 'containers/ForgotPassword';
 
 const HomePage = React.lazy(() => import('containers/HomePage'));
-
 const EditCommunity = React.lazy(() => import('containers/EditCommunity'));
 const Faq = React.lazy(() => import('containers/Faq'));
 const Tutorial = React.lazy(() => import('containers/Tutorial'));
@@ -32,23 +31,21 @@ const TagsOfCommunity = React.lazy(() => import('containers/TagsOfCommunity'));
 const TagsCollection = React.lazy(() => import('containers/TagsCollection'));
 const CreateTag = React.lazy(() => import('containers/CreateTag'));
 const SuggestedTags = React.lazy(() => import('containers/SuggestedTags'));
+const Wallet = React.lazy(() => import('containers/Wallet'));
+const Boost = React.lazy(() => import('containers/Boost'));
+const Search = React.lazy(() => import('containers/Search'));
+const Support = React.lazy(() => import('containers/Support'));
+const PrivacyPolicy = React.lazy(() => import('containers/PrivacyPolicy'));
+
 const NoAccess = React.lazy(() => import('components/NoAccess'));
 const Feed = React.lazy(() => import('components/Feed'));
 const Communities = React.lazy(() => import('components/ExistingCommunities'));
 const FullWidthPreloader = React.lazy(() =>
   import('components/LoadingIndicator/FullWidthPreloader'),
 );
-
 const SuggestedCommunities = React.lazy(() =>
   import('components/SuggestedCommunities'),
 );
-const Wallet = React.lazy(() => import('containers/Wallet'));
-
-const Search = React.lazy(() => import('containers/Search'));
-
-const Support = React.lazy(() => import('containers/Support'));
-
-const PrivacyPolicy = React.lazy(() => import('containers/PrivacyPolicy'));
 
 export {
   EditCommunity,
@@ -85,6 +82,7 @@ export {
   ForgotPassword,
   Toast,
   Wallet,
+  Boost,
   Search,
   Support,
   PrivacyPolicy,
