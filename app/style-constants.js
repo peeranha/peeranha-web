@@ -47,7 +47,11 @@ const iconTransparentBlue = '#a5bcff';
 const graySpecial2 = `rgba(${graySpecialRGB}, 0.1)`;
 const graySpecial3 = 'rgba(250, 250, 250, 1)';
 const graySpecial4 = '#f9f9f9';
-const primarySpecial = 'rgba(53, 74, 137, 0.11)';
+const primarySpecial = _get(
+  colors,
+  'primarySpecial',
+  'rgba(53, 74, 137, 0.11)',
+);
 const secondarySpecial = _get(colors, 'secondarySpecial', '#c2c6d8');
 
 export const LANDING_FONT = 'Open Sans, sans-serif';
@@ -114,6 +118,6 @@ export const ATTENTION_COLOR = attentionColor;
 export const BUTTON_COLOR = _get(colors, 'btnColor', pink);
 export const TAG_COLOR = _get(colors, 'tagColor', blue);
 
-export const BORDER_RADIUS_S = _get(styles, 'buttonsBorderRadius', '2px');
-export const BORDER_RADIUS_M = _get(styles, 'buttonsBorderRadius', '3px');
-export const BORDER_RADIUS_L = _get(styles, 'buttonsBorderRadius', '5px');
+export const BORDER_RADIUS_S = _get(styles, 'projectBorderRadius', '2px');
+export const BORDER_RADIUS_M = _get(styles, 'projectBorderRadius', '3px');
+export const BORDER_RADIUS_L = _get(styles, 'projectBorderRadius', '5px');

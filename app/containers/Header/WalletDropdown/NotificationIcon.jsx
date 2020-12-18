@@ -45,8 +45,8 @@ const IconButtonInline = styled(IconButton)`
   top: 0;
   right: 0;
   margin-left: 5px;
-  padding: ${x => (x.mobile ? '0 !important' : '')};
-  border: ${x => (x.mobile ? '0 !important' : '')};
+  padding: ${x => (x.isMobileVersion ? '0 !important' : '')};
+  border: ${x => (x.isMobileVersion ? '0 !important' : '')};
 `;
 
 const IconNumber = Span.extend`
@@ -54,7 +54,13 @@ const IconNumber = Span.extend`
   padding-right: 4px;
 `;
 
-const NotificationIcon = ({ number, inline, mobile, iconId, locale }) => {
+const NotificationIcon = ({
+  number,
+  inline,
+  isMobileVersion,
+  iconId,
+  locale,
+}) => {
   const translations = translationMessages[locale];
   const tooltipText =
     translations[headerMessages.walletTooltipPart1.id] +
@@ -78,21 +84,23 @@ const NotificationIcon = ({ number, inline, mobile, iconId, locale }) => {
       showPopover(iconId, tooltipText, {
         callback: setOpenedFalse,
         position:
-          (mobile && 'top') || (window.innerWidth < 992 && 'auto') || 'right',
+          (isMobileVersion && 'top') ||
+          (window.innerWidth < 992 && 'auto') ||
+          'right',
       });
     } else closeTooltipOnClick(e);
   };
 
   if (inline)
     return (
-      <IconButtonInline id={iconId} mobile={mobile}>
+      <IconButtonInline id={iconId} isMobileVersion={isMobileVersion}>
         <IconNumber fontSize="13" color="white">
           {number}
         </IconNumber>
       </IconButtonInline>
     );
 
-  if (mobile)
+  if (isMobileVersion)
     return (
       <div tabIndex="0" onBlur={closeTooltipOnClick}>
         <IconDivMob id={iconId} onClick={e => toggleTooltipOnClick(e)}>
@@ -119,7 +127,7 @@ const NotificationIcon = ({ number, inline, mobile, iconId, locale }) => {
 NotificationIcon.propTypes = {
   number: PropTypes.number,
   inline: PropTypes.bool,
-  mobile: PropTypes.bool,
+  isMobileVersion: PropTypes.bool,
   iconId: PropTypes.string,
   locale: PropTypes.string,
 };

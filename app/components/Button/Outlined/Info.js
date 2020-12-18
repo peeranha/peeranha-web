@@ -4,7 +4,7 @@ import {
   BG_TRANSPARENT,
   BORDER_TRANSPARENT,
   TEXT_LIGHT,
-  BUTTON_COLOR
+  BUTTON_COLOR,
 } from 'style-constants';
 
 import Button from '../index';
@@ -21,6 +21,8 @@ const OutlinedButton = Button.extend`
   background: ${BG_TRANSPARENT};
   border: 1px solid ${BUTTON_COLOR};
   color: ${BUTTON_COLOR};
+
+  ${props => props.customStyles};
 
   :hover {
     color: ${TEXT_LIGHT};

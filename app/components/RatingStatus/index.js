@@ -16,12 +16,15 @@ import {
 } from 'style-constants';
 
 import { getFormattedNum } from 'utils/numbers';
+import { singleCommunityStyles } from 'utils/communityManagement';
 
 import Span from 'components/Span';
 
 import Icon from 'components/Icon';
 
 import options from './options';
+
+const styles = singleCommunityStyles();
 
 const RatingStatusStyled = styled.span`
   display: flex;
@@ -34,28 +37,46 @@ const getStatus = rating =>
     x => options[x].minRating <= rating && options[x].maxRating >= rating,
   )[0];
 
-const IconWithStatus = ({ className, size, rating }) => {
+const IconWithStatus = ({
+  className,
+  size,
+  rating,
+  ratingNumColor,
+  customRatingIconColors = {},
+}) => {
+  // ratingNumColor and customRatingIconColors are used for kanda community styling
+
+  const {
+    strokeColor,
+    bannedFill,
+    strangerFill,
+    residentFill,
+    superheroFill,
+  } = customRatingIconColors;
+
   const full = options[getStatus(rating)];
 
   let color = TEXT_DARK;
   let fill = '';
 
-  if (rating <= options.banned.maxRating) {
+  const bannedUser = rating <= options.banned.maxRating;
+
+  if (bannedUser) {
     // banned
-    color = PEER_ERROR_COLOR;
-    fill = PEER_ERROR_COLOR;
+    color = strokeColor || PEER_ERROR_COLOR;
+    fill = bannedFill || PEER_ERROR_COLOR;
   } else if (rating <= options.jrResident.maxRating) {
     // stranger - junior
-    color = PEER_PRIMARY_COLOR;
-    fill = PEER_PRIMARY_TRANSPARENT_COLOR;
+    color = strokeColor || PEER_PRIMARY_COLOR;
+    fill = strangerFill || PEER_PRIMARY_TRANSPARENT_COLOR;
   } else if (rating <= options.heroResident.maxRating) {
     // resident - hero
-    color = PEER_WARNING_COLOR;
-    fill = PEER_WARNING_TRANSPARENT_COLOR;
+    color = strokeColor || PEER_WARNING_COLOR;
+    fill = residentFill || PEER_WARNING_TRANSPARENT_COLOR;
   } else {
     // superhero
-    color = PEER_PREMIUM_COLOR;
-    fill = PEER_PREMIUM_TRANSPARENT_COLOR;
+    color = strokeColor || PEER_PREMIUM_COLOR;
+    fill = superheroFill || PEER_PREMIUM_TRANSPARENT_COLOR;
   }
 
   return (
@@ -68,13 +89,14 @@ const IconWithStatus = ({ className, size, rating }) => {
         color={color}
         fill={fill}
         isColorImportant
+        specialStyles={bannedUser && styles.bannedIconStyles}
       />
 
       <Span
         fontSize={size === 'lg' ? 18 : 14}
         lineHeight={size === 'lg' ? 18 : 14}
         bold={size === 'lg'}
-        color={color}
+        color={ratingNumColor || color}
       >
         {getFormattedNum(rating)}
       </Span>
@@ -83,12 +105,24 @@ const IconWithStatus = ({ className, size, rating }) => {
 };
 
 /* eslint no-nested-ternary: 0 */
-const RatingStatus = ({ rating = 0, size, intl, isRankOff }) => {
+const RatingStatus = ({
+  rating = 0,
+  size,
+  intl,
+  isRankOff,
+  ratingNumColor,
+  customRatingIconColors,
+}) => {
   const full = options[getStatus(rating)];
 
   return (
     <RatingStatusStyled>
-      <IconWithStatus size={size} rating={rating} />
+      <IconWithStatus
+        size={size}
+        rating={rating}
+        ratingNumColor={ratingNumColor || ''}
+        customRatingIconColors={customRatingIconColors}
+      />
       <Span
         className={isRankOff ? 'd-none' : 'd-none d-lg-inline-block ml-1'}
         fontSize={size === 'lg' ? 16 : 14}
@@ -105,12 +139,22 @@ RatingStatus.propTypes = {
   rating: PropTypes.number.isRequired,
   size: PropTypes.string,
   isRankOff: PropTypes.bool,
+  ratingNumColor: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  customRatingIconColors: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.bool,
+  ]),
 };
 
 IconWithStatus.propTypes = {
   className: PropTypes.string,
   rating: PropTypes.number.isRequired,
   size: PropTypes.string,
+  ratingNumColor: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  customRatingIconColors: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.bool,
+  ]),
 };
 
 export { IconWithStatus, getStatus };

@@ -7,7 +7,7 @@ import arrowDownWhiteIcon from 'images/arrowDownWhite.svg?inline';
 import arrowDownSmallIcon from 'images/arrowDownSmall.svg?inline';
 
 const Container = styled.div`
-  transform: rotate(${x => (x.rotate ? '180deg' : '0deg')});
+  transform: rotate(${x => (x.shouldBeRotated ? '180deg' : '0deg')});
   transition: 0.5s;
   margin-right: 16px;
 `;
@@ -19,8 +19,8 @@ const type = {
 };
 
 const Arrow = ({ rotate, className, width = 16, color = 'default' }) => (
-  <Container className={className} rotate={rotate}>
-    <img src={type[color] || type['default']} width={width} alt="arrow" />
+  <Container className={className} shouldBeRotated={rotate}>
+    <img src={type[color] || type.default} width={width} alt="arrow" />
   </Container>
 );
 
