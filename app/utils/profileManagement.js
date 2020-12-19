@@ -1,4 +1,4 @@
-import userBodyAvatar from 'images/user2.svg?external';
+import userBodyAvatar from 'images/user2.svg?inline';
 import noAvatar from 'images/noAvatar.png';
 import editUserNoAvatar from 'images/editUserNoAvatar.png';
 

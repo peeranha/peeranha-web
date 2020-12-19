@@ -15,6 +15,7 @@ import { singleCommunityStyles } from 'utils/communityManagement';
 import logoutIcon from 'images/logout.svg?external';
 
 import { getUserAvatar } from 'utils/profileManagement';
+import userBodyIconAvatar from 'images/user2.svg?external';
 
 import Dropdown from 'components/Dropdown';
 import Ul from 'components/Ul/SpecialOne';
@@ -66,7 +67,7 @@ const B = ({ profileInfo, onClick, isMenuVisible, isMobileVersion }) => (
         <Icon
           width="17"
           height="19"
-          icon={getUserAvatar(profileInfo.ipfs_avatar)}
+          icon={userBodyIconAvatar}
           specialStyles={!isMobileVersion && styles.dropDownIconStyles}
         />
       </NoAvatarBox>
