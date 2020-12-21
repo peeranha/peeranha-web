@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { BG_PRIMARY_SPECIAL_2, TEXT_PRIMARY, BORDER_RADIUS_M } from 'style-constants';
+import { TEXT_PRIMARY, BORDER_RADIUS_M } from 'style-constants';
 
 const SIZE_CONFIG = {
   sm: {
@@ -17,8 +17,6 @@ const SIZE_CONFIG = {
 
 export const TypeContainer = styled.div`
   position: relative;
-  // top: ${({ top }) => top || '-15px'};
-  // right: ${({ right }) => right || '-25px'};
 
   display: inline-block;
   text-align: right;
@@ -32,7 +30,6 @@ export const TypeContainer = styled.div`
 const Type = styled.div`
   height: ${({ size }) => SIZE_CONFIG[size].height}px;
   font-size: ${({ size }) => SIZE_CONFIG[size].fontSize}px;
-  // background: ${BG_PRIMARY_SPECIAL_2};
   color: ${TEXT_PRIMARY};
   position: relative;
   padding: 0 9px;
