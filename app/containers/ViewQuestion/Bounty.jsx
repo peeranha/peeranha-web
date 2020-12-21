@@ -14,8 +14,8 @@ export const SpanStyled = Span.extend`
   color: white;
   display: inline-flex;
   align-items: center;
-  margin-right: 0px;
   padding: 5px 8px;
+  margin-right: 10px;
   background-color: #576fed;
   border-radius: 20px;
   font-size: 20px;

@@ -2,6 +2,8 @@ import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { BG_LIGHT, BORDER_PRIMARY_LIGHT, TEXT_DARK } from 'style-constants';
+import { FormattedMessage } from 'react-intl';
+import messages from './messages';
 
 const Base = styled.div`
   position: absolute;
@@ -35,21 +37,21 @@ const Base = styled.div`
   }
 `;
 
-const ExpertPopover = ({ date, bountyMessage }) => (
+const BountyPopover = ({ date, bountyMessage }) => (
   <Base>
     <span>{bountyMessage}</span>
     {date && (
       <span>
-        You can get this bounty until<br />
+        <FormattedMessage {...messages.bountyStatusExpiration} />
         {date}
       </span>
     )}
   </Base>
 );
 
-ExpertPopover.propTypes = {
+BountyPopover.propTypes = {
   date: PropTypes.string,
   bountyMessage: PropTypes.string,
 };
 
-export default memo(ExpertPopover);
+export default memo(BountyPopover);

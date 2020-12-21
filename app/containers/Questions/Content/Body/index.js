@@ -44,7 +44,12 @@ const Body = ({
 
     <QuestionType locale={locale} isGeneral={isGeneral} />
 
-    <Title title={title} id={id} questionBounty={questionBounty} />
+    <Title
+      locale={locale}
+      title={title}
+      id={id}
+      questionBounty={questionBounty}
+    />
 
     <UserInfo
       user={user}

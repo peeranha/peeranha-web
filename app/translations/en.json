@@ -836,6 +836,7 @@
   "app.containers.Questions.topQuestionPopover":
     "Top question of this community",
   "app.containers.Questions.showAllQuestions": "Show all questions",
+  "app.containers.Questions.bountyPopover": "Bounty - extra PEER reward from author.",
 
   "app.containers.AskQuestion.title": "Ask question",
   "app.containers.AskQuestion.description": "Ask question | Description",

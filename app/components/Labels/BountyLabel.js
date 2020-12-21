@@ -15,7 +15,7 @@ const SIZE_CONFIG = {
   },
 };
 
-export const TypeContainer = styled.div`
+export const BountyLabelContainer = styled.div`
   position: relative;
 
   display: inline-block;
@@ -27,12 +27,12 @@ export const TypeContainer = styled.div`
   }
 `;
 
-const Type = styled.div`
+const Label = styled.div`
   height: ${({ size }) => SIZE_CONFIG[size].height}px;
   font-size: ${({ size }) => SIZE_CONFIG[size].fontSize}px;
   color: ${TEXT_PRIMARY};
   position: relative;
-  padding: 0 9px;
+
   display: inline-flex;
   align-items: center;
   border-radius: ${BORDER_RADIUS_M};
@@ -47,14 +47,14 @@ const Type = styled.div`
   }
 `;
 
-const QuestionType = ({ size, ...restProps }) => (
-  <TypeContainer {...restProps}>
-    <Type size={size} {...restProps} />
-  </TypeContainer>
+const BountyLabel = ({ size, ...restProps }) => (
+  <BountyLabelContainer {...restProps}>
+    <Label size={size} {...restProps} />
+  </BountyLabelContainer>
 );
 
-QuestionType.propTypes = {
+BountyLabel.propTypes = {
   size: PropTypes.string,
 };
 
-export default QuestionType;
+export default BountyLabel;
