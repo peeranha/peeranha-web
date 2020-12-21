@@ -25,9 +25,9 @@ import {
   GET_QUESTION_DATA,
   GET_QUESTION_DATA_ERROR,
   GET_QUESTION_DATA_SUCCESS,
-  GIVE_BOUNTY,
-  GIVE_BOUNTY_ERROR,
-  GIVE_BOUNTY_SUCCESS,
+  PAY_BOUNTY,
+  PAY_BOUNTY_ERROR,
+  PAY_BOUNTY_SUCCESS,
   MARK_AS_ACCEPTED,
   MARK_AS_ACCEPTED_ERROR,
   MARK_AS_ACCEPTED_SUCCESS,
@@ -361,18 +361,18 @@ export const changeQuestionTypeErr = (changeQuestionTypeError, buttonId) => ({
   buttonId,
 });
 
-export const giveBounty = event => ({
-  type: GIVE_BOUNTY,
+export const payBounty = event => ({
+  type: PAY_BOUNTY,
   buttonId: event.currentTarget.id,
 });
 
-export const giveBountySuccess = buttonId => ({
-  type: GIVE_BOUNTY_SUCCESS,
+export const payBountySuccess = buttonId => ({
+  type: PAY_BOUNTY_SUCCESS,
   buttonId,
 });
 
-export const giveBountyError = (giveBountyErr, buttonId) => ({
-  type: GIVE_BOUNTY_ERROR,
+export const payBountyError = (giveBountyErr, buttonId) => ({
+  type: PAY_BOUNTY_ERROR,
   giveBountyErr,
   buttonId,
 });

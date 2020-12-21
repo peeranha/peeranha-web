@@ -55,6 +55,7 @@ const TitleContainer = styled.div`
   .bountyActive {
   }
   .bountyPaid {
+    background-color: green;
   }
   .bountyPending {
   }

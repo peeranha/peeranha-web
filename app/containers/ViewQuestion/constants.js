@@ -60,9 +60,9 @@ export const CHANGE_QUESTION_TYPE_SUCCESS =
 export const CHANGE_QUESTION_TYPE_ERROR =
   'app/ViewQuestion/CHANGE_QUESTION_TYPE_ERROR';
 
-export const GIVE_BOUNTY = 'app/ViewQuestion/GIVE_BOUNTY';
-export const GIVE_BOUNTY_SUCCESS = 'app/ViewQuestion/GIVE_BOUNTY_SUCCESS';
-export const GIVE_BOUNTY_ERROR = 'app/ViewQuestion/GIVE_BOUNTY_ERROR';
+export const PAY_BOUNTY = 'app/ViewQuestion/GIVE_BOUNTY';
+export const PAY_BOUNTY_SUCCESS = 'app/ViewQuestion/GIVE_BOUNTY_SUCCESS';
+export const PAY_BOUNTY_ERROR = 'app/ViewQuestion/GIVE_BOUNTY_ERROR';
 
 export const GET_QUESTION_BOUNTY = 'app/ViewQuestion/GET_QUESTION_BOUNTY';
 export const GET_QUESTION_BOUNTY_SUCCESS =

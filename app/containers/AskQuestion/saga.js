@@ -7,7 +7,7 @@ import {
   getQuestionsPostedByUser,
 } from 'utils/questionsManagement';
 
-import { getBounty } from 'utils/walletManagement';
+import { setBounty } from 'utils/walletManagement';
 
 import { GET_RESULTS } from 'containers/Search/constants';
 
@@ -44,7 +44,7 @@ import {
 } from './constants';
 
 import { getResults } from '../../utils/custom-search';
-import { getFormattedNum3 } from '../../utils/numbers';
+import { getFormattedAsset } from '../../utils/numbers';
 import { ONE_DAY_IN_SECONDS, ONE_HOUR_IN_SECONDS } from '../../utils/datetime';
 
 export function* postQuestionWorker({ val }) {
@@ -59,7 +59,7 @@ export function* postQuestionWorker({ val }) {
       chosenTags: val[FORM_TAGS],
       type: +val[FORM_TYPE],
       bounty: +val[FORM_BOUNTY],
-      bountyFull: `${getFormattedNum3(+val[FORM_BOUNTY])} PEER`,
+      bountyFull: `${getFormattedAsset(+val[FORM_BOUNTY])} PEER`,
       bountyDays: +val[FORM_BOUNTY_DAYS],
       bountyHours: +val[FORM_BOUNTY_HOURS],
       community,
@@ -71,21 +71,23 @@ export function* postQuestionWorker({ val }) {
       eosService,
       selectedAccount,
     );
-    const now = Math.round(new Date().valueOf() / 1000);
-    const bountyTime =
-      now +
-      questionData.bountyDays * ONE_DAY_IN_SECONDS +
-      questionData.bountyHours * ONE_HOUR_IN_SECONDS;
 
-    yield call(
-      getBounty,
-      selectedAccount,
-      questionData.bountyFull,
-      questionsPostedByUser[0].question_id,
-      bountyTime,
-      eosService,
-    );
+    if (val[FORM_BOUNTY]) {
+      const now = Math.round(new Date().valueOf() / 1000);
+      const bountyTime =
+        now +
+        questionData.bountyDays * ONE_DAY_IN_SECONDS +
+        questionData.bountyHours * ONE_HOUR_IN_SECONDS;
 
+      yield call(
+        setBounty,
+        selectedAccount,
+        questionData.bountyFull,
+        questionsPostedByUser[0].question_id,
+        bountyTime,
+        eosService,
+      );
+    }
     yield put(askQuestionSuccess());
 
     yield call(

@@ -9,11 +9,17 @@ import Span from 'components/Span';
 import { APP_FONT } from 'style-constants';
 
 import { singleCommunityFonts } from 'utils/communityManagement';
+import Bounty from '../../../ViewQuestion/Bounty';
 
 const fonts = singleCommunityFonts();
 
-const Title = ({ title, id }) => (
+const Title = ({ title, id, questionBounty }) => (
   <p className="mb-1">
+    <Bounty
+      bountyMessage="Bounty - extra PEER reward from author."
+      className="questionTitle"
+      amount={questionBounty?.amount}
+    />
     <A to={routes.questionView(id, null)}>
       <Span
         fontSize="24"
@@ -33,6 +39,7 @@ const Title = ({ title, id }) => (
 Title.propTypes = {
   id: PropTypes.string,
   title: PropTypes.string,
+  questionBounty: PropTypes.string,
 };
 
 export default memo(Title);

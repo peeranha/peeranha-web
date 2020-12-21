@@ -1,8 +1,6 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import commonMessages from 'common-messages';
-import DescriptionList from 'components/DescriptionList';
 import { BG_LIGHT, BORDER_PRIMARY_LIGHT, TEXT_DARK } from 'style-constants';
 
 const Base = styled.div`
@@ -37,21 +35,21 @@ const Base = styled.div`
   }
 `;
 
-const ExpertPopover = ({ locale, date }) => (
+const ExpertPopover = ({ date, bountyMessage }) => (
   <Base>
-    <DescriptionList
-      locale={locale}
-      label={commonMessages.bountyStatus.id}
-      items={commonMessages.expertPopoverList.id}
-    />
-    <span>You can get this bounty until </span>
-    {date}
+    <span>{bountyMessage}</span>
+    {date && (
+      <span>
+        You can get this bounty until<br />
+        {date}
+      </span>
+    )}
   </Base>
 );
 
 ExpertPopover.propTypes = {
-  locale: PropTypes.string,
   date: PropTypes.string,
+  bountyMessage: PropTypes.string,
 };
 
 export default memo(ExpertPopover);

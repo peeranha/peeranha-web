@@ -32,7 +32,7 @@ import SharingModal from './SharingModal';
 
 import messages from './messages';
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
-import { changeQuestionType, giveBounty } from './actions';
+import { changeQuestionType, payBounty } from './actions';
 import { QUESTION_TYPE } from './constants';
 
 const RatingBox = styled.div`
@@ -172,15 +172,17 @@ const ContentHeader = props => {
             </Button>
           )}
 
-          <Button
-            id={`${type}_give_bounty_${answerId}`}
-            show={correctAnswerUserName === currentUserName}
-            onClick={event => giveBountyDispatch(event)}
-            disabled={ids.includes(`${type}_give_bounty_${answerId}`)}
-          >
-            <IconSm icon={currencyPeer} fill={BORDER_PRIMARY} />
-            <FormattedMessage {...messages.getBounty} />
-          </Button>
+          {type === QUESTION_TYPE && (
+            <Button
+              id={`${type}_give_bounty_${answerId}`}
+              show={currentUserName && correctAnswerUserName === currentUserName}
+              onClick={event => giveBountyDispatch(event)}
+              disabled={ids.includes(`${type}_give_bounty_${answerId}`)}
+            >
+              <IconSm icon={currencyPeer} fill={BORDER_PRIMARY} />
+              <FormattedMessage {...messages.getBounty} />
+            </Button>
+          )}
 
           <Button
             show={!profile || (!!profile && !isItWrittenByMe)}
@@ -291,7 +293,7 @@ export default React.memo(
         changeQuestionType,
         dispatch,
       ),
-      giveBountyDispatch: bindActionCreators(giveBounty, dispatch),
+      giveBountyDispatch: bindActionCreators(payBounty, dispatch),
     }),
   )(ContentHeader),
 );

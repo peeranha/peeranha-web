@@ -640,6 +640,8 @@
   "app.containers.ViewQuestion.changeQuestionType": "Change type",
   "app.containers.ViewQuestion.officialAnswer": "Official answer",
   "app.containers.ViewQuestion.getBounty": "Get bounty",
+  "app.containers.ViewQuestion.bountyStatus": "Bounty Status",
+  "app.containers.ViewQuestion.bountyStatusExpiration": ["Bounty will expire: "],
   "app.components.FormFields.requiredField":
     "You cannot leave this field empty",
   "app.components.FormFields.wrongLength":
@@ -686,6 +688,8 @@
     "Telos name must contain at least one letter",
   "app.components.FormFields.exactFromAndToAccounts":
     "Sender and receiver cannot be the same",
+  "app.components.FormFields.wrongNumberOfDays": "Bounty cannot be set more than on 7 days",
+  "app.components.FormFields.wrongNumberOfHours": "Cannot be more than 24 hours",
   "app.containers.TagsCollection.title": "Tags collection",
   "app.containers.TagsCollection.description": "Tags Description",
 
@@ -873,7 +877,9 @@
   "app.containers.QuestionForm.bountyLabel": "Bounty",
   "app.containers.QuestionForm.bountyDaysLabel": "Bounty Days",
   "app.containers.QuestionForm.bountyHoursLabel": "Bounty Hours",
-  "app.containers.QuestionForm.bountyTip":  "Bounties to the best answer",
+  "app.containers.QuestionForm.bountyTip":  "Bounty to the best answer",
+  "app.containers.QuestionForm.bountyHoursTip": "Number of hours while bounty is active",
+  "app.containers.QuestionForm.bountyDaysTip": "Number of days while bounty is active",
   "app.containers.QuestionForm.previewLabel": "Preview",
   "app.containers.QuestionForm.questionType": "Question Type",
   "app.containers.QuestionForm.questionTypeTip": "Optional",

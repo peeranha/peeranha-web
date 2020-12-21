@@ -6,8 +6,8 @@ import {
   ALL_BOUNTIES_SCOPE,
   ALL_PERIODS_SCOPE,
   BOUNTY_TABLE,
-  GET_BOUNTY_METHOD,
-  GIVE_BOUNTY_METHOD,
+  SET_BOUNTY_METHOD,
+  PAY_BOUNTY_METHOD,
   INF_LIMIT,
   PERIOD_RATING_TABLE,
   PERIOD_REWARD_TABLE,
@@ -16,7 +16,7 @@ import {
   TOTAL_RATING_TABLE,
   TOTAL_REWARD_TABLE,
   USER_SUPPLY_SCOPE,
-  USER_SUPPLY_TABLE,
+  USER_SUPPLY_TABLE, ALL_USER_BOUNTIES_SCOPE,
 } from './constants';
 
 import { ApplicationError } from './errors';
@@ -218,7 +218,7 @@ export async function pickupReward(eosService, user, periodIndex) {
   );
 }
 
-export async function getBounty(
+export async function setBounty(
   user,
   bounty,
   questionId,
@@ -227,7 +227,7 @@ export async function getBounty(
 ) {
   await eosService.sendTransaction(
     user,
-    GET_BOUNTY_METHOD,
+    SET_BOUNTY_METHOD,
     {
       user,
       bounty,
@@ -239,13 +239,14 @@ export async function getBounty(
   );
 }
 
-export async function giveBounty(user, questionId, eosService) {
+export async function payBounty(user, questionId, isDeleted, eosService) {
   await eosService.sendTransaction(
     user,
-    GIVE_BOUNTY_METHOD,
+    PAY_BOUNTY_METHOD,
     {
       user,
       question_id: questionId,
+      on_delete: +isDeleted,
     },
     process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
     true,

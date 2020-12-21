@@ -118,6 +118,7 @@ export const PROJECT_ACHIEVEMENTS_TABLE = 'achieve';
 export const ALL_ACCOUNTS_SCOPE = 'allaccounts';
 export const ALL_QUESTIONS_SCOPE = 'allquestions';
 export const ALL_BOUNTIES_SCOPE = 'allbounties';
+export const ALL_USER_BOUNTIES_SCOPE = 'userbounties';
 export const ALL_COMMUNITIES_SCOPE = 'allcomm';
 export const ALL_STAT_SCOPE = 'allstat';
 export const ALL_PERIODS_SCOPE = 'allperiods';
@@ -144,8 +145,8 @@ export const VOTE_TO_DELETE_METHOD = 'reportforum';
 export const CHANGE_QUESTION_TYPE_METHOD = 'chgqsttype';
 
 export const POST_QUESTION_METHOD = 'postquestion';
-export const GET_BOUNTY_METHOD = 'getbounty';
-export const GIVE_BOUNTY_METHOD = 'givebounty';
+export const SET_BOUNTY_METHOD = 'setbounty';
+export const PAY_BOUNTY_METHOD = 'paybounty';
 export const EDIT_QUESTION_METHOD = 'modquestion';
 export const DEL_QUESTION_METHOD = 'delquestion';
 

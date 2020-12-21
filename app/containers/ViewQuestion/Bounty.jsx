@@ -3,19 +3,19 @@ import PropTypes from 'prop-types';
 import { APP_FONT } from 'style-constants';
 import Container from 'components/Labels/BountyLabel';
 
-import TransparentButton from 'components/Button/Contained/Transparent';
+import Span from 'components/Span';
 import BountyPopover from './BountyPopover';
 import { convertPeerValueToNumberValue } from '../../utils/walletManagement';
 import { getFormattedDate } from '../../utils/datetime';
 import { MONTH_3LETTERS__DAY_TIME } from '../../utils/constants';
 
 /* eslint no-nested-ternary: 0, indent: 0 */
-export const SpanStyled = TransparentButton.extend`
+export const SpanStyled = Span.extend`
   color: white;
   display: inline-flex;
   align-items: center;
-  margin-right: 10px;
-  padding: 3px 8px;
+  margin-right: 0px;
+  padding: 5px 8px;
   background-color: #576fed;
   border-radius: 20px;
   font-size: 20px;
@@ -35,14 +35,22 @@ export const SpanStyled = TransparentButton.extend`
   }
 `;
 
-export const Bounty = ({ user, bounty, status, timestamp, disabled }) => {
+export const Bounty = ({
+  amount,
+  status,
+  timestamp,
+  disabled,
+  bountyMessage,
+}) => {
   const [visible, changeVisibility] = useState(false);
 
   const onMouseEnter = useCallback(() => changeVisibility(true), []);
   const onMouseLeave = useCallback(() => changeVisibility(false), []);
 
-  const amount = bounty ? convertPeerValueToNumberValue(bounty) : null;
-  const time = getFormattedDate(timestamp, 'en', MONTH_3LETTERS__DAY_TIME);
+  const bounty = amount ? convertPeerValueToNumberValue(amount) : null;
+  const time = timestamp
+    ? getFormattedDate(timestamp, 'en', MONTH_3LETTERS__DAY_TIME)
+    : null;
 
   let className = '';
   switch (status) {
@@ -64,17 +72,19 @@ export const Bounty = ({ user, bounty, status, timestamp, disabled }) => {
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >
-      {visible && <BountyPopover date={time} locale="en" />}
+      {visible && (
+        <BountyPopover bountyMessage={bountyMessage} date={time} locale="en" />
+      )}
       <SpanStyled className={className} disabled={disabled}>
-        +{amount}
+        +{bounty}
       </SpanStyled>
     </Container>
   ) : null;
 };
 
 Bounty.propTypes = {
-  user: PropTypes.string,
-  bounty: PropTypes.string,
+  bountyMessage: PropTypes.string,
+  amount: PropTypes.string,
   status: PropTypes.number,
   timestamp: PropTypes.number,
   disabled: PropTypes.bool,

@@ -60,6 +60,7 @@ const QI = ({
   index,
   isTopQuestion,
   profileInfo,
+  questionBounty,
   questionFilter,
   isModerator,
   topQuestions,
@@ -159,6 +160,7 @@ const QI = ({
           isGeneral={isGeneral}
           displayTopQuestionMove={displayTopQuestionMove}
           profileInfo={profileInfo}
+          questionBounty={questionBounty}
           isTopQuestion={isTopQuestion}
           topQuestionsCount={topQuestions.length}
           topQuestionActionProcessing={topQuestionActionProcessing}

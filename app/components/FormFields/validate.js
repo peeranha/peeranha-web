@@ -12,6 +12,12 @@ const byteLength = val => encodeURI(val).split(/%..|./).length - 1;
 const maxByteLength = val =>
   byteLength(val) > 256 ? messages.wrongByteLength : undefined;
 
+const maxBountyDaysLength = val =>
+  val > 7 ? messages.wrongNumberOfDays : undefined;
+
+const maxBountyHoursLength = val =>
+  val > 24 ? messages.wrongNumberOfHours : undefined;
+
 // TODO: test
 const stringLength = (min, max) => value => {
   let val = value;
@@ -204,4 +210,6 @@ export {
   telosNameLength,
   isTelosNameAvailable,
   atLeastOneLetter,
+  maxBountyDaysLength,
+  maxBountyHoursLength,
 };

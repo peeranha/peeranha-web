@@ -163,7 +163,7 @@ export const QuestionForm = ({
               formValues={formValues}
               change={change}
               dotRestriction={6}
-              show={formValues[FORM_BOUNTY]}
+              show={!!formValues[FORM_BOUNTY]}
             />
 
             <Button

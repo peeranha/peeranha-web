@@ -43,9 +43,9 @@ import {
   CHANGE_QUESTION_TYPE,
   CHANGE_QUESTION_TYPE_SUCCESS,
   CHANGE_QUESTION_TYPE_ERROR,
-  GIVE_BOUNTY,
-  GIVE_BOUNTY_SUCCESS,
-  GIVE_BOUNTY_ERROR,
+  PAY_BOUNTY,
+  PAY_BOUNTY_SUCCESS,
+  PAY_BOUNTY_ERROR,
   GET_QUESTION_BOUNTY,
   GET_QUESTION_BOUNTY_SUCCESS,
   GET_QUESTION_BOUNTY_ERROR,
@@ -268,15 +268,15 @@ function viewQuestionReducer(state = initialState, action) {
         .set('changeQuestionTypeLoading', false)
         .set('ids', state.toJS().ids.filter(x => x !== buttonId));
 
-    case GIVE_BOUNTY:
+    case PAY_BOUNTY:
       return state
         .set('giveBountyLoading', true)
         .set('ids', [...state.toJS().ids, buttonId]);
-    case GIVE_BOUNTY_SUCCESS:
+    case PAY_BOUNTY_SUCCESS:
       return state
         .set('giveBountyLoading', false)
         .set('ids', state.toJS().ids.filter(x => x !== buttonId));
-    case GIVE_BOUNTY_ERROR:
+    case PAY_BOUNTY_ERROR:
       return state
         .set('giveBountyLoading', false)
         .set('ids', state.toJS().ids.filter(x => x !== buttonId));
