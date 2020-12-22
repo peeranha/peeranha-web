@@ -54,7 +54,7 @@ const Div = styled.div`
   position: absolute;
   top: -6px;
   right: -6px;
-  border-radius: 8.5px 50%;
+  border-radius: 8.5px;
   min-width: 24px;
 
   @media only screen and (max-width: 992px) {
