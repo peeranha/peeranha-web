@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { memo, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Field, reduxForm, FormSection } from 'redux-form/immutable';
@@ -274,7 +274,7 @@ CreateCommunityForm.propTypes = {
 };
 
 /* eslint import/no-mutable-exports: 0, consistent-return: 0 */
-let FormClone = reduxForm({
+const FormCloneRedux = reduxForm({
   form: FORM_NAME,
   onSubmitFail: err => {
     const errors = {
@@ -300,6 +300,7 @@ export default memo(
         form.values = { fuck: 'fuck' };
         return {
           valueHasNotBeInListValidate: tagNames,
+          formValues: form?.values ?? {},
         };
       }
       return {
