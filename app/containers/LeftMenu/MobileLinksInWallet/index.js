@@ -41,9 +41,9 @@ const MobileLinksInWallet = ({
   }
 
   const availableBalance =
-    stakedInCurrentPeriod >= stakedInNextPeriod ?
-      balance - stakedInCurrentPeriod :
-      balance - stakedInNextPeriod;
+    stakedInCurrentPeriod >= stakedInNextPeriod
+      ? balance - stakedInCurrentPeriod
+      : balance - stakedInNextPeriod;
 
   return (
     <div className="lightbg use-default-links">
@@ -56,7 +56,7 @@ const MobileLinksInWallet = ({
           number={rewardsWeeksNumber}
           locale={locale}
           isBoost={boost.value > 1}
-          mobile
+          isMobileVersion
         />
         <Icon
           className="mr-3"
@@ -73,7 +73,7 @@ const MobileLinksInWallet = ({
             {isPositiveNumber(rewardsWeeksNumber) && (
               <NotificationIcon
                 inline
-                mobile
+                isMobileVersion
                 number={rewardsWeeksNumber}
                 id="MobileLinksInWallet"
                 locale={locale}

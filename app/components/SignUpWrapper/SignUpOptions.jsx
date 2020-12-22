@@ -82,7 +82,7 @@ export const CommunityLogoDescr = styled.div`
 
 export const Logo = styled.span`
   display: block;
-  width: 180px;
+  width: ${({ width }) => width || '180px'};
   height: 56px;
 
   background-position: bottom left;
@@ -102,7 +102,7 @@ const LeftMenu = ({ faqQuestions }) => (
       {styles.withoutSubHeader ? (
         <CommunityLogoWrapper>
           <Link to={routes.questions()} href={routes.questions()}>
-            <Logo src={styles.signUpPageLogo} />
+            <Logo src={styles.signUpPageLogo} width={styles.signUpLogoWidth} />
           </Link>
           <CommunityLogoDescr>
             <span>Q&A on</span>

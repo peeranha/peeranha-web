@@ -9,10 +9,7 @@ import styled from 'styled-components';
 import * as routes from 'routes-config';
 import messages from 'common-messages';
 
-import {
-  BG_WARNING_LIGHT,
-  TEXT_LIGHT,
-} from 'style-constants';
+import { BG_WARNING_LIGHT, TEXT_LIGHT } from 'style-constants';
 
 import Dropdown from 'components/Dropdown';
 import A from 'components/A';
@@ -95,9 +92,9 @@ const WalletDropdown = ({
   );
 
   const availableBalance =
-    stakedInCurrentPeriod >= stakedInNextPeriod ?
-      balance - stakedInCurrentPeriod :
-      balance - stakedInNextPeriod;
+    stakedInCurrentPeriod >= stakedInNextPeriod
+      ? balance - stakedInCurrentPeriod
+      : balance - stakedInNextPeriod;
 
   return (
     <div className="position-relative">
@@ -112,17 +109,12 @@ const WalletDropdown = ({
           />
         }
         menu={
-          <Menu
-            user={user}
-            number={number}
-            locale={locale}
-            boost={boost}
-          />
+          <Menu user={user} number={number} locale={locale} boost={boost} />
         }
       />
       {isPositiveNumber(number) && (
         <NotificationIcon
-          mobile={false}
+          isMobileVersion={false}
           number={number}
           iconId="WalletDropDown_NotificationIcon"
           locale={locale}

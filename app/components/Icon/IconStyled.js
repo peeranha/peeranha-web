@@ -15,7 +15,7 @@ const svgDraw = ({ color, fill }) => `
 const IconStyled = styled.span`
   width: ${x => x.width}px;
   height: ${x => x.height || x.width}px;
-  transform: rotate(${x => (x.rotate ? '180deg' : '0deg')});
+  transform: rotate(${x => (x.shouldBeRotated ? '180deg' : '0deg')});
   transition: ${x => (x.isTransition === false ? '0' : '0.5')}s;
   display: inline-flex;
 
@@ -34,6 +34,8 @@ const IconStyled = styled.span`
 
     return '';
   }};
+
+  ${({ specialStyles }) => specialStyles};
 `;
 
 export { svgDraw };

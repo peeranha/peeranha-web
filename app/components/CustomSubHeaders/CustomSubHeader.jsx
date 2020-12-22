@@ -19,7 +19,7 @@ const Div = styled.div`
     styles.CustomSubHeader ? styles.CustomSubHeader : ``} > div > div {
     font-family: ${({ styles }) => styles.font.body || `inherit`};
     font-size: 15px;
-    letter-spacing: 1px;
+    letter-spacing: ${({ styles }) => styles.subHeaderLetterSpacing || '1px'};
   }
 
   a {
@@ -42,7 +42,7 @@ const Div = styled.div`
 `;
 
 export const LocalLink = styled.a`
-  ${({ styles }) => (!!styles.subHeaderItem ? styles.subHeaderItem : ``) || ``};
+  ${({ styles }) => styles.subHeaderItem || ``};
 
   display: inline-flex;
   align-items: center;
@@ -53,6 +53,10 @@ export const LocalLink = styled.a`
 
   :hover {
     opacity: 0.6;
+  }
+
+  :hover:after {
+    display: ${({ device }) => (device === 'mobile' ? 'none' : '')};
   }
 
   transition: color 170ms ease-in-out;
@@ -220,12 +224,14 @@ const ArrowButton = styled.button`
   }
 `;
 
-export const A = ({ href, text, isHighlighted, styles, target }) => (
+// simple links
+export const A = ({ href, text, isHighlighted, styles, target, device }) => (
   <LocalLink
     href={href}
-    target={target ? target : "_blank"}
+    target={target || '_blank'}
     styles={styles}
     isHighlighted={isHighlighted}
+    device={device}
   >
     {text}
   </LocalLink>
@@ -234,8 +240,13 @@ export const A = ({ href, text, isHighlighted, styles, target }) => (
 A.propTypes = {
   href: PropTypes.string,
   text: PropTypes.string,
+  isHighlighted: PropTypes.bool,
+  styles: PropTypes.object,
+  target: PropTypes.string,
+  device: PropTypes.string,
 };
 
+// links with dropdowns
 export const B = ({
   text,
   subitems,
@@ -261,7 +272,7 @@ export const B = ({
                 key={href}
                 styles={styles}
                 isHighlighted={isHighlighted}
-                target={target ? target : "_blank"}
+                target={target || '_blank'}
               />
             ) : (
               <span>{text}</span>
@@ -271,7 +282,7 @@ export const B = ({
               <ArrowButton onClick={setVis}>
                 <Arrow
                   className="mt-auto mb-auto"
-                  color={'small'}
+                  color="small"
                   rotate={visible}
                 />
               </ArrowButton>
@@ -285,7 +296,7 @@ export const B = ({
                     styles={styles}
                     key={href}
                     href={href}
-                    target={target ? target : "_blank"}
+                    target={target || '_blank'}
                   >
                     {text}
                   </LocalLink>
@@ -296,10 +307,10 @@ export const B = ({
         </>
       ) : (
         <>
-          <SubitemsTitle styles={styles.subHeaderItem}>
+          <SubitemsTitle>
             <span>{text}</span>
             {isDropdownMenuArrow && (
-              <Arrow className="mt-auto mb-auto" color={'small'} />
+              <Arrow className="mt-auto mb-auto" color="small" />
             )}
           </SubitemsTitle>
           <Subitems styles={styles.subitems}>
@@ -309,7 +320,7 @@ export const B = ({
                   styles={styles}
                   key={href}
                   href={href}
-                  target={target ? target : "_blank"}
+                  target={target || '_blank'}
                 >
                   {text}
                 </LocalLink>
@@ -325,6 +336,12 @@ export const B = ({
 B.propTypes = {
   text: PropTypes.string.isRequired,
   subitems: PropTypes.array.isRequired,
+  styles: PropTypes.object,
+  device: PropTypes.string,
+  isDropdownMenuArrow: PropTypes.bool,
+  href: PropTypes.string,
+  isHighlighted: PropTypes.bool,
+  target: PropTypes.string,
 };
 
 export const Links = ({
@@ -335,7 +352,7 @@ export const Links = ({
 }) => (
   <div>
     {links.map(({ text, href, isHighlighted, subitems, target }) => (
-      <>
+      <React.Fragment key={text}>
         {href &&
           !subitems && (
             <A
@@ -344,7 +361,8 @@ export const Links = ({
               key={href}
               styles={styles}
               isHighlighted={isHighlighted}
-              target={target ? target : "_blank"}
+              target={target || '_blank'}
+              device={device}
             />
           )}
         {subitems && (
@@ -359,7 +377,7 @@ export const Links = ({
             isHighlighted={isHighlighted}
           />
         )}
-      </>
+      </React.Fragment>
     ))}
   </div>
 );
@@ -367,12 +385,17 @@ export const Links = ({
 Links.propTypes = {
   links: PropTypes.array.isRequired,
   styles: PropTypes.object,
+  device: PropTypes.string,
+  isDropdownMenuArrow: PropTypes.bool,
 };
 
 const CustomSubHeader = ({ config }) => {
   return config ? (
     <Div styles={config.styles}>
-      <div className="container h-100">
+      <div
+        className="container h-100"
+        css={config.styles.subHeaderContainerStyles}
+      >
         <CustomSubHeaderContainer design={config.design} />
       </div>
     </Div>

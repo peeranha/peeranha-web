@@ -1,10 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
-import arrowDownIcon from 'images/arrowDown.svg?inline';
+import { singleCommunityStyles } from 'utils/communityManagement';
+import arrowDownIcon from 'images/arrowDown.svg?external';
 
+import Icon from 'components/Icon/index';
 import DropdownStyled from './DropdownStyled';
 import MenuStyled from './MenuStyled';
+
+const styles = singleCommunityStyles();
+
+const ArrowDown = styled(Icon)`
+  path {
+    fill: ${styles.commHeadElemColor || ''};
+  }
+`;
 
 export const Dropdown = ({ button, menu, id, isArrowed, className }) => (
   <DropdownStyled className={`dropdown show ${className}`}>
@@ -19,7 +30,9 @@ export const Dropdown = ({ button, menu, id, isArrowed, className }) => (
     >
       {button}
 
-      {isArrowed && <img src={arrowDownIcon} alt="data-icon" />}
+      {isArrowed && (
+        <ArrowDown icon={arrowDownIcon} width="10" alt="data-icon" />
+      )}
     </button>
 
     <MenuStyled className="dropdown-menu" ariaLabelledby={id}>

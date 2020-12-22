@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 import Arrow from '../Arrow';
 import { Links } from './CustomSubHeader';
@@ -35,6 +36,8 @@ const Div = styled.div`
     > img {
       max-height: 45px;
       padding: 0;
+
+      ${({ mobileSubHeaderImgStyles }) => mobileSubHeaderImgStyles};
     }
   }
 
@@ -67,7 +70,11 @@ const CustomMobileSubHeader = ({ config, logo }) => {
   const { styles, links } = config;
 
   return (
-    <Div visible={visible} styles={styles}>
+    <Div
+      visible={visible}
+      styles={styles}
+      mobileSubHeaderImgStyles={styles.mobileSubHeaderImgStyles}
+    >
       <button
         className="d-flex justify-content-between align-items-center"
         onClick={setVis}
@@ -79,9 +86,14 @@ const CustomMobileSubHeader = ({ config, logo }) => {
           rotate={visible}
         />
       </button>
-      {visible && <Links links={links} styles={styles} device={'mobile'} />}
+      {visible && <Links links={links} styles={styles} device="mobile" />}
     </Div>
   );
+};
+
+CustomMobileSubHeader.propTypes = {
+  config: PropTypes.object,
+  logo: PropTypes.string,
 };
 
 export default CustomMobileSubHeader;

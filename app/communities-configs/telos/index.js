@@ -1,9 +1,12 @@
 import React from 'react';
 
+import CustomSubHeader from 'components/CustomSubHeaders/CustomSubHeader';
+import CustomMobileSubHeader from 'components/CustomSubHeaders/CustomMobileSubHeader';
+
+import favicon from '!file-loader?name=[name].[ext]!images/favicon-telos.ico';
 import coinsBlueIcon from 'images/coinsBlue.svg?external';
 import TelosLogo from './images/telos-logo-dark.svg?inline';
 import TelosLogoLight from './images/telos-logo-light.svg?inline';
-import favicon from '!file-loader?name=[name].[ext]!images/favicon-telos.ico';
 
 import MediumEOT from './fonts/NeueHaasDisplay-Mediu.eot';
 import MediumWOFF from './fonts/NeueHaasDisplay-Mediu.woff';
@@ -20,9 +23,6 @@ import ThinTTF from './fonts/NeueHaasDisplay-Thin.ttf';
 import RomanEOT from './fonts/NeueHaasDisplay-Roman.eot';
 import RomanWOFF from './fonts/NeueHaasDisplay-Roman.woff';
 import RomanTTF from './fonts/NeueHaasDisplay-Roman.ttf';
-
-import CustomSubHeader from 'components/CustomSubHeaders/CustomSubHeader';
-import CustomMobileSubHeader from 'components/CustomSubHeaders/CustomMobileSubHeader';
 
 const domainName = 'https://www.telos.net/';
 const domainDocs = 'https://docs.telos.net';
@@ -239,7 +239,7 @@ export const TelosStyles = {
   coinsIcon: coinsBlueIcon,
   leftMenuLogo: TelosLogo,
   signUpPageLogo: TelosLogoLight,
-  favicon: favicon,
+  favicon,
   mobileSubHeader: (
     <CustomMobileSubHeader config={CustomSubHeaderConfig} logo={TelosLogo} />
   ),
@@ -317,7 +317,7 @@ export const TelosStyles = {
     }
   `,
   headerHeight: 182,
-  buttonsBorderRadius: '20px',
+  projectBorderRadius: '20px',
   customSubHeaderConfig: CustomSubHeaderConfig,
-  domainName: domainName,
+  domainName,
 };

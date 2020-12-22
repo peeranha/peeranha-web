@@ -10,20 +10,14 @@ import {
   TEXT_LIGHT,
   TEXT_SECONDARY,
 } from 'style-constants';
-import { STATE_KEY } from "containers/Boost/constants";
 
 import messages from 'common-messages';
-
-import reducer from 'containers/Boost/reducer';
-import saga from 'containers/Boost/saga';
-
-import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
 
 import currencyPeerIcon from 'images/currencyPeer.svg?external';
 import boostWalletIcon from 'images/boost-wallet-icon.svg?external';
 
 import { getFormattedNum4 } from 'utils/numbers';
+import { singleCommunityStyles } from 'utils/communityManagement';
 
 import { IconLg } from 'components/Icon/IconWithSizes';
 import Icon from 'components/Icon';
@@ -32,13 +26,22 @@ import { MediumSpecialImage } from 'components/Img/MediumImage';
 import { SmallSpecialImage } from 'components/Img/SmallImage';
 import NotificationIcon from './NotificationIcon';
 
+const styles = singleCommunityStyles();
+
 const ButtonStyled = styled.span`
   position: relative;
   display: flex;
   align-items: center;
+
   border-width: 1px;
-  border-style: ${({isBoost}) => isBoost ? 'dashed' : 'solid'};
-  border-color: ${({isBoost}) => isBoost ? BORDER_WARNING_LIGHT : BORDER_PRIMARY};
+  border-style: ${({ isBoost }) => (isBoost ? 'dashed' : 'solid')};
+  border-color: ${({ isBoost }) =>
+    isBoost ? BORDER_WARNING_LIGHT : BORDER_PRIMARY};
+
+  /* set single community border */
+  border: ${({ isMobileVersion, isBoost }) =>
+    !isMobileVersion && !isBoost && styles.communityBorderStyle};
+
   border-left: 0px;
   border-radius: 23px;
   padding-right: 25px;
@@ -47,10 +50,6 @@ const ButtonStyled = styled.span`
   ${MediumSpecialImage}, ${SmallSpecialImage} {
     margin-right: 10px;
   }
-
-  > span {
-    margin-bottom: 1px;
-  }
 `;
 
 const IconBG = MediumSpecialImage.extend`
@@ -58,7 +57,9 @@ const IconBG = MediumSpecialImage.extend`
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid ${BORDER_PRIMARY};
+  border: ${({ isMobileVersion }) =>
+    (!isMobileVersion && styles.communityBorderStyle) ||
+    `1px solid ${BORDER_PRIMARY}`};
   color: ${x => x.color};
 `.withComponent('span');
 
@@ -72,45 +73,57 @@ const isPositiveNumber = number => Number.isFinite(number) && number > 0;
 
 const WalletButton = ({
   balance,
-  mobile,
+  isMobileVersion,
   number,
   locale,
   isBoost,
 }) => (
   <div className="position-relative">
-    <ButtonStyled isBoost={!!isBoost}>
-      {!!isBoost ?
+    <ButtonStyled isBoost={!!isBoost} isMobileVersion={isMobileVersion}>
+      {!!isBoost ? (
         <>
           <IconWrapper>
             <Icon width="50" icon={boostWalletIcon} />
           </IconWrapper>
         </>
-        :
-        <IconBG className="mr-2" bg={BG_PRIMARY} color={TEXT_LIGHT}>
-          <IconLg icon={currencyPeerIcon} />
+      ) : (
+        <IconBG
+          className="mr-2"
+          bg={(!isMobileVersion && styles.fullyTransparent) || BG_PRIMARY}
+          color={TEXT_LIGHT}
+          isMobileVersion={isMobileVersion}
+        >
+          <IconLg icon={currencyPeerIcon} color="white" />
         </IconBG>
-      }        
+      )}
 
       <span className="d-flex flex-column text-left">
-        <Span className="align-middle" fontSize="16" bold>
+        <Span
+          className="align-middle"
+          fontSize="16"
+          bold
+          color={(!isMobileVersion && styles.commHeadElemColor) || ''}
+        >
           {getFormattedNum4(balance)}
         </Span>
         <Span
           className="align-middle"
           fontSize="14"
           lineHeight="18"
-          color={TEXT_SECONDARY}
+          color={
+            (!isMobileVersion && styles.commHeadElemColor) || TEXT_SECONDARY
+          }
         >
           <FormattedMessage {...messages.peers} />
         </Span>
       </span>
     </ButtonStyled>
-    {mobile &&
+    {isMobileVersion &&
       isPositiveNumber(number) && (
         <NotificationIcon
-          mobile={mobile}
+          isMobileVersion={isMobileVersion}
           number={number}
-          iconId="WalletButton_NotificationIconMobile"
+          iconId="WalletButton_NotificationIconisMobile"
           locale={locale}
         />
       )}
@@ -120,7 +133,7 @@ const WalletButton = ({
 WalletButton.propTypes = {
   balance: PropTypes.number,
   locale: PropTypes.string,
-  mobile: PropTypes.bool,
+  isMobileVersion: PropTypes.bool,
   number: PropTypes.number,
   isBoost: PropTypes.bool,
   getWeekStatDispatch: PropTypes.func,

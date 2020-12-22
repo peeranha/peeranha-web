@@ -1,10 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-
-import * as routes from 'routes-config';
 
 import communitiesConfig from 'communities-config';
+
+import peeranhaLogo from 'images/LogoBlack.svg?inline';
 
 import {
   isSingleCommunityWebsite,
@@ -13,12 +12,11 @@ import {
 
 import { Links } from '../CustomSubHeader';
 
-import peeranhaLogo from 'images/LogoBlack.svg?inline';
-
 const TopContainer = styled.div`
   display: flex;
   justify-content: space-between;
   min-height: ${({ headerHeight }) => (headerHeight ? headerHeight - 80 : 0)}px;
+  ${({ topContainerStyles }) => topContainerStyles};
 `;
 
 const TopLogoContainer = styled.div`
@@ -27,6 +25,8 @@ const TopLogoContainer = styled.div`
   align-items: center;
   width: 200px;
   margin-right: 20px;
+
+  ${({ topLogoContainerStyles }) => topLogoContainerStyles};
 `;
 
 const TopMenuContainer = styled.div`
@@ -46,6 +46,12 @@ const SubHeaderLogo = styled.a`
     width: 140px;
     height: 49px;
   }
+
+  ${({ subHeaderLogoStyles }) => subHeaderLogoStyles};
+`;
+
+const LogoTitle = styled.span`
+  ${({ styles }) => styles};
 `;
 
 const LogoRightMenuRight = () => {
@@ -54,12 +60,22 @@ const LogoRightMenuRight = () => {
     : peeranhaLogo;
 
   const { links, styles } = singleCommunityStyles().customSubHeaderConfig;
+  const { logoTitleText, logoTitleStyles } = singleCommunityStyles();
 
   return (
-    <TopContainer headerHeight={singleCommunityStyles().headerHeight}>
-      <TopLogoContainer>
-        <SubHeaderLogo href={singleCommunityStyles().domainName}>
+    <TopContainer
+      headerHeight={singleCommunityStyles().headerHeight}
+      topContainerStyles={styles.topContainerStyles}
+    >
+      <TopLogoContainer topLogoContainerStyles={styles.topLogoContainerStyles}>
+        <SubHeaderLogo
+          href={singleCommunityStyles().domainName}
+          subHeaderLogoStyles={styles.subHeaderLogoStyles}
+        >
           <img src={src} alt="logo" />
+          {logoTitleText && (
+            <LogoTitle styles={logoTitleStyles}>{logoTitleText}</LogoTitle>
+          )}
         </SubHeaderLogo>
       </TopLogoContainer>
       <TopMenuContainer>
