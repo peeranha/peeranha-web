@@ -97,6 +97,10 @@ export const QUESTION_TYPE = 'app_viewQuestion_QUESTION_TYPE';
 export const ANSWER_TYPE = 'app_viewQuestion_ANSWER_TYPE';
 export const COMMENT_TYPE = 'app_viewQuestion_COMMENT_TYPE';
 
+export const BOUNTY_ACTIVE_CLASSNAME = 'bountyActive';
+export const BOUNTY_PAID_CLASSNAME = 'bountyPaid';
+export const BOUNTY_PENDING_CLASSNAME = 'bountyPending';
+
 export const QUESTION_PROPERTIES = {
   LAST_EDITED_KEY: 3,
   GENERAL_KEY: 4,

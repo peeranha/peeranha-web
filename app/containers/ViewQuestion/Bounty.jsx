@@ -4,10 +4,21 @@ import { APP_FONT } from 'style-constants';
 import Container from 'components/Labels/BountyLabel';
 
 import Span from 'components/Span';
+import { convertPeerValueToNumberValue } from 'utils/walletManagement';
+import { getFormattedDate } from 'utils/datetime';
+import {
+  BOUNTY_STATUS_ACTIVE,
+  BOUNTY_STATUS_PAID,
+  BOUNTY_STATUS_PENDING,
+  MONTH_3LETTERS__DAY_TIME,
+} from 'utils/constants';
+import {
+  BOUNTY_ACTIVE_CLASSNAME,
+  BOUNTY_PAID_CLASSNAME,
+  BOUNTY_PENDING_CLASSNAME,
+} from './constants';
+
 import BountyPopover from './BountyPopover';
-import { convertPeerValueToNumberValue } from '../../utils/walletManagement';
-import { getFormattedDate } from '../../utils/datetime';
-import { MONTH_3LETTERS__DAY_TIME } from '../../utils/constants';
 
 /* eslint no-nested-ternary: 0, indent: 0 */
 export const SpanStyled = Span.extend`
@@ -54,14 +65,14 @@ export const Bounty = ({
 
   let className = '';
   switch (status) {
-    case 1:
-      className = 'bountyActive';
+    case BOUNTY_STATUS_ACTIVE:
+      className = BOUNTY_ACTIVE_CLASSNAME;
       break;
-    case 2:
-      className = 'bountyPaid';
+    case BOUNTY_STATUS_PAID:
+      className = BOUNTY_PAID_CLASSNAME;
       break;
-    case 3:
-      className = 'bountyPending';
+    case BOUNTY_STATUS_PENDING:
+      className = BOUNTY_PENDING_CLASSNAME;
       break;
     default:
       className = '';

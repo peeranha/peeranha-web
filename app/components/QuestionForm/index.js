@@ -33,6 +33,7 @@ import {
   FORM_BOUNTY,
   FORM_BOUNTY_DAYS,
   FORM_BOUNTY_HOURS,
+  DEFAULT_DOT_RESTRICTION,
 } from './constants';
 
 import Header from './Header';
@@ -154,7 +155,7 @@ export const QuestionForm = ({
               questionLoading={questionLoading}
               formValues={formValues}
               change={change}
-              dotRestriction={6}
+              dotRestriction={DEFAULT_DOT_RESTRICTION}
             />
 
             <BountyDateForm
@@ -162,7 +163,6 @@ export const QuestionForm = ({
               questionLoading={questionLoading}
               formValues={formValues}
               change={change}
-              dotRestriction={6}
               show={!!formValues[FORM_BOUNTY]}
             />
 
