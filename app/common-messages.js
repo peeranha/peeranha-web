@@ -33,6 +33,12 @@ export default defineMessages({
   achievements: {
     id: 'app.common.achievements',
   },
+  moderation: {
+    id: 'app.common.moderation',
+  },
+  globalModerator: {
+    id: 'app.common.globalModerator',
+  },
   achievementsNumber: {
     id: 'app.common.achievementsNumber',
   },
@@ -95,6 +101,9 @@ export default defineMessages({
   },
   faq: {
     id: 'app.common.faq',
+  },
+  moderationHeader: {
+    id: 'app.common.moderationHeader',
   },
   tutorial: {
     id: 'app.common.tutorial',
@@ -398,5 +407,11 @@ export default defineMessages({
   },
   questionIsAnswered: {
     id: 'app.common.questionIsAnswered',
+  },
+  activateBoost: {
+    id: 'app.common.activateBoost',
+  },
+  boost: {
+    id: 'app.common.boost',
   },
 });

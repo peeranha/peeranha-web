@@ -27,11 +27,11 @@ export const LOGIN_WITH_EMAIL_SUCCESS =
 export const LOGIN_WITH_EMAIL_ERROR =
   'app/containers/Login/LOGIN_WITH_EMAIL_ERROR';
 
-export const LOGIN_WITH_SCATTER = 'app/containers/Login/LOGIN_WITH_SCATTER';
-export const LOGIN_WITH_SCATTER_SUCCESS =
-  'app/containers/Login/LOGIN_WITH_SCATTER_SUCCESS';
-export const LOGIN_WITH_SCATTER_ERROR =
-  'app/containers/Login/LOGIN_WITH_SCATTER_ERROR';
+export const LOGIN_WITH_WALLET = 'app/containers/Login/LOGIN_WITH_WALLET';
+export const LOGIN_WITH_WALLET_SUCCESS =
+  'app/containers/Login/LOGIN_WITH_WALLET_SUCCESS';
+export const LOGIN_WITH_WALLET_ERROR =
+  'app/containers/Login/LOGIN_WITH_WALLET_ERROR';
 
 export const FINISH_REGISTRATION = 'app/containers/Login/FINISH_REGISTRATION';
 export const FINISH_REGISTRATION_SUCCESS =

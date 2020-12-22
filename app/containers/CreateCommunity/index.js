@@ -15,6 +15,7 @@ import * as routes from 'routes-config';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import { DAEMON } from 'utils/constants';
 
 import Seo from 'components/Seo';
 import TipsBase from 'components/Base/TipsBase';
@@ -23,11 +24,6 @@ import Loader from 'components/LoadingIndicator/WidthCentered';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
 import {
-  selectUserRating,
-  selectUserEnergy,
-  makeSelectAccount,
-  selectIsGlobalModerator,
-  makeSelectAccountLoading,
   makeSelectProfileInfo,
 } from 'containers/AccountProvider/selectors';
 
@@ -41,7 +37,7 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 
-import { createCommunity, setDefaultStore } from './actions';
+import { createCommunity, setDefaultStore, getForm } from './actions';
 
 import {
   COMM_NAME_FIELD,
@@ -55,6 +51,7 @@ import {
   MIN_RATING_TO_CREATE_COMMUNITY,
   MIN_ENERGY_TO_CREATE_COMMUNITY,
   FORM_TYPE,
+  STATE_KEY,
 } from './constants';
 
 import Form from './Form';
@@ -66,17 +63,21 @@ const createCommunityRoute = routes.communitiesCreate();
 
 export const CreateCommunity = ({
   locale,
-  account,
-  userRating,
-  userEnergy,
   faqQuestions,
-  isGlobalModerator,
   createCommunityLoading,
   createCommunityDispatch,
   setDefaultStoreDispatch,
-  accountIsLoading,
+  isFormLoading,
+  getFormDispatch,
+  isFormAvailable,
   profile,
 }) => {
+  useEffect(() => {
+    setDefaultStoreDispatch();
+
+    getFormDispatch();
+  }, []);
+
   const createCommunityMethod = (...args) => {
     const { reset } = args[2];
     const values = args[0].toJS();
@@ -103,8 +104,6 @@ export const CreateCommunity = ({
     createCommunityDispatch(community, reset);
   };
 
-  useEffect(() => setDefaultStoreDispatch, []);
-
   const sendProps = {
     createCommunity: createCommunityMethod,
     createCommunityLoading,
@@ -115,15 +114,9 @@ export const CreateCommunity = ({
 
   const path = window.location.pathname + window.location.hash;
 
-  if (accountIsLoading) return <Loader />;
+  if (isFormLoading) return <Loader />;
 
-  if (
-    !account ||
-    ((userRating < MIN_RATING_TO_CREATE_COMMUNITY ||
-      userEnergy < MIN_ENERGY_TO_CREATE_COMMUNITY) &&
-      !isGlobalModerator)
-  )
-    return <Redirect to={routes.communities()} />;
+  if (!isFormAvailable) return <Redirect to={routes.communities()} />;
 
   return (
     <div>
@@ -154,40 +147,33 @@ CreateCommunity.propTypes = {
   locale: PropTypes.string.isRequired,
   createCommunityLoading: PropTypes.bool.isRequired,
   faqQuestions: PropTypes.array,
-  account: PropTypes.string,
-  userRating: PropTypes.number,
-  userEnergy: PropTypes.number,
-  isGlobalModerator: PropTypes.bool,
-  accountIsLoading: PropTypes.bool,
+  isFormLoading: PropTypes.bool,
+  getFormDispatch: PropTypes.func.isRequired,
+  isFromAvailable: PropTypes.bool,
   profile: PropTypes.object,
 };
 
 const withConnect = connect(
   createStructuredSelector({
     locale: makeSelectLocale(),
-    account: makeSelectAccount(),
-    userRating: selectUserRating(),
-    userEnergy: selectUserEnergy(),
     faqQuestions: selectFaqQuestions([
       WHAT_IS_COMMUNITY_QUESTION,
       WHO_MANAGES_COMMUNITY_QUESTION,
     ]),
-    isGlobalModerator: selectIsGlobalModerator(),
     createCommunityLoading: selectors.selectCreateCommunityLoading(),
-    accountIsLoading: makeSelectAccountLoading(),
+    isFormLoading: selectors.selectIsFormLoading(),
+    isFormAvailable: selectors.selectIsFormAvailable(),
     profile: makeSelectProfileInfo(),
   }),
   dispatch => ({
     createCommunityDispatch: bindActionCreators(createCommunity, dispatch),
     setDefaultStoreDispatch: bindActionCreators(setDefaultStore, dispatch),
+    getFormDispatch: bindActionCreators(getForm, dispatch),
   }),
 );
 
-const withReducer = injectReducer({ key: 'createCommunity', reducer });
-const withSaga = injectSaga({ key: 'createCommunity', saga });
-
 export default compose(
-  withReducer,
-  withSaga,
+  injectReducer({ key: STATE_KEY, reducer }),
+  injectSaga({ key: STATE_KEY, saga, mode: DAEMON }),
   withConnect,
 )(CreateCommunity);

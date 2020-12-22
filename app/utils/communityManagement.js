@@ -342,7 +342,6 @@ export async function createCommunity(eosService, selectedAccount, community) {
     {
       user: selectedAccount,
       name: community.name,
-      type: community.questionsType,
       ipfs_description: communityIpfsHash,
       suggested_tags,
     },

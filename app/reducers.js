@@ -117,7 +117,6 @@ export default injectedReducers =>
     search: searchReducer,
     termsOfService: termsOfServiceReducer,
     appWrapper: appWrapperReducer,
-    sendTips: searchReducer,
     notifications: notificationsReducer,
     telegramAccountAction: telegramAccountActionReducer,
     ...injectedReducers,

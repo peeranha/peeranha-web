@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import isMobile from 'ismobilejs';
 import { bindActionCreators } from 'redux';
-import { Field, reduxForm } from 'redux-form/immutable';
+import { Field, reduxForm, formValueSelector } from 'redux-form/immutable';
 import { FormattedMessage } from 'react-intl';
 import { translationMessages } from 'i18n';
 
@@ -20,9 +19,12 @@ import H4 from 'components/H4';
 import TextInputField from 'components/FormFields/TextInputField';
 import NumberInputField from 'components/FormFields/NumberInputField';
 import Button from 'components/Button/Contained/InfoLarge';
-import Label from 'components/FormFields/Label';
 
 import { required, valueHasToBeLessThan } from 'components/FormFields/validate';
+
+import { makeSelectEos } from '../EosioProvider/selectors';
+import { makeSelectProfileInfo } from '../AccountProvider/selectors';
+import messages from '../Profile/messages';
 
 import {
   EOS_SEND_TO_ACCOUNT_FIELD,
@@ -34,27 +36,20 @@ import {
   TIPS_PRESELECT,
 } from './constants';
 
-import CurrencyField from './CurrencyField';
-import messages from '../Profile/messages';
-import { makeSelectProfileInfo } from '../AccountProvider/selectors';
-import { TEXT_PRIMARY } from '../../style-constants';
 import {
-  removeSelectedAccount,
-  removeTipsEosService,
-  selectAccount,
+  removeSelectedAccounts,
+  removeTipsEosServices,
+  selectKeycatAccount,
+  selectScatterAccount,
 } from './actions';
+
 import {
   selectedAccountProcessingSelector,
-  selectedAccountSelector,
+  selectedScatterAccountSelector,
+  selectedKeycatAccountSelector,
 } from './selectors';
-import { makeSelectEos } from '../EosioProvider/selectors';
 
-const B = styled.button`
-  padding-bottom: 6px;
-  margin-left: 5px;
-  color: ${TEXT_PRIMARY};
-  cursor: pointer;
-`;
+import CurrencyField from './CurrencyField';
 
 /* eslint indent: 0 */
 const SendTipsForm = ({
@@ -67,72 +62,91 @@ const SendTipsForm = ({
   walletValue,
   cryptoAccounts,
   currencies,
-  profile,
-  fromAccountValue,
-  selectedAccount,
-  selectAccountDispatch,
-  removeTipsEosServiceDispatch,
-  removeSelectedAccountDispatch,
+  loggedUserAccount,
+  selectedScatterAccount,
+  selectedKeycatAccount,
+  selectScatterAccountDispatch,
+  selectKeycatAccountDispatch,
+  removeTipsEosServicesDispatch,
+  removeSelectedAccountsDispatch,
+  sendFromAccountFieldValue,
   sendTipsProcessing,
   selectedAccountProcessing,
   isPeer,
   wallets,
   withScatter,
+  withKeycat,
   tipsPreselect,
 }) => {
-  const changeCurrency = value => {
-    change(CURRENCY_FIELD, value);
-    change(
-      WALLET_FIELD,
-      CURRENCIES[value.name].wallets[profile && !withScatter ? 0 : 1],
-    );
-    change(EOS_SEND_TO_ACCOUNT_FIELD, cryptoAccounts[value.name]);
-    const amount = _get(tipsPreselect, [AMOUNT_FIELD, value.name], null);
+  const isPeeranhaWalletSelected = walletValue?.name === WALLETS.PEERANHA.name;
+  const isKeycatWalletSelected = walletValue?.name === WALLETS.KEYCAT.name;
+  const isScatterWalletSelected =
+    walletValue?.name === WALLETS.SCATTER_SQRL_WOMBAT.name ||
+    walletValue?.name === WALLETS.WOMBAT.name;
+
+  // set user account to EOS_SEND_FROM_ACCOUNT_FIELD
+  useEffect(
+    () => {
+      // user logged with email
+      if (isPeeranhaWalletSelected) {
+        change(EOS_SEND_FROM_ACCOUNT_FIELD, loggedUserAccount);
+      }
+
+      // set scatter account
+      if (isScatterWalletSelected && withScatter && !selectedScatterAccount) {
+        change(EOS_SEND_FROM_ACCOUNT_FIELD, loggedUserAccount);
+      }
+      if (
+        isScatterWalletSelected &&
+        ((withScatter && selectedScatterAccount) || !withScatter)
+      ) {
+        change(EOS_SEND_FROM_ACCOUNT_FIELD, selectedScatterAccount);
+      }
+
+      // set keycat account
+      if (isKeycatWalletSelected && withKeycat && !selectedKeycatAccount) {
+        change(EOS_SEND_FROM_ACCOUNT_FIELD, loggedUserAccount);
+      }
+      if (
+        isKeycatWalletSelected &&
+        ((withKeycat && selectedKeycatAccount) || !withKeycat)
+      ) {
+        change(EOS_SEND_FROM_ACCOUNT_FIELD, selectedKeycatAccount);
+      }
+    },
+    [walletValue, selectedScatterAccount, selectedKeycatAccount],
+  );
+
+  useEffect(
+    () => () => {
+      removeSelectedAccountsDispatch();
+      removeTipsEosServicesDispatch();
+    },
+    [],
+  );
+
+  const changeCurrency = currency => {
+    change(CURRENCY_FIELD, currency);
+
+    const newCurrencyWalletsNames = currency.wallets.map(wal => wal.name);
+    if (!newCurrencyWalletsNames.includes(walletValue.name)) {
+      change(WALLET_FIELD, wallets[0]);
+    }
+
+    change(EOS_SEND_TO_ACCOUNT_FIELD, cryptoAccounts[currency.name]);
+    const amount = _get(tipsPreselect, [AMOUNT_FIELD, currency.name], null);
 
     if (amount) {
       change(AMOUNT_FIELD, amount);
     }
   };
 
-  const changeWallet = value => {
-    if (!withScatter) {
-      change(WALLET_FIELD, value);
-      change(
-        EOS_SEND_FROM_ACCOUNT_FIELD,
-        value.name === WALLETS.PEERANHA.name
-          ? fromAccountValue
-          : selectedAccount,
-      );
+  const changeWallet = wallet => {
+    if (!withScatter && !withKeycat) {
+      change(WALLET_FIELD, wallet);
     }
+    change(EOS_SEND_FROM_ACCOUNT_FIELD, null);
   };
-
-  useEffect(
-    () => () => {
-      removeSelectedAccountDispatch();
-      removeTipsEosServiceDispatch();
-    },
-    [],
-  );
-  useEffect(
-    () => {
-      change(EOS_SEND_FROM_ACCOUNT_FIELD, selectedAccount);
-      return undefined;
-    },
-    [selectedAccount],
-  );
-  useEffect(
-    () => {
-      if (
-        (walletValue &&
-          walletValue.name !== WALLETS.SCATTER_SQRL_WOMBAT.name) ||
-        withScatter
-      ) {
-        change(EOS_SEND_FROM_ACCOUNT_FIELD, fromAccountValue);
-      }
-      return undefined;
-    },
-    [fromAccountValue, walletValue],
-  );
 
   const disabled = sendTipsProcessing || selectedAccountProcessing;
 
@@ -173,24 +187,16 @@ const SendTipsForm = ({
             component={CurrencyField}
             validate={[required]}
             warn={[required]}
+            sendFromAccountFieldValue={sendFromAccountFieldValue}
+            selectScatterAccount={selectScatterAccountDispatch}
+            selectKeycatAccount={selectKeycatAccountDispatch}
+            locale={locale}
+            isPeer={isPeer}
+            withScatter={withScatter}
+            withKeycat={withKeycat}
+            isKeycatWalletSelected={isKeycatWalletSelected}
+            isScatterWalletSelected={isScatterWalletSelected}
           />
-
-          {!withScatter && (
-            <div className="d-flex">
-              <Label>
-                {translationMessages[locale][messages.sendFromAccount.id]}
-              </Label>
-              {!isPeer && (
-                <B onClick={selectAccountDispatch} type="button">
-                  <FormattedMessage
-                    {...messages[
-                      selectedAccount ? 'changeAccount' : 'chooseAccount'
-                    ]}
-                  />
-                </B>
-              )}
-            </div>
-          )}
 
           <Field
             name={EOS_SEND_FROM_ACCOUNT_FIELD}
@@ -224,7 +230,7 @@ const SendTipsForm = ({
         )}
 
         <Button
-          disabled={sendTipsProcessing}
+          disabled={disabled}
           onClick={handleSubmit(sendTips)}
           className="w-100 mb-3"
         >
@@ -242,6 +248,7 @@ SendTipsForm.propTypes = {
   account: PropTypes.string,
   isPeer: PropTypes.bool,
   withScatter: PropTypes.bool,
+  withKeycat: PropTypes.bool,
   wallets: PropTypes.arrayOf(PropTypes.object),
   sendTipsProcessing: PropTypes.bool,
   walletValue: PropTypes.object,
@@ -250,13 +257,15 @@ SendTipsForm.propTypes = {
   tipsPreselect: PropTypes.object,
   cryptoAccounts: PropTypes.object,
   currencies: PropTypes.array,
-  profile: PropTypes.object,
-  fromAccountValue: PropTypes.string,
-  selectedAccount: PropTypes.string,
-  selectAccountDispatch: PropTypes.func,
+  loggedUserAccount: PropTypes.string,
+  selectedScatterAccount: PropTypes.string,
+  selectedKeycatAccount: PropTypes.string,
+  sendFromAccountFieldValue: PropTypes.string,
+  selectScatterAccountDispatch: PropTypes.func,
+  selectKeycatAccountDispatch: PropTypes.func,
   selectedAccountProcessing: PropTypes.bool,
-  removeTipsEosServiceDispatch: PropTypes.func,
-  removeSelectedAccountDispatch: PropTypes.func,
+  removeTipsEosServicesDispatch: PropTypes.func,
+  removeSelectedAccountsDispatch: PropTypes.func,
 };
 
 export const formName = 'SendTipsForm';
@@ -266,10 +275,12 @@ let FormClone = reduxForm({
   onSubmitFail: errors => scrollToErrorField(errors),
 })(SendTipsForm);
 
+const formSelector = formValueSelector(formName);
+
 FormClone = connect(
   (state, { cryptoAccounts: cryptoAccs, account }) => {
     const profile = makeSelectProfileInfo()(state);
-    const { withScatter } = makeSelectEos()(state);
+    const { withScatter, withKeycat } = makeSelectEos()(state);
 
     const cryptoAccounts = _cloneDeep(cryptoAccs);
     const formValues = _get(state.toJS(), ['form', formName, 'values'], {});
@@ -284,7 +295,7 @@ FormClone = connect(
     const initialCurrency = Object.keys(cryptoAccounts)[0];
     const currencyValue = _get(formValues, CURRENCY_FIELD, null);
     const walletValue = _get(formValues, WALLET_FIELD, null);
-    const fromAccountValue = _get(profile, 'user', null);
+    const loggedUserAccount = _get(profile, 'user', null);
     const tipsPreselect = JSON.parse(getCookie(TIPS_PRESELECT) || null);
 
     const isPeer = !!(
@@ -292,73 +303,101 @@ FormClone = connect(
       walletValue.name === WALLETS.PEERANHA.name &&
       profile
     );
+
     const isMobileDevice = isMobile(window.navigator).any;
     const mobileWallets = [];
     Object.entries(WALLETS).forEach(([key, value]) => {
-      WALLETS[key].isMobile && mobileWallets.push(value);
+      if (WALLETS[key].isMobile) mobileWallets.push(value);
     });
 
     let wallets = [];
     if (currencyValue) {
       const walletsToFilter = isMobileDevice
         ? mobileWallets
-        : currencyValue.wallets;
-      wallets = walletsToFilter.filter(wallet => !(
-          wallet.name === WALLETS.PEERANHA.name &&
-          (!profile || withScatter)
-        )
+        : currencyValue.wallets.filter(
+            wallet => wallet.name !== WALLETS.WOMBAT.name,
+          );
+
+      wallets = walletsToFilter.filter(
+        wallet =>
+          !(
+            wallet.name === WALLETS.PEERANHA.name &&
+            (!profile || withScatter || withKeycat)
+          ),
       );
     }
+
+    const getInitialWallet = () => {
+      // there is saved data for send tips
+      const isPreselectedInWalletsArray =
+        tipsPreselect &&
+        wallets.find(wallet => wallet.name === tipsPreselect[WALLET_FIELD]);
+
+      if (isPreselectedInWalletsArray)
+        return Object.values(WALLETS).find(
+          wallet => wallet.name === tipsPreselect[WALLET_FIELD],
+        );
+
+      // there is no saved data for send tips
+      if (profile && !withScatter && !withKeycat) return WALLETS.PEERANHA;
+      if (withScatter && !isMobileDevice) return WALLETS.SCATTER_SQRL_WOMBAT;
+      if (withScatter && isMobileDevice) return WALLETS.WOMBAT;
+      if (withKeycat) return WALLETS.KEYCAT;
+
+      // default value
+      return wallets[0];
+    };
 
     const initialValues = {
       [CURRENCY_FIELD]: tipsPreselect
         ? CURRENCIES[tipsPreselect[CURRENCY_FIELD]]
         : CURRENCIES[initialCurrency],
-      [WALLET_FIELD]: tipsPreselect
-        ? Object.values(WALLETS).find(
-            ({ name }) => name === tipsPreselect[WALLET_FIELD],
-          )
-        : _get(
-            CURRENCIES,
-            [initialCurrency, 'wallets', profile && !withScatter ? 0 : 1],
-            wallets[0],
-          ),
+      [WALLET_FIELD]: getInitialWallet(),
       [EOS_SEND_TO_ACCOUNT_FIELD]: cryptoAccounts[initialCurrency],
-      [EOS_SEND_FROM_ACCOUNT_FIELD]: null,
       [AMOUNT_FIELD]: tipsPreselect
         ? _get(tipsPreselect, [AMOUNT_FIELD, tipsPreselect[CURRENCY_FIELD]], '')
         : '',
     };
 
+    const sendFromAccountFieldValue = formSelector(
+      state,
+      EOS_SEND_FROM_ACCOUNT_FIELD,
+    );
+
     return {
       isPeer,
-      profile,
       wallets,
       withScatter,
+      withKeycat,
       walletValue,
       tipsPreselect,
       currencyValue,
       cryptoAccounts,
-      fromAccountValue,
-      selectedAccount: selectedAccountSelector()(state),
+      loggedUserAccount,
+      sendFromAccountFieldValue,
+      selectedScatterAccount: selectedScatterAccountSelector()(state),
+      selectedKeycatAccount: selectedKeycatAccountSelector()(state),
       currencies: Object.keys(cryptoAccounts).map(name => CURRENCIES[name]),
       selectedAccountProcessing: selectedAccountProcessingSelector()(state),
       enableReinitialize: true,
-      initialValues: {
-        ...initialValues,
-        [WALLET_FIELD]:
-          wallets.length === 1 ? wallets[0] : initialValues[WALLET_FIELD],
-      },
+      initialValues,
     };
   },
   dispatch => ({
-    selectAccountDispatch: bindActionCreators(selectAccount, dispatch),
-    removeSelectedAccountDispatch: bindActionCreators(
-      removeSelectedAccount,
+    selectScatterAccountDispatch: bindActionCreators(
+      selectScatterAccount,
       dispatch,
     ),
-    removeTipsEosServiceDispatch: bindActionCreators(
-      removeTipsEosService,
+    selectKeycatAccountDispatch: bindActionCreators(
+      selectKeycatAccount,
+      dispatch,
+    ),
+    removeSelectedAccountsDispatch: bindActionCreators(
+      removeSelectedAccounts,
+      dispatch,
+    ),
+    removeTipsEosServicesDispatch: bindActionCreators(
+      removeTipsEosServices,
       dispatch,
     ),
   }),

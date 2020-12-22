@@ -1,6 +1,5 @@
-import React, { memo, useState, useEffect, useCallback, useMemo } from 'react';
+import React, { memo, useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 
 import {
@@ -150,14 +149,14 @@ const View = ({
           </SingleModeSubHeader>
         )}
       {styles?.customSubHeader ?? null}
-      <MainSubHeader>
+      <MainSubHeader mainSubHeaderBgColor={styles.mainSubHeaderBgColor}>
         <div className="container">
           <div className="d-flex align-items-center justify-content-between">
             <div className="d-flex align-items-center">
               <button className="mt-1 mr-3 d-flex d-lg-none" onClick={showMenu}>
                 <IconLm
                   icon={headerNavigationIcon}
-                  color={TEXT_SECONDARY_LIGHT}
+                  color={styles.commHeadElemColor || TEXT_SECONDARY_LIGHT}
                 />
               </button>
 
@@ -193,7 +192,7 @@ const View = ({
                     id="header-ask-question"
                     onClick={redirectToAskQuestionPage}
                   >
-                    <IconSm icon={addIcon} />
+                    <IconSm fill={BG_LIGHT} icon={addIcon} />
 
                     <span className="d-none d-lg-inline ml-2">
                       <FormattedMessage {...messages.askQuestion} />

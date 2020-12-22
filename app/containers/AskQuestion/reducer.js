@@ -52,7 +52,7 @@ export function existingQuestionReducer(state = initialState, action) {
         .set(
           'existingQuestions',
           existingQuestions
-            ? existingQuestions.slice(0, 4)
+            ? existingQuestions
             : initialState.get('existingQuestions'),
         );
     case GET_EXISTING_QUESTIONS_ERROR:

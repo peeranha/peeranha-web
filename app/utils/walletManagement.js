@@ -13,9 +13,20 @@ import {
   TOTAL_REWARD_TABLE,
   USER_SUPPLY_SCOPE,
   USER_SUPPLY_TABLE,
+  BOOST_STATISTICS_TABLE,
+  BOOST_STATISTICS_SCOPE,
+  USER_BOOST_TABLE,
+  ADD_BOOST_METHOD,
 } from './constants';
+import { MAX_STAKE_PREDICTION, MIN_STAKE_PREDICTION } from 'containers/Boost/constants';
 
 import { ApplicationError } from './errors';
+
+const PERIOD_LENGTH = {
+  development: 2*60*60, // two hours
+  test: 2*60*60, // two hours
+  production: 7*24*60*60, // one week
+}
 
 /**
  * @balance - string, example - '1000.000000 PEER'
@@ -251,4 +262,148 @@ export function createGetRewardPool(
 // TODO: test
 export function convertPeerValueToNumberValue(val) {
   return Number(val.replace(/[a-zA-Z]/gim, '').trim());
+}
+
+export async function getGlobalBoostStatistics(eosService) {
+  const limit = 100;
+
+  const { rows } = await eosService.getTableRows(
+    BOOST_STATISTICS_TABLE,
+    BOOST_STATISTICS_SCOPE,
+    undefined,
+    limit,
+    undefined,
+    undefined,
+    undefined,
+    process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
+  );
+
+  return rows;
+}
+
+export async function getUserBoostStatistics(eosService, user) {
+  const limit = 100;
+
+  const { rows } = await eosService.getTableRows(
+    USER_BOOST_TABLE,
+    user,
+    undefined,
+    limit,
+    undefined,
+    undefined,
+    undefined,
+    process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
+  );
+
+  return rows;
+}
+
+export async function addBoost(eosService, user, tokens) {
+  await eosService.sendTransaction(
+    user,
+    ADD_BOOST_METHOD,
+    {
+      user,
+      tokens,
+    },
+    process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
+    true,
+  );
+}
+
+export const getStakeNum = (stake) => {
+  const CURRENCY = ' PEER';
+
+  return +(stake.slice(0, stake.indexOf(CURRENCY)))
+}
+
+export const getPredictedBoost = (userStake, maxStake) => {
+  let boost = 1;
+
+  if (userStake && maxStake) {
+    if (userStake <= maxStake) {
+      boost = userStake / maxStake * (MAX_STAKE_PREDICTION - MIN_STAKE_PREDICTION) + 1;
+      boost = Math.floor(boost * 100) / 100;
+    } else if (userStake > 0) {
+      boost = MAX_STAKE_PREDICTION;
+    }
+  }
+
+  return {
+    text: `x${boost}`,
+    value: boost,
+  }
+}
+
+export const setWeekDataByKey = (boostStat, key, nextWeekPeriod) => {
+  let currentWeekIndex = 0;
+  if (boostStat.length > 1) {
+    currentWeekIndex = 
+      boostStat[boostStat.length - 1].period === nextWeekPeriod ? 
+      boostStat.length - 2 : 
+      boostStat.length - 1;
+  }
+  const currentWeekMaxStake = boostStat[currentWeekIndex][key];
+  const nextWeekMaxStake = boostStat[boostStat.length - 1][key];
+
+  return [
+    getStakeNum(currentWeekMaxStake),
+    getStakeNum(nextWeekMaxStake),
+  ];
+}
+
+export function getBoostWeeks(weekStat, globalBoostStat, userBoostStat) {
+  const currentWeek = weekStat ? weekStat[0] : {};
+  const nextWeek = currentWeek ? 
+    {
+      period: currentWeek.period + 1,
+      periodStarted: currentWeek.periodFinished,  
+      periodFinished: currentWeek.periodFinished + PERIOD_LENGTH[process.env.NODE_ENV],
+    } : {};
+
+  if (globalBoostStat && globalBoostStat.length) {
+    const [currentWeekMaxStake, nextWeekMaxStake] = setWeekDataByKey(globalBoostStat, 'max_stake', nextWeek.period);
+
+    currentWeek.maxStake = currentWeekMaxStake;
+    nextWeek.maxStake = nextWeekMaxStake;
+  }
+
+  if (userBoostStat && userBoostStat.length) {
+    const [currentWeekUserStake, nextWeekUserStake] = setWeekDataByKey(userBoostStat, 'staked_tokens', nextWeek.period);
+
+    currentWeek.userStake = currentWeekUserStake;
+    nextWeek.userStake = nextWeekUserStake;
+  }
+
+  return {
+    currentWeek: { ...currentWeek },
+    nextWeek: { ...nextWeek },
+  };
+}
+
+export const getRewardAmountByBoost = (
+  currentPeriod, 
+  amount, 
+  globalBoostStat = [], 
+  userBoostStat = [],
+) => {
+  if (!amount || !userBoostStat.length) return amount;
+
+  const filtredUserBoostStat = userBoostStat.filter(item => item.period <= currentPeriod);
+
+  if (!filtredUserBoostStat.length) return amount;
+
+  const currentPeriodUserBoostStat = filtredUserBoostStat[filtredUserBoostStat.length - 1];
+  const userStake = getStakeNum(currentPeriodUserBoostStat.staked_tokens);
+
+  if (userStake === 0) return amount;
+  
+  const currentPeriodGlobalBoostStat = globalBoostStat.find(item => item.period === currentPeriodUserBoostStat.period);
+  const maxStake = currentPeriodGlobalBoostStat.max_stake;
+
+  const boost = getPredictedBoost(userStake, maxStake);
+
+  if (boost.value <= 1) return amount;
+
+  return amount * boost.value;
 }

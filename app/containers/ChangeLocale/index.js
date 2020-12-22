@@ -39,11 +39,8 @@ export const ChangeLocale = ({ locale, changeLocaleDispatch }) => {
     changeLocaleDispatch(newLocale);
     setTimeout(() => createdHistory.push(path), 0);
   }
+  if (process.env.MULTI_LANG === 'false') return null;
 
-  // TODO: remove if will be more than 1 lang.
-  return null;
-
-  /* eslint no-unreachable: 0 */
   return (
     <Dropdown
       className="mr-3"

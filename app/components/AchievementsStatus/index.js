@@ -18,7 +18,10 @@ const StatusSpan = styled.span`
 
 const Count = styled.span`
   margin-left: 0.25rem;
-  color: ${props => (props.size === 'lg' ? 'inherit' : PEER_PRIMARY_COLOR)};
+  color: ${props =>
+    props.size === 'lg'
+      ? 'inherit'
+      : props.achievementsNumColor || PEER_PRIMARY_COLOR};
 `;
 
 const IconAbsolute = styled(Icon)`
@@ -31,7 +34,12 @@ const IconAbsolute = styled(Icon)`
   }
 `;
 
-const AchievementsStatus = ({ count, size }) => {
+const AchievementsStatus = ({
+  count,
+  size,
+  achievementsNumColor,
+  achievIconStyles,
+}) => {
   if (typeof count === 'number')
     return (
       <StatusSpan size={size}>
@@ -40,8 +48,11 @@ const AchievementsStatus = ({ count, size }) => {
           width={size === 'lg' ? '24' : '14'}
           height={size === 'lg' ? '24' : '14'}
           size={size}
+          specialStyles={achievIconStyles}
         />
-        <Count size={size}>{count}</Count>
+        <Count size={size} achievementsNumColor={achievementsNumColor}>
+          {count}
+        </Count>
       </StatusSpan>
     );
   return null;
@@ -50,6 +61,8 @@ const AchievementsStatus = ({ count, size }) => {
 AchievementsStatus.propTypes = {
   count: PropTypes.number,
   size: PropTypes.string,
+  achievementsNumColor: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+  achievIconStyles: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]),
 };
 
 export default AchievementsStatus;

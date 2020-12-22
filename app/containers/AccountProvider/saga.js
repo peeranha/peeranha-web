@@ -7,6 +7,11 @@ import { updateAcc } from 'utils/accountManagement';
 import {
   convertPeerValueToNumberValue,
   getBalance,
+  getWeekStat,
+  getGlobalBoostStatistics,
+  getUserBoostStatistics,
+  getPredictedBoost,
+  getBoostWeeks,
 } from 'utils/walletManagement';
 
 import commonMessages from 'common-messages';
@@ -38,7 +43,7 @@ import { redirectToEditAnswerPageWorker } from 'containers/EditAnswer/saga';
 import { redirectToEditProfilePageWorker } from 'containers/EditProfilePage/saga';
 import { updateStoredQuestionsWorker } from 'containers/Questions/saga';
 import { getNotificationsInfoWorker } from 'components/Notifications/saga';
-import { updateUserAchCountWorker } from 'containers/Achievements/saga';
+import { updateUserAchievementsWorker } from 'containers/Achievements/saga';
 import { getWeekStatWorker } from 'containers/Wallet/saga';
 import { getQuestionData } from '../ViewQuestion/saga';
 
@@ -49,8 +54,9 @@ import {
   INVITED_USERS_TABLE,
   MODERATOR_KEY,
   REWARD_REFER,
+  COMMUNITY_ADMIN_VALUE,
 } from 'utils/constants';
-import { SHOW_SCATTER_SIGNUP_FORM_SUCCESS } from 'containers/SignUp/constants';
+import { SHOW_WALLET_SIGNUP_FORM_SUCCESS } from 'containers/SignUp/constants';
 import {
   ASK_QUESTION_SUCCESS,
   REDIRECT_TO_ASK_QUESTION_PAGE,
@@ -72,6 +78,7 @@ import {
   REDIRECT_TO_EDIT_QUESTION_PAGE,
 } from 'containers/EditQuestion/constants';
 import { SEND_TOKENS_SUCCESS } from 'containers/SendTokens/constants';
+import { SEND_TIPS_SUCCESS } from 'containers/SendTips/constants';
 import { PICKUP_REWARD_SUCCESS } from 'containers/Wallet/constants';
 import {
   DOWNVOTE_SUCCESS as DOWNVOTE_COMM_SUCCESS,
@@ -87,6 +94,7 @@ import {
   DELETE_ANSWER_SUCCESS,
   DELETE_COMMENT_SUCCESS,
   DELETE_QUESTION_SUCCESS,
+  POST_ANSWER_SUCCESS,
   SAVE_COMMENT_SUCCESS,
 } from 'containers/ViewQuestion/constants';
 import {
@@ -110,6 +118,14 @@ export const getCurrentAccountWorker = function*(initAccount) {
     const eosService = yield select(selectEos);
     const prevProfileInfo = yield select(makeSelectProfileInfo());
 
+    if (eosService.withScatter)
+      yield put(addLoginData({ loginWithScatter: true }));
+
+    if (eosService.withKeycat)
+      yield put(addLoginData({ loginWithKeycat: true }));
+    
+    const globalBoostStat = yield call(getGlobalBoostStatistics, eosService);
+    
     let account = yield typeof initAccount === 'string'
       ? initAccount
       : call(eosService.getSelectedAccount);
@@ -120,9 +136,25 @@ export const getCurrentAccountWorker = function*(initAccount) {
       if (autoLoginData) {
         account = autoLoginData.eosAccountName;
       }
+
+      if (autoLoginData?.loginWithScatter) {
+        put(
+          yield put(
+            addLoginData({ loginWithScatter: autoLoginData.loginWithScatter }),
+          ),
+        );
+      }
+
+      if (autoLoginData?.loginWithKeycat) {
+        put(
+          yield put(
+            addLoginData({ loginWithKeycat: autoLoginData.loginWithKeycat }),
+          ),
+        );
+      }
     }
 
-    if (typeof account === 'object') {
+    if (account && typeof account === 'object') {
       account = account.eosAccountName;
     }
 
@@ -133,8 +165,24 @@ export const getCurrentAccountWorker = function*(initAccount) {
         (account === profileLS.user ||
           (account && account.eosAccountName === profileLS.user))
       ) {
+        // user available balance
+        const weekStat = yield call(getWeekStat, eosService, profileLS);
+        const userBoostStat = yield call(getUserBoostStatistics, eosService, profileLS.user);
+
+        const boostWeeks = yield call(getBoostWeeks, weekStat, globalBoostStat, userBoostStat);
+        const { currentWeek, nextWeek } = boostWeeks;
+        const { userStake, maxStake } = currentWeek;
+
+        const boost = yield call(getPredictedBoost, userStake, maxStake);
+
         yield put(getUserProfileSuccess(profileLS));
-        yield put(getCurrentAccountSuccess(profileLS.user, profileLS.balance));
+        yield put(getCurrentAccountSuccess(
+          profileLS.user,
+          profileLS.balance,
+          currentWeek.userStake,
+          nextWeek.userStake,
+          boost,
+        ));
 
         return null;
       }
@@ -150,10 +198,14 @@ export const getCurrentAccountWorker = function*(initAccount) {
       call(getBalance, eosService, account),
     ]);
 
-    // update user achievements count
-    yield call(updateUserAchCountWorker, profileInfo.user);
+    let stakedInCurrentPeriod = 0;
+    let stakedInNextPeriod = 0;
+    let boost = {};
 
     if (profileInfo) {
+      // update user achievements
+      yield call(updateUserAchievementsWorker, profileInfo.user);
+
       yield call(getNotificationsInfoWorker, profileInfo.user);
       yield call(getWeekStatWorker);
 
@@ -175,6 +227,19 @@ export const getCurrentAccountWorker = function*(initAccount) {
       if (prevProfileInfo) {
         profileInfo.profile = prevProfileInfo.profile;
       }
+
+      // update user available balance
+      const weekStat = yield call(getWeekStat, eosService, profileInfo);
+      const userBoostStat = yield call(getUserBoostStatistics, eosService, profileInfo.user);
+
+      const boostWeeks = yield call(getBoostWeeks, weekStat, globalBoostStat, userBoostStat);
+      const { currentWeek, nextWeek } = boostWeeks;
+      const { userStake, maxStake } = currentWeek;
+
+      stakedInCurrentPeriod = currentWeek.userStake;
+      stakedInNextPeriod = nextWeek.userStake;
+
+      boost = yield call(getPredictedBoost, userStake, maxStake);
     }
 
     setCookie({
@@ -193,17 +258,25 @@ export const getCurrentAccountWorker = function*(initAccount) {
     );
     yield put(getUserProfileSuccess(profileInfo));
     yield call(getCommunityPropertyWorker, profileInfo);
-    yield put(getCurrentAccountSuccess(account, balance));
+    yield put(getCurrentAccountSuccess(account, balance, stakedInCurrentPeriod, stakedInNextPeriod, boost));
     yield put(getUserTelegramDataSuccess(userTgInfo));
   } catch (err) {
     yield put(getCurrentAccountError(err));
   }
 };
 
-export function* isAvailableAction(isValid) {
+export function* isAvailableAction(isValid, comunityID) {
   const profileInfo = yield select(makeSelectProfileInfo());
 
   if (profileInfo.integer_properties.find(x => x.key === MODERATOR_KEY)) {
+    return true;
+  }
+
+  if (
+    profileInfo.permissions.find(
+      x => x.value == COMMUNITY_ADMIN_VALUE && x.community == comunityID,
+    )
+  ) {
     return true;
   }
 
@@ -378,13 +451,15 @@ export default function* defaultSaga() {
   yield takeLatest(
     [
       GET_CURRENT_ACCOUNT,
-      SHOW_SCATTER_SIGNUP_FORM_SUCCESS,
+      SHOW_WALLET_SIGNUP_FORM_SUCCESS,
       ASK_QUESTION_SUCCESS,
+      POST_ANSWER_SUCCESS,
       CREATE_COMMUNITY_SUCCESS,
       SUGGEST_TAG_SUCCESS,
       EDIT_ANSWER_SUCCESS,
       EDIT_QUESTION_SUCCESS,
       SEND_TOKENS_SUCCESS,
+      SEND_TIPS_SUCCESS,
       UPVOTE_COMM_SUCCESS,
       DOWNVOTE_COMM_SUCCESS,
       UPVOTE_TAGS_SUCCESS,

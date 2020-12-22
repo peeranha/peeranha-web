@@ -53,27 +53,22 @@ const selectIdontHaveEosAccountError = () =>
     substate.get('idontHaveEosAccountError'),
   );
 
-const selectSignUpWithScatterProcessing = () =>
+const selectSignUpWithWalletProcessing = () =>
   createSelector(selectSignUpDomain, substate =>
-    substate.get('signUpWithScatterProcessing'),
+    substate.get('signUpWithWalletProcessing'),
   );
 
-const selectSignUpWithScatterError = () =>
+const selectSignUpWithWalletError = () =>
   createSelector(selectSignUpDomain, substate =>
-    substate.get('signUpWithScatterError'),
+    substate.get('signUpWithWalletError'),
   );
 
 const selectKeys = () =>
   createSelector(selectSignUpDomain, substate => substate.get('keys'));
 
-const selectShowScatterSignUpProcessing = () =>
+const selectShowWalletSignUpProcessing = () =>
   createSelector(selectSignUpDomain, substate =>
-    substate.get('showScatterSignUpProcessing'),
-  );
-
-const selectShowScatterSignUpFormError = () =>
-  createSelector(selectSignUpDomain, substate =>
-    substate.get('showScatterSignUpFormError'),
+    substate.get('showWalletSignUpProcessing'),
   );
 
 const selectEncryptionKey = () =>
@@ -97,10 +92,9 @@ export {
   selectIdontHaveEosAccountProcessing,
   selectIdontHaveEosAccountError,
   selectKeys,
-  selectSignUpWithScatterProcessing,
-  selectSignUpWithScatterError,
-  selectShowScatterSignUpProcessing,
-  selectShowScatterSignUpFormError,
+  selectSignUpWithWalletProcessing,
+  selectSignUpWithWalletError,
+  selectShowWalletSignUpProcessing,
   selectEncryptionKey,
   selectEosAccountName,
 };

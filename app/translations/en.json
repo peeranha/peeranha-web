@@ -13,6 +13,7 @@
   "app.common.achievementsNumber": "Achievements {number}",
   "app.common.settings": "Settings",
   "app.common.notifications": "Notifications",
+  "app.common.moderation": "Moderation",
   "app.common.uniqueAchievements": "Unique achievements",
   "app.common.notificationCenter": "Notification Center",
   "app.common.archive": "Archive",
@@ -32,6 +33,7 @@
   "app.common.users": "Users",
   "app.common.usersShort": "Users",
   "app.common.faq": "FAQ",
+  "app.common.moderationHeader": "Moderator permissions",
   "app.common.tutorial": "Tutorial",
   "app.common.subscribeMore": "Subscribe more",
   "app.common.top": "Top",
@@ -136,7 +138,10 @@
     "File size is more than 2Mb. Choose another one...",
   "app.common.chooseFile": "Choose a file",
   "app.common.skip": "Skip",
+  "app.common.showMore": "Show more",
   "app.common.questionIsAnswered": "You have already answered this question",
+  "app.common.activateBoost": "Activate boost",
+  "app.common.boost": "Boost",
 
   "app.telegram.user": "Telegram user",
   "app.telegram.userLabelPopover":
@@ -174,6 +179,25 @@
   "app.containers.Wallet.registrationWeek": "Registration week",
   "app.containers.Wallet.yourWalletWasSuccessfullySet":
     "Your wallet was successfully set during this period",
+  "app.containers.Wallet.getMoreWithBoost": "Get more rewards with Boost",
+  "app.containers.Wallet.stakedInCurrentPeriod": "Staked in the current period",
+  "app.containers.Wallet.stakedInNextPeriod": "Staked in next period",
+  "app.containers.Wallet.totalBalance": "Total balance",
+
+  "app.containers.Boost.currentPeriod": "Current period",
+  "app.containers.Boost.nextPeriod": "Next period",
+  "app.containers.Boost.maximumStake": "Maximum stake",
+  "app.containers.Boost.users": "Users",
+  "app.containers.Boost.yourStake": "Your stake",
+  "app.containers.Boost.yourBoost": "Your boost",
+  "app.containers.Boost.yourPredictedBoost": "Your predicted boost",
+  "app.containers.Boost.formTitle": "Next period stake",
+  "app.containers.Boost.formSubmit": "Save",
+  "app.containers.Boost.formCancel": "Cancel",
+  "app.containers.Boost.formBoostPrediction": "Boost prediction",
+  "app.containers.Boost.formCurrentStake": "Your stake",
+  "app.containers.Boost.formTakeAStake": "Take a stake",
+  "app.containers.Boost.notTokensToStake": "You don't have tokens to stake",
 
   "web_integration.errors.unknownError":
     "Unknown error. Please submit bug report!",
@@ -209,6 +233,39 @@
   "app.containers.Faq.description": "FAQ: description",
   "app.containers.Faq.faq": "Frequently asked questions",
 
+  "app.containers.Moderation.title": "Moderator permissions",
+  "app.common.globalModerator": "Global moderator",
+
+  "app.containers.Moderation.permissionInfinite": "Infinite Impact",
+  "app.containers.Moderation.permissionInfiniteDescription":
+    "Allows you to delete questions, answers and comments in one click",
+
+  "app.containers.Moderation.permissionIgnoreRating": "Ignore rating",
+  "app.containers.Moderation.permissionIgnoreRatingDescription":
+    "Allows you to perform actions that are rating restricted",
+
+  "app.containers.Moderation.permissionCreateCommunity": "Create community",
+  "app.containers.Moderation.permissionCreateCommunityDescription":
+    "Allows you to instantly create a community",
+
+  "app.containers.Moderation.permissionCreateTag": "Create tag",
+  "app.containers.Moderation.permissionCreateTagDescription":
+    "Allows you to instantly create a tag",
+
+  "app.containers.Moderation.permissionChangeQuestionType":
+    "Change question type",
+  "app.containers.Moderation.permissionChangeQuestionTypeDescription":
+    "Allows you to change question type",
+
+  "app.containers.Moderation.permissionSelectTopQuestion":
+    "Select top question",
+  "app.containers.Moderation.permissionSelectTopQuestionDescription":
+    "Allows you to select a question that will be displayed on \"Top\" page",
+
+  "app.containers.Moderation.permissionOfficialAnswer": "Post official answer",
+  "app.containers.Moderation.permissionOfficialAnswerDescription":
+    "Allows you to post an official answer",
+
   "app.containers.Tutorial.title": "Tutorial",
   "app.containers.Tutorial.description": "Tutorial: description",
   "app.containers.Tutorial.tutorial": "Tutorial",
@@ -241,7 +298,7 @@
   "app.components.RatingStatus.legResident": "Superhero",
   "app.components.RatingStatus.banned": "Banned",
 
-  "app.containers.Profile.reputation": "Reputation",
+  "app.containers.Profile.status": "Status",
   "app.containers.Profile.risen": "Risen",
   "app.containers.Profile.memberSince": "Member since ",
   "app.containers.Profile.informationIsBlank":
@@ -672,6 +729,7 @@
     "The username is how you'll be known on Peeranha.",
   "app.containers.Login.referralMessage":
     "This is the code your friend gave you.",
+  "app.containers.Login.optionalReferralCode": "(optional)",
   "app.containers.Login.accountNotCreatedName": "Account is not created yet",
   "app.containers.Login.inviterIsNotRegisterYet": "Inviter isn't register yet",
   "app.containers.Login.iDontHaveAnAccount": "I don't have an account.",
@@ -727,7 +785,7 @@
   "app.containers.SignUp.storeThisKey": "Store this key",
   "app.containers.SignUp.masterKey": "Master key",
   "app.containers.SignUp.displayName": "Display name",
-  "app.containers.SignUp.referralCode": "Referral code",
+  "app.containers.SignUp.referralCode": "Referral code {optional}",
   "app.containers.SignUp.eosName": "Telos name",
   "app.containers.SignUp.signUp": "Sign up",
   "app.containers.SignUp.password": "Password",
@@ -915,14 +973,14 @@
   "app.containers.Achievements.firstIn15.bronze.title":
     "Bronze - Fastest hand in the West",
   "app.containers.Achievements.firstIn15.bronze.description":
-    "Be the first one to post an answer in 15 minutes for 5 different question",
+    "Post answers for 5 different questions in 15 minutes after questions were asked",
   "app.containers.Achievements.firstIn15.silver.title":
     "Silver - Pedal to the metal",
   "app.containers.Achievements.firstIn15.silver.description":
-    "Be the first one to post an answer in 15 minutes for 10 different question",
+    "Post answers for 10 different questions in 15 minutes after questions were asked",
   "app.containers.Achievements.firstIn15.gold.title": "Gold - Lightning",
   "app.containers.Achievements.firstIn15.gold.description":
-    "Be the first one to post an answer in 15 minutes for 20 different question",
+    "Post answers for 10 different questions in 15 minutes after questions were asked",
 
   "app.containers.Achievements.firstAnswer.bronze.title": "Bronze - Quick help",
   "app.containers.Achievements.firstAnswer.bronze.description":
@@ -977,20 +1035,41 @@
     "Be the one of first 50 Users to achieve the \"Hero\" status",
   "app.containers.Achievements.kingOfTheHill.title": "King of the hill",
   "app.containers.Achievements.kingOfTheHill.description":
-    "Be the one of first 10 Users to achieve the \"Superhero\" status..",
+    "Be the one of first 10 Users to achieve the \"Superhero\" status",
 
-  "app.containers.Achievements.progressBarPopover.ratingRelated":
-    "rating points left until the next achievement",
-  "app.containers.Achievements.progressBarPopover.questionAskedRelated":
-    "questions left until the next achievement",
-  "app.containers.Achievements.progressBarPopover.answerGivenRelated":
-    "answers left until the next achievement",
-  "app.containers.Achievements.progressBarPopover.bestAnswerRelated":
-    "best answers left until the next achievement",
-  "app.containers.Achievements.progressBarPopover.firstAnswerIn15Related":
-    "first answers in 15 minutes left until the next achievement",
-  "app.containers.Achievements.progressBarPopover.firstAnswerRelated":
-    "first answers left until the next achievement",
+  "app.containers.Achievements.progressBarPopover.ratingRelated.single":
+    "rating point left to unlock this achievement",
+  "app.containers.Achievements.progressBarPopover.ratingRelated.multiple":
+    "rating points left to unlock this achievement",
+  "app.containers.Achievements.progressBarPopover.questionAskedRelated.single":
+    "question left to unlock this achievement",
+  "app.containers.Achievements.progressBarPopover.questionAskedRelated.multiple":
+    "questions left to unlock this achievement",
+  "app.containers.Achievements.progressBarPopover.answerGivenRelated.single":
+    "answer left to unlock this achievement",
+  "app.containers.Achievements.progressBarPopover.answerGivenRelated.multiple":
+    "answers left to unlock this achievement",
+  "app.containers.Achievements.progressBarPopover.bestAnswerRelated.single":
+    "best answer left to unlock this achievement",
+  "app.containers.Achievements.progressBarPopover.bestAnswerRelated.multiple":
+    "best answers left to unlock this achievement",
+  "app.containers.Achievements.progressBarPopover.firstAnswerIn15Related.single":
+    "answer in 15 minutes left to unlock this achievement",
+  "app.containers.Achievements.progressBarPopover.firstAnswerIn15Related.multiple":
+    "answers in 15 minutes left to unlock this achievement",
+  "app.containers.Achievements.progressBarPopover.firstAnswerRelated.single":
+    "first answer left to unlock this achievement",
+  "app.containers.Achievements.progressBarPopover.firstAnswerRelated.multiple":
+    "first answers left to unlock this achievement",
+
+  "app.containers.Achievements.separators.ratingRelated": "Rating",
+  "app.containers.Achievements.separators.questionAskedRelated": "Questions",
+  "app.containers.Achievements.separators.answerGivenRelated": "Answers",
+  "app.containers.Achievements.separators.bestAnswerRelated":
+    "The best answers",
+  "app.containers.Achievements.separators.firstAnswerIn15Related":
+    "Answers in 15 minutes",
+  "app.containers.Achievements.separators.firstAnswerRelated": "First answers",
 
   "app.containers.TelegramInfo.confirm": "Confirm",
   "app.containers.TelegramInfo.unlink": "Unlink"

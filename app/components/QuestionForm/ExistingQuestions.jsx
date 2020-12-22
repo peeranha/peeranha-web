@@ -30,23 +30,51 @@ const ListItem = styled(Li)`
   }
 `;
 
-const ExistingQuestions = ({ questions, skip, intl }) => (
-  <Container>
-    <Label>
-      {intl.formatMessage(messages.existingQuestionsLabel)}{' '}
-      <Link href="#" onClick={skip}>
-        {intl.formatMessage(messages.skipExistingQuestions)}
-      </Link>
-    </Label>
-    <List>
-      {questions.map(q => (
-        <ListItem>
-          <a href={q.link}>{q.title}</a>
-        </ListItem>
-      ))}
-    </List>
-  </Container>
-);
+const getQuestionTitleWithoutCommunity = (str, communities) => {
+  const titleWords = str ? str.split(' ') : [];
+  return titleWords.length >= 3 &&
+    communities.includes(titleWords[titleWords.length - 1]) &&
+    titleWords[titleWords.length - 2] === '-'
+    ? str.substring(
+        0,
+        str.length -
+          (titleWords[titleWords.length - 1].length +
+            titleWords[titleWords.length - 2].length +
+            2),
+      )
+    : str;
+};
+
+const ExistingQuestions = ({ questions, skip, show, intl, communities }) => {
+  const commNames = communities.map(comm => comm.name);
+  const findQuestions = questions.slice(0, 4);
+  return (
+    <Container>
+      <Label>
+        {intl.formatMessage(messages.existingQuestionsLabel)}{' '}
+        <Link href="#" onClick={skip}>
+          {intl.formatMessage(messages.skipExistingQuestions)}
+        </Link>
+      </Label>
+      <List>
+        {findQuestions.map(q => (
+          <ListItem key={q.link}>
+            <a href={q.link}>
+              {getQuestionTitleWithoutCommunity(q.title, commNames)}
+            </a>
+          </ListItem>
+        ))}
+        {questions.length > 4 && (
+          <ListItem>
+            <a href="#" onClick={show}>
+              {intl.formatMessage(messages.showMoreExistingQuestions)}
+            </a>
+          </ListItem>
+        )}
+      </List>
+    </Container>
+  );
+};
 
 ExistingQuestions.propTypes = {
   questions: PropTypes.array.isRequired,

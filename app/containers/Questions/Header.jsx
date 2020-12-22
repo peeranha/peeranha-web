@@ -7,6 +7,8 @@ import styled from 'styled-components';
 import { injectIntl, intlShape } from 'react-intl';
 import messages from 'common-messages';
 
+import { selectCommunities } from 'containers/DataCacheProvider/selectors';
+
 import FollowCommunityButton from 'containers/FollowCommunityButton/DefaultButton';
 
 import { MediumImageStyled } from 'components/Img/MediumImage';
@@ -41,6 +43,7 @@ const PageContentHeaderRightPanel = styled.div`
 export const Header = ({
   intl,
   communityIdFilter,
+  communities,
   followedCommunities,
   parentPage,
   setTypeFilter,
@@ -108,6 +111,7 @@ export const Header = ({
           }}
           showOnlyFollowed={isFeed}
           selectedCommunityId={communityIdFilter}
+          communities={communities}
         />
         {!!displaySubscribeButton && (
           <PageContentHeaderRightPanel
@@ -131,6 +135,7 @@ export const Header = ({
 Header.propTypes = {
   intl: intlShape.isRequired,
   communityIdFilter: PropTypes.number,
+  communities: PropTypes.array,
   followedCommunities: PropTypes.array,
   parentPage: PropTypes.string,
   setTypeFilter: PropTypes.func,
@@ -143,6 +148,7 @@ export default injectIntl(
     connect(state => ({
       topQuestionsInfoLoaded: selectTopQuestionsInfoLoaded()(state),
       topQuestions: selectQuestions(null, null, null, true)(state),
+      communities: selectCommunities()(state),
     }))(Header),
   ),
 );

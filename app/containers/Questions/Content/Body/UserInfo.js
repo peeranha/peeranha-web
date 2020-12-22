@@ -23,7 +23,7 @@ const UserInfo = ({ user, userInfo, postTime, locale }) => (
         {userInfo?.['display_name']}
       </Span>
       <RatingStatus rating={userInfo.rating} size="sm" isRankOff />
-      <AchievementsStatus count={userInfo.achievements_reached} />
+      <AchievementsStatus count={userInfo.achievements_reached?.length} />
       <Span
         className="text-capitalize mr-3"
         fontSize="14"

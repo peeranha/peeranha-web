@@ -163,7 +163,7 @@ const selectAnswersGivenValue = user =>
     substate => substate?.users[user].answers_given,
   );
 
-const selectAnswersBestValue = user =>
+const selectBestAnswersValue = user =>
   createSelector(
     selectDataCacheProviderDomain,
     substate => substate?.users[user].correct_answers,
@@ -171,21 +171,27 @@ const selectAnswersBestValue = user =>
 
 const selectFirstIn15AnswersValue = user =>
   createSelector(selectDataCacheProviderDomain, substate => {
-    const answersIn15Data = substate?.users[user].integer_properties.find(
-      el => el.key === 12,
-    );
+    const answersIn15Data = substate?.users[user]?.integer_properties
+      ? substate.users[user].integer_properties.find(el => el.key === 12)
+      : null;
     const answersIn15Value = answersIn15Data ? answersIn15Data.value : 0;
     return answersIn15Value;
   });
 
 const selectFirstAnswersValue = user =>
   createSelector(selectDataCacheProviderDomain, substate => {
-    const firstAnswersData = substate?.users[user].integer_properties.find(
-      el => el.key === 13,
-    );
+    const firstAnswersData = substate?.users[user]?.integer_properties
+      ? substate.users[user].integer_properties.find(el => el.key === 13)
+      : null;
     const firstAnswersValue = firstAnswersData ? firstAnswersData.value : 0;
     return firstAnswersValue;
   });
+
+const selectUserAchievementsDCP = userAccount =>
+  createSelector(
+    selectDataCacheProviderDomain,
+    substate => substate.users[userAccount]?.achievements_reached,
+  );
 
 export {
   selectDataCacheProviderDomain,
@@ -208,7 +214,8 @@ export {
   selectUserRatingDCP,
   selectQuestionsAskedValue,
   selectAnswersGivenValue,
-  selectAnswersBestValue,
+  selectBestAnswersValue,
   selectFirstAnswersValue,
   selectFirstIn15AnswersValue,
+  selectUserAchievementsDCP,
 };

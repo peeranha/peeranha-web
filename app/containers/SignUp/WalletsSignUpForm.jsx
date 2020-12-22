@@ -17,6 +17,8 @@ import { SignUpOptions, P } from 'components/SignUpWrapper/SignUpOptions';
 import Checkbox from 'components/Input/Checkbox';
 import IAcceptTerms from 'components/IAcceptTerms';
 
+import { selectEos } from 'containers/EosioProvider/selectors';
+
 import SignUp from './index';
 
 import {
@@ -33,25 +35,35 @@ import { REFERRAL_CODE } from '../Login/constants';
 import { getCookie } from '../../utils/cookie';
 import { REFERRAL_CODE_URI } from '../App/constants';
 
-const ScatterSignUpForm = ({ handleSubmit, eosAccountValue, change }) => (
-  <SignUp withScatter>
+const WalletsSignUpForm = ({
+  handleSubmit,
+  change,
+  eosAccountValue,
+  withScatter,
+  withKeycat,
+}) => (
+  <SignUp withWallet>
     {({
-      signUpWithScatter,
       locale,
-      signUpWithScatterProcessing,
-      showScatterSignUpForm,
+      signUpWithWallet,
+      showWalletSignUpForm,
       eosAccountName,
+      signUpWithWalletProcessing,
     }) => {
       if (eosAccountName !== eosAccountValue) {
         change(EOS_ACCOUNT_FIELD, eosAccountName);
       }
 
       return (
-        <SignUpOptions
-          withScatter
-          showScatterSignUpForm={showScatterSignUpForm}
-        >
-          <Form onSubmit={handleSubmit(signUpWithScatter)}>
+        <SignUpOptions withWallet showWalletSignUpForm={showWalletSignUpForm}>
+          <Form
+            onSubmit={handleSubmit(val =>
+              signUpWithWallet(val, {
+                scatter: withScatter,
+                keycat: withKeycat,
+              }),
+            )}
+          >
             <Field
               name={EOS_ACCOUNT_FIELD}
               disabled
@@ -64,7 +76,7 @@ const ScatterSignUpForm = ({ handleSubmit, eosAccountValue, change }) => (
 
             <Field
               name={DISPLAY_NAME_FIELD}
-              disabled={signUpWithScatterProcessing}
+              disabled={signUpWithWalletProcessing}
               label={translationMessages[locale][messages.displayName.id]}
               component={TextInputField}
               validate={[strLength3x20, required]}
@@ -76,7 +88,7 @@ const ScatterSignUpForm = ({ handleSubmit, eosAccountValue, change }) => (
             </P>
             <Field
               name={REFERRAL_CODE}
-              disabled={signUpWithScatterProcessing}
+              disabled={signUpWithWalletProcessing}
               label={translationMessages[locale][messages.referralCode.id]}
               component={TextInputField}
               validate={[validateTelosName]}
@@ -84,14 +96,14 @@ const ScatterSignUpForm = ({ handleSubmit, eosAccountValue, change }) => (
 
             <Field
               name={I_ACCEPT_PRIVACY_POLICY_FIELD}
-              disabled={signUpWithScatterProcessing}
+              disabled={signUpWithWalletProcessing}
               label={<IAcceptTerms />}
               component={Checkbox}
               validate={required}
               warn={required}
             />
             <Button
-              disabled={signUpWithScatterProcessing}
+              disabled={signUpWithWalletProcessing}
               className="w-100 my-3"
             >
               <FormattedMessage {...messages.continue} />
@@ -103,13 +115,15 @@ const ScatterSignUpForm = ({ handleSubmit, eosAccountValue, change }) => (
   </SignUp>
 );
 
-ScatterSignUpForm.propTypes = {
+WalletsSignUpForm.propTypes = {
   handleSubmit: PropTypes.func,
   eosAccountValue: PropTypes.string,
   change: PropTypes.func,
+  withScatter: PropTypes.bool,
+  withKeycat: PropTypes.bool,
 };
 
-const formName = 'ScatterSignUpForm';
+const formName = 'WalletsSignUpForm';
 
 /* eslint import/no-mutable-exports: 0 */
 let FormClone = compose(
@@ -119,13 +133,16 @@ let FormClone = compose(
     },
   })),
   reduxForm({ form: formName }),
-)(ScatterSignUpForm);
+)(WalletsSignUpForm);
 
 FormClone = connect(state => {
   const form = state.toJS().form[formName] || { values: {} };
+  const { withScatter, withKeycat } = selectEos(state);
 
   return {
     eosAccountValue: form.values ? form.values[EOS_ACCOUNT_FIELD] : null,
+    withScatter,
+    withKeycat,
   };
 })(FormClone);
 

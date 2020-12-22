@@ -33,7 +33,6 @@ export function* confirmTelegramAccountWorker() {
     
     yield put(confirmTelegramAccountSuccess(data));
   } catch (err) {
-    console.log(err);
     yield put(confirmTelegramAccountErr(err));
   }
 }
@@ -48,7 +47,6 @@ export function* unlinkTelegramAccountWorker() {
     
     yield put(unlinkTelegramAccountSuccess());
   } catch (err) {
-    console.log(err);
     yield put(unlinkTelegramAccountErr(err));
   }
 }

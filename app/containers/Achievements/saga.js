@@ -3,16 +3,18 @@ import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { selectEos } from 'containers/EosioProvider/selectors';
 import {
   selectUsers,
+  selectUserAchievementsDCP,
   selectUserRatingDCP,
   selectQuestionsAskedValue,
   selectAnswersGivenValue,
-  selectAnswersBestValue,
+  selectBestAnswersValue,
   selectFirstAnswersValue,
   selectFirstIn15AnswersValue,
 } from 'containers/DataCacheProvider/selectors';
 
-import { updateUserAchievCount } from 'containers/DataCacheProvider/actions';
+import { updateCachedUserAchievements } from 'containers/DataCacheProvider/actions';
 
+import { getAchievements } from 'utils/achievementsManagement';
 import {
   USER_ACHIEVEMENTS_TABLE,
   PROJECT_ACHIEVEMENTS_TABLE,
@@ -38,133 +40,251 @@ import {
 } from './constants';
 
 import {
+  getUserAchievements,
   getUserAchievementsSuccess,
-  setNextUserAchievements,
-  setUserProgressValues,
+  setMemorizedAchievementData,
   getUserAchievementsErr,
   setUserAchievementLoading,
+  setMaxGroupsLowerValues,
 } from './actions';
 
-import { selectViewProfileAccount } from './selectors';
+import {
+  selectViewProfileAccount,
+  selectMemorizedUserAchievements,
+  selectMaxGroupsLowerValues,
+} from './selectors';
 
-async function getAchievements(eosService, tableTitle, scope) {
-  const { rows } = await eosService.getTableRows(tableTitle, scope);
-  return rows;
-}
+export const getNextAchievementId = (
+  currentValue,
+  userAchievements,
+  possibleAchievements,
+) => {
+  const reachedAchievementsIds = userAchievements.map(el => el.achievements_id);
 
-export const getNextAchievementId = (currentValue, possibleAchievements) => {
-  // find the minimum lower value of the achievement group
-  let valuesStartFrom = possibleAchievements[0].lowerValue;
-  let firstGroupAchievementPosition = 0;
-  possibleAchievements.forEach((el, index) => {
-    if (el.lowerValue < valuesStartFrom) {
-      valuesStartFrom = el.lowerValue;
-      firstGroupAchievementPosition = index;
-    }
-  });
-
-  if (currentValue < valuesStartFrom)
-    return possibleAchievements[firstGroupAchievementPosition].id;
-
-  const currentAchievement = possibleAchievements.find(
-    el => currentValue >= el.lowerValue && currentValue <= el.upperValue,
+  // sort achievements by lower value
+  const sortedAchievements = [...possibleAchievements].sort(
+    (next, curr) => next.lowerValue - curr.lowerValue,
   );
 
-  return currentAchievement.nextId;
+  // current user value less than lower achievement value
+  const nextUnreachedAchievement = sortedAchievements.find(
+    el =>
+      currentValue < el.lowerValue && !reachedAchievementsIds.includes(el.id),
+  );
+
+  if (nextUnreachedAchievement) return nextUnreachedAchievement.id;
+
+  // there are no suitable achievemnts in the group
+  return null;
 };
 
 export const getNextUniqueAchievementId = (
   userRating,
+  userAchievements,
   projectAchievements = [],
 ) => {
-  const currentUniqueAchievement =
-    uniqueAchievementsArr.find(
-      el => userRating >= el.lowerValue && userRating <= el.upperValue,
-    ) || {};
+  const reachedAchievementsIds = userAchievements.map(el => el.achievements_id);
 
-  // current unique achievement is last possible or they are out of limit
-  if (!currentUniqueAchievement.nextId) return null;
-
-  // check whether next unique achievement is not out of limit
-  let { nextId } = currentUniqueAchievement;
-  let nextUniqueAchievement = uniqueAchievementsArr.find(
-    el => el.id === nextId,
+  // sort achievements by lower value
+  const sortedAchievements = [...uniqueAchievementsArr].sort(
+    (next, curr) => next.lowerValue - curr.lowerValue,
   );
 
-  while (true) {
+  const currAchIndex = sortedAchievements.findIndex(
+    el => userRating >= el.lowerValue && userRating <= el.upperValue,
+  );
+
+  const nextUnreachedAchievement = sortedAchievements.find(el => {
     const totalAwarded =
-      projectAchievements.find(el => el.id === nextId)?.count || 0;
-    if (totalAwarded < nextUniqueAchievement.limit) {
-      break;
-    }
-    nextId = nextUniqueAchievement.nextId;
-    nextUniqueAchievement = uniqueAchievementsArr.find(el => el.id === nextId);
-    if (!nextUniqueAchievement) break;
-  }
+      projectAchievements.find(item => item.id === el.id)?.count || 0;
+    return (
+      userRating < el.lowerValue &&
+      !reachedAchievementsIds.includes(el.id) &&
+      totalAwarded < el.limit
+    );
+  });
 
-  // there is no availiable unique achievements
-  if (!nextUniqueAchievement) return null;
+  if (nextUnreachedAchievement) return nextUnreachedAchievement.id;
 
-  // return next unique achievement id
-  return nextUniqueAchievement.id;
+  // there are no suitable achievemnts in the group
+  return null;
+};
+
+export const getMaxGroupsLowerValues = () => {
+  const maxRatingLowerValue = achievementsArr.find(
+    el => el.upperValue === Infinity,
+  ).lowerValue;
+
+  const maxQuestionLowerValue = questionsAskedArr.find(
+    el => el.upperValue === Infinity,
+  ).lowerValue;
+
+  const maxAnswersLowerValue = answerGivenArr.find(
+    el => el.upperValue === Infinity,
+  ).lowerValue;
+
+  const maxBestAnswersLowerValue = bestAnswerArr.find(
+    el => el.upperValue === Infinity,
+  ).lowerValue;
+
+  const maxFirstAnswerLowerValue = firstAnswerArr.find(
+    el => el.upperValue === Infinity,
+  ).lowerValue;
+
+  const maxFirstIn15LowerValue = firstIn15Arr.find(
+    el => el.upperValue === Infinity,
+  ).lowerValue;
+
+  return {
+    maxRatingLowerValue,
+    maxQuestionLowerValue,
+    maxAnswersLowerValue,
+    maxBestAnswersLowerValue,
+    maxFirstAnswerLowerValue,
+    maxFirstIn15LowerValue,
+  };
+};
+
+export const isProfileInfoUpdated = (
+  currProfileInfo,
+  prevProfileInfo,
+  maxGroupsLowerValues,
+) => {
+  // profile info has initial values or undefined
+
+  if (!currProfileInfo || !prevProfileInfo) return true;
+
+  // check whether values, that influence on render, have changed
+
+  const {
+    maxRatingLowerValue,
+    maxQuestionLowerValue,
+    maxAnswersLowerValue,
+    maxBestAnswersLowerValue,
+    maxFirstAnswerLowerValue,
+    maxFirstIn15LowerValue,
+  } = maxGroupsLowerValues;
+
+  const firstAnswerValue = profileInfo =>
+    profileInfo.integer_properties?.find(el => el.key === 13)?.value ?? 0;
+
+  const answersIn15Value = profileInfo =>
+    profileInfo.integer_properties?.find(el => el.key === 12)?.value ?? 0;
+
+  const ratingRelatedUpdated =
+    currProfileInfo.rating !== prevProfileInfo.rating &&
+    (!prevProfileInfo.rating || prevProfileInfo.rating < maxRatingLowerValue);
+
+  const questionRelatedUpdated =
+    currProfileInfo.questions_asked !== prevProfileInfo.questions_asked &&
+    (!prevProfileInfo.questions_asked ||
+      prevProfileInfo.questions_asked < maxQuestionLowerValue);
+
+  const answersRelatedUpdated =
+    currProfileInfo.answers_given !== prevProfileInfo.answers_given &&
+    (!prevProfileInfo.answers_given ||
+      prevProfileInfo.answers_given < maxAnswersLowerValue);
+
+  const bestAnswersRelatedUpdated =
+    currProfileInfo.correct_answers !== prevProfileInfo.correct_answers &&
+    (!prevProfileInfo.correct_answers ||
+      prevProfileInfo.correct_answers < maxBestAnswersLowerValue);
+
+  const firstAnswersRelatedUpdated =
+    firstAnswerValue(currProfileInfo) !== firstAnswerValue(prevProfileInfo) &&
+    firstAnswerValue(prevProfileInfo) < maxFirstAnswerLowerValue;
+
+  const answersIn15RelatedUpdated =
+    answersIn15Value(currProfileInfo) !== answersIn15Value(prevProfileInfo) &&
+    answersIn15Value(prevProfileInfo) < maxFirstIn15LowerValue;
+
+  if (
+    ratingRelatedUpdated ||
+    questionRelatedUpdated ||
+    answersRelatedUpdated ||
+    bestAnswersRelatedUpdated ||
+    firstAnswersRelatedUpdated ||
+    answersIn15RelatedUpdated
+  )
+    return true;
+
+  // no changes that influence on render
+
+  return false;
 };
 
 export function* getUserAchievementsWorker() {
   try {
     const viewProfileAccount = yield select(selectViewProfileAccount());
+    const profileInfo = yield select(selectUsers(viewProfileAccount));
 
-    if (typeof viewProfileAccount === 'string') {
-      const eosService = yield select(selectEos);
+    // get maximum achievements lowerValues of groups and set them to store
 
-      const userRating = yield select(selectUserRatingDCP(viewProfileAccount));
-      const questionsAskedValue = yield select(
-        selectQuestionsAskedValue(viewProfileAccount),
-      );
-      const answersGivenValue = yield select(
-        selectAnswersGivenValue(viewProfileAccount),
-      );
-      const answersBestValue = yield select(
-        selectAnswersBestValue(viewProfileAccount),
-      );
-      const firstAnwersValue = yield select(
-        selectFirstAnswersValue(viewProfileAccount),
-      );
-      const firstIn15AnwersValue = yield select(
-        selectFirstIn15AnswersValue(viewProfileAccount),
-      );
+    let maxGroupsLowerValues = yield select(selectMaxGroupsLowerValues());
 
-      const nextUniqueRatingAch = getNextUniqueAchievementId(
-        userRating,
+    if (Object.keys(maxGroupsLowerValues).length === 0) {
+      maxGroupsLowerValues = yield call(getMaxGroupsLowerValues);
+
+      yield put(setMaxGroupsLowerValues(maxGroupsLowerValues));
+    }
+
+    const memorizedUserAchievements = yield select(
+      selectMemorizedUserAchievements(viewProfileAccount),
+    );
+
+    const profileInfoUpdated = yield call(
+      isProfileInfoUpdated,
+      profileInfo,
+      memorizedUserAchievements.profileInfo,
+      maxGroupsLowerValues,
+    );
+
+    if (memorizedUserAchievements && !profileInfoUpdated) {
+      // set memorized achievements
+
+      const {
+        userAchievements,
         projectAchievements,
+        nextUserAchievements,
+        userProgressValues,
+      } = memorizedUserAchievements;
+
+      yield put(
+        getUserAchievementsSuccess({
+          userAchievements,
+          projectAchievements,
+          nextUserAchievements,
+          userProgressValues,
+        }),
       );
-      const nextRatingAchId = getNextAchievementId(userRating, achievementsArr);
-      const nextQuestionAskedAchId = getNextAchievementId(
-        questionsAskedValue,
-        questionsAskedArr,
-      );
-      const nextAnswerGivenAchId = getNextAchievementId(
-        answersGivenValue,
-        answerGivenArr,
-      );
-      const nextAnswerBestAchId = getNextAchievementId(
-        answersBestValue,
-        bestAnswerArr,
-      );
-      const nextAnswerFirstAchId = getNextAchievementId(
-        firstAnwersValue,
-        firstAnswerArr,
-      );
-      const nextAnswerFirstIn15AchId = getNextAchievementId(
-        firstIn15AnwersValue,
-        firstIn15Arr,
+    }
+
+    // get new achievements data
+    else {
+      const eosService = yield select(selectEos);
+      const cachedUserAchievements = yield select(
+        selectUserAchievementsDCP(viewProfileAccount),
       );
 
-      const userAchievements = yield call(
-        getAchievements,
-        eosService,
-        USER_ACHIEVEMENTS_TABLE,
-        viewProfileAccount,
-      );
+      let userAchievements;
+
+      if (cachedUserAchievements) {
+        userAchievements = cachedUserAchievements;
+      } else {
+        userAchievements = yield call(
+          getAchievements,
+          eosService,
+          USER_ACHIEVEMENTS_TABLE,
+          viewProfileAccount,
+        );
+
+        // update cached user achievements, if they are differ from userAchievements
+
+        yield call(updateUserAchievementsWorker, viewProfileAccount, {
+          updatedAchievements: userAchievements,
+          updateRender: false,
+        });
+      }
 
       const projectAchievements = yield call(
         getAchievements,
@@ -173,72 +293,150 @@ export function* getUserAchievementsWorker() {
         ALL_ACHIEVEMENTS_SCOPE,
       );
 
-      // update cached user achievements_count if achievements count changed
-      yield call(
-        updateUserAchCountWorker,
-        viewProfileAccount,
-        userAchievements.length,
+      const userRating = yield select(selectUserRatingDCP(viewProfileAccount));
+      const questionsAskedValue = yield select(
+        selectQuestionsAskedValue(viewProfileAccount),
+      );
+      const answersGivenValue = yield select(
+        selectAnswersGivenValue(viewProfileAccount),
+      );
+      const bestAnswersValue = yield select(
+        selectBestAnswersValue(viewProfileAccount),
+      );
+      const firstAnwersValue = yield select(
+        selectFirstAnswersValue(viewProfileAccount),
+      );
+      const firstIn15AnwersValue = yield select(
+        selectFirstIn15AnswersValue(viewProfileAccount),
       );
 
-      yield put(
-        getUserAchievementsSuccess(userAchievements, projectAchievements),
+      const nextUniqueRatingAch = yield call(
+        getNextUniqueAchievementId,
+        userRating,
+        userAchievements,
+        projectAchievements,
       );
 
+      const nextRatingAchId = yield call(
+        getNextAchievementId,
+        userRating,
+        userAchievements,
+        achievementsArr,
+      );
+      const nextQuestionAskedAchId = yield call(
+        getNextAchievementId,
+        questionsAskedValue,
+        userAchievements,
+        questionsAskedArr,
+      );
+      const nextAnswerGivenAchId = yield call(
+        getNextAchievementId,
+        answersGivenValue,
+        userAchievements,
+        answerGivenArr,
+      );
+      const nextAnswerBestAchId = yield call(
+        getNextAchievementId,
+        bestAnswersValue,
+        userAchievements,
+        bestAnswerArr,
+      );
+      const nextAnswerFirstAchId = yield call(
+        getNextAchievementId,
+        firstAnwersValue,
+        userAchievements,
+        firstAnswerArr,
+      );
+      const nextAnswerFirstIn15AchId = yield call(
+        getNextAchievementId,
+        firstIn15AnwersValue,
+        userAchievements,
+        firstIn15Arr,
+      );
+
+      const nextUserAchievements = {
+        [ratingRelated]: nextRatingAchId,
+        [uniqueRatingRelated]: nextUniqueRatingAch,
+        [questionAskedRelated]: nextQuestionAskedAchId,
+        [answerGivenRelated]: nextAnswerGivenAchId,
+        [bestAnswerRelated]: nextAnswerBestAchId,
+        [firstAnswerRelated]: nextAnswerFirstAchId,
+        [firstAnswerIn15Related]: nextAnswerFirstIn15AchId,
+      };
+
+      const userProgressValues = {
+        [ratingRelated]: userRating,
+        [questionAskedRelated]: questionsAskedValue,
+        [answerGivenRelated]: answersGivenValue,
+        [bestAnswerRelated]: bestAnswersValue,
+        [firstAnswerIn15Related]: firstIn15AnwersValue,
+        [firstAnswerRelated]: firstAnwersValue,
+      };
+
+      const memorizedAchievData = {
+        nextUserAchievements,
+        userProgressValues,
+        userAchievements,
+        projectAchievements,
+        profileInfo,
+      };
+
       yield put(
-        setNextUserAchievements({
-          [ratingRelated]: nextRatingAchId,
-          [uniqueRatingRelated]: nextUniqueRatingAch,
-          [questionAskedRelated]: nextQuestionAskedAchId,
-          [answerGivenRelated]: nextAnswerGivenAchId,
-          [bestAnswerRelated]: nextAnswerBestAchId,
-          [firstAnswerRelated]: nextAnswerFirstAchId,
-          [firstAnswerIn15Related]: nextAnswerFirstIn15AchId,
+        getUserAchievementsSuccess({
+          userAchievements,
+          projectAchievements,
+          nextUserAchievements,
+          userProgressValues,
         }),
       );
 
       yield put(
-        setUserProgressValues({
-          [ratingRelated]: userRating,
-          [questionAskedRelated]: questionsAskedValue,
-          [answerGivenRelated]: answersGivenValue,
-          [bestAnswerRelated]: answersBestValue,
-          [firstAnswerIn15Related]: firstAnwersValue,
-          [firstAnswerRelated]: firstIn15AnwersValue,
-        }),
+        setMemorizedAchievementData(viewProfileAccount, memorizedAchievData),
       );
-
-      yield put(setUserAchievementLoading(false));
-    } else
-      throw new Error(
-        `viewProfileAccount must be a string value, but got ${viewProfileAccount}`,
-      );
+    }
   } catch (err) {
     yield put(getUserAchievementsErr(err));
     yield put(setUserAchievementLoading(false));
   }
 }
 
-export function* updateUserAchCountWorker(account, userAchievementsCount) {
-  const cachedUserProfile = yield select(selectUsers(account));
-  let achievementsCount;
-
-  if (userAchievementsCount) {
-    achievementsCount = userAchievementsCount;
-  } else {
+export function* updateUserAchievementsWorker(
+  userAccount,
+  { updatedAchievements, updateRender = true } = {},
+) {
+  try {
     const eosService = yield select(selectEos);
-    const userAchievements = yield call(
-      getAchievements,
-      eosService,
-      USER_ACHIEVEMENTS_TABLE,
-      account,
+
+    // logged user achievements count changed
+
+    let userAchievements;
+
+    if (updatedAchievements) {
+      userAchievements = updatedAchievements;
+    } else {
+      userAchievements = yield call(
+        getAchievements,
+        eosService,
+        USER_ACHIEVEMENTS_TABLE,
+        userAccount,
+      );
+    }
+
+    const cachedUserAchievements = yield select(
+      selectUserAchievementsDCP(userAccount),
     );
-    achievementsCount = userAchievements.length;
-  }
-  if (
-    cachedUserProfile &&
-    cachedUserProfile.achievements_reached !== achievementsCount
-  ) {
-    yield put(updateUserAchievCount(account, achievementsCount));
+
+    if (cachedUserAchievements?.length !== userAchievements.length) {
+      yield put(updateCachedUserAchievements(userAccount, userAchievements));
+
+      const viewProfileAccount = yield select(selectViewProfileAccount());
+
+      // updated user achievements are currently displayed
+      if (viewProfileAccount === userAccount && updateRender)
+        yield put(getUserAchievements());
+    }
+  } catch (err) {
+    yield put(getUserAchievementsErr(err));
   }
 }
 

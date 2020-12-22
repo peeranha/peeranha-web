@@ -12,6 +12,8 @@ import ProgressBar from './ProgressBar';
 
 import messages from './messages';
 
+import { uniqueRatingRelated } from './constants';
+
 const ImageBlock = styled.div`
   margin-right: 15px;
   text-align: center;
@@ -19,6 +21,10 @@ const ImageBlock = styled.div`
 
 const TitleBlock = styled(Span)`
   display: block;
+
+  & > span {
+    font-weight: 600;
+  }
 `;
 
 const DescriptionBlock = styled(TitleBlock)`
@@ -68,15 +74,22 @@ const UniqueAchievement = ({
           <ProgressBar
             width="60%"
             progress={getProgress()}
-            message={`${pointsToNext} ${
-              translations[messages.progressBarPopover.ratingRelated.id]
-            }`}
+            pointsToNext={pointsToNext}
+            groupType={uniqueRatingRelated}
+            messageSingle={
+              translations[messages.progressBarPopover.ratingRelated.single.id]
+            }
+            messageMultiple={
+              translations[
+                messages.progressBarPopover.ratingRelated.multiple.id
+              ]
+            }
           />
         )}
       </ImageBlock>
       <div>
         <TitleBlock>
-          <strong>{title}</strong>
+          <span>{title}</span>
         </TitleBlock>
         <DescriptionBlock>
           {description}

@@ -6,7 +6,8 @@ import { getProfileInfo } from 'utils/profileManagement';
 import { getStat } from 'utils/statisticsManagement';
 import { getMD } from 'utils/mdManagement';
 import { setCookie } from 'utils/cookie';
-import { getUserAchievementsCount } from 'utils/achievementsManagement';
+import { getAchievements } from 'utils/achievementsManagement';
+import { USER_ACHIEVEMENTS_TABLE } from 'utils/constants';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
@@ -16,7 +17,7 @@ import { updateStoredQuestionsWorker } from 'containers/Questions/saga';
 
 import {
   LOGIN_WITH_EMAIL,
-  LOGIN_WITH_SCATTER,
+  LOGIN_WITH_WALLET,
   PROFILE_INFO_LS,
 } from 'containers/Login/constants';
 
@@ -105,13 +106,16 @@ export function* getUserProfileWorker({ user, getFullProfile }) {
     // take userProfile from STORE
     if (cachedUserInfo && !getFullProfile) {
       if (!cachedUserInfo.achievements_reached) {
-        const userAchievementsCount = yield getUserAchievementsCount(
-          user,
+        const userAchievements = yield call(
+          getAchievements,
           eosService,
+          USER_ACHIEVEMENTS_TABLE,
+          user,
         );
+
         const updatedUserInfo = {
           ...cachedUserInfo,
-          achievements_reached: userAchievementsCount,
+          achievements_reached: userAchievements,
         };
         setCookie({
           name: PROFILE_INFO_LS,
@@ -136,11 +140,13 @@ export function* getUserProfileWorker({ user, getFullProfile }) {
     );
 
     if (!updatedUserInfo.achievements_reached) {
-      const userAchievementsCount = yield getUserAchievementsCount(
-        user,
+      const userAchievements = yield call(
+        getAchievements,
         eosService,
+        USER_ACHIEVEMENTS_TABLE,
+        user,
       );
-      updatedUserInfo.achievements_reached = userAchievementsCount;
+      updatedUserInfo.achievements_reached = userAchievements;
     }
 
     if (
@@ -175,12 +181,7 @@ export default function*() {
   yield takeLatest(GET_FAQ, getFaqWorker);
   yield takeLatest(GET_TUTORIAL, getTutorialWorker);
   yield takeLatest(
-    [
-      LOGOUT_SUCCESS,
-      LOGIN_WITH_SCATTER,
-      LOGIN_WITH_EMAIL,
-      SAVE_PROFILE_SUCCESS,
-    ],
+    [LOGOUT_SUCCESS, LOGIN_WITH_WALLET, LOGIN_WITH_EMAIL, SAVE_PROFILE_SUCCESS],
     updateStoredQuestionsWorker,
   );
 }

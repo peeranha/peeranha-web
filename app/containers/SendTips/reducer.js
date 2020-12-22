@@ -7,13 +7,16 @@
 import { fromJS } from 'immutable';
 
 import {
-  ADD_TIPS_EOS_SERVICE,
+  ADD_TIPS_SCATTER_EOS_SERVICE,
+  ADD_TIPS_KEYCAT_EOS_SERVICE,
   HIDE_SEND_TIPS_MODAL,
-  REMOVE_SELECTED_ACCOUNT,
-  REMOVE_TIPS_EOS_SERVICE,
-  SELECT_ACCOUNT,
+  REMOVE_SELECTED_ACCOUNTS,
+  REMOVE_TIPS_EOS_SERVICES,
+  SELECT_SCATTER_ACCOUNT,
+  SELECT_KEYCAT_ACCOUNT,
   SELECT_ACCOUNT_ERROR,
-  SELECT_ACCOUNT_SUCCESS,
+  SELECT_KEYCAT_ACCOUNT_SUCCESS,
+  SELECT_SCATTER_ACCOUNT_SUCCESS,
   SEND_TIPS,
   SEND_TIPS_ERROR,
   SEND_TIPS_SUCCESS,
@@ -24,9 +27,12 @@ export const initialState = fromJS({
   showModal: '',
   sendTipsProcessing: false,
   sendTipsError: null,
-  selectedAccount: null,
-  tipsEosService: null,
+  selectedScatterAccount: null,
+  selectedKeycatAccount: null,
+  tipsScatterEosService: null,
+  tipsKeycatEosService: null,
   whoWillBeTipped: null,
+  selectAccountProcessing: false,
 });
 
 const sendTipsReducer = (state = initialState, action) => {
@@ -34,8 +40,10 @@ const sendTipsReducer = (state = initialState, action) => {
     type,
     sendTipsError,
     form,
-    selectedAccount,
-    tipsEosService,
+    selectedScatterAccount,
+    selectedKeycatAccount,
+    tipsScatterEosService,
+    tipsKeycatEosService,
     whoWillBeTipped,
   } = action;
 
@@ -56,25 +64,35 @@ const sendTipsReducer = (state = initialState, action) => {
         .set('sendTipsProcessing', false)
         .set('sendTipsError', sendTipsError);
 
-    case SELECT_ACCOUNT:
+    case SELECT_SCATTER_ACCOUNT:
+    case SELECT_KEYCAT_ACCOUNT:
       return state.set('selectAccountProcessing', true);
-    case SELECT_ACCOUNT_SUCCESS:
+    case SELECT_KEYCAT_ACCOUNT_SUCCESS:
       return state
         .set('selectAccountProcessing', false)
-        .set('selectedAccount', selectedAccount);
+        .set('selectedKeycatAccount', selectedKeycatAccount);
+    case SELECT_SCATTER_ACCOUNT_SUCCESS:
+      return state
+        .set('selectAccountProcessing', false)
+        .set('selectedScatterAccount', selectedScatterAccount);
     case SELECT_ACCOUNT_ERROR:
+      return state.set('selectAccountProcessing', false);
+
+    case REMOVE_SELECTED_ACCOUNTS:
       return state
-        .set('selectAccountProcessing', false)
-        .set('selectedAccount', null);
+        .set('selectedScatterAccount', null)
+        .set('selectedKeycatAccount', null);
 
-    case REMOVE_SELECTED_ACCOUNT:
-      return state.set('selectedAccount', null);
+    case ADD_TIPS_SCATTER_EOS_SERVICE:
+      return state.set('tipsScatterEosService', tipsScatterEosService);
 
-    case ADD_TIPS_EOS_SERVICE:
-      return state.set('tipsEosService', tipsEosService);
-    case REMOVE_TIPS_EOS_SERVICE:
-      return state.set('tipsEosService', null);
+    case ADD_TIPS_KEYCAT_EOS_SERVICE:
+      return state.set('tipsKeycatEosService', tipsKeycatEosService);
 
+    case REMOVE_TIPS_EOS_SERVICES:
+      return state
+        .set('tipsScatterEosService', null)
+        .set('tipsKeycatEosService', null);
     default:
       return state;
   }

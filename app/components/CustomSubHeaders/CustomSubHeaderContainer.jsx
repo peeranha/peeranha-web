@@ -9,11 +9,10 @@ const CUSTOM_SUB_HEADER_CONTAINER = {
   logo_right__menu_right: <LogoRightMenuRight />,
 };
 
-const CustomSubHeaderContainer = ({ design }) => {
-  return CUSTOM_SUB_HEADER_CONTAINER[design]
+const CustomSubHeaderContainer = ({ design }) =>
+  CUSTOM_SUB_HEADER_CONTAINER[design]
     ? CUSTOM_SUB_HEADER_CONTAINER[design]
     : '';
-};
 
 CustomSubHeaderContainer.propTypes = {
   design: PropTypes.string.isRequired,

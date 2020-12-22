@@ -26,7 +26,9 @@ export const userAnswers = userRedirect('#answers');
 export const userSettings = userRedirect('#settings');
 export const userNotifications = userRedirect('#notifications');
 export const userAchievements = userRedirect('#achievements');
+export const userModeration = userRedirect('#moderation');
 export const userWallet = userRedirect('/wallet');
+export const userBoost = userRedirect('/boost');
 export const uniqueAnswerId = answerId => `ans${answerId}`;
 
 export const questions = communityId =>
@@ -59,6 +61,7 @@ export const users = () => '/users';
 
 export const tutorial = code => `/tutorial/${code ? `#${code}` : ``}`;
 export const faq = code => `/faq/${code ? `#${code}` : ``}`;
+export const moderation = code => `#moderation${code ? `#${code}` : ``}`;
 export const support = section => `/support/${section ? `#${section}` : ''}`;
 export const search = q => `/search/${q || ''}`;
 

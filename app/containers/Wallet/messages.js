@@ -52,4 +52,16 @@ export default defineMessages({
   yourWalletWasSuccessfullySet: {
     id: 'app.containers.Wallet.yourWalletWasSuccessfullySet',
   },
+  getMoreWithBoost: {
+    id: 'app.containers.Wallet.getMoreWithBoost',
+  },
+  stakedInCurrentPeriod: {
+    id: 'app.containers.Wallet.stakedInCurrentPeriod',
+  },
+  stakedInNextPeriod: {
+    id: 'app.containers.Wallet.stakedInNextPeriod',
+  },
+  totalBalance: {
+    id: 'app.containers.Wallet.totalBalance',
+  },
 });

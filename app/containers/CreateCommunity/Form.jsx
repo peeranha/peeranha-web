@@ -1,4 +1,4 @@
-import React, { memo, useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Field, reduxForm, FormSection } from 'redux-form/immutable';
@@ -28,6 +28,7 @@ import TransparentButton from 'components/Button/Contained/Transparent';
 
 import {
   required,
+  strLength2x15,
   strLength3x20,
   strLength20x1000,
   strLength15x250,
@@ -209,12 +210,12 @@ const CreateCommunityForm = ({
                   component={TextInputField}
                   placeholder={translations[messages.tagTitle.id]}
                   validate={[
-                    strLength3x20,
+                    strLength2x15,
                     required,
                     valueHasNotBeInListMoreThanOneTime,
                   ]}
                   warn={[
-                    strLength3x20,
+                    strLength2x15,
                     required,
                     valueHasNotBeInListMoreThanOneTime,
                   ]}
@@ -273,7 +274,7 @@ CreateCommunityForm.propTypes = {
 };
 
 /* eslint import/no-mutable-exports: 0, consistent-return: 0 */
-const FormCloneRedux = reduxForm({
+let FormClone = reduxForm({
   form: FORM_NAME,
   onSubmitFail: err => {
     const errors = {
@@ -299,7 +300,6 @@ export default memo(
         form.values = { fuck: 'fuck' };
         return {
           valueHasNotBeInListValidate: tagNames,
-          formValues: form?.values ?? {},
         };
       }
       return {

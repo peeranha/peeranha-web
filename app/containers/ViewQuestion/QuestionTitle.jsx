@@ -88,7 +88,7 @@ export const QuestionTitle = ({
   } = questionData;
 
   const isItWrittenByMe = profileInfo ? user === profileInfo.user : false;
-  
+
   return title ? (
     <Base
       paddingTop="5"
@@ -98,7 +98,8 @@ export const QuestionTitle = ({
       withoutBR
     >
       <Top>
-        {(!profileInfo || (!!profileInfo && !isItWrittenByMe && !isTemporaryAccount)) && (
+        {((!profileInfo && !isTemporaryAccount) ||
+          (!!profileInfo && !isItWrittenByMe && !isTemporaryAccount)) && (
           <SendTips
             form="tip-question"
             questionId={id}

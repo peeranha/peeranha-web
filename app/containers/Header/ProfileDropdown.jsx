@@ -5,14 +5,17 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
-import { TEXT_PRIMARY } from 'style-constants';
+import { BORDER_SECONDARY, TEXT_PRIMARY } from 'style-constants';
+import { NO_AVATAR } from 'utils/constants';
 
 import * as routes from 'routes-config';
 import messages from 'common-messages';
+import { singleCommunityStyles } from 'utils/communityManagement';
 
 import logoutIcon from 'images/logout.svg?external';
 
 import { getUserAvatar } from 'utils/profileManagement';
+import userBodyIconAvatar from 'images/user2.svg?external';
 
 import Dropdown from 'components/Dropdown';
 import Ul from 'components/Ul/SpecialOne';
@@ -23,8 +26,11 @@ import AchievementsStatus from 'components/AchievementsStatus';
 import { MediumSpecialImage } from 'components/Img/MediumImage';
 import { IconLg } from 'components/Icon/IconWithSizes';
 import Logout from 'containers/Logout';
+import Icon from 'components/Icon/index';
 
 import { selectIsMenuVisible } from '../AppWrapper/selectors';
+
+const styles = singleCommunityStyles();
 
 const StatusBox = styled.span`
   display: inline-flex;
@@ -42,21 +48,61 @@ const Info = styled.span`
   }
 `;
 
-const B = ({ profileInfo, onClick, isMenuVisible }) => (
+const NoAvatarBox = styled.div`
+  width: 47px;
+  height: 47px;
+  border: ${({ isMobileVersion }) =>
+    (!isMobileVersion && styles.communityBorderStyle) ||
+    `1px solid ${BORDER_SECONDARY}`};
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const B = ({ profileInfo, onClick, isMenuVisible, isMobileVersion }) => (
   <span className="d-flex" onClick={onClick}>
-    <MediumSpecialImage
-      isBordered
-      src={getUserAvatar(profileInfo.ipfs_avatar)}
-      alt="ipfs_avatar"
-    />
+    {(!profileInfo.ipfs_avatar || profileInfo.ipfs_avatar === NO_AVATAR) && (
+      <NoAvatarBox isMobileVersion={isMobileVersion}>
+        <Icon
+          width="17"
+          height="19"
+          icon={userBodyIconAvatar}
+          specialStyles={!isMobileVersion && styles.dropDownIconStyles}
+        />
+      </NoAvatarBox>
+    )}
+    {profileInfo.ipfs_avatar &&
+      profileInfo.ipfs_avatar !== NO_AVATAR && (
+        <MediumSpecialImage
+          isBordered
+          customBorderStyle={!isMobileVersion && styles.communityBorderStyle}
+          src={getUserAvatar(profileInfo.ipfs_avatar)}
+          alt="ipfs_avatar"
+        />
+      )}
     <Info
       className="d-flex flex-column justify-content-center"
       isMenuVisible={isMenuVisible}
     >
-      <Span bold>{profileInfo?.['display_name']}</Span>
+      <Span bold color={(!isMobileVersion && styles.commHeadElemColor) || ''}>
+        {profileInfo?.['display_name']}
+      </Span>
       <StatusBox>
-        <RatingStatus rating={profileInfo.rating} size="sm" isRankOff />
-        <AchievementsStatus count={profileInfo.achievements_reached} />
+        <RatingStatus
+          rating={profileInfo.rating}
+          size="sm"
+          isRankOff
+          ratingNumColor={!isMobileVersion && styles.commHeadElemColor}
+          customRatingIconColors={
+            !isMobileVersion && styles.customRatingIconColors
+          }
+        />
+        <AchievementsStatus
+          count={profileInfo.achievements_reached?.length}
+          achievementsNumColor={!isMobileVersion && styles.commHeadElemColor}
+          achievIconStyles={!isMobileVersion && styles.achievIconStyles}
+        />
       </StatusBox>
     </Info>
   </span>
@@ -68,7 +114,7 @@ export const Button = connect(state => ({
 
 const Menu = memo(
   ({
-    profileInfo: { user },
+    profileInfo: { user, permissions },
     questionsLength,
     questionsWithUserAnswersLength,
   }) => (
@@ -103,6 +149,12 @@ const Menu = memo(
         <A to={routes.userAchievements(user)}>
           <FormattedMessage {...messages.achievements} />
         </A>
+        {permissions &&
+          !!permissions.length && (
+            <A to={routes.userModeration(user)}>
+              <FormattedMessage {...messages.moderation} />
+            </A>
+          )}
       </Ul>
 
       <Ul>
@@ -148,6 +200,7 @@ B.propTypes = {
   profileInfo: PropTypes.object,
   onClick: PropTypes.func,
   isMenuVisible: PropTypes.bool,
+  isMobileVersion: PropTypes.bool,
 };
 
 Button.propTypes = {

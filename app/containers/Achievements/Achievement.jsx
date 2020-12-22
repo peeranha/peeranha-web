@@ -30,6 +30,10 @@ const ImageBlock = styled.div`
 
 const TitleBlock = styled(Span)`
   display: block;
+
+  & > span {
+    font-weight: 600;
+  }
 `;
 
 const DescriptionBlock = styled(TitleBlock)`
@@ -80,15 +84,22 @@ const Achievement = ({
           <ProgressBar
             width="60%"
             progress={getProgress()}
-            message={`${pointsToNext} ${
-              translations[(messages.progressBarPopover[groupType]?.id)]
-            }`}
+            pointsToNext={pointsToNext}
+            groupType={groupType}
+            messageSingle={
+              translations[(messages.progressBarPopover[groupType]?.single.id)]
+            }
+            messageMultiple={
+              translations[
+                (messages.progressBarPopover[groupType]?.multiple.id)
+              ]
+            }
           />
         )}
       </ImageBlock>
       <div>
         <TitleBlock>
-          <strong>{title}</strong>
+          <span>{title}</span>
         </TitleBlock>
         <DescriptionBlock>{description}</DescriptionBlock>
       </div>

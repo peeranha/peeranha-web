@@ -9,8 +9,6 @@ import { makeSelectLocation } from 'containers/App/selectors';
 import Header from 'containers/Header';
 import LeftMenu from 'containers/LeftMenu';
 import Loader from 'components/LoadingIndicator/WidthCentered';
-import ScrollToTop from 'components/ScrollToTop';
-import { showScrollToTop } from 'components/ScrollToTop/utils';
 
 import { Main, WrapStyled } from './Box';
 import { selectIsMenuVisible } from './selectors';
@@ -43,10 +41,7 @@ const Box = ({
 
             <WrapStyled className={isMenuVisible ? 'd-none' : ''}>
               <React.Suspense fallback={<Loader />}>
-                <>
-                  <Comp {...props} />
-                  {showScrollToTop(location.pathname) && <ScrollToTop />}
-                </>
+                <Comp {...props} />
               </React.Suspense>
             </WrapStyled>
           </div>

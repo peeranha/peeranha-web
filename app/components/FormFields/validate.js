@@ -32,6 +32,26 @@ const stringLength = (min, max) => value => {
 };
 
 // TODO: test
+const numberValue = (min, max) => value => {
+  console.log(min, max, value);
+  let val = value;
+
+  let msg = messages.wrongLength.id;
+
+  // if (value && value.toJS) {
+  //   val = value.toJS();
+  // } else if (value && value.trim) {
+  //   val = value.trim().replace(/  +/g, ' ');
+  // } else if (value && value.map) {
+  //   msg = messages.wrongLengthOfList.id;
+  // }
+
+  return val && (val > max || val < min)
+    ? { id: msg, min, max }
+    : undefined;
+};
+
+// TODO: test
 const stringLengthMax = max => value => {
   const val =
     typeof value === 'string' ? value.trim().replace(/  +/g, ' ') : '';
@@ -74,14 +94,10 @@ const requiredForObjectField = value => {
   return !val || (val && !val.value) ? messages.requiredField : undefined;
 };
 
-const valueHasNotBeInList = (...args) => {
+const valueHasNotBeInList = () => (...args) => {
   const value = args[0];
   const list = args[2].valueHasNotBeInListValidate;
-
-  return list &&
-    list.find(
-      x => x && x.trim().toLowerCase() === value && value.trim().toLowerCase(),
-    )
+  return list && list.includes(value.toLowerCase())
     ? messages.itemAlreadyExists
     : undefined;
 };
@@ -208,4 +224,5 @@ export {
   telosNameLength,
   isTelosNameAvailable,
   atLeastOneLetter,
+  numberValue,
 };

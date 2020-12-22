@@ -51,6 +51,9 @@ import {
 } from '../../containers/CreateCommunity/constants';
 import Span from '../Span';
 import { PreviewWrapper } from '../AnswerForm';
+import createdHistory from '../../createdHistory';
+import * as routes from '../../routes-config';
+import { changeText } from '../../containers/Header/SearchForm';
 
 const single = isSingleCommunityWebsite();
 
@@ -111,6 +114,11 @@ export const QuestionForm = ({
     [formValues[FORM_TITLE]],
   );
 
+  const showMoreQuestions = e => {
+    e.preventDefault();
+    createdHistory.push(routes.search(formValues[FORM_TITLE]));
+  };
+
   return (
     <div>
       <Header formTitle={formTitle} questionId={questionid} intl={intl} />
@@ -156,7 +164,9 @@ export const QuestionForm = ({
                 <ExistingQuestions
                   questions={existingQuestions}
                   skip={skipExistingQuestions}
+                  show={showMoreQuestions}
                   intl={intl}
+                  communities={communities}
                 />
               )}
 
