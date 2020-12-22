@@ -265,6 +265,8 @@ export function convertPeerValueToNumberValue(val) {
 }
 
 export async function getGlobalBoostStatistics(eosService) {
+  return [];
+
   const limit = 100;
 
   const { rows } = await eosService.getTableRows(
@@ -282,6 +284,8 @@ export async function getGlobalBoostStatistics(eosService) {
 }
 
 export async function getUserBoostStatistics(eosService, user) {
+  return [];
+  
   const limit = 100;
 
   const { rows } = await eosService.getTableRows(
