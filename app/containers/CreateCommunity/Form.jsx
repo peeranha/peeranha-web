@@ -297,7 +297,6 @@ export default memo(
         const tagNames = Object.keys(tags)
           .filter(x => tags[x])
           .map(x => tags[x][TAG_NAME_FIELD]);
-        form.values = { fuck: 'fuck' };
         return {
           valueHasNotBeInListValidate: tagNames,
           formValues: form?.values ?? {},

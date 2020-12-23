@@ -150,9 +150,7 @@ export default injectIntl(
           [COMM_NAME_FIELD]: community.name,
           [COMM_SHORT_DESCRIPTION_FIELD]: community.description,
           [COMM_OFFICIAL_SITE_FIELD]: community.officialSite,
-          [FORM_TYPE]: community.integer_properties.find(
-            prop => prop.key === KEY_QUESTIONS_TYPE,
-          ).value,
+          [FORM_TYPE]: community.questionsType,
         }
       : {},
   }))(FormClone),
