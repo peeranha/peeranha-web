@@ -52,6 +52,7 @@ import {
   MIN_ENERGY_TO_CREATE_COMMUNITY,
   FORM_TYPE,
   STATE_KEY,
+  ANY_TYPE,
 } from './constants';
 
 import Form from './Form';
@@ -98,7 +99,7 @@ export const CreateCommunity = ({
       description: values[COMM_SHORT_DESCRIPTION_FIELD],
       main_description: values[COMM_MAIN_DESCRIPTION_FIELD],
       officialSite: values[COMM_OFFICIAL_SITE_FIELD],
-      questionsType: parseInt(values[FORM_TYPE] ?? 0),
+      questionsType: parseInt(values[FORM_TYPE] ?? ANY_TYPE),
       tags,
     };
     createCommunityDispatch(community, reset);
