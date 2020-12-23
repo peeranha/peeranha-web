@@ -33,6 +33,9 @@ import {
   EDIT_COMMUNITY_BUTTON,
   EDIT_COMMUNITY_FORM,
 } from './constants';
+import TypeForm from '../CreateCommunity/QuestionsTypeForm';
+import { FORM_TYPE } from '../CreateCommunity/constants';
+import { KEY_QUESTIONS_TYPE } from '../../components/QuestionForm/constants';
 
 const EditCommunityForm = ({
   communityId,
@@ -40,6 +43,9 @@ const EditCommunityForm = ({
   editCommunityDispatch,
   handleSubmit,
   intl,
+  change,
+  formValues,
+  locale,
 }) => {
   const editCommunity = useCallback(
     values => {
@@ -48,8 +54,8 @@ const EditCommunityForm = ({
         name: values.get(COMM_NAME_FIELD),
         description: values.get(COMM_SHORT_DESCRIPTION_FIELD),
         officialSite: values.get(COMM_OFFICIAL_SITE_FIELD),
+        questionsType: parseInt(values.get(FORM_TYPE)),
       };
-
       editCommunityDispatch(communityId, communityData);
     },
     [communityId, editCommunityDispatch],
@@ -100,6 +106,13 @@ const EditCommunityForm = ({
           tip={intl.formatMessage(messages.officialSiteTip)}
         />
 
+        <TypeForm
+          locale={locale}
+          change={change}
+          formValues={formValues}
+          intl={intl}
+        />
+
         <LargeButton
           id={EDIT_COMMUNITY_BUTTON}
           type="submit"
@@ -129,13 +142,17 @@ const FormClone = reduxForm({
 })(EditCommunityForm);
 
 export default injectIntl(
-  connect((_, { community }) => ({
+  connect((state, { community }) => ({
+    formValues: state.toJS()?.form[EDIT_COMMUNITY_FORM]?.values ?? {},
     initialValues: community
       ? {
           [COMM_AVATAR_FIELD]: community.avatar,
           [COMM_NAME_FIELD]: community.name,
           [COMM_SHORT_DESCRIPTION_FIELD]: community.description,
           [COMM_OFFICIAL_SITE_FIELD]: community.officialSite,
+          [FORM_TYPE]: community.integer_properties.find(
+            prop => prop.key === KEY_QUESTIONS_TYPE,
+          ).value,
         }
       : {},
   }))(FormClone),

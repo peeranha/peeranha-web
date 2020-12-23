@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect, useMemo } from 'react';
+import React, { memo, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -6,7 +6,11 @@ import { reduxForm } from 'redux-form/immutable';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 
 import commonMessages from 'common-messages';
-import { BORDER_PRIMARY, LINK_COLOR_SECONDARY } from 'style-constants';
+import {
+  BORDER_PRIMARY,
+  LINK_COLOR_SECONDARY,
+  TEXT_SECONDARY,
+} from 'style-constants';
 
 import icoTag from 'images/icoTag.svg?external';
 
@@ -30,6 +34,7 @@ import {
   FORM_CONTENT,
   FORM_COMMUNITY,
   FORM_TAGS,
+  KEY_QUESTIONS_TYPE,
 } from './constants';
 
 import Header from './Header';
@@ -40,6 +45,12 @@ import TypeForm from './TypeForm';
 import TitleForm from './TitleForm';
 import ContentForm from './ContentForm';
 import TagsForm from './TagsForm';
+import {
+  ANY_TYPE,
+  GENERAL_TYPE,
+} from '../../containers/CreateCommunity/constants';
+import Span from '../Span';
+import { PreviewWrapper } from '../AnswerForm';
 import createdHistory from '../../createdHistory';
 import * as routes from '../../routes-config';
 import { changeText } from '../../containers/Header/SearchForm';
@@ -83,7 +94,17 @@ export const QuestionForm = ({
   existingQuestions,
   doSkipExistingQuestions,
   skipExistingQuestions,
+  communityQuestionsType,
+  questionTypeExpertDescription,
+  questionTypeGeneralDescription,
 }) => {
+  const handleSubmitWithType = sendQuestion => {
+    if (communityQuestionsType !== ANY_TYPE) {
+      change(FORM_TYPE, communityQuestionsType);
+    }
+    return handleSubmit(sendQuestion);
+  };
+
   useEffect(
     () => {
       if (formValues[FORM_TITLE] && getQuestions) {
@@ -104,7 +125,7 @@ export const QuestionForm = ({
 
       <TipsBase>
         <BaseSpecialOne>
-          <FormBox onSubmit={handleSubmit(sendQuestion)}>
+          <FormBox onSubmit={handleSubmitWithType(sendQuestion)}>
             <CommunityForm
               intl={intl}
               communities={communities}
@@ -112,7 +133,7 @@ export const QuestionForm = ({
               questionLoading={questionLoading}
             />
 
-            {!questionid && (
+            {(communityQuestionsType === ANY_TYPE && (
               <TypeForm
                 intl={intl}
                 change={change}
@@ -120,7 +141,20 @@ export const QuestionForm = ({
                 locale={locale}
                 formValues={formValues}
               />
-            )}
+            )) ||
+              (communityQuestionsType === GENERAL_TYPE && (
+                <PreviewWrapper>
+                  <Span color={TEXT_SECONDARY} fontSize="14" isItalic>
+                    {questionTypeGeneralDescription}
+                  </Span>
+                </PreviewWrapper>
+              )) || (
+                <PreviewWrapper>
+                  <Span color={TEXT_SECONDARY} fontSize="14" isItalic>
+                    {questionTypeExpertDescription}
+                  </Span>
+                </PreviewWrapper>
+              )}
 
             <TitleForm intl={intl} questionLoading={questionLoading} />
 
@@ -202,49 +236,57 @@ const FormClone = reduxForm({
 export default memo(
   injectIntl(
     connect(
-      (state, { question, form: formName, communities }) => ({
-        formValues: state.toJS().form[formName]?.values ?? {},
-        initialValues: {
-          [FORM_TYPE]: QUESTION_TYPES.GENERAL.value,
-          ...(question
-            ? {
-                [FORM_TITLE]: question?.title,
-                [FORM_CONTENT]: question?.content,
-                [FORM_COMMUNITY]: {
-                  ...question?.community,
-                  tags: _uniqBy(
-                    question?.community?.tags?.concat(
-                      communities.find(
-                        ({ id }) => id === question?.community?.id,
-                      )?.tags,
-                    ),
-                    'id',
-                  ),
-                },
-                [FORM_TAGS]: question?.chosenTags,
-              }
-            : {}),
-          ...(single
-            ? {
-                [FORM_COMMUNITY]: {
-                  ...communities?.find(({ id }) => id === single),
-                  tags: _uniqBy(
-                    communities
-                      .find(({ id }) => id === single)
-                      ?.tags?.concat(
+      (state, { question, form: formName, communities }) => {
+        const questionsType = state
+          .toJS()
+          .form[formName]?.values[FORM_COMMUNITY]?.integer_properties.find(
+            prop => prop.key === KEY_QUESTIONS_TYPE,
+          )?.value;
+        return {
+          formValues: state.toJS().form[formName]?.values ?? {},
+          communityQuestionsType: questionsType ?? ANY_TYPE,
+          initialValues: {
+            [FORM_TYPE]: question?.type ?? QUESTION_TYPES.GENERAL.value,
+            ...(question
+              ? {
+                  [FORM_TITLE]: question?.title,
+                  [FORM_CONTENT]: question?.content,
+                  [FORM_COMMUNITY]: {
+                    ...question?.community,
+                    tags: _uniqBy(
+                      question?.community?.tags?.concat(
                         communities.find(
                           ({ id }) => id === question?.community?.id,
                         )?.tags,
-                      )
-                      .filter(x => x),
-                    'id',
-                  ),
-                },
-              }
-            : {}),
-        },
-        enableReinitialize: true,
-      }),
+                      ),
+                      'id',
+                    ),
+                  },
+                  [FORM_TAGS]: question?.chosenTags,
+                }
+              : {}),
+            ...(single
+              ? {
+                  [FORM_COMMUNITY]: {
+                    ...communities?.find(({ id }) => id === single),
+                    tags: _uniqBy(
+                      communities
+                        .find(({ id }) => id === single)
+                        ?.tags?.concat(
+                          communities.find(
+                            ({ id }) => id === question?.community?.id,
+                          )?.tags,
+                        )
+                        .filter(x => x),
+                      'id',
+                    ),
+                  },
+                }
+              : {}),
+          },
+          enableReinitialize: true,
+        };
+      },
       dispatch => ({
         redirectToCreateTagDispatch: bindActionCreators(
           redirectToCreateTag,

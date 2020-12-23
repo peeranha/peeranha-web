@@ -113,6 +113,7 @@
   "app.common.signUpViaWallet": "Регистрация через кошелек",
   "app.common.general": "Общий",
   "app.common.expert": "Экспертный",
+  "app.common.any": "Любой",
   "app.common.tipQuestion": "Чаевые",
   "app.common.chooseCrypto": "Выберите валюту",
   "app.common.chooseWallet": "Выберите кошелек",
@@ -177,8 +178,10 @@
   "app.containers.Wallet.yourWalletWasSuccessfullySet":
     "Ваш кошелёк был успешно настроен в этот период",
   "app.containers.Wallet.getMoreWithBoost": "Получите больше наград с Boost",
-  "app.containers.Wallet.stakedInCurrentPeriod": "Ставка, сделанная в текущем периоде",
-  "app.containers.Wallet.stakedInNextPeriod": "Ставка, сделанная на следующий период",
+  "app.containers.Wallet.stakedInCurrentPeriod":
+    "Ставка, сделанная в текущем периоде",
+  "app.containers.Wallet.stakedInNextPeriod":
+    "Ставка, сделанная на следующий период",
   "app.containers.Wallet.totalBalance": "Итоговый баланс",
 
   "app.containers.Boost.currentPeriod": "Текущий период",
@@ -194,7 +197,8 @@
   "app.containers.Boost.formBoostPrediction": "Boost прогноз",
   "app.containers.Boost.formCurrentStake": "Ваша ставка",
   "app.containers.Boost.formTakeAStake": "Сделайте ставку",
-  "app.containers.Boost.notTokensToStake": "У вас нет токенов, чтобы сделать ставку",
+  "app.containers.Boost.notTokensToStake":
+    "У вас нет токенов, чтобы сделать ставку",
 
   "web_integration.errors.unknownError":
     "Неизвестная ошибка. Пожалуйста, отправьте отчет об ошибке!",
@@ -444,6 +448,10 @@
   "app.containers.CreateCommunity.goToList": "Перейти к списку",
   "app.containers.CreateCommunity.maxTagsNumberReached":
     "Максимальное число тегов было достигнуто",
+  "app.containers.CreateCommunity.questionType": "Тип вопросов",
+  "app.containers.CreateCommunity.anyQuestionDescriptionLabel":
+    "Вы можете выбрать тип вопроса при его создании",
+  "app.containers.CreateCommunity.anyQuestionDescriptionList": [],
 
   "app.containers.EditCommunity.communityTitleTip": "Название сообщества",
   "app.containers.EditCommunity.description": "Описание EditCommunity",
@@ -848,6 +856,10 @@
   "app.containers.AskQuestion.title": "Задать вопрос",
   "app.containers.AskQuestion.description": "Задать вопрос | Описание",
   "app.containers.AskQuestion.postQuestion": "Отправить",
+  "app.container.AskQuestion.onlyExpertQuestionsAllowed":
+    "Вы можете задать только экспертный вопрос в этом комьюнити",
+  "app.container.AskQuestion.onlyGeneralQuestionsAllowed":
+    "Вы можете задать только общий вопрос в этом комьюнити",
 
   "app.containers.ErrorPage.title": "Возникла ошибка...",
   "app.containers.ErrorPage.description": "Возникла ошибка... описание",

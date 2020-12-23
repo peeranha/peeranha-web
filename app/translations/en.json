@@ -114,6 +114,7 @@
   "app.common.signUpViaWallet": "Sign up via wallet",
   "app.common.general": "General",
   "app.common.expert": "Expert",
+  "app.common.any": "Any",
   "app.common.tipQuestion": "Tip question",
   "app.common.chooseCrypto": "Choose Crypto",
   "app.common.chooseWallet": "Choose Wallet",
@@ -433,6 +434,10 @@
   "app.containers.CreateCommunity.goToList": "Go to list",
   "app.containers.CreateCommunity.maxTagsNumberReached":
     "Max tags number was reached",
+  "app.containers.CreateCommunity.questionsType": "Questions Type",
+  "app.containers.CreateCommunity.anyQuestionDescriptionLabel":
+    "You can choose the type of question when you are creating it.",
+  "app.containers.CreateCommunity.anyQuestionDescriptionList": [],
 
   "app.containers.EditCommunity.communityTitleTip": "Name of the community",
   "app.containers.EditCommunity.description": "Description of EditCommunity",
@@ -856,6 +861,10 @@
   "app.containers.AskQuestion.title": "Ask question",
   "app.containers.AskQuestion.description": "Ask question | Description",
   "app.containers.AskQuestion.postQuestion": "Post question",
+  "app.container.AskQuestion.onlyExpertQuestionsAllowed":
+    "You can ask only expert questions in this community",
+  "app.container.AskQuestion.onlyGeneralQuestionsAllowed":
+    "You can ask only general questions in this community",
 
   "app.containers.ErrorPage.title": "Some error occured...",
   "app.containers.ErrorPage.description": "Some error occured... description",

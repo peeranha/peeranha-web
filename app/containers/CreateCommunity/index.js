@@ -23,6 +23,9 @@ import Loader from 'components/LoadingIndicator/WidthCentered';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
+import {
+  makeSelectProfileInfo,
+} from 'containers/AccountProvider/selectors';
 
 import {
   WHAT_IS_COMMUNITY_QUESTION,
@@ -45,6 +48,9 @@ import {
   LANGUAGE_FIELD,
   TAG_DESCRIPTION_FIELD,
   COMM_AVATAR_FIELD,
+  MIN_RATING_TO_CREATE_COMMUNITY,
+  MIN_ENERGY_TO_CREATE_COMMUNITY,
+  FORM_TYPE,
   STATE_KEY,
 } from './constants';
 
@@ -64,6 +70,7 @@ export const CreateCommunity = ({
   isFormLoading,
   getFormDispatch,
   isFormAvailable,
+  profile,
 }) => {
   useEffect(() => {
     setDefaultStoreDispatch();
@@ -91,6 +98,7 @@ export const CreateCommunity = ({
       description: values[COMM_SHORT_DESCRIPTION_FIELD],
       main_description: values[COMM_MAIN_DESCRIPTION_FIELD],
       officialSite: values[COMM_OFFICIAL_SITE_FIELD],
+      questionsType: parseInt(values[FORM_TYPE] ?? 0),
       tags,
     };
     createCommunityDispatch(community, reset);
@@ -100,6 +108,8 @@ export const CreateCommunity = ({
     createCommunity: createCommunityMethod,
     createCommunityLoading,
     translations: translationMessages[locale],
+    locale,
+    profile,
   };
 
   const path = window.location.pathname + window.location.hash;
@@ -140,6 +150,7 @@ CreateCommunity.propTypes = {
   isFormLoading: PropTypes.bool,
   getFormDispatch: PropTypes.func.isRequired,
   isFromAvailable: PropTypes.bool,
+  profile: PropTypes.object,
 };
 
 const withConnect = connect(
@@ -152,6 +163,7 @@ const withConnect = connect(
     createCommunityLoading: selectors.selectCreateCommunityLoading(),
     isFormLoading: selectors.selectIsFormLoading(),
     isFormAvailable: selectors.selectIsFormAvailable(),
+    profile: makeSelectProfileInfo(),
   }),
   dispatch => ({
     createCommunityDispatch: bindActionCreators(createCommunity, dispatch),
