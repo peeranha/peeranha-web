@@ -16,6 +16,9 @@ export default defineMessages({
   wrongLengthMax: {
     id: 'app.components.FormFields.wrongLengthMax',
   },
+  wrongNumberRange: {
+    id: 'app.components.FormFields.wrongNumberRange',
+  },
   requiredField: {
     id: 'app.components.FormFields.requiredField',
   },

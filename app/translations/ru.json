@@ -642,6 +642,9 @@
   "app.containers.ViewQuestion.expertQuestion": "Экспертный вопрос",
   "app.containers.ViewQuestion.changeQuestionType": "Изменить тип",
   "app.containers.ViewQuestion.officialAnswer": "Официальный ответ",
+  "app.containers.ViewQuestion.getBounty": "Получить бонус",
+  "app.containers.ViewQuestion.bountyStatus": "Статус бонуса",
+  "app.containers.ViewQuestion.bountyStatusExpiration": "Бонус будет доступен до: ",
   "app.components.FormFields.requiredField":
     "Вы не можете оставить это поле пустым",
   "app.components.FormFields.wrongLength":
@@ -849,6 +852,7 @@
   "app.containers.Questions.description": "Описание",
   "app.containers.Questions.noQuestions": "Вопросов нет",
   "app.containers.Questions.allCommunities": "Все сообщества",
+  "app.containers.Questions.bountyPopover": "Дополнительное вознаграждение от автора вопроса.",
   "app.containers.Questions.youDontHaveFeedToRead": "У Вас пока нечего читать",
   "app.containers.Questions.subscribeToCommToKeep":
     "Подписывайтесь на сообщества, чтобы быть в курсе тем, в которых Вы заинтересованы.",
@@ -870,6 +874,14 @@
     "Чтобы избежать дублирования, проверьте существующие вопросы.",
   "app.containers.QuestionForm.questionBodyLabel": "Содержание",
   "app.containers.QuestionForm.communityLabel": "Сообщество",
+  "app.containers.QuestionForm.bountyLabel": "Бонусное вознаграждение",
+  "app.containers.QuestionForm.bountyDaysLabel": "Количество дней",
+  "app.containers.QuestionForm.bountyHoursLabel": "Количество часов",
+  "app.containers.QuestionForm.daysPlaceholder": "Дни",
+  "app.containers.QuestionForm.hoursPlaceholder": "Часы",
+  "app.containers.QuestionForm.bountyTip":  "Бонус за лучший ответ",
+  "app.containers.QuestionForm.bountyHoursTip": "Количество часов,в течение которого бонус активен",
+  "app.containers.QuestionForm.bountyDaysTip": "Количество дней,в течение которого бонус активен",
   "app.containers.QuestionForm.tagsLabel": "Теги",
   "app.containers.QuestionForm.previewLabel": "Предпросмотр",
   "app.containers.QuestionForm.questionType": "Тип вопроса",

@@ -58,6 +58,12 @@ export default defineMessages({
   bountyHoursTip: {
     id: 'app.containers.QuestionForm.bountyHoursTip',
   },
+  daysPlaceholder: {
+    id: 'app.containers.QuestionForm.daysPlaceholder',
+  },
+  hoursPlaceholder: {
+    id: 'app.containers.QuestionForm.hoursPlaceholder',
+  },
   questionType: {
     id: 'app.containers.QuestionForm.questionType',
   },

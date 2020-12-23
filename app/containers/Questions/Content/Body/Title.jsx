@@ -21,6 +21,7 @@ const Title = ({ locale, title, id, questionBounty }) => (
       bountyMessage={translationMessages[locale][messages.bountyPopover.id]}
       className="questionTitle"
       amount={questionBounty?.amount}
+      locale={locale}
     />
     <A to={routes.questionView(id, null)}>
       <Span

@@ -1,11 +1,14 @@
 import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
-import { APP_FONT } from 'style-constants';
-import Container from 'components/Labels/BountyLabel';
 
+import { APP_FONT } from 'style-constants';
+
+import Container from 'components/Labels/BountyLabel';
 import Span from 'components/Span';
+
 import { convertPeerValueToNumberValue } from 'utils/walletManagement';
 import { getFormattedDate } from 'utils/datetime';
+
 import {
   BOUNTY_STATUS_ACTIVE,
   BOUNTY_STATUS_PAID,
@@ -52,6 +55,7 @@ export const Bounty = ({
   timestamp,
   disabled,
   bountyMessage,
+  locale,
 }) => {
   const [visible, changeVisibility] = useState(false);
 
@@ -60,7 +64,7 @@ export const Bounty = ({
 
   const bounty = amount ? convertPeerValueToNumberValue(amount) : null;
   const time = timestamp
-    ? getFormattedDate(timestamp, 'en', MONTH_3LETTERS__DAY_TIME)
+    ? getFormattedDate(timestamp, locale, MONTH_3LETTERS__DAY_TIME)
     : null;
 
   let className = '';
@@ -84,7 +88,11 @@ export const Bounty = ({
       onMouseLeave={onMouseLeave}
     >
       {visible && (
-        <BountyPopover bountyMessage={bountyMessage} date={time} locale="en" />
+        <BountyPopover
+          bountyMessage={bountyMessage}
+          date={time}
+          locale={locale}
+        />
       )}
       <SpanStyled className={className} disabled={disabled}>
         +{bounty}
@@ -95,6 +103,7 @@ export const Bounty = ({
 
 Bounty.propTypes = {
   bountyMessage: PropTypes.string,
+  locale: PropTypes.string,
   amount: PropTypes.string,
   status: PropTypes.number,
   timestamp: PropTypes.number,

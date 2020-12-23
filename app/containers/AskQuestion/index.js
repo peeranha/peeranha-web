@@ -18,7 +18,10 @@ import injectReducer from 'utils/injectReducer';
 import Seo from 'components/Seo';
 import QuestionForm from 'components/QuestionForm';
 
-import { makeSelectAccount } from 'containers/AccountProvider/selectors';
+import {
+  makeSelectAccount,
+  makeSelectBalance,
+} from 'containers/AccountProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 
@@ -34,6 +37,7 @@ export const AskQuestion = ({
   locale,
   askQuestionLoading,
   communities,
+  balance,
   askQuestionDispatch,
   getQuestionsDispatch,
   existingQuestions,
@@ -57,6 +61,7 @@ export const AskQuestion = ({
 
       <QuestionForm
         locale={locale}
+        valueHasToBeLessThan={balance}
         form={ASK_QUESTION_FORM}
         formTitle={translationMessages[locale][messages.title.id]}
         submitButtonId={POST_QUESTION_BUTTON}
@@ -76,6 +81,7 @@ export const AskQuestion = ({
 AskQuestion.propTypes = {
   locale: PropTypes.string.isRequired,
   askQuestionLoading: PropTypes.bool.isRequired,
+  balance: PropTypes.number,
   askQuestionDispatch: PropTypes.func.isRequired,
   getQuestionsDispatch: PropTypes.func.isRequired,
   communities: PropTypes.array.isRequired,
@@ -86,6 +92,7 @@ const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
   account: makeSelectAccount(),
   communities: selectCommunities(),
+  balance: makeSelectBalance(),
   existingQuestions: askQuestionSelector.selectExistingQuestions(),
   askQuestionLoading: askQuestionSelector.selectAskQuestionLoading(),
 });

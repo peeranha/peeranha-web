@@ -1,7 +1,12 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { BG_LIGHT, BORDER_PRIMARY_LIGHT, TEXT_DARK } from 'style-constants';
+import {
+  BG_LIGHT,
+  BORDER_PRIMARY_LIGHT,
+  BORDER_RADIUS_L,
+  TEXT_DARK,
+} from 'style-constants';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
@@ -12,7 +17,7 @@ const Base = styled.div`
   text-align: left;
   z-index: 100;
   top: 30px;
-  border-radius: 5px;
+  border-radius: ${BORDER_RADIUS_L};
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
   padding: 15px;
 

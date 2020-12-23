@@ -641,11 +641,13 @@
   "app.containers.ViewQuestion.officialAnswer": "Official answer",
   "app.containers.ViewQuestion.getBounty": "Get bounty",
   "app.containers.ViewQuestion.bountyStatus": "Bounty Status",
-  "app.containers.ViewQuestion.bountyStatusExpiration": ["Bounty will expire: "],
+  "app.containers.ViewQuestion.bountyStatusExpiration": "Bounty will expire: ",
   "app.components.FormFields.requiredField":
     "You cannot leave this field empty",
   "app.components.FormFields.wrongLength":
     "Leave at least {min} char but no more than {max}",
+  "app.components.FormFields.wrongNumberRange":
+  "Should be at least {min} but no more than {max}",
   "app.components.FormFields.wrongExactLength":
     "Value must be {min} characters long",
   "app.components.FormFields.wrongLengthOfList":
@@ -878,6 +880,8 @@
   "app.containers.QuestionForm.bountyLabel": "Bounty",
   "app.containers.QuestionForm.bountyDaysLabel": "Bounty Days",
   "app.containers.QuestionForm.bountyHoursLabel": "Bounty Hours",
+  "app.containers.QuestionForm.daysPlaceholder": "Days",
+  "app.containers.QuestionForm.hoursPlaceholder": "Hours",
   "app.containers.QuestionForm.bountyTip":  "Bounty to the best answer",
   "app.containers.QuestionForm.bountyHoursTip": "Number of hours while bounty is active",
   "app.containers.QuestionForm.bountyDaysTip": "Number of days while bounty is active",

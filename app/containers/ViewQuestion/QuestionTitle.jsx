@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import commonMessages from 'common-messages';
 import { FormattedMessage } from 'react-intl';
 
-import { BUTTON_COLOR } from 'style-constants';
+import { BG_SUCCESS, BUTTON_COLOR } from 'style-constants';
 
 import checkIcon from 'images/okayGreen.svg?inline';
 import coinsIcon from 'images/coins.svg?external';
@@ -25,6 +25,12 @@ import { IconMd } from 'components/Icon/IconWithSizes';
 
 import { MarkAnswerNotification } from './MarkAsAcceptedIcon';
 import SendTips from '../SendTips';
+
+import {
+  BOUNTY_ACTIVE_CLASSNAME,
+  BOUNTY_PENDING_CLASSNAME,
+  BOUNTY_PAID_CLASSNAME,
+} from './constants';
 
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 
@@ -52,12 +58,12 @@ const Div = styled.div`
 const TitleContainer = styled.div`
   display: flex;
   align-items: center;
-  .bountyActive {
+  .${BOUNTY_ACTIVE_CLASSNAME} {
   }
-  .bountyPaid {
-    background-color: green;
+  .${BOUNTY_PAID_CLASSNAME} {
+    background-color: ${BG_SUCCESS};
   }
-  .bountyPending {
+  .${BOUNTY_PENDING_CLASSNAME} {
   }
 `;
 

@@ -7,9 +7,9 @@ import styled from 'styled-components';
 
 import {
   required,
-  maxBountyDaysLength,
-  maxBountyHoursLength,
   valueHasToBeLessThan,
+  number1x7,
+  number1x24,
 } from 'components/FormFields/validate';
 
 import {
@@ -41,24 +41,24 @@ const BountyDateForm = ({
         name={FORM_BOUNTY_DAYS}
         label={intl.formatMessage(messages.bountyDaysLabel)}
         tip={intl.formatMessage(messages.bountyDaysTip)}
-        placeholder="Days"
+        placeholder={intl.formatMessage(messages.daysPlaceholder)}
         dotRestriction={dotRestriction}
         component={NumberInputField}
         disabled={bountyDisabled}
-        validate={[required, valueHasToBeLessThan, maxBountyDaysLength]}
-        warn={[required, valueHasToBeLessThan, maxBountyDaysLength]}
+        validate={[required, valueHasToBeLessThan, number1x7]}
+        warn={[required, valueHasToBeLessThan, number1x7]}
         splitInHalf
       />
       <Field
         name={FORM_BOUNTY_HOURS}
         label={intl.formatMessage(messages.bountyHoursLabel)}
         tip={intl.formatMessage(messages.bountyHoursTip)}
-        placeholder="Hours"
+        placeholder={intl.formatMessage(messages.hoursPlaceholder)}
         dotRestriction={dotRestriction}
         component={NumberInputField}
         disabled={bountyDisabled}
-        validate={[required, valueHasToBeLessThan, maxBountyHoursLength]}
-        warn={[required, valueHasToBeLessThan, maxBountyHoursLength]}
+        validate={[required, valueHasToBeLessThan, number1x24]}
+        warn={[required, valueHasToBeLessThan, number1x24]}
         splitInHalf
       />
     </BountyContainer>
