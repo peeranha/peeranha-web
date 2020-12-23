@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import { APP_FONT } from 'style-constants';
+import { APP_FONT, PEER_PRIMARY_COLOR } from 'style-constants';
 
 import Container from 'components/Labels/BountyLabel';
 import Span from 'components/Span';
@@ -30,7 +30,7 @@ export const SpanStyled = Span.extend`
   align-items: center;
   padding: 5px 8px;
   margin-right: 10px;
-  background-color: #576fed;
+  background-color: ${PEER_PRIMARY_COLOR};
   border-radius: 20px;
   font-size: 20px;
   font-family: ${APP_FONT};

@@ -1,6 +1,4 @@
 {
-  "app.common.bountyStatus": "Bounty Status",
-
   "app.common.peeranha": "Peeranha",
   "app.common.copyrightPeeranha": "©{year} Peeranha",
   "app.common.profile": "Profile",
@@ -690,8 +688,6 @@
     "Telos name must contain at least one letter",
   "app.components.FormFields.exactFromAndToAccounts":
     "Sender and receiver cannot be the same",
-  "app.components.FormFields.wrongNumberOfDays": "Bounty cannot be set more than on 7 days",
-  "app.components.FormFields.wrongNumberOfHours": "Cannot be more than 24 hours",
   "app.containers.TagsCollection.title": "Tags collection",
   "app.containers.TagsCollection.description": "Tags Description",
 

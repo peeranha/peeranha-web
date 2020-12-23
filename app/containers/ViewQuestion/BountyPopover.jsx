@@ -1,13 +1,15 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { FormattedMessage } from 'react-intl';
+
 import {
   BG_LIGHT,
   BORDER_PRIMARY_LIGHT,
   BORDER_RADIUS_L,
   TEXT_DARK,
 } from 'style-constants';
-import { FormattedMessage } from 'react-intl';
+
 import messages from './messages';
 
 const Base = styled.div`

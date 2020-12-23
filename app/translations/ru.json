@@ -86,6 +86,7 @@
   "app.common.peers": "Пиры",
   "app.common.submit": "Подтвердить",
   "app.common.amount": "Количество",
+  "app.common.bounty": "Бонус",
   "app.common.password": "Пароль",
   "app.common.eosAccount": "Telos аккаунт",
   "app.common.successMessage": "Действие было выполнено успешно!",
@@ -647,6 +648,8 @@
   "app.containers.ViewQuestion.bountyStatusExpiration": "Бонус будет доступен до: ",
   "app.components.FormFields.requiredField":
     "Вы не можете оставить это поле пустым",
+  "app.components.FormFields.wrongNumberRange":
+  "Должно быть как минимум {min}, но не более {max}",
   "app.components.FormFields.wrongLength":
     "Оставьте не менее {min} и не более {max} символов",
   "app.components.FormFields.wrongExactLength":

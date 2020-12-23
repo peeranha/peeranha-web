@@ -22,6 +22,7 @@ import QuestionType from 'components/Labels/QuestionType';
 import QuestionCommunity from 'components/QuestionForProfilePage/QuestionCommunity';
 import Button from 'components/Button/Outlined/InfoMedium';
 import { IconMd } from 'components/Icon/IconWithSizes';
+import { Bounty } from './Bounty';
 
 import { MarkAnswerNotification } from './MarkAsAcceptedIcon';
 import SendTips from '../SendTips';
@@ -35,7 +36,6 @@ import {
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 
 import messages from './messages';
-import { Bounty } from './Bounty';
 
 const styles = singleCommunityStyles();
 
@@ -58,12 +58,8 @@ const Div = styled.div`
 const TitleContainer = styled.div`
   display: flex;
   align-items: center;
-  .${BOUNTY_ACTIVE_CLASSNAME} {
-  }
   .${BOUNTY_PAID_CLASSNAME} {
     background-color: ${BG_SUCCESS};
-  }
-  .${BOUNTY_PENDING_CLASSNAME} {
   }
 `;
 

@@ -8,12 +8,15 @@ import {
 } from 'utils/questionsManagement';
 
 import { setBounty } from 'utils/walletManagement';
+import { getResults } from 'utils/custom-search';
+import { getFormattedAsset } from 'utils/numbers';
 
 import { GET_RESULTS } from 'containers/Search/constants';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 
+import { ONE_DAY_IN_SECONDS, ONE_HOUR_IN_SECONDS } from 'utils/datetime';
 import {
   FORM_TITLE,
   FORM_CONTENT,
@@ -42,10 +45,6 @@ import {
   MIN_ENERGY_TO_POST_QUESTION,
   GET_EXISTING_QUESTIONS,
 } from './constants';
-
-import { getResults } from '../../utils/custom-search';
-import { getFormattedAsset } from '../../utils/numbers';
-import { ONE_DAY_IN_SECONDS, ONE_HOUR_IN_SECONDS } from '../../utils/datetime';
 
 export function* postQuestionWorker({ val }) {
   try {

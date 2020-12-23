@@ -2,15 +2,17 @@ import React, { memo, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form/immutable';
 import { intlShape } from 'react-intl';
-
 import styled from 'styled-components';
 
 import { valueHasToBeLessThan } from 'components/FormFields/validate';
 
-import { FORM_BOUNTY, FORM_COMMUNITY } from './constants';
-import messages from './messages';
+import { getFormattedNum3 } from 'utils/numbers';
+
 import NumberInputField from '../FormFields/NumberInputField';
-import { getFormattedNum3 } from '../../utils/numbers';
+
+import { FORM_BOUNTY, FORM_COMMUNITY } from './constants';
+
+import messages from './messages';
 
 const BountyContainer = styled.div`
   margin-top: 20px;
