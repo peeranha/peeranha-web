@@ -342,9 +342,6 @@ export default compose(
       if (!cryptoAccounts[CURRENCIES.TLOS.name]) {
         cryptoAccounts[CURRENCIES.TLOS.name] = profile.user;
       }
-      if (!cryptoAccounts[CURRENCIES.SQRL.name]) {
-        cryptoAccounts[CURRENCIES.SQRL.name] = profile.user;
-      }
 
       return {
         isMine,
