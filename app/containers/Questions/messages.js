@@ -40,4 +40,7 @@ export default defineMessages({
   showAllQuestions: {
     id: 'app.containers.Questions.showAllQuestions',
   },
+  bountyPopover: {
+    id: 'app.containers.Questions.bountyPopover',
+  },
 });

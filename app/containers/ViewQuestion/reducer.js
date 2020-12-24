@@ -44,11 +44,19 @@ import {
   CHANGE_QUESTION_TYPE,
   CHANGE_QUESTION_TYPE_SUCCESS,
   CHANGE_QUESTION_TYPE_ERROR,
+  PAY_BOUNTY,
+  PAY_BOUNTY_SUCCESS,
+  PAY_BOUNTY_ERROR,
+  GET_QUESTION_BOUNTY,
+  GET_QUESTION_BOUNTY_SUCCESS,
+  GET_QUESTION_BOUNTY_ERROR,
 } from './constants';
 
 export const initialState = fromJS({
   questionData: null,
+  questionBounty: null,
   getQuestionDataError: null,
+  getQuestionBountyError: null,
   questionDataLoading: true,
   postAnswerLoading: false,
   postAnswerError: null,
@@ -77,7 +85,9 @@ function viewQuestionReducer(state = initialState, action) {
   const {
     type,
     questionData,
+    questionBounty,
     getQuestionDataError,
+    getQuestionBountyError,
     postAnswerError,
     postCommentError,
     upVoteError,
@@ -261,6 +271,31 @@ function viewQuestionReducer(state = initialState, action) {
       return state
         .set('changeQuestionTypeLoading', false)
         .set('ids', state.toJS().ids.filter(x => x !== buttonId));
+
+    case PAY_BOUNTY:
+      return state
+        .set('giveBountyLoading', true)
+        .set('ids', [...state.toJS().ids, buttonId]);
+    case PAY_BOUNTY_SUCCESS:
+      return state
+        .set('giveBountyLoading', false)
+        .set('ids', state.toJS().ids.filter(x => x !== buttonId));
+    case PAY_BOUNTY_ERROR:
+      return state
+        .set('giveBountyLoading', false)
+        .set('ids', state.toJS().ids.filter(x => x !== buttonId));
+
+    case GET_QUESTION_BOUNTY:
+      return state.set('questionBountyLoading', true);
+    case GET_QUESTION_BOUNTY_SUCCESS:
+      return state
+        .set('questionBountyLoading', false)
+        .set('questionBounty', questionBounty);
+    case GET_QUESTION_BOUNTY_ERROR:
+      return state
+        .set('questionBounty', null)
+        .set('questionBountyLoading', false)
+        .set('getQuestionBountyError', getQuestionBountyError);
 
     case RESET_STORE:
       return initialState;

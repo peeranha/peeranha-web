@@ -80,6 +80,11 @@ export const selectComment = (answerId, commentId) =>
     return answer.comments.filter(x => x.id === commentId)[0];
   });
 
+const selectQuestionBounty = () =>
+  createSelector(selectViewQuestionDomain, substate =>
+    substate.get('questionBounty'),
+  );
+
 const selectQuestionDataError = () =>
   createSelector(selectViewQuestionDomain, substate =>
     substate.get('getQuestionDataError'),
@@ -208,6 +213,7 @@ const selectIds = () =>
 export {
   selectViewQuestionDomain,
   selectQuestionData,
+  selectQuestionBounty,
   selectQuestionDataError,
   selectQuestionDataLoading,
   selectPostAnswerError,

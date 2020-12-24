@@ -83,6 +83,7 @@ import {
   selectTopQuestionIds,
   isQuestionTop,
 } from './selectors';
+import { getQuestionBounty } from '../../utils/walletManagement';
 
 const feed = routes.feed();
 const single = isSingleCommunityWebsite();
@@ -148,6 +149,13 @@ export function* getQuestionsWorker({
           : [question],
       );
     });
+
+    yield all(
+      questionsList.map(function*(question) {
+        const bounty = yield call(getQuestionBounty, question.id, eosService);
+        question.questionBounty = bounty;
+      }),
+    );
 
     // To avoid of fetching same user profiles - remember it and to write userInfo here
 

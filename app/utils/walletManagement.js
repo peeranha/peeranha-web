@@ -3,7 +3,11 @@ import { getFormattedNum3 } from './numbers';
 
 import {
   ACCOUNTS_TABLE,
+  ALL_BOUNTIES_SCOPE,
   ALL_PERIODS_SCOPE,
+  BOUNTY_TABLE,
+  SET_BOUNTY_METHOD,
+  PAY_BOUNTY_METHOD,
   INF_LIMIT,
   PERIOD_RATING_TABLE,
   PERIOD_REWARD_TABLE,
@@ -12,6 +16,7 @@ import {
   TOTAL_RATING_TABLE,
   TOTAL_REWARD_TABLE,
   USER_SUPPLY_SCOPE,
+  ALL_USER_BOUNTIES_SCOPE,
   USER_SUPPLY_TABLE,
   BOOST_STATISTICS_TABLE,
   BOOST_STATISTICS_SCOPE,
@@ -223,6 +228,51 @@ export async function pickupReward(eosService, user, periodIndex) {
     process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
     true,
   );
+}
+
+export async function setBounty(
+  user,
+  bounty,
+  questionId,
+  timestamp,
+  eosService,
+) {
+  await eosService.sendTransaction(
+    user,
+    SET_BOUNTY_METHOD,
+    {
+      user,
+      bounty,
+      question_id: questionId,
+      timestamp,
+    },
+    process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
+    true,
+  );
+}
+
+export async function payBounty(user, questionId, isDeleted, eosService) {
+  await eosService.sendTransaction(
+    user,
+    PAY_BOUNTY_METHOD,
+    {
+      user,
+      question_id: questionId,
+      on_delete: +isDeleted,
+    },
+    process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
+    true,
+  );
+}
+
+export async function getQuestionBounty(questionId, eosService) {
+  const bountyrow = await eosService.getTableRow(
+    BOUNTY_TABLE,
+    ALL_BOUNTIES_SCOPE,
+    questionId,
+    process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
+  );
+  return bountyrow;
 }
 
 export function getNormalizedCurrency(quantity, precision, symbol) {

@@ -7,17 +7,25 @@ import {
   getQuestionsPostedByUser,
 } from 'utils/questionsManagement';
 
+import { setBounty } from 'utils/walletManagement';
+import { getResults } from 'utils/custom-search';
+import { getFormattedAsset } from 'utils/numbers';
+
 import { GET_RESULTS } from 'containers/Search/constants';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 
+import { ONE_DAY_IN_SECONDS, ONE_HOUR_IN_SECONDS } from 'utils/datetime';
 import {
   FORM_TITLE,
   FORM_CONTENT,
   FORM_COMMUNITY,
   FORM_TAGS,
   FORM_TYPE,
+  FORM_BOUNTY,
+  FORM_BOUNTY_DAYS,
+  FORM_BOUNTY_HOURS,
 } from 'components/QuestionForm/constants';
 
 import { isAuthorized, isValid } from 'containers/EosioProvider/saga';
@@ -38,8 +46,6 @@ import {
   GET_EXISTING_QUESTIONS,
 } from './constants';
 
-import { getResults } from '../../utils/custom-search';
-
 export function* postQuestionWorker({ val }) {
   try {
     const eosService = yield select(selectEos);
@@ -51,18 +57,37 @@ export function* postQuestionWorker({ val }) {
       content: val[FORM_CONTENT],
       chosenTags: val[FORM_TAGS],
       type: +val[FORM_TYPE],
+      bounty: +val[FORM_BOUNTY],
+      bountyFull: `${getFormattedAsset(+val[FORM_BOUNTY])} PEER`,
+      bountyDays: +val[FORM_BOUNTY_DAYS],
+      bountyHours: +val[FORM_BOUNTY_HOURS],
       community,
     };
-
     yield call(postQuestion, selectedAccount, questionData, eosService);
-
-    yield put(askQuestionSuccess());
 
     const questionsPostedByUser = yield call(
       getQuestionsPostedByUser,
       eosService,
       selectedAccount,
     );
+
+    if (val[FORM_BOUNTY]) {
+      const now = Math.round(new Date().valueOf() / 1000);
+      const bountyTime =
+        now +
+        questionData.bountyDays * ONE_DAY_IN_SECONDS +
+        questionData.bountyHours * ONE_HOUR_IN_SECONDS;
+
+      yield call(
+        setBounty,
+        selectedAccount,
+        questionData.bountyFull,
+        questionsPostedByUser[0].question_id,
+        bountyTime,
+        eosService,
+      );
+    }
+    yield put(askQuestionSuccess());
 
     yield call(
       createdHistory.push,

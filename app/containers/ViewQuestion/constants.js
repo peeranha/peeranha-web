@@ -62,6 +62,16 @@ export const CHANGE_QUESTION_TYPE_SUCCESS =
 export const CHANGE_QUESTION_TYPE_ERROR =
   'app/ViewQuestion/CHANGE_QUESTION_TYPE_ERROR';
 
+export const PAY_BOUNTY = 'app/ViewQuestion/GIVE_BOUNTY';
+export const PAY_BOUNTY_SUCCESS = 'app/ViewQuestion/GIVE_BOUNTY_SUCCESS';
+export const PAY_BOUNTY_ERROR = 'app/ViewQuestion/GIVE_BOUNTY_ERROR';
+
+export const GET_QUESTION_BOUNTY = 'app/ViewQuestion/GET_QUESTION_BOUNTY';
+export const GET_QUESTION_BOUNTY_SUCCESS =
+  'app/ViewQuestion/GET_QUESTION_BOUNTY_SUCCESS';
+export const GET_QUESTION_BOUNTY_ERROR =
+  'app/ViewQuestion/GET_QUESTION_BOUNTY_ERROR';
+
 export const MARK_AS_ACCEPTED = 'app/ViewQuestion/MARK_AS_ACCEPTED';
 export const MARK_AS_ACCEPTED_SUCCESS =
   'app/ViewQuestion/MARK_AS_ACCEPTED_SUCCESS';
@@ -88,6 +98,10 @@ export const commentsOpened = 'opened';
 export const QUESTION_TYPE = 'app_viewQuestion_QUESTION_TYPE';
 export const ANSWER_TYPE = 'app_viewQuestion_ANSWER_TYPE';
 export const COMMENT_TYPE = 'app_viewQuestion_COMMENT_TYPE';
+
+export const BOUNTY_ACTIVE_CLASSNAME = 'bountyActive';
+export const BOUNTY_PAID_CLASSNAME = 'bountyPaid';
+export const BOUNTY_PENDING_CLASSNAME = 'bountyPending';
 
 export const QUESTION_PROPERTIES = {
   LAST_EDITED_KEY: 3,

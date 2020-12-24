@@ -31,6 +31,7 @@ export const Content = props => {
         isItWrittenByMe={props.isItWrittenByMe}
         user={props.userInfo.user}
         questionData={props.questionData}
+        questionBounty={props.questionBounty}
         isTemporaryAccount={isTemporaryAccount}
       />
       <ContentBody {...props} />
@@ -41,6 +42,7 @@ export const Content = props => {
 Content.propTypes = {
   userInfo: PropTypes.object,
   questionData: PropTypes.object,
+  questionBounty: PropTypes.object,
   locale: PropTypes.string,
   title: PropTypes.string,
   className: PropTypes.string,

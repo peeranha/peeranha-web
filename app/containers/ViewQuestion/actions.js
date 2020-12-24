@@ -19,9 +19,15 @@ import {
   DOWN_VOTE,
   DOWN_VOTE_ERROR,
   DOWN_VOTE_SUCCESS,
+  GET_QUESTION_BOUNTY,
+  GET_QUESTION_BOUNTY_ERROR,
+  GET_QUESTION_BOUNTY_SUCCESS,
   GET_QUESTION_DATA,
   GET_QUESTION_DATA_ERROR,
   GET_QUESTION_DATA_SUCCESS,
+  PAY_BOUNTY,
+  PAY_BOUNTY_ERROR,
+  PAY_BOUNTY_SUCCESS,
   MARK_AS_ACCEPTED,
   MARK_AS_ACCEPTED_ERROR,
   MARK_AS_ACCEPTED_SUCCESS,
@@ -355,6 +361,43 @@ export const changeQuestionTypeErr = (changeQuestionTypeError, buttonId) => ({
   changeQuestionTypeError,
   buttonId,
 });
+
+export const payBounty = event => ({
+  type: PAY_BOUNTY,
+  buttonId: event.currentTarget.id,
+});
+
+export const payBountySuccess = buttonId => ({
+  type: PAY_BOUNTY_SUCCESS,
+  buttonId,
+});
+
+export const payBountyError = (giveBountyErr, buttonId) => ({
+  type: PAY_BOUNTY_ERROR,
+  giveBountyErr,
+  buttonId,
+});
+
+export function getQuestionBounty(questionId) {
+  return {
+    type: GET_QUESTION_BOUNTY,
+    questionId,
+  };
+}
+
+export function getQuestionBountySuccess(questionBounty) {
+  return {
+    type: GET_QUESTION_BOUNTY_SUCCESS,
+    questionBounty,
+  };
+}
+
+export function getQuestionBountyErr(getQuestionBountyError) {
+  return {
+    type: GET_QUESTION_BOUNTY_ERROR,
+    getQuestionBountyError,
+  };
+}
 
 export const setVoteToDeleteLoading = voteToDeleteLoading => ({
   type: SET_VOTE_TO_DELETE_LOADING,

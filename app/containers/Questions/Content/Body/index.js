@@ -21,6 +21,7 @@ const Body = ({
   communities,
   tags,
   profileInfo,
+  questionBounty,
   isGeneral,
   isTopQuestion,
   topQuestionsCount,
@@ -43,7 +44,12 @@ const Body = ({
 
     <QuestionType locale={locale} isGeneral={isGeneral} />
 
-    <Title title={title} id={id} />
+    <Title
+      locale={locale}
+      title={title}
+      id={id}
+      questionBounty={questionBounty}
+    />
 
     <UserInfo
       user={user}
@@ -71,6 +77,7 @@ Body.propTypes = {
   communities: PropTypes.array,
   tags: PropTypes.array,
   profileInfo: PropTypes.object,
+  questionBounty: PropTypes.object,
   isGeneral: PropTypes.bool,
   isModerator: PropTypes.bool,
   isTopQuestion: PropTypes.bool,

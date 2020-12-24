@@ -30,6 +30,7 @@ import {
   upVote,
   voteToDelete,
 } from 'utils/questionsManagement';
+import { getQuestionBounty, payBounty } from 'utils/walletManagement';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { ACCOUNT_TABLE, ALL_ACCOUNTS_SCOPE } from 'utils/constants';
 
@@ -69,6 +70,7 @@ import {
   DOWN_VOTE_SUCCESS,
   GET_QUESTION_DATA,
   GET_QUESTION_DATA_SUCCESS,
+  PAY_BOUNTY,
   ITEM_DNV_FLAG,
   ITEM_UPV_FLAG,
   ITEM_VOTED_TO_DEL_FLAG,
@@ -101,8 +103,11 @@ import {
   deleteQuestionSuccess,
   downVoteErr,
   downVoteSuccess,
+  getQuestionBountySuccess,
   getQuestionDataErr,
   getQuestionDataSuccess,
+  payBountyError,
+  payBountySuccess,
   markAsAcceptedErr,
   markAsAcceptedSuccess,
   postAnswerErr,
@@ -118,7 +123,7 @@ import {
   voteToDeleteSuccess,
 } from './actions';
 
-import { selectQuestionData } from './selectors';
+import { selectQuestionBounty, selectQuestionData } from './selectors';
 
 import {
   deleteAnswerValidator,
@@ -156,7 +161,8 @@ export function* getQuestionData({
       return null;
     }
   }
-
+  const bounty = yield call(getQuestionBounty, questionId, eosService);
+  yield put(getQuestionBountySuccess(bounty));
   question.isGeneral = isGeneralQuestion(question.properties);
 
   const getItemStatus = (historyFlag, constantFlag) =>
@@ -267,6 +273,7 @@ export function* getParams() {
   const locale = yield select(makeSelectLocale());
   const profileInfo = yield select(makeSelectProfileInfo());
   const account = yield select(makeSelectAccount());
+  const questionBounty = yield select(selectQuestionBounty());
 
   return {
     questionData,
@@ -274,6 +281,7 @@ export function* getParams() {
     locale,
     account,
     profileInfo,
+    questionBounty,
   };
 }
 
@@ -408,21 +416,27 @@ export function* deleteAnswerWorker({ questionId, answerId, buttonId }) {
 
 export function* deleteQuestionWorker({ questionId, buttonId }) {
   try {
-    const { questionData, eosService, locale, profileInfo } = yield call(
-      getParams,
-    );
-
-    yield call(
-      isAvailableAction,
-      () =>
-        deleteQuestionValidator(
-          buttonId,
-          questionData.answers.length,
-          translationMessages[locale],
-          profileInfo,
-        ),
+    const {
+      questionData,
+      eosService,
+      locale,
+      profileInfo,
+      questionBounty,
+    } = yield call(getParams);
+    
+    yield call(isAvailableAction, () =>
+      deleteQuestionValidator(
+        buttonId,
+        questionData.answers.length,
+        translationMessages[locale],
+        profileInfo,
+      ),
       questionData.community_id,
     );
+    if (questionBounty) {
+      yield call(payBounty, profileInfo?.user, questionId, true, eosService);
+      yield put(payBountySuccess(buttonId));
+    }
 
     yield call(deleteQuestion, profileInfo.user, questionId, eosService);
 
@@ -958,6 +972,22 @@ function* changeQuestionTypeWorker({ buttonId }) {
   }
 }
 
+function* payBountyWorker({ buttonId }) {
+  try {
+    const { questionData, eosService, profileInfo } = yield call(getParams);
+    yield call(
+      payBounty,
+      profileInfo?.user,
+      questionData?.id,
+      false,
+      eosService,
+    );
+    yield put(payBountySuccess(buttonId));
+  } catch (err) {
+    yield put(payBountyError(err, buttonId));
+  }
+}
+
 export function* updateQuestionList({ questionData }) {
   if (questionData?.id) {
     yield put(getUniqQuestions([questionData]));
@@ -977,6 +1007,7 @@ export default function*() {
   yield takeEvery(SAVE_COMMENT, saveCommentWorker);
   yield takeEvery(VOTE_TO_DELETE, voteToDeleteWorker);
   yield takeEvery(CHANGE_QUESTION_TYPE, changeQuestionTypeWorker);
+  yield takeEvery(PAY_BOUNTY, payBountyWorker);
   yield takeEvery(
     [
       POST_COMMENT_SUCCESS,

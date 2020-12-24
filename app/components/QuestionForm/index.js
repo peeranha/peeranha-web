@@ -2,7 +2,7 @@ import React, { memo, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { reduxForm } from 'redux-form/immutable';
+import { Field, reduxForm } from 'redux-form/immutable';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 
 import commonMessages from 'common-messages';
@@ -34,6 +34,10 @@ import {
   FORM_CONTENT,
   FORM_COMMUNITY,
   FORM_TAGS,
+  FORM_BOUNTY,
+  FORM_BOUNTY_DAYS,
+  FORM_BOUNTY_HOURS,
+  DEFAULT_DOT_RESTRICTION,
   KEY_QUESTIONS_TYPE,
 } from './constants';
 
@@ -45,6 +49,10 @@ import TypeForm from './TypeForm';
 import TitleForm from './TitleForm';
 import ContentForm from './ContentForm';
 import TagsForm from './TagsForm';
+
+import BountyForm from './BountyForm';
+import BountyDateForm from './BountyDateForm';
+
 import {
   ANY_TYPE,
   GENERAL_TYPE,
@@ -188,6 +196,22 @@ export const QuestionForm = ({
               redirectToCreateTagDispatch={redirectToCreateTagDispatch}
             />
 
+            <BountyForm
+              intl={intl}
+              questionLoading={questionLoading}
+              formValues={formValues}
+              change={change}
+              dotRestriction={DEFAULT_DOT_RESTRICTION}
+            />
+
+            <BountyDateForm
+              intl={intl}
+              questionLoading={questionLoading}
+              formValues={formValues}
+              change={change}
+              show={!!formValues[FORM_BOUNTY]}
+            />
+
             <Button
               disabled={questionLoading}
               id={submitButtonId}
@@ -263,6 +287,9 @@ export default memo(
                     ),
                   },
                   [FORM_TAGS]: question?.chosenTags,
+                  [FORM_BOUNTY]: question?.bounty,
+                  [FORM_BOUNTY_DAYS]: question?.bountyDays,
+                  [FORM_BOUNTY_HOURS]: question?.bountyHours,
                 }
               : {}),
             ...(single

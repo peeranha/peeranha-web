@@ -31,6 +31,13 @@ const stringLength = (min, max) => value => {
     : undefined;
 };
 
+const numberRange = (min, max) => value => {
+  const val = value;
+  const msg = messages.wrongNumberRange.id;
+
+  return val && (val > max || val < min) ? { id: msg, min, max } : undefined;
+};
+
 // TODO: test
 const numberValue = (min, max) => value => {
   console.log(min, max, value);
@@ -194,6 +201,8 @@ const strLength15x100 = stringLength(15, 100);
 const strLength15x250 = stringLength(15, 250);
 const strLength20x1000 = stringLength(20, 1000);
 const strLength25x30000 = stringLength(25, 30000);
+const number1x7 = numberRange(1, 7);
+const number1x24 = numberRange(1, 24);
 
 export {
   imageValidation,
@@ -213,6 +222,8 @@ export {
   strLength15x250,
   strLength20x1000,
   strLength25x30000,
+  number1x7,
+  number1x24,
   valueHasNotBeInList,
   valueHasToBeLessThan,
   comparePasswords,
