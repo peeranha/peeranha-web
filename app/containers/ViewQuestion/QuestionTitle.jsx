@@ -113,7 +113,8 @@ export const QuestionTitle = ({
       withoutBR
     >
       <Top>
-        {(!profileInfo || (!!profileInfo && !isItWrittenByMe && !isTemporaryAccount)) && (
+        {((!profileInfo && !isTemporaryAccount) ||
+          (!!profileInfo && !isItWrittenByMe && !isTemporaryAccount)) && (
           <SendTips
             form="tip-question"
             questionId={id}

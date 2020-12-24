@@ -88,6 +88,8 @@ import {
   UP_VOTE_SUCCESS,
   VOTE_TO_DELETE,
   VOTE_TO_DELETE_SUCCESS,
+  QUESTION_TYPE,
+  ANSWER_TYPE,
 } from './constants';
 
 import {
@@ -114,6 +116,7 @@ import {
   postCommentSuccess,
   saveCommentErr,
   saveCommentSuccess,
+  setVoteToDeleteLoading,
   upVoteErr,
   upVoteSuccess,
   voteToDeleteErr,
@@ -341,12 +344,15 @@ export function* deleteCommentWorker({
       getParams,
     );
 
-    yield call(isAvailableAction, () =>
-      deleteCommentValidator(
-        profileInfo,
-        buttonId,
-        translationMessages[locale],
-      ),
+    yield call(
+      isAvailableAction,
+      () =>
+        deleteCommentValidator(
+          profileInfo,
+          buttonId,
+          translationMessages[locale],
+        ),
+      questionData.community_id,
     );
 
     yield call(
@@ -379,14 +385,17 @@ export function* deleteAnswerWorker({ questionId, answerId, buttonId }) {
       getParams,
     );
 
-    yield call(isAvailableAction, () =>
-      deleteAnswerValidator(
-        buttonId,
-        answerId,
-        questionData.correct_answer_id,
-        translationMessages[locale],
-        profileInfo,
-      ),
+    yield call(
+      isAvailableAction,
+      () =>
+        deleteAnswerValidator(
+          buttonId,
+          answerId,
+          questionData.correct_answer_id,
+          translationMessages[locale],
+          profileInfo,
+        ),
+      questionData.community_id,
     );
 
     yield call(
@@ -414,6 +423,7 @@ export function* deleteQuestionWorker({ questionId, buttonId }) {
       profileInfo,
       questionBounty,
     } = yield call(getParams);
+    
     yield call(isAvailableAction, () =>
       deleteQuestionValidator(
         buttonId,
@@ -421,6 +431,7 @@ export function* deleteQuestionWorker({ questionId, buttonId }) {
         translationMessages[locale],
         profileInfo,
       ),
+      questionData.community_id,
     );
     if (questionBounty) {
       yield call(payBounty, profileInfo?.user, questionId, true, eosService);
@@ -507,14 +518,17 @@ export function* postCommentWorker({
 
     yield call(isAuthorized);
 
-    yield call(isAvailableAction, () =>
-      postCommentValidator(
-        profileInfo,
-        questionData,
-        buttonId,
-        answerId,
-        translationMessages[locale],
-      ),
+    yield call(
+      isAvailableAction,
+      () =>
+        postCommentValidator(
+          profileInfo,
+          questionData,
+          buttonId,
+          answerId,
+          translationMessages[locale],
+        ),
+      questionData.community_id,
     );
 
     yield call(
@@ -569,13 +583,16 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
 
     yield call(isAuthorized);
 
-    yield call(isAvailableAction, () =>
-      postAnswerValidator(
-        profileInfo,
-        questionData,
-        POST_ANSWER_BUTTON,
-        translationMessages[locale],
-      ),
+    yield call(
+      isAvailableAction,
+      () =>
+        postAnswerValidator(
+          profileInfo,
+          questionData,
+          POST_ANSWER_BUTTON,
+          translationMessages[locale],
+        ),
+      questionData.community_id,
     );
 
     yield call(
@@ -626,14 +643,17 @@ export function* downVoteWorker({
 
     yield call(isAuthorized);
 
-    yield call(isAvailableAction, () =>
-      downVoteValidator(
-        profileInfo,
-        questionData,
-        buttonId,
-        answerId,
-        translationMessages[locale],
-      ),
+    yield call(
+      isAvailableAction,
+      () =>
+        downVoteValidator(
+          profileInfo,
+          questionData,
+          buttonId,
+          answerId,
+          translationMessages[locale],
+        ),
+      questionData.community_id,
     );
 
     yield call(downVote, profileInfo.user, questionId, answerId, eosService);
@@ -676,14 +696,17 @@ export function* upVoteWorker({
 
     yield call(isAuthorized);
 
-    yield call(isAvailableAction, () =>
-      upVoteValidator(
-        profileInfo,
-        questionData,
-        buttonId,
-        answerId,
-        translationMessages[locale],
-      ),
+    yield call(
+      isAvailableAction,
+      () =>
+        upVoteValidator(
+          profileInfo,
+          questionData,
+          buttonId,
+          answerId,
+          translationMessages[locale],
+        ),
+      questionData.community_id,
     );
 
     yield call(upVote, profileInfo.user, questionId, answerId, eosService);
@@ -726,13 +749,16 @@ export function* markAsAcceptedWorker({
 
     yield call(isAuthorized);
 
-    yield call(isAvailableAction, () =>
-      markAsAcceptedValidator(
-        profileInfo,
-        questionData,
-        buttonId,
-        translationMessages[locale],
-      ),
+    yield call(
+      isAvailableAction,
+      () =>
+        markAsAcceptedValidator(
+          profileInfo,
+          questionData,
+          buttonId,
+          translationMessages[locale],
+        ),
+      questionData.community_id,
     );
 
     yield call(
@@ -770,18 +796,21 @@ export function* voteToDeleteWorker({
 
     yield call(isAuthorized);
 
-    yield call(isAvailableAction, () =>
-      voteToDeleteValidator(
-        profileInfo,
-        questionData,
-        translationMessages[locale],
-        buttonId,
-        {
-          questionId,
-          answerId,
-          commentId,
-        },
-      ),
+    yield call(
+      isAvailableAction,
+      () =>
+        voteToDeleteValidator(
+          profileInfo,
+          questionData,
+          translationMessages[locale],
+          buttonId,
+          {
+            questionId,
+            answerId,
+            commentId,
+          },
+        ),
+      questionData.community_id,
     );
 
     yield call(
@@ -793,25 +822,74 @@ export function* voteToDeleteWorker({
       eosService,
     );
 
-    let item;
+    const isDeleteCommentButton = buttonId.includes('delete-comment-');
+    const isDeleteAnswerButton = buttonId.includes(`${ANSWER_TYPE}_delete_`);
+    const isDeleteQuestionButton = buttonId.includes(
+      `${QUESTION_TYPE}_delete_`,
+    );
 
-    if (!answerId && !commentId) {
-      item = questionData;
-    } else if (!answerId && commentId) {
-      item = questionData.comments.find(x => x.id === commentId);
-    } else if (answerId && !commentId) {
-      item = questionData.answers.find(x => x.id === answerId);
-    } else if (answerId && commentId) {
-      item = questionData.answers
-        .find(x => x.id === answerId)
-        .comments.find(x => x.id === commentId);
+    const isModeratorDelete =
+      isDeleteCommentButton || isDeleteAnswerButton || isDeleteQuestionButton;
+
+    // handle moderator delete action
+    if (isModeratorDelete) {
+      if (isDeleteCommentButton) {
+        // delete comment
+        if (answerId === 0) {
+          questionData.comments = questionData.comments.filter(
+            x => x.id !== commentId,
+          );
+        } else if (answerId > 0) {
+          const answer = questionData.answers.find(x => x.id === answerId);
+          answer.comments = answer.comments.filter(x => x.id !== commentId);
+        }
+
+        yield put(deleteCommentSuccess({ ...questionData }, buttonId));
+      }
+
+      if (isDeleteAnswerButton) {
+        // delete answer
+        questionData.answers = questionData.answers.filter(
+          x => x.id !== answerId,
+        );
+
+        yield put(deleteAnswerSuccess({ ...questionData }, buttonId));
+      }
+
+      if (isDeleteQuestionButton) {
+        // delete question
+        yield put(
+          deleteQuestionSuccess({ ...questionData, isDeleted: true }, buttonId),
+        );
+
+        yield call(createdHistory.push, routes.questions());
+      }
+
+      yield put(setVoteToDeleteLoading(false));
     }
 
-    item.votingStatus.isVotedToDelete = true;
+    // handle common vote to delete action
+    else {
+      let item;
 
-    yield put(
-      voteToDeleteSuccess({ ...questionData }, usersForUpdate, buttonId),
-    );
+      if (!answerId && !commentId) {
+        item = questionData;
+      } else if (!answerId && commentId) {
+        item = questionData.comments.find(x => x.id === commentId);
+      } else if (answerId && !commentId) {
+        item = questionData.answers.find(x => x.id === answerId);
+      } else if (answerId && commentId) {
+        item = questionData.answers
+          .find(x => x.id === answerId)
+          .comments.find(x => x.id === commentId);
+      }
+
+      item.votingStatus.isVotedToDelete = true;
+
+      yield put(
+        voteToDeleteSuccess({ ...questionData }, usersForUpdate, buttonId),
+      );
+    }
   } catch (err) {
     yield put(voteToDeleteErr(err, buttonId));
   }

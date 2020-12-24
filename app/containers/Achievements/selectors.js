@@ -30,10 +30,28 @@ const selectViewProfileAccount = () =>
     substate => substate.toJS().viewProfileAccount,
   );
 
+const selectMaxGroupsLowerValues = () =>
+  createSelector(
+    selectUserAchievementsDomain,
+    substate => substate.toJS().maxGroupsLowerValues,
+  );
+
+const selectMemorizedUserAchievements = userAccount =>
+  createSelector(
+    selectUserAchievementsDomain,
+    substate => substate.toJS().memorizedAchievData[userAccount] ?? {},
+  );
+
 const selectUserAchievements = () =>
   createSelector(
     selectUserAchievementsDomain,
     substate => substate.toJS().achievements,
+  );
+
+const selectAchievementsLoading = () =>
+  createSelector(
+    selectUserAchievementsDomain,
+    substate => substate.toJS().userAchievementsLoading,
   );
 
 const getReachedAchievementsIds = substate =>
@@ -53,20 +71,6 @@ const getReachedAchievements = (possibleAchievements, reachedAchievementsIds) =>
       ...el,
       reached: true,
     }));
-
-const selectReachedAchievements = () =>
-  createSelector(selectUserAchievementsDomain, substate => {
-    const reachedAchievementsIds = getReachedAchievementsIds(substate);
-
-    return [
-      ...getReachedAchievements(achievementsArr, reachedAchievementsIds),
-      ...getReachedAchievements(questionsAskedArr, reachedAchievementsIds),
-      ...getReachedAchievements(answerGivenArr, reachedAchievementsIds),
-      ...getReachedAchievements(bestAnswerArr, reachedAchievementsIds),
-      ...getReachedAchievements(firstAnswerArr, reachedAchievementsIds),
-      ...getReachedAchievements(firstIn15Arr, reachedAchievementsIds),
-    ];
-  });
 
 const getUnreachedAchievements = (
   substate,
@@ -100,41 +104,87 @@ const getUnreachedAchievements = (
         })
     : [];
 
-const selectUnreachedAchievements = () =>
+const selectRatingAchievements = () =>
   createSelector(selectUserAchievementsDomain, substate => {
     const reachedAchievementsIds = getReachedAchievementsIds(substate);
 
     return [
+      ...getReachedAchievements(achievementsArr, reachedAchievementsIds),
       ...getUnreachedAchievements(
         substate,
         achievementsArr,
         ratingRelated,
         reachedAchievementsIds,
       ),
+    ];
+  });
+
+const selectQuestionAskedAchievements = () =>
+  createSelector(selectUserAchievementsDomain, substate => {
+    const reachedAchievementsIds = getReachedAchievementsIds(substate);
+
+    return [
+      ...getReachedAchievements(questionsAskedArr, reachedAchievementsIds),
       ...getUnreachedAchievements(
         substate,
         questionsAskedArr,
         questionAskedRelated,
         reachedAchievementsIds,
       ),
+    ];
+  });
+
+const selectAnwerGivenAchievements = () =>
+  createSelector(selectUserAchievementsDomain, substate => {
+    const reachedAchievementsIds = getReachedAchievementsIds(substate);
+
+    return [
+      ...getReachedAchievements(answerGivenArr, reachedAchievementsIds),
       ...getUnreachedAchievements(
         substate,
         answerGivenArr,
         answerGivenRelated,
         reachedAchievementsIds,
       ),
+    ];
+  });
+
+const selectBestAnswerAchievements = () =>
+  createSelector(selectUserAchievementsDomain, substate => {
+    const reachedAchievementsIds = getReachedAchievementsIds(substate);
+
+    return [
+      ...getReachedAchievements(bestAnswerArr, reachedAchievementsIds),
       ...getUnreachedAchievements(
         substate,
         bestAnswerArr,
         bestAnswerRelated,
         reachedAchievementsIds,
       ),
+    ];
+  });
+
+const selectFirstAnswerAchievements = () =>
+  createSelector(selectUserAchievementsDomain, substate => {
+    const reachedAchievementsIds = getReachedAchievementsIds(substate);
+
+    return [
+      ...getReachedAchievements(firstAnswerArr, reachedAchievementsIds),
       ...getUnreachedAchievements(
         substate,
         firstAnswerArr,
         firstAnswerRelated,
         reachedAchievementsIds,
       ),
+    ];
+  });
+
+const selectFirstIn15Achievements = () =>
+  createSelector(selectUserAchievementsDomain, substate => {
+    const reachedAchievementsIds = getReachedAchievementsIds(substate);
+
+    return [
+      ...getReachedAchievements(firstIn15Arr, reachedAchievementsIds),
       ...getUnreachedAchievements(
         substate,
         firstIn15Arr,
@@ -166,11 +216,12 @@ const selectUniqueUnreachedAchievements = () =>
       0;
 
     return uniqueAchievementsArr
-      .filter(
-        el =>
+      .filter(el => {
+        return (
           !reachedAchievementsIds.includes(el.id) &&
-          totalAwarded(el.id) < el.limit,
-      )
+          totalAwarded(el.id) < el.limit
+        );
+      })
       .map(el => {
         const isNext =
           substate.toJS().nextUserAchievements[uniqueRatingRelated] === el.id;
@@ -190,17 +241,25 @@ const selectUniqueUnreachedAchievements = () =>
       });
   });
 
-const selectAchievementsLoading = () =>
+const selectUniqueAchievements = () =>
   createSelector(
-    selectUserAchievementsDomain,
-    substate => substate.toJS().userAchievementsLoading,
+    selectUniqueReachedAchievements(),
+    selectUniqueUnreachedAchievements(),
+    (uniqueReachedAchievements, uniqueUnreachedAchievements) => {
+      return [...uniqueReachedAchievements, ...uniqueUnreachedAchievements];
+    },
   );
 
 export {
   selectUserAchievementsDomain,
   selectViewProfileAccount,
-  selectReachedAchievements,
-  selectUnreachedAchievements,
+  selectRatingAchievements,
+  selectQuestionAskedAchievements,
+  selectAnwerGivenAchievements,
+  selectBestAnswerAchievements,
+  selectFirstAnswerAchievements,
+  selectFirstIn15Achievements,
+  selectUniqueAchievements,
   selectUniqueReachedAchievements,
   selectUniqueUnreachedAchievements,
   selectUserAchievements,
@@ -208,4 +267,6 @@ export {
   getReachedAchievementsIds,
   getReachedAchievements,
   getUnreachedAchievements,
+  selectMemorizedUserAchievements,
+  selectMaxGroupsLowerValues,
 };

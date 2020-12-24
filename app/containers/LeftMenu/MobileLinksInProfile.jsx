@@ -25,7 +25,7 @@ export default React.memo(({ profile, isMenuVisible }) => {
         className="d-flex align-items-center justify-content-between w-100"
         onClick={() => setVisibilityProfileLinks(!visibleProfileLinks)}
       >
-        <ProfileButton profileInfo={profile} />
+        <ProfileButton profileInfo={profile} isMobileVersion />
         <Icon
           className="mr-3"
           icon={arrowDownIcon}
@@ -63,6 +63,13 @@ export default React.memo(({ profile, isMenuVisible }) => {
           <A to={routes.userAchievements(profile.user)}>
             <FormattedMessage {...messages.achievements} />
           </A>
+
+          {profile.permissions &&
+            !!profile.permissions.length && (
+              <A to={routes.userModeration(profile.user)}>
+                <FormattedMessage {...messages.moderation} />
+              </A>
+            )}
 
           <Logout>
             <FormattedMessage {...messages.logout} />

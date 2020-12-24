@@ -114,6 +114,7 @@
   "app.common.signUpViaWallet": "Регистрация через кошелек",
   "app.common.general": "Общий",
   "app.common.expert": "Экспертный",
+  "app.common.any": "Любой",
   "app.common.tipQuestion": "Чаевые",
   "app.common.chooseCrypto": "Выберите валюту",
   "app.common.chooseWallet": "Выберите кошелек",
@@ -136,7 +137,10 @@
   "app.common.fileSizeErrorMsg": "Размер файла больше 2Мб. Выберите другой...",
   "app.common.chooseFile": "Выберите файл",
   "app.common.skip": "Пропустить",
+  "app.common.showMore": "Показать больше",
   "app.common.questionIsAnswered": "Вы уже ответили на этот вопрос",
+  "app.common.activateBoost": "Активировать Boost",
+  "app.common.boost": "Boost",
 
   "app.telegram.user": "Телеграм пользователь",
   "app.telegram.userLabelPopover":
@@ -174,6 +178,28 @@
   "app.containers.Wallet.registrationWeek": "Неделя регистрации",
   "app.containers.Wallet.yourWalletWasSuccessfullySet":
     "Ваш кошелёк был успешно настроен в этот период",
+  "app.containers.Wallet.getMoreWithBoost": "Получите больше наград с Boost",
+  "app.containers.Wallet.stakedInCurrentPeriod":
+    "Ставка, сделанная в текущем периоде",
+  "app.containers.Wallet.stakedInNextPeriod":
+    "Ставка, сделанная на следующий период",
+  "app.containers.Wallet.totalBalance": "Итоговый баланс",
+
+  "app.containers.Boost.currentPeriod": "Текущий период",
+  "app.containers.Boost.nextPeriod": "Следующий период",
+  "app.containers.Boost.maximumStake": "Максимальная ставка",
+  "app.containers.Boost.users": "Пользователи",
+  "app.containers.Boost.yourStake": "Ваша ставка",
+  "app.containers.Boost.yourBoost": "Ваш буст",
+  "app.containers.Boost.yourPredictedBoost": "Ваш прогнозируемый буст",
+  "app.containers.Boost.formTitle": "Ставка на следующий период",
+  "app.containers.Boost.formSubmit": "Сохранить",
+  "app.containers.Boost.formCancel": "Отмена",
+  "app.containers.Boost.formBoostPrediction": "Boost прогноз",
+  "app.containers.Boost.formCurrentStake": "Ваша ставка",
+  "app.containers.Boost.formTakeAStake": "Сделайте ставку",
+  "app.containers.Boost.notTokensToStake":
+    "У вас нет токенов, чтобы сделать ставку",
 
   "web_integration.errors.unknownError":
     "Неизвестная ошибка. Пожалуйста, отправьте отчет об ошибке!",
@@ -231,15 +257,18 @@
   "app.containers.Moderation.permissionCreateTagDescription":
     "Позволяет мгновенно создать тег",
 
-  "app.containers.Moderation.permissionChangeQuestionType": "Изменение типа вопроса",
+  "app.containers.Moderation.permissionChangeQuestionType":
+    "Изменение типа вопроса",
   "app.containers.Moderation.permissionChangeQuestionTypeDescription":
     "Позволяет изменить тип вопроса",
 
-  "app.containers.Moderation.permissionSelectTopQuestion": "Выбор «Top» вопроса",
+  "app.containers.Moderation.permissionSelectTopQuestion":
+    "Выбор «Top» вопроса",
   "app.containers.Moderation.permissionSelectTopQuestionDescription":
     "Позволяет выбрать вопрос, который будет отображаться на «Top» странице",
 
-  "app.containers.Moderation.permissionOfficialAnswer": "Публикация официального ответа",
+  "app.containers.Moderation.permissionOfficialAnswer":
+    "Публикация официального ответа",
   "app.containers.Moderation.permissionOfficialAnswerDescription":
     "Позволяет опубликовать официальный ответ",
 
@@ -279,7 +308,7 @@
   "app.components.RatingStatus.banned": "Заблокирован",
 
   "app.containers.Profile.activity": "Активность",
-  "app.containers.Profile.reputation": "Репутация",
+  "app.containers.Profile.status": "Статус",
   "app.containers.Profile.risen": "Понравилось",
   "app.containers.Profile.memberSince": "Резидент с ",
   "app.containers.Profile.informationIsBlank":
@@ -420,6 +449,10 @@
   "app.containers.CreateCommunity.goToList": "Перейти к списку",
   "app.containers.CreateCommunity.maxTagsNumberReached":
     "Максимальное число тегов было достигнуто",
+  "app.containers.CreateCommunity.questionType": "Тип вопросов",
+  "app.containers.CreateCommunity.anyQuestionDescriptionLabel":
+    "Вы можете выбрать тип вопроса при его создании",
+  "app.containers.CreateCommunity.anyQuestionDescriptionList": [],
 
   "app.containers.EditCommunity.communityTitleTip": "Название сообщества",
   "app.containers.EditCommunity.description": "Описание EditCommunity",
@@ -711,6 +744,7 @@
   "app.containers.Login.yourUsernameIsHow":
     "Имя, которое будет у Вас в Peeranha.",
   "app.containers.Login.referralMessage": "Это код, который друг дал тебе.",
+  "app.containers.Login.optionalReferralCode": "(опционально)",
   "app.containers.Login.accountNotCreatedName": "Аккаунт пока не создан",
   "app.containers.Login.inviterIsNotRegisterYet":
     "Пригласитель еще не зарегистрирован",
@@ -828,6 +862,10 @@
   "app.containers.AskQuestion.title": "Задать вопрос",
   "app.containers.AskQuestion.description": "Задать вопрос | Описание",
   "app.containers.AskQuestion.postQuestion": "Отправить",
+  "app.container.AskQuestion.onlyExpertQuestionsAllowed":
+    "Вы можете задать только экспертный вопрос в этом комьюнити",
+  "app.container.AskQuestion.onlyGeneralQuestionsAllowed":
+    "Вы можете задать только общий вопрос в этом комьюнити",
 
   "app.containers.ErrorPage.title": "Возникла ошибка...",
   "app.containers.ErrorPage.description": "Возникла ошибка... описание",
@@ -1046,6 +1084,14 @@
     "первый ответ остался до следующего досижения",
   "app.containers.Achievements.progressBarPopover.firstAnswerRelated.multiple":
     "первых ответов осталось до следующего досижения",
+
+  "app.containers.Achievements.separators.ratingRelated": "Рейтинг",
+  "app.containers.Achievements.separators.questionAskedRelated": "Вопросы",
+  "app.containers.Achievements.separators.answerGivenRelated": "Ответы",
+  "app.containers.Achievements.separators.bestAnswerRelated": "Лучшие ответы",
+  "app.containers.Achievements.separators.firstAnswerIn15Related":
+    "Первые ответы в течение 15 минут",
+  "app.containers.Achievements.separators.firstAnswerRelated": "Первые ответы",
 
   "app.containers.TelegramInfo.confirm": "Подтвердить",
   "app.containers.TelegramInfo.unlink": "Удалить зависимость"

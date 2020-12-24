@@ -58,7 +58,7 @@ import {
   SuggestedCommunities,
   EmailEnteringForm,
   EmailVerificationForm,
-  ScatterSignUpForm,
+  WalletsSignUpForm,
   IHaveEOSAccountForm,
   IdontHaveEOSAccountForm,
   RegistrationAlmostDoneWithAccount,
@@ -67,6 +67,7 @@ import {
   ForgotPassword,
   Toast,
   Wallet,
+  Boost,
   Search,
   Support,
   PrivacyPolicy,
@@ -113,6 +114,13 @@ const App = ({
       history.push(pathname);
     }
   }, []);
+
+  useEffect(
+    () => {
+      window.goto = page => history.push(page);
+    },
+    [history],
+  );
 
   return (
     <ErrorBoundary>
@@ -243,6 +251,11 @@ const App = ({
         />
 
         <Route
+          path={routes.userBoost(':id')}
+          render={props => Wrapper(Boost, props)}
+        />
+
+        <Route
           path={routes.support()}
           render={props => Wrapper(Support, props)}
         />
@@ -325,7 +338,7 @@ const App = ({
 
         <Route path={routes.signup.displayName.name}>
           <React.Suspense fallback={null}>
-            <ScatterSignUpForm />
+            <WalletsSignUpForm />
           </React.Suspense>
         </Route>
 

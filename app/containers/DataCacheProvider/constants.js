@@ -16,8 +16,8 @@ export const GET_USER_PROFILE_SUCCESS =
   'app/DataCacheProvider/GET_USER_PROFILE_SUCCESS';
 export const GET_USER_PROFILE_ERROR =
   'app/DataCacheProvider/GET_USER_PROFILE_ERROR';
-export const UPDATE_USER_ACHIEV_COUNT =
-  'app/DataCacheProvider/UPDATE_USER_ACHIEV_COUNT';
+export const UPDATE_USER_ACHIEVEMENTS =
+  'app/DataCacheProvider/UPDATE_USER_ACHIEVEMENTS';
 
 export const GET_STAT = 'app/DataCacheProvider/GET_STAT';
 export const GET_STAT_SUCCESS = 'app/DataCacheProvider/GET_STAT_SUCCESS';

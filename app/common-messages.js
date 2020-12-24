@@ -354,6 +354,9 @@ export default defineMessages({
   expert: {
     id: 'app.common.expert',
   },
+  any: {
+    id: 'app.common.any',
+  },
   tipQuestion: {
     id: 'app.common.tipQuestion',
   },
@@ -407,5 +410,11 @@ export default defineMessages({
   },
   questionIsAnswered: {
     id: 'app.common.questionIsAnswered',
+  },
+  activateBoost: {
+    id: 'app.common.activateBoost',
+  },
+  boost: {
+    id: 'app.common.boost',
   },
 });

@@ -272,6 +272,7 @@ export async function editQuestion(user, id, question, eosService) {
     ipfs_link: ipfsLink,
     community_id: question.community.value,
     tags: question.chosenTags.map(x => x.value),
+    type: parseInt(question.type),
   });
 }
 

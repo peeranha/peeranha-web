@@ -68,7 +68,7 @@ const SendTokensForm = ({
         warn={[required, valueHasToBeLessThan]}
       />
 
-      {!loginData.loginWithScatter && (
+      {!(loginData.loginWithScatter || loginData.loginWithKeycat) && (
         <Field
           name={PASSWORD_FIELD}
           disabled={sendTokensProcessing}

@@ -1,16 +1,21 @@
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
 import NavHeader from 'components/WalletNavigation';
 import SubHeader from './SubHeader';
 import Weeks from './Weeks';
+import BoostBanner from './BoostBanner';
 
 const View = ({
   userId,
   locale,
   account,
   balance,
+  stakedInCurrentPeriod,
+  stakedInNextPeriod,
   weekStat,
+  globalBoostStat,
+  userBoostStat,
   getWeekStatProcessing,
   pickupRewardDispatch,
   pickupRewardProcessing,
@@ -18,10 +23,21 @@ const View = ({
 }) => (
   <>
     <NavHeader userId={userId} />
-    <SubHeader account={account} balance={balance} />
+    
+    <SubHeader
+      account={account}
+      balance={balance}
+      stakedInCurrentPeriod={stakedInCurrentPeriod}
+      stakedInNextPeriod={stakedInNextPeriod}
+    />
+
+    {(userBoostStat && !userBoostStat.length) && <BoostBanner userId={userId} />}
+
     <Weeks
       locale={locale}
       weekStat={weekStat}
+      globalBoostStat={globalBoostStat}
+      userBoostStat={userBoostStat}
       getWeekStatProcessing={getWeekStatProcessing}
       pickupRewardDispatch={pickupRewardDispatch}
       pickupRewardProcessing={pickupRewardProcessing}
@@ -35,11 +51,16 @@ View.propTypes = {
   locale: PropTypes.string,
   account: PropTypes.string,
   balance: PropTypes.number,
+  stakedInCurrentPeriod: PropTypes.number,
+  stakedInNextPeriod: PropTypes.number,
   weekStat: PropTypes.array,
+  globalBoostStat: PropTypes.array,
+  userBoostStat: PropTypes.array,
   ids: PropTypes.array,
   getWeekStatProcessing: PropTypes.bool,
+  getWeekStatDispatch: PropTypes.func,
   pickupRewardDispatch: PropTypes.func,
   pickupRewardProcessing: PropTypes.bool,
 };
 
-export default React.memo(View);
+export default memo(View);

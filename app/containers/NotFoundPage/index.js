@@ -9,7 +9,7 @@
  * the linting exception.
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { translationMessages } from 'i18n';
@@ -52,78 +52,88 @@ export const Box = Base.extend`
   }
 `;
 
-const NotFound = /* istanbul ignore next */ ({ locale }) => (
-  <React.Fragment>
-    <Seo
-      title={translationMessages[locale][messages.title.id]}
-      description={translationMessages[locale][messages.description.id]}
-      language={locale}
-      index={false}
-    />
+const NotFound = /* istanbul ignore next */ ({ locale }) => {
+  useEffect(() => {
+    window.isRendered = true;
 
-    <Box>
-      <div>
-        <Span fontSize="24" bold>
-          <FormattedMessage {...messages.weAreSorry} />
-        </Span>
-      </div>
+    return () => {
+      delete window.isRendered;
+    };
+  }, []);
 
-      <div>
-        <img src={notFoundImage} alt="404 page" />
-      </div>
+  return (
+    <React.Fragment>
+      <Seo
+        title={translationMessages[locale][messages.title.id]}
+        description={translationMessages[locale][messages.description.id]}
+        language={locale}
+        index={false}
+      />
 
-      <div>
-        <P className="text-center mb-1">
-          <FormattedMessage
-            id={messages.tryToBrowse.id}
-            values={{
-              value: (
-                <A className="text-lowercase" to={routes.questions()}>
-                  <Span color={LINK_COLOR}>
-                    <FormattedMessage {...commonMessages.questions} />
-                  </Span>
-                </A>
-              ),
-            }}
-          />
-        </P>
-        <P className="text-center mb-1">
-          <FormattedMessage
-            id={messages.browseOurPopular.id}
-            values={{
-              value: (
-                <ADefault
-                  href={`${
-                    single ? process.env.APP_LOCATION : ''
-                  }${routes.communities()}`}
-                  className="text-lowercase"
-                >
-                  <Span color={LINK_COLOR}>
-                    <FormattedMessage {...commonMessages.communities} />
-                  </Span>
-                </ADefault>
-              ),
-            }}
-          />
-        </P>
-        <P className="text-center mb-1">
-          <FormattedMessage
-            id={messages.ifYouFeelSomething.id}
-            values={{
-              value: (
-                <A className="text-lowercase" to={routes.support()}>
-                  <Span color={LINK_COLOR}>
-                    <FormattedMessage {...commonMessages.contactUs} />
-                  </Span>
-                </A>
-              ),
-            }}
-          />
-        </P>
-      </div>
-    </Box>
-  </React.Fragment>
-);
+      <Box>
+        <div>
+          <Span fontSize="24" bold>
+            <FormattedMessage {...messages.weAreSorry} />
+          </Span>
+        </div>
+
+        <div>
+          <img src={notFoundImage} alt="404 page" />
+        </div>
+
+        <div>
+          <P className="text-center mb-1">
+            <FormattedMessage
+              id={messages.tryToBrowse.id}
+              values={{
+                value: (
+                  <A className="text-lowercase" to={routes.questions()}>
+                    <Span color={LINK_COLOR}>
+                      <FormattedMessage {...commonMessages.questions} />
+                    </Span>
+                  </A>
+                ),
+              }}
+            />
+          </P>
+          <P className="text-center mb-1">
+            <FormattedMessage
+              id={messages.browseOurPopular.id}
+              values={{
+                value: (
+                  <ADefault
+                    href={`${
+                      single ? process.env.APP_LOCATION : ''
+                    }${routes.communities()}`}
+                    className="text-lowercase"
+                  >
+                    <Span color={LINK_COLOR}>
+                      <FormattedMessage {...commonMessages.communities} />
+                    </Span>
+                  </ADefault>
+                ),
+              }}
+            />
+          </P>
+          <P className="text-center mb-1">
+            <FormattedMessage
+              id={messages.ifYouFeelSomething.id}
+              values={{
+                value: (
+                  <A className="text-lowercase" to={routes.support()}>
+                    <Span color={LINK_COLOR}>
+                      <FormattedMessage {...commonMessages.contactUs} />
+                    </Span>
+                  </A>
+                ),
+              }}
+            />
+          </P>
+        </div>
+      </Box>
+    </React.Fragment>
+  );
+};
 
 NotFound.propTypes = {
   locale: PropTypes.string,

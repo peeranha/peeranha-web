@@ -23,13 +23,13 @@ import {
   I_HAVE_NOT_EOS_ACCOUNT_SUCCESS,
   I_HAVE_NOT_EOS_ACCOUNT_ERROR,
   PUT_KEYS_TO_STATE,
-  SIGNUP_WITH_SCATTER,
-  SIGNUP_WITH_SCATTER_SUCCESS,
-  SIGNUP_WITH_SCATTER_ERROR,
-  SIGNUP_WITH_SCATTER_REFERRAL_ERROR,
-  SHOW_SCATTER_SIGNUP_FORM,
-  SHOW_SCATTER_SIGNUP_FORM_SUCCESS,
-  SHOW_SCATTER_SIGNUP_FORM_ERROR,
+  SIGNUP_WITH_WALLET,
+  SIGNUP_WITH_WALLET_SUCCESS,
+  SIGNUP_WITH_WALLET_ERROR,
+  SIGNUP_WITH_WALLET_REFERRAL_ERROR,
+  SHOW_WALLET_SIGNUP_FORM,
+  SHOW_WALLET_SIGNUP_FORM_SUCCESS,
+  SHOW_WALLET_SIGNUP_FORM_ERROR,
 } from './constants';
 
 export const initialState = fromJS({
@@ -44,10 +44,11 @@ export const initialState = fromJS({
   iHaveEosAccountError: null,
   idontHaveEosAccountProcessing: false,
   idontHaveEosAccountError: null,
-  signUpWithScatterProcessing: false,
-  signUpWithScatterError: null,
-  showScatterSignUpProcessing: false,
-  showScatterSignUpFormError: null,
+  signUpWithWalletProcessing: false,
+  signUpWithWalletError: null,
+  showWalletSignUpProcessing: false,
+  showWalletSignUpFormError: null,
+  signUpWithWalletReferralError: null,
   keys: null,
   eosAccountName: null,
 });
@@ -60,8 +61,9 @@ function signUpReducer(state = initialState, action) {
     verifyEmailError,
     iHaveEosAccountError,
     idontHaveEosAccountError,
-    signUpWithScatterError,
-    showScatterSignUpFormError,
+    signUpWithWalletError,
+    showWalletSignUpFormError,
+    signUpWithWalletReferralError,
     keys,
     verificationCode,
     encryptionKey,
@@ -109,27 +111,29 @@ function signUpReducer(state = initialState, action) {
         .set('idontHaveEosAccountError', idontHaveEosAccountError)
         .set('idontHaveEosAccountProcessing', false);
 
-    case SIGNUP_WITH_SCATTER:
-      return state.set('signUpWithScatterProcessing', true);
-    case SIGNUP_WITH_SCATTER_SUCCESS:
-      return state.set('signUpWithScatterProcessing', false);
-    case SIGNUP_WITH_SCATTER_ERROR:
+    case SIGNUP_WITH_WALLET:
+      return state.set('signUpWithWalletProcessing', true);
+    case SIGNUP_WITH_WALLET_SUCCESS:
+      return state.set('signUpWithWalletProcessing', false);
+    case SIGNUP_WITH_WALLET_ERROR:
       return state
-        .set('signUpWithScatterError', signUpWithScatterError)
-        .set('signUpWithScatterProcessing', false);
-    case SIGNUP_WITH_SCATTER_REFERRAL_ERROR:
-      return state.set('signUpWithScatterProcessing', false);
+        .set('signUpWithWalletError', signUpWithWalletError)
+        .set('signUpWithWalletProcessing', false);
+    case SIGNUP_WITH_WALLET_REFERRAL_ERROR:
+      return state
+        .set('signUpWithWalletProcessing', false)
+        .set('signUpWithWalletReferralError', signUpWithWalletReferralError);
 
-    case SHOW_SCATTER_SIGNUP_FORM:
-      return state.set('showScatterSignUpProcessing', true);
-    case SHOW_SCATTER_SIGNUP_FORM_SUCCESS:
+    case SHOW_WALLET_SIGNUP_FORM:
+      return state.set('showWalletSignUpProcessing', true);
+    case SHOW_WALLET_SIGNUP_FORM_SUCCESS:
       return state
-        .set('showScatterSignUpProcessing', false)
+        .set('showWalletSignUpProcessing', false)
         .set('eosAccountName', eosAccountName);
-    case SHOW_SCATTER_SIGNUP_FORM_ERROR:
+    case SHOW_WALLET_SIGNUP_FORM_ERROR:
       return state
-        .set('showScatterSignUpFormError', showScatterSignUpFormError)
-        .set('showScatterSignUpProcessing', false);
+        .set('showWalletSignUpFormError', showWalletSignUpFormError)
+        .set('showWalletSignUpProcessing', false);
 
     case PUT_KEYS_TO_STATE:
       return state.set(

@@ -12,9 +12,9 @@ const makeSelectShowModal = () =>
 const makeSelectEmail = () =>
   createSelector(selectLoginDomain, substate => substate.get('email'));
 
-const makeSelectLoginProcessing = () =>
+const selectLoginWithEmailProcessing = () =>
   createSelector(selectLoginDomain, substate =>
-    substate.get('loginProcessing'),
+    substate.get('loginWithEmailProcessing'),
   );
 
 const makeSelectLoginWithEmailError = () =>
@@ -24,11 +24,6 @@ const makeSelectLoginWithEmailError = () =>
 
 const makeSelectEosAccount = () =>
   createSelector(selectLoginDomain, substate => substate.get('eosAccount'));
-
-const selectLoginWithScatterError = () =>
-  createSelector(selectLoginDomain, substate =>
-    substate.get('loginWithScatterError'),
-  );
 
 const selectFinishRegistrationProcessing = () =>
   createSelector(selectLoginDomain, substate =>
@@ -40,9 +35,14 @@ const selectFinishRegistrationError = () =>
     substate.get('finishRegistrationWithDisplayNameError'),
   );
 
-const selectLoginWithScatterProcessing = () =>
+const selectLoginWithWalletProcessing = () =>
   createSelector(selectLoginDomain, substate =>
-    substate.get('loginWithScatterProcessing'),
+    substate.get('loginWithWalletProcessing'),
+  );
+
+const selectLoginWithWalletError = () =>
+  createSelector(selectLoginDomain, substate =>
+    substate.get('loginWithWalletError'),
   );
 
 export {
@@ -50,11 +50,11 @@ export {
   makeSelectContent,
   makeSelectShowModal,
   makeSelectEmail,
-  makeSelectLoginProcessing,
+  selectLoginWithEmailProcessing,
   makeSelectLoginWithEmailError,
   makeSelectEosAccount,
-  selectLoginWithScatterError,
+  selectLoginWithWalletError,
   selectFinishRegistrationProcessing,
   selectFinishRegistrationError,
-  selectLoginWithScatterProcessing,
+  selectLoginWithWalletProcessing,
 };

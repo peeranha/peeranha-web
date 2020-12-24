@@ -6,12 +6,8 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import * as routes from 'routes-config';
-import communitiesConfig from 'communities-config';
 
-import {
-  isSingleCommunityWebsite,
-  singleCommunityStyles,
-} from 'utils/communityManagement';
+import { singleCommunityStyles } from 'utils/communityManagement';
 
 import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
 
@@ -33,9 +29,14 @@ import {
 } from 'containers/Faq/constants';
 
 import SignUpWrapper from './index';
-import { Li, P, CommunityLogoWrapper, CommunityLogoDescr, Logo } from './SignUpOptions';
+import {
+  Li,
+  P,
+  CommunityLogoWrapper,
+  CommunityLogoDescr,
+  Logo,
+} from './SignUpOptions';
 
-const single = isSingleCommunityWebsite();
 const styles = singleCommunityStyles();
 
 const LeftMenu = ({ faqQuestions, route }) => (
@@ -44,10 +45,10 @@ const LeftMenu = ({ faqQuestions, route }) => (
       {styles.withoutSubHeader ? (
         <CommunityLogoWrapper>
           <Link to={routes.questions()} href={routes.questions()}>
-            <Logo src={styles.signUpPageLogo} />
+            <Logo src={styles.signUpPageLogo} width={styles.signUpLogoWidth} />
           </Link>
           <CommunityLogoDescr>
-            <span>{'Q&A on'}</span>
+            <span>Q&A on</span>
             <Link to={routes.questions()} href={routes.questions()}>
               <img src={peeranhaLogo} width="90px" alt="Peeranha logo" />
             </Link>

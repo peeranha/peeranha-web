@@ -34,154 +34,162 @@ const AuthorizationData = ({
   activeKey,
   writeToBuffer,
   tgData,
-}) => (
-  <BaseStyled
-    position="bottom"
-    notRoundedStyle
-    className={`${className}${
-      loginData.loginWithScatter && !tgData ? ' d-none' : ''
-    }`}
-  >
-    <H3>
-      <FormattedMessage {...profileMessages.authorizationData} />
-    </H3>
+}) => {
+  const isLoggedInWithWallet =
+    loginData.loginWithScatter || loginData.loginWithKeycat;
+  return (
+    <BaseStyled
+      position="bottom"
+      notRoundedStyle
+      className={`${className}${
+        isLoggedInWithWallet && !tgData ? ' d-none' : ''
+      }`}
+    >
+      <H3>
+        <FormattedMessage {...profileMessages.authorizationData} />
+      </H3>
 
-    <div>
-      <table>
-        {!loginData.loginWithScatter && (
-          <thead>
-            <tr>
-              <td>
-                <FormattedMessage {...signupMessages.email} />
-              </td>
-              <td>{loginData?.email ?? null}</td>
-              <td>
-                <ChangeEmailButton>
-                  <FormattedMessage {...commonMessages.change} />{' '}
-                </ChangeEmailButton>
-              </td>
-            </tr>
-          </thead>
-        )}
-
-        <tbody>
-          {!loginData.loginWithScatter && (
-            <tr>
-              <td>
-                <FormattedMessage {...signupMessages.password} />
-              </td>
-              <td>• • • • • • • • • • • • •</td>
-              <td>
-                <ChangePasswordButton>
-                  <FormattedMessage {...commonMessages.change} />{' '}
-                </ChangePasswordButton>
-              </td>
-            </tr>
-          )}
-
-          {tgData && (
-            <tr>
-              <td>
-                <FormattedMessage {...signupMessages.tgAccountID} />
-              </td>
-              <td>{tgData.telegram_id}</td>
-              <td>
-                {!tgData.confirmed && (
-                  <TelegramAccountAction actionType={CONFIRM_TG_ACCOUNT} />
-                )}
-
-                <TelegramAccountAction actionType={UNLINK_TG_ACCOUNT} />
-              </td>
-            </tr>
-          )}
-
-          {!loginData.loginWithScatter && (
-            <>
+      <div>
+        <table>
+          {!isLoggedInWithWallet && (
+            <thead>
               <tr>
                 <td>
-                  <InfoLabel
-                    id="wallet_settings_eos_active"
-                    message={
-                      translationMessages[locale][
-                        forgotPasswordMessages.youGotThisKey.id
-                      ]
-                    }
-                  >
-                    <FormattedMessage {...signupMessages.eosActivePrivateKey} />
-                  </InfoLabel>
+                  <FormattedMessage {...signupMessages.email} />
                 </td>
-                <td>{activeKey || `• • • • • • • • • •`}</td>
-
+                <td>{loginData?.email ?? null}</td>
                 <td>
-                  <button
-                    id="viewprofile-settings-activekey"
-                    className={!activeKey ? 'd-none' : 'mr-3'}
-                    data-key={activeKey}
-                    onClick={writeToBuffer}
-                  >
-                    <FormattedMessage {...commonMessages.copy} />
-                  </button>
-
-                  <ShowActiveKeyButton activeKey={activeKey}>
-                    <FormattedMessage
-                      {...commonMessages[!activeKey ? 'show' : 'hide']}
-                    />
-                  </ShowActiveKeyButton>
+                  <ChangeEmailButton>
+                    <FormattedMessage {...commonMessages.change} />{' '}
+                  </ChangeEmailButton>
                 </td>
               </tr>
+            </thead>
+          )}
 
-              <tr
-                className={
-                  !loginData || !loginData.hasOwnerEosKey ? 'd-none' : ''
-                }
-              >
+          <tbody>
+            {!isLoggedInWithWallet && (
+              <tr>
                 <td>
-                  <InfoLabel
-                    id="wallet_settings_eos_owner"
-                    message={
-                      translationMessages[locale][
-                        forgotPasswordMessages.youGotThisKey.id
-                      ]
-                    }
-                  >
-                    <FormattedMessage {...signupMessages.eosOwnerPrivateKey} />
-                  </InfoLabel>
+                  <FormattedMessage {...signupMessages.password} />
                 </td>
-                <td>{ownerKey || `• • • • • • • • • •`}</td>
+                <td>• • • • • • • • • • • • •</td>
                 <td>
-                  <button
-                    id="viewprofile-settings-ownerkey"
-                    className={!ownerKey ? 'd-none' : 'mr-3'}
-                    data-key={ownerKey}
-                    onClick={writeToBuffer}
-                  >
-                    <FormattedMessage {...commonMessages.copy} />
-                  </button>
-
-                  <ShowOwnerKeyButton ownerKey={ownerKey}>
-                    <FormattedMessage
-                      {...commonMessages[!ownerKey ? 'show' : 'hide']}
-                    />
-                  </ShowOwnerKeyButton>
+                  <ChangePasswordButton>
+                    <FormattedMessage {...commonMessages.change} />{' '}
+                  </ChangePasswordButton>
                 </td>
               </tr>
-            </>
-          )}
-        </tbody>
-      </table>
+            )}
 
-      {!loginData.loginWithScatter && (
-        <DeleteAccountButton
-          render={({ onClick }) => (
-            <InfoButton onClick={onClick}>
-              <FormattedMessage {...deleteAccountMessages.deleteAccount} />
-            </InfoButton>
-          )}
-        />
-      )}
-    </div>
-  </BaseStyled>
-);
+            {tgData && (
+              <tr>
+                <td>
+                  <FormattedMessage {...signupMessages.tgAccountID} />
+                </td>
+                <td>{tgData.telegram_id}</td>
+                <td>
+                  {!tgData.confirmed && (
+                    <TelegramAccountAction actionType={CONFIRM_TG_ACCOUNT} />
+                  )}
+
+                  <TelegramAccountAction actionType={UNLINK_TG_ACCOUNT} />
+                </td>
+              </tr>
+            )}
+
+            {!isLoggedInWithWallet && (
+              <>
+                <tr>
+                  <td>
+                    <InfoLabel
+                      id="wallet_settings_eos_active"
+                      message={
+                        translationMessages[locale][
+                          forgotPasswordMessages.youGotThisKey.id
+                        ]
+                      }
+                    >
+                      <FormattedMessage
+                        {...signupMessages.eosActivePrivateKey}
+                      />
+                    </InfoLabel>
+                  </td>
+                  <td>{activeKey || `• • • • • • • • • •`}</td>
+
+                  <td>
+                    <button
+                      id="viewprofile-settings-activekey"
+                      className={!activeKey ? 'd-none' : 'mr-3'}
+                      data-key={activeKey}
+                      onClick={writeToBuffer}
+                    >
+                      <FormattedMessage {...commonMessages.copy} />
+                    </button>
+
+                    <ShowActiveKeyButton activeKey={activeKey}>
+                      <FormattedMessage
+                        {...commonMessages[!activeKey ? 'show' : 'hide']}
+                      />
+                    </ShowActiveKeyButton>
+                  </td>
+                </tr>
+
+                <tr
+                  className={
+                    !loginData || !loginData.hasOwnerEosKey ? 'd-none' : ''
+                  }
+                >
+                  <td>
+                    <InfoLabel
+                      id="wallet_settings_eos_owner"
+                      message={
+                        translationMessages[locale][
+                          forgotPasswordMessages.youGotThisKey.id
+                        ]
+                      }
+                    >
+                      <FormattedMessage
+                        {...signupMessages.eosOwnerPrivateKey}
+                      />
+                    </InfoLabel>
+                  </td>
+                  <td>{ownerKey || `• • • • • • • • • •`}</td>
+                  <td>
+                    <button
+                      id="viewprofile-settings-ownerkey"
+                      className={!ownerKey ? 'd-none' : 'mr-3'}
+                      data-key={ownerKey}
+                      onClick={writeToBuffer}
+                    >
+                      <FormattedMessage {...commonMessages.copy} />
+                    </button>
+
+                    <ShowOwnerKeyButton ownerKey={ownerKey}>
+                      <FormattedMessage
+                        {...commonMessages[!ownerKey ? 'show' : 'hide']}
+                      />
+                    </ShowOwnerKeyButton>
+                  </td>
+                </tr>
+              </>
+            )}
+          </tbody>
+        </table>
+
+        {!isLoggedInWithWallet && (
+          <DeleteAccountButton
+            render={({ onClick }) => (
+              <InfoButton onClick={onClick}>
+                <FormattedMessage {...deleteAccountMessages.deleteAccount} />
+              </InfoButton>
+            )}
+          />
+        )}
+      </div>
+    </BaseStyled>
+  );
+};
 
 AuthorizationData.propTypes = {
   className: PropTypes.string,

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -11,6 +11,8 @@ import {
   BORDER_ATTENTION_LIGHT,
   BORDER_RADIUS_M,
 } from 'style-constants';
+
+import { MODERATOR_KEY } from 'utils/constants';
 
 import editSmallIcon from 'images/editSmallIcon.svg?external';
 import deleteSmallIcon from 'images/deleteSmallIcon.svg?external';
@@ -135,6 +137,16 @@ const CommentView = item => {
     ? item.user === item.profileInfo.user
     : false;
 
+  const isGlobalModerator = useMemo(
+    () =>
+      !!item.profileInfo?.['integer_properties'].find(
+        x => x.key === MODERATOR_KEY,
+      ),
+    [item.profileInfo?.['integer_properties']],
+  );
+
+  const isModerator = isGlobalModerator || item.infiniteImpact;
+
   return (
     <li>
       <div className="d-flex justify-content-between align-items-center position-relative">
@@ -144,7 +156,7 @@ const CommentView = item => {
           name={item.userInfo?.display_name ?? ''}
           rating={item.userInfo.rating}
           account={item.userInfo.user}
-          achievementsCount={item.userInfo.achievements_reached}
+          achievementsCount={item.userInfo.achievements_reached?.length}
           postTime={item.post_time}
           locale={item.locale}
           isComment
@@ -166,10 +178,12 @@ const CommentView = item => {
 
           <div id={`delete-comment-${item.answerId}${item.id}`}>
             <AreYouSure
-              submitAction={item.deleteComment}
+              submitAction={
+                isModerator ? item.voteToDelete : item.deleteComment
+              }
               Button={({ onClick }) => (
                 <Button
-                  show={!!item.profileInfo && isItWrittenByMe}
+                  show={(!!item.profileInfo && isItWrittenByMe) || isModerator}
                   id={`delete-comment-${item.answerId}${item.id}`}
                   params={{
                     ...item.buttonParams,
@@ -193,7 +207,10 @@ const CommentView = item => {
           </div>
 
           <Button
-            show={!item.profileInfo || (!!item.profileInfo && !isItWrittenByMe)}
+            show={
+              !item.profileInfo ||
+              (!!item.profileInfo && !isItWrittenByMe && !isModerator)
+            }
             id={`comment_vote_to_delete_${item.answerId}${item.id}`}
             params={{
               ...item.buttonParams,

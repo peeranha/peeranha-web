@@ -116,7 +116,10 @@ const ContentHeader = props => {
   );
 
   const isTemporaryAccount = useMemo(
-    () => !!userInfo?.['integer_properties'].find(x => x.key === TEMPORARY_ACCOUNT_KEY && x.value),
+    () =>
+      !!userInfo?.['integer_properties'].find(
+        x => x.key === TEMPORARY_ACCOUNT_KEY && x.value,
+      ),
     [userInfo],
   );
 
@@ -153,7 +156,7 @@ const ContentHeader = props => {
           type={type}
           postTime={postTime}
           locale={locale}
-          achievementsCount={userInfo.achievements_reached}
+          achievementsCount={userInfo.achievements_reached?.length}
           isTemporaryAccount={isTemporaryAccount}
         />
 
@@ -185,7 +188,11 @@ const ContentHeader = props => {
           )}
 
           <Button
-            show={!profile || (!!profile && !isItWrittenByMe)}
+            show={
+              !profile ||
+              (!!profile &&
+                (!isItWrittenByMe && !isGlobalModerator && !infiniteImpact))
+            }
             id={`${type}_vote_to_delete_${answerId}`}
             params={buttonParams}
             onClick={voteToDelete}
@@ -202,6 +209,29 @@ const ContentHeader = props => {
                 : messages.voteToDelete)}
             />
           </Button>
+
+          <div id={`${type}_delete_${answerId}`}>
+            <AreYouSure
+              submitAction={
+                isGlobalModerator || infiniteImpact ? voteToDelete : deleteItem
+              }
+              Button={({ onClick }) => (
+                <Button
+                  show={
+                    !!profile &&
+                    (isItWrittenByMe || isGlobalModerator || infiniteImpact)
+                  }
+                  id={`${type}_delete_${answerId}`}
+                  params={buttonParams}
+                  onClick={onClick}
+                  disabled={ids.includes(`${type}_delete_${answerId}`)}
+                >
+                  <IconMd icon={deleteIcon} fill={BORDER_PRIMARY} />
+                  <FormattedMessage {...messages.deleteButton} />
+                </Button>
+              )}
+            />
+          </div>
 
           {type === QUESTION_TYPE && (
             <DropdownBox>
@@ -233,24 +263,6 @@ const ContentHeader = props => {
             <IconMd icon={pencilIcon} />
             <FormattedMessage {...messages.editButton} />
           </Button>
-
-          <div id={`${type}_delete_${answerId}`}>
-            <AreYouSure
-              submitAction={deleteItem}
-              Button={({ onClick }) => (
-                <Button
-                  show={!!profile && isItWrittenByMe}
-                  id={`${type}_delete_${answerId}`}
-                  params={buttonParams}
-                  onClick={onClick}
-                  disabled={ids.includes(`${type}_delete_${answerId}`)}
-                >
-                  <IconMd icon={deleteIcon} fill={BORDER_PRIMARY} />
-                  <FormattedMessage {...messages.deleteButton} />
-                </Button>
-              )}
-            />
-          </div>
         </div>
       </ItemInfo>
     </Box>

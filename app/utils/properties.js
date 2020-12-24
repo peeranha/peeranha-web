@@ -1,4 +1,7 @@
+import _max from 'lodash/max';
+
 import messages from 'common-messages';
+
 import {
   COMMUNITY_ADMIN_INFINITE_IMPACT,
   COMMUNITY_ADMIN_OFFICIAL_ANSWER,
@@ -9,57 +12,73 @@ import {
   PERMISSION_GRANTED,
   moderatorPermissions,
   communityAdminPermissions,
-  MODERATOR_KEY,
 } from './constants';
 
-const findAllPropertiesByKeys = (properties, keys) =>
-  properties.filter(({ value }) =>
-    keys.every(
+const findAllPropertiesByKeys = (properties, keys, exact = false) =>
+  properties.filter(({ value }) => {
+    const restKeys = Array.from(new Array(_max(keys)).keys()).filter(
+      x => !keys.includes(x),
+    );
+
+    const match = keys.every(
       key =>
         value
           .toString(2)
           .split('')
           .reverse()
           .join('')[key] === '1',
-    ),
-  );
+    );
+
+    const restMatch =
+      exact &&
+      restKeys.every(
+        key =>
+          value
+            .toString(2)
+            .split('')
+            .reverse()
+            .join('')[key] === '0',
+      );
+
+    return exact ? match && restMatch : match;
+  });
 
 export const getModeratorPermissions = (
   communityPermissions = [],
-  globalPermissions = [],
+  globalModeratorProps,
   isGlobal,
   communities,
   translations,
 ) => {
   const values = isGlobal
-    ? [globalPermissions.find(({ key }) => key === MODERATOR_KEY)]
+    ? [globalModeratorProps, ...communityPermissions]
     : communityPermissions;
-  const perms = isGlobal ? moderatorPermissions : communityAdminPermissions;
   const permissions = {};
   permissions.blocks = values.reduce((acc, { community, value }, index) => {
     const permission = [];
+    const perms = community ? communityAdminPermissions : moderatorPermissions;
     value
       .toString(2)
       .split('')
+      .reverse()
       .forEach((perm, permIndex) => {
         if (perm === PERMISSION_GRANTED) permission.push(permIndex);
       });
     return [
       ...acc,
       {
-        h2: isGlobal
-          ? translations[messages.globalModerator.id]
-          : communities.find(({ id }) => id === community).name,
+        h2: community
+          ? communities.find(({ id }) => id === community).name
+          : translations[messages.globalModerator.id],
         sectionCode: index,
-        blocks: Object.values(perms).map(({ title }, permissionIndex) => ({
-          permissionCode: permissionIndex,
-          title,
+        blocks: Object.entries(perms).map(([key, permValue]) => ({
+          permissionCode: perms[key].code,
+          title: permValue.title,
         })),
         permission,
       },
     ];
   }, []);
-
   return permissions;
 };
 
@@ -78,6 +97,7 @@ export const isAnswerOfficial = ({ id, properties }) =>
       !!findAllPropertiesByKeys(
         [{ key: value, value: key }],
         OFFICIAL_ANSWER_KEYS,
+        true,
       ).length,
   ).length;
 

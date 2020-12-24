@@ -35,6 +35,7 @@ export const MODERATOR_CREATE_COMMUNITY = 3;
 export const MODERATOR_CREATE_TAG = 4;
 export const MODERATOR_QUESTION_TYPE = 5;
 
+export const COMMUNITY_ADMIN_VALUE = 255;
 export const COMMUNITY_ADMIN_INFINITE_IMPACT = 1;
 export const COMMUNITY_ADMIN_IGNORE_RATING = 2;
 export const COMMUNITY_ADMIN_CREATE_TAG = 4;
@@ -46,38 +47,49 @@ export const PERMISSION_GRANTED = '1';
 
 export const moderatorPermissions = {
   MODERATOR_INFINITE_IMPACT: {
+    code: 1,
     title: 'permissionInfinite',
   },
   MODERATOR_IGNORE_RATING: {
+    code: 2,
     title: 'permissionIgnoreRating',
   },
   MODERATOR_CREATE_COMMUNITY: {
+    code: 3,
     title: 'permissionCreateCommunity',
   },
   MODERATOR_CREATE_TAG: {
+    code: 4,
     title: 'permissionCreateTag',
   },
   MODERATOR_QUESTION_TYPE: {
+    code: 5,
     title: 'permissionChangeQuestionType',
   },
 };
 export const communityAdminPermissions = {
   COMMUNITY_ADMIN_INFINITE_IMPACT: {
+    code: 1,
     title: 'permissionInfinite',
   },
   COMMUNITY_ADMIN_IGNORE_RATING: {
+    code: 2,
     title: 'permissionIgnoreRating',
   },
   COMMUNITY_ADMIN_CREATE_TAG: {
+    code: 4,
     title: 'permissionCreateTag',
   },
   COMMUNITY_ADMIN_QUESTION_TYPE: {
+    code: 5,
     title: 'permissionChangeQuestionType',
   },
   COMMUNITY_ADMIN_TOP_QUESTIONS: {
+    code: 6,
     title: 'permissionSelectTopQuestion',
   },
   COMMUNITY_ADMIN_OFFICIAL_ANSWER: {
+    code: 7,
     title: 'permissionOfficialAnswer',
   },
 };
@@ -112,6 +124,8 @@ export const ALL_PROPERTY_COMMUNITY_TABLE = 'propertycomm';
 export const TG_ACCOUNT_TABLE = 'telegramacc';
 export const USER_ACHIEVEMENTS_TABLE = 'accachieve';
 export const PROJECT_ACHIEVEMENTS_TABLE = 'achieve';
+export const BOOST_STATISTICS_TABLE = 'statboost';
+export const USER_BOOST_TABLE = 'boost';
 
 // Scopes
 
@@ -128,6 +142,7 @@ export const ALL_TOP_QUESTIONS_SCOPE = 'alltopquest';
 export const ALL_PROPERTY_COMMUNITY_SCOPE = 'allprprtcomm';
 export const ALL_TG_ACCOUNTS_SCOPE = 'alltelacc';
 export const ALL_ACHIEVEMENTS_SCOPE = 'allachieve';
+export const BOOST_STATISTICS_SCOPE = 'allboost';
 
 // Inf. limit
 export const INF_LIMIT = -1;
@@ -174,6 +189,7 @@ export const VOTE_TO_DELETE_TAG = 'vtdeltag';
 
 export const SEND_TOKEN_METHOD = 'transfer';
 export const PICKUP_REWARD_METHOD = 'pickupreward';
+export const ADD_BOOST_METHOD = 'addboost';
 
 export const CONFIRM_TELEGRAM_ACCOUNT = 'apprvacc';
 export const UNLINK_TELEGRAM_ACCOUNT = 'dsapprvacc';

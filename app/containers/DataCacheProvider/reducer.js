@@ -23,7 +23,7 @@ import {
   GET_USER_PROFILE_ERROR,
   GET_USER_PROFILE_SUCCESS,
   REMOVE_USER_PROFILE,
-  UPDATE_USER_ACHIEV_COUNT,
+  UPDATE_USER_ACHIEVEMENTS,
 } from './constants';
 
 export const initialState = fromJS({
@@ -124,7 +124,7 @@ function dataCacheProviderReducer(state = initialState, action) {
         .set('usersLoading', false)
         .set('getUserProfileError', getUserProfileError);
 
-    case UPDATE_USER_ACHIEV_COUNT:
+    case UPDATE_USER_ACHIEVEMENTS:
       return state.setIn(
         ['users', `${userForUpdate}`, 'achievements_reached'],
         updatedAchCount,

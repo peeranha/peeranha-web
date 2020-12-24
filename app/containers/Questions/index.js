@@ -35,6 +35,7 @@ import { redirectToAskQuestionPage } from 'containers/AskQuestion/actions';
 
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 import TopCommunities from 'components/TopCommunities';
+import ScrollToTop from 'components/ScrollToTop/index';
 
 import InfinityLoader from 'components/InfinityLoader';
 import Seo from 'components/Seo';
@@ -85,7 +86,7 @@ export const Questions = ({
   questionFilter,
   loadTopQuestionsDispatch,
   isLastTopQuestionLoaded,
-}) => {  
+}) => {
   const [fetcher, setFetcher] = useState(null);
 
   const initFetcher = useCallback(
@@ -249,6 +250,8 @@ export const Questions = ({
         language={locale}
       />
 
+      <ScrollToTop />
+
       <Header
         communityIdFilter={Number(params.communityid) || 0}
         followedCommunities={followedCommunities}
@@ -282,15 +285,16 @@ export const Questions = ({
             isModerator={isModerator}
             profileInfo={profile}
           />
-          {(!!+questionFilterFromCookies && !displayLoader) && (
-            <div className="d-flex justify-content-center mb-3">
-              <ShowMoreButton
-                questionFilterFromCookies={questionFilterFromCookies}
-              >
-                {translationMessages[locale][messages.showAllQuestions.id]}
-              </ShowMoreButton>
-            </div>
-          )}
+          {!!+questionFilterFromCookies &&
+            !displayLoader && (
+              <div className="d-flex justify-content-center mb-3">
+                <ShowMoreButton
+                  questionFilterFromCookies={questionFilterFromCookies}
+                >
+                  {translationMessages[locale][messages.showAllQuestions.id]}
+                </ShowMoreButton>
+              </div>
+            )}
         </InfinityLoader>
       )}
 
@@ -359,7 +363,8 @@ export default compose(
           props.parentPage,
           Number(props.match.params.communityid),
         )(state),
-      isLastTopQuestionLoaded: questionsSelector.isLastTopQuestionLoadedSelector,
+      isLastTopQuestionLoaded:
+        questionsSelector.isLastTopQuestionLoadedSelector,
     }),
     dispatch => ({
       setTypeFilterDispatch: bindActionCreators(setTypeFilter, dispatch),

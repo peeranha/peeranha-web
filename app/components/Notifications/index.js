@@ -18,7 +18,6 @@ import { DAEMON } from 'utils/constants';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
-import { singleCommunityColors } from 'utils/communityManagement';
 import { rangeUnionWithIntersection } from 'utils/rangeOperations';
 
 import {
@@ -52,13 +51,19 @@ import Wrapper from '../Header/Complex';
 import Notification from './Notification';
 import MarkAllAsReadButton from './MarkAllAsReadButton';
 import reducer from './reducer';
-import WidthCentered from '../LoadingIndicator/WidthCentered';
-
-const colors = singleCommunityColors();
+import WidthCentered, {
+  LoaderContainer,
+} from '../LoadingIndicator/WidthCentered';
 
 const Container = styled.div`
+  ${Wrapper} {
+    margin-bottom: 15px;
+  }
+
   @media only screen and (max-width: 576px) {
-    background: ${BG_LIGHT};
+    ${Wrapper} {
+      margin-bottom: 0;
+    }
   }
 `;
 
@@ -81,14 +86,14 @@ const SubHeader = styled.div`
   border-bottom: 1px solid ${BORDER_SECONDARY_LIGHT};
 `;
 
-const LoaderContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 68px;
-  background: ${colors.mainBackground
-    ? colors.mainBackground
-    : 'rgb(234, 236, 244)'};
+const SubHeaderSeparator = styled.hr`
+  margin: 0;
+  border: 0;
+
+  @media only screen and (max-width: 576px) {
+    height: 0.5px;
+    background-color: ${BORDER_SECONDARY_LIGHT};
+  }
 `;
 
 const Notifications = ({
@@ -192,6 +197,7 @@ const Notifications = ({
     },
     [containerRef.current],
   );
+
   useEffect(
     () => {
       recalculateRanges();
@@ -226,7 +232,7 @@ const Notifications = ({
 
   return isAvailable ? (
     <Container className={`${className} overflow-hidden`}>
-      <Wrapper className="mb-3" position="bottom">
+      <Wrapper position="bottom">
         <Header notificationsNumber={allCount} />
       </Wrapper>
 
@@ -235,9 +241,13 @@ const Notifications = ({
           innerRef={containerRef}
           height={notifications.length * rowHeight + ROW_HEIGHT}
         >
-          <SubHeader innerRef={ref} height={ROW_HEIGHT} top="0">
-            {!!unreadCount && <MarkAllAsReadButton />}
-          </SubHeader>
+          {!!unreadCount ? (
+            <SubHeader innerRef={ref} height={ROW_HEIGHT} top="0">
+              <MarkAllAsReadButton />
+            </SubHeader>
+          ) : (
+            <SubHeaderSeparator />
+          )}
           <WindowScroller onResize={onResize} onScroll={onScroll}>
             {({ height, isScrolling, registerChild, scrollTop }) => (
               <div ref={registerChild}>

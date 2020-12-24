@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
@@ -11,8 +11,10 @@ import arrowDownIcon from 'images/arrowDown.svg?external';
 
 import { selectRewardsWeeksNumber } from 'containers/Wallet/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import * as selectors from 'containers/Boost/selectors';
 
 import WalletButton from 'containers/Header/WalletDropdown/WalletButton';
+import { BoostPrediction } from 'containers/Header/WalletDropdown';
 import NotificationIcon from 'containers/Header/WalletDropdown/NotificationIcon';
 
 import A from 'components/A';
@@ -24,6 +26,9 @@ const MobileLinksInWallet = ({
   profile,
   isMenuVisible,
   balance,
+  stakedInCurrentPeriod = 0,
+  stakedInNextPeriod = 0,
+  boost,
   rewardsWeeksNumber,
   locale,
 }) => {
@@ -35,6 +40,11 @@ const MobileLinksInWallet = ({
     return null;
   }
 
+  const availableBalance =
+    stakedInCurrentPeriod >= stakedInNextPeriod
+      ? balance - stakedInCurrentPeriod
+      : balance - stakedInNextPeriod;
+
   return (
     <div className="lightbg use-default-links">
       <button
@@ -42,10 +52,11 @@ const MobileLinksInWallet = ({
         onClick={() => setVisibilityWalletLinks(!visibleWalletLinks)}
       >
         <WalletButton
-          balance={balance}
+          balance={availableBalance}
           number={rewardsWeeksNumber}
           locale={locale}
-          mobile
+          isBoost={boost.value > 1}
+          isMobileVersion
         />
         <Icon
           className="mr-3"
@@ -62,14 +73,17 @@ const MobileLinksInWallet = ({
             {isPositiveNumber(rewardsWeeksNumber) && (
               <NotificationIcon
                 inline
-                mobile
+                isMobileVersion
                 number={rewardsWeeksNumber}
                 id="MobileLinksInWallet"
                 locale={locale}
               />
             )}
           </A>
-
+          <A to={routes.userBoost(profile.user)}>
+            <FormattedMessage {...messages.boost} />
+            {boost.value > 1 && <BoostPrediction>{boost.text}</BoostPrediction>}
+          </A>
           <SendTokens>
             <FormattedMessage {...messages.sendTokens} />
           </SendTokens>
@@ -81,6 +95,9 @@ const MobileLinksInWallet = ({
 
 MobileLinksInWallet.propTypes = {
   balance: PropTypes.number,
+  stakedInCurrentPeriod: PropTypes.number,
+  stakedInNextPeriod: PropTypes.number,
+  boost: PropTypes.object,
   profile: PropTypes.object,
   isMenuVisible: PropTypes.bool,
   rewardsWeeksNumber: PropTypes.number,

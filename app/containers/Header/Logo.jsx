@@ -4,6 +4,10 @@ import { Link } from 'react-router-dom';
 import { LEFT_MENU_WIDTH } from 'containers/AppWrapper/constants';
 import { TITLE_FONT, LINK_COLOR } from 'style-constants';
 
+import { singleCommunityStyles } from 'utils/communityManagement';
+
+const styles = singleCommunityStyles();
+
 const Logo = styled.div`
   display: flex;
   justify-content: left;
@@ -36,10 +40,10 @@ const QAndALogo = styled.div`
   font-family: ${TITLE_FONT};
   font-size: 24px;
   font-weight: 600;
-  color: ${LINK_COLOR};
+  color: ${styles.commHeadElemColor || LINK_COLOR};
 
   :hover {
-    color: ${LINK_COLOR};
+    color: ${styles.commHeadElemColor || LINK_COLOR};
 
     opacity: 0.7;
   }
@@ -73,7 +77,7 @@ const QAndALogo = styled.div`
 
     > span:nth-child(2) {
       left: -5px;
-      
+
       font-size: 60px;
     }
   }

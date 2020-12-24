@@ -31,6 +31,7 @@ export const CommunityField = ({
   splitInHalf,
   disabled,
   className,
+  options,
 }) => {
   if (input) {
     input.value = input.value.toJS ? input.value.toJS() : input.value;
@@ -49,6 +50,7 @@ export const CommunityField = ({
         input={input}
         disabled={disabled}
         selectedCommunityId={input.value?.id ?? 0}
+        communities={options}
         Button={({ communityAvatar, communityLabel }) => (
           <Div
             className="d-flex align-items-center"
@@ -78,6 +80,7 @@ CommunityField.propTypes = {
   tip: PropTypes.string,
   disabled: PropTypes.bool,
   splitInHalf: PropTypes.bool,
+  options: PropTypes.array,
 };
 
 export default CommunityField;

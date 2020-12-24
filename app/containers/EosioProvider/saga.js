@@ -49,6 +49,17 @@ export function* initEosioWorker({
       return null;
     }
 
+    if (autoLoginData && autoLoginData.loginWithKeycat) {
+      yield call(eosService.initEosioWithoutScatter);
+      yield call(
+        eosService.setKeycatAutoLoginData,
+        autoLoginData.keycatUserData,
+      );
+      yield put(initEosioSuccess(eosService));
+
+      return null;
+    }
+
     yield call(eosService.initEosioWithoutScatter, key, selectedAccount);
     yield put(initEosioSuccess(eosService));
 
@@ -82,22 +93,31 @@ export function* isAuthorized() {
   }
 }
 
-export function* isValid({ creator, buttonId, minRating, minEnergy }) {
+export function* isValid({
+  creator,
+  buttonId,
+  minRating,
+  minEnergy,
+  communityId,
+}) {
   const locale = yield select(makeSelectLocale());
   const profileInfo = yield select(makeSelectProfileInfo());
   const selectedAccount = yield select(makeSelectAccount());
 
-  yield call(isAvailableAction, () =>
-    validate({
-      rating: profileInfo.rating,
-      translations: translationMessages[locale],
-      actor: selectedAccount,
-      creator,
-      buttonId,
-      energy: profileInfo.energy,
-      minRating,
-      minEnergy,
-    }),
+  yield call(
+    isAvailableAction,
+    () =>
+      validate({
+        rating: profileInfo.rating,
+        translations: translationMessages[locale],
+        actor: selectedAccount,
+        creator,
+        buttonId,
+        energy: profileInfo.energy,
+        minRating,
+        minEnergy,
+      }),
+    communityId,
   );
 }
 

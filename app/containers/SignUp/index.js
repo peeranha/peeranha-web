@@ -39,8 +39,8 @@ import {
   iHaveEosAccount,
   idontHaveEosAccount,
   putKeysToState,
-  showScatterSignUpForm,
-  signUpWithScatter,
+  showWalletSignUpForm,
+  signUpWithWallet,
   sendAnotherCode,
 } from './actions';
 
@@ -60,14 +60,14 @@ export const SignUp = ({
   iHaveEosAccountDispatch,
   verifyEmailDispatch,
   showLoginModalDispatch,
-  signUpWithScatterDispatch,
+  signUpWithWalletDispatch,
   keys,
-  signUpWithScatterProcessing,
-  showScatterSignUpProcessing,
-  showScatterSignUpFormDispatch,
+  signUpWithWalletProcessing,
+  showWalletSignUpProcessing,
+  showWalletSignUpFormDispatch,
   putKeysToStateDispatch,
   account,
-  withScatter,
+  withWallet,
   checkEmailDispatch,
   eosAccountName,
   sendAnotherCodeDispatch,
@@ -104,7 +104,7 @@ export const SignUp = ({
   };
 
   useEffect(() => {
-    if (!email && !withScatter && process.env.NODE_ENV !== 'development') {
+    if (!email && !withWallet && process.env.NODE_ENV !== 'development') {
       createdHistory.push(routes.signup.email.name);
     }
 
@@ -129,8 +129,8 @@ export const SignUp = ({
         iHaveEosAccount: iHaveEosAccountDispatch,
         idontHaveEosAccount: idontHaveEosAccountDispatch,
         showLoginModal: showLoginModalDispatch,
-        showScatterSignUpForm: showScatterSignUpFormDispatch,
-        signUpWithScatter: signUpWithScatterDispatch,
+        showWalletSignUpForm: showWalletSignUpFormDispatch,
+        signUpWithWallet: signUpWithWalletDispatch,
         sendAnotherCode: sendAnotherCodeDispatch,
         keys: keys || {},
         locale,
@@ -141,8 +141,8 @@ export const SignUp = ({
         emailVerificationProcessing,
         iHaveEosAccountProcessing,
         idontHaveEosAccountProcessing,
-        signUpWithScatterProcessing,
-        showScatterSignUpProcessing,
+        signUpWithWalletProcessing,
+        showWalletSignUpProcessing,
       })}
     </>
   );
@@ -156,18 +156,18 @@ SignUp.propTypes = {
   verifyEmailDispatch: PropTypes.func,
   iHaveEosAccountDispatch: PropTypes.func,
   idontHaveEosAccountDispatch: PropTypes.func,
-  signUpWithScatterDispatch: PropTypes.func,
+  signUpWithWalletDispatch: PropTypes.func,
   emailChecking: PropTypes.bool,
   emailVerificationProcessing: PropTypes.bool,
   iHaveEosAccountProcessing: PropTypes.bool,
   idontHaveEosAccountProcessing: PropTypes.bool,
-  signUpWithScatterProcessing: PropTypes.bool,
-  showScatterSignUpProcessing: PropTypes.bool,
-  showScatterSignUpFormDispatch: PropTypes.func,
+  signUpWithWalletProcessing: PropTypes.bool,
+  showWalletSignUpProcessing: PropTypes.bool,
+  showWalletSignUpFormDispatch: PropTypes.func,
   account: PropTypes.string,
   email: PropTypes.string,
   eosAccountName: PropTypes.string,
-  withScatter: PropTypes.bool,
+  withWallet: PropTypes.bool,
   keys: PropTypes.object,
   putKeysToStateDispatch: PropTypes.func,
   sendAnotherCodeDispatch: PropTypes.func,
@@ -182,8 +182,8 @@ const withConnect = connect(
     emailVerificationProcessing: signUpSelectors.selectEmailVerificationProcessing(),
     iHaveEosAccountProcessing: signUpSelectors.selectIHaveEosAccountProcessing(),
     idontHaveEosAccountProcessing: signUpSelectors.selectIdontHaveEosAccountProcessing(),
-    signUpWithScatterProcessing: signUpSelectors.selectSignUpWithScatterProcessing(),
-    showScatterSignUpProcessing: signUpSelectors.selectShowScatterSignUpProcessing(),
+    signUpWithWalletProcessing: signUpSelectors.selectSignUpWithWalletProcessing(),
+    showWalletSignUpProcessing: signUpSelectors.selectShowWalletSignUpProcessing(),
     eosAccountName: signUpSelectors.selectEosAccountName(),
     keys: signUpSelectors.selectKeys(),
   }),
@@ -197,11 +197,11 @@ const withConnect = connect(
     ),
     putKeysToStateDispatch: bindActionCreators(putKeysToState, dispatch),
     showLoginModalDispatch: bindActionCreators(showLoginModal, dispatch),
-    showScatterSignUpFormDispatch: bindActionCreators(
-      showScatterSignUpForm,
+    showWalletSignUpFormDispatch: bindActionCreators(
+      showWalletSignUpForm,
       dispatch,
     ),
-    signUpWithScatterDispatch: bindActionCreators(signUpWithScatter, dispatch),
+    signUpWithWalletDispatch: bindActionCreators(signUpWithWallet, dispatch),
     sendAnotherCodeDispatch: bindActionCreators(sendAnotherCode, dispatch),
   }),
 );

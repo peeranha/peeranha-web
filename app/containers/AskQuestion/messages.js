@@ -16,4 +16,10 @@ export default defineMessages({
   postQuestion: {
     id: 'app.containers.AskQuestion.postQuestion',
   },
+  onlyExpertQuestionsAllowed: {
+    id: 'app.container.AskQuestion.onlyExpertQuestionsAllowed',
+  },
+  onlyGeneralQuestionsAllowed: {
+    id: 'app.container.AskQuestion.onlyGeneralQuestionsAllowed',
+  },
 });

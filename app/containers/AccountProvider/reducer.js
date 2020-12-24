@@ -19,6 +19,9 @@ export const initialState = fromJS({
   error: null,
   account: null,
   balance: null,
+  stakedInCurrentPeriod: null,
+  stakedInNextPeriod: null,
+  boost: null,
   lastUpdate: null,
   email: null,
   eosAccountName: null,
@@ -27,6 +30,7 @@ export const initialState = fromJS({
   encryptedKeys: null,
   hasOwnerEosKey: false,
   loginWithScatter: false,
+  loginWithKeycat: false,
 });
 
 function accountProviderReducer(state = initialState, action) {
@@ -35,6 +39,9 @@ function accountProviderReducer(state = initialState, action) {
     err,
     account,
     balance,
+    stakedInCurrentPeriod,
+    stakedInNextPeriod,
+    boost,
     email,
     eosAccountName,
     authToken,
@@ -42,6 +49,7 @@ function accountProviderReducer(state = initialState, action) {
     encryptedKeys,
     hasOwnerEosKey,
     loginWithScatter,
+    loginWithKeycat,
   } = action;
 
   switch (type) {
@@ -52,7 +60,10 @@ function accountProviderReducer(state = initialState, action) {
         .set('loading', false)
         .set('lastUpdate', Date.now())
         .set('account', account || initialState.get('account'))
-        .set('balance', balance || initialState.get('balance'));
+        .set('balance', balance || initialState.get('balance'))
+        .set('boost', boost || initialState.get('boost'))
+        .set('stakedInCurrentPeriod', stakedInCurrentPeriod || initialState.get('stakedInCurrentPeriod'))
+        .set('stakedInNextPeriod', stakedInNextPeriod || initialState.get('stakedInNextPeriod'));
     case GET_CURRENT_ACCOUNT_ERROR:
       return state.set('loading', false).set('error', err);
 
@@ -64,7 +75,8 @@ function accountProviderReducer(state = initialState, action) {
         .set('passwordUserPart', passwordUserPart)
         .set('encryptedKeys', encryptedKeys)
         .set('hasOwnerEosKey', hasOwnerEosKey)
-        .set('loginWithScatter', loginWithScatter);
+        .set('loginWithScatter', loginWithScatter)
+        .set('loginWithKeycat', loginWithKeycat);
     case REMOVE_LOGIN_DATA:
       return state
         .set('email', null)

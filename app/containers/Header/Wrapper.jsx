@@ -66,6 +66,8 @@ export const MainSubHeader = styled.div`
   align-items: center;
   box-shadow: 0 2px 4px 0 ${BORDER_SECONDARY};
   flex: 2;
+  background-color: ${props =>
+    props.mainSubHeaderBgColor ? props.mainSubHeaderBgColor : ''};
 
   form {
     flex: 1;

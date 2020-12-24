@@ -53,6 +53,8 @@ export const DOWN_VOTE_ERROR = 'app/ViewQuestion/DOWN_VOTE_ERROR';
 export const VOTE_TO_DELETE = 'app/ViewQuestion/VOTE_TO_DELETE';
 export const VOTE_TO_DELETE_SUCCESS = 'app/ViewQuestion/VOTE_TO_DELETE_SUCCESS';
 export const VOTE_TO_DELETE_ERROR = 'app/ViewQuestion/VOTE_TO_DELETE_ERROR';
+export const SET_VOTE_TO_DELETE_LOADING =
+  'app/ViewQuestion/SET_VOTE_TO_DELETE_LOADING';
 
 export const CHANGE_QUESTION_TYPE = 'app/ViewQuestion/CHANGE_QUESTION_TYPE';
 export const CHANGE_QUESTION_TYPE_SUCCESS =

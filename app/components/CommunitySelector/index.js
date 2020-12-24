@@ -8,7 +8,6 @@ import { createStructuredSelector } from 'reselect';
 import messages from 'common-messages';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 import { makeSelectFollowedCommunities } from 'containers/AccountProvider/selectors';
 
 import {
@@ -37,7 +36,7 @@ const CommunitySelector = ({
   Button,
   isArrowed,
   locale,
-  communities,
+  communities = [],
   followedCommunities,
   showOnlyFollowed,
   selectedCommunityId,
@@ -186,7 +185,6 @@ CommunitySelector.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
-  communities: selectCommunities(),
   followedCommunities: makeSelectFollowedCommunities(),
 });
 
