@@ -35,13 +35,7 @@ import { REFERRAL_CODE } from '../Login/constants';
 import { getCookie } from '../../utils/cookie';
 import { REFERRAL_CODE_URI } from '../App/constants';
 
-const WalletsSignUpForm = ({
-  handleSubmit,
-  change,
-  eosAccountValue,
-  withScatter,
-  withKeycat,
-}) => (
+const WalletsSignUpForm = ({ handleSubmit, change, eosAccountValue }) => (
   <SignUp withWallet>
     {({
       locale,
@@ -56,14 +50,7 @@ const WalletsSignUpForm = ({
 
       return (
         <SignUpOptions withWallet showWalletSignUpForm={showWalletSignUpForm}>
-          <Form
-            onSubmit={handleSubmit(val =>
-              signUpWithWallet(val, {
-                scatter: withScatter,
-                keycat: withKeycat,
-              }),
-            )}
-          >
+          <Form onSubmit={handleSubmit(val => signUpWithWallet(val))}>
             <Field
               name={EOS_ACCOUNT_FIELD}
               disabled
@@ -119,8 +106,6 @@ WalletsSignUpForm.propTypes = {
   handleSubmit: PropTypes.func,
   eosAccountValue: PropTypes.string,
   change: PropTypes.func,
-  withScatter: PropTypes.bool,
-  withKeycat: PropTypes.bool,
 };
 
 const formName = 'WalletsSignUpForm';
@@ -137,12 +122,9 @@ let FormClone = compose(
 
 FormClone = connect(state => {
   const form = state.toJS().form[formName] || { values: {} };
-  const { withScatter, withKeycat } = selectEos(state);
 
   return {
     eosAccountValue: form.values ? form.values[EOS_ACCOUNT_FIELD] : null,
-    withScatter,
-    withKeycat,
   };
 })(FormClone);
 

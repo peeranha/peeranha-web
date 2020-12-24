@@ -9,6 +9,7 @@ import { translationMessages } from 'i18n';
 
 import commonMessages from 'common-messages';
 import { CURRENCIES, WALLETS } from 'wallet-config';
+import { initVals } from 'utils/constants';
 import { scrollToErrorField } from 'utils/animation';
 import { getCookie } from 'utils/cookie';
 
@@ -74,8 +75,7 @@ const SendTipsForm = ({
   selectedAccountProcessing,
   isPeer,
   wallets,
-  withScatter,
-  withKeycat,
+  eosInitMethod,
   tipsPreselect,
 }) => {
   const isPeeranhaWalletSelected = walletValue?.name === WALLETS.PEERANHA.name;
@@ -93,23 +93,34 @@ const SendTipsForm = ({
       }
 
       // set scatter account
-      if (isScatterWalletSelected && withScatter && !selectedScatterAccount) {
+      if (
+        isScatterWalletSelected &&
+        eosInitMethod === initVals.initWithScatter &&
+        !selectedScatterAccount
+      ) {
         change(EOS_SEND_FROM_ACCOUNT_FIELD, loggedUserAccount);
       }
       if (
         isScatterWalletSelected &&
-        ((withScatter && selectedScatterAccount) || !withScatter)
+        ((eosInitMethod === initVals.initWithScatter &&
+          selectedScatterAccount) ||
+          eosInitMethod !== initVals.initWithScatter)
       ) {
         change(EOS_SEND_FROM_ACCOUNT_FIELD, selectedScatterAccount);
       }
 
       // set keycat account
-      if (isKeycatWalletSelected && withKeycat && !selectedKeycatAccount) {
+      if (
+        isKeycatWalletSelected &&
+        eosInitMethod === initVals.initWithKeycat &&
+        !selectedKeycatAccount
+      ) {
         change(EOS_SEND_FROM_ACCOUNT_FIELD, loggedUserAccount);
       }
       if (
         isKeycatWalletSelected &&
-        ((withKeycat && selectedKeycatAccount) || !withKeycat)
+        ((eosInitMethod === initVals.initWithKeycat && selectedKeycatAccount) ||
+          eosInitMethod !== initVals.initWithKeycat)
       ) {
         change(EOS_SEND_FROM_ACCOUNT_FIELD, selectedKeycatAccount);
       }
@@ -142,7 +153,7 @@ const SendTipsForm = ({
   };
 
   const changeWallet = wallet => {
-    if (!withScatter && !withKeycat) {
+    if (eosInitMethod === initVals.withOutWallets) {
       change(WALLET_FIELD, wallet);
     }
     change(EOS_SEND_FROM_ACCOUNT_FIELD, null);
@@ -192,8 +203,7 @@ const SendTipsForm = ({
             selectKeycatAccount={selectKeycatAccountDispatch}
             locale={locale}
             isPeer={isPeer}
-            withScatter={withScatter}
-            withKeycat={withKeycat}
+            eosInitMethod={eosInitMethod}
             isKeycatWalletSelected={isKeycatWalletSelected}
             isScatterWalletSelected={isScatterWalletSelected}
           />
@@ -247,8 +257,7 @@ SendTipsForm.propTypes = {
   locale: PropTypes.string,
   account: PropTypes.string,
   isPeer: PropTypes.bool,
-  withScatter: PropTypes.bool,
-  withKeycat: PropTypes.bool,
+  eosInitMethod: PropTypes.string,
   wallets: PropTypes.arrayOf(PropTypes.object),
   sendTipsProcessing: PropTypes.bool,
   walletValue: PropTypes.object,
@@ -280,7 +289,7 @@ const formSelector = formValueSelector(formName);
 FormClone = connect(
   (state, { cryptoAccounts: cryptoAccs, account }) => {
     const profile = makeSelectProfileInfo()(state);
-    const { withScatter, withKeycat } = makeSelectEos()(state);
+    const { eosInitMethod } = makeSelectEos()(state);
 
     const cryptoAccounts = _cloneDeep(cryptoAccs);
     const formValues = _get(state.toJS(), ['form', formName, 'values'], {});
@@ -322,7 +331,9 @@ FormClone = connect(
         wallet =>
           !(
             wallet.name === WALLETS.PEERANHA.name &&
-            (!profile || withScatter || withKeycat)
+            (!profile ||
+              eosInitMethod === initVals.initWithScatter ||
+              eosInitMethod === initVals.initWithKeycat)
           ),
       );
     }
@@ -339,10 +350,13 @@ FormClone = connect(
         );
 
       // there is no saved data for send tips
-      if (profile && !withScatter && !withKeycat) return WALLETS.PEERANHA;
-      if (withScatter && !isMobileDevice) return WALLETS.SCATTER_SQRL_WOMBAT;
-      if (withScatter && isMobileDevice) return WALLETS.WOMBAT;
-      if (withKeycat) return WALLETS.KEYCAT;
+      if (profile && eosInitMethod === initVals.withOutWallets)
+        return WALLETS.PEERANHA;
+      if (eosInitMethod === initVals.initWithScatter && !isMobileDevice)
+        return WALLETS.SCATTER_SQRL_WOMBAT;
+      if (eosInitMethod === initVals.initWithScatter && isMobileDevice)
+        return WALLETS.WOMBAT;
+      if (eosInitMethod === initVals.initWithKeycat) return WALLETS.KEYCAT;
 
       // default value
       return wallets[0];
@@ -367,8 +381,7 @@ FormClone = connect(
     return {
       isPeer,
       wallets,
-      withScatter,
-      withKeycat,
+      eosInitMethod,
       walletValue,
       tipsPreselect,
       currencyValue,

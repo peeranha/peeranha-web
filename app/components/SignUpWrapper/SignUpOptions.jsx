@@ -155,7 +155,7 @@ const RightMenuWithoutScatter = ({
     {children}
     <Div>
       <Footer
-        walletAction={showWalletSignUpForm}
+        walletButtonAction={showWalletSignUpForm}
         showWalletSignUpProcessing={showWalletSignUpProcessing}
         emailVerificationProcessing={emailVerificationProcessing}
         emailChecking={emailChecking}

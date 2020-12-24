@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { translationMessages } from 'i18n';
 import { FormattedMessage } from 'react-intl';
 
+import { initVals } from 'utils/constants';
 import { CURRENCIES, WALLETS } from 'wallet-config';
 import {
   BORDER_SECONDARY,
@@ -59,8 +60,7 @@ const CurrencyField = ({
   selectKeycatAccount,
   isPeer,
   locale,
-  withKeycat,
-  withScatter,
+  eosInitMethod,
   isKeycatWalletSelected,
   isScatterWalletSelected,
 }) => {
@@ -127,8 +127,14 @@ const CurrencyField = ({
             {translationMessages[locale]?.[messages.sendFromAccount.id]}
           </Label>
           {!isPeer &&
-            !(withScatter && isScatterWalletSelected) &&
-            !(withKeycat && isKeycatWalletSelected) && (
+            !(
+              eosInitMethod === initVals.initWithScatter &&
+              isScatterWalletSelected
+            ) &&
+            !(
+              eosInitMethod === initVals.initWithKeycat &&
+              isKeycatWalletSelected
+            ) && (
               <B onClick={selectAccount} type="button">
                 <FormattedMessage
                   {...messages[
@@ -156,8 +162,7 @@ CurrencyField.propTypes = {
   selectScatterAccount: PropTypes.func,
   selectKeycatAccount: PropTypes.func,
   sendFromAccountFieldValue: PropTypes.string,
-  withKeycat: PropTypes.bool,
-  withScatter: PropTypes.bool,
+  eosInitMethod: PropTypes.string,
   isKeycatWalletSelected: PropTypes.bool,
   isScatterWalletSelected: PropTypes.bool,
 };

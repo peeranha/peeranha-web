@@ -126,6 +126,7 @@ export function* loggerWorker(error) {
           (endpointsData && endpointsData.nodes[0]) ||
           process.env.EOS_ENDPOINT_DEFAULT,
         isScatter: loginData ? Boolean(loginData.loginWithScatter) : false,
+        isKeycat: loginData ? Boolean(loginData.loginWithKeycat) : false,
         userAgent: navigator.userAgent,
       }),
     });

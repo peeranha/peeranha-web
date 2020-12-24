@@ -129,7 +129,7 @@ export function* loginWithEmailWorker({ val }) {
   }
 }
 
-export function* loginWithWalletWorker({ keycat, scatter }) {
+export function* loginWithWalletWorker({ keycatWallet, scatterWallet } = {}) {
   try {
     const eosService = yield select(selectEos);
     const locale = yield select(makeSelectLocale());
@@ -138,12 +138,12 @@ export function* loginWithWalletWorker({ keycat, scatter }) {
     let currentAccount;
     let keycatUserData = null;
 
-    if (keycat) {
+    if (keycatWallet) {
       keycatUserData = yield call(eosService.keycatSignIn);
       currentAccount = keycatUserData.accountName;
     }
 
-    if (scatter) {
+    if (scatterWallet) {
       yield call(eosService.forgetIdentity);
       yield call(eosService.initEosioWithScatter);
 
@@ -183,20 +183,21 @@ export function* loginWithWalletWorker({ keycat, scatter }) {
 
     yield call(getCommunityPropertyWorker);
 
-    const autologinData = keycat
-      ? { keycatUserData, loginWithKeycat: true }
-      : { loginWithScatter: true };
+    const getAutologinData = () => {
+      if (keycatWallet) return { keycatUserData, loginWithKeycat: true };
+      if (scatterWallet) return { loginWithScatter: true };
+    };
 
     setCookie({
       name: AUTOLOGIN_DATA,
-      value: JSON.stringify(autologinData),
+      value: JSON.stringify(getAutologinData()),
       options: {
         allowSubdomains: true,
         defaultPath: true,
       },
     });
 
-    yield put(addLoginData(autologinData));
+    yield put(addLoginData(getAutologinData()));
 
     if (window.location.pathname.includes(routes.registrationStage))
       yield put(redirectToFeed());

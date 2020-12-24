@@ -89,7 +89,7 @@ const EmailPasswordForm = ({
     </form>
 
     <Footer
-      walletAction={loginWithWallet}
+      walletButtonAction={loginWithWallet}
       loginWithWalletProcessing={loginWithWalletProcessing}
       loginWithEmailProcessing={loginWithEmailProcessing}
     />

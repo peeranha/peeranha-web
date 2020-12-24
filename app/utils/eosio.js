@@ -20,6 +20,7 @@ import {
   SCATTER_APP_NAME,
   SCATTER_TIMEOUT_DURATION,
   SCATTER_TIMEOUT_ERROR,
+  initVals,
 } from './constants';
 
 import { createPushActionBody, parseTableRows } from './ipfs';
@@ -41,15 +42,14 @@ class EosioService {
 
   constructor() {
     this.initialized = false;
+    this.eosInitMethod = null;
     this.isScatterExtension = false;
     this.scatterInstalled = null;
     this.node = null;
     this.isScatterWindowOpened = false;
     this.#key = null;
-    this.withScatter = false;
     this.keycat = null;
     this.keycatUserData = null;
-    this.withKeycat = false;
   }
 
   initScatter = async appName => {
@@ -72,7 +72,7 @@ class EosioService {
       this.initialized = true;
       this.isScatterExtension = ScatterJS.scatter.isExtension;
       this.scatterInstalled = true;
-      this.withScatter = true;
+      this.eosInitMethod = initVals.initWithScatter;
 
       const api = ScatterJS.scatter.eos(scatterConfig, Eosjs16, eosOptions);
 
@@ -85,9 +85,6 @@ class EosioService {
           get_block: api.getBlock,
         },
       };
-
-      this.keycatUserData = null;
-      this.withKeycat = false;
     } catch (err) {
       this.scatterInstalled = false;
       this.initialized = false;
@@ -108,14 +105,22 @@ class EosioService {
       textEncoder: new TextEncoder(),
     });
     this.initialized = true;
+    this.eosInitMethod = initVals.withOutWallets;
     this.selectedAccount = acc;
-    this.withScatter = false;
     this.#key = key;
-
-    await this.initKeycat();
   };
 
-  initKeycat = async () => {
+  initEosioWithKeycat = async () => {
+    this.node = await this.getNode();
+
+    const signatureProvider = new JsSignatureProvider([]);
+    const rpc = new JsonRpc(this.node.endpoint, { fetch });
+
+    this.eosApi = new Api({
+      rpc,
+      signatureProvider,
+    });
+
     const { allEndpoints } = await getNodes();
     const eosNodes = allEndpoints.map(el => el.endpoint);
 
@@ -128,31 +133,28 @@ class EosioService {
     });
 
     this.keycat = keycat;
-    this.withKeycat = false;
     this.keycatUserData = null;
+    this.initialized = true;
   };
 
   keycatSignIn = async () => {
-    if (!this.keycat) await this.initKeycat();
+    if (!this.keycat) await this.initEosioWithKeycat();
     const keycatUserData = await this.keycat.signin();
     this.keycatUserData = keycatUserData;
     this.selectedAccount = keycatUserData.accountName;
-    this.withKeycat = true;
-    this.withScatter = false;
+    this.eosInitMethod = initVals.initWithKeycat;
     return keycatUserData;
   };
 
   setKeycatAutoLoginData = async keycatUserData => {
     this.keycatUserData = keycatUserData;
     this.selectedAccount = keycatUserData.accountName;
-    this.withKeycat = true;
-    this.withScatter = false;
+    this.eosInitMethod = initVals.initWithKeycat;
   };
 
   resetKeycatUserData = () => {
     this.keycatUserData = null;
     this.selectedAccount = null;
-    this.withKeycat = false;
   };
 
   privateToPublic = privateKey => {
@@ -263,8 +265,7 @@ class EosioService {
 
     createPushActionBody(data);
 
-    const isKeycatUser =
-      this.keycatUserData && this.keycatUserData.accountName === actor;
+    const isKeycatUser = this.eosInitMethod === initVals.initWithKeycat;
     const keycatPermission = this.keycatUserData?.permission;
 
     const transaction = {
@@ -292,9 +293,7 @@ class EosioService {
       expireSeconds: 60,
     };
 
-    const initializedWithScatter = !this.eosApi.signatureProvider;
-
-    if (initializedWithScatter && !this.withKeycat) {
+    if (this.eosInitMethod === initVals.initWithScatter) {
       try {
         if (this.isScatterWindowOpened) {
           throw new ApplicationError('Scatter window is already opened');
@@ -319,9 +318,9 @@ class EosioService {
       }
     }
 
-    if (this.withKeycat) {
+    if (this.eosInitMethod === initVals.initWithKeycat) {
       try {
-        const result = await this.keycat.account(actor).transact(
+        const trx = await this.keycat.account(actor).transact(
           {
             actions: transaction.actions,
           },
@@ -330,7 +329,12 @@ class EosioService {
             expireSeconds: 60,
           },
         );
-        return result;
+
+        if (waitForGettingToBlock) {
+          await this.awaitTransactionToBlock(trx.processed.block_num);
+        }
+
+        return trx;
       } catch (err) {
         throw new BlockchainError(err.message);
       }
@@ -530,11 +534,7 @@ class EosioService {
         );
       }
 
-      const initializedWithScatter = this.eosApi
-        ? Boolean(!this.eosApi.signatureProvider)
-        : false;
-
-      if (initializedWithScatter) {
+      if (this.eosInitMethod === initVals.initWithScatter) {
         await this.initEosioWithScatter();
       } else {
         await this.initEosioWithoutScatter(this.#key, this.selectedAccount);
