@@ -9,14 +9,6 @@ import Input from 'components/Input';
 const SearchForm = ({ placeholder, className, onBlur, searchFormId }) => {
   const [text, changeText] = useState('');
 
-  const onClickHandler = useCallback(
-    () => {
-      onBlur();
-      changeText('');
-    },
-    [onBlur, changeText],
-  );
-
   const onSubmit = useCallback(
     e => {
       e.preventDefault();
@@ -44,7 +36,7 @@ const SearchForm = ({ placeholder, className, onBlur, searchFormId }) => {
         input={input}
         placeholder={placeholder}
         isSearchable
-        onClick={onClickHandler}
+        onClick={onSubmit}
       />
     </form>
   );
