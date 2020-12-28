@@ -253,7 +253,7 @@ const Comment = item => {
   return (
     <React.Fragment>
       {!isView ? (
-        <CommentEdit toggleView={toggleView} {...item} />
+        <CommentEdit toggleView={() => toggleView(!isView)} {...item} />
       ) : (
         <CommentView isView={isView} toggleView={toggleView} {...item} />
       )}
@@ -286,6 +286,9 @@ const Comments = props => {
         submitButtonName={props.submitButtonName}
         sendCommentLoading={props.sendCommentLoading}
         sendComment={props.sendComment}
+        checkAddCommentAvailable={props.checkAddCommentAvailable}
+        hideAddCommentForm={props.hideAddCommentForm}
+        addCommentFormDisplay={props.addCommentFormDisplay}
         answerId={props.answerId}
         changeCommentsView={changeCommentsView}
         isAllCommentsView={isAllCommentsView}

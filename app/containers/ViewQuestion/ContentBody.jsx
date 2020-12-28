@@ -29,6 +29,9 @@ export const ContentBody = ({
   comments,
   postCommentLoading,
   postComment,
+  checkAddCommentAvailable,
+  hideAddCommentForm,
+  addCommentFormDisplay,
   questionFrom,
   account,
   markAsAccepted,
@@ -90,6 +93,9 @@ export const ContentBody = ({
         submitButtonName={translations[messages.postCommentButton.id]}
         sendCommentLoading={postCommentLoading}
         sendComment={postComment}
+        checkAddCommentAvailable={checkAddCommentAvailable}
+        hideAddCommentForm={hideAddCommentForm}
+        addCommentFormDisplay={addCommentFormDisplay}
         ids={ids}
         infiniteImpact={infiniteImpact}
       />
@@ -108,6 +114,9 @@ ContentBody.propTypes = {
   saveCommentLoading: PropTypes.bool,
   comments: PropTypes.array,
   postComment: PropTypes.func,
+  checkAddCommentAvailable: PropTypes.func,
+  hideAddCommentForm: PropTypes.func,
+  addCommentFormDisplay: PropTypes.array,
   voteToDelete: PropTypes.func,
   saveComment: PropTypes.func,
   deleteComment: PropTypes.func,
