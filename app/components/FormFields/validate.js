@@ -203,6 +203,7 @@ const strLength20x1000 = stringLength(20, 1000);
 const strLength25x30000 = stringLength(25, 30000);
 const number1x7 = numberRange(1, 7);
 const number1x24 = numberRange(1, 24);
+const number1x168 = numberRange(1, 168);
 
 export {
   imageValidation,
@@ -224,6 +225,7 @@ export {
   strLength25x30000,
   number1x7,
   number1x24,
+  number1x168,
   valueHasNotBeInList,
   valueHasToBeLessThan,
   comparePasswords,

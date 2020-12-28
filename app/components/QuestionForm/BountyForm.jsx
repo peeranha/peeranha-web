@@ -6,8 +6,6 @@ import styled from 'styled-components';
 
 import { valueHasToBeLessThan } from 'components/FormFields/validate';
 
-import { getFormattedNum3 } from 'utils/numbers';
-
 import NumberInputField from '../FormFields/NumberInputField';
 
 import { FORM_BOUNTY, FORM_COMMUNITY } from './constants';
@@ -18,7 +16,7 @@ const BountyContainer = styled.div`
   margin-top: 20px;
 `;
 
-const BountyForm = ({ questionLoading, intl, formValues, dotRestriction }) => {
+const BountyForm = ({ questionLoading, intl, formValues }) => {
   const bountyDisabled = useMemo(
     () => questionLoading || !formValues?.[FORM_COMMUNITY]?.value,
     [formValues, questionLoading],
@@ -30,8 +28,8 @@ const BountyForm = ({ questionLoading, intl, formValues, dotRestriction }) => {
         name={FORM_BOUNTY}
         label={intl.formatMessage(messages.bountyLabel)}
         tip={intl.formatMessage(messages.bountyTip)}
-        placeholder={getFormattedNum3(0)}
-        dotRestriction={dotRestriction}
+        placeholder={0}
+        dotRestriction={0}
         component={NumberInputField}
         disabled={bountyDisabled}
         validate={[valueHasToBeLessThan]}
@@ -46,7 +44,6 @@ BountyForm.propTypes = {
   questionLoading: PropTypes.bool,
   intl: intlShape.isRequired,
   formValues: PropTypes.object,
-  dotRestriction: PropTypes.number,
 };
 
 export default memo(BountyForm);
