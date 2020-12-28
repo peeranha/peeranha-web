@@ -288,7 +288,6 @@ export default memo(
                   },
                   [FORM_TAGS]: question?.chosenTags,
                   [FORM_BOUNTY]: question?.bounty,
-                  [FORM_BOUNTY_DAYS]: question?.bountyDays,
                   [FORM_BOUNTY_HOURS]: question?.bountyHours,
                 }
               : {}),
