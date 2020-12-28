@@ -28,6 +28,7 @@ const BountyDateForm = ({ questionLoading, intl, formValues, show }) => {
         tip={intl.formatMessage(messages.bountyHoursTip)}
         placeholder={intl.formatMessage(messages.hoursPlaceholder)}
         component={NumberInputField}
+        dotRestriction={0}
         disabled={bountyDisabled}
         validate={[required, number1x168]}
         warn={[required, number1x168]}

@@ -59,7 +59,6 @@ export function* postQuestionWorker({ val }) {
       type: +val[FORM_TYPE],
       bounty: +val[FORM_BOUNTY],
       bountyFull: `${getFormattedAsset(+val[FORM_BOUNTY])} PEER`,
-      bountyDays: +val[FORM_BOUNTY_DAYS],
       bountyHours: +val[FORM_BOUNTY_HOURS],
       community,
     };
@@ -73,10 +72,7 @@ export function* postQuestionWorker({ val }) {
 
     if (val[FORM_BOUNTY]) {
       const now = Math.round(new Date().valueOf() / 1000);
-      const bountyTime =
-        now +
-        questionData.bountyDays * ONE_DAY_IN_SECONDS +
-        questionData.bountyHours * ONE_HOUR_IN_SECONDS;
+      const bountyTime = now + questionData.bountyHours * ONE_HOUR_IN_SECONDS;
 
       yield call(
         setBounty,
