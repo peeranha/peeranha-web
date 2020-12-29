@@ -370,13 +370,11 @@ export const getStakeNum = (stake) => {
 export const getPredictedBoost = (userStake, maxStake) => {
   let boost = 1;
 
-  if (userStake && maxStake) {
-    if (userStake <= maxStake) {
-      boost = userStake / maxStake * (MAX_STAKE_PREDICTION - MIN_STAKE_PREDICTION) + 1;
-      boost = Math.floor(boost * 100) / 100;
-    } else if (userStake > 0) {
-      boost = MAX_STAKE_PREDICTION;
-    }
+  if (userStake && maxStake && userStake <= maxStake) {
+    boost = userStake / maxStake * (MAX_STAKE_PREDICTION - MIN_STAKE_PREDICTION) + 1;
+    boost = Math.floor(boost * 100) / 100;
+  } else if (userStake && userStake > 0) {
+    boost = MAX_STAKE_PREDICTION;
   }
 
   return {
@@ -416,6 +414,9 @@ export function getBoostWeeks(weekStat, globalBoostStat, userBoostStat) {
 
     currentWeek.maxStake = currentWeekMaxStake;
     nextWeek.maxStake = nextWeekMaxStake;
+  } else {
+    currentWeek.maxStake = 0;
+    nextWeek.maxStake = 0;
   }
 
   if (userBoostStat && userBoostStat.length) {
@@ -423,6 +424,9 @@ export function getBoostWeeks(weekStat, globalBoostStat, userBoostStat) {
 
     currentWeek.userStake = currentWeekUserStake;
     nextWeek.userStake = nextWeekUserStake;
+  } else {
+    currentWeek.userStake = 0;
+    nextWeek.userStake = 0;
   }
 
   return {
