@@ -239,7 +239,6 @@ export const KandaStyles = {
     circle {
       stroke: #ffffff;
       stroke-width: 1.5px;
-      fill: #ffb546;
     }
     polyline {
       stroke: #ffffff;
@@ -282,6 +281,5 @@ export const KandaStyles = {
   isDropdownMenuArrow: false,
   customSubHeaderConfig: CustomSubHeaderConfig,
   buttonBorderRadius: '50px',
-  projectBorderRadius: '0px',
   domainName,
 };
