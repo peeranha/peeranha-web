@@ -160,6 +160,7 @@
     "Я понимаю, что эта операция не удаляет мой аккаунт на Telos блокчейне. Аккаунт удаляется только из кошелька сервиса.",
   "app.containers.DeleteAccount.iHaveBackup":
     "Я сделал бэкап моих Telos приватных ключей.",
+
   "app.containers.Wallet.title": "Кошелек",
   "app.containers.Wallet.description": "Кошелек | Описание",
   "app.containers.Wallet.eosAccount": "Telos аккаунт",
@@ -185,6 +186,8 @@
     "Ставка, сделанная на следующий период",
   "app.containers.Wallet.totalBalance": "Итоговый баланс",
 
+  "app.containers.Boost.title": "Буст",
+  "app.containers.Boost.description": "Буст | Описание",
   "app.containers.Boost.currentPeriod": "Текущий период",
   "app.containers.Boost.nextPeriod": "Следующий период",
   "app.containers.Boost.maximumStake": "Максимальная ставка",

@@ -185,6 +185,8 @@
   "app.containers.Wallet.stakedInNextPeriod": "Staked in next period",
   "app.containers.Wallet.totalBalance": "Total balance",
 
+  "app.containers.Boost.title": "Boost",
+  "app.containers.Boost.description": "Boost | Description",
   "app.containers.Boost.currentPeriod": "Current period",
   "app.containers.Boost.nextPeriod": "Next period",
   "app.containers.Boost.maximumStake": "Maximum stake",
