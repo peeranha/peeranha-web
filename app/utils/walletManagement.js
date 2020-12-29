@@ -459,5 +459,5 @@ export const getRewardAmountByBoost = (
 
   if (boost.value <= 1) return amount;
 
-  return amount * boost.value * 1000;
+  return amount * boost.value;
 }
