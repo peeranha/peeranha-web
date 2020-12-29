@@ -68,6 +68,7 @@ const QI = ({
   downQuestionDispatch,
   topQuestionActionProcessing,
   moveQuestionDispatch,
+  isPromoted,
 }) => {
   const ref = useRef(null);
 
@@ -129,6 +130,7 @@ const QI = ({
       onDrop={onDrop}
       onDragOver={onDragOver}
       onDragStart={onDragStart}
+      isPromoted={isPromoted}
     >
       <AdditionalInfo
         correctAnswerId={correct_answer_id}
@@ -164,6 +166,7 @@ const QI = ({
           isTopQuestion={isTopQuestion}
           topQuestionsCount={topQuestions.length}
           topQuestionActionProcessing={topQuestionActionProcessing}
+          isPromoted={isPromoted}
         />
       </Div>
     </Box>
@@ -192,6 +195,20 @@ export const Content = ({
   profileInfo,
 }) => (
   <div className="position-relative">
+    {questionsList.filter((item, index) => index < 3).map((item, index) => (
+      <QuestionItem
+        {...item}
+        index={index}
+        first={index === 0}
+        last={index === questionsList.length - 1}
+        locale={locale}
+        communities={communities}
+        key={item.id}
+        isModerator={isModerator}
+        profileInfo={profileInfo}
+        isPromoted
+      />
+    ))}
     {questionsList.map((item, index) => (
       <QuestionItem
         {...item}

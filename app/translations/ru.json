@@ -114,6 +114,7 @@
   "app.common.signUpViaWallet": "Регистрация через кошелек",
   "app.common.general": "Общий",
   "app.common.expert": "Экспертный",
+  "app.common.promoted": "Продвигаемый",
   "app.common.any": "Любой",
   "app.common.tipQuestion": "Чаевые",
   "app.common.chooseCrypto": "Выберите валюту",
@@ -137,7 +138,6 @@
   "app.common.fileSizeErrorMsg": "Размер файла больше 2Мб. Выберите другой...",
   "app.common.chooseFile": "Выберите файл",
   "app.common.skip": "Пропустить",
-  "app.common.showMore": "Показать больше",
   "app.common.questionIsAnswered": "Вы уже ответили на этот вопрос",
   "app.common.activateBoost": "Активировать Boost",
   "app.common.boost": "Boost",
@@ -942,6 +942,8 @@
     "Источник информации или ресурсы по конкретному предмету, который нелегко найти;",
     "Пояснение или разъяснение информации, которую трудно понять."
   ],
+  "app.containers.QuestionForm.topListLabel": "Move question to top list, hours",
+  "app.containers.QuestionForm.topListTip": "Move question to top list",
 
   "app.containers.AnswerForm.titleLabel": "Ваш ответ",
 
