@@ -4,10 +4,6 @@ import { Field } from 'redux-form/immutable';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
-import {
-  numberValue,
-  required,
-} from 'components/FormFields/validate';
 import TextInputField from 'components/FormFields/TextInputField';
 import Label from 'components/FormFields/Label';
 import { InputWrapper, InputProgressBar } from './Form';
@@ -101,8 +97,6 @@ const CurrentStakeForm = ({ value, maxValue, onClickStakeTag, disabled, onChange
         component={TextInputField}
         disabled={disabled}
         onChange={onChange}
-        // validate={[numberValue, required]}
-        // warn={[numberValue, required]}
       />
       <MinStake>0</MinStake>
       <MaxStake>{maxValue}</MaxStake>

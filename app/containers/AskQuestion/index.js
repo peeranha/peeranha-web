@@ -4,7 +4,7 @@
  *
  */
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -14,6 +14,8 @@ import _debounce from 'lodash/debounce';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+
+import { PROMOTE_HOUR_COST } from 'components/QuestionForm/constants';
 
 import Seo from 'components/Seo';
 import QuestionForm from 'components/QuestionForm';
@@ -50,6 +52,8 @@ export const AskQuestion = ({
     getQuestionsDispatchDebounced.cancel();
   });
 
+  const maxPromotingHours = useMemo(() => Math.floor(balance / PROMOTE_HOUR_COST), [balance]);
+
   return (
     <div>
       <Seo
@@ -62,6 +66,7 @@ export const AskQuestion = ({
       <QuestionForm
         locale={locale}
         valueHasToBeLessThan={balance}
+        maxPromotingHours={maxPromotingHours}
         form={ASK_QUESTION_FORM}
         formTitle={translationMessages[locale][messages.title.id]}
         submitButtonId={POST_QUESTION_BUTTON}

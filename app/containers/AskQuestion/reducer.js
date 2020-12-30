@@ -20,6 +20,7 @@ export const initialState = fromJS({
   getExistingQuestionsLoading: false,
   questionError: '',
   getExistingQuestionsError: '',
+  existingQuestions: [],
 });
 
 function askQuestionReducer(state = initialState, action) {

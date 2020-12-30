@@ -716,6 +716,8 @@
     "Telos name must contain at least one letter",
   "app.components.FormFields.exactFromAndToAccounts":
     "Sender and receiver cannot be the same",
+  "app.components.FormFields.valueIsNotPositiveInteger": "Value is not a positive integer",
+
   "app.containers.TagsCollection.title": "Tags collection",
   "app.containers.TagsCollection.description": "Tags Description",
 
@@ -933,8 +935,9 @@
     "Explanation or clarification of the information that is complicated to comprehend;",
     "Ask for an instruction or a recipe."
   ],
-  "app.containers.QuestionForm.topListLabel": "Move question to top list, hours",
-  "app.containers.QuestionForm.topListTip": "Move question to top list",
+  "app.containers.QuestionForm.promotedLabel": "Promote question",
+  "app.containers.QuestionForm.promotedTip": "Promote question",
+  "app.containers.QuestionForm.questionIsPromoting": "This question is promoting till",
 
   "app.containers.AnswerForm.titleLabel": "Your Answer",
 

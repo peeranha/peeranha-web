@@ -126,6 +126,7 @@ export const USER_ACHIEVEMENTS_TABLE = 'accachieve';
 export const PROJECT_ACHIEVEMENTS_TABLE = 'achieve';
 export const BOOST_STATISTICS_TABLE = 'statboost';
 export const USER_BOOST_TABLE = 'boost';
+export const PROMOTED_QUESTIONS_TABLES = 'promquestion';
 
 // Scopes
 
@@ -193,6 +194,8 @@ export const ADD_BOOST_METHOD = 'addboost';
 
 export const CONFIRM_TELEGRAM_ACCOUNT = 'apprvacc';
 export const UNLINK_TELEGRAM_ACCOUNT = 'dsapprvacc';
+
+export const PROMOTE_QUESTION_METHOD = 'addhotquestn';
 
 // Top community questions methods
 export const ADD_TO_TOP_COMMUNITY_METHOD = 'addtotopcomm';

@@ -1,5 +1,6 @@
 export const QUESTION_FILTER = 'questionFilter';
 export const MAX_TOP_QUESTIONS_COUNT = 100;
+export const PROMO_QUESTIONS_AMOUNT = 3;
 
 export const GET_QUESTIONS = 'app/Questions/GET_INIT_QUESTIONS';
 export const GET_QUESTIONS_SUCCESS = 'app/Questions/GET_INIT_QUESTIONS_SUCCESS';

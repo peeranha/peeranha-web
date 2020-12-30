@@ -39,23 +39,10 @@ const numberRange = (min, max) => value => {
 };
 
 // TODO: test
-const numberValue = (min, max) => value => {
-  console.log(min, max, value);
-  let val = value;
+const valueHasToBePositiveInteger = value => {
+  const re = /^[0-9]+$/;
 
-  let msg = messages.wrongLength.id;
-
-  // if (value && value.toJS) {
-  //   val = value.toJS();
-  // } else if (value && value.trim) {
-  //   val = value.trim().replace(/  +/g, ' ');
-  // } else if (value && value.map) {
-  //   msg = messages.wrongLengthOfList.id;
-  // }
-
-  return val && (val > max || val < min)
-    ? { id: msg, min, max }
-    : undefined;
+  return (value && !re.test(value)) || value === undefined ? messages.valueIsNotPositiveInteger : undefined;
 };
 
 // TODO: test
@@ -132,6 +119,13 @@ const valueHasToBeLessThan = (...args) => {
 
   return value > comparedValue ? messages.valueIsMore : undefined;
 };
+
+const valueHasToBeLessThanMaxPromotingHours = (...args) => {
+  const value = Number(args[0]);
+  const comparedValue = Number(args[2].maxPromotingHours);
+
+  return value > comparedValue ? messages.valueIsMore : undefined;
+}
 
 const comparePasswords = (...args) => {
   const value = args[0];
@@ -235,5 +229,6 @@ export {
   telosNameLength,
   isTelosNameAvailable,
   atLeastOneLetter,
-  numberValue,
+  valueHasToBePositiveInteger,
+  valueHasToBeLessThanMaxPromotingHours,
 };

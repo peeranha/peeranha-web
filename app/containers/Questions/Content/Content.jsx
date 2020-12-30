@@ -189,13 +189,14 @@ const QuestionItem = connect(
 
 export const Content = ({
   questionsList,
+  promotedQuestionsList,
   locale,
   communities,
   isModerator,
   profileInfo,
 }) => (
   <div className="position-relative">
-    {questionsList.filter((item, index) => index < 3).map((item, index) => (
+    {promotedQuestionsList && promotedQuestionsList.map((item, index) => (
       <QuestionItem
         {...item}
         index={index}
@@ -255,6 +256,7 @@ QI.propTypes = {
 
 Content.propTypes = {
   questionsList: PropTypes.array,
+  promotedQuestionsList: PropTypes.array,
   locale: PropTypes.string,
   communities: PropTypes.array,
   isModerator: PropTypes.bool,
