@@ -8,6 +8,7 @@ import {
   GET_COMMUNITIES_WITH_TAGS,
   GET_COMMUNITIES_WITH_TAGS_SUCCESS,
   GET_COMMUNITIES_WITH_TAGS_ERROR,
+  UPDATE_TAG_OF_COMMUNITY,
   GET_USER_PROFILE,
   GET_USER_PROFILE_SUCCESS,
   GET_USER_PROFILE_ERROR,
@@ -41,6 +42,15 @@ export function getCommunitiesWithTagsErr(getCommunitiesWithTagsError) {
   return {
     type: GET_COMMUNITIES_WITH_TAGS_ERROR,
     getCommunitiesWithTagsError,
+  };
+}
+
+export function updateTagOfCommunity(communityId, tagId, updatedTag) {
+  return {
+    type: UPDATE_TAG_OF_COMMUNITY,
+    updatedTagCommId: communityId - 1,
+    updatedTagId: tagId - 1,
+    updatedTag,
   };
 }
 

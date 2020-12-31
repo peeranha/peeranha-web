@@ -10,6 +10,7 @@ import {
   GET_COMMUNITIES_WITH_TAGS,
   GET_COMMUNITIES_WITH_TAGS_ERROR,
   GET_COMMUNITIES_WITH_TAGS_SUCCESS,
+  UPDATE_TAG_OF_COMMUNITY,
   GET_FAQ,
   GET_FAQ_ERROR,
   GET_FAQ_SUCCESS,
@@ -50,6 +51,9 @@ function dataCacheProviderReducer(state = initialState, action) {
     type,
     communities,
     getCommunitiesWithTagsError,
+    updatedTagCommId,
+    updatedTagId,
+    updatedTag,
     getUserProfileError,
     profile,
     user,
@@ -97,6 +101,24 @@ function dataCacheProviderReducer(state = initialState, action) {
       return state
         .set('communitiesLoading', false)
         .set('getCommunitiesWithTagsError', getCommunitiesWithTagsError);
+
+    case UPDATE_TAG_OF_COMMUNITY:
+      const updatedCommunities = [
+        ...state.get('communities').map((community, i) => {
+          if (i === updatedTagCommId) {
+            return {
+              ...community,
+              tags: community.tags.map((tag, j) => {
+                if (j === updatedTagId) return updatedTag;
+                return tag;
+              }),
+            };
+          }
+          return community;
+        }),
+      ];
+
+      return state.set('communities', updatedCommunities);
 
     case REMOVE_USER_PROFILE:
       const users = state.get('users').toJS();

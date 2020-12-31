@@ -179,6 +179,7 @@ export const EDIT_COMMUNITY = 'editcomm';
 export const VOTE_TO_CREATE_COMMUNITY = 'vtcrcomm';
 export const VOTE_TO_DELETE_COMMUNITY = 'vtdelcomm';
 export const CREATE_TAG = 'crtag';
+export const EDIT_TAG_ACTION = 'edittag';
 export const VOTE_TO_CREATE_TAG = 'vtcrtag';
 export const VOTE_TO_DELETE_TAG = 'vtdeltag';
 

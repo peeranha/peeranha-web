@@ -46,9 +46,7 @@ const numberValue = (min, max) => value => {
   //   msg = messages.wrongLengthOfList.id;
   // }
 
-  return val && (val > max || val < min)
-    ? { id: msg, min, max }
-    : undefined;
+  return val && (val > max || val < min) ? { id: msg, min, max } : undefined;
 };
 
 // TODO: test
@@ -94,9 +92,10 @@ const requiredForObjectField = value => {
   return !val || (val && !val.value) ? messages.requiredField : undefined;
 };
 
-const valueHasNotBeInList = () => (...args) => {
+const valueHasNotBeInList = (...args) => {
   const value = args[0];
   const list = args[2].valueHasNotBeInListValidate;
+
   return list && list.includes(value.toLowerCase())
     ? messages.itemAlreadyExists
     : undefined;

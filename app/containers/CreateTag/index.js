@@ -69,11 +69,11 @@ const CreateTag = ({
   isFormLoading,
   isFormAvailable,
 }) => {
-  useEffect(() => {
-    getFormDispatch();
-  }, []);
-
   const commId = useMemo(() => single || +match.params.communityid, [match]);
+
+  useEffect(() => {
+    getFormDispatch(commId);
+  }, []);
 
   const createTag = useCallback(
     (...args) => {
@@ -127,8 +127,8 @@ const CreateTag = ({
               communities={communities.filter(x =>
                 rightCommunitiesIds.includes(x.id),
               )}
-              createTagLoading={createTagLoading}
-              createTag={createTag}
+              tagFormLoading={createTagLoading}
+              submitAction={createTag}
               translations={translationMessages[locale]}
               getSuggestedTagsDispatch={getSuggestedTagsDispatch}
             />
@@ -153,7 +153,8 @@ CreateTag.propTypes = {
   permissions: PropTypes.array,
   isFormLoading: PropTypes.bool,
   getFormDispatch: PropTypes.func.isRequired,
-  isFromAvailable: PropTypes.bool,
+  getSuggestedTagsDispatch: PropTypes.func,
+  isFormAvailable: PropTypes.bool,
 };
 
 export default compose(

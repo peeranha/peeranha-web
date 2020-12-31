@@ -41,6 +41,9 @@ export default defineMessages({
   newTag: {
     id: 'app.containers.CreateTag.newTag',
   },
+  editTag: {
+    id: 'app.containers.EditTag.title',
+  },
 
   tagIsKeyword: {
     id: 'app.containers.CreateTag.tagIsKeyword',
