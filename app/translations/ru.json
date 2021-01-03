@@ -137,7 +137,7 @@
   "app.common.fileSizeErrorMsg": "Размер файла больше 2Мб. Выберите другой...",
   "app.common.chooseFile": "Выберите файл",
   "app.common.skip": "Пропустить",
-  "app.common.showMore": "Показать больше",
+  "app.common.showMoreQuestions": "Показать больше найденных вопросов",
   "app.common.questionIsAnswered": "Вы уже ответили на этот вопрос",
   "app.common.activateBoost": "Активировать Boost",
   "app.common.boost": "Boost",
@@ -681,11 +681,12 @@
   "app.containers.ViewQuestion.officialAnswer": "Официальный ответ",
   "app.containers.ViewQuestion.getBounty": "Получить бонус",
   "app.containers.ViewQuestion.bountyStatus": "Статус бонуса",
-  "app.containers.ViewQuestion.bountyStatusExpiration": "Бонус будет доступен до: ",
+  "app.containers.ViewQuestion.bountyStatusExpiration":
+    "Бонус будет доступен до: ",
   "app.components.FormFields.requiredField":
     "Вы не можете оставить это поле пустым",
   "app.components.FormFields.wrongNumberRange":
-  "Должно быть как минимум {min}, но не более {max}",
+    "Должно быть как минимум {min}, но не более {max}",
   "app.components.FormFields.wrongLength":
     "Оставьте не менее {min} и не более {max} символов",
   "app.components.FormFields.wrongExactLength":
@@ -896,7 +897,8 @@
   "app.containers.Questions.description": "Описание",
   "app.containers.Questions.noQuestions": "Вопросов нет",
   "app.containers.Questions.allCommunities": "Все сообщества",
-  "app.containers.Questions.bountyPopover": "Дополнительное вознаграждение от автора вопроса.",
+  "app.containers.Questions.bountyPopover":
+    "Дополнительное вознаграждение от автора вопроса.",
   "app.containers.Questions.youDontHaveFeedToRead": "У Вас пока нечего читать",
   "app.containers.Questions.subscribeToCommToKeep":
     "Подписывайтесь на сообщества, чтобы быть в курсе тем, в которых Вы заинтересованы.",
@@ -923,9 +925,11 @@
   "app.containers.QuestionForm.bountyHoursLabel": "Количество часов",
   "app.containers.QuestionForm.daysPlaceholder": "Дни",
   "app.containers.QuestionForm.hoursPlaceholder": "Часы",
-  "app.containers.QuestionForm.bountyTip":  "Бонус за лучший ответ",
-  "app.containers.QuestionForm.bountyHoursTip": "Количество часов,в течение которого бонус активен",
-  "app.containers.QuestionForm.bountyDaysTip": "Количество дней,в течение которого бонус активен",
+  "app.containers.QuestionForm.bountyTip": "Бонус за лучший ответ",
+  "app.containers.QuestionForm.bountyHoursTip":
+    "Количество часов,в течение которого бонус активен",
+  "app.containers.QuestionForm.bountyDaysTip":
+    "Количество дней,в течение которого бонус активен",
   "app.containers.QuestionForm.tagsLabel": "Теги",
   "app.containers.QuestionForm.previewLabel": "Предпросмотр",
   "app.containers.QuestionForm.questionType": "Тип вопроса",
