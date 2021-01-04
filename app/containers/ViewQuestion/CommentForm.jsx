@@ -43,7 +43,7 @@ const CommentForm = ({
 
       <TransparentButton
         disabled={sendCommentLoading}
-        onClick={() => toggleView(true)}
+        onClick={toggleView}
         typeAttr="button"
       >
         <FormattedMessage {...messages.cancel} />
