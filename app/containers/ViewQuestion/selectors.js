@@ -115,7 +115,7 @@ const selectPostCommentLoading = () =>
     substate.get('postCommentLoading'),
   );
 
-const selectaddCommentFormDisplay = () =>
+const selectAddCommentFormDisplay = () =>
   createSelector(selectViewQuestionDomain, substate =>
     substate.get('addCommentFormDisplay').toJS(),
   );
@@ -225,7 +225,7 @@ export {
   selectPostAnswerLoading,
   selectPostCommentError,
   selectPostCommentLoading,
-  selectaddCommentFormDisplay,
+  selectAddCommentFormDisplay,
   selectUpVoteError,
   selectUpVoteLoading,
   selectDownVoteError,

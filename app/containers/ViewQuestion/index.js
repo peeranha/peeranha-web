@@ -275,7 +275,7 @@ const withConnect = connect(
     questionDataLoading: makeSelectViewQuestion.selectQuestionDataLoading(),
     questionData: makeSelectViewQuestion.selectQuestionData(),
     questionBounty: makeSelectViewQuestion.selectQuestionBounty(),
-    addCommentFormDisplay: makeSelectViewQuestion.selectaddCommentFormDisplay(),
+    addCommentFormDisplay: makeSelectViewQuestion.selectAddCommentFormDisplay(),
     postCommentLoading: makeSelectViewQuestion.selectPostCommentLoading(),
     postAnswerLoading: makeSelectViewQuestion.selectPostAnswerLoading(),
     saveCommentLoading: makeSelectViewQuestion.selectSaveCommentLoading(),
