@@ -27,16 +27,13 @@ import { Bounty } from './Bounty';
 import { MarkAnswerNotification } from './MarkAsAcceptedIcon';
 import SendTips from '../SendTips';
 
-import {
-  BOUNTY_ACTIVE_CLASSNAME,
-  BOUNTY_PENDING_CLASSNAME,
-  BOUNTY_PAID_CLASSNAME,
-} from './constants';
+import { BOUNTY_PAID_CLASSNAME } from './constants';
 
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 
 import messages from './messages';
 
+const single = isSingleCommunityWebsite();
 const styles = singleCommunityStyles();
 
 export const B = Button.extend`
@@ -124,8 +121,9 @@ export const QuestionTitle = ({
             <B>
               <IconMd
                 className="mr-1"
-                icon={styles.coinsIcon ? styles.coinsIcon : coinsIcon}
+                icon={coinsIcon}
                 color={BUTTON_COLOR}
+                specialStyles={single && styles.coinsIconStyles}
               />
               <FormattedMessage {...commonMessages.tipQuestion} />
             </B>

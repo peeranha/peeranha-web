@@ -5,7 +5,6 @@ import CustomSubHeader from 'components/CustomSubHeaders/CustomSubHeader';
 import CustomMobileSubHeader from 'components/CustomSubHeaders/CustomMobileSubHeader';
 
 import favicon from '!file-loader?name=[name].[ext]!images/favicon-kanda.ico';
-import coinsBlueIcon from 'images/coinsBlack.svg?external';
 import KandaLogo from './images/kanda.jpg';
 import KandaLogoWithTitle from './images/kandaWithTitle.png';
 
@@ -140,7 +139,6 @@ export const KandaStyles = {
   poweredByPeeranha: true,
   withoutAdditionalLinks: true,
   withoutFAQ: true,
-  coinsIcon: coinsBlueIcon,
   leftMenuLogo: KandaLogo,
   signUpPageLogo: KandaLogoWithTitle,
   favicon,
@@ -229,6 +227,13 @@ export const KandaStyles = {
   fullyTransparent: 'rgba(0,0,0,0)',
   bellStrokeBorderColor: '#ffffff !important',
   communityBorderStyle: '2px solid #ffffff',
+
+  coinsIconStyles: css`
+    g {
+      stroke: #eb4e1c !important;
+      fill: #e8e8e8;
+    }
+  `,
 
   headerLoginButtonStyles: css`
     color: #ffffff;
