@@ -7,10 +7,10 @@ import {
 } from 'utils/walletManagement';
 import { getFormattedNum3 } from 'utils/numbers';
 
+import { changeStakedInNextPeriod } from 'containers/AccountProvider/actions';
+
 import { selectEos } from 'containers/EosioProvider/selectors';
-import {
-  makeSelectProfileInfo,
-} from 'containers/AccountProvider/selectors';
+import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 
 import {
   GET_WEEK_STAT,
@@ -50,7 +50,12 @@ export function* changeStakeWorker({ currentStake }) {
 
     yield call(addBoost, eosService, profile.user, `${getFormattedNum3(currentStake)} PEER`);
 
-    yield put(changeStakeSuccess());
+    const globalBoostStat = yield call(getGlobalBoostStatistics, eosService);
+    const userBoostStat = yield call(getUserBoostStatistics, eosService, profile.user);
+
+    yield put(changeStakedInNextPeriod(+currentStake));
+
+    yield put(changeStakeSuccess(globalBoostStat, userBoostStat));
   } catch (err) {
     yield put(changeStakeErr(err));
   }

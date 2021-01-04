@@ -12,6 +12,7 @@ import {
   GET_CURRENT_ACCOUNT_PROCESSING,
   ADD_LOGIN_DATA,
   REMOVE_LOGIN_DATA,
+  CHANGE_STAKED_IN_NEXT_PERIOD,
 } from './constants';
 
 export const initialState = fromJS({
@@ -86,6 +87,10 @@ function accountProviderReducer(state = initialState, action) {
         .set('encryptedKeys', null)
         .set('hasOwnerEosKey', null)
         .set('loginWithScatter', null);
+
+    case CHANGE_STAKED_IN_NEXT_PERIOD:
+      return state
+        .set('stakedInNextPeriod', stakedInNextPeriod);
 
     default:
       return state;
