@@ -905,7 +905,7 @@
   "app.containers.QuestionForm.title": "Ask question",
   "app.containers.QuestionForm.titleLabel": "Title",
   "app.containers.QuestionForm.existingQuestionsLabel":
-    "To avoid duplicates check existed questions.",
+    "To avoid duplicates check existing questions.",
   "app.containers.QuestionForm.questionBodyLabel": "Body",
   "app.containers.QuestionForm.communityLabel": "Community",
   "app.containers.QuestionForm.tagsLabel": "Tags",
