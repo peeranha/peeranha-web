@@ -229,8 +229,8 @@ export const KandaStyles = {
   communityBorderStyle: '2px solid #ffffff',
 
   coinsIconStyles: css`
-    g {
-      stroke: #eb4e1c !important;
+    ellipse {
+      stroke: #eb4e1c;
       fill: #e8e8e8;
     }
   `,

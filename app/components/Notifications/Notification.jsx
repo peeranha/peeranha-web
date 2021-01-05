@@ -21,7 +21,11 @@ import {
   singleCommunityStyles,
 } from 'utils/communityManagement';
 
-import { NOTIFICATIONS_TYPES, ROW_HEIGHT } from './constants';
+import {
+  NOTIFICATIONS_DATA,
+  NOTIFICATIONS_TYPES,
+  ROW_HEIGHT,
+} from './constants';
 
 import Span from '../Span';
 import { IconMd } from 'components/Icon/IconWithSizes';
@@ -188,6 +192,10 @@ const Notification = ({
 
   const isCommunityMod = !!single && Object.keys(styles).length > 0;
 
+  const tipNotification =
+    type === NOTIFICATIONS_TYPES.questionTipped ||
+    type === NOTIFICATIONS_TYPES.answerTipped;
+
   return (
     <Container
       top={top}
@@ -203,21 +211,17 @@ const Notification = ({
       paddingHorizontal={paddingHorizontal || 0}
     >
       <Span fontSize="16">
-        <FormattedMessage id={NOTIFICATIONS_TYPES[type].id} values={values} />
+        <FormattedMessage id={NOTIFICATIONS_DATA[type].id} values={values} />
       </Span>
       <div className="d-flex align-items-center justify-content-between">
         <Link to={href} href={href} className="d-flex align-items-center">
           <IconMd
-            icon={NOTIFICATIONS_TYPES[type].src}
+            icon={NOTIFICATIONS_DATA[type].src}
             color={
-              (type === 9 || type === 10) && !isCommunityMod
-                ? BORDER_WARNING_LIGHT
-                : null
+              !isCommunityMod && tipNotification ? BORDER_WARNING_LIGHT : null
             }
             specialStyles={
-              isCommunityMod &&
-              (type === 9 || type === 10) &&
-              styles.coinsIconStyles
+              isCommunityMod && tipNotification && styles.coinsIconStyles
             }
           />
           <span>{data.title}</span>
