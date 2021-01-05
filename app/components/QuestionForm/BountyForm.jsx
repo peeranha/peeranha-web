@@ -11,6 +11,7 @@ import NumberInputField from '../FormFields/NumberInputField';
 import { FORM_BOUNTY, FORM_COMMUNITY } from './constants';
 
 import messages from './messages';
+import { valueCannotBeLessThenPrev } from '../FormFields/validate';
 
 const BountyContainer = styled.div`
   margin-top: 20px;
@@ -32,8 +33,8 @@ const BountyForm = ({ questionLoading, intl, formValues }) => {
         dotRestriction={0}
         component={NumberInputField}
         disabled={bountyDisabled}
-        validate={[valueHasToBeLessThan]}
-        warn={[valueHasToBeLessThan]}
+        validate={[valueHasToBeLessThan, valueCannotBeLessThenPrev]}
+        warn={[valueHasToBeLessThan, valueCannotBeLessThenPrev]}
         splitInHalf
       />
     </BountyContainer>

@@ -129,8 +129,16 @@ const valueHasToBeLessThan = (...args) => {
   }
   const value = Number(args[0]);
   const comparedValue = Number(args[2].valueHasToBeLessThan);
-
   return value > comparedValue ? messages.valueIsMore : undefined;
+};
+
+const valueCannotBeLessThenPrev = (...args) => {
+  if (!_get(args, [2, 'question', 'bounty'])) {
+    return undefined;
+  }
+  const value = Number(args[0]);
+  const comparedValue = Number(_get(args, [2, 'question', 'bounty']));
+  return value < comparedValue ? messages.hasToBeMoreThanPrev : undefined;
 };
 
 const comparePasswords = (...args) => {
@@ -228,6 +236,7 @@ export {
   number1x168,
   valueHasNotBeInList,
   valueHasToBeLessThan,
+  valueCannotBeLessThenPrev,
   comparePasswords,
   valueHasNotBeInListMoreThanOneTime,
   validateTelosName,

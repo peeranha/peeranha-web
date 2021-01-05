@@ -83,10 +83,7 @@ export default defineMessages({
     id: 'app.components.FormFields.exactFromAndToAccounts',
     visited: true,
   },
-  wrongNumberOfDays: {
-    id: 'app.components.FormFields.wrongNumberOfDays',
-  },
-  wrongNumberOfHours: {
-    id: 'app.components.FormFields.wrongNumberOfHours',
+  hasToBeMoreThanPrev: {
+    id: 'app.components.FormFields.hasToBeMoreThanPrev',
   },
 });

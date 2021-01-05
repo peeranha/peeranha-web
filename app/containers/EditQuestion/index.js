@@ -9,7 +9,7 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { makeSelectAccount } from 'containers/AccountProvider/selectors';
+import { makeSelectAccount, makeSelectBalance } from 'containers/AccountProvider/selectors';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 
 import QuestionForm from 'components/QuestionForm';
@@ -20,7 +20,7 @@ import {
   FORM_TITLE,
   FORM_CONTENT,
   FORM_COMMUNITY,
-  FORM_TAGS,
+  FORM_TAGS, FORM_BOUNTY, FORM_BOUNTY_HOURS,
 } from 'components/QuestionForm/constants';
 
 import * as makeSelectEditQuestion from './selectors';
@@ -31,6 +31,7 @@ import messages from './messages';
 import { getAskedQuestion, editQuestion } from './actions';
 import { EDIT_QUESTION_FORM, EDIT_QUESTION_BUTTON } from './constants';
 import { FORM_TYPE } from '../../components/QuestionForm/constants';
+import { getFormattedAsset } from '../../utils/numbers';
 
 const EditQuestion = ({
   match: {
@@ -38,6 +39,7 @@ const EditQuestion = ({
   },
   locale,
   question,
+  balance,
   questionLoading,
   editQuestionLoading,
   communities,
@@ -62,6 +64,9 @@ const EditQuestion = ({
           community: val[FORM_COMMUNITY],
           chosenTags: val[FORM_TAGS],
           type: val[FORM_TYPE],
+          bounty: +val[FORM_BOUNTY],
+          bountyFull: `${getFormattedAsset(+val[FORM_BOUNTY])} PEER`,
+          bountyHours: +val[FORM_BOUNTY_HOURS],
         },
         questionid,
       );
@@ -78,6 +83,7 @@ const EditQuestion = ({
         translationMessages[locale][messages.submitButtonName.id],
       sendQuestion,
       questionLoading: editQuestionLoading,
+      valueHasToBeLessThan: balance,
       communities,
       question,
       questionid,
@@ -131,6 +137,7 @@ export default compose(
       locale: makeSelectLocale(),
       account: makeSelectAccount(),
       communities: selectCommunities(),
+      balance: makeSelectBalance(),
       question: makeSelectEditQuestion.selectQuestion(),
       questionLoading: makeSelectEditQuestion.selectQuestionLoading(),
       editQuestionLoading: makeSelectEditQuestion.selectEditQuestionLoading(),

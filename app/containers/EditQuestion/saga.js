@@ -31,6 +31,9 @@ import {
   editQuestionSuccess,
   editQuestionErr,
 } from './actions';
+import { FORM_BOUNTY } from '../../components/QuestionForm/constants';
+import { ONE_HOUR_IN_SECONDS } from '../../utils/datetime';
+import { setBounty } from '../../utils/walletManagement';
 
 export function* getAskedQuestionWorker({ questionId }) {
   try {
@@ -59,13 +62,30 @@ export function* editQuestionWorker({ question, questionId }) {
     const eosService = yield select(selectEos);
     const selectedAccount = yield call(eosService.getSelectedAccount);
     const cachedQuestion = yield select(selectQuestionData());
-
+// debugger;
     yield call(editQuestion, selectedAccount, questionId, question, eosService);
+
+    if (question?.bounty) {
+      const now = Math.round(new Date().valueOf() / 1000);
+      const bountyTime = now + question?.bountyHours * ONE_HOUR_IN_SECONDS;
+
+      yield call(
+        setBounty,
+        selectedAccount,
+        question.bountyFull,
+        questionId,
+        bountyTime,
+        eosService,
+      );
+    }
 
     if (cachedQuestion) {
       cachedQuestion.title = question.title;
       cachedQuestion.tags = question.chosenTags.map(x => x.id);
       cachedQuestion.community_id = question.community.id;
+      cachedQuestion.bounty = question?.bounty;
+      cachedQuestion.bountyFull = question?.bountyFull;
+      cachedQuestion.bountyHours = question?.bountyHours;
       cachedQuestion.content = { ...question };
     }
 
