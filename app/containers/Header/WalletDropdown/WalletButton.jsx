@@ -17,7 +17,10 @@ import currencyPeerIcon from 'images/currencyPeer.svg?external';
 import boostWalletIcon from 'images/boost-wallet-icon.svg?external';
 
 import { getFormattedNum4 } from 'utils/numbers';
-import { singleCommunityStyles } from 'utils/communityManagement';
+import {
+  isSingleCommunityWebsite,
+  singleCommunityStyles,
+} from 'utils/communityManagement';
 
 import { IconLg } from 'components/Icon/IconWithSizes';
 import Icon from 'components/Icon';
@@ -26,6 +29,7 @@ import { MediumSpecialImage } from 'components/Img/MediumImage';
 import { SmallSpecialImage } from 'components/Img/SmallImage';
 import NotificationIcon from './NotificationIcon';
 
+const single = isSingleCommunityWebsite();
 const styles = singleCommunityStyles();
 
 const ButtonStyled = styled.span`
@@ -83,7 +87,11 @@ const WalletButton = ({
       {!!isBoost ? (
         <>
           <IconWrapper>
-            <Icon width="50" icon={boostWalletIcon} />
+            <Icon
+              width="50"
+              icon={boostWalletIcon}
+              specialStyles={single && styles.boostWalletBtnStyles}
+            />
           </IconWrapper>
         </>
       ) : (
