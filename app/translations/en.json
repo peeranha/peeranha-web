@@ -115,6 +115,7 @@
   "app.common.signUpViaWallet": "Sign up via wallet",
   "app.common.general": "General",
   "app.common.expert": "Expert",
+  "app.common.promoted": "Promoted",
   "app.common.any": "Any",
   "app.common.tipQuestion": "Tip question",
   "app.common.chooseCrypto": "Choose Crypto",
@@ -139,7 +140,6 @@
     "File size is more than 2Mb. Choose another one...",
   "app.common.chooseFile": "Choose a file",
   "app.common.skip": "Skip",
-  "app.common.showMore": "Show more",
   "app.common.questionIsAnswered": "You have already answered this question",
   "app.common.activateBoost": "Activate boost",
   "app.common.boost": "Boost",
@@ -718,6 +718,8 @@
     "Telos name must contain at least one letter",
   "app.components.FormFields.exactFromAndToAccounts":
     "Sender and receiver cannot be the same",
+  "app.components.FormFields.valueIsNotPositiveInteger": "Value is not a positive integer",
+
   "app.containers.TagsCollection.title": "Tags collection",
   "app.containers.TagsCollection.description": "Tags Description",
 
@@ -935,6 +937,9 @@
     "Explanation or clarification of the information that is complicated to comprehend;",
     "Ask for an instruction or a recipe."
   ],
+  "app.containers.QuestionForm.promotedLabel": "Promote question",
+  "app.containers.QuestionForm.promotedTip": "Promote question",
+  "app.containers.QuestionForm.questionIsPromoting": "This question is promoting till",
 
   "app.containers.AnswerForm.titleLabel": "Your Answer",
 

@@ -84,6 +84,11 @@ export const selectQuestionsError = () =>
     substate.get('questionsError'),
   );
 
+export const selectPromotedQuestions = () =>
+  createSelector(selectQuestionsDomain, substate =>
+    substate.toJS().promotedQuestions,
+  );
+
 export const selectInitLoadedItems = () =>
   createSelector(selectQuestionsDomain, substate =>
     substate.get('initLoadedItems'),

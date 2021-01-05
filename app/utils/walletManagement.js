@@ -384,25 +384,25 @@ export const getPredictedBoost = (userStake, maxStake) => {
 }
 
 export const setWeekDataByKey = (boostStat, key, nextWeekPeriod) => {
-  let currentWeekIndex = 0;
+  let currentWeekIndex = -1;
   if (boostStat.length > 1) {
     currentWeekIndex = 
       boostStat[boostStat.length - 1].period === nextWeekPeriod ? 
       boostStat.length - 2 : 
       boostStat.length - 1;
   }
-  const currentWeekMaxStake = boostStat[currentWeekIndex][key];
-  const nextWeekMaxStake = boostStat[boostStat.length - 1][key];
+  const currentWeekValue = currentWeekIndex < 0 ? null : boostStat[currentWeekIndex][key];
+  const nextWeekValue = boostStat[boostStat.length - 1][key];
 
   return [
-    getStakeNum(currentWeekMaxStake),
-    getStakeNum(nextWeekMaxStake),
+    currentWeekValue ? getStakeNum(currentWeekValue) : 0,
+    getStakeNum(nextWeekValue),
   ];
 }
 
 export function getBoostWeeks(weekStat, globalBoostStat, userBoostStat) {
-  const currentWeek = weekStat ? weekStat[0] : {};
-  const nextWeek = currentWeek ? 
+  const currentWeek = weekStat ? { ...weekStat[0] } : {};
+  const nextWeek = Object.keys(currentWeek).length ? 
     {
       period: currentWeek.period + 1,
       periodStarted: currentWeek.periodFinished,  

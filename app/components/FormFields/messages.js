@@ -83,4 +83,7 @@ export default defineMessages({
     id: 'app.components.FormFields.exactFromAndToAccounts',
     visited: true,
   },
+  valueIsNotPositiveInteger: {
+    id: 'app.components.FormFields.valueIsNotPositiveInteger',
+  },
 });
