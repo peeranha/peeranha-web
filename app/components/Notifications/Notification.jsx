@@ -186,6 +186,8 @@ const Notification = ({
     [data],
   );
 
+  const isCommunityMod = !!single && Object.keys(styles).length > 0;
+
   return (
     <Container
       top={top}
@@ -207,8 +209,15 @@ const Notification = ({
         <Link to={href} href={href} className="d-flex align-items-center">
           <IconMd
             icon={NOTIFICATIONS_TYPES[type].src}
+            color={
+              (type === 9 || type === 10) && !isCommunityMod
+                ? BORDER_WARNING_LIGHT
+                : null
+            }
             specialStyles={
-              single && (type === 9 || type === 10) && styles.coinsIconStyles
+              isCommunityMod &&
+              (type === 9 || type === 10) &&
+              styles.coinsIconStyles
             }
           />
           <span>{data.title}</span>
