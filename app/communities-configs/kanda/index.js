@@ -225,8 +225,15 @@ export const KandaStyles = {
   mainSubHeaderBgColor: '#10768c',
   commHeadElemColor: '#ffffff',
   fullyTransparent: 'rgba(0,0,0,0)',
+  bountyBgColor: '#007cba',
   bellStrokeBorderColor: '#ffffff !important',
   communityBorderStyle: '2px solid #ffffff',
+
+  boostWalletBtnStyles: css`
+    g {
+      fill: #eb4e1c;
+    }
+  `,
 
   coinsIconStyles: css`
     ellipse {
