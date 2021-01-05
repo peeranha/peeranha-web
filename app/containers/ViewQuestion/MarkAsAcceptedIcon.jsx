@@ -19,7 +19,11 @@ import okayIconGreen from 'images/okayGreen.svg?inline';
 import { Icon } from 'components/Input/Checkbox';
 import AcceptAnswerView from 'components/Button/Contained/SuccessMedium';
 
+import { singleCommunityStyles } from 'utils/communityManagement';
+
 import messages from './messages';
+
+const styles = singleCommunityStyles();
 
 export const MarkAnswerNotification = styled.div`
   display: inline-flex;
@@ -57,6 +61,8 @@ const Label = AcceptAnswerView.extend`
     background-image: url(${x => (x.value ? okayIconGreen : '')});
     border: ${x => (!x.value ? '1' : '0')}px solid ${BORDER_SUCCESS};
     box-shadow: none;
+
+    border-radius: ${styles.buttonBorderRadius};
   }
 `;
 

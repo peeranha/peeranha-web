@@ -1,6 +1,6 @@
 import React from 'react';
+import { css } from 'styled-components';
 
-import coinsBlueIcon from 'images/coinsBlack.svg?external';
 import OntLogo from './images/ont.svg?inline';
 import favicon from '!file-loader?name=[name].[ext]!images/favicon-ont.ico';
 
@@ -180,7 +180,6 @@ export const OntStyles = {
   withoutSubHeader: true,
   poweredByPeeranha: true,
   withoutAdditionalLinks: true,
-  coinsIcon: coinsBlueIcon,
   leftMenuLogo: OntLogo,
   signUpPageLogo: OntLogo,
   favicon: favicon,
@@ -223,6 +222,14 @@ export const OntStyles = {
       url(${RobotoRegularTTF}) format('truetype');
     font-style: normal;
   }`,
+
+  coinsIconStyles: css`
+    ellipse {
+      stroke: rgba(0, 0, 0, 0.6);
+      fill: #cccccc;
+    }
+  `,
+
   headerHeight: 170,
   isDropdownMenuArrow: false,
   customSubHeaderConfig: CustomSubHeaderConfig,
