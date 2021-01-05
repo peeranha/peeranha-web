@@ -31,7 +31,6 @@ export function* getWeekStatWorker() {
     const profile = yield select(makeSelectProfileInfo());
 
     const weekStat = yield call(getWeekStat, eosService, profile);
-
     const globalBoostStat = yield call(getGlobalBoostStatistics, eosService);
     const userBoostStat = yield call(getUserBoostStatistics, eosService, profile.user);
 
