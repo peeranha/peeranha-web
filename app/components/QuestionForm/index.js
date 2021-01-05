@@ -209,7 +209,6 @@ export const QuestionForm = ({
               questionLoading={questionLoading}
               formValues={formValues}
               change={change}
-              show={!!formValues[FORM_BOUNTY]}
             />
 
             <Button
