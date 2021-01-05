@@ -23,6 +23,8 @@ import {
   USER_ANSWERS_TABLE,
   USER_QUESTIONS_TABLE,
   VOTE_TO_DELETE_METHOD,
+  PROMOTED_QUESTIONS_TABLES,
+  PROMOTE_QUESTION_METHOD,
 } from './constants';
 
 /* eslint-disable  */
@@ -220,6 +222,24 @@ export async function getQuestionsForFollowedCommunities(limit, fetcher) {
   const questions = await fetcher.getNextItems(limit);
 
   return questions;
+}
+
+export async function getPromotedQuestions(eosService, communityId) {
+  const offset = 0;
+  const limit = 1000;
+
+  const { rows } = await eosService.getTableRows(
+    PROMOTED_QUESTIONS_TABLES,
+    communityId,
+    offset,
+    limit,
+    undefined,
+    undefined,
+    undefined,
+    process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
+  );
+
+  return rows;
 }
 
 export async function voteToDelete(
@@ -441,4 +461,22 @@ export const changeQuestionType = async (
     type,
     restore_rating: ratingRestore,
   });
+};
+
+export const promoteQuestion = async (
+  eosService,
+  user,
+  questionId,
+  hours,
+) => {
+  await eosService.sendTransaction(
+    user,
+    PROMOTE_QUESTION_METHOD,
+    {
+      user,
+      question_id: +questionId,
+      hours,
+    },
+    process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
+  );
 };

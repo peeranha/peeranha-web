@@ -5,13 +5,12 @@ import * as routes from 'routes-config';
 import {
   postQuestion,
   getQuestionsPostedByUser,
+  promoteQuestion,
 } from 'utils/questionsManagement';
 
 import { setBounty } from 'utils/walletManagement';
 import { getResults } from 'utils/custom-search';
 import { getFormattedAsset } from 'utils/numbers';
-
-import { GET_RESULTS } from 'containers/Search/constants';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
@@ -26,10 +25,10 @@ import {
   FORM_BOUNTY,
   FORM_BOUNTY_DAYS,
   FORM_BOUNTY_HOURS,
+  FORM_PROMOTE,
 } from 'components/QuestionForm/constants';
 
 import { isAuthorized, isValid } from 'containers/EosioProvider/saga';
-import { searchWorker } from 'containers/Search/saga';
 
 import {
   askQuestionSuccess,
@@ -51,6 +50,7 @@ export function* postQuestionWorker({ val }) {
     const eosService = yield select(selectEos);
     const selectedAccount = yield select(makeSelectAccount());
     const community = val[FORM_COMMUNITY];
+    const promoteValue = +val[FORM_PROMOTE];
 
     const questionData = {
       title: val[FORM_TITLE],
@@ -83,6 +83,11 @@ export function* postQuestionWorker({ val }) {
         eosService,
       );
     }
+
+    if (promoteValue) {
+      yield call(promoteQuestion, eosService, selectedAccount, questionsPostedByUser[0].question_id, promoteValue);
+    }
+
     yield put(askQuestionSuccess());
 
     yield call(

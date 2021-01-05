@@ -114,6 +114,7 @@
   "app.common.signUpViaWallet": "Регистрация через кошелек",
   "app.common.general": "Общий",
   "app.common.expert": "Экспертный",
+  "app.common.promoted": "Продвигаемый",
   "app.common.any": "Любой",
   "app.common.tipQuestion": "Чаевые",
   "app.common.chooseCrypto": "Выберите валюту",
@@ -137,7 +138,6 @@
   "app.common.fileSizeErrorMsg": "Размер файла больше 2Мб. Выберите другой...",
   "app.common.chooseFile": "Выберите файл",
   "app.common.skip": "Пропустить",
-  "app.common.showMore": "Показать больше",
   "app.common.questionIsAnswered": "Вы уже ответили на этот вопрос",
   "app.common.activateBoost": "Активировать Boost",
   "app.common.boost": "Boost",
@@ -731,6 +731,8 @@
     "Телос имя должно содержать хотя бы одну букву",
   "app.components.FormFields.exactFromAndToAccounts":
     "Отправитель и получатель не могут быть одним и тем же",
+  "app.components.FormFields.valueIsNotPositiveInteger": "Значение не является целым положительным числом",
+
   "app.components.Footer.header": "Авторские права: Peeranha",
 
   "app.containers.Login.authUserHasMore":
@@ -945,6 +947,9 @@
     "Источник информации или ресурсы по конкретному предмету, который нелегко найти;",
     "Пояснение или разъяснение информации, которую трудно понять."
   ],
+  "app.containers.QuestionForm.promotedLabel": "Продвинуть вопрос",
+  "app.containers.QuestionForm.promotedTip": "Продвинуть вопрос",
+  "app.containers.QuestionForm.questionIsPromoting": "Этот вопрос продвигается до",
 
   "app.containers.AnswerForm.titleLabel": "Ваш ответ",
 

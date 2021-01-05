@@ -42,6 +42,7 @@ export const initialState = fromJS({
   topQuestionsInfoLoaded: false,
   questionFilter: 0,
   topQuestionActionProcessing: false,
+  promotedQuestions: [],
 });
 
 // TODO: test
@@ -60,6 +61,7 @@ function questionsReducer(state = initialState, action) {
     questions,
     lastIndex,
     isRemove,
+    promotedQuestions = [],
   } = action;
   const {
     topQuestionIds: stateTopQuestionIds,
@@ -109,6 +111,7 @@ function questionsReducer(state = initialState, action) {
             }, {}),
           }),
         )
+        .set('promotedQuestions', promotedQuestions)
         .set('isLastFetch', questionsList.length === 0);
     case GET_QUESTIONS_ERROR:
       return state

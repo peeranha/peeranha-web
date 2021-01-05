@@ -68,6 +68,8 @@ const StyledBox = styled.div`
       : ``};
 `;
 
+export const InputContainer = styled.div``;
+
 export const Wrapper = ({
   children,
   tip,
@@ -88,7 +90,7 @@ export const Wrapper = ({
   >
     <Label>{label}</Label>
     <div>
-      <div>{children}</div>
+      <InputContainer>{children}</InputContainer>
       {meta && (
         <WarningMessage
           {...meta}

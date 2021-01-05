@@ -89,4 +89,7 @@ export default defineMessages({
   wrongNumberOfHours: {
     id: 'app.components.FormFields.wrongNumberOfHours',
   },
+  valueIsNotPositiveInteger: {
+    id: 'app.components.FormFields.valueIsNotPositiveInteger',
+  },
 });

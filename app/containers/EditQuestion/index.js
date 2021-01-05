@@ -21,6 +21,8 @@ import {
   FORM_CONTENT,
   FORM_COMMUNITY,
   FORM_TAGS,
+  FORM_TYPE,
+  FORM_PROMOTE,
 } from 'components/QuestionForm/constants';
 
 import * as makeSelectEditQuestion from './selectors';
@@ -30,7 +32,6 @@ import messages from './messages';
 
 import { getAskedQuestion, editQuestion } from './actions';
 import { EDIT_QUESTION_FORM, EDIT_QUESTION_BUTTON } from './constants';
-import { FORM_TYPE } from '../../components/QuestionForm/constants';
 
 const EditQuestion = ({
   match: {
@@ -62,6 +63,7 @@ const EditQuestion = ({
           community: val[FORM_COMMUNITY],
           chosenTags: val[FORM_TAGS],
           type: val[FORM_TYPE],
+          promote: +val[FORM_PROMOTE],
         },
         questionid,
       );
@@ -99,7 +101,7 @@ const EditQuestion = ({
     <div>
       <Seo
         title={helmetTitle}
-        description={helmetDescription}
+        description={helmetDescription || ''}
         language={locale}
         index={false}
       />

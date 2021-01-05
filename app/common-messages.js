@@ -354,6 +354,9 @@ export default defineMessages({
   expert: {
     id: 'app.common.expert',
   },
+  promoted: {
+    id: 'app.common.promoted',
+  },
   any: {
     id: 'app.common.any',
   },
