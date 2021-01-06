@@ -123,6 +123,7 @@ import {
   voteToDeleteErr,
   voteToDeleteSuccess,
   showAddCommentForm,
+  setisAnotherCommQuestion,
 } from './actions';
 
 import { selectQuestionBounty, selectQuestionData } from './selectors';
@@ -464,7 +465,7 @@ export function* getQuestionDataWorker({ questionId }) {
     });
 
     const single = isSingleCommunityWebsite();
-    const isAnotherCommunityQuestion =
+    const isAnotherCommQuestion =
       single && questionData.community_id !== single;
 
     if (!questionData) {
@@ -497,7 +498,16 @@ export function* getQuestionDataWorker({ questionId }) {
       }),
     );
 
-    if (isAnotherCommunityQuestion) {
+    if (isAnotherCommQuestion) {
+      // redirect to main domain
+      yield window.location.assign(
+        window.location.href.replace(
+          window.location.origin,
+          process.env.APP_LOCATION,
+        ),
+      );
+
+      yield put(setisAnotherCommQuestion(true));
       yield put(getQuestionDataSuccess(null));
     } else {
       yield put(getQuestionDataSuccess(questionData));

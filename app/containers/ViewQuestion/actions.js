@@ -7,6 +7,7 @@ import {
   CHANGE_QUESTION_TYPE,
   CHANGE_QUESTION_TYPE_ERROR,
   CHANGE_QUESTION_TYPE_SUCCESS,
+  SET_IS_ANOTHER_COMMUNITY_QUESTION,
   DELETE_ANSWER,
   DELETE_ANSWER_ERROR,
   DELETE_ANSWER_SUCCESS,
@@ -67,6 +68,13 @@ export function getQuestionDataSuccess(questionData) {
   return {
     type: GET_QUESTION_DATA_SUCCESS,
     questionData,
+  };
+}
+
+export function setisAnotherCommQuestion(isAnotherCommQuestion) {
+  return {
+    type: SET_IS_ANOTHER_COMMUNITY_QUESTION,
+    isAnotherCommQuestion,
   };
 }
 
