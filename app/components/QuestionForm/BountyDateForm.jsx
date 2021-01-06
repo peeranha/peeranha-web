@@ -2,7 +2,6 @@ import React, { memo, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form/immutable';
 import { intlShape } from 'react-intl';
-
 import styled from 'styled-components';
 
 import { required, number1x168 } from 'components/FormFields/validate';

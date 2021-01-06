@@ -8,6 +8,7 @@ import {
   BOOST_PREDICTION_FORM,
   MIN_STAKE_PREDICTION,
   MAX_STAKE_PREDICTION,
+  CURRENT_STAKE_FORM
 } from './constants';
 import {
   BORDER_TRANSPARENT,
@@ -62,7 +63,8 @@ const separators = amount => {
   );
 }
 
-const PredictionForm = ({ locale, value }) => {
+const PredictionForm = ({ locale, value, formValues, maxStake }) => {
+  console.log(formValues[CURRENT_STAKE_FORM], maxStake)
   const progressWidth = value ? (value - MIN_STAKE_PREDICTION) * 100 / (MAX_STAKE_PREDICTION - MIN_STAKE_PREDICTION) : 0;
 
   return (

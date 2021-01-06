@@ -91,6 +91,7 @@ export const NumberInputField = ({
       meta={meta}
       splitInHalf={splitInHalf}
       id={input.name}
+      className={meta.error || meta.warning ? 'err' : ''}
     >
       <Input
         input={{ ...input, onChange, onBlur }}

@@ -63,6 +63,7 @@ const View = ({
       />
 
       <Form
+        valueHasToBeLessThan={balance}
         currentStake={currentStake}
         predictedBoost={predictedBoost.value}
         maxStake={balance}
@@ -72,6 +73,7 @@ const View = ({
         changeStake={changeStakeDispatch}
         changeStakeLoading={changeStakeLoading}
         locale={locale}
+        nextWeekMaxStake={maxStake}
       />
     </>
   );
