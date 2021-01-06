@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
 import Base from 'components/Base';
 
@@ -8,6 +9,20 @@ import QuestionType from './QuestionType';
 import Title from './Title';
 import UserInfo from './UserInfo';
 import TagsContainer from './TagsContainer';
+
+const QuestionLabels = styled.div`
+  position: absolute;
+  top: 5px;
+  right: 7px;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+
+  @media only screen and (max-width: 576px) {
+    top: 50px;
+    right: 3px;
+  }
+`;
 
 const Body = ({
   id,
@@ -34,21 +49,23 @@ const Body = ({
     position='right'
     paddingTopMedia={20}
   >
-    <TopQuestion
-      id={id}
-      locale={locale}
-      profileInfo={profileInfo}
-      isTopQuestion={isTopQuestion}
-      isModerator={isModerator}
-      topQuestionsCount={topQuestionsCount}
-      topQuestionActionProcessing={topQuestionActionProcessing}
-    />
+    <QuestionLabels>
+      <TopQuestion
+        id={id}
+        locale={locale}
+        profileInfo={profileInfo}
+        isTopQuestion={isTopQuestion}
+        isModerator={isModerator}
+        topQuestionsCount={topQuestionsCount}
+        topQuestionActionProcessing={topQuestionActionProcessing}
+      />
 
-    <QuestionType
-      locale={locale}
-      isGeneral={isGeneral}
-      isPromoted={isPromoted}
-    />
+      <QuestionType
+        locale={locale}
+        isGeneral={isGeneral}
+        isPromoted={isPromoted}
+      />
+    </QuestionLabels>
 
     <Title
       locale={locale}
