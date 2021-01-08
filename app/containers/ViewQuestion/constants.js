@@ -14,6 +14,8 @@ export const RESET_STORE = 'app/ViewQuestion/RESET_STORE';
 export const GET_QUESTION_DATA = 'app/ViewQuestion/GET_QUESTION_DATA';
 export const GET_QUESTION_DATA_SUCCESS =
   'app/ViewQuestion/GET_QUESTION_DATA_SUCCESS';
+export const SET_IS_ANOTHER_COMMUNITY_QUESTION =
+  'app/ViewQuestion/SET_IS_ANOTHER_COMMUNITY_QUESTION';
 export const GET_QUESTION_DATA_ERROR =
   'app/ViewQuestion/GET_QUESTION_DATA_ERROR';
 

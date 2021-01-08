@@ -85,6 +85,11 @@ const selectQuestionBounty = () =>
     substate.get('questionBounty'),
   );
 
+const selectIsAnotherCommQuestion = () =>
+  createSelector(selectViewQuestionDomain, substate =>
+    substate.get('isAnotherCommQuestion'),
+  );
+
 const selectQuestionDataError = () =>
   createSelector(selectViewQuestionDomain, substate =>
     substate.get('getQuestionDataError'),
@@ -219,6 +224,7 @@ export {
   selectViewQuestionDomain,
   selectQuestionData,
   selectQuestionBounty,
+  selectIsAnotherCommQuestion,
   selectQuestionDataError,
   selectQuestionDataLoading,
   selectPostAnswerError,
