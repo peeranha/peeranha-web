@@ -67,8 +67,8 @@ const IconBG = MediumSpecialImage.extend`
   color: ${x => x.color};
 `.withComponent('span');
 
-const IconWrapper = styled.span`
-  margin-top: 4px;
+const BoostIconWrapper = styled.span`
+  margin-top: 3px;
   margin-right: 7px;
   margin-left: -5px;
 `;
@@ -86,13 +86,13 @@ const WalletButton = ({
     <ButtonStyled isBoost={!!isBoost} isMobileVersion={isMobileVersion}>
       {!!isBoost ? (
         <>
-          <IconWrapper>
+          <BoostIconWrapper>
             <Icon
               width="50"
               icon={boostWalletIcon}
               specialStyles={single && styles.boostWalletBtnStyles}
             />
-          </IconWrapper>
+          </BoostIconWrapper>
         </>
       ) : (
         <IconBG

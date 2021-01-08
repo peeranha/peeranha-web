@@ -322,6 +322,11 @@ export const TelosStyles = {
       fill: #dfe3f2;
     }
   `,
+  boostWalletBtnStyles: css`
+    g {
+      fill: #ff422a;
+    }
+  `,
 
   headerHeight: 182,
   projectBorderRadius: '20px',

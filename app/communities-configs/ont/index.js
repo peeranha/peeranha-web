@@ -223,10 +223,16 @@ export const OntStyles = {
     font-style: normal;
   }`,
 
+  bountyBgColor: '#000000',
   coinsIconStyles: css`
     ellipse {
       stroke: rgba(0, 0, 0, 0.6);
       fill: #cccccc;
+    }
+  `,
+  boostWalletBtnStyles: css`
+    g {
+      fill: #000000;
     }
   `,
 
