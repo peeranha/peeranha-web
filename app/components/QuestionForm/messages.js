@@ -20,7 +20,7 @@ export default defineMessages({
     id: 'app.common.skip',
   },
   showMoreExistingQuestions: {
-    id: 'app.common.showMore',
+    id: 'app.common.showMoreQuestions',
   },
   questionBodyLabel: {
     id: 'app.containers.QuestionForm.questionBodyLabel',

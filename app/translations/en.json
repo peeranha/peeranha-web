@@ -140,6 +140,7 @@
     "File size is more than 2Mb. Choose another one...",
   "app.common.chooseFile": "Choose a file",
   "app.common.skip": "Skip",
+  "app.common.showMoreQuestions": "Show more results",
   "app.common.questionIsAnswered": "You have already answered this question",
   "app.common.activateBoost": "Activate boost",
   "app.common.boost": "Boost",
@@ -675,7 +676,7 @@
   "app.components.FormFields.wrongLength":
     "Leave at least {min} char but no more than {max}",
   "app.components.FormFields.wrongNumberRange":
-  "Should be at least {min} but no more than {max}",
+    "Should be at least {min} but no more than {max}",
   "app.components.FormFields.wrongExactLength":
     "Value must be {min} characters long",
   "app.components.FormFields.wrongLengthOfList":
@@ -867,7 +868,8 @@
   "app.containers.Questions.topQuestionPopover":
     "Top question of this community",
   "app.containers.Questions.showAllQuestions": "Show all questions",
-  "app.containers.Questions.bountyPopover": "Bounty - extra PEER reward from author.",
+  "app.containers.Questions.bountyPopover":
+    "Bounty - extra PEER reward from author.",
 
   "app.containers.AskQuestion.title": "Ask question",
   "app.containers.AskQuestion.description": "Ask question | Description",
@@ -906,7 +908,7 @@
   "app.containers.QuestionForm.title": "Ask question",
   "app.containers.QuestionForm.titleLabel": "Title",
   "app.containers.QuestionForm.existingQuestionsLabel":
-    "To avoid duplicates check existed questions.",
+    "To avoid duplicates check existing questions.",
   "app.containers.QuestionForm.questionBodyLabel": "Body",
   "app.containers.QuestionForm.communityLabel": "Community",
   "app.containers.QuestionForm.tagsLabel": "Tags",
@@ -915,9 +917,11 @@
   "app.containers.QuestionForm.bountyHoursLabel": "Bounty Hours",
   "app.containers.QuestionForm.daysPlaceholder": "Days",
   "app.containers.QuestionForm.hoursPlaceholder": "Hours",
-  "app.containers.QuestionForm.bountyTip":  "Bounty to the best answer",
-  "app.containers.QuestionForm.bountyHoursTip": "Number of hours while bounty is active",
-  "app.containers.QuestionForm.bountyDaysTip": "Number of days while bounty is active",
+  "app.containers.QuestionForm.bountyTip": "Bounty to the best answer",
+  "app.containers.QuestionForm.bountyHoursTip":
+    "Number of hours while bounty is active",
+  "app.containers.QuestionForm.bountyDaysTip":
+    "Number of days while bounty is active",
   "app.containers.QuestionForm.previewLabel": "Preview",
   "app.containers.QuestionForm.questionType": "Question Type",
   "app.containers.QuestionForm.questionTypeTip": "Optional",
