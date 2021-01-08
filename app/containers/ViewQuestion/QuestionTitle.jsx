@@ -86,7 +86,6 @@ export const QuestionTitle = ({
   communities,
   user,
   questionData,
-  questionBounty,
   profileInfo,
   isTemporaryAccount,
 }) => {
@@ -95,6 +94,7 @@ export const QuestionTitle = ({
     community_id: communityId,
     correct_answer_id: correctAnswerId,
     answers,
+    questionBounty,
     isGeneral,
     id,
   } = questionData;
