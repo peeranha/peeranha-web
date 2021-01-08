@@ -10,7 +10,7 @@ const SIZE_CONFIG = {
     fontSize: 14,
   },
   md: {
-    height: 30,
+    height: 31,
     fontSize: 16,
   },
 };
@@ -20,11 +20,6 @@ export const BountyLabelContainer = styled.div`
 
   display: inline-block;
   text-align: right;
-
-  @media only screen and (max-width: 576px) {
-    top: ${({ topMedia }) => topMedia || '-10px'};
-    right: ${({ rightMedia }) => rightMedia || '-10px'};
-  }
 `;
 
 const Label = styled.div`
@@ -32,7 +27,6 @@ const Label = styled.div`
   font-size: ${({ size }) => SIZE_CONFIG[size].fontSize}px;
   color: ${TEXT_PRIMARY};
   position: relative;
-
   display: inline-flex;
   align-items: center;
   border-radius: ${BORDER_RADIUS_M};

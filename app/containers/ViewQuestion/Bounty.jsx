@@ -30,7 +30,6 @@ const styles = singleCommunityStyles();
 export const SpanStyled = Span.extend`
   color: white;
   display: inline-flex;
-  align-items: center;
   padding: 5px 8px;
   margin-right: 10px;
   background-color: ${styles.bountyBgColor || PEER_PRIMARY_COLOR};
@@ -38,14 +37,13 @@ export const SpanStyled = Span.extend`
   font-size: 20px;
   font-family: ${APP_FONT};
   font-weight: 600;
-  line-height: 20px;
 
   > *:last-child {
     margin-left: 7px;
   }
 
   @media only screen and (max-width: 576px) {
-    margin-left: 8px;
+    font-size: 14px;
     > *:last-child {
       display: none;
     }
@@ -86,7 +84,7 @@ export const Bounty = ({
   }
   return bounty ? (
     <Container
-      size="sm"
+      size="md"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
     >

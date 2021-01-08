@@ -148,7 +148,6 @@ export const ViewQuestion = ({
     locale,
     communities,
     questionData,
-    questionBounty,
     postAnswerLoading,
     postCommentLoading,
     saveCommentLoading,
