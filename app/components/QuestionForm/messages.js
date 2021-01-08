@@ -85,4 +85,13 @@ export default defineMessages({
   expertQuestionDescriptionList: {
     id: 'app.containers.QuestionForm.expertQuestionDescriptionList',
   },
+  promotedLabel: {
+    id: 'app.containers.QuestionForm.promotedLabel',
+  },
+  promotedTip: {
+    id: 'app.containers.QuestionForm.promotedTip',
+  },
+  questionIsPromoting: {
+    id: 'app.containers.QuestionForm.questionIsPromoting',
+  },
 });

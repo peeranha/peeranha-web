@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
+import { singleCommunityStyles } from 'utils/communityManagement';
 import messages from 'common-messages';
 
 import {
@@ -16,6 +17,8 @@ import {
 import { Wrapper } from 'components/FormFields/Wrapper';
 import { Styles } from 'components/Input/InputStyled';
 import B from 'components/Button';
+
+const styles = singleCommunityStyles();
 
 export const QUESTION_TYPES = {
   GENERAL: {
@@ -40,12 +43,16 @@ const Button = B.extend`
   &:first-child {
     border-top-left-radius: ${BORDER_RADIUS_M};
     border-bottom-left-radius: ${BORDER_RADIUS_M};
+
+    border-radius: ${styles.buttonBorderRadius};
   }
 
   &:last-child {
     border-left: none;
     border-top-right-radius: ${BORDER_RADIUS_M};
     border-bottom-right-radius: ${BORDER_RADIUS_M};
+
+    border-radius: ${styles.buttonBorderRadius};
   }
 
   flex: 1;

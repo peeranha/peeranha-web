@@ -16,7 +16,7 @@ import messages from '../../messages';
 const fonts = singleCommunityFonts();
 
 const Title = ({ locale, title, id, questionBounty }) => (
-  <p className="mb-1">
+  <div className="mb-1">
     <Bounty
       bountyMessage={translationMessages[locale][messages.bountyPopover.id]}
       className="questionTitle"
@@ -36,14 +36,14 @@ const Title = ({ locale, title, id, questionBounty }) => (
         {title}
       </Span>
     </A>
-  </p>
+  </div>
 );
 
 Title.propTypes = {
   id: PropTypes.string,
   locale: PropTypes.string,
   title: PropTypes.string,
-  questionBounty: PropTypes.string,
+  questionBounty: PropTypes.object,
 };
 
 export default memo(Title);

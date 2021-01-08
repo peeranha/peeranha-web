@@ -8,10 +8,13 @@ import { fromJS } from 'immutable';
 import {
   GET_QUESTION_DATA,
   GET_QUESTION_DATA_SUCCESS,
+  SET_IS_ANOTHER_COMMUNITY_QUESTION,
   GET_QUESTION_DATA_ERROR,
   POST_ANSWER,
   POST_ANSWER_SUCCESS,
   POST_ANSWER_ERROR,
+  SHOW_ADD_COMMENT_FORM,
+  HIDE_ADD_COMMENT_FORM,
   POST_COMMENT,
   POST_COMMENT_SUCCESS,
   POST_COMMENT_ERROR,
@@ -55,11 +58,13 @@ import {
 export const initialState = fromJS({
   questionData: null,
   questionBounty: null,
+  isAnotherCommQuestion: null,
   getQuestionDataError: null,
   getQuestionBountyError: null,
   questionDataLoading: true,
   postAnswerLoading: false,
   postAnswerError: null,
+  addCommentFormDisplay: [],
   postCommentLoading: false,
   postCommentError: null,
   upVoteLoading: false,
@@ -86,9 +91,11 @@ function viewQuestionReducer(state = initialState, action) {
     type,
     questionData,
     questionBounty,
+    isAnotherCommQuestion,
     getQuestionDataError,
     getQuestionBountyError,
     postAnswerError,
+    toggleFormButtonId,
     postCommentError,
     upVoteError,
     downVoteError,
@@ -109,6 +116,8 @@ function viewQuestionReducer(state = initialState, action) {
       return state
         .set('questionDataLoading', false)
         .set('questionData', questionData);
+    case SET_IS_ANOTHER_COMMUNITY_QUESTION:
+      return state.set('isAnotherCommQuestion', isAnotherCommQuestion);
     case GET_QUESTION_DATA_ERROR:
       return state
         .set('questionData', null)
@@ -123,6 +132,19 @@ function viewQuestionReducer(state = initialState, action) {
       return state
         .set('postAnswerLoading', false)
         .set('postAnswerError', postAnswerError);
+
+    case SHOW_ADD_COMMENT_FORM:
+      return state.updateIn(['addCommentFormDisplay'], arr =>
+        arr.push(toggleFormButtonId),
+      );
+
+    case HIDE_ADD_COMMENT_FORM:
+      return state.set(
+        'addCommentFormDisplay',
+        state
+          .get('addCommentFormDisplay')
+          .filterNot(el => el === toggleFormButtonId),
+      );
 
     case POST_COMMENT:
       return state

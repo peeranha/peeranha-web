@@ -85,6 +85,11 @@ const selectQuestionBounty = () =>
     substate.get('questionBounty'),
   );
 
+const selectIsAnotherCommQuestion = () =>
+  createSelector(selectViewQuestionDomain, substate =>
+    substate.get('isAnotherCommQuestion'),
+  );
+
 const selectQuestionDataError = () =>
   createSelector(selectViewQuestionDomain, substate =>
     substate.get('getQuestionDataError'),
@@ -113,6 +118,11 @@ const selectPostCommentError = () =>
 const selectPostCommentLoading = () =>
   createSelector(selectViewQuestionDomain, substate =>
     substate.get('postCommentLoading'),
+  );
+
+const selectAddCommentFormDisplay = () =>
+  createSelector(selectViewQuestionDomain, substate =>
+    substate.get('addCommentFormDisplay').toJS(),
   );
 
 const selectUpVoteError = () =>
@@ -214,12 +224,14 @@ export {
   selectViewQuestionDomain,
   selectQuestionData,
   selectQuestionBounty,
+  selectIsAnotherCommQuestion,
   selectQuestionDataError,
   selectQuestionDataLoading,
   selectPostAnswerError,
   selectPostAnswerLoading,
   selectPostCommentError,
   selectPostCommentLoading,
+  selectAddCommentFormDisplay,
   selectUpVoteError,
   selectUpVoteLoading,
   selectDownVoteError,

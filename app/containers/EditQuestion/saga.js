@@ -8,6 +8,8 @@ import {
   getAskedQuestion,
   editQuestion,
   getQuestionById,
+  getPromotedQuestions,
+  promoteQuestion,
 } from 'utils/questionsManagement';
 
 import { isValid, isAuthorized } from 'containers/EosioProvider/saga';
@@ -44,11 +46,19 @@ export function* getAskedQuestionWorker({ questionId }) {
       freshQuestion = yield call(getAskedQuestion, ipfs_link, eosService);
     }
 
-    yield put(
-      getAskedQuestionSuccess(
-        cachedQuestion ? cachedQuestion.content : freshQuestion,
-      ),
-    );
+    const question = cachedQuestion ? cachedQuestion.content : freshQuestion;
+
+    const promotedQuestions = yield call(getPromotedQuestions, eosService, question.community.id);
+    const promotedQuestion = promotedQuestions.find(item => item.question_id === questionId); 
+
+    if (promotedQuestion) {
+      question.promote = {
+        startTime: promotedQuestion.start_time,
+        endsTime: promotedQuestion.ends_time,
+      }
+    }
+
+    yield put(getAskedQuestionSuccess(question));
   } catch (err) {
     yield put(getAskedQuestionErr(err));
   }
@@ -61,6 +71,10 @@ export function* editQuestionWorker({ question, questionId }) {
     const cachedQuestion = yield select(selectQuestionData());
 
     yield call(editQuestion, selectedAccount, questionId, question, eosService);
+
+    if (question.promote) {
+      yield call(promoteQuestion, eosService, selectedAccount, questionId, question.promote);
+    }
 
     if (cachedQuestion) {
       cachedQuestion.title = question.title;

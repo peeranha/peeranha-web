@@ -12,7 +12,6 @@ import {
   CHANGE_STAKE_PROCESSING,
   CHANGE_STAKE_SUCCESS,
   CHANGE_STAKE_ERROR,
-  BOOST_PREDICTION_FORM,
   CURRENT_STAKE_FORM,
 } from './constants';
 
@@ -51,9 +50,11 @@ export function changeStakeProcessing() {
   };
 }
 
-export function changeStakeSuccess() {
+export function changeStakeSuccess(globalBoostStat, userBoostStat) {
   return {
     type: CHANGE_STAKE_SUCCESS,
+    globalBoostStat,
+    userBoostStat,
   };
 }
 

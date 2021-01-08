@@ -8,6 +8,7 @@ import {
   REWARD_REFER_ERROR,
   ADD_LOGIN_DATA,
   REMOVE_LOGIN_DATA,
+  CHANGE_STAKED_IN_NEXT_PERIOD,
 } from './constants';
 
 export const getCurrentAccount = () => ({
@@ -59,4 +60,9 @@ export const addLoginData = data => ({
 
 export const removeLoginData = () => ({
   type: REMOVE_LOGIN_DATA,
+});
+
+export const changeStakedInNextPeriod = (stakedInNextPeriod) => ({
+  type: CHANGE_STAKED_IN_NEXT_PERIOD,
+  stakedInNextPeriod,
 });

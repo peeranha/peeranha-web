@@ -28,7 +28,7 @@ const selectQuestionError = () =>
 
 const selectExistingQuestions = () =>
   createSelector(selectExistingQuestionsDomain, substate =>
-    substate.get('existingQuestions'),
+    substate.toJS().existingQuestions,
   );
 
 export {

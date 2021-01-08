@@ -35,6 +35,8 @@ import {
   getQuestionData,
   postAnswer,
   postComment,
+  checkAddCommentAvailable,
+  hideAddCommentForm,
   upVote,
   downVote,
   markAsAccepted,
@@ -54,6 +56,7 @@ export const ViewQuestion = ({
   account,
   questionData,
   questionBounty,
+  isAnotherCommQuestion,
   postAnswerLoading,
   postCommentLoading,
   questionDataLoading,
@@ -70,6 +73,9 @@ export const ViewQuestion = ({
   deleteAnswerDispatch,
   deleteQuestionDispatch,
   postCommentDispatch,
+  checkAddCommentAvailableDispatch,
+  hideAddCommentFormDispatch,
+  addCommentFormDisplay,
   saveCommentDispatch,
   deleteCommentDispatch,
   upVoteDispatch,
@@ -112,11 +118,11 @@ export const ViewQuestion = ({
         window.isRendered = true;
       }
 
-      if (!questionDataLoading && !questionData) {
+      if (!questionDataLoading && !questionData && !isAnotherCommQuestion) {
         history.push(routes.notFound());
       }
     },
-    [questionData, questionDataLoading],
+    [questionData, questionDataLoading, isAnotherCommQuestion],
   );
 
   const translations = translationMessages[locale];
@@ -151,6 +157,9 @@ export const ViewQuestion = ({
     deleteAnswer: deleteAnswerDispatch,
     deleteQuestion: deleteQuestionDispatch,
     postComment: postCommentDispatch,
+    checkAddCommentAvailable: checkAddCommentAvailableDispatch,
+    hideAddCommentForm: hideAddCommentFormDispatch,
+    addCommentFormDisplay: addCommentFormDisplay,
     saveComment: saveCommentDispatch,
     deleteComment: deleteCommentDispatch,
     upVote: upVoteDispatch,
@@ -230,11 +239,13 @@ ViewQuestion.propTypes = {
   saveCommentLoading: PropTypes.bool,
   questionData: PropTypes.object,
   questionBounty: PropTypes.object,
+  isAnotherCommQuestion: PropTypes.oneOfType([PropTypes.bool, null]),
   match: PropTypes.object,
   history: PropTypes.object,
   getQuestionDataDispatch: PropTypes.func,
   postAnswerDispatch: PropTypes.func,
   postCommentDispatch: PropTypes.func,
+  checkAddCommentAvailableDispatch: PropTypes.func,
   upVoteDispatch: PropTypes.func,
   downVoteDispatch: PropTypes.func,
   markAsAcceptedDispatch: PropTypes.func,
@@ -266,6 +277,8 @@ const withConnect = connect(
     questionDataLoading: makeSelectViewQuestion.selectQuestionDataLoading(),
     questionData: makeSelectViewQuestion.selectQuestionData(),
     questionBounty: makeSelectViewQuestion.selectQuestionBounty(),
+    isAnotherCommQuestion: makeSelectViewQuestion.selectIsAnotherCommQuestion(),
+    addCommentFormDisplay: makeSelectViewQuestion.selectAddCommentFormDisplay(),
     postCommentLoading: makeSelectViewQuestion.selectPostCommentLoading(),
     postAnswerLoading: makeSelectViewQuestion.selectPostAnswerLoading(),
     saveCommentLoading: makeSelectViewQuestion.selectSaveCommentLoading(),
@@ -300,6 +313,14 @@ const withConnect = connect(
     ),
     postCommentDispatch: bindActionCreators(
       postComment.bind(null, questionId),
+      dispatch,
+    ),
+    checkAddCommentAvailableDispatch: bindActionCreators(
+      checkAddCommentAvailable,
+      dispatch,
+    ),
+    hideAddCommentFormDispatch: bindActionCreators(
+      hideAddCommentForm,
       dispatch,
     ),
     saveCommentDispatch: bindActionCreators(
