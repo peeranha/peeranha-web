@@ -8,7 +8,6 @@ import { fromJS } from 'immutable';
 import {
   GET_QUESTION_DATA,
   GET_QUESTION_DATA_SUCCESS,
-  SET_IS_ANOTHER_COMMUNITY_QUESTION,
   GET_QUESTION_DATA_ERROR,
   POST_ANSWER,
   POST_ANSWER_SUCCESS,
@@ -58,7 +57,6 @@ import {
 export const initialState = fromJS({
   questionData: null,
   questionBounty: null,
-  isAnotherCommQuestion: null,
   getQuestionDataError: null,
   getQuestionBountyError: null,
   questionDataLoading: true,
@@ -91,7 +89,6 @@ function viewQuestionReducer(state = initialState, action) {
     type,
     questionData,
     questionBounty,
-    isAnotherCommQuestion,
     getQuestionDataError,
     getQuestionBountyError,
     postAnswerError,
@@ -116,8 +113,6 @@ function viewQuestionReducer(state = initialState, action) {
       return state
         .set('questionDataLoading', false)
         .set('questionData', questionData);
-    case SET_IS_ANOTHER_COMMUNITY_QUESTION:
-      return state.set('isAnotherCommQuestion', isAnotherCommQuestion);
     case GET_QUESTION_DATA_ERROR:
       return state
         .set('questionData', null)

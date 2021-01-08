@@ -123,7 +123,6 @@ import {
   voteToDeleteErr,
   voteToDeleteSuccess,
   showAddCommentForm,
-  setIsAnotherCommQuestion,
 } from './actions';
 
 import { selectQuestionBounty, selectQuestionData } from './selectors';
@@ -499,15 +498,6 @@ export function* getQuestionDataWorker({ questionId }) {
     );
 
     if (isAnotherCommQuestion) {
-      // redirect to main domain
-      yield window.location.assign(
-        window.location.href.replace(
-          window.location.origin,
-          process.env.APP_LOCATION,
-        ),
-      );
-
-      yield put(setIsAnotherCommQuestion(true));
       yield put(getQuestionDataSuccess(null));
     } else {
       yield put(getQuestionDataSuccess(questionData));
