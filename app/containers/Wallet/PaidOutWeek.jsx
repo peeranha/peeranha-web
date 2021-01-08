@@ -68,7 +68,7 @@ const PaidOutWeek = ({
   globalBoostStat,
   userBoostStat,
 }) => {
-  const displayedReward = getRewardAmountByBoost(period, reward, globalBoostStat, userBoostStat);
+  const displayedReward = getRewardAmountByBoost(period, reward, globalBoostStat, userBoostStat) * 1000;
 
   return (
     <Container style={style}>

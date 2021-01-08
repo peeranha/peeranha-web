@@ -36,6 +36,7 @@ export const NumberInputField = ({
 
       const lastChar = inputValue[inputValue.length - 1];
       const inputAfterDot = inputValue.split('.')[1];
+      const inputBeforeDot = inputValue.split('.')[0];
 
       if (lastChar === undefined) {
         input.onChange('');
@@ -47,6 +48,11 @@ export const NumberInputField = ({
         inputValue.length > input.value.length &&
         input.value.includes('.')
       ) {
+        return;
+      }
+
+      if (lastChar === '.' && dotRestriction === 0) {
+        input.onChange(inputBeforeDot);
         return;
       }
 

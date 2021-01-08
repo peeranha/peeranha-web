@@ -76,6 +76,7 @@ export const editCommunity = async (
       community_id: communityId,
       name: communityData.name,
       ipfs_description: ipfsHash,
+      type: communityData.questionsType,
     },
     null,
     true,
@@ -91,13 +92,14 @@ export const getCommunityById = async (eosService, communityId) => {
 
   const community = JSON.parse(await getText(row.ipfs_description));
 
-  const { avatar, name, description, officialSite = null } = community;
+  const { avatar, name, description, officialSite = null, questionsType = 2 } = community;
 
   return {
     avatar,
     name,
     description,
     officialSite,
+    questionsType,
   };
 };
 
@@ -358,6 +360,7 @@ export async function createCommunity(eosService, selectedAccount, community) {
     {
       user: selectedAccount,
       name: community.name,
+      type: community.questionsType,
       ipfs_description: communityIpfsHash,
       suggested_tags,
     },

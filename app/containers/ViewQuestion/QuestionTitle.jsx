@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import commonMessages from 'common-messages';
 import { FormattedMessage } from 'react-intl';
 
-import { BUTTON_COLOR } from 'style-constants';
+import { BG_SUCCESS, BUTTON_COLOR } from 'style-constants';
 
 import checkIcon from 'images/okayGreen.svg?inline';
 import coinsIcon from 'images/coins.svg?external';
@@ -22,14 +22,18 @@ import QuestionType from 'components/Labels/QuestionType';
 import QuestionCommunity from 'components/QuestionForProfilePage/QuestionCommunity';
 import Button from 'components/Button/Outlined/InfoMedium';
 import { IconMd } from 'components/Icon/IconWithSizes';
+import { Bounty } from './Bounty';
 
 import { MarkAnswerNotification } from './MarkAsAcceptedIcon';
 import SendTips from '../SendTips';
+
+import { BOUNTY_PAID_CLASSNAME } from './constants';
 
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 
 import messages from './messages';
 
+const single = isSingleCommunityWebsite();
 const styles = singleCommunityStyles();
 
 export const B = Button.extend`
@@ -47,6 +51,13 @@ const QuestionName = H3.extend`
 
 const Div = styled.div`
   min-width: 140px;
+`;
+const TitleContainer = styled.div`
+  display: flex;
+  align-items: center;
+  .${BOUNTY_PAID_CLASSNAME} {
+    background-color: ${BG_SUCCESS};
+  }
 `;
 
 const Top = styled.div`
@@ -75,6 +86,7 @@ export const QuestionTitle = ({
   communities,
   user,
   questionData,
+  questionBounty,
   profileInfo,
   isTemporaryAccount,
 }) => {
@@ -109,8 +121,9 @@ export const QuestionTitle = ({
             <B>
               <IconMd
                 className="mr-1"
-                icon={styles.coinsIcon ? styles.coinsIcon : coinsIcon}
+                icon={coinsIcon}
                 color={BUTTON_COLOR}
+                specialStyles={single && styles.coinsIconStyles}
               />
               <FormattedMessage {...commonMessages.tipQuestion} />
             </B>
@@ -138,7 +151,10 @@ export const QuestionTitle = ({
           </>
         ) : null}
 
-        <QuestionName>{title}</QuestionName>
+        <TitleContainer>
+          <Bounty {...questionBounty} />
+          <QuestionName>{title}</QuestionName>
+        </TitleContainer>
 
         <TagList
           className="my-2"
@@ -170,6 +186,7 @@ QuestionTitle.propTypes = {
   answersNumber: PropTypes.number,
   user: PropTypes.string,
   questionData: PropTypes.object,
+  questionBounty: PropTypes.object,
   profileInfo: PropTypes.object,
   isTemporaryAccount: PropTypes.bool,
 };

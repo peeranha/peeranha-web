@@ -60,6 +60,7 @@ const QI = ({
   index,
   isTopQuestion,
   profileInfo,
+  questionBounty,
   questionFilter,
   isModerator,
   topQuestions,
@@ -67,6 +68,7 @@ const QI = ({
   downQuestionDispatch,
   topQuestionActionProcessing,
   moveQuestionDispatch,
+  isPromoted,
 }) => {
   const ref = useRef(null);
 
@@ -128,6 +130,7 @@ const QI = ({
       onDrop={onDrop}
       onDragOver={onDragOver}
       onDragStart={onDragStart}
+      isPromoted={isPromoted}
     >
       <AdditionalInfo
         correctAnswerId={correct_answer_id}
@@ -159,9 +162,11 @@ const QI = ({
           isGeneral={isGeneral}
           displayTopQuestionMove={displayTopQuestionMove}
           profileInfo={profileInfo}
+          questionBounty={questionBounty}
           isTopQuestion={isTopQuestion}
           topQuestionsCount={topQuestions.length}
           topQuestionActionProcessing={topQuestionActionProcessing}
+          isPromoted={isPromoted}
         />
       </Div>
     </Box>
@@ -184,12 +189,27 @@ const QuestionItem = connect(
 
 export const Content = ({
   questionsList,
+  promotedQuestionsList,
   locale,
   communities,
   isModerator,
   profileInfo,
 }) => (
   <div className="position-relative">
+    {promotedQuestionsList && promotedQuestionsList.map((item, index) => (
+      <QuestionItem
+        {...item}
+        index={index}
+        first={index === 0}
+        last={index === questionsList.length - 1}
+        locale={locale}
+        communities={communities}
+        key={item.id}
+        isModerator={isModerator}
+        profileInfo={profileInfo}
+        isPromoted
+      />
+    ))}
     {questionsList.map((item, index) => (
       <QuestionItem
         {...item}
@@ -236,6 +256,7 @@ QI.propTypes = {
 
 Content.propTypes = {
   questionsList: PropTypes.array,
+  promotedQuestionsList: PropTypes.array,
   locale: PropTypes.string,
   communities: PropTypes.array,
   isModerator: PropTypes.bool,

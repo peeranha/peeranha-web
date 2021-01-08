@@ -84,6 +84,7 @@ const EditCommunity = ({
       editCommunityDispatch,
       communityId: +communityId,
       communityLoading: editCommunityLoading,
+      locale,
     }),
     [community, communityId, editCommunityDispatch, editCommunityLoading],
   );

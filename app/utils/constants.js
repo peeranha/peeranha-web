@@ -16,11 +16,11 @@ export const AWS_URL =
   'https://yb1ib2fyhc.execute-api.us-east-2.amazonaws.com/default/regsterPromo';
 export const HUBSPOT_URL =
   'https://api.hsforms.com/submissions/v3/integration/submit';
-export const HUBSPOT_PORTAL_ID = '5258952';
+export const HUBSPOT_PORTAL_ID = '9131393';
 export const HUBSPOT_SEND_EMAIL_FORM_ID =
   '05305f90-6546-4718-88e8-2d2c8e79c00c';
 export const HUBSPOT_SEND_MESSAGE_FORM_ID =
-  'b75c88d0-ecc7-49b5-a69d-18b666f1d1ea';
+  'eb947c08-4d59-4fb5-87b7-3732e487dbd7';
 
 export const ENDPOINTS_LIST = 'best_nodes_list';
 
@@ -105,6 +105,7 @@ export const GOOGLE_SEARCH_FORM_PATH = (key, cx) =>
 export const ACCOUNT_TABLE = 'account';
 export const ACCOUNTS_TABLE = 'accounts';
 export const QUESTION_TABLE = 'question';
+export const BOUNTY_TABLE = 'bounty';
 export const USER_QUESTIONS_TABLE = 'usrquestions';
 export const USER_ANSWERS_TABLE = 'usranswers';
 export const TAGS_TABLE = 'tags';
@@ -125,11 +126,14 @@ export const USER_ACHIEVEMENTS_TABLE = 'accachieve';
 export const PROJECT_ACHIEVEMENTS_TABLE = 'achieve';
 export const BOOST_STATISTICS_TABLE = 'statboost';
 export const USER_BOOST_TABLE = 'boost';
+export const PROMOTED_QUESTIONS_TABLES = 'promquestion';
 
 // Scopes
 
 export const ALL_ACCOUNTS_SCOPE = 'allaccounts';
 export const ALL_QUESTIONS_SCOPE = 'allquestions';
+export const ALL_BOUNTIES_SCOPE = 'allbounties';
+export const ALL_USER_BOUNTIES_SCOPE = 'userbounties';
 export const ALL_COMMUNITIES_SCOPE = 'allcomm';
 export const ALL_STAT_SCOPE = 'allstat';
 export const ALL_PERIODS_SCOPE = 'allperiods';
@@ -157,6 +161,8 @@ export const VOTE_TO_DELETE_METHOD = 'reportforum';
 export const CHANGE_QUESTION_TYPE_METHOD = 'chgqsttype';
 
 export const POST_QUESTION_METHOD = 'postquestion';
+export const SET_BOUNTY_METHOD = 'setbounty';
+export const PAY_BOUNTY_METHOD = 'paybounty';
 export const EDIT_QUESTION_METHOD = 'modquestion';
 export const DEL_QUESTION_METHOD = 'delquestion';
 
@@ -190,6 +196,8 @@ export const ADD_BOOST_METHOD = 'addboost';
 export const CONFIRM_TELEGRAM_ACCOUNT = 'apprvacc';
 export const UNLINK_TELEGRAM_ACCOUNT = 'dsapprvacc';
 
+export const PROMOTE_QUESTION_METHOD = 'addhotquestn';
+
 // Top community questions methods
 export const ADD_TO_TOP_COMMUNITY_METHOD = 'addtotopcomm';
 export const REMOVE_FROM_TOP_COMMUNITY_METHOD = 'remfrmtopcom';
@@ -218,3 +226,8 @@ export const APP_MAIN_NAME = 'Peeranha';
 
 // Temporary Account Data
 export const TEMPORARY_ACCOUNT_KEY = 15;
+
+// Bounty Status
+export const BOUNTY_STATUS_ACTIVE = 1;
+export const BOUNTY_STATUS_PAID = 2;
+export const BOUNTY_STATUS_PENDING = 3;

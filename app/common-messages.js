@@ -258,6 +258,9 @@ export default defineMessages({
   amount: {
     id: 'app.common.amount',
   },
+  bounty: {
+    id: 'app.common.bounty',
+  },
   password: {
     id: 'app.common.password',
   },
@@ -350,6 +353,12 @@ export default defineMessages({
   },
   expert: {
     id: 'app.common.expert',
+  },
+  promoted: {
+    id: 'app.common.promoted',
+  },
+  any: {
+    id: 'app.common.any',
   },
   tipQuestion: {
     id: 'app.common.tipQuestion',

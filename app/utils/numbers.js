@@ -3,6 +3,9 @@ import numeral from 'numeral';
 // 3000 => 3,000
 export const getFormattedNum = num => numeral(num).format('0,0');
 
+export const getFormattedAsset = (num, precision = 6) =>
+  numeral(num).format(`0.${'0'.repeat(precision)}`);
+
 // -104000 => -104k
 export const getFormattedNum2 = num => numeral(num).format('0a');
 

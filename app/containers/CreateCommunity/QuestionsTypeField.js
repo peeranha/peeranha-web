@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
-import { singleCommunityStyles } from 'utils/communityManagement';
 import messages from 'common-messages';
 
 import {
@@ -14,19 +13,23 @@ import {
   BORDER_RADIUS_M,
 } from 'style-constants';
 
+import { ANY_TYPE, GENERAL_TYPE, EXPERT_TYPE } from './constants';
+
 import { Wrapper } from 'components/FormFields/Wrapper';
 import { Styles } from 'components/Input/InputStyled';
 import B from 'components/Button';
 
-const styles = singleCommunityStyles();
-
 export const QUESTION_TYPES = {
+  ANY: {
+    value: ANY_TYPE,
+    label: 'any',
+  },
   GENERAL: {
-    value: 1,
+    value: GENERAL_TYPE,
     label: 'general',
   },
   EXPERT: {
-    value: 0,
+    value: EXPERT_TYPE,
     label: 'expert',
   },
 };
@@ -43,16 +46,12 @@ const Button = B.extend`
   &:first-child {
     border-top-left-radius: ${BORDER_RADIUS_M};
     border-bottom-left-radius: ${BORDER_RADIUS_M};
-
-    border-radius: ${styles.buttonBorderRadius};
   }
 
   &:last-child {
     border-left: none;
     border-top-right-radius: ${BORDER_RADIUS_M};
     border-bottom-right-radius: ${BORDER_RADIUS_M};
-
-    border-radius: ${styles.buttonBorderRadius};
   }
 
   flex: 1;
@@ -85,7 +84,6 @@ const QuestionTypeField = ({
     event.preventDefault();
     input.onChange(event.currentTarget.value);
   }
-
   return (
     <Wrapper
       label={label}

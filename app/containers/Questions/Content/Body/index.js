@@ -21,15 +21,18 @@ const Body = ({
   communities,
   tags,
   profileInfo,
+  questionBounty,
   isGeneral,
   isTopQuestion,
   topQuestionsCount,
   displayTopQuestionMove,
   topQuestionActionProcessing,
+  isPromoted,
 }) => (
   <Base
     className={displayTopQuestionMove ? 'pl-0' : ''}
     position='right'
+    paddingTopMedia={20}
   >
     <TopQuestion
       id={id}
@@ -41,9 +44,18 @@ const Body = ({
       topQuestionActionProcessing={topQuestionActionProcessing}
     />
 
-    <QuestionType locale={locale} isGeneral={isGeneral} />
+    <QuestionType
+      locale={locale}
+      isGeneral={isGeneral}
+      isPromoted={isPromoted}
+    />
 
-    <Title title={title} id={id} />
+    <Title
+      locale={locale}
+      title={title}
+      id={id}
+      questionBounty={questionBounty}
+    />
 
     <UserInfo
       user={user}
@@ -71,12 +83,14 @@ Body.propTypes = {
   communities: PropTypes.array,
   tags: PropTypes.array,
   profileInfo: PropTypes.object,
+  questionBounty: PropTypes.object,
   isGeneral: PropTypes.bool,
   isModerator: PropTypes.bool,
   isTopQuestion: PropTypes.bool,
   topQuestionsCount: PropTypes.number,
   displayTopQuestionMove: PropTypes.bool,
   topQuestionActionProcessing: PropTypes.bool,
+  isPromoted: PropTypes.bool,
 };
 
 export default memo(Body);

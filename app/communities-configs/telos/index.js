@@ -1,10 +1,10 @@
 import React from 'react';
+import { css } from 'styled-components';
 
 import CustomSubHeader from 'components/CustomSubHeaders/CustomSubHeader';
 import CustomMobileSubHeader from 'components/CustomSubHeaders/CustomMobileSubHeader';
 
 import favicon from '!file-loader?name=[name].[ext]!images/favicon-telos.ico';
-import coinsBlueIcon from 'images/coinsBlue.svg?external';
 import TelosLogo from './images/telos-logo-dark.svg?inline';
 import TelosLogoLight from './images/telos-logo-light.svg?inline';
 
@@ -236,7 +236,6 @@ export const TelosStyles = {
   withoutSubHeader: true,
   poweredByPeeranha: true,
   withoutAdditionalLinks: true,
-  coinsIcon: coinsBlueIcon,
   leftMenuLogo: TelosLogo,
   signUpPageLogo: TelosLogoLight,
   favicon,
@@ -316,6 +315,14 @@ export const TelosStyles = {
       font-style: normal;
     }
   `,
+
+  coinsIconStyles: css`
+    ellipse {
+      stroke: #4f07e9;
+      fill: #dfe3f2;
+    }
+  `,
+
   headerHeight: 182,
   projectBorderRadius: '20px',
   customSubHeaderConfig: CustomSubHeaderConfig,

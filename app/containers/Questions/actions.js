@@ -49,6 +49,7 @@ export function getQuestionsSuccess(
   next,
   toUpdateQuestions,
   questionFilter = 0,
+  promotedQuestions,
 ) {
   return {
     type: GET_QUESTIONS_SUCCESS,
@@ -56,6 +57,7 @@ export function getQuestionsSuccess(
     next,
     toUpdateQuestions,
     questionFilter,
+    promotedQuestions,
   };
 }
 

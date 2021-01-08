@@ -16,6 +16,9 @@ const Container = styled.div`
 const Link = styled.a`
   font-weight: normal;
 `;
+const Button = styled.p`
+  padding: 6px 16px;
+`;
 const List = styled.ul`
   border: 1px solid ${BORDER_SECONDARY};
   border-radius: 3px;
@@ -64,14 +67,14 @@ const ExistingQuestions = ({ questions, skip, show, intl, communities }) => {
             </a>
           </ListItem>
         ))}
-        {questions.length > 4 && (
-          <ListItem>
-            <a href="#" onClick={show}>
-              {intl.formatMessage(messages.showMoreExistingQuestions)}
-            </a>
-          </ListItem>
-        )}
       </List>
+      {questions.length > 4 && (
+        <Link href="#" onClick={show}>
+          <Button>
+            {intl.formatMessage(messages.showMoreExistingQuestions)}
+          </Button>
+        </Link>
+      )}
     </Container>
   );
 };

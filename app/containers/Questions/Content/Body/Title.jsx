@@ -2,18 +2,27 @@ import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
 import * as routes from 'routes-config';
+import { translationMessages } from 'i18n';
 
 import A from 'components/A';
 import Span from 'components/Span';
+import Bounty from 'containers/ViewQuestion/Bounty';
 
 import { APP_FONT } from 'style-constants';
 
 import { singleCommunityFonts } from 'utils/communityManagement';
+import messages from '../../messages';
 
 const fonts = singleCommunityFonts();
 
-const Title = ({ title, id }) => (
-  <p className="mb-1">
+const Title = ({ locale, title, id, questionBounty }) => (
+  <div className="mb-1">
+    <Bounty
+      bountyMessage={translationMessages[locale][messages.bountyPopover.id]}
+      className="questionTitle"
+      amount={questionBounty?.amount}
+      locale={locale}
+    />
     <A to={routes.questionView(id, null)}>
       <Span
         fontSize="24"
@@ -27,12 +36,14 @@ const Title = ({ title, id }) => (
         {title}
       </Span>
     </A>
-  </p>
+  </div>
 );
 
 Title.propTypes = {
   id: PropTypes.string,
+  locale: PropTypes.string,
   title: PropTypes.string,
+  questionBounty: PropTypes.object,
 };
 
 export default memo(Title);

@@ -80,6 +80,16 @@ export const selectComment = (answerId, commentId) =>
     return answer.comments.filter(x => x.id === commentId)[0];
   });
 
+const selectQuestionBounty = () =>
+  createSelector(selectViewQuestionDomain, substate =>
+    substate.get('questionBounty'),
+  );
+
+const selectIsAnotherCommQuestion = () =>
+  createSelector(selectViewQuestionDomain, substate =>
+    substate.get('isAnotherCommQuestion'),
+  );
+
 const selectQuestionDataError = () =>
   createSelector(selectViewQuestionDomain, substate =>
     substate.get('getQuestionDataError'),
@@ -108,6 +118,11 @@ const selectPostCommentError = () =>
 const selectPostCommentLoading = () =>
   createSelector(selectViewQuestionDomain, substate =>
     substate.get('postCommentLoading'),
+  );
+
+const selectAddCommentFormDisplay = () =>
+  createSelector(selectViewQuestionDomain, substate =>
+    substate.get('addCommentFormDisplay').toJS(),
   );
 
 const selectUpVoteError = () =>
@@ -208,12 +223,15 @@ const selectIds = () =>
 export {
   selectViewQuestionDomain,
   selectQuestionData,
+  selectQuestionBounty,
+  selectIsAnotherCommQuestion,
   selectQuestionDataError,
   selectQuestionDataLoading,
   selectPostAnswerError,
   selectPostAnswerLoading,
   selectPostCommentError,
   selectPostCommentLoading,
+  selectAddCommentFormDisplay,
   selectUpVoteError,
   selectUpVoteLoading,
   selectDownVoteError,

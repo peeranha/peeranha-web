@@ -17,6 +17,7 @@ import shareIcon from 'images/shareIcon.svg?external';
 import deleteIcon from 'images/deleteIcon.svg?external';
 import blockIcon from 'images/blockIcon.svg?external';
 import changeTypeIcon from 'images/change-type.svg?external';
+import currencyPeer from 'images/currencyPeer.svg?external';
 
 import { getUserAvatar } from 'utils/profileManagement';
 import { MODERATOR_KEY, TEMPORARY_ACCOUNT_KEY } from 'utils/constants';
@@ -31,7 +32,7 @@ import SharingModal from './SharingModal';
 
 import messages from './messages';
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
-import { changeQuestionType } from './actions';
+import { changeQuestionType, payBounty } from './actions';
 import { QUESTION_TYPE } from './constants';
 
 const RatingBox = styled.div`
@@ -97,6 +98,7 @@ const ContentHeader = props => {
     commentId,
     deleteItem,
     changeQuestionTypeDispatch,
+    giveBountyDispatch,
     questionData,
     profile,
     isChangeTypeAvailable,
@@ -131,6 +133,14 @@ const ContentHeader = props => {
     [changeQuestionTypeDispatch],
   );
 
+  // eslint-disable-next-line camelcase
+  const correctAnswerId = questionData?.correct_answer_id;
+  const correctAnswer = questionData?.answers.find(
+    ({ id }) => id === correctAnswerId,
+  );
+  const correctAnswerUserName = correctAnswer?.user;
+  const currentUserName = profile?.user;
+
   return (
     <Box>
       <RatingBox>
@@ -162,6 +172,18 @@ const ContentHeader = props => {
             >
               <IconSm icon={changeTypeIcon} fill={BORDER_PRIMARY} />
               <FormattedMessage {...messages.changeQuestionType} />
+            </Button>
+          )}
+
+          {type === QUESTION_TYPE && (
+            <Button
+              id={`${type}_give_bounty_${answerId}`}
+              show={currentUserName && correctAnswerUserName === currentUserName}
+              onClick={event => giveBountyDispatch(event)}
+              disabled={ids.includes(`${type}_give_bounty_${answerId}`)}
+            >
+              <IconSm icon={currencyPeer} fill={BORDER_PRIMARY} />
+              <FormattedMessage {...messages.getBounty} />
             </Button>
           )}
 
@@ -266,6 +288,7 @@ ContentHeader.propTypes = {
   votingStatus: PropTypes.object,
   isModerator: PropTypes.bool,
   changeQuestionTypeDispatch: PropTypes.func,
+  giveBountyDispatch: PropTypes.func,
   questionData: PropTypes.object,
   profile: PropTypes.object,
   isChangeTypeAvailable: PropTypes.bool,
@@ -282,6 +305,7 @@ export default React.memo(
         changeQuestionType,
         dispatch,
       ),
+      giveBountyDispatch: bindActionCreators(payBounty, dispatch),
     }),
   )(ContentHeader),
 );

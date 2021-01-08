@@ -3,7 +3,11 @@ import { getFormattedNum3 } from './numbers';
 
 import {
   ACCOUNTS_TABLE,
+  ALL_BOUNTIES_SCOPE,
   ALL_PERIODS_SCOPE,
+  BOUNTY_TABLE,
+  SET_BOUNTY_METHOD,
+  PAY_BOUNTY_METHOD,
   INF_LIMIT,
   PERIOD_RATING_TABLE,
   PERIOD_REWARD_TABLE,
@@ -12,6 +16,7 @@ import {
   TOTAL_RATING_TABLE,
   TOTAL_REWARD_TABLE,
   USER_SUPPLY_SCOPE,
+  ALL_USER_BOUNTIES_SCOPE,
   USER_SUPPLY_TABLE,
   BOOST_STATISTICS_TABLE,
   BOOST_STATISTICS_SCOPE,
@@ -225,6 +230,51 @@ export async function pickupReward(eosService, user, periodIndex) {
   );
 }
 
+export async function setBounty(
+  user,
+  bounty,
+  questionId,
+  timestamp,
+  eosService,
+) {
+  await eosService.sendTransaction(
+    user,
+    SET_BOUNTY_METHOD,
+    {
+      user,
+      bounty,
+      question_id: questionId,
+      timestamp,
+    },
+    process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
+    true,
+  );
+}
+
+export async function payBounty(user, questionId, isDeleted, eosService) {
+  await eosService.sendTransaction(
+    user,
+    PAY_BOUNTY_METHOD,
+    {
+      user,
+      question_id: questionId,
+      on_delete: +isDeleted,
+    },
+    process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
+    true,
+  );
+}
+
+export async function getQuestionBounty(questionId, eosService) {
+  const bountyrow = await eosService.getTableRow(
+    BOUNTY_TABLE,
+    ALL_BOUNTIES_SCOPE,
+    questionId,
+    process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
+  );
+  return bountyrow;
+}
+
 export function getNormalizedCurrency(quantity, precision, symbol) {
   if (!Number(quantity)) {
     throw new ApplicationError(`Value has to be number`);
@@ -265,8 +315,6 @@ export function convertPeerValueToNumberValue(val) {
 }
 
 export async function getGlobalBoostStatistics(eosService) {
-  return [];
-
   const limit = 100;
 
   const { rows } = await eosService.getTableRows(
@@ -283,9 +331,7 @@ export async function getGlobalBoostStatistics(eosService) {
   return rows;
 }
 
-export async function getUserBoostStatistics(eosService, user) {
-  return [];
-  
+export async function getUserBoostStatistics(eosService, user) {  
   const limit = 100;
 
   const { rows } = await eosService.getTableRows(
@@ -324,13 +370,11 @@ export const getStakeNum = (stake) => {
 export const getPredictedBoost = (userStake, maxStake) => {
   let boost = 1;
 
-  if (userStake && maxStake) {
-    if (userStake <= maxStake) {
-      boost = userStake / maxStake * (MAX_STAKE_PREDICTION - MIN_STAKE_PREDICTION) + 1;
-      boost = Math.floor(boost * 100) / 100;
-    } else if (userStake > 0) {
-      boost = MAX_STAKE_PREDICTION;
-    }
+  if (userStake && maxStake && userStake <= maxStake) {
+    boost = userStake / maxStake * (MAX_STAKE_PREDICTION - MIN_STAKE_PREDICTION) + 1;
+    boost = Math.floor(boost * 100) / 100;
+  } else if (userStake && userStake > 0) {
+    boost = MAX_STAKE_PREDICTION;
   }
 
   return {
@@ -340,25 +384,25 @@ export const getPredictedBoost = (userStake, maxStake) => {
 }
 
 export const setWeekDataByKey = (boostStat, key, nextWeekPeriod) => {
-  let currentWeekIndex = 0;
+  let currentWeekIndex = -1;
   if (boostStat.length > 1) {
     currentWeekIndex = 
       boostStat[boostStat.length - 1].period === nextWeekPeriod ? 
       boostStat.length - 2 : 
       boostStat.length - 1;
   }
-  const currentWeekMaxStake = boostStat[currentWeekIndex][key];
-  const nextWeekMaxStake = boostStat[boostStat.length - 1][key];
+  const currentWeekValue = currentWeekIndex < 0 ? null : boostStat[currentWeekIndex][key];
+  const nextWeekValue = boostStat[boostStat.length - 1][key];
 
   return [
-    getStakeNum(currentWeekMaxStake),
-    getStakeNum(nextWeekMaxStake),
+    currentWeekValue ? getStakeNum(currentWeekValue) : 0,
+    getStakeNum(nextWeekValue),
   ];
 }
 
 export function getBoostWeeks(weekStat, globalBoostStat, userBoostStat) {
-  const currentWeek = weekStat ? weekStat[0] : {};
-  const nextWeek = currentWeek ? 
+  const currentWeek = weekStat ? { ...weekStat[0] } : {};
+  const nextWeek = Object.keys(currentWeek).length ? 
     {
       period: currentWeek.period + 1,
       periodStarted: currentWeek.periodFinished,  
@@ -370,6 +414,9 @@ export function getBoostWeeks(weekStat, globalBoostStat, userBoostStat) {
 
     currentWeek.maxStake = currentWeekMaxStake;
     nextWeek.maxStake = nextWeekMaxStake;
+  } else {
+    currentWeek.maxStake = 0;
+    nextWeek.maxStake = 0;
   }
 
   if (userBoostStat && userBoostStat.length) {
@@ -377,6 +424,9 @@ export function getBoostWeeks(weekStat, globalBoostStat, userBoostStat) {
 
     currentWeek.userStake = currentWeekUserStake;
     nextWeek.userStake = nextWeekUserStake;
+  } else {
+    currentWeek.userStake = 0;
+    nextWeek.userStake = 0;
   }
 
   return {

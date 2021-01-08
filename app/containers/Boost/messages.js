@@ -7,6 +7,12 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
+  title: {
+    id: 'app.containers.Boost.title',
+  },
+  description: {
+    id: 'app.containers.Boost.description',
+  },
   currentPeriod: {
     id: 'app.containers.Boost.currentPeriod',
   },

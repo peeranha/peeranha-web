@@ -7,6 +7,7 @@ import {
   CHANGE_QUESTION_TYPE,
   CHANGE_QUESTION_TYPE_ERROR,
   CHANGE_QUESTION_TYPE_SUCCESS,
+  SET_IS_ANOTHER_COMMUNITY_QUESTION,
   DELETE_ANSWER,
   DELETE_ANSWER_ERROR,
   DELETE_ANSWER_SUCCESS,
@@ -19,15 +20,24 @@ import {
   DOWN_VOTE,
   DOWN_VOTE_ERROR,
   DOWN_VOTE_SUCCESS,
+  GET_QUESTION_BOUNTY,
+  GET_QUESTION_BOUNTY_ERROR,
+  GET_QUESTION_BOUNTY_SUCCESS,
   GET_QUESTION_DATA,
   GET_QUESTION_DATA_ERROR,
   GET_QUESTION_DATA_SUCCESS,
+  PAY_BOUNTY,
+  PAY_BOUNTY_ERROR,
+  PAY_BOUNTY_SUCCESS,
   MARK_AS_ACCEPTED,
   MARK_AS_ACCEPTED_ERROR,
   MARK_AS_ACCEPTED_SUCCESS,
   POST_ANSWER,
   POST_ANSWER_ERROR,
   POST_ANSWER_SUCCESS,
+  CHECK_ADD_COMMENT_AVAILABLE,
+  SHOW_ADD_COMMENT_FORM,
+  HIDE_ADD_COMMENT_FORM,
   POST_COMMENT,
   POST_COMMENT_BUTTON,
   POST_COMMENT_ERROR,
@@ -58,6 +68,13 @@ export function getQuestionDataSuccess(questionData) {
   return {
     type: GET_QUESTION_DATA_SUCCESS,
     questionData,
+  };
+}
+
+export function setIsAnotherCommQuestion(isAnotherCommQuestion) {
+  return {
+    type: SET_IS_ANOTHER_COMMUNITY_QUESTION,
+    isAnotherCommQuestion,
   };
 }
 
@@ -194,6 +211,28 @@ export function postAnswerErr(postAnswerError) {
   return {
     type: POST_ANSWER_ERROR,
     postAnswerError,
+  };
+}
+
+export function checkAddCommentAvailable(toggleFormButtonId, answerId) {
+  return {
+    type: CHECK_ADD_COMMENT_AVAILABLE,
+    toggleFormButtonId,
+    answerId,
+  };
+}
+
+export function showAddCommentForm(toggleFormButtonId) {
+  return {
+    type: SHOW_ADD_COMMENT_FORM,
+    toggleFormButtonId,
+  };
+}
+
+export function hideAddCommentForm(toggleFormButtonId) {
+  return {
+    type: HIDE_ADD_COMMENT_FORM,
+    toggleFormButtonId,
   };
 }
 
@@ -355,6 +394,43 @@ export const changeQuestionTypeErr = (changeQuestionTypeError, buttonId) => ({
   changeQuestionTypeError,
   buttonId,
 });
+
+export const payBounty = event => ({
+  type: PAY_BOUNTY,
+  buttonId: event.currentTarget.id,
+});
+
+export const payBountySuccess = buttonId => ({
+  type: PAY_BOUNTY_SUCCESS,
+  buttonId,
+});
+
+export const payBountyError = (giveBountyErr, buttonId) => ({
+  type: PAY_BOUNTY_ERROR,
+  giveBountyErr,
+  buttonId,
+});
+
+export function getQuestionBounty(questionId) {
+  return {
+    type: GET_QUESTION_BOUNTY,
+    questionId,
+  };
+}
+
+export function getQuestionBountySuccess(questionBounty) {
+  return {
+    type: GET_QUESTION_BOUNTY_SUCCESS,
+    questionBounty,
+  };
+}
+
+export function getQuestionBountyErr(getQuestionBountyError) {
+  return {
+    type: GET_QUESTION_BOUNTY_ERROR,
+    getQuestionBountyError,
+  };
+}
 
 export const setVoteToDeleteLoading = voteToDeleteLoading => ({
   type: SET_VOTE_TO_DELETE_LOADING,

@@ -30,6 +30,7 @@ import {
   upVote,
   voteToDelete,
 } from 'utils/questionsManagement';
+import { getQuestionBounty, payBounty } from 'utils/walletManagement';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { ACCOUNT_TABLE, ALL_ACCOUNTS_SCOPE } from 'utils/constants';
 
@@ -69,6 +70,7 @@ import {
   DOWN_VOTE_SUCCESS,
   GET_QUESTION_DATA,
   GET_QUESTION_DATA_SUCCESS,
+  PAY_BOUNTY,
   ITEM_DNV_FLAG,
   ITEM_UPV_FLAG,
   ITEM_VOTED_TO_DEL_FLAG,
@@ -88,6 +90,7 @@ import {
   VOTE_TO_DELETE_SUCCESS,
   QUESTION_TYPE,
   ANSWER_TYPE,
+  CHECK_ADD_COMMENT_AVAILABLE,
 } from './constants';
 
 import {
@@ -101,8 +104,11 @@ import {
   deleteQuestionSuccess,
   downVoteErr,
   downVoteSuccess,
+  getQuestionBountySuccess,
   getQuestionDataErr,
   getQuestionDataSuccess,
+  payBountyError,
+  payBountySuccess,
   markAsAcceptedErr,
   markAsAcceptedSuccess,
   postAnswerErr,
@@ -116,9 +122,11 @@ import {
   upVoteSuccess,
   voteToDeleteErr,
   voteToDeleteSuccess,
+  showAddCommentForm,
+  setIsAnotherCommQuestion,
 } from './actions';
 
-import { selectQuestionData } from './selectors';
+import { selectQuestionBounty, selectQuestionData } from './selectors';
 
 import {
   deleteAnswerValidator,
@@ -156,7 +164,8 @@ export function* getQuestionData({
       return null;
     }
   }
-
+  const bounty = yield call(getQuestionBounty, questionId, eosService);
+  yield put(getQuestionBountySuccess(bounty));
   question.isGeneral = isGeneralQuestion(question.properties);
 
   const getItemStatus = (historyFlag, constantFlag) =>
@@ -267,6 +276,7 @@ export function* getParams() {
   const locale = yield select(makeSelectLocale());
   const profileInfo = yield select(makeSelectProfileInfo());
   const account = yield select(makeSelectAccount());
+  const questionBounty = yield select(selectQuestionBounty());
 
   return {
     questionData,
@@ -274,6 +284,7 @@ export function* getParams() {
     locale,
     account,
     profileInfo,
+    questionBounty,
   };
 }
 
@@ -408,9 +419,13 @@ export function* deleteAnswerWorker({ questionId, answerId, buttonId }) {
 
 export function* deleteQuestionWorker({ questionId, buttonId }) {
   try {
-    const { questionData, eosService, locale, profileInfo } = yield call(
-      getParams,
-    );
+    const {
+      questionData,
+      eosService,
+      locale,
+      profileInfo,
+      questionBounty,
+    } = yield call(getParams);
 
     yield call(
       isAvailableAction,
@@ -423,6 +438,10 @@ export function* deleteQuestionWorker({ questionId, buttonId }) {
         ),
       questionData.community_id,
     );
+    if (questionBounty) {
+      yield call(payBounty, profileInfo?.user, questionId, true, eosService);
+      yield put(payBountySuccess(buttonId));
+    }
 
     yield call(deleteQuestion, profileInfo.user, questionId, eosService);
 
@@ -446,7 +465,7 @@ export function* getQuestionDataWorker({ questionId }) {
     });
 
     const single = isSingleCommunityWebsite();
-    const isAnotherCommunityQuestion =
+    const isAnotherCommQuestion =
       single && questionData.community_id !== single;
 
     if (!questionData) {
@@ -479,13 +498,50 @@ export function* getQuestionDataWorker({ questionId }) {
       }),
     );
 
-    if (isAnotherCommunityQuestion) {
+    if (isAnotherCommQuestion) {
+      // redirect to main domain
+      yield window.location.assign(
+        window.location.href.replace(
+          window.location.origin,
+          process.env.APP_LOCATION,
+        ),
+      );
+
+      yield put(setIsAnotherCommQuestion(true));
       yield put(getQuestionDataSuccess(null));
     } else {
       yield put(getQuestionDataSuccess(questionData));
     }
   } catch (err) {
     yield put(getQuestionDataErr(err));
+  }
+}
+
+export function* checkPostCommentAvailableWorker(buttonId, answerId) {
+  const { questionData, profileInfo, locale } = yield call(getParams);
+
+  yield call(isAuthorized);
+
+  yield call(
+    isAvailableAction,
+    () =>
+      postCommentValidator(
+        profileInfo,
+        questionData,
+        buttonId,
+        answerId,
+        translationMessages[locale],
+      ),
+    questionData.community_id,
+  );
+}
+
+export function* showAddCommentFormWorker({ toggleFormButtonId, answerId }) {
+  try {
+    yield call(checkPostCommentAvailableWorker, toggleFormButtonId, answerId);
+    yield put(showAddCommentForm(toggleFormButtonId));
+  } catch (err) {
+    yield put(postCommentErr(err, toggleFormButtonId));
   }
 }
 
@@ -498,24 +554,9 @@ export function* postCommentWorker({
   buttonId,
 }) {
   try {
-    const { questionData, eosService, profileInfo, locale } = yield call(
-      getParams,
-    );
+    const { questionData, eosService, profileInfo } = yield call(getParams);
 
-    yield call(isAuthorized);
-
-    yield call(
-      isAvailableAction,
-      () =>
-        postCommentValidator(
-          profileInfo,
-          questionData,
-          buttonId,
-          answerId,
-          translationMessages[locale],
-        ),
-      questionData.community_id,
-    );
+    yield call(checkPostCommentAvailableWorker, buttonId, answerId);
 
     yield call(
       postComment,
@@ -551,7 +592,7 @@ export function* postCommentWorker({
       });
     }
 
-    yield call(toggleView, true);
+    yield call(toggleView);
 
     yield call(reset);
 
@@ -958,6 +999,22 @@ function* changeQuestionTypeWorker({ buttonId }) {
   }
 }
 
+function* payBountyWorker({ buttonId }) {
+  try {
+    const { questionData, eosService, profileInfo } = yield call(getParams);
+    yield call(
+      payBounty,
+      profileInfo?.user,
+      questionData?.id,
+      false,
+      eosService,
+    );
+    yield put(payBountySuccess(buttonId));
+  } catch (err) {
+    yield put(payBountyError(err, buttonId));
+  }
+}
+
 export function* updateQuestionList({ questionData }) {
   if (questionData?.id) {
     yield put(getUniqQuestions([questionData]));
@@ -967,6 +1024,7 @@ export function* updateQuestionList({ questionData }) {
 export default function*() {
   yield takeEvery(GET_QUESTION_DATA, getQuestionDataWorker);
   yield takeLatest(POST_ANSWER, postAnswerWorker);
+  yield takeEvery(CHECK_ADD_COMMENT_AVAILABLE, showAddCommentFormWorker);
   yield takeEvery(POST_COMMENT, postCommentWorker);
   yield takeEvery(UP_VOTE, upVoteWorker);
   yield takeEvery(DOWN_VOTE, downVoteWorker);
@@ -977,6 +1035,7 @@ export default function*() {
   yield takeEvery(SAVE_COMMENT, saveCommentWorker);
   yield takeEvery(VOTE_TO_DELETE, voteToDeleteWorker);
   yield takeEvery(CHANGE_QUESTION_TYPE, changeQuestionTypeWorker);
+  yield takeEvery(PAY_BOUNTY, payBountyWorker);
   yield takeEvery(
     [
       POST_COMMENT_SUCCESS,

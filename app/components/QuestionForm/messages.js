@@ -20,7 +20,7 @@ export default defineMessages({
     id: 'app.common.skip',
   },
   showMoreExistingQuestions: {
-    id: 'app.common.showMore',
+    id: 'app.common.showMoreQuestions',
   },
   questionBodyLabel: {
     id: 'app.containers.QuestionForm.questionBodyLabel',
@@ -30,6 +30,15 @@ export default defineMessages({
   },
   tagsLabel: {
     id: 'app.containers.QuestionForm.tagsLabel',
+  },
+  bountyLabel: {
+    id: 'app.containers.QuestionForm.bountyLabel',
+  },
+  bountyDaysLabel: {
+    id: 'app.containers.QuestionForm.bountyDaysLabel',
+  },
+  bountyHoursLabel: {
+    id: 'app.containers.QuestionForm.bountyHoursLabel',
   },
   previewLabel: {
     id: 'app.containers.QuestionForm.previewLabel',
@@ -42,6 +51,21 @@ export default defineMessages({
   },
   tagsTip: {
     id: 'app.containers.QuestionForm.tagsTip',
+  },
+  bountyTip: {
+    id: 'app.containers.QuestionForm.bountyTip',
+  },
+  bountyDaysTip: {
+    id: 'app.containers.QuestionForm.bountyDaysTip',
+  },
+  bountyHoursTip: {
+    id: 'app.containers.QuestionForm.bountyHoursTip',
+  },
+  daysPlaceholder: {
+    id: 'app.containers.QuestionForm.daysPlaceholder',
+  },
+  hoursPlaceholder: {
+    id: 'app.containers.QuestionForm.hoursPlaceholder',
   },
   questionType: {
     id: 'app.containers.QuestionForm.questionType',
@@ -60,5 +84,14 @@ export default defineMessages({
   },
   expertQuestionDescriptionList: {
     id: 'app.containers.QuestionForm.expertQuestionDescriptionList',
+  },
+  promotedLabel: {
+    id: 'app.containers.QuestionForm.promotedLabel',
+  },
+  promotedTip: {
+    id: 'app.containers.QuestionForm.promotedTip',
+  },
+  questionIsPromoting: {
+    id: 'app.containers.QuestionForm.questionIsPromoting',
   },
 });

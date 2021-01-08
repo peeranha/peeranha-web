@@ -31,22 +31,18 @@ const stringLength = (min, max) => value => {
     : undefined;
 };
 
-// TODO: test
-const numberValue = (min, max) => value => {
-  console.log(min, max, value);
-  let val = value;
-
-  let msg = messages.wrongLength.id;
-
-  // if (value && value.toJS) {
-  //   val = value.toJS();
-  // } else if (value && value.trim) {
-  //   val = value.trim().replace(/  +/g, ' ');
-  // } else if (value && value.map) {
-  //   msg = messages.wrongLengthOfList.id;
-  // }
+const numberRange = (min, max) => value => {
+  const val = value;
+  const msg = messages.wrongNumberRange.id;
 
   return val && (val > max || val < min) ? { id: msg, min, max } : undefined;
+};
+
+// TODO: test
+const valueHasToBePositiveInteger = value => {
+  const re = /^[0-9]+$/;
+
+  return (value && !re.test(value)) || value === undefined ? messages.valueIsNotPositiveInteger : undefined;
 };
 
 // TODO: test
@@ -125,6 +121,13 @@ const valueHasToBeLessThan = (...args) => {
   return value > comparedValue ? messages.valueIsMore : undefined;
 };
 
+const valueHasToBeLessThanMaxPromotingHours = (...args) => {
+  const value = Number(args[0]);
+  const comparedValue = Number(args[2].maxPromotingHours);
+
+  return value > comparedValue ? messages.valueIsMore : undefined;
+}
+
 const comparePasswords = (...args) => {
   const value = args[0];
   const list = args[2].passwordList;
@@ -193,6 +196,9 @@ const strLength15x100 = stringLength(15, 100);
 const strLength15x250 = stringLength(15, 250);
 const strLength20x1000 = stringLength(20, 1000);
 const strLength25x30000 = stringLength(25, 30000);
+const number1x7 = numberRange(1, 7);
+const number1x24 = numberRange(1, 24);
+const number1x168 = numberRange(1, 168);
 
 export {
   imageValidation,
@@ -212,6 +218,9 @@ export {
   strLength15x250,
   strLength20x1000,
   strLength25x30000,
+  number1x7,
+  number1x24,
+  number1x168,
   valueHasNotBeInList,
   valueHasToBeLessThan,
   comparePasswords,
@@ -223,5 +232,6 @@ export {
   telosNameLength,
   isTelosNameAvailable,
   atLeastOneLetter,
-  numberValue,
+  valueHasToBePositiveInteger,
+  valueHasToBeLessThanMaxPromotingHours,
 };

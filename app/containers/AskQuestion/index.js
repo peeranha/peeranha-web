@@ -4,7 +4,7 @@
  *
  */
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -15,10 +15,15 @@ import _debounce from 'lodash/debounce';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
+import { PROMOTE_HOUR_COST } from 'components/QuestionForm/constants';
+
 import Seo from 'components/Seo';
 import QuestionForm from 'components/QuestionForm';
 
-import { makeSelectAccount } from 'containers/AccountProvider/selectors';
+import {
+  makeSelectAccount,
+  makeSelectBalance,
+} from 'containers/AccountProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 
@@ -34,6 +39,7 @@ export const AskQuestion = ({
   locale,
   askQuestionLoading,
   communities,
+  balance,
   askQuestionDispatch,
   getQuestionsDispatch,
   existingQuestions,
@@ -46,6 +52,8 @@ export const AskQuestion = ({
     getQuestionsDispatchDebounced.cancel();
   });
 
+  const maxPromotingHours = useMemo(() => Math.floor(balance / PROMOTE_HOUR_COST), [balance]);
+
   return (
     <div>
       <Seo
@@ -57,6 +65,8 @@ export const AskQuestion = ({
 
       <QuestionForm
         locale={locale}
+        valueHasToBeLessThan={balance}
+        maxPromotingHours={maxPromotingHours}
         form={ASK_QUESTION_FORM}
         formTitle={translationMessages[locale][messages.title.id]}
         submitButtonId={POST_QUESTION_BUTTON}
@@ -68,6 +78,12 @@ export const AskQuestion = ({
         existingQuestions={existingQuestions}
         doSkipExistingQuestions={skipExistingQuestions}
         skipExistingQuestions={() => setSkipExistingQuestions(true)}
+        questionTypeExpertDescription={
+          translationMessages[locale][messages.onlyExpertQuestionsAllowed.id]
+        }
+        questionTypeGeneralDescription={
+          translationMessages[locale][messages.onlyGeneralQuestionsAllowed.id]
+        }
       />
     </div>
   );
@@ -76,6 +92,7 @@ export const AskQuestion = ({
 AskQuestion.propTypes = {
   locale: PropTypes.string.isRequired,
   askQuestionLoading: PropTypes.bool.isRequired,
+  balance: PropTypes.number,
   askQuestionDispatch: PropTypes.func.isRequired,
   getQuestionsDispatch: PropTypes.func.isRequired,
   communities: PropTypes.array.isRequired,
@@ -86,6 +103,7 @@ const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
   account: makeSelectAccount(),
   communities: selectCommunities(),
+  balance: makeSelectBalance(),
   existingQuestions: askQuestionSelector.selectExistingQuestions(),
   askQuestionLoading: askQuestionSelector.selectAskQuestionLoading(),
 });
