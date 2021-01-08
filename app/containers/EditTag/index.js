@@ -29,7 +29,10 @@ import {
   NAME_FIELD,
 } from 'containers/CreateTag/constants';
 
-import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
+import {
+  selectFaqQuestions,
+  selectCommunities,
+} from 'containers/DataCacheProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import { Header } from 'containers/CreateTag/Header';
@@ -42,6 +45,7 @@ import { getEditTagForm, resetEditTagReducer, editTag } from './actions';
 import { selectEditTagFormLoading, selectEditTagProcessing } from './selectors';
 
 const EditTag = ({
+  communities,
   getEditTagFormDispatch,
   resetEditTagDataDispatch,
   resetEditTagReducerDispatch,
@@ -101,6 +105,7 @@ const EditTag = ({
       <TipsBase>
         <BaseSpecialOne>
           <Form
+            communities={communities}
             editTagData={editTagData}
             submitAction={editTagArgs}
             translations={translationMessages[locale]}
@@ -116,6 +121,7 @@ const EditTag = ({
 };
 
 EditTag.propTypes = {
+  communities: PropTypes.array,
   resetEditTagDataDispatch: PropTypes.func,
   getEditTagFormDispatch: PropTypes.func,
   editTagFormLoading: PropTypes.bool,
@@ -127,6 +133,7 @@ EditTag.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
+  communities: selectCommunities(),
   editTagFormLoading: selectEditTagFormLoading(),
   editTagProcessing: selectEditTagProcessing(),
   editTagData: selectEditTagData(),

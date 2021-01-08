@@ -32,7 +32,6 @@ import {
 
 import messages from './messages';
 import { selectExistingTags } from 'containers/Tags/selectors';
-import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 
 export const Form = ({
   tagFormLoading,
@@ -117,7 +116,6 @@ FormClone = connect(
       const existingTags = selectExistingTags()(state);
       const selectedTag = existingTags.find(tag => tag.id === tagId);
 
-      const communities = selectCommunities()(state);
       const selectedCommunity = communities.find(
         comm => comm.id === communityId,
       );
@@ -131,8 +129,6 @@ FormClone = connect(
               x.name.toLowerCase(),
             ),
           ),
-        communities,
-        selectedCommunity,
         initialValues: {
           [FORM_COMMUNITY]: selectedCommunity,
           [NAME_FIELD]: selectedTag?.name,
