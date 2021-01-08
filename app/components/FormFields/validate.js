@@ -88,9 +88,10 @@ const requiredForObjectField = value => {
   return !val || (val && !val.value) ? messages.requiredField : undefined;
 };
 
-const valueHasNotBeInList = () => (...args) => {
+const valueHasNotBeInList = (...args) => {
   const value = args[0];
   const list = args[2].valueHasNotBeInListValidate;
+
   return list && list.includes(value.toLowerCase())
     ? messages.itemAlreadyExists
     : undefined;

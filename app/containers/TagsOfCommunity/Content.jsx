@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-
+import { FormattedMessage } from 'react-intl';
 import { translationMessages } from 'i18n';
+import createdHistory from 'createdHistory';
+
+import commonMessages from 'common-messages';
+import * as routes from 'routes-config';
+
+import { communityAdminCreateTagPermission } from 'utils/properties';
+import { MODERATOR_KEY } from 'utils/constants';
+
 import { TEXT_SECONDARY } from 'style-constants';
 
 import InfinityLoader from 'components/InfinityLoader';
@@ -14,11 +22,12 @@ import BlockShadow from 'components/BlockShadow';
 import Span from 'components/Span';
 import P from 'components/P';
 import Grid from 'components/Grid';
+import InfoButton from 'components/Button/Outlined/InfoMedium';
 
 import messages from './messages';
 
 const Tag = styled.li`
-  height: 140px;
+  height: ${({ editTagModerator }) => (editTagModerator ? '180px' : '140px')};
   position: relative;
   margin-bottom: 15px;
 
@@ -72,6 +81,12 @@ const Base = BaseRounded.extend`
   }
 `;
 
+const EditTagBtnContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+`;
+
 const Content = ({
   tags,
   loadMoreTags,
@@ -81,59 +96,93 @@ const Content = ({
   text,
   clearTextField,
   locale,
-}) => (
-  <InfinityLoader
-    loadNextPaginatedData={loadMoreTags}
-    isLoading={existingTagsLoading}
-    isLastFetch={isLastFetch}
-  >
-    <Grid xl={3} md={2} xs={1}>
-      {!!tags.length || text ? (
-        <li className="d-sm-flex align-items-center justify-content-center">
-          <Item
-            isInputBox
-            className="d-flex align-items-center justify-content-center p-2"
-          >
-            <Input
-              input={{ onChange: typeInput, value: text }}
-              placeholder={translationMessages[locale][messages.findTag.id]}
-              isSearchable
-              onClick={clearTextField}
-            />
-          </Item>
-        </li>
-      ) : null}
+  communityId,
+  setEditTagData,
+  profileInfo,
+}) => {
+  const showEditTagForm = tagId => {
+    setEditTagData(tagId, communityId);
+    createdHistory.push(routes.editTag(communityId, tagId));
+  };
 
-      {tags.map(x => (
-        <Tag key={x.id}>
-          <Base>
+  const isGlobalModerator = useMemo(
+    () =>
+      !!profileInfo?.['integer_properties'].find(x => x.key === MODERATOR_KEY),
+    [profileInfo?.['integer_properties']],
+  );
+
+  const createTagPermission = useMemo(
+    () =>
+      communityAdminCreateTagPermission(profileInfo?.permissions, communityId),
+    [profileInfo?.permissions, communityId],
+  );
+
+  const editTagModerator = isGlobalModerator || createTagPermission;
+
+  return (
+    <InfinityLoader
+      loadNextPaginatedData={loadMoreTags}
+      isLoading={existingTagsLoading}
+      isLastFetch={isLastFetch}
+    >
+      <Grid xl={3} md={2} xs={1}>
+        {!!tags.length || text ? (
+          <li className="d-sm-flex align-items-center justify-content-center">
             <Item
-              onMouseLeave={e => {
-                e.currentTarget.scrollTop = 0;
-              }}
+              isInputBox
+              className="d-flex align-items-center justify-content-center p-2"
             >
-              <p>
-                <TagName>{x.name}</TagName>
-                <Span fontSize="14" color={TEXT_SECONDARY}>
-                  <span>x </span>
-                  <span>{`${x.questions_asked}`}</span>
-                </Span>
-              </p>
-
-              <P fontSize="14" lineHeight="18" color={TEXT_SECONDARY}>
-                {x.description}
-              </P>
-
-              <BlockShadow />
+              <Input
+                input={{ onChange: typeInput, value: text }}
+                placeholder={translationMessages[locale][messages.findTag.id]}
+                isSearchable
+                onClick={clearTextField}
+              />
             </Item>
-          </Base>
-        </Tag>
-      ))}
-    </Grid>
+          </li>
+        ) : null}
 
-    {existingTagsLoading && <LoadingIndicator />}
-  </InfinityLoader>
-);
+        {tags.map(x => (
+          <Tag key={x.id} editTagModerator={editTagModerator}>
+            <Base>
+              <Item
+                onMouseLeave={e => {
+                  e.currentTarget.scrollTop = 0;
+                }}
+              >
+                <p>
+                  <TagName>{x.name}</TagName>
+                  <Span fontSize="14" color={TEXT_SECONDARY}>
+                    <span>x </span>
+                    <span>{`${x.questions_asked}`}</span>
+                  </Span>
+                </p>
+
+                <P fontSize="14" lineHeight="18" color={TEXT_SECONDARY}>
+                  {x.description}
+                </P>
+
+                <BlockShadow />
+              </Item>
+              {editTagModerator && (
+                <EditTagBtnContainer>
+                  <InfoButton
+                    className="ml-15"
+                    onClick={() => showEditTagForm(x.id)}
+                  >
+                    <FormattedMessage {...commonMessages.edit} />
+                  </InfoButton>
+                </EditTagBtnContainer>
+              )}
+            </Base>
+          </Tag>
+        ))}
+      </Grid>
+
+      {existingTagsLoading && <LoadingIndicator />}
+    </InfinityLoader>
+  );
+};
 
 Content.propTypes = {
   tags: PropTypes.array,
@@ -144,6 +193,9 @@ Content.propTypes = {
   clearTextField: PropTypes.func,
   text: PropTypes.string,
   locale: PropTypes.string,
+  communityId: PropTypes.number,
+  setEditTagData: PropTypes.func,
+  profileInfo: PropTypes.object,
 };
 
 export default React.memo(Content);

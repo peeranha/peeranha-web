@@ -26,7 +26,7 @@ import {
   SUGGEST_TAG,
   MIN_ENERGY_TO_CREATE_TAG,
   MIN_RATING_TO_CREATE_TAG,
-  CREATE_TAG_BUTTON,
+  TAGFORM_SUBMIT_BUTTON,
   GET_FORM,
 } from './constants';
 
@@ -51,7 +51,7 @@ export function* checkReadinessWorker({ buttonId, communityId }) {
   yield call(isAuthorized);
 
   yield call(isValid, {
-    buttonId: buttonId || CREATE_TAG_BUTTON,
+    buttonId: buttonId || TAGFORM_SUBMIT_BUTTON,
     minRating: MIN_RATING_TO_CREATE_TAG,
     minEnergy: MIN_ENERGY_TO_CREATE_TAG,
     communityId,

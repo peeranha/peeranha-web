@@ -22,6 +22,7 @@ import {
   VOTE_TO_CREATE_COMMUNITY,
   VOTE_TO_DELETE_COMMUNITY,
   CREATE_TAG,
+  EDIT_TAG_ACTION,
   VOTE_TO_CREATE_TAG,
   VOTE_TO_DELETE_TAG,
 } from './constants';
@@ -181,6 +182,22 @@ export async function getExistingTags(tags) {
   );
 
   return tags;
+}
+
+export async function editTagCM(eosService, selectedAccount, tag, tagIpfsHash) {
+  await eosService.sendTransaction(
+    selectedAccount,
+    EDIT_TAG_ACTION,
+    {
+      user: selectedAccount,
+      community_id: +tag.communityId,
+      tag_id: tag.tagId,
+      name: tag.name,
+      ipfs_description: tagIpfsHash,
+    },
+    null,
+    true,
+  );
 }
 
 export async function upVoteToCreateTag(

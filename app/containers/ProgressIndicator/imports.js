@@ -13,6 +13,7 @@ import {
 } from 'containers/ChangePasswordByPrevious/selectors';
 import { selectCreateCommunityLoading } from 'containers/CreateCommunity/selectors';
 import { selectSuggestTagLoading } from 'containers/CreateTag/selectors';
+import { selectEditTagProcessing } from 'containers/EditTag/selectors';
 import {
   selectSendEmailProcessing as sendEmailDeleteAccount,
   selectDeleteAccountProcessing,
@@ -88,6 +89,7 @@ export default {
   selectChangePasswordProcessing: selectChangePasswordProcessing(),
   selectCreateCommunityLoading: selectCreateCommunityLoading(),
   selectSuggestTagLoading: selectSuggestTagLoading(),
+  selectEditTagProcessing: selectEditTagProcessing(),
   sendEmailDeleteAccount: sendEmailDeleteAccount(),
   selectDeleteAccountProcessing: selectDeleteAccountProcessing(),
   selectEditAnswerLoading: selectEditAnswerLoading(),

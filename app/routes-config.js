@@ -88,6 +88,11 @@ export const suggestedTags = communityId =>
 export const tagsCreate = communityId =>
   !singleCommId ? `/tags/community/${communityId || 0}/create` : `/tags/create`;
 
+export const editTag = (communityId, tagId) =>
+  !singleCommId
+    ? `/communities/${communityId}/tags/${tagId}/edit`
+    : `/tags/${tagId}/edit`;
+
 export const registrationStage = 'signup';
 
 export const preloaderPage = () => '/preloader-page';

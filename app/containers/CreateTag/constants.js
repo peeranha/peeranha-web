@@ -1,11 +1,11 @@
 const PATH = 'app/CreateTag/';
 
-export const FORM_COMMUNITY = 'app_CreateTag_FORM_COMMUNITY';
-export const NAME_FIELD = 'app_CreateTag_NAME_FIELD';
-export const DESCRIPTION_FIELD = 'app_CreateTag_DESCRIPTION_FIELD';
+export const FORM_COMMUNITY = 'app_CreateTag_Form_FORM_COMMUNITY';
+export const NAME_FIELD = 'app_CreateTag_Form_NAME_FIELD';
+export const DESCRIPTION_FIELD = 'app_CreateTag_Form_DESCRIPTION_FIELD';
 
-export const FORM_NAME = 'CREATE_TAG_FORM';
-export const CREATE_TAG_BUTTON = 'app_CreateTag_CREATE_TAG_BUTTON';
+export const FORM_NAME = 'TAG_FORM';
+export const TAGFORM_SUBMIT_BUTTON = 'app_CreateTag_Form_TAG_BUTTON';
 
 export const REDIRECT_TO_CREATE_TAG = `${PATH}REDIRECT_TO_CREATE_TAG`;
 
