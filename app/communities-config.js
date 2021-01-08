@@ -5,6 +5,7 @@ import KandaLogo from './communities-configs/kanda/images/kanda.jpg';
 import { TelosStyles } from './communities-configs/telos';
 import { OntStyles } from './communities-configs/ont';
 import { KandaStyles } from './communities-configs/kanda';
+import { BloggerStyles } from './communities-configs/blogger';
 
 const communitiesConfig = {
   prod: {
@@ -46,10 +47,17 @@ const communitiesConfig = {
       src: KandaLogo,
       styles: KandaStyles,
     },
+    6: {
+      origin: 'https://blogger.testpeeranha.io',
+      isBloggerMod: true,
+      styles: TelosStyles,
+    },
   },
   dev: {
     3: {
-      origin: 'http://localhost:31000',
+      origin: 'http://localhost:3000',
+      isBloggerMod: true,
+      styles: BloggerStyles,
     },
   },
 };

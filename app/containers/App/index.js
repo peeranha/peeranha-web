@@ -17,6 +17,8 @@ import ReactGA from 'react-ga';
 import { bindActionCreators, compose } from 'redux';
 import { connect } from 'react-redux';
 import { Switch, Route, withRouter } from 'react-router-dom';
+
+import communitiesConfig from 'communities-config';
 import * as routes from 'routes-config';
 
 import injectSaga from 'utils/injectSaga';
@@ -53,6 +55,7 @@ import {
   CreateTag,
   SuggestedTags,
   NoAccess,
+  Home,
   Feed,
   Communities,
   SuggestedCommunities,
@@ -145,6 +148,14 @@ const App = ({
           path={routes.preloaderPage()}
           render={props => Wrapper(FullWidthPreloader, props)}
         />
+
+        {(!!single && !!communitiesConfig[single].isBloggerMod) && (
+          <Route
+            exact
+            path={routes.detailsHomePage()}
+            render={props => Wrapper(Home, props)}
+          />
+        )}
 
         {!single && (
           <Route
