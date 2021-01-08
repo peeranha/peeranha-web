@@ -71,7 +71,7 @@ export function getQuestionDataSuccess(questionData) {
   };
 }
 
-export function setisAnotherCommQuestion(isAnotherCommQuestion) {
+export function setIsAnotherCommQuestion(isAnotherCommQuestion) {
   return {
     type: SET_IS_ANOTHER_COMMUNITY_QUESTION,
     isAnotherCommQuestion,

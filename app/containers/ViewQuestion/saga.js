@@ -123,7 +123,7 @@ import {
   voteToDeleteErr,
   voteToDeleteSuccess,
   showAddCommentForm,
-  setisAnotherCommQuestion,
+  setIsAnotherCommQuestion,
 } from './actions';
 
 import { selectQuestionBounty, selectQuestionData } from './selectors';
@@ -507,7 +507,7 @@ export function* getQuestionDataWorker({ questionId }) {
         ),
       );
 
-      yield put(setisAnotherCommQuestion(true));
+      yield put(setIsAnotherCommQuestion(true));
       yield put(getQuestionDataSuccess(null));
     } else {
       yield put(getQuestionDataSuccess(questionData));
