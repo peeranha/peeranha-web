@@ -81,6 +81,12 @@ const Base = BaseRounded.extend`
   }
 `;
 
+const EditTagBtnContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
+`;
+
 const Content = ({
   tags,
   loadMoreTags,
@@ -159,20 +165,14 @@ const Content = ({
                 <BlockShadow />
               </Item>
               {editTagModerator && (
-                <div
-                  css={{
-                    display: 'flex',
-                    justifyContent: 'space-around',
-                    marginTop: '10px',
-                  }}
-                >
+                <EditTagBtnContainer>
                   <InfoButton
                     className="ml-15"
                     onClick={() => showEditTagForm(x.id)}
                   >
                     <FormattedMessage {...commonMessages.edit} />
                   </InfoButton>
-                </div>
+                </EditTagBtnContainer>
               )}
             </Base>
           </Tag>

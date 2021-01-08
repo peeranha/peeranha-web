@@ -69,11 +69,11 @@ const CreateTag = ({
   isFormLoading,
   isFormAvailable,
 }) => {
-  const commId = useMemo(() => single || +match.params.communityid, [match]);
-
   useEffect(() => {
-    getFormDispatch(commId);
+    getFormDispatch();
   }, []);
+
+  const commId = useMemo(() => single || +match.params.communityid, [match]);
 
   const createTag = useCallback(
     (...args) => {
