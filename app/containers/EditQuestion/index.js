@@ -20,7 +20,9 @@ import {
   FORM_TITLE,
   FORM_CONTENT,
   FORM_COMMUNITY,
-  FORM_TAGS, FORM_BOUNTY, FORM_BOUNTY_HOURS,
+  FORM_TAGS,
+  FORM_BOUNTY,
+  FORM_BOUNTY_HOURS,
 } from 'components/QuestionForm/constants';
 
 import * as makeSelectEditQuestion from './selectors';
