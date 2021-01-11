@@ -52,6 +52,11 @@ const communitiesConfig = {
       isBloggerMode: true,
       styles: BloggerStyles,
     },
+    10: {
+      origin: 'https://ivan.testpeeranha.io/',
+      isBloggerMode: true,
+      styles: BloggerStyles,
+    },
   },
   dev: {
     3: {
