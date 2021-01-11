@@ -1,12 +1,12 @@
 /* eslint jsx-a11y/no-static-element-interactions: 0, jsx-a11y/click-events-have-key-events: 0 */
-import React, { memo } from 'react';
+import React, { memo, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
 import { BORDER_SECONDARY, TEXT_PRIMARY } from 'style-constants';
-import { NO_AVATAR } from 'utils/constants';
+import { MODERATOR_KEY, NO_AVATAR } from 'utils/constants';
 
 import * as routes from 'routes-config';
 import messages from 'common-messages';
@@ -114,59 +114,68 @@ export const Button = connect(state => ({
 
 const Menu = memo(
   ({
-    profileInfo: { user, permissions },
+    profileInfo: { user, permissions, integer_properties: integerProperties },
     questionsLength,
     questionsWithUserAnswersLength,
-  }) => (
-    <nav>
-      <Ul>
-        <A to={routes.profileView(user)}>
-          <FormattedMessage {...messages.profile} />
-        </A>
-        <A to={routes.userCommunities(user)}>
-          <FormattedMessage {...messages.myCommunities} />
-        </A>
-        <A
-          to={routes.userQuestions(user)}
-          disabled={!questionsLength}
-          tabIndex={!questionsLength ? '-1' : undefined}
-        >
-          <FormattedMessage {...messages.questions} />
-        </A>
-        <A
-          to={routes.userAnswers(user)}
-          disabled={!questionsWithUserAnswersLength}
-          tabIndex={!questionsWithUserAnswersLength ? '-1' : undefined}
-        >
-          <FormattedMessage {...messages.answers} />
-        </A>
-        <A to={routes.userSettings(user)}>
-          <FormattedMessage {...messages.settings} />
-        </A>
-        <A to={routes.userNotifications(user)}>
-          <FormattedMessage {...messages.notifications} />
-        </A>
-        <A to={routes.userAchievements(user)}>
-          <FormattedMessage {...messages.achievements} />
-        </A>
-        {permissions &&
-          !!permissions.length && (
+  }) => {
+    const isGlobalModerator = useMemo(
+      () => integerProperties.find(x => x.key === MODERATOR_KEY),
+      [integerProperties],
+    );
+
+    const isModerator =
+      isGlobalModerator || (permissions && !!permissions.length);
+
+    return (
+      <nav>
+        <Ul>
+          <A to={routes.profileView(user)}>
+            <FormattedMessage {...messages.profile} />
+          </A>
+          <A to={routes.userCommunities(user)}>
+            <FormattedMessage {...messages.myCommunities} />
+          </A>
+          <A
+            to={routes.userQuestions(user)}
+            disabled={!questionsLength}
+            tabIndex={!questionsLength ? '-1' : undefined}
+          >
+            <FormattedMessage {...messages.questions} />
+          </A>
+          <A
+            to={routes.userAnswers(user)}
+            disabled={!questionsWithUserAnswersLength}
+            tabIndex={!questionsWithUserAnswersLength ? '-1' : undefined}
+          >
+            <FormattedMessage {...messages.answers} />
+          </A>
+          <A to={routes.userSettings(user)}>
+            <FormattedMessage {...messages.settings} />
+          </A>
+          <A to={routes.userNotifications(user)}>
+            <FormattedMessage {...messages.notifications} />
+          </A>
+          <A to={routes.userAchievements(user)}>
+            <FormattedMessage {...messages.achievements} />
+          </A>
+          {isModerator && (
             <A to={routes.userModeration(user)}>
               <FormattedMessage {...messages.moderation} />
             </A>
           )}
-      </Ul>
+        </Ul>
 
-      <Ul>
-        <Logout>
-          <IconLg className="mr-1" icon={logoutIcon} />
-          <Span color={TEXT_PRIMARY}>
-            <FormattedMessage {...messages.logout} />
-          </Span>
-        </Logout>
-      </Ul>
-    </nav>
-  ),
+        <Ul>
+          <Logout>
+            <IconLg className="mr-1" icon={logoutIcon} />
+            <Span color={TEXT_PRIMARY}>
+              <FormattedMessage {...messages.logout} />
+            </Span>
+          </Logout>
+        </Ul>
+      </nav>
+    );
+  },
 );
 
 const ProfileDropdown = ({ profileInfo }) => (

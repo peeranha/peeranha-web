@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -6,6 +6,7 @@ import { FormattedMessage } from 'react-intl';
 import * as routes from 'routes-config';
 import messages from 'common-messages';
 import { TEXT_PRIMARY, TEXT_SECONDARY, BORDER_PRIMARY } from 'style-constants';
+import { MODERATOR_KEY } from 'utils/constants';
 
 import pencilIcon from 'images/pencil.svg?external';
 import closeIcon from 'images/closeCircle.svg?external';
@@ -50,7 +51,7 @@ const hashes = ['#questions', '#answers', '#settings', '#moderation'];
 const UserNavigation = ({
   userId,
   account,
-  profile: { permissions },
+  profile: { permissions, integer_properties: integerProperties },
   questionsLength,
   questionsWithUserAnswersLength,
   userAchievementsLength,
@@ -75,6 +76,14 @@ const UserNavigation = ({
     userId === account &&
     (path === routes.profileView(account) ||
       path === routes.userCommunities(account));
+
+  const isGlobalModerator = useMemo(
+    () => integerProperties.find(x => x.key === MODERATOR_KEY),
+    [integerProperties],
+  );
+
+  const isModerator =
+    isGlobalModerator || (permissions && !!permissions.length);
 
   return (
     <Wrapper position="top" ref={ref}>
@@ -186,16 +195,15 @@ const UserNavigation = ({
             />
           </NavigationLink>
 
-          {permissions &&
-            !!permissions.length && (
-              <NavigationLink
-                className={userId !== account ? 'd-none' : ''}
-                to={routes.userModeration(userId)}
-                isLink={path !== routes.userModeration(userId)}
-              >
-                <FormattedMessage {...messages.moderation} />
-              </NavigationLink>
-            )}
+          {isModerator && (
+            <NavigationLink
+              className={userId !== account ? 'd-none' : ''}
+              to={routes.userModeration(userId)}
+              isLink={path !== routes.userModeration(userId)}
+            >
+              <FormattedMessage {...messages.moderation} />
+            </NavigationLink>
+          )}
 
           <NavigationButton
             className={
