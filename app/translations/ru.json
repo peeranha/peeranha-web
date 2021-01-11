@@ -418,7 +418,8 @@
   "app.containers.CreateCommunity.avatar": "Аватар",
   "app.containers.CreateCommunity.communityTitle": "Название",
   "app.containers.CreateCommunity.shortDescription": "Краткое описание",
-  "app.containers.CreateCommunity.fullDescription": "Описание",
+  "app.containers.CreateCommunity.about": "О комьюнити",
+  "app.containers.CreateCommunity.optional": "Опционально",
   "app.containers.CreateCommunity.whyWeNeedIt": "Зачем нам нужно это?",
   "app.containers.CreateCommunity.createCommunity": "Добавить сообщество",
   "app.containers.CreateCommunity.newCommunity": "Новое сообщество",
@@ -432,8 +433,6 @@
     "Подсказка для заголовка...",
   "app.containers.CreateCommunity.shortDescriptionTip":
     "Подсказка для краткого описания...",
-  "app.containers.CreateCommunity.fullDescriptionTip":
-    "Подсказка для полного описания...",
   "app.containers.CreateCommunity.whyWeNeedItTip":
     "Подсказка для основного описания...",
   "app.containers.CreateCommunity.tagTitleTip":

@@ -405,7 +405,8 @@
   "app.containers.CreateCommunity.avatar": "Avatar",
   "app.containers.CreateCommunity.communityTitle": "Title",
   "app.containers.CreateCommunity.shortDescription": "Short description",
-  "app.containers.CreateCommunity.fullDescription": "Description",
+  "app.containers.CreateCommunity.about": "About community",
+  "app.containers.CreateCommunity.optional": "Optional",
   "app.containers.CreateCommunity.whyWeNeedIt": "Why we need it?",
   "app.containers.CreateCommunity.newCommunity": "New community",
   "app.containers.CreateCommunity.createCommunity": "Suggest community",
@@ -418,8 +419,6 @@
   "app.containers.CreateCommunity.communityTitleTip": "Name of new community",
   "app.containers.CreateCommunity.shortDescriptionTip":
     "Brief description about the community and its purpose.",
-  "app.containers.CreateCommunity.fullDescriptionTip":
-    "A complete description about the community and its purpose.",
   "app.containers.CreateCommunity.whyWeNeedItTip":
     "This information is visible to users who vote for new communities.",
   "app.containers.CreateCommunity.tagTitleTip": "Unique name of the tag",

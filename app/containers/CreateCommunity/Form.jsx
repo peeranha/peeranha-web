@@ -45,15 +45,16 @@ import {
   COMM_AVATAR_FIELD,
   COMM_NAME_FIELD,
   COMM_SHORT_DESCRIPTION_FIELD,
-  COMM_DESCRIPTION_FIELD,
   COMM_MAIN_DESCRIPTION_FIELD,
   COMM_OFFICIAL_SITE_FIELD,
   TAG_NAME_FIELD,
   TAG_DESCRIPTION_FIELD,
   TAG_SECTION,
   CREATE_COMMUNITY_BUTTON,
+  ABOUT_FIELD,
 } from './constants';
 import { communityModeratorCreatePermission } from '../../utils/properties';
+import AboutForm from './AboutForm';
 
 const MIN_TAGS_NUMBER = 5;
 const MAX_TAGS_NUMBER = 25;
@@ -170,15 +171,11 @@ const CreateCommunityForm = ({
           splitInHalf
         />
 
-        <Field
-          disabled={createCommunityLoading}
-          name={COMM_DESCRIPTION_FIELD}
-          component={TextareaField}
-          label={translations[messages.fullDescription.id]}
-          validate={[strLength15x250, required]}
-          warn={[strLength15x250, required]}
-          tip={translations[messages.fullDescriptionTip.id]}
-          splitInHalf
+        <AboutForm
+          formValues={formValues}
+          intl={intl}
+          isProfileSaving={createCommunityLoading}
+          name={ABOUT_FIELD}
         />
 
         {profileWithModeratorRights && (

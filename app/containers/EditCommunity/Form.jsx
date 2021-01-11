@@ -8,7 +8,6 @@ import { ExtendedBase } from 'components/Base/AvatarBase';
 
 import AvatarField from 'components/FormFields/AvatarField';
 import TextInputField from 'components/FormFields/TextInputField';
-import TextareaField from '../../components/FormFields/TextareaField';
 
 import {
   imageValidation,
@@ -16,7 +15,6 @@ import {
   strLength3x20,
   strLength15x250,
   strLength100Max,
-  strLength20x1000,
   validateURL,
 } from 'components/FormFields/validate';
 
@@ -28,17 +26,18 @@ import { scrollToErrorField } from 'utils/animation';
 import messages from './messages';
 
 import {
+  ABOUT_FIELD,
   COMM_AVATAR_FIELD,
   COMM_NAME_FIELD,
   COMM_OFFICIAL_SITE_FIELD,
   COMM_SHORT_DESCRIPTION_FIELD,
-  COMM_DESCRIPTION_FIELD,
   EDIT_COMMUNITY_BUTTON,
   EDIT_COMMUNITY_FORM,
 } from './constants';
 import TypeForm from '../CreateCommunity/QuestionsTypeForm';
 import { FORM_TYPE } from '../CreateCommunity/constants';
 import { KEY_QUESTIONS_TYPE } from '../../components/QuestionForm/constants';
+import AboutForm from '../CreateCommunity/AboutForm';
 
 const EditCommunityForm = ({
   communityId,
@@ -56,7 +55,7 @@ const EditCommunityForm = ({
         avatar: values.get(COMM_AVATAR_FIELD),
         name: values.get(COMM_NAME_FIELD),
         description: values.get(COMM_SHORT_DESCRIPTION_FIELD),
-        full_description: values.get(COMM_DESCRIPTION_FIELD),
+        about: values.get(ABOUT_FIELD),
         officialSite: values.get(COMM_OFFICIAL_SITE_FIELD),
         questionsType: parseInt(values.get(FORM_TYPE)),
       };
@@ -64,7 +63,6 @@ const EditCommunityForm = ({
     },
     [communityId, editCommunityDispatch],
   );
-
   return (
     <ExtendedBase>
       <Field
@@ -110,15 +108,11 @@ const EditCommunityForm = ({
           tip={intl.formatMessage(messages.officialSiteTip)}
         />
 
-        <Field
-          name={COMM_DESCRIPTION_FIELD}
-          component={TextareaField}
-          validate={[strLength20x1000, required]}
-          warn={[strLength20x1000, required]}
-          disabled={communityLoading}
-          label={intl.formatMessage(messages.fullDescription)}
-          splitInHalf
-          tip={intl.formatMessage(messages.fullDescriptionTip)}
+        <AboutForm
+          formValues={formValues}
+          intl={intl}
+          isProfileSaving={communityLoading}
+          name={ABOUT_FIELD}
         />
 
         <TypeForm
@@ -164,7 +158,7 @@ export default injectIntl(
           [COMM_AVATAR_FIELD]: community.avatar,
           [COMM_NAME_FIELD]: community.name,
           [COMM_SHORT_DESCRIPTION_FIELD]: community.description,
-          [COMM_DESCRIPTION_FIELD]: community.full_description,
+          [ABOUT_FIELD]: community.about,
           [COMM_OFFICIAL_SITE_FIELD]: community.officialSite,
           [FORM_TYPE]: community.questionsType,
         }
