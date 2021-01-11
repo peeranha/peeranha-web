@@ -216,21 +216,39 @@ const Notification = ({
         <FormattedMessage id={NOTIFICATIONS_DATA[type].id} values={values} />
       </Span>
       <div className="d-flex align-items-center justify-content-between">
-        <a
-          href={isAnotherCommItem ? `${process.env.APP_LOCATION}${href}` : href}
-          className="d-flex align-items-center"
-        >
-          <IconMd
-            icon={NOTIFICATIONS_DATA[type].src}
-            color={
-              !isCommunityMod && tipNotification ? BORDER_WARNING_LIGHT : null
+        {isAnotherCommItem && (
+          <a
+            href={
+              isAnotherCommItem ? `${process.env.APP_LOCATION}${href}` : href
             }
-            specialStyles={
-              isCommunityMod && tipNotification && styles.coinsIconStyles
-            }
-          />
-          <span>{data.title}</span>
-        </a>
+            className="d-flex align-items-center"
+          >
+            <IconMd
+              icon={NOTIFICATIONS_DATA[type].src}
+              color={
+                !isCommunityMod && tipNotification ? BORDER_WARNING_LIGHT : null
+              }
+              specialStyles={
+                isCommunityMod && tipNotification && styles.coinsIconStyles
+              }
+            />
+            <span>{data.title}</span>
+          </a>
+        )}
+        {!isAnotherCommItem && (
+          <Link to={href} href={href} className="d-flex align-items-center">
+            <IconMd
+              icon={NOTIFICATIONS_DATA[type].src}
+              color={
+                !isCommunityMod && tipNotification ? BORDER_WARNING_LIGHT : null
+              }
+              specialStyles={
+                isCommunityMod && tipNotification && styles.coinsIconStyles
+              }
+            />
+            <span>{data.title}</span>
+          </Link>
+        )}
       </div>
       <div className="d-flex align-items-center">
         <Time time={time} />
