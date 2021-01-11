@@ -92,12 +92,20 @@ export const getCommunityById = async (eosService, communityId) => {
 
   const community = JSON.parse(await getText(row.ipfs_description));
 
-  const { avatar, name, description, officialSite = null, questionsType = 2 } = community;
+  const {
+    avatar,
+    name,
+    description,
+    full_description,
+    officialSite = null,
+    questionsType = 2,
+  } = community;
 
   return {
     avatar,
     name,
     description,
+    full_description,
     officialSite,
     questionsType,
   };
@@ -252,6 +260,7 @@ export const getAllCommunities = async (eosService, count) => {
     rows.map(async x => {
       const {
         description,
+        full_description,
         main_description,
         language,
         avatar,
@@ -270,6 +279,7 @@ export const getAllCommunities = async (eosService, count) => {
         value: x.id,
         avatar: getFileUrl(avatar),
         description,
+        full_description,
         main_description,
         language,
         officialSite: officialSite || null,
@@ -294,6 +304,7 @@ export async function getSuggestedCommunities(eosService, lowerBound, limit) {
       const {
         avatar,
         description,
+        full_description,
         main_description,
         language,
         officialSite,
@@ -301,7 +312,8 @@ export async function getSuggestedCommunities(eosService, lowerBound, limit) {
 
       x.avatar = getFileUrl(avatar);
       x.description = description;
-      x.main_description = main_description;
+      (x.full_description = full_description),
+        (x.main_description = main_description);
       x.language = language;
       x.officialSite = officialSite || null;
     }),

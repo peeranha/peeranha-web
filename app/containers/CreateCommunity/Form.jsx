@@ -45,6 +45,7 @@ import {
   COMM_AVATAR_FIELD,
   COMM_NAME_FIELD,
   COMM_SHORT_DESCRIPTION_FIELD,
+  COMM_DESCRIPTION_FIELD,
   COMM_MAIN_DESCRIPTION_FIELD,
   COMM_OFFICIAL_SITE_FIELD,
   TAG_NAME_FIELD,
@@ -166,6 +167,17 @@ const CreateCommunityForm = ({
           validate={[strLength20x1000, required]}
           warn={[strLength20x1000, required]}
           tip={translations[messages.whyWeNeedItTip.id]}
+          splitInHalf
+        />
+
+        <Field
+          disabled={createCommunityLoading}
+          name={COMM_DESCRIPTION_FIELD}
+          component={TextareaField}
+          label={translations[messages.fullDescription.id]}
+          validate={[strLength15x250, required]}
+          warn={[strLength15x250, required]}
+          tip={translations[messages.fullDescriptionTip.id]}
           splitInHalf
         />
 

@@ -37,8 +37,14 @@ export default defineMessages({
   shortDescription: {
     id: 'app.containers.CreateCommunity.shortDescription',
   },
+  fullDescription: {
+    id: 'app.containers.CreateCommunity.fullDescription',
+  },
   shortDescriptionTip: {
     id: 'app.containers.CreateCommunity.shortDescriptionTip',
+  },
+  fullDescriptionTip: {
+    id: 'app.containers.CreateCommunity.fullDescriptionTip',
   },
   whyWeNeedIt: {
     id: 'app.containers.CreateCommunity.whyWeNeedIt',

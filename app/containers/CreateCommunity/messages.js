@@ -28,6 +28,9 @@ export default defineMessages({
   shortDescription: {
     id: 'app.containers.CreateCommunity.shortDescription',
   },
+  fullDescription: {
+    id: 'app.containers.CreateCommunity.fullDescription',
+  },
   whyWeNeedIt: {
     id: 'app.containers.CreateCommunity.whyWeNeedIt',
   },
@@ -63,6 +66,9 @@ export default defineMessages({
   },
   shortDescriptionTip: {
     id: 'app.containers.CreateCommunity.shortDescriptionTip',
+  },
+  fullDescriptionTip: {
+    id: 'app.containers.CreateCommunity.fullDescriptionTip',
   },
   whyWeNeedItTip: {
     id: 'app.containers.CreateCommunity.whyWeNeedItTip',

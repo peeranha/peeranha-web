@@ -8,6 +8,7 @@ import { ExtendedBase } from 'components/Base/AvatarBase';
 
 import AvatarField from 'components/FormFields/AvatarField';
 import TextInputField from 'components/FormFields/TextInputField';
+import TextareaField from '../../components/FormFields/TextareaField';
 
 import {
   imageValidation,
@@ -15,6 +16,7 @@ import {
   strLength3x20,
   strLength15x250,
   strLength100Max,
+  strLength20x1000,
   validateURL,
 } from 'components/FormFields/validate';
 
@@ -30,6 +32,7 @@ import {
   COMM_NAME_FIELD,
   COMM_OFFICIAL_SITE_FIELD,
   COMM_SHORT_DESCRIPTION_FIELD,
+  COMM_DESCRIPTION_FIELD,
   EDIT_COMMUNITY_BUTTON,
   EDIT_COMMUNITY_FORM,
 } from './constants';
@@ -53,6 +56,7 @@ const EditCommunityForm = ({
         avatar: values.get(COMM_AVATAR_FIELD),
         name: values.get(COMM_NAME_FIELD),
         description: values.get(COMM_SHORT_DESCRIPTION_FIELD),
+        full_description: values.get(COMM_DESCRIPTION_FIELD),
         officialSite: values.get(COMM_OFFICIAL_SITE_FIELD),
         questionsType: parseInt(values.get(FORM_TYPE)),
       };
@@ -106,6 +110,17 @@ const EditCommunityForm = ({
           tip={intl.formatMessage(messages.officialSiteTip)}
         />
 
+        <Field
+          name={COMM_DESCRIPTION_FIELD}
+          component={TextareaField}
+          validate={[strLength20x1000, required]}
+          warn={[strLength20x1000, required]}
+          disabled={communityLoading}
+          label={intl.formatMessage(messages.fullDescription)}
+          splitInHalf
+          tip={intl.formatMessage(messages.fullDescriptionTip)}
+        />
+
         <TypeForm
           locale={locale}
           change={change}
@@ -149,6 +164,7 @@ export default injectIntl(
           [COMM_AVATAR_FIELD]: community.avatar,
           [COMM_NAME_FIELD]: community.name,
           [COMM_SHORT_DESCRIPTION_FIELD]: community.description,
+          [COMM_DESCRIPTION_FIELD]: community.full_description,
           [COMM_OFFICIAL_SITE_FIELD]: community.officialSite,
           [FORM_TYPE]: community.questionsType,
         }
