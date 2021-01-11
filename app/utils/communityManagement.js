@@ -311,7 +311,8 @@ export async function getSuggestedCommunities(eosService, lowerBound, limit) {
 
       x.avatar = getFileUrl(avatar);
       x.description = description;
-      (x.about = about), (x.main_description = main_description);
+      x.about = about;
+      x.main_description = main_description;
       x.language = language;
       x.officialSite = officialSite || null;
     }),
