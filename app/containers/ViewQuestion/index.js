@@ -55,7 +55,7 @@ export const ViewQuestion = ({
   locale,
   account,
   questionData,
-  isAnotherCommQuestion,
+  questionBounty,
   postAnswerLoading,
   postCommentLoading,
   questionDataLoading,
@@ -117,11 +117,11 @@ export const ViewQuestion = ({
         window.isRendered = true;
       }
 
-      if (!questionDataLoading && !questionData && !isAnotherCommQuestion) {
+      if (!questionDataLoading && !questionData) {
         history.push(routes.notFound());
       }
     },
-    [questionData, questionDataLoading, isAnotherCommQuestion],
+    [questionData, questionDataLoading],
   );
 
   const translations = translationMessages[locale];
@@ -236,7 +236,7 @@ ViewQuestion.propTypes = {
   postCommentLoading: PropTypes.bool,
   saveCommentLoading: PropTypes.bool,
   questionData: PropTypes.object,
-  isAnotherCommQuestion: PropTypes.oneOfType([PropTypes.bool, null]),
+  questionBounty: PropTypes.object,
   match: PropTypes.object,
   history: PropTypes.object,
   getQuestionDataDispatch: PropTypes.func,
@@ -273,7 +273,7 @@ const withConnect = connect(
     profile: makeSelectProfileInfo(),
     questionDataLoading: makeSelectViewQuestion.selectQuestionDataLoading(),
     questionData: makeSelectViewQuestion.selectQuestionData(),
-    isAnotherCommQuestion: makeSelectViewQuestion.selectIsAnotherCommQuestion(),
+    questionBounty: makeSelectViewQuestion.selectQuestionBounty(),
     addCommentFormDisplay: makeSelectViewQuestion.selectAddCommentFormDisplay(),
     postCommentLoading: makeSelectViewQuestion.selectPostCommentLoading(),
     postAnswerLoading: makeSelectViewQuestion.selectPostAnswerLoading(),

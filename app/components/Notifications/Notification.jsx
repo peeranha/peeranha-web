@@ -192,6 +192,8 @@ const Notification = ({
 
   const isCommunityMod = !!single && Object.keys(styles).length > 0;
 
+  const isAnotherCommItem = !!single && data.community_id !== single;
+
   const tipNotification =
     type === NOTIFICATIONS_TYPES.questionTipped ||
     type === NOTIFICATIONS_TYPES.answerTipped;
@@ -214,7 +216,10 @@ const Notification = ({
         <FormattedMessage id={NOTIFICATIONS_DATA[type].id} values={values} />
       </Span>
       <div className="d-flex align-items-center justify-content-between">
-        <Link to={href} href={href} className="d-flex align-items-center">
+        <a
+          href={isAnotherCommItem ? `${process.env.APP_LOCATION}${href}` : href}
+          className="d-flex align-items-center"
+        >
           <IconMd
             icon={NOTIFICATIONS_DATA[type].src}
             color={
@@ -225,7 +230,7 @@ const Notification = ({
             }
           />
           <span>{data.title}</span>
-        </Link>
+        </a>
       </div>
       <div className="d-flex align-items-center">
         <Time time={time} />
