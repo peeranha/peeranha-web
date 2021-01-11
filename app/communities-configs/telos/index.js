@@ -236,7 +236,6 @@ export const TelosStyles = {
   withoutSubHeader: true,
   poweredByPeeranha: true,
   withoutAdditionalLinks: true,
-  leftMenuLogo: TelosLogo,
   signUpPageLogo: TelosLogoLight,
   favicon,
   mobileSubHeader: (

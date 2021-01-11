@@ -180,7 +180,6 @@ export const OntStyles = {
   withoutSubHeader: true,
   poweredByPeeranha: true,
   withoutAdditionalLinks: true,
-  leftMenuLogo: OntLogo,
   signUpPageLogo: OntLogo,
   favicon: favicon,
   mobileSubHeader: (

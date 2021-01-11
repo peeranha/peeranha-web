@@ -590,6 +590,7 @@
   "app.containers.HomePage.yourEmailIsRegistred":
     "В настоящее время веб-сайт находится в разработке. Ваш email адрес был получен. Вы получите email с пошаговой инструкцией когда веб-сайт будет октрыт для пользователей.",
   "app.containers.HomePage.goToSite": "Перейти на сайт",
+  "app.containers.HomePage.questionsTitle": "Актуальные вопросы",
 
   "app.containers.Notifications.youHaveNoNewNotifications":
     "У вас нет новых уведомлений",

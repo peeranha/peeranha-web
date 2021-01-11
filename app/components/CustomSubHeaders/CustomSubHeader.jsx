@@ -8,7 +8,7 @@ import CustomSubHeaderContainer from './CustomSubHeaderContainer';
 const Div = styled.div`
   position: relative;
 
-  color: ${({ styles }) => styles.color.a || `#ffffff`};
+  color: ${({ styles }) => styles.color && styles.color.a ? styles.color.a : `#ffffff`};
 
   background: ${({ styles }) => styles.bg.header || `rgb(${'80, 101, 165'})`};
   border-bottom: 1px solid
@@ -17,21 +17,21 @@ const Div = styled.div`
 
   ${({ styles }) =>
     styles.CustomSubHeader ? styles.CustomSubHeader : ``} > div > div {
-    font-family: ${({ styles }) => styles.font.body || `inherit`};
+    font-family: ${({ styles }) => styles.font && styles.font.body ? styles.font.body : `inherit`};
     font-size: 15px;
     letter-spacing: ${({ styles }) => styles.subHeaderLetterSpacing || '1px'};
   }
 
   a {
-    color: ${({ styles }) => styles.color.a || `#ffffff`};
+    color: ${({ styles }) => styles.color && styles.color.a ? styles.color.a : `#ffffff`};
 
     :visited {
-      color: ${({ styles }) => styles.color.a || `#ffffff`};
+      color: ${({ styles }) => styles.color && styles.color.a ? styles.color.a : `#ffffff`};
     }
   }
 
   span {
-    color: ${({ styles }) => styles.color.a || `#ffffff`};
+    color: ${({ styles }) => styles.color && styles.color.a ? styles.color.a : `#ffffff`};
   }
 
   @media only screen and (max-width: 991px) {

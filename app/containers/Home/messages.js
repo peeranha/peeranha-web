@@ -7,4 +7,7 @@ export default defineMessages({
   description: {
     id: 'app.containers.HomePage.description',
   },
+  questionsTitle: {
+    id: 'app.containers.HomePage.questionsTitle',
+  },
 });

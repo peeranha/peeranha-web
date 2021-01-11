@@ -1,56 +1,18 @@
 import React from 'react';
-import { css } from 'styled-components';
 
 import CustomSubHeader from 'components/CustomSubHeaders/CustomSubHeader';
 import CustomMobileSubHeader from 'components/CustomSubHeaders/CustomMobileSubHeader';
 
 import bannerImage from './images/create-and-go.png';
 import logo from './images/create-and-go-logo.png';
-import logoLight from './images/create-and-go-logo-light.png';
 
 export const CustomSubHeaderConfig = {
   design: 'blogger_style',
   styles: {
     bg: {
       header: '#305d6e',
-      dropdown: '#ffffff',
+      burgerHeader: '#ffffff',
     },
-    color: {
-      a: '#ffffff',
-      arrow: 'white',
-    },
-    font: {
-      body: 'Neue Haas Grotesk Display Pro Light, Source Sans Pro, sans-serif',
-    },
-    header: {
-      background: '#305d6e',
-    },
-    CustomSubHeader: `
-      font-weight: bolder;
-    `,
-    subitems: `
-      padding: 1em;
-
-      border: none !important;
-      border-radius: 0 !important;
-      background: #000 !important;
-
-      a {
-        padding: .382em;
-
-        font-size: 15px;
-        line-height: 1em;
-      }
-
-      @media only screen and (max-width: 991px) {
-        left: 5px;
-        top: -5px;
-
-        padding: 0 !important;
-
-        background: transparent !important;
-      }
-    `,
   },
   links: {
     facebook: '',
@@ -59,6 +21,11 @@ export const CustomSubHeaderConfig = {
     pinterest: ''
   },
   banner: bannerImage,
+  logo: logo,
+  name: 'Create and Go',
+  description: <p>Be positive & helpful to other viewers.<br />Be respectful to moderators.<br />Do not self promote!<br />Do not ask to play with Ninja.<br />Do not ask Ninja to play with other streamers.<br />Do not disrespect other streamers or create drama between streamers.<br />Do not ask Ninja to play a clip, song, or game.<br />Jokes about mental disorders will result in a ban.<br />Racism or discrimination will result in a ban.<br />English only.<br />Avoid religious & political discussions.<br />No trading or selling of online accounts or currency.</p>,
+  questionsAmount: 345,
+  followersAmount: 568,
 };
 
 export const BloggerStyles = {
@@ -66,19 +33,12 @@ export const BloggerStyles = {
   withoutSubHeader: true,
   poweredByPeeranha: true,
   withoutAdditionalLinks: true,
-  leftMenuLogo: logo,
   signUpPageLogo: logo,
   mobileSubHeader: (
-    <CustomMobileSubHeader config={CustomSubHeaderConfig} logo={logoLight} />
+    <CustomMobileSubHeader config={CustomSubHeaderConfig} logo={logo} />
   ),
   customSubHeader: <CustomSubHeader config={CustomSubHeaderConfig} />,
   withoutFAQ: true,
-  colors: {
-    blueRGB: '93,109,254',
-    black: '#02003D',
-    lightSuccessColor: 'rgba(85, 195, 179, 0.25)',
-    secondaryLight: '#5D6DFE',
-  },
   headerHeight: 190,
   customSubHeaderConfig: CustomSubHeaderConfig,
 };

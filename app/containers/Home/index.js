@@ -8,11 +8,16 @@ import styled from 'styled-components';
 
 import * as routes from 'routes-config';
 
+import { TEXT_SECONDARY } from 'style-constants';
+
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { DAEMON } from 'utils/constants';
 import { isUserTopCommunityQuestionsModerator } from 'utils/properties';
-import { isSingleCommunityWebsite } from 'utils/communityManagement';
+import { isSingleCommunityWebsite, singleCommunityStyles } from 'utils/communityManagement';
+
+import questionsMessages from 'containers/Questions/messages';
+import commonMessages from 'common-messages';
 
 import Seo from 'components/Seo';
 import Base from 'components/Base/BaseRounded';
@@ -22,7 +27,6 @@ import Content from 'containers/Questions/Content/Content';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
-import * as questionsSelector from 'containers/Questions/selectors';
 
 import reducer from './reducer';
 import saga from './saga';
@@ -32,30 +36,38 @@ import messages from './messages';
 import { HOME_KEY } from './constants';
 
 const IntroducingContainer = styled.div`
-  display: flex;
   line-height: 1.3;
+
+  @media only screen and (max-width: 450px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const IntroducingMedia = styled.div`
   margin-right: 50px;
   flex-shrink: 0;
+
+  @media only screen and (max-width: 450px) {
+    margin-right: 0px;
+    margin-bottom: 20px;
+  }
 `;
 
 const IntroducingImage = styled.div`
   width: 100px;
   height: 100px;
   margin-bottom: 10px;
+  background-image: url('${({ img }) => img}');
+  background-size: contain;
+  background-position: center;
   border-radius: 50%;
   overflow: hidden;
-
-  img {
-    width: 100%;
-  }
 `;
 
 const IntroducingImageSubtitle = styled.p`
   text-align: center;
-  color: #7b7b7b;
+  color: ${TEXT_SECONDARY};
 `;
 
 const IntroducingTitle = styled.p`
@@ -65,7 +77,7 @@ const IntroducingTitle = styled.p`
 
 const IntroducingSubTitle = styled.p`
   font-style: italic;
-  color: #7b7b7b;
+  color: ${TEXT_SECONDARY};
   font-size: 14px;
 `;
 
@@ -105,6 +117,8 @@ export const Home = ({
     [profile],
   );
 
+  const { logo, name, description, questionsAmount, followersAmount } = singleCommunityStyles().customSubHeaderConfig;
+
   return (
     <div>
       <Seo
@@ -114,26 +128,28 @@ export const Home = ({
       />
 
       <Base className="mb-3">
-        <IntroducingContainer>
+        <IntroducingContainer className='d-flex'>
           <IntroducingMedia>
-            <IntroducingImage>
-              <img alt="" src="https://netboardme.s3.amazonaws.com/published/12112/files/43cbe5898c58025490885008175f0383_-c0xffffffff-rj-k-no.jpeg" />
-            </IntroducingImage>
-            <IntroducingImageSubtitle>16k followers</IntroducingImageSubtitle>
+            <IntroducingImage img={logo} />
+            <IntroducingImageSubtitle>
+              {followersAmount} {translationMessages[locale][commonMessages.users.id]}
+            </IntroducingImageSubtitle>
           </IntroducingMedia>
           <div>
-            <IntroducingTitle>Create and Go</IntroducingTitle>
-            <IntroducingSubTitle>342 questions</IntroducingSubTitle>
-            <IntroducingDescription>
-              <p>Be positive & helpful to other viewers.<br />Be respectful to moderators.<br />Do not self promote!<br />Do not ask to play with Ninja.<br />Do not ask Ninja to play with other streamers.<br />Do not disrespect other streamers or create drama between streamers.<br />Do not ask Ninja to play a clip, song, or game.<br />Jokes about mental disorders will result in a ban.<br />Racism or discrimination will result in a ban.<br />English only.<br />Avoid religious & political discussions.<br />No trading or selling of online accounts or currency.</p>
-            </IntroducingDescription>
+            <IntroducingTitle>{name}</IntroducingTitle>
+            <IntroducingSubTitle>
+              {questionsAmount} {translationMessages[locale][commonMessages.questions.id]}
+            </IntroducingSubTitle>
+            <IntroducingDescription>{description}</IntroducingDescription>
           </div>
         </IntroducingContainer>
       </Base>
 
       {isRenderQuestions ? (
         <>
-          <QuestionsTitle>Top/Last questions</QuestionsTitle>
+          <QuestionsTitle>
+            {translationMessages[locale][messages.questionsTitle.id]}
+          </QuestionsTitle>
           <div className="position-relative">
             <Content
               locale={locale}
@@ -144,7 +160,9 @@ export const Home = ({
             />
           </div>
           <div className="d-flex justify-content-center mb-3">
-            <InfoLink to={routes.questions()}>Show all questions</InfoLink>
+            <InfoLink to={routes.questions()}>
+              {translationMessages[locale][questionsMessages.showAllQuestions.id]}
+            </InfoLink>
           </div>
         </>
       ) : null}
@@ -157,6 +175,7 @@ Home.propTypes = {
   communities: PropTypes.array,
   questions: PropTypes.array,
   profile: PropTypes.object,
+  getQuestionsDispatch: PropTypes.func,
 };
 
 const withConnect = connect(
