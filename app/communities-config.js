@@ -48,12 +48,12 @@ const communitiesConfig = {
       styles: KandaStyles,
     },
     6: {
-      origin: 'https://bloggerdemo.testpeeranha.io/',
+      origin: 'https://bloggerdemo.testpeeranha.io',
       isBloggerMode: true,
       styles: BloggerStyles,
     },
     10: {
-      origin: 'https://ivan.testpeeranha.io/',
+      origin: 'https://ivan.testpeeranha.io',
       isBloggerMode: true,
       styles: BloggerStyles,
     },
