@@ -2,8 +2,11 @@ import React from 'react';
 import { css } from 'styled-components';
 
 import CustomSubHeader from 'components/CustomSubHeaders/CustomSubHeader';
+import CustomMobileSubHeader from 'components/CustomSubHeaders/CustomMobileSubHeader';
 
 import bannerImage from './images/create-and-go.png';
+import logo from './images/create-and-go-logo.png';
+import logoLight from './images/create-and-go-logo-light.png';
 
 export const CustomSubHeaderConfig = {
   design: 'blogger_style',
@@ -63,24 +66,19 @@ export const BloggerStyles = {
   withoutSubHeader: true,
   poweredByPeeranha: true,
   withoutAdditionalLinks: true,
+  leftMenuLogo: logo,
+  signUpPageLogo: logo,
+  mobileSubHeader: (
+    <CustomMobileSubHeader config={CustomSubHeaderConfig} logo={logoLight} />
+  ),
   customSubHeader: <CustomSubHeader config={CustomSubHeaderConfig} />,
   withoutFAQ: true,
   colors: {
-    blue: '#5D6DFE',
     blueRGB: '93,109,254',
     black: '#02003D',
-    warningLight: '#FF4026',
-    tagColor: '#FF422A',
-    successColor: '#55C3B3',
     lightSuccessColor: 'rgba(85, 195, 179, 0.25)',
     secondaryLight: '#5D6DFE',
   },
-  coinsIconStyles: css`
-    ellipse {
-      stroke: #4f07e9;
-      fill: #dfe3f2;
-    }
-  `,
-  headerHeight: 185,
+  headerHeight: 190,
   customSubHeaderConfig: CustomSubHeaderConfig,
 };

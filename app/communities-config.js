@@ -48,15 +48,15 @@ const communitiesConfig = {
       styles: KandaStyles,
     },
     6: {
-      origin: 'https://blogger.testpeeranha.io',
-      isBloggerMod: true,
-      styles: TelosStyles,
+      origin: 'https://bloggerdemo.testpeeranha.io/',
+      isBloggerMode: true,
+      styles: BloggerStyles,
     },
   },
   dev: {
     3: {
       origin: 'http://localhost:3000',
-      isBloggerMod: true,
+      isBloggerMode: true,
       styles: BloggerStyles,
     },
   },

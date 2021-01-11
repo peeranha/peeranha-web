@@ -106,11 +106,11 @@ const MainLinks = ({ profile }) => {
   const { pathname } = window.location;
   const route = pathname.split('/').filter(x => x)[0];
   const singleCommId = +isSingleCommunityWebsite();
-  const isBloggerMod = !!communitiesConfig[singleCommId].isBloggerMod;
+  const isBloggerMode = !!communitiesConfig[singleCommId].isBloggerMode;
 
   return (
     <Box>
-      {(!!singleCommId && isBloggerMod) && (
+      {(!!singleCommId && isBloggerMode) && (
         <A1 to={routes.detailsHomePage()} name="home" route={route}>
           <IconLg className="mr-2" icon={homeIcon} />
           <FormattedMessage {...messages.home} />

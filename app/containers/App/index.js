@@ -149,7 +149,7 @@ const App = ({
           render={props => Wrapper(FullWidthPreloader, props)}
         />
 
-        {(!!single && !!communitiesConfig[single].isBloggerMod) && (
+        {(!!single && !!communitiesConfig[single].isBloggerMode) && (
           <Route
             exact
             path={routes.detailsHomePage()}

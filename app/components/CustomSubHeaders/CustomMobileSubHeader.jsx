@@ -2,6 +2,10 @@ import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
+import communitiesConfig from 'communities-config';
+
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
+
 import Arrow from '../Arrow';
 import { Links } from './CustomSubHeader';
 
@@ -69,6 +73,9 @@ const CustomMobileSubHeader = ({ config, logo }) => {
   const setVis = useCallback(() => setVisibility(!visible), [visible]);
   const { styles, links } = config;
 
+  const singleCommId = +isSingleCommunityWebsite();
+  const isBloggerMode = !!communitiesConfig[singleCommId].isBloggerMode;
+
   return (
     <Div
       visible={visible}
@@ -78,15 +85,18 @@ const CustomMobileSubHeader = ({ config, logo }) => {
       <button
         className="d-flex justify-content-between align-items-center"
         onClick={setVis}
+        disabled={isBloggerMode}
       >
         <img src={logo} alt="" />
-        <Arrow
-          className="mt-auto mb-auto"
-          color={styles.color.arrow}
-          rotate={visible}
-        />
+        {!isBloggerMode && (
+          <Arrow
+            className="mt-auto mb-auto"
+            color={styles.color.arrow}
+            rotate={visible}
+          />
+        )}
       </button>
-      {visible && <Links links={links} styles={styles} device="mobile" />}
+      {(visible && !isBloggerMode) && <Links links={links} styles={styles} device="mobile" />}
     </Div>
   );
 };
