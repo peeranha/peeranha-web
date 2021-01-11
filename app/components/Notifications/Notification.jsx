@@ -218,9 +218,7 @@ const Notification = ({
       <div className="d-flex align-items-center justify-content-between">
         {isAnotherCommItem && (
           <a
-            href={
-              isAnotherCommItem ? `${process.env.APP_LOCATION}${href}` : href
-            }
+            href={`${process.env.APP_LOCATION}${href}`}
             className="d-flex align-items-center"
           >
             <IconMd
