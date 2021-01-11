@@ -4,14 +4,16 @@ import { Field } from 'redux-form/immutable';
 import { intlShape } from 'react-intl';
 import styled from 'styled-components';
 
-import { valueHasToBeLessThan } from 'components/FormFields/validate';
+import {
+  valueHasToBeLessThan,
+  bountyCannotBeLessThenPrev,
+} from 'components/FormFields/validate';
 
 import NumberInputField from '../FormFields/NumberInputField';
 
 import { FORM_BOUNTY, FORM_COMMUNITY } from './constants';
 
 import messages from './messages';
-import { valueCannotBeLessThenPrev } from '../FormFields/validate';
 
 const BountyContainer = styled.div`
   margin-top: 20px;
@@ -33,8 +35,8 @@ const BountyForm = ({ questionLoading, intl, formValues }) => {
         dotRestriction={0}
         component={NumberInputField}
         disabled={bountyDisabled}
-        validate={[valueHasToBeLessThan, valueCannotBeLessThenPrev]}
-        warn={[valueHasToBeLessThan, valueCannotBeLessThenPrev]}
+        validate={[valueHasToBeLessThan, bountyCannotBeLessThenPrev]}
+        warn={[valueHasToBeLessThan, bountyCannotBeLessThenPrev]}
         splitInHalf
       />
     </BountyContainer>

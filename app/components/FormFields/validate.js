@@ -132,12 +132,21 @@ const valueHasToBeLessThan = (...args) => {
   return value > comparedValue ? messages.valueIsMore : undefined;
 };
 
-const valueCannotBeLessThenPrev = (...args) => {
+const bountyCannotBeLessThenPrev = (...args) => {
   if (!_get(args, [2, 'question', 'bounty'])) {
     return undefined;
   }
   const value = Number(args[0]);
   const comparedValue = Number(_get(args, [2, 'question', 'bounty']));
+  return value < comparedValue ? messages.hasToBeMoreThanPrev : undefined;
+};
+
+const hoursCannotBeLessThenPrev = (...args) => {
+  if (!_get(args, [2, 'question', 'bountyHours'])) {
+    return undefined;
+  }
+  const value = Number(args[0]);
+  const comparedValue = Number(_get(args, [2, 'question', 'bountyHours']));
   return value < comparedValue ? messages.hasToBeMoreThanPrev : undefined;
 };
 
@@ -236,7 +245,8 @@ export {
   number1x168,
   valueHasNotBeInList,
   valueHasToBeLessThan,
-  valueCannotBeLessThenPrev,
+  bountyCannotBeLessThenPrev,
+  hoursCannotBeLessThenPrev,
   comparePasswords,
   valueHasNotBeInListMoreThanOneTime,
   validateTelosName,

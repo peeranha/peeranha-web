@@ -10,6 +10,9 @@ import {
   getQuestionById,
 } from 'utils/questionsManagement';
 
+import { editBounty } from 'utils/walletManagement';
+import { ONE_HOUR_IN_SECONDS } from 'utils/datetime';
+
 import { isValid, isAuthorized } from 'containers/EosioProvider/saga';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
@@ -31,9 +34,6 @@ import {
   editQuestionSuccess,
   editQuestionErr,
 } from './actions';
-import { FORM_BOUNTY } from '../../components/QuestionForm/constants';
-import { ONE_HOUR_IN_SECONDS } from '../../utils/datetime';
-import { setBounty } from '../../utils/walletManagement';
 
 export function* getAskedQuestionWorker({ questionId }) {
   try {
@@ -62,7 +62,7 @@ export function* editQuestionWorker({ question, questionId }) {
     const eosService = yield select(selectEos);
     const selectedAccount = yield call(eosService.getSelectedAccount);
     const cachedQuestion = yield select(selectQuestionData());
-// debugger;
+
     yield call(editQuestion, selectedAccount, questionId, question, eosService);
 
     if (question?.bounty) {
@@ -70,9 +70,9 @@ export function* editQuestionWorker({ question, questionId }) {
       const bountyTime = now + question?.bountyHours * ONE_HOUR_IN_SECONDS;
 
       yield call(
-        setBounty,
+        editBounty,
         selectedAccount,
-        question.bountyFull,
+        question?.bountyFull,
         questionId,
         bountyTime,
         eosService,
