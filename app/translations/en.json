@@ -579,7 +579,7 @@
   "app.containers.HomePage.yourEmailIsRegistred":
     "Website is under development but your email is registered. You will receive an email with the steps to continue your registration when the website is ready.",
   "app.containers.HomePage.goToSite": "Go to site",
-  "app.containers.HomePage.questionsTitle": "Top/Last questions",
+  "app.containers.HomePage.questionsTitle": "Trending",
 
   "app.containers.Notifications.youHaveNoNewNotifications":
     "You have no new notifications.",
@@ -677,7 +677,7 @@
   "app.components.FormFields.wrongLength":
     "Leave at least {min} char but no more than {max}",
   "app.components.FormFields.wrongNumberRange":
-  "Should be at least {min} but no more than {max}",
+    "Should be at least {min} but no more than {max}",
   "app.components.FormFields.wrongExactLength":
     "Value must be {min} characters long",
   "app.components.FormFields.wrongLengthOfList":
@@ -720,7 +720,8 @@
     "Telos name must contain at least one letter",
   "app.components.FormFields.exactFromAndToAccounts":
     "Sender and receiver cannot be the same",
-  "app.components.FormFields.valueIsNotPositiveInteger": "Value is not a positive integer",
+  "app.components.FormFields.valueIsNotPositiveInteger":
+    "Value is not a positive integer",
 
   "app.containers.TagsCollection.title": "Tags collection",
   "app.containers.TagsCollection.description": "Tags Description",
@@ -869,7 +870,8 @@
   "app.containers.Questions.topQuestionPopover":
     "Top question of this community",
   "app.containers.Questions.showAllQuestions": "Show all questions",
-  "app.containers.Questions.bountyPopover": "Bounty - extra PEER reward from author.",
+  "app.containers.Questions.bountyPopover":
+    "Bounty - extra PEER reward from author.",
 
   "app.containers.AskQuestion.title": "Ask question",
   "app.containers.AskQuestion.description": "Ask question | Description",
@@ -917,9 +919,11 @@
   "app.containers.QuestionForm.bountyHoursLabel": "Bounty Hours",
   "app.containers.QuestionForm.daysPlaceholder": "Days",
   "app.containers.QuestionForm.hoursPlaceholder": "Hours",
-  "app.containers.QuestionForm.bountyTip":  "Bounty to the best answer",
-  "app.containers.QuestionForm.bountyHoursTip": "Number of hours while bounty is active",
-  "app.containers.QuestionForm.bountyDaysTip": "Number of days while bounty is active",
+  "app.containers.QuestionForm.bountyTip": "Bounty to the best answer",
+  "app.containers.QuestionForm.bountyHoursTip":
+    "Number of hours while bounty is active",
+  "app.containers.QuestionForm.bountyDaysTip":
+    "Number of days while bounty is active",
   "app.containers.QuestionForm.previewLabel": "Preview",
   "app.containers.QuestionForm.questionType": "Question Type",
   "app.containers.QuestionForm.questionTypeTip": "Optional",
@@ -941,7 +945,8 @@
   ],
   "app.containers.QuestionForm.promotedLabel": "Promote question",
   "app.containers.QuestionForm.promotedTip": "Promote question",
-  "app.containers.QuestionForm.questionIsPromoting": "This question is promoting till",
+  "app.containers.QuestionForm.questionIsPromoting":
+    "This question is promoting till",
 
   "app.containers.AnswerForm.titleLabel": "Your Answer",
 

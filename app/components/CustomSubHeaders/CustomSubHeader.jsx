@@ -8,7 +8,8 @@ import CustomSubHeaderContainer from './CustomSubHeaderContainer';
 const Div = styled.div`
   position: relative;
 
-  color: ${({ styles }) => styles.color && styles.color.a ? styles.color.a : `#ffffff`};
+  color: ${({ styles }) =>
+    styles.color && styles.color.a ? styles.color.a : `#ffffff`};
 
   background: ${({ styles }) => styles.bg.header || `rgb(${'80, 101, 165'})`};
   border-bottom: 1px solid
@@ -17,21 +18,25 @@ const Div = styled.div`
 
   ${({ styles }) =>
     styles.CustomSubHeader ? styles.CustomSubHeader : ``} > div > div {
-    font-family: ${({ styles }) => styles.font && styles.font.body ? styles.font.body : `inherit`};
+    font-family: ${({ styles }) =>
+      styles.font && styles.font.body ? styles.font.body : `inherit`};
     font-size: 15px;
     letter-spacing: ${({ styles }) => styles.subHeaderLetterSpacing || '1px'};
   }
 
   a {
-    color: ${({ styles }) => styles.color && styles.color.a ? styles.color.a : `#ffffff`};
+    color: ${({ styles }) =>
+      styles.color && styles.color.a ? styles.color.a : `#ffffff`};
 
     :visited {
-      color: ${({ styles }) => styles.color && styles.color.a ? styles.color.a : `#ffffff`};
+      color: ${({ styles }) =>
+        styles.color && styles.color.a ? styles.color.a : `#ffffff`};
     }
   }
 
   span {
-    color: ${({ styles }) => styles.color && styles.color.a ? styles.color.a : `#ffffff`};
+    color: ${({ styles }) =>
+      styles.color && styles.color.a ? styles.color.a : `#ffffff`};
   }
 
   @media only screen and (max-width: 991px) {
@@ -39,6 +44,11 @@ const Div = styled.div`
   }
 
   ${({ styles }) => styles.subHeader || ``};
+`;
+
+export const Container = styled.div`
+  margin: 0 !important;
+  padding: 0 !important;
 `;
 
 export const LocalLink = styled.a`
@@ -389,18 +399,17 @@ Links.propTypes = {
   isDropdownMenuArrow: PropTypes.bool,
 };
 
-const CustomSubHeader = ({ config }) => {
-  return config ? (
+const CustomSubHeader = ({ config }) =>
+  config ? (
     <Div styles={config.styles}>
-      <div
+      <Container
         className="container h-100"
         css={config.styles.subHeaderContainerStyles}
       >
         <CustomSubHeaderContainer design={config.design} />
-      </div>
+      </Container>
     </Div>
   ) : null;
-};
 
 CustomSubHeader.propTypes = {
   config: PropTypes.object,

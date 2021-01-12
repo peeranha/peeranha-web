@@ -13,14 +13,14 @@ const SOCIAL_MEDIA_ICONS = {
   instagram: instagramIcon,
   youtube: youtubeIcon,
   pinterest: pinterestIcon,
-}
+};
 
 const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-end;
   background-image: url('${({ bg }) => bg}');
-  background-size: contain;
+  background-size: cover;
   background-position: center;
   height: 120px;
 `;
@@ -42,11 +42,12 @@ const BloggerStyleSubHeader = () => {
   return (
     <Container bg={banner}>
       <SubHeaderNav>
-        {!!links && Object.keys(links).map(key => (
-          <a href={links[key]} key={key}>
-            <img src={SOCIAL_MEDIA_ICONS[key]} alt={key} />
-          </a>
-        ))}
+        {!!links &&
+          Object.keys(links).map(key => (
+            <a href={links[key]} key={key}>
+              <img src={SOCIAL_MEDIA_ICONS[key]} alt={key} />
+            </a>
+          ))}
       </SubHeaderNav>
     </Container>
   );

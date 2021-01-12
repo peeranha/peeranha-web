@@ -59,7 +59,7 @@ const communitiesConfig = {
     },
   },
   dev: {
-    3: {
+    10: {
       origin: 'http://localhost:3000',
       isBloggerMode: true,
       styles: BloggerStyles,
