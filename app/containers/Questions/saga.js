@@ -100,6 +100,7 @@ export function* getQuestionsWorker({
   toUpdateQuestions,
 }) {
   try {
+    const now = Math.round(new Date().valueOf() / 1000);
     const eosService = yield select(selectEos);
     const followedCommunities = yield select(makeSelectFollowedCommunities());
 
@@ -175,7 +176,8 @@ export function* getQuestionsWorker({
     let activePromotedQuestions = [];
 
     if (communityIdFilter) {
-      const promotedQuestions = yield call(getPromotedQuestions, eosService, communityIdFilter);
+      let promotedQuestions = yield call(getPromotedQuestions, eosService, communityIdFilter);
+      promotedQuestions = promotedQuestions.filter(item => item.ends_time >= now);
       const showingPromotedQuestions = [];
 
       if (promotedQuestions.length > PROMO_QUESTIONS_AMOUNT) {

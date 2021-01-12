@@ -11,15 +11,7 @@ import Container from 'components/Labels/QuestionType';
 import ExpertPopover from './ExpertPopover';
 
 const LabelsWrapper = styled.div`
-  position: absolute;
-  display: inline-flex;
-  top: 5px;
-  right: 7px;
-
-  @media only screen and (max-width: 576px) {
-    top: 52px;
-    right: 3px;
-  }
+  display: inline-flex;  
 `;
 
 const LabelItem = styled.span`
