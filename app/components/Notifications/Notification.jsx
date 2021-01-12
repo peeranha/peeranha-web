@@ -198,6 +198,24 @@ const Notification = ({
     type === NOTIFICATIONS_TYPES.questionTipped ||
     type === NOTIFICATIONS_TYPES.answerTipped;
 
+  const NotificationLink = ({ children }) =>
+    isAnotherCommItem ? (
+      <a
+        href={`${process.env.APP_LOCATION}${href}`}
+        className="d-flex align-items-center"
+      >
+        {children}
+      </a>
+    ) : (
+      <Link to={href} href={href} className="d-flex align-items-center">
+        {children}
+      </Link>
+    );
+
+  NotificationLink.propTypes = {
+    children: PropTypes.element,
+  };
+
   return (
     <Container
       top={top}
@@ -216,10 +234,7 @@ const Notification = ({
         <FormattedMessage id={NOTIFICATIONS_DATA[type].id} values={values} />
       </Span>
       <div className="d-flex align-items-center justify-content-between">
-        <a
-          href={isAnotherCommItem ? `${process.env.APP_LOCATION}${href}` : href}
-          className="d-flex align-items-center"
-        >
+        <NotificationLink>
           <IconMd
             icon={NOTIFICATIONS_DATA[type].src}
             color={
@@ -230,7 +245,7 @@ const Notification = ({
             }
           />
           <span>{data.title}</span>
-        </a>
+        </NotificationLink>
       </div>
       <div className="d-flex align-items-center">
         <Time time={time} />
