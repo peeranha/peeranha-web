@@ -28,6 +28,12 @@ export default defineMessages({
   shortDescription: {
     id: 'app.containers.CreateCommunity.shortDescription',
   },
+  aboutLabel: {
+    id: 'app.containers.CreateCommunity.about',
+  },
+  optional: {
+    id: 'app.containers.CreateCommunity.optional',
+  },
   whyWeNeedIt: {
     id: 'app.containers.CreateCommunity.whyWeNeedIt',
   },

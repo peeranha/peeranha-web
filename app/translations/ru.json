@@ -418,6 +418,8 @@
   "app.containers.CreateCommunity.avatar": "Аватар",
   "app.containers.CreateCommunity.communityTitle": "Название",
   "app.containers.CreateCommunity.shortDescription": "Краткое описание",
+  "app.containers.CreateCommunity.about": "О комьюнити",
+  "app.containers.CreateCommunity.optional": "Опционально",
   "app.containers.CreateCommunity.whyWeNeedIt": "Зачем нам нужно это?",
   "app.containers.CreateCommunity.createCommunity": "Добавить сообщество",
   "app.containers.CreateCommunity.newCommunity": "Новое сообщество",
@@ -736,7 +738,8 @@
     "Телос имя должно содержать хотя бы одну букву",
   "app.components.FormFields.exactFromAndToAccounts":
     "Отправитель и получатель не могут быть одним и тем же",
-  "app.components.FormFields.valueIsNotPositiveInteger": "Значение не является целым положительным числом",
+  "app.components.FormFields.valueIsNotPositiveInteger":
+    "Значение не является целым положительным числом",
 
   "app.components.Footer.header": "Авторские права: Peeranha",
 
@@ -957,7 +960,8 @@
   ],
   "app.containers.QuestionForm.promotedLabel": "Продвинуть вопрос",
   "app.containers.QuestionForm.promotedTip": "Продвинуть вопрос",
-  "app.containers.QuestionForm.questionIsPromoting": "Этот вопрос продвигается до",
+  "app.containers.QuestionForm.questionIsPromoting":
+    "Этот вопрос продвигается до",
 
   "app.containers.AnswerForm.titleLabel": "Ваш ответ",
 
