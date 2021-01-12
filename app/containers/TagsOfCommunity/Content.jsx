@@ -32,7 +32,7 @@ const Tag = styled.li`
   margin-bottom: 15px;
 
   @media only screen and (max-width: 576px) {
-    height: 110px;
+    height: ${({ editTagModerator }) => (editTagModerator ? '150px' : '110px')};
   }
 `;
 
