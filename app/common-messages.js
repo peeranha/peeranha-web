@@ -87,6 +87,9 @@ export default defineMessages({
   tags: {
     id: 'app.common.tags',
   },
+  home: {
+    id: 'app.common.home',
+  },
   myFeed: {
     id: 'app.common.myFeed',
   },

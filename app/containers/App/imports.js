@@ -39,6 +39,7 @@ const Support = React.lazy(() => import('containers/Support'));
 const PrivacyPolicy = React.lazy(() => import('containers/PrivacyPolicy'));
 
 const NoAccess = React.lazy(() => import('components/NoAccess'));
+const Home = React.lazy(() => import('containers/Home'));
 const Feed = React.lazy(() => import('components/Feed'));
 const Communities = React.lazy(() => import('components/ExistingCommunities'));
 const FullWidthPreloader = React.lazy(() =>
@@ -70,6 +71,7 @@ export {
   SuggestedTags,
   EditTag,
   NoAccess,
+  Home,
   Feed,
   Communities,
   SuggestedCommunities,

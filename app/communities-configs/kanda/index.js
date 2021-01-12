@@ -139,7 +139,6 @@ export const KandaStyles = {
   poweredByPeeranha: true,
   withoutAdditionalLinks: true,
   withoutFAQ: true,
-  leftMenuLogo: KandaLogo,
   signUpPageLogo: KandaLogoWithTitle,
   favicon,
 

@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { bindActionCreators, compose } from 'redux';
 import { translationMessages } from 'i18n';
+
 import * as routes from 'routes-config';
 
 import injectSaga from 'utils/injectSaga';
@@ -36,7 +37,6 @@ import { redirectToAskQuestionPage } from 'containers/AskQuestion/actions';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 import TopCommunities from 'components/TopCommunities';
 import ScrollToTop from 'components/ScrollToTop/index';
-
 import InfinityLoader from 'components/InfinityLoader';
 import Seo from 'components/Seo';
 

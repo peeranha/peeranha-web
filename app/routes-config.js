@@ -51,6 +51,8 @@ export const questionAsk = () => (!singleCommId ? `/questions/ask` : `/ask`);
 
 export const noAccess = () => `/no-access`;
 
+export const detailsHomePage = () => '/home';
+
 export const feed = communityId => `/feed/${communityId || ''}`;
 
 export const communities = () => `/communities`;

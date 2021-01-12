@@ -18,6 +18,7 @@ import {
 } from 'style-constants';
 
 import * as routes from 'routes-config';
+import communitiesConfig from 'communities-config';
 import messages from 'common-messages';
 
 import {
@@ -27,6 +28,7 @@ import {
   singleCommunityFonts,
 } from 'utils/communityManagement';
 
+import homeIcon from 'images/house.svg?external';
 import myFeedIcon from 'images/myFeed.svg?external';
 import allQuestionsIcon from 'images/allQuestions.svg?external';
 import communitiesIcon from 'images/communities.svg?external';
@@ -104,9 +106,17 @@ const MainLinks = ({ profile }) => {
   const { pathname } = window.location;
   const route = pathname.split('/').filter(x => x)[0];
   const singleCommId = +isSingleCommunityWebsite();
+  const isBloggerMode = !!communitiesConfig[singleCommId].isBloggerMode;
 
   return (
     <Box>
+      {(!!singleCommId && isBloggerMode) && (
+        <A1 to={routes.detailsHomePage()} name="home" route={route}>
+          <IconLg className="mr-2" icon={homeIcon} />
+          <FormattedMessage {...messages.home} />
+        </A1>
+      )}
+        
       {!singleCommId &&
         profile && (
           <A1 to={routes.feed()} name="feed" route={route}>

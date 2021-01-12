@@ -87,6 +87,7 @@ export const Logo = styled.span`
 
   background-position: bottom left;
   background-image: url(${({ src }) => src});
+  background-size: contain;
 `;
 
 const LoginLink = styled.div`
