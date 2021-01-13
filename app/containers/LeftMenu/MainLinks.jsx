@@ -106,7 +106,7 @@ const MainLinks = ({ profile }) => {
   const { pathname } = window.location;
   const route = pathname.split('/').filter(x => x)[0];
   const singleCommId = +isSingleCommunityWebsite();
-  const isBloggerMode = !!communitiesConfig[singleCommId].isBloggerMode;
+  const isBloggerMode = !!singleCommId ? !!communitiesConfig[singleCommId].isBloggerMode : false;
 
   return (
     <Box>
