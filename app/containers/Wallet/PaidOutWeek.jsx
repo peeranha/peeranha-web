@@ -6,7 +6,6 @@ import { FormattedMessage } from 'react-intl';
 import { TEXT_SECONDARY } from 'style-constants';
 
 import { getFormattedNum3 } from 'utils/numbers';
-import { getRewardAmountByBoost } from 'utils/walletManagement';
 
 import currencyPeerImage from 'images/currencyPeer.svg?inline';
 
@@ -65,72 +64,66 @@ const PaidOutWeek = ({
   ids,
   registrationWeek,
   style,
-  globalBoostStat,
-  userBoostStat,
-}) => {
-  const displayedReward = getRewardAmountByBoost(period, reward, globalBoostStat, userBoostStat) * 1000;
-
-  return (
-    <Container style={style}>
-      <BaseRoundedLi className="align-items-center">
-        <div>
-          <P fontSize="13" color={TEXT_SECONDARY}>
-            <FormattedMessage
-              {...messages[registrationWeek ? 'registrationWeek' : 'paidOut']}
-            />
-          </P>
-          <WeekNumber
-            locale={locale}
-            period={period}
-            periodStarted={periodStarted}
-            periodFinished={periodFinished}
+}) => (
+  <Container style={style}>
+    <BaseRoundedLi className="align-items-center">
+      <div>
+        <P fontSize="13" color={TEXT_SECONDARY}>
+          <FormattedMessage
+            {...messages[registrationWeek ? 'registrationWeek' : 'paidOut']}
           />
+        </P>
+        <WeekNumber
+          locale={locale}
+          period={period}
+          periodStarted={periodStarted}
+          periodFinished={periodFinished}
+        />
+      </div>
+
+      {!registrationWeek ? (
+        <WeekActions className="d-flex align-items-center justify-content-end">
+          <P className="d-flex align-items-center">
+            <SmallImage className="mr-2" src={currencyPeerImage} alt="icon" />
+            <Span fontSize="20" mobileFS={14} bold>
+              {reward} - {getFormattedNum3(reward)}
+            </Span>
+          </P>
+
+          {!hasTaken && (
+            <PickupButton
+              className="ml-4"
+              id={`pickup-reward-${period}`}
+              onClick={() =>
+                pickupRewardDispatch(period - 1, `pickup-reward-${period}`)
+              }
+              disabled={
+                hasTaken !== false ||
+                !Number(reward) ||
+                (pickupRewardProcessing &&
+                  ids.includes(`pickup-reward-${period}`))
+              }
+            >
+              <FormattedMessage {...messages.getReward} />
+            </PickupButton>
+          )}
+
+          {hasTaken && (
+            <ReceivedButton className="ml-4">
+              <FormattedMessage {...messages.received} />
+            </ReceivedButton>
+          )}
+        </WeekActions>
+      ) : (
+        <div className="d-flex justify-content-end">
+          <P>
+            <FormattedMessage {...messages.yourWalletWasSuccessfullySet} />
+          </P>
         </div>
-
-        {!registrationWeek ? (
-          <WeekActions className="d-flex align-items-center justify-content-end">
-            <P className="d-flex align-items-center">
-              <SmallImage className="mr-2" src={currencyPeerImage} alt="icon" />
-              <Span fontSize="20" mobileFS={14} bold>
-                {getFormattedNum3(displayedReward)}
-              </Span>
-            </P>
-
-            {!hasTaken && (
-              <PickupButton
-                className="ml-4"
-                id={`pickup-reward-${period}`}
-                onClick={() =>
-                  pickupRewardDispatch(period - 1, `pickup-reward-${period}`)
-                }
-                disabled={
-                  hasTaken !== false ||
-                  !Number(reward) ||
-                  (pickupRewardProcessing &&
-                    ids.includes(`pickup-reward-${period}`))
-                }
-              >
-                <FormattedMessage {...messages.getReward} />
-              </PickupButton>
-            )}
-
-            {hasTaken && (
-              <ReceivedButton className="ml-4">
-                <FormattedMessage {...messages.received} />
-              </ReceivedButton>
-            )}
-          </WeekActions>
-        ) : (
-          <div className="d-flex justify-content-end">
-            <P>
-              <FormattedMessage {...messages.yourWalletWasSuccessfullySet} />
-            </P>
-          </div>
-        )}
-      </BaseRoundedLi>
-    </Container>
-  );
-}
+      )}
+    </BaseRoundedLi>
+  </Container>
+);
 
 PaidOutWeek.propTypes = {
   period: PropTypes.number,
@@ -144,8 +137,6 @@ PaidOutWeek.propTypes = {
   ids: PropTypes.array,
   registrationWeek: PropTypes.bool,
   style: PropTypes.object,
-  globalBoostStat: PropTypes.array,
-  userBoostStat: PropTypes.array,
 };
 
 export default memo(PaidOutWeek);

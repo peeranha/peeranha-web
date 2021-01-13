@@ -44,8 +44,6 @@ const CurrentPendingWeeks = styled.div`
 const Weeks = ({
   locale,
   weekStat,
-  globalBoostStat,
-  userBoostStat,
   getWeekStatProcessing,
   pickupRewardDispatch,
   pickupRewardProcessing,
@@ -90,8 +88,6 @@ const Weeks = ({
 
             <PaidOutWeeksContainer
               weekStat={weekStat.slice(2)}
-              globalBoostStat={globalBoostStat}
-              userBoostStat={userBoostStat}
               pickupRewardDispatch={pickupRewardDispatch}
               pickupRewardProcessing={pickupRewardProcessing}
               locale={locale}
@@ -108,8 +104,6 @@ const Weeks = ({
 
 Weeks.propTypes = {
   weekStat: PropTypes.array,
-  globalBoostStat: PropTypes.array,
-  userBoostStat: PropTypes.array,
   ids: PropTypes.array,
   locale: PropTypes.string,
   pickupRewardDispatch: PropTypes.func,
