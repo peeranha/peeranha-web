@@ -46,15 +46,13 @@ export const B = Button.extend`
 `.withComponent('span');
 
 const QuestionName = H3.extend`
-  display: initial;
+  display: inline;
 `.withComponent('h3');
 
 const Div = styled.div`
   min-width: 140px;
 `;
 const TitleContainer = styled.div`
-  display: flex;
-  align-items: center;
   .${BOUNTY_PAID_CLASSNAME} {
     background-color: ${BG_SUCCESS};
   }
