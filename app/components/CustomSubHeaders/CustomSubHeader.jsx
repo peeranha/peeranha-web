@@ -47,7 +47,7 @@ const Div = styled.div`
 `;
 
 export const Container = styled.div`
-  margin: 0 !important;
+  margin: 0 auto !important;
   padding: 0 !important;
 `;
 
