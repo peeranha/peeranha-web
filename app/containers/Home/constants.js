@@ -1,6 +1,14 @@
-export const HOME_KEY = 'homePage';
+export const HOME_KEY = 'homePageKey';
 const PATH = 'app/Home/';
 
 export const GET_QUESTIONS = `${PATH}/GET_QUESTIONS`;
 export const GET_QUESTIONS_SUCCESS = `${PATH}GET_QUESTIONS_SUCCESS`;
 export const GET_QUESTIONS_ERROR = `${PATH}GET_QUESTIONS_ERROR`;
+
+export const GET_COMMUNITY = `${PATH}/GET_COMMUNITY`;
+export const GET_COMMUNITY_SUCCESS = `${PATH}GET_COMMUNITY_SUCCESS`;
+export const GET_COMMUNITY_ERROR = `${PATH}GET_COMMUNITY_ERROR`;
+
+export const GET_LOGO = `${PATH}/GET_LOGO`;
+export const GET_LOGO_SUCCESS = `${PATH}GET_LOGO_SUCCESS`;
+export const GET_LOGO_ERROR = `${PATH}GET_LOGO_ERROR`;

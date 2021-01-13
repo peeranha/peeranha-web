@@ -1,10 +1,15 @@
 import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { createStructuredSelector } from 'reselect';
 
 import communitiesConfig from 'communities-config';
 
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
+
+import { selectLogo } from 'containers/Home/selectors';
 
 import Arrow from '../Arrow';
 import { Links } from './CustomSubHeader';
@@ -69,13 +74,16 @@ const Div = styled.div`
   }
 `;
 
-const CustomMobileSubHeader = ({ config, logo }) => {
+const CustomMobileSubHeader = ({
+  config,
+  logo: communityLogo,
+  showingLogo,
+}) => {
   const [visible, setVisibility] = useState(false);
   const setVis = useCallback(() => setVisibility(!visible), [visible]);
   const { styles, links } = config;
-
-  const singleCommId = +isSingleCommunityWebsite();
-  const isBloggerMode = !!communitiesConfig[singleCommId].isBloggerMode;
+  const single = +isSingleCommunityWebsite();
+  const isBloggerMode = single ? !!communitiesConfig[single].isBloggerMode : false;
 
   return (
     <Div
@@ -88,7 +96,7 @@ const CustomMobileSubHeader = ({ config, logo }) => {
         onClick={setVis}
         disabled={isBloggerMode}
       >
-        <img src={logo} alt="" />
+        <img src={communityLogo || showingLogo} alt="" />
         {!isBloggerMode && (
           <Arrow
             className="mt-auto mb-auto"
@@ -105,6 +113,16 @@ const CustomMobileSubHeader = ({ config, logo }) => {
 CustomMobileSubHeader.propTypes = {
   config: PropTypes.object,
   logo: PropTypes.string,
+  showingLogo: PropTypes.string,
 };
 
-export default CustomMobileSubHeader;
+const withConnect = connect(
+  createStructuredSelector({
+    showingLogo: selectLogo(),
+  }),
+  null,
+);
+
+export default compose(
+  withConnect,
+)(CustomMobileSubHeader);

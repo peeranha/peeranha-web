@@ -107,9 +107,9 @@ const View = ({
 
       return styles.withoutSubHeader ? (
         <QAndALogo to={routes.questions()}>
-          <span>Questions</span>
+          <FormattedMessage {...messages.questions} />
           <span>&amp;</span>
-          <span>Answers</span>
+          <FormattedMessage {...messages.answers} />
         </QAndALogo>
       ) : (
         <LogoStyles to={routes.questions()}>

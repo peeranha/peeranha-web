@@ -9,12 +9,14 @@ import styled from 'styled-components';
 import * as routes from 'routes-config';
 
 import { TEXT_SECONDARY } from 'style-constants';
+import { HASH_CHARS_LIMIT } from 'components/FormFields/AvatarField';
+import { DAEMON } from 'utils/constants';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { DAEMON } from 'utils/constants';
 import { isUserTopCommunityQuestionsModerator } from 'utils/properties';
-import { isSingleCommunityWebsite, singleCommunityStyles } from 'utils/communityManagement';
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
+import { getUserAvatar } from 'utils/profileManagement';
 
 import questionsMessages from 'containers/Questions/messages';
 import commonMessages from 'common-messages';
@@ -23,6 +25,8 @@ import Seo from 'components/Seo';
 import Base from 'components/Base/BaseRounded';
 import { InfoLink } from 'components/Button/Outlined/InfoLarge';
 import Content from 'containers/Questions/Content/Content';
+import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
+import LargeImage from 'components/Img/LargeImage';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
@@ -30,8 +34,12 @@ import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 
 import reducer from './reducer';
 import saga from './saga';
-import { getQuestions } from './actions';
-import { selectQuestions } from './selectors';
+import { getQuestions, getCommunity } from './actions';
+import {
+  selectQuestions,
+  selectCommunity,
+  selectCommunityLoading,
+} from './selectors';
 import messages from './messages';
 import { HOME_KEY } from './constants';
 
@@ -52,17 +60,6 @@ const IntroducingMedia = styled.div`
     margin-right: 0px;
     margin-bottom: 20px;
   }
-`;
-
-const IntroducingImage = styled.div`
-  width: 100px;
-  height: 100px;
-  margin-bottom: 10px;
-  background-image: url('${({ img }) => img}');
-  background-size: contain;
-  background-position: center;
-  border-radius: 50%;
-  overflow: hidden;
 `;
 
 const IntroducingImageSubtitle = styled.p`
@@ -99,7 +96,17 @@ export const Home = ({
   communities,
   questions,
   getQuestionsDispatch,
+  community,
+  getCommunityDispatch,
+  communityLoading,
 }) => {
+  useEffect(
+    () => {
+      getCommunityDispatch(+single);
+    },
+    [single],
+  );
+
   useEffect(
     () => {
       getQuestionsDispatch();
@@ -117,7 +124,7 @@ export const Home = ({
     [profile],
   );
 
-  const { logo, name, description, questionsAmount, followersAmount } = singleCommunityStyles().customSubHeaderConfig;
+  const { name, about, avatar, questions_asked, users_subscribed } = community;
 
   return (
     <div>
@@ -127,45 +134,59 @@ export const Home = ({
         language={locale}
       />
 
-      <Base className="mb-3">
-        <IntroducingContainer className='d-flex'>
-          <IntroducingMedia>
-            <IntroducingImage img={logo} />
-            <IntroducingImageSubtitle>
-              {followersAmount} {translationMessages[locale][commonMessages.users.id]}
-            </IntroducingImageSubtitle>
-          </IntroducingMedia>
-          <div>
-            <IntroducingTitle>{name}</IntroducingTitle>
-            <IntroducingSubTitle>
-              {questionsAmount} {translationMessages[locale][commonMessages.questions.id]}
-            </IntroducingSubTitle>
-            <IntroducingDescription>{description}</IntroducingDescription>
-          </div>
-        </IntroducingContainer>
-      </Base>
-
-      {isRenderQuestions ? (
+      {!!communityLoading ? (
+        <LoadingIndicator />
+      ) : (
         <>
-          <QuestionsTitle>
-            {translationMessages[locale][messages.questionsTitle.id]}
-          </QuestionsTitle>
-          <div className="position-relative">
-            <Content
-              locale={locale}
-              questionsList={questions}
-              communities={communities}
-              isModerator={isModerator}
-              profileInfo={profile}
-            />
-          </div>
-          <div className="d-flex justify-content-center mb-3">
-            <InfoLink to={routes.questions()}>
-              {translationMessages[locale][questionsMessages.showAllQuestions.id]}
-            </InfoLink>
-          </div>
+          <Base className="mb-3">
+            <IntroducingContainer className='d-flex'>
+              <IntroducingMedia>
+                <LargeImage
+                  isBordered
+                  src={
+                    avatar && avatar.length > HASH_CHARS_LIMIT
+                      ? avatar
+                      : getUserAvatar(avatar, true, true)
+                  }
+                  alt={name}
+                />
+                <IntroducingImageSubtitle>
+                  {users_subscribed} {translationMessages[locale][commonMessages.users.id]}
+                </IntroducingImageSubtitle>
+              </IntroducingMedia>
+              <div>
+                <IntroducingTitle>{name}</IntroducingTitle>
+                <IntroducingSubTitle>
+                  {questions_asked} {translationMessages[locale][commonMessages.questions.id]}
+                </IntroducingSubTitle>
+                {about && <IntroducingDescription>{about}</IntroducingDescription>}
+              </div>
+            </IntroducingContainer>
+          </Base>
+
+          {isRenderQuestions ? (
+            <>
+              <QuestionsTitle>
+                {translationMessages[locale][messages.questionsTitle.id]}
+              </QuestionsTitle>
+              <div className="position-relative">
+                <Content
+                  locale={locale}
+                  questionsList={questions}
+                  communities={communities}
+                  isModerator={isModerator}
+                  profileInfo={profile}
+                />
+              </div>
+              <div className="d-flex justify-content-center mb-3">
+                <InfoLink to={routes.questions()}>
+                  {translationMessages[locale][questionsMessages.showAllQuestions.id]}
+                </InfoLink>
+              </div>
+            </>
+          ) : null}
         </>
-      ) : null}
+      )}
     </div>
   );
 };
@@ -176,6 +197,9 @@ Home.propTypes = {
   questions: PropTypes.array,
   profile: PropTypes.object,
   getQuestionsDispatch: PropTypes.func,
+  community: PropTypes.object,
+  getCommunityDispatch: PropTypes.func,
+  communityLoading: PropTypes.bool,
 };
 
 const withConnect = connect(
@@ -184,9 +208,12 @@ const withConnect = connect(
     profile: makeSelectProfileInfo(),
     communities: selectCommunities(),
     questions: selectQuestions(),
+    community: selectCommunity(),
+    communityLoading: selectCommunityLoading(),
   }),
   dispatch => ({
     getQuestionsDispatch: bindActionCreators(getQuestions, dispatch),
+    getCommunityDispatch: bindActionCreators(getCommunity, dispatch),
   }),
 );
 

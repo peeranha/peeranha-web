@@ -4,7 +4,6 @@ import CustomSubHeader from 'components/CustomSubHeaders/CustomSubHeader';
 import CustomMobileSubHeader from 'components/CustomSubHeaders/CustomMobileSubHeader';
 
 import bannerImage from './images/ivan-chai.jpg';
-import logo from './images/ivan-chai-logo.png';
 
 export const CustomSubHeaderConfig = {
   design: 'blogger_style',
@@ -21,8 +20,6 @@ export const CustomSubHeaderConfig = {
     pinterest: '',
   },
   banner: bannerImage,
-  logo,
-  name: 'Иван Чай',
   description: (
     <div>
       <p>
@@ -39,8 +36,6 @@ export const CustomSubHeaderConfig = {
       <p>Youtube: @IvanChai</p>
     </div>
   ),
-  questionsAmount: 345,
-  followersAmount: 568,
 };
 
 export const BloggerStyles = {
@@ -48,9 +43,8 @@ export const BloggerStyles = {
   withoutSubHeader: true,
   poweredByPeeranha: true,
   withoutAdditionalLinks: true,
-  signUpPageLogo: logo,
   mobileSubHeader: (
-    <CustomMobileSubHeader config={CustomSubHeaderConfig} logo={logo} />
+    <CustomMobileSubHeader config={CustomSubHeaderConfig} />
   ),
   customSubHeader: <CustomSubHeader config={CustomSubHeaderConfig} />,
   withoutFAQ: true,

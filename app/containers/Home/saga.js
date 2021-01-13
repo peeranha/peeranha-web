@@ -7,27 +7,35 @@ import {
   takeEvery,
 } from 'redux-saga/effects';
 
-import { selectEos } from 'containers/EosioProvider/selectors';
+import communitiesConfig from 'communities-config';
 
-import {
-  getQuestions,
-} from 'utils/questionsManagement';
+import { HASH_CHARS_LIMIT } from 'components/FormFields/AvatarField';
+
+import { selectEos } from 'containers/EosioProvider/selectors';
+import { selectCommunities } from 'containers/DataCacheProvider/selectors';
+
+import { getQuestions } from 'utils/questionsManagement';
+import { getCommunityById, isSingleCommunityWebsite } from 'utils/communityManagement';
+import { getQuestionBounty } from 'utils/walletManagement';
+import { getUserAvatar } from 'utils/profileManagement';
 
 import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
-import {
-  isGeneralQuestion,
-} from 'containers/ViewQuestion/saga';
+import { isGeneralQuestion } from 'containers/ViewQuestion/saga';
 
 import {
   GET_QUESTIONS,
+  GET_COMMUNITY,
+  GET_LOGO,
 } from './constants';
-
 import {
   getQuestionsSuccess,
   getQuestionsError,
+  getCommunitySuccess,
+  getCommunityError,
+  getLogoSuccess,
+  getLogoError,
 } from './actions';
-
-import { getQuestionBounty } from '../../utils/walletManagement';
+import { selectCommunity } from './selectors';
 
 export function* getQuestionsWorker() {
   try {
@@ -55,8 +63,6 @@ export function* getQuestionsWorker() {
       }),
     );
 
-    // To avoid of fetching same user profiles - remember it and to write userInfo here
-
     yield all(
       Array.from(users.keys()).map(function*(user) {
         const userInfo = yield call(getUserProfileWorker, { user });
@@ -73,6 +79,51 @@ export function* getQuestionsWorker() {
   }
 }
 
+export function* getCommunityWorker({ id }) {
+  try {
+    const cachedCommunities = yield select(selectCommunities());
+
+    let community = cachedCommunities.find(c => c.id === id);
+
+    if (!community) {
+      const eosService = yield select(selectEos);
+
+      community = yield call(getCommunityById, eosService, id);
+    }
+
+    yield put(getCommunitySuccess(community));
+  } catch (err) {
+    yield put(getCommunityError(err));
+  }
+}
+
+export function* getLogoWorker() {
+  try {
+    const single = isSingleCommunityWebsite();
+
+    yield call(getCommunityWorker, { id: single });
+
+    const community = yield select(selectCommunity());
+    
+    const isBloggerMode = single ? !!communitiesConfig[single].isBloggerMode : false;
+
+    let logo = "";
+    if (isBloggerMode) {
+      const { avatar } = community;
+
+      logo = avatar && avatar.length > HASH_CHARS_LIMIT
+        ? avatar
+        : getUserAvatar(avatar, true, true);
+    }
+
+    yield put(getLogoSuccess(logo));
+  } catch (err) {
+    yield put(getLogoError(err));
+  }
+}
+
 export default function*() {
   yield takeEvery(GET_QUESTIONS, getQuestionsWorker);
+  yield takeEvery(GET_COMMUNITY, getCommunityWorker);
+  yield takeEvery(GET_LOGO, getLogoWorker);
 }
