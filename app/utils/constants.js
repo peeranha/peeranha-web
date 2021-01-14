@@ -133,7 +133,6 @@ export const PROMOTED_QUESTIONS_TABLES = 'promquestion';
 export const ALL_ACCOUNTS_SCOPE = 'allaccounts';
 export const ALL_QUESTIONS_SCOPE = 'allquestions';
 export const ALL_BOUNTIES_SCOPE = 'allbounties';
-export const ALL_USER_BOUNTIES_SCOPE = 'userbounties';
 export const ALL_COMMUNITIES_SCOPE = 'allcomm';
 export const ALL_STAT_SCOPE = 'allstat';
 export const ALL_PERIODS_SCOPE = 'allperiods';
@@ -162,6 +161,7 @@ export const CHANGE_QUESTION_TYPE_METHOD = 'chgqsttype';
 
 export const POST_QUESTION_METHOD = 'postquestion';
 export const SET_BOUNTY_METHOD = 'setbounty';
+export const EDIT_BOUNTY_METHOD = 'editbounty';
 export const PAY_BOUNTY_METHOD = 'paybounty';
 export const EDIT_QUESTION_METHOD = 'modquestion';
 export const DEL_QUESTION_METHOD = 'delquestion';
