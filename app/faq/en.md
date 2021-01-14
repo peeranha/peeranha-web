@@ -174,7 +174,7 @@ Notifications are not available in the first release. This functionality will be
 | Expert question upvoted                       | 5             |
 | General question upvoted                      | 1             |
 | Expert answer upvoted                         | 10            |
-| General answer upvoted                        | 1             |
+| General answer upvoted                        | 2             |
 | Expert question downvoted                     | -2            |
 | General question downvoted                    | -1            |
 | Expert answer downvoted                       | -2            |
