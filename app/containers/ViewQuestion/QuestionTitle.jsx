@@ -121,7 +121,7 @@ export const QuestionTitle = ({
                 className="mr-1"
                 icon={coinsIcon}
                 color={BUTTON_COLOR}
-                specialStyles={single && styles.coinsIconStyles}
+                specialStyles={single && styles.coinsIconStyles ? styles.coinsIconStyles : null}
               />
               <FormattedMessage {...commonMessages.tipQuestion} />
             </B>
