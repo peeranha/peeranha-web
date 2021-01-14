@@ -99,6 +99,9 @@ export default defineMessages({
   users: {
     id: 'app.common.users',
   },
+  followers: {
+    id: 'app.common.followers',
+  },
   usersShort: {
     id: 'app.common.usersShort',
   },

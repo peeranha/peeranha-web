@@ -151,7 +151,7 @@ export const Home = ({
                   alt={name}
                 />
                 <IntroducingImageSubtitle>
-                  {users_subscribed} {translationMessages[locale][commonMessages.users.id]}
+                  {users_subscribed} {translationMessages[locale][commonMessages.followers.id]}
                 </IntroducingImageSubtitle>
               </IntroducingMedia>
               <div>
