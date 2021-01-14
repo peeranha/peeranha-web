@@ -104,9 +104,14 @@ const Box = styled.div`
 
 const MainLinks = ({ profile }) => {
   const { pathname } = window.location;
-  const route = pathname.split('/').filter(x => x)[0];
+  let route = pathname.split('/').filter(x => x)[0];
+  
   const singleCommId = +isSingleCommunityWebsite();
   const isBloggerMode = !!singleCommId ? !!communitiesConfig[singleCommId].isBloggerMode : false;
+
+  if (!route) {
+    route = isBloggerMode ? 'home' : 'questions';
+  }
 
   return (
     <Box>
@@ -125,7 +130,7 @@ const MainLinks = ({ profile }) => {
           </A1>
         )}
 
-      <A1 to={routes.questions()} name="questions" route={route || 'questions'}>
+      <A1 to={routes.questions()} name="questions" route={route}>
         <IconLg className="mr-2" icon={allQuestionsIcon} />
         <FormattedMessage {...messages.questions} />
       </A1>
@@ -148,7 +153,7 @@ const MainLinks = ({ profile }) => {
 
       <A1 to={routes.users()} name="users" route={route}>
         <IconLg className="mr-2" icon={usersIcon} />
-        <FormattedMessage {...messages.users} />
+        <FormattedMessage {...messages[isBloggerMode ? "followers" : 'users']} />
       </A1>
 
       {!styles.withoutFAQ && (

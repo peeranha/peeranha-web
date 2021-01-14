@@ -46,6 +46,7 @@ import termsOfServiceReducer from 'containers/TermsOfService/reducer';
 import appWrapperReducer from 'containers/AppWrapper/reducer';
 import telegramAccountActionReducer from './containers/TelegramAccountAction/reducer';
 import notificationsReducer from './components/Notifications/reducer';
+import homeReducer from './containers/Home/reducer';
 
 /*
  * routeReducer
@@ -121,5 +122,6 @@ export default injectedReducers =>
     appWrapper: appWrapperReducer,
     notifications: notificationsReducer,
     telegramAccountAction: telegramAccountActionReducer,
+    homePageKey: homeReducer,
     ...injectedReducers,
   });

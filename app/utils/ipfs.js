@@ -61,7 +61,9 @@ export function getFileUrl(hash) {
     }/ipfs/${hash}`;
   }
 
-  return `${process.env.IPFS_PROTOCOL}://${process.env.IPFS_CDN_HOST}/${hash}`;
+  const IPFS_DOMAIN = `${process.env.IPFS_PROTOCOL}://${process.env.IPFS_CDN_HOST}/`;
+
+  return hash.includes(IPFS_DOMAIN) ? hash : `${IPFS_DOMAIN}${hash}`;
 }
 
 // TODO: test

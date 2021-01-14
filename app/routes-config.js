@@ -6,11 +6,13 @@
 
 /* eslint camelcase: 0, prettier/prettier: 0 */
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
+import communitiesConfig from 'communities-config';
 import { REFERRAL_CODE_URI } from './containers/App/constants';
 
 const userRedirect = where => id => `/users/${id}${where}`;
 
 const singleCommId = isSingleCommunityWebsite();
+const isBloggerMode = !!singleCommId ? !!communitiesConfig[singleCommId].isBloggerMode : false;
 
 export const home = () => `/about`;
 
@@ -31,8 +33,8 @@ export const userWallet = userRedirect('/wallet');
 export const userBoost = userRedirect('/boost');
 export const uniqueAnswerId = answerId => `ans${answerId}`;
 
-export const questions = communityId =>
-  !communityId ? `/` : `/questions/community/${communityId}/`;
+export const questions = (communityId) =>
+  !communityId ? `${!isBloggerMode ? '/' : '/questions'}` : `/questions/community/${communityId}/`;
 
 export const questionView = (id, answerId) =>
   answerId
@@ -51,7 +53,7 @@ export const questionAsk = () => (!singleCommId ? `/questions/ask` : `/ask`);
 
 export const noAccess = () => `/no-access`;
 
-export const detailsHomePage = () => '/home';
+export const detailsHomePage = () => '/';
 
 export const feed = communityId => `/feed/${communityId || ''}`;
 

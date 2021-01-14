@@ -1,16 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
+import { bindActionCreators, compose } from 'redux';
+import { connect } from 'react-redux';
 
 import messages from 'common-messages';
+
 import * as routes from 'routes-config';
 
 import { ADefault } from 'components/A';
 import Arrow from 'components/Arrow';
+
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
+
 import { BG_SECONDARY_LIGHT, BG_LIGHT } from 'style-constants';
-import { singleCommunityStyles } from 'utils/communityManagement';
+import { DAEMON } from 'utils/constants';
+import { HOME_KEY } from 'containers/Home/constants';
+
+import injectSaga from 'utils/injectSaga';
+import injectReducer from 'utils/injectReducer';
+import { singleCommunityStyles, isSingleCommunityWebsite } from 'utils/communityManagement';
+
+import reducer from 'containers/Home/reducer';
+import saga from 'containers/Home/saga';
+import { getLogo } from 'containers/Home/actions';
 
 const styles = singleCommunityStyles();
 
@@ -39,8 +53,18 @@ const Base = styled.div`
   }
 `;
 
-const MobileSubHeader = ({ profile }) => {
+const MobileSubHeader = ({
+  profile,
+  getLogoDispatch,
+}) => {
   const [visible, setVisibility] = useState(false);
+
+  useEffect(
+    () => {
+      getLogoDispatch();
+    },
+    [isSingleCommunityWebsite()],
+  );
 
   return (
     styles.mobileSubHeader || (
@@ -90,6 +114,18 @@ const MobileSubHeader = ({ profile }) => {
 
 MobileSubHeader.propTypes = {
   profile: PropTypes.bool,
+  getLogoDispatch: PropTypes.func,
 };
 
-export default MobileSubHeader;
+const withConnect = connect(
+  null,
+  dispatch => ({
+    getLogoDispatch: bindActionCreators(getLogo, dispatch),
+  }),
+);
+
+export default compose(
+  injectReducer({ key: HOME_KEY, reducer }),
+  injectSaga({ key: HOME_KEY, saga, mode: DAEMON }),
+  withConnect,
+)(MobileSubHeader);

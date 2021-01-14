@@ -1,23 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { bindActionCreators, compose } from 'redux';
 
 import * as routes from 'routes-config';
 
-import { singleCommunityStyles } from 'utils/communityManagement';
+import injectSaga from 'utils/injectSaga';
+import injectReducer from 'utils/injectReducer';
+import { singleCommunityStyles, isSingleCommunityWebsite } from 'utils/communityManagement';
 
 import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
+import { selectLogo } from 'containers/Home/selectors';
 
 import Button from 'components/Button/Outlined/InfoLarge';
 import A from 'components/A';
+import H3 from 'components/H3';
 
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
 import telosIcon from 'images/telosIcon.svg?inline';
-
-import H3 from 'components/H3';
 
 import messages from 'containers/SignUp/messages';
 
@@ -27,6 +30,12 @@ import {
   CAN_I_DELETE_ACCOUNT_QUESTION,
   WHAT_IS_MASTER_KEY_QUESTION,
 } from 'containers/Faq/constants';
+import { DAEMON } from 'utils/constants';
+import { HOME_KEY } from 'containers/Home/constants';
+
+import { getLogo } from 'containers/Home/actions';
+import reducer from 'containers/Home/reducer';
+import saga from 'containers/Home/saga';
 
 import SignUpWrapper from './index';
 import {
@@ -38,14 +47,15 @@ import {
 } from './SignUpOptions';
 
 const styles = singleCommunityStyles();
+const single = isSingleCommunityWebsite();
 
-const LeftMenu = ({ faqQuestions, route }) => (
+const LeftMenu = ({ faqQuestions, route, mainLogo }) => (
   <React.Fragment>
     <div className="mb-4">
       {styles.withoutSubHeader ? (
         <CommunityLogoWrapper>
           <Link to={routes.questions()} href={routes.questions()}>
-            <Logo src={styles.signUpPageLogo} width={styles.signUpLogoWidth} />
+            <Logo src={mainLogo} width={styles.signUpLogoWidth} />
           </Link>
           <CommunityLogoDescr>
             <span>Q&A on</span>
@@ -56,7 +66,7 @@ const LeftMenu = ({ faqQuestions, route }) => (
         </CommunityLogoWrapper>
       ) : (
         <Link to={routes.questions()} href={routes.questions()}>
-          <img src={peeranhaLogo} width="180px" alt="Peeranha logo" />
+          <img src={mainLogo} width="180px" alt="Peeranha logo" />
         </Link>
       )}
     </div>
@@ -106,16 +116,32 @@ const LeftMenu = ({ faqQuestions, route }) => (
 /* eslint react/no-children-prop: 0 */
 const RightMenu = ({ children }) => <div>{children}</div>;
 
-const YouNeedEosAccount = ({ children, faqQuestions, route }) => (
-  <SignUpWrapper
-    LeftMenuChildren={<LeftMenu faqQuestions={faqQuestions} route={route} />}
-    RightMenuChildren={<RightMenu children={children} />}
-  />
-);
+const YouNeedEosAccount = ({
+  children,
+  faqQuestions,
+  route,
+  logo,
+  getLogoDispatch,
+}) => {
+  useEffect(
+    () => {
+      getLogoDispatch();
+    },
+    [single],
+  );
+
+  return (
+    <SignUpWrapper
+      LeftMenuChildren={<LeftMenu faqQuestions={faqQuestions} route={route} mainLogo={logo} />}
+      RightMenuChildren={<RightMenu children={children} />}
+    />
+  );
+}
 
 LeftMenu.propTypes = {
   faqQuestions: PropTypes.array,
   route: PropTypes.string,
+  mainLogo: PropTypes.string,
 };
 
 RightMenu.propTypes = {
@@ -126,18 +152,27 @@ YouNeedEosAccount.propTypes = {
   children: PropTypes.any,
   faqQuestions: PropTypes.array,
   route: PropTypes.string,
+  logo: PropTypes.string,
+  getLogoDispatch: PropTypes.func,
 };
 
-const mapStateToProps = createStructuredSelector({
-  faqQuestions: selectFaqQuestions([
-    HOW_STORE_MY_KEYS_QUESTION,
-    CAN_SIGN_UP_WITH_EAMIL_IF_HAVE_TELOS_ACCT_QUESTION,
-    CAN_I_DELETE_ACCOUNT_QUESTION,
-    WHAT_IS_MASTER_KEY_QUESTION,
-  ]),
-});
+const withConnect = connect(
+  createStructuredSelector({
+    faqQuestions: selectFaqQuestions([
+      HOW_STORE_MY_KEYS_QUESTION,
+      CAN_SIGN_UP_WITH_EAMIL_IF_HAVE_TELOS_ACCT_QUESTION,
+      CAN_I_DELETE_ACCOUNT_QUESTION,
+      WHAT_IS_MASTER_KEY_QUESTION,
+    ]),
+    logo: selectLogo(),
+  }),
+  dispatch => ({
+    getLogoDispatch: bindActionCreators(getLogo, dispatch),
+  }),
+);
 
-export default connect(
-  mapStateToProps,
-  null,
+export default compose(
+  injectReducer({ key: HOME_KEY, reducer }),
+  injectSaga({ key: HOME_KEY, saga, mode: DAEMON }),
+  withConnect,
 )(YouNeedEosAccount);

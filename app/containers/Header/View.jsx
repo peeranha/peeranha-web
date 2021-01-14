@@ -105,11 +105,15 @@ const View = ({
         ? communitiesConfig[single].src
         : peeranhaLogo;
 
+      const isBloggerMode = styles.withoutSubHeader
+        ? communitiesConfig[single].isBloggerMode
+        : false;
+
       return styles.withoutSubHeader ? (
-        <QAndALogo to={routes.questions()}>
-          <span>Questions</span>
+        <QAndALogo to={isBloggerMode ? routes.detailsHomePage() : routes.questions()}>
+          <FormattedMessage {...messages.questions} />
           <span>&amp;</span>
-          <span>Answers</span>
+          <FormattedMessage {...messages.answers} />
         </QAndALogo>
       ) : (
         <LogoStyles to={routes.questions()}>
