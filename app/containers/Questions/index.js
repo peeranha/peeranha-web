@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { bindActionCreators, compose } from 'redux';
 import { translationMessages } from 'i18n';
+
 import * as routes from 'routes-config';
 
 import injectSaga from 'utils/injectSaga';
@@ -36,7 +37,6 @@ import { redirectToAskQuestionPage } from 'containers/AskQuestion/actions';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 import TopCommunities from 'components/TopCommunities';
 import ScrollToTop from 'components/ScrollToTop/index';
-
 import InfinityLoader from 'components/InfinityLoader';
 import Seo from 'components/Seo';
 
@@ -67,6 +67,7 @@ export const Questions = ({
   locale,
   questionsList,
   questionsLoading,
+  promotedQuestionsList,
   isLastFetch,
   communities,
   followedCommunities,
@@ -278,6 +279,7 @@ export const Questions = ({
         >
           <Content
             questionsList={questionsList}
+            promotedQuestionsList={promotedQuestionsList}
             locale={locale}
             communities={communities}
             typeFilter={typeFilter}
@@ -322,6 +324,7 @@ Questions.propTypes = {
   followedCommunities: PropTypes.array,
   questionsList: PropTypes.array,
   questionsLoading: PropTypes.bool,
+  promotedQuestionsList: PropTypes.array,
   communitiesLoading: PropTypes.bool,
   isLastFetch: PropTypes.bool,
   initLoadedItems: PropTypes.number,
@@ -365,6 +368,7 @@ export default compose(
         )(state),
       isLastTopQuestionLoaded:
         questionsSelector.isLastTopQuestionLoadedSelector,
+      promotedQuestionsList: questionsSelector.selectPromotedQuestions(),
     }),
     dispatch => ({
       setTypeFilterDispatch: bindActionCreators(setTypeFilter, dispatch),

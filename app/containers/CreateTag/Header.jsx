@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
 import * as routes from 'routes-config';
@@ -18,7 +19,11 @@ import { MediumIconStyled } from 'components/Icon/MediumIcon';
 
 import messages from './messages';
 
-export const Header = () => (
+export const Header = ({
+  title,
+  closeRedirectPage,
+  closeButtonAction = null,
+}) => (
   <Wrapper className="mb-to-sm-0 mb-from-sm-3">
     <H3>
       <MediumIconStyled>
@@ -26,20 +31,20 @@ export const Header = () => (
           icon={suggestTagIcon}
           width="43"
           fill={BORDER_PRIMARY}
-          isColorImportant={true}
+          isColorImportant
         />
       </MediumIconStyled>
-      <FormattedMessage {...messages.newTag} />
+      {title || <FormattedMessage {...messages.newTag} />}
     </H3>
 
     <WrapperRightPanel className="right-panel">
-      <A to={routes.tags()}>
+      <A to={closeRedirectPage || routes.tags()} onClick={closeButtonAction}>
         <button>
           <IconMd
             className="mr-1"
             icon={closeIcon}
             fill={BORDER_PRIMARY}
-            isColorImportant={true}
+            isColorImportant
           />
           <Span color={TEXT_PRIMARY} className="button-label">
             <FormattedMessage {...commonMessages.close} />
@@ -49,5 +54,11 @@ export const Header = () => (
     </WrapperRightPanel>
   </Wrapper>
 );
+
+Header.propTypes = {
+  title: PropTypes.element,
+  closeRedirectPage: PropTypes.string,
+  closeButtonAction: PropTypes.func,
+};
 
 export default React.memo(Header);

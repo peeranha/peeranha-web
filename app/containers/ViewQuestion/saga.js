@@ -90,6 +90,7 @@ import {
   VOTE_TO_DELETE_SUCCESS,
   QUESTION_TYPE,
   ANSWER_TYPE,
+  CHECK_ADD_COMMENT_AVAILABLE,
 } from './constants';
 
 import {
@@ -121,6 +122,7 @@ import {
   upVoteSuccess,
   voteToDeleteErr,
   voteToDeleteSuccess,
+  showAddCommentForm,
 } from './actions';
 
 import { selectQuestionBounty, selectQuestionData } from './selectors';
@@ -423,14 +425,16 @@ export function* deleteQuestionWorker({ questionId, buttonId }) {
       profileInfo,
       questionBounty,
     } = yield call(getParams);
-    
-    yield call(isAvailableAction, () =>
-      deleteQuestionValidator(
-        buttonId,
-        questionData.answers.length,
-        translationMessages[locale],
-        profileInfo,
-      ),
+
+    yield call(
+      isAvailableAction,
+      () =>
+        deleteQuestionValidator(
+          buttonId,
+          questionData.answers.length,
+          translationMessages[locale],
+          profileInfo,
+        ),
       questionData.community_id,
     );
     if (questionBounty) {
@@ -460,7 +464,7 @@ export function* getQuestionDataWorker({ questionId }) {
     });
 
     const single = isSingleCommunityWebsite();
-    const isAnotherCommunityQuestion =
+    const isAnotherCommQuestion =
       single && questionData.community_id !== single;
 
     if (!questionData) {
@@ -493,13 +497,41 @@ export function* getQuestionDataWorker({ questionId }) {
       }),
     );
 
-    if (isAnotherCommunityQuestion) {
+    if (isAnotherCommQuestion) {
       yield put(getQuestionDataSuccess(null));
     } else {
       yield put(getQuestionDataSuccess(questionData));
     }
   } catch (err) {
     yield put(getQuestionDataErr(err));
+  }
+}
+
+export function* checkPostCommentAvailableWorker(buttonId, answerId) {
+  const { questionData, profileInfo, locale } = yield call(getParams);
+
+  yield call(isAuthorized);
+
+  yield call(
+    isAvailableAction,
+    () =>
+      postCommentValidator(
+        profileInfo,
+        questionData,
+        buttonId,
+        answerId,
+        translationMessages[locale],
+      ),
+    questionData.community_id,
+  );
+}
+
+export function* showAddCommentFormWorker({ toggleFormButtonId, answerId }) {
+  try {
+    yield call(checkPostCommentAvailableWorker, toggleFormButtonId, answerId);
+    yield put(showAddCommentForm(toggleFormButtonId));
+  } catch (err) {
+    yield put(postCommentErr(err, toggleFormButtonId));
   }
 }
 
@@ -512,24 +544,9 @@ export function* postCommentWorker({
   buttonId,
 }) {
   try {
-    const { questionData, eosService, profileInfo, locale } = yield call(
-      getParams,
-    );
+    const { questionData, eosService, profileInfo } = yield call(getParams);
 
-    yield call(isAuthorized);
-
-    yield call(
-      isAvailableAction,
-      () =>
-        postCommentValidator(
-          profileInfo,
-          questionData,
-          buttonId,
-          answerId,
-          translationMessages[locale],
-        ),
-      questionData.community_id,
-    );
+    yield call(checkPostCommentAvailableWorker, buttonId, answerId);
 
     yield call(
       postComment,
@@ -565,7 +582,7 @@ export function* postCommentWorker({
       });
     }
 
-    yield call(toggleView, true);
+    yield call(toggleView);
 
     yield call(reset);
 
@@ -997,6 +1014,7 @@ export function* updateQuestionList({ questionData }) {
 export default function*() {
   yield takeEvery(GET_QUESTION_DATA, getQuestionDataWorker);
   yield takeLatest(POST_ANSWER, postAnswerWorker);
+  yield takeEvery(CHECK_ADD_COMMENT_AVAILABLE, showAddCommentFormWorker);
   yield takeEvery(POST_COMMENT, postCommentWorker);
   yield takeEvery(UP_VOTE, upVoteWorker);
   yield takeEvery(DOWN_VOTE, downVoteWorker);

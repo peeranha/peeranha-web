@@ -52,43 +52,56 @@ export const FILTER_READ_TIMESTAMPS =
   'app/Notifications/FILTER_UNREAD_TIMESTAMPS';
 
 export const NOTIFICATIONS_TYPES = {
-  1: {
+  questionUpvoted: 1,
+  questionDownvoted: 2,
+  answerUpvoted: 3,
+  answerDownvoted: 4,
+  answerMarkedTheBest: 5,
+  questionAnswered: 6,
+  questionCommented: 7,
+  answerCommented: 8,
+  questionTipped: 9,
+  answerTipped: 10,
+};
+
+export const NOTIFICATIONS_DATA = {
+  [NOTIFICATIONS_TYPES.questionUpvoted]: {
     ...messages.yourQuestionWasUpVoted,
     src: greenUpVoteIcon,
   },
-  2: {
+  [NOTIFICATIONS_TYPES.questionDownvoted]: {
     ...messages.yourQuestionWasDownVoted,
     src: downVoteIcon,
   },
-  3: {
+  [NOTIFICATIONS_TYPES.answerUpvoted]: {
     ...messages.yourAnswerWasUpVoted,
     src: greenUpVoteIcon,
   },
-  4: {
+  [NOTIFICATIONS_TYPES.answerDownvoted]: {
     ...messages.yourAnswerWasDownVoted,
     src: downVoteIcon,
   },
-  5: {
+  [NOTIFICATIONS_TYPES.answerMarkedTheBest]: {
     ...messages.yourAnswerWasMarkedAsTheBest,
     src: bestAnswerIcon,
   },
-  6: {
+  [NOTIFICATIONS_TYPES.questionAnswered]: {
     ...messages.somebodyAnsweredYourQuestion,
     src: questionIcon,
   },
-  7: {
+  [NOTIFICATIONS_TYPES.questionCommented]: {
     ...messages.somebodyLeftACommentToYourQuestion,
     src: questionIcon,
   },
-  8: {
+  [NOTIFICATIONS_TYPES.answerCommented]: {
     ...messages.somebodyLeftACommentToYourAnswer,
     src: answerIcon,
   },
-  9: {
+  [NOTIFICATIONS_TYPES.questionTipped]: {
     ...messages.yourQuestionWasTipped,
     src: coinsIcon,
   },
-  10: {
+  [NOTIFICATIONS_TYPES.answerTipped]: {
     ...messages.yourAnswerWasTipped,
     src: coinsIcon,
   },

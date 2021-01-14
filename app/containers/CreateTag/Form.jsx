@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form/immutable';
@@ -31,14 +31,16 @@ import {
 } from './constants';
 
 import messages from './messages';
+import { selectExistingTags } from 'containers/Tags/selectors';
 
 export const Form = ({
-  createTagLoading,
-  createTag,
+  tagFormLoading,
+  submitAction,
   handleSubmit,
   translations,
   communities,
   getSuggestedTagsDispatch,
+  isEditTagForm,
 }) => {
   const onChange = value => {
     if (value) {
@@ -47,12 +49,12 @@ export const Form = ({
   };
 
   return (
-    <FormBox onSubmit={handleSubmit(createTag)}>
+    <FormBox onSubmit={handleSubmit(submitAction)}>
       <Field
         className={isSingleCommunityWebsite() ? 'd-none' : ''}
         name={FORM_COMMUNITY}
         component={CommunityField}
-        disabled={createTagLoading}
+        disabled={isEditTagForm ? true : tagFormLoading}
         label={translations[messages.community.id]}
         tip={translations[messages.communityTip.id]}
         options={communities}
@@ -63,18 +65,18 @@ export const Form = ({
       />
 
       <Field
-        disabled={createTagLoading}
+        disabled={tagFormLoading}
         name={NAME_FIELD}
         component={TextInputField}
         label={translations[messages.name.id]}
         tip={translations[messages.nameTip.id]}
-        validate={[strLength2x15, required, valueHasNotBeInList()]}
-        warn={[strLength2x15, required, valueHasNotBeInList()]}
+        validate={[strLength2x15, required, valueHasNotBeInList]}
+        warn={[strLength2x15, required, valueHasNotBeInList]}
         splitInHalf
       />
 
       <Field
-        disabled={createTagLoading}
+        disabled={tagFormLoading}
         name={DESCRIPTION_FIELD}
         component={TextareaField}
         label={translations[messages.descriptionField.id]}
@@ -84,18 +86,21 @@ export const Form = ({
         splitInHalf
       />
 
-      <Button type="submit" disabled={createTagLoading}>
-        {translations[messages.createTag.id]}
+      <Button type="submit" disabled={tagFormLoading}>
+        {isEditTagForm
+          ? translations[messages.editTag.id]
+          : translations[messages.createTag.id]}
       </Button>
     </FormBox>
   );
 };
 Form.propTypes = {
-  createTagLoading: PropTypes.bool,
-  createTag: PropTypes.func,
+  tagFormLoading: PropTypes.bool,
+  submitAction: PropTypes.func,
   handleSubmit: PropTypes.func,
   translations: PropTypes.object,
   communities: PropTypes.array,
+  getSuggestedTagsDispatch: PropTypes.func,
 };
 
 let FormClone = reduxForm({
@@ -103,17 +108,51 @@ let FormClone = reduxForm({
   onSubmitFail: errors => scrollToErrorField(errors),
 })(Form);
 
-FormClone = connect((state, { communities, communityId }) => ({
-  valueHasNotBeInListValidate: (
-    state?.toJS()?.form?.[FORM_NAME]?.values?.[FORM_COMMUNITY]?.tags ?? []
-  )
-    .map(x => x.name.toLowerCase())
-    .concat(
-      (state?.toJS()?.tags?.suggestedTags ?? []).map(x => x.name.toLowerCase()),
-    ),
-  initialValues: {
-    [FORM_COMMUNITY]: getFollowedCommunities(communities, [communityId])[0],
+FormClone = connect(
+  (state, { communities, communityId, isEditTagForm, editTagData }) => {
+    // map state to props for editTag form
+    if (isEditTagForm) {
+      const { communityId, tagId } = editTagData;
+      const existingTags = selectExistingTags()(state);
+      const selectedTag = existingTags.find(tag => tag.id === tagId);
+
+      const selectedCommunity = communities.find(
+        comm => comm.id === communityId,
+      );
+
+      return {
+        valueHasNotBeInListValidate: existingTags
+          .filter(tag => tag.id !== tagId)
+          .map(x => x.name.toLowerCase())
+          .concat(
+            (state?.toJS()?.tags?.suggestedTags ?? []).map(x =>
+              x.name.toLowerCase(),
+            ),
+          ),
+        initialValues: {
+          [FORM_COMMUNITY]: selectedCommunity,
+          [NAME_FIELD]: selectedTag?.name,
+          [DESCRIPTION_FIELD]: selectedTag?.description,
+        },
+      };
+    }
+
+    // map state to props for createTag form
+    return {
+      valueHasNotBeInListValidate: (
+        state?.toJS()?.form?.[FORM_NAME]?.values?.[FORM_COMMUNITY]?.tags ?? []
+      )
+        .map(x => x.name.toLowerCase())
+        .concat(
+          (state?.toJS()?.tags?.suggestedTags ?? []).map(x =>
+            x.name.toLowerCase(),
+          ),
+        ),
+      initialValues: {
+        [FORM_COMMUNITY]: getFollowedCommunities(communities, [communityId])[0],
+      },
+    };
   },
-}))(FormClone);
+)(FormClone);
 
 export default React.memo(FormClone);

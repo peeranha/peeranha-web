@@ -31,13 +31,12 @@ export const Content = props => {
         isItWrittenByMe={props.isItWrittenByMe}
         user={props.userInfo.user}
         questionData={props.questionData}
-        questionBounty={props.questionBounty}
         isTemporaryAccount={isTemporaryAccount}
       />
       <ContentBody {...props} />
     </BaseStyled>
   );
-}
+};
 
 Content.propTypes = {
   userInfo: PropTypes.object,

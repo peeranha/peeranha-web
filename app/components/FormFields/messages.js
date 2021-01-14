@@ -86,4 +86,7 @@ export default defineMessages({
   hasToBeMoreThanPrev: {
     id: 'app.components.FormFields.hasToBeMoreThanPrev',
   },
+  valueIsNotPositiveInteger: {
+    id: 'app.components.FormFields.valueIsNotPositiveInteger',
+  },
 });

@@ -23,7 +23,7 @@ const View = ({
   changeStakeLoading,
 }) => {
   const boostWeeks = getBoostWeeks(weekStat, globalBoostStat, userBoostStat);
-  const { currentWeek, nextWeek } = boostWeeks;
+  const { nextWeek } = boostWeeks;
   const { userStake, maxStake } = nextWeek;
 
   const [currentStake, setCurrentStake] = useState(userStake);

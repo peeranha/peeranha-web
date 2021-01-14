@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
@@ -14,6 +14,7 @@ import { TextareaStyled } from 'components/Textarea';
 import CommentForm from './CommentForm';
 
 import messages from './messages';
+import { TOGGLE_ADD_COMMENT_FORM_BUTTON } from './constants';
 
 const ButtonStyled = styled.button`
   display: flex;
@@ -37,12 +38,19 @@ export const CommentOptions = ({
   submitButtonName,
   sendCommentLoading,
   sendComment,
+  checkAddCommentAvailable,
+  addCommentFormDisplay,
+  hideAddCommentForm,
   answerId,
   changeCommentsView,
   isAllCommentsView,
   commentsNumber,
 }) => {
-  const [isAddCommentHidden, changeAddCommentView] = useState(true);
+  const toggleFormButtonId = `${TOGGLE_ADD_COMMENT_FORM_BUTTON}${answerId}`;
+
+  const showCommentForm =
+    addCommentFormDisplay.find(buttonId => buttonId === toggleFormButtonId) ||
+    false;
 
   return (
     <div className="my-3">
@@ -62,7 +70,10 @@ export const CommentOptions = ({
           </ButtonStyled>
         )}
 
-        <ButtonStyled onClick={() => changeAddCommentView(!isAddCommentHidden)}>
+        <ButtonStyled
+          id={toggleFormButtonId}
+          onClick={() => checkAddCommentAvailable(toggleFormButtonId, answerId)}
+        >
           <IconMd icon={dotsIcon} fill={BORDER_PRIMARY} />
           <Span className="ml-1" color={TEXT_PRIMARY}>
             <FormattedMessage {...messages.addComment} />
@@ -70,7 +81,7 @@ export const CommentOptions = ({
         </ButtonStyled>
       </div>
 
-      {!isAddCommentHidden && (
+      {showCommentForm && (
         <CommentEditStyled>
           <CommentForm
             form={form}
@@ -80,7 +91,7 @@ export const CommentOptions = ({
             sendCommentLoading={sendCommentLoading}
             sendComment={sendComment}
             answerId={answerId}
-            toggleView={changeAddCommentView}
+            toggleView={() => hideAddCommentForm(toggleFormButtonId)}
           />
         </CommentEditStyled>
       )}
@@ -95,6 +106,9 @@ CommentOptions.propTypes = {
   sendCommentLoading: PropTypes.bool,
   isPhone: PropTypes.bool,
   sendComment: PropTypes.func,
+  checkAddCommentAvailable: PropTypes.func,
+  hideAddCommentForm: PropTypes.func,
+  addCommentFormDisplay: PropTypes.array,
   answerId: PropTypes.number,
   changeCommentsView: PropTypes.func,
   isAllCommentsView: PropTypes.bool,

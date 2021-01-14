@@ -27,16 +27,13 @@ import { Bounty } from './Bounty';
 import { MarkAnswerNotification } from './MarkAsAcceptedIcon';
 import SendTips from '../SendTips';
 
-import {
-  BOUNTY_ACTIVE_CLASSNAME,
-  BOUNTY_PENDING_CLASSNAME,
-  BOUNTY_PAID_CLASSNAME,
-} from './constants';
+import { BOUNTY_PAID_CLASSNAME } from './constants';
 
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 
 import messages from './messages';
 
+const single = isSingleCommunityWebsite();
 const styles = singleCommunityStyles();
 
 export const B = Button.extend`
@@ -49,15 +46,13 @@ export const B = Button.extend`
 `.withComponent('span');
 
 const QuestionName = H3.extend`
-  display: initial;
+  display: inline;
 `.withComponent('h3');
 
 const Div = styled.div`
   min-width: 140px;
 `;
 const TitleContainer = styled.div`
-  display: flex;
-  align-items: center;
   .${BOUNTY_PAID_CLASSNAME} {
     background-color: ${BG_SUCCESS};
   }
@@ -89,7 +84,6 @@ export const QuestionTitle = ({
   communities,
   user,
   questionData,
-  questionBounty,
   profileInfo,
   isTemporaryAccount,
 }) => {
@@ -98,6 +92,7 @@ export const QuestionTitle = ({
     community_id: communityId,
     correct_answer_id: correctAnswerId,
     answers,
+    questionBounty,
     isGeneral,
     id,
   } = questionData;
@@ -124,8 +119,9 @@ export const QuestionTitle = ({
             <B>
               <IconMd
                 className="mr-1"
-                icon={styles.coinsIcon ? styles.coinsIcon : coinsIcon}
+                icon={coinsIcon}
                 color={BUTTON_COLOR}
+                specialStyles={single && styles.coinsIconStyles}
               />
               <FormattedMessage {...commonMessages.tipQuestion} />
             </B>

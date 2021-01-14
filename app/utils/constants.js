@@ -16,11 +16,11 @@ export const AWS_URL =
   'https://yb1ib2fyhc.execute-api.us-east-2.amazonaws.com/default/regsterPromo';
 export const HUBSPOT_URL =
   'https://api.hsforms.com/submissions/v3/integration/submit';
-export const HUBSPOT_PORTAL_ID = '5258952';
+export const HUBSPOT_PORTAL_ID = '9131393';
 export const HUBSPOT_SEND_EMAIL_FORM_ID =
   '05305f90-6546-4718-88e8-2d2c8e79c00c';
 export const HUBSPOT_SEND_MESSAGE_FORM_ID =
-  'b75c88d0-ecc7-49b5-a69d-18b666f1d1ea';
+  'eb947c08-4d59-4fb5-87b7-3732e487dbd7';
 
 export const ENDPOINTS_LIST = 'best_nodes_list';
 
@@ -126,6 +126,7 @@ export const USER_ACHIEVEMENTS_TABLE = 'accachieve';
 export const PROJECT_ACHIEVEMENTS_TABLE = 'achieve';
 export const BOOST_STATISTICS_TABLE = 'statboost';
 export const USER_BOOST_TABLE = 'boost';
+export const PROMOTED_QUESTIONS_TABLES = 'promquestion';
 
 // Scopes
 
@@ -184,6 +185,7 @@ export const EDIT_COMMUNITY = 'editcomm';
 export const VOTE_TO_CREATE_COMMUNITY = 'vtcrcomm';
 export const VOTE_TO_DELETE_COMMUNITY = 'vtdelcomm';
 export const CREATE_TAG = 'crtag';
+export const EDIT_TAG_ACTION = 'edittag';
 export const VOTE_TO_CREATE_TAG = 'vtcrtag';
 export const VOTE_TO_DELETE_TAG = 'vtdeltag';
 
@@ -193,6 +195,8 @@ export const ADD_BOOST_METHOD = 'addboost';
 
 export const CONFIRM_TELEGRAM_ACCOUNT = 'apprvacc';
 export const UNLINK_TELEGRAM_ACCOUNT = 'dsapprvacc';
+
+export const PROMOTE_QUESTION_METHOD = 'addhotquestn';
 
 // Top community questions methods
 export const ADD_TO_TOP_COMMUNITY_METHOD = 'addtotopcomm';

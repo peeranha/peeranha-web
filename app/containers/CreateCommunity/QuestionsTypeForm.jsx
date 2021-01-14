@@ -21,7 +21,7 @@ const QuestionsTypeForm = ({
     () => {
       let label;
       let items;
-      switch (formValues[FORM_TYPE]) {
+      switch (+formValues[FORM_TYPE]) {
         case ANY_TYPE:
           label = messages.anyQuestionDescriptionLabel.id;
           items = messages.anyQuestionDescriptionList.id;

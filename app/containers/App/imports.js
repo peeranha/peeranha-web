@@ -31,6 +31,7 @@ const TagsOfCommunity = React.lazy(() => import('containers/TagsOfCommunity'));
 const TagsCollection = React.lazy(() => import('containers/TagsCollection'));
 const CreateTag = React.lazy(() => import('containers/CreateTag'));
 const SuggestedTags = React.lazy(() => import('containers/SuggestedTags'));
+const EditTag = React.lazy(() => import('containers/EditTag'));
 const Wallet = React.lazy(() => import('containers/Wallet'));
 const Boost = React.lazy(() => import('containers/Boost'));
 const Search = React.lazy(() => import('containers/Search'));
@@ -38,6 +39,7 @@ const Support = React.lazy(() => import('containers/Support'));
 const PrivacyPolicy = React.lazy(() => import('containers/PrivacyPolicy'));
 
 const NoAccess = React.lazy(() => import('components/NoAccess'));
+const Home = React.lazy(() => import('containers/Home'));
 const Feed = React.lazy(() => import('components/Feed'));
 const Communities = React.lazy(() => import('components/ExistingCommunities'));
 const FullWidthPreloader = React.lazy(() =>
@@ -67,7 +69,9 @@ export {
   TagsCollection,
   CreateTag,
   SuggestedTags,
+  EditTag,
   NoAccess,
+  Home,
   Feed,
   Communities,
   SuggestedCommunities,

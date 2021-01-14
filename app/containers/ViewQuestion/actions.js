@@ -34,6 +34,9 @@ import {
   POST_ANSWER,
   POST_ANSWER_ERROR,
   POST_ANSWER_SUCCESS,
+  CHECK_ADD_COMMENT_AVAILABLE,
+  SHOW_ADD_COMMENT_FORM,
+  HIDE_ADD_COMMENT_FORM,
   POST_COMMENT,
   POST_COMMENT_BUTTON,
   POST_COMMENT_ERROR,
@@ -200,6 +203,28 @@ export function postAnswerErr(postAnswerError) {
   return {
     type: POST_ANSWER_ERROR,
     postAnswerError,
+  };
+}
+
+export function checkAddCommentAvailable(toggleFormButtonId, answerId) {
+  return {
+    type: CHECK_ADD_COMMENT_AVAILABLE,
+    toggleFormButtonId,
+    answerId,
+  };
+}
+
+export function showAddCommentForm(toggleFormButtonId) {
+  return {
+    type: SHOW_ADD_COMMENT_FORM,
+    toggleFormButtonId,
+  };
+}
+
+export function hideAddCommentForm(toggleFormButtonId) {
+  return {
+    type: HIDE_ADD_COMMENT_FORM,
+    toggleFormButtonId,
   };
 }
 

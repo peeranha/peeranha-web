@@ -12,6 +12,8 @@ import {
   POST_ANSWER,
   POST_ANSWER_SUCCESS,
   POST_ANSWER_ERROR,
+  SHOW_ADD_COMMENT_FORM,
+  HIDE_ADD_COMMENT_FORM,
   POST_COMMENT,
   POST_COMMENT_SUCCESS,
   POST_COMMENT_ERROR,
@@ -60,6 +62,7 @@ export const initialState = fromJS({
   questionDataLoading: true,
   postAnswerLoading: false,
   postAnswerError: null,
+  addCommentFormDisplay: [],
   postCommentLoading: false,
   postCommentError: null,
   upVoteLoading: false,
@@ -89,6 +92,7 @@ function viewQuestionReducer(state = initialState, action) {
     getQuestionDataError,
     getQuestionBountyError,
     postAnswerError,
+    toggleFormButtonId,
     postCommentError,
     upVoteError,
     downVoteError,
@@ -123,6 +127,19 @@ function viewQuestionReducer(state = initialState, action) {
       return state
         .set('postAnswerLoading', false)
         .set('postAnswerError', postAnswerError);
+
+    case SHOW_ADD_COMMENT_FORM:
+      return state.updateIn(['addCommentFormDisplay'], arr =>
+        arr.push(toggleFormButtonId),
+      );
+
+    case HIDE_ADD_COMMENT_FORM:
+      return state.set(
+        'addCommentFormDisplay',
+        state
+          .get('addCommentFormDisplay')
+          .filterNot(el => el === toggleFormButtonId),
+      );
 
     case POST_COMMENT:
       return state

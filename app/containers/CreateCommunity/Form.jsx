@@ -51,8 +51,10 @@ import {
   TAG_DESCRIPTION_FIELD,
   TAG_SECTION,
   CREATE_COMMUNITY_BUTTON,
+  ABOUT_FIELD,
 } from './constants';
 import { communityModeratorCreatePermission } from '../../utils/properties';
+import AboutForm from './AboutForm';
 
 const MIN_TAGS_NUMBER = 5;
 const MAX_TAGS_NUMBER = 25;
@@ -167,6 +169,13 @@ const CreateCommunityForm = ({
           warn={[strLength20x1000, required]}
           tip={translations[messages.whyWeNeedItTip.id]}
           splitInHalf
+        />
+
+        <AboutForm
+          formValues={formValues}
+          intl={intl}
+          isProfileSaving={createCommunityLoading}
+          name={ABOUT_FIELD}
         />
 
         {profileWithModeratorRights && (

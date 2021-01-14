@@ -51,6 +51,8 @@ export const questionAsk = () => (!singleCommId ? `/questions/ask` : `/ask`);
 
 export const noAccess = () => `/no-access`;
 
+export const detailsHomePage = () => '/home';
+
 export const feed = communityId => `/feed/${communityId || ''}`;
 
 export const communities = () => `/communities`;
@@ -87,6 +89,11 @@ export const suggestedTags = communityId =>
 
 export const tagsCreate = communityId =>
   !singleCommId ? `/tags/community/${communityId || 0}/create` : `/tags/create`;
+
+export const editTag = (communityId, tagId) =>
+  !singleCommId
+    ? `/communities/${communityId}/tags/${tagId}/edit`
+    : `/tags/${tagId}/edit`;
 
 export const registrationStage = 'signup';
 

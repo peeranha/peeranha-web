@@ -17,17 +17,8 @@ import { MAX_TOP_QUESTIONS_COUNT } from '../../constants';
 import { removeOrAddTopQuestion } from '../../actions';
 
 const Button = styled.button`
-  position: relative;
-  float: right;
-  top: -15px;
-  right: -25px;
   cursor: ${({ active }) => (active ? 'pointer' : 'default')} !important;
   opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
-
-  @media only screen and (max-width: 576px) {
-    top: -10px;
-    right: -10px;
-  }
 `;
 
 const TopQuestion = ({

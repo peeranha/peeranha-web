@@ -7,6 +7,7 @@ import {
   COMMUNITY_ADMIN_OFFICIAL_ANSWER,
   COMMUNITY_ADMIN_QUESTION_TYPE,
   COMMUNITY_ADMIN_TOP_QUESTIONS,
+  COMMUNITY_ADMIN_CREATE_TAG,
   MODERATOR_CREATE_COMMUNITY,
   OFFICIAL_ANSWER_KEYS,
   PERMISSION_GRANTED,
@@ -114,6 +115,14 @@ export const communityAdminOfficialAnswerPermission = (
 
 export const communityAdminQuestionTypePermission = (properties, communityId) =>
   !!findAllPropertiesByKeys(properties, [COMMUNITY_ADMIN_QUESTION_TYPE]).filter(
+    ({ community }) => communityId === community,
+  ).length;
+
+export const communityAdminCreateTagPermission = (
+  properties = [],
+  communityId,
+) =>
+  !!findAllPropertiesByKeys(properties, [COMMUNITY_ADMIN_CREATE_TAG]).filter(
     ({ community }) => communityId === community,
   ).length;
 

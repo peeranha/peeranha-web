@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { translationMessages } from 'i18n';
-import { bindActionCreators } from 'redux';
+import { bindActionCreators, compose } from 'redux';
 
 import {
   getFollowedCommunities,
   isSingleCommunityWebsite,
 } from 'utils/communityManagement';
+import injectReducer from 'utils/injectReducer';
 
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 
@@ -20,12 +21,16 @@ import {
   selectText,
 } from 'containers/Tags/selectors';
 
+import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { getExistingTags } from 'containers/Tags/actions';
 
 import Tags from 'containers/Tags';
 import Seo from 'components/Seo';
 
+import reducer from './reducer';
+
+import { setEditTagData } from './actions';
 import messages from './messages';
 
 import Content from './Content';
@@ -44,6 +49,8 @@ export const TagsOfCommunity = ({
   text,
   suggestedTags,
   getExistingTagsDispatch,
+  setEditTagDataDispatch,
+  profileInfo,
 }) => {
   const communityId = useMemo(() => single || +match.params.communityid, [
     match.params.communityid,
@@ -133,6 +140,9 @@ export const TagsOfCommunity = ({
             text={text}
             clearTextField={clearTextField}
             locale={locale}
+            communityId={communityId}
+            setEditTagData={setEditTagDataDispatch}
+            profileInfo={profileInfo}
           />
         }
       />
@@ -157,6 +167,8 @@ TagsOfCommunity.propTypes = {
   emptyCommunity: PropTypes.object,
   getExistingTagsDispatch: PropTypes.func,
   match: PropTypes.object,
+  setEditTagDataDispatch: PropTypes.func,
+  profileInfo: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -167,15 +179,24 @@ const mapStateToProps = createStructuredSelector({
   isLastFetch: selectIsLastFetchForExistingTags(),
   text: selectText(),
   suggestedTags: selectSuggestedTags(),
+  profileInfo: makeSelectProfileInfo(),
 });
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     getExistingTagsDispatch: bindActionCreators(getExistingTags, dispatch),
+    setEditTagDataDispatch: bindActionCreators(setEditTagData, dispatch),
   };
 }
 
-export default connect(
+const withConnect = connect(
   mapStateToProps,
   mapDispatchToProps,
+);
+
+const withReducer = injectReducer({ key: 'tagsOfCommunity', reducer });
+
+export default compose(
+  withConnect,
+  withReducer,
 )(TagsOfCommunity);

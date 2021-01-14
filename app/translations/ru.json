@@ -30,6 +30,7 @@
   "app.common.communities": "Сообщества",
   "app.common.allCommunities": "Все сообщества",
   "app.common.tags": "Теги",
+  "app.common.home": "Главная",
   "app.common.myFeed": "Мой фид",
   "app.common.users": "Пользователи",
   "app.common.usersShort": "Польз.",
@@ -114,6 +115,7 @@
   "app.common.signUpViaWallet": "Регистрация через кошелек",
   "app.common.general": "Общий",
   "app.common.expert": "Экспертный",
+  "app.common.promoted": "Продвигаемый",
   "app.common.any": "Любой",
   "app.common.tipQuestion": "Чаевые",
   "app.common.chooseCrypto": "Выберите валюту",
@@ -137,7 +139,7 @@
   "app.common.fileSizeErrorMsg": "Размер файла больше 2Мб. Выберите другой...",
   "app.common.chooseFile": "Выберите файл",
   "app.common.skip": "Пропустить",
-  "app.common.showMore": "Показать больше",
+  "app.common.showMoreQuestions": "Показать больше найденных вопросов",
   "app.common.questionIsAnswered": "Вы уже ответили на этот вопрос",
   "app.common.activateBoost": "Активировать Boost",
   "app.common.boost": "Boost",
@@ -160,6 +162,7 @@
     "Я понимаю, что эта операция не удаляет мой аккаунт на Telos блокчейне. Аккаунт удаляется только из кошелька сервиса.",
   "app.containers.DeleteAccount.iHaveBackup":
     "Я сделал бэкап моих Telos приватных ключей.",
+
   "app.containers.Wallet.title": "Кошелек",
   "app.containers.Wallet.description": "Кошелек | Описание",
   "app.containers.Wallet.eosAccount": "Telos аккаунт",
@@ -185,6 +188,8 @@
     "Ставка, сделанная на следующий период",
   "app.containers.Wallet.totalBalance": "Итоговый баланс",
 
+  "app.containers.Boost.title": "Буст",
+  "app.containers.Boost.description": "Буст | Описание",
   "app.containers.Boost.currentPeriod": "Текущий период",
   "app.containers.Boost.nextPeriod": "Следующий период",
   "app.containers.Boost.maximumStake": "Максимальная ставка",
@@ -361,6 +366,9 @@
   "app.containers.CreateTag.usingTheRightTags":
     "Использование верных тегов позволяет другим пользователям быстрее найти и ответить на Ваш вопрос.",
 
+  "app.containers.EditTag.title": "Редактировать тег",
+  "app.containers.EditTag.description": "Редактировать тег | Описание",
+
   "app.containers.Tags.backToList": "Вернуться к списку",
 
   "app.containers.Tags.didntFindSuitableTag": "Не нашли подходящий тег?",
@@ -411,6 +419,8 @@
   "app.containers.CreateCommunity.avatar": "Аватар",
   "app.containers.CreateCommunity.communityTitle": "Название",
   "app.containers.CreateCommunity.shortDescription": "Краткое описание",
+  "app.containers.CreateCommunity.about": "О комьюнити",
+  "app.containers.CreateCommunity.optional": "Опционально",
   "app.containers.CreateCommunity.whyWeNeedIt": "Зачем нам нужно это?",
   "app.containers.CreateCommunity.createCommunity": "Добавить сообщество",
   "app.containers.CreateCommunity.newCommunity": "Новое сообщество",
@@ -586,6 +596,7 @@
   "app.containers.HomePage.yourEmailIsRegistred":
     "В настоящее время веб-сайт находится в разработке. Ваш email адрес был получен. Вы получите email с пошаговой инструкцией когда веб-сайт будет октрыт для пользователей.",
   "app.containers.HomePage.goToSite": "Перейти на сайт",
+  "app.containers.HomePage.questionsTitle": "Актуальные вопросы",
 
   "app.containers.Notifications.youHaveNoNewNotifications":
     "У вас нет новых уведомлений",
@@ -678,11 +689,12 @@
   "app.containers.ViewQuestion.officialAnswer": "Официальный ответ",
   "app.containers.ViewQuestion.getBounty": "Получить бонус",
   "app.containers.ViewQuestion.bountyStatus": "Статус бонуса",
-  "app.containers.ViewQuestion.bountyStatusExpiration": "Бонус будет доступен до: ",
+  "app.containers.ViewQuestion.bountyStatusExpiration":
+    "Бонус будет доступен до: ",
   "app.components.FormFields.requiredField":
     "Вы не можете оставить это поле пустым",
   "app.components.FormFields.wrongNumberRange":
-  "Должно быть как минимум {min}, но не более {max}",
+    "Должно быть как минимум {min}, но не более {max}",
   "app.components.FormFields.wrongLength":
     "Оставьте не менее {min} и не более {max} символов",
   "app.components.FormFields.wrongExactLength":
@@ -730,6 +742,9 @@
     "Телос имя должно содержать хотя бы одну букву",
   "app.components.FormFields.exactFromAndToAccounts":
     "Отправитель и получатель не могут быть одним и тем же",
+  "app.components.FormFields.valueIsNotPositiveInteger":
+    "Значение не является целым положительным числом",
+
   "app.components.Footer.header": "Авторские права: Peeranha",
 
   "app.containers.Login.authUserHasMore":
@@ -895,7 +910,8 @@
   "app.containers.Questions.description": "Описание",
   "app.containers.Questions.noQuestions": "Вопросов нет",
   "app.containers.Questions.allCommunities": "Все сообщества",
-  "app.containers.Questions.bountyPopover": "Дополнительное вознаграждение от автора вопроса.",
+  "app.containers.Questions.bountyPopover":
+    "Дополнительное вознаграждение от автора вопроса.",
   "app.containers.Questions.youDontHaveFeedToRead": "У Вас пока нечего читать",
   "app.containers.Questions.subscribeToCommToKeep":
     "Подписывайтесь на сообщества, чтобы быть в курсе тем, в которых Вы заинтересованы.",
@@ -922,9 +938,11 @@
   "app.containers.QuestionForm.bountyHoursLabel": "Количество часов",
   "app.containers.QuestionForm.daysPlaceholder": "Дни",
   "app.containers.QuestionForm.hoursPlaceholder": "Часы",
-  "app.containers.QuestionForm.bountyTip":  "Бонус за лучший ответ",
-  "app.containers.QuestionForm.bountyHoursTip": "Количество часов,в течение которого бонус активен",
-  "app.containers.QuestionForm.bountyDaysTip": "Количество дней,в течение которого бонус активен",
+  "app.containers.QuestionForm.bountyTip": "Бонус за лучший ответ",
+  "app.containers.QuestionForm.bountyHoursTip":
+    "Количество часов,в течение которого бонус активен",
+  "app.containers.QuestionForm.bountyDaysTip":
+    "Количество дней,в течение которого бонус активен",
   "app.containers.QuestionForm.tagsLabel": "Теги",
   "app.containers.QuestionForm.previewLabel": "Предпросмотр",
   "app.containers.QuestionForm.questionType": "Тип вопроса",
@@ -944,6 +962,10 @@
     "Источник информации или ресурсы по конкретному предмету, который нелегко найти;",
     "Пояснение или разъяснение информации, которую трудно понять."
   ],
+  "app.containers.QuestionForm.promotedLabel": "Продвинуть вопрос",
+  "app.containers.QuestionForm.promotedTip": "Продвинуть вопрос",
+  "app.containers.QuestionForm.questionIsPromoting":
+    "Этот вопрос продвигается до",
 
   "app.containers.AnswerForm.titleLabel": "Ваш ответ",
 

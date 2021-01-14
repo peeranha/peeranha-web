@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { translationMessages } from 'i18n';
 
+import { TEXT_SECONDARY } from 'style-constants';
+
 import achievementReached from 'images/achievement_reached.svg?external';
 import achievementNotReached from 'images/achievement_not_reached.svg?external';
 
@@ -39,7 +41,7 @@ const Bage = styled.div`
 const LimitPhrase = styled.p`
   margin-top: 10px;
   font-style: italic;
-  color: #7b7b7b;
+  color: ${TEXT_SECONDARY};
   font-size: 14px;
 `;
 

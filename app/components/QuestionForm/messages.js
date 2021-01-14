@@ -20,7 +20,7 @@ export default defineMessages({
     id: 'app.common.skip',
   },
   showMoreExistingQuestions: {
-    id: 'app.common.showMore',
+    id: 'app.common.showMoreQuestions',
   },
   questionBodyLabel: {
     id: 'app.containers.QuestionForm.questionBodyLabel',
@@ -84,5 +84,14 @@ export default defineMessages({
   },
   expertQuestionDescriptionList: {
     id: 'app.containers.QuestionForm.expertQuestionDescriptionList',
+  },
+  promotedLabel: {
+    id: 'app.containers.QuestionForm.promotedLabel',
+  },
+  promotedTip: {
+    id: 'app.containers.QuestionForm.promotedTip',
+  },
+  questionIsPromoting: {
+    id: 'app.containers.QuestionForm.questionIsPromoting',
   },
 });

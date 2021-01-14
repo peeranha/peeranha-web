@@ -31,7 +31,7 @@ const BountyForm = ({ questionLoading, intl, formValues }) => {
         name={FORM_BOUNTY}
         label={intl.formatMessage(messages.bountyLabel)}
         tip={intl.formatMessage(messages.bountyTip)}
-        placeholder={0}
+        placeholder="0"
         dotRestriction={0}
         component={NumberInputField}
         disabled={bountyDisabled}

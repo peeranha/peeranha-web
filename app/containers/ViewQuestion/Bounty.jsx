@@ -8,6 +8,7 @@ import Span from 'components/Span';
 
 import { convertPeerValueToNumberValue } from 'utils/walletManagement';
 import { getFormattedDate } from 'utils/datetime';
+import { singleCommunityStyles } from 'utils/communityManagement';
 
 import {
   BOUNTY_STATUS_ACTIVE,
@@ -23,26 +24,26 @@ import {
 
 import BountyPopover from './BountyPopover';
 
+const styles = singleCommunityStyles();
+
 /* eslint no-nested-ternary: 0, indent: 0 */
 export const SpanStyled = Span.extend`
   color: white;
   display: inline-flex;
-  align-items: center;
   padding: 5px 8px;
   margin-right: 10px;
-  background-color: ${PEER_PRIMARY_COLOR};
+  background-color: ${styles.bountyBgColor || PEER_PRIMARY_COLOR};
   border-radius: 20px;
   font-size: 20px;
   font-family: ${APP_FONT};
   font-weight: 600;
-  line-height: 20px;
 
   > *:last-child {
     margin-left: 7px;
   }
 
   @media only screen and (max-width: 576px) {
-    margin-left: 8px;
+    font-size: 14px;
     > *:last-child {
       display: none;
     }
@@ -61,6 +62,7 @@ export const Bounty = ({
 
   const onMouseEnter = useCallback(() => changeVisibility(true), []);
   const onMouseLeave = useCallback(() => changeVisibility(false), []);
+  const onToggle = () => changeVisibility(!visible);
 
   const bounty = amount ? convertPeerValueToNumberValue(amount) : null;
   const time = timestamp
@@ -83,9 +85,10 @@ export const Bounty = ({
   }
   return bounty ? (
     <Container
-      size="sm"
+      size="md"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
+      onClick={onToggle}
     >
       {visible && (
         <BountyPopover

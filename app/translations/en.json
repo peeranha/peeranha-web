@@ -29,6 +29,7 @@
   "app.common.communities": "Communities",
   "app.common.allCommunities": "All communities",
   "app.common.tags": "Tags",
+  "app.common.home": "Home",
   "app.common.myFeed": "My feed",
   "app.common.users": "Users",
   "app.common.usersShort": "Users",
@@ -115,6 +116,7 @@
   "app.common.signUpViaWallet": "Sign up via wallet",
   "app.common.general": "General",
   "app.common.expert": "Expert",
+  "app.common.promoted": "Promoted",
   "app.common.any": "Any",
   "app.common.tipQuestion": "Tip question",
   "app.common.chooseCrypto": "Choose Crypto",
@@ -139,7 +141,7 @@
     "File size is more than 2Mb. Choose another one...",
   "app.common.chooseFile": "Choose a file",
   "app.common.skip": "Skip",
-  "app.common.showMore": "Show more",
+  "app.common.showMoreQuestions": "Show more results",
   "app.common.questionIsAnswered": "You have already answered this question",
   "app.common.activateBoost": "Activate boost",
   "app.common.boost": "Boost",
@@ -185,6 +187,8 @@
   "app.containers.Wallet.stakedInNextPeriod": "Staked in next period",
   "app.containers.Wallet.totalBalance": "Total balance",
 
+  "app.containers.Boost.title": "Boost",
+  "app.containers.Boost.description": "Boost | Description",
   "app.containers.Boost.currentPeriod": "Current period",
   "app.containers.Boost.nextPeriod": "Next period",
   "app.containers.Boost.maximumStake": "Maximum stake",
@@ -353,6 +357,9 @@
   "app.containers.CreateTag.usingTheRightTags":
     "Using the right tags makes it easier for other users to find your questions.",
 
+  "app.containers.EditTag.title": "Edit tag",
+  "app.containers.EditTag.description": "Edit tag | Description",
+
   "app.containers.Tags.backToList": "Back to list",
   "app.containers.Tags.didntFindSuitableTag": "Did not find suitable tags?",
   "app.containers.Tags.youHaveAlreadyVoted": "You already voted",
@@ -399,6 +406,8 @@
   "app.containers.CreateCommunity.avatar": "Avatar",
   "app.containers.CreateCommunity.communityTitle": "Title",
   "app.containers.CreateCommunity.shortDescription": "Short description",
+  "app.containers.CreateCommunity.about": "About community",
+  "app.containers.CreateCommunity.optional": "Optional",
   "app.containers.CreateCommunity.whyWeNeedIt": "Why we need it?",
   "app.containers.CreateCommunity.newCommunity": "New community",
   "app.containers.CreateCommunity.createCommunity": "Suggest community",
@@ -576,6 +585,7 @@
   "app.containers.HomePage.yourEmailIsRegistred":
     "Website is under development but your email is registered. You will receive an email with the steps to continue your registration when the website is ready.",
   "app.containers.HomePage.goToSite": "Go to site",
+  "app.containers.HomePage.questionsTitle": "Trending",
 
   "app.containers.Notifications.youHaveNoNewNotifications":
     "You have no new notifications.",
@@ -673,7 +683,7 @@
   "app.components.FormFields.wrongLength":
     "Leave at least {min} char but no more than {max}",
   "app.components.FormFields.wrongNumberRange":
-  "Should be at least {min} but no more than {max}",
+    "Should be at least {min} but no more than {max}",
   "app.components.FormFields.wrongExactLength":
     "Value must be {min} characters long",
   "app.components.FormFields.wrongLengthOfList":
@@ -717,6 +727,9 @@
   "app.components.FormFields.exactFromAndToAccounts":
     "Sender and receiver cannot be the same",
   "app.components.FormFields.hasToBeMoreThanPrev": "You cannot set lower value",
+  "app.components.FormFields.valueIsNotPositiveInteger":
+    "Value is not a positive integer",
+
   "app.containers.TagsCollection.title": "Tags collection",
   "app.containers.TagsCollection.description": "Tags Description",
 
@@ -864,7 +877,8 @@
   "app.containers.Questions.topQuestionPopover":
     "Top question of this community",
   "app.containers.Questions.showAllQuestions": "Show all questions",
-  "app.containers.Questions.bountyPopover": "Bounty - extra PEER reward from author.",
+  "app.containers.Questions.bountyPopover":
+    "Bounty - extra PEER reward from author.",
 
   "app.containers.AskQuestion.title": "Ask question",
   "app.containers.AskQuestion.description": "Ask question | Description",
@@ -903,7 +917,7 @@
   "app.containers.QuestionForm.title": "Ask question",
   "app.containers.QuestionForm.titleLabel": "Title",
   "app.containers.QuestionForm.existingQuestionsLabel":
-    "To avoid duplicates check existed questions.",
+    "To avoid duplicates check existing questions.",
   "app.containers.QuestionForm.questionBodyLabel": "Body",
   "app.containers.QuestionForm.communityLabel": "Community",
   "app.containers.QuestionForm.tagsLabel": "Tags",
@@ -912,9 +926,11 @@
   "app.containers.QuestionForm.bountyHoursLabel": "Bounty Hours",
   "app.containers.QuestionForm.daysPlaceholder": "Days",
   "app.containers.QuestionForm.hoursPlaceholder": "Hours",
-  "app.containers.QuestionForm.bountyTip":  "Bounty to the best answer",
-  "app.containers.QuestionForm.bountyHoursTip": "Number of hours while bounty is active",
-  "app.containers.QuestionForm.bountyDaysTip": "Number of days while bounty is active",
+  "app.containers.QuestionForm.bountyTip": "Bounty to the best answer",
+  "app.containers.QuestionForm.bountyHoursTip":
+    "Number of hours while bounty is active",
+  "app.containers.QuestionForm.bountyDaysTip":
+    "Number of days while bounty is active",
   "app.containers.QuestionForm.previewLabel": "Preview",
   "app.containers.QuestionForm.questionType": "Question Type",
   "app.containers.QuestionForm.questionTypeTip": "Optional",
@@ -934,6 +950,10 @@
     "Explanation or clarification of the information that is complicated to comprehend;",
     "Ask for an instruction or a recipe."
   ],
+  "app.containers.QuestionForm.promotedLabel": "Promote question",
+  "app.containers.QuestionForm.promotedTip": "Promote question",
+  "app.containers.QuestionForm.questionIsPromoting":
+    "This question is promoting till",
 
   "app.containers.AnswerForm.titleLabel": "Your Answer",
 

@@ -26,6 +26,7 @@ import { scrollToErrorField } from 'utils/animation';
 import messages from './messages';
 
 import {
+  ABOUT_FIELD,
   COMM_AVATAR_FIELD,
   COMM_NAME_FIELD,
   COMM_OFFICIAL_SITE_FIELD,
@@ -36,6 +37,7 @@ import {
 import TypeForm from '../CreateCommunity/QuestionsTypeForm';
 import { FORM_TYPE } from '../CreateCommunity/constants';
 import { KEY_QUESTIONS_TYPE } from '../../components/QuestionForm/constants';
+import AboutForm from '../CreateCommunity/AboutForm';
 
 const EditCommunityForm = ({
   communityId,
@@ -53,6 +55,7 @@ const EditCommunityForm = ({
         avatar: values.get(COMM_AVATAR_FIELD),
         name: values.get(COMM_NAME_FIELD),
         description: values.get(COMM_SHORT_DESCRIPTION_FIELD),
+        about: values.get(ABOUT_FIELD),
         officialSite: values.get(COMM_OFFICIAL_SITE_FIELD),
         questionsType: parseInt(values.get(FORM_TYPE)),
       };
@@ -60,7 +63,6 @@ const EditCommunityForm = ({
     },
     [communityId, editCommunityDispatch],
   );
-
   return (
     <ExtendedBase>
       <Field
@@ -106,6 +108,13 @@ const EditCommunityForm = ({
           tip={intl.formatMessage(messages.officialSiteTip)}
         />
 
+        <AboutForm
+          formValues={formValues}
+          intl={intl}
+          isProfileSaving={communityLoading}
+          name={ABOUT_FIELD}
+        />
+
         <TypeForm
           locale={locale}
           change={change}
@@ -149,6 +158,7 @@ export default injectIntl(
           [COMM_AVATAR_FIELD]: community.avatar,
           [COMM_NAME_FIELD]: community.name,
           [COMM_SHORT_DESCRIPTION_FIELD]: community.description,
+          [ABOUT_FIELD]: community.about,
           [COMM_OFFICIAL_SITE_FIELD]: community.officialSite,
           [FORM_TYPE]: community.questionsType,
         }

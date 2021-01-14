@@ -395,13 +395,11 @@ export const getStakeNum = (stake) => {
 export const getPredictedBoost = (userStake, maxStake) => {
   let boost = 1;
 
-  if (userStake && maxStake) {
-    if (userStake <= maxStake) {
-      boost = userStake / maxStake * (MAX_STAKE_PREDICTION - MIN_STAKE_PREDICTION) + 1;
-      boost = Math.floor(boost * 100) / 100;
-    } else if (userStake > 0) {
-      boost = MAX_STAKE_PREDICTION;
-    }
+  if (userStake && maxStake && userStake <= maxStake) {
+    boost = userStake / maxStake * (MAX_STAKE_PREDICTION - MIN_STAKE_PREDICTION) + 1;
+    boost = Math.floor(boost * 100) / 100;
+  } else if (userStake && userStake > 0) {
+    boost = MAX_STAKE_PREDICTION;
   }
 
   return {
@@ -411,25 +409,25 @@ export const getPredictedBoost = (userStake, maxStake) => {
 }
 
 export const setWeekDataByKey = (boostStat, key, nextWeekPeriod) => {
-  let currentWeekIndex = 0;
+  let currentWeekIndex = -1;
   if (boostStat.length > 1) {
     currentWeekIndex =
       boostStat[boostStat.length - 1].period === nextWeekPeriod ?
       boostStat.length - 2 :
       boostStat.length - 1;
   }
-  const currentWeekMaxStake = boostStat[currentWeekIndex][key];
-  const nextWeekMaxStake = boostStat[boostStat.length - 1][key];
+  const currentWeekValue = currentWeekIndex < 0 ? null : boostStat[currentWeekIndex][key];
+  const nextWeekValue = boostStat[boostStat.length - 1][key];
 
   return [
-    getStakeNum(currentWeekMaxStake),
-    getStakeNum(nextWeekMaxStake),
+    currentWeekValue ? getStakeNum(currentWeekValue) : 0,
+    getStakeNum(nextWeekValue),
   ];
 }
 
 export function getBoostWeeks(weekStat, globalBoostStat, userBoostStat) {
-  const currentWeek = weekStat ? weekStat[0] : {};
-  const nextWeek = currentWeek ?
+  const currentWeek = weekStat ? { ...weekStat[0] } : {};
+  const nextWeek = Object.keys(currentWeek).length ? 
     {
       period: currentWeek.period + 1,
       periodStarted: currentWeek.periodFinished,
@@ -441,6 +439,9 @@ export function getBoostWeeks(weekStat, globalBoostStat, userBoostStat) {
 
     currentWeek.maxStake = currentWeekMaxStake;
     nextWeek.maxStake = nextWeekMaxStake;
+  } else {
+    currentWeek.maxStake = 0;
+    nextWeek.maxStake = 0;
   }
 
   if (userBoostStat && userBoostStat.length) {
@@ -448,6 +449,9 @@ export function getBoostWeeks(weekStat, globalBoostStat, userBoostStat) {
 
     currentWeek.userStake = currentWeekUserStake;
     nextWeek.userStake = nextWeekUserStake;
+  } else {
+    currentWeek.userStake = 0;
+    nextWeek.userStake = 0;
   }
 
   return {

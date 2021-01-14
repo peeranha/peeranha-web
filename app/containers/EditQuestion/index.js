@@ -8,6 +8,8 @@ import { compose, bindActionCreators } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
+import { getFormattedAsset } from 'utils/numbers';
+
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectAccount, makeSelectBalance } from 'containers/AccountProvider/selectors';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
@@ -23,6 +25,8 @@ import {
   FORM_TAGS,
   FORM_BOUNTY,
   FORM_BOUNTY_HOURS,
+  FORM_TYPE,
+  FORM_PROMOTE,
 } from 'components/QuestionForm/constants';
 
 import * as makeSelectEditQuestion from './selectors';
@@ -32,8 +36,6 @@ import messages from './messages';
 
 import { getAskedQuestion, editQuestion } from './actions';
 import { EDIT_QUESTION_FORM, EDIT_QUESTION_BUTTON } from './constants';
-import { FORM_TYPE } from '../../components/QuestionForm/constants';
-import { getFormattedAsset } from '../../utils/numbers';
 
 const EditQuestion = ({
   match: {
@@ -69,6 +71,7 @@ const EditQuestion = ({
           bounty: +val[FORM_BOUNTY],
           bountyFull: `${getFormattedAsset(+val[FORM_BOUNTY])} PEER`,
           bountyHours: +val[FORM_BOUNTY_HOURS],
+          promote: +val[FORM_PROMOTE],
         },
         questionid,
       );
@@ -107,7 +110,7 @@ const EditQuestion = ({
     <div>
       <Seo
         title={helmetTitle}
-        description={helmetDescription}
+        description={helmetDescription || ''}
         language={locale}
         index={false}
       />

@@ -1,3 +1,5 @@
+import orderBy from 'lodash/orderBy';
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -26,24 +28,26 @@ const Aside = ({ communities }) => (
     </Header>
 
     <Ul className="pt-0 mb-4">
-      {communities.slice(0, 3).map(x => (
-        <li key={x.id} className="pb-4">
-          <div className="d-flex align-items-start mb-2">
-            <Img className="mr-1" src={x.avatar} alt="commAvatar" />
-            <div>
-              <P>{x.name}</P>
-              <P>
-                <Span bold>{x.users_subscribed}</Span>{' '}
-                <Span fontSize="14">
-                  <FormattedMessage {...commonMessages.users} />
-                </Span>
-              </P>
+      {orderBy(communities, y => y.users_subscribed, ['desc'])
+        .slice(0, 3)
+        .map(x => (
+          <li key={x.id} className="pb-4">
+            <div className="d-flex align-items-start mb-2">
+              <Img className="mr-1" src={x.avatar} alt="commAvatar" />
+              <div>
+                <P>{x.name}</P>
+                <P>
+                  <Span bold>{x.users_subscribed}</Span>{' '}
+                  <Span fontSize="14">
+                    <FormattedMessage {...commonMessages.users} />
+                  </Span>
+                </P>
+              </div>
             </div>
-          </div>
 
-          <FollowCommunityButton communityIdFilter={x.id} />
-        </li>
-      ))}
+            <FollowCommunityButton communityIdFilter={x.id} />
+          </li>
+        ))}
     </Ul>
 
     <footer>

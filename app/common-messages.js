@@ -87,6 +87,9 @@ export default defineMessages({
   tags: {
     id: 'app.common.tags',
   },
+  home: {
+    id: 'app.common.home',
+  },
   myFeed: {
     id: 'app.common.myFeed',
   },
@@ -353,6 +356,9 @@ export default defineMessages({
   },
   expert: {
     id: 'app.common.expert',
+  },
+  promoted: {
+    id: 'app.common.promoted',
   },
   any: {
     id: 'app.common.any',

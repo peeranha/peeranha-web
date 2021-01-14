@@ -21,7 +21,11 @@ import {
   singleCommunityStyles,
 } from 'utils/communityManagement';
 
-import { NOTIFICATIONS_TYPES, ROW_HEIGHT } from './constants';
+import {
+  NOTIFICATIONS_DATA,
+  NOTIFICATIONS_TYPES,
+  ROW_HEIGHT,
+} from './constants';
 
 import Span from '../Span';
 import { IconMd } from 'components/Icon/IconWithSizes';
@@ -186,7 +190,31 @@ const Notification = ({
     [data],
   );
 
-  const isCommunityMood = !!single && Object.keys(styles).length > 0;
+  const isCommunityMod = !!single && Object.keys(styles).length > 0;
+
+  const isAnotherCommItem = !!single && data.community_id !== single;
+
+  const tipNotification =
+    type === NOTIFICATIONS_TYPES.questionTipped ||
+    type === NOTIFICATIONS_TYPES.answerTipped;
+
+  const NotificationLink = ({ children }) =>
+    isAnotherCommItem ? (
+      <a
+        href={`${process.env.APP_LOCATION}${href}`}
+        className="d-flex align-items-center"
+      >
+        {children}
+      </a>
+    ) : (
+      <Link to={href} href={href} className="d-flex align-items-center">
+        {children}
+      </Link>
+    );
+
+  NotificationLink.propTypes = {
+    children: PropTypes.element,
+  };
 
   return (
     <Container
@@ -203,20 +231,21 @@ const Notification = ({
       paddingHorizontal={paddingHorizontal || 0}
     >
       <Span fontSize="16">
-        <FormattedMessage id={NOTIFICATIONS_TYPES[type].id} values={values} />
+        <FormattedMessage id={NOTIFICATIONS_DATA[type].id} values={values} />
       </Span>
       <div className="d-flex align-items-center justify-content-between">
-        <Link to={href} href={href} className="d-flex align-items-center">
+        <NotificationLink>
           <IconMd
-            icon={NOTIFICATIONS_TYPES[type].src}
+            icon={NOTIFICATIONS_DATA[type].src}
             color={
-              (type === 9 || type === 10) && !isCommunityMood
-                ? BORDER_WARNING_LIGHT
-                : null
+              !isCommunityMod && tipNotification ? BORDER_WARNING_LIGHT : null
+            }
+            specialStyles={
+              isCommunityMod && tipNotification && styles.coinsIconStyles
             }
           />
           <span>{data.title}</span>
-        </Link>
+        </NotificationLink>
       </div>
       <div className="d-flex align-items-center">
         <Time time={time} />

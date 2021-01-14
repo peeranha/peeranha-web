@@ -3,6 +3,7 @@ import { FormattedMessage } from 'react-intl';
 
 import messages from 'common-messages';
 import * as routes from 'routes-config';
+import { MODERATOR_KEY } from 'utils/constants';
 
 import arrowDownIcon from 'images/arrowDown.svg?external';
 
@@ -18,6 +19,13 @@ export default React.memo(({ profile, isMenuVisible }) => {
   if (!profile || !isMenuVisible) {
     return null;
   }
+
+  const isGlobalModerator = profile.integer_properties.find(
+    x => x.key === MODERATOR_KEY,
+  );
+
+  const isModerator =
+    isGlobalModerator || (profile.permissions && !!profile.permissions.length);
 
   return (
     <div className="lightbg use-default-links">
@@ -64,12 +72,11 @@ export default React.memo(({ profile, isMenuVisible }) => {
             <FormattedMessage {...messages.achievements} />
           </A>
 
-          {profile.permissions &&
-            !!profile.permissions.length && (
-              <A to={routes.userModeration(profile.user)}>
-                <FormattedMessage {...messages.moderation} />
-              </A>
-            )}
+          {isModerator && (
+            <A to={routes.userModeration(profile.user)}>
+              <FormattedMessage {...messages.moderation} />
+            </A>
+          )}
 
           <Logout>
             <FormattedMessage {...messages.logout} />

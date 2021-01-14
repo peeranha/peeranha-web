@@ -89,7 +89,22 @@ const WalletsSignUpForm = ({
             <Field
               name={REFERRAL_CODE}
               disabled={signUpWithWalletProcessing}
-              label={translationMessages[locale][messages.referralCode.id]}
+              label={
+                <FormattedMessage
+                  {...messages.referralCode}
+                  values={{
+                    optional: (
+                      <text style={{ fontWeight: 'lighter' }}>
+                        {
+                          translationMessages[locale][
+                            loginMessages.optionalReferralCode.id
+                            ]
+                        }
+                      </text>
+                    ),
+                  }}
+                />
+              }
               component={TextInputField}
               validate={[validateTelosName]}
             />
