@@ -6,14 +6,12 @@ import { reduxForm } from 'redux-form/immutable';
 import { injectIntl, FormattedMessage } from 'react-intl';
 
 import { scrollToErrorField } from 'utils/animation';
-import { getPredictedBoost } from 'utils/walletManagement';
 
 import messages from './messages';
 
 import {
   FORM_TYPE,
   CURRENT_STAKE_FORM,
-  BOOST_PREDICTION_FORM,
 } from './constants';
 import {
   SECONDARY_SPECIAL,
@@ -57,7 +55,7 @@ export const InputWrapper = styled.div`
   }
 
   .err + span + span + div {
-    top: 101px;
+    display: none;
   }
 `;
 
@@ -90,7 +88,6 @@ const Title = styled.p`
 const Form = ({
   handleSubmit,
   currentStake,
-  currentStakeValue,
   changeStake,
   changeStakeLoading,
   changeCurrentStake,
@@ -100,18 +97,7 @@ const Form = ({
   locale,
   formValues,
   nextWeekMaxStake,
-  predictedBoost,
 }) => {
-  const f = useCallback(
-    () => {
-      console.log(12)
-      const predictedBoost = getPredictedBoost(formValues[CURRENT_STAKE_FORM], nextWeekMaxStake)
-
-      onChangeCurrentStake(predictedBoost.value);
-    }, 
-    [formValues, nextWeekMaxStake]
-  );
-
   return (
     <div className="mb-5">
       {currentStake !== undefined && (
@@ -127,7 +113,6 @@ const Form = ({
 
               <FormBox onSubmit={handleSubmit(changeStake)}>
                 <PredictionForm
-                  value={predictedBoost}
                   locale={locale}
                   formValues={formValues}
                   maxStake={nextWeekMaxStake}
@@ -135,11 +120,9 @@ const Form = ({
 
                 <CurrentStakeForm
                   maxValue={maxStake}
-                  value={+currentStakeValue}
+                  value={+currentStake}
                   onClickStakeTag={v => changeCurrentStake(v)}
                   disabled={changeStakeLoading}
-                  formValues={formValues}
-                  onChange={f}
                 />
 
                 <div className="mt-5">
@@ -164,11 +147,9 @@ const Form = ({
 Form.propTypes = {
   handleSubmit: PropTypes.func,
   formValues: PropTypes.object,
-  currentStakeValue: PropTypes.number,
   changeStake: PropTypes.func,
   changeStakeLoading: PropTypes.bool,
   changeCurrentStake: PropTypes.func,
-  predictedBoost: PropTypes.number,
   maxStake: PropTypes.number,
   initialUserStake: PropTypes.number,
   onChangeCurrentStake: PropTypes.func,
@@ -185,15 +166,13 @@ export default memo(
     connect(
       (
         state,
-        { currentStake, predictedBoost }
+        { currentStake }
       ) => {
         const form = state.toJS().form[FORM_TYPE] || { values: {} };
 
         return {
           formValues: form.values,
-          currentStakeValue: +form.values[CURRENT_STAKE_FORM],
           initialValues: {
-            [BOOST_PREDICTION_FORM]: `x${predictedBoost}`,
             [CURRENT_STAKE_FORM]: currentStake ? currentStake.toString() : "",
           },
           enableReinitialize: true,

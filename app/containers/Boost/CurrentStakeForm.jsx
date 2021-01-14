@@ -4,7 +4,7 @@ import { Field } from 'redux-form/immutable';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
-import { required, valueHasToBeLessThan } from 'components/FormFields/validate';
+import { requiredForNumericalField, valueHasToBeLessThan } from 'components/FormFields/validate';
 
 import NumberInputField from 'components/FormFields/NumberInputField';
 import Label from 'components/FormFields/Label';
@@ -76,7 +76,7 @@ const Tag = styled.button`
   }
 `;
 
-const CurrentStakeForm = ({ value, maxValue, onClickStakeTag, disabled, onChange, formValues }) => {
+const CurrentStakeForm = ({ value, maxValue, onClickStakeTag, disabled }) => {
   const progressWidth = value && maxValue ? value * 100 / maxValue : 0;
 
   return (
@@ -99,9 +99,8 @@ const CurrentStakeForm = ({ value, maxValue, onClickStakeTag, disabled, onChange
         component={NumberInputField}
         disabled={disabled}
         dotRestriction={6}
-        onChange={onChange}
-        validate={[required, valueHasToBeLessThan]}
-        warn={[required, valueHasToBeLessThan]}
+        validate={[requiredForNumericalField, valueHasToBeLessThan]}
+        warn={[requiredForNumericalField, valueHasToBeLessThan]}
       />
       <MinStake>0</MinStake>
       <MaxStake>{maxValue}</MaxStake>
