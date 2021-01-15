@@ -179,7 +179,7 @@ const CommentView = item => {
           <div id={`delete-comment-${item.answerId}${item.id}`}>
             <AreYouSure
               submitAction={
-                isModerator ? item.voteToDelete : item.deleteComment
+                isModerator && !isItWrittenByMe ? item.voteToDelete : item.deleteComment
               }
               Button={({ onClick }) => (
                 <Button
