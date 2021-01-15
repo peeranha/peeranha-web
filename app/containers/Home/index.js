@@ -27,6 +27,7 @@ import { InfoLink } from 'components/Button/Outlined/InfoLarge';
 import Content from 'containers/Questions/Content/Content';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 import LargeImage from 'components/Img/LargeImage';
+import TextBlock from 'components/FormFields/TextBlock';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
@@ -69,17 +70,13 @@ const IntroducingImageSubtitle = styled.p`
 
 const IntroducingTitle = styled.p`
   font-weight: 600;
-  font-size: 28px;
+  font-size: 30px;
 `;
 
 const IntroducingSubTitle = styled.p`
   font-style: italic;
   color: ${TEXT_SECONDARY};
   font-size: 14px;
-`;
-
-const IntroducingDescription = styled.div`
-  margin-top: 20px;
 `;
 
 const QuestionsTitle = styled.p`
@@ -159,7 +156,7 @@ export const Home = ({
                 <IntroducingSubTitle>
                   {questions_asked} {translationMessages[locale][commonMessages.questions.id]}
                 </IntroducingSubTitle>
-                {about && <IntroducingDescription>{about}</IntroducingDescription>}
+                {about && <TextBlock content={about} className="mt-3" />}
               </div>
             </IntroducingContainer>
           </Base>
