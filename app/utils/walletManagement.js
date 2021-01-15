@@ -119,16 +119,20 @@ export async function getWeekStat(eosService, profile = {}) {
     { rows: periodRating },
     { rows: weekRewards },
     userSupplyValues,
+    globalBoostStat,
+    userBoostStat,
   ] = await Promise.all([
     getTotalReward(eosService),
     getTotalRating(eosService),
     getPeriodRating(eosService, profile.user),
     getWeekRewards(eosService, profile.user),
     getUserSupplyValues(eosService),
+    getGlobalBoostStatistics(eosService),
+    getUserBoostStatistics(eosService, profile.user),
   ]);
 
   const normalizedRewards = periodRating.map(x => {
-    try {
+    try {      
       const totalRatingForPeriod = totalRating.find(y => y.period === x.period)
         .total_rating_to_reward;
 
@@ -148,19 +152,22 @@ export async function getWeekStat(eosService, profile = {}) {
           convertPeerValueToNumberValue(user_max_supply),
         );
       }
+
       const hasTaken = Boolean(weekRewards.find(y => y.period === x.period));
 
       const periodReward =
-        (totalRewardForPeriod * x.rating_to_award) / totalRatingForPeriod;
+        (totalRewardForPeriod * x.rating_to_award) / totalRatingForPeriod * 1000;
 
-      const reward =
+      let reward =
         Number.isNaN(periodReward) || periodReward < 0.000001
           ? 0
           : periodReward;
 
+      reward = getRewardAmountByBoost(x.period, reward, globalBoostStat, userBoostStat);
+
       return {
         ...x,
-        reward,
+        reward: Math.floor(reward * 1000000) / 1000000,
         hasTaken,
       };
     } catch (err) {
@@ -331,7 +338,7 @@ export function createGetRewardPool(
     return maxUserSupply - userSupply;
   }
 
-  return rewardPool;
+  return Math.floor(rewardPool * 1000000) / 1000000;
 }
 
 // TODO: test
@@ -397,13 +404,13 @@ export const getPredictedBoost = (userStake, maxStake) => {
 
   if (userStake && maxStake && userStake <= maxStake) {
     boost = userStake / maxStake * (MAX_STAKE_PREDICTION - MIN_STAKE_PREDICTION) + 1;
-    boost = Math.floor(boost * 100) / 100;
+    boost = Math.floor(boost * 1000) / 1000;
   } else if (userStake && userStake > 0) {
     boost = MAX_STAKE_PREDICTION;
   }
 
   return {
-    text: `x${boost}`,
+    text: `x${Math.floor(boost * 100) / 100}`,
     value: boost,
   }
 }
@@ -478,7 +485,7 @@ export const getRewardAmountByBoost = (
   if (userStake === 0) return amount;
 
   const currentPeriodGlobalBoostStat = globalBoostStat.find(item => item.period === currentPeriodUserBoostStat.period);
-  const maxStake = currentPeriodGlobalBoostStat.max_stake;
+  const maxStake = getStakeNum(currentPeriodGlobalBoostStat.max_stake);
 
   const boost = getPredictedBoost(userStake, maxStake);
 

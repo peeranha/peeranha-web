@@ -14,7 +14,6 @@ const View = ({
   stakedInCurrentPeriod,
   stakedInNextPeriod,
   weekStat,
-  globalBoostStat,
   userBoostStat,
   getWeekStatProcessing,
   pickupRewardDispatch,
@@ -36,8 +35,6 @@ const View = ({
     <Weeks
       locale={locale}
       weekStat={weekStat}
-      globalBoostStat={globalBoostStat}
-      userBoostStat={userBoostStat}
       getWeekStatProcessing={getWeekStatProcessing}
       pickupRewardDispatch={pickupRewardDispatch}
       pickupRewardProcessing={pickupRewardProcessing}
@@ -54,7 +51,6 @@ View.propTypes = {
   stakedInCurrentPeriod: PropTypes.number,
   stakedInNextPeriod: PropTypes.number,
   weekStat: PropTypes.array,
-  globalBoostStat: PropTypes.array,
   userBoostStat: PropTypes.array,
   ids: PropTypes.array,
   getWeekStatProcessing: PropTypes.bool,
