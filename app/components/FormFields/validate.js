@@ -83,6 +83,8 @@ const required = value => {
   return !val ? messages.requiredField : undefined;
 };
 
+const requiredForNumericalField = value => (value === "" || Number(value) < 0) ? messages.requiredField : undefined;
+
 const requiredForObjectField = value => {
   const val = value && value.toJS ? value.toJS() : value;
   return !val || (val && !val.value) ? messages.requiredField : undefined;
@@ -224,6 +226,7 @@ export {
   validateURL,
   required,
   requiredForObjectField,
+  requiredForNumericalField,
   strLength1x5,
   strLength1x1000,
   strLength2x15,
