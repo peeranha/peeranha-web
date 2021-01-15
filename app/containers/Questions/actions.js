@@ -31,6 +31,7 @@ export function getQuestions(
   fetcher,
   next,
   toUpdateQuestions,
+  isNotUpdatePromotedQuestions,
 ) {
   return {
     type: GET_QUESTIONS,
@@ -41,6 +42,7 @@ export function getQuestions(
     fetcher,
     next,
     toUpdateQuestions,
+    isNotUpdatePromotedQuestions,
   };
 }
 

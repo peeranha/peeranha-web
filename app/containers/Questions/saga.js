@@ -84,6 +84,7 @@ import {
   selectLastLoadedTopQuestionIndex,
   selectTopQuestionIds,
   isQuestionTop,
+  selectPromotedQuestions,
 } from './selectors';
 import { getQuestionBounty } from '../../utils/walletManagement';
 
@@ -98,11 +99,13 @@ export function* getQuestionsWorker({
   fetcher,
   next,
   toUpdateQuestions,
+  isNotUpdatePromotedQuestions = false,
 }) {
   try {
     const now = Math.round(new Date().valueOf() / 1000);
     const eosService = yield select(selectEos);
     const followedCommunities = yield select(makeSelectFollowedCommunities());
+    const cachedPromotedQuestions = yield select(selectPromotedQuestions());
 
     let questionsList = [];
 
@@ -173,9 +176,9 @@ export function* getQuestionsWorker({
     );
 
     // get promoted questions
-    let activePromotedQuestions = [];
+    let activePromotedQuestions = isNotUpdatePromotedQuestions ? [...cachedPromotedQuestions] : [];
 
-    if (communityIdFilter) {
+    if (communityIdFilter && !isNotUpdatePromotedQuestions) {
       let promotedQuestions = yield call(getPromotedQuestions, eosService, communityIdFilter);
       promotedQuestions = promotedQuestions.filter(item => item.ends_time >= now);
       const showingPromotedQuestions = [];
@@ -246,6 +249,7 @@ export function* updateStoredQuestionsWorker() {
 
   const next = false;
   const toUpdateQuestions = true;
+  const isNotUpdatePromotedQuestions = true;
 
   yield put(
     getQuestionsAction(
@@ -256,6 +260,7 @@ export function* updateStoredQuestionsWorker() {
       fetcher,
       next,
       toUpdateQuestions,
+      isNotUpdatePromotedQuestions,
     ),
   );
 }

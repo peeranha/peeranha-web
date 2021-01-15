@@ -59,7 +59,7 @@ const NavItem = styled.div`
 const Links = ({ links, styles }) => (
   <div>
     {links.map(({ text, href, isHighlighted, subitems, target }) => (
-      <NavItem>
+      <NavItem key={href}>
         {href ? (
           <LocalLink
             href={href}
