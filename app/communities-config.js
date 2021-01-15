@@ -57,8 +57,10 @@ const communitiesConfig = {
     },
   },
   dev: {
-    10: {
-      origin: 'http://localhost:31000',
+    3: {
+      origin: 'http://localhost:30010',
+      src: KandaLogo,
+      styles: KandaStyles,
     },
   },
 };

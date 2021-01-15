@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import isMobile from 'ismobilejs';
+import FacebookLogin from 'react-facebook-login';
 
 import { TEXT_DARK, BG_LIGHT, TEXT_SECONDARY } from 'style-constants';
 import messages from 'common-messages';
@@ -16,6 +19,11 @@ import keycatTextLogo from 'images/keycatText.svg?external';
 import Button from 'components/Button/Outlined/SecondaryLarge';
 import Icon from 'components/Icon';
 import IdontHaveAnAccount from './IdontHaveAnAccount';
+import { selectFacebookLoginProcessing } from './selectors';
+import {
+  handleFacebookButtonClick,
+  handleFacebookLoginCallback,
+} from './actions';
 
 const Box = styled.div`
   margin-top: 15px;
@@ -81,10 +89,6 @@ const Heading = styled.div`
   }
 `;
 
-const ButtonsGroup = styled.div`
-  display: flex;
-`;
-
 export const LoginViaScatter = ({ action, processing, isMobileDevice }) => (
   <WalletButton onClick={action || null} disabled={processing}>
     {!isMobileDevice && <img src={scatterLogo} alt="scatter" />}
@@ -117,50 +121,92 @@ const Footer = ({
   showWalletSignUpProcessing,
   loginWithEmailProcessing,
   emailVerificationProcessing,
+  handleFacebookButtonClickDispatch,
+  handleFacebookLoginCallbackDispatch,
+  facebookLoginProcessing,
   emailChecking,
   signUpText = null,
-}) => (
-  <Box>
-    <Heading>
-      {signUpText || <FormattedMessage {...messages.loginViaWallet} />}
-    </Heading>
-    <ButtonsGroup>
-      <LoginViaScatter
-        action={() => walletAction({ scatter: true })}
-        processing={
-          loginWithWalletProcessing ||
-          showWalletSignUpProcessing ||
-          emailChecking ||
-          emailVerificationProcessing ||
-          loginWithEmailProcessing
-        }
-        isMobileDevice={isMobile(window.navigator).any}
-      />
-      <LoginViaKeycat
-        action={() => walletAction({ keycat: true })}
-        processing={
-          loginWithWalletProcessing ||
-          showWalletSignUpProcessing ||
-          emailChecking ||
-          emailVerificationProcessing ||
-          loginWithEmailProcessing
-        }
-      />
-    </ButtonsGroup>
-    {!signUpText && (
-      <IdontHaveAnAccount
-        disabled={
-          loginWithWalletProcessing ||
-          loginWithEmailProcessing ||
-          showWalletSignUpProcessing
-        }
-      />
-    )}
-  </Box>
-);
+}) => {
+  const { scatterAction, keycatAction } = useMemo(
+    () => ({
+      scatterAction: () =>
+        walletAction({
+          scatter: true,
+        }),
+      keycatAction: () => walletAction({ keycat: true }),
+    }),
+    [walletAction],
+  );
+
+  const processing =
+    loginWithWalletProcessing ||
+    showWalletSignUpProcessing ||
+    emailChecking ||
+    emailVerificationProcessing ||
+    loginWithEmailProcessing ||
+    facebookLoginProcessing;
+
+  const onCallback = useCallback(
+    data => handleFacebookLoginCallbackDispatch(data, !signUpText),
+    [signUpText],
+  );
+
+  return (
+    <Box>
+      <Heading>
+        {signUpText || <FormattedMessage {...messages.loginViaWallet} />}
+      </Heading>
+      <div className="d-flex">
+        <LoginViaScatter
+          action={scatterAction}
+          processing={processing}
+          isMobileDevice={isMobile(window.navigator).any}
+        />
+        {!isMobile(window.navigator).any && (
+          <LoginViaKeycat action={keycatAction} processing={processing} />
+        )}
+      </div>
+      <Heading className="pt-3">
+        {signUpText ? (
+          <FormattedMessage {...messages.signUpViaService} />
+        ) : (
+          <FormattedMessage {...messages.loginViaService} />
+        )}
+      </Heading>
+
+      <div className="d-flex justify-content-center" id="fb-root">
+        <FacebookLogin
+          cssClass="fb-login-button"
+          appId={process.env.FACEBOOK_APP_ID}
+          scope="email"
+          fields="name,email,picture"
+          icon="fa-facebook"
+          textButton="Facebook"
+          isDisabled={processing}
+          callback={onCallback}
+          // textButton={`${signUpText ? 'Register' : 'Login'} with Facebook`}
+          onClick={handleFacebookButtonClickDispatch}
+        />
+      </div>
+
+      {!signUpText && (
+        <IdontHaveAnAccount
+          disabled={
+            loginWithWalletProcessing ||
+            loginWithEmailProcessing ||
+            showWalletSignUpProcessing
+          }
+        />
+      )}
+    </Box>
+  );
+};
 
 Footer.propTypes = {
   walletAction: PropTypes.func,
+  facebookLoginProcessing: PropTypes.bool,
+  handleFacebookButtonClickDispatch: PropTypes.func,
+  handleFacebookLoginCallbackDispatch: PropTypes.func,
   loginWithWalletProcessing: PropTypes.bool,
   showWalletSignUpProcessing: PropTypes.bool,
   loginWithEmailProcessing: PropTypes.bool,
@@ -169,4 +215,20 @@ Footer.propTypes = {
   signUpText: PropTypes.element,
 };
 
-export default React.memo(Footer);
+export default React.memo(
+  connect(
+    state => ({
+      facebookLoginProcessing: selectFacebookLoginProcessing()(state),
+    }),
+    dispatch => ({
+      handleFacebookButtonClickDispatch: bindActionCreators(
+        handleFacebookButtonClick,
+        dispatch,
+      ),
+      handleFacebookLoginCallbackDispatch: bindActionCreators(
+        handleFacebookLoginCallback,
+        dispatch,
+      ),
+    }),
+  )(Footer),
+);

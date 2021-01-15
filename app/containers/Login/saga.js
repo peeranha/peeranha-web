@@ -4,6 +4,10 @@ import { translationMessages } from 'i18n';
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
+import {
+  callService,
+  REGISTER_WITH_FACEBOOK_SERVICE,
+} from '../../utils/web_integration/src/util/aws-connector';
 import { setCookie } from 'utils/cookie';
 import {
   registerAccount,
@@ -44,6 +48,8 @@ import {
   finishRegistrationReferralErr,
   loginWithWalletSuccess,
   loginWithWalletErr,
+  setFacebookLoginProcessing,
+  setFacebookSignUpInitiation,
 } from './actions';
 
 import {
@@ -60,6 +66,8 @@ import {
   AUTOLOGIN_DATA,
   REFERRAL_CODE,
   LOGIN_WITH_WALLET,
+  FACEBOOK_LOGIN_BUTTON_CLICK,
+  FACEBOOK_LOGIN_DATA_RECEIVE,
 } from './constants';
 
 import messages, { getAccountNotSelectedMessageDescriptor } from './messages';
@@ -68,6 +76,7 @@ import { addToast } from '../Toast/actions';
 import { initEosioSuccess } from '../EosioProvider/actions';
 import { getNotificationsInfoWorker } from '../../components/Notifications/saga';
 import { addLoginData } from '../AccountProvider/actions';
+import { verifyEmailWorker } from '../SignUp/saga';
 
 /* eslint consistent-return: 0 */
 export function* loginWithEmailWorker({ val }) {
@@ -298,8 +307,47 @@ export function* redirectToFeedWorker() {
   }
 }
 
+export function* facebookLoginButtonClickedWorker() {
+  yield put(setFacebookLoginProcessing(true));
+  console.log('clicked');
+}
+
+export function* facebookLoginCallbackWorker({ data, isLogin }) {
+  try {
+    if (isLogin) {
+      yield loginWithEmailWorker({
+        val: {
+          [EMAIL_FIELD]: data.userID,
+          [PASSWORD_FIELD]: data.accessToken,
+          [REMEMBER_ME_FIELD]: false,
+        },
+      });
+    } else if (data.userID) {
+      yield call(callService, REGISTER_WITH_FACEBOOK_SERVICE, {});
+      yield call(verifyEmailWorker, {
+        email: data.userID,
+        verificationCode: data.accessToken,
+        redirect: false,
+      });
+      yield put(setFacebookSignUpInitiation(true));
+      // yield call(createdHistory.push, signup.dontHaveEosAccount.name);
+    } else {
+      throw new Error(JSON.stringify(data));
+    }
+  } catch (e) {
+    window.FB.logout();
+  } finally {
+    yield put(setFacebookLoginProcessing(false));
+  }
+}
+
 export default function*() {
   yield takeLatest(LOGIN_WITH_EMAIL, loginWithEmailWorker);
   yield takeLatest(LOGIN_WITH_WALLET, loginWithWalletWorker);
   yield takeLatest(FINISH_REGISTRATION, finishRegistrationWorker);
+  yield takeLatest(
+    FACEBOOK_LOGIN_BUTTON_CLICK,
+    facebookLoginButtonClickedWorker,
+  );
+  yield takeLatest(FACEBOOK_LOGIN_DATA_RECEIVE, facebookLoginCallbackWorker);
 }

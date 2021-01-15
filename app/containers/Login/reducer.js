@@ -22,6 +22,8 @@ import {
   LOGIN_WITH_WALLET,
   LOGIN_WITH_WALLET_SUCCESS,
   LOGIN_WITH_WALLET_ERROR,
+  FACEBOOK_LOGIN_PROCESSING,
+  FACEBOOK_SIGN_UP_INITIATED,
 } from './constants';
 
 export const initialState = fromJS({
@@ -34,6 +36,8 @@ export const initialState = fromJS({
   loginWithWalletProcessing: false,
   loginWithWalletError: null,
   finishRegistrationProcessing: false,
+  facebookSignUpInitiated: false,
+  facebookLoginProcessing: false,
   finishRegistrationWithDisplayNameError: null,
 });
 
@@ -45,6 +49,8 @@ function loginReducer(state = initialState, action) {
     loginWithEmailError,
     eosAccount,
     loginWithWalletError,
+    facebookSignUpInitiated,
+    facebookLoginProcessing,
     finishRegistrationWithDisplayNameError,
   } = action;
 
@@ -98,6 +104,11 @@ function loginReducer(state = initialState, action) {
         .set('finishRegistrationProcessing', false);
     case FINISH_REGISTRATION_REFERRAL_ERROR:
       return state.set('finishRegistrationProcessing', false);
+
+    case FACEBOOK_LOGIN_PROCESSING:
+      return state.set('facebookLoginProcessing', facebookLoginProcessing);
+    case FACEBOOK_SIGN_UP_INITIATED:
+      return state.set('facebookSignUpInitiated', facebookSignUpInitiated);
 
     default:
       return state;

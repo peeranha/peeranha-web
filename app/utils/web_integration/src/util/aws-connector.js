@@ -15,6 +15,8 @@ const CHANGE_CREDENTIALS_GET_KEYS_SERVICE =
 const CHANGE_CREDENTIALS_COMPLETE_SERVICE =
   'wallet/change-credentials/complete';
 
+const REGISTER_WITH_FACEBOOK_SERVICE = 'wallet/register/facebook';
+
 const LOGGER_SERVICE = 'status/ui/report-error';
 const PAY_FOR_CPU_SERVICE = 'wallet/pay-for-cpu/pay';
 const BEST_NODE_SERVICE = 'status/eos-endpoints/get-all';
@@ -58,6 +60,7 @@ module.exports = {
   REGISTER_INIT_SERVICE,
   REGISTER_CONFIRM_SERVICE,
   REGISTER_COMPLETE_SERVICE,
+  REGISTER_WITH_FACEBOOK_SERVICE,
   LOGIN_SERVICE,
   LOGIN_AUTOLOGIN_DATA_SERVICE,
   GET_OWNER_KEY_INIT_SERVICE,
