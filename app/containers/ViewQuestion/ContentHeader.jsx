@@ -141,6 +141,13 @@ const ContentHeader = props => {
   const correctAnswerUserName = correctAnswer?.user;
   const currentUserName = profile?.user;
 
+  let deleteAction = null;
+  if (isItWrittenByMe) {
+    deleteAction = deleteItem;
+  } else {
+    deleteAction = isGlobalModerator || infiniteImpact ? voteToDelete : deleteItem;
+  }
+  
   return (
     <Box>
       <RatingBox>
@@ -212,9 +219,7 @@ const ContentHeader = props => {
 
           <div id={`${type}_delete_${answerId}`}>
             <AreYouSure
-              submitAction={
-                isGlobalModerator || infiniteImpact ? voteToDelete : deleteItem
-              }
+              submitAction={deleteAction}
               Button={({ onClick }) => (
                 <Button
                   show={
