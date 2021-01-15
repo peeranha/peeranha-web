@@ -117,7 +117,9 @@ export function* isValid({
         minRating,
         minEnergy,
       }),
-    communityId,
+    {
+      communityID: communityId,
+    },
   );
 }
 
