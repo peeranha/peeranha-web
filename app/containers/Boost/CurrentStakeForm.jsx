@@ -1,10 +1,12 @@
-import React, { memo } from 'react';
+import React, { memo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form/immutable';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
-import TextInputField from 'components/FormFields/TextInputField';
+import { requiredForNumericalField, valueHasToBeLessThan } from 'components/FormFields/validate';
+
+import NumberInputField from 'components/FormFields/NumberInputField';
 import Label from 'components/FormFields/Label';
 import { InputWrapper, InputProgressBar } from './Form';
 
@@ -38,12 +40,12 @@ const STAKE_TAGS = [
 
 const Stake = styled.span`
   position: absolute;
-  bottom: -20px;
+  top: 110px;
   color: ${SECONDARY_SPECIAL};
   font-size: 14px;
 `;
 
-const MinStake = Stake.extend`
+export const MinStake = Stake.extend`
   left: 0;
 `.withComponent('span');
 
@@ -74,7 +76,7 @@ const Tag = styled.button`
   }
 `;
 
-const CurrentStakeForm = ({ value, maxValue, onClickStakeTag, disabled, onChange }) => {
+const CurrentStakeForm = ({ value, maxValue, onClickStakeTag, disabled }) => {
   const progressWidth = value && maxValue ? value * 100 / maxValue : 0;
 
   return (
@@ -94,9 +96,11 @@ const CurrentStakeForm = ({ value, maxValue, onClickStakeTag, disabled, onChange
       </Tags>
       <Field
         name={CURRENT_STAKE_FORM}
-        component={TextInputField}
+        component={NumberInputField}
         disabled={disabled}
-        onChange={onChange}
+        dotRestriction={6}
+        validate={[requiredForNumericalField, valueHasToBeLessThan]}
+        warn={[requiredForNumericalField, valueHasToBeLessThan]}
       />
       <MinStake>0</MinStake>
       <MaxStake>{maxValue}</MaxStake>
@@ -112,6 +116,7 @@ CurrentStakeForm.propTypes = {
   onClickStakeTag: PropTypes.func,
   disabled: PropTypes.bool,
   onChange: PropTypes.func,
+  formValues: PropTypes.object,
 };
 
 export default memo(CurrentStakeForm);

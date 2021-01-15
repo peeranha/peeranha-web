@@ -737,6 +737,8 @@
     "Это Телос имя не занято",
   "app.components.FormFields.thisTelosNameIsntAvailable":
     "Это Телос имя занято",
+  "app.components.FormFields.hasToBeMoreThanPrev":
+    "Вы не можете установить значение меньше предыдущего",
   "app.components.FormFields.atLeastOneLetter":
     "Телос имя должно содержать хотя бы одну букву",
   "app.components.FormFields.exactFromAndToAccounts":

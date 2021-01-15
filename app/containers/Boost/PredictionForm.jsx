@@ -1,23 +1,35 @@
-import React, { memo } from 'react';
+import React, { memo, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { Field } from 'redux-form/immutable';
 import styled from 'styled-components';
 import { translationMessages } from 'i18n';
 
 import {
-  BOOST_PREDICTION_FORM,
   MIN_STAKE_PREDICTION,
   MAX_STAKE_PREDICTION,
+  CURRENT_STAKE_FORM,
 } from './constants';
 import {
   BORDER_TRANSPARENT,
   SECONDARY_SPECIAL,
+  BORDER_SECONDARY,
+  BORDER_RADIUS_M,
 } from 'style-constants';
+
+import { getPredictedBoost } from 'utils/walletManagement';
 
 import messages from './messages';
 
-import TextInputField from 'components/FormFields/TextInputField';
+import Label from 'components/FormFields/Label';
 import { InputWrapper, InputProgressBar } from './Form';
+
+const PredictedBoost = styled.div`
+  height: 45px;
+  padding: 9px 42px 9px 14px;
+  font-size: 20px;
+  font-weight: bold;
+  border: 1px solid ${BORDER_SECONDARY};
+  border-radius: ${BORDER_RADIUS_M};
+`;
 
 const Separator = styled.span`
   position: absolute;
@@ -62,17 +74,19 @@ const separators = amount => {
   );
 }
 
-const PredictionForm = ({ locale, value }) => {
+const PredictionForm = ({ locale, formValues, maxStake }) => {
+  const predictedBoost = useMemo(
+    () => getPredictedBoost(formValues[CURRENT_STAKE_FORM], maxStake), 
+    [formValues, maxStake]
+  );
+  const { value, text } = predictedBoost;
+
   const progressWidth = value ? (value - MIN_STAKE_PREDICTION) * 100 / (MAX_STAKE_PREDICTION - MIN_STAKE_PREDICTION) : 0;
 
   return (
     <InputWrapper isPrediction>
-      <Field
-        name={BOOST_PREDICTION_FORM}
-        component={TextInputField}
-        disabled={true}
-        label={translationMessages[locale][messages.formBoostPrediction.id]}
-      />
+      <Label>{translationMessages[locale][messages.formBoostPrediction.id]}</Label>
+      <PredictedBoost>{text}</PredictedBoost>
       {separators(MAX_STAKE_PREDICTION - MIN_STAKE_PREDICTION + 1)}
       <InputProgressBar width={progressWidth} />
     </InputWrapper>
@@ -80,8 +94,9 @@ const PredictionForm = ({ locale, value }) => {
 }
 
 PredictionForm.propTypes = {
-  value: PropTypes.number,
   locale: PropTypes.string,
+  formValues: PropTypes.object,
+  maxStake: PropTypes.number,
 };
 
 export default memo(PredictionForm);

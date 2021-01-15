@@ -12,6 +12,9 @@ import {
   promoteQuestion,
 } from 'utils/questionsManagement';
 
+import { editBounty } from 'utils/walletManagement';
+import { ONE_HOUR_IN_SECONDS } from 'utils/datetime';
+
 import { isValid, isAuthorized } from 'containers/EosioProvider/saga';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
@@ -72,6 +75,20 @@ export function* editQuestionWorker({ question, questionId }) {
 
     yield call(editQuestion, selectedAccount, questionId, question, eosService);
 
+    if (question?.bounty) {
+      const now = Math.round(new Date().valueOf() / 1000);
+      const bountyTime = now + question?.bountyHours * ONE_HOUR_IN_SECONDS;
+
+      yield call(
+        editBounty,
+        selectedAccount,
+        question?.bountyFull,
+        questionId,
+        bountyTime,
+        eosService,
+      );
+    }
+        
     if (question.promote) {
       yield call(promoteQuestion, eosService, selectedAccount, questionId, question.promote);
     }
@@ -80,6 +97,9 @@ export function* editQuestionWorker({ question, questionId }) {
       cachedQuestion.title = question.title;
       cachedQuestion.tags = question.chosenTags.map(x => x.id);
       cachedQuestion.community_id = question.community.id;
+      cachedQuestion.bounty = question?.bounty;
+      cachedQuestion.bountyFull = question?.bountyFull;
+      cachedQuestion.bountyHours = question?.bountyHours;
       cachedQuestion.content = { ...question };
     }
 

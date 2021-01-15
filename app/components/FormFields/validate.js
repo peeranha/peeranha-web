@@ -83,6 +83,8 @@ const required = value => {
   return !val ? messages.requiredField : undefined;
 };
 
+const requiredForNumericalField = value => (value === "" || Number(value) < 0) ? messages.requiredField : undefined;
+
 const requiredForObjectField = value => {
   const val = value && value.toJS ? value.toJS() : value;
   return !val || (val && !val.value) ? messages.requiredField : undefined;
@@ -117,8 +119,25 @@ const valueHasToBeLessThan = (...args) => {
   }
   const value = Number(args[0]);
   const comparedValue = Number(args[2].valueHasToBeLessThan);
-
   return value > comparedValue ? messages.valueIsMore : undefined;
+};
+
+const bountyCannotBeLessThenPrev = (...args) => {
+  if (!_get(args, [2, 'question', 'bounty'])) {
+    return undefined;
+  }
+  const value = Number(args[0]);
+  const comparedValue = Number(_get(args, [2, 'question', 'bounty']));
+  return value < comparedValue ? messages.hasToBeMoreThanPrev : undefined;
+};
+
+const hoursCannotBeLessThenPrev = (...args) => {
+  if (!_get(args, [2, 'question', 'bountyHours'])) {
+    return undefined;
+  }
+  const value = Number(args[0]);
+  const comparedValue = Number(_get(args, [2, 'question', 'bountyHours']));
+  return value < comparedValue ? messages.hasToBeMoreThanPrev : undefined;
 };
 
 const valueHasToBeLessThanMaxPromotingHours = (...args) => {
@@ -207,6 +226,7 @@ export {
   validateURL,
   required,
   requiredForObjectField,
+  requiredForNumericalField,
   strLength1x5,
   strLength1x1000,
   strLength2x15,
@@ -223,6 +243,8 @@ export {
   number1x168,
   valueHasNotBeInList,
   valueHasToBeLessThan,
+  bountyCannotBeLessThenPrev,
+  hoursCannotBeLessThenPrev,
   comparePasswords,
   valueHasNotBeInListMoreThanOneTime,
   validateTelosName,

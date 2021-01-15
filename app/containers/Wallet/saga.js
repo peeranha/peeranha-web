@@ -2,7 +2,6 @@ import { takeEvery, takeLatest, put, call, select } from 'redux-saga/effects';
 import {
   getWeekStat,
   pickupReward,
-  getGlobalBoostStatistics,
   getUserBoostStatistics,
 } from 'utils/walletManagement';
 
@@ -31,10 +30,9 @@ export function* getWeekStatWorker() {
     const profile = yield select(makeSelectProfileInfo());
 
     const weekStat = profile ? yield call(getWeekStat, eosService, profile) : [];
-    const globalBoostStat = yield call(getGlobalBoostStatistics, eosService);
     const userBoostStat = profile ? yield call(getUserBoostStatistics, eosService, profile.user) : [];
 
-    yield put(getWeekStatSuccess(weekStat, globalBoostStat, userBoostStat));
+    yield put(getWeekStatSuccess(weekStat, userBoostStat));
   } catch (err) {
     yield put(getWeekStatErr(err));
   }

@@ -1,4 +1,9 @@
 /* eslint camelcase: 0 */
+import {
+  MAX_STAKE_PREDICTION,
+  MIN_STAKE_PREDICTION,
+} from 'containers/Boost/constants';
+
 import { getFormattedNum3 } from './numbers';
 
 import {
@@ -16,14 +21,13 @@ import {
   TOTAL_RATING_TABLE,
   TOTAL_REWARD_TABLE,
   USER_SUPPLY_SCOPE,
-  ALL_USER_BOUNTIES_SCOPE,
   USER_SUPPLY_TABLE,
   BOOST_STATISTICS_TABLE,
   BOOST_STATISTICS_SCOPE,
   USER_BOOST_TABLE,
   ADD_BOOST_METHOD,
+  EDIT_BOUNTY_METHOD,
 } from './constants';
-import { MAX_STAKE_PREDICTION, MIN_STAKE_PREDICTION } from 'containers/Boost/constants';
 
 import { ApplicationError } from './errors';
 
@@ -31,7 +35,7 @@ const PERIOD_LENGTH = {
   development: 2*60*60, // two hours
   test: 2*60*60, // two hours
   production: 7*24*60*60, // one week
-}
+};
 
 /**
  * @balance - string, example - '1000.000000 PEER'
@@ -115,16 +119,20 @@ export async function getWeekStat(eosService, profile = {}) {
     { rows: periodRating },
     { rows: weekRewards },
     userSupplyValues,
+    globalBoostStat,
+    userBoostStat,
   ] = await Promise.all([
     getTotalReward(eosService),
     getTotalRating(eosService),
     getPeriodRating(eosService, profile.user),
     getWeekRewards(eosService, profile.user),
     getUserSupplyValues(eosService),
+    getGlobalBoostStatistics(eosService),
+    getUserBoostStatistics(eosService, profile.user),
   ]);
 
   const normalizedRewards = periodRating.map(x => {
-    try {
+    try {      
       const totalRatingForPeriod = totalRating.find(y => y.period === x.period)
         .total_rating_to_reward;
 
@@ -144,19 +152,22 @@ export async function getWeekStat(eosService, profile = {}) {
           convertPeerValueToNumberValue(user_max_supply),
         );
       }
+
       const hasTaken = Boolean(weekRewards.find(y => y.period === x.period));
 
       const periodReward =
-        (totalRewardForPeriod * x.rating_to_award) / totalRatingForPeriod;
+        (totalRewardForPeriod * x.rating_to_award) / totalRatingForPeriod * 1000;
 
-      const reward =
+      let reward =
         Number.isNaN(periodReward) || periodReward < 0.000001
           ? 0
           : periodReward;
 
+      reward = getRewardAmountByBoost(x.period, reward, globalBoostStat, userBoostStat);
+
       return {
         ...x,
-        reward,
+        reward: Math.floor(reward * 1000000) / 1000000,
         hasTaken,
       };
     } catch (err) {
@@ -251,6 +262,27 @@ export async function setBounty(
   );
 }
 
+export async function editBounty(
+  user,
+  bounty,
+  questionId,
+  timestamp,
+  eosService,
+) {
+  await eosService.sendTransaction(
+    user,
+    EDIT_BOUNTY_METHOD,
+    {
+      user,
+      bounty,
+      question_id: questionId,
+      timestamp,
+    },
+    process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
+    true,
+  );
+}
+
 export async function payBounty(user, questionId, isDeleted, eosService) {
   await eosService.sendTransaction(
     user,
@@ -306,7 +338,7 @@ export function createGetRewardPool(
     return maxUserSupply - userSupply;
   }
 
-  return rewardPool;
+  return Math.floor(rewardPool * 1000000) / 1000000;
 }
 
 // TODO: test
@@ -331,7 +363,7 @@ export async function getGlobalBoostStatistics(eosService) {
   return rows;
 }
 
-export async function getUserBoostStatistics(eosService, user) {  
+export async function getUserBoostStatistics(eosService, user) {
   const limit = 100;
 
   const { rows } = await eosService.getTableRows(
@@ -372,13 +404,13 @@ export const getPredictedBoost = (userStake, maxStake) => {
 
   if (userStake && maxStake && userStake <= maxStake) {
     boost = userStake / maxStake * (MAX_STAKE_PREDICTION - MIN_STAKE_PREDICTION) + 1;
-    boost = Math.floor(boost * 100) / 100;
+    boost = Math.floor(boost * 1000) / 1000;
   } else if (userStake && userStake > 0) {
     boost = MAX_STAKE_PREDICTION;
   }
 
   return {
-    text: `x${boost}`,
+    text: `x${Math.floor(boost * 100) / 100}`,
     value: boost,
   }
 }
@@ -386,9 +418,9 @@ export const getPredictedBoost = (userStake, maxStake) => {
 export const setWeekDataByKey = (boostStat, key, nextWeekPeriod) => {
   let currentWeekIndex = -1;
   if (boostStat.length > 1) {
-    currentWeekIndex = 
-      boostStat[boostStat.length - 1].period === nextWeekPeriod ? 
-      boostStat.length - 2 : 
+    currentWeekIndex =
+      boostStat[boostStat.length - 1].period === nextWeekPeriod ?
+      boostStat.length - 2 :
       boostStat.length - 1;
   }
   const currentWeekValue = currentWeekIndex < 0 ? null : boostStat[currentWeekIndex][key];
@@ -405,7 +437,7 @@ export function getBoostWeeks(weekStat, globalBoostStat, userBoostStat) {
   const nextWeek = Object.keys(currentWeek).length ? 
     {
       period: currentWeek.period + 1,
-      periodStarted: currentWeek.periodFinished,  
+      periodStarted: currentWeek.periodFinished,
       periodFinished: currentWeek.periodFinished + PERIOD_LENGTH[process.env.NODE_ENV],
     } : {};
 
@@ -436,9 +468,9 @@ export function getBoostWeeks(weekStat, globalBoostStat, userBoostStat) {
 }
 
 export const getRewardAmountByBoost = (
-  currentPeriod, 
-  amount, 
-  globalBoostStat = [], 
+  currentPeriod,
+  amount,
+  globalBoostStat = [],
   userBoostStat = [],
 ) => {
   if (!amount || !userBoostStat.length) return amount;
@@ -451,9 +483,9 @@ export const getRewardAmountByBoost = (
   const userStake = getStakeNum(currentPeriodUserBoostStat.staked_tokens);
 
   if (userStake === 0) return amount;
-  
+
   const currentPeriodGlobalBoostStat = globalBoostStat.find(item => item.period === currentPeriodUserBoostStat.period);
-  const maxStake = currentPeriodGlobalBoostStat.max_stake;
+  const maxStake = getStakeNum(currentPeriodGlobalBoostStat.max_stake);
 
   const boost = getPredictedBoost(userStake, maxStake);
 

@@ -2,14 +2,18 @@ import React, { memo, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form/immutable';
 import { intlShape } from 'react-intl';
-
 import styled from 'styled-components';
 
-import { required, number1x168 } from 'components/FormFields/validate';
+import {
+  required,
+  number1x168,
+  hoursCannotBeLessThenPrev,
+} from 'components/FormFields/validate';
+
+import NumberInputField from 'components/FormFields/NumberInputField';
 
 import { FORM_BOUNTY, FORM_BOUNTY_HOURS, FORM_COMMUNITY } from './constants';
 import messages from './messages';
-import NumberInputField from '../FormFields/NumberInputField';
 
 const BountyContainer = styled.div`
   margin-top: 20px;
@@ -32,8 +36,8 @@ const BountyDateForm = ({ questionLoading, intl, formValues }) => {
         component={NumberInputField}
         dotRestriction={0}
         disabled={bountyDisabled}
-        validate={[required, number1x168]}
-        warn={[required, number1x168]}
+        validate={[required, number1x168, hoursCannotBeLessThenPrev]}
+        warn={[required, number1x168, hoursCannotBeLessThenPrev]}
         splitInHalf
       />
     </BountyContainer>
