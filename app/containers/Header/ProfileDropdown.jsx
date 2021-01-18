@@ -119,7 +119,7 @@ const Menu = memo(
     questionsWithUserAnswersLength,
   }) => {
     const isGlobalModerator = useMemo(
-      () => integerProperties.find(x => x.key === MODERATOR_KEY),
+      () => integerProperties?.find(x => x.key === MODERATOR_KEY),
       [integerProperties],
     );
 
