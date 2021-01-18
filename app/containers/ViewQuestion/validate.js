@@ -270,13 +270,16 @@ export const deleteQuestionValidator = (
   answersNum,
   translations,
   profileInfo,
+  questionData,
 ) => {
   const ANSWERS_LIMIT = 0;
   const MIN_ENERGY = 2;
 
   let message;
 
-  if (answersNum > ANSWERS_LIMIT) {
+  if (questionData.votingStatus.isUpVoted) {
+    message = `${translations[messages.cannotCompleteBecauseVoted.id]}`;
+  } else if (answersNum > ANSWERS_LIMIT) {
     message = `${translations[messages.youHaveAnswers.id]}`;
   } else if (profileInfo.energy < MIN_ENERGY) {
     message = translations[messages.notEnoughEnergy.id];
@@ -294,12 +297,16 @@ export const deleteAnswerValidator = (
   correctAnswerId,
   translations,
   profileInfo,
+  questionData,
 ) => {
   const MIN_ENERGY = 2;
 
   let message;
+  const itemData = questionData.answers.filter(x => x.id === answerid)[0];
 
-  if (answerid === correctAnswerId) {
+  if (itemData.votingStatus.isUpVoted) {
+    message = `${translations[messages.cannotCompleteBecauseVoted.id]}`;
+  } else if (answerid === correctAnswerId) {
     message = `${translations[messages.answerIsCorrect.id]}`;
   } else if (profileInfo.energy < MIN_ENERGY) {
     message = translations[messages.notEnoughEnergy.id];
@@ -315,12 +322,17 @@ export const deleteCommentValidator = (
   profileInfo,
   postButtonId,
   translations,
+  commentId,
+  questionData,
 ) => {
   const MIN_ENERGY = 1;
 
   let message;
+  let itemData = questionData.comments.filter(x => x.id === commentId)[0];
 
-  if (profileInfo.energy < MIN_ENERGY) {
+  if (itemData.votingStatus.isUpVoted) {
+    message = `${translations[messages.cannotCompleteBecauseVoted.id]}`;
+  } else if (profileInfo.energy < MIN_ENERGY) {
     message = translations[messages.notEnoughEnergy.id];
   }
 

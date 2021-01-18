@@ -353,8 +353,12 @@ export function* deleteCommentWorker({
           profileInfo,
           buttonId,
           translationMessages[locale],
+          commentId,
+          questionData,
         ),
-      questionData.community_id,
+      {
+        communityID: questionData.community_id,
+      },
     );
 
     yield call(
@@ -396,8 +400,11 @@ export function* deleteAnswerWorker({ questionId, answerId, buttonId }) {
           questionData.correct_answer_id,
           translationMessages[locale],
           profileInfo,
+          questionData,
         ),
-      questionData.community_id,
+      {
+        communityID: questionData.community_id,
+      },
     );
 
     yield call(
@@ -434,8 +441,11 @@ export function* deleteQuestionWorker({ questionId, buttonId }) {
           questionData.answers.length,
           translationMessages[locale],
           profileInfo,
+          questionData,
         ),
-      questionData.community_id,
+      {
+        communityID: questionData.community_id,
+      },
     );
     if (questionBounty) {
       yield call(payBounty, profileInfo?.user, questionId, true, eosService);
@@ -522,7 +532,9 @@ export function* checkPostCommentAvailableWorker(buttonId, answerId) {
         answerId,
         translationMessages[locale],
       ),
-    questionData.community_id,
+    {
+      communityID: questionData.community_id,
+    },
   );
 }
 
@@ -609,7 +621,9 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
           POST_ANSWER_BUTTON,
           translationMessages[locale],
         ),
-      questionData.community_id,
+      {
+        communityID: questionData.community_id,
+      },
     );
 
     yield call(
@@ -670,7 +684,9 @@ export function* downVoteWorker({
           answerId,
           translationMessages[locale],
         ),
-      questionData.community_id,
+      {
+        communityID: questionData.community_id,
+      },
     );
 
     yield call(downVote, profileInfo.user, questionId, answerId, eosService);
@@ -723,7 +739,9 @@ export function* upVoteWorker({
           answerId,
           translationMessages[locale],
         ),
-      questionData.community_id,
+      {
+        communityID: questionData.community_id,
+      },
     );
 
     yield call(upVote, profileInfo.user, questionId, answerId, eosService);
@@ -775,7 +793,9 @@ export function* markAsAcceptedWorker({
           buttonId,
           translationMessages[locale],
         ),
-      questionData.community_id,
+      {
+        communityID: questionData.community_id,
+      },
     );
 
     yield call(
@@ -813,6 +833,25 @@ export function* voteToDeleteWorker({
 
     yield call(isAuthorized);
 
+    const item = {
+      questionId,
+      answerId,
+      commentId,
+    };
+
+    let itemData;
+    if (!item.answerId && !item.commentId) {
+      itemData = questionData;
+    } else if (!item.answerId && item.commentId) {
+      itemData = questionData.comments.filter(x => x.id === item.commentId)[0];
+    } else if (item.answerId && !item.commentId) {
+      itemData = questionData.answers.filter(x => x.id === item.answerId)[0];
+    } else if (item.answerId && item.commentId) {
+      itemData = questionData.answers
+        .filter(x => x.id === item.answerId)[0]
+        .comments.filter(y => y.id === item.commentId)[0];
+    }
+
     yield call(
       isAvailableAction,
       () =>
@@ -821,13 +860,12 @@ export function* voteToDeleteWorker({
           questionData,
           translationMessages[locale],
           buttonId,
-          {
-            questionId,
-            answerId,
-            commentId,
-          },
+          item,
         ),
-      questionData.community_id,
+      {
+        communityID: questionData.community_id,
+        skipPermissions: itemData.votingStatus.isUpVoted,
+      },
     );
 
     yield call(

@@ -293,19 +293,23 @@ export const getCurrentAccountWorker = function*(initAccount) {
   }
 };
 
-export function* isAvailableAction(isValid, comunityID) {
-  const profileInfo = yield select(makeSelectProfileInfo());
+export function* isAvailableAction(isValid, data = {}) {
+  const { comunityID, skipPermissions } = data;
 
-  if (profileInfo.integer_properties.find(x => x.key === MODERATOR_KEY)) {
-    return true;
-  }
+  if (!skipPermissions) {
+    const profileInfo = yield select(makeSelectProfileInfo());
 
-  if (
-    profileInfo.permissions?.find(
-      x => x.value == COMMUNITY_ADMIN_VALUE && x.community == comunityID,
-    )
-  ) {
-    return true;
+    if (profileInfo.integer_properties.find(x => x.key === MODERATOR_KEY)) {
+      return true;
+    }
+
+    if (
+      profileInfo.permissions?.find(
+        x => x.value == COMMUNITY_ADMIN_VALUE && x.community == comunityID,
+      )
+    ) {
+      return true;
+    }
   }
 
   yield call(isValid);
