@@ -15,9 +15,10 @@ import {
 } from 'style-constants';
 
 import { setCookie } from 'utils/cookie';
-import { QUESTION_FILTER } from './constants';
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
+
+import { QUESTION_FILTER, UPDATE_PROMO_QUESTIONS } from './constants';
 import { changeQuestionFilter } from './actions';
-import { isSingleCommunityWebsite } from '../../utils/communityManagement';
 
 const Container = styled.div`
   display: flex;
@@ -88,7 +89,13 @@ const QuestionFilter = ({
     [filter],
   );
 
-  const setAllFilter = useCallback(() => setFilter(0), [filter]);
+  const setAllFilter = useCallback(() => {
+    setFilter(0);
+    setCookie({
+      name: UPDATE_PROMO_QUESTIONS,
+      value: 1,
+    });
+  }, [filter]);
   const setQuestionFilter = useCallback(() => setFilter(1), [filter]);
 
   return display ? (

@@ -12,9 +12,8 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { DAEMON } from 'utils/constants';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
-import { getCookie } from 'utils/cookie';
+import { getCookie, setCookie } from 'utils/cookie';
 import { isUserTopCommunityQuestionsModerator } from 'utils/properties';
-
 import { FetcherOfQuestionsForFollowedCommunities } from 'utils/questionsManagement';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
@@ -58,7 +57,7 @@ import Header from './Header';
 import NotFound from '../ErrorPage';
 import ShowMoreButton from './Content/ShowMoreButton';
 
-import { QUESTION_FILTER } from './constants';
+import { QUESTION_FILTER, UPDATE_PROMO_QUESTIONS } from './constants';
 
 const feed = routes.feed();
 const single = isSingleCommunityWebsite();
@@ -192,6 +191,10 @@ export const Questions = ({
   useEffect(
     () => {
       if (!fetcher && !questionFilter) {
+        setCookie({
+          name: UPDATE_PROMO_QUESTIONS,
+          value: 1,
+        });
         getInitQuestions();
       }
     },
