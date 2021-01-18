@@ -1,4 +1,5 @@
 export const QUESTION_FILTER = 'questionFilter';
+export const UPDATE_PROMO_QUESTIONS = 'isNotUpdatePromotedQuestions';
 export const MAX_TOP_QUESTIONS_COUNT = 100;
 export const PROMO_QUESTIONS_AMOUNT = 3;
 
