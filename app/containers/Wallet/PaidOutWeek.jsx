@@ -86,7 +86,7 @@ const PaidOutWeek = ({
           <P className="d-flex align-items-center">
             <SmallImage className="mr-2" src={currencyPeerImage} alt="icon" />
             <Span fontSize="20" mobileFS={14} bold>
-              {Math.floor(getFormattedNum3(reward) * 1000) / 1000}
+              {getFormattedNum3(reward)}
             </Span>
           </P>
 
