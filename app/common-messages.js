@@ -426,4 +426,10 @@ export default defineMessages({
   boost: {
     id: 'app.common.boost',
   },
+  subscribe: {
+    id: 'app.common.subscribe',
+  },
+  unsubscribe: {
+    id: 'app.common.unsubscribe',
+  },
 });

@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect } from 'react';
+import React, { useMemo, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { createStructuredSelector } from 'reselect';
 import { translationMessages } from 'i18n';
@@ -17,20 +17,25 @@ import injectReducer from 'utils/injectReducer';
 import { isUserTopCommunityQuestionsModerator } from 'utils/properties';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { getUserAvatar } from 'utils/profileManagement';
+import { followHandler } from 'containers/FollowCommunityButton/actions';
 
 import questionsMessages from 'containers/Questions/messages';
 import commonMessages from 'common-messages';
 
 import Seo from 'components/Seo';
 import Base from 'components/Base/BaseRounded';
-import { InfoLink } from 'components/Button/Outlined/InfoLarge';
+import BorderedLargeButton, { InfoLink } from 'components/Button/Outlined/InfoLarge';
+import LargeButton from 'components/Button/Contained/InfoLarge';
 import Content from 'containers/Questions/Content/Content';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 import LargeImage from 'components/Img/LargeImage';
 import TextBlock from 'components/FormFields/TextBlock';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
+import {
+  makeSelectProfileInfo,
+  makeSelectFollowedCommunities,
+} from 'containers/AccountProvider/selectors';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 
 import reducer from './reducer';
@@ -45,6 +50,7 @@ import messages from './messages';
 import { HOME_KEY } from './constants';
 
 const IntroducingContainer = styled.div`
+  position: relative;
   line-height: 1.3;
 
   @media only screen and (max-width: 450px) {
@@ -68,9 +74,26 @@ const IntroducingImageSubtitle = styled.p`
   color: ${TEXT_SECONDARY};
 `;
 
+const IntroducingHeader = styled.div`
+  @media (max-width: 700px) {
+    flex-direction: column-reverse;
+    align-items: baseline;
+  }
+
+  @media only screen and (max-width: 450px) {
+    button {
+      align-self: center;
+    }
+  }
+`;
+
 const IntroducingTitle = styled.p`
   font-weight: 600;
-  font-size: 30px;
+  font-size: 35px;
+
+  @media (max-width: 700px) {
+    margin-top: 10px;
+  }
 `;
 
 const IntroducingSubTitle = styled.p`
@@ -96,10 +119,12 @@ export const Home = ({
   community,
   getCommunityDispatch,
   communityLoading,
+  followedCommunities,
+  followHandlerDispatch,
 }) => {
   useEffect(
     () => {
-      getCommunityDispatch(+single);
+      getCommunityDispatch(single);
     },
     [single],
   );
@@ -120,6 +145,18 @@ export const Home = ({
       isUserTopCommunityQuestionsModerator(profile?.permissions ?? [], single),
     [profile],
   );
+
+  const isFollowed = followedCommunities
+      ? followedCommunities.includes(single)
+      : false;
+
+  const followHandler = useCallback(() => {
+    followHandlerDispatch(
+      single,
+      isFollowed,
+      `${isFollowed ? 'un' : ''}follow_community_${single}`,
+    );
+  }, [single, isFollowed]);
 
   const { name, about, avatar, questions_asked, users_subscribed } = community;
 
@@ -151,8 +188,21 @@ export const Home = ({
                   {users_subscribed} {translationMessages[locale][commonMessages.followers.id]}
                 </IntroducingImageSubtitle>
               </IntroducingMedia>
-              <div>
-                <IntroducingTitle>{name}</IntroducingTitle>
+              <div className="flex-grow-1">
+                <IntroducingHeader className="d-flex justify-content-between">
+                  <IntroducingTitle className="mr-3">{name}</IntroducingTitle>
+                  {profile && (
+                    isFollowed ? (
+                      <BorderedLargeButton onClick={followHandler}>
+                        {translationMessages[locale][commonMessages.unsubscribe.id]}
+                      </BorderedLargeButton>
+                    ) : (
+                      <LargeButton onClick={followHandler}>
+                        {translationMessages[locale][commonMessages.subscribe.id]}
+                      </LargeButton>
+                    )
+                  )}
+                </IntroducingHeader>
                 <IntroducingSubTitle>
                   {questions_asked} {translationMessages[locale][commonMessages.questions.id]}
                 </IntroducingSubTitle>
@@ -197,6 +247,8 @@ Home.propTypes = {
   community: PropTypes.object,
   getCommunityDispatch: PropTypes.func,
   communityLoading: PropTypes.bool,
+  followedCommunities: PropTypes.array,
+  followHandlerDispatch: PropTypes.func,
 };
 
 const withConnect = connect(
@@ -207,10 +259,12 @@ const withConnect = connect(
     questions: selectQuestions(),
     community: selectCommunity(),
     communityLoading: selectCommunityLoading(),
+    followedCommunities: makeSelectFollowedCommunities(),
   }),
   dispatch => ({
     getQuestionsDispatch: bindActionCreators(getQuestions, dispatch),
     getCommunityDispatch: bindActionCreators(getCommunity, dispatch),
+    followHandlerDispatch: bindActionCreators(followHandler, dispatch),
   }),
 );
 

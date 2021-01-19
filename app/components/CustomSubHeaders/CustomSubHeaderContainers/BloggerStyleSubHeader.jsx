@@ -19,9 +19,6 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  background-image: url('${({ bg }) => bg}');
-  background-size: cover;
-  background-position: center;
   height: 120px;
 `;
 
@@ -37,10 +34,10 @@ const SubHeaderNav = styled.div`
 `;
 
 const BloggerStyleSubHeader = () => {
-  const { links, banner } = singleCommunityStyles().customSubHeaderConfig;
+  const { links } = singleCommunityStyles().customSubHeaderConfig;
 
   return (
-    <Container bg={banner}>
+    <Container>
       <SubHeaderNav>
         {!!links &&
           Object.keys(links).map(key => (

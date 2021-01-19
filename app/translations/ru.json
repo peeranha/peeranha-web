@@ -144,6 +144,8 @@
   "app.common.questionIsAnswered": "Вы уже ответили на этот вопрос",
   "app.common.activateBoost": "Активировать Boost",
   "app.common.boost": "Boost",
+  "app.common.subscribe": "Подписаться",
+  "app.common.unsubscribe": "Отписаться",
 
   "app.telegram.user": "Телеграм пользователь",
   "app.telegram.userLabelPopover":

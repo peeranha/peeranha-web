@@ -11,10 +11,16 @@ const Div = styled.div`
   color: ${({ styles }) =>
     styles.color && styles.color.a ? styles.color.a : `#ffffff`};
 
-  background: ${({ styles }) => styles.bg.header || `rgb(${'80, 101, 165'})`};
-  border-bottom: 1px solid
-    ${({ styles }) =>
-      styles.bg.header === `#ffffff` ? `#c2c6d8` : styles.bg.header};
+  ${({ bg }) => bg ? `
+    background-image: url('${bg}');
+    background-size: cover;
+    background-position: center;
+  ` : `
+    background: ${({ styles }) => styles.bg.header || `rgb(${'80, 101, 165'})`};
+    border-bottom: 1px solid
+      ${({ styles }) =>
+        styles.bg.header === `#ffffff` ? `#c2c6d8` : styles.bg.header};
+  `}
 
   ${({ styles }) =>
     styles.CustomSubHeader ? styles.CustomSubHeader : ``} > div > div {
@@ -401,7 +407,7 @@ Links.propTypes = {
 
 const CustomSubHeader = ({ config }) =>
   config ? (
-    <Div styles={config.styles}>
+    <Div styles={config.styles} bg={config.banner}>
       <Container
         className="container h-100"
         css={config.styles.subHeaderContainerStyles}

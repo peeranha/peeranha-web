@@ -51,7 +51,7 @@ const QAndALogo = styled.div`
   > span:nth-child(2) {
     position: absolute;
     left: 29px;
-    top: -16px;
+    top: -18px;
 
     font-size: 85px;
 
