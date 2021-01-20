@@ -133,7 +133,7 @@ export async function getWeekStat(eosService, profile = {}) {
 
   const normalizedRewards = periodRating.map(x => {
     try {      
-      const totalRatingForPeriod = totalRating.find(y => y.period === x.period)
+      const totalRatingForPeriod = totalRating.find(y => y.period - 1 === x.period)
         .total_rating_to_reward;
 
       let totalRewardForPeriod = totalReward.find(y => y.period === x.period);
