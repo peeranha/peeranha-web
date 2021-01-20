@@ -87,7 +87,6 @@ const Title = styled.p`
 
 const Form = ({
   handleSubmit,
-  currentStake,
   changeStake,
   changeStakeLoading,
   changeCurrentStake,
@@ -100,7 +99,7 @@ const Form = ({
 }) => {
   return (
     <div className="mb-5">
-      {currentStake !== undefined && (
+      {formValues[CURRENT_STAKE_FORM] !== undefined && (
         <>
           <Title><FormattedMessage {...messages.formTitle} /></Title>
           <TipsBase>    
@@ -120,9 +119,9 @@ const Form = ({
 
                 <CurrentStakeForm
                   maxValue={maxStake}
-                  value={+currentStake}
                   onClickStakeTag={v => changeCurrentStake(v)}
                   disabled={changeStakeLoading}
+                  formValues={formValues}
                 />
 
                 <div className="mt-5">
@@ -154,6 +153,7 @@ Form.propTypes = {
   initialUserStake: PropTypes.number,
   onChangeCurrentStake: PropTypes.func,
   locale: PropTypes.string,
+  currentStake: PropTypes.number,
 };
 
 const FormClone = reduxForm({

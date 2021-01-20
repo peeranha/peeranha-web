@@ -76,7 +76,8 @@ const Tag = styled.button`
   }
 `;
 
-const CurrentStakeForm = ({ value, maxValue, onClickStakeTag, disabled }) => {
+const CurrentStakeForm = ({ maxValue, onClickStakeTag, disabled, formValues }) => {
+  const value = +formValues[CURRENT_STAKE_FORM];
   const progressWidth = value && maxValue ? value * 100 / maxValue : 0;
 
   return (
@@ -111,7 +112,6 @@ const CurrentStakeForm = ({ value, maxValue, onClickStakeTag, disabled }) => {
 }
 
 CurrentStakeForm.propTypes = {
-  value: PropTypes.number,
   maxValue: PropTypes.number,
   onClickStakeTag: PropTypes.func,
   disabled: PropTypes.bool,
