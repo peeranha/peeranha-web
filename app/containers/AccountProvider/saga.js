@@ -395,40 +395,41 @@ export function* updateAccWorker({ eos }) {
     }
 
     if (profileInfo) {
-      yield call(updateRefer, profileInfo.user, eos);
-    }
+      const { user, pay_out_rating } = profileInfo;
+      
+      yield call(updateRefer, user, eos);
 
-    if (account) {
-      const { user } = profileInfo;
-      const sentCookieName = `${REFERRAL_REWARD_SENT}_${user}`;
-      const noInviterCookieName = `${NO_REFERRAL_INVITER}_${user}`;
-      const receivedCookieName = `${REFERRAL_REWARD_RECEIVED}_${user}`;
-      if (
-        profileInfo.pay_out_rating > REFERRAL_REWARD_RATING &&
-        !getCookie(sentCookieName) &&
-        !getCookie(noInviterCookieName) &&
-        !getCookie(receivedCookieName)
-      ) {
-        const err = yield call(rewardRefer, user, eos);
-
-        if (err instanceof Error) {
-          yield put(rewardReferErr(err));
-        } else {
-          setCookie({
-            name: sentCookieName,
-            value: true,
-            options: {
-              allowSubdomains: true,
-              neverExpires: true,
-              defaultPath: true,
-            },
-          });
+      if (account) {
+        const sentCookieName = `${REFERRAL_REWARD_SENT}_${user}`;
+        const noInviterCookieName = `${NO_REFERRAL_INVITER}_${user}`;
+        const receivedCookieName = `${REFERRAL_REWARD_RECEIVED}_${user}`;
+        if (
+          pay_out_rating > REFERRAL_REWARD_RATING &&
+          !getCookie(sentCookieName) &&
+          !getCookie(noInviterCookieName) &&
+          !getCookie(receivedCookieName)
+        ) {
+          const err = yield call(rewardRefer, user, eos);
+  
+          if (err instanceof Error) {
+            yield put(rewardReferErr(err));
+          } else {
+            setCookie({
+              name: sentCookieName,
+              value: true,
+              options: {
+                allowSubdomains: true,
+                neverExpires: true,
+                defaultPath: true,
+              },
+            });
+          }
         }
+  
+        yield call(updateAcc, profileInfo, eos);
+        yield call(getCurrentAccountWorker);
+        yield put(updateAccSuccess());
       }
-
-      yield call(updateAcc, profileInfo, eos);
-      yield call(getCurrentAccountWorker);
-      yield put(updateAccSuccess());
     }
   } catch (err) {
     yield put(updateAccErr(err));

@@ -29,12 +29,14 @@ const EmailEnteringForm = ({ handleSubmit }) => (
       showLoginModal,
       showWalletSignUpForm,
       showWalletSignUpProcessing,
+      logo,
     }) => (
       <SignUpOptions
         showLoginModal={showLoginModal}
         showWalletSignUpForm={showWalletSignUpForm}
         showWalletSignUpProcessing={showWalletSignUpProcessing}
         emailChecking={emailChecking}
+        logo={logo}
       >
         <Form onSubmit={handleSubmit(checkEmail)}>
           <Field
