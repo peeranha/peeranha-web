@@ -13,8 +13,6 @@ const BannerLoader = ({ input, onBeforeFileLoad, setIsCorrectResolution }) => {
     reader.onload = e => {
       const im = new Image();
       im.onload = function() {
-        console.log(this.width);
-        console.log(this.height);
         if (this.width !== BANNER_WIDTH || this.height !== BANNER_HEIGTH) {
           setIsCorrectResolution(true);
         } else {
