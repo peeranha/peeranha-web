@@ -138,8 +138,14 @@
   "app.common.yesterday": "Yesterday",
   "app.common.official": "Official",
   "app.common.profilesUsersInfo": "File size should not exceed 2Mb",
+  "app.common.communityBannerInfo":
+    "Use an image that’s at least 1360 x 120 pixels. File size should not exceed 1Mb",
   "app.common.fileSizeErrorMsg":
     "File size is more than 2Mb. Choose another one...",
+  "app.common.bannerSizeErrorMsg":
+    "File size is more than 1Mb. Choose another one...",
+  "app.common.incorrectBannerResolutionMsg":
+    "Image resolution must be 1360 x 120 pixels. Choose another one...",
   "app.common.chooseFile": "Choose a file",
   "app.common.skip": "Skip",
   "app.common.showMoreQuestions": "Show more results",
@@ -449,6 +455,11 @@
   "app.containers.CreateCommunity.anyQuestionDescriptionLabel":
     "You can choose the type of question when you are creating it.",
   "app.containers.CreateCommunity.anyQuestionDescriptionList": [],
+  "app.containers.CreateCommunity.bloggerModeLAbel": "Blogger page",
+  "app.containers.CreateCommunity.facebookLink": "Facebook link",
+  "app.containers.CreateCommunity.instagramLink": "Instagram link",
+  "app.containers.CreateCommunity.youtubeLink": "YouTube link",
+  "app.containers.CreateCommunity.vkLink": "VK link",
 
   "app.containers.EditCommunity.communityTitleTip": "Name of the community",
   "app.containers.EditCommunity.description": "Description of EditCommunity",

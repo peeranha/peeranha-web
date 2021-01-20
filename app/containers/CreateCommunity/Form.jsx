@@ -52,9 +52,12 @@ import {
   TAG_SECTION,
   CREATE_COMMUNITY_BUTTON,
   ABOUT_FIELD,
+  IS_BLOGGER_MODE_FIELD,
 } from './constants';
 import { communityModeratorCreatePermission } from '../../utils/properties';
 import AboutForm from './AboutForm';
+import Checkbox from '../../components/Input/Checkbox';
+import BloggerModeForm from './BloggerModeForm';
 
 const MIN_TAGS_NUMBER = 5;
 const MAX_TAGS_NUMBER = 25;
@@ -187,6 +190,22 @@ const CreateCommunityForm = ({
           />
         )}
 
+        <Field
+          name={IS_BLOGGER_MODE_FIELD}
+          component={Checkbox}
+          label={translations[messages.bloggerModeLabel.id]}
+          disabled={createCommunityLoading}
+          defaultValue={true}
+        />
+
+        {formValues[IS_BLOGGER_MODE_FIELD] && (
+          <BloggerModeForm
+            disabled={createCommunityLoading}
+            formValues={formValues}
+            intl={intl}
+          />
+        )}
+
         <div>
           <Wrapper label={translations[messages.tags.id]} splitInHalf>
             <FormattedMessage
@@ -313,6 +332,9 @@ export default memo(
       }
       return {
         formValues: form?.values ?? {},
+        initialValues: {
+          [IS_BLOGGER_MODE_FIELD]: true,
+        },
       };
     })(FormCloneRedux),
   ),

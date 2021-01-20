@@ -137,7 +137,13 @@
   "app.common.yesterday": "Вчера",
   "app.common.official": "Официальный",
   "app.common.profilesUsersInfo": "Размер файла не должен превышать 2Мб",
+  "app.common.communityBannerInfo":
+    "Используйте картинку размера 1360 x 120 пикселей. Размер файла не должен превышать 1Мб",
   "app.common.fileSizeErrorMsg": "Размер файла больше 2Мб. Выберите другой...",
+  "app.common.bannerSizeErrorMsg":
+    "Размер файла больше 1Мб. Выберите другой...",
+  "app.common.incorrectBannerResolutionMsg":
+    "Разрешение картинки должно быть 1360 x 120 пикселей. Выберите другую...",
   "app.common.chooseFile": "Выберите файл",
   "app.common.skip": "Пропустить",
   "app.common.showMoreQuestions": "Показать больше найденных вопросов",
@@ -338,7 +344,8 @@
   "app.containers.SuggestedTags.title": "Предложенные теги",
   "app.containers.SuggestedTags.description": "Предложенные теги | Описание",
   "app.containers.SuggestedTags.noSuggestedTags": "Нет предложенных тегов",
-  "app.containers.SuggestedTags.topTagsInCommunity": "Популярные теги в сообществе",
+  "app.containers.SuggestedTags.topTagsInCommunity":
+    "Популярные теги в сообществе",
   "app.containers.SuggestedTags.tagDescription": "Описание",
 
   "app.containers.PrivacyPolicy.title": "Политика конфиденциальности",
@@ -464,6 +471,11 @@
   "app.containers.CreateCommunity.anyQuestionDescriptionLabel":
     "Вы можете выбрать тип вопроса при его создании",
   "app.containers.CreateCommunity.anyQuestionDescriptionList": [],
+  "app.containers.CreateCommunity.bloggerModeLAbel": "Страница блогера",
+  "app.containers.CreateCommunity.facebookLink": "Ссылка на ваш Facebook",
+  "app.containers.CreateCommunity.instagramLink": "Ссылка на ваш Instagram",
+  "app.containers.CreateCommunity.youtubeLink": "Ссылка на ваш YouTube",
+  "app.containers.CreateCommunity.vkLink": "Ссылка на ваш VK",
 
   "app.containers.EditCommunity.communityTitleTip": "Название сообщества",
   "app.containers.EditCommunity.description": "Описание EditCommunity",
@@ -798,8 +810,7 @@
   "app.containers.SignUp.ifYouLikeToSkip":
     "Новичок в блокчейне? Не волнуйтесь! Вы сможете получить доступ к Peeranha, используя свой адрес электронной почты и пароль, как любой другой веб-сайт.",
   "app.containers.SignUp.or": "или",
-  "app.containers.SignUp.doYouHaveAlreadyAccount":
-    "У вас уже есть аккаунт?",
+  "app.containers.SignUp.doYouHaveAlreadyAccount": "У вас уже есть аккаунт?",
   "app.containers.SignUp.youHaveToSaveKeys":
     "Master ключ - единственный способ восстановить доступ к учетной записи, если вы забудете пароль! Напишите свой Master ключ на листе бумаги и храните его в надежном месте. В качестве альтернативы сохраните свой Master ключ в диспетчере паролей, таком как 1Password.",
   "app.containers.SignUp.passwordsDoNotMatch": "Пароли не совпадают",
@@ -864,8 +875,9 @@
   "app.containers.Profile.sendToAccount": "Отправить на аккаунт",
   "app.containers.Profile.changeAccount": "Изменить аккаунт",
   "app.containers.Profile.chooseAccount": "Выбрать аккаунт",
-  
-  "app.components.NoAccess.errorMessage": "Нет прав, чтобы выполнить данное действие!",
+
+  "app.components.NoAccess.errorMessage":
+    "Нет прав, чтобы выполнить данное действие!",
 
   "app.containers.ButtonGroupForAuthorizedUser.profile": "Профиль",
 
