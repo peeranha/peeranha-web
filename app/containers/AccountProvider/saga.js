@@ -294,7 +294,7 @@ export const getCurrentAccountWorker = function*(initAccount) {
 };
 
 export function* isAvailableAction(isValid, data = {}) {
-  const { comunityID, skipPermissions } = data;
+  const { communityID, skipPermissions } = data;
 
   if (!skipPermissions) {
     const profileInfo = yield select(makeSelectProfileInfo());
@@ -305,7 +305,7 @@ export function* isAvailableAction(isValid, data = {}) {
 
     if (
       profileInfo.permissions?.find(
-        x => x.value == COMMUNITY_ADMIN_VALUE && x.community == comunityID,
+        x => x.value == COMMUNITY_ADMIN_VALUE && x.community == communityID,
       )
     ) {
       return true;
