@@ -432,4 +432,7 @@ export default defineMessages({
   unsubscribe: {
     id: 'app.common.unsubscribe',
   },
+  followSocialMedia: {
+    id: 'app.common.followSocialMedia',
+  },
 });

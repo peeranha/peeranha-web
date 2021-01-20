@@ -14,7 +14,7 @@ import { HASH_CHARS_LIMIT } from 'components/FormFields/AvatarField';
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 
-import { getQuestions } from 'utils/questionsManagement';
+import { getQuestionsFilteredByCommunities } from 'utils/questionsManagement';
 import { getCommunityById, isSingleCommunityWebsite } from 'utils/communityManagement';
 import { getQuestionBounty } from 'utils/walletManagement';
 import { getUserAvatar } from 'utils/profileManagement';
@@ -37,11 +37,19 @@ import {
 } from './actions';
 import { selectCommunity } from './selectors';
 
-export function* getQuestionsWorker() {
+export function* getQuestionsWorker({ communityId }) {
   try {
     const eosService = yield select(selectEos);
 
-    let questionsList = yield call(getQuestions, eosService, 5, 0);
+    const limit = 5;
+    const offset = 0;
+    let questionsList = yield call(
+      getQuestionsFilteredByCommunities,
+      eosService,
+      limit,
+      offset,
+      communityId
+    );
 
     const users = new Map();
 

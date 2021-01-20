@@ -131,7 +131,7 @@ export const Home = ({
 
   useEffect(
     () => {
-      getQuestionsDispatch();
+      getQuestionsDispatch(single);
     },
     [],
   );

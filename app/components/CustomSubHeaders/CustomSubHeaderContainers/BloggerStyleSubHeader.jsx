@@ -1,7 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import { FormattedMessage } from 'react-intl';
 
 import { singleCommunityStyles } from 'utils/communityManagement';
+
+import messages from 'common-messages';
 
 import facebookIcon from 'images/logo-facebook.svg?inline';
 import instagramIcon from 'images/logo-instagram.svg?inline';
@@ -26,7 +29,15 @@ const SubHeaderNav = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 3px 0;
+  flex-wrap: wrap;
+  padding: 7px 0;
+  letter-spacing: normal;
+  text-align: center;
+
+  > span {
+    width: 100%;
+    margin-bottom: 5px;
+  }
 
   > a {
     margin: 0 10px;
@@ -38,14 +49,16 @@ const BloggerStyleSubHeader = () => {
 
   return (
     <Container>
-      <SubHeaderNav>
-        {!!links &&
-          Object.keys(links).map(key => (
+      {!!links && (
+        <SubHeaderNav>
+          <FormattedMessage {...messages.followSocialMedia} />
+          {Object.keys(links).map(key => (
             <a href={links[key]} key={key}>
               <img src={SOCIAL_MEDIA_ICONS[key]} alt={key} />
             </a>
           ))}
-      </SubHeaderNav>
+        </SubHeaderNav>
+      )}
     </Container>
   );
 };
