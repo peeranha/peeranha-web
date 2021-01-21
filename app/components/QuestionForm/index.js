@@ -141,7 +141,7 @@ export const QuestionForm = ({
 
   const promotedQuestionEndsTime = useMemo(
     () => {
-      if (question && question.promote) {
+      if (typeof question?.promote === 'object') {
         return getFormattedDate(question.promote.endsTime, locale, MONTH_3LETTERS__DAY_YYYY_TIME);
       }
 
@@ -323,7 +323,7 @@ export default memo(
                     ),
                   },
                   [FORM_TAGS]: question?.chosenTags,
-                  [FORM_BOUNTY]: question?.bounty,
+                  [FORM_BOUNTY]: question?.bounty.toString(),
                   [FORM_BOUNTY_HOURS]: question?.bountyHours,
                 }
               : {}),

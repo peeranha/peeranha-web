@@ -66,7 +66,7 @@ export const Questions = ({
   locale,
   questionsList,
   questionsLoading,
-  promotedQuestionsList,
+  promotedQuestions,
   isLastFetch,
   communities,
   followedCommunities,
@@ -282,7 +282,7 @@ export const Questions = ({
         >
           <Content
             questionsList={questionsList}
-            promotedQuestionsList={promotedQuestionsList}
+            promotedQuestionsList={promotedQuestions[+questionFilterFromCookies ? 'top' : 'all']}
             locale={locale}
             communities={communities}
             typeFilter={typeFilter}
@@ -327,7 +327,7 @@ Questions.propTypes = {
   followedCommunities: PropTypes.array,
   questionsList: PropTypes.array,
   questionsLoading: PropTypes.bool,
-  promotedQuestionsList: PropTypes.array,
+  promotedQuestions: PropTypes.object,
   communitiesLoading: PropTypes.bool,
   isLastFetch: PropTypes.bool,
   initLoadedItems: PropTypes.number,
@@ -371,7 +371,7 @@ export default compose(
         )(state),
       isLastTopQuestionLoaded:
         questionsSelector.isLastTopQuestionLoadedSelector,
-      promotedQuestionsList: questionsSelector.selectPromotedQuestions(),
+      promotedQuestions: questionsSelector.selectPromotedQuestions(),
     }),
     dispatch => ({
       setTypeFilterDispatch: bindActionCreators(setTypeFilter, dispatch),

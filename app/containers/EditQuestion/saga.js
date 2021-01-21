@@ -49,7 +49,7 @@ export function* getAskedQuestionWorker({ questionId }) {
       freshQuestion = yield call(getAskedQuestion, ipfs_link, eosService);
     }
 
-    const question = cachedQuestion ? cachedQuestion.content : freshQuestion;
+    const question = cachedQuestion ? cachedQuestion.content : {...freshQuestion};
 
     const promotedQuestions = yield call(getPromotedQuestions, eosService, question.community.id);
     const promotedQuestion = promotedQuestions.find(item => item.question_id === questionId); 
@@ -73,7 +73,7 @@ export function* editQuestionWorker({ question, questionId }) {
     const selectedAccount = yield call(eosService.getSelectedAccount);
     const cachedQuestion = yield select(selectQuestionData());
 
-    yield call(editQuestion, selectedAccount, questionId, question, eosService);
+    yield call(editQuestion, selectedAccount, questionId, { ...question }, eosService);
 
     if (question?.bounty) {
       const now = Math.round(new Date().valueOf() / 1000);
@@ -88,7 +88,7 @@ export function* editQuestionWorker({ question, questionId }) {
         eosService,
       );
     }
-        
+
     if (question.promote) {
       yield call(promoteQuestion, eosService, selectedAccount, questionId, question.promote);
     }
@@ -100,6 +100,7 @@ export function* editQuestionWorker({ question, questionId }) {
       cachedQuestion.bounty = question?.bounty;
       cachedQuestion.bountyFull = question?.bountyFull;
       cachedQuestion.bountyHours = question?.bountyHours;
+      cachedQuestion.promote = question?.promote;
       cachedQuestion.content = { ...question };
     }
 
