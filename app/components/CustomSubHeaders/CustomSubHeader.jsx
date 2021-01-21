@@ -11,16 +11,13 @@ const Div = styled.div`
   color: ${({ styles }) =>
     styles.color && styles.color.a ? styles.color.a : `#ffffff`};
 
-  ${({ bg }) => bg ? `
-    background-image: url('${bg}');
-    background-size: cover;
-    background-position: center;
-  ` : `
-    background: ${({ styles }) => styles.bg.header || `rgb(${'80, 101, 165'})`};
-    border-bottom: 1px solid
-      ${({ styles }) =>
-        styles.bg.header === `#ffffff` ? `#c2c6d8` : styles.bg.header};
-  `}
+  ${({ bg }) => bg ? `background-image: url('${bg}');` : ''}
+  background-size: cover;
+  background-position: center;
+  background-color: ${({ styles }) => styles.bg.header || `rgb(${'80, 101, 165'})`};
+  border-bottom: ${({ bg }) => bg ? 0 : 1}px solid
+    ${({ styles, bg }) =>
+      styles.bg.header === `#ffffff` ? `#c2c6d8` : styles.bg.header};
 
   ${({ styles }) =>
     styles.CustomSubHeader ? styles.CustomSubHeader : ``} > div > div {
