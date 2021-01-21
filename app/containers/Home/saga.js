@@ -13,14 +13,16 @@ import { HASH_CHARS_LIMIT } from 'components/FormFields/AvatarField';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
+import { selectTopQuestionIds } from 'containers/Questions/selectors';
 
-import { getQuestionsFilteredByCommunities } from 'utils/questionsManagement';
+import { getQuestionsFilteredByCommunities, getQuestionById } from 'utils/questionsManagement';
 import { getCommunityById, isSingleCommunityWebsite } from 'utils/communityManagement';
 import { getQuestionBounty } from 'utils/walletManagement';
 import { getUserAvatar } from 'utils/profileManagement';
 
 import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
 import { isGeneralQuestion } from 'containers/ViewQuestion/saga';
+import { loadTopCommunityQuestionsWorker } from 'containers/Questions/saga';
 
 import {
   GET_QUESTIONS,
@@ -40,16 +42,33 @@ import { selectCommunity } from './selectors';
 export function* getQuestionsWorker({ communityId }) {
   try {
     const eosService = yield select(selectEos);
+    
+    yield call(loadTopCommunityQuestionsWorker, { init: true });
 
-    const limit = 5;
-    const offset = 0;
-    let questionsList = yield call(
-      getQuestionsFilteredByCommunities,
-      eosService,
-      limit,
-      offset,
-      communityId
-    );
+    const topQuestionsIds = yield select(selectTopQuestionIds);
+
+    let questionsList = [];
+
+    if (topQuestionsIds && topQuestionsIds.length) {
+      yield all(
+        topQuestionsIds.map(function*(id) {
+          const question = yield call(getQuestionById, eosService, id);
+          
+          questionsList.push(question);
+        }),
+      );
+    } else {
+      const limit = 5;
+      const offset = 0;
+
+      questionsList = yield call(
+        getQuestionsFilteredByCommunities,
+        eosService,
+        limit,
+        offset,
+        communityId
+      );
+    }
 
     const users = new Map();
 
