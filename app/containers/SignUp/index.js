@@ -15,18 +15,27 @@ import { translationMessages } from 'i18n';
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
+import { DAEMON } from 'utils/constants';
+import { HOME_KEY } from 'containers/Home/constants';
+
 import { generateKeys } from 'utils/web_integration/src/util/eos-keygen';
 import { generateMasterKey } from 'utils/web_integration/src/util/masterKeygen';
-import { DAEMON } from 'utils/constants';
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
+
+import { getLogo } from 'containers/Home/actions';
+import { showLoginModal } from 'containers/Login/actions';
 
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { showLoginModal } from 'containers/Login/actions';
+import { selectLogo } from 'containers/Home/selectors';
 
 import Seo from 'components/Seo';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+
+import homeReducer from 'containers/Home/reducer';
+import homeSaga from 'containers/Home/saga';
 
 import reducer from './reducer';
 import saga from './saga';
@@ -47,6 +56,8 @@ import {
 import { EMAIL_FIELD } from './constants';
 
 import messages from './messages';
+
+const single = isSingleCommunityWebsite();
 
 export const SignUp = ({
   locale,
@@ -71,6 +82,8 @@ export const SignUp = ({
   checkEmailDispatch,
   eosAccountName,
   sendAnotherCodeDispatch,
+  logo,
+  getLogoDispatch,
 }) => {
   const checkEmailMethod = values => {
     const post = values.get ? values.get(EMAIL_FIELD) : email;
@@ -114,6 +127,15 @@ export const SignUp = ({
     }
   }, []);
 
+  useEffect(
+    () => {
+      if (single) {
+        getLogoDispatch();
+      }
+    },
+    [single],
+  );
+
   return (
     <>
       <Seo
@@ -143,6 +165,7 @@ export const SignUp = ({
         idontHaveEosAccountProcessing,
         signUpWithWalletProcessing,
         showWalletSignUpProcessing,
+        logo,
       })}
     </>
   );
@@ -171,6 +194,8 @@ SignUp.propTypes = {
   keys: PropTypes.object,
   putKeysToStateDispatch: PropTypes.func,
   sendAnotherCodeDispatch: PropTypes.func,
+  logo: PropTypes.string,
+  getLogoDispatch: PropTypes.func,
 };
 
 const withConnect = connect(
@@ -186,6 +211,7 @@ const withConnect = connect(
     showWalletSignUpProcessing: signUpSelectors.selectShowWalletSignUpProcessing(),
     eosAccountName: signUpSelectors.selectEosAccountName(),
     keys: signUpSelectors.selectKeys(),
+    logo: selectLogo(),
   }),
   dispatch => ({
     checkEmailDispatch: bindActionCreators(checkEmail, dispatch),
@@ -203,14 +229,19 @@ const withConnect = connect(
     ),
     signUpWithWalletDispatch: bindActionCreators(signUpWithWallet, dispatch),
     sendAnotherCodeDispatch: bindActionCreators(sendAnotherCode, dispatch),
+    getLogoDispatch: bindActionCreators(getLogo, dispatch),
   }),
 );
 
 const withReducer = injectReducer({ key: 'signUp', reducer });
 const withSaga = injectSaga({ key: 'signUp', saga, mode: DAEMON });
+const withHomePageReducer = injectReducer({ key: HOME_KEY, reducer: homeReducer, });
+const withHomePageSaga = injectSaga({ key: HOME_KEY, saga: homeSaga });
 
 export default compose(
   withReducer,
   withSaga,
+  withHomePageReducer,
+  withHomePageSaga,
   withConnect,
 )(SignUp);

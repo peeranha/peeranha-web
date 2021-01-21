@@ -99,21 +99,23 @@ export function* getCommunityWorker({ id }) {
 
 export function* getLogoWorker() {
   try {
-    const single = isSingleCommunityWebsite();
-
-    yield call(getCommunityWorker, { id: single });
-
-    const community = yield select(selectCommunity());
-    
-    const isBloggerMode = single ? !!communitiesConfig[single].isBloggerMode : false;
-
     let logo = "";
-    if (isBloggerMode) {
-      const { avatar } = community;
 
-      logo = avatar && avatar.length > HASH_CHARS_LIMIT
-        ? avatar
-        : getUserAvatar(avatar, true, true);
+    const single = isSingleCommunityWebsite();
+    if (single) {
+      yield call(getCommunityWorker, { id: single });
+
+      const community = yield select(selectCommunity());
+      
+      const isBloggerMode = single ? !!communitiesConfig[single].isBloggerMode : false;
+
+      if (isBloggerMode) {
+        const { avatar } = community;
+
+        logo = avatar && avatar.length > HASH_CHARS_LIMIT
+          ? avatar
+          : getUserAvatar(avatar, true, true);
+      }
     }
 
     yield put(getLogoSuccess(logo));

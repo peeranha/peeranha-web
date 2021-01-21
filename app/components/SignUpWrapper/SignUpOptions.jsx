@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
@@ -6,13 +6,10 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import isMobile from 'ismobilejs';
-import { bindActionCreators, compose } from 'redux';
 
 import * as routes from 'routes-config';
 
 import { LINK_COLOR } from 'style-constants';
-import { DAEMON } from 'utils/constants';
-import { HOME_KEY } from 'containers/Home/constants';
 import {
   HOW_STORE_MY_KEYS_QUESTION,
   CAN_SIGN_UP_WITH_EAMIL_IF_HAVE_TELOS_ACCT_QUESTION,
@@ -24,22 +21,15 @@ import peeranhaLogo from 'images/LogoBlack.svg?inline';
 import commonMessages from 'common-messages';
 import messages from 'containers/SignUp/messages';
 
-import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
-import { singleCommunityStyles, isSingleCommunityWebsite } from 'utils/communityManagement';
+import { singleCommunityStyles } from 'utils/communityManagement';
 
 import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
-import { selectLogo } from 'containers/Home/selectors';
 
 import H3 from 'components/H3';
 import Span from 'components/Span';
 import TransparentButton from 'components/Button/Contained/Transparent';
 import { Div } from 'containers/SignUp/IHaveEOSAccountForm';
 import Footer from 'containers/Login/Footer';
-
-import { getLogo } from 'containers/Home/actions';
-import reducer from 'containers/Home/reducer';
-import saga from 'containers/Home/saga';
 
 import SignUpWrapper from './index';
 
@@ -106,7 +96,6 @@ const LoginLink = styled.div`
 `;
 
 const styles = singleCommunityStyles();
-const single = isSingleCommunityWebsite();
 
 const LeftMenu = ({ faqQuestions, mainLogo }) => (
   <React.Fragment>
@@ -202,36 +191,26 @@ export const SignUpOptions = ({
   withWallet,
   faqQuestions,
   logo,
-  getLogoDispatch,
-}) => {
-  useEffect(
-    () => {
-      getLogoDispatch();
-    },
-    [single],
-  );
-
-  return (
-    <SignUpWrapper
-      LeftMenuChildren={<LeftMenu faqQuestions={faqQuestions} mainLogo={logo} />}
-      RightMenuChildren={
-        !withWallet ? (
-          <RightMenuWithoutScatter
-            children={children}
-            showLoginModal={showLoginModal}
-            showWalletSignUpForm={showWalletSignUpForm}
-            showWalletSignUpProcessing={showWalletSignUpProcessing}
-            emailVerificationProcessing={emailVerificationProcessing}
-            emailChecking={emailChecking}
-            isMobileDevice={isMobile(window.navigator).any}
-          />
-        ) : (
-          children
-        )
-      }
-    />
-  );
-}
+}) => (
+  <SignUpWrapper
+    LeftMenuChildren={<LeftMenu faqQuestions={faqQuestions} mainLogo={logo} />}
+    RightMenuChildren={
+      !withWallet ? (
+        <RightMenuWithoutScatter
+          children={children}
+          showLoginModal={showLoginModal}
+          showWalletSignUpForm={showWalletSignUpForm}
+          showWalletSignUpProcessing={showWalletSignUpProcessing}
+          emailVerificationProcessing={emailVerificationProcessing}
+          emailChecking={emailChecking}
+          isMobileDevice={isMobile(window.navigator).any}
+        />
+      ) : (
+        children
+      )
+    }
+  />
+);
 
 LeftMenu.propTypes = {
   faqQuestions: PropTypes.array,
@@ -258,25 +237,15 @@ SignUpOptions.propTypes = {
   withWallet: PropTypes.bool,
   faqQuestions: PropTypes.array,
   logo: PropTypes.string,
-  getLogoDispatch: PropTypes.func,
 };
 
-const withConnect = connect(
+export default connect(
   createStructuredSelector({
     faqQuestions: selectFaqQuestions([
       HOW_STORE_MY_KEYS_QUESTION,
       CAN_SIGN_UP_WITH_EAMIL_IF_HAVE_TELOS_ACCT_QUESTION,
       CAN_I_DELETE_ACCOUNT_QUESTION,
     ]),
-    logo: selectLogo(),
   }),
-  dispatch => ({
-    getLogoDispatch: bindActionCreators(getLogo, dispatch),
-  }),
-);
-
-export default compose(
-  injectReducer({ key: HOME_KEY, reducer }),
-  injectSaga({ key: HOME_KEY, saga, mode: DAEMON }),
-  withConnect,
+  null,
 )(SignUpOptions);
