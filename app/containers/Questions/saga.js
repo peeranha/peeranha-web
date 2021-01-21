@@ -14,7 +14,7 @@ import createdHistory from 'createdHistory';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 
-import { getCookie, setCookie } from 'utils/cookie';
+import { getCookie, setCookie, deleteCookie } from 'utils/cookie';
 import {
   getQuestions,
   getQuestionsFilteredByCommunities,
@@ -22,7 +22,7 @@ import {
   FetcherOfQuestionsForFollowedCommunities,
   getPromotedQuestions,
 } from 'utils/questionsManagement';
-
+import { getQuestionBounty } from 'utils/walletManagement';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
 import {
@@ -58,6 +58,7 @@ import {
   TOP_QUESTIONS_LOAD_NUMBER,
   UP_QUESTION,
   PROMO_QUESTIONS_AMOUNT,
+  UPDATE_PROMO_QUESTIONS,
 } from './constants';
 
 import {
@@ -84,8 +85,8 @@ import {
   selectLastLoadedTopQuestionIndex,
   selectTopQuestionIds,
   isQuestionTop,
+  selectPromotedQuestions,
 } from './selectors';
-import { getQuestionBounty } from '../../utils/walletManagement';
 
 const feed = routes.feed();
 const single = isSingleCommunityWebsite();
@@ -103,6 +104,13 @@ export function* getQuestionsWorker({
     const now = Math.round(new Date().valueOf() / 1000);
     const eosService = yield select(selectEos);
     const followedCommunities = yield select(makeSelectFollowedCommunities());
+    const cachedPromotedQuestions = yield select(selectPromotedQuestions());
+
+    let isNotUpdatePromotedQuestions = Number.parseInt(getCookie(UPDATE_PROMO_QUESTIONS));
+    if (isNotUpdatePromotedQuestions !== 1) {
+      isNotUpdatePromotedQuestions = 0;
+    }
+    deleteCookie(UPDATE_PROMO_QUESTIONS);
 
     let questionsList = [];
 
@@ -173,9 +181,9 @@ export function* getQuestionsWorker({
     );
 
     // get promoted questions
-    let activePromotedQuestions = [];
+    let activePromotedQuestions = isNotUpdatePromotedQuestions ? [...cachedPromotedQuestions] : [];
 
-    if (communityIdFilter) {
+    if (communityIdFilter && !isNotUpdatePromotedQuestions) {
       let promotedQuestions = yield call(getPromotedQuestions, eosService, communityIdFilter);
       promotedQuestions = promotedQuestions.filter(item => item.ends_time >= now);
       const showingPromotedQuestions = [];
@@ -246,6 +254,11 @@ export function* updateStoredQuestionsWorker() {
 
   const next = false;
   const toUpdateQuestions = true;
+
+  setCookie({
+    name: UPDATE_PROMO_QUESTIONS,
+    value: 1,
+  })
 
   yield put(
     getQuestionsAction(

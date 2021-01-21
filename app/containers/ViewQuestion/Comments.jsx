@@ -157,7 +157,7 @@ const CommentView = item => {
           rating={item.userInfo.rating}
           account={item.userInfo.user}
           achievementsCount={item.userInfo.achievements_reached?.length}
-          postTime={item.post_time}
+          postTime={+item.post_time}
           locale={item.locale}
           isComment
         />
@@ -179,7 +179,7 @@ const CommentView = item => {
           <div id={`delete-comment-${item.answerId}${item.id}`}>
             <AreYouSure
               submitAction={
-                isModerator ? item.voteToDelete : item.deleteComment
+                isModerator && !isItWrittenByMe ? item.voteToDelete : item.deleteComment
               }
               Button={({ onClick }) => (
                 <Button

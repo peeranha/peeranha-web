@@ -32,12 +32,14 @@ const EmailVerificationForm = ({ handleSubmit }) => (
       showLoginModal,
       showWalletSignUpForm,
       showWalletSignUpProcessing,
+      logo,
     }) => (
       <SignUpOptions
         showLoginModal={showLoginModal}
         showWalletSignUpForm={showWalletSignUpForm}
         showWalletSignUpProcessing={showWalletSignUpProcessing}
         emailVerificationProcessing={emailVerificationProcessing}
+        logo={logo}
       >
         <div className="text-center">
           <img src={letterImg} alt="check your email" />

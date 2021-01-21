@@ -38,11 +38,6 @@ const View = ({
     [currentStake, setCurrentStake],
   );
 
-  const predictedBoost = useMemo(
-    () => getPredictedBoost(currentStake, maxStake), 
-    [currentStake, maxStake]
-  );
-
   return (
     <>
       <NavHeader userId={userId} />
@@ -63,8 +58,8 @@ const View = ({
       />
 
       <Form
+        valueHasToBeLessThan={balance}
         currentStake={currentStake}
-        predictedBoost={predictedBoost.value}
         maxStake={balance}
         initialUserStake={stakedInNextPeriod}
         changeCurrentStake={changeCurrentStake}
@@ -72,6 +67,7 @@ const View = ({
         changeStake={changeStakeDispatch}
         changeStakeLoading={changeStakeLoading}
         locale={locale}
+        nextWeekMaxStake={maxStake}
       />
     </>
   );

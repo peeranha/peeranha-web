@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useMemo, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
@@ -12,7 +12,6 @@ import messages from './messages';
 import {
   FORM_TYPE,
   CURRENT_STAKE_FORM,
-  BOOST_PREDICTION_FORM,
 } from './constants';
 import {
   SECONDARY_SPECIAL,
@@ -22,7 +21,7 @@ import TipsBase from 'components/Base/TipsBase';
 import { BaseSpecialOne } from 'components/Base/BaseTransparent';
 import Tips from './Tips';
 import PredictionForm from './PredictionForm';
-import CurrentStakeForm from './CurrentStakeForm';
+import CurrentStakeForm, { MinStake } from './CurrentStakeForm';
 import FormBox from 'components/Form';
 import Button from 'components/Button/Contained/InfoLarge';
 import TransparentButton from 'components/Button/Contained/Transparent';
@@ -50,6 +49,14 @@ export const InputWrapper = styled.div`
       }
     ` : ''}
   }
+
+  .err + ${MinStake} {
+    display: none;
+  }
+
+  .err + span + span + div {
+    display: none;
+  }
 `;
 
 export const InputProgressBar = styled.div`
@@ -57,6 +64,7 @@ export const InputProgressBar = styled.div`
   bottom: 0;
   left: 0;
   width: ${({ width }) => width || 0}%;
+  max-width: 100%;
   height: 4px;
   background-color: ${SECONDARY_SPECIAL};
 `;
@@ -79,70 +87,73 @@ const Title = styled.p`
 
 const Form = ({
   handleSubmit,
-  currentStake,
-  currentStakeValue,
   changeStake,
   changeStakeLoading,
   changeCurrentStake,
-  predictedBoost,
   maxStake,
   initialUserStake,
   onChangeCurrentStake,
   locale,
-}) => (
-  <div className="mb-5">
-    {currentStake !== undefined && (
-      <>
-        <Title><FormattedMessage {...messages.formTitle} /></Title>
-        <TipsBase>    
-          <BaseSpecialOne className="position-relative">
-            {!maxStake && (
-              <BlockedInfoArea>
-                <FormattedMessage {...messages.notTokensToStake} />
-              </BlockedInfoArea>
-            )}
+  formValues,
+  nextWeekMaxStake,
+}) => {
+  return (
+    <div className="mb-5">
+      {formValues[CURRENT_STAKE_FORM] !== undefined && (
+        <>
+          <Title><FormattedMessage {...messages.formTitle} /></Title>
+          <TipsBase>    
+            <BaseSpecialOne className="position-relative">
+              {!maxStake && (
+                <BlockedInfoArea>
+                  <FormattedMessage {...messages.notTokensToStake} />
+                </BlockedInfoArea>
+              )}
 
-            <FormBox onSubmit={handleSubmit(changeStake)}>
-              <PredictionForm value={predictedBoost} locale={locale} />
+              <FormBox onSubmit={handleSubmit(changeStake)}>
+                <PredictionForm
+                  locale={locale}
+                  formValues={formValues}
+                  maxStake={nextWeekMaxStake}
+                />
 
-              <CurrentStakeForm
-                maxValue={maxStake}
-                value={+currentStakeValue}
-                onClickStakeTag={v => changeCurrentStake(v)}
-                disabled={changeStakeLoading}
-                onChange={e => onChangeCurrentStake(+e.currentTarget.value)}
-              />
+                <CurrentStakeForm
+                  maxValue={maxStake}
+                  onClickStakeTag={v => changeCurrentStake(v)}
+                  disabled={changeStakeLoading}
+                  formValues={formValues}
+                />
 
-              <div className="mt-5">
-                <Button type="submit" className="mr-4">
-                  <FormattedMessage {...messages.formSubmit} />
-                </Button>
-                <TransparentButton type="button" onClick={() => onChangeCurrentStake(initialUserStake)}>
-                  <FormattedMessage {...messages.formCancel} />
-                </TransparentButton>
-              </div>
-            </FormBox>
-          </BaseSpecialOne>
+                <div className="mt-5">
+                  <Button type="submit" className="mr-4">
+                    <FormattedMessage {...messages.formSubmit} />
+                  </Button>
+                  <TransparentButton type="button" onClick={() => onChangeCurrentStake(initialUserStake)}>
+                    <FormattedMessage {...messages.formCancel} />
+                  </TransparentButton>
+                </div>
+              </FormBox>
+            </BaseSpecialOne>
 
-          <Tips />
-        </TipsBase>
-      </>
-    )}
-  </div>
-);
+            <Tips />
+          </TipsBase>
+        </>
+      )}
+    </div>
+  );
+}
 
 Form.propTypes = {
   handleSubmit: PropTypes.func,
   formValues: PropTypes.object,
-  currentStakeValue: PropTypes.number,
   changeStake: PropTypes.func,
   changeStakeLoading: PropTypes.bool,
   changeCurrentStake: PropTypes.func,
-  predictedBoost: PropTypes.number,
   maxStake: PropTypes.number,
   initialUserStake: PropTypes.number,
   onChangeCurrentStake: PropTypes.func,
   locale: PropTypes.string,
+  currentStake: PropTypes.number,
 };
 
 const FormClone = reduxForm({
@@ -155,15 +166,13 @@ export default memo(
     connect(
       (
         state,
-        { currentStake, predictedBoost }
+        { currentStake }
       ) => {
         const form = state.toJS().form[FORM_TYPE] || { values: {} };
 
         return {
-          formValues: form,
-          currentStakeValue: +form.values[CURRENT_STAKE_FORM],
+          formValues: form.values,
           initialValues: {
-            [BOOST_PREDICTION_FORM]: `x${predictedBoost}`,
             [CURRENT_STAKE_FORM]: currentStake ? currentStake.toString() : "",
           },
           enableReinitialize: true,

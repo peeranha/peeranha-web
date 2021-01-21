@@ -730,6 +730,7 @@
     "Telos name must contain at least one letter",
   "app.components.FormFields.exactFromAndToAccounts":
     "Sender and receiver cannot be the same",
+  "app.components.FormFields.hasToBeMoreThanPrev": "You cannot set lower value",
   "app.components.FormFields.valueIsNotPositiveInteger":
     "Value is not a positive integer",
 

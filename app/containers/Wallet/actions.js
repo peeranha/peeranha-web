@@ -21,11 +21,10 @@ export function getWeekStat() {
   };
 }
 
-export function getWeekStatSuccess(weekStat, globalBoostStat, userBoostStat) {
+export function getWeekStatSuccess(weekStat, userBoostStat) {
   return {
     type: GET_WEEK_STAT_SUCCESS,
     weekStat,
-    globalBoostStat,
     userBoostStat,
   };
 }

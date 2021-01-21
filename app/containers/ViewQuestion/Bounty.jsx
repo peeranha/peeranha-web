@@ -62,6 +62,7 @@ export const Bounty = ({
 
   const onMouseEnter = useCallback(() => changeVisibility(true), []);
   const onMouseLeave = useCallback(() => changeVisibility(false), []);
+  const onToggle = () => changeVisibility(!visible);
 
   const bounty = amount ? convertPeerValueToNumberValue(amount) : null;
   const time = timestamp
@@ -87,6 +88,7 @@ export const Bounty = ({
       size="md"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
+      onClick={onToggle}
     >
       {visible && (
         <BountyPopover

@@ -49,13 +49,14 @@ const WalletsSignUpForm = ({
       showWalletSignUpForm,
       eosAccountName,
       signUpWithWalletProcessing,
+      logo,
     }) => {
       if (eosAccountName !== eosAccountValue) {
         change(EOS_ACCOUNT_FIELD, eosAccountName);
       }
 
       return (
-        <SignUpOptions withWallet showWalletSignUpForm={showWalletSignUpForm}>
+        <SignUpOptions withWallet showWalletSignUpForm={showWalletSignUpForm} logo={logo}>
           <Form
             onSubmit={handleSubmit(val =>
               signUpWithWallet(val, {
