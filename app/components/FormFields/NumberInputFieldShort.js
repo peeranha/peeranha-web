@@ -24,6 +24,46 @@ export const NumberInputFieldShort = ({
   onClick,
   infoText,
 }) => {
+  const onChange = x => {
+    try {
+      let inputValue = String(x.target.value);
+      inputValue = inputValue.replace(/[^0-9.]/, '');
+
+      const lastChar = inputValue[inputValue.length - 1];
+
+      if (lastChar === undefined) {
+        input.onChange('');
+        return;
+      }
+
+      if (lastChar === '.') {
+        input.onChange(inputValue.split('.')[0]);
+        return;
+      }
+
+      if (
+        inputValue[0] === '0' &&
+        inputValue[1] &&
+        inputValue[1].match(/[0-9]/)
+      ) {
+        input.onChange(lastChar);
+        return;
+      }
+
+      if (lastChar.match(/[0-9.]/)) {
+        input.onChange(inputValue);
+        return;
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const onBlur = () => {
+    if (input.value.slice(-1) === '.') {
+      input.onChange(input.value.slice(0, -1));
+    }
+  };
 
   return (
     <Wrapper
@@ -34,7 +74,7 @@ export const NumberInputFieldShort = ({
       id={input.name}
     >
       <Input
-        input={input}
+        input={{ ...input, onChange, onBlur }}
         disabled={disabled}
         readOnly={readOnly}
         placeholder={placeholder}
@@ -42,7 +82,7 @@ export const NumberInputFieldShort = ({
         isRefreshable={isRefreshable}
         onClick={onClick}
         error={meta.touched && (meta.error || meta.warning)}
-        type="number"
+        type="text"
       />
       {infoText && <InfoText>{infoText}</InfoText>}
     </Wrapper>

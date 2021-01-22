@@ -42,7 +42,7 @@ export const initialState = fromJS({
   topQuestionsInfoLoaded: false,
   questionFilter: 0,
   topQuestionActionProcessing: false,
-  promotedQuestions: [],
+  promotedQuestions: {},
 });
 
 // TODO: test
@@ -61,7 +61,7 @@ function questionsReducer(state = initialState, action) {
     questions,
     lastIndex,
     isRemove,
-    promotedQuestions = [],
+    promotedQuestions = {},
   } = action;
   const {
     topQuestionIds: stateTopQuestionIds,

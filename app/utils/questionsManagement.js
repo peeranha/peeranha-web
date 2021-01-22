@@ -259,6 +259,7 @@ export async function voteToDelete(
 
 export async function getAskedQuestion(link) {
   const question = JSON.parse(await getText(link));
+
   return question;
 }
 
@@ -283,6 +284,8 @@ export async function postQuestion(user, questionData, eosService) {
 }
 
 export async function editQuestion(user, id, question, eosService) {
+  delete question.promote;
+
   const ipfsLink = await saveText(JSON.stringify(question));
 
   await eosService.sendTransaction(user, EDIT_QUESTION_METHOD, {
@@ -480,3 +483,27 @@ export const promoteQuestion = async (
     process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
   );
 };
+
+export const getRandomQuestions = (questions, amount) => {
+  const result = [];
+
+  if (questions.length > amount) {
+    const showingPromotedQuestionsIds = [];
+
+    do {
+      const randomId = Math.floor(Math.random() * Math.floor(questions.length));
+      
+      if (!showingPromotedQuestionsIds.includes(randomId)) {
+        showingPromotedQuestionsIds.push(randomId);
+      }
+    } while (showingPromotedQuestionsIds.length < amount);
+
+    showingPromotedQuestionsIds.map(id => {
+      result.push(questions[id]);
+    });
+  } else {
+    result.push(...questions);
+  }
+
+  return result;
+}

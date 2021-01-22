@@ -27,6 +27,7 @@ import {
   FORM_BOUNTY_HOURS,
   FORM_TYPE,
   FORM_PROMOTE,
+  PROMOTE_HOUR_COST,
 } from 'components/QuestionForm/constants';
 
 import * as makeSelectEditQuestion from './selectors';
@@ -79,6 +80,8 @@ const EditQuestion = ({
     [questionid],
   );
 
+  const maxPromotingHours = useMemo(() => Math.floor(balance / PROMOTE_HOUR_COST), [balance]);
+
   const sendProps = useMemo(
     () => ({
       form: EDIT_QUESTION_FORM,
@@ -93,6 +96,7 @@ const EditQuestion = ({
       question,
       questionid,
       locale,
+      maxPromotingHours,
     }),
     [questionid, question, communities, editQuestionLoading, sendQuestion],
   );
