@@ -58,6 +58,8 @@ import {
   INSTAGRAM_LINK_FIELD,
   YOUTUBE_LINK_FIELD,
   VK_LINK_FIELD,
+  MAIN_COLOR_FIELD,
+  HIGHLIGHT_COLOR_FIELD,
 } from './constants';
 
 import Form from './Form';
@@ -112,6 +114,8 @@ export const CreateCommunity = ({
       instagram: values[INSTAGRAM_LINK_FIELD],
       youtube: values[YOUTUBE_LINK_FIELD],
       vk: values[VK_LINK_FIELD],
+      main_color: values[MAIN_COLOR_FIELD],
+      highlight_color: values[HIGHLIGHT_COLOR_FIELD],
       tags,
     };
     createCommunityDispatch(community, reset);

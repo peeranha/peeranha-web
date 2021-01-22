@@ -39,8 +39,10 @@ import {
   COMM_BANNER_FIELD,
   FACEBOOK_LINK_FIELD,
   FORM_TYPE,
+  HIGHLIGHT_COLOR_FIELD,
   INSTAGRAM_LINK_FIELD,
   IS_BLOGGER_MODE_FIELD,
+  MAIN_COLOR_FIELD,
   VK_LINK_FIELD,
   YOUTUBE_LINK_FIELD,
 } from '../CreateCommunity/constants';
@@ -57,6 +59,7 @@ const EditCommunityForm = ({
   intl,
   change,
   formValues,
+  initialValues,
   locale,
 }) => {
   const editCommunity = useCallback(
@@ -74,6 +77,8 @@ const EditCommunityForm = ({
         instagram: values.get(INSTAGRAM_LINK_FIELD),
         youtube: values.get(YOUTUBE_LINK_FIELD),
         vk: values.get(VK_LINK_FIELD),
+        main_color: values.get(MAIN_COLOR_FIELD),
+        highlight_color: values.get(HIGHLIGHT_COLOR_FIELD),
       };
       editCommunityDispatch(communityId, communityData);
     },
@@ -151,6 +156,7 @@ const EditCommunityForm = ({
             disabled={communityLoading}
             formValues={formValues}
             intl={intl}
+            initialValues={initialValues}
           />
         )}
 
@@ -199,6 +205,8 @@ export default injectIntl(
           [INSTAGRAM_LINK_FIELD]: community.instagram,
           [YOUTUBE_LINK_FIELD]: community.youtube,
           [VK_LINK_FIELD]: community.vk,
+          [MAIN_COLOR_FIELD]: community.main_color,
+          [HIGHLIGHT_COLOR_FIELD]: community.highlight_color,
         }
       : {},
   }))(FormClone),

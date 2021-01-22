@@ -145,4 +145,10 @@ export default defineMessages({
   vkLink: {
     id: 'app.containers.CreateCommunity.vkLink',
   },
+  mainColor: {
+    id: 'app.containers.CreateCommunity.mainColor',
+  },
+  highlightColor: {
+    id: 'app.containers.CreateCommunity.highlightColor',
+  },
 });

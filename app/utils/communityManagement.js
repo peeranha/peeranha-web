@@ -106,6 +106,8 @@ export const getCommunityById = async (eosService, communityId) => {
     instagram,
     youtube,
     vk,
+    main_color,
+    highlight_color,
   } = community;
 
   return {
@@ -123,6 +125,8 @@ export const getCommunityById = async (eosService, communityId) => {
     instagram,
     youtube,
     vk,
+    main_color,
+    highlight_color,
   };
 };
 

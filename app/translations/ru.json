@@ -476,6 +476,8 @@
   "app.containers.CreateCommunity.instagramLink": "Ссылка на ваш Instagram",
   "app.containers.CreateCommunity.youtubeLink": "Ссылка на ваш YouTube",
   "app.containers.CreateCommunity.vkLink": "Ссылка на ваш VK",
+  "app.containers.CreateCommunity.mainColor": "Основной цвет",
+  "app.containers.CreateCommunity.highlightColor": "Цвет выделения",
 
   "app.containers.EditCommunity.communityTitleTip": "Название сообщества",
   "app.containers.EditCommunity.description": "Описание EditCommunity",

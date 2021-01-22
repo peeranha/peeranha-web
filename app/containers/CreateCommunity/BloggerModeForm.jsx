@@ -15,10 +15,15 @@ import {
   INSTAGRAM_LINK_FIELD,
   YOUTUBE_LINK_FIELD,
   VK_LINK_FIELD,
+  MAIN_COLOR_FIELD,
+  HIGHLIGHT_COLOR_FIELD,
 } from './constants';
 import messages from './messages';
+import ColorField from '../../components/FormFields/ColorField';
+import { Wrapper } from '../../components/FormFields/Wrapper';
+import { PEER_PRIMARY_COLOR, PEER_WARNING_COLOR } from '../../style-constants';
 
-const BloggerModeForm = ({ disabled, formValues, intl }) => (
+const BloggerModeForm = ({ disabled, formValues, intl, initialValues }) => (
   <>
     <Field
       name={COMM_BANNER_FIELD}
@@ -67,6 +72,34 @@ const BloggerModeForm = ({ disabled, formValues, intl }) => (
       warn={[strLength8x100, required]}
       splitInHalf
     />
+
+    <Wrapper splitInHalf disabled={disabled}>
+      <div style={{ float: 'left', width: '50%' }}>
+        <Field
+          disabled={disabled}
+          name={MAIN_COLOR_FIELD}
+          component={ColorField}
+          label={intl.formatMessage(messages.mainColor)}
+          formValues={formValues}
+          defaultValue={
+            initialValues?.toJS()[MAIN_COLOR_FIELD] ?? PEER_PRIMARY_COLOR
+          }
+        />
+      </div>
+
+      <div style={{ width: '50%', marginLeft: '50%' }}>
+        <Field
+          disabled={disabled}
+          name={HIGHLIGHT_COLOR_FIELD}
+          component={ColorField}
+          label={intl.formatMessage(messages.highlightColor)}
+          formValues={formValues}
+          defaultValue={
+            initialValues?.toJS()[HIGHLIGHT_COLOR_FIELD] ?? PEER_WARNING_COLOR
+          }
+        />
+      </div>
+    </Wrapper>
   </>
 );
 

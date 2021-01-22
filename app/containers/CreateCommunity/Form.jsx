@@ -4,7 +4,11 @@ import { connect } from 'react-redux';
 import { Field, reduxForm, FormSection } from 'redux-form/immutable';
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 
-import { TEXT_SECONDARY_LIGHT } from 'style-constants';
+import {
+  PEER_PRIMARY_COLOR,
+  PEER_WARNING_COLOR,
+  TEXT_SECONDARY_LIGHT,
+} from 'style-constants';
 
 import icoTag from 'images/icoTag.svg?inline';
 import closeIcon from 'images/close.svg?external';
@@ -53,6 +57,8 @@ import {
   CREATE_COMMUNITY_BUTTON,
   ABOUT_FIELD,
   IS_BLOGGER_MODE_FIELD,
+  MAIN_COLOR_FIELD,
+  HIGHLIGHT_COLOR_FIELD,
 } from './constants';
 import { communityModeratorCreatePermission } from '../../utils/properties';
 import AboutForm from './AboutForm';
@@ -334,6 +340,8 @@ export default memo(
         formValues: form?.values ?? {},
         initialValues: {
           [IS_BLOGGER_MODE_FIELD]: true,
+          [MAIN_COLOR_FIELD]: PEER_PRIMARY_COLOR,
+          [HIGHLIGHT_COLOR_FIELD]: PEER_WARNING_COLOR,
         },
       };
     })(FormCloneRedux),

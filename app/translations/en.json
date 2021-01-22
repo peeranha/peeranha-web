@@ -460,6 +460,8 @@
   "app.containers.CreateCommunity.instagramLink": "Instagram link",
   "app.containers.CreateCommunity.youtubeLink": "YouTube link",
   "app.containers.CreateCommunity.vkLink": "VK link",
+  "app.containers.CreateCommunity.mainColor": "Main color",
+  "app.containers.CreateCommunity.highlightColor": "Highlight color",
 
   "app.containers.EditCommunity.communityTitleTip": "Name of the community",
   "app.containers.EditCommunity.description": "Description of EditCommunity",
