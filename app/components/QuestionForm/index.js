@@ -323,7 +323,7 @@ export default memo(
                     ),
                   },
                   [FORM_TAGS]: question?.chosenTags,
-                  [FORM_BOUNTY]: question?.bounty.toString(),
+                  [FORM_BOUNTY]: question?.bounty ?? "",
                   [FORM_BOUNTY_HOURS]: question?.bountyHours,
                 }
               : {}),
