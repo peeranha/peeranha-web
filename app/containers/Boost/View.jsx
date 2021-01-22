@@ -26,9 +26,9 @@ const View = ({
   const { nextWeek } = boostWeeks;
   const { userStake, maxStake } = nextWeek;
 
-  const [currentStake, setCurrentStake] = useState(0);
+  const [currentStake, setCurrentStake] = useState(-1);
 
-  if (!currentStake && !!userStake)
+  if (currentStake < 0 && !!userStake)
     setCurrentStake(userStake);
 
   const changeCurrentStake = useCallback(
