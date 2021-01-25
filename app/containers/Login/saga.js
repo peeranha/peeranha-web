@@ -365,6 +365,16 @@ export function* loginWithFacebookWorker({ data }) {
   }
 
   yield call(continueLogin, decryptedData);
+  setCookie({
+    name: AUTOLOGIN_DATA,
+    value: JSON.stringify({
+      loginWithFacebook: true,
+    }),
+    options: {
+      allowSubdomains: true,
+      defaultPath: true,
+    },
+  });
 }
 
 export function* facebookLoginCallbackWorker({ data, isLogin }) {

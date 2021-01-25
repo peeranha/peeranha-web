@@ -32,6 +32,7 @@ export const initialState = fromJS({
   hasOwnerEosKey: false,
   loginWithScatter: false,
   loginWithKeycat: false,
+  loginWithFacebook: null,
 });
 
 function accountProviderReducer(state = initialState, action) {
@@ -51,6 +52,7 @@ function accountProviderReducer(state = initialState, action) {
     hasOwnerEosKey,
     loginWithScatter,
     loginWithKeycat,
+    loginWithFacebook,
   } = action;
 
   switch (type) {
@@ -63,8 +65,14 @@ function accountProviderReducer(state = initialState, action) {
         .set('account', account || initialState.get('account'))
         .set('balance', balance || initialState.get('balance'))
         .set('boost', boost || initialState.get('boost'))
-        .set('stakedInCurrentPeriod', stakedInCurrentPeriod || initialState.get('stakedInCurrentPeriod'))
-        .set('stakedInNextPeriod', stakedInNextPeriod || initialState.get('stakedInNextPeriod'));
+        .set(
+          'stakedInCurrentPeriod',
+          stakedInCurrentPeriod || initialState.get('stakedInCurrentPeriod'),
+        )
+        .set(
+          'stakedInNextPeriod',
+          stakedInNextPeriod || initialState.get('stakedInNextPeriod'),
+        );
     case GET_CURRENT_ACCOUNT_ERROR:
       return state.set('loading', false).set('error', err);
 
@@ -77,7 +85,8 @@ function accountProviderReducer(state = initialState, action) {
         .set('encryptedKeys', encryptedKeys)
         .set('hasOwnerEosKey', hasOwnerEosKey)
         .set('loginWithScatter', loginWithScatter)
-        .set('loginWithKeycat', loginWithKeycat);
+        .set('loginWithKeycat', loginWithKeycat)
+        .set('loginWithFacebook', loginWithFacebook);
     case REMOVE_LOGIN_DATA:
       return state
         .set('email', null)
@@ -86,11 +95,11 @@ function accountProviderReducer(state = initialState, action) {
         .set('passwordUserPart', null)
         .set('encryptedKeys', null)
         .set('hasOwnerEosKey', null)
-        .set('loginWithScatter', null);
+        .set('loginWithScatter', null)
+        .set('loginWithFacebook', null);
 
     case CHANGE_STAKED_IN_NEXT_PERIOD:
-      return state
-        .set('stakedInNextPeriod', stakedInNextPeriod);
+      return state.set('stakedInNextPeriod', stakedInNextPeriod);
 
     default:
       return state;

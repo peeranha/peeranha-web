@@ -27,6 +27,7 @@ import { initEosioSuccess, initEosioError } from './actions';
 import { INIT_EOSIO, INIT_EOSIO_SUCCESS } from './constants';
 
 import validate from './validate';
+import { loginWithFacebookWorker } from '../Login/saga';
 
 export function* initEosioWorker({
   key = null,
@@ -58,6 +59,20 @@ export function* initEosioWorker({
       yield put(initEosioSuccess(eosService));
 
       return null;
+    }
+
+    if (autoLoginData && autoLoginData.loginWithFacebook) {
+      // Facebook login
+      // window.FB.init({
+      //   appId: process.env.FACEBOOK_APP_ID,
+      //   status: true,
+      //   version: 'v2.7',
+      // });
+      // //
+      // // appId={}
+      // // scope="email"
+      // // fields="name,email,picture"
+      // yield loginWithFacebookWorker({ })
     }
 
     yield call(eosService.initEosioWithoutScatter, key, selectedAccount);
