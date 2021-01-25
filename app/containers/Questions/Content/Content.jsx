@@ -31,6 +31,7 @@ const Box = BaseNoPadding.extend`
     flex-direction: column;
   }
 `;
+
 const Div = styled.div`
   width: 100%;
   display: flex;
@@ -73,8 +74,8 @@ const QI = ({
   const ref = useRef(null);
 
   const displayTopQuestionMove = useMemo(
-    () => isModerator && isTopQuestion && questionFilter === 1,
-    [isTopQuestion, isModerator, questionFilter],
+    () => isModerator && isTopQuestion && questionFilter === 1 && !isPromoted,
+    [isTopQuestion, isModerator, questionFilter, isPromoted],
   );
 
   const upQuestionMethod = useCallback(
@@ -114,7 +115,9 @@ const QI = ({
   );
 
   const onDragOver = useCallback(e => {
-    e.preventDefault();
+    if (!isPromoted) {
+      e.preventDefault();
+    }
   }, []);
 
   const offAnswersCount = useMemo(() => officialAnswersCount({ answers }), [
@@ -126,7 +129,7 @@ const QI = ({
       index={index}
       innerRef={ref}
       bordered={!isGeneral}
-      draggable={isModerator && questionFilter === 1}
+      draggable={isModerator && questionFilter === 1 && !isPromoted}
       onDrop={onDrop}
       onDragOver={onDragOver}
       onDragStart={onDragStart}
