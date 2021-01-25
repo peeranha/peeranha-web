@@ -13,7 +13,10 @@ import almostDoneBanner from 'images/communityIsSuggested.svg?inline';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { singleCommunityStyles, isSingleCommunityWebsite } from 'utils/communityManagement';
+import {
+  singleCommunityStyles,
+  isSingleCommunityWebsite,
+} from 'utils/communityManagement';
 
 import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
 import { selectLogo } from 'containers/Home/selectors';
@@ -111,26 +114,23 @@ const RightMenu = ({ message }) => (
   </div>
 );
 
-const AlmostDone = ({
-  faqQuestions,
-  message,
-  logo,
-  getLogoDispatch,
-}) => {
+const AlmostDone = ({ faqQuestions, message, logo, getLogoDispatch }) => {
   useEffect(
     () => {
       getLogoDispatch();
     },
     [single],
   );
-  
+
   return (
     <SignUpWrapper
-      LeftMenuChildren={<LeftMenu faqQuestions={faqQuestions} mainLogo={logo} />}
+      LeftMenuChildren={
+        <LeftMenu faqQuestions={faqQuestions} mainLogo={logo} />
+      }
       RightMenuChildren={<RightMenu message={message} />}
     />
   );
-}
+};
 
 const withConnect = connect(
   createStructuredSelector({

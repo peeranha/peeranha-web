@@ -8,7 +8,6 @@ import {
   callService,
   REGISTER_WITH_FACEBOOK_SERVICE,
 } from '../../utils/web_integration/src/util/aws-connector';
-import { setCookie } from 'utils/cookie';
 import {
   registerAccount,
   inviteUser,
@@ -76,9 +75,7 @@ import { addToast } from '../Toast/actions';
 import { initEosioSuccess } from '../EosioProvider/actions';
 import { getNotificationsInfoWorker } from '../../components/Notifications/saga';
 import { addLoginData } from '../AccountProvider/actions';
-import { verifyEmailWorker } from '../SignUp/saga';
 
-/* eslint consistent-return: 0 */
 export function* loginWithEmailWorker({ val }) {
   try {
     const locale = yield select(makeSelectLocale());
@@ -309,28 +306,33 @@ export function* redirectToFeedWorker() {
 
 export function* facebookLoginButtonClickedWorker() {
   yield put(setFacebookLoginProcessing(true));
-  console.log('clicked');
 }
 
 export function* facebookLoginCallbackWorker({ data, isLogin }) {
   try {
-    if (isLogin) {
+    if (isLogin && data.userID) {
       yield loginWithEmailWorker({
         val: {
-          [EMAIL_FIELD]: data.userID,
+          [EMAIL_FIELD]: `${data.userID}@facebook.com`,
           [PASSWORD_FIELD]: data.accessToken,
           [REMEMBER_ME_FIELD]: false,
         },
       });
     } else if (data.userID) {
-      yield call(callService, REGISTER_WITH_FACEBOOK_SERVICE, {});
-      yield call(verifyEmailWorker, {
-        email: data.userID,
-        verificationCode: data.accessToken,
-        redirect: false,
+      const response = yield call(callService, REGISTER_WITH_FACEBOOK_SERVICE, {
+        accessToken: data.accessToken,
+        userID: data.userID,
       });
+
+      yield loginWithEmailWorker({
+        val: {
+          [EMAIL_FIELD]: `${data.userID}@facebook.com`,
+          [PASSWORD_FIELD]: data.accessToken,
+          [REMEMBER_ME_FIELD]: false,
+        },
+      });
+
       yield put(setFacebookSignUpInitiation(true));
-      // yield call(createdHistory.push, signup.dontHaveEosAccount.name);
     } else {
       throw new Error(JSON.stringify(data));
     }
