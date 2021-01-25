@@ -212,6 +212,9 @@ export const OntStyles = {
     purple: 'rgba(0,0,0,.6)',
     btnColor: '#000000',
     tagColor: 'rgba(0,0,0,.6)',
+    premium: '#2fa3f1',
+    premiumLight: '#d8ebf8',
+    premiumRGB: '47, 163, 241',
   },
   fontFace: `@font-face {
     font-family: 'Roboto-Regular';
