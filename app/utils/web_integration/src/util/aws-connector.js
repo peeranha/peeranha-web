@@ -16,6 +16,7 @@ const CHANGE_CREDENTIALS_COMPLETE_SERVICE =
   'wallet/change-credentials/complete';
 
 const REGISTER_WITH_FACEBOOK_SERVICE = 'wallet/register/facebook';
+const LOGIN_WITH_FACEBOOK_SERVICE = 'wallet/login/facebook';
 
 const LOGGER_SERVICE = 'status/ui/report-error';
 const PAY_FOR_CPU_SERVICE = 'wallet/pay-for-cpu/pay';
@@ -61,6 +62,7 @@ module.exports = {
   REGISTER_CONFIRM_SERVICE,
   REGISTER_COMPLETE_SERVICE,
   REGISTER_WITH_FACEBOOK_SERVICE,
+  LOGIN_WITH_FACEBOOK_SERVICE,
   LOGIN_SERVICE,
   LOGIN_AUTOLOGIN_DATA_SERVICE,
   GET_OWNER_KEY_INIT_SERVICE,

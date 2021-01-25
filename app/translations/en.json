@@ -248,6 +248,9 @@
   "web_integration.errors.invalidCipher": "Invalid cipher IV in passphase",
   "web_integration.errors.emailAlreadyInUse": "Email already in use",
   "web_integration.errors.unableToBuildModel": "Unable to build model",
+  "web_integration.errors.facebookAlreadyInUse": "Facebook account already in use",
+  "web_integration.errors.facebookAccountIsntRegistered": "Facebook account isn't registered yet",
+  "web_integration.errors.incorrectFacebookAccessToken": "Incorrect facebook access token",
 
   "app.containers.Header.walletTooltipPart1": "You have ",
   "app.containers.Header.walletTooltipPart2": " rewards ready",

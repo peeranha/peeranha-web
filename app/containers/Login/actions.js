@@ -22,7 +22,8 @@ import {
   FACEBOOK_LOGIN_PROCESSING,
   FACEBOOK_LOGIN_BUTTON_CLICK,
   FACEBOOK_LOGIN_DATA_RECEIVE,
-  FACEBOOK_SIGN_UP_INITIATED,
+  SET_FACEBOOK_USER_DATA,
+  FACEBOOK_ERROR,
 } from './constants';
 
 // Show | Hide (modal)
@@ -137,7 +138,12 @@ export const handleFacebookLoginCallback = (data, isLogin) => ({
   isLogin,
 });
 
-export const setFacebookSignUpInitiation = facebookSignUpInitiated => ({
-  type: FACEBOOK_SIGN_UP_INITIATED,
-  facebookSignUpInitiated,
+export const setFacebookUserData = facebookUserData => ({
+  type: SET_FACEBOOK_USER_DATA,
+  facebookUserData,
+});
+
+export const addFacebookError = facebookError => ({
+  type: FACEBOOK_ERROR,
+  facebookError,
 });

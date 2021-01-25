@@ -50,7 +50,7 @@ export const selectFacebookLoginProcessing = () =>
     substate.get('facebookLoginProcessing'),
   );
 
-export const isFacebookSignUpInitiatedSelector = () =>
+export const selectFacebookUserData = () =>
   createSelector(selectLoginDomain, substate =>
-    substate.get('facebookSignUpInitiated'),
+    substate.get('facebookUserData'),
   );

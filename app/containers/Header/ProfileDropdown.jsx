@@ -114,7 +114,11 @@ export const Button = connect(state => ({
 
 const Menu = memo(
   ({
-    profileInfo: { user, permissions, integer_properties: integerProperties },
+    profileInfo: {
+      user,
+      permissions,
+      integer_properties: integerProperties = [],
+    },
     questionsLength,
     questionsWithUserAnswersLength,
   }) => {

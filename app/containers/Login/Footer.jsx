@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import styled, { css } from 'styled-components';
@@ -146,10 +146,8 @@ const Footer = ({
     loginWithEmailProcessing ||
     facebookLoginProcessing;
 
-  const onCallback = useCallback(
-    data => handleFacebookLoginCallbackDispatch(data, !signUpText),
-    [signUpText],
-  );
+  const onCallback = data =>
+    handleFacebookLoginCallbackDispatch(data, !signUpText);
 
   return (
     <Box>

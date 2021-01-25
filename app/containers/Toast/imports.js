@@ -83,6 +83,7 @@ import {
   LOGIN_WITH_EMAIL_ERROR,
   FINISH_REGISTRATION_ERROR,
   FINISH_REGISTRATION_REFERRAL_ERROR,
+  FACEBOOK_ERROR,
 } from 'containers/Login/constants';
 
 import { LOGOUT_ERROR } from 'containers/Logout/constants';
@@ -259,6 +260,7 @@ export const errHandlingTypes = [
   GET_USER_ACHIEVEMENTS_ERROR,
   GET_ASKED_QUESTION_ERROR,
   CHANGE_STAKE_ERROR,
+  FACEBOOK_ERROR,
 ];
 
 export const successHandlingTypes = [

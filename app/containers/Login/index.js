@@ -45,63 +45,62 @@ import EmailPasswordForm from './EmailPasswordForm';
 import WeAreHappyYouAreHereForm from './WeAreHappyYouAreHereForm';
 
 /* eslint-disable react/prefer-stateless-function */
-export class Login extends React.Component {
-  showIForgotPasswordModal = () => {
-    this.props.hideLoginModalDispatch();
-    this.props.showForgotPasswordModalDispatch();
+export const Login = ({
+  content,
+  showModal,
+  hideLoginModalDispatch,
+  locale,
+  email,
+  facebookUserData,
+  loginWithEmailProcessing,
+  finishRegistrationProcessing,
+  showEmailPasswordFormDispatch,
+  loginWithEmailDispatch,
+  loginWithWalletProcessing,
+  loginWithWalletDispatch,
+  finishRegistrationDispatch,
+  showForgotPasswordModalDispatch,
+}) => {
+  const showIForgotPasswordModal = () => {
+    hideLoginModalDispatch();
+    showForgotPasswordModalDispatch();
   };
 
-  render() /* istanbul ignore next */ {
-    const {
-      content,
-      showModal,
-      hideLoginModalDispatch,
-      locale,
-      email,
-      loginWithEmailProcessing,
-      finishRegistrationProcessing,
-      showEmailPasswordFormDispatch,
-      loginWithEmailDispatch,
-      loginWithWalletProcessing,
-      loginWithWalletDispatch,
-      finishRegistrationDispatch,
-    } = this.props;
+  return (
+    <ModalDialog show={showModal} closeModal={hideLoginModalDispatch}>
+      {content === EMAIL_FORM && (
+        <EmailForm
+          locale={locale}
+          showEmailPasswordForm={showEmailPasswordFormDispatch}
+          loginWithEmailProcessing={loginWithEmailProcessing}
+          loginWithWallet={loginWithWalletDispatch}
+          loginWithWalletProcessing={loginWithWalletProcessing}
+        />
+      )}
 
-    return (
-      <ModalDialog show={showModal} closeModal={hideLoginModalDispatch}>
-        {content === EMAIL_FORM && (
-          <EmailForm
-            locale={locale}
-            showEmailPasswordForm={showEmailPasswordFormDispatch}
-            loginWithEmailProcessing={loginWithEmailProcessing}
-            loginWithWallet={loginWithWalletDispatch}
-            loginWithWalletProcessing={loginWithWalletProcessing}
-          />
-        )}
+      {content === EMAIL_PASSWORD_FORM && (
+        <EmailPasswordForm
+          locale={locale}
+          login={loginWithEmailDispatch}
+          loginWithEmailProcessing={loginWithEmailProcessing}
+          showIForgotPasswordModal={showIForgotPasswordModal}
+          email={email}
+          loginWithWallet={loginWithWalletDispatch}
+          loginWithWalletProcessing={loginWithWalletProcessing}
+        />
+      )}
 
-        {content === EMAIL_PASSWORD_FORM && (
-          <EmailPasswordForm
-            locale={locale}
-            login={loginWithEmailDispatch}
-            loginWithEmailProcessing={loginWithEmailProcessing}
-            showIForgotPasswordModal={this.showIForgotPasswordModal}
-            email={email}
-            loginWithWallet={loginWithWalletDispatch}
-            loginWithWalletProcessing={loginWithWalletProcessing}
-          />
-        )}
-
-        {content === WE_ARE_HAPPY_FORM && (
-          <WeAreHappyYouAreHereForm
-            locale={locale}
-            finishRegistration={finishRegistrationDispatch}
-            finishRegistrationProcessing={finishRegistrationProcessing}
-          />
-        )}
-      </ModalDialog>
-    );
-  }
-}
+      {content === WE_ARE_HAPPY_FORM && (
+        <WeAreHappyYouAreHereForm
+          locale={locale}
+          facebookUserName={facebookUserData?.name || ''}
+          finishRegistration={finishRegistrationDispatch}
+          finishRegistrationProcessing={finishRegistrationProcessing}
+        />
+      )}
+    </ModalDialog>
+  );
+};
 
 Login.propTypes = {
   content: PropTypes.string,
@@ -112,6 +111,7 @@ Login.propTypes = {
   loginWithEmailProcessing: PropTypes.bool,
   finishRegistrationProcessing: PropTypes.bool,
   loginWithWalletProcessing: PropTypes.bool,
+  facebookUserData: PropTypes.string,
   showEmailPasswordFormDispatch: PropTypes.func,
   loginWithEmailDispatch: PropTypes.func,
   loginWithWalletDispatch: PropTypes.func,
@@ -119,18 +119,18 @@ Login.propTypes = {
   showForgotPasswordModalDispatch: PropTypes.func,
 };
 
-const mapStateToProps = createStructuredSelector({
-  locale: makeSelectLocale(),
-  content: selectors.makeSelectContent(),
-  showModal: selectors.makeSelectShowModal(),
-  email: selectors.makeSelectEmail(),
-  loginWithEmailProcessing: selectors.selectLoginWithEmailProcessing(),
-  finishRegistrationProcessing: selectors.selectFinishRegistrationProcessing(),
-  loginWithWalletProcessing: selectors.selectLoginWithWalletProcessing(),
-});
-
-export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
-  return {
+const withConnect = connect(
+  createStructuredSelector({
+    locale: makeSelectLocale(),
+    content: selectors.makeSelectContent(),
+    showModal: selectors.makeSelectShowModal(),
+    email: selectors.makeSelectEmail(),
+    loginWithEmailProcessing: selectors.selectLoginWithEmailProcessing(),
+    finishRegistrationProcessing: selectors.selectFinishRegistrationProcessing(),
+    loginWithWalletProcessing: selectors.selectLoginWithWalletProcessing(),
+    facebookUserData: selectors.selectFacebookUserData(),
+  }),
+  dispatch => ({
     hideLoginModalDispatch: bindActionCreators(hideLoginModal, dispatch),
     showEmailPasswordFormDispatch: bindActionCreators(
       showEmailPasswordForm,
@@ -146,20 +146,12 @@ export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
       finishRegistrationWithDisplayName,
       dispatch,
     ),
-  };
-}
-
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
+  }),
 );
-
-const withReducer = injectReducer({ key: 'login', reducer });
-const withSaga = injectSaga({ key: 'login', saga, mode: DAEMON });
 
 export default compose(
   injectReducer({ key: 'login', reducer: notificationsReducer }),
-  withReducer,
-  withSaga,
+  injectReducer({ key: 'login', reducer }),
+  injectSaga({ key: 'login', saga, mode: DAEMON }),
   withConnect,
 )(Login);
