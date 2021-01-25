@@ -273,7 +273,7 @@ function* changeQuestionFilterWorker({ questionFilter }) {
   }
 }
 
-function* loadTopCommunityQuestionsWorker({ init }) {
+export function* loadTopCommunityQuestionsWorker({ init }) {
   try {
     const eosService = yield select(selectEos);
 

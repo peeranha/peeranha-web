@@ -1,7 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import { FormattedMessage } from 'react-intl';
 
 import { singleCommunityStyles } from 'utils/communityManagement';
+
+import messages from 'common-messages';
 
 import facebookIcon from 'images/logo-facebook.svg?inline';
 import instagramIcon from 'images/logo-instagram.svg?inline';
@@ -19,9 +22,6 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  background-image: url('${({ bg }) => bg}');
-  background-size: cover;
-  background-position: center;
   height: 120px;
 `;
 
@@ -29,7 +29,15 @@ const SubHeaderNav = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 3px 0;
+  flex-wrap: wrap;
+  padding: 7px 0;
+  letter-spacing: normal;
+  text-align: center;
+
+  > span {
+    width: 100%;
+    margin-bottom: 5px;
+  }
 
   > a {
     margin: 0 10px;
@@ -37,18 +45,20 @@ const SubHeaderNav = styled.div`
 `;
 
 const BloggerStyleSubHeader = () => {
-  const { links, banner } = singleCommunityStyles().customSubHeaderConfig;
+  const { links } = singleCommunityStyles().customSubHeaderConfig;
 
   return (
-    <Container bg={banner}>
-      <SubHeaderNav>
-        {!!links &&
-          Object.keys(links).map(key => (
+    <Container>
+      {!!links && (
+        <SubHeaderNav>
+          <FormattedMessage {...messages.followSocialMedia} />
+          {Object.keys(links).map(key => (
             <a href={links[key]} key={key}>
               <img src={SOCIAL_MEDIA_ICONS[key]} alt={key} />
             </a>
           ))}
-      </SubHeaderNav>
+        </SubHeaderNav>
+      )}
     </Container>
   );
 };

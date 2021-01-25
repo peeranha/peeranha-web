@@ -10,9 +10,10 @@ import {
   GET_LOGO_ERROR,
 } from './constants';
 
-export function getQuestions() {
+export function getQuestions(communityId) {
   return {
     type: GET_QUESTIONS,
+    communityId,
   };
 }
 

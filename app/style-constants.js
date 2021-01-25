@@ -87,6 +87,7 @@ export const LINK_COLOR_SECONDARY = _get(
 );
 export const ICON_TRASPARENT_BLUE = iconTransparentBlue;
 
+export const BORDER_LIGHT = white;
 export const BORDER_SECONDARY = secondarySpecial;
 export const BORDER_PRIMARY_DARK = darkblue;
 export const BORDER_PRIMARY_LIGHT = lightblueSpecial;

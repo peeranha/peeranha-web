@@ -66,7 +66,7 @@ const LeftMenu = ({ faqQuestions, route, mainLogo }) => (
         </CommunityLogoWrapper>
       ) : (
         <Link to={routes.questions()} href={routes.questions()}>
-          <img src={peeranhaLogo} width="180px" alt="Peeranha logo" />
+          <img src={mainLogo} width="180px" alt="Peeranha logo" />
         </Link>
       )}
     </div>

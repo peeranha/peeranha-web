@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import isMobile from 'ismobilejs';
+import { bindActionCreators, compose } from 'redux';
 
 import * as routes from 'routes-config';
 
@@ -21,9 +22,12 @@ import peeranhaLogo from 'images/LogoBlack.svg?inline';
 import commonMessages from 'common-messages';
 import messages from 'containers/SignUp/messages';
 
-import { singleCommunityStyles } from 'utils/communityManagement';
+import injectSaga from 'utils/injectSaga';
+import injectReducer from 'utils/injectReducer';
+import { singleCommunityStyles, isSingleCommunityWebsite } from 'utils/communityManagement';
 
 import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
+import { selectLogo } from 'containers/Home/selectors';
 
 import H3 from 'components/H3';
 import Span from 'components/Span';
@@ -96,6 +100,7 @@ const LoginLink = styled.div`
 `;
 
 const styles = singleCommunityStyles();
+const single = isSingleCommunityWebsite();
 
 const LeftMenu = ({ faqQuestions, mainLogo }) => (
   <React.Fragment>
