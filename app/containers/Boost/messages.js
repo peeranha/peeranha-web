@@ -52,4 +52,7 @@ export default defineMessages({
   notTokensToStake: {
     id: 'app.containers.Boost.notTokensToStake',
   },
+  formUnstakeTokens: {
+    id: 'app.containers.Boost.formUnstakeTokens',
+  },
 });

@@ -203,6 +203,7 @@
   "app.containers.Boost.formBoostPrediction": "Boost prediction",
   "app.containers.Boost.formCurrentStake": "Your stake",
   "app.containers.Boost.formTakeAStake": "Take a stake",
+  "app.containers.Boost.formUnstakeTokens": "Unstake tokens",
   "app.containers.Boost.notTokensToStake": "You don't have tokens to stake",
 
   "web_integration.errors.unknownError":

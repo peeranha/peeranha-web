@@ -61,6 +61,7 @@ export const LANDING_FONT = 'Open Sans, sans-serif';
 export const APP_FONT = _get(fonts, 'main', 'Source Sans Pro, sans-serif');
 export const TITLE_FONT = _get(fonts, 'title', 'Source Sans Pro, sans-serif');
 export const SECONDARY_SPECIAL = secondarySpecial;
+export const DARK_SECONDARY = _get(colors, 'darkSecondary', darkgray);
 export const SECONDARY_SPECIAL_2 = graySpecial2;
 export const SECONDARY_SPECIAL_3 = graySpecial3;
 export const BG_SECONDARY_SPECIAL_4 = graySpecial4;

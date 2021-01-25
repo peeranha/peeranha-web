@@ -35,7 +35,7 @@ const STAKE_TAGS = [
   {
     text: '100%',
     value: 1,
-  }
+  },
 ];
 
 const Stake = styled.span`
@@ -76,7 +76,14 @@ const Tag = styled.button`
   }
 `;
 
-const CurrentStakeForm = ({ maxValue, onClickStakeTag, disabled, formValues }) => {
+const CurrentStakeForm = ({
+  maxValue,
+  onClickStakeTag,
+  disabled,
+  formValues,
+  formSubmitAction,
+  initialUserStake,
+}) => {
   const value = +formValues[CURRENT_STAKE_FORM];
   const progressWidth = value && maxValue ? value * 100 / maxValue : 0;
 
@@ -94,6 +101,15 @@ const CurrentStakeForm = ({ maxValue, onClickStakeTag, disabled, formValues }) =
             }}
           >{item.text}</Tag>
         ))}
+        {!!initialUserStake && (
+          <Tag
+            onClick={(e) => {
+              e.preventDefault();
+              onClickStakeTag(0);
+              setTimeout(() => formSubmitAction(), 1000);
+            }}
+          ><FormattedMessage {...messages.formUnstakeTokens} /></Tag>
+        )}
       </Tags>
       <Field
         name={CURRENT_STAKE_FORM}
@@ -117,6 +133,8 @@ CurrentStakeForm.propTypes = {
   disabled: PropTypes.bool,
   onChange: PropTypes.func,
   formValues: PropTypes.object,
+  formSubmitAction: PropTypes.func,
+  initialUserStake: PropTypes.number,
 };
 
 export default memo(CurrentStakeForm);

@@ -13,9 +13,7 @@ import {
   FORM_TYPE,
   CURRENT_STAKE_FORM,
 } from './constants';
-import {
-  SECONDARY_SPECIAL,
-} from 'style-constants';
+import { DARK_SECONDARY } from 'style-constants';
 
 import TipsBase from 'components/Base/TipsBase';
 import { BaseSpecialOne } from 'components/Base/BaseTransparent';
@@ -66,7 +64,7 @@ export const InputProgressBar = styled.div`
   width: ${({ width }) => width || 0}%;
   max-width: 100%;
   height: 4px;
-  background-color: ${SECONDARY_SPECIAL};
+  background-color: ${DARK_SECONDARY};
 `;
 
 const Title = styled.p`
@@ -122,13 +120,15 @@ const Form = ({
                   onClickStakeTag={v => changeCurrentStake(v)}
                   disabled={changeStakeLoading}
                   formValues={formValues}
+                  formSubmitAction={handleSubmit(changeStake)}
+                  initialUserStake={initialUserStake}
                 />
 
                 <div className="mt-5">
                   <Button type="submit" className="mr-4">
                     <FormattedMessage {...messages.formSubmit} />
                   </Button>
-                  <TransparentButton type="button" onClick={() => onChangeCurrentStake(initialUserStake)}>
+                  <TransparentButton type="button" onClick={() => onChangeCurrentStake(initialUserStake || 0)}>
                     <FormattedMessage {...messages.formCancel} />
                   </TransparentButton>
                 </div>
@@ -170,10 +170,12 @@ export default memo(
       ) => {
         const form = state.toJS().form[FORM_TYPE] || { values: {} };
 
+        const currentStakeValue = typeof currentStake === 'number' && currentStake > 0 ? currentStake : 0;
+
         return {
           formValues: form.values,
           initialValues: {
-            [CURRENT_STAKE_FORM]: currentStake ? currentStake.toString() : "",
+            [CURRENT_STAKE_FORM]: currentStakeValue.toString(),
           },
           enableReinitialize: true,
         };
