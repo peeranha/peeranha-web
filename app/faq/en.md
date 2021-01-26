@@ -67,6 +67,14 @@ Your Master Key is required to restore access to your account if you forget your
 
 **It is very important to save Master Key in a safe place. We will not be able to restore access to your account if your Master Key is lost.**
 
+### What is a temporary account?
+
+Temporary account is a user profile that is created automatically on Peeranha, when a user asks or answers questions from Telegram messenger in case Telegram wasn’t linked to a Peeranha account before. This account displays the user's Telegram username on the website and works almost the same as a regular Peeranha account. User is not able to log in to this profile, perform any actions on Peeranha and receive any Tips from other users.
+
+To link the temporary account with the account on Peeranha User should enter the following command in the private chat with a Peeranha bot in Telegram: /linkaccount. Then enter the Telos account name related to the main account, which can be found on the Profile page on Peeranha. After that, the link request must be confirmed on the Settings page on Peeranha.
+
+After linking the accounts, all the gained rating points, questions, answers, and achievements will be added to the main profile. All the further questions and answers posted from the Telegram will be signed by the main profile name on Peeranha.
+
 ## Communities
 
 ### What is community?
@@ -302,26 +310,51 @@ To set it in group/channel click "Add members" and add @PeeranhaBot.
 
 /updatedisplayname - update display name
 
-*Post an answer directly from Telegram by using "Reply" action on a notification message about a posted question.*
+_Post an answer directly from Telegram by using "Reply" action on a notification message about a posted question._
+
+_If you haven't linked you telegram account to Peeranha account yet, bot allows you to post question with temporary telegram account. Click here to learn more details https://testpeeranha.io/faq/#section_id_1_4_
 
 ## Boost
 
 ### What is a Boost?
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+Boost is a multiplier of the common PEER token reward that users are getting by increasing their rating points on Peeranha. The multiplier value depends on the User’s token investment amount called Stake. The highest Stake on Peeranha will give its owner the biggest Boost multiplier – X4. Other users, who made a lower Stake, compared to maximum stake, will get the calculated Boost multiplier according to their Stake.
 
 ### How to make a stake?
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+To make a stake, navigate to the Boost page from the wallet drop-down menu and fill the “Your Stake” form. Boost will be activated in the next period. Staked PEER tokens will be frozen and out of use until you unstake them.
+The stake will always migrate from one period to another unless it is changed or withdrawn. Changes to the stake can be made anytime, but they will be applied in the next period.
 
-### How to make a stake automatically?
+### Why are my tokens frozen?
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+It's made to use these tokens as additional capital for the founding needs. This system works like bank deposits.
 
-### Why are my tokens locked?
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+To unlock the tokens, withdraw the Stake and in the next period the staked tokens will be returned, and Boost will be deactivated.
 
 ### When I can get my reward?
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+The reward with Boost is paid out to users with the same rules as a common reward. Learn more about it in FAQ “Rewards” section
+
+## Promoted Questions
+
+### What is a Promoted question?
+
+Promoted question is a good option to increase the probability of a question being noticed and answered on Peeranha. If the question is promoted, it will be pinned to the top of the questions list filtered by the related community on Peeranha, and in the related Single Community Mode.
+
+### How to Promote a question?
+
+To promote the question, fill the Promote question field on the Ask Question page for the new question or Edit Question page for an existing question. Enter how many hours the question will stay promoted. 1 hour of the promotion costs 2 PEER tokens.
+
+### How is Promoted question displayed?
+
+Promoted questions are displayed in the questions list filtered by the related community on Peeranha, and in the related Single Community Mode. Promoted questions are highlighted with special border color and marked with a 'Promoted' label.
+
+If there are 3 or less Promoted questions in the Community then they are displayed on the top of the questions list in chronological order starting from the newest promoted question.
+
+If there are more than 3 Promoted questions in the Community then 3 of them are chosen randomly and they are displayed on the top of the questions list in random order. The displayed questions and their order is changing every time after reloading or navigating to the Questions list page from other pages.
+
+At the same time, the original copies of Promoted questions will also be displayed in the general list of Community's questions below the Promoted questions.
+
+### Why can not I promote my question?
+
+If an error message occurs when trying to Promote a question and the question is posted without the promotion, please try to enable pop-ups in the browser settings for this site. If it doesn't help, please contact our Support team, https://peeranha.io/support/#support_form
