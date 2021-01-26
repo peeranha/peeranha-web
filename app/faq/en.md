@@ -67,6 +67,14 @@ Your Master Key is required to restore access to your account if you forget your
 
 **It is very important to save Master Key in a safe place. We will not be able to restore access to your account if your Master Key is lost.**
 
+### What is a temporary account?
+
+Temporary account is a user profile that is created automatically on Peeranha, when a user asks or answers questions from Telegram messenger in case Telegram wasn’t linked to a Peeranha account before. This account displays the user's Telegram username on the website and works almost the same as a regular Peeranha account. User is not able to log in to this profile, perform any actions on Peeranha and receive any Tips from other users.
+
+To link the temporary account with the account on Peeranha User should enter the following command in the private chat with a Peeranha bot in Telegram: /linkaccount. Then enter the Telos account name related to the main account, which can be found on the Profile page on Peeranha. After that, the link request must be confirmed on the Settings page on Peeranha.
+
+After linking the accounts, all the gained rating points, questions, answers, and achievements will be added to the main profile. All the further questions and answers posted from the Telegram will be signed by the main profile name on Peeranha.
+
 ## Communities
 
 ### What is community?
@@ -303,6 +311,8 @@ To set it in group/channel click "Add members" and add @PeeranhaBot.
 /updatedisplayname - update display name
 
 _Post an answer directly from Telegram by using "Reply" action on a notification message about a posted question._
+
+_If you haven't linked you telegram account to Peeranha account yet, bot allows you to post question with temporary telegram account. Click here to learn more details https://testpeeranha.io/faq/#section_id_1_4_
 
 ## Boost
 
