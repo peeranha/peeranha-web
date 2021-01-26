@@ -127,6 +127,7 @@ export const PROJECT_ACHIEVEMENTS_TABLE = 'achieve';
 export const BOOST_STATISTICS_TABLE = 'statboost';
 export const USER_BOOST_TABLE = 'boost';
 export const PROMOTED_QUESTIONS_TABLES = 'promquestion';
+export const TOKEN_AWARDS_TABLE = 'tokenawards';
 
 // Scopes
 
@@ -143,6 +144,7 @@ export const ALL_PROPERTY_COMMUNITY_SCOPE = 'allprprtcomm';
 export const ALL_TG_ACCOUNTS_SCOPE = 'alltelacc';
 export const ALL_ACHIEVEMENTS_SCOPE = 'allachieve';
 export const BOOST_STATISTICS_SCOPE = 'allboost';
+export const TOKEN_AWARDS_SCOPE = 'allawards';
 
 // Inf. limit
 export const INF_LIMIT = -1;
