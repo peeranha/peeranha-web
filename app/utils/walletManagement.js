@@ -27,6 +27,8 @@ import {
   USER_BOOST_TABLE,
   ADD_BOOST_METHOD,
   EDIT_BOUNTY_METHOD,
+  TOKEN_AWARDS_TABLE,
+  TOKEN_AWARDS_SCOPE,
 } from './constants';
 
 import { ApplicationError } from './errors';
@@ -121,6 +123,7 @@ export async function getWeekStat(eosService, profile = {}) {
     userSupplyValues,
     globalBoostStat,
     userBoostStat,
+    { rows: tokenAwards },
   ] = await Promise.all([
     getTotalReward(eosService),
     getTotalRating(eosService),
@@ -129,11 +132,15 @@ export async function getWeekStat(eosService, profile = {}) {
     getUserSupplyValues(eosService),
     getGlobalBoostStatistics(eosService),
     getUserBoostStatistics(eosService, profile.user),
+    getTokenAwards(eosService),
   ]);
 
   const normalizedRewards = periodRating.map(x => {
-    try {      
-      const totalRatingForPeriod = totalRating.find(y => y.period - 1 === x.period)
+    try {
+      let tokenAwardsForPeriod = tokenAwards.find(y => y.period === x.period);
+      tokenAwardsForPeriod = !!tokenAwardsForPeriod ? convertPeerValueToNumberValue(tokenAwardsForPeriod.sum_token) : 0;
+
+      const totalRatingForPeriod = totalRating.find(y => y.period === x.period)
         .total_rating_to_reward;
 
       let totalRewardForPeriod = totalReward.find(y => y.period === x.period);
@@ -147,7 +154,7 @@ export async function getWeekStat(eosService, profile = {}) {
 
         totalRewardForPeriod = createGetRewardPool(
           x.period,
-          totalRatingForPeriod,
+          totalRatingForPeriod / 1000,
           convertPeerValueToNumberValue(user_supply),
           convertPeerValueToNumberValue(user_max_supply),
         );
@@ -155,15 +162,19 @@ export async function getWeekStat(eosService, profile = {}) {
 
       const hasTaken = Boolean(weekRewards.find(y => y.period === x.period));
 
-      const periodReward =
+      let periodReward =
         (totalRewardForPeriod * x.rating_to_award) / totalRatingForPeriod * 1000;
+
+      const partAward  = Math.floor((x.rating_to_award * 100 * 1000 / totalRatingForPeriod) * 1000);
+      const quantity = tokenAwardsForPeriod * partAward / (100 * 1000);
+
+      periodReward = periodReward + quantity;
+      periodReward = getRewardAmountByBoost(x.period, periodReward, globalBoostStat, userBoostStat);
 
       let reward =
         Number.isNaN(periodReward) || periodReward < 0.000001
           ? 0
           : periodReward;
-
-      reward = getRewardAmountByBoost(x.period, reward, globalBoostStat, userBoostStat);
 
       return {
         ...x,
@@ -338,7 +349,7 @@ export function createGetRewardPool(
     return maxUserSupply - userSupply;
   }
 
-  return Math.floor(rewardPool * 1000000) / 1000000;
+  return Math.round(rewardPool * 1000000) / 1000000;
 }
 
 // TODO: test
@@ -404,7 +415,6 @@ export const getPredictedBoost = (userStake, maxStake) => {
 
   if (userStake && maxStake && userStake <= maxStake) {
     boost = userStake / maxStake * (MAX_STAKE_PREDICTION - MIN_STAKE_PREDICTION) + 1;
-    boost = Math.floor(boost * 1000) / 1000;
   } else if (userStake && userStake > 0) {
     boost = MAX_STAKE_PREDICTION;
   }
@@ -475,7 +485,7 @@ export const getRewardAmountByBoost = (
 ) => {
   if (!amount || !userBoostStat.length) return amount;
 
-  const filtredUserBoostStat = userBoostStat.filter(item => item.period <= currentPeriod);
+  const filtredUserBoostStat = userBoostStat.filter(item => item.period < currentPeriod);
 
   if (!filtredUserBoostStat.length) return amount;
 
@@ -493,3 +503,15 @@ export const getRewardAmountByBoost = (
 
   return amount * boost.value;
 }
+
+const getTokenAwards = eosService =>
+  eosService.getTableRows(
+    TOKEN_AWARDS_TABLE,
+    TOKEN_AWARDS_SCOPE,
+    0,
+    INF_LIMIT,
+    undefined,
+    undefined,
+    undefined,
+    process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
+  );
