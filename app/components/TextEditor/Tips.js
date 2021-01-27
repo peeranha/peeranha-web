@@ -13,6 +13,7 @@ import {
   HOW_TO_ASK_QUESTION,
   HOW_TO_FORMAT_QUESTION,
   HOW_TO_TAG_QUESTION,
+  WHAT_IS_PROMOTED_QUESTION,
 } from 'containers/Faq/constants';
 
 import A from 'components/A';
@@ -99,6 +100,7 @@ const mapStateToProps = createStructuredSelector({
     HOW_TO_ASK_QUESTION,
     HOW_TO_FORMAT_QUESTION,
     HOW_TO_TAG_QUESTION,
+    WHAT_IS_PROMOTED_QUESTION,
   ]),
 });
 

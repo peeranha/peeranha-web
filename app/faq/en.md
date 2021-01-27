@@ -312,7 +312,7 @@ To set it in group/channel click "Add members" and add @PeeranhaBot.
 
 _Post an answer directly from Telegram by using "Reply" action on a notification message about a posted question._
 
-_If you haven't linked you telegram account to Peeranha account yet, bot allows you to post question with temporary telegram account. Click here to learn more details https://testpeeranha.io/faq/#section_id_1_4_
+_If you haven't linked you telegram account to Peeranha account yet, bot allows you to post question with temporary telegram account. Follow the link to learn more details https://peeranha.io/faq/#section_id_1_4_
 
 ## Boost
 
@@ -355,6 +355,6 @@ If there are more than 3 Promoted questions in the Community then 3 of them are 
 
 At the same time, the original copies of Promoted questions will also be displayed in the general list of Community's questions below the Promoted questions.
 
-### Why can not I promote my question?
+### Why can`t I promote my question?
 
 If an error message occurs when trying to Promote a question and the question is posted without the promotion, please try to enable pop-ups in the browser settings for this site. If it doesn't help, please contact our Support team, https://peeranha.io/support/#support_form
