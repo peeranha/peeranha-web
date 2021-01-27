@@ -59,6 +59,14 @@ export const ViewStyled = styled.nav`
   position: ${x => (x.isMenuVisible ? 'relative' : 'fixed')};
   width: inherit;
   transition: 0.4s;
+  height: 83%;
+  overflow-y: scroll;
+
+  ::-webkit-scrollbar {
+    background-color: transparent;
+  }
+
+  scrollbar-width: none;
 
   > div:nth-child(${({ single }) => (single ? 2 : 1)}) {
     padding: ${x => (x.isMenuVisible ? '5px 10px' : '0 0 25px 0')};
