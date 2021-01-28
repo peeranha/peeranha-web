@@ -82,16 +82,18 @@ const SuggestTag = memo(({ redirectToCreateTagDispatch, formValues }) => {
   ]);
 
   return (
-    <TransparentButton
-      onClick={redirectToCreateTagDispatch}
-      data-communityid={communityId}
-      id="question-form-suggest-tag"
-      type="button"
-      color={LINK_COLOR_SECONDARY}
-    >
-      <IconMd className="mr-2" icon={icoTag} fill={BORDER_PRIMARY} />
-      <FormattedMessage {...commonMessages.suggestTag} />
-    </TransparentButton>
+    <div style={{ marginBottom: '20px' }}>
+      <TransparentButton
+        onClick={redirectToCreateTagDispatch}
+        data-communityid={communityId}
+        id="question-form-suggest-tag"
+        type="button"
+        color={LINK_COLOR_SECONDARY}
+      >
+        <IconMd className="mr-2" icon={icoTag} fill={BORDER_PRIMARY} />
+        <FormattedMessage {...commonMessages.suggestTag} />
+      </TransparentButton>
+    </div>
   );
 });
 
@@ -142,12 +144,16 @@ export const QuestionForm = ({
   const promotedQuestionEndsTime = useMemo(
     () => {
       if (typeof question?.promote === 'object') {
-        return getFormattedDate(question.promote.endsTime, locale, MONTH_3LETTERS__DAY_YYYY_TIME);
+        return getFormattedDate(
+          question.promote.endsTime,
+          locale,
+          MONTH_3LETTERS__DAY_YYYY_TIME,
+        );
       }
 
       return null;
     },
-    [question]
+    [question],
   );
 
   return (
@@ -219,20 +225,20 @@ export const QuestionForm = ({
               redirectToCreateTagDispatch={redirectToCreateTagDispatch}
             />
 
-            <BountyForm
-              intl={intl}
-              questionLoading={questionLoading}
-              formValues={formValues}
-              change={change}
-              dotRestriction={DEFAULT_DOT_RESTRICTION}
-            />
+            {/*<BountyForm*/}
+            {/*  intl={intl}*/}
+            {/*  questionLoading={questionLoading}*/}
+            {/*  formValues={formValues}*/}
+            {/*  change={change}*/}
+            {/*  dotRestriction={DEFAULT_DOT_RESTRICTION}*/}
+            {/*/>*/}
 
-            <BountyDateForm
-              intl={intl}
-              questionLoading={questionLoading}
-              formValues={formValues}
-              change={change}
-            />
+            {/*<BountyDateForm*/}
+            {/*  intl={intl}*/}
+            {/*  questionLoading={questionLoading}*/}
+            {/*  formValues={formValues}*/}
+            {/*  change={change}*/}
+            {/*/>*/}
 
             {promotedQuestionEndsTime ? (
               <PromoteQuestionInfo>
@@ -323,7 +329,7 @@ export default memo(
                     ),
                   },
                   [FORM_TAGS]: question?.chosenTags,
-                  [FORM_BOUNTY]: question?.bounty ?? "",
+                  [FORM_BOUNTY]: question?.bounty ?? '',
                   [FORM_BOUNTY_HOURS]: question?.bountyHours,
                 }
               : {}),
