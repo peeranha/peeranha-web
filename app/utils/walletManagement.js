@@ -134,7 +134,7 @@ export async function getWeekStat(eosService, profile = {}) {
     getUserBoostStatistics(eosService, profile.user),
     getTokenAwards(eosService),
   ]);
-
+  
   const normalizedRewards = periodRating.map(x => {
     try {
       let tokenAwardsForPeriod = tokenAwards.find(y => y.period === x.period);
@@ -335,10 +335,13 @@ export function createGetRewardPool(
   userSupply,
   maxUserSupply,
 ) {
-  const inflationRewardPool =
-    Number(process.env.START_POOL) *
-    Number(process.env.POOL_REDUSE_COEFFICIENT) **
-      Math.floor(period / Number(process.env.INFLATION_PERIOD));
+  let inflationRewardPool = Number(process.env.START_POOL) * 1000000;
+
+  for(let i = 1; i <= Math.floor(period / Number(process.env.INFLATION_PERIOD)); i++) {
+    inflationRewardPool = Math.floor(inflationRewardPool * Number(process.env.POOL_REDUSE_COEFFICIENT));
+  }
+
+  inflationRewardPool /= 1000000;
 
   let rewardPool = totalRating * Number(process.env.RATING_TOKEN_COFICIENT);
 
