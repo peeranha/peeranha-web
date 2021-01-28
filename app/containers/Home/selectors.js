@@ -1,5 +1,7 @@
 import { createSelector } from 'reselect';
 
+import { isSingleCommunityWebsite, singleCommunityStyles } from 'utils/communityManagement';
+
 import { initialState } from './reducer';
 import { HOME_KEY } from './constants';
 
@@ -27,9 +29,18 @@ export const selectCommunityLoading = () =>
   );
 
 export const selectLogo = () =>
-  createSelector(selectHomeDomain, substate =>
-    substate.toJS().logo,
-  );
+  createSelector(selectHomeDomain, substate => {
+    let { logo } = substate.toJS();
+
+    const single = isSingleCommunityWebsite();
+    const styles = singleCommunityStyles();
+
+    if (!logo && single) {
+      logo = styles.signUpPageLogo;
+    }
+
+    return logo;
+  });
 
 export const selectLogoLoading = () =>
   createSelector(selectHomeDomain, substate =>
