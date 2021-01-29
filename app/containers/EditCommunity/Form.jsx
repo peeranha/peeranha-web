@@ -35,9 +35,21 @@ import {
   EDIT_COMMUNITY_FORM,
 } from './constants';
 import TypeForm from '../CreateCommunity/QuestionsTypeForm';
-import { FORM_TYPE } from '../CreateCommunity/constants';
+import {
+  COMM_BANNER_FIELD,
+  FACEBOOK_LINK_FIELD,
+  FORM_TYPE,
+  HIGHLIGHT_COLOR_FIELD,
+  INSTAGRAM_LINK_FIELD,
+  IS_BLOGGER_MODE_FIELD,
+  MAIN_COLOR_FIELD,
+  VK_LINK_FIELD,
+  YOUTUBE_LINK_FIELD,
+} from '../CreateCommunity/constants';
 import { KEY_QUESTIONS_TYPE } from '../../components/QuestionForm/constants';
 import AboutForm from '../CreateCommunity/AboutForm';
+import Checkbox from '../../components/Input/Checkbox';
+import BloggerModeForm from '../CreateCommunity/BloggerModeForm';
 
 const EditCommunityForm = ({
   communityId,
@@ -47,6 +59,7 @@ const EditCommunityForm = ({
   intl,
   change,
   formValues,
+  initialValues,
   locale,
 }) => {
   const editCommunity = useCallback(
@@ -58,6 +71,14 @@ const EditCommunityForm = ({
         about: values.get(ABOUT_FIELD),
         officialSite: values.get(COMM_OFFICIAL_SITE_FIELD),
         questionsType: parseInt(values.get(FORM_TYPE)),
+        isBlogger: values.get(IS_BLOGGER_MODE_FIELD),
+        banner: values.get(COMM_BANNER_FIELD),
+        facebook: values.get(FACEBOOK_LINK_FIELD),
+        instagram: values.get(INSTAGRAM_LINK_FIELD),
+        youtube: values.get(YOUTUBE_LINK_FIELD),
+        vk: values.get(VK_LINK_FIELD),
+        main_color: values.get(MAIN_COLOR_FIELD),
+        highlight_color: values.get(HIGHLIGHT_COLOR_FIELD),
       };
       editCommunityDispatch(communityId, communityData);
     },
@@ -122,6 +143,23 @@ const EditCommunityForm = ({
           intl={intl}
         />
 
+        <Field
+          name={IS_BLOGGER_MODE_FIELD}
+          component={Checkbox}
+          label={intl.formatMessage(messages.bloggerModeLabel)}
+          disabled={communityLoading}
+          defaultValue={true}
+        />
+
+        {formValues[IS_BLOGGER_MODE_FIELD] && (
+          <BloggerModeForm
+            disabled={communityLoading}
+            formValues={formValues}
+            intl={intl}
+            initialValues={initialValues}
+          />
+        )}
+
         <LargeButton
           id={EDIT_COMMUNITY_BUTTON}
           type="submit"
@@ -161,6 +199,14 @@ export default injectIntl(
           [ABOUT_FIELD]: community.about,
           [COMM_OFFICIAL_SITE_FIELD]: community.officialSite,
           [FORM_TYPE]: community.questionsType,
+          [IS_BLOGGER_MODE_FIELD]: community.isBlogger ?? false,
+          [COMM_BANNER_FIELD]: community.banner,
+          [FACEBOOK_LINK_FIELD]: community.facebook,
+          [INSTAGRAM_LINK_FIELD]: community.instagram,
+          [YOUTUBE_LINK_FIELD]: community.youtube,
+          [VK_LINK_FIELD]: community.vk,
+          [MAIN_COLOR_FIELD]: community.main_color,
+          [HIGHLIGHT_COLOR_FIELD]: community.highlight_color,
         }
       : {},
   }))(FormClone),

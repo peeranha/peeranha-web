@@ -411,8 +411,17 @@ export default defineMessages({
   profilesUsersInfo: {
     id: 'app.common.profilesUsersInfo',
   },
+  communityBannerInfo: {
+    id: 'app.common.communityBannerInfo',
+  },
   fileSizeErrorMsg: {
     id: 'app.common.fileSizeErrorMsg',
+  },
+  bannerSizeErrorMsg: {
+    id: 'app.common.bannerSizeErrorMsg',
+  },
+  incorrectBannerResolutionMsg: {
+    id: 'app.common.incorrectBannerResolutionMsg',
   },
   chooseFile: {
     id: 'app.common.chooseFile',

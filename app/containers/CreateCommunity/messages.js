@@ -130,4 +130,25 @@ export default defineMessages({
   expertQuestionDescriptionList: {
     id: 'app.containers.QuestionForm.expertQuestionDescriptionList',
   },
+  bloggerModeLabel: {
+    id: 'app.containers.CreateCommunity.bloggerModeLAbel',
+  },
+  facebookLink: {
+    id: 'app.containers.CreateCommunity.facebookLink',
+  },
+  instagramLink: {
+    id: 'app.containers.CreateCommunity.instagramLink',
+  },
+  youtubeLink: {
+    id: 'app.containers.CreateCommunity.youtubeLink',
+  },
+  vkLink: {
+    id: 'app.containers.CreateCommunity.vkLink',
+  },
+  mainColor: {
+    id: 'app.containers.CreateCommunity.mainColor',
+  },
+  highlightColor: {
+    id: 'app.containers.CreateCommunity.highlightColor',
+  },
 });
