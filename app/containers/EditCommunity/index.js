@@ -45,6 +45,7 @@ import {
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
+import { COMMUNITY_ADMIN_VALUE } from '../../utils/constants';
 
 const EditCommunity = ({
   community,
@@ -59,8 +60,18 @@ const EditCommunity = ({
     params: { communityId },
   },
 }) => {
+  const hasCommunityAdminPermission = (profile, communityId) => {
+    const permissions = profile?.permissions ?? [];
+    const administeredCommunities = permissions.map(perm => {
+      if (perm.value === COMMUNITY_ADMIN_VALUE)
+        return perm.community.toString();
+    });
+    return administeredCommunities.includes(communityId);
+  };
+
   const editingAllowed = useMemo(
     () =>
+      hasCommunityAdminPermission(profileInfo, communityId) ||
       communityModeratorCreatePermission(
         profileInfo?.['integer_properties'] || [],
       ),
@@ -85,6 +96,9 @@ const EditCommunity = ({
       communityId: +communityId,
       communityLoading: editCommunityLoading,
       locale,
+      isModerator: communityModeratorCreatePermission(
+        profileInfo?.['integer_properties'] || [],
+      ),
     }),
     [community, communityId, editCommunityDispatch, editCommunityLoading],
   );

@@ -25,6 +25,7 @@ import { MediumImageStyled } from 'components/Img/MediumImage';
 import { hasCommunitySingleWebsite } from '../../utils/communityManagement';
 import OfficialSiteLink from './OfficialSiteLink';
 import SingleCommunityIcon from './SingleCommunityIcon';
+import { COMMUNITY_ADMIN_VALUE } from '../../utils/constants';
 
 export const Base = BaseRoundedNoPadding.extend`
   margin-bottom: 15px;
@@ -84,7 +85,10 @@ const Info = styled.div`
 
 const Content = ({ communities, sorting, locale, language, profile }) => {
   if (!communities || !communities.length) return null;
-
+  const permissions = profile?.permissions ?? [];
+  const administeredCommunities = permissions.map(perm => {
+    if (perm.value === COMMUNITY_ADMIN_VALUE) return perm.community;
+  });
   const communityEditingAllowed = useMemo(
     () =>
       communityModeratorCreatePermission(profile?.['integer_properties'] || []),
@@ -190,7 +194,8 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
                   </Info>
 
                   <Info>
-                    {communityEditingAllowed && (
+                    {(communityEditingAllowed ||
+                      administeredCommunities.includes(value)) && (
                       <InfoButton
                         onClick={() =>
                           createdHistory.push(routes.communitiesEdit(id))
