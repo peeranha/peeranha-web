@@ -310,6 +310,45 @@ export const getAllCommunities = async (eosService, count) => {
   return updatedRows;
 };
 
+export const getCommunityWithTags = async (eosService, id) => {
+  const row = await eosService.getTableRow(
+    COMMUNITIES_TABLE,
+    ALL_COMMUNITIES_SCOPE,
+    id,
+  );
+
+  const community = JSON.parse(await getText(row.ipfs_description));
+  const {
+    avatar,
+    name,
+    description,
+    about,
+    main_description,
+    language,
+    officialSite = null,
+  } = community;
+  
+  const { rows: tagRows } = await eosService.getTableRows(
+    TAGS_TABLE,
+    getTagScope(id),
+    0,
+    -1,
+  );
+
+  return {
+    ...row,
+    label: name,
+    value: id,
+    avatar: getFileUrl(avatar),
+    description,
+    about,
+    main_description,
+    language,
+    officialSite: officialSite || null,
+    tags: tagRows.map(tag => ({ ...tag, label: tag.name, value: tag.id })),
+  };
+};
+
 export async function getSuggestedCommunities(eosService, lowerBound, limit) {
   const { rows } = await eosService.getTableRows(
     CREATED_COMMUNITIES_TABLE,

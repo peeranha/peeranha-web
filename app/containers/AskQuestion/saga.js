@@ -15,7 +15,7 @@ import { getFormattedAsset } from 'utils/numbers';
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 
-import { ONE_DAY_IN_SECONDS, ONE_HOUR_IN_SECONDS } from 'utils/datetime';
+import { ONE_HOUR_IN_SECONDS } from 'utils/datetime';
 import {
   FORM_TITLE,
   FORM_CONTENT,
@@ -23,7 +23,6 @@ import {
   FORM_TAGS,
   FORM_TYPE,
   FORM_BOUNTY,
-  FORM_BOUNTY_DAYS,
   FORM_BOUNTY_HOURS,
   FORM_PROMOTE,
 } from 'components/QuestionForm/constants';
