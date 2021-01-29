@@ -7,6 +7,7 @@ import communitiesConfig, {
 import _get from 'lodash/get';
 
 import { saveText, getText, getFileUrl } from './ipfs';
+import { getCookie, setCookie } from './cookie';
 import { uploadImg } from './profileManagement';
 
 import {
@@ -25,6 +26,7 @@ import {
   EDIT_TAG_ACTION,
   VOTE_TO_CREATE_TAG,
   VOTE_TO_DELETE_TAG,
+  SINGLE_COMMUNITY_DETAILS,
 } from './constants';
 
 export const isSingleCommunityWebsite = () =>
@@ -106,8 +108,6 @@ export const getCommunityById = async (eosService, communityId) => {
     instagram,
     youtube,
     vk,
-    main_color,
-    highlight_color,
   } = community;
 
   return {
@@ -125,9 +125,62 @@ export const getCommunityById = async (eosService, communityId) => {
     instagram,
     youtube,
     vk,
+  };
+};
+
+export const setSingleCommunityDetails = async (eosService) => {
+  const id = isSingleCommunityWebsite();
+  
+  const row = await eosService.getTableRow(
+    COMMUNITIES_TABLE,
+    ALL_COMMUNITIES_SCOPE,
+    id,
+  );
+
+  const community = JSON.parse(await getText(row.ipfs_description));
+
+  const {
+    isBlogger,
+    banner,
+    facebook,
+    instagram,
+    youtube,
+    vk,
     main_color,
     highlight_color,
-  };
+  } = community;
+
+  if (isBlogger) {
+    setCookie({
+      name: `${SINGLE_COMMUNITY_DETAILS}_${id}`,
+      value: JSON.stringify({
+        isBlogger,
+        banner,
+        socialNetworks: {
+          facebook,
+          instagram,
+          youtube,
+          vk,
+        },
+        colors: {
+          main: main_color,
+          highlight: highlight_color,
+        },
+      }),
+      options: {
+        defaultPath: true,
+        allowSubdomains: true,
+      },
+    });
+  }
+};
+
+export const getSingleCommunityDetails = () => {
+  const id = isSingleCommunityWebsite();
+  const dataFromCookie = id ? getCookie(`${SINGLE_COMMUNITY_DETAILS}_${id}`) : "";
+  const communityDetails = dataFromCookie.length ? JSON.parse(dataFromCookie) : {};
+
+  return { ...communityDetails };
 };
 
 /* eslint-disable */

@@ -3,15 +3,17 @@ import {
   singleCommunityColors,
   singleCommunityFonts,
   singleCommunityStyles,
+  getSingleCommunityDetails,
 } from './utils/communityManagement';
 
 const colors = singleCommunityColors();
 const styles = singleCommunityStyles();
 const fonts = singleCommunityFonts();
+const communityDetails = getSingleCommunityDetails();
 
-export const PEER_PRIMARY_COLOR = '#576fed';
+export const PEER_PRIMARY_COLOR = communityDetails?.colors?.main || '#576fed';
 export const PEER_PRIMARY_TRANSPARENT_COLOR = '#dde2fb';
-export const PEER_WARNING_COLOR = '#fc6655';
+export const PEER_WARNING_COLOR = communityDetails?.colors?.highlight || '#fc6655';
 export const PEER_WARNING_TRANSPARENT_COLOR = '#FDE2DF';
 export const PEER_ERROR_COLOR = '#DC3545';
 export const PEER_ERROR_TRANSPARENT_COLOR = '#dc35452b';

@@ -459,7 +459,7 @@
   "app.containers.CreateCommunity.anyQuestionDescriptionLabel":
     "You can choose the type of question when you are creating it.",
   "app.containers.CreateCommunity.anyQuestionDescriptionList": [],
-  "app.containers.CreateCommunity.bloggerModeLAbel": "Blogger page",
+  "app.containers.CreateCommunity.bloggerModeLabel": "Blogger page",
   "app.containers.CreateCommunity.facebookLink": "Facebook link",
   "app.containers.CreateCommunity.instagramLink": "Instagram link",
   "app.containers.CreateCommunity.youtubeLink": "YouTube link",

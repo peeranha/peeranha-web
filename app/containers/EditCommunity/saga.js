@@ -60,7 +60,7 @@ export function* editCommunityWorker({ communityId, communityData }) {
       communityData.avatar = imgHash;
     }
 
-    if (communityData.banner.length > HASH_CHARS_LIMIT) {
+    if (communityData.banner && communityData.banner.length > HASH_CHARS_LIMIT) {
       const { imgHash } = yield call(uploadImg, communityData.banner);
 
       // eslint-disable-next-line no-param-reassign

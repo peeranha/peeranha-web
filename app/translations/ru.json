@@ -475,7 +475,7 @@
   "app.containers.CreateCommunity.anyQuestionDescriptionLabel":
     "Вы можете выбрать тип вопроса при его создании",
   "app.containers.CreateCommunity.anyQuestionDescriptionList": [],
-  "app.containers.CreateCommunity.bloggerModeLAbel": "Страница блогера",
+  "app.containers.CreateCommunity.bloggerModeLabel": "Страница блогера",
   "app.containers.CreateCommunity.facebookLink": "Ссылка на ваш Facebook",
   "app.containers.CreateCommunity.instagramLink": "Ссылка на ваш Instagram",
   "app.containers.CreateCommunity.youtubeLink": "Ссылка на ваш YouTube",

@@ -49,12 +49,10 @@ const communitiesConfig = {
     },
     6: {
       origin: 'https://bloggerdemo.testpeeranha.io',
-      isBloggerMode: true,
       styles: BloggerStyles,
     },
     10: {
       origin: 'https://ivan.testpeeranha.io',
-      isBloggerMode: true,
       styles: BloggerStyles,
     },
   },

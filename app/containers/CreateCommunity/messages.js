@@ -131,7 +131,7 @@ export default defineMessages({
     id: 'app.containers.QuestionForm.expertQuestionDescriptionList',
   },
   bloggerModeLabel: {
-    id: 'app.containers.CreateCommunity.bloggerModeLAbel',
+    id: 'app.containers.CreateCommunity.bloggerModeLabel',
   },
   facebookLink: {
     id: 'app.containers.CreateCommunity.facebookLink',

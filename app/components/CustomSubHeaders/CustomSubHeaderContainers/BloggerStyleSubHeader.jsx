@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
-import { singleCommunityStyles } from 'utils/communityManagement';
+import { getSingleCommunityDetails } from 'utils/communityManagement';
 
 import messages from 'common-messages';
 
@@ -45,20 +45,21 @@ const SubHeaderNav = styled.div`
 `;
 
 const BloggerStyleSubHeader = () => {
-  const { links } = singleCommunityStyles().customSubHeaderConfig;
+  const community = getSingleCommunityDetails();
+  const { socialNetworks = {} } = community;
 
   return (
     <Container>
-      {!!links && (
+      {Object.keys(socialNetworks).length ? (
         <SubHeaderNav>
           <FormattedMessage {...messages.followSocialMedia} />
-          {Object.keys(links).map(key => (
-            <a href={links[key]} key={key}>
+          {Object.keys(socialNetworks).map(key => (
+            <a href={socialNetworks[key]} key={key}>
               <img src={SOCIAL_MEDIA_ICONS[key]} alt={key} />
             </a>
           ))}
         </SubHeaderNav>
-      )}
+      ) : null}
     </Container>
   );
 };

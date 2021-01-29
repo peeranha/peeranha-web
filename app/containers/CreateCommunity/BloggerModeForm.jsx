@@ -28,8 +28,8 @@ const BloggerModeForm = ({ disabled, formValues, intl, initialValues }) => (
     <Field
       name={COMM_BANNER_FIELD}
       component={BannerField}
-      validate={[imageValidation, required]}
-      warn={[imageValidation, required]}
+      validate={[imageValidation]}
+      warn={[imageValidation]}
       disabled={disabled}
     />
 
@@ -38,8 +38,8 @@ const BloggerModeForm = ({ disabled, formValues, intl, initialValues }) => (
       name={FACEBOOK_LINK_FIELD}
       component={TextInputField}
       label={intl.formatMessage(messages.facebookLink)}
-      validate={[strLength8x100, required]}
-      warn={[strLength8x100, required]}
+      validate={[strLength8x100]}
+      warn={[strLength8x100]}
       splitInHalf
     />
 
@@ -48,8 +48,8 @@ const BloggerModeForm = ({ disabled, formValues, intl, initialValues }) => (
       name={INSTAGRAM_LINK_FIELD}
       component={TextInputField}
       label={intl.formatMessage(messages.instagramLink)}
-      validate={[strLength8x100, required]}
-      warn={[strLength8x100, required]}
+      validate={[strLength8x100]}
+      warn={[strLength8x100]}
       splitInHalf
     />
 
@@ -58,8 +58,8 @@ const BloggerModeForm = ({ disabled, formValues, intl, initialValues }) => (
       name={YOUTUBE_LINK_FIELD}
       component={TextInputField}
       label={intl.formatMessage(messages.youtubeLink)}
-      validate={[strLength8x100, required]}
-      warn={[strLength8x100, required]}
+      validate={[strLength8x100]}
+      warn={[strLength8x100]}
       splitInHalf
     />
 
@@ -68,8 +68,8 @@ const BloggerModeForm = ({ disabled, formValues, intl, initialValues }) => (
       name={VK_LINK_FIELD}
       component={TextInputField}
       label={intl.formatMessage(messages.vkLink)}
-      validate={[strLength8x100, required]}
-      warn={[strLength8x100, required]}
+      validate={[strLength8x100]}
+      warn={[strLength8x100]}
       splitInHalf
     />
 

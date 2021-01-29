@@ -46,7 +46,7 @@ import {
   VK_LINK_FIELD,
   YOUTUBE_LINK_FIELD,
 } from '../CreateCommunity/constants';
-import { KEY_QUESTIONS_TYPE } from '../../components/QuestionForm/constants';
+
 import AboutForm from '../CreateCommunity/AboutForm';
 import Checkbox from '../../components/Input/Checkbox';
 import BloggerModeForm from '../CreateCommunity/BloggerModeForm';

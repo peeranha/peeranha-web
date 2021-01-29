@@ -13,29 +13,7 @@ export const CustomSubHeaderConfig = {
       burgerHeader: '#ffffff',
     },
   },
-  links: {
-    facebook: '',
-    instagram: '',
-    youtube: '',
-    pinterest: '',
-  },
   banner: bannerImage,
-  description: (
-    <div>
-      <p>
-        Музыкант, композитор и основатель онлайн музыкальной школы "Хочу петь".
-      </p>
-      <br />
-      <p>Слушайте мой новый альбом "Встречай 2021"</p>
-      <p>
-        <img src="http://fourmusic.7uptheme.com/wp-content/uploads/2019/08/ft1-img5.jpg" />
-      </p>
-      <br />
-      <p>Instagram: @IvanChai</p>
-      <p>Facebook: @IvanChai</p>
-      <p>Youtube: @IvanChai</p>
-    </div>
-  ),
 };
 
 export const BloggerStyles = {

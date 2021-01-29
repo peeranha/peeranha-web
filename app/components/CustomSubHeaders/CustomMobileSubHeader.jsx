@@ -5,9 +5,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
-import communitiesConfig from 'communities-config';
-
-import { isSingleCommunityWebsite } from 'utils/communityManagement';
+import { getSingleCommunityDetails } from 'utils/communityManagement';
 
 import { selectLogo } from 'containers/Home/selectors';
 
@@ -82,8 +80,7 @@ const CustomMobileSubHeader = ({
   const [visible, setVisibility] = useState(false);
   const setVis = useCallback(() => setVisibility(!visible), [visible]);
   const { styles, links } = config;
-  const single = +isSingleCommunityWebsite();
-  const isBloggerMode = single ? !!communitiesConfig[single].isBloggerMode : false;
+  const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
 
   return (
     <Div

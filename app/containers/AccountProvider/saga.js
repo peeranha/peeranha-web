@@ -13,6 +13,10 @@ import {
   getPredictedBoost,
   getBoostWeeks,
 } from 'utils/walletManagement';
+import {
+  isSingleCommunityWebsite,
+  setSingleCommunityDetails,
+} from 'utils/communityManagement';
 
 import commonMessages from 'common-messages';
 
@@ -109,6 +113,8 @@ import {
 
 import { getCookie, setCookie } from 'utils/cookie';
 import { translationMessages } from '../../i18n';
+
+const single = isSingleCommunityWebsite();
 
 /* eslint func-names: 0, consistent-return: 0 */
 export const getCurrentAccountWorker = function*(initAccount) {
@@ -440,6 +446,13 @@ export function* getCommunityPropertyWorker(profile) {
   try {
     const profileInfo = profile || (yield select(makeSelectProfileInfo()));
     const eosService = yield select(selectEos);
+
+    if (single) {
+      yield call(
+        setSingleCommunityDetails,
+        eosService,
+      );
+    }
 
     const info = yield call(
       eosService.getTableRow,
