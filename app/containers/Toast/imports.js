@@ -162,6 +162,8 @@ import { GET_RESULTS_ERROR } from 'containers/Search/constants';
 import { GET_TERMS_ERROR } from 'containers/TermsOfService/constants';
 import { INIT_EOSIO_ERROR } from 'containers/EosioProvider/constants';
 import { GET_USER_ACHIEVEMENTS_ERROR } from 'containers/Achievements/constants';
+import { GET_ASKED_QUESTION_ERROR } from 'containers/EditQuestion/constants';
+
 import {
   SAVE_CRYPTO_ACCOUNTS_ERROR,
   SAVE_CRYPTO_ACCOUNTS_SUCCESS,
@@ -253,6 +255,7 @@ export const errHandlingTypes = [
   SELECT_ACCOUNT_ERROR,
   SEND_TIPS_ERROR,
   GET_USER_ACHIEVEMENTS_ERROR,
+  GET_ASKED_QUESTION_ERROR,
 ];
 
 export const successHandlingTypes = [

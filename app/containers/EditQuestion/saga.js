@@ -11,15 +11,15 @@ import {
   getPromotedQuestions,
   promoteQuestion,
 } from 'utils/questionsManagement';
-
 import { editBounty } from 'utils/walletManagement';
+import { getCommunityWithTags } from 'utils/communityManagement';
 import { ONE_HOUR_IN_SECONDS } from 'utils/datetime';
 
 import { isValid, isAuthorized } from 'containers/EosioProvider/saga';
+import { updateQuestionList } from 'containers/ViewQuestion/saga';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { selectQuestionData } from 'containers/ViewQuestion/selectors';
-import { updateQuestionList } from 'containers/ViewQuestion/saga';
 
 import {
   GET_ASKED_QUESTION,
@@ -50,8 +50,21 @@ export function* getAskedQuestionWorker({ questionId }) {
     }
 
     const question = cachedQuestion ? cachedQuestion.content : {...freshQuestion};
+    const { communityId } = question;
 
-    const promotedQuestions = yield call(getPromotedQuestions, eosService, question.community.id);
+    if (communityId) {
+      question.community = yield call(
+        getCommunityWithTags,
+        eosService,
+        communityId,
+      );
+
+      delete question.communityId;
+
+      question.chosenTags.map(tag => tag.label = tag.name);
+    }
+    
+    const promotedQuestions = yield call(getPromotedQuestions, eosService, question.community?.id);
     const promotedQuestion = promotedQuestions.find(item => item.question_id === questionId); 
 
     if (promotedQuestion) {
