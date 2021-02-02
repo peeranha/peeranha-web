@@ -42,7 +42,9 @@ const numberRange = (min, max) => value => {
 const valueHasToBePositiveInteger = value => {
   const re = /^[0-9]+$/;
 
-  return (value && !re.test(value)) || value === undefined ? messages.valueIsNotPositiveInteger : undefined;
+  return (value && !re.test(value)) || value === undefined
+    ? messages.valueIsNotPositiveInteger
+    : undefined;
 };
 
 // TODO: test
@@ -83,7 +85,8 @@ const required = value => {
   return !val ? messages.requiredField : undefined;
 };
 
-const requiredForNumericalField = value => (value === "" || Number(value) < 0) ? messages.requiredField : undefined;
+const requiredForNumericalField = value =>
+  value === '' || Number(value) < 0 ? messages.requiredField : undefined;
 
 const requiredForObjectField = value => {
   const val = value && value.toJS ? value.toJS() : value;
@@ -145,7 +148,7 @@ const valueHasToBeLessThanMaxPromotingHours = (...args) => {
   const comparedValue = Number(args[2].maxPromotingHours);
 
   return value > comparedValue ? messages.valueIsMore : undefined;
-}
+};
 
 const comparePasswords = (...args) => {
   const value = args[0];
@@ -214,6 +217,7 @@ const strLength3x20 = stringLength(3, 20);
 const strLength15x100 = stringLength(15, 100);
 const strLength15x250 = stringLength(15, 250);
 const strLength20x1000 = stringLength(20, 1000);
+const strLength15x30000 = stringLength(15, 30000);
 const strLength25x30000 = stringLength(25, 30000);
 const number1x7 = numberRange(1, 7);
 const number1x24 = numberRange(1, 24);
@@ -237,6 +241,7 @@ export {
   strLength15x100,
   strLength15x250,
   strLength20x1000,
+  strLength15x30000,
   strLength25x30000,
   number1x7,
   number1x24,
