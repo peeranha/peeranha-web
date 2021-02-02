@@ -300,6 +300,8 @@ To set it in group/channel click "Add members" and add @PeeranhaBot.
 
 /subscriptions - displays current subscriptions
 
+/postquestion _Question Text_ - ask a question in one step (Default Community and Tags have to be set in the chat settings)
+
 **Commands for private chat:**
 
 /postquestion - ask a question
@@ -309,6 +311,8 @@ To set it in group/channel click "Add members" and add @PeeranhaBot.
 /unlinkaccount - unlink telos account
 
 /updatedisplayname - update display name
+
+/postquestion _Question Text_ - ask a question in one step (Default Community and Tags have to be set in the chat settings)
 
 _Post an answer directly from Telegram by using "Reply" action on a notification message about a posted question._
 
