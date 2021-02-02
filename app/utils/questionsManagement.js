@@ -273,7 +273,7 @@ export async function postQuestion(user, questionData, eosService) {
       title: questionData.title,
       ipfs_link: ipfsLink,
       community_id: questionData.community.value,
-      tags: questionData.chosenTags.map(x => x.value),
+      tags: questionData.chosenTags.map(x => x.id),
       type: questionData.type,
     },
     null,
@@ -294,8 +294,8 @@ export async function editQuestion(user, id, question, eosService) {
     title: question.title,
     ipfs_link: ipfsLink,
     community_id: question.community.value,
-    tags: question.chosenTags.map(x => x.value),
-    type: parseInt(question.type),
+    tags: question.chosenTags.map(x => x.id),
+    type: question.type,
   });
 }
 
@@ -466,12 +466,7 @@ export const changeQuestionType = async (
   });
 };
 
-export const promoteQuestion = async (
-  eosService,
-  user,
-  questionId,
-  hours,
-) => {
+export const promoteQuestion = async (eosService, user, questionId, hours) => {
   await eosService.sendTransaction(
     user,
     PROMOTE_QUESTION_METHOD,
@@ -492,7 +487,7 @@ export const getRandomQuestions = (questions, amount) => {
 
     do {
       const randomId = Math.floor(Math.random() * Math.floor(questions.length));
-      
+
       if (!showingPromotedQuestionsIds.includes(randomId)) {
         showingPromotedQuestionsIds.push(randomId);
       }
@@ -506,4 +501,4 @@ export const getRandomQuestions = (questions, amount) => {
   }
 
   return result;
-}
+};
