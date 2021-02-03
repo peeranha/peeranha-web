@@ -134,7 +134,7 @@ export async function getWeekStat(eosService, profile = {}) {
     getUserBoostStatistics(eosService, profile.user),
     getTokenAwards(eosService),
   ]);
-  
+
   const normalizedRewards = periodRating.map(x => {
     try {
       let tokenAwardsForPeriod = tokenAwards.find(y => y.period === x.period);
@@ -423,7 +423,7 @@ export const getPredictedBoost = (userStake, maxStake) => {
   }
 
   return {
-    text: `x${Math.floor(boost * 100) / 100}`,
+    text: `x${Math.floor(boost * 1000) / 1000}`,
     value: boost,
   }
 }
@@ -447,7 +447,7 @@ export const setWeekDataByKey = (boostStat, key, nextWeekPeriod) => {
 
 export function getBoostWeeks(weekStat, globalBoostStat, userBoostStat) {
   const currentWeek = weekStat ? { ...weekStat[0] } : {};
-  const nextWeek = Object.keys(currentWeek).length ? 
+  const nextWeek = Object.keys(currentWeek).length ?
     {
       period: currentWeek.period + 1,
       periodStarted: currentWeek.periodFinished,
