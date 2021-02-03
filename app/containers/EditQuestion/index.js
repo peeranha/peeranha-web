@@ -14,6 +14,7 @@ import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import {
   makeSelectAccount,
   makeSelectBalance,
+  makeSelectProfileInfo,
 } from 'containers/AccountProvider/selectors';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 
@@ -53,6 +54,7 @@ const EditQuestion = ({
   communities,
   editQuestionDispatch,
   getAskedQuestionDispatch,
+  profile,
 }) => {
   useEffect(
     () => {
@@ -103,6 +105,7 @@ const EditQuestion = ({
       questionid,
       locale,
       maxPromotingHours,
+      profile,
     }),
     [questionid, question, communities, editQuestionLoading, sendQuestion],
   );
@@ -156,6 +159,7 @@ export default compose(
       question: makeSelectEditQuestion.selectQuestion(),
       questionLoading: makeSelectEditQuestion.selectQuestionLoading(),
       editQuestionLoading: makeSelectEditQuestion.selectEditQuestionLoading(),
+      profile: makeSelectProfileInfo(),
     }),
     dispatch => ({
       getAskedQuestionDispatch: bindActionCreators(getAskedQuestion, dispatch),
