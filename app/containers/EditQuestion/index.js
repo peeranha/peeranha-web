@@ -11,7 +11,10 @@ import injectReducer from 'utils/injectReducer';
 import { getFormattedAsset } from 'utils/numbers';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { makeSelectAccount, makeSelectBalance } from 'containers/AccountProvider/selectors';
+import {
+  makeSelectAccount,
+  makeSelectBalance,
+} from 'containers/AccountProvider/selectors';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 
 import QuestionForm from 'components/QuestionForm';
@@ -68,7 +71,7 @@ const EditQuestion = ({
           content: val[FORM_CONTENT],
           community: val[FORM_COMMUNITY],
           chosenTags: val[FORM_TAGS],
-          type: val[FORM_TYPE],
+          type: +val[FORM_TYPE],
           bounty: +val[FORM_BOUNTY],
           bountyFull: `${getFormattedAsset(+val[FORM_BOUNTY])} PEER`,
           bountyHours: +val[FORM_BOUNTY_HOURS],
@@ -80,7 +83,10 @@ const EditQuestion = ({
     [questionid],
   );
 
-  const maxPromotingHours = useMemo(() => Math.floor(balance / PROMOTE_HOUR_COST), [balance]);
+  const maxPromotingHours = useMemo(
+    () => Math.floor(balance / PROMOTE_HOUR_COST),
+    [balance],
+  );
 
   const sendProps = useMemo(
     () => ({
