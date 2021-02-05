@@ -9,7 +9,11 @@ import * as routes from 'routes-config';
 import createdHistory from 'createdHistory';
 import { TEXT_PRIMARY, TEXT_SECONDARY } from 'style-constants';
 
-import { communityModeratorCreatePermission } from 'utils/properties';
+import {
+  communityModeratorCreatePermission,
+  getPermissions,
+  hasCommunityAdminPermissions,
+} from 'utils/properties';
 import { getFormattedNum2 } from 'utils/numbers';
 import { getDifferenceInMonths } from 'utils/datetime';
 
@@ -85,10 +89,7 @@ const Info = styled.div`
 
 const Content = ({ communities, sorting, locale, language, profile }) => {
   if (!communities || !communities.length) return null;
-  const permissions = profile?.permissions ?? [];
-  const administeredCommunities = permissions.map(perm => {
-    if (perm.value === COMMUNITY_ADMIN_VALUE) return perm.community;
-  });
+
   const communityEditingAllowed = useMemo(
     () =>
       communityModeratorCreatePermission(profile?.['integer_properties'] || []),
@@ -195,7 +196,10 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
 
                   <Info>
                     {(communityEditingAllowed ||
-                      administeredCommunities.includes(value)) && (
+                      hasCommunityAdminPermissions(
+                        getPermissions(profile),
+                        value,
+                      )) && (
                       <InfoButton
                         onClick={() =>
                           createdHistory.push(routes.communitiesEdit(id))
