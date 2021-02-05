@@ -49,7 +49,9 @@ export function* getAskedQuestionWorker({ questionId }) {
       freshQuestion = yield call(getAskedQuestion, ipfs_link, eosService);
     }
 
-    const question = cachedQuestion ? cachedQuestion.content : {...freshQuestion};
+    const question = cachedQuestion
+      ? cachedQuestion.content
+      : { ...freshQuestion };
     const { communityId } = question;
 
     if (communityId) {
@@ -61,17 +63,23 @@ export function* getAskedQuestionWorker({ questionId }) {
 
       delete question.communityId;
 
-      question.chosenTags.map(tag => tag.label = tag.name);
+      question.chosenTags.map(tag => (tag.label = tag.name));
     }
-    
-    const promotedQuestions = yield call(getPromotedQuestions, eosService, question.community?.id);
-    const promotedQuestion = promotedQuestions.find(item => item.question_id === questionId); 
+
+    const promotedQuestions = yield call(
+      getPromotedQuestions,
+      eosService,
+      question.community?.id,
+    );
+    const promotedQuestion = promotedQuestions.find(
+      item => item.question_id === questionId,
+    );
 
     if (promotedQuestion) {
       question.promote = {
         startTime: promotedQuestion.start_time,
         endsTime: promotedQuestion.ends_time,
-      }
+      };
     }
 
     yield put(getAskedQuestionSuccess(question));
@@ -86,7 +94,13 @@ export function* editQuestionWorker({ question, questionId }) {
     const selectedAccount = yield call(eosService.getSelectedAccount);
     const cachedQuestion = yield select(selectQuestionData());
 
-    yield call(editQuestion, selectedAccount, questionId, { ...question }, eosService);
+    yield call(
+      editQuestion,
+      selectedAccount,
+      questionId,
+      { ...question },
+      eosService,
+    );
 
     if (question?.bounty) {
       const now = Math.round(new Date().valueOf() / 1000);
@@ -103,7 +117,13 @@ export function* editQuestionWorker({ question, questionId }) {
     }
 
     if (question.promote) {
-      yield call(promoteQuestion, eosService, selectedAccount, questionId, question.promote);
+      yield call(
+        promoteQuestion,
+        eosService,
+        selectedAccount,
+        questionId,
+        question.promote,
+      );
     }
 
     if (cachedQuestion) {
