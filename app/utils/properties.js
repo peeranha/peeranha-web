@@ -11,6 +11,7 @@ import {
   MODERATOR_CREATE_COMMUNITY,
   OFFICIAL_ANSWER_KEYS,
   PERMISSION_GRANTED,
+  COMMUNITY_ADMIN_VALUE,
   moderatorPermissions,
   communityAdminPermissions,
 } from './constants';
@@ -136,3 +137,12 @@ export const communityAdminInfiniteImpactPermission = (
 
 export const communityModeratorCreatePermission = properties =>
   !!findAllPropertiesByKeys(properties, [MODERATOR_CREATE_COMMUNITY]).length;
+
+export const getPermissions = profile => profile?.permissions ?? [];
+
+export const hasCommunityAdminPermissions = (properties = [], communityId) =>
+  !!properties.filter(
+    permission =>
+      permission.value === COMMUNITY_ADMIN_VALUE &&
+      permission.community === communityId,
+  ).length;

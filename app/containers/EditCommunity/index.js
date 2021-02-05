@@ -30,7 +30,11 @@ import Tips from 'containers/CreateCommunity/Tips';
 
 import { noAccess as noAccessRoute } from 'routes-config';
 
-import { communityModeratorCreatePermission } from 'utils/properties';
+import {
+  communityModeratorCreatePermission,
+  getPermissions,
+  hasCommunityAdminPermissions,
+} from 'utils/properties';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
@@ -45,6 +49,7 @@ import {
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
+import { COMMUNITY_ADMIN_VALUE } from '../../utils/constants';
 
 const EditCommunity = ({
   community,
@@ -61,6 +66,10 @@ const EditCommunity = ({
 }) => {
   const editingAllowed = useMemo(
     () =>
+      hasCommunityAdminPermissions(
+        getPermissions(profileInfo),
+        parseInt(communityId),
+      ) ||
       communityModeratorCreatePermission(
         profileInfo?.['integer_properties'] || [],
       ),
@@ -85,6 +94,9 @@ const EditCommunity = ({
       communityId: +communityId,
       communityLoading: editCommunityLoading,
       locale,
+      isModerator: communityModeratorCreatePermission(
+        profileInfo?.['integer_properties'] || [],
+      ),
     }),
     [community, communityId, editCommunityDispatch, editCommunityLoading],
   );
