@@ -62,7 +62,7 @@ function notificationsReducer(state = initialState, action) {
     : state.get('unread');
   const n = state.get('notifications');
 
-  const stateNotifications = !_isPlainObject(n) ? {} : n;
+  const stateNotifications = !_isPlainObject(n) ? n?.toJS() ?? {} : n;
 
   const stateReadTimestamps = state.get('readTimestamps')?.toJS
     ? state.get('readTimestamps').toJS()
