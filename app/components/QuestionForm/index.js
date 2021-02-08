@@ -68,6 +68,7 @@ import { PreviewWrapper } from '../AnswerForm';
 import createdHistory from '../../createdHistory';
 import * as routes from '../../routes-config';
 import { communityModeratorCreatePermission } from '../../utils/properties';
+import { now } from 'lodash';
 
 const single = isSingleCommunityWebsite();
 
@@ -249,7 +250,8 @@ export const QuestionForm = ({
             {/*  change={change}*/}
             {/*/>*/}
 
-            {promotedQuestionEndsTime ? (
+            {promotedQuestionEndsTime &&
+            question.promote.endsTime > Math.trunc(now() / 1000) ? (
               <PromoteQuestionInfo>
                 {intl.formatMessage(messages.questionIsPromoting)}{' '}
                 {promotedQuestionEndsTime}
