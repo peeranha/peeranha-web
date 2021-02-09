@@ -100,14 +100,14 @@ export const getCommunityById = async (eosService, communityId) => {
     about,
     officialSite = null,
     questionsType = 2,
-    isBlogger,
-    banner,
-    facebook,
-    instagram,
-    youtube,
-    vk,
-    main_color,
-    highlight_color,
+    // isBlogger,
+    // banner,
+    // facebook,
+    // instagram,
+    // youtube,
+    // vk,
+    // main_color,
+    // highlight_color,
   } = community;
 
   return {
@@ -119,14 +119,14 @@ export const getCommunityById = async (eosService, communityId) => {
     questionsType,
     questions_asked,
     users_subscribed,
-    isBlogger,
-    banner,
-    facebook,
-    instagram,
-    youtube,
-    vk,
-    main_color,
-    highlight_color,
+    // isBlogger,
+    // banner,
+    // facebook,
+    // instagram,
+    // youtube,
+    // vk,
+    // main_color,
+    // highlight_color,
   };
 };
 
@@ -327,7 +327,7 @@ export const getCommunityWithTags = async (eosService, id) => {
     language,
     officialSite = null,
   } = community;
-  
+
   const { rows: tagRows } = await eosService.getTableRows(
     TAGS_TABLE,
     getTagScope(id),
@@ -405,13 +405,13 @@ export async function followCommunity(
 /* eslint camelcase: 0 */
 export async function createCommunity(eosService, selectedAccount, community) {
   const { imgHash: avatarField } = await uploadImg(community.avatar);
-  const { imgHash: bannerField } = await uploadImg(community.banner);
+  //const { imgHash: bannerField } = await uploadImg(community.banner);
 
   const communityIpfsHash = await saveText(
     JSON.stringify({
       ...community,
       avatar: avatarField,
-      banner: bannerField,
+      //banner: bannerField,
     }),
   );
 
