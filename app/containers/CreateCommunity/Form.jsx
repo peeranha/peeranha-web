@@ -338,11 +338,11 @@ export default memo(
       }
       return {
         formValues: form?.values ?? {},
-        initialValues: {
-          [IS_BLOGGER_MODE_FIELD]: true,
-          [MAIN_COLOR_FIELD]: PEER_PRIMARY_COLOR,
-          [HIGHLIGHT_COLOR_FIELD]: PEER_WARNING_COLOR,
-        },
+        // initialValues: {
+        //   [IS_BLOGGER_MODE_FIELD]: true,
+        //   [MAIN_COLOR_FIELD]: PEER_PRIMARY_COLOR,
+        //   [HIGHLIGHT_COLOR_FIELD]: PEER_WARNING_COLOR,
+        // },
       };
     })(FormCloneRedux),
   ),
