@@ -180,12 +180,12 @@ const CreateCommunityForm = ({
           splitInHalf
         />
 
-        <AboutForm
-          formValues={formValues}
-          intl={intl}
-          isProfileSaving={createCommunityLoading}
-          name={ABOUT_FIELD}
-        />
+        {/*<AboutForm*/}
+        {/*  formValues={formValues}*/}
+        {/*  intl={intl}*/}
+        {/*  isProfileSaving={createCommunityLoading}*/}
+        {/*  name={ABOUT_FIELD}*/}
+        {/*/>*/}
 
         {profileWithModeratorRights && (
           <TypeForm
@@ -196,21 +196,21 @@ const CreateCommunityForm = ({
           />
         )}
 
-        <Field
-          name={IS_BLOGGER_MODE_FIELD}
-          component={Checkbox}
-          label={translations[messages.bloggerModeLabel.id]}
-          disabled={createCommunityLoading}
-          defaultValue={true}
-        />
+        {/*<Field*/}
+        {/*  name={IS_BLOGGER_MODE_FIELD}*/}
+        {/*  component={Checkbox}*/}
+        {/*  label={translations[messages.bloggerModeLabel.id]}*/}
+        {/*  disabled={createCommunityLoading}*/}
+        {/*  defaultValue={true}*/}
+        {/*/>*/}
 
-        {formValues[IS_BLOGGER_MODE_FIELD] && (
-          <BloggerModeForm
-            disabled={createCommunityLoading}
-            formValues={formValues}
-            intl={intl}
-          />
-        )}
+        {/*{formValues[IS_BLOGGER_MODE_FIELD] && (*/}
+        {/*  <BloggerModeForm*/}
+        {/*    disabled={createCommunityLoading}*/}
+        {/*    formValues={formValues}*/}
+        {/*    intl={intl}*/}
+        {/*  />*/}
+        {/*)}*/}
 
         <div>
           <Wrapper label={translations[messages.tags.id]} splitInHalf>
