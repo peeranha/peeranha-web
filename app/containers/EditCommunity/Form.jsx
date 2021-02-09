@@ -130,12 +130,12 @@ const EditCommunityForm = ({
           tip={intl.formatMessage(messages.officialSiteTip)}
         />
 
-        <AboutForm
-          formValues={formValues}
-          intl={intl}
-          isProfileSaving={communityLoading}
-          name={ABOUT_FIELD}
-        />
+        {/*<AboutForm*/}
+        {/*  formValues={formValues}*/}
+        {/*  intl={intl}*/}
+        {/*  isProfileSaving={communityLoading}*/}
+        {/*  name={ABOUT_FIELD}*/}
+        {/*/>*/}
 
         {isModerator && (
           <TypeForm
@@ -146,22 +146,22 @@ const EditCommunityForm = ({
           />
         )}
 
-        <Field
-          name={IS_BLOGGER_MODE_FIELD}
-          component={Checkbox}
-          label={intl.formatMessage(messages.bloggerModeLabel)}
-          disabled={communityLoading}
-          defaultValue={true}
-        />
+        {/*<Field*/}
+        {/*  name={IS_BLOGGER_MODE_FIELD}*/}
+        {/*  component={Checkbox}*/}
+        {/*  label={intl.formatMessage(messages.bloggerModeLabel)}*/}
+        {/*  disabled={communityLoading}*/}
+        {/*  defaultValue={true}*/}
+        {/*/>*/}
 
-        {formValues[IS_BLOGGER_MODE_FIELD] && (
-          <BloggerModeForm
-            disabled={communityLoading}
-            formValues={formValues}
-            intl={intl}
-            initialValues={initialValues}
-          />
-        )}
+        {/*{formValues[IS_BLOGGER_MODE_FIELD] && (*/}
+        {/*  <BloggerModeForm*/}
+        {/*    disabled={communityLoading}*/}
+        {/*    formValues={formValues}*/}
+        {/*    intl={intl}*/}
+        {/*    initialValues={initialValues}*/}
+        {/*  />*/}
+        {/*)}*/}
 
         <LargeButton
           id={EDIT_COMMUNITY_BUTTON}
