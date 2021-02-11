@@ -21,6 +21,7 @@ import {
   MOVE_QUESTION,
   MOVE_QUESTION_SUCCESS,
   MOVE_QUESTION_ERROR,
+  SET_QUESTIONS_COMMUNITY,
 } from './constants';
 
 export function getQuestions(
@@ -174,4 +175,9 @@ export const moveQuestionSuccess = (id, position) => ({
 export const moveQuestionErr = moveQuestionError => ({
   type: MOVE_QUESTION_ERROR,
   moveQuestionError,
+});
+
+export const setQuestionsCommunity = questionsCommunityId => ({
+  type: SET_QUESTIONS_COMMUNITY,
+  questionsCommunityId,
 });

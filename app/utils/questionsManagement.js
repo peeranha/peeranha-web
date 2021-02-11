@@ -493,7 +493,7 @@ export const getRandomQuestions = (questions, amount) => {
       }
     } while (showingPromotedQuestionsIds.length < amount);
 
-    showingPromotedQuestionsIds.map(id => {
+    showingPromotedQuestionsIds.forEach(id => {
       result.push(questions[id]);
     });
   } else {

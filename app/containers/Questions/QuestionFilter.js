@@ -17,7 +17,7 @@ import {
 import { setCookie } from 'utils/cookie';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
-import { QUESTION_FILTER, UPDATE_PROMO_QUESTIONS } from './constants';
+import { QUESTION_FILTER } from './constants';
 import { changeQuestionFilter } from './actions';
 
 const Container = styled.div`
@@ -89,13 +89,12 @@ const QuestionFilter = ({
     [filter],
   );
 
-  const setAllFilter = useCallback(() => {
-    setFilter(0);
-    setCookie({
-      name: UPDATE_PROMO_QUESTIONS,
-      value: 1,
-    });
-  }, [filter]);
+  const setAllFilter = useCallback(
+    () => {
+      setFilter(0);
+    },
+    [filter],
+  );
   const setQuestionFilter = useCallback(() => setFilter(1), [filter]);
 
   return display ? (

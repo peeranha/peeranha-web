@@ -21,6 +21,7 @@ import {
   REMOVE_OR_ADD_TOP_QUESTION_ERROR,
   REMOVE_OR_ADD_TOP_QUESTION_SUCCESS,
   SET_CREATED_FILTER,
+  SET_QUESTIONS_COMMUNITY,
   SET_TYPE_FILTER,
   UP_QUESTION,
   UP_QUESTION_ERROR,
@@ -43,6 +44,7 @@ export const initialState = fromJS({
   questionFilter: 0,
   topQuestionActionProcessing: false,
   promotedQuestions: {},
+  questionsCommunityId: null,
 });
 
 // TODO: test
@@ -62,6 +64,7 @@ function questionsReducer(state = initialState, action) {
     lastIndex,
     isRemove,
     promotedQuestions = {},
+    questionsCommunityId,
   } = action;
   const {
     topQuestionIds: stateTopQuestionIds,
@@ -83,6 +86,9 @@ function questionsReducer(state = initialState, action) {
       return state.set('typeFilter', typeFilter);
     case SET_CREATED_FILTER:
       return state.set('createdFilter', createdFilter);
+
+    case SET_QUESTIONS_COMMUNITY:
+      return state.set('questionsCommunityId', questionsCommunityId);
 
     case GET_QUESTIONS:
       return state.set('questionsLoading', true);

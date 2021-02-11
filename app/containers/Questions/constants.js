@@ -1,5 +1,4 @@
 export const QUESTION_FILTER = 'questionFilter';
-export const UPDATE_PROMO_QUESTIONS = 'isNotUpdatePromotedQuestions';
 export const MAX_TOP_QUESTIONS_COUNT = 100;
 export const PROMO_QUESTIONS_AMOUNT = 3;
 
@@ -41,5 +40,7 @@ export const DOWN_QUESTION_ERROR = 'app/Questions/DOWN_QUESTION_ERROR';
 export const MOVE_QUESTION = 'app/Questions/MOVE_QUESTION';
 export const MOVE_QUESTION_SUCCESS = 'app/Questions/MOVE_QUESTION_SUCCESS';
 export const MOVE_QUESTION_ERROR = 'app/Questions/MOVE_QUESTION_ERROR';
+
+export const SET_QUESTIONS_COMMUNITY = 'app/Questions/SET_QUESTIONS_COMMUNITY';
 
 export const TOP_QUESTIONS_LOAD_NUMBER = 7;

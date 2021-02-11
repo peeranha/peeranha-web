@@ -43,6 +43,7 @@ import {
   getQuestions,
   loadTopCommunityQuestions,
   setCreatedFilter,
+  setQuestionsCommunity,
   setTypeFilter,
 } from './actions';
 
@@ -57,7 +58,7 @@ import Header from './Header';
 import NotFound from '../ErrorPage';
 import ShowMoreButton from './Content/ShowMoreButton';
 
-import { QUESTION_FILTER, UPDATE_PROMO_QUESTIONS } from './constants';
+import { QUESTION_FILTER } from './constants';
 
 const feed = routes.feed();
 const single = isSingleCommunityWebsite();
@@ -86,6 +87,7 @@ export const Questions = ({
   questionFilter,
   loadTopQuestionsDispatch,
   isLastTopQuestionLoaded,
+  setQuestionsCommunityDispatch,
 }) => {
   const [fetcher, setFetcher] = useState(null);
 
@@ -162,6 +164,15 @@ export const Questions = ({
 
   useEffect(
     () => {
+      setQuestionsCommunityDispatch(
+        params.communityid ? +params.communityid : 0,
+      );
+    },
+    [params.communityid],
+  );
+
+  useEffect(
+    () => {
       setFetcher(null);
 
       return () => {
@@ -191,10 +202,6 @@ export const Questions = ({
   useEffect(
     () => {
       if (!fetcher && !questionFilter) {
-        setCookie({
-          name: UPDATE_PROMO_QUESTIONS,
-          value: 1,
-        });
         getInitQuestions();
       }
     },
@@ -282,7 +289,9 @@ export const Questions = ({
         >
           <Content
             questionsList={questionsList}
-            promotedQuestionsList={promotedQuestions[+questionFilterFromCookies ? 'top' : 'all']}
+            promotedQuestionsList={
+              promotedQuestions[+questionFilterFromCookies ? 'top' : 'all']
+            }
             locale={locale}
             communities={communities}
             typeFilter={typeFilter}
@@ -384,6 +393,10 @@ export default compose(
       ),
       loadTopQuestionsDispatch: bindActionCreators(
         loadTopCommunityQuestions,
+        dispatch,
+      ),
+      setQuestionsCommunityDispatch: bindActionCreators(
+        setQuestionsCommunity,
         dispatch,
       ),
     }),

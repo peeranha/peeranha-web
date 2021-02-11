@@ -85,8 +85,9 @@ export const selectQuestionsError = () =>
   );
 
 export const selectPromotedQuestions = () =>
-  createSelector(selectQuestionsDomain, substate =>
-    substate.toJS().promotedQuestions,
+  createSelector(
+    selectQuestionsDomain,
+    substate => substate.toJS().promotedQuestions,
   );
 
 export const selectInitLoadedItems = () =>
@@ -149,4 +150,9 @@ export const isLastTopQuestionLoadedSelector = createSelector(
   selectLastLoadedTopQuestionIndex,
   selectTopQuestionIds,
   (lastIndex, ids) => lastIndex >= ids.length,
+);
+
+export const selectQuestionsCommunityId = createSelector(
+  selectQuestionsDomain,
+  substate => substate.get('questionsCommunityId'),
 );
