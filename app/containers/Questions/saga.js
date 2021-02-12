@@ -87,6 +87,7 @@ import {
   selectTopQuestionIds,
   isQuestionTop,
   selectPromotedQuestions,
+  selectTypeFilter,
 } from './selectors';
 
 const feed = routes.feed();
@@ -107,10 +108,8 @@ export function* getQuestionsWorker({
     const followedCommunities = yield select(makeSelectFollowedCommunities());
     const cachedPromotedQuestions = yield select(selectPromotedQuestions());
 
-    let isNotUpdatePromotedQuestions = Number.parseInt(getCookie(UPDATE_PROMO_QUESTIONS));
-    if (isNotUpdatePromotedQuestions !== 1) {
-      isNotUpdatePromotedQuestions = 0;
-    }
+    const isNotUpdatePromotedQuestions = getCookie(UPDATE_PROMO_QUESTIONS);
+
     deleteCookie(UPDATE_PROMO_QUESTIONS);
 
     let questionsList = [];
@@ -182,18 +181,21 @@ export function* getQuestionsWorker({
     );
 
     // get promoted questions
-    const promotedQuestions = 
-      isNotUpdatePromotedQuestions ? 
-      { ...cachedPromotedQuestions } :
-      { all: [], top: [] };
+    const promotedQuestions = isNotUpdatePromotedQuestions
+      ? { ...cachedPromotedQuestions }
+      : { all: [], top: [] };
 
-    if (communityIdFilter && !isNotUpdatePromotedQuestions) {
+    if (
+      (communityIdFilter && !isNotUpdatePromotedQuestions) ||
+      cachedPromotedQuestions.communityId !== communityIdFilter
+    ) {
       yield call(loadTopCommunityQuestionsWorker, { init: true });
 
       const topQuestionsIds = yield select(selectTopQuestionIds);
-
+      
       let allPromotedQuestions = yield call(getPromotedQuestions, eosService, communityIdFilter);
       allPromotedQuestions = allPromotedQuestions.filter(item => item.ends_time >= now);
+
 
       allPromotedQuestions = yield all(
         allPromotedQuestions.map(function*({ question_id }) {
@@ -214,6 +216,7 @@ export function* getQuestionsWorker({
 
       promotedQuestions.all = getRandomQuestions(allPromotedQuestions, PROMO_QUESTIONS_AMOUNT);
       promotedQuestions.top = getRandomQuestions(topPromotedQuestions, PROMO_QUESTIONS_AMOUNT);
+      promotedQuestions.communityId = communityIdFilter;
     }
 
     yield put(getQuestionsSuccess(questionsList, next, toUpdateQuestions, undefined, promotedQuestions));
@@ -238,7 +241,7 @@ export function* updateStoredQuestionsWorker() {
   const eosService = yield select(selectEos);
   const initLoadedItems = yield select(selectInitLoadedItems());
   const offset = 0;
-  const communityIdFilter = 0;
+  const communityIdFilter = yield select(selectTypeFilter());
   const parentPage = null;
   const fetcher = new FetcherOfQuestionsForFollowedCommunities(
     Math.floor(1.2 * initLoadedItems),
@@ -251,8 +254,8 @@ export function* updateStoredQuestionsWorker() {
 
   setCookie({
     name: UPDATE_PROMO_QUESTIONS,
-    value: 1,
-  })
+    value: true,
+  });
 
   yield put(
     getQuestionsAction(

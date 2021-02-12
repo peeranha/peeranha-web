@@ -89,13 +89,16 @@ const QuestionFilter = ({
     [filter],
   );
 
-  const setAllFilter = useCallback(() => {
-    setFilter(0);
-    setCookie({
-      name: UPDATE_PROMO_QUESTIONS,
-      value: 1,
-    });
-  }, [filter]);
+  const setAllFilter = useCallback(
+    () => {
+      setFilter(0);
+      setCookie({
+        name: UPDATE_PROMO_QUESTIONS,
+        value: true,
+      });
+    },
+    [filter],
+  );
   const setQuestionFilter = useCallback(() => setFilter(1), [filter]);
 
   return display ? (
@@ -117,6 +120,7 @@ const QuestionFilter = ({
 QuestionFilter.propTypes = {
   display: PropTypes.bool,
   changeQuestionFilterDispatch: PropTypes.func,
+  questionFilterFromCookies: PropTypes.number,
 };
 
 export default memo(
