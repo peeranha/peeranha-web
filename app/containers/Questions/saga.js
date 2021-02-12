@@ -192,15 +192,10 @@ export function* getQuestionsWorker({
       yield call(loadTopCommunityQuestionsWorker, { init: true });
 
       const topQuestionsIds = yield select(selectTopQuestionIds);
+      
+      let allPromotedQuestions = yield call(getPromotedQuestions, eosService, communityIdFilter);
+      allPromotedQuestions = allPromotedQuestions.filter(item => item.ends_time >= now);
 
-      let allPromotedQuestions = yield call(
-        getPromotedQuestions,
-        eosService,
-        communityIdFilter,
-      );
-      allPromotedQuestions = allPromotedQuestions.filter(
-        item => item.ends_time >= now,
-      );
 
       allPromotedQuestions = yield all(
         allPromotedQuestions.map(function*({ question_id }) {
@@ -217,30 +212,14 @@ export function* getQuestionsWorker({
         }),
       );
 
-      const topPromotedQuestions = allPromotedQuestions.filter(item =>
-        topQuestionsIds.includes(item.id),
-      );
+      const topPromotedQuestions = allPromotedQuestions.filter(item => topQuestionsIds.includes(item.id));
 
-      promotedQuestions.all = getRandomQuestions(
-        allPromotedQuestions,
-        PROMO_QUESTIONS_AMOUNT,
-      );
-      promotedQuestions.top = getRandomQuestions(
-        topPromotedQuestions,
-        PROMO_QUESTIONS_AMOUNT,
-      );
+      promotedQuestions.all = getRandomQuestions(allPromotedQuestions, PROMO_QUESTIONS_AMOUNT);
+      promotedQuestions.top = getRandomQuestions(topPromotedQuestions, PROMO_QUESTIONS_AMOUNT);
       promotedQuestions.communityId = communityIdFilter;
     }
 
-    yield put(
-      getQuestionsSuccess(
-        questionsList,
-        next,
-        toUpdateQuestions,
-        undefined,
-        promotedQuestions,
-      ),
-    );
+    yield put(getQuestionsSuccess(questionsList, next, toUpdateQuestions, undefined, promotedQuestions));
   } catch (err) {
     yield put(getQuestionsError(err));
   }
