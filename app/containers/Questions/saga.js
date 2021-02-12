@@ -192,7 +192,7 @@ export function* getQuestionsWorker({
       yield call(loadTopCommunityQuestionsWorker, { init: true });
 
       const topQuestionsIds = yield select(selectTopQuestionIds);
-      
+
       let allPromotedQuestions = yield call(getPromotedQuestions, eosService, communityIdFilter);
       allPromotedQuestions = allPromotedQuestions.filter(item => item.ends_time >= now);
 
@@ -204,7 +204,7 @@ export function* getQuestionsWorker({
           });
         }),
       );
-
+      allPromotedQuestions = allPromotedQuestions.filter(item => !!item);
       yield all(
         allPromotedQuestions.map(function*(question) {
           const bounty = yield call(getQuestionBounty, question.id, eosService);
