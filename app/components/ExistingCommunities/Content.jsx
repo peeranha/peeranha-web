@@ -168,9 +168,9 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
 
                   <Info>
                     <P>{getFormattedNum2(x.questions_asked)}</P>
-                    <ADefault href={routes.questions(id)}>
+                    <A to={routes.questions(id)}>
                       <FormattedMessage {...commonMessages.questions} />
-                    </ADefault>
+                    </A>
                   </Info>
 
                   <Info>
