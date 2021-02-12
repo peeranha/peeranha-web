@@ -45,6 +45,9 @@ export const COMMUNITY_ADMIN_OFFICIAL_ANSWER = 7;
 export const SECTION_ID = 'section_id';
 export const PERMISSION_GRANTED = '1';
 
+export const PROPERTY_ANSWER_15_MINUTES = 12;
+export const PROPERTY_FIRST_ANSWER = 13;
+
 export const moderatorPermissions = {
   MODERATOR_INFINITE_IMPACT: {
     code: 1,
