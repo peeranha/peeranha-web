@@ -1,4 +1,4 @@
-import { takeLatest, put, call, select } from 'redux-saga/effects';
+import { takeLatest, takeEvery, put, call, select } from 'redux-saga/effects';
 import { translationMessages } from 'i18n';
 import { getFormValues } from 'redux-form/lib/immutable';
 
@@ -41,6 +41,7 @@ import {
   EOS_SEND_TO_ACCOUNT_FIELD,
   EOS_SEND_FROM_ACCOUNT_FIELD,
   TIPS_PRESELECT,
+  SEND_TIPS_NOTIFICATION,
 } from './constants';
 
 import {
@@ -52,6 +53,7 @@ import {
   selectAccountErr,
   addScatterTipsEosService,
   addTipsKeycatEosService,
+  sendTipsNotification,
 } from './actions';
 
 import {
@@ -129,30 +131,15 @@ export function* sendTipsWorker({ resetForm, val, questionId, answerId }) {
       contractAccount: val[CURRENCY_FIELD].contractAccount,
     });
 
-    // send user tip notification
-    let attempts = 1;
-    while (attempts <= 5) {
-      // delay before notifications tips service call
-      yield new Promise(res => {
-        setTimeout(() => {
-          res();
-        }, 700);
-      });
-
-      const result = yield call(callService, NOTIFICATIONS_TIPS_SERVICE, {
-        ..._omit(data, 'memo'),
+    yield put(
+      sendTipsNotification(
+        data,
         questionId,
         answerId,
-        transactionId: response.transaction_id,
-        block: response.processed.block_num,
-      });
-
-      if (result.OK) break;
-      if (attempts === 5) {
-        console.error('Error: could not sent user tip notification');
-      }
-      attempts += 1;
-    }
+        response.transaction_id,
+        response.processed.block_num,
+      ),
+    );
 
     // update preselect tips values
     const tipsPreselect = {
@@ -187,6 +174,44 @@ export function* sendTipsWorker({ resetForm, val, questionId, answerId }) {
     yield call(resetForm);
   } catch (err) {
     yield put(sendTipsErr(err));
+  }
+}
+
+export function* sendTipsNotificationWorker({
+  data,
+  questionId,
+  answerId,
+  transactionId,
+  block,
+}) {
+  try {
+    let attempts = 1;
+    while (attempts <= 5) {
+      // delay before notifications tips service call
+      yield new Promise(res => {
+        setTimeout(() => {
+          res();
+        }, 700);
+      });
+
+      const result = yield call(callService, NOTIFICATIONS_TIPS_SERVICE, {
+        ..._omit(data, 'memo'),
+        questionId,
+        answerId,
+        transactionId,
+        block,
+      });
+
+      if (result.OK) break;
+      if (attempts === 5) {
+        console.log(
+          'Error in sendTipsNotificationWorker: could not sent user tip notification',
+        );
+      }
+      attempts += 1;
+    }
+  } catch (err) {
+    console.log(err);
   }
 }
 
@@ -295,4 +320,5 @@ export default function* defaultSaga() {
   yield takeLatest(SELECT_SCATTER_ACCOUNT, selectScatterAccountWorker);
   yield takeLatest(SELECT_KEYCAT_ACCOUNT, selectKeycatAccountWorker);
   yield takeLatest(SEND_TIPS, sendTipsWorker);
+  yield takeEvery(SEND_TIPS_NOTIFICATION, sendTipsNotificationWorker);
 }
