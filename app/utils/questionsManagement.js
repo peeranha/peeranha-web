@@ -25,6 +25,7 @@ import {
   VOTE_TO_DELETE_METHOD,
   PROMOTED_QUESTIONS_TABLES,
   PROMOTE_QUESTION_METHOD,
+  CHANGE_PROMO_QUEST_COMM,
 } from './constants';
 
 /* eslint-disable  */
@@ -474,6 +475,24 @@ export const promoteQuestion = async (eosService, user, questionId, hours) => {
       user,
       question_id: +questionId,
       hours,
+    },
+    process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
+  );
+};
+
+export const changePomoQuestCommunity = async (
+  eosService,
+  user,
+  questionId,
+  prevCommId,
+) => {
+  await eosService.sendTransaction(
+    user,
+    CHANGE_PROMO_QUEST_COMM,
+    {
+      user,
+      question_id: questionId,
+      old_community_id: prevCommId,
     },
     process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
   );
