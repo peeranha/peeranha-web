@@ -74,8 +74,6 @@ export function* getAskedQuestionWorker({ questionId }) {
       question.community?.id,
     );
 
-    console.log('$$promotedQuestions: ', promotedQuestions);
-
     const promotedQuestion = promotedQuestions.find(
       item => item.question_id === questionId,
     );
