@@ -51,6 +51,7 @@ import {
   LOGIN_WITH_EMAIL,
   SCATTER_MODE_ERROR,
   USER_IS_NOT_REGISTERED,
+  USER_IS_NOT_SELECTED,
   EMAIL_FIELD,
   PASSWORD_FIELD,
   REMEMBER_ME_FIELD,
@@ -140,6 +141,13 @@ export function* loginWithWalletWorker({ keycat, scatter }) {
 
     if (keycat) {
       keycatUserData = yield call(eosService.keycatSignIn);
+
+      if (!keycatUserData) {
+        throw new WebIntegrationError(
+          translations[messages[USER_IS_NOT_SELECTED].id],
+        );
+      }
+
       currentAccount = keycatUserData.accountName;
     }
 

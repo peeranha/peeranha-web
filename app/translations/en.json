@@ -832,6 +832,9 @@
     "I saved Master Key in a safe place. I understand that if I forget my password then Master Key is the only way to restore access to my account.",
   "app.containers.SignUp.userAlreadyRegistered":
     "User with such identity has been already registered",
+  "app.containers.SignUp.userRejectedSignatureRequest":
+    "User rejected signature request",
+  "app.containers.SignUp.userIsNotSelected": "User is not selected",
   "app.containers.SignUp.eosAccountNotFound": "Telos account not be found",
   "app.containers.SignUp.keysDoNotMatch":
     "Private keys do not match Telos account name",

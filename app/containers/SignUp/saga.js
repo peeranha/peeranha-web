@@ -50,6 +50,8 @@ import {
   SHOW_WALLET_SIGNUP_FORM,
   SIGNUP_WITH_WALLET,
   USER_ALREADY_REGISTERED_ERROR,
+  USER_REJECTED_SIGNATURE_REQUEST_ERROR,
+  USER_IS_NOT_SELECTED_ERROR,
   EOS_ACCOUNT_FIELD,
   DISPLAY_NAME_FIELD,
   MASTER_KEY_FIELD,
@@ -314,6 +316,8 @@ export function* idontHaveEosAccountWorker({ val }) {
 
 export function* signUpWithWalletWorker({ val, scatter, keycat }) {
   try {
+    const locale = yield select(makeSelectLocale());
+    const translations = translationMessages[locale];
     const accountName = val[EOS_ACCOUNT_FIELD];
     const profile = {
       accountName,
@@ -337,7 +341,13 @@ export function* signUpWithWalletWorker({ val, scatter, keycat }) {
       }
     }
 
-    yield call(registerAccount, profile, eosService);
+    const registerAccountResult = yield call(registerAccount, profile, eosService);
+
+    if (!registerAccountResult) {
+      throw new WebIntegrationError(
+        translations[signupMessages[USER_REJECTED_SIGNATURE_REQUEST_ERROR].id],
+      );
+    }
 
     yield call(loginWithWalletWorker, { scatter, keycat });
 
@@ -365,9 +375,15 @@ export function* showWalletSignUpFormWorker({ scatter, keycat }) {
 
     // sign up with keycat
     if (keycat) {
-      const { accountName } = yield call(eosService.keycatSignIn);
+      const keycatUserData = yield call(eosService.keycatSignIn);
 
-      currentAccount = accountName;
+      if (!keycatUserData) {
+        throw new WebIntegrationError(
+          translations[signupMessages[USER_IS_NOT_SELECTED_ERROR].id],
+        );
+      }
+      
+      currentAccount = keycatUserData.accountName;
     }
 
     // sign up with scatter
