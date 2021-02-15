@@ -129,13 +129,30 @@ export function* sendTipsWorker({ resetForm, val, questionId, answerId }) {
       contractAccount: val[CURRENCY_FIELD].contractAccount,
     });
 
-    yield call(callService, NOTIFICATIONS_TIPS_SERVICE, {
-      ..._omit(data, 'memo'),
-      questionId,
-      answerId,
-      transactionId: response.transaction_id,
-      block: response.processed.block_num,
-    });
+    // send user tip notification
+    let attempts = 1;
+    while (attempts <= 5) {
+      // delay before notifications tips service call
+      yield new Promise(res => {
+        setTimeout(() => {
+          res();
+        }, 700);
+      });
+
+      const result = yield call(callService, NOTIFICATIONS_TIPS_SERVICE, {
+        ..._omit(data, 'memo'),
+        questionId,
+        answerId,
+        transactionId: response.transaction_id,
+        block: response.processed.block_num,
+      });
+
+      if (result.OK) break;
+      if (attempts === 5) {
+        console.error('Error: could not sent user tip notification');
+      }
+      attempts += 1;
+    }
 
     // update preselect tips values
     const tipsPreselect = {
