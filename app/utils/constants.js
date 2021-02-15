@@ -199,6 +199,7 @@ export const CONFIRM_TELEGRAM_ACCOUNT = 'apprvacc';
 export const UNLINK_TELEGRAM_ACCOUNT = 'dsapprvacc';
 
 export const PROMOTE_QUESTION_METHOD = 'addhotquestn';
+export const CHANGE_PROMO_QUEST_COMM = 'chngpromcomm';
 
 // Top community questions methods
 export const ADD_TO_TOP_COMMUNITY_METHOD = 'addtotopcomm';

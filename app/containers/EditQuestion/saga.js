@@ -10,6 +10,7 @@ import {
   getQuestionById,
   getPromotedQuestions,
   promoteQuestion,
+  changePomoQuestCommunity,
 } from 'utils/questionsManagement';
 import { editBounty } from 'utils/walletManagement';
 import { getCommunityWithTags } from 'utils/communityManagement';
@@ -36,6 +37,7 @@ import {
   editQuestionSuccess,
   editQuestionErr,
 } from './actions';
+import { selectQuestion } from './selectors';
 
 export function* getAskedQuestionWorker({ questionId }) {
   try {
@@ -71,6 +73,9 @@ export function* getAskedQuestionWorker({ questionId }) {
       eosService,
       question.community?.id,
     );
+
+    console.log('$$promotedQuestions: ', promotedQuestions);
+
     const promotedQuestion = promotedQuestions.find(
       item => item.question_id === questionId,
     );
@@ -124,6 +129,26 @@ export function* editQuestionWorker({ question, questionId }) {
         questionId,
         question.promote,
       );
+    }
+
+    // change promoted question community
+    const initialEditQuestData = yield select(selectQuestion());
+
+    if (initialEditQuestData.promote) {
+      const { endsTime } = initialEditQuestData.promote;
+      const prevCommId = initialEditQuestData.community.id;
+      const dateNow = Math.trunc(Date.now() / 1000);
+      const currCommId = question.community.id;
+
+      if (endsTime > dateNow && prevCommId !== currCommId) {
+        yield call(
+          changePomoQuestCommunity,
+          eosService,
+          selectedAccount,
+          questionId,
+          prevCommId,
+        );
+      }
     }
 
     if (cachedQuestion) {
