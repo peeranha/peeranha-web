@@ -153,6 +153,7 @@
   "app.common.subscribe": "Подписаться",
   "app.common.unsubscribe": "Отписаться",
   "app.common.followSocialMedia": "Следите за нами в социальных сетях:",
+  "app.common.cannotTransferToYourself": "Нельзя отправлять самому себе",
 
   "app.telegram.user": "Телеграм пользователь",
   "app.telegram.userLabelPopover":
