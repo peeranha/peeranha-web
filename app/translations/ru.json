@@ -153,6 +153,7 @@
   "app.common.subscribe": "Подписаться",
   "app.common.unsubscribe": "Отписаться",
   "app.common.followSocialMedia": "Следите за нами в социальных сетях:",
+  "app.common.cannotTransferToYourself": "Нельзя отправлять самому себе",
 
   "app.telegram.user": "Телеграм пользователь",
   "app.telegram.userLabelPopover":
@@ -845,6 +846,9 @@
     "Я сохранил Master ключ в безопасном месте. Понимаю, что если я забуду пароль, Master ключ - единственный способ восстановить доступ к моему аккаунту.",
   "app.containers.SignUp.userAlreadyRegistered":
     "Пользователь с таким identity уже зарегистрирован",
+  "app.containers.SignUp.userRejectedSignatureRequest":
+    "Пользователь отклонил запрос подписи",
+  "app.containers.SignUp.userIsNotSelected": "Пользователь не выбран",
   "app.containers.SignUp.eosAccountNotFound": "Данный Telos аккаунт не найден",
   "app.containers.SignUp.keysDoNotMatch":
     "Приватные ключи не соответствуют Telos аккаунт имени",

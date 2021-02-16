@@ -134,12 +134,20 @@ class EosioService {
 
   keycatSignIn = async () => {
     if (!this.keycat) await this.initKeycat();
-    const keycatUserData = await this.keycat.signin();
-    this.keycatUserData = keycatUserData;
-    this.selectedAccount = keycatUserData.accountName;
-    this.withKeycat = true;
-    this.withScatter = false;
-    return keycatUserData;
+
+    try {
+      const keycatUserData = await this.keycat.signin();
+
+      this.keycatUserData = keycatUserData;
+      this.selectedAccount = keycatUserData.accountName;
+
+      this.withKeycat = true;
+      this.withScatter = false;
+
+      return keycatUserData;
+    } catch (e) {
+      return null;
+    }    
   };
 
   setKeycatAutoLoginData = async keycatUserData => {

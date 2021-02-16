@@ -35,20 +35,24 @@ export const registerAccount = async (profile, eosService) => {
   const profileText = JSON.stringify(profile);
   const ipfsHash = await saveText(profileText);
 
-  await eosService.sendTransaction(
-    profile.accountName,
-    REGISTER_ACC,
-    {
-      user: profile.accountName,
-      display_name: profile.displayName,
-      ipfs_profile: ipfsHash,
-      ipfs_avatar: NO_AVATAR,
-    },
-    null,
-    true,
-  );
-
-  return true;
+  try {
+    await eosService.sendTransaction(
+      profile.accountName,
+      REGISTER_ACC,
+      {
+        user: profile.accountName,
+        display_name: profile.displayName,
+        ipfs_profile: ipfsHash,
+        ipfs_avatar: NO_AVATAR,
+      },
+      null,
+      true,
+    );
+  
+    return true;
+  } catch (e) {
+    return false;
+  }
 };
 
 export const isUserInSystem = async (user, eosService) => {
