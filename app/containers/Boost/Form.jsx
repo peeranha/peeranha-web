@@ -66,7 +66,7 @@ export const InputProgressBar = styled.div`
 
   margin-left: ${() =>
     projectBorderRadius
-      ? `${Number(BORDER_RADIUS_M.split('px')[0]) / 2}px`
+      ? `${Number(BORDER_RADIUS_M.split('px')[0]) * 0.75}px`
       : ''};
 
   max-width: 100%;
