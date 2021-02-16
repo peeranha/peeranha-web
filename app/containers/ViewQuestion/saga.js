@@ -170,7 +170,7 @@ export function* getQuestionData({
   question.isGeneral = isGeneralQuestion(question.properties);
 
   if (promote && promote.ends_time > Math.trunc(Date.now() / 1000)) {
-    question.promote = promote;
+    question.promote = { ...promote };
   } else {
     const promotedQuestions = yield call(
       getPromotedQuestions,
