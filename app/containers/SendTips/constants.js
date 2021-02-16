@@ -38,3 +38,5 @@ export const REMOVE_SELECTED_ACCOUNTS = 'app/SendTips/REMOVE_SELECTED_ACCOUNTS';
 export const REMOVE_TIPS_EOS_SERVICES = 'app/SendTips/REMOVE_TIPS_EOS_SERVICES';
 
 export const TIPS_PRESELECT = 'tipsPreselect';
+
+export const MAX_NOTIFICAT_ATTEMPTS = 3;

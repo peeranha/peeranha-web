@@ -42,6 +42,7 @@ import {
   EOS_SEND_FROM_ACCOUNT_FIELD,
   TIPS_PRESELECT,
   SEND_TIPS_NOTIFICATION,
+  MAX_NOTIFICAT_ATTEMPTS,
 } from './constants';
 
 import {
@@ -186,12 +187,12 @@ export function* sendTipsNotificationWorker({
 }) {
   try {
     let attempts = 1;
-    while (attempts <= 5) {
+    while (attempts <= MAX_NOTIFICAT_ATTEMPTS) {
       // delay before notifications tips service call
       yield new Promise(res => {
         setTimeout(() => {
           res();
-        }, 700);
+        }, 2000);
       });
 
       const result = yield call(callService, NOTIFICATIONS_TIPS_SERVICE, {
@@ -203,7 +204,7 @@ export function* sendTipsNotificationWorker({
       });
 
       if (result.OK) break;
-      if (attempts === 5) {
+      if (attempts === MAX_NOTIFICAT_ATTEMPTS) {
         console.log(
           'Error in sendTipsNotificationWorker: could not sent user tip notification',
         );
