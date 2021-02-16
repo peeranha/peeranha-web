@@ -58,20 +58,21 @@ export const InputProgressBar = styled.div`
   position: absolute;
   bottom: 0;
   left: 0;
-
-  width: ${({ width }) =>
-    projectBorderRadius
-      ? `calc(${width}% - ${BORDER_RADIUS_M})` || '0%'
-      : `${width || 0}%`};
-
+  width: ${projectBorderRadius
+    ? `calc(100% - ${Number(BORDER_RADIUS_M.split('px')[0]) * 0.75 * 2}px)`
+    : '100%'};
+  max-width: 100%;
   margin-left: ${() =>
     projectBorderRadius
       ? `${Number(BORDER_RADIUS_M.split('px')[0]) * 0.75}px`
       : ''};
-
-  max-width: 100%;
   height: 4px;
-  background-color: ${DARK_SECONDARY};
+  background-image: ${({ width }) => `linear-gradient(
+    90deg,
+    ${DARK_SECONDARY} 0%,
+    ${DARK_SECONDARY} ${width || 0}%,
+    transparent ${width || 0}%
+  )`};
 `;
 
 const Title = styled.p`
