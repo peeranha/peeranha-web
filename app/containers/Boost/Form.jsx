@@ -92,69 +92,76 @@ const Title = styled.p`
 
 const Form = ({
   handleSubmit,
+  reset,
   changeStake,
   changeStakeLoading,
   changeCurrentStake,
   maxStake,
   initialUserStake,
+  currentStake,
   onChangeCurrentStake,
   locale,
   formValues,
   nextWeekMaxStake,
-}) => (
-  <div className="mb-5">
-    {formValues[CURRENT_STAKE_FORM] !== undefined && (
-      <>
-        <Title>
-          <FormattedMessage {...messages.formTitle} />
-        </Title>
-        <TipsBase>
-          <BaseSpecialOne className="position-relative">
-            {!maxStake && (
-              <BlockedInfoArea>
-                <FormattedMessage {...messages.notTokensToStake} />
-              </BlockedInfoArea>
-            )}
+}) => {
+  const resetAction =
+    initialUserStake === currentStake
+      ? reset
+      : () => onChangeCurrentStake(initialUserStake || 0);
 
-            <FormBox onSubmit={handleSubmit(changeStake)}>
-              <PredictionForm
-                locale={locale}
-                formValues={formValues}
-                maxStake={nextWeekMaxStake}
-              />
+  return (
+    <div className="mb-5">
+      {formValues[CURRENT_STAKE_FORM] !== undefined && (
+        <>
+          <Title>
+            <FormattedMessage {...messages.formTitle} />
+          </Title>
+          <TipsBase>
+            <BaseSpecialOne className="position-relative">
+              {!maxStake && (
+                <BlockedInfoArea>
+                  <FormattedMessage {...messages.notTokensToStake} />
+                </BlockedInfoArea>
+              )}
 
-              <CurrentStakeForm
-                maxValue={maxStake}
-                onClickStakeTag={v => changeCurrentStake(v)}
-                disabled={changeStakeLoading}
-                formValues={formValues}
-                formSubmitAction={handleSubmit(changeStake)}
-                initialUserStake={initialUserStake}
-              />
+              <FormBox onSubmit={handleSubmit(changeStake)}>
+                <PredictionForm
+                  locale={locale}
+                  formValues={formValues}
+                  maxStake={nextWeekMaxStake}
+                />
 
-              <div className="mt-5">
-                <Button type="submit" className="mr-4">
-                  <FormattedMessage {...messages.formSubmit} />
-                </Button>
-                <TransparentButton
-                  type="button"
-                  onClick={() => onChangeCurrentStake(initialUserStake || 0)}
-                >
-                  <FormattedMessage {...messages.formCancel} />
-                </TransparentButton>
-              </div>
-            </FormBox>
-          </BaseSpecialOne>
+                <CurrentStakeForm
+                  maxValue={maxStake}
+                  onClickStakeTag={v => changeCurrentStake(v)}
+                  disabled={changeStakeLoading}
+                  formValues={formValues}
+                  formSubmitAction={handleSubmit(changeStake)}
+                  initialUserStake={initialUserStake}
+                />
 
-          <Tips />
-        </TipsBase>
-      </>
-    )}
-  </div>
-);
+                <div className="mt-5">
+                  <Button type="submit" className="mr-4">
+                    <FormattedMessage {...messages.formSubmit} />
+                  </Button>
+                  <TransparentButton type="reset" onClick={resetAction}>
+                    <FormattedMessage {...messages.formCancel} />
+                  </TransparentButton>
+                </div>
+              </FormBox>
+            </BaseSpecialOne>
+
+            <Tips />
+          </TipsBase>
+        </>
+      )}
+    </div>
+  );
+};
 
 Form.propTypes = {
   handleSubmit: PropTypes.func,
+  reset: PropTypes.func,
   formValues: PropTypes.object,
   changeStake: PropTypes.func,
   changeStakeLoading: PropTypes.bool,
