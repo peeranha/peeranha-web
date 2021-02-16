@@ -10,9 +10,9 @@ import createdHistory from 'createdHistory';
 import { TEXT_PRIMARY, TEXT_SECONDARY } from 'style-constants';
 
 import {
-  communityModeratorCreatePermission,
   getPermissions,
   hasCommunityAdminPermissions,
+  hasGlobalModeratorPermissions,
 } from 'utils/properties';
 import { getFormattedNum2 } from 'utils/numbers';
 import { getDifferenceInMonths } from 'utils/datetime';
@@ -91,8 +91,7 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
   if (!communities || !communities.length) return null;
 
   const communityEditingAllowed = useMemo(
-    () =>
-      communityModeratorCreatePermission(profile?.['integer_properties'] || []),
+    () => hasGlobalModeratorPermissions(profile?.['integer_properties'] || []),
     [profile],
   );
 

@@ -16,6 +16,7 @@ import {
   communityAdminPermissions,
   PROPERTY_ANSWER_15_MINUTES,
   PROPERTY_FIRST_ANSWER,
+  MODERATOR_KEY,
 } from './constants';
 
 const findAllPropertiesByKeys = (properties, keys, exact = false) =>
@@ -137,11 +138,13 @@ export const communityAdminInfiniteImpactPermission = (
     COMMUNITY_ADMIN_INFINITE_IMPACT,
   ]).filter(({ community }) => communityId === community).length;
 
-export const communityModeratorCreatePermission = properties =>
-  !!findAllPropertiesByKeys(properties, [MODERATOR_CREATE_COMMUNITY]).filter(
-    ({ key }) =>
-      key !== PROPERTY_ANSWER_15_MINUTES && key !== PROPERTY_FIRST_ANSWER,
-  ).length;
+export const hasCommunityModeratorCreatePermission = properties =>
+  !!findAllPropertiesByKeys(properties.filter(x => x.key === MODERATOR_KEY), [
+    MODERATOR_CREATE_COMMUNITY,
+  ]).length;
+
+export const hasGlobalModeratorPermissions = properties =>
+  !!properties.find(x => x.key === MODERATOR_KEY);
 
 export const getPermissions = profile => profile?.permissions ?? [];
 
