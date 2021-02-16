@@ -79,14 +79,14 @@ const PredictionForm = ({ locale, formValues, maxStake }) => {
     () => getPredictedBoost(formValues[CURRENT_STAKE_FORM], maxStake), 
     [formValues, maxStake]
   );
-  const { value, text } = predictedBoost;
+  const { value, fullText } = predictedBoost;
 
   const progressWidth = value ? (value - MIN_STAKE_PREDICTION) * 100 / (MAX_STAKE_PREDICTION - MIN_STAKE_PREDICTION) : 0;
 
   return (
     <InputWrapper isPrediction>
       <Label>{translationMessages[locale][messages.formBoostPrediction.id]}</Label>
-      <PredictedBoost>{text}</PredictedBoost>
+      <PredictedBoost>{fullText}</PredictedBoost>
       {separators(MAX_STAKE_PREDICTION - MIN_STAKE_PREDICTION + 1)}
       <InputProgressBar width={progressWidth} />
     </InputWrapper>

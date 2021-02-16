@@ -40,6 +40,7 @@ const WeekDetails = ({ maximumStake, yourStake = 0, isCurrentWeek }) => {
     () => getPredictedBoost(yourStake, maximumStake),
     [yourStake, maximumStake],
   );
+  const { value, fullText } = predictedBoost;
 
   return (
     <Base position="bottom">
@@ -65,7 +66,7 @@ const WeekDetails = ({ maximumStake, yourStake = 0, isCurrentWeek }) => {
           </Span>
         </P>
       </BaseGroup>
-      {predictedBoost.value > 1 && (
+      {value > 1 && (
         <BaseGroup>
           <P className="mb-1" fontSize="14" color={TEXT_SECONDARY}>
             <FormattedMessage
@@ -78,7 +79,7 @@ const WeekDetails = ({ maximumStake, yourStake = 0, isCurrentWeek }) => {
               mobileFS={14}
               isCurrentWeek={!!isCurrentWeek}
             >
-              {predictedBoost.text}
+              {fullText}
             </PredictionPower>
           </P>
         </BaseGroup>

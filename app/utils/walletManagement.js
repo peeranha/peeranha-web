@@ -441,6 +441,7 @@ export const getPredictedBoost = (userStake, maxStake) => {
   }
 
   return {
+    fullText: `x${Math.floor(boost * 1000000) / 1000000}`,
     text: `x${Math.floor(boost * 1000) / 1000}`,
     value: boost,
   };
