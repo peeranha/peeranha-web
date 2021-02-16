@@ -136,4 +136,7 @@ export default defineMessages({
   bountyStatusExpiration: {
     id: 'app.containers.ViewQuestion.bountyStatusExpiration',
   },
+  questionIsPromoting: {
+    id: 'app.containers.QuestionForm.questionIsPromoting',
+  },
 });
