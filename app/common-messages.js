@@ -444,4 +444,7 @@ export default defineMessages({
   followSocialMedia: {
     id: 'app.common.followSocialMedia',
   },
+  cannotTransferToYourself: {
+    id: 'app.common.cannotTransferToYourself',
+  },
 });

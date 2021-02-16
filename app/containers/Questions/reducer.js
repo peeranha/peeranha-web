@@ -36,7 +36,7 @@ export const initialState = fromJS({
   questions: {},
   lastLoadedTopQuestionIndex: 0,
   isLastFetch: false,
-  typeFilter: 0,
+  typeFilter: null,
   createdFilter: null,
   topQuestionIds: [],
   topQuestionsInfoLoaded: false,

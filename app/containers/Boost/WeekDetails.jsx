@@ -30,18 +30,15 @@ const PredictionPower = Span.extend`
   padding: 4px 11px 6px;
   font-weight: bold;
   color: ${TEXT_LIGHT};
-  background-color: ${({ isCurrentWeek }) => isCurrentWeek ? BG_WARNING_LIGHT : BG_PRIMARY};
+  background-color: ${({ isCurrentWeek }) =>
+    isCurrentWeek ? BG_WARNING_LIGHT : BG_PRIMARY};
   border-radius: 20px;
 `;
 
-const WeekDetails = ({
-  maximumStake,
-  yourStake = 0,
-  isCurrentWeek,
-}) => {
+const WeekDetails = ({ maximumStake, yourStake = 0, isCurrentWeek }) => {
   const predictedBoost = useMemo(
-    () => getPredictedBoost(yourStake, maximumStake), 
-    [yourStake, maximumStake]
+    () => getPredictedBoost(yourStake, maximumStake),
+    [yourStake, maximumStake],
   );
 
   return (
@@ -52,7 +49,9 @@ const WeekDetails = ({
         </P>
         <P className="d-flex align-items-center">
           <SmallImage className="mr-2" src={currencyPeerImage} alt="icon" />
-          <Span fontSize="20" mobileFS={14} bold>{getFormattedNum3(maximumStake)}</Span>
+          <Span fontSize="20" mobileFS={14} bold>
+            {getFormattedNum3(maximumStake)}
+          </Span>
         </P>
       </BaseGroup>
       <BaseGroup>
@@ -61,13 +60,17 @@ const WeekDetails = ({
         </P>
         <P className="d-flex align-items-center">
           <SmallImage className="mr-2" src={currencyPeerImage} alt="icon" />
-          <Span fontSize="20" mobileFS={14} bold>{getFormattedNum3(yourStake)}</Span>
+          <Span fontSize="20" mobileFS={14} bold>
+            {getFormattedNum3(yourStake)}
+          </Span>
         </P>
       </BaseGroup>
       {predictedBoost.value > 1 && (
         <BaseGroup>
           <P className="mb-1" fontSize="14" color={TEXT_SECONDARY}>
-            <FormattedMessage {...messages[isCurrentWeek ? 'yourBoost' : 'yourPredictedBoost']} />
+            <FormattedMessage
+              {...messages[isCurrentWeek ? 'yourBoost' : 'yourPredictedBoost']}
+            />
           </P>
           <P className="d-flex align-items-center">
             <PredictionPower
@@ -82,7 +85,7 @@ const WeekDetails = ({
       )}
     </Base>
   );
-}
+};
 
 WeekDetails.propTypes = {
   maximumStake: PropTypes.number,
