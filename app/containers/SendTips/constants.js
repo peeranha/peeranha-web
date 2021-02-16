@@ -11,6 +11,7 @@ export const SEND_TIPS = 'app/SendTips/SEND_TIPS';
 export const SEND_TIPS_SUCCESS = 'app/SendTips/SEND_TIPS_SUCCESS';
 export const SEND_TIPS_ERROR = 'app/SendTips/SEND_TIPS_ERROR';
 export const SEND_TIPS_NOTIFICATION = 'app/SendTips/SEND_TIPS_NOTIFICATION';
+export const MAX_NOTIFICAT_ATTEMPTS = 3;
 
 export const EOS_SEND_TO_ACCOUNT_FIELD =
   'app/SendTips/EOS_SEND_TO_ACCOUNT_FIELD';
@@ -38,5 +39,3 @@ export const REMOVE_SELECTED_ACCOUNTS = 'app/SendTips/REMOVE_SELECTED_ACCOUNTS';
 export const REMOVE_TIPS_EOS_SERVICES = 'app/SendTips/REMOVE_TIPS_EOS_SERVICES';
 
 export const TIPS_PRESELECT = 'tipsPreselect';
-
-export const MAX_NOTIFICAT_ATTEMPTS = 3;
