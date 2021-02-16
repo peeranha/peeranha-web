@@ -120,7 +120,7 @@ const QuestionFilter = ({
 QuestionFilter.propTypes = {
   display: PropTypes.bool,
   changeQuestionFilterDispatch: PropTypes.func,
-  questionFilterFromCookies: PropTypes.number,
+  questionFilterFromCookies: PropTypes.string,
 };
 
 export default memo(
