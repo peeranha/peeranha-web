@@ -5,17 +5,14 @@ import {
   getUserBoostStatistics,
   addBoost,
 } from 'utils/walletManagement';
-import { getFormattedNum3 } from 'utils/numbers';
+import { getFormattedNum3, getFormattedNum5 } from 'utils/numbers';
 
 import { changeStakedInNextPeriod } from 'containers/AccountProvider/actions';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 
-import {
-  GET_WEEK_STAT,
-  CHANGE_STAKE,
-} from './constants';
+import { GET_WEEK_STAT, CHANGE_STAKE } from './constants';
 
 import {
   getWeekStatSuccess,
@@ -32,7 +29,11 @@ export function* getWeekStatWorker() {
 
     const weekStat = yield call(getWeekStat, eosService, profile);
     const globalBoostStat = yield call(getGlobalBoostStatistics, eosService);
-    const userBoostStat = yield call(getUserBoostStatistics, eosService, profile.user);
+    const userBoostStat = yield call(
+      getUserBoostStatistics,
+      eosService,
+      profile.user,
+    );
 
     yield put(getWeekStatSuccess(weekStat, globalBoostStat, userBoostStat));
   } catch (err) {
@@ -47,10 +48,19 @@ export function* changeStakeWorker({ currentStake }) {
     const eosService = yield select(selectEos);
     const profile = yield select(makeSelectProfileInfo());
 
-    yield call(addBoost, eosService, profile.user, `${getFormattedNum3(currentStake)} PEER`);
+    yield call(
+      addBoost,
+      eosService,
+      profile.user,
+      `${getFormattedNum5(currentStake)} PEER`,
+    );
 
     const globalBoostStat = yield call(getGlobalBoostStatistics, eosService);
-    const userBoostStat = yield call(getUserBoostStatistics, eosService, profile.user);
+    const userBoostStat = yield call(
+      getUserBoostStatistics,
+      eosService,
+      profile.user,
+    );
 
     yield put(changeStakedInNextPeriod(+currentStake));
 
