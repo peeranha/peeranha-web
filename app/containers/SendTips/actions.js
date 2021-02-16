@@ -12,6 +12,7 @@ import {
   SEND_TIPS,
   SEND_TIPS_SUCCESS,
   SEND_TIPS_ERROR,
+  SEND_TIPS_NOTIFICATION,
   ADD_TIPS_SCATTER_EOS_SERVICE,
   ADD_TIPS_KEYCAT_EOS_SERVICE,
   REMOVE_TIPS_EOS_SERVICES,
@@ -53,6 +54,23 @@ export function sendTipsErr(sendTipsError) {
   return {
     type: SEND_TIPS_ERROR,
     sendTipsError,
+  };
+}
+
+export function sendTipsNotification(
+  data,
+  questionId,
+  answerId,
+  transactionId,
+  block,
+) {
+  return {
+    type: SEND_TIPS_NOTIFICATION,
+    data,
+    questionId,
+    answerId,
+    transactionId,
+    block,
   };
 }
 
