@@ -60,7 +60,7 @@ import {
   MAIN_COLOR_FIELD,
   HIGHLIGHT_COLOR_FIELD,
 } from './constants';
-import { communityModeratorCreatePermission } from '../../utils/properties';
+import { hasCommunityModeratorCreatePermission } from '../../utils/properties';
 import AboutForm from './AboutForm';
 import Checkbox from '../../components/Input/Checkbox';
 import BloggerModeForm from './BloggerModeForm';
@@ -93,7 +93,9 @@ const CreateCommunityForm = ({
 
   const profileWithModeratorRights = useMemo(
     () =>
-      communityModeratorCreatePermission(profile?.['integer_properties'] || []),
+      hasCommunityModeratorCreatePermission(
+        profile?.['integer_properties'] || [],
+      ),
     [profile],
   );
 

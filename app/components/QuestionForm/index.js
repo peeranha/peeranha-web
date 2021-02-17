@@ -67,7 +67,7 @@ import Span from '../Span';
 import { PreviewWrapper } from '../AnswerForm';
 import createdHistory from '../../createdHistory';
 import * as routes from '../../routes-config';
-import { communityModeratorCreatePermission } from '../../utils/properties';
+import { hasGlobalModeratorPermissions } from '../../utils/properties';
 import { now } from 'lodash';
 
 const single = isSingleCommunityWebsite();
@@ -124,8 +124,7 @@ export const QuestionForm = ({
   profile,
 }) => {
   const profileWithModeratorRights = useMemo(
-    () =>
-      communityModeratorCreatePermission(profile?.['integer_properties'] || []),
+    () => hasGlobalModeratorPermissions(profile?.['integer_properties'] || []),
     [profile],
   );
 

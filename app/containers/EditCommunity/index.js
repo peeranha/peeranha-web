@@ -31,7 +31,7 @@ import Tips from 'containers/CreateCommunity/Tips';
 import { noAccess as noAccessRoute } from 'routes-config';
 
 import {
-  communityModeratorCreatePermission,
+  hasCommunityModeratorCreatePermission,
   getPermissions,
   hasCommunityAdminPermissions,
 } from 'utils/properties';
@@ -70,7 +70,7 @@ const EditCommunity = ({
         getPermissions(profileInfo),
         parseInt(communityId),
       ) ||
-      communityModeratorCreatePermission(
+      hasCommunityModeratorCreatePermission(
         profileInfo?.['integer_properties'] || [],
       ),
     [profileInfo],
@@ -94,7 +94,7 @@ const EditCommunity = ({
       communityId: +communityId,
       communityLoading: editCommunityLoading,
       locale,
-      isModerator: communityModeratorCreatePermission(
+      isModerator: hasCommunityModeratorCreatePermission(
         profileInfo?.['integer_properties'] || [],
       ),
     }),
