@@ -160,4 +160,7 @@ export default defineMessages({
   socialLinksTip: {
     id: 'app.containers.CreateCommunity.socialLinksTip',
   },
+  colors: {
+    id: 'app.containers.CreateCommunity.colors',
+  },
 });

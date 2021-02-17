@@ -471,6 +471,7 @@
   "app.containers.CreateCommunity.communityTypeTip": "Optional",
   "app.containers.CreateCommunity.socialLinks": "Social links",
   "app.containers.CreateCommunity.socialLinksTip": "Optional",
+  "app.containers.CreateCommunity.colors": "Colors",
 
   "app.containers.EditCommunity.communityTitleTip": "Name of the community",
   "app.containers.EditCommunity.description": "Description of EditCommunity",

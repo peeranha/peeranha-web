@@ -1,21 +1,46 @@
 import React from 'react';
-import Wrapper from './Wrapper';
-
 import _debounce from 'lodash/debounce';
-import { Styles } from '../Input/InputStyled';
 import styled from 'styled-components';
 
+import { BORDER_RADIUS_M, BORDER_SECONDARY } from 'style-constants';
+
+import { Styles } from '../Input/InputStyled';
+
+const Wrapper = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+`;
+
 const InputColorStyled = styled.div`
-  width: 100%;
   position: relative;
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
   display: flex;
   align-items: center;
   transition: 0.5s;
-  flex: 1;
 
   input {
     ${Styles};
+    height: 100%;
+    min-height: 0;
     padding: 0;
+    border: none;
+    border-radius: ${BORDER_RADIUS_M};
+    overflow: hidden;
+    cursor: pointer;
+
+    ::-webkit-color-swatch-wrapper {
+      padding: 0;
+      border: none;
+    }
+
+    ::-webkit-color-swatch {
+      border: 1px solid ${BORDER_SECONDARY};
+      border-radius: 3px;
+    }
+
     @media only screen and (max-width: 576px) {
       padding: 0;
     }
@@ -62,7 +87,6 @@ const ColorField = ({
 }) => {
   return (
     <Wrapper
-      label={label}
       tip={tip}
       meta={meta}
       splitInHalf={splitInHalf}
@@ -76,6 +100,7 @@ const ColorField = ({
         disabled={disabled}
         defaultValue={defaultValue}
       />
+      {label}
     </Wrapper>
   );
 };

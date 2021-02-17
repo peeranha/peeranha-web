@@ -8,7 +8,7 @@ import { strLength8x100 } from 'components/FormFields/validate';
 import facebookIcon from 'images/logo-facebook.svg?external';
 import instagramIcon from 'images/logo-instagram.svg?external';
 import youtubeIcon from 'images/logo-youtube.svg?external';
-import pinterestIcon from 'images/logo-pinterest.svg?external';
+import vkIcon from 'images/logo-vk.svg?external';
 
 import TextInputField from 'components/FormFields/TextInputField';
 import { Wrapper } from 'components/FormFields/Wrapper';
@@ -36,15 +36,14 @@ const SOCIAL_MEDIA = {
   },
   vk: {
     fieldName: VK_LINK_FIELD,
-    icon: pinterestIcon,
+    icon: vkIcon,
   },
 };
 
-const SocialLinksGroup = ({ disabled, intl, meta }) => (
+const SocialLinksGroup = ({ disabled, intl }) => (
   <Wrapper
     label={intl.formatMessage(messages.socialLinks)}
     tip={intl.formatMessage(messages.socialLinksTip)}
-    meta={meta}
     disabled={disabled}
   >
     {Object.keys(SOCIAL_MEDIA).map(key => (
@@ -66,7 +65,6 @@ const SocialLinksGroup = ({ disabled, intl, meta }) => (
 SocialLinksGroup.propTypes = {
   disabled: PropTypes.bool,
   intl: intlShape.isRequired,
-  meta: PropTypes.object,
 };
 
 export default memo(SocialLinksGroup);

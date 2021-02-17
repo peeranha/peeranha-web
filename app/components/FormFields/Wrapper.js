@@ -12,6 +12,9 @@ import Label from './Label';
 import WarningMessage from './WarningMessage';
 
 const CL = 350;
+const ICON_LABEL_WIDTH = 24;
+const ICON_LABEL_MARGIN = 10;
+const ICON_LABEL_FULL_WIDTH = ICON_LABEL_WIDTH + ICON_LABEL_MARGIN;
 
 const StyledBox = styled.div`
   position: relative;
@@ -47,7 +50,7 @@ export const InputContainer = styled.div``;
 
 const IconLabel = styled.span`
   align-self: center;
-  margin-right: 10px;
+  margin-right: ${ICON_LABEL_MARGIN}px;
 `;
 
 const Body = styled.div`
@@ -58,8 +61,8 @@ const Body = styled.div`
   flex-grow: 1;
 
   > div:nth-child(1) {
-    flex: 0 0 ${x => (x.splitInHalf ? `${CL}px` : `100%`)};
-    max-width: ${x => (x.splitInHalf ? `${CL}px` : `100%`)};
+    flex: 0 0 ${x => (x.splitInHalf ? `${x.withIconLabel ? CL - ICON_LABEL_FULL_WIDTH : CL}px` : `100%`)};
+    max-width: ${x => (x.splitInHalf ? `${x.withIconLabel ? CL - ICON_LABEL_FULL_WIDTH : CL}px` : `100%`)};
   }
 
   > div:nth-child(2) {
@@ -113,7 +116,7 @@ export const Wrapper = ({
         <IconLg icon={iconLabel} />
       </IconLabel>
     )}
-    <Body splitInHalf={splitInHalf}>
+    <Body splitInHalf={splitInHalf} withIconLabel={!!iconLabel}>
       <InputContainer>{children}</InputContainer>
       {meta && (
         <WarningMessage

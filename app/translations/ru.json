@@ -487,6 +487,7 @@
   "app.containers.CreateCommunity.communityTypeTip": "Необязательный",
   "app.containers.CreateCommunity.socialLinks": "Ссылки на социальные сети",
   "app.containers.CreateCommunity.socialLinksTip": "Необязательный",
+  "app.containers.CreateCommunity.colors": "Цвета",
 
   "app.containers.EditCommunity.communityTitleTip": "Название сообщества",
   "app.containers.EditCommunity.description": "Описание EditCommunity",
