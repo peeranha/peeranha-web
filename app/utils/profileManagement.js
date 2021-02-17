@@ -277,9 +277,10 @@ export async function unlinkTelegramAccount(eosService, user) {
 }
 
 export const getAvailableBalance = profile => {
-  const stakedInCurrentPeriod = profile.stakedInCurrentPeriod ?? 0;
-  const stakedInNextPeriod = profile.stakedInNextPeriod ?? 0;
+  const stakedInCurrentPeriod = profile?.stakedInCurrentPeriod ?? 0;
+  const stakedInNextPeriod = profile?.stakedInNextPeriod ?? 0;
+  const balance = profile?.balance ?? 0;
   return stakedInCurrentPeriod >= stakedInNextPeriod
-    ? profile.balance - stakedInCurrentPeriod
-    : profile.balance - stakedInNextPeriod;
+    ? balance - stakedInCurrentPeriod
+    : balance - stakedInNextPeriod;
 };
