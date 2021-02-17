@@ -19,6 +19,8 @@ export const TextInputField = ({
   type = 'text',
   autoComplete,
   insideOfSection,
+  iconLabel,
+  isShowLabel,
 }) => (
   <Wrapper
     label={label}
@@ -28,6 +30,8 @@ export const TextInputField = ({
     disabled={disabled}
     id={input.name}
     insideOfSection={insideOfSection}
+    iconLabel={iconLabel}
+    isShowLabel={isShowLabel}
   >
     <Input
       input={input}
@@ -62,6 +66,8 @@ TextInputField.propTypes = {
   autoComplete: PropTypes.string,
   onClick: PropTypes.func,
   insideOfSection: PropTypes.bool,
+  iconLabel: PropTypes.string,
+  isShowLabel: PropTypes.bool,
 };
 
 export default TextInputField;

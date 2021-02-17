@@ -444,4 +444,10 @@ export default defineMessages({
   followSocialMedia: {
     id: 'app.common.followSocialMedia',
   },
+  standart: {
+    id: 'app.common.standart',
+  },
+  blogger: {
+    id: 'app.common.blogger',
+  },
 });

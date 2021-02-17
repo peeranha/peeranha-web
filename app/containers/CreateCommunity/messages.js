@@ -130,25 +130,34 @@ export default defineMessages({
   expertQuestionDescriptionList: {
     id: 'app.containers.QuestionForm.expertQuestionDescriptionList',
   },
-  bloggerModeLabel: {
-    id: 'app.containers.CreateCommunity.bloggerModeLabel',
+  facebook: {
+    id: 'app.containers.CreateCommunity.facebook',
   },
-  facebookLink: {
-    id: 'app.containers.CreateCommunity.facebookLink',
+  instagram: {
+    id: 'app.containers.CreateCommunity.instagram',
   },
-  instagramLink: {
-    id: 'app.containers.CreateCommunity.instagramLink',
+  youtube: {
+    id: 'app.containers.CreateCommunity.youtube',
   },
-  youtubeLink: {
-    id: 'app.containers.CreateCommunity.youtubeLink',
-  },
-  vkLink: {
-    id: 'app.containers.CreateCommunity.vkLink',
+  vk: {
+    id: 'app.containers.CreateCommunity.vk',
   },
   mainColor: {
     id: 'app.containers.CreateCommunity.mainColor',
   },
   highlightColor: {
     id: 'app.containers.CreateCommunity.highlightColor',
+  },
+  communityType: {
+    id: 'app.containers.CreateCommunity.communityType',
+  },
+  communityTypeTip: {
+    id: 'app.containers.CreateCommunity.communityTypeTip',
+  },
+  socialLinks: {
+    id: 'app.containers.CreateCommunity.socialLinks',
+  },
+  socialLinksTip: {
+    id: 'app.containers.CreateCommunity.socialLinksTip',
   },
 });

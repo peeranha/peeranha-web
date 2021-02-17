@@ -153,6 +153,8 @@
   "app.common.subscribe": "Подписаться",
   "app.common.unsubscribe": "Отписаться",
   "app.common.followSocialMedia": "Следите за нами в социальных сетях:",
+  "app.common.standart": "Стандартный",
+  "app.common.blogger": "Блогерский",
 
   "app.telegram.user": "Телеграм пользователь",
   "app.telegram.userLabelPopover":
@@ -475,13 +477,16 @@
   "app.containers.CreateCommunity.anyQuestionDescriptionLabel":
     "Вы можете выбрать тип вопроса при его создании",
   "app.containers.CreateCommunity.anyQuestionDescriptionList": [],
-  "app.containers.CreateCommunity.bloggerModeLabel": "Страница блогера",
-  "app.containers.CreateCommunity.facebookLink": "Ссылка на ваш Facebook",
-  "app.containers.CreateCommunity.instagramLink": "Ссылка на ваш Instagram",
-  "app.containers.CreateCommunity.youtubeLink": "Ссылка на ваш YouTube",
-  "app.containers.CreateCommunity.vkLink": "Ссылка на ваш VK",
+  "app.containers.CreateCommunity.facebook": "Facebook",
+  "app.containers.CreateCommunity.instagram": "Instagram",
+  "app.containers.CreateCommunity.youtube": "YouTube",
+  "app.containers.CreateCommunity.vk": "Вконтакте",
   "app.containers.CreateCommunity.mainColor": "Основной цвет",
   "app.containers.CreateCommunity.highlightColor": "Цвет выделения",
+  "app.containers.CreateCommunity.communityType": "Тип сообщества",
+  "app.containers.CreateCommunity.communityTypeTip": "Необязательный",
+  "app.containers.CreateCommunity.socialLinks": "Ссылки на социальные сети",
+  "app.containers.CreateCommunity.socialLinksTip": "Необязательный",
 
   "app.containers.EditCommunity.communityTitleTip": "Название сообщества",
   "app.containers.EditCommunity.description": "Описание EditCommunity",

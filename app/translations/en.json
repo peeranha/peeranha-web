@@ -155,6 +155,8 @@
   "app.common.subscribe": "Subscribe",
   "app.common.unsubscribe": "Unsubscribe",
   "app.common.followSocialMedia": "Follow us on social media:",
+  "app.common.standart": "Standart",
+  "app.common.blogger": "Blogger",
 
   "app.telegram.user": "Telegram user",
   "app.telegram.userLabelPopover":
@@ -459,13 +461,16 @@
   "app.containers.CreateCommunity.anyQuestionDescriptionLabel":
     "You can choose the type of question when you are creating it.",
   "app.containers.CreateCommunity.anyQuestionDescriptionList": [],
-  "app.containers.CreateCommunity.bloggerModeLabel": "Blogger page",
-  "app.containers.CreateCommunity.facebookLink": "Facebook link",
-  "app.containers.CreateCommunity.instagramLink": "Instagram link",
-  "app.containers.CreateCommunity.youtubeLink": "YouTube link",
-  "app.containers.CreateCommunity.vkLink": "VK link",
+  "app.containers.CreateCommunity.facebook": "Facebook",
+  "app.containers.CreateCommunity.instagram": "Instagram",
+  "app.containers.CreateCommunity.youtube": "YouTube",
+  "app.containers.CreateCommunity.vk": "VK",
   "app.containers.CreateCommunity.mainColor": "Main color",
   "app.containers.CreateCommunity.highlightColor": "Highlight color",
+  "app.containers.CreateCommunity.communityType": "Community Type",
+  "app.containers.CreateCommunity.communityTypeTip": "Optional",
+  "app.containers.CreateCommunity.socialLinks": "Social links",
+  "app.containers.CreateCommunity.socialLinksTip": "Optional",
 
   "app.containers.EditCommunity.communityTitleTip": "Name of the community",
   "app.containers.EditCommunity.description": "Description of EditCommunity",

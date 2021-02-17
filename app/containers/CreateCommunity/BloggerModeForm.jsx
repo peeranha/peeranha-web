@@ -1,27 +1,23 @@
 import React, { memo } from 'react';
 import { Field } from 'redux-form/immutable';
-import TextInputField from '../../components/FormFields/TextInputField';
-import {
-  imageValidation,
-  required,
-  strLength8x100,
-} from '../../components/FormFields/validate';
-import BannerField from '../../components/FormFields/BannerField';
 import { intlShape } from 'react-intl';
 import PropTypes from 'prop-types';
+
+import { PEER_PRIMARY_COLOR, PEER_WARNING_COLOR } from 'style-constants';
+
+import { imageValidation } from 'components/FormFields/validate';
+
+import BannerField from 'components/FormFields/BannerField';
+import ColorField from 'components/FormFields/ColorField';
+import { Wrapper } from 'components/FormFields/Wrapper';
+
 import {
   COMM_BANNER_FIELD,
-  FACEBOOK_LINK_FIELD,
-  INSTAGRAM_LINK_FIELD,
-  YOUTUBE_LINK_FIELD,
-  VK_LINK_FIELD,
   MAIN_COLOR_FIELD,
   HIGHLIGHT_COLOR_FIELD,
 } from './constants';
 import messages from './messages';
-import ColorField from '../../components/FormFields/ColorField';
-import { Wrapper } from '../../components/FormFields/Wrapper';
-import { PEER_PRIMARY_COLOR, PEER_WARNING_COLOR } from '../../style-constants';
+import SocialLinksGroup from './SocialLinksGroup';
 
 const BloggerModeForm = ({ disabled, formValues, intl, initialValues }) => (
   <>
@@ -32,46 +28,8 @@ const BloggerModeForm = ({ disabled, formValues, intl, initialValues }) => (
       warn={[imageValidation]}
       disabled={disabled}
     />
-
-    <Field
-      disabled={disabled}
-      name={FACEBOOK_LINK_FIELD}
-      component={TextInputField}
-      label={intl.formatMessage(messages.facebookLink)}
-      validate={[strLength8x100]}
-      warn={[strLength8x100]}
-      splitInHalf
-    />
-
-    <Field
-      disabled={disabled}
-      name={INSTAGRAM_LINK_FIELD}
-      component={TextInputField}
-      label={intl.formatMessage(messages.instagramLink)}
-      validate={[strLength8x100]}
-      warn={[strLength8x100]}
-      splitInHalf
-    />
-
-    <Field
-      disabled={disabled}
-      name={YOUTUBE_LINK_FIELD}
-      component={TextInputField}
-      label={intl.formatMessage(messages.youtubeLink)}
-      validate={[strLength8x100]}
-      warn={[strLength8x100]}
-      splitInHalf
-    />
-
-    <Field
-      disabled={disabled}
-      name={VK_LINK_FIELD}
-      component={TextInputField}
-      label={intl.formatMessage(messages.vkLink)}
-      validate={[strLength8x100]}
-      warn={[strLength8x100]}
-      splitInHalf
-    />
+    <br />
+    <SocialLinksGroup disabled={disabled} intl={intl} />
 
     <Wrapper splitInHalf disabled={disabled}>
       <div style={{ float: 'left', width: '50%' }}>

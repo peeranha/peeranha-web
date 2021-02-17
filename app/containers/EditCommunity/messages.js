@@ -46,7 +46,4 @@ export default defineMessages({
   whyWeNeedItTip: {
     id: 'app.containers.CreateCommunity.whyWeNeedItTip',
   },
-  bloggerModeLabel: {
-    id: 'app.containers.CreateCommunity.bloggerModeLabel',
-  },
 });
