@@ -100,20 +100,20 @@ export function* editQuestionWorker({ question, questionId }) {
     // collect actions for one transaction
     const actionsData = [];
 
-    const editQuestTrasActData = yield call(
+    const editQuestTransActData = yield call(
       getEditQuestTrActData,
       selectedAccount,
       questionId,
       { ...question },
     );
 
-    actionsData.push(editQuestTrasActData);
+    actionsData.push(editQuestTransActData);
 
     if (question?.bounty) {
       const now = Math.round(new Date().valueOf() / 1000);
       const bountyTime = now + question?.bountyHours * ONE_HOUR_IN_SECONDS;
 
-      const trasActData = getEditBountyTrActData(
+      const transActData = getEditBountyTrActData(
         selectedAccount,
         question?.bountyFull,
         questionId,
@@ -121,17 +121,17 @@ export function* editQuestionWorker({ question, questionId }) {
         eosService,
       );
 
-      actionsData.push(trasActData);
+      actionsData.push(transActData);
     }
 
     if (question.promote) {
-      const trasActData = getPromoteQuestTrActData(
+      const transActData = getPromoteQuestTrActData(
         selectedAccount,
         questionId,
         question.promote,
       );
 
-      actionsData.push(trasActData);
+      actionsData.push(transActData);
     }
 
     // change promoted question community
@@ -144,13 +144,13 @@ export function* editQuestionWorker({ question, questionId }) {
       const currCommId = question.community.id;
 
       if (endsTime > dateNow && prevCommId !== currCommId) {
-        const trasActData = getChangePromoCommTrActData(
+        const transActData = getChangePromoCommTrActData(
           selectedAccount,
           questionId,
           prevCommId,
         );
 
-        actionsData.push(trasActData);
+        actionsData.push(transActData);
       }
     }
 
