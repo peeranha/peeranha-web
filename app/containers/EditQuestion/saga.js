@@ -6,13 +6,13 @@ import * as routes from 'routes-config';
 
 import {
   getAskedQuestion,
-  editQuestion,
   getQuestionById,
   getPromotedQuestions,
-  promoteQuestion,
-  changePomoQuestCommunity,
+  getPromoteQuestTrActData,
+  getChangePromoCommTrActData,
+  getEditQuestTrActData,
 } from 'utils/questionsManagement';
-import { editBounty } from 'utils/walletManagement';
+import { getEditBountyTrActData } from 'utils/walletManagement';
 import { getCommunityWithTags } from 'utils/communityManagement';
 import { ONE_HOUR_IN_SECONDS } from 'utils/datetime';
 
@@ -97,36 +97,41 @@ export function* editQuestionWorker({ question, questionId }) {
     const selectedAccount = yield call(eosService.getSelectedAccount);
     const cachedQuestion = yield select(selectQuestionData());
 
-    yield call(
-      editQuestion,
+    // collect actions for one transaction
+    const actionsData = [];
+
+    const editQuestTrasActData = yield call(
+      getEditQuestTrActData,
       selectedAccount,
       questionId,
       { ...question },
-      eosService,
     );
+
+    actionsData.push(editQuestTrasActData);
 
     if (question?.bounty) {
       const now = Math.round(new Date().valueOf() / 1000);
       const bountyTime = now + question?.bountyHours * ONE_HOUR_IN_SECONDS;
 
-      yield call(
-        editBounty,
+      const trasActData = getEditBountyTrActData(
         selectedAccount,
         question?.bountyFull,
         questionId,
         bountyTime,
         eosService,
       );
+
+      actionsData.push(trasActData);
     }
 
     if (question.promote) {
-      yield call(
-        promoteQuestion,
-        eosService,
+      const trasActData = getPromoteQuestTrActData(
         selectedAccount,
         questionId,
         question.promote,
       );
+
+      actionsData.push(trasActData);
     }
 
     // change promoted question community
@@ -139,15 +144,27 @@ export function* editQuestionWorker({ question, questionId }) {
       const currCommId = question.community.id;
 
       if (endsTime > dateNow && prevCommId !== currCommId) {
-        yield call(
-          changePomoQuestCommunity,
-          eosService,
+        const trasActData = getChangePromoCommTrActData(
           selectedAccount,
           questionId,
           prevCommId,
         );
+
+        actionsData.push(trasActData);
       }
     }
+
+    // send transaction with actions
+    const waitForGettingToBlock = !!actionsData.find(
+      el => el.waitForGettingToBlock,
+    );
+
+    yield call(
+      eosService.sendTransactionMult,
+      selectedAccount,
+      actionsData,
+      waitForGettingToBlock,
+    );
 
     if (cachedQuestion) {
       cachedQuestion.title = question.title;

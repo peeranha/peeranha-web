@@ -283,6 +283,20 @@ export async function setBounty(
   );
 }
 
+export function getEditBountyTrActData(user, bounty, questionId, timestamp) {
+  return {
+    action: EDIT_BOUNTY_METHOD,
+    data: {
+      user,
+      bounty,
+      question_id: questionId,
+      timestamp,
+    },
+    account: process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
+    waitForGettingToBlock: true,
+  };
+}
+
 export async function editBounty(
   user,
   bounty,
