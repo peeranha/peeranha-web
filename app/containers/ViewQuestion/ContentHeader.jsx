@@ -145,9 +145,10 @@ const ContentHeader = props => {
   if (isItWrittenByMe) {
     deleteAction = deleteItem;
   } else {
-    deleteAction = isGlobalModerator || infiniteImpact ? voteToDelete : deleteItem;
+    deleteAction =
+      isGlobalModerator || infiniteImpact ? voteToDelete : deleteItem;
   }
-  
+
   return (
     <Box>
       <RatingBox>
@@ -182,17 +183,19 @@ const ContentHeader = props => {
             </Button>
           )}
 
-          {type === QUESTION_TYPE && (
+          {/* {type === QUESTION_TYPE && (
             <Button
               id={`${type}_give_bounty_${answerId}`}
-              show={currentUserName && correctAnswerUserName === currentUserName}
+              show={
+                currentUserName && correctAnswerUserName === currentUserName
+              }
               onClick={event => giveBountyDispatch(event)}
               disabled={ids.includes(`${type}_give_bounty_${answerId}`)}
             >
               <IconSm icon={currencyPeer} fill={BORDER_PRIMARY} />
               <FormattedMessage {...messages.getBounty} />
             </Button>
-          )}
+          )} */}
 
           <Button
             show={
