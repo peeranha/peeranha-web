@@ -160,7 +160,7 @@ function questionsReducer(state = initialState, action) {
           fromJS({
             ...stateQuestions,
             ...questions.reduce((acc, cur) => {
-              acc[cur.id] = cur;
+              acc[(cur?.id)] = cur;
               return acc;
             }, {}),
           }),
