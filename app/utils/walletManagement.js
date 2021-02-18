@@ -32,6 +32,7 @@ import {
 } from './constants';
 
 import { ApplicationError } from './errors';
+import { dateNowInSeconds } from './datetime';
 
 const PERIOD_LENGTH = {
   development: 2 * 60 * 60, // two hours
@@ -200,7 +201,7 @@ export async function getWeekStat(eosService, profile = {}) {
   });
 
   const numberOfPeriods = Math.ceil(
-    (Date.now() / 1000 - +process.env.RELEASE_DATE) /
+    (dateNowInSeconds() - +process.env.RELEASE_DATE) /
       +process.env.WEEK_DURATION,
   );
 
@@ -283,6 +284,20 @@ export async function setBounty(
   );
 }
 
+export function getEditBountyTrActData(user, bounty, questionId, timestamp) {
+  return {
+    action: EDIT_BOUNTY_METHOD,
+    data: {
+      user,
+      bounty,
+      question_id: questionId,
+      timestamp,
+    },
+    account: process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
+    waitForGettingToBlock: true,
+  };
+}
+
 export async function editBounty(
   user,
   bounty,
@@ -290,17 +305,19 @@ export async function editBounty(
   timestamp,
   eosService,
 ) {
+  const {
+    action,
+    data,
+    account,
+    waitForGettingToBlock,
+  } = getEditBountyTrActData(user, bounty, questionId, timestamp);
+
   await eosService.sendTransaction(
     user,
-    EDIT_BOUNTY_METHOD,
-    {
-      user,
-      bounty,
-      question_id: questionId,
-      timestamp,
-    },
-    process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
-    true,
+    action,
+    data,
+    account,
+    waitForGettingToBlock,
   );
 }
 

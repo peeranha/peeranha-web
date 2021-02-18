@@ -25,6 +25,7 @@ import {
   VOTE_TO_DELETE_METHOD,
   PROMOTED_QUESTIONS_TABLES,
   PROMOTE_QUESTION_METHOD,
+  CHANGE_PROMO_QUEST_COMM,
 } from './constants';
 
 /* eslint-disable  */
@@ -283,21 +284,22 @@ export async function postQuestion(user, questionData, eosService) {
   return question;
 }
 
-export async function editQuestion(user, id, question, eosService) {
-  delete question.promote;
-
+export const getEditQuestTrActData = async (user, id, question) => {
   const ipfsLink = await saveText(JSON.stringify(question));
 
-  await eosService.sendTransaction(user, EDIT_QUESTION_METHOD, {
-    user,
-    question_id: +id,
-    title: question.title,
-    ipfs_link: ipfsLink,
-    community_id: question.community.value,
-    tags: question.chosenTags.map(x => x.id),
-    type: question.type,
-  });
-}
+  return {
+    action: EDIT_QUESTION_METHOD,
+    data: {
+      user,
+      question_id: +id,
+      title: question.title,
+      ipfs_link: ipfsLink,
+      community_id: question.community.value,
+      tags: question.chosenTags.map(x => x.id),
+      type: question.type,
+    },
+  };
+};
 
 export async function deleteQuestion(user, questionId, eosService) {
   await eosService.sendTransaction(user, DEL_QUESTION_METHOD, {
@@ -466,18 +468,35 @@ export const changeQuestionType = async (
   });
 };
 
-export const promoteQuestion = async (eosService, user, questionId, hours) => {
-  await eosService.sendTransaction(
+export const getPromoteQuestTrActData = (user, questionId, hours) => ({
+  action: PROMOTE_QUESTION_METHOD,
+  data: {
     user,
-    PROMOTE_QUESTION_METHOD,
-    {
-      user,
-      question_id: +questionId,
-      hours,
-    },
-    process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
+    question_id: +questionId,
+    hours,
+  },
+  account: process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
+});
+
+export const promoteQuestion = async (eosService, user, questionId, hours) => {
+  const { action, data, account } = getPromoteQuestTrActData(
+    user,
+    questionId,
+    hours,
   );
+
+  await eosService.sendTransaction(user, action, data, account);
 };
+
+export const getChangePromoCommTrActData = (user, questionId, prevCommId) => ({
+  action: CHANGE_PROMO_QUEST_COMM,
+  data: {
+    user,
+    question_id: questionId,
+    old_community_id: prevCommId,
+  },
+  account: process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
+});
 
 export const getRandomQuestions = (questions, amount) => {
   const result = [];
@@ -493,7 +512,7 @@ export const getRandomQuestions = (questions, amount) => {
       }
     } while (showingPromotedQuestionsIds.length < amount);
 
-    showingPromotedQuestionsIds.map(id => {
+    showingPromotedQuestionsIds.forEach(id => {
       result.push(questions[id]);
     });
   } else {

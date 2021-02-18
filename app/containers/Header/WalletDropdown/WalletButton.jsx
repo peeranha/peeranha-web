@@ -90,7 +90,7 @@ const WalletButton = ({
             <Icon
               width="50"
               icon={boostWalletIcon}
-              specialStyles={single && styles.boostWalletBtnStyles}
+              specialStyles={!!single && styles.boostWalletBtnStyles}
             />
           </BoostIconWrapper>
         </>
