@@ -3,8 +3,6 @@ import React from 'react';
 import CustomSubHeader from 'components/CustomSubHeaders/CustomSubHeader';
 import CustomMobileSubHeader from 'components/CustomSubHeaders/CustomMobileSubHeader';
 
-import bannerImage from './images/ivan-chai.jpg';
-
 export const CustomSubHeaderConfig = {
   design: 'blogger_style',
   styles: {
@@ -13,7 +11,6 @@ export const CustomSubHeaderConfig = {
       burgerHeader: '#ffffff',
     },
   },
-  banner: bannerImage,
 };
 
 export const BloggerStyles = {
