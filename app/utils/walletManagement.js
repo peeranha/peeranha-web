@@ -305,17 +305,19 @@ export async function editBounty(
   timestamp,
   eosService,
 ) {
+  const {
+    action,
+    data,
+    account,
+    waitForGettingToBlock,
+  } = getEditBountyTrActData(user, bounty, questionId, timestamp);
+
   await eosService.sendTransaction(
     user,
-    EDIT_BOUNTY_METHOD,
-    {
-      user,
-      bounty,
-      question_id: questionId,
-      timestamp,
-    },
-    process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
-    true,
+    action,
+    data,
+    account,
+    waitForGettingToBlock,
   );
 }
 
