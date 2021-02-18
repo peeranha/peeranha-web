@@ -145,7 +145,7 @@
   "app.common.bannerSizeErrorMsg":
     "File size is more than 1Mb. Choose another one...",
   "app.common.incorrectBannerResolutionMsg":
-    "Image resolution must be 1360 x 120 pixels. Choose another one...",
+    "Image resolution must be 1360 x 120 pixels",
   "app.common.chooseFile": "Choose a file",
   "app.common.skip": "Skip",
   "app.common.showMoreQuestions": "Show more results",
@@ -472,6 +472,7 @@
   "app.containers.CreateCommunity.socialLinks": "Social links",
   "app.containers.CreateCommunity.socialLinksTip": "Optional",
   "app.containers.CreateCommunity.colors": "Colors",
+  "app.containers.CreateCommunity.topBanner": "Top banner",
 
   "app.containers.EditCommunity.communityTitleTip": "Name of the community",
   "app.containers.EditCommunity.description": "Description of EditCommunity",

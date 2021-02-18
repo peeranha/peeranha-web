@@ -51,8 +51,6 @@ const SocialLinksGroup = ({ disabled, intl }) => (
         disabled={disabled}
         name={SOCIAL_MEDIA[key].fieldName}
         component={TextInputField}
-        validate={[strLength8x100]}
-        warn={[strLength8x100]}
         splitInHalf
         iconLabel={SOCIAL_MEDIA[key].icon}
         key={key}

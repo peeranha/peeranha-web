@@ -108,6 +108,8 @@ export const getCommunityById = async (eosService, communityId) => {
     instagram,
     youtube,
     vk,
+    main_color,
+    highlight_color,
   } = community;
 
   return {
@@ -121,16 +123,22 @@ export const getCommunityById = async (eosService, communityId) => {
     users_subscribed,
     isBlogger,
     banner,
-    facebook,
-    instagram,
-    youtube,
-    vk,
+    socialLinks: {
+      facebook,
+      instagram,
+      youtube,
+      vk,
+    },
+    colors: {
+      main: main_color,
+      highlight: highlight_color,
+    },
   };
 };
 
-export const setSingleCommunityDetails = async (eosService) => {
+export const setSingleCommunityDetails = async eosService => {
   const id = isSingleCommunityWebsite();
-  
+
   const row = await eosService.getTableRow(
     COMMUNITIES_TABLE,
     ALL_COMMUNITIES_SCOPE,
@@ -177,8 +185,12 @@ export const setSingleCommunityDetails = async (eosService) => {
 
 export const getSingleCommunityDetails = () => {
   const id = isSingleCommunityWebsite();
-  const dataFromCookie = id ? getCookie(`${SINGLE_COMMUNITY_DETAILS}_${id}`) : "";
-  const communityDetails = dataFromCookie.length ? JSON.parse(dataFromCookie) : {};
+  const dataFromCookie = id
+    ? getCookie(`${SINGLE_COMMUNITY_DETAILS}_${id}`)
+    : '';
+  const communityDetails = dataFromCookie.length
+    ? JSON.parse(dataFromCookie)
+    : {};
 
   return { ...communityDetails };
 };
@@ -380,7 +392,7 @@ export const getCommunityWithTags = async (eosService, id) => {
     language,
     officialSite = null,
   } = community;
-  
+
   const { rows: tagRows } = await eosService.getTableRows(
     TAGS_TABLE,
     getTagScope(id),

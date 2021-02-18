@@ -163,4 +163,7 @@ export default defineMessages({
   colors: {
     id: 'app.containers.CreateCommunity.colors',
   },
+  topBanner: {
+    id: 'app.containers.CreateCommunity.topBanner',
+  },
 });

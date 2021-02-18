@@ -45,7 +45,7 @@ import {
   VK_LINK_FIELD,
   YOUTUBE_LINK_FIELD,
 } from '../CreateCommunity/constants';
-
+import CommunityTypeForm from '../CreateCommunity/CommunityTypeForm';
 import AboutForm from '../CreateCommunity/AboutForm';
 import BloggerModeForm from '../CreateCommunity/BloggerModeForm';
 
@@ -78,10 +78,12 @@ const EditCommunityForm = ({
         main_color: values.get(MAIN_COLOR_FIELD),
         highlight_color: values.get(HIGHLIGHT_COLOR_FIELD),
       };
+
       editCommunityDispatch(communityId, communityData);
     },
     [communityId, editCommunityDispatch],
   );
+
   return (
     <ExtendedBase>
       <Field
@@ -141,6 +143,8 @@ const EditCommunityForm = ({
           intl={intl}
         />
 
+        <CommunityTypeForm change={change} intl={intl} />
+
         {+formValues[COMMUNITY_TYPE] ? (
           <BloggerModeForm
             disabled={communityLoading}
@@ -191,12 +195,12 @@ export default injectIntl(
           [FORM_TYPE]: community.questionsType,
           [COMMUNITY_TYPE]: community.isBlogger ? 1 : 0,
           [COMM_BANNER_FIELD]: community.banner,
-          [FACEBOOK_LINK_FIELD]: community.facebook,
-          [INSTAGRAM_LINK_FIELD]: community.instagram,
-          [YOUTUBE_LINK_FIELD]: community.youtube,
-          [VK_LINK_FIELD]: community.vk,
-          [MAIN_COLOR_FIELD]: community.main_color,
-          [HIGHLIGHT_COLOR_FIELD]: community.highlight_color,
+          [FACEBOOK_LINK_FIELD]: community.socialLinks.facebook,
+          [INSTAGRAM_LINK_FIELD]: community.socialLinks.instagram,
+          [YOUTUBE_LINK_FIELD]: community.socialLinks.youtube,
+          [VK_LINK_FIELD]: community.socialLinks.vk,
+          [MAIN_COLOR_FIELD]: community.colors.main,
+          [HIGHLIGHT_COLOR_FIELD]: community.colors.highlight,
         }
       : {},
   }))(FormClone),

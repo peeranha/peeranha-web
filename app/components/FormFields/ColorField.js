@@ -4,8 +4,6 @@ import styled from 'styled-components';
 
 import { BORDER_RADIUS_M, BORDER_SECONDARY } from 'style-constants';
 
-import { Styles } from '../Input/InputStyled';
-
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
@@ -22,7 +20,6 @@ const InputColorStyled = styled.div`
   transition: 0.5s;
 
   input {
-    ${Styles};
     height: 100%;
     min-height: 0;
     padding: 0;

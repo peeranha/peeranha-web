@@ -8,6 +8,7 @@ import { imageValidation } from 'components/FormFields/validate';
 import BannerField from 'components/FormFields/BannerField';
 
 import { COMM_BANNER_FIELD } from './constants';
+import messages from './messages';
 import SocialLinksGroup from './SocialLinksGroup';
 import ColorsGroup from './ColorsGroup';
 
@@ -19,6 +20,7 @@ const BloggerModeForm = ({ disabled, formValues, intl, initialValues }) => (
       validate={[imageValidation]}
       warn={[imageValidation]}
       disabled={disabled}
+      label={intl.formatMessage(messages.topBanner)}
     />
     <br />
     <SocialLinksGroup disabled={disabled} intl={intl} />
