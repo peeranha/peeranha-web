@@ -10,11 +10,12 @@ import {
 } from './constants';
 
 import { ApplicationError } from './errors';
+import { dateNowInSeconds } from './datetime';
 
 export const updateAcc = async (profile, eosService) => {
   if (!profile) throw new ApplicationError('No profile');
 
-  const currentTime = Math.floor(Date.now() / 1000);
+  const currentTime = dateNowInSeconds();
   const currentPeriod = Math.floor(
     (currentTime - profile.registration_time) /
       process.env.ACCOUNT_STAT_RESET_PERIOD,
@@ -48,7 +49,7 @@ export const registerAccount = async (profile, eosService) => {
       null,
       true,
     );
-  
+
     return true;
   } catch (e) {
     return false;

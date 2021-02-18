@@ -15,7 +15,7 @@ import {
   isSingleCommunityWebsite,
   singleCommunityStyles,
 } from 'utils/communityManagement';
-import { getFormattedDate } from 'utils/datetime';
+import { getFormattedDate, dateNowInSeconds } from 'utils/datetime';
 import { MONTH_3LETTERS__DAY_YYYY_TIME } from 'utils/constants';
 
 import Base from 'components/Base';
@@ -117,7 +117,7 @@ export const QuestionTitle = ({
     () => {
       if (
         promote &&
-        promote.endsTime > Math.trunc(Date.now() / 1000) &&
+        promote.endsTime > dateNowInSeconds() &&
         account === questionAuthor
       ) {
         return true;

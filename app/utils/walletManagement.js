@@ -32,6 +32,7 @@ import {
 } from './constants';
 
 import { ApplicationError } from './errors';
+import { dateNowInSeconds } from './datetime';
 
 const PERIOD_LENGTH = {
   development: 2 * 60 * 60, // two hours
@@ -200,7 +201,7 @@ export async function getWeekStat(eosService, profile = {}) {
   });
 
   const numberOfPeriods = Math.ceil(
-    (Date.now() / 1000 - +process.env.RELEASE_DATE) /
+    (dateNowInSeconds() - +process.env.RELEASE_DATE) /
       +process.env.WEEK_DURATION,
   );
 

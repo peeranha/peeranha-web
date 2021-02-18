@@ -34,6 +34,7 @@ import {
 import { getQuestionBounty, payBounty } from 'utils/walletManagement';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { ACCOUNT_TABLE, ALL_ACCOUNTS_SCOPE } from 'utils/constants';
+import { dateNowInSeconds } from 'utils/datetime';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 import {
@@ -169,7 +170,7 @@ export function* getQuestionData({
   yield put(getQuestionBountySuccess(bounty));
   question.isGeneral = isGeneralQuestion(question.properties);
 
-  if (promote && promote.ends_time > Math.trunc(Date.now() / 1000)) {
+  if (promote && promote.ends_time > dateNowInSeconds()) {
     question.promote = { ...promote };
   } else {
     const promotedQuestions = yield call(
@@ -611,7 +612,7 @@ export function* postCommentWorker({
     );
 
     const newComment = {
-      post_time: String(Date.now()).slice(0, -3),
+      post_time: String(dateNowInSeconds()),
       user: profileInfo.user,
       properties: [],
       history: [],
@@ -678,7 +679,7 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
 
     const newAnswer = {
       id: questionData.answers.length + 1,
-      post_time: String(Date.now()).slice(0, -3),
+      post_time: String(dateNowInSeconds()),
       user: profileInfo.user,
       properties: official ? [{ key: 10, value: 1 }] : [],
       history: [],

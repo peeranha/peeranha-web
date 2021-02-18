@@ -14,7 +14,7 @@ import {
 } from 'utils/questionsManagement';
 import { getEditBountyTrActData } from 'utils/walletManagement';
 import { getCommunityWithTags } from 'utils/communityManagement';
-import { ONE_HOUR_IN_SECONDS } from 'utils/datetime';
+import { ONE_HOUR_IN_SECONDS, dateNowInSeconds } from 'utils/datetime';
 
 import { isValid, isAuthorized } from 'containers/EosioProvider/saga';
 import { updateQuestionList } from 'containers/ViewQuestion/saga';
@@ -140,7 +140,7 @@ export function* editQuestionWorker({ question, questionId }) {
     if (initialEditQuestData.promote) {
       const { endsTime } = initialEditQuestData.promote;
       const prevCommId = initialEditQuestData.community.id;
-      const dateNow = Math.trunc(Date.now() / 1000);
+      const dateNow = dateNowInSeconds();
       const currCommId = question.community.id;
 
       if (endsTime > dateNow && prevCommId !== currCommId) {
