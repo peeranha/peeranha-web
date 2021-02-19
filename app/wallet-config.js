@@ -40,7 +40,7 @@ export const WALLETS = {
   KEYCAT: {
     name: 'Keycat',
     logo: keycatTextLogo,
-    isMobile: false,
+    isMobile: true,
     doNotShowName: true,
   },
 };
