@@ -59,6 +59,8 @@ import {
   IS_BLOGGER_MODE_FIELD,
   MAIN_COLOR_FIELD,
   HIGHLIGHT_COLOR_FIELD,
+  FORM_TYPE,
+  ANY_TYPE,
 } from './constants';
 import { hasCommunityModeratorCreatePermission } from '../../utils/properties';
 import AboutForm from './AboutForm';
@@ -340,11 +342,12 @@ export default memo(
       }
       return {
         formValues: form?.values ?? {},
-        // initialValues: {
-        //   [IS_BLOGGER_MODE_FIELD]: true,
-        //   [MAIN_COLOR_FIELD]: PEER_PRIMARY_COLOR,
-        //   [HIGHLIGHT_COLOR_FIELD]: PEER_WARNING_COLOR,
-        // },
+        initialValues: {
+          // [IS_BLOGGER_MODE_FIELD]: true,
+          // [MAIN_COLOR_FIELD]: PEER_PRIMARY_COLOR,
+          // [HIGHLIGHT_COLOR_FIELD]: PEER_WARNING_COLOR,
+          [FORM_TYPE]: ANY_TYPE,
+        },
       };
     })(FormCloneRedux),
   ),
