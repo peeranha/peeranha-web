@@ -153,6 +153,7 @@ const EditCommunityForm = ({
             disabled={communityLoading}
             formValues={formValues}
             intl={intl}
+            initialValues={initialValues}
           />
         ) : null}
 
