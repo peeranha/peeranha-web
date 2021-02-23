@@ -189,14 +189,14 @@ const CreateCommunityForm = ({
         {/*  name={ABOUT_FIELD}*/}
         {/*/>*/}
 
-        {profileWithModeratorRights && (
-          <TypeForm
-            locale={locale}
-            change={change}
-            formValues={formValues}
-            intl={intl}
-          />
-        )}
+        {/*{profileWithModeratorRights && (*/}
+        {/*  <TypeForm*/}
+        {/*    locale={locale}*/}
+        {/*    change={change}*/}
+        {/*    formValues={formValues}*/}
+        {/*    intl={intl}*/}
+        {/*  />*/}
+        {/*)}*/}
 
         {/*<Field*/}
         {/*  name={IS_BLOGGER_MODE_FIELD}*/}
