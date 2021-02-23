@@ -32,6 +32,7 @@ export const Content = props => {
         user={props.userInfo.user}
         questionData={props.questionData}
         isTemporaryAccount={isTemporaryAccount}
+        locale={props.locale}
       />
       <ContentBody {...props} />
     </BaseStyled>

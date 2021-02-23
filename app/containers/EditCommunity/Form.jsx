@@ -59,6 +59,7 @@ const EditCommunityForm = ({
   formValues,
   initialValues,
   locale,
+  isModerator,
 }) => {
   const editCommunity = useCallback(
     values => {
@@ -135,13 +136,15 @@ const EditCommunityForm = ({
           isProfileSaving={communityLoading}
           name={ABOUT_FIELD}
         />
-
-        <TypeForm
-          locale={locale}
-          change={change}
-          formValues={formValues}
-          intl={intl}
-        />
+        
+        {isModerator && (
+          <TypeForm
+            locale={locale}
+            change={change}
+            formValues={formValues}
+            intl={intl}
+          />
+        )}
 
         <CommunityTypeForm change={change} intl={intl} />
 
@@ -150,7 +153,6 @@ const EditCommunityForm = ({
             disabled={communityLoading}
             formValues={formValues}
             intl={intl}
-            initialValues={initialValues}
           />
         ) : null}
 

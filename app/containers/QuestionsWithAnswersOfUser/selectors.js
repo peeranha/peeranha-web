@@ -9,10 +9,21 @@ const selectQuestionsWithAnswersOfUserDomain = state =>
   state.get('questionsWithAnswersOfUser', initialState);
 
 const selectQuestionsWithUserAnswers = () =>
-  createSelector(
-    selectQuestionsWithAnswersOfUserDomain,
-    substate => substate.toJS().questionsWithUserAnswers,
-  );
+  createSelector(selectQuestionsWithAnswersOfUserDomain, substate => {
+    let sortedQuestByAnswDate = [...substate.toJS().questionsWithUserAnswers];
+    // sort user activity answers by post time
+    if (sortedQuestByAnswDate.length > 1) {
+      sortedQuestByAnswDate = sortedQuestByAnswDate.sort((quest1, quest2) => {
+        const asnwDate1 = quest1.answers.find(el => el.id === quest1.answerId)
+          .post_time;
+        const asnwDate2 = quest2.answers.find(el => el.id === quest2.answerId)
+          .post_time;
+
+        return asnwDate2 - asnwDate1;
+      });
+    }
+    return sortedQuestByAnswDate;
+  });
 
 const selectNumber = () =>
   createSelector(

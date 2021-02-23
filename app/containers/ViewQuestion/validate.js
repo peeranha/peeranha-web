@@ -328,9 +328,9 @@ export const deleteCommentValidator = (
   const MIN_ENERGY = 1;
 
   let message;
-  let itemData = questionData.comments.filter(x => x.id === commentId)[0];
+  const itemData = questionData.comments.filter(x => x.id === commentId)[0];
 
-  if (itemData.votingStatus.isUpVoted) {
+  if (itemData?.votingStatus.isUpVoted) {
     message = `${translations[messages.cannotCompleteBecauseVoted.id]}`;
   } else if (profileInfo.energy < MIN_ENERGY) {
     message = translations[messages.notEnoughEnergy.id];

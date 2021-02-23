@@ -195,9 +195,11 @@ export class UsersFetcher extends Fetcher {
   get TABLE() {
     return ACCOUNT_TABLE;
   }
+
   get SCOPE() {
     return ALL_ACCOUNTS_SCOPE;
   }
+
   get PRIMARY_KEY() {
     return 'user';
   }
@@ -273,3 +275,12 @@ export async function confirmTelegramAccount(eosService, user) {
 export async function unlinkTelegramAccount(eosService, user) {
   await eosService.sendTransaction(user, UNLINK_TELEGRAM_ACCOUNT, { user });
 }
+
+export const getAvailableBalance = profile => {
+  const stakedInCurrentPeriod = profile?.stakedInCurrentPeriod ?? 0;
+  const stakedInNextPeriod = profile?.stakedInNextPeriod ?? 0;
+  const balance = profile?.balance ?? 0;
+  return stakedInCurrentPeriod >= stakedInNextPeriod
+    ? balance - stakedInCurrentPeriod
+    : balance - stakedInNextPeriod;
+};

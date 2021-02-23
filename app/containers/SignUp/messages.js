@@ -5,7 +5,11 @@
  */
 
 import { defineMessages } from 'react-intl';
-import { USER_ALREADY_REGISTERED_ERROR } from './constants';
+import {
+  USER_ALREADY_REGISTERED_ERROR,
+  USER_REJECTED_SIGNATURE_REQUEST_ERROR,
+  USER_IS_NOT_SELECTED_ERROR,
+} from './constants';
 
 export default defineMessages({
   title: {
@@ -137,6 +141,12 @@ export default defineMessages({
   [USER_ALREADY_REGISTERED_ERROR]: {
     id: 'app.containers.SignUp.userAlreadyRegistered',
   },
+  [USER_REJECTED_SIGNATURE_REQUEST_ERROR]: {
+    id: 'app.containers.SignUp.userRejectedSignatureRequest',
+  },
+  [USER_IS_NOT_SELECTED_ERROR]: {
+    id: 'app.containers.SignUp.userIsNotSelected',
+  },
   eosAccountNotFound: {
     id: 'app.containers.SignUp.eosAccountNotFound',
   },
@@ -154,5 +164,5 @@ export default defineMessages({
   },
   tgAccountID: {
     id: 'app.containers.SignUp.tgAccountID',
-  }
+  },
 });

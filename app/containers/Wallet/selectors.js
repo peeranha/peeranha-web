@@ -27,10 +27,12 @@ const selectRewardsWeeksNumber = () =>
     selectWalletDomain,
     substate =>
       substate.weekStat
-        ? substate.weekStat.filter(el => el.reward > 0 && el.hasTaken === false)
-            .length
+        ? substate.weekStat.filter(
+            (el, i) => i > 1 && el.reward > 0 && el.hasTaken === false,
+          ).length
         : null,
   );
+// we should skip last two periods -> current(weekStat[0]) and pending (weekStat[1])
 
 const selectPickupRewardProcessing = () =>
   createSelector(

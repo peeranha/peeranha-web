@@ -36,7 +36,7 @@ export const initialState = fromJS({
   questions: {},
   lastLoadedTopQuestionIndex: 0,
   isLastFetch: false,
-  typeFilter: 0,
+  typeFilter: null,
   createdFilter: null,
   topQuestionIds: [],
   topQuestionsInfoLoaded: false,
@@ -160,7 +160,9 @@ function questionsReducer(state = initialState, action) {
           fromJS({
             ...stateQuestions,
             ...questions.reduce((acc, cur) => {
-              acc[cur.id] = cur;
+              if (cur) {
+                acc[cur.id] = cur;
+              }
               return acc;
             }, {}),
           }),

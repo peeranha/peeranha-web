@@ -15,7 +15,8 @@ import closeIcon from 'images/close.svg?external';
 
 import { formatStringToHtmlId, scrollToErrorField } from 'utils/animation';
 import { showPopover } from 'utils/popover';
-import { communityModeratorCreatePermission } from 'utils/properties';
+import { hasCommunityModeratorCreatePermission } from 'utils/properties';
+import {  } from '../../utils/properties';
 import {
   required,
   strLength2x15,
@@ -56,6 +57,7 @@ import {
   MAIN_COLOR_FIELD,
   HIGHLIGHT_COLOR_FIELD,
 } from './constants';
+
 import AboutForm from './AboutForm';
 import BloggerModeForm from './BloggerModeForm';
 import TypeForm from './QuestionsTypeForm';
@@ -89,7 +91,9 @@ const CreateCommunityForm = ({
 
   const profileWithModeratorRights = useMemo(
     () =>
-      communityModeratorCreatePermission(profile?.['integer_properties'] || []),
+      hasCommunityModeratorCreatePermission(
+        profile?.['integer_properties'] || [],
+      ),
     [profile],
   );
 

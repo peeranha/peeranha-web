@@ -193,7 +193,7 @@ export const Questions = ({
       if (!fetcher && !questionFilter) {
         setCookie({
           name: UPDATE_PROMO_QUESTIONS,
-          value: 1,
+          value: true,
         });
         getInitQuestions();
       }
@@ -206,6 +206,13 @@ export const Questions = ({
       loadTopQuestionsDispatch(true);
     }
   }, []);
+
+  useEffect(
+    () => {
+      setTypeFilterDispatch(params.communityid ? +params.communityid : 0);
+    },
+    [params.communityid],
+  );
 
   const display = useMemo(
     () => !(single && path === routes.questions(':communityid')),
@@ -282,7 +289,9 @@ export const Questions = ({
         >
           <Content
             questionsList={questionsList}
-            promotedQuestionsList={promotedQuestions[+questionFilterFromCookies ? 'top' : 'all']}
+            promotedQuestionsList={
+              promotedQuestions[+questionFilterFromCookies ? 'top' : 'all']
+            }
             locale={locale}
             communities={communities}
             typeFilter={typeFilter}

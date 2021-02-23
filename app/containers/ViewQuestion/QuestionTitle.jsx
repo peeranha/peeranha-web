@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import commonMessages from 'common-messages';
 import { FormattedMessage } from 'react-intl';
+import { createStructuredSelector } from 'reselect';
 
-import { BG_SUCCESS, BUTTON_COLOR } from 'style-constants';
+import { BG_SUCCESS, BUTTON_COLOR, TEXT_PREMIUM } from 'style-constants';
 
 import checkIcon from 'images/okayGreen.svg?inline';
 import coinsIcon from 'images/coins.svg?external';
@@ -14,6 +15,8 @@ import {
   isSingleCommunityWebsite,
   singleCommunityStyles,
 } from 'utils/communityManagement';
+import { getFormattedDate, dateNowInSeconds } from 'utils/datetime';
+import { MONTH_3LETTERS__DAY_YYYY_TIME } from 'utils/constants';
 
 import Base from 'components/Base';
 import H3 from 'components/H3';
@@ -29,7 +32,10 @@ import SendTips from '../SendTips';
 
 import { BOUNTY_PAID_CLASSNAME } from './constants';
 
-import { makeSelectProfileInfo } from '../AccountProvider/selectors';
+import {
+  makeSelectAccount,
+  makeSelectProfileInfo,
+} from '../AccountProvider/selectors';
 
 import messages from './messages';
 
@@ -79,6 +85,12 @@ const Top = styled.div`
   }
 `;
 
+const PromotionInfo = styled.div`
+  color: ${TEXT_PREMIUM};
+  margin-top: 10px;
+  text-align: right;
+`;
+
 export const QuestionTitle = ({
   title,
   communities,
@@ -86,6 +98,8 @@ export const QuestionTitle = ({
   questionData,
   profileInfo,
   isTemporaryAccount,
+  locale,
+  account,
 }) => {
   const {
     tags,
@@ -95,7 +109,39 @@ export const QuestionTitle = ({
     questionBounty,
     isGeneral,
     id,
+    promote,
+    user: questionAuthor,
   } = questionData;
+
+  const isActivePromotion = useMemo(
+    () => {
+      if (
+        promote &&
+        promote.endsTime > dateNowInSeconds() &&
+        account === questionAuthor
+      ) {
+        return true;
+      }
+
+      return false;
+    },
+    [promote, account, questionAuthor],
+  );
+
+  const promotedQuestionEndsTime = useMemo(
+    () => {
+      if (typeof promote === 'object') {
+        return getFormattedDate(
+          promote.endsTime,
+          locale,
+          MONTH_3LETTERS__DAY_YYYY_TIME,
+        );
+      }
+
+      return null;
+    },
+    [promote],
+  );
 
   const isItWrittenByMe = profileInfo ? user === profileInfo.user : false;
 
@@ -121,7 +167,11 @@ export const QuestionTitle = ({
                 className="mr-1"
                 icon={coinsIcon}
                 color={BUTTON_COLOR}
-                specialStyles={single && styles.coinsIconStyles ? styles.coinsIconStyles : null}
+                specialStyles={
+                  single && styles.coinsIconStyles
+                    ? styles.coinsIconStyles
+                    : null
+                }
               />
               <FormattedMessage {...commonMessages.tipQuestion} />
             </B>
@@ -168,6 +218,12 @@ export const QuestionTitle = ({
             />
           ) : null}
         </TagList>
+        {isActivePromotion && (
+          <PromotionInfo>
+            <FormattedMessage {...messages.questionIsPromoting} />{' '}
+            {promotedQuestionEndsTime}
+          </PromotionInfo>
+        )}
       </Div>
     </Base>
   ) : null;
@@ -187,12 +243,16 @@ QuestionTitle.propTypes = {
   questionBounty: PropTypes.object,
   profileInfo: PropTypes.object,
   isTemporaryAccount: PropTypes.bool,
+  locale: PropTypes.string,
+  account: PropTypes.string,
+  questionAuthor: PropTypes.string,
 };
 
 export default React.memo(
   connect(
-    state => ({
-      profileInfo: makeSelectProfileInfo()(state),
+    createStructuredSelector({
+      profileInfo: makeSelectProfileInfo(),
+      account: makeSelectAccount(),
     }),
     null,
   )(QuestionTitle),

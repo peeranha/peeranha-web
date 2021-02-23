@@ -67,6 +67,8 @@ import Span from '../Span';
 import { PreviewWrapper } from '../AnswerForm';
 import createdHistory from '../../createdHistory';
 import * as routes from '../../routes-config';
+import { hasGlobalModeratorPermissions } from '../../utils/properties';
+import { now } from 'lodash';
 
 const single = isSingleCommunityWebsite();
 
@@ -119,7 +121,13 @@ export const QuestionForm = ({
   communityQuestionsType,
   questionTypeExpertDescription,
   questionTypeGeneralDescription,
+  profile,
 }) => {
+  const profileWithModeratorRights = useMemo(
+    () => hasGlobalModeratorPermissions(profile?.['integer_properties'] || []),
+    [profile],
+  );
+
   const handleSubmitWithType = sendQuestion => {
     if (communityQuestionsType !== ANY_TYPE) {
       change(FORM_TYPE, communityQuestionsType);
@@ -170,15 +178,16 @@ export const QuestionForm = ({
               questionLoading={questionLoading}
             />
 
-            {(communityQuestionsType === ANY_TYPE && (
-              <TypeForm
-                intl={intl}
-                change={change}
-                questionLoading={questionLoading}
-                locale={locale}
-                formValues={formValues}
-              />
-            )) ||
+            {(((question && profileWithModeratorRights) || !question) &&
+              communityQuestionsType === ANY_TYPE && (
+                <TypeForm
+                  intl={intl}
+                  change={change}
+                  questionLoading={questionLoading}
+                  locale={locale}
+                  formValues={formValues}
+                />
+              )) ||
               (communityQuestionsType === GENERAL_TYPE && (
                 <PreviewWrapper>
                   <Span color={TEXT_SECONDARY} fontSize="14" isItalic>
@@ -240,9 +249,11 @@ export const QuestionForm = ({
             {/*  change={change}*/}
             {/*/>*/}
 
-            {promotedQuestionEndsTime ? (
+            {promotedQuestionEndsTime &&
+            question.promote.endsTime > Math.trunc(now() / 1000) ? (
               <PromoteQuestionInfo>
-                {intl.formatMessage(messages.questionIsPromoting)} {promotedQuestionEndsTime}
+                {intl.formatMessage(messages.questionIsPromoting)}{' '}
+                {promotedQuestionEndsTime}
               </PromoteQuestionInfo>
             ) : (
               <PromotedQuestionForm

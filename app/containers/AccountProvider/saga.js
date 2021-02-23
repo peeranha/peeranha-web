@@ -234,6 +234,7 @@ export const getCurrentAccountWorker = function*(initAccount) {
         const updatedQuestion = yield call(getQuestionData, {
           questionId: viewQuestion.id,
           user: profileInfo.user,
+          promote: viewQuestion.promote || null,
         });
 
         yield put(getQuestionDataSuccess(updatedQuestion));
@@ -402,7 +403,7 @@ export function* updateAccWorker({ eos }) {
 
     if (profileInfo) {
       const { user, pay_out_rating } = profileInfo;
-      
+
       yield call(updateRefer, user, eos);
 
       if (account) {
@@ -416,7 +417,7 @@ export function* updateAccWorker({ eos }) {
           !getCookie(receivedCookieName)
         ) {
           const err = yield call(rewardRefer, user, eos);
-  
+
           if (err instanceof Error) {
             yield put(rewardReferErr(err));
           } else {
@@ -431,7 +432,7 @@ export function* updateAccWorker({ eos }) {
             });
           }
         }
-  
+
         yield call(updateAcc, profileInfo, eos);
         yield call(getCurrentAccountWorker);
         yield put(updateAccSuccess());

@@ -21,6 +21,12 @@ export const getFormattedNum4 = num =>
     .format('0,0.00')
     .replace(/,/gim, ' ');
 
+// 1000000 => 1000000.000000
+export const getFormattedNum5 = (num, precision = 6) =>
+  numeral(num)
+    .format(`0,0.${'0'.repeat(precision)}`)
+    .replace(/,/gim, '');
+
 export const trimRightZeros = num => {
   const trimmed = num.replace(new RegExp('[0]+$'), '');
 

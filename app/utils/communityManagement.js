@@ -470,13 +470,13 @@ export async function followCommunity(
 /* eslint camelcase: 0 */
 export async function createCommunity(eosService, selectedAccount, community) {
   const { imgHash: avatarField } = await uploadImg(community.avatar);
-  const { imgHash: bannerField } = await uploadImg(community.banner);
+  //const { imgHash: bannerField } = await uploadImg(community.banner);
 
   const communityIpfsHash = await saveText(
     JSON.stringify({
       ...community,
       avatar: avatarField,
-      banner: bannerField,
+      //banner: bannerField,
     }),
   );
 

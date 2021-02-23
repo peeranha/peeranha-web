@@ -2,6 +2,8 @@ import { createSelector } from 'reselect';
 
 import { isSingleCommunityWebsite, singleCommunityStyles } from 'utils/communityManagement';
 
+import peeranhaLogo from 'images/LogoBlack.svg?inline';
+
 import { initialState } from './reducer';
 import { HOME_KEY } from './constants';
 
@@ -37,6 +39,10 @@ export const selectLogo = () =>
 
     if (!logo && single) {
       logo = styles.signUpPageLogo;
+    }
+
+    if (!logo) {
+      logo = peeranhaLogo;
     }
 
     return logo;

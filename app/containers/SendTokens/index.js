@@ -14,7 +14,7 @@ import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import {
   makeSelectLoginData,
-  makeSelectBalance,
+  makeSelectProfileInfo,
 } from 'containers/AccountProvider/selectors';
 
 import {
@@ -30,6 +30,7 @@ import saga from './saga';
 import Button from './StyledButton';
 import SendTokensForm from './SendTokensForm';
 import { selectEos } from '../EosioProvider/selectors';
+import { getAvailableBalance } from '../../utils/profileManagement';
 
 export const SendTokens = /* istanbul ignore next */ ({
   locale,
@@ -40,24 +41,28 @@ export const SendTokens = /* istanbul ignore next */ ({
   hideSendTokensModalDispatch,
   showSendTokensModalDispatch,
   loginData,
-  balance,
+  profileInfo,
   eosService,
-}) => (
-  <>
-    <Modal show={showModal} closeModal={hideSendTokensModalDispatch}>
-      <SendTokensForm
-        locale={locale}
-        sendTokens={sendTokensDispatch}
-        sendTokensProcessing={sendTokensProcessing}
-        loginData={loginData}
-        valueHasToBeLessThan={balance}
-        eosService={eosService}
-      />
-    </Modal>
+}) => {
+  const availableBalance = getAvailableBalance(profileInfo);
 
-    <Button onClick={showSendTokensModalDispatch}>{children}</Button>
-  </>
-);
+  return (
+    <>
+      <Modal show={showModal} closeModal={hideSendTokensModalDispatch}>
+        <SendTokensForm
+          locale={locale}
+          sendTokens={sendTokensDispatch}
+          sendTokensProcessing={sendTokensProcessing}
+          loginData={loginData}
+          valueHasToBeLessThan={availableBalance}
+          eosService={eosService}
+        />
+      </Modal>
+
+      <Button onClick={showSendTokensModalDispatch}>{children}</Button>
+    </>
+  );
+};
 
 SendTokens.propTypes = {
   locale: PropTypes.string,
@@ -80,7 +85,7 @@ export default compose(
       eosService: selectEos,
       locale: makeSelectLocale(),
       loginData: makeSelectLoginData(),
-      balance: makeSelectBalance(),
+      profileInfo: makeSelectProfileInfo(),
       showModal: selectors.selectShowModal(),
       sendTokensProcessing: selectors.selectSendTokensProcessing(),
     }),

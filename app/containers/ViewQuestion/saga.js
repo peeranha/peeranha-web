@@ -23,6 +23,7 @@ import {
   deleteQuestion,
   downVote,
   editComment,
+  getPromotedQuestions,
   getQuestionById,
   markAsAccepted,
   postAnswer,
@@ -33,6 +34,7 @@ import {
 import { getQuestionBounty, payBounty } from 'utils/walletManagement';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { ACCOUNT_TABLE, ALL_ACCOUNTS_SCOPE } from 'utils/constants';
+import { dateNowInSeconds } from 'utils/datetime';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 import {
@@ -152,6 +154,7 @@ export const getQuestionTypeValue = isGeneral =>
 export function* getQuestionData({
   questionId,
   user,
+  promote,
 }) /* istanbul ignore next */ {
   const eosService = yield select(selectEos);
   let question = yield select(selectQuestions(null, null, questionId));
@@ -166,6 +169,27 @@ export function* getQuestionData({
   const bounty = yield call(getQuestionBounty, questionId, eosService);
   yield put(getQuestionBountySuccess(bounty));
   question.isGeneral = isGeneralQuestion(question.properties);
+
+  if (promote && promote.ends_time > dateNowInSeconds()) {
+    question.promote = { ...promote };
+  } else {
+    const promotedQuestions = yield call(
+      getPromotedQuestions,
+      eosService,
+      question.community_id,
+    );
+
+    const promotedQuestion = promotedQuestions.find(
+      item => item.question_id === questionId,
+    );
+
+    if (promotedQuestion) {
+      question.promote = {
+        startTime: promotedQuestion.start_time,
+        endsTime: promotedQuestion.ends_time,
+      };
+    }
+  }
 
   const getItemStatus = (historyFlag, constantFlag) =>
     historyFlag?.flag & (1 << constantFlag);
@@ -467,6 +491,7 @@ export function* deleteQuestionWorker({ questionId, buttonId }) {
 export function* getQuestionDataWorker({ questionId }) {
   try {
     const { account } = yield call(getParams);
+    const eosService = yield select(selectEos);
 
     const questionData = yield call(getQuestionData, {
       questionId,
@@ -506,6 +531,23 @@ export function* getQuestionDataWorker({ questionId }) {
         }
       }),
     );
+
+    const promotedQuestions = yield call(
+      getPromotedQuestions,
+      eosService,
+      questionData.community_id,
+    );
+
+    const promotedQuestion = promotedQuestions.find(
+      item => item.question_id === questionId,
+    );
+
+    if (promotedQuestion) {
+      questionData.promote = {
+        startTime: promotedQuestion.start_time,
+        endsTime: promotedQuestion.ends_time,
+      };
+    }
 
     if (isAnotherCommQuestion) {
       yield put(getQuestionDataSuccess(null));
@@ -570,7 +612,7 @@ export function* postCommentWorker({
     );
 
     const newComment = {
-      post_time: String(Date.now()).slice(0, -3),
+      post_time: String(dateNowInSeconds()),
       user: profileInfo.user,
       properties: [],
       history: [],
@@ -637,7 +679,7 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
 
     const newAnswer = {
       id: questionData.answers.length + 1,
-      post_time: String(Date.now()).slice(0, -3),
+      post_time: String(dateNowInSeconds()),
       user: profileInfo.user,
       properties: official ? [{ key: 10, value: 1 }] : [],
       history: [],

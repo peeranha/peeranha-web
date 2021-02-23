@@ -292,6 +292,8 @@ To set it in group/channel click "Add members" and add @PeeranhaBot.
 
 **Commands for bot:**
 
+/settings - set the auto answering, default community and tags for the chat
+
 /subscribe - subscribes to the notifications from a community (e.g. /subscribe Peeranha)
 
 /unsubscribe - unsubscribes from the notifications from a community (e.g. /unsubscribe Peeranha)
@@ -299,6 +301,8 @@ To set it in group/channel click "Add members" and add @PeeranhaBot.
 /communities - displays the communities that are available for subscription
 
 /subscriptions - displays current subscriptions
+
+/postquestion _Question Text_ - ask a question in one step (Default Community and Tags have to be set in the chat settings)
 
 **Commands for private chat:**
 
@@ -312,7 +316,7 @@ To set it in group/channel click "Add members" and add @PeeranhaBot.
 
 _Post an answer directly from Telegram by using "Reply" action on a notification message about a posted question._
 
-_If you haven't linked your Telegram account with Peeranha profile yet, bot will allow you to post questions or answers with a Temporary created account. Follow the <a href="https://peeranha.io/faq/#section_id_1_4" style="color: #576fed; font-style: italic;">link</a> to learn more details._
+_If you haven't linked your Telegram account to Peeranha profile yet, bot will allow you to post questions or answers with a Temporary created account. Follow the <a href="https://peeranha.io/faq/#section_id_1_4" style="color: #576fed; font-style: italic;">link</a> to learn more details._
 
 ## Boost
 

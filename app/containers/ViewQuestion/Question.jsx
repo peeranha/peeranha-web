@@ -42,7 +42,6 @@ Question.propTypes = {
   questionData: PropTypes.object,
   communities: PropTypes.array,
   deleteQuestion: PropTypes.func,
-  editQuestion: PropTypes.func,
   saveComment: PropTypes.func,
   redirectToEditQuestionPage: PropTypes.func,
   deleteComment: PropTypes.func,
