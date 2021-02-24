@@ -8,7 +8,7 @@ import { singleCommunityStyles } from 'utils/communityManagement';
 
 import telosIcon from 'images/telosIconLight.svg?inline';
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
-import information from 'images/information.svg?external';
+import infoIcon from 'images/information.svg?external';
 
 import { TEXT_SECONDARY } from 'style-constants';
 import messages from 'common-messages';
@@ -80,7 +80,7 @@ const InfoLinksDropDown = ({ withTitle }) => (
           color={TEXT_SECONDARY}
         >
           <Icon
-            icon={information}
+            icon={infoIcon}
             width="16"
             height="16"
             css={{ marginRight: '10px' }}

@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 import { compose, bindActionCreators } from 'redux';
+import isMobile from 'ismobilejs';
 
 import { TEXT_SECONDARY } from 'style-constants';
 
@@ -53,7 +54,9 @@ export const ChangeLocale = ({ locale, changeLocaleDispatch, withTitle }) => {
             color={TEXT_SECONDARY}
           >
             <Flag src={require(`images/${[locale]}_lang.png`)} alt="country" />
-            {withTitle && <FormattedMessage {...commonMessages[locale]} />}
+            {(withTitle || isMobile(window.navigator).any) && (
+              <FormattedMessage {...commonMessages[locale]} />
+            )}
           </Span>
         </React.Fragment>
       }
