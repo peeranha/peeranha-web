@@ -13,4 +13,4 @@ export const INFO_LINKS = [
 ];
 
 export const FULL_SIZE = 730;
-export const SEMI_SIZE = 565;
+export const SEMI_SIZE = 575;
