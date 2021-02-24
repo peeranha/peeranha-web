@@ -137,14 +137,14 @@ const EditCommunityForm = ({
         {/*  name={ABOUT_FIELD}*/}
         {/*/>*/}
 
-        {isModerator && (
-          <TypeForm
-            locale={locale}
-            change={change}
-            formValues={formValues}
-            intl={intl}
-          />
-        )}
+        {/*{isModerator && (*/}
+        {/*  <TypeForm*/}
+        {/*    locale={locale}*/}
+        {/*    change={change}*/}
+        {/*    formValues={formValues}*/}
+        {/*    intl={intl}*/}
+        {/*  />*/}
+        {/*)}*/}
 
         {/*<Field*/}
         {/*  name={IS_BLOGGER_MODE_FIELD}*/}
