@@ -313,11 +313,12 @@ export default memo(
   injectIntl(
     connect(
       (state, { question, form: formName, communities }) => {
-        const questionsType = state
-          .toJS()
-          .form[formName]?.values[FORM_COMMUNITY]?.integer_properties.find(
-            prop => prop.key === KEY_QUESTIONS_TYPE,
-          )?.value;
+        const values = state.toJS().form[formName]?.values[FORM_COMMUNITY];
+        const integerProperties = values?.integer_properties ?? [];
+        const questionsType = integerProperties.find(
+          prop => prop.key === KEY_QUESTIONS_TYPE,
+        )?.value;
+
         return {
           formValues: state.toJS().form[formName]?.values ?? {},
           communityQuestionsType: questionsType ?? ANY_TYPE,
