@@ -28,7 +28,7 @@ import Dropdown from 'components/Dropdown';
 import { Flag, Li } from './Styled';
 
 /* eslint global-require: 0 */
-export const ChangeLocale = ({ locale, changeLocaleDispatch }) => {
+export const ChangeLocale = ({ locale, changeLocaleDispatch, withTitle }) => {
   function setLocale(newLocale) {
     localStorage.setItem('locale', newLocale);
 
@@ -53,7 +53,7 @@ export const ChangeLocale = ({ locale, changeLocaleDispatch }) => {
             color={TEXT_SECONDARY}
           >
             <Flag src={require(`images/${[locale]}_lang.png`)} alt="country" />
-            <FormattedMessage {...commonMessages[locale]} />
+            {withTitle && <FormattedMessage {...commonMessages[locale]} />}
           </Span>
         </React.Fragment>
       }
@@ -81,6 +81,7 @@ export const ChangeLocale = ({ locale, changeLocaleDispatch }) => {
 ChangeLocale.propTypes = {
   changeLocaleDispatch: PropTypes.func,
   locale: PropTypes.string,
+  withTitle: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({

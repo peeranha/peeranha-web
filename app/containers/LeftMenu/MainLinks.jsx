@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
+import isMobile from 'ismobilejs';
 
 import {
   BORDER_PRIMARY_DARK,
@@ -42,6 +43,7 @@ import { IconLg } from 'components/Icon/IconWithSizes';
 import { svgDraw } from 'components/Icon/IconStyled';
 
 import { BasicLink } from './Styles';
+import { FULL_SIZE } from './constants';
 
 const styles = singleCommunityStyles();
 const colors = singleCommunityColors();
@@ -95,33 +97,41 @@ const A1 = A.extend`
 `;
 
 const Box = styled.div`
-  margin-bottom: ${styles.withoutAdditionalLinks ? 0 : 50}px;
+  margin-bottom: ${({ currClientHeight }) => {
+    if (styles.withoutAdditionalLinks) return '0px !important';
+    if (currClientHeight < FULL_SIZE && !isMobile(window.navigator).any)
+      return '25px !important';
+    return '50px';
+  }};
   padding-bottom: 25px;
   @media only screen and (max-width: 576px) {
     padding: 10px 0 20px 0;
   }
 `;
 
-const MainLinks = ({ profile }) => {
+const MainLinks = ({ profile, currClientHeight }) => {
   const { pathname } = window.location;
   let route = pathname.split('/').filter(x => x)[0];
-  
+
   const singleCommId = +isSingleCommunityWebsite();
-  const isBloggerMode = !!singleCommId ? !!communitiesConfig[singleCommId].isBloggerMode : false;
+  const isBloggerMode = singleCommId
+    ? !!communitiesConfig[singleCommId].isBloggerMode
+    : false;
 
   if (!route) {
     route = isBloggerMode ? 'home' : 'questions';
   }
 
   return (
-    <Box>
-      {(!!singleCommId && isBloggerMode) && (
-        <A1 to={routes.detailsHomePage()} name="home" route={route}>
-          <IconLg className="mr-2" icon={homeIcon} />
-          <FormattedMessage {...messages.home} />
-        </A1>
-      )}
-        
+    <Box currClientHeight={currClientHeight}>
+      {!!singleCommId &&
+        isBloggerMode && (
+          <A1 to={routes.detailsHomePage()} name="home" route={route}>
+            <IconLg className="mr-2" icon={homeIcon} />
+            <FormattedMessage {...messages.home} />
+          </A1>
+        )}
+
       {!singleCommId &&
         profile && (
           <A1 to={routes.feed()} name="feed" route={route}>
@@ -153,7 +163,9 @@ const MainLinks = ({ profile }) => {
 
       <A1 to={routes.users()} name="users" route={route}>
         <IconLg className="mr-2" icon={usersIcon} />
-        <FormattedMessage {...messages[isBloggerMode ? "followers" : 'users']} />
+        <FormattedMessage
+          {...messages[isBloggerMode ? 'followers' : 'users']}
+        />
       </A1>
 
       {!styles.withoutFAQ && (
@@ -175,6 +187,7 @@ const MainLinks = ({ profile }) => {
 
 MainLinks.propTypes = {
   profile: PropTypes.object,
+  currClientHeight: PropTypes.number,
 };
 
 export default MainLinks;

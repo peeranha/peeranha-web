@@ -132,6 +132,9 @@ export default defineMessages({
   privacyPolicyShort: {
     id: 'app.common.privacyPolicyShort',
   },
+  more: {
+    id: 'app.common.more',
+  },
   asked: {
     id: 'app.common.asked',
   },
