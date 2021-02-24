@@ -455,16 +455,21 @@ export async function getQuestionById(eosService, questionId) {
 
 export const changeQuestionType = async (
   user,
-  questionId,
-  type,
+  id,
+  question,
   ratingRestore,
   eosService,
 ) => {
-  await eosService.sendTransaction(user, CHANGE_QUESTION_TYPE_METHOD, {
+  const ipfsLink = await saveText(JSON.stringify(question));
+
+  await eosService.sendTransaction(user, EDIT_QUESTION_METHOD, {
     user,
-    question_id: +questionId,
-    type,
-    restore_rating: ratingRestore,
+    question_id: +id,
+    title: question.title,
+    ipfs_link: ipfsLink,
+    community_id: question.community.value || question.communityId,
+    tags: question.chosenTags.map(x => x.id),
+    type: question.type,
   });
 };
 
