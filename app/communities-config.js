@@ -108,6 +108,10 @@ const googleSiteVerificationsConfig = {
         formKey: 'AIzaSyBqPKf_EfzpnbI-vb2yd6wLwyHn7XkN5BY',
         engineKey: '29ec0c27249bc1846',
       },
+      5: {
+        formKey: 'AIzaSyBcJ5Lgy7Xr2NjVTzFc6ggLJcKWTDJ0dNo',
+        engineKey: 'ce8d08fa7ebd09609',
+      },
     },
   },
   dev: {
