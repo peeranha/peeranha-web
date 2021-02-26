@@ -237,3 +237,6 @@ export const TEMPORARY_ACCOUNT_KEY = 15;
 export const BOUNTY_STATUS_ACTIVE = 1;
 export const BOUNTY_STATUS_PAID = 2;
 export const BOUNTY_STATUS_PENDING = 3;
+
+// Profile properties
+export const KEY_LAST_RATING_UPDATE_TIME = 18;
