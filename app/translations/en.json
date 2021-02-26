@@ -460,7 +460,7 @@
     "Max tags number was reached",
   "app.containers.CreateCommunity.questionsType": "Questions Type",
   "app.containers.CreateCommunity.anyQuestionDescriptionLabel":
-    "You can choose the type of question when you are creating it.",
+    "Users will be able to ask both General and Expert types of question in this community",
   "app.containers.CreateCommunity.anyQuestionDescriptionList": [],
   "app.containers.CreateCommunity.facebook": "Facebook",
   "app.containers.CreateCommunity.instagram": "Instagram",

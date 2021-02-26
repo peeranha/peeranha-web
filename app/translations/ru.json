@@ -476,7 +476,7 @@
     "Максимальное число тегов было достигнуто",
   "app.containers.CreateCommunity.questionType": "Тип вопросов",
   "app.containers.CreateCommunity.anyQuestionDescriptionLabel":
-    "Вы можете выбрать тип вопроса при его создании",
+    "Пользователи смогут задавать как Общие, так и экспертные вопросы",
   "app.containers.CreateCommunity.anyQuestionDescriptionList": [],
   "app.containers.CreateCommunity.facebook": "Facebook",
   "app.containers.CreateCommunity.instagram": "Instagram",

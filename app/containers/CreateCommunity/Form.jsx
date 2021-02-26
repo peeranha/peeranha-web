@@ -56,6 +56,8 @@ import {
   ABOUT_FIELD,
   MAIN_COLOR_FIELD,
   HIGHLIGHT_COLOR_FIELD,
+  FORM_TYPE,
+  ANY_TYPE,
 } from './constants';
 
 import AboutForm from './AboutForm';
@@ -187,14 +189,14 @@ const CreateCommunityForm = ({
           name={ABOUT_FIELD}
         />
 
-        {profileWithModeratorRights && (
-          <TypeForm
-            locale={locale}
-            change={change}
-            formValues={formValues}
-            intl={intl}
-          />
-        )}
+        {/*{profileWithModeratorRights && (*/}
+        {/*  <TypeForm*/}
+        {/*    locale={locale}*/}
+        {/*    change={change}*/}
+        {/*    formValues={formValues}*/}
+        {/*    intl={intl}*/}
+        {/*  />*/}
+        {/*)}*/}
 
         <CommunityTypeForm change={change} intl={intl} />
 
@@ -338,6 +340,7 @@ export default memo(
           [COMMUNITY_TYPE]: 1,
           [MAIN_COLOR_FIELD]: PEER_PRIMARY_COLOR,
           [HIGHLIGHT_COLOR_FIELD]: PEER_WARNING_COLOR,
+          [FORM_TYPE]: ANY_TYPE,
         },
       };
     })(FormCloneRedux),

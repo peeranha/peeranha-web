@@ -69,7 +69,20 @@ const googleSiteVerificationsConfig = {
       formKey: 'AIzaSyA8OYoejHkhBWJnokE78JYndPY8M-4eN7U',
       engineKey: '012465490266412806753:wrajkcmcuob',
     },
-    communities: {},
+    communities: {
+      2: {
+        formKey: 'AIzaSyCrGz9Gka40bQB3bjpqJwtTvGgpYYONb3s',
+        engineKey: '8fc630517bd41e792',
+      },
+      3: {
+        formKey: 'AIzaSyBEpmAAnxKwBc0D9MdVoZLUvWpN5fFrH5o',
+        engineKey: '6cccae3655f3b04b0',
+      },
+      17: {
+        formKey: 'AIzaSyAYkH1ZE_FXu3hFOFxQHmnxdEHzfChY4fM',
+        engineKey: ' 08e10a06b882913c9',
+      },
+    },
   },
   test: {
     default: {
@@ -92,6 +105,10 @@ const googleSiteVerificationsConfig = {
       4: {
         formKey: 'AIzaSyBqPKf_EfzpnbI-vb2yd6wLwyHn7XkN5BY',
         engineKey: '29ec0c27249bc1846',
+      },
+      5: {
+        formKey: 'AIzaSyBcJ5Lgy7Xr2NjVTzFc6ggLJcKWTDJ0dNo',
+        engineKey: 'ce8d08fa7ebd09609',
       },
     },
   },
