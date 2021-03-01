@@ -22,6 +22,9 @@ const testPlugins = [
 const prodPlugins = [
   {
     filename: 'index',
+    meta: {
+      'google-site-verification': 'XJoQa42mRY-KI-3CMiVI2cJZBfaSso4VHQvtBtD04u8',
+    },
   },
 ];
 
