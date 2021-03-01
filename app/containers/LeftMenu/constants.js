@@ -12,5 +12,5 @@ export const INFO_LINKS = [
   { route: routes.termsAndConditions(), title: messages.termsOfService },
 ];
 
-export const FULL_SIZE = 730;
+export const FULL_SIZE = 770;
 export const SEMI_SIZE = 575;
