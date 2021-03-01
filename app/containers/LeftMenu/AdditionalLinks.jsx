@@ -11,7 +11,7 @@ import { TEXT_SECONDARY } from 'style-constants';
 import * as routes from 'routes-config';
 import messages from 'common-messages';
 
-import A from 'components/A';
+import A, { ADefault } from 'components/A';
 
 import { CONTACTS_ID, FORM_ID } from 'containers/Support/constants';
 import ChangeLocale from 'containers/ChangeLocale';
@@ -60,23 +60,51 @@ const Img = styled.img`
 export default React.memo(() => (
   <AdditionalLinks>
     {!styles.withoutAdditionalLinks ? (
-      <>
-        <A to={routes.home()}>
-          <FormattedMessage {...messages.about} />
-        </A>
-        <A to={routes.support(CONTACTS_ID)}>
-          <FormattedMessage {...messages.contacts} />
-        </A>
-        <A to={routes.support(FORM_ID)}>
-          <FormattedMessage {...messages.support} />
-        </A>
-        <A to={routes.privacyPolicy()}>
-          <FormattedMessage {...messages.privacyPolicy} />
-        </A>
-        <A to={routes.termsAndConditions()}>
-          <FormattedMessage {...messages.termsOfService} />
-        </A>{' '}
-      </>
+      document.location.origin === process.env.APP_LOCATION ? (
+        <>
+          <A to={routes.home()}>
+            <FormattedMessage {...messages.about} />
+          </A>
+          <A to={routes.support(CONTACTS_ID)}>
+            <FormattedMessage {...messages.contacts} />
+          </A>
+          <A to={routes.support(FORM_ID)}>
+            <FormattedMessage {...messages.support} />
+          </A>
+          <A to={routes.privacyPolicy()}>
+            <FormattedMessage {...messages.privacyPolicy} />
+          </A>
+          <A to={routes.termsAndConditions()}>
+            <FormattedMessage {...messages.termsOfService} />
+          </A>{' '}
+        </>
+      ) : (
+        <>
+          <ADefault href={`${process.env.APP_LOCATION}${routes.home()}`}>
+            <FormattedMessage {...messages.about} />
+          </ADefault>
+          <ADefault
+            href={`${process.env.APP_LOCATION}${routes.support(CONTACTS_ID)}`}
+          >
+            <FormattedMessage {...messages.contacts} />
+          </ADefault>
+          <ADefault
+            href={`${process.env.APP_LOCATION}${routes.support(FORM_ID)}`}
+          >
+            <FormattedMessage {...messages.support} />
+          </ADefault>
+          <ADefault
+            href={`${process.env.APP_LOCATION}${routes.privacyPolicy()}`}
+          >
+            <FormattedMessage {...messages.privacyPolicy} />
+          </ADefault>
+          <ADefault
+            href={`${process.env.APP_LOCATION}${routes.termsAndConditions()}`}
+          >
+            <FormattedMessage {...messages.termsOfService} />
+          </ADefault>{' '}
+        </>
+      )
     ) : null}
 
     <ChangeLocale />
