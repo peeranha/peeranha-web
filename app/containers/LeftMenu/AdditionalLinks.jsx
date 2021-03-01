@@ -79,7 +79,7 @@ export default React.memo(() => (
       </>
     ) : null}
 
-    <ChangeLocale />
+    {/* <ChangeLocale /> */}
 
     <footer>
       {!styles.withoutCopyright && (
