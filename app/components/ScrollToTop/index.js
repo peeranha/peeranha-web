@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import isMobile from 'ismobilejs';
 
 import { TEXT_LIGHT, TEXT_SECONDARY } from 'style-constants';
 import { LEFT_MENU_ID } from 'containers/LeftMenu/constants';
@@ -10,7 +11,7 @@ import toTopArrow from 'images/toTopArrow.svg?external';
 
 const Button = styled.button`
   position: fixed;
-  bottom: 20px;
+  bottom: ${isMobile().apple.phone ? 70 : 20}px;
   right: 20px;
   z-index: 1000;
   display: ${props => (props.visible ? 'flex' : 'none')};
