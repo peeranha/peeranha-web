@@ -33,7 +33,6 @@ export const updateAcc = async (profile, eosService) => {
     periodsHavePassed > 0 ||
     timeSinceRatingUpdate >= process.env.ACCOUNT_STAT_RESET_PERIOD
   ) {
-    console.log('ok');
     await eosService.sendTransaction(profile.user, UPDATE_ACC, {
       user: profile.user,
     });
