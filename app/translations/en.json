@@ -156,6 +156,7 @@
   "app.common.unsubscribe": "Unsubscribe",
   "app.common.followSocialMedia": "Follow us on social media:",
   "app.common.cannotTransferToYourself": "Cannot transfer to yourself",
+  "app.common.notEnoughCPUOrRAM": "Not enough CPU or RAM",
 
   "app.telegram.user": "Telegram user",
   "app.telegram.userLabelPopover":
