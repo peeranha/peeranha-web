@@ -143,16 +143,14 @@ export function idontHaveEosAccountErr(idontHaveEosAccountError) {
 
 /*
  *
- * sign up with scatter
+ * sign up with wallet
  *
  */
 
-export function signUpWithWallet(val, { scatter, keycat }) {
+export function signUpWithWallet(val) {
   return {
     type: SIGNUP_WITH_WALLET,
     val: val.toJS(),
-    scatter,
-    keycat,
   };
 }
 
@@ -176,15 +174,15 @@ export const signUpWithWalletReferralErr = signUpWithWalletReferralError => ({
 
 /*
  *
- * open window for scatter registration
+ * open window for wallet registration
  *
  */
 
-export function showWalletSignUpForm({ scatter, keycat }) {
+export function showWalletSignUpForm({ scatterWallet, keycatWallet }) {
   return {
     type: SHOW_WALLET_SIGNUP_FORM,
-    scatter,
-    keycat,
+    scatterWallet,
+    keycatWallet,
   };
 }
 

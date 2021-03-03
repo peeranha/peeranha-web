@@ -18,6 +18,7 @@ import {
   isSingleCommunityWebsite,
   followCommunity,
 } from 'utils/communityManagement';
+import { initVals } from 'utils/constants';
 
 import loginMessages, {
   getAccountNotSelectedMessageDescriptor,
@@ -314,7 +315,7 @@ export function* idontHaveEosAccountWorker({ val }) {
   }
 }
 
-export function* signUpWithWalletWorker({ val, scatter, keycat }) {
+export function* signUpWithWalletWorker({ val }) {
   try {
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
@@ -341,7 +342,11 @@ export function* signUpWithWalletWorker({ val, scatter, keycat }) {
       }
     }
 
-    const registerAccountResult = yield call(registerAccount, profile, eosService);
+    const registerAccountResult = yield call(
+      registerAccount,
+      profile,
+      eosService,
+    );
 
     if (!registerAccountResult) {
       throw new WebIntegrationError(
@@ -349,7 +354,14 @@ export function* signUpWithWalletWorker({ val, scatter, keycat }) {
       );
     }
 
-    yield call(loginWithWalletWorker, { scatter, keycat });
+    const { eosInitMethod } = eosService;
+    const scatterWallet = eosInitMethod === initVals.initWithScatter;
+    const keycatWallet = eosInitMethod === initVals.initWithKeycat;
+
+    yield call(loginWithWalletWorker, {
+      scatterWallet,
+      keycatWallet,
+    });
 
     const singleCommId = isSingleCommunityWebsite();
 
@@ -365,7 +377,7 @@ export function* signUpWithWalletWorker({ val, scatter, keycat }) {
   }
 }
 
-export function* showWalletSignUpFormWorker({ scatter, keycat }) {
+export function* showWalletSignUpFormWorker({ scatterWallet, keycatWallet }) {
   try {
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
@@ -374,7 +386,7 @@ export function* showWalletSignUpFormWorker({ scatter, keycat }) {
     let currentAccount;
 
     // sign up with keycat
-    if (keycat) {
+    if (keycatWallet) {
       const keycatUserData = yield call(eosService.keycatSignIn);
 
       if (!keycatUserData) {
@@ -382,12 +394,12 @@ export function* showWalletSignUpFormWorker({ scatter, keycat }) {
           translations[signupMessages[USER_IS_NOT_SELECTED_ERROR].id],
         );
       }
-      
+
       currentAccount = keycatUserData.accountName;
     }
 
     // sign up with scatter
-    if (scatter) {
+    if (scatterWallet) {
       yield call(eosService.forgetIdentity);
       yield call(eosService.initEosioWithScatter);
 
@@ -432,7 +444,7 @@ export default function*() {
   yield takeLatest(EMAIL_VERIFICATION, verifyEmailWorker);
   yield takeLatest(I_HAVE_EOS_ACCOUNT, iHaveEosAccountWorker);
   yield takeLatest(I_HAVE_NOT_EOS_ACCOUNT, idontHaveEosAccountWorker);
-  yield takeLatest([SIGNUP_WITH_WALLET], signUpWithWalletWorker);
+  yield takeLatest(SIGNUP_WITH_WALLET, signUpWithWalletWorker);
   yield takeLatest(SHOW_WALLET_SIGNUP_FORM, showWalletSignUpFormWorker);
   yield takeLatest(
     [SIGNUP_WITH_WALLET_SUCCESS, REDIRECT_TO_FEED],

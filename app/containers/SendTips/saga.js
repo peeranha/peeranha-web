@@ -285,7 +285,7 @@ export function* selectKeycatAccountWorker() {
 
     if (!tipsKeycatEosService) {
       tipsKeycatEosService = new Eosio();
-      yield call(tipsKeycatEosService.initEosioWithoutScatter);
+      yield call(tipsKeycatEosService.initEosioWithKeycat);
       yield put(addTipsKeycatEosService(tipsKeycatEosService));
     } else {
       yield call(tipsKeycatEosService.resetKeycatUserData);

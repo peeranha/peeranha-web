@@ -12,6 +12,12 @@ export const SCATTER_IN_NOT_INSTALLED = 'Scatter is not installed.';
 export const SCATTER_TIMEOUT_ERROR = 'Scatter timeout';
 export const SCATTER_TIMEOUT_DURATION = 10000; // 1 sec
 
+export const initVals = {
+  withOutWallets: 'INITIALIZED_WITHOUT_WALLETS',
+  initWithScatter: 'INITIALIZED_WITH_SCATTER',
+  initWithKeycat: 'INITIALIZED_WITH_KEYCAT',
+};
+
 export const AWS_URL =
   'https://yb1ib2fyhc.execute-api.us-east-2.amazonaws.com/default/regsterPromo';
 export const HUBSPOT_URL =

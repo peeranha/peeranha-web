@@ -50,12 +50,17 @@ export function* initEosioWorker({
     }
 
     if (autoLoginData && autoLoginData.loginWithKeycat) {
-      yield call(eosService.initEosioWithoutScatter);
-      yield call(
-        eosService.setKeycatAutoLoginData,
-        autoLoginData.keycatUserData,
-      );
-      yield put(initEosioSuccess(eosService));
+      try {
+        yield call(eosService.initEosioWithKeycat);
+        yield call(
+          eosService.setKeycatAutoLoginData,
+          autoLoginData.keycatUserData,
+        );
+        yield put(initEosioSuccess(eosService));
+      } catch (err) {
+        yield call(eosService.initEosioWithoutScatter);
+        yield put(initEosioSuccess(eosService));
+      }
 
       return null;
     }

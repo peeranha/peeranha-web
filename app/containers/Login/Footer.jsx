@@ -57,7 +57,7 @@ const WalletButtonStyles = css`
   }
 `;
 
-export const WalletButton = styled(Button)`
+export const ScatterButton = styled(Button)`
   ${WalletButtonStyles};
 `;
 
@@ -86,11 +86,11 @@ const ButtonsGroup = styled.div`
 `;
 
 export const LoginViaScatter = ({ action, processing, isMobileDevice }) => (
-  <WalletButton onClick={action || null} disabled={processing}>
+  <ScatterButton onClick={action || null} disabled={processing}>
     {!isMobileDevice && <img src={scatterLogo} alt="scatter" />}
     {!isMobileDevice && <img src={sqrlLogo} alt="sqrl" />}
     <img src={wombatLogo} alt="wombat" />
-  </WalletButton>
+  </ScatterButton>
 );
 
 LoginViaScatter.propTypes = {
@@ -112,55 +112,66 @@ LoginViaKeycat.propTypes = {
 };
 
 const Footer = ({
-  walletAction,
+  walletButtonAction,
   loginWithWalletProcessing,
   showWalletSignUpProcessing,
   loginWithEmailProcessing,
   emailVerificationProcessing,
   emailChecking,
   signUpText = null,
-}) => (
-  <Box>
-    <Heading>
-      {signUpText || <FormattedMessage {...messages.loginViaWallet} />}
-    </Heading>
-    <ButtonsGroup>
-      <LoginViaScatter
-        action={() => walletAction({ scatter: true })}
-        processing={
-          loginWithWalletProcessing ||
-          showWalletSignUpProcessing ||
-          emailChecking ||
-          emailVerificationProcessing ||
-          loginWithEmailProcessing
-        }
-        isMobileDevice={isMobile(window.navigator).any}
-      />
-      <LoginViaKeycat
-        action={() => walletAction({ keycat: true })}
-        processing={
-          loginWithWalletProcessing ||
-          showWalletSignUpProcessing ||
-          emailChecking ||
-          emailVerificationProcessing ||
-          loginWithEmailProcessing
-        }
-      />
-    </ButtonsGroup>
-    {!signUpText && (
-      <IdontHaveAnAccount
-        disabled={
-          loginWithWalletProcessing ||
-          loginWithEmailProcessing ||
-          showWalletSignUpProcessing
-        }
-      />
-    )}
-  </Box>
-);
+}) => {
+  const keycatSupportedBrowsers =
+    navigator.userAgent.includes('Chrome') ||
+    navigator.userAgent.includes('Firefox') ||
+    navigator.userAgent.includes('Safari');
+
+  const isMobileDevice = isMobile(window.navigator).any;
+
+  return (
+    <Box>
+      <Heading>
+        {signUpText || <FormattedMessage {...messages.loginViaWallet} />}
+      </Heading>
+      <ButtonsGroup>
+        <LoginViaScatter
+          action={() => walletButtonAction({ scatterWallet: true })}
+          processing={
+            loginWithWalletProcessing ||
+            showWalletSignUpProcessing ||
+            emailChecking ||
+            emailVerificationProcessing ||
+            loginWithEmailProcessing
+          }
+          isMobileDevice={isMobileDevice}
+        />
+        {keycatSupportedBrowsers && (
+          <LoginViaKeycat
+            action={() => walletButtonAction({ keycatWallet: true })}
+            processing={
+              loginWithWalletProcessing ||
+              showWalletSignUpProcessing ||
+              emailChecking ||
+              emailVerificationProcessing ||
+              loginWithEmailProcessing
+            }
+          />
+        )}
+      </ButtonsGroup>
+      {!signUpText && (
+        <IdontHaveAnAccount
+          disabled={
+            loginWithWalletProcessing ||
+            loginWithEmailProcessing ||
+            showWalletSignUpProcessing
+          }
+        />
+      )}
+    </Box>
+  );
+};
 
 Footer.propTypes = {
-  walletAction: PropTypes.func,
+  walletButtonAction: PropTypes.func,
   loginWithWalletProcessing: PropTypes.bool,
   showWalletSignUpProcessing: PropTypes.bool,
   loginWithEmailProcessing: PropTypes.bool,

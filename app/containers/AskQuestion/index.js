@@ -104,7 +104,7 @@ AskQuestion.propTypes = {
   askQuestionDispatch: PropTypes.func.isRequired,
   getQuestionsDispatch: PropTypes.func.isRequired,
   communities: PropTypes.array.isRequired,
-  existingQuestions: PropTypes.array.isRequired,
+  existingQuestions: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({
