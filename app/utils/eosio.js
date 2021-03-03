@@ -7,7 +7,7 @@ import ScatterJS from 'scatterjs-core';
 import ScatterEOS from 'scatterjs-plugin-eosjs';
 import { TextDecoder, TextEncoder } from 'text-encoding';
 import orderBy from 'lodash/orderBy';
-import { Keycat } from 'keycatjs';
+import { Keycat } from '@telosnetwork/telos-keycatjs';
 
 import { AUTOLOGIN_DATA } from 'containers/Login/constants';
 import blockchainErrors from 'containers/ErrorPage/blockchainErrors';
