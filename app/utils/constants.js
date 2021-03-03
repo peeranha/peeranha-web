@@ -240,3 +240,5 @@ export const BOUNTY_STATUS_PENDING = 3;
 
 // Cookies constants
 export const SINGLE_COMMUNITY_DETAILS = 'singleCommunityDetails';
+
+export const KEY_LAST_RATING_UPDATE_TIME = 18;

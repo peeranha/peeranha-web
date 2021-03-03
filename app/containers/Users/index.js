@@ -79,7 +79,7 @@ const Users = ({
 
   const userCount = useMemo(
     () => (single ? communityInfo?.['users_subscribed'] ?? 0 : stat.user_count),
-    [stat, communityInfo],
+    [stat.user_count, communityInfo],
   );
 
   const dropdownFilter = useCallback(
