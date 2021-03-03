@@ -25,6 +25,8 @@ import ShowActiveKeyButton from '../ShowActiveKey';
 import DeleteAccountButton from '../DeleteAccount';
 import ChangePasswordButton from '../ChangePasswordByPrevious';
 import TelegramAccountAction from '../TelegramAccountAction';
+import * as routes from '../../routes-config';
+import A from '../../components/A';
 
 const AuthorizationData = ({
   locale,
@@ -37,6 +39,9 @@ const AuthorizationData = ({
 }) => {
   const isLoggedInWithWallet =
     loginData.loginWithScatter || loginData.loginWithKeycat;
+  const referralLink = `${process.env.APP_LOCATION}${routes.users()}/${
+    tgData.temporaryAccountName
+  }`;
   return (
     <BaseStyled
       position="bottom"
@@ -83,19 +88,35 @@ const AuthorizationData = ({
             )}
 
             {tgData && (
-              <tr>
-                <td>
-                  <FormattedMessage {...signupMessages.tgAccountID} />
-                </td>
-                <td>{tgData.telegram_id}</td>
-                <td>
-                  {!tgData.confirmed && (
-                    <TelegramAccountAction actionType={CONFIRM_TG_ACCOUNT} />
-                  )}
+              <>
+                <tr>
+                  <td>
+                    <FormattedMessage {...signupMessages.tgAccountID} />
+                  </td>
+                  <td>{tgData.telegram_id}</td>
+                  <td>
+                    {!tgData.confirmed && (
+                      <TelegramAccountAction actionType={CONFIRM_TG_ACCOUNT} />
+                    )}
 
-                  <TelegramAccountAction actionType={UNLINK_TG_ACCOUNT} />
-                </td>
-              </tr>
+                    <TelegramAccountAction actionType={UNLINK_TG_ACCOUNT} />
+                  </td>
+                </tr>
+                {!tgData.confirmed && (
+                  <tr>
+                    <td>
+                      <FormattedMessage
+                        {...signupMessages.temporaryAccountLink}
+                      />
+                    </td>
+                    <td>
+                      <A to={routes.profileView(tgData.temporaryAccountName)}>
+                        {referralLink}
+                      </A>
+                    </td>
+                  </tr>
+                )}
+              </>
             )}
 
             {!isLoggedInWithWallet && (
