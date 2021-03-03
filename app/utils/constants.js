@@ -45,6 +45,9 @@ export const COMMUNITY_ADMIN_OFFICIAL_ANSWER = 7;
 export const SECTION_ID = 'section_id';
 export const PERMISSION_GRANTED = '1';
 
+export const PROPERTY_ANSWER_15_MINUTES = 12;
+export const PROPERTY_FIRST_ANSWER = 13;
+
 export const moderatorPermissions = {
   MODERATOR_INFINITE_IMPACT: {
     code: 1,
@@ -199,6 +202,7 @@ export const CONFIRM_TELEGRAM_ACCOUNT = 'apprvacc';
 export const UNLINK_TELEGRAM_ACCOUNT = 'dsapprvacc';
 
 export const PROMOTE_QUESTION_METHOD = 'addhotquestn';
+export const CHANGE_PROMO_QUEST_COMM = 'chngpromcomm';
 
 // Top community questions methods
 export const ADD_TO_TOP_COMMUNITY_METHOD = 'addtotopcomm';
@@ -233,3 +237,6 @@ export const TEMPORARY_ACCOUNT_KEY = 15;
 export const BOUNTY_STATUS_ACTIVE = 1;
 export const BOUNTY_STATUS_PAID = 2;
 export const BOUNTY_STATUS_PENDING = 3;
+
+// Profile properties
+export const KEY_LAST_RATING_UPDATE_TIME = 18;

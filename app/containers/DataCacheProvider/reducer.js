@@ -71,21 +71,23 @@ function dataCacheProviderReducer(state = initialState, action) {
     case GET_STAT:
       return state.set('statLoading', true);
     case GET_STAT_SUCCESS:
-      return state.set('statLoading', false).set('stat', stat);
+      return state.set('statLoading', false).set('stat', fromJS(stat));
     case GET_STAT_ERROR:
       return state.set('statLoading', false).set('getStatError', getStatError);
 
     case GET_FAQ:
       return state.set('getFaqLoading', true);
     case GET_FAQ_SUCCESS:
-      return state.set('getFaqLoading', false).set('faq', faq);
+      return state.set('getFaqLoading', false).set('faq', fromJS(faq));
     case GET_FAQ_ERROR:
       return state.set('getFaqLoading', false).set('getFaqError', getFaqError);
 
     case GET_TUTORIAL:
       return state.set('getTutorialLoading', true);
     case GET_TUTORIAL_SUCCESS:
-      return state.set('getTutorialLoading', false).set('tutorial', tutorial);
+      return state
+        .set('getTutorialLoading', false)
+        .set('tutorial', fromJS(tutorial));
     case GET_TUTORIAL_ERROR:
       return state
         .set('getTutorialLoading', false)
@@ -96,7 +98,8 @@ function dataCacheProviderReducer(state = initialState, action) {
     case GET_COMMUNITIES_WITH_TAGS_SUCCESS:
       return state
         .set('communitiesLoading', false)
-        .set('communities', communities);
+        .set('communities', fromJS(communities));
+
     case GET_COMMUNITIES_WITH_TAGS_ERROR:
       return state
         .set('communitiesLoading', false)
@@ -104,21 +107,24 @@ function dataCacheProviderReducer(state = initialState, action) {
 
     case UPDATE_TAG_OF_COMMUNITY:
       const updatedCommunities = [
-        ...state.get('communities').map((community, i) => {
-          if (i === updatedTagCommId) {
-            return {
-              ...community,
-              tags: community.tags.map((tag, j) => {
-                if (j === updatedTagId) return updatedTag;
-                return tag;
-              }),
-            };
-          }
-          return community;
-        }),
+        ...state
+          .get('communities')
+          .toJS()
+          .map((community, i) => {
+            if (i === updatedTagCommId) {
+              return {
+                ...community,
+                tags: community.tags.map((tag, j) => {
+                  if (j === updatedTagId) return updatedTag;
+                  return tag;
+                }),
+              };
+            }
+            return community;
+          }),
       ];
 
-      return state.set('communities', updatedCommunities);
+      return state.set('communities', fromJS(updatedCommunities));
 
     case REMOVE_USER_PROFILE:
       const users = state.get('users').toJS();

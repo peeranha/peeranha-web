@@ -7,22 +7,32 @@ import {
   NO_AVATAR,
   UPDATE_ACC,
   INVITE_USER,
+  KEY_LAST_RATING_UPDATE_TIME,
 } from './constants';
 
 import { ApplicationError } from './errors';
+import { dateNowInSeconds } from './datetime';
 
 export const updateAcc = async (profile, eosService) => {
   if (!profile) throw new ApplicationError('No profile');
 
-  const currentTime = Math.floor(Date.now() / 1000);
+  const currentTime = dateNowInSeconds();
   const currentPeriod = Math.floor(
     (currentTime - profile.registration_time) /
       process.env.ACCOUNT_STAT_RESET_PERIOD,
   );
 
   const periodsHavePassed = currentPeriod - profile.last_update_period;
+  const integerProperties = profile?.integer_properties ?? [];
+  const lastUpdateTime = integerProperties.find(
+    prop => prop.key === KEY_LAST_RATING_UPDATE_TIME,
+  )?.value;
+  const timeSinceRatingUpdate = currentTime - lastUpdateTime;
 
-  if (periodsHavePassed > 0) {
+  if (
+    periodsHavePassed > 0 ||
+    timeSinceRatingUpdate >= process.env.ACCOUNT_STAT_RESET_PERIOD
+  ) {
     await eosService.sendTransaction(profile.user, UPDATE_ACC, {
       user: profile.user,
     });
@@ -35,20 +45,24 @@ export const registerAccount = async (profile, eosService) => {
   const profileText = JSON.stringify(profile);
   const ipfsHash = await saveText(profileText);
 
-  await eosService.sendTransaction(
-    profile.accountName,
-    REGISTER_ACC,
-    {
-      user: profile.accountName,
-      display_name: profile.displayName,
-      ipfs_profile: ipfsHash,
-      ipfs_avatar: NO_AVATAR,
-    },
-    null,
-    true,
-  );
+  try {
+    await eosService.sendTransaction(
+      profile.accountName,
+      REGISTER_ACC,
+      {
+        user: profile.accountName,
+        display_name: profile.displayName,
+        ipfs_profile: ipfsHash,
+        ipfs_avatar: NO_AVATAR,
+      },
+      null,
+      true,
+    );
 
-  return true;
+    return true;
+  } catch (e) {
+    return false;
+  }
 };
 
 export const isUserInSystem = async (user, eosService) => {

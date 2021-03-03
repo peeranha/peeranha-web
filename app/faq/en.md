@@ -292,6 +292,8 @@ To set it in group/channel click "Add members" and add @PeeranhaBot.
 
 **Commands for bot:**
 
+/settings - set the auto answering, default community and tags for the chat
+
 /subscribe - subscribes to the notifications from a community (e.g. /subscribe Peeranha)
 
 /unsubscribe - unsubscribes from the notifications from a community (e.g. /unsubscribe Peeranha)
@@ -299,6 +301,8 @@ To set it in group/channel click "Add members" and add @PeeranhaBot.
 /communities - displays the communities that are available for subscription
 
 /subscriptions - displays current subscriptions
+
+/postquestion _Question Text_ - ask a question in one step (Default Community and Tags have to be set in the chat settings)
 
 **Commands for private chat:**
 
@@ -312,7 +316,7 @@ To set it in group/channel click "Add members" and add @PeeranhaBot.
 
 _Post an answer directly from Telegram by using "Reply" action on a notification message about a posted question._
 
-_If you haven't linked you telegram account to Peeranha account yet, bot allows you to post question with temporary telegram account. Click here to learn more details https://testpeeranha.io/faq/#section_id_1_4_
+_If you haven't linked your Telegram account to Peeranha profile yet, bot will allow you to post questions or answers with a Temporary created account. Follow the <a href="https://peeranha.io/faq/#section_id_1_4" style="color: #576fed; font-style: italic;">link</a> to learn more details._
 
 ## Boost
 
@@ -355,6 +359,6 @@ If there are more than 3 Promoted questions in the Community then 3 of them are 
 
 At the same time, the original copies of Promoted questions will also be displayed in the general list of Community's questions below the Promoted questions.
 
-### Why can not I promote my question?
+### Why can`t I promote my question?
 
-If an error message occurs when trying to Promote a question and the question is posted without the promotion, please try to enable pop-ups in the browser settings for this site. If it doesn't help, please contact our Support team, https://peeranha.io/support/#support_form
+If an error message occurs when trying to Promote a question and the question is posted without the promotion, please try to enable pop-ups in the browser settings for this site. If it doesn't help, please contact our <a href="https://peeranha.io/support/#support_form" style="color: #576fed; font-style: italic;">support team</a>

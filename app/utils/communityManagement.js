@@ -100,6 +100,14 @@ export const getCommunityById = async (eosService, communityId) => {
     about,
     officialSite = null,
     questionsType = 2,
+    // isBlogger,
+    // banner,
+    // facebook,
+    // instagram,
+    // youtube,
+    // vk,
+    // main_color,
+    // highlight_color,
   } = community;
 
   return {
@@ -111,6 +119,14 @@ export const getCommunityById = async (eosService, communityId) => {
     questionsType,
     questions_asked,
     users_subscribed,
+    // isBlogger,
+    // banner,
+    // facebook,
+    // instagram,
+    // youtube,
+    // vk,
+    // main_color,
+    // highlight_color,
   };
 };
 
@@ -294,6 +310,45 @@ export const getAllCommunities = async (eosService, count) => {
   return updatedRows;
 };
 
+export const getCommunityWithTags = async (eosService, id) => {
+  const row = await eosService.getTableRow(
+    COMMUNITIES_TABLE,
+    ALL_COMMUNITIES_SCOPE,
+    id,
+  );
+
+  const community = JSON.parse(await getText(row.ipfs_description));
+  const {
+    avatar,
+    name,
+    description,
+    about,
+    main_description,
+    language,
+    officialSite = null,
+  } = community;
+
+  const { rows: tagRows } = await eosService.getTableRows(
+    TAGS_TABLE,
+    getTagScope(id),
+    0,
+    -1,
+  );
+
+  return {
+    ...row,
+    label: name,
+    value: id,
+    avatar: getFileUrl(avatar),
+    description,
+    about,
+    main_description,
+    language,
+    officialSite: officialSite || null,
+    tags: tagRows.map(tag => ({ ...tag, label: tag.name, value: tag.id })),
+  };
+};
+
 export async function getSuggestedCommunities(eosService, lowerBound, limit) {
   const { rows } = await eosService.getTableRows(
     CREATED_COMMUNITIES_TABLE,
@@ -349,12 +404,14 @@ export async function followCommunity(
 
 /* eslint camelcase: 0 */
 export async function createCommunity(eosService, selectedAccount, community) {
-  const { imgHash } = await uploadImg(community.avatar);
+  const { imgHash: avatarField } = await uploadImg(community.avatar);
+  //const { imgHash: bannerField } = await uploadImg(community.banner);
 
   const communityIpfsHash = await saveText(
     JSON.stringify({
       ...community,
-      avatar: imgHash,
+      avatar: avatarField,
+      //banner: bannerField,
     }),
   );
 

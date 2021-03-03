@@ -52,6 +52,14 @@ import {
   FORM_TYPE,
   STATE_KEY,
   ANY_TYPE,
+  IS_BLOGGER_MODE_FIELD,
+  COMM_BANNER_FIELD,
+  FACEBOOK_LINK_FIELD,
+  INSTAGRAM_LINK_FIELD,
+  YOUTUBE_LINK_FIELD,
+  VK_LINK_FIELD,
+  MAIN_COLOR_FIELD,
+  HIGHLIGHT_COLOR_FIELD,
 } from './constants';
 
 import Form from './Form';
@@ -100,6 +108,14 @@ export const CreateCommunity = ({
       main_description: values[COMM_MAIN_DESCRIPTION_FIELD],
       officialSite: values[COMM_OFFICIAL_SITE_FIELD],
       questionsType: parseInt(values[FORM_TYPE] ?? ANY_TYPE),
+      isBlogger: values[IS_BLOGGER_MODE_FIELD],
+      banner: values[COMM_BANNER_FIELD],
+      facebook: values[FACEBOOK_LINK_FIELD],
+      instagram: values[INSTAGRAM_LINK_FIELD],
+      youtube: values[YOUTUBE_LINK_FIELD],
+      vk: values[VK_LINK_FIELD],
+      main_color: values[MAIN_COLOR_FIELD],
+      highlight_color: values[HIGHLIGHT_COLOR_FIELD],
       tags,
     };
     createCommunityDispatch(community, reset);

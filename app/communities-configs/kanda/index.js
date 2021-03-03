@@ -5,7 +5,6 @@ import CustomSubHeader from 'components/CustomSubHeaders/CustomSubHeader';
 import CustomMobileSubHeader from 'components/CustomSubHeaders/CustomMobileSubHeader';
 
 import favicon from '!file-loader?name=[name].[ext]!images/favicon-kanda.ico';
-import KandaLogo from './images/kanda.jpg';
 import KandaLogoWithTitle from './images/kandaWithTitle.png';
 
 import RobotoRegularEOT from './fonts/Roboto-Regular.eot';

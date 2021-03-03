@@ -7,7 +7,7 @@ import ScatterJS from 'scatterjs-core';
 import ScatterEOS from 'scatterjs-plugin-eosjs';
 import { TextDecoder, TextEncoder } from 'text-encoding';
 import orderBy from 'lodash/orderBy';
-import { Keycat } from 'keycatjs';
+import { Keycat } from '@telosnetwork/telos-keycatjs';
 
 import { AUTOLOGIN_DATA } from 'containers/Login/constants';
 import blockchainErrors from 'containers/ErrorPage/blockchainErrors';
@@ -134,12 +134,20 @@ class EosioService {
 
   keycatSignIn = async () => {
     if (!this.keycat) await this.initKeycat();
-    const keycatUserData = await this.keycat.signin();
-    this.keycatUserData = keycatUserData;
-    this.selectedAccount = keycatUserData.accountName;
-    this.withKeycat = true;
-    this.withScatter = false;
-    return keycatUserData;
+
+    try {
+      const keycatUserData = await this.keycat.signin();
+
+      this.keycatUserData = keycatUserData;
+      this.selectedAccount = keycatUserData.accountName;
+
+      this.withKeycat = true;
+      this.withScatter = false;
+
+      return keycatUserData;
+    } catch (e) {
+      return null;
+    }
   };
 
   setKeycatAutoLoginData = async keycatUserData => {
@@ -244,49 +252,57 @@ class EosioService {
     }
   };
 
+  // send transaction with single action
   sendTransaction = async (
     actor,
     action,
     data,
     account,
     waitForGettingToBlock,
-  ) => {
+  ) =>
+    this.sendTransactionMult(
+      actor,
+      [{ action, data, account }],
+      waitForGettingToBlock,
+    );
+
+  // send transaction with multiple actions at one time
+  sendTransactionMult = async (actor, actionsData, waitForGettingToBlock) => {
     const { endpoint } = this.node;
 
     if (!this.initialized) throw new ApplicationError(EOS_IS_NOT_INIT);
-
-    Object.keys(data).forEach(x => {
-      if (typeof data[x] === 'string') {
-        data[x] = data[x].trim();
-      }
-    });
-
-    createPushActionBody(data);
 
     const isKeycatUser =
       this.keycatUserData && this.keycatUserData.accountName === actor;
     const keycatPermission = this.keycatUserData?.permission;
 
-    const transaction = {
-      actions: [
-        {
-          account: account || process.env.EOS_CONTRACT_ACCOUNT,
-          name: action,
-          authorization: [
-            {
-              actor,
-              permission: isKeycatUser
-                ? keycatPermission
-                : DEFAULT_EOS_PERMISSION,
-            },
-          ],
-          data: {
-            ...data,
-          },
-        },
-      ],
-    };
+    const actions = actionsData.map(el => {
+      Object.keys(el.data).forEach(x => {
+        if (typeof el.data[x] === 'string') {
+          el.data[x] = el.data[x].trim();
+        }
+      });
 
+      createPushActionBody(el.data);
+
+      return {
+        account: el.account || process.env.EOS_CONTRACT_ACCOUNT,
+        name: el.action,
+        authorization: [
+          {
+            actor,
+            permission: isKeycatUser
+              ? keycatPermission
+              : DEFAULT_EOS_PERMISSION,
+          },
+        ],
+        data: {
+          ...el.data,
+        },
+      };
+    });
+
+    const transaction = { actions };
     const transactionHeader = {
       blocksBehind: 3,
       expireSeconds: 60,
@@ -321,16 +337,15 @@ class EosioService {
 
     if (this.withKeycat) {
       try {
-        const result = await this.keycat.account(actor).transact(
-          {
-            actions: transaction.actions,
-          },
-          {
-            blocksBehind: 3,
-            expireSeconds: 60,
-          },
-        );
-        return result;
+        const trx = await this.keycat
+          .account(actor)
+          .transact(transaction, transactionHeader);
+
+        if (waitForGettingToBlock) {
+          await this.awaitTransactionToBlock(trx.processed.block_num);
+        }
+
+        return trx;
       } catch (err) {
         throw new BlockchainError(err.message);
       }
@@ -382,12 +397,10 @@ class EosioService {
 
       if (isHandled) throw new BlockchainError(message);
 
-      const method = this.sendTransaction.bind(
+      const method = this.sendTransactionMult.bind(
         null,
         actor,
-        action,
-        data,
-        account,
+        actionsData,
         waitForGettingToBlock,
       );
 
@@ -407,6 +420,8 @@ class EosioService {
     while (waitCycle < 20) {
       console.log('Waiting for transaction to complete...');
       try {
+        // eslint-disable-next-line no-await-in-loop
+        await new Promise(res => setTimeout(() => res(), 300));
         // eslint-disable-next-line no-await-in-loop
         await this.eosApi.authorityProvider.get_block(blockId);
         success = true;
@@ -454,7 +469,7 @@ class EosioService {
     keyType,
     code,
   ) => {
-    const { endpoint } = this.node; // ??? endpoint of null
+    const { endpoint } = this.node;
 
     if (!this.initialized) throw new ApplicationError(EOS_IS_NOT_INIT);
 

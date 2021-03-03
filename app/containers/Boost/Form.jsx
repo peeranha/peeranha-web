@@ -1,4 +1,4 @@
-import React, { memo, useMemo, useEffect, useCallback } from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
@@ -6,25 +6,26 @@ import { reduxForm } from 'redux-form/immutable';
 import { injectIntl, FormattedMessage } from 'react-intl';
 
 import { scrollToErrorField } from 'utils/animation';
+import { singleCommunityStyles } from 'utils/communityManagement';
 
-import messages from './messages';
-
-import {
-  FORM_TYPE,
-  CURRENT_STAKE_FORM,
-} from './constants';
-import { DARK_SECONDARY } from 'style-constants';
+import { DARK_SECONDARY, BORDER_RADIUS_M } from 'style-constants';
 
 import TipsBase from 'components/Base/TipsBase';
 import { BaseSpecialOne } from 'components/Base/BaseTransparent';
-import Tips from './Tips';
-import PredictionForm from './PredictionForm';
-import CurrentStakeForm, { MinStake } from './CurrentStakeForm';
 import FormBox from 'components/Form';
 import Button from 'components/Button/Contained/InfoLarge';
 import TransparentButton from 'components/Button/Contained/Transparent';
 import Label from 'components/FormFields/Label';
 import BlockedInfoArea from 'components/BlockedInfoArea';
+import Tips from './Tips';
+import PredictionForm from './PredictionForm';
+import CurrentStakeForm, { MinStake } from './CurrentStakeForm';
+
+import { FORM_TYPE, CURRENT_STAKE_FORM } from './constants';
+
+import messages from './messages';
+
+const { projectBorderRadius } = singleCommunityStyles();
 
 export const InputWrapper = styled.div`
   position: relative;
@@ -41,11 +42,7 @@ export const InputWrapper = styled.div`
     font-size: 20px;
     font-weight: bold;
 
-    ${({ isPrediction }) => isPrediction ? `
-      :disabled {
-        opacity: 1;
-      }
-    ` : ''}
+    ${({ isPrediction }) => (isPrediction ? `:disabled { opacity: 1; }` : '')};
   }
 
   .err + ${MinStake} {
@@ -61,10 +58,21 @@ export const InputProgressBar = styled.div`
   position: absolute;
   bottom: 0;
   left: 0;
-  width: ${({ width }) => width || 0}%;
+  width: ${projectBorderRadius
+    ? `calc(100% - ${Number(BORDER_RADIUS_M.split('px')[0]) * 0.75 * 2}px)`
+    : '100%'};
   max-width: 100%;
+  margin-left: ${() =>
+    projectBorderRadius
+      ? `${Number(BORDER_RADIUS_M.split('px')[0]) * 0.75}px`
+      : ''};
   height: 4px;
-  background-color: ${DARK_SECONDARY};
+  background-image: ${({ width }) => `linear-gradient(
+    90deg,
+    ${DARK_SECONDARY} 0%,
+    ${DARK_SECONDARY} ${width || 0}%,
+    transparent ${width || 0}%
+  )`};
 `;
 
 const Title = styled.p`
@@ -85,22 +93,31 @@ const Title = styled.p`
 
 const Form = ({
   handleSubmit,
+  reset,
   changeStake,
   changeStakeLoading,
   changeCurrentStake,
   maxStake,
   initialUserStake,
+  currentStake,
   onChangeCurrentStake,
   locale,
   formValues,
   nextWeekMaxStake,
 }) => {
+  const resetAction =
+    initialUserStake === currentStake
+      ? reset
+      : () => onChangeCurrentStake(initialUserStake || 0);
+
   return (
     <div className="mb-5">
       {formValues[CURRENT_STAKE_FORM] !== undefined && (
         <>
-          <Title><FormattedMessage {...messages.formTitle} /></Title>
-          <TipsBase>    
+          <Title>
+            <FormattedMessage {...messages.formTitle} />
+          </Title>
+          <TipsBase>
             <BaseSpecialOne className="position-relative">
               {!maxStake && (
                 <BlockedInfoArea>
@@ -128,7 +145,7 @@ const Form = ({
                   <Button type="submit" className="mr-4">
                     <FormattedMessage {...messages.formSubmit} />
                   </Button>
-                  <TransparentButton type="button" onClick={() => onChangeCurrentStake(initialUserStake || 0)}>
+                  <TransparentButton type="reset" onClick={resetAction}>
                     <FormattedMessage {...messages.formCancel} />
                   </TransparentButton>
                 </div>
@@ -141,10 +158,11 @@ const Form = ({
       )}
     </div>
   );
-}
+};
 
 Form.propTypes = {
   handleSubmit: PropTypes.func,
+  reset: PropTypes.func,
   formValues: PropTypes.object,
   changeStake: PropTypes.func,
   changeStakeLoading: PropTypes.bool,
@@ -154,6 +172,7 @@ Form.propTypes = {
   onChangeCurrentStake: PropTypes.func,
   locale: PropTypes.string,
   currentStake: PropTypes.number,
+  nextWeekMaxStake: PropTypes.number,
 };
 
 const FormClone = reduxForm({
@@ -163,23 +182,19 @@ const FormClone = reduxForm({
 
 export default memo(
   injectIntl(
-    connect(
-      (
-        state,
-        { currentStake }
-      ) => {
-        const form = state.toJS().form[FORM_TYPE] || { values: {} };
+    connect((state, { currentStake }) => {
+      const form = state.toJS().form[FORM_TYPE] || { values: {} };
 
-        const currentStakeValue = typeof currentStake === 'number' && currentStake > 0 ? currentStake : 0;
+      const currentStakeValue =
+        typeof currentStake === 'number' && currentStake > 0 ? currentStake : 0;
 
-        return {
-          formValues: form.values,
-          initialValues: {
-            [CURRENT_STAKE_FORM]: currentStakeValue.toString(),
-          },
-          enableReinitialize: true,
-        };
-      },
-    )(FormClone),
+      return {
+        formValues: form.values,
+        initialValues: {
+          [CURRENT_STAKE_FORM]: currentStakeValue.toString(),
+        },
+        enableReinitialize: true,
+      };
+    })(FormClone),
   ),
 );

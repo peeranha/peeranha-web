@@ -1,25 +1,29 @@
 /* eslint camelcase: 0 */
-import { takeLatest, call, put, select } from 'redux-saga/effects';
+import { call, put, select, takeLatest } from 'redux-saga/effects';
 
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
 import {
   getAskedQuestion,
-  editQuestion,
   getQuestionById,
   getPromotedQuestions,
-  promoteQuestion,
+  getPromoteQuestTrActData,
+  getChangePromoCommTrActData,
+  getEditQuestTrActData,
 } from 'utils/questionsManagement';
-
-import { editBounty } from 'utils/walletManagement';
-import { ONE_HOUR_IN_SECONDS } from 'utils/datetime';
+import { getEditBountyTrActData } from 'utils/walletManagement';
+import { getCommunityWithTags } from 'utils/communityManagement';
+import { ONE_HOUR_IN_SECONDS, dateNowInSeconds } from 'utils/datetime';
 
 import { isValid, isAuthorized } from 'containers/EosioProvider/saga';
+import {
+  isGeneralQuestion,
+  updateQuestionList,
+} from 'containers/ViewQuestion/saga';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { selectQuestionData } from 'containers/ViewQuestion/selectors';
-import { updateQuestionList } from 'containers/ViewQuestion/saga';
 
 import {
   GET_ASKED_QUESTION,
@@ -36,6 +40,7 @@ import {
   editQuestionSuccess,
   editQuestionErr,
 } from './actions';
+import { selectQuestion } from './selectors';
 
 export function* getAskedQuestionWorker({ questionId }) {
   try {
@@ -49,16 +54,43 @@ export function* getAskedQuestionWorker({ questionId }) {
       freshQuestion = yield call(getAskedQuestion, ipfs_link, eosService);
     }
 
-    const question = cachedQuestion ? cachedQuestion.content : {...freshQuestion};
+    const question = cachedQuestion
+      ? cachedQuestion.content
+      : { ...freshQuestion };
+    const { communityId } = question;
 
-    const promotedQuestions = yield call(getPromotedQuestions, eosService, question.community.id);
-    const promotedQuestion = promotedQuestions.find(item => item.question_id === questionId); 
+    const data = yield call(getQuestionById, eosService, questionId);
+    if (data) {
+      question.type = +isGeneralQuestion(data.properties);
+    }
+
+    if (communityId) {
+      question.community = yield call(
+        getCommunityWithTags,
+        eosService,
+        communityId,
+      );
+
+      delete question.communityId;
+
+      question.chosenTags.map(tag => (tag.label = tag.name));
+    }
+
+    const promotedQuestions = yield call(
+      getPromotedQuestions,
+      eosService,
+      question.community?.id,
+    );
+
+    const promotedQuestion = promotedQuestions.find(
+      item => item.question_id === questionId,
+    );
 
     if (promotedQuestion) {
       question.promote = {
         startTime: promotedQuestion.start_time,
         endsTime: promotedQuestion.ends_time,
-      }
+      };
     }
 
     yield put(getAskedQuestionSuccess(question));
@@ -73,25 +105,74 @@ export function* editQuestionWorker({ question, questionId }) {
     const selectedAccount = yield call(eosService.getSelectedAccount);
     const cachedQuestion = yield select(selectQuestionData());
 
-    yield call(editQuestion, selectedAccount, questionId, { ...question }, eosService);
+    // collect actions for one transaction
+    const actionsData = [];
+
+    const editQuestTransActData = yield call(
+      getEditQuestTrActData,
+      selectedAccount,
+      questionId,
+      { ...question },
+    );
+
+    actionsData.push(editQuestTransActData);
 
     if (question?.bounty) {
       const now = Math.round(new Date().valueOf() / 1000);
       const bountyTime = now + question?.bountyHours * ONE_HOUR_IN_SECONDS;
 
-      yield call(
-        editBounty,
+      const transActData = getEditBountyTrActData(
         selectedAccount,
         question?.bountyFull,
         questionId,
         bountyTime,
         eosService,
       );
+
+      actionsData.push(transActData);
     }
 
     if (question.promote) {
-      yield call(promoteQuestion, eosService, selectedAccount, questionId, question.promote);
+      const transActData = getPromoteQuestTrActData(
+        selectedAccount,
+        questionId,
+        question.promote,
+      );
+
+      actionsData.push(transActData);
     }
+
+    // change promoted question community
+    const initialEditQuestData = yield select(selectQuestion());
+
+    if (initialEditQuestData.promote) {
+      const { endsTime } = initialEditQuestData.promote;
+      const prevCommId = initialEditQuestData.community.id;
+      const dateNow = dateNowInSeconds();
+      const currCommId = question.community.id;
+
+      if (endsTime > dateNow && prevCommId !== currCommId) {
+        const transActData = getChangePromoCommTrActData(
+          selectedAccount,
+          questionId,
+          prevCommId,
+        );
+
+        actionsData.push(transActData);
+      }
+    }
+
+    // send transaction with actions
+    const waitForGettingToBlock = !!actionsData.find(
+      el => el.waitForGettingToBlock,
+    );
+
+    yield call(
+      eosService.sendTransactionMult,
+      selectedAccount,
+      actionsData,
+      waitForGettingToBlock,
+    );
 
     if (cachedQuestion) {
       cachedQuestion.title = question.title;

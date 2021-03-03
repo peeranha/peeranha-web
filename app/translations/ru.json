@@ -138,7 +138,13 @@
   "app.common.yesterday": "Вчера",
   "app.common.official": "Официальный",
   "app.common.profilesUsersInfo": "Размер файла не должен превышать 2Мб",
+  "app.common.communityBannerInfo":
+    "Используйте картинку размера 1360 x 120 пикселей. Размер файла не должен превышать 1Мб",
   "app.common.fileSizeErrorMsg": "Размер файла больше 2Мб. Выберите другой...",
+  "app.common.bannerSizeErrorMsg":
+    "Размер файла больше 1Мб. Выберите другой...",
+  "app.common.incorrectBannerResolutionMsg":
+    "Разрешение картинки должно быть 1360 x 120 пикселей. Выберите другую...",
   "app.common.chooseFile": "Выберите файл",
   "app.common.skip": "Пропустить",
   "app.common.showMoreQuestions": "Показать больше найденных вопросов",
@@ -148,6 +154,7 @@
   "app.common.subscribe": "Подписаться",
   "app.common.unsubscribe": "Отписаться",
   "app.common.followSocialMedia": "Следите за нами в социальных сетях:",
+  "app.common.cannotTransferToYourself": "Нельзя отправлять самому себе",
 
   "app.telegram.user": "Телеграм пользователь",
   "app.telegram.userLabelPopover":
@@ -468,8 +475,15 @@
     "Максимальное число тегов было достигнуто",
   "app.containers.CreateCommunity.questionType": "Тип вопросов",
   "app.containers.CreateCommunity.anyQuestionDescriptionLabel":
-    "Вы можете выбрать тип вопроса при его создании",
+    "Пользователи смогут задавать как Общие, так и экспертные вопросы",
   "app.containers.CreateCommunity.anyQuestionDescriptionList": [],
+  "app.containers.CreateCommunity.bloggerModeLAbel": "Страница блогера",
+  "app.containers.CreateCommunity.facebookLink": "Ссылка на ваш Facebook",
+  "app.containers.CreateCommunity.instagramLink": "Ссылка на ваш Instagram",
+  "app.containers.CreateCommunity.youtubeLink": "Ссылка на ваш YouTube",
+  "app.containers.CreateCommunity.vkLink": "Ссылка на ваш VK",
+  "app.containers.CreateCommunity.mainColor": "Основной цвет",
+  "app.containers.CreateCommunity.highlightColor": "Цвет выделения",
 
   "app.containers.EditCommunity.communityTitleTip": "Название сообщества",
   "app.containers.EditCommunity.description": "Описание EditCommunity",
@@ -833,6 +847,9 @@
     "Я сохранил Master ключ в безопасном месте. Понимаю, что если я забуду пароль, Master ключ - единственный способ восстановить доступ к моему аккаунту.",
   "app.containers.SignUp.userAlreadyRegistered":
     "Пользователь с таким identity уже зарегистрирован",
+  "app.containers.SignUp.userRejectedSignatureRequest":
+    "Пользователь отклонил запрос подписи",
+  "app.containers.SignUp.userIsNotSelected": "Пользователь не выбран",
   "app.containers.SignUp.eosAccountNotFound": "Данный Telos аккаунт не найден",
   "app.containers.SignUp.keysDoNotMatch":
     "Приватные ключи не соответствуют Telos аккаунт имени",

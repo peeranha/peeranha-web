@@ -15,7 +15,7 @@ import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import {
   makeSelectLoginData,
-  makeSelectBalance,
+  makeSelectProfileInfo,
 } from 'containers/AccountProvider/selectors';
 
 import { hideSendTipsModal, showSendTipsModal, sendTips } from './actions';
@@ -27,6 +27,7 @@ import saga from './saga';
 import Button from '../SendTokens/StyledButton';
 import SendTipsForm from './SendTipsForm';
 import { selectUsers } from '../DataCacheProvider/selectors';
+import { getAvailableBalance } from '../../utils/profileManagement';
 
 export const SendTips = ({
   locale,
@@ -37,7 +38,7 @@ export const SendTips = ({
   hideSendTipsModalDispatch,
   showSendTipsModalDispatch,
   loginData,
-  balance,
+  profileInfo,
   account,
   form = 'send-Tips',
   cryptoAccounts,
@@ -45,30 +46,34 @@ export const SendTips = ({
   communityId,
   questionId,
   answerId,
-}) => (
-  <>
-    <Modal
-      show={!!showModal && showModal === form && account === whoWillBeTipped}
-      closeModal={hideSendTipsModalDispatch}
-    >
-      <SendTipsForm
-        locale={locale}
-        sendTips={(...args) =>
-          sendTipsDispatch(...args, communityId, questionId, answerId)
-        }
-        sendTipsProcessing={sendTipsProcessing}
-        loginData={loginData}
-        valueHasToBeLessThan={balance}
-        account={account}
-        cryptoAccounts={cryptoAccounts}
-      />
-    </Modal>
+}) => {
+  const availableBalance = getAvailableBalance(profileInfo);
 
-    <Button onClick={() => showSendTipsModalDispatch(form, account)}>
-      {children}
-    </Button>
-  </>
-);
+  return (
+    <>
+      <Modal
+        show={!!showModal && showModal === form && account === whoWillBeTipped}
+        closeModal={hideSendTipsModalDispatch}
+      >
+        <SendTipsForm
+          locale={locale}
+          sendTips={(...args) =>
+            sendTipsDispatch(...args, communityId, questionId, answerId)
+          }
+          sendTipsProcessing={sendTipsProcessing}
+          loginData={loginData}
+          valueHasToBeLessThan={availableBalance}
+          account={account}
+          cryptoAccounts={cryptoAccounts}
+        />
+      </Modal>
+
+      <Button onClick={() => showSendTipsModalDispatch(form, account)}>
+        {children}
+      </Button>
+    </>
+  );
+};
 
 SendTips.propTypes = {
   locale: PropTypes.string,
@@ -101,7 +106,7 @@ export default compose(
         cryptoAccounts: _get(profile, ['profile', 'cryptoAccounts'], {}),
         locale: makeSelectLocale()(state),
         loginData: makeSelectLoginData()(state),
-        balance: makeSelectBalance()(state),
+        profileInfo: makeSelectProfileInfo()(state),
         showModal: selectors.selectShowModal()(state),
         whoWillBeTipped: selectors.selectWhoWillBeTipped()(state),
         sendTipsProcessing: selectors.selectSendTipsProcessing()(state),

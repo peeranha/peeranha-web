@@ -60,6 +60,7 @@ import {
   GET_VERIFICATION_CODE_ERROR,
   VERIFY_EMAIL_ERROR,
   CHANGE_PASSWORD_ERROR as FORGOT_PASSWORD_CHANGE_PASSWORD_ERROR,
+  CHANGE_PASSWORD_SUCCESS as FORGOT_PASSWORD_CHANGE_PASSWORD_SUCCESS,
 } from 'containers/ForgotPassword/constants';
 
 import {
@@ -162,6 +163,9 @@ import { GET_RESULTS_ERROR } from 'containers/Search/constants';
 import { GET_TERMS_ERROR } from 'containers/TermsOfService/constants';
 import { INIT_EOSIO_ERROR } from 'containers/EosioProvider/constants';
 import { GET_USER_ACHIEVEMENTS_ERROR } from 'containers/Achievements/constants';
+import { GET_ASKED_QUESTION_ERROR } from 'containers/EditQuestion/constants';
+import { CHANGE_STAKE_ERROR } from 'containers/Boost/constants';
+
 import {
   SAVE_CRYPTO_ACCOUNTS_ERROR,
   SAVE_CRYPTO_ACCOUNTS_SUCCESS,
@@ -253,6 +257,8 @@ export const errHandlingTypes = [
   SELECT_ACCOUNT_ERROR,
   SEND_TIPS_ERROR,
   GET_USER_ACHIEVEMENTS_ERROR,
+  GET_ASKED_QUESTION_ERROR,
+  CHANGE_STAKE_ERROR,
 ];
 
 export const successHandlingTypes = [
@@ -275,4 +281,5 @@ export const successHandlingTypes = [
   CHANGE_QUESTION_TYPE_SUCCESS,
   SAVE_CRYPTO_ACCOUNTS_SUCCESS,
   SEND_TIPS_SUCCESS,
+  FORGOT_PASSWORD_CHANGE_PASSWORD_SUCCESS,
 ];

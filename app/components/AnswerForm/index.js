@@ -13,7 +13,7 @@ import {
   isAnswerOfficial,
   communityAdminOfficialAnswerPermission,
 } from 'utils/properties';
-import { strLength25x30000, required } from 'components/FormFields/validate';
+import { strLength15x30000, required } from 'components/FormFields/validate';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
@@ -64,8 +64,8 @@ export const AnswerForm = ({
       name={TEXT_EDITOR_ANSWER_FORM}
       component={TextEditorField}
       disabled={sendAnswerLoading}
-      validate={[strLength25x30000, required]}
-      warn={[strLength25x30000, required]}
+      validate={[strLength15x30000, required]}
+      warn={[strLength15x30000, required]}
       label={label}
       previewLabel={previewLabel}
     />

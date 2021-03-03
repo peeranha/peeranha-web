@@ -139,8 +139,14 @@
   "app.common.yesterday": "Yesterday",
   "app.common.official": "Official",
   "app.common.profilesUsersInfo": "File size should not exceed 2Mb",
+  "app.common.communityBannerInfo":
+    "Use an image that’s at least 1360 x 120 pixels. File size should not exceed 1Mb",
   "app.common.fileSizeErrorMsg":
     "File size is more than 2Mb. Choose another one...",
+  "app.common.bannerSizeErrorMsg":
+    "File size is more than 1Mb. Choose another one...",
+  "app.common.incorrectBannerResolutionMsg":
+    "Image resolution must be 1360 x 120 pixels. Choose another one...",
   "app.common.chooseFile": "Choose a file",
   "app.common.skip": "Skip",
   "app.common.showMoreQuestions": "Show more results",
@@ -150,6 +156,7 @@
   "app.common.subscribe": "Subscribe",
   "app.common.unsubscribe": "Unsubscribe",
   "app.common.followSocialMedia": "Follow us on social media:",
+  "app.common.cannotTransferToYourself": "Cannot transfer to yourself",
 
   "app.telegram.user": "Telegram user",
   "app.telegram.userLabelPopover":
@@ -452,8 +459,15 @@
     "Max tags number was reached",
   "app.containers.CreateCommunity.questionsType": "Questions Type",
   "app.containers.CreateCommunity.anyQuestionDescriptionLabel":
-    "You can choose the type of question when you are creating it.",
+    "Users will be able to ask both General and Expert types of question in this community",
   "app.containers.CreateCommunity.anyQuestionDescriptionList": [],
+  "app.containers.CreateCommunity.bloggerModeLAbel": "Blogger page",
+  "app.containers.CreateCommunity.facebookLink": "Facebook link",
+  "app.containers.CreateCommunity.instagramLink": "Instagram link",
+  "app.containers.CreateCommunity.youtubeLink": "YouTube link",
+  "app.containers.CreateCommunity.vkLink": "VK link",
+  "app.containers.CreateCommunity.mainColor": "Main color",
+  "app.containers.CreateCommunity.highlightColor": "Highlight color",
 
   "app.containers.EditCommunity.communityTitleTip": "Name of the community",
   "app.containers.EditCommunity.description": "Description of EditCommunity",
@@ -820,6 +834,9 @@
     "I saved Master Key in a safe place. I understand that if I forget my password then Master Key is the only way to restore access to my account.",
   "app.containers.SignUp.userAlreadyRegistered":
     "User with such identity has been already registered",
+  "app.containers.SignUp.userRejectedSignatureRequest":
+    "User rejected signature request",
+  "app.containers.SignUp.userIsNotSelected": "User is not selected",
   "app.containers.SignUp.eosAccountNotFound": "Telos account not be found",
   "app.containers.SignUp.keysDoNotMatch":
     "Private keys do not match Telos account name",
@@ -958,8 +975,7 @@
   ],
   "app.containers.QuestionForm.promotedLabel": "Promote question",
   "app.containers.QuestionForm.promotedTip": "Promote question",
-  "app.containers.QuestionForm.questionIsPromoting":
-    "This question is promoting till",
+  "app.containers.QuestionForm.questionIsPromoting": "Promoted till",
 
   "app.containers.AnswerForm.titleLabel": "Your Answer",
 

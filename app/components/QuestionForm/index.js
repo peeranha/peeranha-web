@@ -67,6 +67,8 @@ import Span from '../Span';
 import { PreviewWrapper } from '../AnswerForm';
 import createdHistory from '../../createdHistory';
 import * as routes from '../../routes-config';
+import { hasGlobalModeratorPermissions } from '../../utils/properties';
+import { now } from 'lodash';
 
 const single = isSingleCommunityWebsite();
 
@@ -82,16 +84,18 @@ const SuggestTag = memo(({ redirectToCreateTagDispatch, formValues }) => {
   ]);
 
   return (
-    <TransparentButton
-      onClick={redirectToCreateTagDispatch}
-      data-communityid={communityId}
-      id="question-form-suggest-tag"
-      type="button"
-      color={LINK_COLOR_SECONDARY}
-    >
-      <IconMd className="mr-2" icon={icoTag} fill={BORDER_PRIMARY} />
-      <FormattedMessage {...commonMessages.suggestTag} />
-    </TransparentButton>
+    <div style={{ marginBottom: '20px' }}>
+      <TransparentButton
+        onClick={redirectToCreateTagDispatch}
+        data-communityid={communityId}
+        id="question-form-suggest-tag"
+        type="button"
+        color={LINK_COLOR_SECONDARY}
+      >
+        <IconMd className="mr-2" icon={icoTag} fill={BORDER_PRIMARY} />
+        <FormattedMessage {...commonMessages.suggestTag} />
+      </TransparentButton>
+    </div>
   );
 });
 
@@ -117,7 +121,13 @@ export const QuestionForm = ({
   communityQuestionsType,
   questionTypeExpertDescription,
   questionTypeGeneralDescription,
+  profile,
 }) => {
+  const profileWithModeratorRights = useMemo(
+    () => hasGlobalModeratorPermissions(profile?.['integer_properties'] || []),
+    [profile],
+  );
+
   const handleSubmitWithType = sendQuestion => {
     if (communityQuestionsType !== ANY_TYPE) {
       change(FORM_TYPE, communityQuestionsType);
@@ -142,12 +152,16 @@ export const QuestionForm = ({
   const promotedQuestionEndsTime = useMemo(
     () => {
       if (typeof question?.promote === 'object') {
-        return getFormattedDate(question.promote.endsTime, locale, MONTH_3LETTERS__DAY_YYYY_TIME);
+        return getFormattedDate(
+          question.promote.endsTime,
+          locale,
+          MONTH_3LETTERS__DAY_YYYY_TIME,
+        );
       }
 
       return null;
     },
-    [question]
+    [question],
   );
 
   return (
@@ -164,15 +178,16 @@ export const QuestionForm = ({
               questionLoading={questionLoading}
             />
 
-            {(communityQuestionsType === ANY_TYPE && (
-              <TypeForm
-                intl={intl}
-                change={change}
-                questionLoading={questionLoading}
-                locale={locale}
-                formValues={formValues}
-              />
-            )) ||
+            {(((question && profileWithModeratorRights) || !question) &&
+              communityQuestionsType === ANY_TYPE && (
+                <TypeForm
+                  intl={intl}
+                  change={change}
+                  questionLoading={questionLoading}
+                  locale={locale}
+                  formValues={formValues}
+                />
+              )) ||
               (communityQuestionsType === GENERAL_TYPE && (
                 <PreviewWrapper>
                   <Span color={TEXT_SECONDARY} fontSize="14" isItalic>
@@ -219,24 +234,26 @@ export const QuestionForm = ({
               redirectToCreateTagDispatch={redirectToCreateTagDispatch}
             />
 
-            <BountyForm
-              intl={intl}
-              questionLoading={questionLoading}
-              formValues={formValues}
-              change={change}
-              dotRestriction={DEFAULT_DOT_RESTRICTION}
-            />
+            {/*<BountyForm*/}
+            {/*  intl={intl}*/}
+            {/*  questionLoading={questionLoading}*/}
+            {/*  formValues={formValues}*/}
+            {/*  change={change}*/}
+            {/*  dotRestriction={DEFAULT_DOT_RESTRICTION}*/}
+            {/*/>*/}
 
-            <BountyDateForm
-              intl={intl}
-              questionLoading={questionLoading}
-              formValues={formValues}
-              change={change}
-            />
+            {/*<BountyDateForm*/}
+            {/*  intl={intl}*/}
+            {/*  questionLoading={questionLoading}*/}
+            {/*  formValues={formValues}*/}
+            {/*  change={change}*/}
+            {/*/>*/}
 
-            {promotedQuestionEndsTime ? (
+            {promotedQuestionEndsTime &&
+            question.promote.endsTime > Math.trunc(now() / 1000) ? (
               <PromoteQuestionInfo>
-                {intl.formatMessage(messages.questionIsPromoting)} {promotedQuestionEndsTime}
+                {intl.formatMessage(messages.questionIsPromoting)}{' '}
+                {promotedQuestionEndsTime}
               </PromoteQuestionInfo>
             ) : (
               <PromotedQuestionForm
@@ -296,11 +313,12 @@ export default memo(
   injectIntl(
     connect(
       (state, { question, form: formName, communities }) => {
-        const questionsType = state
-          .toJS()
-          .form[formName]?.values[FORM_COMMUNITY]?.integer_properties.find(
-            prop => prop.key === KEY_QUESTIONS_TYPE,
-          )?.value;
+        const values = state.toJS().form[formName]?.values[FORM_COMMUNITY];
+        const integerProperties = values?.integer_properties ?? [];
+        const questionsType = integerProperties.find(
+          prop => prop.key === KEY_QUESTIONS_TYPE,
+        )?.value;
+
         return {
           formValues: state.toJS().form[formName]?.values ?? {},
           communityQuestionsType: questionsType ?? ANY_TYPE,
@@ -323,7 +341,7 @@ export default memo(
                     ),
                   },
                   [FORM_TAGS]: question?.chosenTags,
-                  [FORM_BOUNTY]: question?.bounty ?? "",
+                  [FORM_BOUNTY]: question?.bounty ?? '',
                   [FORM_BOUNTY_HOURS]: question?.bountyHours,
                 }
               : {}),

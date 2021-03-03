@@ -6,6 +6,8 @@ import { login } from 'utils/web_integration/src/wallet/login/login';
 import webIntegrationErrors from 'utils/web_integration/src/wallet/service-errors';
 import { WebIntegrationError } from 'utils/errors';
 
+import messages from 'common-messages';
+
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 import { selectEos } from 'containers/EosioProvider/selectors';
@@ -48,6 +50,12 @@ export function* sendTokensWorker({ resetForm, val }) {
           translations[webIntegrationErrors[response.errorCode].id],
         );
       }
+    }
+
+    if (profile.user === val[EOS_ACCOUNT_FIELD]) {
+      throw new WebIntegrationError(
+        translations[messages.cannotTransferToYourself.id],
+      );
     }
 
     const a = yield call(sendTokens, eosService, {

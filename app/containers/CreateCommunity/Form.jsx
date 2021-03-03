@@ -4,7 +4,11 @@ import { connect } from 'react-redux';
 import { Field, reduxForm, FormSection } from 'redux-form/immutable';
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 
-import { TEXT_SECONDARY_LIGHT } from 'style-constants';
+import {
+  PEER_PRIMARY_COLOR,
+  PEER_WARNING_COLOR,
+  TEXT_SECONDARY_LIGHT,
+} from 'style-constants';
 
 import icoTag from 'images/icoTag.svg?inline';
 import closeIcon from 'images/close.svg?external';
@@ -52,9 +56,16 @@ import {
   TAG_SECTION,
   CREATE_COMMUNITY_BUTTON,
   ABOUT_FIELD,
+  IS_BLOGGER_MODE_FIELD,
+  MAIN_COLOR_FIELD,
+  HIGHLIGHT_COLOR_FIELD,
+  FORM_TYPE,
+  ANY_TYPE,
 } from './constants';
-import { communityModeratorCreatePermission } from '../../utils/properties';
+import { hasCommunityModeratorCreatePermission } from '../../utils/properties';
 import AboutForm from './AboutForm';
+import Checkbox from '../../components/Input/Checkbox';
+import BloggerModeForm from './BloggerModeForm';
 
 const MIN_TAGS_NUMBER = 5;
 const MAX_TAGS_NUMBER = 25;
@@ -84,7 +95,9 @@ const CreateCommunityForm = ({
 
   const profileWithModeratorRights = useMemo(
     () =>
-      communityModeratorCreatePermission(profile?.['integer_properties'] || []),
+      hasCommunityModeratorCreatePermission(
+        profile?.['integer_properties'] || [],
+      ),
     [profile],
   );
 
@@ -171,21 +184,37 @@ const CreateCommunityForm = ({
           splitInHalf
         />
 
-        <AboutForm
-          formValues={formValues}
-          intl={intl}
-          isProfileSaving={createCommunityLoading}
-          name={ABOUT_FIELD}
-        />
+        {/*<AboutForm*/}
+        {/*  formValues={formValues}*/}
+        {/*  intl={intl}*/}
+        {/*  isProfileSaving={createCommunityLoading}*/}
+        {/*  name={ABOUT_FIELD}*/}
+        {/*/>*/}
 
-        {profileWithModeratorRights && (
-          <TypeForm
-            locale={locale}
-            change={change}
-            formValues={formValues}
-            intl={intl}
-          />
-        )}
+        {/*{profileWithModeratorRights && (*/}
+        {/*  <TypeForm*/}
+        {/*    locale={locale}*/}
+        {/*    change={change}*/}
+        {/*    formValues={formValues}*/}
+        {/*    intl={intl}*/}
+        {/*  />*/}
+        {/*)}*/}
+
+        {/*<Field*/}
+        {/*  name={IS_BLOGGER_MODE_FIELD}*/}
+        {/*  component={Checkbox}*/}
+        {/*  label={translations[messages.bloggerModeLabel.id]}*/}
+        {/*  disabled={createCommunityLoading}*/}
+        {/*  defaultValue={true}*/}
+        {/*/>*/}
+
+        {/*{formValues[IS_BLOGGER_MODE_FIELD] && (*/}
+        {/*  <BloggerModeForm*/}
+        {/*    disabled={createCommunityLoading}*/}
+        {/*    formValues={formValues}*/}
+        {/*    intl={intl}*/}
+        {/*  />*/}
+        {/*)}*/}
 
         <div>
           <Wrapper label={translations[messages.tags.id]} splitInHalf>
@@ -313,6 +342,12 @@ export default memo(
       }
       return {
         formValues: form?.values ?? {},
+        initialValues: {
+          // [IS_BLOGGER_MODE_FIELD]: true,
+          // [MAIN_COLOR_FIELD]: PEER_PRIMARY_COLOR,
+          // [HIGHLIGHT_COLOR_FIELD]: PEER_WARNING_COLOR,
+          [FORM_TYPE]: ANY_TYPE,
+        },
       };
     })(FormCloneRedux),
   ),
