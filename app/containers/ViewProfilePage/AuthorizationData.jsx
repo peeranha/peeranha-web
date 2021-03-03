@@ -39,9 +39,7 @@ const AuthorizationData = ({
 }) => {
   const isLoggedInWithWallet =
     loginData.loginWithScatter || loginData.loginWithKeycat;
-  const referralLink = `${process.env.APP_LOCATION}${routes.users()}/${
-    tgData.temporaryAccountName
-  }`;
+
   return (
     <BaseStyled
       position="bottom"
@@ -111,7 +109,9 @@ const AuthorizationData = ({
                     </td>
                     <td>
                       <A to={routes.profileView(tgData.temporaryAccountName)}>
-                        {referralLink}
+                        {`${process.env.APP_LOCATION}${routes.users()}/${
+                          tgData.temporaryAccountName
+                        }`}
                       </A>
                     </td>
                   </tr>
