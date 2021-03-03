@@ -11,7 +11,7 @@ import toTopArrow from 'images/toTopArrow.svg?external';
 
 const Button = styled.button`
   position: fixed;
-  bottom: ${isMobile().apple.phone ? 70 : 20}px;
+  bottom: ${isMobile().apple.phone ? 60 : 20}px;
   right: 20px;
   z-index: 1000;
   display: ${props => (props.visible ? 'flex' : 'none')};
