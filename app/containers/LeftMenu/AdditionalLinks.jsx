@@ -57,95 +57,81 @@ const Img = styled.img`
   filter: grayscale(100%);
 `;
 
-export default React.memo(() => (
-  <AdditionalLinks>
-    {!styles.withoutAdditionalLinks ? (
-      document.location.origin === process.env.APP_LOCATION ? (
-        <>
-          <A to={routes.home()}>
-            <FormattedMessage {...messages.about} />
+export default React.memo(() => {
+  const Link =
+    document.location.origin === process.env.APP_LOCATION
+      ? ({ path, message }) => (
+          <A to={path}>
+            <FormattedMessage {...message} />
           </A>
-          <A to={routes.support(CONTACTS_ID)}>
-            <FormattedMessage {...messages.contacts} />
-          </A>
-          <A to={routes.support(FORM_ID)}>
-            <FormattedMessage {...messages.support} />
-          </A>
-          <A to={routes.privacyPolicy()}>
-            <FormattedMessage {...messages.privacyPolicy} />
-          </A>
-          <A to={routes.termsAndConditions()}>
-            <FormattedMessage {...messages.termsOfService} />
-          </A>{' '}
-        </>
-      ) : (
-        <>
-          <ADefault href={`${process.env.APP_LOCATION}${routes.home()}`}>
-            <FormattedMessage {...messages.about} />
+        )
+      : ({ path, message }) => (
+          <ADefault href={`${process.env.APP_LOCATION}${path}`}>
+            <FormattedMessage {...message} />
           </ADefault>
-          <ADefault
-            href={`${process.env.APP_LOCATION}${routes.support(CONTACTS_ID)}`}
-          >
-            <FormattedMessage {...messages.contacts} />
-          </ADefault>
-          <ADefault
-            href={`${process.env.APP_LOCATION}${routes.support(FORM_ID)}`}
-          >
-            <FormattedMessage {...messages.support} />
-          </ADefault>
-          <ADefault
-            href={`${process.env.APP_LOCATION}${routes.privacyPolicy()}`}
-          >
-            <FormattedMessage {...messages.privacyPolicy} />
-          </ADefault>
-          <ADefault
-            href={`${process.env.APP_LOCATION}${routes.termsAndConditions()}`}
-          >
-            <FormattedMessage {...messages.termsOfService} />
-          </ADefault>{' '}
-        </>
-      )
-    ) : null}
+        );
 
-    <ChangeLocale />
-
-    <footer>
-      {!styles.withoutCopyright && (
-        <div>
-          <FormattedMessage
-            {...messages.copyrightPeeranha}
-            values={{ year: new Date().getFullYear() }}
+  return (
+    <AdditionalLinks>
+      {!styles.withoutAdditionalLinks ? (
+        <>
+          <Link path={routes.home()} message={messages.about} />
+          <Link
+            path={routes.support(CONTACTS_ID)}
+            message={messages.contacts}
           />
+          <Link path={routes.support(FORM_ID)} message={messages.support} />
+          <Link
+            path={routes.privacyPolicy()}
+            message={messages.privacyPolicy}
+          />
+          <Link
+            path={routes.termsAndConditions()}
+            message={messages.termsOfService}
+          />
+        </>
+      ) : null}
+
+      <ChangeLocale />
+
+      <footer>
+        {!styles.withoutCopyright && (
+          <div>
+            <FormattedMessage
+              {...messages.copyrightPeeranha}
+              values={{ year: new Date().getFullYear() }}
+            />
+          </div>
+        )}
+        <div className="mt-2">
+          <FormattedMessage
+            {...messages.poweredByTelos}
+            values={{
+              image: styles.poweredByPeeranha ? (
+                <Img key="peeranha" src={peeranhaLogo} alt="peeranha" />
+              ) : (
+                <Img key="telos" src={telosIcon} alt="telos" />
+              ),
+            }}
+          >
+            {(...chunks) => (
+              <a
+                className={
+                  styles.poweredByPeeranha ? 'd-flex align-content-center' : ''
+                }
+                href={
+                  styles.poweredByPeeranha
+                    ? process.env.APP_LOCATION
+                    : 'https://www.telosfoundation.io/'
+                }
+                target="_blank"
+              >
+                {chunks}
+              </a>
+            )}
+          </FormattedMessage>
         </div>
-      )}
-      <div className="mt-2">
-        <FormattedMessage
-          {...messages.poweredByTelos}
-          values={{
-            image: styles.poweredByPeeranha ? (
-              <Img key="peeranha" src={peeranhaLogo} alt="peeranha" />
-            ) : (
-              <Img key="telos" src={telosIcon} alt="telos" />
-            ),
-          }}
-        >
-          {(...chunks) => (
-            <a
-              className={
-                styles.poweredByPeeranha ? 'd-flex align-content-center' : ''
-              }
-              href={
-                styles.poweredByPeeranha
-                  ? process.env.APP_LOCATION
-                  : 'https://www.telosfoundation.io/'
-              }
-              target="_blank"
-            >
-              {chunks}
-            </a>
-          )}
-        </FormattedMessage>
-      </div>
-    </footer>
-  </AdditionalLinks>
-));
+      </footer>
+    </AdditionalLinks>
+  );
+});
