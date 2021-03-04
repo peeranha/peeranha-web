@@ -27,6 +27,13 @@ import ChangePasswordButton from '../ChangePasswordByPrevious';
 import TelegramAccountAction from '../TelegramAccountAction';
 import * as routes from '../../routes-config';
 import A from '../../components/A';
+import styled from 'styled-components';
+import { svgDraw } from '../../components/Icon/IconStyled';
+import { TEXT_PRIMARY } from '../../style-constants';
+
+const Link = styled(A)`
+  ${svgDraw({ color: TEXT_PRIMARY })};
+`;
 
 const AuthorizationData = ({
   locale,
@@ -91,7 +98,11 @@ const AuthorizationData = ({
                   <td>
                     <FormattedMessage {...signupMessages.tgAccountID} />
                   </td>
-                  <td>{tgData.telegram_id}</td>
+                  {(tgData.temporaryAccountName && (
+                    <Link to={routes.profileView(tgData.temporaryAccountName)}>
+                      {tgData.telegram_id}
+                    </Link>
+                  )) || <td>{tgData.telegram_id}</td>}
                   <td>
                     {!tgData.confirmed && (
                       <TelegramAccountAction actionType={CONFIRM_TG_ACCOUNT} />
@@ -100,22 +111,6 @@ const AuthorizationData = ({
                     <TelegramAccountAction actionType={UNLINK_TG_ACCOUNT} />
                   </td>
                 </tr>
-                {!tgData.confirmed && (
-                  <tr>
-                    <td>
-                      <FormattedMessage
-                        {...signupMessages.temporaryAccountLink}
-                      />
-                    </td>
-                    <td>
-                      <A to={routes.profileView(tgData.temporaryAccountName)}>
-                        {`${process.env.APP_LOCATION}${routes.users()}/${
-                          tgData.temporaryAccountName
-                        }`}
-                      </A>
-                    </td>
-                  </tr>
-                )}
               </>
             )}
 

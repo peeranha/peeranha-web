@@ -272,7 +272,7 @@ export async function getUserTelegramData(eosService, userName) {
   return userTgData.length > 0
     ? {
         ...userTgData[0],
-        temporaryAccountName: temporaryAccount
+        temporaryAccountName: temporaryAccount.length
           ? temporaryAccount[0].user
           : undefined,
       }
