@@ -83,6 +83,7 @@
   "app.common.privacyPolicy": "Политика конфиденциальности",
   "app.common.termsOfService": "Условия обслуживания",
   "app.common.privacyPolicyShort": "Политика конфид-ти",
+  "app.common.more": "Ещё",
   "app.common.wallet": "Кошелек",
   "app.common.sendTokens": "Отправить токены",
   "app.common.peers": "PEER",
