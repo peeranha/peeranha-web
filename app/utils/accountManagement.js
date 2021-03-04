@@ -87,3 +87,9 @@ export const inviteUser = async (accountName, referralCode, eosService) => {
     false,
   );
 };
+
+export const checkUserURL = user => {
+  const path = document.location.pathname.split('/');
+  const userInURL = path[1] === 'users' ? path[2] : undefined;
+  return userInURL ? userInURL === user : true;
+};
