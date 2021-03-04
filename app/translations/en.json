@@ -146,7 +146,7 @@
   "app.common.bannerSizeErrorMsg":
     "File size is more than 1Mb. Choose another one...",
   "app.common.incorrectBannerResolutionMsg":
-    "Image resolution must be 1360 x 120 pixels. Choose another one...",
+    "Image resolution must be 1360 x 120 pixels",
   "app.common.chooseFile": "Choose a file",
   "app.common.skip": "Skip",
   "app.common.showMoreQuestions": "Show more results",
@@ -156,6 +156,8 @@
   "app.common.subscribe": "Subscribe",
   "app.common.unsubscribe": "Unsubscribe",
   "app.common.followSocialMedia": "Follow us on social media:",
+  "app.common.standart": "Standart",
+  "app.common.blogger": "Blogger",
   "app.common.cannotTransferToYourself": "Cannot transfer to yourself",
 
   "app.telegram.user": "Telegram user",
@@ -461,13 +463,18 @@
   "app.containers.CreateCommunity.anyQuestionDescriptionLabel":
     "Users will be able to ask both General and Expert types of question in this community",
   "app.containers.CreateCommunity.anyQuestionDescriptionList": [],
-  "app.containers.CreateCommunity.bloggerModeLAbel": "Blogger page",
-  "app.containers.CreateCommunity.facebookLink": "Facebook link",
-  "app.containers.CreateCommunity.instagramLink": "Instagram link",
-  "app.containers.CreateCommunity.youtubeLink": "YouTube link",
-  "app.containers.CreateCommunity.vkLink": "VK link",
+  "app.containers.CreateCommunity.facebook": "Facebook",
+  "app.containers.CreateCommunity.instagram": "Instagram",
+  "app.containers.CreateCommunity.youtube": "YouTube",
+  "app.containers.CreateCommunity.vk": "VK",
   "app.containers.CreateCommunity.mainColor": "Main color",
   "app.containers.CreateCommunity.highlightColor": "Highlight color",
+  "app.containers.CreateCommunity.communityType": "Community Type",
+  "app.containers.CreateCommunity.communityTypeTip": "Optional",
+  "app.containers.CreateCommunity.socialLinks": "Social links",
+  "app.containers.CreateCommunity.socialLinksTip": "Optional",
+  "app.containers.CreateCommunity.colors": "Colors",
+  "app.containers.CreateCommunity.topBanner": "Top banner",
 
   "app.containers.EditCommunity.communityTitleTip": "Name of the community",
   "app.containers.EditCommunity.description": "Description of EditCommunity",

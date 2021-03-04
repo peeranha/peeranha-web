@@ -18,14 +18,13 @@ import { bindActionCreators, compose } from 'redux';
 import { connect } from 'react-redux';
 import { Switch, Route, withRouter } from 'react-router-dom';
 
-import communitiesConfig from 'communities-config';
 import * as routes from 'routes-config';
 
 import injectSaga from 'utils/injectSaga';
 import { DAEMON } from 'utils/constants';
 import { ScrollTo } from 'utils/animation';
 import { closePopover as Popover } from 'utils/popover';
-import { isSingleCommunityWebsite } from 'utils/communityManagement';
+import { isSingleCommunityWebsite, getSingleCommunityDetails } from 'utils/communityManagement';
 
 import Loader from 'components/LoadingIndicator/HeightWidthCentered';
 import ProgressIndicator from 'containers/ProgressIndicator';
@@ -126,6 +125,8 @@ const App = ({
     [history],
   );
 
+  const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
+
   return (
     <ErrorBoundary>
       <Toast />
@@ -150,7 +151,7 @@ const App = ({
           render={props => Wrapper(FullWidthPreloader, props)}
         />
 
-        {(!!single && !!communitiesConfig[single].isBloggerMode) && (
+        {!!isBloggerMode && (
           <Route
             exact
             path={routes.detailsHomePage()}

@@ -19,7 +19,6 @@ import {
 } from 'style-constants';
 
 import * as routes from 'routes-config';
-import communitiesConfig from 'communities-config';
 import messages from 'common-messages';
 
 import {
@@ -27,6 +26,7 @@ import {
   singleCommunityStyles,
   singleCommunityColors,
   singleCommunityFonts,
+  getSingleCommunityDetails,
 } from 'utils/communityManagement';
 
 import homeIcon from 'images/house.svg?external';
@@ -114,9 +114,7 @@ const MainLinks = ({ profile, currClientHeight }) => {
   let route = pathname.split('/').filter(x => x)[0];
 
   const singleCommId = +isSingleCommunityWebsite();
-  const isBloggerMode = singleCommId
-    ? !!communitiesConfig[singleCommId].isBloggerMode
-    : false;
+  const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
 
   if (!route) {
     route = isBloggerMode ? 'home' : 'questions';
@@ -124,14 +122,13 @@ const MainLinks = ({ profile, currClientHeight }) => {
 
   return (
     <Box currClientHeight={currClientHeight}>
-      {!!singleCommId &&
-        isBloggerMode && (
-          <A1 to={routes.detailsHomePage()} name="home" route={route}>
-            <IconLg className="mr-2" icon={homeIcon} />
-            <FormattedMessage {...messages.home} />
-          </A1>
-        )}
-
+      {isBloggerMode && (
+        <A1 to={routes.detailsHomePage()} name="home" route={route}>
+          <IconLg className="mr-2" icon={homeIcon} />
+          <FormattedMessage {...messages.home} />
+        </A1>
+      )}
+        
       {!singleCommId &&
         profile && (
           <A1 to={routes.feed()} name="feed" route={route}>

@@ -13,8 +13,6 @@ import {
   BORDER_RADIUS_M,
 } from 'style-constants';
 
-import { singleCommunityStyles } from 'utils/communityManagement';
-
 /* eslint indent: 0 */
 const ErrorHandling = error => `
   border: 1px solid ${
