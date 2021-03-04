@@ -83,6 +83,7 @@
   "app.common.privacyPolicy": "Политика конфиденциальности",
   "app.common.termsOfService": "Условия обслуживания",
   "app.common.privacyPolicyShort": "Политика конфид-ти",
+  "app.common.more": "Ещё",
   "app.common.wallet": "Кошелек",
   "app.common.sendTokens": "Отправить токены",
   "app.common.peers": "PEER",
@@ -720,6 +721,8 @@
     "Бонус будет доступен до: ",
   "app.components.FormFields.requiredField":
     "Вы не можете оставить это поле пустым",
+  "app.components.FormFields.requiredAndNotZeroField":
+    "Вы не можете оставить 0 в этом поле",
   "app.components.FormFields.wrongNumberRange":
     "Должно быть как минимум {min}, но не более {max}",
   "app.components.FormFields.wrongLength":

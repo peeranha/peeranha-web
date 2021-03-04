@@ -85,6 +85,25 @@ const required = value => {
   return !val ? messages.requiredField : undefined;
 };
 
+const requiredAndNotZero = value => {
+  let message;
+  let val = value;
+
+  if (value && Number(value) >= 0) {
+    val = Number(value);
+  } else if (typeof value === 'string') {
+    val = val.trim();
+  }
+
+  if (val === 0) {
+    message = messages.requiredAndNotZeroField;
+  } else if (!val) {
+    message = messages.requiredField;
+  }
+
+  return message;
+};
+
 const requiredForNumericalField = value =>
   value === '' || Number(value) < 0 ? messages.requiredField : undefined;
 
@@ -229,6 +248,7 @@ export {
   validateEmail,
   validateURL,
   required,
+  requiredAndNotZero,
   requiredForObjectField,
   requiredForNumericalField,
   strLength1x5,

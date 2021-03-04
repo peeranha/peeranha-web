@@ -1,20 +1,26 @@
 import React from 'react';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
+import PropTypes from 'prop-types';
+import isMobile from 'ismobilejs';
 
 import { singleCommunityStyles } from 'utils/communityManagement';
 
 import telosIcon from 'images/telosIconLight.svg?inline';
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
+import infoIcon from 'images/information.svg?external';
 
 import { TEXT_SECONDARY } from 'style-constants';
-import * as routes from 'routes-config';
 import messages from 'common-messages';
 
 import A from 'components/A';
+import Icon from 'components/Icon';
+import Dropdown from 'components/Dropdown';
 
-import { CONTACTS_ID, FORM_ID } from 'containers/Support/constants';
 import ChangeLocale from 'containers/ChangeLocale';
+import Span from 'components/Span/index';
+import { Li } from 'containers/ChangeLocale/Styled';
+import { FULL_SIZE, INFO_LINKS, SEMI_SIZE } from './constants';
 
 const styles = singleCommunityStyles();
 
@@ -36,17 +42,22 @@ const AdditionalLinks = styled.div`
     padding: 7px 15px;
   }
 
-  footer {
-    margin: ${styles.withoutAdditionalLinks ? 0 : 30}px 0;
-    font-size: 12px;
-
-    a {
-      padding-left: 0;
-    }
-  }
-
   @media only screen and (max-width: 576px) {
     padding: 30px 10px;
+  }
+`;
+
+const FooterStyled = styled.footer`
+  font-size: 12px;
+  margin: ${({ currClientHeight }) => {
+    if (styles.withoutAdditionalLinks) return '0 0';
+    if (currClientHeight < FULL_SIZE && !isMobile(window.navigator).any)
+      return '10px 0 0';
+    return '30px 0';
+  }};
+
+  a {
+    padding-left: 0;
   }
 `;
 
@@ -57,31 +68,75 @@ const Img = styled.img`
   filter: grayscale(100%);
 `;
 
-export default React.memo(() => (
-  <AdditionalLinks>
-    {!styles.withoutAdditionalLinks ? (
+const InfoLinksDropDown = ({ withTitle }) => (
+  <Dropdown
+    className="mr-3"
+    button={
       <>
-        <A to={routes.home()}>
-          <FormattedMessage {...messages.about} />
-        </A>
-        <A to={routes.support(CONTACTS_ID)}>
-          <FormattedMessage {...messages.contacts} />
-        </A>
-        <A to={routes.support(FORM_ID)}>
-          <FormattedMessage {...messages.support} />
-        </A>
-        <A to={routes.privacyPolicy()}>
-          <FormattedMessage {...messages.privacyPolicy} />
-        </A>
-        <A to={routes.termsAndConditions()}>
-          <FormattedMessage {...messages.termsOfService} />
-        </A>{' '}
+        <Span
+          className="d-flex align-items-center mr-1"
+          fontSize="16"
+          lineHeight="20"
+          color={TEXT_SECONDARY}
+        >
+          <Icon
+            icon={infoIcon}
+            width="16"
+            height="16"
+            css={{ marginRight: '10px' }}
+          />
+          {withTitle && <FormattedMessage {...messages.more} />}
+        </Span>
       </>
-    ) : null}
+    }
+    menu={
+      <ul>
+        {INFO_LINKS.map(el => (
+          <Li key={el.route}>
+            <A to={el.route}>
+              <FormattedMessage {...el.title} />
+            </A>
+          </Li>
+        ))}
+      </ul>
+    }
+    id="choose-language-dropdown"
+    isArrowed
+  />
+);
 
-    {/* <ChangeLocale /> */}
+InfoLinksDropDown.propTypes = {
+  withTitle: PropTypes.bool,
+};
 
-    <footer>
+export default React.memo(({ currClientHeight }) => (
+  <AdditionalLinks>
+    {((!styles.withoutAdditionalLinks && currClientHeight > FULL_SIZE) ||
+      (!styles.withoutAdditionalLinks && isMobile(window.navigator).any)) && (
+      <>
+        {INFO_LINKS.map(el => (
+          <A to={el.route} key={el.route}>
+            <FormattedMessage {...el.title} />
+          </A>
+        ))}{' '}
+      </>
+    )}
+
+    {!styles.withoutAdditionalLinks &&
+      currClientHeight <= FULL_SIZE &&
+      currClientHeight > SEMI_SIZE &&
+      !isMobile(window.navigator).any && <InfoLinksDropDown withTitle />}
+
+    {currClientHeight > SEMI_SIZE && <ChangeLocale withTitle />}
+
+    {currClientHeight <= SEMI_SIZE && (
+      <div css={{ display: 'flex' }}>
+        {!isMobile(window.navigator).any && <InfoLinksDropDown />}
+        <ChangeLocale />
+      </div>
+    )}
+
+    <FooterStyled currClientHeight={currClientHeight}>
       {!styles.withoutCopyright && (
         <div>
           <FormattedMessage
@@ -118,6 +173,6 @@ export default React.memo(() => (
           )}
         </FormattedMessage>
       </div>
-    </footer>
+    </FooterStyled>
   </AdditionalLinks>
 ));

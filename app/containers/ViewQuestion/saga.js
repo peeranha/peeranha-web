@@ -716,6 +716,11 @@ export function* downVoteWorker({
 
     yield call(isAuthorized);
 
+    const isOwnItem =
+      questionData.user === profileInfo.user ||
+      questionData.answers.find(x => x.id === answerId)?.user ===
+        profileInfo.user;
+
     yield call(
       isAvailableAction,
       () =>
@@ -728,6 +733,7 @@ export function* downVoteWorker({
         ),
       {
         communityID: questionData.community_id,
+        skipPermissions: isOwnItem,
       },
     );
 
@@ -771,6 +777,11 @@ export function* upVoteWorker({
 
     yield call(isAuthorized);
 
+    const isOwnItem =
+      questionData.user === profileInfo.user ||
+      questionData.answers.find(x => x.id === answerId)?.user ===
+        profileInfo.user;
+
     yield call(
       isAvailableAction,
       () =>
@@ -783,6 +794,7 @@ export function* upVoteWorker({
         ),
       {
         communityID: questionData.community_id,
+        skipPermissions: isOwnItem,
       },
     );
 
