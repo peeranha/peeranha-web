@@ -70,16 +70,16 @@ const Img = styled.img`
 
 const Link =
   document.location.origin === process.env.APP_LOCATION
-    ? ({ path, message }) => (
-      <A to={path}>
-        <FormattedMessage {...message} />
-      </A>
-    )
-    : ({ path, message }) => (
-      <ADefault href={`${process.env.APP_LOCATION}${path}`}>
-        <FormattedMessage {...message} />
-      </ADefault>
-    );
+    ? ({ path, key, message }) => (
+        <A to={path} key={key}>
+          <FormattedMessage {...message} />
+        </A>
+      )
+    : ({ path, key, message }) => (
+        <ADefault href={`${process.env.APP_LOCATION}${path}`} key={key}>
+          <FormattedMessage {...message} />
+        </ADefault>
+      );
 
 const InfoLinksDropDown = ({ withTitle }) => (
   <Dropdown
@@ -105,19 +105,9 @@ const InfoLinksDropDown = ({ withTitle }) => (
     menu={
       <ul>
         {INFO_LINKS.map(el => (
-         <>
           <Li key={el.route}>
-            <Link
-              path={el.route}
-              message={el.title}
-            />
+            <Link path={el.route} message={el.title} />
           </Li>
-          <Li key={el.route}>
-            <A to={el.route}>
-              <FormattedMessage {...el.title} />
-            </A>
-          </Li>
-         </>
         ))}
       </ul>
     }
@@ -136,9 +126,7 @@ export default React.memo(({ currClientHeight }) => (
       (!styles.withoutAdditionalLinks && isMobile(window.navigator).any)) && (
       <>
         {INFO_LINKS.map(el => (
-          <A to={el.route} key={el.route}>
-            <FormattedMessage {...el.title} />
-          </A>
+          <Link path={el.route} key={el.route} message={el.title} />
         ))}{' '}
       </>
     )}
