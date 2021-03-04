@@ -165,7 +165,4 @@ export default defineMessages({
   tgAccountID: {
     id: 'app.containers.SignUp.tgAccountID',
   },
-  temporaryAccountLink: {
-    id: 'app.containers.SignUp.temporaryAccountLink',
-  },
 });
