@@ -140,9 +140,7 @@ const SendTipsForm = ({
     change(EOS_SEND_TO_ACCOUNT_FIELD, cryptoAccounts[currency.name]);
     const amount = _get(tipsPreselect, [AMOUNT_FIELD, currency.name], null);
 
-    if (amount) {
-      change(AMOUNT_FIELD, amount);
-    }
+    change(AMOUNT_FIELD, amount || '');
   };
 
   const changeWallet = wallet => {
