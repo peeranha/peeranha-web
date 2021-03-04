@@ -2,6 +2,9 @@ import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import { getSingleCommunityDetails } from 'utils/communityManagement';
+import { getFileUrl } from 'utils/ipfs';
+
 import Arrow from '../Arrow';
 import CustomSubHeaderContainer from './CustomSubHeaderContainer';
 
@@ -11,11 +14,12 @@ const Div = styled.div`
   color: ${({ styles }) =>
     styles.color && styles.color.a ? styles.color.a : `#ffffff`};
 
-  ${({ bg }) => bg ? `background-image: url('${bg}');` : ''}
-  background-size: cover;
+  ${({ bg }) =>
+    bg ? `background-image: url('${bg}');` : ''} background-size: cover;
   background-position: center;
-  background-color: ${({ styles }) => styles.bg.header || `rgb(${'80, 101, 165'})`};
-  border-bottom: ${({ bg }) => bg ? 0 : 1}px solid
+  background-color: ${({ styles }) =>
+    styles.bg.header || `rgb(${'80, 101, 165'})`};
+  border-bottom: ${({ bg }) => (bg ? 0 : 1)}px solid
     ${({ styles, bg }) =>
       styles.bg.header === `#ffffff` ? `#c2c6d8` : styles.bg.header};
 
@@ -402,9 +406,12 @@ Links.propTypes = {
   isDropdownMenuArrow: PropTypes.bool,
 };
 
-const CustomSubHeader = ({ config }) =>
-  config ? (
-    <Div styles={config.styles} bg={config.banner}>
+const CustomSubHeader = ({ config }) => {
+  let banner = getSingleCommunityDetails()?.banner || '';
+  if (banner.length) banner = getFileUrl(banner);
+
+  return config ? (
+    <Div styles={config.styles} bg={banner}>
       <Container
         className="container h-100"
         css={config.styles.subHeaderContainerStyles}
@@ -413,6 +420,7 @@ const CustomSubHeader = ({ config }) =>
       </Container>
     </Div>
   ) : null;
+};
 
 CustomSubHeader.propTypes = {
   config: PropTypes.object,

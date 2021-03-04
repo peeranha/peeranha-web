@@ -20,6 +20,7 @@ import peeranhaLogo from 'images/LogoBlack.svg?inline';
 import {
   isSingleCommunityWebsite,
   singleCommunityStyles,
+  getSingleCommunityDetails,
 } from 'utils/communityManagement';
 
 import LargeButton from 'components/Button/Contained/InfoLarge';
@@ -105,9 +106,7 @@ const View = ({
         ? communitiesConfig[single].src
         : peeranhaLogo;
 
-      const isBloggerMode = styles.withoutSubHeader
-        ? communitiesConfig[single].isBloggerMode
-        : false;
+      const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
 
       return styles.withoutSubHeader ? (
         <QAndALogo to={isBloggerMode ? routes.detailsHomePage() : routes.questions()}>

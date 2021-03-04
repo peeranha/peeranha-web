@@ -2,7 +2,7 @@ import React, { memo, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Field, reduxForm, FormSection } from 'redux-form/immutable';
-import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 
 import {
   PEER_PRIMARY_COLOR,
@@ -15,21 +15,8 @@ import closeIcon from 'images/close.svg?external';
 
 import { formatStringToHtmlId, scrollToErrorField } from 'utils/animation';
 import { showPopover } from 'utils/popover';
-
-import { ExtendedBase } from 'components/Base/AvatarBase';
-
-import TypeForm from './QuestionsTypeForm';
-
-import Wrapper from 'components/FormFields/Wrapper';
-import TextareaField from 'components/FormFields/TextareaField';
-import TextInputField from 'components/FormFields/TextInputField';
-import AvatarField from 'components/FormFields/AvatarField';
-
-import { IconSm } from 'components/Icon/IconWithSizes';
-import FormBox from 'components/Form';
-import LargeButton from 'components/Button/Contained/InfoLarge';
-import TransparentButton from 'components/Button/Contained/Transparent';
-
+import { hasCommunityModeratorCreatePermission } from 'utils/properties';
+import {  } from '../../utils/properties';
 import {
   required,
   strLength2x15,
@@ -42,10 +29,21 @@ import {
   validateURL,
 } from 'components/FormFields/validate';
 
-import messages from './messages';
+import { ExtendedBase } from 'components/Base/AvatarBase';
+import Wrapper from 'components/FormFields/Wrapper';
+import TextareaField from 'components/FormFields/TextareaField';
+import TextInputField from 'components/FormFields/TextInputField';
+import AvatarField from 'components/FormFields/AvatarField';
+import { IconSm } from 'components/Icon/IconWithSizes';
+import FormBox from 'components/Form';
+import LargeButton from 'components/Button/Contained/InfoLarge';
+import TransparentButton from 'components/Button/Contained/Transparent';
+import Checkbox from 'components/Input/Checkbox';
 
+import messages from './messages';
 import {
   FORM_NAME,
+  COMMUNITY_TYPE,
   COMM_AVATAR_FIELD,
   COMM_NAME_FIELD,
   COMM_SHORT_DESCRIPTION_FIELD,
@@ -56,16 +54,16 @@ import {
   TAG_SECTION,
   CREATE_COMMUNITY_BUTTON,
   ABOUT_FIELD,
-  IS_BLOGGER_MODE_FIELD,
   MAIN_COLOR_FIELD,
   HIGHLIGHT_COLOR_FIELD,
   FORM_TYPE,
   ANY_TYPE,
 } from './constants';
-import { hasCommunityModeratorCreatePermission } from '../../utils/properties';
+
 import AboutForm from './AboutForm';
-import Checkbox from '../../components/Input/Checkbox';
 import BloggerModeForm from './BloggerModeForm';
+import TypeForm from './QuestionsTypeForm';
+import CommunityTypeForm from './CommunityTypeForm';
 
 const MIN_TAGS_NUMBER = 5;
 const MAX_TAGS_NUMBER = 25;
@@ -127,7 +125,7 @@ const CreateCommunityForm = ({
       );
     }
   };
-
+  
   return (
     <ExtendedBase>
       <Field
@@ -184,12 +182,12 @@ const CreateCommunityForm = ({
           splitInHalf
         />
 
-        {/*<AboutForm*/}
-        {/*  formValues={formValues}*/}
-        {/*  intl={intl}*/}
-        {/*  isProfileSaving={createCommunityLoading}*/}
-        {/*  name={ABOUT_FIELD}*/}
-        {/*/>*/}
+        <AboutForm
+          formValues={formValues}
+          intl={intl}
+          isProfileSaving={createCommunityLoading}
+          name={ABOUT_FIELD}
+        />
 
         {/*{profileWithModeratorRights && (*/}
         {/*  <TypeForm*/}
@@ -200,21 +198,15 @@ const CreateCommunityForm = ({
         {/*  />*/}
         {/*)}*/}
 
-        {/*<Field*/}
-        {/*  name={IS_BLOGGER_MODE_FIELD}*/}
-        {/*  component={Checkbox}*/}
-        {/*  label={translations[messages.bloggerModeLabel.id]}*/}
-        {/*  disabled={createCommunityLoading}*/}
-        {/*  defaultValue={true}*/}
-        {/*/>*/}
+        <CommunityTypeForm change={change} intl={intl} />
 
-        {/*{formValues[IS_BLOGGER_MODE_FIELD] && (*/}
-        {/*  <BloggerModeForm*/}
-        {/*    disabled={createCommunityLoading}*/}
-        {/*    formValues={formValues}*/}
-        {/*    intl={intl}*/}
-        {/*  />*/}
-        {/*)}*/}
+        {+formValues[COMMUNITY_TYPE] ? (
+          <BloggerModeForm
+            disabled={createCommunityLoading}
+            formValues={formValues}
+            intl={intl}
+          />
+        ) : null}
 
         <div>
           <Wrapper label={translations[messages.tags.id]} splitInHalf>
@@ -330,6 +322,7 @@ export default memo(
   injectIntl(
     connect(state => {
       const form = state.toJS().form[FORM_NAME] || { values: {} };
+
       if (form.values && form.values.tags) {
         const { tags } = form.values;
         const tagNames = Object.keys(tags)
@@ -340,12 +333,13 @@ export default memo(
           formValues: form?.values ?? {},
         };
       }
+
       return {
         formValues: form?.values ?? {},
         initialValues: {
-          // [IS_BLOGGER_MODE_FIELD]: true,
-          // [MAIN_COLOR_FIELD]: PEER_PRIMARY_COLOR,
-          // [HIGHLIGHT_COLOR_FIELD]: PEER_WARNING_COLOR,
+          [COMMUNITY_TYPE]: 1,
+          [MAIN_COLOR_FIELD]: PEER_PRIMARY_COLOR,
+          [HIGHLIGHT_COLOR_FIELD]: PEER_WARNING_COLOR,
           [FORM_TYPE]: ANY_TYPE,
         },
       };

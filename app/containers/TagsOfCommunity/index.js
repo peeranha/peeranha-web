@@ -60,7 +60,7 @@ export const TagsOfCommunity = ({
   const currentCommunity = useMemo(
     () =>
       getFollowedCommunities(communities, [communityId])[0] || emptyCommunity,
-    [communities, communityId, emptyCommunity],
+    [communityId, communities.length, emptyCommunity],
   );
 
   const typeInput = useCallback(
@@ -110,7 +110,7 @@ export const TagsOfCommunity = ({
         communityId: currentCommunity.id,
       });
     },
-    [communities.length, currentCommunity],
+    [communityId, communities.length, currentCommunity],
   );
 
   return (

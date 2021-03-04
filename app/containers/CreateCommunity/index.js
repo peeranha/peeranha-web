@@ -47,12 +47,9 @@ import {
   LANGUAGE_FIELD,
   TAG_DESCRIPTION_FIELD,
   COMM_AVATAR_FIELD,
-  MIN_RATING_TO_CREATE_COMMUNITY,
-  MIN_ENERGY_TO_CREATE_COMMUNITY,
   FORM_TYPE,
   STATE_KEY,
   ANY_TYPE,
-  IS_BLOGGER_MODE_FIELD,
   COMM_BANNER_FIELD,
   FACEBOOK_LINK_FIELD,
   INSTAGRAM_LINK_FIELD,
@@ -60,6 +57,7 @@ import {
   VK_LINK_FIELD,
   MAIN_COLOR_FIELD,
   HIGHLIGHT_COLOR_FIELD,
+  COMMUNITY_TYPE,
 } from './constants';
 
 import Form from './Form';
@@ -108,7 +106,7 @@ export const CreateCommunity = ({
       main_description: values[COMM_MAIN_DESCRIPTION_FIELD],
       officialSite: values[COMM_OFFICIAL_SITE_FIELD],
       questionsType: parseInt(values[FORM_TYPE] ?? ANY_TYPE),
-      isBlogger: values[IS_BLOGGER_MODE_FIELD],
+      isBlogger: !!values[COMMUNITY_TYPE],
       banner: values[COMM_BANNER_FIELD],
       facebook: values[FACEBOOK_LINK_FIELD],
       instagram: values[INSTAGRAM_LINK_FIELD],

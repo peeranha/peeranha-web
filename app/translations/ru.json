@@ -83,6 +83,7 @@
   "app.common.privacyPolicy": "Политика конфиденциальности",
   "app.common.termsOfService": "Условия обслуживания",
   "app.common.privacyPolicyShort": "Политика конфид-ти",
+  "app.common.more": "Ещё",
   "app.common.wallet": "Кошелек",
   "app.common.sendTokens": "Отправить токены",
   "app.common.peers": "PEER",
@@ -143,7 +144,7 @@
   "app.common.bannerSizeErrorMsg":
     "Размер файла больше 1Мб. Выберите другой...",
   "app.common.incorrectBannerResolutionMsg":
-    "Разрешение картинки должно быть 1360 x 120 пикселей. Выберите другую...",
+    "Разрешение картинки должно быть 1360 x 120 пикселей",
   "app.common.chooseFile": "Выберите файл",
   "app.common.skip": "Пропустить",
   "app.common.showMoreQuestions": "Показать больше найденных вопросов",
@@ -153,6 +154,8 @@
   "app.common.subscribe": "Подписаться",
   "app.common.unsubscribe": "Отписаться",
   "app.common.followSocialMedia": "Следите за нами в социальных сетях:",
+  "app.common.standart": "Стандартный",
+  "app.common.blogger": "Блогерский",
   "app.common.cannotTransferToYourself": "Нельзя отправлять самому себе",
 
   "app.telegram.user": "Телеграм пользователь",
@@ -476,13 +479,18 @@
   "app.containers.CreateCommunity.anyQuestionDescriptionLabel":
     "Пользователи смогут задавать как Общие, так и экспертные вопросы",
   "app.containers.CreateCommunity.anyQuestionDescriptionList": [],
-  "app.containers.CreateCommunity.bloggerModeLAbel": "Страница блогера",
-  "app.containers.CreateCommunity.facebookLink": "Ссылка на ваш Facebook",
-  "app.containers.CreateCommunity.instagramLink": "Ссылка на ваш Instagram",
-  "app.containers.CreateCommunity.youtubeLink": "Ссылка на ваш YouTube",
-  "app.containers.CreateCommunity.vkLink": "Ссылка на ваш VK",
+  "app.containers.CreateCommunity.facebook": "Facebook",
+  "app.containers.CreateCommunity.instagram": "Instagram",
+  "app.containers.CreateCommunity.youtube": "YouTube",
+  "app.containers.CreateCommunity.vk": "Вконтакте",
   "app.containers.CreateCommunity.mainColor": "Основной цвет",
   "app.containers.CreateCommunity.highlightColor": "Цвет выделения",
+  "app.containers.CreateCommunity.communityType": "Тип сообщества",
+  "app.containers.CreateCommunity.communityTypeTip": "Необязательный",
+  "app.containers.CreateCommunity.socialLinks": "Ссылки на социальные сети",
+  "app.containers.CreateCommunity.socialLinksTip": "Необязательный",
+  "app.containers.CreateCommunity.colors": "Цвета",
+  "app.containers.CreateCommunity.topBanner": "Верхний баннер",
 
   "app.containers.EditCommunity.communityTitleTip": "Название сообщества",
   "app.containers.EditCommunity.description": "Описание EditCommunity",
@@ -713,6 +721,8 @@
     "Бонус будет доступен до: ",
   "app.components.FormFields.requiredField":
     "Вы не можете оставить это поле пустым",
+  "app.components.FormFields.requiredAndNotZeroField":
+    "Вы не можете оставить 0 в этом поле",
   "app.components.FormFields.wrongNumberRange":
     "Должно быть как минимум {min}, но не более {max}",
   "app.components.FormFields.wrongLength":

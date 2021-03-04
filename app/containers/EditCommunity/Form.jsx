@@ -4,11 +4,6 @@ import { injectIntl, intlShape } from 'react-intl';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form/immutable';
 
-import { ExtendedBase } from 'components/Base/AvatarBase';
-
-import AvatarField from 'components/FormFields/AvatarField';
-import TextInputField from 'components/FormFields/TextInputField';
-
 import {
   imageValidation,
   required,
@@ -20,6 +15,10 @@ import {
 
 import FormBox from 'components/Form';
 import LargeButton from 'components/Button/Contained/InfoLarge';
+import Checkbox from 'components/Input/Checkbox';
+import { ExtendedBase } from 'components/Base/AvatarBase';
+import AvatarField from 'components/FormFields/AvatarField';
+import TextInputField from 'components/FormFields/TextInputField';
 
 import { scrollToErrorField } from 'utils/animation';
 
@@ -41,14 +40,13 @@ import {
   FORM_TYPE,
   HIGHLIGHT_COLOR_FIELD,
   INSTAGRAM_LINK_FIELD,
-  IS_BLOGGER_MODE_FIELD,
+  COMMUNITY_TYPE,
   MAIN_COLOR_FIELD,
   VK_LINK_FIELD,
   YOUTUBE_LINK_FIELD,
 } from '../CreateCommunity/constants';
-import { KEY_QUESTIONS_TYPE } from '../../components/QuestionForm/constants';
+import CommunityTypeForm from '../CreateCommunity/CommunityTypeForm';
 import AboutForm from '../CreateCommunity/AboutForm';
-import Checkbox from '../../components/Input/Checkbox';
 import BloggerModeForm from '../CreateCommunity/BloggerModeForm';
 
 const EditCommunityForm = ({
@@ -72,19 +70,21 @@ const EditCommunityForm = ({
         about: values.get(ABOUT_FIELD),
         officialSite: values.get(COMM_OFFICIAL_SITE_FIELD),
         questionsType: parseInt(values.get(FORM_TYPE)),
-        // isBlogger: values.get(IS_BLOGGER_MODE_FIELD),
-        // banner: values.get(COMM_BANNER_FIELD),
-        // facebook: values.get(FACEBOOK_LINK_FIELD),
-        // instagram: values.get(INSTAGRAM_LINK_FIELD),
-        // youtube: values.get(YOUTUBE_LINK_FIELD),
-        // vk: values.get(VK_LINK_FIELD),
-        // main_color: values.get(MAIN_COLOR_FIELD),
-        // highlight_color: values.get(HIGHLIGHT_COLOR_FIELD),
+        isBlogger: !!values.get(COMMUNITY_TYPE),
+        banner: values.get(COMM_BANNER_FIELD),
+        facebook: values.get(FACEBOOK_LINK_FIELD),
+        instagram: values.get(INSTAGRAM_LINK_FIELD),
+        youtube: values.get(YOUTUBE_LINK_FIELD),
+        vk: values.get(VK_LINK_FIELD),
+        main_color: values.get(MAIN_COLOR_FIELD),
+        highlight_color: values.get(HIGHLIGHT_COLOR_FIELD),
       };
+
       editCommunityDispatch(communityId, communityData);
     },
     [communityId, editCommunityDispatch],
   );
+
   return (
     <ExtendedBase>
       <Field
@@ -130,38 +130,32 @@ const EditCommunityForm = ({
           tip={intl.formatMessage(messages.officialSiteTip)}
         />
 
-        {/*<AboutForm*/}
-        {/*  formValues={formValues}*/}
-        {/*  intl={intl}*/}
-        {/*  isProfileSaving={communityLoading}*/}
-        {/*  name={ABOUT_FIELD}*/}
-        {/*/>*/}
+        <AboutForm
+          formValues={formValues}
+          intl={intl}
+          isProfileSaving={communityLoading}
+          name={ABOUT_FIELD}
+        />
+        
+        {isModerator && (
+          <TypeForm
+            locale={locale}
+            change={change}
+            formValues={formValues}
+            intl={intl}
+          />
+        )}
 
-        {/*{isModerator && (*/}
-        {/*  <TypeForm*/}
-        {/*    locale={locale}*/}
-        {/*    change={change}*/}
-        {/*    formValues={formValues}*/}
-        {/*    intl={intl}*/}
-        {/*  />*/}
-        {/*)}*/}
+        <CommunityTypeForm change={change} intl={intl} />
 
-        {/*<Field*/}
-        {/*  name={IS_BLOGGER_MODE_FIELD}*/}
-        {/*  component={Checkbox}*/}
-        {/*  label={intl.formatMessage(messages.bloggerModeLabel)}*/}
-        {/*  disabled={communityLoading}*/}
-        {/*  defaultValue={true}*/}
-        {/*/>*/}
-
-        {/*{formValues[IS_BLOGGER_MODE_FIELD] && (*/}
-        {/*  <BloggerModeForm*/}
-        {/*    disabled={communityLoading}*/}
-        {/*    formValues={formValues}*/}
-        {/*    intl={intl}*/}
-        {/*    initialValues={initialValues}*/}
-        {/*  />*/}
-        {/*)}*/}
+        {+formValues[COMMUNITY_TYPE] ? (
+          <BloggerModeForm
+            disabled={communityLoading}
+            formValues={formValues}
+            intl={intl}
+            initialValues={initialValues}
+          />
+        ) : null}
 
         <LargeButton
           id={EDIT_COMMUNITY_BUTTON}
@@ -202,14 +196,14 @@ export default injectIntl(
           [ABOUT_FIELD]: community.about,
           [COMM_OFFICIAL_SITE_FIELD]: community.officialSite,
           [FORM_TYPE]: community.questionsType,
-          // [IS_BLOGGER_MODE_FIELD]: community.isBlogger ?? false,
-          // [COMM_BANNER_FIELD]: community.banner,
-          // [FACEBOOK_LINK_FIELD]: community.facebook,
-          // [INSTAGRAM_LINK_FIELD]: community.instagram,
-          // [YOUTUBE_LINK_FIELD]: community.youtube,
-          // [VK_LINK_FIELD]: community.vk,
-          // [MAIN_COLOR_FIELD]: community.main_color,
-          // [HIGHLIGHT_COLOR_FIELD]: community.highlight_color,
+          [COMMUNITY_TYPE]: community.isBlogger ? 1 : 0,
+          [COMM_BANNER_FIELD]: community.banner,
+          [FACEBOOK_LINK_FIELD]: community.socialLinks.facebook,
+          [INSTAGRAM_LINK_FIELD]: community.socialLinks.instagram,
+          [YOUTUBE_LINK_FIELD]: community.socialLinks.youtube,
+          [VK_LINK_FIELD]: community.socialLinks.vk,
+          [MAIN_COLOR_FIELD]: community.colors.main,
+          [HIGHLIGHT_COLOR_FIELD]: community.colors.highlight,
         }
       : {},
   }))(FormClone),

@@ -132,6 +132,9 @@ export default defineMessages({
   privacyPolicyShort: {
     id: 'app.common.privacyPolicyShort',
   },
+  more: {
+    id: 'app.common.more',
+  },
   asked: {
     id: 'app.common.asked',
   },
@@ -443,6 +446,12 @@ export default defineMessages({
   },
   followSocialMedia: {
     id: 'app.common.followSocialMedia',
+  },
+  standart: {
+    id: 'app.common.standart',
+  },
+  blogger: {
+    id: 'app.common.blogger',
   },
   cannotTransferToYourself: {
     id: 'app.common.cannotTransferToYourself',

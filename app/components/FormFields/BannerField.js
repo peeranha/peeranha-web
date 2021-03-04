@@ -6,13 +6,14 @@ import { FormattedMessage } from 'react-intl';
 
 import messages from 'common-messages';
 
-import { TEXT_PRIMARY, TEXT_WARNING } from 'style-constants';
+import { TEXT_SECONDARY, TEXT_WARNING } from 'style-constants';
 
 import { getUserAvatar } from 'utils/profileManagement';
 import { formatStringToHtmlId } from 'utils/animation';
 
 import LargeImage from 'components/Img/LargeImage';
 import { ErrorHandling, DisableHandling } from 'components/Input/InputStyled';
+import { Wrapper } from 'components/FormFields/Wrapper';
 
 import WarningMessage, { Div as WarningMessageDiv } from './WarningMessage';
 import BannerLoader from './BannerLoader';
@@ -23,8 +24,8 @@ const IMG_SIZE_LIMIT_B = 2 * 1024 * 1024;
 
 const Div = styled.div`
   position: relative;
-  width: 640px;
-  max-width: 680px;
+  width: 100%;
+  max-width: 100%;
   display: flex;
   flex-direction: column;
 
@@ -37,7 +38,7 @@ const Div = styled.div`
 
   > :first-child {
     position: relative;
-    height: 60px;
+    height: 80px;
     width: 100%;
 
     label {
@@ -58,15 +59,17 @@ const Div = styled.div`
 
     .avatar-wrapper {
       background-color: aliceblue;
-      height: 60px;
+      height: 80px;
       width: 100%;
       opacity: 0;
       position: relative;
       z-index: 12;
       overflow: hidden;
+
       input {
         font-size: 200px;
         float: right;
+        cursor: pointer;
       }
     }
 
@@ -88,86 +91,87 @@ const Div = styled.div`
 
 const InfoMessage = styled.div`
   width: 100%;
-  margin-top: 10px;
-  margin-bottom: 10px;
-
-  font-size: 13px;
-  line-height: 1.2;
-  color: ${TEXT_PRIMARY};
-  //text-align: center;
-  font-style: italic;
-
-  opacity: 0.9;
+  max-width: 350px;
+  margin-bottom: 15px;
 `;
 
 const LabelErrorStyle = styled.div`
   width: 100%;
-  margin-bottom: 10px;
-  fontweight: 500;
-  color: ${TEXT_WARNING};
+  margin-top: 8px;
+  color: ${TEXT_SECONDARY};
+  font-style: italic;
+  font-size: 14px;
+  line-height: 18px;
 `;
 
-function AvatarField({ input, meta, disabled }) {
+const BannerField = ({ input, meta, disabled, label }) => {
   const [isFileTooLarge, setIsFileTooLarge] = useState(false);
   const [isIncorrectResolution, setIsCorrectResolution] = useState(false);
 
   return (
-    <Div
-      disabled={disabled}
-      value={input.value && input.value.length}
-      error={meta.touched && (meta.error || meta.warning)}
-      id={formatStringToHtmlId(input.name)}
-    >
-      <div>
-        <div>
-          <div className="avatar-wrapper">
-            <BannerLoader
-              input={input}
-              onBeforeFileLoad={e => {
-                if (e.target.files[0].size > IMG_SIZE_LIMIT_B) {
-                  setIsFileTooLarge(true);
-                  e.target.value = '';
-                } else setIsFileTooLarge(false);
-              }}
-              setIsCorrectResolution={setIsCorrectResolution}
-            />
-          </div>
-        </div>
-
-        <LargeImage
-          isBordered
-          src={
-            input.value && input.value.length > HASH_CHARS_LIMIT
-              ? input.value
-              : getUserAvatar(input.value, true, true)
-          }
-          alt="icon"
-        />
-      </div>
-
+    <Wrapper label={label} disabled={disabled}>
       <InfoMessage>
         <FormattedMessage {...messages.communityBannerInfo} />
       </InfoMessage>
-      {(isFileTooLarge && (
-        <LabelErrorStyle>
-          <FormattedMessage {...messages.bannerSizeErrorMsg} />
-        </LabelErrorStyle>
-      )) ||
-        (isIncorrectResolution && (
-          <LabelErrorStyle>
-            <FormattedMessage {...messages.incorrectBannerResolutionMsg} />
-          </LabelErrorStyle>
-        ))}
-      <WarningMessage {...meta} isSpecialPosition />
-    </Div>
-  );
-}
 
-AvatarField.propTypes = {
+      <Div
+        disabled={disabled}
+        error={
+          (meta.touched && (meta.error || meta.warning)) ||
+          isIncorrectResolution ||
+          isFileTooLarge
+        }
+        id={formatStringToHtmlId(input.name)}
+      >
+        <div>
+          <div>
+            <div className="avatar-wrapper">
+              <BannerLoader
+                input={input}
+                onBeforeFileLoad={e => {
+                  if (e.target.files[0].size > IMG_SIZE_LIMIT_B) {
+                    setIsFileTooLarge(true);
+                    e.target.value = '';
+                  } else setIsFileTooLarge(false);
+                }}
+                setIsCorrectResolution={setIsCorrectResolution}
+              />
+            </div>
+          </div>
+
+          <LargeImage
+            isBordered
+            src={
+              input.value && input.value.length > HASH_CHARS_LIMIT
+                ? input.value
+                : getUserAvatar(input.value, true, true)
+            }
+            alt="icon"
+          />
+        </div>
+
+        {(isFileTooLarge && (
+          <LabelErrorStyle>
+            <FormattedMessage {...messages.bannerSizeErrorMsg} />
+          </LabelErrorStyle>
+        )) ||
+          (isIncorrectResolution && (
+            <LabelErrorStyle>
+              <FormattedMessage {...messages.incorrectBannerResolutionMsg} />
+            </LabelErrorStyle>
+          ))}
+        <WarningMessage {...meta} isSpecialPosition />
+      </Div>
+    </Wrapper>
+  );
+};
+
+BannerField.propTypes = {
   input: PropTypes.object,
   meta: PropTypes.object,
   size: PropTypes.number,
   disabled: PropTypes.bool,
+  label: PropTypes.string,
 };
 
-export default React.memo(AvatarField);
+export default React.memo(BannerField);

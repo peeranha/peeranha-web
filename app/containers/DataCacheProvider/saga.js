@@ -19,7 +19,10 @@ import {
   LOGIN_WITH_EMAIL,
   LOGIN_WITH_WALLET,
   PROFILE_INFO_LS,
+  FINISH_REGISTRATION_SUCCESS,
 } from 'containers/Login/constants';
+
+import { SIGNUP_WITH_WALLET_SUCCESS } from 'containers/SignUp/constants';
 
 import { selectStat, selectUsers } from './selectors';
 
@@ -177,7 +180,10 @@ export function* getUserProfileWorker({ user, getFullProfile }) {
 export default function*() {
   yield takeLatest(GET_COMMUNITIES_WITH_TAGS, getCommunitiesWithTagsWorker);
   yield takeEvery(GET_USER_PROFILE, getUserProfileWorker);
-  yield takeLatest(GET_STAT, getStatWorker);
+  yield takeLatest(
+    [GET_STAT, FINISH_REGISTRATION_SUCCESS, SIGNUP_WITH_WALLET_SUCCESS],
+    getStatWorker,
+  );
   yield takeLatest(GET_FAQ, getFaqWorker);
   yield takeLatest(GET_TUTORIAL, getTutorialWorker);
   yield takeLatest(

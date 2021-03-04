@@ -15,6 +15,7 @@ import Button from 'components/Button/Contained/InfoLarge';
 import {
   isTelosNameAvailable,
   required,
+  requiredAndNotZero,
   validateTelosName,
   valueHasToBeLessThan,
 } from 'components/FormFields/validate';
@@ -64,8 +65,8 @@ const SendTokensForm = ({
         disabled={sendTokensProcessing}
         label={translationMessages[locale][commonMessages.amount.id]}
         component={NumberInputField}
-        validate={[required, valueHasToBeLessThan]}
-        warn={[required, valueHasToBeLessThan]}
+        validate={[requiredAndNotZero, valueHasToBeLessThan]}
+        warn={[requiredAndNotZero, valueHasToBeLessThan]}
       />
 
       {!(loginData.loginWithScatter || loginData.loginWithKeycat) && (

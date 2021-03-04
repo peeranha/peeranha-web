@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
@@ -24,34 +24,48 @@ const View = ({
   stakedInCurrentPeriod,
   stakedInNextPeriod,
   boost,
-}) => (
-  <ViewStyled id={LEFT_MENU_ID} single={single} isMenuVisible={isMenuVisible}>
-    {single && isMenuVisible ? <MobileSubHeader profile={!!profile} /> : null}
+}) => {
+  const [currClientHeight, setClientHeight] = useState();
 
-    <MobileAutorizationButtons
-      profile={profile}
-      isMenuVisible={isMenuVisible}
-      showLoginModal={showLoginModal}
-    />
+  useEffect(() => setClientHeight(document.documentElement.clientHeight), []);
 
-    <MobileLinksInProfile profile={profile} isMenuVisible={isMenuVisible} />
+  // change links display on window resize
+  const windowResizeHandler = () =>
+    setClientHeight(document.documentElement.clientHeight);
 
-    <MobileLinksInWallet
-      profile={profile}
-      isMenuVisible={isMenuVisible}
-      balance={balance}
-      stakedInCurrentPeriod={stakedInCurrentPeriod}
-      stakedInNextPeriod={stakedInNextPeriod}
-      boost={boost}
-    />
+  useEffect(() => {
+    window.addEventListener(`resize`, windowResizeHandler, false);
+    return () => window.removeEventListener('resize', windowResizeHandler);
+  }, []);
+  return (
+    <ViewStyled id={LEFT_MENU_ID} single={single} isMenuVisible={isMenuVisible}>
+      {single && isMenuVisible ? <MobileSubHeader profile={!!profile} /> : null}
 
-    <MobileAdditionalLinks profile={profile} isMenuVisible={isMenuVisible} />
+      <MobileAutorizationButtons
+        profile={profile}
+        isMenuVisible={isMenuVisible}
+        showLoginModal={showLoginModal}
+      />
 
-    <MainLinks profile={profile} />
+      <MobileLinksInProfile profile={profile} isMenuVisible={isMenuVisible} />
 
-    <AdditionalLinks />
-  </ViewStyled>
-);
+      <MobileLinksInWallet
+        profile={profile}
+        isMenuVisible={isMenuVisible}
+        balance={balance}
+        stakedInCurrentPeriod={stakedInCurrentPeriod}
+        stakedInNextPeriod={stakedInNextPeriod}
+        boost={boost}
+      />
+
+      <MobileAdditionalLinks profile={profile} isMenuVisible={isMenuVisible} />
+
+      <MainLinks profile={profile} currClientHeight={currClientHeight} />
+
+      <AdditionalLinks currClientHeight={currClientHeight} />
+    </ViewStyled>
+  );
+};
 
 View.propTypes = {
   profile: PropTypes.object,

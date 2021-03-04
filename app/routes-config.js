@@ -5,14 +5,13 @@
  */
 
 /* eslint camelcase: 0, prettier/prettier: 0 */
-import { isSingleCommunityWebsite } from 'utils/communityManagement';
-import communitiesConfig from 'communities-config';
+import { isSingleCommunityWebsite, getSingleCommunityDetails } from 'utils/communityManagement';
 import { REFERRAL_CODE_URI } from './containers/App/constants';
 
 const userRedirect = where => id => `/users/${id}${where}`;
 
 const singleCommId = isSingleCommunityWebsite();
-const isBloggerMode = !!singleCommId ? !!communitiesConfig[singleCommId].isBloggerMode : false;
+const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
 
 export const home = () => `/about`;
 
