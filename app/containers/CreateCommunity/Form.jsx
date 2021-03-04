@@ -16,7 +16,7 @@ import closeIcon from 'images/close.svg?external';
 import { formatStringToHtmlId, scrollToErrorField } from 'utils/animation';
 import { showPopover } from 'utils/popover';
 import { hasCommunityModeratorCreatePermission } from 'utils/properties';
-import {  } from '../../utils/properties';
+
 import {
   required,
   strLength2x15,
@@ -38,7 +38,6 @@ import { IconSm } from 'components/Icon/IconWithSizes';
 import FormBox from 'components/Form';
 import LargeButton from 'components/Button/Contained/InfoLarge';
 import TransparentButton from 'components/Button/Contained/Transparent';
-import Checkbox from 'components/Input/Checkbox';
 
 import messages from './messages';
 import {
@@ -125,7 +124,7 @@ const CreateCommunityForm = ({
       );
     }
   };
-  
+
   return (
     <ExtendedBase>
       <Field
@@ -189,14 +188,14 @@ const CreateCommunityForm = ({
           name={ABOUT_FIELD}
         />
 
-        {/*{profileWithModeratorRights && (*/}
-        {/*  <TypeForm*/}
-        {/*    locale={locale}*/}
-        {/*    change={change}*/}
-        {/*    formValues={formValues}*/}
-        {/*    intl={intl}*/}
-        {/*  />*/}
-        {/*)}*/}
+        {profileWithModeratorRights && (
+          <TypeForm
+            locale={locale}
+            change={change}
+            formValues={formValues}
+            intl={intl}
+          />
+        )}
 
         <CommunityTypeForm change={change} intl={intl} />
 
