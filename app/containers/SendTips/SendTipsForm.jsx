@@ -20,7 +20,11 @@ import TextInputField from 'components/FormFields/TextInputField';
 import NumberInputField from 'components/FormFields/NumberInputField';
 import Button from 'components/Button/Contained/InfoLarge';
 
-import { required, valueHasToBeLessThan } from 'components/FormFields/validate';
+import {
+  required,
+  valueHasToBeLessThan,
+  requiredAndNotZero,
+} from 'components/FormFields/validate';
 
 import { makeSelectEos } from '../EosioProvider/selectors';
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
@@ -167,7 +171,6 @@ const SendTipsForm = ({
           validate={[required]}
           warn={[required]}
         />
-
         <Field
           name={EOS_SEND_TO_ACCOUNT_FIELD}
           disabled={disabled || !!account}
@@ -176,7 +179,6 @@ const SendTipsForm = ({
           validate={[required]}
           warn={[required]}
         />
-
         <>
           <Field
             name={WALLET_FIELD}
@@ -213,10 +215,17 @@ const SendTipsForm = ({
           label={translationMessages[locale][commonMessages.amount.id]}
           component={NumberInputField}
           dotRestriction={_get(currencyValue, 'precision', 6)}
-          validate={!isPeer ? [required] : [required, valueHasToBeLessThan]}
-          warn={!isPeer ? [required] : [required, valueHasToBeLessThan]}
+          validate={
+            !isPeer
+              ? [requiredAndNotZero]
+              : [requiredAndNotZero, valueHasToBeLessThan]
+          }
+          warn={
+            !isPeer
+              ? [requiredAndNotZero]
+              : [requiredAndNotZero, valueHasToBeLessThan]
+          }
         />
-
         {isPeer && (
           <Field
             name={PASSWORD_FIELD}
@@ -228,7 +237,6 @@ const SendTipsForm = ({
             type="password"
           />
         )}
-
         <Button
           disabled={disabled}
           onClick={handleSubmit(sendTips)}

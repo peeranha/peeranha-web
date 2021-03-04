@@ -714,6 +714,8 @@
     "Бонус будет доступен до: ",
   "app.components.FormFields.requiredField":
     "Вы не можете оставить это поле пустым",
+  "app.components.FormFields.requiredAndNotZeroField":
+    "Вы не можете оставить 0 в этом поле",
   "app.components.FormFields.wrongNumberRange":
     "Должно быть как минимум {min}, но не более {max}",
   "app.components.FormFields.wrongLength":
