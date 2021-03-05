@@ -8,8 +8,8 @@ const {
   REGISTER_CONFIRM_SERVICE,
 } = require('../../util/aws-connector');
 
-async function registerInit(email) {
-  const response = await callService(REGISTER_INIT_SERVICE, { email });
+async function registerInit(email, locale = 'en') {
+  const response = await callService(REGISTER_INIT_SERVICE, { email, locale });
   return response;
 }
 
@@ -42,11 +42,11 @@ async function registerComplete(
   const encryptedPwdEosKeys = {
     activeKey: encryptObject(keys.activeKey, hashPassword.encryptionKey),
   };
-  
+
   const encryptedMKEosKeys = {
     activeKey: encryptObject(keys.activeKey, hashMasterKey.encryptionKey),
   };
-  
+
   if (includeOwnerKeys && keys.ownerKey) {
     encryptedPwdEosKeys.ownerKey = encryptObject(
       keys.ownerKey,
@@ -57,7 +57,7 @@ async function registerComplete(
       hashMasterKey.encryptionKey,
     );
   }
-  
+
   const credentials = {
     hashPassword: hashPassword.authKey,
     hashMasterKey: hashMasterKey.authKey,
@@ -74,7 +74,7 @@ async function registerComplete(
       eosName,
     };
   }
-  
+
   const encryptedCredentials = encryptObject(credentials, encryptionKey);
 
   const requestBody = {
