@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { IntlProvider } from 'react-intl';
 import { bindActionCreators } from 'redux';
-// import { translationMessages } from 'i18n';
+import { translationMessages } from 'i18n';
 
 import { makeSelectLocale } from './selectors';
 import { changeLocale } from './actions';
@@ -13,29 +13,38 @@ export const LanguageProvider = ({
   children,
   locale,
   messages,
-  // changeLocaleDispatch,
-}) => (
-  /* useEffect(() => {
-    const languages = Object.keys(translationMessages);
-    let locale = localStorage.getItem('locale');
-    // find the first suitable language in window.navigator.languages
-    if (!locale) {
-      locale = window.navigator.languages.filter(x => languages.includes(x))[0];
-    } else {
-      changeLocaleDispatch(locale)
-    }
-  }, []) */
+  changeLocaleDispatch,
+}) => {
+  useEffect(() => {
+    const projectLangs = Object.keys(translationMessages);
+    const storedLocale = localStorage.getItem('locale');
 
-  <IntlProvider locale={locale} key={locale} messages={messages[locale]}>
-    {children}
-  </IntlProvider>
-);
+    // find the first suitable language in window.navigator.languages
+    if (!storedLocale) {
+      const userLocale = window.navigator.languages
+        .find(lang => projectLangs.includes(lang.slice(0, 2)))
+        ?.slice(0, 2);
+
+      if (userLocale) {
+        changeLocaleDispatch(userLocale);
+      }
+    } else {
+      changeLocaleDispatch(storedLocale);
+    }
+  }, []);
+
+  return (
+    <IntlProvider locale={locale} key={locale} messages={messages[locale]}>
+      {children}
+    </IntlProvider>
+  );
+};
 
 LanguageProvider.propTypes = {
   locale: PropTypes.string,
   messages: PropTypes.object,
   children: PropTypes.element,
-  // changeLocaleDispatch: PropTypes.func,
+  changeLocaleDispatch: PropTypes.func,
 };
 
 export default connect(
