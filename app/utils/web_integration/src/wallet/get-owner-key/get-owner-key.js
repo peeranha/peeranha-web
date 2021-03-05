@@ -10,7 +10,14 @@ const {
   GET_OWNER_KEY_COMPLETE_SERVICE,
 } = require('../../util/aws-connector');
 
-async function getOwnerKeyInit(email, rawAuthKey, authByMasterKey) {
+const { DEFAULT_LOCALE } = require('i18n');
+
+async function getOwnerKeyInit(
+  email,
+  rawAuthKey,
+  authByMasterKey,
+  locale = DEFAULT_LOCALE,
+) {
   const { authKey } = buildEncryptionKeys(rawAuthKey);
   const requestCreationTime = Date.now();
   const ivResponseEncrypt = getRandomIv();
@@ -24,6 +31,7 @@ async function getOwnerKeyInit(email, rawAuthKey, authByMasterKey) {
 
   const requestBody = {
     email,
+    locale,
     authByMasterKey,
     encryptedPassphrase,
   };
@@ -33,8 +41,8 @@ async function getOwnerKeyInit(email, rawAuthKey, authByMasterKey) {
   return response;
 }
 
-async function getOwnerKeyInitByPwd(email, password) {
-  const response = await getOwnerKeyInit(email, password, false);
+async function getOwnerKeyInitByPwd(email, password, locale) {
+  const response = await getOwnerKeyInit(email, password, false, locale);
   return response;
 }
 
