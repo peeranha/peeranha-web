@@ -19,8 +19,10 @@ export const LanguageProvider = ({
     const projectLangs = Object.keys(translationMessages);
     const storedLocale = localStorage.getItem('locale');
 
-    // find the first suitable language in window.navigator.languages
-    if (!storedLocale) {
+    if (storedLocale) {
+      changeLocaleDispatch(storedLocale);
+    } else {
+      // find the first suitable language in window.navigator.languages
       const userLocale = window.navigator.languages
         .find(lang => projectLangs.includes(lang.slice(0, 2)))
         ?.slice(0, 2);
@@ -28,8 +30,6 @@ export const LanguageProvider = ({
       if (userLocale) {
         changeLocaleDispatch(userLocale);
       }
-    } else {
-      changeLocaleDispatch(storedLocale);
     }
   }, []);
 
