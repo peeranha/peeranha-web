@@ -8,7 +8,9 @@ const {
   REGISTER_CONFIRM_SERVICE,
 } = require('../../util/aws-connector');
 
-async function registerInit(email, locale = 'en') {
+const { DEFAULT_LOCALE } = require('i18n');
+
+async function registerInit(email, locale = DEFAULT_LOCALE) {
   const response = await callService(REGISTER_INIT_SERVICE, { email, locale });
   return response;
 }

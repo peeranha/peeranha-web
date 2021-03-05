@@ -10,11 +10,13 @@ const {
   GET_OWNER_KEY_COMPLETE_SERVICE,
 } = require('../../util/aws-connector');
 
+const { DEFAULT_LOCALE } = require('i18n');
+
 async function getOwnerKeyInit(
   email,
   rawAuthKey,
   authByMasterKey,
-  locale = 'en',
+  locale = DEFAULT_LOCALE,
 ) {
   const { authKey } = buildEncryptionKeys(rawAuthKey);
   const requestCreationTime = Date.now();
