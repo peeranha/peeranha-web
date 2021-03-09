@@ -73,7 +73,6 @@ const EditQuestion = ({
           content: val[FORM_CONTENT],
           community: val[FORM_COMMUNITY],
           chosenTags: val[FORM_TAGS],
-          type: +val[FORM_TYPE],
           bounty: +val[FORM_BOUNTY],
           bountyFull: `${getFormattedAsset(+val[FORM_BOUNTY])} PEER`,
           bountyHours: +val[FORM_BOUNTY_HOURS],

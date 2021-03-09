@@ -1040,16 +1040,11 @@ function* changeQuestionTypeWorker({ buttonId }) {
       getParams,
     );
 
-    const question = {
-      ...questionData.content,
-      type: getQuestionTypeValue(!questionData.isGeneral),
-    };
-
     yield call(
       changeQuestionType,
       profileInfo.user,
       questionData.id,
-      question,
+      getQuestionTypeValue(!questionData.isGeneral),
       eosService.scatterInstalled ? 1 : true,
       eosService,
     );

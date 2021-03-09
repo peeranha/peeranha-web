@@ -296,7 +296,6 @@ export const getEditQuestTrActData = async (user, id, question) => {
       ipfs_link: ipfsLink,
       community_id: question.community.value,
       tags: question.chosenTags.map(x => x.id),
-      type: question.type,
     },
   };
 };
@@ -455,21 +454,16 @@ export async function getQuestionById(eosService, questionId) {
 
 export const changeQuestionType = async (
   user,
-  id,
-  question,
+  questionId,
+  type,
   ratingRestore,
   eosService,
 ) => {
-  const ipfsLink = await saveText(JSON.stringify(question));
-
-  await eosService.sendTransaction(user, EDIT_QUESTION_METHOD, {
+  await eosService.sendTransaction(user, CHANGE_QUESTION_TYPE_METHOD, {
     user,
-    question_id: +id,
-    title: question.title,
-    ipfs_link: ipfsLink,
-    community_id: question.community.value || question.communityId,
-    tags: question.chosenTags.map(x => x.id),
-    type: question.type,
+    question_id: +questionId,
+    type,
+    restore_rating: ratingRestore,
   });
 };
 
