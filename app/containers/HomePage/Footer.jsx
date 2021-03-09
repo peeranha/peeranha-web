@@ -11,6 +11,8 @@ import {
   TEXT_SECONDARY_LIGHT,
 } from 'style-constants';
 
+// import ChangeLocale from 'containers/ChangeLocale';
+
 import Icon from 'components/Icon';
 
 import logo from 'images/LogoBlack.svg?inline';
