@@ -68,18 +68,22 @@ const Img = styled.img`
   filter: grayscale(100%);
 `;
 
-const Link =
-  document.location.origin === process.env.APP_LOCATION
-    ? ({ path, key, message }) => (
-        <A to={path} key={key}>
-          <FormattedMessage {...message} />
-        </A>
-      )
-    : ({ path, key, message }) => (
-        <ADefault href={`${process.env.APP_LOCATION}${path}`} key={key}>
-          <FormattedMessage {...message} />
-        </ADefault>
-      );
+const Link = ({ path, message, cssStyles }) =>
+  document.location.origin === process.env.APP_LOCATION ? (
+    <A to={path} css={cssStyles}>
+      <FormattedMessage {...message} />
+    </A>
+  ) : (
+    <ADefault href={`${process.env.APP_LOCATION}${path}`} css={cssStyles}>
+      <FormattedMessage {...message} />
+    </ADefault>
+  );
+
+Link.propTypes = {
+  path: PropTypes.string,
+  message: PropTypes.object,
+  cssStyles: PropTypes.object,
+};
 
 const InfoLinksDropDown = ({ withTitle }) => (
   <Dropdown
@@ -105,8 +109,16 @@ const InfoLinksDropDown = ({ withTitle }) => (
     menu={
       <ul>
         {INFO_LINKS.map(el => (
-          <Li key={el.route}>
-            <Link path={el.route} message={el.title} />
+          <Li key={el.route} css={{ padding: '0 !important' }}>
+            <Link
+              key={el.title}
+              path={el.route}
+              message={el.title}
+              cssStyles={{
+                width: '100% !important',
+                padding: '15px 35px !important',
+              }}
+            />
           </Li>
         ))}
       </ul>
