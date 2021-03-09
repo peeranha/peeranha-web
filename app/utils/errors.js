@@ -33,3 +33,15 @@ export class BlockchainError extends Error {
     }
   }
 }
+
+export class WebIntegrationErrorByCode extends Error {
+  constructor(...args) {
+    super(...args);
+
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, WebIntegrationErrorByCode);
+    } else {
+      this.stack = new Error().stack;
+    }
+  }
+}

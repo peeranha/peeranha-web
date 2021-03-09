@@ -447,7 +447,4 @@ export default defineMessages({
   cannotTransferToYourself: {
     id: 'app.common.cannotTransferToYourself',
   },
-  notEnoughCPUOrRAM: {
-    id: 'app.common.notEnoughCPUOrRAM',
-  },
 });

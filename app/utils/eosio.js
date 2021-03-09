@@ -20,14 +20,13 @@ import {
   SCATTER_APP_NAME,
   SCATTER_TIMEOUT_DURATION,
   SCATTER_TIMEOUT_ERROR,
-  TRANSACTION_NET_USAGE_IS_TOO_HIGH,
 } from './constants';
 
 import { createPushActionBody, parseTableRows } from './ipfs';
 import {
   ApplicationError,
   BlockchainError,
-  WebIntegrationError,
+  WebIntegrationErrorByCode,
 } from './errors';
 import { payForCpu } from './web_integration/src/wallet/pay-for-cpu/pay-for-cpu';
 import { getNodes } from './web_integration/src/wallet/get-nodes/get-nodes';
@@ -335,11 +334,8 @@ class EosioService {
 
         return trx;
       } catch (e) {
-        const errorCode = JSON.parse(e)?.error?.code ?? undefined;
         this.isScatterWindowOpened = false;
-        if (errorCode === TRANSACTION_NET_USAGE_IS_TOO_HIGH)
-          throw new WebIntegrationError('Not enough CPU or RAM');
-        else throw new BlockchainError(e.message);
+        throw new WebIntegrationErrorByCode(e);
       }
     }
 

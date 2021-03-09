@@ -240,5 +240,3 @@ export const BOUNTY_STATUS_PENDING = 3;
 
 // Profile properties
 export const KEY_LAST_RATING_UPDATE_TIME = 18;
-
-export const TRANSACTION_NET_USAGE_IS_TOO_HIGH = 3080002;
