@@ -199,20 +199,21 @@ export const Content = ({
   profileInfo,
 }) => (
   <div className="position-relative">
-    {promotedQuestionsList && promotedQuestionsList.map((item, index) => (
-      <QuestionItem
-        {...item}
-        index={index}
-        first={index === 0}
-        last={index === questionsList.length - 1}
-        locale={locale}
-        communities={communities}
-        key={item.id}
-        isModerator={isModerator}
-        profileInfo={profileInfo}
-        isPromoted
-      />
-    ))}
+    {promotedQuestionsList &&
+      promotedQuestionsList.map((item, index) => (
+        <QuestionItem
+          {...item}
+          index={index}
+          first={index === 0}
+          last={index === questionsList.length - 1}
+          locale={locale}
+          communities={communities}
+          key={item.id}
+          isModerator={isModerator}
+          profileInfo={profileInfo}
+          isPromoted
+        />
+      ))}
     {questionsList.map((item, index) => (
       <QuestionItem
         {...item}
@@ -255,6 +256,8 @@ QI.propTypes = {
   topQuestionActionProcessing: PropTypes.bool,
   moveQuestionDispatch: PropTypes.func,
   topQuestions: PropTypes.array,
+  isPromoted: PropTypes.bool,
+  questionBounty: PropTypes.number,
 };
 
 Content.propTypes = {
