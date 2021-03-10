@@ -159,6 +159,7 @@
   "app.common.standart": "Standart",
   "app.common.blogger": "Blogger",
   "app.common.cannotTransferToYourself": "Cannot transfer to yourself",
+  "app.common.notEnoughCPUOrRAM": "Not enough CPU or RAM",
 
   "app.telegram.user": "Telegram user",
   "app.telegram.userLabelPopover":

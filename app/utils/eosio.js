@@ -23,7 +23,11 @@ import {
 } from './constants';
 
 import { createPushActionBody, parseTableRows } from './ipfs';
-import { ApplicationError, BlockchainError } from './errors';
+import {
+  ApplicationError,
+  BlockchainError,
+  WebIntegrationErrorByCode,
+} from './errors';
 import { payForCpu } from './web_integration/src/wallet/pay-for-cpu/pay-for-cpu';
 import { getNodes } from './web_integration/src/wallet/get-nodes/get-nodes';
 import { getCookie } from './cookie';
@@ -331,7 +335,7 @@ class EosioService {
         return trx;
       } catch (e) {
         this.isScatterWindowOpened = false;
-        throw new BlockchainError(e.message);
+        throw new WebIntegrationErrorByCode(e);
       }
     }
 
