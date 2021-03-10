@@ -5,7 +5,10 @@
  */
 
 /* eslint camelcase: 0, prettier/prettier: 0 */
-import { isSingleCommunityWebsite, getSingleCommunityDetails } from 'utils/communityManagement';
+import {
+  isSingleCommunityWebsite,
+  getSingleCommunityDetails,
+} from 'utils/communityManagement';
 import { REFERRAL_CODE_URI } from './containers/App/constants';
 
 const userRedirect = where => id => `/users/${id}${where}`;
@@ -32,8 +35,10 @@ export const userWallet = userRedirect('/wallet');
 export const userBoost = userRedirect('/boost');
 export const uniqueAnswerId = answerId => `ans${answerId}`;
 
-export const questions = (communityId) =>
-  !communityId ? `${!isBloggerMode ? '/' : '/questions'}` : `/questions/community/${communityId}/`;
+export const questions = communityId =>
+  !communityId
+    ? `${!isBloggerMode ? '/' : '/questions'}`
+    : `/questions/community/${communityId}/`;
 
 export const questionView = (id, answerId) =>
   answerId
@@ -56,7 +61,7 @@ export const detailsHomePage = () => '/';
 
 export const feed = communityId => `/feed/${communityId || ''}`;
 
-export const communities = () => `/communities`;
+export const communities = () => (!isBloggerMode ? `/communities` : `/`);
 
 export const tags = () => `/tags`;
 
@@ -76,7 +81,7 @@ export const termsAndConditions = section =>
 
 export const communitiesCreate = () => `/communities/create`;
 export const communitiesEdit = communityId =>
-  `/communities/${communityId}/edit`;
+  !isBloggerMode ? `/communities/${communityId}/edit` : `/${communityId}/edit`;
 export const communitiesCreatedBanner = () => `/communities/create#banner`;
 export const suggestedCommunities = () => `/communities/suggested`;
 

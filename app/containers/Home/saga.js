@@ -5,6 +5,7 @@ import {
   select,
   all,
   takeEvery,
+  takeLatest,
 } from 'redux-saga/effects';
 
 import { HASH_CHARS_LIMIT } from 'components/FormFields/AvatarField';
@@ -13,7 +14,10 @@ import { selectEos } from 'containers/EosioProvider/selectors';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 import { selectTopQuestionIds } from 'containers/Questions/selectors';
 
-import { getQuestionsFilteredByCommunities, getQuestionById } from 'utils/questionsManagement';
+import {
+  getQuestionsFilteredByCommunities,
+  getQuestionById,
+} from 'utils/questionsManagement';
 import {
   getCommunityById,
   isSingleCommunityWebsite,
@@ -30,6 +34,7 @@ import {
   GET_QUESTIONS,
   GET_COMMUNITY,
   GET_LOGO,
+  REDIRECT_TO_EDIT_COMMUNITY_PAGE,
 } from './constants';
 import {
   getQuestionsSuccess,
@@ -40,11 +45,13 @@ import {
   getLogoError,
 } from './actions';
 import { selectCommunity } from './selectors';
+import createdHistory from '../../createdHistory';
+import * as routes from '../../routes-config';
 
 export function* getQuestionsWorker({ communityId }) {
   try {
     const eosService = yield select(selectEos);
-    
+
     yield call(loadTopCommunityQuestionsWorker, { init: true });
 
     const topQuestionsIds = yield select(selectTopQuestionIds);
@@ -55,7 +62,7 @@ export function* getQuestionsWorker({ communityId }) {
       yield all(
         topQuestionsIds.map(function*(id) {
           const question = yield call(getQuestionById, eosService, id);
-          
+
           questionsList.push(question);
         }),
       );
@@ -68,7 +75,7 @@ export function* getQuestionsWorker({ communityId }) {
         eosService,
         limit,
         offset,
-        communityId
+        communityId,
       );
     }
 
@@ -128,22 +135,23 @@ export function* getCommunityWorker({ id }) {
 
 export function* getLogoWorker() {
   try {
-    let logo = "";
+    let logo = '';
 
     const single = isSingleCommunityWebsite();
     if (single) {
       yield call(getCommunityWorker, { id: single });
 
       const community = yield select(selectCommunity());
-      
+
       const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
 
       if (isBloggerMode) {
         const { avatar } = community;
 
-        logo = avatar && avatar.length > HASH_CHARS_LIMIT
-          ? avatar
-          : getUserAvatar(avatar, true, true);
+        logo =
+          avatar && avatar.length > HASH_CHARS_LIMIT
+            ? avatar
+            : getUserAvatar(avatar, true, true);
       }
     }
 
@@ -153,8 +161,18 @@ export function* getLogoWorker() {
   }
 }
 
+export function* redirectToEditCommunityPageWorker({ id }) {
+  try {
+    yield call(createdHistory.push, routes.communitiesEdit(id));
+  } catch (err) {}
+}
+
 export default function*() {
   yield takeEvery(GET_QUESTIONS, getQuestionsWorker);
   yield takeEvery(GET_COMMUNITY, getCommunityWorker);
   yield takeEvery(GET_LOGO, getLogoWorker);
+  yield takeLatest(
+    REDIRECT_TO_EDIT_COMMUNITY_PAGE,
+    redirectToEditCommunityPageWorker,
+  );
 }

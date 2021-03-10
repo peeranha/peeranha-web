@@ -8,7 +8,15 @@ import {
   GET_LOGO,
   GET_LOGO_SUCCESS,
   GET_LOGO_ERROR,
+  REDIRECT_TO_EDIT_COMMUNITY_PAGE,
 } from './constants';
+
+export function redirectToEditCommunityPage(id) {
+  return {
+    type: REDIRECT_TO_EDIT_COMMUNITY_PAGE,
+    id,
+  };
+}
 
 export function getQuestions(communityId) {
   return {
@@ -17,9 +25,7 @@ export function getQuestions(communityId) {
   };
 }
 
-export function getQuestionsSuccess(
-  questions,
-) {
+export function getQuestionsSuccess(questions) {
   return {
     type: GET_QUESTIONS_SUCCESS,
     questions,
