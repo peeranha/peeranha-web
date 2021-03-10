@@ -264,8 +264,19 @@ export async function getUserTelegramData(eosService, userName) {
   );
 
   const userTgData = rows.filter(item => item.user === userName);
+  const telegram_id = userTgData.length > 0 ? userTgData[0].telegram_id : 0;
+  const temporaryAccount = rows.filter(
+    item => item.telegram_id === telegram_id && item.user !== userName,
+  );
 
-  return userTgData.length > 0 ? userTgData[0] : null;
+  return userTgData.length > 0
+    ? {
+        ...userTgData[0],
+        temporaryAccountName: temporaryAccount.length
+          ? temporaryAccount[0].user
+          : undefined,
+      }
+    : null;
 }
 
 export async function confirmTelegramAccount(eosService, user) {
