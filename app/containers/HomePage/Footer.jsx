@@ -106,9 +106,9 @@ const Footer = ({ locale }) => (
         </div>
 
         <div className="d-flex align-items-center justify-content-between media-section">
-          {/* <div className="locale">
+          <div className="locale">
             <ChangeLocale />
-          </div> */}
+          </div>
 
           <div className="d-none d-lg-flex align-items-center icons">
             <MediaLink href={getLinks(locale).facebook} src={facebook} />
