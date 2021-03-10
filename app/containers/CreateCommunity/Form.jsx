@@ -57,6 +57,7 @@ import {
   HIGHLIGHT_COLOR_FIELD,
   FORM_TYPE,
   ANY_TYPE,
+  MIN_RATING_TO_CREATE_COMMUNITY,
 } from './constants';
 
 import AboutForm from './AboutForm';
@@ -89,14 +90,6 @@ const CreateCommunityForm = ({
   profile,
 }) => {
   const [tags, changeTags] = useState(DEFAULT_TAGS_ARRAY);
-
-  const profileWithModeratorRights = useMemo(
-    () =>
-      hasCommunityModeratorCreatePermission(
-        profile?.['integer_properties'] || [],
-      ),
-    [profile],
-  );
 
   const removeTag = e => {
     const { key } = e.currentTarget.dataset;
@@ -188,14 +181,12 @@ const CreateCommunityForm = ({
           name={ABOUT_FIELD}
         />
 
-        {profileWithModeratorRights && (
-          <TypeForm
-            locale={locale}
-            change={change}
-            formValues={formValues}
-            intl={intl}
-          />
-        )}
+        <TypeForm
+          locale={locale}
+          change={change}
+          formValues={formValues}
+          intl={intl}
+        />
 
         <CommunityTypeForm change={change} intl={intl} />
 
