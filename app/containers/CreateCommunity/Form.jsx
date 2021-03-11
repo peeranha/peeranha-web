@@ -57,7 +57,6 @@ import {
   HIGHLIGHT_COLOR_FIELD,
   FORM_TYPE,
   ANY_TYPE,
-  MIN_RATING_TO_CREATE_COMMUNITY,
 } from './constants';
 
 import AboutForm from './AboutForm';
