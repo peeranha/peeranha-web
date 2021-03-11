@@ -1,34 +1,93 @@
 # Политика конфиденциальности
 
-## Политика конфиденциальности
+## 1. Информация, которую мы собираем
 
-### Условия публичных сетей
-The Peerania Network (also referred to herein as "Peerania" or "Network") is a set of related Internet sites and other applications for questions and answers. ("Peerania", "we" or "us"), a Delaware corporation. Peerania welcomes you to the Network, the largest community of developers in the world, and invites you to participate in the community by sharing knowledge with your peers and colleagues. Like all communities, we ask that you participate in a manner that respects your fellow community members. To that end, we provide you with these terms of service to advise you of the legal obligations you assume when you engage with the Peerania community or otherwise access or use the public Network or any services provided on the public Network (collectively, "Services"). These terms govern the use of the public Network (the "Public Network Terms").
+### Развернуть / Свернуть
 
-##### 1. Public Network Terms
+** Логирование данных ** 
+Когда вы посещаете наш веб-сайт, наши серверы могут автоматически регистрировать стандартные данные, предоставляемые вашим веб-браузером. Он может включать IP-адрес вашего компьютера, тип и версию вашего браузера, страницы, которые вы посещаете, время и дату вашего посещения, время, проведенное на каждой странице, и другие сведения.
 
-Please read these Public Network Terms carefully before accessing or using the public Network. These Public Network Terms constitute an agreement between Stack Overflow and you and governs your permitted use of the public Network ONLY, including any Services or Products that are part of the public Network (e.g., the private Network).
+** Данные про устройство** 
+Мы также можем собирать данные об устройстве, которое вы используете для доступа к нашему веб-сайту. Эти данные могут включать тип устройства, операционную систему, уникальные идентификаторы устройства, настройки устройства и данные о географическом местоположении. То, что мы собираем, может зависеть от индивидуальных настроек вашего устройства и программного обеспечения. Мы рекомендуем проверить политику производителя вашего устройства или поставщика программного обеспечения, чтобы узнать, какую информацию они предоставляют нам.
 
-###### Please be aware that
+** Персональная информация** 
+Мы можем запросить личную информацию, например:
+- Электронную почту
 
-by using the public network, except for certain types of disputes described in the section titled "mandatory arbitration" below, you agree that all disputes between you and us will be resolved by binding, individual arbitration and you waive your right to participate in a class action lawsuit or class-wide arbitration.
 
-##### 2. Contracts are Binding and Legally Enforceable
+## 2. Правовые основы обработки
 
-As stated above, these Public Network Terms constitute an agreement between Peerania and you and governs your use of the public Network. These Public Network Terms do NOT govern the use of our Talent, Enterprise and other Peerania products and services that are not part of the public Network. In the event of any conflict between the terms and conditions of these Public Network Terms and any such service or licensing agreements, the terms and conditions of the Public Network Terms shall prevail.
+### Развернуть / Свернуть
+Мы будем обрабатывать вашу личную информацию законным, справедливым и прозрачным образом. Мы собираем и обрабатываем информацию о вас только в том случае, если у нас есть для этого законные основания.
 
-### User obligations
-The Peerania Network (also referred to herein as "Peerania" or "Network") is a set of related Internet sites and other applications for questions and answers. ("Peerania", "we" or "us"), a Delaware corporation. Peerania welcomes you to the Network, the largest community of developers in the world, and invites you to participate in the community by sharing knowledge with your peers and colleagues. Like all communities, we ask that you participate in a manner that respects your fellow community members. To that end, we provide you with these terms of service to advise you of the legal obligations you assume when you engage with the Peerania community or otherwise access or use the public Network or any services provided on the public Network (collectively, "Services"). These terms govern the use of the public Network (the "Public Network Terms").
+Эти правовые основы зависят от услуг, которыми вы пользуетесь, и от того, как вы их используете, то есть мы собираем и используем вашу информацию только в следующих случаях:
 
-### General provisions
-The Peerania Network (also referred to herein as "Peerania" or "Network") is a set of related Internet sites and other applications for questions and answers. ("Peerania", "we" or "us"), a Delaware corporation. Peerania welcomes you to the Network, the largest community of developers in the world, and invites you to participate in the community by sharing knowledge with your peers and colleagues. Like all communities, we ask that you participate in a manner that respects your fellow community members. To that end, we provide you with these terms of service to advise you of the legal obligations you assume when you engage with the Peerania community or otherwise access or use the public Network or any services provided on the public Network (collectively, "Services"). These terms govern the use of the public Network (the "Public Network Terms").
+- это необходимо для выполнения контракта, стороной которого вы являетесь, или для принятия мер по вашему запросу до заключения такого контракта (например, когда мы предоставляем услугу, которую вы запрашиваете у нас);
+- он удовлетворяет законный интерес (который не отменяется вашими интересами защиты данных), например, для исследований и разработок, продвижения и продвижения наших услуг, а также для защиты наших законных прав и интересов;
+- вы даете нам согласие на это для определенной цели (например, вы можете дать согласие на отправку вам нашего информационного бюллетеня); или же
+- нам необходимо обработать ваши данные в соответствии с юридическим обязательством.
 
-## Условия публичных сетей сервисов
 
-### Public networks terms
-The Peerania Network (also referred to herein as "Peerania" or "Network") is a set of related Internet sites and other applications for questions and answers. ("Peerania", "we" or "us"), a Delaware corporation. Peerania welcomes you to the Network, the largest community of developers in the world, and invites you to participate in the community by sharing knowledge with your peers and colleagues. Like all communities, we ask that you participate in a manner that respects your fellow community members. To that end, we provide you with these terms of service to advise you of the legal obligations you assume when you engage with the Peerania community or otherwise access or use the public Network or any services provided on the public Network (collectively, "Services"). These terms govern the use of the public Network (the "Public Network Terms").
+Если вы даете согласие на использование нами информации о вас для определенной цели, вы имеете право в любой момент изменить свое решение (но это не повлияет на уже выполненную обработку).
 
-* Item
-* Item
-* Item
-* Item
+Мы не храним личную информацию дольше, чем это необходимо. Пока мы сохраняем эту информацию, мы будем защищать ее коммерчески приемлемыми средствами, чтобы предотвратить потерю и кражу, а также несанкционированный доступ, раскрытие, копирование, использование или изменение. Тем не менее, мы сообщаем, что ни один метод электронной передачи или хранения не является на 100% безопасным и не может гарантировать абсолютную безопасность данных. При необходимости мы можем сохранить вашу личную информацию для соблюдения юридических обязательств или для защиты ваших жизненно важных интересов или жизненно важных интересов другого физического лица.
+
+## 3. Сбор и использование информации
+
+### Развернуть / Свернуть
+Мы можем собирать, хранить, использовать и раскрывать информацию для следующих целей, и личная информация не будет в дальнейшем обрабатываться способом, несовместимым с этими целями:
+- чтобы вы могли настроить или персонализировать работу с нашим сайтом;
+- чтобы вы могли получить доступ и использовать наш веб-сайт, связанные приложения и связанные платформы социальных сетей;
+- связываться и общаться с вами; и
+- для внутреннего учета и административных целей.
+
+## 4. Международная передача личной информации
+
+### Развернуть / Свернуть
+Личная информация, которую мы собираем, хранится и обрабатывается в США, Ирландии и Сингапуре или там, где мы или наши партнеры, аффилированные лица и сторонние поставщики имеют объекты. Предоставляя нам свою личную информацию, вы даете согласие на ее раскрытие этим заграничным третьим лицам.
+
+Мы гарантируем, что любая передача личной информации из стран Европейской экономической зоны (ЕЭЗ) в страны за пределами ЕЭЗ будет защищена соответствующими гарантиями, например, с помощью стандартных положений о защите данных, одобренных Европейской комиссией, или использования привязки корпоративные правила или другие юридически признанные средства.
+
+Когда мы передаем личную информацию из страны, не входящей в ЕЭЗ, в другую страну, вы признаете, что третьи стороны в других юрисдикциях могут не подпадать под действие законов о защите данных, аналогичных законам в нашей юрисдикции. Существуют риски, если любая такая третья сторона будет участвовать в каких-либо действиях или действиях, которые противоречат законам о конфиденциальности данных в нашей юрисдикции, и это может означать, что вы не сможете требовать возмещения в соответствии с законами о конфиденциальности нашей юрисдикции.
+
+## 5. Ваши права и контроль вашей личной информации
+
+### Развернуть / Свернуть
+
+**Выбор и согласие:** Предоставляя нам личную информацию, вы даете согласие на сбор, хранение, использование и раскрытие вашей личной информации в соответствии с настоящей политикой конфиденциальности. Если вам меньше 16 лет, вы должны иметь и гарантировать в той степени, в которой это разрешено законом для нас, что у вас есть разрешение вашего родителя или законного опекуна на доступ и использование веб-сайта, и они (ваши родители или опекун) дали согласие на вы предоставляете нам свою личную информацию. Вы не обязаны предоставлять нам личную информацию, однако, если вы этого не сделаете, это может повлиять на ваше использование этого веб-сайта или продуктов и / или услуг, предлагаемых на нем или через него.
+
+**Информация от третьих лиц:** Если мы получим личную информацию о вас от третьей стороны, мы будем защищать ее в соответствии с настоящей политикой конфиденциальности. Если вы являетесь третьей стороной, предоставляющей личную информацию о другом человеке, вы заявляете и гарантируете, что у вас есть согласие такого лица на предоставление нам личной информации.
+
+**Ограничить:** Вы можете ограничить сбор или использование вашей личной информации. Если вы ранее согласились с тем, чтобы мы использовали вашу личную информацию в целях прямого маркетинга, вы можете в любое время изменить свое решение, связавшись с нами, используя приведенные ниже данные. Если вы попросите нас ограничить или ограничить то, как мы обрабатываем вашу личную информацию, мы сообщим вам, как ограничение влияет на использование вами нашего веб-сайта или продуктов и услуг.
+
+**Доступ и портативность данных:** Вы можете запросить подробную информацию о вашей личной информации, которую мы храним. Вы можете запросить копию вашей личной информации, которую мы храним. По возможности мы будем предоставлять эту информацию в формате CSV или другом легко читаемом машинном формате. Вы можете в любое время потребовать, чтобы мы удалили личную информацию о вас, которую мы храним. Вы также можете потребовать, чтобы мы передали эту личную информацию другому третьему лицу.
+
+**Исправление:** Если вы считаете, что какая-либо информация о вас, которой мы располагаем, является неточной, устаревшей, неполной, нерелевантной или вводящей в заблуждение, пожалуйста, свяжитесь с нами, используя приведенные ниже данные. Мы предпримем разумные меры для исправления любой информации, которая окажется неточной, неполной, вводящей в заблуждение или устаревшей.
+
+**Уведомление об утечке данных:** Мы будем соблюдать применимые к нам законы в отношении любого нарушения данных.
+
+**Жалобы:** Если вы считаете, что мы нарушили соответствующий закон о защите данных, и хотите подать жалобу, свяжитесь с нами, используя приведенную ниже информацию, и предоставьте нам полную информацию о предполагаемом нарушении. Мы незамедлительно расследуем вашу жалобу и ответим вам в письменной форме с изложением результатов нашего расследования и шагов, которые мы предпримем для рассмотрения вашей жалобы. Вы также имеете право связаться с регулирующим органом или органом по защите данных в отношении вашей жалобы.
+
+**Отписка:** Чтобы отписаться от нашей базы данных электронной почты или отказаться от сообщений, свяжитесь с нами, используя приведенные ниже данные, или откажитесь от рассылки, используя средства отказа, указанные в сообщении.
+
+## 6. Файлы cookie
+
+### Развернуть / Свернуть
+
+Мы используем файлы cookie или аналогичные технологии для сбора информации о вас и вашей активности на нашем сайте. Файл cookie - это небольшой фрагмент данных, который наш веб-сайт хранит на вашем компьютере и к которому вы получаете доступ каждый раз, когда вы его посещаете, чтобы мы могли понять, как вы используете наш сайт. Это помогает нам предоставлять вам контент на основе указанных вами предпочтений, улучшать ваше взаимодействие с веб-сайтом и обеспечивать необходимую функциональность.
+
+## 7. Границы нашей политики
+
+### Развернуть / Свернуть
+
+Наш веб-сайт может ссылаться на внешние сайты, которыми мы не управляем. Имейте в виду, что мы не контролируем контент и политику этих сайтов и не можем нести ответственность за их соответствующую политику конфиденциальности.
+
+## 8. Изменения в этой политике
+
+### Развернуть / Свернуть
+
+По нашему усмотрению мы можем изменить нашу политику конфиденциальности, чтобы отразить текущие приемлемые методы. Мы предпримем разумные шаги, чтобы сообщить пользователям об изменениях через наш веб-сайт. Ваше дальнейшее использование этого сайта после любых изменений в этой политике будет рассматриваться как согласие с нашей практикой в ​​отношении конфиденциальности и личной информации.
+
+Если мы внесем существенные изменения в эту политику конфиденциальности, например, изменим законную основу, на которой мы обрабатываем вашу личную информацию, мы попросим вас повторно согласиться с измененной политикой конфиденциальности.
+
+Эта политика действует с 16 декабря 2019 года.

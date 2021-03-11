@@ -19,7 +19,7 @@
   "app.common.notificationCenter": "Центр Уведомлений",
   "app.common.archive": "Архив",
   "app.common.markAllAsRead": "Пометить все как прочитанные",
-  "app.common.edit": "Править",
+  "app.common.edit": "Редактировать",
   "app.common.logout": "Выход",
   "app.common.search": "Поиск",
   "app.common.login": "Вход",
@@ -48,7 +48,7 @@
   "app.common.manageMyComm": "Управлять сообществами",
   "app.common.asked": "Задано",
   "app.common.askedWhen": "Задано {when}",
-  "app.common.answeredWhen": "Ответил {when}",
+  "app.common.answeredWhen": "Отвечено {when}",
   "app.common.somebodyAsked": "{account} спрашивал",
   "app.common.somebodyAnswered": "{account} отвечал",
   "app.common.youAnswered": "Вы отвечали",
@@ -323,7 +323,7 @@
   "app.components.RatingStatus.newbie": "Новичок",
   "app.components.RatingStatus.jrResident": "Юниор",
   "app.components.RatingStatus.resident": "Постоялец",
-  "app.components.RatingStatus.srResident": "Мастер",
+  "app.components.RatingStatus.srResident": "Знаток",
   "app.components.RatingStatus.heroResident": "Герой",
   "app.components.RatingStatus.legResident": "Супергерой",
   "app.components.RatingStatus.banned": "Заблокирован",
@@ -354,7 +354,7 @@
   "app.containers.SuggestedTags.description": "Предложенные теги | Описание",
   "app.containers.SuggestedTags.noSuggestedTags": "Нет предложенных тегов",
   "app.containers.SuggestedTags.topTagsInCommunity":
-    "Популярные теги в сообществе",
+    "Лучшие теги в сообществе",
   "app.containers.SuggestedTags.tagDescription": "Описание",
 
   "app.containers.PrivacyPolicy.title": "Политика конфиденциальности",
@@ -370,12 +370,12 @@
   "app.containers.CreateTag.title": "Предложить тег",
   "app.containers.CreateTag.description": "Предложить тег | Описание",
   "app.containers.CreateTag.community": "Сообщество",
-  "app.containers.CreateTag.communityTip": "Подсказка для поля сообщество...",
+  "app.containers.CreateTag.communityTip": "Сообщество, в котором будет создан тег",
   "app.containers.CreateTag.name": "Название",
-  "app.containers.CreateTag.nameTip": "Подсказка для поля название...",
+  "app.containers.CreateTag.nameTip": "Уникальное имя нового тега",
   "app.containers.CreateTag.descriptionField": "Описание",
   "app.containers.CreateTag.descriptionFieldTip":
-    "Подсказка для поля описание...",
+    "Инструкции по использованию тега",
   "app.containers.CreateTag.createTag": "Предложить тег",
   "app.containers.CreateTag.newTag": "Новый тег",
   "app.containers.CreateTag.tagIsKeyword":
@@ -436,7 +436,7 @@
   "app.containers.CreateCommunity.avatar": "Аватар",
   "app.containers.CreateCommunity.communityTitle": "Название",
   "app.containers.CreateCommunity.shortDescription": "Краткое описание",
-  "app.containers.CreateCommunity.about": "О комьюнити",
+  "app.containers.CreateCommunity.about": "О сообществе",
   "app.containers.CreateCommunity.optional": "Опционально",
   "app.containers.CreateCommunity.whyWeNeedIt": "Зачем нам нужно это?",
   "app.containers.CreateCommunity.createCommunity": "Добавить сообщество",
@@ -448,15 +448,15 @@
   "app.containers.CreateCommunity.tagTitle": "Тег",
   "app.containers.CreateCommunity.tagDescription": "Описание",
   "app.containers.CreateCommunity.communityTitleTip":
-    "Подсказка для заголовка...",
+    "Название нового сообщества",
   "app.containers.CreateCommunity.shortDescriptionTip":
-    "Подсказка для краткого описания...",
+    "Краткое описание сообщества и его предназначения.",
   "app.containers.CreateCommunity.whyWeNeedItTip":
-    "Подсказка для основного описания...",
+    "Эта информация видна пользователям, которые голосуют за новые сообщества.",
   "app.containers.CreateCommunity.tagTitleTip":
-    "Подсказка для заголовка тега...",
+    "Уникальное имя тега",
   "app.containers.CreateCommunity.tagDescriptionTip":
-    "Подсказка для описания тега...",
+    "Описание, когда использовать тег",
   "app.containers.CreateCommunity.imageWillBeTheFace":
     "Изображение станет лицом сообщества",
   "app.containers.CreateCommunity.specifyMemorableTitle":
@@ -469,7 +469,7 @@
     "Форма должна содержать только теги с уникальными именами",
   "app.containers.CreateCommunity.communityLanguage": "Язык",
   "app.containers.CreateCommunity.communityLanguageTip":
-    "Подсказка для поля язык...",
+    "Вопросы в сообществе будут разрешены только на выбранном языке",
   "app.containers.CreateCommunity.thatisgreat": "Отлично!",
   "app.containers.CreateCommunity.communityWillAppear":
     "Ваше сообщество появится среди предложенных и другие пользователи смогут за него проголосовать. 100 голосов необходимо для создания сообщества.",
@@ -605,14 +605,14 @@
     "Многократно успешный предприниматель. CEO международной IT консалтинговой компании Forte Group.",
 
   "app.containers.HomePage.yourName": "Ваше имя",
-  "app.containers.HomePage.yourNameTip": "Ваше имя, подсказка",
+  "app.containers.HomePage.yourNameTip": "Введите ваше имя",
   "app.containers.HomePage.email": "Почта",
-  "app.containers.HomePage.emailTip": "Почта, подсказка",
+  "app.containers.HomePage.emailTip": "Введите вашу почту",
   "app.containers.HomePage.refCode": "Реф. код",
   "app.containers.HomePage.subject": "Тема",
-  "app.containers.HomePage.subjectTip": "Тема, подсказка",
+  "app.containers.HomePage.subjectTip": "Выберите тему вопроса",
   "app.containers.HomePage.message": "Сообщение",
-  "app.containers.HomePage.messageTip": "Сообщение, подсказка",
+  "app.containers.HomePage.messageTip": "Опишите проблему",
   "app.containers.HomePage.sendMessage": "Отправить сообщение",
   "app.containers.HomePage.platformUnderDeveloping":
     "В настоящее время веб-сайт находится в разработке. Ваш email адрес был получен. Вы получите email с пошаговой инструкцией когда веб-сайт будет открыт для пользователей.",
@@ -879,10 +879,10 @@
   "app.containers.Profile.aboutLabel": "Обо мне",
   "app.containers.Profile.saveButton": "Сохранить",
   "app.containers.Profile.locationLabel": "Город",
-  "app.containers.Profile.displayNameTip": "Отображаемое имя подсказка...",
-  "app.containers.Profile.companyTip": "Компания подсказка...",
-  "app.containers.Profile.positionTip": "Позиция подсказка...",
-  "app.containers.Profile.locationTip": "Город подсказка...",
+  "app.containers.Profile.displayNameTip": "Так ваше имя будет отображаться на сайте",
+  "app.containers.Profile.companyTip": "Опционально",
+  "app.containers.Profile.positionTip": "Опционально",
+  "app.containers.Profile.locationTip": "Опционально",
   "app.containers.Profile.oldPassword": "Старый пароль",
   "app.containers.Profile.newPassword": "Новый пароль",
   "app.containers.Profile.confirmPassword": "Подтвердите пароль",
@@ -957,9 +957,9 @@
     "Часто задаваемый вопрос этого сообщества.",
   "app.containers.Questions.showAllQuestions": "Смотреть все вопросы",
 
-  "app.containers.QuestionForm.communityTip": "Сообщество подсказка...",
-  "app.containers.QuestionForm.titleTip": "Заголовок подсказка...",
-  "app.containers.QuestionForm.tagsTip": "Теги подсказка...",
+  "app.containers.QuestionForm.communityTip": "Убедитесь, что вопрос актуален для выбранного сообщества",
+  "app.containers.QuestionForm.titleTip": "Краткий и описательный заголовок вопроса",
+  "app.containers.QuestionForm.tagsTip": "Теги, имеющие отношение к вопросу",
   "app.containers.QuestionForm.title": "Задать вопрос",
   "app.containers.QuestionForm.titleLabel": "Заголовок",
   "app.containers.QuestionForm.existingQuestionsLabel":
@@ -1082,13 +1082,13 @@
     "Получите статус \"Новичок\"",
   "app.containers.Achievements.junior.title": "Не называйте меня младшим",
   "app.containers.Achievements.junior.description":
-    "Получите статус \"Начинающий\"",
+    "Получите статус \"Юниор\"",
   "app.containers.Achievements.resident.title": "Пиранья - мой дом",
   "app.containers.Achievements.resident.description":
     "Получите статус \"Постоялец\"",
   "app.containers.Achievements.senior.title": "Я научу вас чему угодно",
   "app.containers.Achievements.senior.description":
-    "Получите статус \"Мастер\"",
+    "Получите статус \"Знаток\"",
   "app.containers.Achievements.hero.title": "Сайту нужен герой",
   "app.containers.Achievements.hero.description": "Получите статус \"Герой\"",
   "app.containers.Achievements.superhero.title": "Живая легенда",
@@ -1103,13 +1103,13 @@
     "Будьте одним и 700 первых пользователей, получивших статус \"Новичок\"",
   "app.containers.Achievements.researcher.title": "Исследователь",
   "app.containers.Achievements.researcher.description":
-    "Будьте одним и 500 первых пользователей, получивших статус \"Начинающий\"",
+    "Будьте одним и 500 первых пользователей, получивших статус \"Юниор\"",
   "app.containers.Achievements.honorableResident.title": "Почётный Постоялец",
   "app.containers.Achievements.honorableResident.description":
     "Будьте одним и 300 первых пользователей, получивших статус \"Постоялец\"",
   "app.containers.Achievements.theWisest.title": "Самый мудрый",
   "app.containers.Achievements.theWisest.description":
-    "Будьте одним и 150 первых пользователей, получивших статус \"Мастер\"",
+    "Будьте одним и 150 первых пользователей, получивших статус \"Знаток\"",
   "app.containers.Achievements.modernHero.title": "Современный герой",
   "app.containers.Achievements.modernHero.description":
     "Будьте одним и 50 первых пользователей, получивших статус \"Герой\"",
