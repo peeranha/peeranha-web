@@ -98,8 +98,10 @@ const A1 = A.extend`
 
 const Box = styled.div`
   margin-bottom: ${({ currClientHeight }) => {
-    if (styles.withoutAdditionalLinks) return '0px !important';
-    if (currClientHeight < FULL_SIZE && !isMobile(window.navigator).any)
+    if (
+      styles.withoutAdditionalLinks ||
+      (currClientHeight < FULL_SIZE && !isMobile(window.navigator).any)
+    )
       return '25px !important';
     return '50px';
   }};
@@ -128,7 +130,7 @@ const MainLinks = ({ profile, currClientHeight }) => {
           <FormattedMessage {...messages.home} />
         </A1>
       )}
-        
+
       {!singleCommId &&
         profile && (
           <A1 to={routes.feed()} name="feed" route={route}>
