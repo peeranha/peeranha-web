@@ -57,6 +57,10 @@ const Div = styled.div`
   }
 `;
 
+const WrapperBlock = styled(Wrapper)`
+  display: block;
+`;
+
 export const TextEditorField = ({
   input,
   label,
@@ -65,7 +69,7 @@ export const TextEditorField = ({
   tip,
   splitInHalf,
 }) => (
-  <Wrapper
+  <WrapperBlock
     label={label}
     tip={tip}
     meta={meta}
@@ -78,7 +82,7 @@ export const TextEditorField = ({
     >
       <TextEditor {...input} disabled={disabled} />
     </Div>
-  </Wrapper>
+  </WrapperBlock>
 );
 
 TextEditorField.propTypes = {
