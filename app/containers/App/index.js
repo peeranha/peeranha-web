@@ -24,7 +24,10 @@ import injectSaga from 'utils/injectSaga';
 import { DAEMON } from 'utils/constants';
 import { ScrollTo } from 'utils/animation';
 import { closePopover as Popover } from 'utils/popover';
-import { isSingleCommunityWebsite, getSingleCommunityDetails } from 'utils/communityManagement';
+import {
+  isSingleCommunityWebsite,
+  getSingleCommunityDetails,
+} from 'utils/communityManagement';
 
 import Loader from 'components/LoadingIndicator/HeightWidthCentered';
 import ProgressIndicator from 'containers/ProgressIndicator';
@@ -95,19 +98,19 @@ const App = ({
   }
 
   useEffect(() => {
-    if (!getCookie(REFERRAL_CODE_URI)) {
-      const value = getValueFromSearchString(search, REFERRAL_CODE_URI);
-      if (value) {
-        setCookie({
-          name: REFERRAL_CODE_URI,
-          value,
-          options: {
-            allowSubdomains: true,
-            neverExpires: true,
-            defaultPath: true,
-          },
-        });
-      }
+    const value = getValueFromSearchString(search, REFERRAL_CODE_URI);
+    const cookiedCode = getCookie(REFERRAL_CODE_URI);
+
+    if (value && (!cookiedCode || (cookiedCode && cookiedCode !== value))) {
+      setCookie({
+        name: REFERRAL_CODE_URI,
+        value,
+        options: {
+          allowSubdomains: true,
+          neverExpires: true,
+          defaultPath: true,
+        },
+      });
     }
 
     const loginData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
