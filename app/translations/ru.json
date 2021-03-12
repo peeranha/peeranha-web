@@ -149,6 +149,7 @@
   "app.common.skip": "Пропустить",
   "app.common.showMoreQuestions": "Показать больше найденных вопросов",
   "app.common.questionIsAnswered": "Вы уже ответили на этот вопрос",
+  "app.common.logInToAnswer": "Авторизуйтесь, чтобы ответить на вопрос",
   "app.common.activateBoost": "Активировать Boost",
   "app.common.boost": "Boost",
   "app.common.subscribe": "Подписаться",
@@ -353,8 +354,7 @@
   "app.containers.SuggestedTags.title": "Предложенные теги",
   "app.containers.SuggestedTags.description": "Предложенные теги | Описание",
   "app.containers.SuggestedTags.noSuggestedTags": "Нет предложенных тегов",
-  "app.containers.SuggestedTags.topTagsInCommunity":
-    "Лучшие теги в сообществе",
+  "app.containers.SuggestedTags.topTagsInCommunity": "Лучшие теги в сообществе",
   "app.containers.SuggestedTags.tagDescription": "Описание",
 
   "app.containers.PrivacyPolicy.title": "Политика конфиденциальности",
@@ -370,7 +370,8 @@
   "app.containers.CreateTag.title": "Предложить тег",
   "app.containers.CreateTag.description": "Предложить тег | Описание",
   "app.containers.CreateTag.community": "Сообщество",
-  "app.containers.CreateTag.communityTip": "Сообщество, в котором будет создан тег",
+  "app.containers.CreateTag.communityTip":
+    "Сообщество, в котором будет создан тег",
   "app.containers.CreateTag.name": "Название",
   "app.containers.CreateTag.nameTip": "Уникальное имя нового тега",
   "app.containers.CreateTag.descriptionField": "Описание",
@@ -453,8 +454,7 @@
     "Краткое описание сообщества и его предназначения.",
   "app.containers.CreateCommunity.whyWeNeedItTip":
     "Эта информация видна пользователям, которые голосуют за новые сообщества.",
-  "app.containers.CreateCommunity.tagTitleTip":
-    "Уникальное имя тега",
+  "app.containers.CreateCommunity.tagTitleTip": "Уникальное имя тега",
   "app.containers.CreateCommunity.tagDescriptionTip":
     "Описание, когда использовать тег",
   "app.containers.CreateCommunity.imageWillBeTheFace":
@@ -879,7 +879,8 @@
   "app.containers.Profile.aboutLabel": "Обо мне",
   "app.containers.Profile.saveButton": "Сохранить",
   "app.containers.Profile.locationLabel": "Город",
-  "app.containers.Profile.displayNameTip": "Так ваше имя будет отображаться на сайте",
+  "app.containers.Profile.displayNameTip":
+    "Так ваше имя будет отображаться на сайте",
   "app.containers.Profile.companyTip": "Опционально",
   "app.containers.Profile.positionTip": "Опционально",
   "app.containers.Profile.locationTip": "Опционально",
@@ -957,8 +958,10 @@
     "Часто задаваемый вопрос этого сообщества.",
   "app.containers.Questions.showAllQuestions": "Смотреть все вопросы",
 
-  "app.containers.QuestionForm.communityTip": "Убедитесь, что вопрос актуален для выбранного сообщества",
-  "app.containers.QuestionForm.titleTip": "Краткий и описательный заголовок вопроса",
+  "app.containers.QuestionForm.communityTip":
+    "Убедитесь, что вопрос актуален для выбранного сообщества",
+  "app.containers.QuestionForm.titleTip":
+    "Краткий и описательный заголовок вопроса",
   "app.containers.QuestionForm.tagsTip": "Теги, имеющие отношение к вопросу",
   "app.containers.QuestionForm.title": "Задать вопрос",
   "app.containers.QuestionForm.titleLabel": "Заголовок",
@@ -1081,8 +1084,7 @@
   "app.containers.Achievements.newbie.description":
     "Получите статус \"Новичок\"",
   "app.containers.Achievements.junior.title": "Не называйте меня младшим",
-  "app.containers.Achievements.junior.description":
-    "Получите статус \"Юниор\"",
+  "app.containers.Achievements.junior.description": "Получите статус \"Юниор\"",
   "app.containers.Achievements.resident.title": "Пиранья - мой дом",
   "app.containers.Achievements.resident.description":
     "Получите статус \"Постоялец\"",

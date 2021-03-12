@@ -47,9 +47,7 @@ const ModalMessage = styled.p`
 
 const BlockedInfoArea = ({ children }) => (
   <ModalDiv>
-    <ModalMessage>
-      {children}
-    </ModalMessage>
+    <ModalMessage>{children}</ModalMessage>
   </ModalDiv>
 );
 

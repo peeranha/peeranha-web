@@ -16,7 +16,10 @@ import {
 import { strLength15x30000, required } from 'components/FormFields/validate';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
+import {
+  makeSelectAccount,
+  makeSelectProfileInfo,
+} from 'containers/AccountProvider/selectors';
 
 import Wrapper from 'components/FormFields/Wrapper';
 import Span from 'components/Span';
@@ -53,11 +56,17 @@ export const AnswerForm = ({
   answerTypeLabel,
   isOfficialRepresentative,
   isAnswered,
+  account,
 }) => (
   <FormBox onSubmit={handleSubmit(sendAnswer)}>
     {isAnswered && (
       <BlockedInfoArea>
         <FormattedMessage {...messages.questionIsAnswered} />
+      </BlockedInfoArea>
+    )}
+    {!account && (
+      <BlockedInfoArea>
+        <FormattedMessage {...messages.logInToAnswer} />
       </BlockedInfoArea>
     )}
     <Field
@@ -92,7 +101,7 @@ export const AnswerForm = ({
     </Wrapper>
     <Button
       id={sendButtonId}
-      disabled={sendAnswerLoading || isAnswered}
+      disabled={sendAnswerLoading || isAnswered || !account}
       type="submit"
     >
       {submitButtonName}
@@ -115,6 +124,7 @@ AnswerForm.propTypes = {
   properties: PropTypes.array,
   questionView: PropTypes.bool,
   isAnswered: PropTypes.bool,
+  account: PropTypes.string,
 };
 
 const FormClone = reduxForm({
@@ -137,8 +147,10 @@ export default React.memo(
         profileInfo?.permissions,
         communityId,
       );
+      const account = makeSelectAccount()(state);
 
       return {
+        account,
         enableReinitialize: true,
         isOfficialRepresentative,
         textEditorValue: form.values[TEXT_EDITOR_ANSWER_FORM],
