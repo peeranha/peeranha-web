@@ -14,7 +14,13 @@ import messages from './messages';
 
 const single = isSingleCommunityWebsite();
 
-const CommunityForm = ({ intl, communities, change, questionLoading }) => {
+const CommunityForm = ({
+  intl,
+  communities,
+  change,
+  questionLoading,
+  disableCommForm,
+}) => {
   const onChange = useCallback(() => change(FORM_TAGS, ''), [change]);
 
   return (
@@ -23,7 +29,7 @@ const CommunityForm = ({ intl, communities, change, questionLoading }) => {
       name={FORM_COMMUNITY}
       component={CommunityField}
       onChange={onChange}
-      disabled={questionLoading}
+      disabled={questionLoading || disableCommForm}
       label={intl.formatMessage(messages.communityLabel)}
       tip={intl.formatMessage(messages.communityTip)}
       options={communities}
@@ -37,6 +43,7 @@ const CommunityForm = ({ intl, communities, change, questionLoading }) => {
 CommunityForm.propTypes = {
   change: PropTypes.func,
   questionLoading: PropTypes.bool,
+  disableCommForm: PropTypes.bool,
   communities: PropTypes.array,
   intl: intlShape.isRequired,
 };
