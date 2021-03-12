@@ -2,7 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { singleCommunityStyles } from 'utils/communityManagement';
+import {
+  singleCommunityColors,
+  singleCommunityStyles,
+} from 'utils/communityManagement';
 import arrowDownIcon from 'images/arrowDown.svg?external';
 
 import Icon from 'components/Icon/index';
@@ -10,10 +13,11 @@ import DropdownStyled from './DropdownStyled';
 import MenuStyled from './MenuStyled';
 
 const styles = singleCommunityStyles();
+const colors = singleCommunityColors();
 
 const ArrowDown = styled(Icon)`
   path {
-    fill: ${styles.commHeadElemColor || ''};
+    fill: ${colors.localeArrowColor || styles.commHeadElemColor || ''};
   }
 `;
 
