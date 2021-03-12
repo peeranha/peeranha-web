@@ -432,6 +432,9 @@ export default defineMessages({
   questionIsAnswered: {
     id: 'app.common.questionIsAnswered',
   },
+  logInToAnswer: {
+    id: 'app.common.logInToAnswer',
+  },
   activateBoost: {
     id: 'app.common.activateBoost',
   },
