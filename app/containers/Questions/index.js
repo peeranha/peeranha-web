@@ -66,6 +66,7 @@ export const Questions = ({
   locale,
   questionsList,
   questionsLoading,
+  topQuestionsLoading,
   promotedQuestions,
   isLastFetch,
   communities,
@@ -222,11 +223,15 @@ export const Questions = ({
   const displayBanner = useMemo(
     () =>
       !(getCookie(QUESTION_FILTER) === '1' || questionFilter === 1)
-        ? !questionsList.length && !questionsLoading && !communitiesLoading
+        ? !questionsList.length &&
+          !questionsLoading &&
+          !topQuestionsLoading &&
+          !communitiesLoading
         : false,
     [
       questionsList.length,
       questionsLoading,
+      topQuestionsLoading,
       communitiesLoading,
       questionFilter,
     ],
@@ -240,9 +245,15 @@ export const Questions = ({
   const displayLoader = useMemo(
     () =>
       questionsLoading ||
+      topQuestionsLoading ||
       communitiesLoading ||
       (getCookie(QUESTION_FILTER) === '1' && !isLastTopQuestionLoaded),
-    [questionsLoading, communitiesLoading, isLastTopQuestionLoaded],
+    [
+      questionsLoading,
+      topQuestionsLoading,
+      communitiesLoading,
+      isLastTopQuestionLoaded,
+    ],
   );
 
   const isModerator = useMemo(
@@ -284,7 +295,7 @@ export const Questions = ({
       {questionsList.length > 0 && (
         <InfinityLoader
           loadNextPaginatedData={getNextQuestions}
-          isLoading={questionsLoading}
+          isLoading={questionsLoading || topQuestionsLoading}
           isLastFetch={lastFetched}
         >
           <Content
@@ -336,6 +347,7 @@ Questions.propTypes = {
   followedCommunities: PropTypes.array,
   questionsList: PropTypes.array,
   questionsLoading: PropTypes.bool,
+  topQuestionsLoading: PropTypes.bool,
   promotedQuestions: PropTypes.object,
   communitiesLoading: PropTypes.bool,
   isLastFetch: PropTypes.bool,
@@ -367,6 +379,7 @@ export default compose(
       communitiesLoading: selectCommunitiesLoading(),
       followedCommunities: makeSelectFollowedCommunities(),
       questionsLoading: questionsSelector.selectQuestionsLoading(),
+      topQuestionsLoading: questionsSelector.selectTopQuestionsLoading(),
       initLoadedItems: questionsSelector.selectInitLoadedItems(),
       nextLoadedItems: questionsSelector.selectNextLoadedItems(),
       typeFilter: questionsSelector.selectTypeFilter(),
