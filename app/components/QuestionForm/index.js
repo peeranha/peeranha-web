@@ -13,6 +13,8 @@ import {
   TEXT_SECONDARY,
 } from 'style-constants';
 
+import { EDIT_QUESTION_FORM } from 'containers/EditQuestion/constants';
+
 import icoTag from 'images/icoTag.svg?external';
 
 import _uniqBy from 'lodash/uniqBy';
@@ -122,6 +124,7 @@ export const QuestionForm = ({
   questionTypeExpertDescription,
   questionTypeGeneralDescription,
   profile,
+  disableCommForm,
 }) => {
   const profileWithModeratorRights = useMemo(
     () => hasGlobalModeratorPermissions(profile?.['integer_properties'] || []),
@@ -176,6 +179,7 @@ export const QuestionForm = ({
               communities={communities}
               change={change}
               questionLoading={questionLoading}
+              disableCommForm={disableCommForm}
             />
 
             {(((question && profileWithModeratorRights) || !question) &&
@@ -303,6 +307,7 @@ QuestionForm.propTypes = {
   existingQuestions: PropTypes.array,
   doSkipExistingQuestions: PropTypes.bool,
   skipExistingQuestions: PropTypes.func,
+  disableCommForm: PropTypes.bool,
 };
 
 const FormClone = reduxForm({
@@ -318,6 +323,9 @@ export default memo(
         const questionsType = integerProperties.find(
           prop => prop.key === KEY_QUESTIONS_TYPE,
         )?.value;
+
+        // diable community form on edit question page
+        const disableCommForm = formName === EDIT_QUESTION_FORM;
 
         return {
           formValues: state.toJS().form[formName]?.values ?? {},
@@ -365,6 +373,7 @@ export default memo(
               : {}),
           },
           enableReinitialize: true,
+          disableCommForm,
         };
       },
       dispatch => ({
