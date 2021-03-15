@@ -20,6 +20,9 @@ import * as routes from 'routes-config';
 import createdHistory from 'createdHistory';
 import commonMessages from 'common-messages';
 
+import { setCookie } from 'utils/cookie';
+
+import { APP_LOCALE } from 'containers/LanguageProvider/constants';
 import { changeLocale } from 'containers/LanguageProvider/actions';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
@@ -31,7 +34,11 @@ import { Flag, Li } from './Styled';
 /* eslint global-require: 0 */
 export const ChangeLocale = ({ locale, changeLocaleDispatch, withTitle }) => {
   function setLocale(newLocale) {
-    localStorage.setItem('locale', newLocale);
+    setCookie({
+      name: APP_LOCALE,
+      value: newLocale,
+      options: { neverExpires: true, defaultPath: true, allowSubdomains: true },
+    });
 
     const path = window.location.pathname + window.location.hash;
 

@@ -6,8 +6,11 @@ import { IntlProvider } from 'react-intl';
 import { bindActionCreators } from 'redux';
 import { translationMessages } from 'i18n';
 
+import { getCookie } from 'utils/cookie';
+
 import { makeSelectLocale } from './selectors';
 import { changeLocale } from './actions';
+import { APP_LOCALE } from './constants';
 
 export const LanguageProvider = ({
   children,
@@ -17,7 +20,7 @@ export const LanguageProvider = ({
 }) => {
   useEffect(() => {
     const projectLangs = Object.keys(translationMessages);
-    const storedLocale = localStorage.getItem('locale');
+    const storedLocale = getCookie(APP_LOCALE);
 
     if (storedLocale) {
       changeLocaleDispatch(storedLocale);
