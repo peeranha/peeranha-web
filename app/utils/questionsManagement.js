@@ -296,7 +296,6 @@ export const getEditQuestTrActData = async (user, id, question) => {
       ipfs_link: ipfsLink,
       community_id: question.community.value,
       tags: question.chosenTags.map(x => x.id),
-      type: question.type,
     },
   };
 };

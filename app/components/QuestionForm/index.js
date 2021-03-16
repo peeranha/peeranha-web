@@ -123,14 +123,8 @@ export const QuestionForm = ({
   communityQuestionsType,
   questionTypeExpertDescription,
   questionTypeGeneralDescription,
-  profile,
   disableCommForm,
 }) => {
-  const profileWithModeratorRights = useMemo(
-    () => hasGlobalModeratorPermissions(profile?.['integer_properties'] || []),
-    [profile],
-  );
-
   const handleSubmitWithType = sendQuestion => {
     if (communityQuestionsType !== ANY_TYPE) {
       change(FORM_TYPE, communityQuestionsType);
@@ -182,8 +176,8 @@ export const QuestionForm = ({
               disableCommForm={disableCommForm}
             />
 
-            {(((question && profileWithModeratorRights) || !question) &&
-              communityQuestionsType === ANY_TYPE && (
+            {!question &&
+              ((communityQuestionsType === ANY_TYPE && (
                 <TypeForm
                   intl={intl}
                   change={change}
@@ -192,19 +186,19 @@ export const QuestionForm = ({
                   formValues={formValues}
                 />
               )) ||
-              (communityQuestionsType === GENERAL_TYPE && (
-                <PreviewWrapper>
-                  <Span color={TEXT_SECONDARY} fontSize="14" isItalic>
-                    {questionTypeGeneralDescription}
-                  </Span>
-                </PreviewWrapper>
-              )) || (
-                <PreviewWrapper>
-                  <Span color={TEXT_SECONDARY} fontSize="14" isItalic>
-                    {questionTypeExpertDescription}
-                  </Span>
-                </PreviewWrapper>
-              )}
+                (communityQuestionsType === GENERAL_TYPE && (
+                  <PreviewWrapper>
+                    <Span color={TEXT_SECONDARY} fontSize="14" isItalic>
+                      {questionTypeGeneralDescription}
+                    </Span>
+                  </PreviewWrapper>
+                )) || (
+                  <PreviewWrapper>
+                    <Span color={TEXT_SECONDARY} fontSize="14" isItalic>
+                      {questionTypeExpertDescription}
+                    </Span>
+                  </PreviewWrapper>
+                ))}
 
             <TitleForm intl={intl} questionLoading={questionLoading} />
 
