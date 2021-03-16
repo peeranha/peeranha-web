@@ -49,12 +49,10 @@ const communitiesConfig = {
     },
     6: {
       origin: 'https://bloggerdemo.testpeeranha.io',
-      isBloggerMode: true,
       styles: BloggerStyles,
     },
     10: {
       origin: 'https://ivan.testpeeranha.io',
-      isBloggerMode: true,
       styles: BloggerStyles,
     },
   },
@@ -82,7 +80,7 @@ const googleSiteVerificationsConfig = {
       },
       17: {
         formKey: 'AIzaSyAYkH1ZE_FXu3hFOFxQHmnxdEHzfChY4fM',
-        engineKey: ' 08e10a06b882913c9',
+        engineKey: '08e10a06b882913c9',
       },
     },
   },
@@ -107,6 +105,10 @@ const googleSiteVerificationsConfig = {
       4: {
         formKey: 'AIzaSyBqPKf_EfzpnbI-vb2yd6wLwyHn7XkN5BY',
         engineKey: '29ec0c27249bc1846',
+      },
+      5: {
+        formKey: 'AIzaSyBcJ5Lgy7Xr2NjVTzFc6ggLJcKWTDJ0dNo',
+        engineKey: 'ce8d08fa7ebd09609',
       },
     },
   },

@@ -210,6 +210,7 @@ export const KandaStyles = {
     btnColor: '#eb4e1c',
     attentionColor: 'red',
     primarySpecial: '#e0e0e0',
+    localeArrowColor: '#7b7b7b',
   },
 
   customRatingIconColors: {

@@ -7,8 +7,6 @@ import {
   takeEvery,
 } from 'redux-saga/effects';
 
-import communitiesConfig from 'communities-config';
-
 import { HASH_CHARS_LIMIT } from 'components/FormFields/AvatarField';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
@@ -16,7 +14,11 @@ import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 import { selectTopQuestionIds } from 'containers/Questions/selectors';
 
 import { getQuestionsFilteredByCommunities, getQuestionById } from 'utils/questionsManagement';
-import { getCommunityById, isSingleCommunityWebsite } from 'utils/communityManagement';
+import {
+  getCommunityById,
+  isSingleCommunityWebsite,
+  getSingleCommunityDetails,
+} from 'utils/communityManagement';
 import { getQuestionBounty } from 'utils/walletManagement';
 import { getUserAvatar } from 'utils/profileManagement';
 
@@ -134,7 +136,7 @@ export function* getLogoWorker() {
 
       const community = yield select(selectCommunity());
       
-      const isBloggerMode = single ? !!communitiesConfig[single].isBloggerMode : false;
+      const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
 
       if (isBloggerMode) {
         const { avatar } = community;

@@ -216,24 +216,6 @@ Notifications are not available in the first release. This functionality will be
 | Vote for a new tag                              | 35              |
 | Vote for a new community                        | 100             |
 
-### What user achievements are available on Peeranha?
-
-| Badge                 | Reason                               |
-| --------------------- | ------------------------------------ |
-| Question Asked        | Question is asked                    |
-| Answer Given          | Answer is given                      |
-| Correct Answer        | Correct answer is given              |
-| Answered First        | Answer the question first            |
-| Answer for 15 minutes | Answer is given within 15 minutes    |
-| Founding Member       | Given to the first 10000 members     |
-| Honorable Stranger    | Received rating is from 0 to 99      |
-| Honorable Newbie      | Received rating is from 100 to 499   |
-| Honorable Junior      | Received rating is from 500 to 999   |
-| Honorable Resident    | Received rating is from 1000 to 2499 |
-| Honorable Senior      | Received rating is from 2500 to 4999 |
-| Honorable Hero        | Received rating is from 5000 to 9999 |
-| Honorable Superhero   | Received rating is from 10000        |
-
 ## Token
 
 ### What is the name of token on Peeranha?

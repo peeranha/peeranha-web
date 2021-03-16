@@ -27,6 +27,8 @@ export const BasicLink = css`
 `;
 
 export const Aside = styled.aside`
+  position: relative;
+  z-index: 1;
   ${x =>
     x.isMenuVisible
       ? `

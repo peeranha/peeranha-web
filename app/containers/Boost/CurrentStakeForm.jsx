@@ -4,7 +4,10 @@ import { Field } from 'redux-form/immutable';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
-import { requiredForNumericalField, valueHasToBeLessThan } from 'components/FormFields/validate';
+import {
+  requiredForNumericalField,
+  valueHasToBeLessThan,
+} from 'components/FormFields/validate';
 
 import NumberInputField from 'components/FormFields/NumberInputField';
 import Label from 'components/FormFields/Label';
@@ -40,7 +43,7 @@ const STAKE_TAGS = [
 
 const Stake = styled.span`
   position: absolute;
-  top: 110px;
+  top: 120px;
   color: ${SECONDARY_SPECIAL};
   font-size: 14px;
 `;
@@ -85,30 +88,38 @@ const CurrentStakeForm = ({
   initialUserStake,
 }) => {
   const value = +formValues[CURRENT_STAKE_FORM];
-  const progressWidth = value && maxValue ? value * 100 / maxValue : 0;
+  const progressWidth = value && maxValue ? (value * 100) / maxValue : 0;
 
   return (
     <InputWrapper>
-      <Label><FormattedMessage {...messages.formCurrentStake} /></Label>
+      <Label>
+        <FormattedMessage {...messages.formCurrentStake} />
+      </Label>
       <Tags>
-        <TagsLabel><FormattedMessage {...messages.formTakeAStake} />:</TagsLabel>
+        <TagsLabel>
+          <FormattedMessage {...messages.formTakeAStake} />:
+        </TagsLabel>
         {STAKE_TAGS.map(item => (
           <Tag
             key={item.value}
-            onClick={(e) => {
+            onClick={e => {
               e.preventDefault();
               onClickStakeTag(item.value);
             }}
-          >{item.text}</Tag>
+          >
+            {item.text}
+          </Tag>
         ))}
         {!!initialUserStake && (
           <Tag
-            onClick={(e) => {
+            onClick={e => {
               e.preventDefault();
               onClickStakeTag(0);
               setTimeout(() => formSubmitAction(), 1000);
             }}
-          ><FormattedMessage {...messages.formUnstakeTokens} /></Tag>
+          >
+            <FormattedMessage {...messages.formUnstakeTokens} />
+          </Tag>
         )}
       </Tags>
       <Field
@@ -125,7 +136,7 @@ const CurrentStakeForm = ({
       <InputProgressBar width={progressWidth} />
     </InputWrapper>
   );
-}
+};
 
 CurrentStakeForm.propTypes = {
   maxValue: PropTypes.number,

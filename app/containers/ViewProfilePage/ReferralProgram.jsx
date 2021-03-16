@@ -1,19 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { FormattedMessage } from 'react-intl';
+
+import commonMessages from 'common-messages';
+
+import * as routes from 'routes-config';
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
 import H3 from 'components/H3';
-import commonMessages from 'common-messages';
-import * as routes from 'routes-config';
-import { FormattedMessage } from 'react-intl';
 
 import profileMessages from '../Profile/messages';
 import { BaseStyled } from './SettingsOfUser';
 
+const single = isSingleCommunityWebsite();
+
 const ReferralProgram = ({ className, user, writeToBuffer }) => {
-  const referralLink = `${process.env.APP_LOCATION}${routes.referralPage(
-    user,
-  )}`;
+  const referralLink = `${
+    single ? window.location.origin : process.env.APP_LOCATION
+  }${routes.referralPage(user)}`;
+
   return (
     <>
       <BaseStyled className={className} style={{ marginTop: '10px' }}>

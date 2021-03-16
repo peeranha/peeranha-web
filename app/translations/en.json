@@ -82,6 +82,7 @@
   "app.common.privacyPolicy": "Privacy Policy",
   "app.common.termsOfService": "Terms of Service",
   "app.common.privacyPolicyShort": "Privacy Policy",
+  "app.common.more": "More",
   "app.common.wallet": "Wallet",
   "app.common.sendTokens": "Send tokens",
   "app.common.peers": "PEER",
@@ -145,17 +146,21 @@
   "app.common.bannerSizeErrorMsg":
     "File size is more than 1Mb. Choose another one...",
   "app.common.incorrectBannerResolutionMsg":
-    "Image resolution must be 1360 x 120 pixels. Choose another one...",
+    "Image resolution must be 1360 x 120 pixels",
   "app.common.chooseFile": "Choose a file",
   "app.common.skip": "Skip",
   "app.common.showMoreQuestions": "Show more results",
   "app.common.questionIsAnswered": "You have already answered this question",
+  "app.common.logInToAnswer": "Log in to answer the question",
   "app.common.activateBoost": "Activate boost",
   "app.common.boost": "Boost",
   "app.common.subscribe": "Subscribe",
   "app.common.unsubscribe": "Unsubscribe",
   "app.common.followSocialMedia": "Follow us on social media:",
+  "app.common.standart": "Standart",
+  "app.common.blogger": "Blogger",
   "app.common.cannotTransferToYourself": "Cannot transfer to yourself",
+  "app.common.notEnoughCPUOrRAM": "Not enough CPU or RAM",
 
   "app.telegram.user": "Telegram user",
   "app.telegram.userLabelPopover":
@@ -458,15 +463,20 @@
     "Max tags number was reached",
   "app.containers.CreateCommunity.questionsType": "Questions Type",
   "app.containers.CreateCommunity.anyQuestionDescriptionLabel":
-    "You can choose the type of question when you are creating it.",
+    "Users will be able to ask both General and Expert types of question in this community",
   "app.containers.CreateCommunity.anyQuestionDescriptionList": [],
-  "app.containers.CreateCommunity.bloggerModeLAbel": "Blogger page",
-  "app.containers.CreateCommunity.facebookLink": "Facebook link",
-  "app.containers.CreateCommunity.instagramLink": "Instagram link",
-  "app.containers.CreateCommunity.youtubeLink": "YouTube link",
-  "app.containers.CreateCommunity.vkLink": "VK link",
+  "app.containers.CreateCommunity.facebook": "Facebook",
+  "app.containers.CreateCommunity.instagram": "Instagram",
+  "app.containers.CreateCommunity.youtube": "YouTube",
+  "app.containers.CreateCommunity.vk": "VK",
   "app.containers.CreateCommunity.mainColor": "Main color",
   "app.containers.CreateCommunity.highlightColor": "Highlight color",
+  "app.containers.CreateCommunity.communityType": "Community Type",
+  "app.containers.CreateCommunity.communityTypeTip": "Optional",
+  "app.containers.CreateCommunity.socialLinks": "Social links",
+  "app.containers.CreateCommunity.socialLinksTip": "Optional",
+  "app.containers.CreateCommunity.colors": "Colors",
+  "app.containers.CreateCommunity.topBanner": "Top banner",
 
   "app.containers.EditCommunity.communityTitleTip": "Name of the community",
   "app.containers.EditCommunity.description": "Description of EditCommunity",
@@ -699,6 +709,8 @@
   "app.containers.ViewQuestion.bountyStatusExpiration": "Bounty will expire: ",
   "app.components.FormFields.requiredField":
     "You cannot leave this field empty",
+  "app.components.FormFields.requiredAndNotZeroField":
+    "You cannot leave 0 in this field",
   "app.components.FormFields.wrongLength":
     "Leave at least {min} char but no more than {max}",
   "app.components.FormFields.wrongNumberRange":

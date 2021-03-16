@@ -48,6 +48,10 @@ const B = styled.button`
   cursor: pointer;
 `;
 
+const LabelFitContent = styled(Label)`
+  width: fit-content !important;
+`;
+
 const CurrencyField = ({
   input,
   label,
@@ -123,9 +127,9 @@ const CurrencyField = ({
 
       {!isCurrency && (
         <div className="d-flex">
-          <Label>
+          <LabelFitContent>
             {translationMessages[locale]?.[messages.sendFromAccount.id]}
-          </Label>
+          </LabelFitContent>
           {!isPeer &&
             !(withScatter && isScatterWalletSelected) &&
             !(withKeycat && isKeycatWalletSelected) && (

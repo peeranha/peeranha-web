@@ -23,10 +23,16 @@ const makeSelectBalance = () =>
   createSelector(selectAccountProviderDomain, substate => substate.balance);
 
 const makeSelectStakedInCurrentPeriod = () =>
-  createSelector(selectAccountProviderDomain, substate => substate.stakedInCurrentPeriod);
+  createSelector(
+    selectAccountProviderDomain,
+    substate => substate.stakedInCurrentPeriod,
+  );
 
 const makeSelectStakedInNextPeriod = () =>
-  createSelector(selectAccountProviderDomain, substate => substate.stakedInNextPeriod);
+  createSelector(
+    selectAccountProviderDomain,
+    substate => substate.stakedInNextPeriod,
+  );
 
 const makeSelectBoost = () =>
   createSelector(selectAccountProviderDomain, substate => substate.boost);

@@ -13,6 +13,8 @@ import {
   TEXT_SECONDARY,
 } from 'style-constants';
 
+import { EDIT_QUESTION_FORM } from 'containers/EditQuestion/constants';
+
 import icoTag from 'images/icoTag.svg?external';
 
 import _uniqBy from 'lodash/uniqBy';
@@ -121,6 +123,7 @@ export const QuestionForm = ({
   communityQuestionsType,
   questionTypeExpertDescription,
   questionTypeGeneralDescription,
+  disableCommForm,
 }) => {
   const handleSubmitWithType = sendQuestion => {
     if (communityQuestionsType !== ANY_TYPE) {
@@ -170,6 +173,7 @@ export const QuestionForm = ({
               communities={communities}
               change={change}
               questionLoading={questionLoading}
+              disableCommForm={disableCommForm}
             />
 
             {!question &&
@@ -297,6 +301,7 @@ QuestionForm.propTypes = {
   existingQuestions: PropTypes.array,
   doSkipExistingQuestions: PropTypes.bool,
   skipExistingQuestions: PropTypes.func,
+  disableCommForm: PropTypes.bool,
 };
 
 const FormClone = reduxForm({
@@ -307,11 +312,15 @@ export default memo(
   injectIntl(
     connect(
       (state, { question, form: formName, communities }) => {
-        const questionsType = state
-          .toJS()
-          .form[formName]?.values[FORM_COMMUNITY]?.integer_properties.find(
-            prop => prop.key === KEY_QUESTIONS_TYPE,
-          )?.value;
+        const values = state.toJS().form[formName]?.values[FORM_COMMUNITY];
+        const integerProperties = values?.integer_properties ?? [];
+        const questionsType = integerProperties.find(
+          prop => prop.key === KEY_QUESTIONS_TYPE,
+        )?.value;
+
+        // diable community form on edit question page
+        const disableCommForm = formName === EDIT_QUESTION_FORM;
+
         return {
           formValues: state.toJS().form[formName]?.values ?? {},
           communityQuestionsType: questionsType ?? ANY_TYPE,
@@ -358,6 +367,7 @@ export default memo(
               : {}),
           },
           enableReinitialize: true,
+          disableCommForm,
         };
       },
       dispatch => ({

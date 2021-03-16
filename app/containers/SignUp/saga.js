@@ -95,7 +95,7 @@ export function* emailCheckingWorker({ email }) {
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
 
-    const response = yield call(registerInit, email);
+    const response = yield call(registerInit, email, locale);
 
     if (!response.OK) {
       throw new WebIntegrationError(
@@ -341,7 +341,11 @@ export function* signUpWithWalletWorker({ val, scatter, keycat }) {
       }
     }
 
-    const registerAccountResult = yield call(registerAccount, profile, eosService);
+    const registerAccountResult = yield call(
+      registerAccount,
+      profile,
+      eosService,
+    );
 
     if (!registerAccountResult) {
       throw new WebIntegrationError(
@@ -382,7 +386,7 @@ export function* showWalletSignUpFormWorker({ scatter, keycat }) {
           translations[signupMessages[USER_IS_NOT_SELECTED_ERROR].id],
         );
       }
-      
+
       currentAccount = keycatUserData.accountName;
     }
 

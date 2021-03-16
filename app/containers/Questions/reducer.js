@@ -43,6 +43,7 @@ export const initialState = fromJS({
   questionFilter: 0,
   topQuestionActionProcessing: false,
   promotedQuestions: {},
+  topQuestionsLoading: false,
 });
 
 // TODO: test
@@ -147,14 +148,14 @@ function questionsReducer(state = initialState, action) {
       return state.set('questionFilter', questionFilter);
 
     case LOAD_COMMUNITY_TOP_QUESTIONS:
-      return state.set('questionsLoading', true);
+      return state.set('topQuestionsLoading', true);
     case LOAD_COMMUNITY_TOP_QUESTIONS_SUCCESS:
       return state
         .set('topQuestionIds', fromJS(topQuestionsIds))
         .set('topQuestionsInfoLoaded', true)
         .set('questionFilter', questionFilter)
         .set('lastLoadedTopQuestionIndex', lastIndex)
-        .set('questionsLoading', false)
+        .set('topQuestionsLoading', false)
         .set(
           'questions',
           fromJS({
@@ -168,7 +169,7 @@ function questionsReducer(state = initialState, action) {
           }),
         );
     case LOAD_COMMUNITY_TOP_QUESTIONS_ERROR:
-      return state.set('questionsLoading', false);
+      return state.set('topQuestionsLoading', false);
 
     case REMOVE_OR_ADD_TOP_QUESTION:
       return state.set('topQuestionActionProcessing', true);

@@ -14,10 +14,17 @@ const {
   CHANGE_CREDENTIALS_COMPLETE_SERVICE,
 } = require('../../util/aws-connector');
 
-async function changeCredentialsInit(email, isDelete = false) {
+const { DEFAULT_LOCALE } = require('i18n');
+
+async function changeCredentialsInit(
+  email,
+  isDelete = false,
+  locale = DEFAULT_LOCALE,
+) {
   const response = await callService(CHANGE_CREDENTIALS_INIT_SERVICE, {
     email,
     isDelete,
+    locale,
   });
 
   return response;

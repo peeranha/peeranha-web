@@ -37,7 +37,7 @@ export function* sendEmailWorker({ resetForm, email }) {
     const translations = translationMessages[locale];
     const isDelete = true;
 
-    const response = yield call(changeCredentialsInit, email, isDelete);
+    const response = yield call(changeCredentialsInit, email, isDelete, locale);
 
     if (!response.OK) {
       throw new WebIntegrationError(

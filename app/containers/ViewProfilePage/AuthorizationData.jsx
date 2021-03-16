@@ -25,6 +25,15 @@ import ShowActiveKeyButton from '../ShowActiveKey';
 import DeleteAccountButton from '../DeleteAccount';
 import ChangePasswordButton from '../ChangePasswordByPrevious';
 import TelegramAccountAction from '../TelegramAccountAction';
+import * as routes from '../../routes-config';
+import A from '../../components/A';
+import styled from 'styled-components';
+import { svgDraw } from '../../components/Icon/IconStyled';
+import { TEXT_PRIMARY } from '../../style-constants';
+
+const Link = styled(A)`
+  ${svgDraw({ color: TEXT_PRIMARY })};
+`;
 
 const AuthorizationData = ({
   locale,
@@ -37,6 +46,7 @@ const AuthorizationData = ({
 }) => {
   const isLoggedInWithWallet =
     loginData.loginWithScatter || loginData.loginWithKeycat;
+
   return (
     <BaseStyled
       position="bottom"
@@ -83,19 +93,25 @@ const AuthorizationData = ({
             )}
 
             {tgData && (
-              <tr>
-                <td>
-                  <FormattedMessage {...signupMessages.tgAccountID} />
-                </td>
-                <td>{tgData.telegram_id}</td>
-                <td>
-                  {!tgData.confirmed && (
-                    <TelegramAccountAction actionType={CONFIRM_TG_ACCOUNT} />
-                  )}
+              <>
+                <tr>
+                  <td>
+                    <FormattedMessage {...signupMessages.tgAccountID} />
+                  </td>
+                  {(tgData.temporaryAccountName && (
+                    <Link to={routes.profileView(tgData.temporaryAccountName)}>
+                      {tgData.telegram_id}
+                    </Link>
+                  )) || <td>{tgData.telegram_id}</td>}
+                  <td>
+                    {!tgData.confirmed && (
+                      <TelegramAccountAction actionType={CONFIRM_TG_ACCOUNT} />
+                    )}
 
-                  <TelegramAccountAction actionType={UNLINK_TG_ACCOUNT} />
-                </td>
-              </tr>
+                    <TelegramAccountAction actionType={UNLINK_TG_ACCOUNT} />
+                  </td>
+                </tr>
+              </>
             )}
 
             {!isLoggedInWithWallet && (

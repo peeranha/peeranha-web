@@ -8,6 +8,7 @@ import {
   ApplicationError,
   WebIntegrationError,
   BlockchainError,
+  WebIntegrationErrorByCode,
 } from 'utils/errors';
 
 import { logError } from 'utils/web_integration/src/logger/index';
@@ -24,6 +25,7 @@ import { addToast, removeToast } from './actions';
 import { makeSelectToasts } from './selectors';
 
 import { errHandlingTypes, successHandlingTypes, otherTypes } from './imports';
+import errorMessages from 'errorsByCode';
 
 export function* errHandling(error) {
   const locale = yield select(makeSelectLocale());
@@ -32,6 +34,12 @@ export function* errHandling(error) {
   try {
     const key = Object.keys(error).find(x => x.toLowerCase().match('err'));
     const errorValue = error[key];
+
+    if (errorValue instanceof WebIntegrationErrorByCode) {
+      const errObjWrapper = errorValue.message;
+      const errorCode = JSON.parse(errObjWrapper).error.code;
+      throw msg[errorMessages[errorCode].id];
+    }
 
     if (errorValue instanceof ApplicationError) {
       return null;

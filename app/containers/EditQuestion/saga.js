@@ -1,5 +1,5 @@
 /* eslint camelcase: 0 */
-import { takeLatest, call, put, select } from 'redux-saga/effects';
+import { call, put, select, takeLatest } from 'redux-saga/effects';
 
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
@@ -17,7 +17,10 @@ import { getCommunityWithTags } from 'utils/communityManagement';
 import { ONE_HOUR_IN_SECONDS, dateNowInSeconds } from 'utils/datetime';
 
 import { isValid, isAuthorized } from 'containers/EosioProvider/saga';
-import { updateQuestionList } from 'containers/ViewQuestion/saga';
+import {
+  isGeneralQuestion,
+  updateQuestionList,
+} from 'containers/ViewQuestion/saga';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { selectQuestionData } from 'containers/ViewQuestion/selectors';
@@ -55,6 +58,11 @@ export function* getAskedQuestionWorker({ questionId }) {
       ? cachedQuestion.content
       : { ...freshQuestion };
     const { communityId } = question;
+
+    const data = yield call(getQuestionById, eosService, questionId);
+    if (data) {
+      question.type = +isGeneralQuestion(data.properties);
+    }
 
     if (communityId) {
       question.community = yield call(

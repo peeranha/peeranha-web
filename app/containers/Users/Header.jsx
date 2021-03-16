@@ -4,11 +4,10 @@ import { FormattedMessage } from 'react-intl';
 
 import { TEXT_SECONDARY } from 'style-constants';
 
-import communitiesConfig from 'communities-config';
 import commonMessages from 'common-messages';
 
 import { getFormattedNum2 } from 'utils/numbers';
-import { isSingleCommunityWebsite } from 'utils/communityManagement';
+import { getSingleCommunityDetails } from 'utils/communityManagement';
 
 import usersHeaderFilter from 'images/communitiesHeaderFilter.svg?external';
 import usersHeader from 'images/usersHeader.svg?external';
@@ -49,8 +48,7 @@ const Menu = ({ sort, sorting }) => (
 );
 
 export const Header = ({ sorting, dropdownFilter, userCount }) => {
-  const singleCommId = +isSingleCommunityWebsite();
-  const isBloggerMode = !!singleCommId ? !!communitiesConfig[singleCommId].isBloggerMode : false;
+  const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
 
   return (
     <Wrapper className="mb-to-sm-0 mb-from-sm-3">

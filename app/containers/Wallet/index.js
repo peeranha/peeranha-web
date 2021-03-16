@@ -21,6 +21,8 @@ import * as selectors from './selectors';
 import { pickupReward, getWeekStat } from './actions';
 
 import View from './View';
+import NotFound from '../ErrorPage';
+import { checkUserURL } from '../../utils/accountManagement';
 
 const Wallet = ({
   match: {
@@ -47,6 +49,14 @@ const Wallet = ({
     },
     [account],
   );
+
+  if (!account || !checkUserURL(account)) {
+    return (
+      <div>
+        <NotFound withSeo={false} />
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -95,7 +105,7 @@ Wallet.propTypes = {
 
 export default memo(
   compose(
-    /* 
+    /*
     * reducer and saga injections are produced in WalletDropdown container
     */
     connect(

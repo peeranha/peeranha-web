@@ -7,6 +7,7 @@ import {
   NO_AVATAR,
   UPDATE_ACC,
   INVITE_USER,
+  KEY_LAST_RATING_UPDATE_TIME,
 } from './constants';
 
 import { ApplicationError } from './errors';
@@ -22,8 +23,16 @@ export const updateAcc = async (profile, eosService) => {
   );
 
   const periodsHavePassed = currentPeriod - profile.last_update_period;
+  const integerProperties = profile?.integer_properties ?? [];
+  const lastUpdateTime = integerProperties.find(
+    prop => prop.key === KEY_LAST_RATING_UPDATE_TIME,
+  )?.value;
+  const timeSinceRatingUpdate = currentTime - lastUpdateTime;
 
-  if (periodsHavePassed > 0) {
+  if (
+    periodsHavePassed > 0 ||
+    timeSinceRatingUpdate >= process.env.ACCOUNT_STAT_RESET_PERIOD
+  ) {
     await eosService.sendTransaction(profile.user, UPDATE_ACC, {
       user: profile.user,
     });
@@ -77,4 +86,10 @@ export const inviteUser = async (accountName, referralCode, eosService) => {
     process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
     false,
   );
+};
+
+export const checkUserURL = user => {
+  const path = document.location.pathname.split('/');
+  const userInURL = path[1] === 'users' ? path[2] : undefined;
+  return userInURL ? userInURL === user : true;
 };
