@@ -24,7 +24,10 @@ import injectSaga from 'utils/injectSaga';
 import { DAEMON } from 'utils/constants';
 import { ScrollTo } from 'utils/animation';
 import { closePopover as Popover } from 'utils/popover';
-import { isSingleCommunityWebsite, getSingleCommunityDetails } from 'utils/communityManagement';
+import {
+  isSingleCommunityWebsite,
+  getSingleCommunityDetails,
+} from 'utils/communityManagement';
 
 import Loader from 'components/LoadingIndicator/HeightWidthCentered';
 import ProgressIndicator from 'containers/ProgressIndicator';
@@ -189,12 +192,10 @@ const App = ({
           />
         )}
 
-        {!single && (
-          <Route
-            path={routes.communitiesEdit(':communityId')}
-            render={props => Wrapper(EditCommunity, props)}
-          />
-        )}
+        <Route
+          path={routes.communitiesEdit(':communityId')}
+          render={props => Wrapper(EditCommunity, props)}
+        />
 
         {!single && (
           <Route

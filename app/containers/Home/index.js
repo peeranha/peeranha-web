@@ -14,7 +14,11 @@ import { DAEMON } from 'utils/constants';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { isUserTopCommunityQuestionsModerator } from 'utils/properties';
+import {
+  getPermissions,
+  hasCommunityAdminPermissions,
+  isUserTopCommunityQuestionsModerator,
+} from 'utils/properties';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { getUserAvatar } from 'utils/profileManagement';
 import { followHandler } from 'containers/FollowCommunityButton/actions';
@@ -24,7 +28,9 @@ import commonMessages from 'common-messages';
 
 import Seo from 'components/Seo';
 import Base from 'components/Base/BaseRounded';
-import BorderedLargeButton, { InfoLink } from 'components/Button/Outlined/InfoLarge';
+import BorderedLargeButton, {
+  InfoLink,
+} from 'components/Button/Outlined/InfoLarge';
 import LargeButton from 'components/Button/Contained/InfoLarge';
 import Content from 'containers/Questions/Content/Content';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
@@ -40,7 +46,11 @@ import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 
 import reducer from './reducer';
 import saga from './saga';
-import { getQuestions, getCommunity } from './actions';
+import {
+  getQuestions,
+  getCommunity,
+  redirectToEditCommunityPage,
+} from './actions';
 import {
   selectQuestions,
   selectCommunity,
@@ -48,6 +58,8 @@ import {
 } from './selectors';
 import messages from './messages';
 import { HOME_KEY } from './constants';
+import { FormattedMessage } from 'react-intl';
+import InfoButton from '../../components/Button/Outlined/InfoMedium';
 
 const IntroducingContainer = styled.div`
   position: relative;
@@ -121,6 +133,7 @@ export const Home = ({
   communityLoading,
   followedCommunities,
   followHandlerDispatch,
+  redirectToEditCommunityPageDispatch,
 }) => {
   useEffect(
     () => {
@@ -129,16 +142,16 @@ export const Home = ({
     [single],
   );
 
-  useEffect(
-    () => {
-      getQuestionsDispatch(single);
-    },
-    [],
-  );
+  useEffect(() => {
+    getQuestionsDispatch(single);
+  }, []);
 
   const translations = translationMessages[locale];
 
-  const isRenderQuestions = useMemo(() => !!communities && !!questions && questions.length, [communities, questions]);
+  const isRenderQuestions = useMemo(
+    () => !!communities && !!questions && questions.length,
+    [communities, questions],
+  );
 
   const isModerator = useMemo(
     () =>
@@ -147,16 +160,19 @@ export const Home = ({
   );
 
   const isFollowed = followedCommunities
-      ? followedCommunities.includes(single)
-      : false;
+    ? followedCommunities.includes(single)
+    : false;
 
-  const followHandler = useCallback(() => {
-    followHandlerDispatch(
-      single,
-      isFollowed,
-      `${isFollowed ? 'un' : ''}follow_community_${single}`,
-    );
-  }, [single, isFollowed]);
+  const followHandler = useCallback(
+    () => {
+      followHandlerDispatch(
+        single,
+        isFollowed,
+        `${isFollowed ? 'un' : ''}follow_community_${single}`,
+      );
+    },
+    [single, isFollowed],
+  );
 
   const { name, about, avatar, questions_asked, users_subscribed } = community;
 
@@ -173,7 +189,7 @@ export const Home = ({
       ) : (
         <>
           <Base className="mb-3">
-            <IntroducingContainer className='d-flex'>
+            <IntroducingContainer className="d-flex">
               <IntroducingMedia>
                 <LargeImage
                   isBordered
@@ -185,26 +201,55 @@ export const Home = ({
                   alt={name}
                 />
                 <IntroducingImageSubtitle>
-                  {users_subscribed} {translationMessages[locale][commonMessages.followers.id]}
+                  {users_subscribed}{' '}
+                  {translationMessages[locale][commonMessages.followers.id]}
                 </IntroducingImageSubtitle>
               </IntroducingMedia>
               <div className="flex-grow-1">
                 <IntroducingHeader className="d-flex justify-content-between">
                   <IntroducingTitle className="mr-3">{name}</IntroducingTitle>
-                  {profile && (
-                    isFollowed ? (
+                  {profile &&
+                    (isFollowed ? (
                       <BorderedLargeButton onClick={followHandler}>
-                        {translationMessages[locale][commonMessages.unsubscribe.id]}
+                        {
+                          translationMessages[locale][
+                            commonMessages.unsubscribe.id
+                          ]
+                        }
                       </BorderedLargeButton>
                     ) : (
-                      <LargeButton onClick={followHandler}>
-                        {translationMessages[locale][commonMessages.subscribe.id]}
-                      </LargeButton>
-                    )
-                  )}
+                      <div>
+                        {hasCommunityAdminPermissions(
+                          getPermissions(profile),
+                          single,
+                        ) && (
+                          <InfoButton
+                            onClick={() =>
+                              redirectToEditCommunityPageDispatch(single)
+                            }
+                            style={{
+                              marginRight: '10px',
+                              padding: '10px 18px',
+                              minWidth: '92px',
+                              height: '40px',
+                            }}
+                          >
+                            <FormattedMessage {...commonMessages.edit} />
+                          </InfoButton>
+                        )}
+                        <LargeButton onClick={followHandler}>
+                          {
+                            translationMessages[locale][
+                              commonMessages.subscribe.id
+                            ]
+                          }
+                        </LargeButton>
+                      </div>
+                    ))}
                 </IntroducingHeader>
                 <IntroducingSubTitle>
-                  {questions_asked} {translationMessages[locale][commonMessages.questions.id]}
+                  {questions_asked}{' '}
+                  {translationMessages[locale][commonMessages.questions.id]}
                 </IntroducingSubTitle>
                 {about && <TextBlock content={about} className="mt-3" />}
               </div>
@@ -227,7 +272,11 @@ export const Home = ({
               </div>
               <div className="d-flex justify-content-center mb-3">
                 <InfoLink to={routes.questions()}>
-                  {translationMessages[locale][questionsMessages.showAllQuestions.id]}
+                  {
+                    translationMessages[locale][
+                      questionsMessages.showAllQuestions.id
+                    ]
+                  }
                 </InfoLink>
               </div>
             </>
@@ -265,6 +314,10 @@ const withConnect = connect(
     getQuestionsDispatch: bindActionCreators(getQuestions, dispatch),
     getCommunityDispatch: bindActionCreators(getCommunity, dispatch),
     followHandlerDispatch: bindActionCreators(followHandler, dispatch),
+    redirectToEditCommunityPageDispatch: bindActionCreators(
+      redirectToEditCommunityPage,
+      dispatch,
+    ),
   }),
 );
 
