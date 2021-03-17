@@ -29,7 +29,7 @@ import {
 import {
   selectLoginWithWalletProcessing,
   selectFinishRegistrationProcessing,
-  selectLoginWithEmailProcessing,
+  selectLoginWithEmailProcessing, selectFacebookLoginProcessing,
 } from 'containers/Login/selectors';
 import { selectSendTokensProcessing } from 'containers/SendTokens/selectors';
 import { selectShowActiveKeyProcessing } from 'containers/ShowActiveKey/selectors';
@@ -122,6 +122,7 @@ export default {
   selectSaveCommentLoading: selectSaveCommentLoading(),
   selectVoteToDeleteLoading: selectVoteToDeleteLoading(),
   selectChangeQuestionTypeLoading: selectChangeQuestionTypeLoading(),
+  selectFacebookLoginProcessing: selectFacebookLoginProcessing(),
   upvoteCommunity: upvoteCommunity(),
   downvoteCommunity: downvoteCommunity(),
   upvoteTag: upvoteTag(),

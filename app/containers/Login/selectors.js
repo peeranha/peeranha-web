@@ -1,60 +1,56 @@
 import { createSelector } from 'reselect';
 import { initialState } from './reducer';
 
-const selectLoginDomain = state => state.get('login', initialState);
+export const selectLoginDomain = state => state.get('login', initialState);
 
-const makeSelectContent = () =>
+export const makeSelectContent = () =>
   createSelector(selectLoginDomain, substate => substate.get('content'));
 
-const makeSelectShowModal = () =>
+export const makeSelectShowModal = () =>
   createSelector(selectLoginDomain, substate => substate.get('showModal'));
 
-const makeSelectEmail = () =>
+export const makeSelectEmail = () =>
   createSelector(selectLoginDomain, substate => substate.get('email'));
 
-const selectLoginWithEmailProcessing = () =>
+export const selectLoginWithEmailProcessing = () =>
   createSelector(selectLoginDomain, substate =>
     substate.get('loginWithEmailProcessing'),
   );
 
-const makeSelectLoginWithEmailError = () =>
+export const makeSelectLoginWithEmailError = () =>
   createSelector(selectLoginDomain, substate =>
     substate.get('loginWithEmailError'),
   );
 
-const makeSelectEosAccount = () =>
+export const makeSelectEosAccount = () =>
   createSelector(selectLoginDomain, substate => substate.get('eosAccount'));
 
-const selectFinishRegistrationProcessing = () =>
+export const selectFinishRegistrationProcessing = () =>
   createSelector(selectLoginDomain, substate =>
     substate.get('finishRegistrationProcessing'),
   );
 
-const selectFinishRegistrationError = () =>
+export const selectFinishRegistrationError = () =>
   createSelector(selectLoginDomain, substate =>
     substate.get('finishRegistrationWithDisplayNameError'),
   );
 
-const selectLoginWithWalletProcessing = () =>
+export const selectLoginWithWalletProcessing = () =>
   createSelector(selectLoginDomain, substate =>
     substate.get('loginWithWalletProcessing'),
   );
 
-const selectLoginWithWalletError = () =>
+export const selectLoginWithWalletError = () =>
   createSelector(selectLoginDomain, substate =>
     substate.get('loginWithWalletError'),
   );
 
-export {
-  selectLoginDomain,
-  makeSelectContent,
-  makeSelectShowModal,
-  makeSelectEmail,
-  selectLoginWithEmailProcessing,
-  makeSelectLoginWithEmailError,
-  makeSelectEosAccount,
-  selectLoginWithWalletError,
-  selectFinishRegistrationProcessing,
-  selectFinishRegistrationError,
-  selectLoginWithWalletProcessing,
-};
+export const selectFacebookLoginProcessing = () =>
+  createSelector(selectLoginDomain, substate =>
+    substate.get('facebookLoginProcessing'),
+  );
+
+export const selectFacebookUserData = () =>
+  createSelector(selectLoginDomain, substate =>
+    substate.get('facebookUserData'),
+  );

@@ -111,9 +111,13 @@ export function* emailCheckingWorker({ email }) {
   }
 }
 
-export function* verifyEmailWorker({ verificationCode }) {
+export function* verifyEmailWorker({
+  verificationCode,
+  email: receivedEmail,
+  redirect = true,
+}) {
   try {
-    const email = yield select(selectEmail());
+    const email = receivedEmail || (yield select(selectEmail()));
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
 
@@ -129,7 +133,9 @@ export function* verifyEmailWorker({ verificationCode }) {
 
     yield put(verifyEmailSuccess(encryptionKey));
 
-    yield call(createdHistory.push, routes.signup.dontHaveEosAccount.name);
+    if (redirect) {
+      yield call(createdHistory.push, routes.signup.dontHaveEosAccount.name);
+    }
   } catch (err) {
     yield put(verifyEmailErr(err));
   }
@@ -214,16 +220,18 @@ export function* iHaveEosAccountWorker({ val }) {
         activeKey: {
           private: val[EOS_ACTIVE_PRIVATE_KEY_FIELD],
         },
-        ownerKey: val[EOS_OWNER_PRIVATE_KEY_FIELD]
-          ? {
-              private: val[EOS_OWNER_PRIVATE_KEY_FIELD],
-            }
-          : null,
+        ownerKey: null,
       },
       masterKey: val[MASTER_KEY_FIELD],
       password: val[PASSWORD_FIELD],
       eosAccountName: val[EOS_ACCOUNT_FIELD],
     };
+
+    if (val[EOS_OWNER_PRIVATE_KEY_FIELD]) {
+      props.keys.ownerKey = {
+        private: val[EOS_OWNER_PRIVATE_KEY_FIELD],
+      };
+    }
 
     const storeKeys = Boolean(val[STORE_KEY_FIELD]);
 

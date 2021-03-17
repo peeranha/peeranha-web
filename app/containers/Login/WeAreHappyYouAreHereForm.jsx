@@ -92,12 +92,14 @@ WeAreHappyYouAreHereForm.propTypes = {
   locale: PropTypes.string,
   finishRegistrationProcessing: PropTypes.bool,
   finishRegistration: PropTypes.func,
+  facebookUserName: PropTypes.string,
 };
 
 export default compose(
-  connect(() => ({
+  connect((_, { facebookUserName }) => ({
     initialValues: {
       [REFERRAL_CODE]: getCookie(REFERRAL_CODE_URI),
+      [DISPLAY_NAME]: facebookUserName || '',
     },
   })),
   reduxForm({

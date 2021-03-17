@@ -252,6 +252,9 @@
     "Неверный ключ шифрования IV in passphase",
   "web_integration.errors.emailAlreadyInUse": "Email уже используется",
   "web_integration.errors.unableToBuildModel": "Невозможно построить модель",
+  "web_integration.errors.facebookAlreadyInUse": "Фейсбук аккаунт уже используется",
+  "web_integration.errors.facebookAccountIsntRegistered": "Фейсбук аккаунт ещё не зарегистрирован",
+  "web_integration.errors.incorrectFacebookAccessToken": "Некорректный токен доступа фейсбук",
 
   "app.containers.Header.walletTooltipPart1": "Вам доступны ",
   "app.containers.Header.walletTooltipPart2": " поощрений",

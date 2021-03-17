@@ -1,10 +1,10 @@
 import { call, put, takeLatest, select } from 'redux-saga/effects';
 import { translationMessages } from 'i18n';
+import crypto from 'crypto';
 
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
-import { setCookie } from 'utils/cookie';
 import {
   registerAccount,
   inviteUser,
@@ -17,6 +17,7 @@ import {
   followCommunity,
   isSingleCommunityWebsite,
 } from 'utils/communityManagement';
+import { setCookie } from 'utils/cookie';
 
 import { redirectToFeed } from 'containers/App/actions';
 import { showWalletSignUpFormSuccess } from 'containers/SignUp/actions';
@@ -44,6 +45,9 @@ import {
   finishRegistrationReferralErr,
   loginWithWalletSuccess,
   loginWithWalletErr,
+  setFacebookLoginProcessing,
+  setFacebookUserData,
+  addFacebookError,
 } from './actions';
 
 import {
@@ -60,16 +64,58 @@ import {
   AUTOLOGIN_DATA,
   REFERRAL_CODE,
   LOGIN_WITH_WALLET,
+  FACEBOOK_LOGIN_BUTTON_CLICK,
+  FACEBOOK_LOGIN_DATA_RECEIVE,
 } from './constants';
 
 import messages, { getAccountNotSelectedMessageDescriptor } from './messages';
-import { makeSelectEosAccount } from './selectors';
+import { makeSelectEosAccount, selectFacebookUserData } from './selectors';
 import { addToast } from '../Toast/actions';
 import { initEosioSuccess } from '../EosioProvider/actions';
 import { getNotificationsInfoWorker } from '../../components/Notifications/saga';
 import { addLoginData } from '../AccountProvider/actions';
 
-/* eslint consistent-return: 0 */
+import {
+  callService,
+  LOGIN_WITH_FACEBOOK_SERVICE,
+  REGISTER_WITH_FACEBOOK_SERVICE,
+} from '../../utils/web_integration/src/util/aws-connector';
+import { decryptObject } from '../../utils/web_integration/src/util/cipher';
+import { uploadImg } from '../../utils/profileManagement';
+import { blobToBase64 } from '../../utils/blob';
+
+function* continueLogin({ activeKey, eosAccountName }) {
+  yield call(getCurrentAccountWorker, eosAccountName);
+  const profileInfo = yield select(makeSelectProfileInfo());
+
+  const eosService = yield select(selectEos);
+
+  yield call(
+    eosService.initEosioWithoutScatter,
+    activeKey.private,
+    eosAccountName,
+  );
+
+  yield call(getNotificationsInfoWorker, profileInfo?.user);
+
+  yield call(getCommunityPropertyWorker);
+
+  yield put(initEosioSuccess(eosService));
+
+  if (
+    profileInfo &&
+    window.location.pathname.includes(routes.registrationStage)
+  )
+    yield put(redirectToFeed());
+
+  yield put(loginWithEmailSuccess());
+
+  // If user is absent - show window to finish registration
+  if (!profileInfo) {
+    yield put(loginWithEmailSuccess(eosAccountName, WE_ARE_HAPPY_FORM));
+  }
+}
+
 export function* loginWithEmailWorker({ val }) {
   try {
     const locale = yield select(makeSelectLocale());
@@ -87,44 +133,14 @@ export function* loginWithEmailWorker({ val }) {
       );
     }
 
-    const { activeKey, eosAccountName } = response.body;
-
-    if (eosAccountName === ACCOUNT_NOT_CREATED_NAME) {
+    if (response.body.eosAccountName === ACCOUNT_NOT_CREATED_NAME) {
       throw new WebIntegrationError(
         translations[messages.accountNotCreatedName.id],
       );
     }
 
     yield put(addLoginData(response.peeranhaAutoLogin));
-    yield call(getCurrentAccountWorker, eosAccountName);
-    const profileInfo = yield select(makeSelectProfileInfo());
-
-    const eosService = yield select(selectEos);
-
-    yield call(
-      eosService.initEosioWithoutScatter,
-      activeKey.private,
-      eosAccountName,
-    );
-
-    yield call(getNotificationsInfoWorker, profileInfo?.user);
-
-    yield call(getCommunityPropertyWorker);
-
-    yield put(initEosioSuccess(eosService));
-
-    if (
-      profileInfo &&
-      window.location.pathname.includes(routes.registrationStage)
-    )
-      yield put(redirectToFeed());
-
-    yield put(loginWithEmailSuccess());
-
-    // If user is absent - show window to finish registration
-    if (!profileInfo) {
-      yield put(loginWithEmailSuccess(eosAccountName, WE_ARE_HAPPY_FORM));
-    }
+    yield call(continueLogin, response.body);
   } catch (err) {
     yield put(loginWithEmailErr(err));
   }
@@ -232,7 +248,7 @@ export function* sendReferralCode(
       yield call(inviteUser, accountName, referralCode, eosService);
     } catch (err) {
       yield put(error(err));
-      return;
+      return false;
     }
     return true;
   }
@@ -240,6 +256,8 @@ export function* sendReferralCode(
   const text = translationMessages[locale][messages.inviterIsNotRegisterYet.id];
   yield put(addToast({ type: 'error', text }));
   yield put(error(new Error(text)));
+
+  return false;
 }
 
 export function* finishRegistrationWorker({ val }) {
@@ -247,11 +265,11 @@ export function* finishRegistrationWorker({ val }) {
     const eosService = yield select(selectEos);
     const accountName = yield select(makeSelectEosAccount());
 
+    const referralCode = val[REFERRAL_CODE];
     const profile = {
       accountName,
       displayName: val[DISPLAY_NAME],
     };
-    const referralCode = val[REFERRAL_CODE];
 
     if (referralCode) {
       const ok = yield call(
@@ -266,7 +284,22 @@ export function* finishRegistrationWorker({ val }) {
       }
     }
 
-    yield call(registerAccount, profile, eosService);
+    const facebookUserData = yield select(selectFacebookUserData());
+    let imgHash = null;
+
+    if (facebookUserData.picture) {
+      const img = yield call(async () => {
+        const response = await fetch(facebookUserData.picture);
+        const data = await blobToBase64(await response.blob());
+
+        return data;
+      });
+
+      // eslint-disable-next-line prefer-destructuring
+      imgHash = (yield call(uploadImg, img)).imgHash;
+    }
+
+    yield call(registerAccount, profile, eosService, imgHash);
 
     yield call(getCurrentAccountWorker);
 
@@ -298,8 +331,104 @@ export function* redirectToFeedWorker() {
   }
 }
 
+export function* facebookLoginButtonClickedWorker() {
+  yield put(setFacebookLoginProcessing(true));
+}
+
+export function* loginWithFacebookWorker({ data }) {
+  const locale = yield select(makeSelectLocale());
+  const translations = translationMessages[locale];
+
+  const response = yield call(callService, LOGIN_WITH_FACEBOOK_SERVICE, {
+    accessToken: data.accessToken,
+  });
+
+  if (response.errorCode) {
+    throw new WebIntegrationError(
+      translations[webIntegrationErrors[response.errorCode].id],
+    );
+  }
+
+  const decryptedData = decryptObject(
+    response.body.response,
+    crypto
+      .createHash('sha256')
+      .update(data.userID)
+      .digest('base64')
+      .substr(0, 64),
+  );
+
+  if (decryptedData.eosAccountName === ACCOUNT_NOT_CREATED_NAME) {
+    throw new WebIntegrationError(
+      translations[messages.accountNotCreatedName.id],
+    );
+  }
+
+  yield call(continueLogin, decryptedData);
+  setCookie({
+    name: AUTOLOGIN_DATA,
+    value: JSON.stringify({
+      loginWithFacebook: true,
+    }),
+    options: {
+      allowSubdomains: true,
+      defaultPath: true,
+    },
+  });
+}
+
+export function* facebookLoginCallbackWorker({ data, isLogin }) {
+  try {
+    const locale = yield select(makeSelectLocale());
+    const translations = translationMessages[locale];
+
+    if (isLogin && data.userID) {
+      yield put(
+        setFacebookUserData({
+          name: data.name,
+          picture: data.picture.data.url,
+        }),
+      );
+      yield call(loginWithFacebookWorker, { data });
+    } else if (data.userID) {
+      const response = yield call(callService, REGISTER_WITH_FACEBOOK_SERVICE, {
+        accessToken: data.accessToken,
+        userID: data.userID,
+      });
+
+      if (!response.OK) {
+        throw new WebIntegrationError(
+          translations[webIntegrationErrors[response.errorCode].id],
+        );
+      }
+
+      yield put(
+        setFacebookUserData({
+          name: data.name,
+          picture: data.picture.data.url,
+        }),
+      );
+      yield loginWithFacebookWorker({ data });
+
+      yield call(createdHistory.push, routes.questions());
+    } else {
+      throw new Error(JSON.stringify(data));
+    }
+  } catch (e) {
+    yield put(addFacebookError(e));
+    window.FB.logout();
+  } finally {
+    yield put(setFacebookLoginProcessing(false));
+  }
+}
+
 export default function*() {
   yield takeLatest(LOGIN_WITH_EMAIL, loginWithEmailWorker);
   yield takeLatest(LOGIN_WITH_WALLET, loginWithWalletWorker);
   yield takeLatest(FINISH_REGISTRATION, finishRegistrationWorker);
+  yield takeLatest(
+    FACEBOOK_LOGIN_BUTTON_CLICK,
+    facebookLoginButtonClickedWorker,
+  );
+  yield takeLatest(FACEBOOK_LOGIN_DATA_RECEIVE, facebookLoginCallbackWorker);
 }

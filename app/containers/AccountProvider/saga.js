@@ -144,18 +144,20 @@ export const getCurrentAccountWorker = function*(initAccount) {
       }
 
       if (autoLoginData?.loginWithScatter) {
-        put(
-          yield put(
-            addLoginData({ loginWithScatter: autoLoginData.loginWithScatter }),
-          ),
+        yield put(
+          addLoginData({ loginWithScatter: autoLoginData.loginWithScatter }),
         );
       }
 
       if (autoLoginData?.loginWithKeycat) {
-        put(
-          yield put(
-            addLoginData({ loginWithKeycat: autoLoginData.loginWithKeycat }),
-          ),
+        yield put(
+          addLoginData({ loginWithKeycat: autoLoginData.loginWithKeycat }),
+        );
+      }
+
+      if (autoLoginData?.loginWithFacebook) {
+        yield put(
+          addLoginData({ loginWithFacebook: autoLoginData.loginWithFacebook }),
         );
       }
     }

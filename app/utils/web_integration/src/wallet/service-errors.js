@@ -49,6 +49,16 @@ module.exports = {
   15: {
     id: 'web_integration.errors.unableToBuildModel',
   },
+  17: {
+    id: 'web_integration.errors.facebookAlreadyInUse',
+  },
+  18: {
+    id: 'web_integration.errors.facebookAccountIsntRegistered',
+  },
+  19: {
+    id: 'web_integration.errors.incorrectFacebookAccessToken',
+
+  },
   wrongMasterKey: {
     id: 'web_integration.errors.wrongMasterKey',
   },

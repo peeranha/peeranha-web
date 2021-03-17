@@ -51,7 +51,7 @@ const hashes = ['#questions', '#answers', '#settings', '#moderation'];
 const UserNavigation = ({
   userId,
   account,
-  profile: { permissions, integer_properties: integerProperties },
+  profile: { permissions, integer_properties: integerProperties = [] },
   questionsLength,
   questionsWithUserAnswersLength,
   userAchievementsLength,

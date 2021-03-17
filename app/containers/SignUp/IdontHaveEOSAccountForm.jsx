@@ -47,12 +47,14 @@ import { Div } from './IHaveEOSAccountForm';
 import TelosNameForm from './TelosNameForm';
 import MyOwnTelosNameForm from './MyOwnTelosNameForm';
 import { selectEos } from '../EosioProvider/selectors';
+import { isFacebookSignUpInitiatedSelector } from '../Login/selectors';
 
 const IdontHaveEOSAccountForm = ({
   handleSubmit,
   change,
   masterKeyValue,
   isMyOwnTelosName,
+  isFacebookSignUpInitiated,
 }) => (
   <YouNeedEosAccount route={routes.signup.haveEosAccount.name}>
     <SignUp>
@@ -116,30 +118,34 @@ const IdontHaveEOSAccountForm = ({
                 />
               </Div>
             ) : null}
-            <Div>
-              <Field
-                name={PASSWORD_FIELD}
-                disabled={idontHaveEosAccountProcessing}
-                label={translate[messages.password.id]}
-                component={TextInputField}
-                type="password"
-                autoComplete="new-password"
-                validate={[required, strLength8x100, comparePasswords]}
-                warn={[required, strLength8x100, comparePasswords]}
-              />
-            </Div>
-            <Div>
-              <Field
-                name={PASSWORD_CONFIRM_FIELD}
-                disabled={idontHaveEosAccountProcessing}
-                label={translate[messages.confirmPassword.id]}
-                component={TextInputField}
-                type="password"
-                autoComplete="new-password"
-                validate={[required, strLength8x100, comparePasswords]}
-                warn={[required, strLength8x100, comparePasswords]}
-              />
-            </Div>
+            {!isFacebookSignUpInitiated && (
+              <>
+                <Div>
+                  <Field
+                    name={PASSWORD_FIELD}
+                    disabled={idontHaveEosAccountProcessing}
+                    label={translate[messages.password.id]}
+                    component={TextInputField}
+                    type="password"
+                    autoComplete="new-password"
+                    validate={[required, strLength8x100, comparePasswords]}
+                    warn={[required, strLength8x100, comparePasswords]}
+                  />
+                </Div>
+                <Div>
+                  <Field
+                    name={PASSWORD_CONFIRM_FIELD}
+                    disabled={idontHaveEosAccountProcessing}
+                    label={translate[messages.confirmPassword.id]}
+                    component={TextInputField}
+                    type="password"
+                    autoComplete="new-password"
+                    validate={[required, strLength8x100, comparePasswords]}
+                    warn={[required, strLength8x100, comparePasswords]}
+                  />
+                </Div>
+              </>
+            )}
             <Div className="mb-4">
               <Field
                 name={I_SAVE_MASTER_KEY_FIELD}
@@ -184,6 +190,7 @@ IdontHaveEOSAccountForm.propTypes = {
   masterKeyValue: PropTypes.string,
   isMyOwnTelosName: PropTypes.bool,
   eosService: PropTypes.object,
+  isFacebookSignUpInitiated: PropTypes.bool,
 };
 
 const formName = 'IdontHaveEOSAccountForm';
@@ -217,6 +224,7 @@ FormClone = connect(state => {
 
   return {
     eosService: selectEos(state),
+    isFacebookSignUpInitiated: isFacebookSignUpInitiatedSelector()(state),
     masterKeyValue: form.values ? form.values[MASTER_KEY_FIELD] : null,
     passwordList: form.values
       ? [form.values[PASSWORD_FIELD], form.values[PASSWORD_CONFIRM_FIELD]]

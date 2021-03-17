@@ -41,9 +41,12 @@ export const updateAcc = async (profile, eosService) => {
   }
 };
 
-export const registerAccount = async (profile, eosService) => {
-  const profileText = JSON.stringify(profile);
-  const ipfsHash = await saveText(profileText);
+export const registerAccount = async (
+  profile,
+  eosService,
+  avatar = NO_AVATAR,
+) => {
+  const ipfsHash = await saveText(JSON.stringify(profile));
 
   try {
     await eosService.sendTransaction(

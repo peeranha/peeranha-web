@@ -51,3 +51,15 @@ export const USER_IS_NOT_REGISTERED = 'USER_IS_NOT_REGISTERED';
 // Local storage
 export const AUTOLOGIN_DATA = 'peeranhaAutoLogin';
 export const PROFILE_INFO_LS = 'profileinfols';
+
+export const FACEBOOK_LOGIN_PROCESSING =
+  'app/containers/Login/FACEBOOK_LOGIN_PROCESSING';
+export const FACEBOOK_LOGIN_BUTTON_CLICK =
+  'app/containers/Login/FACEBOOK_LOGIN_BUTTON_CLICK';
+export const FACEBOOK_LOGIN_DATA_RECEIVE =
+  'app/containers/Login/FACEBOOK_LOGIN_DATA_RECEIVE';
+
+export const SET_FACEBOOK_USER_DATA =
+  'app/containers/Login/SET_FACEBOOK_USER_DATA';
+
+export const FACEBOOK_ERROR = 'app/containers/Login/FACEBOOK_ERROR';

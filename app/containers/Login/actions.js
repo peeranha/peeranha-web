@@ -19,6 +19,11 @@ import {
   LOGIN_WITH_WALLET,
   LOGIN_WITH_WALLET_SUCCESS,
   LOGIN_WITH_WALLET_ERROR,
+  FACEBOOK_LOGIN_PROCESSING,
+  FACEBOOK_LOGIN_BUTTON_CLICK,
+  FACEBOOK_LOGIN_DATA_RECEIVE,
+  SET_FACEBOOK_USER_DATA,
+  FACEBOOK_ERROR,
 } from './constants';
 
 // Show | Hide (modal)
@@ -116,4 +121,29 @@ export function finishRegistrationWithDisplayNameErr(
 export const finishRegistrationReferralErr = finishRegistrationReferralError => ({
   type: FINISH_REGISTRATION_REFERRAL_ERROR,
   finishRegistrationReferralError,
+});
+
+export const setFacebookLoginProcessing = facebookLoginProcessing => ({
+  type: FACEBOOK_LOGIN_PROCESSING,
+  facebookLoginProcessing,
+});
+
+export const handleFacebookButtonClick = () => ({
+  type: FACEBOOK_LOGIN_BUTTON_CLICK,
+});
+
+export const handleFacebookLoginCallback = (data, isLogin) => ({
+  type: FACEBOOK_LOGIN_DATA_RECEIVE,
+  data,
+  isLogin,
+});
+
+export const setFacebookUserData = facebookUserData => ({
+  type: SET_FACEBOOK_USER_DATA,
+  facebookUserData,
+});
+
+export const addFacebookError = facebookError => ({
+  type: FACEBOOK_ERROR,
+  facebookError,
 });

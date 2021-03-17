@@ -354,8 +354,14 @@ export default defineMessages({
   loginViaWallet: {
     id: 'app.common.loginViaWallet',
   },
+  loginViaService: {
+    id: 'app.common.loginViaService',
+  },
   signUpViaWallet: {
     id: 'app.common.signUpViaWallet',
+  },
+  signUpViaService: {
+    id: 'app.common.signUpViaService',
   },
   general: {
     id: 'app.common.general',
