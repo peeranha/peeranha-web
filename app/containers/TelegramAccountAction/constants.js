@@ -31,3 +31,6 @@ export const GET_USER_TG_DATA = 'app/TelegramInfo/GET_USER_TG_DATA';
 export const GET_USER_TG_DATA_SUCCESS =
   'app/TelegramInfo/GET_USER_TG_DATA_SUCCESS';
 export const GET_USER_TG_DATA_ERROR = 'app/TelegramInfo/GET_USER_TG_DATA_ERROR';
+
+export const SAVE_PROFILE_SUCCESS = 'app/TelegramInfo/SAVE_PROFILE_SUCCESS';
+export const SAVE_PROFILE_ERROR = 'app/TelegramInfo/SAVE_PROFILE_ERROR';
