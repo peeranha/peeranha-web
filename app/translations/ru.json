@@ -116,6 +116,7 @@
   "app.common.inProgress": "Выполняется",
   "app.common.loginViaWallet": "Войти через кошелек",
   "app.common.signUpViaWallet": "Регистрация через кошелек",
+  "app.common.signUpViaService": "Регистрация через сервис",
   "app.common.general": "Общий",
   "app.common.expert": "Экспертный",
   "app.common.promoted": "Продвигаемый",
