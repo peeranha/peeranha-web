@@ -60,6 +60,7 @@ const EditCommunityForm = ({
   initialValues,
   locale,
   isModerator,
+  isBloggerMode,
 }) => {
   const editCommunity = useCallback(
     values => {
@@ -136,8 +137,8 @@ const EditCommunityForm = ({
           isProfileSaving={communityLoading}
           name={ABOUT_FIELD}
         />
-        
-        {isModerator && (
+
+        {isModerator && !isBloggerMode && (
           <TypeForm
             locale={locale}
             change={change}
