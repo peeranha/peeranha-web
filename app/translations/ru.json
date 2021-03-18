@@ -104,6 +104,7 @@
   "app.common.hide": "Скрыть",
   "app.common.delete": "Удалить",
   "app.common.description": "Описание",
+  "app.common.preview": "Предварительный просмотр",
   "app.common.showMore": "Показать больше {value}",
   "app.common.showLess": "Показать меньше {value}",
   "app.common.poweredByTelos": "Powered by {image}",
