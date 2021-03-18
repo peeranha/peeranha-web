@@ -481,7 +481,7 @@
   "app.containers.CreateCommunity.goToList": "Перейти к списку",
   "app.containers.CreateCommunity.maxTagsNumberReached":
     "Максимальное число тегов было достигнуто",
-  "app.containers.CreateCommunity.questionType": "Тип вопросов",
+  "app.containers.CreateCommunity.questionsType": "Тип вопросов",
   "app.containers.CreateCommunity.anyQuestionDescriptionLabel":
     "Пользователи смогут задавать как Общие, так и экспертные вопросы",
   "app.containers.CreateCommunity.anyQuestionDescriptionList": [],
