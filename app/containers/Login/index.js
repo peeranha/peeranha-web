@@ -111,7 +111,7 @@ Login.propTypes = {
   loginWithEmailProcessing: PropTypes.bool,
   finishRegistrationProcessing: PropTypes.bool,
   loginWithWalletProcessing: PropTypes.bool,
-  facebookUserData: PropTypes.string,
+  facebookUserData: PropTypes.object,
   showEmailPasswordFormDispatch: PropTypes.func,
   loginWithEmailDispatch: PropTypes.func,
   loginWithWalletDispatch: PropTypes.func,

@@ -66,6 +66,7 @@ import {
   LOGIN_WITH_WALLET,
   FACEBOOK_LOGIN_BUTTON_CLICK,
   FACEBOOK_LOGIN_DATA_RECEIVE,
+  AUTOLOGIN_WITH_FACEBOOK,
 } from './constants';
 
 import messages, { getAccountNotSelectedMessageDescriptor } from './messages';
@@ -431,4 +432,5 @@ export default function*() {
     facebookLoginButtonClickedWorker,
   );
   yield takeLatest(FACEBOOK_LOGIN_DATA_RECEIVE, facebookLoginCallbackWorker);
+  yield takeLatest(AUTOLOGIN_WITH_FACEBOOK, loginWithFacebookWorker);
 }

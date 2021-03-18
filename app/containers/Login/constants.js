@@ -58,6 +58,8 @@ export const FACEBOOK_LOGIN_BUTTON_CLICK =
   'app/containers/Login/FACEBOOK_LOGIN_BUTTON_CLICK';
 export const FACEBOOK_LOGIN_DATA_RECEIVE =
   'app/containers/Login/FACEBOOK_LOGIN_DATA_RECEIVE';
+export const AUTOLOGIN_WITH_FACEBOOK =
+  'app/containers/Login/AUTOLOGIN_WITH_FACEBOOK';
 
 export const SET_FACEBOOK_USER_DATA =
   'app/containers/Login/SET_FACEBOOK_USER_DATA';
