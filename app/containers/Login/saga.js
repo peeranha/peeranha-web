@@ -341,6 +341,13 @@ export function* loginWithFacebookWorker({ data }) {
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
 
+    const facebookUserData = {
+      name: data.name,
+      picture: data.picture.data.url,
+    };
+
+    yield put(setFacebookUserData(facebookUserData));
+
     const response = yield call(callService, LOGIN_WITH_FACEBOOK_SERVICE, {
       accessToken: data.accessToken,
     });
@@ -388,12 +395,6 @@ export function* facebookLoginCallbackWorker({ data, isLogin }) {
     const translations = translationMessages[locale];
 
     if (isLogin && data.userID) {
-      yield put(
-        setFacebookUserData({
-          name: data.name,
-          picture: data.picture.data.url,
-        }),
-      );
       yield call(loginWithFacebookWorker, { data });
     } else if (data.userID) {
       const response = yield call(callService, REGISTER_WITH_FACEBOOK_SERVICE, {
@@ -407,12 +408,6 @@ export function* facebookLoginCallbackWorker({ data, isLogin }) {
         );
       }
 
-      yield put(
-        setFacebookUserData({
-          name: data.name,
-          picture: data.picture.data.url,
-        }),
-      );
       yield loginWithFacebookWorker({ data });
 
       yield call(createdHistory.push, routes.questions());
@@ -425,7 +420,9 @@ export function* facebookLoginCallbackWorker({ data, isLogin }) {
     }
   } catch (e) {
     yield put(addFacebookError(e));
-    // window.FB.logout();
+    if (data.userID) {
+      window.FB.logout();
+    }
   } finally {
     yield put(setFacebookLoginProcessing(false));
   }

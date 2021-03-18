@@ -3,15 +3,24 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { bindActionCreators, compose } from 'redux';
+import { translationMessages } from 'i18n';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { DAEMON } from 'utils/constants';
 
 import { getCookie } from 'utils/cookie';
-import { AUTOLOGIN_DATA } from 'containers/Login/constants';
-import { autoLoginWithFacebook } from 'containers/Login/actions';
 import { onFacebookSdkInit } from 'utils/facebook';
+import {
+  AUTOLOGIN_DATA,
+  FACEBOOK_AUTOLOGIN_ERROR,
+} from 'containers/Login/constants';
+import loginMessages from 'containers/Login/messages';
+import {
+  addFacebookError,
+  autoLoginWithFacebook,
+} from 'containers/Login/actions';
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import reducer from './reducer';
 import saga from './saga';
@@ -24,13 +33,24 @@ export const AccountProvider = ({
   lastUpdate,
   getCurrentAccountDispatch,
   autoLoginWithFacebookDispatch,
+  addFacebookErrorDispatch,
+  locale,
 }) => {
   useEffect(() => {
     const autoLoginData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
 
     if (autoLoginData?.loginWithFacebook) {
       // account initializing with facebook sdk
-      onFacebookSdkInit(autoLoginWithFacebookDispatch);
+
+      const translations = translationMessages[locale];
+      const fbConnectErrMsg =
+        translations[loginMessages[FACEBOOK_AUTOLOGIN_ERROR].id];
+      onFacebookSdkInit(
+        autoLoginWithFacebookDispatch,
+        getCurrentAccountDispatch,
+        addFacebookErrorDispatch,
+        fbConnectErrMsg,
+      );
     } else {
       getCurrentAccountDispatch();
     }
@@ -50,8 +70,10 @@ export const AccountProvider = ({
 AccountProvider.propTypes = {
   getCurrentAccountDispatch: PropTypes.func,
   autoLoginWithFacebookDispatch: PropTypes.func,
+  addFacebookErrorDispatch: PropTypes.func,
   children: PropTypes.object,
   lastUpdate: PropTypes.number,
+  locale: PropTypes.string,
 };
 
 export default compose(
@@ -60,6 +82,7 @@ export default compose(
   connect(
     createStructuredSelector({
       lastUpdate: selectLastUpdate(),
+      locale: makeSelectLocale(),
     }),
     dispatch => ({
       getCurrentAccountDispatch: bindActionCreators(
@@ -70,6 +93,7 @@ export default compose(
         autoLoginWithFacebook,
         dispatch,
       ),
+      addFacebookErrorDispatch: bindActionCreators(addFacebookError, dispatch),
     }),
   ),
 )(AccountProvider);
