@@ -337,45 +337,49 @@ export function* facebookLoginButtonClickedWorker() {
 }
 
 export function* loginWithFacebookWorker({ data }) {
-  const locale = yield select(makeSelectLocale());
-  const translations = translationMessages[locale];
+  try {
+    const locale = yield select(makeSelectLocale());
+    const translations = translationMessages[locale];
 
-  const response = yield call(callService, LOGIN_WITH_FACEBOOK_SERVICE, {
-    accessToken: data.accessToken,
-  });
+    const response = yield call(callService, LOGIN_WITH_FACEBOOK_SERVICE, {
+      accessToken: data.accessToken,
+    });
 
-  if (response.errorCode) {
-    throw new WebIntegrationError(
-      translations[webIntegrationErrors[response.errorCode].id],
+    if (response.errorCode) {
+      throw new WebIntegrationError(
+        translations[webIntegrationErrors[response.errorCode].id],
+      );
+    }
+
+    const decryptedData = decryptObject(
+      response.body.response,
+      crypto
+        .createHash('sha256')
+        .update(data.userID)
+        .digest('base64')
+        .substr(0, 64),
     );
+
+    if (decryptedData.eosAccountName === ACCOUNT_NOT_CREATED_NAME) {
+      throw new WebIntegrationError(
+        translations[messages.accountNotCreatedName.id],
+      );
+    }
+
+    yield call(continueLogin, decryptedData);
+    setCookie({
+      name: AUTOLOGIN_DATA,
+      value: JSON.stringify({
+        loginWithFacebook: true,
+      }),
+      options: {
+        allowSubdomains: true,
+        defaultPath: true,
+      },
+    });
+  } catch (err) {
+    yield put(addFacebookError(err));
   }
-
-  const decryptedData = decryptObject(
-    response.body.response,
-    crypto
-      .createHash('sha256')
-      .update(data.userID)
-      .digest('base64')
-      .substr(0, 64),
-  );
-
-  if (decryptedData.eosAccountName === ACCOUNT_NOT_CREATED_NAME) {
-    throw new WebIntegrationError(
-      translations[messages.accountNotCreatedName.id],
-    );
-  }
-
-  yield call(continueLogin, decryptedData);
-  setCookie({
-    name: AUTOLOGIN_DATA,
-    value: JSON.stringify({
-      loginWithFacebook: true,
-    }),
-    options: {
-      allowSubdomains: true,
-      defaultPath: true,
-    },
-  });
 }
 
 export function* facebookLoginCallbackWorker({ data, isLogin }) {
@@ -412,12 +416,16 @@ export function* facebookLoginCallbackWorker({ data, isLogin }) {
       yield loginWithFacebookWorker({ data });
 
       yield call(createdHistory.push, routes.questions());
+    } else if (data.status === 'unknown') {
+      throw new WebIntegrationError(
+        translations[messages[USER_IS_NOT_SELECTED].id],
+      );
     } else {
       throw new Error(JSON.stringify(data));
     }
   } catch (e) {
     yield put(addFacebookError(e));
-    window.FB.logout();
+    // window.FB.logout();
   } finally {
     yield put(setFacebookLoginProcessing(false));
   }

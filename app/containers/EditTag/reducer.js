@@ -14,7 +14,7 @@ import {
   RESET_EDIT_TAG_REDUCER,
 } from './constants';
 
-const initialState = fromJS({
+export const initialState = fromJS({
   editTagFormLoading: true,
   editTagProcessing: false,
   getEditTagFormError: null,
