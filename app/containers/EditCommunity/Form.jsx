@@ -70,7 +70,7 @@ const EditCommunityForm = ({
         about: values.get(ABOUT_FIELD),
         officialSite: values.get(COMM_OFFICIAL_SITE_FIELD),
         questionsType: parseInt(values.get(FORM_TYPE)),
-        isBlogger: !!values.get(COMMUNITY_TYPE),
+        isBlogger: !!parseInt(values.get(COMMUNITY_TYPE)),
         banner: values.get(COMM_BANNER_FIELD),
         facebook: values.get(FACEBOOK_LINK_FIELD),
         instagram: values.get(INSTAGRAM_LINK_FIELD),
@@ -136,7 +136,7 @@ const EditCommunityForm = ({
           isProfileSaving={communityLoading}
           name={ABOUT_FIELD}
         />
-        
+
         {isModerator && (
           <TypeForm
             locale={locale}
