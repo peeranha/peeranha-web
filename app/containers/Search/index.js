@@ -64,7 +64,7 @@ const Search = ({
       </Header>
 
       <Base>
-        <ul>{items.map(x => <Item {...x} />)}</ul>
+        <ul>{items.map(x => <Item {...x} locale={locale} />)}</ul>
 
         <div>
           {getResultsProcessing && <LoadingIndicator />}
