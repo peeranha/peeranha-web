@@ -76,12 +76,6 @@ async function registerComplete(
       eosName,
     };
   }
-  console.log(
-    '$$credentials: ',
-    credentials,
-    '$$encryptionKey: ',
-    encryptionKey,
-  );
   const encryptedCredentials = encryptObject(credentials, encryptionKey);
 
   const requestBody = {
