@@ -852,7 +852,7 @@
   "app.containers.SignUp.storeThisKey": "Хранить этот ключ",
   "app.containers.SignUp.masterKey": "Master ключ",
   "app.containers.SignUp.displayName": "Отображаемое имя",
-  "app.containers.SignUp.referralCode": "Реферальный код",
+  "app.containers.SignUp.referralCode": "Реферальный код {optional}",
   "app.containers.SignUp.eosName": "Имя в Telos",
   "app.containers.SignUp.signUp": "Зарегистрироваться",
   "app.containers.SignUp.password": "Пароль",
