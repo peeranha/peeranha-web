@@ -62,14 +62,6 @@ export function* saveProfileWorker(profile, userKey) {
   try {
     const eosService = yield select(selectEos);
 
-    if (
-      profile[AVATAR_FIELD] &&
-      profile[AVATAR_FIELD].length > HASH_CHARS_LIMIT
-    ) {
-      const { imgHash } = yield call(uploadImg, profile[AVATAR_FIELD]);
-      profile[AVATAR_FIELD] = imgHash;
-    }
-
     yield call(
       saveProfile,
       eosService,
