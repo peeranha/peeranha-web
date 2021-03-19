@@ -106,7 +106,7 @@ export const CreateCommunity = ({
       main_description: values[COMM_MAIN_DESCRIPTION_FIELD],
       officialSite: values[COMM_OFFICIAL_SITE_FIELD],
       questionsType: parseInt(values[FORM_TYPE] ?? ANY_TYPE),
-      isBlogger: !!values[COMMUNITY_TYPE],
+      isBlogger: !!parseInt(values[COMMUNITY_TYPE]),
       banner: values[COMM_BANNER_FIELD],
       facebook: values[FACEBOOK_LINK_FIELD],
       instagram: values[INSTAGRAM_LINK_FIELD],
