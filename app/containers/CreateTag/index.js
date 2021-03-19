@@ -25,7 +25,10 @@ import {
   selectFaqQuestions,
 } from 'containers/DataCacheProvider/selectors';
 
-import { selectPermissions } from 'containers/AccountProvider/selectors';
+import {
+  makeSelectProfileInfo,
+  selectPermissions,
+} from 'containers/AccountProvider/selectors';
 
 import {
   WHAT_IS_TAG_QUESTION,
@@ -44,6 +47,8 @@ import {
   DESCRIPTION_FIELD,
   FORM_COMMUNITY,
   STATE_KEY,
+  MIN_RATING_TO_CREATE_TAG,
+  MIN_ENERGY_TO_CREATE_TAG,
 } from './constants';
 
 import Form from './Form';
@@ -68,11 +73,12 @@ const CreateTag = ({
   getFormDispatch,
   isFormLoading,
   isFormAvailable,
+  profile,
 }) => {
   useEffect(() => {
     getFormDispatch();
   }, []);
-
+  console.log(profile);
   const commId = useMemo(() => single || +match.params.communityid, [match]);
 
   const createTag = useCallback(
@@ -98,16 +104,19 @@ const CreateTag = ({
 
   const rightCommunitiesIds = useMemo(
     () =>
-      isCommunityAdmin
-        ? permissions.map(x => x.community)
-        : communities.map(x => x.id),
+      profile.rating >= MIN_RATING_TO_CREATE_TAG &&
+      profile.energy >= MIN_ENERGY_TO_CREATE_TAG
+        ? communities.map(x => x.id)
+        : isCommunityAdmin
+          ? permissions.map(x => x.community)
+          : communities.map(x => x.id),
     [],
   );
 
   if (isFormLoading) return <LoadingIndicator />;
 
   if (!isFormAvailable && !isCommunityAdmin) return <Redirect to={tags()} />;
-
+  console.log(communities);
   return (
     <div>
       <Seo
@@ -174,6 +183,7 @@ export default compose(
       permissions: selectPermissions(),
       isFormLoading: selectors.selectIsFormLoading(),
       isFormAvailable: selectors.selectIsFormAvailable(),
+      profile: makeSelectProfileInfo(),
     }),
     dispatch => ({
       suggestTagDispatch: bindActionCreators(suggestTag, dispatch),
