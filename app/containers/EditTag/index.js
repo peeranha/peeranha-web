@@ -36,7 +36,7 @@ import {
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import { Header } from 'containers/CreateTag/Header';
-import { Tips } from 'containers/CreateCommunity/Tips';
+import { Tips } from '../CreateTag/Tips';
 import Form from 'containers/CreateTag/Form';
 
 import messages from './messages';
