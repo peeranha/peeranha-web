@@ -16,6 +16,8 @@ import {
   GET_USER_TG_DATA,
   GET_USER_TG_DATA_SUCCESS,
   GET_USER_TG_DATA_ERROR,
+  SAVE_PROFILE_SUCCESS,
+  SAVE_PROFILE_ERROR,
 } from './constants';
 
 export const initialState = fromJS({
@@ -58,6 +60,13 @@ function telegramAccountActionReducer(state = initialState, action) {
       return state
         .set('getUserTgDataLoading', false)
         .set('getUserTgDataError', action.err);
+
+    case SAVE_PROFILE_SUCCESS:
+      return state.set('isProfileSaving', false);
+    case SAVE_PROFILE_ERROR:
+      return state
+        .set('saveProfileError', action.saveProfileError)
+        .set('isProfileSaving', false);
 
     default:
       return state;

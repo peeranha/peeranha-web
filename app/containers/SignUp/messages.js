@@ -165,4 +165,7 @@ export default defineMessages({
   tgAccountID: {
     id: 'app.containers.SignUp.tgAccountID',
   },
+  tgAccountName: {
+    id: 'app.containers.SignUp.tgAccountName',
+  },
 });

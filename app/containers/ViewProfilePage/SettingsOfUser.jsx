@@ -137,6 +137,7 @@ const SettingsOfUser = ({
         className={className}
         writeToBuffer={writeToBuffer}
         tgData={tgData}
+        profile={profile}
       />
 
       <ReferralProgram
