@@ -7,13 +7,22 @@ import { imageValidation } from 'components/FormFields/validate';
 
 import BannerField from 'components/FormFields/BannerField';
 
-import { COMM_BANNER_FIELD } from './constants';
+import { ABOUT_FIELD, COMM_BANNER_FIELD } from './constants';
 import messages from './messages';
 import SocialLinksGroup from './SocialLinksGroup';
 import ColorsGroup from './ColorsGroup';
+import AboutForm from './AboutForm';
 
 const BloggerModeForm = ({ disabled, formValues, intl, initialValues }) => (
   <>
+    <AboutForm
+      formValues={formValues}
+      intl={intl}
+      loading={disabled}
+      name={ABOUT_FIELD}
+      initialValues={initialValues}
+    />
+
     <Field
       name={COMM_BANNER_FIELD}
       component={BannerField}
