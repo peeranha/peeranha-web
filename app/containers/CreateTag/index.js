@@ -78,7 +78,7 @@ const CreateTag = ({
   useEffect(() => {
     getFormDispatch();
   }, []);
-  console.log(profile);
+
   const commId = useMemo(() => single || +match.params.communityid, [match]);
 
   const createTag = useCallback(
@@ -116,7 +116,7 @@ const CreateTag = ({
   if (isFormLoading) return <LoadingIndicator />;
 
   if (!isFormAvailable && !isCommunityAdmin) return <Redirect to={tags()} />;
-  console.log(communities);
+
   return (
     <div>
       <Seo
