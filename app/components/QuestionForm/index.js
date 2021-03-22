@@ -65,12 +65,10 @@ import {
   ANY_TYPE,
   GENERAL_TYPE,
 } from '../../containers/CreateCommunity/constants';
-import Span from '../Span';
-import { PreviewWrapper } from '../AnswerForm';
 import createdHistory from '../../createdHistory';
 import * as routes from '../../routes-config';
-import { hasGlobalModeratorPermissions } from '../../utils/properties';
 import { now } from 'lodash';
+import DescriptionList from '../DescriptionList';
 
 const single = isSingleCommunityWebsite();
 
@@ -121,8 +119,6 @@ export const QuestionForm = ({
   doSkipExistingQuestions,
   skipExistingQuestions,
   communityQuestionsType,
-  questionTypeExpertDescription,
-  questionTypeGeneralDescription,
   disableCommForm,
 }) => {
   const handleSubmitWithType = sendQuestion => {
@@ -187,17 +183,23 @@ export const QuestionForm = ({
                 />
               )) ||
                 (communityQuestionsType === GENERAL_TYPE && (
-                  <PreviewWrapper>
-                    <Span color={TEXT_SECONDARY} fontSize="14" isItalic>
-                      {questionTypeGeneralDescription}
-                    </Span>
-                  </PreviewWrapper>
+                  <>
+                    <DescriptionList
+                      locale={locale}
+                      label={messages.generalQuestionDescriptionLabel.id}
+                      items={messages.generalQuestionDescriptionList.id}
+                    />
+                    <br />
+                  </>
                 )) || (
-                  <PreviewWrapper>
-                    <Span color={TEXT_SECONDARY} fontSize="14" isItalic>
-                      {questionTypeExpertDescription}
-                    </Span>
-                  </PreviewWrapper>
+                  <>
+                    <DescriptionList
+                      locale={locale}
+                      label={messages.expertQuestionDescriptionLabel.id}
+                      items={messages.expertQuestionDescriptionList.id}
+                    />
+                    <br />
+                  </>
                 ))}
 
             <TitleForm intl={intl} questionLoading={questionLoading} />

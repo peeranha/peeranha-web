@@ -86,12 +86,6 @@ export const AskQuestion = ({
         existingQuestions={existingQuestions}
         doSkipExistingQuestions={skipExistingQuestions}
         skipExistingQuestions={() => setSkipExistingQuestions(true)}
-        questionTypeExpertDescription={
-          translationMessages[locale][messages.onlyExpertQuestionsAllowed.id]
-        }
-        questionTypeGeneralDescription={
-          translationMessages[locale][messages.onlyGeneralQuestionsAllowed.id]
-        }
       />
     </div>
   );
