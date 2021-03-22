@@ -181,13 +181,6 @@ const CreateCommunityForm = ({
           splitInHalf
         />
 
-        <AboutForm
-          formValues={formValues}
-          intl={intl}
-          isProfileSaving={createCommunityLoading}
-          name={ABOUT_FIELD}
-        />
-
         {profileWithModeratorRights && (
           <TypeForm
             locale={locale}

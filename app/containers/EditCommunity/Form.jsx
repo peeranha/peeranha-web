@@ -15,7 +15,6 @@ import {
 
 import FormBox from 'components/Form';
 import LargeButton from 'components/Button/Contained/InfoLarge';
-import Checkbox from 'components/Input/Checkbox';
 import { ExtendedBase } from 'components/Base/AvatarBase';
 import AvatarField from 'components/FormFields/AvatarField';
 import TextInputField from 'components/FormFields/TextInputField';
@@ -25,7 +24,6 @@ import { scrollToErrorField } from 'utils/animation';
 import messages from './messages';
 
 import {
-  ABOUT_FIELD,
   COMM_AVATAR_FIELD,
   COMM_NAME_FIELD,
   COMM_OFFICIAL_SITE_FIELD,
@@ -44,9 +42,9 @@ import {
   MAIN_COLOR_FIELD,
   VK_LINK_FIELD,
   YOUTUBE_LINK_FIELD,
+  ABOUT_FIELD,
 } from '../CreateCommunity/constants';
 import CommunityTypeForm from '../CreateCommunity/CommunityTypeForm';
-import AboutForm from '../CreateCommunity/AboutForm';
 import BloggerModeForm from '../CreateCommunity/BloggerModeForm';
 
 const EditCommunityForm = ({
@@ -128,13 +126,6 @@ const EditCommunityForm = ({
           placeholder="https://example.com"
           splitInHalf
           tip={intl.formatMessage(messages.officialSiteTip)}
-        />
-
-        <AboutForm
-          formValues={formValues}
-          intl={intl}
-          isProfileSaving={communityLoading}
-          name={ABOUT_FIELD}
         />
 
         {isModerator && (
