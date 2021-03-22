@@ -158,7 +158,18 @@ export const setSingleCommunityDetails = async eosService => {
     highlight_color,
   } = community;
 
-  if (isBlogger) {
+  // get previous isBloger field value
+
+  let prevIsBlogger = null;
+  const prevSingleCommDetails = getCookie(`${SINGLE_COMMUNITY_DETAILS}_${id}`);
+  if (prevSingleCommDetails) {
+    prevIsBlogger = JSON.parse(prevSingleCommDetails).isBlogger;
+  }
+
+  if (
+    isBlogger ||
+    (typeof prevIsBlogger === 'boolean' && isBlogger !== prevIsBlogger)
+  ) {
     setCookie({
       name: `${SINGLE_COMMUNITY_DETAILS}_${id}`,
       value: JSON.stringify({
