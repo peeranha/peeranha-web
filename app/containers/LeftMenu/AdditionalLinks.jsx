@@ -100,7 +100,7 @@ const Link = ({ path, message, cssStyles }) =>
 Link.propTypes = {
   path: PropTypes.string,
   message: PropTypes.object,
-  cssStyles: PropTypes.object,
+  cssStyles: PropTypes.array,
 };
 
 const InfoLinksDropDown = ({ withTitle }) => (
