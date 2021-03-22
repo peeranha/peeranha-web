@@ -58,6 +58,7 @@ const EditCommunityForm = ({
   initialValues,
   locale,
   isModerator,
+  isBloggerMode,
 }) => {
   const editCommunity = useCallback(
     values => {
@@ -127,8 +128,8 @@ const EditCommunityForm = ({
           splitInHalf
           tip={intl.formatMessage(messages.officialSiteTip)}
         />
-
-        {isModerator && (
+            
+        {isModerator && !isBloggerMode && (
           <TypeForm
             locale={locale}
             change={change}

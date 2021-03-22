@@ -49,7 +49,7 @@ import {
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import { COMMUNITY_ADMIN_VALUE } from '../../utils/constants';
+import { getSingleCommunityDetails } from '../../utils/communityManagement';
 
 const EditCommunity = ({
   community,
@@ -64,6 +64,7 @@ const EditCommunity = ({
     params: { communityId },
   },
 }) => {
+  const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
   const editingAllowed = useMemo(
     () =>
       hasCommunityAdminPermissions(
@@ -97,6 +98,7 @@ const EditCommunity = ({
       isModerator: hasCommunityModeratorCreatePermission(
         profileInfo?.['integer_properties'] || [],
       ),
+      isBloggerMode,
     }),
     [community, communityId, editCommunityDispatch, editCommunityLoading],
   );
