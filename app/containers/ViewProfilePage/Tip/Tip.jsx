@@ -156,7 +156,7 @@ const BodyAccountColumn = styled.div`
 const SaveCancelButtons = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 200px;
+  max-width: 220px;
 
   @media only screen and (max-width: 250px) {
     width: 100%;

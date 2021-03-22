@@ -36,7 +36,7 @@ const Label = Button.extend`
   overflow: hidden;
   height: 1%;
   min-height: 32px;
-  max-width: 180px;
+  max-width: 300px;
   color: ${({ color }) => color || 'white'};
   background: ${({ bg }) => bg || 'inherit'};
   ${({ border }) => `border: 1px solid ${border}` || ''};

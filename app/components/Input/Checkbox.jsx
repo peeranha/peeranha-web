@@ -62,6 +62,7 @@ const Input = styled.input`
 export const Label = Span.extend`
   font-size: 16px;
   line-height: 22px;
+  min-width: 110px;
   cursor: pointer;
   flex: 1;
   opacity: ${x => (x.disabled ? '0.6' : '1')};
