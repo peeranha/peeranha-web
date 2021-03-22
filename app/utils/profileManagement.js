@@ -268,13 +268,23 @@ export async function getUserTelegramData(eosService, userName) {
   const temporaryAccount = rows.filter(
     item => item.telegram_id === telegram_id && item.user !== userName,
   );
-
+  const temporaryUser = temporaryAccount.length
+    ? temporaryAccount[0].user
+    : undefined;
+  const profile = await eosService.getTableRow(
+    ACCOUNT_TABLE,
+    ALL_ACCOUNTS_SCOPE,
+    temporaryUser,
+  );
+  const temporaryAccountDisplayName =
+    profile && profile.user === temporaryUser
+      ? profile.display_name
+      : undefined;
   return userTgData.length > 0
     ? {
         ...userTgData[0],
-        temporaryAccountName: temporaryAccount.length
-          ? temporaryAccount[0].user
-          : undefined,
+        temporaryUser,
+        temporaryAccountDisplayName,
       }
     : null;
 }

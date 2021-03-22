@@ -176,6 +176,23 @@ export const Home = ({
 
   const { name, about, avatar, questions_asked, users_subscribed } = community;
 
+  const EditButton = () =>
+    hasCommunityAdminPermissions(getPermissions(profile), single) ? (
+      <>
+        <InfoButton
+          onClick={() => redirectToEditCommunityPageDispatch(single)}
+          style={{
+            marginRight: '10px',
+            padding: '10px 18px',
+            minWidth: '92px',
+            height: '40px',
+          }}
+        >
+          <FormattedMessage {...commonMessages.edit} />
+        </InfoButton>
+      </>
+    ) : null;
+
   return (
     <div>
       <Seo
@@ -210,33 +227,19 @@ export const Home = ({
                   <IntroducingTitle className="mr-3">{name}</IntroducingTitle>
                   {profile &&
                     (isFollowed ? (
-                      <BorderedLargeButton onClick={followHandler}>
-                        {
-                          translationMessages[locale][
-                            commonMessages.unsubscribe.id
-                          ]
-                        }
-                      </BorderedLargeButton>
+                      <div>
+                        <EditButton />
+                        <BorderedLargeButton onClick={followHandler}>
+                          {
+                            translationMessages[locale][
+                              commonMessages.unsubscribe.id
+                            ]
+                          }
+                        </BorderedLargeButton>
+                      </div>
                     ) : (
                       <div>
-                        {hasCommunityAdminPermissions(
-                          getPermissions(profile),
-                          single,
-                        ) && (
-                          <InfoButton
-                            onClick={() =>
-                              redirectToEditCommunityPageDispatch(single)
-                            }
-                            style={{
-                              marginRight: '10px',
-                              padding: '10px 18px',
-                              minWidth: '92px',
-                              height: '40px',
-                            }}
-                          >
-                            <FormattedMessage {...commonMessages.edit} />
-                          </InfoButton>
-                        )}
+                        <EditButton />
                         <LargeButton onClick={followHandler}>
                           {
                             translationMessages[locale][

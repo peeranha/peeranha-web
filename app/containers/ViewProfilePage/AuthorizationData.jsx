@@ -43,9 +43,14 @@ const AuthorizationData = ({
   activeKey,
   writeToBuffer,
   tgData,
+  profile,
 }) => {
   const isLoggedInWithWallet =
     loginData.loginWithScatter || loginData.loginWithKeycat;
+
+  const tgAccountName =
+    tgData?.temporaryAccountDisplayName ??
+    profile?.profile?.temporaryAccountDisplayName;
 
   return (
     <BaseStyled
@@ -95,17 +100,33 @@ const AuthorizationData = ({
             {tgData && (
               <>
                 <tr>
-                  <td>
-                    <FormattedMessage {...signupMessages.tgAccountID} />
-                  </td>
-                  {(tgData.temporaryAccountName && (
-                    <Link to={routes.profileView(tgData.temporaryAccountName)}>
-                      {tgData.telegram_id}
-                    </Link>
-                  )) || <td>{tgData.telegram_id}</td>}
+                  {(!!tgAccountName && (
+                    <>
+                      <td>
+                        <FormattedMessage {...signupMessages.tgAccountName} />
+                      </td>
+                      {(tgData.temporaryUser && (
+                        <Link to={routes.profileView(tgData.temporaryUser)}>
+                          {tgAccountName}
+                        </Link>
+                      )) || <td>{tgAccountName}</td>}
+                    </>
+                  )) || (
+                    <>
+                      <td>
+                        <FormattedMessage {...signupMessages.tgAccountID} />
+                      </td>
+                      <td>{tgData.telegram_id}</td>
+                    </>
+                  )}
+
                   <td>
                     {!tgData.confirmed && (
-                      <TelegramAccountAction actionType={CONFIRM_TG_ACCOUNT} />
+                      <TelegramAccountAction
+                        actionType={CONFIRM_TG_ACCOUNT}
+                        data={tgData}
+                        profile={profile}
+                      />
                     )}
 
                     <TelegramAccountAction actionType={UNLINK_TG_ACCOUNT} />

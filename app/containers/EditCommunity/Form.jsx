@@ -15,7 +15,6 @@ import {
 
 import FormBox from 'components/Form';
 import LargeButton from 'components/Button/Contained/InfoLarge';
-import Checkbox from 'components/Input/Checkbox';
 import { ExtendedBase } from 'components/Base/AvatarBase';
 import AvatarField from 'components/FormFields/AvatarField';
 import TextInputField from 'components/FormFields/TextInputField';
@@ -25,7 +24,6 @@ import { scrollToErrorField } from 'utils/animation';
 import messages from './messages';
 
 import {
-  ABOUT_FIELD,
   COMM_AVATAR_FIELD,
   COMM_NAME_FIELD,
   COMM_OFFICIAL_SITE_FIELD,
@@ -44,9 +42,9 @@ import {
   MAIN_COLOR_FIELD,
   VK_LINK_FIELD,
   YOUTUBE_LINK_FIELD,
+  ABOUT_FIELD,
 } from '../CreateCommunity/constants';
 import CommunityTypeForm from '../CreateCommunity/CommunityTypeForm';
-import AboutForm from '../CreateCommunity/AboutForm';
 import BloggerModeForm from '../CreateCommunity/BloggerModeForm';
 
 const EditCommunityForm = ({
@@ -71,7 +69,7 @@ const EditCommunityForm = ({
         about: values.get(ABOUT_FIELD),
         officialSite: values.get(COMM_OFFICIAL_SITE_FIELD),
         questionsType: parseInt(values.get(FORM_TYPE)),
-        isBlogger: !!values.get(COMMUNITY_TYPE),
+        isBlogger: !!parseInt(values.get(COMMUNITY_TYPE)),
         banner: values.get(COMM_BANNER_FIELD),
         facebook: values.get(FACEBOOK_LINK_FIELD),
         instagram: values.get(INSTAGRAM_LINK_FIELD),
@@ -130,14 +128,7 @@ const EditCommunityForm = ({
           splitInHalf
           tip={intl.formatMessage(messages.officialSiteTip)}
         />
-
-        <AboutForm
-          formValues={formValues}
-          intl={intl}
-          isProfileSaving={communityLoading}
-          name={ABOUT_FIELD}
-        />
-
+            
         {isModerator && !isBloggerMode && (
           <TypeForm
             locale={locale}
