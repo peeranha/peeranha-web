@@ -19,7 +19,8 @@ const DropdownStyled = styled.div`
       margin-right: 0px !important;
 
       :nth-child(2) {
-        display: none;
+        display: ${({ isMenuLabelMobile }) =>
+          !isMenuLabelMobile ? 'none' : 'flex'};
       }
     }
 
