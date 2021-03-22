@@ -21,8 +21,18 @@ const ArrowDown = styled(Icon)`
   }
 `;
 
-export const Dropdown = ({ button, menu, id, isArrowed, className }) => (
-  <DropdownStyled className={`dropdown show ${className}`}>
+export const Dropdown = ({
+  button,
+  menu,
+  id,
+  className,
+  isArrowed,
+  isMenuLabelMobile,
+}) => (
+  <DropdownStyled
+    className={`dropdown show ${className}`}
+    isMenuLabelMobile={isMenuLabelMobile}
+  >
     <button
       id={id}
       className="d-flex align-items-center w-100 p-0"
@@ -51,6 +61,7 @@ Dropdown.propTypes = {
   id: PropTypes.string.isRequired,
   className: PropTypes.string,
   isArrowed: PropTypes.bool,
+  isMenuLabelMobile: PropTypes.bool,
 };
 
 export default React.memo(Dropdown);

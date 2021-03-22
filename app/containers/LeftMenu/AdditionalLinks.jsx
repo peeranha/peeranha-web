@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import isMobile from 'ismobilejs';
@@ -68,6 +68,24 @@ const Img = styled.img`
   filter: grayscale(100%);
 `;
 
+const FlexibleDiv = styled.div`
+  display: flex;
+`;
+
+const LinkAdditionalStyles = css`
+  width: 100% !important;
+  padding: 15px 35px !important;
+  display: flex !important;
+`;
+
+const LiAdditionalStyles = css`
+  padding: 0 !important;
+`;
+
+const IconAdditionalStyles = css`
+  margin-right: 10px;
+`;
+
 const Link = ({ path, message, cssStyles }) =>
   document.location.origin === process.env.APP_LOCATION ? (
     <A to={path} css={cssStyles}>
@@ -100,7 +118,7 @@ const InfoLinksDropDown = ({ withTitle }) => (
             icon={infoIcon}
             width="16"
             height="16"
-            css={{ marginRight: '10px' }}
+            css={IconAdditionalStyles}
           />
           {withTitle && <FormattedMessage {...messages.more} />}
         </Span>
@@ -109,15 +127,12 @@ const InfoLinksDropDown = ({ withTitle }) => (
     menu={
       <ul>
         {INFO_LINKS.map(el => (
-          <Li key={el.route} css={{ padding: '0 !important' }}>
+          <Li key={el.route} css={LiAdditionalStyles}>
             <Link
               key={el.title}
               path={el.route}
               message={el.title}
-              cssStyles={{
-                width: '100% !important',
-                padding: '15px 35px !important',
-              }}
+              cssStyles={LinkAdditionalStyles}
             />
           </Li>
         ))}
@@ -132,68 +147,78 @@ InfoLinksDropDown.propTypes = {
   withTitle: PropTypes.bool,
 };
 
-export default React.memo(({ currClientHeight }) => (
-  <AdditionalLinks>
-    {((!styles.withoutAdditionalLinks && currClientHeight > FULL_SIZE) ||
-      (!styles.withoutAdditionalLinks && isMobile(window.navigator).any)) && (
-      <>
-        {INFO_LINKS.map(el => (
-          <Link path={el.route} key={el.route} message={el.title} />
-        ))}{' '}
-      </>
-    )}
+export default React.memo(({ currClientHeight }) => {
+  const basicCondition =
+    !styles.withoutAdditionalLinks && !isMobile(window.navigator).any;
 
-    {!styles.withoutAdditionalLinks &&
-      currClientHeight <= FULL_SIZE &&
-      currClientHeight > SEMI_SIZE &&
-      !isMobile(window.navigator).any && <InfoLinksDropDown withTitle />}
+  const fullSize = currClientHeight > SEMI_SIZE;
+  const middleSize =
+    currClientHeight <= FULL_SIZE && currClientHeight > SEMI_SIZE;
+  const smallSize = currClientHeight <= SEMI_SIZE;
 
-    {currClientHeight > SEMI_SIZE && <ChangeLocale withTitle />}
-
-    {currClientHeight <= SEMI_SIZE && (
-      <div css={{ display: 'flex' }}>
-        {!isMobile(window.navigator).any && <InfoLinksDropDown />}
-        <ChangeLocale />
-      </div>
-    )}
-
-    <FooterStyled currClientHeight={currClientHeight}>
-      {!styles.withoutCopyright && (
-        <div>
-          <FormattedMessage
-            {...messages.copyrightPeeranha}
-            values={{ year: new Date().getFullYear() }}
-          />
-        </div>
+  return (
+    <AdditionalLinks>
+      {((!styles.withoutAdditionalLinks && currClientHeight > FULL_SIZE) ||
+        (!styles.withoutAdditionalLinks && isMobile(window.navigator).any)) && (
+        <>
+          {INFO_LINKS.map(el => (
+            <Link path={el.route} key={el.route} message={el.title} />
+          ))}{' '}
+        </>
       )}
-      <div className="mt-2">
-        <FormattedMessage
-          {...messages.poweredByTelos}
-          values={{
-            image: styles.poweredByPeeranha ? (
-              <Img key="peeranha" src={peeranhaLogo} alt="peeranha" />
-            ) : (
-              <Img key="telos" src={telosIcon} alt="telos" />
-            ),
-          }}
-        >
-          {(...chunks) => (
-            <a
-              className={
-                styles.poweredByPeeranha ? 'd-flex align-content-center' : ''
-              }
-              href={
-                styles.poweredByPeeranha
-                  ? process.env.APP_LOCATION
-                  : 'https://www.telosfoundation.io/'
-              }
-              target="_blank"
-            >
-              {chunks}
-            </a>
-          )}
-        </FormattedMessage>
-      </div>
-    </FooterStyled>
-  </AdditionalLinks>
-));
+
+      {middleSize && basicCondition && <InfoLinksDropDown withTitle />}
+
+      {(fullSize ||
+        ((smallSize || middleSize) && !basicCondition) ||
+        isMobile(window.navigator).any) && <ChangeLocale withTitle />}
+
+      {smallSize &&
+        basicCondition && (
+          <FlexibleDiv>
+            <InfoLinksDropDown />
+            <ChangeLocale />
+          </FlexibleDiv>
+        )}
+
+      <FooterStyled currClientHeight={currClientHeight}>
+        {!styles.withoutCopyright && (
+          <div>
+            <FormattedMessage
+              {...messages.copyrightPeeranha}
+              values={{ year: new Date().getFullYear() }}
+            />
+          </div>
+        )}
+        <div className="mt-2">
+          <FormattedMessage
+            {...messages.poweredByTelos}
+            values={{
+              image: styles.poweredByPeeranha ? (
+                <Img key="peeranha" src={peeranhaLogo} alt="peeranha" />
+              ) : (
+                <Img key="telos" src={telosIcon} alt="telos" />
+              ),
+            }}
+          >
+            {(...chunks) => (
+              <a
+                className={
+                  styles.poweredByPeeranha ? 'd-flex align-content-center' : ''
+                }
+                href={
+                  styles.poweredByPeeranha
+                    ? process.env.APP_LOCATION
+                    : 'https://www.telosfoundation.io/'
+                }
+                target="_blank"
+              >
+                {chunks}
+              </a>
+            )}
+          </FormattedMessage>
+        </div>
+      </FooterStyled>
+    </AdditionalLinks>
+  );
+});
