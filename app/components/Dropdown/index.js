@@ -28,10 +28,12 @@ export const Dropdown = ({
   className,
   isArrowed,
   isMenuLabelMobile,
+  isArrowMarginMobile,
 }) => (
   <DropdownStyled
     className={`dropdown show ${className}`}
     isMenuLabelMobile={isMenuLabelMobile}
+    isArrowMarginMobile={isArrowMarginMobile}
   >
     <button
       id={id}
@@ -62,6 +64,7 @@ Dropdown.propTypes = {
   className: PropTypes.string,
   isArrowed: PropTypes.bool,
   isMenuLabelMobile: PropTypes.bool,
+  isArrowMarginMobile: PropTypes.bool,
 };
 
 export default React.memo(Dropdown);

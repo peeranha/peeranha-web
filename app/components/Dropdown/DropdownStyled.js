@@ -16,7 +16,8 @@ const DropdownStyled = styled.div`
 
   @media only screen and (max-width: 576px) {
     span {
-      margin-right: 0px !important;
+      ${({ isArrowMarginMobile }) =>
+        !isArrowMarginMobile && 'margin-right: 0px !important;'};
 
       :nth-child(2) {
         display: ${({ isMenuLabelMobile }) =>
