@@ -128,17 +128,18 @@ const EditCommunityForm = ({
           splitInHalf
           tip={intl.formatMessage(messages.officialSiteTip)}
         />
-            
-        {isModerator && !isBloggerMode && (
-          <TypeForm
-            locale={locale}
-            change={change}
-            formValues={formValues}
-            intl={intl}
-          />
-        )}
 
-        <CommunityTypeForm change={change} intl={intl} />
+        {isModerator &&
+          !isBloggerMode && (
+            <TypeForm
+              locale={locale}
+              change={change}
+              formValues={formValues}
+              intl={intl}
+            />
+          )}
+
+        {!isBloggerMode && <CommunityTypeForm change={change} intl={intl} />}
 
         {+formValues[COMMUNITY_TYPE] ? (
           <BloggerModeForm
