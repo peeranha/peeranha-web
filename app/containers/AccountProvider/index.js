@@ -28,9 +28,7 @@ export const AccountProvider = ({
     if (!autoLoginData?.loginWithFacebook) {
       getCurrentAccountDispatch();
     }
-
-    // auto login with facebook is realized in <LanguagePovider />
-
+    
     setInterval(() => {
       const diff = Date.now() - lastUpdate;
 
