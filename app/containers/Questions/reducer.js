@@ -148,7 +148,9 @@ function questionsReducer(state = initialState, action) {
       return state.set('questionFilter', questionFilter);
 
     case LOAD_COMMUNITY_TOP_QUESTIONS:
-      return state.set('topQuestionsLoading', true);
+      return state
+        .set('topQuestionsLoading', true)
+        .set('topQuestionsInfoLoaded', false);
     case LOAD_COMMUNITY_TOP_QUESTIONS_SUCCESS:
       return state
         .set('topQuestionIds', fromJS(topQuestionsIds))

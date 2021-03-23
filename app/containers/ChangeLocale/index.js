@@ -82,6 +82,7 @@ export const ChangeLocale = ({ locale, changeLocaleDispatch, withTitle }) => {
       id="choose-language-dropdown"
       isArrowed
       isMenuLabelMobile
+      isArrowMarginMobile
     />
   );
 };
