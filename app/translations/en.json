@@ -783,6 +783,8 @@
     "Check whether the wallet browser extension is configured",
   "app.containers.Login.userIsNotRegistered": "User is not registered",
   "app.containers.Login.userIsNotSelected": "User is not selected",
+  "app.containers.Login.fbAutologinError":
+    "Could not auto login with facebook account",
   "app.containers.Login.weAreHappyYouAreHere": "We are happy, you are here",
   "app.containers.Login.yourUsernameIsHow":
     "The username is how you'll be known on Peeranha.",

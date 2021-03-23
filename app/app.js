@@ -29,6 +29,7 @@ import LanguageProvider from 'containers/LanguageProvider';
 import EosioProvider from 'containers/EosioProvider';
 import DataCacheProvider from 'containers/DataCacheProvider';
 import AccountProvider from 'containers/AccountProvider';
+import FacebookProvider from './containers/FacebookProvider';
 
 // Load the favicon and the .htaccess file
 /* eslint-disable import/no-unresolved, import/extensions */
@@ -60,11 +61,13 @@ const render = messages => {
       <EosioProvider>
         <AccountProvider>
           <LanguageProvider messages={messages}>
-            <DataCacheProvider>
-              <ConnectedRouter history={createdHistory}>
-                <App />
-              </ConnectedRouter>
-            </DataCacheProvider>
+            <FacebookProvider>
+              <DataCacheProvider>
+                <ConnectedRouter history={createdHistory}>
+                  <App />
+                </ConnectedRouter>
+              </DataCacheProvider>
+            </FacebookProvider>
           </LanguageProvider>
         </AccountProvider>
       </EosioProvider>

@@ -797,6 +797,8 @@
     "Проверьте, настроено ли расширение браузера для работы с кошельком",
   "app.containers.Login.userIsNotRegistered": "Пользователь не зарегистрирован",
   "app.containers.Login.userIsNotSelected": "Пользователь не выбран",
+  "app.containers.Login.fbAutologinError":
+    "Ошибка инициализации приложения с фейсбук аккаунтом",
   "app.containers.Login.weAreHappyYouAreHere": "Мы рады, что вы с нами!",
   "app.containers.Login.yourUsernameIsHow":
     "Имя, которое будет у Вас в Peeranha.",

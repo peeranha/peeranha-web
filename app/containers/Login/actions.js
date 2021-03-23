@@ -22,6 +22,7 @@ import {
   FACEBOOK_LOGIN_PROCESSING,
   FACEBOOK_LOGIN_BUTTON_CLICK,
   FACEBOOK_LOGIN_DATA_RECEIVE,
+  AUTOLOGIN_WITH_FACEBOOK,
   SET_FACEBOOK_USER_DATA,
   FACEBOOK_ERROR,
 } from './constants';
@@ -136,6 +137,12 @@ export const handleFacebookLoginCallback = (data, isLogin) => ({
   type: FACEBOOK_LOGIN_DATA_RECEIVE,
   data,
   isLogin,
+});
+
+export const autoLoginWithFacebook = data => ({
+  type: AUTOLOGIN_WITH_FACEBOOK,
+  data,
+  isLogin: true,
 });
 
 export const setFacebookUserData = facebookUserData => ({

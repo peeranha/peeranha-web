@@ -8,6 +8,9 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { DAEMON } from 'utils/constants';
 
+import { getCookie } from 'utils/cookie';
+import { AUTOLOGIN_DATA } from 'containers/Login/constants';
+
 import reducer from './reducer';
 import saga from './saga';
 import { getCurrentAccount } from './actions';
@@ -20,7 +23,12 @@ export const AccountProvider = ({
   getCurrentAccountDispatch,
 }) => {
   useEffect(() => {
-    getCurrentAccountDispatch();
+    const autoLoginData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
+
+    if (!autoLoginData?.loginWithFacebook) {
+      getCurrentAccountDispatch();
+    }
+    
     setInterval(() => {
       const diff = Date.now() - lastUpdate;
 

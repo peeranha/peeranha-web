@@ -57,7 +57,6 @@ module.exports = {
   },
   19: {
     id: 'web_integration.errors.incorrectFacebookAccessToken',
-
   },
   wrongMasterKey: {
     id: 'web_integration.errors.wrongMasterKey',
