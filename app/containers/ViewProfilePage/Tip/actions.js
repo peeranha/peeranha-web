@@ -15,6 +15,7 @@ export const saveCryptoAccountsSuccess = () => ({
   type: SAVE_CRYPTO_ACCOUNTS_SUCCESS,
 });
 
-export const saveCryptoAccountsErr = () => ({
+export const saveCryptoAccountsErr = saveCryptoAccountsError => ({
   type: SAVE_CRYPTO_ACCOUNTS_ERROR,
+  saveCryptoAccountsError,
 });

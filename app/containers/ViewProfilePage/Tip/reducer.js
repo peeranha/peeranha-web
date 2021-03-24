@@ -8,10 +8,11 @@ import {
 
 export const initialState = fromJS({
   cryptoAccounts: {},
+  saveCryptoAccountsError: null,
 });
 
 const cryptoAccountsReducer = (state = initialState, action) => {
-  const { type } = action;
+  const { type, saveCryptoAccountsError } = action;
 
   switch (type) {
     case SAVE_CRYPTO_ACCOUNTS:
@@ -21,7 +22,9 @@ const cryptoAccountsReducer = (state = initialState, action) => {
       return state.set('isSaveCryptoAccountsProcessing', false);
 
     case SAVE_CRYPTO_ACCOUNTS_ERROR:
-      return state.set('isSaveCryptoAccountsProcessing', false);
+      return state
+        .set('isSaveCryptoAccountsProcessing', false)
+        .set('saveCryptoAccountsError', saveCryptoAccountsError);
 
     default:
       return state;
