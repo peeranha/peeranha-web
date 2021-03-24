@@ -53,9 +53,11 @@ export function confirmTelegramAccountErr(err) {
   };
 }
 
-export function unlinkTelegramAccount() {
+export function unlinkTelegramAccount({ profile, userKey }) {
   return {
     type: UNLINK_TELEGRAM_ACCOUNT,
+    profile,
+    userKey,
   };
 }
 
