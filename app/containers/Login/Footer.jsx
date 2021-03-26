@@ -160,9 +160,7 @@ const Footer = ({
           processing={processing}
           isMobileDevice={isMobile(window.navigator).any}
         />
-        {!isMobile(window.navigator).any && (
-          <LoginViaKeycat action={keycatAction} processing={processing} />
-        )}
+        <LoginViaKeycat action={keycatAction} processing={processing} />
       </div>
       <Heading className="pt-3">
         {signUpText ? (
