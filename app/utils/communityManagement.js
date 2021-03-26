@@ -136,17 +136,18 @@ export const getCommunityById = async (eosService, communityId) => {
   };
 };
 
-export const setSingleCommunityDetails = async eosService => {
-  const id = isSingleCommunityWebsite();
+export const checkIsColorsActual = (id, mainColor, highlightColor) => {
+  const singleCommDetails = getCookie(`${SINGLE_COMMUNITY_DETAILS}_${id}`);
+  const communityValue = singleCommDetails ? JSON.parse(singleCommDetails) : {};
+  if (
+    communityValue.colors.main !== mainColor ||
+    communityValue.colors.highlight !== highlightColor
+  ) {
+    location.reload();
+  }
+};
 
-  const row = await eosService.getTableRow(
-    COMMUNITIES_TABLE,
-    ALL_COMMUNITIES_SCOPE,
-    id,
-  );
-
-  const community = JSON.parse(await getText(row.ipfs_description));
-
+export const setSingleCommunityDetailsInCookie = (community, id) => {
   const {
     isBlogger,
     banner,
@@ -158,6 +159,40 @@ export const setSingleCommunityDetails = async eosService => {
     highlight_color,
   } = community;
 
+  setCookie({
+    name: `${SINGLE_COMMUNITY_DETAILS}_${id}`,
+    value: JSON.stringify({
+      isBlogger,
+      banner,
+      socialNetworks: {
+        facebook,
+        instagram,
+        youtube,
+        vk,
+      },
+      colors: {
+        main: isBlogger ? main_color : '#576fed',
+        highlight: isBlogger ? highlight_color : '#fc6655',
+      },
+    }),
+    options: {
+      defaultPath: true,
+      allowSubdomains: true,
+    },
+  });
+};
+
+export const setSingleCommunityDetails = async eosService => {
+  const id = isSingleCommunityWebsite();
+
+  const row = await eosService.getTableRow(
+    COMMUNITIES_TABLE,
+    ALL_COMMUNITIES_SCOPE,
+    id,
+  );
+
+  const community = JSON.parse(await getText(row.ipfs_description));
+
   // get previous isBloger field value
 
   let prevIsBlogger = null;
@@ -167,31 +202,24 @@ export const setSingleCommunityDetails = async eosService => {
   }
 
   if (
-    isBlogger ||
-    (typeof prevIsBlogger === 'boolean' && isBlogger !== prevIsBlogger)
+    community.isBlogger ||
+    (typeof prevIsBlogger === 'boolean' &&
+      community.isBlogger !== prevIsBlogger)
   ) {
-    setCookie({
-      name: `${SINGLE_COMMUNITY_DETAILS}_${id}`,
-      value: JSON.stringify({
-        isBlogger,
-        banner,
-        socialNetworks: {
-          facebook,
-          instagram,
-          youtube,
-          vk,
-        },
-        colors: {
-          main: main_color,
-          highlight: highlight_color,
-        },
-      }),
-      options: {
-        defaultPath: true,
-        allowSubdomains: true,
-      },
-    });
+    setSingleCommunityDetailsInCookie(community, id);
   }
+
+  const prevValue = JSON.parse(prevSingleCommDetails);
+  if (
+    (community.isBlogger &&
+      (prevValue.colors.main !== community.main_color ||
+        prevValue.colors.highlight !== community.highlight_color)) ||
+    prevValue.isBlogger !== community.isBlogger
+  ) {
+    location.reload();
+  }
+
+  const communityDetails = getSingleCommunityDetails();
 };
 
 export const getSingleCommunityDetails = () => {
@@ -202,8 +230,7 @@ export const getSingleCommunityDetails = () => {
   const communityDetails = dataFromCookie.length
     ? JSON.parse(dataFromCookie)
     : {};
-
-  return { ...communityDetails };
+  return communityDetails.isBlogger ? { ...communityDetails } : {};
 };
 
 /* eslint-disable */
@@ -234,6 +261,7 @@ export function getTagScope(communityId) {
 
   return ret;
 }
+
 /* eslint-enable */
 
 export async function suggestTag(eosService, selectedAccount, tag) {
