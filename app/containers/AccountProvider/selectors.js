@@ -43,7 +43,7 @@ const selectLastUpdate = () =>
 const makeSelectLoginData = () =>
   createSelector(
     selectAccountProviderDomain,
-    account => account || JSON.parse(getCookie(AUTOLOGIN_DATA) || null),
+    state => state || JSON.parse(getCookie(AUTOLOGIN_DATA) || null),
   );
 
 const makeSelectProfileInfo = () =>

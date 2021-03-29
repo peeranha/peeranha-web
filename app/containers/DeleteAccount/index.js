@@ -16,6 +16,7 @@ import { DAEMON } from 'utils/constants';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectLoginData } from 'containers/AccountProvider/selectors';
+import { selectFacebookUserData } from 'containers/Login/selectors';
 
 import Modal from 'components/ModalDialog';
 
@@ -31,6 +32,8 @@ import {
   deleteAccount,
   showDeleteAccountModal,
   hideDeleteAccountModal,
+  sendEmailFacebook,
+  deleteFacebookAccount,
 } from './actions';
 
 import { SUBMIT_EMAIL_FORM, EMAIL_FORM } from './constants';
@@ -48,9 +51,14 @@ export class DeleteAccount extends React.PureComponent {
       content,
       sendEmailProcessing,
       sendEmailDispatch,
+      sendEmailFacebookDispatch,
+      deleteFacebookAccDispatch,
+      facebookUserData,
       render,
       loginData,
     } = this.props;
+
+    const { loginWithFacebook } = loginData;
 
     return (
       <React.Fragment>
@@ -67,13 +75,22 @@ export class DeleteAccount extends React.PureComponent {
           {content === SUBMIT_EMAIL_FORM && (
             <SubmitEmailForm
               locale={locale}
-              deleteAccount={deleteAccountDispatch}
+              deleteAccount={
+                loginWithFacebook
+                  ? deleteFacebookAccDispatch
+                  : deleteAccountDispatch
+              }
               deleteAccountProcessing={deleteAccountProcessing}
+              loginWithFacebook={loginWithFacebook}
             />
           )}
         </Modal>
 
-        {render({ onClick: showDeleteAccountModalDispatch })}
+        {render({
+          onClick: loginWithFacebook
+            ? () => sendEmailFacebookDispatch(facebookUserData.email)
+            : showDeleteAccountModalDispatch,
+        })}
       </React.Fragment>
     );
   }
@@ -89,6 +106,9 @@ DeleteAccount.propTypes = {
   content: PropTypes.string,
   sendEmailProcessing: PropTypes.bool,
   sendEmailDispatch: PropTypes.func,
+  sendEmailFacebookDispatch: PropTypes.func,
+  deleteFacebookAccDispatch: PropTypes.func,
+  facebookUserData: PropTypes.object,
   render: PropTypes.func,
   loginData: PropTypes.object,
 };
@@ -100,12 +120,18 @@ const mapStateToProps = createStructuredSelector({
   showModal: selectors.selectShowModal(),
   deleteAccountProcessing: selectors.selectDeleteAccountProcessing(),
   sendEmailProcessing: selectors.selectSendEmailProcessing(),
+  facebookUserData: selectFacebookUserData(),
 });
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     deleteAccountDispatch: bindActionCreators(deleteAccount, dispatch),
     sendEmailDispatch: bindActionCreators(sendEmail, dispatch),
+    sendEmailFacebookDispatch: bindActionCreators(sendEmailFacebook, dispatch),
+    deleteFacebookAccDispatch: bindActionCreators(
+      deleteFacebookAccount,
+      dispatch,
+    ),
     showDeleteAccountModalDispatch: bindActionCreators(
       showDeleteAccountModal,
       dispatch,

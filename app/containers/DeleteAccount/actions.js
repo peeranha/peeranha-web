@@ -14,11 +14,18 @@ import {
   DELETE_ACCOUNT_SUCCESS,
   DELETE_ACCOUNT_ERROR,
   EMAIL_FIELD,
+  SHOW_DELETE_ACCOUNT_MODAL_FB,
 } from './constants';
 
 export function showDeleteAccountModal() {
   return {
     type: SHOW_DELETE_ACCOUNT_MODAL,
+  };
+}
+
+export function showDeleteAccountModalFB() {
+  return {
+    type: SHOW_DELETE_ACCOUNT_MODAL_FB,
   };
 }
 
@@ -35,6 +42,15 @@ export function sendEmail(...args) {
     type: SEND_EMAIL,
     email: args[0].toJS()[EMAIL_FIELD],
     resetForm: args[2].reset,
+  };
+}
+
+export function sendEmailFacebook(email) {
+  return {
+    type: SEND_EMAIL,
+    email,
+    resetForm: null,
+    withFacebook: true,
   };
 }
 
@@ -59,6 +75,15 @@ export function deleteAccount(...args) {
     type: DELETE_ACCOUNT,
     values: args[0].toJS(),
     resetForm: args[2].reset,
+  };
+}
+
+export function deleteFacebookAccount(...args) {
+  return {
+    type: DELETE_ACCOUNT,
+    values: args[0].toJS(),
+    resetForm: args[2].reset,
+    withFacebook: true,
   };
 }
 

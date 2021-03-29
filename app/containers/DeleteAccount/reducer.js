@@ -8,6 +8,7 @@ import { fromJS } from 'immutable';
 
 import {
   SHOW_DELETE_ACCOUNT_MODAL,
+  SHOW_DELETE_ACCOUNT_MODAL_FB,
   HIDE_DELETE_ACCOUNT_MODAL,
   SUBMIT_EMAIL_FORM,
   SEND_EMAIL,
@@ -35,6 +36,8 @@ function deleteAccountReducer(state = initialState, action) {
   switch (type) {
     case SHOW_DELETE_ACCOUNT_MODAL:
       return state.set('showModal', true).set('content', EMAIL_FORM);
+    case SHOW_DELETE_ACCOUNT_MODAL_FB:
+      return state.set('showModal', true).set('content', SUBMIT_EMAIL_FORM);
     case HIDE_DELETE_ACCOUNT_MODAL:
       return state
         .set('showModal', false)

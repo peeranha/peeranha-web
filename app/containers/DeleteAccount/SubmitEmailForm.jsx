@@ -35,6 +35,7 @@ const SubmitEmailForm = ({
   deleteAccountProcessing,
   iUnderstandValue,
   iHaveBackupValue,
+  loginWithFacebook,
 }) => (
   <div>
     <H4 className="text-center pb-3">
@@ -58,15 +59,17 @@ const SubmitEmailForm = ({
         warn={required}
       />
 
-      <Field
-        name={PASSWORD_FIELD}
-        disabled={deleteAccountProcessing}
-        label={translationMessages[locale][signUpMessages.password.id]}
-        component={TextInputField}
-        validate={required}
-        warn={required}
-        type="password"
-      />
+      {!loginWithFacebook && (
+        <Field
+          name={PASSWORD_FIELD}
+          disabled={deleteAccountProcessing}
+          label={translationMessages[locale][signUpMessages.password.id]}
+          component={TextInputField}
+          validate={required}
+          warn={required}
+          type="password"
+        />
+      )}
 
       <div className="my-3">
         <Field
@@ -105,6 +108,7 @@ SubmitEmailForm.propTypes = {
   deleteAccountProcessing: PropTypes.bool,
   iUnderstandValue: PropTypes.bool,
   iHaveBackupValue: PropTypes.bool,
+  loginWithFacebook: PropTypes.bool,
 };
 
 const formName = 'SubmitEmailForm';

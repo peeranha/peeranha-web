@@ -6,6 +6,8 @@
 
 export const SHOW_DELETE_ACCOUNT_MODAL =
   'app/DeleteAccount/SHOW_DELETE_ACCOUNT_MODAL';
+export const SHOW_DELETE_ACCOUNT_MODAL_FB =
+  'app/DeleteAccount/SHOW_DELETE_ACCOUNT_MODAL_FB';
 export const HIDE_DELETE_ACCOUNT_MODAL =
   'app/DeleteAccount/HIDE_DELETE_ACCOUNT_MODAL';
 

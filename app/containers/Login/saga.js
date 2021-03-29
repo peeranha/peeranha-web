@@ -342,8 +342,10 @@ export function* loginWithFacebookWorker({ data }) {
     const translations = translationMessages[locale];
 
     const facebookUserData = {
+      id: data.id,
       name: data.name,
       picture: data.picture.data.url,
+      email: data.email,
     };
 
     yield put(setFacebookUserData(facebookUserData));
@@ -374,6 +376,9 @@ export function* loginWithFacebookWorker({ data }) {
     }
 
     yield call(continueLogin, decryptedData);
+
+    yield put(addLoginData({ loginWithFacebook: true }));
+
     setCookie({
       name: AUTOLOGIN_DATA,
       value: JSON.stringify({
