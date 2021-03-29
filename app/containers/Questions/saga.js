@@ -193,9 +193,14 @@ export function* getQuestionsWorker({
 
       const topQuestionsIds = yield select(selectTopQuestionIds);
 
-      let allPromotedQuestions = yield call(getPromotedQuestions, eosService, communityIdFilter);
-      allPromotedQuestions = allPromotedQuestions.filter(item => item.ends_time >= now);
-
+      let allPromotedQuestions = yield call(
+        getPromotedQuestions,
+        eosService,
+        communityIdFilter,
+      );
+      allPromotedQuestions = allPromotedQuestions.filter(
+        item => item.ends_time >= now,
+      );
 
       allPromotedQuestions = yield all(
         allPromotedQuestions.map(function*({ question_id }) {
@@ -212,14 +217,30 @@ export function* getQuestionsWorker({
         }),
       );
 
-      const topPromotedQuestions = allPromotedQuestions.filter(item => topQuestionsIds.includes(item.id));
+      const topPromotedQuestions = allPromotedQuestions.filter(item =>
+        topQuestionsIds.includes(item.id),
+      );
 
-      promotedQuestions.all = getRandomQuestions(allPromotedQuestions, PROMO_QUESTIONS_AMOUNT);
-      promotedQuestions.top = getRandomQuestions(topPromotedQuestions, PROMO_QUESTIONS_AMOUNT);
+      promotedQuestions.all = getRandomQuestions(
+        allPromotedQuestions,
+        PROMO_QUESTIONS_AMOUNT,
+      );
+      promotedQuestions.top = getRandomQuestions(
+        topPromotedQuestions,
+        PROMO_QUESTIONS_AMOUNT,
+      );
       promotedQuestions.communityId = communityIdFilter;
     }
 
-    yield put(getQuestionsSuccess(questionsList, next, toUpdateQuestions, undefined, promotedQuestions));
+    yield put(
+      getQuestionsSuccess(
+        questionsList,
+        next,
+        toUpdateQuestions,
+        undefined,
+        promotedQuestions,
+      ),
+    );
   } catch (err) {
     yield put(getQuestionsError(err));
   }
@@ -298,6 +319,30 @@ export function* loadTopCommunityQuestionsWorker({ init }) {
         selectTopQuestionsInfoLoaded(),
       );
       const questionFilter = yield select(selectQuestionFilter());
+
+      if (topQuestionsIds.length) {
+        const topQuestionIdsForLoad = topQuestionsIds.slice(
+          0,
+          TOP_QUESTIONS_LOAD_NUMBER,
+        );
+
+        const loadedQuestionData = yield all(
+          topQuestionIdsForLoad.map(function*(questionId) {
+            return yield call(getQuestionData, {
+              questionId,
+            });
+          }),
+        );
+
+        yield put(
+          loadTopCommunityQuestionsSuccess(
+            loadedQuestionData,
+            questionFilter,
+            topQuestionsIds,
+            TOP_QUESTIONS_LOAD_NUMBER,
+          ),
+        );
+      }
 
       if (!topQuestionsIds.length && !topQuestionsInfoLoaded) {
         const data = yield call(
