@@ -81,11 +81,6 @@ const Contacts = ({ locale }) => (
     </Wrapper>
 
     <MediaList>
-      <MediaItem href={getLinks(locale).facebook} target="_blank">
-        <img src={facebookIcon} alt="facebook" />
-        <Span bold>Facebook</Span>
-      </MediaItem>
-
       <MediaItem href={getLinks(locale).twitter} target="_blank">
         <img src={twitterIcon} alt="twitter" />
         <Span bold>Twitter</Span>
