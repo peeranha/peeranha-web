@@ -87,9 +87,9 @@ quantity: "0.001"
 precision: 4
 symbol: "TLOS"
 contractAccount: "eosio.token" */
+
     yield put(sendTokensSuccess());
     yield put(hideSendTokensModal());
-    // yield call(resetForm);
 
     yield put(reduxFormReset(SEND_TOKENS_FORM));
   } catch (err) {
