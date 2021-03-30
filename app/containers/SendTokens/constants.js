@@ -14,3 +14,14 @@ export const SEND_TOKENS_ERROR = 'app/SendTokens/SEND_TOKENS_ERROR';
 export const EOS_ACCOUNT_FIELD = 'app/SendTokens/EOS_ACCOUNT_FIELD';
 export const AMOUNT_FIELD = 'app/SendTokens/AMOUNT_FIELD';
 export const PASSWORD_FIELD = 'app/SendTokens/PASSWORD_FIELD';
+
+export const SHOW_VERIFY_FB_MODAL = 'app/SendTokens/SHOW_VERIFY_FB_MODAL';
+export const SEND_TOKENS_FORM = 'app/SendTokens/SEND_TOKENS_FORM';
+export const VERIFY_FB_ACTION_FORM = 'app/SendTokens/VERIFY_FB_ACTION_FORM';
+export const VERIFICATION_CODE_FIELD = 'app/SendTokens/VERIFICATION_CODE_FIELD';
+export const VERIFY_FB_ACTION = 'app/SendTokens/VERIFY_FB_ACTION';
+export const SET_SEND_TOKENS_PROCESSING =
+  'app/SendTokens/SET_SEND_TOKENS_PROCESSING';
+export const SEND_ANOTHER_CODE = 'app/SendTokens/SEND_ANOTHER_CODE';
+export const SEND_FB_VERIFICATION_EMAIL =
+  'app/SendTokens/SEND_FB_VERIFICATION_EMAIL';

@@ -21,6 +21,9 @@ import {
   hideSendTokensModal,
   showSendTokensModal,
   sendTokens,
+  verifyFbAction,
+  sendAnotherCode,
+  sendFbVerificationEmail,
 } from './actions';
 
 import * as selectors from './selectors';
@@ -31,15 +34,20 @@ import Button from './StyledButton';
 import SendTokensForm from './SendTokensForm';
 import { selectEos } from '../EosioProvider/selectors';
 import { getAvailableBalance } from '../../utils/profileManagement';
+import VerificationCodeForm from './VerificationCodeForm';
 
 export const SendTokens = /* istanbul ignore next */ ({
   locale,
   sendTokensDispatch,
   sendTokensProcessing,
+  sendFbVerificationEmailDispatch,
   children,
   showModal,
+  isVerifyFbModal,
   hideSendTokensModalDispatch,
   showSendTokensModalDispatch,
+  verifyFbActionDispatch,
+  sendAnotherCodeDispatch,
   loginData,
   profileInfo,
   eosService,
@@ -49,14 +57,25 @@ export const SendTokens = /* istanbul ignore next */ ({
   return (
     <>
       <Modal show={showModal} closeModal={hideSendTokensModalDispatch}>
-        <SendTokensForm
-          locale={locale}
-          sendTokens={sendTokensDispatch}
-          sendTokensProcessing={sendTokensProcessing}
-          loginData={loginData}
-          valueHasToBeLessThan={availableBalance}
-          eosService={eosService}
-        />
+        {!isVerifyFbModal && (
+          <SendTokensForm
+            locale={locale}
+            sendTokens={sendTokensDispatch}
+            sendFbVerificationEmail={sendFbVerificationEmailDispatch}
+            sendTokensProcessing={sendTokensProcessing}
+            loginData={loginData}
+            valueHasToBeLessThan={availableBalance}
+            eosService={eosService}
+          />
+        )}
+        {isVerifyFbModal && (
+          <VerificationCodeForm
+            locale={locale}
+            verifyEmail={verifyFbActionDispatch}
+            verifyEmailLoading={sendTokensProcessing}
+            sendAnotherCode={sendAnotherCodeDispatch}
+          />
+        )}
       </Modal>
 
       <Button onClick={showSendTokensModalDispatch}>{children}</Button>
@@ -68,10 +87,14 @@ SendTokens.propTypes = {
   locale: PropTypes.string,
   children: PropTypes.any,
   showModal: PropTypes.bool,
+  isVerifyFbModal: PropTypes.bool,
   sendTokensProcessing: PropTypes.bool,
   hideSendTokensModalDispatch: PropTypes.func,
   showSendTokensModalDispatch: PropTypes.func,
+  verifyFbActionDispatch: PropTypes.func,
+  sendFbVerificationEmailDispatch: PropTypes.func,
   sendTokensDispatch: PropTypes.func,
+  sendAnotherCodeDispatch: PropTypes.func,
   loginData: PropTypes.object,
   balance: PropTypes.number,
   eosService: PropTypes.object,
@@ -87,6 +110,7 @@ export default compose(
       loginData: makeSelectLoginData(),
       profileInfo: makeSelectProfileInfo(),
       showModal: selectors.selectShowModal(),
+      isVerifyFbModal: selectors.selectVerifyFbModal(),
       sendTokensProcessing: selectors.selectSendTokensProcessing(),
     }),
     dispatch => ({
@@ -99,6 +123,12 @@ export default compose(
         dispatch,
       ),
       sendTokensDispatch: bindActionCreators(sendTokens, dispatch),
+      sendFbVerificationEmailDispatch: bindActionCreators(
+        sendFbVerificationEmail,
+        dispatch,
+      ),
+      sendAnotherCodeDispatch: bindActionCreators(sendAnotherCode, dispatch),
+      verifyFbActionDispatch: bindActionCreators(verifyFbAction, dispatch),
     }),
   ),
 )(SendTokens);

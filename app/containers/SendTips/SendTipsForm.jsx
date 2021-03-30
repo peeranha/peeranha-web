@@ -27,7 +27,10 @@ import {
 } from 'components/FormFields/validate';
 
 import { makeSelectEos } from '../EosioProvider/selectors';
-import { makeSelectProfileInfo } from '../AccountProvider/selectors';
+import {
+  makeSelectProfileInfo,
+  makeSelectLoginData,
+} from '../AccountProvider/selectors';
 import messages from '../Profile/messages';
 
 import {
@@ -80,6 +83,7 @@ const SendTipsForm = ({
   wallets,
   withScatter,
   withKeycat,
+  loginWithFacebook,
   tipsPreselect,
 }) => {
   const isPeeranhaWalletSelected = walletValue?.name === WALLETS.PEERANHA.name;
@@ -224,17 +228,18 @@ const SendTipsForm = ({
               : [requiredAndNotZero, valueHasToBeLessThan]
           }
         />
-        {isPeer && (
-          <Field
-            name={PASSWORD_FIELD}
-            disabled={disabled}
-            label={translationMessages[locale][commonMessages.password.id]}
-            component={TextInputField}
-            validate={required}
-            warn={required}
-            type="password"
-          />
-        )}
+        {isPeer &&
+          !loginWithFacebook && (
+            <Field
+              name={PASSWORD_FIELD}
+              disabled={disabled}
+              label={translationMessages[locale][commonMessages.password.id]}
+              component={TextInputField}
+              validate={required}
+              warn={required}
+              type="password"
+            />
+          )}
         <Button
           disabled={disabled}
           onClick={handleSubmit(sendTips)}
@@ -272,6 +277,7 @@ SendTipsForm.propTypes = {
   selectedAccountProcessing: PropTypes.bool,
   removeTipsEosServicesDispatch: PropTypes.func,
   removeSelectedAccountsDispatch: PropTypes.func,
+  loginWithFacebook: PropTypes.bool,
 };
 
 export const formName = 'SendTipsForm';
@@ -285,6 +291,7 @@ const formSelector = formValueSelector(formName);
 
 FormClone = connect(
   (state, { cryptoAccounts: cryptoAccs, account }) => {
+    const { loginWithFacebook } = makeSelectLoginData()(state);
     const profile = makeSelectProfileInfo()(state);
     const { withScatter, withKeycat } = makeSelectEos()(state);
 
@@ -387,6 +394,7 @@ FormClone = connect(
       selectedAccountProcessing: selectedAccountProcessingSelector()(state),
       enableReinitialize: true,
       initialValues,
+      loginWithFacebook,
     };
   },
   dispatch => ({
