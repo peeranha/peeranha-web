@@ -20,7 +20,10 @@ import {
 } from 'utils/web_integration/src/util/aws-connector';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
+import {
+  makeSelectLoginData,
+  makeSelectProfileInfo,
+} from 'containers/AccountProvider/selectors';
 import { selectEos } from 'containers/EosioProvider/selectors';
 
 import formFieldsMessages from 'components/FormFields/messages.js';
@@ -78,17 +81,22 @@ export function* sendTipsWorker({ resetForm, val, questionId, answerId }) {
     // check password and set eosService for users which logged with email
     if (val[WALLET_FIELD].name === WALLETS.PEERANHA.name) {
       eosService = yield select(selectEos);
-      const response = yield call(
-        login,
-        profile.loginData.email,
-        password,
-        Boolean(profile.loginData.authToken),
-      );
 
-      if (!response.OK) {
-        throw new WebIntegrationError(
-          translations[webIntegrationErrors[response.errorCode].id],
+      const loginData = yield select(makeSelectLoginData());
+
+      if (!loginData.loginWithFacebook) {
+        const response = yield call(
+          login,
+          profile.loginData.email,
+          password,
+          Boolean(profile.loginData.authToken),
         );
+
+        if (!response.OK) {
+          throw new WebIntegrationError(
+            translations[webIntegrationErrors[response.errorCode].id],
+          );
+        }
       }
     }
 
