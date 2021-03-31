@@ -266,6 +266,8 @@
   "app.containers.Moderation.title": "Moderator permissions",
   "app.common.globalModerator": "Global moderator",
 
+  "app.common.verifyFacebookAccount": "Account verification",
+
   "app.containers.Moderation.permissionInfinite": "Infinite Impact",
   "app.containers.Moderation.permissionInfiniteDescription":
     "Allows you to delete questions, answers and comments in one click",

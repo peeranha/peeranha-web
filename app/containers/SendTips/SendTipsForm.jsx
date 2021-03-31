@@ -27,7 +27,10 @@ import {
 } from 'components/FormFields/validate';
 
 import { makeSelectEos } from '../EosioProvider/selectors';
-import { makeSelectProfileInfo } from '../AccountProvider/selectors';
+import {
+  makeSelectProfileInfo,
+  makeSelectLoginData,
+} from '../AccountProvider/selectors';
 import messages from '../Profile/messages';
 
 import {
@@ -80,6 +83,8 @@ const SendTipsForm = ({
   wallets,
   withScatter,
   withKeycat,
+  loginWithFacebook,
+  sendFbVerificationEmail,
   tipsPreselect,
 }) => {
   const isPeeranhaWalletSelected = walletValue?.name === WALLETS.PEERANHA.name;
@@ -158,7 +163,11 @@ const SendTipsForm = ({
         <FormattedMessage {...commonMessages.sendTip} />
       </H4>
 
-      <form onSubmit={handleSubmit(sendTips)}>
+      <form
+        onSubmit={handleSubmit(
+          loginWithFacebook ? sendFbVerificationEmail : sendTips,
+        )}
+      >
         <Field
           name={CURRENCY_FIELD}
           onChange={changeCurrency}
@@ -224,22 +233,19 @@ const SendTipsForm = ({
               : [requiredAndNotZero, valueHasToBeLessThan]
           }
         />
-        {isPeer && (
-          <Field
-            name={PASSWORD_FIELD}
-            disabled={disabled}
-            label={translationMessages[locale][commonMessages.password.id]}
-            component={TextInputField}
-            validate={required}
-            warn={required}
-            type="password"
-          />
-        )}
-        <Button
-          disabled={disabled}
-          onClick={handleSubmit(sendTips)}
-          className="w-100 mb-3"
-        >
+        {isPeer &&
+          !loginWithFacebook && (
+            <Field
+              name={PASSWORD_FIELD}
+              disabled={disabled}
+              label={translationMessages[locale][commonMessages.password.id]}
+              component={TextInputField}
+              validate={required}
+              warn={required}
+              type="password"
+            />
+          )}
+        <Button disabled={disabled} className="w-100 mb-3">
           <FormattedMessage {...commonMessages.submit} />
         </Button>
       </form>
@@ -272,6 +278,8 @@ SendTipsForm.propTypes = {
   selectedAccountProcessing: PropTypes.bool,
   removeTipsEosServicesDispatch: PropTypes.func,
   removeSelectedAccountsDispatch: PropTypes.func,
+  loginWithFacebook: PropTypes.bool,
+  sendFbVerificationEmail: PropTypes.func,
 };
 
 export const formName = 'SendTipsForm';
@@ -285,6 +293,7 @@ const formSelector = formValueSelector(formName);
 
 FormClone = connect(
   (state, { cryptoAccounts: cryptoAccs, account }) => {
+    const { loginWithFacebook } = makeSelectLoginData()(state);
     const profile = makeSelectProfileInfo()(state);
     const { withScatter, withKeycat } = makeSelectEos()(state);
 
@@ -387,6 +396,7 @@ FormClone = connect(
       selectedAccountProcessing: selectedAccountProcessingSelector()(state),
       enableReinitialize: true,
       initialValues,
+      loginWithFacebook,
     };
   },
   dispatch => ({

@@ -20,7 +20,12 @@ import {
   valueHasToBeLessThan,
 } from 'components/FormFields/validate';
 
-import { EOS_ACCOUNT_FIELD, AMOUNT_FIELD, PASSWORD_FIELD } from './constants';
+import {
+  EOS_ACCOUNT_FIELD,
+  AMOUNT_FIELD,
+  PASSWORD_FIELD,
+  SEND_TOKENS_FORM,
+} from './constants';
 import messages from './../ErrorPage/blockchainErrors';
 
 const asyncValidate = async (value, dispatch, { eosService }) => {
@@ -41,67 +46,74 @@ const asyncValidate = async (value, dispatch, { eosService }) => {
 const SendTokensForm = ({
   handleSubmit,
   sendTokens,
+  sendFbVerificationEmail,
   locale,
   sendTokensProcessing,
   loginData,
-}) => (
-  <div>
-    <H4 className="text-center pb-3">
-      <FormattedMessage {...commonMessages.sendTokens} />
-    </H4>
+}) => {
+  const { loginWithScatter, loginWithKeycat, loginWithFacebook } = loginData;
+  return (
+    <div>
+      <H4 className="text-center pb-3">
+        <FormattedMessage {...commonMessages.sendTokens} />
+      </H4>
 
-    <form onSubmit={handleSubmit(sendTokens)}>
-      <Field
-        name={EOS_ACCOUNT_FIELD}
-        disabled={sendTokensProcessing}
-        label={translationMessages[locale][commonMessages.eosAccount.id]}
-        component={TextInputField}
-        validate={[required, validateTelosName]}
-        warn={[required, validateTelosName]}
-      />
-
-      <Field
-        name={AMOUNT_FIELD}
-        disabled={sendTokensProcessing}
-        label={translationMessages[locale][commonMessages.amount.id]}
-        component={NumberInputField}
-        validate={[requiredAndNotZero, valueHasToBeLessThan]}
-        warn={[requiredAndNotZero, valueHasToBeLessThan]}
-      />
-
-      {!(loginData.loginWithScatter || loginData.loginWithKeycat) && (
+      <form
+        onSubmit={handleSubmit(
+          loginWithFacebook ? sendFbVerificationEmail : sendTokens,
+        )}
+      >
         <Field
-          name={PASSWORD_FIELD}
+          name={EOS_ACCOUNT_FIELD}
           disabled={sendTokensProcessing}
-          label={translationMessages[locale][commonMessages.password.id]}
+          label={translationMessages[locale][commonMessages.eosAccount.id]}
           component={TextInputField}
-          validate={required}
-          warn={required}
-          type="password"
+          validate={[required, validateTelosName]}
+          warn={[required, validateTelosName]}
         />
-      )}
 
-      <Button disabled={sendTokensProcessing} className="w-100 mb-3">
-        <FormattedMessage {...commonMessages.submit} />
-      </Button>
-    </form>
-  </div>
-);
+        <Field
+          name={AMOUNT_FIELD}
+          disabled={sendTokensProcessing}
+          label={translationMessages[locale][commonMessages.amount.id]}
+          component={NumberInputField}
+          validate={[requiredAndNotZero, valueHasToBeLessThan]}
+          warn={[requiredAndNotZero, valueHasToBeLessThan]}
+        />
+
+        {!(loginWithScatter || loginWithKeycat || loginWithFacebook) && (
+          <Field
+            name={PASSWORD_FIELD}
+            disabled={sendTokensProcessing}
+            label={translationMessages[locale][commonMessages.password.id]}
+            component={TextInputField}
+            validate={required}
+            warn={required}
+            type="password"
+          />
+        )}
+
+        <Button disabled={sendTokensProcessing} className="w-100 mb-3">
+          <FormattedMessage {...commonMessages.submit} />
+        </Button>
+      </form>
+    </div>
+  );
+};
 
 SendTokensForm.propTypes = {
   handleSubmit: PropTypes.func,
   sendTokens: PropTypes.func,
+  sendFbVerificationEmail: PropTypes.func,
   locale: PropTypes.string,
   sendTokensProcessing: PropTypes.bool,
   loginData: PropTypes.object,
   eosService: PropTypes.object,
 };
 
-const formName = 'SendTokensForm';
-
 /* eslint import/no-mutable-exports: 0 */
 export default reduxForm({
-  form: formName,
+  form: SEND_TOKENS_FORM,
   asyncValidate,
   asyncBlurFields: [EOS_ACCOUNT_FIELD],
   shouldAsyncValidate: ({ syncValidationPasses }) => syncValidationPasses,

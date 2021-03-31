@@ -465,4 +465,7 @@ export default defineMessages({
   cannotTransferToYourself: {
     id: 'app.common.cannotTransferToYourself',
   },
+  verifyFacebookAccount: {
+    id: 'app.common.verifyFacebookAccount',
+  },
 });

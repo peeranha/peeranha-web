@@ -10,6 +10,7 @@ export const HIDE_SEND_TIPS_MODAL = 'app/SendTips/HIDE_SEND_TIPS_MODAL';
 export const SEND_TIPS = 'app/SendTips/SEND_TIPS';
 export const SEND_TIPS_SUCCESS = 'app/SendTips/SEND_TIPS_SUCCESS';
 export const SEND_TIPS_ERROR = 'app/SendTips/SEND_TIPS_ERROR';
+export const SET_SEND_TIPS_PROCESSING = 'app/SendTips/SET_SEND_TIPS_PROCESSING';
 export const SEND_TIPS_NOTIFICATION = 'app/SendTips/SEND_TIPS_NOTIFICATION';
 export const MAX_NOTIFICAT_ATTEMPTS = 3;
 
@@ -37,5 +38,14 @@ export const ADD_TIPS_KEYCAT_EOS_SERVICE =
 
 export const REMOVE_SELECTED_ACCOUNTS = 'app/SendTips/REMOVE_SELECTED_ACCOUNTS';
 export const REMOVE_TIPS_EOS_SERVICES = 'app/SendTips/REMOVE_TIPS_EOS_SERVICES';
+
+export const SEND_FB_VERIFICATION_EMAIL =
+  'app/SendTips/SEND_FB_VERIFICATION_EMAIL';
+export const SHOW_VERIFY_FB_MODAL = 'app/SendTips/SHOW_VERIFY_FB_MODAL';
+
+export const VERIFY_FB_ACTION_FORM = 'app/SendTips/VERIFY_FB_ACTION_FORM';
+export const VERIFICATION_CODE_FIELD = 'app/SendTips/VERIFICATION_CODE_FIELD';
+export const SEND_ANOTHER_CODE = 'app/SendTips/SEND_ANOTHER_CODE';
+export const VERIFY_FB_ACTION = 'app/SendTips/VERIFY_FB_ACTION';
 
 export const TIPS_PRESELECT = 'tipsPreselect';

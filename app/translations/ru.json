@@ -272,6 +272,8 @@
   "app.containers.Moderation.title": "Права модератора",
   "app.common.globalModerator": "Глобальный модератор",
 
+  "app.common.verifyFacebookAccount": "Проверка аккаунта",
+
   "app.containers.Moderation.permissionInfinite": "Безграничное воздействие",
   "app.containers.Moderation.permissionInfiniteDescription":
     "Позволяет удалять вопросы, ответы и комментарии в один клик",

@@ -8,11 +8,13 @@ import {
   changeCredentialsConfirm,
   changeCredentialsComplete,
   changeCredentialsGetKeysByPwd,
+  deleteFacebookAccService,
 } from 'utils/web_integration/src/wallet/change-credentials/change-credentials';
 
 import { WebIntegrationError } from 'utils/errors';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { selectFacebookUserData } from 'containers/Login/selectors';
 import { logout } from 'containers/Logout/actions';
 
 import { selectEmail } from './selectors';
@@ -29,15 +31,22 @@ import {
   sendEmailErr,
   deleteAccountSuccess,
   deleteAccountErr,
+  showDeleteAccountModalFB,
 } from './actions';
 
-export function* sendEmailWorker({ resetForm, email }) {
+export function* sendEmailWorker({ email, resetForm, withFacebook }) {
   try {
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
     const isDelete = true;
 
-    const response = yield call(changeCredentialsInit, email, isDelete, locale);
+    const response = yield call(
+      changeCredentialsInit,
+      email,
+      isDelete,
+      locale,
+      withFacebook,
+    );
 
     if (!response.OK) {
       throw new WebIntegrationError(
@@ -46,13 +55,15 @@ export function* sendEmailWorker({ resetForm, email }) {
     }
 
     yield put(sendEmailSuccess());
-    yield call(resetForm);
+
+    if (resetForm) yield call(resetForm);
+    if (withFacebook) yield put(showDeleteAccountModalFB());
   } catch (err) {
     yield put(sendEmailErr(err));
   }
 }
 
-export function* deleteAccountWorker({ resetForm, values }) {
+export function* deleteAccountWorker({ resetForm, values, withFacebook }) {
   try {
     const email = yield select(selectEmail());
     const password = values[PASSWORD_FIELD];
@@ -73,42 +84,56 @@ export function* deleteAccountWorker({ resetForm, values }) {
       );
     }
 
-    const changeCredentialsGetKeysByPwdResponse = yield call(
-      changeCredentialsGetKeysByPwd,
-      email,
-      password,
-      verificationCode,
-    );
-
-    if (!changeCredentialsGetKeysByPwdResponse.OK) {
-      throw new WebIntegrationError(
-        translations[
-          webIntegrationErrors[
-            changeCredentialsGetKeysByPwdResponse.errorCode
-          ].id
-        ],
+    if (withFacebook) {
+      const { id } = yield select(selectFacebookUserData());
+      const deleteFacebookAccResponse = yield call(
+        deleteFacebookAccService,
+        id,
       );
-    }
 
-    const { encryptionKey } = changeCredentialsGetKeysByPwdResponse.body;
-
-    const newProps = null;
-
-    const changeCredentialsCompleteResponse = yield call(
-      changeCredentialsComplete,
-      newProps,
-      email,
-      encryptionKey,
-    );
-
-    if (!changeCredentialsCompleteResponse.OK) {
-      throw new WebIntegrationError(
-        translations[
-          webIntegrationErrors[
-            changeCredentialsGetKeysByPwdResponse.errorCode
-          ].id
-        ],
+      if (!deleteFacebookAccResponse.OK) {
+        throw new WebIntegrationError(
+          translations[webIntegrationErrors[response.errorCode].id],
+        );
+      }
+    } else {
+      const changeCredentialsGetKeysByPwdResponse = yield call(
+        changeCredentialsGetKeysByPwd,
+        email,
+        password,
+        verificationCode,
       );
+
+      if (!changeCredentialsGetKeysByPwdResponse.OK) {
+        throw new WebIntegrationError(
+          translations[
+            webIntegrationErrors[
+              changeCredentialsGetKeysByPwdResponse.errorCode
+            ].id
+          ],
+        );
+      }
+
+      const { encryptionKey } = changeCredentialsGetKeysByPwdResponse.body;
+
+      const newProps = null;
+
+      const changeCredentialsCompleteResponse = yield call(
+        changeCredentialsComplete,
+        newProps,
+        email,
+        encryptionKey,
+      );
+
+      if (!changeCredentialsCompleteResponse.OK) {
+        throw new WebIntegrationError(
+          translations[
+            webIntegrationErrors[
+              changeCredentialsGetKeysByPwdResponse.errorCode
+            ].id
+          ],
+        );
+      }
     }
 
     yield put(logout());

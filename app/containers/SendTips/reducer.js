@@ -21,6 +21,9 @@ import {
   SEND_TIPS_ERROR,
   SEND_TIPS_SUCCESS,
   SHOW_SEND_TIPS_MODAL,
+  SEND_FB_VERIFICATION_EMAIL,
+  SET_SEND_TIPS_PROCESSING,
+  SHOW_VERIFY_FB_MODAL,
 } from './constants';
 
 export const initialState = fromJS({
@@ -33,6 +36,8 @@ export const initialState = fromJS({
   tipsKeycatEosService: null,
   whoWillBeTipped: null,
   selectAccountProcessing: false,
+  fbSendTipsFormValues: null,
+  isVerifyFbModal: false,
 });
 
 const sendTipsReducer = (state = initialState, action) => {
@@ -45,6 +50,8 @@ const sendTipsReducer = (state = initialState, action) => {
     tipsScatterEosService,
     tipsKeycatEosService,
     whoWillBeTipped,
+    fbSendTipsFormValues,
+    processing,
   } = action;
 
   switch (type) {
@@ -53,16 +60,32 @@ const sendTipsReducer = (state = initialState, action) => {
         .set('showModal', form)
         .set('whoWillBeTipped', whoWillBeTipped);
     case HIDE_SEND_TIPS_MODAL:
-      return state.set('showModal', '').set('whoWillBeTipped', '');
+      return state
+        .set('showModal', '')
+        .set('whoWillBeTipped', '')
+        .set('isVerifyFbModal', false)
+        .set('fbSendTipsFormValues', null);
 
     case SEND_TIPS:
       return state.set('sendTipsProcessing', true);
     case SEND_TIPS_SUCCESS:
-      return state.set('sendTipsProcessing', false);
+      return state
+        .set('sendTipsProcessing', false)
+        .set('isVerifyFbModal', false)
+        .set('fbSendTipsFormValues', null);
     case SEND_TIPS_ERROR:
       return state
         .set('sendTipsProcessing', false)
         .set('sendTipsError', sendTipsError);
+    case SET_SEND_TIPS_PROCESSING:
+      return state.set('sendTipsProcessing', processing);
+
+    case SEND_FB_VERIFICATION_EMAIL:
+      return state
+        .set('fbSendTipsFormValues', fbSendTipsFormValues)
+        .set('sendTipsProcessing', true);
+    case SHOW_VERIFY_FB_MODAL:
+      return state.set('isVerifyFbModal', true);
 
     case SELECT_SCATTER_ACCOUNT:
     case SELECT_KEYCAT_ACCOUNT:

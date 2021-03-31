@@ -12,6 +12,8 @@ const {
   CHANGE_CREDENTIALS_CONFIRM_SERVICE,
   CHANGE_CREDENTIALS_GET_KEYS_SERVICE,
   CHANGE_CREDENTIALS_COMPLETE_SERVICE,
+  DELETE_FACEBOOK_ACCOUNT_SERVICE,
+  SEND_FB_VERIFICATION_CODE_SERVICE,
 } = require('../../util/aws-connector');
 
 const { DEFAULT_LOCALE } = require('i18n');
@@ -20,11 +22,13 @@ async function changeCredentialsInit(
   email,
   isDelete = false,
   locale = DEFAULT_LOCALE,
+  withFacebook = false,
 ) {
   const response = await callService(CHANGE_CREDENTIALS_INIT_SERVICE, {
     email,
     isDelete,
     locale,
+    withFacebook,
   });
 
   return response;
@@ -39,9 +43,27 @@ async function changeCredentialsConfirm(email, secretCode) {
   return response;
 }
 
+async function deleteFacebookAccService(id) {
+  const response = await callService(DELETE_FACEBOOK_ACCOUNT_SERVICE, {
+    id,
+  });
+
+  return response;
+}
+
+async function sendFbVerificationCode(id, email, locale = DEFAULT_LOCALE) {
+  const response = await callService(SEND_FB_VERIFICATION_CODE_SERVICE, {
+    id,
+    email,
+    locale,
+  });
+
+  return response;
+}
+
 async function changeCredentialsGetKeys(
   email,
-  rawAuthKey,
+  rawAuthKey = '',
   authByMasterKey,
   mailSecret,
 ) {
@@ -60,10 +82,12 @@ async function changeCredentialsGetKeys(
     authByMasterKey,
     encryptedPassphrase,
   };
+
   const response = await callService(
     CHANGE_CREDENTIALS_GET_KEYS_SERVICE,
     requestBody,
   );
+
   if (!response.OK) return response;
   const confirmResponse = decryptObject(
     response.body.encryptedConfirmResponse,
@@ -179,4 +203,6 @@ module.exports = {
   changeCredentialsGetKeysByPwd,
   changeCredentialsGetKeysByMK,
   changeCredentialsComplete,
+  deleteFacebookAccService,
+  sendFbVerificationCode,
 };

@@ -50,6 +50,15 @@ const selectTipsKeycatEosService = () =>
 const selectWhoWillBeTipped = () =>
   createSelector(selectSendTipsDomain, substate => substate.whoWillBeTipped);
 
+const selectIsVerifyFbModal = () =>
+  createSelector(selectSendTipsDomain, substate => substate.isVerifyFbModal);
+
+const selectFbSendTipsFormValues = () =>
+  createSelector(
+    selectSendTipsDomain,
+    substate => substate.fbSendTipsFormValues,
+  );
+
 export {
   selectSendTipsDomain,
   selectShowModal,
@@ -61,4 +70,6 @@ export {
   selectTipsScatterEosService,
   selectTipsKeycatEosService,
   selectWhoWillBeTipped,
+  selectIsVerifyFbModal,
+  selectFbSendTipsFormValues,
 };
