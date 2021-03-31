@@ -255,6 +255,8 @@
     "Facebook account isn't registered yet",
   "web_integration.errors.incorrectFacebookAccessToken":
     "Incorrect facebook access token",
+  "web_integration.errors.privateKeyTypeIsNotSet":
+    "The private key type is not set",
 
   "app.containers.Header.walletTooltipPart1": "You have ",
   "app.containers.Header.walletTooltipPart2": " rewards ready",

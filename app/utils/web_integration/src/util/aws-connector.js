@@ -21,6 +21,8 @@ const DELETE_FACEBOOK_ACCOUNT_SERVICE =
   'wallet/change-credentials/delete-facebook-account';
 const SEND_FB_VERIFICATION_CODE_SERVICE =
   'wallet/verify-facebook/verify-facebook';
+const GET_FACEBOOK_PRIVATE_KEY_SERVICE =
+  'wallet/verify-facebook/get-fb-private-key';
 
 const LOGGER_SERVICE = 'status/ui/report-error';
 const PAY_FOR_CPU_SERVICE = 'wallet/pay-for-cpu/pay';
@@ -84,4 +86,5 @@ module.exports = {
   NOTIFICATIONS_INFO_SERVICE,
   NOTIFICATIONS_READ_SERVICE,
   NOTIFICATIONS_TIPS_SERVICE,
+  GET_FACEBOOK_PRIVATE_KEY_SERVICE,
 };

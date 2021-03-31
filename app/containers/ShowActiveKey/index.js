@@ -15,9 +15,11 @@ import injectReducer from 'utils/injectReducer';
 import { DAEMON } from 'utils/constants';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { makeSelectLoginData } from 'containers/AccountProvider/selectors';
 
 import Modal from 'components/ModalDialog';
 import Button from 'components/Button/Contained/Transparent';
+import FbVerificationCodeForm from 'components/FbVerificationCodeForm/index';
 
 import * as selectors from './selectors';
 import reducer from './reducer';
@@ -30,6 +32,8 @@ import {
   showActiveKeyModal,
   hideActiveKeyModal,
   removeActiveKey,
+  sendFbVerificationEmail,
+  verifyFbAction,
 } from './actions';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -45,22 +49,43 @@ export class ShowActiveKey extends React.PureComponent {
       locale,
       activeKey,
       removeActiveKeyDispatch,
+      loginData,
+      sendFbVerificationEmailDispatch,
+      verifyFbActionDispatch,
     } = this.props;
+
+    const { loginWithFacebook } = loginData;
+
+    const showActiveKeyOnClick = () => {
+      if (loginWithFacebook) {
+        sendFbVerificationEmailDispatch();
+      } else {
+        showActiveKeyModalDispatch();
+      }
+    };
 
     return (
       <React.Fragment>
         <Modal show={showModal} closeModal={hideActiveKeyModalDispatch}>
-          <ShowActiveKeyForm
-            locale={locale}
-            showActiveKey={showActiveKeyDispatch}
-            showActiveKeyProcessing={showActiveKeyProcessing}
-          />
+          {!loginWithFacebook && (
+            <ShowActiveKeyForm
+              locale={locale}
+              showActiveKey={showActiveKeyDispatch}
+              showActiveKeyProcessing={showActiveKeyProcessing}
+            />
+          )}
+          {loginWithFacebook && (
+            <FbVerificationCodeForm
+              locale={locale}
+              verifyEmail={verifyFbActionDispatch}
+              verifyEmailLoading={showActiveKeyProcessing}
+              sendAnotherCode={sendFbVerificationEmailDispatch}
+            />
+          )}
         </Modal>
 
         <Button
-          onClick={
-            !activeKey ? showActiveKeyModalDispatch : removeActiveKeyDispatch
-          }
+          onClick={!activeKey ? showActiveKeyOnClick : removeActiveKeyDispatch}
         >
           {children}
         </Button>
@@ -74,17 +99,21 @@ ShowActiveKey.propTypes = {
   hideActiveKeyModalDispatch: PropTypes.func,
   showActiveKeyModalDispatch: PropTypes.func,
   removeActiveKeyDispatch: PropTypes.func,
+  sendFbVerificationEmailDispatch: PropTypes.func,
+  verifyFbActionDispatch: PropTypes.func,
   children: PropTypes.any,
   showActiveKeyProcessing: PropTypes.bool,
   showModal: PropTypes.bool,
   locale: PropTypes.string,
   activeKey: PropTypes.string,
+  loginData: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
   showModal: selectors.selectShowModal(),
   showActiveKeyProcessing: selectors.selectShowActiveKeyProcessing(),
+  loginData: makeSelectLoginData(),
 });
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
@@ -99,6 +128,11 @@ function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
       hideActiveKeyModal,
       dispatch,
     ),
+    sendFbVerificationEmailDispatch: bindActionCreators(
+      sendFbVerificationEmail,
+      dispatch,
+    ),
+    verifyFbActionDispatch: bindActionCreators(verifyFbAction, dispatch),
   };
 }
 

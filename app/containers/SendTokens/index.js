@@ -9,6 +9,7 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
 import Modal from 'components/ModalDialog';
+import FbVerificationCodeForm from 'components/FbVerificationCodeForm/index';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
@@ -34,7 +35,6 @@ import Button from './StyledButton';
 import SendTokensForm from './SendTokensForm';
 import { selectEos } from '../EosioProvider/selectors';
 import { getAvailableBalance } from '../../utils/profileManagement';
-import VerificationCodeForm from './VerificationCodeForm';
 
 export const SendTokens = /* istanbul ignore next */ ({
   locale,
@@ -69,7 +69,7 @@ export const SendTokens = /* istanbul ignore next */ ({
           />
         )}
         {isVerifyFbModal && (
-          <VerificationCodeForm
+          <FbVerificationCodeForm
             locale={locale}
             verifyEmail={verifyFbActionDispatch}
             verifyEmailLoading={sendTokensProcessing}

@@ -14,6 +14,8 @@ import {
   SHOW_ACTIVE_KEY_MODAL,
   HIDE_ACTIVE_KEY_MODAL,
   REMOVE_ACTIVE_KEY,
+  SEND_FB_VERIFICATION_EMAIL,
+  SET_SHOW_ACTIVE_KEY_PROCESSING,
 } from './constants';
 
 export const initialState = fromJS({
@@ -24,7 +26,7 @@ export const initialState = fromJS({
 });
 
 function showActiveKeyReducer(state = initialState, action) {
-  const { type, showActiveKeyError, activeKey } = action;
+  const { type, showActiveKeyError, activeKey, processing } = action;
 
   switch (type) {
     case SHOW_ACTIVE_KEY_MODAL:
@@ -36,6 +38,7 @@ function showActiveKeyReducer(state = initialState, action) {
       return state.set('activeKey', initialState.get('activeKey'));
 
     case SHOW_ACTIVE_KEY:
+    case SEND_FB_VERIFICATION_EMAIL:
       return state.set('showActiveKeyProcessing', true);
     case SHOW_ACTIVE_KEY_SUCCESS:
       return state
@@ -46,6 +49,9 @@ function showActiveKeyReducer(state = initialState, action) {
       return state
         .set('showActiveKeyProcessing', false)
         .set('showActiveKeyError', showActiveKeyError);
+
+    case SET_SHOW_ACTIVE_KEY_PROCESSING:
+      return state.set('showActiveKeyProcessing', processing);
 
     case LOCATION_CHANGE:
       return initialState;

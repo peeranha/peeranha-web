@@ -43,8 +43,6 @@ export const SEND_FB_VERIFICATION_EMAIL =
   'app/SendTips/SEND_FB_VERIFICATION_EMAIL';
 export const SHOW_VERIFY_FB_MODAL = 'app/SendTips/SHOW_VERIFY_FB_MODAL';
 
-export const VERIFY_FB_ACTION_FORM = 'app/SendTips/VERIFY_FB_ACTION_FORM';
-export const VERIFICATION_CODE_FIELD = 'app/SendTips/VERIFICATION_CODE_FIELD';
 export const SEND_ANOTHER_CODE = 'app/SendTips/SEND_ANOTHER_CODE';
 export const VERIFY_FB_ACTION = 'app/SendTips/VERIFY_FB_ACTION';
 

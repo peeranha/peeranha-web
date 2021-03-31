@@ -20,14 +20,17 @@ import { selectEos } from 'containers/EosioProvider/selectors';
 import { selectFacebookUserData } from 'containers/Login/selectors';
 
 import {
+  VERIFY_FB_ACTION_FORM,
+  FB_VERIFICATION_CODE_FIELD,
+} from 'components/FbVerificationCodeForm/constants';
+
+import {
   SEND_TOKENS,
   EOS_ACCOUNT_FIELD,
   AMOUNT_FIELD,
   PASSWORD_FIELD,
   SEND_TOKENS_FORM,
-  VERIFY_FB_ACTION_FORM,
   VERIFY_FB_ACTION,
-  VERIFICATION_CODE_FIELD,
   SEND_ANOTHER_CODE,
   SEND_FB_VERIFICATION_EMAIL,
 } from './constants';
@@ -125,7 +128,7 @@ export function* verifyFacebookActionWorker({ verifyFormVals }) {
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
     const { email } = yield select(selectFacebookUserData());
-    const verificationCode = verifyFormVals[VERIFICATION_CODE_FIELD];
+    const verificationCode = verifyFormVals[FB_VERIFICATION_CODE_FIELD];
 
     const response = yield call(
       changeCredentialsConfirm,

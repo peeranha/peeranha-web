@@ -12,6 +12,9 @@ import {
   HIDE_ACTIVE_KEY_MODAL,
   PASSWORD_FIELD,
   REMOVE_ACTIVE_KEY,
+  SEND_FB_VERIFICATION_EMAIL,
+  SET_SHOW_ACTIVE_KEY_PROCESSING,
+  VERIFY_FB_ACTION,
 } from './constants';
 
 export function showActiveKeyModal() {
@@ -51,5 +54,25 @@ export function showActiveKeyErr(showActiveKeyError) {
 export function removeActiveKey() {
   return {
     type: REMOVE_ACTIVE_KEY,
+  };
+}
+
+export function sendFbVerificationEmail() {
+  return {
+    type: SEND_FB_VERIFICATION_EMAIL,
+  };
+}
+
+export function setShowActiveKeyProcessing(processing) {
+  return {
+    type: SET_SHOW_ACTIVE_KEY_PROCESSING,
+    processing,
+  };
+}
+
+export function verifyFbAction(...args) {
+  return {
+    type: VERIFY_FB_ACTION,
+    verifyFormVals: args[0].toJS(),
   };
 }

@@ -10,6 +10,7 @@ import injectReducer from 'utils/injectReducer';
 import _get from 'lodash/get';
 
 import Modal from 'components/ModalDialog';
+import FbVerificationCodeForm from 'components/FbVerificationCodeForm/index';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
@@ -35,7 +36,6 @@ import Button from '../SendTokens/StyledButton';
 import SendTipsForm from './SendTipsForm';
 import { selectUsers } from '../DataCacheProvider/selectors';
 import { getAvailableBalance } from '../../utils/profileManagement';
-import VerificationCodeForm from './VerificationCodeForm';
 
 export const SendTips = ({
   locale,
@@ -89,7 +89,7 @@ export const SendTips = ({
           />
         )}
         {isVerifyFbModal && (
-          <VerificationCodeForm
+          <FbVerificationCodeForm
             locale={locale}
             verifyEmail={verifyFbActionDispatch}
             verifyEmailLoading={sendTipsProcessing}

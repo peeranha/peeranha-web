@@ -25,3 +25,10 @@ export const SUBMIT_EMAIL_FORM = 'app/ShowOwnerKey/SUBMIT_EMAIL_FORM';
 export const EMAIL_FIELD = 'app/ShowOwnerKey/EMAIL_FIELD';
 export const CODE_FIELD = 'app/ShowOwnerKey/CODE_FIELD';
 export const PASSWORD_FIELD = 'app/ShowOwnerKey/PASSWORD_FIELD';
+
+// with facebook
+export const SEND_FB_VERIFICATION_EMAIL =
+  'app/ShowOwnerKey/SEND_FB_VERIFICATION_EMAIL';
+export const SET_SHOW_OWNER_KEY_PROCESSING =
+  'app/ShowOwnerKey/SET_SHOW_OWNER_KEY_PROCESSING';
+export const VERIFY_FB_ACTION = 'app/ShowOwnerKey/VERIFY_FB_ACTION';

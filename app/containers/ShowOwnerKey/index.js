@@ -19,6 +19,7 @@ import { makeSelectLoginData } from 'containers/AccountProvider/selectors';
 
 import Modal from 'components/ModalDialog';
 import Button from 'components/Button/Contained/Transparent';
+import FbVerificationCodeForm from 'components/FbVerificationCodeForm/index';
 
 import * as selectors from './selectors';
 import reducer from './reducer';
@@ -33,6 +34,8 @@ import {
   hideOwnerKeyModal,
   sendEmail,
   removeOwnerKey,
+  sendFbVerificationEmail,
+  verifyFbAction,
 } from './actions';
 
 import { SUBMIT_EMAIL_FORM, EMAIL_FORM } from './constants';
@@ -54,33 +57,56 @@ export class ShowOwnerKey extends React.PureComponent {
       ownerKey,
       removeOwnerKeyDispatch,
       loginData,
+      sendFbVerificationEmailDispatch,
+      verifyFbActionDispatch,
     } = this.props;
+
+    const { loginWithFacebook } = loginData;
+
+    const showOwnerKeyOnClick = () => {
+      if (loginWithFacebook) {
+        sendFbVerificationEmailDispatch();
+      } else {
+        showOwnerKeyModalDispatch();
+      }
+    };
 
     return (
       <React.Fragment>
-        <Modal show={showModal} closeModal={hideOwnerKeyModalDispatch}>
-          {content === EMAIL_FORM && (
-            <EmailForm
-              locale={locale}
-              sendEmail={sendEmailDispatch}
-              sendEmailProcessing={sendEmailProcessing}
-              loginData={loginData}
-            />
-          )}
+        {!loginWithFacebook && (
+          <Modal show={showModal} closeModal={hideOwnerKeyModalDispatch}>
+            {content === EMAIL_FORM && (
+              <EmailForm
+                locale={locale}
+                sendEmail={sendEmailDispatch}
+                sendEmailProcessing={sendEmailProcessing}
+                loginData={loginData}
+              />
+            )}
 
-          {content === SUBMIT_EMAIL_FORM && (
-            <SubmitEmailForm
+            {content === SUBMIT_EMAIL_FORM && (
+              <SubmitEmailForm
+                locale={locale}
+                showOwnerKey={showOwnerKeyDispatch}
+                showOwnerKeyProcessing={showOwnerKeyProcessing}
+              />
+            )}
+          </Modal>
+        )}
+
+        {loginWithFacebook && (
+          <Modal show={showModal} closeModal={hideOwnerKeyModalDispatch}>
+            <FbVerificationCodeForm
               locale={locale}
-              showOwnerKey={showOwnerKeyDispatch}
-              showOwnerKeyProcessing={showOwnerKeyProcessing}
+              verifyEmail={verifyFbActionDispatch}
+              verifyEmailLoading={showOwnerKeyProcessing}
+              sendAnotherCode={sendFbVerificationEmailDispatch}
             />
-          )}
-        </Modal>
+          </Modal>
+        )}
 
         <Button
-          onClick={
-            !ownerKey ? showOwnerKeyModalDispatch : removeOwnerKeyDispatch
-          }
+          onClick={!ownerKey ? showOwnerKeyOnClick : removeOwnerKeyDispatch}
         >
           {children}
         </Button>
@@ -103,6 +129,8 @@ ShowOwnerKey.propTypes = {
   sendEmailDispatch: PropTypes.func,
   removeOwnerKeyDispatch: PropTypes.func,
   loginData: PropTypes.object,
+  sendFbVerificationEmailDispatch: PropTypes.func,
+  verifyFbActionDispatch: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -121,6 +149,11 @@ function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
     showOwnerKeyModalDispatch: bindActionCreators(showOwnerKeyModal, dispatch),
     hideOwnerKeyModalDispatch: bindActionCreators(hideOwnerKeyModal, dispatch),
     removeOwnerKeyDispatch: bindActionCreators(removeOwnerKey, dispatch),
+    sendFbVerificationEmailDispatch: bindActionCreators(
+      sendFbVerificationEmail,
+      dispatch,
+    ),
+    verifyFbActionDispatch: bindActionCreators(verifyFbAction, dispatch),
   };
 }
 

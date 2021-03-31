@@ -261,6 +261,8 @@
     "Фейсбук аккаунт ещё не зарегистрирован",
   "web_integration.errors.incorrectFacebookAccessToken":
     "Некорректный токен доступа фейсбук",
+  "web_integration.errors.privateKeyTypeIsNotSet":
+    "Не задан тип приватного ключа",
 
   "app.containers.Header.walletTooltipPart1": "Вам доступны ",
   "app.containers.Header.walletTooltipPart2": " поощрений",
