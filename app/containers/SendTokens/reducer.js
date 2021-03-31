@@ -32,7 +32,10 @@ function sendTokensReducer(state = initialState, action) {
     case SHOW_SENDTOKENS_MODAL:
       return state.set('showModal', true);
     case HIDE_SENDTOKENS_MODAL:
-      return state.set('showModal', false).set('isVerifyFbModal', false);
+      return state
+        .set('showModal', false)
+        .set('isVerifyFbModal', false)
+        .set('fbSendTokensFormValues', null);
 
     case SHOW_VERIFY_FB_MODAL:
       return state.set('isVerifyFbModal', true);
@@ -43,6 +46,7 @@ function sendTokensReducer(state = initialState, action) {
         .set('fbSendTokensFormValues', fbSendTokensFormValues);
 
     case SEND_TOKENS:
+      return state.set('sendTokensProcessing', true);
     case SET_SEND_TOKENS_PROCESSING:
       return state.set('sendTokensProcessing', processing);
     case SEND_TOKENS_SUCCESS:

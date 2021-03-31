@@ -1,6 +1,7 @@
 import { takeLatest, takeEvery, put, call, select } from 'redux-saga/effects';
 import { translationMessages } from 'i18n';
 import { getFormValues } from 'redux-form/lib/immutable';
+import { reset as reduxFormReset } from 'redux-form';
 
 import _isEqual from 'lodash/isEqual';
 import _cloneDeep from 'lodash/cloneDeep';
@@ -19,12 +20,18 @@ import {
   NOTIFICATIONS_TIPS_SERVICE,
 } from 'utils/web_integration/src/util/aws-connector';
 
+import {
+  changeCredentialsConfirm,
+  sendFbVerificationCode,
+} from 'utils/web_integration/src/wallet/change-credentials/change-credentials';
+
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import {
   makeSelectLoginData,
   makeSelectProfileInfo,
 } from 'containers/AccountProvider/selectors';
 import { selectEos } from 'containers/EosioProvider/selectors';
+import { selectFacebookUserData } from 'containers/Login/selectors';
 
 import formFieldsMessages from 'components/FormFields/messages.js';
 
@@ -46,6 +53,11 @@ import {
   TIPS_PRESELECT,
   SEND_TIPS_NOTIFICATION,
   MAX_NOTIFICAT_ATTEMPTS,
+  SEND_FB_VERIFICATION_EMAIL,
+  SEND_ANOTHER_CODE,
+  VERIFY_FB_ACTION,
+  VERIFICATION_CODE_FIELD,
+  VERIFY_FB_ACTION_FORM,
 } from './constants';
 
 import {
@@ -58,12 +70,15 @@ import {
   addScatterTipsEosService,
   addTipsKeycatEosService,
   sendTipsNotification,
+  setSendTipsProcessing,
+  showVerifyFbModal,
 } from './actions';
 
 import {
   selectTipsScatterEosService,
   selectTipsKeycatEosService,
   selectedKeycatAccountSelector,
+  selectFbSendTipsFormValues,
 } from './selectors';
 
 import { formName } from './SendTipsForm';
@@ -325,9 +340,65 @@ export function* selectKeycatAccountWorker() {
   }
 }
 
+export function* sendEmailWorker() {
+  try {
+    const locale = yield select(makeSelectLocale());
+    const translations = translationMessages[locale];
+    const { id, email } = yield select(selectFacebookUserData());
+
+    const response = yield call(sendFbVerificationCode, id, email, locale);
+
+    if (!response.OK) {
+      throw new WebIntegrationError(
+        translations[webIntegrationErrors[response.errorCode].id],
+      );
+    }
+
+    yield put(setSendTipsProcessing(false));
+    yield put(showVerifyFbModal());
+  } catch (err) {
+    yield put(sendTipsErr(err));
+  }
+}
+
+export function* verifyFacebookActionWorker({ verifyFormVals }) {
+  try {
+    yield put(setSendTipsProcessing(true));
+
+    const locale = yield select(makeSelectLocale());
+    const translations = translationMessages[locale];
+    const { email } = yield select(selectFacebookUserData());
+    const verificationCode = verifyFormVals[VERIFICATION_CODE_FIELD];
+
+    const response = yield call(
+      changeCredentialsConfirm,
+      email,
+      verificationCode,
+    );
+
+    if (!response.OK) {
+      throw new WebIntegrationError(
+        translations[webIntegrationErrors[response.errorCode].id],
+      );
+    }
+
+    const val = yield select(selectFbSendTipsFormValues());
+    yield sendTipsWorker(val);
+
+    yield put(reduxFormReset(VERIFY_FB_ACTION_FORM));
+  } catch (err) {
+    yield put(sendTipsErr(err));
+  }
+}
+
 export default function* defaultSaga() {
   yield takeLatest(SELECT_SCATTER_ACCOUNT, selectScatterAccountWorker);
   yield takeLatest(SELECT_KEYCAT_ACCOUNT, selectKeycatAccountWorker);
   yield takeLatest(SEND_TIPS, sendTipsWorker);
   yield takeEvery(SEND_TIPS_NOTIFICATION, sendTipsNotificationWorker);
+  yield takeEvery(
+    [SEND_FB_VERIFICATION_EMAIL, SEND_ANOTHER_CODE],
+    sendEmailWorker,
+  );
+  yield takeLatest(VERIFY_FB_ACTION, verifyFacebookActionWorker);
 }

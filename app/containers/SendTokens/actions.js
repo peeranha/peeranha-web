@@ -66,7 +66,6 @@ export function sendTokens(...args) {
   return {
     type: SEND_TOKENS,
     val: args[0].toJS(),
-    processing: true,
   };
 }
 

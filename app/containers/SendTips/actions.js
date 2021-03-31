@@ -20,6 +20,11 @@ import {
   SELECT_KEYCAT_ACCOUNT,
   SELECT_KEYCAT_ACCOUNT_SUCCESS,
   SELECT_SCATTER_ACCOUNT_SUCCESS,
+  SEND_FB_VERIFICATION_EMAIL,
+  SET_SEND_TIPS_PROCESSING,
+  SHOW_VERIFY_FB_MODAL,
+  SEND_ANOTHER_CODE,
+  VERIFY_FB_ACTION,
 } from './constants';
 
 export const showSendTipsModal = (form, whoWillBeTipped) => ({
@@ -114,3 +119,39 @@ export const addTipsKeycatEosService = tipsKeycatEosService => ({
 export const removeTipsEosServices = () => ({
   type: REMOVE_TIPS_EOS_SERVICES,
 });
+
+export const setSendTipsProcessing = processing => ({
+  type: SET_SEND_TIPS_PROCESSING,
+  processing,
+});
+
+export function sendFbVerificationEmail(...args) {
+  return {
+    type: SEND_FB_VERIFICATION_EMAIL,
+    fbSendTipsFormValues: {
+      val: args[0].toJS(),
+      resetForm: args[2].reset,
+      questionId: args[4],
+      answerId: args[5],
+    },
+  };
+}
+
+export function showVerifyFbModal() {
+  return {
+    type: SHOW_VERIFY_FB_MODAL,
+  };
+}
+
+export function sendAnotherCode() {
+  return {
+    type: SEND_ANOTHER_CODE,
+  };
+}
+
+export function verifyFbAction(...args) {
+  return {
+    type: VERIFY_FB_ACTION,
+    verifyFormVals: args[0].toJS(),
+  };
+}
