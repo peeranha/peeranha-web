@@ -175,7 +175,7 @@ export default function*() {
   yield takeEvery(GET_QUESTIONS, getQuestionsWorker);
   yield takeEvery(GET_COMMUNITY, getCommunityWorker);
   yield takeEvery(GET_LOGO, getLogoWorker);
-  yield takeEvery(
+  yield takeLatest(
     REDIRECT_TO_EDIT_COMMUNITY_PAGE,
     redirectToEditCommunityPageWorker,
   );
