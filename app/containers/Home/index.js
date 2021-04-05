@@ -276,7 +276,9 @@ export const Home = ({
               <div className="position-relative">
                 <Content
                   locale={locale}
-                  questionsList={questions}
+                  questionsList={
+                    questions.length > 5 ? questions.slice(0, 5) : questions
+                  }
                   communities={communities}
                   isModerator={isModerator}
                   profileInfo={profile}
