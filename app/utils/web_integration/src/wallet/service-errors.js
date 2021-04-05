@@ -58,6 +58,9 @@ module.exports = {
   19: {
     id: 'web_integration.errors.incorrectFacebookAccessToken',
   },
+  20: {
+    id: 'web_integration.errors.privateKeyTypeIsNotSet',
+  },
   wrongMasterKey: {
     id: 'web_integration.errors.wrongMasterKey',
   },

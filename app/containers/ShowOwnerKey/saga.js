@@ -1,5 +1,6 @@
 import { takeLatest, put, call, select } from 'redux-saga/effects';
 import { translationMessages } from 'i18n';
+import { reset as reduxFormReset } from 'redux-form';
 
 import {
   getOwnerKeyInitByPwd,
@@ -9,18 +10,37 @@ import {
 import webIntegrationErrors from 'utils/web_integration/src/wallet/service-errors';
 import { WebIntegrationError } from 'utils/errors';
 
+import {
+  changeCredentialsConfirm,
+  getFacebookUserPrivateKey,
+  sendFbVerificationCode,
+} from 'utils/web_integration/src/wallet/change-credentials/change-credentials';
+
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectLoginData } from 'containers/AccountProvider/selectors';
+import { selectFacebookUserData } from 'containers/Login/selectors';
+
+import {
+  VERIFY_FB_ACTION_FORM,
+  FB_VERIFICATION_CODE_FIELD,
+} from 'components/FbVerificationCodeForm/constants';
 
 import { selectPassword } from './selectors';
 
-import { SHOW_OWNER_KEY, SEND_EMAIL } from './constants';
+import {
+  SHOW_OWNER_KEY,
+  SEND_EMAIL,
+  VERIFY_FB_ACTION,
+  SEND_FB_VERIFICATION_EMAIL,
+} from './constants';
 
 import {
   showOwnerKeySuccess,
   showOwnerKeyErr,
   sendEmailSuccess,
   sendEmailErr,
+  setShowOwnerProcessing,
+  showOwnerKeyModal,
 } from './actions';
 
 export function* sendEmailWorker({ resetForm, email, password }) {
@@ -73,7 +93,71 @@ export function* showOwnerKeyWorker({ resetForm, verificationCode }) {
   }
 }
 
+export function* sendFacebookEmailWorker() {
+  try {
+    const locale = yield select(makeSelectLocale());
+    const translations = translationMessages[locale];
+    const { id, email } = yield select(selectFacebookUserData());
+
+    const response = yield call(sendFbVerificationCode, id, email, locale);
+
+    if (!response.OK) {
+      throw new WebIntegrationError(
+        translations[webIntegrationErrors[response.errorCode].id],
+      );
+    }
+
+    yield put(setShowOwnerProcessing(false));
+    yield put(showOwnerKeyModal());
+  } catch (err) {
+    yield put(showOwnerKeyErr(err));
+  }
+}
+
+export function* verifyFacebookActionWorker({ verifyFormVals }) {
+  try {
+    yield put(setShowOwnerProcessing(true));
+
+    const locale = yield select(makeSelectLocale());
+    const translations = translationMessages[locale];
+    const { email, id } = yield select(selectFacebookUserData());
+    const verificationCode = verifyFormVals[FB_VERIFICATION_CODE_FIELD];
+
+    const response = yield call(
+      changeCredentialsConfirm,
+      email,
+      verificationCode,
+    );
+
+    if (!response.OK) {
+      throw new WebIntegrationError(
+        translations[webIntegrationErrors[response.errorCode].id],
+      );
+    }
+
+    const keyResponse = yield call(getFacebookUserPrivateKey, {
+      id,
+      isOwnerKey: true,
+    });
+
+    if (!keyResponse.OK) {
+      throw new WebIntegrationError(
+        translations[webIntegrationErrors[keyResponse.errorCode].id],
+      );
+    }
+
+    const { privateKey } = keyResponse.body;
+
+    yield put(showOwnerKeySuccess(privateKey));
+    yield put(reduxFormReset(VERIFY_FB_ACTION_FORM));
+  } catch (err) {
+    yield put(showOwnerKeyErr(err));
+  }
+}
+
 export default function* defaultSaga() {
   yield takeLatest(SHOW_OWNER_KEY, showOwnerKeyWorker);
   yield takeLatest(SEND_EMAIL, sendEmailWorker);
+  yield takeLatest(SEND_FB_VERIFICATION_EMAIL, sendFacebookEmailWorker);
+  yield takeLatest(VERIFY_FB_ACTION, verifyFacebookActionWorker);
 }

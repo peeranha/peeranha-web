@@ -35,6 +35,11 @@ import { selectFacebookUserData } from 'containers/Login/selectors';
 
 import formFieldsMessages from 'components/FormFields/messages.js';
 
+import {
+  VERIFY_FB_ACTION_FORM,
+  FB_VERIFICATION_CODE_FIELD,
+} from 'components/FbVerificationCodeForm/constants';
+
 import messages, {
   getAccountNotSelectedMessageDescriptor,
 } from '../Login/messages';
@@ -56,8 +61,6 @@ import {
   SEND_FB_VERIFICATION_EMAIL,
   SEND_ANOTHER_CODE,
   VERIFY_FB_ACTION,
-  VERIFICATION_CODE_FIELD,
-  VERIFY_FB_ACTION_FORM,
 } from './constants';
 
 import {
@@ -368,7 +371,7 @@ export function* verifyFacebookActionWorker({ verifyFormVals }) {
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
     const { email } = yield select(selectFacebookUserData());
-    const verificationCode = verifyFormVals[VERIFICATION_CODE_FIELD];
+    const verificationCode = verifyFormVals[FB_VERIFICATION_CODE_FIELD];
 
     const response = yield call(
       changeCredentialsConfirm,

@@ -19,6 +19,8 @@ import {
   SUBMIT_EMAIL_FORM,
   EMAIL_FORM,
   REMOVE_OWNER_KEY,
+  SEND_FB_VERIFICATION_EMAIL,
+  SET_SHOW_OWNER_KEY_PROCESSING,
 } from './constants';
 
 export const initialState = fromJS({
@@ -39,6 +41,7 @@ function showOwnerKeyReducer(state = initialState, action) {
     sendEmailError,
     password,
     ownerKey,
+    processing,
   } = action;
 
   switch (type) {
@@ -53,6 +56,7 @@ function showOwnerKeyReducer(state = initialState, action) {
       return state.set('ownerKey', initialState.get('ownerKey'));
 
     case SHOW_OWNER_KEY:
+    case SEND_FB_VERIFICATION_EMAIL:
       return state.set('showOwnerKeyProcessing', true);
     case SHOW_OWNER_KEY_SUCCESS:
       return state
@@ -64,6 +68,9 @@ function showOwnerKeyReducer(state = initialState, action) {
       return state
         .set('showOwnerKeyProcessing', false)
         .set('showOwnerKeyError', showOwnerKeyError);
+
+    case SET_SHOW_OWNER_KEY_PROCESSING:
+      return state.set('showOwnerKeyProcessing', processing);
 
     case SEND_EMAIL:
       return state.set('sendEmailProcessing', true).set('password', password);

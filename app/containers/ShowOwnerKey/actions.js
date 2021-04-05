@@ -17,6 +17,9 @@ import {
   PASSWORD_FIELD,
   CODE_FIELD,
   REMOVE_OWNER_KEY,
+  SEND_FB_VERIFICATION_EMAIL,
+  SET_SHOW_OWNER_KEY_PROCESSING,
+  VERIFY_FB_ACTION,
 } from './constants';
 
 export function showOwnerKeyModal() {
@@ -83,5 +86,25 @@ export function showOwnerKeyErr(showOwnerKeyError) {
 export function removeOwnerKey() {
   return {
     type: REMOVE_OWNER_KEY,
+  };
+}
+
+export function sendFbVerificationEmail() {
+  return {
+    type: SEND_FB_VERIFICATION_EMAIL,
+  };
+}
+
+export function setShowOwnerProcessing(processing) {
+  return {
+    type: SET_SHOW_OWNER_KEY_PROCESSING,
+    processing,
+  };
+}
+
+export function verifyFbAction(...args) {
+  return {
+    type: VERIFY_FB_ACTION,
+    verifyFormVals: args[0].toJS(),
   };
 }

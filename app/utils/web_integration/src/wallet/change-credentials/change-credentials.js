@@ -14,6 +14,7 @@ const {
   CHANGE_CREDENTIALS_COMPLETE_SERVICE,
   DELETE_FACEBOOK_ACCOUNT_SERVICE,
   SEND_FB_VERIFICATION_CODE_SERVICE,
+  GET_FACEBOOK_PRIVATE_KEY_SERVICE,
 } = require('../../util/aws-connector');
 
 const { DEFAULT_LOCALE } = require('i18n');
@@ -46,6 +47,20 @@ async function changeCredentialsConfirm(email, secretCode) {
 async function deleteFacebookAccService(id) {
   const response = await callService(DELETE_FACEBOOK_ACCOUNT_SERVICE, {
     id,
+  });
+
+  return response;
+}
+
+async function getFacebookUserPrivateKey({
+  id,
+  isActiveKey = false,
+  isOwnerKey = false,
+}) {
+  const response = await callService(GET_FACEBOOK_PRIVATE_KEY_SERVICE, {
+    id,
+    isActiveKey,
+    isOwnerKey,
   });
 
   return response;
@@ -205,4 +220,5 @@ module.exports = {
   changeCredentialsComplete,
   deleteFacebookAccService,
   sendFbVerificationCode,
+  getFacebookUserPrivateKey,
 };

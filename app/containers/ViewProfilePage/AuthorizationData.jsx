@@ -167,7 +167,10 @@ const AuthorizationData = ({
 
               <tr
                 className={
-                  !loginData || !loginData.hasOwnerEosKey ? 'd-none' : ''
+                  (!loginData || !loginData.hasOwnerEosKey) &&
+                  !loginWithFacebook
+                    ? 'd-none'
+                    : ''
                 }
               >
                 <td>

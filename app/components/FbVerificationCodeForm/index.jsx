@@ -15,9 +15,9 @@ import H4 from 'components/H4';
 
 import signupMessages from 'containers/SignUp/messages';
 
-import { VERIFICATION_CODE_FIELD, VERIFY_FB_ACTION_FORM } from './constants';
+import { FB_VERIFICATION_CODE_FIELD, VERIFY_FB_ACTION_FORM } from './constants';
 
-const VerificationCodeForm = /* istanbul ignore next */ ({
+const FbVerificationCodeForm = /* istanbul ignore next */ ({
   handleSubmit,
   locale,
   verifyEmail,
@@ -31,7 +31,7 @@ const VerificationCodeForm = /* istanbul ignore next */ ({
 
     <form onSubmit={handleSubmit(verifyEmail)}>
       <Field
-        name={VERIFICATION_CODE_FIELD}
+        name={FB_VERIFICATION_CODE_FIELD}
         disabled={verifyEmailLoading}
         label={translationMessages[locale][signupMessages.checkYourEmail.id]}
         component={TextInputField}
@@ -55,7 +55,7 @@ const VerificationCodeForm = /* istanbul ignore next */ ({
   </div>
 );
 
-VerificationCodeForm.propTypes = {
+FbVerificationCodeForm.propTypes = {
   handleSubmit: PropTypes.func,
   sendAnotherCode: PropTypes.func,
   verifyEmail: PropTypes.func,
@@ -66,4 +66,4 @@ VerificationCodeForm.propTypes = {
 export default reduxForm({
   form: VERIFY_FB_ACTION_FORM,
   onSubmitFail: errors => scrollToErrorField(errors),
-})(VerificationCodeForm);
+})(FbVerificationCodeForm);
