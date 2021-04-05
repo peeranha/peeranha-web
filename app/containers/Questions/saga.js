@@ -452,7 +452,7 @@ export function* loadTopCommunityQuestionsWorker({ init }) {
   }
 }
 
-function* removeOrAddTopQuestionWorker({ id }) {
+export function* removeOrAddTopQuestionWorker({ id }) {
   try {
     if (single) {
       const eosService = yield select(selectEos);

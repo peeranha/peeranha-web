@@ -28,7 +28,10 @@ import { getUserAvatar } from 'utils/profileManagement';
 
 import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
 import { isGeneralQuestion } from 'containers/ViewQuestion/saga';
-import { loadTopCommunityQuestionsWorker } from 'containers/Questions/saga';
+import {
+  loadTopCommunityQuestionsWorker,
+  removeOrAddTopQuestionWorker,
+} from 'containers/Questions/saga';
 
 import {
   GET_QUESTIONS,
@@ -47,6 +50,7 @@ import {
 import { selectCommunity } from './selectors';
 import createdHistory from '../../createdHistory';
 import * as routes from '../../routes-config';
+import { REMOVE_OR_ADD_TOP_QUESTION } from '../Questions/constants';
 
 export function* getQuestionsWorker({ communityId }) {
   try {
@@ -171,8 +175,9 @@ export default function*() {
   yield takeEvery(GET_QUESTIONS, getQuestionsWorker);
   yield takeEvery(GET_COMMUNITY, getCommunityWorker);
   yield takeEvery(GET_LOGO, getLogoWorker);
-  yield takeLatest(
+  yield takeEvery(
     REDIRECT_TO_EDIT_COMMUNITY_PAGE,
     redirectToEditCommunityPageWorker,
   );
+  yield takeEvery(REMOVE_OR_ADD_TOP_QUESTION, removeOrAddTopQuestionWorker);
 }
