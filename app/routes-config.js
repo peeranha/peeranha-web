@@ -45,8 +45,7 @@ export const questionView = (id, answerId) =>
     ? `/questions/${id}/#${uniqueAnswerId(answerId)}`
     : `/questions/${id}`;
 
-export const questionEdit = questionId =>
-  !singleCommId ? `/questions/${questionId}/edit` : `/${questionId}/edit`;
+export const questionEdit = questionId => `/questions/${questionId}/edit`;
 
 export const answerEdit = (questionId, answerId) =>
   !singleCommId
