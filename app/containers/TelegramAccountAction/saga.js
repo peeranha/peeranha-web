@@ -44,7 +44,7 @@ export function* confirmTelegramAccountWorker({ profile, userKey }) {
   }
 }
 
-export function* unlinkTelegramAccountWorker() {
+export function* unlinkTelegramAccountWorker({ profile, userKey }) {
   try {
     const eosService = yield select(selectEos);
 
@@ -52,6 +52,7 @@ export function* unlinkTelegramAccountWorker() {
 
     yield call(unlinkTelegramAccount, eosService, account);
 
+    yield call(saveProfileWorker, profile, userKey);
     yield put(unlinkTelegramAccountSuccess());
   } catch (err) {
     yield put(unlinkTelegramAccountErr(err));

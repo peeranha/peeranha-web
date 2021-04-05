@@ -125,7 +125,11 @@ const AuthorizationData = ({
                       />
                     )}
 
-                    <TelegramAccountAction actionType={UNLINK_TG_ACCOUNT} />
+                    <TelegramAccountAction
+                      actionType={UNLINK_TG_ACCOUNT}
+                      data={tgData}
+                      profile={profile}
+                    />
                   </td>
                 </tr>
               </>

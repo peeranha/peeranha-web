@@ -66,7 +66,12 @@ export class TelegramAccountAction extends React.PureComponent {
         {actionType === UNLINK_TG_ACCOUNT && (
           <button
             id={UNLINK_TG_ACCOUNT_ID}
-            onClick={unlinkTelegramAccountDispatch}
+            onClick={() => {
+              unlinkTelegramAccountDispatch({
+                profile: newProfile,
+                userKey: profile.user,
+              });
+            }}
           >
             <FormattedMessage {...messages.unlink} />
           </button>
