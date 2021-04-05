@@ -8,7 +8,11 @@ import styled from 'styled-components';
 
 import * as routes from 'routes-config';
 
-import { TEXT_SECONDARY } from 'style-constants';
+import {
+  PEER_PRIMARY_COLOR,
+  PEER_WARNING_COLOR,
+  TEXT_SECONDARY,
+} from 'style-constants';
 import { HASH_CHARS_LIMIT } from 'components/FormFields/AvatarField';
 import { DAEMON } from 'utils/constants';
 
@@ -19,7 +23,10 @@ import {
   hasCommunityAdminPermissions,
   isUserTopCommunityQuestionsModerator,
 } from 'utils/properties';
-import { isSingleCommunityWebsite } from 'utils/communityManagement';
+import {
+  checkIsColorsActual,
+  isSingleCommunityWebsite,
+} from 'utils/communityManagement';
 import { getUserAvatar } from 'utils/profileManagement';
 import { followHandler } from 'containers/FollowCommunityButton/actions';
 
@@ -135,6 +142,8 @@ export const Home = ({
   followHandlerDispatch,
   redirectToEditCommunityPageDispatch,
 }) => {
+  checkIsColorsActual(single, PEER_PRIMARY_COLOR, PEER_WARNING_COLOR);
+
   useEffect(
     () => {
       getCommunityDispatch(single);

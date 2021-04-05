@@ -18,6 +18,8 @@ import {
   editCommunity,
   getAllCommunities,
   getCommunityById,
+  getSingleCommunityDetails,
+  setSingleCommunityDetailsInCookie,
 } from 'utils/communityManagement';
 import { uploadImg } from 'utils/profileManagement';
 import { delay } from 'utils/reduxUtils';
@@ -53,6 +55,7 @@ export function* getCommunityWorker({ communityId }) {
 
 export function* editCommunityWorker({ communityId, communityData }) {
   try {
+    const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
     if (communityData.avatar.length > HASH_CHARS_LIMIT) {
       const { imgHash } = yield call(uploadImg, communityData.avatar);
 
@@ -60,11 +63,18 @@ export function* editCommunityWorker({ communityId, communityData }) {
       communityData.avatar = imgHash;
     }
 
-    if (communityData.banner && communityData.banner.length > HASH_CHARS_LIMIT) {
+    if (
+      communityData.banner &&
+      communityData.banner.length > HASH_CHARS_LIMIT
+    ) {
       const { imgHash } = yield call(uploadImg, communityData.banner);
 
       // eslint-disable-next-line no-param-reassign
       communityData.banner = imgHash;
+    }
+
+    if (isBloggerMode) {
+      setSingleCommunityDetailsInCookie(communityData, communityId);
     }
 
     const communityDataCurrent = yield select(selectCommunity());
