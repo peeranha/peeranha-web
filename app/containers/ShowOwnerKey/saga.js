@@ -93,7 +93,7 @@ export function* showOwnerKeyWorker({ resetForm, verificationCode }) {
   }
 }
 
-export function* sendFbCodeEmailWorker() {
+export function* sendFacebookEmailWorker() {
   try {
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
@@ -158,6 +158,6 @@ export function* verifyFacebookActionWorker({ verifyFormVals }) {
 export default function* defaultSaga() {
   yield takeLatest(SHOW_OWNER_KEY, showOwnerKeyWorker);
   yield takeLatest(SEND_EMAIL, sendEmailWorker);
-  yield takeLatest(SEND_FB_VERIFICATION_EMAIL, sendFbCodeEmailWorker);
+  yield takeLatest(SEND_FB_VERIFICATION_EMAIL, sendFacebookEmailWorker);
   yield takeLatest(VERIFY_FB_ACTION, verifyFacebookActionWorker);
 }
