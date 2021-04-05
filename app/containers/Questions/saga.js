@@ -23,6 +23,7 @@ import {
   getPromotedQuestions,
   getRandomQuestions,
 } from 'utils/questionsManagement';
+import { getQuestionsWorker as getTopQuestions } from '../Home/saga';
 import { getQuestionBounty } from 'utils/walletManagement';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
@@ -489,6 +490,7 @@ export function* removeOrAddTopQuestionWorker({ id }) {
       }
 
       yield put(removeOrAddTopQuestionSuccess(id, isTopQuestion));
+      yield call(getTopQuestions, { single });
     }
   } catch (e) {
     yield put(removeOrAddTopQuestionErr(e));
