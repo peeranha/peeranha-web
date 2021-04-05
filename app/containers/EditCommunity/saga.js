@@ -115,9 +115,7 @@ export function* editCommunityWorker({ communityId, communityData }) {
 
     yield put(editCommunitySuccess());
 
-    if (isBloggerMode) {
-      yield call(createdHistory.push, communitiesRoute());
-    } else yield call(createdHistory.push, communitiesRoute());
+    yield call(createdHistory.push, communitiesRoute());
   } catch (error) {
     yield put(editCommunityError(error));
   }
