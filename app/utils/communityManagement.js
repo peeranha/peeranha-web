@@ -197,7 +197,7 @@ export const setSingleCommunityDetails = async eosService => {
 
   let prevIsBlogger = null;
   const prevSingleCommDetails = getCookie(`${SINGLE_COMMUNITY_DETAILS}_${id}`);
-  if (prevSingleCommDetails) {
+  if (prevSingleCommDetails && prevSingleCommDetails.length) {
     prevIsBlogger = JSON.parse(prevSingleCommDetails).isBlogger;
   }
 
@@ -209,14 +209,16 @@ export const setSingleCommunityDetails = async eosService => {
     setSingleCommunityDetailsInCookie(community, id);
   }
 
-  const prevValue = JSON.parse(prevSingleCommDetails);
-  if (
-    (community.isBlogger &&
-      (prevValue.colors.main !== community.main_color ||
-        prevValue.colors.highlight !== community.highlight_color)) ||
-    prevValue.isBlogger !== community.isBlogger
-  ) {
-    location.reload();
+  if (prevSingleCommDetails && prevSingleCommDetails.length) {
+    const prevValue = JSON.parse(prevSingleCommDetails);
+    if (
+      (community.isBlogger &&
+        (prevValue.colors.main !== community.main_color ||
+          prevValue.colors.highlight !== community.highlight_color)) ||
+      prevValue.isBlogger !== community.isBlogger
+    ) {
+      location.reload();
+    }
   }
 
   const communityDetails = getSingleCommunityDetails();
@@ -509,13 +511,13 @@ export async function followCommunity(
 /* eslint camelcase: 0 */
 export async function createCommunity(eosService, selectedAccount, community) {
   const { imgHash: avatarField } = await uploadImg(community.avatar);
-  //const { imgHash: bannerField } = await uploadImg(community.banner);
+  // const { imgHash: bannerField } = await uploadImg(community.banner);
 
   const communityIpfsHash = await saveText(
     JSON.stringify({
       ...community,
       avatar: avatarField,
-      //banner: bannerField,
+      // banner: bannerField,
     }),
   );
 
