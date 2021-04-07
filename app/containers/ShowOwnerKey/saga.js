@@ -10,11 +10,11 @@ import {
 import webIntegrationErrors from 'utils/web_integration/src/wallet/service-errors';
 import { WebIntegrationError } from 'utils/errors';
 
+import { changeCredentialsConfirm } from 'utils/web_integration/src/wallet/change-credentials/change-credentials';
 import {
-  changeCredentialsConfirm,
   getFacebookUserPrivateKey,
   sendFbVerificationCode,
-} from 'utils/web_integration/src/wallet/change-credentials/change-credentials';
+} from 'utils/web_integration/src/wallet/facebook/facebook';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectLoginData } from 'containers/AccountProvider/selectors';

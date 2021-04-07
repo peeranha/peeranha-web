@@ -7,10 +7,8 @@ import { login } from 'utils/web_integration/src/wallet/login/login';
 import webIntegrationErrors from 'utils/web_integration/src/wallet/service-errors';
 import { WebIntegrationError } from 'utils/errors';
 
-import {
-  changeCredentialsConfirm,
-  sendFbVerificationCode,
-} from 'utils/web_integration/src/wallet/change-credentials/change-credentials';
+import { changeCredentialsConfirm } from 'utils/web_integration/src/wallet/change-credentials/change-credentials';
+import { sendFbVerificationCode } from 'utils/web_integration/src/wallet/facebook/facebook';
 
 import messages from 'common-messages';
 

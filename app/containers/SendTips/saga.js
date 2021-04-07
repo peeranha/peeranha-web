@@ -20,10 +20,8 @@ import {
   NOTIFICATIONS_TIPS_SERVICE,
 } from 'utils/web_integration/src/util/aws-connector';
 
-import {
-  changeCredentialsConfirm,
-  sendFbVerificationCode,
-} from 'utils/web_integration/src/wallet/change-credentials/change-credentials';
+import { changeCredentialsConfirm } from 'utils/web_integration/src/wallet/change-credentials/change-credentials';
+import { sendFbVerificationCode } from 'utils/web_integration/src/wallet/facebook/facebook';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import {

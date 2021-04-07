@@ -59,7 +59,13 @@ module.exports = {
     id: 'web_integration.errors.incorrectFacebookAccessToken',
   },
   20: {
+    id: 'web_integration.errors.noStoredFacebookData',
+  },
+  21: {
     id: 'web_integration.errors.privateKeyTypeIsNotSet',
+  },
+  22: {
+    id: 'web_integration.errors.noFacebookAccountEmail',
   },
   wrongMasterKey: {
     id: 'web_integration.errors.wrongMasterKey',

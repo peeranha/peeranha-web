@@ -79,6 +79,7 @@ import {
   PrivacyPolicy,
   FullWidthPreloader,
   TermsOfService,
+  DeleteFacebookData,
 } from './imports';
 import { getValueFromSearchString } from '../../utils/url';
 import { getCookie, setCookie } from '../../utils/cookie';
@@ -342,6 +343,12 @@ const App = ({
           path={routes.errorPage()}
           render={props => Wrapper(ErrorPage, props)}
         />
+
+        <Route exact path={routes.facebookDataDeletion()}>
+          <React.Suspense fallback={null}>
+            <DeleteFacebookData />
+          </React.Suspense>
+        </Route>
 
         <Route path={routes.signup.email.name}>
           <React.Suspense fallback={<Loader />}>

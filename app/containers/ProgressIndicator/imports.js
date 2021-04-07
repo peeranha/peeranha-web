@@ -29,7 +29,8 @@ import {
 import {
   selectLoginWithWalletProcessing,
   selectFinishRegistrationProcessing,
-  selectLoginWithEmailProcessing, selectFacebookLoginProcessing,
+  selectLoginWithEmailProcessing,
+  selectFacebookLoginProcessing,
 } from 'containers/Login/selectors';
 import { selectSendTokensProcessing } from 'containers/SendTokens/selectors';
 import { selectShowActiveKeyProcessing } from 'containers/ShowActiveKey/selectors';
@@ -66,6 +67,7 @@ import {
   selectDownVoteLoading as downvoteTag,
 } from 'containers/VoteForNewTagButton/selectors';
 import { selectPickupRewardProcessing } from 'containers/Wallet/selectors';
+import { selectDelFbDataProcessing } from 'containers/DeleteFacebookData/selectors';
 import { selectIsSaveCryptoAccountsProcessing } from '../ViewProfilePage/Tip/selectors';
 import {
   selectedAccountProcessingSelector,
@@ -135,4 +137,5 @@ export default {
   selectGetConfirmTelegramAccountProcessing: selectGetConfirmTelegramAccountProcessing(),
   selectGetUnlinkTelegramAccountProcessing: selectGetUnlinkTelegramAccountProcessing(),
   selectChangeStakeLoading: selectChangeStakeLoading(),
+  selectDelFbDataProcessing: selectDelFbDataProcessing(),
 };

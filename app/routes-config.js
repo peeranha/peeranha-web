@@ -72,6 +72,8 @@ export const moderation = code => `#moderation${code ? `#${code}` : ``}`;
 export const support = section => `/support/${section ? `#${section}` : ''}`;
 export const search = q => `/search/${q || ''}`;
 
+export const supportForm = () => '/support/#support_form';
+
 export const privacyPolicy = section =>
   `/privacy-policy/${section ? `#${section}` : ''}`;
 
@@ -105,6 +107,8 @@ export const registrationStage = 'signup';
 export const preloaderPage = () => '/preloader-page';
 
 export const referralPage = user => `/?${REFERRAL_CODE_URI}=${user}`;
+
+export const facebookDataDeletion = () => '/facebook-data-deletion';
 
 export const redirectRoutesForSCM = [
   faq(),
