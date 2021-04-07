@@ -65,9 +65,11 @@ export function* getQuestionsWorker({ communityId }) {
     if (topQuestionsIds && topQuestionsIds.length) {
       yield all(
         topQuestionsIds.map(function*(id) {
-          const question = yield call(getQuestionById, eosService, id);
+          if (id) {
+            const question = yield call(getQuestionById, eosService, id);
 
-          questionsList.push(question);
+            questionsList.push(question);
+          }
         }),
       );
     } else {
