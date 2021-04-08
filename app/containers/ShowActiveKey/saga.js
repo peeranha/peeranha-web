@@ -21,6 +21,8 @@ import {
   FB_VERIFICATION_CODE_FIELD,
 } from 'components/FbVerificationCodeForm/constants';
 
+import { SHOW_ACTIVE_KEY_TYPE } from 'utils/constants';
+
 import {
   SEND_FB_VERIFICATION_EMAIL,
   SHOW_ACTIVE_KEY,
@@ -63,9 +65,14 @@ export function* sendFacebookEmailWorker() {
   try {
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
-    const { id, email } = yield select(selectFacebookUserData());
+    const { id } = yield select(selectFacebookUserData());
 
-    const response = yield call(sendFbVerificationCode, id, email, locale);
+    const response = yield call(
+      sendFbVerificationCode,
+      id,
+      locale,
+      SHOW_ACTIVE_KEY_TYPE,
+    );
 
     if (!response.OK) {
       throw new WebIntegrationError(
@@ -93,6 +100,7 @@ export function* verifyFacebookActionWorker({ verifyFormVals }) {
       changeCredentialsConfirm,
       email,
       verificationCode,
+      SHOW_ACTIVE_KEY_TYPE,
     );
 
     if (!response.OK) {

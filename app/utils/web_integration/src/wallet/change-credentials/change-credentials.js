@@ -21,22 +21,21 @@ async function changeCredentialsInit(
   email,
   isDelete = false,
   locale = DEFAULT_LOCALE,
-  withFacebook = false,
 ) {
   const response = await callService(CHANGE_CREDENTIALS_INIT_SERVICE, {
     email,
     isDelete,
     locale,
-    withFacebook,
   });
 
   return response;
 }
 
-async function changeCredentialsConfirm(email, secretCode) {
+async function changeCredentialsConfirm(email, secretCode, type = null) {
   const response = await callService(CHANGE_CREDENTIALS_CONFIRM_SERVICE, {
     email,
     secretCode,
+    type,
   });
 
   return response;

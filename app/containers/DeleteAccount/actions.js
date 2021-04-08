@@ -15,6 +15,8 @@ import {
   DELETE_ACCOUNT_ERROR,
   EMAIL_FIELD,
   SHOW_DELETE_ACCOUNT_MODAL_FB,
+  SEND_VERIFY_FB_EMAIL,
+  DELETE_FACEBOOK_ACCOUNT,
 } from './constants';
 
 export function showDeleteAccountModal() {
@@ -45,12 +47,9 @@ export function sendEmail(...args) {
   };
 }
 
-export function sendEmailFacebook(email) {
+export function sendEmailFacebook() {
   return {
-    type: SEND_EMAIL,
-    email,
-    resetForm: null,
-    withFacebook: true,
+    type: SEND_VERIFY_FB_EMAIL,
   };
 }
 
@@ -80,10 +79,9 @@ export function deleteAccount(...args) {
 
 export function deleteFacebookAccount(...args) {
   return {
-    type: DELETE_ACCOUNT,
+    type: DELETE_FACEBOOK_ACCOUNT,
     values: args[0].toJS(),
     resetForm: args[2].reset,
-    withFacebook: true,
   };
 }
 

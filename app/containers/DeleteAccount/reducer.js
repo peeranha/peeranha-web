@@ -18,6 +18,7 @@ import {
   DELETE_ACCOUNT_SUCCESS,
   DELETE_ACCOUNT_ERROR,
   EMAIL_FORM,
+  SEND_VERIFY_FB_EMAIL,
 } from './constants';
 
 export const initialState = fromJS({
@@ -45,6 +46,8 @@ function deleteAccountReducer(state = initialState, action) {
 
     case SEND_EMAIL:
       return state.set('sendEmailProcessing', true).set('email', email);
+    case SEND_VERIFY_FB_EMAIL:
+      return state.set('sendEmailProcessing', true);
     case SEND_EMAIL_SUCCESS:
       return state
         .set('sendEmailProcessing', false)

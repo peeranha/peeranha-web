@@ -21,19 +21,20 @@ async function getFacebookUserPrivateKey({
   return response;
 }
 
-async function checkFacebookIdService(id, locale = DEFAULT_LOCALE) {
+async function checkFacebookIdService(id, locale = DEFAULT_LOCALE, type) {
   const response = await callService(CHECK_FACEBOOK_DATA_SERVICE, {
     id,
     locale,
+    type,
   });
   return response;
 }
 
-async function sendFbVerificationCode(id, email, locale = DEFAULT_LOCALE) {
+async function sendFbVerificationCode(id, locale = DEFAULT_LOCALE, type) {
   const response = await callService(SEND_FB_VERIFICATION_CODE_SERVICE, {
     id,
-    email,
     locale,
+    type,
   });
 
   return response;

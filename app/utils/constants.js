@@ -242,3 +242,11 @@ export const BOUNTY_STATUS_PENDING = 3;
 export const SINGLE_COMMUNITY_DETAILS = 'singleCommunityDetails';
 
 export const KEY_LAST_RATING_UPDATE_TIME = 18;
+
+// verification codes types
+export const SEND_TIPS_TYPE = 'sendTips';
+export const SEND_TOKENS_TYPE = 'sendTokens';
+export const SHOW_ACTIVE_KEY_TYPE = 'showActiveKey';
+export const SHOW_OWNER_KEY_TYPE = 'showOwnerKey';
+export const DELETE_ACCOUNT_TYPE = 'deleteAccount';
+export const DELETE_FB_DATA_TYPE = 'deleteFbData';

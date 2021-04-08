@@ -8,6 +8,8 @@ import {
 } from 'utils/web_integration/src/wallet/change-credentials/change-credentials';
 import { checkFacebookIdService } from 'utils/web_integration/src/wallet/facebook/facebook';
 
+import { DELETE_FB_DATA_TYPE } from 'utils/constants';
+
 import webIntegrationErrors from 'utils/web_integration/src/wallet/service-errors';
 import { WebIntegrationError } from 'utils/errors';
 
@@ -43,7 +45,12 @@ export function* checkFacebookIdWorker({ facebookUserId }) {
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
 
-    const response = yield call(checkFacebookIdService, facebookUserId, locale);
+    const response = yield call(
+      checkFacebookIdService,
+      facebookUserId,
+      locale,
+      DELETE_FB_DATA_TYPE,
+    );
 
     if (!response.OK) {
       throw new WebIntegrationError(
@@ -73,6 +80,7 @@ export function* ConfirmFbDataDeletionWorker({ verificationCode }) {
       changeCredentialsConfirm,
       email,
       verificationCode,
+      DELETE_FB_DATA_TYPE,
     );
 
     if (!response.OK) {
