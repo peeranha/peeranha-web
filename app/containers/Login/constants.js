@@ -48,6 +48,7 @@ export const SCATTER_BROWSER_EXTENSION_NOT_CONFIGURED =
 export const USER_IS_NOT_SELECTED = 'USER_IS_NOT_SELECTED';
 export const USER_IS_NOT_REGISTERED = 'USER_IS_NOT_REGISTERED';
 export const FACEBOOK_AUTOLOGIN_ERROR = 'FACEBOOK_AUTOLOGIN_ERROR';
+export const FACEBOOK_LOGIN_ERROR = 'FACEBOOK_LOGIN_ERROR';
 
 // Local storage
 export const AUTOLOGIN_DATA = 'peeranhaAutoLogin';
@@ -65,4 +66,6 @@ export const AUTOLOGIN_WITH_FACEBOOK =
 export const SET_FACEBOOK_USER_DATA =
   'app/containers/Login/SET_FACEBOOK_USER_DATA';
 
-export const FACEBOOK_ERROR = 'app/containers/Login/FACEBOOK_ERROR';
+export const FB_LOGIN_ERROR = 'app/containers/Login/FB_LOGIN_ERROR';
+export const HANDLE_FB_LOGIN_ERROR =
+  'app/containers/Login/HANDLE_FB_LOGIN_ERROR';

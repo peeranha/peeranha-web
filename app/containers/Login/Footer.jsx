@@ -5,7 +5,8 @@ import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import isMobile from 'ismobilejs';
-import FacebookLogin from 'react-facebook-login';
+
+import { onFacebookSdkInit } from 'utils/facebook';
 
 import { TEXT_DARK, BG_LIGHT, TEXT_SECONDARY } from 'style-constants';
 import messages from 'common-messages';
@@ -15,14 +16,16 @@ import sqrlLogo from 'images/sqrl.svg?inline';
 import wombatLogo from 'images/wombat.png';
 import keycatLogo from 'images/keycat.svg?external';
 import keycatTextLogo from 'images/keycatText.svg?external';
+import facebookLetter from 'images/facebook-letter-logo.svg?inline';
 
 import Button from 'components/Button/Outlined/SecondaryLarge';
 import Icon from 'components/Icon';
 import IdontHaveAnAccount from './IdontHaveAnAccount';
 import { selectFacebookLoginProcessing } from './selectors';
 import {
-  handleFacebookButtonClick,
-  handleFacebookLoginCallback,
+  handleFbButtonClick,
+  handleFbLoginCallback,
+  handleFbLoginError,
 } from './actions';
 
 const Box = styled.div`
@@ -89,6 +92,18 @@ const Heading = styled.div`
   }
 `;
 
+const FacebookButton = styled(Button)`
+  background-color: #4267b2;
+  color: #ffffff;
+  font-size: 1rem;
+  font-family: Source Sans Pro, sans-serif;
+
+  img {
+    margin-right: 14px;
+    height: 16px;
+  }
+`;
+
 export const LoginViaScatter = ({ action, processing, isMobileDevice }) => (
   <WalletButton onClick={action || null} disabled={processing}>
     {!isMobileDevice && <img src={scatterLogo} alt="scatter" />}
@@ -121,8 +136,9 @@ const Footer = ({
   showWalletSignUpProcessing,
   loginWithEmailProcessing,
   emailVerificationProcessing,
-  handleFacebookButtonClickDispatch,
-  handleFacebookLoginCallbackDispatch,
+  handleFbButtonClickDispatch,
+  handleFbLoginCallbackDispatch,
+  handleFbLoginErrorDispatch,
   facebookLoginProcessing,
   emailChecking,
   signUpText = null,
@@ -138,6 +154,15 @@ const Footer = ({
     [walletAction],
   );
 
+  const onFbButtonClick = () => {
+    handleFbButtonClickDispatch();
+
+    const onSuccessCallBack = data =>
+      handleFbLoginCallbackDispatch(data, !signUpText);
+
+    onFacebookSdkInit(onSuccessCallBack, handleFbLoginErrorDispatch);
+  };
+
   const processing =
     loginWithWalletProcessing ||
     showWalletSignUpProcessing ||
@@ -145,9 +170,6 @@ const Footer = ({
     emailVerificationProcessing ||
     loginWithEmailProcessing ||
     facebookLoginProcessing;
-
-  const onCallback = data =>
-    handleFacebookLoginCallbackDispatch(data, !signUpText);
 
   return (
     <Box>
@@ -171,18 +193,10 @@ const Footer = ({
       </Heading>
 
       <div className="d-flex justify-content-center" id="fb-root">
-        <FacebookLogin
-          cssClass="fb-login-button"
-          appId={process.env.FACEBOOK_APP_ID}
-          scope="email"
-          fields="name,email,picture"
-          icon="fa-facebook"
-          textButton="Facebook"
-          isDisabled={processing}
-          callback={onCallback}
-          // textButton={`${signUpText ? 'Register' : 'Login'} with Facebook`}
-          onClick={handleFacebookButtonClickDispatch}
-        />
+        <FacebookButton onClick={onFbButtonClick} disabled={processing}>
+          <img src={facebookLetter} alt="FB" />
+          <FormattedMessage {...messages.facebookButton} />
+        </FacebookButton>
       </div>
 
       {!signUpText && (
@@ -201,14 +215,16 @@ const Footer = ({
 Footer.propTypes = {
   walletAction: PropTypes.func,
   facebookLoginProcessing: PropTypes.bool,
-  handleFacebookButtonClickDispatch: PropTypes.func,
-  handleFacebookLoginCallbackDispatch: PropTypes.func,
+  handleFbButtonClickDispatch: PropTypes.func,
+  handleFbLoginCallbackDispatch: PropTypes.func,
+  handleFbLoginErrorDispatch: PropTypes.func,
   loginWithWalletProcessing: PropTypes.bool,
   showWalletSignUpProcessing: PropTypes.bool,
   loginWithEmailProcessing: PropTypes.bool,
   emailVerificationProcessing: PropTypes.bool,
   emailChecking: PropTypes.bool,
   signUpText: PropTypes.element,
+  locale: PropTypes.string,
 };
 
 export default React.memo(
@@ -217,12 +233,16 @@ export default React.memo(
       facebookLoginProcessing: selectFacebookLoginProcessing()(state),
     }),
     dispatch => ({
-      handleFacebookButtonClickDispatch: bindActionCreators(
-        handleFacebookButtonClick,
+      handleFbButtonClickDispatch: bindActionCreators(
+        handleFbButtonClick,
         dispatch,
       ),
-      handleFacebookLoginCallbackDispatch: bindActionCreators(
-        handleFacebookLoginCallback,
+      handleFbLoginCallbackDispatch: bindActionCreators(
+        handleFbLoginCallback,
+        dispatch,
+      ),
+      handleFbLoginErrorDispatch: bindActionCreators(
+        handleFbLoginError,
         dispatch,
       ),
     }),

@@ -273,6 +273,7 @@
   "app.common.globalModerator": "Global moderator",
 
   "app.common.verifyFacebookAccount": "Account verification",
+  "app.common.facebookButton": "Facebook",
   "app.containers.DeleteFacebookData.deleteFacebookDataTitle":
     "Delete facebook data",
   "app.containers.DeleteFacebookData.pageToCheckFacebookId":
@@ -827,6 +828,7 @@
   "app.containers.Login.userIsNotSelected": "User is not selected",
   "app.containers.Login.fbAutologinError":
     "Could not auto login with facebook account",
+  "app.containers.Login.fbLoginError": "Could not login with facebook account",
   "app.containers.Login.weAreHappyYouAreHere": "We are happy, you are here",
   "app.containers.Login.yourUsernameIsHow":
     "The username is how you'll be known on Peeranha.",

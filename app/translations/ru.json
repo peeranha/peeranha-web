@@ -279,6 +279,7 @@
   "app.common.globalModerator": "Глобальный модератор",
 
   "app.common.verifyFacebookAccount": "Проверка аккаунта",
+  "app.common.facebookButton": "Фейсбук",
   "app.containers.DeleteFacebookData.deleteFacebookDataTitle":
     "Удаление данных фесбук",
   "app.containers.DeleteFacebookData.pageToCheckFacebookId":
@@ -840,7 +841,8 @@
   "app.containers.Login.userIsNotRegistered": "Пользователь не зарегистрирован",
   "app.containers.Login.userIsNotSelected": "Пользователь не выбран",
   "app.containers.Login.fbAutologinError":
-    "Ошибка инициализации приложения с фейсбук аккаунтом",
+    "Ошибка автоинициализации приложения с фейсбук аккаунтом",
+  "app.containers.Login.fbLoginError": "Ошибка логинизации с фейсбук аккаунтом",
   "app.containers.Login.weAreHappyYouAreHere": "Мы рады, что вы с нами!",
   "app.containers.Login.yourUsernameIsHow":
     "Имя, которое будет у Вас в Peeranha.",

@@ -24,7 +24,7 @@ import {
   LOGIN_WITH_WALLET_ERROR,
   FACEBOOK_LOGIN_PROCESSING,
   SET_FACEBOOK_USER_DATA,
-  FACEBOOK_ERROR,
+  FB_LOGIN_ERROR,
 } from './constants';
 
 export const initialState = fromJS({
@@ -112,7 +112,7 @@ function loginReducer(state = initialState, action) {
       return state.set('facebookLoginProcessing', facebookLoginProcessing);
     case SET_FACEBOOK_USER_DATA:
       return state.set('facebookUserData', facebookUserData);
-    case FACEBOOK_ERROR:
+    case FB_LOGIN_ERROR:
       return state.set('facebookError', facebookError);
 
     default:
