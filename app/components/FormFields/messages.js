@@ -25,6 +25,9 @@ export default defineMessages({
   requiredAndNotZeroField: {
     id: 'app.components.FormFields.requiredAndNotZeroField',
   },
+  requiredNonZeroInteger: {
+    id: 'app.components.FormFields.requiredNonZeroInteger',
+  },
   fileSize: {
     id: 'app.components.FormFields.fileSize',
   },

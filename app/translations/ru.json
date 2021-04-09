@@ -261,8 +261,12 @@
     "Фейсбук аккаунт ещё не зарегистрирован",
   "web_integration.errors.incorrectFacebookAccessToken":
     "Некорректный токен доступа фейсбук",
+  "web_integration.errors.noStoredFacebookData":
+    "В Пиранье нет сохраненных данных заданного фейсбук-аккаунта",
   "web_integration.errors.privateKeyTypeIsNotSet":
     "Не задан тип приватного ключа",
+  "web_integration.errors.noFacebookAccountEmail":
+    "В учетной записи фесбук не установлена электронная почта, либо электронная почта не подтвержена",
 
   "app.containers.Header.walletTooltipPart1": "Вам доступны ",
   "app.containers.Header.walletTooltipPart2": " поощрений",
@@ -275,6 +279,39 @@
   "app.common.globalModerator": "Глобальный модератор",
 
   "app.common.verifyFacebookAccount": "Проверка аккаунта",
+  "app.common.facebookButton": "Фейсбук",
+  "app.containers.DeleteFacebookData.deleteFacebookDataTitle":
+    "Удаление данных фесбук",
+  "app.containers.DeleteFacebookData.pageToCheckFacebookId":
+    "Эта страница помжет Вам проверить, хранит ли Пиранья ваши данные учетной записи фесбук, а также удалить их.",
+  "app.containers.DeleteFacebookData.checkFacebookId":
+    "Пожалуйста, введите ID вашей учетной записи фейсбук и нажмите кнопку 'Проверить ID'.",
+  "app.containers.DeleteFacebookData.ifDataStored":
+    "Если есть сохраненные данные, мы отправим Вам на почту код подтвеждения для продолжения удаления.",
+  "app.containers.DeleteFacebookData.enterYourFacebookId":
+    "Введите ID учетной записи фейсбук",
+  "app.containers.DeleteFacebookData.facebookUserId": "Фейсбук ID",
+  "app.containers.DeleteFacebookData.checkId": "Проверить ID",
+  "app.containers.DeleteFacebookData.completeDeletionPage":
+    "Эта страница поможет Вам завершить удаление данных фейсбук.",
+  "app.containers.DeleteFacebookData.completeDeletion":
+    "Для завершения удаления данных, пожалуйста, введите код подтверждения, которых вы получили по почте, и нажмите кнопку 'Подтвердить удаление'.",
+  "app.containers.DeleteFacebookData.ifCodeHasExpired":
+    "Если истек срок действия кода или он является неверным, нажмите кнопку 'Отправить другой код'. На вашу почту будет отправлен новый код.",
+  "app.containers.DeleteFacebookData.contactSupprortTeam":
+    "Если Вам не удается удалить данные, свяжитесь с нашей ",
+  "app.containers.DeleteFacebookData.supportTeam": "службой поддержки",
+  "app.containers.DeleteFacebookData.enterYourCode":
+    "Введите код подтверждения",
+  "app.containers.DeleteFacebookData.fbDelDataCompletedTitle":
+    "Удаление данных завершено",
+  "app.containers.DeleteFacebookData.fbDataDeletionCompleted":
+    "Поздравляем! Мы завершили удаление ваший данных фесбук-аккаунта.",
+  "app.containers.DeleteFacebookData.noStoredDataNow":
+    "Мы больше не храним никаких данных о вашем учетной записи фейсбук.",
+  "app.containers.DeleteFacebookData.congratulations":
+    "Поздравляем! Удаление данных успешно завершено!",
+  "app.containers.DeleteFacebookData.confirmDeletion": "Подтвердить удаление",
 
   "app.containers.Moderation.permissionInfinite": "Безграничное воздействие",
   "app.containers.Moderation.permissionInfiniteDescription":
@@ -737,6 +774,8 @@
     "Вы не можете оставить это поле пустым",
   "app.components.FormFields.requiredAndNotZeroField":
     "Вы не можете оставить 0 в этом поле",
+  "app.components.FormFields.requiredNonZeroInteger":
+    "Введите целочисленной значение, отличное от нуля",
   "app.components.FormFields.wrongNumberRange":
     "Должно быть как минимум {min}, но не более {max}",
   "app.components.FormFields.wrongLength":
@@ -802,7 +841,8 @@
   "app.containers.Login.userIsNotRegistered": "Пользователь не зарегистрирован",
   "app.containers.Login.userIsNotSelected": "Пользователь не выбран",
   "app.containers.Login.fbAutologinError":
-    "Ошибка инициализации приложения с фейсбук аккаунтом",
+    "Ошибка автоинициализации приложения с фейсбук аккаунтом",
+  "app.containers.Login.fbLoginError": "Ошибка логинизации с фейсбук аккаунтом",
   "app.containers.Login.weAreHappyYouAreHere": "Мы рады, что вы с нами!",
   "app.containers.Login.yourUsernameIsHow":
     "Имя, которое будет у Вас в Peeranha.",

@@ -468,4 +468,7 @@ export default defineMessages({
   verifyFacebookAccount: {
     id: 'app.common.verifyFacebookAccount',
   },
+  facebookButton: {
+    id: 'app.common.facebookButton',
+  },
 });

@@ -12,7 +12,7 @@ import { sendTokens } from 'utils/walletManagement';
 import { login } from 'utils/web_integration/src/wallet/login/login';
 import webIntegrationErrors from 'utils/web_integration/src/wallet/service-errors';
 import { WebIntegrationError } from 'utils/errors';
-import { SEND_TIPS_SCATTER_APP_NAME } from 'utils/constants';
+import { SEND_TIPS_SCATTER_APP_NAME, SEND_TIPS_TYPE } from 'utils/constants';
 import { getCookie, setCookie } from 'utils/cookie';
 import Eosio from 'utils/eosio';
 import {
@@ -20,10 +20,8 @@ import {
   NOTIFICATIONS_TIPS_SERVICE,
 } from 'utils/web_integration/src/util/aws-connector';
 
-import {
-  changeCredentialsConfirm,
-  sendFbVerificationCode,
-} from 'utils/web_integration/src/wallet/change-credentials/change-credentials';
+import { changeCredentialsConfirm } from 'utils/web_integration/src/wallet/change-credentials/change-credentials';
+import { sendFbVerificationCode } from 'utils/web_integration/src/wallet/facebook/facebook';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import {
@@ -347,9 +345,14 @@ export function* sendEmailWorker() {
   try {
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
-    const { id, email } = yield select(selectFacebookUserData());
+    const { id } = yield select(selectFacebookUserData());
 
-    const response = yield call(sendFbVerificationCode, id, email, locale);
+    const response = yield call(
+      sendFbVerificationCode,
+      id,
+      locale,
+      SEND_TIPS_TYPE,
+    );
 
     if (!response.OK) {
       throw new WebIntegrationError(
@@ -377,6 +380,7 @@ export function* verifyFacebookActionWorker({ verifyFormVals }) {
       changeCredentialsConfirm,
       email,
       verificationCode,
+      SEND_TIPS_TYPE,
     );
 
     if (!response.OK) {

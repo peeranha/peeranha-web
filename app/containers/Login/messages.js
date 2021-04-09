@@ -10,6 +10,7 @@ import {
   USER_IS_NOT_REGISTERED,
   USER_IS_NOT_SELECTED,
   FACEBOOK_AUTOLOGIN_ERROR,
+  FACEBOOK_LOGIN_ERROR,
 } from './constants';
 
 const messages = defineMessages({
@@ -48,6 +49,9 @@ const messages = defineMessages({
   },
   [FACEBOOK_AUTOLOGIN_ERROR]: {
     id: 'app.containers.Login.fbAutologinError',
+  },
+  [FACEBOOK_LOGIN_ERROR]: {
+    id: 'app.containers.Login.fbLoginError',
   },
   accountNotCreatedName: {
     id: 'app.containers.Login.accountNotCreatedName',

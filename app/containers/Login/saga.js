@@ -47,7 +47,7 @@ import {
   loginWithWalletErr,
   setFacebookLoginProcessing,
   setFacebookUserData,
-  addFacebookError,
+  facebookLoginErr,
 } from './actions';
 
 import {
@@ -67,6 +67,9 @@ import {
   FACEBOOK_LOGIN_BUTTON_CLICK,
   FACEBOOK_LOGIN_DATA_RECEIVE,
   AUTOLOGIN_WITH_FACEBOOK,
+  HANDLE_FB_LOGIN_ERROR,
+  FACEBOOK_LOGIN_ERROR,
+  FACEBOOK_AUTOLOGIN_ERROR,
 } from './constants';
 
 import messages, { getAccountNotSelectedMessageDescriptor } from './messages';
@@ -74,7 +77,7 @@ import { makeSelectEosAccount, selectFacebookUserData } from './selectors';
 import { addToast } from '../Toast/actions';
 import { initEosioSuccess } from '../EosioProvider/actions';
 import { getNotificationsInfoWorker } from '../../components/Notifications/saga';
-import { addLoginData } from '../AccountProvider/actions';
+import { addLoginData, getCurrentAccount } from '../AccountProvider/actions';
 
 import {
   callService,
@@ -390,7 +393,7 @@ export function* loginWithFacebookWorker({ data }) {
       },
     });
   } catch (err) {
-    yield put(addFacebookError(err));
+    yield put(facebookLoginErr(err));
   }
 }
 
@@ -424,12 +427,33 @@ export function* facebookLoginCallbackWorker({ data, isLogin }) {
       throw new Error(JSON.stringify(data));
     }
   } catch (e) {
-    yield put(addFacebookError(e));
+    yield put(facebookLoginErr(e));
     if (data.userID) {
       window.FB.logout();
     }
   } finally {
     yield put(setFacebookLoginProcessing(false));
+  }
+}
+
+export function* fbLoginErrorCallbackWorker({ autoLogin }) {
+  try {
+    const locale = yield select(makeSelectLocale());
+    const translations = translationMessages[locale];
+
+    if (autoLogin) {
+      yield put(getCurrentAccount());
+      throw new WebIntegrationError(
+        translations[messages[FACEBOOK_AUTOLOGIN_ERROR].id],
+      );
+    }
+
+    yield put(setFacebookLoginProcessing(false));
+    throw new WebIntegrationError(
+      translations[messages[FACEBOOK_LOGIN_ERROR].id],
+    );
+  } catch (err) {
+    yield put(facebookLoginErr(err));
   }
 }
 
@@ -443,4 +467,5 @@ export default function*() {
   );
   yield takeLatest(FACEBOOK_LOGIN_DATA_RECEIVE, facebookLoginCallbackWorker);
   yield takeLatest(AUTOLOGIN_WITH_FACEBOOK, loginWithFacebookWorker);
+  yield takeLatest(HANDLE_FB_LOGIN_ERROR, fbLoginErrorCallbackWorker);
 }

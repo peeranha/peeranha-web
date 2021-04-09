@@ -12,10 +12,13 @@ export const HIDE_DELETE_ACCOUNT_MODAL =
   'app/DeleteAccount/HIDE_DELETE_ACCOUNT_MODAL';
 
 export const SEND_EMAIL = 'app/DeleteAccount/SEND_EMAIL';
+export const SEND_VERIFY_FB_EMAIL = 'app/DeleteAccount/SEND_VERIFY_FB_EMAIL';
 export const SEND_EMAIL_SUCCESS = 'app/DeleteAccount/SEND_EMAIL_SUCCESS';
 export const SEND_EMAIL_ERROR = 'app/DeleteAccount/SEND_EMAIL_ERROR';
 
 export const DELETE_ACCOUNT = 'app/DeleteAccount/DELETE_ACCOUNT';
+export const DELETE_FACEBOOK_ACCOUNT =
+  'app/DeleteAccount/DELETE_FACEBOOK_ACCOUNT';
 export const DELETE_ACCOUNT_SUCCESS =
   'app/DeleteAccount/DELETE_ACCOUNT_SUCCESS';
 export const DELETE_ACCOUNT_ERROR = 'app/DeleteAccount/DELETE_ACCOUNT_ERROR';

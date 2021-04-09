@@ -10,16 +10,17 @@ import {
 import webIntegrationErrors from 'utils/web_integration/src/wallet/service-errors';
 import { WebIntegrationError } from 'utils/errors';
 
+import { changeCredentialsConfirm } from 'utils/web_integration/src/wallet/change-credentials/change-credentials';
 import {
-  changeCredentialsConfirm,
   getFacebookUserPrivateKey,
   sendFbVerificationCode,
-} from 'utils/web_integration/src/wallet/change-credentials/change-credentials';
+} from 'utils/web_integration/src/wallet/facebook/facebook';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectLoginData } from 'containers/AccountProvider/selectors';
 import { selectFacebookUserData } from 'containers/Login/selectors';
 
+import { SHOW_OWNER_KEY_TYPE } from 'utils/constants';
 import {
   VERIFY_FB_ACTION_FORM,
   FB_VERIFICATION_CODE_FIELD,
@@ -97,9 +98,14 @@ export function* sendFacebookEmailWorker() {
   try {
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
-    const { id, email } = yield select(selectFacebookUserData());
+    const { id } = yield select(selectFacebookUserData());
 
-    const response = yield call(sendFbVerificationCode, id, email, locale);
+    const response = yield call(
+      sendFbVerificationCode,
+      id,
+      locale,
+      SHOW_OWNER_KEY_TYPE,
+    );
 
     if (!response.OK) {
       throw new WebIntegrationError(
@@ -127,6 +133,7 @@ export function* verifyFacebookActionWorker({ verifyFormVals }) {
       changeCredentialsConfirm,
       email,
       verificationCode,
+      SHOW_OWNER_KEY_TYPE,
     );
 
     if (!response.OK) {

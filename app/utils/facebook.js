@@ -1,5 +1,3 @@
-import { WebIntegrationError } from './errors';
-
 export function loadSdkAsynchronously(language = 'en_US') {
   ((d, s, id) => {
     const element = d.getElementsByTagName(s)[0];
@@ -24,23 +22,17 @@ export function initializeAppInFB() {
   });
 }
 
-export const logInUserOnFacebook = (
-  autoLoginWithFacebookDispatch,
-  getCurrentAccountDispatch,
-  addFacebookErrorDispatch,
-  fbConnectErrMsg,
-) => {
+export const logInUserOnFacebook = (onSuccessCallBack, onErrorCallBack) => {
   window.FB.getLoginStatus(response => {
     if (response.status === 'connected') {
-      fbGraph(autoLoginWithFacebookDispatch, response.authResponse);
+      fbGraph(onSuccessCallBack, response.authResponse);
     } else {
       window.FB.login(
         loginResponse => {
           if (loginResponse.status === 'connected') {
-            fbGraph(autoLoginWithFacebookDispatch, loginResponse.authResponse);
+            fbGraph(onSuccessCallBack, loginResponse.authResponse);
           } else {
-            addFacebookErrorDispatch(new WebIntegrationError(fbConnectErrMsg));
-            getCurrentAccountDispatch();
+            onErrorCallBack();
           }
         },
         {
@@ -52,44 +44,29 @@ export const logInUserOnFacebook = (
   });
 };
 
-function fbGraph(autoLoginWithFacebookDispatch, authResponse) {
+function fbGraph(onSuccessCallBack, authResponse) {
   window.FB.api(
     '/me',
     'GET',
     { fields: 'id,name,email,picture' },
     fbGraphResponse => {
-      autoLoginWithFacebookDispatch({ ...authResponse, ...fbGraphResponse });
+      onSuccessCallBack({ ...authResponse, ...fbGraphResponse });
     },
   );
 }
 
-export function onFacebookSdkInit(
-  autoLoginWithFacebookDispatch,
-  getCurrentAccountDispatch,
-  addFacebookErrorDispatch,
-  fbConnectErrMsg,
-) {
+export function onFacebookSdkInit(onSuccessCallBack, onErrorCallBack) {
   if (window.FB) {
     initializeAppInFB();
 
-    logInUserOnFacebook(
-      autoLoginWithFacebookDispatch,
-      getCurrentAccountDispatch,
-      addFacebookErrorDispatch,
-      fbConnectErrMsg,
-    );
+    logInUserOnFacebook(onSuccessCallBack, onErrorCallBack);
   } else {
     // load facebook sdk
     loadSdkAsynchronously();
     window.fbAsyncInit = () => {
       initializeAppInFB();
 
-      logInUserOnFacebook(
-        autoLoginWithFacebookDispatch,
-        getCurrentAccountDispatch,
-        addFacebookErrorDispatch,
-        fbConnectErrMsg,
-      );
+      logInUserOnFacebook(onSuccessCallBack, onErrorCallBack);
     };
   }
 }

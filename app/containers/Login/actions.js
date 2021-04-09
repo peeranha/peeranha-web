@@ -24,7 +24,8 @@ import {
   FACEBOOK_LOGIN_DATA_RECEIVE,
   AUTOLOGIN_WITH_FACEBOOK,
   SET_FACEBOOK_USER_DATA,
-  FACEBOOK_ERROR,
+  FB_LOGIN_ERROR,
+  HANDLE_FB_LOGIN_ERROR,
 } from './constants';
 
 // Show | Hide (modal)
@@ -129,11 +130,11 @@ export const setFacebookLoginProcessing = facebookLoginProcessing => ({
   facebookLoginProcessing,
 });
 
-export const handleFacebookButtonClick = () => ({
+export const handleFbButtonClick = () => ({
   type: FACEBOOK_LOGIN_BUTTON_CLICK,
 });
 
-export const handleFacebookLoginCallback = (data, isLogin) => ({
+export const handleFbLoginCallback = (data, isLogin) => ({
   type: FACEBOOK_LOGIN_DATA_RECEIVE,
   data,
   isLogin,
@@ -150,7 +151,12 @@ export const setFacebookUserData = facebookUserData => ({
   facebookUserData,
 });
 
-export const addFacebookError = facebookError => ({
-  type: FACEBOOK_ERROR,
+export const facebookLoginErr = facebookError => ({
+  type: FB_LOGIN_ERROR,
   facebookError,
+});
+
+export const handleFbLoginError = (autoLogin = false) => ({
+  type: HANDLE_FB_LOGIN_ERROR,
+  autoLogin,
 });

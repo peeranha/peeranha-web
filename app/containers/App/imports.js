@@ -49,6 +49,10 @@ const SuggestedCommunities = React.lazy(() =>
   import('components/SuggestedCommunities'),
 );
 
+const DeleteFacebookData = React.lazy(() =>
+  import('containers/DeleteFacebookData'),
+);
+
 export {
   EditCommunity,
   HomePage,
@@ -92,4 +96,5 @@ export {
   PrivacyPolicy,
   FullWidthPreloader,
   TermsOfService,
+  DeleteFacebookData,
 };

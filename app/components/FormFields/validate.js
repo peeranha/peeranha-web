@@ -105,7 +105,14 @@ const requiredAndNotZero = value => {
 };
 
 const requiredForNumericalField = value =>
-  value === '' || Number(value) < 0 ? messages.requiredField : undefined;
+  value === '' || !Number.isFinite(value) || Number(value) < 0
+    ? messages.requiredField
+    : undefined;
+
+const requiredNonZeroInteger = value =>
+  (value && value.trim() === '') || !Number.isInteger(Number(value))
+    ? messages.requiredNonZeroInteger
+    : undefined;
 
 const requiredForObjectField = value => {
   const val = value && value.toJS ? value.toJS() : value;
@@ -251,6 +258,7 @@ export {
   requiredAndNotZero,
   requiredForObjectField,
   requiredForNumericalField,
+  requiredNonZeroInteger,
   strLength1x5,
   strLength1x1000,
   strLength2x15,
