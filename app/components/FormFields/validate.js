@@ -105,7 +105,7 @@ const requiredAndNotZero = value => {
 };
 
 const requiredForNumericalField = value =>
-  value === '' || !Number.isFinite(value) || Number(value) < 0
+  value === '' || Number.isFinite(value) || Number(value) < 0
     ? messages.requiredField
     : undefined;
 
