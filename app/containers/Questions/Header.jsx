@@ -67,11 +67,6 @@ export const Header = ({
     defaultAvatarWidth = '38';
   }
 
-  const displayQuestionFilter = useMemo(
-    () => !!single && topQuestionsInfoLoaded && !!topQuestions.length,
-    [single, topQuestionsInfoLoaded, topQuestions.length],
-  );
-
   /* eslint react/prop-types: 0 */
   const Button = ({ communityAvatar, communityLabel }) => (
     <H3>
@@ -124,10 +119,7 @@ export const Header = ({
           </PageContentHeaderRightPanel>
         )}
       </PageContentHeader>
-      <QuestionFilter
-        display={displayQuestionFilter}
-        questionFilterFromCookies={questionFilterFromCookies}
-      />
+      <QuestionFilter questionFilterFromCookies={questionFilterFromCookies} />
     </Wrapper>
   );
 };
