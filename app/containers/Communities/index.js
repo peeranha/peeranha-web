@@ -17,8 +17,14 @@ import {
   selectCommunitiesLoading,
 } from 'containers/DataCacheProvider/selectors';
 
-import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
-import { redirectToCreateCommunity } from 'containers/CreateCommunity/actions';
+import {
+  makeSelectProfileInfo,
+  selectIsInvitedBlogger,
+} from 'containers/AccountProvider/selectors';
+import {
+  redirectByInvitation,
+  redirectToCreateCommunity,
+} from 'containers/CreateCommunity/actions';
 
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 import AsideBox from 'components/Base/Aside';
@@ -39,6 +45,11 @@ import languages from './languagesOptions';
 
 import Header from './Header';
 import Banner from './Banner';
+import { makeSelectShowModal } from '../Login/selectors';
+
+const createCommunityByInvitationRoute = routes.communitiesCreateByInvite(
+  ':user',
+);
 
 export const Communities = ({
   locale,
@@ -56,12 +67,25 @@ export const Communities = ({
   route,
   getSuggestedCommunitiesDispatch,
   profile,
+  redirectByInvitationDispatch,
+  isInvitedBlogger,
 }) => {
   const [language, setLanguage] = useState(languages.all);
+  const path = `/${window.location.pathname.split('/')[1]}/`;
 
   useEffect(() => {
     getSuggestedCommunitiesDispatch();
   }, []);
+
+  useEffect(() => {
+    if (path === routes.communitiesCreateByInvite('')) {
+      redirectByInvitationDispatch();
+    }
+  }, []);
+
+  if (isInvitedBlogger) {
+    redirectByInvitationDispatch();
+  }
 
   const keywords = useMemo(() => communities.map(x => x.name), [communities]);
 
@@ -161,6 +185,7 @@ export default memo(
         suggestedCommunities: selectSuggestedCommunities(),
         suggestedCommunitiesLoading: selectSuggestedCommunitiesLoading(),
         isLastFetch: selectIsLastFetch(),
+        isInvitedBlogger: selectIsInvitedBlogger(),
       }),
       dispatch => ({
         redirectToCreateCommunityDispatch: bindActionCreators(
@@ -169,6 +194,10 @@ export default memo(
         ),
         getSuggestedCommunitiesDispatch: bindActionCreators(
           getSuggestedCommunities,
+          dispatch,
+        ),
+        redirectByInvitationDispatch: bindActionCreators(
+          redirectByInvitation,
           dispatch,
         ),
       }),

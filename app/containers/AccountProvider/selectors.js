@@ -3,7 +3,11 @@ import { createSelector } from 'reselect';
 import { getCookie } from 'utils/cookie';
 import { selectUsers } from 'containers/DataCacheProvider/selectors';
 import { AUTOLOGIN_DATA } from 'containers/Login/constants';
-import { MODERATOR_KEY } from 'utils/constants';
+import {
+  MODERATOR_KEY,
+  PROPERTY_INVITED_BLOGGER,
+  PROPERTY_INVITED_BLOGGER_ACTIVE,
+} from 'utils/constants';
 
 import { initialState } from './reducer';
 
@@ -102,6 +106,19 @@ const selectIsGlobalModerator = () =>
     },
   );
 
+const selectIsInvitedBlogger = () =>
+  createSelector(
+    state => state,
+    state => {
+      const profileInfo = makeSelectProfileInfo()(state);
+      return !!profileInfo?.['integer_properties'].find(
+        x =>
+          x.key === PROPERTY_INVITED_BLOGGER &&
+          x.value === PROPERTY_INVITED_BLOGGER_ACTIVE,
+      );
+    },
+  );
+
 const selectPermissions = () =>
   createSelector(
     state => state,
@@ -138,5 +155,6 @@ export {
   selectUserRating,
   selectUserEnergy,
   selectIsGlobalModerator,
+  selectIsInvitedBlogger,
   selectPermissions,
 };

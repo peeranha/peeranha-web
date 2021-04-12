@@ -23,7 +23,10 @@ import Loader from 'components/LoadingIndicator/WidthCentered';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
-import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
+import {
+  makeSelectProfileInfo,
+  selectIsInvitedBlogger,
+} from 'containers/AccountProvider/selectors';
 
 import {
   WHAT_IS_COMMUNITY_QUESTION,
@@ -77,6 +80,7 @@ export const CreateCommunity = ({
   getFormDispatch,
   isFormAvailable,
   profile,
+  isInvitedBlogger,
 }) => {
   useEffect(() => {
     setDefaultStoreDispatch();
@@ -125,6 +129,7 @@ export const CreateCommunity = ({
     translations: translationMessages[locale],
     locale,
     profile,
+    isInvitedBlogger,
   };
 
   const path = window.location.pathname + window.location.hash;
@@ -179,6 +184,7 @@ const withConnect = connect(
     isFormLoading: selectors.selectIsFormLoading(),
     isFormAvailable: selectors.selectIsFormAvailable(),
     profile: makeSelectProfileInfo(),
+    isInvitedBlogger: selectIsInvitedBlogger(),
   }),
   dispatch => ({
     createCommunityDispatch: bindActionCreators(createCommunity, dispatch),

@@ -194,6 +194,11 @@ const App = ({
         )}
 
         <Route
+          path={routes.communitiesCreateByInvite(':user')}
+          render={props => Wrapper(Communities, props)}
+        />
+
+        <Route
           path={routes.communitiesEdit(':communityId')}
           render={props => Wrapper(EditCommunity, props)}
         />

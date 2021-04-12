@@ -87,6 +87,7 @@ const CreateCommunityForm = ({
   formValues,
   intl,
   profile,
+  isInvitedBlogger,
 }) => {
   const [tags, changeTags] = useState(DEFAULT_TAGS_ARRAY);
 
@@ -181,16 +182,17 @@ const CreateCommunityForm = ({
           splitInHalf
         />
 
-        {profileWithModeratorRights && (
-          <TypeForm
-            locale={locale}
-            change={change}
-            formValues={formValues}
-            intl={intl}
-          />
-        )}
+        {profileWithModeratorRights &&
+          !isInvitedBlogger && (
+            <TypeForm
+              locale={locale}
+              change={change}
+              formValues={formValues}
+              intl={intl}
+            />
+          )}
 
-        <CommunityTypeForm change={change} intl={intl} />
+        {!isInvitedBlogger && <CommunityTypeForm change={change} intl={intl} />}
 
         {+formValues[COMMUNITY_TYPE] ? (
           <BloggerModeForm
@@ -312,7 +314,7 @@ const FormCloneRedux = reduxForm({
 
 export default memo(
   injectIntl(
-    connect(state => {
+    connect((state, { isInvitedBlogger }) => {
       const form = state.toJS().form[FORM_NAME] || { values: {} };
 
       if (form.values && form.values.tags) {
@@ -333,6 +335,7 @@ export default memo(
           [MAIN_COLOR_FIELD]: PEER_PRIMARY_COLOR,
           [HIGHLIGHT_COLOR_FIELD]: PEER_WARNING_COLOR,
           [FORM_TYPE]: ANY_TYPE,
+          [COMMUNITY_TYPE]: !!isInvitedBlogger,
         },
       };
     })(FormCloneRedux),

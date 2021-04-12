@@ -12,6 +12,7 @@ import {
   selectUserEnergy,
   makeSelectAccount,
   selectIsGlobalModerator,
+  selectIsInvitedBlogger,
 } from 'containers/AccountProvider/selectors';
 
 import { getSuggestedCommunities } from 'containers/Communities/actions';
@@ -52,8 +53,9 @@ export function* createCommunityWorker({ community, reset }) {
 }
 
 export function* checkReadinessWorker({ buttonId }) {
+  console.log('check');
   yield call(isAuthorized);
-
+  console.log('check');
   yield call(isValid, {
     buttonId: buttonId || CREATE_COMMUNITY_BUTTON,
     minRating: MIN_RATING_TO_CREATE_COMMUNITY,
@@ -65,6 +67,14 @@ export function* checkReadinessWorker({ buttonId }) {
 export function* redirectToCreateCommunityWorker({ buttonId }) {
   try {
     yield call(checkReadinessWorker, { buttonId });
+    const account = yield select(makeSelectAccount());
+    if (account) yield call(createdHistory.push, routes.communitiesCreate());
+  } catch (err) {}
+}
+
+export function* redirectByInvitationWorker() {
+  try {
+    yield call(checkReadinessWorker, {});
     yield call(createdHistory.push, routes.communitiesCreate());
   } catch (err) {}
 }
@@ -77,12 +87,14 @@ export function* getFormWorker() {
     const userRating = yield select(selectUserRating());
     const userEnergy = yield select(selectUserEnergy());
     const isGlobalModerator = yield select(selectIsGlobalModerator());
+    const isInvitedBlogger = yield select(selectIsInvitedBlogger());
 
     if (
       !account ||
       ((userRating < MIN_RATING_TO_CREATE_COMMUNITY ||
         userEnergy < MIN_ENERGY_TO_CREATE_COMMUNITY) &&
-        !isGlobalModerator)
+        !isGlobalModerator &&
+        !isInvitedBlogger)
     ) {
       yield put(getFormSuccess(false));
     } else {

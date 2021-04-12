@@ -40,7 +40,10 @@ import {
 import { getQuestionDataSuccess } from '../ViewQuestion/actions';
 
 import { redirectToAskQuestionPageWorker } from 'containers/AskQuestion/saga';
-import { redirectToCreateCommunityWorker } from 'containers/CreateCommunity/saga';
+import {
+  redirectByInvitationWorker,
+  redirectToCreateCommunityWorker,
+} from 'containers/CreateCommunity/saga';
 import { redirectToCreateTagWorker } from 'containers/CreateTag/saga';
 import { redirectToEditQuestionPageWorker } from 'containers/EditQuestion/saga';
 import { redirectToEditAnswerPageWorker } from 'containers/EditAnswer/saga';
@@ -59,6 +62,8 @@ import {
   MODERATOR_KEY,
   REWARD_REFER,
   COMMUNITY_ADMIN_VALUE,
+  PROPERTY_INVITED_BLOGGER,
+  PROPERTY_INVITED_BLOGGER_ACTIVE,
 } from 'utils/constants';
 import { SHOW_WALLET_SIGNUP_FORM_SUCCESS } from 'containers/SignUp/constants';
 import {
@@ -67,6 +72,7 @@ import {
 } from 'containers/AskQuestion/constants';
 import {
   CREATE_COMMUNITY_SUCCESS,
+  REDIRECT_BY_INVITATION,
   REDIRECT_TO_CREATE_COMMUNITY,
 } from 'containers/CreateCommunity/constants';
 import {
@@ -312,10 +318,17 @@ export function* isAvailableAction(isValid, data = {}) {
       return true;
     }
 
+    const path = window.location.pathname + window.location.hash;
     if (
       profileInfo.permissions?.find(
         x => x.value == COMMUNITY_ADMIN_VALUE && x.community == communityID,
-      )
+      ) ||
+      (path === routes.communitiesCreateByInvite(profileInfo.user) &&
+        profileInfo.integer_properties?.find(
+          x =>
+            x.key === PROPERTY_INVITED_BLOGGER &&
+            x.value === PROPERTY_INVITED_BLOGGER_ACTIVE,
+        ))
     ) {
       return true;
     }
@@ -451,10 +464,7 @@ export function* getCommunityPropertyWorker(profile) {
     const eosService = yield select(selectEos);
 
     if (single) {
-      yield call(
-        setSingleCommunityDetails,
-        eosService,
-      );
+      yield call(setSingleCommunityDetails, eosService);
     }
 
     const info = yield call(
@@ -495,6 +505,7 @@ export default function* defaultSaga() {
     REDIRECT_TO_CREATE_COMMUNITY,
     redirectToCreateCommunityWorker,
   );
+  yield takeLatest(REDIRECT_BY_INVITATION, redirectByInvitationWorker);
   yield takeLatest(REDIRECT_TO_CREATE_TAG, redirectToCreateTagWorker);
   yield takeLatest(UPDATE_ACC_SUCCESS, updateStoredQuestionsWorker);
   yield takeLatest(
