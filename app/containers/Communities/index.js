@@ -17,10 +17,7 @@ import {
   selectCommunitiesLoading,
 } from 'containers/DataCacheProvider/selectors';
 
-import {
-  makeSelectProfileInfo,
-  selectIsInvitedBlogger,
-} from 'containers/AccountProvider/selectors';
+import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 import { redirectToCreateCommunity } from 'containers/CreateCommunity/actions';
 
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
@@ -164,7 +161,6 @@ export default memo(
         suggestedCommunities: selectSuggestedCommunities(),
         suggestedCommunitiesLoading: selectSuggestedCommunitiesLoading(),
         isLastFetch: selectIsLastFetch(),
-        isInvitedBlogger: selectIsInvitedBlogger(),
       }),
       dispatch => ({
         redirectToCreateCommunityDispatch: bindActionCreators(
