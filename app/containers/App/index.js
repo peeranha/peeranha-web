@@ -195,7 +195,7 @@ const App = ({
 
         <Route
           path={routes.communitiesCreateByInvite(':user')}
-          render={props => Wrapper(Communities, props)}
+          render={props => Wrapper(CreateCommunity, props)}
         />
 
         <Route

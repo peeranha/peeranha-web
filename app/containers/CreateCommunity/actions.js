@@ -8,7 +8,7 @@ import {
   GET_FORM_PROCESSING,
   GET_FORM_SUCCESS,
   GET_FORM_ERROR,
-  REDIRECT_BY_INVITATION,
+  CHECK_AUTHORISATION_BY_INVITATION,
 } from './constants';
 
 export function redirectToCreateCommunity(ev) {
@@ -18,9 +18,9 @@ export function redirectToCreateCommunity(ev) {
   };
 }
 
-export function redirectByInvitation() {
+export function checkAuthorisation() {
   return {
-    type: REDIRECT_BY_INVITATION,
+    type: CHECK_AUTHORISATION_BY_INVITATION,
   };
 }
 

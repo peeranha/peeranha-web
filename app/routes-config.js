@@ -81,6 +81,10 @@ export const termsAndConditions = section =>
   `/terms-and-conditions/${section ? `#${section}` : ''}`;
 
 export const communitiesCreate = () => `/communities/create`;
+
+export const communitiesCreateByInvite = user =>
+  `/communities/create-by-invite/${user}`;
+
 export const communitiesEdit = communityId =>
   !isBloggerMode ? `/communities/${communityId}/edit` : `/${communityId}/edit`;
 export const communitiesCreatedBanner = () => `/communities/create#banner`;

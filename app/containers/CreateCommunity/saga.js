@@ -53,9 +53,8 @@ export function* createCommunityWorker({ community, reset }) {
 }
 
 export function* checkReadinessWorker({ buttonId }) {
-  console.log('check');
   yield call(isAuthorized);
-  console.log('check');
+
   yield call(isValid, {
     buttonId: buttonId || CREATE_COMMUNITY_BUTTON,
     minRating: MIN_RATING_TO_CREATE_COMMUNITY,
@@ -72,10 +71,9 @@ export function* redirectToCreateCommunityWorker({ buttonId }) {
   } catch (err) {}
 }
 
-export function* redirectByInvitationWorker() {
+export function* checkAuthorisationByInvitationWorker() {
   try {
     yield call(checkReadinessWorker, {});
-    yield call(createdHistory.push, routes.communitiesCreate());
   } catch (err) {}
 }
 

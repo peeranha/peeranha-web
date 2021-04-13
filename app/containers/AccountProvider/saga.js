@@ -41,7 +41,7 @@ import { getQuestionDataSuccess } from '../ViewQuestion/actions';
 
 import { redirectToAskQuestionPageWorker } from 'containers/AskQuestion/saga';
 import {
-  redirectByInvitationWorker,
+  checkAuthorisationByInvitationWorker,
   redirectToCreateCommunityWorker,
 } from 'containers/CreateCommunity/saga';
 import { redirectToCreateTagWorker } from 'containers/CreateTag/saga';
@@ -72,7 +72,7 @@ import {
 } from 'containers/AskQuestion/constants';
 import {
   CREATE_COMMUNITY_SUCCESS,
-  REDIRECT_BY_INVITATION,
+  CHECK_AUTHORISATION_BY_INVITATION,
   REDIRECT_TO_CREATE_COMMUNITY,
 } from 'containers/CreateCommunity/constants';
 import {
@@ -505,7 +505,10 @@ export default function* defaultSaga() {
     REDIRECT_TO_CREATE_COMMUNITY,
     redirectToCreateCommunityWorker,
   );
-  yield takeLatest(REDIRECT_BY_INVITATION, redirectByInvitationWorker);
+  yield takeLatest(
+    CHECK_AUTHORISATION_BY_INVITATION,
+    checkAuthorisationByInvitationWorker,
+  );
   yield takeLatest(REDIRECT_TO_CREATE_TAG, redirectToCreateTagWorker);
   yield takeLatest(UPDATE_ACC_SUCCESS, updateStoredQuestionsWorker);
   yield takeLatest(
