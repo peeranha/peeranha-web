@@ -62,7 +62,7 @@ const AuthorizationData = ({
 
       <div>
         <table>
-          {!loginWithFacebook && (
+          {!loginWithFacebook && !isLoggedInWithWallet && (
             <thead>
               <tr>
                 <td>
@@ -79,7 +79,7 @@ const AuthorizationData = ({
           )}
 
           <tbody>
-            {!loginWithFacebook && (
+            {!loginWithFacebook && !isLoggedInWithWallet && (
               <tr>
                 <td>
                   <FormattedMessage {...signupMessages.password} />
