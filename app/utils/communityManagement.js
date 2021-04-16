@@ -221,6 +221,10 @@ export const setSingleCommunityDetails = async eosService => {
     }
   }
 
+  if (!prevSingleCommDetails) {
+    location.reload();
+  }
+
   const communityDetails = getSingleCommunityDetails();
 };
 
