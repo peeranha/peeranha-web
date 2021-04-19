@@ -221,7 +221,7 @@ export const setSingleCommunityDetails = async eosService => {
     }
   }
 
-  if (!prevSingleCommDetails) {
+  if (!prevSingleCommDetails && community.isBlogger) {
     location.reload();
   }
 
