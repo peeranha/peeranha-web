@@ -25,7 +25,9 @@ export function* logoutWorker() {
     deleteCookie(PROFILE_INFO_LS);
 
     if (autoLoginData?.loginWithFacebook && window.FB) {
-      window.FB.logout();
+      window.FB.logout(() => {
+        location.reload();
+      });
     }
     yield call(eosService.resetKeycatUserData);
     yield call(eosService.forgetIdentity);
