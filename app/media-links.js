@@ -10,7 +10,7 @@ const links = {
   },
   ru: {
     facebook: 'https://www.facebook.com/peeranha1/',
-    twitter: 'https://twitter.com/peeranha',
+    twitter: 'https://twitter.com/peeranhaio',
     github: 'https://github.com/peeranha',
     linkedin: 'https://www.linkedin.com/company/peeranha/about/',
     medium: 'https://medium.com/peeranha',
