@@ -14,6 +14,7 @@ import { getCookie } from 'utils/cookie';
 
 import _get from 'lodash/get';
 import _cloneDeep from 'lodash/cloneDeep';
+import _isEqual from 'lodash/isEqual';
 
 import H4 from 'components/H4';
 import TextInputField from 'components/FormFields/TextInputField';
@@ -86,6 +87,7 @@ const SendTipsForm = ({
   loginWithFacebook,
   sendFbVerificationEmail,
   tipsPreselect,
+  formValues,
 }) => {
   const isPeeranhaWalletSelected = walletValue?.name === WALLETS.PEERANHA.name;
   const isKeycatWalletSelected = walletValue?.name === WALLETS.KEYCAT.name;
@@ -165,7 +167,10 @@ const SendTipsForm = ({
 
       <form
         onSubmit={handleSubmit(
-          loginWithFacebook ? sendFbVerificationEmail : sendTips,
+          loginWithFacebook &&
+          _isEqual(formValues[WALLET_FIELD], WALLETS.PEERANHA)
+            ? sendFbVerificationEmail
+            : sendTips,
         )}
       >
         <Field
@@ -397,6 +402,7 @@ FormClone = connect(
       enableReinitialize: true,
       initialValues,
       loginWithFacebook,
+      formValues: _get(state.toJS(), ['form', formName, 'values'], {}),
     };
   },
   dispatch => ({
