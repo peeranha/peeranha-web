@@ -64,4 +64,16 @@ export default defineMessages({
   totalBalance: {
     id: 'app.containers.Wallet.totalBalance',
   },
+  boostHelp: {
+    id: 'app.containers.Wallet.boostHelp',
+  },
+  whatABoostIs: {
+    id: 'app.containers.Wallet.whatABoostIs',
+  },
+  howToStake: {
+    id: 'app.containers.Wallet.howToStake',
+  },
+  FAQs: {
+    id: 'app.containers.Wallet.FAQs',
+  },
 });

@@ -22,7 +22,7 @@ const View = ({
 }) => (
   <>
     <NavHeader userId={userId} />
-    
+
     <SubHeader
       account={account}
       balance={balance}
@@ -30,7 +30,8 @@ const View = ({
       stakedInNextPeriod={stakedInNextPeriod}
     />
 
-    {(userBoostStat && !userBoostStat.length) && <BoostBanner userId={userId} />}
+    {userBoostStat &&
+      !userBoostStat.length && <BoostBanner userId={userId} locale={locale} />}
 
     <Weeks
       locale={locale}

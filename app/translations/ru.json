@@ -206,6 +206,11 @@
   "app.containers.Wallet.stakedInNextPeriod":
     "Ставка, сделанная на следующий период",
   "app.containers.Wallet.totalBalance": "Итоговый баланс",
+  "app.containers.Wallet.boostHelp":
+    "Узнайте {whatABoostIs} и {howToStake} в {FAQs}.",
+  "app.containers.Wallet.whatABoostIs": "что такое Boost",
+  "app.containers.Wallet.howToStake": "как вы можете сделать ставку",
+  "app.containers.Wallet.FAQs": "разделе часто задаваемых вопросов",
 
   "app.containers.Boost.title": "Boost",
   "app.containers.Boost.description": "Boost | Описание",

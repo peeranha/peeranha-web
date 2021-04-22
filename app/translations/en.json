@@ -204,6 +204,11 @@
   "app.containers.Wallet.stakedInCurrentPeriod": "Staked in the current period",
   "app.containers.Wallet.stakedInNextPeriod": "Staked in next period",
   "app.containers.Wallet.totalBalance": "Total balance",
+  "app.containers.Wallet.boostHelp":
+    "Learn {whatABoostIs} and {howToStake} in the {FAQs}.",
+  "app.containers.Wallet.whatABoostIs": "what a Boost is",
+  "app.containers.Wallet.howToStake": "how you place a stake",
+  "app.containers.Wallet.FAQs": "FAQs",
 
   "app.containers.Boost.title": "Boost",
   "app.containers.Boost.description": "Boost | Description",
