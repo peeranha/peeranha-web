@@ -453,7 +453,7 @@ export function* fbLoginErrorCallbackWorker({ autoLogin }) {
       translations[messages[FACEBOOK_LOGIN_ERROR].id],
     );
   } catch (err) {
-    //yield put(facebookLoginErr(err));
+    yield put(facebookLoginErr(err));
   }
 }
 
