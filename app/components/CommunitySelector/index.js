@@ -163,6 +163,7 @@ const CommunitySelector = ({
           autoFocus
           menuIsOpen
           isWrapped
+          placeholder={translationMessages[locale][messages.selectCommunity.id]}
         />
         <ManageMyCommunities />
       </Wrapper>

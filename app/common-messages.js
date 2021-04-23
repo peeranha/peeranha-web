@@ -471,4 +471,7 @@ export default defineMessages({
   facebookButton: {
     id: 'app.common.facebookButton',
   },
+  selectCommunity: {
+    id: 'app.common.selectCommunity',
+  },
 });

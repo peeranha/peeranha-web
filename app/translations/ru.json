@@ -280,6 +280,7 @@
 
   "app.common.verifyFacebookAccount": "Проверка аккаунта",
   "app.common.facebookButton": "Фейсбук",
+  "app.common.selectCommunity": "Выбрать...",
   "app.containers.DeleteFacebookData.deleteFacebookDataTitle":
     "Удаление данных фесбук",
   "app.containers.DeleteFacebookData.pageToCheckFacebookId":
