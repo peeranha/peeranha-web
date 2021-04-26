@@ -279,6 +279,7 @@
 
   "app.common.verifyFacebookAccount": "Account verification",
   "app.common.facebookButton": "Facebook",
+  "app.common.selectCommunity": "Select...",
   "app.containers.DeleteFacebookData.deleteFacebookDataTitle":
     "Delete facebook data",
   "app.containers.DeleteFacebookData.pageToCheckFacebookId":
