@@ -14,22 +14,7 @@ import {
   GET_USER_TG_DATA,
   GET_USER_TG_DATA_SUCCESS,
   GET_USER_TG_DATA_ERROR,
-  SAVE_PROFILE_ERROR,
-  SAVE_PROFILE_SUCCESS,
 } from './constants';
-
-export function saveProfileErr(err) {
-  return {
-    type: SAVE_PROFILE_ERROR,
-    saveProfileError: err,
-  };
-}
-
-export function saveProfileSuccess() {
-  return {
-    type: SAVE_PROFILE_SUCCESS,
-  };
-}
 
 export function confirmTelegramAccount({ profile, userKey }) {
   return {
