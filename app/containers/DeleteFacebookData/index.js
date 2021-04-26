@@ -9,7 +9,12 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { DAEMON } from 'utils/constants';
 
-import { BG_LIGHT, SECONDARY_SPECIAL_3 } from 'style-constants';
+import {
+  BG_LIGHT,
+  BG_PRIMARY,
+  BG_SECONDARY_LIGHT,
+  SECONDARY_SPECIAL_3,
+} from 'style-constants';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
@@ -35,6 +40,7 @@ import {
   DELETION_COMPLETED,
   CONFIRM_DELETION,
   ENTER_FACEBOOK_ID,
+  stagesOrder,
 } from './constants';
 import {
   checkFacebookId,
@@ -74,6 +80,25 @@ const RightMenu = styled.div`
   background: ${SECONDARY_SPECIAL_3};
 `;
 
+const SlideIndicatorsStyled = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+  margin-bottom: 30px;
+
+  > * {
+    width: 8px;
+    height: 8px;
+    margin-right: 8px;
+    border-radius: 50%;
+    background: ${BG_SECONDARY_LIGHT};
+
+    :nth-child(${x => x.step + 1}) {
+      background: ${BG_PRIMARY};
+    }
+  }
+`;
+
 const DeleteFacebookData = ({
   stage,
   checkFacebookIdDispatch,
@@ -95,6 +120,13 @@ const DeleteFacebookData = ({
               <EnterIdLeftMenu />
             </LeftMenu>
             <RightMenu>
+              <SlideIndicatorsStyled
+                step={stagesOrder.indexOf(ENTER_FACEBOOK_ID)}
+              >
+                {new Array(stagesOrder.length)
+                  .fill()
+                  .map(() => <div key={Math.random()} />)}
+              </SlideIndicatorsStyled>
               <EnterIdRightMenu
                 checkFacebookId={checkFacebookIdDispatch}
                 locale={locale}
@@ -112,6 +144,13 @@ const DeleteFacebookData = ({
               <ConfirmDelLeftMenu />
             </LeftMenu>
             <RightMenu>
+              <SlideIndicatorsStyled
+                step={stagesOrder.indexOf(CONFIRM_DELETION)}
+              >
+                {new Array(stagesOrder.length)
+                  .fill()
+                  .map(() => <div key={Math.random()} />)}
+              </SlideIndicatorsStyled>
               <ConfirmDelRightMenu
                 confirmDataDeletion={confirmDataDeletionDispatch}
                 sendAnotherCode={sendAnotherCodeDispatch}
@@ -130,6 +169,13 @@ const DeleteFacebookData = ({
               <CompletedLeftMenu />
             </LeftMenu>
             <RightMenu>
+              <SlideIndicatorsStyled
+                step={stagesOrder.indexOf(DELETION_COMPLETED)}
+              >
+                {new Array(stagesOrder.length)
+                  .fill()
+                  .map(() => <div key={Math.random()} />)}
+              </SlideIndicatorsStyled>
               <CompletedRightMenu />
             </RightMenu>
           </BaseStyled>

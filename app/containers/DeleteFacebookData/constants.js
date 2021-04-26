@@ -15,6 +15,12 @@ export const ENTER_FACEBOOK_ID = 'ENTER_FACEBOOK_ID';
 export const CONFIRM_DELETION = 'CONFIRM_FB_DATA_DELETION';
 export const DELETION_COMPLETED = 'FB_DATA_DELETION_COMPLETED';
 
+export const stagesOrder = [
+  ENTER_FACEBOOK_ID,
+  CONFIRM_DELETION,
+  DELETION_COMPLETED,
+];
+
 // actions
 export const CHECK_FACEBOOK_ID = 'app/DeleteFacebookData/CHECK_FACEBOOK_ID';
 export const CONFIRM_DATA_DELETION =
