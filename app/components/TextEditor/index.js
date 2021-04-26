@@ -32,7 +32,7 @@ class TextEditor extends React.PureComponent {
         {...this.props}
         className={TEXT_EDITOR_CLASSNAME}
         onBlur={this.onBlurHandler}
-        options={{ ...options,  spellChecker: locale === "en", }}
+        options={{ ...options, spellChecker: locale === 'en' }}
         extraKeys={{
           Tab: false,
         }}
@@ -51,6 +51,8 @@ TextEditor.propTypes = {
 };
 
 export { TEXT_EDITOR_CLASSNAME };
-export default connect(createStructuredSelector({
-  locale: makeSelectLocale(),
-}),)(TextEditor);
+export default connect(
+  createStructuredSelector({
+    locale: makeSelectLocale(),
+  }),
+)(TextEditor);
