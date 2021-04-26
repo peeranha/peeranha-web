@@ -11,6 +11,9 @@ import EditorOptions from 'simplemde';
 import 'easymde/dist/easymde.min.css';
 
 import options from './options';
+import { connect } from 'react-redux';
+import { makeSelectLocale } from '../../containers/LanguageProvider/selectors';
+import { createStructuredSelector } from 'reselect';
 
 const TEXT_EDITOR_CLASSNAME = 'component-text-editor';
 
@@ -23,12 +26,13 @@ class TextEditor extends React.PureComponent {
   static getHtmlText = md => EditorOptions.prototype.markdown(md);
 
   render() {
+    const { locale } = this.props;
     return (
       <SimpleMDE
         {...this.props}
         className={TEXT_EDITOR_CLASSNAME}
         onBlur={this.onBlurHandler}
-        options={options}
+        options={{ ...options,  spellChecker: locale === "en", }}
         extraKeys={{
           Tab: false,
         }}
@@ -47,4 +51,6 @@ TextEditor.propTypes = {
 };
 
 export { TEXT_EDITOR_CLASSNAME };
-export default TextEditor;
+export default connect(createStructuredSelector({
+  locale: makeSelectLocale(),
+}),)(TextEditor);
