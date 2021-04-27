@@ -51,6 +51,8 @@ import { selectCommunity } from './selectors';
 import createdHistory from '../../createdHistory';
 import * as routes from '../../routes-config';
 import { REMOVE_OR_ADD_TOP_QUESTION } from '../Questions/constants';
+import { FOLLOW_HANDLER } from '../FollowCommunityButton/constants';
+import { followHandlerWorker } from '../FollowCommunityButton/saga';
 
 export function* getQuestionsWorker({ communityId }) {
   try {
@@ -166,7 +168,7 @@ export function* getLogoWorker() {
     yield put(getLogoError(err));
   }
 }
-
+/* eslint no-empty: ["error", { "allowEmptyCatch": true }] */
 export function* redirectToEditCommunityPageWorker({ id }) {
   try {
     yield call(createdHistory.push, routes.communitiesEdit(id));
@@ -182,4 +184,5 @@ export default function*() {
     redirectToEditCommunityPageWorker,
   );
   yield takeEvery(REMOVE_OR_ADD_TOP_QUESTION, removeOrAddTopQuestionWorker);
+  yield takeEvery(FOLLOW_HANDLER, followHandlerWorker);
 }
