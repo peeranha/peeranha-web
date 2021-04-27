@@ -49,10 +49,10 @@ const SubHeaderNav = styled.div`
 const BloggerStyleSubHeader = () => {
   const community = getSingleCommunityDetails();
   const { socialNetworks = {} } = community;
-
+  const hasSocialNetworks = Object.values(socialNetworks).some(link => !!link);
   return (
     <Container>
-      {Object.keys(socialNetworks).length ? (
+      {hasSocialNetworks ? (
         <SubHeaderNav>
           <FormattedMessage {...messages.followSocialMedia} />
           {Object.keys(socialNetworks)
