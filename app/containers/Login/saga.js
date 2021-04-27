@@ -114,7 +114,6 @@ function* continueLogin({ activeKey, eosAccountName }) {
     yield put(redirectToFeed());
 
   yield put(loginWithEmailSuccess());
-  yield call(updateAcc, profileInfo, eosService);
   // If user is absent - show window to finish registration
   if (!profileInfo) {
     yield put(loginWithEmailSuccess(eosAccountName, WE_ARE_HAPPY_FORM));
@@ -231,6 +230,7 @@ export function* loginWithWalletWorker({ keycat, scatter }) {
       yield put(redirectToFeed());
 
     yield put(loginWithWalletSuccess());
+    yield call(updateAcc, profileInfo, eosService);
   } catch (err) {
     yield put(loginWithWalletErr(err));
   }
