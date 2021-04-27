@@ -52,7 +52,7 @@ const CommunitiesForm = ({
     LinkForMore = ADefault;
     moreRoute = `${process.env.APP_LOCATION}/communities`;
   }
-  console.log(moreRoute);
+
   const ref = useRef(null);
   useEffect(
     () => {
