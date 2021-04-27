@@ -178,6 +178,17 @@ const App = ({
           />
         )}
 
+        <Route
+          exact
+          path={routes.profileView(':id')}
+          render={props => Wrapper(ViewProfilePage, props)}
+        />
+
+        <Route
+          path={routes.profileEdit(':id')}
+          render={props => Wrapper(EditProfilePage, props)}
+        />
+
         {!single && (
           <Route
             exact
@@ -252,17 +263,6 @@ const App = ({
           exact
           path={routes.termsAndConditions()}
           render={props => Wrapper(TermsOfService, props)}
-        />
-
-        <Route
-          exact
-          path={routes.profileView(':id')}
-          render={props => Wrapper(ViewProfilePage, props)}
-        />
-
-        <Route
-          path={routes.profileEdit(':id')}
-          render={props => Wrapper(EditProfilePage, props)}
         />
 
         <Route
