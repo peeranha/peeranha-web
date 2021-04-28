@@ -979,7 +979,7 @@
   "app.containers.ErrorPage.title": "Возникла ошибка...",
   "app.containers.ErrorPage.description": "Возникла ошибка... описание",
   "app.containers.ErrorPage.weAreSorry":
-    "Мы извиняемся, возникла неожиданная ошибка...",
+    "Извините, возникла неожиданная ошибка...",
   "app.containers.ErrorPage.accountDoesNotExist": "Аккаунт не существует",
   "app.containers.ErrorPage.cannotTransferToSelf":
     "Нельзя отправлять самому себе",
@@ -990,7 +990,7 @@
   "app.containers.NotFoundPage.title": "404",
   "app.containers.NotFoundPage.description": "404",
   "app.containers.NotFoundPage.weAreSorry":
-    "Мы извиняемся, такой страницы не существует.",
+    "Извините, такой страницы не существует.",
   "app.containers.NotFoundPage.tryToBrowse":
     "Попробуйте посмотреть наши последние {value}.",
   "app.containers.NotFoundPage.browseOurPopular":
