@@ -1,14 +1,14 @@
 import { takeLatest, put, call, select } from 'redux-saga/effects';
 
-import { selectEos } from '../EosioProvider/selectors';
-
 import {
   confirmTelegramAccount,
   unlinkTelegramAccount,
   getUserTelegramData,
   saveProfile,
-  uploadImg,
 } from 'utils/profileManagement';
+
+import { selectEos } from '../EosioProvider/selectors';
+import { AVATAR_FIELD } from '../Profile/constants';
 
 import { CONFIRM_TELEGRAM_ACCOUNT, UNLINK_TELEGRAM_ACCOUNT } from './constants';
 
@@ -17,16 +17,19 @@ import {
   confirmTelegramAccountErr,
   unlinkTelegramAccountSuccess,
   unlinkTelegramAccountErr,
-  saveProfileSuccess,
-  saveProfileErr,
 } from './actions';
-import { AVATAR_FIELD } from '../Profile/constants';
-import { HASH_CHARS_LIMIT } from '../../components/FormFields/AvatarField';
 
 export function* confirmTelegramAccountWorker({ profile, userKey }) {
   try {
-    yield call(saveProfileWorker, profile, userKey);
     const eosService = yield select(selectEos);
+    yield call(
+      saveProfile,
+      eosService,
+      userKey,
+      profile[AVATAR_FIELD] || '',
+      profile,
+    );
+
     const account = yield call(eosService.getSelectedAccount);
 
     yield call(confirmTelegramAccount, eosService, account);
@@ -52,17 +55,6 @@ export function* unlinkTelegramAccountWorker({ profile, userKey }) {
 
     yield call(unlinkTelegramAccount, eosService, account);
 
-    yield call(saveProfileWorker, profile, userKey);
-    yield put(unlinkTelegramAccountSuccess());
-  } catch (err) {
-    yield put(unlinkTelegramAccountErr(err));
-  }
-}
-
-export function* saveProfileWorker(profile, userKey) {
-  try {
-    const eosService = yield select(selectEos);
-
     yield call(
       saveProfile,
       eosService,
@@ -70,10 +62,9 @@ export function* saveProfileWorker(profile, userKey) {
       profile[AVATAR_FIELD] || '',
       profile,
     );
-
-    yield put(saveProfileSuccess());
+    yield put(unlinkTelegramAccountSuccess());
   } catch (err) {
-    yield put(saveProfileErr(err));
+    yield put(unlinkTelegramAccountErr(err));
   }
 }
 
