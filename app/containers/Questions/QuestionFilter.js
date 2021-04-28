@@ -56,6 +56,7 @@ const cookieFilterSetter = value => ({
 });
 
 const QuestionFilter = ({
+  display,
   changeQuestionFilterDispatch,
   questionFilterFromCookies,
 }) => {
@@ -100,20 +101,20 @@ const QuestionFilter = ({
   );
   const setQuestionFilter = useCallback(() => setFilter(1), [filter]);
 
-  return (
+  return display ? (
     <Container>
       <Button
-        active={questionFilterFromCookies == '1'}
+        active={questionFilterFromCookies === '1'}
         onClick={setQuestionFilter}
         left
       >
         <FormattedMessage {...commonMessages.top} />
       </Button>
-      <Button active={questionFilterFromCookies == '0'} onClick={setAllFilter}>
+      <Button active={questionFilterFromCookies === '0'} onClick={setAllFilter}>
         <FormattedMessage {...commonMessages.all} />
       </Button>
     </Container>
-  );
+  ) : null;
 };
 
 QuestionFilter.propTypes = {

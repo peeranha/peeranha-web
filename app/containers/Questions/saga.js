@@ -23,7 +23,6 @@ import {
   getPromotedQuestions,
   getRandomQuestions,
 } from 'utils/questionsManagement';
-import { getQuestionsWorker as getTopQuestions } from '../Home/saga';
 import { getQuestionBounty } from 'utils/walletManagement';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
@@ -48,6 +47,8 @@ import {
   getQuestionData,
   isGeneralQuestion,
 } from 'containers/ViewQuestion/saga';
+
+import { getQuestionsWorker as getTopQuestions } from '../Home/saga';
 
 import {
   CHANGE_QUESTION_FILTER,
@@ -204,6 +205,7 @@ export function* getQuestionsWorker({
       );
 
       allPromotedQuestions = yield all(
+        // eslint-disable-next-line camelcase
         allPromotedQuestions.map(function*({ question_id }) {
           return yield call(getQuestionData, {
             questionId: question_id,
@@ -315,7 +317,8 @@ export function* loadTopCommunityQuestionsWorker({ init }) {
         });
       }
 
-      const topQuestionsIds = yield select(selectTopQuestionIds);
+      const rawTopQuestionsIds = yield select(selectTopQuestionIds);
+      const topQuestionsIds = rawTopQuestionsIds.filter(question => !!question);
       const topQuestionsInfoLoaded = yield select(
         selectTopQuestionsInfoLoaded(),
       );
