@@ -20,6 +20,8 @@ import clockIcon from 'images/clockIcon.svg?external';
 import notificationsIcon from 'images/notificationsBlue.svg?external';
 
 import { makeSelectProfileInfo } from '../../../AccountProvider/selectors';
+import { makeSelectLocale } from '../../../LanguageProvider/selectors';
+import { DEFAULT_LOCALE } from '../../../../i18n';
 
 const Container = styled.div`
   border-top: 1px solid ${BORDER_SECONDARY_LIGHT};
@@ -27,8 +29,11 @@ const Container = styled.div`
   width: 100%;
   padding: 16px;
   justify-content: space-between;
-
-  > a {
+  ${({ locale }) =>
+    locale !== DEFAULT_LOCALE &&
+    `
+    flex-direction: column;
+  `} > a {
     display: flex;
     color: ${TEXT_PRIMARY};
 
@@ -61,10 +66,12 @@ Footer.propTypes = {
   empty: PropTypes.bool,
   onClose: PropTypes.func,
   profile: PropTypes.string,
+  locale: PropTypes.string,
 };
 
 export default memo(
   connect(state => ({
     profile: makeSelectProfileInfo()(state).user,
+    locale: makeSelectLocale()(state),
   }))(Footer),
 );
