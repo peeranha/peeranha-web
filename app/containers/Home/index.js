@@ -50,6 +50,7 @@ import {
   makeSelectFollowedCommunities,
 } from 'containers/AccountProvider/selectors';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
+import { FormattedMessage } from 'react-intl';
 
 import reducer from './reducer';
 import saga from './saga';
@@ -65,7 +66,6 @@ import {
 } from './selectors';
 import messages from './messages';
 import { HOME_KEY } from './constants';
-import { FormattedMessage } from 'react-intl';
 import InfoButton from '../../components/Button/Outlined/InfoMedium';
 
 const IntroducingContainer = styled.div`
@@ -172,7 +172,7 @@ export const Home = ({
     ? followedCommunities.includes(single)
     : false;
 
-  const followHandler = useCallback(
+  const followHandlerAction = useCallback(
     () => {
       followHandlerDispatch(
         single,
@@ -182,7 +182,7 @@ export const Home = ({
     },
     [single, isFollowed],
   );
-
+  /* eslint-disable camelcase */
   const { name, about, avatar, questions_asked, users_subscribed } = community;
 
   const EditButton = () =>
@@ -205,12 +205,16 @@ export const Home = ({
   return (
     <div>
       <Seo
-        title={translations[messages.title.id]}
+        title={
+          single
+            ? translations[commonMessages.home.id]
+            : translations[messages.title.id]
+        }
         description={translations[messages.description.id]}
         language={locale}
       />
 
-      {!!communityLoading ? (
+      {communityLoading ? (
         <LoadingIndicator />
       ) : (
         <>
@@ -238,7 +242,7 @@ export const Home = ({
                     (isFollowed ? (
                       <div>
                         <EditButton />
-                        <BorderedLargeButton onClick={followHandler}>
+                        <BorderedLargeButton onClick={followHandlerAction}>
                           {
                             translationMessages[locale][
                               commonMessages.unsubscribe.id
@@ -249,7 +253,7 @@ export const Home = ({
                     ) : (
                       <div>
                         <EditButton />
-                        <LargeButton onClick={followHandler}>
+                        <LargeButton onClick={followHandlerAction}>
                           {
                             translationMessages[locale][
                               commonMessages.subscribe.id
@@ -312,6 +316,7 @@ Home.propTypes = {
   communityLoading: PropTypes.bool,
   followedCommunities: PropTypes.array,
   followHandlerDispatch: PropTypes.func,
+  redirectToEditCommunityPageDispatch: PropTypes.func,
 };
 
 const withConnect = connect(
