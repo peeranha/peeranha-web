@@ -208,7 +208,7 @@ export default React.memo(({ currClientHeight }) => {
                 }
                 href={
                   styles.poweredByPeeranha
-                    ? process.env.APP_LOCATION
+                      ? `${ process.env.APP_LOCATION }/#allquestions`
                     : 'https://www.telosfoundation.io/'
                 }
                 target="_blank"
