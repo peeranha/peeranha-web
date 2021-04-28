@@ -9,6 +9,7 @@ import {
   registerAccount,
   inviteUser,
   isUserInSystem,
+  updateAcc,
 } from 'utils/accountManagement';
 import { login } from 'utils/web_integration/src/wallet/login/login';
 import webIntegrationErrors from 'utils/web_integration/src/wallet/service-errors';
@@ -113,7 +114,6 @@ function* continueLogin({ activeKey, eosAccountName }) {
     yield put(redirectToFeed());
 
   yield put(loginWithEmailSuccess());
-
   // If user is absent - show window to finish registration
   if (!profileInfo) {
     yield put(loginWithEmailSuccess(eosAccountName, WE_ARE_HAPPY_FORM));
@@ -230,6 +230,7 @@ export function* loginWithWalletWorker({ keycat, scatter }) {
       yield put(redirectToFeed());
 
     yield put(loginWithWalletSuccess());
+    yield call(updateAcc, profileInfo, eosService);
   } catch (err) {
     yield put(loginWithWalletErr(err));
   }
