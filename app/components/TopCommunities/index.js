@@ -120,7 +120,7 @@ const TopCommunities = ({
   let allCommunitiesRoute = routes.communities();
   if (single) {
     AllCommunitiesLink = ADefault;
-    allCommunitiesRoute = `${process.env.APP_LOCATION}${allCommunitiesRoute}`;
+    allCommunitiesRoute = `${process.env.APP_LOCATION}/communities`;
   }
   return (
     <div className="overlow-hidden" ref={ref}>
