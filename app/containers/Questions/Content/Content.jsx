@@ -70,12 +70,18 @@ const QI = ({
   topQuestionActionProcessing,
   moveQuestionDispatch,
   isPromoted,
+  isHomePage,
 }) => {
   const ref = useRef(null);
 
   const displayTopQuestionMove = useMemo(
-    () => isModerator && isTopQuestion && questionFilter === 1 && !isPromoted,
-    [isTopQuestion, isModerator, questionFilter, isPromoted],
+    () =>
+      isModerator &&
+      isTopQuestion &&
+      questionFilter === 1 &&
+      !isPromoted &&
+      !isHomePage,
+    [isTopQuestion, isModerator, questionFilter, isPromoted, isHomePage],
   );
 
   const upQuestionMethod = useCallback(
@@ -129,10 +135,12 @@ const QI = ({
       index={index}
       innerRef={ref}
       bordered={!isGeneral}
-      draggable={isModerator && questionFilter === 1 && !isPromoted}
-      onDrop={onDrop}
-      onDragOver={onDragOver}
-      onDragStart={onDragStart}
+      draggable={
+        isModerator && !isHomePage && questionFilter === 1 && !isPromoted
+      }
+      onDrop={!isHomePage ? onDrop : undefined}
+      onDragOver={!isHomePage ? onDragOver : undefined}
+      onDragStart={!isHomePage ? onDragStart : undefined}
       isPromoted={isPromoted}
     >
       <AdditionalInfo
@@ -197,6 +205,7 @@ export const Content = ({
   communities,
   isModerator,
   profileInfo,
+  isHomePage = false,
 }) => (
   <div className="position-relative">
     {promotedQuestionsList &&
@@ -212,6 +221,7 @@ export const Content = ({
           isModerator={isModerator}
           profileInfo={profileInfo}
           isPromoted
+          isHomePage={isHomePage}
         />
       ))}
     {questionsList.map((item, index) => (
@@ -225,6 +235,7 @@ export const Content = ({
         key={item.id}
         isModerator={isModerator}
         profileInfo={profileInfo}
+        isHomePage={isHomePage}
       />
     ))}
   </div>
@@ -258,6 +269,7 @@ QI.propTypes = {
   topQuestions: PropTypes.array,
   isPromoted: PropTypes.bool,
   questionBounty: PropTypes.number,
+  isHomePage: PropTypes.bool,
 };
 
 Content.propTypes = {
@@ -267,6 +279,7 @@ Content.propTypes = {
   communities: PropTypes.array,
   isModerator: PropTypes.bool,
   profileInfo: PropTypes.object,
+  isHomePage: PropTypes.bool,
 };
 
 export { QuestionItem };
