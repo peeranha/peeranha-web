@@ -75,6 +75,14 @@ To link the temporary account with the account on Peeranha User should enter the
 
 After linking the accounts, all the gained rating points, questions, answers, and achievements will be added to the main profile. All the further questions and answers posted from the Telegram will be signed by the main profile name on Peeranha.
 
+### Can I log in via Facebook?
+
+Yes. Users can log into Peeranha using their Facebook account.
+
+Telos account is created for the users behind the science. Active and owner keys for the Telos account are managed by Peeranha services for such accounts. Users are able to export their private keys on the Setting page.
+
+Users can delete their Facebook login information, including private keys, from Peeranha services. Associated Telos account will continue to exist on the blockchain. **It is very important to export private keys before doing that**.
+
 ## Communities
 
 ### What is community?
