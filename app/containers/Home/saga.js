@@ -38,6 +38,7 @@ import {
   GET_COMMUNITY,
   GET_LOGO,
   REDIRECT_TO_EDIT_COMMUNITY_PAGE,
+  FOLLOW_HANDLER,
 } from './constants';
 import {
   getQuestionsSuccess,
@@ -51,7 +52,6 @@ import { selectCommunity } from './selectors';
 import createdHistory from '../../createdHistory';
 import * as routes from '../../routes-config';
 import { REMOVE_OR_ADD_TOP_QUESTION } from '../Questions/constants';
-import { FOLLOW_HANDLER } from '../FollowCommunityButton/constants';
 import { followHandlerWorker } from '../FollowCommunityButton/saga';
 
 export function* getQuestionsWorker({ communityId }) {

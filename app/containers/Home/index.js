@@ -28,7 +28,6 @@ import {
   isSingleCommunityWebsite,
 } from 'utils/communityManagement';
 import { getUserAvatar } from 'utils/profileManagement';
-import { followHandler } from 'containers/FollowCommunityButton/actions';
 
 import questionsMessages from 'containers/Questions/messages';
 import commonMessages from 'common-messages';
@@ -58,6 +57,7 @@ import {
   getQuestions,
   getCommunity,
   redirectToEditCommunityPage,
+  followHandler,
 } from './actions';
 import {
   selectQuestions,
