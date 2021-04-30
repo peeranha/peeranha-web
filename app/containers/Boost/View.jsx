@@ -1,7 +1,7 @@
-import React, { useCallback, useState, useMemo } from 'react';
+import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import { getBoostWeeks, getPredictedBoost } from 'utils/walletManagement';
+import { getBoostWeeks } from 'utils/walletManagement';
 
 import NavHeader from 'components/WalletNavigation';
 import SubHeader from 'containers/Wallet/SubHeader';
@@ -28,8 +28,7 @@ const View = ({
 
   const [currentStake, setCurrentStake] = useState(-1);
 
-  if (currentStake < 0 && !!userStake)
-    setCurrentStake(userStake);
+  if (currentStake < 0 && !!userStake) setCurrentStake(userStake);
 
   const changeCurrentStake = useCallback(
     x => {
@@ -41,7 +40,7 @@ const View = ({
   return (
     <>
       <NavHeader userId={userId} />
-      
+
       <SubHeader
         account={account}
         balance={balance}
@@ -71,7 +70,7 @@ const View = ({
       />
     </>
   );
-}
+};
 
 View.propTypes = {
   userId: PropTypes.string,
