@@ -13,6 +13,9 @@ import { singleCommunityStyles } from './utils/communityManagement';
 
 const styles = singleCommunityStyles();
 
+export const italicFont = () =>
+  /iPhone|iPad|iPod/i.test(navigator.userAgent) ? 'normal' : 'italic';
+
 /* eslint no-unused-expressions: 0 */
 injectGlobal`
   ${reset};

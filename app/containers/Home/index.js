@@ -67,6 +67,7 @@ import {
 import messages from './messages';
 import { HOME_KEY } from './constants';
 import InfoButton from '../../components/Button/Outlined/InfoMedium';
+import { italicFont } from '../../global-styles';
 
 const IntroducingContainer = styled.div`
   position: relative;
@@ -116,7 +117,7 @@ const IntroducingTitle = styled.p`
 `;
 
 const IntroducingSubTitle = styled.p`
-  font-style: italic;
+  font-style: ${italicFont()};
   color: ${TEXT_SECONDARY};
   font-size: 14px;
 `;
