@@ -18,6 +18,7 @@ export const PASSWORD_FIELD = 'app/ShowActiveKey/PASSWORD_FIELD';
 
 export const SEND_FB_VERIFICATION_EMAIL =
   'app/ShowActiveKey/SEND_FB_VERIFICATION_EMAIL';
+export const SEND_ANOTHER_CODE = 'app/ShowActiveKey/SEND_ANOTHER_CODE';
 export const SET_SHOW_ACTIVE_KEY_PROCESSING =
   'app/ShowActiveKey/SET_SHOW_ACTIVE_KEY_PROCESSING';
 export const VERIFY_FB_ACTION = 'app/ShowActiveKey/VERIFY_FB_ACTION';

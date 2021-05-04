@@ -35,6 +35,7 @@ import {
   sendFbVerificationEmail,
   verifyFbAction,
 } from './actions';
+import { sendAnotherCode } from '../ShowOwnerKey/actions';
 
 /* eslint-disable react/prefer-stateless-function */
 export class ShowActiveKey extends React.PureComponent {
@@ -51,6 +52,7 @@ export class ShowActiveKey extends React.PureComponent {
       removeActiveKeyDispatch,
       loginData,
       sendFbVerificationEmailDispatch,
+      sendAnotherCodeDispatch,
       verifyFbActionDispatch,
     } = this.props;
 
@@ -79,7 +81,7 @@ export class ShowActiveKey extends React.PureComponent {
               locale={locale}
               verifyEmail={verifyFbActionDispatch}
               verifyEmailLoading={showActiveKeyProcessing}
-              sendAnotherCode={sendFbVerificationEmailDispatch}
+              sendAnotherCode={sendAnotherCodeDispatch}
             />
           )}
         </Modal>
@@ -132,6 +134,7 @@ function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
       sendFbVerificationEmail,
       dispatch,
     ),
+    sendAnotherCodeDispatch: bindActionCreators(sendAnotherCode, dispatch),
     verifyFbActionDispatch: bindActionCreators(verifyFbAction, dispatch),
   };
 }
