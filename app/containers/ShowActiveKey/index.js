@@ -34,8 +34,8 @@ import {
   removeActiveKey,
   sendFbVerificationEmail,
   verifyFbAction,
+  sendAnotherCode,
 } from './actions';
-import { sendAnotherCode } from '../ShowOwnerKey/actions';
 
 /* eslint-disable react/prefer-stateless-function */
 export class ShowActiveKey extends React.PureComponent {
@@ -65,7 +65,8 @@ export class ShowActiveKey extends React.PureComponent {
         showActiveKeyModalDispatch();
       }
     };
-
+    console.log(showModal);
+    console.log(loginWithFacebook);
     return (
       <React.Fragment>
         <Modal show={showModal} closeModal={hideActiveKeyModalDispatch}>
@@ -103,6 +104,7 @@ ShowActiveKey.propTypes = {
   removeActiveKeyDispatch: PropTypes.func,
   sendFbVerificationEmailDispatch: PropTypes.func,
   verifyFbActionDispatch: PropTypes.func,
+  sendAnotherCodeDispatch: PropTypes.func,
   children: PropTypes.any,
   showActiveKeyProcessing: PropTypes.bool,
   showModal: PropTypes.bool,
