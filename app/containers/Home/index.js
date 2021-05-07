@@ -117,7 +117,7 @@ const IntroducingTitle = styled.p`
 `;
 
 const IntroducingSubTitle = styled.p`
-  font-style: ${italicFont()};
+  font-style: ${italicFont};
   color: ${TEXT_SECONDARY};
   font-size: 14px;
 `;

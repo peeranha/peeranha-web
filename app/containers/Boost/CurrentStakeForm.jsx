@@ -62,7 +62,7 @@ const Tags = styled.div`
   flex-wrap: wrap;
   margin-bottom: 10px;
   margin-top: 15px;
-  font-style: ${italicFont()};
+  font-style: ${italicFont};
   font-size: 14px;
 `;
 

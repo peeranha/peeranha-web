@@ -14,7 +14,7 @@ export const Div = styled.div`
   position: relative;
   font-size: 14px;
   line-height: 18px;
-  font-style: ${italicFont()};
+  font-style: ${italicFont};
   max-height: ${x => (x.isSpecialPosition ? 'auto' : '40px')};
   word-break: normal;
   color: ${TEXT_SECONDARY};

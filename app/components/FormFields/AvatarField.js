@@ -193,7 +193,7 @@ const InfoMessage = styled.div`
   line-height: 1.2;
   color: ${TEXT_PRIMARY};
   text-align: center;
-  font-style: ${italicFont()};
+  font-style: ${italicFont};
 
   opacity: 0.9;
 `;

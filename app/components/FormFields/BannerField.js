@@ -100,7 +100,7 @@ const LabelErrorStyle = styled.div`
   width: 100%;
   margin-top: 8px;
   color: ${TEXT_SECONDARY};
-  font-style: ${italicFont()};
+  font-style: ${italicFont};
   font-size: 14px;
   line-height: 18px;
 `;

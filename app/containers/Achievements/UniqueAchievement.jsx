@@ -41,7 +41,7 @@ const Bage = styled.div`
 
 const LimitPhrase = styled.p`
   margin-top: 10px;
-  font-style: ${italicFont()};
+  font-style: ${italicFont};
   color: ${TEXT_SECONDARY};
   font-size: 14px;
 `;

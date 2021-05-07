@@ -31,7 +31,7 @@ const GroupLabel = styled.div`
   position: relative;
   z-index: 2;
   color: ${BORDER_SECONDARY};
-  font-style: ${italicFont()};
+  font-style: ${italicFont};
   background-color: ${BG_LIGHT};
   padding-right: 7px;
 `;
