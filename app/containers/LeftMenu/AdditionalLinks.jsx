@@ -82,8 +82,8 @@ const LiAdditionalStyles = css`
   padding: 0 !important;
 `;
 
-const IconAdditionalStyles = css`
-  margin-right: 10px;
+const StyledIcon = styled(Icon)`
+  margin-right: 10px !important;
 `;
 
 const Link = ({ path, message, cssStyles }) =>
@@ -114,12 +114,7 @@ const InfoLinksDropDown = ({ withTitle }) => (
           lineHeight="20"
           color={TEXT_SECONDARY}
         >
-          <Icon
-            icon={infoIcon}
-            width="16"
-            height="16"
-            css={IconAdditionalStyles}
-          />
+          <StyledIcon icon={infoIcon} width="16" height="16" />
           {withTitle && <FormattedMessage {...messages.more} />}
         </Span>
       </>
