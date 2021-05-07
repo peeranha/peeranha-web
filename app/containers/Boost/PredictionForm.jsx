@@ -4,22 +4,22 @@ import styled from 'styled-components';
 import { translationMessages } from 'i18n';
 
 import {
-  MIN_STAKE_PREDICTION,
-  MAX_STAKE_PREDICTION,
-  CURRENT_STAKE_FORM,
-} from './constants';
-import {
   BORDER_TRANSPARENT,
   SECONDARY_SPECIAL,
   BORDER_SECONDARY,
   BORDER_RADIUS_M,
 } from 'style-constants';
-
 import { getPredictedBoost } from 'utils/walletManagement';
+import Label from 'components/FormFields/Label';
+
+import {
+  MIN_STAKE_PREDICTION,
+  MAX_STAKE_PREDICTION,
+  CURRENT_STAKE_FORM,
+} from './constants';
 
 import messages from './messages';
 
-import Label from 'components/FormFields/Label';
 import { InputWrapper, InputProgressBar } from './Form';
 
 const PredictedBoost = styled.div`
@@ -37,7 +37,8 @@ const Separator = styled.span`
   left: ${({ left }) => left || 0}%;
   width: 1px;
   height: 45px;
-  background-color: ${({ onlyNumbers }) => onlyNumbers ? BORDER_TRANSPARENT : SECONDARY_SPECIAL};
+  background-color: ${({ onlyNumbers }) =>
+    onlyNumbers ? BORDER_TRANSPARENT : SECONDARY_SPECIAL};
 
   ::after {
     content: attr(data-value);
@@ -51,47 +52,52 @@ const Separator = styled.span`
 `;
 
 const separators = amount => {
-  const separators = [];
+  const separatorsList = [];
 
-  for(let i = 0; i < amount; i++) {
-    separators.push({
+  for (let i = 0; i < amount; i += 1) {
+    separatorsList.push({
       value: `×${MIN_STAKE_PREDICTION + i}`,
-      left: i * 100 / (MAX_STAKE_PREDICTION - MIN_STAKE_PREDICTION),
-    })
+      left: (i * 100) / (MAX_STAKE_PREDICTION - MIN_STAKE_PREDICTION),
+    });
   }
 
   return (
     <>
-      {separators.map((x, i) => (
+      {separatorsList.map((x, i) => (
         <Separator
-          key={i}
+          key={x.value}
           left={x.left}
           data-value={x.value}
-          onlyNumbers={i === 0 || i === separators.length - 1}
+          onlyNumbers={i === 0 || i === separatorsList.length - 1}
         />
       ))}
     </>
   );
-}
+};
 
 const PredictionForm = ({ locale, formValues, maxStake }) => {
   const predictedBoost = useMemo(
-    () => getPredictedBoost(formValues[CURRENT_STAKE_FORM], maxStake), 
-    [formValues, maxStake]
+    () => getPredictedBoost(formValues[CURRENT_STAKE_FORM], maxStake),
+    [formValues, maxStake],
   );
   const { value, text } = predictedBoost;
 
-  const progressWidth = value ? (value - MIN_STAKE_PREDICTION) * 100 / (MAX_STAKE_PREDICTION - MIN_STAKE_PREDICTION) : 0;
+  const progressWidth = value
+    ? ((value - MIN_STAKE_PREDICTION) * 100) /
+      (MAX_STAKE_PREDICTION - MIN_STAKE_PREDICTION)
+    : 0;
 
   return (
     <InputWrapper isPrediction>
-      <Label>{translationMessages[locale][messages.formBoostPrediction.id]}</Label>
+      <Label>
+        {translationMessages[locale][messages.formBoostPrediction.id]}
+      </Label>
       <PredictedBoost>{text}</PredictedBoost>
       {separators(MAX_STAKE_PREDICTION - MIN_STAKE_PREDICTION + 1)}
       <InputProgressBar width={progressWidth} />
     </InputWrapper>
   );
-}
+};
 
 PredictionForm.propTypes = {
   locale: PropTypes.string,

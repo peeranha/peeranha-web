@@ -42,21 +42,6 @@ const STAKE_TAGS = [
   },
 ];
 
-const Stake = styled.span`
-  position: absolute;
-  top: 120px;
-  color: ${SECONDARY_SPECIAL};
-  font-size: 14px;
-`;
-
-export const MinStake = Stake.extend`
-  left: 0;
-`.withComponent('span');
-
-const MaxStake = Stake.extend`
-  right: 0;
-`.withComponent('span');
-
 const Tags = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -130,9 +115,8 @@ const CurrentStakeForm = ({
         dotRestriction={6}
         validate={[requiredForNumericalField, valueHasToBeLessThan]}
         warn={[requiredForNumericalField, valueHasToBeLessThan]}
+        maxValue={maxValue}
       />
-      <MinStake>0</MinStake>
-      <MaxStake>{maxValue}</MaxStake>
 
       <InputProgressBar width={progressWidth} />
     </InputWrapper>

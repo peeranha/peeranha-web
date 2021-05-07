@@ -28,7 +28,6 @@ import {
   isSingleCommunityWebsite,
 } from 'utils/communityManagement';
 import { getUserAvatar } from 'utils/profileManagement';
-import { followHandler } from 'containers/FollowCommunityButton/actions';
 
 import questionsMessages from 'containers/Questions/messages';
 import commonMessages from 'common-messages';
@@ -58,6 +57,7 @@ import {
   getQuestions,
   getCommunity,
   redirectToEditCommunityPage,
+  followHandler,
 } from './actions';
 import {
   selectQuestions,
@@ -287,6 +287,7 @@ export const Home = ({
                   communities={communities}
                   isModerator={isModerator}
                   profileInfo={profile}
+                  isHomePage
                 />
               </div>
               <div className="d-flex justify-content-center mb-3">
