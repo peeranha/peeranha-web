@@ -286,6 +286,7 @@ export const Home = ({
                   communities={communities}
                   isModerator={isModerator}
                   profileInfo={profile}
+                  isHomePage
                 />
               </div>
               <div className="d-flex justify-content-center mb-3">
