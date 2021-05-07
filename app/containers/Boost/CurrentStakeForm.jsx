@@ -1,8 +1,9 @@
-import React, { memo, useCallback } from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form/immutable';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
+import { TEXT_PRIMARY, BORDER_PRIMARY } from 'style-constants';
 
 import {
   requiredForNumericalField,
@@ -14,11 +15,6 @@ import Label from 'components/FormFields/Label';
 import { InputWrapper, InputProgressBar } from './Form';
 
 import { CURRENT_STAKE_FORM } from './constants';
-import {
-  SECONDARY_SPECIAL,
-  TEXT_PRIMARY,
-  BORDER_PRIMARY,
-} from 'style-constants';
 
 import messages from './messages';
 
@@ -40,21 +36,6 @@ const STAKE_TAGS = [
     value: 1,
   },
 ];
-
-const Stake = styled.span`
-  position: absolute;
-  top: 120px;
-  color: ${SECONDARY_SPECIAL};
-  font-size: 14px;
-`;
-
-export const MinStake = Stake.extend`
-  left: 0;
-`.withComponent('span');
-
-const MaxStake = Stake.extend`
-  right: 0;
-`.withComponent('span');
 
 const Tags = styled.div`
   display: flex;
@@ -129,9 +110,8 @@ const CurrentStakeForm = ({
         dotRestriction={6}
         validate={[requiredForNumericalField, valueHasToBeLessThan]}
         warn={[requiredForNumericalField, valueHasToBeLessThan]}
+        maxValue={maxValue}
       />
-      <MinStake>0</MinStake>
-      <MaxStake>{maxValue}</MaxStake>
 
       <InputProgressBar width={progressWidth} />
     </InputWrapper>
