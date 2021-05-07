@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Field } from 'redux-form/immutable';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
-import { TEXT_PRIMARY, BORDER_PRIMARY } from 'style-constants';
 
 import {
   requiredForNumericalField,
@@ -12,11 +11,17 @@ import {
 
 import NumberInputField from 'components/FormFields/NumberInputField';
 import Label from 'components/FormFields/Label';
+import {
+  SECONDARY_SPECIAL,
+  TEXT_PRIMARY,
+  BORDER_PRIMARY,
+} from 'style-constants';
 import { InputWrapper, InputProgressBar } from './Form';
 
 import { CURRENT_STAKE_FORM } from './constants';
 
 import messages from './messages';
+import { italicFont } from '../../global-styles';
 
 const STAKE_TAGS = [
   {
@@ -42,7 +47,7 @@ const Tags = styled.div`
   flex-wrap: wrap;
   margin-bottom: 10px;
   margin-top: 15px;
-  font-style: italic;
+  font-style: ${italicFont};
   font-size: 14px;
 `;
 

@@ -26,6 +26,7 @@ import { ErrorHandling, DisableHandling } from 'components/Input/InputStyled';
 import { AVATAR_FIELD } from 'containers/Profile/constants';
 
 import WarningMessage, { Div as WarningMessageDiv } from './WarningMessage';
+import { italicFont } from '../../global-styles';
 
 // < 1000 chars - hash, >> 1000 - is base64 (new image)
 export const HASH_CHARS_LIMIT = 1000;
@@ -192,7 +193,7 @@ const InfoMessage = styled.div`
   line-height: 1.2;
   color: ${TEXT_PRIMARY};
   text-align: center;
-  font-style: italic;
+  font-style: ${italicFont};
 
   opacity: 0.9;
 `;

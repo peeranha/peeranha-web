@@ -6,6 +6,7 @@ import { FormattedMessage } from 'react-intl';
 import { TEXT_SECONDARY } from 'style-constants';
 
 import validationArrowIcon from 'images/validationArrow.svg?inline';
+import { italicFont } from '../../global-styles';
 
 export const Div = styled.div`
   display: flex;
@@ -13,7 +14,7 @@ export const Div = styled.div`
   position: relative;
   font-size: 14px;
   line-height: 18px;
-  font-style: italic;
+  font-style: ${italicFont};
   max-height: ${x => (x.isSpecialPosition ? 'auto' : '40px')};
   word-break: normal;
   color: ${TEXT_SECONDARY};

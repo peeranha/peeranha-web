@@ -6,7 +6,7 @@ import { FormattedMessage } from 'react-intl';
 
 import messages from 'common-messages';
 
-import { TEXT_SECONDARY, TEXT_WARNING } from 'style-constants';
+import { TEXT_SECONDARY } from 'style-constants';
 
 import { getUserAvatar } from 'utils/profileManagement';
 import { formatStringToHtmlId } from 'utils/animation';
@@ -17,6 +17,7 @@ import { Wrapper } from 'components/FormFields/Wrapper';
 
 import WarningMessage, { Div as WarningMessageDiv } from './WarningMessage';
 import BannerLoader from './BannerLoader';
+import { italicFont } from '../../global-styles';
 
 // < 1000 chars - hash, >> 1000 - is base64 (new image)
 export const HASH_CHARS_LIMIT = 1000;
@@ -99,7 +100,7 @@ const LabelErrorStyle = styled.div`
   width: 100%;
   margin-top: 8px;
   color: ${TEXT_SECONDARY};
-  font-style: italic;
+  font-style: ${italicFont};
   font-size: 14px;
   line-height: 18px;
 `;

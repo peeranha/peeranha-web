@@ -15,6 +15,7 @@ import ProgressBar from './ProgressBar';
 import messages from './messages';
 
 import { uniqueRatingRelated } from './constants';
+import { italicFont } from '../../global-styles';
 
 const ImageBlock = styled.div`
   margin-right: 15px;
@@ -40,7 +41,7 @@ const Bage = styled.div`
 
 const LimitPhrase = styled.p`
   margin-top: 10px;
-  font-style: italic;
+  font-style: ${italicFont};
   color: ${TEXT_SECONDARY};
   font-size: 14px;
 `;

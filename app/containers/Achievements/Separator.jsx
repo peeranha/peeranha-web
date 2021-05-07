@@ -6,6 +6,7 @@ import { translationMessages } from 'i18n';
 import { BORDER_SECONDARY, BG_LIGHT } from 'style-constants';
 
 import messages from './messages';
+import { italicFont } from '../../global-styles';
 
 const SeparatorBase = styled.div`
   position: relative;
@@ -30,7 +31,7 @@ const GroupLabel = styled.div`
   position: relative;
   z-index: 2;
   color: ${BORDER_SECONDARY};
-  font-style: italic;
+  font-style: ${italicFont};
   background-color: ${BG_LIGHT};
   padding-right: 7px;
 `;
