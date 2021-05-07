@@ -9,6 +9,7 @@ import {
   GET_LOGO_SUCCESS,
   GET_LOGO_ERROR,
   REDIRECT_TO_EDIT_COMMUNITY_PAGE,
+  FOLLOW_HANDLER,
 } from './constants';
 
 export function redirectToEditCommunityPage(id) {
@@ -77,5 +78,14 @@ export function getLogoError(logoError) {
   return {
     type: GET_LOGO_ERROR,
     logoError,
+  };
+}
+
+export function followHandler(communityIdFilter, isFollowed, buttonId) {
+  return {
+    type: FOLLOW_HANDLER,
+    communityIdFilter,
+    isFollowed,
+    buttonId,
   };
 }
