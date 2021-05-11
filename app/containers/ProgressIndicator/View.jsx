@@ -14,7 +14,7 @@ import {
   MOBILE_HEADER_HEIGHT,
 } from 'containers/Header/constants';
 
-const width = 146;
+const width = 156;
 const height = 50;
 
 // z-index is less that header has
