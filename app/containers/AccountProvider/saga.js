@@ -23,7 +23,7 @@ import commonMessages from 'common-messages';
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { makeSelectLocale } from '../LanguageProvider/selectors';
 import { selectQuestionData } from '../ViewQuestion/selectors';
-import { makeSelectProfileInfo } from './selectors';
+import { makeSelectAccountLoading, makeSelectProfileInfo } from './selectors';
 
 import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
 import { getUserTelegramDataSuccess } from 'containers/TelegramAccountAction/actions';
@@ -287,15 +287,18 @@ export const getCurrentAccountWorker = function*(initAccount) {
     );
     yield put(getUserProfileSuccess(profileInfo));
     yield call(getCommunityPropertyWorker, profileInfo);
-    yield put(
-      getCurrentAccountSuccess(
-        account,
-        balance,
-        stakedInCurrentPeriod,
-        stakedInNextPeriod,
-        boost,
-      ),
-    );
+    const isStillLoading = yield select(makeSelectAccountLoading());
+    if (isStillLoading) {
+      yield put(
+        getCurrentAccountSuccess(
+          account,
+          balance,
+          stakedInCurrentPeriod,
+          stakedInNextPeriod,
+          boost,
+        ),
+      );
+    }
     yield put(getUserTelegramDataSuccess(userTgInfo));
   } catch (err) {
     yield put(getCurrentAccountError(err));
@@ -451,10 +454,7 @@ export function* getCommunityPropertyWorker(profile) {
     const eosService = yield select(selectEos);
 
     if (single) {
-      yield call(
-        setSingleCommunityDetails,
-        eosService,
-      );
+      yield call(setSingleCommunityDetails, eosService);
     }
 
     const info = yield call(
