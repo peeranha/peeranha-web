@@ -18,7 +18,9 @@ const ICON_LABEL_FULL_WIDTH = ICON_LABEL_WIDTH + ICON_LABEL_MARGIN;
 
 const StyledBox = styled.div`
   position: relative;
+  display: -webkit-flex;
   display: flex;
+  -webkit-flex-wrap: wrap;
   flex-wrap: wrap;
   max-width: 100%;
   margin-bottom: ${x => (!x.insideOfSection ? '15px' : '10px')};
@@ -60,6 +62,7 @@ const Body = styled.div`
   flex-direction: ${x => (x.splitInHalf ? 'row' : 'column')};
   flex-grow: 1;
   max-width: 100%;
+  -webkit-flex: 1 1 100%;
 
   > div:nth-child(1) {
     flex: 0 0 ${x => (x.splitInHalf ? `${x.withIconLabel ? CL - ICON_LABEL_FULL_WIDTH : CL}px` : `100%`)};
@@ -71,16 +74,19 @@ const Body = styled.div`
     max-width: ${x => (x.splitInHalf ? `calc(100% - ${CL}px)` : `100%`)};
     padding-left: ${x => (x.splitInHalf ? '30px' : '0px')};
     margin-top: ${x => (x.splitInHalf ? '0px' : '8px')};
+    -webkit-flex: 1 1 ${x => (x.splitInHalf ? `calc(100% - ${CL}px)` : `100%`)};
   }
 
   @media only screen and (max-width: 768px) {
     align-items: initial;
     flex-wrap: nowrap;
     flex-direction: column;
+    -webkit-flex: 1 1 100%;
 
     > div:nth-child(1) {
       flex: 0 0 100%;
       max-width: 100%;
+      -webkit-flex: 1 1 100%;
     }
 
     > div:nth-child(2) {
@@ -88,6 +94,7 @@ const Body = styled.div`
       max-width: 100%;
       padding-left: 0px;
       margin-top: 8px;
+      -webkit-flex: 1 1 100%;
     }
   }
 `;
