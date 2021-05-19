@@ -218,7 +218,7 @@ const AuthorizationData = ({
           </tbody>
         </table>
 
-        {isLoggedInWithWallet && (
+        {!isLoggedInWithWallet && (
           <DeleteAccountButton
             render={({ onClick }) => (
               <InfoButton onClick={onClick}>
