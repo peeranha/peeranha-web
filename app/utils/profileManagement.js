@@ -15,7 +15,7 @@ import {
   ALL_TG_ACCOUNTS_SCOPE,
   CONFIRM_TELEGRAM_ACCOUNT,
   UNLINK_TELEGRAM_ACCOUNT,
-  USER_ACHIEVEMENTS_TABLE,
+  USER_ACHIEVEMENTS_TABLE, INF_LIMIT,
 } from './constants';
 import {
   callService,
@@ -261,6 +261,8 @@ export async function getUserTelegramData(eosService, userName) {
   const { rows } = await eosService.getTableRows(
     TG_ACCOUNT_TABLE,
     ALL_TG_ACCOUNTS_SCOPE,
+    0,
+    INF_LIMIT,
   );
 
   const userTgData = rows.filter(item => item.user === userName);
