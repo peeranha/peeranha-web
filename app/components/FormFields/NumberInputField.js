@@ -7,18 +7,18 @@ import Wrapper from './Wrapper';
 import { SECONDARY_SPECIAL } from '../../style-constants';
 
 const Stake = styled.span`
-  top: 60px;
-  position: absolute;
+  margin-top: 5px;
+  margin-bottom: 5px;
   color: ${SECONDARY_SPECIAL};
   font-size: 14px;
 `;
 
 export const MinStake = Stake.extend`
-  left: 0;
+  float: left;
 `.withComponent('span');
 
 const MaxStake = Stake.extend`
-  right: 0;
+  float: right;
 `.withComponent('span');
 
 export const NumberInputField = ({
