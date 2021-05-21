@@ -62,7 +62,7 @@ const Body = styled.div`
   flex-direction: ${x => (x.splitInHalf ? 'row' : 'column')};
   flex-grow: 1;
   max-width: 100%;
-  -webkit-flex: 1 1 100%;
+  -webkit-flex: 1 1;
 
   > div:nth-child(1) {
     flex: 0 0 ${x => (x.splitInHalf ? `${x.withIconLabel ? CL - ICON_LABEL_FULL_WIDTH : CL}px` : `100%`)};
