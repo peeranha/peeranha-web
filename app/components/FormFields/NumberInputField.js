@@ -36,6 +36,7 @@ export const NumberInputField = ({
   dotRestriction = 6,
   type = 'text',
   maxValue,
+  isBoost = false,
 }) => {
   const onChange = x => {
     try {
@@ -122,8 +123,12 @@ export const NumberInputField = ({
         error={meta.touched && (meta.error || meta.warning)}
         type={type}
       />
-      <MinStake>0</MinStake>
-      <MaxStake>{maxValue}</MaxStake>
+      {isBoost && (
+        <>
+          <MinStake>0</MinStake>
+          <MaxStake>{maxValue}</MaxStake>
+        </>
+      )}
     </Wrapper>
   );
 };

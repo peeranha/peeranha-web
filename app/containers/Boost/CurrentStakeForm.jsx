@@ -116,6 +116,7 @@ const CurrentStakeForm = ({
         validate={[requiredForNumericalField, valueHasToBeLessThan]}
         warn={[requiredForNumericalField, valueHasToBeLessThan]}
         maxValue={maxValue}
+        isBoost
       />
 
       <InputProgressBar width={progressWidth} />
