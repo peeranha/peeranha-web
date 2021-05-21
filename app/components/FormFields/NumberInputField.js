@@ -2,24 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Input from 'components/Input';
-import styled from 'styled-components';
 import Wrapper from './Wrapper';
-import { SECONDARY_SPECIAL } from '../../style-constants';
-
-const Stake = styled.span`
-  top: 60px;
-  position: absolute;
-  color: ${SECONDARY_SPECIAL};
-  font-size: 14px;
-`;
-
-export const MinStake = Stake.extend`
-  left: 0;
-`.withComponent('span');
-
-const MaxStake = Stake.extend`
-  right: 0;
-`.withComponent('span');
 
 export const NumberInputField = ({
   input,
@@ -35,7 +18,6 @@ export const NumberInputField = ({
   onClick,
   dotRestriction = 6,
   type = 'text',
-  maxValue,
 }) => {
   const onChange = x => {
     try {
@@ -122,8 +104,6 @@ export const NumberInputField = ({
         error={meta.touched && (meta.error || meta.warning)}
         type={type}
       />
-      <MinStake>0</MinStake>
-      <MaxStake>{maxValue}</MaxStake>
     </Wrapper>
   );
 };

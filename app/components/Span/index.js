@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { APP_FONT, TEXT_DARK } from 'style-constants';
+import { italicFont } from '../../global-styles';
 
 /* eslint indent: 0 */
 const Span = styled.span`
@@ -12,7 +13,7 @@ const Span = styled.span`
       ? +fontSize + 2
       : lineHeight || +fontSize + 2 || 16}px;
 
-  font-style: ${({ isItalic }) => (isItalic ? 'italic' : 'normal')};
+  font-style: ${({ isItalic }) => (isItalic ? italicFont : 'normal')};
   font-family: ${({ fontFamily }) => fontFamily || APP_FONT};
   text-align: left;
   letter-spacing: ${({ letterSpacing }) => letterSpacing || 'normal'};
