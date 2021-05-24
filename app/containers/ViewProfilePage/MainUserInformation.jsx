@@ -193,11 +193,12 @@ const MainUserInformation = ({
                   <InlineLoader width={7} height={7} margin={3} />
                 )}
               </li>
-
+              {!isTemporaryAccount &&
               <li>
                 <FormattedMessage {...commonMessages.eosAccount} />
                 <span>{userId}</span>
               </li>
+              }
 
               <li>
                 <span>
