@@ -5,6 +5,8 @@ import Input from 'components/Input';
 import Wrapper from 'components/FormFields/Wrapper';
 import styled from 'styled-components';
 import { SecondaryWithInfoHover } from '../../components/Button/Outlined/SecondaryMedium';
+import { FormattedMessage } from 'react-intl';
+import commonMessages from 'common-messages';
 
 const StyledWrapper = styled(Wrapper)`
   > :nth-child(2) {
@@ -70,7 +72,7 @@ export const MasterKeyInputField = ({
       type={type}
     />
     <DisagreeButton onClick={writeToBuffer} id="copy" type="button">
-      Копировать
+      <FormattedMessage {...commonMessages.copy} />
     </DisagreeButton>
   </StyledWrapper>
 );
