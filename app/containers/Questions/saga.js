@@ -266,10 +266,11 @@ export function* updateStoredQuestionsWorker() {
   const initLoadedItems = yield select(selectInitLoadedItems());
   const offset = 0;
   const communityIdFilter = yield select(selectTypeFilter());
+  const followedCommunities = yield select(makeSelectFollowedCommunities());
   const parentPage = window.location.pathname;
   const fetcher = new FetcherOfQuestionsForFollowedCommunities(
     Math.floor(1.2 * initLoadedItems),
-    [],
+    followedCommunities || [],
     eosService,
   );
 
