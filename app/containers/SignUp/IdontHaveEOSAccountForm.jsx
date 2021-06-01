@@ -4,6 +4,7 @@ import { Field, reduxForm } from 'redux-form/immutable';
 import { FormattedMessage } from 'react-intl';
 import { translationMessages } from 'i18n';
 import PropTypes from 'prop-types';
+import commonMessages from 'common-messages';
 
 import * as routes from 'routes-config';
 
@@ -28,6 +29,7 @@ import YouNeedEosAccount from 'components/SignUpWrapper/YouNeedEosAccount';
 import Checkbox from 'components/Input/Checkbox';
 import IAcceptTerms from 'components/IAcceptTerms';
 import Img from 'components/Img';
+import * as clipboard from 'clipboard-polyfill';
 
 import SignUp from './index';
 import messages from './messages';
@@ -47,133 +49,149 @@ import { Div } from './IHaveEOSAccountForm';
 import TelosNameForm from './TelosNameForm';
 import MyOwnTelosNameForm from './MyOwnTelosNameForm';
 import { selectEos } from '../EosioProvider/selectors';
+import { MasterKeyInputField } from './MasterKeyInputField';
+import { showPopover } from '../../utils/popover';
+import { makeSelectLocale } from '../LanguageProvider/selectors';
 
 const IdontHaveEOSAccountForm = ({
   handleSubmit,
   change,
   masterKeyValue,
   isMyOwnTelosName,
-}) => (
-  <YouNeedEosAccount route={routes.signup.haveEosAccount.name}>
-    <SignUp>
-      {({
-        idontHaveEosAccount,
-        locale,
-        idontHaveEosAccountProcessing,
-        keys: { masterKey },
-      }) => {
-        const translate = translationMessages[locale];
+  locale,
+}) => {
+  const writeToBuffer = event => {
+    clipboard.writeText(masterKeyValue);
+    showPopover(
+      event.currentTarget.id,
+      translationMessages[locale][commonMessages.copied.id],
+    );
+    return false;
+  };
 
-        if (!masterKeyValue) {
-          change(MASTER_KEY_FIELD, masterKey);
-        }
+  return (
+    <YouNeedEosAccount route={routes.signup.haveEosAccount.name}>
+      <SignUp>
+        {({
+          idontHaveEosAccount,
+          locale,
+          idontHaveEosAccountProcessing,
+          keys: { masterKey },
+        }) => {
+          const translate = translationMessages[locale];
 
-        return (
-          <form onSubmit={handleSubmit(idontHaveEosAccount)}>
-            <Div primary>
-              <Field
-                name={MASTER_KEY_FIELD}
-                label={translate[messages.masterKey.id]}
-                component={TextInputField}
-                validate={[required]}
-                warn={[required]}
-                readOnly
-                disabled
-                autoComplete="off"
-              />
+          if (!masterKeyValue) {
+            change(MASTER_KEY_FIELD, masterKey);
+          }
 
-              <div className="d-flex align-items-center mb-3">
-                <Img
-                  notRounded
-                  size={0.8}
-                  className="mr-2"
-                  src={dangerIcon}
-                  alt="dangerIcon"
+          return (
+            <form onSubmit={handleSubmit(idontHaveEosAccount)}>
+              <Div primary>
+                <Field
+                  name={MASTER_KEY_FIELD}
+                  label={translate[messages.masterKey.id]}
+                  component={MasterKeyInputField}
+                  validate={[required]}
+                  warn={[required]}
+                  readOnly
+                  disabled
+                  autoComplete="off"
+                  writeToBuffer={writeToBuffer}
                 />
-                <FormattedMessage {...messages.youHaveToSaveKeys} />
-              </div>
-            </Div>
-            <Div>
-              <Field
-                name={TELOS_NAME_FIELD}
-                disabled={idontHaveEosAccountProcessing}
-                label={translate[messages.eosName.id]}
-                component={TelosNameForm}
-              />
-            </Div>
-            {isMyOwnTelosName ? (
+
+                <div className="d-flex align-items-center mb-3">
+                  <Img
+                    notRounded
+                    size={0.8}
+                    className="mr-2"
+                    src={dangerIcon}
+                    alt="dangerIcon"
+                  />
+                  <FormattedMessage {...messages.youHaveToSaveKeys} />
+                </div>
+              </Div>
               <Div>
                 <Field
-                  name={MY_OWN_TELOS_NAME_FIELD}
+                  name={TELOS_NAME_FIELD}
                   disabled={idontHaveEosAccountProcessing}
-                  component={MyOwnTelosNameForm}
-                  validate={[
-                    required,
-                    telosCorrectSymbols,
-                    telosNameLength,
-                    atLeastOneLetter,
-                  ]}
+                  label={translate[messages.eosName.id]}
+                  component={TelosNameForm}
                 />
               </Div>
-            ) : null}
-            <Div>
-              <Field
-                name={PASSWORD_FIELD}
-                disabled={idontHaveEosAccountProcessing}
-                label={translate[messages.password.id]}
-                component={TextInputField}
-                type="password"
-                autoComplete="new-password"
-                validate={[required, strLength8x100, comparePasswords]}
-                warn={[required, strLength8x100, comparePasswords]}
-              />
-            </Div>
-            <Div>
-              <Field
-                name={PASSWORD_CONFIRM_FIELD}
-                disabled={idontHaveEosAccountProcessing}
-                label={translate[messages.confirmPassword.id]}
-                component={TextInputField}
-                type="password"
-                autoComplete="new-password"
-                validate={[required, strLength8x100, comparePasswords]}
-                warn={[required, strLength8x100, comparePasswords]}
-              />
-            </Div>
-            <Div className="mb-4">
-              <Field
-                name={I_SAVE_MASTER_KEY_FIELD}
-                disabled={idontHaveEosAccountProcessing}
-                label={translate[messages.iSaveMasterKey.id]}
-                component={Checkbox}
-                validate={required}
-                warn={required}
-              />
-            </Div>
-            <Div className="mb-4">
-              <Field
-                name={I_ACCEPT_PRIVACY_POLICY_FIELD}
-                disabled={idontHaveEosAccountProcessing}
-                label={<IAcceptTerms />}
-                component={Checkbox}
-                validate={required}
-                warn={required}
-              />
-            </Div>
-            <Div>
-              <SubmitButton
-                disabled={idontHaveEosAccountProcessing}
-                className="w-100"
-              >
-                <FormattedMessage {...messages.signUp} />
-              </SubmitButton>
-            </Div>
-          </form>
-        );
-      }}
-    </SignUp>
-  </YouNeedEosAccount>
-);
+              {isMyOwnTelosName ? (
+                <Div>
+                  <Field
+                    name={MY_OWN_TELOS_NAME_FIELD}
+                    disabled={idontHaveEosAccountProcessing}
+                    component={MyOwnTelosNameForm}
+                    validate={[
+                      required,
+                      telosCorrectSymbols,
+                      telosNameLength,
+                      atLeastOneLetter,
+                    ]}
+                  />
+                </Div>
+              ) : null}
+              <Div>
+                <Field
+                  name={PASSWORD_FIELD}
+                  disabled={idontHaveEosAccountProcessing}
+                  label={translate[messages.password.id]}
+                  component={TextInputField}
+                  type="password"
+                  autoComplete="new-password"
+                  validate={[required, strLength8x100, comparePasswords]}
+                  warn={[required, strLength8x100, comparePasswords]}
+                />
+              </Div>
+              <Div>
+                <Field
+                  name={PASSWORD_CONFIRM_FIELD}
+                  disabled={idontHaveEosAccountProcessing}
+                  label={translate[messages.confirmPassword.id]}
+                  component={TextInputField}
+                  type="password"
+                  autoComplete="new-password"
+                  validate={[required, strLength8x100, comparePasswords]}
+                  warn={[required, strLength8x100, comparePasswords]}
+                />
+              </Div>
+              <Div className="mb-4">
+                <Field
+                  name={I_SAVE_MASTER_KEY_FIELD}
+                  disabled={idontHaveEosAccountProcessing}
+                  label={translate[messages.iSaveMasterKey.id]}
+                  component={Checkbox}
+                  validate={required}
+                  warn={required}
+                />
+              </Div>
+              <Div className="mb-4">
+                <Field
+                  name={I_ACCEPT_PRIVACY_POLICY_FIELD}
+                  disabled={idontHaveEosAccountProcessing}
+                  label={<IAcceptTerms />}
+                  component={Checkbox}
+                  validate={required}
+                  warn={required}
+                />
+              </Div>
+              <Div>
+                <SubmitButton
+                  disabled={idontHaveEosAccountProcessing}
+                  className="w-100"
+                >
+                  <FormattedMessage {...messages.signUp} />
+                </SubmitButton>
+              </Div>
+            </form>
+          );
+        }}
+      </SignUp>
+    </YouNeedEosAccount>
+  );
+};
 
 IdontHaveEOSAccountForm.propTypes = {
   handleSubmit: PropTypes.func,
@@ -217,6 +235,7 @@ FormClone = connect(state => {
 
   return {
     eosService: selectEos(state),
+    locale: makeSelectLocale()(state),
     masterKeyValue: form.values ? form.values[MASTER_KEY_FIELD] : null,
     passwordList: form.values
       ? [form.values[PASSWORD_FIELD], form.values[PASSWORD_CONFIRM_FIELD]]
