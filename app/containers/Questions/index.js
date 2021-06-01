@@ -244,11 +244,12 @@ export const Questions = ({
 
   const displayLoader = useMemo(
     () =>
-      questionsLoading ||
+      (!questionsList.length && questionsLoading) ||
       topQuestionsLoading ||
       communitiesLoading ||
       (getCookie(QUESTION_FILTER) === '1' && !isLastTopQuestionLoaded),
     [
+      questionsList,
       questionsLoading,
       topQuestionsLoading,
       communitiesLoading,
