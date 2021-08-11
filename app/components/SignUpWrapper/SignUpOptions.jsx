@@ -191,8 +191,8 @@ export const SignUpOptions = ({
   withWallet,
   faqQuestions,
   logo,
-}) => (
-  <SignUpWrapper
+}) => {
+  return (<SignUpWrapper
     LeftMenuChildren={<LeftMenu faqQuestions={faqQuestions} mainLogo={logo} />}
     RightMenuChildren={
       !withWallet ? (
@@ -209,8 +209,8 @@ export const SignUpOptions = ({
         children
       )
     }
-  />
-);
+  />);
+};
 
 LeftMenu.propTypes = {
   faqQuestions: PropTypes.array,

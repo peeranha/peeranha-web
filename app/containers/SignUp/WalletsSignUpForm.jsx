@@ -39,7 +39,6 @@ const WalletsSignUpForm = ({
   handleSubmit,
   change,
   eosAccountValue,
-  withScatter,
   withKeycat,
 }) => (
   <SignUp withWallet>
@@ -54,13 +53,11 @@ const WalletsSignUpForm = ({
       if (eosAccountName !== eosAccountValue) {
         change(EOS_ACCOUNT_FIELD, eosAccountName);
       }
-
       return (
         <SignUpOptions withWallet showWalletSignUpForm={showWalletSignUpForm} logo={logo}>
           <Form
             onSubmit={handleSubmit(val =>
               signUpWithWallet(val, {
-                scatter: withScatter,
                 keycat: withKeycat,
               }),
             )}
@@ -69,7 +66,7 @@ const WalletsSignUpForm = ({
               name={EOS_ACCOUNT_FIELD}
               disabled
               readOnly
-              label={translationMessages[locale][messages.eosName.id]}
+              label={translationMessages[locale][messages.ethereumUserAddress.id]}
               component={TextInputField}
               validate={[required]}
               warn={[required]}
@@ -135,7 +132,6 @@ WalletsSignUpForm.propTypes = {
   handleSubmit: PropTypes.func,
   eosAccountValue: PropTypes.string,
   change: PropTypes.func,
-  withScatter: PropTypes.bool,
   withKeycat: PropTypes.bool,
 };
 
@@ -153,11 +149,10 @@ let FormClone = compose(
 
 FormClone = connect(state => {
   const form = state.toJS().form[formName] || { values: {} };
-  const { withScatter, withKeycat } = selectEos(state);
+  const { withKeycat } = selectEos(state);
 
   return {
     eosAccountValue: form.values ? form.values[EOS_ACCOUNT_FIELD] : null,
-    withScatter,
     withKeycat,
   };
 })(FormClone);

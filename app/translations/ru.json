@@ -910,7 +910,7 @@
   "app.containers.SignUp.masterKey": "Master ключ",
   "app.containers.SignUp.displayName": "Отображаемое имя",
   "app.containers.SignUp.referralCode": "Реферальный код {optional}",
-  "app.containers.SignUp.eosName": "Имя в Telos",
+  "app.containers.SignUp.ethereumUserAddress": "Адрес в Ethereum",
   "app.containers.SignUp.signUp": "Зарегистрироваться",
   "app.containers.SignUp.password": "Пароль",
   "app.containers.SignUp.confirmPassword": "Подтвердить пароль",
@@ -930,6 +930,7 @@
   "app.containers.SignUp.myOwn": "Моё собственное",
   "app.containers.SignUp.tgAccountID": "ID телеграм аккаунта",
   "app.containers.SignUp.tgAccountName": "Имя телеграм аккаунта",
+  "app.containers.SignUp.metaMaskIsNotInstalled": "MetaMask не установлен",
 
   "app.containers.Profile.profile": "Профиль",
   "app.containers.Profile.profileDescription": "Описание профиля",

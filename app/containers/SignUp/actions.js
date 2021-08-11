@@ -180,11 +180,10 @@ export const signUpWithWalletReferralErr = signUpWithWalletReferralError => ({
  *
  */
 
-export function showWalletSignUpForm({ scatter, keycat }) {
+export function showWalletSignUpForm({ metaMask }) {
   return {
     type: SHOW_WALLET_SIGNUP_FORM,
-    scatter,
-    keycat,
+    metaMask,
   };
 }
 

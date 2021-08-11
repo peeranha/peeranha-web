@@ -377,7 +377,7 @@ export function* signUpWithWalletWorker({ val, scatter, keycat }) {
   }
 }
 
-export function* showWalletSignUpFormWorker({ scatter, keycat }) {
+export function* showWalletSignUpFormWorker({ metaMask }) {
   try {
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
@@ -385,50 +385,41 @@ export function* showWalletSignUpFormWorker({ scatter, keycat }) {
     const eosService = yield select(selectEos);
     let currentAccount;
 
-    // sign up with keycat
-    if (keycat) {
-      const keycatUserData = yield call(eosService.keycatSignIn);
-
-      if (!keycatUserData) {
-        throw new WebIntegrationError(
-          translations[signupMessages[USER_IS_NOT_SELECTED_ERROR].id],
-        );
+    const handleAccountsChanged = (accounts) => {
+      if (accounts.length === 0) {
+        // MetaMask is locked or the user has not connected any accounts
+        console.log('Please connect to MetaMask.');
+      } else if (accounts[0] !== currentAccount) {
+        currentAccount = accounts[0];
       }
-
-      currentAccount = keycatUserData.accountName;
     }
 
-    // sign up with scatter
-    if (scatter) {
-      yield call(eosService.forgetIdentity);
-      yield call(eosService.initEosioWithScatter);
-
-      if (!eosService.scatterInstalled) {
+    // sign up with metaMask
+    if (metaMask) {
+      const { ethereum } = window;
+      if (!(ethereum && ethereum.isMetaMask)){
         throw new WebIntegrationError(
-          translations[loginMessages[SCATTER_MODE_ERROR].id],
+          "MetaMask is not installed",
         );
-      }
-
-      currentAccount = eosService.selectedAccount;
+      };
+      yield ethereum
+        .request({ method: 'eth_requestAccounts' })
+        .then(handleAccountsChanged)
+        .catch(() => {
+          // For backwards compatibility reasons, if no accounts are available,
+          throw new WebIntegrationError(
+            translations[signupMessages[USER_IS_NOT_SELECTED_ERROR].id],
+          );
+        });
     }
 
-    if (!currentAccount) {
-      throw new WebIntegrationError(
-        translations[
-          getAccountNotSelectedMessageDescriptor(
-            eosService.isScatterExtension,
-          ).id
-        ],
-      );
-    }
-
-    const profileInfo = yield call(getProfileInfo, currentAccount, eosService);
-
-    if (profileInfo) {
-      throw new WebIntegrationError(
-        translations[signupMessages[USER_ALREADY_REGISTERED_ERROR].id],
-      );
-    }
+    // const profileInfo = yield call(getProfileInfo, currentAccount, eosService);
+    //
+    // if (profileInfo) {
+    //   throw new WebIntegrationError(
+    //     translations[signupMessages[USER_ALREADY_REGISTERED_ERROR].id],
+    //   );
+    // }
 
     yield put(showWalletSignUpFormSuccess(currentAccount));
     yield call(createdHistory.push, routes.signup.displayName.name);
