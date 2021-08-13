@@ -50,9 +50,7 @@ function accountProviderReducer(state = initialState, action) {
     passwordUserPart,
     encryptedKeys,
     hasOwnerEosKey,
-    loginWithScatter,
-    loginWithKeycat,
-    loginWithFacebook,
+    loginWithMetaMask,
   } = action;
 
   switch (type) {
@@ -84,9 +82,7 @@ function accountProviderReducer(state = initialState, action) {
         .set('passwordUserPart', passwordUserPart)
         .set('encryptedKeys', encryptedKeys)
         .set('hasOwnerEosKey', hasOwnerEosKey)
-        .set('loginWithScatter', loginWithScatter)
-        .set('loginWithKeycat', loginWithKeycat)
-        .set('loginWithFacebook', loginWithFacebook);
+        .set('loginWithMetaMask', loginWithMetaMask);
     case REMOVE_LOGIN_DATA:
       return state
         .set('email', null)
@@ -95,8 +91,7 @@ function accountProviderReducer(state = initialState, action) {
         .set('passwordUserPart', null)
         .set('encryptedKeys', null)
         .set('hasOwnerEosKey', null)
-        .set('loginWithScatter', null)
-        .set('loginWithFacebook', null);
+        .set('loginWithMetaMask', null);
 
     case CHANGE_STAKED_IN_NEXT_PERIOD:
       return state.set('stakedInNextPeriod', stakedInNextPeriod);

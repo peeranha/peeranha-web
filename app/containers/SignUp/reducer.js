@@ -67,7 +67,7 @@ function signUpReducer(state = initialState, action) {
     keys,
     verificationCode,
     encryptionKey,
-    eosAccountName,
+    ethereumUserAddress,
   } = action;
 
   switch (type) {
@@ -129,7 +129,7 @@ function signUpReducer(state = initialState, action) {
     case SHOW_WALLET_SIGNUP_FORM_SUCCESS:
       return state
         .set('showWalletSignUpProcessing', false)
-        .set('eosAccountName', eosAccountName);
+        .set('ethereumUserAddress', ethereumUserAddress);
     case SHOW_WALLET_SIGNUP_FORM_ERROR:
       return state
         .set('showWalletSignUpFormError', showWalletSignUpFormError)

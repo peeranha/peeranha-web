@@ -163,6 +163,8 @@
   "app.common.blogger": "Blogger",
   "app.common.cannotTransferToYourself": "Cannot transfer to yourself",
   "app.common.notEnoughCPUOrRAM": "Not enough CPU or RAM",
+  "app.common.metaMaskIsLocked":
+    "MetaMask is locked or the account is not connected",
 
   "app.telegram.user": "Telegram user",
   "app.telegram.userLabelPopover":

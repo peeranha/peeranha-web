@@ -170,5 +170,5 @@ export default defineMessages({
   },
   metaMaskIsNotInstalled: {
     id: 'app.containers.SignUp.metaMaskIsNotInstalled',
-  }
+  },
 });

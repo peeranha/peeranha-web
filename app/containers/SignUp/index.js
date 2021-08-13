@@ -80,7 +80,7 @@ export const SignUp = ({
   account,
   withWallet,
   checkEmailDispatch,
-  eosAccountName,
+  ethereumUserAddress,
   sendAnotherCodeDispatch,
   logo,
   getLogoDispatch,
@@ -157,7 +157,7 @@ export const SignUp = ({
         keys: keys || {},
         locale,
         account,
-        eosAccountName,
+        ethereumUserAddress,
         email,
         emailChecking,
         emailVerificationProcessing,
@@ -189,7 +189,7 @@ SignUp.propTypes = {
   showWalletSignUpFormDispatch: PropTypes.func,
   account: PropTypes.string,
   email: PropTypes.string,
-  eosAccountName: PropTypes.string,
+  ethereumUserAddress: PropTypes.string,
   withWallet: PropTypes.bool,
   keys: PropTypes.object,
   putKeysToStateDispatch: PropTypes.func,
@@ -209,7 +209,7 @@ const withConnect = connect(
     idontHaveEosAccountProcessing: signUpSelectors.selectIdontHaveEosAccountProcessing(),
     signUpWithWalletProcessing: signUpSelectors.selectSignUpWithWalletProcessing(),
     showWalletSignUpProcessing: signUpSelectors.selectShowWalletSignUpProcessing(),
-    eosAccountName: signUpSelectors.selectEosAccountName(),
+    ethereumUserAddress: signUpSelectors.selectEthereumUserAddress(),
     keys: signUpSelectors.selectKeys(),
     logo: selectLogo(),
   }),
@@ -235,7 +235,10 @@ const withConnect = connect(
 
 const withReducer = injectReducer({ key: 'signUp', reducer });
 const withSaga = injectSaga({ key: 'signUp', saga, mode: DAEMON });
-const withHomePageReducer = injectReducer({ key: HOME_KEY, reducer: homeReducer, });
+const withHomePageReducer = injectReducer({
+  key: HOME_KEY,
+  reducer: homeReducer,
+});
 const withHomePageSaga = injectSaga({ key: HOME_KEY, saga: homeSaga });
 
 export default compose(

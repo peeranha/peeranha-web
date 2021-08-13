@@ -192,24 +192,28 @@ export const SignUpOptions = ({
   faqQuestions,
   logo,
 }) => {
-  return (<SignUpWrapper
-    LeftMenuChildren={<LeftMenu faqQuestions={faqQuestions} mainLogo={logo} />}
-    RightMenuChildren={
-      !withWallet ? (
-        <RightMenuWithoutScatter
-          children={children}
-          showLoginModal={showLoginModal}
-          showWalletSignUpForm={showWalletSignUpForm}
-          showWalletSignUpProcessing={showWalletSignUpProcessing}
-          emailVerificationProcessing={emailVerificationProcessing}
-          emailChecking={emailChecking}
-          isMobileDevice={isMobile(window.navigator).any}
-        />
-      ) : (
-        children
-      )
-    }
-  />);
+  return (
+    <SignUpWrapper
+      LeftMenuChildren={
+        <LeftMenu faqQuestions={faqQuestions} mainLogo={logo} />
+      }
+      RightMenuChildren={
+        !withWallet ? (
+          <RightMenuWithoutScatter
+            children={children}
+            showLoginModal={showLoginModal}
+            showWalletSignUpForm={showWalletSignUpForm}
+            showWalletSignUpProcessing={showWalletSignUpProcessing}
+            emailVerificationProcessing={emailVerificationProcessing}
+            emailChecking={emailChecking}
+            isMobileDevice={isMobile(window.navigator).any}
+          />
+        ) : (
+          children
+        )
+      }
+    />
+  );
 };
 
 LeftMenu.propTypes = {

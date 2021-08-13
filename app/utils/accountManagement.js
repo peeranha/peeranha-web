@@ -29,43 +29,55 @@ export const updateAcc = async (profile, eosService) => {
   )?.value;
   const timeSinceRatingUpdate = currentTime - lastUpdateTime;
 
-  if (
-    periodsHavePassed > 0 ||
-    timeSinceRatingUpdate >= process.env.ACCOUNT_STAT_RESET_PERIOD
-  ) {
-    await eosService.sendTransaction(profile.user, UPDATE_ACC, {
-      user: profile.user,
-    });
-  } else {
-    // throw new ApplicationError('Period is not finished');
-  }
+  // if (
+  //   periodsHavePassed > 0 ||
+  //   timeSinceRatingUpdate >= process.env.ACCOUNT_STAT_RESET_PERIOD
+  // ) {
+  //   await eosService.sendTransaction(profile.user, UPDATE_ACC, {
+  //     user: profile.user,
+  //   });
+  // } else {
+  //   // throw new ApplicationError('Period is not finished');
+  // }
 };
 
 export const registerAccount = async (
   profile,
-  eosService,
+  ethereumService,
   avatar = NO_AVATAR,
 ) => {
+  console.log(profile);
   const ipfsHash = await saveText(JSON.stringify(profile));
 
   try {
-    await eosService.sendTransaction(
-      profile.accountName,
+    await ethereumService.sendTransaction(
+      profile.userAddress,
       REGISTER_ACC,
-      {
-        user: profile.accountName,
-        display_name: profile.displayName,
-        ipfs_profile: ipfsHash,
-        ipfs_avatar: NO_AVATAR,
-      },
-      null,
-      true,
+      ipfsHash,
     );
-
     return true;
   } catch (e) {
     return false;
   }
+
+  // try {
+  //   await eosService.sendTransaction(
+  //     profile.accountName,
+  //     REGISTER_ACC,
+  //     {
+  //       user: profile.accountName,
+  //       display_name: profile.displayName,
+  //       ipfs_profile: ipfsHash,
+  //       ipfs_avatar: NO_AVATAR,
+  //     },
+  //     null,
+  //     true,
+  //   );
+  //
+  //   return true;
+  // } catch (e) {
+  //   return false;
+  // }
 };
 
 export const isUserInSystem = async (user, eosService) => {

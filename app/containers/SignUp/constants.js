@@ -21,7 +21,7 @@ const PASSWORD_CONFIRM_FIELD = 'password_confirm';
 const I_SAVE_MASTER_KEY_FIELD = 'i_save_master_key';
 const I_ACCEPT_PRIVACY_POLICY_FIELD = 'i_accept_privacy_policy';
 const WHY_DO_YOU_LIKE_US_FIELD = 'why_do_you_like_us';
-const EOS_ACCOUNT_FIELD = 'eos_account';
+const EOS_ACCOUNT_FIELD = 'ethereum_account';
 
 // Action types
 

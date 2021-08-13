@@ -113,6 +113,7 @@ import {
 
 import { getCookie, setCookie } from 'utils/cookie';
 import { translationMessages } from '../../i18n';
+import { selectEthereum } from '../EthereumProvider/selectors';
 
 const single = isSingleCommunityWebsite();
 
@@ -121,49 +122,27 @@ export const getCurrentAccountWorker = function*(initAccount) {
   try {
     yield put(getCurrentAccountProcessing());
 
-    const eosService = yield select(selectEos);
+    const ethereumService = yield select(selectEthereum);
     const prevProfileInfo = yield select(makeSelectProfileInfo());
 
-    if (eosService.withScatter)
-      yield put(addLoginData({ loginWithScatter: true }));
+    if (ethereumService.withMetaMask)
+      yield put(addLoginData({ loginWithMetaMask: true }));
 
-    if (eosService.withKeycat)
-      yield put(addLoginData({ loginWithKeycat: true }));
-
-    const globalBoostStat = yield call(getGlobalBoostStatistics, eosService);
+    // const globalBoostStat = yield call(getGlobalBoostStatistics, eosService);
 
     let account = yield typeof initAccount === 'string'
       ? initAccount
-      : call(eosService.getSelectedAccount);
+      : call(ethereumService.getSelectedAccount);
 
     if (!account) {
-      const autoLoginData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
-
-      if (autoLoginData) {
-        account = autoLoginData.eosAccountName;
-      }
-
-      if (autoLoginData?.loginWithScatter) {
-        yield put(
-          addLoginData({ loginWithScatter: autoLoginData.loginWithScatter }),
-        );
-      }
-
-      if (autoLoginData?.loginWithKeycat) {
-        yield put(
-          addLoginData({ loginWithKeycat: autoLoginData.loginWithKeycat }),
-        );
-      }
-
-      if (autoLoginData?.loginWithFacebook) {
-        yield put(
-          addLoginData({ loginWithFacebook: autoLoginData.loginWithFacebook }),
-        );
-      }
+      // const autoLoginData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
+      // if (autoLoginData) {
+      //   account = autoLoginData.eosAccountName;
+      // }
     }
 
     if (account && typeof account === 'object') {
-      account = account.eosAccountName;
+      // account = account.eosAccountName;
     }
 
     if (!prevProfileInfo) {
@@ -173,133 +152,134 @@ export const getCurrentAccountWorker = function*(initAccount) {
         (account === profileLS.user ||
           (account && account.eosAccountName === profileLS.user))
       ) {
+        console.log(profileLS);
         // user available balance
-        const weekStat = yield call(getWeekStat, eosService, profileLS);
-        const userBoostStat = yield call(
-          getUserBoostStatistics,
-          eosService,
-          profileLS.user,
-        );
+        // const weekStat = yield call(getWeekStat, eosService, profileLS);
+        // const userBoostStat = yield call(
+        //   getUserBoostStatistics,
+        //   eosService,
+        //   profileLS.user,
+        // );
 
-        const boostWeeks = yield call(
-          getBoostWeeks,
-          weekStat,
-          globalBoostStat,
-          userBoostStat,
-        );
-        const { currentWeek, nextWeek } = boostWeeks;
-        const { userStake, maxStake } = currentWeek;
+        // const boostWeeks = yield call(
+        //   getBoostWeeks,
+        //   weekStat,
+        //   globalBoostStat,
+        //   userBoostStat,
+        // );
+        // const { currentWeek, nextWeek } = boostWeeks;
+        // const { userStake, maxStake } = currentWeek;
+        //
+        // const boost = yield call(getPredictedBoost, userStake, maxStake);
 
-        const boost = yield call(getPredictedBoost, userStake, maxStake);
-
-        yield put(getUserProfileSuccess(profileLS));
-        yield put(
-          getCurrentAccountSuccess(
-            profileLS.user,
-            profileLS.balance,
-            currentWeek.userStake,
-            nextWeek.userStake,
-            boost,
-          ),
-        );
+        // yield put(getUserProfileSuccess(profileLS));
+        // yield put(
+        //   getCurrentAccountSuccess(
+        //     profileLS.user,
+        //     profileLS.balance,
+        //     currentWeek.userStake,
+        //     nextWeek.userStake,
+        //     boost,
+        //   ),
+        // );
 
         return null;
       }
     }
 
-    const [profileInfo, balance] = yield all([
-      call(
-        getProfileInfo,
-        _get(account, 'eosAccountName', account),
-        eosService,
-        !prevProfileInfo,
-      ),
-      call(getBalance, eosService, account),
-    ]);
+    // const [profileInfo, balance] = yield all([
+    //   call(
+    //     getProfileInfo,
+    //     _get(account, 'eosAccountName', account),
+    //     eosService,
+    //     !prevProfileInfo,
+    //   ),
+    //   call(getBalance, eosService, account),
+    // ]);
 
     let stakedInCurrentPeriod = 0;
     let stakedInNextPeriod = 0;
     let boost = {};
 
-    if (profileInfo) {
-      // update user achievements
-      yield call(updateUserAchievementsWorker, profileInfo.user);
+    // if (profileInfo) {
+    //   // update user achievements
+    //   yield call(updateUserAchievementsWorker, profileInfo.user);
+    //
+    //   yield call(getNotificationsInfoWorker, profileInfo.user);
+    //   yield call(getWeekStatWorker);
+    //
+    //   // Update info for question depending on user
+    //   const viewQuestion = yield select(selectQuestionData());
+    //   if (
+    //     window.location.pathname.includes(routes.questionView(viewQuestion?.id))
+    //   ) {
+    //     const updatedQuestion = yield call(getQuestionData, {
+    //       questionId: viewQuestion.id,
+    //       user: profileInfo.user,
+    //       promote: viewQuestion.promote || null,
+    //     });
+    //
+    //     yield put(getQuestionDataSuccess(updatedQuestion));
+    //   }
+    //
+    //   profileInfo.balance = balance;
+    //
+    //   if (prevProfileInfo) {
+    //     profileInfo.profile = prevProfileInfo.profile;
+    //   }
+    //
+    //   // update user available balance
+    //   const weekStat = yield call(getWeekStat, eosService, profileInfo);
+    //   const userBoostStat = yield call(
+    //     getUserBoostStatistics,
+    //     eosService,
+    //     profileInfo.user,
+    //   );
+    //
+    //   const boostWeeks = yield call(
+    //     getBoostWeeks,
+    //     weekStat,
+    //     globalBoostStat,
+    //     userBoostStat,
+    //   );
+    //   const { currentWeek, nextWeek } = boostWeeks;
+    //   const { userStake, maxStake } = currentWeek;
+    //
+    //   stakedInCurrentPeriod = currentWeek.userStake;
+    //   stakedInNextPeriod = nextWeek.userStake;
+    //
+    //   boost = yield call(getPredictedBoost, userStake, maxStake);
+    // }
 
-      yield call(getNotificationsInfoWorker, profileInfo.user);
-      yield call(getWeekStatWorker);
+    // setCookie({
+    //   name: PROFILE_INFO_LS,
+    //   value: JSON.stringify(profileInfo),
+    //   options: {
+    //     defaultPath: true,
+    //     allowSubdomains: true,
+    //   },
+    // });
 
-      // Update info for question depending on user
-      const viewQuestion = yield select(selectQuestionData());
-      if (
-        window.location.pathname.includes(routes.questionView(viewQuestion?.id))
-      ) {
-        const updatedQuestion = yield call(getQuestionData, {
-          questionId: viewQuestion.id,
-          user: profileInfo.user,
-          promote: viewQuestion.promote || null,
-        });
-
-        yield put(getQuestionDataSuccess(updatedQuestion));
-      }
-
-      profileInfo.balance = balance;
-
-      if (prevProfileInfo) {
-        profileInfo.profile = prevProfileInfo.profile;
-      }
-
-      // update user available balance
-      const weekStat = yield call(getWeekStat, eosService, profileInfo);
-      const userBoostStat = yield call(
-        getUserBoostStatistics,
-        eosService,
-        profileInfo.user,
-      );
-
-      const boostWeeks = yield call(
-        getBoostWeeks,
-        weekStat,
-        globalBoostStat,
-        userBoostStat,
-      );
-      const { currentWeek, nextWeek } = boostWeeks;
-      const { userStake, maxStake } = currentWeek;
-
-      stakedInCurrentPeriod = currentWeek.userStake;
-      stakedInNextPeriod = nextWeek.userStake;
-
-      boost = yield call(getPredictedBoost, userStake, maxStake);
-    }
-
-    setCookie({
-      name: PROFILE_INFO_LS,
-      value: JSON.stringify(profileInfo),
-      options: {
-        defaultPath: true,
-        allowSubdomains: true,
-      },
-    });
-
-    const userTgInfo = yield call(getUserTelegramData, eosService, account);
+    // const userTgInfo = yield call(getUserTelegramData, eosService, account);
 
     yield put(
       addLoginData(JSON.parse(getCookie(AUTOLOGIN_DATA) || null) || {}),
     );
-    yield put(getUserProfileSuccess(profileInfo));
-    yield call(getCommunityPropertyWorker, profileInfo);
-    const isStillLoading = yield select(makeSelectAccountLoading());
-    if (isStillLoading) {
-      yield put(
-        getCurrentAccountSuccess(
-          account,
-          balance,
-          stakedInCurrentPeriod,
-          stakedInNextPeriod,
-          boost,
-        ),
-      );
-    }
-    yield put(getUserTelegramDataSuccess(userTgInfo));
+    // yield put(getUserProfileSuccess(profileInfo));
+    // yield call(getCommunityPropertyWorker, profileInfo);
+    // const isStillLoading = yield select(makeSelectAccountLoading());
+    // if (isStillLoading) {
+    //   yield put(
+    //     getCurrentAccountSuccess(
+    //       account,
+    //       balance,
+    //       stakedInCurrentPeriod,
+    //       stakedInNextPeriod,
+    //       boost,
+    //     ),
+    //   );
+    // }
+    // yield put(getUserTelegramDataSuccess(userTgInfo));
   } catch (err) {
     yield put(getCurrentAccountError(err));
   }
@@ -327,7 +307,7 @@ export function* isAvailableAction(isValid, data = {}) {
   yield call(isValid);
 }
 
-export const getReferralInfo = async (user, eosService) => {
+export const getReferralInfo = async (user, ethereum) => {
   const info = await eosService.getTableRow(
     INVITED_USERS_TABLE,
     INVITED_USERS_SCOPE,
@@ -337,7 +317,7 @@ export const getReferralInfo = async (user, eosService) => {
   return info;
 };
 
-function* updateRefer(user, eosService) {
+function* updateRefer(user, ethereum) {
   const receivedCookieName = `${REFERRAL_REWARD_RECEIVED}_${user}`;
   const noInviterCookieName = `${NO_REFERRAL_INVITER}_${user}`;
 
@@ -345,7 +325,7 @@ function* updateRefer(user, eosService) {
     return;
   }
 
-  const info = yield call(getReferralInfo, user, eosService);
+  const info = yield call(getReferralInfo, user, ethereum);
 
   if (info) {
     const reward = +convertPeerValueToNumberValue(info.common_reward);
@@ -396,9 +376,9 @@ const rewardRefer = async (user, eosService) => {
   }
 };
 
-export function* updateAccWorker({ eos }) {
+export function* updateAccWorker({ ethereum }) {
   try {
-    const account = yield call(eos.getSelectedAccount);
+    const account = yield call(ethereum.getSelectedAccount);
     let profileInfo = yield select(makeSelectProfileInfo());
 
     if (!profileInfo) {
@@ -409,7 +389,7 @@ export function* updateAccWorker({ eos }) {
     if (profileInfo) {
       const { user, pay_out_rating } = profileInfo;
 
-      yield call(updateRefer, user, eos);
+      // yield call(updateRefer, user, ethereum);
 
       if (account) {
         const sentCookieName = `${REFERRAL_REWARD_SENT}_${user}`;
@@ -421,24 +401,24 @@ export function* updateAccWorker({ eos }) {
           !getCookie(noInviterCookieName) &&
           !getCookie(receivedCookieName)
         ) {
-          const err = yield call(rewardRefer, user, eos);
-
-          if (err instanceof Error) {
-            yield put(rewardReferErr(err));
-          } else {
-            setCookie({
-              name: sentCookieName,
-              value: true,
-              options: {
-                allowSubdomains: true,
-                neverExpires: true,
-                defaultPath: true,
-              },
-            });
-          }
+          // const err = yield call(rewardRefer, user, ethereum);
+          //
+          // if (err instanceof Error) {
+          //   yield put(rewardReferErr(err));
+          // } else {
+          setCookie({
+            name: sentCookieName,
+            value: true,
+            options: {
+              allowSubdomains: true,
+              neverExpires: true,
+              defaultPath: true,
+            },
+          });
+          // }
         }
 
-        yield call(updateAcc, profileInfo, eos);
+        yield call(updateAcc, profileInfo, ethereum);
         yield call(getCurrentAccountWorker);
         yield put(updateAccSuccess());
       }

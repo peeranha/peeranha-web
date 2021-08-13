@@ -47,6 +47,7 @@ import { translationMessages } from './i18n';
 
 // Import CSS reset and Global Styles
 import './global-styles';
+import EthereumProvider from './containers/EthereumProvider';
 
 window.$ = $;
 
@@ -58,7 +59,8 @@ const MOUNT_NODE = document.getElementById('app');
 const render = messages => {
   ReactDOM.render(
     <Provider store={store}>
-      <EosioProvider>
+      <EthereumProvider>
+        {/*<EosioProvider>*/}
         <AccountProvider>
           <LanguageProvider messages={messages}>
             <FacebookProvider>
@@ -70,7 +72,8 @@ const render = messages => {
             </FacebookProvider>
           </LanguageProvider>
         </AccountProvider>
-      </EosioProvider>
+        {/*</EosioProvider>*/}
+      </EthereumProvider>
     </Provider>,
     MOUNT_NODE,
   );

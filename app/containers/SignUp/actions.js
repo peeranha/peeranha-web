@@ -143,16 +143,15 @@ export function idontHaveEosAccountErr(idontHaveEosAccountError) {
 
 /*
  *
- * sign up with scatter
+ * sign up with metaMask
  *
  */
 
-export function signUpWithWallet(val, { scatter, keycat }) {
+export function signUpWithWallet(val, { metaMask }) {
   return {
     type: SIGNUP_WITH_WALLET,
     val: val.toJS(),
-    scatter,
-    keycat,
+    metaMask,
   };
 }
 
@@ -187,10 +186,10 @@ export function showWalletSignUpForm({ metaMask }) {
   };
 }
 
-export function showWalletSignUpFormSuccess(eosAccountName) {
+export function showWalletSignUpFormSuccess(ethereumUserAddress) {
   return {
     type: SHOW_WALLET_SIGNUP_FORM_SUCCESS,
-    eosAccountName,
+    ethereumUserAddress,
   };
 }
 
