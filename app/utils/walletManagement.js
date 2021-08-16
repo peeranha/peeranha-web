@@ -43,13 +43,14 @@ const PERIOD_LENGTH = {
 /**
  * @balance - string, example - '1000.000000 PEER'
  */
-export const getBalance = async (eosService, user) => {
-  const val = await eosService.getTableRow(
-    ACCOUNTS_TABLE,
-    user,
-    undefined,
-    process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
-  );
+export const getBalance = async (ethereumService, user) => {
+  // const val = await eosService.getTableRow(
+  //   ACCOUNTS_TABLE,
+  //   user,
+  //   undefined,
+  //   process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
+  // );
+  const val = undefined;
 
   // remove all chars besides of number
   return val ? convertPeerValueToNumberValue(val.balance) : 0;

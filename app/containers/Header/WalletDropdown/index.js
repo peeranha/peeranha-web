@@ -63,7 +63,7 @@ const Menu = memo(({ user, number, locale, boost }) => (
     </A>
     <A to={routes.userBoost(user)}>
       <FormattedMessage {...messages.boost} />
-      {boost.value > 1 && <BoostPrediction>{boost.text}</BoostPrediction>}
+      {boost?.value > 1 && <BoostPrediction>{boost?.text}</BoostPrediction>}
     </A>
     <SendTokens>
       <FormattedMessage {...messages.sendTokens} />
@@ -105,7 +105,7 @@ const WalletDropdown = ({
           <WalletButton
             balance={availableBalance}
             locale={locale}
-            isBoost={boost.value > 1}
+            isBoost={boost?.value > 1}
           />
         }
         menu={

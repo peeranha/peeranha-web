@@ -135,67 +135,66 @@ export const getCurrentAccountWorker = function*(initAccount) {
       : call(ethereumService.getSelectedAccount);
 
     if (!account) {
-      // const autoLoginData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
-      // if (autoLoginData) {
-      //   account = autoLoginData.eosAccountName;
-      // }
-    }
-
-    if (account && typeof account === 'object') {
-      // account = account.eosAccountName;
-    }
-
-    if (!prevProfileInfo) {
-      const profileLS = JSON.parse(getCookie(PROFILE_INFO_LS) || null);
-      if (
-        profileLS &&
-        (account === profileLS.user ||
-          (account && account.eosAccountName === profileLS.user))
-      ) {
-        console.log(profileLS);
-        // user available balance
-        // const weekStat = yield call(getWeekStat, eosService, profileLS);
-        // const userBoostStat = yield call(
-        //   getUserBoostStatistics,
-        //   eosService,
-        //   profileLS.user,
-        // );
-
-        // const boostWeeks = yield call(
-        //   getBoostWeeks,
-        //   weekStat,
-        //   globalBoostStat,
-        //   userBoostStat,
-        // );
-        // const { currentWeek, nextWeek } = boostWeeks;
-        // const { userStake, maxStake } = currentWeek;
-        //
-        // const boost = yield call(getPredictedBoost, userStake, maxStake);
-
-        // yield put(getUserProfileSuccess(profileLS));
-        // yield put(
-        //   getCurrentAccountSuccess(
-        //     profileLS.user,
-        //     profileLS.balance,
-        //     currentWeek.userStake,
-        //     nextWeek.userStake,
-        //     boost,
-        //   ),
-        // );
-
-        return null;
+      const autoLoginData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
+      if (autoLoginData) {
+        account = autoLoginData.ethereumUserAddress;
       }
     }
 
-    // const [profileInfo, balance] = yield all([
-    //   call(
-    //     getProfileInfo,
-    //     _get(account, 'eosAccountName', account),
-    //     eosService,
-    //     !prevProfileInfo,
-    //   ),
-    //   call(getBalance, eosService, account),
-    // ]);
+    if (account && typeof account === 'object') {
+      account = account.ethereumUserAddress;
+    }
+
+    // if (!prevProfileInfo) {
+    //   const profileLS = JSON.parse(getCookie(PROFILE_INFO_LS) || null);
+    //   if (
+    //     profileLS &&
+    //     (account === profileLS.user ||
+    //       (account && account.eosAccountName === profileLS.user))
+    //   ) {
+    //     // user available balance
+    //     // const weekStat = yield call(getWeekStat, eosService, profileLS);
+    //     // const userBoostStat = yield call(
+    //     //   getUserBoostStatistics,
+    //     //   eosService,
+    //     //   profileLS.user,
+    //     // );
+    //
+    //     // const boostWeeks = yield call(
+    //     //   getBoostWeeks,
+    //     //   weekStat,
+    //     //   globalBoostStat,
+    //     //   userBoostStat,
+    //     // );
+    //     // const { currentWeek, nextWeek } = boostWeeks;
+    //     // const { userStake, maxStake } = currentWeek;
+    //     //
+    //     // const boost = yield call(getPredictedBoost, userStake, maxStake);
+    //
+    //     // yield put(getUserProfileSuccess(profileLS));
+    //     // yield put(
+    //     //   getCurrentAccountSuccess(
+    //     //     profileLS.user,
+    //     //     profileLS.balance,
+    //     //     currentWeek.userStake,
+    //     //     nextWeek.userStake,
+    //     //     boost,
+    //     //   ),
+    //     // );
+    //
+    //     return null;
+    //   }
+    // }
+
+    const [profileInfo, balance] = yield all([
+      call(
+        getProfileInfo,
+        account,
+        ethereumService,
+        !prevProfileInfo,
+      ),
+      call(getBalance, ethereumService, account),
+    ]);
 
     let stakedInCurrentPeriod = 0;
     let stakedInNextPeriod = 0;
@@ -251,34 +250,35 @@ export const getCurrentAccountWorker = function*(initAccount) {
     //   boost = yield call(getPredictedBoost, userStake, maxStake);
     // }
 
-    // setCookie({
-    //   name: PROFILE_INFO_LS,
-    //   value: JSON.stringify(profileInfo),
-    //   options: {
-    //     defaultPath: true,
-    //     allowSubdomains: true,
-    //   },
-    // });
+    setCookie({
+      name: PROFILE_INFO_LS,
+      value: JSON.stringify(profileInfo),
+      options: {
+        defaultPath: true,
+        allowSubdomains: true,
+      },
+    });
 
     // const userTgInfo = yield call(getUserTelegramData, eosService, account);
 
     yield put(
       addLoginData(JSON.parse(getCookie(AUTOLOGIN_DATA) || null) || {}),
     );
-    // yield put(getUserProfileSuccess(profileInfo));
-    // yield call(getCommunityPropertyWorker, profileInfo);
-    // const isStillLoading = yield select(makeSelectAccountLoading());
-    // if (isStillLoading) {
-    //   yield put(
-    //     getCurrentAccountSuccess(
-    //       account,
-    //       balance,
-    //       stakedInCurrentPeriod,
-    //       stakedInNextPeriod,
-    //       boost,
-    //     ),
-    //   );
-    // }
+    yield put(getUserProfileSuccess(profileInfo));
+    yield put(getUserProfileSuccess(profileInfo));
+    yield call(getCommunityPropertyWorker, profileInfo);
+    const isStillLoading = yield select(makeSelectAccountLoading());
+    if (isStillLoading) {
+      yield put(
+        getCurrentAccountSuccess(
+          account,
+          balance,
+          // stakedInCurrentPeriod,
+          // stakedInNextPeriod,
+          // boost,
+        ),
+      );
+    }
     // yield put(getUserTelegramDataSuccess(userTgInfo));
   } catch (err) {
     yield put(getCurrentAccountError(err));

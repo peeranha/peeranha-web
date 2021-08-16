@@ -55,7 +55,7 @@ import {
   SIGNUP_WITH_WALLET,
   SIGNUP_WITH_WALLET_SUCCESS,
   STORE_KEY_FIELD,
-  TELOS_NAME_FIELD,
+  TELOS_NAME_FIELD, USER_ALREADY_REGISTERED_ERROR,
   USER_REJECTED_SIGNATURE_REQUEST_ERROR,
   WHY_DO_YOU_LIKE_US_FIELD,
 } from './constants';
@@ -81,6 +81,7 @@ import { selectEmail, selectEncryptionKey, selectKeys } from './selectors';
 import signupMessages from './messages';
 import { REDIRECT_TO_FEED } from '../App/constants';
 import { selectEthereum } from '../EthereumProvider/selectors';
+import { getProfileInfo } from '../../utils/profileManagement';
 
 export function* emailCheckingWorker({ email }) {
   try {
@@ -352,7 +353,7 @@ export function* signUpWithWalletWorker({ val, metaMask }) {
       );
     }
 
-    // yield call(loginWithWalletWorker, { metaMask });
+    yield call(loginWithWalletWorker, { metaMask });
 
     const singleCommId = isSingleCommunityWebsite();
 
@@ -380,8 +381,8 @@ export function* showWalletSignUpFormWorker({ metaMask }) {
       currentAccount = yield call(ethereumService.metaMaskSignIn);
     }
 
-    // const profileInfo = yield call(getProfileInfo, currentAccount, eosService);
-    //
+    const profileInfo = yield call(getProfileInfo, currentAccount, ethereumService);
+
     // if (profileInfo) {
     //   throw new WebIntegrationError(
     //     translations[signupMessages[USER_ALREADY_REGISTERED_ERROR].id],

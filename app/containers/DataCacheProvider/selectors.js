@@ -37,11 +37,11 @@ const selectGetCommunitiesWithTagsError = () =>
     substate => substate.getCommunitiesWithTagsError,
   );
 
-const selectUsers = username =>
+const selectUsers = address =>
   createSelector(
     selectDataCacheProviderDomain,
     substate =>
-      username !== undefined ? substate.users[username] : substate.users,
+      address !== undefined ? substate.users[address] : substate.users,
   );
 
 const selectUsersLoading = () =>

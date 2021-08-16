@@ -3,24 +3,20 @@ import noAvatar from 'images/noAvatar.png';
 import editUserNoAvatar from 'images/editUserNoAvatar.png';
 
 import { DISPLAY_NAME_FIELD } from 'containers/Profile/constants';
-import { saveText, getText, saveFile, getFileUrl } from './ipfs';
-import { getAchievements } from './achievementsManagement';
+import { getFileUrl, getText, saveFile, saveText } from './ipfs';
 
 import {
   ACCOUNT_TABLE,
   ALL_ACCOUNTS_SCOPE,
-  SAVE_PROFILE_METHOD,
-  NO_AVATAR,
-  TG_ACCOUNT_TABLE,
   ALL_TG_ACCOUNTS_SCOPE,
   CONFIRM_TELEGRAM_ACCOUNT,
+  INF_LIMIT,
+  NO_AVATAR,
+  SAVE_PROFILE_METHOD,
+  TG_ACCOUNT_TABLE,
   UNLINK_TELEGRAM_ACCOUNT,
-  USER_ACHIEVEMENTS_TABLE, INF_LIMIT,
 } from './constants';
-import {
-  callService,
-  NOTIFICATIONS_INFO_SERVICE,
-} from './web_integration/src/util/aws-connector';
+import { callService, NOTIFICATIONS_INFO_SERVICE } from './web_integration/src/util/aws-connector';
 
 export function getUserAvatar(avatarHash, userId, account) {
   if (avatarHash && avatarHash !== NO_AVATAR) {
@@ -206,32 +202,26 @@ export class UsersFetcher extends Fetcher {
 }
 
 /* eslint camelcase: 0 */
-export async function getProfileInfo(user, eosService, getExtendedProfile) {
+export async function getProfileInfo(user, ethereumService, getExtendedProfile) {
   if (!user) return null;
 
-  const profile = await eosService.getTableRow(
-    ACCOUNT_TABLE,
-    ALL_ACCOUNTS_SCOPE,
-    user,
-  );
+  const profile = await ethereumService.getProfile(user);
 
-  if (!profile || profile.user !== user) return null;
+  // if (!profile || profile.userAddress !== user) return null;
 
-  if (!profile.achievements_reached) {
-    const userAchievements = await getAchievements(
-      eosService,
-      USER_ACHIEVEMENTS_TABLE,
-      user,
-    );
-
-    profile.achievements_reached = userAchievements;
-  }
+  // if (!profile.achievements_reached) {
+  //   const userAchievements = await getAchievements(
+  //     eosService,
+  //     USER_ACHIEVEMENTS_TABLE,
+  //     user,
+  //   );
+  //
+  //   profile.achievements_reached = userAchievements;
+  // }
 
   if (getExtendedProfile) {
-    const ipfsProfile = await getText(profile.ipfs_profile);
-    const parsedIpfsProfile = JSON.parse(ipfsProfile);
-
-    profile.profile = parsedIpfsProfile;
+    const ipfsProfile = await getText(profile.ipfsHash);
+    profile.profile = JSON.parse(ipfsProfile);
   }
 
   return profile;

@@ -1,7 +1,6 @@
 import { saveText } from './ipfs';
 
 import {
-  REGISTER_ACC,
   ACCOUNT_TABLE,
   ALL_ACCOUNTS_SCOPE,
   NO_AVATAR,
@@ -12,22 +11,23 @@ import {
 
 import { ApplicationError } from './errors';
 import { dateNowInSeconds } from './datetime';
+import { REGISTER_ACC } from './ethConstants';
 
-export const updateAcc = async (profile, eosService) => {
+export const updateAcc = async (profile, ethereumService) => {
   if (!profile) throw new ApplicationError('No profile');
 
   const currentTime = dateNowInSeconds();
-  const currentPeriod = Math.floor(
-    (currentTime - profile.registration_time) /
-      process.env.ACCOUNT_STAT_RESET_PERIOD,
-  );
+  // const currentPeriod = Math.floor(
+  //   (currentTime - profile.registration_time) /
+  //     process.env.ACCOUNT_STAT_RESET_PERIOD,
+  // );
 
-  const periodsHavePassed = currentPeriod - profile.last_update_period;
-  const integerProperties = profile?.integer_properties ?? [];
-  const lastUpdateTime = integerProperties.find(
-    prop => prop.key === KEY_LAST_RATING_UPDATE_TIME,
-  )?.value;
-  const timeSinceRatingUpdate = currentTime - lastUpdateTime;
+  // const periodsHavePassed = currentPeriod - profile.last_update_period;
+  // const integerProperties = profile?.integer_properties ?? [];
+  // const lastUpdateTime = integerProperties.find(
+  //   prop => prop.key === KEY_LAST_RATING_UPDATE_TIME,
+  // )?.value;
+  // const timeSinceRatingUpdate = currentTime - lastUpdateTime;
 
   // if (
   //   periodsHavePassed > 0 ||
@@ -46,7 +46,6 @@ export const registerAccount = async (
   ethereumService,
   avatar = NO_AVATAR,
 ) => {
-  console.log(profile);
   const ipfsHash = await saveText(JSON.stringify(profile));
 
   try {
@@ -59,25 +58,6 @@ export const registerAccount = async (
   } catch (e) {
     return false;
   }
-
-  // try {
-  //   await eosService.sendTransaction(
-  //     profile.accountName,
-  //     REGISTER_ACC,
-  //     {
-  //       user: profile.accountName,
-  //       display_name: profile.displayName,
-  //       ipfs_profile: ipfsHash,
-  //       ipfs_avatar: NO_AVATAR,
-  //     },
-  //     null,
-  //     true,
-  //   );
-  //
-  //   return true;
-  // } catch (e) {
-  //   return false;
-  // }
 };
 
 export const isUserInSystem = async (user, eosService) => {
