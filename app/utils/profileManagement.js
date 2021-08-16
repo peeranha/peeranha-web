@@ -212,7 +212,7 @@ export async function getProfileInfo(
 ) {
   if (!user) return null;
 
-  const profile = await ethereumService.getProfile(user);
+  const profileInfo = await ethereumService.getProfile(user);
 
   // if (!profile || profile.userAddress !== user) return null;
 
@@ -227,11 +227,13 @@ export async function getProfileInfo(
   // }
 
   if (getExtendedProfile) {
-    const ipfsProfile = await getText(profile.ipfsHash);
-    profile.profile = JSON.parse(ipfsProfile);
+    const ipfsProfile = await getText(profileInfo.ipfsHash);
+    profileInfo.profile = JSON.parse(ipfsProfile);
+    profileInfo.user = profileInfo.profile.userAddress;
+    profileInfo.display_name = profileInfo.profile.displayName;
   }
 
-  return profile;
+  return profileInfo;
 }
 
 export async function saveProfile(eosService, user, avatar, profile) {

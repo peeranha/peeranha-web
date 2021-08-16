@@ -113,15 +113,10 @@ export const Button = connect(state => ({
 }))(B);
 
 const Menu = memo(
-  ({
-    profileInfo: {
-      user,
-      permissions,
-      integer_properties: integerProperties = [],
-    },
-    questionsLength,
-    questionsWithUserAnswersLength,
-  }) => {
+  ({ profileInfo, questionsLength, questionsWithUserAnswersLength }) => {
+    const user = profileInfo.profile.userAddress;
+    const { permissions, integer_properties } = profileInfo;
+    const integerProperties = integer_properties;
     const isGlobalModerator = useMemo(
       () => integerProperties?.find(x => x.key === MODERATOR_KEY),
       [integerProperties],

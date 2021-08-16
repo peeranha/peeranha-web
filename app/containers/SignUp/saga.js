@@ -382,17 +382,21 @@ export function* showWalletSignUpFormWorker({ metaMask }) {
       currentAccount = yield call(ethereumService.metaMaskSignIn);
     }
 
-    const profileInfo = yield call(
-      getProfileInfo,
-      currentAccount,
-      ethereumService,
-    );
+    try {
+      const profileInfo = yield call(
+        getProfileInfo,
+        currentAccount,
+        ethereumService,
+      );
 
-    // if (profileInfo) {
-    //   throw new WebIntegrationError(
-    //     translations[signupMessages[USER_ALREADY_REGISTERED_ERROR].id],
-    //   );
-    // }
+      if (profileInfo) {
+        throw new WebIntegrationError(
+          translations[signupMessages[USER_ALREADY_REGISTERED_ERROR].id],
+        );
+      }
+    } catch (err) {
+      console.log(err);
+    }
     yield put(showWalletSignUpFormSuccess(currentAccount));
     yield call(createdHistory.push, routes.signup.displayName.name);
   } catch (err) {

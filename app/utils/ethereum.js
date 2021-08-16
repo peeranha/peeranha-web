@@ -60,6 +60,11 @@ class EthereumService {
     return this.selectedAccount;
   };
 
+  setMetaMaskAutologinData = async metaMaskAutologinData => {
+    this.selectedAccount = metaMaskAutologinData;
+    this.withMetaMask = true;
+  };
+
   getSelectedAccount = async () =>
     this.selectedAccount ||
     JSON.parse(getCookie(AUTOLOGIN_DATA) || null) ||

@@ -25,14 +25,27 @@ import { initEthereumSuccess, initEthereumError } from './actions';
 import { INIT_ETHEREUM, INIT_ETHEREUM_SUCCESS } from './constants';
 
 import validate from './validate';
+import { getCookie } from '../../utils/cookie';
+import { AUTOLOGIN_DATA } from '../Login/constants';
 
-export function* initEthereumWorker({
-  key = null,
-  initWithMetaMask = false,
-  selectedAccount = null,
-}) {
+export function* initEthereumWorker() {
   try {
+    const autoLoginData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
     const ethereumService = new EthereumService();
+
+    if (autoLoginData && autoLoginData.loginWithMetaMask) {
+      yield call(ethereumService.initEthereum);
+
+      yield call(
+        ethereumService.setMetaMaskAutologinData,
+        autoLoginData.metaMaskUserAddress,
+      );
+
+      yield put(initEthereumSuccess(ethereumService));
+
+      return null;
+    }
+
     yield call(ethereumService.initEthereum);
     yield put(initEthereumSuccess(ethereumService));
   } catch (error) {
