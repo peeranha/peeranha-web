@@ -75,19 +75,19 @@ class EthereumService {
     );
   };
 
-  getIpfsHashFromBytes32 = (bytes32Hex) => {
-    const hashHex = "1220" + bytes32Hex.slice(2)
+  getIpfsHashFromBytes32 = bytes32Hex => {
+    const hashHex = '1220' + bytes32Hex.slice(2);
     const hashBytes = Buffer.from(hashHex, 'hex');
     return bs58.encode(hashBytes);
-  }
+  };
 
-  getProfile = async (userAddress) => {
+  getProfile = async userAddress => {
     const user = await this.contract[GET_USER_BY_ADDRESS](userAddress);
     return {
       ...user,
-      ipfsHash: this.getIpfsHashFromBytes32(user.ipfsHash)
+      ipfsHash: this.getIpfsHashFromBytes32(user.ipfsHash),
     };
-  }
+  };
 
   sendTransaction = async (actor, action, data, account) => {
     const transactionData = this.getBytes32FromIpfsHash(data);

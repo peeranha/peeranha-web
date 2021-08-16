@@ -16,7 +16,10 @@ import {
   TG_ACCOUNT_TABLE,
   UNLINK_TELEGRAM_ACCOUNT,
 } from './constants';
-import { callService, NOTIFICATIONS_INFO_SERVICE } from './web_integration/src/util/aws-connector';
+import {
+  callService,
+  NOTIFICATIONS_INFO_SERVICE,
+} from './web_integration/src/util/aws-connector';
 
 export function getUserAvatar(avatarHash, userId, account) {
   if (avatarHash && avatarHash !== NO_AVATAR) {
@@ -202,7 +205,11 @@ export class UsersFetcher extends Fetcher {
 }
 
 /* eslint camelcase: 0 */
-export async function getProfileInfo(user, ethereumService, getExtendedProfile) {
+export async function getProfileInfo(
+  user,
+  ethereumService,
+  getExtendedProfile,
+) {
   if (!user) return null;
 
   const profile = await ethereumService.getProfile(user);

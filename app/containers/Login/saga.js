@@ -163,7 +163,7 @@ export function* loginWithWalletWorker({ metaMask }) {
     if (metaMask) {
       metaMaskUserAddress = yield call(ethereumService.metaMaskSignIn);
 
-      if(!metaMaskUserAddress) {
+      if (!metaMaskUserAddress) {
         throw new WebIntegrationError(
           translations[messages[USER_IS_NOT_SELECTED].id],
         );

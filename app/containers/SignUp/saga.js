@@ -55,7 +55,8 @@ import {
   SIGNUP_WITH_WALLET,
   SIGNUP_WITH_WALLET_SUCCESS,
   STORE_KEY_FIELD,
-  TELOS_NAME_FIELD, USER_ALREADY_REGISTERED_ERROR,
+  TELOS_NAME_FIELD,
+  USER_ALREADY_REGISTERED_ERROR,
   USER_REJECTED_SIGNATURE_REQUEST_ERROR,
   WHY_DO_YOU_LIKE_US_FIELD,
 } from './constants';
@@ -381,7 +382,11 @@ export function* showWalletSignUpFormWorker({ metaMask }) {
       currentAccount = yield call(ethereumService.metaMaskSignIn);
     }
 
-    const profileInfo = yield call(getProfileInfo, currentAccount, ethereumService);
+    const profileInfo = yield call(
+      getProfileInfo,
+      currentAccount,
+      ethereumService,
+    );
 
     // if (profileInfo) {
     //   throw new WebIntegrationError(
