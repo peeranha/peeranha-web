@@ -37,7 +37,10 @@ const CommunitiesForm = ({
   communities,
   questions,
 }) => {
-  if ((!profile && !communities) || !profile.followed_communities[0]) {
+  if (
+    (!profile && !communities) ||
+    profile?.followed_communities?.length === 0
+  ) {
     return null;
   }
 

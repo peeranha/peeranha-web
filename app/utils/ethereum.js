@@ -45,6 +45,9 @@ class EthereumService {
   };
 
   metaMaskSignIn = async () => {
+    if (!this.provider) {
+      throw new WebIntegrationErrorByCode(METAMASK_ERROR_CODE);
+    }
     await this.provider
       .request({ method: 'eth_requestAccounts' })
       .then(this.handleAccountsChanged)
@@ -96,7 +99,7 @@ class EthereumService {
 
   sendTransaction = async (actor, action, data, account) => {
     const transactionData = this.getBytes32FromIpfsHash(data);
-    this.contract[action](transactionData);
+    await this.contract[action](transactionData);
   };
 }
 
