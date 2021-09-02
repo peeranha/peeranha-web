@@ -1,16 +1,12 @@
 /* eslint no-throw-literal: 0, camelcase: 0, eqeqeq: 0, no-shadow: 0, no-param-reassign: 0 */
 import IpfsApi from 'ipfs-api';
-import { create } from 'ipfs-http-client';
 import bs58 from 'bs58';
+import { create } from 'ipfs-http-client';
 
 import { ApplicationError } from './errors';
 
 export function getIpfsApi() {
-  return IpfsApi({
-    host: process.env.IPFS_API_HOST,
-    port: process.env.IPFS_API_PORT,
-    protocol: process.env.IPFS_PROTOCOL,
-  });
+  return create(process.env.IPFS_API_URL);
 }
 
 function getIpfsApiTheGraph() {
@@ -48,8 +44,7 @@ export async function saveText(text) {
   const saveResult = await getIpfsApi().add(buf);
 
   await saveTextTheGraph(buf);
-
-  return saveResult[0].hash;
+  return saveResult.cid.toString();
 }
 
 async function saveFileTheGraph(buf) {
@@ -75,17 +70,7 @@ export function getFileUrl(hash) {
   if (window.renderedByPuppeteer) {
     return null;
   }
-
-  if (process.env.IPFS_GATEWAY_PORT && process.env.NODE_ENV === 'development') {
-    return `${process.env.IPFS_PROTOCOL}://${process.env.IPFS_API_HOST}:${
-      process.env.IPFS_GATEWAY_PORT
-    }/ipfs/${hash}`;
-  }
-
-  const IPFS_DOMAIN = `${process.env.IPFS_PROTOCOL}://${
-    process.env.IPFS_CDN_HOST
-  }/`;
-
+  const IPFS_DOMAIN = process.env.IPFS_CDN_URL;
   return hash.includes(IPFS_DOMAIN) ? hash : `${IPFS_DOMAIN}${hash}`;
 }
 
