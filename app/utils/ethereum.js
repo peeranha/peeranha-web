@@ -1,5 +1,5 @@
 import { Contract, ethers } from 'ethers';
-import Peeranha from './Peeranha.json';
+import Peeranha from '../../../peeranha-solidity/artifacts/contracts/Peeranha.sol/Peeranha.json';
 import detectEthereumProvider from '@metamask/detect-provider';
 import { WebIntegrationErrorByCode } from './errors';
 import { ETHEREUM_USER_ERROR_CODE, METAMASK_ERROR_CODE } from './constants';
@@ -7,9 +7,6 @@ import { getCookie } from './cookie';
 import { AUTOLOGIN_DATA } from '../containers/Login/constants';
 import * as bs58 from 'bs58';
 import { GET_USER_BY_ADDRESS } from './ethConstants';
-//
-// const provider = new ethers.providers.Web3Provider(window.ethereum);
-// export const contract = new ethers.Contract(process.env.ETHEREUM_ADDRESS, Peeranha.abi, provider);
 
 class EthereumService {
   constructor() {
@@ -93,13 +90,14 @@ class EthereumService {
     const user = await this.contract[GET_USER_BY_ADDRESS](userAddress);
     return {
       ...user,
-      ipfsHash: this.getIpfsHashFromBytes32(user.ipfsHash),
+      ipfsHash: this.getIpfsHashFromBytes32(user.ipfsDoc.hash),
     };
   };
 
   sendTransaction = async (actor, action, data, account) => {
     const transactionData = this.getBytes32FromIpfsHash(data);
-    await this.contract[action](transactionData);
+    const transaction = await this.contract[action](transactionData);
+    await transaction.wait();
   };
 }
 
