@@ -195,7 +195,6 @@
     "intl": "1.2.5",
     "invariant": "2.2.4",
     "ip": "1.1.5",
-    "ipfs-api": "24.0.1",
     "ipfs-http-client": "^52.0.2",
     "ismobilejs": "^1.1.1",
     "jquery": "3.4.0",

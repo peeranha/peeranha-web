@@ -1,5 +1,4 @@
 /* eslint no-throw-literal: 0, camelcase: 0, eqeqeq: 0, no-shadow: 0, no-param-reassign: 0 */
-import IpfsApi from 'ipfs-api';
 import bs58 from 'bs58';
 import { create } from 'ipfs-http-client';
 
