@@ -55,7 +55,20 @@ module.exports = options => {
       rules: [
         {
           test: /\.(js|jsx)$/, // Transform all .js files required somewhere with Babel
-          exclude: /node_modules/,
+          exclude: {
+            test: /node_modules/, // Exclude libraries in node_modules ...
+            not: [
+              // Except for a few of them that needs to be transpiled because they use modern syntax
+              /ipfs-core-types/,
+              /ipfs-core-utils/,
+              /ipfs-utils/,
+              /ipfs-http-client/,
+              /it-map/,
+              /it-first/,
+              /it-last/,
+              /it-all/,
+            ],
+          },
           use: {
             loader: 'babel-loader',
             options: options.babelQuery,
