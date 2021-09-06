@@ -324,7 +324,6 @@ export function* signUpWithWalletWorker({ val, metaMask }) {
       displayName: val[DISPLAY_NAME_FIELD],
     };
 
-    const eosService = yield select(selectEos);
     const ethereumService = yield select(selectEthereum);
 
     const referralCode = val[REFERRAL_CODE];
