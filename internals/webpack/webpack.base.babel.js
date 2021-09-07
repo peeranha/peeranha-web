@@ -71,7 +71,9 @@ module.exports = options => {
           },
           use: {
             loader: 'babel-loader',
-            options: options.babelQuery,
+            options: {
+              presets: [['@babel/preset-env', { targets: 'ie 11' }]],
+            },
           },
         },
         {
