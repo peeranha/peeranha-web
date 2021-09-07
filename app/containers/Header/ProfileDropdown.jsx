@@ -114,7 +114,7 @@ export const Button = connect(state => ({
 
 const Menu = memo(
   ({ profileInfo, questionsLength, questionsWithUserAnswersLength }) => {
-    const user = profileInfo.profile.userAddress;
+    const user = profileInfo.user;
     const { permissions, integer_properties } = profileInfo;
     const integerProperties = integer_properties;
     const isGlobalModerator = useMemo(
