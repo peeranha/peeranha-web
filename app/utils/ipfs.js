@@ -19,7 +19,6 @@ async function saveTextTheGraph(buf) {
 
 // TODO: test
 export async function saveText(text) {
-  console.log(text);
   let parsedText;
 
   if (typeof text === 'string') {
