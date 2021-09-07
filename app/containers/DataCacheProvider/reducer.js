@@ -140,7 +140,7 @@ function dataCacheProviderReducer(state = initialState, action) {
         profile
           ? fromJS({
               ...state.get('users').toJS(),
-              [profile.profile.userAddress]: {
+              [profile.user]: {
                 ...state.get('users').toJS()[profile.profile],
                 ...profile,
               },
@@ -154,7 +154,7 @@ function dataCacheProviderReducer(state = initialState, action) {
 
     case UPDATE_USER_ACHIEVEMENTS:
       return state.setIn(
-        ['users', `${userForUpdate}`, 'achievements_reached'],
+        ['users', `${userForUpdate}`, 'achievementsReached'],
         updatedAchCount,
       );
 

@@ -20,10 +20,10 @@ const UserInfo = ({ user, userInfo, postTime, locale }) => (
       className="d-inline-flex align-items-center"
     >
       <Span className="mr-2" fontSize="14">
-        {userInfo?.['display_name']}
+        {userInfo?.['displayName']}
       </Span>
       <RatingStatus rating={userInfo.rating} size="sm" isRankOff />
-      <AchievementsStatus count={userInfo.achievements_reached?.length} />
+      <AchievementsStatus count={userInfo.achievementsReached?.length} />
       <Span
         className="text-capitalize mr-3"
         fontSize="14"

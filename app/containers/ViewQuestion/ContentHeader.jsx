@@ -158,13 +158,13 @@ const ContentHeader = props => {
       <ItemInfo>
         <UserInfo
           avatar={getUserAvatar(userInfo.ipfs_avatar)}
-          name={userInfo?.['display_name']}
+          name={userInfo?.['displayName']}
           account={userInfo.user}
           rating={userInfo.rating}
           type={type}
           postTime={postTime}
           locale={locale}
-          achievementsCount={userInfo.achievements_reached?.length}
+          achievementsCount={userInfo.achievementsReached?.length}
           isTemporaryAccount={isTemporaryAccount}
         />
 

@@ -8,7 +8,7 @@ import {
 jest.setTimeout(20000);
 
 const user = 'user1';
-const profile = { display_name: 'test' };
+const profile = { displayName: 'test' };
 
 xit('saveProfile test', async () => {
   const savedText = await saveProfile(user, profile);

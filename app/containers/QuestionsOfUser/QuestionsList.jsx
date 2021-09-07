@@ -71,7 +71,7 @@ const LastAnswer = ({ lastAnswer, locale }) => {
           className="d-flex align-items-center"
         >
           <Span className="mr-2" fontSize="14" lineHeight="18">
-            {lastAnswer.userInfo?.display_name}
+            {lastAnswer.userInfo?.displayName}
           </Span>
           <RatingStatus
             rating={lastAnswer.userInfo.rating}

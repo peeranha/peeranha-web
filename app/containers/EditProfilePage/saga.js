@@ -5,11 +5,10 @@ import * as routes from 'routes-config';
 
 import { uploadImg, saveProfile } from 'utils/profileManagement';
 
-import { selectEos } from 'containers/EosioProvider/selectors';
 import { HASH_CHARS_LIMIT } from 'components/FormFields/AvatarField';
 import { AVATAR_FIELD, DISPLAY_NAME_FIELD } from 'containers/Profile/constants';
 
-import { isValid, isAuthorized } from 'containers/EosioProvider/saga';
+import { isValid, isAuthorized } from 'containers/EthereumProvider/saga';
 import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 
@@ -23,12 +22,13 @@ import {
 } from './constants';
 import { setCookie } from '../../utils/cookie';
 import { PROFILE_INFO_LS } from '../Login/constants';
+import { selectEthereum } from '../EthereumProvider/selectors';
 
 // TODO: test
 /* eslint no-param-reassign: 0 */
 export function* saveProfileWorker({ profile, userKey }) {
   try {
-    const eosService = yield select(selectEos);
+    const ethereumService = yield select(selectEthereum);
 
     // check that it is not hash
     if (
@@ -39,19 +39,13 @@ export function* saveProfileWorker({ profile, userKey }) {
       profile[AVATAR_FIELD] = imgHash;
     }
 
-    yield call(
-      saveProfile,
-      eosService,
-      userKey,
-      profile[AVATAR_FIELD],
-      profile,
-    );
+    yield call(saveProfile, ethereumService, userKey, profile);
 
     const fullProfileInfo = yield select(makeSelectProfileInfo());
     const updatedProfileInfo = {
       ...fullProfileInfo,
       profile,
-      display_name: profile[DISPLAY_NAME_FIELD],
+      displayName: profile[DISPLAY_NAME_FIELD],
     };
 
     setCookie({

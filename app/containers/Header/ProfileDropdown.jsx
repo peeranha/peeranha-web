@@ -86,7 +86,7 @@ const B = ({ profileInfo, onClick, isMenuVisible, isMobileVersion }) => (
       isMenuVisible={isMenuVisible}
     >
       <Span bold color={(!isMobileVersion && styles.commHeadElemColor) || ''}>
-        {profileInfo?.['display_name']}
+        {profileInfo?.['displayName']}
       </Span>
       <StatusBox>
         <RatingStatus
@@ -99,7 +99,7 @@ const B = ({ profileInfo, onClick, isMenuVisible, isMobileVersion }) => (
           }
         />
         <AchievementsStatus
-          count={profileInfo.achievements_reached?.length}
+          count={profileInfo.achievementsReached?.length}
           achievementsNumColor={!isMobileVersion && styles.commHeadElemColor}
           achievIconStyles={!isMobileVersion && styles.achievIconStyles}
         />
@@ -186,8 +186,8 @@ const ProfileDropdown = ({ profileInfo }) => (
     menu={
       <Menu
         profileInfo={profileInfo}
-        questionsLength={profileInfo.questions_asked}
-        questionsWithUserAnswersLength={profileInfo.answers_given}
+        questionsLength={profileInfo.questionsAsked}
+        questionsWithUserAnswersLength={profileInfo.answersGiven}
       />
     }
   />

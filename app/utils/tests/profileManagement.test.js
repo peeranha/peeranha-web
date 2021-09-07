@@ -104,7 +104,7 @@ describe('Fetcher', () => {
 
 it('AccountsSortedBy', () => {
   expect(typeof AccountsSortedBy.rating).toBe('object');
-  expect(typeof AccountsSortedBy.registration_time).toBe('object');
+  expect(typeof AccountsSortedBy.creationTime).toBe('object');
 });
 
 it('UsersFetcher', () => {

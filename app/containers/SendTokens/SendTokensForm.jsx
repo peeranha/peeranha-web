@@ -66,7 +66,7 @@ const SendTokensForm = ({
         <Field
           name={EOS_ACCOUNT_FIELD}
           disabled={sendTokensProcessing}
-          label={translationMessages[locale][commonMessages.eosAccount.id]}
+          label={translationMessages[locale][commonMessages.ethereumAddress.id]}
           component={TextInputField}
           validate={[required, validateTelosName]}
           warn={[required, validateTelosName]}

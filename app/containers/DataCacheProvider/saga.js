@@ -47,6 +47,7 @@ import {
   GET_FAQ,
   GET_TUTORIAL,
 } from './constants';
+import { selectEthereum } from '../EthereumProvider/selectors';
 
 export function* getStatWorker() {
   try {
@@ -103,22 +104,22 @@ export function* getTutorialWorker() {
 /* eslint consistent-return: 0 */
 export function* getUserProfileWorker({ user, getFullProfile }) {
   try {
-    const eosService = yield select(selectEos);
+    const ethereumService = yield select(selectEthereum);
     const cachedUserInfo = yield select(selectUsers(user));
 
     // take userProfile from STORE
     if (cachedUserInfo && !getFullProfile) {
-      if (!cachedUserInfo.achievements_reached) {
+      if (!cachedUserInfo.achievementsReached) {
         const userAchievements = yield call(
           getAchievements,
-          eosService,
+          ethereumService,
           USER_ACHIEVEMENTS_TABLE,
           user,
         );
 
         const updatedUserInfo = {
           ...cachedUserInfo,
-          achievements_reached: userAchievements,
+          achievementsReached: userAchievements,
         };
         setCookie({
           name: PROFILE_INFO_LS,
@@ -138,18 +139,18 @@ export function* getUserProfileWorker({ user, getFullProfile }) {
     const updatedUserInfo = yield call(
       getProfileInfo,
       user,
-      eosService,
+      ethereumService,
       getFullProfile,
     );
 
-    if (!updatedUserInfo.achievements_reached) {
+    if (!updatedUserInfo.achievementsReached) {
       const userAchievements = yield call(
         getAchievements,
-        eosService,
+        ethereumService,
         USER_ACHIEVEMENTS_TABLE,
         user,
       );
-      updatedUserInfo.achievements_reached = userAchievements;
+      updatedUserInfo.achievementsReached = userAchievements;
     }
 
     if (

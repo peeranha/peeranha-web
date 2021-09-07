@@ -224,7 +224,7 @@ export async function getWeekStat(eosService, profile = {}) {
           +process.env.RELEASE_DATE + +process.env.WEEK_DURATION * (index + 1),
       };
     })
-    .filter(x => x.periodFinished > profile.registration_time)
+    .filter(x => x.periodFinished > profile.creationTime)
     .reverse();
 }
 

@@ -154,7 +154,7 @@ const Content = ({
                   <TagName>{x.name}</TagName>
                   <Span fontSize="14" color={TEXT_SECONDARY}>
                     <span>x </span>
-                    <span>{`${x.questions_asked}`}</span>
+                    <span>{`${x.questionsAsked}`}</span>
                   </Span>
                 </p>
 

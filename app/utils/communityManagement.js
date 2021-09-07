@@ -92,7 +92,7 @@ export const getCommunityById = async (eosService, communityId) => {
     communityId,
   );
 
-  const { questions_asked, users_subscribed } = row;
+  const { questionsAsked, users_subscribed } = row;
 
   const community = JSON.parse(await getText(row.ipfs_description));
   const {
@@ -119,7 +119,7 @@ export const getCommunityById = async (eosService, communityId) => {
     about,
     officialSite,
     questionsType,
-    questions_asked,
+    questionsAsked,
     users_subscribed,
     isBlogger,
     banner,

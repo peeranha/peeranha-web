@@ -30,10 +30,10 @@ const SubHeader = ({
   stakedInCurrentPeriod,
   stakedInNextPeriod,
 }) => {
-  const availableBalance = 
-    stakedInCurrentPeriod >= stakedInNextPeriod ? 
-      balance - stakedInCurrentPeriod :
-      balance - stakedInNextPeriod;
+  const availableBalance =
+    stakedInCurrentPeriod >= stakedInNextPeriod
+      ? balance - stakedInCurrentPeriod
+      : balance - stakedInNextPeriod;
 
   return (
     <Box position="bottom">
@@ -108,7 +108,7 @@ const SubHeader = ({
                 </Span>
               </li>
               <li>
-                <FormattedMessage {...messages.eosAccount} />
+                <FormattedMessage {...messages.ethereumAddress} />
                 <Span>{account}</Span>
               </li>
             </UlStyled>
@@ -117,7 +117,7 @@ const SubHeader = ({
       </div>
     </Box>
   );
-}
+};
 
 SubHeader.propTypes = {
   account: PropTypes.string,

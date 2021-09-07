@@ -33,6 +33,7 @@ import saga from './saga';
 import { setDefaultReducer, saveProfile } from './actions';
 
 import ProfileEditForm from './ProfileEditForm';
+import * as routes from '../../routes-config';
 
 export const EditProfilePage = ({
   match: {
@@ -44,7 +45,11 @@ export const EditProfilePage = ({
   loginData,
   setDefaultReducerDispatch,
   saveProfileDispatch,
+  history,
 }) => {
+  if (!profile) {
+    history.push(routes.feed());
+  }
   const saveProfileMethod = values =>
     saveProfileDispatch({
       userKey: id,
@@ -68,8 +73,8 @@ export const EditProfilePage = ({
         userId={id}
         account={account}
         profile={profile}
-        questionsLength={_get(profile, 'questions_asked', 0)}
-        questionsWithUserAnswersLength={_get(profile, 'answers_given', 0)}
+        questionsLength={_get(profile, 'questionsAsked', 0)}
+        questionsWithUserAnswersLength={_get(profile, 'answersGiven', 0)}
         loginData={loginData}
       />
 

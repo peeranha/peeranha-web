@@ -154,13 +154,13 @@ const selectUserRatingDCP = user =>
 const selectQuestionsAskedValue = user =>
   createSelector(
     selectDataCacheProviderDomain,
-    substate => substate?.users[user].questions_asked,
+    substate => substate?.users[user].questionsAsked,
   );
 
 const selectAnswersGivenValue = user =>
   createSelector(
     selectDataCacheProviderDomain,
-    substate => substate?.users[user].answers_given,
+    substate => substate?.users[user].answersGiven,
   );
 
 const selectBestAnswersValue = user =>
@@ -190,7 +190,7 @@ const selectFirstAnswersValue = user =>
 const selectUserAchievementsDCP = userAccount =>
   createSelector(
     selectDataCacheProviderDomain,
-    substate => substate.users[userAccount]?.achievements_reached,
+    substate => substate.users[userAccount]?.achievementsReached,
   );
 
 export {

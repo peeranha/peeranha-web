@@ -12,7 +12,7 @@ export const initialState = fromJS({
   getUsersLoading: false,
   getUsersError: null,
   isLastFetch: false,
-  sorting: 'registration_time',
+  sorting: 'creationTime',
   searchText: '',
   limit: 50,
 });
