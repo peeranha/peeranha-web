@@ -47,8 +47,8 @@ const StyledBox = styled.div`
     }
   }
   ${x =>
-  x.disabled
-    ? `:after {
+    x.disabled
+      ? `:after {
     content: '';
     position: absolute;
     top: 0;
@@ -58,22 +58,22 @@ const StyledBox = styled.div`
     z-index: 2;
     cursor: not-allowed;
   }`
-    : ``};
+      : ``};
 `;
 
 export const InputContainer = styled.div``;
 
 export const Wrapper = ({
-                          children,
-                          tip,
-                          label,
-                          meta,
-                          splitInHalf,
-                          disabled,
-                          id,
-                          insideOfSection,
-                          className,
-                        }) => (
+  children,
+  tip,
+  label,
+  meta,
+  splitInHalf,
+  disabled,
+  id,
+  insideOfSection,
+  className,
+}) => (
   <StyledBox
     className={className}
     disabled={disabled}
