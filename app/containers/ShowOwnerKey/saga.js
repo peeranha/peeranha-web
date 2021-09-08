@@ -33,6 +33,7 @@ import {
   SEND_EMAIL,
   VERIFY_FB_ACTION,
   SEND_FB_VERIFICATION_EMAIL,
+  SEND_ANOTHER_CODE,
 } from './constants';
 
 import {
@@ -43,6 +44,7 @@ import {
   setShowOwnerProcessing,
   showOwnerKeyModal,
 } from './actions';
+import { successHandling } from '../Toast/saga';
 
 export function* sendEmailWorker({ resetForm, email, password }) {
   try {
@@ -120,6 +122,10 @@ export function* sendFacebookEmailWorker() {
   }
 }
 
+export function* sendAnotherCodeSuccess() {
+  yield call(successHandling);
+}
+
 export function* verifyFacebookActionWorker({ verifyFormVals }) {
   try {
     yield put(setShowOwnerProcessing(true));
@@ -165,6 +171,10 @@ export function* verifyFacebookActionWorker({ verifyFormVals }) {
 export default function* defaultSaga() {
   yield takeLatest(SHOW_OWNER_KEY, showOwnerKeyWorker);
   yield takeLatest(SEND_EMAIL, sendEmailWorker);
-  yield takeLatest(SEND_FB_VERIFICATION_EMAIL, sendFacebookEmailWorker);
+  yield takeLatest(
+    [SEND_FB_VERIFICATION_EMAIL, SEND_ANOTHER_CODE],
+    sendFacebookEmailWorker,
+  );
+  yield takeLatest(SEND_ANOTHER_CODE, sendAnotherCodeSuccess);
   yield takeLatest(VERIFY_FB_ACTION, verifyFacebookActionWorker);
 }

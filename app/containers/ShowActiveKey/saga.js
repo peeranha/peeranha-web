@@ -24,6 +24,7 @@ import {
 import { SHOW_ACTIVE_KEY_TYPE } from 'utils/constants';
 
 import {
+  SEND_ANOTHER_CODE,
   SEND_FB_VERIFICATION_EMAIL,
   SHOW_ACTIVE_KEY,
   VERIFY_FB_ACTION,
@@ -35,6 +36,7 @@ import {
   setShowActiveKeyProcessing,
   showActiveKeyModal,
 } from './actions';
+import { successHandling } from '../Toast/saga';
 
 export function* showActiveKeyWorker({ resetForm, password }) {
   try {
@@ -87,6 +89,10 @@ export function* sendFacebookEmailWorker() {
   }
 }
 
+export function* sendAnotherCodeSuccess() {
+  yield call(successHandling);
+}
+
 export function* verifyFacebookActionWorker({ verifyFormVals }) {
   try {
     yield put(setShowActiveKeyProcessing(true));
@@ -131,6 +137,10 @@ export function* verifyFacebookActionWorker({ verifyFormVals }) {
 
 export default function* defaultSaga() {
   yield takeLatest(SHOW_ACTIVE_KEY, showActiveKeyWorker);
-  yield takeLatest(SEND_FB_VERIFICATION_EMAIL, sendFacebookEmailWorker);
+  yield takeLatest(
+    [SEND_ANOTHER_CODE, SEND_FB_VERIFICATION_EMAIL],
+    sendFacebookEmailWorker,
+  );
+  yield takeLatest(SEND_ANOTHER_CODE, sendAnotherCodeSuccess);
   yield takeLatest(VERIFY_FB_ACTION, verifyFacebookActionWorker);
 }

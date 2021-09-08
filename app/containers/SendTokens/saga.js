@@ -44,6 +44,7 @@ import {
 } from './actions';
 import { CURRENCIES } from '../../wallet-config';
 import { selectFbSendTokensFormValues } from './selectors';
+import { successHandling } from '../Toast/saga';
 
 export function* sendTokensWorker({ val }) {
   try {
@@ -126,6 +127,10 @@ export function* sendEmailWorker() {
   }
 }
 
+export function* sendAnotherCodeSuccess() {
+  yield call(successHandling);
+}
+
 export function* verifyFacebookActionWorker({ verifyFormVals }) {
   try {
     yield put(setSendTokensProcessing(true));
@@ -163,5 +168,6 @@ export default function* defaultSaga() {
     [SEND_FB_VERIFICATION_EMAIL, SEND_ANOTHER_CODE],
     sendEmailWorker,
   );
+  yield takeLatest(SEND_ANOTHER_CODE, sendAnotherCodeSuccess);
   yield takeLatest(VERIFY_FB_ACTION, verifyFacebookActionWorker);
 }

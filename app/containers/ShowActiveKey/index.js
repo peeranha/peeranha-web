@@ -34,6 +34,7 @@ import {
   removeActiveKey,
   sendFbVerificationEmail,
   verifyFbAction,
+  sendAnotherCode,
 } from './actions';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -51,6 +52,7 @@ export class ShowActiveKey extends React.PureComponent {
       removeActiveKeyDispatch,
       loginData,
       sendFbVerificationEmailDispatch,
+      sendAnotherCodeDispatch,
       verifyFbActionDispatch,
     } = this.props;
 
@@ -63,7 +65,8 @@ export class ShowActiveKey extends React.PureComponent {
         showActiveKeyModalDispatch();
       }
     };
-
+    console.log(showModal);
+    console.log(loginWithFacebook);
     return (
       <React.Fragment>
         <Modal show={showModal} closeModal={hideActiveKeyModalDispatch}>
@@ -79,7 +82,7 @@ export class ShowActiveKey extends React.PureComponent {
               locale={locale}
               verifyEmail={verifyFbActionDispatch}
               verifyEmailLoading={showActiveKeyProcessing}
-              sendAnotherCode={sendFbVerificationEmailDispatch}
+              sendAnotherCode={sendAnotherCodeDispatch}
             />
           )}
         </Modal>
@@ -101,6 +104,7 @@ ShowActiveKey.propTypes = {
   removeActiveKeyDispatch: PropTypes.func,
   sendFbVerificationEmailDispatch: PropTypes.func,
   verifyFbActionDispatch: PropTypes.func,
+  sendAnotherCodeDispatch: PropTypes.func,
   children: PropTypes.any,
   showActiveKeyProcessing: PropTypes.bool,
   showModal: PropTypes.bool,
@@ -132,6 +136,7 @@ function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
       sendFbVerificationEmail,
       dispatch,
     ),
+    sendAnotherCodeDispatch: bindActionCreators(sendAnotherCode, dispatch),
     verifyFbActionDispatch: bindActionCreators(verifyFbAction, dispatch),
   };
 }
