@@ -250,3 +250,6 @@ export const SHOW_ACTIVE_KEY_TYPE = 'showActiveKey';
 export const SHOW_OWNER_KEY_TYPE = 'showOwnerKey';
 export const DELETE_ACCOUNT_TYPE = 'deleteAccount';
 export const DELETE_FB_DATA_TYPE = 'deleteFbData';
+
+export const METAMASK_ERROR_CODE = 1000001;
+export const ETHEREUM_USER_ERROR_CODE = 1000002;

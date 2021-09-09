@@ -88,6 +88,7 @@ import {
 import { decryptObject } from '../../utils/web_integration/src/util/cipher';
 import { uploadImg } from '../../utils/profileManagement';
 import { blobToBase64 } from '../../utils/blob';
+import { selectEthereum } from '../EthereumProvider/selectors';
 
 function* continueLogin({ activeKey, eosAccountName }) {
   yield call(getCurrentAccountWorker, eosAccountName);
@@ -150,48 +151,25 @@ export function* loginWithEmailWorker({ val }) {
   }
 }
 
-export function* loginWithWalletWorker({ keycat, scatter }) {
+export function* loginWithWalletWorker({ metaMask }) {
   try {
-    const eosService = yield select(selectEos);
+    const ethereumService = yield select(selectEthereum);
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
 
     let currentAccount;
-    let keycatUserData = null;
+    let metaMaskUserAddress = null;
 
-    if (keycat) {
-      keycatUserData = yield call(eosService.keycatSignIn);
+    if (metaMask) {
+      metaMaskUserAddress = yield call(ethereumService.metaMaskSignIn);
 
-      if (!keycatUserData) {
+      if (!metaMaskUserAddress) {
         throw new WebIntegrationError(
           translations[messages[USER_IS_NOT_SELECTED].id],
         );
       }
 
-      currentAccount = keycatUserData.accountName;
-    }
-
-    if (scatter) {
-      yield call(eosService.forgetIdentity);
-      yield call(eosService.initEosioWithScatter);
-
-      if (!eosService.scatterInstalled) {
-        throw new WebIntegrationError(
-          translations[messages[SCATTER_MODE_ERROR].id],
-        );
-      }
-
-      if (!eosService.selectedAccount) {
-        throw new WebIntegrationError(
-          translations[
-            getAccountNotSelectedMessageDescriptor(
-              eosService.isScatterExtension,
-            ).id
-          ],
-        );
-      }
-
-      currentAccount = eosService.selectedAccount;
+      currentAccount = metaMaskUserAddress;
     }
 
     yield call(getCurrentAccountWorker, currentAccount);
@@ -207,13 +185,13 @@ export function* loginWithWalletWorker({ keycat, scatter }) {
       );
     }
 
-    yield call(getNotificationsInfoWorker, profileInfo.user);
+    // yield call(getNotificationsInfoWorker, profileInfo.user);
 
-    yield call(getCommunityPropertyWorker);
+    // yield call(getCommunityPropertyWorker);
 
-    const autologinData = keycat
-      ? { keycatUserData, loginWithKeycat: true }
-      : { loginWithScatter: true };
+    const autologinData = metaMask
+      ? { metaMaskUserAddress, loginWithMetaMask: true }
+      : undefined;
 
     setCookie({
       name: AUTOLOGIN_DATA,
@@ -230,7 +208,7 @@ export function* loginWithWalletWorker({ keycat, scatter }) {
       yield put(redirectToFeed());
 
     yield put(loginWithWalletSuccess());
-    yield call(updateAcc, profileInfo, eosService);
+    yield call(updateAcc, profileInfo, ethereumService);
   } catch (err) {
     yield put(loginWithWalletErr(err));
   }

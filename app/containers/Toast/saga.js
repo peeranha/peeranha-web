@@ -36,9 +36,13 @@ export function* errHandling(error) {
     const errorValue = error[key];
 
     if (errorValue instanceof WebIntegrationErrorByCode) {
-      const errObjWrapper = errorValue.message;
-      const errorCode = JSON.parse(errObjWrapper).error.code;
-      throw msg[errorMessages[errorCode].id];
+      if (isNaN(errorValue?.message)) {
+        const errObjWrapper = errorValue.message;
+        const errorCode = JSON.parse(errObjWrapper).error.code;
+        throw msg[errorMessages[errorCode].id];
+      } else {
+        throw msg[errorMessages[errorValue.message].id];
+      }
     }
 
     if (errorValue instanceof ApplicationError) {

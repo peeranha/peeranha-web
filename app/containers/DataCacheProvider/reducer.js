@@ -140,8 +140,8 @@ function dataCacheProviderReducer(state = initialState, action) {
         profile
           ? fromJS({
               ...state.get('users').toJS(),
-              [profile.user]: {
-                ...state.get('users').toJS()[profile.user],
+              [profile.profile.userAddress]: {
+                ...state.get('users').toJS()[profile.profile],
                 ...profile,
               },
             })

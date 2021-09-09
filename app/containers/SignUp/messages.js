@@ -45,8 +45,8 @@ export default defineMessages({
   masterKey: {
     id: 'app.containers.SignUp.masterKey',
   },
-  eosName: {
-    id: 'app.containers.SignUp.eosName',
+  ethereumUserAddress: {
+    id: 'app.containers.SignUp.ethereumUserAddress',
   },
   displayName: {
     id: 'app.containers.SignUp.displayName',
@@ -167,5 +167,8 @@ export default defineMessages({
   },
   tgAccountName: {
     id: 'app.containers.SignUp.tgAccountName',
+  },
+  metaMaskIsNotInstalled: {
+    id: 'app.containers.SignUp.metaMaskIsNotInstalled',
   },
 });

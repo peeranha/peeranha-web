@@ -1,7 +1,6 @@
 import { saveText } from './ipfs';
 
 import {
-  REGISTER_ACC,
   ACCOUNT_TABLE,
   ALL_ACCOUNTS_SCOPE,
   NO_AVATAR,
@@ -12,56 +11,49 @@ import {
 
 import { ApplicationError } from './errors';
 import { dateNowInSeconds } from './datetime';
+import { REGISTER_ACC } from './ethConstants';
 
-export const updateAcc = async (profile, eosService) => {
+export const updateAcc = async (profile, ethereumService) => {
   if (!profile) throw new ApplicationError('No profile');
 
   const currentTime = dateNowInSeconds();
-  const currentPeriod = Math.floor(
-    (currentTime - profile.registration_time) /
-      process.env.ACCOUNT_STAT_RESET_PERIOD,
-  );
+  // const currentPeriod = Math.floor(
+  //   (currentTime - profile.registration_time) /
+  //     process.env.ACCOUNT_STAT_RESET_PERIOD,
+  // );
 
-  const periodsHavePassed = currentPeriod - profile.last_update_period;
-  const integerProperties = profile?.integer_properties ?? [];
-  const lastUpdateTime = integerProperties.find(
-    prop => prop.key === KEY_LAST_RATING_UPDATE_TIME,
-  )?.value;
-  const timeSinceRatingUpdate = currentTime - lastUpdateTime;
+  // const periodsHavePassed = currentPeriod - profile.last_update_period;
+  // const integerProperties = profile?.integer_properties ?? [];
+  // const lastUpdateTime = integerProperties.find(
+  //   prop => prop.key === KEY_LAST_RATING_UPDATE_TIME,
+  // )?.value;
+  // const timeSinceRatingUpdate = currentTime - lastUpdateTime;
 
-  if (
-    periodsHavePassed > 0 ||
-    timeSinceRatingUpdate >= process.env.ACCOUNT_STAT_RESET_PERIOD
-  ) {
-    await eosService.sendTransaction(profile.user, UPDATE_ACC, {
-      user: profile.user,
-    });
-  } else {
-    // throw new ApplicationError('Period is not finished');
-  }
+  // if (
+  //   periodsHavePassed > 0 ||
+  //   timeSinceRatingUpdate >= process.env.ACCOUNT_STAT_RESET_PERIOD
+  // ) {
+  //   await eosService.sendTransaction(profile.user, UPDATE_ACC, {
+  //     user: profile.user,
+  //   });
+  // } else {
+  //   // throw new ApplicationError('Period is not finished');
+  // }
 };
 
 export const registerAccount = async (
   profile,
-  eosService,
+  ethereumService,
   avatar = NO_AVATAR,
 ) => {
   const ipfsHash = await saveText(JSON.stringify(profile));
 
   try {
-    await eosService.sendTransaction(
-      profile.accountName,
+    await ethereumService.sendTransaction(
+      profile.userAddress,
       REGISTER_ACC,
-      {
-        user: profile.accountName,
-        display_name: profile.displayName,
-        ipfs_profile: ipfsHash,
-        ipfs_avatar: NO_AVATAR,
-      },
-      null,
-      true,
+      ipfsHash,
     );
-
     return true;
   } catch (e) {
     return false;

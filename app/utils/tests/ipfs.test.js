@@ -2,13 +2,11 @@
  * Tests IPFS utils
  */
 
-import IpfsApi from 'ipfs-api';
 import { saveText, getText, saveFile, getFileUrl } from '../ipfs';
 import { IPFS_URL } from '../constants';
 
 const dummyHash = 'dummy-hash';
 
-jest.mock('ipfs-api');
 IpfsApi.mockImplementation(() => ({
   add: () =>
     new Promise(resolve => {

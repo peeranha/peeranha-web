@@ -65,8 +65,11 @@ const Body = styled.div`
   -webkit-flex: 1 1;
 
   > div:nth-child(1) {
-    flex: 0 0 ${x => (x.splitInHalf ? `${x.withIconLabel ? CL - ICON_LABEL_FULL_WIDTH : CL}px` : `100%`)};
-    max-width: ${x => (x.splitInHalf ? `${x.withIconLabel ? CL - ICON_LABEL_FULL_WIDTH : CL}px` : `100%`)};
+    flex: 0 0;
+    max-width: ${x =>
+      x.splitInHalf
+        ? `${x.withIconLabel ? CL - ICON_LABEL_FULL_WIDTH : CL}px`
+        : `100%`};
   }
 
   > div:nth-child(2) {

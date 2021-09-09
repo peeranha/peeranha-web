@@ -17,8 +17,6 @@ import { SignUpOptions, P } from 'components/SignUpWrapper/SignUpOptions';
 import Checkbox from 'components/Input/Checkbox';
 import IAcceptTerms from 'components/IAcceptTerms';
 
-import { selectEos } from 'containers/EosioProvider/selectors';
-
 import SignUp from './index';
 
 import {
@@ -34,34 +32,36 @@ import loginMessages from '../Login/messages';
 import { REFERRAL_CODE } from '../Login/constants';
 import { getCookie } from '../../utils/cookie';
 import { REFERRAL_CODE_URI } from '../App/constants';
+import { selectEthereum } from '../EthereumProvider/selectors';
 
 const WalletsSignUpForm = ({
   handleSubmit,
   change,
-  eosAccountValue,
-  withScatter,
-  withKeycat,
+  ethereumUserValue,
+  withMetaMask,
 }) => (
   <SignUp withWallet>
     {({
       locale,
       signUpWithWallet,
       showWalletSignUpForm,
-      eosAccountName,
+      ethereumUserAddress,
       signUpWithWalletProcessing,
       logo,
     }) => {
-      if (eosAccountName !== eosAccountValue) {
-        change(EOS_ACCOUNT_FIELD, eosAccountName);
+      if (ethereumUserAddress !== ethereumUserValue) {
+        change(EOS_ACCOUNT_FIELD, ethereumUserAddress);
       }
-
       return (
-        <SignUpOptions withWallet showWalletSignUpForm={showWalletSignUpForm} logo={logo}>
+        <SignUpOptions
+          withWallet
+          showWalletSignUpForm={showWalletSignUpForm}
+          logo={logo}
+        >
           <Form
             onSubmit={handleSubmit(val =>
               signUpWithWallet(val, {
-                scatter: withScatter,
-                keycat: withKeycat,
+                metaMask: withMetaMask,
               }),
             )}
           >
@@ -69,7 +69,9 @@ const WalletsSignUpForm = ({
               name={EOS_ACCOUNT_FIELD}
               disabled
               readOnly
-              label={translationMessages[locale][messages.eosName.id]}
+              label={
+                translationMessages[locale][messages.ethereumUserAddress.id]
+              }
               component={TextInputField}
               validate={[required]}
               warn={[required]}
@@ -99,7 +101,7 @@ const WalletsSignUpForm = ({
                         {
                           translationMessages[locale][
                             loginMessages.optionalReferralCode.id
-                            ]
+                          ]
                         }
                       </text>
                     ),
@@ -133,9 +135,8 @@ const WalletsSignUpForm = ({
 
 WalletsSignUpForm.propTypes = {
   handleSubmit: PropTypes.func,
-  eosAccountValue: PropTypes.string,
+  ethereumUserValue: PropTypes.string,
   change: PropTypes.func,
-  withScatter: PropTypes.bool,
   withKeycat: PropTypes.bool,
 };
 
@@ -153,12 +154,11 @@ let FormClone = compose(
 
 FormClone = connect(state => {
   const form = state.toJS().form[formName] || { values: {} };
-  const { withScatter, withKeycat } = selectEos(state);
+  const { withMetaMask } = selectEthereum(state);
 
   return {
-    eosAccountValue: form.values ? form.values[EOS_ACCOUNT_FIELD] : null,
-    withScatter,
-    withKeycat,
+    ethereumUserValue: form.values ? form.values[EOS_ACCOUNT_FIELD] : null,
+    withMetaMask,
   };
 })(FormClone);
 

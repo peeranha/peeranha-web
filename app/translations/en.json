@@ -163,6 +163,8 @@
   "app.common.blogger": "Blogger",
   "app.common.cannotTransferToYourself": "Cannot transfer to yourself",
   "app.common.notEnoughCPUOrRAM": "Not enough CPU or RAM",
+  "app.common.metaMaskIsLocked":
+    "MetaMask is locked or the account is not connected",
 
   "app.telegram.user": "Telegram user",
   "app.telegram.userLabelPopover":
@@ -897,7 +899,7 @@
   "app.containers.SignUp.masterKey": "Master key",
   "app.containers.SignUp.displayName": "Display name",
   "app.containers.SignUp.referralCode": "Referral code {optional}",
-  "app.containers.SignUp.eosName": "Telos name",
+  "app.containers.SignUp.ethereumUserAddress": "Ethereum address",
   "app.containers.SignUp.signUp": "Sign up",
   "app.containers.SignUp.password": "Password",
   "app.containers.SignUp.confirmPassword": "Confirm password",
@@ -917,6 +919,7 @@
   "app.containers.SignUp.myOwn": "My own",
   "app.containers.SignUp.tgAccountID": "Telegram account ID",
   "app.containers.SignUp.tgAccountName": "Telegram account name",
+  "app.containers.SignUp.metaMaskIsNotInstalled": "MetaMask is not installed",
 
   "app.containers.Profile.profile": "Profile",
   "app.containers.Profile.profileDescription": "Profile description",

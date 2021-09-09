@@ -26,7 +26,6 @@ import App from 'containers/App';
 
 // Import Providers
 import LanguageProvider from 'containers/LanguageProvider';
-import EosioProvider from 'containers/EosioProvider';
 import DataCacheProvider from 'containers/DataCacheProvider';
 import AccountProvider from 'containers/AccountProvider';
 import FacebookProvider from './containers/FacebookProvider';
@@ -47,6 +46,7 @@ import { translationMessages } from './i18n';
 
 // Import CSS reset and Global Styles
 import './global-styles';
+import EthereumProvider from './containers/EthereumProvider';
 
 window.$ = $;
 
@@ -58,7 +58,7 @@ const MOUNT_NODE = document.getElementById('app');
 const render = messages => {
   ReactDOM.render(
     <Provider store={store}>
-      <EosioProvider>
+      <EthereumProvider>
         <AccountProvider>
           <LanguageProvider messages={messages}>
             <FacebookProvider>
@@ -70,7 +70,7 @@ const render = messages => {
             </FacebookProvider>
           </LanguageProvider>
         </AccountProvider>
-      </EosioProvider>
+      </EthereumProvider>
     </Provider>,
     MOUNT_NODE,
   );

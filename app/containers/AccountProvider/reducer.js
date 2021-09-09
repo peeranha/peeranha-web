@@ -25,14 +25,11 @@ export const initialState = fromJS({
   boost: null,
   lastUpdate: null,
   email: null,
-  eosAccountName: null,
   authToken: null,
   passwordUserPart: null,
   encryptedKeys: null,
   hasOwnerEosKey: false,
-  loginWithScatter: false,
-  loginWithKeycat: false,
-  loginWithFacebook: null,
+  loginWithMetaMask: false,
 });
 
 function accountProviderReducer(state = initialState, action) {
@@ -45,14 +42,11 @@ function accountProviderReducer(state = initialState, action) {
     stakedInNextPeriod,
     boost,
     email,
-    eosAccountName,
     authToken,
     passwordUserPart,
     encryptedKeys,
     hasOwnerEosKey,
-    loginWithScatter,
-    loginWithKeycat,
-    loginWithFacebook,
+    loginWithMetaMask,
   } = action;
 
   switch (type) {
@@ -79,24 +73,19 @@ function accountProviderReducer(state = initialState, action) {
     case ADD_LOGIN_DATA:
       return state
         .set('email', email)
-        .set('eosAccountName', eosAccountName)
         .set('authToken', authToken)
         .set('passwordUserPart', passwordUserPart)
         .set('encryptedKeys', encryptedKeys)
         .set('hasOwnerEosKey', hasOwnerEosKey)
-        .set('loginWithScatter', loginWithScatter)
-        .set('loginWithKeycat', loginWithKeycat)
-        .set('loginWithFacebook', loginWithFacebook);
+        .set('loginWithMetaMask', loginWithMetaMask);
     case REMOVE_LOGIN_DATA:
       return state
         .set('email', null)
-        .set('eosAccountName', null)
         .set('authToken', null)
         .set('passwordUserPart', null)
         .set('encryptedKeys', null)
         .set('hasOwnerEosKey', null)
-        .set('loginWithScatter', null)
-        .set('loginWithFacebook', null);
+        .set('loginWithMetaMask', null);
 
     case CHANGE_STAKED_IN_NEXT_PERIOD:
       return state.set('stakedInNextPeriod', stakedInNextPeriod);

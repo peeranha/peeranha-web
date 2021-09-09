@@ -74,9 +74,9 @@ const selectShowWalletSignUpProcessing = () =>
 const selectEncryptionKey = () =>
   createSelector(selectSignUpDomain, substate => substate.get('encryptionKey'));
 
-const selectEosAccountName = () =>
+const selectEthereumUserAddress = () =>
   createSelector(selectSignUpDomain, substate =>
-    substate.get('eosAccountName'),
+    substate.get('ethereumUserAddress'),
   );
 
 export {
@@ -96,5 +96,5 @@ export {
   selectSignUpWithWalletError,
   selectShowWalletSignUpProcessing,
   selectEncryptionKey,
-  selectEosAccountName,
+  selectEthereumUserAddress,
 };

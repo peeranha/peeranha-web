@@ -1,15 +1,20 @@
 /* eslint no-throw-literal: 0, camelcase: 0, eqeqeq: 0, no-shadow: 0, no-param-reassign: 0 */
-import IpfsApi from 'ipfs-api';
 import bs58 from 'bs58';
+import { create } from 'ipfs-http-client';
 
 import { ApplicationError } from './errors';
 
 export function getIpfsApi() {
-  return IpfsApi({
-    host: process.env.IPFS_API_HOST,
-    port: process.env.IPFS_API_PORT,
-    protocol: process.env.IPFS_PROTOCOL,
-  });
+  return create(process.env.IPFS_API_URL);
+}
+
+function getIpfsApiTheGraph() {
+  return create(process.env.IPFS_API_URL_THE_GRAPH);
+}
+
+async function saveTextTheGraph(buf) {
+  const saveResult = await getIpfsApiTheGraph().add(buf);
+  // return saveResult.cid.toString();
 }
 
 // TODO: test
@@ -36,12 +41,22 @@ export async function saveText(text) {
 
   const buf = Buffer.from(parsedText, 'utf8');
   const saveResult = await getIpfsApi().add(buf);
-  return saveResult[0].hash;
+
+  await saveTextTheGraph(buf);
+  return saveResult.cid.toString();
+}
+
+async function saveFileTheGraph(buf) {
+  const saveResult = await getIpfsApiTheGraph().add(buf);
+  // return saveResult.cid.toString();
 }
 
 export async function saveFile(file) {
   const buf = Buffer.from(file);
   const saveResult = await getIpfsApi().add(buf);
+
+  await saveFileTheGraph(buf);
+
   return saveResult[0].hash;
 }
 
@@ -54,15 +69,7 @@ export function getFileUrl(hash) {
   if (window.renderedByPuppeteer) {
     return null;
   }
-
-  if (process.env.IPFS_GATEWAY_PORT && process.env.NODE_ENV === 'development') {
-    return `${process.env.IPFS_PROTOCOL}://${process.env.IPFS_API_HOST}:${
-      process.env.IPFS_GATEWAY_PORT
-    }/ipfs/${hash}`;
-  }
-
-  const IPFS_DOMAIN = `${process.env.IPFS_PROTOCOL}://${process.env.IPFS_CDN_HOST}/`;
-
+  const IPFS_DOMAIN = process.env.IPFS_CDN_URL;
   return hash.includes(IPFS_DOMAIN) ? hash : `${IPFS_DOMAIN}${hash}`;
 }
 

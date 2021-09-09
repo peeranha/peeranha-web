@@ -51,11 +51,10 @@ export function showEmailPasswordForm(val) {
 
 // Login with Wallet
 
-export function loginWithWallet({ keycat, scatter }) {
+export function loginWithWallet({ metaMask }) {
   return {
     type: LOGIN_WITH_WALLET,
-    keycat,
-    scatter,
+    metaMask,
   };
 }
 
