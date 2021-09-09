@@ -9,7 +9,7 @@ export function getIpfsApi() {
 }
 
 function getIpfsApiTheGraph() {
-  return create(process.env.IPFS_API_URLTHE_GRAPH);
+  return create(process.env.IPFS_API_URL_THE_GRAPH);
 }
 
 async function saveTextTheGraph(buf) {
