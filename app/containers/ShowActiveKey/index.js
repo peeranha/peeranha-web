@@ -65,8 +65,7 @@ export class ShowActiveKey extends React.PureComponent {
         showActiveKeyModalDispatch();
       }
     };
-    console.log(showModal);
-    console.log(loginWithFacebook);
+
     return (
       <React.Fragment>
         <Modal show={showModal} closeModal={hideActiveKeyModalDispatch}>
