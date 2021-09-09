@@ -135,7 +135,7 @@ FormClone = connect((state, props) => ({
   initialValues: {
     ...(props?.profile?.profile || {}),
     [DISPLAY_NAME_FIELD]: props?.profile?.['displayName'],
-    [AVATAR_FIELD]: props?.profile?.['ipfs_avatar'],
+    [AVATAR_FIELD]: props?.profile?.['ipfsAvatar'],
   },
 }))(FormClone);
 

@@ -152,7 +152,7 @@ const CommentView = item => {
       <div className="d-flex justify-content-between align-items-center position-relative">
         <UserInfo
           type={COMMENT_TYPE}
-          avatar={getUserAvatar(item.userInfo.ipfs_avatar)}
+          avatar={getUserAvatar(item.userInfo.ipfsAvatar)}
           name={item.userInfo?.displayName ?? ''}
           rating={item.userInfo.rating}
           account={item.userInfo.user}

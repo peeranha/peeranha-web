@@ -235,6 +235,7 @@ export async function getProfileInfo(
     profileInfo.questionsAsked = profileInfo.questionsAsked ?? 0;
     profileInfo.answersGiven = profileInfo.answersGiven ?? 0;
     profileInfo.achievementsReached = profileInfo.achievementsReached ?? [];
+    profileInfo.ipfsAvatar = profileInfo.profile.profileAvatar;
   }
 
   return profileInfo;

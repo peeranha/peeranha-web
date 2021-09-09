@@ -60,8 +60,8 @@ const Content = ({
               <MediumImage
                 isBordered
                 className="flex-shrink-0 mr-2"
-                src={getUserAvatar(x.ipfs_avatar)}
-                alt="ipfs_avatar"
+                src={getUserAvatar(x.ipfsAvatar)}
+                alt="ipfsAvatar"
               />
               {!!x?.['integer_properties'].find(
                 item => item.key === TEMPORARY_ACCOUNT_KEY && item.value,

@@ -57,7 +57,7 @@ export async function saveFile(file) {
 
   await saveFileTheGraph(buf);
 
-  return saveResult[0].hash;
+  return saveResult.cid.toString();
 }
 
 export async function getText(hash) {
