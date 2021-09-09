@@ -25,14 +25,11 @@ export const initialState = fromJS({
   boost: null,
   lastUpdate: null,
   email: null,
-  eosAccountName: null,
   authToken: null,
   passwordUserPart: null,
   encryptedKeys: null,
   hasOwnerEosKey: false,
-  loginWithScatter: false,
-  loginWithKeycat: false,
-  loginWithFacebook: null,
+  loginWithMetaMask: false,
 });
 
 function accountProviderReducer(state = initialState, action) {
@@ -45,7 +42,6 @@ function accountProviderReducer(state = initialState, action) {
     stakedInNextPeriod,
     boost,
     email,
-    eosAccountName,
     authToken,
     passwordUserPart,
     encryptedKeys,
@@ -77,7 +73,6 @@ function accountProviderReducer(state = initialState, action) {
     case ADD_LOGIN_DATA:
       return state
         .set('email', email)
-        .set('eosAccountName', eosAccountName)
         .set('authToken', authToken)
         .set('passwordUserPart', passwordUserPart)
         .set('encryptedKeys', encryptedKeys)
@@ -86,7 +81,6 @@ function accountProviderReducer(state = initialState, action) {
     case REMOVE_LOGIN_DATA:
       return state
         .set('email', null)
-        .set('eosAccountName', null)
         .set('authToken', null)
         .set('passwordUserPart', null)
         .set('encryptedKeys', null)

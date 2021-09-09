@@ -26,7 +26,6 @@ import App from 'containers/App';
 
 // Import Providers
 import LanguageProvider from 'containers/LanguageProvider';
-import EosioProvider from 'containers/EosioProvider';
 import DataCacheProvider from 'containers/DataCacheProvider';
 import AccountProvider from 'containers/AccountProvider';
 import FacebookProvider from './containers/FacebookProvider';
@@ -60,7 +59,6 @@ const render = messages => {
   ReactDOM.render(
     <Provider store={store}>
       <EthereumProvider>
-        {/*<EosioProvider>*/}
         <AccountProvider>
           <LanguageProvider messages={messages}>
             <FacebookProvider>
@@ -72,7 +70,6 @@ const render = messages => {
             </FacebookProvider>
           </LanguageProvider>
         </AccountProvider>
-        {/*</EosioProvider>*/}
       </EthereumProvider>
     </Provider>,
     MOUNT_NODE,
