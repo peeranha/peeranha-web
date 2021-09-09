@@ -65,6 +65,12 @@ class EthereumService {
     this.withMetaMask = true;
   };
 
+  resetMetaMaskUserData = async () => {
+    this.metaMaskUserAddress = null;
+    this.withMetaMask = false;
+    this.selectedAccount = null;
+  };
+
   getSelectedAccount = async () =>
     this.selectedAccount ||
     JSON.parse(getCookie(AUTOLOGIN_DATA) || null) ||
