@@ -20,6 +20,7 @@ import {
   SEND_FB_VERIFICATION_EMAIL,
   SET_SHOW_OWNER_KEY_PROCESSING,
   VERIFY_FB_ACTION,
+  SEND_ANOTHER_CODE,
 } from './constants';
 
 export function showOwnerKeyModal() {
@@ -94,6 +95,10 @@ export function sendFbVerificationEmail() {
     type: SEND_FB_VERIFICATION_EMAIL,
   };
 }
+
+export const sendAnotherCode = () => ({
+  type: SEND_ANOTHER_CODE,
+});
 
 export function setShowOwnerProcessing(processing) {
   return {

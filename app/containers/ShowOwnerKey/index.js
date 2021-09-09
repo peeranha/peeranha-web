@@ -36,6 +36,7 @@ import {
   removeOwnerKey,
   sendFbVerificationEmail,
   verifyFbAction,
+  sendAnotherCode,
 } from './actions';
 
 import { SUBMIT_EMAIL_FORM, EMAIL_FORM } from './constants';
@@ -58,6 +59,7 @@ export class ShowOwnerKey extends React.PureComponent {
       removeOwnerKeyDispatch,
       loginData,
       sendFbVerificationEmailDispatch,
+      sendAnotherCodeDispatch,
       verifyFbActionDispatch,
     } = this.props;
 
@@ -100,7 +102,7 @@ export class ShowOwnerKey extends React.PureComponent {
               locale={locale}
               verifyEmail={verifyFbActionDispatch}
               verifyEmailLoading={showOwnerKeyProcessing}
-              sendAnotherCode={sendFbVerificationEmailDispatch}
+              sendAnotherCode={sendAnotherCodeDispatch}
             />
           </Modal>
         )}
@@ -153,6 +155,7 @@ function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
       sendFbVerificationEmail,
       dispatch,
     ),
+    sendAnotherCodeDispatch: bindActionCreators(sendAnotherCode, dispatch),
     verifyFbActionDispatch: bindActionCreators(verifyFbAction, dispatch),
   };
 }

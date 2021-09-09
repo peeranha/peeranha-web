@@ -29,6 +29,7 @@ export const PASSWORD_FIELD = 'app/ShowOwnerKey/PASSWORD_FIELD';
 // with facebook
 export const SEND_FB_VERIFICATION_EMAIL =
   'app/ShowOwnerKey/SEND_FB_VERIFICATION_EMAIL';
+export const SEND_ANOTHER_CODE = 'app/ShowOwnerKey/SEND_ANOTHER_CODE';
 export const SET_SHOW_OWNER_KEY_PROCESSING =
   'app/ShowOwnerKey/SET_SHOW_OWNER_KEY_PROCESSING';
 export const VERIFY_FB_ACTION = 'app/ShowOwnerKey/VERIFY_FB_ACTION';

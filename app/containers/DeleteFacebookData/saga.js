@@ -113,6 +113,7 @@ export function* sendAnotherCodeWorker() {
   try {
     const facebookUserId = yield select(makeSelectFacebookUserId());
     yield checkFacebookIdWorker({ facebookUserId });
+    yield call(successHandling);
   } catch (err) {
     yield put(deleteFbDataError(err));
   }
