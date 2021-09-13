@@ -64,7 +64,7 @@ const TagsList = ({
 
           {showPopularity && (
             <Span color={TEXT_SECONDARY} fontSize="14" lineHeight="18">
-              {x.questions_asked}
+              {x.questionsAsked}
             </Span>
           )}
         </li>

@@ -60,15 +60,20 @@ const Content = ({
               <MediumImage
                 isBordered
                 className="flex-shrink-0 mr-2"
-                src={getUserAvatar(x.ipfs_avatar)}
-                alt="ipfs_avatar"
+                src={getUserAvatar(x.ipfsAvatar)}
+                alt="ipfsAvatar"
               />
-              {!!x?.['integer_properties'].find(item => item.key === TEMPORARY_ACCOUNT_KEY && item.value) && (
-                <TelegramUserLabel id={`temporary-account-${x.user}-label`} locale={locale} />
-              )}              
+              {!!x?.['integer_properties'].find(
+                item => item.key === TEMPORARY_ACCOUNT_KEY && item.value,
+              ) && (
+                <TelegramUserLabel
+                  id={`temporary-account-${x.user}-label`}
+                  locale={locale}
+                />
+              )}
             </MediumImageWrapper>
             <div>
-              <P fontSize="14">{x?.['display_name']}</P>
+              <P fontSize="14">{x?.['displayName']}</P>
               <IconWithStatus className="py-1" size="sm" rating={x.rating} />
               <P fontSize="14" color={TEXT_SECONDARY}>
                 {getTimeFromDateToNow(x.registration_time, locale)}

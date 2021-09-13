@@ -176,14 +176,14 @@ export const isProfileInfoUpdated = (
     (!prevProfileInfo.rating || prevProfileInfo.rating < maxRatingLowerValue);
 
   const questionRelatedUpdated =
-    currProfileInfo.questions_asked !== prevProfileInfo.questions_asked &&
-    (!prevProfileInfo.questions_asked ||
-      prevProfileInfo.questions_asked < maxQuestionLowerValue);
+    currProfileInfo.questionsAsked !== prevProfileInfo.questionsAsked &&
+    (!prevProfileInfo.questionsAsked ||
+      prevProfileInfo.questionsAsked < maxQuestionLowerValue);
 
   const answersRelatedUpdated =
-    currProfileInfo.answers_given !== prevProfileInfo.answers_given &&
-    (!prevProfileInfo.answers_given ||
-      prevProfileInfo.answers_given < maxAnswersLowerValue);
+    currProfileInfo.answersGiven !== prevProfileInfo.answersGiven &&
+    (!prevProfileInfo.answersGiven ||
+      prevProfileInfo.answersGiven < maxAnswersLowerValue);
 
   const bestAnswersRelatedUpdated =
     currProfileInfo.correct_answers !== prevProfileInfo.correct_answers &&

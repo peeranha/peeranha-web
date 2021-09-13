@@ -83,6 +83,7 @@ import signupMessages from './messages';
 import { REDIRECT_TO_FEED } from '../App/constants';
 import { selectEthereum } from '../EthereumProvider/selectors';
 import { getProfileInfo } from '../../utils/profileManagement';
+import { makeSelectAccount } from '../AccountProvider/selectors';
 
 export function* emailCheckingWorker({ email }) {
   try {
@@ -317,10 +318,9 @@ export function* idontHaveEosAccountWorker({ val }) {
 export function* signUpWithWalletWorker({ val, metaMask }) {
   try {
     const locale = yield select(makeSelectLocale());
+    const userAddress = yield select(makeSelectAccount());
     const translations = translationMessages[locale];
-    const userAddress = val[EOS_ACCOUNT_FIELD];
     const profile = {
-      userAddress,
       displayName: val[DISPLAY_NAME_FIELD],
     };
 
@@ -343,6 +343,7 @@ export function* signUpWithWalletWorker({ val, metaMask }) {
 
     const registerAccountResult = yield call(
       registerAccount,
+      userAddress,
       profile,
       ethereumService,
     );

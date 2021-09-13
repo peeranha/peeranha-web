@@ -20,6 +20,7 @@ import {
   callService,
   NOTIFICATIONS_INFO_SERVICE,
 } from './web_integration/src/util/aws-connector';
+import { UPDATE_ACC } from './ethConstants';
 
 export function getUserAvatar(avatarHash, userId, account) {
   if (avatarHash && avatarHash !== NO_AVATAR) {
@@ -174,10 +175,10 @@ export class AccountsSortedBy {
     };
   }
 
-  static get registration_time() {
+  static get creationTime() {
     return {
       lowerBound: () => 0,
-      keyName: 'registration_time',
+      keyName: 'creationTime',
       indexPosition: 3,
       keyType: 'i64',
       keyFunc: key => key,
@@ -216,35 +217,34 @@ export async function getProfileInfo(
 
   // if (!profile || profile.userAddress !== user) return null;
 
-  // if (!profile.achievements_reached) {
+  // if (!profile.achievementsReached) {
   //   const userAchievements = await getAchievements(
   //     eosService,
   //     USER_ACHIEVEMENTS_TABLE,
   //     user,
   //   );
   //
-  //   profile.achievements_reached = userAchievements;
+  //   profile.achievementsReached = userAchievements;
   // }
 
   if (getExtendedProfile) {
     const ipfsProfile = await getText(profileInfo.ipfsHash);
     profileInfo.profile = JSON.parse(ipfsProfile);
-    profileInfo.user = profileInfo.profile.userAddress;
-    profileInfo.display_name = profileInfo.profile.displayName;
+    profileInfo.user = user;
+    profileInfo.displayName = profileInfo.profile.displayName;
+    profileInfo.questionsAsked = profileInfo.questionsAsked ?? 0;
+    profileInfo.answersGiven = profileInfo.answersGiven ?? 0;
+    profileInfo.achievementsReached = profileInfo.achievementsReached ?? [];
+    profileInfo.ipfsAvatar = profileInfo.profile.profileAvatar;
   }
 
   return profileInfo;
 }
 
-export async function saveProfile(eosService, user, avatar, profile) {
-  const ipfsProfile = await saveText(JSON.stringify(profile));
+export async function saveProfile(ethereumService, user, profile) {
+  const ipfsHash = await saveText(JSON.stringify(profile));
 
-  await eosService.sendTransaction(user, SAVE_PROFILE_METHOD, {
-    user,
-    ipfs_profile: ipfsProfile,
-    display_name: profile[DISPLAY_NAME_FIELD] || '',
-    ipfs_avatar: avatar,
-  });
+  await ethereumService.sendTransaction(user, UPDATE_ACC, ipfsHash);
 }
 
 export const getNotificationsInfo = async user => {
@@ -278,9 +278,7 @@ export async function getUserTelegramData(eosService, userName) {
     temporaryUser,
   );
   const temporaryAccountDisplayName =
-    profile && profile.user === temporaryUser
-      ? profile.display_name
-      : undefined;
+    profile && profile.user === temporaryUser ? profile.displayName : undefined;
   return userTgData.length > 0
     ? {
         ...userTgData[0],

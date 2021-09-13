@@ -18,7 +18,7 @@ export const updateAcc = async (profile, ethereumService) => {
 
   const currentTime = dateNowInSeconds();
   // const currentPeriod = Math.floor(
-  //   (currentTime - profile.registration_time) /
+  //   (currentTime - profile.creationTime) /
   //     process.env.ACCOUNT_STAT_RESET_PERIOD,
   // );
 
@@ -42,18 +42,14 @@ export const updateAcc = async (profile, ethereumService) => {
 };
 
 export const registerAccount = async (
+  userAddress,
   profile,
   ethereumService,
-  avatar = NO_AVATAR,
 ) => {
   const ipfsHash = await saveText(JSON.stringify(profile));
 
   try {
-    await ethereumService.sendTransaction(
-      profile.userAddress,
-      REGISTER_ACC,
-      ipfsHash,
-    );
+    await ethereumService.sendTransaction(userAddress, REGISTER_ACC, ipfsHash);
     return true;
   } catch (e) {
     return false;

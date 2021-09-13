@@ -172,7 +172,7 @@ const TopCommunities = ({
                           </div>
                           <div className="d-flex flex-column flex-grow-1">
                             <Span fontSize="16" bold>
-                              {getFormattedNum2(x.questions_asked)}
+                              {getFormattedNum2(x.questionsAsked)}
                             </Span>
                             <Span
                               className="mt-1"

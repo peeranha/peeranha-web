@@ -1,8 +1,8 @@
 import messages from 'common-messages';
 
 export default {
-  registration_time: {
-    sortBy: 'registration_time',
+  creationTime: {
+    sortBy: 'creationTime',
     message: messages.date,
   },
   rating: {

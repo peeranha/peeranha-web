@@ -134,8 +134,8 @@ FormClone = connect((state, props) => ({
   formValues: state.toJS().form[PROFILE_EDIT_FORM]?.values ?? {},
   initialValues: {
     ...(props?.profile?.profile || {}),
-    [DISPLAY_NAME_FIELD]: props?.profile?.['display_name'],
-    [AVATAR_FIELD]: props?.profile?.['ipfs_avatar'],
+    [DISPLAY_NAME_FIELD]: props?.profile?.['displayName'],
+    [AVATAR_FIELD]: props?.profile?.['ipfsAvatar'],
   },
 }))(FormClone);
 

@@ -2,12 +2,12 @@ import messages from 'common-messages';
 
 export default {
   questions: {
-    sortBy: 'questions_asked',
+    sortBy: 'questionsAsked',
     order: 'desc',
     message: messages.questions,
   },
   answers: {
-    sortBy: 'answers_given',
+    sortBy: 'answersGiven',
     order: 'desc',
     message: messages.answers,
   },

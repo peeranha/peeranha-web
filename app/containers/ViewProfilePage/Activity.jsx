@@ -65,7 +65,7 @@ const Activity = ({
                   fontSize="14"
                   color={tab !== 'posts' ? TEXT_SECONDARY : 'inherit'}
                 >
-                  {profile.questions_asked + profile.answers_given}
+                  {profile.questionsAsked + profile.answersGiven}
                 </Span>
               ),
             }}
@@ -87,7 +87,7 @@ const Activity = ({
                   fontSize="14"
                   color={tab !== 'quest' ? TEXT_SECONDARY : 'inherit'}
                 >
-                  {profile.questions_asked}
+                  {profile.questionsAsked}
                 </Span>
               ),
             }}
@@ -109,7 +109,7 @@ const Activity = ({
                   fontSize="14"
                   color={tab !== 'answ' ? TEXT_SECONDARY : 'inherit'}
                 >
-                  {profile.answers_given}
+                  {profile.answersGiven}
                 </Span>
               ),
             }}

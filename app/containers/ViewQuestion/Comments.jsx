@@ -152,11 +152,11 @@ const CommentView = item => {
       <div className="d-flex justify-content-between align-items-center position-relative">
         <UserInfo
           type={COMMENT_TYPE}
-          avatar={getUserAvatar(item.userInfo.ipfs_avatar)}
-          name={item.userInfo?.display_name ?? ''}
+          avatar={getUserAvatar(item.userInfo.ipfsAvatar)}
+          name={item.userInfo?.displayName ?? ''}
           rating={item.userInfo.rating}
           account={item.userInfo.user}
-          achievementsCount={item.userInfo.achievements_reached?.length}
+          achievementsCount={item.userInfo.achievementsReached?.length}
           postTime={+item.post_time}
           locale={item.locale}
           isComment
@@ -179,7 +179,9 @@ const CommentView = item => {
           <div id={`delete-comment-${item.answerId}${item.id}`}>
             <AreYouSure
               submitAction={
-                isModerator && !isItWrittenByMe ? item.voteToDelete : item.deleteComment
+                isModerator && !isItWrittenByMe
+                  ? item.voteToDelete
+                  : item.deleteComment
               }
               Button={({ onClick }) => (
                 <Button

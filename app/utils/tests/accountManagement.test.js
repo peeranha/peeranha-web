@@ -43,9 +43,9 @@ it('registerAccount', async () => {
     REGISTER_ACC,
     {
       user: profile.accountName,
-      display_name: profile.displayName,
+      displayName: profile.displayName,
       ipfs_profile: savedHash,
-      ipfs_avatar: NO_AVATAR,
+      ipfsAvatar: NO_AVATAR,
     },
   );
   expect(saveText).toHaveBeenCalledTimes(1);

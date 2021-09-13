@@ -90,7 +90,7 @@
   "app.common.amount": "Amount",
   "app.common.bounty": "Bounty amount",
   "app.common.password": "Password",
-  "app.common.eosAccount": "Telos account",
+  "app.common.ethereumAddress": "Ethereum address",
   "app.common.successMessage": "Action completed successfully",
   "app.common.errorMessage": "An error occurred",
   "app.common.energy": "Energy",

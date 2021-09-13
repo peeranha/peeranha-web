@@ -286,7 +286,7 @@ export function* isAvailableAction(isValid, data = {}) {
   if (!skipPermissions) {
     const profileInfo = yield select(makeSelectProfileInfo());
 
-    if (profileInfo.integer_properties.find(x => x.key === MODERATOR_KEY)) {
+    if (profileInfo.integer_properties?.find(x => x.key === MODERATOR_KEY)) {
       return true;
     }
 

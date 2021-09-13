@@ -75,23 +75,23 @@ const ViewProfilePage = ({
         account={account}
         profile={profile}
         loginData={loginData}
-        questionsLength={profile?.questions_asked ?? 0}
-        questionsWithUserAnswersLength={profile?.answers_given ?? 0}
-        userAchievementsLength={profile?.achievements_reached?.length ?? null}
+        questionsLength={profile?.questionsAsked ?? 0}
+        questionsWithUserAnswersLength={profile?.answersGiven ?? 0}
+        userAchievementsLength={profile?.achievementsReached?.length ?? null}
         redirectToEditProfilePage={redirectToEditProfilePageDispatch}
       />
 
       <QuestionsOfUser
         className={path === routes.userQuestions(userId) ? '' : 'd-none'}
         infinityOff={path !== routes.userQuestions(userId)}
-        displayName={profile?.display_name}
+        displayName={profile?.displayName}
         userId={userId}
       />
 
       <QuestionsWithAnswersOfUser
         className={path === routes.userAnswers(userId) ? '' : 'd-none'}
         infinityOff={path !== routes.userAnswers(userId)}
-        displayName={profile?.display_name}
+        displayName={profile?.displayName}
         userId={userId}
       />
 

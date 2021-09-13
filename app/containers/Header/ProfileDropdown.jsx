@@ -62,7 +62,7 @@ const NoAvatarBox = styled.div`
 
 const B = ({ profileInfo, onClick, isMenuVisible, isMobileVersion }) => (
   <span className="d-flex" onClick={onClick}>
-    {(!profileInfo.ipfs_avatar || profileInfo.ipfs_avatar === NO_AVATAR) && (
+    {(!profileInfo.ipfsAvatar || profileInfo.ipfsAvatar === NO_AVATAR) && (
       <NoAvatarBox isMobileVersion={isMobileVersion}>
         <Icon
           width="17"
@@ -72,13 +72,13 @@ const B = ({ profileInfo, onClick, isMenuVisible, isMobileVersion }) => (
         />
       </NoAvatarBox>
     )}
-    {profileInfo.ipfs_avatar &&
-      profileInfo.ipfs_avatar !== NO_AVATAR && (
+    {profileInfo.ipfsAvatar &&
+      profileInfo.ipfsAvatar !== NO_AVATAR && (
         <MediumSpecialImage
           isBordered
           customBorderStyle={!isMobileVersion && styles.communityBorderStyle}
-          src={getUserAvatar(profileInfo.ipfs_avatar)}
-          alt="ipfs_avatar"
+          src={getUserAvatar(profileInfo.ipfsAvatar)}
+          alt="ipfsAvatar"
         />
       )}
     <Info
@@ -86,7 +86,7 @@ const B = ({ profileInfo, onClick, isMenuVisible, isMobileVersion }) => (
       isMenuVisible={isMenuVisible}
     >
       <Span bold color={(!isMobileVersion && styles.commHeadElemColor) || ''}>
-        {profileInfo?.['display_name']}
+        {profileInfo?.['displayName']}
       </Span>
       <StatusBox>
         <RatingStatus
@@ -99,7 +99,7 @@ const B = ({ profileInfo, onClick, isMenuVisible, isMobileVersion }) => (
           }
         />
         <AchievementsStatus
-          count={profileInfo.achievements_reached?.length}
+          count={profileInfo.achievementsReached?.length}
           achievementsNumColor={!isMobileVersion && styles.commHeadElemColor}
           achievIconStyles={!isMobileVersion && styles.achievIconStyles}
         />
@@ -114,7 +114,7 @@ export const Button = connect(state => ({
 
 const Menu = memo(
   ({ profileInfo, questionsLength, questionsWithUserAnswersLength }) => {
-    const user = profileInfo.profile.userAddress;
+    const user = profileInfo.user;
     const { permissions, integer_properties } = profileInfo;
     const integerProperties = integer_properties;
     const isGlobalModerator = useMemo(
@@ -186,8 +186,8 @@ const ProfileDropdown = ({ profileInfo }) => (
     menu={
       <Menu
         profileInfo={profileInfo}
-        questionsLength={profileInfo.questions_asked}
-        questionsWithUserAnswersLength={profileInfo.answers_given}
+        questionsLength={profileInfo.questionsAsked}
+        questionsWithUserAnswersLength={profileInfo.answersGiven}
       />
     }
   />

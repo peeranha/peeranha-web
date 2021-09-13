@@ -179,7 +179,7 @@ describe('Achievements saga helper functions tests', () => {
     });
 
     it('should return true, if profileInfo updated', () => {
-      let currProfileInfo = { questions_asked: 2 };
+      let currProfileInfo = { questionsAsked: 2 };
       let prevProfileInfo = {};
       let mockMaxGroupsLowerValues = { maxQuestionLowerValue: 5 };
 

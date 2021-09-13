@@ -48,7 +48,7 @@ export const Profile = ({
 
   const HelmetTitle = useMemo(
     () =>
-      `${profile?.display_name ?? translations[messages.wrongUser.id]} | ${
+      `${profile?.displayName ?? translations[messages.wrongUser.id]} | ${
         translations[messages.profile.id]
       }`,
     [profile, translations],

@@ -31,7 +31,7 @@ describe('getUsers', () => {
     items: [
       {
         id: 1,
-        ipfs_avatar: 'ipfs_avatar_1',
+        ipfsAvatar: 'ipfs_avatar_1',
       },
     ],
   };
@@ -49,7 +49,7 @@ describe('getUsers', () => {
     expect(put).toHaveBeenCalledWith(
       getUserProfileSuccess({
         id: 1,
-        ipfs_avatar: 'ipfs_avatar_1',
+        ipfsAvatar: 'ipfs_avatar_1',
       }),
     );
   });

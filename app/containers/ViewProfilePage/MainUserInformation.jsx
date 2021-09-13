@@ -138,7 +138,7 @@ const MainUserInformation = ({
             disabled={account !== userId}
           >
             <LargeImage
-              src={getUserAvatar(profile.ipfs_avatar, userId, account)}
+              src={getUserAvatar(profile.ipfsAvatar, userId, account)}
               alt="avatar"
               isBordered
             />
@@ -155,7 +155,7 @@ const MainUserInformation = ({
         <div>
           <div className="d-flex align-items-center">
             <Span fontSize="38" lineHeight="47" mobileFS="28" bold>
-              {profile?.['display_name']}
+              {profile?.['displayName']}
             </Span>
           </div>
 
@@ -170,7 +170,7 @@ const MainUserInformation = ({
                 <FormattedMessage {...commonMessages.questions} />
                 <span>
                   <img src={questionRoundedIcon} alt="icon" />
-                  {profile.questions_asked}
+                  {profile.questionsAsked}
                 </span>
               </li>
 
@@ -178,15 +178,15 @@ const MainUserInformation = ({
                 <FormattedMessage {...commonMessages.answers} />
                 <span>
                   <img src={answerIcon} alt="icon" />
-                  {profile.answers_given}
+                  {profile.answersGiven}
                 </span>
               </li>
 
               <li>
                 <FormattedMessage {...messages.achievements} />
-                {typeof profile.achievements_reached === 'object' ? (
+                {typeof profile.achievementsReached === 'object' ? (
                   <AchievementsStatus
-                    count={profile.achievements_reached.length}
+                    count={profile.achievementsReached.length}
                     size="lg"
                   />
                 ) : (
@@ -195,7 +195,7 @@ const MainUserInformation = ({
               </li>
               {!isTemporaryAccount && (
                 <li>
-                  <FormattedMessage {...commonMessages.eosAccount} />
+                  <FormattedMessage {...commonMessages.ethereumAddress} />
                   <span>{userId}</span>
                 </li>
               )}
@@ -204,7 +204,7 @@ const MainUserInformation = ({
                 <span>
                   <FormattedMessage {...messages.memberSince} />
                   {getFormattedDate(
-                    profile.registration_time,
+                    profile.creationTime,
                     locale,
                     MONTH_3LETTERS__DAY_YYYY,
                   )}

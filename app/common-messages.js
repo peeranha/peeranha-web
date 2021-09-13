@@ -273,8 +273,8 @@ export default defineMessages({
   password: {
     id: 'app.common.password',
   },
-  eosAccount: {
-    id: 'app.common.eosAccount',
+  ethereumAddress: {
+    id: 'app.common.ethereumAddress',
   },
   successMessage: {
     id: 'app.common.successMessage',

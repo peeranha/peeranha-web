@@ -94,7 +94,7 @@ class EthereumService {
     };
   };
 
-  sendTransaction = async (actor, action, data, account) => {
+  sendTransaction = async (actor, action, data) => {
     const transactionData = this.getBytes32FromIpfsHash(data);
     const transaction = await this.contract[action](transactionData);
     await transaction.wait();

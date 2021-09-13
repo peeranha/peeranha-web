@@ -104,7 +104,7 @@ describe('Fetcher', () => {
 
 it('AccountsSortedBy', () => {
   expect(typeof AccountsSortedBy.rating).toBe('object');
-  expect(typeof AccountsSortedBy.registration_time).toBe('object');
+  expect(typeof AccountsSortedBy.creationTime).toBe('object');
 });
 
 it('UsersFetcher', () => {
@@ -139,7 +139,7 @@ describe('getProfileInfo', async () => {
   const eosProfile = {
     user,
     ipfs_profile: '1111',
-    ipfs_avatar: '1111',
+    ipfsAvatar: '1111',
   };
 
   const eosService = {
