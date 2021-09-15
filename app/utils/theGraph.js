@@ -11,9 +11,6 @@ export const getUsers = async ({
   skip,
   sorting = 'creationTime',
 }) => {
-  console.log(limit);
-  console.log(skip);
-  console.log(sorting);
   const users = await client.query({
     query: gql(usersQuery),
     variables: {
@@ -22,6 +19,5 @@ export const getUsers = async ({
       orderBy: sorting,
     },
   });
-  // console.log(users.data.users.map((user) => {return user.displayName}))
   return users?.data.users;
 };

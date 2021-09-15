@@ -19,7 +19,7 @@ import MediumImage, { MediumImageWrapper } from 'components/Img/MediumImage';
 import TelegramUserLabel from 'components/Labels/TelegramUserLabel';
 
 const User = Base.extend`
-  min-height: 1204px;
+  min-height: 84px;
   display: flex;
   align-items: start;
 

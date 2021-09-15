@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _sortBy from 'lodash/sortBy';
 
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 

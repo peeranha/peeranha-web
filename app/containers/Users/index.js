@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useMemo } from 'react';
+import React, { useEffect, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -56,10 +56,8 @@ const Users = ({
   const dropdownFilter = useCallback(
     sorting => {
       if (userCount === users.length) {
-        console.log(sorting);
         changeSortingTypeDispatch(sorting);
       } else {
-        console.log(sorting);
         getUsersDispatch({ loadMore: false, sorting, reload: true });
       }
     },

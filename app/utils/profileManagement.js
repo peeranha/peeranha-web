@@ -2,7 +2,6 @@ import userBodyAvatar from 'images/user2.svg?inline';
 import noAvatar from 'images/noAvatar.png';
 import editUserNoAvatar from 'images/editUserNoAvatar.png';
 
-import { DISPLAY_NAME_FIELD } from 'containers/Profile/constants';
 import { getFileUrl, getText, saveFile, saveText } from './ipfs';
 
 import {
@@ -12,7 +11,6 @@ import {
   CONFIRM_TELEGRAM_ACCOUNT,
   INF_LIMIT,
   NO_AVATAR,
-  SAVE_PROFILE_METHOD,
   TG_ACCOUNT_TABLE,
   UNLINK_TELEGRAM_ACCOUNT,
 } from './constants';
@@ -46,152 +44,6 @@ export async function uploadImg(img) {
   const imgUrl = await getFileUrl(imgHash);
 
   return { imgUrl, imgHash };
-}
-
-export class Fetcher {
-  constructor(
-    firstFetchCount,
-    fetchCount,
-    sortType,
-    ethereumService,
-  ) /* istanbul ignore next */ {
-    // No abstract classes in JS:(
-    if (new.target === Fetcher)
-      throw new TypeError(
-        'Cannot construct Fetcher instances directly(abstract)',
-      );
-
-    if (!this.PRIMARY_KEY)
-      throw new TypeError('Must override PRIMARY_KEY method');
-
-    if (this.firstFetchCount < 1 || this.fetchCount < 1)
-      throw new TypeError('Fetch counts must be grater than 1');
-
-    this.sortType = sortType;
-    this.firstFetchCount = firstFetchCount;
-    this.fetchCount = fetchCount;
-    this.itemArray = [];
-    this.hasMoreToFetch = true;
-    this.ethereumService = ethereumService;
-  }
-
-  async getNextItems() /* istanbul ignore next */ {
-    const itemsToReturn = { items: [], more: true };
-
-    if (!this.hasMoreToFetch) {
-      if (this.itemArray.length > this.fetchCount) {
-        itemsToReturn.items = this.itemArray.splice(0, this.fetchCount);
-      } else {
-        itemsToReturn.items = this.itemArray;
-        this.itemArray = [];
-        itemsToReturn.more = false;
-      }
-
-      return itemsToReturn;
-    }
-
-    const fetchAtLeast = async count => {
-      if (!this.hasMoreToFetch) return;
-
-      const { rows, more } = await this.eosService.getTableRows(
-        this.TABLE,
-        this.SCOPE,
-        this.lastKeyFetched,
-        count,
-        undefined,
-        this.sortType.indexPosition,
-        this.sortType.keyType,
-      );
-
-      if (!more) {
-        this.hasMoreToFetch = false;
-      }
-
-      if (!rows.length) return;
-
-      this.lastKeyFetched =
-        this.sortType.keyFunc(rows[rows.length - 1][this.sortType.keyName]) + 1;
-
-      this.itemArray.push(...rows);
-
-      if (this.itemArray.length < count && more) {
-        await fetchAtLeast(count - this.itemArray.length);
-      }
-    };
-
-    if (!this.lastKeyFetched) {
-      this.lastKeyFetched = !this.sortType ? 0 : this.sortType.lowerBound();
-
-      await fetchAtLeast(this.firstFetchCount);
-
-      if (this.itemArray.length >= this.firstFetchCount) {
-        itemsToReturn.items = this.itemArray.splice(0, this.firstFetchCount);
-      } else {
-        itemsToReturn.items = this.itemArray;
-        this.itemArray = [];
-      }
-
-      if (!itemsToReturn.items.length) {
-        itemsToReturn.more = false;
-      }
-      return itemsToReturn;
-    }
-
-    // We have enought in buffer fetch is not required
-    if (this.itemArray.length >= this.fetchCount) {
-      itemsToReturn.items = this.itemArray.splice(0, this.fetchCount);
-      return itemsToReturn;
-    }
-
-    // Need additional fetch
-    await fetchAtLeast(this.fetchCount);
-
-    if (this.itemArray.length >= this.fetchCount) {
-      itemsToReturn.items = this.itemArray.splice(0, this.fetchCount);
-    } else {
-      itemsToReturn.items = this.itemArray;
-      this.itemArray = [];
-    }
-
-    if (!itemsToReturn.items.length) {
-      itemsToReturn.more = false;
-    }
-
-    return itemsToReturn;
-  }
-}
-
-export class AccountsSortedBy {
-  static get rating() {
-    return {
-      lowerBound: () => 0,
-      keyName: 'rating',
-      indexPosition: 2,
-      keyType: 'i64',
-      keyFunc: key => 4294967296 - key,
-    };
-  }
-
-  static get creationTime() {
-    return {
-      lowerBound: () => 0,
-      keyName: 'creationTime',
-      indexPosition: 3,
-      keyType: 'i64',
-      keyFunc: key => key,
-    };
-  }
-}
-
-/* eslint no-useless-constructor: 0 */
-export class UsersFetcher extends Fetcher {
-  constructor(firstFetchCount, fetchCount, sortType, ethereumService) {
-    super(firstFetchCount, fetchCount, sortType, ethereumService);
-  }
-
-  get PRIMARY_KEY() {
-    return 'user';
-  }
 }
 
 /* eslint camelcase: 0 */

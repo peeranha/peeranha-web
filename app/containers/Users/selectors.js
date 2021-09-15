@@ -24,9 +24,6 @@ const selectSearchText = () =>
 const selectLimit = () =>
   createSelector(selectUsersDomain, substate => substate.limit);
 
-const selectLastUserId = () =>
-  createSelector(selectUsersDomain, substate => substate.lastUserId);
-
 const selectSkip = () =>
   createSelector(selectUsersDomain, substate => substate.skip);
 
@@ -39,6 +36,5 @@ export {
   selectSorting,
   selectSearchText,
   selectLimit,
-  selectLastUserId,
   selectSkip,
 };
