@@ -5,21 +5,31 @@ import {
   CHANGE_SORTING_TYPE,
 } from './constants';
 
-export function getUsers({ searchText, loadMore, sorting, fetcher }) {
+export function getUsers({
+  limit,
+  searchText,
+  loadMore,
+  sorting,
+  fetcher,
+  reload,
+}) {
   return {
     type: GET_USERS,
+    limit,
     searchText,
     sorting,
     loadMore,
     fetcher,
+    reload,
   };
 }
 
-export function getUsersSuccess(users, loadMore) {
+export function getUsersSuccess(users, loadMore, reload) {
   return {
     type: GET_USERS_SUCCESS,
     users,
     loadMore,
+    reload,
   };
 }
 

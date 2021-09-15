@@ -27,7 +27,7 @@ const View = ({
 
     <Content
       getMoreUsers={getMoreUsers}
-      users={sorting === 'rating' ? _sortBy(users, sorting).reverse() : users}
+      users={users}
       sorting={sorting}
       usersLoading={usersLoading}
       searchText={searchText}

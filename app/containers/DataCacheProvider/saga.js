@@ -51,8 +51,8 @@ import { selectEthereum } from '../EthereumProvider/selectors';
 
 export function* getStatWorker() {
   try {
-    const eosService = yield select(selectEos);
-    const stat = yield call(getStat, eosService);
+    const ethereumService = yield select(selectEthereum);
+    const stat = yield call(getStat, ethereumService);
 
     yield put(getStatSuccess(stat));
     yield put(getCommunitiesWithTags());

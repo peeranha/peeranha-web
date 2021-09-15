@@ -19,7 +19,7 @@ import MediumImage, { MediumImageWrapper } from 'components/Img/MediumImage';
 import TelegramUserLabel from 'components/Labels/TelegramUserLabel';
 
 const User = Base.extend`
-  min-height: 84px;
+  min-height: 1204px;
   display: flex;
   align-items: start;
 
@@ -46,45 +46,47 @@ const Content = ({
   usersLoading,
   isLastFetch,
   locale,
-}) => (
-  <InfinityLoader
-    loadNextPaginatedData={getMoreUsers}
-    isLoading={usersLoading}
-    isLastFetch={isLastFetch}
-  >
-    <Grid xl={5} lg={4} md={3} sm={2} xs={1}>
-      {users.map(x => (
-        <A to={routes.profileView(x.user)} key={x.user}>
-          <User>
-            <MediumImageWrapper>
-              <MediumImage
-                isBordered
-                className="flex-shrink-0 mr-2"
-                src={getUserAvatar(x.ipfsAvatar)}
-                alt="ipfsAvatar"
-              />
-              {!!x?.['integer_properties'].find(
-                item => item.key === TEMPORARY_ACCOUNT_KEY && item.value,
-              ) && (
-                <TelegramUserLabel
-                  id={`temporary-account-${x.user}-label`}
-                  locale={locale}
+}) => {
+  return (
+    <InfinityLoader
+      loadNextPaginatedData={getMoreUsers}
+      isLoading={usersLoading}
+      isLastFetch={isLastFetch}
+    >
+      <Grid xl={5} lg={4} md={3} sm={2} xs={1}>
+        {users.map(x => (
+          <A to={routes.profileView(x.id)} key={x.id}>
+            <User>
+              <MediumImageWrapper>
+                <MediumImage
+                  isBordered
+                  className="flex-shrink-0 mr-2"
+                  src={getUserAvatar(x.avatar)}
+                  alt="ipfsAvatar"
                 />
-              )}
-            </MediumImageWrapper>
-            <div>
-              <P fontSize="14">{x?.['displayName']}</P>
-              <IconWithStatus className="py-1" size="sm" rating={x.rating} />
-              <P fontSize="14" color={TEXT_SECONDARY}>
-                {getTimeFromDateToNow(x.registration_time, locale)}
-              </P>
-            </div>
-          </User>
-        </A>
-      ))}
-    </Grid>
-  </InfinityLoader>
-);
+                {!!x?.['integer_properties']?.find(
+                  item => item.key === TEMPORARY_ACCOUNT_KEY && item.value,
+                ) && (
+                  <TelegramUserLabel
+                    id={`temporary-account-${x.user}-label`}
+                    locale={locale}
+                  />
+                )}
+              </MediumImageWrapper>
+              <div>
+                <P fontSize="14">{x?.['displayName']}</P>
+                <IconWithStatus className="py-1" size="sm" rating={x.rating} />
+                <P fontSize="14" color={TEXT_SECONDARY}>
+                  {getTimeFromDateToNow(x.creationTime, locale)}
+                </P>
+              </div>
+            </User>
+          </A>
+        ))}
+      </Grid>
+    </InfinityLoader>
+  );
+};
 
 Content.propTypes = {
   getMoreUsers: PropTypes.func,

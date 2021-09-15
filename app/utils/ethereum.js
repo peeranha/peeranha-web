@@ -105,6 +105,10 @@ class EthereumService {
     const transaction = await this.contract[action](transactionData);
     await transaction.wait();
   };
+
+  getData = async (action, data) => {
+    return await this.contract[action]();
+  };
 }
 
 export default EthereumService;

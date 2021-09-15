@@ -4,32 +4,27 @@ import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
 
 import { GET_USERS } from './constants';
 import { getUsersSuccess, getUsersErr } from './actions';
-import { selectLimit } from './selectors';
+import {
+  selectLastUserId,
+  selectLimit,
+  selectSkip,
+  selectSorting,
+} from './selectors';
+import { selectEthereum } from '../EthereumProvider/selectors';
+import { getUsers } from '../../utils/theGraph';
 
-export function* getUsersWorker({ loadMore, fetcher }) {
+export function* getUsersWorker({ loadMore, reload }) {
   try {
+    console.log(reload);
     const limit = yield select(selectLimit());
+    const sorting = yield select(selectSorting());
+    let skip = reload ? 0 : yield select(selectSkip());
     const singleCommunityId = isSingleCommunityWebsite();
-    let users = [];
+    let users;
     let more = true;
-    while (users.length < limit && more) {
-      const { more: hasMore, items } = yield call(() => fetcher.getNextItems());
-      if (singleCommunityId) {
-        users = [
-          ...users,
-          ...items.filter(user =>
-            user.followed_communities.includes(singleCommunityId),
-          ),
-        ];
-      } else {
-        users = [...users, ...items];
-      }
 
-      more = hasMore;
-      yield all(users.map(profile => put(getUserProfileSuccess(profile))));
-    }
-
-    yield put(getUsersSuccess(users, loadMore));
+    users = yield getUsers({ limit, skip, sorting });
+    yield put(getUsersSuccess(users, loadMore, reload));
   } catch (err) {
     yield put(getUsersErr(err));
   }

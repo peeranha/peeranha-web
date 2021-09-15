@@ -53,16 +53,13 @@ export class Fetcher {
     firstFetchCount,
     fetchCount,
     sortType,
-    eosService,
+    ethereumService,
   ) /* istanbul ignore next */ {
     // No abstract classes in JS:(
     if (new.target === Fetcher)
       throw new TypeError(
         'Cannot construct Fetcher instances directly(abstract)',
       );
-    if (!this.TABLE) throw new TypeError('Must override TABLE method');
-
-    if (!this.SCOPE) throw new TypeError('Must override SCOPE method');
 
     if (!this.PRIMARY_KEY)
       throw new TypeError('Must override PRIMARY_KEY method');
@@ -75,7 +72,7 @@ export class Fetcher {
     this.fetchCount = fetchCount;
     this.itemArray = [];
     this.hasMoreToFetch = true;
-    this.eosService = eosService;
+    this.ethereumService = ethereumService;
   }
 
   async getNextItems() /* istanbul ignore next */ {
@@ -188,16 +185,8 @@ export class AccountsSortedBy {
 
 /* eslint no-useless-constructor: 0 */
 export class UsersFetcher extends Fetcher {
-  constructor(firstFetchCount, fetchCount, sortType, eosService) {
-    super(firstFetchCount, fetchCount, sortType, eosService);
-  }
-
-  get TABLE() {
-    return ACCOUNT_TABLE;
-  }
-
-  get SCOPE() {
-    return ALL_ACCOUNTS_SCOPE;
+  constructor(firstFetchCount, fetchCount, sortType, ethereumService) {
+    super(firstFetchCount, fetchCount, sortType, ethereumService);
   }
 
   get PRIMARY_KEY() {
