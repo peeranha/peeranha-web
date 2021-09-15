@@ -100,7 +100,6 @@ Users.propTypes = {
   sorting: PropTypes.string,
   searchText: PropTypes.string,
   limit: PropTypes.number,
-  eosService: PropTypes.object,
   stat: PropTypes.object,
   communities: PropTypes.array,
   changeSortingTypeDispatch: PropTypes.func,
