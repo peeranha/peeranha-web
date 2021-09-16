@@ -1,35 +1,19 @@
-import { all, call, put, takeLatest, select } from 'redux-saga/effects';
-import { isSingleCommunityWebsite } from 'utils/communityManagement';
-import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
+import { put, takeLatest, select } from 'redux-saga/effects';
 
 import { GET_USERS } from './constants';
 import { getUsersSuccess, getUsersErr } from './actions';
-import { selectLimit } from './selectors';
+import { selectLimit, selectSkip, selectSorting } from './selectors';
+import { getUsers } from '../../utils/theGraph';
 
-export function* getUsersWorker({ loadMore, fetcher }) {
+export function* getUsersWorker({ loadMore, reload }) {
   try {
     const limit = yield select(selectLimit());
-    const singleCommunityId = isSingleCommunityWebsite();
-    let users = [];
-    let more = true;
-    while (users.length < limit && more) {
-      const { more: hasMore, items } = yield call(() => fetcher.getNextItems());
-      if (singleCommunityId) {
-        users = [
-          ...users,
-          ...items.filter(user =>
-            user.followed_communities.includes(singleCommunityId),
-          ),
-        ];
-      } else {
-        users = [...users, ...items];
-      }
+    const sorting = yield select(selectSorting());
+    let skip = reload ? 0 : yield select(selectSkip());
+    let users;
 
-      more = hasMore;
-      yield all(users.map(profile => put(getUserProfileSuccess(profile))));
-    }
-
-    yield put(getUsersSuccess(users, loadMore));
+    users = yield getUsers({ limit, skip, sorting });
+    yield put(getUsersSuccess(users, loadMore, reload));
   } catch (err) {
     yield put(getUsersErr(err));
   }

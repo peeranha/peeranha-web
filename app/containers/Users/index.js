@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useMemo } from 'react';
+import React, { useEffect, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -14,10 +14,8 @@ import {
   selectStat,
   selectCommunities,
 } from 'containers/DataCacheProvider/selectors';
-import { selectEos } from 'containers/EosioProvider/selectors';
 
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
-import { UsersFetcher, AccountsSortedBy } from 'utils/profileManagement';
 
 import messages from './messages';
 
@@ -39,70 +37,36 @@ const Users = ({
   isLastFetch,
   stat,
   communities,
-  limit,
-  eosService,
   getUsersDispatch,
   changeSortingTypeDispatch,
 }) => {
-  const [fetcher, setFetcher] = useState(null);
-
-  const initFetcher = useCallback(
-    (sortKey = sorting, reinitialize = false) => {
-      if ((!fetcher && eosService) || reinitialize) {
-        const f = new UsersFetcher(
-          limit,
-          limit,
-          AccountsSortedBy[sortKey],
-          eosService,
-        );
-        setFetcher(f);
-        return f;
-      }
-
-      return fetcher;
-    },
-    [sorting, eosService, limit, fetcher],
-  );
-
-  const getMoreUsers = useCallback(
-    () => {
-      if (fetcher) {
-        getUsersDispatch({ loadMore: true, fetcher });
-      }
-    },
-    [fetcher],
-  );
+  const getMoreUsers = useCallback(() => {
+    getUsersDispatch({ loadMore: true });
+  }, []);
 
   const communityInfo = useMemo(() => communities.find(x => x.id === single), [
     communities,
   ]);
 
   const userCount = useMemo(
-    () => (single ? communityInfo?.['users_subscribed'] ?? 0 : stat.user_count),
-    [stat.user_count, communityInfo],
+    () => (single ? communityInfo?.['users_subscribed'] ?? 0 : stat.usersCount),
+    [stat.usersCount, communityInfo],
   );
 
   const dropdownFilter = useCallback(
-    sortKey => {
+    sorting => {
       if (userCount === users.length) {
-        changeSortingTypeDispatch(sortKey);
+        changeSortingTypeDispatch(sorting);
       } else {
-        const f = initFetcher(sortKey, true);
-        getUsersDispatch({ sorting: sortKey, fetcher: f });
+        getUsersDispatch({ loadMore: false, sorting, reload: true });
       }
     },
-    [userCount, communityInfo, users, initFetcher, setFetcher],
+    [userCount, communityInfo, users],
   );
 
-  useEffect(
-    () => {
-      if (!fetcher) {
-        const f = initFetcher();
-        getUsersDispatch({ loadMore: false, fetcher: f });
-      }
-    },
-    [initFetcher, fetcher],
-  );
+  useEffect(() => {
+    getUsersDispatch({ loadMore: false });
+  }, []);
 
   return (
     <>
@@ -136,7 +100,6 @@ Users.propTypes = {
   sorting: PropTypes.string,
   searchText: PropTypes.string,
   limit: PropTypes.number,
-  eosService: PropTypes.object,
   stat: PropTypes.object,
   communities: PropTypes.array,
   changeSortingTypeDispatch: PropTypes.func,
@@ -147,12 +110,10 @@ export default compose(
   injectSaga({ key: 'users', saga }),
   connect(
     createStructuredSelector({
-      eosService: selectEos,
       locale: makeSelectLocale(),
       communities: selectCommunities(),
       users: selectors.selectUsers(),
       usersLoading: selectors.selectUsersLoading(),
-      limit: selectors.selectLimit(),
       sorting: selectors.selectSorting(),
       searchText: selectors.selectSearchText(),
       isLastFetch: selectors.selectIsLastFetch(),

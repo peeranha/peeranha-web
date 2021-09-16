@@ -1,4 +1,5 @@
 import { fromJS } from 'immutable';
+import _sortBy from 'lodash/sortBy';
 
 import {
   GET_USERS,
@@ -15,11 +16,19 @@ export const initialState = fromJS({
   sorting: 'creationTime',
   searchText: '',
   limit: 50,
+  skip: 0,
 });
 
 function usersReducer(state = initialState, action) {
-  const { type, getUsersError, users, sorting, loadMore, searchText } = action;
-
+  const {
+    type,
+    getUsersError,
+    users,
+    sorting,
+    loadMore,
+    searchText,
+    reload,
+  } = action;
   switch (type) {
     case GET_USERS:
       return state
@@ -31,15 +40,28 @@ function usersReducer(state = initialState, action) {
       return state
         .set('getUsersLoading', false)
         .set('isLastFetch', users.length < initialState.get('limit'))
-        .set('users', loadMore ? state.toJS().users.concat(users) : users);
-
+        .set('users', loadMore ? state.toJS().users.concat(users) : users)
+        .set(
+          'skip',
+          reload ? state.get('limit') : state.get('skip') + state.get('limit'),
+        );
     case GET_USERS_ERROR:
       return state
         .set('getUsersLoading', false)
         .set('getUsersError', getUsersError);
 
     case CHANGE_SORTING_TYPE:
-      return state.set('sorting', sorting || state.get('sorting'));
+      return state
+        .set('sorting', sorting || state.get('sorting'))
+        .set(
+          'users',
+          sorting !== state.get('sorting')
+            ? _sortBy(
+                state.get('users'),
+                sorting || state.get('sorting'),
+              ).reverse()
+            : state.get('users'),
+        );
 
     default:
       return state;

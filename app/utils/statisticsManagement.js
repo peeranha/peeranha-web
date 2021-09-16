@@ -1,6 +1,6 @@
-import { GLOBAL_STAT_TABLE, ALL_STAT_SCOPE } from './constants';
+import { GET_USERS_COUNT } from './ethConstants';
 
-export async function getStat(eosService) {
-  // const stat = await eosService.getTableRow(GLOBAL_STAT_TABLE, ALL_STAT_SCOPE);
-  // return stat;
+export async function getStat(ethereumService) {
+  const usersCount = await ethereumService.getData(GET_USERS_COUNT);
+  return { usersCount: Number(usersCount) };
 }
