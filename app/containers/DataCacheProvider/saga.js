@@ -1,4 +1,4 @@
-import { takeLatest, call, put, select, takeEvery } from 'redux-saga/effects';
+import { call, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
 import getHash from 'object-hash';
 
 import { getAllCommunities } from 'utils/communityManagement';
@@ -16,10 +16,10 @@ import { SAVE_PROFILE_SUCCESS } from 'containers/EditProfilePage/constants';
 import { updateStoredQuestionsWorker } from 'containers/Questions/saga';
 
 import {
+  FINISH_REGISTRATION_SUCCESS,
   LOGIN_WITH_EMAIL,
   LOGIN_WITH_WALLET,
   PROFILE_INFO_LS,
-  FINISH_REGISTRATION_SUCCESS,
 } from 'containers/Login/constants';
 
 import { SIGNUP_WITH_WALLET_SUCCESS } from 'containers/SignUp/constants';
@@ -27,25 +27,25 @@ import { SIGNUP_WITH_WALLET_SUCCESS } from 'containers/SignUp/constants';
 import { selectStat, selectUsers } from './selectors';
 
 import {
-  getCommunitiesWithTagsSuccess,
+  getCommunitiesWithTags,
   getCommunitiesWithTagsErr,
-  getUserProfileSuccess,
-  getUserProfileErr,
-  getStatSuccess,
-  getStatErr,
+  getCommunitiesWithTagsSuccess,
   getFaqErr,
   getFaqSuccess,
-  getCommunitiesWithTags,
-  getTutorialSuccess,
+  getStatErr,
+  getStatSuccess,
   getTutorialErr,
+  getTutorialSuccess,
+  getUserProfileErr,
+  getUserProfileSuccess,
 } from './actions';
 
 import {
   GET_COMMUNITIES_WITH_TAGS,
-  GET_USER_PROFILE,
-  GET_STAT,
   GET_FAQ,
+  GET_STAT,
   GET_TUTORIAL,
+  GET_USER_PROFILE,
 } from './constants';
 import { selectEthereum } from '../EthereumProvider/selectors';
 
@@ -102,7 +102,7 @@ export function* getTutorialWorker() {
 }
 
 /* eslint consistent-return: 0 */
-export function* getUserProfileWorker({ user, getFullProfile }) {
+export function* getUserProfileWorker({ user, getFullProfile, isLogin }) {
   try {
     const ethereumService = yield select(selectEthereum);
     const cachedUserInfo = yield select(selectUsers(user));
@@ -141,6 +141,7 @@ export function* getUserProfileWorker({ user, getFullProfile }) {
       user,
       ethereumService,
       getFullProfile,
+      isLogin,
     );
 
     if (!updatedUserInfo.achievementsReached) {

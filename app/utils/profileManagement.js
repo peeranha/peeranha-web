@@ -19,6 +19,7 @@ import {
   NOTIFICATIONS_INFO_SERVICE,
 } from './web_integration/src/util/aws-connector';
 import { UPDATE_ACC } from './ethConstants';
+import { getUser } from './theGraph';
 
 export function getUserAvatar(avatarHash, userId, account) {
   if (avatarHash && avatarHash !== NO_AVATAR) {
@@ -51,10 +52,41 @@ export async function getProfileInfo(
   user,
   ethereumService,
   getExtendedProfile,
+  isLogin,
 ) {
+  console.log(isLogin);
   if (!user) return null;
+  let profileInfo;
+  if (isLogin) {
+    profileInfo = await ethereumService.getProfile(user);
+  } else {
+    profileInfo = await getUser(user);
+    profileInfo = { ...profileInfo };
+  }
 
-  const profileInfo = await ethereumService.getProfile(user);
+  if (getExtendedProfile) {
+    let profile;
+    if (isLogin) {
+      profile = await getText(profileInfo.ipfsHash);
+      profile = JSON.parse(profile);
+    } else {
+      profile = profileInfo;
+    }
+    profileInfo.profile = {
+      displayName: profile.displayName,
+      about: profile.about,
+      avatar: profile.avatar,
+      company: profile.company,
+      location: profile.location,
+      position: profile.position,
+    };
+    profileInfo.user = user;
+    profileInfo.displayName = profileInfo.profile.displayName;
+    profileInfo.questionsAsked = profileInfo.questionsAsked ?? 0;
+    profileInfo.answersGiven = profileInfo.answersGiven ?? 0;
+    profileInfo.achievementsReached = profileInfo.achievementsReached ?? [];
+    profileInfo.ipfsAvatar = profileInfo.profile.profileAvatar;
+  }
 
   // if (!profile || profile.userAddress !== user) return null;
 
@@ -67,18 +99,6 @@ export async function getProfileInfo(
   //
   //   profile.achievementsReached = userAchievements;
   // }
-
-  if (getExtendedProfile) {
-    const ipfsProfile = await getText(profileInfo.ipfsHash);
-    profileInfo.profile = JSON.parse(ipfsProfile);
-    profileInfo.user = user;
-    profileInfo.displayName = profileInfo.profile.displayName;
-    profileInfo.questionsAsked = profileInfo.questionsAsked ?? 0;
-    profileInfo.answersGiven = profileInfo.answersGiven ?? 0;
-    profileInfo.achievementsReached = profileInfo.achievementsReached ?? [];
-    profileInfo.ipfsAvatar = profileInfo.profile.profileAvatar;
-  }
-
   return profileInfo;
 }
 

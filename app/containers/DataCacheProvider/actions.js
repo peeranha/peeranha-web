@@ -54,11 +54,12 @@ export function updateTagOfCommunity(communityId, tagId, updatedTag) {
   };
 }
 
-export function getUserProfile(user, getFullProfile) {
+export function getUserProfile(user, getFullProfile, isLogin) {
   return {
     type: GET_USER_PROFILE,
     user,
     getFullProfile,
+    isLogin,
   };
 }
 

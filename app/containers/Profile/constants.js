@@ -4,12 +4,12 @@
  *
  */
 
-export const AVATAR_FIELD = 'profileAvatar';
-export const DISPLAY_NAME_FIELD = 'profileDisplayName';
-export const POSITION_FIELD = 'profilePosition';
-export const COMPANY_FIELD = 'profileCompany';
-export const ABOUT_FIELD = 'profileAbout';
-export const LOCATION_FIELD = 'profileLocation';
+export const AVATAR_FIELD = 'avatar';
+export const DISPLAY_NAME_FIELD = 'displayName';
+export const POSITION_FIELD = 'position';
+export const COMPANY_FIELD = 'company';
+export const ABOUT_FIELD = 'about';
+export const LOCATION_FIELD = 'location';
 
 export const POST_TYPE_QUESTION = 'question';
 export const POST_TYPE_ANSWER = 'answer';

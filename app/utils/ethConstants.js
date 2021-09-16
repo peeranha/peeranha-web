@@ -28,3 +28,24 @@ export const usersQuery = `
           ipfsHash2
         }
       }`;
+
+export const userQuery = `
+      query(
+        $id: ID!,
+      ) {
+        user(
+          id: $id
+        ) {
+          id
+          rating
+          displayName
+          company
+          position
+          location
+          about
+          avatar
+          creationTime
+          ipfsHash
+          ipfsHash2
+        }
+      }`;

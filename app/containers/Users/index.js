@@ -65,7 +65,7 @@ const Users = ({
   );
 
   useEffect(() => {
-    getUsersDispatch({ loadMore: false });
+    getUsersDispatch({ loadMore: false, reload: true });
   }, []);
 
   return (

@@ -1,5 +1,5 @@
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
-import { usersQuery } from './ethConstants';
+import { userQuery, usersQuery } from './ethConstants';
 
 const client = new ApolloClient({
   uri: process.env.THE_GRAPH_QUERY_URL,
@@ -20,4 +20,14 @@ export const getUsers = async ({
     },
   });
   return users?.data.users;
+};
+
+export const getUser = async id => {
+  const user = await client.query({
+    query: gql(userQuery),
+    variables: {
+      id,
+    },
+  });
+  return user?.data.user;
 };
