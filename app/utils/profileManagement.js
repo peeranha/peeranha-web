@@ -54,38 +54,34 @@ export async function getProfileInfo(
   getExtendedProfile,
   isLogin,
 ) {
-  console.log(isLogin);
   if (!user) return null;
   let profileInfo;
   if (isLogin) {
     profileInfo = await ethereumService.getProfile(user);
   } else {
-    profileInfo = await getUser(user);
-    profileInfo = { ...profileInfo };
+    profileInfo = { ...(await getUser(user)) };
   }
 
   if (getExtendedProfile) {
     let profile;
     if (isLogin) {
-      profile = await getText(profileInfo.ipfsHash);
-      profile = JSON.parse(profile);
+      profile = JSON.parse(await getText(profileInfo.ipfsHash));
+      console.log(profile);
+      profileInfo.displayName = profile.displayName;
+      profileInfo.avatar = profile.avatar;
     } else {
       profile = profileInfo;
     }
     profileInfo.profile = {
-      displayName: profile.displayName,
       about: profile.about,
-      avatar: profile.avatar,
       company: profile.company,
       location: profile.location,
       position: profile.position,
     };
     profileInfo.user = user;
-    profileInfo.displayName = profileInfo.profile.displayName;
     profileInfo.questionsAsked = profileInfo.questionsAsked ?? 0;
     profileInfo.answersGiven = profileInfo.answersGiven ?? 0;
     profileInfo.achievementsReached = profileInfo.achievementsReached ?? [];
-    profileInfo.ipfsAvatar = profileInfo.profile.profileAvatar;
   }
 
   // if (!profile || profile.userAddress !== user) return null;

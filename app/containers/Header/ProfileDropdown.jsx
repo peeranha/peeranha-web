@@ -62,7 +62,7 @@ const NoAvatarBox = styled.div`
 
 const B = ({ profileInfo, onClick, isMenuVisible, isMobileVersion }) => (
   <span className="d-flex" onClick={onClick}>
-    {(!profileInfo.ipfsAvatar || profileInfo.ipfsAvatar === NO_AVATAR) && (
+    {(!profileInfo.avatar || profileInfo.avatar === NO_AVATAR) && (
       <NoAvatarBox isMobileVersion={isMobileVersion}>
         <Icon
           width="17"
@@ -72,13 +72,13 @@ const B = ({ profileInfo, onClick, isMenuVisible, isMobileVersion }) => (
         />
       </NoAvatarBox>
     )}
-    {profileInfo.ipfsAvatar &&
-      profileInfo.ipfsAvatar !== NO_AVATAR && (
+    {profileInfo.avatar &&
+      profileInfo.avatar !== NO_AVATAR && (
         <MediumSpecialImage
           isBordered
           customBorderStyle={!isMobileVersion && styles.communityBorderStyle}
-          src={getUserAvatar(profileInfo.ipfsAvatar)}
-          alt="ipfsAvatar"
+          src={getUserAvatar(profileInfo.avatar)}
+          alt="avatar"
         />
       )}
     <Info

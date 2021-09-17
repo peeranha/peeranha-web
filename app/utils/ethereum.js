@@ -45,6 +45,16 @@ class EthereumService {
     if (!this.provider) {
       throw new WebIntegrationErrorByCode(METAMASK_ERROR_CODE);
     }
+    if (this.wasReseted) {
+      await this.provider.request({
+        method: 'wallet_requestPermissions',
+        params: [
+          {
+            eth_accounts: {},
+          },
+        ],
+      });
+    }
     await this.provider
       .request({ method: 'eth_requestAccounts' })
       .then(this.handleAccountsChanged)
@@ -66,6 +76,7 @@ class EthereumService {
   };
 
   resetMetaMaskUserData = async () => {
+    this.wasReseted = true;
     this.metaMaskUserAddress = null;
     this.withMetaMask = false;
     this.selectedAccount = null;

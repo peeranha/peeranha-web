@@ -108,7 +108,7 @@ export function* getUserProfileWorker({ user, getFullProfile, isLogin }) {
     const cachedUserInfo = yield select(selectUsers(user));
 
     // take userProfile from STORE
-    if (cachedUserInfo && !getFullProfile) {
+    if (cachedUserInfo && !getFullProfile && !isLogin) {
       if (!cachedUserInfo.achievementsReached) {
         const userAchievements = yield call(
           getAchievements,

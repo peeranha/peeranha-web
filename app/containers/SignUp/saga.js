@@ -383,7 +383,13 @@ export function* showWalletSignUpFormWorker({ metaMask }) {
     }
     let profileInfo = null;
     try {
-      profileInfo = yield call(getProfileInfo, currentAccount, ethereumService);
+      profileInfo = yield call(
+        getProfileInfo,
+        currentAccount,
+        ethereumService,
+        false,
+        true,
+      );
     } catch (err) {}
     if (profileInfo) {
       throw new WebIntegrationError(

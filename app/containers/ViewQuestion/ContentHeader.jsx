@@ -157,7 +157,7 @@ const ContentHeader = props => {
 
       <ItemInfo>
         <UserInfo
-          avatar={getUserAvatar(userInfo.ipfsAvatar)}
+          avatar={getUserAvatar(userInfo.avatar)}
           name={userInfo?.['displayName']}
           account={userInfo.user}
           rating={userInfo.rating}
