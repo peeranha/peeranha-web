@@ -69,7 +69,7 @@ const ViewProfilePage = ({
   const userId = match.params.id;
 
   return (
-    <Profile userId={userId}>
+    <Profile userId={userId} isLogin={account}>
       <UserNavigation
         userId={userId}
         account={account}

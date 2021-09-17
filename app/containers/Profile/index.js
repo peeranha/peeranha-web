@@ -29,6 +29,7 @@ import messages from './messages';
 
 export const Profile = ({
   userId,
+  isLogin,
   locale,
   children,
   isProfileLoading,
@@ -39,7 +40,7 @@ export const Profile = ({
   getQuestionsWithAnswersDispatch,
 }) => {
   const fetch = useCallback(id => {
-    getUserProfileDispatch(id, true);
+    getUserProfileDispatch(id, true, isLogin);
     getQuestionsDispatch(id, true);
     getQuestionsWithAnswersDispatch(id, true);
   }, []);
