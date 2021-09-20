@@ -66,7 +66,6 @@ export async function getProfileInfo(
     let profile;
     if (isLogin) {
       profile = JSON.parse(await getText(profileInfo.ipfsHash));
-      console.log(profile);
       profileInfo.displayName = profile.displayName;
       profileInfo.avatar = profile.avatar;
     } else {
