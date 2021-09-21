@@ -44,19 +44,19 @@ const getFullUrl = url => {
   return `https://${url}`;
 };
 
-const OfficialSiteLink = ({ officialSite }) => (
+const OfficialSiteLink = ({ website }) => (
   <SiteLink
-    href={getFullUrl(officialSite)}
+    href={getFullUrl(website)}
     target="_blank"
     rel="noopener noreferrer"
   >
     <SiteIcon icon={globe} width="12" height="12" />
-    <SiteText>{getShortUrl(officialSite)}</SiteText>
+    <SiteText>{getShortUrl(website)}</SiteText>
   </SiteLink>
 );
 
 OfficialSiteLink.propTypes = {
-  officialSite: PropTypes.string,
+  website: PropTypes.string,
 };
 
 export default OfficialSiteLink;

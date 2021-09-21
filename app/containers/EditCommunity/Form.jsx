@@ -67,7 +67,7 @@ const EditCommunityForm = ({
         name: values.get(COMM_NAME_FIELD),
         description: values.get(COMM_SHORT_DESCRIPTION_FIELD),
         about: values.get(ABOUT_FIELD),
-        officialSite: values.get(COMM_OFFICIAL_SITE_FIELD),
+        website: values.get(COMM_OFFICIAL_SITE_FIELD),
         questionsType: parseInt(values.get(FORM_TYPE)),
         isBlogger: !!parseInt(values.get(COMMUNITY_TYPE)),
         banner: values.get(COMM_BANNER_FIELD),
@@ -123,10 +123,10 @@ const EditCommunityForm = ({
           validate={[validateURL, strLength100Max]}
           warn={[validateURL]}
           disabled={communityLoading}
-          label={intl.formatMessage(messages.officialSite)}
+          label={intl.formatMessage(messages.website)}
           placeholder="https://example.com"
           splitInHalf
-          tip={intl.formatMessage(messages.officialSiteTip)}
+          tip={intl.formatMessage(messages.websiteTip)}
         />
 
         {isModerator &&
@@ -188,7 +188,7 @@ export default injectIntl(
           [COMM_NAME_FIELD]: community.name,
           [COMM_SHORT_DESCRIPTION_FIELD]: community.description,
           [ABOUT_FIELD]: community.about,
-          [COMM_OFFICIAL_SITE_FIELD]: community.officialSite,
+          [COMM_OFFICIAL_SITE_FIELD]: community.website,
           [FORM_TYPE]: community.questionsType,
           [COMMUNITY_TYPE]: community.isBlogger ? 1 : 0,
           [COMM_BANNER_FIELD]: community.banner,

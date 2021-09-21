@@ -16,7 +16,7 @@ jest.mock('containers/DataCacheProvider/selectors', () => ({
       avatar: 'Avatar',
       name: 'Name',
       description: 'Description',
-      officialSite: 'Official site',
+      website: 'Official site',
     },
   ]),
   selectStat: jest.fn(() => () => ({})),
@@ -34,7 +34,7 @@ jest.mock('utils/communityManagement', () => ({
     avatar: 'Avatar',
     name: 'Name',
     description: 'Description',
-    officialSite: 'Official site',
+    website: 'Official site',
   })),
   isSingleCommunityWebsite: jest.fn(() => false),
   singleCommunityColors: jest.fn(() => ({})),
@@ -50,7 +50,7 @@ jest.mock('../selectors', () => ({
     avatar: 'Avatar',
     name: 'Name',
     description: 'Description',
-    officialSite: 'Official site',
+    website: 'Official site',
   })),
 }));
 
@@ -59,7 +59,7 @@ describe('Edit community sagas tests', () => {
     avatar: 'Avatar',
     name: 'Name',
     description: 'Description',
-    officialSite: 'Official site',
+    website: 'Official site',
   };
 
   describe('Edit community worker saga', () => {

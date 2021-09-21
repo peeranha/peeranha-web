@@ -25,11 +25,11 @@ export default defineMessages({
   header: {
     id: 'app.containers.EditCommunity.header',
   },
-  officialSite: {
-    id: 'app.containers.CreateCommunity.officialSite',
+  website: {
+    id: 'app.containers.CreateCommunity.website',
   },
-  officialSiteTip: {
-    id: 'app.containers.CreateCommunity.officialSiteTip',
+  websiteTip: {
+    id: 'app.containers.CreateCommunity.websiteTip',
   },
   pageTitle: {
     id: 'app.containers.EditCommunity.pageTitle',

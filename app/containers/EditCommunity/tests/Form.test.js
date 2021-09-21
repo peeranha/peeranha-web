@@ -21,7 +21,7 @@ const communityData = {
   avatar: 'Avatar',
   name: 'Name',
   description: 'Short description',
-  officialSite: '',
+  website: '',
 };
 
 const editCommunityDispatch = jest.fn();

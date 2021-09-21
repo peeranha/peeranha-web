@@ -490,8 +490,8 @@
 
   "app.containers.CreateCommunity.title": "Сообщества | Создать",
   "app.containers.CreateCommunity.descriptionField": "Описание",
-  "app.containers.CreateCommunity.officialSite": "Официальный сайт",
-  "app.containers.CreateCommunity.officialSiteTip": "Опционально",
+  "app.containers.CreateCommunity.website": "Официальный сайт",
+  "app.containers.CreateCommunity.websiteTip": "Опционально",
   "app.containers.CreateCommunity.avatar": "Аватар",
   "app.containers.CreateCommunity.communityTitle": "Название",
   "app.containers.CreateCommunity.shortDescription": "Краткое описание",

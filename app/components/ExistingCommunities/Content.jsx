@@ -101,7 +101,7 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
         .filter(x => (language.sortBy ? x.language === language.sortBy : true))
         .map(
           (
-            { value, avatar, name, id, description, officialSite, tags, ...x },
+            { value, avatar, title, id, description, website, tags, ...x },
             index,
             arr,
           ) => {
@@ -130,7 +130,7 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
                   <MediumImageStyled
                     className="bg-transparent"
                     src={avatar}
-                    alt={name}
+                    alt={title}
                   />
 
                   <div>
@@ -139,7 +139,7 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
                         href={origin || routes.questions(id)}
                         css={{ position: 'relative' }}
                       >
-                        {name}
+                        {title}
                         {origin && (
                           <SingleCommunityIcon locale={locale} id={id} />
                         )}
@@ -151,9 +151,7 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
                     <P fontSize="14" lineHeight="18">
                       {description}
                     </P>
-                    {officialSite && (
-                      <OfficialSiteLink officialSite={officialSite} />
-                    )}
+                    {website && <OfficialSiteLink website={website} />}
                   </div>
                 </DescriptionBlock>
 
@@ -180,7 +178,7 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
                   </Info>
 
                   <Info>
-                    <P>{getFormattedNum2(tags.length)}</P>
+                    <P>{getFormattedNum2(tags?.length)}</P>
                     <A to={routes.communityTags(id)}>
                       <FormattedMessage {...commonMessages.tags} />
                     </A>

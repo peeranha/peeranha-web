@@ -103,7 +103,7 @@ export function* editCommunityWorker({ communityId, communityData }) {
           const communities = yield call(
             getAllCommunities,
             eosService,
-            stat.communities_count,
+            stat.communitiesCount,
           );
 
           yield put(getCommunitiesWithTagsSuccess(communities));
