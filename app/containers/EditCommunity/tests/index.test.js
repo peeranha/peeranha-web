@@ -42,7 +42,7 @@ jest.mock('../selectors', () => ({
     avatar: 'Avatar',
     name: 'Name',
     description: 'Short description',
-    officialSite: '',
+    website: '',
     main_description: 'Descriptive description',
   })),
   selectEditCommunityLoading: jest.fn(() => () => false),

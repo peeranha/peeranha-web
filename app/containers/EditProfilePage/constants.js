@@ -9,5 +9,5 @@ export const EDIT_PROFILE_BUTTON_ID = 'app_profile_EDIT_PROFILE_BUTTON_ID';
 export const REDIRECT_TO_EDIT_PROFILE_PAGE =
   'app/Profile/REDIRECT_TO_EDIT_PROFILE_PAGE';
 
-export const MIN_RATING_TO_EDIT_PROFILE = 0;
-export const MIN_ENERGY_TO_EDIT_PROFILE = 0;
+export const MIN_RATING_TO_EDIT_PROFILE = -100;
+export const MIN_ENERGY_TO_EDIT_PROFILE = -100;

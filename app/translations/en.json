@@ -475,8 +475,8 @@
   "app.containers.CreateCommunity.title": "Community | Create",
   "app.containers.CreateCommunity.description":
     "Description of CreateCommunity",
-  "app.containers.CreateCommunity.officialSite": "Official site",
-  "app.containers.CreateCommunity.officialSiteTip": "Optional",
+  "app.containers.CreateCommunity.website": "Official site",
+  "app.containers.CreateCommunity.websiteTip": "Optional",
   "app.containers.CreateCommunity.avatar": "Avatar",
   "app.containers.CreateCommunity.communityTitle": "Title",
   "app.containers.CreateCommunity.shortDescription": "Short description",

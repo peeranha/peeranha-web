@@ -63,12 +63,12 @@ export function* getStatWorker() {
 
 export function* getCommunitiesWithTagsWorker() {
   try {
-    const eosService = yield select(selectEos);
+    const ethereumService = yield select(selectEthereum);
     const stat = yield select(selectStat());
     const communities = yield call(
       getAllCommunities,
-      eosService,
-      stat.communities_count,
+      ethereumService,
+      stat.communitiesCount,
     );
 
     yield put(getCommunitiesWithTagsSuccess(communities));

@@ -33,18 +33,18 @@ export function* initEthereumWorker() {
     const autoLoginData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
     const ethereumService = new EthereumService();
 
-    // if (autoLoginData && autoLoginData.loginWithMetaMask) {
-    //   yield call(ethereumService.initEthereum);
-    //
-    //   yield call(
-    //     ethereumService.setMetaMaskAutologinData,
-    //     autoLoginData.metaMaskUserAddress,
-    //   );
-    //
-    //   yield put(initEthereumSuccess(ethereumService));
-    //
-    //   return null;
-    // }
+    if (autoLoginData && autoLoginData.loginWithMetaMask) {
+      yield call(ethereumService.initEthereum);
+
+      yield call(
+        ethereumService.setMetaMaskAutologinData,
+        autoLoginData.metaMaskUserAddress,
+      );
+
+      yield put(initEthereumSuccess(ethereumService));
+
+      return null;
+    }
 
     yield call(ethereumService.initEthereum);
     yield put(initEthereumSuccess(ethereumService));

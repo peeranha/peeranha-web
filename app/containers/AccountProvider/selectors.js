@@ -96,9 +96,7 @@ const selectIsGlobalModerator = () =>
     state => state,
     state => {
       const profileInfo = makeSelectProfileInfo()(state);
-      return !!profileInfo?.['integer_properties'].find(
-        x => x.key === MODERATOR_KEY,
-      );
+      return !!profileInfo?.['permissions'].find(x => x.key === MODERATOR_KEY);
     },
   );
 

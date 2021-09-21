@@ -1,5 +1,10 @@
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
-import { userQuery, usersQuery } from './ethConstants';
+import {
+  communitiesQuery,
+  tagsQuery,
+  userQuery,
+  usersQuery,
+} from './ethConstants';
 
 const client = new ApolloClient({
   uri: process.env.THE_GRAPH_QUERY_URL,
@@ -30,4 +35,25 @@ export const getUser = async id => {
     },
   });
   return user?.data.user;
+};
+
+export const getCommunities = async count => {
+  const communities = await client.query({
+    query: gql(communitiesQuery),
+    variables: {
+      first: count,
+    },
+  });
+  return communities?.data.communities;
+};
+
+export const getTags = async (count, communityId) => {
+  const tags = await client.query({
+    query: gql(tagsQuery),
+    variables: {
+      first: count,
+      communityId,
+    },
+  });
+  return tags?.data.tags;
 };

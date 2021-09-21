@@ -106,9 +106,21 @@ class EthereumService {
   getProfile = async userAddress => {
     const user = await this.contract[GET_USER_BY_ADDRESS](userAddress);
     return {
-      ...user,
+      creationTime: user.creationTime,
+      ipfsDoc: user.ipfsDoc,
+      rating: user.rating,
+      permissions: user.roles,
       ipfsHash: this.getIpfsHashFromBytes32(user.ipfsDoc.hash),
     };
+  };
+
+  sendTransactionWithSigner = async (actor, action, data) => {
+    const transaction = await this.contract
+      .connect(
+        new ethers.providers.Web3Provider(this.provider).getSigner(actor),
+      )
+      [action](...data);
+    await transaction.wait();
   };
 
   sendTransaction = async (actor, action, data) => {
@@ -117,7 +129,7 @@ class EthereumService {
     await transaction.wait();
   };
 
-  getData = async (action, data) => {
+  getData = async action => {
     return await this.contract[action]();
   };
 }
