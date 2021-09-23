@@ -470,7 +470,7 @@
   "app.containers.Communities.description": "Communities | Description",
   "app.containers.Communities.tags": "Tags",
   "app.containers.Communities.voting": "Voting",
-  "app.containers.Communities.suggestCommunity": "Suggest community",
+  "app.containers.Communities.suggestCommunity": "Create community",
 
   "app.containers.CreateCommunity.title": "Community | Create",
   "app.containers.CreateCommunity.description":
@@ -484,7 +484,7 @@
   "app.containers.CreateCommunity.optional": "Optional",
   "app.containers.CreateCommunity.whyWeNeedIt": "Why we need it?",
   "app.containers.CreateCommunity.newCommunity": "New community",
-  "app.containers.CreateCommunity.createCommunity": "Suggest community",
+  "app.containers.CreateCommunity.createCommunity": "Create community",
   "app.containers.CreateCommunity.oneMoreTag": "One more tag",
   "app.containers.CreateCommunity.tags": "Tags",
   "app.containers.CreateCommunity.tagsAreNeeded":

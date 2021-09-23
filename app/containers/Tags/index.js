@@ -24,7 +24,7 @@ import AsideBox from 'components/Base/Aside';
 
 import reducer from './reducer';
 import saga from './saga';
-import { getSuggestedTags, getExistingTags } from './actions';
+import { getExistingTags } from './actions';
 import * as selectors from './selectors';
 
 import Header from './Header';
@@ -41,12 +41,10 @@ export const Tags = ({
   Aside,
   redirectToCreateTagDispatch,
   getExistingTagsDispatch,
-  getSuggestedTagsDispatch,
 }) => {
   useEffect(
     () => {
       getExistingTagsDispatch({ communityId });
-      getSuggestedTagsDispatch({ communityId });
     },
     [communityId],
   );
@@ -87,7 +85,6 @@ export const Tags = ({
 Tags.propTypes = {
   sorting: PropTypes.string,
   redirectToCreateTagDispatch: PropTypes.func,
-  getSuggestedTagsDispatch: PropTypes.func,
   getExistingTagsDispatch: PropTypes.func,
   Aside: PropTypes.any,
   Content: PropTypes.any,
@@ -103,13 +100,11 @@ const mapStateToProps = createStructuredSelector({
   profile: makeSelectProfileInfo(),
   sorting: selectors.selectSorting(),
   existingTagsLoading: selectors.selectExistingTagsLoading(),
-  suggestedTagsLoading: selectors.selectSuggestedTagsLoading(),
   communities: selectCommunities(),
 });
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    getSuggestedTagsDispatch: bindActionCreators(getSuggestedTags, dispatch),
     getExistingTagsDispatch: bindActionCreators(getExistingTags, dispatch),
     redirectToCreateTagDispatch: bindActionCreators(
       redirectToCreateTag,

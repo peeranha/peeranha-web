@@ -89,7 +89,7 @@ const List = ({ communities }) => {
               />
               <div>
                 <P fontSize="24" lineHeight="31" bold>
-                  {x.label}
+                  {x.name}
                 </P>
                 <P
                   className="text-lowercase"

@@ -6,7 +6,8 @@ import { ETHEREUM_USER_ERROR_CODE, METAMASK_ERROR_CODE } from './constants';
 import { getCookie } from './cookie';
 import { AUTOLOGIN_DATA } from '../containers/Login/constants';
 import * as bs58 from 'bs58';
-import { GET_USER_BY_ADDRESS } from './ethConstants';
+import { GET_COMMUNITY, GET_TAGS, GET_USER_BY_ADDRESS } from './ethConstants';
+import { getText } from './ipfs';
 
 class EthereumService {
   constructor() {
@@ -131,6 +132,49 @@ class EthereumService {
 
   getData = async action => {
     return await this.contract[action]();
+  };
+
+  getTagsFromContract = async communityId => {
+    const rawTags = await this.contract[GET_TAGS](communityId);
+    return await Promise.all(
+      rawTags.map(async rawTag => {
+        const tag = JSON.parse(
+          await getText(this.getIpfsHashFromBytes32(rawTag.ipfsDoc.hash)),
+        );
+        return {
+          name: tag.name,
+          description: tag.description,
+          questionsAsked: 0,
+        };
+      }),
+    );
+  };
+
+  getCommunityFromContract = async id => {
+    const rawCommunity = await this.contract[GET_COMMUNITY](id);
+    const communityInfo = JSON.parse(
+      await getText(this.getIpfsHashFromBytes32(rawCommunity.ipfsDoc.hash)),
+    );
+    const tags = await this.getTagsFromContract(id);
+    return {
+      id,
+      name: communityInfo.name,
+      avatar: communityInfo.avatar.imgUrl,
+      description: communityInfo.description,
+      website: communityInfo.website,
+      language: communityInfo.language,
+      creationTime: rawCommunity.timeCreate,
+      isFrozen: rawCommunity.isFrozen,
+      tags,
+    };
+  };
+
+  getCommunities = async count => {
+    let communities = [];
+    for (let i = 1; i <= count; i++) {
+      communities.push(await this.getCommunityFromContract(i));
+    }
+    return communities;
   };
 }
 

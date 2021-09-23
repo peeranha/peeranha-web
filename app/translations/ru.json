@@ -482,7 +482,7 @@
   "app.containers.Communities.description": "Сообщества | Описание",
   "app.containers.Communities.tags": "Теги",
   "app.containers.Communities.voting": "Голосование",
-  "app.containers.Communities.suggestCommunity": "Предложить сообщество",
+  "app.containers.Communities.suggestCommunity": "Создать сообщество",
   "app.containers.Communities.didntFindAnyInteresting":
     "Не нашли ничего интересного?",
   "app.containers.Communities.suggestInterestingComm":
@@ -498,7 +498,7 @@
   "app.containers.CreateCommunity.about": "О сообществе",
   "app.containers.CreateCommunity.optional": "Опционально",
   "app.containers.CreateCommunity.whyWeNeedIt": "Зачем нам нужно это?",
-  "app.containers.CreateCommunity.createCommunity": "Добавить сообщество",
+  "app.containers.CreateCommunity.createCommunity": "Создать сообщество",
   "app.containers.CreateCommunity.newCommunity": "Новое сообщество",
   "app.containers.CreateCommunity.oneMoreTag": "Добавить тег",
   "app.containers.CreateCommunity.tags": "Теги",

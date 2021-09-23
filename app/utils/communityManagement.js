@@ -268,48 +268,6 @@ export function getTagScope(communityId) {
   return ret;
 }
 
-/* eslint-enable */
-
-export async function suggestTag(eosService, selectedAccount, tag) {
-  const tagIpfsHash = await saveText(JSON.stringify(tag));
-
-  await eosService.sendTransaction(
-    selectedAccount,
-    CREATE_TAG,
-    {
-      user: selectedAccount,
-      community_id: +tag.communityId,
-      name: tag.name,
-      ipfs_description: tagIpfsHash,
-    },
-    null,
-    true,
-  );
-}
-
-export async function getSuggestedTags(
-  eosService,
-  communityId,
-  lowerBound,
-  limit,
-) {
-  const { rows } = await eosService.getTableRows(
-    CREATED_TAGS_TABLE,
-    getTagScope(communityId),
-    lowerBound,
-    limit,
-  );
-
-  await Promise.all(
-    rows.map(async x => {
-      const ipfsDescription = JSON.parse(await getText(x.ipfs_description));
-      x.description = ipfsDescription.description;
-    }),
-  );
-
-  return rows;
-}
-
 export async function getExistingTags(tags) {
   await Promise.all(
     tags.map(async x => {
@@ -365,15 +323,16 @@ export async function downVoteToCreateTag(
 
 /* eslint no-param-reassign: 0 */
 export const getAllCommunities = async (ethereumService, count) => {
-  const communities = await getCommunities(count);
-  return await Promise.all(
-    communities.map(async community => {
-      return {
-        ...community,
-        tags: await getTags(10, community.id),
-      };
-    }),
-  );
+  // const communities = await getCommunities(count);
+  return await ethereumService.getCommunities(count);
+  // return await Promise.all(
+  //   communities.map(async community => {
+  //     return {
+  //       ...community,
+  //       tags: await getTags(10, community.id),
+  //     };
+  //   }),
+  // );
 };
 
 export const getCommunityWithTags = async (eosService, id) => {

@@ -4,6 +4,8 @@ export const GET_USER_BY_ADDRESS = 'getUserByAddress';
 export const GET_USER_PERMISSIONS = 'getUserPermissions';
 export const GET_USERS_COUNT = 'getUsersCount';
 export const GET_COMMUNITIES_COUNT = 'getCommunitiesCount';
+export const GET_COMMUNITY = 'getCommunity';
+export const GET_TAGS = 'getTags';
 export const CREATE_COMMUNITY = 'createCommunity';
 
 export const usersQuery = `

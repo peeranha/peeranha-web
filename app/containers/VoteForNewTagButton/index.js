@@ -13,7 +13,6 @@ import { compose, bindActionCreators } from 'redux';
 import { DAEMON } from 'utils/constants';
 
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
-import { selectSuggestedTags } from 'containers/Tags/selectors';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -83,7 +82,6 @@ VoteForNewTagButton.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  suggestedTags: selectSuggestedTags(),
   account: makeSelectAccount(),
   ids: selectIds(),
 });

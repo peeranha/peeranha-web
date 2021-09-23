@@ -7,15 +7,6 @@ import { initialState } from './reducer';
 
 const selectTagsDomain = state => state.get('tags', initialState).toJS();
 
-const selectSuggestedTags = () =>
-  createSelector(selectTagsDomain, substate => substate.suggestedTags);
-
-const selectSuggestedTagsLoading = () =>
-  createSelector(selectTagsDomain, substate => substate.suggestedTagsLoading);
-
-const selectSuggestedTagsError = () =>
-  createSelector(selectTagsDomain, substate => substate.getSuggestedTagsError);
-
 const selectSorting = () =>
   createSelector(selectTagsDomain, substate => substate.sorting);
 
@@ -48,9 +39,6 @@ const selectIsLastFetchForExistingTags = () =>
 
 export {
   selectTagsDomain,
-  selectSuggestedTags,
-  selectSuggestedTagsLoading,
-  selectSuggestedTagsError,
   selectSorting,
   selectIsLastFetchForSuggestedTags,
   selectLimit,

@@ -107,7 +107,7 @@ const Content = ({
 
   const isGlobalModerator = useMemo(
     () =>
-      !!profileInfo?.['integer_properties'].find(x => x.key === MODERATOR_KEY),
+      !!profileInfo?.['integer_properties']?.find(x => x.key === MODERATOR_KEY),
     [profileInfo?.['integer_properties']],
   );
 

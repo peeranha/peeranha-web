@@ -42,6 +42,7 @@ export const Form = ({
   getSuggestedTagsDispatch,
   isEditTagForm,
 }) => {
+  console.log(communities);
   const onChange = value => {
     if (value) {
       getSuggestedTagsDispatch({ communityId: value.id });
@@ -123,10 +124,10 @@ FormClone = connect(
       return {
         valueHasNotBeInListValidate: existingTags
           .filter(tag => tag.id !== tagId)
-          .map(x => x.name.toLowerCase())
+          .map(x => x.name?.toLowerCase())
           .concat(
             (state?.toJS()?.tags?.suggestedTags ?? []).map(x =>
-              x.name.toLowerCase(),
+              x.name?.toLowerCase(),
             ),
           ),
         initialValues: {
@@ -142,10 +143,10 @@ FormClone = connect(
       valueHasNotBeInListValidate: (
         state?.toJS()?.form?.[FORM_NAME]?.values?.[FORM_COMMUNITY]?.tags ?? []
       )
-        .map(x => x.name.toLowerCase())
+        .map(x => x.name?.toLowerCase())
         .concat(
           (state?.toJS()?.tags?.suggestedTags ?? []).map(x =>
-            x.name.toLowerCase(),
+            x.name?.toLowerCase(),
           ),
         ),
       initialValues: {

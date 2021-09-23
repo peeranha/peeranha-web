@@ -97,13 +97,12 @@ export const CreateCommunity = ({
 
     const community = {
       avatar: values[COMM_AVATAR_FIELD],
-      title: values[COMM_NAME_FIELD],
+      name: values[COMM_NAME_FIELD],
       language: values[LANGUAGE_FIELD]
         ? values[LANGUAGE_FIELD].value
         : DEFAULT_LOCALE,
       description: values[COMM_SHORT_DESCRIPTION_FIELD],
       website: values[COMM_OFFICIAL_SITE_FIELD],
-      questionsType: parseInt(values[FORM_TYPE] ?? ANY_TYPE),
       tags,
     };
     createCommunityDispatch(community, reset);

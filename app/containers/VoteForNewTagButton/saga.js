@@ -7,7 +7,6 @@ import {
 } from 'utils/communityManagement';
 
 import { getSuggestedTagsSuccess } from 'containers/Tags/actions';
-import { selectSuggestedTags } from 'containers/Tags/selectors';
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { isAuthorized, isValid } from 'containers/EosioProvider/saga';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
@@ -33,9 +32,8 @@ export function* upVoteWorker({ communityId, tagId, buttonId }) {
   try {
     const eosService = yield select(selectEos);
     const account = yield select(makeSelectAccount());
-    const storedTags = yield select(selectSuggestedTags());
 
-    const activeTag = storedTags.filter(x => x.id === +tagId)[0];
+    const activeTag = storedTags?.filter(x => x.id === +tagId)[0];
 
     yield call(isAuthorized);
 
@@ -68,9 +66,8 @@ export function* downVoteWorker({ communityId, tagId, buttonId }) {
   try {
     const eosService = yield select(selectEos);
     const account = yield select(makeSelectAccount());
-    const storedTags = yield select(selectSuggestedTags());
 
-    const activeTag = storedTags.filter(x => x.id === +tagId)[0];
+    const activeTag = storedTags?.filter(x => x.id === +tagId)[0];
 
     yield call(isAuthorized);
 

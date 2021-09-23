@@ -29,7 +29,6 @@ import { MediumImageStyled } from 'components/Img/MediumImage';
 import { hasCommunitySingleWebsite } from '../../utils/communityManagement';
 import OfficialSiteLink from './OfficialSiteLink';
 import SingleCommunityIcon from './SingleCommunityIcon';
-import { COMMUNITY_ADMIN_VALUE } from '../../utils/constants';
 
 export const Base = BaseRoundedNoPadding.extend`
   margin-bottom: 15px;
@@ -101,24 +100,11 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
         .filter(x => (language.sortBy ? x.language === language.sortBy : true))
         .map(
           (
-            { value, avatar, title, id, description, website, tags, ...x },
+            { value, avatar, name, id, description, website, tags, ...x },
             index,
             arr,
           ) => {
             const origin = hasCommunitySingleWebsite(id);
-
-            const getShortUrl = url => {
-              if (/^https?:\/\//.test(url)) url.replace(/https?:\/\//, '');
-              if (/(\.$)|(\/$)/.test(url)) url.replace(/(\.$)|(\/$)/, '');
-              return url;
-            };
-
-            const getFullUrl = url => {
-              if (/(\.$)|(\/$)/.test(url)) url.replace(/(\.$)|(\/$)/, '');
-              if (!/^https?:\/\//.test(url)) return `https://${url}`;
-              return url;
-            };
-
             return (
               <BaseSpecial
                 last={arr.length - 1 === index}
@@ -130,7 +116,7 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
                   <MediumImageStyled
                     className="bg-transparent"
                     src={avatar}
-                    alt={title}
+                    alt={name}
                   />
 
                   <div>
@@ -139,7 +125,7 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
                         href={origin || routes.questions(id)}
                         css={{ position: 'relative' }}
                       >
-                        {title}
+                        {name}
                         {origin && (
                           <SingleCommunityIcon locale={locale} id={id} />
                         )}
@@ -185,7 +171,7 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
                   </Info>
 
                   <Info>
-                    <P>{getDifferenceInMonths(x.creation_time, locale)}</P>
+                    <P>{getDifferenceInMonths(x.creationTime, locale)}</P>
                     <P>
                       <FormattedMessage {...commonMessages.age} />
                     </P>
