@@ -105,6 +105,7 @@ class EthereumService {
 
   getProfile = async userAddress => {
     const user = await this.contract[GET_USER_BY_ADDRESS](userAddress);
+    console.log({...user})
     return {
       ...user,
       ipfsHash: this.getIpfsHashFromBytes32(user.ipfsDoc.hash),
