@@ -139,7 +139,7 @@ describe('getProfileInfo', async () => {
   const eosProfile = {
     user,
     ipfs_profile: '1111',
-    ipfsAvatar: '1111',
+    avatar: '1111',
   };
 
   const eosService = {

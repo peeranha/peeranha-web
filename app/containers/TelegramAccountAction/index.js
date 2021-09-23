@@ -42,7 +42,7 @@ export class TelegramAccountAction extends React.PureComponent {
     const newProfile = {
       ...profile?.profile,
       temporaryAccountDisplayName: data?.temporaryAccountDisplayName,
-      profileAvatar: profile?.profileAvatar ?? profile?.ipfsAvatar,
+      avatar: profile?.avatar ?? profile?.avatar,
       profileDisplayName: profile?.profileDisplayName ?? profile?.displayName,
     };
 

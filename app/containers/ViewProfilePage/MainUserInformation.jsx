@@ -138,7 +138,7 @@ const MainUserInformation = ({
             disabled={account !== userId}
           >
             <LargeImage
-              src={getUserAvatar(profile.ipfsAvatar, userId, account)}
+              src={getUserAvatar(profile.avatar, userId, account)}
               alt="avatar"
               isBordered
             />

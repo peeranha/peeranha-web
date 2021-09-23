@@ -62,7 +62,7 @@ const Content = ({
                   isBordered
                   className="flex-shrink-0 mr-2"
                   src={getUserAvatar(x.avatar)}
-                  alt="ipfsAvatar"
+                  alt="avatar"
                 />
                 {!!x?.['integer_properties']?.find(
                   item => item.key === TEMPORARY_ACCOUNT_KEY && item.value,

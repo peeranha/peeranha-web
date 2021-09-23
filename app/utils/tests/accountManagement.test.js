@@ -45,7 +45,7 @@ it('registerAccount', async () => {
       user: profile.accountName,
       displayName: profile.displayName,
       ipfs_profile: savedHash,
-      ipfsAvatar: NO_AVATAR,
+      avatar: NO_AVATAR,
     },
   );
   expect(saveText).toHaveBeenCalledTimes(1);
