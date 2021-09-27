@@ -23,9 +23,10 @@ export function redirectToCreateTag(ev) {
   };
 }
 
-export function suggestTag(tag, reset) {
+export function suggestTag(communityId, tag, reset) {
   return {
     type: SUGGEST_TAG,
+    communityId,
     tag,
     reset,
   };

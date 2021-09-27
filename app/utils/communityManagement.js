@@ -13,7 +13,6 @@ import { uploadImg } from './profileManagement';
 import {
   ALL_COMMUNITIES_SCOPE,
   COMMUNITIES_TABLE,
-  CREATE_TAG,
   CREATED_TAGS_TABLE,
   EDIT_COMMUNITY,
   EDIT_TAG_ACTION,
@@ -26,7 +25,7 @@ import {
   VOTE_TO_DELETE_COMMUNITY,
   VOTE_TO_DELETE_TAG,
 } from './constants';
-import { CREATE_COMMUNITY } from './ethConstants';
+import { CREATE_COMMUNITY, CREATE_TAG } from './ethConstants';
 import { getCommunities, getTags } from './theGraph';
 
 export const isSingleCommunityWebsite = () =>
@@ -406,8 +405,7 @@ export async function createCommunity(
   selectedAccount,
   community,
 ) {
-  const imgHash = await uploadImg(community.avatar);
-
+  const { imgHash } = await uploadImg(community.avatar);
   const communityIpfsHash = await saveText(
     JSON.stringify({
       ...community,
@@ -435,6 +433,22 @@ export async function createCommunity(
     CREATE_COMMUNITY,
     [ipfsHash, tags],
   );
+}
+
+export async function createTag(
+  ethereumService,
+  selectedAccount,
+  communityId,
+  tag,
+) {
+  const ipfsHash = ethereumService.getBytes32FromIpfsHash(
+    await saveText(JSON.stringify(tag)),
+  );
+
+  await ethereumService.sendTransactionWithSigner(selectedAccount, CREATE_TAG, [
+    communityId,
+    ipfsHash,
+  ]);
 }
 
 export async function upVoteToCreateCommunity(

@@ -7,6 +7,7 @@ export const GET_COMMUNITIES_COUNT = 'getCommunitiesCount';
 export const GET_COMMUNITY = 'getCommunity';
 export const GET_TAGS = 'getTags';
 export const CREATE_COMMUNITY = 'createCommunity';
+export const CREATE_TAG = 'createTag';
 
 export const usersQuery = `
       query(

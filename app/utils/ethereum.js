@@ -6,8 +6,13 @@ import { ETHEREUM_USER_ERROR_CODE, METAMASK_ERROR_CODE } from './constants';
 import { getCookie } from './cookie';
 import { AUTOLOGIN_DATA } from '../containers/Login/constants';
 import * as bs58 from 'bs58';
-import { GET_COMMUNITY, GET_TAGS, GET_USER_BY_ADDRESS } from './ethConstants';
-import { getText } from './ipfs';
+import {
+  GET_COMMUNITY,
+  GET_TAGS,
+  GET_USER_BY_ADDRESS,
+  GET_USER_PERMISSIONS,
+} from './ethConstants';
+import { getFileUrl, getText } from './ipfs';
 
 class EthereumService {
   constructor() {
@@ -106,11 +111,13 @@ class EthereumService {
 
   getProfile = async userAddress => {
     const user = await this.contract[GET_USER_BY_ADDRESS](userAddress);
+    const permissions = await this.contract[GET_USER_PERMISSIONS](userAddress);
     return {
       creationTime: user.creationTime,
       ipfsDoc: user.ipfsDoc,
       rating: user.rating,
-      permissions: user.roles,
+      permissions,
+      followedCommunities: user.followedCommunities,
       ipfsHash: this.getIpfsHashFromBytes32(user.ipfsDoc.hash),
     };
   };
@@ -159,12 +166,13 @@ class EthereumService {
     return {
       id,
       name: communityInfo.name,
-      avatar: communityInfo.avatar.imgUrl,
+      avatar: communityInfo.avatar.imgUrl || getFileUrl(communityInfo.avatar),
       description: communityInfo.description,
       website: communityInfo.website,
       language: communityInfo.language,
       creationTime: rawCommunity.timeCreate,
       isFrozen: rawCommunity.isFrozen,
+      value: id,
       tags,
     };
   };

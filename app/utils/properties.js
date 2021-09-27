@@ -19,34 +19,34 @@ import {
   MODERATOR_KEY,
 } from './constants';
 
-const findAllPropertiesByKeys = (properties, keys, exact = false) =>
-  properties.filter(({ value }) => {
-    const restKeys = Array.from(new Array(_max(keys)).keys()).filter(
-      x => !keys.includes(x),
-    );
-
-    const match = keys.every(
-      key =>
-        value
-          .toString(2)
-          .split('')
-          .reverse()
-          .join('')[key] === '1',
-    );
-
-    const restMatch =
-      exact &&
-      restKeys.every(
-        key =>
-          value
-            .toString(2)
-            .split('')
-            .reverse()
-            .join('')[key] === '0',
-      );
-
-    return exact ? match && restMatch : match;
-  });
+const findAllPropertiesByKeys = (properties, keys, exact = false) => [];
+// properties.filter(({ value }) => {
+//   const restKeys = Array.from(new Array(_max(keys)).keys()).filter(
+//     x => !keys.includes(x),
+//   );
+//
+//   const match = keys.every(
+//     key =>
+//       value
+//         .toString(2)
+//         .split('')
+//         .reverse()
+//         .join('')[key] === '1',
+//   );
+//
+//   const restMatch =
+//     exact &&
+//     restKeys.every(
+//       key =>
+//         value
+//           .toString(2)
+//           .split('')
+//           .reverse()
+//           .join('')[key] === '0',
+//     );
+//
+//   return exact ? match && restMatch : match;
+// });
 
 export const getModeratorPermissions = (
   communityPermissions = [],

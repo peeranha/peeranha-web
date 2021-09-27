@@ -2,7 +2,7 @@ import { call, put, takeLatest, select } from 'redux-saga/effects';
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
-import { suggestTag } from 'utils/communityManagement';
+import { createTag, suggestTag } from 'utils/communityManagement';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { isAuthorized, isValid } from 'containers/EosioProvider/saga';
@@ -29,19 +29,21 @@ import {
   TAGFORM_SUBMIT_BUTTON,
   GET_FORM,
 } from './constants';
+import { selectEthereum } from '../EthereumProvider/selectors';
 
-export function* suggestTagWorker({ tag, reset }) {
+export function* suggestTagWorker({ communityId, tag, reset }) {
   try {
-    const eosService = yield select(selectEos);
-    const selectedAccount = yield call(eosService.getSelectedAccount);
-
-    yield call(suggestTag, eosService, selectedAccount, tag);
-
-    yield put(suggestTagSuccess());
-
-    yield call(reset);
-
-    yield call(createdHistory.push, routes.suggestedTags(tag.communityId));
+    const ethereumService = yield select(selectEthereum);
+    const selectedAccount = yield call(ethereumService.getSelectedAccount);
+    console.log(tag);
+    //
+    yield call(createTag, ethereumService, selectedAccount, communityId, tag);
+    //
+    // yield put(suggestTagSuccess());
+    //
+    // yield call(reset);
+    //
+    yield call(createdHistory.push, routes.tags());
   } catch (err) {
     yield put(suggestTagErr(err));
   }

@@ -55,7 +55,6 @@ import Form from './Form';
 import Tips from './Tips';
 import Header from './Header';
 
-import { getSuggestedTags } from '../Tags/actions';
 import tagsReducer from '../Tags/reducer';
 import tagsSaga from '../Tags/saga';
 
@@ -69,7 +68,6 @@ const CreateTag = ({
   faqQuestions,
   suggestTagDispatch,
   permissions,
-  getSuggestedTagsDispatch,
   getFormDispatch,
   isFormLoading,
   isFormAvailable,
@@ -86,10 +84,10 @@ const CreateTag = ({
       const values = args[0].toJS();
 
       suggestTagDispatch(
+        +values[FORM_COMMUNITY].id,
         {
           name: values[NAME_FIELD],
           description: values[DESCRIPTION_FIELD],
-          communityId: +values[FORM_COMMUNITY].id,
         },
         args[2].reset,
       );
@@ -97,15 +95,16 @@ const CreateTag = ({
     [suggestTagDispatch],
   );
 
-  const isCommunityAdmin = useMemo(
-    () => permissions.find(x => x.value === COMMUNITY_ADMIN_VALUE),
-    [permissions],
-  );
+  const isCommunityAdmin = false;
+  //   useMemo(
+  //   () => permissions.find(x => x.value === COMMUNITY_ADMIN_VALUE),
+  //   [permissions],
+  // );
 
   const rightCommunitiesIds = useMemo(
     () =>
-      profile.rating >= MIN_RATING_TO_CREATE_TAG &&
-      profile.energy >= MIN_ENERGY_TO_CREATE_TAG
+      profile?.rating >= MIN_RATING_TO_CREATE_TAG &&
+      profile?.energy >= MIN_ENERGY_TO_CREATE_TAG
         ? communities.map(x => x.id)
         : isCommunityAdmin
           ? permissions.map(x => x.community)
@@ -115,7 +114,7 @@ const CreateTag = ({
 
   if (isFormLoading) return <LoadingIndicator />;
 
-  if (!isFormAvailable && !isCommunityAdmin) return <Redirect to={tags()} />;
+  // if (!isFormAvailable && !isCommunityAdmin) return <Redirect to={tags()} />;
 
   return (
     <div>
@@ -139,7 +138,7 @@ const CreateTag = ({
               tagFormLoading={createTagLoading}
               submitAction={createTag}
               translations={translationMessages[locale]}
-              getSuggestedTagsDispatch={getSuggestedTagsDispatch}
+              getSuggestedTagsDispatch={() => {}}
             />
           </BaseSpecialOne>
 
@@ -187,7 +186,6 @@ export default compose(
     }),
     dispatch => ({
       suggestTagDispatch: bindActionCreators(suggestTag, dispatch),
-      getSuggestedTagsDispatch: bindActionCreators(getSuggestedTags, dispatch),
       getFormDispatch: bindActionCreators(getForm, dispatch),
     }),
   ),

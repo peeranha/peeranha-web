@@ -110,8 +110,7 @@ const CommunitySelector = ({
   const onSelectChange = useCallback(
     x => {
       toggleOpen();
-
-      // change redux-form value
+      //
       if (input.onChange) {
         input.onChange(x);
       }
@@ -142,7 +141,7 @@ const CommunitySelector = ({
       target={
         <Button
           communityAvatar={selectedValue?.avatar}
-          communityLabel={selectedValue?.label}
+          communityLabel={selectedValue?.name ?? 'undefined'}
         />
       }
     >

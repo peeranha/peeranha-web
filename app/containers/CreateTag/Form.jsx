@@ -42,7 +42,6 @@ export const Form = ({
   getSuggestedTagsDispatch,
   isEditTagForm,
 }) => {
-  console.log(communities);
   const onChange = value => {
     if (value) {
       getSuggestedTagsDispatch({ communityId: value.id });
@@ -58,7 +57,12 @@ export const Form = ({
         disabled={isEditTagForm ? true : tagFormLoading}
         label={translations[messages.community.id]}
         tip={translations[messages.communityTip.id]}
-        options={communities}
+        options={communities.map(community => {
+          return {
+            ...community,
+            label: community.name,
+          };
+        })}
         validate={[requiredForObjectField]}
         warn={[requiredForObjectField]}
         splitInHalf
