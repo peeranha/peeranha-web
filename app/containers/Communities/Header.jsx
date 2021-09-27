@@ -38,20 +38,6 @@ const Header = ({
   return (
     <div className="mb-to-sm-0 mb-from-sm-3">
       <SubHeaderWrapper position="top">
-        <div>
-          <A to={communitiesRoute} href={communitiesRoute}>
-            <NavigationButton isLink={path !== communitiesRoute}>
-              <FormattedMessage {...commonMessages.communities} />
-            </NavigationButton>
-          </A>
-
-          <A to={suggestedCommunitiesRoute} href={suggestedCommunitiesRoute}>
-            <NavigationButton isLink={path !== suggestedCommunitiesRoute}>
-              <FormattedMessage {...messages.voting} />
-            </NavigationButton>
-          </A>
-        </div>
-
         <SubHeaderWrapperRightPanel className="right-panel">
           <TransparentButton
             id={`${GO_TO_CREATE_COMMUNITY_SCREEN_BUTTON_ID}_header`}

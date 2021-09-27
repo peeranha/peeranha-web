@@ -119,13 +119,6 @@ export const Communities = ({
           />
         )}
       </div>
-
-      <AsideBox className="d-none d-xl-block">
-        <Aside
-          suggestedCommunities={suggestedCommunities}
-          communities={communities}
-        />
-      </AsideBox>
     </div>
   );
 };

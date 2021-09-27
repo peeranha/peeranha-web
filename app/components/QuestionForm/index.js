@@ -93,7 +93,7 @@ const SuggestTag = memo(({ redirectToCreateTagDispatch, formValues }) => {
         color={LINK_COLOR_SECONDARY}
       >
         <IconMd className="mr-2" icon={icoTag} fill={BORDER_PRIMARY} />
-        <FormattedMessage {...commonMessages.suggestTag} />
+        <FormattedMessage {...commonMessages.createTag} />
       </TransparentButton>
     </div>
   );

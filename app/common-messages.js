@@ -225,8 +225,8 @@ export default defineMessages({
   tips: {
     id: 'app.common.tips',
   },
-  suggestTag: {
-    id: 'app.common.suggestTag',
+  createTag: {
+    id: 'app.common.createTag',
   },
   seeAll: {
     id: 'app.common.seeAll',

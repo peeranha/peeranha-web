@@ -30,7 +30,7 @@ export const Banner = ({ openTagForm, communityId }) => (
         id={`${GO_TO_CREATE_TAG_SCREEN_BUTTON_ID}_banner`}
         onClick={openTagForm}
       >
-        <FormattedMessage {...commonMessages.suggestTag} />
+        <FormattedMessage {...commonMessages.createTag} />
       </Button>
     </div>
   </Wrapper>

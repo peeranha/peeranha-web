@@ -39,7 +39,7 @@ const Header = ({ openTagForm }) => (
         />
 
         <span className="ml-1 button-label">
-          <FormattedMessage {...messages.suggestTag} />
+          <FormattedMessage {...messages.createTag} />
         </span>
       </TransparentButton>
     </WrapperRightPanel>

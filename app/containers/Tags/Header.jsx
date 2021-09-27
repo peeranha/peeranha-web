@@ -97,18 +97,6 @@ export const Header = ({
               </NavigationButton>
             </A>
           )}
-
-          <A to={communityTagsRoute}>
-            <NavigationButton isLink={path !== communityTagsRoute}>
-              <FormattedMessage {...commonMessages.tags} />
-            </NavigationButton>
-          </A>
-
-          <A to={suggestedTagsRoute}>
-            <NavigationButton isLink={path !== suggestedTagsRoute}>
-              <FormattedMessage {...commonMessages.voting} />
-            </NavigationButton>
-          </A>
         </div>
 
         <WrapperRightPanel className="right-panel">
@@ -135,7 +123,7 @@ export const Header = ({
             />
 
             <span className="ml-1 button-label">
-              <FormattedMessage {...commonMessages.suggestTag} />
+              <FormattedMessage {...commonMessages.createTag} />
             </span>
           </NavigationButton>
         </WrapperRightPanel>

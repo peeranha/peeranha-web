@@ -76,8 +76,6 @@ export const Tags = ({
           communityId={currentCommunity.id}
         />
       </div>
-
-      <AsideBox className="d-none d-xl-block">{Aside}</AsideBox>
     </div>
   );
 };
