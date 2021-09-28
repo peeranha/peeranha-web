@@ -9,7 +9,6 @@ import { setCookie } from 'utils/cookie';
 import { getAchievements } from 'utils/achievementsManagement';
 import { USER_ACHIEVEMENTS_TABLE } from 'utils/constants';
 
-import { selectEos } from 'containers/EosioProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { LOGOUT_SUCCESS } from 'containers/Logout/constants';
 import { SAVE_PROFILE_SUCCESS } from 'containers/EditProfilePage/constants';

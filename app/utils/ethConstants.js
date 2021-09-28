@@ -64,15 +64,14 @@ export const communitiesQuery = `
          first: $first,
         ) {
           id
-          title
+          name
+          avatar
           description
           website
           language
           isFrozen
           creationTime
           postCount
-          ipfsHash
-          ipfsHash2
         }
       }`;
 
@@ -85,11 +84,7 @@ export const tagsQuery = `
          first: $first,
          where: { communityId: $communityId },
         ) {
-           id
-           communityId
-           title
+           name
            description
-           ipfsHash
-           ipfsHash2
         }
       }`;

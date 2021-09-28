@@ -38,10 +38,10 @@ export const Tags = ({
   tagsNumber,
   sortTags,
   Content,
-  Aside,
   redirectToCreateTagDispatch,
   getExistingTagsDispatch,
 }) => {
+  console.log(currentCommunity);
   useEffect(
     () => {
       getExistingTagsDispatch({ communityId });

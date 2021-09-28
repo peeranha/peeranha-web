@@ -48,8 +48,7 @@ export const getGoogleVerificationData = () =>
 
 export function getFollowedCommunities(allcommunities, followedcommunities) {
   if (!allcommunities || !followedcommunities) return [];
-
-  return allcommunities.filter(x => followedcommunities.includes(x.id));
+  return allcommunities.filter(x => followedcommunities.includes(+x.id));
 }
 
 export function getUnfollowedCommunities(allcommunities, followedcommunities) {
@@ -319,16 +318,22 @@ export async function downVoteToCreateTag(
 
 /* eslint no-param-reassign: 0 */
 export const getAllCommunities = async (ethereumService, count) => {
-  // const communities = await getCommunities(count);
-  return await ethereumService.getCommunities(count);
-  // return await Promise.all(
-  //   communities.map(async community => {
-  //     return {
-  //       ...community,
-  //       tags: await getTags(10, community.id),
-  //     };
-  //   }),
-  // );
+  const communities = await getCommunities(count);
+  // return await ethereumService.getCommunities(count);
+  return await Promise.all(
+    communities.map(async community => {
+      return {
+        ...community,
+        id: +community.id,
+        postCount: +community.postCount,
+        creationTime: +community.creationTime,
+        //todo amount of questions in community and tag
+        tags: (await getTags(10, community.id)).map(tag => {
+          return { ...tag, questionsAsked: 0 };
+        }),
+      };
+    }),
+  );
 };
 
 export const getCommunityWithTags = async (eosService, id) => {
