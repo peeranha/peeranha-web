@@ -35,6 +35,7 @@ export function* initEthereumWorker() {
 
     if (autoLoginData && autoLoginData.loginWithMetaMask) {
       yield call(ethereumService.initEthereum);
+      yield call(ethereumService.metaMaskSignIn);
 
       yield call(
         ethereumService.setMetaMaskAutologinData,

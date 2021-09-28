@@ -111,7 +111,12 @@ export const Header = ({
           }}
           showOnlyFollowed={isFeed}
           selectedCommunityId={communityIdFilter}
-          communities={communities}
+          communities={communities.map(community => {
+            return {
+              ...community,
+              label: community.name,
+            };
+          })}
         />
         {!!displaySubscribeButton && (
           <PageContentHeaderRightPanel

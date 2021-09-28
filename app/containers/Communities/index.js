@@ -21,7 +21,6 @@ import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 import { redirectToCreateCommunity } from 'containers/CreateCommunity/actions';
 
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
-import AsideBox from 'components/Base/Aside';
 import Seo from 'components/Seo';
 
 import {
@@ -48,7 +47,6 @@ export const Communities = ({
   suggestedCommunitiesLoading,
   isLastFetch,
   Content,
-  Aside,
   SubHeader,
   changeSorting,
   sorting,
@@ -131,7 +129,6 @@ Communities.propTypes = {
   sorting: PropTypes.object,
   changeSorting: PropTypes.func,
   SubHeader: PropTypes.any,
-  Aside: PropTypes.any,
   Content: PropTypes.any,
   suggestedCommunitiesLoading: PropTypes.bool,
   isLastFetch: PropTypes.bool,
