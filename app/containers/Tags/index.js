@@ -41,7 +41,6 @@ export const Tags = ({
   redirectToCreateTagDispatch,
   getExistingTagsDispatch,
 }) => {
-  console.log(currentCommunity);
   useEffect(
     () => {
       getExistingTagsDispatch({ communityId });

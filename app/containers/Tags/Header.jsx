@@ -82,7 +82,6 @@ export const Header = ({
     () => path === communityTagsRoute && !!tagsNumber,
     [path, communityTagsRoute, tagsNumber],
   );
-  console.log(currentCommunity);
   return (
     <div className="mb-to-sm-0 mb-from-sm-3">
       <Wrapper position="top">

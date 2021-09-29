@@ -60,7 +60,6 @@ export const TagsOfCommunity = ({
       getFollowedCommunities(communities, [communityId])[0] || emptyCommunity,
     [communityId, communities.length, emptyCommunity],
   );
-  console.log(currentCommunity);
   const typeInput = useCallback(
     ev =>
       getExistingTagsDispatch({
@@ -110,7 +109,6 @@ export const TagsOfCommunity = ({
     },
     [communityId, communities.length, currentCommunity],
   );
-  console.log(currentCommunity);
   return (
     <div>
       <Seo

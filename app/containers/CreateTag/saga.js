@@ -35,7 +35,6 @@ export function* suggestTagWorker({ communityId, tag, reset }) {
   try {
     const ethereumService = yield select(selectEthereum);
     const selectedAccount = yield call(ethereumService.getSelectedAccount);
-    console.log(tag);
     //
     yield call(createTag, ethereumService, selectedAccount, communityId, tag);
     //
