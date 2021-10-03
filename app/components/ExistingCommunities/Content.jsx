@@ -11,8 +11,8 @@ import { TEXT_PRIMARY, TEXT_SECONDARY } from 'style-constants';
 
 import {
   getPermissions,
-  hasCommunityAdminPermissions,
-  hasGlobalModeratorPermissions,
+  hasCommunityModeratorRole,
+  hasGlobalModeratorRole,
 } from 'utils/properties';
 import { getFormattedNum2 } from 'utils/numbers';
 import { getDifferenceInMonths } from 'utils/datetime';
@@ -90,7 +90,7 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
   if (!communities || !communities.length) return null;
 
   const communityEditingAllowed = useMemo(
-    () => hasGlobalModeratorPermissions(profile?.['integer_properties'] || []),
+    () => hasGlobalModeratorRole(getPermissions(profile)),
     [profile],
   );
 
@@ -100,10 +100,11 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
         .filter(x => (language.sortBy ? x.language === language.sortBy : true))
         .map(
           (
-            { value, avatar, name, id, description, website, tags, ...x },
+            { avatar, name, id, description, website, tags, ...x },
             index,
             arr,
           ) => {
+            const value = id;
             return (
               <BaseSpecial
                 last={arr.length - 1 === index}
@@ -175,7 +176,7 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
 
                   <Info>
                     {(communityEditingAllowed ||
-                      hasCommunityAdminPermissions(
+                      hasCommunityModeratorRole(
                         getPermissions(profile),
                         value,
                       )) && (

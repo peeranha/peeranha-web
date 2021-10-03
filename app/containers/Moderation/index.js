@@ -20,23 +20,25 @@ import { getModeratorPermissions } from 'utils/properties';
 import Header from './Header';
 import Content from './Content';
 import { selectIsGlobalModerator } from '../AccountProvider/selectors';
+import { redirectToFeed } from '../App/actions';
 
 export const Moderation = ({
   locale,
   communities,
   isGlobalModerator: isGlobal,
-  profile: { permissions, integer_properties },
+  profile: { permissions },
+  communitiesCount,
 }) => {
+  if (!permissions) {
+    redirectToFeed();
+  }
   const translations = translationMessages[locale]
     ? translationMessages[locale]
     : null;
-  const globalModeratorProps = integer_properties.find(
-    ({ key }) => key === MODERATOR_KEY,
-  );
+  const globalModeratorProps = permissions;
   const moderatorPermissions = getModeratorPermissions(
-    permissions,
     globalModeratorProps,
-    isGlobal,
+    communitiesCount,
     communities,
     translations,
   );

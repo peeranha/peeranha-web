@@ -315,6 +315,10 @@
     "Congratulations! Data deletion is successfully completed!",
   "app.containers.DeleteFacebookData.confirmDeletion": "Confirm deletion",
 
+  "app.containers.Moderation.givePermissions": "Give permissions",
+  "app.containers.Moderation.givePermissionsDescription":
+    "Allows you to give and revoke community moderator permission.",
+
   "app.containers.Moderation.permissionInfinite": "Infinite Impact",
   "app.containers.Moderation.permissionInfiniteDescription":
     "Allows you to delete questions, answers and comments in one click",

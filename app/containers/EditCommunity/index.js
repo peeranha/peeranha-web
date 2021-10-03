@@ -31,9 +31,9 @@ import Tips from 'containers/CreateCommunity/Tips';
 import { noAccess as noAccessRoute } from 'routes-config';
 
 import {
-  hasCommunityModeratorCreatePermission,
   getPermissions,
-  hasCommunityAdminPermissions,
+  hasCommunityModeratorRole,
+  hasGlobalModeratorRole,
 } from 'utils/properties';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -67,13 +67,10 @@ const EditCommunity = ({
   const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
   const editingAllowed = useMemo(
     () =>
-      hasCommunityAdminPermissions(
+      hasCommunityModeratorRole(
         getPermissions(profileInfo),
         parseInt(communityId),
-      ) ||
-      hasCommunityModeratorCreatePermission(
-        profileInfo?.['integer_properties'] || [],
-      ),
+      ) || hasGlobalModeratorRole(getPermissions(profileInfo)),
     [profileInfo],
   );
 
@@ -95,9 +92,7 @@ const EditCommunity = ({
       communityId: +communityId,
       communityLoading: editCommunityLoading,
       locale,
-      isModerator: hasCommunityModeratorCreatePermission(
-        profileInfo?.['integer_properties'] || [],
-      ),
+      isModerator: hasGlobalModeratorRole(getPermissions(profileInfo)),
       isBloggerMode,
     }),
     [community, communityId, editCommunityDispatch, editCommunityLoading],
