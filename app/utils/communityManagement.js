@@ -42,6 +42,9 @@ export const singleCommunityColors = () =>
 export const singleCommunityFonts = () =>
   _get(singleCommunityStyles(), 'fonts', {});
 
+export const hasCommunitySingleWebsite = commId =>
+  communitiesConfig[commId] ? communitiesConfig[commId].origin : false;
+
 export const getGoogleVerificationData = () =>
   googleVerificationConfig.communities?.[isSingleCommunityWebsite()] ||
   googleVerificationConfig.default;

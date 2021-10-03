@@ -104,6 +104,8 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
             index,
             arr,
           ) => {
+            const origin = hasCommunitySingleWebsite(id);
+
             return (
               <BaseSpecial
                 last={arr.length - 1 === index}
@@ -121,10 +123,13 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
                   <div>
                     <P fontSize="24" lineHeight="31" bold>
                       <ADefault
-                        href={routes.questions(id)}
+                        href={origin || routes.questions(id)}
                         css={{ position: 'relative' }}
                       >
                         {name}
+                        {origin && (
+                          <SingleCommunityIcon locale={locale} id={id} />
+                        )}
                       </ADefault>
                     </P>
                     {/* <P className="d-none d-md-block" fontSize="14" lineHeight="18">
