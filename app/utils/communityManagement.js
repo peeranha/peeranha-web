@@ -328,6 +328,7 @@ export const getAllCommunities = async (ethereumService, count) => {
       return {
         ...community,
         id: +community.id,
+        value: +community.id,
         postCount: +community.postCount,
         creationTime: +community.creationTime,
         //todo amount of questions in community and tag

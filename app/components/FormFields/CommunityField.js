@@ -60,10 +60,9 @@ export const CommunityField = ({
             {communityAvatar && (
               <>
                 <Img className="mr-2" src={communityAvatar} alt="comm_img" />
-                <Span>{communityLabel}</Span>
               </>
             )}
-
+            <Span>{communityLabel}</Span>
             <img className="mr-2" src={arrowDownIcon} alt="icon" />
           </Div>
         )}
