@@ -105,7 +105,7 @@ const Content = ({
     createdHistory.push(routes.editTag(communityId, tagId));
   };
 
-  const isGlobalModerator = useMemo(
+  const isGlobalAdmin = useMemo(
     () =>
       !!profileInfo?.['integer_properties']?.find(x => x.key === MODERATOR_KEY),
     [profileInfo?.['integer_properties']],
@@ -117,7 +117,7 @@ const Content = ({
     [profileInfo?.permissions, communityId],
   );
 
-  const editTagModerator = isGlobalModerator || createTagPermission;
+  const editTagModerator = isGlobalAdmin || createTagPermission;
 
   return (
     <InfinityLoader

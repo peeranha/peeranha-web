@@ -6,6 +6,7 @@ import { AUTOLOGIN_DATA } from 'containers/Login/constants';
 import { MODERATOR_KEY } from 'utils/constants';
 
 import { initialState } from './reducer';
+import { getPermissions, hasGlobalModeratorRole } from '../../utils/properties';
 
 const selectAccountProviderDomain = state =>
   state.get('accountProvider', initialState).toJS();
@@ -91,12 +92,12 @@ const selectUserRating = () =>
     },
   );
 
-const selectIsGlobalModerator = () =>
+const selectIsGlobalAdmin = () =>
   createSelector(
     state => state,
     state => {
       const profileInfo = makeSelectProfileInfo()(state);
-      return !!profileInfo?.['permissions'].find(x => x.key === MODERATOR_KEY);
+      return hasGlobalModeratorRole(getPermissions(profileInfo));
     },
   );
 
@@ -135,6 +136,6 @@ export {
   selectLastUpdate,
   selectUserRating,
   selectUserEnergy,
-  selectIsGlobalModerator,
+  selectIsGlobalAdmin,
   selectPermissions,
 };

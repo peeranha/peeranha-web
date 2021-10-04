@@ -110,7 +110,7 @@ const ContentHeader = props => {
 
   useOnClickOutside(ref, () => setModalOpen(false));
 
-  const isGlobalModerator = useMemo(
+  const isGlobalAdmin = useMemo(
     () => !!profile?.['integer_properties'].find(x => x.key === MODERATOR_KEY),
     [profile],
   );
@@ -145,8 +145,7 @@ const ContentHeader = props => {
   if (isItWrittenByMe) {
     deleteAction = deleteItem;
   } else {
-    deleteAction =
-      isGlobalModerator || infiniteImpact ? voteToDelete : deleteItem;
+    deleteAction = isGlobalAdmin || infiniteImpact ? voteToDelete : deleteItem;
   }
 
   return (
@@ -172,7 +171,7 @@ const ContentHeader = props => {
           {type === QUESTION_TYPE && (
             <Button
               id={`${type}_change_type_with_rating_restore_${answerId}`}
-              show={isGlobalModerator || isChangeTypeAvailable}
+              show={isGlobalAdmin || isChangeTypeAvailable}
               onClick={changeQuestionTypeWithRatingRestore}
               disabled={ids.includes(
                 `${type}_change_type_with_rating_restore_${answerId}`,
@@ -201,7 +200,7 @@ const ContentHeader = props => {
             show={
               !profile ||
               (!!profile &&
-                (!isItWrittenByMe && !isGlobalModerator && !infiniteImpact))
+                (!isItWrittenByMe && !isGlobalAdmin && !infiniteImpact))
             }
             id={`${type}_vote_to_delete_${answerId}`}
             params={buttonParams}
@@ -227,7 +226,7 @@ const ContentHeader = props => {
                 <Button
                   show={
                     !!profile &&
-                    (isItWrittenByMe || isGlobalModerator || infiniteImpact)
+                    (isItWrittenByMe || isGlobalAdmin || infiniteImpact)
                   }
                   id={`${type}_delete_${answerId}`}
                   params={buttonParams}

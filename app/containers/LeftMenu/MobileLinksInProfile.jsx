@@ -20,12 +20,12 @@ export default React.memo(({ profile, isMenuVisible }) => {
     return null;
   }
 
-  const isGlobalModerator = profile.integer_properties.find(
+  const isGlobalAdmin = profile.integer_properties.find(
     x => x.key === MODERATOR_KEY,
   );
 
   const isModerator =
-    isGlobalModerator || (profile.permissions && !!profile.permissions.length);
+    isGlobalAdmin || (profile.permissions && !!profile.permissions.length);
 
   return (
     <div className="lightbg use-default-links">

@@ -77,13 +77,12 @@ const UserNavigation = ({
     (path === routes.profileView(account) ||
       path === routes.userCommunities(account));
 
-  const isGlobalModerator = useMemo(
+  const isGlobalAdmin = useMemo(
     () => integerProperties.find(x => x.key === MODERATOR_KEY),
     [integerProperties],
   );
 
-  const isModerator =
-    isGlobalModerator || (permissions && !!permissions.length);
+  const isModerator = isGlobalAdmin || (permissions && !!permissions.length);
 
   return (
     <Wrapper position="top" ref={ref}>

@@ -11,7 +11,7 @@ import {
   selectUserRating,
   selectUserEnergy,
   makeSelectAccount,
-  selectIsGlobalModerator,
+  selectIsGlobalAdmin,
 } from 'containers/AccountProvider/selectors';
 
 import {
@@ -75,13 +75,13 @@ export function* getFormWorker() {
     const account = yield select(makeSelectAccount());
     const userRating = yield select(selectUserRating());
     const userEnergy = yield select(selectUserEnergy());
-    const isGlobalModerator = yield select(selectIsGlobalModerator());
+    const isGlobalAdmin = yield select(selectIsGlobalAdmin());
 
     if (
       !account ||
       ((userRating < MIN_RATING_TO_CREATE_TAG ||
         userEnergy < MIN_ENERGY_TO_CREATE_TAG) &&
-        !isGlobalModerator)
+        !isGlobalAdmin)
     ) {
       yield put(getFormSuccess(false));
     } else {

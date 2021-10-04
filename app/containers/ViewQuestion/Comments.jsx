@@ -137,7 +137,7 @@ const CommentView = item => {
     ? item.user === item.profileInfo.user
     : false;
 
-  const isGlobalModerator = useMemo(
+  const isGlobalAdmin = useMemo(
     () =>
       !!item.profileInfo?.['integer_properties'].find(
         x => x.key === MODERATOR_KEY,
@@ -145,7 +145,7 @@ const CommentView = item => {
     [item.profileInfo?.['integer_properties']],
   );
 
-  const isModerator = isGlobalModerator || item.infiniteImpact;
+  const isModerator = isGlobalAdmin || item.infiniteImpact;
 
   return (
     <li>

@@ -117,13 +117,12 @@ const Menu = memo(
     const user = profileInfo.user;
     const { permissions, integer_properties } = profileInfo;
     const integerProperties = integer_properties;
-    const isGlobalModerator = useMemo(
+    const isGlobalAdmin = useMemo(
       () => integerProperties?.find(x => x.key === MODERATOR_KEY),
       [integerProperties],
     );
 
-    const isModerator =
-      isGlobalModerator || (permissions && !!permissions.length);
+    const isModerator = isGlobalAdmin || (permissions && !!permissions.length);
 
     return (
       <nav>

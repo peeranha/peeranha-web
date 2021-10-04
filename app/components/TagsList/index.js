@@ -56,19 +56,24 @@ const TagsList = ({
 
   return (
     <Box>
-      {questionTags.map(x => (
-        <li key={x.name} className="d-flex flex-column">
-          <Tag letterSpacing={fonts.tagsLetterSpacing} className={className}>
-            {x.name}
-          </Tag>
+      {questionTags.map((x, index) => {
+        return (
+          <li
+            key={community.id + (x.name || index)}
+            className="d-flex flex-column"
+          >
+            <Tag letterSpacing={fonts.tagsLetterSpacing} className={className}>
+              {x.name}
+            </Tag>
 
-          {showPopularity && (
-            <Span color={TEXT_SECONDARY} fontSize="14" lineHeight="18">
-              {x.questionsAsked}
-            </Span>
-          )}
-        </li>
-      ))}
+            {showPopularity && (
+              <Span color={TEXT_SECONDARY} fontSize="14" lineHeight="18">
+                {x.questionsAsked}
+              </Span>
+            )}
+          </li>
+        );
+      })}
 
       {children}
     </Box>

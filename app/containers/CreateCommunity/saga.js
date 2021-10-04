@@ -10,7 +10,7 @@ import {
   selectUserRating,
   selectUserEnergy,
   makeSelectAccount,
-  selectIsGlobalModerator,
+  selectIsGlobalAdmin,
 } from 'containers/AccountProvider/selectors';
 
 import { getSuggestedCommunities } from 'containers/Communities/actions';
@@ -75,14 +75,9 @@ export function* getFormWorker() {
     const account = yield select(makeSelectAccount());
     const userRating = yield select(selectUserRating());
     const userEnergy = yield select(selectUserEnergy());
-    const isGlobalModerator = yield select(selectIsGlobalModerator());
-    const isGlobalAdmin = account === process.env.ADMIN_ADDRESS;
-    if (
-      !account ||
-      ((userRating < MIN_RATING_TO_CREATE_COMMUNITY ||
-        userEnergy < MIN_ENERGY_TO_CREATE_COMMUNITY) &&
-        (!isGlobalModerator || isGlobalAdmin))
-    ) {
+    const isGlobalAdmin = yield select(selectIsGlobalAdmin());
+
+    if (!isGlobalAdmin) {
       yield put(getFormSuccess(false));
     } else {
       yield put(getFormSuccess(true));
