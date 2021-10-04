@@ -131,8 +131,6 @@ export const hasGlobalModeratorRole = permissions => {
 };
 
 export const getCommunityRole = (role, communityId) => {
-  console.log(role);
-  console.log(communityId);
   return BigNumber.from(role)
     .add(BigNumber.from(communityId))
     .toHexString();
