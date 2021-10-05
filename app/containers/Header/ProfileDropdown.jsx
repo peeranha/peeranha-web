@@ -29,6 +29,7 @@ import Logout from 'containers/Logout';
 import Icon from 'components/Icon/index';
 
 import { selectIsMenuVisible } from '../AppWrapper/selectors';
+import { getPermissions } from '../../utils/properties';
 
 const styles = singleCommunityStyles();
 
@@ -115,14 +116,10 @@ export const Button = connect(state => ({
 const Menu = memo(
   ({ profileInfo, questionsLength, questionsWithUserAnswersLength }) => {
     const user = profileInfo.user;
-    const { permissions, integer_properties } = profileInfo;
-    const integerProperties = integer_properties;
-    const isGlobalAdmin = useMemo(
-      () => integerProperties?.find(x => x.key === MODERATOR_KEY),
-      [integerProperties],
-    );
 
-    const isModerator = isGlobalAdmin || (permissions && !!permissions.length);
+    const isModerator = useMemo(() => !!getPermissions(profileInfo)?.length, [
+      profileInfo,
+    ]);
 
     return (
       <nav>

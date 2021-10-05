@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import messages from 'common-messages';
@@ -12,6 +12,7 @@ import Icon from 'components/Icon';
 import { Button as ProfileButton } from 'containers/Header/ProfileDropdown';
 
 import Logout from 'containers/Logout';
+import { getPermissions } from '../../utils/properties';
 
 export default React.memo(({ profile, isMenuVisible }) => {
   const [visibleProfileLinks, setVisibilityProfileLinks] = useState(false);
@@ -20,12 +21,9 @@ export default React.memo(({ profile, isMenuVisible }) => {
     return null;
   }
 
-  const isGlobalAdmin = profile.integer_properties.find(
-    x => x.key === MODERATOR_KEY,
-  );
-
-  const isModerator =
-    isGlobalAdmin || (profile.permissions && !!profile.permissions.length);
+  const isModerator = useMemo(() => !!getPermissions(profile)?.length, [
+    profile,
+  ]);
 
   return (
     <div className="lightbg use-default-links">

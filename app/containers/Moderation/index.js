@@ -24,10 +24,9 @@ import { redirectToFeed } from '../App/actions';
 
 export const Moderation = ({
   locale,
-  communities,
-  isGlobalAdmin: isGlobal,
+  communities = [],
   profile: { permissions },
-  communitiesCount,
+  communitiesCount = 0,
 }) => {
   if (!permissions) {
     redirectToFeed();
@@ -35,9 +34,8 @@ export const Moderation = ({
   const translations = translationMessages[locale]
     ? translationMessages[locale]
     : null;
-  const globalModeratorProps = permissions;
   const moderatorPermissions = getModeratorPermissions(
-    globalModeratorProps,
+    permissions,
     communitiesCount,
     communities,
     translations,

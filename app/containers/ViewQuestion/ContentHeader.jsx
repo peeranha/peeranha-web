@@ -114,7 +114,7 @@ const ContentHeader = props => {
     () => !!profile?.['integer_properties'].find(x => x.key === MODERATOR_KEY),
     [profile],
   );
-
+  //todo remove integer_properties
   const isTemporaryAccount = useMemo(
     () =>
       !!userInfo?.['integer_properties'].find(

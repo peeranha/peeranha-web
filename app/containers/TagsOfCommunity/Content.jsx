@@ -8,8 +8,11 @@ import createdHistory from 'createdHistory';
 import commonMessages from 'common-messages';
 import * as routes from 'routes-config';
 
-import { communityAdminCreateTagPermission } from 'utils/properties';
-import { MODERATOR_KEY } from 'utils/constants';
+import {
+  getPermissions,
+  hasCommunityModeratorRole,
+  hasGlobalModeratorRole,
+} from 'utils/properties';
 
 import { TEXT_SECONDARY } from 'style-constants';
 
@@ -106,15 +109,13 @@ const Content = ({
   };
 
   const isGlobalAdmin = useMemo(
-    () =>
-      !!profileInfo?.['integer_properties']?.find(x => x.key === MODERATOR_KEY),
-    [profileInfo?.['integer_properties']],
+    () => hasGlobalModeratorRole(getPermissions(profileInfo)),
+    [profileInfo],
   );
 
   const createTagPermission = useMemo(
-    () =>
-      communityAdminCreateTagPermission(profileInfo?.permissions, communityId),
-    [profileInfo?.permissions, communityId],
+    () => hasCommunityModeratorRole(getPermissions(profileInfo), communityId),
+    [profileInfo, communityId],
   );
 
   const editTagModerator = isGlobalAdmin || createTagPermission;

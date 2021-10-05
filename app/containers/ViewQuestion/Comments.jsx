@@ -38,6 +38,8 @@ import {
   SAVE_COMMENT_BUTTON,
   SAVE_COMMENT_FORM,
 } from './constants';
+import { hasGlobalModeratorRole } from '../../utils/properties';
+import { getRoles } from '@testing-library/react';
 
 const CommentManage = styled.div`
   display: flex;
@@ -137,15 +139,10 @@ const CommentView = item => {
     ? item.user === item.profileInfo.user
     : false;
 
-  const isGlobalAdmin = useMemo(
-    () =>
-      !!item.profileInfo?.['integer_properties'].find(
-        x => x.key === MODERATOR_KEY,
-      ),
-    [item.profileInfo?.['integer_properties']],
+  const isModerator = useMemo(
+    () => hasGlobalModeratorRole(getRoles(item.profileInfo)),
+    [item.profileInfo],
   );
-
-  const isModerator = isGlobalAdmin || item.infiniteImpact;
 
   return (
     <li>
