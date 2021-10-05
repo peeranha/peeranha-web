@@ -47,8 +47,6 @@ import {
   DESCRIPTION_FIELD,
   FORM_COMMUNITY,
   STATE_KEY,
-  MIN_RATING_TO_CREATE_TAG,
-  MIN_ENERGY_TO_CREATE_TAG,
 } from './constants';
 
 import Form from './Form';
@@ -57,6 +55,7 @@ import Header from './Header';
 
 import tagsReducer from '../Tags/reducer';
 import tagsSaga from '../Tags/saga';
+import { getAllRoles, hasGlobalModeratorRole } from '../../utils/properties';
 
 const single = isSingleCommunityWebsite();
 
@@ -67,11 +66,10 @@ const CreateTag = ({
   match,
   faqQuestions,
   suggestTagDispatch,
-  permissions,
+  permissions = [],
   getFormDispatch,
   isFormLoading,
   isFormAvailable,
-  profile,
 }) => {
   useEffect(() => {
     getFormDispatch();
@@ -95,26 +93,22 @@ const CreateTag = ({
     [suggestTagDispatch],
   );
 
-  const isCommunityAdmin = false;
-  //   useMemo(
-  //   () => permissions.find(x => x.value === COMMUNITY_ADMIN_VALUE),
-  //   [permissions],
-  // );
+  const isGlobalAdmin = useMemo(() => hasGlobalModeratorRole(permissions), [
+    permissions,
+  ]);
+  const roles = getAllRoles(permissions, communities.length);
 
   const rightCommunitiesIds = useMemo(
     () =>
-      profile?.rating >= MIN_RATING_TO_CREATE_TAG &&
-      profile?.energy >= MIN_ENERGY_TO_CREATE_TAG
+      isGlobalAdmin
         ? communities.map(x => x.id)
-        : isCommunityAdmin
-          ? permissions.map(x => x.community)
-          : communities.map(x => x.id),
-    [],
+        : roles.map(role => role.communityid),
+    [communities, roles],
   );
 
   if (isFormLoading) return <LoadingIndicator />;
 
-  // if (!isFormAvailable && !isCommunityAdmin) return <Redirect to={tags()} />;
+  if (!isFormAvailable) return <Redirect to={tags()} />;
 
   return (
     <div>

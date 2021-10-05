@@ -13,7 +13,7 @@ const MyProfileButton = ({ account, userId, href, children, disabled }) => {
     <A to={href} href={href}>
       <NavigationButton
         disabled={disabled}
-        isLink={window.location.pathname !== href}
+        islink={window.location.pathname !== href}
       >
         {React.Children.toArray(children)}
       </NavigationButton>

@@ -94,7 +94,7 @@ export const Header = ({
         <div>
           {!single && (
             <A to={tagsRoute}>
-              <NavigationButton className="pl-0" isLink>
+              <NavigationButton className="pl-0" islink>
                 <img src={arrowLeft} alt="x" />
                 <span className="d-none d-sm-inline ml-2">
                   <FormattedMessage {...messages.backToList} />
@@ -111,7 +111,7 @@ export const Header = ({
               onClick={goToCreateTagScreen}
               id={`${GO_TO_CREATE_TAG_SCREEN_BUTTON_ID}_header`}
               className="d-inline-flex align-items-center px-0 py-1"
-              isLink
+              islink
             >
               <MediumIcon>
                 <IconMd

@@ -63,13 +63,7 @@ export function* isAuthorized() {
   }
 }
 
-export function* isValid({
-  creator,
-  buttonId,
-  minRating,
-  minEnergy,
-  communityId,
-}) {
+export function* isValid({ creator, buttonId, minRating = 0, communityId }) {
   const locale = yield select(makeSelectLocale());
   const profileInfo = yield select(makeSelectProfileInfo());
   const selectedAccount = yield select(makeSelectAccount());
@@ -83,9 +77,7 @@ export function* isValid({
         actor: selectedAccount,
         creator,
         buttonId,
-        energy: profileInfo.energy,
         minRating,
-        minEnergy,
       }),
     {
       communityID: communityId,

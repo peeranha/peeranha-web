@@ -22,7 +22,7 @@ export const TextareaField = ({
   >
     <Textarea
       {...input}
-      error={meta.touched && (meta.error || meta.warning)}
+      error={meta.touched && (meta.error || meta.warning) ? 1 : 0}
       disabled={disabled}
       placeholder={placeholder}
     />

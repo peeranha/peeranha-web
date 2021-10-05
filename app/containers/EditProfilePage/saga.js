@@ -18,7 +18,6 @@ import {
   SAVE_PROFILE,
   EDIT_PROFILE_BUTTON_ID,
   MIN_RATING_TO_EDIT_PROFILE,
-  MIN_ENERGY_TO_EDIT_PROFILE,
 } from './constants';
 import { setCookie } from '../../utils/cookie';
 import { PROFILE_INFO_LS } from '../Login/constants';
@@ -73,7 +72,6 @@ export function* checkReadinessWorker({ buttonId }) {
   yield call(isValid, {
     buttonId: buttonId || EDIT_PROFILE_BUTTON_ID,
     minRating: MIN_RATING_TO_EDIT_PROFILE,
-    minEnergy: MIN_ENERGY_TO_EDIT_PROFILE,
   });
 }
 

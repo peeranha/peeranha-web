@@ -12,7 +12,9 @@ import sendtokensIcon from 'images/sendtokens.svg?external';
 
 import A from 'components/A';
 import Span from 'components/Span';
-import Wrapper, {SubHeaderWrapperRightPanel as WrapperRightPanel} from 'components/Header/Complex';
+import Wrapper, {
+  SubHeaderWrapperRightPanel as WrapperRightPanel,
+} from 'components/Header/Complex';
 import NavigationButton from 'components/Button/Contained/Navigation';
 import { IconMd } from 'components/Icon/IconWithSizes';
 import { showSendTokensModal } from 'containers/SendTokens/actions';
@@ -24,12 +26,12 @@ const WalletNavigation = ({ userId, showSendTokensModalDispatch }) => {
     <Wrapper position="top">
       <ul>
         <A to={routes.userWallet(userId)}>
-          <NavigationButton isLink={path !== routes.userWallet(userId)}>
+          <NavigationButton islink={path !== routes.userWallet(userId)}>
             <FormattedMessage {...messages.wallet} />
           </NavigationButton>
         </A>
         <A to={routes.userBoost(userId)}>
-          <NavigationButton isLink={path !== routes.userBoost(userId)}>
+          <NavigationButton islink={path !== routes.userBoost(userId)}>
             <FormattedMessage {...messages.boost} />
           </NavigationButton>
         </A>
