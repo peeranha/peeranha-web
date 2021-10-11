@@ -21,7 +21,6 @@ import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 import { redirectToCreateCommunity } from 'containers/CreateCommunity/actions';
 
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
-import AsideBox from 'components/Base/Aside';
 import Seo from 'components/Seo';
 
 import {
@@ -48,7 +47,6 @@ export const Communities = ({
   suggestedCommunitiesLoading,
   isLastFetch,
   Content,
-  Aside,
   SubHeader,
   changeSorting,
   sorting,
@@ -97,6 +95,7 @@ export const Communities = ({
           communitiesNumber={communities?.length ?? 0}
           setLang={setLanguage}
           language={language}
+          profile={profile}
         />
 
         <Content
@@ -119,13 +118,6 @@ export const Communities = ({
           />
         )}
       </div>
-
-      <AsideBox className="d-none d-xl-block">
-        <Aside
-          suggestedCommunities={suggestedCommunities}
-          communities={communities}
-        />
-      </AsideBox>
     </div>
   );
 };
@@ -138,7 +130,6 @@ Communities.propTypes = {
   sorting: PropTypes.object,
   changeSorting: PropTypes.func,
   SubHeader: PropTypes.any,
-  Aside: PropTypes.any,
   Content: PropTypes.any,
   suggestedCommunitiesLoading: PropTypes.bool,
   isLastFetch: PropTypes.bool,

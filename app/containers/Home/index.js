@@ -20,7 +20,7 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import {
   getPermissions,
-  hasCommunityAdminPermissions,
+  hasCommunityModeratorRole,
   isUserTopCommunityQuestionsModerator,
 } from 'utils/properties';
 import {
@@ -187,7 +187,7 @@ export const Home = ({
   const { name, about, avatar, questionsAsked, users_subscribed } = community;
 
   const EditButton = () =>
-    hasCommunityAdminPermissions(getPermissions(profile), single) ? (
+    hasCommunityModeratorRole(getPermissions(profile), single) ? (
       <>
         <InfoButton
           onClick={() => redirectToEditCommunityPageDispatch(single)}

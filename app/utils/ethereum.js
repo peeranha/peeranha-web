@@ -6,7 +6,13 @@ import { ETHEREUM_USER_ERROR_CODE, METAMASK_ERROR_CODE } from './constants';
 import { getCookie } from './cookie';
 import { AUTOLOGIN_DATA } from '../containers/Login/constants';
 import * as bs58 from 'bs58';
-import { GET_USER_BY_ADDRESS } from './ethConstants';
+import {
+  GET_COMMUNITY,
+  GET_TAGS,
+  GET_USER_BY_ADDRESS,
+  GET_USER_PERMISSIONS,
+} from './ethConstants';
+import { getFileUrl, getText } from './ipfs';
 
 class EthereumService {
   constructor() {
@@ -105,10 +111,24 @@ class EthereumService {
 
   getProfile = async userAddress => {
     const user = await this.contract[GET_USER_BY_ADDRESS](userAddress);
+    const permissions = await this.contract[GET_USER_PERMISSIONS](userAddress);
     return {
-      ...user,
+      creationTime: user.creationTime,
+      ipfsDoc: user.ipfsDoc,
+      rating: user.rating,
+      permissions,
+      followedCommunities: user.followedCommunities,
       ipfsHash: this.getIpfsHashFromBytes32(user.ipfsDoc.hash),
     };
+  };
+
+  sendTransactionWithSigner = async (actor, action, data) => {
+    const transaction = await this.contract
+      .connect(
+        new ethers.providers.Web3Provider(this.provider).getSigner(actor),
+      )
+      [action](...data);
+    await transaction.wait();
   };
 
   sendTransaction = async (actor, action, data) => {
@@ -117,8 +137,52 @@ class EthereumService {
     await transaction.wait();
   };
 
-  getData = async (action, data) => {
+  getData = async action => {
     return await this.contract[action]();
+  };
+
+  getTagsFromContract = async communityId => {
+    const rawTags = await this.contract[GET_TAGS](communityId);
+    return await Promise.all(
+      rawTags.map(async rawTag => {
+        const tag = JSON.parse(
+          await getText(this.getIpfsHashFromBytes32(rawTag.ipfsDoc.hash)),
+        );
+        return {
+          name: tag.name,
+          description: tag.description,
+          questionsAsked: 0,
+        };
+      }),
+    );
+  };
+
+  getCommunityFromContract = async id => {
+    const rawCommunity = await this.contract[GET_COMMUNITY](id);
+    const communityInfo = JSON.parse(
+      await getText(this.getIpfsHashFromBytes32(rawCommunity.ipfsDoc.hash)),
+    );
+    const tags = await this.getTagsFromContract(id);
+    return {
+      id,
+      name: communityInfo.name,
+      avatar: communityInfo.avatar.imgUrl || getFileUrl(communityInfo.avatar),
+      description: communityInfo.description,
+      website: communityInfo.website,
+      language: communityInfo.language,
+      creationTime: rawCommunity.timeCreate,
+      isFrozen: rawCommunity.isFrozen,
+      value: id,
+      tags,
+    };
+  };
+
+  getCommunities = async count => {
+    let communities = [];
+    for (let i = 1; i <= count; i++) {
+      communities.push(await this.getCommunityFromContract(i));
+    }
+    return communities;
   };
 }
 

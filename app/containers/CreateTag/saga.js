@@ -2,46 +2,29 @@ import { call, put, takeLatest, select } from 'redux-saga/effects';
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
-import { suggestTag } from 'utils/communityManagement';
+import { createTag } from 'utils/communityManagement';
 
-import { selectEos } from 'containers/EosioProvider/selectors';
-import { isAuthorized, isValid } from 'containers/EosioProvider/saga';
+import { isAuthorized, isValid } from 'containers/EthereumProvider/saga';
 
-import {
-  selectUserRating,
-  selectUserEnergy,
-  makeSelectAccount,
-  selectIsGlobalModerator,
-} from 'containers/AccountProvider/selectors';
+import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 
 import {
-  suggestTagSuccess,
   suggestTagErr,
   getFormProcessing,
   getFormSuccess,
   getFormError,
 } from './actions';
 
-import {
-  SUGGEST_TAG,
-  MIN_ENERGY_TO_CREATE_TAG,
-  MIN_RATING_TO_CREATE_TAG,
-  TAGFORM_SUBMIT_BUTTON,
-  GET_FORM,
-} from './constants';
+import { SUGGEST_TAG, TAGFORM_SUBMIT_BUTTON, GET_FORM } from './constants';
+import { selectEthereum } from '../EthereumProvider/selectors';
+import { getPermissions } from '../../utils/properties';
 
-export function* suggestTagWorker({ tag, reset }) {
+export function* suggestTagWorker({ communityId, tag, reset }) {
   try {
-    const eosService = yield select(selectEos);
-    const selectedAccount = yield call(eosService.getSelectedAccount);
-
-    yield call(suggestTag, eosService, selectedAccount, tag);
-
-    yield put(suggestTagSuccess());
-
-    yield call(reset);
-
-    yield call(createdHistory.push, routes.suggestedTags(tag.communityId));
+    const ethereumService = yield select(selectEthereum);
+    const selectedAccount = yield call(ethereumService.getSelectedAccount);
+    yield call(createTag, ethereumService, selectedAccount, communityId, tag);
+    yield call(createdHistory.push, routes.tags());
   } catch (err) {
     yield put(suggestTagErr(err));
   }
@@ -52,8 +35,6 @@ export function* checkReadinessWorker({ buttonId, communityId }) {
 
   yield call(isValid, {
     buttonId: buttonId || TAGFORM_SUBMIT_BUTTON,
-    minRating: MIN_RATING_TO_CREATE_TAG,
-    minEnergy: MIN_ENERGY_TO_CREATE_TAG,
     communityId,
   });
 }
@@ -71,17 +52,9 @@ export function* getFormWorker() {
   try {
     yield put(getFormProcessing());
 
-    const account = yield select(makeSelectAccount());
-    const userRating = yield select(selectUserRating());
-    const userEnergy = yield select(selectUserEnergy());
-    const isGlobalModerator = yield select(selectIsGlobalModerator());
-
-    if (
-      !account ||
-      ((userRating < MIN_RATING_TO_CREATE_TAG ||
-        userEnergy < MIN_ENERGY_TO_CREATE_TAG) &&
-        !isGlobalModerator)
-    ) {
+    const profile = yield select(makeSelectProfileInfo());
+    const hasPermissions = !!getPermissions(profile).length;
+    if (!profile || !hasPermissions) {
       yield put(getFormSuccess(false));
     } else {
       yield put(getFormSuccess(true));

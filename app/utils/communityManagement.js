@@ -6,28 +6,27 @@ import communitiesConfig, {
 
 import _get from 'lodash/get';
 
-import { saveText, getText, getFileUrl } from './ipfs';
+import { getFileUrl, getText, saveText } from './ipfs';
 import { getCookie, setCookie } from './cookie';
 import { uploadImg } from './profileManagement';
 
 import {
-  EDIT_COMMUNITY,
-  TAGS_TABLE,
+  ALL_COMMUNITIES_SCOPE,
   COMMUNITIES_TABLE,
   CREATED_TAGS_TABLE,
-  CREATED_COMMUNITIES_TABLE,
-  ALL_COMMUNITIES_SCOPE,
-  UNFOLLOW_COMM,
-  FOLLOW_COMM,
-  CREATE_COMMUNITY,
-  VOTE_TO_CREATE_COMMUNITY,
-  VOTE_TO_DELETE_COMMUNITY,
-  CREATE_TAG,
+  EDIT_COMMUNITY,
   EDIT_TAG_ACTION,
-  VOTE_TO_CREATE_TAG,
-  VOTE_TO_DELETE_TAG,
+  FOLLOW_COMM,
   SINGLE_COMMUNITY_DETAILS,
+  TAGS_TABLE,
+  UNFOLLOW_COMM,
+  VOTE_TO_CREATE_COMMUNITY,
+  VOTE_TO_CREATE_TAG,
+  VOTE_TO_DELETE_COMMUNITY,
+  VOTE_TO_DELETE_TAG,
 } from './constants';
+import { CREATE_COMMUNITY, CREATE_TAG } from './ethConstants';
+import { getCommunities, getTags } from './theGraph';
 
 export const isSingleCommunityWebsite = () =>
   +Object.keys(communitiesConfig).find(
@@ -52,8 +51,7 @@ export const getGoogleVerificationData = () =>
 
 export function getFollowedCommunities(allcommunities, followedcommunities) {
   if (!allcommunities || !followedcommunities) return [];
-
-  return allcommunities.filter(x => followedcommunities.includes(x.id));
+  return allcommunities.filter(x => followedcommunities.includes(+x.id));
 }
 
 export function getUnfollowedCommunities(allcommunities, followedcommunities) {
@@ -100,7 +98,7 @@ export const getCommunityById = async (eosService, communityId) => {
     name,
     description,
     about,
-    officialSite = null,
+    website = null,
     questionsType = 2,
     isBlogger,
     banner,
@@ -117,7 +115,7 @@ export const getCommunityById = async (eosService, communityId) => {
     name,
     description,
     about,
-    officialSite,
+    website,
     questionsType,
     questionsAsked,
     users_subscribed,
@@ -268,48 +266,6 @@ export function getTagScope(communityId) {
   return ret;
 }
 
-/* eslint-enable */
-
-export async function suggestTag(eosService, selectedAccount, tag) {
-  const tagIpfsHash = await saveText(JSON.stringify(tag));
-
-  await eosService.sendTransaction(
-    selectedAccount,
-    CREATE_TAG,
-    {
-      user: selectedAccount,
-      community_id: +tag.communityId,
-      name: tag.name,
-      ipfs_description: tagIpfsHash,
-    },
-    null,
-    true,
-  );
-}
-
-export async function getSuggestedTags(
-  eosService,
-  communityId,
-  lowerBound,
-  limit,
-) {
-  const { rows } = await eosService.getTableRows(
-    CREATED_TAGS_TABLE,
-    getTagScope(communityId),
-    lowerBound,
-    limit,
-  );
-
-  await Promise.all(
-    rows.map(async x => {
-      const ipfsDescription = JSON.parse(await getText(x.ipfs_description));
-      x.description = ipfsDescription.description;
-    }),
-  );
-
-  return rows;
-}
-
 export async function getExistingTags(tags) {
   await Promise.all(
     tags.map(async x => {
@@ -364,60 +320,24 @@ export async function downVoteToCreateTag(
 }
 
 /* eslint no-param-reassign: 0 */
-export const getAllCommunities = async (eosService, count) => {
-  let limit = count;
-  let rows = [];
-  let more = true;
-  let lowerBound = 0;
-
-  while (rows.length < count && more && limit > 0) {
-    // eslint-disable-next-line no-await-in-loop
-    const { rows: newRows, more: hasMore } = await eosService.getTableRows(
-      COMMUNITIES_TABLE,
-      ALL_COMMUNITIES_SCOPE,
-      lowerBound,
-      limit,
-    );
-
-    rows = [...rows, ...newRows];
-    more = hasMore;
-    lowerBound = rows[rows.length - 1].id;
-    limit -= newRows.length;
-  }
-
-  const updatedRows = await Promise.all(
-    rows.map(async x => {
-      const {
-        description,
-        about,
-        main_description,
-        language,
-        avatar,
-        officialSite,
-      } = JSON.parse(await getText(x.ipfs_description));
-      const { rows: tagRows } = await eosService.getTableRows(
-        TAGS_TABLE,
-        getTagScope(x.id),
-        0,
-        -1,
-      );
-
+export const getAllCommunities = async (ethereumService, count) => {
+  const communities = await getCommunities(count);
+  // return await ethereumService.getCommunities(count);
+  return await Promise.all(
+    communities.map(async community => {
       return {
-        ...x,
-        label: x.name,
-        value: x.id,
-        avatar: getFileUrl(avatar),
-        description,
-        about,
-        main_description,
-        language,
-        officialSite: officialSite || null,
-        tags: tagRows.map(tag => ({ ...tag, label: tag.name, value: tag.id })),
+        ...community,
+        id: +community.id,
+        value: +community.id,
+        postCount: +community.postCount,
+        creationTime: +community.creationTime,
+        //todo amount of questions in community and tag
+        tags: (await getTags(10, community.id)).map(tag => {
+          return { ...tag, questionsAsked: 0 };
+        }),
       };
     }),
   );
-
-  return updatedRows;
 };
 
 export const getCommunityWithTags = async (eosService, id) => {
@@ -435,7 +355,7 @@ export const getCommunityWithTags = async (eosService, id) => {
     about,
     main_description,
     language,
-    officialSite = null,
+    website = null,
   } = community;
 
   const { rows: tagRows } = await eosService.getTableRows(
@@ -454,40 +374,13 @@ export const getCommunityWithTags = async (eosService, id) => {
     about,
     main_description,
     language,
-    officialSite: officialSite || null,
+    website: website || null,
     tags: tagRows.map(tag => ({ ...tag, label: tag.name, value: tag.id })),
   };
 };
 
 export async function getSuggestedCommunities(eosService, lowerBound, limit) {
-  const { rows } = await eosService.getTableRows(
-    CREATED_COMMUNITIES_TABLE,
-    ALL_COMMUNITIES_SCOPE,
-    lowerBound,
-    limit,
-  );
-
-  await Promise.all(
-    rows.map(async x => {
-      const {
-        avatar,
-        description,
-        about,
-        main_description,
-        language,
-        officialSite,
-      } = JSON.parse(await getText(x.ipfs_description));
-
-      x.avatar = getFileUrl(avatar);
-      x.description = description;
-      x.about = about;
-      x.main_description = main_description;
-      x.language = language;
-      x.officialSite = officialSite || null;
-    }),
-  );
-
-  return rows;
+  return [];
 }
 
 export async function unfollowCommunity(
@@ -513,42 +406,55 @@ export async function followCommunity(
 }
 
 /* eslint camelcase: 0 */
-export async function createCommunity(eosService, selectedAccount, community) {
-  const { imgHash: avatarField } = await uploadImg(community.avatar);
-  // const { imgHash: bannerField } = await uploadImg(community.banner);
-
+export async function createCommunity(
+  ethereumService,
+  selectedAccount,
+  community,
+) {
+  const { imgHash } = await uploadImg(community.avatar);
   const communityIpfsHash = await saveText(
     JSON.stringify({
       ...community,
-      avatar: avatarField,
-      // banner: bannerField,
+      avatar: imgHash,
     }),
   );
 
-  const suggested_tags = await Promise.all(
+  const tags = await Promise.all(
     community.tags.map(async x => {
-      const ipfs_description = await saveText(JSON.stringify(x));
+      const hash = ethereumService.getBytes32FromIpfsHash(
+        await saveText(JSON.stringify(x)),
+      );
 
       return {
-        name: x.name,
-        ipfs_description,
+        ipfsDoc: {
+          hash,
+          hash2: hash,
+        },
       };
     }),
   );
-
-  await eosService.sendTransaction(
+  const ipfsHash = ethereumService.getBytes32FromIpfsHash(communityIpfsHash);
+  await ethereumService.sendTransactionWithSigner(
     selectedAccount,
     CREATE_COMMUNITY,
-    {
-      user: selectedAccount,
-      name: community.name,
-      type: community.questionsType,
-      ipfs_description: communityIpfsHash,
-      suggested_tags,
-    },
-    null,
-    true,
+    [ipfsHash, tags],
   );
+}
+
+export async function createTag(
+  ethereumService,
+  selectedAccount,
+  communityId,
+  tag,
+) {
+  const ipfsHash = ethereumService.getBytes32FromIpfsHash(
+    await saveText(JSON.stringify(tag)),
+  );
+
+  await ethereumService.sendTransactionWithSigner(selectedAccount, CREATE_TAG, [
+    communityId,
+    ipfsHash,
+  ]);
 }
 
 export async function upVoteToCreateCommunity(

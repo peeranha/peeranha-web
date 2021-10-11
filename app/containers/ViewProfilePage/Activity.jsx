@@ -53,7 +53,7 @@ const Activity = ({
       <Base position="top">
         <Button
           disabled={!myPosts.length}
-          isLink={tab !== 'posts'}
+          islink={tab !== 'posts'}
           onClick={() => setTab('posts')}
         >
           <FormattedMessage
@@ -75,7 +75,7 @@ const Activity = ({
         <Button
           disabled={!questions.length}
           tabIndex={!questions.length ? '-1' : undefined}
-          isLink={tab !== 'quest'}
+          islink={tab !== 'quest'}
           onClick={() => setTab('quest')}
         >
           <FormattedMessage
@@ -97,7 +97,7 @@ const Activity = ({
         <Button
           tabIndex={!questionsWithUserAnswers.length ? '-1' : undefined}
           disabled={!questionsWithUserAnswers.length}
-          isLink={tab !== 'answ'}
+          islink={tab !== 'answ'}
           onClick={() => setTab('answ')}
         >
           <FormattedMessage

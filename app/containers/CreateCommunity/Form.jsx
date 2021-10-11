@@ -15,7 +15,7 @@ import closeIcon from 'images/close.svg?external';
 
 import { formatStringToHtmlId, scrollToErrorField } from 'utils/animation';
 import { showPopover } from 'utils/popover';
-import { hasCommunityModeratorCreatePermission } from 'utils/properties';
+import { getPermissions, hasGlobalModeratorRole } from 'utils/properties';
 
 import {
   required,
@@ -52,17 +52,13 @@ import {
   TAG_DESCRIPTION_FIELD,
   TAG_SECTION,
   CREATE_COMMUNITY_BUTTON,
-  ABOUT_FIELD,
   MAIN_COLOR_FIELD,
   HIGHLIGHT_COLOR_FIELD,
   FORM_TYPE,
   ANY_TYPE,
 } from './constants';
 
-import AboutForm from './AboutForm';
-import BloggerModeForm from './BloggerModeForm';
 import TypeForm from './QuestionsTypeForm';
-import CommunityTypeForm from './CommunityTypeForm';
 
 const MIN_TAGS_NUMBER = 5;
 const MAX_TAGS_NUMBER = 25;
@@ -91,10 +87,7 @@ const CreateCommunityForm = ({
   const [tags, changeTags] = useState(DEFAULT_TAGS_ARRAY);
 
   const profileWithModeratorRights = useMemo(
-    () =>
-      hasCommunityModeratorCreatePermission(
-        profile?.['integer_properties'] || [],
-      ),
+    () => hasGlobalModeratorRole(getPermissions(profile)),
     [profile],
   );
 
@@ -162,11 +155,11 @@ const CreateCommunityForm = ({
           disabled={createCommunityLoading}
           name={COMM_OFFICIAL_SITE_FIELD}
           component={TextInputField}
-          label={translations[messages.officialSite.id]}
+          label={translations[messages.website.id]}
           validate={[validateURL, strLength100Max]}
           warn={[validateURL]}
           placeholder="https://example.com"
-          tip={translations[messages.officialSiteTip.id]}
+          tip={translations[messages.websiteTip.id]}
           splitInHalf
         />
 
@@ -189,16 +182,6 @@ const CreateCommunityForm = ({
             intl={intl}
           />
         )}
-
-        <CommunityTypeForm change={change} intl={intl} />
-
-        {+formValues[COMMUNITY_TYPE] ? (
-          <BloggerModeForm
-            disabled={createCommunityLoading}
-            formValues={formValues}
-            intl={intl}
-          />
-        ) : null}
 
         <div>
           <Wrapper label={translations[messages.tags.id]} splitInHalf>

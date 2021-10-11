@@ -10,7 +10,8 @@ import injectReducer from 'utils/injectReducer';
 import { scrollToSection } from 'utils/animation';
 import {
   communityAdminInfiniteImpactPermission,
-  communityAdminQuestionTypePermission,
+  getPermissions,
+  hasGlobalModeratorRole,
 } from 'utils/properties';
 
 import * as routes from 'routes-config';
@@ -128,10 +129,7 @@ export const ViewQuestion = ({
 
   const [isChangeTypeAvailable, infiniteImpact] = useMemo(
     () => [
-      communityAdminQuestionTypePermission(
-        profile?.permissions || [],
-        questionData?.['community_id'],
-      ),
+      hasGlobalModeratorRole(getPermissions(profile)),
       communityAdminInfiniteImpactPermission(
         profile?.permissions || [],
         questionData?.['community_id'],

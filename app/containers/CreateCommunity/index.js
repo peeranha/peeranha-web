@@ -102,18 +102,7 @@ export const CreateCommunity = ({
         ? values[LANGUAGE_FIELD].value
         : DEFAULT_LOCALE,
       description: values[COMM_SHORT_DESCRIPTION_FIELD],
-      about: values[ABOUT_FIELD],
-      main_description: values[COMM_MAIN_DESCRIPTION_FIELD],
-      officialSite: values[COMM_OFFICIAL_SITE_FIELD],
-      questionsType: parseInt(values[FORM_TYPE] ?? ANY_TYPE),
-      isBlogger: !!parseInt(values[COMMUNITY_TYPE]),
-      banner: values[COMM_BANNER_FIELD],
-      facebook: values[FACEBOOK_LINK_FIELD],
-      instagram: values[INSTAGRAM_LINK_FIELD],
-      youtube: values[YOUTUBE_LINK_FIELD],
-      vk: values[VK_LINK_FIELD],
-      main_color: values[MAIN_COLOR_FIELD],
-      highlight_color: values[HIGHLIGHT_COLOR_FIELD],
+      website: values[COMM_OFFICIAL_SITE_FIELD],
       tags,
     };
     createCommunityDispatch(community, reset);

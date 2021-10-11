@@ -17,74 +17,56 @@ import {
   PROPERTY_ANSWER_15_MINUTES,
   PROPERTY_FIRST_ANSWER,
   MODERATOR_KEY,
+  COMMUNITY_ADMIN_ROLE,
+  DEFAULT_ADMIN_ROLE,
+  COMMUNITY_MODERATOR_ROLE,
+  globalAdminPermissions,
+  communityModeratorPermissions,
 } from './constants';
+import { BigNumber } from 'ethers';
 
-const findAllPropertiesByKeys = (properties, keys, exact = false) =>
-  properties.filter(({ value }) => {
-    const restKeys = Array.from(new Array(_max(keys)).keys()).filter(
-      x => !keys.includes(x),
-    );
-
-    const match = keys.every(
-      key =>
-        value
-          .toString(2)
-          .split('')
-          .reverse()
-          .join('')[key] === '1',
-    );
-
-    const restMatch =
-      exact &&
-      restKeys.every(
-        key =>
-          value
-            .toString(2)
-            .split('')
-            .reverse()
-            .join('')[key] === '0',
-      );
-
-    return exact ? match && restMatch : match;
-  });
+//todo change to "findRole"
+const findAllPropertiesByKeys = (properties, keys, exact = false) => [];
 
 export const getModeratorPermissions = (
-  communityPermissions = [],
   globalModeratorProps,
-  isGlobal,
+  communitiesCount,
   communities,
   translations,
 ) => {
-  const values = isGlobal
-    ? [globalModeratorProps, ...communityPermissions]
-    : communityPermissions;
-  const permissions = {};
-  permissions.blocks = values.reduce((acc, { community, value }, index) => {
-    const permission = [];
-    const perms = community ? communityAdminPermissions : moderatorPermissions;
-    value
-      .toString(2)
-      .split('')
-      .reverse()
-      .forEach((perm, permIndex) => {
-        if (perm === PERMISSION_GRANTED) permission.push(permIndex);
-      });
-    return [
-      ...acc,
-      {
-        h2: community
-          ? communities.find(({ id }) => id === community).name
+  const values = getAllRoles(globalModeratorProps, communitiesCount);
+  const permissions1 = [];
+  values.map(({ communityId = 0, role }, index) => {
+    const rawPermissionsTypes = !communityId
+      ? globalAdminPermissions
+      : role === COMMUNITY_ADMIN_ROLE
+        ? communityAdminPermissions
+        : communityModeratorPermissions;
+    const permissionsTypes = Object.entries(rawPermissionsTypes).map(
+      ([key, permValue]) => ({
+        permissionCode: rawPermissionsTypes[key].code,
+        title: permValue.title,
+      }),
+    );
+    if (permissions1[communityId]) {
+      permissions1[communityId].blocks = permissions1[
+        communityId
+      ].blocks.concat(permissionsTypes);
+      permissions1[communityId].permission.push(role);
+    } else {
+      permissions1[communityId] = {
+        blocks: permissionsTypes,
+        permission: [role],
+        h2: communityId
+          ? communities.find(({ id }) => Number(id) === Number(communityId))
+              ?.name || 'TestComm1'
           : translations[messages.globalModerator.id],
         sectionCode: index,
-        blocks: Object.entries(perms).map(([key, permValue]) => ({
-          permissionCode: perms[key].code,
-          title: permValue.title,
-        })),
-        permission,
-      },
-    ];
-  }, []);
-  return permissions;
+        communityId: communityId,
+      };
+    }
+  });
+  return permissions1;
 };
 
 export const isUserTopCommunityQuestionsModerator = (
@@ -138,19 +120,63 @@ export const communityAdminInfiniteImpactPermission = (
     COMMUNITY_ADMIN_INFINITE_IMPACT,
   ]).filter(({ community }) => communityId === community).length;
 
-export const hasCommunityModeratorCreatePermission = properties =>
-  !!findAllPropertiesByKeys(properties.filter(x => x.key === MODERATOR_KEY), [
-    MODERATOR_CREATE_COMMUNITY,
-  ]).length;
+export const getPermissions = profile => {
+  return profile?.permissions ?? [];
+};
 
-export const hasGlobalModeratorPermissions = properties =>
-  !!properties.find(x => x.key === MODERATOR_KEY);
+export const hasGlobalModeratorRole = permissions => {
+  return !!permissions.find(permission =>
+    BigNumber.from(permission).eq(DEFAULT_ADMIN_ROLE),
+  );
+};
 
-export const getPermissions = profile => profile?.permissions ?? [];
+export const getCommunityRole = (role, communityId) => {
+  return BigNumber.from(role)
+    .add(BigNumber.from(communityId))
+    .toHexString();
+};
 
-export const hasCommunityAdminPermissions = (properties = [], communityId) =>
-  !!properties.filter(
+export const getAllRoles = (userRoles, communitiesCount) => {
+  const communityRoles = [COMMUNITY_MODERATOR_ROLE, COMMUNITY_ADMIN_ROLE];
+  return userRoles.map(userRole => {
+    let communityId;
+    let role;
+    if (BigNumber.from(userRole).eq(DEFAULT_ADMIN_ROLE)) {
+      role = userRole;
+      return {
+        role,
+      };
+    }
+    communityRoles.map(communityRole => {
+      const id = BigNumber.from(userRole)
+        .sub(BigNumber.from(communityRole))
+        .toString();
+      if (
+        id.length <= communitiesCount.toString().length &&
+        Number.parseInt(id) >= 1 &&
+        Number.parseInt(id) <= communitiesCount
+      ) {
+        communityId = id;
+        role = communityRole;
+      }
+    });
+    return {
+      communityId,
+      role,
+    };
+  });
+};
+
+export const hasCommunityAdminRole = (permissions = [], communityId) => {
+  return !!permissions.filter(
     permission =>
-      permission.value === COMMUNITY_ADMIN_VALUE &&
-      permission.community === communityId,
+      permission === getCommunityRole(COMMUNITY_ADMIN_ROLE, communityId),
   ).length;
+};
+
+export const hasCommunityModeratorRole = (permissions = [], communityId) => {
+  return !!permissions.filter(
+    permission =>
+      permission === getCommunityRole(COMMUNITY_MODERATOR_ROLE, communityId),
+  ).length;
+};

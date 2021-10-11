@@ -57,7 +57,12 @@ export const Form = ({
         disabled={isEditTagForm ? true : tagFormLoading}
         label={translations[messages.community.id]}
         tip={translations[messages.communityTip.id]}
-        options={communities}
+        options={communities.map(community => {
+          return {
+            ...community,
+            label: community.name,
+          };
+        })}
         validate={[requiredForObjectField]}
         warn={[requiredForObjectField]}
         splitInHalf
@@ -123,10 +128,10 @@ FormClone = connect(
       return {
         valueHasNotBeInListValidate: existingTags
           .filter(tag => tag.id !== tagId)
-          .map(x => x.name.toLowerCase())
+          .map(x => x.name?.toLowerCase())
           .concat(
             (state?.toJS()?.tags?.suggestedTags ?? []).map(x =>
-              x.name.toLowerCase(),
+              x.name?.toLowerCase(),
             ),
           ),
         initialValues: {
@@ -142,10 +147,10 @@ FormClone = connect(
       valueHasNotBeInListValidate: (
         state?.toJS()?.form?.[FORM_NAME]?.values?.[FORM_COMMUNITY]?.tags ?? []
       )
-        .map(x => x.name.toLowerCase())
+        .map(x => x.name?.toLowerCase())
         .concat(
           (state?.toJS()?.tags?.suggestedTags ?? []).map(x =>
-            x.name.toLowerCase(),
+            x.name?.toLowerCase(),
           ),
         ),
       initialValues: {

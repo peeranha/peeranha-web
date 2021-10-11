@@ -24,7 +24,7 @@ import AsideBox from 'components/Base/Aside';
 
 import reducer from './reducer';
 import saga from './saga';
-import { getSuggestedTags, getExistingTags } from './actions';
+import { getExistingTags } from './actions';
 import * as selectors from './selectors';
 
 import Header from './Header';
@@ -38,15 +38,13 @@ export const Tags = ({
   tagsNumber,
   sortTags,
   Content,
-  Aside,
   redirectToCreateTagDispatch,
   getExistingTagsDispatch,
-  getSuggestedTagsDispatch,
+  profile,
 }) => {
   useEffect(
     () => {
       getExistingTagsDispatch({ communityId });
-      getSuggestedTagsDispatch({ communityId });
     },
     [communityId],
   );
@@ -69,6 +67,7 @@ export const Tags = ({
           sorting={sorting}
           currentCommunity={currentCommunity}
           tagsNumber={tagsNumber}
+          profile={profile}
         />
 
         <div className="mb-3">{Content}</div>
@@ -78,8 +77,6 @@ export const Tags = ({
           communityId={currentCommunity.id}
         />
       </div>
-
-      <AsideBox className="d-none d-xl-block">{Aside}</AsideBox>
     </div>
   );
 };
@@ -87,7 +84,6 @@ export const Tags = ({
 Tags.propTypes = {
   sorting: PropTypes.string,
   redirectToCreateTagDispatch: PropTypes.func,
-  getSuggestedTagsDispatch: PropTypes.func,
   getExistingTagsDispatch: PropTypes.func,
   Aside: PropTypes.any,
   Content: PropTypes.any,
@@ -103,13 +99,11 @@ const mapStateToProps = createStructuredSelector({
   profile: makeSelectProfileInfo(),
   sorting: selectors.selectSorting(),
   existingTagsLoading: selectors.selectExistingTagsLoading(),
-  suggestedTagsLoading: selectors.selectSuggestedTagsLoading(),
   communities: selectCommunities(),
 });
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    getSuggestedTagsDispatch: bindActionCreators(getSuggestedTags, dispatch),
     getExistingTagsDispatch: bindActionCreators(getExistingTags, dispatch),
     redirectToCreateTagDispatch: bindActionCreators(
       redirectToCreateTag,

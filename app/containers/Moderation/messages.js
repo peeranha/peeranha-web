@@ -2,6 +2,14 @@ import { defineMessages } from 'react-intl';
 
 export default defineMessages({
   permissions: {
+    givePermissions: {
+      title: {
+        id: 'app.containers.Moderation.givePermissions',
+      },
+      description: {
+        id: 'app.containers.Moderation.givePermissionsDescription',
+      },
+    },
     permissionInfinite: {
       title: {
         id: 'app.containers.Moderation.permissionInfinite',

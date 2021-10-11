@@ -19,24 +19,24 @@ import { getModeratorPermissions } from 'utils/properties';
 
 import Header from './Header';
 import Content from './Content';
-import { selectIsGlobalModerator } from '../AccountProvider/selectors';
+import { selectIsGlobalAdmin } from '../AccountProvider/selectors';
+import { redirectToFeed } from '../App/actions';
 
 export const Moderation = ({
   locale,
-  communities,
-  isGlobalModerator: isGlobal,
-  profile: { permissions, integer_properties },
+  communities = [],
+  profile: { permissions },
+  communitiesCount = 0,
 }) => {
+  if (!permissions) {
+    redirectToFeed();
+  }
   const translations = translationMessages[locale]
     ? translationMessages[locale]
     : null;
-  const globalModeratorProps = integer_properties.find(
-    ({ key }) => key === MODERATOR_KEY,
-  );
   const moderatorPermissions = getModeratorPermissions(
     permissions,
-    globalModeratorProps,
-    isGlobal,
+    communitiesCount,
     communities,
     translations,
   );
@@ -58,12 +58,12 @@ export const Moderation = ({
 Moderation.propTypes = {
   locale: PropTypes.string,
   communities: PropTypes.array,
-  isGlobalModerator: PropTypes.bool,
+  isGlobalAdmin: PropTypes.bool,
   profile: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
-  isGlobalModerator: selectIsGlobalModerator(),
+  isGlobalAdmin: selectIsGlobalAdmin(),
   locale: makeSelectLocale(),
   communities: selectCommunities(),
 });

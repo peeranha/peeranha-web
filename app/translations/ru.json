@@ -68,7 +68,7 @@
   "app.common.disagree": "Не согласен",
   "app.common.disagreeShort": "Не согл.",
   "app.common.tips": "Подсказки",
-  "app.common.suggestTag": "Предложить тег",
+  "app.common.createTag": "Создать тег",
   "app.common.seeAll": "Посмотреть все",
   "app.common.voting": "Голосование",
   "app.common.date": "Дата",
@@ -321,6 +321,10 @@
     "Поздравляем! Удаление данных успешно завершено!",
   "app.containers.DeleteFacebookData.confirmDeletion": "Подтвердить удаление",
 
+  "app.containers.Moderation.givePermissions": "Выдача разрешений",
+  "app.containers.Moderation.givePermissionsDescription":
+    "Позволяет выдавать и забирать разрешение модератора комьюнити..",
+
   "app.containers.Moderation.permissionInfinite": "Безграничное воздействие",
   "app.containers.Moderation.permissionInfiniteDescription":
     "Позволяет удалять вопросы, ответы и комментарии в один клик",
@@ -482,7 +486,7 @@
   "app.containers.Communities.description": "Сообщества | Описание",
   "app.containers.Communities.tags": "Теги",
   "app.containers.Communities.voting": "Голосование",
-  "app.containers.Communities.suggestCommunity": "Предложить сообщество",
+  "app.containers.Communities.suggestCommunity": "Создать сообщество",
   "app.containers.Communities.didntFindAnyInteresting":
     "Не нашли ничего интересного?",
   "app.containers.Communities.suggestInterestingComm":
@@ -490,15 +494,15 @@
 
   "app.containers.CreateCommunity.title": "Сообщества | Создать",
   "app.containers.CreateCommunity.descriptionField": "Описание",
-  "app.containers.CreateCommunity.officialSite": "Официальный сайт",
-  "app.containers.CreateCommunity.officialSiteTip": "Опционально",
+  "app.containers.CreateCommunity.website": "Официальный сайт",
+  "app.containers.CreateCommunity.websiteTip": "Опционально",
   "app.containers.CreateCommunity.avatar": "Аватар",
   "app.containers.CreateCommunity.communityTitle": "Название",
   "app.containers.CreateCommunity.shortDescription": "Краткое описание",
   "app.containers.CreateCommunity.about": "О сообществе",
   "app.containers.CreateCommunity.optional": "Опционально",
   "app.containers.CreateCommunity.whyWeNeedIt": "Зачем нам нужно это?",
-  "app.containers.CreateCommunity.createCommunity": "Добавить сообщество",
+  "app.containers.CreateCommunity.createCommunity": "Создать сообщество",
   "app.containers.CreateCommunity.newCommunity": "Новое сообщество",
   "app.containers.CreateCommunity.oneMoreTag": "Добавить тег",
   "app.containers.CreateCommunity.tags": "Теги",

@@ -17,12 +17,12 @@ export default {
     message: messages.tags,
   },
   oldest: {
-    sortBy: 'creation_time',
+    sortBy: 'creationTime',
     order: 'ask',
     message: messages.oldest,
   },
   newest: {
-    sortBy: 'creation_time',
+    sortBy: 'creationTime',
     order: 'desc',
     message: messages.newest,
   },

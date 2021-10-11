@@ -108,10 +108,9 @@ const Permission = ({
   permissionCode,
   sectionCode,
   getPermissionCode,
-  permission,
 }) => {
   const permissionId = getPermissionCode(sectionCode, permissionCode);
-  const ico = permission.includes(permissionCode) ? okayGreen : notOkay;
+  const ico = okayGreen;
   return (
     <PermissionBox key={permissionId} id={permissionId} isOpened={false}>
       <ImgWrapper>
@@ -178,30 +177,39 @@ const Section = ({
 
       <div className={isOpened ? 'd-block' : 'd-none'}>
         <ul>
-          {blocks.map(x => (
-            <Permission
-              {...x}
-              key={getPermissionCode(sectionCode, x.permissionCode)}
-              permission={permission}
-              sectionCode={sectionCode}
-              getPermissionCode={getPermissionCode}
-            />
-          ))}
+          {blocks.map(x => {
+            return (
+              <Permission
+                {...x}
+                key={getPermissionCode(sectionCode, x.permissionCode)}
+                permission={permission}
+                sectionCode={sectionCode}
+                getPermissionCode={getPermissionCode}
+              />
+            );
+          })}
         </ul>
       </div>
     </SectionStyled>
   );
 };
 
-const Content = ({ content, route, getSectionCode, getPermissionCode }) => (
+const Content = ({
+  content,
+  route,
+  getSectionCode,
+  getPermissionCode,
+  communitiesCount,
+}) => (
   <div className="mb-3">
-    {content.blocks.map(x => (
+    {content.map(x => (
       <Section
         {...x}
         key={x.h2}
         route={route}
         getSectionCode={getSectionCode}
         getPermissionCode={getPermissionCode}
+        communitiesCount={communitiesCount}
       />
     ))}
   </div>

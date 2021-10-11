@@ -16,8 +16,8 @@ const ButtonCss = css`
     color: ${TEXT_LIGHT};
   }
 
-  ${({ isLink }) =>
-    isLink
+  ${({ islink }) =>
+    islink
       ? `
     color: ${TEXT_PRIMARY};
     background: ${BG_TRANSPARENT};

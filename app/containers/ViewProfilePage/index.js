@@ -29,6 +29,7 @@ import {
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import {
   selectCommunities,
+  selectStat,
   selectUsers,
 } from 'containers/DataCacheProvider/selectors';
 import {
@@ -64,6 +65,7 @@ const ViewProfilePage = ({
   ownerKey,
   redirectToEditProfilePageDispatch,
   userTgData,
+  stat,
 }) => {
   const path = window.location.pathname + window.location.hash;
   const userId = match.params.id;
@@ -132,6 +134,7 @@ const ViewProfilePage = ({
           profile={profile}
           loginData={loginData}
           isAvailable={account === profile?.user}
+          communitiesCount={stat.communitiesCount}
         />
       )}
 
@@ -172,6 +175,7 @@ ViewProfilePage.propTypes = {
   questionsWithAnswersLoading: PropTypes.bool,
   redirectToEditProfilePageDispatch: PropTypes.func,
   userTgData: PropTypes.object,
+  stat: PropTypes.object,
 };
 
 const withConnect = connect(
@@ -188,6 +192,7 @@ const withConnect = connect(
     activeKey: selectActiveKey(),
     ownerKey: selectOwnerKey(),
     userTgData: selectGetUserTgData(),
+    stat: selectStat(),
   }),
   dispatch => ({
     redirectToEditProfilePageDispatch: bindActionCreators(

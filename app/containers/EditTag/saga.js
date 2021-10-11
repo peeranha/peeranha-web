@@ -9,7 +9,7 @@ import { saveText } from 'utils/ipfs';
 import {
   makeSelectAccount,
   makeSelectProfileInfo,
-  selectIsGlobalModerator,
+  selectIsGlobalAdmin,
 } from 'containers/AccountProvider/selectors';
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { selectEditTagData } from 'containers/TagsOfCommunity/selectors';
@@ -27,7 +27,7 @@ import { EDIT_TAG, GET_EDIT_TAG_FORM } from './constants';
 export function* getEditTagFormWorker({ communityId }) {
   try {
     const account = yield select(makeSelectAccount());
-    const isGlobalModerator = yield select(selectIsGlobalModerator());
+    const isGlobalAdmin = yield select(selectIsGlobalAdmin());
 
     const profileInfo = yield select(makeSelectProfileInfo());
     const createTagPermission = communityAdminCreateTagPermission(
@@ -35,7 +35,7 @@ export function* getEditTagFormWorker({ communityId }) {
       communityId,
     );
 
-    if (!account || (!isGlobalModerator && !createTagPermission)) {
+    if (!account || (!isGlobalAdmin && !createTagPermission)) {
       yield call(
         createdHistory.push,
         communityId ? routes.communityTags(communityId) : routes.tags(),

@@ -99,8 +99,10 @@ export async function getProfileInfo(
 
 export async function saveProfile(ethereumService, user, profile) {
   const ipfsHash = await saveText(JSON.stringify(profile));
-
-  await ethereumService.sendTransaction(user, UPDATE_ACC, ipfsHash);
+  const transactionData = ethereumService.getBytes32FromIpfsHash(ipfsHash);
+  await ethereumService.sendTransactionWithSigner(user, UPDATE_ACC, [
+    transactionData,
+  ]);
 }
 
 export const getNotificationsInfo = async user => {

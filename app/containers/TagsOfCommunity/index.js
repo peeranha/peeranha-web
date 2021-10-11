@@ -17,7 +17,6 @@ import {
   selectExistingTags,
   selectExistingTagsLoading,
   selectIsLastFetchForExistingTags,
-  selectSuggestedTags,
   selectText,
 } from 'containers/Tags/selectors';
 
@@ -47,7 +46,6 @@ export const TagsOfCommunity = ({
   isLastFetch,
   existingTagsLoading,
   text,
-  suggestedTags,
   getExistingTagsDispatch,
   setEditTagDataDispatch,
   profileInfo,
@@ -62,7 +60,6 @@ export const TagsOfCommunity = ({
       getFollowedCommunities(communities, [communityId])[0] || emptyCommunity,
     [communityId, communities.length, emptyCommunity],
   );
-
   const typeInput = useCallback(
     ev =>
       getExistingTagsDispatch({
@@ -112,7 +109,6 @@ export const TagsOfCommunity = ({
     },
     [communityId, communities.length, currentCommunity],
   );
-
   return (
     <div>
       <Seo
@@ -127,9 +123,7 @@ export const TagsOfCommunity = ({
         communityId={communityId}
         tagsNumber={currentCommunity.tags.length}
         currentCommunity={currentCommunity}
-        Aside={
-          <Aside suggestedTags={suggestedTags} communityId={communityId} />
-        }
+        Aside={<Aside suggestedTags={[]} communityId={communityId} />}
         Content={
           <Content
             tags={existingTags}
@@ -163,7 +157,6 @@ TagsOfCommunity.propTypes = {
   existingTagsLoading: PropTypes.bool,
   isLastFetch: PropTypes.bool,
   text: PropTypes.string,
-  suggestedTags: PropTypes.array,
   emptyCommunity: PropTypes.object,
   getExistingTagsDispatch: PropTypes.func,
   match: PropTypes.object,
@@ -178,7 +171,6 @@ const mapStateToProps = createStructuredSelector({
   existingTagsLoading: selectExistingTagsLoading(),
   isLastFetch: selectIsLastFetchForExistingTags(),
   text: selectText(),
-  suggestedTags: selectSuggestedTags(),
   profileInfo: makeSelectProfileInfo(),
 });
 

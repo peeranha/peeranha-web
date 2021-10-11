@@ -18,7 +18,4 @@ export const GET_FORM_PROCESSING = `${PATH}GET_FORM_PROCESSING`;
 export const GET_FORM_SUCCESS = `${PATH}GET_FORM_SUCCESS`;
 export const GET_FORM_ERROR = `${PATH}GET_FORM_ERROR`;
 
-export const MIN_RATING_TO_CREATE_TAG = 100;
-export const MIN_ENERGY_TO_CREATE_TAG = 75;
-
 export const STATE_KEY = 'createTag';

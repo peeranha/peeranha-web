@@ -29,6 +29,7 @@ import A from 'components/A';
 import messages from './messages';
 import options from './options';
 import { GO_TO_CREATE_TAG_SCREEN_BUTTON_ID } from './constants';
+import { getPermissions, hasGlobalModeratorRole } from '../../utils/properties';
 
 const tagsRoute = routes.tags();
 
@@ -64,10 +65,15 @@ export const Header = ({
   sorting,
   currentCommunity,
   tagsNumber,
+  profile,
 }) => {
   const path = useMemo(() => window.location.pathname + window.location.hash, [
     window.location,
   ]);
+
+  const profileWithModeratorRights =
+    profile &&
+    useMemo(() => hasGlobalModeratorRole(getPermissions(profile)), [profile]);
 
   const communityTagsRoute = useMemo(
     () => routes.communityTags(currentCommunity.id),
@@ -82,14 +88,13 @@ export const Header = ({
     () => path === communityTagsRoute && !!tagsNumber,
     [path, communityTagsRoute, tagsNumber],
   );
-
   return (
     <div className="mb-to-sm-0 mb-from-sm-3">
       <Wrapper position="top">
         <div>
           {!single && (
             <A to={tagsRoute}>
-              <NavigationButton className="pl-0" isLink>
+              <NavigationButton className="pl-0" islink>
                 <img src={arrowLeft} alt="x" />
                 <span className="d-none d-sm-inline ml-2">
                   <FormattedMessage {...messages.backToList} />
@@ -97,48 +102,38 @@ export const Header = ({
               </NavigationButton>
             </A>
           )}
-
-          <A to={communityTagsRoute}>
-            <NavigationButton isLink={path !== communityTagsRoute}>
-              <FormattedMessage {...commonMessages.tags} />
-            </NavigationButton>
-          </A>
-
-          <A to={suggestedTagsRoute}>
-            <NavigationButton isLink={path !== suggestedTagsRoute}>
-              <FormattedMessage {...commonMessages.voting} />
-            </NavigationButton>
-          </A>
         </div>
 
-        <WrapperRightPanel className="right-panel">
-          <NavigationButton
-            data-communityid={currentCommunity.id}
-            onClick={goToCreateTagScreen}
-            id={`${GO_TO_CREATE_TAG_SCREEN_BUTTON_ID}_header`}
-            className="d-inline-flex align-items-center px-0 py-1"
-            isLink
-          >
-            <MediumIcon>
-              <IconMd
-                className="d-none d-sm-inline-block"
-                icon={icoTagIcon}
-                isColorImportant={true}
+        {profileWithModeratorRights && (
+          <WrapperRightPanel className="right-panel">
+            <NavigationButton
+              data-communityid={currentCommunity.id}
+              onClick={goToCreateTagScreen}
+              id={`${GO_TO_CREATE_TAG_SCREEN_BUTTON_ID}_header`}
+              className="d-inline-flex align-items-center px-0 py-1"
+              islink
+            >
+              <MediumIcon>
+                <IconMd
+                  className="d-none d-sm-inline-block"
+                  icon={icoTagIcon}
+                  isColorImportant={true}
+                  fill={BORDER_PRIMARY}
+                />
+              </MediumIcon>
+
+              <IconSm
+                className="d-inline-flex d-sm-none"
                 fill={BORDER_PRIMARY}
+                icon={addIcon}
               />
-            </MediumIcon>
 
-            <IconSm
-              className="d-inline-flex d-sm-none"
-              fill={BORDER_PRIMARY}
-              icon={addIcon}
-            />
-
-            <span className="ml-1 button-label">
-              <FormattedMessage {...commonMessages.suggestTag} />
-            </span>
-          </NavigationButton>
-        </WrapperRightPanel>
+              <span className="ml-1 button-label">
+                <FormattedMessage {...commonMessages.createTag} />
+              </span>
+            </NavigationButton>
+          </WrapperRightPanel>
+        )}
       </Wrapper>
 
       <Wrapper position="bottom">

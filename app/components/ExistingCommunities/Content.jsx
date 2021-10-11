@@ -11,8 +11,8 @@ import { TEXT_PRIMARY, TEXT_SECONDARY } from 'style-constants';
 
 import {
   getPermissions,
-  hasCommunityAdminPermissions,
-  hasGlobalModeratorPermissions,
+  hasCommunityModeratorRole,
+  hasGlobalModeratorRole,
 } from 'utils/properties';
 import { getFormattedNum2 } from 'utils/numbers';
 import { getDifferenceInMonths } from 'utils/datetime';
@@ -29,7 +29,6 @@ import { MediumImageStyled } from 'components/Img/MediumImage';
 import { hasCommunitySingleWebsite } from '../../utils/communityManagement';
 import OfficialSiteLink from './OfficialSiteLink';
 import SingleCommunityIcon from './SingleCommunityIcon';
-import { COMMUNITY_ADMIN_VALUE } from '../../utils/constants';
 
 export const Base = BaseRoundedNoPadding.extend`
   margin-bottom: 15px;
@@ -91,7 +90,7 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
   if (!communities || !communities.length) return null;
 
   const communityEditingAllowed = useMemo(
-    () => hasGlobalModeratorPermissions(profile?.['integer_properties'] || []),
+    () => hasGlobalModeratorRole(getPermissions(profile)),
     [profile],
   );
 
@@ -101,23 +100,12 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
         .filter(x => (language.sortBy ? x.language === language.sortBy : true))
         .map(
           (
-            { value, avatar, name, id, description, officialSite, tags, ...x },
+            { avatar, name, id, description, website, tags, ...x },
             index,
             arr,
           ) => {
+            const value = id;
             const origin = hasCommunitySingleWebsite(id);
-
-            const getShortUrl = url => {
-              if (/^https?:\/\//.test(url)) url.replace(/https?:\/\//, '');
-              if (/(\.$)|(\/$)/.test(url)) url.replace(/(\.$)|(\/$)/, '');
-              return url;
-            };
-
-            const getFullUrl = url => {
-              if (/(\.$)|(\/$)/.test(url)) url.replace(/(\.$)|(\/$)/, '');
-              if (!/^https?:\/\//.test(url)) return `https://${url}`;
-              return url;
-            };
 
             return (
               <BaseSpecial
@@ -151,9 +139,7 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
                     <P fontSize="14" lineHeight="18">
                       {description}
                     </P>
-                    {officialSite && (
-                      <OfficialSiteLink officialSite={officialSite} />
-                    )}
+                    {website && <OfficialSiteLink website={website} />}
                   </div>
                 </DescriptionBlock>
 
@@ -180,14 +166,14 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
                   </Info>
 
                   <Info>
-                    <P>{getFormattedNum2(tags.length)}</P>
+                    <P>{getFormattedNum2(tags?.length)}</P>
                     <A to={routes.communityTags(id)}>
                       <FormattedMessage {...commonMessages.tags} />
                     </A>
                   </Info>
 
                   <Info>
-                    <P>{getDifferenceInMonths(x.creation_time, locale)}</P>
+                    <P>{getDifferenceInMonths(x.creationTime, locale)}</P>
                     <P>
                       <FormattedMessage {...commonMessages.age} />
                     </P>
@@ -195,7 +181,7 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
 
                   <Info>
                     {(communityEditingAllowed ||
-                      hasCommunityAdminPermissions(
+                      hasCommunityModeratorRole(
                         getPermissions(profile),
                         value,
                       )) && (

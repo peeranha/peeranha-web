@@ -18,6 +18,7 @@ import Wrapper from 'components/Header/Complex';
 import Span from 'components/Span/index';
 import A from 'components/A/index';
 import { IconMd } from 'components/Icon/IconWithSizes';
+import { getPermissions } from '../../utils/properties';
 
 const Ul = styled.ul`
   display: flex;
@@ -51,7 +52,7 @@ const hashes = ['#questions', '#answers', '#settings', '#moderation'];
 const UserNavigation = ({
   userId,
   account,
-  profile: { permissions, integer_properties: integerProperties = [] },
+  profile,
   questionsLength,
   questionsWithUserAnswersLength,
   userAchievementsLength,
@@ -77,13 +78,9 @@ const UserNavigation = ({
     (path === routes.profileView(account) ||
       path === routes.userCommunities(account));
 
-  const isGlobalModerator = useMemo(
-    () => integerProperties.find(x => x.key === MODERATOR_KEY),
-    [integerProperties],
-  );
-
-  const isModerator =
-    isGlobalModerator || (permissions && !!permissions.length);
+  const isModerator = useMemo(() => !!getPermissions(profile)?.length, [
+    profile,
+  ]);
 
   return (
     <Wrapper position="top" ref={ref}>
@@ -94,10 +91,12 @@ const UserNavigation = ({
         >
           <NavigationLink
             to={routes.profileView(userId)}
-            isLink={
+            islink={
               path !== routes.profileView(userId) &&
               path !== routes.profileEdit(userId) &&
               path !== routes.userCommunities(userId)
+                ? 1
+                : 0
             }
           >
             <FormattedMessage {...messages.profile} />
@@ -107,7 +106,7 @@ const UserNavigation = ({
             to={routes.userQuestions(userId)}
             disabled={!questionsLength}
             tabIndex={!questionsLength ? '-1' : undefined}
-            isLink={path !== routes.userQuestions(userId)}
+            islink={path !== routes.userQuestions(userId) ? 1 : 0}
           >
             <FormattedMessage
               {...messages.questionsNumber}
@@ -133,7 +132,7 @@ const UserNavigation = ({
             to={routes.userAnswers(userId)}
             disabled={!questionsWithUserAnswersLength}
             tabIndex={!questionsWithUserAnswersLength ? '-1' : undefined}
-            isLink={path !== routes.userAnswers(userId)}
+            islink={path !== routes.userAnswers(userId) ? 1 : 0}
           >
             <FormattedMessage
               {...messages.answersNumber}
@@ -158,7 +157,7 @@ const UserNavigation = ({
           <NavigationLink
             className={userId !== account ? 'd-none' : ''}
             to={routes.userSettings(userId)}
-            isLink={path !== routes.userSettings(userId)}
+            islink={path !== routes.userSettings(userId) ? 1 : 0}
           >
             <FormattedMessage {...messages.settings} />
           </NavigationLink>
@@ -166,14 +165,14 @@ const UserNavigation = ({
           <NavigationLink
             className={userId !== account ? 'd-none' : ''}
             to={routes.userNotifications(userId)}
-            isLink={path !== routes.userNotifications(userId)}
+            islink={path !== routes.userNotifications(userId) ? 1 : 0}
           >
             <FormattedMessage {...messages.notifications} />
           </NavigationLink>
 
           <NavigationLink
             to={routes.userAchievements(userId)}
-            isLink={path !== routes.userAchievements(userId)}
+            islink={path !== routes.userAchievements(userId) ? 1 : 0}
           >
             <FormattedMessage
               {...messages.achievementsNumber}
@@ -199,7 +198,7 @@ const UserNavigation = ({
             <NavigationLink
               className={userId !== account ? 'd-none' : ''}
               to={routes.userModeration(userId)}
-              isLink={path !== routes.userModeration(userId)}
+              islink={path !== routes.userModeration(userId) ? 1 : 0}
             >
               <FormattedMessage {...messages.moderation} />
             </NavigationLink>
@@ -214,7 +213,7 @@ const UserNavigation = ({
             onClick={redirectToEditProfilePage}
             id={`redireact-to-edit-${userId}-user-page-1`}
             data-user={userId}
-            isLink
+            islink
           >
             <FormattedMessage {...messages.edit} />
           </NavigationButton>

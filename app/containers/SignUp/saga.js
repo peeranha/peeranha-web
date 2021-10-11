@@ -340,7 +340,6 @@ export function* signUpWithWalletWorker({ val, metaMask }) {
     //     return;
     //   }
     // }
-
     const registerAccountResult = yield call(
       registerAccount,
       userAddress,

@@ -9,52 +9,52 @@ import { BloggerStyles } from './communities-configs/blogger';
 
 const communitiesConfig = {
   prod: {
-    2: {
-      origin: 'https://faq.telos.net',
-      src: TelosLogo,
-      styles: TelosStyles,
-    },
-    3: {
-      origin: 'https://ont.peeranha.io',
-      src: OntLogo,
-      styles: OntStyles,
-    },
-    17: {
-      origin: 'https://kanda.peeranha.io',
-      src: KandaLogo,
-      styles: KandaStyles,
-    },
+    // 2: {
+    //   origin: 'https://faq.telos.net',
+    //   src: TelosLogo,
+    //   styles: TelosStyles,
+    // },
+    // 3: {
+    //   origin: 'https://ont.peeranha.io',
+    //   src: OntLogo,
+    //   styles: OntStyles,
+    // },
+    // 17: {
+    //   origin: 'https://kanda.peeranha.io',
+    //   src: KandaLogo,
+    //   styles: KandaStyles,
+    // },
   },
   test: {
-    1: {
-      origin: 'https://community.testpeeranha.io',
-    },
-    2: {
-      origin: 'https://telos.testpeeranha.io',
-      src: TelosLogo,
-      styles: TelosStyles,
-    },
-    3: {
-      origin: 'https://ont.testpeeranha.io',
-      src: OntLogo,
-      styles: OntStyles,
-    },
+    // 1: {
+    //   origin: 'https://community.testpeeranha.io',
+    // },
+    // 2: {
+    //   origin: 'https://telos.testpeeranha.io',
+    //   src: TelosLogo,
+    //   styles: TelosStyles,
+    // },
+    // 3: {
+    //   origin: 'https://ont.testpeeranha.io',
+    //   src: OntLogo,
+    //   styles: OntStyles,
+    // },
     4: {
       origin: 'https://testcommunity.net',
     },
-    5: {
-      origin: 'https://kanda.testpeeranha.io',
-      src: KandaLogo,
-      styles: KandaStyles,
-    },
-    6: {
-      origin: 'https://bloggerdemo.testpeeranha.io',
-      styles: BloggerStyles,
-    },
-    10: {
-      origin: 'https://ivan.testpeeranha.io',
-      styles: BloggerStyles,
-    },
+    // 5: {
+    //   origin: 'https://kanda.testpeeranha.io',
+    //   src: KandaLogo,
+    //   styles: KandaStyles,
+    // },
+    // 6: {
+    //   origin: 'https://bloggerdemo.testpeeranha.io',
+    //   styles: BloggerStyles,
+    // },
+    // 10: {
+    //   origin: 'https://ivan.testpeeranha.io',
+    //   styles: BloggerStyles,
+    // },
   },
   dev: {
     3: {

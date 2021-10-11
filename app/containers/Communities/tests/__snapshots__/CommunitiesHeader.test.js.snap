@@ -13,7 +13,7 @@ exports[`Header test 1`] = `
         to="/communities"
       >
         <Button
-          isLink={true}
+          islink={true}
         >
           <FormattedMessage
             id="app.common.communities"
@@ -26,7 +26,7 @@ exports[`Header test 1`] = `
         to="/communities/suggested"
       >
         <Button
-          isLink={true}
+          islink={true}
         >
           <FormattedMessage
             id="app.containers.Communities.voting"

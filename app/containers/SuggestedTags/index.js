@@ -16,8 +16,6 @@ import { getSuggestedTags } from 'containers/Tags/actions';
 import {
   selectExistingTags,
   selectIsLastFetchForSuggestedTags,
-  selectSuggestedTags,
-  selectSuggestedTagsLoading,
 } from 'containers/Tags/selectors';
 
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
@@ -129,9 +127,7 @@ SuggestedTags.propTypes = {
 const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
   communities: selectCommunities(),
-  suggestedTags: selectSuggestedTags(),
   isLastFetch: selectIsLastFetchForSuggestedTags(),
-  suggestedTagsLoading: selectSuggestedTagsLoading(),
   existingTags: selectExistingTags(),
 });
 
