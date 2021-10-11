@@ -23,12 +23,14 @@ import messages from './messages';
 
 import Header from './Header';
 import List from './List';
+import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 
 export const TagsCollection = /* istanbul ignore next */ ({
   locale,
   communities,
   communitiesLoading,
   redirectToCreateTagDispatch,
+  profile,
 }) => {
   const keywords = useMemo(
     () =>
@@ -45,7 +47,7 @@ export const TagsCollection = /* istanbul ignore next */ ({
         keywords={keywords}
       />
 
-      <Header openTagForm={redirectToCreateTagDispatch} />
+      <Header openTagForm={redirectToCreateTagDispatch} profile={profile} />
 
       <List communities={communities} />
 
@@ -69,6 +71,7 @@ const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
   communities: selectCommunities(),
   communitiesLoading: selectCommunitiesLoading(),
+  profile: makeSelectProfileInfo(),
 });
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {

@@ -9,9 +9,7 @@ export default ({
   actor,
   creator,
   buttonId,
-  energy,
   minRating,
-  minEnergy,
 }) => {
   let message;
 
@@ -19,8 +17,6 @@ export default ({
     message = `${translations[messages.creatorCannot.id]}`;
   } else if (rating < minRating) {
     message = `${translations[messages.notEnoughRating.id]} ${minRating}`;
-  } else if (energy < minEnergy) {
-    message = translations[messages.notEnoughEnergy.id];
   }
 
   if (message) {

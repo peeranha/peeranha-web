@@ -95,6 +95,7 @@ export const Communities = ({
           communitiesNumber={communities?.length ?? 0}
           setLang={setLanguage}
           language={language}
+          profile={profile}
         />
 
         <Content

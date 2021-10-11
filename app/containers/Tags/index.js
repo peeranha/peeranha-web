@@ -40,6 +40,7 @@ export const Tags = ({
   Content,
   redirectToCreateTagDispatch,
   getExistingTagsDispatch,
+  profile,
 }) => {
   useEffect(
     () => {
@@ -66,6 +67,7 @@ export const Tags = ({
           sorting={sorting}
           currentCommunity={currentCommunity}
           tagsNumber={tagsNumber}
+          profile={profile}
         />
 
         <div className="mb-3">{Content}</div>

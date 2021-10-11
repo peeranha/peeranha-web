@@ -6,12 +6,7 @@ import { createCommunity } from 'utils/communityManagement';
 
 import { isAuthorized, isValid } from 'containers/EosioProvider/saga';
 
-import {
-  selectUserRating,
-  selectUserEnergy,
-  makeSelectAccount,
-  selectIsGlobalModerator,
-} from 'containers/AccountProvider/selectors';
+import { selectIsGlobalAdmin } from 'containers/AccountProvider/selectors';
 
 import { getSuggestedCommunities } from 'containers/Communities/actions';
 
@@ -26,8 +21,6 @@ import {
 import {
   CREATE_COMMUNITY,
   CREATE_COMMUNITY_BUTTON,
-  MIN_RATING_TO_CREATE_COMMUNITY,
-  MIN_ENERGY_TO_CREATE_COMMUNITY,
   GET_FORM,
 } from './constants';
 import { selectEthereum } from '../EthereumProvider/selectors';
@@ -56,8 +49,6 @@ export function* checkReadinessWorker({ buttonId }) {
 
   yield call(isValid, {
     buttonId: buttonId || CREATE_COMMUNITY_BUTTON,
-    minRating: MIN_RATING_TO_CREATE_COMMUNITY,
-    minEnergy: MIN_ENERGY_TO_CREATE_COMMUNITY,
   });
 }
 
@@ -72,17 +63,9 @@ export function* redirectToCreateCommunityWorker({ buttonId }) {
 export function* getFormWorker() {
   try {
     yield put(getFormProcessing());
-    const account = yield select(makeSelectAccount());
-    const userRating = yield select(selectUserRating());
-    const userEnergy = yield select(selectUserEnergy());
-    const isGlobalModerator = yield select(selectIsGlobalModerator());
-    const isGlobalAdmin = account === process.env.ADMIN_ADDRESS;
-    if (
-      !account ||
-      ((userRating < MIN_RATING_TO_CREATE_COMMUNITY ||
-        userEnergy < MIN_ENERGY_TO_CREATE_COMMUNITY) &&
-        (!isGlobalModerator || isGlobalAdmin))
-    ) {
+    const isGlobalAdmin = yield select(selectIsGlobalAdmin());
+
+    if (!isGlobalAdmin) {
       yield put(getFormSuccess(false));
     } else {
       yield put(getFormSuccess(true));

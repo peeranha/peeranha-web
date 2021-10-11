@@ -75,51 +75,53 @@ const List = ({ communities }) => {
 
   return (
     <Base>
-      {orderBy(communities, y => y.popularity, 'desc').map(x => (
-        <BaseSpecial key={x.value}>
-          <A
-            className="d-flex align-items-start flex-column flex-md-row align-items-stretch align-items-md-start"
-            to={routes.communityTags(x.id)}
-          >
-            <DescriptionBlock>
-              <MediumImageStyled
-                className="bg-transparent"
-                src={x.avatar}
-                alt={x.name}
-              />
-              <div>
-                <P fontSize="24" lineHeight="31" bold>
-                  {x.name}
-                </P>
-                <P
-                  className="text-lowercase"
-                  fontSize="14"
-                  lineHeight="18"
-                  color={TEXT_SECONDARY}
-                >
-                  <span>{`${x.tags.length} `}</span>
-                  <FormattedMessage {...commonMessages.tags} />
-                </P>
-              </div>
-            </DescriptionBlock>
-
-            <TagsBlock>
-              <TagListBox>
-                <TagList
-                  communities={communitiesWithLimitedTagNumber}
-                  communityId={x.id}
-                  showPopularity
+      {orderBy(communities, y => y.popularity, 'desc').map(x => {
+        return (
+          <BaseSpecial key={x.id}>
+            <A
+              className="d-flex align-items-start flex-column flex-md-row align-items-stretch align-items-md-start"
+              to={routes.communityTags(x.id)}
+            >
+              <DescriptionBlock>
+                <MediumImageStyled
+                  className="bg-transparent"
+                  src={x.avatar}
+                  alt={x.name}
                 />
-                <BlockShadow toSide="right" />
-              </TagListBox>
+                <div>
+                  <P fontSize="24" lineHeight="31" bold>
+                    {x.name}
+                  </P>
+                  <P
+                    className="text-lowercase"
+                    fontSize="14"
+                    lineHeight="18"
+                    color={TEXT_SECONDARY}
+                  >
+                    <span>{`${x.tags.length} `}</span>
+                    <FormattedMessage {...commonMessages.tags} />
+                  </P>
+                </div>
+              </DescriptionBlock>
 
-              <SeeAllButton>
-                <FormattedMessage {...commonMessages.seeAll} />
-              </SeeAllButton>
-            </TagsBlock>
-          </A>
-        </BaseSpecial>
-      ))}
+              <TagsBlock>
+                <TagListBox>
+                  <TagList
+                    communities={communitiesWithLimitedTagNumber}
+                    communityId={x.id}
+                    showPopularity
+                  />
+                  <BlockShadow toSide="right" />
+                </TagListBox>
+
+                <SeeAllButton>
+                  <FormattedMessage {...commonMessages.seeAll} />
+                </SeeAllButton>
+              </TagsBlock>
+            </A>
+          </BaseSpecial>
+        );
+      })}
     </Base>
   );
 };

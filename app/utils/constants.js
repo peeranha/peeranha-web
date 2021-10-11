@@ -1,3 +1,5 @@
+import { keccak256, toUtf8Bytes } from 'ethers/lib.esm/utils';
+
 export const RESTART_ON_REMOUNT = '@@saga-injector/restart-on-remount';
 export const DAEMON = '@@saga-injector/daemon';
 export const ONCE_TILL_UNMOUNT = '@@saga-injector/once-till-unmount';
@@ -29,15 +31,18 @@ export const OFFICIAL_ANSWER_KEYS = [1, 3];
 
 // permissions
 export const MODERATOR_KEY = 48;
-export const MODERATOR_INFINITE_IMPACT = 1;
-export const MODERATOR_IGNORE_RATING = 2;
 export const MODERATOR_CREATE_COMMUNITY = 3;
-export const MODERATOR_CREATE_TAG = 4;
-export const MODERATOR_QUESTION_TYPE = 5;
+
+export const DEFAULT_ADMIN_ROLE = 0x00;
+export const COMMUNITY_ADMIN_ROLE = keccak256(
+  toUtf8Bytes('COMMUNITY_ADMIN_ROLE'),
+);
+export const COMMUNITY_MODERATOR_ROLE = keccak256(
+  toUtf8Bytes('COMMUNITY_MODERATOR_ROLE'),
+);
 
 export const COMMUNITY_ADMIN_VALUE = 255;
 export const COMMUNITY_ADMIN_INFINITE_IMPACT = 1;
-export const COMMUNITY_ADMIN_IGNORE_RATING = 2;
 export const COMMUNITY_ADMIN_CREATE_TAG = 4;
 export const COMMUNITY_ADMIN_QUESTION_TYPE = 5;
 export const COMMUNITY_ADMIN_TOP_QUESTIONS = 6;
@@ -48,50 +53,56 @@ export const PERMISSION_GRANTED = '1';
 export const PROPERTY_ANSWER_15_MINUTES = 12;
 export const PROPERTY_FIRST_ANSWER = 13;
 
-export const moderatorPermissions = {
-  MODERATOR_INFINITE_IMPACT: {
+export const globalAdminPermissions = {
+  ADMIN_INFINITE_IMPACT: {
     code: 1,
     title: 'permissionInfinite',
   },
-  MODERATOR_IGNORE_RATING: {
+  ADMIN_IGNORE_RATING: {
     code: 2,
     title: 'permissionIgnoreRating',
   },
-  MODERATOR_CREATE_COMMUNITY: {
+  ADMIN_CREATE_COMMUNITY: {
     code: 3,
     title: 'permissionCreateCommunity',
   },
-  MODERATOR_CREATE_TAG: {
+  ADMIN_CREATE_TAG: {
     code: 4,
     title: 'permissionCreateTag',
   },
-  MODERATOR_QUESTION_TYPE: {
+  ADMIN_QUESTION_TYPE: {
     code: 5,
     title: 'permissionChangeQuestionType',
   },
 };
 export const communityAdminPermissions = {
-  COMMUNITY_ADMIN_INFINITE_IMPACT: {
+  COMMUNITY_MODERATOR_INFINITE_IMPACT1: {
+    code: 8,
+    title: 'givePermissions',
+  },
+};
+export const communityModeratorPermissions = {
+  COMMUNITY_MODERATOR_INFINITE_IMPACT: {
     code: 1,
     title: 'permissionInfinite',
   },
-  COMMUNITY_ADMIN_IGNORE_RATING: {
+  COMMUNITY_MODERATOR_IGNORE_RATING: {
     code: 2,
     title: 'permissionIgnoreRating',
   },
-  COMMUNITY_ADMIN_CREATE_TAG: {
+  COMMUNITY_MODERATOR_CREATE_TAG: {
     code: 4,
     title: 'permissionCreateTag',
   },
-  COMMUNITY_ADMIN_QUESTION_TYPE: {
+  COMMUNITY_MODERATOR_QUESTION_TYPE: {
     code: 5,
     title: 'permissionChangeQuestionType',
   },
-  COMMUNITY_ADMIN_TOP_QUESTIONS: {
+  COMMUNITY_MODERATOR_TOP_QUESTIONS: {
     code: 6,
     title: 'permissionSelectTopQuestion',
   },
-  COMMUNITY_ADMIN_OFFICIAL_ANSWER: {
+  COMMUNITY_MODERATOR_OFFICIAL_ANSWER: {
     code: 7,
     title: 'permissionOfficialAnswer',
   },

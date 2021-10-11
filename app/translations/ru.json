@@ -321,6 +321,10 @@
     "Поздравляем! Удаление данных успешно завершено!",
   "app.containers.DeleteFacebookData.confirmDeletion": "Подтвердить удаление",
 
+  "app.containers.Moderation.givePermissions": "Выдача разрешений",
+  "app.containers.Moderation.givePermissionsDescription":
+    "Позволяет выдавать и забирать разрешение модератора комьюнити..",
+
   "app.containers.Moderation.permissionInfinite": "Безграничное воздействие",
   "app.containers.Moderation.permissionInfiniteDescription":
     "Позволяет удалять вопросы, ответы и комментарии в один клик",

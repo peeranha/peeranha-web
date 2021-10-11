@@ -15,7 +15,7 @@ import closeIcon from 'images/close.svg?external';
 
 import { formatStringToHtmlId, scrollToErrorField } from 'utils/animation';
 import { showPopover } from 'utils/popover';
-import { hasCommunityModeratorCreatePermission } from 'utils/properties';
+import { getPermissions, hasGlobalModeratorRole } from 'utils/properties';
 
 import {
   required,
@@ -87,10 +87,7 @@ const CreateCommunityForm = ({
   const [tags, changeTags] = useState(DEFAULT_TAGS_ARRAY);
 
   const profileWithModeratorRights = useMemo(
-    () =>
-      hasCommunityModeratorCreatePermission(
-        profile?.['integer_properties'] || [],
-      ),
+    () => hasGlobalModeratorRole(getPermissions(profile)),
     [profile],
   );
 
