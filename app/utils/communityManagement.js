@@ -42,6 +42,9 @@ export const singleCommunityColors = () =>
 export const singleCommunityFonts = () =>
   _get(singleCommunityStyles(), 'fonts', {});
 
+export const hasCommunitySingleWebsite = commId =>
+  communitiesConfig[commId] ? communitiesConfig[commId].origin : false;
+
 export const getGoogleVerificationData = () =>
   googleVerificationConfig.communities?.[isSingleCommunityWebsite()] ||
   googleVerificationConfig.default;
@@ -325,6 +328,7 @@ export const getAllCommunities = async (ethereumService, count) => {
       return {
         ...community,
         id: +community.id,
+        value: +community.id,
         postCount: +community.postCount,
         creationTime: +community.creationTime,
         //todo amount of questions in community and tag
