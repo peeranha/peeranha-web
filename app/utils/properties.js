@@ -24,6 +24,7 @@ import {
   communityModeratorPermissions,
 } from './constants';
 import { BigNumber } from 'ethers';
+import { selectEthereum } from '../containers/EthereumProvider/selectors';
 
 //todo change to "findRole"
 const findAllPropertiesByKeys = (properties, keys, exact = false) => [];
@@ -77,16 +78,7 @@ export const isUserTopCommunityQuestionsModerator = (
     ({ community }) => communityId === community,
   ).length;
 
-export const isAnswerOfficial = ({ id, properties }) =>
-  !!id &&
-  !!properties.filter(
-    ({ key, value }) =>
-      !!findAllPropertiesByKeys(
-        [{ key: value, value: key }],
-        OFFICIAL_ANSWER_KEYS,
-        true,
-      ).length,
-  ).length;
+export const isAnswerOfficial = ({ isOfficialReply }) => !!isOfficialReply;
 
 export const officialAnswersCount = questionData =>
   questionData.answers.filter(answer => isAnswerOfficial(answer)).length;
@@ -134,6 +126,11 @@ export const getCommunityRole = (role, communityId) => {
   return BigNumber.from(role)
     .add(BigNumber.from(communityId))
     .toHexString();
+};
+
+export const isTemporaryAccount = async account => {
+  const ethereumService = await selectEthereum();
+  return ethereumService.getSelectedAccount() === account;
 };
 
 export const getAllRoles = (userRoles, communitiesCount) => {

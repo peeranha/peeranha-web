@@ -47,9 +47,9 @@ const QI = ({
   title,
   user,
   userInfo,
-  post_time,
+  postTime,
   locale,
-  community_id,
+  communityId,
   communities,
   tags,
   rating,
@@ -165,9 +165,9 @@ const QI = ({
           title={title}
           user={user}
           userInfo={userInfo}
-          postTime={post_time}
+          postTime={postTime}
           locale={locale}
-          communityId={community_id}
+          communityId={communityId}
           communities={communities}
           tags={tags}
           isGeneral={isGeneral}
@@ -200,7 +200,7 @@ const QuestionItem = connect(
 
 export const Content = ({
   questionsList,
-  promotedQuestionsList,
+  // promotedQuestionsList,
   locale,
   communities,
   isModerator,
@@ -208,8 +208,24 @@ export const Content = ({
   isHomePage = false,
 }) => (
   <div className="position-relative">
-    {promotedQuestionsList &&
-      promotedQuestionsList.map((item, index) => (
+    {/*{promotedQuestionsList &&*/}
+    {/*  promotedQuestionsList.map((item, index) => (*/}
+    {/*    <QuestionItem*/}
+    {/*      {...item}*/}
+    {/*      index={index}*/}
+    {/*      first={index === 0}*/}
+    {/*      last={index === questionsList.length - 1}*/}
+    {/*      locale={locale}*/}
+    {/*      communities={communities}*/}
+    {/*      key={item.id}*/}
+    {/*      isModerator={isModerator}*/}
+    {/*      profileInfo={profileInfo}*/}
+    {/*      isPromoted*/}
+    {/*      isHomePage={isHomePage}*/}
+    {/*    />*/}
+    {/*  ))}*/}
+    {questionsList.map((item, index) => {
+      return (
         <QuestionItem
           {...item}
           index={index}
@@ -220,24 +236,10 @@ export const Content = ({
           key={item.id}
           isModerator={isModerator}
           profileInfo={profileInfo}
-          isPromoted
           isHomePage={isHomePage}
         />
-      ))}
-    {questionsList.map((item, index) => (
-      <QuestionItem
-        {...item}
-        index={index}
-        first={index === 0}
-        last={index === questionsList.length - 1}
-        locale={locale}
-        communities={communities}
-        key={item.id}
-        isModerator={isModerator}
-        profileInfo={profileInfo}
-        isHomePage={isHomePage}
-      />
-    ))}
+      );
+    })}
   </div>
 );
 
@@ -246,9 +248,9 @@ QI.propTypes = {
   title: PropTypes.string,
   user: PropTypes.string,
   userInfo: PropTypes.object,
-  post_time: PropTypes.number,
+  postTime: PropTypes.string,
   locale: PropTypes.string,
-  community_id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  communityId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   communities: PropTypes.array,
   tags: PropTypes.array,
   rating: PropTypes.number,

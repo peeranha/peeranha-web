@@ -132,12 +132,12 @@ export const ViewQuestion = ({
       hasGlobalModeratorRole(getPermissions(profile)),
       communityAdminInfiniteImpactPermission(
         profile?.permissions || [],
-        questionData?.['community_id'],
+        questionData?.['communityId'],
       ),
     ],
     [profile, questionData],
   );
-
+  console.log(questionData);
   const isAnswered = !!questionData?.answers.filter(x => x.user === account)
     .length;
 
@@ -184,7 +184,7 @@ export const ViewQuestion = ({
   const helmetDescription =
     questionData?.content.content ?? translations[messages.title.id];
 
-  const articlePublishedTime = questionData?.post_time
+  const articlePublishedTime = questionData?.postTime
     ? new Date(questionData.post_time * 1000)
     : ``;
 

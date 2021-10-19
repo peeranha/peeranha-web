@@ -91,6 +91,7 @@ import {
   selectPromotedQuestions,
   selectTypeFilter,
 } from './selectors';
+import { getPosts, getPostsByCommunityId } from '../../utils/theGraph';
 
 const feed = routes.feed();
 const single = isSingleCommunityWebsite();
@@ -100,40 +101,29 @@ export function* getQuestionsWorker({
   offset,
   communityIdFilter,
   parentPage,
-  fetcher,
   next,
   toUpdateQuestions,
 }) {
   try {
-    const now = Math.round(new Date().valueOf() / 1000);
-    const eosService = yield select(selectEos);
+    // const now = Math.round(new Date().valueOf() / 1000);
     const followedCommunities = yield select(makeSelectFollowedCommunities());
-    const cachedPromotedQuestions = yield select(selectPromotedQuestions());
-
-    const isNotUpdatePromotedQuestions = getCookie(UPDATE_PROMO_QUESTIONS);
-
-    deleteCookie(UPDATE_PROMO_QUESTIONS);
+    // const cachedPromotedQuestions = yield select(selectPromotedQuestions());
+    // const isNotUpdatePromotedQuestions = getCookie(UPDATE_PROMO_QUESTIONS);
+    // deleteCookie(UPDATE_PROMO_QUESTIONS);
 
     let questionsList = [];
 
     if (single) {
       communityIdFilter = single;
     }
-
-    // Load questions filtered for some community
     if (communityIdFilter > 0) {
-      questionsList = yield call(
-        getQuestionsFilteredByCommunities,
-        eosService,
-        limit,
-        offset,
+      questionsList = yield call(getPostsByCommunityId, limit, offset, [
         communityIdFilter,
-      );
+      ]);
     }
 
-    // Load all questions
     if (communityIdFilter === 0 && parentPage !== feed) {
-      questionsList = yield call(getQuestions, eosService, limit, offset);
+      questionsList = yield call(getPosts, limit, offset);
     }
 
     // Load questions for communities where I am
@@ -143,32 +133,28 @@ export function* getQuestionsWorker({
       followedCommunities &&
       followedCommunities.length > 0
     ) {
-      questionsList = yield call(
-        getQuestionsForFollowedCommunities,
-        limit,
-        fetcher,
-      );
+      questionsList = yield call(getQuestionsForFollowedCommunities, limit);
     }
 
     const users = new Map();
 
     questionsList.forEach(question => {
-      question.isGeneral = isGeneralQuestion(question.properties);
+      question.isGeneral = isGeneralQuestion(question);
 
       users.set(
-        question.user,
-        users.get(question.user)
-          ? [...users.get(question.user), question]
+        question.author,
+        users.get(question.author)
+          ? [...users.get(question.author), question]
           : [question],
       );
     });
 
-    yield all(
-      questionsList.map(function*(question) {
-        const bounty = yield call(getQuestionBounty, question.id, eosService);
-        question.questionBounty = bounty;
-      }),
-    );
+    // yield all(
+    //   questionsList.map(function*(question) {
+    //     const bounty = yield call(getQuestionBounty, question.id, eosService);
+    //     question.questionBounty = bounty;
+    //   }),
+    // );
 
     // To avoid of fetching same user profiles - remember it and to write userInfo here
 
@@ -183,65 +169,63 @@ export function* getQuestionsWorker({
     );
 
     // get promoted questions
-    const promotedQuestions = isNotUpdatePromotedQuestions
-      ? { ...cachedPromotedQuestions }
-      : { all: [], top: [] };
-
-    if (
-      (communityIdFilter && !isNotUpdatePromotedQuestions) ||
-      cachedPromotedQuestions.communityId !== communityIdFilter
-    ) {
-      yield call(loadTopCommunityQuestionsWorker, { init: true });
-
-      const topQuestionsIds = yield select(selectTopQuestionIds);
-
-      let allPromotedQuestions = yield call(
-        getPromotedQuestions,
-        eosService,
-        communityIdFilter,
-      );
-      allPromotedQuestions = allPromotedQuestions.filter(
-        item => item.ends_time >= now,
-      );
-
-      allPromotedQuestions = yield all(
-        // eslint-disable-next-line camelcase
-        allPromotedQuestions.map(function*({ question_id }) {
-          return yield call(getQuestionData, {
-            questionId: question_id,
-          });
-        }),
-      );
-      allPromotedQuestions = allPromotedQuestions.filter(item => !!item);
-      yield all(
-        allPromotedQuestions.map(function*(question) {
-          const bounty = yield call(getQuestionBounty, question.id, eosService);
-          question.questionBounty = bounty;
-        }),
-      );
-
-      const topPromotedQuestions = allPromotedQuestions.filter(item =>
-        topQuestionsIds.includes(item.id),
-      );
-
-      promotedQuestions.all = getRandomQuestions(
-        allPromotedQuestions,
-        PROMO_QUESTIONS_AMOUNT,
-      );
-      promotedQuestions.top = getRandomQuestions(
-        topPromotedQuestions,
-        PROMO_QUESTIONS_AMOUNT,
-      );
-      promotedQuestions.communityId = communityIdFilter;
-    }
-
+    // const promotedQuestions = isNotUpdatePromotedQuestions
+    //   ? { ...cachedPromotedQuestions }
+    //   : { all: [], top: [] };
+    // if (
+    //   (communityIdFilter && !isNotUpdatePromotedQuestions) ||
+    //   cachedPromotedQuestions.communityId !== communityIdFilter
+    // ) {
+    //   yield call(loadTopCommunityQuestionsWorker, { init: true });
+    //
+    //   const topQuestionsIds = yield select(selectTopQuestionIds);
+    //
+    //   let allPromotedQuestions = yield call(
+    //     getPromotedQuestions,
+    //     eosService,
+    //     communityIdFilter,
+    //   );
+    //   allPromotedQuestions = allPromotedQuestions.filter(
+    //     item => item.ends_time >= now,
+    //   );
+    //
+    //   allPromotedQuestions = yield all(
+    //     // eslint-disable-next-line camelcase
+    //     allPromotedQuestions.map(function*({ question_id }) {
+    //       return yield call(getQuestionData, {
+    //         questionId: question_id,
+    //       });
+    //     }),
+    //   );
+    //   allPromotedQuestions = allPromotedQuestions.filter(item => !!item);
+    //   yield all(
+    //     allPromotedQuestions.map(function*(question) {
+    //       const bounty = yield call(getQuestionBounty, question.id, eosService);
+    //       question.questionBounty = bounty;
+    //     }),
+    //   );
+    //
+    //   const topPromotedQuestions = allPromotedQuestions.filter(item =>
+    //     topQuestionsIds.includes(item.id),
+    //   );
+    //
+    //   promotedQuestions.all = getRandomQuestions(
+    //     allPromotedQuestions,
+    //     PROMO_QUESTIONS_AMOUNT,
+    //   );
+    //   promotedQuestions.top = getRandomQuestions(
+    //     topPromotedQuestions,
+    //     PROMO_QUESTIONS_AMOUNT,
+    //   );
+    //   promotedQuestions.communityId = communityIdFilter;
+    // }
     yield put(
       getQuestionsSuccess(
         questionsList,
         next,
         toUpdateQuestions,
         undefined,
-        promotedQuestions,
+        // promotedQuestions,
       ),
     );
   } catch (err) {

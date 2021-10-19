@@ -329,11 +329,12 @@ export const getAllCommunities = async (ethereumService, count) => {
         ...community,
         id: +community.id,
         value: +community.id,
+        label: community.name,
         postCount: +community.postCount,
         creationTime: +community.creationTime,
         //todo amount of questions in community and tag
         tags: (await getTags(10, community.id)).map(tag => {
-          return { ...tag, questionsAsked: 0 };
+          return { ...tag, questionsAsked: 0, label: tag.name };
         }),
       };
     }),

@@ -31,7 +31,7 @@ import {
   upVote,
   voteToDelete,
 } from 'utils/questionsManagement';
-import { getQuestionBounty, payBounty } from 'utils/walletManagement';
+import { payBounty } from 'utils/walletManagement';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { ACCOUNT_TABLE, ALL_ACCOUNTS_SCOPE } from 'utils/constants';
 import { dateNowInSeconds } from 'utils/datetime';
@@ -60,8 +60,10 @@ import { updateStoredQuestionsWorker } from 'containers/Questions/saga';
 import { QUESTION_TYPES } from 'components/QuestionForm/QuestionTypeField';
 
 import {
+  ANSWER_TYPE,
   CHANGE_QUESTION_TYPE,
   CHANGE_QUESTION_TYPE_SUCCESS,
+  CHECK_ADD_COMMENT_AVAILABLE,
   DELETE_ANSWER,
   DELETE_ANSWER_SUCCESS,
   DELETE_COMMENT,
@@ -83,16 +85,13 @@ import {
   POST_ANSWER_SUCCESS,
   POST_COMMENT,
   POST_COMMENT_SUCCESS,
-  QUESTION_PROPERTIES,
+  QUESTION_TYPE,
   SAVE_COMMENT,
   SAVE_COMMENT_SUCCESS,
   UP_VOTE,
   UP_VOTE_SUCCESS,
   VOTE_TO_DELETE,
   VOTE_TO_DELETE_SUCCESS,
-  QUESTION_TYPE,
-  ANSWER_TYPE,
-  CHECK_ADD_COMMENT_AVAILABLE,
 } from './constants';
 
 import {
@@ -106,13 +105,12 @@ import {
   deleteQuestionSuccess,
   downVoteErr,
   downVoteSuccess,
-  getQuestionBountySuccess,
   getQuestionDataErr,
   getQuestionDataSuccess,
-  payBountyError,
-  payBountySuccess,
   markAsAcceptedErr,
   markAsAcceptedSuccess,
+  payBountyError,
+  payBountySuccess,
   postAnswerErr,
   postAnswerSuccess,
   postCommentErr,
@@ -120,11 +118,11 @@ import {
   saveCommentErr,
   saveCommentSuccess,
   setVoteToDeleteLoading,
+  showAddCommentForm,
   upVoteErr,
   upVoteSuccess,
   voteToDeleteErr,
   voteToDeleteSuccess,
-  showAddCommentForm,
 } from './actions';
 
 import { selectQuestionBounty, selectQuestionData } from './selectors';
@@ -142,11 +140,9 @@ import {
   voteToDeleteValidator,
 } from './validate';
 import { selectUsers } from '../DataCacheProvider/selectors';
+import { selectEthereum } from '../EthereumProvider/selectors';
 
-export const isGeneralQuestion = properties =>
-  Boolean(
-    properties.find(({ key }) => key === QUESTION_PROPERTIES.GENERAL_KEY),
-  );
+export const isGeneralQuestion = question => Boolean(question.postType === 1);
 
 export const getQuestionTypeValue = isGeneral =>
   isGeneral ? QUESTION_TYPES.GENERAL.value : QUESTION_TYPES.EXPERT.value;
@@ -156,41 +152,41 @@ export function* getQuestionData({
   user,
   promote,
 }) /* istanbul ignore next */ {
-  const eosService = yield select(selectEos);
+  const ethereumService = yield select(selectEthereum);
   let question = yield select(selectQuestions(null, null, questionId));
 
   if (!question) {
-    question = yield call(getQuestionById, eosService, questionId);
+    question = yield call(getQuestionById, ethereumService, questionId);
 
     if (!question) {
       return null;
     }
   }
-  const bounty = yield call(getQuestionBounty, questionId, eosService);
-  yield put(getQuestionBountySuccess(bounty));
-  question.isGeneral = isGeneralQuestion(question.properties);
+  // const bounty = yield call(getQuestionBounty, questionId, eosService);
+  // yield put(getQuestionBountySuccess(bounty));
+  question.isGeneral = isGeneralQuestion(question);
 
-  if (promote && promote.ends_time > dateNowInSeconds()) {
-    question.promote = { ...promote };
-  } else {
-    const promotedQuestions = yield call(
-      getPromotedQuestions,
-      eosService,
-      question.community_id,
-    );
-
-    const promotedQuestion = promotedQuestions.find(
-      item => item.question_id === questionId,
-    );
-
-    if (promotedQuestion) {
-      question.promote = {
-        startTime: promotedQuestion.start_time,
-        endsTime: promotedQuestion.ends_time,
-      };
-    }
-  }
-
+  // if (promote && promote.ends_time > dateNowInSeconds()) {
+  //   question.promote = { ...promote };
+  // } else {
+  //   const promotedQuestions = yield call(
+  //     getPromotedQuestions,
+  //     eosService,
+  //     question.community_id,
+  //   );
+  //
+  //   const promotedQuestion = promotedQuestions.find(
+  //     item => item.question_id === questionId,
+  //   );
+  //
+  //   if (promotedQuestion) {
+  //     question.promote = {
+  //       startTime: promotedQuestion.start_time,
+  //       endsTime: promotedQuestion.ends_time,
+  //     };
+  //   }
+  // }
+  //
   const getItemStatus = (historyFlag, constantFlag) =>
     historyFlag?.flag & (1 << constantFlag);
 
@@ -202,52 +198,58 @@ export function* getQuestionData({
    */
 
   const votingStatus = history => {
-    const flag = history.filter(x => x.user === user)[0];
+    // const flag = history.filter(x => x.user === user)[0];
 
     return {
-      isUpVoted: Boolean(getItemStatus(flag, ITEM_UPV_FLAG)),
-      isDownVoted: Boolean(getItemStatus(flag, ITEM_DNV_FLAG)),
-      isVotedToDelete: Boolean(getItemStatus(flag, ITEM_VOTED_TO_DEL_FLAG)),
+      isUpVoted: false,
+      // Boolean(getItemStatus(flag, ITEM_UPV_FLAG)),
+      isDownVoted: false,
+      // Boolean(getItemStatus(flag, ITEM_DNV_FLAG)),
+      isVotedToDelete: false,
+      // Boolean(getItemStatus(flag, ITEM_VOTED_TO_DEL_FLAG)),
     };
   };
 
-  const getlastEditedDate = properties => {
-    const lastEditedDate = properties.find(
-      ({ key }) => key === QUESTION_PROPERTIES.LAST_EDITED_KEY,
-    );
-
-    return lastEditedDate ? lastEditedDate.value : null;
-  };
+  // const getlastEditedDate = properties => {
+  //   const lastEditedDate = undefined;
+  //   //   properties.find(
+  //   //   ({ key }) => key === QUESTION_PROPERTIES.LAST_EDITED_KEY,
+  //   // );
+  //
+  //   return lastEditedDate ? lastEditedDate.value : null;
+  // };
 
   const users = new Map();
 
   function* addOptions(currentItem) {
-    if (currentItem.content) return;
-
-    const content = yield call(getText, currentItem.ipfs_link);
-
-    try {
-      if (
-        typeof JSON.parse(content) == 'string' ||
-        typeof JSON.parse(content) == 'number'
-      ) {
-        currentItem.content = content;
-      } else {
-        currentItem.content = JSON.parse(content);
-      }
-    } catch (err) {
-      currentItem.content = content;
-    }
-
-    currentItem.lastEditedDate = getlastEditedDate(currentItem.properties);
-    currentItem.votingStatus = votingStatus(currentItem.history);
-
     users.set(
-      currentItem.user,
-      users.get(currentItem.user)
-        ? [...users.get(currentItem.user), currentItem]
+      currentItem.author,
+      users.get(currentItem.author)
+        ? [...users.get(currentItem.author), currentItem]
         : [currentItem],
     );
+    currentItem.votingStatus = votingStatus(currentItem);
+    if (currentItem.content) return;
+    currentItem.content = 'content';
+
+    // const content = yield call(getText, currentItem.ipfsLink);
+    //
+    // try {
+    //   if (
+    //     typeof JSON.parse(content) == 'string' ||
+    //     typeof JSON.parse(content) == 'number'
+    //   ) {
+    //     currentItem.content = content;
+    //   } else {
+    //     currentItem.content = JSON.parse(content);
+    //   }
+    // } catch (err) {
+    //   currentItem.content = content;
+    // }
+    //
+    // currentItem.lastEditedDate = getlastEditedDate(currentItem.properties);
+
+    //
   }
 
   function* processQuestion() {
@@ -259,21 +261,22 @@ export function* getQuestionData({
       question.answers.map(function*(x) {
         yield call(addOptions, x);
 
-        yield all(
-          x.comments.map(function*(y) {
-            yield call(addOptions, y);
-          }),
-        );
+        // yield all(
+        //   x.comments.map(function*(y) {
+        //     yield call(addOptions, y);
+        //   }),
+        // );
       }),
     );
   }
 
   function* processCommentsOfQuestion() {
-    yield all(
-      question.comments.map(function*(y) {
-        yield call(addOptions, y);
-      }),
-    );
+    question.comments = [];
+    // yield all(
+    //   question.comments.map(function*(y) {
+    //     yield call(addOptions, y);
+    //   }),
+    // );
   }
 
   yield all([processQuestion(), processAnswers(), processCommentsOfQuestion()]);
@@ -282,7 +285,10 @@ export function* getQuestionData({
 
   yield all(
     Array.from(users.keys()).map(function*(user) {
-      const userInfo = yield call(getUserProfileWorker, { user });
+      const userInfo = yield call(getUserProfileWorker, {
+        user,
+        getFullProfile: true,
+      });
 
       users.get(user).map(cachedItem => {
         cachedItem.userInfo = userInfo;
@@ -295,7 +301,7 @@ export function* getQuestionData({
 
 export function* getParams() {
   const questionData = yield select(selectQuestionData());
-  const eosService = yield select(selectEos);
+  const ethereumService = yield select(selectEthereum);
   const locale = yield select(makeSelectLocale());
   const profileInfo = yield select(makeSelectProfileInfo());
   const account = yield select(makeSelectAccount());
@@ -303,7 +309,7 @@ export function* getParams() {
 
   return {
     questionData,
-    eosService,
+    ethereumService,
     locale,
     account,
     profileInfo,
@@ -491,7 +497,6 @@ export function* deleteQuestionWorker({ questionId, buttonId }) {
 export function* getQuestionDataWorker({ questionId }) {
   try {
     const { account } = yield call(getParams);
-    const eosService = yield select(selectEos);
 
     const questionData = yield call(getQuestionData, {
       questionId,
@@ -507,13 +512,6 @@ export function* getQuestionDataWorker({ questionId }) {
     }
 
     const { userInfo, answers } = questionData;
-    const profileInfo = yield select(selectUsers(userInfo.user));
-
-    if (!profileInfo.profile) {
-      const ipfsProfile = userInfo.ipfs_profile;
-      const profile = JSON.parse(yield call(getText, ipfsProfile));
-      yield put(getUserProfileSuccess({ ...userInfo, profile }));
-    }
 
     yield all(
       answers.map(function*({ userInfo: answerUserInfo }) {
@@ -532,23 +530,22 @@ export function* getQuestionDataWorker({ questionId }) {
       }),
     );
 
-    const promotedQuestions = yield call(
-      getPromotedQuestions,
-      eosService,
-      questionData.community_id,
-    );
-
-    const promotedQuestion = promotedQuestions.find(
-      item => item.question_id === questionId,
-    );
-
-    if (promotedQuestion) {
-      questionData.promote = {
-        startTime: promotedQuestion.start_time,
-        endsTime: promotedQuestion.ends_time,
-      };
-    }
-
+    // const promotedQuestions = yield call(
+    //   getPromotedQuestions,
+    //   eosService,
+    //   questionData.community_id,
+    // );
+    //
+    // const promotedQuestion = promotedQuestions.find(
+    //   item => item.question_id === questionId,
+    // );
+    //
+    // if (promotedQuestion) {
+    //   questionData.promote = {
+    //     startTime: promotedQuestion.start_time,
+    //     endsTime: promotedQuestion.ends_time,
+    //   };
+    // }
     if (isAnotherCommQuestion) {
       yield put(getQuestionDataSuccess(null));
     } else {
@@ -648,7 +645,7 @@ export function* postCommentWorker({
 
 export function* postAnswerWorker({ questionId, answer, official, reset }) {
   try {
-    const { questionData, eosService, profileInfo, locale } = yield call(
+    const { questionData, ethereumService, profileInfo, locale } = yield call(
       getParams,
     );
 
@@ -664,17 +661,20 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
           translationMessages[locale],
         ),
       {
-        communityID: questionData.community_id,
+        communityID: questionData.communityId,
       },
     );
 
+    const answerData = {
+      content: answer,
+    };
     yield call(
       postAnswer,
       profileInfo.user,
       questionId,
-      answer,
+      answerData,
       official,
-      eosService,
+      ethereumService,
     );
 
     const newAnswer = {

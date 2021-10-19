@@ -141,6 +141,10 @@ class EthereumService {
     return await this.contract[action]();
   };
 
+  getDataWithArgs = async (action, args) => {
+    return await this.contract[action](...args);
+  };
+
   getTagsFromContract = async communityId => {
     const rawTags = await this.contract[GET_TAGS](communityId);
     return await Promise.all(

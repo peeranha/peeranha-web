@@ -4,6 +4,7 @@ import { getText, saveText } from './ipfs';
 
 import {
   ALL_QUESTIONS_SCOPE,
+  CHANGE_PROMO_QUEST_COMM,
   CHANGE_QUESTION_TYPE_METHOD,
   DEL_ANSWER_METHOD,
   DEL_COMMENT_METHOD,
@@ -15,18 +16,20 @@ import {
   GET_QUESTIONS_FILTERED_BY_COMMUNITY_INDEX_POSITION,
   GET_QUESTIONS_KEY_TYPE,
   MARK_AS_CORRECT_METHOD,
-  POST_ANSWER_METHOD,
   POST_COMMENT_METHOD,
-  POST_QUESTION_METHOD,
+  PROMOTE_QUESTION_METHOD,
+  PROMOTED_QUESTIONS_TABLES,
   QUESTION_TABLE,
   UP_VOTE_METHOD,
   USER_ANSWERS_TABLE,
-  USER_QUESTIONS_TABLE,
   VOTE_TO_DELETE_METHOD,
-  PROMOTED_QUESTIONS_TABLES,
-  PROMOTE_QUESTION_METHOD,
-  CHANGE_PROMO_QUEST_COMM,
 } from './constants';
+import {
+  GET_POST,
+  GET_QUESTION,
+  POST_ANSWER,
+  POST_QUESTION,
+} from './ethConstants';
 
 /* eslint-disable  */
 export class FetcherOfQuestionsForFollowedCommunities {
@@ -151,20 +154,8 @@ export class FetcherOfQuestionsForFollowedCommunities {
 
 /* eslint-enable  */
 
-export async function getQuestionsPostedByUser(
-  eosService,
-  user,
-  offset = 0,
-  limit,
-) {
-  const { rows } = await eosService.getTableRows(
-    USER_QUESTIONS_TABLE,
-    user,
-    offset,
-    limit,
-  );
-
-  return rows;
+export async function getQuestionsPostedByUser(ethereumService, id) {
+  return await ethereumService.getDataWithArgs(GET_QUESTION, [id]);
 }
 
 export async function getAnswersPostedByUser(
@@ -264,24 +255,37 @@ export async function getAskedQuestion(link) {
   return question;
 }
 
-export async function postQuestion(user, questionData, eosService) {
+export async function postQuestion(
+  user,
+  communityId,
+  questionData,
+  postType,
+  tags,
+  ethereumService,
+) {
   const ipfsLink = await saveText(JSON.stringify(questionData));
-  const question = await eosService.sendTransaction(
-    user,
-    POST_QUESTION_METHOD,
-    {
-      user,
-      title: questionData.title,
-      ipfs_link: ipfsLink,
-      community_id: questionData.community.value,
-      tags: questionData.chosenTags.map(x => x.id),
-      type: questionData.type,
-    },
-    null,
-    true,
-  );
-
-  return question;
+  const ipfsHash = ethereumService.getBytes32FromIpfsHash(ipfsLink);
+  // const question = await eosService.sendTransaction(
+  //   user,
+  //   POST_QUESTION_METHOD,
+  //   {
+  //     user,
+  //     title: questionData.title,
+  //     ipfs_link: ipfsLink,
+  //     community_id: questionData.community.value,
+  //     tags: questionData.chosenTags.map(x => x.id),
+  //     type: questionData.type,
+  //   },
+  //   null,
+  //   true,
+  // );
+  // console.log(user)
+  return await ethereumService.sendTransactionWithSigner(user, POST_QUESTION, [
+    communityId,
+    ipfsHash,
+    postType,
+    tags,
+  ]);
 }
 
 export const getEditQuestTrActData = async (user, id, question) => {
@@ -315,24 +319,18 @@ export async function getAnswer(link) {
 export const postAnswer = async (
   user,
   questionId,
-  answer,
+  answerData,
   official,
-  eosService,
+  ethereumService,
 ) => {
-  const ipfsLink = await saveText(answer);
-
-  await eosService.sendTransaction(
-    user,
-    POST_ANSWER_METHOD,
-    {
-      user,
-      question_id: +questionId,
-      ipfs_link: ipfsLink,
-      official_answer: +official,
-    },
-    null,
-    true,
-  );
+  const ipfsLink = await saveText(JSON.stringify(answerData));
+  const ipfsHash = ethereumService.getBytes32FromIpfsHash(ipfsLink);
+  await ethereumService.sendTransactionWithSigner(user, POST_ANSWER, [
+    questionId,
+    0,
+    ipfsHash,
+    official,
+  ]);
 };
 
 export async function editAnswer(
@@ -442,14 +440,8 @@ export async function markAsAccepted(
   });
 }
 
-export async function getQuestionById(eosService, questionId) {
-  const question = await eosService.getTableRow(
-    QUESTION_TABLE,
-    ALL_QUESTIONS_SCOPE,
-    questionId,
-  );
-
-  return question;
+export async function getQuestionById(ethereumService, questionId) {
+  return await ethereumService.getDataWithArgs(GET_POST, [questionId]);
 }
 
 export const changeQuestionType = async (

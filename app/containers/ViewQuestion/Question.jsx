@@ -12,13 +12,13 @@ export const Question = props => (
     type={QUESTION_TYPE}
     key={`${QUESTION_TYPE}${props.questionData.id}`}
     comments={props.questionData.comments}
-    title={props.questionData.content.title}
-    content={props.questionData.content.content}
+    title={props.questionData.title}
+    content={props.questionData.content}
     rating={props.questionData.rating}
     isItWrittenByMe={props.questionData.isItWrittenByMe}
     history={props.questionData.history}
     userInfo={props.questionData.userInfo}
-    postTime={props.questionData.post_time}
+    postTime={props.questionData.postTime}
     lastEditedDate={props.questionData.lastEditedDate}
     votingStatus={props.questionData.votingStatus}
     deleteItem={props.deleteQuestion}

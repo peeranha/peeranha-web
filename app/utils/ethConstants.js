@@ -6,8 +6,12 @@ export const GET_USERS_COUNT = 'getUsersCount';
 export const GET_COMMUNITIES_COUNT = 'getCommunitiesCount';
 export const GET_COMMUNITY = 'getCommunity';
 export const GET_TAGS = 'getTags';
+export const GET_QUESTION = 'getPost';
 export const CREATE_COMMUNITY = 'createCommunity';
 export const CREATE_TAG = 'createTag';
+export const POST_QUESTION = 'createPost';
+export const GET_POST = 'getPost';
+export const POST_ANSWER = 'createReply';
 
 export const usersQuery = `
       query(
@@ -86,5 +90,96 @@ export const tagsQuery = `
         ) {
            name
            description
+           id
+        }
+      }`;
+
+export const postsQuery = `
+      query (
+        $first: Int,
+        $skip: Int,
+      ) {
+        posts (
+          orderBy: postTime,
+          orderDirection: desc,
+          first: $first,
+          skip: $skip,
+        ) {
+           id
+           tags
+           postType
+           author
+           rating
+           postTime
+           communityId
+           title
+           content
+           commentCount
+           replyCount
+           isDeleted
+           officialReply
+           bestReply
+           isFirstReply
+           isQuickReply
+           properties
+        }
+      }`;
+
+export const repliesQuery = `
+      query (
+        $postId: Int,
+      ) {
+        replies (
+          orderBy: postTime,
+          orderDirection: desc,
+          where: { postId: $postId },
+        ) {
+           id
+           author
+           rating
+           postTime
+           postId
+           parentReplyId
+           content
+           commentCount
+           isDeleted
+           isOfficialReply
+           isBestReply
+           isFirstReply
+           isQuickReply
+           properties
+        }
+      }`;
+
+export const postsByCommQuery = `
+      query (
+        $first: Int,
+        $skip: Int,
+        $communityIds: [Int],
+      ) {
+        posts (
+          orderBy: postTime,
+          orderDirection: desc,
+          first: $first,
+          skip: $skip,
+          where: { communityId_in: $communityIds },
+        ) {
+           id
+           tags
+           postType
+           author
+           rating
+           postTime
+           communityId
+           title
+           content
+           commentCount
+           replyCount
+           isDeleted
+           officialReply
+           bestReply
+           isFirstReply
+           isQuickReply
+           properties
         }
       }`;

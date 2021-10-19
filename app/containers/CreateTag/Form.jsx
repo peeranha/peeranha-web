@@ -57,12 +57,7 @@ export const Form = ({
         disabled={isEditTagForm ? true : tagFormLoading}
         label={translations[messages.community.id]}
         tip={translations[messages.communityTip.id]}
-        options={communities.map(community => {
-          return {
-            ...community,
-            label: community.name,
-          };
-        })}
+        options={communities}
         validate={[requiredForObjectField]}
         warn={[requiredForObjectField]}
         splitInHalf

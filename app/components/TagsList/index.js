@@ -40,14 +40,14 @@ const TagsList = ({
   showPopularity,
 }) => {
   const community = useMemo(
-    () => communities.filter(x => communityId === x.id)[0] || { tags: [] },
+    () => communities.filter(x => +communityId === x.id)[0] || { tags: [] },
     [communities, communities.length],
   );
 
   const questionTags = useMemo(
     () =>
       chosenTags
-        ? community.tags.filter(x => chosenTags.includes(x.id))
+        ? community.tags.filter(x => chosenTags.includes(+x.id.split('-')[1]))
         : community.tags,
     [chosenTags, community.tags, community.tags.length],
   );

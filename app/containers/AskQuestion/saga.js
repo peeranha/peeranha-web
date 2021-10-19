@@ -43,59 +43,64 @@ import {
   MIN_ENERGY_TO_POST_QUESTION,
   GET_EXISTING_QUESTIONS,
 } from './constants';
+import { selectEthereum } from '../EthereumProvider/selectors';
 
 export function* postQuestionWorker({ val }) {
   try {
-    const eosService = yield select(selectEos);
+    const ethereumService = yield select(selectEthereum);
     const selectedAccount = yield select(makeSelectAccount());
-    const community = val[FORM_COMMUNITY];
-    const promoteValue = +val[FORM_PROMOTE];
+    // const promoteValue = +val[FORM_PROMOTE];
+    const tags = val[FORM_TAGS].map(tag => Number(tag.id.split('-')[1]));
+    const communityId = val[FORM_COMMUNITY].id;
+    const postType = +val[FORM_TYPE];
 
     const questionData = {
       title: val[FORM_TITLE],
       content: val[FORM_CONTENT],
-      chosenTags: val[FORM_TAGS],
-      type: +val[FORM_TYPE],
-      bounty: +val[FORM_BOUNTY],
-      bountyFull: `${getFormattedAsset(+val[FORM_BOUNTY])} PEER`,
-      bountyHours: +val[FORM_BOUNTY_HOURS],
-      community,
+      // bounty: +val[FORM_BOUNTY],
+      // bountyFull: `${getFormattedAsset(+val[FORM_BOUNTY])} PEER`,
+      // bountyHours: +val[FORM_BOUNTY_HOURS],
     };
-    yield call(postQuestion, selectedAccount, questionData, eosService);
+    // console.log(questionData)
+    yield call(
+      postQuestion,
+      selectedAccount,
+      communityId,
+      questionData,
+      postType,
+      tags,
+      ethereumService,
+    );
 
     const questionsPostedByUser = yield call(
       getQuestionsPostedByUser,
-      eosService,
-      selectedAccount,
+      ethereumService,
+      1,
     );
 
-    if (val[FORM_BOUNTY] && Number(val[FORM_BOUNTY]) > 0) {
-      const now = Math.round(new Date().valueOf() / 1000);
-      const bountyTime = now + questionData.bountyHours * ONE_HOUR_IN_SECONDS;
+    // if (val[FORM_BOUNTY] && Number(val[FORM_BOUNTY]) > 0) {
+    //   const now = Math.round(new Date().valueOf() / 1000);
+    //   const bountyTime = now + questionData.bountyHours * ONE_HOUR_IN_SECONDS;
+    //
+    //   yield call(
+    //     setBounty,
+    //     selectedAccount,
+    //     questionData.bountyFull,
+    //     questionsPostedByUser[0].question_id,
+    //     bountyTime,
+    //     eosService,
+    //   );
+    // }
 
-      yield call(
-        setBounty,
-        selectedAccount,
-        questionData.bountyFull,
-        questionsPostedByUser[0].question_id,
-        bountyTime,
-        eosService,
-      );
-    }
-
-    if (promoteValue) {
-      yield call(promoteQuestion, eosService, selectedAccount, questionsPostedByUser[0].question_id, promoteValue);
-    }
+    // if (promoteValue) {
+    //   yield call(promoteQuestion, eosService, selectedAccount, questionsPostedByUser[0].question_id, promoteValue);
+    // }
 
     yield put(askQuestionSuccess());
 
     yield call(
       createdHistory.push,
-      routes.questionView(
-        questionsPostedByUser[0].question_id,
-        false,
-        community.id,
-      ),
+      routes.questionView(questionsPostedByUser[0].id, false, communityId),
     );
   } catch (err) {
     yield put(askQuestionError(err));

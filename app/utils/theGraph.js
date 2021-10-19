@@ -1,6 +1,9 @@
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 import {
   communitiesQuery,
+  postsByCommQuery,
+  postsQuery,
+  repliesQuery,
   tagsQuery,
   userQuery,
   usersQuery,
@@ -56,4 +59,56 @@ export const getTags = async (count, communityId) => {
     },
   });
   return tags?.data.tags;
+};
+
+const getQuestionAnswers = async postId => {
+  const answers = await client.query({
+    query: gql(repliesQuery),
+    variables: {
+      postId: +postId,
+    },
+  });
+
+  return answers?.data.replies?.map(answer => {
+    return { ...answer, comments: [] };
+  });
+};
+
+export const getPosts = async (limit, skip) => {
+  const posts = await client.query({
+    query: gql(postsQuery),
+    variables: {
+      first: limit,
+      skip,
+    },
+  });
+  return Promise.all(
+    posts?.data.posts.map(async post => {
+      return {
+        ...post,
+        answers: post.replyCount > 0 ? await getQuestionAnswers(post.id) : [],
+        comments: [],
+      };
+    }),
+  );
+};
+
+export const getPostsByCommunityId = async (limit, skip, communityIds) => {
+  const posts = await client.query({
+    query: gql(postsByCommQuery),
+    variables: {
+      communityIds,
+      first: limit,
+      skip,
+    },
+  });
+
+  return Promise.all(
+    posts?.data.posts.map(async post => {
+      return {
+        ...post,
+        answers: post.replyCount > 0 ? await getQuestionAnswers(post.id) : [],
+      };
+    }),
+  );
 };

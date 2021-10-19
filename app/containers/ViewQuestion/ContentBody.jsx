@@ -46,8 +46,7 @@ export const ContentBody = ({
     () =>
       isAnswerOfficial(
         questionData.answers.find(({ id }) => id === answerId) || {
-          id: 0,
-          properties: [],
+          isOfficialReply: false,
         },
       ),
     [questionData.answers, answerId],

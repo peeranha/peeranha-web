@@ -95,11 +95,7 @@ function questionsReducer(state = initialState, action) {
           fromJS(
             toUpdateQuestions
               ? mappedQuestionsList
-              : orderBy(
-                  [...new Set(stateQuestionsList.concat(mappedQuestionsList))],
-                  [],
-                  ['asc'],
-                ),
+              : [...new Set(stateQuestionsList.concat(mappedQuestionsList))],
           ),
         )
         .set(

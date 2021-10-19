@@ -69,7 +69,6 @@ export const postAnswerValidator = (
 
   const MIN_RATING_FOR_MY_QUESTION = 0;
   const MIN_RATING_FOR_OTHER_QUESTIONS = 0;
-  const MIN_ENERGY = 6;
 
   const isAnswered = !!questionData.answers.filter(
     x => x.user === profileInfo.user,
@@ -95,8 +94,6 @@ export const postAnswerValidator = (
     message = `${
       translations[messages.notEnoughRating.id]
     } ${MIN_RATING_FOR_OTHER_QUESTIONS}`;
-  } else if (profileInfo.energy < MIN_ENERGY) {
-    message = translations[messages.notEnoughEnergy.id];
   }
 
   if (message) {

@@ -120,7 +120,7 @@ ContentRating.propTypes = {
 
 function UpvoteIcon({ account, userInfo, votingStatus }) {
   let src = null;
-
+  console.log(votingStatus);
   if (account === userInfo.user) {
     src = disabledFingerUp;
   } else if (votingStatus.isUpVoted) {

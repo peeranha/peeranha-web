@@ -67,17 +67,19 @@ export const selectQuestions = (
       }
 
       if (communityId) {
-        return questionsList.filter(x => x.community_id === communityId);
+        return questionsList.filter(
+          x => Number(x.communityId) === Number(communityId),
+        );
       }
 
       if (isFeed && followedCommunities) {
         return questionsList.filter(x =>
-          followedCommunities.includes(x.community_id),
+          followedCommunities.includes(x.communityId),
         );
       }
 
       if (questionId) {
-        return questionsList.find(x => x.id === questionId);
+        return questionsList.find(x => Number(x.id) === Number(questionId));
       }
 
       return questionsList;
