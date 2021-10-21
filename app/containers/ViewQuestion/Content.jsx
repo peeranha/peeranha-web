@@ -16,11 +16,10 @@ const BaseStyled = Base.extend`
 `.withComponent('section');
 
 export const Content = props => {
-  const isTemporaryAccount = true;
+  const isTemporaryAccount = false;
   //   !!props.userInfo?.['integer_properties'].find(
   //   x => x.key === TEMPORARY_ACCOUNT_KEY && x.value,
   // );
-  console.log(props);
   return (
     <BaseStyled
       className={props.className}

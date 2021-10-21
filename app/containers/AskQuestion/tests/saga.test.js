@@ -95,7 +95,7 @@ describe('postQuestionWorker', () => {
         title: val[FORM_TITLE],
         content: val[FORM_CONTENT],
         community: val[FORM_COMMUNITY],
-        chosenTags: val[FORM_TAGS],
+        tags: val[FORM_TAGS],
       },
       eos,
     );

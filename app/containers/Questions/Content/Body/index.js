@@ -26,7 +26,7 @@ const QuestionLabels = styled.div`
 
 const Body = ({
   id,
-  user,
+  author,
   isModerator,
   title,
   userInfo,
@@ -76,7 +76,7 @@ const Body = ({
       />
 
       <UserInfo
-        user={user}
+        author={author}
         userInfo={userInfo}
         locale={locale}
         postTime={postTime}
@@ -93,7 +93,7 @@ const Body = ({
 
 Body.propTypes = {
   id: PropTypes.string,
-  user: PropTypes.string,
+  author: PropTypes.string,
   title: PropTypes.string,
   userInfo: PropTypes.object,
   postTime: PropTypes.number,

@@ -485,7 +485,7 @@ describe('editQuestion', () => {
         },
       ],
     },
-    chosenTags: [
+    tags: [
       {
         value,
       },
@@ -547,7 +547,7 @@ describe('postQuestion', () => {
         },
       ],
     },
-    chosenTags: [
+    tags: [
       {
         value,
       },

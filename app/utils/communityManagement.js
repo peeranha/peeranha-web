@@ -26,7 +26,7 @@ import {
   VOTE_TO_DELETE_TAG,
 } from './constants';
 import { CREATE_COMMUNITY, CREATE_TAG } from './ethConstants';
-import { getCommunities, getTags } from './theGraph';
+import { getCommunities, getCommunityById, getTags } from './theGraph';
 
 export const isSingleCommunityWebsite = () =>
   +Object.keys(communitiesConfig).find(
@@ -49,9 +49,9 @@ export const getGoogleVerificationData = () =>
   googleVerificationConfig.communities?.[isSingleCommunityWebsite()] ||
   googleVerificationConfig.default;
 
-export function getFollowedCommunities(allcommunities, followedcommunities) {
-  if (!allcommunities || !followedcommunities) return [];
-  return allcommunities.filter(x => followedcommunities.includes(+x.id));
+export function getFollowedCommunities(allCommunities, followedCommunities) {
+  if (!allCommunities || !followedCommunities) return [];
+  return allCommunities.filter(x => followedCommunities.includes(+x.id));
 }
 
 export function getUnfollowedCommunities(allcommunities, followedcommunities) {
@@ -81,57 +81,6 @@ export const editCommunity = async (
     null,
     true,
   );
-};
-
-export const getCommunityById = async (eosService, communityId) => {
-  const row = await eosService.getTableRow(
-    COMMUNITIES_TABLE,
-    ALL_COMMUNITIES_SCOPE,
-    communityId,
-  );
-
-  const { questionsAsked, users_subscribed } = row;
-
-  const community = JSON.parse(await getText(row.ipfs_description));
-  const {
-    avatar,
-    name,
-    description,
-    about,
-    website = null,
-    questionsType = 2,
-    isBlogger,
-    banner,
-    facebook,
-    instagram,
-    youtube,
-    vk,
-    main_color,
-    highlight_color,
-  } = community;
-
-  return {
-    avatar,
-    name,
-    description,
-    about,
-    website,
-    questionsType,
-    questionsAsked,
-    users_subscribed,
-    isBlogger,
-    banner,
-    socialLinks: {
-      facebook,
-      instagram,
-      youtube,
-      vk,
-    },
-    colors: {
-      main: main_color,
-      highlight: highlight_color,
-    },
-  };
 };
 
 export const checkIsColorsActual = (id, mainColor, highlightColor) => {
@@ -319,65 +268,34 @@ export async function downVoteToCreateTag(
   });
 }
 
+const formCommunityObjectWithTags = async rawCommunity => {
+  return {
+    ...rawCommunity,
+    id: +rawCommunity.id,
+    value: +rawCommunity.id,
+    label: rawCommunity.name,
+    postCount: +rawCommunity.postCount,
+    creationTime: +rawCommunity.creationTime,
+    //todo amount of questions in community and tag
+    tags: (await getTags(rawCommunity.id)).map(tag => {
+      return { ...tag, questionsAsked: 0, label: tag.name };
+    }),
+  };
+};
+
 /* eslint no-param-reassign: 0 */
 export const getAllCommunities = async (ethereumService, count) => {
   const communities = await getCommunities(count);
-  // return await ethereumService.getCommunities(count);
   return await Promise.all(
     communities.map(async community => {
-      return {
-        ...community,
-        id: +community.id,
-        value: +community.id,
-        label: community.name,
-        postCount: +community.postCount,
-        creationTime: +community.creationTime,
-        //todo amount of questions in community and tag
-        tags: (await getTags(10, community.id)).map(tag => {
-          return { ...tag, questionsAsked: 0, label: tag.name };
-        }),
-      };
+      return await formCommunityObjectWithTags(community);
     }),
   );
 };
 
-export const getCommunityWithTags = async (eosService, id) => {
-  const row = await eosService.getTableRow(
-    COMMUNITIES_TABLE,
-    ALL_COMMUNITIES_SCOPE,
-    id,
-  );
-
-  const community = JSON.parse(await getText(row.ipfs_description));
-  const {
-    avatar,
-    name,
-    description,
-    about,
-    main_description,
-    language,
-    website = null,
-  } = community;
-
-  const { rows: tagRows } = await eosService.getTableRows(
-    TAGS_TABLE,
-    getTagScope(id),
-    0,
-    -1,
-  );
-
-  return {
-    ...row,
-    label: name,
-    value: id,
-    avatar: getFileUrl(avatar),
-    description,
-    about,
-    main_description,
-    language,
-    website: website || null,
-    tags: tagRows.map(tag => ({ ...tag, label: tag.name, value: tag.id })),
-  };
+export const getCommunityWithTags = async (ethereumService, id) => {
+  const community = await getCommunityById(id);
+  return await formCommunityObjectWithTags(community);
 };
 
 export async function getSuggestedCommunities(eosService, lowerBound, limit) {

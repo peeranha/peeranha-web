@@ -344,7 +344,7 @@ export default memo(
                       'id',
                     ),
                   },
-                  [FORM_TAGS]: question?.chosenTags,
+                  [FORM_TAGS]: question?.tags,
                   [FORM_BOUNTY]: question?.bounty ?? '',
                   [FORM_BOUNTY_HOURS]: question?.bountyHours,
                 }

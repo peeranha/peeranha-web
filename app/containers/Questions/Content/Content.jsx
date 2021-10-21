@@ -45,7 +45,7 @@ const Div = styled.div`
 const QI = ({
   id,
   title,
-  user,
+  author,
   userInfo,
   postTime,
   locale,
@@ -163,7 +163,7 @@ const QI = ({
           id={id}
           isModerator={isModerator}
           title={title}
-          user={user}
+          author={author}
           userInfo={userInfo}
           postTime={postTime}
           locale={locale}
@@ -246,7 +246,7 @@ export const Content = ({
 QI.propTypes = {
   id: PropTypes.string,
   title: PropTypes.string,
-  user: PropTypes.string,
+  author: PropTypes.string,
   userInfo: PropTypes.object,
   postTime: PropTypes.string,
   locale: PropTypes.string,

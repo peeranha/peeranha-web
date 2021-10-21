@@ -38,7 +38,7 @@ export const AnswersList = props => {
           isItWrittenByMe,
           history,
           userInfo,
-          post_time: postTime,
+          postTime,
           lastEditedDate,
           votingStatus,
         }) => (

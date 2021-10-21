@@ -206,7 +206,7 @@ export const QuestionTitle = ({
 
         <TagList
           className="my-2"
-          chosenTags={tags}
+          tags={tags}
           communityId={communityId}
           communities={communities}
         >

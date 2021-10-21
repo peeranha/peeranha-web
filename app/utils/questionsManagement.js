@@ -25,6 +25,7 @@ import {
   VOTE_TO_DELETE_METHOD,
 } from './constants';
 import {
+  EDIT_POST,
   GET_POST,
   GET_QUESTION,
   POST_ANSWER,
@@ -265,21 +266,6 @@ export async function postQuestion(
 ) {
   const ipfsLink = await saveText(JSON.stringify(questionData));
   const ipfsHash = ethereumService.getBytes32FromIpfsHash(ipfsLink);
-  // const question = await eosService.sendTransaction(
-  //   user,
-  //   POST_QUESTION_METHOD,
-  //   {
-  //     user,
-  //     title: questionData.title,
-  //     ipfs_link: ipfsLink,
-  //     community_id: questionData.community.value,
-  //     tags: questionData.chosenTags.map(x => x.id),
-  //     type: questionData.type,
-  //   },
-  //   null,
-  //   true,
-  // );
-  // console.log(user)
   return await ethereumService.sendTransactionWithSigner(user, POST_QUESTION, [
     communityId,
     ipfsHash,
@@ -288,21 +274,39 @@ export async function postQuestion(
   ]);
 }
 
-export const getEditQuestTrActData = async (user, id, question) => {
-  const ipfsLink = await saveText(JSON.stringify(question));
-
-  return {
-    action: EDIT_QUESTION_METHOD,
-    data: {
-      user,
-      question_id: +id,
-      title: question.title,
-      ipfs_link: ipfsLink,
-      community_id: question.community.value,
-      tags: question.chosenTags.map(x => x.id),
-    },
-  };
+export const editQuestion = async (
+  user,
+  postId,
+  communityId,
+  questionData,
+  tags,
+  ethereumService,
+) => {
+  const ipfsLink = await saveText(JSON.stringify(questionData));
+  const ipfsHash = ethereumService.getBytes32FromIpfsHash(ipfsLink);
+  return await ethereumService.sendTransactionWithSigner(user, EDIT_POST, [
+    postId,
+    communityId,
+    ipfsHash,
+    tags,
+  ]);
 };
+
+// export const getEditQuestTrActData = async (user, id, question) => {
+//   const ipfsLink = await saveText(JSON.stringify(question));
+//
+//   return {
+//     action: EDIT_QUESTION_METHOD,
+//     data: {
+//       user,
+//       question_id: +id,
+//       title: question.title,
+//       ipfs_link: ipfsLink,
+//       community_id: question.community.value,
+//       tags: question.tags.map(x => x.id),
+//     },
+//   };
+// };
 
 export async function deleteQuestion(user, questionId, eosService) {
   await eosService.sendTransaction(user, DEL_QUESTION_METHOD, {
@@ -511,4 +515,10 @@ export const getRandomQuestions = (questions, amount) => {
   }
 
   return result;
+};
+
+export const getQuestionTags = (question, tagList) => {
+  return question.tags.map(tagId => {
+    return tagList.find(tag => tag.id === `${question.communityId}-${tagId}`);
+  });
 };

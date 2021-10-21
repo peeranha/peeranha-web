@@ -13,7 +13,7 @@ const TagsContainer = ({ communities, communityId, tags }) => {
     <div className="d-flex align-items-center flex-wrap">
       <Tags
         className="my-1"
-        chosenTags={tags}
+        tags={tags}
         communityId={communityId}
         communities={communities}
       >

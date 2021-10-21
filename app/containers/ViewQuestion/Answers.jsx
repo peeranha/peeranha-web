@@ -30,7 +30,7 @@ export const Answers = ({
       if ((A1 && A2 && A1.rating > A2.rating) || (A1 && !A2)) {
         A1.isTheLargestRating = A1.rating > TOP_COMMUNITY_DISPLAY_MIN_RATING;
       }
-      console.log(sortedByRatingAnswers);
+
       const officialAnswers = sortedByRatingAnswers.filter(
         answer => !!answer.isOfficialReply,
       );
@@ -43,9 +43,6 @@ export const Answers = ({
         ({ id }) =>
           !(officialAnswerIds.includes(id) || id === correctAnswer?.id),
       );
-      console.log(officialAnswers);
-      console.log(correctAnswer);
-      console.log(rest);
       return {
         ...questionData,
         answers: _uniqBy(

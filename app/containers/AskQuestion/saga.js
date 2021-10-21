@@ -61,7 +61,6 @@ export function* postQuestionWorker({ val }) {
       // bountyFull: `${getFormattedAsset(+val[FORM_BOUNTY])} PEER`,
       // bountyHours: +val[FORM_BOUNTY_HOURS],
     };
-    // console.log(questionData)
     yield call(
       postQuestion,
       selectedAccount,

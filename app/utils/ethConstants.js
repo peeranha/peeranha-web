@@ -12,6 +12,7 @@ export const CREATE_TAG = 'createTag';
 export const POST_QUESTION = 'createPost';
 export const GET_POST = 'getPost';
 export const POST_ANSWER = 'createReply';
+export const EDIT_POST = 'editPost';
 
 export const usersQuery = `
       query(
@@ -79,13 +80,30 @@ export const communitiesQuery = `
         }
       }`;
 
+export const communityQuery = `
+      query(
+        $id: ID!,
+      ) {
+        community(
+         id: $id,
+        ) {
+          id
+          name
+          avatar
+          description
+          website
+          language
+          isFrozen
+          creationTime
+          postCount
+        }
+      }`;
+
 export const tagsQuery = `
       query(
-        $first: Int,
         $communityId: ID!,
       ) {
         tags(
-         first: $first,
          where: { communityId: $communityId },
         ) {
            name

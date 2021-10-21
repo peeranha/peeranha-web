@@ -1,6 +1,7 @@
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 import {
   communitiesQuery,
+  communityQuery,
   postsByCommQuery,
   postsQuery,
   repliesQuery,
@@ -50,11 +51,20 @@ export const getCommunities = async count => {
   return communities?.data.communities;
 };
 
-export const getTags = async (count, communityId) => {
+export const getCommunityById = async id => {
+  const community = await client.query({
+    query: gql(communityQuery),
+    variables: {
+      id,
+    },
+  });
+  return community?.data.community;
+};
+
+export const getTags = async communityId => {
   const tags = await client.query({
     query: gql(tagsQuery),
     variables: {
-      first: count,
       communityId,
     },
   });

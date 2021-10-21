@@ -137,7 +137,7 @@ export const ViewQuestion = ({
     ],
     [profile, questionData],
   );
-  console.log(questionData);
+
   const isAnswered = !!questionData?.answers.filter(x => x.user === account)
     .length;
 
