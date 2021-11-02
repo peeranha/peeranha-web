@@ -43,9 +43,7 @@ import { getAskedQuestion, editQuestion } from './actions';
 import { EDIT_QUESTION_FORM, EDIT_QUESTION_BUTTON } from './constants';
 
 const EditQuestion = ({
-  match: {
-    params: { questionid },
-  },
+  match,
   locale,
   question,
   balance,
@@ -56,6 +54,7 @@ const EditQuestion = ({
   getAskedQuestionDispatch,
   profile,
 }) => {
+  const questionid = match.params.questionid;
   useEffect(
     () => {
       getAskedQuestionDispatch(questionid);

@@ -73,7 +73,7 @@ export const editCommunity = async (
     EDIT_COMMUNITY,
     {
       user: selectedAccount,
-      community_id: communityId,
+      communityId: communityId,
       name: communityData.name,
       ipfs_description: ipfsHash,
       type: communityData.questionsType,
@@ -232,7 +232,7 @@ export async function editTagCM(eosService, selectedAccount, tag, tagIpfsHash) {
     EDIT_TAG_ACTION,
     {
       user: selectedAccount,
-      community_id: +tag.communityId,
+      communityId: +tag.communityId,
       tag_id: tag.tagId,
       name: tag.name,
       ipfs_description: tagIpfsHash,
@@ -250,7 +250,7 @@ export async function upVoteToCreateTag(
 ) {
   await eosService.sendTransaction(selectedAccount, VOTE_TO_CREATE_TAG, {
     user: selectedAccount,
-    community_id: +communityId,
+    communityId: +communityId,
     tag_id: +tagid,
   });
 }
@@ -263,7 +263,7 @@ export async function downVoteToCreateTag(
 ) {
   await eosService.sendTransaction(selectedAccount, VOTE_TO_DELETE_TAG, {
     user: selectedAccount,
-    community_id: +communityId,
+    communityId: +communityId,
     tag_id: +tagid,
   });
 }
@@ -271,6 +271,7 @@ export async function downVoteToCreateTag(
 const formCommunityObjectWithTags = async rawCommunity => {
   return {
     ...rawCommunity,
+    avatar: getFileUrl(rawCommunity.avatar),
     id: +rawCommunity.id,
     value: +rawCommunity.id,
     label: rawCommunity.name,
@@ -278,7 +279,7 @@ const formCommunityObjectWithTags = async rawCommunity => {
     creationTime: +rawCommunity.creationTime,
     //todo amount of questions in community and tag
     tags: (await getTags(rawCommunity.id)).map(tag => {
-      return { ...tag, questionsAsked: 0, label: tag.name };
+      return { ...tag, label: tag.name };
     }),
   };
 };
@@ -309,7 +310,7 @@ export async function unfollowCommunity(
 ) {
   await eosService.sendTransaction(selectedAccount, UNFOLLOW_COMM, {
     user: selectedAccount,
-    community_id: +communityIdFilter,
+    communityId: +communityIdFilter,
   });
 }
 
@@ -320,7 +321,7 @@ export async function followCommunity(
 ) {
   await eosService.sendTransaction(selectedAccount, FOLLOW_COMM, {
     user: selectedAccount,
-    community_id: +communityIdFilter,
+    communityId: +communityIdFilter,
   });
 }
 
@@ -383,7 +384,7 @@ export async function upVoteToCreateCommunity(
 ) {
   await eosService.sendTransaction(selectedAccount, VOTE_TO_CREATE_COMMUNITY, {
     user: selectedAccount,
-    community_id: +communityId,
+    communityId: +communityId,
   });
 }
 
@@ -394,6 +395,6 @@ export async function downVoteToCreateCommunity(
 ) {
   await eosService.sendTransaction(selectedAccount, VOTE_TO_DELETE_COMMUNITY, {
     user: selectedAccount,
-    community_id: +communityId,
+    communityId: +communityId,
   });
 }

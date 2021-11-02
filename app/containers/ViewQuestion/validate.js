@@ -164,7 +164,7 @@ export const markAsAcceptedValidator = (
 
   let message;
 
-  if (profileInfo.user !== questionData.user) {
+  if (profileInfo.user !== questionData.author) {
     message = `${translations[messages.noRootsToVote.id]}`;
   } else if (profileInfo.rating < MIN_RATING) {
     message = `${translations[messages.notEnoughRating.id]} ${MIN_RATING}`;
@@ -193,13 +193,13 @@ export const upVoteValidator = (
   let message;
 
   if (
-    (answerId === 0 && questionData.votingStatus.isVotedToDelete) ||
-    (isOwnItem[0] && isOwnItem[0].votingStatus.isVotedToDelete)
+    (answerId === 0 && questionData.votingStatus?.isVotedToDelete) ||
+    (isOwnItem[0] && isOwnItem[0].votingStatus?.isVotedToDelete)
   ) {
     message = translations[messages.cannotCompleteBecauseBlocked.id];
   } else if (
-    (questionData.user === profileInfo.user && answerId === 0) ||
-    (isOwnItem[0] && isOwnItem[0].user === profileInfo.user)
+    (questionData.author === profileInfo.user && answerId === 0) ||
+    (isOwnItem[0] && isOwnItem[0].author === profileInfo.user)
   ) {
     message = `${translations[messages.noRootsToVote.id]}`;
   } else if (profileInfo.rating < MIN_RATING_TO_UPVOTE) {
@@ -240,9 +240,9 @@ export const downVoteValidator = (
       ? questionData
       : questionData.answers.find(x => x.id === answerId);
 
-  if (item.votingStatus.isVotedToDelete) {
+  if (item.votingStatus?.isVotedToDelete) {
     message = translations[messages.cannotCompleteBecauseBlocked.id];
-  } else if (item.user === profileInfo.user) {
+  } else if (item.author === profileInfo.user) {
     message = `${translations[messages.noRootsToVote.id]}`;
   } else if (profileInfo.rating < MIN_RATING_TO_DOWNVOTE) {
     message = `${

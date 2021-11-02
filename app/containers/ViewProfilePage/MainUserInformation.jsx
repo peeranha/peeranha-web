@@ -170,7 +170,7 @@ const MainUserInformation = ({
                 <FormattedMessage {...commonMessages.questions} />
                 <span>
                   <img src={questionRoundedIcon} alt="icon" />
-                  {profile.questionsAsked}
+                  {profile.postCount}
                 </span>
               </li>
 

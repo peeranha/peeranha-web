@@ -52,7 +52,7 @@ export const AnswersList = props => {
             content={`${content}`}
             rating={rating}
             isTheLargestRating={isTheLargestRating}
-            questionFrom={props.questionData.user}
+            questionFrom={props.questionData.author}
             isItWrittenByMe={isItWrittenByMe}
             history={history}
             userInfo={userInfo}

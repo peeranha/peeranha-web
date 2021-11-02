@@ -129,7 +129,7 @@ export const QuestionForProfilePage = ({
   locale,
   acceptedAnswer,
   communities,
-  community_id,
+  communityId,
   postType,
   isMyAnswerAccepted,
   isTheLargestRating,
@@ -140,7 +140,7 @@ export const QuestionForProfilePage = ({
 }) => {
   let Link = AProps;
   let href = route;
-  if (single && single !== community_id) {
+  if (single && single !== communityId) {
     Link = APropsDefault;
     href = `${process.env.APP_LOCATION}${route}`;
   }
@@ -198,7 +198,7 @@ export const QuestionForProfilePage = ({
             </Span>
             <QuestionCommunity
               communities={communities}
-              communityId={community_id}
+              communityId={communityId}
             />
           </p>
         </div>
@@ -230,7 +230,7 @@ QuestionForProfilePage.propTypes = {
   locale: PropTypes.string,
   acceptedAnswer: PropTypes.bool,
   communities: PropTypes.array,
-  community_id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  communityId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   postType: PropTypes.string,
   isMyAnswerAccepted: PropTypes.bool,
   isTheLargestRating: PropTypes.bool,

@@ -155,7 +155,7 @@ class EthereumService {
         return {
           name: tag.name,
           description: tag.description,
-          questionsAsked: 0,
+          postCount: 0,
         };
       }),
     );

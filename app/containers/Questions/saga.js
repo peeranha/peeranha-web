@@ -381,7 +381,7 @@ export function* loadTopCommunityQuestionsWorker({ init }) {
           //       REMOVE_FROM_TOP_COMMUNITY_METHOD,
           //       {
           //         user,
-          //         community_id: single,
+          //         communityId: single,
           //         question_id: x,
           //       },
           //     );
@@ -457,7 +457,7 @@ export function* removeOrAddTopQuestionWorker({ id }) {
           : ADD_TO_TOP_COMMUNITY_METHOD,
         {
           user,
-          community_id: single,
+          communityId: single,
           question_id: id,
         },
       );
@@ -493,7 +493,7 @@ function* upQuestionWorker({ id }) {
 
       yield call(eosService.sendTransaction, user, UP_QUESTION_METHOD, {
         user,
-        community_id: single,
+        communityId: single,
         question_id: id,
       });
 
@@ -512,7 +512,7 @@ function* downQuestionWorker({ id }) {
 
       yield call(eosService.sendTransaction, user, DOWN_QUESTION_METHOD, {
         user,
-        community_id: single,
+        communityId: single,
         question_id: id,
       });
 
@@ -531,7 +531,7 @@ function* moveQuestionWorker({ id, position }) {
 
       yield call(eosService.sendTransaction, user, MOVE_QUESTION_METHOD, {
         user,
-        community_id: single,
+        communityId: single,
         question_id: id,
         new_position: position,
       });

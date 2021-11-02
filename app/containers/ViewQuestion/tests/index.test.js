@@ -17,7 +17,7 @@ beforeEach(() => {
     postCommentLoading: true,
     communities: [{ id: 0, tags: [{ name: 'tag1', id: 0 }] }],
     questionData: {
-      community_id: 0,
+      communityId: 0,
       tags: [0],
       content: {
         title: 'title',

@@ -84,7 +84,7 @@ const LastAnswer = ({ lastAnswer, locale }) => {
       <Span fontSize="14" lineHeight="18" color={TEXT_SECONDARY}>
         <FormattedMessage {...messages.lastAnswer} />{' '}
         {getFormattedDate(
-          lastAnswer.post_time,
+          lastAnswer.postTime,
           locale,
           MONTH_3LETTERS__DAY_YYYY_TIME,
         )}
@@ -103,7 +103,7 @@ const Question = ({
   acceptedAnswer,
   communities,
   id,
-  community_id,
+  communityId,
   postType,
   isMyAnswerAccepted,
   isGeneral,
@@ -118,7 +118,7 @@ const Question = ({
       acceptedAnswer={acceptedAnswer}
       communities={communities}
       id={id}
-      community_id={community_id}
+      communityId={communityId}
       postType={postType}
       isMyAnswerAccepted={isMyAnswerAccepted}
       isGeneral={isGeneral}
@@ -168,7 +168,7 @@ Question.propTypes = {
   id: PropTypes.string,
   postType: PropTypes.string,
   isMyAnswerAccepted: PropTypes.bool,
-  community_id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  communityId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   isGeneral: PropTypes.bool,
 };
 

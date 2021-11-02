@@ -4,7 +4,7 @@ export default {
   id: {
     message: messages.date,
   },
-  questionsAsked: {
+  postCount: {
     message: messages.popularity,
   },
 };

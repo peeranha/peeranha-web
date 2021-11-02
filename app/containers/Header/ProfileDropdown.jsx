@@ -182,7 +182,7 @@ const ProfileDropdown = ({ profileInfo }) => (
     menu={
       <Menu
         profileInfo={profileInfo}
-        questionsLength={profileInfo.questionsAsked}
+        questionsLength={profileInfo.postCount}
         questionsWithUserAnswersLength={profileInfo.answersGiven}
       />
     }

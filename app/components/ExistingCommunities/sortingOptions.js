@@ -2,7 +2,7 @@ import messages from 'common-messages';
 
 export default {
   questions: {
-    sortBy: 'questionsAsked',
+    sortBy: 'postCount',
     order: 'desc',
     message: messages.questions,
   },

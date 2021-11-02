@@ -54,12 +54,7 @@ export function* getAskedQuestionWorker({ questionId }) {
         ethereumService,
         questionId,
       );
-      const link = ethereumService.getIpfsHashFromBytes32(
-        questionFromContract.ipfsDoc.hash,
-      );
-      const questionData = yield call(getAskedQuestion, link);
       question = {
-        ...questionData,
         ...questionFromContract,
         isGeneral: !!questionFromContract.postType,
       };
@@ -194,7 +189,7 @@ export function* editQuestionWorker({ question, questionId }) {
     // if (cachedQuestion) {
     //   cachedQuestion.title = question.title;
     //   cachedQuestion.tags = question.tags.map(x => x.id);
-    //   cachedQuestion.community_id = question.community.id;
+    //   cachedQuestion.communityId = question.community.id;
     //   cachedQuestion.bounty = question?.bounty;
     //   cachedQuestion.bountyFull = question?.bountyFull;
     //   cachedQuestion.bountyHours = question?.bountyHours;

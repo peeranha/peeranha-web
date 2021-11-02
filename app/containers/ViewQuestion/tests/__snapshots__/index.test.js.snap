@@ -49,7 +49,7 @@ exports[`<ViewQuestion /> render !@questionDataLoading && @questionData 1`] = `
     postCommentLoading={true}
     questionData={
       Object {
-        "community_id": 0,
+        "communityId": 0,
         "content": Object {
           "content": "content",
           "title": "title",

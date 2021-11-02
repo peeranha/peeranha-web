@@ -25,6 +25,7 @@ import {
   editComment,
   getPromotedQuestions,
   getQuestionById,
+  getStatusHistory,
   markAsAccepted,
   postAnswer,
   postComment,
@@ -141,6 +142,7 @@ import {
 } from './validate';
 import { selectUsers } from '../DataCacheProvider/selectors';
 import { selectEthereum } from '../EthereumProvider/selectors';
+import { getQuestionFromGraph } from '../../utils/theGraph';
 
 export const isGeneralQuestion = question => Boolean(question.postType === 1);
 
@@ -153,14 +155,16 @@ export function* getQuestionData({
   promote,
 }) /* istanbul ignore next */ {
   const ethereumService = yield select(selectEthereum);
-  let question = yield select(selectQuestions(null, null, questionId));
-
-  if (!question) {
-    question = yield call(getQuestionById, ethereumService, questionId);
-
-    if (!question) {
-      return null;
-    }
+  let question;
+  console.log(user);
+  if (user) {
+    question = yield call(getQuestionById, ethereumService, questionId, user);
+  } else {
+    question = yield call(getQuestionFromGraph, +questionId);
+    question.commentCount = question.comments.length;
+    question.answers.map(answer => {
+      answer.commentCount = answer.comments.length;
+    });
   }
   // const bounty = yield call(getQuestionBounty, questionId, eosService);
   // yield put(getQuestionBountySuccess(bounty));
@@ -172,7 +176,7 @@ export function* getQuestionData({
   //   const promotedQuestions = yield call(
   //     getPromotedQuestions,
   //     eosService,
-  //     question.community_id,
+  //     question.communityId,
   //   );
   //
   //   const promotedQuestion = promotedQuestions.find(
@@ -190,23 +194,11 @@ export function* getQuestionData({
   const getItemStatus = (historyFlag, constantFlag) =>
     historyFlag?.flag & (1 << constantFlag);
 
-  /*
-   * @ITEM_UPV_FLAG - number of bit from historyFlag value - zero bit
-   * got status with help of @getItemStatus function
-   * if value of this bit NOT 0 => status (isUpVoted) is true
-   * and so on
-   */
-
-  const votingStatus = history => {
-    // const flag = history.filter(x => x.user === user)[0];
-
+  const votingStatus = ({ statusHistory }) => {
     return {
-      isUpVoted: false,
-      // Boolean(getItemStatus(flag, ITEM_UPV_FLAG)),
-      isDownVoted: false,
-      // Boolean(getItemStatus(flag, ITEM_DNV_FLAG)),
+      isUpVoted: statusHistory,
+      isDownVoted: !statusHistory,
       isVotedToDelete: false,
-      // Boolean(getItemStatus(flag, ITEM_VOTED_TO_DEL_FLAG)),
     };
   };
 
@@ -228,7 +220,8 @@ export function* getQuestionData({
         ? [...users.get(currentItem.author), currentItem]
         : [currentItem],
     );
-    currentItem.votingStatus = votingStatus(currentItem);
+
+    // currentItem.votingStatus = votingStatus(currentItem);
     if (currentItem.content) return;
     currentItem.content = 'content';
 
@@ -261,22 +254,21 @@ export function* getQuestionData({
       question.answers.map(function*(x) {
         yield call(addOptions, x);
 
-        // yield all(
-        //   x.comments.map(function*(y) {
-        //     yield call(addOptions, y);
-        //   }),
-        // );
+        yield all(
+          x.comments.map(function*(y) {
+            yield call(addOptions, y);
+          }),
+        );
       }),
     );
   }
 
   function* processCommentsOfQuestion() {
-    question.comments = [];
-    // yield all(
-    //   question.comments.map(function*(y) {
-    //     yield call(addOptions, y);
-    //   }),
-    // );
+    yield all(
+      question.comments.map(function*(y) {
+        yield call(addOptions, y);
+      }),
+    );
   }
 
   yield all([processQuestion(), processAnswers(), processCommentsOfQuestion()]);
@@ -284,13 +276,14 @@ export function* getQuestionData({
   // To avoid of fetching same user profiles - remember it and to write userInfo here
 
   yield all(
-    Array.from(users.keys()).map(function*(user) {
+    Array.from(users.keys()).map(function*(userFromItem) {
       const userInfo = yield call(getUserProfileWorker, {
-        user,
+        user: userFromItem,
         getFullProfile: true,
+        isLogin: user === userFromItem,
       });
 
-      users.get(user).map(cachedItem => {
+      users.get(userFromItem).map(cachedItem => {
         cachedItem.userInfo = userInfo;
       });
     }),
@@ -327,22 +320,24 @@ export function* saveCommentWorker({
   buttonId,
 }) {
   try {
-    const { questionData, eosService, profileInfo, locale } = yield call(
+    const { questionData, ethereumService, profileInfo, locale } = yield call(
       getParams,
     );
 
     yield call(isAvailableAction, () =>
       editCommentValidator(profileInfo, buttonId, translationMessages[locale]),
     );
-
+    const commentData = {
+      content: comment,
+    };
     yield call(
       editComment,
       profileInfo.user,
       questionId,
       answerId,
       commentId,
-      comment,
-      eosService,
+      commentData,
+      ethereumService,
     );
 
     let item;
@@ -372,7 +367,7 @@ export function* deleteCommentWorker({
   buttonId,
 }) {
   try {
-    const { questionData, eosService, locale, profileInfo } = yield call(
+    const { questionData, ethereumService, locale, profileInfo } = yield call(
       getParams,
     );
 
@@ -387,7 +382,7 @@ export function* deleteCommentWorker({
           questionData,
         ),
       {
-        communityID: questionData.community_id,
+        communityID: questionData.communityId,
       },
     );
 
@@ -397,7 +392,7 @@ export function* deleteCommentWorker({
       questionId,
       answerId,
       commentId,
-      eosService,
+      ethereumService,
     );
 
     if (answerId === 0) {
@@ -433,7 +428,7 @@ export function* deleteAnswerWorker({ questionId, answerId, buttonId }) {
           questionData,
         ),
       {
-        communityID: questionData.community_id,
+        communityID: questionData.communityId,
       },
     );
 
@@ -457,7 +452,7 @@ export function* deleteQuestionWorker({ questionId, buttonId }) {
   try {
     const {
       questionData,
-      eosService,
+      ethereumService,
       locale,
       profileInfo,
       questionBounty,
@@ -474,15 +469,15 @@ export function* deleteQuestionWorker({ questionId, buttonId }) {
           questionData,
         ),
       {
-        communityID: questionData.community_id,
+        communityID: questionData.communityId,
       },
     );
-    if (questionBounty) {
-      yield call(payBounty, profileInfo?.user, questionId, true, eosService);
-      yield put(payBountySuccess(buttonId));
-    }
+    // if (questionBounty) {
+    //   yield call(payBounty, profileInfo?.user, questionId, true, eosService);
+    //   yield put(payBountySuccess(buttonId));
+    // }
 
-    yield call(deleteQuestion, profileInfo.user, questionId, eosService);
+    yield call(deleteQuestion, profileInfo.user, questionId, ethereumService);
 
     yield put(
       deleteQuestionSuccess({ ...questionData, isDeleted: true }, buttonId),
@@ -504,8 +499,7 @@ export function* getQuestionDataWorker({ questionId }) {
     });
 
     const single = isSingleCommunityWebsite();
-    const isAnotherCommQuestion =
-      single && questionData.community_id !== single;
+    const isAnotherCommQuestion = single && questionData.communityId !== single;
 
     if (!questionData) {
       throw new Error(`No question data, id: ${questionId}`);
@@ -533,7 +527,7 @@ export function* getQuestionDataWorker({ questionId }) {
     // const promotedQuestions = yield call(
     //   getPromotedQuestions,
     //   eosService,
-    //   questionData.community_id,
+    //   questionData.communityId,
     // );
     //
     // const promotedQuestion = promotedQuestions.find(
@@ -561,20 +555,20 @@ export function* checkPostCommentAvailableWorker(buttonId, answerId) {
 
   yield call(isAuthorized);
 
-  yield call(
-    isAvailableAction,
-    () =>
-      postCommentValidator(
-        profileInfo,
-        questionData,
-        buttonId,
-        answerId,
-        translationMessages[locale],
-      ),
-    {
-      communityID: questionData.community_id,
-    },
-  );
+  // yield call(
+  //   isAvailableAction,
+  //   () =>
+  //     postCommentValidator(
+  //       profileInfo,
+  //       questionData,
+  //       buttonId,
+  //       answerId,
+  //       translationMessages[locale],
+  //     ),
+  //   {
+  //     communityID: questionData.communityId,
+  //   },
+  // );
 }
 
 export function* showAddCommentFormWorker({ toggleFormButtonId, answerId }) {
@@ -595,21 +589,25 @@ export function* postCommentWorker({
   buttonId,
 }) {
   try {
-    const { questionData, eosService, profileInfo } = yield call(getParams);
+    const { questionData, ethereumService, profileInfo } = yield call(
+      getParams,
+    );
 
     yield call(checkPostCommentAvailableWorker, buttonId, answerId);
-
+    const commentData = {
+      content: comment,
+    };
     yield call(
       postComment,
       profileInfo.user,
       questionId,
       answerId,
-      comment,
-      eosService,
+      commentData,
+      ethereumService,
     );
 
     const newComment = {
-      post_time: String(dateNowInSeconds()),
+      postTime: String(dateNowInSeconds()),
       user: profileInfo.user,
       properties: [],
       history: [],
@@ -679,7 +677,7 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
 
     const newAnswer = {
       id: questionData.answers.length + 1,
-      post_time: String(dateNowInSeconds()),
+      postTime: String(dateNowInSeconds()),
       user: profileInfo.user,
       properties: official ? [{ key: 10, value: 1 }] : [],
       history: [],
@@ -708,7 +706,7 @@ export function* downVoteWorker({
   questionId,
 }) {
   try {
-    const { questionData, eosService, profileInfo, locale } = yield call(
+    const { questionData, ethereumService, profileInfo, locale } = yield call(
       getParams,
     );
 
@@ -717,7 +715,7 @@ export function* downVoteWorker({
     yield call(isAuthorized);
 
     const isOwnItem =
-      questionData.user === profileInfo.user ||
+      questionData.author === profileInfo.user ||
       questionData.answers.find(x => x.id === answerId)?.user ===
         profileInfo.user;
 
@@ -732,12 +730,18 @@ export function* downVoteWorker({
           translationMessages[locale],
         ),
       {
-        communityID: questionData.community_id,
+        communityID: questionData.communityId,
         skipPermissions: isOwnItem,
       },
     );
 
-    yield call(downVote, profileInfo.user, questionId, answerId, eosService);
+    yield call(
+      downVote,
+      profileInfo.user,
+      questionId,
+      answerId,
+      ethereumService,
+    );
 
     const item =
       answerId === 0
@@ -769,7 +773,7 @@ export function* upVoteWorker({
   whoWasUpvoted,
 }) {
   try {
-    const { questionData, eosService, profileInfo, locale } = yield call(
+    const { questionData, ethereumService, profileInfo, locale } = yield call(
       getParams,
     );
 
@@ -778,7 +782,7 @@ export function* upVoteWorker({
     yield call(isAuthorized);
 
     const isOwnItem =
-      questionData.user === profileInfo.user ||
+      questionData.author === profileInfo.user ||
       questionData.answers.find(x => x.id === answerId)?.user ===
         profileInfo.user;
 
@@ -793,12 +797,12 @@ export function* upVoteWorker({
           translationMessages[locale],
         ),
       {
-        communityID: questionData.community_id,
+        communityID: questionData.communityId,
         skipPermissions: isOwnItem,
       },
     );
 
-    yield call(upVote, profileInfo.user, questionId, answerId, eosService);
+    yield call(upVote, profileInfo.user, questionId, answerId, ethereumService);
 
     const item =
       answerId === 0
@@ -830,7 +834,7 @@ export function* markAsAcceptedWorker({
   whoWasAccepted,
 }) {
   try {
-    const { questionData, eosService, profileInfo, locale } = yield call(
+    const { questionData, ethereumService, profileInfo, locale } = yield call(
       getParams,
     );
 
@@ -848,7 +852,7 @@ export function* markAsAcceptedWorker({
           translationMessages[locale],
         ),
       {
-        communityID: questionData.community_id,
+        communityID: questionData.communityId,
       },
     );
 
@@ -857,11 +861,11 @@ export function* markAsAcceptedWorker({
       profileInfo.user,
       questionId,
       correctAnswerId,
-      eosService,
+      ethereumService,
     );
 
-    questionData.correct_answer_id =
-      questionData.correct_answer_id === correctAnswerId ? 0 : correctAnswerId;
+    questionData.bestReply =
+      questionData.bestReply === correctAnswerId ? 0 : correctAnswerId;
 
     yield put(
       markAsAcceptedSuccess({ ...questionData }, usersForUpdate, buttonId),
@@ -917,7 +921,7 @@ export function* voteToDeleteWorker({
           item,
         ),
       {
-        communityID: questionData.community_id,
+        communityID: questionData.communityId,
         skipPermissions: itemData.votingStatus.isUpVoted,
       },
     );

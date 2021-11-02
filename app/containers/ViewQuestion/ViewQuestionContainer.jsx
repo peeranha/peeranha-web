@@ -26,7 +26,7 @@ export const ViewQuestionContainer = props => {
       <Base className="mt-3 position-relative overflow-hidden">
         <AnswerForm
           answer=""
-          communityId={props.questionData.community_id}
+          communityId={props.questionData.communityId}
           form={ADD_ANSWER_FORM}
           formHeader={msg[messages.yourAnswer.id]}
           sendButtonId={POST_ANSWER_BUTTON}

@@ -206,7 +206,7 @@ const Notification = ({
 
   const isCommunityMod = !!single && Object.keys(styles).length > 0;
 
-  const isAnotherCommItem = !!single && data.community_id !== single;
+  const isAnotherCommItem = !!single && data.communityId !== single;
 
   const tipNotification =
     type === NOTIFICATIONS_TYPES.questionTipped ||

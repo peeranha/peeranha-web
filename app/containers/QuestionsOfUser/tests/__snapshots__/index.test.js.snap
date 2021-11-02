@@ -22,7 +22,7 @@ exports[`QuestionsOfUser render questions[0] TRUE 1`] = `
             "acceptedAnswer": false,
             "answers": Array [],
             "communities": Array [],
-            "community_id": 123,
+            "communityId": 123,
             "id": "id",
             "locale": "en",
             "myPostRating": 100,

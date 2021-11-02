@@ -73,7 +73,7 @@ export const EditProfilePage = ({
         userId={id}
         account={account}
         profile={profile}
-        questionsLength={_get(profile, 'questionsAsked', 0)}
+        questionsLength={_get(profile, 'postCount', 0)}
         questionsWithUserAnswersLength={_get(profile, 'answersGiven', 0)}
         loginData={loginData}
       />

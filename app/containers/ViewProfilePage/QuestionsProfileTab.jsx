@@ -82,7 +82,7 @@ const Note = ({
     id,
     postType === POST_TYPE_ANSWER ? answerId : null,
   );
-  if (single && single !== postInfo.community_id) {
+  if (single && single !== postInfo.communityId) {
     Link = ADefault;
     route = `${process.env.APP_LOCATION}${route}`;
   }

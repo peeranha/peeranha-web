@@ -122,9 +122,9 @@ function UpvoteIcon({ account, userInfo, votingStatus }) {
   let src = null;
   if (account === userInfo.user) {
     src = disabledFingerUp;
-  } else if (votingStatus.isUpVoted) {
+  } else if (votingStatus?.isUpVoted) {
     src = greenFingerUpSingleQuestion;
-  } else if (votingStatus.isDownVoted) {
+  } else if (votingStatus?.isDownVoted) {
     src = emptyFingerUp;
   } else {
     src = fingerUpSingleQuestionPage;
@@ -148,9 +148,9 @@ function DownvoteIcon({ account, userInfo, votingStatus }) {
 
   if (account === userInfo.user) {
     src = disabledFingerDown;
-  } else if (votingStatus.isDownVoted) {
+  } else if (votingStatus?.isDownVoted) {
     src = redFingerDownSingleQuestion;
-  } else if (votingStatus.isUpVoted) {
+  } else if (votingStatus?.isUpVoted) {
     src = emptyFingerDown;
   } else {
     src = fingerDownSingleQuestionPage;

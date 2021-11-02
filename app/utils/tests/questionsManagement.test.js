@@ -196,13 +196,13 @@ describe('FetcherOfQuestionsForFollowedCommunities', () => {
       fetcher.hasMore = true;
       const fetch = await fetcher.getNextItems(fetchCount);
 
-      it('!this.communitiesMap[community_id].more', () => {
+      it('!this.communitiesMap[communityId].more', () => {
         fetcher.communitiesMap[communities[0]].more = false;
         fetcher.communitiesMap[communities[0]].items.length = 2 * fetchCount;
         expect(fetch).toBe(null);
       });
 
-      it('this.communitiesMap[community_id].more TRUE && fetcher.communitiesMap[communities[0]].items.length < fetchCount', () => {
+      it('this.communitiesMap[communityId].more TRUE && fetcher.communitiesMap[communities[0]].items.length < fetchCount', () => {
         fetcher.communitiesMap[communities[0]].more = true;
         fetcher.communitiesMap[communities[0]].items.length = Math.floor(
           0.5 * fetchCount,
@@ -233,12 +233,12 @@ describe('FetcherOfQuestionsForFollowedCommunities', () => {
       ]);
     });
 
-    it('this.communitiesMap[community_id].items.length < fetchCount', async () => {
+    it('this.communitiesMap[communityId].items.length < fetchCount', async () => {
       const MIN_ID = 1;
 
       fetchCount = 10;
       fetcher.hasMore = true;
-      this.communitiesMap[community_id].items = [
+      this.communitiesMap[communityId].items = [
         { id: MIN_ID },
         { id: 2 * MIN_ID },
         { id: 3 * MIN_ID },
@@ -504,7 +504,7 @@ describe('editQuestion', () => {
         question_id: +id,
         title: question.title,
         ipfs_link: ipfsLink,
-        community_id: value,
+        communityId: value,
         tags: [value],
       },
     );
@@ -571,7 +571,7 @@ describe('postQuestion', () => {
         user,
         title: questionData.title,
         ipfs_link: ipfsLink,
-        community_id: value,
+        communityId: value,
         tags: [value],
       },
     );

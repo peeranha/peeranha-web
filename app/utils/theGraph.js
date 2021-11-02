@@ -1,7 +1,9 @@
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 import {
+  commentsQuery,
   communitiesQuery,
   communityQuery,
+  postQuery,
   postsByCommQuery,
   postsQuery,
   repliesQuery,
@@ -9,6 +11,7 @@ import {
   userQuery,
   usersQuery,
 } from './ethConstants';
+import { getQuestionById } from './questionsManagement';
 
 const client = new ApolloClient({
   uri: process.env.THE_GRAPH_QUERY_URL,
@@ -71,6 +74,17 @@ export const getTags = async communityId => {
   return tags?.data.tags;
 };
 
+const getComments = async (postId, parentReplyId) => {
+  const comments = await client.query({
+    query: gql(commentsQuery),
+    variables: {
+      postId: +postId,
+      parentReplyId: +parentReplyId,
+    },
+  });
+  return comments?.data.comments;
+};
+
 const getQuestionAnswers = async postId => {
   const answers = await client.query({
     query: gql(repliesQuery),
@@ -80,7 +94,7 @@ const getQuestionAnswers = async postId => {
   });
 
   return answers?.data.replies?.map(answer => {
-    return { ...answer, comments: [] };
+    return { ...answer, comments: getComments(postId, answer.id) };
   });
 };
 
@@ -96,8 +110,8 @@ export const getPosts = async (limit, skip) => {
     posts?.data.posts.map(async post => {
       return {
         ...post,
-        answers: post.replyCount > 0 ? await getQuestionAnswers(post.id) : [],
-        comments: [],
+        answers: await getQuestionAnswers(post.id),
+        comments: await getComments(post.id, 0),
       };
     }),
   );
@@ -117,8 +131,47 @@ export const getPostsByCommunityId = async (limit, skip, communityIds) => {
     posts?.data.posts.map(async post => {
       return {
         ...post,
-        answers: post.replyCount > 0 ? await getQuestionAnswers(post.id) : [],
+        answers: await getQuestionAnswers(post.id),
+        comments: await getComments(post.id, 0),
       };
     }),
   );
+};
+
+export const getQuestionFromGraph = async postId => {
+  const post = await client.query({
+    query: gql(postQuery),
+    variables: {
+      postId,
+    },
+  });
+
+  return {
+    ...post.data.post,
+    answers: [
+      ...(await Promise.all(
+        post.data.replies.map(async (reply, index) => {
+          return {
+            ...reply,
+            comments: (await client.query({
+              query: gql(commentsQuery),
+              variables: {
+                postId: +postId,
+                parentReplyId: index + 1,
+              },
+            })).data.comments.map(comment => {
+              return {
+                ...comment,
+              };
+            }),
+          };
+        }),
+      )),
+    ],
+    comments: post.data.comments.map(comment => {
+      return {
+        ...comment,
+      };
+    }),
+  };
 };

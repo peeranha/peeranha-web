@@ -154,7 +154,7 @@ const selectUserRatingDCP = user =>
 const selectQuestionsAskedValue = user =>
   createSelector(
     selectDataCacheProviderDomain,
-    substate => substate?.users[user].questionsAsked,
+    substate => substate?.users[user].postCount,
   );
 
 const selectAnswersGivenValue = user =>

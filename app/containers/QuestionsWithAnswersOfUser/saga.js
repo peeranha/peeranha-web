@@ -57,7 +57,7 @@ export function* getQuestionsWithAnswersWorker({ userId }) {
 
       x.answers.map(y => {
         if (y.id === answersId[index].answer_id) {
-          x.myPostTime = y.post_time;
+          x.myPostTime = y.postTime;
           x.isMyAnswerAccepted = y.id === x.correct_answer_id;
 
           x.isTheLargestRating =
