@@ -26,6 +26,7 @@ import {
 } from './constants';
 import {
   CHANGE_STATUS_BEST,
+  DELETE_ANSWER,
   DELETE_COMMENT,
   DELETE_POST,
   DOWNVOTE_STATUS,
@@ -363,12 +364,16 @@ export async function editAnswer(
   ]);
 }
 
-export async function deleteAnswer(user, questionId, answerId, eosService) {
-  await eosService.sendTransaction(user, DEL_ANSWER_METHOD, {
-    user,
-    question_id: questionId,
-    answer_id: answerId,
-  });
+export async function deleteAnswer(
+  user,
+  questionId,
+  answerId,
+  ethereumService,
+) {
+  await ethereumService.sendTransactionWithSigner(user, DELETE_ANSWER, [
+    questionId,
+    answerId,
+  ]);
 }
 
 export async function postComment(

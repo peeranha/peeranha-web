@@ -129,7 +129,7 @@ export const postCommentValidator = (
     message = `${translations[messages.itemsMax.id]}`;
   } else if (
     (item.user === profileInfo.user ||
-      questionData.user === profileInfo.user) &&
+      questionData.author === profileInfo.user) &&
     profileInfo.rating < MIN_RATING_FOR_MY_ITEM
   ) {
     message = `${
@@ -137,7 +137,7 @@ export const postCommentValidator = (
     } ${MIN_RATING_FOR_MY_ITEM}`;
   } else if (
     item.user !== profileInfo.user &&
-    questionData.user !== profileInfo.user &&
+    questionData.author !== profileInfo.user &&
     profileInfo.rating < MIN_RATING_FOR_OTHER_ITEMS
   ) {
     message = `${

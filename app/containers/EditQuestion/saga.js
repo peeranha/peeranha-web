@@ -5,21 +5,15 @@ import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
 import {
-  getAskedQuestion,
-  getChangePromoCommTrActData,
   editQuestion,
-  getPromoteQuestTrActData,
   getQuestionById,
   getQuestionTags,
 } from 'utils/questionsManagement';
-import { getEditBountyTrActData } from 'utils/walletManagement';
 import { getCommunityWithTags } from 'utils/communityManagement';
-import { dateNowInSeconds, ONE_HOUR_IN_SECONDS } from 'utils/datetime';
 
 import { isAuthorized, isValid } from 'containers/EosioProvider/saga';
 import { updateQuestionList } from 'containers/ViewQuestion/saga';
 
-import { selectEos } from 'containers/EosioProvider/selectors';
 import { selectQuestionData } from 'containers/ViewQuestion/selectors';
 
 import {
@@ -37,15 +31,14 @@ import {
   getAskedQuestionErr,
   getAskedQuestionSuccess,
 } from './actions';
-import { selectQuestion } from './selectors';
 import { selectEthereum } from '../EthereumProvider/selectors';
-import { CREATE_COMMUNITY, EDIT_POST } from '../../utils/ethConstants';
+import { makeSelectAccount } from '../AccountProvider/selectors';
 
 export function* getAskedQuestionWorker({ questionId }) {
   try {
     const ethereumService = yield select(selectEthereum);
     const cachedQuestion = yield select(selectQuestionData());
-
+    const account = yield select(makeSelectAccount());
     let question;
 
     if (!cachedQuestion) {
@@ -53,6 +46,7 @@ export function* getAskedQuestionWorker({ questionId }) {
         getQuestionById,
         ethereumService,
         questionId,
+        account,
       );
       question = {
         ...questionFromContract,

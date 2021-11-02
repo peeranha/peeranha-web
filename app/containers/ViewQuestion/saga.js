@@ -156,7 +156,6 @@ export function* getQuestionData({
 }) /* istanbul ignore next */ {
   const ethereumService = yield select(selectEthereum);
   let question;
-  console.log(user);
   if (user) {
     question = yield call(getQuestionById, ethereumService, questionId, user);
   } else {
@@ -412,7 +411,7 @@ export function* deleteCommentWorker({
 
 export function* deleteAnswerWorker({ questionId, answerId, buttonId }) {
   try {
-    const { questionData, eosService, locale, profileInfo } = yield call(
+    const { questionData, ethereumService, locale, profileInfo } = yield call(
       getParams,
     );
 
@@ -422,7 +421,7 @@ export function* deleteAnswerWorker({ questionId, answerId, buttonId }) {
         deleteAnswerValidator(
           buttonId,
           answerId,
-          questionData.correct_answer_id,
+          questionData.bestReply,
           translationMessages[locale],
           profileInfo,
           questionData,
@@ -437,7 +436,7 @@ export function* deleteAnswerWorker({ questionId, answerId, buttonId }) {
       profileInfo.user,
       questionId,
       answerId,
-      eosService,
+      ethereumService,
     );
 
     questionData.answers = questionData.answers.filter(x => x.id !== answerId);
@@ -555,20 +554,20 @@ export function* checkPostCommentAvailableWorker(buttonId, answerId) {
 
   yield call(isAuthorized);
 
-  // yield call(
-  //   isAvailableAction,
-  //   () =>
-  //     postCommentValidator(
-  //       profileInfo,
-  //       questionData,
-  //       buttonId,
-  //       answerId,
-  //       translationMessages[locale],
-  //     ),
-  //   {
-  //     communityID: questionData.communityId,
-  //   },
-  // );
+  yield call(
+    isAvailableAction,
+    () =>
+      postCommentValidator(
+        profileInfo,
+        questionData,
+        buttonId,
+        answerId,
+        translationMessages[locale],
+      ),
+    {
+      communityID: questionData.communityId,
+    },
+  );
 }
 
 export function* showAddCommentFormWorker({ toggleFormButtonId, answerId }) {

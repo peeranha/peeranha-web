@@ -53,13 +53,14 @@ const EditQuestion = ({
   editQuestionDispatch,
   getAskedQuestionDispatch,
   profile,
+  account,
 }) => {
   const questionid = match.params.questionid;
   useEffect(
     () => {
       getAskedQuestionDispatch(questionid);
     },
-    [questionid, getAskedQuestionDispatch],
+    [questionid, getAskedQuestionDispatch, account],
   );
 
   const sendQuestion = useCallback(

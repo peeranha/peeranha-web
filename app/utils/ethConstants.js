@@ -17,6 +17,7 @@ export const GET_VOTED_USERS = 'getVotedUsers';
 export const GET_COMMENT = 'getComment';
 export const POST_ANSWER = 'createReply';
 export const EDIT_ANSWER = 'editReply';
+export const DELETE_ANSWER = 'deleteReply';
 export const EDIT_POST = 'editPost';
 export const DELETE_POST = 'deletePost';
 export const POST_COMMENT = 'createComment';
