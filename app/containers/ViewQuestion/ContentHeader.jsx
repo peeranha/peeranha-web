@@ -196,29 +196,26 @@ const ContentHeader = props => {
               <FormattedMessage {...messages.getBounty} />
             </Button>
           )} */}
-
-          <Button
-            show={
-              !profile ||
-              (!!profile &&
-                (!isItWrittenByMe && !isGlobalAdmin && !infiniteImpact))
-            }
-            id={`${type}_vote_to_delete_${answerId}`}
-            params={buttonParams}
-            onClick={voteToDelete}
-            disabled={ids.includes(`${type}_vote_to_delete_${answerId}`)}
-            isVotedToDelete={true}
-          >
-            <IconSm
-              icon={blockIcon}
-              fill={true ? BORDER_ATTENTION_LIGHT : BORDER_PRIMARY}
-            />
-            <FormattedMessage
-              {...(infiniteImpact
-                ? commonMessages.delete
-                : messages.voteToDelete)}
-            />
-          </Button>
+          {infiniteImpact ? (
+            <Button
+              show={
+                !profile ||
+                (!!profile &&
+                  (!isItWrittenByMe && !isGlobalAdmin && !infiniteImpact))
+              }
+              id={`${type}_vote_to_delete_${answerId}`}
+              params={buttonParams}
+              onClick={voteToDelete}
+              disabled={ids.includes(`${type}_vote_to_delete_${answerId}`)}
+              isVotedToDelete={true}
+            >
+              <IconSm
+                icon={blockIcon}
+                fill={true ? BORDER_ATTENTION_LIGHT : BORDER_PRIMARY}
+              />
+              <FormattedMessage {...messages.voteToDelete} />
+            </Button>
+          ) : null}
 
           <div id={`${type}_delete_${answerId}`}>
             <AreYouSure
