@@ -141,7 +141,7 @@ const CommunitySelector = ({
       target={
         <Button
           communityAvatar={selectedValue?.avatar}
-          communityLabel={selectedValue?.name ?? 'undefined'}
+          communityLabel={selectedValue?.name}
         />
       }
     >

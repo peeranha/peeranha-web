@@ -6,7 +6,10 @@ import { followCommunity, unfollowCommunity } from 'utils/communityManagement';
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { isAuthorized, isValid } from 'containers/EosioProvider/saga';
 import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
-import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
+import {
+  makeSelectAccount,
+  makeSelectProfileInfo,
+} from 'containers/AccountProvider/selectors';
 
 import {
   FOLLOW_HANDLER,
@@ -17,6 +20,7 @@ import {
 import { followHandlerSuccess, followHandlerErr } from './actions';
 import { setCookie } from '../../utils/cookie';
 import { PROFILE_INFO_LS } from '../Login/constants';
+import { selectEthereum } from '../EthereumProvider/selectors';
 
 export function* followHandlerWorker({
   communityIdFilter,
@@ -24,8 +28,8 @@ export function* followHandlerWorker({
   buttonId,
 }) {
   try {
-    const eosService = yield select(selectEos);
-    const prevProfileInfo = yield select(makeSelectProfileInfo());
+    const ethereumService = yield select(selectEthereum);
+    const account = yield select(makeSelectAccount());
 
     yield call(isAuthorized);
 
@@ -34,22 +38,21 @@ export function* followHandlerWorker({
       minRating: MIN_RATING_TO_FOLLOW,
       minEnergy: MIN_ENERGY_TO_FOLLOW,
     });
-
     yield call(
       isFollowed ? unfollowCommunity : followCommunity,
-      eosService,
+      ethereumService,
       communityIdFilter,
-      prevProfileInfo.user,
+      account,
     );
 
     const profileInfo = yield select(makeSelectProfileInfo());
     const updatedProfileInfo = {
       ...profileInfo,
-      followed_communities: isFollowed
-        ? profileInfo.followed_communities.filter(
+      followedCommunities: isFollowed
+        ? profileInfo.followedCommunities.filter(
             commId => commId !== +communityIdFilter,
           )
-        : [...profileInfo.followed_communities, +communityIdFilter],
+        : [...profileInfo.followedCommunities, +communityIdFilter],
     };
     setCookie({
       name: PROFILE_INFO_LS,

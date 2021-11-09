@@ -74,7 +74,7 @@ export const selectQuestions = (
 
       if (isFeed && followedCommunities) {
         return questionsList.filter(x =>
-          followedCommunities.includes(x.communityId),
+          followedCommunities.includes(+x.communityId),
         );
       }
 

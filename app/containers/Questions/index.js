@@ -98,6 +98,8 @@ export const Questions = ({
           offset,
           Number(params.communityid) || 0,
           parentPage,
+          false,
+          true,
         );
       }
     },
@@ -112,8 +114,8 @@ export const Questions = ({
 
       if (!questionFilter) {
         getQuestionsDispatch(
+          initLoadedItems,
           nextLoadedItems,
-          offset,
           Number(params.communityid) || 0,
           parentPage,
           next,

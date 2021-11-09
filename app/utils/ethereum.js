@@ -166,9 +166,8 @@ class EthereumService {
     const communityInfo = JSON.parse(
       await getText(this.getIpfsHashFromBytes32(rawCommunity.ipfsDoc.hash)),
     );
-    const tags = await this.getTagsFromContract(id);
     return {
-      id,
+      id: +id,
       name: communityInfo.name,
       avatar: communityInfo.avatar.imgUrl || getFileUrl(communityInfo.avatar),
       description: communityInfo.description,
@@ -176,8 +175,7 @@ class EthereumService {
       language: communityInfo.language,
       creationTime: rawCommunity.timeCreate,
       isFrozen: rawCommunity.isFrozen,
-      value: id,
-      tags,
+      value: +id,
     };
   };
 

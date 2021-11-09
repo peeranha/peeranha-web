@@ -59,6 +59,8 @@ import {
 } from './constants';
 
 import TypeForm from './QuestionsTypeForm';
+import CommunityTypeForm from './CommunityTypeForm';
+import BloggerModeForm from './BloggerModeForm';
 
 const MIN_TAGS_NUMBER = 5;
 const MAX_TAGS_NUMBER = 25;
@@ -174,14 +176,24 @@ const CreateCommunityForm = ({
           splitInHalf
         />
 
-        {profileWithModeratorRights && (
-          <TypeForm
-            locale={locale}
-            change={change}
+        {/*{profileWithModeratorRights && (*/}
+        {/*  <TypeForm*/}
+        {/*    locale={locale}*/}
+        {/*    change={change}*/}
+        {/*    formValues={formValues}*/}
+        {/*    intl={intl}*/}
+        {/*  />*/}
+        {/*)}*/}
+
+        <CommunityTypeForm change={change} intl={intl} />
+
+        {+formValues[COMMUNITY_TYPE] ? (
+          <BloggerModeForm
+            disabled={createCommunityLoading}
             formValues={formValues}
             intl={intl}
           />
-        )}
+        ) : null}
 
         <div>
           <Wrapper label={translations[messages.tags.id]} splitInHalf>
@@ -312,7 +324,7 @@ export default memo(
       return {
         formValues: form?.values ?? {},
         initialValues: {
-          [COMMUNITY_TYPE]: 1,
+          [COMMUNITY_TYPE]: 0,
           [MAIN_COLOR_FIELD]: PEER_PRIMARY_COLOR,
           [HIGHLIGHT_COLOR_FIELD]: PEER_WARNING_COLOR,
           [FORM_TYPE]: ANY_TYPE,
