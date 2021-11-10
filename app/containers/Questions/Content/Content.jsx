@@ -54,7 +54,7 @@ const QI = ({
   tags,
   rating,
   answers,
-  correct_answer_id,
+  bestReply,
   isGeneral,
   first,
   last,
@@ -144,7 +144,7 @@ const QI = ({
       isPromoted={isPromoted}
     >
       <AdditionalInfo
-        correctAnswerId={correct_answer_id}
+        correctAnswerId={bestReply}
         answers={answers}
         rating={rating}
         officialAnswersCount={offAnswersCount}

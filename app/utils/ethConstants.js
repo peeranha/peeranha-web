@@ -222,6 +222,33 @@ export const postsByCommQuery = `
         }
       }`;
 
+export const postsForSearchQuery = `
+      query (
+        $text: String,
+      ) {
+        postSearch (
+          text: $text,
+        ) {
+           id
+           tags
+           postType
+           author
+           rating
+           postTime
+           communityId
+           title
+           content
+           commentCount
+           replyCount
+           isDeleted
+           officialReply
+           bestReply
+           isFirstReply
+           isQuickReply
+           properties
+        }
+      }`;
+
 export const postQuery = `
       query (
         $postId: Int,
