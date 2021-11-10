@@ -74,6 +74,10 @@ export const globalAdminPermissions = {
     code: 5,
     title: 'permissionChangeQuestionType',
   },
+  ADMIN_OFFICIAL_ANSWER: {
+    code: 6,
+    title: 'permissionOfficialAnswer',
+  },
 };
 export const communityAdminPermissions = {
   COMMUNITY_MODERATOR_INFINITE_IMPACT1: {
