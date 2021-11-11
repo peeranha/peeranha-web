@@ -25,6 +25,9 @@ import reducer from './reducer';
 import saga from './saga';
 
 import View from './View';
+import { Redirect } from 'react-router-dom';
+import * as routes from '../../routes-config';
+import { selectIsGlobalAdmin } from '../AccountProvider/selectors';
 
 const single = isSingleCommunityWebsite();
 
@@ -39,7 +42,10 @@ const Users = ({
   communities,
   getUsersDispatch,
   changeSortingTypeDispatch,
+  isGlobalAdmin,
 }) => {
+  if (!isGlobalAdmin) return <Redirect to={routes.questions()} />;
+
   const getMoreUsers = useCallback(() => {
     getUsersDispatch({ loadMore: true });
   }, []);
@@ -118,6 +124,7 @@ export default compose(
       searchText: selectors.selectSearchText(),
       isLastFetch: selectors.selectIsLastFetch(),
       stat: selectStat(),
+      isGlobalAdmin: selectIsGlobalAdmin(),
     }),
     dispatch => ({
       getUsersDispatch: bindActionCreators(getUsers, dispatch),

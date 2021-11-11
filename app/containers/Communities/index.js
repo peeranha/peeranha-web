@@ -111,12 +111,6 @@ export const Communities = ({
         />
 
         {displayLoadingIndicator && <LoadingIndicator />}
-
-        {displayBanner && (
-          <Banner
-            goToCreateCommunityScreen={redirectToCreateCommunityDispatch}
-          />
-        )}
       </div>
     </div>
   );
