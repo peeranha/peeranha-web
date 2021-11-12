@@ -112,7 +112,6 @@ const Box = styled.div`
 `;
 
 const MainLinks = ({ profile, currClientHeight, isGlobalAdmin }) => {
-  console.log(isGlobalAdmin);
   const { pathname } = window.location;
   let route = pathname.split('/').filter(x => x)[0];
 

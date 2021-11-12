@@ -79,7 +79,9 @@ const AdditionalInfo = ({
   correctAnswerId,
   answers,
   rating,
+  answersCount,
   officialAnswersCount,
+  isSearchPage,
 }) => {
   const icon = useMemo(
     () => {
@@ -108,9 +110,13 @@ const AdditionalInfo = ({
     [rating],
   );
 
-  const formattedAnswerCount = useMemo(() => getFormattedNum(answers.length), [
-    answers.length,
-  ]);
+  const formattedAnswerCount = useMemo(
+    () =>
+      isSearchPage
+        ? getFormattedNum(answersCount)
+        : getFormattedNum(answers.length),
+    [answersCount],
+  );
 
   return (
     <Container>

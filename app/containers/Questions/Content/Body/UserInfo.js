@@ -13,18 +13,23 @@ import AchievementsStatus from 'components/AchievementsStatus';
 
 import { TEXT_SECONDARY } from 'style-constants';
 
-const UserInfo = ({ author, userInfo, postTime, locale }) => {
+const UserInfo = ({ author, userInfo, postTime, locale, isSearchPage }) => {
   return (
     <p className="mb-3">
       <A
         to={routes.profileView(author)}
         className="d-inline-flex align-items-center"
       >
-        <Span className="mr-2" fontSize="14">
-          {userInfo?.['displayName']}
-        </Span>
-        <RatingStatus rating={userInfo.rating} size="sm" isRankOff />
-        <AchievementsStatus count={userInfo.achievementsReached?.length} />
+        {!isSearchPage && (
+          <>
+            <Span className="mr-2" fontSize="14">
+              {userInfo?.['displayName']}
+            </Span>
+            <RatingStatus rating={userInfo.rating} size="sm" isRankOff />
+            <AchievementsStatus count={userInfo.achievementsReached?.length} />
+          </>
+        )}
+
         <Span
           className="text-capitalize mr-3"
           fontSize="14"
