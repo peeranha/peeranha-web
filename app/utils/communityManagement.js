@@ -14,7 +14,6 @@ import {
   ALL_COMMUNITIES_SCOPE,
   COMMUNITIES_TABLE,
   CREATED_TAGS_TABLE,
-  EDIT_COMMUNITY,
   EDIT_TAG_ACTION,
   FOLLOW_COMM,
   SINGLE_COMMUNITY_DETAILS,
@@ -25,7 +24,14 @@ import {
   VOTE_TO_DELETE_COMMUNITY,
   VOTE_TO_DELETE_TAG,
 } from './constants';
-import { CREATE_COMMUNITY, CREATE_TAG } from './ethConstants';
+import {
+  CREATE_COMMUNITY,
+  CREATE_TAG,
+  FOLLOW_COMMUNITY,
+  GET_COMMUNITY,
+  UNFOLLOW_COMMUNITY,
+  EDIT_COMMUNITY,
+} from './ethConstants';
 import { getCommunities, getCommunityById, getTags } from './theGraph';
 
 export const isSingleCommunityWebsite = () =>
@@ -61,25 +67,28 @@ export function getUnfollowedCommunities(allcommunities, followedcommunities) {
 }
 
 export const editCommunity = async (
-  eosService,
+  ethereumService,
   selectedAccount,
   communityId,
   communityData,
 ) => {
-  const ipfsHash = await saveText(JSON.stringify(communityData));
+  let imgHash;
+  if (!communityData.avatar.startsWith('https')) {
+    imgHash = (await uploadImg(communityData.avatar)).imgHash;
+  } else imgHash = communityData.avatar;
 
-  await eosService.sendTransaction(
+  const communityIpfsLink = await saveText(
+    JSON.stringify({
+      ...communityData,
+      avatar: imgHash,
+    }),
+  );
+
+  const ipfsHash = ethereumService.getBytes32FromIpfsHash(communityIpfsLink);
+  await ethereumService.sendTransactionWithSigner(
     selectedAccount,
     EDIT_COMMUNITY,
-    {
-      user: selectedAccount,
-      communityId: communityId,
-      name: communityData.name,
-      ipfs_description: ipfsHash,
-      type: communityData.questionsType,
-    },
-    null,
-    true,
+    [communityId, ipfsHash],
   );
 };
 
@@ -299,30 +308,32 @@ export const getCommunityWithTags = async (ethereumService, id) => {
   return await formCommunityObjectWithTags(community);
 };
 
+export const getCommunityFromContract = async (ethereumService, id) => {
+  return await ethereumService.getCommunityFromContract(id);
+};
+
 export async function getSuggestedCommunities(eosService, lowerBound, limit) {
   return [];
 }
 
 export async function unfollowCommunity(
-  eosService,
+  ethereumService,
   communityIdFilter,
-  selectedAccount,
+  account,
 ) {
-  await eosService.sendTransaction(selectedAccount, UNFOLLOW_COMM, {
-    user: selectedAccount,
-    communityId: +communityIdFilter,
-  });
+  await ethereumService.sendTransactionWithSigner(account, UNFOLLOW_COMMUNITY, [
+    communityIdFilter,
+  ]);
 }
 
 export async function followCommunity(
-  eosService,
+  ethereumService,
   communityIdFilter,
-  selectedAccount,
+  account,
 ) {
-  await eosService.sendTransaction(selectedAccount, FOLLOW_COMM, {
-    user: selectedAccount,
-    communityId: +communityIdFilter,
-  });
+  await ethereumService.sendTransactionWithSigner(account, FOLLOW_COMMUNITY, [
+    communityIdFilter,
+  ]);
 }
 
 /* eslint camelcase: 0 */

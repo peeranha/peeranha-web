@@ -8,6 +8,9 @@ export const GET_COMMUNITY = 'getCommunity';
 export const GET_TAGS = 'getTags';
 export const GET_QUESTION = 'getPost';
 export const CREATE_COMMUNITY = 'createCommunity';
+export const EDIT_COMMUNITY = 'updateCommunity';
+export const FOLLOW_COMMUNITY = 'followCommunity';
+export const UNFOLLOW_COMMUNITY = 'unfollowCommunity';
 export const CREATE_TAG = 'createTag';
 export const POST_QUESTION = 'createPost';
 export const GET_POST = 'getPost';
@@ -198,6 +201,33 @@ export const postsByCommQuery = `
           first: $first,
           skip: $skip,
           where: { communityId_in: $communityIds, isDeleted: false },
+        ) {
+           id
+           tags
+           postType
+           author
+           rating
+           postTime
+           communityId
+           title
+           content
+           commentCount
+           replyCount
+           isDeleted
+           officialReply
+           bestReply
+           isFirstReply
+           isQuickReply
+           properties
+        }
+      }`;
+
+export const postsForSearchQuery = `
+      query (
+        $text: String,
+      ) {
+        postSearch (
+          text: $text,
         ) {
            id
            tags

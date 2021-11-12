@@ -133,7 +133,12 @@ export function* getQuestionsWorker({
       followedCommunities &&
       followedCommunities.length > 0
     ) {
-      questionsList = yield call(getQuestionsForFollowedCommunities, limit);
+      questionsList = yield call(
+        getPostsByCommunityId,
+        limit,
+        offset,
+        followedCommunities,
+      );
     }
 
     const users = new Map();

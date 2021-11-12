@@ -5,13 +5,13 @@ import {
   communityQuery,
   postQuery,
   postsByCommQuery,
+  postsForSearchQuery,
   postsQuery,
   repliesQuery,
   tagsQuery,
   userQuery,
   usersQuery,
 } from './ethConstants';
-import { getQuestionById } from './questionsManagement';
 
 const client = new ApolloClient({
   uri: process.env.THE_GRAPH_QUERY_URL,
@@ -174,4 +174,14 @@ export const getQuestionFromGraph = async postId => {
       };
     }),
   };
+};
+
+export const postsForSearch = async text => {
+  const posts = await client.query({
+    query: gql(postsForSearchQuery),
+    variables: {
+      text: `${text}:*`,
+    },
+  });
+  return posts?.data?.postSearch.filter(post => !post.isDeleted);
 };

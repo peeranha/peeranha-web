@@ -21,6 +21,7 @@ import {
   makeSelectStakedInCurrentPeriod,
   makeSelectStakedInNextPeriod,
   makeSelectBoost,
+  selectIsGlobalAdmin,
 } from 'containers/AccountProvider/selectors';
 
 import { showLoginModal } from 'containers/Login/actions';
@@ -39,6 +40,7 @@ const LeftMenu = /* istanbul ignore next */ ({
   boost,
   showLoginModalDispatch,
   showLeftMenuDispatch,
+  isGlobalAdmin,
 }) => (
   <Aside
     isMenuVisible={isMenuVisible}
@@ -52,6 +54,7 @@ const LeftMenu = /* istanbul ignore next */ ({
       stakedInNextPeriod={stakedInNextPeriod}
       boost={boost}
       showLoginModal={showLoginModalDispatch}
+      isGlobalAdmin={isGlobalAdmin}
     />
 
     <After isMenuVisible={isMenuVisible} onClick={showLeftMenuDispatch}>
@@ -73,6 +76,7 @@ LeftMenu.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   profile: makeSelectProfileInfo(),
+  isGlobalAdmin: selectIsGlobalAdmin(),
   balance: makeSelectBalance(),
   stakedInCurrentPeriod: makeSelectStakedInCurrentPeriod(),
   stakedInNextPeriod: makeSelectStakedInNextPeriod(),

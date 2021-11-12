@@ -44,11 +44,13 @@ import {
   GET_EXISTING_QUESTIONS,
 } from './constants';
 import { selectEthereum } from '../EthereumProvider/selectors';
+import { selectCommunities } from '../DataCacheProvider/selectors';
 
 export function* postQuestionWorker({ val }) {
   try {
     const ethereumService = yield select(selectEthereum);
     const selectedAccount = yield select(makeSelectAccount());
+    const communities = yield select(selectCommunities());
     // const promoteValue = +val[FORM_PROMOTE];
     const tags = val[FORM_TAGS].map(tag => Number(tag.id.split('-')[1]));
     const communityId = val[FORM_COMMUNITY].id;
@@ -61,6 +63,10 @@ export function* postQuestionWorker({ val }) {
       // bountyFull: `${getFormattedAsset(+val[FORM_BOUNTY])} PEER`,
       // bountyHours: +val[FORM_BOUNTY_HOURS],
     };
+    const id = communities.reduce((count, community) => {
+      return count + community.postCount;
+    }, 1);
+
     yield call(
       postQuestion,
       selectedAccount,
@@ -70,13 +76,6 @@ export function* postQuestionWorker({ val }) {
       tags,
       ethereumService,
     );
-
-    const questionsPostedByUser = yield call(
-      getQuestionsPostedByUser,
-      ethereumService,
-      1,
-    );
-
     // if (val[FORM_BOUNTY] && Number(val[FORM_BOUNTY]) > 0) {
     //   const now = Math.round(new Date().valueOf() / 1000);
     //   const bountyTime = now + questionData.bountyHours * ONE_HOUR_IN_SECONDS;
@@ -92,14 +91,14 @@ export function* postQuestionWorker({ val }) {
     // }
 
     // if (promoteValue) {
-    //   yield call(promoteQuestion, eosService, selectedAccount, questionsPostedByUser[0].question_id, promoteValue);
+    //   yield call(promoteQuestion, eosService, selectedAccount, que stionsPostedByUser[0].question_id, promoteValue);
     // }
 
     yield put(askQuestionSuccess());
 
     yield call(
       createdHistory.push,
-      routes.questionView(questionsPostedByUser[0].id, false, communityId),
+      routes.questionView(id, false, communityId),
     );
   } catch (err) {
     yield put(askQuestionError(err));

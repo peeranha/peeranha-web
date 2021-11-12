@@ -6,19 +6,19 @@ import Span from 'components/Span';
 
 import _get from 'lodash/get';
 import { getFormattedDate } from '../../utils/datetime';
-import { MONTH_3LETTERS__DAY_YYYY } from '../../utils/constants';
+import {
+  MONTH_3LETTERS__DAY_YYYY,
+  MONTH_3LETTERS__DAY_YYYY_TIME,
+} from '../../utils/constants';
 
-const Item = ({ title, link, snippet, pagemap, locale }) => {
-  const date = new Date(
-    _get(pagemap.metatags[0], 'article:published_time', ''),
-  );
+const Item = ({ title, id, content, postTime, locale }) => {
+  const link = `${process.env.APP_LOCATION}/questions/${id}`;
   const formattedDate = getFormattedDate(
-    date.valueOf() / 1000,
+    postTime,
     locale,
-    MONTH_3LETTERS__DAY_YYYY,
+    MONTH_3LETTERS__DAY_YYYY_TIME,
   );
-  const snippetWithLocale =
-    formattedDate + snippet.slice(formattedDate.length + 1);
+  const snippetWithLocale = formattedDate + ' / ' + content;
   return (
     <li className="mb-3">
       <div>
