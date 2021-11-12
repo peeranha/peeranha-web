@@ -103,14 +103,14 @@ export const QuestionTitle = ({
 }) => {
   const {
     tags,
-    community_id: communityId,
-    correct_answer_id: correctAnswerId,
+    communityId: communityId,
+    bestReply: correctAnswerId,
     answers,
     questionBounty,
     isGeneral,
     id,
     promote,
-    user: questionAuthor,
+    author: questionAuthor,
   } = questionData;
 
   const isActivePromotion = useMemo(
@@ -206,7 +206,7 @@ export const QuestionTitle = ({
 
         <TagList
           className="my-2"
-          chosenTags={tags}
+          tags={tags}
           communityId={communityId}
           communities={communities}
         >

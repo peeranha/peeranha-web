@@ -78,7 +78,7 @@ export async function getProfileInfo(
       position: profile.position,
     };
     profileInfo.user = user;
-    profileInfo.questionsAsked = profileInfo.questionsAsked ?? 0;
+    profileInfo.postCount = profileInfo.postCount ?? 0;
     profileInfo.answersGiven = profileInfo.answersGiven ?? 0;
     profileInfo.achievementsReached = profileInfo.achievementsReached ?? [];
   }

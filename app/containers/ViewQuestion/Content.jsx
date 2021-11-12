@@ -9,16 +9,17 @@ import Base from 'components/Base/BaseRoundedNoPadding';
 import QuestionTitle from './QuestionTitle';
 import ContentHeader from './ContentHeader';
 import ContentBody from './ContentBody';
+import { isTemporaryAccount } from '../../utils/properties';
 
 const BaseStyled = Base.extend`
   overflow: hidden;
 `.withComponent('section');
 
 export const Content = props => {
-  const isTemporaryAccount = !!props.userInfo?.['integer_properties'].find(
-    x => x.key === TEMPORARY_ACCOUNT_KEY && x.value,
-  );
-
+  const isTemporaryAccount = false;
+  //   !!props.userInfo?.['integer_properties'].find(
+  //   x => x.key === TEMPORARY_ACCOUNT_KEY && x.value,
+  // );
   return (
     <BaseStyled
       className={props.className}

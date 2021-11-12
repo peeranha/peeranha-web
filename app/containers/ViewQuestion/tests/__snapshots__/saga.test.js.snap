@@ -21,7 +21,7 @@ Object {
       "history": Array [],
       "id": 1,
       "isItWrittenByMe": true,
-      "post_time": "15151515",
+      "postTime": "15151515",
       "properties": Array [],
       "rating": 0,
       "user": "user",
@@ -44,7 +44,7 @@ Object {
           "history": Array [],
           "id": 1,
           "isItWrittenByMe": true,
-          "post_time": "15151515",
+          "postTime": "15151515",
           "properties": Array [],
           "user": "user",
           "userInfo": Object {
@@ -82,7 +82,7 @@ Object {
       "history": Array [],
       "id": 1,
       "isItWrittenByMe": true,
-      "post_time": "15151515",
+      "postTime": "15151515",
       "properties": Array [],
       "user": "user",
       "userInfo": Object {

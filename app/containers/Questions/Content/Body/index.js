@@ -26,7 +26,7 @@ const QuestionLabels = styled.div`
 
 const Body = ({
   id,
-  user,
+  author,
   isModerator,
   title,
   userInfo,
@@ -43,55 +43,57 @@ const Body = ({
   displayTopQuestionMove,
   topQuestionActionProcessing,
   isPromoted,
-}) => (
-  <Base
-    className={displayTopQuestionMove ? 'pl-0' : ''}
-    position='right'
-    paddingTopMedia={20}
-  >
-    <QuestionLabels>
-      <TopQuestion
+}) => {
+  return (
+    <Base
+      className={displayTopQuestionMove ? 'pl-0' : ''}
+      position="right"
+      paddingTopMedia={20}
+    >
+      <QuestionLabels>
+        <TopQuestion
+          id={id}
+          locale={locale}
+          profileInfo={profileInfo}
+          isTopQuestion={isTopQuestion}
+          isModerator={isModerator}
+          topQuestionsCount={topQuestionsCount}
+          topQuestionActionProcessing={topQuestionActionProcessing}
+        />
+
+        <QuestionType
+          locale={locale}
+          isGeneral={isGeneral}
+          isPromoted={isPromoted}
+        />
+      </QuestionLabels>
+
+      <Title
+        locale={locale}
+        title={title}
         id={id}
-        locale={locale}
-        profileInfo={profileInfo}
-        isTopQuestion={isTopQuestion}
-        isModerator={isModerator}
-        topQuestionsCount={topQuestionsCount}
-        topQuestionActionProcessing={topQuestionActionProcessing}
+        questionBounty={questionBounty}
       />
 
-      <QuestionType
+      <UserInfo
+        author={author}
+        userInfo={userInfo}
         locale={locale}
-        isGeneral={isGeneral}
-        isPromoted={isPromoted}
+        postTime={postTime}
       />
-    </QuestionLabels>
 
-    <Title
-      locale={locale}
-      title={title}
-      id={id}
-      questionBounty={questionBounty}
-    />
-
-    <UserInfo
-      user={user}
-      userInfo={userInfo}
-      locale={locale}
-      postTime={postTime}
-    />
-
-    <TagsContainer
-      communities={communities}
-      communityId={communityId}
-      tags={tags}
-    />
-  </Base>
-);
+      <TagsContainer
+        communities={communities}
+        communityId={communityId}
+        tags={tags}
+      />
+    </Base>
+  );
+};
 
 Body.propTypes = {
   id: PropTypes.string,
-  user: PropTypes.string,
+  author: PropTypes.string,
   title: PropTypes.string,
   userInfo: PropTypes.object,
   postTime: PropTypes.number,

@@ -52,7 +52,7 @@ describe('QuestionsWithAnswersOfUser', () => {
           acceptedAnswer: false,
           communities: [],
           id: 'id',
-          community_id: 123,
+          communityId: 123,
         },
       ];
 

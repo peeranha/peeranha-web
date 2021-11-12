@@ -11,7 +11,6 @@ import {
   makeSelectProfileInfo,
   selectIsGlobalAdmin,
 } from 'containers/AccountProvider/selectors';
-import { selectEos } from 'containers/EosioProvider/selectors';
 import { selectEditTagData } from 'containers/TagsOfCommunity/selectors';
 import { selectExistingTags } from 'containers/Tags/selectors';
 
@@ -50,32 +49,33 @@ export function* getEditTagFormWorker({ communityId }) {
 
 export function* editTagWorker({ tag, reset }) {
   try {
-    const eosService = yield select(selectEos);
-    const selectedAccount = yield call(eosService.getSelectedAccount);
-    const { communityId, tagId } = yield select(selectEditTagData());
-
-    const tagsOfCommunity = yield select(selectExistingTags());
-    const editingTag = tagsOfCommunity.find(tg => tg.id === tagId);
-    const tagIpfsHash = yield saveText(JSON.stringify(tag));
-    const updatedTag = {
-      ...editingTag,
-      name: tag.name,
-      label: tag.name,
-      description: tag.description,
-      ipfs_description: tagIpfsHash,
-    };
-
-    yield call(editTagCM, eosService, selectedAccount, tag, tagIpfsHash);
-    yield put(updateTagOfCommunity(communityId, tagId, updatedTag));
-
-    yield put(editTagSuccess());
-
-    yield call(reset);
-
-    yield call(
-      createdHistory.push,
-      communityId ? routes.communityTags(communityId) : routes.tags(),
-    );
+    // const eosService = yield select(selectEos);
+    // const selectedAccount = yield call(eosService.getSelectedAccount);
+    // const { communityId, tagId } = yield select(selectEditTagData());
+    //
+    // const tagsOfCommunity = yield select(selectExistingTags());
+    // const editingTag = tagsOfCommunity.find(tg => tg.id === tagId);
+    // const tagIpfsHash = yield saveText(JSON.stringify(tag));
+    // const updatedTag = {
+    //   ...editingTag,
+    //   name: tag.name,
+    //   label: tag.name,
+    //   description: tag.description,
+    //   ipfs_description: tagIpfsHash,
+    // };
+    //
+    // yield call(editTagCM, eosService, selectedAccount, tag, tagIpfsHash);
+    // yield put(updateTagOfCommunity(communityId, tagId, updatedTag));
+    //
+    // yield put(editTagSuccess());
+    //
+    // yield call(reset);
+    //
+    // yield call(
+    //   createdHistory.push,
+    //   communityId ? routes.communityTags(communityId) : routes.tags(),
+    // );
+    yield put(editTagErr());
   } catch (err) {
     yield put(editTagErr(err));
   }

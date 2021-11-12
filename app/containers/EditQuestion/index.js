@@ -43,9 +43,7 @@ import { getAskedQuestion, editQuestion } from './actions';
 import { EDIT_QUESTION_FORM, EDIT_QUESTION_BUTTON } from './constants';
 
 const EditQuestion = ({
-  match: {
-    params: { questionid },
-  },
+  match,
   locale,
   question,
   balance,
@@ -55,28 +53,29 @@ const EditQuestion = ({
   editQuestionDispatch,
   getAskedQuestionDispatch,
   profile,
+  account,
 }) => {
+  const questionid = match.params.questionid;
   useEffect(
     () => {
       getAskedQuestionDispatch(questionid);
     },
-    [questionid, getAskedQuestionDispatch],
+    [questionid, getAskedQuestionDispatch, account],
   );
 
   const sendQuestion = useCallback(
     values => {
       const val = values.toJS();
-
       editQuestionDispatch(
         {
           title: val[FORM_TITLE],
           content: val[FORM_CONTENT],
-          community: val[FORM_COMMUNITY],
-          chosenTags: val[FORM_TAGS],
-          bounty: +val[FORM_BOUNTY],
-          bountyFull: `${getFormattedAsset(+val[FORM_BOUNTY])} PEER`,
-          bountyHours: +val[FORM_BOUNTY_HOURS],
-          promote: +val[FORM_PROMOTE],
+          communityId: val[FORM_COMMUNITY].id,
+          tags: val[FORM_TAGS].map(tag => +tag.id.split('-')[1]),
+          // bounty: +val[FORM_BOUNTY],
+          // bountyFull: `${getFormattedAsset(+val[FORM_BOUNTY])} PEER`,
+          // bountyHours: +val[FORM_BOUNTY_HOURS],
+          // promote: +val[FORM_PROMOTE],
         },
         questionid,
       );

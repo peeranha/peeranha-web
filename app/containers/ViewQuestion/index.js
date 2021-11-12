@@ -105,7 +105,7 @@ export const ViewQuestion = ({
     () => {
       getQuestionDataDispatch(match.params.id);
     },
-    [match.params.id],
+    [match.params.id, account],
   );
 
   useEffect(
@@ -130,15 +130,12 @@ export const ViewQuestion = ({
   const [isChangeTypeAvailable, infiniteImpact] = useMemo(
     () => [
       hasGlobalModeratorRole(getPermissions(profile)),
-      communityAdminInfiniteImpactPermission(
-        profile?.permissions || [],
-        questionData?.['community_id'],
-      ),
+      hasGlobalModeratorRole(getPermissions(profile)),
     ],
     [profile, questionData],
   );
 
-  const isAnswered = !!questionData?.answers.filter(x => x.user === account)
+  const isAnswered = !!questionData?.answers.filter(x => x.author === account)
     .length;
 
   const sendProps = {
@@ -184,8 +181,8 @@ export const ViewQuestion = ({
   const helmetDescription =
     questionData?.content.content ?? translations[messages.title.id];
 
-  const articlePublishedTime = questionData?.post_time
-    ? new Date(questionData.post_time * 1000)
+  const articlePublishedTime = questionData?.postTime
+    ? new Date(questionData.postTime * 1000)
     : ``;
 
   const articleModifiedTime = questionData?.lastEditedDate
@@ -194,7 +191,7 @@ export const ViewQuestion = ({
 
   const tagIds = questionData?.tags ?? [];
 
-  const commId = questionData?.community_id ?? null;
+  const commId = questionData?.communityId ?? null;
 
   const community = communities.filter(x => x.id === commId)[0] || {
     tags: [],

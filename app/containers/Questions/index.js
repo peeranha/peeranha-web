@@ -88,38 +88,22 @@ export const Questions = ({
   loadTopQuestionsDispatch,
   isLastTopQuestionLoaded,
 }) => {
-  const [fetcher, setFetcher] = useState(null);
-
-  const initFetcher = useCallback(
-    () => {
-      const MARGIN = 1.2;
-      const f = new FetcherOfQuestionsForFollowedCommunities(
-        Math.floor(MARGIN * initLoadedItems),
-        followedCommunities || [],
-        eosService,
-      );
-      setFetcher(f);
-      return f;
-    },
-    [initLoadedItems, followedCommunities, eosService],
-  );
-
   const getInitQuestions = useCallback(
     () => {
       if (!questionFilter) {
         const offset = 0;
-        const f = initFetcher();
 
         getQuestionsDispatch(
           initLoadedItems,
           offset,
           Number(params.communityid) || 0,
           parentPage,
-          f,
+          false,
+          true,
         );
       }
     },
-    [initLoadedItems, params.communityid, parentPage, fetcher, questionFilter],
+    [initLoadedItems, params.communityid, parentPage, questionFilter],
   );
 
   const getNextQuestions = useCallback(
@@ -129,20 +113,11 @@ export const Questions = ({
       const next = true;
 
       if (!questionFilter) {
-        const f = do {
-          if (parentPage !== feed) {
-            initFetcher();
-          } else {
-            fetcher;
-          }
-        };
-
         getQuestionsDispatch(
+          initLoadedItems,
           nextLoadedItems,
-          offset,
           Number(params.communityid) || 0,
           parentPage,
-          f,
           next,
         );
       } else if (single) {
@@ -155,7 +130,6 @@ export const Questions = ({
       nextLoadedItems,
       params.communityid,
       parentPage,
-      fetcher,
       questionFilter,
       loadTopQuestionsDispatch,
     ],
@@ -163,19 +137,7 @@ export const Questions = ({
 
   useEffect(
     () => {
-      setFetcher(null);
-
-      return () => {
-        setFetcher(null);
-      };
-    },
-    [params.communityid, questionFilter],
-  );
-
-  useEffect(
-    () => {
       if (
-        !fetcher &&
         eosService &&
         ((parentPage === feed &&
           followedCommunities &&
@@ -186,20 +148,14 @@ export const Questions = ({
         getInitQuestions();
       }
     },
-    [fetcher, eosService, questionFilter],
+    [eosService, questionFilter],
   );
 
   useEffect(
     () => {
-      if (!fetcher && !questionFilter) {
-        setCookie({
-          name: UPDATE_PROMO_QUESTIONS,
-          value: true,
-        });
-        getInitQuestions();
-      }
+      getInitQuestions();
     },
-    [typeFilter, createdFilter, questionFilter],
+    [typeFilter, createdFilter],
   );
 
   useEffect(() => {
@@ -301,9 +257,9 @@ export const Questions = ({
         >
           <Content
             questionsList={questionsList}
-            promotedQuestionsList={
-              promotedQuestions[+questionFilterFromCookies ? 'top' : 'all']
-            }
+            // promotedQuestionsList={
+            //   promotedQuestions[+questionFilterFromCookies ? 'top' : 'all']
+            // }
             locale={locale}
             communities={communities}
             typeFilter={typeFilter}

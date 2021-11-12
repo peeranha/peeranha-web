@@ -176,9 +176,9 @@ export const isProfileInfoUpdated = (
     (!prevProfileInfo.rating || prevProfileInfo.rating < maxRatingLowerValue);
 
   const questionRelatedUpdated =
-    currProfileInfo.questionsAsked !== prevProfileInfo.questionsAsked &&
-    (!prevProfileInfo.questionsAsked ||
-      prevProfileInfo.questionsAsked < maxQuestionLowerValue);
+    currProfileInfo.postCount !== prevProfileInfo.postCount &&
+    (!prevProfileInfo.postCount ||
+      prevProfileInfo.postCount < maxQuestionLowerValue);
 
   const answersRelatedUpdated =
     currProfileInfo.answersGiven !== prevProfileInfo.answersGiven &&

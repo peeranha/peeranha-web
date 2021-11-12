@@ -71,11 +71,6 @@ export const Tags = ({
         />
 
         <div className="mb-3">{Content}</div>
-
-        <Banner
-          openTagForm={redirectToCreateTagDispatch}
-          communityId={currentCommunity.id}
-        />
       </div>
     </div>
   );

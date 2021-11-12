@@ -25,17 +25,17 @@ import {
 } from './actions';
 
 export function* getWeekStatWorker() {
-  try {
-    const eosService = yield select(selectEos);
-    const profile = yield select(makeSelectProfileInfo());
-
-    const weekStat = profile ? yield call(getWeekStat, eosService, profile) : [];
-    const userBoostStat = profile ? yield call(getUserBoostStatistics, eosService, profile.user) : [];
-
-    yield put(getWeekStatSuccess(weekStat, userBoostStat));
-  } catch (err) {
-    yield put(getWeekStatErr(err));
-  }
+  // try {
+  //   const eosService = yield select(selectEos);
+  //   const profile = yield select(makeSelectProfileInfo());
+  //
+  //   const weekStat = profile ? yield call(getWeekStat, eosService, profile) : [];
+  //   const userBoostStat = profile ? yield call(getUserBoostStatistics, eosService, profile.user) : [];
+  //
+  //   yield put(getWeekStatSuccess(weekStat, userBoostStat));
+  // } catch (err) {
+  //   yield put(getWeekStatErr(err));
+  // }
 }
 
 export function* pickupRewardWorker({ period, buttonId }) {

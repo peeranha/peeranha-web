@@ -14,7 +14,6 @@ import {
   ALL_COMMUNITIES_SCOPE,
   COMMUNITIES_TABLE,
   CREATED_TAGS_TABLE,
-  EDIT_COMMUNITY,
   EDIT_TAG_ACTION,
   FOLLOW_COMM,
   SINGLE_COMMUNITY_DETAILS,
@@ -25,8 +24,15 @@ import {
   VOTE_TO_DELETE_COMMUNITY,
   VOTE_TO_DELETE_TAG,
 } from './constants';
-import { CREATE_COMMUNITY, CREATE_TAG } from './ethConstants';
-import { getCommunities, getTags } from './theGraph';
+import {
+  CREATE_COMMUNITY,
+  CREATE_TAG,
+  FOLLOW_COMMUNITY,
+  GET_COMMUNITY,
+  UNFOLLOW_COMMUNITY,
+  EDIT_COMMUNITY,
+} from './ethConstants';
+import { getCommunities, getCommunityById, getTags } from './theGraph';
 
 export const isSingleCommunityWebsite = () =>
   +Object.keys(communitiesConfig).find(
@@ -49,9 +55,9 @@ export const getGoogleVerificationData = () =>
   googleVerificationConfig.communities?.[isSingleCommunityWebsite()] ||
   googleVerificationConfig.default;
 
-export function getFollowedCommunities(allcommunities, followedcommunities) {
-  if (!allcommunities || !followedcommunities) return [];
-  return allcommunities.filter(x => followedcommunities.includes(+x.id));
+export function getFollowedCommunities(allCommunities, followedCommunities) {
+  if (!allCommunities || !followedCommunities) return [];
+  return allCommunities.filter(x => followedCommunities.includes(+x.id));
 }
 
 export function getUnfollowedCommunities(allcommunities, followedcommunities) {
@@ -61,77 +67,29 @@ export function getUnfollowedCommunities(allcommunities, followedcommunities) {
 }
 
 export const editCommunity = async (
-  eosService,
+  ethereumService,
   selectedAccount,
   communityId,
   communityData,
 ) => {
-  const ipfsHash = await saveText(JSON.stringify(communityData));
+  let imgHash;
+  if (!communityData.avatar.startsWith('https')) {
+    imgHash = (await uploadImg(communityData.avatar)).imgHash;
+  } else imgHash = communityData.avatar;
 
-  await eosService.sendTransaction(
+  const communityIpfsLink = await saveText(
+    JSON.stringify({
+      ...communityData,
+      avatar: imgHash,
+    }),
+  );
+
+  const ipfsHash = ethereumService.getBytes32FromIpfsHash(communityIpfsLink);
+  await ethereumService.sendTransactionWithSigner(
     selectedAccount,
     EDIT_COMMUNITY,
-    {
-      user: selectedAccount,
-      community_id: communityId,
-      name: communityData.name,
-      ipfs_description: ipfsHash,
-      type: communityData.questionsType,
-    },
-    null,
-    true,
+    [communityId, ipfsHash],
   );
-};
-
-export const getCommunityById = async (eosService, communityId) => {
-  const row = await eosService.getTableRow(
-    COMMUNITIES_TABLE,
-    ALL_COMMUNITIES_SCOPE,
-    communityId,
-  );
-
-  const { questionsAsked, users_subscribed } = row;
-
-  const community = JSON.parse(await getText(row.ipfs_description));
-  const {
-    avatar,
-    name,
-    description,
-    about,
-    website = null,
-    questionsType = 2,
-    isBlogger,
-    banner,
-    facebook,
-    instagram,
-    youtube,
-    vk,
-    main_color,
-    highlight_color,
-  } = community;
-
-  return {
-    avatar,
-    name,
-    description,
-    about,
-    website,
-    questionsType,
-    questionsAsked,
-    users_subscribed,
-    isBlogger,
-    banner,
-    socialLinks: {
-      facebook,
-      instagram,
-      youtube,
-      vk,
-    },
-    colors: {
-      main: main_color,
-      highlight: highlight_color,
-    },
-  };
 };
 
 export const checkIsColorsActual = (id, mainColor, highlightColor) => {
@@ -283,7 +241,7 @@ export async function editTagCM(eosService, selectedAccount, tag, tagIpfsHash) {
     EDIT_TAG_ACTION,
     {
       user: selectedAccount,
-      community_id: +tag.communityId,
+      communityId: +tag.communityId,
       tag_id: tag.tagId,
       name: tag.name,
       ipfs_description: tagIpfsHash,
@@ -301,7 +259,7 @@ export async function upVoteToCreateTag(
 ) {
   await eosService.sendTransaction(selectedAccount, VOTE_TO_CREATE_TAG, {
     user: selectedAccount,
-    community_id: +communityId,
+    communityId: +communityId,
     tag_id: +tagid,
   });
 }
@@ -314,69 +272,44 @@ export async function downVoteToCreateTag(
 ) {
   await eosService.sendTransaction(selectedAccount, VOTE_TO_DELETE_TAG, {
     user: selectedAccount,
-    community_id: +communityId,
+    communityId: +communityId,
     tag_id: +tagid,
   });
 }
 
+const formCommunityObjectWithTags = async rawCommunity => {
+  return {
+    ...rawCommunity,
+    avatar: getFileUrl(rawCommunity.avatar),
+    id: +rawCommunity.id,
+    value: +rawCommunity.id,
+    label: rawCommunity.name,
+    postCount: +rawCommunity.postCount,
+    creationTime: +rawCommunity.creationTime,
+    //todo amount of questions in community and tag
+    tags: (await getTags(rawCommunity.id)).map(tag => {
+      return { ...tag, label: tag.name };
+    }),
+  };
+};
+
 /* eslint no-param-reassign: 0 */
 export const getAllCommunities = async (ethereumService, count) => {
   const communities = await getCommunities(count);
-  // return await ethereumService.getCommunities(count);
   return await Promise.all(
     communities.map(async community => {
-      return {
-        ...community,
-        id: +community.id,
-        value: +community.id,
-        postCount: +community.postCount,
-        creationTime: +community.creationTime,
-        //todo amount of questions in community and tag
-        tags: (await getTags(10, community.id)).map(tag => {
-          return { ...tag, questionsAsked: 0 };
-        }),
-      };
+      return await formCommunityObjectWithTags(community);
     }),
   );
 };
 
-export const getCommunityWithTags = async (eosService, id) => {
-  const row = await eosService.getTableRow(
-    COMMUNITIES_TABLE,
-    ALL_COMMUNITIES_SCOPE,
-    id,
-  );
+export const getCommunityWithTags = async (ethereumService, id) => {
+  const community = await getCommunityById(id);
+  return await formCommunityObjectWithTags(community);
+};
 
-  const community = JSON.parse(await getText(row.ipfs_description));
-  const {
-    avatar,
-    name,
-    description,
-    about,
-    main_description,
-    language,
-    website = null,
-  } = community;
-
-  const { rows: tagRows } = await eosService.getTableRows(
-    TAGS_TABLE,
-    getTagScope(id),
-    0,
-    -1,
-  );
-
-  return {
-    ...row,
-    label: name,
-    value: id,
-    avatar: getFileUrl(avatar),
-    description,
-    about,
-    main_description,
-    language,
-    website: website || null,
-    tags: tagRows.map(tag => ({ ...tag, label: tag.name, value: tag.id })),
-  };
+export const getCommunityFromContract = async (ethereumService, id) => {
+  return await ethereumService.getCommunityFromContract(id);
 };
 
 export async function getSuggestedCommunities(eosService, lowerBound, limit) {
@@ -384,25 +317,23 @@ export async function getSuggestedCommunities(eosService, lowerBound, limit) {
 }
 
 export async function unfollowCommunity(
-  eosService,
+  ethereumService,
   communityIdFilter,
-  selectedAccount,
+  account,
 ) {
-  await eosService.sendTransaction(selectedAccount, UNFOLLOW_COMM, {
-    user: selectedAccount,
-    community_id: +communityIdFilter,
-  });
+  await ethereumService.sendTransactionWithSigner(account, UNFOLLOW_COMMUNITY, [
+    communityIdFilter,
+  ]);
 }
 
 export async function followCommunity(
-  eosService,
+  ethereumService,
   communityIdFilter,
-  selectedAccount,
+  account,
 ) {
-  await eosService.sendTransaction(selectedAccount, FOLLOW_COMM, {
-    user: selectedAccount,
-    community_id: +communityIdFilter,
-  });
+  await ethereumService.sendTransactionWithSigner(account, FOLLOW_COMMUNITY, [
+    communityIdFilter,
+  ]);
 }
 
 /* eslint camelcase: 0 */
@@ -464,7 +395,7 @@ export async function upVoteToCreateCommunity(
 ) {
   await eosService.sendTransaction(selectedAccount, VOTE_TO_CREATE_COMMUNITY, {
     user: selectedAccount,
-    community_id: +communityId,
+    communityId: +communityId,
   });
 }
 
@@ -475,6 +406,6 @@ export async function downVoteToCreateCommunity(
 ) {
   await eosService.sendTransaction(selectedAccount, VOTE_TO_DELETE_COMMUNITY, {
     user: selectedAccount,
-    community_id: +communityId,
+    communityId: +communityId,
   });
 }

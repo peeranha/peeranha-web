@@ -87,7 +87,7 @@ const A1 = A.extend`
     }
     .semitransparent {
       fill: none;
-    }  
+    }
     :hover {
       .fill {
         fill: ${BORDER_PRIMARY};
@@ -111,7 +111,8 @@ const Box = styled.div`
   }
 `;
 
-const MainLinks = ({ profile, currClientHeight }) => {
+const MainLinks = ({ profile, currClientHeight, isGlobalAdmin }) => {
+  console.log(isGlobalAdmin);
   const { pathname } = window.location;
   let route = pathname.split('/').filter(x => x)[0];
 
@@ -160,12 +161,14 @@ const MainLinks = ({ profile, currClientHeight }) => {
         <FormattedMessage {...messages.tags} />
       </A1>
 
-      <A1 to={routes.users()} name="users" route={route}>
-        <IconLg className="mr-2" icon={usersIcon} />
-        <FormattedMessage
-          {...messages[isBloggerMode ? 'followers' : 'users']}
-        />
-      </A1>
+      {isGlobalAdmin && (
+        <A1 to={routes.users()} name="users" route={route}>
+          <IconLg className="mr-2" icon={usersIcon} />
+          <FormattedMessage
+            {...messages[isBloggerMode ? 'followers' : 'users']}
+          />
+        </A1>
+      )}
 
       {!styles.withoutFAQ && (
         <A1 to={routes.faq()} name="faq" route={route}>

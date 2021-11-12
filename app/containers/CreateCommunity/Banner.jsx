@@ -23,9 +23,7 @@ export const Banner = () => (
         <FormattedMessage {...messages.communityWillAppear} />
       </p>
 
-      <Button
-        onClick={() => createdHistory.push(routes.suggestedCommunities())}
-      >
+      <Button onClick={() => createdHistory.push(routes.communities())}>
         <FormattedMessage {...messages.goToList} />
       </Button>
     </div>

@@ -3,13 +3,8 @@ import { call, put, select, takeLatest } from 'redux-saga/effects';
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
-import {
-  editAnswer,
-  getAnswer,
-  getQuestionById,
-} from 'utils/questionsManagement';
+import { editAnswer, getAnswer } from 'utils/questionsManagement';
 
-import { selectEos } from 'containers/EosioProvider/selectors';
 import { isAuthorized, isValid } from 'containers/EosioProvider/saga';
 import { updateQuestionList } from 'containers/ViewQuestion/saga';
 
@@ -33,21 +28,15 @@ import {
   getAnswerErr,
   getAnswerSuccess,
 } from './actions';
+import { selectEthereum } from '../EthereumProvider/selectors';
 
 export function* getAnswerWorker({ questionId, answerId }) {
   try {
-    const eosService = yield select(selectEos);
-    const questionData = yield select(selectQuestionData());
+    const ethereumService = yield select(selectEthereum);
     let answer = yield select(selectAnswer(answerId));
 
     if (!answer) {
-      const question = yield call(getQuestionById, eosService, questionId);
-      const answerData = question.answers.filter(x => x.id === answerId)[0];
-      answer = answerData;
-      answer.content = yield call(getAnswer, answer.ipfs_link);
-      answer.communityId = question.community_id;
-    } else {
-      answer.communityId = questionData.community_id;
+      answer = yield call(getAnswer, ethereumService, questionId, answerId);
     }
 
     yield put(getAnswerSuccess(answer));
@@ -58,27 +47,27 @@ export function* getAnswerWorker({ questionId, answerId }) {
 
 export function* editAnswerWorker({ answer, questionId, answerId, official }) {
   try {
-    const eosService = yield select(selectEos);
-    const user = yield call(eosService.getSelectedAccount);
+    const ethereumService = yield select(selectEthereum);
+    const user = yield call(ethereumService.getSelectedAccount);
     const cachedQuestion = yield select(selectQuestionData());
-
+    const answerData = {
+      content: answer,
+    };
     yield call(
       editAnswer,
       user,
       questionId,
       answerId,
-      answer,
+      answerData,
       official,
-      eosService,
+      ethereumService,
     );
 
     if (cachedQuestion) {
       const item = cachedQuestion.answers.find(x => x.id === answerId);
       item.content = answer;
       if (official) {
-        item.properties = item.properties.concat([{ key: 10, value: 1 }]);
-      } else {
-        item.properties = item.properties.filter(({ key }) => key !== 10);
+        item.isOfficialReply = official;
       }
     }
 

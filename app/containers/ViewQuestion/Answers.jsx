@@ -31,8 +31,8 @@ export const Answers = ({
         A1.isTheLargestRating = A1.rating > TOP_COMMUNITY_DISPLAY_MIN_RATING;
       }
 
-      const officialAnswers = sortedByRatingAnswers.filter(answer =>
-        isAnswerOfficial(answer),
+      const officialAnswers = sortedByRatingAnswers.filter(
+        answer => !!answer.isOfficialReply,
       );
 
       const correctAnswer = sortedByRatingAnswers.find(
@@ -43,7 +43,6 @@ export const Answers = ({
         ({ id }) =>
           !(officialAnswerIds.includes(id) || id === correctAnswer?.id),
       );
-
       return {
         ...questionData,
         answers: _uniqBy(

@@ -15,9 +15,9 @@ const selectQuestionsWithUserAnswers = () =>
     if (sortedQuestByAnswDate.length > 1) {
       sortedQuestByAnswDate = sortedQuestByAnswDate.sort((quest1, quest2) => {
         const asnwDate1 = quest1.answers.find(el => el.id === quest1.answerId)
-          .post_time;
+          .postTime;
         const asnwDate2 = quest2.answers.find(el => el.id === quest2.answerId)
-          .post_time;
+          .postTime;
 
         return asnwDate2 - asnwDate1;
       });

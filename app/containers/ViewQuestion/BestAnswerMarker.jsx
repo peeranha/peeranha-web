@@ -76,9 +76,10 @@ export const BestAnswerMarker = ({
     ? userInfo.user === profileInfo.user
     : false;
 
-  const isTemporaryAccount = !!userInfo?.['integer_properties'].find(
-    x => x.key === TEMPORARY_ACCOUNT_KEY && x.value,
-  );
+  const isTemporaryAccount = true;
+  //   !!userInfo?.['integer_properties'].find(
+  //   x => x.key === TEMPORARY_ACCOUNT_KEY && x.value,
+  // );
 
   const displayTips =
     (!profileInfo && !isTemporaryAccount) ||

@@ -175,7 +175,7 @@ describe('downVoteToCreateCommunity', () => {
       VOTE_TO_DELETE_COMMUNITY,
       {
         user: selectedAccount,
-        community_id: +communityId,
+        communityId: +communityId,
       },
     );
   });
@@ -192,7 +192,7 @@ describe('upVoteToCreateCommunity', () => {
       VOTE_TO_CREATE_COMMUNITY,
       {
         user: selectedAccount,
-        community_id: +communityId,
+        communityId: +communityId,
       },
     );
   });
@@ -210,7 +210,7 @@ describe('downVoteToCreateTag', () => {
       VOTE_TO_DELETE_TAG,
       {
         user: selectedAccount,
-        community_id: +communityId,
+        communityId: +communityId,
         tag_id: +tagid,
       },
     );
@@ -229,7 +229,7 @@ describe('upVoteToCreateTag', () => {
       VOTE_TO_CREATE_TAG,
       {
         user: selectedAccount,
-        community_id: +communityId,
+        communityId: +communityId,
         tag_id: +tagid,
       },
     );
@@ -277,7 +277,7 @@ describe('suggestTag', () => {
     expect(saveText).toHaveBeenCalledWith(JSON.stringify(tag));
     expect(eosService.sendTransaction).toHaveBeenCalledWith(user, CREATE_TAG, {
       user,
-      community_id: +tag.communityId,
+      communityId: +tag.communityId,
       name: tag.name,
       ipfs_description: tagIpfsHash,
     });
@@ -323,7 +323,7 @@ describe('unfollowCommunity', () => {
       UNFOLLOW_COMM,
       {
         user: selectedAccount,
-        community_id: communityIdFilter,
+        communityId: communityIdFilter,
       },
     );
   });
@@ -341,7 +341,7 @@ describe('followCommunity', () => {
       FOLLOW_COMM,
       {
         user: selectedAccount,
-        community_id: communityIdFilter,
+        communityId: communityIdFilter,
       },
     );
   });

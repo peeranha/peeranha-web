@@ -141,6 +141,10 @@ class EthereumService {
     return await this.contract[action]();
   };
 
+  getDataWithArgs = async (action, args) => {
+    return await this.contract[action](...args);
+  };
+
   getTagsFromContract = async communityId => {
     const rawTags = await this.contract[GET_TAGS](communityId);
     return await Promise.all(
@@ -151,7 +155,7 @@ class EthereumService {
         return {
           name: tag.name,
           description: tag.description,
-          questionsAsked: 0,
+          postCount: 0,
         };
       }),
     );
@@ -162,9 +166,8 @@ class EthereumService {
     const communityInfo = JSON.parse(
       await getText(this.getIpfsHashFromBytes32(rawCommunity.ipfsDoc.hash)),
     );
-    const tags = await this.getTagsFromContract(id);
     return {
-      id,
+      id: +id,
       name: communityInfo.name,
       avatar: communityInfo.avatar.imgUrl || getFileUrl(communityInfo.avatar),
       description: communityInfo.description,
@@ -172,8 +175,7 @@ class EthereumService {
       language: communityInfo.language,
       creationTime: rawCommunity.timeCreate,
       isFrozen: rawCommunity.isFrozen,
-      value: id,
-      tags,
+      value: +id,
     };
   };
 

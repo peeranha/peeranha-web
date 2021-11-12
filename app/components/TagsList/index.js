@@ -32,7 +32,7 @@ const Box = styled.ul`
 `;
 
 const TagsList = ({
-  chosenTags,
+  tags,
   communities,
   communityId,
   children,
@@ -40,16 +40,16 @@ const TagsList = ({
   showPopularity,
 }) => {
   const community = useMemo(
-    () => communities.filter(x => communityId === x.id)[0] || { tags: [] },
+    () => communities.filter(x => +communityId === x.id)[0] || { tags: [] },
     [communities, communities.length],
   );
 
   const questionTags = useMemo(
     () =>
-      chosenTags
-        ? community.tags.filter(x => chosenTags.includes(x.id))
+      tags
+        ? community.tags.filter(x => tags.includes(+x.id.split('-')[1]))
         : community.tags,
-    [chosenTags, community.tags, community.tags.length],
+    [tags, community.tags, community.tags.length],
   );
 
   if (!community || !community.tags.length) return null;
@@ -68,7 +68,7 @@ const TagsList = ({
 
             {showPopularity && (
               <Span color={TEXT_SECONDARY} fontSize="14" lineHeight="18">
-                {x.questionsAsked}
+                {x.postCount}
               </Span>
             )}
           </li>
@@ -83,7 +83,7 @@ const TagsList = ({
 TagsList.propTypes = {
   children: PropTypes.any,
   className: PropTypes.string,
-  chosenTags: PropTypes.array,
+  tags: PropTypes.array,
   communities: PropTypes.array,
   showPopularity: PropTypes.bool,
   communityId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

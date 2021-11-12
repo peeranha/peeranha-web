@@ -65,7 +65,6 @@ export const selectAnswer = answerId =>
 export const selectComment = (answerId, commentId) =>
   createSelector(selectViewQuestionDomain, substate => {
     const { questionData } = substate.toJS();
-
     if (!questionData) return null;
 
     // comments of question

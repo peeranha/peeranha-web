@@ -14,7 +14,7 @@ const Question = ({
   acceptedAnswer,
   communities,
   id,
-  community_id,
+  communityId,
   isMyAnswerAccepted,
   postType,
   isTheLargestRating,
@@ -31,7 +31,7 @@ const Question = ({
       acceptedAnswer={acceptedAnswer}
       communities={communities}
       id={id}
-      community_id={community_id}
+      communityId={communityId}
       postType={postType}
       isMyAnswerAccepted={isMyAnswerAccepted}
       isTheLargestRating={isTheLargestRating}
@@ -65,7 +65,7 @@ Question.propTypes = {
   acceptedAnswer: PropTypes.bool,
   communities: PropTypes.array,
   id: PropTypes.string,
-  community_id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  communityId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   isMyAnswerAccepted: PropTypes.bool,
   postType: PropTypes.string,
   isTheLargestRating: PropTypes.bool,

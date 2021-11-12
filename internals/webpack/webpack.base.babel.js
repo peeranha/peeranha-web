@@ -67,6 +67,7 @@ module.exports = options => {
               /it-first/,
               /it-last/,
               /it-all/,
+              /testing-library/,
             ],
           },
           use: {

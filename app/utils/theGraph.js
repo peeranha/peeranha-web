@@ -1,6 +1,13 @@
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 import {
+  commentsQuery,
   communitiesQuery,
+  communityQuery,
+  postQuery,
+  postsByCommQuery,
+  postsForSearchQuery,
+  postsQuery,
+  repliesQuery,
   tagsQuery,
   userQuery,
   usersQuery,
@@ -47,13 +54,134 @@ export const getCommunities = async count => {
   return communities?.data.communities;
 };
 
-export const getTags = async (count, communityId) => {
+export const getCommunityById = async id => {
+  const community = await client.query({
+    query: gql(communityQuery),
+    variables: {
+      id,
+    },
+  });
+  return community?.data.community;
+};
+
+export const getTags = async communityId => {
   const tags = await client.query({
     query: gql(tagsQuery),
     variables: {
-      first: count,
       communityId,
     },
   });
   return tags?.data.tags;
+};
+
+const getComments = async (postId, parentReplyId) => {
+  const comments = await client.query({
+    query: gql(commentsQuery),
+    variables: {
+      postId: +postId,
+      parentReplyId: +parentReplyId,
+    },
+  });
+  return comments?.data.comments;
+};
+
+const getQuestionAnswers = async postId => {
+  const answers = await client.query({
+    query: gql(repliesQuery),
+    variables: {
+      postId: +postId,
+    },
+  });
+
+  return answers?.data.replies?.map(answer => {
+    return { ...answer, comments: getComments(postId, answer.id) };
+  });
+};
+
+export const getPosts = async (limit, skip) => {
+  const posts = await client.query({
+    query: gql(postsQuery),
+    variables: {
+      first: limit,
+      skip,
+    },
+  });
+  return Promise.all(
+    posts?.data.posts.map(async post => {
+      return {
+        ...post,
+        answers: await getQuestionAnswers(post.id),
+        comments: await getComments(post.id, 0),
+      };
+    }),
+  );
+};
+
+export const getPostsByCommunityId = async (limit, skip, communityIds) => {
+  const posts = await client.query({
+    query: gql(postsByCommQuery),
+    variables: {
+      communityIds,
+      first: limit,
+      skip,
+    },
+  });
+
+  return Promise.all(
+    posts?.data.posts.map(async post => {
+      return {
+        ...post,
+        answers: await getQuestionAnswers(post.id),
+        comments: await getComments(post.id, 0),
+      };
+    }),
+  );
+};
+
+export const getQuestionFromGraph = async postId => {
+  const post = await client.query({
+    query: gql(postQuery),
+    variables: {
+      postId,
+    },
+  });
+
+  return {
+    ...post.data.post,
+    answers: [
+      ...(await Promise.all(
+        post.data.replies.map(async (reply, index) => {
+          return {
+            ...reply,
+            comments: (await client.query({
+              query: gql(commentsQuery),
+              variables: {
+                postId: +postId,
+                parentReplyId: index + 1,
+              },
+            })).data.comments.map(comment => {
+              return {
+                ...comment,
+              };
+            }),
+          };
+        }),
+      )),
+    ],
+    comments: post.data.comments.map(comment => {
+      return {
+        ...comment,
+      };
+    }),
+  };
+};
+
+export const postsForSearch = async text => {
+  const posts = await client.query({
+    query: gql(postsForSearchQuery),
+    variables: {
+      text: `${text}:*`,
+    },
+  });
+  return posts?.data?.postSearch.filter(post => !post.isDeleted);
 };

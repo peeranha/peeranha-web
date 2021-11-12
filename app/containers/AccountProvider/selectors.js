@@ -79,7 +79,7 @@ const makeSelectFollowedCommunities = () =>
     state => state,
     state => {
       const profileInfo = makeSelectProfileInfo()(state);
-      return profileInfo ? profileInfo.followed_communities : null;
+      return profileInfo ? profileInfo.followedCommunities : null;
     },
   );
 

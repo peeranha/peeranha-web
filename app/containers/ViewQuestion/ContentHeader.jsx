@@ -34,6 +34,7 @@ import messages from './messages';
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 import { changeQuestionType, payBounty } from './actions';
 import { QUESTION_TYPE } from './constants';
+import { getPermissions, hasGlobalModeratorRole } from '../../utils/properties';
 
 const RatingBox = styled.div`
   border-right: 1px solid ${BORDER_SECONDARY};
@@ -93,7 +94,6 @@ const ContentHeader = props => {
     buttonParams,
     voteToDelete,
     ids,
-    votingStatus: { isVotedToDelete },
     editItem,
     commentId,
     deleteItem,
@@ -111,17 +111,18 @@ const ContentHeader = props => {
   useOnClickOutside(ref, () => setModalOpen(false));
 
   const isGlobalAdmin = useMemo(
-    () => !!profile?.['integer_properties'].find(x => x.key === MODERATOR_KEY),
+    () => hasGlobalModeratorRole(getPermissions(profile)),
     [profile],
   );
   //todo remove integer_properties
-  const isTemporaryAccount = useMemo(
-    () =>
-      !!userInfo?.['integer_properties'].find(
-        x => x.key === TEMPORARY_ACCOUNT_KEY && x.value,
-      ),
-    [userInfo],
-  );
+  const isTemporaryAccount = false;
+  //   useMemo(
+  //   () =>
+  //     !!userInfo?.['integer_properties'].find(
+  //       x => x.key === TEMPORARY_ACCOUNT_KEY && x.value,
+  //     ),
+  //   [userInfo],
+  // );
 
   const isItWrittenByMe = useMemo(
     () => (profile ? userInfo.user === profile.user : false),
@@ -135,7 +136,7 @@ const ContentHeader = props => {
 
   // eslint-disable-next-line camelcase
   const correctAnswerId = questionData?.correct_answer_id;
-  const correctAnswer = questionData?.answers.find(
+  const correctAnswer = questionData?.answers?.find(
     ({ id }) => id === correctAnswerId,
   );
   const correctAnswerUserName = correctAnswer?.user;
@@ -195,29 +196,26 @@ const ContentHeader = props => {
               <FormattedMessage {...messages.getBounty} />
             </Button>
           )} */}
-
-          <Button
-            show={
-              !profile ||
-              (!!profile &&
-                (!isItWrittenByMe && !isGlobalAdmin && !infiniteImpact))
-            }
-            id={`${type}_vote_to_delete_${answerId}`}
-            params={buttonParams}
-            onClick={voteToDelete}
-            disabled={ids.includes(`${type}_vote_to_delete_${answerId}`)}
-            isVotedToDelete={isVotedToDelete}
-          >
-            <IconSm
-              icon={blockIcon}
-              fill={isVotedToDelete ? BORDER_ATTENTION_LIGHT : BORDER_PRIMARY}
-            />
-            <FormattedMessage
-              {...(infiniteImpact
-                ? commonMessages.delete
-                : messages.voteToDelete)}
-            />
-          </Button>
+          {infiniteImpact ? (
+            <Button
+              show={
+                !profile ||
+                (!!profile &&
+                  (!isItWrittenByMe && !isGlobalAdmin && !infiniteImpact))
+              }
+              id={`${type}_vote_to_delete_${answerId}`}
+              params={buttonParams}
+              onClick={voteToDelete}
+              disabled={ids.includes(`${type}_vote_to_delete_${answerId}`)}
+              isVotedToDelete={true}
+            >
+              <IconSm
+                icon={blockIcon}
+                fill={true ? BORDER_ATTENTION_LIGHT : BORDER_PRIMARY}
+              />
+              <FormattedMessage {...messages.voteToDelete} />
+            </Button>
+          ) : null}
 
           <div id={`${type}_delete_${answerId}`}>
             <AreYouSure

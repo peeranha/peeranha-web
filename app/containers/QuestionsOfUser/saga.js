@@ -50,7 +50,7 @@ export function* getQuestionsWorker({ userId }) {
 
     questions.map(x => {
       x.postType = POST_TYPE_QUESTION;
-      x.myPostTime = x.post_time;
+      x.myPostTime = x.postTime;
       x.acceptedAnswer = x.correct_answer_id > 0;
       x.myPostRating = x.rating;
       x.isGeneral = isGeneralQuestion(x.properties);

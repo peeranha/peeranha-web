@@ -184,7 +184,7 @@ export const Home = ({
     [single, isFollowed],
   );
   /* eslint-disable camelcase */
-  const { name, about, avatar, questionsAsked, users_subscribed } = community;
+  const { name, about, avatar, postCount, users_subscribed } = community;
 
   const EditButton = () =>
     hasCommunityModeratorRole(getPermissions(profile), single) ? (
@@ -265,7 +265,7 @@ export const Home = ({
                     ))}
                 </IntroducingHeader>
                 <IntroducingSubTitle>
-                  {questionsAsked}{' '}
+                  {postCount}{' '}
                   {translationMessages[locale][commonMessages.questions.id]}
                 </IntroducingSubTitle>
                 {about && <TextBlock content={about} className="mt-3" />}

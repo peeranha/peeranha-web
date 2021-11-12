@@ -143,15 +143,15 @@ export function* getUserProfileWorker({ user, getFullProfile, isLogin }) {
       isLogin,
     );
 
-    if (!updatedUserInfo.achievementsReached) {
-      const userAchievements = yield call(
-        getAchievements,
-        ethereumService,
-        USER_ACHIEVEMENTS_TABLE,
-        user,
-      );
-      updatedUserInfo.achievementsReached = userAchievements;
-    }
+    // if (!updatedUserInfo.achievementsReached) {
+    //   const userAchievements = yield call(
+    //     getAchievements,
+    //     ethereumService,
+    //     USER_ACHIEVEMENTS_TABLE,
+    //     user,
+    //   );
+    //   updatedUserInfo.achievementsReached = userAchievements;
+    // }
 
     if (
       (updatedUserInfo && !cachedUserInfo) ||

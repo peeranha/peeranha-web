@@ -48,27 +48,27 @@ describe('selectQuestionsDomain', () => {
     const questionsList = [
       {
         id: 1,
-        community_id: 1,
+        communityId: 1,
       },
       {
         id: 2,
-        community_id: 2,
+        communityId: 2,
       },
       {
         id: 3,
-        community_id: 3,
+        communityId: 3,
       },
       {
         id: 4,
-        community_id: 4,
+        communityId: 4,
       },
       {
         id: 5,
-        community_id: 5,
+        communityId: 5,
       },
       {
         id: 6,
-        community_id: 6,
+        communityId: 6,
       },
     ];
 

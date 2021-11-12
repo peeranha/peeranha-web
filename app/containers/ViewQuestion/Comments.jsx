@@ -136,13 +136,14 @@ const CommentEdit = ({
 /* eslint react/no-danger: 0 */
 const CommentView = item => {
   const isItWrittenByMe = !!item.profileInfo
-    ? item.user === item.profileInfo.user
+    ? item.author === item.profileInfo.user
     : false;
 
-  const isModerator = useMemo(
-    () => hasGlobalModeratorRole(getRoles(item.profileInfo)),
-    [item.profileInfo],
-  );
+  const isModerator = false;
+  //   useMemo(
+  //   () => hasGlobalModeratorRole(getRoles(item.profileInfo)),
+  //   [item.profileInfo],
+  // );
 
   return (
     <li>
@@ -154,7 +155,7 @@ const CommentView = item => {
           rating={item.userInfo.rating}
           account={item.userInfo.user}
           achievementsCount={item.userInfo.achievementsReached?.length}
-          postTime={+item.post_time}
+          postTime={+item.postTime}
           locale={item.locale}
           isComment
         />
@@ -220,13 +221,13 @@ const CommentView = item => {
             disabled={item.ids.includes(
               `comment_vote_to_delete_${item.answerId}${item.id}`,
             )}
-            isVotedToDelete={item.votingStatus.isVotedToDelete}
+            isVotedToDelete={item.votingStatus?.isVotedToDelete}
           >
             <Icon
               icon={blockSmallIcon}
               width="12"
               fill={
-                item.votingStatus.isVotedToDelete
+                item.votingStatus?.isVotedToDelete
                   ? BORDER_ATTENTION_LIGHT
                   : BORDER_PRIMARY
               }

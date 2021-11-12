@@ -74,6 +74,10 @@ export const globalAdminPermissions = {
     code: 5,
     title: 'permissionChangeQuestionType',
   },
+  ADMIN_OFFICIAL_ANSWER: {
+    code: 6,
+    title: 'permissionOfficialAnswer',
+  },
 };
 export const communityAdminPermissions = {
   COMMUNITY_MODERATOR_INFINITE_IMPACT1: {
@@ -186,7 +190,6 @@ export const POST_ANSWER_METHOD = 'postanswer';
 export const EDIT_ANSWER_METHOD = 'modanswer';
 export const DEL_ANSWER_METHOD = 'delanswer';
 
-export const POST_COMMENT_METHOD = 'postcomment';
 export const EDIT_COMMENT_METHOD = 'modcomment';
 export const DEL_COMMENT_METHOD = 'delcomment';
 

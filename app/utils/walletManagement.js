@@ -117,115 +117,115 @@ const getWeekRewards = (eosService, user) =>
   );
 
 export async function getWeekStat(eosService, profile = {}) {
-  const [
-    { rows: totalReward },
-    { rows: totalRating },
-    { rows: periodRating },
-    { rows: weekRewards },
-    userSupplyValues,
-    globalBoostStat,
-    userBoostStat,
-    { rows: tokenAwards },
-  ] = await Promise.all([
-    getTotalReward(eosService),
-    getTotalRating(eosService),
-    getPeriodRating(eosService, profile.user),
-    getWeekRewards(eosService, profile.user),
-    getUserSupplyValues(eosService),
-    getGlobalBoostStatistics(eosService),
-    getUserBoostStatistics(eosService, profile.user),
-    getTokenAwards(eosService),
-  ]);
-
-  const normalizedRewards = periodRating.map(x => {
-    try {
-      let tokenAwardsForPeriod = tokenAwards.find(y => y.period === x.period);
-      tokenAwardsForPeriod = tokenAwardsForPeriod
-        ? convertPeerValueToNumberValue(tokenAwardsForPeriod.sum_token)
-        : 0;
-
-      const totalRatingForPeriod = totalRating.find(y => y.period === x.period)
-        .total_rating_to_reward;
-
-      let totalRewardForPeriod = totalReward.find(y => y.period === x.period);
-
-      if (totalRewardForPeriod) {
-        totalRewardForPeriod = convertPeerValueToNumberValue(
-          totalRewardForPeriod.total_reward,
-        );
-      } else {
-        const { user_max_supply, user_supply } = userSupplyValues;
-
-        totalRewardForPeriod = createGetRewardPool(
-          x.period,
-          totalRatingForPeriod / 1000,
-          convertPeerValueToNumberValue(user_supply),
-          convertPeerValueToNumberValue(user_max_supply),
-        );
-      }
-
-      const hasTaken = Boolean(weekRewards.find(y => y.period === x.period));
-
-      let periodReward =
-        ((totalRewardForPeriod * x.rating_to_award) / totalRatingForPeriod) *
-        1000;
-
-      const partAward = Math.floor(
-        ((x.rating_to_award * 100 * 1000) / totalRatingForPeriod) * 1000,
-      );
-      const quantity = (tokenAwardsForPeriod * partAward) / (100 * 1000);
-
-      periodReward += quantity;
-      periodReward = getRewardAmountByBoost(
-        x.period,
-        periodReward,
-        globalBoostStat,
-        userBoostStat,
-      );
-
-      const reward =
-        Number.isNaN(periodReward) || periodReward < 0.000001
-          ? 0
-          : periodReward;
-
-      return {
-        ...x,
-        reward: Math.floor(reward * 1000000) / 1000000,
-        hasTaken,
-      };
-    } catch (err) {
-      return {
-        ...x,
-        reward: 0,
-      };
-    }
-  });
-
-  const numberOfPeriods = Math.ceil(
-    (dateNowInSeconds() - +process.env.RELEASE_DATE) /
-      +process.env.WEEK_DURATION,
-  );
-
-  // Fill by periods with 0 reward - they not stored in blockchain
-  return new Array(numberOfPeriods)
-    .fill()
-    .map((_, index) => {
-      const existingPeriod = normalizedRewards.find(y => y.period === index);
-
-      return {
-        reward: 0,
-        ...(existingPeriod || normalizedRewards[0]),
-        period: index,
-        periodStarted:
-          +process.env.RELEASE_DATE +
-          +process.env.WEEK_DURATION * (index + 1) -
-          +process.env.WEEK_DURATION,
-        periodFinished:
-          +process.env.RELEASE_DATE + +process.env.WEEK_DURATION * (index + 1),
-      };
-    })
-    .filter(x => x.periodFinished > profile.creationTime)
-    .reverse();
+  // const [
+  //   { rows: totalReward },
+  //   { rows: totalRating },
+  //   { rows: periodRating },
+  //   { rows: weekRewards },
+  //   userSupplyValues,
+  //   globalBoostStat,
+  //   userBoostStat,
+  //   { rows: tokenAwards },
+  // ] = await Promise.all([
+  //   // getTotalReward(eosService),
+  //   // getTotalRating(eosService),
+  //   // getPeriodRating(eosService, profile.user),
+  //   // getWeekRewards(eosService, profile.user),
+  //   // getUserSupplyValues(eosService),
+  //   // getGlobalBoostStatistics(eosService),
+  //   // getUserBoostStatistics(eosService, profile.user),
+  //   // getTokenAwards(eosService),
+  // ]);
+  //
+  // const normalizedRewards = periodRating.map(x => {
+  //   try {
+  //     let tokenAwardsForPeriod = tokenAwards.find(y => y.period === x.period);
+  //     tokenAwardsForPeriod = tokenAwardsForPeriod
+  //       ? convertPeerValueToNumberValue(tokenAwardsForPeriod.sum_token)
+  //       : 0;
+  //
+  //     const totalRatingForPeriod = totalRating.find(y => y.period === x.period)
+  //       .total_rating_to_reward;
+  //
+  //     let totalRewardForPeriod = totalReward.find(y => y.period === x.period);
+  //
+  //     if (totalRewardForPeriod) {
+  //       totalRewardForPeriod = convertPeerValueToNumberValue(
+  //         totalRewardForPeriod.total_reward,
+  //       );
+  //     } else {
+  //       const { user_max_supply, user_supply } = userSupplyValues;
+  //
+  //       totalRewardForPeriod = createGetRewardPool(
+  //         x.period,
+  //         totalRatingForPeriod / 1000,
+  //         convertPeerValueToNumberValue(user_supply),
+  //         convertPeerValueToNumberValue(user_max_supply),
+  //       );
+  //     }
+  //
+  //     const hasTaken = Boolean(weekRewards.find(y => y.period === x.period));
+  //
+  //     let periodReward =
+  //       ((totalRewardForPeriod * x.rating_to_award) / totalRatingForPeriod) *
+  //       1000;
+  //
+  //     const partAward = Math.floor(
+  //       ((x.rating_to_award * 100 * 1000) / totalRatingForPeriod) * 1000,
+  //     );
+  //     const quantity = (tokenAwardsForPeriod * partAward) / (100 * 1000);
+  //
+  //     periodReward += quantity;
+  //     periodReward = getRewardAmountByBoost(
+  //       x.period,
+  //       periodReward,
+  //       globalBoostStat,
+  //       userBoostStat,
+  //     );
+  //
+  //     const reward =
+  //       Number.isNaN(periodReward) || periodReward < 0.000001
+  //         ? 0
+  //         : periodReward;
+  //
+  //     return {
+  //       ...x,
+  //       reward: Math.floor(reward * 1000000) / 1000000,
+  //       hasTaken,
+  //     };
+  //   } catch (err) {
+  //     return {
+  //       ...x,
+  //       reward: 0,
+  //     };
+  //   }
+  // });
+  //
+  // const numberOfPeriods = Math.ceil(
+  //   (dateNowInSeconds() - +process.env.RELEASE_DATE) /
+  //     +process.env.WEEK_DURATION,
+  // );
+  //
+  // // Fill by periods with 0 reward - they not stored in blockchain
+  // return new Array(numberOfPeriods)
+  //   .fill()
+  //   .map((_, index) => {
+  //     const existingPeriod = normalizedRewards.find(y => y.period === index);
+  //
+  //     return {
+  //       reward: 0,
+  //       ...(existingPeriod || normalizedRewards[0]),
+  //       period: index,
+  //       periodStarted:
+  //         +process.env.RELEASE_DATE +
+  //         +process.env.WEEK_DURATION * (index + 1) -
+  //         +process.env.WEEK_DURATION,
+  //       periodFinished:
+  //         +process.env.RELEASE_DATE + +process.env.WEEK_DURATION * (index + 1),
+  //     };
+  //   })
+  //   .filter(x => x.periodFinished > profile.creationTime)
+  //   .reverse();
 }
 
 export async function sendTokens(

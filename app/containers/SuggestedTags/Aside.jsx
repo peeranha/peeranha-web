@@ -18,7 +18,7 @@ const Aside = ({ currentCommunity }) => (
     </Header>
 
     <ul>
-      {orderBy(currentCommunity.tags, y => y.questionsAsked, ['desc'])
+      {orderBy(currentCommunity.tags, y => y.postCount, ['desc'])
         .slice(0, 10)
         .map(x => (
           <li key={x.id}>
@@ -27,7 +27,7 @@ const Aside = ({ currentCommunity }) => (
 
               <Span fontSize="14" color={TEXT_SECONDARY}>
                 <span>x </span>
-                <span>{`${x.questionsAsked}`}</span>
+                <span>{`${x.postCount}`}</span>
               </Span>
             </div>
           </li>

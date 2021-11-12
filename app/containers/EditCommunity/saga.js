@@ -17,7 +17,7 @@ import { selectEos } from 'containers/EosioProvider/selectors';
 import {
   editCommunity,
   getAllCommunities,
-  getCommunityById,
+  getCommunityFromContract,
   getSingleCommunityDetails,
   setSingleCommunityDetailsInCookie,
 } from 'utils/communityManagement';
@@ -34,18 +34,16 @@ import {
 import { EDIT_COMMUNITY, GET_COMMUNITY } from './constants';
 
 import { selectCommunity } from './selectors';
+import { selectEthereum } from '../EthereumProvider/selectors';
 
 export function* getCommunityWorker({ communityId }) {
   try {
-    const cachedCommunities = yield select(selectCommunities());
-
-    let community = cachedCommunities.find(c => c.id === communityId);
-
-    if (!community) {
-      const eosService = yield select(selectEos);
-
-      community = yield call(getCommunityById, eosService, communityId);
-    }
+    const ethereumService = yield select(selectEthereum);
+    const community = yield call(
+      getCommunityFromContract,
+      ethereumService,
+      communityId,
+    );
 
     yield put(getCommunitySuccess(community));
   } catch (error) {
@@ -58,8 +56,6 @@ export function* editCommunityWorker({ communityId, communityData }) {
     const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
     if (communityData.avatar.length > HASH_CHARS_LIMIT) {
       const { imgHash } = yield call(uploadImg, communityData.avatar);
-
-      // eslint-disable-next-line no-param-reassign
       communityData.avatar = imgHash;
     }
 
@@ -68,8 +64,6 @@ export function* editCommunityWorker({ communityId, communityData }) {
       communityData.banner.length > HASH_CHARS_LIMIT
     ) {
       const { imgHash } = yield call(uploadImg, communityData.banner);
-
-      // eslint-disable-next-line no-param-reassign
       communityData.banner = imgHash;
     }
 
@@ -78,15 +72,19 @@ export function* editCommunityWorker({ communityId, communityData }) {
     }
 
     const communityDataCurrent = yield select(selectCommunity());
+    const isEqual = Object.keys(communityData).every(key => {
+      return !(key === 'isBlogger')
+        ? communityData[key] === communityDataCurrent[key]
+        : true;
+    });
 
-    if (!_isEqual(communityDataCurrent, communityData)) {
-      const eosService = yield select(selectEos);
-
-      const selectedAccount = yield call(eosService.getSelectedAccount);
+    if (!isEqual) {
+      const ethereumService = yield select(selectEthereum);
+      const selectedAccount = yield call(ethereumService.getSelectedAccount);
 
       yield call(
         editCommunity,
-        eosService,
+        ethereumService,
         selectedAccount,
         communityId,
         communityData,
@@ -99,10 +97,9 @@ export function* editCommunityWorker({ communityId, communityData }) {
       if (community) {
         try {
           const stat = yield select(selectStat());
-
           const communities = yield call(
             getAllCommunities,
-            eosService,
+            ethereumService,
             stat.communitiesCount,
           );
 

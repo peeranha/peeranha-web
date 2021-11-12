@@ -13,30 +13,32 @@ import AchievementsStatus from 'components/AchievementsStatus';
 
 import { TEXT_SECONDARY } from 'style-constants';
 
-const UserInfo = ({ user, userInfo, postTime, locale }) => (
-  <p className="mb-3">
-    <A
-      to={routes.profileView(user)}
-      className="d-inline-flex align-items-center"
-    >
-      <Span className="mr-2" fontSize="14">
-        {userInfo?.['displayName']}
-      </Span>
-      <RatingStatus rating={userInfo.rating} size="sm" isRankOff />
-      <AchievementsStatus count={userInfo.achievementsReached?.length} />
-      <Span
-        className="text-capitalize mr-3"
-        fontSize="14"
-        color={TEXT_SECONDARY}
+const UserInfo = ({ author, userInfo, postTime, locale }) => {
+  return (
+    <p className="mb-3">
+      <A
+        to={routes.profileView(author)}
+        className="d-inline-flex align-items-center"
       >
-        {getFormattedDate(postTime, locale, MONTH_3LETTERS__DAY_YYYY_TIME)}
-      </Span>
-    </A>
-  </p>
-);
+        <Span className="mr-2" fontSize="14">
+          {userInfo?.['displayName']}
+        </Span>
+        <RatingStatus rating={userInfo.rating} size="sm" isRankOff />
+        <AchievementsStatus count={userInfo.achievementsReached?.length} />
+        <Span
+          className="text-capitalize mr-3"
+          fontSize="14"
+          color={TEXT_SECONDARY}
+        >
+          {getFormattedDate(postTime, locale, MONTH_3LETTERS__DAY_YYYY_TIME)}
+        </Span>
+      </A>
+    </p>
+  );
+};
 
 UserInfo.propTypes = {
-  user: PropTypes.string,
+  author: PropTypes.string,
   userInfo: PropTypes.object,
   postTime: PropTypes.number,
   locale: PropTypes.string,

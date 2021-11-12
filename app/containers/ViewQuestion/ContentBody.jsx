@@ -46,8 +46,7 @@ export const ContentBody = ({
     () =>
       isAnswerOfficial(
         questionData.answers.find(({ id }) => id === answerId) || {
-          id: 0,
-          properties: [],
+          isOfficialReply: false,
         },
       ),
     [questionData.answers, answerId],
@@ -61,13 +60,13 @@ export const ContentBody = ({
         account={account}
         markAsAccepted={markAsAccepted}
         markAsAcceptedLoading={markAsAcceptedLoading}
-        correctAnswerId={questionData.correct_answer_id}
+        correctAnswerId={questionData.bestReply}
         whoWasAccepted={userInfo.user}
         isTheLargestRating={isTheLargestRating}
         ids={ids}
         isGeneral={questionData.isGeneral}
         isItWrittenByMe={isItWrittenByMe}
-        communityId={questionData.community_id}
+        communityId={questionData.communityId}
         questionId={questionData.id}
         isOfficial={isOfficial}
         userInfo={userInfo}

@@ -74,9 +74,9 @@ const EditCommunity = ({
     [profileInfo],
   );
 
-  if (!editingAllowed) {
-    return <Redirect to={noAccessRoute()} />;
-  }
+  // if (!editingAllowed) {
+  //   return <Redirect to={noAccessRoute()} />;
+  // }
 
   useEffect(
     () => {
