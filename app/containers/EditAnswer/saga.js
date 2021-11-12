@@ -67,7 +67,7 @@ export function* editAnswerWorker({ answer, questionId, answerId, official }) {
       const item = cachedQuestion.answers.find(x => x.id === answerId);
       item.content = answer;
       if (official) {
-        item.isOfficialReply = true;
+        item.isOfficialReply = official;
       }
     }
 
