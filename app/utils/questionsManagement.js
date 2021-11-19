@@ -45,6 +45,7 @@ import {
   VOTE_ITEM,
 } from './ethConstants';
 import { call } from 'redux-saga/effects';
+import { orderBy } from 'lodash/collection';
 
 /* eslint-disable  */
 export class FetcherOfQuestionsForFollowedCommunities {
@@ -626,7 +627,7 @@ export async function getQuestionById(ethereumService, questionId, user) {
 
         replyObj = await formReplyObject(
           rawReply,
-          comments,
+          orderBy(comments, 'postTime'),
           replyIndex + 1,
           ethereumService,
           replyStatusHistory,
@@ -673,8 +674,8 @@ export async function getQuestionById(ethereumService, questionId, user) {
   );
   return await formQuestionObject(
     rawQuestion,
-    replies,
-    comments,
+    orderBy(replies, 'postTime'),
+    orderBy(comments, 'postTime'),
     ethereumService,
     questionId,
     statusHistory,

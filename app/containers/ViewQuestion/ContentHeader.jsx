@@ -86,7 +86,7 @@ const DropdownBox = styled.div`
 
 const ContentHeader = props => {
   const {
-    userInfo,
+    author,
     type,
     postTime,
     locale,
@@ -118,15 +118,14 @@ const ContentHeader = props => {
   const isTemporaryAccount = false;
   //   useMemo(
   //   () =>
-  //     !!userInfo?.['integer_properties'].find(
+  //     !!author?.['integer_properties'].find(
   //       x => x.key === TEMPORARY_ACCOUNT_KEY && x.value,
   //     ),
-  //   [userInfo],
+  //   [author],
   // );
-
   const isItWrittenByMe = useMemo(
-    () => (profile ? userInfo.user === profile.user : false),
-    [profile, userInfo],
+    () => (profile ? author.user === profile.user : false),
+    [profile, author],
   );
 
   const changeQuestionTypeWithRatingRestore = useCallback(
@@ -157,14 +156,14 @@ const ContentHeader = props => {
 
       <ItemInfo>
         <UserInfo
-          avatar={getUserAvatar(userInfo.avatar)}
-          name={userInfo?.['displayName']}
-          account={userInfo.user}
-          rating={userInfo.rating}
+          avatar={getUserAvatar(author.avatar)}
+          name={author?.['displayName']}
+          account={author.user}
+          rating={author.rating}
           type={type}
           postTime={postTime}
           locale={locale}
-          achievementsCount={userInfo.achievementsReached?.length}
+          achievementsCount={author.achievementsReached?.length}
           isTemporaryAccount={isTemporaryAccount}
         />
 
@@ -275,7 +274,7 @@ const ContentHeader = props => {
 };
 
 ContentHeader.propTypes = {
-  userInfo: PropTypes.object,
+  author: PropTypes.object,
   locale: PropTypes.string,
   lastEditedDate: PropTypes.number,
   postTime: PropTypes.number,

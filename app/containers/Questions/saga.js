@@ -105,7 +105,6 @@ export function* getQuestionsWorker({
   toUpdateQuestions,
 }) {
   try {
-    // const now = Math.round(new Date().valueOf() / 1000);
     const followedCommunities = yield select(makeSelectFollowedCommunities());
     // const cachedPromotedQuestions = yield select(selectPromotedQuestions());
     // const isNotUpdatePromotedQuestions = getCookie(UPDATE_PROMO_QUESTIONS);
@@ -141,17 +140,8 @@ export function* getQuestionsWorker({
       );
     }
 
-    const users = new Map();
-
     questionsList.forEach(question => {
       question.isGeneral = isGeneralQuestion(question);
-
-      users.set(
-        question.author,
-        users.get(question.author)
-          ? [...users.get(question.author), question]
-          : [question],
-      );
     });
 
     // yield all(
@@ -160,18 +150,6 @@ export function* getQuestionsWorker({
     //     question.questionBounty = bounty;
     //   }),
     // );
-
-    // To avoid of fetching same user profiles - remember it and to write userInfo here
-
-    yield all(
-      Array.from(users.keys()).map(function*(user) {
-        const userInfo = yield call(getUserProfileWorker, { user });
-
-        users.get(user).map(cachedItem => {
-          cachedItem.userInfo = userInfo;
-        });
-      }),
-    );
 
     // get promoted questions
     // const promotedQuestions = isNotUpdatePromotedQuestions

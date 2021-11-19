@@ -150,11 +150,11 @@ const CommentView = item => {
       <div className="d-flex justify-content-between align-items-center position-relative">
         <UserInfo
           type={COMMENT_TYPE}
-          avatar={getUserAvatar(item.userInfo.avatar)}
-          name={item.userInfo?.displayName ?? ''}
-          rating={item.userInfo.rating}
-          account={item.userInfo.user}
-          achievementsCount={item.userInfo.achievementsReached?.length}
+          avatar={getUserAvatar(item.author.avatar)}
+          name={item.author?.displayName ?? ''}
+          rating={item.author.rating}
+          account={item.author.user}
+          achievementsCount={item.author.achievementsReached?.length}
           postTime={+item.postTime}
           locale={item.locale}
           isComment
@@ -166,7 +166,7 @@ const CommentView = item => {
             params={{
               ...item.buttonParams,
               commentId: item.id,
-              whowasvoted: item.userInfo.user,
+              whowasvoted: item.author.user,
             }}
             onClick={() => item.toggleView(!item.isView)}
           >
@@ -188,7 +188,7 @@ const CommentView = item => {
                   params={{
                     ...item.buttonParams,
                     commentId: item.id,
-                    whowasvoted: item.userInfo.user,
+                    whowasvoted: item.author.user,
                   }}
                   onClick={onClick}
                   disabled={item.ids.includes(
@@ -215,7 +215,7 @@ const CommentView = item => {
             params={{
               ...item.buttonParams,
               commentId: item.id,
-              whowasvoted: item.userInfo.user,
+              whowasvoted: item.author.user,
             }}
             onClick={item.voteToDelete}
             disabled={item.ids.includes(

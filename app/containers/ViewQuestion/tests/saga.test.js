@@ -253,15 +253,15 @@ describe('updateQuestionDataAfterTransactionWorker', () => {
   const account = 'account';
   const questionData = {
     id: 1,
-    userInfo: {},
+    author: {},
     user: 'user1',
-    comments: [{ id: 1, user: 'user1', userInfo: {} }],
+    comments: [{ id: 1, user: 'user1', author: {} }],
     answers: [
       {
         id: 1,
         user: 'account',
-        userInfo: {},
-        comments: [{ id: 1, user: 'account', userInfo: {} }],
+        author: {},
+        comments: [{ id: 1, user: 'account', author: {} }],
       },
     ],
   };

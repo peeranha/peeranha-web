@@ -37,7 +37,7 @@ export const AnswersList = props => {
           isTheLargestRating,
           isItWrittenByMe,
           history,
-          userInfo,
+          author,
           postTime,
           lastEditedDate,
           votingStatus,
@@ -55,7 +55,7 @@ export const AnswersList = props => {
             questionFrom={props.questionData.author}
             isItWrittenByMe={isItWrittenByMe}
             history={history}
-            userInfo={userInfo}
+            author={author}
             postTime={+postTime}
             lastEditedDate={lastEditedDate}
             votingStatus={votingStatus}
@@ -70,7 +70,7 @@ export const AnswersList = props => {
             buttonParams={{
               questionId: props.questionData.id,
               answerId: id,
-              whowasvoted: userInfo.user,
+              whowasvoted: author.user,
             }}
           />
         ),

@@ -109,10 +109,10 @@ export function* getQuestionsWorker({ communityId }) {
 
     yield all(
       Array.from(users.keys()).map(function*(user) {
-        const userInfo = yield call(getUserProfileWorker, { user });
+        const author = yield call(getUserProfileWorker, { user });
 
         users.get(user).map(cachedItem => {
-          cachedItem.userInfo = userInfo;
+          cachedItem.author = author;
         });
       }),
     );

@@ -97,7 +97,7 @@ const getQuestionAnswers = async postId => {
     return { ...answer, comments: getComments(postId, answer.id) };
   });
 };
-
+//
 export const getPosts = async (limit, skip) => {
   const posts = await client.query({
     query: gql(postsQuery),
@@ -116,7 +116,7 @@ export const getPosts = async (limit, skip) => {
     }),
   );
 };
-
+//
 export const getPostsByCommunityId = async (limit, skip, communityIds) => {
   const posts = await client.query({
     query: gql(postsByCommQuery),
@@ -137,7 +137,7 @@ export const getPostsByCommunityId = async (limit, skip, communityIds) => {
     }),
   );
 };
-
+//
 export const getQuestionFromGraph = async postId => {
   const post = await client.query({
     query: gql(postQuery),
@@ -175,7 +175,7 @@ export const getQuestionFromGraph = async postId => {
     }),
   };
 };
-
+//
 export const postsForSearch = async text => {
   const posts = await client.query({
     query: gql(postsForSearchQuery),

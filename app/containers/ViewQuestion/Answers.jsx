@@ -36,7 +36,7 @@ export const Answers = ({
       );
 
       const correctAnswer = sortedByRatingAnswers.find(
-        ({ id }) => id === questionData.correct_answer_id,
+        ({ id }) => id === questionData.bestReply,
       );
       const officialAnswerIds = officialAnswers.map(({ id }) => id);
       const rest = sortedByRatingAnswers.filter(

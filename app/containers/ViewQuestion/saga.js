@@ -201,15 +201,6 @@ export function* getQuestionData({
     };
   };
 
-  // const getlastEditedDate = properties => {
-  //   const lastEditedDate = undefined;
-  //   //   properties.find(
-  //   //   ({ key }) => key === QUESTION_PROPERTIES.LAST_EDITED_KEY,
-  //   // );
-  //
-  //   return lastEditedDate ? lastEditedDate.value : null;
-  // };
-
   const users = new Map();
 
   function* addOptions(currentItem) {
@@ -269,24 +260,30 @@ export function* getQuestionData({
       }),
     );
   }
+  if (user) {
+    yield all([
+      processQuestion(),
+      processAnswers(),
+      processCommentsOfQuestion(),
+    ]);
+  }
 
-  yield all([processQuestion(), processAnswers(), processCommentsOfQuestion()]);
+  // To avoid of fetching same user profiles - remember it and to write author here
+  if (user) {
+    yield all(
+      Array.from(users.keys()).map(function*(userFromItem) {
+        const author = yield call(getUserProfileWorker, {
+          user: userFromItem,
+          getFullProfile: true,
+          isLogin: user === userFromItem,
+        });
 
-  // To avoid of fetching same user profiles - remember it and to write userInfo here
-
-  yield all(
-    Array.from(users.keys()).map(function*(userFromItem) {
-      const userInfo = yield call(getUserProfileWorker, {
-        user: userFromItem,
-        getFullProfile: true,
-        isLogin: user === userFromItem,
-      });
-
-      users.get(userFromItem).map(cachedItem => {
-        cachedItem.userInfo = userInfo;
-      });
-    }),
-  );
+        users.get(userFromItem).map(cachedItem => {
+          cachedItem.author = author;
+        });
+      }),
+    );
+  }
 
   return question;
 }
@@ -504,24 +501,26 @@ export function* getQuestionDataWorker({ questionId }) {
       throw new Error(`No question data, id: ${questionId}`);
     }
 
-    const { userInfo, answers } = questionData;
+    const { author, answers } = questionData;
 
-    yield all(
-      answers.map(function*({ userInfo: answerUserInfo }) {
-        const answerProfileInfo = yield select(selectUsers(userInfo.user));
-        if (!answerProfileInfo.profile) {
-          const profile = JSON.parse(
-            yield call(getText, answerUserInfo.ipfs_profile),
-          );
-          yield put(
-            getUserProfileSuccess({
-              ...answerUserInfo,
-              profile,
-            }),
-          );
-        }
-      }),
-    );
+    if (account === questionData.author.id) {
+      yield all(
+        answers.map(function*({ author: answerUserInfo }) {
+          const answerProfileInfo = yield select(selectUsers(author.id));
+          if (!answerProfileInfo.profile) {
+            const profile = JSON.parse(
+              yield call(getText, answerUserInfo.ipfs_profile),
+            );
+            yield put(
+              getUserProfileSuccess({
+                ...answerUserInfo,
+                profile,
+              }),
+            );
+          }
+        }),
+      );
+    }
 
     // const promotedQuestions = yield call(
     //   getPromotedQuestions,
@@ -613,7 +612,7 @@ export function* postCommentWorker({
       content: comment,
       isItWrittenByMe: true,
       votingStatus: {},
-      userInfo: profileInfo,
+      author: profileInfo,
     };
 
     if (answerId === 0) {
@@ -682,7 +681,7 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
       history: [],
       isItWrittenByMe: true,
       votingStatus: {},
-      userInfo: profileInfo,
+      author: profileInfo,
       comments: [],
       rating: 0,
       content: answer,
@@ -1007,7 +1006,7 @@ export function* voteToDeleteWorker({
   }
 }
 
-// Do not spent time for main action - update userInfo as async action after main action
+// Do not spent time for main action - update author as async action after main action
 export function* updateQuestionDataAfterTransactionWorker({
   usersForUpdate = [],
   questionData,
@@ -1029,9 +1028,9 @@ export function* updateQuestionDataAfterTransactionWorker({
 
     const changeUserInfo = item => {
       if (item.user === user) {
-        item.userInfo = userInfoMe;
+        item.author = userInfoMe;
       } else if (item.user === usersForUpdate[0]) {
-        item.userInfo = userInfoOpponent;
+        item.author = userInfoOpponent;
       }
     };
 
@@ -1123,7 +1122,6 @@ export default function*() {
   yield takeEvery(PAY_BOUNTY, payBountyWorker);
   yield takeEvery(
     [
-      POST_COMMENT_SUCCESS,
       UP_VOTE_SUCCESS,
       DOWN_VOTE_SUCCESS,
       MARK_AS_ACCEPTED_SUCCESS,

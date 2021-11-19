@@ -18,7 +18,7 @@ export const Question = props => {
       rating={props.questionData.rating}
       isItWrittenByMe={props.questionData.isItWrittenByMe}
       history={props.questionData.history}
-      userInfo={props.questionData.userInfo}
+      author={props.questionData.author}
       postTime={props.questionData.postTime}
       lastEditedDate={props.questionData.lastEditedDate}
       votingStatus={props.questionData.votingStatus}
@@ -33,7 +33,7 @@ export const Question = props => {
       buttonParams={{
         questionId: props.questionData.id,
         answerId: 0,
-        whowasvoted: props.questionData.userInfo.user,
+        whowasvoted: props.questionData.author.id,
       }}
       communities={props.communities}
     />

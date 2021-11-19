@@ -146,7 +146,17 @@ export const postsQuery = `
            id
            tags
            postType
-           author
+           author {
+              id
+              rating
+              displayName
+              company
+              position
+              location
+              about
+              avatar
+              creationTime
+           }
            rating
            postTime
            communityId
@@ -205,7 +215,17 @@ export const postsByCommQuery = `
            id
            tags
            postType
-           author
+           author {
+              id
+              rating
+              displayName
+              company
+              position
+              location
+              about
+              avatar
+              creationTime
+           }
            rating
            postTime
            communityId
@@ -232,7 +252,17 @@ export const postsForSearchQuery = `
            id
            tags
            postType
-           author
+           author {
+              id
+              rating
+              displayName
+              company
+              position
+              location
+              about
+              avatar
+              creationTime
+           }
            rating
            postTime
            communityId
@@ -260,7 +290,17 @@ export const postQuery = `
           id
           tags
           postType
-          author
+          author {
+              id
+              rating
+              displayName
+              company
+              position
+              location
+              about
+              avatar
+              creationTime
+           }
           rating
           postTime
           communityId
@@ -281,7 +321,17 @@ export const postQuery = `
           where: { postId: $postId, isDeleted: false },
         ) {
            id
-           author
+           author {
+              id
+              rating
+              displayName
+              company
+              position
+              location
+              about
+              avatar
+              creationTime
+           }
            rating
            postTime
            postId
@@ -297,11 +347,21 @@ export const postQuery = `
         }
         comments (
           orderBy: postTime,
-          orderDirection: desc,
+          orderDirection: asc,
           where: { postId: $postId, parentReplyId: 0, isDeleted: false },
         ) {
            id
-           author
+           author {
+              id
+              rating
+              displayName
+              company
+              position
+              location
+              about
+              avatar
+              creationTime
+           }
            rating
            postTime
            postId
@@ -320,11 +380,21 @@ export const commentsQuery = `
       ) {
         comments (
           orderBy: postTime,
-          orderDirection: desc,
+          orderDirection: asc,
           where: { postId: $postId, parentReplyId: $parentReplyId, isDeleted: false },
         ) {
            id
-           author
+           author {
+              id
+              rating
+              displayName
+              company
+              position
+              location
+              about
+              avatar
+              creationTime
+           }
            rating
            postTime
            postId

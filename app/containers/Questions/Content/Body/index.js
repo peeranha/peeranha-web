@@ -26,10 +26,9 @@ const QuestionLabels = styled.div`
 
 const Body = ({
   id,
-  author,
   isModerator,
   title,
-  userInfo,
+  author,
   postTime,
   locale,
   communityId,
@@ -75,12 +74,7 @@ const Body = ({
         questionBounty={questionBounty}
       />
 
-      <UserInfo
-        author={author}
-        userInfo={userInfo}
-        locale={locale}
-        postTime={postTime}
-      />
+      <UserInfo author={author} locale={locale} postTime={postTime} />
 
       <TagsContainer
         communities={communities}
@@ -95,7 +89,6 @@ Body.propTypes = {
   id: PropTypes.string,
   author: PropTypes.string,
   title: PropTypes.string,
-  userInfo: PropTypes.object,
   postTime: PropTypes.number,
   locale: PropTypes.string,
   communityId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

@@ -17,7 +17,7 @@ const BaseStyled = Base.extend`
 
 export const Content = props => {
   const isTemporaryAccount = false;
-  //   !!props.userInfo?.['integer_properties'].find(
+  //   !!props.author?.['integer_properties'].find(
   //   x => x.key === TEMPORARY_ACCOUNT_KEY && x.value,
   // );
   return (
@@ -30,7 +30,7 @@ export const Content = props => {
         title={props.title}
         communities={props.communities}
         isItWrittenByMe={props.isItWrittenByMe}
-        user={props.userInfo.user}
+        user={props.author.user}
         questionData={props.questionData}
         isTemporaryAccount={isTemporaryAccount}
         locale={props.locale}
@@ -41,7 +41,7 @@ export const Content = props => {
 };
 
 Content.propTypes = {
-  userInfo: PropTypes.object,
+  author: PropTypes.object,
   questionData: PropTypes.object,
   questionBounty: PropTypes.object,
   locale: PropTypes.string,
