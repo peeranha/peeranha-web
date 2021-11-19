@@ -241,7 +241,6 @@ export function postComment(questionId, ...args) {
 }
 
 export function postCommentSuccess(questionData, buttonId) {
-  console.log(questionData);
   return {
     type: POST_COMMENT_SUCCESS,
     questionData,
