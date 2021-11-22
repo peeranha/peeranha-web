@@ -51,7 +51,8 @@ class EthereumService {
     if (!this.provider) {
       throw new WebIntegrationErrorByCode(METAMASK_ERROR_CODE);
     }
-    if (this.wasReseted) {
+    const autoLoginData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
+    if (this.wasReseted || !autoLoginData) {
       await this.provider.request({
         method: 'wallet_requestPermissions',
         params: [
