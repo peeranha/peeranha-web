@@ -39,14 +39,14 @@ const CommunitiesForm = ({
 }) => {
   if (
     (!profile && !communities) ||
-    profile?.followed_communities?.length === 0
+    profile?.followedCommunities?.length === 0
   ) {
     return null;
   }
 
   const followedCommunities = getFollowedCommunities(
     communities,
-    profile.followed_communities,
+    profile.followedCommunities,
   );
 
   let moreRoute = routes.communities();
