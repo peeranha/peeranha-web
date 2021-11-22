@@ -44,6 +44,16 @@ class EthereumService {
         Peeranha.abi,
         new ethers.providers.Web3Provider(provider),
       );
+    } else {
+      this.initialized = true;
+      this.provider = ethers.providers.getDefaultProvider(
+        process.env.ETHEREUM_NETWORK,
+      );
+      this.contract = new Contract(
+        process.env.ETHEREUM_ADDRESS,
+        Peeranha.abi,
+        this.provider,
+      );
     }
   };
 
