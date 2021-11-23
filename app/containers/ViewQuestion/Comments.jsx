@@ -136,7 +136,7 @@ const CommentEdit = ({
 /* eslint react/no-danger: 0 */
 const CommentView = item => {
   const isItWrittenByMe = !!item.profileInfo
-    ? item.author === item.profileInfo.user
+    ? item.author?.user === item.profileInfo.user
     : false;
 
   const isModerator = false;
@@ -205,35 +205,6 @@ const CommentView = item => {
               )}
             />
           </div>
-
-          <Button
-            show={
-              !item.profileInfo ||
-              (!!item.profileInfo && !isItWrittenByMe && !isModerator)
-            }
-            id={`comment_vote_to_delete_${item.answerId}${item.id}`}
-            params={{
-              ...item.buttonParams,
-              commentId: item.id,
-              whowasvoted: item.author.user,
-            }}
-            onClick={item.voteToDelete}
-            disabled={item.ids.includes(
-              `comment_vote_to_delete_${item.answerId}${item.id}`,
-            )}
-            isVotedToDelete={item.votingStatus?.isVotedToDelete}
-          >
-            <Icon
-              icon={blockSmallIcon}
-              width="12"
-              fill={
-                item.votingStatus?.isVotedToDelete
-                  ? BORDER_ATTENTION_LIGHT
-                  : BORDER_PRIMARY
-              }
-            />
-            <FormattedMessage {...messages.voteToDelete} />
-          </Button>
         </CommentManage>
       </div>
 
