@@ -135,15 +135,12 @@ export const isTemporaryAccount = async account => {
 
 export const getAllRoles = (userRoles, communitiesCount) => {
   const communityRoles = [COMMUNITY_MODERATOR_ROLE, COMMUNITY_ADMIN_ROLE];
+  if (!!userRoles.find(role => BigNumber.from(role).eq(DEFAULT_ADMIN_ROLE))) {
+    return [{ DEFAULT_ADMIN_ROLE }];
+  }
   return userRoles.map(userRole => {
     let communityId;
     let role;
-    if (BigNumber.from(userRole).eq(DEFAULT_ADMIN_ROLE)) {
-      role = userRole;
-      return {
-        role,
-      };
-    }
     communityRoles.map(communityRole => {
       const id = BigNumber.from(userRole)
         .sub(BigNumber.from(communityRole))
