@@ -94,7 +94,7 @@ const TopCommunities = ({
     account !== userId ||
     !communities ||
     !profile ||
-    profile.followed_communities?.length ||
+    profile.followedCommunities?.filter(id => !!id).length ||
     !communities.length
   ) {
     return null;
