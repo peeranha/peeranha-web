@@ -2,7 +2,11 @@ import { Contract, ethers } from 'ethers';
 import Peeranha from '../../../peeranha-solidity/artifacts/contracts/Peeranha.sol/Peeranha.json';
 import detectEthereumProvider from '@metamask/detect-provider';
 import { WebIntegrationErrorByCode } from './errors';
-import { ETHEREUM_USER_ERROR_CODE, METAMASK_ERROR_CODE } from './constants';
+import {
+  ETHEREUM_USER_ERROR_CODE,
+  METAMASK_ERROR_CODE,
+  USER_NOT_SELECTED_ERROR_CODE,
+} from './constants';
 import { getCookie } from './cookie';
 import { AUTOLOGIN_DATA } from '../containers/Login/constants';
 import * as bs58 from 'bs58';
@@ -53,14 +57,18 @@ class EthereumService {
     }
     const autoLoginData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
     if (this.wasReseted || !autoLoginData) {
-      await this.provider.request({
-        method: 'wallet_requestPermissions',
-        params: [
-          {
-            eth_accounts: {},
-          },
-        ],
-      });
+      await this.provider
+        .request({
+          method: 'wallet_requestPermissions',
+          params: [
+            {
+              eth_accounts: {},
+            },
+          ],
+        })
+        .catch(() => {
+          throw new WebIntegrationErrorByCode(USER_NOT_SELECTED_ERROR_CODE);
+        });
     }
     await this.provider
       .request({ method: 'eth_requestAccounts' })

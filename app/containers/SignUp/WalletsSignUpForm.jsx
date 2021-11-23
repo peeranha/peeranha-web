@@ -33,6 +33,8 @@ import { REFERRAL_CODE } from '../Login/constants';
 import { getCookie } from '../../utils/cookie';
 import { REFERRAL_CODE_URI } from '../App/constants';
 import { selectEthereum } from '../EthereumProvider/selectors';
+import createdHistory from '../../createdHistory';
+import * as routes from '../../routes-config';
 
 const WalletsSignUpForm = ({
   handleSubmit,
@@ -49,6 +51,9 @@ const WalletsSignUpForm = ({
       signUpWithWalletProcessing,
       logo,
     }) => {
+      if (!ethereumUserAddress) {
+        createdHistory.push(routes.signup.email.name);
+      }
       if (ethereumUserAddress !== ethereumUserValue) {
         change(EOS_ACCOUNT_FIELD, ethereumUserAddress);
       }

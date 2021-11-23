@@ -937,6 +937,7 @@
   "app.containers.SignUp.tgAccountID": "ID телеграм аккаунта",
   "app.containers.SignUp.tgAccountName": "Имя телеграм аккаунта",
   "app.containers.SignUp.metaMaskIsNotInstalled": "MetaMask не установлен",
+  "app.containers.SignUp.userNotSelected": "Пользователь не выбран",
 
   "app.containers.Profile.profile": "Профиль",
   "app.containers.Profile.profileDescription": "Описание профиля",
