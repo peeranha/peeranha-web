@@ -39,7 +39,8 @@ const CommunitiesForm = ({
 }) => {
   if (
     (!profile && !communities) ||
-    profile?.followedCommunities?.length === 0
+    !profile.followedCommunities ||
+    profile?.followedCommunities?.filter(id => !!id).length === 0
   ) {
     return null;
   }
