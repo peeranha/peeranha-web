@@ -36,7 +36,7 @@ export const ContentBody = ({
   account,
   markAsAccepted,
   markAsAcceptedLoading,
-  userInfo,
+  author,
   isTheLargestRating,
   ids,
   isItWrittenByMe,
@@ -61,7 +61,7 @@ export const ContentBody = ({
         markAsAccepted={markAsAccepted}
         markAsAcceptedLoading={markAsAcceptedLoading}
         correctAnswerId={questionData.bestReply}
-        whoWasAccepted={userInfo.user}
+        whoWasAccepted={author.user}
         isTheLargestRating={isTheLargestRating}
         ids={ids}
         isGeneral={questionData.isGeneral}
@@ -69,7 +69,7 @@ export const ContentBody = ({
         communityId={questionData.communityId}
         questionId={questionData.id}
         isOfficial={isOfficial}
-        userInfo={userInfo}
+        author={author}
       />
 
       <TextBlock content={content} />
@@ -122,7 +122,7 @@ ContentBody.propTypes = {
   questionFrom: PropTypes.string,
   account: PropTypes.string,
   markAsAccepted: PropTypes.func,
-  userInfo: PropTypes.object,
+  author: PropTypes.object,
   isTheLargestRating: PropTypes.bool,
   voteToDeleteLoading: PropTypes.bool,
   deleteCommentLoading: PropTypes.bool,

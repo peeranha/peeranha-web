@@ -13,20 +13,20 @@ import AchievementsStatus from 'components/AchievementsStatus';
 
 import { TEXT_SECONDARY } from 'style-constants';
 
-const UserInfo = ({ author, userInfo, postTime, locale, isSearchPage }) => {
+const UserInfo = ({ author, postTime, locale, isSearchPage }) => {
   return (
     <p className="mb-3">
       <A
-        to={routes.profileView(author)}
+        to={routes.profileView(author.id)}
         className="d-inline-flex align-items-center"
       >
         {!isSearchPage && (
           <>
             <Span className="mr-2" fontSize="14">
-              {userInfo?.['displayName']}
+              {author?.['displayName']}
             </Span>
-            <RatingStatus rating={userInfo.rating} size="sm" isRankOff />
-            <AchievementsStatus count={userInfo.achievementsReached?.length} />
+            <RatingStatus rating={author.rating} size="sm" isRankOff />
+            <AchievementsStatus count={author.achievementsReached?.length} />
           </>
         )}
 
@@ -43,8 +43,7 @@ const UserInfo = ({ author, userInfo, postTime, locale, isSearchPage }) => {
 };
 
 UserInfo.propTypes = {
-  author: PropTypes.string,
-  userInfo: PropTypes.object,
+  author: PropTypes.object,
   postTime: PropTypes.number,
   locale: PropTypes.string,
 };

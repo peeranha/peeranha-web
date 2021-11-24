@@ -924,6 +924,7 @@
   "app.containers.SignUp.tgAccountID": "Telegram account ID",
   "app.containers.SignUp.tgAccountName": "Telegram account name",
   "app.containers.SignUp.metaMaskIsNotInstalled": "MetaMask is not installed",
+  "app.containers.SignUp.userNotSelected": "User is not selected  ",
 
   "app.containers.Profile.profile": "Profile",
   "app.containers.Profile.profileDescription": "Profile description",

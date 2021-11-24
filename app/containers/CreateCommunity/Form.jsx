@@ -165,17 +165,6 @@ const CreateCommunityForm = ({
           splitInHalf
         />
 
-        <Field
-          disabled={createCommunityLoading}
-          name={COMM_MAIN_DESCRIPTION_FIELD}
-          component={TextareaField}
-          label={translations[messages.whyWeNeedIt.id]}
-          validate={[strLength20x1000, required]}
-          warn={[strLength20x1000, required]}
-          tip={translations[messages.whyWeNeedItTip.id]}
-          splitInHalf
-        />
-
         {/*{profileWithModeratorRights && (*/}
         {/*  <TypeForm*/}
         {/*    locale={locale}*/}
@@ -185,7 +174,7 @@ const CreateCommunityForm = ({
         {/*  />*/}
         {/*)}*/}
 
-        <CommunityTypeForm change={change} intl={intl} />
+        {/*<CommunityTypeForm change={change} intl={intl} />*/}
 
         {+formValues[COMMUNITY_TYPE] ? (
           <BloggerModeForm

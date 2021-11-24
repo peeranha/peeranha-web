@@ -68,7 +68,7 @@ export const EditProfilePage = ({
   useEffect(() => setDefaultReducerDispatch, []);
 
   return (
-    <Profile userId={id}>
+    <Profile userId={id} isLogin={account === id}>
       <UserNavigation
         userId={id}
         account={account}

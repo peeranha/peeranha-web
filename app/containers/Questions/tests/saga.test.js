@@ -97,7 +97,7 @@ describe('getQuestionsWorker', () => {
       expect(getQuestions).toHaveBeenCalledWith(eos, res.limit, res.offset);
     });
 
-    it('questionsList mapping, get userInfo', () => {
+    it('questionsList mapping, get author', () => {
       const waitPromise = true;
 
       all.mockImplementation(() => waitPromise);

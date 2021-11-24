@@ -13,6 +13,7 @@ import {
   getFormProcessing,
   getFormSuccess,
   getFormError,
+  suggestTagSuccess,
 } from './actions';
 
 import { SUGGEST_TAG, TAGFORM_SUBMIT_BUTTON, GET_FORM } from './constants';
@@ -24,6 +25,8 @@ export function* suggestTagWorker({ communityId, tag, reset }) {
     const ethereumService = yield select(selectEthereum);
     const selectedAccount = yield call(ethereumService.getSelectedAccount);
     yield call(createTag, ethereumService, selectedAccount, communityId, tag);
+    yield put(suggestTagSuccess());
+    yield call(reset);
     yield call(createdHistory.push, routes.tags());
   } catch (err) {
     yield put(suggestTagErr(err));

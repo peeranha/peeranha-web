@@ -66,14 +66,14 @@ export function* getQuestionsWorker({ userId }) {
       }
     });
 
-    // To avoid of fetching same user profiles - remember it and to write userInfo here
+    // To avoid of fetching same user profiles - remember it and to write author here
 
     yield all(
       Array.from(users.keys()).map(function*(user) {
-        const userInfo = yield call(() => getUserProfileWorker({ user }));
+        const author = yield call(() => getUserProfileWorker({ user }));
 
         users.get(user).map(cachedItem => {
-          cachedItem.userInfo = userInfo;
+          cachedItem.author = author;
         });
       }),
     );

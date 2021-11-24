@@ -46,7 +46,6 @@ const QI = ({
   id,
   title,
   author,
-  userInfo,
   postTime,
   locale,
   communityId,
@@ -168,7 +167,6 @@ const QI = ({
           isModerator={isModerator}
           title={title}
           author={author}
-          userInfo={userInfo}
           postTime={postTime}
           locale={locale}
           communityId={communityId}
@@ -254,7 +252,6 @@ QI.propTypes = {
   id: PropTypes.string,
   title: PropTypes.string,
   author: PropTypes.string,
-  userInfo: PropTypes.object,
   postTime: PropTypes.string,
   locale: PropTypes.string,
   communityId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

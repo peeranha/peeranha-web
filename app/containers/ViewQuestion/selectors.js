@@ -20,16 +20,16 @@ const selectQuestionData = () =>
       }
 
       // update profile question data if profile itself has updated
-      const { userInfo, answers } = questionData;
+      const { author, answers } = questionData;
       const { user, rating } = profileInfo;
 
       answers.forEach(answer => {
-        const { comments, userInfo: answerUserInfo } = answer;
+        const { comments, author: answerUserInfo } = answer;
         if (answerUserInfo.user === user && answerUserInfo.rating !== rating) {
           answerUserInfo.rating = rating;
         }
         comments.forEach(comment => {
-          const { userInfo: commentUserInfo } = comment;
+          const { author: commentUserInfo } = comment;
           if (
             commentUserInfo.user === user &&
             commentUserInfo.rating !== rating
@@ -40,12 +40,12 @@ const selectQuestionData = () =>
       });
 
       if (
-        userInfo.user === profileInfo.user &&
-        userInfo.rating !== profileInfo.rating
+        author.user === profileInfo.user &&
+        author.rating !== profileInfo.rating
       ) {
         return {
           ...questionData,
-          userInfo: profileInfo,
+          author: profileInfo,
         };
       }
 

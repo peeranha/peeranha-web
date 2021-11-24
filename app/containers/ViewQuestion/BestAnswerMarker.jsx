@@ -68,16 +68,16 @@ export const BestAnswerMarker = ({
   questionId,
   isOfficial,
   profileInfo,
-  userInfo,
+  author,
 }) => {
   if (answerId === 0) return null;
 
   const isItWrittenByMe = profileInfo
-    ? userInfo.user === profileInfo.user
+    ? author.user === profileInfo.user
     : false;
 
   const isTemporaryAccount = true;
-  //   !!userInfo?.['integer_properties'].find(
+  //   !!author?.['integer_properties'].find(
   //   x => x.key === TEMPORARY_ACCOUNT_KEY && x.value,
   // );
 
@@ -162,7 +162,7 @@ BestAnswerMarker.propTypes = {
   questionId: PropTypes.string,
   isOfficial: PropTypes.bool,
   profileInfo: PropTypes.object,
-  userInfo: PropTypes.object,
+  author: PropTypes.object,
 };
 
 export default React.memo(

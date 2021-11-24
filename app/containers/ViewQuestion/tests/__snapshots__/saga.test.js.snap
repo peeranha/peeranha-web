@@ -25,7 +25,7 @@ Object {
       "properties": Array [],
       "rating": 0,
       "user": "user",
-      "userInfo": Object {
+      "author": Object {
         "user": "user",
       },
       "votingStatus": Object {},
@@ -47,7 +47,7 @@ Object {
           "postTime": "15151515",
           "properties": Array [],
           "user": "user",
-          "userInfo": Object {
+          "author": Object {
             "user": "user",
           },
           "votingStatus": Object {},
@@ -85,7 +85,7 @@ Object {
       "postTime": "15151515",
       "properties": Array [],
       "user": "user",
-      "userInfo": Object {
+      "author": Object {
         "user": "user",
       },
       "votingStatus": Object {},
@@ -114,14 +114,14 @@ Object {
         Object {
           "id": 1,
           "user": "account",
-          "userInfo": Object {
+          "author": Object {
             "profile": Object {},
           },
         },
       ],
       "id": 1,
       "user": "account",
-      "userInfo": Object {
+      "author": Object {
         "profile": Object {},
       },
     },
@@ -130,14 +130,14 @@ Object {
     Object {
       "id": 1,
       "user": "user1",
-      "userInfo": Object {
+      "author": Object {
         "profile": Object {},
       },
     },
   ],
   "id": 1,
   "user": "user1",
-  "userInfo": Object {
+  "author": Object {
     "profile": Object {},
   },
 }

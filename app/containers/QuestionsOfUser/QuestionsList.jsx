@@ -65,19 +65,15 @@ const LastAnswer = ({ lastAnswer, locale }) => {
 
   return (
     <span className="d-flex flex-column">
-      {lastAnswer.userInfo && (
+      {lastAnswer.author && (
         <A
           to={routes.profileView(lastAnswer.user)}
           className="d-flex align-items-center"
         >
           <Span className="mr-2" fontSize="14" lineHeight="18">
-            {lastAnswer.userInfo?.displayName}
+            {lastAnswer.author?.displayName}
           </Span>
-          <RatingStatus
-            rating={lastAnswer.userInfo.rating}
-            size="sm"
-            isRankOff
-          />
+          <RatingStatus rating={lastAnswer.author.rating} size="sm" isRankOff />
         </A>
       )}
 

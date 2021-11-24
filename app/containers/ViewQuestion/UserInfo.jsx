@@ -32,41 +32,48 @@ export const UserInfo = ({
   achievementsCount,
   isTemporaryAccount,
   isComment,
-}) => (
-  <A to={routes.profileView(account)} className="d-flex flex-shrink-0">
-    {type !== COMMENT_TYPE && (
-      <MediumImageWrapper>
-        <MediumImage
-          className="mr-2"
-          isBordered
-          src={avatar || noAvatar}
-          alt="avatar"
-        />
-        {isTemporaryAccount && (
-          <TelegramUserLabel id={`temporary-account-${account}-label`} locale={locale} />
-        )}
-      </MediumImageWrapper>
-    )}
+}) => {
+  return (
+    <A to={routes.profileView(account)} className="d-flex flex-shrink-0">
+      {type !== COMMENT_TYPE && (
+        <MediumImageWrapper>
+          <MediumImage
+            className="mr-2"
+            isBordered
+            src={avatar || noAvatar}
+            alt="avatar"
+          />
+          {isTemporaryAccount && (
+            <TelegramUserLabel
+              id={`temporary-account-${account}-label`}
+              locale={locale}
+            />
+          )}
+        </MediumImageWrapper>
+      )}
 
-    <div
-      className={`d-flex justify-content-center ${
-        type !== COMMENT_TYPE ? 'flex-column' : 'flex-row'
-      }`}
-    >
-      <span className={`d-flex align-items-center ${isComment ? '' : 'mr-2'}`}>
-        <Span className="mr-2" fontSize="14" lineHeight="18">
-          {name}
+      <div
+        className={`d-flex justify-content-center ${
+          type !== COMMENT_TYPE ? 'flex-column' : 'flex-row'
+        }`}
+      >
+        <span
+          className={`d-flex align-items-center ${isComment ? '' : 'mr-2'}`}
+        >
+          <Span className="mr-2" fontSize="14" lineHeight="18">
+            {name}
+          </Span>
+          <RatingStatus rating={rating} size="sm" isRankOff />
+          <AchievementsStatus count={achievementsCount} />
+        </span>
+
+        <Span color={TEXT_SECONDARY} fontSize="14" lineHeight="18">
+          {getFormattedDate(postTime, locale, MONTH_3LETTERS__DAY_YYYY_TIME)}
         </Span>
-        <RatingStatus rating={rating} size="sm" isRankOff />
-        <AchievementsStatus count={achievementsCount} />
-      </span>
-
-      <Span color={TEXT_SECONDARY} fontSize="14" lineHeight="18">
-        {getFormattedDate(postTime, locale, MONTH_3LETTERS__DAY_YYYY_TIME)}
-      </Span>
-    </div>
-  </A>
-);
+      </div>
+    </A>
+  );
+};
 
 UserInfo.propTypes = {
   account: PropTypes.string,

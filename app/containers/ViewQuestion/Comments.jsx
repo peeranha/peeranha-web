@@ -136,7 +136,7 @@ const CommentEdit = ({
 /* eslint react/no-danger: 0 */
 const CommentView = item => {
   const isItWrittenByMe = !!item.profileInfo
-    ? item.author === item.profileInfo.user
+    ? item.author?.user === item.profileInfo.user
     : false;
 
   const isModerator = false;
@@ -150,11 +150,11 @@ const CommentView = item => {
       <div className="d-flex justify-content-between align-items-center position-relative">
         <UserInfo
           type={COMMENT_TYPE}
-          avatar={getUserAvatar(item.userInfo.avatar)}
-          name={item.userInfo?.displayName ?? ''}
-          rating={item.userInfo.rating}
-          account={item.userInfo.user}
-          achievementsCount={item.userInfo.achievementsReached?.length}
+          avatar={getUserAvatar(item.author.avatar)}
+          name={item.author?.displayName ?? ''}
+          rating={item.author.rating}
+          account={item.author.user}
+          achievementsCount={item.author.achievementsReached?.length}
           postTime={+item.postTime}
           locale={item.locale}
           isComment
@@ -166,7 +166,7 @@ const CommentView = item => {
             params={{
               ...item.buttonParams,
               commentId: item.id,
-              whowasvoted: item.userInfo.user,
+              whowasvoted: item.author.user,
             }}
             onClick={() => item.toggleView(!item.isView)}
           >
@@ -188,7 +188,7 @@ const CommentView = item => {
                   params={{
                     ...item.buttonParams,
                     commentId: item.id,
-                    whowasvoted: item.userInfo.user,
+                    whowasvoted: item.author.user,
                   }}
                   onClick={onClick}
                   disabled={item.ids.includes(
@@ -205,35 +205,6 @@ const CommentView = item => {
               )}
             />
           </div>
-
-          <Button
-            show={
-              !item.profileInfo ||
-              (!!item.profileInfo && !isItWrittenByMe && !isModerator)
-            }
-            id={`comment_vote_to_delete_${item.answerId}${item.id}`}
-            params={{
-              ...item.buttonParams,
-              commentId: item.id,
-              whowasvoted: item.userInfo.user,
-            }}
-            onClick={item.voteToDelete}
-            disabled={item.ids.includes(
-              `comment_vote_to_delete_${item.answerId}${item.id}`,
-            )}
-            isVotedToDelete={item.votingStatus?.isVotedToDelete}
-          >
-            <Icon
-              icon={blockSmallIcon}
-              width="12"
-              fill={
-                item.votingStatus?.isVotedToDelete
-                  ? BORDER_ATTENTION_LIGHT
-                  : BORDER_PRIMARY
-              }
-            />
-            <FormattedMessage {...messages.voteToDelete} />
-          </Button>
         </CommentManage>
       </div>
 

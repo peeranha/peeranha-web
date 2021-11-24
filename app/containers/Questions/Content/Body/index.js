@@ -26,10 +26,9 @@ const QuestionLabels = styled.div`
 
 const Body = ({
   id,
-  author,
   isModerator,
   title,
-  userInfo,
+  author,
   postTime,
   locale,
   communityId,
@@ -78,7 +77,6 @@ const Body = ({
 
       <UserInfo
         author={author}
-        userInfo={isSearchPage ? undefined : userInfo}
         locale={locale}
         postTime={postTime}
         isSearchPage={isSearchPage}
@@ -97,7 +95,6 @@ Body.propTypes = {
   id: PropTypes.string,
   author: PropTypes.string,
   title: PropTypes.string,
-  userInfo: PropTypes.object,
   postTime: PropTypes.number,
   locale: PropTypes.string,
   communityId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

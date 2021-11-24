@@ -67,7 +67,7 @@ const ContentRating = ({
   votingStatus,
   rating,
   downVote,
-  userInfo,
+  author,
   ids,
 }) => (
   <React.Fragment>
@@ -77,11 +77,11 @@ const ContentRating = ({
       disabled={ids.includes(`${UP_VOTE_BUTTON}${answerId}`)}
       id={`${UP_VOTE_BUTTON}${answerId}`}
       data-answerid={answerId}
-      data-whowasupvoted={userInfo.user}
+      data-whowasupvoted={author.user}
     >
       <UpvoteIcon
         account={account}
-        userInfo={userInfo}
+        author={author}
         votingStatus={votingStatus}
       />
     </Button>
@@ -96,11 +96,11 @@ const ContentRating = ({
       disabled={ids.includes(`${DOWN_VOTE_BUTTON}${answerId}`)}
       id={`${DOWN_VOTE_BUTTON}${answerId}`}
       data-answerid={answerId}
-      data-whowasdownvoted={userInfo.user}
+      data-whowasdownvoted={author.user}
     >
       <DownvoteIcon
         account={account}
-        userInfo={userInfo}
+        author={author}
         votingStatus={votingStatus}
       />
     </Button>
@@ -110,7 +110,7 @@ const ContentRating = ({
 ContentRating.propTypes = {
   rating: PropTypes.number,
   votingStatus: PropTypes.object,
-  userInfo: PropTypes.object,
+  author: PropTypes.object,
   account: PropTypes.string,
   upVote: PropTypes.func,
   downVote: PropTypes.func,
@@ -118,9 +118,9 @@ ContentRating.propTypes = {
   answerId: PropTypes.number,
 };
 
-function UpvoteIcon({ account, userInfo, votingStatus }) {
+function UpvoteIcon({ account, author, votingStatus }) {
   let src = null;
-  if (account === userInfo.user) {
+  if (account === author.user) {
     src = disabledFingerUp;
   } else if (votingStatus?.isUpVoted) {
     src = greenFingerUpSingleQuestion;
@@ -139,14 +139,14 @@ function UpvoteIcon({ account, userInfo, votingStatus }) {
 
 UpvoteIcon.propTypes = {
   votingStatus: PropTypes.object,
-  userInfo: PropTypes.object,
+  author: PropTypes.object,
   account: PropTypes.string,
 };
 
-function DownvoteIcon({ account, userInfo, votingStatus }) {
+function DownvoteIcon({ account, author, votingStatus }) {
   let src = null;
 
-  if (account === userInfo.user) {
+  if (account === author.user) {
     src = disabledFingerDown;
   } else if (votingStatus?.isDownVoted) {
     src = redFingerDownSingleQuestion;
@@ -165,7 +165,7 @@ function DownvoteIcon({ account, userInfo, votingStatus }) {
 
 DownvoteIcon.propTypes = {
   votingStatus: PropTypes.object,
-  userInfo: PropTypes.object,
+  author: PropTypes.object,
   account: PropTypes.string,
 };
 
