@@ -29,6 +29,10 @@ import { getResults } from './actions';
 import Item from './Item';
 
 import messages from './messages';
+import Content from '../Questions/Content/Content';
+import { selectCommunities } from '../DataCacheProvider/selectors';
+import InfinityLoader from '../../components/InfinityLoader';
+import ShowMoreButton from '../Questions/Content/ShowMoreButton';
 
 const Search = ({
   match,
@@ -36,6 +40,7 @@ const Search = ({
   items,
   getResultsDispatch,
   getResultsProcessing,
+  communities,
 }) => {
   const query = match.params.q;
   useEffect(
@@ -63,15 +68,34 @@ const Search = ({
         </H3>
       </Header>
 
-      <Base>
-        <ul>{items.map(x => <Item {...x} locale={locale} />)}</ul>
+      {items.length > 0 && (
+        <InfinityLoader
+          loadNextPaginatedData={false}
+          isLoading={getResultsProcessing}
+          isLastFetch={false}
+        >
+          <Content
+            questionsList={items}
+            // promotedQuestionsList={
+            //   promotedQuestions[+questionFilterFromCookies ? 'top' : 'all']
+            // }
+            locale={locale}
+            communities={communities}
+            typeFilter={0}
+            createdFilter={0}
+            isModerator={false}
+            profileInfo={null}
+            isSearchPage
+          />
+        </InfinityLoader>
+      )}
 
-        <div>
-          {getResultsProcessing && <LoadingIndicator />}
-          {!getResultsProcessing &&
-            !items.length && <FormattedMessage {...commonMessages.noResults} />}
-        </div>
-      </Base>
+      {/*  <div>*/}
+      {/*    {getResultsProcessing && <LoadingIndicator />}*/}
+      {/*    {!getResultsProcessing &&*/}
+      {/*      !items.length && <FormattedMessage {...commonMessages.noResults} />}*/}
+      {/*  </div>*/}
+      {/*</Base>*/}
     </div>
   );
 };
@@ -90,6 +114,7 @@ export default compose(
   connect(
     createStructuredSelector({
       items: selectItems(),
+      communities: selectCommunities(),
       getResultsProcessing: selectGetResultsProcessing(),
       locale: makeSelectLocale(),
     }),

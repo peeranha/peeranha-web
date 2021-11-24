@@ -70,6 +70,8 @@ const QI = ({
   moveQuestionDispatch,
   isPromoted,
   isHomePage,
+  isSearchPage,
+  replyCount,
 }) => {
   const ref = useRef(null);
 
@@ -125,9 +127,9 @@ const QI = ({
     }
   }, []);
 
-  const offAnswersCount = useMemo(() => officialAnswersCount({ answers }), [
-    answers,
-  ]);
+  const offAnswersCount = isSearchPage
+    ? 0
+    : useMemo(() => officialAnswersCount({ answers }), [answers]);
 
   return (
     <Box
@@ -144,9 +146,11 @@ const QI = ({
     >
       <AdditionalInfo
         correctAnswerId={bestReply}
-        answers={answers}
+        answers={isSearchPage ? [] : answers}
         rating={rating}
+        answersCount={replyCount}
         officialAnswersCount={offAnswersCount}
+        isSearchPage={isSearchPage}
       />
       <Div>
         {displayTopQuestionMove && (
@@ -176,6 +180,7 @@ const QI = ({
           topQuestionsCount={topQuestions.length}
           topQuestionActionProcessing={topQuestionActionProcessing}
           isPromoted={isPromoted}
+          isSearchPage={isSearchPage}
         />
       </Div>
     </Box>
@@ -204,6 +209,7 @@ export const Content = ({
   isModerator,
   profileInfo,
   isHomePage = false,
+  isSearchPage,
 }) => (
   <div className="position-relative">
     {/*{promotedQuestionsList &&*/}
@@ -235,6 +241,7 @@ export const Content = ({
           isModerator={isModerator}
           profileInfo={profileInfo}
           isHomePage={isHomePage}
+          isSearchPage={isSearchPage}
         />
       );
     })}

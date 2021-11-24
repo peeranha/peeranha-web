@@ -21,7 +21,7 @@ function searchReducer(state = initialState, action) {
     case GET_RESULTS_SUCCESS:
       return state
         .set('getResultsProcessing', false)
-        .set('items', items ? items.slice(0, 9) : initialState.get('items'));
+        .set('items', items ? items : initialState.get('items'));
     case GET_RESULTS_ERROR:
       return state
         .set('getResultsProcessing', false)

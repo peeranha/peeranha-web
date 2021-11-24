@@ -42,6 +42,7 @@ const Body = ({
   displayTopQuestionMove,
   topQuestionActionProcessing,
   isPromoted,
+  isSearchPage,
 }) => {
   return (
     <Base
@@ -74,7 +75,12 @@ const Body = ({
         questionBounty={questionBounty}
       />
 
-      <UserInfo author={author} locale={locale} postTime={postTime} />
+      <UserInfo
+        author={author}
+        locale={locale}
+        postTime={postTime}
+        isSearchPage={isSearchPage}
+      />
 
       <TagsContainer
         communities={communities}
