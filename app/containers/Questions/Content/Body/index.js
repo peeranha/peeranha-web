@@ -43,6 +43,7 @@ const Body = ({
   displayTopQuestionMove,
   topQuestionActionProcessing,
   isPromoted,
+  isSearchPage,
 }) => {
   return (
     <Base
@@ -77,9 +78,10 @@ const Body = ({
 
       <UserInfo
         author={author}
-        userInfo={userInfo}
+        userInfo={isSearchPage ? undefined : userInfo}
         locale={locale}
         postTime={postTime}
+        isSearchPage={isSearchPage}
       />
 
       <TagsContainer
