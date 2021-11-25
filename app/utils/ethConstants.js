@@ -179,7 +179,7 @@ export const repliesQuery = `
       ) {
         replies (
           orderBy: postTime,
-          orderDirection: desc,
+          orderDirection: asc,
           where: { postId: $postId, isDeleted: false },
         ) {
            id
@@ -317,7 +317,7 @@ export const postQuery = `
         }
         replies (
           orderBy: postTime,
-          orderDirection: desc,
+          orderDirection: asc,
           where: { postId: $postId, isDeleted: false },
         ) {
            id
