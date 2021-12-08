@@ -25,6 +25,7 @@ class EthereumService {
     this.initialized = false;
     this.metaMaskUserAddress = null;
     this.withMetaMask = false;
+    this.ethereumProviderDetected = false;
     this.selectedAccount = null;
   }
 
@@ -41,6 +42,7 @@ class EthereumService {
   initEthereum = async () => {
     let provider = await detectEthereumProvider();
     if (provider) {
+      this.ethereumProviderDetected = true;
       this.initialized = true;
       this.provider = provider;
       this.contract = new Contract(
@@ -62,7 +64,7 @@ class EthereumService {
   };
 
   metaMaskSignIn = async () => {
-    if (!this.provider) {
+    if (!this.ethereumProviderDetected) {
       throw new WebIntegrationErrorByCode(METAMASK_ERROR_CODE);
     }
     const autoLoginData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
@@ -80,12 +82,14 @@ class EthereumService {
           throw new WebIntegrationErrorByCode(USER_NOT_SELECTED_ERROR_CODE);
         });
     }
+    console.log('ff');
     await this.provider
       .request({ method: 'eth_requestAccounts' })
       .then(this.handleAccountsChanged)
       .catch(() => {
         throw new WebIntegrationErrorByCode(ETHEREUM_USER_ERROR_CODE);
       });
+    console.log('ff');
     this.withMetaMask = true;
     this.contract = new Contract(
       process.env.ETHEREUM_ADDRESS,

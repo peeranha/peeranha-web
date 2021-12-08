@@ -164,7 +164,7 @@
   "app.common.cannotTransferToYourself": "Cannot transfer to yourself",
   "app.common.notEnoughCPUOrRAM": "Not enough CPU or RAM",
   "app.common.metaMaskIsLocked":
-    "MetaMask is locked or the account is not connected",
+    "Please check Metamask connection and try to reload the page",
 
   "app.telegram.user": "Telegram user",
   "app.telegram.userLabelPopover":
