@@ -82,14 +82,12 @@ class EthereumService {
           throw new WebIntegrationErrorByCode(USER_NOT_SELECTED_ERROR_CODE);
         });
     }
-    console.log('ff');
     await this.provider
       .request({ method: 'eth_requestAccounts' })
       .then(this.handleAccountsChanged)
       .catch(() => {
         throw new WebIntegrationErrorByCode(ETHEREUM_USER_ERROR_CODE);
       });
-    console.log('ff');
     this.withMetaMask = true;
     this.contract = new Contract(
       process.env.ETHEREUM_ADDRESS,
