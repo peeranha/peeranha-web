@@ -25,7 +25,7 @@ class EthereumService {
     this.initialized = false;
     this.metaMaskUserAddress = null;
     this.withMetaMask = false;
-    this.ethereumProviderDetected = false;
+    this.metaMaskProviderDetected = false;
     this.selectedAccount = null;
   }
 
@@ -42,7 +42,7 @@ class EthereumService {
   initEthereum = async () => {
     let provider = await detectEthereumProvider();
     if (provider) {
-      this.ethereumProviderDetected = true;
+      this.metaMaskProviderDetected = true;
       this.initialized = true;
       this.provider = provider;
       this.contract = new Contract(
@@ -64,7 +64,7 @@ class EthereumService {
   };
 
   metaMaskSignIn = async () => {
-    if (!this.ethereumProviderDetected) {
+    if (!this.metaMaskProviderDetected) {
       throw new WebIntegrationErrorByCode(METAMASK_ERROR_CODE);
     }
     const autoLoginData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
