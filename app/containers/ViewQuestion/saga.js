@@ -1121,12 +1121,7 @@ export default function*() {
   yield takeEvery(CHANGE_QUESTION_TYPE, changeQuestionTypeWorker);
   yield takeEvery(PAY_BOUNTY, payBountyWorker);
   yield takeEvery(
-    [
-      UP_VOTE_SUCCESS,
-      DOWN_VOTE_SUCCESS,
-      MARK_AS_ACCEPTED_SUCCESS,
-      DELETE_ANSWER_SUCCESS,
-    ],
+    [UP_VOTE_SUCCESS, DOWN_VOTE_SUCCESS, MARK_AS_ACCEPTED_SUCCESS],
     updateQuestionDataAfterTransactionWorker,
   );
   yield takeEvery(

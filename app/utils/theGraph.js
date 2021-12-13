@@ -157,7 +157,7 @@ export const getQuestionFromGraph = async postId => {
               query: gql(commentsQuery),
               variables: {
                 postId: +postId,
-                parentReplyId: index + 1,
+                parentReplyId: +reply.id.split('-')[1],
               },
             })).data.comments.map(comment => {
               return {

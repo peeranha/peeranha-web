@@ -24,6 +24,7 @@ const EmailForm = ({
   loginWithEmailProcessing,
   loginWithWallet,
   loginWithWalletProcessing,
+  metaMaskProviderDetected,
 }) => (
   <div>
     <Header />
@@ -50,6 +51,7 @@ const EmailForm = ({
       walletAction={loginWithWallet}
       loginWithWalletProcessing={loginWithWalletProcessing}
       loginWithEmailProcessing={loginWithEmailProcessing}
+      metaMaskProviderDetected={metaMaskProviderDetected}
     />
   </div>
 );
