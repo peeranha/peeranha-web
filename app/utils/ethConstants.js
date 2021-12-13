@@ -95,6 +95,7 @@ export const communitiesQuery = `
           isFrozen
           creationTime
           postCount
+          deletedPostCount
         }
       }`;
 
@@ -114,6 +115,7 @@ export const communityQuery = `
           isFrozen
           creationTime
           postCount
+          deletedPostCount
         }
       }`;
 

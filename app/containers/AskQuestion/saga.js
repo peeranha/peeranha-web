@@ -64,7 +64,7 @@ export function* postQuestionWorker({ val }) {
       // bountyHours: +val[FORM_BOUNTY_HOURS],
     };
     const id = communities.reduce((count, community) => {
-      return count + community.postCount;
+      return count + community.postCount + community.deletedPostCount;
     }, 1);
 
     yield call(
