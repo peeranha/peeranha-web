@@ -58,7 +58,8 @@ export const noAccess = () => `/no-access`;
 
 export const detailsHomePage = () => '/';
 
-export const feed = communityId => `/feed/${communityId || ''}`;
+export const feed = communityId =>
+  `/feed${communityId ? '/' + communityId : ''}`;
 
 export const communities = () => (!isBloggerMode ? `/communities` : `/`);
 
@@ -67,7 +68,7 @@ export const tags = () => `/tags`;
 export const users = () => '/users';
 
 export const tutorial = code => `/tutorial/${code ? `#${code}` : ``}`;
-export const faq = code => `/faq/${code ? `#${code}` : ``}`;
+export const faq = code => `/faq${code ? `#${code}` : ``}`;
 export const moderation = code => `#moderation${code ? `#${code}` : ``}`;
 export const support = section => `/support/${section ? `#${section}` : ''}`;
 export const search = q => `/search/${q || ''}`;
