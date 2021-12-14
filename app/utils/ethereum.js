@@ -4,6 +4,7 @@ import detectEthereumProvider from '@metamask/detect-provider';
 import { WebIntegrationErrorByCode } from './errors';
 import {
   ETHEREUM_USER_ERROR_CODE,
+  INVALID_ETHEREUM_PARAMETERS_ERROR_CODE,
   METAMASK_ERROR_CODE,
   USER_NOT_SELECTED_ERROR_CODE,
 } from './constants';
@@ -144,18 +145,30 @@ class EthereumService {
   };
 
   sendTransactionWithSigner = async (actor, action, data) => {
-    const transaction = await this.contract
-      .connect(
-        new ethers.providers.Web3Provider(this.provider).getSigner(actor),
-      )
-      [action](...data);
-    await transaction.wait();
+    try {
+      const transaction = await this.contract
+        .connect(
+          new ethers.providers.Web3Provider(this.provider).getSigner(actor),
+        )
+        [action](...data);
+      await transaction.wait();
+    } catch (err) {
+      if (err.code === INVALID_ETHEREUM_PARAMETERS_ERROR_CODE) {
+        throw new WebIntegrationErrorByCode(METAMASK_ERROR_CODE);
+      }
+    }
   };
 
   sendTransaction = async (actor, action, data) => {
-    const transactionData = this.getBytes32FromIpfsHash(data);
-    const transaction = await this.contract[action](transactionData);
-    await transaction.wait();
+    try {
+      const transactionData = this.getBytes32FromIpfsHash(data);
+      const transaction = await this.contract[action](transactionData);
+      await transaction.wait();
+    } catch (err) {
+      if (err.code === INVALID_ETHEREUM_PARAMETERS_ERROR_CODE) {
+        throw new WebIntegrationErrorByCode(METAMASK_ERROR_CODE);
+      }
+    }
   };
 
   getData = async action => {

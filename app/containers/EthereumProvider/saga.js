@@ -32,10 +32,12 @@ export function* initEthereumWorker() {
   try {
     const autoLoginData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
     const ethereumService = new EthereumService();
-
+    console.log('saga');
     if (autoLoginData && autoLoginData.loginWithMetaMask) {
+      console.log('saga');
       yield call(ethereumService.initEthereum);
       if (ethereumService.metaMaskProviderDetected) {
+        console.log('saga');
         yield call(ethereumService.metaMaskSignIn);
 
         yield call(
