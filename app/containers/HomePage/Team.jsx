@@ -34,18 +34,18 @@ const icon = 47;
 const Team = ({ translations, sendMessageLoading, sendMessage }) => (
   <Gradient position="bottom">
     <Box id={FIFTH_SCREEN}>
-      <div className="container">
+      {/* <div className="container">
         <div className="row fifth-screen">
           <h2 className="col-lg-12 fifth-screen-header">
             <FormattedMessage {...messages.ourTeam} />
           </h2>
         </div>
-      </div>
+      </div> */}
 
       <div className="container">
         <div className="row fifth-screen">
           <div className="col-12 fifth-screen-content">
-            <div className="team-avatars">
+            {/* <div className="team-avatars">
               <ul className="row">
                 <li className="col-12 col-lg-6 teammate-card">
                   <img src={steveKreynin} alt="steveKreynin" />
@@ -145,7 +145,7 @@ const Team = ({ translations, sendMessageLoading, sendMessage }) => (
                   </p>
                 </li>
               </ul>
-            </div>
+            </div> */}
 
             <div className="row">
               <div className="col-12 col-lg-5">

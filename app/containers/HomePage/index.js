@@ -191,7 +191,7 @@ export const HomePage = ({
         emailChecking={emailChecking}
       />
 
-      <FaqMain faqQuestions={faqQuestions} />
+      {/* <FaqMain faqQuestions={faqQuestions} /> */}
 
       <Team
         translations={translations}

@@ -44,7 +44,7 @@ const Header = ({ showLoginModal, account }) => {
         <div className="container">
           <div className="d-flex flex-lg-row flex-column justify-content-between">
             <div className="d-flex justify-content-between flex-grow-1 flex-lg-grow-0">
-              <A to={routes.questions()} className="d-flex logo">
+              <A to={routes.home()} className="d-flex logo">
                 <img src={logo} alt="logo" />
               </A>
 
@@ -73,9 +73,9 @@ const Header = ({ showLoginModal, account }) => {
                 <FormattedMessage {...messages.rewards} />
               </button>
 
-              <button onClick={() => toggle(FOURTH_SCREEN)}>
+              {/* <button onClick={() => toggle(FOURTH_SCREEN)}>
                 <FormattedMessage {...messages.faq} />
-              </button>
+              </button> */}
 
               <button onClick={() => toggle(FIFTH_SCREEN)}>
                 <FormattedMessage {...messages.team} />
@@ -83,10 +83,10 @@ const Header = ({ showLoginModal, account }) => {
 
               {!account && (
                 <React.Fragment>
-                  <button className="login" onClick={showLoginModal}>
+                  {/* <button className="login" onClick={showLoginModal}>
                     <IconLm className="mr-2" icon={login} />
                     <FormattedMessage {...messages.login} />
-                  </button>
+                  </button> */}
 
                   <Button
                     className="signup"
