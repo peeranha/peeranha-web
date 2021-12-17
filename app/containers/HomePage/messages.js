@@ -267,4 +267,7 @@ export default defineMessages({
   sendEmailSuccess: {
     id: 'app.containers.Homepage.sendEmailSuccess',
   },
+  beTheFirstOne: {
+    id: 'app.containers.Homepage.beTheFirstOne',
+  },
 });

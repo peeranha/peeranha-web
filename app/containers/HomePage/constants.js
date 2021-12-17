@@ -27,3 +27,6 @@ export const SEND_MESSAGE_SUCCESS = 'containers_homepage_SEND_MESSAGE_SUCCESS';
 export const SEND_MESSAGE_ERROR = 'containers_homepage_SEND_MESSAGE_ERROR';
 export const SEND_EMAIL_SUCCESS = 'containers_homepage_SEND_EMAIL_SUCCESS';
 export const SEND_EMAIL_ERROR = 'containers_homepage_SEND_EMAIL_ERROR';
+
+export const SHOW_LOGIN_MODAL = 'containers_homepage_SHOW_LOGIN_MODAL';
+export const HIDE_LOGIN_MODAL = 'containers_homepage_HIDE_LOGIN_MODAL';

@@ -16,7 +16,6 @@ import injectReducer from 'utils/injectReducer';
 import Seo from 'components/Seo';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { showLoginModal } from 'containers/Login/actions';
 import { checkEmail } from 'containers/SignUp/actions';
 import { selectEmailChecking } from 'containers/SignUp/selectors';
 
@@ -52,9 +51,17 @@ import {
   EMAIL_FIELD,
 } from './constants';
 
-import { sendMessage, sendEmail } from './actions';
+import {
+  sendMessage,
+  sendEmail,
+  hideLoginModal,
+  showLoginModal,
+} from './actions';
 
 import messages from './messages';
+import { ModalDialog } from '../../components/ModalDialog';
+import { selectShowModal } from './selectors';
+import EmailFormModal from './Modal';
 
 const imagesAnimation = () => {
   window.$(window).on('DOMMouseScroll mousewheel', event => {
@@ -158,6 +165,8 @@ export const HomePage = ({
   account,
   checkEmailDispatch,
   sendEmailDispatch,
+  hideLoginModalDispatch,
+  showModal,
 }) => {
   const verifyEmail = val => checkEmailDispatch(val.get(EMAIL_FIELD));
   const translations = translationMessages[locale];
@@ -170,6 +179,14 @@ export const HomePage = ({
 
   return (
     <div id={LANDING_ID}>
+      <ModalDialog show={showModal} closeModal={hideLoginModalDispatch}>
+        <EmailFormModal
+          translations={translations}
+          showLoginModal={showLoginModalDispatch}
+          checkEmail={sendEmailDispatch}
+          emailChecking={sendEmailLoading}
+        />
+      </ModalDialog>
       <Seo
         title={translations[messages.title.id]}
         description={translations[messages.description.id]}
@@ -232,12 +249,14 @@ const withConnect = connect(
       WHERE_TOKENS_COME_FROM,
       VALUE_OF_TOKEN,
     ]),
+    showModal: selectShowModal(),
   }),
   dispatch => ({
     sendMessageDispatch: bindActionCreators(sendMessage, dispatch),
     sendEmailDispatch: bindActionCreators(sendEmail, dispatch),
     showLoginModalDispatch: bindActionCreators(showLoginModal, dispatch),
     checkEmailDispatch: bindActionCreators(checkEmail, dispatch),
+    hideLoginModalDispatch: bindActionCreators(hideLoginModal, dispatch),
   }),
 );
 

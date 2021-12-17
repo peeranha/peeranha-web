@@ -1208,5 +1208,7 @@
   "app.containers.TelegramInfo.confirm": "Confirm",
   "app.containers.TelegramInfo.unlink": "Unlink",
   "app.containers.Homepage.sendEmailSuccess":
-    "Thank you for your interest in Peeranha. We will notify you when Peeranha is ready to re-launch on Polygon blockchain."
+    "Thank you for your interest in Peeranha. We will notify you when Peeranha is ready to re-launch on Polygon blockchain.",
+  "app.containers.Homepage.beTheFirstOne":
+    "Be the first one to learn about Peeranha re-launch on Polygon blockchain."
 }

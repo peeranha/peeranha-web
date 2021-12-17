@@ -38,7 +38,7 @@ export async function sendEmail(formData, pageInfo) {
       credentials: 'same-origin',
     },
   );
-  console.log(v);
+
   if (v.status !== 200) {
     throw new ApplicationError('Something went wrong...');
   }

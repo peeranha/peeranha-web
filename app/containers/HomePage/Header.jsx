@@ -88,12 +88,7 @@ const Header = ({ showLoginModal, account }) => {
                     <FormattedMessage {...messages.login} />
                   </button> */}
 
-                  <Button
-                    className="signup"
-                    onClick={() =>
-                      createdHistory.push(routes.signup.email.name)
-                    }
-                  >
+                  <Button className="signup" onClick={() => showLoginModal()}>
                     <FormattedMessage {...messages.signUpFree} />
                   </Button>
                 </React.Fragment>

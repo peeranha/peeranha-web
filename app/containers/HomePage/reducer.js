@@ -13,6 +13,8 @@ import {
   SEND_EMAIL,
   SEND_EMAIL_SUCCESS,
   SEND_EMAIL_ERROR,
+  SHOW_LOGIN_MODAL,
+  HIDE_LOGIN_MODAL,
 } from './constants';
 
 export const initialState = fromJS({
@@ -20,6 +22,7 @@ export const initialState = fromJS({
   sendMessageError: null,
   sendEmailLoading: false,
   sendEmailError: null,
+  showModal: false,
 });
 
 function homepageReducer(state = initialState, action) {
@@ -37,11 +40,15 @@ function homepageReducer(state = initialState, action) {
     case SEND_EMAIL:
       return state.set('sendEmailLoading', true);
     case SEND_EMAIL_SUCCESS:
-      return state.set('sendEmailLoading', false);
+      return state.set('sendEmailLoading', false).set('showModal', false);
     case SEND_EMAIL_ERROR:
       return state
         .set('sendEmailLoading', false)
         .set('sendEmailError', sendMessageError);
+    case SHOW_LOGIN_MODAL:
+      return state.set('showModal', true);
+    case HIDE_LOGIN_MODAL:
+      return state.set('showModal', false);
 
     default:
       return state;

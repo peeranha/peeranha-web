@@ -11,6 +11,8 @@ import {
   SEND_MESSAGE_ERROR,
   SEND_EMAIL_SUCCESS,
   SEND_EMAIL_ERROR,
+  SHOW_LOGIN_MODAL,
+  HIDE_LOGIN_MODAL,
 } from './constants';
 
 /*
@@ -20,7 +22,6 @@ import {
  */
 
 export function sendMessage(...val) {
-  console.log('message');
   return {
     type: SEND_MESSAGE,
     val,
@@ -28,7 +29,6 @@ export function sendMessage(...val) {
 }
 
 export function sendEmail(...val) {
-  console.log('email');
   return {
     type: SEND_EMAIL,
     val,
@@ -58,5 +58,17 @@ export function sendEmailErr(sendMessageError) {
   return {
     type: SEND_EMAIL_ERROR,
     sendMessageError,
+  };
+}
+
+export function showLoginModal() {
+  return {
+    type: SHOW_LOGIN_MODAL,
+  };
+}
+
+export function hideLoginModal() {
+  return {
+    type: HIDE_LOGIN_MODAL,
   };
 }
