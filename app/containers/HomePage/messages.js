@@ -5,6 +5,7 @@
  */
 
 import { defineMessages } from 'react-intl';
+import { sendEmailSuccessWorker } from './saga';
 
 export default defineMessages({
   title: {
@@ -261,5 +262,9 @@ export default defineMessages({
 
   goToSite: {
     id: 'app.containers.HomePage.goToSite',
+  },
+
+  sendEmailSuccess: {
+    id: 'app.containers.Homepage.sendEmailSuccess',
   },
 });

@@ -52,7 +52,7 @@ import {
   EMAIL_FIELD,
 } from './constants';
 
-import { sendMessage } from './actions';
+import { sendMessage, sendEmail } from './actions';
 
 import messages from './messages';
 
@@ -151,11 +151,13 @@ export const HomePage = ({
   location,
   sendMessageDispatch,
   sendMessageLoading,
+  sendEmailLoading,
   showLoginModalDispatch,
   emailChecking,
   faqQuestions,
   account,
   checkEmailDispatch,
+  sendEmailDispatch,
 }) => {
   const verifyEmail = val => checkEmailDispatch(val.get(EMAIL_FIELD));
   const translations = translationMessages[locale];
@@ -179,15 +181,15 @@ export const HomePage = ({
         translations={translations}
         location={location}
         showLoginModal={showLoginModalDispatch}
-        checkEmail={verifyEmail}
-        emailChecking={emailChecking}
+        checkEmail={sendEmailDispatch}
+        emailChecking={sendEmailLoading}
       />
 
       <About translations={translations} />
 
       <Rewards
         translations={translations}
-        checkEmail={verifyEmail}
+        checkEmail={sendEmailDispatch}
         emailChecking={emailChecking}
       />
 
@@ -222,6 +224,7 @@ const withConnect = connect(
     locale: makeSelectLocale(),
     emailChecking: selectEmailChecking(),
     sendMessageLoading: homepageSelectors.selectSendMessageLoading(),
+    Email: homepageSelectors.selectSendEmailLoading(),
     faqQuestions: selectFaqQuestions([
       WHAT_IS_PEERANHA,
       HOT_IT_DIFF,
@@ -232,6 +235,7 @@ const withConnect = connect(
   }),
   dispatch => ({
     sendMessageDispatch: bindActionCreators(sendMessage, dispatch),
+    sendEmailDispatch: bindActionCreators(sendEmail, dispatch),
     showLoginModalDispatch: bindActionCreators(showLoginModal, dispatch),
     checkEmailDispatch: bindActionCreators(checkEmail, dispatch),
   }),

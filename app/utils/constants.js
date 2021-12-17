@@ -18,11 +18,11 @@ export const AWS_URL =
   'https://yb1ib2fyhc.execute-api.us-east-2.amazonaws.com/default/regsterPromo';
 export const HUBSPOT_URL =
   'https://api.hsforms.com/submissions/v3/integration/submit';
-export const HUBSPOT_PORTAL_ID = '9131393';
+export const HUBSPOT_PORTAL_ID = '8849019';
 export const HUBSPOT_SEND_EMAIL_FORM_ID =
-  '05305f90-6546-4718-88e8-2d2c8e79c00c';
+  '8227712e-cdea-476d-828a-df4a5340f068';
 export const HUBSPOT_SEND_MESSAGE_FORM_ID =
-  'eb947c08-4d59-4fb5-87b7-3732e487dbd7';
+  'e55a9cfc-278c-4a63-bbc5-94f08c971024';
 
 export const ENDPOINTS_LIST = 'best_nodes_list';
 

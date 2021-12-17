@@ -1219,5 +1219,7 @@
   "app.containers.Achievements.separators.firstAnswerRelated": "Первые ответы",
 
   "app.containers.TelegramInfo.confirm": "Подтвердить",
-  "app.containers.TelegramInfo.unlink": "Удалить зависимость"
+  "app.containers.TelegramInfo.unlink": "Удалить зависимость",
+  "app.containers.Homepage.sendEmailSuccess":
+    "Thank you for your interest in Peeranha. We will notify you when Peeranha is ready to re-launch on Polygon blockchain."
 }

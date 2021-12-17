@@ -24,6 +24,7 @@ const Introduction = ({
   checkEmail,
   emailChecking,
   account,
+  sendEmailLoading,
 }) => (
   <Parallax id={FIRST_SCREEN}>
     <div className="layers">

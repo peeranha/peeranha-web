@@ -17,8 +17,20 @@ const selectSendMessageError = () =>
     substate.get('sendMessageError'),
   );
 
+const selectSendEmailLoading = () =>
+  createSelector(selectHomepageDomain, substate =>
+    substate.get('sendEmailLoading'),
+  );
+
+const selectSendEmailError = () =>
+  createSelector(selectHomepageDomain, substate =>
+    substate.get('sendEmailError'),
+  );
+
 export {
   selectHomepageDomain,
   selectSendMessageLoading,
   selectSendMessageError,
+  selectSendEmailLoading,
+  selectSendEmailError,
 };

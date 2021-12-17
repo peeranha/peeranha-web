@@ -16,7 +16,7 @@ const userRedirect = where => id => `/users/${id}${where}`;
 const singleCommId = isSingleCommunityWebsite();
 const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
 
-export const home = () => `/about`;
+export const home = () => `/`;
 
 export const notFound = () => `/404`;
 export const errorPage = () => `/error-occured`;
@@ -37,7 +37,7 @@ export const uniqueAnswerId = answerId => `ans${answerId}`;
 
 export const questions = communityId =>
   !communityId
-    ? `${!isBloggerMode ? '/' : '/questions'}`
+    ? `${!isBloggerMode ? '/questions' : '/questions'}`
     : `/questions/community/${communityId}/`;
 
 export const questionView = (id, answerId) =>

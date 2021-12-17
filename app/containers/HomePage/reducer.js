@@ -10,11 +10,16 @@ import {
   SEND_MESSAGE,
   SEND_MESSAGE_SUCCESS,
   SEND_MESSAGE_ERROR,
+  SEND_EMAIL,
+  SEND_EMAIL_SUCCESS,
+  SEND_EMAIL_ERROR,
 } from './constants';
 
 export const initialState = fromJS({
   sendMessageLoading: false,
   sendMessageError: null,
+  sendEmailLoading: false,
+  sendEmailError: null,
 });
 
 function homepageReducer(state = initialState, action) {
@@ -29,6 +34,14 @@ function homepageReducer(state = initialState, action) {
       return state
         .set('sendMessageLoading', false)
         .set('sendMessageError', sendMessageError);
+    case SEND_EMAIL:
+      return state.set('sendEmailLoading', true);
+    case SEND_EMAIL_SUCCESS:
+      return state.set('sendEmailLoading', false);
+    case SEND_EMAIL_ERROR:
+      return state
+        .set('sendEmailLoading', false)
+        .set('sendEmailError', sendMessageError);
 
     default:
       return state;

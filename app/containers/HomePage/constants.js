@@ -22,5 +22,8 @@ export const MESSAGE_FIELD = 'containers_homepage_message';
 export const REFCODE_FIELD = 'containers_REFCODE_FIELD';
 
 export const SEND_MESSAGE = 'containers_homepage_SEND_MESSAGE';
+export const SEND_EMAIL = 'containers_homepage_SEND_EMAIL';
 export const SEND_MESSAGE_SUCCESS = 'containers_homepage_SEND_MESSAGE_SUCCESS';
 export const SEND_MESSAGE_ERROR = 'containers_homepage_SEND_MESSAGE_ERROR';
+export const SEND_EMAIL_SUCCESS = 'containers_homepage_SEND_EMAIL_SUCCESS';
+export const SEND_EMAIL_ERROR = 'containers_homepage_SEND_EMAIL_ERROR';

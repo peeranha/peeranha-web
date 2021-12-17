@@ -116,7 +116,7 @@ const App = ({
 
     const loginData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
     if (loginData && !single && pathname === '/' && hash !== '#allquestions') {
-      redirectToFeedDispatch();
+      // redirectToFeedDispatch();
     } else if (hash === '#allquestions') {
       history.push(pathname);
     }

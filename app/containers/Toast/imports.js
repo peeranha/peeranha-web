@@ -66,6 +66,7 @@ import {
 
 import {
   SEND_MESSAGE_SUCCESS,
+  SEND_EMAIL_SUCCESS,
   SEND_MESSAGE_ERROR,
 } from 'containers/HomePage/constants';
 
