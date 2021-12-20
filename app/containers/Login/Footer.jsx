@@ -69,11 +69,22 @@ const Heading = styled.div`
   }
 `;
 
-export const LoginViaMetaMask = ({ action, processing }) => (
-  <MetaMaskButton onClick={action || null} disabled={processing}>
-    <Icon icon={metaMaskLogo} height="28" className="mr-2 mb-0" />
-  </MetaMaskButton>
-);
+export const LoginViaMetaMask = ({ action, processing, providerDetected }) => {
+  const redirectToMetaMask = () => {
+    window.open('https://metamask.io/', '_blank').focus();
+  };
+
+  return (
+    <>
+      <MetaMaskButton
+        onClick={providerDetected ? action || null : redirectToMetaMask}
+        disabled={processing}
+      >
+        <Icon icon={metaMaskLogo} height="28" className="mr-2 mb-0" />
+      </MetaMaskButton>
+    </>
+  );
+};
 
 LoginViaMetaMask.propTypes = {
   action: PropTypes.func,
@@ -89,6 +100,7 @@ const Footer = ({
   facebookLoginProcessing,
   emailChecking,
   signUpText = null,
+  metaMaskProviderDetected,
 }) => {
   const { metaMaskAction } = useMemo(
     () => ({
@@ -111,7 +123,11 @@ const Footer = ({
         {signUpText || <FormattedMessage {...messages.loginViaWallet} />}
       </Heading>
       <div className="d-flex">
-        <LoginViaMetaMask action={metaMaskAction} processing={processing} />
+        <LoginViaMetaMask
+          action={metaMaskAction}
+          processing={processing}
+          providerDetected={metaMaskProviderDetected}
+        />
       </div>
 
       {!signUpText && (

@@ -43,6 +43,7 @@ import saga from './saga';
 import EmailForm from './EmailForm';
 import EmailPasswordForm from './EmailPasswordForm';
 import WeAreHappyYouAreHereForm from './WeAreHappyYouAreHereForm';
+import { selectEthereum } from '../EthereumProvider/selectors';
 
 /* eslint-disable react/prefer-stateless-function */
 export const Login = ({
@@ -60,6 +61,7 @@ export const Login = ({
   loginWithWalletDispatch,
   finishRegistrationDispatch,
   showForgotPasswordModalDispatch,
+  ethereumService,
 }) => {
   const showIForgotPasswordModal = () => {
     hideLoginModalDispatch();
@@ -75,6 +77,7 @@ export const Login = ({
           loginWithEmailProcessing={loginWithEmailProcessing}
           loginWithWallet={loginWithWalletDispatch}
           loginWithWalletProcessing={loginWithWalletProcessing}
+          metaMaskProviderDetected={ethereumService.metaMaskProviderDetected}
         />
       )}
 
@@ -129,6 +132,7 @@ const withConnect = connect(
     finishRegistrationProcessing: selectors.selectFinishRegistrationProcessing(),
     loginWithWalletProcessing: selectors.selectLoginWithWalletProcessing(),
     facebookUserData: selectors.selectFacebookUserData(),
+    ethereumService: selectEthereum,
   }),
   dispatch => ({
     hideLoginModalDispatch: bindActionCreators(hideLoginModal, dispatch),

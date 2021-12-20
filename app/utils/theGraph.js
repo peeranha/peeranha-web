@@ -113,7 +113,11 @@ export const getQuestionFromGraph = async postId => {
       },
     })).data.post,
   };
-  post.answers = post.replies;
+  post.answers = post.replies.map(reply => {
+    return {
+      ...reply,
+    };
+  });
   delete post.replies;
   return post;
 };

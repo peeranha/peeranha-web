@@ -58,5 +58,5 @@ export const deleteCookie = name =>
   setCookie({
     name,
     value: '',
-    options: { 'max-age': -1, allowSubdomains: true },
+    options: { 'max-age': -1, defaultPath: true, allowSubdomains: true },
   });
