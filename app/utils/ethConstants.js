@@ -166,35 +166,89 @@ export const postsQuery = `
            content
            commentCount
            replyCount
+           replies (
+             orderBy: postTime,
+             orderDirection: desc,
+             where: { isDeleted: false },
+           ) {
+             id
+             author {
+                id
+                rating
+                displayName
+                company
+                position
+                location
+                about
+                avatar
+                creationTime
+             }
+             rating
+             postTime
+             postId
+             parentReplyId
+             content
+             commentCount
+             comments (
+              orderBy: postTime,
+              orderDirection: asc,
+              where: { isDeleted: false },
+             ) {
+               id
+               author {
+                  id
+                  rating
+                  displayName
+                  company
+                  position
+                  location
+                  about
+                  avatar
+                  creationTime
+               }
+               rating
+               postTime
+               postId
+               parentReplyId
+               content
+               isDeleted
+               properties
+             }
+             isDeleted
+             isOfficialReply
+             isBestReply
+             isFirstReply
+             isQuickReply
+             properties
+           }
+           comments (
+            orderBy: postTime,
+            orderDirection: asc,
+            where: { isDeleted: false },
+           ) {
+             id
+             author {
+                id
+                rating
+                displayName
+                company
+                position
+                location
+                about
+                avatar
+                creationTime
+             }
+             rating
+             postTime
+             postId
+             parentReplyId
+             content
+             isDeleted
+             properties
+           }
            isDeleted
            officialReply
            bestReply
-           isFirstReply
-           isQuickReply
-           properties
-        }
-      }`;
-
-export const repliesQuery = `
-      query (
-        $postId: Int,
-      ) {
-        replies (
-          orderBy: postTime,
-          orderDirection: asc,
-          where: { postId: $postId, isDeleted: false },
-        ) {
-           id
-           author
-           rating
-           postTime
-           postId
-           parentReplyId
-           content
-           commentCount
-           isDeleted
-           isOfficialReply
-           isBestReply
            isFirstReply
            isQuickReply
            properties
@@ -235,6 +289,86 @@ export const postsByCommQuery = `
            content
            commentCount
            replyCount
+           replies (
+             orderBy: postTime,
+             orderDirection: desc,
+             where: { isDeleted: false },
+           ) {
+             id
+             author {
+                id
+                rating
+                displayName
+                company
+                position
+                location
+                about
+                avatar
+                creationTime
+             }
+             rating
+             postTime
+             postId
+             parentReplyId
+             content
+             commentCount
+             comments (
+              orderBy: postTime,
+              orderDirection: asc,
+              where: { isDeleted: false },
+             ) {
+               id
+               author {
+                  id
+                  rating
+                  displayName
+                  company
+                  position
+                  location
+                  about
+                  avatar
+                  creationTime
+               }
+               rating
+               postTime
+               postId
+               parentReplyId
+               content
+               isDeleted
+               properties
+             }
+             isDeleted
+             isOfficialReply
+             isBestReply
+             isFirstReply
+             isQuickReply
+             properties
+           }
+           comments (
+            orderBy: postTime,
+            orderDirection: asc,
+            where: { isDeleted: false },
+           ) {
+             id
+             author {
+                id
+                rating
+                displayName
+                company
+                position
+                location
+                about
+                avatar
+                creationTime
+             }
+             rating
+             postTime
+             postId
+             parentReplyId
+             content
+             isDeleted
+             properties
+           }
            isDeleted
            officialReply
            bestReply
@@ -289,40 +423,9 @@ export const postQuery = `
           id: $postId,
           where: {isDeleted: false},
         ) {
-          id
-          tags
-          postType
-          author {
-              id
-              rating
-              displayName
-              company
-              position
-              location
-              about
-              avatar
-              creationTime
-           }
-          rating
-          postTime
-          communityId
-          title
-          content
-          commentCount
-          replyCount
-          isDeleted
-          officialReply
-          bestReply
-          isFirstReply
-          isQuickReply
-          properties
-        }
-        replies (
-          orderBy: postTime,
-          orderDirection: asc,
-          where: { postId: $postId, isDeleted: false },
-        ) {
            id
+           tags
+           postType
            author {
               id
               rating
@@ -336,73 +439,97 @@ export const postQuery = `
            }
            rating
            postTime
-           postId
-           parentReplyId
+           communityId
+           title
            content
            commentCount
+           replyCount
+           replies (
+             orderBy: postTime,
+             orderDirection: desc,
+             where: { isDeleted: false },
+           ) {
+             id
+             author {
+                id
+                rating
+                displayName
+                company
+                position
+                location
+                about
+                avatar
+                creationTime
+             }
+             rating
+             postTime
+             postId
+             parentReplyId
+             content
+             commentCount
+             comments (
+              orderBy: postTime,
+              orderDirection: asc,
+              where: { isDeleted: false },
+             ) {
+               id
+               author {
+                  id
+                  rating
+                  displayName
+                  company
+                  position
+                  location
+                  about
+                  avatar
+                  creationTime
+               }
+               rating
+               postTime
+               postId
+               parentReplyId
+               content
+               isDeleted
+               properties
+             }
+             isDeleted
+             isOfficialReply
+             isBestReply
+             isFirstReply
+             isQuickReply
+             properties
+           }
+           comments (
+            orderBy: postTime,
+            orderDirection: asc,
+            where: { isDeleted: false },
+           ) {
+             id
+             author {
+                id
+                rating
+                displayName
+                company
+                position
+                location
+                about
+                avatar
+                creationTime
+             }
+             rating
+             postTime
+             postId
+             parentReplyId
+             content
+             isDeleted
+             properties
+           }
            isDeleted
-           isOfficialReply
-           isBestReply
+           officialReply
+           bestReply
            isFirstReply
            isQuickReply
            properties
         }
-        comments (
-          orderBy: postTime,
-          orderDirection: asc,
-          where: { postId: $postId, parentReplyId: 0, isDeleted: false },
-        ) {
-           id
-           author {
-              id
-              rating
-              displayName
-              company
-              position
-              location
-              about
-              avatar
-              creationTime
-           }
-           rating
-           postTime
-           postId
-           parentReplyId
-           content
-           isDeleted
-           properties
-        }
       }
 `;
-
-export const commentsQuery = `
-      query (
-        $postId: Int,
-        $parentReplyId: Int,
-      ) {
-        comments (
-          orderBy: postTime,
-          orderDirection: asc,
-          where: { postId: $postId, parentReplyId: $parentReplyId, isDeleted: false },
-        ) {
-           id
-           author {
-              id
-              rating
-              displayName
-              company
-              position
-              location
-              about
-              avatar
-              creationTime
-           }
-           rating
-           postTime
-           postId
-           parentReplyId
-           content
-           isDeleted
-           properties
-        }
-      }`;
