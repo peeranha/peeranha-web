@@ -145,7 +145,7 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
 
                 <InfoBlock className="flex-wrap flex-sm-nowrap">
                   <Info>
-                    <P>{getFormattedNum2(x.users_subscribed)}</P>
+                    <P>{getFormattedNum2(x.followingUsers)}</P>
                     <P>
                       <FormattedMessage {...commonMessages.usersShort} />
                     </P>
@@ -159,7 +159,7 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
                   </Info>
 
                   <Info>
-                    <P>{getFormattedNum2(x.answersGiven)}</P>
+                    <P>{getFormattedNum2(x.replyCount)}</P>
                     <P>
                       <FormattedMessage {...commonMessages.answers} />
                     </P>

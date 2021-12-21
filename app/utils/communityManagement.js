@@ -287,6 +287,8 @@ const formCommunityObjectWithTags = async rawCommunity => {
     postCount: +rawCommunity.postCount,
     deletedPostCount: +rawCommunity.deletedPostCount,
     creationTime: +rawCommunity.creationTime,
+    followingUsers: +rawCommunity.followingUsers,
+    replyCount: +rawCommunity.replyCount,
     //todo amount of questions in community and tag
     tags: (await getTags(rawCommunity.id)).map(tag => {
       return { ...tag, label: tag.name };

@@ -96,6 +96,8 @@ export const communitiesQuery = `
           creationTime
           postCount
           deletedPostCount
+          followingUsers
+          replyCount
         }
       }`;
 
@@ -116,6 +118,8 @@ export const communityQuery = `
           creationTime
           postCount
           deletedPostCount
+          followingUsers
+          replyCount
         }
       }`;
 
