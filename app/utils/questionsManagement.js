@@ -324,11 +324,9 @@ export const editQuestion = async (
 // };
 
 export async function deleteQuestion(user, questionId, ethereumService) {
-  await ethereumService.sendTransactionWithSigner(
-    user,
-    DELETE_POST,
+  await ethereumService.sendTransactionWithSigner(user, DELETE_POST, [
     questionId,
-  );
+  ]);
 }
 
 export const postAnswer = async (
