@@ -185,34 +185,34 @@ export default React.memo(({ currClientHeight }) => {
             />
           </div>
         )}
-        <div className="mt-2">
-          <FormattedMessage
-            {...messages.poweredByTelos}
-            values={{
-              image: styles.poweredByPeeranha ? (
-                <Img key="peeranha" src={peeranhaLogo} alt="peeranha" />
-              ) : (
-                <Img key="telos" src={telosIcon} alt="telos" />
-              ),
-            }}
-          >
-            {(...chunks) => (
-              <a
-                className={
-                  styles.poweredByPeeranha ? 'd-flex align-content-center' : ''
-                }
-                href={
-                  styles.poweredByPeeranha
-                      ? `${ process.env.APP_LOCATION }/#allquestions`
-                    : 'https://www.telosfoundation.io/'
-                }
-                target="_blank"
-              >
-                {chunks}
-              </a>
-            )}
-          </FormattedMessage>
-        </div>
+        {/*<div className="mt-2">*/}
+        {/*  <FormattedMessage*/}
+        {/*    {...messages.poweredByTelos}*/}
+        {/*    values={{*/}
+        {/*      image: styles.poweredByPeeranha ? (*/}
+        {/*        <Img key="peeranha" src={peeranhaLogo} alt="peeranha" />*/}
+        {/*      ) : (*/}
+        {/*        <Img key="telos" src={telosIcon} alt="telos" />*/}
+        {/*      ),*/}
+        {/*    }}*/}
+        {/*  >*/}
+        {/*    {(...chunks) => (*/}
+        {/*      <a*/}
+        {/*        className={*/}
+        {/*          styles.poweredByPeeranha ? 'd-flex align-content-center' : ''*/}
+        {/*        }*/}
+        {/*        href={*/}
+        {/*          styles.poweredByPeeranha*/}
+        {/*              ? `${ process.env.APP_LOCATION }/#allquestions`*/}
+        {/*            : 'https://www.telosfoundation.io/'*/}
+        {/*        }*/}
+        {/*        target="_blank"*/}
+        {/*      >*/}
+        {/*        {chunks}*/}
+        {/*      </a>*/}
+        {/*    )}*/}
+        {/*  </FormattedMessage>*/}
+        {/*</div>*/}
       </FooterStyled>
     </AdditionalLinks>
   );
