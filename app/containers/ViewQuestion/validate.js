@@ -198,8 +198,8 @@ export const upVoteValidator = (
   ) {
     message = translations[messages.cannotCompleteBecauseBlocked.id];
   } else if (
-    (questionData.author === profileInfo.user && answerId === 0) ||
-    (isOwnItem[0] && isOwnItem[0].author === profileInfo.user)
+    (questionData.author.user === profileInfo.user && answerId === 0) ||
+    (isOwnItem[0] && isOwnItem[0].author.user === profileInfo.user)
   ) {
     message = `${translations[messages.noRootsToVote.id]}`;
   } else if (profileInfo.rating < MIN_RATING_TO_UPVOTE) {
@@ -242,7 +242,7 @@ export const downVoteValidator = (
 
   if (item.votingStatus?.isVotedToDelete) {
     message = translations[messages.cannotCompleteBecauseBlocked.id];
-  } else if (item.author === profileInfo.user) {
+  } else if (item.author.user === profileInfo.user) {
     message = `${translations[messages.noRootsToVote.id]}`;
   } else if (profileInfo.rating < MIN_RATING_TO_DOWNVOTE) {
     message = `${
