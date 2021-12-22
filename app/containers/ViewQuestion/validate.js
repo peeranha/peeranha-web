@@ -164,7 +164,7 @@ export const markAsAcceptedValidator = (
 
   let message;
 
-  if (profileInfo.user !== questionData.author) {
+  if (profileInfo.user !== questionData.author.user) {
     message = `${translations[messages.noRootsToVote.id]}`;
   } else if (profileInfo.rating < MIN_RATING) {
     message = `${translations[messages.notEnoughRating.id]} ${MIN_RATING}`;
