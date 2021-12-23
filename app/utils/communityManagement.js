@@ -282,7 +282,7 @@ const formCommunityObjectWithTags = async rawCommunity => {
     ...rawCommunity,
     avatar: getFileUrl(rawCommunity.avatar),
     id: +rawCommunity.id,
-    value: +rawCommunity.id,
+    value: rawCommunity.name,
     label: rawCommunity.name,
     postCount: +rawCommunity.postCount,
     deletedPostCount: +rawCommunity.deletedPostCount,
