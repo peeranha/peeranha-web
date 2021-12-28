@@ -101,6 +101,17 @@ export const communitiesQuery = `
         }
       }`;
 
+export const allTagsQuery = `
+      query {
+        tags {
+          id
+          communityId
+          name
+          description
+          postCount
+        }
+      }`;
+
 export const communityQuery = `
       query(
         $id: ID!,

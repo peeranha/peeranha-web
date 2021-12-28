@@ -1,5 +1,6 @@
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 import {
+  allTagsQuery,
   communitiesQuery,
   communityQuery,
   postQuery,
@@ -50,6 +51,13 @@ export const getCommunities = async count => {
     },
   });
   return communities?.data.communities;
+};
+
+export const getAllTags = async () => {
+  const tags = await client.query({
+    query: gql(allTagsQuery),
+  });
+  return tags?.data.tags;
 };
 
 export const getCommunityById = async id => {
@@ -123,10 +131,21 @@ export const getQuestionFromGraph = async postId => {
 };
 //
 export const postsForSearch = async text => {
+  const query = text
+    .replace(/\s+/g, ' ')
+    .trim()
+    .split(' ')
+    .reduce((text, word) => {
+      if (text.length === 0) {
+        return `${word}:*`;
+      } else {
+        return `${text} <-> ${word}:*`;
+      }
+    }, '');
   const posts = await client.query({
     query: gql(postsForSearchQuery),
     variables: {
-      text: `${text}:*`,
+      text: query,
     },
   });
   return posts?.data?.postSearch.filter(post => !post.isDeleted);
