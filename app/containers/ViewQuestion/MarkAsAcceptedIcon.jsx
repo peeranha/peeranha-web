@@ -97,7 +97,7 @@ export const MarkAsAcceptedIcon = ({
       <Label
         className={className}
         onClick={markAsAccepted}
-        data-answerid={correctAnswerId === answerId ? 0 : answerId}
+        data-answerid={answerId}
         data-whowasaccepted={whoWasAccepted}
         disabled={disabled}
         value={correctAnswerId === answerId}
