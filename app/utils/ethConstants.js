@@ -95,6 +95,20 @@ export const communitiesQuery = `
           isFrozen
           creationTime
           postCount
+          deletedPostCount
+          followingUsers
+          replyCount
+        }
+      }`;
+
+export const allTagsQuery = `
+      query {
+        tags {
+          id
+          communityId
+          name
+          description
+          postCount
         }
       }`;
 
@@ -114,6 +128,9 @@ export const communityQuery = `
           isFrozen
           creationTime
           postCount
+          deletedPostCount
+          followingUsers
+          replyCount
         }
       }`;
 

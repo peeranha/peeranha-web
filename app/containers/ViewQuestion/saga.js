@@ -23,9 +23,7 @@ import {
   deleteQuestion,
   downVote,
   editComment,
-  getPromotedQuestions,
   getQuestionById,
-  getStatusHistory,
   markAsAccepted,
   postAnswer,
   postComment,
@@ -37,7 +35,6 @@ import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { ACCOUNT_TABLE, ALL_ACCOUNTS_SCOPE } from 'utils/constants';
 import { dateNowInSeconds } from 'utils/datetime';
 
-import { selectEos } from 'containers/EosioProvider/selectors';
 import {
   getUserProfileSuccess,
   removeUserProfile,
@@ -54,8 +51,7 @@ import {
   getCurrentAccountWorker,
   isAvailableAction,
 } from 'containers/AccountProvider/saga';
-import { isAuthorized } from 'containers/EosioProvider/saga';
-import { selectQuestions } from 'containers/Questions/selectors';
+import { isAuthorized } from 'containers/EthereumProvider/saga';
 import { getUniqQuestions } from 'containers/Questions/actions';
 import { updateStoredQuestionsWorker } from 'containers/Questions/saga';
 import { QUESTION_TYPES } from 'components/QuestionForm/QuestionTypeField';

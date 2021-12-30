@@ -135,8 +135,9 @@ export const ViewQuestion = ({
     [profile, questionData],
   );
 
-  const isAnswered = !!questionData?.answers.filter(x => x.author === account)
-    .length;
+  const isAnswered = !!questionData?.answers.filter(
+    x => x.author.user === account,
+  ).length;
 
   const sendProps = {
     account,

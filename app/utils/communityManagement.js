@@ -32,7 +32,12 @@ import {
   UNFOLLOW_COMMUNITY,
   EDIT_COMMUNITY,
 } from './ethConstants';
-import { getCommunities, getCommunityById, getTags } from './theGraph';
+import {
+  getAllTags,
+  getCommunities,
+  getCommunityById,
+  getTags,
+} from './theGraph';
 
 export const isSingleCommunityWebsite = () =>
   +Object.keys(communitiesConfig).find(
@@ -277,17 +282,20 @@ export async function downVoteToCreateTag(
   });
 }
 
-const formCommunityObjectWithTags = async rawCommunity => {
+const formCommunityObjectWithTags = (rawCommunity, tags) => {
   return {
     ...rawCommunity,
     avatar: getFileUrl(rawCommunity.avatar),
     id: +rawCommunity.id,
-    value: +rawCommunity.id,
+    value: rawCommunity.name,
     label: rawCommunity.name,
     postCount: +rawCommunity.postCount,
+    deletedPostCount: +rawCommunity.deletedPostCount,
     creationTime: +rawCommunity.creationTime,
+    followingUsers: +rawCommunity.followingUsers,
+    replyCount: +rawCommunity.replyCount,
     //todo amount of questions in community and tag
-    tags: (await getTags(rawCommunity.id)).map(tag => {
+    tags: tags.map(tag => {
       return { ...tag, label: tag.name };
     }),
   };
@@ -296,16 +304,21 @@ const formCommunityObjectWithTags = async rawCommunity => {
 /* eslint no-param-reassign: 0 */
 export const getAllCommunities = async (ethereumService, count) => {
   const communities = await getCommunities(count);
-  return await Promise.all(
-    communities.map(async community => {
-      return await formCommunityObjectWithTags(community);
-    }),
-  );
+  const tags = await getAllTags();
+  return communities.map(community => {
+    return formCommunityObjectWithTags(
+      community,
+      tags.filter(tag => tag.communityId === community.id),
+    );
+  });
 };
 
 export const getCommunityWithTags = async (ethereumService, id) => {
   const community = await getCommunityById(id);
-  return await formCommunityObjectWithTags(community);
+  const tags = (await getTags(community.id)).map(tag => {
+    return { ...tag, label: tag.name };
+  });
+  return formCommunityObjectWithTags(community, tags);
 };
 
 export const getCommunityFromContract = async (ethereumService, id) => {

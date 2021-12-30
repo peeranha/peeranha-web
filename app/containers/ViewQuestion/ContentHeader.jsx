@@ -145,7 +145,7 @@ const ContentHeader = props => {
   if (isItWrittenByMe) {
     deleteAction = deleteItem;
   } else {
-    deleteAction = isGlobalAdmin || infiniteImpact ? voteToDelete : deleteItem;
+    deleteAction = isGlobalAdmin || infiniteImpact ? deleteItem : null;
   }
 
   return (

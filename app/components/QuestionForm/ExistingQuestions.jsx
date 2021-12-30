@@ -9,6 +9,7 @@ import Label from 'components/FormFields/Label';
 import Li from 'components/Li';
 
 import messages from './messages';
+import { questionView } from '../../routes-config';
 
 const Container = styled.div`
   margin-bottom: 15px;
@@ -61,8 +62,8 @@ const ExistingQuestions = ({ questions, skip, show, intl, communities }) => {
       </Label>
       <List>
         {findQuestions.map(q => (
-          <ListItem key={q.link}>
-            <a href={q.link}>
+          <ListItem key={questionView(q.id)}>
+            <a href={questionView(q.id)}>
               {getQuestionTitleWithoutCommunity(q.title, commNames)}
             </a>
           </ListItem>
