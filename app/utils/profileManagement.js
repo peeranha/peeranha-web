@@ -19,7 +19,7 @@ import {
   NOTIFICATIONS_INFO_SERVICE,
 } from './web_integration/src/util/aws-connector';
 import { UPDATE_ACC } from './ethConstants';
-import { getUser } from './theGraph';
+import { getUser, getUsersQuestions } from './theGraph';
 
 export function getUserAvatar(avatarHash, userId, account) {
   if (avatarHash && avatarHash !== NO_AVATAR) {

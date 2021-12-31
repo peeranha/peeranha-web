@@ -101,6 +101,127 @@ export const communitiesQuery = `
         }
       }`;
 
+export const usersPostsQuery = `
+      query(
+        $id: ID!,
+      ) {
+        posts (
+          orderBy: postTime,
+          orderDirection: desc,
+          first: $first,
+          skip: $skip,
+          where: {isDeleted: false, author: $id},
+        ) {
+           id
+           tags
+           postType
+           author {
+              id
+              rating
+              displayName
+              company
+              position
+              location
+              about
+              avatar
+              creationTime
+           }
+           rating
+           postTime
+           communityId
+           title
+           content
+           commentCount
+           replyCount
+           replies (
+             orderBy: postTime,
+             orderDirection: desc,
+             where: { isDeleted: false },
+           ) {
+             id
+             author {
+                id
+                rating
+                displayName
+                company
+                position
+                location
+                about
+                avatar
+                creationTime
+             }
+             rating
+             postTime
+             postId
+             parentReplyId
+             content
+             commentCount
+             comments (
+              orderBy: postTime,
+              orderDirection: asc,
+              where: { isDeleted: false },
+             ) {
+               id
+               author {
+                  id
+                  rating
+                  displayName
+                  company
+                  position
+                  location
+                  about
+                  avatar
+                  creationTime
+               }
+               rating
+               postTime
+               postId
+               parentReplyId
+               content
+               isDeleted
+               properties
+             }
+             isDeleted
+             isOfficialReply
+             isBestReply
+             isFirstReply
+             isQuickReply
+             properties
+           }
+           comments (
+            orderBy: postTime,
+            orderDirection: asc,
+            where: { isDeleted: false },
+           ) {
+             id
+             author {
+                id
+                rating
+                displayName
+                company
+                position
+                location
+                about
+                avatar
+                creationTime
+             }
+             rating
+             postTime
+             postId
+             parentReplyId
+             content
+             isDeleted
+             properties
+           }
+           isDeleted
+           officialReply
+           bestReply
+           isFirstReply
+           isQuickReply
+           properties
+        }
+      }`;
+
 export const allTagsQuery = `
       query {
         tags {

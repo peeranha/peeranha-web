@@ -104,7 +104,8 @@ const UserNavigation = ({
 
           <NavigationLink
             to={routes.userQuestions(userId)}
-            disabled={!questionsLength}
+            // disabled={!questionsLength}
+            disabled={false}
             tabIndex={!questionsLength ? '-1' : undefined}
             islink={path !== routes.userQuestions(userId) ? 1 : 0}
           >
@@ -130,7 +131,8 @@ const UserNavigation = ({
 
           <NavigationLink
             to={routes.userAnswers(userId)}
-            disabled={!questionsWithUserAnswersLength}
+            // disabled={!questionsWithUserAnswersLength}
+            disabled={false}
             tabIndex={!questionsWithUserAnswersLength ? '-1' : undefined}
             islink={path !== routes.userAnswers(userId) ? 1 : 0}
           >

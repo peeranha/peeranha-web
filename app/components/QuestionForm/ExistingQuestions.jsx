@@ -63,7 +63,7 @@ const ExistingQuestions = ({ questions, skip, show, intl, communities }) => {
       <List>
         {findQuestions.map(q => (
           <ListItem key={questionView(q.id)}>
-            <a href={questionView(q.id)}>
+            <a href={questionView(q.id)} target={'_blank'}>
               {getQuestionTitleWithoutCommunity(q.title, commNames)}
             </a>
           </ListItem>

@@ -9,6 +9,7 @@ import {
   postsQuery,
   tagsQuery,
   userQuery,
+  usersPostsQuery,
   usersQuery,
 } from './ethConstants';
 
@@ -41,6 +42,30 @@ export const getUser = async id => {
     },
   });
   return user?.data.user;
+};
+
+export const getUsersQuestions = async id => {
+  const questions = await client.query({
+    query: gql(usersPostsQuery),
+    variables: {
+      id,
+    },
+  });
+  return questions?.data.posts.map(question => {
+    return { ...question };
+  });
+};
+
+export const getUsersAnsweredQuestions = async id => {
+  const questions = await client.query({
+    query: gql(usersPostsQuery),
+    variables: {
+      id,
+    },
+  });
+  return questions?.data.posts.map(question => {
+    return { ...question };
+  });
 };
 
 export const getCommunities = async count => {

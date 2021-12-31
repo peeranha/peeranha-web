@@ -94,7 +94,7 @@ const Question = ({
   myPostRating,
   title,
   myPostTime,
-  answers,
+  replies,
   locale,
   acceptedAnswer,
   communities,
@@ -103,34 +103,36 @@ const Question = ({
   postType,
   isMyAnswerAccepted,
   isGeneral,
-}) => (
-  <Li className="mb-3" bordered={!isGeneral}>
-    <QuestionForProfilePage
-      route={routes.questionView(id, null)}
-      myPostRating={myPostRating}
-      title={title}
-      myPostTime={myPostTime}
-      locale={locale}
-      acceptedAnswer={acceptedAnswer}
-      communities={communities}
-      id={id}
-      communityId={communityId}
-      postType={postType}
-      isMyAnswerAccepted={isMyAnswerAccepted}
-      isGeneral={isGeneral}
-    />
-    <RightBlock>
-      <span className="d-flex align-items-center mb-2">
-        <img src={answerIconEmptyInside} className="mr-2" alt="icon" />
-        <Span color={TEXT_PRIMARY_DARK} bold>
-          {answers.length}
-        </Span>
-      </span>
+}) => {
+  return (
+    <Li className="mb-3" bordered={!isGeneral}>
+      <QuestionForProfilePage
+        route={routes.questionView(id, null)}
+        myPostRating={myPostRating}
+        title={title}
+        myPostTime={myPostTime}
+        locale={locale}
+        acceptedAnswer={acceptedAnswer}
+        communities={communities}
+        id={id}
+        communityId={communityId}
+        postType={postType}
+        isMyAnswerAccepted={isMyAnswerAccepted}
+        isGeneral={isGeneral}
+      />
+      <RightBlock>
+        <span className="d-flex align-items-center mb-2">
+          <img src={answerIconEmptyInside} className="mr-2" alt="icon" />
+          <Span color={TEXT_PRIMARY_DARK} bold>
+            {replies.length}
+          </Span>
+        </span>
 
-      <LastAnswer lastAnswer={answers[answers.length - 1]} locale={locale} />
-    </RightBlock>
-  </Li>
-);
+        <LastAnswer lastAnswer={replies[replies.length - 1]} locale={locale} />
+      </RightBlock>
+    </Li>
+  );
+};
 
 const QuestionsList = ({ questions, locale, communities }) => (
   <div>
@@ -157,7 +159,7 @@ Question.propTypes = {
   myPostRating: PropTypes.number,
   title: PropTypes.string,
   myPostTime: PropTypes.number,
-  answers: PropTypes.array,
+  replies: PropTypes.array,
   locale: PropTypes.string,
   acceptedAnswer: PropTypes.bool,
   communities: PropTypes.array,
