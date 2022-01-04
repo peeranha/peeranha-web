@@ -30,6 +30,7 @@ const EmailEnteringForm = ({ handleSubmit }) => (
       showWalletSignUpForm,
       showWalletSignUpProcessing,
       logo,
+      metaMaskProviderDetected,
     }) => (
       <SignUpOptions
         showLoginModal={showLoginModal}
@@ -37,6 +38,7 @@ const EmailEnteringForm = ({ handleSubmit }) => (
         showWalletSignUpProcessing={showWalletSignUpProcessing}
         emailChecking={emailChecking}
         logo={logo}
+        metaMaskProviderDetected={metaMaskProviderDetected}
       >
         <Form onSubmit={handleSubmit(checkEmail)}>
           <Field
