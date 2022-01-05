@@ -45,7 +45,7 @@ import {
 } from './ethConstants';
 import { call } from 'redux-saga/effects';
 import { orderBy } from 'lodash/collection';
-import { getUsersQuestions } from './theGraph';
+import { getUsersAnsweredQuestions, getUsersQuestions } from './theGraph';
 
 /* eslint-disable  */
 export class FetcherOfQuestionsForFollowedCommunities {
@@ -174,21 +174,8 @@ export async function getQuestionsPostedByUser(id) {
   return await getUsersQuestions(id);
 }
 
-export async function getAnswersPostedByUser(
-  eosService,
-  user,
-  offset = 0,
-  limit,
-) {
+export async function getAnsweredUsersPosts(id) {
   return await getUsersAnsweredQuestions(id);
-  const { rows } = await eosService.getTableRows(
-    USER_ANSWERS_TABLE,
-    user,
-    offset,
-    limit,
-  );
-
-  return rows;
 }
 
 /* eslint no-param-reassign: ["error", { "props": false }] */

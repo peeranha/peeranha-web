@@ -1,6 +1,7 @@
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 import {
   allTagsQuery,
+  answeredPostsQuery,
   communitiesQuery,
   communityQuery,
   postQuery,
@@ -9,8 +10,10 @@ import {
   postsQuery,
   tagsQuery,
   userQuery,
+  usersAnswersQuery,
   usersPostsQuery,
   usersQuery,
+  userStatsQuery,
 } from './ethConstants';
 
 const client = new ApolloClient({
@@ -44,6 +47,16 @@ export const getUser = async id => {
   return user?.data.user;
 };
 
+export const getUserStats = async id => {
+  const userStats = await client.query({
+    query: gql(userStatsQuery),
+    variables: {
+      id,
+    },
+  });
+  return userStats?.data.user;
+};
+
 export const getUsersQuestions = async id => {
   const questions = await client.query({
     query: gql(usersPostsQuery),
@@ -57,13 +70,20 @@ export const getUsersQuestions = async id => {
 };
 
 export const getUsersAnsweredQuestions = async id => {
-  const questions = await client.query({
-    query: gql(usersPostsQuery),
+  const answeredPostsIds = await client.query({
+    query: gql(usersAnswersQuery),
     variables: {
       id,
     },
+  })?.data.replies.map(reply => Number(reply.postId));
+
+  const answeredPosts = await client.query({
+    query: gql(answeredPostsQuery),
+    variables: {
+      ids: answeredPostsIds,
+    },
   });
-  return questions?.data.posts.map(question => {
+  return answeredPosts?.data.posts.map(question => {
     return { ...question };
   });
 };
