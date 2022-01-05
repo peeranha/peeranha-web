@@ -25,7 +25,7 @@ export function* getQuestionsWithAnswersWorker({ userId }) {
 
     const questions = yield call(() => getAnsweredUsersPosts(userId));
     questions?.map(x => {
-      x.postType = POST_TYPE_ANSWER;
+      x.elementType = POST_TYPE_ANSWER;
       x.acceptedAnswer = x.correct_answer_id > 0;
       x.isGeneral = isGeneralQuestion(x);
 

@@ -56,10 +56,10 @@ const PostDate = Span.extend`
   white-space: nowrap;
 `;
 
-const PostTypeIcon = ({ postType, isMyAnswerAccepted }) => {
+const PostTypeIcon = ({ elementType, isMyAnswerAccepted }) => {
   let icon = answerIcon;
 
-  if (postType === POST_TYPE_QUESTION) icon = questionRoundedIcon;
+  if (elementType === POST_TYPE_QUESTION) icon = questionRoundedIcon;
   if (isMyAnswerAccepted) icon = bestAnswerIcon;
 
   return <Img src={icon} notRounded alt="icon" />;
@@ -75,12 +75,13 @@ const Note = ({
   locale,
   id,
   answerId,
+  elementType,
   ...postInfo
 }) => {
   let Link = A;
   let route = routes.questionView(
     id,
-    postType === POST_TYPE_ANSWER ? answerId : null,
+    elementType === POST_TYPE_ANSWER ? answerId : null,
   );
   if (single && single !== postInfo.communityId) {
     Link = ADefault;
@@ -95,7 +96,7 @@ const Note = ({
     >
       <div className="d-flex align-items-center mb-to-sm-2">
         <PostTypeIcon
-          postType={postType}
+          elementType={elementType}
           isMyAnswerAccepted={isMyAnswerAccepted}
         />
 

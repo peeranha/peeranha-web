@@ -31,7 +31,7 @@ export function* getQuestionsWorker({ userId }) {
     );
 
     questions.map(x => {
-      x.postType = POST_TYPE_QUESTION;
+      x.elementType = POST_TYPE_QUESTION;
       x.myPostTime = x.postTime;
       x.acceptedAnswer = x.bestReply > 0;
       x.myPostRating = x.rating;

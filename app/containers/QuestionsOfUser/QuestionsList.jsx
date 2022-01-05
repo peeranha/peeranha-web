@@ -103,6 +103,7 @@ const Question = ({
   postType,
   isMyAnswerAccepted,
   isGeneral,
+  elementType,
 }) => {
   return (
     <Li className="mb-3" bordered={!isGeneral}>
@@ -119,6 +120,7 @@ const Question = ({
         postType={postType}
         isMyAnswerAccepted={isMyAnswerAccepted}
         isGeneral={isGeneral}
+        elementType={elementType}
       />
       <RightBlock>
         <span className="d-flex align-items-center mb-2">

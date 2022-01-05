@@ -20,6 +20,7 @@ const Question = ({
   isTheLargestRating,
   answerId,
   isGeneral,
+  elementType,
 }) => (
   <Li className="mb-3">
     <QuestionForProfilePage
@@ -38,6 +39,7 @@ const Question = ({
       isGeneral={isGeneral}
       bordered={!isGeneral}
       isAnswer
+      elementType={elementType}
     />
   </Li>
 );
