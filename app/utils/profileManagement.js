@@ -19,7 +19,7 @@ import {
   NOTIFICATIONS_INFO_SERVICE,
 } from './web_integration/src/util/aws-connector';
 import { UPDATE_ACC } from './ethConstants';
-import { getUser } from './theGraph';
+import { getUser, getUsersQuestions, getUserStats } from './theGraph';
 
 export function getUserAvatar(avatarHash, userId, account) {
   if (avatarHash && avatarHash !== NO_AVATAR) {
@@ -56,8 +56,10 @@ export async function getProfileInfo(
 ) {
   if (!user) return null;
   let profileInfo;
+  let userStats;
   if (isLogin) {
     profileInfo = await ethereumService.getProfile(user);
+    userStats = await getUserStats(user);
   } else {
     profileInfo = { ...(await getUser(user)) };
   }
@@ -79,8 +81,9 @@ export async function getProfileInfo(
     };
     profileInfo.user = user;
     profileInfo.id = user;
-    profileInfo.postCount = profileInfo.postCount ?? 0;
-    profileInfo.answersGiven = profileInfo.answersGiven ?? 0;
+    profileInfo.postCount = profileInfo.postCount ?? userStats?.postCount ?? 0;
+    profileInfo.answersGiven =
+      profileInfo.replyCount ?? userStats?.replyCount ?? 0;
     profileInfo.achievementsReached = profileInfo.achievementsReached ?? [];
   }
 

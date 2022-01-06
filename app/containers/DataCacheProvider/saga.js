@@ -47,6 +47,7 @@ import {
   GET_USER_PROFILE,
 } from './constants';
 import { selectEthereum } from '../EthereumProvider/selectors';
+import { getUserStats } from '../../utils/theGraph';
 
 export function* getStatWorker() {
   try {
@@ -105,6 +106,7 @@ export function* getUserProfileWorker({ user, getFullProfile, isLogin }) {
   try {
     const ethereumService = yield select(selectEthereum);
     const cachedUserInfo = yield select(selectUsers(user));
+    const userStats = yield getUserStats(user);
 
     // take userProfile from STORE
     if (cachedUserInfo && !getFullProfile && !isLogin) {
@@ -128,7 +130,7 @@ export function* getUserProfileWorker({ user, getFullProfile, isLogin }) {
             allowSubdomains: true,
           },
         });
-        yield put(getUserProfileSuccess(updatedUserInfo));
+        yield put(getUserProfileSuccess({ ...updatedUserInfo, ...userStats }));
         return updatedUserInfo;
       }
       return yield cachedUserInfo;
@@ -167,12 +169,12 @@ export function* getUserProfileWorker({ user, getFullProfile, isLogin }) {
           allowSubdomains: true,
         },
       });
-      yield put(getUserProfileSuccess(updatedUserInfo));
+      yield put(getUserProfileSuccess({ ...updatedUserInfo, ...userStats }));
     }
 
     yield put(getUserProfileSuccess());
 
-    return yield updatedUserInfo;
+    return yield { ...updatedUserInfo, ...userStats };
   } catch (err) {
     yield put(getUserProfileErr(err));
   }

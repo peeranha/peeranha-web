@@ -65,7 +65,7 @@ export const Profile = ({
     [isProfileLoading, accountLoading, profile],
   );
 
-  useEffect(() => fetch(userId), [fetch, userId]);
+  useEffect(() => fetch(userId), [fetch, userId, accountLoading]);
 
   return (
     <div>

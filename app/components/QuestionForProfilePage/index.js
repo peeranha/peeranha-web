@@ -96,11 +96,11 @@ const ContentContainer = styled.div`
 /* eslint indent: 0 */
 const AcceptedQuestionBadge = ({
   acceptedAnswer,
-  postType,
+  elementType,
   isMyAnswerAccepted,
 }) =>
-  (postType === POST_TYPE_QUESTION && acceptedAnswer) ||
-  (postType === POST_TYPE_ANSWER && isMyAnswerAccepted) ? (
+  (elementType === POST_TYPE_QUESTION && acceptedAnswer) ||
+  (elementType === POST_TYPE_ANSWER && isMyAnswerAccepted) ? (
     <AcceptedQuestionBadgeStyled>
       <img
         className="d-flex align-items-center justify-content-center"
@@ -110,8 +110,8 @@ const AcceptedQuestionBadge = ({
     </AcceptedQuestionBadgeStyled>
   ) : null;
 
-const TopCommunityBadge = ({ isTheLargestRating, postType }) =>
-  isTheLargestRating && postType === POST_TYPE_ANSWER ? (
+const TopCommunityBadge = ({ isTheLargestRating, elementType }) =>
+  isTheLargestRating && elementType === POST_TYPE_ANSWER ? (
     <TopCommunityBadgeStyled>
       <img
         className="d-flex align-items-center justify-content-center"
@@ -137,6 +137,7 @@ export const QuestionForProfilePage = ({
   isGeneral,
   bordered,
   isAnswer,
+  elementType,
 }) => {
   let Link = AProps;
   let href = route;
@@ -157,7 +158,7 @@ export const QuestionForProfilePage = ({
 
           <AcceptedQuestionBadge
             acceptedAnswer={acceptedAnswer}
-            postType={postType}
+            elementType={elementType}
             isMyAnswerAccepted={isMyAnswerAccepted}
           />
 

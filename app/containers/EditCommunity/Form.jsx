@@ -139,8 +139,8 @@ const EditCommunityForm = ({
         {/*    />*/}
         {/*  )}*/}
 
-        {isModerator &&
-          !isBloggerMode && <CommunityTypeForm change={change} intl={intl} />}
+        {/*{isModerator &&*/}
+        {/*  !isBloggerMode && <CommunityTypeForm change={change} intl={intl} />}*/}
 
         {+formValues[COMMUNITY_TYPE] ? (
           <BloggerModeForm

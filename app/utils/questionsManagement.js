@@ -16,7 +16,6 @@ import {
   GET_QUESTIONS_FILTERED_BY_COMMUNITY_INDEX_POSITION,
   GET_QUESTIONS_KEY_TYPE,
   MARK_AS_CORRECT_METHOD,
-  POST_COMMENT_METHOD,
   PROMOTE_QUESTION_METHOD,
   PROMOTED_QUESTIONS_TABLES,
   QUESTION_TABLE,
@@ -46,6 +45,7 @@ import {
 } from './ethConstants';
 import { call } from 'redux-saga/effects';
 import { orderBy } from 'lodash/collection';
+import { getUsersAnsweredQuestions, getUsersQuestions } from './theGraph';
 
 /* eslint-disable  */
 export class FetcherOfQuestionsForFollowedCommunities {
@@ -170,24 +170,12 @@ export class FetcherOfQuestionsForFollowedCommunities {
 
 /* eslint-enable  */
 
-export async function getQuestionsPostedByUser(ethereumService, id) {
-  return await ethereumService.getDataWithArgs(GET_QUESTION, [id]);
+export async function getQuestionsPostedByUser(id) {
+  return await getUsersQuestions(id);
 }
 
-export async function getAnswersPostedByUser(
-  eosService,
-  user,
-  offset = 0,
-  limit,
-) {
-  const { rows } = await eosService.getTableRows(
-    USER_ANSWERS_TABLE,
-    user,
-    offset,
-    limit,
-  );
-
-  return rows;
+export async function getAnsweredUsersPosts(id) {
+  return await getUsersAnsweredQuestions(id);
 }
 
 /* eslint no-param-reassign: ["error", { "props": false }] */

@@ -47,28 +47,30 @@ export const QuestionsOfUser = ({
   account,
   displayName,
   getQuestionsDispatch,
-}) => (
-  <InfinityLoader
-    loadNextPaginatedData={getQuestionsDispatch.bind(null, userId)}
-    isLoading={questionsLoading}
-    isLastFetch={isLastFetch}
-    infinityOff={infinityOff}
-  >
-    <div className={className}>
-      <Header userId={userId} account={account} displayName={displayName} />
+}) => {
+  return (
+    <InfinityLoader
+      loadNextPaginatedData={getQuestionsDispatch.bind(null, userId)}
+      isLoading={questionsLoading}
+      isLastFetch={isLastFetch}
+      infinityOff={infinityOff}
+    >
+      <div className={className}>
+        <Header userId={userId} account={account} displayName={displayName} />
 
-      {questions.length > 0 && (
-        <QuestionsList
-          questions={questions}
-          locale={locale}
-          communities={communities}
-        />
-      )}
+        {questions.length > 0 && (
+          <QuestionsList
+            questions={questions}
+            locale={locale}
+            communities={communities}
+          />
+        )}
 
-      {questionsLoading && <LoadingIndicator />}
-    </div>
-  </InfinityLoader>
-);
+        {questionsLoading && <LoadingIndicator />}
+      </div>
+    </InfinityLoader>
+  );
+};
 
 QuestionsOfUser.propTypes = {
   isLastFetch: PropTypes.bool,
