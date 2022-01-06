@@ -32,6 +32,7 @@ import { Div } from 'containers/SignUp/IHaveEOSAccountForm';
 import Footer from 'containers/Login/Footer';
 
 import SignUpWrapper from './index';
+import { selectEthereum } from '../../containers/EthereumProvider/selectors';
 
 export const P = Span.extend`
   font-size: 18px;
@@ -151,6 +152,7 @@ const RightMenuWithoutScatter = ({
   showWalletSignUpProcessing,
   emailVerificationProcessing,
   emailChecking,
+  metaMaskProviderDetected,
 }) => (
   <div className="py-5">
     {children}
@@ -161,6 +163,7 @@ const RightMenuWithoutScatter = ({
         emailVerificationProcessing={emailVerificationProcessing}
         emailChecking={emailChecking}
         signUpText={<FormattedMessage {...commonMessages.signUpViaWallet} />}
+        metaMaskProviderDetected={metaMaskProviderDetected}
       />
 
       <LoginLink>
@@ -191,6 +194,7 @@ export const SignUpOptions = ({
   withWallet,
   faqQuestions,
   logo,
+  ethereumService,
 }) => {
   return (
     <SignUpWrapper
@@ -207,6 +211,7 @@ export const SignUpOptions = ({
             emailVerificationProcessing={emailVerificationProcessing}
             emailChecking={emailChecking}
             isMobileDevice={isMobile(window.navigator).any}
+            metaMaskProviderDetected={ethereumService.metaMaskProviderDetected}
           />
         ) : (
           children
@@ -250,6 +255,7 @@ export default connect(
       CAN_SIGN_UP_WITH_EAMIL_IF_HAVE_TELOS_ACCT_QUESTION,
       CAN_I_DELETE_ACCOUNT_QUESTION,
     ]),
+    ethereumService: selectEthereum,
   }),
   null,
 )(SignUpOptions);
