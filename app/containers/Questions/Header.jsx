@@ -105,9 +105,9 @@ export const Header = ({
           Button={Button}
           toggle={choice => {
             createdHistory.push(
-              routes[isFeed ? 'feed' : 'questions'](choice, false, false),
+              routes[isFeed ? 'feed' : 'questions'](choice.id, false, false),
             );
-            setTypeFilter(choice);
+            setTypeFilter(choice.id);
           }}
           showOnlyFollowed={isFeed}
           selectedCommunityId={communityIdFilter}

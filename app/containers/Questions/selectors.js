@@ -79,7 +79,7 @@ export const selectQuestions = (
       }
 
       if (questionId) {
-        return questionsList.find(x => Number(x.id) === Number(questionId));
+        return questionsList?.find(x => Number(x.id) === Number(questionId));
       }
 
       return questionsList;

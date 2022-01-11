@@ -335,7 +335,7 @@ export function* saveCommentWorker({
     let item;
 
     if (answerId === 0) {
-      item = questionData.comments.find(x => x.id === commentId);
+      item = questionData.comments?.find(x => x.id === commentId);
     } else if (answerId > 0) {
       item = questionData.answers
         .find(x => x.id === answerId)
