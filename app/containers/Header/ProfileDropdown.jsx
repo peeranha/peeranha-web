@@ -132,16 +132,14 @@ const Menu = memo(
           </A>
           <A
             to={routes.userQuestions(user)}
-            // disabled={!questionsLength}
-            disabled={false}
+            disabled={!questionsLength}
             tabIndex={!questionsLength ? '-1' : undefined}
           >
             <FormattedMessage {...messages.questions} />
           </A>
           <A
             to={routes.userAnswers(user)}
-            // disabled={!questionsWithUserAnswersLength}
-            disabled={false}
+            disabled={!questionsWithUserAnswersLength}
             tabIndex={!questionsWithUserAnswersLength ? '-1' : undefined}
           >
             <FormattedMessage {...messages.answers} />
