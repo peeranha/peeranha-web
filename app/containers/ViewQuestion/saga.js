@@ -139,6 +139,7 @@ import {
 import { selectUsers } from '../DataCacheProvider/selectors';
 import { selectEthereum } from '../EthereumProvider/selectors';
 import { getQuestionFromGraph } from '../../utils/theGraph';
+import orderBy from 'lodash/orderBy';
 
 export const isGeneralQuestion = question => Boolean(question.postType === 1);
 
@@ -159,6 +160,7 @@ export function* getQuestionData({
     question.commentCount = question.comments.length;
     question.answers.map(answer => {
       answer.commentCount = answer.comments.length;
+      answer.id = Number(answer.id.split('-')[1]);
     });
   }
   // const bounty = yield call(getQuestionBounty, questionId, eosService);
