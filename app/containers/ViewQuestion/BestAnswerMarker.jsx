@@ -71,7 +71,9 @@ export const BestAnswerMarker = ({
   author,
 }) => {
   if (answerId === 0) return null;
-
+  answerId = Number.isInteger(answerId)
+    ? answerId
+    : Number(answerId.split('-')[1]);
   const isItWrittenByMe = profileInfo
     ? author.user === profileInfo.user
     : false;
