@@ -167,7 +167,7 @@ class EthereumService {
     } catch (err) {
       if (err.code === INVALID_ETHEREUM_PARAMETERS_ERROR_CODE) {
         throw new WebIntegrationErrorByCode(METAMASK_ERROR_CODE);
-      }
+      } else throw err;
     }
   };
 
