@@ -13,4 +13,7 @@ export default defineMessages({
   3080002: {
     id: 'app.common.notEnoughCPUOrRAM',
   },
+  4001: {
+    id: 'app.containers.SignUp.userRejectedSignatureRequest',
+  },
 });
