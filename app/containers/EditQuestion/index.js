@@ -58,7 +58,9 @@ const EditQuestion = ({
   const questionid = match.params.questionid;
   useEffect(
     () => {
-      getAskedQuestionDispatch(questionid);
+      if (account) {
+        getAskedQuestionDispatch(questionid);
+      }
     },
     [questionid, getAskedQuestionDispatch, account],
   );

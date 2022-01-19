@@ -34,14 +34,14 @@ export function* getEditTagFormWorker({ communityId }) {
       communityId,
     );
 
-    if (!account || (!isGlobalAdmin && !createTagPermission)) {
-      yield call(
-        createdHistory.push,
-        communityId ? routes.communityTags(communityId) : routes.tags(),
-      );
-    } else {
-      yield put(getEditTagFormSuccess());
-    }
+    // if ((!isGlobalAdmin && !createTagPermission)) {
+    //   yield call(
+    //     createdHistory.push,
+    //     communityId ? routes.communityTags(communityId) : routes.tags(),
+    //   );
+    // } else {
+    yield put(getEditTagFormSuccess());
+    // }
   } catch (err) {
     yield put(getEditTagFormErr(err));
   }
