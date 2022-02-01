@@ -22,6 +22,8 @@ import {
   editTagErr,
 } from './actions';
 import { EDIT_TAG, GET_EDIT_TAG_FORM } from './constants';
+import { GET_EXISTING_TAGS } from '../Tags/constants';
+import { getExistingTagsWorker } from '../Tags/saga';
 
 export function* getEditTagFormWorker({ communityId }) {
   try {
@@ -84,4 +86,5 @@ export function* editTagWorker({ tag, reset }) {
 export default function*() {
   yield takeLatest(GET_EDIT_TAG_FORM, getEditTagFormWorker);
   yield takeLatest(EDIT_TAG, editTagWorker);
+  yield takeLatest(GET_EXISTING_TAGS, getExistingTagsWorker);
 }
