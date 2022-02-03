@@ -12,6 +12,7 @@ export const EDIT_COMMUNITY = 'updateCommunity';
 export const FOLLOW_COMMUNITY = 'followCommunity';
 export const UNFOLLOW_COMMUNITY = 'unfollowCommunity';
 export const CREATE_TAG = 'createTag';
+export const EDIT_TAG = 'updateTag';
 export const POST_QUESTION = 'createPost';
 export const GET_POST = 'getPost';
 export const GET_REPLY = 'getReply';
