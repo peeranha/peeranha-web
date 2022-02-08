@@ -18,6 +18,7 @@ import {
 import AdditionalInfo from './AdditionalInfo';
 import MoveSection from './MoveSection';
 import Body from './Body';
+import { isGeneralQuestion } from '../../ViewQuestion/saga';
 
 const Box = BaseNoPadding.extend`
   display: flex;
@@ -232,6 +233,7 @@ export const Content = ({
       return (
         <QuestionItem
           {...item}
+          isGeneral={isGeneralQuestion(item)}
           index={index}
           first={index === 0}
           last={index === questionsList.length - 1}
