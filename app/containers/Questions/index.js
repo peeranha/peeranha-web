@@ -80,7 +80,6 @@ export const Questions = ({
   typeFilter,
   createdFilter,
   setTypeFilterDispatch,
-  eosService,
   initLoadedItems,
   nextLoadedItems,
   getQuestionsDispatch,
@@ -88,6 +87,16 @@ export const Questions = ({
   loadTopQuestionsDispatch,
   isLastTopQuestionLoaded,
 }) => {
+  const isExpert =
+    path === routes.expertPosts() ||
+    path === routes.expertPosts(':communityid');
+  const postTypes = useMemo(
+    () => {
+      const isFeed = parentPage === feed;
+      return isFeed ? [0, 1] : isExpert ? [0] : [1];
+    },
+    [path],
+  );
   const getInitQuestions = useCallback(
     () => {
       if (!questionFilter) {
@@ -96,6 +105,7 @@ export const Questions = ({
         getQuestionsDispatch(
           initLoadedItems,
           offset,
+          postTypes,
           Number(params.communityid) || 0,
           parentPage,
           false,
@@ -103,7 +113,13 @@ export const Questions = ({
         );
       }
     },
-    [initLoadedItems, params.communityid, parentPage, questionFilter],
+    [
+      initLoadedItems,
+      params.communityid,
+      parentPage,
+      questionFilter,
+      postTypes,
+    ],
   );
 
   const getNextQuestions = useCallback(
@@ -116,6 +132,7 @@ export const Questions = ({
         getQuestionsDispatch(
           initLoadedItems,
           nextLoadedItems,
+          postTypes,
           Number(params.communityid) || 0,
           parentPage,
           next,
@@ -132,30 +149,15 @@ export const Questions = ({
       parentPage,
       questionFilter,
       loadTopQuestionsDispatch,
+      postTypes,
     ],
-  );
-
-  useEffect(
-    () => {
-      if (
-        eosService &&
-        ((parentPage === feed &&
-          followedCommunities &&
-          followedCommunities.length > 0) ||
-          parentPage !== feed) &&
-        !questionFilter
-      ) {
-        getInitQuestions();
-      }
-    },
-    [eosService, questionFilter],
   );
 
   useEffect(
     () => {
       getInitQuestions();
     },
-    [typeFilter, createdFilter],
+    [typeFilter, createdFilter, postTypes],
   );
 
   useEffect(() => {
@@ -239,11 +241,13 @@ export const Questions = ({
         createdFilter={createdFilter}
         setTypeFilter={setTypeFilterDispatch}
         questionFilterFromCookies={questionFilterFromCookies}
+        isExpert={isExpert}
       />
 
       {displayBanner && (
         <Banner
           isFeed={parentPage === feed}
+          isExpert={isExpert}
           followedCommunities={followedCommunities}
           redirectToAskQuestionPage={redirectToAskQuestionPageDispatch}
         />

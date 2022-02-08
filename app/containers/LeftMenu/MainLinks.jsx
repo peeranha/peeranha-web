@@ -44,6 +44,7 @@ import { svgDraw } from 'components/Icon/IconStyled';
 
 import { BasicLink } from './Styles';
 import { FULL_SIZE } from './constants';
+import { experts } from 'routes-config';
 
 const styles = singleCommunityStyles();
 const colors = singleCommunityColors();
@@ -142,6 +143,11 @@ const MainLinks = ({ profile, currClientHeight, isGlobalAdmin }) => {
       <A1 to={routes.questions()} name="questions" route={route}>
         <IconLg className="mr-2" icon={allQuestionsIcon} />
         <FormattedMessage {...messages.questions} />
+      </A1>
+
+      <A1 to={routes.expertPosts()} name="experts" route={route}>
+        <IconLg className="mr-2" icon={allQuestionsIcon} />
+        <FormattedMessage {...messages.expertPosts} />
       </A1>
 
       {!singleCommId && (

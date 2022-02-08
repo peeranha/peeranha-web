@@ -50,6 +50,7 @@ export const Header = ({
   topQuestions,
   topQuestionsInfoLoaded,
   questionFilterFromCookies,
+  isExpert,
 }) => {
   const isFeed = parentPage === routes.feed();
 
@@ -57,7 +58,11 @@ export const Header = ({
   let defaultLabel = null;
   let defaultAvatarWidth = null;
 
-  if (!isFeed) {
+  if (isExpert) {
+    defaultAvatar = allquestionsIcon;
+    defaultLabel = intl.formatMessage({ id: messages.expertPosts.id });
+    defaultAvatarWidth = '24';
+  } else if (!isFeed) {
     defaultAvatar = allquestionsIcon;
     defaultLabel = intl.formatMessage({ id: messages.questions.id });
     defaultAvatarWidth = '24';
@@ -73,25 +78,32 @@ export const Header = ({
   );
 
   /* eslint react/prop-types: 0 */
-  const Button = ({ communityAvatar, communityLabel }) => (
-    <H3>
-      {communityAvatar ? (
-        <MediumImageStyled src={communityAvatar} alt="communityAvatar" />
-      ) : (
-        <MediumIconStyled>
-          <IconLg
-            icon={communityAvatar || defaultAvatar}
-            width={defaultAvatarWidth}
-          />
-        </MediumIconStyled>
-      )}
+  const Button = ({ communityAvatar, communityLabel }) => {
+    console.log(communityAvatar);
+    console.log(communityLabel);
+    return (
+      <H3>
+        {communityAvatar ? (
+          <MediumImageStyled src={communityAvatar} alt="communityAvatar" />
+        ) : (
+          <MediumIconStyled>
+            <IconLg
+              icon={communityAvatar || defaultAvatar}
+              width={defaultAvatarWidth}
+            />
+          </MediumIconStyled>
+        )}
 
-      <span>{communityLabel || defaultLabel}</span>
-    </H3>
-  );
+        <span>{communityLabel || defaultLabel}</span>
+      </H3>
+    );
+  };
 
   const displaySubscribeButton =
-    !!single || (!isFeed && window.location.pathname !== routes.questions());
+    !!single ||
+    (!isFeed &&
+      window.location.pathname !== routes.questions() &&
+      window.location.pathname !== routes.expertPosts());
 
   return (
     <Wrapper
@@ -105,7 +117,11 @@ export const Header = ({
           Button={Button}
           toggle={choice => {
             createdHistory.push(
-              routes[isFeed ? 'feed' : 'questions'](choice, false, false),
+              routes[isExpert ? 'expertPosts' : isFeed ? 'feed' : 'questions'](
+                choice,
+                false,
+                false,
+              ),
             );
             setTypeFilter(choice);
           }}

@@ -1,5 +1,5 @@
 import { Contract, ethers } from 'ethers';
-import Peeranha from '../../../peeranha-solidity/artifacts/contracts/Peeranha.sol/Peeranha.json';
+import Peeranha from '../../../peeranha/artifacts/contracts/Peeranha.sol/Peeranha.json';
 import detectEthereumProvider from '@metamask/detect-provider';
 import { WebIntegrationErrorByCode } from './errors';
 import {

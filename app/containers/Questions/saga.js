@@ -103,6 +103,7 @@ export function* getQuestionsWorker({
   parentPage,
   next,
   toUpdateQuestions,
+  postTypes,
 }) {
   try {
     const followedCommunities = yield select(makeSelectFollowedCommunities());
@@ -116,13 +117,17 @@ export function* getQuestionsWorker({
       communityIdFilter = single;
     }
     if (communityIdFilter > 0) {
-      questionsList = yield call(getPostsByCommunityId, limit, offset, [
-        communityIdFilter,
-      ]);
+      questionsList = yield call(
+        getPostsByCommunityId,
+        limit,
+        offset,
+        postTypes,
+        [communityIdFilter],
+      );
     }
 
     if (communityIdFilter === 0 && parentPage !== feed) {
-      questionsList = yield call(getPosts, limit, offset);
+      questionsList = yield call(getPosts, limit, offset, postTypes);
     }
 
     // Load questions for communities where I am
@@ -136,6 +141,7 @@ export function* getQuestionsWorker({
         getPostsByCommunityId,
         limit,
         offset,
+        postTypes,
         followedCommunities,
       );
     }
@@ -150,7 +156,6 @@ export function* getQuestionsWorker({
     //     question.questionBounty = bounty;
     //   }),
     // );
-
     // get promoted questions
     // const promotedQuestions = isNotUpdatePromotedQuestions
     //   ? { ...cachedPromotedQuestions }

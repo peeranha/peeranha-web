@@ -292,7 +292,19 @@ const App = ({
         />
 
         <Route
+          exact
+          path={routes.expertPosts()}
+          render={props => Wrapper(Questions, props)}
+        />
+
+        <Route
           path={routes.questions(':communityid')}
+          render={props => Wrapper(Questions, props)}
+        />
+
+        <Route
+          exact
+          path={routes.expertPosts(':communityid')}
           render={props => Wrapper(Questions, props)}
         />
 

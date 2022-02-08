@@ -40,6 +40,11 @@ export const questions = communityId =>
     ? `${!isBloggerMode ? '/' : '/questions'}`
     : `/questions/community/${communityId}/`;
 
+export const expertPosts = communityId =>
+  !communityId
+    ? `${!isBloggerMode ? '/experts' : '/experts'}`
+    : `/experts/community/${communityId}/`;
+
 export const questionView = (id, answerId) =>
   answerId
     ? `/questions/${id}/#${uniqueAnswerId(answerId)}`

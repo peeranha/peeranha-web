@@ -425,13 +425,14 @@ export const postsQuery = `
       query (
         $first: Int,
         $skip: Int,
+        $postTypes: [Int],
       ) {
         posts (
           orderBy: postTime,
           orderDirection: desc,
           first: $first,
           skip: $skip,
-          where: {isDeleted: false},
+          where: {isDeleted: false, postType_in: $postTypes},
         ) {
            id
            tags
@@ -548,13 +549,14 @@ export const postsByCommQuery = `
         $first: Int,
         $skip: Int,
         $communityIds: [Int],
+        $postTypes: [Int],
       ) {
         posts (
           orderBy: postTime,
           orderDirection: desc,
           first: $first,
           skip: $skip,
-          where: { communityId_in: $communityIds, isDeleted: false },
+          where: { communityId_in: $communityIds, isDeleted: false, postType_in: $postTypes },
         ) {
            id
            tags

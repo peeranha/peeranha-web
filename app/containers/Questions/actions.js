@@ -26,6 +26,7 @@ import {
 export function getQuestions(
   limit,
   offset,
+  postTypes,
   communityIdFilter,
   parentPage,
   next,
@@ -41,6 +42,7 @@ export function getQuestions(
     next,
     toUpdateQuestions,
     isNotUpdatePromotedQuestions,
+    postTypes,
   };
 }
 
