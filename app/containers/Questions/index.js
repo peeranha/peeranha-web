@@ -86,17 +86,11 @@ export const Questions = ({
   questionFilter,
   loadTopQuestionsDispatch,
   isLastTopQuestionLoaded,
+  postsTypes,
 }) => {
   const isExpert =
     path === routes.expertPosts() ||
     path === routes.expertPosts(':communityid');
-  const postTypes = useMemo(
-    () => {
-      const isFeed = parentPage === feed;
-      return isFeed ? [0, 1] : isExpert ? [0] : [1];
-    },
-    [path],
-  );
   const getInitQuestions = useCallback(
     () => {
       if (!questionFilter) {
@@ -105,7 +99,7 @@ export const Questions = ({
         getQuestionsDispatch(
           initLoadedItems,
           offset,
-          postTypes,
+          postsTypes,
           Number(params.communityid) || 0,
           parentPage,
           false,
@@ -118,7 +112,7 @@ export const Questions = ({
       params.communityid,
       parentPage,
       questionFilter,
-      postTypes,
+      postsTypes,
     ],
   );
 
@@ -132,7 +126,7 @@ export const Questions = ({
         getQuestionsDispatch(
           initLoadedItems,
           nextLoadedItems,
-          postTypes,
+          postsTypes,
           Number(params.communityid) || 0,
           parentPage,
           next,
@@ -149,7 +143,7 @@ export const Questions = ({
       parentPage,
       questionFilter,
       loadTopQuestionsDispatch,
-      postTypes,
+      postsTypes,
     ],
   );
 
@@ -157,7 +151,7 @@ export const Questions = ({
     () => {
       getInitQuestions();
     },
-    [typeFilter, createdFilter, postTypes],
+    [typeFilter, createdFilter, postsTypes],
   );
 
   useEffect(() => {
@@ -242,12 +236,12 @@ export const Questions = ({
         setTypeFilter={setTypeFilterDispatch}
         questionFilterFromCookies={questionFilterFromCookies}
         isExpert={isExpert}
+        postsTypes={postsTypes}
       />
 
       {displayBanner && (
         <Banner
           isFeed={parentPage === feed}
-          isExpert={isExpert}
           followedCommunities={followedCommunities}
           redirectToAskQuestionPage={redirectToAskQuestionPageDispatch}
         />

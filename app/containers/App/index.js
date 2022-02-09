@@ -21,7 +21,7 @@ import { Switch, Route, withRouter } from 'react-router-dom';
 import * as routes from 'routes-config';
 
 import injectSaga from 'utils/injectSaga';
-import { DAEMON } from 'utils/constants';
+import { DAEMON, POST_TYPE } from 'utils/constants';
 import { ScrollTo } from 'utils/animation';
 import { closePopover as Popover } from 'utils/popover';
 import {
@@ -224,14 +224,6 @@ const App = ({
           />
         )}
 
-        {!single && (
-          <Route
-            exact
-            path={routes.tutorial()}
-            render={props => Wrapper(Tutorial, props)}
-          />
-        )}
-
         <Route
           exact
           path={routes.communityTags(':communityid')}
@@ -288,24 +280,52 @@ const App = ({
         <Route
           exact
           path={routes.questions()}
-          render={props => Wrapper(Questions, props)}
+          render={props =>
+            Wrapper(Questions, {
+              ...props,
+              postsTypes: [POST_TYPE.generalPost],
+            })
+          }
         />
 
         <Route
           exact
           path={routes.expertPosts()}
-          render={props => Wrapper(Questions, props)}
+          render={props =>
+            Wrapper(Questions, { ...props, postsTypes: [POST_TYPE.expertPost] })
+          }
         />
 
         <Route
           path={routes.questions(':communityid')}
-          render={props => Wrapper(Questions, props)}
+          render={props =>
+            Wrapper(Questions, {
+              ...props,
+              postsTypes: [POST_TYPE.generalPost],
+            })
+          }
+        />
+
+        <Route
+          path={routes.expertPosts(':communityid')}
+          render={props =>
+            Wrapper(Questions, { ...props, postsTypes: [POST_TYPE.expertPost] })
+          }
         />
 
         <Route
           exact
-          path={routes.expertPosts(':communityid')}
-          render={props => Wrapper(Questions, props)}
+          path={routes.tutorials()}
+          render={props =>
+            Wrapper(Questions, { ...props, postsTypes: [POST_TYPE.tutorial] })
+          }
+        />
+
+        <Route
+          path={routes.tutorials(':communityid')}
+          render={props =>
+            Wrapper(Questions, { ...props, postsTypes: [POST_TYPE.tutorial] })
+          }
         />
 
         <Route

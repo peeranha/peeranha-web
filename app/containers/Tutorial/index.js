@@ -47,7 +47,7 @@ export const Tutorial = ({ locale, tutorial }) => {
         <Header />
         <Content
           content={tutorial}
-          route={routes.tutorial}
+          route={routes.tutorials}
           getSectionCode={getSectionCode.bind(null, SECTION_ID)}
           getQuestionCode={getQuestionCode.bind(null, SECTION_ID)}
         />
@@ -57,7 +57,7 @@ export const Tutorial = ({ locale, tutorial }) => {
       <AsideBox className="d-none d-xl-block">
         <Aside
           content={tutorial}
-          route={x => routes.tutorial(getSectionCode(SECTION_ID, x))}
+          route={x => routes.tutorials(getSectionCode(SECTION_ID, x))}
         />
       </AsideBox>
     </div>

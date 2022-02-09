@@ -150,6 +150,11 @@ const MainLinks = ({ profile, currClientHeight, isGlobalAdmin }) => {
         <FormattedMessage {...messages.expertPosts} />
       </A1>
 
+      <A1 to={routes.tutorials()} name="tutorials" route={route}>
+        <IconLg className="mr-2" icon={tutorialIcon} fill={BORDER_PRIMARY} />
+        <FormattedMessage {...messages.tutorials} />
+      </A1>
+
       {!singleCommId && (
         <A1 to={routes.communities()} name="communities" route={route}>
           <IconLg className="mr-2" icon={communitiesIcon} />
@@ -179,13 +184,6 @@ const MainLinks = ({ profile, currClientHeight, isGlobalAdmin }) => {
         <A1 to={routes.faq()} name="faq" route={route}>
           <IconLg className="mr-2" icon={faqIcon} fill={BORDER_PRIMARY} />
           <FormattedMessage {...messages.faq} />
-        </A1>
-      )}
-
-      {!singleCommId && (
-        <A1 to={routes.tutorial()} name="tutorial" route={route}>
-          <IconLg className="mr-2" icon={tutorialIcon} fill={BORDER_PRIMARY} />
-          <FormattedMessage {...messages.tutorial} />
         </A1>
       )}
     </Box>

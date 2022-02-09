@@ -37,7 +37,7 @@
   "app.common.usersShort": "Users",
   "app.common.faq": "FAQ",
   "app.common.moderationHeader": "Moderator permissions",
-  "app.common.tutorial": "Tutorial",
+  "app.common.tutorials": "Tutorials",
   "app.common.subscribeMore": "Subscribe more",
   "app.common.top": "Top",
   "app.common.see": "See",
@@ -973,7 +973,7 @@
     "You don't have any feed to read",
   "app.containers.Questions.subscribeToCommToKeep":
     "Subscribe to communities to keep track of topics that you are interested in.",
-  "app.containers.Questions.noQuestionsYet": "No questions yet.",
+  "app.containers.Questions.noQuestionsYet": "No posts yet.",
   "app.containers.Questions.thisIsNewCommunity":
     "This is a new community, you can be the first post a question. Your question may become the most popular.",
   "app.containers.Questions.readMyFeed": "Read my feed",

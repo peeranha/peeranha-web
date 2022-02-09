@@ -20,12 +20,15 @@ import Wrapper from 'components/Header/Simple';
 
 import allquestionsIcon from 'images/allquestions-header.svg?external';
 import myFeedIcon from 'images/myFeedHeader.svg?external';
+import tutorialPageHeader from 'images/tutorialPageHeader.svg?external';
 import createdHistory from 'createdHistory';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
 import QuestionFilter from './QuestionFilter';
 
 import { selectQuestions, selectTopQuestionsInfoLoaded } from './selectors';
+import { POST_TYPE } from '../../utils/constants';
+import { BORDER_PRIMARY } from '../../style-constants';
 
 const single = isSingleCommunityWebsite();
 
@@ -51,21 +54,35 @@ export const Header = ({
   topQuestionsInfoLoaded,
   questionFilterFromCookies,
   isExpert,
+  postsTypes,
 }) => {
   const isFeed = parentPage === routes.feed();
 
   let defaultAvatar = null;
   let defaultLabel = null;
   let defaultAvatarWidth = null;
-
-  if (isExpert) {
-    defaultAvatar = allquestionsIcon;
-    defaultLabel = intl.formatMessage({ id: messages.expertPosts.id });
-    defaultAvatarWidth = '24';
-  } else if (!isFeed) {
-    defaultAvatar = allquestionsIcon;
-    defaultLabel = intl.formatMessage({ id: messages.questions.id });
-    defaultAvatarWidth = '24';
+  let route = 'feed';
+  if (postsTypes.length === 1) {
+    switch (postsTypes[0]) {
+      case POST_TYPE.generalPost:
+        defaultAvatar = allquestionsIcon;
+        defaultLabel = intl.formatMessage({ id: messages.questions.id });
+        defaultAvatarWidth = '24';
+        route = 'questions';
+        break;
+      case POST_TYPE.expertPost:
+        defaultAvatar = allquestionsIcon;
+        defaultLabel = intl.formatMessage({ id: messages.expertPosts.id });
+        defaultAvatarWidth = '24';
+        route = 'expertPosts';
+        break;
+      case POST_TYPE.tutorial:
+        defaultAvatar = tutorialPageHeader;
+        defaultLabel = intl.formatMessage({ id: messages.tutorials.id });
+        defaultAvatarWidth = '38';
+        route = 'tutorials';
+        break;
+    }
   } else {
     defaultAvatar = myFeedIcon;
     defaultLabel = intl.formatMessage({ id: messages.myFeed.id });
@@ -79,19 +96,20 @@ export const Header = ({
 
   /* eslint react/prop-types: 0 */
   const Button = ({ communityAvatar, communityLabel }) => {
-    console.log(communityAvatar);
-    console.log(communityLabel);
     return (
       <H3>
         {communityAvatar ? (
           <MediumImageStyled src={communityAvatar} alt="communityAvatar" />
         ) : (
-          <MediumIconStyled>
-            <IconLg
-              icon={communityAvatar || defaultAvatar}
-              width={defaultAvatarWidth}
-            />
-          </MediumIconStyled>
+          <>
+            <MediumIconStyled>
+              <IconLg
+                icon={communityAvatar || defaultAvatar}
+                width={defaultAvatarWidth}
+                fill={BORDER_PRIMARY}
+              />
+            </MediumIconStyled>
+          </>
         )}
 
         <span>{communityLabel || defaultLabel}</span>
@@ -103,7 +121,8 @@ export const Header = ({
     !!single ||
     (!isFeed &&
       window.location.pathname !== routes.questions() &&
-      window.location.pathname !== routes.expertPosts());
+      window.location.pathname !== routes.expertPosts() &&
+      window.location.pathname !== routes.tutorials());
 
   return (
     <Wrapper
@@ -116,13 +135,7 @@ export const Header = ({
           isArrowed
           Button={Button}
           toggle={choice => {
-            createdHistory.push(
-              routes[isExpert ? 'expertPosts' : isFeed ? 'feed' : 'questions'](
-                choice,
-                false,
-                false,
-              ),
-            );
+            createdHistory.push(routes[route](choice, false, false));
             setTypeFilter(choice);
           }}
           showOnlyFollowed={isFeed}

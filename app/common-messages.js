@@ -114,8 +114,8 @@ export default defineMessages({
   moderationHeader: {
     id: 'app.common.moderationHeader',
   },
-  tutorial: {
-    id: 'app.common.tutorial',
+  tutorials: {
+    id: 'app.common.tutorials',
   },
   about: {
     id: 'app.common.about',
