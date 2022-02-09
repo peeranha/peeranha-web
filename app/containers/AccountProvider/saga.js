@@ -114,6 +114,7 @@ import {
 import { getCookie, setCookie } from 'utils/cookie';
 import { translationMessages } from '../../i18n';
 import { selectEthereum } from '../EthereumProvider/selectors';
+import { hasGlobalModeratorRole } from '../../utils/properties';
 
 const single = isSingleCommunityWebsite();
 
@@ -281,7 +282,7 @@ export const getCurrentAccountWorker = function*(initAccount) {
 };
 
 export function* isAvailableAction(isValid, data = {}) {
-  const { communityID, skipPermissions } = data;
+  const { skipPermissions } = data;
 
   if (!skipPermissions) {
     const profileInfo = yield select(makeSelectProfileInfo());
@@ -289,12 +290,7 @@ export function* isAvailableAction(isValid, data = {}) {
     if (profileInfo.integer_properties?.find(x => x.key === MODERATOR_KEY)) {
       return true;
     }
-
-    if (
-      profileInfo.permissions?.find(
-        x => x.value == COMMUNITY_ADMIN_VALUE && x.community == communityID,
-      )
-    ) {
+    if (hasGlobalModeratorRole(profileInfo.permissions)) {
       return true;
     }
   }

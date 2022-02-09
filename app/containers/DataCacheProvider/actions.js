@@ -48,8 +48,8 @@ export function getCommunitiesWithTagsErr(getCommunitiesWithTagsError) {
 export function updateTagOfCommunity(communityId, tagId, updatedTag) {
   return {
     type: UPDATE_TAG_OF_COMMUNITY,
-    updatedTagCommId: communityId - 1,
-    updatedTagId: tagId - 1,
+    updatedTagCommId: communityId,
+    updatedTagId: tagId,
     updatedTag,
   };
 }
