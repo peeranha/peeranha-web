@@ -11,7 +11,10 @@ import * as routes from 'routes-config';
 import injectSaga from 'utils/injectSaga';
 
 import { selectEditTagData } from 'containers/TagsOfCommunity/selectors';
-import { resetEditTagData } from 'containers/TagsOfCommunity/actions';
+import {
+  resetEditTagData,
+  setEditTagData,
+} from 'containers/TagsOfCommunity/actions';
 
 import Seo from 'components/Seo';
 import TipsBase from 'components/Base/TipsBase';
@@ -43,11 +46,14 @@ import messages from './messages';
 import editTagSaga from './saga';
 import { getEditTagForm, resetEditTagReducer, editTag } from './actions';
 import { selectEditTagFormLoading, selectEditTagProcessing } from './selectors';
+import { getExistingTags } from '../Tags/actions';
 
 const EditTag = ({
+  match,
   communities,
   getEditTagFormDispatch,
   resetEditTagDataDispatch,
+  setEditTagDataDispatch,
   resetEditTagReducerDispatch,
   editTagFormLoading,
   editTagProcessing,
@@ -55,8 +61,22 @@ const EditTag = ({
   editTagData,
   faqQuestions,
   locale,
+  getExistingTagsDispatch,
 }) => {
-  const { communityId, tagId } = editTagData;
+  let { communityId, tagId } = editTagData;
+
+  if (!Object.keys(editTagData).length) {
+    communityId = match.params.communityId;
+    tagId = match.params.tagid;
+    editTagData = { communityId: Number(communityId), tagId };
+    setEditTagDataDispatch(tagId, communityId);
+  }
+  useEffect(
+    () => {
+      getExistingTagsDispatch({ communityId });
+    },
+    [communities.length],
+  );
 
   // component did mount
   useEffect(() => {
@@ -148,10 +168,12 @@ function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     resetEditTagDataDispatch: bindActionCreators(resetEditTagData, dispatch),
     getEditTagFormDispatch: bindActionCreators(getEditTagForm, dispatch),
+    setEditTagDataDispatch: bindActionCreators(setEditTagData, dispatch),
     resetEditTagReducerDispatch: bindActionCreators(
       resetEditTagReducer,
       dispatch,
     ),
+    getExistingTagsDispatch: bindActionCreators(getExistingTags, dispatch),
     editTagDispatch: bindActionCreators(editTag, dispatch),
   };
 }

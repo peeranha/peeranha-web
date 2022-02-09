@@ -23,6 +23,8 @@ import {
 import { EDIT_TAG, GET_EDIT_TAG_FORM } from './constants';
 import { selectEthereum } from '../EthereumProvider/selectors';
 import { editTag } from '../../utils/communityManagement';
+import { GET_EXISTING_TAGS } from '../Tags/constants';
+import { getExistingTagsWorker } from '../Tags/saga';
 
 export function* getEditTagFormWorker({ communityId }) {
   try {
@@ -35,14 +37,14 @@ export function* getEditTagFormWorker({ communityId }) {
       communityId,
     );
 
-    if (!account || (!isGlobalAdmin && !createTagPermission)) {
-      yield call(
-        createdHistory.push,
-        communityId ? routes.communityTags(communityId) : routes.tags(),
-      );
-    } else {
-      yield put(getEditTagFormSuccess());
-    }
+    // if ((!isGlobalAdmin && !createTagPermission)) {
+    //   yield call(
+    //     createdHistory.push,
+    //     communityId ? routes.communityTags(communityId) : routes.tags(),
+    //   );
+    // } else {
+    yield put(getEditTagFormSuccess());
+    // }
   } catch (err) {
     yield put(getEditTagFormErr(err));
   }
@@ -92,4 +94,5 @@ export function* editTagWorker({ tag, reset }) {
 export default function*() {
   yield takeLatest(GET_EDIT_TAG_FORM, getEditTagFormWorker);
   yield takeLatest(EDIT_TAG, editTagWorker);
+  yield takeLatest(GET_EXISTING_TAGS, getExistingTagsWorker);
 }

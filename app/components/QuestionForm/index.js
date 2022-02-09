@@ -205,6 +205,7 @@ export const QuestionForm = ({
             <TitleForm intl={intl} questionLoading={questionLoading} />
 
             {formValues[FORM_TITLE] &&
+              formValues[FORM_TITLE].length >= 3 &&
               (existingQuestions?.length ?? 0) > 0 &&
               !doSkipExistingQuestions && (
                 <ExistingQuestions

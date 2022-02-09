@@ -71,7 +71,6 @@ export const BestAnswerMarker = ({
   author,
 }) => {
   if (answerId === 0) return null;
-
   const isItWrittenByMe = profileInfo
     ? author.user === profileInfo.user
     : false;

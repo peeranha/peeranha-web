@@ -14,9 +14,9 @@ const selectQuestionsWithUserAnswers = () =>
     // sort user activity answers by post time
     if (sortedQuestByAnswDate.length > 1) {
       sortedQuestByAnswDate = sortedQuestByAnswDate.sort((quest1, quest2) => {
-        const asnwDate1 = quest1.answers.find(el => el.id === quest1.answerId)
+        const asnwDate1 = quest1.replies.find(el => el.id === quest1.answerId)
           .postTime;
-        const asnwDate2 = quest2.answers.find(el => el.id === quest2.answerId)
+        const asnwDate2 = quest2.replies.find(el => el.id === quest2.answerId)
           .postTime;
 
         return asnwDate2 - asnwDate1;

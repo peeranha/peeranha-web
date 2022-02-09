@@ -47,9 +47,6 @@ export const EditProfilePage = ({
   saveProfileDispatch,
   history,
 }) => {
-  if (!profile) {
-    history.push(routes.feed());
-  }
   const saveProfileMethod = values =>
     saveProfileDispatch({
       userKey: id,
