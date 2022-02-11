@@ -86,6 +86,7 @@ import { getCookie, setCookie } from '../../utils/cookie';
 import { REFERRAL_CODE_URI } from './constants';
 import { AUTOLOGIN_DATA } from '../Login/constants';
 import { redirectToFeed } from './actions';
+import { expertPostView, tutorialView } from 'routes-config';
 
 const single = isSingleCommunityWebsite();
 
@@ -336,6 +337,18 @@ const App = ({
         <Route
           exact
           path={routes.questionView(':id')}
+          render={props => Wrapper(ViewQuestion, props)}
+        />
+
+        <Route
+          exact
+          path={routes.expertPostView(':id')}
+          render={props => Wrapper(ViewQuestion, props)}
+        />
+
+        <Route
+          exact
+          path={routes.tutorialView(':id')}
           render={props => Wrapper(ViewQuestion, props)}
         />
 

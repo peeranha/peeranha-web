@@ -26,7 +26,7 @@
   "app.common.login": "Вход",
   "app.common.signUp": "Регистрация",
   "app.common.all": "Все",
-  "app.common.askQuestion": "Задать вопрос",
+  "app.common.askQuestion": "Новый пост",
   "app.common.add": "Добавить",
   "app.common.communities": "Сообщества",
   "app.common.allCommunities": "Все сообщества",
@@ -121,6 +121,7 @@
   "app.common.signUpViaService": "Регистрация через сервис",
   "app.common.general": "Общий",
   "app.common.expert": "Экспертный",
+  "app.common.tutorial": "Туториал",
   "app.common.promoted": "Продвигаемый",
   "app.common.any": "Любой",
   "app.common.tipQuestion": "Чаевые",
@@ -679,7 +680,7 @@
   "app.containers.HomePage.sendMessage": "Отправить сообщение",
   "app.containers.HomePage.platformUnderDeveloping":
     "В настоящее время веб-сайт находится в разработке. Ваш email адрес был получен. Вы получите email с пошаговой инструкцией когда веб-сайт будет открыт для пользователей.",
-  "app.containers.HomePage.askQuestion": "Задать вопрос",
+  "app.containers.HomePage.askQuestion": "Новый пост",
   "app.containers.HomePage.review": "Проверить",
   "app.containers.HomePage.systemError": "Системная ошибка",
   "app.containers.HomePage.none": "Ничего",
@@ -777,6 +778,7 @@
     "Отметьте лучший ответ в своем вопросе и получите +1 очко рейтинга\"",
   "app.containers.ViewQuestion.generalQuestion": "Общий вопрос",
   "app.containers.ViewQuestion.expertQuestion": "Экспертный вопрос",
+  "app.containers.ViewQuestion.tutorial": "Туториал",
   "app.containers.ViewQuestion.changeQuestionType": "Изменить тип",
   "app.containers.ViewQuestion.officialAnswer": "Официальный ответ",
   "app.containers.ViewQuestion.getBounty": "Получить бонус",
@@ -981,8 +983,8 @@
   "app.containers.ErrorBoundary.details": "Детали",
   "app.containers.ErrorBoundary.reloadPage": "Перегрузить страницу",
 
-  "app.containers.AskQuestion.title": "Задать вопрос",
-  "app.containers.AskQuestion.description": "Задать вопрос | Описание",
+  "app.containers.AskQuestion.title": "Новый пост",
+  "app.containers.AskQuestion.description": "Новый пост | Описание",
   "app.containers.AskQuestion.postQuestion": "Отправить",
 
   "app.containers.ErrorPage.title": "Возникла ошибка...",
@@ -1030,7 +1032,7 @@
   "app.containers.QuestionForm.titleTip":
     "Краткий и описательный заголовок вопроса",
   "app.containers.QuestionForm.tagsTip": "Теги, имеющие отношение к вопросу",
-  "app.containers.QuestionForm.title": "Задать вопрос",
+  "app.containers.QuestionForm.title": "Новый пост",
   "app.containers.QuestionForm.titleLabel": "Заголовок",
   "app.containers.QuestionForm.existingQuestionsLabel":
     "Чтобы избежать дублирования, проверьте существующие вопросы.",
@@ -1048,7 +1050,7 @@
     "Количество дней,в течение которого бонус активен",
   "app.containers.QuestionForm.tagsLabel": "Теги",
   "app.containers.QuestionForm.previewLabel": "Предпросмотр",
-  "app.containers.QuestionForm.questionType": "Тип вопроса",
+  "app.containers.QuestionForm.questionType": "Тип поста  ",
   "app.containers.QuestionForm.questionTypeTip": "Необязательное",
   "app.containers.QuestionForm.generalQuestionDescriptionLabel":
     "Вопрос, для ответа на который не требуется знания или опыта, может быть одним из следующих:",

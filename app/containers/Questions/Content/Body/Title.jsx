@@ -12,33 +12,41 @@ import { APP_FONT } from 'style-constants';
 
 import { singleCommunityFonts } from 'utils/communityManagement';
 import messages from '../../messages';
+import { POST_TYPE } from '../../../../utils/constants';
 
 const fonts = singleCommunityFonts();
 
-const Title = ({ locale, title, id, questionBounty }) => (
-  <div className="mb-1">
-    <Bounty
-      bountyMessage={translationMessages[locale][messages.bountyPopover.id]}
-      className="questionTitle"
-      amount={questionBounty?.amount}
-      locale={locale}
-    />
-    <A to={routes.questionView(id, null)}>
-      <Span
-        fontSize="24"
-        lineHeight="31"
-        mobileFS="18"
-        mobileLH="21"
-        letterSpacing={fonts.questionTitleLetterSpacing}
-        fontFamily={fonts.questionTitleFont || APP_FONT}
-        bold
-      >
-        {title}
-      </Span>
-    </A>
-  </div>
-);
-
+const Title = ({ locale, title, id, questionBounty, postType }) => {
+  const link =
+    postType === POST_TYPE.generalPost
+      ? routes.questionView(id, null)
+      : postType === POST_TYPE.expertPost
+        ? routes.expertPostView(id, null)
+        : routes.tutorialView(id);
+  return (
+    <div className="mb-1">
+      <Bounty
+        bountyMessage={translationMessages[locale][messages.bountyPopover.id]}
+        className="questionTitle"
+        amount={questionBounty?.amount}
+        locale={locale}
+      />
+      <A to={link}>
+        <Span
+          fontSize="24"
+          lineHeight="31"
+          mobileFS="18"
+          mobileLH="21"
+          letterSpacing={fonts.questionTitleLetterSpacing}
+          fontFamily={fonts.questionTitleFont || APP_FONT}
+          bold
+        >
+          {title}
+        </Span>
+      </A>
+    </div>
+  );
+};
 Title.propTypes = {
   id: PropTypes.string,
   locale: PropTypes.string,

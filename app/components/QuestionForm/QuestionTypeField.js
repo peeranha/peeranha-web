@@ -29,6 +29,10 @@ export const QUESTION_TYPES = {
     value: 0,
     label: 'expert',
   },
+  TUTORIAL: {
+    value: 2,
+    label: 'tutorial',
+  },
 };
 
 const ButtonGroup = styled.div`

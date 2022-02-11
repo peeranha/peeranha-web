@@ -18,6 +18,7 @@ import {
 import AdditionalInfo from './AdditionalInfo';
 import MoveSection from './MoveSection';
 import Body from './Body';
+import { POST_TYPE } from '../../../utils/constants';
 
 const Box = BaseNoPadding.extend`
   display: flex;
@@ -72,6 +73,7 @@ const QI = ({
   isHomePage,
   isSearchPage,
   replyCount,
+  postType,
 }) => {
   const ref = useRef(null);
 
@@ -135,7 +137,7 @@ const QI = ({
     <Box
       index={index}
       innerRef={ref}
-      bordered={!isGeneral}
+      bordered={postType === POST_TYPE.expertPost}
       draggable={
         isModerator && !isHomePage && questionFilter === 1 && !isPromoted
       }
@@ -181,6 +183,7 @@ const QI = ({
           topQuestionActionProcessing={topQuestionActionProcessing}
           isPromoted={isPromoted}
           isSearchPage={isSearchPage}
+          postType={postType}
         />
       </Div>
     </Box>

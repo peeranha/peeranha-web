@@ -4,14 +4,19 @@ import commonMessages from 'common-messages';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 
-import { TEXT_PREMIUM, BORDER_RADIUS_M, BG_PREMIUM_LIGHT } from 'style-constants';
+import {
+  TEXT_PREMIUM,
+  BORDER_RADIUS_M,
+  BG_PREMIUM_LIGHT,
+} from 'style-constants';
 
 import Container from 'components/Labels/QuestionType';
 
 import ExpertPopover from './ExpertPopover';
+import { POST_TYPE } from '../../../../utils/constants';
 
 const LabelsWrapper = styled.div`
-  display: inline-flex;  
+  display: inline-flex;
 `;
 
 const LabelItem = styled.span`
@@ -33,7 +38,7 @@ const PromotedLabel = styled.span`
   border-radius: ${BORDER_RADIUS_M};
 `;
 
-const QuestionType = ({ locale, isGeneral, isPromoted }) => {
+const QuestionType = ({ locale, postType, isPromoted }) => {
   const [visible, changeVisibility] = useState(false);
 
   const onMouseEnter = useCallback(() => changeVisibility(true), []);
@@ -41,7 +46,7 @@ const QuestionType = ({ locale, isGeneral, isPromoted }) => {
 
   return (
     <LabelsWrapper>
-      {!isGeneral && (
+      {postType === POST_TYPE.expertPost && (
         <LabelItem>
           <Container
             onMouseEnter={onMouseEnter}
@@ -51,6 +56,20 @@ const QuestionType = ({ locale, isGeneral, isPromoted }) => {
             {visible && <ExpertPopover locale={locale} />}
 
             <FormattedMessage {...commonMessages.expert} />
+          </Container>
+        </LabelItem>
+      )}
+      {postType === POST_TYPE.tutorial && (
+        <LabelItem>
+          <Container
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
+            size="sm"
+          >
+            {/*TODO change popover*/}
+            {visible && <ExpertPopover locale={locale} />}
+
+            <FormattedMessage {...commonMessages.tutorial} />
           </Container>
         </LabelItem>
       )}
