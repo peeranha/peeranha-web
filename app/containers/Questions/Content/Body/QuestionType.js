@@ -46,6 +46,19 @@ const QuestionType = ({ locale, postType, isPromoted }) => {
 
   return (
     <LabelsWrapper>
+      {postType === POST_TYPE.generalPost && (
+        <LabelItem>
+          <Container
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
+            size="sm"
+          >
+            {visible && <ExpertPopover locale={locale} />}
+
+            <FormattedMessage {...commonMessages.general} />
+          </Container>
+        </LabelItem>
+      )}
       {postType === POST_TYPE.expertPost && (
         <LabelItem>
           <Container

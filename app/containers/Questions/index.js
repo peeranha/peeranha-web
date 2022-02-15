@@ -216,7 +216,7 @@ export const Questions = ({
   );
 
   const questionFilterFromCookies = getCookie(QUESTION_FILTER);
-
+  console.log(parentPage === feed);
   return display ? (
     <div>
       <Seo
@@ -254,6 +254,7 @@ export const Questions = ({
           isLastFetch={lastFetched}
         >
           <Content
+            isFeed={parentPage === feed}
             questionsList={questionsList}
             // promotedQuestionsList={
             //   promotedQuestions[+questionFilterFromCookies ? 'top' : 'all']

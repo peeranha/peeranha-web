@@ -74,6 +74,7 @@ const QI = ({
   isSearchPage,
   replyCount,
   postType,
+  isFeed,
 }) => {
   const ref = useRef(null);
 
@@ -137,7 +138,12 @@ const QI = ({
     <Box
       index={index}
       innerRef={ref}
-      bordered={postType === POST_TYPE.expertPost}
+      bordered={
+        isFeed
+          ? postType === POST_TYPE.expertPost || postType === POST_TYPE.tutorial
+          : false
+      }
+      isTutorial={postType === POST_TYPE.tutorial}
       draggable={
         isModerator && !isHomePage && questionFilter === 1 && !isPromoted
       }
@@ -184,6 +190,7 @@ const QI = ({
           isPromoted={isPromoted}
           isSearchPage={isSearchPage}
           postType={postType}
+          isFeed={isFeed}
         />
       </Div>
     </Box>
@@ -213,6 +220,7 @@ export const Content = ({
   profileInfo,
   isHomePage = false,
   isSearchPage,
+  isFeed,
 }) => (
   <div className="position-relative">
     {/*{promotedQuestionsList &&*/}
@@ -245,6 +253,7 @@ export const Content = ({
           profileInfo={profileInfo}
           isHomePage={isHomePage}
           isSearchPage={isSearchPage}
+          isFeed={isFeed}
         />
       );
     })}

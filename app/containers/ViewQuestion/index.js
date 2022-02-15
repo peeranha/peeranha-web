@@ -95,12 +95,12 @@ export const ViewQuestion = ({
   if (questionData) {
     const route =
       questionData.postType === POST_TYPE.generalPost
-        ? 'questions'
+        ? 'questionView'
         : questionData.postType === POST_TYPE.expertPost
-          ? 'experts'
-          : 'tutorials';
-    if (match.path.split('/')[1] !== route) {
-      history.push(routes.notFound());
+          ? 'expertPostView'
+          : 'tutorialView';
+    if (match.url !== routes[route](match.params.id)) {
+      history.push(routes[route](match.params.id));
     }
   }
   useEffect(() => {
