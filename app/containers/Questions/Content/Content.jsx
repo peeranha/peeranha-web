@@ -138,11 +138,6 @@ const QI = ({
     <Box
       index={index}
       innerRef={ref}
-      bordered={
-        isFeed
-          ? postType === POST_TYPE.expertPost || postType === POST_TYPE.tutorial
-          : false
-      }
       isTutorial={postType === POST_TYPE.tutorial}
       draggable={
         isModerator && !isHomePage && questionFilter === 1 && !isPromoted
@@ -159,6 +154,7 @@ const QI = ({
         answersCount={replyCount}
         officialAnswersCount={offAnswersCount}
         isSearchPage={isSearchPage}
+        isTutorial={postType === POST_TYPE.tutorial}
       />
       <Div>
         {displayTopQuestionMove && (

@@ -36,7 +36,6 @@ import communitiesIcon from 'images/communities.svg?external';
 import tagsIcon from 'images/tags.svg?external';
 import usersIcon from 'images/users.svg?external';
 import faqIcon from 'images/faq.svg?external';
-import tutorialIcon from 'images/tutorial.svg?external';
 
 import A from 'components/A';
 import { IconLg } from 'components/Icon/IconWithSizes';
@@ -44,7 +43,9 @@ import { svgDraw } from 'components/Icon/IconStyled';
 
 import { BasicLink } from './Styles';
 import { FULL_SIZE } from './constants';
-import { experts } from 'routes-config';
+import expertIcon from 'images/hat-3-2.svg?external';
+import generalIcon from 'images/comments-2.svg?external';
+import tutorialIcon from 'images/book-bookmark.svg?external';
 
 const styles = singleCommunityStyles();
 const colors = singleCommunityColors();
@@ -141,12 +142,12 @@ const MainLinks = ({ profile, currClientHeight, isGlobalAdmin }) => {
         )}
 
       <A1 to={routes.questions()} name="questions" route={route}>
-        <IconLg className="mr-2" icon={allQuestionsIcon} />
+        <IconLg className="mr-2" icon={generalIcon} />
         <FormattedMessage {...messages.questions} />
       </A1>
 
       <A1 to={routes.expertPosts()} name="experts" route={route}>
-        <IconLg className="mr-2" icon={allQuestionsIcon} />
+        <IconLg className="mr-2" icon={expertIcon} />
         <FormattedMessage {...messages.expertPosts} />
       </A1>
 

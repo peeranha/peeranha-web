@@ -15,6 +15,12 @@ import Container from 'components/Labels/QuestionType';
 import ExpertPopover from './ExpertPopover';
 import { POST_TYPE } from '../../../../utils/constants';
 
+import expertIcon from 'images/hat-3-2.svg?external';
+import generalIcon from 'images/comments-2.svg?external';
+import tutorialIcon from 'images/book-bookmark.svg?external';
+
+import { IconLg } from '../../../../components/Icon/IconWithSizes';
+
 const LabelsWrapper = styled.div`
   display: inline-flex;
 `;
@@ -53,9 +59,9 @@ const QuestionType = ({ locale, postType, isPromoted }) => {
             onMouseLeave={onMouseLeave}
             size="sm"
           >
+            {/*TODO change popover*/}
             {visible && <ExpertPopover locale={locale} />}
-
-            <FormattedMessage {...commonMessages.general} />
+            <IconLg className="mr-2" icon={generalIcon} />
           </Container>
         </LabelItem>
       )}
@@ -67,8 +73,7 @@ const QuestionType = ({ locale, postType, isPromoted }) => {
             size="sm"
           >
             {visible && <ExpertPopover locale={locale} />}
-
-            <FormattedMessage {...commonMessages.expert} />
+            <IconLg className="mr-2" icon={expertIcon} />
           </Container>
         </LabelItem>
       )}
@@ -81,8 +86,7 @@ const QuestionType = ({ locale, postType, isPromoted }) => {
           >
             {/*TODO change popover*/}
             {visible && <ExpertPopover locale={locale} />}
-
-            <FormattedMessage {...commonMessages.tutorial} />
+            <IconLg className="mr-2" icon={tutorialIcon} />
           </Container>
         </LabelItem>
       )}

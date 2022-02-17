@@ -216,7 +216,6 @@ export const Questions = ({
   );
 
   const questionFilterFromCookies = getCookie(QUESTION_FILTER);
-  console.log(parentPage === feed);
   return display ? (
     <div>
       <Seo

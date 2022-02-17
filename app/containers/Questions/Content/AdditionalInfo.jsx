@@ -19,6 +19,7 @@ import { getFormattedNum, getFormattedNum2 } from 'utils/numbers';
 import officialIcon from 'images/official.svg?inline';
 import bestAnswerIcon from 'images/bestAnswer.svg?inline';
 import answerIconEmptyInside from 'images/answerIconEmptyInside.svg?inline';
+import commentIcon from 'images/comment.svg?inline';
 import fingerUpAllQuestionsPage from 'images/fingerUpAllQuestionsPage.svg?inline';
 import fingerDownAllQuestionsPage from 'images/fingerDownAllQuestionsPage.svg?inline';
 
@@ -82,6 +83,7 @@ const AdditionalInfo = ({
   answersCount,
   officialAnswersCount,
   isSearchPage,
+  isTutorial,
 }) => {
   const icon = useMemo(
     () => {
@@ -120,12 +122,14 @@ const AdditionalInfo = ({
 
   return (
     <Container>
-      <Div isAccepted={correctAnswerId}>
-        <span>
-          <img src={icon} alt="icon" />
-          <Span color={color}>{formattedAnswerCount}</Span>
-        </span>
-      </Div>
+      {!isTutorial && (
+        <Div isAccepted={correctAnswerId}>
+          <span>
+            <img src={icon} alt="icon" />
+            <Span color={color}>{formattedAnswerCount}</Span>
+          </span>
+        </Div>
+      )}
 
       <Div>
         <span>

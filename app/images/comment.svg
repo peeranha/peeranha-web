@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg width="18" height="18" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" fill-rule="evenodd">
+    <path fill-rule="nonzero" stroke="#354A89" d="M13.5 16.913V12.5H16a1.5 1.5 0 0 0 1.5-1.5V2A1.5 1.5 0 0 0 16 .5H2A1.5 1.5 0 0 0 .5 2v9A1.5 1.5 0 0 0 2 12.5h6.352l5.148 4.413z"/>
+    <text style="fill: rgb(53, 74, 137); font-family: Arial, sans-serif; font-size: 0.5px; white-space: pre;" transform="matrix(21.38838, 0.03, 0, 21.169703, -184.942429, -120.985199)" x="8.893" y="6.19">C</text>
+  </g>
+</svg>
