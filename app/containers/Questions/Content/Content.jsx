@@ -19,8 +19,20 @@ import AdditionalInfo from './AdditionalInfo';
 import MoveSection from './MoveSection';
 import Body from './Body';
 import { POST_TYPE } from '../../../utils/constants';
+import {
+  BG_DARK,
+  BG_DARK2,
+  BG_LIGHT,
+  BORDER_PRIMARY,
+} from '../../../style-constants';
 
 const Box = BaseNoPadding.extend`
+  box-shadow: ${({ isExpert, isTutorial }) =>
+    isExpert
+      ? `5px 5px 5px ${BG_DARK}`
+      : isTutorial
+        ? `5px 5px 5px ${BG_DARK2}`
+        : null};
   display: flex;
   flex-wrap: nowrap;
   margin-bottom: 15px;
@@ -77,6 +89,8 @@ const QI = ({
   isFeed,
 }) => {
   const ref = useRef(null);
+
+  const isExpert = postType === POST_TYPE.expertPost;
 
   const displayTopQuestionMove = useMemo(
     () =>
@@ -146,6 +160,7 @@ const QI = ({
       onDragOver={!isHomePage ? onDragOver : undefined}
       onDragStart={!isHomePage ? onDragStart : undefined}
       isPromoted={isPromoted}
+      isExpert={isExpert}
     >
       <AdditionalInfo
         correctAnswerId={bestReply}
@@ -187,6 +202,7 @@ const QI = ({
           isSearchPage={isSearchPage}
           postType={postType}
           isFeed={isFeed}
+          isExpert={isExpert}
         />
       </Div>
     </Box>

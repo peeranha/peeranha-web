@@ -19,7 +19,6 @@ import { getFormattedNum, getFormattedNum2 } from 'utils/numbers';
 import officialIcon from 'images/official.svg?inline';
 import bestAnswerIcon from 'images/bestAnswer.svg?inline';
 import answerIconEmptyInside from 'images/answerIconEmptyInside.svg?inline';
-import commentIcon from 'images/comment.svg?inline';
 import fingerUpAllQuestionsPage from 'images/fingerUpAllQuestionsPage.svg?inline';
 import fingerDownAllQuestionsPage from 'images/fingerDownAllQuestionsPage.svg?inline';
 

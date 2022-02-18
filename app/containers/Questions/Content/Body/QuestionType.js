@@ -8,6 +8,16 @@ import {
   TEXT_PREMIUM,
   BORDER_RADIUS_M,
   BG_PREMIUM_LIGHT,
+  PRIMARY_SPECIAL,
+  BORDER_PRIMARY_DARK,
+  APP_FONT,
+  TEXT_DARK,
+  BORDER_PRIMARY,
+  ICON_TRASPARENT_BLUE,
+  TEXT_PRIMARY,
+  BG_TRANSPARENT,
+  BORDER_TRANSPARENT,
+  BORDER_DARK,
 } from 'style-constants';
 
 import Container from 'components/Labels/QuestionType';
@@ -20,6 +30,14 @@ import generalIcon from 'images/comments-2.svg?external';
 import tutorialIcon from 'images/book-bookmark.svg?external';
 
 import { IconLg } from '../../../../components/Icon/IconWithSizes';
+import A from '../../../../components/A';
+import { BasicLink } from '../../../LeftMenu/Styles';
+import { svgDraw } from '../../../../components/Icon/IconStyled';
+import {
+  singleCommunityColors,
+  singleCommunityFonts,
+  singleCommunityStyles,
+} from '../../../../utils/communityManagement';
 
 const LabelsWrapper = styled.div`
   display: inline-flex;
@@ -42,6 +60,44 @@ const PromotedLabel = styled.span`
   display: inline-flex;
   align-items: center;
   border-radius: ${BORDER_RADIUS_M};
+`;
+const styles = singleCommunityStyles();
+const colors = singleCommunityColors();
+const fonts = singleCommunityFonts();
+const A1 = A.extend`
+    border-color: ${BORDER_PRIMARY_DARK};
+    font-family: ${fonts.mainLinksSelected || APP_FONT};
+    font-weight: bold;
+    color: ${colors.mainLinks ? colors.mainLinks : TEXT_DARK} !important;
+    .fill {
+      fill: ${BORDER_PRIMARY};
+    }
+    .semitransparent{
+      fill: ${ICON_TRASPARENT_BLUE}
+    }
+    :hover {
+      color: ${colors.mainLinks};
+    }
+    ${svgDraw({ color: TEXT_PRIMARY })};
+
+    // background-color: ${BG_TRANSPARENT};
+    // border-color: ${BORDER_TRANSPARENT};
+    // font-weight: normal;
+    // font-family: ${fonts.mainLinksNotSelected || APP_FONT};
+    // .opacity {
+    //   fill: none !important;
+    // }
+    // .fill {
+    //   fill: ${BORDER_DARK};
+    // }
+    // .semitransparent {
+    //   fill: none;
+    // }
+    // :hover {
+    //   .fill {
+    //     fill: ${BORDER_PRIMARY};
+    //   }
+    // }
 `;
 
 const QuestionType = ({ locale, postType, isPromoted }) => {

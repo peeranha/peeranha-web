@@ -125,6 +125,19 @@ export const BG_PRIMARY_DARK_RGB = darkBlueRGB;
 export const BG_PRIMARY_SPECIAL = purple;
 export const BG_PREMIUM_LIGHT = premiumLight;
 export const BG_LIGHT = white;
+
+let colour = 'rgba(122,178,39,0.3)';
+let colour2 = 'rgba(39,178,71,0.3)';
+// colour = 'rgba(39,136,178,0.3)'
+// colour = 'rgba(74,39,178,0.3)'
+// colour = 'rgba(168,120,120,0.3)'
+// colour = `rgba(118, 153, 255, 0.3)`
+colour = 'rgba(87,111,237,0.4)';
+// colour = 'rgba(237,87,225,0.4)'
+
+export const BG_DARK = colour;
+export const BG_DARK2 = colour2;
+
 export const BG_BLACK = black;
 export const BG_TRANSPARENT = transparent;
 export const BG_SUCCESS_LIGHT = _get(colors, 'lightSuccessColor', lightgreen);

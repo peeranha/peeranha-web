@@ -1,6 +1,21 @@
 <svg xmlns="http://www.w3.org/2000/svg" height="64" width="64" viewBox="0 0 64 64">
-  <g stroke-linecap="square" stroke-width="2" fill="none" stroke="#212121" stroke-linejoin="miter" class="nc-icon-wrapper" stroke-miterlimit="10">
-    <path d="M50,18h7a5,5,0,0,1,5,5V43a5,5,0,0,1-5,5H54V58L40,48H28" stroke="#212121"></path>
-    <path d="M45,5H7a5,5,0,0,0-5,5V33a5,5,0,0,0,5,5h5V52L28,38H45a5,5,0,0,0,5-5V10A5,5,0,0,0,45,5Z"></path>
+  <g class="opacity" fill="#FFFFFF" fill-rule="nonzero">
+    <path class="stroke" d="M50,18h7a5,5,0,0,1,5,5V43a5,5,0,0,1-5,5H54V58L40,48H28">
+    </path>
+    <path class="opacity stroke" d="
+    M 45,5
+    H 7
+    a 5,5,0,0,0-5,5
+    V 33
+    a 5,5,0,0,0,5,5
+    h 5
+    V 52
+    L 28,38
+    H 45
+    a 5,5,0,0,0,5-5
+    V 10
+    A 5,5,0,0,0,45,5
+    Z">
+    </path>
   </g>
 </svg>
