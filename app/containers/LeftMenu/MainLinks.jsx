@@ -43,10 +43,10 @@ import { svgDraw } from 'components/Icon/IconStyled';
 
 import { BasicLink } from './Styles';
 import { FULL_SIZE } from './constants';
-import expertIcon from 'images/hat-3-2.svg?external';
+import expertIcon from 'images/hat-3-outline-24.svg?external';
 import generalIcon from 'images/comments-outline-24.svg?external';
 // import generalIcon from 'images/b-comment-outline-24.svg?external';
-import tutorialIcon from 'images/book-bookmark.svg?external';
+import tutorialIcon from 'images/tutorial.svg?external';
 
 const styles = singleCommunityStyles();
 const colors = singleCommunityColors();
