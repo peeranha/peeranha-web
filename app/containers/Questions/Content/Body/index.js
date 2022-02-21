@@ -45,6 +45,7 @@ const Body = ({
   isSearchPage,
   postType,
   isFeed,
+  isExpert,
 }) => {
   return (
     <Base
@@ -67,6 +68,7 @@ const Body = ({
             locale={locale}
             postType={postType}
             isPromoted={isPromoted}
+            isExpert={isExpert}
           />
         )}
       </QuestionLabels>

@@ -21,6 +21,9 @@ export default defineMessages({
   questions: {
     id: 'app.common.questions',
   },
+  discussions: {
+    id: 'app.common.discussions',
+  },
   expertPosts: {
     id: 'app.common.expertPosts',
   },

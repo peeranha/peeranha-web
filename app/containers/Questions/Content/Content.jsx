@@ -20,8 +20,8 @@ import MoveSection from './MoveSection';
 import Body from './Body';
 import { POST_TYPE } from '../../../utils/constants';
 import {
-  BG_DARK,
-  BG_DARK2,
+  EXPERT_BACKLIGHT,
+  TUTORIAL_BACKLIGHT,
   BG_LIGHT,
   BORDER_PRIMARY,
 } from '../../../style-constants';
@@ -29,9 +29,9 @@ import {
 const Box = BaseNoPadding.extend`
   box-shadow: ${({ isExpert, isTutorial }) =>
     isExpert
-      ? `5px 5px 5px ${BG_DARK}`
+      ? `3px 3px 5px ${EXPERT_BACKLIGHT}`
       : isTutorial
-        ? `5px 5px 5px ${BG_DARK2}`
+        ? `3px 3px 5px ${TUTORIAL_BACKLIGHT}`
         : null};
   display: flex;
   flex-wrap: nowrap;

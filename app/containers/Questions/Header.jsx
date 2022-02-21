@@ -18,7 +18,9 @@ import { IconLg } from 'components/Icon/IconWithSizes';
 import H3 from 'components/H3';
 import Wrapper from 'components/Header/Simple';
 
-import allquestionsIcon from 'images/allquestions-header.svg?external';
+import expertIcon from 'images/hat-3-outline-24.svg?external';
+import generalIcon from 'images/comments-outline-24.svg?external';
+
 import myFeedIcon from 'images/myFeedHeader.svg?external';
 import tutorialPageHeader from 'images/tutorialPageHeader.svg?external';
 import createdHistory from 'createdHistory';
@@ -65,15 +67,15 @@ export const Header = ({
   if (postsTypes.length === 1) {
     switch (postsTypes[0]) {
       case POST_TYPE.generalPost:
-        defaultAvatar = allquestionsIcon;
-        defaultLabel = intl.formatMessage({ id: messages.questions.id });
+        defaultAvatar = generalIcon;
+        defaultLabel = intl.formatMessage({ id: messages.discussions.id });
         defaultAvatarWidth = '24';
         route = 'questions';
         break;
       case POST_TYPE.expertPost:
-        defaultAvatar = allquestionsIcon;
+        defaultAvatar = expertIcon;
         defaultLabel = intl.formatMessage({ id: messages.expertPosts.id });
-        defaultAvatarWidth = '24';
+        defaultAvatarWidth = '28';
         route = 'expertPosts';
         break;
       case POST_TYPE.tutorial:

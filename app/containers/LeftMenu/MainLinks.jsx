@@ -31,7 +31,6 @@ import {
 
 import homeIcon from 'images/house.svg?external';
 import myFeedIcon from 'images/myFeed.svg?external';
-import allQuestionsIcon from 'images/allQuestions.svg?external';
 import communitiesIcon from 'images/communities.svg?external';
 import tagsIcon from 'images/tags.svg?external';
 import usersIcon from 'images/users.svg?external';
@@ -45,7 +44,6 @@ import { BasicLink } from './Styles';
 import { FULL_SIZE } from './constants';
 import expertIcon from 'images/hat-3-outline-24.svg?external';
 import generalIcon from 'images/comments-outline-24.svg?external';
-// import generalIcon from 'images/b-comment-outline-24.svg?external';
 import tutorialIcon from 'images/tutorial.svg?external';
 
 const styles = singleCommunityStyles();
@@ -144,7 +142,7 @@ const MainLinks = ({ profile, currClientHeight, isGlobalAdmin }) => {
 
       <A1 to={routes.questions()} name="questions" route={route}>
         <IconLg className="mr-2" icon={generalIcon} />
-        <FormattedMessage {...messages.questions} />
+        <FormattedMessage {...messages.discussions} />
       </A1>
 
       <A1 to={routes.expertPosts()} name="experts" route={route}>
