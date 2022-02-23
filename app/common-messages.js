@@ -21,6 +21,12 @@ export default defineMessages({
   questions: {
     id: 'app.common.questions',
   },
+  discussions: {
+    id: 'app.common.discussions',
+  },
+  expertPosts: {
+    id: 'app.common.expertPosts',
+  },
   answers: {
     id: 'app.common.answers',
   },
@@ -111,8 +117,8 @@ export default defineMessages({
   moderationHeader: {
     id: 'app.common.moderationHeader',
   },
-  tutorial: {
-    id: 'app.common.tutorial',
+  tutorials: {
+    id: 'app.common.tutorials',
   },
   about: {
     id: 'app.common.about',
@@ -368,6 +374,9 @@ export default defineMessages({
   },
   expert: {
     id: 'app.common.expert',
+  },
+  tutorial: {
+    id: 'app.common.tutorial',
   },
   promoted: {
     id: 'app.common.promoted',

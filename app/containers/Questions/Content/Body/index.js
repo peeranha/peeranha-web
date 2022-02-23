@@ -43,6 +43,9 @@ const Body = ({
   topQuestionActionProcessing,
   isPromoted,
   isSearchPage,
+  postType,
+  isFeed,
+  isExpert,
 }) => {
   return (
     <Base
@@ -60,12 +63,14 @@ const Body = ({
           topQuestionsCount={topQuestionsCount}
           topQuestionActionProcessing={topQuestionActionProcessing}
         />
-
-        <QuestionType
-          locale={locale}
-          isGeneral={isGeneral}
-          isPromoted={isPromoted}
-        />
+        {isFeed && (
+          <QuestionType
+            locale={locale}
+            postType={postType}
+            isPromoted={isPromoted}
+            isExpert={isExpert}
+          />
+        )}
       </QuestionLabels>
 
       <Title
@@ -73,6 +78,7 @@ const Body = ({
         title={title}
         id={id}
         questionBounty={questionBounty}
+        postType={postType}
       />
 
       <UserInfo

@@ -467,7 +467,6 @@ export default function* defaultSaga() {
     redirectToCreateCommunityWorker,
   );
   yield takeLatest(REDIRECT_TO_CREATE_TAG, redirectToCreateTagWorker);
-  yield takeLatest(UPDATE_ACC_SUCCESS, updateStoredQuestionsWorker);
   yield takeLatest(
     [
       GET_CURRENT_ACCOUNT,

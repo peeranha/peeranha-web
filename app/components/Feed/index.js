@@ -12,12 +12,19 @@ import {
 } from 'containers/AccountProvider/selectors';
 
 import WidthCentered from '../LoadingIndicator/WidthCentered';
+import { POST_TYPE } from '../../utils/constants';
 
 const Feed = ({ match, account, loading }) => {
   if (loading) {
     return <WidthCentered />;
   } else if (account) {
-    return <Questions parentPage={routes.feed()} match={match} />;
+    return (
+      <Questions
+        parentPage={routes.feed()}
+        match={match}
+        postsTypes={Object.values(POST_TYPE)}
+      />
+    );
   }
 
   return <NotFoundPage />;

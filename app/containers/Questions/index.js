@@ -80,14 +80,17 @@ export const Questions = ({
   typeFilter,
   createdFilter,
   setTypeFilterDispatch,
-  eosService,
   initLoadedItems,
   nextLoadedItems,
   getQuestionsDispatch,
   questionFilter,
   loadTopQuestionsDispatch,
   isLastTopQuestionLoaded,
+  postsTypes,
 }) => {
+  const isExpert =
+    path === routes.expertPosts() ||
+    path === routes.expertPosts(':communityid');
   const getInitQuestions = useCallback(
     () => {
       if (!questionFilter) {
@@ -96,6 +99,7 @@ export const Questions = ({
         getQuestionsDispatch(
           initLoadedItems,
           offset,
+          postsTypes,
           Number(params.communityid) || 0,
           parentPage,
           false,
@@ -103,7 +107,13 @@ export const Questions = ({
         );
       }
     },
-    [initLoadedItems, params.communityid, parentPage, questionFilter],
+    [
+      initLoadedItems,
+      params.communityid,
+      parentPage,
+      questionFilter,
+      postsTypes,
+    ],
   );
 
   const getNextQuestions = useCallback(
@@ -116,6 +126,7 @@ export const Questions = ({
         getQuestionsDispatch(
           initLoadedItems,
           nextLoadedItems,
+          postsTypes,
           Number(params.communityid) || 0,
           parentPage,
           next,
@@ -132,30 +143,15 @@ export const Questions = ({
       parentPage,
       questionFilter,
       loadTopQuestionsDispatch,
+      postsTypes,
     ],
-  );
-
-  useEffect(
-    () => {
-      if (
-        eosService &&
-        ((parentPage === feed &&
-          followedCommunities &&
-          followedCommunities.length > 0) ||
-          parentPage !== feed) &&
-        !questionFilter
-      ) {
-        getInitQuestions();
-      }
-    },
-    [eosService, questionFilter],
   );
 
   useEffect(
     () => {
       getInitQuestions();
     },
-    [typeFilter, createdFilter],
+    [typeFilter, createdFilter, postsTypes],
   );
 
   useEffect(() => {
@@ -220,7 +216,6 @@ export const Questions = ({
   );
 
   const questionFilterFromCookies = getCookie(QUESTION_FILTER);
-
   return display ? (
     <div>
       <Seo
@@ -239,6 +234,8 @@ export const Questions = ({
         createdFilter={createdFilter}
         setTypeFilter={setTypeFilterDispatch}
         questionFilterFromCookies={questionFilterFromCookies}
+        isExpert={isExpert}
+        postsTypes={postsTypes}
       />
 
       {displayBanner && (
@@ -256,6 +253,7 @@ export const Questions = ({
           isLastFetch={lastFetched}
         >
           <Content
+            isFeed={parentPage === feed}
             questionsList={questionsList}
             // promotedQuestionsList={
             //   promotedQuestions[+questionFilterFromCookies ? 'top' : 'all']

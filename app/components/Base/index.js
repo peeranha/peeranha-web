@@ -9,6 +9,7 @@ import {
   BORDER_PREMIUM,
   BORDER_PREMIUM_RGB,
   BORDER_RADIUS_L,
+  BORDER_TUTORIAL,
 } from 'style-constants';
 
 const borderTopLeftRadius = ({ bordered, topRightRadius, withoutBR }) =>
@@ -24,11 +25,21 @@ const Base = styled.div`
   padding-top: ${({ paddingTop }) => paddingTop || 20}px;
 
   overflow: ${({ overflowHidden }) => (overflowHidden ? 'hidden' : 'initial')};
-  border: ${({ bordered, isPromoted }) =>
-    bordered || isPromoted ? `1px solid ${isPromoted ? BORDER_PREMIUM : BORDER_PRIMARY} !important` : '0'};
+  border: ${({ bordered, isPromoted, isTutorial }) =>
+    bordered || isPromoted
+      ? `1px solid ${
+          isPromoted
+            ? BORDER_PREMIUM
+            : isTutorial
+              ? BORDER_TUTORIAL
+              : BORDER_PRIMARY
+        } !important`
+      : '0'};
   box-shadow: ${({ bordered, position, isPromoted }) =>
     (bordered || isPromoted) && !position
-      ? `0 0 0 1px rgba(${isPromoted ? BORDER_PREMIUM_RGB : BORDER_PRIMARY_RGB}, 0.4) !important`
+      ? `0 0 0 1px rgba(${
+          isPromoted ? BORDER_PREMIUM_RGB : BORDER_PRIMARY_RGB
+        }, 0.4) !important`
       : `none`};
   border-top-left-radius: ${({ bordered, topRightRadius, withoutBR }) =>
     (bordered || topRightRadius) && !withoutBR ? BORDER_RADIUS_L : 'none'};

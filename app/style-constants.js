@@ -13,7 +13,8 @@ const communityDetails = getSingleCommunityDetails();
 
 export const PEER_PRIMARY_COLOR = communityDetails?.colors?.main || '#576fed';
 export const PEER_PRIMARY_TRANSPARENT_COLOR = '#dde2fb';
-export const PEER_WARNING_COLOR = communityDetails?.colors?.highlight || '#fc6655';
+export const PEER_WARNING_COLOR =
+  communityDetails?.colors?.highlight || '#fc6655';
 export const PEER_WARNING_TRANSPARENT_COLOR = '#FDE2DF';
 export const PEER_ERROR_COLOR = '#DC3545';
 export const PEER_ERROR_TRANSPARENT_COLOR = '#dc35452b';
@@ -29,12 +30,17 @@ const pink = PEER_WARNING_COLOR;
 const lightblue = '#edeff6';
 const blue = _get(colors, 'blue', PEER_PRIMARY_COLOR);
 const premium = _get(colors, 'premium', PEER_PREMIUM_COLOR);
-const premiumLight = _get(colors, 'premiumLight', PEER_PREMIUM_TRANSPARENT_COLOR);
+const premiumLight = _get(
+  colors,
+  'premiumLight',
+  PEER_PREMIUM_TRANSPARENT_COLOR,
+);
 const purple = _get(colors, 'purple', 'rgba(39, 56, 104, 0.85)');
 const darkblue = _get(colors, 'darkBlue', '#5065A5');
 const transparent = 'rgba(0, 0, 0, 0)';
 const green = '#28A745';
 const lightgreen = '#ebffe7';
+const lightgreen2 = green;
 const darkred = '#dc3545';
 const blue2 = _get(colors, 'blue2', '#dfe3f2');
 const attentionColor = _get(colors, 'attentionColor', '#ff4026');
@@ -97,6 +103,7 @@ export const BORDER_SECONDARY = secondarySpecial;
 export const BORDER_PRIMARY_DARK = darkblue;
 export const BORDER_PRIMARY_LIGHT = lightblueSpecial;
 export const BORDER_PRIMARY = blue;
+export const BORDER_TUTORIAL = lightgreen2;
 export const BORDER_PRIMARY_RGB = blueRGB;
 export const BORDER_PREMIUM = premium;
 export const BORDER_PREMIUM_RGB = premiumRGB;
@@ -118,6 +125,11 @@ export const BG_PRIMARY_DARK_RGB = darkBlueRGB;
 export const BG_PRIMARY_SPECIAL = purple;
 export const BG_PREMIUM_LIGHT = premiumLight;
 export const BG_LIGHT = white;
+
+export const EXPERT_BACKLIGHT = 'rgba(87,111,237,0.4)';
+export const TUTORIAL_BACKLIGHT = 'rgba(39,178,71,0.3)';
+export const TUTORIAL_ICON_COLOR = 'rgb(39,178,71)';
+
 export const BG_BLACK = black;
 export const BG_TRANSPARENT = transparent;
 export const BG_SUCCESS_LIGHT = _get(colors, 'lightSuccessColor', lightgreen);

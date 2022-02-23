@@ -51,6 +51,7 @@ import reducer from './reducer';
 import saga from './saga';
 
 import ViewQuestionContainer from './ViewQuestionContainer';
+import { POST_TYPE } from '../../utils/constants';
 
 export const ViewQuestion = ({
   locale,
@@ -91,6 +92,17 @@ export const ViewQuestion = ({
   profile,
   history,
 }) => {
+  if (questionData) {
+    const route =
+      questionData.postType === POST_TYPE.generalPost
+        ? 'questionView'
+        : questionData.postType === POST_TYPE.expertPost
+          ? 'expertPostView'
+          : 'tutorialView';
+    if (match.url !== routes[route](match.params.id)) {
+      history.push(routes[route](match.params.id));
+    }
+  }
   useEffect(() => {
     window.isRendered = false;
     resetStoreDispatch();

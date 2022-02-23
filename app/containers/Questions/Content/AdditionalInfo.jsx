@@ -82,6 +82,7 @@ const AdditionalInfo = ({
   answersCount,
   officialAnswersCount,
   isSearchPage,
+  isTutorial,
 }) => {
   const icon = useMemo(
     () => {
@@ -120,12 +121,14 @@ const AdditionalInfo = ({
 
   return (
     <Container>
-      <Div isAccepted={correctAnswerId}>
-        <span>
-          <img src={icon} alt="icon" />
-          <Span color={color}>{formattedAnswerCount}</Span>
-        </span>
-      </Div>
+      {!isTutorial && (
+        <Div isAccepted={correctAnswerId}>
+          <span>
+            <img src={icon} alt="icon" />
+            <Span color={color}>{formattedAnswerCount}</Span>
+          </span>
+        </Div>
+      )}
 
       <Div>
         <span>

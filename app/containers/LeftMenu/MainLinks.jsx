@@ -31,12 +31,10 @@ import {
 
 import homeIcon from 'images/house.svg?external';
 import myFeedIcon from 'images/myFeed.svg?external';
-import allQuestionsIcon from 'images/allQuestions.svg?external';
 import communitiesIcon from 'images/communities.svg?external';
 import tagsIcon from 'images/tags.svg?external';
 import usersIcon from 'images/users.svg?external';
 import faqIcon from 'images/faq.svg?external';
-import tutorialIcon from 'images/tutorial.svg?external';
 
 import A from 'components/A';
 import { IconLg } from 'components/Icon/IconWithSizes';
@@ -44,6 +42,9 @@ import { svgDraw } from 'components/Icon/IconStyled';
 
 import { BasicLink } from './Styles';
 import { FULL_SIZE } from './constants';
+import expertIcon from 'images/hat-3-outline-24.svg?external';
+import generalIcon from 'images/comments-outline-24.svg?external';
+import tutorialIcon from 'images/tutorial.svg?external';
 
 const styles = singleCommunityStyles();
 const colors = singleCommunityColors();
@@ -140,8 +141,18 @@ const MainLinks = ({ profile, currClientHeight, isGlobalAdmin }) => {
         )}
 
       <A1 to={routes.questions()} name="questions" route={route}>
-        <IconLg className="mr-2" icon={allQuestionsIcon} />
-        <FormattedMessage {...messages.questions} />
+        <IconLg className="mr-2" icon={generalIcon} />
+        <FormattedMessage {...messages.discussions} />
+      </A1>
+
+      <A1 to={routes.expertPosts()} name="experts" route={route}>
+        <IconLg className="mr-2" icon={expertIcon} />
+        <FormattedMessage {...messages.expertPosts} />
+      </A1>
+
+      <A1 to={routes.tutorials()} name="tutorials" route={route}>
+        <IconLg className="mr-2" icon={tutorialIcon} fill={BORDER_PRIMARY} />
+        <FormattedMessage {...messages.tutorials} />
       </A1>
 
       {!singleCommId && (
@@ -173,13 +184,6 @@ const MainLinks = ({ profile, currClientHeight, isGlobalAdmin }) => {
         <A1 to={routes.faq()} name="faq" route={route}>
           <IconLg className="mr-2" icon={faqIcon} fill={BORDER_PRIMARY} />
           <FormattedMessage {...messages.faq} />
-        </A1>
-      )}
-
-      {!singleCommId && (
-        <A1 to={routes.tutorial()} name="tutorial" route={route}>
-          <IconLg className="mr-2" icon={tutorialIcon} fill={BORDER_PRIMARY} />
-          <FormattedMessage {...messages.tutorial} />
         </A1>
       )}
     </Box>

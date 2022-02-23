@@ -4,6 +4,8 @@
   "app.common.profile": "Profile",
   "app.common.myCommunities": "My communities",
   "app.common.questions": "Questions",
+  "app.common.discussions": "Discussions",
+  "app.common.expertPosts": "Expert Q&A",
   "app.common.answers": "Answers",
   "app.common.posts": "Posts",
   "app.common.achievements": "Achievements",
@@ -24,7 +26,7 @@
   "app.common.login": "Log in",
   "app.common.signUp": "Sign up",
   "app.common.all": "All",
-  "app.common.askQuestion": "Ask question",
+  "app.common.askQuestion": "New post",
   "app.common.add": "Add",
   "app.common.communities": "Communities",
   "app.common.allCommunities": "All communities",
@@ -36,7 +38,7 @@
   "app.common.usersShort": "Users",
   "app.common.faq": "FAQ",
   "app.common.moderationHeader": "Moderator permissions",
-  "app.common.tutorial": "Tutorial",
+  "app.common.tutorials": "Tutorials",
   "app.common.subscribeMore": "Subscribe more",
   "app.common.top": "Top",
   "app.common.see": "See",
@@ -120,6 +122,7 @@
   "app.common.signUpViaService": "Sign up via service",
   "app.common.general": "General",
   "app.common.expert": "Expert",
+  "app.common.tutorial": "Tutorial",
   "app.common.promoted": "Promoted",
   "app.common.any": "Any",
   "app.common.tipQuestion": "Tip question",
@@ -666,7 +669,7 @@
   "app.containers.HomePage.sendMessage": "Send message",
   "app.containers.HomePage.platformUnderDeveloping":
     "Website is currently under development. Sign up for notifications to be one of the first to join and earn higher rewards as an early adopter.",
-  "app.containers.HomePage.askQuestion": "Ask question",
+  "app.containers.HomePage.askQuestion": "New post",
   "app.containers.HomePage.review": "Review",
   "app.containers.HomePage.systemError": "System error",
   "app.containers.HomePage.none": "None",
@@ -763,6 +766,7 @@
   "app.containers.ViewQuestion.markGeneralQuestionAndGetEarn":
     "Mark the best answer to this question and earn +1 reputation point",
   "app.containers.ViewQuestion.expertQuestion": "Expert question",
+  "app.containers.ViewQuestion.tutorial": "Tutorial",
   "app.containers.ViewQuestion.changeQuestionType": "Change type",
   "app.containers.ViewQuestion.officialAnswer": "Official answer",
   "app.containers.ViewQuestion.getBounty": "Get bounty",
@@ -972,7 +976,7 @@
     "You don't have any feed to read",
   "app.containers.Questions.subscribeToCommToKeep":
     "Subscribe to communities to keep track of topics that you are interested in.",
-  "app.containers.Questions.noQuestionsYet": "No questions yet.",
+  "app.containers.Questions.noQuestionsYet": "No posts yet.",
   "app.containers.Questions.thisIsNewCommunity":
     "This is a new community, you can be the first post a question. Your question may become the most popular.",
   "app.containers.Questions.readMyFeed": "Read my feed",
@@ -983,8 +987,8 @@
   "app.containers.Questions.bountyPopover":
     "Bounty - extra PEER reward from author.",
 
-  "app.containers.AskQuestion.title": "Ask question",
-  "app.containers.AskQuestion.description": "Ask question | Description",
+  "app.containers.AskQuestion.title": "New post",
+  "app.containers.AskQuestion.description": "New post | Description",
   "app.containers.AskQuestion.postQuestion": "Post question",
 
   "app.containers.ErrorPage.title": "Some error occured...",
@@ -1013,7 +1017,7 @@
     "Short and descriptive title of the question",
   "app.containers.QuestionForm.tagsTip":
     "Tags that are relevant to the question",
-  "app.containers.QuestionForm.title": "Ask question",
+  "app.containers.QuestionForm.title": "New post",
   "app.containers.QuestionForm.titleLabel": "Title",
   "app.containers.QuestionForm.existingQuestionsLabel":
     "To avoid duplicates check existing questions.",
@@ -1031,7 +1035,7 @@
   "app.containers.QuestionForm.bountyDaysTip":
     "Number of days while bounty is active",
   "app.containers.QuestionForm.previewLabel": "Preview",
-  "app.containers.QuestionForm.questionType": "Question Type",
+  "app.containers.QuestionForm.questionType": "Post Type",
   "app.containers.QuestionForm.questionTypeTip": "Optional",
   "app.containers.QuestionForm.generalQuestionDescriptionLabel":
     "A question not requiring expertise or experience to answer that can be one of the following:",

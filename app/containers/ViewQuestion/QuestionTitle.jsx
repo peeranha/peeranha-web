@@ -16,7 +16,7 @@ import {
   singleCommunityStyles,
 } from 'utils/communityManagement';
 import { getFormattedDate, dateNowInSeconds } from 'utils/datetime';
-import { MONTH_3LETTERS__DAY_YYYY_TIME } from 'utils/constants';
+import { MONTH_3LETTERS__DAY_YYYY_TIME, POST_TYPE } from 'utils/constants';
 
 import Base from 'components/Base';
 import H3 from 'components/H3';
@@ -111,6 +111,7 @@ export const QuestionTitle = ({
     id,
     promote,
     author: questionAuthor,
+    postType,
   } = questionData;
 
   const isActivePromotion = useMemo(
@@ -150,7 +151,7 @@ export const QuestionTitle = ({
       paddingTop="5"
       paddingTopMedia="5"
       position="middle"
-      bordered={!isGeneral}
+      bordered={postType === POST_TYPE.expertPost}
       withoutBR
     >
       <Top>
@@ -178,7 +179,13 @@ export const QuestionTitle = ({
           </SendTips>
         )}
 
-        {!isGeneral && (
+        {postType === POST_TYPE.expertPost && (
+          <QuestionType size="md" top="0px" topMedia="0px">
+            <FormattedMessage {...messages.expertQuestion} />
+          </QuestionType>
+        )}
+
+        {postType === POST_TYPE.tutorial && (
           <QuestionType size="md" top="0px" topMedia="0px">
             <FormattedMessage {...messages.expertQuestion} />
           </QuestionType>

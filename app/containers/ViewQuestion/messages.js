@@ -121,6 +121,9 @@ export default defineMessages({
   expertQuestion: {
     id: 'app.containers.ViewQuestion.expertQuestion',
   },
+  tutorial: {
+    id: 'app.containers.ViewQuestion.tutorial',
+  },
   changeQuestionType: {
     id: 'app.containers.ViewQuestion.changeQuestionType',
   },

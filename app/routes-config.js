@@ -40,10 +40,25 @@ export const questions = communityId =>
     ? `${!isBloggerMode ? '/' : '/questions'}`
     : `/questions/community/${communityId}/`;
 
+export const expertPosts = communityId =>
+  !communityId
+    ? `${!isBloggerMode ? '/experts' : '/experts'}`
+    : `/experts/community/${communityId}/`;
+
+export const tutorials = communityId =>
+  !communityId
+    ? `${!isBloggerMode ? '/tutorials' : '/experts'}`
+    : `/tutorials/community/${communityId}/`;
+
 export const questionView = (id, answerId) =>
   answerId
     ? `/questions/${id}/#${uniqueAnswerId(answerId)}`
     : `/questions/${id}`;
+
+export const expertPostView = (id, answerId) =>
+  answerId ? `/experts/${id}/#${uniqueAnswerId(answerId)}` : `/experts/${id}`;
+
+export const tutorialView = id => `/tutorials/${id}`;
 
 export const questionEdit = questionId => `/questions/${questionId}/edit`;
 
@@ -67,7 +82,6 @@ export const tags = () => `/tags`;
 
 export const users = () => '/users';
 
-export const tutorial = code => `/tutorial/${code ? `#${code}` : ``}`;
 export const faq = code => `/faq${code ? `#${code}` : ``}`;
 export const moderation = code => `#moderation${code ? `#${code}` : ``}`;
 export const support = section => `/support/${section ? `#${section}` : ''}`;

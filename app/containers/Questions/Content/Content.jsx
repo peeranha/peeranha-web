@@ -18,9 +18,22 @@ import {
 import AdditionalInfo from './AdditionalInfo';
 import MoveSection from './MoveSection';
 import Body from './Body';
-import { isGeneralQuestion } from '../../ViewQuestion/saga';
+
+import { POST_TYPE } from '../../../utils/constants';
+import {
+  EXPERT_BACKLIGHT,
+  TUTORIAL_BACKLIGHT,
+  BG_LIGHT,
+  BORDER_PRIMARY,
+} from '../../../style-constants';
 
 const Box = BaseNoPadding.extend`
+  box-shadow: ${({ isExpert, isTutorial }) =>
+    isExpert
+      ? `3px 3px 5px ${EXPERT_BACKLIGHT}`
+      : isTutorial
+        ? `3px 3px 5px ${TUTORIAL_BACKLIGHT}`
+        : null};
   display: flex;
   flex-wrap: nowrap;
   margin-bottom: 15px;
@@ -73,8 +86,12 @@ const QI = ({
   isHomePage,
   isSearchPage,
   replyCount,
+  postType,
+  isFeed,
 }) => {
   const ref = useRef(null);
+
+  const isExpert = postType === POST_TYPE.expertPost;
 
   const displayTopQuestionMove = useMemo(
     () =>
@@ -136,7 +153,7 @@ const QI = ({
     <Box
       index={index}
       innerRef={ref}
-      bordered={!isGeneral}
+      isTutorial={postType === POST_TYPE.tutorial}
       draggable={
         isModerator && !isHomePage && questionFilter === 1 && !isPromoted
       }
@@ -144,6 +161,7 @@ const QI = ({
       onDragOver={!isHomePage ? onDragOver : undefined}
       onDragStart={!isHomePage ? onDragStart : undefined}
       isPromoted={isPromoted}
+      isExpert={isExpert}
     >
       <AdditionalInfo
         correctAnswerId={bestReply}
@@ -152,6 +170,7 @@ const QI = ({
         answersCount={replyCount}
         officialAnswersCount={offAnswersCount}
         isSearchPage={isSearchPage}
+        isTutorial={postType === POST_TYPE.tutorial}
       />
       <Div>
         {displayTopQuestionMove && (
@@ -182,6 +201,9 @@ const QI = ({
           topQuestionActionProcessing={topQuestionActionProcessing}
           isPromoted={isPromoted}
           isSearchPage={isSearchPage}
+          postType={postType}
+          isFeed={isFeed}
+          isExpert={isExpert}
         />
       </Div>
     </Box>
@@ -211,6 +233,7 @@ export const Content = ({
   profileInfo,
   isHomePage = false,
   isSearchPage,
+  isFeed,
 }) => (
   <div className="position-relative">
     {/*{promotedQuestionsList &&*/}
@@ -244,6 +267,7 @@ export const Content = ({
           profileInfo={profileInfo}
           isHomePage={isHomePage}
           isSearchPage={isSearchPage}
+          isFeed={isFeed}
         />
       );
     })}
