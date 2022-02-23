@@ -134,6 +134,7 @@ FormClone = connect(
           [NAME_FIELD]: selectedTag?.name,
           [DESCRIPTION_FIELD]: selectedTag?.description,
         },
+        enableReinitialize: true,
       };
     }
 

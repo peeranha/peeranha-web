@@ -6,6 +6,7 @@ import {
   ETHEREUM_USER_ERROR_CODE,
   INVALID_ETHEREUM_PARAMETERS_ERROR_CODE,
   METAMASK_ERROR_CODE,
+  REJECTED_SIGNATURE_REQUEST,
   USER_NOT_SELECTED_ERROR_CODE,
 } from './constants';
 import { getCookie } from './cookie';
@@ -153,9 +154,14 @@ class EthereumService {
         [action](...data);
       await transaction.wait();
     } catch (err) {
-      if (err.code === INVALID_ETHEREUM_PARAMETERS_ERROR_CODE) {
-        throw new WebIntegrationErrorByCode(METAMASK_ERROR_CODE);
-      } else throw err;
+      switch (err.code) {
+        case INVALID_ETHEREUM_PARAMETERS_ERROR_CODE:
+          throw new WebIntegrationErrorByCode(METAMASK_ERROR_CODE);
+        case REJECTED_SIGNATURE_REQUEST:
+          throw new WebIntegrationErrorByCode(err.code);
+        default:
+          throw err;
+      }
     }
   };
 
@@ -167,7 +173,7 @@ class EthereumService {
     } catch (err) {
       if (err.code === INVALID_ETHEREUM_PARAMETERS_ERROR_CODE) {
         throw new WebIntegrationErrorByCode(METAMASK_ERROR_CODE);
-      }
+      } else throw err;
     }
   };
 

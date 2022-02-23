@@ -31,6 +31,8 @@ import {
   GET_COMMUNITY,
   UNFOLLOW_COMMUNITY,
   EDIT_COMMUNITY,
+  EDIT_POST,
+  EDIT_TAG,
 } from './ethConstants';
 import {
   getAllTags,
@@ -240,20 +242,14 @@ export async function getExistingTags(tags) {
   return tags;
 }
 
-export async function editTagCM(eosService, selectedAccount, tag, tagIpfsHash) {
-  await eosService.sendTransaction(
-    selectedAccount,
-    EDIT_TAG_ACTION,
-    {
-      user: selectedAccount,
-      communityId: +tag.communityId,
-      tag_id: tag.tagId,
-      name: tag.name,
-      ipfs_description: tagIpfsHash,
-    },
-    null,
-    true,
-  );
+export async function editTag(user, ethereumService, tag, tagId) {
+  const ipfsLink = await saveText(JSON.stringify(tag));
+  const ipfsHash = ethereumService.getBytes32FromIpfsHash(ipfsLink);
+  return await ethereumService.sendTransactionWithSigner(user, EDIT_TAG, [
+    tag.communityId,
+    tagId,
+    ipfsHash,
+  ]);
 }
 
 export async function upVoteToCreateTag(
@@ -287,7 +283,7 @@ const formCommunityObjectWithTags = (rawCommunity, tags) => {
     ...rawCommunity,
     avatar: getFileUrl(rawCommunity.avatar),
     id: +rawCommunity.id,
-    value: rawCommunity.name,
+    value: +rawCommunity.id,
     label: rawCommunity.name,
     postCount: +rawCommunity.postCount,
     deletedPostCount: +rawCommunity.deletedPostCount,

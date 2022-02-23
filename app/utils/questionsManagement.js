@@ -289,7 +289,6 @@ export const editQuestion = async (
   const ipfsHash = ethereumService.getBytes32FromIpfsHash(ipfsLink);
   return await ethereumService.sendTransactionWithSigner(user, EDIT_POST, [
     postId,
-    communityId,
     ipfsHash,
     tags,
   ]);

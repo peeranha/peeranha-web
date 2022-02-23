@@ -71,19 +71,19 @@ export const Header = ({
     window.location,
   ]);
 
-  const profileWithModeratorRights =
-    profile &&
-    useMemo(() => hasGlobalModeratorRole(getPermissions(profile)), [profile]);
+  const profileWithModeratorRights = useMemo(
+    () => (profile ? hasGlobalModeratorRole(getPermissions(profile)) : false),
+    [profile],
+  );
 
   const communityTagsRoute = useMemo(
     () => routes.communityTags(currentCommunity.id),
     [currentCommunity.id],
   );
-  const suggestedTagsRoute = useMemo(
-    () => routes.suggestedTags(currentCommunity.id),
-    [currentCommunity.id],
-  );
-
+  // const suggestedTagsRoute = useMemo(
+  //   () => routes.suggestedTags(currentCommunity.id),
+  //   [currentCommunity.id],
+  // );
   const displaySortTagDropdown = useMemo(
     () => path === communityTagsRoute && !!tagsNumber,
     [path, communityTagsRoute, tagsNumber],

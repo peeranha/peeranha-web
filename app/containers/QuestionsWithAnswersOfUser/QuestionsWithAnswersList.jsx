@@ -21,28 +21,30 @@ const Question = ({
   answerId,
   isGeneral,
   elementType,
-}) => (
-  <Li className="mb-3">
-    <QuestionForProfilePage
-      route={routes.questionView(id, answerId)}
-      myPostRating={myPostRating}
-      title={title}
-      myPostTime={myPostTime}
-      locale={locale}
-      acceptedAnswer={acceptedAnswer}
-      communities={communities}
-      id={id}
-      communityId={communityId}
-      postType={postType}
-      isMyAnswerAccepted={isMyAnswerAccepted}
-      isTheLargestRating={isTheLargestRating}
-      isGeneral={isGeneral}
-      bordered={!isGeneral}
-      isAnswer
-      elementType={elementType}
-    />
-  </Li>
-);
+}) => {
+  return (
+    <Li className="mb-3">
+      <QuestionForProfilePage
+        route={routes.questionView(id, answerId.split('-')[1])}
+        myPostRating={myPostRating}
+        title={title}
+        myPostTime={myPostTime}
+        locale={locale}
+        acceptedAnswer={acceptedAnswer}
+        communities={communities}
+        id={id}
+        communityId={communityId}
+        postType={postType}
+        isMyAnswerAccepted={isMyAnswerAccepted}
+        isTheLargestRating={isTheLargestRating}
+        isGeneral={isGeneral}
+        bordered={!isGeneral}
+        isAnswer
+        elementType={elementType}
+      />
+    </Li>
+  );
+};
 
 const QuestionsWithAnswersList = ({ questions, locale, communities }) => (
   <div>

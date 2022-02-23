@@ -81,7 +81,7 @@ const Note = ({
   let Link = A;
   let route = routes.questionView(
     id,
-    elementType === POST_TYPE_ANSWER ? answerId : null,
+    elementType === POST_TYPE_ANSWER ? answerId.split('-')[1] : null,
   );
   if (single && single !== postInfo.communityId) {
     Link = ADefault;

@@ -28,12 +28,12 @@ export function* getQuestionsWithAnswersWorker({ userId }) {
       x.elementType = POST_TYPE_ANSWER;
       x.acceptedAnswer = x.correct_answer_id > 0;
       x.isGeneral = isGeneralQuestion(x);
-
+      x.replies = x.replies.filter(reply => reply.author.id === userId);
       const mostRatingAnswer = maxBy(x.replies, 'rating');
 
       x.replies.map(y => {
         x.myPostTime = y.postTime;
-        x.isMyAnswerAccepted = x.isBestReply;
+        x.isMyAnswerAccepted = y.isBestReply;
 
         x.isTheLargestRating =
           y.rating === mostRatingAnswer.rating &&

@@ -18,6 +18,7 @@ import {
 import AdditionalInfo from './AdditionalInfo';
 import MoveSection from './MoveSection';
 import Body from './Body';
+
 import { POST_TYPE } from '../../../utils/constants';
 import {
   EXPERT_BACKLIGHT,
@@ -255,6 +256,7 @@ export const Content = ({
       return (
         <QuestionItem
           {...item}
+          isGeneral={isGeneralQuestion(item)}
           index={index}
           first={index === 0}
           last={index === questionsList.length - 1}
