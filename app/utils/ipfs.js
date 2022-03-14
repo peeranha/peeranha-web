@@ -93,6 +93,12 @@ export function StringToHash(stringHash) {
   return res;
 }
 
+export const getIpfsHashFromBytes32 = bytes32Hex => {
+  const hashHex = '1220' + bytes32Hex.slice(2);
+  const hashBytes = Buffer.from(hashHex, 'hex');
+  return bs58.encode(hashBytes);
+};
+
 export function parseTableRows(v) {
   if (typeof v === 'object' && v !== null && !(v instanceof Date)) {
     if (v instanceof Array) {

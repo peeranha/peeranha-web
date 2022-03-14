@@ -93,6 +93,9 @@ export const userStatsQuery = `
         ) {
           postCount
           replyCount
+          achievements {
+            id
+          }
         }
       }`;
 
@@ -824,3 +827,25 @@ export const postQuery = `
         }
       }
 `;
+
+export const allAchievementsQuery = `
+       query (
+        $userId: ID!,
+       ) {
+        achievements {
+          id
+          factCount
+          maxCount
+          achievementURI
+          achievementsType
+          name
+          description
+          image
+          attributes
+        }
+        user (id: $userId) {
+          achievements {
+            id
+          }
+        }
+      }`;

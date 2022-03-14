@@ -13,7 +13,31 @@ import {
   USER_ACHIEVEMENTS_LOADING,
   SET_MEMORIZED_ACHIEV_DATA,
   SET_MAX_GROUPS_LOWER_VALUES,
+  GET_ALL_ACHIEVEMENTS,
+  GET_ALL_ACHIEVEMENTS_SUCCESS,
+  GET_ALL_ACHIEVEMENTS_ERROR,
 } from './constants';
+
+export function getAllAchievements() {
+  return {
+    type: GET_ALL_ACHIEVEMENTS,
+  };
+}
+
+export function getAllAchievementsSuccess(allAchievements, userAchievements) {
+  return {
+    type: GET_ALL_ACHIEVEMENTS_SUCCESS,
+    allAchievements,
+    userAchievements,
+  };
+}
+
+export function getAllAchievementsError(error) {
+  return {
+    type: GET_ALL_ACHIEVEMENTS_ERROR,
+    error,
+  };
+}
 
 export function getUserAchievements() {
   return {

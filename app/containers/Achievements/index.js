@@ -29,6 +29,7 @@ import {
   selectFirstIn15Achievements,
   selectUniqueAchievements,
   selectAchievementsLoading,
+  selectAllAchievements,
 } from './selectors';
 
 import {
@@ -44,6 +45,7 @@ import {
   getUserAchievements,
   setViewProfileAccount,
   resetViewProfileAccount,
+  getAllAchievements,
 } from './actions';
 
 import reducer from './reducer';
@@ -53,6 +55,7 @@ import messages from './messages';
 import Achievement from './Achievement';
 import UniqueAchievement from './UniqueAchievement';
 import Separator from './Separator';
+import { userAchievements } from '../../routes-config';
 
 const BaseRoundedStyled = styled(BaseRounded)`
   border-top-left-radius: 0;
@@ -100,6 +103,9 @@ const H3Styled = styled(H3)`
 const Achievements = ({
   locale,
   userId,
+  getAllAchievementsDispatch,
+  achievements,
+  userAchievements,
   ratingAchievements,
   questionAskedAchievements,
   anwerGivenAchievements,
@@ -115,7 +121,7 @@ const Achievements = ({
   useEffect(
     () => {
       setViewProfileAccountDispatch(userId);
-      getUserAchievementsDispatch();
+      getAllAchievementsDispatch();
 
       // ComponentWillUnmount
       return () => resetViewProfileAccountDispatch();
@@ -134,31 +140,31 @@ const Achievements = ({
           <FormattedMessage {...commonMessage.achievements} />
         </H3Styled>
 
-        {!achievementsLoading && (
+        {/* {!achievementsLoading && (
           <>
             <Separator groupType={ratingRelated} locale={locale} />
             <AchievementsBlock>
               {ratingAchievements.map(el => (
                 <Achievement
-                  key={el.title}
+                  key={el.name}
                   {...el}
-                  title={translations[messages[el.title].title.id]}
-                  description={translations[messages[el.title].description.id]}
+                  name={translations[messages[el.name].name.id]}
+                  description={translations[messages[el.name].description.id]}
                   locale={locale}
                 />
               ))}
             </AchievementsBlock>
 
-            <>
+           <>
               <Separator groupType={questionAskedRelated} locale={locale} />
               <AchievementsBlock>
                 {questionAskedAchievements.map(el => (
                   <Achievement
-                    key={el.title}
+                    key={el.name}
                     {...el}
-                    title={translations[messages[el.title].title.id]}
+                    name={translations[messages[el.name].name.id]}
                     description={
-                      translations[messages[el.title].description.id]
+                      translations[messages[el.name].description.id]
                     }
                     locale={locale}
                   />
@@ -171,11 +177,11 @@ const Achievements = ({
               <AchievementsBlock>
                 {anwerGivenAchievements.map(el => (
                   <Achievement
-                    key={el.title}
+                    key={el.name}
                     {...el}
-                    title={translations[messages[el.title].title.id]}
+                    name={translations[messages[el.name].name.id]}
                     description={
-                      translations[messages[el.title].description.id]
+                      translations[messages[el.name].description.id]
                     }
                     locale={locale}
                   />
@@ -188,11 +194,11 @@ const Achievements = ({
               <AchievementsBlock>
                 {bestAnswerAchievements.map(el => (
                   <Achievement
-                    key={el.title}
+                    key={el.name}
                     {...el}
-                    title={translations[messages[el.title].title.id]}
+                    name={translations[messages[el.name].name.id]}
                     description={
-                      translations[messages[el.title].description.id]
+                      translations[messages[el.name].description.id]
                     }
                     locale={locale}
                   />
@@ -205,11 +211,11 @@ const Achievements = ({
               <AchievementsBlock>
                 {firstAnswerAchievements.map(el => (
                   <Achievement
-                    key={el.title}
+                    key={el.name}
                     {...el}
-                    title={translations[messages[el.title].title.id]}
+                    name={translations[messages[el.name].name.id]}
                     description={
-                      translations[messages[el.title].description.id]
+                      translations[messages[el.name].description.id]
                     }
                     locale={locale}
                   />
@@ -222,11 +228,11 @@ const Achievements = ({
               <AchievementsBlock>
                 {firstIn15Achievements.map(el => (
                   <Achievement
-                    key={el.title}
+                    key={el.name}
                     {...el}
-                    title={translations[messages[el.title].title.id]}
+                    name={translations[messages[el.name].name.id]}
                     description={
-                      translations[messages[el.title].description.id]
+                      translations[messages[el.name].description.id]
                     }
                     locale={locale}
                   />
@@ -234,28 +240,38 @@ const Achievements = ({
               </AchievementsBlock>
             </>
           </>
-        )}
+        )}*/}
       </BaseRoundedStyled>
 
       {achievementsLoading && <LoadingIndicator />}
 
       {!achievementsLoading &&
-        uniqueAchievements.length > 0 && (
+        achievements.length > 0 && (
           <UniqueAchievementsWrapper>
             <UniqueAchievementsTitle>
               <FormattedMessage {...commonMessage.uniqueAchievements} />
             </UniqueAchievementsTitle>
 
             <UniqueAchievementsBlock>
-              {uniqueAchievements.map(el => (
+              {achievements.map(achievement => (
                 <UniqueAchievement
-                  key={el.title}
-                  {...el}
-                  title={translations[messages[el.title].title.id]}
-                  description={translations[messages[el.title].description.id]}
+                  reached={userAchievements.some(
+                    achievementId => achievementId === achievement.id,
+                  )}
+                  key={achievement.id}
+                  {...achievement}
                   locale={locale}
                 />
               ))}
+              {/*{uniqueAchievements.map(el => (*/}
+              {/*  <UniqueAchievement*/}
+              {/*    key={el.name}*/}
+              {/*    {...el}*/}
+              {/*    name={translations[messages[el.name].name.id]}*/}
+              {/*    description={translations[messages[el.name].description.id]}*/}
+              {/*    locale={locale}*/}
+              {/*  />*/}
+              {/*))}*/}
             </UniqueAchievementsBlock>
           </UniqueAchievementsWrapper>
         )}
@@ -281,6 +297,7 @@ Achievements.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
+  achievements: selectAllAchievements(),
   userAchievements: selectUserAchievements(),
   ratingAchievements: selectRatingAchievements(),
   questionAskedAchievements: selectQuestionAskedAchievements(),
@@ -293,6 +310,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = dispatch => ({
+  getAllAchievementsDispatch: bindActionCreators(getAllAchievements, dispatch),
   getUserAchievementsDispatch: bindActionCreators(
     getUserAchievements,
     dispatch,

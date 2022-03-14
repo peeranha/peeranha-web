@@ -16,6 +16,8 @@ import messages from './messages';
 
 import { uniqueRatingRelated } from './constants';
 import { italicFont } from '../../global-styles';
+import { getFileUrl, getIpfsHashFromBytes32, getText } from '../../utils/ipfs';
+import { MediumImageStyled } from '../../components/Img/MediumImage';
 
 const ImageBlock = styled.div`
   margin-right: 15px;
@@ -48,18 +50,19 @@ const LimitPhrase = styled.p`
 
 const UniqueAchievement = ({
   reached,
-  limit,
-  totalAwarded,
+  maxCount,
+  factCount,
   lowerValue,
   currentValue,
   isNext,
   pointsToNext,
-  title,
+  name,
   description,
   locale,
+  image,
 }) => {
-  const availiableCount = limit - totalAwarded;
-
+  console.log(reached);
+  const availiableCount = maxCount - factCount;
   const getProgress = () => (currentValue / lowerValue) * 100;
 
   const translations = translationMessages[locale]
@@ -69,9 +72,19 @@ const UniqueAchievement = ({
   return (
     <Bage>
       <ImageBlock>
-        {reached && <Icon icon={achievementReached} width="80" height="74" />}
+        {reached && (
+          <Icon
+            icon={`<img src=${getFileUrl(image ?? '')} alt="Wrong Data">`}
+            width="80"
+            height="74"
+          />
+        )}
         {!reached && (
-          <Icon icon={achievementNotReached} width="80" height="74" />
+          <Icon
+            icon={`<img src=${getFileUrl(image ?? '')} alt="Wrong Data">`}
+            width="80"
+            height="74"
+          />
         )}
         {isNext && (
           <ProgressBar
@@ -92,13 +105,13 @@ const UniqueAchievement = ({
       </ImageBlock>
       <div>
         <TitleBlock>
-          <span>{title}</span>
+          <span>{name}</span>
         </TitleBlock>
         <DescriptionBlock>
           {description}
           {!reached && (
             <LimitPhrase>
-              Available {availiableCount} out of {limit}
+              Available {availiableCount} out of {maxCount}
             </LimitPhrase>
           )}
         </DescriptionBlock>
@@ -109,13 +122,13 @@ const UniqueAchievement = ({
 
 UniqueAchievement.propTypes = {
   reached: PropTypes.bool,
-  title: PropTypes.string,
-  limit: PropTypes.number,
+  name: PropTypes.string,
+  maxCount: PropTypes.number,
   isNext: PropTypes.bool,
   lowerValue: PropTypes.number,
   currentValue: PropTypes.number,
   pointsToNext: PropTypes.number,
-  totalAwarded: PropTypes.number,
+  factCount: PropTypes.number,
   description: PropTypes.string,
   locale: PropTypes.string,
 };

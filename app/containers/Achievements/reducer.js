@@ -14,17 +14,24 @@ import {
   USER_ACHIEVEMENTS_LOADING,
   SET_MEMORIZED_ACHIEV_DATA,
   SET_MAX_GROUPS_LOWER_VALUES,
+  GET_ALL_ACHIEVEMENTS,
+  GET_ALL_ACHIEVEMENTS_SUCCESS,
+  GET_ALL_ACHIEVEMENTS_ERROR,
 } from './constants';
+import { allAchievementsQuery } from '../../utils/ethConstants';
 
 export const initialState = fromJS({
   viewProfileAccount: null,
+  allAchievements: [],
   achievements: [],
   projectAchievements: [],
   nextUserAchievements: {},
   userProgressValues: {},
   memorizedAchievData: {},
   maxGroupsLowerValues: {},
+  allAchievementsError: null,
   userAchievementsError: null,
+  allAchievementsLoading: true,
   userAchievementsLoading: true,
 });
 
@@ -32,6 +39,7 @@ function achievementsReducer(state = initialState, action) {
   const {
     type,
     error,
+    allAchievements,
     userAchievements,
     projectAchievements,
     nextUserAchievements,
@@ -43,6 +51,14 @@ function achievementsReducer(state = initialState, action) {
   } = action;
 
   switch (type) {
+    case GET_ALL_ACHIEVEMENTS_SUCCESS:
+      return state
+        .set('allAchievements', allAchievements)
+        .set('userAchievements', userAchievements)
+        .set('userAchievementsLoading', false);
+    case GET_ALL_ACHIEVEMENTS_ERROR:
+      return state.set('allAchievementsError', error);
+
     case GET_USER_ACHIEVEMENTS_SUCCESS:
       return state
         .set('achievements', userAchievements)
@@ -50,7 +66,6 @@ function achievementsReducer(state = initialState, action) {
         .set('nextUserAchievements', nextUserAchievements)
         .set('userProgressValues', userProgressValues)
         .set('userAchievementsLoading', false);
-
     case SET_MEMORIZED_ACHIEV_DATA:
       return state.setIn(
         ['memorizedAchievData', `${viewProfileAccount}`],
