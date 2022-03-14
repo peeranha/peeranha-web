@@ -61,7 +61,6 @@ const UniqueAchievement = ({
   locale,
   image,
 }) => {
-  console.log(reached);
   const availiableCount = maxCount - factCount;
   const getProgress = () => (currentValue / lowerValue) * 100;
 
