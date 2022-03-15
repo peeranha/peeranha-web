@@ -5,7 +5,6 @@ import { translationMessages } from 'i18n';
 
 import { TEXT_SECONDARY } from 'style-constants';
 
-import achievementReached from 'images/achievement_reached.svg?external';
 import achievementNotReached from 'images/achievement_not_reached.svg?external';
 
 import Icon from 'components/Icon';
@@ -16,8 +15,7 @@ import messages from './messages';
 
 import { uniqueRatingRelated } from './constants';
 import { italicFont } from '../../global-styles';
-import { getFileUrl, getIpfsHashFromBytes32, getText } from '../../utils/ipfs';
-import { MediumImageStyled } from '../../components/Img/MediumImage';
+import { getFileUrl } from '../../utils/ipfs';
 
 const ImageBlock = styled.div`
   margin-right: 15px;
@@ -79,11 +77,7 @@ const UniqueAchievement = ({
           />
         )}
         {!reached && (
-          <Icon
-            icon={`<img src=${getFileUrl(image ?? '')} alt="Wrong Data">`}
-            width="80"
-            height="74"
-          />
+          <Icon icon={achievementNotReached} width="80" height="74" />
         )}
         {isNext && (
           <ProgressBar
