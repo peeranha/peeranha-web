@@ -26,19 +26,19 @@ const communitiesConfig = {
     // },
   },
   test: {
-    // 1: {
-    //   origin: 'https://community.testpeeranha.io',
-    // },
-    // 2: {
-    //   origin: 'https://telos.testpeeranha.io',
-    //   src: TelosLogo,
-    //   styles: TelosStyles,
-    // },
-    // 3: {
-    //   origin: 'https://ont.testpeeranha.io',
-    //   src: OntLogo,
-    //   styles: OntStyles,
-    // },
+    1: {
+      origin: 'https://community.testpeeranha.io',
+    },
+    2: {
+      origin: 'https://telos.testpeeranha.io',
+      src: TelosLogo,
+      styles: TelosStyles,
+    },
+    3: {
+      origin: 'https://ont.testpeeranha.io',
+      src: OntLogo,
+      styles: OntStyles,
+    },
     4: {
       origin: 'https://testcommunity.net',
     },
