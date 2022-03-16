@@ -302,7 +302,7 @@ export const editQuestion = async (
 //     data: {
 //       user,
 //       question_id: +id,
-//       title: question.title,
+//       name: question.name,
 //       ipfs_link: ipfsLink,
 //       communityId: question.community.value,
 //       tags: question.tags.map(x => x.id),

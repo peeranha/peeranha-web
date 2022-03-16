@@ -181,7 +181,7 @@ export function* editQuestionWorker({ question, questionId }) {
     // );
     //
     // if (cachedQuestion) {
-    //   cachedQuestion.title = question.title;
+    //   cachedQuestion.name = question.name;
     //   cachedQuestion.tags = question.tags.map(x => x.id);
     //   cachedQuestion.communityId = question.community.id;
     //   cachedQuestion.bounty = question?.bounty;

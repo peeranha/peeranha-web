@@ -5,7 +5,6 @@ import { translationMessages } from 'i18n';
 
 import { TEXT_SECONDARY } from 'style-constants';
 
-import achievementReached from 'images/achievement_reached.svg?external';
 import achievementNotReached from 'images/achievement_not_reached.svg?external';
 
 import Icon from 'components/Icon';
@@ -16,6 +15,7 @@ import messages from './messages';
 
 import { uniqueRatingRelated } from './constants';
 import { italicFont } from '../../global-styles';
+import { getFileUrl } from '../../utils/ipfs';
 
 const ImageBlock = styled.div`
   margin-right: 15px;
@@ -48,18 +48,18 @@ const LimitPhrase = styled.p`
 
 const UniqueAchievement = ({
   reached,
-  limit,
-  totalAwarded,
+  maxCount,
+  factCount,
   lowerValue,
   currentValue,
   isNext,
   pointsToNext,
-  title,
+  name,
   description,
   locale,
+  image,
 }) => {
-  const availiableCount = limit - totalAwarded;
-
+  const availiableCount = maxCount - factCount;
   const getProgress = () => (currentValue / lowerValue) * 100;
 
   const translations = translationMessages[locale]
@@ -69,7 +69,13 @@ const UniqueAchievement = ({
   return (
     <Bage>
       <ImageBlock>
-        {reached && <Icon icon={achievementReached} width="80" height="74" />}
+        {reached && (
+          <Icon
+            icon={`<img src=${getFileUrl(image ?? '')} alt="Wrong Data">`}
+            width="80"
+            height="74"
+          />
+        )}
         {!reached && (
           <Icon icon={achievementNotReached} width="80" height="74" />
         )}
@@ -92,13 +98,13 @@ const UniqueAchievement = ({
       </ImageBlock>
       <div>
         <TitleBlock>
-          <span>{title}</span>
+          <span>{name}</span>
         </TitleBlock>
         <DescriptionBlock>
           {description}
           {!reached && (
             <LimitPhrase>
-              Available {availiableCount} out of {limit}
+              Available {availiableCount} out of {maxCount}
             </LimitPhrase>
           )}
         </DescriptionBlock>
@@ -109,13 +115,13 @@ const UniqueAchievement = ({
 
 UniqueAchievement.propTypes = {
   reached: PropTypes.bool,
-  title: PropTypes.string,
-  limit: PropTypes.number,
+  name: PropTypes.string,
+  maxCount: PropTypes.number,
   isNext: PropTypes.bool,
   lowerValue: PropTypes.number,
   currentValue: PropTypes.number,
   pointsToNext: PropTypes.number,
-  totalAwarded: PropTypes.number,
+  factCount: PropTypes.number,
   description: PropTypes.string,
   locale: PropTypes.string,
 };

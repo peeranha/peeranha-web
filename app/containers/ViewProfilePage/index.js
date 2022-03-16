@@ -79,7 +79,7 @@ const ViewProfilePage = ({
         loginData={loginData}
         questionsLength={profile?.postCount ?? 0}
         questionsWithUserAnswersLength={profile?.answersGiven ?? 0}
-        userAchievementsLength={profile?.achievementsReached?.length ?? null}
+        userAchievementsLength={profile?.achievements?.length ?? null}
         redirectToEditProfilePage={redirectToEditProfilePageDispatch}
       />
 

@@ -26,6 +26,7 @@ import {
   BG_LIGHT,
   BORDER_PRIMARY,
 } from '../../../style-constants';
+import { isGeneralQuestion } from '../../ViewQuestion/saga';
 
 const Box = BaseNoPadding.extend`
   box-shadow: ${({ isExpert, isTutorial }) =>

@@ -42,10 +42,16 @@ const selectMemorizedUserAchievements = userAccount =>
     substate => substate.toJS().memorizedAchievData[userAccount] ?? {},
   );
 
+const selectAllAchievements = () =>
+  createSelector(
+    selectUserAchievementsDomain,
+    substate => substate.toJS().allAchievements,
+  );
+
 const selectUserAchievements = () =>
   createSelector(
     selectUserAchievementsDomain,
-    substate => substate.toJS().achievements,
+    substate => substate.toJS().userAchievements,
   );
 
 const selectAchievementsLoading = () =>
@@ -269,4 +275,5 @@ export {
   getUnreachedAchievements,
   selectMemorizedUserAchievements,
   selectMaxGroupsLowerValues,
+  selectAllAchievements,
 };

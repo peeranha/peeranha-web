@@ -37,6 +37,7 @@ import {
   bestAnswerRelated,
   firstAnswerIn15Related,
   firstAnswerRelated,
+  GET_ALL_ACHIEVEMENTS,
 } from './constants';
 
 import {
@@ -46,6 +47,8 @@ import {
   getUserAchievementsErr,
   setUserAchievementLoading,
   setMaxGroupsLowerValues,
+  getAllAchievementsSuccess,
+  getAllAchievementsError,
 } from './actions';
 
 import {
@@ -53,6 +56,22 @@ import {
   selectMemorizedUserAchievements,
   selectMaxGroupsLowerValues,
 } from './selectors';
+import { getAllAchievements } from '../../utils/theGraph';
+import { selectEthereum } from '../EthereumProvider/selectors';
+
+export function* getAchievementsWorker() {
+  try {
+    const viewProfileAccount = yield select(selectViewProfileAccount());
+    let { allAchievements, userAchievements } = yield call(
+      getAllAchievements,
+      viewProfileAccount,
+    );
+    userAchievements = userAchievements.map(achievement => achievement.id);
+    yield put(getAllAchievementsSuccess(allAchievements, userAchievements));
+  } catch (err) {
+    yield put(getAllAchievementsError(err));
+  }
+}
 
 export const getNextAchievementId = (
   currentValue,
@@ -442,4 +461,5 @@ export function* updateUserAchievementsWorker(
 
 export default function*() {
   yield takeLatest(GET_USER_ACHIEVEMENTS, getUserAchievementsWorker);
+  yield takeLatest(GET_ALL_ACHIEVEMENTS, getAchievementsWorker);
 }

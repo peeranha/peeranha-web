@@ -217,7 +217,11 @@ export const firstAnswerIn15Related = 'firstAnswerIn15Related';
 export const firstAnswerRelated = 'firstAnswerRelated';
 
 // action types
-
+const GET_ALL_ACHIEVEMENTS = 'containers/Achievements/GET_ALL_ACHIEVEMENTS';
+const GET_ALL_ACHIEVEMENTS_SUCCESS =
+  'containers/Achievements/GET_ALL_ACHIEVEMENTS_SUCCESS';
+const GET_ALL_ACHIEVEMENTS_ERROR =
+  'containers/Achievements/GET_ALL_ACHIEVEMENTS_ERROR';
 const GET_USER_ACHIEVEMENTS = 'containers/Achievements/GET_USER_ACHIEVEMENTS';
 const GET_USER_ACHIEVEMENTS_ERROR =
   'containers/Achievements/GET_USER_ACHIEVEMENTS_ERROR';
@@ -235,6 +239,9 @@ const SET_MAX_GROUPS_LOWER_VALUES =
   'containers/Achievements/SET_MAX_GROUPS_LOWER_VALUES';
 
 export {
+  GET_ALL_ACHIEVEMENTS,
+  GET_ALL_ACHIEVEMENTS_SUCCESS,
+  GET_ALL_ACHIEVEMENTS_ERROR,
   GET_USER_ACHIEVEMENTS,
   GET_USER_ACHIEVEMENTS_ERROR,
   GET_USER_ACHIEVEMENTS_SUCCESS,

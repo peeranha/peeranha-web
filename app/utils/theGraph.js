@@ -1,5 +1,6 @@
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 import {
+  allAchievementsQuery,
   allTagsQuery,
   answeredPostsQuery,
   communitiesQuery,
@@ -70,12 +71,14 @@ export const getUsersQuestions = async id => {
 };
 
 export const getUsersAnsweredQuestions = async id => {
-  const answeredPostsIds = await client.query({
-    query: gql(usersAnswersQuery),
-    variables: {
-      id,
-    },
-  })?.data.replies.map(reply => Number(reply.postId));
+  const answeredPostsIds = await client
+    .query({
+      query: gql(usersAnswersQuery),
+      variables: {
+        id,
+      },
+    })
+    ?.data.replies.map(reply => Number(reply.postId));
   const answeredPosts = await client.query({
     query: gql(answeredPostsQuery),
     variables: {
@@ -200,4 +203,17 @@ export const postsForSearch = async text => {
     },
   });
   return posts?.data?.postSearch.filter(post => !post.isDeleted);
+};
+
+export const getAllAchievements = async userId => {
+  const response = await client.query({
+    query: gql(allAchievementsQuery),
+    variables: {
+      userId,
+    },
+  });
+  return {
+    allAchievements: response?.data.achievements,
+    userAchievements: response?.data.user.achievements,
+  };
 };
