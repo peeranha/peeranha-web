@@ -52,11 +52,11 @@ export const tutorials = communityId =>
 
 export const questionView = (id, answerId) =>
   answerId
-    ? `/questions/${id}/#${uniqueAnswerId(answerId)}`
+    ? `/questions/${id}#${uniqueAnswerId(answerId)}`
     : `/questions/${id}`;
 
 export const expertPostView = (id, answerId) =>
-  answerId ? `/experts/${id}/#${uniqueAnswerId(answerId)}` : `/experts/${id}`;
+  answerId ? `/experts/${id}#${uniqueAnswerId(answerId)}` : `/experts/${id}`;
 
 export const tutorialView = id => `/tutorials/${id}`;
 

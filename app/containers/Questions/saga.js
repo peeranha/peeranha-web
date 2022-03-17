@@ -42,7 +42,6 @@ import {
   makeSelectFollowedCommunities,
   makeSelectProfileInfo,
 } from 'containers/AccountProvider/selectors';
-import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
 import {
   getQuestionData,
   isGeneralQuestion,

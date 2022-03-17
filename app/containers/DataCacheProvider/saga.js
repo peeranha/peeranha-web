@@ -105,6 +105,8 @@ export function* getTutorialWorker() {
 export function* getUserProfileWorker({ user, getFullProfile, isLogin }) {
   try {
     const ethereumService = yield select(selectEthereum);
+    const selectedAccount = yield call(ethereumService.getSelectedAccount);
+    isLogin = !isLogin ?? selectedAccount === user;
     const cachedUserInfo = yield select(selectUsers(user));
     const userStats = yield getUserStats(user);
 

@@ -71,18 +71,16 @@ export const getUsersQuestions = async id => {
 };
 
 export const getUsersAnsweredQuestions = async id => {
-  const answeredPostsIds = await client
-    .query({
-      query: gql(usersAnswersQuery),
-      variables: {
-        id,
-      },
-    })
-    ?.data.replies.map(reply => Number(reply.postId));
+  const answeredPostsIds = await client.query({
+    query: gql(usersAnswersQuery),
+    variables: {
+      id,
+    },
+  });
   const answeredPosts = await client.query({
     query: gql(answeredPostsQuery),
     variables: {
-      ids: answeredPostsIds,
+      ids: answeredPostsIds.data.replies.map(reply => Number(reply.postId)),
     },
   });
   return answeredPosts?.data.posts.map(question => {

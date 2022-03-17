@@ -711,7 +711,7 @@ export function* downVoteWorker({
     yield call(isAuthorized);
 
     const isOwnItem =
-      questionData.author === profileInfo.user ||
+      questionData.author.user === profileInfo.user ||
       questionData.answers.find(x => x.id === answerId)?.user ===
         profileInfo.user;
 
@@ -778,7 +778,7 @@ export function* upVoteWorker({
     yield call(isAuthorized);
 
     const isOwnItem =
-      questionData.author === profileInfo.user ||
+      questionData.author.user === profileInfo.user ||
       questionData.answers.find(x => x.id === answerId)?.user ===
         profileInfo.user;
 
