@@ -1,43 +1,43 @@
-import React, { useMemo } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import commonMessages from 'common-messages';
-import { FormattedMessage } from 'react-intl';
-import { createStructuredSelector } from 'reselect';
+import React, { useMemo } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import commonMessages from "common-messages";
+import { FormattedMessage } from "react-intl";
+import { createStructuredSelector } from "reselect";
 
-import { BG_SUCCESS, BUTTON_COLOR, TEXT_PREMIUM } from 'style-constants';
+import { BG_SUCCESS, BUTTON_COLOR, TEXT_PREMIUM } from "style-constants";
 
-import checkIcon from 'images/okayGreen.svg?inline';
-import coinsIcon from 'images/coins.svg?external';
+import checkIcon from "images/okayGreen.svg?inline";
+import coinsIcon from "images/coins.svg?external";
 
 import {
   isSingleCommunityWebsite,
   singleCommunityStyles,
-} from 'utils/communityManagement';
-import { getFormattedDate, dateNowInSeconds } from 'utils/datetime';
-import { MONTH_3LETTERS__DAY_YYYY_TIME, POST_TYPE } from 'utils/constants';
+} from "utils/communityManagement";
+import { getFormattedDate, dateNowInSeconds } from "utils/datetime";
+import { MONTH_3LETTERS__DAY_YYYY_TIME, POST_TYPE } from "utils/constants";
 
-import Base from 'components/Base';
-import H3 from 'components/H3';
-import TagList from 'components/TagsList';
-import QuestionType from 'components/Labels/QuestionType';
-import QuestionCommunity from 'components/QuestionForProfilePage/QuestionCommunity';
-import Button from 'components/Button/Outlined/InfoMedium';
-import { IconMd } from 'components/Icon/IconWithSizes';
-import { Bounty } from './Bounty';
+import Base from "components/Base";
+import H3 from "components/H3";
+import TagList from "components/TagsList";
+import QuestionType from "components/Labels/QuestionType";
+import QuestionCommunity from "components/QuestionForProfilePage/QuestionCommunity";
+import Button from "components/Button/Outlined/InfoMedium";
+import { IconMd } from "components/Icon/IconWithSizes";
+import { Bounty } from "./Bounty";
 
-import { MarkAnswerNotification } from './MarkAsAcceptedIcon';
-import SendTips from '../SendTips';
+import { MarkAnswerNotification } from "./MarkAsAcceptedIcon";
+import SendTips from "../SendTips";
 
-import { BOUNTY_PAID_CLASSNAME } from './constants';
+import { BOUNTY_PAID_CLASSNAME } from "./constants";
 
 import {
   makeSelectAccount,
   makeSelectProfileInfo,
-} from '../AccountProvider/selectors';
+} from "../AccountProvider/selectors";
 
-import messages from './messages';
+import messages from "./messages";
 
 const single = isSingleCommunityWebsite();
 const styles = singleCommunityStyles();
@@ -49,11 +49,11 @@ export const B = Button.extend`
   min-height: 32px;
   transition-property: none;
   width: max-content;
-`.withComponent('span');
+`.withComponent("span");
 
 const QuestionName = H3.extend`
   display: inline;
-`.withComponent('h3');
+`.withComponent("h3");
 
 const Div = styled.div`
   min-width: 140px;
@@ -114,46 +114,34 @@ export const QuestionTitle = ({
     postType,
   } = questionData;
 
-  const isActivePromotion = useMemo(
-    () => {
-      if (
-        promote &&
-        promote.endsTime > dateNowInSeconds() &&
-        account === questionAuthor
-      ) {
-        return true;
-      }
+  const isActivePromotion = useMemo(() => {
+    if (
+      promote &&
+      promote.endsTime > dateNowInSeconds() &&
+      account === questionAuthor
+    ) {
+      return true;
+    }
 
-      return false;
-    },
-    [promote, account, questionAuthor],
-  );
+    return false;
+  }, [promote, account, questionAuthor]);
 
-  const promotedQuestionEndsTime = useMemo(
-    () => {
-      if (typeof promote === 'object') {
-        return getFormattedDate(
-          promote.endsTime,
-          locale,
-          MONTH_3LETTERS__DAY_YYYY_TIME,
-        );
-      }
+  const promotedQuestionEndsTime = useMemo(() => {
+    if (typeof promote === "object") {
+      return getFormattedDate(
+        promote.endsTime,
+        locale,
+        MONTH_3LETTERS__DAY_YYYY_TIME
+      );
+    }
 
-      return null;
-    },
-    [promote],
-  );
+    return null;
+  }, [promote]);
 
   const isItWrittenByMe = profileInfo ? user === profileInfo.user : false;
 
   return title ? (
-    <Base
-      paddingTop="5"
-      paddingTopMedia="5"
-      position="middle"
-      bordered={postType === POST_TYPE.expertPost}
-      withoutBR
-    >
+    <Base paddingTop="5" paddingTopMedia="5" position="middle" withoutBR>
       <Top>
         {((!profileInfo && !isTemporaryAccount) ||
           (!!profileInfo && !isItWrittenByMe && !isTemporaryAccount)) && (
@@ -178,13 +166,6 @@ export const QuestionTitle = ({
             </B>
           </SendTips>
         )}
-
-        {postType === POST_TYPE.expertPost && (
-          <QuestionType size="md" top="0px" topMedia="0px">
-            <FormattedMessage {...messages.expertQuestion} />
-          </QuestionType>
-        )}
-
         {postType === POST_TYPE.tutorial && (
           <QuestionType size="md" top="0px" topMedia="0px">
             <FormattedMessage {...messages.expertQuestion} />
@@ -227,7 +208,7 @@ export const QuestionTitle = ({
         </TagList>
         {isActivePromotion && (
           <PromotionInfo>
-            <FormattedMessage {...messages.questionIsPromoting} />{' '}
+            <FormattedMessage {...messages.questionIsPromoting} />{" "}
             {promotedQuestionEndsTime}
           </PromotionInfo>
         )}
@@ -261,6 +242,6 @@ export default React.memo(
       profileInfo: makeSelectProfileInfo(),
       account: makeSelectAccount(),
     }),
-    null,
-  )(QuestionTitle),
+    null
+  )(QuestionTitle)
 );
