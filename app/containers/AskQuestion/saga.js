@@ -77,6 +77,19 @@ export function* postQuestionWorker({ val }) {
       tags,
       ethereumService,
     );
+    // if (val[FORM_BOUNTY] && Number(val[FORM_BOUNTY]) > 0) {
+    //   const now = Math.round(new Date().valueOf() / 1000);
+    //   const bountyTime = now + questionData.bountyHours * ONE_HOUR_IN_SECONDS;
+    //
+    //   yield call(
+    //     setBounty,
+    //     selectedAccount,
+    //     questionData.bountyFull,
+    //     questionsPostedByUser[0].question_id,
+    //     bountyTime,
+    //     eosService,
+    //   );
+    // }
 
     // yield* setFilecoinPosts(selectedAccount, ethereumService);
 
