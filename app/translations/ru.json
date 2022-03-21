@@ -111,7 +111,7 @@
   "app.common.showLess": "Показать меньше {value}",
   "app.common.poweredByTelos": "Powered by {image}",
   "app.common.poweredByPeeranha": "Powered by {image}",
-  "app.common.termsOfTelos": "Telos Operating Agreement",
+  "app.common.termsOfTelos": "Operating Agreement",
   "app.common.noResults": "Нет результатов",
   "app.common.iAcceptPrivacyPolicy":
     "Я принимаю условия {privacyPolicy}, {termsOfService}, {termsOfTelos}",
@@ -895,7 +895,7 @@
   "app.containers.SignUp.telosBlockchainPowers":
     "Telos блокчейн поддерживает многие децентрализованные приложения, такие как Peeranha, которым управляют члены сообщества по всему миру. Для использования этих приложений требуется Telos блокчейн аккаунт.",
   "app.containers.SignUp.weAreHappyToCover":
-    "Если вы предпочитаете использовать приложение-кошелек для управления своим Telos блокчейн аккаунтом, тогда доступна опция регистрации с помощью кошелька.",
+    "Если вы предпочитаете использовать приложение-кошелек для управления своим блокчейн аккаунтом, тогда доступна опция регистрации с помощью кошелька.",
   "app.containers.SignUp.ifYouLikeToSkip":
     "Новичок в блокчейне? Не волнуйтесь! Вы сможете получить доступ к Peeranha, используя свой адрес электронной почты и пароль, как любой другой веб-сайт.",
   "app.containers.SignUp.or": "или",
