@@ -1,43 +1,43 @@
-import React, { useMemo } from "react";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import styled from "styled-components";
-import commonMessages from "common-messages";
-import { FormattedMessage } from "react-intl";
-import { createStructuredSelector } from "reselect";
+import React, { useMemo } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import commonMessages from 'common-messages';
+import { FormattedMessage } from 'react-intl';
+import { createStructuredSelector } from 'reselect';
 
-import { BG_SUCCESS, BUTTON_COLOR, TEXT_PREMIUM } from "style-constants";
+import { BG_SUCCESS, BUTTON_COLOR, TEXT_PREMIUM } from 'style-constants';
 
-import checkIcon from "images/okayGreen.svg?inline";
-import coinsIcon from "images/coins.svg?external";
+import checkIcon from 'images/okayGreen.svg?inline';
+import coinsIcon from 'images/coins.svg?external';
 
 import {
   isSingleCommunityWebsite,
   singleCommunityStyles,
-} from "utils/communityManagement";
-import { getFormattedDate, dateNowInSeconds } from "utils/datetime";
-import { MONTH_3LETTERS__DAY_YYYY_TIME, POST_TYPE } from "utils/constants";
+} from 'utils/communityManagement';
+import { getFormattedDate, dateNowInSeconds } from 'utils/datetime';
+import { MONTH_3LETTERS__DAY_YYYY_TIME, POST_TYPE } from 'utils/constants';
 
-import Base from "components/Base";
-import H3 from "components/H3";
-import TagList from "components/TagsList";
-import QuestionType from "components/Labels/QuestionType";
-import QuestionCommunity from "components/QuestionForProfilePage/QuestionCommunity";
-import Button from "components/Button/Outlined/InfoMedium";
-import { IconMd } from "components/Icon/IconWithSizes";
-import { Bounty } from "./Bounty";
+import Base from 'components/Base';
+import H3 from 'components/H3';
+import TagList from 'components/TagsList';
+import QuestionType from 'components/Labels/QuestionType';
+import QuestionCommunity from 'components/QuestionForProfilePage/QuestionCommunity';
+import Button from 'components/Button/Outlined/InfoMedium';
+import { IconMd } from 'components/Icon/IconWithSizes';
+import { Bounty } from './Bounty';
 
-import { MarkAnswerNotification } from "./MarkAsAcceptedIcon";
+import { MarkAnswerNotification } from './MarkAsAcceptedIcon';
 import SendTips from "../SendTips";
 
-import { BOUNTY_PAID_CLASSNAME } from "./constants";
+import { BOUNTY_PAID_CLASSNAME } from './constants';
 
 import {
   makeSelectAccount,
   makeSelectProfileInfo,
-} from "../AccountProvider/selectors";
+} from '../AccountProvider/selectors';
 
-import messages from "./messages";
+import messages from './messages';
 
 const single = isSingleCommunityWebsite();
 const styles = singleCommunityStyles();
@@ -53,7 +53,7 @@ export const B = Button.extend`
 
 const QuestionName = H3.extend`
   display: inline;
-`.withComponent("h3");
+`.withComponent('h3');
 
 const Div = styled.div`
   min-width: 140px;
@@ -127,7 +127,7 @@ export const QuestionTitle = ({
   }, [promote, account, questionAuthor]);
 
   const promotedQuestionEndsTime = useMemo(() => {
-    if (typeof promote === "object") {
+    if (typeof promote === 'object') {
       return getFormattedDate(
         promote.endsTime,
         locale,
