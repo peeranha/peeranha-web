@@ -8,6 +8,11 @@ yarn-error.log*
 
 # VisualStudioCode template
 .vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
 
 # Runtime data
 pids
