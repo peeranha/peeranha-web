@@ -6,7 +6,7 @@ import LogoRightMenuRight from './CustomSubHeaderContainers/LogoRightMenuRight';
 import BloggerStyleSubHeader from './CustomSubHeaderContainers/BloggerStyleSubHeader';
 
 const CUSTOM_SUB_HEADER_CONTAINER = {
-  telos_style: <TelosStyleTopNav />,
+  polygonStyle: <TelosStyleTopNav />,
   logo_right__menu_right: <LogoRightMenuRight />,
   blogger_style: <BloggerStyleSubHeader />,
 };
