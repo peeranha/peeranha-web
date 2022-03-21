@@ -778,7 +778,7 @@
   "app.containers.ViewQuestion.markGeneralQuestionAndGetEarn":
     "Отметьте лучший ответ в своем вопросе и получите +1 очко рейтинга\"",
   "app.containers.ViewQuestion.generalQuestion": "Общий вопрос",
-  "app.containers.ViewQuestion.expertQuestion": "Экспертный вопрос",
+  "app.containers.ViewQuestion.expertQuestion": "Туториал",
   "app.containers.ViewQuestion.tutorial": "Туториал",
   "app.containers.ViewQuestion.changeQuestionType": "Изменить тип",
   "app.containers.ViewQuestion.officialAnswer": "Официальный ответ",
