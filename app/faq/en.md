@@ -53,7 +53,7 @@ Two encrypted copies of your keys are sent to Peeranha’s API and saved in our 
 
 When accessing your account, encrypted keys are sent to the application and decrypted inside the application using your password or Master Key.
 
-### Can I sign up with email if I already have a Telos account?
+### Can I sign up with email if I already have an account?
 
 Yes you can. You will need to provide at least your active key for your account. However, we will never transport or store your key unencrypted. The key will be encrypted using your password and Master Key in the application and only after it is encrypted it is sent to our API.
 

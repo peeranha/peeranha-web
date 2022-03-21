@@ -111,7 +111,7 @@
   "app.common.showLess": "Show less {value}",
   "app.common.poweredByTelos": "Powered by {image}",
   "app.common.poweredByPeeranha": "Powered by {image}",
-  "app.common.termsOfTelos": "Telos Operating Agreement",
+  "app.common.termsOfTelos": "Operating Agreement",
   "app.common.noResults": "No results",
   "app.common.iAcceptPrivacyPolicy":
     "I accept {privacyPolicy}, {termsOfService}, {termsOfTelos}",
@@ -438,7 +438,7 @@
   "app.containers.CreateTag.usingTheRightTags":
     "Using the right tags makes it easier for other users to find your questions.",
 
-  "app.containers.EditTag.title": "Edit tag",
+  "app.containers.EditTag.title": "Save",
   "app.containers.EditTag.description": "Edit tag | Description",
 
   "app.containers.Tags.backToList": "Back to list",
@@ -881,7 +881,7 @@
   "app.containers.SignUp.telosBlockchainPowers":
     "Telos blockchain powers many decentralized applications like Peeranha, which is run by community members all around the world. Telos blockchain account is required to use these applications.",
   "app.containers.SignUp.weAreHappyToCover":
-    "If you prefer to use a wallet application to manage your Telos blockchain account, then wallet sign up option is available.",
+    "If you prefer to use a wallet application to manage your blockchain account, then wallet sign up option is available.",
   "app.containers.SignUp.ifYouLikeToSkip":
     "New to blockchain? Do not worry! You will be able to access Peeranha using your email address and password as any other website.",
   "app.containers.SignUp.or": "or",
