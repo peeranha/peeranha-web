@@ -560,7 +560,7 @@
 
   "app.containers.EditCommunity.communityTitleTip": "Название сообщества",
   "app.containers.EditCommunity.description": "Описание EditCommunity",
-  "app.containers.EditCommunity.editCommunity": "Редактировать сообщество",
+  "app.containers.EditCommunity.editCommunity": "Сохранить",
   "app.containers.EditCommunity.header": "Редактировать сообщество",
   "app.containers.EditCommunity.pageTitle": "Сообщество | Редактировать",
 
@@ -1225,3 +1225,4 @@
   "app.containers.TelegramInfo.confirm": "Подтвердить",
   "app.containers.TelegramInfo.unlink": "Удалить зависимость"
 }
+

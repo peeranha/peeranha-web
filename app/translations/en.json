@@ -544,7 +544,7 @@
 
   "app.containers.EditCommunity.communityTitleTip": "Name of the community",
   "app.containers.EditCommunity.description": "Description of EditCommunity",
-  "app.containers.EditCommunity.editCommunity": "Edit community",
+  "app.containers.EditCommunity.editCommunity": "Save",
   "app.containers.EditCommunity.header": "Edit community",
   "app.containers.EditCommunity.pageTitle": "Community | Edit",
 
