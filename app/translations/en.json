@@ -1210,6 +1210,5 @@
   "app.containers.Achievements.separators.firstAnswerRelated": "First answers",
 
   "app.containers.TelegramInfo.confirm": "Confirm",
-  "app.containers.TelegramInfo.unlink": "Unlink",
-  "app.containers.TelegramInfo.s": "se"
+  "app.containers.TelegramInfo.unlink": "Unlink"
 }

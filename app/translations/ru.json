@@ -1223,7 +1223,6 @@
   "app.containers.Achievements.separators.firstAnswerRelated": "Первые ответы",
 
   "app.containers.TelegramInfo.confirm": "Подтвердить",
-  "app.containers.TelegramInfo.unlink": "Удалить зависимость",
-  "app.containers.TelegramInfo.s": "s"
+  "app.containers.TelegramInfo.unlink": "Удалить зависимость"
 }
 
