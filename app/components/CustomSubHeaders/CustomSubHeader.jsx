@@ -76,7 +76,7 @@ export const LocalLink = styled.a`
     display: ${({ device }) => (device === 'mobile' ? 'none' : '')};
   }
 
-  transition: color 170ms ease-in-out;
+  transition: all 170ms ease-in-out;
 
   @media (max-width: 992px) {
     margin-left: 0;
@@ -124,7 +124,7 @@ const SubitemsTitleButton = styled.span`
     opacity: 0.6;
   }
 
-  transition: color 170ms ease-in-out;
+  transition: all 170ms ease-in-out;
 
   > span {
     padding: 0;
@@ -154,7 +154,7 @@ const SubitemsTitle = styled.span`
     opacity: 0.6;
   }
 
-  transition: color 170ms ease-in-out;
+  transition: all 170ms ease-in-out;
 
   > span {
     padding: 0;
@@ -325,7 +325,9 @@ export const B = ({
       ) : (
         <>
           <SubitemsTitle>
-            <span>{text}</span>
+            <span css={isHighlighted ? `${styles.Highlighted}` : ''}>
+              {text}
+            </span>
             {isDropdownMenuArrow && (
               <Arrow className="mt-auto mb-auto" color="small" />
             )}

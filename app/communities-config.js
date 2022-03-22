@@ -1,4 +1,5 @@
 import OntLogo from './communities-configs/ont/images/ont.svg?inline';
+import FileiconLogo from './communities-configs/filecoin/images/filecoin-logo.svg?inline';
 import TelosLogo from './communities-configs/telos/images/telos-logo-dark.svg?inline';
 import KandaLogo from './communities-configs/kanda/images/kanda.jpg';
 
@@ -6,7 +7,7 @@ import { TelosStyles } from './communities-configs/telos';
 import { OntStyles } from './communities-configs/ont';
 import { KandaStyles } from './communities-configs/kanda';
 import { BloggerStyles } from './communities-configs/blogger';
-
+import { FilecoinStyles } from './communities-configs/filecoin';
 const communitiesConfig = {
   prod: {
     // 2: {
@@ -59,6 +60,8 @@ const communitiesConfig = {
   dev: {
     3: {
       origin: 'http://localhost:31000',
+      src: FileiconLogo,
+      styles: FilecoinStyles,
     },
   },
 };
