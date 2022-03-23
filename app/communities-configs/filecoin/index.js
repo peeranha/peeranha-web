@@ -42,10 +42,10 @@ export const CustomSubHeaderConfig = {
     },
     subHeader: `
       border-bottom: 1px solid #CECECE;
-      a {
+      a, span {
         transition: all .3s ease-out;
       }
-      a:hover {
+      a:hover, span:hover {
         color: ${colors.selectedMenuItemText}!important;
         opacity: 1!important;
       }
