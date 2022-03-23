@@ -111,10 +111,10 @@
   "app.common.showLess": "Show less {value}",
   "app.common.poweredByTelos": "Powered by {image}",
   "app.common.poweredByPeeranha": "Powered by {image}",
-  "app.common.termsOfTelos": "Operating Agreement",
+  "app.common.terms": "Operating Agreement",
   "app.common.noResults": "No results",
   "app.common.iAcceptPrivacyPolicy":
-    "I accept {privacyPolicy}, {termsOfService}, {termsOfTelos}",
+    "I accept {privacyPolicy}, {termsOfService}, {terms}",
   "app.common.inProgress": "In progress",
   "app.common.loginViaWallet": "Login via wallet",
   "app.common.loginViaService": "Login via service",

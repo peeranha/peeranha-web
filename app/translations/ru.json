@@ -111,10 +111,10 @@
   "app.common.showLess": "Показать меньше {value}",
   "app.common.poweredByTelos": "Powered by {image}",
   "app.common.poweredByPeeranha": "Powered by {image}",
-  "app.common.termsOfTelos": "Operating Agreement",
+  "app.common.terms": "Operating Agreement",
   "app.common.noResults": "Нет результатов",
   "app.common.iAcceptPrivacyPolicy":
-    "Я принимаю условия {privacyPolicy}, {termsOfService}, {termsOfTelos}",
+    "Я принимаю условия {privacyPolicy}, {termsOfService}, {terms}",
   "app.common.inProgress": "Выполняется",
   "app.common.loginViaWallet": "Войти через кошелек",
   "app.common.loginViaService": "Войти через сервис",
