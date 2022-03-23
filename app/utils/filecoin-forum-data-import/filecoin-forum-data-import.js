@@ -13,8 +13,9 @@ async function importFilecoinForumData() {
     uri: 'https://api.github.com/graphql',
     fetch: fetch,
   });
+
   const authLink = setContext((_, { headers }) => {
-    const token = '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';
+    const token = 'github_personal_access_token';
 
     return {
       headers: {
@@ -23,6 +24,7 @@ async function importFilecoinForumData() {
       },
     };
   });
+
   const client = new ApolloClient({
     link: authLink.concat(httpLink),
     cache: new InMemoryCache(),
@@ -43,6 +45,7 @@ async function importFilecoinForumData() {
     }
   }
   `;
+
   const filecoinDiscussionsQuery = `
   query($id: ID!) {
     repository(owner: "filecoin-project", name: "community") {
@@ -88,6 +91,7 @@ async function importFilecoinForumData() {
       }
     });
   };
+
   const getDiscussionCategories = async () => {
     const categoriesData = await client.query({
       query: gql(filecoinDiscussionsCategoriesQuery),
@@ -101,9 +105,11 @@ async function importFilecoinForumData() {
       }),
     );
   };
+
   const saveDiscussionCategories = discussionCategories => {
     writeDataToFile('filecoinCategories.json', discussionCategories);
   };
+
   const getDiscussionsByCategory = async categoryId => {
     const forumData = await client.query({
       query: gql(filecoinDiscussionsQuery),
@@ -114,6 +120,7 @@ async function importFilecoinForumData() {
 
     return forumData.data.repository.discussions.edges;
   };
+
   const getAllDiscussions = async discussionCategories => {
     const categoriesIds = discussionCategories.map(
       DiscussionCategory => DiscussionCategory.id,
@@ -129,6 +136,7 @@ async function importFilecoinForumData() {
 
     return discussions;
   };
+
   const saveAllDiscussions = discussions => {
     const dataForDiscussionsFile = discussions.map(discussion => ({
       id: discussion.node.number,
@@ -150,6 +158,7 @@ async function importFilecoinForumData() {
 
     writeDataToFile('filecoinDiscussions.json', dataForDiscussionsFile);
   };
+
   const saveAllAnswers = discussions => {
     const dataForAnswersFile = discussions
       .map(discussion =>
@@ -165,6 +174,7 @@ async function importFilecoinForumData() {
 
     writeDataToFile('filecoinAnswers.json', dataForAnswersFile);
   };
+
   const saveAllUsers = discussions => {
     const allUsersFromQuestions = discussions.map(discussion => ({
       name: discussion.node.author?.login,
@@ -193,10 +203,15 @@ async function importFilecoinForumData() {
   };
 
   const discussionCategories = await getDiscussionCategories();
+
   saveDiscussionCategories(discussionCategories);
+
   const allDiscussions = await getAllDiscussions(discussionCategories);
+
   saveAllDiscussions(allDiscussions);
+
   saveAllAnswers(allDiscussions);
+
   saveAllUsers(allDiscussions);
 }
 
