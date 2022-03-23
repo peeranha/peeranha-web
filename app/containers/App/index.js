@@ -87,7 +87,6 @@ import { REFERRAL_CODE_URI } from './constants';
 import { AUTOLOGIN_DATA } from '../Login/constants';
 import { redirectToFeed } from './actions';
 import { expertPostView, tutorialView } from 'routes-config';
-import { getFilecoinForumData } from 'utils/filecoin-forum-data-import/filecoin-forum-data-import';
 
 const single = isSingleCommunityWebsite();
 
@@ -115,8 +114,6 @@ const App = ({
         });
       }
     }
-
-    // getFilecoinForumData();
 
     const loginData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
     if (loginData && !single && pathname === '/' && hash !== '#allquestions') {

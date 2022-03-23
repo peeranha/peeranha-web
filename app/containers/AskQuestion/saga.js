@@ -45,7 +45,6 @@ import {
 } from './constants';
 import { selectEthereum } from '../EthereumProvider/selectors';
 import { selectCommunities } from '../DataCacheProvider/selectors';
-import { setFilecoinPosts } from 'utils/filecoin-forum-data-import/filecoin-forum-data-import';
 
 export function* postQuestionWorker({ val }) {
   try {
@@ -90,8 +89,6 @@ export function* postQuestionWorker({ val }) {
     //     eosService,
     //   );
     // }
-
-    // yield* setFilecoinPosts(selectedAccount, ethereumService);
 
     // if (promoteValue) {
     //   yield call(promoteQuestion, eosService, selectedAccount, que stionsPostedByUser[0].question_id, promoteValue);
