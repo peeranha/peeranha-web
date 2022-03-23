@@ -3,7 +3,7 @@
   "app.common.copyrightPeeranha": "©{year} Peeranha",
   "app.common.profile": "Профиль",
   "app.common.myCommunities": "Мои сообщества",
-  "app.common.questions": "Вопросы",
+  "app.common.questions": "Посты",
   "app.common.discussions": "Обсуждения",
   "app.common.expertPosts": "Экспертные Q&A",
   "app.common.answers": "Ответы",
@@ -449,8 +449,8 @@
   "app.containers.CreateTag.usingTheRightTags":
     "Использование верных тегов позволяет другим пользователям быстрее найти и ответить на Ваш вопрос.",
 
-  "app.containers.EditTag.title": "Редактировать тег",
-  "app.containers.EditTag.description": "Редактировать тег | Описание",
+  "app.containers.EditTag.title": "Сохранить тег",
+  "app.containers.EditTag.description": "Сохранить тег | Описание",
 
   "app.containers.Tags.backToList": "Вернуться к списку",
 
@@ -560,7 +560,7 @@
 
   "app.containers.EditCommunity.communityTitleTip": "Название сообщества",
   "app.containers.EditCommunity.description": "Описание EditCommunity",
-  "app.containers.EditCommunity.editCommunity": "Редактировать сообщество",
+  "app.containers.EditCommunity.editCommunity": "Сохранить",
   "app.containers.EditCommunity.header": "Редактировать сообщество",
   "app.containers.EditCommunity.pageTitle": "Сообщество | Редактировать",
 
@@ -1224,3 +1224,4 @@
   "app.containers.TelegramInfo.confirm": "Подтвердить",
   "app.containers.TelegramInfo.unlink": "Удалить зависимость"
 }
+

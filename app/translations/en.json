@@ -3,7 +3,7 @@
   "app.common.copyrightPeeranha": "©{year} Peeranha",
   "app.common.profile": "Profile",
   "app.common.myCommunities": "My communities",
-  "app.common.questions": "Questions",
+  "app.common.questions": "Posts",
   "app.common.discussions": "Discussions",
   "app.common.expertPosts": "Expert Q&A",
   "app.common.answers": "Answers",
@@ -438,8 +438,8 @@
   "app.containers.CreateTag.usingTheRightTags":
     "Using the right tags makes it easier for other users to find your questions.",
 
-  "app.containers.EditTag.title": "Edit tag",
-  "app.containers.EditTag.description": "Edit tag | Description",
+  "app.containers.EditTag.title": "Save",
+  "app.containers.EditTag.description": "Save | Description",
 
   "app.containers.Tags.backToList": "Back to list",
   "app.containers.Tags.didntFindSuitableTag": "Did not find suitable tags?",
@@ -544,7 +544,7 @@
 
   "app.containers.EditCommunity.communityTitleTip": "Name of the community",
   "app.containers.EditCommunity.description": "Description of EditCommunity",
-  "app.containers.EditCommunity.editCommunity": "Edit community",
+  "app.containers.EditCommunity.editCommunity": "Save",
   "app.containers.EditCommunity.header": "Edit community",
   "app.containers.EditCommunity.pageTitle": "Community | Edit",
 
