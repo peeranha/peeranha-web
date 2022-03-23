@@ -86,7 +86,7 @@ export const CustomSubHeaderConfig = {
         z-index: 9999;
       }
 
-      > div:last-child::after {
+      /*> div:last-child::after {
         content: "These explorers were built by community members and may have inaccuracies";
         font-weight: lighter;
         font-style: italic;
@@ -96,7 +96,7 @@ export const CustomSubHeaderConfig = {
         white-space: normal;
         margin-top: 10px;
         line-height: 1.4;
-      }
+      }*/
 
       @media only screen and (max-width: 991px) {
         a {
@@ -168,6 +168,7 @@ export const CustomSubHeaderConfig = {
         height: 100%;
       }
     `,
+
     Highlighted: `
       color: #000000 !important;
       border: solid 1px rgba(0,0,0,.15);
@@ -187,6 +188,36 @@ export const CustomSubHeaderConfig = {
     {
       text: 'Build',
       href: `${domainName}/build/`,
+      subitems: [
+        {
+          text: "Docs",
+          href: `${domainName}/build/#benefits-banner`
+        },
+        {
+          text: "Tools & services",
+          href: `${domainName}/build/#tools-and-more`
+        },
+        {
+          text: "Grants",
+          href: `${domainName}/build/#grants`
+        },
+        {
+          text: "Roadmap",
+          href: `${domainName}/build/#usp`
+        },
+        {
+          text: "Videos",
+          href: `${domainName}/build/#videos`
+        },
+        {
+          text: "Filecoin Community",
+          href: `${domainName}/build/#community`
+        },
+        {
+          text: "Events",
+          href: `${domainName}/build/#events`
+        },
+      ]
     },
     {
       text: 'Blog',
