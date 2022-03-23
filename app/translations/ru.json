@@ -449,8 +449,8 @@
   "app.containers.CreateTag.usingTheRightTags":
     "Использование верных тегов позволяет другим пользователям быстрее найти и ответить на Ваш вопрос.",
 
-  "app.containers.EditTag.title": "Редактировать тег",
-  "app.containers.EditTag.description": "Редактировать тег | Описание",
+  "app.containers.EditTag.title": "Сохранить тег",
+  "app.containers.EditTag.description": "Сохранить тег | Описание",
 
   "app.containers.Tags.backToList": "Вернуться к списку",
 
