@@ -181,13 +181,13 @@ export const QuestionTitle = ({
 
         {postType === POST_TYPE.expertPost && (
           <QuestionType size="md" top="0px" topMedia="0px">
-            <FormattedMessage {...messages.expertQuestion} />
+            <FormattedMessage {...messages.tutorial} />
           </QuestionType>
         )}
 
         {postType === POST_TYPE.tutorial && (
           <QuestionType size="md" top="0px" topMedia="0px">
-            <FormattedMessage {...messages.expertQuestion} />
+            <FormattedMessage {...messages.tutorial} />
           </QuestionType>
         )}
       </Top>
