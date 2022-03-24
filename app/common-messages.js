@@ -351,8 +351,8 @@ export default defineMessages({
   iAcceptPrivacyPolicy: {
     id: 'app.common.iAcceptPrivacyPolicy',
   },
-  termsOfTelos: {
-    id: 'app.common.termsOfTelos',
+  terms: {
+    id: 'app.common.terms',
   },
   inProgress: {
     id: 'app.common.inProgress',

@@ -28,7 +28,7 @@ import { IconMd } from 'components/Icon/IconWithSizes';
 import { Bounty } from './Bounty';
 
 import { MarkAnswerNotification } from './MarkAsAcceptedIcon';
-import SendTips from '../SendTips';
+import SendTips from "../SendTips";
 
 import { BOUNTY_PAID_CLASSNAME } from './constants';
 
@@ -49,7 +49,7 @@ export const B = Button.extend`
   min-height: 32px;
   transition-property: none;
   width: max-content;
-`.withComponent('span');
+`.withComponent("span");
 
 const QuestionName = H3.extend`
   display: inline;
@@ -114,46 +114,34 @@ export const QuestionTitle = ({
     postType,
   } = questionData;
 
-  const isActivePromotion = useMemo(
-    () => {
-      if (
-        promote &&
-        promote.endsTime > dateNowInSeconds() &&
-        account === questionAuthor
-      ) {
-        return true;
-      }
+  const isActivePromotion = useMemo(() => {
+    if (
+      promote &&
+      promote.endsTime > dateNowInSeconds() &&
+      account === questionAuthor
+    ) {
+      return true;
+    }
 
-      return false;
-    },
-    [promote, account, questionAuthor],
-  );
+    return false;
+  }, [promote, account, questionAuthor]);
 
-  const promotedQuestionEndsTime = useMemo(
-    () => {
-      if (typeof promote === 'object') {
-        return getFormattedDate(
-          promote.endsTime,
-          locale,
-          MONTH_3LETTERS__DAY_YYYY_TIME,
-        );
-      }
+  const promotedQuestionEndsTime = useMemo(() => {
+    if (typeof promote === 'object') {
+      return getFormattedDate(
+        promote.endsTime,
+        locale,
+        MONTH_3LETTERS__DAY_YYYY_TIME
+      );
+    }
 
-      return null;
-    },
-    [promote],
-  );
+    return null;
+  }, [promote]);
 
   const isItWrittenByMe = profileInfo ? user === profileInfo.user : false;
 
   return title ? (
-    <Base
-      paddingTop="5"
-      paddingTopMedia="5"
-      position="middle"
-      bordered={postType === POST_TYPE.expertPost}
-      withoutBR
-    >
+    <Base paddingTop="5" paddingTopMedia="5" position="middle" withoutBR>
       <Top>
         {((!profileInfo && !isTemporaryAccount) ||
           (!!profileInfo && !isItWrittenByMe && !isTemporaryAccount)) && (
@@ -178,16 +166,16 @@ export const QuestionTitle = ({
             </B>
           </SendTips>
         )}
-
+        
         {postType === POST_TYPE.expertPost && (
           <QuestionType size="md" top="0px" topMedia="0px">
-            <FormattedMessage {...messages.expertQuestion} />
+            <FormattedMessage {...messages.tutorial} />
           </QuestionType>
         )}
-
+        
         {postType === POST_TYPE.tutorial && (
           <QuestionType size="md" top="0px" topMedia="0px">
-            <FormattedMessage {...messages.expertQuestion} />
+            <FormattedMessage {...messages.tutorial} />
           </QuestionType>
         )}
       </Top>
@@ -227,7 +215,7 @@ export const QuestionTitle = ({
         </TagList>
         {isActivePromotion && (
           <PromotionInfo>
-            <FormattedMessage {...messages.questionIsPromoting} />{' '}
+            <FormattedMessage {...messages.questionIsPromoting} />{" "}
             {promotedQuestionEndsTime}
           </PromotionInfo>
         )}
@@ -261,6 +249,6 @@ export default React.memo(
       profileInfo: makeSelectProfileInfo(),
       account: makeSelectAccount(),
     }),
-    null,
-  )(QuestionTitle),
+    null
+  )(QuestionTitle)
 );

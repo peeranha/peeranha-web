@@ -3,7 +3,7 @@
   "app.common.copyrightPeeranha": "©{year} Peeranha",
   "app.common.profile": "Profile",
   "app.common.myCommunities": "My communities",
-  "app.common.questions": "Questions",
+  "app.common.questions": "Posts",
   "app.common.discussions": "Discussions",
   "app.common.expertPosts": "Expert Q&A",
   "app.common.answers": "Answers",
@@ -111,10 +111,10 @@
   "app.common.showLess": "Show less {value}",
   "app.common.poweredByTelos": "Powered by {image}",
   "app.common.poweredByPeeranha": "Powered by {image}",
-  "app.common.termsOfTelos": "Telos Operating Agreement",
+  "app.common.terms": "Operating Agreement",
   "app.common.noResults": "No results",
   "app.common.iAcceptPrivacyPolicy":
-    "I accept {privacyPolicy}, {termsOfService}, {termsOfTelos}",
+    "I accept {privacyPolicy}, {termsOfService}, {terms}",
   "app.common.inProgress": "In progress",
   "app.common.loginViaWallet": "Login via wallet",
   "app.common.loginViaService": "Login via service",
@@ -438,8 +438,8 @@
   "app.containers.CreateTag.usingTheRightTags":
     "Using the right tags makes it easier for other users to find your questions.",
 
-  "app.containers.EditTag.title": "Edit tag",
-  "app.containers.EditTag.description": "Edit tag | Description",
+  "app.containers.EditTag.title": "Save",
+  "app.containers.EditTag.description": "Save | Description",
 
   "app.containers.Tags.backToList": "Back to list",
   "app.containers.Tags.didntFindSuitableTag": "Did not find suitable tags?",
@@ -765,7 +765,6 @@
     "Mark the best answer to this question and earn +2 reputation points",
   "app.containers.ViewQuestion.markGeneralQuestionAndGetEarn":
     "Mark the best answer to this question and earn +1 reputation point",
-  "app.containers.ViewQuestion.expertQuestion": "Expert question",
   "app.containers.ViewQuestion.tutorial": "Tutorial",
   "app.containers.ViewQuestion.changeQuestionType": "Change type",
   "app.containers.ViewQuestion.officialAnswer": "Official answer",
@@ -881,7 +880,7 @@
   "app.containers.SignUp.telosBlockchainPowers":
     "Telos blockchain powers many decentralized applications like Peeranha, which is run by community members all around the world. Telos blockchain account is required to use these applications.",
   "app.containers.SignUp.weAreHappyToCover":
-    "If you prefer to use a wallet application to manage your Telos blockchain account, then wallet sign up option is available.",
+    "If you prefer to use a wallet application to manage your blockchain account, then wallet sign up option is available.",
   "app.containers.SignUp.ifYouLikeToSkip":
     "New to blockchain? Do not worry! You will be able to access Peeranha using your email address and password as any other website.",
   "app.containers.SignUp.or": "or",
