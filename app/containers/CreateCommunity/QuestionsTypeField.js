@@ -59,7 +59,7 @@ const Button = B.extend`
     ${x =>
       +x.currentValue === +x.value
         ? `${BORDER_PRIMARY} !important`
-        : BORDER_SECONDARY}};
+        : BORDER_SECONDARY};
 
   box-shadow: ${x =>
     +x.currentValue === +x.value
