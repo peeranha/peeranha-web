@@ -7,31 +7,32 @@ import {
   singleCommunityStyles,
 } from 'utils/communityManagement';
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
-import polygonPoSLogo from '../../../communities-configs/polygon/images/polygon-pos.svg?inline';
-import polygonEdgeLogo from '../../../communities-configs/polygon/images/polygon-edge.svg?inline';
-import polygonAvailLogo from '../../../communities-configs/polygon/images/polygon-avail.svg?inline';
-import polygonZeloLogo from '../../../communities-configs/polygon/images/polygon-zero.svg?inline';
-import polygonMidenLogo from '../../../communities-configs/polygon/images/polygon-miden.svg?inline';
-import polygonHermezLogo from '../../../communities-configs/polygon/images/polygon-hermez.svg?inline';
-import polygonNightfallLogo from '../../../communities-configs/polygon/images/polygon-nightfall.svg?inline';
-import { LocalLink, Subitems } from '../CustomSubHeader';
+import polygonPoSLogo from 'communities-configs/polygon/images/polygon-pos.svg?inline';
+import polygonEdgeLogo from 'communities-configs/polygon/images/polygon-edge.svg?inline';
+import polygonAvailLogo from 'communities-configs/polygon/images/polygon-avail.svg?inline';
+import polygonZeloLogo from 'communities-configs/polygon/images/polygon-zero.svg?inline';
+import polygonMidenLogo from 'communities-configs/polygon/images/polygon-miden.svg?inline';
+import polygonHermezLogo from 'communities-configs/polygon/images/polygon-hermez.svg?inline';
+import polygonNightfallLogo from 'communities-configs/polygon/images/polygon-nightfall.svg?inline';
+import { LocalLink, Subitems } from 'components/CustomSubHeaders/CustomSubHeader';
+
 const logosSVG = {
-  'polygonPoS': polygonPoSLogo,
-  'polygonEdge': polygonEdgeLogo,
-  'polygonAvail': polygonAvailLogo,
-  'polygonZero': polygonZeloLogo,
-  'polygonMiden': polygonMidenLogo,
-  'polygonHermez': polygonHermezLogo,
-  'polygonNightfall': polygonNightfallLogo,
-}
+  polygonPoS: polygonPoSLogo,
+  polygonEdge: polygonEdgeLogo,
+  polygonAvail: polygonAvailLogo,
+  polygonZero: polygonZeloLogo,
+  polygonMiden: polygonMidenLogo,
+  polygonHermez: polygonHermezLogo,
+  polygonNightfall: polygonNightfallLogo,
+};
+
 const Container = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
-  padding: 0 2.5rem;
-  margin: 0px 2rem;
 }
 `;
+
 const SubHeaderNav = styled.div`
   display: flex;
   justify-content: flex-center;
@@ -40,8 +41,7 @@ const SubHeaderNav = styled.div`
     display: flex;
     align-items: center;
     > div {
-      padding: 0px 2rem;
-      padding-left: 0px;
+      padding: 0px 1rem 0px 0px;
       opacity: 1;
       a, span{
         line-height: 1.25;
@@ -69,7 +69,7 @@ const SubHeaderNavButtons = styled.div`
       line-height: 1.25;
     }
     > div:hover {
-      a{
+      a {
         opacity: 1;
         color: #ffffff;
         border-color: rgba(100,51,185,1);
@@ -78,6 +78,7 @@ const SubHeaderNavButtons = styled.div`
     }
   }
 `;
+
 const SubHeaderLogo = styled.a`
   display: flex;
   justify-content: flex-center;
@@ -86,6 +87,7 @@ const SubHeaderLogo = styled.a`
     height: auto;
   }
 `;
+
 const NavItem = styled.div`
   position: relative;
   z-index: 9999;
@@ -99,6 +101,7 @@ const NavItem = styled.div`
     }
   }
 `;
+
 const Links = ({ links, styles }) => (
   <div>
     {links.map(({ text, href, isHighlighted, subitems, target }) => (
@@ -126,10 +129,10 @@ const Links = ({ links, styles }) => (
                   target={item.target || '_blank'}
                 >
                   <img src={logosSVG[item.logo]}/>
-                  <a>
+                  <div>
                     <h5>{item.text} <span>{item.mode}</span></h5>
-                    <span>{item.description}</span>
-                  </a>
+                    <p>{item.description}</p>
+                  </div>
                 </LocalLink>
               ))}
             </div>

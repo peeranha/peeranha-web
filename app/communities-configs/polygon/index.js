@@ -3,16 +3,11 @@ import { css } from 'styled-components';
 import CustomSubHeader from 'components/CustomSubHeaders/CustomSubHeader';
 import CustomMobileSubHeader from 'components/CustomSubHeaders/CustomMobileSubHeader';
 import favicon from '!file-loader?name=[name].[ext]!images/favicon-telos.ico';
-import polygonLogo from './images/polygon-logo.svg?inline';
-import verdanaRegularTTF from './fonts/verdana.ttf';
-import peeranhaPoS from './images/polygon-pos.svg?inline';
-import {
-  domainName,
-  domainDocs,
-  domainBlog,
-} from './urls';
+import polygonLogo from 'communities-configs/polygon/images/polygon-logo.svg?inline';
+import verdanaRegularTTF from 'communities-configs/polygon/fonts/verdana.ttf';
+import { domainName, domainDocs, domainBlog } from 'communities-configs/polygon/urls';
+
 const fonts = 'Verdana-Regular, Arial, sans-serif';
-const logot = <img src={peeranhaPoS}/>
 const links = [
   {
     text: 'Scaling Solutions',
@@ -90,6 +85,7 @@ const links = [
     isHighlighted: true,
   },
 ];
+
 export const customSubHeaderConfig = {
   design: 'polygonStyle',
   styles: {
@@ -109,7 +105,7 @@ export const customSubHeaderConfig = {
     },
     CustomSubHeader: css`
       padding: 20px 0;
-      background: '#ffffff';
+      background: #ffffff;
       font-weight: 500;
       letter-spacing: 0.5px;
       border-bottom: 1px solid #ded6ef;
@@ -128,7 +124,7 @@ export const customSubHeaderConfig = {
       border-radius: 300px;
     `,
     subitems: css`
-      width: 820px;
+      width: 720px;
       height: 312;
       padding: 0;
       border: none !important;
@@ -151,20 +147,29 @@ export const customSubHeaderConfig = {
         border-top: 2px solid #7b3fe4;
         margin-top: 20px;
         padding: 1rem 2rem;
-        display: grid;
-        grid-auto-flow: column;
-        grid-template-rows: repeat(4, auto);
+        display: flex;
+        flex-flow: row wrap;
+        white-space: normal;
         a {
           display: flex;
+          max-width: 49%;
+          width: 49%;
+          word-break: normal;
+          white-space: normal;
           text-align: left;
           padding: 1rem;
           color: #0a0a0d !important;
           line-height: 1.25;
           border-radius: 0.5rem !important;
-          a {
+          div {
             display: block;
             padding: 0px;
             margin-left: 0.75rem;
+            width: 100%;
+            max-width: 100%;
+            margin-top: 0px;
+            border: none;
+            background: none;
             h5 {
               font-size: 1rem;
               font-weight: 400;
@@ -174,9 +179,10 @@ export const customSubHeaderConfig = {
                 color: #f8943a !important;
               }
             }
-            span {
+            p {
               color: #52525d !important;
-              font-size: .875rem;
+              font-size: 0.875rem;
+              opacity: 0.9;
               font-weight: 400;
               line-height: 1.4;
             }
@@ -191,17 +197,30 @@ export const customSubHeaderConfig = {
           background-color: #eeeef2;
         }
       }
-      }
       @media only screen and (max-width: 991px) {
         left: 5px;
         top: -5px;
         padding: 0 !important;
         background: transparent !important;
+        ::before {
+          border: none;
+        }
+        div {
+          border-top: none;
+          margin-top: 10px;
+          padding: 0;
+          opacity: 0.9;
+          a {
+            max-width: 45%;
+            width: 45%;
+          }
+        }
       }
     `,
   },
   links: links,
 };
+
 export const PolygonStyles = {
   withoutCopyright: true,
   withoutSubHeader: true,
