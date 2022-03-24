@@ -56,7 +56,7 @@ export const CustomSubHeaderConfig = {
       /*transform:translate(-50%, -5%)!important;*/
       padding: 25px 30px !important;
       border-radius: 3px!important;
-      min-width: 100%!important;
+      min-width: 100% !important;
       transform:translate(-50%, -5%)!important;
 
       animation: ani .3s both;
