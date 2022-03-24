@@ -27,18 +27,6 @@ const TypeForm = ({
 }) => {
   const onChange = useCallback((val) => change(null, val[0]), []);
 
-  // const [descriptionListLabel, descriptionListItems] = useMemo(
-  //   () => [
-  //     +formValues[FORM_TYPE]
-  //       ? messages.generalQuestionDescriptionLabel.id
-  //       : messages.expertQuestionDescriptionLabel.id,
-  //     +formValues[FORM_TYPE]
-  //       ? messages.generalQuestionDescriptionList.id
-  //       : messages.expertQuestionDescriptionList.id,
-  //   ],
-  //   [formValues],
-  // );
-
   const labelConditional = (n) => {
     if (n === "1") return messages.generalQuestionDescriptionLabel.id;
     if (n === "0") return messages.expertQuestionDescriptionLabel.id;
