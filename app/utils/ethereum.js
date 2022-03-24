@@ -17,6 +17,7 @@ import {
   GET_TAGS,
   GET_USER_BY_ADDRESS,
   GET_USER_PERMISSIONS,
+  GET_USER_RATING,
 } from './ethConstants';
 import { getFileUrl, getText } from './ipfs';
 
@@ -225,6 +226,10 @@ class EthereumService {
       communities.push(await this.getCommunityFromContract(i));
     }
     return communities;
+  };
+
+  getUserRating = async (user, communityId) => {
+    return await this.contract[GET_USER_RATING](user, communityId);
   };
 }
 

@@ -45,7 +45,7 @@ export const getUser = async id => {
       id,
     },
   });
-  return user?.data.user;
+  return [{ ...user?.data.user }, [...user?.data.communities]];
 };
 
 export const getUserStats = async id => {
@@ -55,7 +55,7 @@ export const getUserStats = async id => {
       id,
     },
   });
-  return userStats?.data.user;
+  return [userStats?.data.user, userStats?.data.communities];
 };
 
 export const getUsersQuestions = async id => {

@@ -19,7 +19,7 @@ import {
   NOTIFICATIONS_INFO_SERVICE,
 } from './web_integration/src/util/aws-connector';
 import { UPDATE_ACC } from './ethConstants';
-import { getUser, getUsersQuestions, getUserStats } from './theGraph';
+import { getUser, getUserStats } from './theGraph';
 
 export function getUserAvatar(avatarHash, userId, account) {
   if (avatarHash && avatarHash !== NO_AVATAR) {
@@ -57,13 +57,29 @@ export async function getProfileInfo(
   if (!user) return null;
   let profileInfo;
   let userStats;
+  let communities;
   if (isLogin) {
     profileInfo = await ethereumService.getProfile(user);
-    userStats = await getUserStats(user);
+    [userStats, communities] = await getUserStats(user);
   } else {
-    profileInfo = { ...(await getUser(user)) };
+    [profileInfo, communities] = await getUser(user);
   }
 
+  profileInfo.ratings = await getUserRatings(
+    ethereumService,
+    user,
+    communities,
+  );
+  const highestRating = Math.max(
+    ...profileInfo.ratings.filter(rating => rating != null),
+  );
+  profileInfo.highestRating = {
+    communityId: profileInfo.ratings.indexOf(highestRating),
+    rating: highestRating,
+  };
+  profileInfo.user = user;
+  //TODO remove after subgraph ready
+  getExtendedProfile = true;
   if (getExtendedProfile) {
     let profile;
     if (isLogin) {
@@ -79,7 +95,6 @@ export async function getProfileInfo(
       location: profile.location,
       position: profile.position,
     };
-    profileInfo.user = user;
     profileInfo.id = user;
     profileInfo.postCount = profileInfo.postCount ?? userStats?.postCount ?? 0;
     profileInfo.answersGiven =
@@ -107,6 +122,22 @@ export async function saveProfile(ethereumService, user, profile) {
   await ethereumService.sendTransactionWithSigner(user, UPDATE_ACC, [
     transactionData,
   ]);
+}
+
+export async function getUserRatings(ethereumService, user, communities) {
+  if (!communities || !user) {
+    return [];
+  }
+  const ratings = [];
+  await Promise.all(
+    communities?.map(async community => {
+      ratings[community.id] = await ethereumService.getUserRating(
+        user,
+        community.id,
+      );
+    }),
+  );
+  return ratings;
 }
 
 export const getNotificationsInfo = async user => {
