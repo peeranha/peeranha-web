@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useMemo } from 'react';
+import React, { memo, useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -121,11 +121,19 @@ export const QuestionForm = ({
   communityQuestionsType,
   disableCommForm,
 }) => {
+ const [isSelectedType, setIsSelectedType] = useState(false);
+ const [isError, setIsError] = useState(false);
+
   const handleSubmitWithType = sendQuestion => {
     if (communityQuestionsType !== ANY_TYPE) {
       change(FORM_TYPE, communityQuestionsType);
+    } 
+    if(!isSelectedType && !isError){
+      setIsError(true);
     }
-    return handleSubmit(sendQuestion);
+    if(!isError && isSelectedType){
+        return handleSubmit(sendQuestion);
+      }
   };
 
   useEffect(
@@ -163,7 +171,9 @@ export const QuestionForm = ({
 
       <TipsBase>
         <BaseSpecialOne>
-          <FormBox onSubmit={handleSubmitWithType(sendQuestion)}>
+          <FormBox onSubmit={(e)=>{
+            e.preventDefault();
+            handleSubmitWithType(sendQuestion)}}>
             <CommunityForm
               intl={intl}
               communities={communities}
@@ -180,6 +190,10 @@ export const QuestionForm = ({
                   questionLoading={questionLoading}
                   locale={locale}
                   formValues={formValues}
+                  isError={isError}
+                  setIsError={setIsError}
+                  isType={isSelectedType}
+                  setIsType={setIsSelectedType}
                 />
               )) ||
                 (communityQuestionsType === GENERAL_TYPE && (

@@ -43,6 +43,8 @@ const QuestionsTypeForm = ({
     },
     [formValues],
   );
+
+  console.log("f ",formValues);
   return (
     <>
       <Field

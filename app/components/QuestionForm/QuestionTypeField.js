@@ -60,16 +60,12 @@ const Button = B.extend`
   }
 
   flex: 1;
-  border: 1px solid
-    ${x =>
-      +x.currentValue === +x.value
-        ? `${BORDER_PRIMARY} !important`
-        : BORDER_SECONDARY}};
-
-  box-shadow: ${x =>
-    +x.currentValue === +x.value
-      ? `0 0 0 3px rgba(${BORDER_PRIMARY_RGB}, 0.4)`
-      : `none`};
+  border: 1px solid ${BORDER_SECONDARY};
+ 
+  &:hover {
+      border: 1px solid ${BORDER_PRIMARY} !important;
+      box-shadow: 0 0 0 3px rgba(${BORDER_PRIMARY_RGB}, 0.4);
+  }
 
   @media only screen and (max-width: 576px) {
     height: 36px;

@@ -119,7 +119,7 @@ const CreateCommunityForm = ({
       );
     }
   };
-
+  
   return (
     <ExtendedBase>
       <Field

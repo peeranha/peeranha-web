@@ -1,28 +1,70 @@
-import React, { memo, useCallback, useMemo } from 'react';
-import PropTypes from 'prop-types';
-import { Field } from 'redux-form/immutable';
-import { intlShape } from 'react-intl';
+import React, { memo, useCallback, useEffect, useMemo, useState } from "react";
+import PropTypes from "prop-types";
+import { Field } from "redux-form/immutable";
+import { intlShape } from "react-intl";
+import styled from "styled-components";
 
-import { FORM_TYPE } from './constants';
+import { FORM_TYPE } from "./constants";
+import messages from "./messages";
+import QuestionTypeField from "./QuestionTypeField";
+import DescriptionList from "../DescriptionList";
+import { PEER_WARNING_COLOR } from "style-constants";
 
-import messages from './messages';
-import QuestionTypeField from './QuestionTypeField';
-import DescriptionList from '../DescriptionList';
+const Warning = styled.h1`
+  color: ${PEER_WARNING_COLOR};
+`;
 
-const TypeForm = ({ intl, change, locale, questionLoading, formValues }) => {
-  const onChange = useCallback(val => change(FORM_TYPE, val[0]), []);
+const TypeForm = ({
+  intl,
+  change,
+  locale,
+  questionLoading,
+  formValues,
+  isType,
+  setIsType,
+  isError,
+  setIsError,
+}) => {
+  const onChange = useCallback((val) => change(null, val[0]), []);
+
+  // const [descriptionListLabel, descriptionListItems] = useMemo(
+  //   () => [
+  //     +formValues[FORM_TYPE]
+  //       ? messages.generalQuestionDescriptionLabel.id
+  //       : messages.expertQuestionDescriptionLabel.id,
+  //     +formValues[FORM_TYPE]
+  //       ? messages.generalQuestionDescriptionList.id
+  //       : messages.expertQuestionDescriptionList.id,
+  //   ],
+  //   [formValues],
+  // );
+
+  const labelConditional = (n) => {
+    if (n === "1") return messages.generalQuestionDescriptionLabel.id;
+    if (n === "0") return messages.expertQuestionDescriptionLabel.id;
+    if (n === "2") return messages.tutorialQuestionDescriptionLabel.id;
+  };
+
+  const listConditional = (n) => {
+    if (n === "1") return messages.generalQuestionDescriptionList.id;
+    if (n === "0") return messages.expertQuestionDescriptionList.id;
+    if (n === "2") return messages.tutorialQuestionDescriptionList.id;
+  };
 
   const [descriptionListLabel, descriptionListItems] = useMemo(
     () => [
-      +formValues[FORM_TYPE]
-        ? messages.generalQuestionDescriptionLabel.id
-        : messages.expertQuestionDescriptionLabel.id,
-      +formValues[FORM_TYPE]
-        ? messages.generalQuestionDescriptionList.id
-        : messages.expertQuestionDescriptionList.id,
+      labelConditional(formValues[FORM_TYPE]),
+      listConditional(formValues[FORM_TYPE]),
     ],
-    [formValues],
+    [locale, formValues]
   );
+
+  useEffect(() => {
+    if (descriptionListLabel && descriptionListItems) {
+      setIsType(true);
+      setIsError(false);
+    }
+  }, [descriptionListLabel, descriptionListItems, isError]);
 
   return (
     <>
@@ -35,12 +77,14 @@ const TypeForm = ({ intl, change, locale, questionLoading, formValues }) => {
         tip={intl.formatMessage(messages.questionTypeTip)}
         splitInHalf
       />
-
-      <DescriptionList
-        locale={locale}
-        label={descriptionListLabel}
-        items={descriptionListItems}
-      />
+      {isType && (
+        <DescriptionList
+          locale={locale}
+          label={descriptionListLabel}
+          items={descriptionListItems}
+        />
+      )}
+      {isError && <Warning>You need to select post type</Warning>}
       <br />
     </>
   );
