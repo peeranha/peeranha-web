@@ -279,8 +279,8 @@ export default defineMessages({
   password: {
     id: 'app.common.password',
   },
-  ethereumAddress: {
-    id: 'app.common.ethereumAddress',
+  walletAddress: {
+    id: 'app.common.walletAddress',
   },
   successMessage: {
     id: 'app.common.successMessage',
@@ -318,14 +318,14 @@ export default defineMessages({
   description: {
     id: 'app.common.description',
   },
-  questionsNumber: {
-    id: 'app.common.questionsNumber',
+  postsNumber: {
+    id: 'app.common.postsNumber',
   },
   answersNumber: {
     id: 'app.common.answersNumber',
   },
-  postsNumber: {
-    id: 'app.common.postsNumber',
+  allActivitiesNumber: {
+    id: 'app.common.allActivitiesNumber',
   },
   answer: {
     id: 'app.common.answer',
