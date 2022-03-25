@@ -81,7 +81,7 @@ const LogoRightMenuRight = () => {
         </SubHeaderLogo>
       </TopLogoContainer>
       <TopMenuContainer>
-        {!!links && !!styles ? (
+        {!!(links && styles) ? (
           <Links
             links={links}
             styles={styles}
