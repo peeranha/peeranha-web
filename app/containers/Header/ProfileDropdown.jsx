@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
 import { BORDER_SECONDARY, TEXT_PRIMARY } from 'style-constants';
-import { MODERATOR_KEY, NO_AVATAR } from 'utils/constants';
+import { NO_AVATAR } from 'utils/constants';
 
 import * as routes from 'routes-config';
 import messages from 'common-messages';
@@ -135,7 +135,7 @@ const Menu = memo(
             disabled={!questionsLength}
             tabIndex={!questionsLength ? '-1' : undefined}
           >
-            <FormattedMessage {...messages.questions} />
+            <FormattedMessage {...messages.posts} />
           </A>
           <A
             to={routes.userAnswers(user)}
