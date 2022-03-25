@@ -8,6 +8,7 @@ import { OntStyles } from './communities-configs/ont';
 import { KandaStyles } from './communities-configs/kanda';
 import { BloggerStyles } from './communities-configs/blogger';
 import { FilecoinStyles } from './communities-configs/filecoin';
+
 const communitiesConfig = {
   prod: {
     // 2: {

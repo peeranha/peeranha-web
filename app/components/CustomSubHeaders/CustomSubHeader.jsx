@@ -1,12 +1,16 @@
 import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { getSingleCommunityDetails } from 'utils/communityManagement';
 import { getFileUrl } from 'utils/ipfs';
 
 import Arrow from '../Arrow';
 import CustomSubHeaderContainer from './CustomSubHeaderContainer';
+
+const transitionStyle = css`
+  transition: all 170ms ease-in-out;
+`;
 
 const Div = styled.div`
   position: relative;
@@ -76,7 +80,7 @@ export const LocalLink = styled.a`
     display: ${({ device }) => (device === 'mobile' ? 'none' : '')};
   }
 
-  transition: all 170ms ease-in-out;
+  ${transitionStyle};
 
   @media (max-width: 992px) {
     margin-left: 0;
@@ -124,7 +128,7 @@ const SubitemsTitleButton = styled.span`
     opacity: 0.6;
   }
 
-  transition: all 170ms ease-in-out;
+  ${transitionStyle};
 
   > span {
     padding: 0;
@@ -154,7 +158,7 @@ const SubitemsTitle = styled.span`
     opacity: 0.6;
   }
 
-  transition: all 170ms ease-in-out;
+  ${transitionStyle};
 
   > span {
     padding: 0;
