@@ -195,7 +195,7 @@ const MainUserInformation = ({
               </li>
               {!isTemporaryAccount && (
                 <li>
-                  <FormattedMessage {...commonMessages.ethereumAddress} />
+                  <FormattedMessage {...commonMessages.walletAddress} />
                   <span>{userId}</span>
                 </li>
               )}
