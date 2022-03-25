@@ -57,6 +57,7 @@ export async function getProfileInfo(
   if (!user) return null;
   let profileInfo;
   let userStats;
+
   let communities;
   if (isLogin) {
     profileInfo = await ethereumService.getProfile(user);
@@ -70,6 +71,7 @@ export async function getProfileInfo(
     user,
     communities,
   );
+
   const highestRating = Math.max(
     ...profileInfo.ratings.filter(rating => rating != null),
   );
@@ -78,6 +80,7 @@ export async function getProfileInfo(
     rating: highestRating,
   };
   profileInfo.user = user;
+
   //TODO remove after subgraph ready
   getExtendedProfile = true;
   if (getExtendedProfile) {
@@ -89,6 +92,7 @@ export async function getProfileInfo(
     } else {
       profile = profileInfo;
     }
+
     profileInfo.profile = {
       about: profile.about,
       company: profile.company,

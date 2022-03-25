@@ -158,7 +158,7 @@ const ContentHeader = props => {
           avatar={getUserAvatar(author.avatar)}
           name={author?.['displayName']}
           account={author.user}
-          rating={author?.ratings ? author.ratings[props.commId] : 0}
+          rating={author?.ratings?.[props.commId] ?? 0}
           type={type}
           postTime={postTime}
           locale={locale}

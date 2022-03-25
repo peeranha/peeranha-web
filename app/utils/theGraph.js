@@ -45,7 +45,7 @@ export const getUser = async id => {
       id,
     },
   });
-  return [{ ...user?.data.user }, [...user?.data.communities]];
+  return [{ ...user?.data?.user }, [...user?.data?.communities]];
 };
 
 export const getUserStats = async id => {

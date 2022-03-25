@@ -395,7 +395,7 @@
   "app.components.RatingStatus.banned": "Заблокирован",
 
   "app.containers.Profile.activity": "Активность",
-  "app.containers.Profile.status": "Высший достигнутый статус",
+  "app.containers.Profile.status": "Наивысший достигнутый статус",
   "app.containers.Profile.risen": "Понравилось",
   "app.containers.Profile.memberSince": "Резидент с ",
   "app.containers.Profile.informationIsBlank":

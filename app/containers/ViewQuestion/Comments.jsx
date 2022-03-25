@@ -152,9 +152,7 @@ const CommentView = item => {
           type={COMMENT_TYPE}
           avatar={getUserAvatar(item.author.avatar)}
           name={item.author?.displayName ?? ''}
-          rating={
-            item.author.ratings ? item.author?.ratings[item.communityId] : 0
-          }
+          rating={item.author?.ratings?.[item.communityId] ?? 0}
           account={item.author.user}
           achievementsCount={item.author.achievementsReached?.length}
           postTime={+item.postTime}
