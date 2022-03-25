@@ -19,19 +19,26 @@ const cookieFilterSetter = value => ({
   },
 });
 
-export const ShowMoreButton = ({ changeQuestionFilterDispatch, children, questionFilterFromCookies }) => {
+export const ShowMoreButton = ({
+  changeQuestionFilterDispatch,
+  children,
+  questionFilterFromCookies,
+}) => {
   const [filter, setFilterValue] = useState(+(questionFilterFromCookies || 1));
 
-  useEffect(() => {
-    const cookieValue = questionFilterFromCookies;
+  useEffect(
+    () => {
+      const cookieValue = questionFilterFromCookies;
 
-    setFilterValue(cookieValue);
+      setFilterValue(cookieValue);
 
-    if (!cookieValue || cookieValue === '1') {
-      // setCookie(cookieFilterSetter(1));
-      // changeQuestionFilterDispatch(1);
-    }
-  }, [filter]);
+      if (!cookieValue || cookieValue === '1') {
+        // setCookie(cookieFilterSetter(1));
+        // changeQuestionFilterDispatch(1);
+      }
+    },
+    [filter],
+  );
 
   const setFilter = useCallback(
     value => {
@@ -46,7 +53,9 @@ export const ShowMoreButton = ({ changeQuestionFilterDispatch, children, questio
 
   const setAllFilter = useCallback(() => setFilter(0), [filter]);
 
-  return <LargeOutlinedButton onClick={setAllFilter}>{children}</LargeOutlinedButton>;
+  return (
+    <LargeOutlinedButton onClick={setAllFilter}>{children}</LargeOutlinedButton>
+  );
 };
 
 ShowMoreButton.propTypes = {

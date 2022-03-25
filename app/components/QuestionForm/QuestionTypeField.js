@@ -13,7 +13,7 @@ import {
   BORDER_PRIMARY,
   BORDER_PRIMARY_RGB,
   BORDER_RADIUS_M,
-  PEER_WARNING_COLOR
+  PEER_WARNING_COLOR,
 } from 'style-constants';
 
 import { Wrapper } from 'components/FormFields/Wrapper';
@@ -63,10 +63,10 @@ const Button = B.extend`
 
   flex: 1;
   border: 1px solid ${BORDER_SECONDARY};
- 
+
   &:hover {
-      border: 1px solid ${BORDER_PRIMARY} !important;
-      box-shadow: 0 0 0 3px rgba(${BORDER_PRIMARY_RGB}, 0.4);
+    border: 1px solid ${BORDER_PRIMARY} !important;
+    box-shadow: 0 0 0 3px rgba(${BORDER_PRIMARY_RGB}, 0.4);
   }
 
   @media only screen and (max-width: 576px) {
@@ -82,7 +82,7 @@ const QuestionTypeField = ({
   tip,
   splitInHalf,
   insideOfSection,
-  error
+  error,
 }) => {
   function chooseQuestionType(event) {
     event.preventDefault();
@@ -99,9 +99,7 @@ const QuestionTypeField = ({
       id={input.name}
       insideOfSection={insideOfSection}
     >
-
-      <ButtonGroup
-      error={error}>
+      <ButtonGroup error={error}>
         {Object.values(QUESTION_TYPES).map(questionType => (
           <Button
             onClick={chooseQuestionType}
@@ -112,12 +110,13 @@ const QuestionTypeField = ({
           >
             <FormattedMessage {...messages[questionType.label]} />
           </Button>
-           
         ))}
       </ButtonGroup>
-      {error && <Warning>
-       <FormattedMessage {...qmessages.questionPostTypeSelectionError} />
-        </Warning>}
+      {error && (
+        <Warning>
+          <FormattedMessage {...qmessages.questionPostTypeSelectionError} />
+        </Warning>
+      )}
     </Wrapper>
   );
 };

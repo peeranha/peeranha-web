@@ -228,10 +228,10 @@ class EthereumService {
     return communities;
   };
 
-  getUserRating = async (user, communityId) =>{await this.contract[GET_USER_RATING](user, communityId);
+  getUserRating = async (user, communityId) => {
+    await this.contract[GET_USER_RATING](user, communityId);
     return await this.contract[GET_USER_RATING](user, communityId);
   };
 }
-
 
 export default EthereumService;
