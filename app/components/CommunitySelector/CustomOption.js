@@ -42,15 +42,6 @@ const Image = ({ avatar, selectedOptionId, optionValue }) => {
   return <Img src={avatar} alt="comm_avatar" />;
 };
 
-// const Image = ({ avatar, selectedOptionId, optionValue }) => {
-//   if (selectedOptionId === optionValue)
-//     return <Img src={okayBlueIcon} alt="chosen" />;
-
-//   if (!avatar) return <EmptyOption />;
-
-//   return <Img src={avatar} alt="comm_avatar" />;
-// };
-
 export const BoxStyled = Box.extend`
   padding-left: 25px;
   ${Img}, ${EmptyOption} {

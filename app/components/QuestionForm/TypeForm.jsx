@@ -19,7 +19,7 @@ const TypeForm = ({
   isError,
   setIsError,
 }) => {
-  const onChange = useCallback((val) => change(null, val[0]), []);
+  const onChange = useCallback((val) => change(FORM_TYPE, val[0]), []);
 
   const labelConditional = (n) => {
     if (n === "1") return messages.generalQuestionDescriptionLabel.id;

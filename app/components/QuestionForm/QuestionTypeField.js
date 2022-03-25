@@ -6,6 +6,7 @@ import { FormattedMessage } from 'react-intl';
 
 import { singleCommunityStyles } from 'utils/communityManagement';
 import messages from 'common-messages';
+import qmessages from './messages';
 
 import {
   BORDER_SECONDARY,
@@ -37,7 +38,7 @@ export const QUESTION_TYPES = {
 };
 
 const Warning = styled.h1`
-  padding-top: 10px ;
+  padding-top: 10px;
   color: ${PEER_WARNING_COLOR};
 `;
 const ButtonGroup = styled.div`
@@ -114,7 +115,8 @@ const QuestionTypeField = ({
            
         ))}
       </ButtonGroup>
-      {error && <Warning>You need to select post type</Warning>}
+      {error && <Warning>{qmessages.questionPostTypeSelectionError.id}</Warning>}
+      {/* {error && <Warning>You need to select post type</Warning>} */}
     </Wrapper>
   );
 };

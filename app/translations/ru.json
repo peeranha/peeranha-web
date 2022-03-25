@@ -235,7 +235,7 @@
   "app.containers.Boost.formUnstakeTokens": "Отменить ставку",
   "app.containers.Boost.notTokensToStake":
     "У вас нет токенов, чтобы сделать ставку",
-
+    "app.containers.QuestionForm.PostTypeSelectionError": "Необходимо выбрать тип поста",
   "web_integration.errors.unknownError":
     "Неизвестная ошибка. Пожалуйста, отправьте отчет об ошибке!",
   "web_integration.errors.accountAlreadyRegistered":
