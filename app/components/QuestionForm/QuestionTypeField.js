@@ -12,6 +12,7 @@ import {
   BORDER_PRIMARY,
   BORDER_PRIMARY_RGB,
   BORDER_RADIUS_M,
+  PEER_WARNING_COLOR
 } from 'style-constants';
 
 import { Wrapper } from 'components/FormFields/Wrapper';
@@ -35,19 +36,20 @@ export const QUESTION_TYPES = {
   },
 };
 
+const Warning = styled.h1`
+  padding-top: 10px ;
+  color: ${PEER_WARNING_COLOR};
+`;
 const ButtonGroup = styled.div`
   ${Styles};
-
   padding: 0;
   display: flex;
-  border: none;
 `;
 
 const Button = B.extend`
   &:first-child {
     border-top-left-radius: ${BORDER_RADIUS_M};
     border-bottom-left-radius: ${BORDER_RADIUS_M};
-
     border-radius: ${styles.buttonBorderRadius};
   }
 
@@ -55,7 +57,6 @@ const Button = B.extend`
     border-left: none;
     border-top-right-radius: ${BORDER_RADIUS_M};
     border-bottom-right-radius: ${BORDER_RADIUS_M};
-
     border-radius: ${styles.buttonBorderRadius};
   }
 
@@ -80,6 +81,7 @@ const QuestionTypeField = ({
   tip,
   splitInHalf,
   insideOfSection,
+  error
 }) => {
   function chooseQuestionType(event) {
     event.preventDefault();
@@ -96,7 +98,9 @@ const QuestionTypeField = ({
       id={input.name}
       insideOfSection={insideOfSection}
     >
-      <ButtonGroup>
+
+      <ButtonGroup
+      error={error}>
         {Object.values(QUESTION_TYPES).map(questionType => (
           <Button
             onClick={chooseQuestionType}
@@ -107,8 +111,10 @@ const QuestionTypeField = ({
           >
             <FormattedMessage {...messages[questionType.label]} />
           </Button>
+           
         ))}
       </ButtonGroup>
+      {error && <Warning>You need to select post type</Warning>}
     </Wrapper>
   );
 };

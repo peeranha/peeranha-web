@@ -8,11 +8,6 @@ import { FORM_TYPE } from "./constants";
 import messages from "./messages";
 import QuestionTypeField from "./QuestionTypeField";
 import DescriptionList from "../DescriptionList";
-import { PEER_WARNING_COLOR } from "style-constants";
-
-const Warning = styled.h1`
-  color: ${PEER_WARNING_COLOR};
-`;
 
 const TypeForm = ({
   intl,
@@ -64,6 +59,7 @@ const TypeForm = ({
         label={intl.formatMessage(messages.questionType)}
         tip={intl.formatMessage(messages.questionTypeTip)}
         splitInHalf
+        error={isError}
       />
       {isType && (
         <DescriptionList
@@ -72,7 +68,6 @@ const TypeForm = ({
           items={descriptionListItems}
         />
       )}
-      {isError && <Warning>You need to select post type</Warning>}
       <br />
     </>
   );
