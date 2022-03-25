@@ -28,8 +28,8 @@ export const ShowMoreButton = ({ changeQuestionFilterDispatch, children, questio
     setFilterValue(cookieValue);
 
     if (!cookieValue || cookieValue === '1') {
-      setCookie(cookieFilterSetter(1));
-      changeQuestionFilterDispatch(1);
+      // setCookie(cookieFilterSetter(1));
+      // changeQuestionFilterDispatch(1);
     }
   }, [filter]);
 

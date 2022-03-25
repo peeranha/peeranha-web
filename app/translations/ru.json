@@ -235,7 +235,8 @@
   "app.containers.Boost.formUnstakeTokens": "Отменить ставку",
   "app.containers.Boost.notTokensToStake":
     "У вас нет токенов, чтобы сделать ставку",
-    "app.containers.QuestionForm.PostTypeSelectionError": "Необходимо выбрать тип поста",
+  "app.containers.QuestionForm.PostTypeSelectionError":
+    "Необходимо выбрать тип поста",
   "web_integration.errors.unknownError":
     "Неизвестная ошибка. Пожалуйста, отправьте отчет об ошибке!",
   "web_integration.errors.accountAlreadyRegistered":
@@ -395,7 +396,7 @@
   "app.components.RatingStatus.banned": "Заблокирован",
 
   "app.containers.Profile.activity": "Активность",
-  "app.containers.Profile.status": "Статус",
+  "app.containers.Profile.status": "Наивысший достигнутый статус",
   "app.containers.Profile.risen": "Понравилось",
   "app.containers.Profile.memberSince": "Резидент с ",
   "app.containers.Profile.informationIsBlank":
@@ -1224,4 +1225,3 @@
   "app.containers.TelegramInfo.confirm": "Подтвердить",
   "app.containers.TelegramInfo.unlink": "Удалить зависимость"
 }
-

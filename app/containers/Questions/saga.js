@@ -42,7 +42,6 @@ import {
   makeSelectFollowedCommunities,
   makeSelectProfileInfo,
 } from 'containers/AccountProvider/selectors';
-import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
 import {
   getQuestionData,
   isGeneralQuestion,
@@ -92,6 +91,8 @@ import {
   selectTypeFilter,
 } from './selectors';
 import { getPosts, getPostsByCommunityId } from '../../utils/theGraph';
+import { getUserProfileWorker } from '../DataCacheProvider/saga';
+import { selectUsers } from '../DataCacheProvider/selectors';
 
 const feed = routes.feed();
 const single = isSingleCommunityWebsite();
@@ -145,11 +146,28 @@ export function* getQuestionsWorker({
         followedCommunities,
       );
     }
-
+    const usersSet = new Set();
     questionsList.forEach(question => {
       question.isGeneral = isGeneralQuestion(question);
+      usersSet.add(question.author.id);
     });
 
+    //TODO delete after graph ready
+    yield all(
+      [...usersSet].map(function*(user) {
+        yield call(getUserProfileWorker, { user, getFullProfile: true });
+      }),
+    );
+    yield all(
+      questionsList.map(function*(question) {
+        const profileObject = yield select(selectUsers(question.author.id));
+        question.author = {
+          ...question.author,
+          ratings: profileObject.ratings,
+          highestRating: profileObject.highestRating,
+        };
+      }),
+    );
     // yield all(
     //   questionsList.map(function*(question) {
     //     const bounty = yield call(getQuestionBounty, question.id, eosService);

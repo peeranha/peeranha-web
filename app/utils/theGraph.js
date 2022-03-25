@@ -45,7 +45,7 @@ export const getUser = async id => {
       id,
     },
   });
-  return user?.data.user;
+  return [{ ...user?.data?.user }, [...user?.data?.communities]];
 };
 
 export const getUserStats = async id => {
@@ -55,7 +55,7 @@ export const getUserStats = async id => {
       id,
     },
   });
-  return userStats?.data.user;
+  return [userStats?.data.user, userStats?.data.communities];
 };
 
 export const getUsersQuestions = async id => {
@@ -71,18 +71,16 @@ export const getUsersQuestions = async id => {
 };
 
 export const getUsersAnsweredQuestions = async id => {
-  const answeredPostsIds = await client
-    .query({
-      query: gql(usersAnswersQuery),
-      variables: {
-        id,
-      },
-    })
-    ?.data.replies.map(reply => Number(reply.postId));
+  const answeredPostsIds = await client.query({
+    query: gql(usersAnswersQuery),
+    variables: {
+      id,
+    },
+  });
   const answeredPosts = await client.query({
     query: gql(answeredPostsQuery),
     variables: {
-      ids: answeredPostsIds,
+      ids: answeredPostsIds.data.replies.map(reply => Number(reply.postId)),
     },
   });
   return answeredPosts?.data.posts.map(question => {

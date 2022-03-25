@@ -115,8 +115,9 @@ const QuestionTypeField = ({
            
         ))}
       </ButtonGroup>
-      {error && <Warning>{qmessages.questionPostTypeSelectionError.id}</Warning>}
-      {/* {error && <Warning>You need to select post type</Warning>} */}
+      {error && <Warning>
+       <FormattedMessage {...qmessages.questionPostTypeSelectionError} />
+        </Warning>}
     </Wrapper>
   );
 };

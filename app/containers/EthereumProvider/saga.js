@@ -72,7 +72,7 @@ export function* isValid({ creator, buttonId, minRating = 0, communityId }) {
     isAvailableAction,
     () =>
       validate({
-        rating: profileInfo.rating,
+        rating: profileInfo.ratings[communityId],
         translations: translationMessages[locale],
         actor: selectedAccount,
         creator,
