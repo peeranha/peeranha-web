@@ -1,13 +1,12 @@
-import React, { memo, useCallback, useEffect, useMemo, useState } from "react";
-import PropTypes from "prop-types";
-import { Field } from "redux-form/immutable";
-import { intlShape } from "react-intl";
-import styled from "styled-components";
+import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
+import PropTypes from 'prop-types';
+import { Field } from 'redux-form/immutable';
+import { intlShape } from 'react-intl';
 
-import { FORM_TYPE } from "./constants";
-import messages from "./messages";
-import QuestionTypeField from "./QuestionTypeField";
-import DescriptionList from "../DescriptionList";
+import { FORM_TYPE } from './constants';
+import messages from './messages';
+import QuestionTypeField from './QuestionTypeField';
+import DescriptionList from '../DescriptionList';
 
 const TypeForm = ({
   intl,
