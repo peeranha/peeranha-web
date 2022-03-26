@@ -165,15 +165,18 @@ export const QuestionForm = ({
     [question],
   );
 
+  const handleSubmitForm = (e) => {
+    e.preventDefault();
+    handleSubmitWithType(sendQuestion);
+  }
+
   return (
     <div>
       <Header formTitle={formTitle} questionId={questionid} intl={intl} />
 
       <TipsBase>
         <BaseSpecialOne>
-          <FormBox onSubmit={(e)=>{
-            e.preventDefault();
-            handleSubmitWithType(sendQuestion)}}>
+          <FormBox onSubmit={(e) => handleSubmitForm(e)}>
             <CommunityForm
               intl={intl}
               communities={communities}
