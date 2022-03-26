@@ -16,7 +16,7 @@ const EmptyOption = styled.span`
 export const ImgWrapper = styled.div`
   display: flex;
   justify-content: center;
-  margin-left: -12%;
+  margin-left: -14%;
 `;
 
 export const EmptyWrapper = ImgWrapper.extend`
@@ -43,7 +43,7 @@ const Image = ({ avatar, selectedOptionId, optionValue }) => {
 };
 
 export const BoxStyled = Box.extend`
-  padding-left: 25px;
+  padding-left: 35px;
   ${Img}, ${EmptyOption} {
     margin-right: 8px;
   }
