@@ -20,6 +20,7 @@ import {
 } from './web_integration/src/util/aws-connector';
 import { UPDATE_ACC } from './ethConstants';
 import { getUser, getUserStats } from './theGraph';
+import { WebIntegrationError } from './errors';
 
 export function getUserAvatar(avatarHash, userId, account) {
   if (avatarHash && avatarHash !== NO_AVATAR) {
@@ -72,12 +73,12 @@ export async function getProfileInfo(
     communities,
   );
 
-  const highestRating = Math.max(
-    ...profileInfo.ratings.filter(rating => rating != null),
+  const highestRating = [...profileInfo.ratings.entries()].reduce(
+    (max, current) => (max[1] > current[1] ? max : current),
   );
   profileInfo.highestRating = {
-    communityId: profileInfo.ratings.indexOf(highestRating),
-    rating: highestRating,
+    communityId: highestRating[0],
+    rating: highestRating[1],
   };
   profileInfo.user = user;
 
@@ -132,15 +133,18 @@ export async function getUserRatings(ethereumService, user, communities) {
   if (!communities || !user) {
     return [];
   }
-  const ratings = [];
-  await Promise.all(
-    communities?.map(async community => {
-      ratings[community.id] = await ethereumService.getUserRating(
-        user,
+
+  const ratings = new Map();
+  for await (const community of communities) {
+    try {
+      ratings.set(
         community.id,
+        await ethereumService.getUserRating(user, community.id),
       );
-    }),
-  );
+    } catch (err) {
+      new WebIntegrationError(err.message);
+    }
+  }
   return ratings;
 }
 

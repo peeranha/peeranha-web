@@ -168,6 +168,7 @@ export function* getQuestionsWorker({
         };
       }),
     );
+    //TODO promoted questions
     // yield all(
     //   questionsList.map(function*(question) {
     //     const bounty = yield call(getQuestionBounty, question.id, eosService);
@@ -183,7 +184,6 @@ export function* getQuestionsWorker({
     //   cachedPromotedQuestions.communityId !== communityIdFilter
     // ) {
     //   yield call(loadTopCommunityQuestionsWorker, { init: true });
-    //
     //   const topQuestionsIds = yield select(selectTopQuestionIds);
     //
     //   let allPromotedQuestions = yield call(
