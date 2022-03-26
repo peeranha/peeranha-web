@@ -128,7 +128,7 @@ export const QuestionForm = ({
     if (communityQuestionsType !== ANY_TYPE) {
       change(FORM_TYPE, communityQuestionsType);
     } 
-    if(!isSelectedType && !isError){
+    if(!isSelectedType && !isError) {
       setIsError(true);
     }
     if(!isError){
