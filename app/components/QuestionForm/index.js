@@ -122,10 +122,10 @@ export const QuestionForm = ({
     if (communityQuestionsType !== ANY_TYPE) {
       change(FORM_TYPE, communityQuestionsType);
     } 
-    if(!isSelectedType && !isError){
-      setIsError(true);
+    if(!isSelectedType && !isError) {
+      return setIsError(true);
     }
-    if(!isError && isSelectedType){
+    if(!isError) {
         return handleSubmit(sendQuestion);
       }
   };
