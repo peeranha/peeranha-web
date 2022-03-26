@@ -131,7 +131,7 @@ export const QuestionForm = ({
     if(!isSelectedType && !isError) {
       setIsError(true);
     }
-    if(!isError){
+    if(!isError) {
         return handleSubmit(sendQuestion);
       }
   };
