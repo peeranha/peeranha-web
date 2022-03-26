@@ -192,8 +192,8 @@ export const QuestionForm = ({
                   formValues={formValues}
                   isError={isError}
                   setIsError={setIsError}
-                  isType={isSelectedType}
-                  setIsType={setIsSelectedType}
+                  hasSelectedType={isSelectedType}
+                  setHasSelectedType={setIsSelectedType}
                 />
               )) ||
                 (communityQuestionsType === GENERAL_TYPE && (

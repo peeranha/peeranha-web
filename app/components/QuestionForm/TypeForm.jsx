@@ -14,8 +14,8 @@ const TypeForm = ({
   locale,
   questionLoading,
   formValues,
-  isType,
-  setIsType,
+  hasSelectedType,
+  setHasSelectedType,
   isError,
   setIsError,
 }) => {
@@ -43,7 +43,7 @@ const TypeForm = ({
 
   useEffect(() => {
     if (descriptionListLabel && descriptionListItems) {
-      setIsType(true);
+      setHasSelectedType(true);
       setIsError(false);
     }
   }, [descriptionListLabel, descriptionListItems, isError]);
@@ -60,7 +60,7 @@ const TypeForm = ({
         splitInHalf
         error={isError}
       />
-      {isType && (
+      {hasSelectedType && (
         <DescriptionList
           locale={locale}
           label={descriptionListLabel}
