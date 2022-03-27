@@ -72,12 +72,6 @@ import DescriptionList from '../DescriptionList';
 
 const single = isSingleCommunityWebsite();
 
-const PromoteQuestionInfo = styled.p`
-  margin-top: 25px;
-  font-weight: 600;
-  font-size: 18px;
-`;
-
 const SuggestTag = memo(({ redirectToCreateTagDispatch, formValues }) => {
   const communityId = useMemo(() => formValues?.[FORM_COMMUNITY]?.value ?? 0, [
     formValues,
@@ -266,21 +260,6 @@ export const QuestionForm = ({
             {/*  formValues={formValues}*/}
             {/*  change={change}*/}
             {/*/>*/}
-
-            {promotedQuestionEndsTime &&
-            question.promote.endsTime > Math.trunc(now() / 1000) ? (
-              <PromoteQuestionInfo>
-                {intl.formatMessage(messages.questionIsPromoting)}{' '}
-                {promotedQuestionEndsTime}
-              </PromoteQuestionInfo>
-            ) : (
-              <PromotedQuestionForm
-                intl={intl}
-                questionLoading={questionLoading}
-                formValues={formValues}
-              />
-            )}
-
             <Button
               disabled={questionLoading}
               id={submitButtonId}

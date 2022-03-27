@@ -48,7 +48,7 @@ const TypeForm = ({
         setIsError(false);
       }
     },
-    [descriptionListLabel, descriptionListItems],
+    [descriptionListLabel, descriptionListItems]
   );
 
   return (
