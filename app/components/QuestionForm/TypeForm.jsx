@@ -22,15 +22,15 @@ const TypeForm = ({
   const onChange = useCallback(val => change(FORM_TYPE, val[0]), []);
 
   const labelConditional = n => {
-    if (n === '1') return messages.generalQuestionDescriptionLabel.id;
-    if (n === '0') return messages.expertQuestionDescriptionLabel.id;
-    if (n === '2') return messages.tutorialQuestionDescriptionLabel.id;
+    if (n === "1") return messages.generalQuestionDescriptionLabel.id;
+    if (n === "0") return messages.expertQuestionDescriptionLabel.id;
+    if (n === "2") return messages.tutorialQuestionDescriptionLabel.id;
   };
 
   const listConditional = n => {
-    if (n === '1') return messages.generalQuestionDescriptionList.id;
-    if (n === '0') return messages.expertQuestionDescriptionList.id;
-    if (n === '2') return messages.tutorialQuestionDescriptionList.id;
+    if (n === "1") return messages.generalQuestionDescriptionList.id;
+    if (n === "0") return messages.expertQuestionDescriptionList.id;
+    if (n === "2") return messages.tutorialQuestionDescriptionList.id;
   };
 
   const [descriptionListLabel, descriptionListItems] = useMemo(
@@ -38,7 +38,7 @@ const TypeForm = ({
       labelConditional(formValues[FORM_TYPE]),
       listConditional(formValues[FORM_TYPE]),
     ],
-    [locale, formValues],
+    [locale, formValues]
   );
 
   useEffect(
