@@ -49,43 +49,42 @@ export const ChangeLocale = ({ locale, changeLocaleDispatch, withTitle }) => {
   if (process.env.MULTI_LANG === 'false') return null;
 
   return (
-    <>
-    </>
-    // <Dropdown
-    //   className="mr-3"
-    //   button={
-    //     <React.Fragment>
-    //       <Span
-    //         className="d-flex align-items-center mr-1"
-    //         fontSize="16"
-    //         lineHeight="20"
-    //         color={TEXT_SECONDARY}
-    //       >
-    //         <Flag src={require(`images/${[locale]}_lang.png`)} alt="country" />
-    //         {withTitle && <FormattedMessage {...commonMessages[locale]} />}
-    //       </Span>
-    //     </React.Fragment>
-    //   }
-    //   menu={
-    //     <ul>
-    //       {appLocales.map(x => (
-    //         <Li
-    //           key={x}
-    //           role="presentation"
-    //           onClick={() => setLocale(x)}
-    //           isBold={x === locale}
-    //         >
-    //           <Flag src={require(`images/${x}_lang.png`)} alt="language" />
-    //           <FormattedMessage {...commonMessages[x]} />
-    //         </Li>
-    //       ))}
-    //     </ul>
-    //   }
-    //   id="choose-language-dropdown"
-    //   isArrowed
-    //   isMenuLabelMobile
-    //   isArrowMarginMobile
-    // />
+    <Dropdown
+      className="mr-3"
+      button={
+        <React.Fragment>
+          <Span
+            className="d-flex align-items-center mr-1"
+            fontSize="16"
+            lineHeight="20"
+            color={TEXT_SECONDARY}
+          >
+            <Flag src={require(`images/${[locale]}_lang.png`)} alt="country" />
+            {withTitle && <FormattedMessage {...commonMessages[locale]} />}
+          </Span>
+        </React.Fragment>
+      }
+      // TODO: return when language selection is needed
+      // menu={
+      //   <ul>
+      //     {appLocales.map(x => (
+      //       <Li
+      //         key={x}
+      //         role="presentation"
+      //         onClick={() => setLocale(x)}
+      //         isBold={x === locale}
+      //       >
+      //         <Flag src={require(`images/${x}_lang.png`)} alt="language" />
+      //         <FormattedMessage {...commonMessages[x]} />
+      //       </Li>
+      //     ))}
+      //   </ul>
+      // }
+      // id="choose-language-dropdown"
+      // isArrowed
+      // isMenuLabelMobile
+      // isArrowMarginMobile
+    />
   );
 };
 
