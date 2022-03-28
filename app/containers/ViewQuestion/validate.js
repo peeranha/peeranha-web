@@ -83,14 +83,15 @@ export const postAnswerValidator = (
     message = `${translations[messages.alreadyAnswered.id]}`;
   } else if (
     questionData.user === profileInfo.user &&
-    profileInfo.ratings.get(communityId) < MIN_RATING_FOR_MY_QUESTION
+    profileInfo.ratings.get(communityId.toString()) < MIN_RATING_FOR_MY_QUESTION
   ) {
     message = `${
       translations[messages.notEnoughRating.id]
     } ${MIN_RATING_FOR_MY_QUESTION}`;
   } else if (
     questionData.user !== profileInfo.user &&
-    profileInfo.ratings.get(communityId) < MIN_RATING_FOR_OTHER_QUESTIONS
+    profileInfo.ratings.get(communityId.toString()) <
+      MIN_RATING_FOR_OTHER_QUESTIONS
   ) {
     message = `${
       translations[messages.notEnoughRating.id]
@@ -132,7 +133,7 @@ export const postCommentValidator = (
   } else if (
     (item.user === profileInfo.user ||
       questionData.author === profileInfo.user) &&
-    profileInfo.ratings.get(communityId) < MIN_RATING_FOR_MY_ITEM
+    profileInfo.ratings.get(communityId.toString()) < MIN_RATING_FOR_MY_ITEM
   ) {
     message = `${
       translations[messages.notEnoughRating.id]
@@ -140,7 +141,7 @@ export const postCommentValidator = (
   } else if (
     item.user !== profileInfo.user &&
     questionData.author !== profileInfo.user &&
-    profileInfo.ratings.get(communityId) < MIN_RATING_FOR_OTHER_ITEMS
+    profileInfo.ratings.get(communityId.toString()) < MIN_RATING_FOR_OTHER_ITEMS
   ) {
     message = `${
       translations[messages.notEnoughRating.id]
@@ -168,7 +169,7 @@ export const markAsAcceptedValidator = (
 
   if (profileInfo.user !== questionData.author.user) {
     message = `${translations[messages.noRootsToVote.id]}`;
-  } else if (profileInfo.ratings.get(communityId) < MIN_RATING) {
+  } else if (profileInfo.ratings.get(communityId.toString()) < MIN_RATING) {
     message = `${translations[messages.notEnoughRating.id]} ${MIN_RATING}`;
   } else if (profileInfo.energy < MIN_ENERGY) {
     message = translations[messages.notEnoughEnergy.id];
@@ -205,7 +206,9 @@ export const upVoteValidator = (
     (isOwnItem[0] && isOwnItem[0].author.user === profileInfo.user)
   ) {
     message = `${translations[messages.noRootsToVote.id]}`;
-  } else if (profileInfo.ratings.get(communityId) < MIN_RATING_TO_UPVOTE) {
+  } else if (
+    profileInfo.ratings.get(communityId.toString()) < MIN_RATING_TO_UPVOTE
+  ) {
     message = `${
       translations[messages.notEnoughRating.id]
     } ${MIN_RATING_TO_UPVOTE}`;
@@ -248,7 +251,9 @@ export const downVoteValidator = (
     message = translations[messages.cannotCompleteBecauseBlocked.id];
   } else if (item.author.user === profileInfo.user) {
     message = `${translations[messages.noRootsToVote.id]}`;
-  } else if (profileInfo.ratings.get(communityId) < MIN_RATING_TO_DOWNVOTE) {
+  } else if (
+    profileInfo.ratings.get(communityId.toString()) < MIN_RATING_TO_DOWNVOTE
+  ) {
     message = `${
       translations[messages.notEnoughRating.id]
     } ${MIN_RATING_TO_DOWNVOTE}`;

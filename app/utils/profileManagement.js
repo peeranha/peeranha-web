@@ -138,7 +138,7 @@ export async function getUserRatings(ethereumService, user, communities) {
   for await (const community of communities) {
     try {
       ratings.set(
-        community.id,
+        community.id.toString(),
         await ethereumService.getUserRating(user, community.id),
       );
     } catch (err) {

@@ -70,7 +70,7 @@ export function getFileUrl(hash) {
     return null;
   }
   const IPFS_DOMAIN = process.env.IPFS_CDN_URL;
-  return hash.includes(IPFS_DOMAIN) ? hash : `${IPFS_DOMAIN}${hash}`;
+  return hash?.includes(IPFS_DOMAIN) ? hash : `${IPFS_DOMAIN}${hash}`;
 }
 
 // TODO: test
