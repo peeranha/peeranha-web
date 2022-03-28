@@ -147,7 +147,6 @@ const ContentHeader = props => {
   } else {
     deleteAction = isGlobalAdmin || infiniteImpact ? deleteItem : null;
   }
-
   return (
     <Box>
       <RatingBox>
@@ -159,7 +158,7 @@ const ContentHeader = props => {
           avatar={getUserAvatar(author.avatar)}
           name={author?.['displayName']}
           account={author.user}
-          rating={author.rating}
+          rating={author?.ratings?.[props.commId] ?? 0}
           type={type}
           postTime={postTime}
           locale={locale}

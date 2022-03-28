@@ -29,6 +29,7 @@ export const EDIT_COMMENT = 'editComment';
 export const DELETE_COMMENT = 'deleteComment';
 export const CHANGE_STATUS_BEST = 'changeStatusBestReply';
 export const VOTE_ITEM = 'voteItem';
+export const GET_USER_RATING = 'getUserRating';
 
 export const UPVOTE_STATUS = 1;
 export const DOWNVOTE_STATUS = -1;
@@ -46,7 +47,6 @@ export const usersQuery = `
           orderDirection: desc,
         ) {
           id
-          rating
           displayName
           company
           position
@@ -69,7 +69,6 @@ export const userQuery = `
           id: $id
         ) {
           id
-          rating
           displayName
           company
           position
@@ -81,6 +80,9 @@ export const userQuery = `
           ipfsHash2
           postCount
           replyCount
+        }
+        communities {
+          id
         }
       }`;
 
@@ -96,6 +98,9 @@ export const userStatsQuery = `
           achievements {
             id
           }
+        }
+        communities {
+          id
         }
       }`;
 
@@ -137,7 +142,6 @@ export const usersPostsQuery = `
            postType
            author {
               id
-              rating
               displayName
               company
               position
@@ -161,7 +165,6 @@ export const usersPostsQuery = `
              id
              author {
                 id
-                rating
                 displayName
                 company
                 position
@@ -184,7 +187,6 @@ export const usersPostsQuery = `
                id
                author {
                   id
-                  rating
                   displayName
                   company
                   position
@@ -216,7 +218,6 @@ export const usersPostsQuery = `
              id
              author {
                 id
-                rating
                 displayName
                 company
                 position
@@ -273,7 +274,6 @@ export const answeredPostsQuery = `
            postType
            author {
               id
-              rating
               displayName
               company
               position
@@ -297,7 +297,6 @@ export const answeredPostsQuery = `
              id
              author {
                 id
-                rating
                 displayName
                 company
                 position
@@ -320,7 +319,6 @@ export const answeredPostsQuery = `
                id
                author {
                   id
-                  rating
                   displayName
                   company
                   position
@@ -329,7 +327,6 @@ export const answeredPostsQuery = `
                   avatar
                   creationTime
                }
-               rating
                postTime
                postId
                parentReplyId
@@ -352,7 +349,6 @@ export const answeredPostsQuery = `
              id
              author {
                 id
-                rating
                 displayName
                 company
                 position
@@ -443,7 +439,6 @@ export const postsQuery = `
            postType
            author {
               id
-              rating
               displayName
               company
               position
@@ -467,7 +462,6 @@ export const postsQuery = `
              id
              author {
                 id
-                rating
                 displayName
                 company
                 position
@@ -490,7 +484,6 @@ export const postsQuery = `
                id
                author {
                   id
-                  rating
                   displayName
                   company
                   position
@@ -522,7 +515,6 @@ export const postsQuery = `
              id
              author {
                 id
-                rating
                 displayName
                 company
                 position
@@ -567,7 +559,6 @@ export const postsByCommQuery = `
            postType
            author {
               id
-              rating
               displayName
               company
               position
@@ -591,7 +582,6 @@ export const postsByCommQuery = `
              id
              author {
                 id
-                rating
                 displayName
                 company
                 position
@@ -614,7 +604,6 @@ export const postsByCommQuery = `
                id
                author {
                   id
-                  rating
                   displayName
                   company
                   position
@@ -646,7 +635,6 @@ export const postsByCommQuery = `
              id
              author {
                 id
-                rating
                 displayName
                 company
                 position
@@ -684,7 +672,6 @@ export const postsForSearchQuery = `
            postType
            author {
               id
-              rating
               displayName
               company
               position
@@ -722,7 +709,6 @@ export const postQuery = `
            postType
            author {
               id
-              rating
               displayName
               company
               position
@@ -746,7 +732,6 @@ export const postQuery = `
              id
              author {
                 id
-                rating
                 displayName
                 company
                 position
@@ -769,7 +754,6 @@ export const postQuery = `
                id
                author {
                   id
-                  rating
                   displayName
                   company
                   position
@@ -801,7 +785,6 @@ export const postQuery = `
              id
              author {
                 id
-                rating
                 displayName
                 company
                 position

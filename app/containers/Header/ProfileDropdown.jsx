@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
 import { BORDER_SECONDARY, TEXT_PRIMARY } from 'style-constants';
-import { MODERATOR_KEY, NO_AVATAR } from 'utils/constants';
+import { NO_AVATAR } from 'utils/constants';
 
 import * as routes from 'routes-config';
 import messages from 'common-messages';
@@ -89,22 +89,6 @@ const B = ({ profileInfo, onClick, isMenuVisible, isMobileVersion }) => (
       <Span bold color={(!isMobileVersion && styles.commHeadElemColor) || ''}>
         {profileInfo?.['displayName']}
       </Span>
-      <StatusBox>
-        <RatingStatus
-          rating={profileInfo.rating}
-          size="sm"
-          isRankOff
-          ratingNumColor={!isMobileVersion && styles.commHeadElemColor}
-          customRatingIconColors={
-            !isMobileVersion && styles.customRatingIconColors
-          }
-        />
-        <AchievementsStatus
-          count={profileInfo.achievementsReached?.length}
-          achievementsNumColor={!isMobileVersion && styles.commHeadElemColor}
-          achievIconStyles={!isMobileVersion && styles.achievIconStyles}
-        />
-      </StatusBox>
     </Info>
   </span>
 );
@@ -135,7 +119,7 @@ const Menu = memo(
             disabled={!questionsLength}
             tabIndex={!questionsLength ? '-1' : undefined}
           >
-            <FormattedMessage {...messages.questions} />
+            <FormattedMessage {...messages.posts} />
           </A>
           <A
             to={routes.userAnswers(user)}

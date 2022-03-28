@@ -9,13 +9,12 @@
   "app.common.answers": "Ответы",
   "app.common.posts": "Посты",
   "app.common.achievements": "Достижения",
-  "app.common.questionsNumber": "Вопросы {number}",
-  "app.common.answersNumber": "Ответы {number}",
   "app.common.postsNumber": "Посты {number}",
+  "app.common.answersNumber": "Ответы {number}",
+  "app.common.allActivitiesNumber": "Все {number}",
   "app.common.achievementsNumber": "Достижения {number}",
   "app.common.settings": "Настройки",
   "app.common.notifications": "Уведомления",
-  "app.common.achievments": "Достижения",
   "app.common.moderation": "Модерация",
   "app.common.uniqueAchievements": "Уникальные достижения",
   "app.common.notificationCenter": "Центр Уведомлений",
@@ -94,6 +93,7 @@
   "app.common.bounty": "Бонус",
   "app.common.password": "Пароль",
   "app.common.eosAccount": "Telos аккаунт",
+  "app.common.walletAddress": "Адрес кошелька",
   "app.common.successMessage": "Действие было выполнено успешно!",
   "app.common.errorMessage": "Возникла ошибка",
   "app.common.energy": "Энергия",
@@ -111,10 +111,10 @@
   "app.common.showLess": "Показать меньше {value}",
   "app.common.poweredByTelos": "Powered by {image}",
   "app.common.poweredByPeeranha": "Powered by {image}",
-  "app.common.termsOfTelos": "Telos Operating Agreement",
+  "app.common.terms": "Operating Agreement",
   "app.common.noResults": "Нет результатов",
   "app.common.iAcceptPrivacyPolicy":
-    "Я принимаю условия {privacyPolicy}, {termsOfService}, {termsOfTelos}",
+    "Я принимаю условия {privacyPolicy}, {termsOfService}, {terms}",
   "app.common.inProgress": "Выполняется",
   "app.common.loginViaWallet": "Войти через кошелек",
   "app.common.loginViaService": "Войти через сервис",
@@ -395,7 +395,7 @@
   "app.components.RatingStatus.banned": "Заблокирован",
 
   "app.containers.Profile.activity": "Активность",
-  "app.containers.Profile.status": "Статус",
+  "app.containers.Profile.status": "Наивысший достигнутый статус",
   "app.containers.Profile.risen": "Понравилось",
   "app.containers.Profile.memberSince": "Резидент с ",
   "app.containers.Profile.informationIsBlank":
@@ -449,8 +449,8 @@
   "app.containers.CreateTag.usingTheRightTags":
     "Использование верных тегов позволяет другим пользователям быстрее найти и ответить на Ваш вопрос.",
 
-  "app.containers.EditTag.title": "Редактировать тег",
-  "app.containers.EditTag.description": "Редактировать тег | Описание",
+  "app.containers.EditTag.title": "Сохранить тег",
+  "app.containers.EditTag.description": "Сохранить тег | Описание",
 
   "app.containers.Tags.backToList": "Вернуться к списку",
 
@@ -560,7 +560,7 @@
 
   "app.containers.EditCommunity.communityTitleTip": "Название сообщества",
   "app.containers.EditCommunity.description": "Описание EditCommunity",
-  "app.containers.EditCommunity.editCommunity": "Редактировать сообщество",
+  "app.containers.EditCommunity.editCommunity": "Сохранить",
   "app.containers.EditCommunity.header": "Редактировать сообщество",
   "app.containers.EditCommunity.pageTitle": "Сообщество | Редактировать",
 
@@ -778,7 +778,6 @@
   "app.containers.ViewQuestion.markGeneralQuestionAndGetEarn":
     "Отметьте лучший ответ в своем вопросе и получите +1 очко рейтинга\"",
   "app.containers.ViewQuestion.generalQuestion": "Общий вопрос",
-  "app.containers.ViewQuestion.expertQuestion": "Экспертный вопрос",
   "app.containers.ViewQuestion.tutorial": "Туториал",
   "app.containers.ViewQuestion.changeQuestionType": "Изменить тип",
   "app.containers.ViewQuestion.officialAnswer": "Официальный ответ",
@@ -895,7 +894,7 @@
   "app.containers.SignUp.telosBlockchainPowers":
     "Telos блокчейн поддерживает многие децентрализованные приложения, такие как Peeranha, которым управляют члены сообщества по всему миру. Для использования этих приложений требуется Telos блокчейн аккаунт.",
   "app.containers.SignUp.weAreHappyToCover":
-    "Если вы предпочитаете использовать приложение-кошелек для управления своим Telos блокчейн аккаунтом, тогда доступна опция регистрации с помощью кошелька.",
+    "Если вы предпочитаете использовать приложение-кошелек для управления своим блокчейн аккаунтом, тогда доступна опция регистрации с помощью кошелька.",
   "app.containers.SignUp.ifYouLikeToSkip":
     "Новичок в блокчейне? Не волнуйтесь! Вы сможете получить доступ к Peeranha, используя свой адрес электронной почты и пароль, как любой другой веб-сайт.",
   "app.containers.SignUp.or": "или",
@@ -1225,3 +1224,4 @@
   "app.containers.TelegramInfo.confirm": "Подтвердить",
   "app.containers.TelegramInfo.unlink": "Удалить зависимость"
 }
+

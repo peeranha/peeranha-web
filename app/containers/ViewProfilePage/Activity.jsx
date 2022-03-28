@@ -57,7 +57,7 @@ const Activity = ({
           onClick={() => setTab('posts')}
         >
           <FormattedMessage
-            {...messages.postsNumber}
+            {...messages.allActivitiesNumber}
             values={{
               number: (
                 <Span
@@ -79,7 +79,7 @@ const Activity = ({
           onClick={() => setTab('quest')}
         >
           <FormattedMessage
-            {...messages.questionsNumber}
+            {...messages.postsNumber}
             values={{
               number: (
                 <Span
