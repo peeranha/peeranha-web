@@ -902,6 +902,7 @@
   "app.containers.SignUp.verify": "Verify",
   "app.containers.SignUp.sendAnotherCode": "Send another code",
   "app.containers.SignUp.eosActivePrivateKey": "Telos Active Private Key",
+  "app.containers.SignUp.eosPrivateKey": "Private Key",
   "app.containers.SignUp.eosOwnerPrivateKey": "Telos Owner Private Key",
   "app.containers.SignUp.storeThisKey": "Store this key",
   "app.containers.SignUp.masterKey": "Master key",
