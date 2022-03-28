@@ -214,6 +214,7 @@ export const QuestionForm = ({
               redirectToCreateTagDispatch={redirectToCreateTagDispatch}
             />
 
+
             {/*<BountyForm*/}
             {/*  intl={intl}*/}
             {/*  questionLoading={questionLoading}*/}
