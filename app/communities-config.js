@@ -11,21 +11,21 @@ import { BloggerStyles } from './communities-configs/blogger';
 
 const communitiesConfig = {
   prod: {
-    // 2: {
-    //   origin: 'https://faq.telos.net',
-    //   src: TelosLogo,
-    //   styles: TelosStyles,
-    // },
-    // 3: {
-    //   origin: 'https://ont.peeranha.io',
-    //   src: OntLogo,
-    //   styles: OntStyles,
-    // },
-    // 17: {
-    //   origin: 'https://kanda.peeranha.io',
-    //   src: KandaLogo,
-    //   styles: KandaStyles,
-    // },
+    2: {
+      origin: 'https://faq.telos.net',
+      src: TelosLogo,
+      styles: TelosStyles,
+    },
+    3: {
+      origin: 'https://ont.peeranha.io',
+      src: OntLogo,
+      styles: OntStyles,
+    },
+    17: {
+      origin: 'https://kanda.peeranha.io',
+      src: KandaLogo,
+      styles: KandaStyles,
+    },
   },
   test: {
     1: {
