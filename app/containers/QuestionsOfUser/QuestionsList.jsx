@@ -73,7 +73,6 @@ const LastAnswer = ({ lastAnswer, locale }) => {
           <Span className="mr-2" fontSize="14" lineHeight="18">
             {lastAnswer.author?.displayName}
           </Span>
-          <RatingStatus rating={lastAnswer.author.rating} size="sm" isRankOff />
         </A>
       )}
 

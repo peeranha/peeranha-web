@@ -89,22 +89,6 @@ const B = ({ profileInfo, onClick, isMenuVisible, isMobileVersion }) => (
       <Span bold color={(!isMobileVersion && styles.commHeadElemColor) || ''}>
         {profileInfo?.['displayName']}
       </Span>
-      <StatusBox>
-        <RatingStatus
-          rating={profileInfo.rating}
-          size="sm"
-          isRankOff
-          ratingNumColor={!isMobileVersion && styles.commHeadElemColor}
-          customRatingIconColors={
-            !isMobileVersion && styles.customRatingIconColors
-          }
-        />
-        <AchievementsStatus
-          count={profileInfo.achievementsReached?.length}
-          achievementsNumColor={!isMobileVersion && styles.commHeadElemColor}
-          achievIconStyles={!isMobileVersion && styles.achievIconStyles}
-        />
-      </StatusBox>
     </Info>
   </span>
 );

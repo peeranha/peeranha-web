@@ -41,6 +41,7 @@ export const ContentBody = ({
   ids,
   isItWrittenByMe,
   infiniteImpact,
+  commId,
 }) => {
   const isOfficial = useMemo(
     () =>
@@ -97,6 +98,7 @@ export const ContentBody = ({
         addCommentFormDisplay={addCommentFormDisplay}
         ids={ids}
         infiniteImpact={infiniteImpact}
+        communityId={commId}
       />
     </Base>
   );

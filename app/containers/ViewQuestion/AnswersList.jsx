@@ -72,6 +72,7 @@ export const AnswersList = props => {
               answerId: id,
               whowasvoted: author.user,
             }}
+            commId={props.commId}
           />
         ),
       )}

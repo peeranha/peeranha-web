@@ -163,7 +163,7 @@ const MainUserInformation = ({
             <UlStyled>
               <li>
                 <FormattedMessage {...messages.status} />
-                <RatingStatus rating={profile.rating} size="lg" />
+                <RatingStatus rating={profile.highestRating.rating} size="lg" />
               </li>
 
               <li>

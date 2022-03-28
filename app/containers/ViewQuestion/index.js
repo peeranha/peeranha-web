@@ -151,6 +151,8 @@ export const ViewQuestion = ({
     x => x.author.user === account,
   ).length;
 
+  const commId = questionData?.communityId ?? null;
+
   const sendProps = {
     account,
     locale,
@@ -186,6 +188,7 @@ export const ViewQuestion = ({
     isChangeTypeAvailable,
     infiniteImpact,
     isAnswered,
+    commId,
   };
 
   const helmetTitle =
@@ -203,8 +206,6 @@ export const ViewQuestion = ({
     : ``;
 
   const tagIds = questionData?.tags ?? [];
-
-  const commId = questionData?.communityId ?? null;
 
   const community = communities.filter(x => x.id === commId)[0] || {
     tags: [],
