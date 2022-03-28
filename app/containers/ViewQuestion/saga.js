@@ -146,6 +146,10 @@ export const isGeneralQuestion = question => Boolean(question.postType === 1);
 export const getQuestionTypeValue = isGeneral =>
   isGeneral ? QUESTION_TYPES.GENERAL.value : QUESTION_TYPES.EXPERT.value;
 
+const isOwnItem = (questionData, profileInfo) =>
+  questionData.author.user === profileInfo.user ||
+  questionData.answers.find(x => x.id === answerId)?.user === profileInfo.user;
+
 export function* getQuestionData({
   questionId,
   user,
@@ -710,11 +714,6 @@ export function* downVoteWorker({
 
     yield call(isAuthorized);
 
-    const isOwnItem =
-      questionData.author.user === profileInfo.user ||
-      questionData.answers.find(x => x.id === answerId)?.user ===
-        profileInfo.user;
-
     yield call(
       isAvailableAction,
       () =>
@@ -727,7 +726,7 @@ export function* downVoteWorker({
         ),
       {
         communityID: questionData.communityId,
-        skipPermissions: isOwnItem,
+        skipPermissions: isOwnItem(questionData, profileInfo),
       },
     );
 
@@ -777,11 +776,6 @@ export function* upVoteWorker({
 
     yield call(isAuthorized);
 
-    const isOwnItem =
-      questionData.author.user === profileInfo.user ||
-      questionData.answers.find(x => x.id === answerId)?.user ===
-        profileInfo.user;
-
     yield call(
       isAvailableAction,
       () =>
@@ -794,7 +788,7 @@ export function* upVoteWorker({
         ),
       {
         communityID: questionData.communityId,
-        skipPermissions: isOwnItem,
+        skipPermissions: isOwnItem(questionData, profileInfo),
       },
     );
 
