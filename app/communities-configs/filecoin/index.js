@@ -258,6 +258,6 @@ export const FilecoinStyles = {
   `,
   headerHeight: 170,
   isDropdownMenuArrow: false,
-  customSubHeaderConfig: customSubHeaderConfig,
+  customSubHeaderConfig,
   domainName: domainName,
 };
