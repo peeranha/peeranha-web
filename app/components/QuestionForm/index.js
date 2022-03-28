@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useMemo } from 'react';
+import React, { memo, useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -94,30 +94,36 @@ const SuggestTag = memo(({ redirectToCreateTagDispatch, formValues }) => {
 });
 
 export const QuestionForm = ({
-  locale,
-  sendQuestion,
-  formTitle,
-  questionLoading,
-  communities,
-  submitButtonId,
-  submitButtonName,
-  handleSubmit,
-  change,
-  formValues,
-  intl,
-  question,
-  questionid,
-  redirectToCreateTagDispatch,
-  getQuestions,
-  existingQuestions,
-  doSkipExistingQuestions,
-  skipExistingQuestions,
-  communityQuestionsType,
-  disableCommForm,
-}) => {
+                               locale,
+                               sendQuestion,
+                               formTitle,
+                               questionLoading,
+                               communities,
+                               submitButtonId,
+                               submitButtonName,
+                               handleSubmit,
+                               change,
+                               formValues,
+                               intl,
+                               question,
+                               questionid,
+                               redirectToCreateTagDispatch,
+                               getQuestions,
+                               existingQuestions,
+                               doSkipExistingQuestions,
+                               skipExistingQuestions,
+                               communityQuestionsType,
+                               disableCommForm,
+                             }) => {
+  const [isSelectedType, setIsSelectedType] = useState(false);
+  const [isError, setIsError] = useState(false);
+
   const handleSubmitWithType = sendQuestion => {
     if (communityQuestionsType !== ANY_TYPE) {
       change(FORM_TYPE, communityQuestionsType);
+    }
+    if(!isSelectedType && !isError) {
+      return setIsError(true);
     }
     return handleSubmit(sendQuestion);
   };
@@ -136,13 +142,18 @@ export const QuestionForm = ({
     createdHistory.push(routes.search(formValues[FORM_TITLE]));
   };
 
+  const handleSubmitForm = (e) => {
+    e.preventDefault();
+    handleSubmitWithType(sendQuestion);
+  }
+
   return (
     <div>
       <Header formTitle={formTitle} questionId={questionid} intl={intl} />
 
       <TipsBase>
         <BaseSpecialOne>
-          <FormBox onSubmit={handleSubmitWithType(sendQuestion)}>
+          <FormBox onSubmit={(e) => handleSubmitForm(e)}>
             <CommunityForm
               intl={intl}
               communities={communities}
@@ -153,14 +164,18 @@ export const QuestionForm = ({
 
             {!question &&
               ((communityQuestionsType === ANY_TYPE && (
-                <TypeForm
-                  intl={intl}
-                  change={change}
-                  questionLoading={questionLoading}
-                  locale={locale}
-                  formValues={formValues}
-                />
-              )) ||
+                  <TypeForm
+                    intl={intl}
+                    change={change}
+                    questionLoading={questionLoading}
+                    locale={locale}
+                    formValues={formValues}
+                    isError={isError}
+                    setIsError={setIsError}
+                    hasSelectedType={isSelectedType}
+                    setHasSelectedType={setIsSelectedType}
+                  />
+                )) ||
                 (communityQuestionsType === GENERAL_TYPE && (
                   <>
                     <DescriptionList
@@ -213,7 +228,6 @@ export const QuestionForm = ({
               formValues={formValues}
               redirectToCreateTagDispatch={redirectToCreateTagDispatch}
             />
-
 
             {/*<BountyForm*/}
             {/*  intl={intl}*/}
@@ -298,41 +312,41 @@ export default memo(
             [FORM_PROMOTE]: (0).toString(),
             ...(question
               ? {
-                  [FORM_TITLE]: question?.title,
-                  [FORM_CONTENT]: question?.content,
-                  [FORM_COMMUNITY]: {
-                    ...question?.community,
-                    tags: _uniqBy(
-                      question?.community?.tags?.concat(
-                        communities.find(
-                          ({ id }) => id === question?.community?.id,
-                        )?.tags,
-                      ),
-                      'id',
+                [FORM_TITLE]: question?.title,
+                [FORM_CONTENT]: question?.content,
+                [FORM_COMMUNITY]: {
+                  ...question?.community,
+                  tags: _uniqBy(
+                    question?.community?.tags?.concat(
+                      communities.find(
+                        ({ id }) => id === question?.community?.id,
+                      )?.tags,
                     ),
-                  },
-                  [FORM_TAGS]: question?.tags,
-                  [FORM_BOUNTY]: question?.bounty ?? '',
-                  [FORM_BOUNTY_HOURS]: question?.bountyHours,
-                }
+                    'id',
+                  ),
+                },
+                [FORM_TAGS]: question?.tags,
+                [FORM_BOUNTY]: question?.bounty ?? '',
+                [FORM_BOUNTY_HOURS]: question?.bountyHours,
+              }
               : {}),
             ...(single
               ? {
-                  [FORM_COMMUNITY]: {
-                    ...communities?.find(({ id }) => id === single),
-                    tags: _uniqBy(
-                      communities
-                        .find(({ id }) => id === single)
-                        ?.tags?.concat(
-                          communities.find(
-                            ({ id }) => id === question?.community?.id,
-                          )?.tags,
-                        )
-                        .filter(x => x),
-                      'id',
-                    ),
-                  },
-                }
+                [FORM_COMMUNITY]: {
+                  ...communities?.find(({ id }) => id === single),
+                  tags: _uniqBy(
+                    communities
+                      .find(({ id }) => id === single)
+                      ?.tags?.concat(
+                      communities.find(
+                        ({ id }) => id === question?.community?.id,
+                      )?.tags,
+                    )
+                      .filter(x => x),
+                    'id',
+                  ),
+                },
+              }
               : {}),
           },
           enableReinitialize: true,
@@ -348,3 +362,4 @@ export default memo(
     )(FormClone),
   ),
 );
+

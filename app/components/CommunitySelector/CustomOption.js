@@ -13,28 +13,49 @@ const EmptyOption = styled.span`
   width: ${CELL}px;
 `;
 
+export const ImgWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-left: -14%;
+`;
+
+export const EmptyWrapper = ImgWrapper.extend`
+  margin-left: 0;
+  margin-right: -25px;
+`;
+
 const Image = ({ avatar, selectedOptionId, optionValue }) => {
   if (selectedOptionId === optionValue)
-    return <Img src={okayBlueIcon} alt="chosen" />;
-
+    return (
+      <ImgWrapper>
+        <Img src={okayBlueIcon} alt="chosen" />
+        {avatar ? (
+          <Img src={avatar} alt="comm_avatar" />
+        ) : (
+          <EmptyWrapper>
+            <EmptyOption />
+          </EmptyWrapper>
+        )}
+      </ImgWrapper>
+    );
   if (!avatar) return <EmptyOption />;
-
   return <Img src={avatar} alt="comm_avatar" />;
 };
 
 export const BoxStyled = Box.extend`
+  padding-left: 35px;
   ${Img}, ${EmptyOption} {
     margin-right: 8px;
   }
 `;
 
 const CustomOption = ({
-  data,
-  isFocused,
-  optionsNumber,
-  selectedValue,
-  innerProps = {},
-}) => (
+                        data,
+                        isFocused,
+                        optionsNumber,
+                        selectedValue,
+                        innerProps = {},
+                      }) => (
   <BoxStyled {...innerProps} isActive={!!isFocused}>
     <Image
       avatar={data.avatar}
