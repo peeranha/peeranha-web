@@ -75,15 +75,15 @@ const Button = B.extend`
 `;
 
 const QuestionTypeField = ({
-                             input,
-                             label,
-                             disabled,
-                             meta,
-                             tip,
-                             splitInHalf,
-                             insideOfSection,
-                             error,
-                           }) => {
+  input,
+  label,
+  disabled,
+  meta,
+  tip,
+  splitInHalf,
+  insideOfSection,
+  error,
+}) => {
   function chooseQuestionType(event) {
     event.preventDefault();
     input.onChange(event.currentTarget.value);

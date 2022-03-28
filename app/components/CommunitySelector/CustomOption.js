@@ -50,12 +50,12 @@ export const BoxStyled = Box.extend`
 `;
 
 const CustomOption = ({
-                        data,
-                        isFocused,
-                        optionsNumber,
-                        selectedValue,
-                        innerProps = {},
-                      }) => (
+  data,
+  isFocused,
+  optionsNumber,
+  selectedValue,
+  innerProps = {},
+}) => (
   <BoxStyled {...innerProps} isActive={!!isFocused}>
     <Image
       avatar={data.avatar}

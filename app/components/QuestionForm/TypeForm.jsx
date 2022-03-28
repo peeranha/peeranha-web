@@ -9,16 +9,16 @@ import QuestionTypeField from './QuestionTypeField';
 import DescriptionList from '../DescriptionList';
 
 const TypeForm = ({
-                    intl,
-                    change,
-                    locale,
-                    questionLoading,
-                    formValues,
-                    hasSelectedType,
-                    setHasSelectedType,
-                    isError,
-                    setIsError,
-                  }) => {
+  intl,
+  change,
+  locale,
+  questionLoading,
+  formValues,
+  hasSelectedType,
+  setHasSelectedType,
+  isError,
+  setIsError,
+}) => {
   const onChange = useCallback(val => change(FORM_TYPE, val[0]), []);
 
   const labelConditional = n => {
@@ -38,7 +38,7 @@ const TypeForm = ({
       labelConditional(formValues[FORM_TYPE]),
       listConditional(formValues[FORM_TYPE]),
     ],
-    [locale, formValues]
+    [locale, formValues],
   );
 
   useEffect(
@@ -48,7 +48,7 @@ const TypeForm = ({
         setIsError(false);
       }
     },
-    [descriptionListLabel, descriptionListItems]
+    [descriptionListLabel, descriptionListItems],
   );
 
   return (
