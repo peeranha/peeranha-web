@@ -13,8 +13,8 @@ import { getQuestionsWorker } from '../QuestionsOfUser/saga';
 import { POST_TYPE_ANSWER } from '../Profile/constants';
 import { isGeneralQuestion } from '../ViewQuestion/saga';
 import { TOP_COMMUNITY_DISPLAY_MIN_RATING } from '../Questions/constants';
-import { REDIRECT_TO_FEED } from '../App/constants';
-import { redirectToFeedWorker } from '../App/saga';
+import { REDIRECT_TO_FEED } from 'containers/App/constants';
+import { redirectToFeedWorker } from 'containers/App/saga';
 
 export function* getQuestionsWithAnswersWorker({ userId }) {
   try {
