@@ -120,7 +120,7 @@
   "app.common.loginViaService": "Login via service",
   "app.common.signUpViaWallet": "Sign up via wallet",
   "app.common.signUpViaService": "Sign up via service",
-  "app.common.general": "General",
+  "app.common.general": "Discussion",
   "app.common.expert": "Expert",
   "app.common.tutorial": "Tutorial",
   "app.common.promoted": "Promoted",
@@ -384,7 +384,7 @@
   "app.components.RatingStatus.legResident": "Superhero",
   "app.components.RatingStatus.banned": "Banned",
 
-  "app.containers.Profile.status": "Status",
+  "app.containers.Profile.status": "Highest achieved status",
   "app.containers.Profile.risen": "Risen",
   "app.containers.Profile.memberSince": "Member since ",
   "app.containers.Profile.informationIsBlank":
@@ -1052,9 +1052,18 @@
     "Explanation or clarification of the information that is complicated to comprehend;",
     "Ask for an instruction or a recipe."
   ],
+  "app.containers.QuestionForm.tutorialQuestionDescriptionLabel":
+    "Tutorial is a manual instruction that can be one of the following:",
+  "app.containers.QuestionForm.tutorialQuestionDescriptionList": [
+    "Step-by-step solution to a problem;",
+    "Technical setup;",
+    "'How-to' guides."
+  ],
   "app.containers.QuestionForm.promotedLabel": "Promote question",
   "app.containers.QuestionForm.promotedTip": "Promote question",
   "app.containers.QuestionForm.questionIsPromoting": "Promoted till",
+  "app.containers.QuestionForm.PostTypeSelectionError":
+    "You need to select post type",
 
   "app.containers.AnswerForm.titleLabel": "Your Answer",
 

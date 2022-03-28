@@ -395,7 +395,7 @@
   "app.components.RatingStatus.banned": "Заблокирован",
 
   "app.containers.Profile.activity": "Активность",
-  "app.containers.Profile.status": "Статус",
+  "app.containers.Profile.status": "Наивысший достигнутый статус",
   "app.containers.Profile.risen": "Понравилось",
   "app.containers.Profile.memberSince": "Резидент с ",
   "app.containers.Profile.informationIsBlank":
@@ -1071,7 +1071,8 @@
   "app.containers.QuestionForm.promotedTip": "Продвинуть вопрос",
   "app.containers.QuestionForm.questionIsPromoting":
     "Этот вопрос продвигается до",
-
+    "app.containers.QuestionForm.PostTypeSelectionError":
+    "Необходимо выбрать тип поста",
   "app.containers.AnswerForm.titleLabel": "Ваш ответ",
 
   "app.components.TextEditor.tips": "Подсказки",

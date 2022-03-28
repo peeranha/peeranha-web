@@ -13,6 +13,8 @@ import { getQuestionsWorker } from '../QuestionsOfUser/saga';
 import { POST_TYPE_ANSWER } from '../Profile/constants';
 import { isGeneralQuestion } from '../ViewQuestion/saga';
 import { TOP_COMMUNITY_DISPLAY_MIN_RATING } from '../Questions/constants';
+import { REDIRECT_TO_FEED } from 'containers/App/constants';
+import { redirectToFeedWorker } from 'containers/App/saga';
 
 export function* getQuestionsWithAnswersWorker({ userId }) {
   try {
@@ -53,4 +55,5 @@ export function* getQuestionsWithAnswersWorker({ userId }) {
 export default function*() {
   yield takeLatest(GET_ANSWERED_QUESTIONS, getQuestionsWithAnswersWorker);
   yield takeLatest(GET_QUESTIONS, getQuestionsWorker);
+  yield takeLatest(REDIRECT_TO_FEED, redirectToFeedWorker);
 }

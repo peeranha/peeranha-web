@@ -107,7 +107,6 @@ const Icon = styled(IconLg)`
 `;
 
 const QuestionType = ({ locale, postType, isPromoted, isExpert }) => {
-  console.log(isExpert);
   const [visible, changeVisibility] = useState(false);
 
   const onMouseEnter = useCallback(() => changeVisibility(true), []);

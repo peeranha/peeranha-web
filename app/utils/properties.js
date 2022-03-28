@@ -133,7 +133,7 @@ export const isTemporaryAccount = async account => {
   return ethereumService.getSelectedAccount() === account;
 };
 
-export const getAllRoles = (userRoles, communitiesCount) => {
+export const getAllRoles = (userRoles = [], communitiesCount) => {
   const communityRoles = [COMMUNITY_MODERATOR_ROLE, COMMUNITY_ADMIN_ROLE];
   if (!!userRoles.find(role => BigNumber.from(role).eq(DEFAULT_ADMIN_ROLE))) {
     return [{ DEFAULT_ADMIN_ROLE }];

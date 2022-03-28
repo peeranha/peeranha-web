@@ -75,7 +75,7 @@ const Content = ({
               </MediumImageWrapper>
               <div>
                 <P fontSize="14">{x?.['displayName']}</P>
-                <IconWithStatus className="py-1" size="sm" rating={x.rating} />
+                <IconWithStatus className="py-1" size="sm" rating={0} />
                 <P fontSize="14" color={TEXT_SECONDARY}>
                   {getTimeFromDateToNow(x.creationTime, locale)}
                 </P>
