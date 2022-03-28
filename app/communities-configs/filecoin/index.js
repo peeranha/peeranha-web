@@ -259,5 +259,5 @@ export const FilecoinStyles = {
   headerHeight: 170,
   isDropdownMenuArrow: false,
   customSubHeaderConfig,
-  domainName: domainName,
+  domainName,
 };
