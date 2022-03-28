@@ -179,7 +179,7 @@ const TopCommunities = ({
                               fontSize="14"
                               color={TEXT_SECONDARY}
                             >
-                              <FormattedMessage {...messages.questions} />
+                              <FormattedMessage {...messages.posts} />
                             </Span>
                           </div>
                         </div>
