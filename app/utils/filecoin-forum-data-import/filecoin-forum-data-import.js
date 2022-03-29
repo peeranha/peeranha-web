@@ -15,8 +15,8 @@ async function importFilecoinForumData() {
   });
 
   const authLink = setContext((_, { headers }) => {
-    const token = 'github_personal_access_token';
-
+    const token = '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';
+    // 'github_personal_access_token'
     return {
       headers: {
         ...headers,
@@ -107,7 +107,7 @@ async function importFilecoinForumData() {
   };
 
   const saveDiscussionCategories = discussionCategories => {
-    writeDataToFile('filecoinCategories.json', discussionCategories);
+    writeDataToFile('categories.json', discussionCategories);
   };
 
   const getDiscussionsByCategory = async categoryId => {
@@ -138,25 +138,27 @@ async function importFilecoinForumData() {
   };
 
   const saveAllDiscussions = discussions => {
-    const dataForDiscussionsFile = discussions.map(discussion => ({
-      id: discussion.node.number,
-      author: {
-        name: discussion.node.author?.login,
-      },
-      title: discussion.node.title,
-      content: discussion.node.body,
-      categories: {
-        id: discussion.node.category.id,
-      },
-      postTime: discussion.node.createdAt,
-      postType: 1,
-      rating: discussion.node.upvoteCount,
-      replies: discussion.node.comments.edges.map(
-        comment => comment.node.databaseId,
-      ),
-    }));
+    const dataForDiscussionsFile = discussions
+      .map(discussion => ({
+        id: discussion.node.number,
+        author: {
+          name: discussion.node.author?.login,
+        },
+        title: discussion.node.title,
+        content: discussion.node.body,
+        categories: {
+          id: discussion.node.category.id,
+        },
+        postTime: discussion.node.createdAt,
+        postType: 1,
+        rating: discussion.node.upvoteCount,
+        replies: discussion.node.comments.edges.map(
+          comment => comment.node.databaseId,
+        ),
+      }))
+      .filter(discussion => discussion.author.name);
 
-    writeDataToFile('filecoinDiscussions.json', dataForDiscussionsFile);
+    writeDataToFile('discussions.json', dataForDiscussionsFile);
   };
 
   const saveAllAnswers = discussions => {
@@ -172,7 +174,7 @@ async function importFilecoinForumData() {
       )
       .flat(1);
 
-    writeDataToFile('filecoinAnswers.json', dataForAnswersFile);
+    writeDataToFile('answers.json', dataForAnswersFile);
   };
 
   const saveAllUsers = discussions => {
@@ -199,7 +201,7 @@ async function importFilecoinForumData() {
       return p;
     }, []);
 
-    writeDataToFile('filecoinUsers.json', allUsersWithoutCopies);
+    writeDataToFile('users.json', allUsersWithoutCopies);
   };
 
   const discussionCategories = await getDiscussionCategories();
