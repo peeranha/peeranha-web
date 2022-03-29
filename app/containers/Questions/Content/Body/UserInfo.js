@@ -26,7 +26,7 @@ const UserInfo = ({ author, postTime, locale, isSearchPage, communityId }) => {
               {author?.['displayName']}
             </Span>
             <RatingStatus
-              rating={author.ratings.get(communityId)}
+              rating={author.ratings.get(communityId.toString())}
               size="sm"
               isRankOff
             />
