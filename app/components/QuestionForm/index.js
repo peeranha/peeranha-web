@@ -118,15 +118,20 @@ export const QuestionForm = ({
   const [isSelectedType, setIsSelectedType] = useState(false);
   const [isError, setIsError] = useState(false);
 
-  const handleSubmitWithType = e => {
-    e.preventDefault();
+  const handleSubmitWithType = sendQuestion => {
     if (communityQuestionsType !== ANY_TYPE) {
       change(FORM_TYPE, communityQuestionsType);
     }
     if (!isSelectedType && !isError) {
       return setIsError(true);
     }
-    return handleSubmit(sendQuestion);
+    if (!isError) {
+      return handleSubmit(sendQuestion);
+    }
+  };
+
+  const handleSubmitForm = () => {
+    handleSubmitWithType(sendQuestion);
   };
 
   useEffect(
@@ -148,7 +153,7 @@ export const QuestionForm = ({
       <Header formTitle={formTitle} questionId={questionid} intl={intl} />
       <TipsBase>
         <BaseSpecialOne>
-          <FormBox onSubmit={handleSubmitWithType}>
+          <FormBox onSubmit={handleSubmitForm}>
             <CommunityForm
               intl={intl}
               communities={communities}
