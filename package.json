@@ -50,21 +50,14 @@
     "prettify": "prettier --write"
   },
   "lint-staged": {
-    "*.js": [
-      "prettier --write",
-      "npm run lint:eslint:fix",
-      "git add --force"
-    ],
-    "*.jsx": [
-      "prettier --write",
-      "npm run lint:eslint:fix",
-      "git add --force"
-    ],
-    "*.json": [
-      "prettier --write",
-      "git add --force"
+  "linters": {
+    "*.{js, jsx, json}": [
+      "prettier-eslint --write",
+      "git add"
     ]
-  },
+  }
+},
+
   "pre-commit": "lint:staged",
   "babel": {
     "presets": [
@@ -295,7 +288,7 @@
     "jest-cli": "23.1.0",
     "jest-styled-components": "5.0.1",
     "lint-staged": "7.2.0",
-    "ngrok": "3.0.1",
+    "ngrok": "^4.1.0",
     "node-plop": "0.15.0",
     "null-loader": "0.1.1",
     "plop": "2.0.0",
