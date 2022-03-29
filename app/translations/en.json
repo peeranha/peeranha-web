@@ -988,7 +988,7 @@
 
   "app.containers.AskQuestion.title": "New post",
   "app.containers.AskQuestion.description": "New post | Description",
-  "app.containers.AskQuestion.postQuestion": "Post question",
+  "app.containers.AskQuestion.postQuestion": "Post",
 
   "app.containers.ErrorPage.title": "Some error occured...",
   "app.containers.ErrorPage.description": "Some error occured... description",
