@@ -50,14 +50,13 @@
     "prettify": "prettier --write"
   },
   "lint-staged": {
-  "linters": {
-    "*.{js, jsx, json}": [
-      "prettier-eslint --write",
-      "git add"
-    ]
-  }
-},
-
+    "linters": {
+      "*.{js, jsx, json}": [
+        "prettier-eslint --write",
+        "git add"
+      ]
+    }
+  },
   "pre-commit": "lint:staged",
   "babel": {
     "presets": [
