@@ -15,8 +15,8 @@ async function importFilecoinForumData() {
   });
 
   const authLink = setContext((_, { headers }) => {
-    const token = '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';
-    // 'github_personal_access_token'
+    const token = 'github_personal_access_token';
+
     return {
       headers: {
         ...headers,
