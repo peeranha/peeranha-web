@@ -38,7 +38,7 @@ const TypeForm = ({
       labelConditional(formValues[FORM_TYPE]),
       listConditional(formValues[FORM_TYPE]),
     ],
-    [locale, formValues],
+    [formValues],
   );
 
   useEffect(
