@@ -126,7 +126,7 @@ export const QuestionForm = ({
     if (!isSelectedType && !isError && isClickSubmit) {
       return setIsError(true);
     }
-     return handleSubmit(sendQuestion);
+    return handleSubmit(sendQuestion);
   };
 
   useEffect(
