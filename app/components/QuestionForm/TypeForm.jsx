@@ -56,5 +56,3 @@ TypeForm.propTypes = {
 };
 
 export default memo(TypeForm);
-
-//TEST LINE
