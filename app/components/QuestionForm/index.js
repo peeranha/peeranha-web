@@ -143,7 +143,7 @@ export const QuestionForm = ({
     createdHistory.push(routes.search(formValues[FORM_TITLE]));
   };
 
-  const makeIsClicked = () => setIsClickSubmit(current=>true);
+  const makeIsClicked = () => setIsClickSubmit(true);
 
   return (
     <div>
