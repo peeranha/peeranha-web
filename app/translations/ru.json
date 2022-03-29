@@ -1071,7 +1071,8 @@
   "app.containers.QuestionForm.promotedTip": "Продвинуть вопрос",
   "app.containers.QuestionForm.questionIsPromoting":
     "Этот вопрос продвигается до",
-
+  "app.containers.QuestionForm.postTypeSelectionError":
+    "Необходимо выбрать тип поста",
   "app.containers.AnswerForm.titleLabel": "Ваш ответ",
 
   "app.components.TextEditor.tips": "Подсказки",
@@ -1224,4 +1225,3 @@
   "app.containers.TelegramInfo.confirm": "Подтвердить",
   "app.containers.TelegramInfo.unlink": "Удалить зависимость"
 }
-

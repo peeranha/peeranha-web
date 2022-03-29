@@ -146,7 +146,7 @@ export const isGeneralQuestion = question => Boolean(question.postType === 1);
 export const getQuestionTypeValue = isGeneral =>
   isGeneral ? QUESTION_TYPES.GENERAL.value : QUESTION_TYPES.EXPERT.value;
 
-const isOwnItem = (questionData, profileInfo) =>
+const isOwnItem = (questionData, profileInfo, answerId) =>
   questionData.author.user === profileInfo.user ||
   questionData.answers.find(x => x.id === answerId)?.user === profileInfo.user;
 
@@ -726,7 +726,7 @@ export function* downVoteWorker({
         ),
       {
         communityID: questionData.communityId,
-        skipPermissions: isOwnItem(questionData, profileInfo),
+        skipPermissions: isOwnItem(questionData, profileInfo, answerId),
       },
     );
 
@@ -788,7 +788,7 @@ export function* upVoteWorker({
         ),
       {
         communityID: questionData.communityId,
-        skipPermissions: isOwnItem(questionData, profileInfo),
+        skipPermissions: isOwnItem(questionData, profileInfo, answerId),
       },
     );
 
