@@ -915,7 +915,7 @@
   "app.containers.SignUp.verify": "Подтвердить",
   "app.containers.SignUp.sendAnotherCode": "Отправить другой код",
   "app.containers.SignUp.eosActivePrivateKey": "Telos Active Private Key",
-  "app.containers.SignUp.eosPrivateKey": "Private Key",
+  "app.containers.SignUp.privateKey": "Личный ключ",
   "app.containers.SignUp.eosOwnerPrivateKey": "Telos Owner Private Key",
   "app.containers.SignUp.storeThisKey": "Хранить этот ключ",
   "app.containers.SignUp.masterKey": "Master ключ",

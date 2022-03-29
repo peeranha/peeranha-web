@@ -149,7 +149,7 @@ const AuthorizationData = ({
                       }
                     >
                       <FormattedMessage
-                        {...signupMessages.eosPrivateKey}
+                        {...signupMessages.privateKey}
                       />
                     </InfoLabel>
                   </td>
