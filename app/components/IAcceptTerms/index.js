@@ -20,12 +20,12 @@ export default React.memo(() => (
           <FormattedMessage {...messages.termsOfService} />
         </ADefault>
       ),
-      termsOfTelos: (
+      terms: (
         <ADefault
           href="https://resources.telosfoundation.io/governance_documents/TBNOA_Adopted_2018-11-20.pdf"
           target="_blank"
         >
-          <FormattedMessage {...messages.termsOfTelos} />
+          <FormattedMessage {...messages.terms} />
         </ADefault>
       ),
     }}

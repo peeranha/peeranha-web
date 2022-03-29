@@ -163,11 +163,11 @@ const MainUserInformation = ({
             <UlStyled>
               <li>
                 <FormattedMessage {...messages.status} />
-                <RatingStatus rating={profile.rating} size="lg" />
+                <RatingStatus rating={profile.highestRating.rating} size="lg" />
               </li>
 
               <li>
-                <FormattedMessage {...commonMessages.questions} />
+                <FormattedMessage {...commonMessages.posts} />
                 <span>
                   <img src={questionRoundedIcon} alt="icon" />
                   {profile.postCount}
@@ -195,7 +195,7 @@ const MainUserInformation = ({
               </li>
               {!isTemporaryAccount && (
                 <li>
-                  <FormattedMessage {...commonMessages.ethereumAddress} />
+                  <FormattedMessage {...commonMessages.walletAddress} />
                   <span>{userId}</span>
                 </li>
               )}

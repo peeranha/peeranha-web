@@ -46,11 +46,9 @@ export const QuestionsOfUser = ({
   userId,
   account,
   displayName,
-  getQuestionsDispatch,
 }) => {
   return (
     <InfinityLoader
-      loadNextPaginatedData={getQuestionsDispatch.bind(null, userId)}
       isLoading={questionsLoading}
       isLastFetch={isLastFetch}
       infinityOff={infinityOff}
@@ -97,9 +95,6 @@ export default compose(
       questionsLoading: selectQuestionsLoading(),
       isLastFetch: selectIsLastFetch(),
       communities: selectCommunities(),
-    }),
-    dispatch => ({
-      getQuestionsDispatch: bindActionCreators(getQuestions, dispatch),
     }),
   ),
 )(QuestionsOfUser);

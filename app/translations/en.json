@@ -9,9 +9,9 @@
   "app.common.answers": "Answers",
   "app.common.posts": "Posts",
   "app.common.achievements": "Achievements",
-  "app.common.questionsNumber": "Questions {number}",
-  "app.common.answersNumber": "Answers {number}",
   "app.common.postsNumber": "Posts {number}",
+  "app.common.answersNumber": "Answers {number}",
+  "app.common.allActivitiesNumber": "All {number}",
   "app.common.achievementsNumber": "Achievements {number}",
   "app.common.settings": "Settings",
   "app.common.notifications": "Notifications",
@@ -92,7 +92,7 @@
   "app.common.amount": "Amount",
   "app.common.bounty": "Bounty amount",
   "app.common.password": "Password",
-  "app.common.ethereumAddress": "Ethereum address",
+  "app.common.walletAddress": "Wallet address",
   "app.common.successMessage": "Action completed successfully",
   "app.common.errorMessage": "An error occurred",
   "app.common.energy": "Energy",
@@ -111,16 +111,16 @@
   "app.common.showLess": "Show less {value}",
   "app.common.poweredByTelos": "Powered by {image}",
   "app.common.poweredByPeeranha": "Powered by {image}",
-  "app.common.termsOfTelos": "Telos Operating Agreement",
+  "app.common.terms": "Operating Agreement",
   "app.common.noResults": "No results",
   "app.common.iAcceptPrivacyPolicy":
-    "I accept {privacyPolicy}, {termsOfService}, {termsOfTelos}",
+    "I accept {privacyPolicy}, {termsOfService}, {terms}",
   "app.common.inProgress": "In progress",
   "app.common.loginViaWallet": "Login via wallet",
   "app.common.loginViaService": "Login via service",
   "app.common.signUpViaWallet": "Sign up via wallet",
   "app.common.signUpViaService": "Sign up via service",
-  "app.common.general": "General",
+  "app.common.general": "Discussion",
   "app.common.expert": "Expert",
   "app.common.tutorial": "Tutorial",
   "app.common.promoted": "Promoted",
@@ -384,7 +384,7 @@
   "app.components.RatingStatus.legResident": "Superhero",
   "app.components.RatingStatus.banned": "Banned",
 
-  "app.containers.Profile.status": "Status",
+  "app.containers.Profile.status": "Highest achieved status",
   "app.containers.Profile.risen": "Risen",
   "app.containers.Profile.memberSince": "Member since ",
   "app.containers.Profile.informationIsBlank":
@@ -438,8 +438,8 @@
   "app.containers.CreateTag.usingTheRightTags":
     "Using the right tags makes it easier for other users to find your questions.",
 
-  "app.containers.EditTag.title": "Edit tag",
-  "app.containers.EditTag.description": "Edit tag | Description",
+  "app.containers.EditTag.title": "Save",
+  "app.containers.EditTag.description": "Save | Description",
 
   "app.containers.Tags.backToList": "Back to list",
   "app.containers.Tags.didntFindSuitableTag": "Did not find suitable tags?",
@@ -544,7 +544,7 @@
 
   "app.containers.EditCommunity.communityTitleTip": "Name of the community",
   "app.containers.EditCommunity.description": "Description of EditCommunity",
-  "app.containers.EditCommunity.editCommunity": "Edit community",
+  "app.containers.EditCommunity.editCommunity": "Save",
   "app.containers.EditCommunity.header": "Edit community",
   "app.containers.EditCommunity.pageTitle": "Community | Edit",
 
@@ -765,7 +765,6 @@
     "Mark the best answer to this question and earn +2 reputation points",
   "app.containers.ViewQuestion.markGeneralQuestionAndGetEarn":
     "Mark the best answer to this question and earn +1 reputation point",
-  "app.containers.ViewQuestion.expertQuestion": "Expert question",
   "app.containers.ViewQuestion.tutorial": "Tutorial",
   "app.containers.ViewQuestion.changeQuestionType": "Change type",
   "app.containers.ViewQuestion.officialAnswer": "Official answer",
@@ -881,7 +880,7 @@
   "app.containers.SignUp.telosBlockchainPowers":
     "Telos blockchain powers many decentralized applications like Peeranha, which is run by community members all around the world. Telos blockchain account is required to use these applications.",
   "app.containers.SignUp.weAreHappyToCover":
-    "If you prefer to use a wallet application to manage your Telos blockchain account, then wallet sign up option is available.",
+    "If you prefer to use a wallet application to manage your blockchain account, then wallet sign up option is available.",
   "app.containers.SignUp.ifYouLikeToSkip":
     "New to blockchain? Do not worry! You will be able to access Peeranha using your email address and password as any other website.",
   "app.containers.SignUp.or": "or",
@@ -1053,9 +1052,18 @@
     "Explanation or clarification of the information that is complicated to comprehend;",
     "Ask for an instruction or a recipe."
   ],
+  "app.containers.QuestionForm.tutorialQuestionDescriptionLabel":
+    "Tutorial is a manual instruction that can be one of the following:",
+  "app.containers.QuestionForm.tutorialQuestionDescriptionList": [
+    "Step-by-step solution to a problem;",
+    "Technical setup;",
+    "'How-to' guides."
+  ],
   "app.containers.QuestionForm.promotedLabel": "Promote question",
   "app.containers.QuestionForm.promotedTip": "Promote question",
   "app.containers.QuestionForm.questionIsPromoting": "Promoted till",
+  "app.containers.QuestionForm.postTypeSelectionError":
+    "You need to select post type",
 
   "app.containers.AnswerForm.titleLabel": "Your Answer",
 

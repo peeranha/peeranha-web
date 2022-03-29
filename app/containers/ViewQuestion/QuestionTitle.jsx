@@ -2,33 +2,25 @@ import React, { useMemo } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import commonMessages from 'common-messages';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 
-import { BG_SUCCESS, BUTTON_COLOR, TEXT_PREMIUM } from 'style-constants';
+import { BG_SUCCESS, TEXT_PREMIUM } from 'style-constants';
 
 import checkIcon from 'images/okayGreen.svg?inline';
-import coinsIcon from 'images/coins.svg?external';
 
-import {
-  isSingleCommunityWebsite,
-  singleCommunityStyles,
-} from 'utils/communityManagement';
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { getFormattedDate, dateNowInSeconds } from 'utils/datetime';
-import { MONTH_3LETTERS__DAY_YYYY_TIME, POST_TYPE } from 'utils/constants';
+import { MONTH_3LETTERS__DAY_YYYY_TIME } from 'utils/constants';
 
 import Base from 'components/Base';
 import H3 from 'components/H3';
 import TagList from 'components/TagsList';
-import QuestionType from 'components/Labels/QuestionType';
 import QuestionCommunity from 'components/QuestionForProfilePage/QuestionCommunity';
 import Button from 'components/Button/Outlined/InfoMedium';
-import { IconMd } from 'components/Icon/IconWithSizes';
 import { Bounty } from './Bounty';
 
 import { MarkAnswerNotification } from './MarkAsAcceptedIcon';
-import SendTips from '../SendTips';
 
 import { BOUNTY_PAID_CLASSNAME } from './constants';
 
@@ -38,9 +30,6 @@ import {
 } from '../AccountProvider/selectors';
 
 import messages from './messages';
-
-const single = isSingleCommunityWebsite();
-const styles = singleCommunityStyles();
 
 export const B = Button.extend`
   align-items: center;
@@ -64,27 +53,6 @@ const TitleContainer = styled.div`
   }
 `;
 
-const Top = styled.div`
-  > div {
-    margin-bottom: 5px;
-  }
-
-  @media only screen and (max-width: 310px) {
-    flex-direction: column-reverse;
-    justify-content: start;
-
-    > div {
-      margin-bottom: 5px;
-      left: 0;
-    }
-
-    > button,
-    > div {
-      width: fit-content;
-    }
-  }
-`;
-
 const PromotionInfo = styled.div`
   color: ${TEXT_PREMIUM};
   margin-top: 10px;
@@ -97,7 +65,6 @@ export const QuestionTitle = ({
   user,
   questionData,
   profileInfo,
-  isTemporaryAccount,
   locale,
   account,
 }) => {
@@ -108,23 +75,17 @@ export const QuestionTitle = ({
     answers,
     questionBounty,
     isGeneral,
-    id,
     promote,
     author: questionAuthor,
-    postType,
   } = questionData;
 
   const isActivePromotion = useMemo(
     () => {
-      if (
+      return (
         promote &&
         promote.endsTime > dateNowInSeconds() &&
         account === questionAuthor
-      ) {
-        return true;
-      }
-
-      return false;
+      );
     },
     [promote, account, questionAuthor],
   );
@@ -147,50 +108,7 @@ export const QuestionTitle = ({
   const isItWrittenByMe = profileInfo ? user === profileInfo.user : false;
 
   return title ? (
-    <Base
-      paddingTop="5"
-      paddingTopMedia="5"
-      position="middle"
-      bordered={postType === POST_TYPE.expertPost}
-      withoutBR
-    >
-      <Top>
-        {((!profileInfo && !isTemporaryAccount) ||
-          (!!profileInfo && !isItWrittenByMe && !isTemporaryAccount)) && (
-          <SendTips
-            form="tip-question"
-            questionId={id}
-            answerId={0}
-            account={user}
-          >
-            <B>
-              <IconMd
-                className="mr-1"
-                icon={coinsIcon}
-                color={BUTTON_COLOR}
-                specialStyles={
-                  single && styles.coinsIconStyles
-                    ? styles.coinsIconStyles
-                    : null
-                }
-              />
-              <FormattedMessage {...commonMessages.tipQuestion} />
-            </B>
-          </SendTips>
-        )}
-
-        {postType === POST_TYPE.expertPost && (
-          <QuestionType size="md" top="0px" topMedia="0px">
-            <FormattedMessage {...messages.expertQuestion} />
-          </QuestionType>
-        )}
-
-        {postType === POST_TYPE.tutorial && (
-          <QuestionType size="md" top="0px" topMedia="0px">
-            <FormattedMessage {...messages.expertQuestion} />
-          </QuestionType>
-        )}
-      </Top>
+    <Base paddingTop="5" paddingTopMedia="5" position="middle" withoutBR>
       <Div>
         {!correctAnswerId && isItWrittenByMe && answers.length ? (
           <>
