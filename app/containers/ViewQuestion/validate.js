@@ -76,22 +76,21 @@ export const postAnswerValidator = (
   ).length;
 
   let message;
-
+  const communityRating = profileInfo.ratings.get(communityId.toString());
   if (questionData.answers.length === maxAnswersNumber) {
     message = `${translations[messages.itemsMax.id]}`;
   } else if (isAnswered) {
     message = `${translations[messages.alreadyAnswered.id]}`;
   } else if (
     questionData.user === profileInfo.user &&
-    profileInfo.ratings.get(communityId.toString()) < MIN_RATING_FOR_MY_QUESTION
+    communityRating < MIN_RATING_FOR_MY_QUESTION
   ) {
     message = `${
       translations[messages.notEnoughRating.id]
     } ${MIN_RATING_FOR_MY_QUESTION}`;
   } else if (
     questionData.user !== profileInfo.user &&
-    profileInfo.ratings.get(communityId.toString()) <
-      MIN_RATING_FOR_OTHER_QUESTIONS
+    communityRating < MIN_RATING_FOR_OTHER_QUESTIONS
   ) {
     message = `${
       translations[messages.notEnoughRating.id]
