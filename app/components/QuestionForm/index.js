@@ -118,7 +118,8 @@ export const QuestionForm = ({
   const [isSelectedType, setIsSelectedType] = useState(false);
   const [isError, setIsError] = useState(false);
 
-  const handleSubmitWithType = sendQuestion => {
+  const handleSubmitWithType = e => {
+    e.preventDefault();
     if (communityQuestionsType !== ANY_TYPE) {
       change(FORM_TYPE, communityQuestionsType);
     }
@@ -142,18 +143,12 @@ export const QuestionForm = ({
     createdHistory.push(routes.search(formValues[FORM_TITLE]));
   };
 
-  const handleSubmitForm = e => {
-    e.preventDefault();
-    handleSubmitWithType(sendQuestion);
-  };
-
   return (
     <div>
       <Header formTitle={formTitle} questionId={questionid} intl={intl} />
-
       <TipsBase>
         <BaseSpecialOne>
-          <FormBox onSubmit={e => handleSubmitForm(e)}>
+          <FormBox onSubmit={handleSubmitWithType}>
             <CommunityForm
               intl={intl}
               communities={communities}
