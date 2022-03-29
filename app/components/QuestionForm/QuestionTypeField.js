@@ -115,7 +115,9 @@ const QuestionTypeField = ({
       </ButtonGroup>
       {error && (
         <Warning>
-          <FormattedMessage {...questionMessages.questionPostTypeSelectionError} />
+          <FormattedMessage
+            {...questionMessages.questionPostTypeSelectionError}
+          />
         </Warning>
       )}
     </Wrapper>
