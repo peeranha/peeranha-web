@@ -117,21 +117,16 @@ export const QuestionForm = ({
 }) => {
   const [isSelectedType, setIsSelectedType] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [isClickSubmit, setIsClickSubmit] = useState(false);
 
-  const handleSubmitWithType = sendQuestion => {
+  const handleSubmitWithType = () => {
     if (communityQuestionsType !== ANY_TYPE) {
       change(FORM_TYPE, communityQuestionsType);
     }
-    if (!isSelectedType && !isError) {
+    if (!isSelectedType && !isError && isClickSubmit) {
       return setIsError(true);
     }
-    if (!isError) {
-      return handleSubmit(sendQuestion);
-    }
-  };
-
-  const handleSubmitForm = () => {
-    handleSubmitWithType(sendQuestion);
+     return handleSubmit(sendQuestion);
   };
 
   useEffect(
@@ -148,12 +143,17 @@ export const QuestionForm = ({
     createdHistory.push(routes.search(formValues[FORM_TITLE]));
   };
 
+  const makeIsClicked = () => setIsClickSubmit(current=>true);
+
   return (
     <div>
       <Header formTitle={formTitle} questionId={questionid} intl={intl} />
       <TipsBase>
         <BaseSpecialOne>
-          <FormBox onSubmit={handleSubmitForm}>
+          <FormBox
+           onSubmit={handleSubmitWithType(sendQuestion)}
+           onClick = {makeIsClicked}
+          >
             <CommunityForm
               intl={intl}
               communities={communities}
