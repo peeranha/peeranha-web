@@ -101,6 +101,6 @@ export default defineMessages({
     id: 'app.containers.QuestionForm.questionIsPromoting',
   },
   questionPostTypeSelectionError: {
-    id: 'app.containers.QuestionForm.PostTypeSelectionError',
+    id: 'app.containers.QuestionForm.postTypeSelectionError',
   },
 });

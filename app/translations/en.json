@@ -1062,7 +1062,7 @@
   "app.containers.QuestionForm.promotedLabel": "Promote question",
   "app.containers.QuestionForm.promotedTip": "Promote question",
   "app.containers.QuestionForm.questionIsPromoting": "Promoted till",
-  "app.containers.QuestionForm.PostTypeSelectionError":
+  "app.containers.QuestionForm.postTypeSelectionError":
     "You need to select post type",
 
   "app.containers.AnswerForm.titleLabel": "Your Answer",

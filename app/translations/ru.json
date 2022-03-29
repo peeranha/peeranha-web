@@ -1071,7 +1071,7 @@
   "app.containers.QuestionForm.promotedTip": "Продвинуть вопрос",
   "app.containers.QuestionForm.questionIsPromoting":
     "Этот вопрос продвигается до",
-  "app.containers.QuestionForm.PostTypeSelectionError":
+  "app.containers.QuestionForm.postTypeSelectionError":
     "Необходимо выбрать тип поста",
   "app.containers.AnswerForm.titleLabel": "Ваш ответ",
 
