@@ -114,7 +114,7 @@
   "app.common.terms": "Operating Agreement",
   "app.common.noResults": "No results",
   "app.common.iAcceptPrivacyPolicy":
-    "I accept {privacyPolicy}, {termsOfService}, {terms}",
+    "I accept {privacyPolicy}, {termsOfService}",
   "app.common.inProgress": "In progress",
   "app.common.loginViaWallet": "Login via wallet",
   "app.common.loginViaService": "Login via service",
