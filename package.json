@@ -102,6 +102,7 @@
       }
     }
   },
+
   "dllPlugin": {
     "path": "node_modules/react-boilerplate-dlls",
     "exclude": [
