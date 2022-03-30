@@ -6,7 +6,7 @@ import { FormattedMessage } from 'react-intl';
 
 import { singleCommunityStyles } from 'utils/communityManagement';
 import validationArrowIcon from 'images/validationArrow.svg?inline';
-import { italicFont } from '../../global-styles';
+import { italicFont } from 'global-styles';
 import messages from 'common-messages';
 import questionMessages from './messages';
 
