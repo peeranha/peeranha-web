@@ -6,12 +6,14 @@ import { FormattedMessage } from 'react-intl';
 
 import { singleCommunityStyles } from 'utils/communityManagement';
 import messages from 'common-messages';
+import questionMessages from './messages';
 
 import {
   BORDER_SECONDARY,
   BORDER_PRIMARY,
   BORDER_PRIMARY_RGB,
   BORDER_RADIUS_M,
+  PEER_WARNING_COLOR,
 } from 'style-constants';
 
 import { Wrapper } from 'components/FormFields/Wrapper';
@@ -35,19 +37,21 @@ export const QUESTION_TYPES = {
   },
 };
 
+const Warning = styled.h1`
+  padding-top: 10px;
+  color: ${PEER_WARNING_COLOR};
+`;
+
 const ButtonGroup = styled.div`
   ${Styles};
-
   padding: 0;
   display: flex;
-  border: none;
 `;
 
 const Button = B.extend`
   &:first-child {
     border-top-left-radius: ${BORDER_RADIUS_M};
     border-bottom-left-radius: ${BORDER_RADIUS_M};
-
     border-radius: ${styles.buttonBorderRadius};
   }
 
@@ -55,21 +59,16 @@ const Button = B.extend`
     border-left: none;
     border-top-right-radius: ${BORDER_RADIUS_M};
     border-bottom-right-radius: ${BORDER_RADIUS_M};
-
     border-radius: ${styles.buttonBorderRadius};
   }
 
   flex: 1;
-  border: 1px solid
-    ${x =>
-      +x.currentValue === +x.value
-        ? `${BORDER_PRIMARY} !important`
-        : BORDER_SECONDARY};
+  border: 1px solid ${BORDER_SECONDARY};
 
-  box-shadow: ${x =>
-    +x.currentValue === +x.value
-      ? `0 0 0 3px rgba(${BORDER_PRIMARY_RGB}, 0.4)`
-      : `none`};
+  &:hover {
+    border: 1px solid ${BORDER_PRIMARY} !important;
+    box-shadow: 0 0 0 3px rgba(${BORDER_PRIMARY_RGB}, 0.4);
+  }
 
   @media only screen and (max-width: 576px) {
     height: 36px;
@@ -84,6 +83,7 @@ const QuestionTypeField = ({
   tip,
   splitInHalf,
   insideOfSection,
+  error,
 }) => {
   function chooseQuestionType(event) {
     event.preventDefault();
@@ -100,7 +100,7 @@ const QuestionTypeField = ({
       id={input.name}
       insideOfSection={insideOfSection}
     >
-      <ButtonGroup>
+      <ButtonGroup error={error}>
         {Object.values(QUESTION_TYPES).map(questionType => (
           <Button
             onClick={chooseQuestionType}
@@ -113,6 +113,13 @@ const QuestionTypeField = ({
           </Button>
         ))}
       </ButtonGroup>
+      {error && (
+        <Warning>
+          <FormattedMessage
+            {...questionMessages.questionPostTypeSelectionError}
+          />
+        </Warning>
+      )}
     </Wrapper>
   );
 };

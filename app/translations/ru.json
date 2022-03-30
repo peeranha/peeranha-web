@@ -114,7 +114,7 @@
   "app.common.terms": "Operating Agreement",
   "app.common.noResults": "Нет результатов",
   "app.common.iAcceptPrivacyPolicy":
-    "Я принимаю условия {privacyPolicy}, {termsOfService}, {terms}",
+    "Я принимаю условия {privacyPolicy}, {termsOfService}",
   "app.common.inProgress": "Выполняется",
   "app.common.loginViaWallet": "Войти через кошелек",
   "app.common.loginViaService": "Войти через сервис",
@@ -914,6 +914,7 @@
   "app.containers.SignUp.verify": "Подтвердить",
   "app.containers.SignUp.sendAnotherCode": "Отправить другой код",
   "app.containers.SignUp.eosActivePrivateKey": "Telos Active Private Key",
+  "app.containers.SignUp.privateKey": "Личный ключ",
   "app.containers.SignUp.eosOwnerPrivateKey": "Telos Owner Private Key",
   "app.containers.SignUp.storeThisKey": "Хранить этот ключ",
   "app.containers.SignUp.masterKey": "Master ключ",
@@ -1071,7 +1072,8 @@
   "app.containers.QuestionForm.promotedTip": "Продвинуть вопрос",
   "app.containers.QuestionForm.questionIsPromoting":
     "Этот вопрос продвигается до",
-
+  "app.containers.QuestionForm.postTypeSelectionError":
+    "Необходимо выбрать тип поста",
   "app.containers.AnswerForm.titleLabel": "Ваш ответ",
 
   "app.components.TextEditor.tips": "Подсказки",
@@ -1224,4 +1226,3 @@
   "app.containers.TelegramInfo.confirm": "Подтвердить",
   "app.containers.TelegramInfo.unlink": "Удалить зависимость"
 }
-

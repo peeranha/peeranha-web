@@ -114,13 +114,13 @@
   "app.common.terms": "Operating Agreement",
   "app.common.noResults": "No results",
   "app.common.iAcceptPrivacyPolicy":
-    "I accept {privacyPolicy}, {termsOfService}, {terms}",
+    "I accept {privacyPolicy}, {termsOfService}",
   "app.common.inProgress": "In progress",
   "app.common.loginViaWallet": "Login via wallet",
   "app.common.loginViaService": "Login via service",
   "app.common.signUpViaWallet": "Sign up via wallet",
   "app.common.signUpViaService": "Sign up via service",
-  "app.common.general": "General",
+  "app.common.general": "Discussion",
   "app.common.expert": "Expert",
   "app.common.tutorial": "Tutorial",
   "app.common.promoted": "Promoted",
@@ -901,6 +901,7 @@
   "app.containers.SignUp.verify": "Verify",
   "app.containers.SignUp.sendAnotherCode": "Send another code",
   "app.containers.SignUp.eosActivePrivateKey": "Telos Active Private Key",
+  "app.containers.SignUp.privateKey": "Private Key",
   "app.containers.SignUp.eosOwnerPrivateKey": "Telos Owner Private Key",
   "app.containers.SignUp.storeThisKey": "Store this key",
   "app.containers.SignUp.masterKey": "Master key",
@@ -988,7 +989,7 @@
 
   "app.containers.AskQuestion.title": "New post",
   "app.containers.AskQuestion.description": "New post | Description",
-  "app.containers.AskQuestion.postQuestion": "Post question",
+  "app.containers.AskQuestion.postQuestion": "Post",
 
   "app.containers.ErrorPage.title": "Some error occured...",
   "app.containers.ErrorPage.description": "Some error occured... description",
@@ -1052,9 +1053,18 @@
     "Explanation or clarification of the information that is complicated to comprehend;",
     "Ask for an instruction or a recipe."
   ],
+  "app.containers.QuestionForm.tutorialQuestionDescriptionLabel":
+    "Tutorial is a manual instruction that can be one of the following:",
+  "app.containers.QuestionForm.tutorialQuestionDescriptionList": [
+    "Step-by-step solution to a problem;",
+    "Technical setup;",
+    "'How-to' guides."
+  ],
   "app.containers.QuestionForm.promotedLabel": "Promote question",
   "app.containers.QuestionForm.promotedTip": "Promote question",
   "app.containers.QuestionForm.questionIsPromoting": "Promoted till",
+  "app.containers.QuestionForm.postTypeSelectionError":
+    "You need to select post type",
 
   "app.containers.AnswerForm.titleLabel": "Your Answer",
 

@@ -36,6 +36,9 @@ export default defineMessages({
   eosActivePrivateKey: {
     id: 'app.containers.SignUp.eosActivePrivateKey',
   },
+  privateKey: {
+    id: 'app.containers.SignUp.privateKey',
+  },
   eosOwnerPrivateKey: {
     id: 'app.containers.SignUp.eosOwnerPrivateKey',
   },
