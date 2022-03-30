@@ -6,7 +6,7 @@ import { FormattedMessage } from 'react-intl';
 
 import { singleCommunityStyles } from 'utils/communityManagement';
 import validationArrowIcon from 'images/validationArrow.svg?inline';
-import { italicFont } from 'global-styles';
+import { italicFont } from '../../global-styles';
 import messages from 'common-messages';
 import questionMessages from './messages';
 
@@ -39,16 +39,14 @@ export const QUESTION_TYPES = {
   },
 };
 
-const ButtonWrapper = styled.div`
+const QuestionTypeContainer = styled.div`
   display: flex;
-  justify-content: flex-start;
   align-items: center;
   width: 100%;
 
   @media (max-width: 768px) {
     flex-direction: column;
     align-items: flex-start;
-    justify-content: flex-start;
   }
 `;
 
@@ -64,9 +62,8 @@ const Warning = styled.div`
   line-height: 18px;
 
   @media (max-width: 768px) {
-    margin-left: 0;
     padding-top: 0;
-    margin-top: -7px;
+    margin: -7px 0 0;
   }
 `;
 
@@ -118,8 +115,7 @@ const Button = B.extend`
   @media only screen and (max-width: 576px) {
     height: 36px;
     margin-top: -10px;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding: 0 15px;
   }
 `;
 
@@ -139,7 +135,7 @@ const QuestionTypeField = ({
   }
 
   return (
-    <ButtonWrapper>
+    <QuestionTypeContainer>
       <Wrapper
         label={label}
         tip={tip}
@@ -150,7 +146,7 @@ const QuestionTypeField = ({
         insideOfSection={insideOfSection}
       >
         <ButtonGroup error={error}>
-          {Object.values(QUESTION_TYPES).map(questionType => (
+          {Object.values(QUESTION_TYPES).map((questionType) => (
             <Button
               onClick={chooseQuestionType}
               value={questionType.value}
@@ -171,7 +167,7 @@ const QuestionTypeField = ({
           />
         </Warning>
       )}
-    </ButtonWrapper>
+    </QuestionTypeContainer>
   );
 };
 
