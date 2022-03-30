@@ -91,32 +91,6 @@ const WalletsSignUpForm = ({
               warn={[strLength3x20, required]}
             />
 
-            <P className="text-center py-3">
-              <FormattedMessage {...loginMessages.referralMessage} />
-            </P>
-            <Field
-              name={REFERRAL_CODE}
-              disabled={signUpWithWalletProcessing}
-              label={
-                <FormattedMessage
-                  {...messages.referralCode}
-                  values={{
-                    optional: (
-                      <text style={{ fontWeight: 'lighter' }}>
-                        {
-                          translationMessages[locale][
-                            loginMessages.optionalReferralCode.id
-                          ]
-                        }
-                      </text>
-                    ),
-                  }}
-                />
-              }
-              component={TextInputField}
-              validate={[validateTelosName]}
-            />
-
             <Field
               name={I_ACCEPT_PRIVACY_POLICY_FIELD}
               disabled={signUpWithWalletProcessing}

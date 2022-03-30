@@ -114,7 +114,7 @@
   "app.common.terms": "Operating Agreement",
   "app.common.noResults": "No results",
   "app.common.iAcceptPrivacyPolicy":
-    "I accept {privacyPolicy}, {termsOfService}, {terms}",
+    "I accept {privacyPolicy}, {termsOfService}",
   "app.common.inProgress": "In progress",
   "app.common.loginViaWallet": "Login via wallet",
   "app.common.loginViaService": "Login via service",
@@ -901,6 +901,7 @@
   "app.containers.SignUp.verify": "Verify",
   "app.containers.SignUp.sendAnotherCode": "Send another code",
   "app.containers.SignUp.eosActivePrivateKey": "Telos Active Private Key",
+  "app.containers.SignUp.privateKey": "Private Key",
   "app.containers.SignUp.eosOwnerPrivateKey": "Telos Owner Private Key",
   "app.containers.SignUp.storeThisKey": "Store this key",
   "app.containers.SignUp.masterKey": "Master key",
@@ -988,7 +989,7 @@
 
   "app.containers.AskQuestion.title": "New post",
   "app.containers.AskQuestion.description": "New post | Description",
-  "app.containers.AskQuestion.postQuestion": "Post question",
+  "app.containers.AskQuestion.postQuestion": "Post",
 
   "app.containers.ErrorPage.title": "Some error occured...",
   "app.containers.ErrorPage.description": "Some error occured... description",
