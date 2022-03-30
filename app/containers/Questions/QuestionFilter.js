@@ -60,61 +60,64 @@ const QuestionFilter = ({
   changeQuestionFilterDispatch,
   questionFilterFromCookies,
 }) => {
-  if (!single) return null;
+  return null;
+  //TODO Question Filter
+  // if (!single) return null;
 
-  const [filter, setFilterValue] = useState(+(questionFilterFromCookies || 1));
+  // const [filter, setFilterValue] = useState(+(questionFilterFromCookies || 1));
 
-  useEffect(
-    () => {
-      const cookieValue = questionFilterFromCookies;
+  // useEffect(
+  //   () => {
+  //     const cookieValue = questionFilterFromCookies;
 
-      setFilterValue(cookieValue);
+  //     setFilterValue(cookieValue);
 
-      if (!cookieValue || cookieValue === '1') {
-        setCookie(cookieFilterSetter(1));
-        changeQuestionFilterDispatch(1);
-      }
-    },
-    [filter],
-  );
-
-  const setFilter = useCallback(
-    value => {
-      if (value !== filter) {
-        setFilterValue(value);
-        setCookie(cookieFilterSetter(value));
-        changeQuestionFilterDispatch(value);
-      }
-    },
-    [filter],
-  );
-
-  const setAllFilter = useCallback(
-    () => {
-      setFilter(0);
-      setCookie({
-        name: UPDATE_PROMO_QUESTIONS,
-        value: true,
-      });
-    },
-    [filter],
-  );
-  const setQuestionFilter = useCallback(() => setFilter(1), [filter]);
-
-  return display ? (
-    <Container>
-      <Button
-        active={questionFilterFromCookies === '1'}
-        onClick={setQuestionFilter}
-        left
-      >
-        <FormattedMessage {...commonMessages.top} />
-      </Button>
-      <Button active={questionFilterFromCookies === '0'} onClick={setAllFilter}>
-        <FormattedMessage {...commonMessages.all} />
-      </Button>
-    </Container>
-  ) : null;
+  //     if (!cookieValue || cookieValue === '1') {
+  //       setCookie(cookieFilterSetter(1));
+  //       changeQuestionFilterDispatch(1);
+  //     }
+  //   },
+  //   [filter],
+  // );
+  // // console.log('nonon1', cookieValue); 
+  // const setFilter = useCallback(
+  //   value => {
+  //     if (value !== filter) {
+  //       setFilterValue(value);
+  //       setCookie(cookieFilterSetter(value));
+  //       changeQuestionFilterDispatch(value);
+  //     }
+  //   },
+  //   [filter],
+  // );
+  // console.log('nonon2', setFilter);   
+  // const setAllFilter = useCallback(
+  //   () => {
+  //     setFilter(0);
+  //     setCookie({
+  //       name: UPDATE_PROMO_QUESTIONS,
+  //       value: true,
+  //     });
+  //   },
+  //   [filter],
+  // );
+  // console.log('nonon3', setAllFilter); 
+  // const setQuestionFilter = useCallback(() => setFilter(1), [filter]);
+  // console.log('nonon4', display);   
+  // return display ? (
+  //   <Container>
+  //     <Button
+  //       active={questionFilterFromCookies === '1'}
+  //       onClick={setQuestionFilter}
+  //       left
+  //     >
+  //       <FormattedMessage {...commonMessages.top} />
+  //     </Button>
+  //     <Button active={questionFilterFromCookies === '0'} onClick={setAllFilter}>
+  //       <FormattedMessage {...commonMessages.all} />
+  //     </Button>
+  //   </Container>
+  // ) : null;
 };
 
 QuestionFilter.propTypes = {

@@ -158,14 +158,17 @@ export function* getQuestionsWorker({
         yield call(getUserProfileWorker, { user, getFullProfile: true });
       }),
     );
+    
     yield all(
       questionsList.map(function*(question) {
         const profileObject = yield select(selectUsers(question.author.id));
-        question.author = {
-          ...question.author,
-          ratings: profileObject.ratings,
-          highestRating: profileObject.highestRating,
-        };
+        if(profileObject){
+          question.author = {
+            ...question.author,
+            ratings: profileObject.ratings,
+            highestRating: profileObject.highestRating,
+          };
+        }
       }),
     );
     //TODO promoted questions
