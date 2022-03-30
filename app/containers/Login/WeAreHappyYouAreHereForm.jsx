@@ -55,31 +55,6 @@ const WeAreHappyYouAreHereForm = ({
         warn={[strLength3x20, required]}
       />
 
-      <P className="text-center py-3">
-        <FormattedMessage {...loginMessages.referralMessage} />
-      </P>
-      <Field
-        name={REFERRAL_CODE}
-        disabled={finishRegistrationProcessing}
-        label={
-          <FormattedMessage
-            {...signupMessages.referralCode}
-            values={{
-              optional: (
-                <text style={{ fontWeight: 'lighter' }}>
-                  {
-                    translationMessages[locale][
-                      loginMessages.optionalReferralCode.id
-                    ]
-                  }
-                </text>
-              ),
-            }}
-          />
-        }
-        component={TextInputField}
-        validate={[validateTelosName]}
-      />
       <Button disabled={finishRegistrationProcessing} className="w-100">
         <FormattedMessage {...signupMessages.continue} />
       </Button>

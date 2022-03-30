@@ -114,7 +114,7 @@
   "app.common.termsOfTelos": "Telos Operating Agreement",
   "app.common.noResults": "Нет результатов",
   "app.common.iAcceptPrivacyPolicy":
-    "Я принимаю условия {privacyPolicy}, {termsOfService}, {termsOfTelos}",
+    "Я принимаю условия {privacyPolicy}, {termsOfService}",
   "app.common.inProgress": "Выполняется",
   "app.common.loginViaWallet": "Войти через кошелек",
   "app.common.loginViaService": "Войти через сервис",
