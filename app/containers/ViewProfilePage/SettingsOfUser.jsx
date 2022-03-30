@@ -139,14 +139,6 @@ const SettingsOfUser = ({
         tgData={tgData}
         profile={profile}
       />
-
-      <ReferralProgram
-        className={className}
-        user={user}
-        writeToBuffer={writeToBuffer}
-      />
-
-      <Tip className={className} profile={profile} account={account} />
     </div>
   ) : (
     <div className={className}>
