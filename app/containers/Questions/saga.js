@@ -158,16 +158,17 @@ export function* getQuestionsWorker({
         yield call(getUserProfileWorker, { user, getFullProfile: true });
       }),
     );
-    yield all(
-      questionsList.map(function*(question) {
-        const profileObject = yield select(selectUsers(question.author.id));
-        question.author = {
-          ...question.author,
-          ratings: profileObject.ratings,
-          highestRating: profileObject.highestRating,
-        };
-      }),
-    );
+    //TODO when rating is ready
+    // yield all(
+    //   questionsList.map(function*(question) {
+    //     const profileObject = yield select(selectUsers(question.author.id));
+    //     question.author = {
+    //       ...question.author,
+    //       ratings: profileObject.ratings,
+    //       highestRating: profileObject.highestRating,
+    //     };
+    //   }),
+    // );
     //TODO promoted questions
     // yield all(
     //   questionsList.map(function*(question) {

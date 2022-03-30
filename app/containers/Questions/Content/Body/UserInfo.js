@@ -25,11 +25,12 @@ const UserInfo = ({ author, postTime, locale, isSearchPage, communityId }) => {
             <Span className="mr-2" fontSize="14">
               {author?.['displayName']}
             </Span>
-            <RatingStatus
+            {/* TODO when rating is ready */}
+            {/* <RatingStatus
               rating={author.ratings.get(communityId)}
               size="sm"
               isRankOff
-            />
+            /> */}
             <AchievementsStatus count={author.achievementsReached?.length} />
           </>
         )}

@@ -360,7 +360,7 @@ export default compose(
         dispatch,
       ),
       loadTopQuestionsDispatch: bindActionCreators(
-        loadTopCommunityQuestions,
+        getQuestions,
         dispatch,
       ),
     }),
