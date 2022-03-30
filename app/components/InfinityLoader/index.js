@@ -1,39 +1,8 @@
-/**
- *
- * InfinityLoader
- *
- */
-
 import { useEffect, Children } from 'react';
 import PropTypes from 'prop-types';
 
 /* eslint-disable react/prefer-stateless-function */
-export const InfinityLoader = ({
-  children,
-  loadNextPaginatedData,
-  isLoading,
-  isLastFetch,
-  infinityOff,
-}) => {
-  const onScroll = () => {
-    const offsetHeightFromBottom = 100;
-
-    if (
-      window.innerHeight + window.scrollY >=
-        document.body.offsetHeight - offsetHeightFromBottom &&
-      !isLoading &&
-      !isLastFetch &&
-      !infinityOff
-    ) {
-      loadNextPaginatedData();
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener('scroll', onScroll, false);
-    return () => window.removeEventListener('scroll', onScroll, false);
-  });
-
+export const InfinityLoader = ({ children }) => {
   return Children.toArray(children);
 };
 

@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useMemo } from 'react';
+import React, { memo, useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -72,12 +72,6 @@ import DescriptionList from '../DescriptionList';
 
 const single = isSingleCommunityWebsite();
 
-const PromoteQuestionInfo = styled.p`
-  margin-top: 25px;
-  font-weight: 600;
-  font-size: 18px;
-`;
-
 const SuggestTag = memo(({ redirectToCreateTagDispatch, formValues }) => {
   const communityId = useMemo(() => formValues?.[FORM_COMMUNITY]?.value ?? 0, [
     formValues,
@@ -121,9 +115,16 @@ export const QuestionForm = ({
   communityQuestionsType,
   disableCommForm,
 }) => {
-  const handleSubmitWithType = sendQuestion => {
+  const [isSelectedType, setIsSelectedType] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [isClickSubmit, setIsClickSubmit] = useState(false);
+
+  const handleSubmitWithType = () => {
     if (communityQuestionsType !== ANY_TYPE) {
       change(FORM_TYPE, communityQuestionsType);
+    }
+    if (!isSelectedType && !isError && isClickSubmit) {
+      return setIsError(true);
     }
     return handleSubmit(sendQuestion);
   };
@@ -142,28 +143,17 @@ export const QuestionForm = ({
     createdHistory.push(routes.search(formValues[FORM_TITLE]));
   };
 
-  const promotedQuestionEndsTime = useMemo(
-    () => {
-      if (typeof question?.promote === 'object') {
-        return getFormattedDate(
-          question.promote.endsTime,
-          locale,
-          MONTH_3LETTERS__DAY_YYYY_TIME,
-        );
-      }
-
-      return null;
-    },
-    [question],
-  );
+  const makeIsClicked = () => setIsClickSubmit(true);
 
   return (
     <div>
       <Header formTitle={formTitle} questionId={questionid} intl={intl} />
-
       <TipsBase>
         <BaseSpecialOne>
-          <FormBox onSubmit={handleSubmitWithType(sendQuestion)}>
+          <FormBox
+           onSubmit={handleSubmitWithType(sendQuestion)}
+           onClick = {makeIsClicked}
+          >
             <CommunityForm
               intl={intl}
               communities={communities}
@@ -180,6 +170,10 @@ export const QuestionForm = ({
                   questionLoading={questionLoading}
                   locale={locale}
                   formValues={formValues}
+                  isError={isError}
+                  setIsError={setIsError}
+                  hasSelectedType={isSelectedType}
+                  setHasSelectedType={setIsSelectedType}
                 />
               )) ||
                 (communityQuestionsType === GENERAL_TYPE && (
@@ -249,20 +243,6 @@ export const QuestionForm = ({
             {/*  formValues={formValues}*/}
             {/*  change={change}*/}
             {/*/>*/}
-
-            {promotedQuestionEndsTime &&
-            question.promote.endsTime > Math.trunc(now() / 1000) ? (
-              <PromoteQuestionInfo>
-                {intl.formatMessage(messages.questionIsPromoting)}{' '}
-                {promotedQuestionEndsTime}
-              </PromoteQuestionInfo>
-            ) : (
-              <PromotedQuestionForm
-                intl={intl}
-                questionLoading={questionLoading}
-                formValues={formValues}
-              />
-            )}
 
             <Button
               disabled={questionLoading}

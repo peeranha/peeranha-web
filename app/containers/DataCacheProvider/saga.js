@@ -23,7 +23,7 @@ import {
 
 import { SIGNUP_WITH_WALLET_SUCCESS } from 'containers/SignUp/constants';
 
-import { selectStat, selectUsers } from './selectors';
+import { selectCommunities, selectStat, selectUsers } from './selectors';
 
 import {
   getCommunitiesWithTags,
@@ -48,6 +48,7 @@ import {
 } from './constants';
 import { selectEthereum } from '../EthereumProvider/selectors';
 import { getUserStats } from '../../utils/theGraph';
+import { addWeeks } from 'date-fns';
 
 export function* getStatWorker() {
   try {
@@ -102,11 +103,13 @@ export function* getTutorialWorker() {
 }
 
 /* eslint consistent-return: 0 */
-export function* getUserProfileWorker({ user, getFullProfile, isLogin }) {
+export function* getUserProfileWorker({ user, getFullProfile }) {
   try {
     const ethereumService = yield select(selectEthereum);
+    const selectedAccount = yield call(ethereumService.getSelectedAccount);
+    const isLogin = selectedAccount === user;
     const cachedUserInfo = yield select(selectUsers(user));
-    const userStats = yield getUserStats(user);
+    const [userStats] = yield getUserStats(user);
 
     // take userProfile from STORE
     if (cachedUserInfo && !getFullProfile && !isLogin) {
