@@ -9,7 +9,7 @@ import {
   BG_SUCCESS,
   TEXT_SECONDARY,
   BG_PRIMARY,
-  BG_PRIMARY_DARK,
+  //BG_PRIMARY_DARK,
   BORDER_RADIUS_M,
   BORDER_RADIUS_L,
 } from 'style-constants';
@@ -26,7 +26,7 @@ import crownIcon from 'images/crownIcon.svg?inline';
 import Base from 'components/Base';
 import Span from 'components/Span';
 import { AProps, APropsDefault } from 'components/A';
-import QuestionType from 'components/Labels/QuestionType';
+//import QuestionType from 'components/Labels/QuestionType';
 
 import {
   POST_TYPE_ANSWER,
@@ -147,11 +147,12 @@ export const QuestionForProfilePage = ({
   }
   return (
     <BaseStyled bordered={bordered && !isGeneral}>
+      {/* TODO: PEER-281 frame and inscription 'expert'
       {!isGeneral && (
         <QuestionType size="sm">
           <FormattedMessage {...commonMessages.expert} />
         </QuestionType>
-      )}
+      )}*/}
       <ContentContainer>
         <div className="d-flex flex-row flex-md-column">
           <Badge bold>{myPostRating}</Badge>
