@@ -136,7 +136,8 @@ const LeftMenu = ({ faqQuestions, mainLogo }) => (
       </P>
     </div>
 
-    {/*{faqQuestions && (
+    {/* TODO: PEER-285 Hide FAQ Questions
+    {faqQuestions && (
       <ul className="mb-4">
         {faqQuestions.map(x => <Li key={x.props.children}>{x}</Li>)}
       </ul>
