@@ -61,7 +61,7 @@ const QuestionFilter = ({
   questionFilterFromCookies,
 }) => {
   return null;
-  //TODO Question Filter
+  //TODO when question filter is ready
   // if (!single) return null;
 
   // const [filter, setFilterValue] = useState(+(questionFilterFromCookies || 1));
@@ -79,7 +79,6 @@ const QuestionFilter = ({
   //   },
   //   [filter],
   // );
-  // // console.log('nonon1', cookieValue); 
   // const setFilter = useCallback(
   //   value => {
   //     if (value !== filter) {
@@ -90,7 +89,6 @@ const QuestionFilter = ({
   //   },
   //   [filter],
   // );
-  // console.log('nonon2', setFilter);   
   // const setAllFilter = useCallback(
   //   () => {
   //     setFilter(0);
@@ -101,9 +99,7 @@ const QuestionFilter = ({
   //   },
   //   [filter],
   // );
-  // console.log('nonon3', setAllFilter); 
   // const setQuestionFilter = useCallback(() => setFilter(1), [filter]);
-  // console.log('nonon4', display);   
   // return display ? (
   //   <Container>
   //     <Button

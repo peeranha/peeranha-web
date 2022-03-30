@@ -162,12 +162,12 @@ export function* getQuestionsWorker({
     yield all(
       questionsList.map(function*(question) {
         const profileObject = yield select(selectUsers(question.author.id));
-        if(profileObject){
+        if (profileObject) {
           question.author = {
             ...question.author,
             ratings: profileObject.ratings,
             highestRating: profileObject.highestRating,
-          };
+          }
         }
       }),
     );
