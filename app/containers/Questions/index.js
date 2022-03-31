@@ -359,10 +359,7 @@ export default compose(
         redirectToAskQuestionPage,
         dispatch,
       ),
-      loadTopQuestionsDispatch: bindActionCreators(
-        loadTopCommunityQuestions,
-        dispatch,
-      ),
+      loadTopQuestionsDispatch: bindActionCreators(getQuestions, dispatch),
     }),
   ),
 )(Questions);
