@@ -79,11 +79,17 @@ export default defineMessages({
   expertQuestionDescriptionLabel: {
     id: 'app.containers.QuestionForm.expertQuestionDescriptionLabel',
   },
+  tutorialQuestionDescriptionLabel: {
+    id: 'app.containers.QuestionForm.tutorialQuestionDescriptionLabel',
+  },
   generalQuestionDescriptionList: {
     id: 'app.containers.QuestionForm.generalQuestionDescriptionList',
   },
   expertQuestionDescriptionList: {
     id: 'app.containers.QuestionForm.expertQuestionDescriptionList',
+  },
+  tutorialQuestionDescriptionList: {
+    id: 'app.containers.QuestionForm.tutorialQuestionDescriptionList',
   },
   promotedLabel: {
     id: 'app.containers.QuestionForm.promotedLabel',
@@ -93,5 +99,8 @@ export default defineMessages({
   },
   questionIsPromoting: {
     id: 'app.containers.QuestionForm.questionIsPromoting',
+  },
+  questionPostTypeSelectionError: {
+    id: 'app.containers.QuestionForm.postTypeSelectionError',
   },
 });

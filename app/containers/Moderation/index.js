@@ -20,7 +20,6 @@ import { getModeratorPermissions } from 'utils/properties';
 import Header from './Header';
 import Content from './Content';
 import { selectIsGlobalAdmin } from '../AccountProvider/selectors';
-import { redirectToFeed } from '../App/actions';
 
 export const Moderation = ({
   locale,

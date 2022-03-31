@@ -108,7 +108,7 @@ const SubHeader = ({
                 </Span>
               </li>
               <li>
-                <FormattedMessage {...messages.ethereumAddress} />
+                <FormattedMessage {...messages.walletAddress} />
                 <Span>{account}</Span>
               </li>
             </UlStyled>

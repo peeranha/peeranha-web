@@ -203,8 +203,8 @@ export function* loginWithWalletWorker({ metaMask }) {
     });
 
     yield put(addLoginData(autologinData));
-
-    if (window.location.pathname.includes(routes.registrationStage))
+    
+    if (!isSingleCommunityWebsite())
       yield put(redirectToFeed());
 
     yield put(loginWithWalletSuccess());

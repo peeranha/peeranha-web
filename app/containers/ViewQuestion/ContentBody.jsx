@@ -41,6 +41,7 @@ export const ContentBody = ({
   ids,
   isItWrittenByMe,
   infiniteImpact,
+  commId,
 }) => {
   const isOfficial = useMemo(
     () =>
@@ -53,7 +54,7 @@ export const ContentBody = ({
   );
 
   return (
-    <Base position="bottom">
+    <Base position="bottom" paddingTop="0">
       <BestAnswerMarker
         answerId={answerId}
         questionFrom={questionFrom}
@@ -97,6 +98,7 @@ export const ContentBody = ({
         addCommentFormDisplay={addCommentFormDisplay}
         ids={ids}
         infiniteImpact={infiniteImpact}
+        communityId={commId}
       />
     </Base>
   );
