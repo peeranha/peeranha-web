@@ -71,7 +71,7 @@ const EnergyDropdown = ({ energy, rating, faqQuestions }) => {
     <Dropdown
       id={`profile_id_${Math.random()}`}
       className="d-none d-md-flex"
-      button={<Button energy={energy} />}
+      //button={<Button energy={energy} />}  comment  only for development
       menu={
         <Menu
           energy={energy}
