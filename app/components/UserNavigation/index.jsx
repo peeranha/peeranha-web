@@ -161,13 +161,13 @@ const UserNavigation = ({
             <FormattedMessage {...messages.settings} />
           </NavigationLink>
 
-          <NavigationLink
+          {/* <NavigationLink
             className={userId !== account ? 'd-none' : ''}
             to={routes.userNotifications(userId)}
             islink={path !== routes.userNotifications(userId) ? 1 : 0}
           >
             <FormattedMessage {...messages.notifications} />
-          </NavigationLink>
+          </NavigationLink> */}
 
           <NavigationLink
             to={routes.userAchievements(userId)}

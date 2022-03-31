@@ -12,7 +12,7 @@ const ButtonGroupForAuthorizedUser = ({
   isSearchFormVisible,
 }) => (
   <React.Fragment>
-    {!isSearchFormVisible && <NotificationsDropdown />}
+    {/* {!isSearchFormVisible && <NotificationsDropdown />} */}
     <EnergyDropdown
       rating={profileInfo.rating}
       energy={profileInfo.energy}
