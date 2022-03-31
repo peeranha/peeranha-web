@@ -30,6 +30,7 @@ const StyledBox = styled.div`
     }
   }
   @media only screen and (max-width: 768px) {
+    width: 100%;
     > div:nth-child(2) {
       align-items: initial;
       flex-wrap: nowrap;

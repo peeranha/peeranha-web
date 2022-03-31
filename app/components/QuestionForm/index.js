@@ -69,6 +69,8 @@ import createdHistory from '../../createdHistory';
 import * as routes from '../../routes-config';
 import { now } from 'lodash';
 import DescriptionList from '../DescriptionList';
+import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
+import { getPermissions, hasGlobalModeratorRole } from 'utils/properties';
 
 const single = isSingleCommunityWebsite();
 
@@ -114,6 +116,7 @@ export const QuestionForm = ({
   skipExistingQuestions,
   communityQuestionsType,
   disableCommForm,
+  profile
 }) => {
   const [isSelectedType, setIsSelectedType] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -142,6 +145,10 @@ export const QuestionForm = ({
     e.preventDefault();
     createdHistory.push(routes.search(formValues[FORM_TITLE]));
   };
+
+  const profileWithModeratorRights =
+    profile &&
+    useMemo(() => hasGlobalModeratorRole(getPermissions(profile)), [profile]);
 
   const makeIsClicked = () => setIsClickSubmit(true);
 
@@ -224,10 +231,12 @@ export const QuestionForm = ({
               change={change}
             />
 
+            {profileWithModeratorRights && (
             <SuggestTag
               formValues={formValues}
               redirectToCreateTagDispatch={redirectToCreateTagDispatch}
             />
+            )}
 
             {/*<BountyForm*/}
             {/*  intl={intl}*/}
@@ -285,6 +294,7 @@ QuestionForm.propTypes = {
   doSkipExistingQuestions: PropTypes.bool,
   skipExistingQuestions: PropTypes.func,
   disableCommForm: PropTypes.bool,
+  profile: PropTypes.object,
 };
 
 const FormClone = reduxForm({
@@ -305,6 +315,7 @@ export default memo(
         const disableCommForm = formName === EDIT_QUESTION_FORM;
 
         return {
+          profile: makeSelectProfileInfo()(state),
           formValues: state.toJS().form[formName]?.values ?? {},
           communityQuestionsType: questionsType ?? ANY_TYPE,
           initialValues: {
