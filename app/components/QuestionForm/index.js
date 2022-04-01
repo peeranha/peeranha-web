@@ -138,7 +138,7 @@ export const QuestionForm = ({
         getQuestions(formValues[FORM_TITLE], true);
       }
     },
-    [formValues[FORM_TITLE]],
+    [formValues[FORM_TITLE], isClickSubmit],
   );
 
   const showMoreQuestions = e => {
@@ -147,8 +147,7 @@ export const QuestionForm = ({
   };
 
   const profileWithModeratorRights =
-    profile &&
-    useMemo(() => hasGlobalModeratorRole(getPermissions(profile)), [profile]);
+  profile && hasGlobalModeratorRole(getPermissions(profile)) || null;
 
   const makeIsClicked = () => setIsClickSubmit(true);
 
@@ -159,7 +158,6 @@ export const QuestionForm = ({
         <BaseSpecialOne>
           <FormBox
            onSubmit={handleSubmitWithType(sendQuestion)}
-           onClick = {makeIsClicked}
           >
             <CommunityForm
               intl={intl}
@@ -257,6 +255,7 @@ export const QuestionForm = ({
               disabled={questionLoading}
               id={submitButtonId}
               type="submit"
+              onClick={makeIsClicked}
             >
               {submitButtonName}
             </Button>
