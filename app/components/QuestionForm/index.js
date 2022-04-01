@@ -138,7 +138,7 @@ export const QuestionForm = ({
         getQuestions(formValues[FORM_TITLE], true);
       }
     },
-    [formValues[FORM_TITLE], isClickSubmit],
+    [formValues[FORM_TITLE]],
   );
 
   const showMoreQuestions = e => {
