@@ -32,7 +32,7 @@ const Li = styled.li`
 `;
 
 const Ul = styled.ul`
-  border-bottom: 1px solid ${BORDER_SECONDARY};
+  //border-bottom: 1px solid ${BORDER_SECONDARY};
   padding-bottom: 30px;
   margin-bottom: 25px;
 
@@ -84,9 +84,10 @@ const Tips = ({ faqQuestions }) => (
       ))}
     </Ul>
 
+    {/* TODO: PEER-285 Hide FAQ Questions
     {faqQuestions && (
       <ul>{faqQuestions.map(x => <Li key={x.props.children}>{x}</Li>)}</ul>
-    )}
+    )}*/}
   </div>
 );
 
