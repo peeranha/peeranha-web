@@ -59,8 +59,6 @@ export async function getProfileInfo(
   getExtendedProfile,
   isLogin,
 ) {
-  console.log(getExtendedProfile)
-  console.log(isLogin)
   if (!user) return null;
   let profileInfo;
   let userStats;
