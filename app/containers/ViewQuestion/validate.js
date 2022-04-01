@@ -2,6 +2,7 @@ import { showPopover } from 'utils/popover';
 import { ApplicationError } from 'utils/errors';
 
 import messages from './messages';
+import {getRatingByCommunity} from "utils/profileManagement";
 
 /* eslint prefer-destructuring: 0 */
 export const voteToDeleteValidator = (
@@ -76,7 +77,7 @@ export const postAnswerValidator = (
   ).length;
 
   let message;
-  const communityRating = profileInfo.ratings.get(communityId.toString());
+  const communityRating = getRatingByCommunity(profileInfo, communityId);
   if (questionData.answers.length === maxAnswersNumber) {
     message = `${translations[messages.itemsMax.id]}`;
   } else if (isAnswered) {
@@ -132,7 +133,7 @@ export const postCommentValidator = (
   } else if (
     (item.user === profileInfo.user ||
       questionData.author === profileInfo.user) &&
-    profileInfo.ratings.get(communityId.toString()) < MIN_RATING_FOR_MY_ITEM
+      getRatingByCommunity(profileInfo, communityId) < MIN_RATING_FOR_MY_ITEM
   ) {
     message = `${
       translations[messages.notEnoughRating.id]
@@ -140,7 +141,7 @@ export const postCommentValidator = (
   } else if (
     item.user !== profileInfo.user &&
     questionData.author !== profileInfo.user &&
-    profileInfo.ratings.get(communityId.toString()) < MIN_RATING_FOR_OTHER_ITEMS
+    getRatingByCommunity(profileInfo, communityId) < MIN_RATING_FOR_OTHER_ITEMS
   ) {
     message = `${
       translations[messages.notEnoughRating.id]
@@ -168,7 +169,7 @@ export const markAsAcceptedValidator = (
 
   if (profileInfo.user !== questionData.author.user) {
     message = `${translations[messages.noRootsToVote.id]}`;
-  } else if (profileInfo.ratings.get(communityId.toString()) < MIN_RATING) {
+  } else if (getRatingByCommunity(profileInfo, communityId) < MIN_RATING) {
     message = `${translations[messages.notEnoughRating.id]} ${MIN_RATING}`;
   } else if (profileInfo.energy < MIN_ENERGY) {
     message = translations[messages.notEnoughEnergy.id];
@@ -206,7 +207,7 @@ export const upVoteValidator = (
   ) {
     message = `${translations[messages.noRootsToVote.id]}`;
   } else if (
-    profileInfo.ratings.get(communityId.toString()) < MIN_RATING_TO_UPVOTE
+    getRatingByCommunity(profileInfo, communityId) < MIN_RATING_TO_UPVOTE
   ) {
     message = `${
       translations[messages.notEnoughRating.id]
@@ -251,7 +252,7 @@ export const downVoteValidator = (
   } else if (item.author.user === profileInfo.user) {
     message = `${translations[messages.noRootsToVote.id]}`;
   } else if (
-    profileInfo.ratings.get(communityId.toString()) < MIN_RATING_TO_DOWNVOTE
+    getRatingByCommunity(profileInfo, communityId) < MIN_RATING_TO_DOWNVOTE
   ) {
     message = `${
       translations[messages.notEnoughRating.id]

@@ -12,6 +12,7 @@ import RatingStatus from 'components/RatingStatus';
 import AchievementsStatus from 'components/AchievementsStatus';
 
 import { TEXT_SECONDARY } from 'style-constants';
+import {getRatingByCommunity} from 'utils/profileManagement';
 
 const UserInfo = ({ author, postTime, locale, isSearchPage, communityId }) => {
   return (
@@ -26,7 +27,7 @@ const UserInfo = ({ author, postTime, locale, isSearchPage, communityId }) => {
               {author?.['displayName']}
             </Span>
             <RatingStatus
-              rating={author.ratings?.get(communityId.toString())}
+              rating={getRatingByCommunity(author, communityId)}
               size="sm"
               isRankOff
             />

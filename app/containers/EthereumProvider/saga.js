@@ -27,6 +27,7 @@ import { INIT_ETHEREUM, INIT_ETHEREUM_SUCCESS } from './constants';
 import validate from './validate';
 import { getCookie } from '../../utils/cookie';
 import { AUTOLOGIN_DATA } from '../Login/constants';
+import {getRatingByCommunity} from "utils/profileManagement";
 
 export function* initEthereumWorker() {
   try {
@@ -72,7 +73,7 @@ export function* isValid({ creator, buttonId, minRating = 0, communityId }) {
     isAvailableAction,
     () =>
       validate({
-        rating: profileInfo.ratings.get(communityId.toString()),
+        rating: getRatingByCommunity(profileInfo, communityId),
         translations: translationMessages[locale],
         actor: selectedAccount,
         creator,
