@@ -131,9 +131,10 @@ const Menu = memo(
           <A to={routes.userSettings(user)}>
             <FormattedMessage {...messages.settings} />
           </A>
-          <A to={routes.userNotifications(user)}>
+          {/*TODO PEER20-286 Hide notifications from this version*/}
+          {/* <A to={routes.userNotifications(user)}>
             <FormattedMessage {...messages.notifications} />
-          </A>
+          </A> */}
           <A to={routes.userAchievements(user)}>
             <FormattedMessage {...messages.achievements} />
           </A>
