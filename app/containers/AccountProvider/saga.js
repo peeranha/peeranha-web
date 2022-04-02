@@ -263,18 +263,15 @@ export const getCurrentAccountWorker = function*(initAccount) {
     yield put(getUserProfileSuccess(profileInfo));
     yield put(getUserProfileSuccess(profileInfo));
     yield call(getCommunityPropertyWorker, profileInfo);
-    const isStillLoading = yield select(makeSelectAccountLoading());
-    if (isStillLoading) {
-      yield put(
-        getCurrentAccountSuccess(
-          account,
-          balance,
-          // stakedInCurrentPeriod,
-          // stakedInNextPeriod,
-          // boost,
-        ),
-      );
-    }
+    yield put(
+      getCurrentAccountSuccess(
+        account,
+        balance,
+        // stakedInCurrentPeriod,
+        // stakedInNextPeriod,
+        // boost,
+      ),
+    );
     // yield put(getUserTelegramDataSuccess(userTgInfo));
   } catch (err) {
     yield put(getCurrentAccountError(err));
