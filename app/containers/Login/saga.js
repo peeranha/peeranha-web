@@ -29,7 +29,6 @@ import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import {
   getCurrentAccountWorker,
   getReferralInfo,
-  getCommunityPropertyWorker,
 } from 'containers/AccountProvider/saga';
 
 import { ACCOUNT_NOT_CREATED_NAME } from 'containers/SignUp/constants';
@@ -54,7 +53,6 @@ import {
 import {
   FINISH_REGISTRATION,
   LOGIN_WITH_EMAIL,
-  SCATTER_MODE_ERROR,
   USER_IS_NOT_REGISTERED,
   USER_IS_NOT_SELECTED,
   EMAIL_FIELD,
@@ -73,11 +71,9 @@ import {
   FACEBOOK_AUTOLOGIN_ERROR,
 } from './constants';
 
-import messages, { getAccountNotSelectedMessageDescriptor } from './messages';
+import messages from './messages';
 import { makeSelectEosAccount, selectFacebookUserData } from './selectors';
 import { addToast } from '../Toast/actions';
-import { initEosioSuccess } from '../EosioProvider/actions';
-import { getNotificationsInfoWorker } from '../../components/Notifications/saga';
 import { addLoginData, getCurrentAccount } from '../AccountProvider/actions';
 
 import {
@@ -90,23 +86,9 @@ import { uploadImg } from '../../utils/profileManagement';
 import { blobToBase64 } from '../../utils/blob';
 import { selectEthereum } from '../EthereumProvider/selectors';
 
-function* continueLogin({ activeKey, eosAccountName }) {
+function* continueLogin({ eosAccountName }) {
   yield call(getCurrentAccountWorker, eosAccountName);
   const profileInfo = yield select(makeSelectProfileInfo());
-
-  const eosService = yield select(selectEos);
-
-  yield call(
-    eosService.initEosioWithoutScatter,
-    activeKey.private,
-    eosAccountName,
-  );
-
-  yield call(getNotificationsInfoWorker, profileInfo?.user);
-
-  yield call(getCommunityPropertyWorker);
-
-  yield put(initEosioSuccess(eosService));
 
   if (
     profileInfo &&
@@ -116,9 +98,9 @@ function* continueLogin({ activeKey, eosAccountName }) {
 
   yield put(loginWithEmailSuccess());
   // If user is absent - show window to finish registration
-  if (!profileInfo) {
-    yield put(loginWithEmailSuccess(eosAccountName, WE_ARE_HAPPY_FORM));
-  }
+  // if (!profileInfo) {
+  //   yield put(loginWithEmailSuccess(WE_ARE_HAPPY_FORM));
+  // }
 }
 
 export function* loginWithEmailWorker({ val }) {
@@ -135,12 +117,6 @@ export function* loginWithEmailWorker({ val }) {
     if (!response.OK) {
       throw new WebIntegrationError(
         translations[webIntegrationErrors[response.errorCode].id],
-      );
-    }
-
-    if (response.body.eosAccountName === ACCOUNT_NOT_CREATED_NAME) {
-      throw new WebIntegrationError(
-        translations[messages.accountNotCreatedName.id],
       );
     }
 

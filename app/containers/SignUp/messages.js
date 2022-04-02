@@ -45,8 +45,8 @@ export default defineMessages({
   storeThisKey: {
     id: 'app.containers.SignUp.storeThisKey',
   },
-  masterKey: {
-    id: 'app.containers.SignUp.masterKey',
+  secretPhrase: {
+    id: 'app.containers.SignUp.secretPhrase',
   },
   ethereumUserAddress: {
     id: 'app.containers.SignUp.ethereumUserAddress',
@@ -85,7 +85,7 @@ export default defineMessages({
     id: 'app.containers.SignUp.iHaveEosAccount',
   },
   idontHaveEosAccount: {
-    id: 'app.containers.SignUp.idontHaveEosAccount',
+    id: 'app.containers.SignUp.signUpViaEmailComplete',
   },
   passwordsDoNotMatch: {
     id: 'app.containers.SignUp.passwordsDoNotMatch',

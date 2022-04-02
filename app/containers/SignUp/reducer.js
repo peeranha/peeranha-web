@@ -16,12 +16,9 @@ import {
   EMAIL_VERIFICATION,
   EMAIL_VERIFICATION_SUCCESS,
   EMAIL_VERIFICATION_ERROR,
-  I_HAVE_EOS_ACCOUNT,
-  I_HAVE_EOS_ACCOUNT_SUCCESS,
-  I_HAVE_EOS_ACCOUNT_ERROR,
-  I_HAVE_NOT_EOS_ACCOUNT,
-  I_HAVE_NOT_EOS_ACCOUNT_SUCCESS,
-  I_HAVE_NOT_EOS_ACCOUNT_ERROR,
+  SIGN_UP_VIA_EMAIL,
+  SIGN_UP_VIA_EMAIL_SUCCESS,
+  SIGN_UP_VIA_EMAIL_ERROR,
   PUT_KEYS_TO_STATE,
   SIGNUP_WITH_WALLET,
   SIGNUP_WITH_WALLET_SUCCESS,
@@ -34,23 +31,19 @@ import {
 
 export const initialState = fromJS({
   verificationCode: null,
-  encryptionKey: null,
   email: null,
   emailChecking: false,
   emailCheckingError: null,
   emailVerificationProcessing: false,
   verifyEmailError: null,
-  iHaveEosAccountProcessing: false,
-  iHaveEosAccountError: null,
-  idontHaveEosAccountProcessing: false,
-  idontHaveEosAccountError: null,
+  signUpViaEmailProcessing: false,
+  signUpViaEmailError: null,
   signUpWithWalletProcessing: false,
   signUpWithWalletError: null,
   showWalletSignUpProcessing: false,
   showWalletSignUpFormError: null,
   signUpWithWalletReferralError: null,
   keys: null,
-  eosAccountName: null,
 });
 
 function signUpReducer(state = initialState, action) {
@@ -59,14 +52,12 @@ function signUpReducer(state = initialState, action) {
     email,
     emailCheckingError,
     verifyEmailError,
-    iHaveEosAccountError,
-    idontHaveEosAccountError,
+    signUpViaEmailError,
     signUpWithWalletError,
     showWalletSignUpFormError,
     signUpWithWalletReferralError,
     keys,
     verificationCode,
-    encryptionKey,
     ethereumUserAddress,
   } = action;
 
@@ -85,31 +76,20 @@ function signUpReducer(state = initialState, action) {
         .set('emailVerificationProcessing', true)
         .set('verificationCode', verificationCode);
     case EMAIL_VERIFICATION_SUCCESS:
-      return state
-        .set('emailVerificationProcessing', false)
-        .set('encryptionKey', encryptionKey);
+      return state.set('emailVerificationProcessing', false);
     case EMAIL_VERIFICATION_ERROR:
       return state
         .set('verifyEmailError', verifyEmailError)
         .set('emailVerificationProcessing', false);
 
-    case I_HAVE_EOS_ACCOUNT:
-      return state.set('iHaveEosAccountProcessing', true);
-    case I_HAVE_EOS_ACCOUNT_SUCCESS:
-      return state.set('iHaveEosAccountProcessing', false);
-    case I_HAVE_EOS_ACCOUNT_ERROR:
+    case SIGN_UP_VIA_EMAIL:
+      return state.set('signUpViaEmailProcessing', true);
+    case SIGN_UP_VIA_EMAIL_SUCCESS:
+      return state.set('signUpViaEmailProcessing', false);
+    case SIGN_UP_VIA_EMAIL_ERROR:
       return state
-        .set('iHaveEosAccountError', iHaveEosAccountError)
-        .set('iHaveEosAccountProcessing', false);
-
-    case I_HAVE_NOT_EOS_ACCOUNT:
-      return state.set('idontHaveEosAccountProcessing', true);
-    case I_HAVE_NOT_EOS_ACCOUNT_SUCCESS:
-      return state.set('idontHaveEosAccountProcessing', false);
-    case I_HAVE_NOT_EOS_ACCOUNT_ERROR:
-      return state
-        .set('idontHaveEosAccountError', idontHaveEosAccountError)
-        .set('idontHaveEosAccountProcessing', false);
+        .set('signUpViaEmailError', signUpViaEmailError)
+        .set('signUpViaEmailProcessing', false);
 
     case SIGNUP_WITH_WALLET:
       return state.set('signUpWithWalletProcessing', true);

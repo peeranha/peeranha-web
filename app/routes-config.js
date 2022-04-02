@@ -74,7 +74,7 @@ export const noAccess = () => `/no-access`;
 export const detailsHomePage = () => '/';
 
 export const feed = communityId =>
-  `/feed${communityId ? '/' + communityId : ''}`;
+  `/feed${communityId ? `/${communityId}` : ''}`;
 
 export const communities = () => (!isBloggerMode ? `/communities` : `/`);
 
@@ -149,24 +149,19 @@ export const signup = {
     name: `/${registrationStage}/email-verification`,
     scatter: false,
   },
-  haveEosAccount: {
+  accountSetup: {
     step: 3,
-    name: `/${registrationStage}/i-have-telos-account`,
-    scatter: false,
-  },
-  dontHaveEosAccount: {
-    step: 3,
-    name: `/${registrationStage}/i-dont-have-telos-account`,
+    name: `/${registrationStage}/account-setup`,
     scatter: false,
   },
   almostDoneWithAccount: {
     step: 4,
-    name: `/${registrationStage}/i-have-telos-account/almost-done`,
+    name: `/${registrationStage}/account/almost-done`,
     scatter: false,
   },
   almostDoneNoAccount: {
     step: 4,
-    name: `/${registrationStage}/i-dont-have-telos-account/almost-done`,
+    name: `/${registrationStage}/almost-done`,
     scatter: false,
   },
 };

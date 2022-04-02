@@ -6,7 +6,11 @@ import { translationMessages } from 'i18n';
 import PropTypes from 'prop-types';
 
 import styled from 'styled-components';
-import { BG_PRIMARY_LIGHT, BG_TRANSPARENT, BORDER_RADIUS_M } from 'style-constants';
+import {
+  BG_PRIMARY_LIGHT,
+  BG_TRANSPARENT,
+  BORDER_RADIUS_M,
+} from 'style-constants';
 import * as routes from 'routes-config';
 
 import dangerIcon from 'images/dangerIcon.svg?inline';
@@ -22,7 +26,7 @@ import {
 
 import TextInputField from 'components/FormFields/TextInputField';
 import SubmitButton from 'components/Button/Contained/InfoLarge';
-import YouNeedEosAccount from 'components/SignUpWrapper/YouNeedEosAccount';
+import YouNeedEosAccount from 'components/SignUpWrapper/SignUpViaEmailWrapper';
 import Checkbox, { Icon, Label } from 'components/Input/Checkbox';
 import IAcceptTerms from 'components/IAcceptTerms';
 import Img from 'components/Img';
@@ -38,9 +42,10 @@ import {
   MASTER_KEY_FIELD,
   PASSWORD_FIELD,
   PASSWORD_CONFIRM_FIELD,
-  I_SAVE_MASTER_KEY_FIELD,
+  I_SAVE_MNEMONIC_PHRASE_KEY_FIELD,
   I_ACCEPT_PRIVACY_POLICY_FIELD,
 } from './constants';
+import { signUpViaEmailComplete } from './actions';
 
 export const Div = styled.div`
   padding: ${x => (x.primary ? '20px' : '0px')} 30px;
@@ -87,20 +92,15 @@ const EosOwnerPrivateKeyDiv = Div.extend`
   }
 `;
 
-const IHaveEOSAccountForm = ({
+const EthereumWalletGenerationForm = ({
   handleSubmit,
   change,
   storeMyKeysValue,
   masterKeyValue,
 }) => (
-  <YouNeedEosAccount route={routes.signup.dontHaveEosAccount.name}>
+  <YouNeedEosAccount route={routes.signup.accountSetup.name}>
     <SignUp>
-      {({
-        iHaveEosAccount,
-        locale,
-        iHaveEosAccountProcessing,
-        keys: { masterKey },
-      }) => {
+      {({ locale, iHaveEosAccountProcessing, keys: { masterKey } }) => {
         const translate = translationMessages[locale];
 
         if (!masterKeyValue) {
@@ -112,7 +112,7 @@ const IHaveEOSAccountForm = ({
         }
 
         return (
-          <form onSubmit={handleSubmit(iHaveEosAccount)}>
+          <form onSubmit={handleSubmit(signUpViaEmailComplete)}>
             <Div>
               <Field
                 name={EOS_ACCOUNT_FIELD}
@@ -183,7 +183,7 @@ const IHaveEOSAccountForm = ({
             </Div>
             <Div className="mb-4">
               <Field
-                name={I_SAVE_MASTER_KEY_FIELD}
+                name={I_SAVE_MNEMONIC_PHRASE_KEY_FIELD}
                 disabled={iHaveEosAccountProcessing}
                 label={translate[messages.iSaveMasterKey.id]}
                 component={Checkbox}
@@ -216,7 +216,7 @@ const IHaveEOSAccountForm = ({
   </YouNeedEosAccount>
 );
 
-IHaveEOSAccountForm.propTypes = {
+EthereumWalletGenerationForm.propTypes = {
   handleSubmit: PropTypes.func,
   change: PropTypes.func,
   iSaveMasterKeyValue: PropTypes.bool,
@@ -226,13 +226,13 @@ IHaveEOSAccountForm.propTypes = {
   storeMyKeysValue: PropTypes.bool,
 };
 
-const formName = 'IHaveEOSAccountForm';
+const formName = 'EthereumWalletGenerationForm';
 
 /* eslint import/no-mutable-exports: 0 */
 let FormClone = reduxForm({
   form: formName,
   onSubmitFail: errors => scrollToErrorField(errors),
-})(IHaveEOSAccountForm);
+})(EthereumWalletGenerationForm);
 
 FormClone = connect(state => {
   const form = state.toJS().form[formName] || { values: {} };

@@ -8,75 +8,62 @@ import { initialState } from './reducer';
 const selectSignUpDomain = state => state.get('signUp', initialState);
 
 const selectEmail = () =>
-  createSelector(selectSignUpDomain, substate => substate.get('email'));
+  createSelector(selectSignUpDomain, subState => subState.get('email'));
 
 const selectVerificationCode = () =>
-  createSelector(selectSignUpDomain, substate =>
-    substate.get('verificationCode'),
+  createSelector(selectSignUpDomain, subState =>
+    subState.get('verificationCode'),
   );
 
 const selectEmailChecking = () =>
-  createSelector(selectSignUpDomain, substate => substate.get('emailChecking'));
+  createSelector(selectSignUpDomain, subState => subState.get('emailChecking'));
 
 const selectEmailCheckingError = () =>
-  createSelector(selectSignUpDomain, substate =>
-    substate.get('emailCheckingError'),
+  createSelector(selectSignUpDomain, subState =>
+    subState.get('emailCheckingError'),
   );
 
 const selectEmailVerificationProcessing = () =>
-  createSelector(selectSignUpDomain, substate =>
-    substate.get('emailVerificationProcessing'),
+  createSelector(selectSignUpDomain, subState =>
+    subState.get('emailVerificationProcessing'),
   );
 
 const selectVerifyEmailError = () =>
-  createSelector(selectSignUpDomain, substate =>
-    substate.get('verifyEmailError'),
+  createSelector(selectSignUpDomain, subState =>
+    subState.get('verifyEmailError'),
   );
 
-const selectIHaveEosAccountProcessing = () =>
-  createSelector(selectSignUpDomain, substate =>
-    substate.get('iHaveEosAccountProcessing'),
+const selectSignUpViaEmailProcessing = () =>
+  createSelector(selectSignUpDomain, subState =>
+    subState.get('signUpViaEmailProcessing'),
   );
 
-const selectIHaveEosAccountError = () =>
-  createSelector(selectSignUpDomain, substate =>
-    substate.get('iHaveEosAccountError'),
-  );
-
-const selectIdontHaveEosAccountProcessing = () =>
-  createSelector(selectSignUpDomain, substate =>
-    substate.get('idontHaveEosAccountProcessing'),
-  );
-
-const selectIdontHaveEosAccountError = () =>
-  createSelector(selectSignUpDomain, substate =>
-    substate.get('idontHaveEosAccountError'),
+const selectSignUpViaEmailError = () =>
+  createSelector(selectSignUpDomain, subState =>
+    subState.get('signUpViaEmailError'),
   );
 
 const selectSignUpWithWalletProcessing = () =>
-  createSelector(selectSignUpDomain, substate =>
-    substate.get('signUpWithWalletProcessing'),
+  createSelector(selectSignUpDomain, subState =>
+    subState.get('signUpWithWalletProcessing'),
   );
 
 const selectSignUpWithWalletError = () =>
-  createSelector(selectSignUpDomain, substate =>
-    substate.get('signUpWithWalletError'),
+  createSelector(selectSignUpDomain, subState =>
+    subState.get('signUpWithWalletError'),
   );
 
 const selectKeys = () =>
-  createSelector(selectSignUpDomain, substate => substate.get('keys'));
+  createSelector(selectSignUpDomain, subState => subState.get('keys'));
 
 const selectShowWalletSignUpProcessing = () =>
-  createSelector(selectSignUpDomain, substate =>
-    substate.get('showWalletSignUpProcessing'),
+  createSelector(selectSignUpDomain, subState =>
+    subState.get('showWalletSignUpProcessing'),
   );
 
-const selectEncryptionKey = () =>
-  createSelector(selectSignUpDomain, substate => substate.get('encryptionKey'));
-
 const selectEthereumUserAddress = () =>
-  createSelector(selectSignUpDomain, substate =>
-    substate.get('ethereumUserAddress'),
+  createSelector(selectSignUpDomain, subState =>
+    subState.get('ethereumUserAddress'),
   );
 
 export {
@@ -87,14 +74,11 @@ export {
   selectEmailCheckingError,
   selectEmailVerificationProcessing,
   selectVerifyEmailError,
-  selectIHaveEosAccountProcessing,
-  selectIHaveEosAccountError,
-  selectIdontHaveEosAccountProcessing,
-  selectIdontHaveEosAccountError,
+  selectSignUpViaEmailProcessing,
+  selectSignUpViaEmailError,
   selectKeys,
   selectSignUpWithWalletProcessing,
   selectSignUpWithWalletError,
   selectShowWalletSignUpProcessing,
-  selectEncryptionKey,
   selectEthereumUserAddress,
 };

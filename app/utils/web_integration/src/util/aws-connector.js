@@ -1,19 +1,15 @@
-const REGISTER_INIT_SERVICE = 'wallet/register/init';
-const REGISTER_CONFIRM_SERVICE = 'wallet/register/confirm';
-const REGISTER_COMPLETE_SERVICE = 'wallet/register/complete';
+const ACCOUNT_BEGIN_SIGNUP = 'account/begin-signup';
+const ACCOUNT_VALIDATE_SIGNUP_CODE = 'account/validate-signup-code';
+const ACCOUNT_REGISTER = 'account/register';
 
-const LOGIN_SERVICE = 'wallet/login/login';
+const LOGIN_SERVICE = 'account/login';
 const LOGIN_AUTOLOGIN_DATA_SERVICE = 'wallet/login/autologin';
 
 const GET_OWNER_KEY_INIT_SERVICE = 'wallet/get-owner-key/init';
 const GET_OWNER_KEY_COMPLETE_SERVICE = 'wallet/get-owner-key/complete';
 
-const CHANGE_CREDENTIALS_INIT_SERVICE = 'wallet/change-credentials/init';
-const CHANGE_CREDENTIALS_CONFIRM_SERVICE = 'wallet/change-credentials/confirm';
-const CHANGE_CREDENTIALS_GET_KEYS_SERVICE =
-  'wallet/change-credentials/get-keys';
-const CHANGE_CREDENTIALS_COMPLETE_SERVICE =
-  'wallet/change-credentials/complete';
+const CHANGE_CREDENTIALS_INIT_SERVICE = 'account/forgot-password';
+const CHANGE_CREDENTIALS_CONFIRM_SERVICE = 'account/reset-password';
 
 const REGISTER_WITH_FACEBOOK_SERVICE = 'wallet/register/facebook';
 const LOGIN_WITH_FACEBOOK_SERVICE = 'wallet/login/facebook';
@@ -39,7 +35,7 @@ async function callService(service, props, isGet = false) {
     url.search = new URLSearchParams(props).toString();
   }
 
-  const rawResponse = await fetch(url, {
+  const rawResponse = await fetch(`http://localhost:4000/${service}`, {
     method: isGet ? 'GET' : 'POST',
     headers: {
       Accept: 'application/json',
@@ -55,6 +51,7 @@ async function callService(service, props, isGet = false) {
       errorCode: response.code,
     };
   }
+
   return {
     OK: true,
     body: response,
@@ -63,9 +60,9 @@ async function callService(service, props, isGet = false) {
 
 module.exports = {
   callService,
-  REGISTER_INIT_SERVICE,
-  REGISTER_CONFIRM_SERVICE,
-  REGISTER_COMPLETE_SERVICE,
+  ACCOUNT_BEGIN_SIGNUP,
+  ACCOUNT_VALIDATE_SIGNUP_CODE,
+  ACCOUNT_REGISTER,
   REGISTER_WITH_FACEBOOK_SERVICE,
   LOGIN_WITH_FACEBOOK_SERVICE,
   DELETE_FACEBOOK_ACCOUNT_SERVICE,
@@ -76,8 +73,6 @@ module.exports = {
   GET_OWNER_KEY_COMPLETE_SERVICE,
   CHANGE_CREDENTIALS_INIT_SERVICE,
   CHANGE_CREDENTIALS_CONFIRM_SERVICE,
-  CHANGE_CREDENTIALS_GET_KEYS_SERVICE,
-  CHANGE_CREDENTIALS_COMPLETE_SERVICE,
   LOGGER_SERVICE,
   PAY_FOR_CPU_SERVICE,
   BEST_NODE_SERVICE,

@@ -88,57 +88,22 @@ export function* verifyEmailWorker({ verificationCode }) {
   }
 }
 
-export function* changePasswordWorker({ masterKey, password }) {
+export function* changePasswordWorker({ code, password }) {
   try {
     const email = yield select(selectEmail());
-    const verificationCode = yield select(selectVerificationCode());
 
-    const locale = yield select(makeSelectLocale());
-    const translations = translationMessages[locale];
-
-    const changeCredentialsGetKeysByMKResponse = yield call(
-      changeCredentialsGetKeysByMK,
+    const changeCredentialsResponse = yield call(
+      changeCredentialsConfirm,
       email,
-      masterKey,
-      verificationCode,
-    );
-
-    if (!changeCredentialsGetKeysByMKResponse.OK) {
-      let message =
-        webIntegrationErrors[changeCredentialsGetKeysByMKResponse.errorCode].id;
-
-      if (changeCredentialsGetKeysByMKResponse.errorCode === 10) {
-        message = webIntegrationErrors.wrongMasterKey.id;
-      }
-
-      throw new WebIntegrationError(translations[message]);
-    }
-
-    const { keys, encryptionKey } = changeCredentialsGetKeysByMKResponse.body;
-
-    const changePassword = {
-      keys,
+      code,
       password,
-    };
-
-    const changeCredentialsCompleteResponse = yield call(
-      changeCredentialsComplete,
-      changePassword,
-      email,
-      encryptionKey,
     );
 
-    if (!changeCredentialsCompleteResponse.OK) {
-      throw new WebIntegrationError(
-        translations[
-          webIntegrationErrors[
-            changeCredentialsGetKeysByMKResponse.errorCode
-          ].id
-        ],
-      );
+    if (changeCredentialsResponse.body.success) {
+      yield put(changePasswordSuccess());
+    } else {
+      throw new Error('');
     }
-
-    yield put(changePasswordSuccess());
   } catch (err) {
     yield put(changePasswordErr(err));
   }

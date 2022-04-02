@@ -40,8 +40,7 @@ import {
 } from 'containers/ShowOwnerKey/selectors';
 import {
   selectEmailVerificationProcessing,
-  selectIHaveEosAccountProcessing,
-  selectIdontHaveEosAccountProcessing,
+  selectSignUpViaEmailProcessing,
   selectSignUpWithWalletProcessing,
   selectShowWalletSignUpProcessing,
 } from 'containers/SignUp/selectors';
@@ -109,8 +108,7 @@ export default {
   selectShowOwnerKeyProcessing: selectShowOwnerKeyProcessing(),
   sendEmailShowOwnerKey: sendEmailShowOwnerKey(),
   selectEmailVerificationProcessing: selectEmailVerificationProcessing(),
-  selectIHaveEosAccountProcessing: selectIHaveEosAccountProcessing(),
-  selectIdontHaveEosAccountProcessing: selectIdontHaveEosAccountProcessing(),
+  selectSignUpViaEmailProcessing: selectSignUpViaEmailProcessing(),
   selectSignUpWithWalletProcessing: selectSignUpWithWalletProcessing(),
   selectShowWalletSignUpProcessing: selectShowWalletSignUpProcessing(),
   selectPostAnswerLoading: selectPostAnswerLoading(),

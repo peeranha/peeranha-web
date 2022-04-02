@@ -857,8 +857,7 @@
   "app.containers.ForgotPassword.youGotThisKey":
     "You received this key with the authorization which was saved in a safe place. Try to find it.",
 
-  "app.containers.SignUp.checkYourEmail":
-    "Check your email for the verification code.",
+  "app.containers.SignUp.checkYourEmail": "Verification code.",
   "app.containers.SignUp.almostDone": "Almost done",
   "app.containers.SignUp.firstParagraphAlmostDone":
     "Peeranha is not a typical Q&A platform. It’s powered by blockchain.",
@@ -887,7 +886,7 @@
   "app.containers.SignUp.doYouHaveAlreadyAccount":
     "Do you already have an account?",
   "app.containers.SignUp.youHaveToSaveKeys":
-    "Master Key is the only way to restore access to your account if you forget your password! Write your Master Key on a piece of paper and store it in a secure location. Alternatively, store your Master Key in a password manager like 1Password.",
+    "Secret Phrase is the only way to restore access to your account if you forget your password! Write your Secret Phrase on a piece of paper and store it in a secure location. Alternatively, store your Secret Phrase in a password manager like 1Password.",
   "app.containers.SignUp.passwordsDoNotMatch": "Passwords do not match",
   "app.containers.SignUp.iHaveEosAccount": "I have Telos account",
   "app.containers.SignUp.idontHaveEosAccount": "I don't have Telos account",
@@ -904,7 +903,7 @@
   "app.containers.SignUp.privateKey": "Private Key",
   "app.containers.SignUp.eosOwnerPrivateKey": "Telos Owner Private Key",
   "app.containers.SignUp.storeThisKey": "Store this key",
-  "app.containers.SignUp.masterKey": "Master key",
+  "app.containers.SignUp.secretPhrase": "Secret Phrase",
   "app.containers.SignUp.displayName": "Display name",
   "app.containers.SignUp.referralCode": "Referral code {optional}",
   "app.containers.SignUp.ethereumUserAddress": "Ethereum address",

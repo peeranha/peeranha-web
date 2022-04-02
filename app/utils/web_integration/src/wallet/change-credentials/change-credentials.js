@@ -1,3 +1,4 @@
+const { DEFAULT_LOCALE } = require('i18n');
 const { buildEncryptionKeys } = require('../../util/encryption-key-builder');
 
 const {
@@ -15,30 +16,23 @@ const {
   DELETE_FACEBOOK_ACCOUNT_SERVICE,
 } = require('../../util/aws-connector');
 
-const { DEFAULT_LOCALE } = require('i18n');
-
 async function changeCredentialsInit(
   email,
   isDelete = false,
   locale = DEFAULT_LOCALE,
 ) {
-  const response = await callService(CHANGE_CREDENTIALS_INIT_SERVICE, {
+  return await callService(CHANGE_CREDENTIALS_INIT_SERVICE, {
     email,
-    isDelete,
-    locale,
   });
-
-  return response;
 }
 
-async function changeCredentialsConfirm(email, secretCode, type = null) {
-  const response = await callService(CHANGE_CREDENTIALS_CONFIRM_SERVICE, {
+async function changeCredentialsConfirm(email, code, newPassword) {
+  console.log(email, code, newPassword);
+  return await callService(CHANGE_CREDENTIALS_CONFIRM_SERVICE, {
     email,
-    secretCode,
-    type,
+    code,
+    newPassword,
   });
-
-  return response;
 }
 
 async function deleteFacebookAccService(id) {
