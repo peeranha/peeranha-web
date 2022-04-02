@@ -168,6 +168,10 @@ export const userStatsQuery = `
           achievements {
             id
           }
+          ratings {
+           communityId
+           rating
+          }
         }
       }`;
 

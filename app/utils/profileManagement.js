@@ -23,8 +23,12 @@ import { getUser, getUserStats } from './theGraph';
 import { WebIntegrationError } from './errors';
 
 export const getRatingByCommunity = (user, communityId) => {
-  return user?.ratings?.find(ratingObj => ratingObj.communityId.toString() === communityId.toString())?.rating ?? 0;
-}
+  return (
+    user?.ratings?.find(
+      ratingObj => ratingObj.communityId.toString() === communityId.toString(),
+    )?.rating ?? 0
+  );
+};
 
 export function getUserAvatar(avatarHash, userId, account) {
   if (avatarHash && avatarHash !== NO_AVATAR) {
@@ -63,17 +67,19 @@ export async function getProfileInfo(
   let profileInfo;
   let userStats;
 
-  let communities;
   if (isLogin) {
     profileInfo = await ethereumService.getProfile(user);
     userStats = await getUserStats(user);
+    profileInfo.ratings = userStats?.ratings;
   } else {
     profileInfo = await getUser(user);
   }
 
-  profileInfo.highestRating = profileInfo.ratings?.length ? profileInfo.ratings?.reduce(
-    (max, current) => (max.rating > current.rating ? max : current),
-  ) : 0;
+  profileInfo.highestRating = profileInfo.ratings?.length
+    ? profileInfo.ratings?.reduce(
+        (max, current) => (max.rating > current.rating ? max : current),
+      )
+    : 0;
   profileInfo.user = user;
 
   if (getExtendedProfile) {

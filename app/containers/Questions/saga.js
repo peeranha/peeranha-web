@@ -99,12 +99,12 @@ const single = isSingleCommunityWebsite();
 
 export function* getQuestionsWorker({
   limit,
-  offset,
+  skip,
+  postTypes,
   communityIdFilter,
   parentPage,
   next,
   toUpdateQuestions,
-  postTypes,
 }) {
   try {
     const followedCommunities = yield select(makeSelectFollowedCommunities());
@@ -121,14 +121,14 @@ export function* getQuestionsWorker({
       questionsList = yield call(
         getPostsByCommunityId,
         limit,
-        offset,
+        skip,
         postTypes,
         [communityIdFilter],
       );
     }
 
     if (communityIdFilter === 0 && parentPage !== feed) {
-      questionsList = yield call(getPosts, limit, offset, postTypes);
+      questionsList = yield call(getPosts, limit, skip, postTypes);
     }
 
     // Load questions for communities where I am
@@ -141,7 +141,7 @@ export function* getQuestionsWorker({
       questionsList = yield call(
         getPostsByCommunityId,
         limit,
-        offset,
+        skip,
         postTypes,
         followedCommunities,
       );
@@ -532,7 +532,7 @@ function* moveQuestionWorker({ id, position }) {
 }
 
 export default function*() {
-  yield takeEvery(GET_QUESTIONS, getQuestionsWorker);
+  yield takeLatest(GET_QUESTIONS, getQuestionsWorker);
   yield takeLatest(FOLLOW_HANDLER_SUCCESS, redirectWorker);
   yield takeLatest(CHANGE_QUESTION_FILTER, changeQuestionFilterWorker);
   yield takeLatest(
