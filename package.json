@@ -51,9 +51,17 @@
   },
   "lint-staged": {
     "linters": {
-      "*.{js, jsx, json}": [
-        "prettier-eslint --write",
-        "git add"
+      "*.js": [
+        "prettier --write",
+        "git add --force"
+      ],
+      "*.jsx": [
+        "prettier --write",
+        "git add --force"
+      ],
+      "*.json": [
+        "prettier --write",
+        "git add --force"
       ]
     }
   },
