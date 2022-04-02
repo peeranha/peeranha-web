@@ -73,7 +73,7 @@ const setEmailToStorage = email => {
   localStorage.setItem('signup_email', JSON.stringify(email));
 };
 
-export const getEmailFromStorage = () =>
+const getEmailFromStorage = () =>
   JSON.parse(localStorage.getItem('signup_email'));
 
 const setCodeToStorage = code => {
@@ -153,14 +153,20 @@ export function* signUpComplete({ val }) {
     const translations = translationMessages[locale];
     const email = getEmailFromStorage();
 
+    const address = val[ETHEREUM_WALLET_ADDRESS];
+
+    const profile = {
+      displayName: `${address.substr(1, 4)}...${address.substr(-4)}`,
+    };
+
     const props = {
       email,
       code: getCodeFromStorage(),
-      address: val[ETHEREUM_WALLET_ADDRESS],
+      address,
       password: val[PASSWORD_FIELD],
     };
 
-    const response = yield call(registerComplete, props);
+    const response = yield call(registerComplete, props, profile);
 
     if (!response.OK) {
       throw new WebIntegrationError(
