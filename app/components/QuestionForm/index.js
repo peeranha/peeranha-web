@@ -149,7 +149,7 @@ export const QuestionForm = ({
   const profileWithModeratorRights =
   profile && hasGlobalModeratorRole(getPermissions(profile)) || null;
 
-  const makeIsClicked = () => setIsClickSubmit(true);
+  const handleSetClicked = () => setIsClickSubmit(true);
 
   return (
     <div>
@@ -255,7 +255,7 @@ export const QuestionForm = ({
               disabled={questionLoading}
               id={submitButtonId}
               type="submit"
-              onClick={makeIsClicked}
+              onClick={handleSetClicked}
             >
               {submitButtonName}
             </Button>
