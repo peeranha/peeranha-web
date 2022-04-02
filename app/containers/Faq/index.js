@@ -29,6 +29,9 @@ import Aside from './Aside';
 import { SECTION_ID } from './constants';
 
 export const Faq = /* istanbul ignore next */ ({ locale, faq }) => {
+  faq.blocks.splice(7, 3);
+  faq.blocks.splice(1, 1);
+  const faqForDemo = faq;
   const translations = translationMessages[locale];
   const keywords = faq.blocks.map(x => x.blocks.map(y => y.h3));
 
@@ -44,7 +47,7 @@ export const Faq = /* istanbul ignore next */ ({ locale, faq }) => {
       <div className="flex-grow-1">
         <Header />
         <Content
-          content={faq}
+          content={faqForDemo}
           route={routes.faq}
           getSectionCode={getSectionCode.bind(null, SECTION_ID)}
           getQuestionCode={getQuestionCode.bind(null, SECTION_ID)}
@@ -54,7 +57,7 @@ export const Faq = /* istanbul ignore next */ ({ locale, faq }) => {
 
       <AsideBox className="d-none d-xl-block">
         <Aside
-          content={faq}
+          content={faqForDemo}
           route={x => routes.faq(getSectionCode(SECTION_ID, x))}
         />
       </AsideBox>
