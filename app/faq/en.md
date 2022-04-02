@@ -12,7 +12,7 @@ Unlike other question and answer websites where an organization owns the website
 
 ### How does it work?
 
-Peeranha is built using smart contracts on the Telos blockchain. Large content is stored via distributed storage (IPFS) and only hashes of all documents are posted on the blockchain to save expensive blockchain storage. Reputation, privileges, moderation, rewards and all other rules are built into smart contracts and are visible to anyone.
+Peeranha is built using smart contracts on the Polygon blockchain. Large content is stored via distributed storage (IPFS) and only hashes of all documents are posted on the blockchain to save expensive blockchain storage. Reputation, privileges, moderation, rewards and all other rules are built into smart contracts and are visible to anyone.
 
 ### Where do tokens for rewards come from?
 
@@ -20,7 +20,7 @@ Peeranha continually creates new tokens once a week until the total supply of to
 
 ### What Blockchain is Peeranha built on?
 
-Peeranha is powered by Telos blockchain. Telos provides short confirmation times for transactions and does not require users to pay any transaction fees.
+Peeranha is powered by Polygon blockchain. Polygon provides short confirmation times for transactions and does not require users to pay any transaction fees.
 
 ### What is the cryptocurrency of Peeranha?
 
@@ -91,7 +91,7 @@ Communities are an area on the website dedicated to question and answers for a s
 
 ### How are new communities and tags created?
 
-Communities and tags are created by community voting. During the first year, the Peeranha team will be able to create communities without voting. Contact support at hello@peeranha.io if you’re interested in creating a community for your project.
+<!---Communities and tags are created by community voting.--->During the first year, the Peeranha team will be able to create communities without voting. Contact support at hello@peeranha.io if you’re interested in creating a community for your project.
 
 ## Questions, Answers and Comments
 
