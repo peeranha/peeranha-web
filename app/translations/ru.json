@@ -132,11 +132,24 @@
   "app.common.tipAnswer": "Чаевые",
   "app.common.sendTip": "Отправить чаевые",
   "app.common.receivedReward": "Вы получили реферальную награду",
+  "app.common.generalPopoverLabel": "Вопрос, для ответа на который не требуется знания или опыта, может быть одним из следующих:",
+  "app.common.generalPopoverList": [
+    "Обмен мнением;",
+    "Мозговой штурм;",
+    "Отзыв;",
+    "Ответ широко известен."
+  ],
   "app.common.expertPopoverLabel": "Вопрос, который спрашивает следующее:",
   "app.common.expertPopoverList": [
     "Решение проблемы, требующее экспертных знаний или опыта;",
     "Источник информации или ресурсы по конкретному предмету, который нелегко найти;",
     "Пояснение или разъяснение информации, которую трудно понять."
+  ],
+  "app.common.tutorialPopoverLabel": "Tutorial is a manual instruction that can be one of the following:",
+  "app.common.tutorialPopoverList": [
+    "Step-by-step solution to a problem;",
+    "Technical setup;",
+    "'How-to' guides."
   ],
   "app.common.rightNow": "Прямо сейчас",
   "app.common.minutesAgo": "{minutes} минут назад",
