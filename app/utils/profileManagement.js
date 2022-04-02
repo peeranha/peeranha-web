@@ -22,6 +22,10 @@ import { UPDATE_ACC } from './ethConstants';
 import { getUser, getUserStats } from './theGraph';
 import { WebIntegrationError } from './errors';
 
+export const getRatingByCommunity = (user, communityId) => {
+  return user?.ratings?.find(ratingObj => ratingObj.communityId.toString() === communityId.toString())?.rating ?? 0;
+}
+
 export function getUserAvatar(avatarHash, userId, account) {
   if (avatarHash && avatarHash !== NO_AVATAR) {
     return getFileUrl(avatarHash);
@@ -62,28 +66,16 @@ export async function getProfileInfo(
   let communities;
   if (isLogin) {
     profileInfo = await ethereumService.getProfile(user);
-    [userStats, communities] = await getUserStats(user);
+    userStats = await getUserStats(user);
   } else {
-    [profileInfo, communities] = await getUser(user);
+    profileInfo = await getUser(user);
   }
 
-  profileInfo.ratings = await getUserRatings(
-    ethereumService,
-    user,
-    communities,
-  );
-
-  const highestRating = [...profileInfo.ratings.entries()].reduce(
-    (max, current) => (max[1] > current[1] ? max : current),
-  );
-  profileInfo.highestRating = {
-    communityId: highestRating[0],
-    rating: highestRating[1],
-  };
+  profileInfo.highestRating = profileInfo.ratings?.length ? profileInfo.ratings?.reduce(
+    (max, current) => (max.rating > current.rating ? max : current),
+  ) : 0;
   profileInfo.user = user;
 
-  //TODO remove after subgraph ready
-  getExtendedProfile = true;
   if (getExtendedProfile) {
     let profile;
     if (isLogin) {
@@ -107,17 +99,6 @@ export async function getProfileInfo(
     profileInfo.achievementsReached = profileInfo.achievementsReached ?? [];
   }
 
-  // if (!profile || profile.userAddress !== user) return null;
-
-  // if (!profile.achievementsReached) {
-  //   const userAchievements = await getAchievements(
-  //     eosService,
-  //     USER_ACHIEVEMENTS_TABLE,
-  //     user,
-  //   );
-  //
-  //   profile.achievementsReached = userAchievements;
-  // }
   return profileInfo;
 }
 

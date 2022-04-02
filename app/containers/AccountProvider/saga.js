@@ -188,7 +188,7 @@ export const getCurrentAccountWorker = function*(initAccount) {
     // }
 
     const [profileInfo, balance] = yield all([
-      call(getProfileInfo, account, ethereumService, !prevProfileInfo, true),
+      call(getProfileInfo, account, ethereumService, true, true),
       call(getBalance, ethereumService, account),
     ]);
 

@@ -109,7 +109,7 @@ export function* getUserProfileWorker({ user, getFullProfile }) {
     const selectedAccount = yield call(ethereumService.getSelectedAccount);
     const isLogin = selectedAccount === user;
     const cachedUserInfo = yield select(selectUsers(user));
-    const [userStats] = yield getUserStats(user);
+    const userStats = yield getUserStats(user);
 
     // take userProfile from STORE
     if (cachedUserInfo && !getFullProfile && !isLogin) {
