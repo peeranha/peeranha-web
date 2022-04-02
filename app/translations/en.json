@@ -1038,7 +1038,7 @@
   "app.containers.QuestionForm.questionType": "Post Type",
   "app.containers.QuestionForm.questionTypeTip": "Optional",
   "app.containers.QuestionForm.generalQuestionDescriptionLabel":
-    "A question not requiring expertise or experience to answer that can be one of the following:",
+    "A topic not requiring expertise or experience to answer that can be one of the following:",
   "app.containers.QuestionForm.expertQuestionDescriptionLabel":
     "A question that asks one of the following:",
   "app.containers.QuestionForm.generalQuestionDescriptionList": [
