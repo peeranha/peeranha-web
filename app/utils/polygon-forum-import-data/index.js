@@ -38,14 +38,16 @@ const getAnswers = async(questions) => {
 
     for (const question of questionIds) {
         const topic = await (await fetch(`https://forum.matic.network/t/${question}.json`)).json();
-        const newUrls = topic.post_stream.posts.map(({id}) => ({id}));
-        newUrls.forEach(url => urls.push(`https://forum.matic.network/posts/${url.id}.json`));
+        topic.post_stream.posts.forEach(({id}) => {
+          urls.push(`https://forum.matic.network/posts/${id}.json`)
+        });
     }
 
     const answersList = [];
 
     for (const url of urls) {
         const post = await (await fetch(url)).json();
+
         const _rating = post.actions_summary[0] === undefined ? 0 : post.actions_summary[0].count;
         const answer = {
             id: post.id,
@@ -109,18 +111,17 @@ const writeAnswers = (answers, users) => {
     for (const answer of answers) {
         const author = users.find(user => user.id === answer.user_id);
 
-        if (author === undefined)
-            continue;
-
-        const result = {
+        if (author) {
+          const result = {
             id: answer.id,
             author: {name: author.name},
             content: answer.content,
             answerTime: answer.answerTime,
             rating: answer.rating
-        }
+          };
 
-        results.push(result);
+          results.push(result);
+        }
     }
 
     writeFile('answers.json', results);
