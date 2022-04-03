@@ -8,7 +8,7 @@ import {
   postQuery,
   postsByCommQuery,
   postsForSearchQuery,
-  postsQuery,
+  postsQuery, rewardsQuery,
   tagsQuery,
   userQuery,
   usersAnswersQuery,
@@ -215,3 +215,13 @@ export const getAllAchievements = async userId => {
     userAchievements: response?.data.user.achievements,
   };
 };
+
+export const getRewardStat = async (userId) => {
+  const response = await client.query({
+    query: gql(rewardsQuery),
+    variables: {
+      userId,
+    },
+  });
+  return [response?.data?.userRewards, response?.data?.periods];
+}

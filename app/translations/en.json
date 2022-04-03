@@ -192,17 +192,17 @@
   "app.containers.Wallet.eosAccount": "Telos account",
   "app.containers.Wallet.currentPeriod": "Current period in progress",
   "app.containers.Wallet.periodStillInProgress":
-    "This period is still in progress. You will see more details next week.",
+    "This period is still in progress. You will see more details next period.",
   "app.containers.Wallet.payoutPending": "Payout pending",
   "app.containers.Wallet.estimatedPayout": "Estimated payout",
   "app.containers.Wallet.paidOut": "Paid out",
   "app.containers.Wallet.rewarded": "Rewarded",
-  "app.containers.Wallet.week": "Week",
+  "app.containers.Wallet.week": "Period",
   "app.containers.Wallet.getReward": "Get reward",
   "app.containers.Wallet.received": "Received",
   "app.containers.Wallet.thisIsRegistrationWeek":
-    "This is registration week. We are setting up your wallet. Reward for this week will be applied to the next week.",
-  "app.containers.Wallet.registrationWeek": "Registration week",
+    "This is registration period. We are setting up your wallet. Reward for this period will be applied to the next period.",
+  "app.containers.Wallet.registrationWeek": "Registration period",
   "app.containers.Wallet.yourWalletWasSuccessfullySet":
     "Your wallet was successfully set during this period",
   "app.containers.Wallet.getMoreWithBoost": "Get more rewards with Boost",

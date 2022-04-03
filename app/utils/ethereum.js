@@ -47,6 +47,8 @@ class EthereumService {
   };
 
   initEthereum = async () => {
+    //TODO for maatic:
+    //ETHEREUM_NETWORK='https://rpc-mumbai.maticvigil.com'
     let provider = await detectEthereumProvider();
     if (provider) {
       this.metaMaskProviderDetected = true;
@@ -166,6 +168,26 @@ class EthereumService {
         .connect(
           new ethers.providers.Web3Provider(this.provider).getSigner(actor),
         )
+        [action](actor, ...data);
+      await transaction.wait();
+    } catch (err) {
+      switch (err.code) {
+        case INVALID_ETHEREUM_PARAMETERS_ERROR_CODE:
+          throw new WebIntegrationErrorByCode(METAMASK_ERROR_CODE);
+        case REJECTED_SIGNATURE_REQUEST:
+          throw new WebIntegrationErrorByCode(err.code);
+        default:
+          throw err;
+      }
+    }
+  };
+
+  sendTransactionWithoutDelegating = async (actor, action, data) => {
+    try {
+      const transaction = await this.contract
+        .connect(
+          new ethers.providers.Web3Provider(this.provider).getSigner(actor),
+        )
         [action](...data);
       await transaction.wait();
     } catch (err) {
@@ -250,11 +272,12 @@ class EthereumService {
 
   claimUserReward = async (actor, period) => {
     try {
-      await this.contractToken
+      const transaction = await this.contractToken
         .connect(
           new ethers.providers.Web3Provider(this.provider).getSigner(actor),
         )
         [CLAIM_REWARD](period);
+      await transaction.wait();
     } catch (err) {
       throw err;
     }

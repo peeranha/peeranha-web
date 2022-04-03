@@ -64,58 +64,60 @@ const PaidOutWeek = ({
   ids,
   registrationWeek,
   style,
-}) => (
-  <Container style={style}>
-    <BaseRoundedLi className="align-items-center">
-      <div>
-        <P fontSize="13" color={TEXT_SECONDARY}>
-          <FormattedMessage
-            {...messages[registrationWeek ? 'registrationWeek' : 'paidOut']}
+}) => {
+  const pickUpReward = () => {
+    pickupRewardDispatch(period)
+  }
+  return (
+    <Container style={style}>
+      <BaseRoundedLi className="align-items-center">
+        <div>
+          <P fontSize="13" color={TEXT_SECONDARY}>
+            <FormattedMessage
+              {...messages[registrationWeek ? 'registrationWeek' : 'paidOut']}
+            />
+          </P>
+          <WeekNumber
+            locale={locale}
+            period={period}
+            periodStarted={periodStarted}
+            periodFinished={periodFinished}
           />
-        </P>
-        <WeekNumber
-          locale={locale}
-          period={period}
-          periodStarted={periodStarted}
-          periodFinished={periodFinished}
-        />
-      </div>
+        </div>
 
-      <WeekActions className="d-flex align-items-center justify-content-end">
-        <P className="d-flex align-items-center">
-          <SmallImage className="mr-2" src={currencyPeerImage} alt="icon" />
-          <Span fontSize="20" mobileFS={14} bold>
-            {getFormattedNum3(reward)}
-          </Span>
-        </P>
+        <WeekActions className="d-flex align-items-center justify-content-end">
+          <P className="d-flex align-items-center">
+            <SmallImage className="mr-2" src={currencyPeerImage} alt="icon"/>
+            <Span fontSize="20" mobileFS={14} bold>
+              {getFormattedNum3(reward)}
+            </Span>
+          </P>
 
-        {!hasTaken && (
-          <PickupButton
-            className="ml-4"
-            id={`pickup-reward-${period}`}
-            onClick={() =>
-              pickupRewardDispatch(period - 1, `pickup-reward-${period}`)
-            }
-            disabled={
-              hasTaken !== false ||
-              !Number(reward) ||
-              (pickupRewardProcessing &&
-                ids.includes(`pickup-reward-${period}`))
-            }
-          >
-            <FormattedMessage {...messages.getReward} />
-          </PickupButton>
-        )}
+          {!hasTaken && (
+            <PickupButton
+              className="ml-4"
+              id={`pickup-reward-${period}`}
+              onClick={pickUpReward}
+              disabled={
+                hasTaken !== false ||
+                !Number(reward) ||
+                (pickupRewardProcessing)
+              }
+            >
+              <FormattedMessage {...messages.getReward} />
+            </PickupButton>
+          )}
 
-        {hasTaken && (
-          <ReceivedButton className="ml-4">
-            <FormattedMessage {...messages.received} />
-          </ReceivedButton>
-        )}
-      </WeekActions>
-    </BaseRoundedLi>
-  </Container>
-);
+          {hasTaken && (
+            <ReceivedButton className="ml-4">
+              <FormattedMessage {...messages.received} />
+            </ReceivedButton>
+          )}
+        </WeekActions>
+      </BaseRoundedLi>
+    </Container>
+  );
+}
 
 PaidOutWeek.propTypes = {
   period: PropTypes.number,

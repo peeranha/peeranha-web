@@ -33,6 +33,7 @@ import {
 
 import { ApplicationError } from './errors';
 import JSBI from 'jsbi';
+import {getRewardStat} from "./theGraph";
 
 const PERIOD_LENGTH = {
   development: 2 * 60 * 60, // two hours
@@ -45,86 +46,39 @@ const PERIOD_LENGTH = {
  */
 export const getBalance = async (ethereumService, user) => {
   const balance = await ethereumService.getUserBalance(user);
-  return balance?.toNumber() ?? 0;
+  return parseInt(balance._hex, 16) / (10 ** 18);
 };
 
 /**
  * @reward - string, example - '1000.000000 PEER'
  */
 
-const testDataRewards = [
-  {
-    id: 1,
-    period: {
-      id: 1,
-      startPeriodTime: JSBI.BigInt(0),
-      periodLength: JSBI.BigInt(10000),
-      isUpdated: false,
-    },
-    tokenToReward: 12.4,
-    status: false,
-  },
-  {
-    id: 2,
-    period: {
-      id: 2,
-      startPeriodTime: JSBI.BigInt(10000),
-      periodLength: JSBI.BigInt(10000),
-      isUpdated: false,
-    },
-    tokenToReward: 1.8,
-    status: false,
-  },
-  {
-    id: 3,
-    period: {
-      id: 3,
-      startPeriodTime: JSBI.BigInt(20000),
-      periodLength: JSBI.BigInt(10000),
-      isUpdated: false,
-    },
-    tokenToReward: 4.8,
-    status: false,
-  },
-  {
-    id: 4,
-    period: {
-      id: 4,
-      startPeriodTime: JSBI.BigInt(30000),
-      periodLength: JSBI.BigInt(10000),
-      isUpdated: false,
-    },
-    tokenToReward: 5.3,
-    status: false,
-  },
-  {
-    id: 5,
-    period: {
-      id: 5,
-      startPeriodTime: JSBI.BigInt(40000),
-      periodLength: JSBI.BigInt(10000),
-      isUpdated: false,
-    },
-    tokenToReward: 7.3,
-    status: false,
-  },
-];
+export async function getWeekStat(ethereumService, user) {
+  const [rewards, periods] = await getRewardStat(user)
+  let inactiveFirstPeriods = [];
 
-export async function getWeekStat(ethereumService, profile = {}) {
-  return testDataRewards
+  periods.map(period => {
+    if(!rewards.find(reward => reward.period.id === period.id)) {
+      inactiveFirstPeriods.push({
+        period: period.id,
+        reward: 0,
+        hasTaken: false,
+        periodStarted: period.startPeriodTime,
+        periodFinished: period.endPeriodTime})
+    }
+  })
+
+  const activePeriods = rewards
     .map(periodReward => {
       return {
         period: periodReward.period.id,
         reward: periodReward.tokenToReward,
         hasTaken: periodReward.status,
         periodStarted: periodReward.period.startPeriodTime,
-        periodFinished:
-          periodReward.period.startPeriodTime +
-          periodReward.period.periodLength,
+        periodFinished: periodReward.period.endPeriodTime,
       };
-    })
-    .reverse();
-  // .filter(periodReward => periodReward.periodFinished < profile.creationTime);
+    }).reverse()
+  return inactiveFirstPeriods.concat(activePeriods);
 }
 
 export async function sendTokens(
@@ -150,7 +104,7 @@ export async function sendTokens(
 }
 
 export async function pickupReward(ethereumService, user, periodIndex) {
-  await ethereumService.claimUserReward(user, periodIndex);
+  return await ethereumService.claimUserReward(user, periodIndex);
 }
 
 export async function setBounty(

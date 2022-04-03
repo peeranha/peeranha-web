@@ -389,3 +389,30 @@ export const allAchievementsQuery = `
           }
         }
       }`;
+
+const period = `
+  id
+  startPeriodTime
+  endPeriodTime
+`
+
+export const rewardsQuery = `
+  query (
+    $userId: ID!,
+  ) {
+    userRewards (where: {user: $userId}) {
+      id
+      period {
+        ${period}
+      }
+      user {
+        ${user}
+      }
+      tokenToReward
+      status
+    }
+    periods (orderBy: endPeriodTime, orderDirection: desc, first: 2) {
+      ${period}
+    }
+  }
+`
