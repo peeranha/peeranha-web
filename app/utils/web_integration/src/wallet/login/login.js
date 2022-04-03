@@ -61,7 +61,7 @@ async function login(email, password, rememberMe = false) {
 
   return {
     OK: true,
-    body: {},
+    body: response.body,
     peeranhaAutoLogin,
   };
 }

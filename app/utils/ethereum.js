@@ -30,6 +30,7 @@ import {
 } from './ipfs';
 import {
   BLOCKCHAIN_MAIN_CALL,
+  BLOCKCHAIN_TOKEN_CALL,
   BLOCKCHAIN_MAIN_SEND_TRANSACTION,
   callService,
 } from './web_integration/src/util/aws-connector';
@@ -55,8 +56,6 @@ class EthereumService {
   };
 
   initEthereum = async () => {
-    //TODO for maatic:
-    //ETHEREUM_NETWORK='https://rpc-mumbai.maticvigil.com'
     const provider = await detectEthereumProvider();
     if (provider) {
       this.metaMaskProviderDetected = true;
@@ -142,11 +141,11 @@ class EthereumService {
     null;
 
   getProfile = async userAddress => {
-    const user = await this.getDataWithArgs(GET_USER_BY_ADDRESS, userAddress);
-    const permissions = await this.getDataWithArgs(
-      GET_USER_PERMISSIONS,
+    const user = await this.getDataWithArgs(GET_USER_BY_ADDRESS, [userAddress]);
+
+    const permissions = await this.getDataWithArgs(GET_USER_PERMISSIONS, [
       userAddress,
-    );
+    ]);
 
     return {
       creationTime: user.creationTime,
@@ -225,7 +224,7 @@ class EthereumService {
   sendTransaction = async (actor, action, data) => {
     try {
       const transactionData = getBytes32FromIpfsHash(data);
-      const transaction = await this.getDataWithArgs(action, transactionData);
+      const transaction = await this.getDataWithArgs(action, [transactionData]);
       await transaction.wait();
     } catch (err) {
       if (err.code === INVALID_ETHEREUM_PARAMETERS_ERROR_CODE) {
@@ -256,7 +255,21 @@ class EthereumService {
       args: [...args],
     });
 
-    return contractResult;
+    return contractResult.body?.json;
+  };
+
+  getTokenDataWithArgs = async (action, args) => {
+    if (this.withMetaMask) {
+      const contractMetaMaskResult = await this.contractToken[action](...args);
+      return contractMetaMaskResult;
+    }
+
+    const contractResult = await callService(BLOCKCHAIN_TOKEN_CALL, {
+      action,
+      args: [...args],
+    });
+
+    return contractResult.body?.json;
   };
 
   getTagsFromContract = async communityId => {
@@ -305,7 +318,7 @@ class EthereumService {
     await this.getDataWithArgs(GET_USER_RATING, [user, communityId]);
 
   getUserBalance = async user =>
-    await this.getDataWithArgs(GET_USER_BALANCE, [user]);
+    await this.getTokenDataWithArgs(GET_USER_BALANCE, [user]);
 
   claimUserReward = async (actor, period) => {
     try {

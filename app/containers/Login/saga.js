@@ -86,8 +86,8 @@ import { uploadImg } from '../../utils/profileManagement';
 import { blobToBase64 } from '../../utils/blob';
 import { selectEthereum } from '../EthereumProvider/selectors';
 
-function* continueLogin({ eosAccountName }) {
-  yield call(getCurrentAccountWorker, eosAccountName);
+function* continueLogin({ address }) {
+  yield call(getCurrentAccountWorker, address);
   const profileInfo = yield select(makeSelectProfileInfo());
 
   if (
@@ -179,9 +179,8 @@ export function* loginWithWalletWorker({ metaMask }) {
     });
 
     yield put(addLoginData(autologinData));
-    
-    if (!isSingleCommunityWebsite())
-      yield put(redirectToFeed());
+
+    if (!isSingleCommunityWebsite()) yield put(redirectToFeed());
 
     yield put(loginWithWalletSuccess());
     yield call(updateAcc, profileInfo, ethereumService);

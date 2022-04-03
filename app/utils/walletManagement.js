@@ -5,6 +5,7 @@ import {
 } from 'containers/Boost/constants';
 
 import { getFormattedNum3 } from './numbers';
+import { bigNumberToNumber } from './converters';
 
 import {
   ACCOUNTS_TABLE,
@@ -46,7 +47,7 @@ const PERIOD_LENGTH = {
  */
 export const getBalance = async (ethereumService, user) => {
   const balance = await ethereumService.getUserBalance(user);
-  return parseInt(balance._hex, 16) / (10 ** 18);
+  return bigNumberToNumber(balance);
 };
 
 /**
