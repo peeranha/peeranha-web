@@ -34,6 +34,7 @@ import {
 } from 'containers/Profile/constants';
 
 import QuestionCommunity from './QuestionCommunity';
+import QuestionType from "containers/Questions/Content/Body/QuestionType";
 
 const single = isSingleCommunityWebsite();
 
@@ -90,6 +91,20 @@ const ContentContainer = styled.div`
 
   @media only screen and (max-width: 768px) {
     flex-direction: column;
+  }
+`;
+
+const QuestionLabels = styled.div`
+  position: absolute;
+  top: 5px;
+  right: 7px;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+
+  @media only screen and (max-width: 576px) {
+    top: 50px;
+    right: 3px;
   }
 `;
 
@@ -154,6 +169,15 @@ export const QuestionForProfilePage = ({
         </QuestionType>
       )}*/}
       <ContentContainer>
+        <QuestionLabels>
+          <QuestionType
+            locale={locale}
+            postType={postType}
+            isPromoted={false}
+            isExpert={false}
+          />
+        </QuestionLabels>
+
         <div className="d-flex flex-row flex-md-column">
           <Badge bold>{myPostRating}</Badge>
 
