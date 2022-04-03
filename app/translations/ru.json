@@ -882,6 +882,7 @@
   "app.containers.SignUp.weWillNotify":
     "Мы сообщим Вам, когда Ваш аккаунт будет готов. Обычно это занимает не больше 4 часов.",
   "app.containers.SignUp.goToMainPage": "Перейти на главную страницу",
+  "app.containers.SignUp.downloadSecretPhrase": "Скачать Секретную фразу",
   "app.containers.SignUp.youNeedEosAccount": "Вам необходим {image} аккаунт",
   "app.containers.SignUp.theWayEosWorks":
     "Если у вас нет Telos аккаунта, мы создадим его для вас и оплатим комиссию за создание. Если у вас уже есть Telos аккаунт, вы можете зарегистрироваться, используя адрес электронной почты, чтобы иметь удобный вход в приложение с любого устройства.",
@@ -923,8 +924,8 @@
   "app.containers.SignUp.signUp": "Зарегистрироваться",
   "app.containers.SignUp.password": "Пароль",
   "app.containers.SignUp.confirmPassword": "Подтвердить пароль",
-  "app.containers.SignUp.iSaveMasterKey":
-    "Я сохранил Master ключ в безопасном месте. Понимаю, что если я забуду пароль, Master ключ - единственный способ восстановить доступ к моему аккаунту.",
+  "app.containers.SignUp.iSaveSecretPhrase":
+    "Я сохранил Секретную фразу в безопасном месте. Понимаю, что если я забуду пароль, Секретную фраза - единственный способ восстановить доступ к моему аккаунту.",
   "app.containers.SignUp.userAlreadyRegistered":
     "Пользователь с таким identity уже зарегистрирован",
   "app.containers.SignUp.userRejectedSignatureRequest":

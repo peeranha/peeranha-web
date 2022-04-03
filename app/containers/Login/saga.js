@@ -97,10 +97,6 @@ function* continueLogin({ address }) {
     yield put(redirectToFeed());
 
   yield put(loginWithEmailSuccess());
-  // If user is absent - show window to finish registration
-  // if (!profileInfo) {
-  //   yield put(loginWithEmailSuccess(WE_ARE_HAPPY_FORM));
-  // }
 }
 
 export function* loginWithEmailWorker({ val }) {

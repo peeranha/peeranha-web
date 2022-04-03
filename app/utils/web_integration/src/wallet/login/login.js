@@ -34,6 +34,7 @@ async function login(email, password, rememberMe = false) {
     email: username,
     username,
     account: address,
+    ethereumUserAddress: address,
     authToken: token,
   };
 

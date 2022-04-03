@@ -25,23 +25,15 @@ import reducer from './reducer';
 import saga from './saga';
 
 import ChangePasswordForm from './ChangePasswordForm';
-import SubmitEmailForm from './SubmitEmailForm';
-import EmailForm from './EmailForm';
 
 import {
   showChangePasswordModal,
   hideChangePasswordModal,
-  sendEmail,
-  submitEmail,
   changePassword,
   sendAnotherCode,
 } from './actions';
 
-import {
-  EMAIL_FORM,
-  VERIFY_EMAIL_FORM,
-  CHANGE_PASSWORD_FORM,
-} from './constants';
+import { CHANGE_PASSWORD_FORM } from './constants';
 
 /* eslint-disable react/prefer-stateless-function */
 export class ChangePasswordByPrevious extends React.PureComponent {
@@ -53,37 +45,13 @@ export class ChangePasswordByPrevious extends React.PureComponent {
       showModal,
       locale,
       content,
-      sendEmailProcessing,
-      sendEmailDispatch,
-      submitEmailDispatch,
-      submitEmailProcessing,
       changePasswordDispatch,
       changePasswordProcessing,
-      sendAnotherCodeDispatch,
-      loginData,
     } = this.props;
 
     return (
-      <React.Fragment>
+      <>
         <Modal show={showModal} closeModal={hideChangePasswordModalDispatch}>
-          {content === EMAIL_FORM && (
-            <EmailForm
-              locale={locale}
-              sendEmail={sendEmailDispatch}
-              sendEmailProcessing={sendEmailProcessing}
-              loginData={loginData}
-            />
-          )}
-
-          {content === VERIFY_EMAIL_FORM && (
-            <SubmitEmailForm
-              locale={locale}
-              submitEmail={submitEmailDispatch}
-              submitEmailProcessing={submitEmailProcessing}
-              sendAnotherCode={sendAnotherCodeDispatch}
-            />
-          )}
-
           {content === CHANGE_PASSWORD_FORM && (
             <ChangePasswordForm
               locale={locale}
@@ -93,8 +61,13 @@ export class ChangePasswordByPrevious extends React.PureComponent {
           )}
         </Modal>
 
-        <Button onClick={showChangePasswordModalDispatch} style={{paddingBottom: 2}}>{children}</Button>
-      </React.Fragment>
+        <Button
+          onClick={showChangePasswordModalDispatch}
+          style={{ paddingBottom: 2 }}
+        >
+          {children}
+        </Button>
+      </>
     );
   }
 }
@@ -106,14 +79,8 @@ ChangePasswordByPrevious.propTypes = {
   showModal: PropTypes.bool,
   locale: PropTypes.string,
   content: PropTypes.string,
-  sendEmailProcessing: PropTypes.bool,
-  sendEmailDispatch: PropTypes.func,
-  submitEmailDispatch: PropTypes.func,
-  submitEmailProcessing: PropTypes.bool,
   changePasswordDispatch: PropTypes.func,
-  sendAnotherCodeDispatch: PropTypes.func,
   changePasswordProcessing: PropTypes.bool,
-  loginData: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -121,16 +88,12 @@ const mapStateToProps = createStructuredSelector({
   loginData: makeSelectLoginData(),
   content: selectors.selectContent(),
   showModal: selectors.selectShowModal(),
-  sendEmailProcessing: selectors.selectSendEmailProcessing(),
-  submitEmailProcessing: selectors.selectSubmitEmailProcessing(),
   changePasswordProcessing: selectors.selectChangePasswordProcessing(),
 });
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     sendAnotherCodeDispatch: bindActionCreators(sendAnotherCode, dispatch),
-    sendEmailDispatch: bindActionCreators(sendEmail, dispatch),
-    submitEmailDispatch: bindActionCreators(submitEmail, dispatch),
     changePasswordDispatch: bindActionCreators(changePassword, dispatch),
     showChangePasswordModalDispatch: bindActionCreators(
       showChangePasswordModal,

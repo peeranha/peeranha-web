@@ -7,8 +7,6 @@ import { translationMessages } from 'i18n';
 import PropTypes from 'prop-types';
 import { ethers } from 'ethers';
 
-import * as routes from 'routes-config';
-
 import { scrollToErrorField } from 'utils/animation';
 
 import dangerIcon from 'images/dangerIcon.svg?inline';
@@ -165,7 +163,7 @@ const SignUpViaEmail = ({
                     src={DownloadIcon}
                     alt="downloadIcon"
                   />
-                  Download Secret Phrase
+                  <FormattedMessage {...messages.downloadSecretPhrase} />
                 </StyledDownloadContainer>
               </Div>
               <Div>
@@ -196,7 +194,7 @@ const SignUpViaEmail = ({
                 <Field
                   name={I_SAVE_MNEMONIC_PHRASE_KEY_FIELD}
                   disabled={signUpViaEmailProcessing}
-                  label={translate[messages.iSaveMasterKey.id]}
+                  label={translate[messages.iSaveSecretPhrase.id]}
                   component={Checkbox}
                   validate={required}
                   warn={required}
@@ -231,7 +229,6 @@ const SignUpViaEmail = ({
 SignUpViaEmail.propTypes = {
   handleSubmit: PropTypes.func,
   change: PropTypes.func,
-  iSaveMasterKeyValue: PropTypes.bool,
   iAcceptPolicyValue: PropTypes.bool,
   mnemonicPhrase: PropTypes.string,
   locale: PropTypes.string,

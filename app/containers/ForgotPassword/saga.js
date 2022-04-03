@@ -101,8 +101,6 @@ export function* changePasswordWorker({ code, password }) {
 
     if (changeCredentialsResponse.body.success) {
       yield put(changePasswordSuccess());
-    } else {
-      throw new Error('');
     }
   } catch (err) {
     yield put(changePasswordErr(err));

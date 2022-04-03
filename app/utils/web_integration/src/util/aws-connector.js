@@ -17,6 +17,7 @@ const GET_OWNER_KEY_COMPLETE_SERVICE = 'wallet/get-owner-key/complete';
 
 const CHANGE_CREDENTIALS_INIT_SERVICE = 'account/forgot-password';
 const CHANGE_CREDENTIALS_CONFIRM_SERVICE = 'account/reset-password';
+const CHANGE_PASSWORD_CONFIRM_SERVICE = 'account/change-password';
 
 const REGISTER_WITH_FACEBOOK_SERVICE = 'wallet/register/facebook';
 const LOGIN_WITH_FACEBOOK_SERVICE = 'wallet/login/facebook';
@@ -40,10 +41,10 @@ async function callService(service, props, isGet = false) {
 
   const auth = {};
 
-  if (service.includes(BLOCKCHAIN)) {
-    const { authToken } = JSON.parse(getCookie(AUTOLOGIN_DATA));
+  const authData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
 
-    auth.Authorization = `${authToken}`;
+  if (authData?.authToken) {
+    auth.Authorization = `${authData?.authToken}`;
   }
 
   if (isGet) {
@@ -89,6 +90,7 @@ module.exports = {
   GET_OWNER_KEY_COMPLETE_SERVICE,
   CHANGE_CREDENTIALS_INIT_SERVICE,
   CHANGE_CREDENTIALS_CONFIRM_SERVICE,
+  CHANGE_PASSWORD_CONFIRM_SERVICE,
   LOGGER_SERVICE,
   PAY_FOR_CPU_SERVICE,
   BEST_NODE_SERVICE,

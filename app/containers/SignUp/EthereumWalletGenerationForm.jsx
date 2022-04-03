@@ -219,7 +219,6 @@ const EthereumWalletGenerationForm = ({
 EthereumWalletGenerationForm.propTypes = {
   handleSubmit: PropTypes.func,
   change: PropTypes.func,
-  iSaveMasterKeyValue: PropTypes.bool,
   iAcceptPolicyValue: PropTypes.bool,
   masterKeyPrevValue: PropTypes.string,
   masterKeyValue: PropTypes.string,

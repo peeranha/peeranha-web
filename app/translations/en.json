@@ -868,6 +868,7 @@
   "app.containers.SignUp.weWillNotify":
     "We will notify you when your account will be ready. Usually it takes no longer than 4 hours.",
   "app.containers.SignUp.goToMainPage": "Go to main page",
+  "app.containers.SignUp.downloadSecretPhrase": "Download Secret Phrase",
   "app.containers.SignUp.youNeedEosAccount": "You need {image} account",
   "app.containers.SignUp.theWayEosWorks":
     "If you do not have Telos account then we will create it for you and cover the fee for account creation. If you already have a Telos account you can sign-up using an email address, in order to have a convenient log-in into the application from any device. ",
@@ -910,8 +911,8 @@
   "app.containers.SignUp.signUp": "Sign up",
   "app.containers.SignUp.password": "Password",
   "app.containers.SignUp.confirmPassword": "Confirm password",
-  "app.containers.SignUp.iSaveMasterKey":
-    "I saved Master Key in a safe place. I understand that if I forget my password then Master Key is the only way to restore access to my account.",
+  "app.containers.SignUp.iSaveSecretPhrase":
+    "I saved Secret Phrase in a safe place. I understand that if I forget my password then Secret Phrase is the only way to restore access to my account.",
   "app.containers.SignUp.userAlreadyRegistered":
     "User with such identity has been already registered",
   "app.containers.SignUp.userRejectedSignatureRequest":

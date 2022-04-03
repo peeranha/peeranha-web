@@ -56,6 +56,8 @@ class EthereumService {
   };
 
   initEthereum = async () => {
+    // TODO for maatic:
+    // ETHEREUM_NETWORK='https://rpc-mumbai.maticvigil.com'
     const provider = await detectEthereumProvider();
     if (provider) {
       this.metaMaskProviderDetected = true;

@@ -63,8 +63,11 @@ export default defineMessages({
   confirmPassword: {
     id: 'app.containers.SignUp.confirmPassword',
   },
-  iSaveMasterKey: {
-    id: 'app.containers.SignUp.iSaveMasterKey',
+  iSaveSecretPhrase: {
+    id: 'app.containers.SignUp.iSaveSecretPhrase',
+  },
+  downloadSecretPhrase: {
+    id: 'app.containers.SignUp.downloadSecretPhrase',
   },
   iAcceptPrivacyPolicy: {
     id: 'app.containers.SignUp.iAcceptPrivacyPolicy',
