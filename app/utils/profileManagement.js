@@ -63,7 +63,6 @@ export async function getProfileInfo(
   let profileInfo;
   let userStats;
 
-  let communities;
   if (isLogin) {
     profileInfo = await ethereumService.getProfile(user);
     userStats = await getUserStats(user);

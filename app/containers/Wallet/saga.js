@@ -28,8 +28,9 @@ export function* getWeekStatWorker() {
   try {
     const ethereumService = yield select(selectEthereum);
     const profile = yield select(makeSelectProfileInfo());
-    const weekStat = profile
-      ? yield call(getWeekStat, ethereumService, profile)
+    const user = yield select(makeSelectAccount());
+    const weekStat= profile
+      ? yield call(getWeekStat, ethereumService, user)
       : [];
 
     //TODO boost
