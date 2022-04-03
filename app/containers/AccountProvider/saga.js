@@ -280,14 +280,13 @@ export const getCurrentAccountWorker = function*(initAccount) {
 
 export function* isAvailableAction(isValid, data = {}) {
   const { skipPermissions } = data;
+  const profileInfo = yield select(makeSelectProfileInfo());
+  if (hasGlobalModeratorRole(profileInfo.permissions)) {
+    return true;
+  }
 
   if (!skipPermissions) {
-    const profileInfo = yield select(makeSelectProfileInfo());
-
     if (profileInfo.integer_properties?.find(x => x.key === MODERATOR_KEY)) {
-      return true;
-    }
-    if (hasGlobalModeratorRole(profileInfo.permissions)) {
       return true;
     }
   }
