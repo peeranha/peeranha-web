@@ -276,7 +276,7 @@ class EthereumService {
         .connect(
           new ethers.providers.Web3Provider(this.provider).getSigner(actor),
         )
-        [CLAIM_REWARD](period);
+        [CLAIM_REWARD](actor, period);
       await transaction.wait();
     } catch (err) {
       throw err;
