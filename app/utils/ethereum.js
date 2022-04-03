@@ -22,7 +22,12 @@ import {
   GET_USER_PERMISSIONS,
   GET_USER_RATING,
 } from './ethConstants';
-import { getFileUrl, getText } from './ipfs';
+import {
+  getFileUrl,
+  getText,
+  getBytes32FromIpfsHash,
+  getIpfsHashFromBytes32,
+} from './ipfs';
 import {
   BLOCKCHAIN_MAIN_CALL,
   BLOCKCHAIN_MAIN_SEND_TRANSACTION,
@@ -136,18 +141,6 @@ class EthereumService {
     JSON.parse(getCookie(AUTOLOGIN_DATA) || null) ||
     null;
 
-  getBytes32FromIpfsHash = ipfsListing =>
-    `0x${bs58
-      .decode(ipfsListing)
-      .slice(2)
-      .toString('hex')}`;
-
-  getIpfsHashFromBytes32 = bytes32Hex => {
-    const hashHex = `1220${bytes32Hex.slice(2)}`;
-    const hashBytes = Buffer.from(hashHex, 'hex');
-    return bs58.encode(hashBytes);
-  };
-
   getProfile = async userAddress => {
     const user = await this.getDataWithArgs(GET_USER_BY_ADDRESS, userAddress);
     const permissions = await this.getDataWithArgs(
@@ -161,7 +154,7 @@ class EthereumService {
       rating: user.rating,
       permissions,
       followedCommunities: user.followedCommunities,
-      ipfsHash: this.getIpfsHashFromBytes32(user.ipfsDoc.hash),
+      ipfsHash: getIpfsHashFromBytes32(user.ipfsDoc.hash),
     };
   };
 
@@ -231,7 +224,7 @@ class EthereumService {
 
   sendTransaction = async (actor, action, data) => {
     try {
-      const transactionData = this.getBytes32FromIpfsHash(data);
+      const transactionData = getBytes32FromIpfsHash(data);
       const transaction = await this.getDataWithArgs(action, transactionData);
       await transaction.wait();
     } catch (err) {
@@ -271,7 +264,7 @@ class EthereumService {
     return await Promise.all(
       rawTags.map(async rawTag => {
         const tag = JSON.parse(
-          await getText(this.getIpfsHashFromBytes32(rawTag.ipfsDoc.hash)),
+          await getText(getIpfsHashFromBytes32(rawTag.ipfsDoc.hash)),
         );
         return {
           name: tag.name,
@@ -285,7 +278,7 @@ class EthereumService {
   getCommunityFromContract = async id => {
     const rawCommunity = await this.getDataWithArgs(GET_COMMUNITY, [id]);
     const communityInfo = JSON.parse(
-      await getText(this.getIpfsHashFromBytes32(rawCommunity.ipfsDoc.hash)),
+      await getText(getIpfsHashFromBytes32(rawCommunity.ipfsDoc.hash)),
     );
     return {
       id: +id,

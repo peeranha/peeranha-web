@@ -4,7 +4,7 @@ const {
   ACCOUNT_BEGIN_SIGNUP,
   ACCOUNT_VALIDATE_SIGNUP_CODE,
 } = require('../../util/aws-connector');
-const { saveText } = require('../../../../ipfs');
+const { getBytes32FromIpfsHash, saveText } = require('../../../../ipfs');
 
 async function registerInit(email) {
   return await callService(ACCOUNT_BEGIN_SIGNUP, { email });
@@ -18,11 +18,11 @@ async function registerConfirmEmail(email, code) {
 }
 
 async function registerComplete(registerProperties, profile) {
-  const ipfsHashHex = await saveText(JSON.stringify(profile));
+  const ipfsHash = await saveText(JSON.stringify(profile));
 
   return await callService(ACCOUNT_REGISTER, {
     ...registerProperties,
-    ipfsHashHex,
+    ipfsHashHex: getBytes32FromIpfsHash(ipfsHash),
   });
 }
 
