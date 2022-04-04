@@ -138,7 +138,7 @@ class EthereumService {
   };
 
   setSelectedAccount = account => {
-    this.selectedAccount = account;
+    this.selectedAccount = account?.toLowerCase();
   };
 
   getSelectedAccount = async () =>
