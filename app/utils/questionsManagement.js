@@ -1,7 +1,12 @@
 import JSBI from 'jsbi';
 
 import { orderBy } from 'lodash/collection';
-import { getIpfsHashFromBytes32, getText, saveText } from './ipfs';
+import {
+  getBytes32FromIpfsHash,
+  getIpfsHashFromBytes32,
+  getText,
+  saveText,
+} from './ipfs';
 
 import {
   ALL_QUESTIONS_SCOPE,
@@ -267,7 +272,7 @@ export async function postQuestion(
   ethereumService,
 ) {
   const ipfsLink = await saveText(JSON.stringify(questionData));
-  const ipfsHash = ethereumService.getBytes32FromIpfsHash(ipfsLink);
+  const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
   return await ethereumService.sendTransactionWithSigner(user, POST_QUESTION, [
     communityId,
     ipfsHash,
@@ -285,7 +290,7 @@ export const editQuestion = async (
   ethereumService,
 ) => {
   const ipfsLink = await saveText(JSON.stringify(questionData));
-  const ipfsHash = ethereumService.getBytes32FromIpfsHash(ipfsLink);
+  const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
   return await ethereumService.sendTransactionWithSigner(user, EDIT_POST, [
     postId,
     ipfsHash,
@@ -323,7 +328,7 @@ export const postAnswer = async (
   ethereumService,
 ) => {
   const ipfsLink = await saveText(JSON.stringify(answerData));
-  const ipfsHash = ethereumService.getBytes32FromIpfsHash(ipfsLink);
+  const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
   await ethereumService.sendTransactionWithSigner(user, POST_ANSWER, [
     questionId,
     0,
@@ -341,7 +346,7 @@ export async function editAnswer(
   ethereumService,
 ) {
   const ipfsLink = await saveText(JSON.stringify(answerData));
-  const ipfsHash = ethereumService.getBytes32FromIpfsHash(ipfsLink);
+  const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
   await ethereumService.sendTransactionWithSigner(user, EDIT_ANSWER, [
     questionId,
     answerId,
@@ -369,7 +374,7 @@ export async function postComment(
   ethereumService,
 ) {
   const ipfsLink = await saveText(JSON.stringify(commentData));
-  const ipfsHash = ethereumService.getBytes32FromIpfsHash(ipfsLink);
+  const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
   await ethereumService.sendTransactionWithSigner(user, POST_COMMENT, [
     questionId,
     answerId,
@@ -386,7 +391,7 @@ export async function editComment(
   ethereumService,
 ) {
   const ipfsLink = await saveText(JSON.stringify(commentData));
-  const ipfsHash = ethereumService.getBytes32FromIpfsHash(ipfsLink);
+  const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
   await ethereumService.sendTransactionWithSigner(user, EDIT_COMMENT, [
     questionId,
     answerId,
