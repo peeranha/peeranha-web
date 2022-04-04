@@ -8,7 +8,8 @@ import {
   postQuery,
   postsByCommQuery,
   postsForSearchQuery,
-  postsQuery, rewardsQuery,
+  postsQuery,
+  rewardsQuery,
   tagsQuery,
   userQuery,
   usersAnswersQuery,
@@ -42,7 +43,7 @@ export const getUser = async id => {
   const user = await client.query({
     query: gql(userQuery),
     variables: {
-      id,
+      id: id.toLowerCase(),
     },
   });
   return { ...user?.data?.user };
@@ -52,7 +53,7 @@ export const getUserStats = async id => {
   const userStats = await client.query({
     query: gql(userStatsQuery),
     variables: {
-      id,
+      id: id.toLowerCase(),
     },
   });
   return userStats?.data.user;
@@ -65,9 +66,7 @@ export const getUsersQuestions = async id => {
       id,
     },
   });
-  return questions?.data.posts.map(question => {
-    return { ...question };
-  });
+  return questions?.data.posts.map(question => ({ ...question }));
 };
 
 export const getUsersAnsweredQuestions = async id => {
@@ -83,9 +82,7 @@ export const getUsersAnsweredQuestions = async id => {
       ids: data.replies.map(reply => Number(reply.postId)),
     },
   });
-  return answeredPosts?.data.posts.map(question => {
-    return { ...question };
-  });
+  return answeredPosts?.data.posts.map(question => ({ ...question }));
 };
 
 export const getCommunities = async count => {
@@ -173,11 +170,9 @@ export const getQuestionFromGraph = async postId => {
       },
     })).data.post,
   };
-  post.answers = post.replies.map(reply => {
-    return {
-      ...reply,
-    };
-  });
+  post.answers = post.replies.map(reply => ({
+    ...reply,
+  }));
   delete post.replies;
   return post;
 };
@@ -187,12 +182,11 @@ export const postsForSearch = async text => {
     .replace(/\s+/g, ' ')
     .trim()
     .split(' ')
-    .reduce((text, word) => {
-      if (text.length === 0) {
+    .reduce((textChar, word) => {
+      if (textChar.length === 0) {
         return `${word}:*`;
-      } else {
-        return `${text} <-> ${word}:*`;
       }
+      return `${textChar} <-> ${word}:*`;
     }, '');
   const posts = await client.query({
     query: gql(postsForSearchQuery),
@@ -207,7 +201,7 @@ export const getAllAchievements = async userId => {
   const response = await client.query({
     query: gql(allAchievementsQuery),
     variables: {
-      userId,
+      userId: userId.toLowerCase(),
     },
   });
   return {
@@ -216,7 +210,7 @@ export const getAllAchievements = async userId => {
   };
 };
 
-export const getRewardStat = async (userId) => {
+export const getRewardStat = async userId => {
   const response = await client.query({
     query: gql(rewardsQuery),
     variables: {
@@ -224,4 +218,4 @@ export const getRewardStat = async (userId) => {
     },
   });
   return [response?.data?.userRewards, response?.data?.periods];
-}
+};
