@@ -113,7 +113,7 @@ export function* getQuestionsWorker({
     // deleteCookie(UPDATE_PROMO_QUESTIONS);
 
     let questionsList = [];
-    console.log(single);
+
     if (single) {
       communityIdFilter = single;
     }
@@ -127,10 +127,7 @@ export function* getQuestionsWorker({
       );
     }
 
-    console.log(communityIdFilter);
-    console.log(parentPage);
     if (communityIdFilter === 0 && parentPage !== feed) {
-      console.log('f');
       questionsList = yield call(getPosts, limit, skip, postTypes);
     }
 
