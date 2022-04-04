@@ -113,7 +113,7 @@ export function* getQuestionsWorker({
     // deleteCookie(UPDATE_PROMO_QUESTIONS);
 
     let questionsList = [];
-
+    console.log(single);
     if (single) {
       communityIdFilter = single;
     }
@@ -127,7 +127,10 @@ export function* getQuestionsWorker({
       );
     }
 
+    console.log(communityIdFilter);
+    console.log(parentPage);
     if (communityIdFilter === 0 && parentPage !== feed) {
+      console.log('f');
       questionsList = yield call(getPosts, limit, skip, postTypes);
     }
 
@@ -233,39 +236,38 @@ export function* redirectWorker({ communityIdFilter, isFollowed }) {
   }
 }
 
-// TODO: test
 export function* updateStoredQuestionsWorker() {
-  const eosService = yield select(selectEos);
-  const initLoadedItems = yield select(selectInitLoadedItems());
-  const offset = 0;
-  const communityIdFilter = yield select(selectTypeFilter());
-  const followedCommunities = yield select(makeSelectFollowedCommunities());
-  const parentPage = window.location.pathname;
-  const fetcher = new FetcherOfQuestionsForFollowedCommunities(
-    Math.floor(1.2 * initLoadedItems),
-    followedCommunities || [],
-    eosService,
-  );
-
-  const next = false;
-  const toUpdateQuestions = true;
-
-  setCookie({
-    name: UPDATE_PROMO_QUESTIONS,
-    value: true,
-  });
-
-  yield put(
-    getQuestionsAction(
-      initLoadedItems,
-      offset,
-      communityIdFilter,
-      parentPage,
-      fetcher,
-      next,
-      toUpdateQuestions,
-    ),
-  );
+  //TODO for updating promoted questions
+  // const eosService = yield select(selectEos);
+  // const initLoadedItems = yield select(selectInitLoadedItems());
+  // const offset = 0;
+  // const communityIdFilter = yield select(selectTypeFilter());
+  // const followedCommunities = yield select(makeSelectFollowedCommunities());
+  // const parentPage = window.location.pathname;
+  // const fetcher = new FetcherOfQuestionsForFollowedCommunities(
+  //   Math.floor(1.2 * initLoadedItems),
+  //   followedCommunities || [],
+  //   eosService,
+  // );
+  //
+  // const next = false;
+  // const toUpdateQuestions = true;
+  //
+  // setCookie({
+  //   name: UPDATE_PROMO_QUESTIONS,
+  //   value: true,
+  // });
+  // yield put(
+  //   getQuestionsAction(
+  //     initLoadedItems,
+  //     offset,
+  //     communityIdFilter,
+  //     parentPage,
+  //     fetcher,
+  //     next,
+  //     toUpdateQuestions,
+  //   ),
+  // );
 }
 
 function* changeQuestionFilterWorker({ questionFilter }) {
