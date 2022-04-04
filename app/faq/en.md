@@ -236,7 +236,7 @@ No, PEER is not listed on any exchange yet. We will notify the community as soon
 
 ### What is total supply?
 
-The total supply of the PEER token is 100,000,000 PEER
+The total supply of the PEER token is 1 000 000 000 PEER
 
 ### What is the token allocation?
 
@@ -246,7 +246,7 @@ The total supply of the PEER token is 100,000,000 PEER
 
 ### What is emission rate?
 
-New tokens are created once per week. The maximum starting emission is 100,000 PEER per week (depends on user activity). The emission is reduced by 10% every 52 weeks.
+New tokens are created once per week. The maximum starting emission is 1 000 000 PEER per week (depends on user activity). The emission is reduced by 7% every 52 weeks.
 
 ## Rewards
 
@@ -262,13 +262,13 @@ For example:
 - Week 2: rewards are allocated but not distributed
 - Week 3: rewards from week 1’s contributions are distributed estimated rewards for week 1 will be visible after the start of week 2 but available to be received only after the start of week 3.
 
-### How are user rewards calculated?
+<!--### How are user rewards calculated?
 
 Exact user rewards depends on the user activity during a given period. The maximum size of the weekly reward pool is equal to maximum weekly emission of the token.
 
 If total rating points earned by all of the users during the week multiplied by 10 is less than maximum token emission, then the reward is simply 10 PEERs per rating point.
 
-Otherwise, the reward pool size is equal to the maximum weekly token emission and tokens are distributed proportionally to rating points earned by users.
+Otherwise, the reward pool size is equal to the maximum weekly token emission and tokens are distributed proportionally to rating points earned by users.-->
 
 ## Messenger Bots
 
