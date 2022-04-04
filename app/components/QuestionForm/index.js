@@ -147,10 +147,9 @@ export const QuestionForm = ({
   };
 
   const profileWithModeratorRights =
-    profile &&
-    useMemo(() => hasGlobalModeratorRole(getPermissions(profile)), [profile]);
+  profile && hasGlobalModeratorRole(getPermissions(profile)) || null;
 
-  const makeIsClicked = () => setIsClickSubmit(true);
+  const handleSetClicked = () => setIsClickSubmit(true);
 
   return (
     <div>
@@ -159,7 +158,6 @@ export const QuestionForm = ({
         <BaseSpecialOne>
           <FormBox
            onSubmit={handleSubmitWithType(sendQuestion)}
-           onClick = {makeIsClicked}
           >
             <CommunityForm
               intl={intl}
@@ -257,6 +255,7 @@ export const QuestionForm = ({
               disabled={questionLoading}
               id={submitButtonId}
               type="submit"
+              onClick={handleSetClicked}
             >
               {submitButtonName}
             </Button>
