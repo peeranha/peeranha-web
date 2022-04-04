@@ -91,7 +91,8 @@ Communities are an area on the website dedicated to question and answers for a s
 
 ### How are new communities and tags created?
 
-<!---Communities and tags are created by community voting.--->During the first year, the Peeranha team will be able to create communities without voting. Contact support at hello@peeranha.io if you’re interested in creating a community for your project.
+<!---Communities and tags are created by community voting.--->
+During the first year, the Peeranha team will be able to create communities without voting. Contact support at hello@peeranha.io if you’re interested in creating a community for your project.
 
 ## Questions, Answers and Comments
 
