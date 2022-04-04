@@ -19,7 +19,6 @@ module.exports = {
       jsx: true,
     },
   },
-
   rules: {
     'linebreak-style': 0,
     'prettier/prettier': ['error', prettierOptions],
