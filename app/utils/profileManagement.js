@@ -2,7 +2,13 @@ import userBodyAvatar from 'images/user2.svg?inline';
 import noAvatar from 'images/noAvatar.png';
 import editUserNoAvatar from 'images/editUserNoAvatar.png';
 
-import { getFileUrl, getText, saveFile, saveText } from './ipfs';
+import {
+  getBytes32FromIpfsHash,
+  getFileUrl,
+  getText,
+  saveFile,
+  saveText,
+} from './ipfs';
 
 import {
   ACCOUNT_TABLE,
@@ -110,7 +116,7 @@ export async function getProfileInfo(
 
 export async function saveProfile(ethereumService, user, profile) {
   const ipfsHash = await saveText(JSON.stringify(profile));
-  const transactionData = ethereumService.getBytes32FromIpfsHash(ipfsHash);
+  const transactionData = getBytes32FromIpfsHash(ipfsHash);
   await ethereumService.sendTransactionWithSigner(user, UPDATE_ACC, [
     transactionData,
   ]);
