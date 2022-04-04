@@ -138,6 +138,9 @@ export const getCurrentAccountWorker = function*(initAccount) {
       if (autoLoginData) {
         account = autoLoginData.ethereumUserAddress;
       }
+    } else if (account.email) {
+      account = account.account;
+      ethereumService.setSelectedAccount(account);
     }
 
     if (account && typeof account === 'object') {

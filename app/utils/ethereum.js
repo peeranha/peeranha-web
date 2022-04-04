@@ -137,6 +137,10 @@ class EthereumService {
     this.selectedAccount = null;
   };
 
+  setSelectedAccount = account => {
+    this.selectedAccount = account;
+  };
+
   getSelectedAccount = async () =>
     this.selectedAccount ||
     JSON.parse(getCookie(AUTOLOGIN_DATA) || null) ||
