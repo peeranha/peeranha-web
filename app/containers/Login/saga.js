@@ -101,6 +101,7 @@ function* continueLogin({ address }) {
 
 export function* loginWithEmailWorker({ val }) {
   try {
+    const ethereumService = yield select(selectEthereum);
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
 
@@ -108,7 +109,14 @@ export function* loginWithEmailWorker({ val }) {
     const password = val[PASSWORD_FIELD];
     const rememberMe = Boolean(val[REMEMBER_ME_FIELD]);
 
-    const response = yield call(login, email, password, rememberMe);
+    const response = yield call(
+      login,
+      email,
+      password,
+      rememberMe,
+      ethereumService,
+    );
+    ethereumService.setSelectedAccount(response.body.address);
 
     if (!response.OK) {
       throw new WebIntegrationError(
