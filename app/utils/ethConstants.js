@@ -30,9 +30,102 @@ export const DELETE_COMMENT = 'deleteComment';
 export const CHANGE_STATUS_BEST = 'changeStatusBestReply';
 export const VOTE_ITEM = 'voteItem';
 export const GET_USER_RATING = 'getUserRating';
+export const GET_USER_BALANCE = 'balanceOf';
+export const CLAIM_REWARD = 'claimReward';
 
 export const UPVOTE_STATUS = 1;
 export const DOWNVOTE_STATUS = -1;
+
+const user = `
+    id
+    ratings {
+     communityId
+     rating
+    }
+    displayName
+    company
+    position
+    location
+    about
+    avatar
+    creationTime
+`;
+
+const comment = `
+    id
+    author {
+      ${user}
+    }
+    rating
+    postTime
+    postId
+    parentReplyId
+    content
+    isDeleted
+    properties
+`;
+
+const reply = `
+    id
+    author {
+      ${user}
+    }
+    rating
+    postTime
+    postId
+    parentReplyId
+    content
+    commentCount
+    isDeleted
+    isOfficialReply
+    isBestReply
+    isFirstReply
+    isQuickReply
+    properties
+    comments (
+      orderBy: postTime,
+      orderDirection: asc,
+      where: { isDeleted: false },
+    ) {
+      ${comment}
+    }
+`;
+
+const post = `
+    id
+    tags
+    postType
+    author {
+      ${user}
+    }
+    rating
+    postTime
+    communityId
+    title
+    content
+    commentCount
+    replyCount
+    isDeleted
+    officialReply
+    bestReply
+    isFirstReply
+    isQuickReply
+    properties
+    replies (
+      orderBy: postTime,
+      orderDirection: desc,
+      where: { isDeleted: false },
+    ) {
+      ${reply}
+    }
+    comments (
+      orderBy: postTime,
+      orderDirection: asc,
+      where: { isDeleted: false },
+    ) {
+      ${comment}
+    }
+`;
 
 export const usersQuery = `
       query(
@@ -46,16 +139,7 @@ export const usersQuery = `
           orderBy: $orderBy,
           orderDirection: desc,
         ) {
-          id
-          displayName
-          company
-          position
-          location
-          about
-          avatar
-          creationTime
-          ipfsHash
-          ipfsHash2
+          ${user}
           postCount
           replyCount
         }
@@ -68,21 +152,9 @@ export const userQuery = `
         user(
           id: $id
         ) {
-          id
-          displayName
-          company
-          position
-          location
-          about
-          avatar
-          creationTime
-          ipfsHash
-          ipfsHash2
+          ${user}
           postCount
           replyCount
-        }
-        communities {
-          id
         }
       }`;
 
@@ -98,9 +170,6 @@ export const userStatsQuery = `
           achievements {
             id
           }
-        }
-        communities {
-          id
         }
       }`;
 
@@ -137,109 +206,7 @@ export const usersPostsQuery = `
           skip: $skip,
           where: {isDeleted: false, author: $id},
         ) {
-           id
-           tags
-           postType
-           author {
-              id
-              displayName
-              company
-              position
-              location
-              about
-              avatar
-              creationTime
-           }
-           rating
-           postTime
-           communityId
-           title
-           content
-           commentCount
-           replyCount
-           replies (
-             orderBy: postTime,
-             orderDirection: desc,
-             where: { isDeleted: false },
-           ) {
-             id
-             author {
-                id
-                displayName
-                company
-                position
-                location
-                about
-                avatar
-                creationTime
-             }
-             rating
-             postTime
-             postId
-             parentReplyId
-             content
-             commentCount
-             comments (
-              orderBy: postTime,
-              orderDirection: asc,
-              where: { isDeleted: false },
-             ) {
-               id
-               author {
-                  id
-                  displayName
-                  company
-                  position
-                  location
-                  about
-                  avatar
-                  creationTime
-               }
-               rating
-               postTime
-               postId
-               parentReplyId
-               content
-               isDeleted
-               properties
-             }
-             isDeleted
-             isOfficialReply
-             isBestReply
-             isFirstReply
-             isQuickReply
-             properties
-           }
-           comments (
-            orderBy: postTime,
-            orderDirection: asc,
-            where: { isDeleted: false },
-           ) {
-             id
-             author {
-                id
-                displayName
-                company
-                position
-                location
-                about
-                avatar
-                creationTime
-             }
-             rating
-             postTime
-             postId
-             parentReplyId
-             content
-             isDeleted
-             properties
-           }
-           isDeleted
-           officialReply
-           bestReply
-           isFirstReply
-           isQuickReply
-           properties
+           ${post}
         }
       }`;
 
@@ -269,108 +236,7 @@ export const answeredPostsQuery = `
           skip: $skip,
           where: { id_in: $ids, isDeleted: false },
         ) {
-           id
-           tags
-           postType
-           author {
-              id
-              displayName
-              company
-              position
-              location
-              about
-              avatar
-              creationTime
-           }
-           rating
-           postTime
-           communityId
-           title
-           content
-           commentCount
-           replyCount
-           replies (
-             orderBy: postTime,
-             orderDirection: desc,
-             where: { isDeleted: false },
-           ) {
-             id
-             author {
-                id
-                displayName
-                company
-                position
-                location
-                about
-                avatar
-                creationTime
-             }
-             rating
-             postTime
-             postId
-             parentReplyId
-             content
-             commentCount
-             comments (
-              orderBy: postTime,
-              orderDirection: asc,
-              where: { isDeleted: false },
-             ) {
-               id
-               author {
-                  id
-                  displayName
-                  company
-                  position
-                  location
-                  about
-                  avatar
-                  creationTime
-               }
-               postTime
-               postId
-               parentReplyId
-               content
-               isDeleted
-               properties
-             }
-             isDeleted
-             isOfficialReply
-             isBestReply
-             isFirstReply
-             isQuickReply
-             properties
-           }
-           comments (
-            orderBy: postTime,
-            orderDirection: asc,
-            where: { isDeleted: false },
-           ) {
-             id
-             author {
-                id
-                displayName
-                company
-                position
-                location
-                about
-                avatar
-                creationTime
-             }
-             rating
-             postTime
-             postId
-             parentReplyId
-             content
-             isDeleted
-             properties
-           }
-           isDeleted
-           officialReply
-           bestReply
-           isFirstReply
-           isQuickReply
-           properties
+           ${post}
         }
       }`;
 
@@ -434,109 +300,7 @@ export const postsQuery = `
           skip: $skip,
           where: {isDeleted: false, postType_in: $postTypes},
         ) {
-           id
-           tags
-           postType
-           author {
-              id
-              displayName
-              company
-              position
-              location
-              about
-              avatar
-              creationTime
-           }
-           rating
-           postTime
-           communityId
-           title
-           content
-           commentCount
-           replyCount
-           replies (
-             orderBy: postTime,
-             orderDirection: desc,
-             where: { isDeleted: false },
-           ) {
-             id
-             author {
-                id
-                displayName
-                company
-                position
-                location
-                about
-                avatar
-                creationTime
-             }
-             rating
-             postTime
-             postId
-             parentReplyId
-             content
-             commentCount
-             comments (
-              orderBy: postTime,
-              orderDirection: asc,
-              where: { isDeleted: false },
-             ) {
-               id
-               author {
-                  id
-                  displayName
-                  company
-                  position
-                  location
-                  about
-                  avatar
-                  creationTime
-               }
-               rating
-               postTime
-               postId
-               parentReplyId
-               content
-               isDeleted
-               properties
-             }
-             isDeleted
-             isOfficialReply
-             isBestReply
-             isFirstReply
-             isQuickReply
-             properties
-           }
-           comments (
-            orderBy: postTime,
-            orderDirection: asc,
-            where: { isDeleted: false },
-           ) {
-             id
-             author {
-                id
-                displayName
-                company
-                position
-                location
-                about
-                avatar
-                creationTime
-             }
-             rating
-             postTime
-             postId
-             parentReplyId
-             content
-             isDeleted
-             properties
-           }
-           isDeleted
-           officialReply
-           bestReply
-           isFirstReply
-           isQuickReply
-           properties
+           ${post}
         }
       }`;
 
@@ -554,109 +318,7 @@ export const postsByCommQuery = `
           skip: $skip,
           where: { communityId_in: $communityIds, isDeleted: false, postType_in: $postTypes },
         ) {
-           id
-           tags
-           postType
-           author {
-              id
-              displayName
-              company
-              position
-              location
-              about
-              avatar
-              creationTime
-           }
-           rating
-           postTime
-           communityId
-           title
-           content
-           commentCount
-           replyCount
-           replies (
-             orderBy: postTime,
-             orderDirection: desc,
-             where: { isDeleted: false },
-           ) {
-             id
-             author {
-                id
-                displayName
-                company
-                position
-                location
-                about
-                avatar
-                creationTime
-             }
-             rating
-             postTime
-             postId
-             parentReplyId
-             content
-             commentCount
-             comments (
-              orderBy: postTime,
-              orderDirection: asc,
-              where: { isDeleted: false },
-             ) {
-               id
-               author {
-                  id
-                  displayName
-                  company
-                  position
-                  location
-                  about
-                  avatar
-                  creationTime
-               }
-               rating
-               postTime
-               postId
-               parentReplyId
-               content
-               isDeleted
-               properties
-             }
-             isDeleted
-             isOfficialReply
-             isBestReply
-             isFirstReply
-             isQuickReply
-             properties
-           }
-           comments (
-            orderBy: postTime,
-            orderDirection: asc,
-            where: { isDeleted: false },
-           ) {
-             id
-             author {
-                id
-                displayName
-                company
-                position
-                location
-                about
-                avatar
-                creationTime
-             }
-             rating
-             postTime
-             postId
-             parentReplyId
-             content
-             isDeleted
-             properties
-           }
-           isDeleted
-           officialReply
-           bestReply
-           isFirstReply
-           isQuickReply
-           properties
+           ${post}
         }
       }`;
 
@@ -671,14 +333,7 @@ export const postsForSearchQuery = `
            tags
            postType
            author {
-              id
-              displayName
-              company
-              position
-              location
-              about
-              avatar
-              creationTime
+              ${user}
            }
            rating
            postTime
@@ -704,109 +359,7 @@ export const postQuery = `
           id: $postId,
           where: {isDeleted: false},
         ) {
-           id
-           tags
-           postType
-           author {
-              id
-              displayName
-              company
-              position
-              location
-              about
-              avatar
-              creationTime
-           }
-           rating
-           postTime
-           communityId
-           title
-           content
-           commentCount
-           replyCount
-           replies (
-             orderBy: postTime,
-             orderDirection: desc,
-             where: { isDeleted: false },
-           ) {
-             id
-             author {
-                id
-                displayName
-                company
-                position
-                location
-                about
-                avatar
-                creationTime
-             }
-             rating
-             postTime
-             postId
-             parentReplyId
-             content
-             commentCount
-             comments (
-              orderBy: postTime,
-              orderDirection: asc,
-              where: { isDeleted: false },
-             ) {
-               id
-               author {
-                  id
-                  displayName
-                  company
-                  position
-                  location
-                  about
-                  avatar
-                  creationTime
-               }
-               rating
-               postTime
-               postId
-               parentReplyId
-               content
-               isDeleted
-               properties
-             }
-             isDeleted
-             isOfficialReply
-             isBestReply
-             isFirstReply
-             isQuickReply
-             properties
-           }
-           comments (
-            orderBy: postTime,
-            orderDirection: asc,
-            where: { isDeleted: false },
-           ) {
-             id
-             author {
-                id
-                displayName
-                company
-                position
-                location
-                about
-                avatar
-                creationTime
-             }
-             rating
-             postTime
-             postId
-             parentReplyId
-             content
-             isDeleted
-             properties
-           }
-           isDeleted
-           officialReply
-           bestReply
-           isFirstReply
-           isQuickReply
-           properties
+           ${post}
         }
       }
 `;
@@ -832,3 +385,30 @@ export const allAchievementsQuery = `
           }
         }
       }`;
+
+const period = `
+  id
+  startPeriodTime
+  endPeriodTime
+`
+
+export const rewardsQuery = `
+  query (
+    $userId: ID!,
+  ) {
+    userRewards (where: {user: $userId}) {
+      id
+      period {
+        ${period}
+      }
+      user {
+        ${user}
+      }
+      tokenToReward
+      status
+    }
+    periods (orderBy: endPeriodTime, orderDirection: desc, first: 2) {
+      ${period}
+    }
+  }
+`

@@ -146,31 +146,11 @@ export function* getQuestionsWorker({
         followedCommunities,
       );
     }
-    const usersSet = new Set();
+
     questionsList.forEach(question => {
       question.isGeneral = isGeneralQuestion(question);
-      usersSet.add(question.author.id);
     });
 
-    //TODO delete after graph ready
-    yield all(
-      [...usersSet].map(function*(user) {
-        yield call(getUserProfileWorker, { user, getFullProfile: true });
-      }),
-    );
-    
-    yield all(
-      questionsList.map(function*(question) {
-        const profileObject = yield select(selectUsers(question.author.id));
-        if (profileObject) {
-          question.author = {
-            ...question.author,
-            ratings: profileObject.ratings,
-            highestRating: profileObject.highestRating,
-          }
-        }
-      }),
-    );
     //TODO promoted questions
     // yield all(
     //   questionsList.map(function*(question) {

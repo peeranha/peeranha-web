@@ -188,7 +188,7 @@ export const getCurrentAccountWorker = function*(initAccount) {
     // }
 
     const [profileInfo, balance] = yield all([
-      call(getProfileInfo, account, ethereumService, !prevProfileInfo, true),
+      call(getProfileInfo, account, ethereumService, true, true),
       call(getBalance, ethereumService, account),
     ]);
 
@@ -263,18 +263,15 @@ export const getCurrentAccountWorker = function*(initAccount) {
     yield put(getUserProfileSuccess(profileInfo));
     yield put(getUserProfileSuccess(profileInfo));
     yield call(getCommunityPropertyWorker, profileInfo);
-    const isStillLoading = yield select(makeSelectAccountLoading());
-    if (isStillLoading) {
-      yield put(
-        getCurrentAccountSuccess(
-          account,
-          balance,
-          // stakedInCurrentPeriod,
-          // stakedInNextPeriod,
-          // boost,
-        ),
-      );
-    }
+    yield put(
+      getCurrentAccountSuccess(
+        account,
+        balance,
+        // stakedInCurrentPeriod,
+        // stakedInNextPeriod,
+        // boost,
+      ),
+    );
     // yield put(getUserTelegramDataSuccess(userTgInfo));
   } catch (err) {
     yield put(getCurrentAccountError(err));
@@ -283,14 +280,13 @@ export const getCurrentAccountWorker = function*(initAccount) {
 
 export function* isAvailableAction(isValid, data = {}) {
   const { skipPermissions } = data;
+  const profileInfo = yield select(makeSelectProfileInfo());
+  if (hasGlobalModeratorRole(profileInfo.permissions)) {
+    return true;
+  }
 
   if (!skipPermissions) {
-    const profileInfo = yield select(makeSelectProfileInfo());
-
     if (profileInfo.integer_properties?.find(x => x.key === MODERATOR_KEY)) {
-      return true;
-    }
-    if (hasGlobalModeratorRole(profileInfo.permissions)) {
       return true;
     }
   }

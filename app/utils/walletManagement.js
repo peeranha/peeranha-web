@@ -32,7 +32,8 @@ import {
 } from './constants';
 
 import { ApplicationError } from './errors';
-import { dateNowInSeconds } from './datetime';
+import JSBI from 'jsbi';
+import {getRewardStat} from "./theGraph";
 
 const PERIOD_LENGTH = {
   development: 2 * 60 * 60, // two hours
@@ -44,188 +45,40 @@ const PERIOD_LENGTH = {
  * @balance - string, example - '1000.000000 PEER'
  */
 export const getBalance = async (ethereumService, user) => {
-  // const val = await eosService.getTableRow(
-  //   ACCOUNTS_TABLE,
-  //   user,
-  //   undefined,
-  //   process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
-  // );
-  const val = undefined;
-
-  // remove all chars besides of number
-  return val ? convertPeerValueToNumberValue(val.balance) : 0;
+  const balance = await ethereumService.getUserBalance(user);
+  return parseInt(balance._hex, 16) / (10 ** 18);
 };
 
 /**
  * @reward - string, example - '1000.000000 PEER'
  */
 
-const getUserSupplyValues = eosService =>
-  eosService.getTableRow(
-    USER_SUPPLY_TABLE,
-    USER_SUPPLY_SCOPE,
-    undefined,
-    process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
-  );
+export async function getWeekStat(ethereumService, user) {
+  const [rewards, periods] = await getRewardStat(user)
+  let inactiveFirstPeriods = [];
 
-const getTotalReward = eosService =>
-  eosService.getTableRows(
-    TOTAL_REWARD_TABLE,
-    ALL_PERIODS_SCOPE,
-    0,
-    INF_LIMIT,
-    undefined,
-    undefined,
-    undefined,
-    process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
-  );
+  periods.map(period => {
+    if(!rewards.find(reward => reward.period.id === period.id)) {
+      inactiveFirstPeriods.push({
+        period: period.id,
+        reward: 0,
+        hasTaken: false,
+        periodStarted: period.startPeriodTime,
+        periodFinished: period.endPeriodTime})
+    }
+  })
 
-const getTotalRating = eosService =>
-  eosService.getTableRows(
-    TOTAL_RATING_TABLE,
-    ALL_PERIODS_SCOPE,
-    0,
-    INF_LIMIT,
-    undefined,
-    undefined,
-    undefined,
-    process.env.EOS_CONTRACT_ACCOUNT,
-  );
-
-const getPeriodRating = (eosService, user) =>
-  eosService.getTableRows(
-    PERIOD_RATING_TABLE,
-    user,
-    0,
-    INF_LIMIT,
-    undefined,
-    undefined,
-    undefined,
-    process.env.EOS_CONTRACT_ACCOUNT,
-  );
-
-const getWeekRewards = (eosService, user) =>
-  eosService.getTableRows(
-    PERIOD_REWARD_TABLE,
-    user,
-    0,
-    INF_LIMIT,
-    undefined,
-    undefined,
-    undefined,
-    process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
-  );
-
-export async function getWeekStat(eosService, profile = {}) {
-  // const [
-  //   { rows: totalReward },
-  //   { rows: totalRating },
-  //   { rows: periodRating },
-  //   { rows: weekRewards },
-  //   userSupplyValues,
-  //   globalBoostStat,
-  //   userBoostStat,
-  //   { rows: tokenAwards },
-  // ] = await Promise.all([
-  //   // getTotalReward(eosService),
-  //   // getTotalRating(eosService),
-  //   // getPeriodRating(eosService, profile.user),
-  //   // getWeekRewards(eosService, profile.user),
-  //   // getUserSupplyValues(eosService),
-  //   // getGlobalBoostStatistics(eosService),
-  //   // getUserBoostStatistics(eosService, profile.user),
-  //   // getTokenAwards(eosService),
-  // ]);
-  //
-  // const normalizedRewards = periodRating.map(x => {
-  //   try {
-  //     let tokenAwardsForPeriod = tokenAwards.find(y => y.period === x.period);
-  //     tokenAwardsForPeriod = tokenAwardsForPeriod
-  //       ? convertPeerValueToNumberValue(tokenAwardsForPeriod.sum_token)
-  //       : 0;
-  //
-  //     const totalRatingForPeriod = totalRating.find(y => y.period === x.period)
-  //       .total_rating_to_reward;
-  //
-  //     let totalRewardForPeriod = totalReward.find(y => y.period === x.period);
-  //
-  //     if (totalRewardForPeriod) {
-  //       totalRewardForPeriod = convertPeerValueToNumberValue(
-  //         totalRewardForPeriod.total_reward,
-  //       );
-  //     } else {
-  //       const { user_max_supply, user_supply } = userSupplyValues;
-  //
-  //       totalRewardForPeriod = createGetRewardPool(
-  //         x.period,
-  //         totalRatingForPeriod / 1000,
-  //         convertPeerValueToNumberValue(user_supply),
-  //         convertPeerValueToNumberValue(user_max_supply),
-  //       );
-  //     }
-  //
-  //     const hasTaken = Boolean(weekRewards.find(y => y.period === x.period));
-  //
-  //     let periodReward =
-  //       ((totalRewardForPeriod * x.rating_to_award) / totalRatingForPeriod) *
-  //       1000;
-  //
-  //     const partAward = Math.floor(
-  //       ((x.rating_to_award * 100 * 1000) / totalRatingForPeriod) * 1000,
-  //     );
-  //     const quantity = (tokenAwardsForPeriod * partAward) / (100 * 1000);
-  //
-  //     periodReward += quantity;
-  //     periodReward = getRewardAmountByBoost(
-  //       x.period,
-  //       periodReward,
-  //       globalBoostStat,
-  //       userBoostStat,
-  //     );
-  //
-  //     const reward =
-  //       Number.isNaN(periodReward) || periodReward < 0.000001
-  //         ? 0
-  //         : periodReward;
-  //
-  //     return {
-  //       ...x,
-  //       reward: Math.floor(reward * 1000000) / 1000000,
-  //       hasTaken,
-  //     };
-  //   } catch (err) {
-  //     return {
-  //       ...x,
-  //       reward: 0,
-  //     };
-  //   }
-  // });
-  //
-  // const numberOfPeriods = Math.ceil(
-  //   (dateNowInSeconds() - +process.env.RELEASE_DATE) /
-  //     +process.env.WEEK_DURATION,
-  // );
-  //
-  // // Fill by periods with 0 reward - they not stored in blockchain
-  // return new Array(numberOfPeriods)
-  //   .fill()
-  //   .map((_, index) => {
-  //     const existingPeriod = normalizedRewards.find(y => y.period === index);
-  //
-  //     return {
-  //       reward: 0,
-  //       ...(existingPeriod || normalizedRewards[0]),
-  //       period: index,
-  //       periodStarted:
-  //         +process.env.RELEASE_DATE +
-  //         +process.env.WEEK_DURATION * (index + 1) -
-  //         +process.env.WEEK_DURATION,
-  //       periodFinished:
-  //         +process.env.RELEASE_DATE + +process.env.WEEK_DURATION * (index + 1),
-  //     };
-  //   })
-  //   .filter(x => x.periodFinished > profile.creationTime)
-  //   .reverse();
+  const activePeriods = rewards
+    .map(periodReward => {
+      return {
+        period: periodReward.period.id,
+        reward: periodReward.tokenToReward,
+        hasTaken: periodReward.status,
+        periodStarted: periodReward.period.startPeriodTime,
+        periodFinished: periodReward.period.endPeriodTime,
+      };
+    }).reverse()
+  return inactiveFirstPeriods.concat(activePeriods);
 }
 
 export async function sendTokens(
@@ -250,18 +103,8 @@ export async function sendTokens(
   return { response, data };
 }
 
-export async function pickupReward(eosService, user, periodIndex) {
-  const period = periodIndex + 1;
-  await eosService.sendTransaction(
-    user,
-    PICKUP_REWARD_METHOD,
-    {
-      user,
-      period,
-    },
-    process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
-    true,
-  );
+export async function pickupReward(ethereumService, user, periodIndex) {
+  return await ethereumService.claimUserReward(user, periodIndex);
 }
 
 export async function setBounty(

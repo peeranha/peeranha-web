@@ -1,5 +1,6 @@
 import { Contract, ethers } from 'ethers';
 import Peeranha from '../../../peeranha/artifacts/contracts/Peeranha.sol/Peeranha.json';
+import PeeranhaToken from '../../../peeranha/artifacts/contracts/PeeranhaToken.sol/PeeranhaToken.json';
 import detectEthereumProvider from '@metamask/detect-provider';
 import { WebIntegrationErrorByCode } from './errors';
 import {
@@ -13,8 +14,10 @@ import { getCookie } from './cookie';
 import { AUTOLOGIN_DATA } from '../containers/Login/constants';
 import * as bs58 from 'bs58';
 import {
+  CLAIM_REWARD,
   GET_COMMUNITY,
   GET_TAGS,
+  GET_USER_BALANCE,
   GET_USER_BY_ADDRESS,
   GET_USER_PERMISSIONS,
   GET_USER_RATING,
@@ -30,6 +33,7 @@ class EthereumService {
     this.withMetaMask = false;
     this.metaMaskProviderDetected = false;
     this.selectedAccount = null;
+    this.contractToken = null;
   }
 
   handleAccountsChanged = accounts => {
@@ -43,6 +47,8 @@ class EthereumService {
   };
 
   initEthereum = async () => {
+    //TODO for maatic:
+    //ETHEREUM_NETWORK='https://rpc-mumbai.maticvigil.com'
     let provider = await detectEthereumProvider();
     if (provider) {
       this.metaMaskProviderDetected = true;
@@ -53,6 +59,11 @@ class EthereumService {
         Peeranha.abi,
         new ethers.providers.Web3Provider(provider),
       );
+      this.contractToken = new Contract(
+        process.env.PEERANHA_TOKEN,
+        PeeranhaToken.abi,
+        new ethers.providers.Web3Provider(provider),
+      );
     } else {
       this.initialized = true;
       this.provider = ethers.providers.getDefaultProvider(
@@ -61,6 +72,11 @@ class EthereumService {
       this.contract = new Contract(
         process.env.ETHEREUM_ADDRESS,
         Peeranha.abi,
+        this.provider,
+      );
+      this.contractToken = new Contract(
+        process.env.PEERANHA_TOKEN,
+        PeeranhaToken.abi,
         this.provider,
       );
     }
@@ -152,6 +168,26 @@ class EthereumService {
         .connect(
           new ethers.providers.Web3Provider(this.provider).getSigner(actor),
         )
+        [action](actor, ...data);
+      await transaction.wait();
+    } catch (err) {
+      switch (err.code) {
+        case INVALID_ETHEREUM_PARAMETERS_ERROR_CODE:
+          throw new WebIntegrationErrorByCode(METAMASK_ERROR_CODE);
+        case REJECTED_SIGNATURE_REQUEST:
+          throw new WebIntegrationErrorByCode(err.code);
+        default:
+          throw err;
+      }
+    }
+  };
+
+  sendTransactionWithoutDelegating = async (actor, action, data) => {
+    try {
+      const transaction = await this.contract
+        .connect(
+          new ethers.providers.Web3Provider(this.provider).getSigner(actor),
+        )
         [action](...data);
       await transaction.wait();
     } catch (err) {
@@ -230,6 +266,22 @@ class EthereumService {
 
   getUserRating = async (user, communityId) =>
     await this.contract[GET_USER_RATING](user, communityId);
+
+  getUserBalance = async user =>
+    await this.contractToken[GET_USER_BALANCE](user);
+
+  claimUserReward = async (actor, period) => {
+    try {
+      const transaction = await this.contractToken
+        .connect(
+          new ethers.providers.Web3Provider(this.provider).getSigner(actor),
+        )
+        [CLAIM_REWARD](period);
+      await transaction.wait();
+    } catch (err) {
+      throw err;
+    }
+  };
 }
 
 export default EthereumService;

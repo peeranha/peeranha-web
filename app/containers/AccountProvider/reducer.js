@@ -19,7 +19,7 @@ export const initialState = fromJS({
   loading: true,
   error: null,
   account: null,
-  balance: null,
+  balance: 0,
   stakedInCurrentPeriod: null,
   stakedInNextPeriod: null,
   boost: null,

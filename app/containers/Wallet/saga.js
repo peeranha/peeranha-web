@@ -5,7 +5,6 @@ import {
   getUserBoostStatistics,
 } from 'utils/walletManagement';
 
-import { selectEos } from 'containers/EosioProvider/selectors';
 import {
   makeSelectAccount,
   makeSelectProfileInfo,
@@ -23,27 +22,32 @@ import {
   pickupRewardSuccess,
   pickupRewardErr,
 } from './actions';
+import { selectEthereum } from '../EthereumProvider/selectors';
 
 export function* getWeekStatWorker() {
-  // try {
-  //   const eosService = yield select(selectEos);
-  //   const profile = yield select(makeSelectProfileInfo());
-  //
-  //   const weekStat = profile ? yield call(getWeekStat, eosService, profile) : [];
-  //   const userBoostStat = profile ? yield call(getUserBoostStatistics, eosService, profile.user) : [];
-  //
-  //   yield put(getWeekStatSuccess(weekStat, userBoostStat));
-  // } catch (err) {
-  //   yield put(getWeekStatErr(err));
-  // }
+  try {
+    const ethereumService = yield select(selectEthereum);
+    const profile = yield select(makeSelectProfileInfo());
+    const user = yield select(makeSelectAccount());
+    const weekStat= profile
+      ? yield call(getWeekStat, ethereumService, user)
+      : [];
+
+    //TODO boost
+    // const userBoostStat = profile ? yield call(getUserBoostStatistics, eosService, profile.user) : [];
+
+    yield put(getWeekStatSuccess(weekStat));
+  } catch (err) {
+    yield put(getWeekStatErr(err));
+  }
 }
 
 export function* pickupRewardWorker({ period, buttonId }) {
   try {
-    const eosService = yield select(selectEos);
+    const ethereumService = yield select(selectEthereum);
     const account = yield select(makeSelectAccount());
 
-    yield call(pickupReward, eosService, account, period);
+    yield call(pickupReward, ethereumService, account, period);
 
     yield put(pickupRewardSuccess(buttonId));
   } catch (err) {

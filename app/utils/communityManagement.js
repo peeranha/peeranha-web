@@ -79,20 +79,14 @@ export const editCommunity = async (
   communityId,
   communityData,
 ) => {
-  let imgHash;
-  if (!communityData.avatar.startsWith('https')) {
-    imgHash = (await uploadImg(communityData.avatar)).imgHash;
-  } else imgHash = communityData.avatar;
-
-  const communityIpfsLink = await saveText(
+  const communityIpfsHash = await saveText(
     JSON.stringify({
       ...communityData,
-      avatar: imgHash,
     }),
   );
 
-  const ipfsHash = ethereumService.getBytes32FromIpfsHash(communityIpfsLink);
-  await ethereumService.sendTransactionWithSigner(
+  const ipfsHash = ethereumService.getBytes32FromIpfsHash(communityIpfsHash);
+  await ethereumService.sendTransactionWithoutDelegating(
     selectedAccount,
     EDIT_COMMUNITY,
     [communityId, ipfsHash],
@@ -245,7 +239,7 @@ export async function getExistingTags(tags) {
 export async function editTag(user, ethereumService, tag, tagId) {
   const ipfsLink = await saveText(JSON.stringify(tag));
   const ipfsHash = ethereumService.getBytes32FromIpfsHash(ipfsLink);
-  return await ethereumService.sendTransactionWithSigner(user, EDIT_TAG, [
+  return await ethereumService.sendTransactionWithoutDelegating(user, EDIT_TAG, [
     tag.communityId,
     tagId,
     ipfsHash,
@@ -374,7 +368,7 @@ export async function createCommunity(
     }),
   );
   const ipfsHash = ethereumService.getBytes32FromIpfsHash(communityIpfsHash);
-  await ethereumService.sendTransactionWithSigner(
+  await ethereumService.sendTransactionWithoutDelegating(
     selectedAccount,
     CREATE_COMMUNITY,
     [ipfsHash, tags],
@@ -391,7 +385,7 @@ export async function createTag(
     await saveText(JSON.stringify(tag)),
   );
 
-  await ethereumService.sendTransactionWithSigner(selectedAccount, CREATE_TAG, [
+  await ethereumService.sendTransactionWithoutDelegating(selectedAccount, CREATE_TAG, [
     communityId,
     ipfsHash,
   ]);
