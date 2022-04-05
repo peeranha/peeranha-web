@@ -324,7 +324,7 @@
 
   "app.containers.Moderation.permissionInfinite": "Infinite Impact",
   "app.containers.Moderation.permissionInfiniteDescription":
-    "Allows you to delete questions, answers and comments in one click",
+    "Allows you to delete posts, answers and comments in one click",
 
   "app.containers.Moderation.permissionIgnoreRating": "Ignore rating",
   "app.containers.Moderation.permissionIgnoreRatingDescription":
@@ -338,10 +338,9 @@
   "app.containers.Moderation.permissionCreateTagDescription":
     "Allows you to instantly create a tag",
 
-  "app.containers.Moderation.permissionChangeQuestionType":
-    "Change question type",
-  "app.containers.Moderation.permissionChangeQuestionTypeDescription":
-    "Allows you to change question type",
+  "app.containers.Moderation.permissionChangePostType": "Change post type",
+  "app.containers.Moderation.permissionChangePostTypeDescription":
+    "Allows you to change post type",
 
   "app.containers.Moderation.permissionSelectTopQuestion":
     "Select top question",

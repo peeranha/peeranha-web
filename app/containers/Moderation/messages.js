@@ -44,10 +44,10 @@ export default defineMessages({
     },
     permissionChangeQuestionType: {
       title: {
-        id: 'app.containers.Moderation.permissionChangeQuestionType',
+        id: 'app.containers.Moderation.permissionChangePostType',
       },
       description: {
-        id: 'app.containers.Moderation.permissionChangeQuestionTypeDescription',
+        id: 'app.containers.Moderation.permissionChangePostTypeDescription',
       },
     },
     permissionSelectTopQuestion: {
