@@ -1,6 +1,6 @@
 /* eslint indent: 0 */
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
@@ -26,15 +26,15 @@ const styles = singleCommunityStyles();
 
 export const QUESTION_TYPES = {
   GENERAL: {
-    value: 1,
+    value: '1',
     label: 'general',
   },
   EXPERT: {
-    value: 0,
+    value: '0',
     label: 'expert',
   },
   TUTORIAL: {
-    value: 2,
+    value: '2',
     label: 'tutorial',
   },
 };
@@ -105,12 +105,19 @@ const Button = B.extend`
   flex: 1;
   border: 1px solid ${BORDER_SECONDARY};
 
-  &:hover,
-  :focus,
-  :active {
+  &:hover {
     border: 1px solid ${BORDER_PRIMARY} !important;
     box-shadow: 0 0 0 3px rgba(${BORDER_PRIMARY_RGB}, 0.4);
   }
+
+  ${({ value, currentValue }) => {
+    if (value === currentValue) {
+      return css`
+        border: 1px solid ${BORDER_PRIMARY} !important;
+        box-shadow: 0 0 0 2px rgba(${BORDER_PRIMARY_RGB}, 0.5) !important;
+    `;
+    }
+  }};
 
   @media only screen and (max-width: 576px) {
     height: 36px;
