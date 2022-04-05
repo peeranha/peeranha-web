@@ -14,7 +14,7 @@ const SearchForm = ({ placeholder, className, onBlur, searchFormId }) => {
     e => {
       e.preventDefault();
       createdHistory.push(routes.search(text));
-      changeLastPathname(createdHistory.location.pathname.substring(0, 7));
+      changeLastPathname('/search');
     },
     [text],
   );
@@ -31,7 +31,7 @@ const SearchForm = ({ placeholder, className, onBlur, searchFormId }) => {
   );
 
   if (
-    createdHistory.location.pathname.substring(0, 7) !== lastPathname &&
+    createdHistory.location.pathname.includes('/search') === false &&
     lastPathname === '/search' &&
     text !== ''
   ) {
