@@ -234,7 +234,7 @@ Section.propTypes = {
 };
 
 Content.propTypes = {
-  content: PropTypes.object,
+  content: PropTypes.array,
   route: PropTypes.func,
   getSectionCode: PropTypes.func,
   getPermissionCode: PropTypes.func,
