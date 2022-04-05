@@ -185,27 +185,6 @@ const comparePasswords = (...args) => {
     : undefined;
 };
 
-const validateTelosName = str => {
-  if (str) {
-    if (str.includes('  ')) {
-      return messages.withoutDoubleSpace;
-    }
-    if (str.replace(/[^.]*[.]?[^.]*/, '').length) {
-      return messages.onlyOneDotValue;
-    }
-    if (!/^[a-z1-5\.]+$/.test(str)) {
-      return {
-        ...messages.onlyLowerCaseLettersAndNumbersFromTo,
-        min: 1,
-        max: 5,
-      };
-    }
-    return stringLength(2, 12)(str);
-  }
-
-  return undefined;
-};
-
 const withoutDoubleSpace = str =>
   str && str.includes('  ') ? messages.withoutDoubleSpace : undefined;
 
@@ -259,7 +238,6 @@ export {
   hoursCannotBeLessThenPrev,
   comparePasswords,
   valueHasNotBeInListMoreThanOneTime,
-  validateTelosName,
   withoutDoubleSpace,
   maxByteLength,
   atLeastOneLetter,
