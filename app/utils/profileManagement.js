@@ -31,7 +31,7 @@ import { WebIntegrationError } from './errors';
 export const getRatingByCommunity = (user, communityId) => {
   return (
     user?.ratings?.find(
-      ratingObj => ratingObj.communityId.toString() === communityId.toString(),
+      ratingObj => ratingObj.communityId.toString() === communityId?.toString(),
     )?.rating ?? 0
   );
 };
