@@ -30,7 +30,7 @@ const Li = styled.li`
 `;
 
 const ImgWrapper = styled.div`
-  border-bottom: 1px solid ${BORDER_SECONDARY};
+  // border-bottom: 1px solid ${BORDER_SECONDARY}; Hided border-bottom from Boost page for demo version
   padding-bottom: 50px;
   margin-bottom: 30px;
 `;
@@ -41,9 +41,11 @@ const Tips = ({ faqQuestions }) => (
       <img src={boostImage} alt="boost" />
     </ImgWrapper>
 
-    {faqQuestions && (
+
+    {/* Hided FAQ Questions from Boost page for demo version */}
+    {/* {faqQuestions && (
       <ul>{faqQuestions.map(x => <Li key={x.props.children}>{x}</Li>)}</ul>
-    )}
+    )} */}
   </div>
 );
 
