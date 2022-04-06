@@ -129,34 +129,32 @@ const TopCommunities = ({
   return (
     <div className="overlow-hidden" ref={ref}>
       <H4 isHeader>
-        <FormattedMessage {...messages.top} />{' '}
-        <span className="text-lowercase">
-          <FormattedMessage {...messages.communities} />
-        </span>
+        <FormattedMessage {...messages.myCommunities} />
       </H4>
 
       <Grid xl={5} lg={4} md={3} sm={2} xs={1}>
-        {orderBy(communities, 'users_subscribed', 'desc')
+        {orderBy(profile.ratings, 'rating', 'desc')
           .slice(0, 9)
           .map(x => {
             let Link = AStyled;
-            let route = routes.questions(x.id);
-            if (single && x.id !== single) {
+            let route = routes.questions(x.communityId);
+            if (single && x.communityId !== single) {
               Link = ADefaultStyled;
               route = `${process.env.APP_LOCATION}${route}`;
-            } else if (single && x.id === single) {
+            } else if (single && x.communityId === single) {
               route = routes.questions();
             }
+            const community = communities.find((community)=>community.id == x.communityId)
 
             return (
-              <div key={x.id}>
+              <div key={x.communityId}>
                 <BaseRoundedNoPadding>
                   <Link href={route} to={route}>
                     <FrontSide>
                       <div>
-                        <MediumImage src={x.avatar} alt="comm_img" />
+                        <MediumImage src={community.avatar} alt="comm_img" />
                         <P fontSize="16" bold>
-                          {x.name}
+                          {community.name}
                         </P>
                       </div>
 
@@ -172,14 +170,12 @@ const TopCommunities = ({
                           <RatingStatus
                             className="py-1"
                             size="lg"
-                            rating={ profile.ratings.find((communityRating)=>{return communityRating.__typename == x.name}) 
-                              ? profile.ratings.find((communityRating)=>{return communityRating.__typename == x.name}).rating 
-                              : 0 }
+                            rating={ x.rating }
                             isRankOff={false}
                           />
                         </div>
 
-                        <FollowCommunityButton communityIdFilter={x.id} />
+                        <FollowCommunityButton communityIdFilter={community.id} />
                       </div>
                     </FrontSide>
 
@@ -187,12 +183,12 @@ const TopCommunities = ({
                       <div className="d-flex flex-column justify-content-between">
                         <div>
                           <P fontSize="16" bold>
-                            {x.name}
+                            {community.name}
                           </P>
-                          <P>{x.description}</P>
+                          <P>{community.description}</P>
                         </div>
                         <div>
-                          <FollowCommunityButton communityIdFilter={x.id} />
+                          <FollowCommunityButton communityIdFilter={community.id} />
                         </div>
                       </div>
                     </BackSide>
