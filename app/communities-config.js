@@ -29,6 +29,21 @@ const communitiesConfig = {
       styles: KandaStyles,
     },
   },
+  staging: {
+    1: {
+      origin: 'https://demo-peeranha-meta.testpeeranha.io',
+    },
+    2: {
+      origin: 'https://demo-filecoin.testpeeranha.io',
+      src: FileiconLogo,
+      styles: FilecoinStyles,
+    },
+    3: {
+      origin: 'https://demo-polygon.testpeeranha.io',
+      src: PolygonLogo,
+      styles: PolygonStyles,
+    },
+  },
   test: {
     1: {
       origin: 'https://community.testpeeranha.io',
