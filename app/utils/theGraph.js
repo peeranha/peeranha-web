@@ -177,7 +177,7 @@ export const getQuestionFromGraph = async postId => {
   return post;
 };
 //
-export const postsForSearch = async text => {
+export const postsForSearch = async (text, single) => {
   const query = text
     .replace(/\s+/g, ' ')
     .trim()
@@ -194,7 +194,11 @@ export const postsForSearch = async text => {
       text: query,
     },
   });
-  return posts?.data?.postSearch.filter(post => !post.isDeleted);
+  return posts?.data?.postSearch.filter(
+    post =>
+      !post.isDeleted &&
+      (single ? Number(post.communityId) === Number(single) : true),
+  );
 };
 
 export const getAllAchievements = async userId => {
