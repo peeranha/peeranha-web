@@ -27,12 +27,16 @@ import Span from 'components/Span';
 import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
 import MediumImage from 'components/Img/MediumImage';
 import Grid from 'components/Grid';
+import RatingStatus from 'components/RatingStatus';
 
 const single = isSingleCommunityWebsite();
 
 const FrontSide = styled.div`
   > div {
     padding: 20px;
+    div {
+      margin-bottom: 10px;
+    }
 
     &:not(:last-child) {
       border-bottom: 1px solid ${BORDER_SECONDARY};
@@ -157,31 +161,22 @@ const TopCommunities = ({
                       </div>
 
                       <div>
-                        <div className="d-flex mb-3">
-                          <div className="d-flex flex-column flex-grow-1">
-                            <Span fontSize="16" bold>
-                              {getFormattedNum2(x.users_subscribed)}
-                            </Span>
-                            <Span
-                              className="mt-1"
-                              fontSize="14"
-                              color={TEXT_SECONDARY}
-                            >
-                              <FormattedMessage {...messages.users} />
-                            </Span>
-                          </div>
-                          <div className="d-flex flex-column flex-grow-1">
-                            <Span fontSize="16" bold>
-                              {getFormattedNum2(x.postCount)}
-                            </Span>
-                            <Span
-                              className="mt-1"
-                              fontSize="14"
-                              color={TEXT_SECONDARY}
-                            >
-                              <FormattedMessage {...messages.posts} />
-                            </Span>
-                          </div>
+                        <div>
+                          <Span
+                            className="mt-1"
+                            fontSize="14"
+                            color={TEXT_SECONDARY}
+                          >
+                            <FormattedMessage {...messages.reputation} />
+                          </Span>
+                          <RatingStatus
+                            className="py-1"
+                            size="lg"
+                            rating={ profile.ratings.find((communityRating)=>{return communityRating.__typename == x.name}) 
+                              ? profile.ratings.find((communityRating)=>{return communityRating.__typename == x.name}).rating 
+                              : 0 }
+                            isRankOff={false}
+                          />
                         </div>
 
                         <FollowCommunityButton communityIdFilter={x.id} />
