@@ -105,11 +105,11 @@ const LeftMenu = ({ faqQuestions, route, mainLogo }) => (
       </P>
     </div>
 
-    {faqQuestions && (
-      <ul className="mb-4">
-        {faqQuestions.map(x => <Li key={x.props.children}>{x}</Li>)}
-      </ul>
-    )}
+    {/*{faqQuestions && (*/}
+    {/*  <ul className="mb-4">*/}
+    {/*    {faqQuestions.map(x => <Li key={x.props.children}>{x}</Li>)}*/}
+    {/*  </ul>*/}
+    {/*)}*/}
   </React.Fragment>
 );
 
