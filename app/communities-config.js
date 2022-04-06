@@ -34,14 +34,14 @@ const communitiesConfig = {
       origin: 'https://community.testpeeranha.io',
     },
     2: {
-      origin: 'https://telos.testpeeranha.io',
-      src: TelosLogo,
-      styles: TelosStyles,
+      origin: 'https://filecoin.testpeeranha.io',
+      src: FileiconLogo,
+      styles: FilecoinStyles,
     },
     3: {
-      origin: 'https://ont.testpeeranha.io',
-      src: OntLogo,
-      styles: OntStyles,
+      origin: 'https://polygon.testpeeranha.io',
+      src: PolygonLogo,
+      styles: PolygonStyles,
     },
     4: {
       origin: 'https://testcommunity.net',
