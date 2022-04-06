@@ -20,7 +20,7 @@ import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import Base from 'components/Base/BaseRounded';
 import Span from 'components/Span/index';
-import { Div } from 'containers/SignUp/IHaveEOSAccountForm';
+import { Div } from 'containers/SignUp/EthereumWalletGenerationForm';
 
 import reducer from './reducer';
 import saga from './saga';

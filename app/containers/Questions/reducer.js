@@ -28,8 +28,9 @@ import {
 } from './constants';
 
 export const initialState = fromJS({
-  initLoadedItems: 25,
-  nextLoadedItems: 10,
+  initLoadedItems: 50,
+  loadedItems: 50,
+  nextLoadedItems: 25,
   questionsLoading: true,
   questionsList: [],
   questionsError: '',
@@ -69,6 +70,7 @@ function questionsReducer(state = initialState, action) {
     questions: stateQuestions,
     lastLoadedTopQuestionIndex,
     questionsList: stateQuestionsList,
+    initLoadedItems,
   } = state.toJS();
   const mappedQuestionsList = questionsList.map(
     ({ id: questionId }) => questionId,
@@ -97,6 +99,12 @@ function questionsReducer(state = initialState, action) {
               ? mappedQuestionsList
               : [...new Set(stateQuestionsList.concat(mappedQuestionsList))],
           ),
+        )
+        .set(
+          'loadedItems',
+          toUpdateQuestions
+            ? initLoadedItems
+            : Object.keys(stateQuestionsList).length + questionsList.length,
         )
         .set(
           'questions',

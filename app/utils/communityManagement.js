@@ -6,7 +6,7 @@ import communitiesConfig, {
 
 import _get from 'lodash/get';
 
-import { getFileUrl, getText, saveText } from './ipfs';
+import { getBytes32FromIpfsHash, getFileUrl, getText, saveText } from './ipfs';
 import { getCookie, setCookie } from './cookie';
 import { uploadImg } from './profileManagement';
 
@@ -85,7 +85,7 @@ export const editCommunity = async (
     }),
   );
 
-  const ipfsHash = ethereumService.getBytes32FromIpfsHash(communityIpfsHash);
+  const ipfsHash = getBytes32FromIpfsHash(communityIpfsHash);
   await ethereumService.sendTransactionWithoutDelegating(
     selectedAccount,
     EDIT_COMMUNITY,
@@ -238,12 +238,12 @@ export async function getExistingTags(tags) {
 
 export async function editTag(user, ethereumService, tag, tagId) {
   const ipfsLink = await saveText(JSON.stringify(tag));
-  const ipfsHash = ethereumService.getBytes32FromIpfsHash(ipfsLink);
-  return await ethereumService.sendTransactionWithoutDelegating(user, EDIT_TAG, [
-    tag.communityId,
-    tagId,
-    ipfsHash,
-  ]);
+  const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
+  return await ethereumService.sendTransactionWithoutDelegating(
+    user,
+    EDIT_TAG,
+    [tag.communityId, tagId, ipfsHash],
+  );
 }
 
 export async function upVoteToCreateTag(
@@ -355,9 +355,7 @@ export async function createCommunity(
 
   const tags = await Promise.all(
     community.tags.map(async x => {
-      const hash = ethereumService.getBytes32FromIpfsHash(
-        await saveText(JSON.stringify(x)),
-      );
+      const hash = getBytes32FromIpfsHash(await saveText(JSON.stringify(x)));
 
       return {
         ipfsDoc: {
@@ -367,7 +365,7 @@ export async function createCommunity(
       };
     }),
   );
-  const ipfsHash = ethereumService.getBytes32FromIpfsHash(communityIpfsHash);
+  const ipfsHash = getBytes32FromIpfsHash(communityIpfsHash);
   await ethereumService.sendTransactionWithoutDelegating(
     selectedAccount,
     CREATE_COMMUNITY,
@@ -381,14 +379,13 @@ export async function createTag(
   communityId,
   tag,
 ) {
-  const ipfsHash = ethereumService.getBytes32FromIpfsHash(
-    await saveText(JSON.stringify(tag)),
-  );
+  const ipfsHash = getBytes32FromIpfsHash(await saveText(JSON.stringify(tag)));
 
-  await ethereumService.sendTransactionWithoutDelegating(selectedAccount, CREATE_TAG, [
-    communityId,
-    ipfsHash,
-  ]);
+  await ethereumService.sendTransactionWithoutDelegating(
+    selectedAccount,
+    CREATE_TAG,
+    [communityId, ipfsHash],
+  );
 }
 
 export async function upVoteToCreateCommunity(

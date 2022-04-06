@@ -6,18 +6,17 @@ import {
   selectVerificationCode,
   selectEmailChecking,
   selectEmailCheckingError,
-  selectIdontHaveEosAccountProcessing,
+  selectSignUpViaEmailProcessing,
   selectIHaveEosAccountError,
   selectIHaveEosAccountProcessing,
   selectEmailVerificationProcessing,
-  selectIdontHaveEosAccountError,
+  selectSignUpViaEmailError,
   selectSignUpWithScatterProcessing,
   selectSignUpWithScatterError,
   selectVerifyEmailError,
   selectShowScatterSignUpProcessing,
   selectKeys,
   selectShowScatterSignUpFormError,
-  selectEncryptionKey,
 } from '../selectors';
 
 describe('selectSignUpDomain', () => {
@@ -110,14 +109,14 @@ describe('selectSignUpDomain', () => {
   });
 
   it('selectIdontHaveEosAccountProcessing', () => {
-    const isIdontHaveEosAccountProcessing = selectIdontHaveEosAccountProcessing();
+    const isIdontHaveEosAccountProcessing = selectSignUpViaEmailProcessing();
     expect(isIdontHaveEosAccountProcessing(mockedState)).toEqual(
       idontHaveEosAccountProcessing,
     );
   });
 
   it('selectIdontHaveEosAccountError', () => {
-    const isIdontHaveEosAccountError = selectIdontHaveEosAccountError();
+    const isIdontHaveEosAccountError = selectSignUpViaEmailError();
     expect(isIdontHaveEosAccountError(mockedState)).toEqual(
       idontHaveEosAccountError,
     );

@@ -10,13 +10,14 @@ import * as routes from 'routes-config';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import { singleCommunityStyles, isSingleCommunityWebsite } from 'utils/communityManagement';
+import {
+  singleCommunityStyles,
+  isSingleCommunityWebsite,
+} from 'utils/communityManagement';
 
 import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
 import { selectLogo } from 'containers/Home/selectors';
 
-import Button from 'components/Button/Outlined/InfoLarge';
-import A from 'components/A';
 import H3 from 'components/H3';
 
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
@@ -50,7 +51,7 @@ const styles = singleCommunityStyles();
 const single = isSingleCommunityWebsite();
 
 const LeftMenu = ({ faqQuestions, route, mainLogo }) => (
-  <React.Fragment>
+  <>
     <div className="mb-4">
       {styles.withoutSubHeader ? (
         <CommunityLogoWrapper>
@@ -84,18 +85,6 @@ const LeftMenu = ({ faqQuestions, route, mainLogo }) => (
       />
     </H3>
 
-    <A to={route}>
-      <Button className="mb-4">
-        <FormattedMessage
-          {...messages[
-            route === routes.signup.haveEosAccount.name
-              ? 'iHaveEosAccount'
-              : 'idontHaveEosAccount'
-          ]}
-        />
-      </Button>
-    </A>
-
     <div className="mb-4">
       <P>
         <FormattedMessage {...messages.theWayEosWorks} />
@@ -105,18 +94,16 @@ const LeftMenu = ({ faqQuestions, route, mainLogo }) => (
       </P>
     </div>
 
-    {/*{faqQuestions && (*/}
-    {/*  <ul className="mb-4">*/}
-    {/*    {faqQuestions.map(x => <Li key={x.props.children}>{x}</Li>)}*/}
-    {/*  </ul>*/}
-    {/*)}*/}
-  </React.Fragment>
+    {faqQuestions?.length > 0 && (
+      <ul className="mb-4">
+        {/* eslint-disable-next-line react/no-array-index-key */}
+        {faqQuestions.map((x, index) => <Li key={index}>{x}</Li>)}
+      </ul>
+    )}
+  </>
 );
 
-/* eslint react/no-children-prop: 0 */
-const RightMenu = ({ children }) => <div>{children}</div>;
-
-const YouNeedEosAccount = ({
+const SignUpViaEmailWrapper = ({
   children,
   faqQuestions,
   route,
@@ -132,11 +119,13 @@ const YouNeedEosAccount = ({
 
   return (
     <SignUpWrapper
-      LeftMenuChildren={<LeftMenu faqQuestions={faqQuestions} route={route} mainLogo={logo} />}
-      RightMenuChildren={<RightMenu children={children} />}
+      LeftMenuChildren={
+        <LeftMenu faqQuestions={faqQuestions} route={route} mainLogo={logo} />
+      }
+      RightMenuChildren={<div>{children}</div>}
     />
   );
-}
+};
 
 LeftMenu.propTypes = {
   faqQuestions: PropTypes.array,
@@ -144,11 +133,7 @@ LeftMenu.propTypes = {
   mainLogo: PropTypes.string,
 };
 
-RightMenu.propTypes = {
-  children: PropTypes.any,
-};
-
-YouNeedEosAccount.propTypes = {
+SignUpViaEmailWrapper.propTypes = {
   children: PropTypes.any,
   faqQuestions: PropTypes.array,
   route: PropTypes.string,
@@ -175,4 +160,4 @@ export default compose(
   injectReducer({ key: HOME_KEY, reducer }),
   injectSaga({ key: HOME_KEY, saga, mode: DAEMON }),
   withConnect,
-)(YouNeedEosAccount);
+)(SignUpViaEmailWrapper);

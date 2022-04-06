@@ -1,19 +1,23 @@
-const REGISTER_INIT_SERVICE = 'wallet/register/init';
-const REGISTER_CONFIRM_SERVICE = 'wallet/register/confirm';
-const REGISTER_COMPLETE_SERVICE = 'wallet/register/complete';
+const { getCookie } = require('../../../cookie');
+const { AUTOLOGIN_DATA } = require('../../../../containers/Login/constants');
+const ACCOUNT_BEGIN_SIGNUP = 'account/begin-signup';
+const ACCOUNT_VALIDATE_SIGNUP_CODE = 'account/validate-signup-code';
+const ACCOUNT_REGISTER = 'account/register';
 
-const LOGIN_SERVICE = 'wallet/login/login';
+const LOGIN_SERVICE = 'account/login';
 const LOGIN_AUTOLOGIN_DATA_SERVICE = 'wallet/login/autologin';
+
+const BLOCKCHAIN = 'blockchain';
+const BLOCKCHAIN_MAIN_CALL = `${BLOCKCHAIN}/main/call`;
+const BLOCKCHAIN_TOKEN_CALL = `${BLOCKCHAIN}/token/call`;
+const BLOCKCHAIN_MAIN_SEND_TRANSACTION = `${BLOCKCHAIN}/main/send-transaction`;
 
 const GET_OWNER_KEY_INIT_SERVICE = 'wallet/get-owner-key/init';
 const GET_OWNER_KEY_COMPLETE_SERVICE = 'wallet/get-owner-key/complete';
 
-const CHANGE_CREDENTIALS_INIT_SERVICE = 'wallet/change-credentials/init';
-const CHANGE_CREDENTIALS_CONFIRM_SERVICE = 'wallet/change-credentials/confirm';
-const CHANGE_CREDENTIALS_GET_KEYS_SERVICE =
-  'wallet/change-credentials/get-keys';
-const CHANGE_CREDENTIALS_COMPLETE_SERVICE =
-  'wallet/change-credentials/complete';
+const CHANGE_CREDENTIALS_INIT_SERVICE = 'account/forgot-password';
+const CHANGE_CREDENTIALS_CONFIRM_SERVICE = 'account/reset-password';
+const CHANGE_PASSWORD_CONFIRM_SERVICE = 'account/change-password';
 
 const REGISTER_WITH_FACEBOOK_SERVICE = 'wallet/register/facebook';
 const LOGIN_WITH_FACEBOOK_SERVICE = 'wallet/login/facebook';
@@ -35,6 +39,14 @@ const NOTIFICATIONS_TIPS_SERVICE = 'notifications/tips';
 async function callService(service, props, isGet = false) {
   const url = new URL(process.env.WALLET_API_ENDPOINT + service);
 
+  const auth = {};
+
+  const authData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
+
+  if (authData?.authToken) {
+    auth.Authorization = `${authData?.authToken}`;
+  }
+
   if (isGet) {
     url.search = new URLSearchParams(props).toString();
   }
@@ -44,6 +56,7 @@ async function callService(service, props, isGet = false) {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
+      ...auth,
     },
     ...(!isGet ? { body: JSON.stringify(props) } : {}),
   });
@@ -55,6 +68,7 @@ async function callService(service, props, isGet = false) {
       errorCode: response.code,
     };
   }
+
   return {
     OK: true,
     body: response,
@@ -63,9 +77,9 @@ async function callService(service, props, isGet = false) {
 
 module.exports = {
   callService,
-  REGISTER_INIT_SERVICE,
-  REGISTER_CONFIRM_SERVICE,
-  REGISTER_COMPLETE_SERVICE,
+  ACCOUNT_BEGIN_SIGNUP,
+  ACCOUNT_VALIDATE_SIGNUP_CODE,
+  ACCOUNT_REGISTER,
   REGISTER_WITH_FACEBOOK_SERVICE,
   LOGIN_WITH_FACEBOOK_SERVICE,
   DELETE_FACEBOOK_ACCOUNT_SERVICE,
@@ -76,8 +90,7 @@ module.exports = {
   GET_OWNER_KEY_COMPLETE_SERVICE,
   CHANGE_CREDENTIALS_INIT_SERVICE,
   CHANGE_CREDENTIALS_CONFIRM_SERVICE,
-  CHANGE_CREDENTIALS_GET_KEYS_SERVICE,
-  CHANGE_CREDENTIALS_COMPLETE_SERVICE,
+  CHANGE_PASSWORD_CONFIRM_SERVICE,
   LOGGER_SERVICE,
   PAY_FOR_CPU_SERVICE,
   BEST_NODE_SERVICE,
@@ -87,4 +100,7 @@ module.exports = {
   NOTIFICATIONS_TIPS_SERVICE,
   GET_FACEBOOK_PRIVATE_KEY_SERVICE,
   CHECK_FACEBOOK_DATA_SERVICE,
+  BLOCKCHAIN_MAIN_CALL,
+  BLOCKCHAIN_TOKEN_CALL,
+  BLOCKCHAIN_MAIN_SEND_TRANSACTION,
 };

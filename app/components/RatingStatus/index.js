@@ -53,7 +53,6 @@ const IconWithStatus = ({
     residentFill,
     superheroFill,
   } = customRatingIconColors;
-
   const full = options[getStatus(rating)];
 
   let color = TEXT_DARK;
@@ -83,9 +82,9 @@ const IconWithStatus = ({
     <span className={`d-flex align-items-center ${className}`}>
       <Icon
         className="d-inline-flex mr-1"
-        icon={full.icon[size || 'sm']}
-        width={full.icon.size[size || 'sm'].width}
-        height={full.icon.size[size || 'sm'].height}
+        icon={full?.icon[size || 'sm']}
+        width={full?.icon.size[size || 'sm'].width}
+        height={full?.icon.size[size || 'sm'].height}
         color={color}
         fill={fill}
         isColorImportant

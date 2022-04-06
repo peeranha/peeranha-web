@@ -51,7 +51,7 @@ const styles = singleCommunityStyles();
 const single = isSingleCommunityWebsite();
 
 const LeftMenu = ({ faqQuestions, mainLogo }) => (
-  <React.Fragment>
+  <>
     <div className="mb-4">
       {styles.withoutSubHeader ? (
         <CommunityLogoWrapper>
@@ -93,7 +93,7 @@ const LeftMenu = ({ faqQuestions, mainLogo }) => (
         {faqQuestions.map(x => <Li key={x.props.children}>{x}</Li>)}
       </ul>
     )}
-  </React.Fragment>
+  </>
 );
 
 const RightMenu = ({ message }) => (

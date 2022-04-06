@@ -4,20 +4,6 @@
  *
  */
 
-export const SEND_ANOTHER_CODE =
-  'app/ChangePasswordByPrevious/SEND_ANOTHER_CODE';
-
-export const SEND_EMAIL = 'app/ChangePasswordByPrevious/SEND_EMAIL';
-export const SEND_EMAIL_SUCCESS =
-  'app/ChangePasswordByPrevious/SEND_EMAIL_SUCCESS';
-export const SEND_EMAIL_ERROR = 'app/ChangePasswordByPrevious/SEND_EMAIL_ERROR';
-
-export const SUBMIT_EMAIL = 'app/ChangePasswordByPrevious/SUBMIT_EMAIL';
-export const SUBMIT_EMAIL_SUCCESS =
-  'app/ChangePasswordByPrevious/SUBMIT_EMAIL_SUCCESS';
-export const SUBMIT_EMAIL_ERROR =
-  'app/ChangePasswordByPrevious/SUBMIT_EMAIL_ERROR';
-
 export const CHANGE_PASSWORD = 'app/ChangePasswordByPrevious/CHANGE_PASSWORD';
 export const CHANGE_PASSWORD_SUCCESS =
   'app/ChangePasswordByPrevious/CHANGE_PASSWORD_SUCCESS';
@@ -30,9 +16,6 @@ export const HIDE_CHANGE_PASSWORD_MODAL =
   'app/ChangePasswordByPrevious/HIDE_CHANGE_PASSWORD_MODAL';
 
 // Forms
-export const EMAIL_FORM = 'app/ChangePasswordByPrevious/EMAIL_FORM';
-export const VERIFY_EMAIL_FORM =
-  'app/ChangePasswordByPrevious/VERIFY_EMAIL_FORM';
 export const CHANGE_PASSWORD_FORM =
   'app/ChangePasswordByPrevious/CHANGE_PASSWORD_FORM';
 

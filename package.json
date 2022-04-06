@@ -22,14 +22,16 @@
     "postinstall": "npm run build:dll",
     "prebuild": "npm run build:clean",
     "build": "webpack --config internals/webpack/webpack.prod.babel.js --color -p --progress --hide-modules --display-optimization-bailout",
-    "build:prod": "cross-env NODE_ENV=production npm run build",
     "build:test": "cross-env NODE_ENV=test npm run build",
+    "build:staging": "cross-env NODE_ENV=staging npm run build",
+    "build:prod": "cross-env NODE_ENV=production npm run build",
     "build:clean": "rimraf ./build",
     "build:dll": "node ./internals/scripts/dependencies.js",
     "start": "cross-env NODE_ENV=development node server",
     "start:tunnel": "cross-env NODE_ENV=development ENABLE_TUNNEL=true node server",
     "start:production": "npm run test && npm run build:prod && npm run start:prod",
     "start:test": "npm run test && npm run build:test && npm run start:prod",
+    "start:staging": "cross-env NODE_ENV=staging node server",
     "start:prod": "cross-env NODE_ENV=production node server",
     "presetup": "npm i chalk shelljs",
     "setup": "node ./internals/scripts/setup.js",
@@ -51,9 +53,17 @@
   },
   "lint-staged": {
     "linters": {
-      "*.{js, jsx, json}": [
-        "prettier-eslint --write",
-        "git add"
+      "*.js": [
+        "prettier --write",
+        "git add --force"
+      ],
+      "*.jsx": [
+        "prettier --write",
+        "git add --force"
+      ],
+      "*.json": [
+        "prettier --write",
+        "git add --force"
       ]
     }
   },

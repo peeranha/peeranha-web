@@ -1,10 +1,6 @@
 import { Login } from '../index';
 
-import {
-  EMAIL_FORM,
-  EMAIL_PASSWORD_FORM,
-  WE_ARE_HAPPY_FORM,
-} from '../constants';
+import { EMAIL_PASSWORD_FORM, WE_ARE_HAPPY_FORM } from '../constants';
 
 const cmp = new Login();
 
@@ -35,11 +31,6 @@ describe('<Login />', () => {
   });
 
   describe('render', () => {
-    it('content === EMAIL_FORM', () => {
-      cmp.props.content = EMAIL_FORM;
-      expect(cmp.render()).toMatchSnapshot();
-    });
-
     it('content === EMAIL_PASSWORD_FORM', () => {
       cmp.props.content = EMAIL_PASSWORD_FORM;
       expect(cmp.render()).toMatchSnapshot();

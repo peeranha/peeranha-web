@@ -16,7 +16,7 @@ import SignUp from './index';
 import { VERIFICATION_FIELD } from './constants';
 import messages from './messages';
 
-import { Div } from './IHaveEOSAccountForm';
+import { Div } from './EthereumWalletGenerationForm';
 
 export const Form = Div.extend`
   position: relative;

@@ -25,7 +25,10 @@ import { selectEthereum } from '../EthereumProvider/selectors';
 
 // TODO: test
 /* eslint no-param-reassign: 0 */
-export function* saveProfileWorker({ profile, userKey }) {
+export function* saveProfileWorker(
+  { profile, userKey },
+  isNavigateToProfile = true,
+) {
   try {
     const ethereumService = yield select(selectEthereum);
 
@@ -59,7 +62,9 @@ export function* saveProfileWorker({ profile, userKey }) {
 
     yield put(saveProfileSuccess());
 
-    yield call(createdHistory.push, routes.profileView(userKey));
+    if (isNavigateToProfile) {
+      yield call(createdHistory.push, routes.profileView(userKey));
+    }
   } catch (err) {
     yield put(saveProfileErr(err));
   }

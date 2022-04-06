@@ -871,8 +871,7 @@
   "app.containers.ForgotPassword.youGotThisKey":
     "Вы получили этот ключ при регистрации и сохранили в безопасное место.",
 
-  "app.containers.SignUp.checkYourEmail":
-    "Проверьте свою почту. Вам должен придти код подтверждения.",
+  "app.containers.SignUp.checkYourEmail": "Код подтверждения.",
   "app.containers.SignUp.almostDone": "Почти все",
   "app.containers.SignUp.firstParagraphAlmostDone":
     "Peeranha нетипичная платформа для вопросов и ответов. Она работает на блокчейне.",
@@ -883,6 +882,7 @@
   "app.containers.SignUp.weWillNotify":
     "Мы сообщим Вам, когда Ваш аккаунт будет готов. Обычно это занимает не больше 4 часов.",
   "app.containers.SignUp.goToMainPage": "Перейти на главную страницу",
+  "app.containers.SignUp.downloadSecretPhrase": "Скачать Секретную фразу",
   "app.containers.SignUp.youNeedEosAccount": "Вам необходим {image} аккаунт",
   "app.containers.SignUp.theWayEosWorks":
     "Если у вас нет Telos аккаунта, мы создадим его для вас и оплатим комиссию за создание. Если у вас уже есть Telos аккаунт, вы можете зарегистрироваться, используя адрес электронной почты, чтобы иметь удобный вход в приложение с любого устройства.",
@@ -900,7 +900,7 @@
   "app.containers.SignUp.or": "или",
   "app.containers.SignUp.doYouHaveAlreadyAccount": "У вас уже есть аккаунт?",
   "app.containers.SignUp.youHaveToSaveKeys":
-    "Master ключ - единственный способ восстановить доступ к учетной записи, если вы забудете пароль! Напишите свой Master ключ на листе бумаги и храните его в надежном месте. В качестве альтернативы сохраните свой Master ключ в диспетчере паролей, таком как 1Password.",
+    "Секретная фраза - единственный способ восстановить доступ к учетной записи, если вы забудете пароль! Напишите свою секретную фразу на листе бумаги и храните его в надежном месте. В качестве альтернативы сохраните свою секретную фразу в диспетчере паролей, таком как 1Password.",
   "app.containers.SignUp.passwordsDoNotMatch": "Пароли не совпадают",
   "app.containers.SignUp.iHaveEosAccount": "Есть Telos аккаунт",
   "app.containers.SignUp.idontHaveEosAccount": "Нет Telos аккаунта",
@@ -917,15 +917,15 @@
   "app.containers.SignUp.privateKey": "Личный ключ",
   "app.containers.SignUp.eosOwnerPrivateKey": "Telos Owner Private Key",
   "app.containers.SignUp.storeThisKey": "Хранить этот ключ",
-  "app.containers.SignUp.masterKey": "Master ключ",
+  "app.containers.SignUp.secretPhrase": "Секретная фраза",
   "app.containers.SignUp.displayName": "Отображаемое имя",
   "app.containers.SignUp.referralCode": "Реферальный код {optional}",
   "app.containers.SignUp.ethereumUserAddress": "Адрес в Ethereum",
   "app.containers.SignUp.signUp": "Зарегистрироваться",
   "app.containers.SignUp.password": "Пароль",
   "app.containers.SignUp.confirmPassword": "Подтвердить пароль",
-  "app.containers.SignUp.iSaveMasterKey":
-    "Я сохранил Master ключ в безопасном месте. Понимаю, что если я забуду пароль, Master ключ - единственный способ восстановить доступ к моему аккаунту.",
+  "app.containers.SignUp.iSaveSecretPhrase":
+    "Я сохранил Секретную фразу в безопасном месте. Понимаю, что если я забуду пароль, Секретную фраза - единственный способ восстановить доступ к моему аккаунту.",
   "app.containers.SignUp.userAlreadyRegistered":
     "Пользователь с таким identity уже зарегистрирован",
   "app.containers.SignUp.userRejectedSignatureRequest":
