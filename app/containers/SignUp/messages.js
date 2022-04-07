@@ -114,14 +114,14 @@ export default defineMessages({
   doYouHaveAlreadyAccount: {
     id: 'app.containers.SignUp.doYouHaveAlreadyAccount',
   },
-  youNeedEosAccount: {
-    id: 'app.containers.SignUp.youNeedEosAccount',
+  youNeedBlockchainAccount: {
+    id: 'app.containers.SignUp.youNeedBlockchainAccount',
   },
-  theWayEosWorks: {
-    id: 'app.containers.SignUp.theWayEosWorks',
+  theWayBlockchainAccountWorks: {
+    id: 'app.containers.SignUp.theWayBlockchainAccountWorks',
   },
-  ifYouCreateEos: {
-    id: 'app.containers.SignUp.ifYouCreateEos',
+  dontWorryAboutBlockchainAccount: {
+    id: 'app.containers.SignUp.dontWorryAboutBlockchainAccount',
   },
   checkYourEmail: {
     id: 'app.containers.SignUp.checkYourEmail',
