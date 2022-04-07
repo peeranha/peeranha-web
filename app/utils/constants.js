@@ -76,9 +76,9 @@ export const globalAdminPermissions = {
     code: 4,
     title: 'permissionCreateTag',
   },
-  ADMIN_QUESTION_TYPE: {
+  ADMIN_POST_TYPE: {
     code: 5,
-    title: 'permissionChangeQuestionType',
+    title: 'permissionChangePostType',
   },
   ADMIN_OFFICIAL_ANSWER: {
     code: 6,
