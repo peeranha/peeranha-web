@@ -103,7 +103,6 @@ const ContentHeader = props => {
     isChangeTypeAvailable,
     infiniteImpact,
   } = props;
-  console.log('B ', buttonParams);
   const [isModalOpen, setModalOpen] = useState(false);
   const ref = useRef(null);
 

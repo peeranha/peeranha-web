@@ -154,7 +154,8 @@ const QuestionTypeField = ({
               index={index}
               type={type}
               onClick={e => {
-                chooseQuestionType(e), setType(index);
+                chooseQuestionType(e);
+                setType(index);
               }}
               value={questionType.value}
               currentValue={input.value}
