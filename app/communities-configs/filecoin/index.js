@@ -224,7 +224,7 @@ export const FilecoinStyles = {
     black: '#000000', // text
     warningLight: '#000000',
     darkBlue: 'rgba(0,0,0,.6)', // menu line color ...
-    mainBackground: '#FFFFFF',
+    mainBackground: '#F3F3F3',
     mainLinks: '#000000', // menu selected item text
     attentionColor: '#0090FF',
     linkColor: '#0090FF', // Q&A color
