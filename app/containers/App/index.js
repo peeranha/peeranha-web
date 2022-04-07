@@ -65,8 +65,8 @@ import {
   EmailEnteringForm,
   EmailVerificationForm,
   WalletsSignUpForm,
-  IHaveEOSAccountForm,
-  IdontHaveEOSAccountForm,
+  EthereumWalletGenerationForm,
+  SignUpViaEmail,
   RegistrationAlmostDoneWithAccount,
   RegistrationAlmostDoneNoAccount,
   Login,
@@ -86,15 +86,14 @@ import { getCookie, setCookie } from '../../utils/cookie';
 import { REFERRAL_CODE_URI } from './constants';
 import { AUTOLOGIN_DATA } from '../Login/constants';
 import { redirectToFeed } from './actions';
-import { expertPostView, tutorialView } from 'routes-config';
 
 const single = isSingleCommunityWebsite();
 
 const App = ({
-               location: { pathname, search, hash },
-               redirectToFeedDispatch,
-               history,
-             }) => {
+  location: { pathname, search, hash },
+  redirectToFeedDispatch,
+  history,
+}) => {
   if (process.env.NODE_ENV === 'production') {
     ReactGA.pageview(window.location.pathname);
   }
@@ -353,7 +352,7 @@ const App = ({
         />
 
         <Route
-          path={routes.questionEdit(':postType',':questionid')}
+          path={routes.questionEdit(':postType', ':questionid')}
           render={props => Wrapper(EditQuestion, props)}
         />
 
@@ -413,15 +412,9 @@ const App = ({
           </React.Suspense>
         </Route>
 
-        <Route exact path={routes.signup.haveEosAccount.name}>
+        <Route exact path={routes.signup.accountSetup.name}>
           <React.Suspense fallback={null}>
-            <IHaveEOSAccountForm />
-          </React.Suspense>
-        </Route>
-
-        <Route exact path={routes.signup.dontHaveEosAccount.name}>
-          <React.Suspense fallback={null}>
-            <IdontHaveEOSAccountForm />
+            <SignUpViaEmail />
           </React.Suspense>
         </Route>
 

@@ -57,7 +57,7 @@ function forgotPasswordReducer(state = initialState, action) {
     case GET_VERIFICATION_CODE_SUCCESS:
       return state
         .set('getVerificationCodeLoading', false)
-        .set('content', VERIFICATION_CODE_FORM);
+        .set('content', NEW_PASSWORD_FORM);
     case GET_VERIFICATION_CODE_ERROR:
       return state
         .set('getVerificationCodeLoading', false)

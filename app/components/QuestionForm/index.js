@@ -57,9 +57,6 @@ import TypeForm from './TypeForm';
 import TitleForm from './TitleForm';
 import ContentForm from './ContentForm';
 import TagsForm from './TagsForm';
-import PromotedQuestionForm from './PromotedQuestionForm';
-import BountyForm from './BountyForm';
-import BountyDateForm from './BountyDateForm';
 
 import {
   ANY_TYPE,
@@ -67,7 +64,6 @@ import {
 } from '../../containers/CreateCommunity/constants';
 import createdHistory from '../../createdHistory';
 import * as routes from '../../routes-config';
-import { now } from 'lodash';
 import DescriptionList from '../DescriptionList';
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 import { getPermissions, hasGlobalModeratorRole } from 'utils/properties';
@@ -96,28 +92,28 @@ const SuggestTag = memo(({ redirectToCreateTagDispatch, formValues }) => {
 });
 
 export const QuestionForm = ({
-                               locale,
-                               sendQuestion,
-                               formTitle,
-                               questionLoading,
-                               communities,
-                               submitButtonId,
-                               submitButtonName,
-                               handleSubmit,
-                               change,
-                               formValues,
-                               intl,
-                               question,
-                               questionid,
-                               redirectToCreateTagDispatch,
-                               getQuestions,
-                               existingQuestions,
-                               doSkipExistingQuestions,
-                               skipExistingQuestions,
-                               communityQuestionsType,
-                               disableCommForm,
-                               profile
-                             }) => {
+  locale,
+  sendQuestion,
+  formTitle,
+  questionLoading,
+  communities,
+  submitButtonId,
+  submitButtonName,
+  handleSubmit,
+  change,
+  formValues,
+  intl,
+  question,
+  questionid,
+  redirectToCreateTagDispatch,
+  getQuestions,
+  existingQuestions,
+  doSkipExistingQuestions,
+  skipExistingQuestions,
+  communityQuestionsType,
+  disableCommForm,
+  profile,
+}) => {
   const [isSelectedType, setIsSelectedType] = useState(false);
   const [isError, setIsError] = useState(false);
   const [isClickSubmit, setIsClickSubmit] = useState(false);
@@ -147,9 +143,9 @@ export const QuestionForm = ({
   };
 
   const profileWithModeratorRights =
-    profile && hasGlobalModeratorRole(getPermissions(profile)) || null;
+    profile && hasGlobalModeratorRole(getPermissions(profile));
 
-  const handleSetClicked = () => setIsClickSubmit(true);
+  const makeIsClicked = () => setIsClickSubmit(true);
 
   return (
     <div>
@@ -157,12 +153,11 @@ export const QuestionForm = ({
         formTitle={formTitle}
         questionId={questionid}
         postType={question?.postType}
-        intl={intl} />
+        intl={intl}
+      />
       <TipsBase>
         <BaseSpecialOne>
-          <FormBox
-            onSubmit={handleSubmitWithType(sendQuestion)}
-          >
+          <FormBox onSubmit={handleSubmitWithType(sendQuestion)}>
             <CommunityForm
               intl={intl}
               communities={communities}
@@ -173,18 +168,18 @@ export const QuestionForm = ({
 
             {!question &&
               ((communityQuestionsType === ANY_TYPE && (
-                  <TypeForm
-                    intl={intl}
-                    change={change}
-                    questionLoading={questionLoading}
-                    locale={locale}
-                    formValues={formValues}
-                    isError={isError}
-                    setIsError={setIsError}
-                    hasSelectedType={isSelectedType}
-                    setHasSelectedType={setIsSelectedType}
-                  />
-                )) ||
+                <TypeForm
+                  intl={intl}
+                  change={change}
+                  questionLoading={questionLoading}
+                  locale={locale}
+                  formValues={formValues}
+                  isError={isError}
+                  setIsError={setIsError}
+                  hasSelectedType={isSelectedType}
+                  setHasSelectedType={setIsSelectedType}
+                />
+              )) ||
                 (communityQuestionsType === GENERAL_TYPE && (
                   <>
                     <DescriptionList
@@ -326,41 +321,41 @@ export default memo(
             [FORM_PROMOTE]: (0).toString(),
             ...(question
               ? {
-                [FORM_TITLE]: question?.title,
-                [FORM_CONTENT]: question?.content,
-                [FORM_COMMUNITY]: {
-                  ...question?.community,
-                  tags: _uniqBy(
-                    question?.community?.tags?.concat(
-                      communities.find(
-                        ({ id }) => id === question?.community?.id,
-                      )?.tags,
+                  [FORM_TITLE]: question?.title,
+                  [FORM_CONTENT]: question?.content,
+                  [FORM_COMMUNITY]: {
+                    ...question?.community,
+                    tags: _uniqBy(
+                      question?.community?.tags?.concat(
+                        communities.find(
+                          ({ id }) => id === question?.community?.id,
+                        )?.tags,
+                      ),
+                      'id',
                     ),
-                    'id',
-                  ),
-                },
-                [FORM_TAGS]: question?.tags,
-                [FORM_BOUNTY]: question?.bounty ?? '',
-                [FORM_BOUNTY_HOURS]: question?.bountyHours,
-              }
+                  },
+                  [FORM_TAGS]: question?.tags,
+                  [FORM_BOUNTY]: question?.bounty ?? '',
+                  [FORM_BOUNTY_HOURS]: question?.bountyHours,
+                }
               : {}),
             ...(single
               ? {
-                [FORM_COMMUNITY]: {
-                  ...communities?.find(({ id }) => id === single),
-                  tags: _uniqBy(
-                    communities
-                      .find(({ id }) => id === single)
-                      ?.tags?.concat(
-                      communities.find(
-                        ({ id }) => id === question?.community?.id,
-                      )?.tags,
-                    )
-                      .filter(x => x),
-                    'id',
-                  ),
-                },
-              }
+                  [FORM_COMMUNITY]: {
+                    ...communities?.find(({ id }) => id === single),
+                    tags: _uniqBy(
+                      communities
+                        .find(({ id }) => id === single)
+                        ?.tags?.concat(
+                          communities.find(
+                            ({ id }) => id === question?.community?.id,
+                          )?.tags,
+                        )
+                        .filter(x => x),
+                      'id',
+                    ),
+                  },
+                }
               : {}),
           },
           enableReinitialize: true,

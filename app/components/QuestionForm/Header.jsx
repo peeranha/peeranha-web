@@ -20,8 +20,7 @@ import Wrapper from '../Header/Simple';
 import H3 from '../H3';
 
 const Header = ({ formTitle, questionId, intl }) => {
-
-  return(
+  return (
     <Wrapper className="mb-to-sm-0 mb-from-sm-3">
       <H3>
         <MediumIconStyled>
@@ -49,7 +48,7 @@ const Header = ({ formTitle, questionId, intl }) => {
       )}
     </Wrapper>
   );
-}
+};
 
 Header.propTypes = {
   formTitle: PropTypes.string,

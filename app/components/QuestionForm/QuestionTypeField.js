@@ -1,6 +1,6 @@
 /* eslint indent: 0 */
-import React, {useState} from 'react';
-import styled from 'styled-components';
+import React, { useState } from 'react';
+import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
@@ -105,11 +105,9 @@ const Button = B.extend`
   flex: 1;
   border: 1px solid ${BORDER_SECONDARY};
   border-color: ${props =>
-    props.type===props.index && `rgb(${BORDER_PRIMARY_RGB})`};
+    props.type === props.index && `rgb(${BORDER_PRIMARY_RGB})`};
   box-shadow: ${props =>
-    props.type===props.index && `0 0 0 3px rgba(${BORDER_PRIMARY_RGB}, 0.4)`};
-
-
+    props.type === props.index && `0 0 0 3px rgba(${BORDER_PRIMARY_RGB}, 0.4)`};
 
   &:hover,
   :focus,
@@ -125,15 +123,15 @@ const Button = B.extend`
 `;
 
 const QuestionTypeField = ({
-                             input,
-                             label,
-                             disabled,
-                             meta,
-                             tip,
-                             splitInHalf,
-                             insideOfSection,
-                             error,
-                           }) => {
+  input,
+  label,
+  disabled,
+  meta,
+  tip,
+  splitInHalf,
+  insideOfSection,
+  error,
+}) => {
   const [type, setType] = useState(null);
 
   function chooseQuestionType(event) {
@@ -157,9 +155,8 @@ const QuestionTypeField = ({
             <Button
               index={index}
               type={type}
-              onClick={(e) => {
-                chooseQuestionType(e),
-                  setType(index);
+              onClick={e => {
+                chooseQuestionType(e), setType(index);
               }}
               value={questionType.value}
               currentValue={input.value}

@@ -1,3 +1,4 @@
+import { ethers } from 'ethers';
 import { getFormattedDate } from './datetime';
 import {
   MONTH_3LETTERS__DAY_TIME,
@@ -40,4 +41,16 @@ export const timeConverter = (timestamp, locale) => {
   }
 
   return time;
+};
+
+export const bigNumberToNumber = bigNumber => {
+  if (bigNumber === undefined) {
+    return 0;
+  }
+
+  if (typeof bigNumber === 'string') {
+    return ethers.BigNumber.from(bigNumber).toNumber();
+  }
+
+  return bigNumber.toNumber();
 };

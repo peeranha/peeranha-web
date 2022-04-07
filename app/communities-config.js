@@ -29,19 +29,34 @@ const communitiesConfig = {
       styles: KandaStyles,
     },
   },
+  staging: {
+    1: {
+      origin: 'https://demo-peeranha-meta.testpeeranha.io',
+    },
+    2: {
+      origin: 'https://demo-polygon.testpeeranha.io',
+      src: PolygonLogo,
+      styles: PolygonStyles,
+    },
+    3: {
+      origin: 'https://demo-filecoin.testpeeranha.io',
+      src: FileiconLogo,
+      styles: FilecoinStyles,
+    },
+  },
   test: {
     1: {
       origin: 'https://community.testpeeranha.io',
     },
     2: {
-      origin: 'https://telos.testpeeranha.io',
-      src: TelosLogo,
-      styles: TelosStyles,
+      origin: 'https://filecoin.testpeeranha.io',
+      src: FileiconLogo,
+      styles: FilecoinStyles,
     },
     3: {
-      origin: 'https://ont.testpeeranha.io',
-      src: OntLogo,
-      styles: OntStyles,
+      origin: 'https://polygon.testpeeranha.io',
+      src: PolygonLogo,
+      styles: PolygonStyles,
     },
     4: {
       origin: 'https://testcommunity.net',

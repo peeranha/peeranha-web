@@ -102,6 +102,11 @@ export const selectInitLoadedItems = () =>
     substate.get('initLoadedItems'),
   );
 
+export const selectLoadedItems = () =>
+  createSelector(selectQuestionsDomain, substate =>
+    substate.get('loadedItems'),
+  );
+
 export const selectNextLoadedItems = () =>
   createSelector(selectQuestionsDomain, substate =>
     substate.get('nextLoadedItems'),
