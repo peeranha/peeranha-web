@@ -149,7 +149,12 @@ export const QuestionForm = ({
 
   return (
     <div>
-      <Header formTitle={formTitle} questionId={questionid} intl={intl} />
+      <Header
+        formTitle={formTitle}
+        questionId={questionid}
+        postType={question?.postType}
+        intl={intl}
+      />
       <TipsBase>
         <BaseSpecialOne>
           <FormBox
@@ -306,7 +311,7 @@ export default memo(
           prop => prop.key === KEY_QUESTIONS_TYPE,
         )?.value;
 
-        // diable community form on edit question page
+        // disable community form on edit question page
         const disableCommForm = formName === EDIT_QUESTION_FORM;
 
         return {

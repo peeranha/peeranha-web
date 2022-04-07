@@ -60,7 +60,8 @@ export const expertPostView = (id, answerId) =>
 
 export const tutorialView = id => `/tutorials/${id}`;
 
-export const questionEdit = questionId => `/questions/${questionId}/edit`;
+export const questionEdit = (postType, questionId) =>
+  `/:${postType}/:${questionId}/edit`;
 
 export const answerEdit = (questionId, answerId) =>
   !singleCommId
