@@ -85,6 +85,9 @@ import { decryptObject } from '../../utils/web_integration/src/util/cipher';
 import { uploadImg } from '../../utils/profileManagement';
 import { blobToBase64 } from '../../utils/blob';
 import { selectEthereum } from '../EthereumProvider/selectors';
+import { saveProfile } from '../EditProfilePage/actions';
+import { DISPLAY_NAME_FIELD } from '../Profile/constants';
+import { saveProfileWorker } from '../EditProfilePage/saga';
 
 function* continueLogin({ address }) {
   yield call(getCurrentAccountWorker, address);
@@ -224,52 +227,26 @@ export function* sendReferralCode(
 
 export function* finishRegistrationWorker({ val }) {
   try {
-    const eosService = yield select(selectEos);
-    const accountName = yield select(makeSelectEosAccount());
+    const ethereumService = yield select(selectEthereum);
+    const account = yield call(ethereumService.getSelectedAccount);
 
-    const referralCode = val[REFERRAL_CODE];
-    const profile = {
-      accountName,
-      displayName: val[DISPLAY_NAME],
-    };
+    let ethereumUserAddress = account;
+    const isNavigate = false;
 
-    if (referralCode) {
-      const ok = yield call(
-        sendReferralCode,
-        accountName,
-        referralCode,
-        eosService,
-        finishRegistrationReferralErr,
-      );
-      if (!ok) {
-        return;
-      }
+    if (typeof account !== 'string' && !!account?.ethereumUserAddress) {
+      ethereumUserAddress = account.ethereumUserAddress;
     }
 
-    const facebookUserData = yield select(selectFacebookUserData());
-    let imgHash = null;
-
-    if (facebookUserData.picture) {
-      const img = yield call(async () => {
-        const response = await fetch(facebookUserData.picture);
-        const data = await blobToBase64(await response.blob());
-
-        return data;
-      });
-
-      // eslint-disable-next-line prefer-destructuring
-      imgHash = (yield call(uploadImg, img)).imgHash;
-    }
-
-    yield call(registerAccount, profile, eosService, imgHash);
-
-    yield call(getCurrentAccountWorker);
-
-    const singleCommunityId = isSingleCommunityWebsite();
-
-    if (singleCommunityId) {
-      yield call(followCommunity, eosService, singleCommunityId, accountName);
-    }
+    yield call(
+      saveProfileWorker,
+      {
+        profile: {
+          [DISPLAY_NAME_FIELD]: val[DISPLAY_NAME],
+        },
+        userKey: ethereumUserAddress,
+      },
+      isNavigate,
+    );
 
     yield put(finishRegistrationWithDisplayNameSuccess());
   } catch (err) {

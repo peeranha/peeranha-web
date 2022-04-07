@@ -58,6 +58,13 @@ const StyledDownloadContainer = styled.div`
   }
 `;
 
+async function generateKey() {
+  const arrayBuffer = new Uint32Array(1);
+  window.crypto.getRandomValues(arrayBuffer);
+
+  return arrayBuffer[0];
+}
+
 const SignUpViaEmail = ({
   change,
   mnemonicPhrase,
@@ -93,8 +100,11 @@ const SignUpViaEmail = ({
     });
   };
 
-  const getMasterKey = () => {
-    const wallet = ethers.Wallet.createRandom();
+  const getMasterKey = async () => {
+    const extraEntropy = await generateKey();
+    const wallet = ethers.Wallet.createRandom({
+      extraEntropy,
+    });
 
     setEthereumWallet(wallet);
     putKeysToStateDispatch({

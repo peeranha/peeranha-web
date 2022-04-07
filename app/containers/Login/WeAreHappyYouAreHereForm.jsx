@@ -9,11 +9,7 @@ import PropTypes from 'prop-types';
 import presentImage from 'images/2.png';
 import { scrollToErrorField } from 'utils/animation';
 
-import {
-  strLength3x20,
-  required,
-  validateTelosName,
-} from 'components/FormFields/validate';
+import { strLength3x20, required } from 'components/FormFields/validate';
 import TextInputField from 'components/FormFields/TextInputField';
 import Button from 'components/Button/Contained/InfoLarge';
 import P from 'components/P';
@@ -67,14 +63,13 @@ WeAreHappyYouAreHereForm.propTypes = {
   locale: PropTypes.string,
   finishRegistrationProcessing: PropTypes.bool,
   finishRegistration: PropTypes.func,
-  facebookUserName: PropTypes.string,
 };
 
 export default compose(
-  connect((_, { facebookUserName }) => ({
+  connect(() => ({
     initialValues: {
       [REFERRAL_CODE]: getCookie(REFERRAL_CODE_URI),
-      [DISPLAY_NAME]: facebookUserName || '',
+      [DISPLAY_NAME]: '',
     },
   })),
   reduxForm({

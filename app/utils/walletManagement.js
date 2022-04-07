@@ -78,7 +78,7 @@ export async function getWeekStat(ethereumService, user) {
     .map(periodReward => ({
       period: periodReward.period.id,
       reward: periodReward.tokenToReward,
-      hasTaken: periodReward.status,
+      hasTaken: periodReward.isPaid,
       periodStarted: periodReward.period.startPeriodTime,
       periodFinished: periodReward.period.endPeriodTime,
     }))
