@@ -240,42 +240,43 @@ class EthereumService {
   };
 
   getData = async action => {
-    if (this.withMetaMask) {
-      return await this.contract[action]();
-    }
-
-    return await callService(BLOCKCHAIN_MAIN_CALL, {
-      action,
-      args: [],
-    });
+    return await this.contract[action]();
+    // if (this.withMetaMask) {
+    //   return await this.contract[action]();
+    // }
+    //
+    // return await callService(BLOCKCHAIN_MAIN_CALL, {
+    //   action,
+    //   args: [],
+    // });
   };
 
   getDataWithArgs = async (action, args) => {
-    if (this.withMetaMask) {
-      const contractMetaMaskResult = await this.contract[action](...args);
-      return contractMetaMaskResult;
-    }
-
-    const contractResult = await callService(BLOCKCHAIN_MAIN_CALL, {
-      action,
-      args: [...args],
-    });
-
-    return contractResult.body?.json;
+    return await this.contract[action](...args);
+    // if (this.withMetaMask) {
+    //   return await this.contract[action](...args);
+    // }
+    //
+    // const contractResult = await callService(BLOCKCHAIN_MAIN_CALL, {
+    //   action,
+    //   args: [...args],
+    // });
+    //
+    // return contractResult.body?.json;
   };
 
   getTokenDataWithArgs = async (action, args) => {
-    if (this.withMetaMask) {
-      const contractMetaMaskResult = await this.contractToken[action](...args);
-      return contractMetaMaskResult;
-    }
-
-    const contractResult = await callService(BLOCKCHAIN_TOKEN_CALL, {
-      action,
-      args: [...args],
-    });
-
-    return contractResult.body?.json;
+    return await this.contractToken[action](...args);
+    // if (this.withMetaMask) {
+    //   return await this.contractToken[action](...args);
+    // }
+    //
+    // const contractResult = await callService(BLOCKCHAIN_TOKEN_CALL, {
+    //   action,
+    //   args: [...args],
+    // });
+    //
+    // return contractResult.body?.json;
   };
 
   getTagsFromContract = async communityId => {

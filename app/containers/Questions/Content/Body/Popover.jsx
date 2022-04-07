@@ -37,18 +37,16 @@ const Base = styled.div`
   }
 `;
 
-const ExpertPopover = ({ locale }) => (
+const Popover = ({ locale, label, items }) => (
   <Base>
-    <DescriptionList
-      locale={locale}
-      label={commonMessages.expertPopoverLabel.id}
-      items={commonMessages.expertPopoverList.id}
-    />
+    <DescriptionList locale={locale} label={label} items={items} />
   </Base>
 );
 
-ExpertPopover.propTypes = {
+Popover.propTypes = {
   locale: PropTypes.string,
+  label: PropTypes.string,
+  items: PropTypes.string,
 };
 
-export default memo(ExpertPopover);
+export default memo(Popover);
