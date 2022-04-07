@@ -147,12 +147,6 @@ export const Questions = ({
     [typeFilter, createdFilter, postsTypes],
   );
 
-  useEffect(() => {
-    if (single) {
-      loadTopQuestionsDispatch(true);
-    }
-  }, []);
-
   useEffect(
     () => {
       setTypeFilterDispatch(params.communityid ? +params.communityid : 0);
