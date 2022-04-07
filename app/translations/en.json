@@ -132,7 +132,8 @@
   "app.common.tipAnswer": "Tip answer",
   "app.common.sendTip": "Send tip",
   "app.common.receivedReward": "You received referral reward",
-  "app.common.generalPopoverLabel": "A topic not requiring expertise or experience to answer that can be one of the following:",
+  "app.common.generalPopoverLabel":
+    "A topic not requiring expertise or experience to answer that can be one of the following:",
   "app.common.generalPopoverList": [
     "Subjective opinion exchange;",
     "Brainstorming;",
@@ -146,7 +147,8 @@
     "Explanation or clarification of the information that is complicated to comprehend;",
     "Ask for an instruction or a recipe."
   ],
-  "app.common.tutorialPopoverLabel": "Tutorial is a manual instruction that can be one of the following:",
+  "app.common.tutorialPopoverLabel":
+    "Tutorial is a manual instruction that can be one of the following:",
   "app.common.tutorialPopoverList": [
     "Step-by-step solution to a problem;",
     "Technical setup;",
@@ -883,11 +885,12 @@
     "We will notify you when your account will be ready. Usually it takes no longer than 4 hours.",
   "app.containers.SignUp.goToMainPage": "Go to main page",
   "app.containers.SignUp.downloadSecretPhrase": "Download Secret Phrase",
-  "app.containers.SignUp.youNeedEosAccount": "You need {image} account",
-  "app.containers.SignUp.theWayEosWorks":
-    "If you do not have Telos account then we will create it for you and cover the fee for account creation. If you already have a Telos account you can sign-up using an email address, in order to have a convenient log-in into the application from any device. ",
-  "app.containers.SignUp.ifYouCreateEos":
-    "Sounds too complicated? Don’t  worry! Just remember to write down you master key and save it in a safe place. Master Key is the only way to restore access to your account if you forget your password.",
+  "app.containers.SignUp.youNeedBlockchainAccount":
+    "Create account on blockchain",
+  "app.containers.SignUp.theWayBlockchainAccountWorks":
+    "We are creating a blockchain account for you to interact with the platform. Only you will have access to the private key for the account. Our service will be authorized to post a limited set of actions on the platform on behalf of your account in order to provide you with a convenient experience. You'll be able to revoke that permission of service account at any time.",
+  "app.containers.SignUp.dontWorryAboutBlockchainAccount":
+    "Sounds too complicated? Don’t worry! Just remember to write down your Secret Phrase and save it in a safe place. Secret Phrase is the only way to access your blockchain account and the rewards that you'll earn. We will guide you when it is time to use your Secret Phrase to withdraw the rewards.",
   "app.containers.SignUp.signUpOptions": "Sign up options",
   "app.containers.SignUp.peeranhaIsNotTypical":
     "Peeranha is not a typical Q&A platform. It’s powered by blockchain.",
@@ -901,7 +904,7 @@
   "app.containers.SignUp.doYouHaveAlreadyAccount":
     "Do you already have an account?",
   "app.containers.SignUp.youHaveToSaveKeys":
-    "Secret Phrase is the only way to restore access to your account if you forget your password! Write your Secret Phrase on a piece of paper and store it in a secure location. Alternatively, store your Secret Phrase in a password manager like 1Password.",
+    "Secret Phrase is the only way to access your blockchain account and rewards that you'll earn! Write your Secret Phrase on a piece of paper and store it in a secure location. Alternatively, store your Secret Phrase in a password manager like 1Password.",
   "app.containers.SignUp.passwordsDoNotMatch": "Passwords do not match",
   "app.containers.SignUp.iHaveEosAccount": "I have Telos account",
   "app.containers.SignUp.idontHaveEosAccount": "I don't have Telos account",
@@ -926,7 +929,7 @@
   "app.containers.SignUp.password": "Password",
   "app.containers.SignUp.confirmPassword": "Confirm password",
   "app.containers.SignUp.iSaveSecretPhrase":
-    "I saved Secret Phrase in a safe place. I understand that if I forget my password then Secret Phrase is the only way to restore access to my account.",
+    "I saved Secret Phrase in a safe place. I understand that Secret Phrase is the only way to access my blockchain account and rewards.",
   "app.containers.SignUp.userAlreadyRegistered":
     "User with such identity has been already registered",
   "app.containers.SignUp.userRejectedSignatureRequest":

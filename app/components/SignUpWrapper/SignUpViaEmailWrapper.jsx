@@ -74,7 +74,7 @@ const LeftMenu = ({ faqQuestions, route, mainLogo }) => (
 
     <H3 className="d-flex align-items-center mb-4">
       <FormattedMessage
-        {...messages.youNeedEosAccount}
+        {...messages.youNeedBlockchainAccount}
         values={{
           image: (
             <a href="https://www.telosfoundation.io/" target="_blank">
@@ -87,19 +87,19 @@ const LeftMenu = ({ faqQuestions, route, mainLogo }) => (
 
     <div className="mb-4">
       <P>
-        <FormattedMessage {...messages.theWayEosWorks} />
+        <FormattedMessage {...messages.theWayBlockchainAccountWorks} />
       </P>
       <P>
-        <FormattedMessage {...messages.ifYouCreateEos} />
+        <FormattedMessage {...messages.dontWorryAboutBlockchainAccount} />
       </P>
     </div>
 
-    {faqQuestions?.length > 0 && (
-      <ul className="mb-4">
-        {/* eslint-disable-next-line react/no-array-index-key */}
-        {faqQuestions.map((x, index) => <Li key={index}>{x}</Li>)}
+    {/* {faqQuestions?.length > 0 && (
+      <ul className="mb-4"> */}
+    {/* eslint-disable-next-line react/no-array-index-key */}
+    {/* {faqQuestions.map((x, index) => <Li key={index}>{x}</Li>)}
       </ul>
-    )}
+    )} */}
   </>
 );
 
