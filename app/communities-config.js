@@ -34,14 +34,14 @@ const communitiesConfig = {
       origin: 'https://demo-peeranha-meta.testpeeranha.io',
     },
     2: {
-      origin: 'https://demo-filecoin.testpeeranha.io',
-      src: FileiconLogo,
-      styles: FilecoinStyles,
-    },
-    3: {
       origin: 'https://demo-polygon.testpeeranha.io',
       src: PolygonLogo,
       styles: PolygonStyles,
+    },
+    3: {
+      origin: 'https://demo-filecoin.testpeeranha.io',
+      src: FileiconLogo,
+      styles: FilecoinStyles,
     },
   },
   test: {
