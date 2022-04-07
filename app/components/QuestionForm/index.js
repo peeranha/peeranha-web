@@ -145,7 +145,7 @@ export const QuestionForm = ({
   const profileWithModeratorRights =
     profile && hasGlobalModeratorRole(getPermissions(profile));
 
-  const makeIsClicked = () => setIsClickSubmit(true);
+  const handleSetClicked = () => setIsClickSubmit(true);
 
   return (
     <div>
