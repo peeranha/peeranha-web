@@ -38,7 +38,7 @@ const Question = ({
         isMyAnswerAccepted={isMyAnswerAccepted}
         isTheLargestRating={isTheLargestRating}
         isGeneral={isGeneral}
-        bordered={!isGeneral}
+        bordered={false}
         isAnswer
         elementType={elementType}
       />

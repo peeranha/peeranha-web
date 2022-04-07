@@ -45,8 +45,8 @@ export default defineMessages({
   storeThisKey: {
     id: 'app.containers.SignUp.storeThisKey',
   },
-  masterKey: {
-    id: 'app.containers.SignUp.masterKey',
+  secretPhrase: {
+    id: 'app.containers.SignUp.secretPhrase',
   },
   ethereumUserAddress: {
     id: 'app.containers.SignUp.ethereumUserAddress',
@@ -63,8 +63,11 @@ export default defineMessages({
   confirmPassword: {
     id: 'app.containers.SignUp.confirmPassword',
   },
-  iSaveMasterKey: {
-    id: 'app.containers.SignUp.iSaveMasterKey',
+  iSaveSecretPhrase: {
+    id: 'app.containers.SignUp.iSaveSecretPhrase',
+  },
+  downloadSecretPhrase: {
+    id: 'app.containers.SignUp.downloadSecretPhrase',
   },
   iAcceptPrivacyPolicy: {
     id: 'app.containers.SignUp.iAcceptPrivacyPolicy',
@@ -85,7 +88,7 @@ export default defineMessages({
     id: 'app.containers.SignUp.iHaveEosAccount',
   },
   idontHaveEosAccount: {
-    id: 'app.containers.SignUp.idontHaveEosAccount',
+    id: 'app.containers.SignUp.signUpViaEmailComplete',
   },
   passwordsDoNotMatch: {
     id: 'app.containers.SignUp.passwordsDoNotMatch',
@@ -111,14 +114,14 @@ export default defineMessages({
   doYouHaveAlreadyAccount: {
     id: 'app.containers.SignUp.doYouHaveAlreadyAccount',
   },
-  youNeedEosAccount: {
-    id: 'app.containers.SignUp.youNeedEosAccount',
+  youNeedBlockchainAccount: {
+    id: 'app.containers.SignUp.youNeedBlockchainAccount',
   },
-  theWayEosWorks: {
-    id: 'app.containers.SignUp.theWayEosWorks',
+  theWayBlockchainAccountWorks: {
+    id: 'app.containers.SignUp.theWayBlockchainAccountWorks',
   },
-  ifYouCreateEos: {
-    id: 'app.containers.SignUp.ifYouCreateEos',
+  dontWorryAboutBlockchainAccount: {
+    id: 'app.containers.SignUp.dontWorryAboutBlockchainAccount',
   },
   checkYourEmail: {
     id: 'app.containers.SignUp.checkYourEmail',

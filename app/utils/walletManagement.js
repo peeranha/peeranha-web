@@ -4,7 +4,9 @@ import {
   MIN_STAKE_PREDICTION,
 } from 'containers/Boost/constants';
 
+import JSBI from 'jsbi';
 import { getFormattedNum3 } from './numbers';
+import { bigNumberToNumber } from './converters';
 
 import {
   ACCOUNTS_TABLE,
@@ -32,8 +34,7 @@ import {
 } from './constants';
 
 import { ApplicationError } from './errors';
-import JSBI from 'jsbi';
-import {getRewardStat} from "./theGraph";
+import { getRewardStat } from './theGraph';
 
 const PERIOD_LENGTH = {
   development: 2 * 60 * 60, // two hours
@@ -45,8 +46,12 @@ const PERIOD_LENGTH = {
  * @balance - string, example - '1000.000000 PEER'
  */
 export const getBalance = async (ethereumService, user) => {
-  const balance = await ethereumService.getUserBalance(user);
-  return parseInt(balance._hex, 16) / (10 ** 18);
+  if (user) {
+    const balance = await ethereumService.getUserBalance(user);
+    return bigNumberToNumber(balance);
+  }
+
+  return 0;
 };
 
 /**
@@ -54,30 +59,30 @@ export const getBalance = async (ethereumService, user) => {
  */
 
 export async function getWeekStat(ethereumService, user) {
-  const [rewards, periods] = await getRewardStat(user)
-  let inactiveFirstPeriods = [];
+  const [rewards, periods] = await getRewardStat(user);
+  const inactiveFirstPeriods = [];
 
   periods.map(period => {
-    if(!rewards.find(reward => reward.period.id === period.id)) {
+    if (!rewards.find(reward => reward.period.id === period.id)) {
       inactiveFirstPeriods.push({
         period: period.id,
         reward: 0,
         hasTaken: false,
         periodStarted: period.startPeriodTime,
-        periodFinished: period.endPeriodTime})
+        periodFinished: period.endPeriodTime,
+      });
     }
-  })
+  });
 
   const activePeriods = rewards
-    .map(periodReward => {
-      return {
-        period: periodReward.period.id,
-        reward: periodReward.tokenToReward,
-        hasTaken: periodReward.status,
-        periodStarted: periodReward.period.startPeriodTime,
-        periodFinished: periodReward.period.endPeriodTime,
-      };
-    }).reverse()
+    .map(periodReward => ({
+      period: periodReward.period.id,
+      reward: periodReward.tokenToReward,
+      hasTaken: periodReward.isPaid,
+      periodStarted: periodReward.period.startPeriodTime,
+      periodFinished: periodReward.period.endPeriodTime,
+    }))
+    .reverse();
   return inactiveFirstPeriods.concat(activePeriods);
 }
 

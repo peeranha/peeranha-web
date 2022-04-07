@@ -52,7 +52,6 @@ export const Login = ({
   hideLoginModalDispatch,
   locale,
   email,
-  facebookUserData,
   loginWithEmailProcessing,
   finishRegistrationProcessing,
   showEmailPasswordFormDispatch,
@@ -96,7 +95,6 @@ export const Login = ({
       {content === WE_ARE_HAPPY_FORM && (
         <WeAreHappyYouAreHereForm
           locale={locale}
-          facebookUserName={facebookUserData?.name || ''}
           finishRegistration={finishRegistrationDispatch}
           finishRegistrationProcessing={finishRegistrationProcessing}
         />
@@ -114,7 +112,6 @@ Login.propTypes = {
   loginWithEmailProcessing: PropTypes.bool,
   finishRegistrationProcessing: PropTypes.bool,
   loginWithWalletProcessing: PropTypes.bool,
-  facebookUserData: PropTypes.object,
   showEmailPasswordFormDispatch: PropTypes.func,
   loginWithEmailDispatch: PropTypes.func,
   loginWithWalletDispatch: PropTypes.func,
@@ -131,7 +128,6 @@ const withConnect = connect(
     loginWithEmailProcessing: selectors.selectLoginWithEmailProcessing(),
     finishRegistrationProcessing: selectors.selectFinishRegistrationProcessing(),
     loginWithWalletProcessing: selectors.selectLoginWithWalletProcessing(),
-    facebookUserData: selectors.selectFacebookUserData(),
     ethereumService: selectEthereum,
   }),
   dispatch => ({

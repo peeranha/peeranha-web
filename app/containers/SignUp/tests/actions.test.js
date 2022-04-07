@@ -17,9 +17,9 @@ import {
   iHaveEosAccount,
   iHaveEosAccountSuccess,
   iHaveEosAccountErr,
-  idontHaveEosAccount,
-  idontHaveEosAccountSuccess,
-  idontHaveEosAccountErr,
+  signUpViaEmailComplete,
+  signUpViaEmailCompleteSuccess,
+  signUpViaEmailCompleteError,
   setReducerDefault,
 } from '../actions';
 
@@ -32,9 +32,9 @@ import {
   EMAIL_VERIFICATION_ERROR,
   I_HAVE_EOS_ACCOUNT_SUCCESS,
   I_HAVE_EOS_ACCOUNT_ERROR,
-  I_HAVE_NOT_EOS_ACCOUNT,
-  I_HAVE_NOT_EOS_ACCOUNT_SUCCESS,
-  I_HAVE_NOT_EOS_ACCOUNT_ERROR,
+  SIGN_UP_VIA_EMAIL,
+  SIGN_UP_VIA_EMAIL_SUCCESS,
+  SIGN_UP_VIA_EMAIL_ERROR,
   SIGNUP_WITH_SCATTER,
   SIGNUP_WITH_SCATTER_SUCCESS,
   SIGNUP_WITH_SCATTER_ERROR,
@@ -148,29 +148,31 @@ describe('SignUp actions', () => {
     });
 
     const expected = {
-      type: I_HAVE_NOT_EOS_ACCOUNT,
+      type: SIGN_UP_VIA_EMAIL,
       val: val.toJS(),
     };
 
-    expect(idontHaveEosAccount(val)).toEqual(expected);
+    expect(signUpViaEmailComplete(val)).toEqual(expected);
   });
 
   it('idontHaveEosAccountSuccess', () => {
     const expected = {
-      type: I_HAVE_NOT_EOS_ACCOUNT_SUCCESS,
+      type: SIGN_UP_VIA_EMAIL_SUCCESS,
     };
 
-    expect(idontHaveEosAccountSuccess()).toEqual(expected);
+    expect(signUpViaEmailCompleteSuccess()).toEqual(expected);
   });
 
   it('idontHaveEosAccountErr', () => {
     const idontHaveEosAccountError = 'idontHaveEosAccountError';
     const expected = {
-      type: I_HAVE_NOT_EOS_ACCOUNT_ERROR,
+      type: SIGN_UP_VIA_EMAIL_ERROR,
       idontHaveEosAccountError,
     };
 
-    expect(idontHaveEosAccountErr(idontHaveEosAccountError)).toEqual(expected);
+    expect(signUpViaEmailCompleteError(idontHaveEosAccountError)).toEqual(
+      expected,
+    );
   });
 
   it('signUpWithScatter', () => {

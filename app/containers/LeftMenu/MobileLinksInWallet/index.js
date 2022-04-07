@@ -55,7 +55,7 @@ const MobileLinksInWallet = ({
           balance={availableBalance}
           number={rewardsWeeksNumber}
           locale={locale}
-          isBoost={boost.value > 1}
+          isBoost={boost ? boost.value > 1 : false}
           isMobileVersion
         />
         <Icon
@@ -80,13 +80,14 @@ const MobileLinksInWallet = ({
               />
             )}
           </A>
-          <A to={routes.userBoost(profile.user)}>
+          {/* PEER20-306 - Hide Boost and Send Token from menu in demo version */}
+          {/* <A to={routes.userBoost(profile.user)}>
             <FormattedMessage {...messages.boost} />
             {boost.value > 1 && <BoostPrediction>{boost.text}</BoostPrediction>}
           </A>
           <SendTokens>
             <FormattedMessage {...messages.sendTokens} />
-          </SendTokens>
+          </SendTokens> */}
         </div>
       )}
     </div>

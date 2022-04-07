@@ -29,7 +29,6 @@ import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import {
   getCurrentAccountWorker,
   getReferralInfo,
-  getCommunityPropertyWorker,
 } from 'containers/AccountProvider/saga';
 
 import { ACCOUNT_NOT_CREATED_NAME } from 'containers/SignUp/constants';
@@ -54,7 +53,6 @@ import {
 import {
   FINISH_REGISTRATION,
   LOGIN_WITH_EMAIL,
-  SCATTER_MODE_ERROR,
   USER_IS_NOT_REGISTERED,
   USER_IS_NOT_SELECTED,
   EMAIL_FIELD,
@@ -73,11 +71,9 @@ import {
   FACEBOOK_AUTOLOGIN_ERROR,
 } from './constants';
 
-import messages, { getAccountNotSelectedMessageDescriptor } from './messages';
+import messages from './messages';
 import { makeSelectEosAccount, selectFacebookUserData } from './selectors';
 import { addToast } from '../Toast/actions';
-import { initEosioSuccess } from '../EosioProvider/actions';
-import { getNotificationsInfoWorker } from '../../components/Notifications/saga';
 import { addLoginData, getCurrentAccount } from '../AccountProvider/actions';
 
 import {
@@ -89,24 +85,13 @@ import { decryptObject } from '../../utils/web_integration/src/util/cipher';
 import { uploadImg } from '../../utils/profileManagement';
 import { blobToBase64 } from '../../utils/blob';
 import { selectEthereum } from '../EthereumProvider/selectors';
+import { saveProfile } from '../EditProfilePage/actions';
+import { DISPLAY_NAME_FIELD } from '../Profile/constants';
+import { saveProfileWorker } from '../EditProfilePage/saga';
 
-function* continueLogin({ activeKey, eosAccountName }) {
-  yield call(getCurrentAccountWorker, eosAccountName);
+function* continueLogin({ address }) {
+  yield call(getCurrentAccountWorker, address);
   const profileInfo = yield select(makeSelectProfileInfo());
-
-  const eosService = yield select(selectEos);
-
-  yield call(
-    eosService.initEosioWithoutScatter,
-    activeKey.private,
-    eosAccountName,
-  );
-
-  yield call(getNotificationsInfoWorker, profileInfo?.user);
-
-  yield call(getCommunityPropertyWorker);
-
-  yield put(initEosioSuccess(eosService));
 
   if (
     profileInfo &&
@@ -115,14 +100,11 @@ function* continueLogin({ activeKey, eosAccountName }) {
     yield put(redirectToFeed());
 
   yield put(loginWithEmailSuccess());
-  // If user is absent - show window to finish registration
-  if (!profileInfo) {
-    yield put(loginWithEmailSuccess(eosAccountName, WE_ARE_HAPPY_FORM));
-  }
 }
 
 export function* loginWithEmailWorker({ val }) {
   try {
+    const ethereumService = yield select(selectEthereum);
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
 
@@ -130,17 +112,18 @@ export function* loginWithEmailWorker({ val }) {
     const password = val[PASSWORD_FIELD];
     const rememberMe = Boolean(val[REMEMBER_ME_FIELD]);
 
-    const response = yield call(login, email, password, rememberMe);
+    const response = yield call(
+      login,
+      email,
+      password,
+      rememberMe,
+      ethereumService,
+    );
+    ethereumService.setSelectedAccount(response.body.address);
 
     if (!response.OK) {
       throw new WebIntegrationError(
         translations[webIntegrationErrors[response.errorCode].id],
-      );
-    }
-
-    if (response.body.eosAccountName === ACCOUNT_NOT_CREATED_NAME) {
-      throw new WebIntegrationError(
-        translations[messages.accountNotCreatedName.id],
       );
     }
 
@@ -203,9 +186,8 @@ export function* loginWithWalletWorker({ metaMask }) {
     });
 
     yield put(addLoginData(autologinData));
-    
-    if (!isSingleCommunityWebsite())
-      yield put(redirectToFeed());
+
+    if (!isSingleCommunityWebsite()) yield put(redirectToFeed());
 
     yield put(loginWithWalletSuccess());
     yield call(updateAcc, profileInfo, ethereumService);
@@ -245,52 +227,26 @@ export function* sendReferralCode(
 
 export function* finishRegistrationWorker({ val }) {
   try {
-    const eosService = yield select(selectEos);
-    const accountName = yield select(makeSelectEosAccount());
+    const ethereumService = yield select(selectEthereum);
+    const account = yield call(ethereumService.getSelectedAccount);
 
-    const referralCode = val[REFERRAL_CODE];
-    const profile = {
-      accountName,
-      displayName: val[DISPLAY_NAME],
-    };
+    let ethereumUserAddress = account;
+    const isNavigate = false;
 
-    if (referralCode) {
-      const ok = yield call(
-        sendReferralCode,
-        accountName,
-        referralCode,
-        eosService,
-        finishRegistrationReferralErr,
-      );
-      if (!ok) {
-        return;
-      }
+    if (typeof account !== 'string' && !!account?.ethereumUserAddress) {
+      ethereumUserAddress = account.ethereumUserAddress;
     }
 
-    const facebookUserData = yield select(selectFacebookUserData());
-    let imgHash = null;
-
-    if (facebookUserData.picture) {
-      const img = yield call(async () => {
-        const response = await fetch(facebookUserData.picture);
-        const data = await blobToBase64(await response.blob());
-
-        return data;
-      });
-
-      // eslint-disable-next-line prefer-destructuring
-      imgHash = (yield call(uploadImg, img)).imgHash;
-    }
-
-    yield call(registerAccount, profile, eosService, imgHash);
-
-    yield call(getCurrentAccountWorker);
-
-    const singleCommunityId = isSingleCommunityWebsite();
-
-    if (singleCommunityId) {
-      yield call(followCommunity, eosService, singleCommunityId, accountName);
-    }
+    yield call(
+      saveProfileWorker,
+      {
+        profile: {
+          [DISPLAY_NAME_FIELD]: val[DISPLAY_NAME],
+        },
+        userKey: ethereumUserAddress,
+      },
+      isNavigate,
+    );
 
     yield put(finishRegistrationWithDisplayNameSuccess());
   } catch (err) {

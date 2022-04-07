@@ -35,53 +35,6 @@ export function hideChangePasswordModal() {
   };
 }
 
-// Send email
-
-export function sendEmail(...args) {
-  return {
-    type: SEND_EMAIL,
-    email: args[0].toJS()[EMAIL_FIELD],
-    resetForm: args[2].reset,
-  };
-}
-
-export function sendEmailSuccess(verificationCode) {
-  return {
-    type: SEND_EMAIL_SUCCESS,
-    verificationCode,
-  };
-}
-
-export function sendEmailErr(sendEmailError) {
-  return {
-    type: SEND_EMAIL_ERROR,
-    sendEmailError,
-  };
-}
-
-// Submit email
-
-export function submitEmail(...args) {
-  return {
-    type: SUBMIT_EMAIL,
-    verificationCode: args[0].toJS()[CODE_FIELD],
-    resetForm: args[2].reset,
-  };
-}
-
-export function submitEmailSuccess() {
-  return {
-    type: SUBMIT_EMAIL_SUCCESS,
-  };
-}
-
-export function submitEmailErr(submitEmailError) {
-  return {
-    type: SUBMIT_EMAIL_ERROR,
-    submitEmailError,
-  };
-}
-
 // Change password
 
 export function changePassword(...args) {

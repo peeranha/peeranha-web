@@ -132,11 +132,26 @@
   "app.common.tipAnswer": "Чаевые",
   "app.common.sendTip": "Отправить чаевые",
   "app.common.receivedReward": "Вы получили реферальную награду",
+  "app.common.generalPopoverLabel":
+    "Вопрос, для ответа на который не требуется знания или опыта, может быть одним из следующих:",
+  "app.common.generalPopoverList": [
+    "Обмен мнением;",
+    "Мозговой штурм;",
+    "Отзыв;",
+    "Ответ широко известен."
+  ],
   "app.common.expertPopoverLabel": "Вопрос, который спрашивает следующее:",
   "app.common.expertPopoverList": [
     "Решение проблемы, требующее экспертных знаний или опыта;",
     "Источник информации или ресурсы по конкретному предмету, который нелегко найти;",
     "Пояснение или разъяснение информации, которую трудно понять."
+  ],
+  "app.common.tutorialPopoverLabel":
+    "Tutorial is a manual instruction that can be one of the following:",
+  "app.common.tutorialPopoverList": [
+    "Step-by-step solution to a problem;",
+    "Technical setup;",
+    "'How-to' guides."
   ],
   "app.common.rightNow": "Прямо сейчас",
   "app.common.minutesAgo": "{minutes} минут назад",
@@ -871,8 +886,7 @@
   "app.containers.ForgotPassword.youGotThisKey":
     "Вы получили этот ключ при регистрации и сохранили в безопасное место.",
 
-  "app.containers.SignUp.checkYourEmail":
-    "Проверьте свою почту. Вам должен придти код подтверждения.",
+  "app.containers.SignUp.checkYourEmail": "Код подтверждения.",
   "app.containers.SignUp.almostDone": "Почти все",
   "app.containers.SignUp.firstParagraphAlmostDone":
     "Peeranha нетипичная платформа для вопросов и ответов. Она работает на блокчейне.",
@@ -883,11 +897,13 @@
   "app.containers.SignUp.weWillNotify":
     "Мы сообщим Вам, когда Ваш аккаунт будет готов. Обычно это занимает не больше 4 часов.",
   "app.containers.SignUp.goToMainPage": "Перейти на главную страницу",
-  "app.containers.SignUp.youNeedEosAccount": "Вам необходим {image} аккаунт",
-  "app.containers.SignUp.theWayEosWorks":
-    "Если у вас нет Telos аккаунта, мы создадим его для вас и оплатим комиссию за создание. Если у вас уже есть Telos аккаунт, вы можете зарегистрироваться, используя адрес электронной почты, чтобы иметь удобный вход в приложение с любого устройства.",
-  "app.containers.SignUp.ifYouCreateEos":
-    "Звучит слишком сложно? Не волнуйтест! Просто не забудьте записать Master ключ и сохранить его в надежном месте. Master ключ - единственный способ восстановить доступ к своей учетной записи, если вы забудете свой пароль.",
+  "app.containers.SignUp.downloadSecretPhrase": "Скачать Секретную фразу",
+  "app.containers.SignUp.youNeedBlockchainAccount":
+    "Создание аккаунта на блокчейне",
+  "app.containers.SignUp.theWayBlockchainAccountWorks":
+    "Мы создаем для вас аккаунт на блокчейне для работы с платформой. Только у вас будет доступ к секретному ключу для этого аккаунта. Наш сервисный аккаунт сможет бупликовать ограниченный набор действий от имени вашего аккаунта для вашего удобства. Вы можете в любой момент отозвать доступ у сервесного аккаунта.",
+  "app.containers.SignUp.dontWorryAboutBlockchainAccount":
+    "Звучит слишком сложно? Не волнуйтесь! Просто не забудьте записать Секретную Фразу и сохранить ее в надежном месте. Секретная Фраза - единственный способ получить доступ к аккаунту на блокчейне и вашим вознагражденияем. Мы предоставим вам подробную инструкцию как использовать Секретную Фразу что бы получить доступ к вознаграждениям.",
   "app.containers.SignUp.signUpOptions": "Опции при регистрации",
   "app.containers.SignUp.peeranhaIsNotTypical":
     "Peeranha нетипичная платформа для вопросов и ответов. Она работает на блокчейне.",
@@ -900,7 +916,7 @@
   "app.containers.SignUp.or": "или",
   "app.containers.SignUp.doYouHaveAlreadyAccount": "У вас уже есть аккаунт?",
   "app.containers.SignUp.youHaveToSaveKeys":
-    "Master ключ - единственный способ восстановить доступ к учетной записи, если вы забудете пароль! Напишите свой Master ключ на листе бумаги и храните его в надежном месте. В качестве альтернативы сохраните свой Master ключ в диспетчере паролей, таком как 1Password.",
+    "Секретная фраза - единственный способ получить доступ к аккаунту на блокчене и вашим вознагражденияем! Напишите свою секретную фразу на листе бумаги и храните его в надежном месте. В качестве альтернативы сохраните свою секретную фразу в диспетчере паролей, таком как 1Password.",
   "app.containers.SignUp.passwordsDoNotMatch": "Пароли не совпадают",
   "app.containers.SignUp.iHaveEosAccount": "Есть Telos аккаунт",
   "app.containers.SignUp.idontHaveEosAccount": "Нет Telos аккаунта",
@@ -917,15 +933,15 @@
   "app.containers.SignUp.privateKey": "Личный ключ",
   "app.containers.SignUp.eosOwnerPrivateKey": "Telos Owner Private Key",
   "app.containers.SignUp.storeThisKey": "Хранить этот ключ",
-  "app.containers.SignUp.masterKey": "Master ключ",
+  "app.containers.SignUp.secretPhrase": "Секретная фраза",
   "app.containers.SignUp.displayName": "Отображаемое имя",
   "app.containers.SignUp.referralCode": "Реферальный код {optional}",
   "app.containers.SignUp.ethereumUserAddress": "Адрес в Ethereum",
   "app.containers.SignUp.signUp": "Зарегистрироваться",
   "app.containers.SignUp.password": "Пароль",
   "app.containers.SignUp.confirmPassword": "Подтвердить пароль",
-  "app.containers.SignUp.iSaveMasterKey":
-    "Я сохранил Master ключ в безопасном месте. Понимаю, что если я забуду пароль, Master ключ - единственный способ восстановить доступ к моему аккаунту.",
+  "app.containers.SignUp.iSaveSecretPhrase":
+    "Я сохранил Секретную фразу в безопасном месте. Понимаю, что Секретная фраза - единственный способ получить доступ к моему аккаунту на блокчейне и вознаграждениям.",
   "app.containers.SignUp.userAlreadyRegistered":
     "Пользователь с таким identity уже зарегистрирован",
   "app.containers.SignUp.userRejectedSignatureRequest":

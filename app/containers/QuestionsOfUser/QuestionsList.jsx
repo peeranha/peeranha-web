@@ -38,7 +38,6 @@ const RightBlock = Base.extend`
 
 export const Li = BaseRoundedNoPadding.extend`
   display: flex;
-  overflow: hidden;
   border: ${x => (x.bordered ? `1px solid ${BORDER_PRIMARY} !important` : '0')};
   > div:nth-child(2) {
     border-left: 1px solid ${BORDER_SECONDARY};
@@ -105,7 +104,7 @@ const Question = ({
   elementType,
 }) => {
   return (
-    <Li className="mb-3" bordered={!isGeneral}>
+    <Li className="mb-3">
       <QuestionForProfilePage
         route={routes.questionView(id, null)}
         myPostRating={myPostRating}

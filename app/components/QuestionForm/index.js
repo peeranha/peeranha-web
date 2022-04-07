@@ -57,9 +57,6 @@ import TypeForm from './TypeForm';
 import TitleForm from './TitleForm';
 import ContentForm from './ContentForm';
 import TagsForm from './TagsForm';
-import PromotedQuestionForm from './PromotedQuestionForm';
-import BountyForm from './BountyForm';
-import BountyDateForm from './BountyDateForm';
 
 import {
   ANY_TYPE,
@@ -67,7 +64,6 @@ import {
 } from '../../containers/CreateCommunity/constants';
 import createdHistory from '../../createdHistory';
 import * as routes from '../../routes-config';
-import { now } from 'lodash';
 import DescriptionList from '../DescriptionList';
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 import { getPermissions, hasGlobalModeratorRole } from 'utils/properties';
@@ -116,7 +112,7 @@ export const QuestionForm = ({
   skipExistingQuestions,
   communityQuestionsType,
   disableCommForm,
-  profile
+  profile,
 }) => {
   const [isSelectedType, setIsSelectedType] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -147,9 +143,9 @@ export const QuestionForm = ({
   };
 
   const profileWithModeratorRights =
-  profile && hasGlobalModeratorRole(getPermissions(profile)) || null;
+    profile && hasGlobalModeratorRole(getPermissions(profile));
 
-  const handleSetClicked = () => setIsClickSubmit(true);
+  const makeIsClicked = () => setIsClickSubmit(true);
 
   return (
     <div>
@@ -157,7 +153,8 @@ export const QuestionForm = ({
       <TipsBase>
         <BaseSpecialOne>
           <FormBox
-           onSubmit={handleSubmitWithType(sendQuestion)}
+            onSubmit={handleSubmitWithType(sendQuestion)}
+            onClick={makeIsClicked}
           >
             <CommunityForm
               intl={intl}
@@ -230,10 +227,10 @@ export const QuestionForm = ({
             />
 
             {profileWithModeratorRights && (
-            <SuggestTag
-              formValues={formValues}
-              redirectToCreateTagDispatch={redirectToCreateTagDispatch}
-            />
+              <SuggestTag
+                formValues={formValues}
+                redirectToCreateTagDispatch={redirectToCreateTagDispatch}
+              />
             )}
 
             {/*<BountyForm*/}
@@ -255,7 +252,6 @@ export const QuestionForm = ({
               disabled={questionLoading}
               id={submitButtonId}
               type="submit"
-              onClick={handleSetClicked}
             >
               {submitButtonName}
             </Button>

@@ -170,6 +170,10 @@ export const userStatsQuery = `
           achievements {
             id
           }
+          ratings {
+           communityId
+           rating
+          }
         }
       }`;
 
@@ -390,7 +394,7 @@ const period = `
   id
   startPeriodTime
   endPeriodTime
-`
+`;
 
 export const rewardsQuery = `
   query (
@@ -405,10 +409,10 @@ export const rewardsQuery = `
         ${user}
       }
       tokenToReward
-      status
+      isPaid
     }
     periods (orderBy: endPeriodTime, orderDirection: desc, first: 2) {
       ${period}
     }
   }
-`
+`;
