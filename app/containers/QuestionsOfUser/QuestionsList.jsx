@@ -104,7 +104,7 @@ const Question = ({
   elementType,
 }) => {
   return (
-    <Li className="mb-3" bordered={!isGeneral}>
+    <Li className="mb-3">
       <QuestionForProfilePage
         route={routes.questionView(id, null)}
         myPostRating={myPostRating}
