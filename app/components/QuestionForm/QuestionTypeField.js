@@ -109,9 +109,7 @@ const Button = B.extend`
   box-shadow: ${props =>
     props.type === props.index && `0 0 0 3px rgba(${BORDER_PRIMARY_RGB}, 0.4)`};
 
-  &:hover,
-  :focus,
-  :active {
+  &:hover {
     box-shadow: 0 0 0 3px rgba(${BORDER_PRIMARY_RGB}, 0.4);
   }
 
