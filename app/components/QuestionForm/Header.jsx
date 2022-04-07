@@ -19,34 +19,37 @@ import Span from '../Span';
 import Wrapper from '../Header/Simple';
 import H3 from '../H3';
 
-const Header = ({ formTitle, questionId, intl }) => (
-  <Wrapper className="mb-to-sm-0 mb-from-sm-3">
-    <H3>
-      <MediumIconStyled>
-        <Icon icon={questionIcon} width="43" />
-      </MediumIconStyled>
-      <span>{formTitle}</span>
-    </H3>
+const Header = ({ formTitle, questionId, intl }) => {
 
-    {questionId && (
-      <div className="right-panel">
-        <A to={routes.questionView(questionId)}>
-          <button>
-            <IconMd
-              className="mr-1"
-              icon={closeIcon}
-              fill={TEXT_PRIMARY}
-              isColorImportant={true}
-            />
-            <Span color={TEXT_PRIMARY} className="button-label">
-              {intl.formatMessage(commonMessages.close)}
-            </Span>
-          </button>
-        </A>
-      </div>
-    )}
-  </Wrapper>
-);
+  return(
+    <Wrapper className="mb-to-sm-0 mb-from-sm-3">
+      <H3>
+        <MediumIconStyled>
+          <Icon icon={questionIcon} width="43" />
+        </MediumIconStyled>
+        <span>{formTitle}</span>
+      </H3>
+
+      {questionId && (
+        <div className="right-panel">
+          <A to={routes.questionView(questionId)}>
+            <button>
+              <IconMd
+                className="mr-1"
+                icon={closeIcon}
+                fill={TEXT_PRIMARY}
+                isColorImportant={true}
+              />
+              <Span color={TEXT_PRIMARY} className="button-label">
+                {intl.formatMessage(commonMessages.close)}
+              </Span>
+            </button>
+          </A>
+        </div>
+      )}
+    </Wrapper>
+  );
+}
 
 Header.propTypes = {
   formTitle: PropTypes.string,

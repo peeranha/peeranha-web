@@ -91,10 +91,10 @@ import { expertPostView, tutorialView } from 'routes-config';
 const single = isSingleCommunityWebsite();
 
 const App = ({
-  location: { pathname, search, hash },
-  redirectToFeedDispatch,
-  history,
-}) => {
+               location: { pathname, search, hash },
+               redirectToFeedDispatch,
+               history,
+             }) => {
   if (process.env.NODE_ENV === 'production') {
     ReactGA.pageview(window.location.pathname);
   }
@@ -353,7 +353,7 @@ const App = ({
         />
 
         <Route
-          path={routes.questionEdit(':questionid')}
+          path={routes.questionEdit(':postType',':questionid')}
           render={props => Wrapper(EditQuestion, props)}
         />
 

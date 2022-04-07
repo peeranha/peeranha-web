@@ -96,28 +96,28 @@ const SuggestTag = memo(({ redirectToCreateTagDispatch, formValues }) => {
 });
 
 export const QuestionForm = ({
-  locale,
-  sendQuestion,
-  formTitle,
-  questionLoading,
-  communities,
-  submitButtonId,
-  submitButtonName,
-  handleSubmit,
-  change,
-  formValues,
-  intl,
-  question,
-  questionid,
-  redirectToCreateTagDispatch,
-  getQuestions,
-  existingQuestions,
-  doSkipExistingQuestions,
-  skipExistingQuestions,
-  communityQuestionsType,
-  disableCommForm,
-  profile
-}) => {
+                               locale,
+                               sendQuestion,
+                               formTitle,
+                               questionLoading,
+                               communities,
+                               submitButtonId,
+                               submitButtonName,
+                               handleSubmit,
+                               change,
+                               formValues,
+                               intl,
+                               question,
+                               questionid,
+                               redirectToCreateTagDispatch,
+                               getQuestions,
+                               existingQuestions,
+                               doSkipExistingQuestions,
+                               skipExistingQuestions,
+                               communityQuestionsType,
+                               disableCommForm,
+                               profile
+                             }) => {
   const [isSelectedType, setIsSelectedType] = useState(false);
   const [isError, setIsError] = useState(false);
   const [isClickSubmit, setIsClickSubmit] = useState(false);
@@ -147,17 +147,21 @@ export const QuestionForm = ({
   };
 
   const profileWithModeratorRights =
-  profile && hasGlobalModeratorRole(getPermissions(profile)) || null;
+    profile && hasGlobalModeratorRole(getPermissions(profile)) || null;
 
   const handleSetClicked = () => setIsClickSubmit(true);
 
   return (
     <div>
-      <Header formTitle={formTitle} questionId={questionid} intl={intl} />
+      <Header
+        formTitle={formTitle}
+        questionId={questionid}
+        postType={question?.postType}
+        intl={intl} />
       <TipsBase>
         <BaseSpecialOne>
           <FormBox
-           onSubmit={handleSubmitWithType(sendQuestion)}
+            onSubmit={handleSubmitWithType(sendQuestion)}
           >
             <CommunityForm
               intl={intl}
@@ -169,18 +173,18 @@ export const QuestionForm = ({
 
             {!question &&
               ((communityQuestionsType === ANY_TYPE && (
-                <TypeForm
-                  intl={intl}
-                  change={change}
-                  questionLoading={questionLoading}
-                  locale={locale}
-                  formValues={formValues}
-                  isError={isError}
-                  setIsError={setIsError}
-                  hasSelectedType={isSelectedType}
-                  setHasSelectedType={setIsSelectedType}
-                />
-              )) ||
+                  <TypeForm
+                    intl={intl}
+                    change={change}
+                    questionLoading={questionLoading}
+                    locale={locale}
+                    formValues={formValues}
+                    isError={isError}
+                    setIsError={setIsError}
+                    hasSelectedType={isSelectedType}
+                    setHasSelectedType={setIsSelectedType}
+                  />
+                )) ||
                 (communityQuestionsType === GENERAL_TYPE && (
                   <>
                     <DescriptionList
@@ -230,10 +234,10 @@ export const QuestionForm = ({
             />
 
             {profileWithModeratorRights && (
-            <SuggestTag
-              formValues={formValues}
-              redirectToCreateTagDispatch={redirectToCreateTagDispatch}
-            />
+              <SuggestTag
+                formValues={formValues}
+                redirectToCreateTagDispatch={redirectToCreateTagDispatch}
+              />
             )}
 
             {/*<BountyForm*/}
@@ -310,7 +314,7 @@ export default memo(
           prop => prop.key === KEY_QUESTIONS_TYPE,
         )?.value;
 
-        // diable community form on edit question page
+        // disable community form on edit question page
         const disableCommForm = formName === EDIT_QUESTION_FORM;
 
         return {
@@ -322,41 +326,41 @@ export default memo(
             [FORM_PROMOTE]: (0).toString(),
             ...(question
               ? {
-                  [FORM_TITLE]: question?.title,
-                  [FORM_CONTENT]: question?.content,
-                  [FORM_COMMUNITY]: {
-                    ...question?.community,
-                    tags: _uniqBy(
-                      question?.community?.tags?.concat(
-                        communities.find(
-                          ({ id }) => id === question?.community?.id,
-                        )?.tags,
-                      ),
-                      'id',
+                [FORM_TITLE]: question?.title,
+                [FORM_CONTENT]: question?.content,
+                [FORM_COMMUNITY]: {
+                  ...question?.community,
+                  tags: _uniqBy(
+                    question?.community?.tags?.concat(
+                      communities.find(
+                        ({ id }) => id === question?.community?.id,
+                      )?.tags,
                     ),
-                  },
-                  [FORM_TAGS]: question?.tags,
-                  [FORM_BOUNTY]: question?.bounty ?? '',
-                  [FORM_BOUNTY_HOURS]: question?.bountyHours,
-                }
+                    'id',
+                  ),
+                },
+                [FORM_TAGS]: question?.tags,
+                [FORM_BOUNTY]: question?.bounty ?? '',
+                [FORM_BOUNTY_HOURS]: question?.bountyHours,
+              }
               : {}),
             ...(single
               ? {
-                  [FORM_COMMUNITY]: {
-                    ...communities?.find(({ id }) => id === single),
-                    tags: _uniqBy(
-                      communities
-                        .find(({ id }) => id === single)
-                        ?.tags?.concat(
-                          communities.find(
-                            ({ id }) => id === question?.community?.id,
-                          )?.tags,
-                        )
-                        .filter(x => x),
-                      'id',
-                    ),
-                  },
-                }
+                [FORM_COMMUNITY]: {
+                  ...communities?.find(({ id }) => id === single),
+                  tags: _uniqBy(
+                    communities
+                      .find(({ id }) => id === single)
+                      ?.tags?.concat(
+                      communities.find(
+                        ({ id }) => id === question?.community?.id,
+                      )?.tags,
+                    )
+                      .filter(x => x),
+                    'id',
+                  ),
+                },
+              }
               : {}),
           },
           enableReinitialize: true,

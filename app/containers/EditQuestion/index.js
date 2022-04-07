@@ -43,18 +43,18 @@ import { getAskedQuestion, editQuestion } from './actions';
 import { EDIT_QUESTION_FORM, EDIT_QUESTION_BUTTON } from './constants';
 
 const EditQuestion = ({
-  match,
-  locale,
-  question,
-  balance,
-  questionLoading,
-  editQuestionLoading,
-  communities,
-  editQuestionDispatch,
-  getAskedQuestionDispatch,
-  profile,
-  account,
-}) => {
+                        match,
+                        locale,
+                        question,
+                        balance,
+                        questionLoading,
+                        editQuestionLoading,
+                        communities,
+                        editQuestionDispatch,
+                        getAskedQuestionDispatch,
+                        profile,
+                        account,
+                      }) => {
   const questionid = match.params.questionid;
   useEffect(
     () => {
@@ -90,10 +90,16 @@ const EditQuestion = ({
     [balance],
   );
 
+  const titleMessage = useMemo(() => {
+    if (question?.postType === 0) return translationMessages[locale][messages.title.id[1]];
+    if (question?.postType === 1) return translationMessages[locale][messages.title.id[0]];
+    if (question?.postType === 2) return translationMessages[locale][messages.title.id[2]];
+  }, [question?.postType]);
+
   const sendProps = useMemo(
     () => ({
       form: EDIT_QUESTION_FORM,
-      formTitle: translationMessages[locale][messages.title.id],
+      formTitle: titleMessage,
       submitButtonId: EDIT_QUESTION_BUTTON,
       submitButtonName:
         translationMessages[locale][messages.submitButtonName.id],
@@ -114,7 +120,7 @@ const EditQuestion = ({
     () => [
       question?.title ?? translationMessages[locale][messages.title.id],
       question?.content ??
-        translationMessages[locale][messages.title.description],
+      translationMessages[locale][messages.title.description],
     ],
     [question],
   );
