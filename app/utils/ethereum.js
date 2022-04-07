@@ -1,6 +1,8 @@
 import { Contract, ethers } from 'ethers';
-import Peeranha from '../../../peeranha/artifacts/contracts/Peeranha.sol/Peeranha.json';
 import detectEthereumProvider from '@metamask/detect-provider';
+import * as bs58 from 'bs58';
+import Peeranha from '../../../peeranha/artifacts/contracts/Peeranha.sol/Peeranha.json';
+import PeeranhaToken from '../../../peeranha/artifacts/contracts/PeeranhaToken.sol/PeeranhaToken.json';
 import { WebIntegrationErrorByCode } from './errors';
 import {
   ETHEREUM_USER_ERROR_CODE,
@@ -11,14 +13,27 @@ import {
 } from './constants';
 import { getCookie } from './cookie';
 import { AUTOLOGIN_DATA } from '../containers/Login/constants';
-import * as bs58 from 'bs58';
 import {
+  CLAIM_REWARD,
   GET_COMMUNITY,
   GET_TAGS,
+  GET_USER_BALANCE,
   GET_USER_BY_ADDRESS,
   GET_USER_PERMISSIONS,
+  GET_USER_RATING,
 } from './ethConstants';
-import { getFileUrl, getText } from './ipfs';
+import {
+  getFileUrl,
+  getText,
+  getBytes32FromIpfsHash,
+  getIpfsHashFromBytes32,
+} from './ipfs';
+import {
+  BLOCKCHAIN_MAIN_CALL,
+  BLOCKCHAIN_TOKEN_CALL,
+  BLOCKCHAIN_MAIN_SEND_TRANSACTION,
+  callService,
+} from './web_integration/src/util/aws-connector';
 
 class EthereumService {
   constructor() {
@@ -29,20 +44,21 @@ class EthereumService {
     this.withMetaMask = false;
     this.metaMaskProviderDetected = false;
     this.selectedAccount = null;
+    this.contractToken = null;
   }
 
   handleAccountsChanged = accounts => {
     if (accounts.length === 0) {
       throw new WebIntegrationErrorByCode(METAMASK_ERROR_CODE);
-    } else {
-      if (this.selectedAccount !== accounts[0]) {
-        this.selectedAccount = accounts[0];
-      }
+    } else if (this.selectedAccount !== accounts[0]) {
+      this.selectedAccount = accounts[0];
     }
   };
 
   initEthereum = async () => {
-    let provider = await detectEthereumProvider();
+    // TODO for maatic:
+    // ETHEREUM_NETWORK='https://rpc-mumbai.maticvigil.com'
+    const provider = await detectEthereumProvider();
     if (provider) {
       this.metaMaskProviderDetected = true;
       this.initialized = true;
@@ -50,6 +66,11 @@ class EthereumService {
       this.contract = new Contract(
         process.env.ETHEREUM_ADDRESS,
         Peeranha.abi,
+        new ethers.providers.Web3Provider(provider),
+      );
+      this.contractToken = new Contract(
+        process.env.PEERANHA_TOKEN,
+        PeeranhaToken.abi,
         new ethers.providers.Web3Provider(provider),
       );
     } else {
@@ -60,6 +81,11 @@ class EthereumService {
       this.contract = new Contract(
         process.env.ETHEREUM_ADDRESS,
         Peeranha.abi,
+        this.provider,
+      );
+      this.contractToken = new Contract(
+        process.env.PEERANHA_TOKEN,
+        PeeranhaToken.abi,
         this.provider,
       );
     }
@@ -111,64 +137,100 @@ class EthereumService {
     this.selectedAccount = null;
   };
 
+  setSelectedAccount = account => {
+    this.selectedAccount = account?.toLowerCase();
+  };
+
   getSelectedAccount = async () =>
     this.selectedAccount ||
     JSON.parse(getCookie(AUTOLOGIN_DATA) || null) ||
     null;
 
-  getBytes32FromIpfsHash = ipfsListing => {
-    return (
-      '0x' +
-      bs58
-        .decode(ipfsListing)
-        .slice(2)
-        .toString('hex')
-    );
-  };
-
-  getIpfsHashFromBytes32 = bytes32Hex => {
-    const hashHex = '1220' + bytes32Hex.slice(2);
-    const hashBytes = Buffer.from(hashHex, 'hex');
-    return bs58.encode(hashBytes);
-  };
-
   getProfile = async userAddress => {
-    const user = await this.contract[GET_USER_BY_ADDRESS](userAddress);
-    const permissions = await this.contract[GET_USER_PERMISSIONS](userAddress);
+    const user = await this.getDataWithArgs(GET_USER_BY_ADDRESS, [userAddress]);
+
+    const permissions = await this.getDataWithArgs(GET_USER_PERMISSIONS, [
+      userAddress,
+    ]);
+
     return {
       creationTime: user.creationTime,
       ipfsDoc: user.ipfsDoc,
       rating: user.rating,
       permissions,
       followedCommunities: user.followedCommunities,
-      ipfsHash: this.getIpfsHashFromBytes32(user.ipfsDoc.hash),
+      ipfsHash: getIpfsHashFromBytes32(user.ipfsDoc.hash),
     };
   };
 
   sendTransactionWithSigner = async (actor, action, data) => {
-    try {
-      const transaction = await this.contract
-        .connect(
-          new ethers.providers.Web3Provider(this.provider).getSigner(actor),
-        )
-        [action](...data);
-      await transaction.wait();
-    } catch (err) {
-      switch (err.code) {
-        case INVALID_ETHEREUM_PARAMETERS_ERROR_CODE:
-          throw new WebIntegrationErrorByCode(METAMASK_ERROR_CODE);
-        case REJECTED_SIGNATURE_REQUEST:
-          throw new WebIntegrationErrorByCode(err.code);
-        default:
-          throw err;
+    if (this.withMetaMask) {
+      try {
+        const transaction = await this.contract
+          .connect(
+            new ethers.providers.Web3Provider(this.provider).getSigner(actor),
+          )
+          [action](actor, ...data);
+        await transaction.wait();
+      } catch (err) {
+        switch (err.code) {
+          case INVALID_ETHEREUM_PARAMETERS_ERROR_CODE:
+            throw new WebIntegrationErrorByCode(METAMASK_ERROR_CODE);
+          case REJECTED_SIGNATURE_REQUEST:
+            throw new WebIntegrationErrorByCode(err.code);
+          default:
+            throw err;
+        }
       }
+    } else {
+      const transactionResult = await callService(
+        BLOCKCHAIN_MAIN_SEND_TRANSACTION,
+        {
+          action,
+          args: [actor, ...data],
+        },
+      );
+
+      return transactionResult;
+    }
+  };
+
+  sendTransactionWithoutDelegating = async (actor, action, data) => {
+    if (this.withMetaMask) {
+      try {
+        const transaction = await this.contract
+          .connect(
+            new ethers.providers.Web3Provider(this.provider).getSigner(actor),
+          )
+          [action](...data);
+        await transaction.wait();
+      } catch (err) {
+        switch (err.code) {
+          case INVALID_ETHEREUM_PARAMETERS_ERROR_CODE:
+            throw new WebIntegrationErrorByCode(METAMASK_ERROR_CODE);
+          case REJECTED_SIGNATURE_REQUEST:
+            throw new WebIntegrationErrorByCode(err.code);
+          default:
+            throw err;
+        }
+      }
+    } else {
+      const transactionResult = await callService(
+        BLOCKCHAIN_MAIN_SEND_TRANSACTION,
+        {
+          action,
+          args: [...data],
+        },
+      );
+
+      return transactionResult;
     }
   };
 
   sendTransaction = async (actor, action, data) => {
     try {
-      const transactionData = this.getBytes32FromIpfsHash(data);
-      const transaction = await this.contract[action](transactionData);
+      const transactionData = getBytes32FromIpfsHash(data);
+      const transaction = await this.getDataWithArgs(action, [transactionData]);
       await transaction.wait();
     } catch (err) {
       if (err.code === INVALID_ETHEREUM_PARAMETERS_ERROR_CODE) {
@@ -179,18 +241,50 @@ class EthereumService {
 
   getData = async action => {
     return await this.contract[action]();
+    // if (this.withMetaMask) {
+    //   return await this.contract[action]();
+    // }
+    //
+    // return await callService(BLOCKCHAIN_MAIN_CALL, {
+    //   action,
+    //   args: [],
+    // });
   };
 
   getDataWithArgs = async (action, args) => {
     return await this.contract[action](...args);
+    // if (this.withMetaMask) {
+    //   return await this.contract[action](...args);
+    // }
+    //
+    // const contractResult = await callService(BLOCKCHAIN_MAIN_CALL, {
+    //   action,
+    //   args: [...args],
+    // });
+    //
+    // return contractResult.body?.json;
+  };
+
+  getTokenDataWithArgs = async (action, args) => {
+    return await this.contractToken[action](...args);
+    // if (this.withMetaMask) {
+    //   return await this.contractToken[action](...args);
+    // }
+    //
+    // const contractResult = await callService(BLOCKCHAIN_TOKEN_CALL, {
+    //   action,
+    //   args: [...args],
+    // });
+    //
+    // return contractResult.body?.json;
   };
 
   getTagsFromContract = async communityId => {
-    const rawTags = await this.contract[GET_TAGS](communityId);
+    const rawTags = await this.getDataWithArgs(GET_TAGS, [communityId]);
     return await Promise.all(
       rawTags.map(async rawTag => {
         const tag = JSON.parse(
-          await getText(this.getIpfsHashFromBytes32(rawTag.ipfsDoc.hash)),
+          await getText(getIpfsHashFromBytes32(rawTag.ipfsDoc.hash)),
         );
         return {
           name: tag.name,
@@ -202,9 +296,9 @@ class EthereumService {
   };
 
   getCommunityFromContract = async id => {
-    const rawCommunity = await this.contract[GET_COMMUNITY](id);
+    const rawCommunity = await this.getDataWithArgs(GET_COMMUNITY, [id]);
     const communityInfo = JSON.parse(
-      await getText(this.getIpfsHashFromBytes32(rawCommunity.ipfsDoc.hash)),
+      await getText(getIpfsHashFromBytes32(rawCommunity.ipfsDoc.hash)),
     );
     return {
       id: +id,
@@ -220,11 +314,30 @@ class EthereumService {
   };
 
   getCommunities = async count => {
-    let communities = [];
+    const communities = [];
     for (let i = 1; i <= count; i++) {
       communities.push(await this.getCommunityFromContract(i));
     }
     return communities;
+  };
+
+  getUserRating = async (user, communityId) =>
+    await this.getDataWithArgs(GET_USER_RATING, [user, communityId]);
+
+  getUserBalance = async user =>
+    await this.getTokenDataWithArgs(GET_USER_BALANCE, [user]);
+
+  claimUserReward = async (actor, period) => {
+    try {
+      const transaction = await this.contractToken
+        .connect(
+          new ethers.providers.Web3Provider(this.provider).getSigner(actor),
+        )
+        [CLAIM_REWARD](actor, period);
+      await transaction.wait();
+    } catch (err) {
+      throw err;
+    }
   };
 }
 

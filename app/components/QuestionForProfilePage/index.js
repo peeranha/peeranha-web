@@ -9,7 +9,7 @@ import {
   BG_SUCCESS,
   TEXT_SECONDARY,
   BG_PRIMARY,
-  BG_PRIMARY_DARK,
+  //BG_PRIMARY_DARK,
   BORDER_RADIUS_M,
   BORDER_RADIUS_L,
 } from 'style-constants';
@@ -26,7 +26,7 @@ import crownIcon from 'images/crownIcon.svg?inline';
 import Base from 'components/Base';
 import Span from 'components/Span';
 import { AProps, APropsDefault } from 'components/A';
-import QuestionType from 'components/Labels/QuestionType';
+//import QuestionType from 'components/Labels/QuestionType';
 
 import {
   POST_TYPE_ANSWER,
@@ -34,6 +34,7 @@ import {
 } from 'containers/Profile/constants';
 
 import QuestionCommunity from './QuestionCommunity';
+import QuestionType from 'containers/Questions/Content/Body/QuestionType';
 
 const single = isSingleCommunityWebsite();
 
@@ -93,6 +94,20 @@ const ContentContainer = styled.div`
   }
 `;
 
+const QuestionLabels = styled.div`
+  position: absolute;
+  top: 5px;
+  right: 7px;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+
+  @media only screen and (max-width: 576px) {
+    top: 50px;
+    right: 3px;
+  }
+`;
+
 /* eslint indent: 0 */
 const AcceptedQuestionBadge = ({
   acceptedAnswer,
@@ -147,12 +162,22 @@ export const QuestionForProfilePage = ({
   }
   return (
     <BaseStyled bordered={bordered && !isGeneral}>
+      {/* TODO: PEER-281 frame and inscription 'expert'
       {!isGeneral && (
         <QuestionType size="sm">
           <FormattedMessage {...commonMessages.expert} />
         </QuestionType>
-      )}
+      )}*/}
       <ContentContainer>
+        <QuestionLabels>
+          <QuestionType
+            locale={locale}
+            postType={postType}
+            isPromoted={false}
+            isExpert={false}
+          />
+        </QuestionLabels>
+
         <div className="d-flex flex-row flex-md-column">
           <Badge bold>{myPostRating}</Badge>
 

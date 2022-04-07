@@ -86,6 +86,7 @@ const Body = ({
         locale={locale}
         postTime={postTime}
         isSearchPage={isSearchPage}
+        communityId={communityId}
       />
 
       <TagsContainer

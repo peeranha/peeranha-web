@@ -6,7 +6,6 @@ import { FormattedMessage } from 'react-intl';
 import * as routes from 'routes-config';
 import messages from 'common-messages';
 import { TEXT_PRIMARY, TEXT_SECONDARY, BORDER_PRIMARY } from 'style-constants';
-import { MODERATOR_KEY } from 'utils/constants';
 
 import pencilIcon from 'images/pencil.svg?external';
 import closeIcon from 'images/closeCircle.svg?external';
@@ -109,7 +108,7 @@ const UserNavigation = ({
             islink={path !== routes.userQuestions(userId) ? 1 : 0}
           >
             <FormattedMessage
-              {...messages.questionsNumber}
+              {...messages.postsNumber}
               values={{
                 number: (
                   <Span
@@ -162,13 +161,14 @@ const UserNavigation = ({
             <FormattedMessage {...messages.settings} />
           </NavigationLink>
 
-          <NavigationLink
+          {/*TODO PEER20-286 Hide notifications from this version*/}
+          {/* <NavigationLink
             className={userId !== account ? 'd-none' : ''}
             to={routes.userNotifications(userId)}
             islink={path !== routes.userNotifications(userId) ? 1 : 0}
           >
             <FormattedMessage {...messages.notifications} />
-          </NavigationLink>
+          </NavigationLink> */}
 
           <NavigationLink
             to={routes.userAchievements(userId)}

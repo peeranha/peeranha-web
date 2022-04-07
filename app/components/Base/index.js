@@ -18,6 +18,9 @@ const borderTopLeftRadius = ({ bordered, topRightRadius, withoutBR }) =>
 const borderTopRightRadius = ({ bordered, bottomRightRadius, withoutBR }) =>
   (bordered || bottomRightRadius) && !withoutBR ? BORDER_RADIUS_L : 'none';
 
+const borderForTutorial = isTutorial =>
+  isTutorial ? BORDER_TUTORIAL : BORDER_PRIMARY;
+
 const Base = styled.div`
   background: ${BG_LIGHT};
   padding: 20px 30px;
@@ -28,11 +31,7 @@ const Base = styled.div`
   border: ${({ bordered, isPromoted, isTutorial }) =>
     bordered || isPromoted
       ? `1px solid ${
-          isPromoted
-            ? BORDER_PREMIUM
-            : isTutorial
-              ? BORDER_TUTORIAL
-              : BORDER_PRIMARY
+          isPromoted ? BORDER_PREMIUM : borderForTutorial(isTutorial)
         } !important`
       : '0'};
   box-shadow: ${({ bordered, position, isPromoted }) =>
@@ -78,10 +77,7 @@ const Base = styled.div`
       ? `border-top-right-radius: ${BORDER_RADIUS_L}; border-bottom-right-radius: ${BORDER_RADIUS_L}; box-shadow: 0 2px 2px 0 ${SECONDARY_SPECIAL_2};`
       : ''}
 
-  ${x =>
-    x.position === 'middle'
-      ? `border-bottom: 1px solid ${BORDER_SECONDARY};`
-      : ''}
+  ${x => (x.position === 'middle' ? `border-bottom: none;` : '')}
 `;
 
 export default Base;

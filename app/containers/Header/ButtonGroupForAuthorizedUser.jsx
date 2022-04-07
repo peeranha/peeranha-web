@@ -12,7 +12,8 @@ const ButtonGroupForAuthorizedUser = ({
   isSearchFormVisible,
 }) => (
   <React.Fragment>
-    {!isSearchFormVisible && <NotificationsDropdown />}
+    {/*TODO PEER20-286 Hide notifications from this version*/}
+    {/* {!isSearchFormVisible && <NotificationsDropdown />} */}
     <EnergyDropdown
       rating={profileInfo.rating}
       energy={profileInfo.energy}

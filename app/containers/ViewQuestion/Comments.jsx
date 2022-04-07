@@ -18,7 +18,7 @@ import editSmallIcon from 'images/editSmallIcon.svg?external';
 import deleteSmallIcon from 'images/deleteSmallIcon.svg?external';
 import blockSmallIcon from 'images/blockSmallIcon.svg?external';
 
-import { getUserAvatar } from 'utils/profileManagement';
+import { getRatingByCommunity, getUserAvatar } from 'utils/profileManagement';
 
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 
@@ -152,7 +152,7 @@ const CommentView = item => {
           type={COMMENT_TYPE}
           avatar={getUserAvatar(item.author.avatar)}
           name={item.author?.displayName ?? ''}
-          rating={item.author.rating}
+          rating={getRatingByCommunity(item.author, item.communityId)}
           account={item.author.user}
           achievementsCount={item.author.achievementsReached?.length}
           postTime={+item.postTime}

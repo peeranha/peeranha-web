@@ -21,6 +21,7 @@ import {
   isAvailableAction,
 } from 'containers/AccountProvider/saga';
 
+import { getRatingByCommunity } from 'utils/profileManagement';
 import { initEthereumSuccess, initEthereumError } from './actions';
 import { INIT_ETHEREUM, INIT_ETHEREUM_SUCCESS } from './constants';
 
@@ -45,6 +46,11 @@ export function* initEthereumWorker() {
         yield put(initEthereumSuccess(ethereumService));
       }
       yield put(initEthereumSuccess(ethereumService));
+    } else if (autoLoginData?.ethereumUserAddress) {
+      yield call(
+        ethereumService.setSelectedAccount,
+        autoLoginData.ethereumUserAddress,
+      );
     }
 
     yield call(ethereumService.initEthereum);
@@ -72,7 +78,7 @@ export function* isValid({ creator, buttonId, minRating = 0, communityId }) {
     isAvailableAction,
     () =>
       validate({
-        rating: profileInfo.rating,
+        rating: getRatingByCommunity(profileInfo, communityId),
         translations: translationMessages[locale],
         actor: selectedAccount,
         creator,

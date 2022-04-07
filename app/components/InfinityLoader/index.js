@@ -1,9 +1,3 @@
-/**
- *
- * InfinityLoader
- *
- */
-
 import { useEffect, Children } from 'react';
 import PropTypes from 'prop-types';
 

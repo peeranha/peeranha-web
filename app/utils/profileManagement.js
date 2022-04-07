@@ -2,7 +2,13 @@ import userBodyAvatar from 'images/user2.svg?inline';
 import noAvatar from 'images/noAvatar.png';
 import editUserNoAvatar from 'images/editUserNoAvatar.png';
 
-import { getFileUrl, getText, saveFile, saveText } from './ipfs';
+import {
+  getBytes32FromIpfsHash,
+  getFileUrl,
+  getText,
+  saveFile,
+  saveText,
+} from './ipfs';
 
 import {
   ACCOUNT_TABLE,
@@ -19,7 +25,16 @@ import {
   NOTIFICATIONS_INFO_SERVICE,
 } from './web_integration/src/util/aws-connector';
 import { UPDATE_ACC } from './ethConstants';
-import { getUser, getUsersQuestions, getUserStats } from './theGraph';
+import { getUser, getUserStats } from './theGraph';
+import { WebIntegrationError } from './errors';
+
+export const getRatingByCommunity = (user, communityId) => {
+  return (
+    user?.ratings?.find(
+      ratingObj => ratingObj.communityId.toString() === communityId?.toString(),
+    )?.rating ?? 0
+  );
+};
 
 export function getUserAvatar(avatarHash, userId, account) {
   if (avatarHash && avatarHash !== NO_AVATAR) {
@@ -57,12 +72,21 @@ export async function getProfileInfo(
   if (!user) return null;
   let profileInfo;
   let userStats;
+
   if (isLogin) {
     profileInfo = await ethereumService.getProfile(user);
     userStats = await getUserStats(user);
+    profileInfo.ratings = userStats?.ratings;
   } else {
-    profileInfo = { ...(await getUser(user)) };
+    profileInfo = await getUser(user);
   }
+
+  profileInfo.highestRating = profileInfo.ratings?.length
+    ? profileInfo.ratings?.reduce(
+        (max, current) => (max.rating > current.rating ? max : current),
+      )
+    : 0;
+  profileInfo.user = user;
 
   if (getExtendedProfile) {
     let profile;
@@ -73,13 +97,13 @@ export async function getProfileInfo(
     } else {
       profile = profileInfo;
     }
+
     profileInfo.profile = {
       about: profile.about,
       company: profile.company,
       location: profile.location,
       position: profile.position,
     };
-    profileInfo.user = user;
     profileInfo.id = user;
     profileInfo.postCount = profileInfo.postCount ?? userStats?.postCount ?? 0;
     profileInfo.answersGiven =
@@ -87,26 +111,34 @@ export async function getProfileInfo(
     profileInfo.achievementsReached = profileInfo.achievementsReached ?? [];
   }
 
-  // if (!profile || profile.userAddress !== user) return null;
-
-  // if (!profile.achievementsReached) {
-  //   const userAchievements = await getAchievements(
-  //     eosService,
-  //     USER_ACHIEVEMENTS_TABLE,
-  //     user,
-  //   );
-  //
-  //   profile.achievementsReached = userAchievements;
-  // }
   return profileInfo;
 }
 
 export async function saveProfile(ethereumService, user, profile) {
   const ipfsHash = await saveText(JSON.stringify(profile));
-  const transactionData = ethereumService.getBytes32FromIpfsHash(ipfsHash);
+  const transactionData = getBytes32FromIpfsHash(ipfsHash);
   await ethereumService.sendTransactionWithSigner(user, UPDATE_ACC, [
     transactionData,
   ]);
+}
+
+export async function getUserRatings(ethereumService, user, communities) {
+  if (!communities || !user) {
+    return [];
+  }
+
+  const ratings = new Map();
+  for await (const community of communities) {
+    try {
+      ratings.set(
+        community.id.toString(),
+        await ethereumService.getUserRating(user, community.id),
+      );
+    } catch (err) {
+      new WebIntegrationError(err.message);
+    }
+  }
+  return ratings;
 }
 
 export const getNotificationsInfo = async user => {

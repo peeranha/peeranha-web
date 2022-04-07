@@ -42,7 +42,6 @@ import {
   makeSelectFollowedCommunities,
   makeSelectProfileInfo,
 } from 'containers/AccountProvider/selectors';
-import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
 import {
   getQuestionData,
   isGeneralQuestion,
@@ -92,18 +91,20 @@ import {
   selectTypeFilter,
 } from './selectors';
 import { getPosts, getPostsByCommunityId } from '../../utils/theGraph';
+import { getUserProfileWorker } from '../DataCacheProvider/saga';
+import { selectUsers } from '../DataCacheProvider/selectors';
 
 const feed = routes.feed();
 const single = isSingleCommunityWebsite();
 
 export function* getQuestionsWorker({
   limit,
-  offset,
+  skip,
+  postTypes,
   communityIdFilter,
   parentPage,
   next,
   toUpdateQuestions,
-  postTypes,
 }) {
   try {
     const followedCommunities = yield select(makeSelectFollowedCommunities());
@@ -120,14 +121,14 @@ export function* getQuestionsWorker({
       questionsList = yield call(
         getPostsByCommunityId,
         limit,
-        offset,
+        skip,
         postTypes,
         [communityIdFilter],
       );
     }
 
     if (communityIdFilter === 0 && parentPage !== feed) {
-      questionsList = yield call(getPosts, limit, offset, postTypes);
+      questionsList = yield call(getPosts, limit, skip, postTypes);
     }
 
     // Load questions for communities where I am
@@ -140,7 +141,7 @@ export function* getQuestionsWorker({
       questionsList = yield call(
         getPostsByCommunityId,
         limit,
-        offset,
+        skip,
         postTypes,
         followedCommunities,
       );
@@ -150,6 +151,7 @@ export function* getQuestionsWorker({
       question.isGeneral = isGeneralQuestion(question);
     });
 
+    //TODO promoted questions
     // yield all(
     //   questionsList.map(function*(question) {
     //     const bounty = yield call(getQuestionBounty, question.id, eosService);
@@ -165,7 +167,6 @@ export function* getQuestionsWorker({
     //   cachedPromotedQuestions.communityId !== communityIdFilter
     // ) {
     //   yield call(loadTopCommunityQuestionsWorker, { init: true });
-    //
     //   const topQuestionsIds = yield select(selectTopQuestionIds);
     //
     //   let allPromotedQuestions = yield call(
@@ -232,39 +233,38 @@ export function* redirectWorker({ communityIdFilter, isFollowed }) {
   }
 }
 
-// TODO: test
 export function* updateStoredQuestionsWorker() {
-  const eosService = yield select(selectEos);
-  const initLoadedItems = yield select(selectInitLoadedItems());
-  const offset = 0;
-  const communityIdFilter = yield select(selectTypeFilter());
-  const followedCommunities = yield select(makeSelectFollowedCommunities());
-  const parentPage = window.location.pathname;
-  const fetcher = new FetcherOfQuestionsForFollowedCommunities(
-    Math.floor(1.2 * initLoadedItems),
-    followedCommunities || [],
-    eosService,
-  );
-
-  const next = false;
-  const toUpdateQuestions = true;
-
-  setCookie({
-    name: UPDATE_PROMO_QUESTIONS,
-    value: true,
-  });
-
-  yield put(
-    getQuestionsAction(
-      initLoadedItems,
-      offset,
-      communityIdFilter,
-      parentPage,
-      fetcher,
-      next,
-      toUpdateQuestions,
-    ),
-  );
+  //TODO for updating promoted questions
+  // const eosService = yield select(selectEos);
+  // const initLoadedItems = yield select(selectInitLoadedItems());
+  // const offset = 0;
+  // const communityIdFilter = yield select(selectTypeFilter());
+  // const followedCommunities = yield select(makeSelectFollowedCommunities());
+  // const parentPage = window.location.pathname;
+  // const fetcher = new FetcherOfQuestionsForFollowedCommunities(
+  //   Math.floor(1.2 * initLoadedItems),
+  //   followedCommunities || [],
+  //   eosService,
+  // );
+  //
+  // const next = false;
+  // const toUpdateQuestions = true;
+  //
+  // setCookie({
+  //   name: UPDATE_PROMO_QUESTIONS,
+  //   value: true,
+  // });
+  // yield put(
+  //   getQuestionsAction(
+  //     initLoadedItems,
+  //     offset,
+  //     communityIdFilter,
+  //     parentPage,
+  //     fetcher,
+  //     next,
+  //     toUpdateQuestions,
+  //   ),
+  // );
 }
 
 function* changeQuestionFilterWorker({ questionFilter }) {
@@ -531,7 +531,7 @@ function* moveQuestionWorker({ id, position }) {
 }
 
 export default function*() {
-  yield takeEvery(GET_QUESTIONS, getQuestionsWorker);
+  yield takeLatest(GET_QUESTIONS, getQuestionsWorker);
   yield takeLatest(FOLLOW_HANDLER_SUCCESS, redirectWorker);
   yield takeLatest(CHANGE_QUESTION_FILTER, changeQuestionFilterWorker);
   yield takeLatest(

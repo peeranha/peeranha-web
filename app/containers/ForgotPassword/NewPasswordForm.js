@@ -16,23 +16,23 @@ import {
 import TextInputField from 'components/FormFields/TextInputField';
 import Button from 'components/Button/Contained/InfoLarge';
 import H4 from 'components/H4';
-import InfoLabel from 'components/InfoLabelWithPopover';
 
 import signupMessages from 'containers/SignUp/messages';
 import loginMessages from 'containers/Login/messages';
 
 import {
-  MASTER_KEY_FIELD,
   PASSWORD_FIELD,
   NEW_PASSWORD_FIELD,
+  VERIFICATION_CODE_FIELD,
 } from './constants';
-
-import messages from './messages';
+import commonMessages from '../../common-messages';
+import TransparentButton from '../../components/Button/Contained/Transparent';
 
 const NewPasswordForm = /* istanbul ignore next */ ({
   handleSubmit,
   locale,
   changePassword,
+  sendAnotherCode,
   changePasswordLoading,
 }) => (
   <div>
@@ -42,16 +42,9 @@ const NewPasswordForm = /* istanbul ignore next */ ({
 
     <form onSubmit={handleSubmit(changePassword)}>
       <Field
-        name={MASTER_KEY_FIELD}
+        name={VERIFICATION_CODE_FIELD}
         disabled={changePasswordLoading}
-        label={
-          <InfoLabel
-            id="new-password-form-info-label"
-            message={translationMessages[locale][messages.youGotThisKey.id]}
-          >
-            <FormattedMessage {...signupMessages.masterKey} />
-          </InfoLabel>
-        }
+        label={translationMessages[locale][signupMessages.checkYourEmail.id]}
         component={TextInputField}
         validate={[required]}
         warn={[required]}
@@ -80,6 +73,14 @@ const NewPasswordForm = /* istanbul ignore next */ ({
       <Button disabled={changePasswordLoading} className="w-100">
         <FormattedMessage {...signupMessages.continue} />
       </Button>
+
+      <TransparentButton
+        className="mt-3"
+        onClick={sendAnotherCode}
+        type="button"
+      >
+        <FormattedMessage {...commonMessages.sendAnotherCode} />
+      </TransparentButton>
     </form>
   </div>
 );
@@ -87,6 +88,7 @@ const NewPasswordForm = /* istanbul ignore next */ ({
 NewPasswordForm.propTypes = {
   handleSubmit: PropTypes.func,
   changePassword: PropTypes.func,
+  sendAnotherCode: PropTypes.func,
   locale: PropTypes.string,
   changePasswordLoading: PropTypes.bool,
 };

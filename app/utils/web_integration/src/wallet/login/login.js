@@ -1,4 +1,4 @@
-const { buildEncryptionKeys } = require('../../util/encryption-key-builder');
+const { AUTOLOGIN_DATA } = require('containers/Login/constants');
 
 const {
   decryptObject,
@@ -14,24 +14,12 @@ const {
   LOGIN_AUTOLOGIN_DATA_SERVICE,
 } = require('../../util/aws-connector');
 
-const { AUTOLOGIN_DATA } = require('../../../../../containers/Login/constants');
 const { setCookie, getCookie } = require('../../../../cookie');
 
 async function login(email, password, rememberMe = false) {
-  const { authKey, encryptionKey } = buildEncryptionKeys(password);
-  const requestCreationTime = Date.now();
-  const ivResponseEncrypt = getRandomIv();
-  const pasphrase = {
-    requestCreationTime,
-    ivResponseEncrypt,
-    supplicant: email,
-  };
-
-  const encryptedPassphrase = encryptObject(pasphrase, authKey);
   const requestBody = {
     email,
-    encryptedPassphrase,
-    autoLogin: true,
+    password,
   };
 
   const response = await callService(LOGIN_SERVICE, requestBody);
@@ -40,32 +28,14 @@ async function login(email, password, rememberMe = false) {
     return response;
   }
 
-  const loginResponse = decryptObject(
-    response.body.encryptedLoginResponse,
-    authKey,
-    ivResponseEncrypt,
-  );
-
-  const {
-    eosAccountName,
-    activeEosKey,
-    hasOwnerEosKey,
-  } = loginResponse.eosKeyCarrier;
-
-  const activeKey = decryptObject(activeEosKey, encryptionKey);
-
-  const { authToken, passwordServerPart } = loginResponse.autoLoginOptions;
-  const passwordUserPart = getRandomKey();
-  const xorArrayPassword = xorArray(passwordUserPart, passwordServerPart);
-  const encryptedKeys = encryptObject(activeKey, xorArrayPassword);
+  const { username, address, token } = response.body;
 
   const peeranhaAutoLogin = {
-    email,
-    eosAccountName,
-    authToken,
-    passwordUserPart,
-    encryptedKeys,
-    hasOwnerEosKey,
+    email: username,
+    username,
+    account: address,
+    ethereumUserAddress: address,
+    authToken: token,
   };
 
   if (rememberMe) {
@@ -92,7 +62,7 @@ async function login(email, password, rememberMe = false) {
 
   return {
     OK: true,
-    body: { activeKey, eosAccountName, hasOwnerEosKey },
+    body: response.body,
     peeranhaAutoLogin,
   };
 }
@@ -132,7 +102,4 @@ async function autoLogin() {
   };
 }
 
-module.exports = {
-  login,
-  autoLogin,
-};
+export { login, autoLogin };

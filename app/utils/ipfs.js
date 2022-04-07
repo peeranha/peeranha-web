@@ -70,7 +70,7 @@ export function getFileUrl(hash) {
     return null;
   }
   const IPFS_DOMAIN = process.env.IPFS_CDN_URL;
-  return hash.includes(IPFS_DOMAIN) ? hash : `${IPFS_DOMAIN}${hash}`;
+  return hash?.includes(IPFS_DOMAIN) ? hash : `${IPFS_DOMAIN}${hash}`;
 }
 
 // TODO: test
@@ -92,6 +92,12 @@ export function StringToHash(stringHash) {
   res.push(...buf_array.slice(2));
   return res;
 }
+
+export const getBytes32FromIpfsHash = ipfsListing =>
+  `0x${bs58
+    .decode(ipfsListing)
+    .slice(2)
+    .toString('hex')}`;
 
 export const getIpfsHashFromBytes32 = bytes32Hex => {
   const hashHex = '1220' + bytes32Hex.slice(2);

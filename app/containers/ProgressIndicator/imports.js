@@ -6,11 +6,7 @@ import {
   selectSendOldEmailProcessing,
   selectConfirmOldEmailProcessing,
 } from 'containers/ChangeEmail/selectors';
-import {
-  selectSendEmailProcessing,
-  selectSubmitEmailProcessing,
-  selectChangePasswordProcessing,
-} from 'containers/ChangePasswordByPrevious/selectors';
+import { selectChangePasswordProcessing } from 'containers/ChangePasswordByPrevious/selectors';
 import { selectCreateCommunityLoading } from 'containers/CreateCommunity/selectors';
 import { selectSuggestTagLoading } from 'containers/CreateTag/selectors';
 import { selectEditTagProcessing } from 'containers/EditTag/selectors';
@@ -40,8 +36,7 @@ import {
 } from 'containers/ShowOwnerKey/selectors';
 import {
   selectEmailVerificationProcessing,
-  selectIHaveEosAccountProcessing,
-  selectIdontHaveEosAccountProcessing,
+  selectSignUpViaEmailProcessing,
   selectSignUpWithWalletProcessing,
   selectShowWalletSignUpProcessing,
 } from 'containers/SignUp/selectors';
@@ -86,8 +81,6 @@ export default {
   selectEditCommunityLoading: selectEditCommunityLoading(),
   selectSendOldEmailProcessing: selectSendOldEmailProcessing(),
   selectConfirmOldEmailProcessing: selectConfirmOldEmailProcessing(),
-  selectSendEmailProcessing: selectSendEmailProcessing(),
-  selectSubmitEmailProcessing: selectSubmitEmailProcessing(),
   selectChangePasswordProcessing: selectChangePasswordProcessing(),
   selectCreateCommunityLoading: selectCreateCommunityLoading(),
   selectSuggestTagLoading: selectSuggestTagLoading(),
@@ -109,8 +102,7 @@ export default {
   selectShowOwnerKeyProcessing: selectShowOwnerKeyProcessing(),
   sendEmailShowOwnerKey: sendEmailShowOwnerKey(),
   selectEmailVerificationProcessing: selectEmailVerificationProcessing(),
-  selectIHaveEosAccountProcessing: selectIHaveEosAccountProcessing(),
-  selectIdontHaveEosAccountProcessing: selectIdontHaveEosAccountProcessing(),
+  selectSignUpViaEmailProcessing: selectSignUpViaEmailProcessing(),
   selectSignUpWithWalletProcessing: selectSignUpWithWalletProcessing(),
   selectShowWalletSignUpProcessing: selectShowWalletSignUpProcessing(),
   selectPostAnswerLoading: selectPostAnswerLoading(),

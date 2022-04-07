@@ -21,7 +21,8 @@ const View = ({
   ids,
 }) => (
   <>
-    <NavHeader userId={userId} />
+    {/*TODO boost*/}
+    {/*<NavHeader userId={userId} />*/}
 
     <SubHeader
       account={account}

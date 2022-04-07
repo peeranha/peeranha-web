@@ -64,25 +64,26 @@ export const ChangeLocale = ({ locale, changeLocaleDispatch, withTitle }) => {
           </Span>
         </React.Fragment>
       }
-      menu={
-        <ul>
-          {appLocales.map(x => (
-            <Li
-              key={x}
-              role="presentation"
-              onClick={() => setLocale(x)}
-              isBold={x === locale}
-            >
-              <Flag src={require(`images/${x}_lang.png`)} alt="language" />
-              <FormattedMessage {...commonMessages[x]} />
-            </Li>
-          ))}
-        </ul>
-      }
-      id="choose-language-dropdown"
-      isArrowed
-      isMenuLabelMobile
-      isArrowMarginMobile
+      // TODO: return when language selection is needed
+      // menu={
+      //   <ul>
+      //     {appLocales.map(x => (
+      //       <Li
+      //         key={x}
+      //         role="presentation"
+      //         onClick={() => setLocale(x)}
+      //         isBold={x === locale}
+      //       >
+      //         <Flag src={require(`images/${x}_lang.png`)} alt="language" />
+      //         <FormattedMessage {...commonMessages[x]} />
+      //       </Li>
+      //     ))}
+      //   </ul>
+      // }
+      // id="choose-language-dropdown"
+      // isArrowed
+      // isMenuLabelMobile
+      // isArrowMarginMobile
     />
   );
 };

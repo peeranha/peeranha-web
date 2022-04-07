@@ -19,7 +19,7 @@ import blockIcon from 'images/blockIcon.svg?external';
 import changeTypeIcon from 'images/change-type.svg?external';
 import currencyPeer from 'images/currencyPeer.svg?external';
 
-import { getUserAvatar } from 'utils/profileManagement';
+import { getRatingByCommunity, getUserAvatar } from 'utils/profileManagement';
 import { MODERATOR_KEY, TEMPORARY_ACCOUNT_KEY } from 'utils/constants';
 import { useOnClickOutside } from 'utils/click-listners';
 
@@ -147,7 +147,6 @@ const ContentHeader = props => {
   } else {
     deleteAction = isGlobalAdmin || infiniteImpact ? deleteItem : null;
   }
-
   return (
     <Box>
       <RatingBox>
@@ -159,7 +158,7 @@ const ContentHeader = props => {
           avatar={getUserAvatar(author.avatar)}
           name={author?.['displayName']}
           account={author.user}
-          rating={author.rating}
+          rating={getRatingByCommunity(author, props.commId)}
           type={type}
           postTime={postTime}
           locale={locale}

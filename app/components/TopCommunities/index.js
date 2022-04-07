@@ -27,12 +27,16 @@ import Span from 'components/Span';
 import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
 import MediumImage from 'components/Img/MediumImage';
 import Grid from 'components/Grid';
+import RatingStatus from 'components/RatingStatus';
 
 const single = isSingleCommunityWebsite();
 
 const FrontSide = styled.div`
   > div {
     padding: 20px;
+    div {
+      margin-bottom: 10px;
+    }
 
     &:not(:last-child) {
       border-bottom: 1px solid ${BORDER_SECONDARY};
@@ -125,66 +129,57 @@ const TopCommunities = ({
   return (
     <div className="overlow-hidden" ref={ref}>
       <H4 isHeader>
-        <FormattedMessage {...messages.top} />{' '}
-        <span className="text-lowercase">
-          <FormattedMessage {...messages.communities} />
-        </span>
+        <FormattedMessage {...messages.myCommunities} />
       </H4>
 
       <Grid xl={5} lg={4} md={3} sm={2} xs={1}>
-        {orderBy(communities, 'users_subscribed', 'desc')
+        {orderBy(profile.ratings, 'rating', 'desc')
           .slice(0, 9)
           .map(x => {
             let Link = AStyled;
-            let route = routes.questions(x.id);
-            if (single && x.id !== single) {
+            let route = routes.questions(x.communityId);
+            if (single && x.communityId !== single) {
               Link = ADefaultStyled;
               route = `${process.env.APP_LOCATION}${route}`;
-            } else if (single && x.id === single) {
+            } else if (single && x.communityId === single) {
               route = routes.questions();
             }
+            const community = communities.find(
+              community => community.id == x.communityId,
+            );
 
             return (
-              <div key={x.id}>
+              <div key={x.communityId}>
                 <BaseRoundedNoPadding>
                   <Link href={route} to={route}>
                     <FrontSide>
                       <div>
-                        <MediumImage src={x.avatar} alt="comm_img" />
+                        <MediumImage src={community.avatar} alt="comm_img" />
                         <P fontSize="16" bold>
-                          {x.name}
+                          {community.name}
                         </P>
                       </div>
 
                       <div>
-                        <div className="d-flex mb-3">
-                          <div className="d-flex flex-column flex-grow-1">
-                            <Span fontSize="16" bold>
-                              {getFormattedNum2(x.users_subscribed)}
-                            </Span>
-                            <Span
-                              className="mt-1"
-                              fontSize="14"
-                              color={TEXT_SECONDARY}
-                            >
-                              <FormattedMessage {...messages.users} />
-                            </Span>
-                          </div>
-                          <div className="d-flex flex-column flex-grow-1">
-                            <Span fontSize="16" bold>
-                              {getFormattedNum2(x.postCount)}
-                            </Span>
-                            <Span
-                              className="mt-1"
-                              fontSize="14"
-                              color={TEXT_SECONDARY}
-                            >
-                              <FormattedMessage {...messages.questions} />
-                            </Span>
-                          </div>
+                        <div>
+                          <Span
+                            className="mt-1"
+                            fontSize="14"
+                            color={TEXT_SECONDARY}
+                          >
+                            <FormattedMessage {...messages.reputation} />
+                          </Span>
+                          <RatingStatus
+                            className="py-1"
+                            size="lg"
+                            rating={x.rating}
+                            isRankOff={false}
+                          />
                         </div>
 
-                        <FollowCommunityButton communityIdFilter={x.id} />
+                        <FollowCommunityButton
+                          communityIdFilter={community.id}
+                        />
                       </div>
                     </FrontSide>
 
@@ -192,12 +187,14 @@ const TopCommunities = ({
                       <div className="d-flex flex-column justify-content-between">
                         <div>
                           <P fontSize="16" bold>
-                            {x.name}
+                            {community.name}
                           </P>
-                          <P>{x.description}</P>
+                          <P>{community.description}</P>
                         </div>
                         <div>
-                          <FollowCommunityButton communityIdFilter={x.id} />
+                          <FollowCommunityButton
+                            communityIdFilter={community.id}
+                          />
                         </div>
                       </div>
                     </BackSide>

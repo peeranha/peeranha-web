@@ -28,7 +28,7 @@ import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
 import H3 from 'components/H3';
 import Span from 'components/Span';
 import TransparentButton from 'components/Button/Contained/Transparent';
-import { Div } from 'containers/SignUp/IHaveEOSAccountForm';
+import { Div } from 'containers/SignUp/EthereumWalletGenerationForm';
 import Footer from 'containers/Login/Footer';
 
 import SignUpWrapper from './index';
@@ -99,7 +99,7 @@ const LoginLink = styled.div`
 const styles = singleCommunityStyles();
 
 const LeftMenu = ({ faqQuestions, mainLogo }) => (
-  <React.Fragment>
+  <>
     <div className="mb-4">
       {styles.withoutSubHeader ? (
         <CommunityLogoWrapper>
@@ -136,12 +136,13 @@ const LeftMenu = ({ faqQuestions, mainLogo }) => (
       </P>
     </div>
 
+    {/* TODO: PEER-285 Hide FAQ Questions
     {faqQuestions && (
       <ul className="mb-4">
         {faqQuestions.map(x => <Li key={x.props.children}>{x}</Li>)}
       </ul>
-    )}
-  </React.Fragment>
+    )}*/}
+  </>
 );
 
 /* eslint react/no-children-prop: 0 */

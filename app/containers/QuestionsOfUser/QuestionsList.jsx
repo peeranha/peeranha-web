@@ -38,7 +38,6 @@ const RightBlock = Base.extend`
 
 export const Li = BaseRoundedNoPadding.extend`
   display: flex;
-  overflow: hidden;
   border: ${x => (x.bordered ? `1px solid ${BORDER_PRIMARY} !important` : '0')};
   > div:nth-child(2) {
     border-left: 1px solid ${BORDER_SECONDARY};
@@ -73,7 +72,6 @@ const LastAnswer = ({ lastAnswer, locale }) => {
           <Span className="mr-2" fontSize="14" lineHeight="18">
             {lastAnswer.author?.displayName}
           </Span>
-          <RatingStatus rating={lastAnswer.author.rating} size="sm" isRankOff />
         </A>
       )}
 

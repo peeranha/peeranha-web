@@ -80,10 +80,9 @@ export function loginWithEmail(val) {
   };
 }
 
-export function loginWithEmailSuccess(eosAccount, content) {
+export function loginWithEmailSuccess(content) {
   return {
     type: LOGIN_WITH_EMAIL_SUCCESS,
-    eosAccount,
     content,
   };
 }

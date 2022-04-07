@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useMemo } from 'react';
+import React, { memo, useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -57,9 +57,6 @@ import TypeForm from './TypeForm';
 import TitleForm from './TitleForm';
 import ContentForm from './ContentForm';
 import TagsForm from './TagsForm';
-import PromotedQuestionForm from './PromotedQuestionForm';
-import BountyForm from './BountyForm';
-import BountyDateForm from './BountyDateForm';
 
 import {
   ANY_TYPE,
@@ -67,16 +64,11 @@ import {
 } from '../../containers/CreateCommunity/constants';
 import createdHistory from '../../createdHistory';
 import * as routes from '../../routes-config';
-import { now } from 'lodash';
 import DescriptionList from '../DescriptionList';
+import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
+import { getPermissions, hasGlobalModeratorRole } from 'utils/properties';
 
 const single = isSingleCommunityWebsite();
-
-const PromoteQuestionInfo = styled.p`
-  margin-top: 25px;
-  font-weight: 600;
-  font-size: 18px;
-`;
 
 const SuggestTag = memo(({ redirectToCreateTagDispatch, formValues }) => {
   const communityId = useMemo(() => formValues?.[FORM_COMMUNITY]?.value ?? 0, [
@@ -120,10 +112,18 @@ export const QuestionForm = ({
   skipExistingQuestions,
   communityQuestionsType,
   disableCommForm,
+  profile,
 }) => {
-  const handleSubmitWithType = sendQuestion => {
+  const [isSelectedType, setIsSelectedType] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [isClickSubmit, setIsClickSubmit] = useState(false);
+
+  const handleSubmitWithType = () => {
     if (communityQuestionsType !== ANY_TYPE) {
       change(FORM_TYPE, communityQuestionsType);
+    }
+    if (!isSelectedType && !isError && isClickSubmit) {
+      return setIsError(true);
     }
     return handleSubmit(sendQuestion);
   };
@@ -142,28 +142,20 @@ export const QuestionForm = ({
     createdHistory.push(routes.search(formValues[FORM_TITLE]));
   };
 
-  const promotedQuestionEndsTime = useMemo(
-    () => {
-      if (typeof question?.promote === 'object') {
-        return getFormattedDate(
-          question.promote.endsTime,
-          locale,
-          MONTH_3LETTERS__DAY_YYYY_TIME,
-        );
-      }
+  const profileWithModeratorRights =
+    profile && hasGlobalModeratorRole(getPermissions(profile));
 
-      return null;
-    },
-    [question],
-  );
+  const makeIsClicked = () => setIsClickSubmit(true);
 
   return (
     <div>
       <Header formTitle={formTitle} questionId={questionid} intl={intl} />
-
       <TipsBase>
         <BaseSpecialOne>
-          <FormBox onSubmit={handleSubmitWithType(sendQuestion)}>
+          <FormBox
+            onSubmit={handleSubmitWithType(sendQuestion)}
+            onClick={makeIsClicked}
+          >
             <CommunityForm
               intl={intl}
               communities={communities}
@@ -180,6 +172,10 @@ export const QuestionForm = ({
                   questionLoading={questionLoading}
                   locale={locale}
                   formValues={formValues}
+                  isError={isError}
+                  setIsError={setIsError}
+                  hasSelectedType={isSelectedType}
+                  setHasSelectedType={setIsSelectedType}
                 />
               )) ||
                 (communityQuestionsType === GENERAL_TYPE && (
@@ -230,10 +226,12 @@ export const QuestionForm = ({
               change={change}
             />
 
-            <SuggestTag
-              formValues={formValues}
-              redirectToCreateTagDispatch={redirectToCreateTagDispatch}
-            />
+            {profileWithModeratorRights && (
+              <SuggestTag
+                formValues={formValues}
+                redirectToCreateTagDispatch={redirectToCreateTagDispatch}
+              />
+            )}
 
             {/*<BountyForm*/}
             {/*  intl={intl}*/}
@@ -249,20 +247,6 @@ export const QuestionForm = ({
             {/*  formValues={formValues}*/}
             {/*  change={change}*/}
             {/*/>*/}
-
-            {promotedQuestionEndsTime &&
-            question.promote.endsTime > Math.trunc(now() / 1000) ? (
-              <PromoteQuestionInfo>
-                {intl.formatMessage(messages.questionIsPromoting)}{' '}
-                {promotedQuestionEndsTime}
-              </PromoteQuestionInfo>
-            ) : (
-              <PromotedQuestionForm
-                intl={intl}
-                questionLoading={questionLoading}
-                formValues={formValues}
-              />
-            )}
 
             <Button
               disabled={questionLoading}
@@ -305,6 +289,7 @@ QuestionForm.propTypes = {
   doSkipExistingQuestions: PropTypes.bool,
   skipExistingQuestions: PropTypes.func,
   disableCommForm: PropTypes.bool,
+  profile: PropTypes.object,
 };
 
 const FormClone = reduxForm({
@@ -325,6 +310,7 @@ export default memo(
         const disableCommForm = formName === EDIT_QUESTION_FORM;
 
         return {
+          profile: makeSelectProfileInfo()(state),
           formValues: state.toJS().form[formName]?.values ?? {},
           communityQuestionsType: questionsType ?? ANY_TYPE,
           initialValues: {

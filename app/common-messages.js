@@ -279,8 +279,8 @@ export default defineMessages({
   password: {
     id: 'app.common.password',
   },
-  ethereumAddress: {
-    id: 'app.common.ethereumAddress',
+  walletAddress: {
+    id: 'app.common.walletAddress',
   },
   successMessage: {
     id: 'app.common.successMessage',
@@ -318,14 +318,14 @@ export default defineMessages({
   description: {
     id: 'app.common.description',
   },
-  questionsNumber: {
-    id: 'app.common.questionsNumber',
+  postsNumber: {
+    id: 'app.common.postsNumber',
   },
   answersNumber: {
     id: 'app.common.answersNumber',
   },
-  postsNumber: {
-    id: 'app.common.postsNumber',
+  allActivitiesNumber: {
+    id: 'app.common.allActivitiesNumber',
   },
   answer: {
     id: 'app.common.answer',
@@ -351,8 +351,8 @@ export default defineMessages({
   iAcceptPrivacyPolicy: {
     id: 'app.common.iAcceptPrivacyPolicy',
   },
-  termsOfTelos: {
-    id: 'app.common.termsOfTelos',
+  terms: {
+    id: 'app.common.terms',
   },
   inProgress: {
     id: 'app.common.inProgress',
@@ -390,11 +390,23 @@ export default defineMessages({
   receivedReward: {
     id: 'app.common.receivedReward',
   },
+  generalPopoverLabel: {
+    id: 'app.common.generalPopoverLabel',
+  },
+  generalPopoverList: {
+    id: 'app.common.generalPopoverList',
+  },
   expertPopoverLabel: {
     id: 'app.common.expertPopoverLabel',
   },
   expertPopoverList: {
     id: 'app.common.expertPopoverList',
+  },
+  tutorialPopoverLabel: {
+    id: 'app.common.tutorialPopoverLabel',
+  },
+  tutorialPopoverList: {
+    id: 'app.common.tutorialPopoverList',
   },
   chooseCrypto: {
     id: 'app.common.chooseCrypto',

@@ -19,7 +19,6 @@ import { DAEMON } from 'utils/constants';
 import { HOME_KEY } from 'containers/Home/constants';
 
 import { generateKeys } from 'utils/web_integration/src/util/eos-keygen';
-import { generateMasterKey } from 'utils/web_integration/src/util/masterKeygen';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
 import { getLogo } from 'containers/Home/actions';
@@ -46,7 +45,7 @@ import {
   checkEmail,
   verifyEmail,
   iHaveEosAccount,
-  idontHaveEosAccount,
+  signUpViaEmailComplete,
   putKeysToState,
   showWalletSignUpForm,
   signUpWithWallet,
@@ -66,9 +65,8 @@ export const SignUp = ({
   emailChecking,
   emailVerificationProcessing,
   iHaveEosAccountProcessing,
-  idontHaveEosAccountProcessing,
-  idontHaveEosAccountDispatch,
-  iHaveEosAccountDispatch,
+  signUpViaEmailProcessing,
+  signUpViaEmailComplete,
   verifyEmailDispatch,
   showLoginModalDispatch,
   signUpWithWalletDispatch,
@@ -90,23 +88,6 @@ export const SignUp = ({
     checkEmailDispatch(post);
   };
 
-  const getLinkToDownloadKeys = k => {
-    const data = new Blob([k], { type: 'text/plain' });
-    return window.URL.createObjectURL(data);
-  };
-
-  const getMasterKey = () => {
-    const masterKey = generateMasterKey();
-    const linkToDownloadMasterKey = getLinkToDownloadKeys(
-      `Peeranha Master Key: ${masterKey}`,
-    );
-
-    putKeysToStateDispatch({
-      masterKey,
-      linkToDownloadMasterKey,
-    });
-  };
-
   const getAllKeys = async () => {
     const { activeKey, ownerKey } = await generateKeys();
 
@@ -122,7 +103,6 @@ export const SignUp = ({
     }
 
     if (!keys) {
-      getMasterKey();
       getAllKeys();
     }
   }, []);
@@ -148,8 +128,7 @@ export const SignUp = ({
       {children({
         checkEmail: checkEmailMethod,
         verifyEmail: verifyEmailDispatch,
-        iHaveEosAccount: iHaveEosAccountDispatch,
-        idontHaveEosAccount: idontHaveEosAccountDispatch,
+        signUpViaEmailComplete,
         showLoginModal: showLoginModalDispatch,
         showWalletSignUpForm: showWalletSignUpFormDispatch,
         signUpWithWallet: signUpWithWalletDispatch,
@@ -162,7 +141,7 @@ export const SignUp = ({
         emailChecking,
         emailVerificationProcessing,
         iHaveEosAccountProcessing,
-        idontHaveEosAccountProcessing,
+        signUpViaEmailProcessing,
         signUpWithWalletProcessing,
         showWalletSignUpProcessing,
         logo,
@@ -177,13 +156,12 @@ SignUp.propTypes = {
   showLoginModalDispatch: PropTypes.func,
   checkEmailDispatch: PropTypes.func,
   verifyEmailDispatch: PropTypes.func,
-  iHaveEosAccountDispatch: PropTypes.func,
-  idontHaveEosAccountDispatch: PropTypes.func,
+  signUpViaEmailComplete: PropTypes.func,
   signUpWithWalletDispatch: PropTypes.func,
   emailChecking: PropTypes.bool,
   emailVerificationProcessing: PropTypes.bool,
   iHaveEosAccountProcessing: PropTypes.bool,
-  idontHaveEosAccountProcessing: PropTypes.bool,
+  signUpViaEmailProcessing: PropTypes.bool,
   signUpWithWalletProcessing: PropTypes.bool,
   showWalletSignUpProcessing: PropTypes.bool,
   showWalletSignUpFormDispatch: PropTypes.func,
@@ -205,8 +183,7 @@ const withConnect = connect(
     email: signUpSelectors.selectEmail(),
     emailChecking: signUpSelectors.selectEmailChecking(),
     emailVerificationProcessing: signUpSelectors.selectEmailVerificationProcessing(),
-    iHaveEosAccountProcessing: signUpSelectors.selectIHaveEosAccountProcessing(),
-    idontHaveEosAccountProcessing: signUpSelectors.selectIdontHaveEosAccountProcessing(),
+    signUpViaEmailProcessing: signUpSelectors.selectSignUpViaEmailProcessing(),
     signUpWithWalletProcessing: signUpSelectors.selectSignUpWithWalletProcessing(),
     showWalletSignUpProcessing: signUpSelectors.selectShowWalletSignUpProcessing(),
     ethereumUserAddress: signUpSelectors.selectEthereumUserAddress(),
@@ -216,9 +193,8 @@ const withConnect = connect(
   dispatch => ({
     checkEmailDispatch: bindActionCreators(checkEmail, dispatch),
     verifyEmailDispatch: bindActionCreators(verifyEmail, dispatch),
-    iHaveEosAccountDispatch: bindActionCreators(iHaveEosAccount, dispatch),
-    idontHaveEosAccountDispatch: bindActionCreators(
-      idontHaveEosAccount,
+    signUpViaEmailComplete: bindActionCreators(
+      signUpViaEmailComplete,
       dispatch,
     ),
     putKeysToStateDispatch: bindActionCreators(putKeysToState, dispatch),

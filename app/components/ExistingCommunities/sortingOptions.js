@@ -1,10 +1,10 @@
 import messages from 'common-messages';
 
 export default {
-  questions: {
+  posts: {
     sortBy: 'postCount',
     order: 'desc',
-    message: messages.questions,
+    message: messages.posts,
   },
   answers: {
     sortBy: 'answersGiven',

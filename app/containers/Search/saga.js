@@ -3,10 +3,12 @@ import { getResults } from 'utils/custom-search';
 
 import { GET_RESULTS } from './constants';
 import { getResultsSuccess, getResultsErr } from './actions';
+import { isSingleCommunityWebsite } from '../../utils/communityManagement';
 
 export function* searchWorker({ query }) {
   try {
-    const items = yield call(getResults, query);
+    const single = isSingleCommunityWebsite();
+    const items = yield call(getResults, query, single);
     yield put(getResultsSuccess(items));
   } catch (err) {
     yield put(getResultsErr(err));

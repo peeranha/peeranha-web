@@ -24,7 +24,7 @@ import {
 
 import Container from 'components/Labels/QuestionType';
 
-import ExpertPopover from './ExpertPopover';
+import Popover from './Popover';
 import { POST_TYPE } from '../../../../utils/constants';
 
 import expertIcon from 'images/hat-3-outline-24.svg?external';
@@ -107,7 +107,6 @@ const Icon = styled(IconLg)`
 `;
 
 const QuestionType = ({ locale, postType, isPromoted, isExpert }) => {
-  console.log(isExpert);
   const [visible, changeVisibility] = useState(false);
 
   const onMouseEnter = useCallback(() => changeVisibility(true), []);
@@ -123,7 +122,13 @@ const QuestionType = ({ locale, postType, isPromoted, isExpert }) => {
             size="sm"
           >
             {/*TODO change popover*/}
-            {visible && <ExpertPopover locale={locale} />}
+            {visible && (
+              <Popover
+                locale={locale}
+                label={commonMessages.generalPopoverLabel.id}
+                items={commonMessages.generalPopoverList.id}
+              />
+            )}
 
             <Icon className="mr-2" icon={generalIcon} />
           </Container>
@@ -136,7 +141,13 @@ const QuestionType = ({ locale, postType, isPromoted, isExpert }) => {
             onMouseLeave={onMouseLeave}
             size="sm"
           >
-            {visible && <ExpertPopover locale={locale} />}
+            {visible && (
+              <Popover
+                locale={locale}
+                label={commonMessages.expertPopoverLabel.id}
+                items={commonMessages.expertPopoverList.id}
+              />
+            )}
             <Icon isExpert className="mr-2" icon={expertIcon} />
           </Container>
         </LabelItem>
@@ -149,7 +160,13 @@ const QuestionType = ({ locale, postType, isPromoted, isExpert }) => {
             size="sm"
           >
             {/*TODO change popover*/}
-            {visible && <ExpertPopover locale={locale} />}
+            {visible && (
+              <Popover
+                locale={locale}
+                label={commonMessages.tutorialPopoverLabel.id}
+                items={commonMessages.tutorialPopoverList.id}
+              />
+            )}
             <Icon isTutorial={true} className="mr-2" icon={tutorialIcon} />
           </Container>
         </LabelItem>

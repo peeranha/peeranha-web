@@ -12,7 +12,7 @@ Unlike other question and answer websites where an organization owns the website
 
 ### How does it work?
 
-Peeranha is built using smart contracts on the Telos blockchain. Large content is stored via distributed storage (IPFS) and only hashes of all documents are posted on the blockchain to save expensive blockchain storage. Reputation, privileges, moderation, rewards and all other rules are built into smart contracts and are visible to anyone.
+Peeranha is built using smart contracts on the Polygon blockchain. Large content is stored via distributed storage (IPFS) and only hashes of all documents are posted on the blockchain to save expensive blockchain storage. Reputation, privileges, moderation, rewards and all other rules are built into smart contracts and are visible to anyone.
 
 ### Where do tokens for rewards come from?
 
@@ -20,7 +20,7 @@ Peeranha continually creates new tokens once a week until the total supply of to
 
 ### What Blockchain is Peeranha built on?
 
-Peeranha is powered by Telos blockchain. Telos provides short confirmation times for transactions and does not require users to pay any transaction fees.
+Peeranha is powered by Polygon blockchain. Polygon provides short confirmation times for transactions and does not require users to pay any transaction fees.
 
 ### What is the cryptocurrency of Peeranha?
 
@@ -53,7 +53,7 @@ Two encrypted copies of your keys are sent to Peeranha’s API and saved in our 
 
 When accessing your account, encrypted keys are sent to the application and decrypted inside the application using your password or Master Key.
 
-### Can I sign up with email if I already have a Telos account?
+### Can I sign up with email if I already have an account?
 
 Yes you can. You will need to provide at least your active key for your account. However, we will never transport or store your key unencrypted. The key will be encrypted using your password and Master Key in the application and only after it is encrypted it is sent to our API.
 
@@ -91,7 +91,8 @@ Communities are an area on the website dedicated to question and answers for a s
 
 ### How are new communities and tags created?
 
-Communities and tags are created by community voting. During the first year, the Peeranha team will be able to create communities without voting. Contact support at hello@peeranha.io if you’re interested in creating a community for your project.
+<!---Communities and tags are created by community voting.--->
+During the first year, the Peeranha team will be able to create communities without voting. Contact support at hello@peeranha.io if you’re interested in creating a community for your project.
 
 ## Questions, Answers and Comments
 
@@ -236,7 +237,7 @@ No, PEER is not listed on any exchange yet. We will notify the community as soon
 
 ### What is total supply?
 
-The total supply of the PEER token is 100,000,000 PEER
+The total supply of the PEER token is 1 000 000 000 PEER
 
 ### What is the token allocation?
 
@@ -246,7 +247,7 @@ The total supply of the PEER token is 100,000,000 PEER
 
 ### What is emission rate?
 
-New tokens are created once per week. The maximum starting emission is 100,000 PEER per week (depends on user activity). The emission is reduced by 10% every 52 weeks.
+New tokens are created once per week. The maximum starting emission is 1 000 000 PEER per week (depends on user activity). The emission is reduced by 7% every 52 weeks.
 
 ## Rewards
 
@@ -262,13 +263,13 @@ For example:
 - Week 2: rewards are allocated but not distributed
 - Week 3: rewards from week 1’s contributions are distributed estimated rewards for week 1 will be visible after the start of week 2 but available to be received only after the start of week 3.
 
-### How are user rewards calculated?
+<!--### How are user rewards calculated?
 
 Exact user rewards depends on the user activity during a given period. The maximum size of the weekly reward pool is equal to maximum weekly emission of the token.
 
 If total rating points earned by all of the users during the week multiplied by 10 is less than maximum token emission, then the reward is simply 10 PEERs per rating point.
 
-Otherwise, the reward pool size is equal to the maximum weekly token emission and tokens are distributed proportionally to rating points earned by users.
+Otherwise, the reward pool size is equal to the maximum weekly token emission and tokens are distributed proportionally to rating points earned by users.-->
 
 ## Messenger Bots
 

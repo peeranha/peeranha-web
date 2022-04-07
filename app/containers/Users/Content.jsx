@@ -54,35 +54,48 @@ const Content = ({
       isLastFetch={isLastFetch}
     >
       <Grid xl={5} lg={4} md={3} sm={2} xs={1}>
-        {users.map(x => (
-          <A to={routes.profileView(x.id)} key={x.id}>
-            <User>
-              <MediumImageWrapper>
-                <MediumImage
-                  isBordered
-                  className="flex-shrink-0 mr-2"
-                  src={getUserAvatar(x.avatar)}
-                  alt="avatar"
-                />
-                {!!x?.['integer_properties']?.find(
-                  item => item.key === TEMPORARY_ACCOUNT_KEY && item.value,
-                ) && (
-                  <TelegramUserLabel
-                    id={`temporary-account-${x.user}-label`}
-                    locale={locale}
+        {users.map(x => {
+          return (
+            <A to={routes.profileView(x.id)} key={x.id}>
+              <User>
+                <MediumImageWrapper>
+                  <MediumImage
+                    isBordered
+                    className="flex-shrink-0 mr-2"
+                    src={getUserAvatar(x.avatar)}
+                    alt="avatar"
                   />
-                )}
-              </MediumImageWrapper>
-              <div>
-                <P fontSize="14">{x?.['displayName']}</P>
-                <IconWithStatus className="py-1" size="sm" rating={x.rating} />
-                <P fontSize="14" color={TEXT_SECONDARY}>
-                  {getTimeFromDateToNow(x.creationTime, locale)}
-                </P>
-              </div>
-            </User>
-          </A>
-        ))}
+                  {!!x?.['integer_properties']?.find(
+                    item => item.key === TEMPORARY_ACCOUNT_KEY && item.value,
+                  ) && (
+                    <TelegramUserLabel
+                      id={`temporary-account-${x.user}-label`}
+                      locale={locale}
+                    />
+                  )}
+                </MediumImageWrapper>
+                <div>
+                  <P fontSize="14">{x?.['displayName']}</P>
+                  <IconWithStatus
+                    className="py-1"
+                    size="sm"
+                    rating={
+                      x?.['ratings']?.length
+                        ? x?.['ratings']?.reduce(
+                            (max, current) =>
+                              max.rating > current.rating ? max : current,
+                          ).rating
+                        : 0
+                    }
+                  />
+                  <P fontSize="14" color={TEXT_SECONDARY}>
+                    {getTimeFromDateToNow(x.creationTime, locale)}
+                  </P>
+                </div>
+              </User>
+            </A>
+          );
+        })}
       </Grid>
     </InfinityLoader>
   );

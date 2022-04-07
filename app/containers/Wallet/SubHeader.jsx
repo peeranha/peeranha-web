@@ -83,32 +83,33 @@ const SubHeader = ({
                   <span>{getFormattedNum3(balance)}</span>
                 </Span>
               </li>
+              {/*TODO boost*/}
+              {/*<li>*/}
+              {/*  <FormattedMessage {...messages.stakedInCurrentPeriod} />*/}
+              {/*  <Span>*/}
+              {/*    <IconSm*/}
+              {/*      className="mr-2"*/}
+              {/*      icon={lockBoostImage}*/}
+              {/*      color={TEXT_PRIMARY}*/}
+              {/*      fill={TEXT_PRIMARY}*/}
+              {/*    />*/}
+              {/*    <span>{getFormattedNum3(stakedInCurrentPeriod)}</span>*/}
+              {/*  </Span>*/}
+              {/*</li>*/}
+              {/*<li>*/}
+              {/*  <FormattedMessage {...messages.stakedInNextPeriod} />*/}
+              {/*  <Span>*/}
+              {/*    <IconSm*/}
+              {/*      className="mr-2"*/}
+              {/*      icon={lockBoostImage}*/}
+              {/*      color={TEXT_PRIMARY}*/}
+              {/*      fill={TEXT_PRIMARY}*/}
+              {/*    />*/}
+              {/*    <span>{getFormattedNum3(stakedInNextPeriod)}</span>*/}
+              {/*  </Span>*/}
+              {/*</li>*/}
               <li>
-                <FormattedMessage {...messages.stakedInCurrentPeriod} />
-                <Span>
-                  <IconSm
-                    className="mr-2"
-                    icon={lockBoostImage}
-                    color={TEXT_PRIMARY}
-                    fill={TEXT_PRIMARY}
-                  />
-                  <span>{getFormattedNum3(stakedInCurrentPeriod)}</span>
-                </Span>
-              </li>
-              <li>
-                <FormattedMessage {...messages.stakedInNextPeriod} />
-                <Span>
-                  <IconSm
-                    className="mr-2"
-                    icon={lockBoostImage}
-                    color={TEXT_PRIMARY}
-                    fill={TEXT_PRIMARY}
-                  />
-                  <span>{getFormattedNum3(stakedInNextPeriod)}</span>
-                </Span>
-              </li>
-              <li>
-                <FormattedMessage {...messages.ethereumAddress} />
+                <FormattedMessage {...messages.walletAddress} />
                 <Span>{account}</Span>
               </li>
             </UlStyled>

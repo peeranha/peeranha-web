@@ -1,5 +1,5 @@
 import { postsForSearch } from './theGraph';
 
-export async function getResults(query) {
-  return await postsForSearch(query);
+export async function getResults(query, single) {
+  return await postsForSearch(query, single);
 }

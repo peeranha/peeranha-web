@@ -11,71 +11,43 @@ const selectChangePasswordByPreviousDomain = state =>
 const selectContent = () =>
   createSelector(
     selectChangePasswordByPreviousDomain,
-    substate => substate.content,
+    subState => subState.content,
   );
 
 const selectShowModal = () =>
   createSelector(
     selectChangePasswordByPreviousDomain,
-    substate => substate.showModal,
-  );
-
-const selectSendEmailProcessing = () =>
-  createSelector(
-    selectChangePasswordByPreviousDomain,
-    substate => substate.sendEmailProcessing,
-  );
-
-const selectSendEmailError = () =>
-  createSelector(
-    selectChangePasswordByPreviousDomain,
-    substate => substate.sendEmailError,
-  );
-
-const selectSubmitEmailProcessing = () =>
-  createSelector(
-    selectChangePasswordByPreviousDomain,
-    substate => substate.submitEmailProcessing,
-  );
-
-const selectSubmitEmailError = () =>
-  createSelector(
-    selectChangePasswordByPreviousDomain,
-    substate => substate.submitEmailError,
+    subState => subState.showModal,
   );
 
 const selectChangePasswordProcessing = () =>
   createSelector(
     selectChangePasswordByPreviousDomain,
-    substate => substate.changePasswordProcessing,
+    subState => subState.changePasswordProcessing,
   );
 
 const selectChangePasswordError = () =>
   createSelector(
     selectChangePasswordByPreviousDomain,
-    substate => substate.changePasswordError,
+    subState => subState.changePasswordError,
   );
 
 const selectEmail = () =>
   createSelector(
     selectChangePasswordByPreviousDomain,
-    substate => substate.email,
+    subState => subState.email,
   );
 
 const selectVerificationCode = () =>
   createSelector(
     selectChangePasswordByPreviousDomain,
-    substate => substate.verificationCode,
+    subState => subState.verificationCode,
   );
 
 export {
   selectChangePasswordByPreviousDomain,
   selectContent,
   selectShowModal,
-  selectSendEmailProcessing,
-  selectSendEmailError,
-  selectSubmitEmailProcessing,
-  selectSubmitEmailError,
   selectChangePasswordProcessing,
   selectChangePasswordError,
   selectEmail,

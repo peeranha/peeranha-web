@@ -16,12 +16,15 @@ process.noDeprecation = true;
 module.exports = options => {
   const baseEnvPath = path.resolve('.env');
   const testEnvPath = `${baseEnvPath}.test`;
+  const stagingEnvPath = `${baseEnvPath}.staging`;
   const prodEnvPath = `${baseEnvPath}.prod`;
 
   let targetEnvPath = baseEnvPath;
 
   if (process.env.NODE_ENV === 'production') {
     targetEnvPath = prodEnvPath;
+  } else if (process.env.NODE_ENV === 'staging') {
+    targetEnvPath = stagingEnvPath;
   } else if (process.env.NODE_ENV === 'test') {
     targetEnvPath = testEnvPath;
   }

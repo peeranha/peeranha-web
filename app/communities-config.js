@@ -1,9 +1,11 @@
 import OntLogo from './communities-configs/ont/images/ont.svg?inline';
 import FileiconLogo from './communities-configs/filecoin/images/filecoin-logo.svg?inline';
 import TelosLogo from './communities-configs/telos/images/telos-logo-dark.svg?inline';
+import PolygonLogo from './communities-configs/polygon/images/polygon-logo.svg?inline';
 import KandaLogo from './communities-configs/kanda/images/kanda.jpg';
 
 import { TelosStyles } from './communities-configs/telos';
+import { PolygonStyles } from './communities-configs/polygon';
 import { OntStyles } from './communities-configs/ont';
 import { KandaStyles } from './communities-configs/kanda';
 import { BloggerStyles } from './communities-configs/blogger';
@@ -11,35 +13,50 @@ import { FilecoinStyles } from './communities-configs/filecoin';
 
 const communitiesConfig = {
   prod: {
-    // 2: {
-    //   origin: 'https://faq.telos.net',
-    //   src: TelosLogo,
-    //   styles: TelosStyles,
-    // },
-    // 3: {
-    //   origin: 'https://ont.peeranha.io',
-    //   src: OntLogo,
-    //   styles: OntStyles,
-    // },
-    // 17: {
-    //   origin: 'https://kanda.peeranha.io',
-    //   src: KandaLogo,
-    //   styles: KandaStyles,
-    // },
+    2: {
+      origin: 'https://faq.telos.net',
+      src: TelosLogo,
+      styles: TelosStyles,
+    },
+    3: {
+      origin: 'https://ont.peeranha.io',
+      src: OntLogo,
+      styles: OntStyles,
+    },
+    17: {
+      origin: 'https://kanda.peeranha.io',
+      src: KandaLogo,
+      styles: KandaStyles,
+    },
+  },
+  staging: {
+    1: {
+      origin: 'https://demo-peeranha-meta.testpeeranha.io',
+    },
+    2: {
+      origin: 'https://demo-polygon.testpeeranha.io',
+      src: PolygonLogo,
+      styles: PolygonStyles,
+    },
+    3: {
+      origin: 'https://demo-filecoin.testpeeranha.io',
+      src: FileiconLogo,
+      styles: FilecoinStyles,
+    },
   },
   test: {
     1: {
       origin: 'https://community.testpeeranha.io',
     },
     2: {
-      origin: 'https://telos.testpeeranha.io',
-      src: TelosLogo,
-      styles: TelosStyles,
+      origin: 'https://filecoin.testpeeranha.io',
+      src: FileiconLogo,
+      styles: FilecoinStyles,
     },
     3: {
-      origin: 'https://ont.testpeeranha.io',
-      src: OntLogo,
-      styles: OntStyles,
+      origin: 'https://polygon.testpeeranha.io',
+      src: PolygonLogo,
+      styles: PolygonStyles,
     },
     4: {
       origin: 'https://testcommunity.net',
@@ -60,9 +77,7 @@ const communitiesConfig = {
   },
   dev: {
     3: {
-      origin: 'http://localhost:31000',
-      src: FileiconLogo,
-      styles: FilecoinStyles,
+      origin: 'http://localhost:3100',
     },
   },
 };

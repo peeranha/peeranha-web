@@ -12,8 +12,9 @@ import RatingStatus from 'components/RatingStatus';
 import AchievementsStatus from 'components/AchievementsStatus';
 
 import { TEXT_SECONDARY } from 'style-constants';
+import { getRatingByCommunity } from 'utils/profileManagement';
 
-const UserInfo = ({ author, postTime, locale, isSearchPage }) => {
+const UserInfo = ({ author, postTime, locale, isSearchPage, communityId }) => {
   return (
     <p className="mb-3">
       <A
@@ -25,7 +26,11 @@ const UserInfo = ({ author, postTime, locale, isSearchPage }) => {
             <Span className="mr-2" fontSize="14">
               {author?.['displayName']}
             </Span>
-            <RatingStatus rating={author.rating} size="sm" isRankOff />
+            <RatingStatus
+              rating={getRatingByCommunity(author, communityId)}
+              size="sm"
+              isRankOff
+            />
             <AchievementsStatus count={author.achievementsReached?.length} />
           </>
         )}
