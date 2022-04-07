@@ -38,7 +38,6 @@ const View = ({
     window.addEventListener(`resize`, windowResizeHandler, false);
     return () => window.removeEventListener('resize', windowResizeHandler);
   }, []);
-
   return (
     <ViewStyled id={LEFT_MENU_ID} single={single} isMenuVisible={isMenuVisible}>
       {single && isMenuVisible ? <MobileSubHeader profile={!!profile} /> : null}
