@@ -55,7 +55,7 @@ const MobileLinksInWallet = ({
           balance={availableBalance}
           number={rewardsWeeksNumber}
           locale={locale}
-          isBoost={boost.value > 1}
+          isBoost={boost ? boost.value > 1 : false}
           isMobileVersion
         />
         <Icon

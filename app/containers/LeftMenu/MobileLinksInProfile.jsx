@@ -18,6 +18,9 @@ export default React.memo(({ profile, isMenuVisible }) => {
   const [visibleProfileLinks, setVisibilityProfileLinks] = useState(false);
 
   if (!profile || !isMenuVisible) {
+    const isMenu = useMemo(() => isMenuVisible, [
+      isMenuVisible,
+    ]);
     return null;
   }
 
