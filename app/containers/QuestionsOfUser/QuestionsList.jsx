@@ -104,7 +104,7 @@ const Question = ({
   elementType,
 }) => {
   return (
-    <Li className="mb-3">
+    <Li className="mb-3 overflow-hidden">
       <QuestionForProfilePage
         route={routes.questionView(id, null)}
         myPostRating={myPostRating}

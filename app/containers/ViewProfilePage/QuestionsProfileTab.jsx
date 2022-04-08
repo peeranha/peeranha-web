@@ -32,6 +32,8 @@ import bestAnswerIcon from 'images/bestAnswer.svg?inline';
 
 import Banner from './Banner';
 
+import QuestionType from 'containers/Questions/Content/Body/QuestionType.js';
+
 const single = isSingleCommunityWebsite();
 
 const Rating = Span.extend`
@@ -54,6 +56,8 @@ const Rating = Span.extend`
 
 const PostDate = Span.extend`
   white-space: nowrap;
+  width: 140px;
+  text-align: right;
 `;
 
 const PostTypeIcon = ({ elementType, isMyAnswerAccepted }) => {
@@ -99,8 +103,7 @@ const Note = ({
           elementType={elementType}
           isMyAnswerAccepted={isMyAnswerAccepted}
         />
-
-        <Rating acceptedAnswer={acceptedAnswer}>{myPostRating}</Rating>
+        <Rating acceptedAnswer={false}>{myPostRating}</Rating>
 
         <PostDate
           className="d-inline-block d-sm-none"
@@ -121,6 +124,8 @@ const Note = ({
       >
         {title}
       </Span>
+
+      <QuestionType locale={locale} postType={postType} />
 
       <PostDate
         className="d-none d-sm-inline-block"
@@ -159,7 +164,7 @@ PostTypeIcon.propTypes = {
 };
 
 Note.propTypes = {
-  postType: PropTypes.string,
+  postType: PropTypes.number,
   isMyAnswerAccepted: PropTypes.bool,
   acceptedAnswer: PropTypes.bool,
   myPostRating: PropTypes.number,
