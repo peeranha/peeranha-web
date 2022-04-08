@@ -128,7 +128,7 @@ const QuestionType = ({ locale, postType, isPromoted, isExpert }) => {
                 items={commonMessages.generalPopoverList.id}
               />
             )}
-            <Icon className="mr-2 mt-3" icon={generalIcon} />
+            <Icon className="mr-2" icon={generalIcon} />
           </Container>
         </LabelItem>
       )}
@@ -146,7 +146,7 @@ const QuestionType = ({ locale, postType, isPromoted, isExpert }) => {
                 items={commonMessages.expertPopoverList.id}
               />
             )}
-            <Icon isExpert className="mr-2 mt-3" icon={expertIcon} />
+            <Icon isExpert className="mr-2" icon={expertIcon} />
           </Container>
         </LabelItem>
       )}
@@ -164,7 +164,7 @@ const QuestionType = ({ locale, postType, isPromoted, isExpert }) => {
                 items={commonMessages.tutorialPopoverList.id}
               />
             )}
-            <Icon isTutorial={true} className="mr-2 mt-3" icon={tutorialIcon} />
+            <Icon isTutorial={true} className="mr-2" icon={tutorialIcon} />
           </Container>
         </LabelItem>
       )}

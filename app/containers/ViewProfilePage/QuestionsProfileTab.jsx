@@ -32,7 +32,8 @@ import bestAnswerIcon from 'images/bestAnswer.svg?inline';
 
 import Banner from './Banner';
 
-import QuestionType from 'containers/Questions/Content/Body/QuestionType.js';
+import QuestionType from 'containers/Questions/Content/Body/QuestionType';
+import styled, { css } from 'styled-components';
 
 const single = isSingleCommunityWebsite();
 
@@ -56,8 +57,21 @@ const Rating = Span.extend`
 
 const PostDate = Span.extend`
   white-space: nowrap;
-  width: 140px;
+  width: 120px;
   text-align: right;
+`;
+
+const ACss = css`
+  text-decoration: none !important;
+  font-weight: ${x => (x.bold ? '600' : 'inherit')};
+  pointer-events: ${x => (x.disabled ? 'none' : 'auto')};
+  cursor: pointer;
+
+  ${x => (x.disabled ? `opacity: 0.6` : ``)};
+`;
+
+const _A = styled.a`
+  ${ACss};
 `;
 
 const PostTypeIcon = ({ elementType, isMyAnswerAccepted }) => {
@@ -82,7 +96,7 @@ const Note = ({
   elementType,
   ...postInfo
 }) => {
-  let Link = A;
+  let Link = _A;
   let route = routes.questionView(
     id,
     elementType === POST_TYPE_ANSWER ? answerId.split('-')[1] : null,
