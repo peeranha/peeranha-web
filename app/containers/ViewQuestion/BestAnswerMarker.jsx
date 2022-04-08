@@ -118,7 +118,6 @@ export const BestAnswerMarker = ({
         )}
         correctAnswerId={correctAnswerId}
         whoWasAccepted={whoWasAccepted}
-        className="mt-3"
       />
 
       {isTheLargestRating && (

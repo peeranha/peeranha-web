@@ -108,7 +108,13 @@ export const QuestionTitle = ({
   const isItWrittenByMe = profileInfo ? user === profileInfo.user : false;
 
   return title ? (
-    <Base paddingTop="5" paddingTopMedia="5" position="middle" withoutBR>
+    <Base
+      paddingTop="5"
+      paddingTopMedia="5"
+      position="middle"
+      paddingBottom="10"
+      withoutBR
+    >
       <Div>
         {!correctAnswerId && isItWrittenByMe && answers.length ? (
           <>
