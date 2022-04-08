@@ -106,15 +106,7 @@ const View = ({
         ? communitiesConfig[single].src
         : peeranhaLogo;
 
-      const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
-
-      return styles.withoutSubHeader ? (
-        <QAndALogo to={isBloggerMode ? routes.detailsHomePage() : routes.questions()}>
-          <FormattedMessage {...messages.questions} />
-          <span>&amp;</span>
-          <FormattedMessage {...messages.answers} />
-        </QAndALogo>
-      ) : (
+      return (
         <LogoStyles to={routes.questions()}>
           <img src={src} alt="logo" />
         </LogoStyles>
@@ -125,7 +117,7 @@ const View = ({
 
   return (
     <Wrapper id={HEADER_ID}>
-      {!styles?.customSubHeader &&
+      {/* {!styles?.customSubHeader &&
         !!single && (
           <SingleModeSubHeader>
             <div className="container">
@@ -151,7 +143,7 @@ const View = ({
             </div>
           </SingleModeSubHeader>
         )}
-      {styles?.customSubHeader ?? null}
+      {styles?.customSubHeader ?? null} */}
       <MainSubHeader mainSubHeaderBgColor={styles.mainSubHeaderBgColor}>
         <div className="container">
           <div className="d-flex align-items-center justify-content-between">

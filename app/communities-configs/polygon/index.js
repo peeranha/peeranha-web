@@ -2,10 +2,15 @@ import React from 'react';
 import { css } from 'styled-components';
 import CustomSubHeader from 'components/CustomSubHeaders/CustomSubHeader';
 import CustomMobileSubHeader from 'components/CustomSubHeaders/CustomMobileSubHeader';
+// TODO: configure favicon
 import favicon from '!file-loader?name=[name].[ext]!images/favicon-telos.ico';
 import polygonLogo from 'communities-configs/polygon/images/polygon-logo.svg?inline';
 import verdanaRegularTTF from 'communities-configs/polygon/fonts/verdana.ttf';
-import { domainName, domainDocs, domainBlog } from 'communities-configs/polygon/urls';
+import {
+  domainName,
+  domainDocs,
+  domainBlog,
+} from 'communities-configs/polygon/urls';
 
 const fonts = 'Verdana-Regular, Arial, sans-serif';
 const links = [
@@ -113,13 +118,13 @@ export const customSubHeaderConfig = {
     Highlighted: css`
       align-self: baseline;
       padding: 8px 20px !important;
-      margin: .618em 0;
+      margin: 0.618em 0;
       font-size: 0.85rem;
       font-weight: 600;
       line-height: 1.5;
       background-color: #7b3fe4 !important;
-      color: rgba(255,255,255,1) !important;
-      transition: background .22s ease-in-out;
+      color: rgba(255, 255, 255, 1) !important;
+      transition: background 0.22s ease-in-out;
       border-width: 1px;
       border-radius: 300px;
     `,
@@ -129,7 +134,7 @@ export const customSubHeaderConfig = {
       padding: 0;
       border: none !important;
       border-radius: 0 !important;
-      background: rgba(255,255,255,0) !important;
+      background: rgba(255, 255, 255, 0) !important;
       font-size: 1rem;
       opacity: 1;
       ::before {
@@ -143,7 +148,7 @@ export const customSubHeaderConfig = {
       }
       div {
         opacity: 1;
-        background-color:rgba(255,255,255,1);
+        background-color: rgba(255, 255, 255, 1);
         border-top: 2px solid #7b3fe4;
         margin-top: 20px;
         padding: 1rem 2rem;
@@ -191,7 +196,7 @@ export const customSubHeaderConfig = {
             display: block;
           }
         }
-        a:hover{
+        a:hover {
           opacity: 1;
           color: #0a0a0d;
           background-color: #eeeef2;
@@ -248,7 +253,8 @@ export const PolygonStyles = {
     black: '#02003D',
     warningLight: '#FF4026',
     darkBlue: '#5D6DFE',
-    mainBackground: 'radial-gradient(66.32% 66.32% at 54.13% 113.95%,rgba(108,38,255,.2) 0,rgba(242,89,255,0) 100%),linear-gradient(211.99deg,rgba(65,157,241,.2) -4.17%,rgba(45,143,234,0) 68.7%),radial-gradient(100% 100% at 28.65% 0,rgba(109,0,255,.25) 0,rgba(250,247,254,0) 100%);',
+    mainBackground:
+      'radial-gradient(66.32% 66.32% at 54.13% 113.95%,rgba(108,38,255,.2) 0,rgba(242,89,255,0) 100%),linear-gradient(211.99deg,rgba(65,157,241,.2) -4.17%,rgba(45,143,234,0) 68.7%),radial-gradient(100% 100% at 28.65% 0,rgba(109,0,255,.25) 0,rgba(250,247,254,0) 100%);',
     mainLinks: '#5463E8',
     linkColor: '#5463E8',
     btnColor: '#7b3fe4',
@@ -257,12 +263,13 @@ export const PolygonStyles = {
     lightSuccessColor: 'rgba(85, 195, 179, 0.25)',
     secondaryLight: '#5D6DFE',
   },
-  fontFace: css`@font-face {
-    font-family: 'Verdana-Regular';
-    src: 
-      url(${verdanaRegularTTF}) format('truetype');
-    font-style: normal;
-  }`,
+  fontFace: css`
+    @font-face {
+      font-family: 'Verdana-Regular';
+      src: url(${verdanaRegularTTF}) format('truetype');
+      font-style: normal;
+    }
+  `,
   coinsIconStyles: css`
     ellipse {
       stroke: #7b3fe4;

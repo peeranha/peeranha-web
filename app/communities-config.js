@@ -49,7 +49,7 @@ const communitiesConfig = {
       origin: 'https://community.testpeeranha.io',
     },
     2: {
-      origin: 'https://filecoin.testpeeranha.io',
+      origin: 'http://localhost:3000',
       src: FileiconLogo,
       styles: FilecoinStyles,
     },
