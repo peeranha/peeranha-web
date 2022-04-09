@@ -109,6 +109,7 @@ const View = ({
       return (
         <LogoStyles to={routes.questions()}>
           <img src={src} alt="logo" />
+          {styles.logoText}
         </LogoStyles>
       );
     },
@@ -154,7 +155,6 @@ const View = ({
                   color={styles.commHeadElemColor || TEXT_SECONDARY_LIGHT}
                 />
               </button>
-
               <Logo />
             </div>
 

@@ -116,7 +116,7 @@ const ContentHeader = props => {
     () => hasGlobalModeratorRole(getPermissions(profile)),
     [profile],
   );
-  //todo remove integer_properties
+  // todo remove integer_properties
   const isTemporaryAccount = false;
   //   useMemo(
   //   () =>
@@ -158,7 +158,7 @@ const ContentHeader = props => {
       <ItemInfo>
         <UserInfo
           avatar={getUserAvatar(author.avatar)}
-          name={author?.['displayName']}
+          name={author?.displayName}
           account={author.user}
           rating={getRatingByCommunity(author, props.commId)}
           type={type}
@@ -210,11 +210,11 @@ const ContentHeader = props => {
               params={buttonParams}
               onClick={voteToDelete}
               disabled={ids.includes(`${type}_vote_to_delete_${answerId}`)}
-              isVotedToDelete={true}
+              isVotedToDelete
             >
               <IconSm
                 icon={blockIcon}
-                fill={true ? BORDER_ATTENTION_LIGHT : BORDER_PRIMARY}
+                fill={BORDER_ATTENTION_LIGHT}
               />
               <FormattedMessage {...messages.voteToDelete} />
             </Button>
@@ -280,7 +280,7 @@ ContentHeader.propTypes = {
   author: PropTypes.object,
   locale: PropTypes.string,
   lastEditedDate: PropTypes.number,
-  postTime: PropTypes.number,
+  postTime: PropTypes.string,
   type: PropTypes.string,
   deleteItemLoading: PropTypes.bool,
   voteToDeleteLoading: PropTypes.bool,
