@@ -90,7 +90,6 @@ const QI = ({
   postType,
   isFeed,
 }) => {
-  console.log(postTime, typeof postTime);
   const ref = useRef(null);
 
   const isExpert = postType === POST_TYPE.expertPost;

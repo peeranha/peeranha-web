@@ -227,6 +227,7 @@ export const FilecoinStyles = {
     // mainLinks: '#000000', // menu selected item text
     // attentionColor: '#0090FF',
     linkColor: '#0090FF', // Q&A color
+    transparentIconColor: '#98cbf2',
     linkColorSecondary: '#0090FF',
     // purple: 'rgba(0,0,0,.6)',
     btnColor: '#000000',
@@ -256,7 +257,7 @@ export const FilecoinStyles = {
   //     fill: #000000;
   //   }
   // `,
-  // headerHeight: 170,
+  headerHeight: 80,
   // isDropdownMenuArrow: false,
   // customSubHeaderConfig,
   domainName,

@@ -3,7 +3,6 @@ import { css } from 'styled-components';
 import CustomSubHeader from 'components/CustomSubHeaders/CustomSubHeader';
 import CustomMobileSubHeader from 'components/CustomSubHeaders/CustomMobileSubHeader';
 // TODO: configure favicon
-import favicon from '!file-loader?name=[name].[ext]!images/favicon-telos.ico';
 import polygonLogo from 'communities-configs/polygon/images/polygon-logo.svg?inline';
 import verdanaRegularTTF from 'communities-configs/polygon/fonts/verdana.ttf';
 import {
@@ -11,6 +10,7 @@ import {
   domainDocs,
   domainBlog,
 } from 'communities-configs/polygon/urls';
+import favicon from '!file-loader?name=[name].[ext]!images/favicon-telos.ico';
 
 const fonts = 'Verdana-Regular, Arial, sans-serif';
 const links = [
@@ -212,6 +212,7 @@ export const customSubHeaderConfig = {
         }
         div {
           border-top: none;
+
           margin-top: 10px;
           padding: 0;
           opacity: 0.9;
@@ -223,7 +224,7 @@ export const customSubHeaderConfig = {
       }
     `,
   },
-  links: links,
+  links,
 };
 
 export const PolygonStyles = {
@@ -253,10 +254,9 @@ export const PolygonStyles = {
     black: '#02003D',
     warningLight: '#FF4026',
     darkBlue: '#5D6DFE',
-    mainBackground:
-      'radial-gradient(66.32% 66.32% at 54.13% 113.95%,rgba(108,38,255,.2) 0,rgba(242,89,255,0) 100%),linear-gradient(211.99deg,rgba(65,157,241,.2) -4.17%,rgba(45,143,234,0) 68.7%),radial-gradient(100% 100% at 28.65% 0,rgba(109,0,255,.25) 0,rgba(250,247,254,0) 100%);',
-    mainLinks: '#5463E8',
-    linkColor: '#5463E8',
+    mainBackground: '#F3F3F3',
+    linkColor: '#7b3fe4',
+    transparentIconColor: '#b19bdd',
     btnColor: '#7b3fe4',
     tagColor: '#FF422A',
     successColor: '#55C3B3',
@@ -281,7 +281,7 @@ export const PolygonStyles = {
       fill: #ff422a;
     }
   `,
-  headerHeight: 182,
+  headerHeight: 80,
   projectBorderRadius: '20px',
   customSubHeaderConfig,
   domainName,
