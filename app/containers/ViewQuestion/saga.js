@@ -162,6 +162,7 @@ export function* getQuestionData({
   } else {
     question = yield call(getQuestionFromGraph, +questionId);
     question.commentCount = question.comments.length;
+    question.communityId = Number(question.communityId);
     question.answers.map(answer => {
       answer.commentCount = answer.comments.length;
       answer.id = Number(answer.id.split('-')[1]);
