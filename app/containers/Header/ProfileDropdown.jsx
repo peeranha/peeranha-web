@@ -130,7 +130,7 @@ const Menu = memo(
             <FormattedMessage {...messages.answers} />
           </A>
           <A
-            className={isEmail == undefined ? 'd-none' : ''}
+            className={!isEmail ? 'd-none' : ''}
             to={routes.userSettings(user)}
           >
             <FormattedMessage {...messages.settings} />
