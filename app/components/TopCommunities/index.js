@@ -153,12 +153,14 @@ const TopCommunities = ({
                   <BaseRoundedNoPadding>
                     <Link href={route} to={route}>
                       <FrontSide>
-                        <div>
-                          <MediumImage src={community ? community.avatar : null} alt="comm_img" />
-                          <P fontSize="16" bold>
-                            {community ? community.name : null}
-                          </P>
-                        </div>
+                        {community ? (
+                          <div>
+                              <MediumImage src={community.avatar} alt="comm_img" />
+                              <P fontSize="16" bold>
+                                {community.name}
+                              </P>
+                          </div>
+                        ) : null }
 
                         <div>
                           <div>
@@ -185,12 +187,14 @@ const TopCommunities = ({
 
                       <BackSide>
                         <div className="d-flex flex-column justify-content-between">
-                          <div>
-                            <P fontSize="16" bold>
-                              {community ? community.name : null}
-                            </P>
-                            <P>{community ? community.description : null}</P>
-                          </div>
+                          {community ? (
+                            <div>
+                              <P fontSize="16" bold>
+                                {community.name}
+                              </P>
+                              <P>{community.description}</P>
+                            </div>
+                          ) : null }
                           <div>
                             <FollowCommunityButton
                               communityIdFilter={x.communityId}
