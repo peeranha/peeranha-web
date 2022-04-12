@@ -11,8 +11,11 @@ import Span from 'components/Span';
 import RatingStatus from 'components/RatingStatus';
 import AchievementsStatus from 'components/AchievementsStatus';
 
-import { TEXT_SECONDARY } from 'style-constants';
+import { PEER_PRIMARY_COLOR, TEXT_SECONDARY } from 'style-constants';
 import { getRatingByCommunity } from 'utils/profileManagement';
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
 
 const UserInfo = ({ author, postTime, locale, isSearchPage, communityId }) => (
   <p className="mb-3">
@@ -29,6 +32,9 @@ const UserInfo = ({ author, postTime, locale, isSearchPage, communityId }) => (
             rating={getRatingByCommunity(author, communityId)}
             size="sm"
             isRankOff
+            customRatingIconColors={{
+              strokeColor: colors.linkColor || PEER_PRIMARY_COLOR,
+            }}
           />
           <AchievementsStatus count={author.achievementsReached?.length} />
         </>

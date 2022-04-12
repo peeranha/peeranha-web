@@ -22,17 +22,21 @@ import expertIcon from 'images/hat-3-outline-24.svg?external';
 import generalIcon from 'images/comments-outline-24.svg?external';
 
 import myFeedIcon from 'images/myFeedHeader.svg?external';
-import tutorialPageHeader from 'images/tutorialPageHeader.svg?external';
+import tutorialIcon from 'images/tutorial.svg?external';
 import createdHistory from 'createdHistory';
-import { isSingleCommunityWebsite } from 'utils/communityManagement';
+import {
+  isSingleCommunityWebsite,
+  singleCommunityColors,
+} from 'utils/communityManagement';
 
+import { POST_TYPE } from 'utils/constants';
+import { BORDER_PRIMARY, ICON_TRASPARENT_BLUE } from 'style-constants';
 import QuestionFilter from './QuestionFilter';
 
 import { selectQuestions, selectTopQuestionsInfoLoaded } from './selectors';
-import { POST_TYPE } from '../../utils/constants';
-import { BORDER_PRIMARY } from '../../style-constants';
 
 const single = isSingleCommunityWebsite();
+const colors = singleCommunityColors();
 
 const PageContentHeader = styled.div`
   @media only screen and (max-width: 576px) {
@@ -43,6 +47,21 @@ const PageContentHeader = styled.div`
 
 const PageContentHeaderRightPanel = styled.div`
   flex-shrink: 0;
+`;
+
+const customColor = colors.linkColor || BORDER_PRIMARY;
+
+const StyledCustomIconButtonContainer = styled.div`
+  .fill {
+    fill: ${customColor};
+  }
+  .stroke {
+    stroke: ${customColor};
+  }
+
+  .semitransparent {
+    fill: ${colors.transparentIconColor || ICON_TRASPARENT_BLUE};
+  }
 `;
 
 export const Header = ({
@@ -79,9 +98,9 @@ export const Header = ({
         route = 'expertPosts';
         break;
       case POST_TYPE.tutorial:
-        defaultAvatar = tutorialPageHeader;
+        defaultAvatar = tutorialIcon;
         defaultLabel = intl.formatMessage({ id: messages.tutorials.id });
-        defaultAvatarWidth = '38';
+        defaultAvatarWidth = '28';
         route = 'tutorials';
         break;
     }
@@ -98,12 +117,13 @@ export const Header = ({
 
   /* eslint react/prop-types: 0 */
   const Button = ({ communityAvatar, communityLabel }) => {
+    console.log(defaultAvatar);
     return (
       <H3>
         {communityAvatar ? (
           <MediumImageStyled src={communityAvatar} alt="communityAvatar" />
         ) : (
-          <>
+          <StyledCustomIconButtonContainer>
             <MediumIconStyled>
               <IconLg
                 icon={communityAvatar || defaultAvatar}
@@ -111,7 +131,7 @@ export const Header = ({
                 fill={BORDER_PRIMARY}
               />
             </MediumIconStyled>
-          </>
+          </StyledCustomIconButtonContainer>
         )}
 
         <span>{communityLabel || defaultLabel}</span>

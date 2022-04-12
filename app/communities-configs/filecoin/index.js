@@ -227,6 +227,7 @@ export const FilecoinStyles = {
     // mainLinks: '#000000', // menu selected item text
     // attentionColor: '#0090FF',
     linkColor: '#0090FF', // Q&A color
+    linkColorTransparent: 'rgba(0, 144, 255, 0.4)', // link color transparent
     transparentIconColor: '#98cbf2',
     linkColorSecondary: '#0090FF',
     // purple: 'rgba(0,0,0,.6)',

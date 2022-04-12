@@ -10,7 +10,7 @@ import {
   domainDocs,
   domainBlog,
 } from 'communities-configs/polygon/urls';
-import favicon from '!file-loader?name=[name].[ext]!images/favicon-telos.ico';
+import favicon from '!file-loader?name=[name].[ext]!images/favicon-polygon.png';
 
 const fonts = 'Verdana-Regular, Arial, sans-serif';
 const links = [
@@ -252,24 +252,25 @@ export const PolygonStyles = {
     blue: '#5D6DFE',
     blueRGB: '93,109,254',
     black: '#02003D',
-    warningLight: '#FF4026',
+    // warningLight: '#FF4026',
     darkBlue: '#5D6DFE',
     mainBackground: '#F3F3F3',
     linkColor: '#7b3fe4',
+    linkColorTransparent: 'rgba(123, 63, 228, 0.4)',
     transparentIconColor: '#b19bdd',
     btnColor: '#7b3fe4',
-    tagColor: '#FF422A',
+    tagColor: '#7b3fe4',
     successColor: '#55C3B3',
     lightSuccessColor: 'rgba(85, 195, 179, 0.25)',
     secondaryLight: '#5D6DFE',
   },
-  fontFace: css`
-    @font-face {
-      font-family: 'Verdana-Regular';
-      src: url(${verdanaRegularTTF}) format('truetype');
-      font-style: normal;
-    }
-  `,
+  // fontFace: css`
+  //   @font-face {
+  //     font-family: 'Verdana-Regular';
+  //     src: url(${verdanaRegularTTF}) format('truetype');
+  //     font-style: normal;
+  //   }
+  // `,
   coinsIconStyles: css`
     ellipse {
       stroke: #7b3fe4;
