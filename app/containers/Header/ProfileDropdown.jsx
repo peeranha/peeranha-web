@@ -100,6 +100,7 @@ export const Button = connect(state => ({
 const Menu = memo(
   ({ profileInfo, questionsLength, questionsWithUserAnswersLength }) => {
     const user = profileInfo.user;
+    const isEmail = profileInfo.loginData.email;
 
     const isModerator = useMemo(() => !!getPermissions(profileInfo)?.length, [
       profileInfo,
@@ -128,7 +129,10 @@ const Menu = memo(
           >
             <FormattedMessage {...messages.answers} />
           </A>
-          <A to={routes.userSettings(user)}>
+          <A
+            className={isEmail == undefined ? 'd-none' : ''}
+            to={routes.userSettings(user)}
+          >
             <FormattedMessage {...messages.settings} />
           </A>
           {/*TODO PEER20-286 Hide notifications from this version*/}
