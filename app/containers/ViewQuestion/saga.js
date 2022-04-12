@@ -144,7 +144,7 @@ import orderBy from 'lodash/orderBy';
 export const isGeneralQuestion = question => Boolean(question.postType === 1);
 
 export const getQuestionTypeValue = isGeneral =>
-  isGeneral ? QUESTION_TYPES.GENERAL.value : QUESTION_TYPES.EXPERT.value;
+  isGeneral ? 'CommonPost' : 'ExpertPost'; //QUESTION_TYPES.GENERAL.value : QUESTION_TYPES.EXPERT.value;
 
 const isOwnItem = (questionData, profileInfo, answerId) =>
   questionData.author.user === profileInfo.user ||
@@ -162,7 +162,6 @@ export function* getQuestionData({
   } else {
     question = yield call(getQuestionFromGraph, +questionId);
     question.commentCount = question.comments.length;
-    question.communityId = Number(question.communityId);
     question.answers.map(answer => {
       answer.commentCount = answer.comments.length;
       answer.id = Number(answer.id.split('-')[1]);
@@ -1043,27 +1042,19 @@ export function* updateQuestionDataAfterTransactionWorker({
 
 function* changeQuestionTypeWorker({ buttonId }) {
   try {
-    const { questionData, eosService, profileInfo, account } = yield call(
+    const { questionData, ethereumService, locale, profileInfo } = yield call(
       getParams,
     );
-
+    console.log(111, questionData, getQuestionTypeValue(!questionData.isGeneral));
+    console.log(222)
     yield call(
       changeQuestionType,
+      ethereumService,
       profileInfo.user,
       questionData.id,
-      getQuestionTypeValue(!questionData.isGeneral),
-      eosService.scatterInstalled ? 1 : true,
-      eosService,
+      getQuestionTypeValue(!questionData.isGeneral)
     );
-
-    const profile = yield call(
-      eosService.getTableRow,
-      ACCOUNT_TABLE,
-      ALL_ACCOUNTS_SCOPE,
-      account,
-    );
-
-    yield put(getUserProfileSuccess(profile));
+    console.log(444, questionData)
     yield put(
       getQuestionDataSuccess({
         ...questionData,

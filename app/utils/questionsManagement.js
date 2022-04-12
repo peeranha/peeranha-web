@@ -41,6 +41,7 @@ import {
   GET_COMMENT,
   GET_POST,
   GET_QUESTION,
+  CHANGE_POST_TYPE,
   GET_REPLY,
   GET_STATUS_HISTORY,
   POST_ANSWER,
@@ -669,17 +670,16 @@ export const getAnswer = async (ethereumService, questionId, answerId) => {
 };
 
 export const changeQuestionType = async (
+  ethereumService,
   user,
   questionId,
-  type,
-  ratingRestore,
-  eosService,
+  type
 ) => {
-  await eosService.sendTransaction(user, CHANGE_QUESTION_TYPE_METHOD, {
+  console.log(333, user, questionId, type);
+  await ethereumService.sendTransactionWithSigner(user, CHANGE_POST_TYPE, {
     user,
-    question_id: +questionId,
-    type,
-    restore_rating: ratingRestore,
+    questionId,
+    type
   });
 };
 
