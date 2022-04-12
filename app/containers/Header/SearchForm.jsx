@@ -8,13 +8,13 @@ import Input from 'components/Input';
 
 const SearchForm = ({ placeholder, className, onBlur, searchFormId }) => {
   const [text, changeText] = useState('');
-  const [lastPathname, changeLastPathname] = useState('');
+  const [lastPathName, changeLastPathName] = useState('');
 
   const onSubmit = useCallback(
     e => {
       e.preventDefault();
       createdHistory.push(routes.search(text));
-      changeLastPathname('/search');
+      changeLastPathName(routes.search());
     },
     [text],
   );
@@ -31,12 +31,12 @@ const SearchForm = ({ placeholder, className, onBlur, searchFormId }) => {
   );
 
   if (
-    createdHistory.location.pathname.includes('/search') === false &&
-    lastPathname === '/search' &&
+    !createdHistory.location.pathname.includes(routes.search()) &&
+    lastPathName === routes.search() &&
     text !== ''
   ) {
     changeText('');
-    changeLastPathname('');
+    changeLastPathName('');
   }
 
   return (
