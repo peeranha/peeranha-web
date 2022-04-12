@@ -1,18 +1,21 @@
-import React, {useMemo} from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import * as routes from 'routes-config';
 
 import Content from './Content';
-import { QUESTION_TYPE } from './constants';
+import { QUESTION_TYPE, EXPERTS, QUESTIONS, TUTORIALS } from './constants';
 
 export const Question = props => {
-  const {postType, id} = props.questionData;
+  const { postType, id } = props.questionData;
 
-  const type = useMemo(() => {
-    if (postType === 0) return 'experts';
-    if (postType === 1) return 'questions';
-    if (postType === 2) return 'tutorials';
-  }, [postType]);
+  const type = useMemo(
+    () => {
+      if (postType === 0) return EXPERTS;
+      if (postType === 1) return QUESTIONS;
+      if (postType === 2) return TUTORIALS;
+    },
+    [postType],
+  );
 
   return (
     <Content

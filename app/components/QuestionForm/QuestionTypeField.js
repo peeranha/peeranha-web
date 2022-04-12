@@ -26,15 +26,15 @@ const styles = singleCommunityStyles();
 
 export const QUESTION_TYPES = {
   GENERAL: {
-    value: 1,
+    value: 'general',
     label: 'general',
   },
   EXPERT: {
-    value: 0,
+    value: 'expert',
     label: 'expert',
   },
   TUTORIAL: {
-    value: 2,
+    value: 'tutorial',
     label: 'tutorial',
   },
 };
@@ -104,10 +104,10 @@ const Button = B.extend`
 
   flex: 1;
   border: 1px solid ${BORDER_SECONDARY};
-  border-color: ${props =>
-    props.type === props.index && `rgb(${BORDER_PRIMARY_RGB})`};
-  box-shadow: ${props =>
-    props.type === props.index && `0 0 0 3px rgba(${BORDER_PRIMARY_RGB}, 0.4)`};
+  border-color: ${({ type, value }) =>
+    type === value && `rgb(${BORDER_PRIMARY_RGB})`};
+  box-shadow: ${({ type, value }) =>
+    type === value && `0 0 0 3px rgba(${BORDER_PRIMARY_RGB}, 0.4)`};
 
   &:hover {
     box-shadow: 0 0 0 3px rgba(${BORDER_PRIMARY_RGB}, 0.4);
@@ -133,8 +133,10 @@ const QuestionTypeField = ({
   const [type, setType] = useState(null);
 
   function chooseQuestionType(event) {
+    const { value } = event.currentTarget;
     event.preventDefault();
-    input.onChange(event.currentTarget.value);
+    input.onChange(value);
+    setType(value);
   }
 
   return (
@@ -149,14 +151,10 @@ const QuestionTypeField = ({
         insideOfSection={insideOfSection}
       >
         <ButtonGroup error={error}>
-          {Object.values(QUESTION_TYPES).map((questionType, index) => (
+          {Object.values(QUESTION_TYPES).map(questionType => (
             <Button
-              index={index}
               type={type}
-              onClick={e => {
-                chooseQuestionType(e);
-                setType(index);
-              }}
+              onClick={chooseQuestionType}
               value={questionType.value}
               currentValue={input.value}
               key={questionType.label}
