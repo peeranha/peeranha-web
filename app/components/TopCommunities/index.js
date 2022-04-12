@@ -256,7 +256,7 @@ const TopCommunities = ({
                         <div>
                           <MediumImage src={x.avatar} alt="comm_img" />
                           <P fontSize="16" bold>
-                            {x.name}
+                            {community.name}
                           </P>
                         </div>
     
