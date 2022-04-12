@@ -154,9 +154,9 @@ const TopCommunities = ({
                     <Link href={route} to={route}>
                       <FrontSide>
                         <div>
-                          <MediumImage src={community.avatar} alt="comm_img" />
+                          <MediumImage src={community ? community.avatar : null} alt="comm_img" />
                           <P fontSize="16" bold>
-                            {community.name}
+                            {community ? community.name : null}
                           </P>
                         </div>
 
@@ -178,7 +178,7 @@ const TopCommunities = ({
                           </div>
 
                           <FollowCommunityButton
-                            communityIdFilter={community.id}
+                            communityIdFilter={x.communityId}
                           />
                         </div>
                       </FrontSide>
@@ -187,13 +187,13 @@ const TopCommunities = ({
                         <div className="d-flex flex-column justify-content-between">
                           <div>
                             <P fontSize="16" bold>
-                              {community.name}
+                              {community ? community.name : null}
                             </P>
-                            <P>{community.description}</P>
+                            <P>{community ? community.description : null}</P>
                           </div>
                           <div>
                             <FollowCommunityButton
-                              communityIdFilter={community.id}
+                              communityIdFilter={x.communityId}
                             />
                           </div>
                         </div>
@@ -307,7 +307,7 @@ const TopCommunities = ({
               );
             })}
     
-          {communities.length > 9 && (
+          {communities?.length > 9 && (
             <div className="d-flex align-items-center justify-content-center">
               <AllCommunitiesLink
                 className="d-flex align-items-center"
