@@ -71,7 +71,9 @@ const UniqueAchievement = ({
       <ImageBlock>
         {reached && (
           <Icon
-            icon={`<object data=${getFileUrl(image)} type="image/svg+xml" width="80">`}
+            icon={`<object data=${getFileUrl(
+              image,
+            )} type="image/svg+xml" width="80">`}
             width="80"
             height="74"
           />
