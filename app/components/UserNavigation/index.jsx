@@ -52,6 +52,7 @@ const UserNavigation = ({
   userId,
   account,
   profile,
+  loginData,
   questionsLength,
   questionsWithUserAnswersLength,
   userAchievementsLength,
@@ -154,7 +155,7 @@ const UserNavigation = ({
           </NavigationLink>
 
           <NavigationLink
-            className={userId !== account ? 'd-none' : ''}
+            className={(userId !== account) || (loginData.email !== undefined) ? 'd-none' : ''}
             to={routes.userSettings(userId)}
             islink={path !== routes.userSettings(userId) ? 1 : 0}
           >
