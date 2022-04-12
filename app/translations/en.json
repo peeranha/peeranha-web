@@ -132,7 +132,8 @@
   "app.common.tipAnswer": "Tip answer",
   "app.common.sendTip": "Send tip",
   "app.common.receivedReward": "You received referral reward",
-  "app.common.generalPopoverLabel": "A topic not requiring expertise or experience to answer that can be one of the following:",
+  "app.common.generalPopoverLabel":
+    "A topic not requiring expertise or experience to answer that can be one of the following:",
   "app.common.generalPopoverList": [
     "Subjective opinion exchange;",
     "Brainstorming;",
@@ -146,7 +147,8 @@
     "Explanation or clarification of the information that is complicated to comprehend;",
     "Ask for an instruction or a recipe."
   ],
-  "app.common.tutorialPopoverLabel": "Tutorial is a manual instruction that can be one of the following:",
+  "app.common.tutorialPopoverLabel":
+    "Tutorial is a manual instruction that can be one of the following:",
   "app.common.tutorialPopoverList": [
     "Step-by-step solution to a problem;",
     "Technical setup;",
@@ -206,17 +208,17 @@
   "app.containers.Wallet.eosAccount": "Telos account",
   "app.containers.Wallet.currentPeriod": "Current period in progress",
   "app.containers.Wallet.periodStillInProgress":
-    "This period is still in progress. You will see more details next week.",
+    "This period is still in progress. You will see more details next period.",
   "app.containers.Wallet.payoutPending": "Payout pending",
   "app.containers.Wallet.estimatedPayout": "Estimated payout",
   "app.containers.Wallet.paidOut": "Paid out",
   "app.containers.Wallet.rewarded": "Rewarded",
-  "app.containers.Wallet.week": "Week",
+  "app.containers.Wallet.week": "Period",
   "app.containers.Wallet.getReward": "Get reward",
   "app.containers.Wallet.received": "Received",
   "app.containers.Wallet.thisIsRegistrationWeek":
-    "This is registration week. We are setting up your wallet. Reward for this week will be applied to the next week.",
-  "app.containers.Wallet.registrationWeek": "Registration week",
+    "This is registration period. We are setting up your wallet. Reward for this period will be applied to the next period.",
+  "app.containers.Wallet.registrationWeek": "Registration period",
   "app.containers.Wallet.yourWalletWasSuccessfullySet":
     "Your wallet was successfully set during this period",
   "app.containers.Wallet.getMoreWithBoost": "Get more rewards with Boost",
@@ -338,7 +340,7 @@
 
   "app.containers.Moderation.permissionInfinite": "Infinite Impact",
   "app.containers.Moderation.permissionInfiniteDescription":
-    "Allows you to delete questions, answers and comments in one click",
+    "Allows you to delete posts, answers and comments in one click",
 
   "app.containers.Moderation.permissionIgnoreRating": "Ignore rating",
   "app.containers.Moderation.permissionIgnoreRatingDescription":
@@ -352,10 +354,9 @@
   "app.containers.Moderation.permissionCreateTagDescription":
     "Allows you to instantly create a tag",
 
-  "app.containers.Moderation.permissionChangeQuestionType":
-    "Change question type",
-  "app.containers.Moderation.permissionChangeQuestionTypeDescription":
-    "Allows you to change question type",
+  "app.containers.Moderation.permissionChangePostType": "Change post type",
+  "app.containers.Moderation.permissionChangePostTypeDescription":
+    "Allows you to change post type",
 
   "app.containers.Moderation.permissionSelectTopQuestion":
     "Select top question",
@@ -871,8 +872,7 @@
   "app.containers.ForgotPassword.youGotThisKey":
     "You received this key with the authorization which was saved in a safe place. Try to find it.",
 
-  "app.containers.SignUp.checkYourEmail":
-    "Check your email for the verification code.",
+  "app.containers.SignUp.checkYourEmail": "Verification code.",
   "app.containers.SignUp.almostDone": "Almost done",
   "app.containers.SignUp.firstParagraphAlmostDone":
     "Peeranha is not a typical Q&A platform. It’s powered by blockchain.",
@@ -883,11 +883,13 @@
   "app.containers.SignUp.weWillNotify":
     "We will notify you when your account will be ready. Usually it takes no longer than 4 hours.",
   "app.containers.SignUp.goToMainPage": "Go to main page",
-  "app.containers.SignUp.youNeedEosAccount": "You need {image} account",
-  "app.containers.SignUp.theWayEosWorks":
-    "If you do not have Telos account then we will create it for you and cover the fee for account creation. If you already have a Telos account you can sign-up using an email address, in order to have a convenient log-in into the application from any device. ",
-  "app.containers.SignUp.ifYouCreateEos":
-    "Sounds too complicated? Don’t  worry! Just remember to write down you master key and save it in a safe place. Master Key is the only way to restore access to your account if you forget your password.",
+  "app.containers.SignUp.downloadSecretPhrase": "Download Secret Phrase",
+  "app.containers.SignUp.youNeedBlockchainAccount":
+    "Create account on blockchain",
+  "app.containers.SignUp.theWayBlockchainAccountWorks":
+    "We are creating a blockchain account for you to interact with the platform. Only you will have access to the private key for the account. Our service will be authorized to post a limited set of actions on the platform on behalf of your account in order to provide you with a convenient experience. You'll be able to revoke that permission of service account at any time.",
+  "app.containers.SignUp.dontWorryAboutBlockchainAccount":
+    "Sounds too complicated? Don’t worry! Just remember to write down your Secret Phrase and save it in a safe place. Secret Phrase is the only way to access your blockchain account and the rewards that you'll earn. We will guide you when it is time to use your Secret Phrase to withdraw the rewards.",
   "app.containers.SignUp.signUpOptions": "Sign up options",
   "app.containers.SignUp.peeranhaIsNotTypical":
     "Peeranha is not a typical Q&A platform. It’s powered by blockchain.",
@@ -901,7 +903,7 @@
   "app.containers.SignUp.doYouHaveAlreadyAccount":
     "Do you already have an account?",
   "app.containers.SignUp.youHaveToSaveKeys":
-    "Master Key is the only way to restore access to your account if you forget your password! Write your Master Key on a piece of paper and store it in a secure location. Alternatively, store your Master Key in a password manager like 1Password.",
+    "Secret Phrase is the only way to access your blockchain account and rewards that you'll earn! Write your Secret Phrase on a piece of paper and store it in a secure location. Alternatively, store your Secret Phrase in a password manager like 1Password.",
   "app.containers.SignUp.passwordsDoNotMatch": "Passwords do not match",
   "app.containers.SignUp.iHaveEosAccount": "I have Telos account",
   "app.containers.SignUp.idontHaveEosAccount": "I don't have Telos account",
@@ -918,15 +920,15 @@
   "app.containers.SignUp.privateKey": "Private Key",
   "app.containers.SignUp.eosOwnerPrivateKey": "Telos Owner Private Key",
   "app.containers.SignUp.storeThisKey": "Store this key",
-  "app.containers.SignUp.masterKey": "Master key",
+  "app.containers.SignUp.secretPhrase": "Secret Phrase",
   "app.containers.SignUp.displayName": "Display name",
   "app.containers.SignUp.referralCode": "Referral code {optional}",
   "app.containers.SignUp.ethereumUserAddress": "Ethereum address",
   "app.containers.SignUp.signUp": "Sign up",
   "app.containers.SignUp.password": "Password",
   "app.containers.SignUp.confirmPassword": "Confirm password",
-  "app.containers.SignUp.iSaveMasterKey":
-    "I saved Master Key in a safe place. I understand that if I forget my password then Master Key is the only way to restore access to my account.",
+  "app.containers.SignUp.iSaveSecretPhrase":
+    "I saved Secret Phrase in a safe place. I understand that Secret Phrase is the only way to access my blockchain account and rewards.",
   "app.containers.SignUp.userAlreadyRegistered":
     "User with such identity has been already registered",
   "app.containers.SignUp.userRejectedSignatureRequest":

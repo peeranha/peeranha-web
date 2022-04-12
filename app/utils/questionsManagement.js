@@ -1,6 +1,12 @@
 import JSBI from 'jsbi';
 
-import { getText, saveText } from './ipfs';
+import { orderBy } from 'lodash/collection';
+import {
+  getBytes32FromIpfsHash,
+  getIpfsHashFromBytes32,
+  getText,
+  saveText,
+} from './ipfs';
 
 import {
   ALL_QUESTIONS_SCOPE,
@@ -43,8 +49,6 @@ import {
   UPVOTE_STATUS,
   VOTE_ITEM,
 } from './ethConstants';
-import { call } from 'redux-saga/effects';
-import { orderBy } from 'lodash/collection';
 import { getUsersAnsweredQuestions, getUsersQuestions } from './theGraph';
 
 /* eslint-disable  */
@@ -268,7 +272,7 @@ export async function postQuestion(
   ethereumService,
 ) {
   const ipfsLink = await saveText(JSON.stringify(questionData));
-  const ipfsHash = ethereumService.getBytes32FromIpfsHash(ipfsLink);
+  const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
   return await ethereumService.sendTransactionWithSigner(user, POST_QUESTION, [
     communityId,
     ipfsHash,
@@ -286,7 +290,7 @@ export const editQuestion = async (
   ethereumService,
 ) => {
   const ipfsLink = await saveText(JSON.stringify(questionData));
-  const ipfsHash = ethereumService.getBytes32FromIpfsHash(ipfsLink);
+  const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
   return await ethereumService.sendTransactionWithSigner(user, EDIT_POST, [
     postId,
     ipfsHash,
@@ -324,7 +328,7 @@ export const postAnswer = async (
   ethereumService,
 ) => {
   const ipfsLink = await saveText(JSON.stringify(answerData));
-  const ipfsHash = ethereumService.getBytes32FromIpfsHash(ipfsLink);
+  const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
   await ethereumService.sendTransactionWithSigner(user, POST_ANSWER, [
     questionId,
     0,
@@ -342,7 +346,7 @@ export async function editAnswer(
   ethereumService,
 ) {
   const ipfsLink = await saveText(JSON.stringify(answerData));
-  const ipfsHash = ethereumService.getBytes32FromIpfsHash(ipfsLink);
+  const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
   await ethereumService.sendTransactionWithSigner(user, EDIT_ANSWER, [
     questionId,
     answerId,
@@ -370,7 +374,7 @@ export async function postComment(
   ethereumService,
 ) {
   const ipfsLink = await saveText(JSON.stringify(commentData));
-  const ipfsHash = ethereumService.getBytes32FromIpfsHash(ipfsLink);
+  const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
   await ethereumService.sendTransactionWithSigner(user, POST_COMMENT, [
     questionId,
     answerId,
@@ -387,7 +391,7 @@ export async function editComment(
   ethereumService,
 ) {
   const ipfsLink = await saveText(JSON.stringify(commentData));
-  const ipfsHash = ethereumService.getBytes32FromIpfsHash(ipfsLink);
+  const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
   await ethereumService.sendTransactionWithSigner(user, EDIT_COMMENT, [
     questionId,
     answerId,
@@ -434,14 +438,13 @@ export const getStatusHistory = async (
   answerId,
   commentId,
   ethereumService,
-) => {
-  return await ethereumService.getDataWithArgs(GET_STATUS_HISTORY, [
+) =>
+  await ethereumService.getDataWithArgs(GET_STATUS_HISTORY, [
     user,
     questionId,
     answerId,
     commentId,
   ]);
-};
 
 export async function markAsAccepted(
   user,
@@ -455,16 +458,14 @@ export async function markAsAccepted(
   ]);
 }
 
-const formCommonInfo = (object, statusHistory) => {
-  return {
-    author: object.author.toLowerCase(),
-    isDeleted: object.isDeleted,
-    postTime: object.postTime,
-    propertyCount: object.propertyCount,
-    rating: object.rating,
-    votingStatus: votingStatus(Number(statusHistory)),
-  };
-};
+const formCommonInfo = (object, statusHistory) => ({
+  author: object.author.toLowerCase(),
+  isDeleted: object.isDeleted,
+  postTime: object.postTime,
+  propertyCount: object.propertyCount,
+  rating: object.rating,
+  votingStatus: votingStatus(Number(statusHistory)),
+});
 
 export const formCommentObject = async (
   rawComment,
@@ -473,9 +474,7 @@ export const formCommentObject = async (
   statusHistory,
 ) => {
   const { content } = JSON.parse(
-    await getText(
-      ethereumService.getIpfsHashFromBytes32(rawComment.ipfsDoc.hash),
-    ),
+    await getText(getIpfsHashFromBytes32(rawComment.ipfsDoc.hash)),
   );
   return {
     content,
@@ -492,9 +491,7 @@ export const formReplyObject = async (
   statusHistory,
 ) => {
   const { content } = JSON.parse(
-    await getText(
-      ethereumService.getIpfsHashFromBytes32(rawReply.ipfsDoc.hash),
-    ),
+    await getText(getIpfsHashFromBytes32(rawReply.ipfsDoc.hash)),
   );
   return {
     content,
@@ -503,7 +500,7 @@ export const formReplyObject = async (
     isFirstReply: rawReply.isFirstReply,
     isQuickReply: rawReply.isQuickReply,
     parentReplyId: rawReply.parentReplyId,
-    comments: comments,
+    comments,
     id,
   };
 };
@@ -517,9 +514,7 @@ export const formQuestionObject = async (
   statusHistory,
 ) => {
   const { title, content } = JSON.parse(
-    await getText(
-      ethereumService.getIpfsHashFromBytes32(rawQuestion.ipfsDoc.hash),
-    ),
+    await getText(getIpfsHashFromBytes32(rawQuestion.ipfsDoc.hash)),
   );
   return {
     title,
@@ -538,13 +533,11 @@ export const formQuestionObject = async (
   };
 };
 
-const votingStatus = statusHistory => {
-  return {
-    isUpVoted: statusHistory === UPVOTE_STATUS,
-    isDownVoted: statusHistory === DOWNVOTE_STATUS,
-    isVotedToDelete: false,
-  };
-};
+const votingStatus = statusHistory => ({
+  isUpVoted: statusHistory === UPVOTE_STATUS,
+  isDownVoted: statusHistory === DOWNVOTE_STATUS,
+  isVotedToDelete: false,
+});
 
 export async function getQuestionById(ethereumService, questionId, user) {
   const rawQuestion = await ethereumService.getDataWithArgs(GET_POST, [
@@ -558,7 +551,7 @@ export async function getQuestionById(ethereumService, questionId, user) {
     ethereumService,
   );
   const replies = [];
-  //getting all replies of post
+  // getting all replies of post
   await Promise.all(
     new Array(rawQuestion.replyCount).fill().map(async (reply, replyIndex) => {
       let replyObj;
@@ -575,7 +568,7 @@ export async function getQuestionById(ethereumService, questionId, user) {
           ethereumService,
         );
         const comments = [];
-        //getting all comments on a reply
+        // getting all comments on a reply
         await Promise.all(
           new Array(rawReply.commentCount)
             .fill()
@@ -600,7 +593,7 @@ export async function getQuestionById(ethereumService, questionId, user) {
                   commentStatusHistory,
                 );
               } catch (err) {
-                //if comment is deleted
+                // if comment is deleted
                 console.log('Comment has been deleted');
               }
 
@@ -618,7 +611,7 @@ export async function getQuestionById(ethereumService, questionId, user) {
           replyStatusHistory,
         );
       } catch (err) {
-        //if reply is deleted
+        // if reply is deleted
         console.log('Reply has been deleted');
       }
 
@@ -744,8 +737,7 @@ export const getRandomQuestions = (questions, amount) => {
   return result;
 };
 
-export const getQuestionTags = (question, tagList) => {
-  return question.tags.map(tagId => {
-    return tagList.find(tag => tag.id === `${question.communityId}-${tagId}`);
-  });
-};
+export const getQuestionTags = (question, tagList) =>
+  question.tags.map(tagId =>
+    tagList.find(tag => tag.id === `${question.communityId}-${tagId}`),
+  );

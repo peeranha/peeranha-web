@@ -34,7 +34,7 @@ import {
 } from 'containers/Profile/constants';
 
 import QuestionCommunity from './QuestionCommunity';
-import QuestionType from "containers/Questions/Content/Body/QuestionType";
+import QuestionType from 'containers/Questions/Content/Body/QuestionType';
 
 const single = isSingleCommunityWebsite();
 

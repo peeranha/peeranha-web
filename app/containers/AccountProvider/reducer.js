@@ -19,7 +19,7 @@ export const initialState = fromJS({
   loading: true,
   error: null,
   account: null,
-  balance: null,
+  balance: 0,
   stakedInCurrentPeriod: null,
   stakedInNextPeriod: null,
   boost: null,
@@ -74,6 +74,7 @@ function accountProviderReducer(state = initialState, action) {
       return state
         .set('email', email)
         .set('authToken', authToken)
+        .set('account', account || state.get('account'))
         .set('passwordUserPart', passwordUserPart)
         .set('encryptedKeys', encryptedKeys)
         .set('hasOwnerEosKey', hasOwnerEosKey)

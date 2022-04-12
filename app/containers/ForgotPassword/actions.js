@@ -92,7 +92,7 @@ export function verifyEmailErr(verifyEmailError) {
 export function changePassword(val) {
   return {
     type: CHANGE_PASSWORD,
-    masterKey: val.get(MASTER_KEY_FIELD),
+    code: val.get(VERIFICATION_CODE_FIELD),
     password: val.get(PASSWORD_FIELD),
   };
 }

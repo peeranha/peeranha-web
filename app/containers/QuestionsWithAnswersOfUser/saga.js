@@ -4,10 +4,10 @@ import maxBy from 'lodash/maxBy';
 
 import { getAnsweredUsersPosts } from 'utils/questionsManagement';
 
+import { GET_QUESTIONS } from 'containers/QuestionsOfUser/constants';
 import { getQuestionsSuccess, getQuestionsErr } from './actions';
 
 import { selectQuestionsWithUserAnswers, selectNumber } from './selectors';
-import { GET_QUESTIONS } from '../QuestionsOfUser/constants';
 import { GET_QUESTIONS as GET_ANSWERED_QUESTIONS } from './constants';
 import { getQuestionsWorker } from '../QuestionsOfUser/saga';
 import { POST_TYPE_ANSWER } from '../Profile/constants';

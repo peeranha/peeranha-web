@@ -42,12 +42,12 @@ export default defineMessages({
         id: 'app.containers.Moderation.permissionCreateTagDescription',
       },
     },
-    permissionChangeQuestionType: {
+    permissionChangePostType: {
       title: {
-        id: 'app.containers.Moderation.permissionChangeQuestionType',
+        id: 'app.containers.Moderation.permissionChangePostType',
       },
       description: {
-        id: 'app.containers.Moderation.permissionChangeQuestionTypeDescription',
+        id: 'app.containers.Moderation.permissionChangePostTypeDescription',
       },
     },
     permissionSelectTopQuestion: {

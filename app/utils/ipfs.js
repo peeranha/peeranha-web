@@ -93,6 +93,12 @@ export function StringToHash(stringHash) {
   return res;
 }
 
+export const getBytes32FromIpfsHash = ipfsListing =>
+  `0x${bs58
+    .decode(ipfsListing)
+    .slice(2)
+    .toString('hex')}`;
+
 export const getIpfsHashFromBytes32 = bytes32Hex => {
   const hashHex = '1220' + bytes32Hex.slice(2);
   const hashBytes = Buffer.from(hashHex, 'hex');

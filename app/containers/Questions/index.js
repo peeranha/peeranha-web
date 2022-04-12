@@ -81,6 +81,7 @@ export const Questions = ({
   createdFilter,
   setTypeFilterDispatch,
   initLoadedItems,
+  loadedItems,
   nextLoadedItems,
   getQuestionsDispatch,
   questionFilter,
@@ -94,11 +95,9 @@ export const Questions = ({
   const getInitQuestions = useCallback(
     () => {
       if (!questionFilter) {
-        const offset = 0;
-
         getQuestionsDispatch(
           initLoadedItems,
-          offset,
+          0,
           postsTypes,
           Number(params.communityid) || 0,
           parentPage,
@@ -118,21 +117,15 @@ export const Questions = ({
 
   const getNextQuestions = useCallback(
     () => {
-      const lastItem = questionsList[questionsList.length - 1];
-      const offset = lastItem ? +lastItem.id + 1 : 0;
-      const next = true;
-
       if (!questionFilter) {
         getQuestionsDispatch(
-          initLoadedItems,
           nextLoadedItems,
+          loadedItems,
           postsTypes,
           Number(params.communityid) || 0,
           parentPage,
-          next,
+          true,
         );
-      } else if (single) {
-        loadTopQuestionsDispatch(false);
       }
     },
     [
@@ -153,12 +146,6 @@ export const Questions = ({
     },
     [typeFilter, createdFilter, postsTypes],
   );
-
-  useEffect(() => {
-    if (single) {
-      loadTopQuestionsDispatch(true);
-    }
-  }, []);
 
   useEffect(
     () => {
@@ -197,6 +184,7 @@ export const Questions = ({
   const displayLoader = useMemo(
     () =>
       (!questionsList.length && questionsLoading) ||
+      questionsLoading ||
       topQuestionsLoading ||
       communitiesLoading ||
       (getCookie(QUESTION_FILTER) === '1' && !isLastTopQuestionLoaded),
@@ -336,6 +324,7 @@ export default compose(
       questionsLoading: questionsSelector.selectQuestionsLoading(),
       topQuestionsLoading: questionsSelector.selectTopQuestionsLoading(),
       initLoadedItems: questionsSelector.selectInitLoadedItems(),
+      loadedItems: questionsSelector.selectLoadedItems(),
       nextLoadedItems: questionsSelector.selectNextLoadedItems(),
       typeFilter: questionsSelector.selectTypeFilter(),
       createdFilter: questionsSelector.selectCreatedFilter(),

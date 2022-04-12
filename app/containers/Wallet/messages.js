@@ -7,6 +7,9 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
+  walletAddress: {
+    id: 'app.common.walletAddress',
+  },
   title: {
     id: 'app.containers.Wallet.title',
   },

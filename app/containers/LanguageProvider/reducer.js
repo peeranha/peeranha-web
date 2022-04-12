@@ -16,7 +16,9 @@ export const initialState = fromJS({
 function languageProviderReducer(state = initialState, action) {
   switch (action.type) {
     case CHANGE_LOCALE:
-      return state.set('locale', action.locale);
+      //TODO return multi_lang
+      return state.set('locale', DEFAULT_LOCALE);
+    // return state.set('locale', action.locale);
     default:
       return state;
   }

@@ -70,19 +70,11 @@ export class ForgotPassword extends React.Component {
           />
         )}
 
-        {content === VERIFICATION_CODE_FORM && (
-          <VerificationCodeForm
-            locale={locale}
-            verifyEmail={verifyEmailDispatch}
-            verifyEmailLoading={verifyEmailLoading}
-            sendAnotherCode={sendAnotherCodeDispatch}
-          />
-        )}
-
         {content === NEW_PASSWORD_FORM && (
           <NewPasswordForm
             locale={locale}
             changePassword={changePasswordDispatch}
+            sendAnotherCode={sendAnotherCodeDispatch}
             changePasswordLoading={changePasswordLoading}
           />
         )}

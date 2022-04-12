@@ -49,8 +49,3 @@ export const selectFacebookLoginProcessing = () =>
   createSelector(selectLoginDomain, substate =>
     substate.get('facebookLoginProcessing'),
   );
-
-export const selectFacebookUserData = () =>
-  createSelector(selectLoginDomain, substate =>
-    substate.get('facebookUserData'),
-  );

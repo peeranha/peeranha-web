@@ -12,12 +12,9 @@ import {
   EMAIL_VERIFICATION,
   EMAIL_VERIFICATION_SUCCESS,
   EMAIL_VERIFICATION_ERROR,
-  I_HAVE_EOS_ACCOUNT,
-  I_HAVE_EOS_ACCOUNT_SUCCESS,
-  I_HAVE_EOS_ACCOUNT_ERROR,
-  I_HAVE_NOT_EOS_ACCOUNT,
-  I_HAVE_NOT_EOS_ACCOUNT_SUCCESS,
-  I_HAVE_NOT_EOS_ACCOUNT_ERROR,
+  SIGN_UP_VIA_EMAIL,
+  SIGN_UP_VIA_EMAIL_SUCCESS,
+  SIGN_UP_VIA_EMAIL_ERROR,
   PUT_KEYS_TO_STATE,
   VERIFICATION_FIELD,
   SIGNUP_WITH_WALLET,
@@ -69,10 +66,9 @@ export function verifyEmail(values) {
   };
 }
 
-export function verifyEmailSuccess(encryptionKey) {
+export function verifyEmailSuccess() {
   return {
     type: EMAIL_VERIFICATION_SUCCESS,
-    encryptionKey,
   };
 }
 
@@ -91,53 +87,27 @@ export function sendAnotherCode() {
 
 /*
  *
- * i have eos account sign up
+ * sign up via email and ethereum wallet creation
  *
  */
 
-export function iHaveEosAccount(val) {
+export function signUpViaEmailComplete(val) {
   return {
-    type: I_HAVE_EOS_ACCOUNT,
+    type: SIGN_UP_VIA_EMAIL,
     val: val.toJS(),
   };
 }
 
-export function iHaveEosAccountSuccess() {
+export function signUpViaEmailCompleteSuccess() {
   return {
-    type: I_HAVE_EOS_ACCOUNT_SUCCESS,
+    type: SIGN_UP_VIA_EMAIL_SUCCESS,
   };
 }
 
-export function iHaveEosAccountErr(iHaveEosAccountError) {
+export function signUpViaEmailCompleteError(signUpViaEmailError) {
   return {
-    type: I_HAVE_EOS_ACCOUNT_ERROR,
-    iHaveEosAccountError,
-  };
-}
-
-/*
- *
- * i have NOT eos account sign up
- *
- */
-
-export function idontHaveEosAccount(val) {
-  return {
-    type: I_HAVE_NOT_EOS_ACCOUNT,
-    val: val.toJS(),
-  };
-}
-
-export function idontHaveEosAccountSuccess() {
-  return {
-    type: I_HAVE_NOT_EOS_ACCOUNT_SUCCESS,
-  };
-}
-
-export function idontHaveEosAccountErr(idontHaveEosAccountError) {
-  return {
-    type: I_HAVE_NOT_EOS_ACCOUNT_ERROR,
-    idontHaveEosAccountError,
+    type: SIGN_UP_VIA_EMAIL_ERROR,
+    signUpViaEmailError,
   };
 }
 

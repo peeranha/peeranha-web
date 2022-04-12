@@ -21,13 +21,13 @@ import {
   isAvailableAction,
 } from 'containers/AccountProvider/saga';
 
+import { getRatingByCommunity } from 'utils/profileManagement';
 import { initEthereumSuccess, initEthereumError } from './actions';
 import { INIT_ETHEREUM, INIT_ETHEREUM_SUCCESS } from './constants';
 
 import validate from './validate';
 import { getCookie } from '../../utils/cookie';
 import { AUTOLOGIN_DATA } from '../Login/constants';
-import {getRatingByCommunity} from "utils/profileManagement";
 
 export function* initEthereumWorker() {
   try {
@@ -46,6 +46,11 @@ export function* initEthereumWorker() {
         yield put(initEthereumSuccess(ethereumService));
       }
       yield put(initEthereumSuccess(ethereumService));
+    } else if (autoLoginData?.ethereumUserAddress) {
+      yield call(
+        ethereumService.setSelectedAccount,
+        autoLoginData.ethereumUserAddress,
+      );
     }
 
     yield call(ethereumService.initEthereum);

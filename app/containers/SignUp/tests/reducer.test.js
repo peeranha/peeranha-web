@@ -13,9 +13,9 @@ import {
   iHaveEosAccount,
   iHaveEosAccountSuccess,
   iHaveEosAccountErr,
-  idontHaveEosAccount,
-  idontHaveEosAccountSuccess,
-  idontHaveEosAccountErr,
+  signUpViaEmailComplete,
+  signUpViaEmailCompleteSuccess,
+  signUpViaEmailCompleteError,
   signUpWithScatter,
   signUpWithScatterSuccess,
   signUpWithScatterErr,
@@ -132,12 +132,12 @@ describe('signUpReducer', () => {
 
     const obj = state.set('idontHaveEosAccountProcessing', true);
 
-    expect(signUpReducer(state, idontHaveEosAccount(values))).toEqual(obj);
+    expect(signUpReducer(state, signUpViaEmailComplete(values))).toEqual(obj);
   });
 
   it('I_HAVE_NOT_EOS_ACCOUNT_SUCCESS', () => {
     const obj = state.set('idontHaveEosAccountProcessing', false);
-    expect(signUpReducer(state, idontHaveEosAccountSuccess())).toEqual(obj);
+    expect(signUpReducer(state, signUpViaEmailCompleteSuccess())).toEqual(obj);
   });
 
   it('I_HAVE_NOT_EOS_ACCOUNT_ERROR', () => {
@@ -147,7 +147,10 @@ describe('signUpReducer', () => {
       .set('idontHaveEosAccountError', idontHaveEosAccountError);
 
     expect(
-      signUpReducer(state, idontHaveEosAccountErr(idontHaveEosAccountError)),
+      signUpReducer(
+        state,
+        signUpViaEmailCompleteError(idontHaveEosAccountError),
+      ),
     ).toEqual(obj);
   });
 

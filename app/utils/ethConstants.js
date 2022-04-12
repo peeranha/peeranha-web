@@ -30,6 +30,8 @@ export const DELETE_COMMENT = 'deleteComment';
 export const CHANGE_STATUS_BEST = 'changeStatusBestReply';
 export const VOTE_ITEM = 'voteItem';
 export const GET_USER_RATING = 'getUserRating';
+export const GET_USER_BALANCE = 'balanceOf';
+export const CLAIM_REWARD = 'claimReward';
 
 export const UPVOTE_STATUS = 1;
 export const DOWNVOTE_STATUS = -1;
@@ -167,6 +169,10 @@ export const userStatsQuery = `
           replyCount
           achievements {
             id
+          }
+          ratings {
+           communityId
+           rating
           }
         }
       }`;
@@ -383,3 +389,30 @@ export const allAchievementsQuery = `
           }
         }
       }`;
+
+const period = `
+  id
+  startPeriodTime
+  endPeriodTime
+`;
+
+export const rewardsQuery = `
+  query (
+    $userId: ID!,
+  ) {
+    userRewards (where: {user: $userId}) {
+      id
+      period {
+        ${period}
+      }
+      user {
+        ${user}
+      }
+      tokenToReward
+      isPaid
+    }
+    periods (orderBy: endPeriodTime, orderDirection: desc, first: 2) {
+      ${period}
+    }
+  }
+`;

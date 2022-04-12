@@ -20,9 +20,12 @@ import { IconBG } from './WalletDropdown/WalletButton';
 
 const styles = singleCommunityStyles();
 
+// TODO: return if energy will be needed
+// REMOVE: remove if energy will be needed
 export const Button = ({ energy }) => (
   <IconBG
-    className="d-flex flex-column"
+    className="d-none" // REMOVE: temporarily added class
+    //className="d-flex flex-column" TODO: temporarily removed class
     bg={styles.fullyTransparent || BG_LIGHT}
     css={{ border: styles.communityBorderStyle }}
   >
@@ -62,7 +65,6 @@ const EnergyDropdown = ({ energy, rating, faqQuestions }) => {
     maxEnergy: 0,
   };
 
-  // TODO: return if energy will be needed
   if (process.env.ENV === 'prod') {
     return null;
   }
@@ -71,7 +73,7 @@ const EnergyDropdown = ({ energy, rating, faqQuestions }) => {
     <Dropdown
       id={`profile_id_${Math.random()}`}
       className="d-none d-md-flex"
-      //button={<Button energy={energy} />}  TODO: temporarily removed "Energy" button
+      button={<Button energy={energy} />}
       menu={
         <Menu
           energy={energy}

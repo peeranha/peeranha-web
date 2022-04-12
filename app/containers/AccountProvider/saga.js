@@ -1,6 +1,4 @@
 import { all, call, put, select, take, takeLatest } from 'redux-saga/effects';
-import * as routes from 'routes-config';
-import _get from 'lodash/get';
 
 import { getProfileInfo, getUserTelegramData } from 'utils/profileManagement';
 import { updateAcc } from 'utils/accountManagement';
@@ -21,23 +19,10 @@ import {
 import commonMessages from 'common-messages';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
-import { makeSelectLocale } from '../LanguageProvider/selectors';
-import { selectQuestionData } from '../ViewQuestion/selectors';
-import { makeSelectAccountLoading, makeSelectProfileInfo } from './selectors';
 
 import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
 import { getUserTelegramDataSuccess } from 'containers/TelegramAccountAction/actions';
 import { addToast } from 'containers/Toast/actions';
-import {
-  addLoginData,
-  getCurrentAccountError,
-  getCurrentAccountProcessing,
-  getCurrentAccountSuccess,
-  rewardReferErr,
-  updateAccErr,
-  updateAccSuccess,
-} from './actions';
-import { getQuestionDataSuccess } from '../ViewQuestion/actions';
 
 import { redirectToAskQuestionPageWorker } from 'containers/AskQuestion/saga';
 import { redirectToCreateCommunityWorker } from 'containers/CreateCommunity/saga';
@@ -49,7 +34,6 @@ import { updateStoredQuestionsWorker } from 'containers/Questions/saga';
 import { getNotificationsInfoWorker } from 'components/Notifications/saga';
 import { updateUserAchievementsWorker } from 'containers/Achievements/saga';
 import { getWeekStatWorker } from 'containers/Wallet/saga';
-import { getQuestionData } from '../ViewQuestion/saga';
 
 import {
   ALL_PROPERTY_COMMUNITY_SCOPE,
@@ -101,6 +85,7 @@ import {
   POST_ANSWER_SUCCESS,
   SAVE_COMMENT_SUCCESS,
 } from 'containers/ViewQuestion/constants';
+import { getCookie, setCookie } from 'utils/cookie';
 import {
   GET_CURRENT_ACCOUNT,
   GET_CURRENT_ACCOUNT_SUCCESS,
@@ -111,7 +96,20 @@ import {
   UPDATE_ACC_SUCCESS,
 } from './constants';
 
-import { getCookie, setCookie } from 'utils/cookie';
+import { getQuestionData } from '../ViewQuestion/saga';
+import { getQuestionDataSuccess } from '../ViewQuestion/actions';
+import {
+  addLoginData,
+  getCurrentAccountError,
+  getCurrentAccountProcessing,
+  getCurrentAccountSuccess,
+  rewardReferErr,
+  updateAccErr,
+  updateAccSuccess,
+} from './actions';
+import { makeSelectAccountLoading, makeSelectProfileInfo } from './selectors';
+import { selectQuestionData } from '../ViewQuestion/selectors';
+import { makeSelectLocale } from '../LanguageProvider/selectors';
 import { translationMessages } from '../../i18n';
 import { selectEthereum } from '../EthereumProvider/selectors';
 import { hasGlobalModeratorRole } from '../../utils/properties';
@@ -140,61 +138,23 @@ export const getCurrentAccountWorker = function*(initAccount) {
       if (autoLoginData) {
         account = autoLoginData.ethereumUserAddress;
       }
+    } else if (account.email) {
+      account = account.account;
+      ethereumService.setSelectedAccount(account);
     }
 
     if (account && typeof account === 'object') {
       account = account.ethereumUserAddress;
     }
 
-    // if (!prevProfileInfo) {
-    //   const profileLS = JSON.parse(getCookie(PROFILE_INFO_LS) || null);
-    //   if (
-    //     profileLS &&
-    //     (account === profileLS.user ||
-    //       (account && account.eosAccountName === profileLS.user))
-    //   ) {
-    //     // user available balance
-    //     // const weekStat = yield call(getWeekStat, eosService, profileLS);
-    //     // const userBoostStat = yield call(
-    //     //   getUserBoostStatistics,
-    //     //   eosService,
-    //     //   profileLS.user,
-    //     // );
-    //
-    //     // const boostWeeks = yield call(
-    //     //   getBoostWeeks,
-    //     //   weekStat,
-    //     //   globalBoostStat,
-    //     //   userBoostStat,
-    //     // );
-    //     // const { currentWeek, nextWeek } = boostWeeks;
-    //     // const { userStake, maxStake } = currentWeek;
-    //     //
-    //     // const boost = yield call(getPredictedBoost, userStake, maxStake);
-    //
-    //     // yield put(getUserProfileSuccess(profileLS));
-    //     // yield put(
-    //     //   getCurrentAccountSuccess(
-    //     //     profileLS.user,
-    //     //     profileLS.balance,
-    //     //     currentWeek.userStake,
-    //     //     nextWeek.userStake,
-    //     //     boost,
-    //     //   ),
-    //     // );
-    //
-    //     return null;
-    //   }
-    // }
-
     const [profileInfo, balance] = yield all([
       call(getProfileInfo, account, ethereumService, true, true),
       call(getBalance, ethereumService, account),
     ]);
 
-    let stakedInCurrentPeriod = 0;
-    let stakedInNextPeriod = 0;
-    let boost = {};
+    // const stakedInCurrentPeriod = 0;
+    // const stakedInNextPeriod = 0;
+    // const boost = {};
 
     // if (profileInfo) {
     //   // update user achievements
@@ -263,18 +223,15 @@ export const getCurrentAccountWorker = function*(initAccount) {
     yield put(getUserProfileSuccess(profileInfo));
     yield put(getUserProfileSuccess(profileInfo));
     yield call(getCommunityPropertyWorker, profileInfo);
-    const isStillLoading = yield select(makeSelectAccountLoading());
-    if (isStillLoading) {
-      yield put(
-        getCurrentAccountSuccess(
-          account,
-          balance,
-          // stakedInCurrentPeriod,
-          // stakedInNextPeriod,
-          // boost,
-        ),
-      );
-    }
+    yield put(
+      getCurrentAccountSuccess(
+        account,
+        balance,
+        // stakedInCurrentPeriod,
+        // stakedInNextPeriod,
+        // boost,
+      ),
+    );
     // yield put(getUserTelegramDataSuccess(userTgInfo));
   } catch (err) {
     yield put(getCurrentAccountError(err));
@@ -283,14 +240,13 @@ export const getCurrentAccountWorker = function*(initAccount) {
 
 export function* isAvailableAction(isValid, data = {}) {
   const { skipPermissions } = data;
+  const profileInfo = yield select(makeSelectProfileInfo());
+  if (hasGlobalModeratorRole(profileInfo.permissions)) {
+    return true;
+  }
 
   if (!skipPermissions) {
-    const profileInfo = yield select(makeSelectProfileInfo());
-
     if (profileInfo.integer_properties?.find(x => x.key === MODERATOR_KEY)) {
-      return true;
-    }
-    if (hasGlobalModeratorRole(profileInfo.permissions)) {
       return true;
     }
   }
