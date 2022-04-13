@@ -111,7 +111,7 @@ export const QuestionForm = ({
 }) => {
   const [isSelectedType, setIsSelectedType] = useState(false);
   const [isError, setIsError] = useState(false);
-  const [isUnsaved, setIsUnsaved] = useState(true);
+  const [isPressed, setIsPressed] = useState(true);
   const [isClickSubmit, setIsClickSubmit] = useState(false);
   const postTitle = question ? question.title : undefined;
   const postContent = question ? question.content : undefined;
@@ -153,7 +153,7 @@ export const QuestionForm = ({
     <Router history={history}>
       <Prompt
         message={translationMessages[locale][messages.leaveWithoutChanges.id]}
-        when={isEdited && isUnsaved}
+        when={isEdited && isPressed}
       />
       <div>
         <Header formTitle={formTitle} questionId={questionid} intl={intl} />
@@ -260,7 +260,7 @@ export const QuestionForm = ({
                 id={submitButtonId}
                 type="submit"
                 onClick={() => {
-                  setIsUnsaved(!isUnsaved);
+                  if (isEdited) setIsPressed(!isPressed);
                 }}
               >
                 {submitButtonName}
