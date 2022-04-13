@@ -95,7 +95,6 @@ const TopCommunities = ({
   questions,
 }) => {
   if (
-    account !== userId ||
     !communities ||
     !profile ||
     !communities.length
@@ -129,7 +128,7 @@ const TopCommunities = ({
     return (
       <div className="overlow-hidden" ref={ref}>
         <H4 isHeader>
-          <FormattedMessage {...messages.myCommunities} />
+          <FormattedMessage {...messages.communities} />
         </H4>
 
         <Grid xl={5} lg={4} md={3} sm={2} xs={1}>
@@ -179,9 +178,6 @@ const TopCommunities = ({
                             />
                           </div>
 
-                          <FollowCommunityButton
-                            communityIdFilter={x.communityId}
-                          />
                         </div>
                       </FrontSide>
 
@@ -195,11 +191,6 @@ const TopCommunities = ({
                               <P>{community.description}</P>
                             </div>
                           ) : null }
-                          <div>
-                            <FollowCommunityButton
-                              communityIdFilter={x.communityId}
-                            />
-                          </div>
                         </div>
                       </BackSide>
                     </Link>
@@ -247,7 +238,6 @@ const TopCommunities = ({
               } else if (single && x.id === single) {
                 route = routes.questions();
               }
-    
               return (
                 <div key={x.id}>
                   <BaseRoundedNoPadding>
@@ -256,7 +246,7 @@ const TopCommunities = ({
                         <div>
                           <MediumImage src={x.avatar} alt="comm_img" />
                           <P fontSize="16" bold>
-                            {community.name}
+                            {x.name}
                           </P>
                         </div>
     
