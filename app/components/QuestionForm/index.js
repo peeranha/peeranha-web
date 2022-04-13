@@ -145,19 +145,17 @@ export const QuestionForm = ({
   const profileWithModeratorRights =
     profile && hasGlobalModeratorRole(getPermissions(profile));
 
-  const handleSetClicked = () => setIsClickSubmit(true);
+  const makeIsClicked = () => setIsClickSubmit(true);
 
   return (
     <div>
-      <Header
-        formTitle={formTitle}
-        questionId={questionid}
-        postType={question?.postType}
-        intl={intl}
-      />
+      <Header formTitle={formTitle} questionId={questionid} intl={intl} />
       <TipsBase>
         <BaseSpecialOne>
-          <FormBox onSubmit={handleSubmitWithType(sendQuestion)}>
+          <FormBox
+            onSubmit={handleSubmitWithType(sendQuestion)}
+            onClick={makeIsClicked}
+          >
             <CommunityForm
               intl={intl}
               communities={communities}
@@ -254,7 +252,6 @@ export const QuestionForm = ({
               disabled={questionLoading}
               id={submitButtonId}
               type="submit"
-              onClick={handleSetClicked}
             >
               {submitButtonName}
             </Button>
@@ -309,7 +306,7 @@ export default memo(
           prop => prop.key === KEY_QUESTIONS_TYPE,
         )?.value;
 
-        // disable community form on edit question page
+        // diable community form on edit question page
         const disableCommForm = formName === EDIT_QUESTION_FORM;
 
         return {
