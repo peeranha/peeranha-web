@@ -119,13 +119,14 @@ export function* loginWithEmailWorker({ val }) {
       rememberMe,
       ethereumService,
     );
-    ethereumService.setSelectedAccount(response.body.address);
 
     if (!response.OK) {
       throw new WebIntegrationError(
         translations[webIntegrationErrors[response.errorCode].id],
       );
     }
+
+    ethereumService.setSelectedAccount(response.body.address);
 
     yield put(addLoginData(response.peeranhaAutoLogin));
     yield call(continueLogin, response.body);
