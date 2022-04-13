@@ -103,4 +103,7 @@ export default defineMessages({
   questionPostTypeSelectionError: {
     id: 'app.containers.QuestionForm.postTypeSelectionError',
   },
+  leaveWithoutChanges: {
+    id: 'app.containers.QuestionForm.leaveWithoutChanges',
+  },
 });
