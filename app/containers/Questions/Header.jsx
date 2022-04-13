@@ -116,28 +116,25 @@ export const Header = ({
   );
 
   /* eslint react/prop-types: 0 */
-  const Button = ({ communityAvatar, communityLabel }) => {
-    console.log(defaultAvatar);
-    return (
-      <H3>
-        {communityAvatar ? (
-          <MediumImageStyled src={communityAvatar} alt="communityAvatar" />
-        ) : (
-          <StyledCustomIconButtonContainer>
-            <MediumIconStyled>
-              <IconLg
-                icon={communityAvatar || defaultAvatar}
-                width={defaultAvatarWidth}
-                fill={BORDER_PRIMARY}
-              />
-            </MediumIconStyled>
-          </StyledCustomIconButtonContainer>
-        )}
+  const Button = ({ communityAvatar, communityLabel }) => (
+    <H3>
+      {communityAvatar ? (
+        <MediumImageStyled src={communityAvatar} alt="communityAvatar" />
+      ) : (
+        <StyledCustomIconButtonContainer>
+          <MediumIconStyled>
+            <IconLg
+              icon={communityAvatar || defaultAvatar}
+              width={defaultAvatarWidth}
+              fill={BORDER_PRIMARY}
+            />
+          </MediumIconStyled>
+        </StyledCustomIconButtonContainer>
+      )}
 
-        <span>{communityLabel || defaultLabel}</span>
-      </H3>
-    );
-  };
+      <span>{communityLabel || defaultLabel}</span>
+    </H3>
+  );
 
   const displaySubscribeButton =
     !!single ||

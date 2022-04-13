@@ -228,8 +228,12 @@ export const FilecoinStyles = {
     // attentionColor: '#0090FF',
     linkColor: '#0090FF', // Q&A color
     linkColorTransparent: 'rgba(0, 144, 255, 0.4)', // link color transparent
+    blockedInfoArea: 'rgba(0, 144, 255, 0.1)', // link color transparent
     transparentIconColor: '#98cbf2',
+    loaderColor: '#0090FF',
+    votingIconColor: '#0090FF',
     linkColorSecondary: '#0090FF',
+    walletButton: '#0090FF',
     // purple: 'rgba(0,0,0,.6)',
     btnColor: '#000000',
     tagColor: '#0090FF',

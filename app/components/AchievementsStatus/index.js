@@ -6,6 +6,7 @@ import Icon from 'components/Icon';
 import achievementsIcon from 'images/achievement_inline.svg?external';
 
 import { PEER_PRIMARY_COLOR } from 'style-constants';
+import { customRatingIconColors } from '../../constants/customRating';
 
 const StatusSpan = styled.span`
   position: relative;
@@ -31,6 +32,10 @@ const IconAbsolute = styled(Icon)`
 
   .achievement-inline * {
     stroke-width: ${props => (props.size === 'lg' ? '0.7px' : '1px')};
+  }
+
+  .stroke {
+    stroke: ${customRatingIconColors.strokeColor};
   }
 `;
 
