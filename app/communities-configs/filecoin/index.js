@@ -32,11 +32,13 @@ export const customSubHeaderConfig = {
       background: '#FFFFFF',
     },
     subHeader: css`
-      border-bottom: 1px solid #CECECE;
-      a, span {
-        transition: all .3s ease-out;
+      border-bottom: 1px solid #cecece;
+      a,
+      span {
+        transition: all 0.3s ease-out;
       }
-      a:hover, span:hover {
+      a:hover,
+      span:hover {
         color: #000000 !important;
         opacity: 1 !important;
       }
@@ -49,7 +51,7 @@ export const customSubHeaderConfig = {
       min-width: 100% !important;
       transform: translate(-50%, -5%) !important;
 
-      animation: ani .3s both;
+      animation: ani 0.3s both;
       @keyframes ani {
         0% {
           opacity: 0;
@@ -62,17 +64,17 @@ export const customSubHeaderConfig = {
       }
 
       ::before {
-        content: "";
+        content: '';
         width: 20px;
         height: 20px;
         position: absolute;
         top: -10px;
         left: 50%;
         transform: translateX(-50%) rotate(45deg);
-        transition: background-color .3s;
-        border-top: 1px solid #F2F2F2;
-        border-left: 1px solid #F2F2F2;
-        background: #FFFFFF;
+        transition: background-color 0.3s;
+        border-top: 1px solid #f2f2f2;
+        border-left: 1px solid #f2f2f2;
+        background: #ffffff;
         z-index: 9999;
       }
 
@@ -92,12 +94,10 @@ export const customSubHeaderConfig = {
     subHeaderItem: css`
       position: relative;
 
-      @media only screen and (min-width: 900px)
-      {
+      @media only screen and (min-width: 900px) {
         font-size: 14px;
       }
-      @media only screen and (min-width: 1440px)
-      {
+      @media only screen and (min-width: 1440px) {
         font-size: 15px;
       }
 
@@ -123,8 +123,7 @@ export const customSubHeaderConfig = {
     CustomSubHeader: css`
       margin: 0 !important;
     `,
-    subHeaderContainerStyles: css`
-    `,
+    subHeaderContainerStyles: css``,
     topLogoContainerStyles: css`
       width: 80px !important;
       margin: 0 !important;
@@ -141,8 +140,7 @@ export const customSubHeaderConfig = {
       }
     `,
 
-    Highlighted: css`
-    `,
+    Highlighted: css``,
   },
   links: [
     {
@@ -158,39 +156,39 @@ export const customSubHeaderConfig = {
       href: `${domainName}/build/`,
       subitems: [
         {
-          text: "Docs",
-          href: `${domainName}/build/#benefits-banner`
+          text: 'Docs',
+          href: `${domainName}/build/#benefits-banner`,
         },
         {
-          text: "Tools & services",
-          href: `${domainName}/build/#tools-and-more`
+          text: 'Tools & services',
+          href: `${domainName}/build/#tools-and-more`,
         },
         {
-          text: "Grants",
-          href: `${domainName}/build/#grants`
+          text: 'Grants',
+          href: `${domainName}/build/#grants`,
         },
         {
-          text: "Roadmap",
-          href: `${domainName}/build/#usp`
+          text: 'Roadmap',
+          href: `${domainName}/build/#usp`,
         },
         {
-          text: "Videos",
-          href: `${domainName}/build/#videos`
+          text: 'Videos',
+          href: `${domainName}/build/#videos`,
         },
         {
-          text: "Filecoin Community",
-          href: `${domainName}/build/#community`
+          text: 'Filecoin Community',
+          href: `${domainName}/build/#community`,
         },
         {
-          text: "Events",
-          href: `${domainName}/build/#events`
+          text: 'Events',
+          href: `${domainName}/build/#events`,
         },
-      ]
+      ],
     },
     {
       text: 'Blog',
       href: `${domainName}/provide/`,
-    }
+    },
   ],
 };
 
@@ -236,19 +234,20 @@ export const FilecoinStyles = {
     premiumLight: '#D8EBF8',
     premiumRGB: '47, 163, 241',
   },
-  fontFace: css`@font-face {
-    font-family: 'Roboto-Regular';
-    src:
-      url(${RobotoRegularEOT}?#iefix) format('embedded-opentype'),
-      url(${RobotoRegularWOFF}) format('woff'),
-      url(${RobotoRegularTTF}) format('truetype');
-    font-style: normal;
-  }`,
+  fontFace: css`
+    @font-face {
+      font-family: 'Roboto-Regular';
+      src: url(${RobotoRegularEOT}?#iefix) format('embedded-opentype'),
+        url(${RobotoRegularWOFF}) format('woff'),
+        url(${RobotoRegularTTF}) format('truetype');
+      font-style: normal;
+    }
+  `,
   bountyBgColor: '#000000',
   coinsIconStyles: css`
     ellipse {
       stroke: rgba(0, 0, 0, 0.6);
-      fill: #CCCCCC;
+      fill: #cccccc;
     }
   `,
   boostWalletBtnStyles: css`

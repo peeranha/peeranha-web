@@ -66,8 +66,8 @@ const PaidOutWeek = ({
   style,
 }) => {
   const pickUpReward = () => {
-    pickupRewardDispatch(period)
-  }
+    pickupRewardDispatch(period);
+  };
   return (
     <Container style={style}>
       <BaseRoundedLi className="align-items-center">
@@ -87,7 +87,7 @@ const PaidOutWeek = ({
 
         <WeekActions className="d-flex align-items-center justify-content-end">
           <P className="d-flex align-items-center">
-            <SmallImage className="mr-2" src={currencyPeerImage} alt="icon"/>
+            <SmallImage className="mr-2" src={currencyPeerImage} alt="icon" />
             <Span fontSize="20" mobileFS={14} bold>
               {getFormattedNum3(reward)}
             </Span>
@@ -99,9 +99,7 @@ const PaidOutWeek = ({
               id={`pickup-reward-${period}`}
               onClick={pickUpReward}
               disabled={
-                hasTaken !== false ||
-                !Number(reward) ||
-                (pickupRewardProcessing)
+                hasTaken !== false || !Number(reward) || pickupRewardProcessing
               }
             >
               <FormattedMessage {...messages.getReward} />
@@ -117,7 +115,7 @@ const PaidOutWeek = ({
       </BaseRoundedLi>
     </Container>
   );
-}
+};
 
 PaidOutWeek.propTypes = {
   period: PropTypes.number,

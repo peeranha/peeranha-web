@@ -15,6 +15,7 @@ const Base = styled.div`
   border-radius: 5px;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
   padding: 15px;
+  text-align: left;
 
   span {
     color: ${TEXT_DARK};

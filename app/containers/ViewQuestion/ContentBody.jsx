@@ -54,7 +54,7 @@ export const ContentBody = ({
   );
 
   return (
-    <Base position="bottom" paddingTop="0">
+    <Base position="bottom" paddingTop="10">
       <BestAnswerMarker
         answerId={answerId}
         questionFrom={questionFrom}
