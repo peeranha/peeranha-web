@@ -26,15 +26,15 @@ const styles = singleCommunityStyles();
 
 export const QUESTION_TYPES = {
   GENERAL: {
-    value: '1',
+    value: 1,
     label: 'general',
   },
   EXPERT: {
-    value: '0',
+    value: 0,
     label: 'expert',
   },
   TUTORIAL: {
-    value: '2',
+    value: 2,
     label: 'tutorial',
   },
 };
@@ -105,9 +105,9 @@ const Button = B.extend`
   flex: 1;
   border: 1px solid ${BORDER_SECONDARY};
   border-color: ${({ type, value }) =>
-    type === value && `rgb(${BORDER_PRIMARY_RGB})`};
+    +type === value && `rgb(${BORDER_PRIMARY_RGB})`};
   box-shadow: ${({ type, value }) =>
-    type === value && `0 0 0 3px rgba(${BORDER_PRIMARY_RGB}, 0.4)`};
+    +type === value && `0 0 0 3px rgba(${BORDER_PRIMARY_RGB}, 0.4)`};
 
   &:hover {
     box-shadow: 0 0 0 3px rgba(${BORDER_PRIMARY_RGB}, 0.4);
@@ -130,7 +130,7 @@ const QuestionTypeField = ({
   insideOfSection,
   error,
 }) => {
-  const [type, setType] = useState(null);
+  const [type, setType] = useState();
 
   function chooseQuestionType(event) {
     const { value } = event.currentTarget;
