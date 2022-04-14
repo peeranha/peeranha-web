@@ -113,8 +113,8 @@ export const QuestionForm = ({
   const [isError, setIsError] = useState(false);
   const [isNotPressed, setIsNotPressed] = useState(true);
   const [isClickSubmit, setIsClickSubmit] = useState(false);
-  const postTitle = question ? question.title : undefined;
-  const postContent = question ? question.content : undefined;
+  const postTitle = question?.title;
+  const postContent = question?.content;
 
   const handleSubmitWithType = () => {
     if (communityQuestionsType !== ANY_TYPE) {
