@@ -143,8 +143,7 @@ import orderBy from 'lodash/orderBy';
 
 export const isGeneralQuestion = question => Boolean(question.postType === 1);
 
-export const getQuestionTypeValue = isGeneral =>
-  isGeneral ? 'CommonPost' : 'ExpertPost'; //QUESTION_TYPES.GENERAL.value : QUESTION_TYPES.EXPERT.value;
+export const getQuestionTypeValue = PostType => PostType === 1 ? 0 : 1;
 
 const isOwnItem = (questionData, profileInfo, answerId) =>
   questionData.author.user === profileInfo.user ||
@@ -1042,23 +1041,20 @@ export function* updateQuestionDataAfterTransactionWorker({
 
 function* changeQuestionTypeWorker({ buttonId }) {
   try {
-    const { questionData, ethereumService, locale, profileInfo } = yield call(
+    const { questionData, ethereumService, profileInfo } = yield call(
       getParams,
     );
-    console.log(111, questionData, getQuestionTypeValue(!questionData.isGeneral));
-    console.log(222)
     yield call(
       changeQuestionType,
       ethereumService,
       profileInfo.user,
       questionData.id,
-      getQuestionTypeValue(!questionData.isGeneral)
+      getQuestionTypeValue(questionData.postType)
     );
-    console.log(444, questionData)
     yield put(
       getQuestionDataSuccess({
         ...questionData,
-        isGeneral: !questionData.isGeneral,
+        postType: getQuestionTypeValue(questionData.postType),
       }),
     );
     yield put(changeQuestionTypeSuccess(buttonId));

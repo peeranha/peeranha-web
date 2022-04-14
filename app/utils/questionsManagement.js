@@ -675,12 +675,10 @@ export const changeQuestionType = async (
   questionId,
   type
 ) => {
-  console.log(333, user, questionId, type);
-  await ethereumService.sendTransactionWithSigner(user, CHANGE_POST_TYPE, {
-    user,
+  await ethereumService.sendTransactionWithSigner(user, CHANGE_POST_TYPE, [
     questionId,
-    type
-  });
+    type,
+  ]);
 };
 
 export const getPromoteQuestTrActData = (user, questionId, hours) => ({
