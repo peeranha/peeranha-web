@@ -26,15 +26,15 @@ const styles = singleCommunityStyles();
 
 export const QUESTION_TYPES = {
   GENERAL: {
-    value: 'general',
+    value: '1',
     label: 'general',
   },
   EXPERT: {
-    value: 'expert',
+    value: '0',
     label: 'expert',
   },
   TUTORIAL: {
-    value: 'tutorial',
+    value: '2',
     label: 'tutorial',
   },
 };
