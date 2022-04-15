@@ -143,8 +143,8 @@ import orderBy from 'lodash/orderBy';
 
 export const isGeneralQuestion = question => Boolean(question.postType === 1);
 
-export const getQuestionTypeValue = PostType => 
-  PostType === POST_TYPE.generalPost ? POST_TYPE.expertPost : POST_TYPE.generalPost;
+export const getQuestionTypeValue = postType => 
+  postType === POST_TYPE.generalPost ? POST_TYPE.expertPost : POST_TYPE.generalPost;
 
 const isOwnItem = (questionData, profileInfo, answerId) =>
   questionData.author.user === profileInfo.user ||
