@@ -109,9 +109,7 @@ export const BOUNTY_ACTIVE_CLASSNAME = 'bountyActive';
 export const BOUNTY_PAID_CLASSNAME = 'bountyPaid';
 export const BOUNTY_PENDING_CLASSNAME = 'bountyPending';
 
-export const EXPERTS = 'experts';
-export const QUESTIONS = 'questions';
-export const TUTORIALS = 'tutorials';
+export const POST_TYPES = ['experts', 'questions', 'tutorials'];
 
 export const QUESTION_PROPERTIES = {
   LAST_EDITED_KEY: 3,
