@@ -32,7 +32,7 @@ import {
 } from 'utils/questionsManagement';
 import { payBounty } from 'utils/walletManagement';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
-import { ACCOUNT_TABLE, ALL_ACCOUNTS_SCOPE } from 'utils/constants';
+import { ACCOUNT_TABLE, ALL_ACCOUNTS_SCOPE, POST_TYPE } from 'utils/constants';
 import { dateNowInSeconds } from 'utils/datetime';
 
 import {
@@ -143,7 +143,8 @@ import orderBy from 'lodash/orderBy';
 
 export const isGeneralQuestion = question => Boolean(question.postType === 1);
 
-export const getQuestionTypeValue = PostType => PostType === 1 ? 0 : 1;
+export const getQuestionTypeValue = PostType => 
+  PostType === POST_TYPE.generalPost ? POST_TYPE.expertPost : POST_TYPE.generalPost;
 
 const isOwnItem = (questionData, profileInfo, answerId) =>
   questionData.author.user === profileInfo.user ||
@@ -161,6 +162,7 @@ export function* getQuestionData({
   } else {
     question = yield call(getQuestionFromGraph, +questionId);
     question.commentCount = question.comments.length;
+    question.communityId = Number(question.communityId);
     question.answers.map(answer => {
       answer.commentCount = answer.comments.length;
       answer.id = Number(answer.id.split('-')[1]);
