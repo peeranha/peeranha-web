@@ -127,7 +127,7 @@ const MainUserInformation = ({
   const isTemporaryAccount = !!profile?.['integer_properties']?.find(
     x => x.key === TEMPORARY_ACCOUNT_KEY && x.value,
   );
-
+  const domainPolygonScan = 'https://mumbai.polygonscan.com/address/';
   return (
     <Box position="middle">
       <div>
@@ -196,7 +196,9 @@ const MainUserInformation = ({
               {!isTemporaryAccount && (
                 <li>
                   <FormattedMessage {...commonMessages.walletAddress} />
-                  <span>{userId}</span>
+                  <a href={domainPolygonScan + userId} >
+                    <span>{userId}</span>
+                  </a>
                 </li>
               )}
 
