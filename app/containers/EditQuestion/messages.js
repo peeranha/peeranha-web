@@ -9,8 +9,8 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   title: {
     id: [
-      'app.containers.EditDiscussion.title',
       'app.containers.EditExpertQ&A.title',
+      'app.containers.EditDiscussion.title',
       'app.containers.EditTutorial.title',
     ],
   },

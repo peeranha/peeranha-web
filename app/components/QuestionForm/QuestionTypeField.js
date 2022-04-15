@@ -9,6 +9,7 @@ import validationArrowIcon from 'images/validationArrow.svg?inline';
 import { italicFont } from 'global-styles';
 import messages from 'common-messages';
 import questionMessages from './messages';
+import { POST_TYPE } from './constants';
 
 import {
   BORDER_SECONDARY,
@@ -26,15 +27,15 @@ const styles = singleCommunityStyles();
 
 export const QUESTION_TYPES = {
   GENERAL: {
-    value: 1,
+    value: POST_TYPE.generalPost,
     label: 'general',
   },
   EXPERT: {
-    value: 0,
+    value: POST_TYPE.expertPost,
     label: 'expert',
   },
   TUTORIAL: {
-    value: 2,
+    value: POST_TYPE.tutorial,
     label: 'tutorial',
   },
 };
@@ -132,8 +133,8 @@ const QuestionTypeField = ({
 }) => {
   const [type, setType] = useState();
 
-  function chooseQuestionType(event) {
-    const { value } = event.currentTarget;
+  function chooseQuestionType({ currentTarget }) {
+    const { value } = currentTarget;
     event.preventDefault();
     input.onChange(value);
     setType(value);
