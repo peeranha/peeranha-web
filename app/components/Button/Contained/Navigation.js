@@ -1,13 +1,19 @@
 import { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 
-import { BG_TRANSPARENT, TEXT_LIGHT, BG_PRIMARY } from 'style-constants';
+import {
+  BG_TRANSPARENT,
+  TEXT_LIGHT,
+  BG_PRIMARY,
+  TEXT_PRIMARY,
+} from 'style-constants';
 
 import { singleCommunityColors } from 'utils/communityManagement';
 import Primary from './Primary';
 import Medium from '../Medium';
 
 const colors = singleCommunityColors();
+const linkColor = colors.linkColor || TEXT_PRIMARY;
 
 const ButtonCss = css`
   ${Medium};
@@ -22,12 +28,12 @@ const ButtonCss = css`
   ${({ islink }) =>
     islink
       ? css`
-          color: ${colors.linkColor || TEXT_LIGHT};
+          color: ${linkColor};
           background: ${BG_TRANSPARENT};
           border-radius: 0;
 
           :hover {
-            color: ${colors.linkColor || TEXT_LIGHT};
+            color: ${linkColor};
           }
         `
       : css`

@@ -77,8 +77,11 @@ export const CommentOptions = ({
           id={toggleFormButtonId}
           onClick={() => checkAddCommentAvailable(toggleFormButtonId, answerId)}
         >
-          <IconMd icon={dotsIcon} fill={colors.linkColor || BORDER_PRIMARY} />
-          <Span className="ml-1" color={colors.linkColor || TEXT_PRIMARY}>
+          <IconMd
+            icon={dotsIcon}
+            fill={colors.commentOption || BORDER_PRIMARY}
+          />
+          <Span className="ml-1" color={colors.commentOption || TEXT_PRIMARY}>
             <FormattedMessage {...messages.addComment} />
           </Span>
         </ButtonStyled>

@@ -2,7 +2,6 @@ import React from 'react';
 import { css } from 'styled-components';
 import CustomSubHeader from 'components/CustomSubHeaders/CustomSubHeader';
 import CustomMobileSubHeader from 'components/CustomSubHeaders/CustomMobileSubHeader';
-// TODO: configure favicon
 import polygonLogo from 'communities-configs/polygon/images/polygon-logo.svg?inline';
 import verdanaRegularTTF from 'communities-configs/polygon/fonts/verdana.ttf';
 import {
@@ -257,6 +256,9 @@ export const PolygonStyles = {
     mainBackground: '#F3F3F3',
     linkColor: '#7b3fe4',
     linkColorTransparent: 'rgba(123, 63, 228, 0.4)',
+    headerPrimary: '#7b3fe4',
+    commentOption: '#7b3fe4',
+    contentHeader: '#7b3fe4',
     blockedInfoArea: 'rgba(123, 63, 228, 0.1)',
     transparentIconColor: '#b19bdd',
     loaderColor: '#7b3fe4',

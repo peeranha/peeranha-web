@@ -6,7 +6,7 @@ import Icon from 'components/Icon';
 import achievementsIcon from 'images/achievement_inline.svg?external';
 
 import { PEER_PRIMARY_COLOR } from 'style-constants';
-import { customRatingIconColors } from '../../constants/customRating';
+import { customRatingIconColors } from 'constants/customRating';
 
 const StatusSpan = styled.span`
   position: relative;

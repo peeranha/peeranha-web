@@ -42,7 +42,7 @@ import { changeQuestionType, payBounty } from './actions';
 import { QUESTION_TYPE } from './constants';
 
 const colors = singleCommunityColors();
-const shareColors = colors.linkColor || BG_PRIMARY;
+const shareColors = colors.contentHeader || BG_PRIMARY;
 
 const RatingBox = styled.div`
   border-right: 1px solid ${BORDER_SECONDARY};
@@ -229,10 +229,7 @@ const ContentHeader = props => {
               disabled={ids.includes(`${type}_vote_to_delete_${answerId}`)}
               isVotedToDelete
             >
-              <IconSm
-                icon={blockIcon}
-                fill={BORDER_ATTENTION_LIGHT}
-              />
+              <IconSm icon={blockIcon} fill={BORDER_ATTENTION_LIGHT} />
               <FormattedMessage {...messages.voteToDelete} />
             </Button>
           ) : null}

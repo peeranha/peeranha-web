@@ -49,12 +49,12 @@ const communitiesConfig = {
       origin: 'https://community.testpeeranha.io',
     },
     2: {
-      origin: 'http://localhost:8080',
+      origin: 'https://filecoin.testpeeranha.io',
       src: FileiconLogo,
       styles: FilecoinStyles,
     },
     3: {
-      origin: '',
+      origin: 'https://polygon.testpeeranha.io',
       src: PolygonLogo,
       styles: PolygonStyles,
     },
