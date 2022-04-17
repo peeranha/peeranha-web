@@ -146,7 +146,9 @@ export const QuestionForm = ({
   const handleSetClicked = () => setIsClickSubmit(true);
   const handleButtonClick = () => {
     handleSetClicked();
-    if (isEdited) setSubmitPressed(true);
+    if (isEdited) {
+      setSubmitPressed(true);
+    }
   };
   const isEdited =
     formValues[FORM_TITLE] !== postTitle ||
