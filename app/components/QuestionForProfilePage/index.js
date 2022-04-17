@@ -96,7 +96,7 @@ const ContentContainer = styled.div`
 
 const QuestionLabels = styled.div`
   position: absolute;
-  top: 5px;
+  top: 24px;
   right: 7px;
   display: flex;
   flex-direction: row-reverse;

@@ -121,7 +121,6 @@ const QuestionType = ({ locale, postType, isPromoted, isExpert }) => {
             onMouseLeave={onMouseLeave}
             size="sm"
           >
-            {/*TODO change popover*/}
             {visible && (
               <Popover
                 locale={locale}
@@ -129,7 +128,6 @@ const QuestionType = ({ locale, postType, isPromoted, isExpert }) => {
                 items={commonMessages.generalPopoverList.id}
               />
             )}
-
             <Icon className="mr-2" icon={generalIcon} />
           </Container>
         </LabelItem>
@@ -159,7 +157,6 @@ const QuestionType = ({ locale, postType, isPromoted, isExpert }) => {
             onMouseLeave={onMouseLeave}
             size="sm"
           >
-            {/*TODO change popover*/}
             {visible && (
               <Popover
                 locale={locale}
@@ -183,6 +180,7 @@ const QuestionType = ({ locale, postType, isPromoted, isExpert }) => {
 };
 
 QuestionType.propTypes = {
+  postType: PropTypes.number,
   locale: PropTypes.string,
   isGeneral: PropTypes.bool,
   isPromoted: PropTypes.bool,

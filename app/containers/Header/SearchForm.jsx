@@ -8,11 +8,13 @@ import Input from 'components/Input';
 
 const SearchForm = ({ placeholder, className, onBlur, searchFormId }) => {
   const [text, changeText] = useState('');
+  const [lastPathName, changeLastPathName] = useState('');
 
   const onSubmit = useCallback(
     e => {
       e.preventDefault();
       createdHistory.push(routes.search(text));
+      changeLastPathName(routes.search());
     },
     [text],
   );
@@ -27,6 +29,15 @@ const SearchForm = ({ placeholder, className, onBlur, searchFormId }) => {
     }),
     [text, searchFormId, onBlur],
   );
+
+  if (
+    !createdHistory.location.pathname.includes(routes.search()) &&
+    lastPathName === routes.search() &&
+    text !== ''
+  ) {
+    changeText('');
+    changeLastPathName('');
+  }
 
   return (
     // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events

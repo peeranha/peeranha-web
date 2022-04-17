@@ -36,6 +36,11 @@ const Tag = styled.li`
   border-radius: ${BORDER_RADIUS_S};
 `;
 
+const ScrollDropdown = styled.div`
+  overflow-y: scroll;
+  height: 175px;
+`;
+
 const Base = styled.div`
   margin-bottom: ${({ isOpen }) => (isOpen ? 120 : 0)}px;
 `;
@@ -105,19 +110,21 @@ export const TagSelector = ({
             </TagsContainer>
           }
         >
-          <Select2
-            input={{
-              ...input,
-              value: null,
-              onBlur: null,
-              onChange,
-            }}
-            options={filteredOptions}
-            disabled={disabled}
-            autoFocus
-            menuIsOpen
-            isWrapped
-          />
+          <ScrollDropdown>
+            <Select2
+              input={{
+                ...input,
+                value: null,
+                onBlur: null,
+                onChange,
+              }}
+              options={filteredOptions}
+              disabled={disabled}
+              autoFocus
+              menuIsOpen
+              isWrapped
+            />
+          </ScrollDropdown>
         </Dropdown>
       </Wrapper>
     </Base>

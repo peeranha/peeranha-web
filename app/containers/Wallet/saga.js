@@ -29,7 +29,7 @@ export function* getWeekStatWorker() {
     const ethereumService = yield select(selectEthereum);
     const profile = yield select(makeSelectProfileInfo());
     const user = yield select(makeSelectAccount());
-    const weekStat= profile
+    const weekStat = profile
       ? yield call(getWeekStat, ethereumService, user)
       : [];
 

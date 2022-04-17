@@ -39,7 +39,7 @@ const Handler = ({
   );
 
   return src ? (
-    <button onClick={onClick || null} type="button" tabIndex="-1">
+    <button onMouseDown={onClick || null} type="button" tabIndex="-1">
       <IconMd icon={src} color={TEXT_SECONDARY_LIGHT} />
     </button>
   ) : null;
