@@ -1084,6 +1084,8 @@
   "app.containers.QuestionForm.questionIsPromoting": "Promoted till",
   "app.containers.QuestionForm.postTypeSelectionError":
     "You need to select post type",
+  "app.containers.QuestionForm.leaveWithoutChanges":
+    "You are about to leave the page without saving your changes. Are you sure want to continue?",
 
   "app.containers.AnswerForm.titleLabel": "Your Answer",
 
