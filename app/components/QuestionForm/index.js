@@ -144,7 +144,10 @@ export const QuestionForm = ({
     profile && hasGlobalModeratorRole(getPermissions(profile));
 
   const handleSetClicked = () => setIsClickSubmit(true);
-
+  const handleButtonClick = () => {
+    handleSetClicked();
+    if (isEdited) setSubmitPressed(true);
+  };
   const isEdited =
     formValues[FORM_TITLE] !== postTitle ||
     formValues[FORM_CONTENT] !== postContent;
@@ -264,10 +267,7 @@ export const QuestionForm = ({
                 disabled={questionLoading}
                 id={submitButtonId}
                 type="submit"
-                onClick={() => {
-                  handleSetClicked();
-                  if (isEdited) setSubmitPressed(true);
-                }}
+                onClick={handleButtonClick}
               >
                 {submitButtonName}
               </Button>
