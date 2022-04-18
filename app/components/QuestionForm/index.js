@@ -169,10 +169,7 @@ export const QuestionForm = ({
         />
         <TipsBase>
           <BaseSpecialOne>
-            <FormBox
-              onSubmit={handleSubmitWithType(sendQuestion)}
-              onClick={makeIsClicked}
-            >
+            <FormBox onSubmit={handleSubmitWithType(sendQuestion)}>
               <CommunityForm
                 intl={intl}
                 communities={communities}
