@@ -276,3 +276,6 @@ export const ETHEREUM_USER_ERROR_CODE = 1000002;
 export const USER_NOT_SELECTED_ERROR_CODE = 1000003;
 export const INVALID_ETHEREUM_PARAMETERS_ERROR_CODE = -32602;
 export const REJECTED_SIGNATURE_REQUEST = 4001;
+
+//session storage keys
+export const CHANGED_POSTS_KEY = 'changed-posts';

@@ -43,7 +43,7 @@ export const getUser = async id => {
   const user = await client.query({
     query: gql(userQuery),
     variables: {
-      id: id.toLowerCase(),
+      id: typeof id === 'string' ? id.toLowerCase() : String(id).toLowerCase(),
     },
   });
   return { ...user?.data?.user };
@@ -53,7 +53,7 @@ export const getUserStats = async id => {
   const userStats = await client.query({
     query: gql(userStatsQuery),
     variables: {
-      id: id.toLowerCase(),
+      id: typeof id === 'string' ? id.toLowerCase() : String(id).toLowerCase(),
     },
   });
   return userStats?.data.user;

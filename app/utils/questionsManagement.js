@@ -533,7 +533,7 @@ export const formQuestionObject = async (
   };
 };
 
-const votingStatus = statusHistory => ({
+export const votingStatus = statusHistory => ({
   isUpVoted: statusHistory === UPVOTE_STATUS,
   isDownVoted: statusHistory === DOWNVOTE_STATUS,
   isVotedToDelete: false,
