@@ -127,7 +127,8 @@ const MainUserInformation = ({
   const isTemporaryAccount = !!profile?.['integer_properties']?.find(
     x => x.key === TEMPORARY_ACCOUNT_KEY && x.value,
   );
-  const domainPolygonScan = 'https://mumbai.polygonscan.com/address/';
+  const domainPolygonScan = process.env.BLOCKCHAIN_EXPLORERE_URL;
+
   return (
     <Box position="middle">
       <div>
