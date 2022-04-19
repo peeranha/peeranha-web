@@ -94,11 +94,7 @@ const TopCommunities = ({
   userId,
   questions,
 }) => {
-  if (
-    !communities ||
-    !profile ||
-    !communities.length
-  ) {
+  if (!communities || !profile || !communities.length) {
     return null;
   }
   const ref = useRef(null);
@@ -154,12 +150,15 @@ const TopCommunities = ({
                       <FrontSide>
                         {community ? (
                           <div>
-                              <MediumImage src={community.avatar} alt="comm_img" />
-                              <P fontSize="16" bold>
-                                {community.name}
-                              </P>
+                            <MediumImage
+                              src={community.avatar}
+                              alt="comm_img"
+                            />
+                            <P fontSize="16" bold>
+                              {community.name}
+                            </P>
                           </div>
-                        ) : null }
+                        ) : null}
 
                         <div>
                           <div>
@@ -177,7 +176,6 @@ const TopCommunities = ({
                               isRankOff={false}
                             />
                           </div>
-
                         </div>
                       </FrontSide>
 
@@ -190,7 +188,7 @@ const TopCommunities = ({
                               </P>
                               <P>{community.description}</P>
                             </div>
-                          ) : null }
+                          ) : null}
                         </div>
                       </BackSide>
                     </Link>
@@ -225,7 +223,7 @@ const TopCommunities = ({
             <FormattedMessage {...messages.communities} />
           </span>
         </H4>
-    
+
         <Grid xl={5} lg={4} md={3} sm={2} xs={1}>
           {orderBy(communities, 'users_subscribed', 'desc')
             .slice(0, 9)
@@ -249,7 +247,7 @@ const TopCommunities = ({
                             {x.name}
                           </P>
                         </div>
-    
+
                         <div>
                           <div className="d-flex mb-3">
                             <div className="d-flex flex-column flex-grow-1">
@@ -277,11 +275,11 @@ const TopCommunities = ({
                               </Span>
                             </div>
                           </div>
-    
+
                           <FollowCommunityButton communityIdFilter={x.id} />
                         </div>
                       </FrontSide>
-    
+
                       <BackSide>
                         <div className="d-flex flex-column justify-content-between">
                           <div>
@@ -300,7 +298,7 @@ const TopCommunities = ({
                 </div>
               );
             })}
-    
+
           {communities?.length > 9 && (
             <div className="d-flex align-items-center justify-content-center">
               <AllCommunitiesLink

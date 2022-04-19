@@ -58,10 +58,13 @@ export const questionView = (id, answerId) =>
 export const expertPostView = (id, answerId) =>
   answerId ? `/experts/${id}#${uniqueAnswerId(answerId)}` : `/experts/${id}`;
 
-export const tutorialView = id => `/tutorials/${id}`;
+export const tutorialView = (id, answerId) =>
+  answerId
+    ? `/tutorials/${id}#${uniqueAnswerId(answerId)}`
+    : `/tutorials/${id}`;
 
 export const questionEdit = (postType, questionId) =>
-  `/:${postType}/:${questionId}/edit`;
+  `/${postType}/${questionId}/edit`;
 
 export const answerEdit = (questionId, answerId) =>
   !singleCommId

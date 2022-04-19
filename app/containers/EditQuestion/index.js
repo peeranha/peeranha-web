@@ -92,12 +92,7 @@ const EditQuestion = ({
 
   const titleMessage = useMemo(
     () => {
-      if (question?.postType === 0)
-        return translationMessages[locale][messages.title.id[1]];
-      if (question?.postType === 1)
-        return translationMessages[locale][messages.title.id[0]];
-      if (question?.postType === 2)
-        return translationMessages[locale][messages.title.id[2]];
+      return translationMessages[locale][(question?.postType)];
     },
     [question?.postType],
   );
