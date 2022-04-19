@@ -1,11 +1,20 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import * as routes from 'routes-config';
 
 import Content from './Content';
-import { QUESTION_TYPE } from './constants';
+import { QUESTION_TYPE, POST_TYPES } from './constants';
 
 export const Question = props => {
+  const { postType, id } = props.questionData;
+
+  const type = useMemo(
+    () => {
+      return POST_TYPES[postType];
+    },
+    [postType],
+  );
+
   return (
     <Content
       {...props}
@@ -26,7 +35,7 @@ export const Question = props => {
       deleteItemLoading={props.deleteQuestionLoading}
       editItem={[
         props.redirectToEditQuestionPage,
-        routes.questionEdit(props.questionData.id),
+        routes.questionEdit(type, id),
       ]}
       saveComment={props.saveComment}
       deleteComment={props.deleteComment}

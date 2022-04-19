@@ -1,5 +1,5 @@
 /* eslint indent: 0 */
-import React from 'react';
+import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -9,6 +9,7 @@ import validationArrowIcon from 'images/validationArrow.svg?inline';
 import { italicFont } from 'global-styles';
 import messages from 'common-messages';
 import questionMessages from './messages';
+import { POST_TYPE } from './constants';
 
 import {
   BORDER_SECONDARY,
@@ -26,15 +27,15 @@ const styles = singleCommunityStyles();
 
 export const QUESTION_TYPES = {
   GENERAL: {
-    value: '1',
+    value: POST_TYPE.generalPost,
     label: 'general',
   },
   EXPERT: {
-    value: '0',
+    value: POST_TYPE.expertPost,
     label: 'expert',
   },
   TUTORIAL: {
-    value: '2',
+    value: POST_TYPE.tutorial,
     label: 'tutorial',
   },
 };
@@ -104,20 +105,14 @@ const Button = B.extend`
 
   flex: 1;
   border: 1px solid ${BORDER_SECONDARY};
+  border-color: ${({ type, value }) =>
+    +type === value && `rgb(${BORDER_PRIMARY_RGB})`};
+  box-shadow: ${({ type, value }) =>
+    +type === value && `0 0 0 3px rgba(${BORDER_PRIMARY_RGB}, 0.4)`};
 
   &:hover {
-    border: 1px solid ${BORDER_PRIMARY} !important;
     box-shadow: 0 0 0 3px rgba(${BORDER_PRIMARY_RGB}, 0.4);
   }
-
-  ${({ value, currentValue }) => {
-    if (value === currentValue) {
-      return css`
-        border: 1px solid ${BORDER_PRIMARY} !important;
-        box-shadow: 0 0 0 2px rgba(${BORDER_PRIMARY_RGB}, 0.5) !important;
-      `;
-    }
-  }};
 
   @media only screen and (max-width: 576px) {
     height: 36px;
@@ -136,9 +131,13 @@ const QuestionTypeField = ({
   insideOfSection,
   error,
 }) => {
-  function chooseQuestionType(event) {
+  const [type, setType] = useState();
+
+  function chooseQuestionType({ currentTarget }) {
+    const { value } = currentTarget;
     event.preventDefault();
-    input.onChange(event.currentTarget.value);
+    input.onChange(value);
+    setType(value);
   }
 
   return (
@@ -155,6 +154,7 @@ const QuestionTypeField = ({
         <ButtonGroup error={error}>
           {Object.values(QUESTION_TYPES).map(questionType => (
             <Button
+              type={type}
               onClick={chooseQuestionType}
               value={questionType.value}
               currentValue={input.value}
