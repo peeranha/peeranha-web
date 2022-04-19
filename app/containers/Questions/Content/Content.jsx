@@ -20,12 +20,7 @@ import MoveSection from './MoveSection';
 import Body from './Body';
 
 import { POST_TYPE } from '../../../utils/constants';
-import {
-  EXPERT_BACKLIGHT,
-  TUTORIAL_BACKLIGHT,
-  BG_LIGHT,
-  BORDER_PRIMARY,
-} from '../../../style-constants';
+import { EXPERT_BACKLIGHT, TUTORIAL_BACKLIGHT } from 'style-constants';
 import { isGeneralQuestion } from '../../ViewQuestion/saga';
 
 const Box = BaseNoPadding.extend`
@@ -59,6 +54,7 @@ const Div = styled.div`
 /* eslint camelcase: 0 */
 const QI = ({
   id,
+  ipfsHash,
   title,
   author,
   postTime,
@@ -185,6 +181,7 @@ const QI = ({
         )}
         <Body
           id={id}
+          ipfsHash={ipfsHash}
           isModerator={isModerator}
           title={title}
           author={author}
@@ -277,6 +274,7 @@ export const Content = ({
 
 QI.propTypes = {
   id: PropTypes.string,
+  ipfsHash: PropTypes.string,
   title: PropTypes.string,
   author: PropTypes.string,
   postTime: PropTypes.string,

@@ -17,10 +17,8 @@ import shareIcon from 'images/shareIcon.svg?external';
 import deleteIcon from 'images/deleteIcon.svg?external';
 import blockIcon from 'images/blockIcon.svg?external';
 import changeTypeIcon from 'images/change-type.svg?external';
-import currencyPeer from 'images/currencyPeer.svg?external';
 
-import {getRatingByCommunity, getUserAvatar} from 'utils/profileManagement';
-import { MODERATOR_KEY, TEMPORARY_ACCOUNT_KEY } from 'utils/constants';
+import { getRatingByCommunity, getUserAvatar } from 'utils/profileManagement';
 import { useOnClickOutside } from 'utils/click-listners';
 
 import { IconSm, IconMd } from 'components/Icon/IconWithSizes';
@@ -35,6 +33,8 @@ import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 import { changeQuestionType, payBounty } from './actions';
 import { QUESTION_TYPE } from './constants';
 import { getPermissions, hasGlobalModeratorRole } from '../../utils/properties';
+import ipfsLogo from 'images/ipfs-logo.svg?external';
+import IPFSInformation from 'containers/Questions/Content/Body/IPFSInformation';
 
 const RatingBox = styled.div`
   border-right: 1px solid ${BORDER_SECONDARY};
@@ -105,10 +105,19 @@ const ContentHeader = props => {
     infiniteImpact,
   } = props;
 
-  const [isModalOpen, setModalOpen] = useState(false);
-  const ref = useRef(null);
+  const ipfsHashValue =
+    type === QUESTION_TYPE
+      ? questionData.ipfsHash
+      : questionData.answers[answerId - 1].ipfsHash;
 
-  useOnClickOutside(ref, () => setModalOpen(false));
+  const [isModalOpen, setModalOpen] = useState(false);
+  const refSharingModal = useRef(null);
+  const [isPopoverOpen, setPopoverOpen] = useState(false);
+  const refPopover = useRef(null);
+
+  useOnClickOutside(refPopover, () => setPopoverOpen(false));
+
+  useOnClickOutside(refSharingModal, () => setModalOpen(false));
 
   const isGlobalAdmin = useMemo(
     () => hasGlobalModeratorRole(getPermissions(profile)),
@@ -207,10 +216,7 @@ const ContentHeader = props => {
               disabled={ids.includes(`${type}_vote_to_delete_${answerId}`)}
               isVotedToDelete={true}
             >
-              <IconSm
-                icon={blockIcon}
-                fill={true ? BORDER_ATTENTION_LIGHT : BORDER_PRIMARY}
-              />
+              <IconSm icon={blockIcon} fill={BORDER_ATTENTION_LIGHT} />
               <FormattedMessage {...messages.voteToDelete} />
             </Button>
           ) : null}
@@ -248,12 +254,29 @@ const ContentHeader = props => {
               </Button>
 
               {isModalOpen && (
-                <div ref={ref}>
+                <div ref={refSharingModal}>
                   <SharingModal questionData={questionData} />
                 </div>
               )}
             </DropdownBox>
           )}
+
+          <DropdownBox>
+            <Button
+              show
+              disabled={isPopoverOpen}
+              onClick={() => setPopoverOpen(true)}
+            >
+              <IconMd icon={ipfsLogo} />
+              <FormattedMessage {...commonMessages.source} />
+            </Button>
+
+            {isPopoverOpen && (
+              <div ref={refPopover}>
+                <IPFSInformation locale={locale} ipfsHash={ipfsHashValue} />
+              </div>
+            )}
+          </DropdownBox>
 
           <Button
             show={!!profile && isItWrittenByMe}

@@ -495,4 +495,10 @@ export default defineMessages({
   selectCommunity: {
     id: 'app.common.selectCommunity',
   },
+  ipfsHashValue: {
+    id: 'app.common.ipfsHashValue',
+  },
+  source: {
+    id: 'app.common.source',
+  },
 });

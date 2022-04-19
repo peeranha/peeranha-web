@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -8,17 +8,13 @@ import {
   BORDER_PRIMARY,
   BORDER_SECONDARY,
   BORDER_TRANSPARENT,
-  BORDER_ATTENTION_LIGHT,
   BORDER_RADIUS_M,
 } from 'style-constants';
 
-import { MODERATOR_KEY } from 'utils/constants';
-
 import editSmallIcon from 'images/editSmallIcon.svg?external';
 import deleteSmallIcon from 'images/deleteSmallIcon.svg?external';
-import blockSmallIcon from 'images/blockSmallIcon.svg?external';
 
-import {getRatingByCommunity, getUserAvatar} from 'utils/profileManagement';
+import { getRatingByCommunity, getUserAvatar } from 'utils/profileManagement';
 
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 
@@ -38,8 +34,11 @@ import {
   SAVE_COMMENT_BUTTON,
   SAVE_COMMENT_FORM,
 } from './constants';
-import { hasGlobalModeratorRole } from '../../utils/properties';
-import { getRoles } from '@testing-library/react';
+import { useOnClickOutside } from 'utils/click-listners';
+import { IconMd } from 'components/Icon/IconWithSizes';
+import ipfsLogo from 'images/ipfs-logo.svg?external';
+import commonMessages from 'common-messages';
+import IPFSInformation from 'containers/Questions/Content/Body/IPFSInformation';
 
 const CommentManage = styled.div`
   display: flex;
@@ -139,6 +138,11 @@ const CommentView = item => {
     ? item.author?.user === item.profileInfo.user
     : false;
 
+  const [isPopoverOpen, setPopoverOpen] = useState(false);
+  const refPopover = useRef(null);
+
+  useOnClickOutside(refPopover, () => setPopoverOpen(false));
+
   const isModerator = false;
   //   useMemo(
   //   () => hasGlobalModeratorRole(getRoles(item.profileInfo)),
@@ -204,6 +208,26 @@ const CommentView = item => {
                 </Button>
               )}
             />
+          </div>
+
+          <div className="position-relative">
+            <Button
+              show
+              disabled={isPopoverOpen}
+              onClick={() => setPopoverOpen(true)}
+            >
+              <IconMd icon={ipfsLogo} />
+              <FormattedMessage {...commonMessages.source} />
+            </Button>
+
+            {isPopoverOpen && (
+              <div ref={refPopover}>
+                <IPFSInformation
+                  locale={item.locale}
+                  ipfsHash={item.ipfsHash}
+                />
+              </div>
+            )}
           </div>
         </CommentManage>
       </div>
