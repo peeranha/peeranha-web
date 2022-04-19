@@ -108,7 +108,7 @@ const ContentHeader = props => {
   const ipfsHashValue =
     type === QUESTION_TYPE
       ? questionData.ipfsHash
-      : questionData.answers[answerId - 1].ipfsHash;
+      : questionData.answers.find(answer => answer.id === answerId).ipfsHash;
 
   const [isModalOpen, setModalOpen] = useState(false);
   const refSharingModal = useRef(null);

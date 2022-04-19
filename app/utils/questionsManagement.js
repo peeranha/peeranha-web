@@ -478,6 +478,7 @@ export const formCommentObject = async (
   );
   return {
     content,
+    ipfsHash: rawComment.ipfsDoc.hash,
     ...formCommonInfo(rawComment, statusHistory),
     id,
   };
@@ -495,6 +496,7 @@ export const formReplyObject = async (
   );
   return {
     content,
+    ipfsHash: rawReply.ipfsDoc.hash,
     ...formCommonInfo(rawReply, statusHistory),
     commentCount: rawReply.commentCount,
     isFirstReply: rawReply.isFirstReply,
@@ -519,6 +521,7 @@ export const formQuestionObject = async (
   return {
     title,
     content,
+    ipfsHash: rawQuestion.ipfsDoc.hash,
     answers: replies,
     comments,
     ...formCommonInfo(rawQuestion, statusHistory),
