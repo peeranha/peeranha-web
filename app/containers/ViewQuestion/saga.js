@@ -180,25 +180,6 @@ export function* getQuestionData({
 
     question.author = { ...question.author, user: question.author.id };
 
-    question.answers.map(answer => {
-      answer.commentCount = answer.comments.length;
-      answer.id = Number(answer.id.split('-')[1]);
-
-      answer.author = { ...answer.author, user: answer.author.id };
-
-      answer.comments = answer.comments.map(comment => ({
-        ...comment,
-        author: { ...comment.author, user: comment.author.id },
-        id: Number(comment.id.split('-')[2]),
-      }));
-    });
-
-    question.comments = question.comments.map(comment => ({
-      ...comment,
-      author: { ...comment.author, user: comment.author.id },
-      id: Number(comment.id.split('-')[2]),
-    }));
-
     if (user) {
       const statusHistory = yield getStatusHistory(
         user,
@@ -209,19 +190,41 @@ export function* getQuestionData({
       );
 
       question.votingStatus = votingStatus(Number(statusHistory));
-
-      question.answers.map(async (answer, answerIndex) => {
-        const answerStatusHistory = await getStatusHistory(
-          user,
-          questionId,
-          answerIndex + 1,
-          0,
-          ethereumService,
-        );
-
-        answer.votingStatus = votingStatus(Number(answerStatusHistory));
-      });
     }
+
+    yield all(
+      question.answers.map(function*(answer, answerIndex) {
+        answer.commentCount = answer.comments.length;
+        answer.id = Number(answer.id.split('-')[1]);
+
+        answer.author = answer.author.id;
+
+        answer.comments = answer.comments.map(comment => ({
+          ...comment,
+          author: { ...comment.author, user: comment.author.id },
+          id: Number(comment.id.split('-')[2]),
+        }));
+
+        if (user) {
+          const answerStatusHistory = yield call(
+            getStatusHistory,
+            user,
+            questionId,
+            answerIndex + 1,
+            0,
+            ethereumService,
+          );
+
+          answer.votingStatus = votingStatus(Number(answerStatusHistory));
+        }
+      }),
+    );
+
+    question.comments = question.comments.map(comment => ({
+      ...comment,
+      author: { ...comment.author, user: comment.author.id },
+      id: Number(comment.id.split('-')[2]),
+    }));
   }
 
   // const bounty = yield call(getQuestionBounty, questionId, eosService);
