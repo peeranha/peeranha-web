@@ -31,28 +31,27 @@ import { AUTOLOGIN_DATA } from '../Login/constants';
 
 export function* initEthereumWorker() {
   try {
-    const autoLoginData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
+    // const autoLoginData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
     const ethereumService = new EthereumService();
-    if (autoLoginData && autoLoginData.loginWithMetaMask) {
-      yield call(ethereumService.initEthereum);
-      if (ethereumService.metaMaskProviderDetected) {
-        yield call(ethereumService.metaMaskSignIn);
+    // if (autoLoginData && autoLoginData.loginWithMetaMask) {
+    //   yield call(ethereumService.initEthereum);
+    //   if (ethereumService.metaMaskProviderDetected) {
+    //     yield call(ethereumService.metaMaskSignIn);
 
-        yield call(
-          ethereumService.setMetaMaskAutologinData,
-          autoLoginData.metaMaskUserAddress,
-        );
+    //     yield call(
+    //       ethereumService.setMetaMaskAutologinData,
+    //       autoLoginData.metaMaskUserAddress,
+    //     );
 
-        yield put(initEthereumSuccess(ethereumService));
-      }
-      yield put(initEthereumSuccess(ethereumService));
-    } else if (autoLoginData?.ethereumUserAddress) {
-      yield call(
-        ethereumService.setSelectedAccount,
-        autoLoginData.ethereumUserAddress,
-      );
-    }
-
+    //     yield put(initEthereumSuccess(ethereumService));
+    //   }
+    //   yield put(initEthereumSuccess(ethereumService));
+    // } else if (autoLoginData?.ethereumUserAddress) {
+    //   yield call(
+    //     ethereumService.setSelectedAccount,
+    //     autoLoginData.ethereumUserAddress,
+    //   );
+    // }
     yield call(ethereumService.initEthereum);
     yield put(initEthereumSuccess(ethereumService));
   } catch (error) {
