@@ -6,24 +6,18 @@ import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
 import {
-  registerAccount,
   inviteUser,
   isUserInSystem,
   updateAcc,
+  emptyProfile,
 } from 'utils/accountManagement';
 import { login } from 'utils/web_integration/src/wallet/login/login';
 import webIntegrationErrors from 'utils/web_integration/src/wallet/service-errors';
-import { WebIntegrationError, ApplicationError } from 'utils/errors';
-import {
-  followCommunity,
-  isSingleCommunityWebsite,
-} from 'utils/communityManagement';
+import { WebIntegrationError } from 'utils/errors';
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { setCookie } from 'utils/cookie';
 
 import { redirectToFeed } from 'containers/App/actions';
-import { showWalletSignUpFormSuccess } from 'containers/SignUp/actions';
-
-import { selectEos } from 'containers/EosioProvider/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import {
@@ -41,8 +35,6 @@ import {
   loginWithEmailErr,
   finishRegistrationWithDisplayNameSuccess,
   finishRegistrationWithDisplayNameErr,
-  hideLoginModal,
-  finishRegistrationReferralErr,
   loginWithWalletSuccess,
   loginWithWalletErr,
   setFacebookLoginProcessing,
@@ -53,15 +45,12 @@ import {
 import {
   FINISH_REGISTRATION,
   LOGIN_WITH_EMAIL,
-  USER_IS_NOT_REGISTERED,
   USER_IS_NOT_SELECTED,
   EMAIL_FIELD,
   PASSWORD_FIELD,
   REMEMBER_ME_FIELD,
-  WE_ARE_HAPPY_FORM,
   DISPLAY_NAME,
   AUTOLOGIN_DATA,
-  REFERRAL_CODE,
   LOGIN_WITH_WALLET,
   FACEBOOK_LOGIN_BUTTON_CLICK,
   FACEBOOK_LOGIN_DATA_RECEIVE,
@@ -72,7 +61,6 @@ import {
 } from './constants';
 
 import messages from './messages';
-import { makeSelectEosAccount, selectFacebookUserData } from './selectors';
 import { addToast } from '../Toast/actions';
 import { addLoginData, getCurrentAccount } from '../AccountProvider/actions';
 
@@ -82,10 +70,7 @@ import {
   REGISTER_WITH_FACEBOOK_SERVICE,
 } from '../../utils/web_integration/src/util/aws-connector';
 import { decryptObject } from '../../utils/web_integration/src/util/cipher';
-import { uploadImg } from '../../utils/profileManagement';
-import { blobToBase64 } from '../../utils/blob';
 import { selectEthereum } from '../EthereumProvider/selectors';
-import { saveProfile } from '../EditProfilePage/actions';
 import { DISPLAY_NAME_FIELD } from '../Profile/constants';
 import { saveProfileWorker } from '../EditProfilePage/saga';
 
@@ -157,21 +142,11 @@ export function* loginWithWalletWorker({ metaMask }) {
     }
 
     yield call(getCurrentAccountWorker, currentAccount);
-    const profileInfo = yield select(makeSelectProfileInfo());
+    let profileInfo = yield select(makeSelectProfileInfo());
 
     if (!profileInfo) {
-      yield put(showWalletSignUpFormSuccess(currentAccount));
-      yield call(createdHistory.push, routes.signup.displayName.name);
-
-      yield put(hideLoginModal());
-      throw new ApplicationError(
-        translations[messages[USER_IS_NOT_REGISTERED].id],
-      );
+      profileInfo = emptyProfile(currentAccount);
     }
-
-    // yield call(getNotificationsInfoWorker, profileInfo.user);
-
-    // yield call(getCommunityPropertyWorker);
 
     const autologinData = metaMask
       ? { metaMaskUserAddress, loginWithMetaMask: true }

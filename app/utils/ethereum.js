@@ -15,7 +15,6 @@ import { AUTOLOGIN_DATA } from '../containers/Login/constants';
 import {
   CLAIM_REWARD,
   GET_COMMUNITY,
-  GET_TAGS,
   GET_USER_BALANCE,
   GET_USER_BY_ADDRESS,
   GET_USER_PERMISSIONS,
@@ -181,15 +180,10 @@ class EthereumService {
         }
       }
     } else {
-      const transactionResult = await callService(
-        BLOCKCHAIN_MAIN_SEND_TRANSACTION,
-        {
-          action,
-          args: [actor, ...data],
-        },
-      );
-
-      return transactionResult;
+      return await callService(BLOCKCHAIN_MAIN_SEND_TRANSACTION, {
+        action,
+        args: [actor, ...data],
+      });
     }
   };
 
@@ -213,15 +207,10 @@ class EthereumService {
         }
       }
     } else {
-      const transactionResult = await callService(
-        BLOCKCHAIN_MAIN_SEND_TRANSACTION,
-        {
-          action,
-          args: [...data],
-        },
-      );
-
-      return transactionResult;
+      return await callService(BLOCKCHAIN_MAIN_SEND_TRANSACTION, {
+        action,
+        args: [...data],
+      });
     }
   };
 
@@ -277,22 +266,6 @@ class EthereumService {
     // return contractResult.body?.json;
   };
 
-  getTagsFromContract = async communityId => {
-    const rawTags = await this.getDataWithArgs(GET_TAGS, [communityId]);
-    return await Promise.all(
-      rawTags.map(async rawTag => {
-        const tag = JSON.parse(
-          await getText(getIpfsHashFromBytes32(rawTag.ipfsDoc.hash)),
-        );
-        return {
-          name: tag.name,
-          description: tag.description,
-          postCount: 0,
-        };
-      }),
-    );
-  };
-
   getCommunityFromContract = async id => {
     const rawCommunity = await this.getDataWithArgs(GET_COMMUNITY, [id]);
     const communityInfo = JSON.parse(
@@ -309,14 +282,6 @@ class EthereumService {
       isFrozen: rawCommunity.isFrozen,
       value: +id,
     };
-  };
-
-  getCommunities = async count => {
-    const communities = [];
-    for (let i = 1; i <= count; i++) {
-      communities.push(await this.getCommunityFromContract(i));
-    }
-    return communities;
   };
 
   getUserRating = async (user, communityId) =>
