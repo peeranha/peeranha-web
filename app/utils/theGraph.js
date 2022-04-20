@@ -17,6 +17,7 @@ import {
   usersQuery,
   userStatsQuery,
 } from './ethConstants';
+import { dataToString } from 'utils/converters';
 
 const client = new ApolloClient({
   uri: process.env.THE_GRAPH_QUERY_URL,
@@ -43,7 +44,7 @@ export const getUser = async id => {
   const user = await client.query({
     query: gql(userQuery),
     variables: {
-      id: typeof id === 'string' ? id.toLowerCase() : String(id).toLowerCase(),
+      id: dataToString(id).toLowerCase(),
     },
   });
   return { ...user?.data?.user };
@@ -53,7 +54,7 @@ export const getUserStats = async id => {
   const userStats = await client.query({
     query: gql(userStatsQuery),
     variables: {
-      id: typeof id === 'string' ? id.toLowerCase() : String(id).toLowerCase(),
+      id: dataToString(id).toLowerCase(),
     },
   });
   return userStats?.data.user;

@@ -54,3 +54,7 @@ export const bigNumberToNumber = bigNumber => {
 
   return bigNumber.toNumber();
 };
+
+export const dataToString = data => {
+  return typeof data === 'string' ? data : String(data);
+};
