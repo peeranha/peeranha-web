@@ -17,7 +17,7 @@ import {
 } from 'containers/AccountProvider/selectors';
 
 import { redirectToAskQuestionPage } from 'containers/AskQuestion/actions';
-import { showLoginModal } from 'containers/Login/actions';
+import { loginWithWallet, showLoginModal } from 'containers/Login/actions';
 import { LEFT_MENU_ID } from 'containers/LeftMenu/constants';
 import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
 import { showLeftMenu } from 'containers/AppWrapper/actions';
@@ -78,6 +78,7 @@ export class Header extends React.PureComponent {
       redirectToAskQuestionPageDispatch,
       faqQuestions,
       isMenuVisible,
+      loginWithWalletDispatch,
     } = this.props;
 
     if (isMenuVisible) return null;
@@ -86,7 +87,9 @@ export class Header extends React.PureComponent {
       <View
         account={account}
         profileInfo={profileInfo}
-        showLoginModalDispatch={showLoginModalDispatch}
+        showLoginModalDispatch={() =>
+          loginWithWalletDispatch({ metaMask: true })
+        }
         showMenu={showLeftMenuDispatch}
         redirectToAskQuestionPage={redirectToAskQuestionPageDispatch}
         faqQuestions={faqQuestions}
@@ -119,6 +122,7 @@ const mapStateToProps = createStructuredSelector({
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     showLoginModalDispatch: bindActionCreators(showLoginModal, dispatch),
+    loginWithWalletDispatch: bindActionCreators(loginWithWallet, dispatch),
     showLeftMenuDispatch: bindActionCreators(showLeftMenu, dispatch),
     redirectToAskQuestionPageDispatch: bindActionCreators(
       redirectToAskQuestionPage,

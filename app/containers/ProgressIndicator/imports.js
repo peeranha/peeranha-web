@@ -23,7 +23,6 @@ import {
   selectVerificationCodeLoading,
 } from 'containers/ForgotPassword/selectors';
 import {
-  selectLoginWithWalletProcessing,
   selectFinishRegistrationProcessing,
   selectLoginWithEmailProcessing,
   selectFacebookLoginProcessing,
@@ -96,7 +95,6 @@ export default {
   selectChangePasswordLoading: selectChangePasswordLoading(),
   selectLoginWithEmailProcessing: selectLoginWithEmailProcessing(),
   selectFinishRegistrationProcessing: selectFinishRegistrationProcessing(),
-  selectLoginWithWalletProcessing: selectLoginWithWalletProcessing(),
   selectSendTokensProcessing: selectSendTokensProcessing(),
   selectShowActiveKeyProcessing: selectShowActiveKeyProcessing(),
   selectShowOwnerKeyProcessing: selectShowOwnerKeyProcessing(),

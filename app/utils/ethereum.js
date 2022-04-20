@@ -2,16 +2,13 @@ import { Contract, ethers } from 'ethers';
 import Web3Modal from 'web3modal';
 import WalletConnect from '@walletconnect/web3-provider';
 import Torus from '@toruslabs/torus-embed';
-import * as bs58 from 'bs58';
 import Peeranha from '../../../peeranha/artifacts/contracts/Peeranha.sol/Peeranha.json';
 import PeeranhaToken from '../../../peeranha/artifacts/contracts/PeeranhaToken.sol/PeeranhaToken.json';
 import { WebIntegrationErrorByCode } from './errors';
 import {
-  ETHEREUM_USER_ERROR_CODE,
   INVALID_ETHEREUM_PARAMETERS_ERROR_CODE,
   METAMASK_ERROR_CODE,
   REJECTED_SIGNATURE_REQUEST,
-  USER_NOT_SELECTED_ERROR_CODE,
 } from './constants';
 import { getCookie } from './cookie';
 import { AUTOLOGIN_DATA } from '../containers/Login/constants';
@@ -25,14 +22,12 @@ import {
   GET_USER_RATING,
 } from './ethConstants';
 import {
-  getFileUrl,
-  getText,
   getBytes32FromIpfsHash,
+  getFileUrl,
   getIpfsHashFromBytes32,
+  getText,
 } from './ipfs';
 import {
-  BLOCKCHAIN_MAIN_CALL,
-  BLOCKCHAIN_TOKEN_CALL,
   BLOCKCHAIN_MAIN_SEND_TRANSACTION,
   callService,
 } from './web_integration/src/util/aws-connector';
@@ -57,7 +52,7 @@ class EthereumService {
 
   getProviderOptions = () => {
     const infuraId = '8354e9750bad49ec84592ea9ab45a794';
-    const providerOptions = {
+    return {
       walletconnect: {
         package: WalletConnect,
         options: {
@@ -68,7 +63,6 @@ class EthereumService {
         package: Torus,
       },
     };
-    return providerOptions;
   };
 
   handleAccountsChanged = accounts => {
@@ -84,18 +78,20 @@ class EthereumService {
     // ETHEREUM_NETWORK='https://rpc-mumbai.maticvigil.com'
     if (this.web3Modal.cachedProvider) {
       this.provider = await this.web3Modal.connect();
+      this.selectedAccount = this.provider.selectedAddress;
+      this.withMetaMask = true;
       this.metaMaskProviderDetected = true;
       this.initialized = true;
 
       this.contract = new Contract(
         process.env.ETHEREUM_ADDRESS,
         Peeranha.abi,
-        new ethers.providers.Web3Provider(provider),
+        new ethers.providers.Web3Provider(this.provider),
       );
       this.contractToken = new Contract(
         process.env.PEERANHA_TOKEN,
         PeeranhaToken.abi,
-        new ethers.providers.Web3Provider(provider),
+        new ethers.providers.Web3Provider(this.provider),
       );
     } else {
       this.initialized = true;
@@ -113,50 +109,26 @@ class EthereumService {
         this.provider,
       );
     }
+    this.provider.on('accountsChanged', accounts => {
+      console.log(accounts);
+    });
   };
 
   metaMaskSignIn = async () => {
-    // if (!this.metaMaskProviderDetected) {
-    //   throw new WebIntegrationErrorByCode(METAMASK_ERROR_CODE);
-    // }
-    // const autoLoginData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
-    // if (this.wasReseted || !autoLoginData) {
-    //   await this.provider
-    //     .request({
-    //       method: 'wallet_requestPermissions',
-    //       params: [
-    //         {
-    //           eth_accounts: {},
-    //         },
-    //       ],
-    //     })
-    //     .catch(() => {
-    //       throw new WebIntegrationErrorByCode(USER_NOT_SELECTED_ERROR_CODE);
-    //     });
-    // }
-    // await this.provider
-    //   .request({ method: 'eth_requestAccounts' })
-    //   .then(this.handleAccountsChanged)
-    //   .catch(() => {
-    //     throw new WebIntegrationErrorByCode(ETHEREUM_USER_ERROR_CODE);
-    //   });
-    this.proivder = await this.web3Modal.connect();
+    this.provider = await this.web3Modal.connect();
     await this.provider.enable();
     this.withMetaMask = true;
+    this.selectedAccount = this.provider.selectedAddress;
     this.contract = new Contract(
       process.env.ETHEREUM_ADDRESS,
       Peeranha.abi,
       new ethers.providers.Web3Provider(this.provider).getSigner(),
     );
-    return this.selectedAccount;
+    return this.provider.selectedAddress;
   };
 
-  setMetaMaskAutologinData = async metaMaskAutologinData => {
-    this.selectedAccount = metaMaskAutologinData;
-    this.withMetaMask = true;
-  };
-
-  resetMetaMaskUserData = async () => {
+  resetWeb3Modal = async () => {
+    this.web3Modal.clearCachedProvider();
     this.wasReseted = true;
     this.metaMaskUserAddress = null;
     this.withMetaMask = false;

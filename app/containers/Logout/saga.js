@@ -23,7 +23,7 @@ export function* logoutWorker() {
     deleteCookie(AUTOLOGIN_DATA);
     deleteCookie(PROFILE_INFO_LS);
 
-    yield call(ethereumService.resetMetaMaskUserData);
+    yield call(ethereumService.resetWeb3Modal);
 
     yield call(createdHistory.push, routes.questions());
     yield put(getCurrentAccountSuccess());
