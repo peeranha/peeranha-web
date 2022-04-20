@@ -38,6 +38,7 @@ import {
   ACCOUNT_TABLE,
   ALL_ACCOUNTS_SCOPE,
   CHANGED_POSTS_KEY,
+  POST_TYPE,
 } from 'utils/constants';
 import { dateNowInSeconds } from 'utils/datetime';
 
@@ -154,8 +155,10 @@ import { DOWNVOTE_STATUS, UPVOTE_STATUS } from 'utils/ethConstants';
 
 export const isGeneralQuestion = question => Boolean(question.postType === 1);
 
-export const getQuestionTypeValue = isGeneral =>
-  isGeneral ? QUESTION_TYPES.GENERAL.value : QUESTION_TYPES.EXPERT.value;
+export const getQuestionTypeValue = postType =>
+  postType === POST_TYPE.generalPost
+    ? POST_TYPE.expertPost
+    : POST_TYPE.generalPost;
 
 const isOwnItem = (questionData, profileInfo, answerId) =>
   questionData.author.user === profileInfo.user ||
@@ -1113,33 +1116,23 @@ export function* updateQuestionDataAfterTransactionWorker({
 
 function* changeQuestionTypeWorker({ buttonId }) {
   try {
-    const { questionData, eosService, profileInfo, account } = yield call(
+    const { questionData, ethereumService, profileInfo } = yield call(
       getParams,
     );
-
     yield call(
       changeQuestionType,
+      ethereumService,
       profileInfo.user,
       questionData.id,
-      getQuestionTypeValue(!questionData.isGeneral),
-      eosService.scatterInstalled ? 1 : true,
-      eosService,
-    );
-
-    const profile = yield call(
-      eosService.getTableRow,
-      ACCOUNT_TABLE,
-      ALL_ACCOUNTS_SCOPE,
-      account,
+      getQuestionTypeValue(questionData.postType),
     );
 
     saveChangedItemIdToSessionStorage(CHANGED_POSTS_KEY, questionData.id);
 
-    yield put(getUserProfileSuccess(profile));
     yield put(
       getQuestionDataSuccess({
         ...questionData,
-        isGeneral: !questionData.isGeneral,
+        postType: getQuestionTypeValue(questionData.postType),
       }),
     );
     yield put(changeQuestionTypeSuccess(buttonId));

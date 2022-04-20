@@ -4,7 +4,6 @@ import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import commonMessages from 'common-messages';
 
 import {
   BORDER_SECONDARY,
@@ -19,8 +18,12 @@ import blockIcon from 'images/blockIcon.svg?external';
 import changeTypeIcon from 'images/change-type.svg?external';
 import currencyPeer from 'images/currencyPeer.svg?external';
 
-import {getRatingByCommunity, getUserAvatar} from 'utils/profileManagement';
-import { MODERATOR_KEY, TEMPORARY_ACCOUNT_KEY } from 'utils/constants';
+import { getRatingByCommunity, getUserAvatar } from 'utils/profileManagement';
+import {
+  MODERATOR_KEY,
+  TEMPORARY_ACCOUNT_KEY,
+  POST_TYPE,
+} from 'utils/constants';
 import { useOnClickOutside } from 'utils/click-listners';
 
 import { IconSm, IconMd } from 'components/Icon/IconWithSizes';
@@ -104,7 +107,6 @@ const ContentHeader = props => {
     isChangeTypeAvailable,
     infiniteImpact,
   } = props;
-
   const [isModalOpen, setModalOpen] = useState(false);
   const ref = useRef(null);
 
@@ -170,7 +172,10 @@ const ContentHeader = props => {
           {type === QUESTION_TYPE && (
             <Button
               id={`${type}_change_type_with_rating_restore_${answerId}`}
-              show={isGlobalAdmin || isChangeTypeAvailable}
+              show={
+                (isGlobalAdmin || isChangeTypeAvailable) &&
+                questionData.postType !== POST_TYPE.tutorial
+              }
               onClick={changeQuestionTypeWithRatingRestore}
               disabled={ids.includes(
                 `${type}_change_type_with_rating_restore_${answerId}`,
@@ -254,7 +259,6 @@ const ContentHeader = props => {
               )}
             </DropdownBox>
           )}
-
           <Button
             show={!!profile && isItWrittenByMe}
             onClick={editItem[0]}

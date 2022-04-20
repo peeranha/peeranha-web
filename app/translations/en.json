@@ -726,6 +726,9 @@
   "app.containers.EditQuestion.description": "Edit Question Description",
   "app.containers.EditQuestion.submitButtonName": "Save",
   "app.containers.EditQuestion.title": "Edit question",
+  "app.containers.EditDiscussion.title": "Edit Discussion",
+  "app.containers.EditExpertQ&A.title": "Edit Expert Q&A",
+  "app.containers.EditTutorial.title": "Edit Tutorial",
 
   "app.containers.ViewQuestion.lastEdited": "Last edited",
   "app.containers.ViewQuestion.voteToDelete": "Vote to delete",
@@ -1081,6 +1084,8 @@
   "app.containers.QuestionForm.questionIsPromoting": "Promoted till",
   "app.containers.QuestionForm.postTypeSelectionError":
     "You need to select post type",
+  "app.containers.QuestionForm.leaveWithoutChanges":
+    "You are about to leave the page without saving your changes. Are you sure want to continue?",
 
   "app.containers.AnswerForm.titleLabel": "Your Answer",
 

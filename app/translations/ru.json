@@ -1090,6 +1090,9 @@
     "Этот вопрос продвигается до",
   "app.containers.QuestionForm.postTypeSelectionError":
     "Необходимо выбрать тип поста",
+  "app.containers.QuestionForm.leaveWithoutChanges":
+    "Вы собираетесь покинуть страницу, не сохранив изменений. Вы уверены, что хотите продолжить?",
+
   "app.containers.AnswerForm.titleLabel": "Ваш ответ",
 
   "app.components.TextEditor.tips": "Подсказки",

@@ -11,3 +11,9 @@ export const FORM_PROMOTE = 'app/AskQuestion/FORM_PROMOTE';
 export const DEFAULT_DOT_RESTRICTION = 6;
 export const KEY_QUESTIONS_TYPE = 28;
 export const PROMOTE_HOUR_COST = 2;
+
+export const POST_TYPE = {
+  expertPost: 0,
+  generalPost: 1,
+  tutorial: 2,
+};
