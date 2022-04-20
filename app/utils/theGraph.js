@@ -186,7 +186,7 @@ export const postsForSearch = async (text, single) => {
       if (textChar.length === 0) {
         return `${word}:*`;
       }
-      return `${textChar} <-> ${word}:*`;
+      return `${textChar} & ${word}:*`;
     }, '');
   const posts = await client.query({
     query: gql(postsForSearchQuery),
