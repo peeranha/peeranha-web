@@ -20,7 +20,7 @@ export const emptyProfile = account => ({
   balance: 0,
   boost: null,
   creationTime: 0,
-  displayName: account,
+  displayName: `${account.substr(1, 8)}${account.substr(-8)}`,
   followedCommunities: [],
   highestRating: 0,
   id: account,
