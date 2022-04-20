@@ -90,10 +90,17 @@ const EditQuestion = ({
     [balance],
   );
 
+  const titleMessage = useMemo(
+    () => {
+      return translationMessages[locale][(question?.postType)];
+    },
+    [question?.postType],
+  );
+
   const sendProps = useMemo(
     () => ({
       form: EDIT_QUESTION_FORM,
-      formTitle: translationMessages[locale][messages.title.id],
+      formTitle: titleMessage,
       submitButtonId: EDIT_QUESTION_BUTTON,
       submitButtonName:
         translationMessages[locale][messages.submitButtonName.id],

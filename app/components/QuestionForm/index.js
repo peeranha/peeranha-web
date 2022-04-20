@@ -143,8 +143,13 @@ export const QuestionForm = ({
   const profileWithModeratorRights =
     profile && hasGlobalModeratorRole(getPermissions(profile));
 
-  const makeIsClicked = () => setIsClickSubmit(true);
-
+  const handleSetClicked = () => setIsClickSubmit(true);
+  const handleButtonClick = () => {
+    handleSetClicked();
+    if (isEdited) {
+      setSubmitPressed(true);
+    }
+  };
   const isEdited =
     formValues[FORM_TITLE] !== postTitle ||
     formValues[FORM_CONTENT] !== postContent;
@@ -156,13 +161,15 @@ export const QuestionForm = ({
         when={isEdited && !submitPressed}
       />
       <div>
-        <Header formTitle={formTitle} questionId={questionid} intl={intl} />
+        <Header
+          formTitle={formTitle}
+          questionId={questionid}
+          postType={question?.postType}
+          intl={intl}
+        />
         <TipsBase>
           <BaseSpecialOne>
-            <FormBox
-              onSubmit={handleSubmitWithType(sendQuestion)}
-              onClick={makeIsClicked}
-            >
+            <FormBox onSubmit={handleSubmitWithType(sendQuestion)}>
               <CommunityForm
                 intl={intl}
                 communities={communities}
@@ -259,9 +266,7 @@ export const QuestionForm = ({
                 disabled={questionLoading}
                 id={submitButtonId}
                 type="submit"
-                onClick={() => {
-                  if (isEdited) setSubmitPressed(true);
-                }}
+                onClick={handleButtonClick}
               >
                 {submitButtonName}
               </Button>
@@ -317,7 +322,7 @@ export default memo(
           prop => prop.key === KEY_QUESTIONS_TYPE,
         )?.value;
 
-        // diable community form on edit question page
+        // disable community form on edit question page
         const disableCommForm = formName === EDIT_QUESTION_FORM;
 
         return {

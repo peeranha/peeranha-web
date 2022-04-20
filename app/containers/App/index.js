@@ -352,7 +352,7 @@ const App = ({
         />
 
         <Route
-          path={routes.questionEdit(':questionid')}
+          path={routes.questionEdit(':postType', ':questionid')}
           render={props => Wrapper(EditQuestion, props)}
         />
 

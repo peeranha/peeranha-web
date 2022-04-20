@@ -4,7 +4,6 @@ import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import commonMessages from 'common-messages';
 
 import {
   BORDER_SECONDARY,
@@ -104,7 +103,7 @@ const ContentHeader = props => {
     isChangeTypeAvailable,
     infiniteImpact,
   } = props;
-
+  
   const ipfsHashValue =
     type === QUESTION_TYPE
       ? questionData.ipfsHash
@@ -179,7 +178,7 @@ const ContentHeader = props => {
           {type === QUESTION_TYPE && (
             <Button
               id={`${type}_change_type_with_rating_restore_${answerId}`}
-              show={isGlobalAdmin || isChangeTypeAvailable}
+              show={(isGlobalAdmin || isChangeTypeAvailable) && questionData.postType !== POST_TYPE.tutorial}
               onClick={changeQuestionTypeWithRatingRestore}
               disabled={ids.includes(
                 `${type}_change_type_with_rating_restore_${answerId}`,
