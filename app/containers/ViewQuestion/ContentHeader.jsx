@@ -19,7 +19,11 @@ import changeTypeIcon from 'images/change-type.svg?external';
 import currencyPeer from 'images/currencyPeer.svg?external';
 
 import { getRatingByCommunity, getUserAvatar } from 'utils/profileManagement';
-import { MODERATOR_KEY, TEMPORARY_ACCOUNT_KEY, POST_TYPE } from 'utils/constants';
+import {
+  MODERATOR_KEY,
+  TEMPORARY_ACCOUNT_KEY,
+  POST_TYPE,
+} from 'utils/constants';
 import { useOnClickOutside } from 'utils/click-listners';
 
 import { IconSm, IconMd } from 'components/Icon/IconWithSizes';
@@ -168,7 +172,10 @@ const ContentHeader = props => {
           {type === QUESTION_TYPE && (
             <Button
               id={`${type}_change_type_with_rating_restore_${answerId}`}
-              show={(isGlobalAdmin || isChangeTypeAvailable) && questionData.postType !== POST_TYPE.tutorial}
+              show={
+                (isGlobalAdmin || isChangeTypeAvailable) &&
+                questionData.postType !== POST_TYPE.tutorial
+              }
               onClick={changeQuestionTypeWithRatingRestore}
               disabled={ids.includes(
                 `${type}_change_type_with_rating_restore_${answerId}`,
