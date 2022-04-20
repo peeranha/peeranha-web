@@ -193,11 +193,11 @@ export function* getQuestionData({
     }
 
     yield all(
-      question.answers.map(function*(answer, answerIndex) {
+      question.answers.map(function*(answer) {
         answer.commentCount = answer.comments.length;
         answer.id = Number(answer.id.split('-')[1]);
 
-        answer.author = answer.author.id;
+        answer.author = { ...answer.author, user: answer.author.id };
 
         answer.comments = answer.comments.map(comment => ({
           ...comment,
@@ -210,7 +210,7 @@ export function* getQuestionData({
             getStatusHistory,
             user,
             questionId,
-            answerIndex + 1,
+            answer.id,
             0,
             ethereumService,
           );
