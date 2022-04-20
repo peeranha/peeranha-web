@@ -19,6 +19,7 @@ import { getFormattedNum3 } from 'utils/numbers';
 
 import { IconLg, IconSm } from 'components/Icon/IconWithSizes';
 import Span from 'components/Span';
+import A from 'components/A';
 import LargeImage from 'components/Img/LargeImage';
 import { Box, UlStyled } from 'containers/ViewProfilePage/MainUserInformation';
 
@@ -111,10 +112,9 @@ const SubHeader = ({
               {/*</li>*/}
               <li>
                 <FormattedMessage {...commonMessages.walletAddress} />
-                <a href={domainPolygonScan + account} >
+                <A to={ {pathname: domainPolygonScan + account }} href={domainPolygonScan + account} target="_blank">
                   <Span>{account}</Span>
-                </a>
-                <FormattedMessage {...messages.walletAddress} />
+                </A>
               </li>
             </UlStyled>
           </div>
