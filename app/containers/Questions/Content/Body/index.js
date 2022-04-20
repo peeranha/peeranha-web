@@ -9,7 +9,7 @@ import UserInfo from './UserInfo';
 import TagsContainer from './TagsContainer';
 import IPFSInformation from './IPFSInformation';
 import { IconMd } from 'components/Icon/IconWithSizes';
-import ipfsLogo from 'images/ipfs-logo.svg?external';
+import blockchainLogo from 'images/blockchain-outline-32.svg?external';
 
 const QuestionLabels = styled.div`
   position: absolute;
@@ -109,7 +109,7 @@ const Body = ({
           className="position-relative"
         >
           {visible && <IPFSInformation locale={locale} ipfsHash={ipfsHash} />}
-          <IconMd icon={ipfsLogo} />
+          <IconMd icon={blockchainLogo} />
         </div>
       </div>
     </Base>

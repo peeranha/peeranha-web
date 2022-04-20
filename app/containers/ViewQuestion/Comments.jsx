@@ -36,7 +36,7 @@ import {
 } from './constants';
 import { useOnClickOutside } from 'utils/click-listners';
 import { IconMd } from 'components/Icon/IconWithSizes';
-import ipfsLogo from 'images/ipfs-logo.svg?external';
+import blockchainLogo from 'images/blockchain-outline-32.svg?external';
 import commonMessages from 'common-messages';
 import IPFSInformation from 'containers/Questions/Content/Body/IPFSInformation';
 
@@ -216,7 +216,7 @@ const CommentView = item => {
               disabled={isPopoverOpen}
               onClick={() => setPopoverOpen(true)}
             >
-              <IconMd icon={ipfsLogo} />
+              <IconMd icon={blockchainLogo} />
               <FormattedMessage {...commonMessages.source} />
             </Button>
 

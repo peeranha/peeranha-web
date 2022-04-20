@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import { BG_LIGHT, TEXT_DARK, BORDER_RADIUS_L } from 'style-constants';
 import PropTypes from 'prop-types';
 import { getIpfsHashFromBytes32 } from 'utils/ipfs.js';
+import ipfsLogo from 'images/ipfs-logo.svg?external';
+import { IconSm } from 'components/Icon/IconWithSizes';
 
 const Label = styled.div`
   position: absolute;
@@ -29,8 +31,10 @@ const IPFSInformation = ({ locale, ipfsHash }) => {
 
   return (
     <Label>
+      <IconSm icon={ipfsLogo} className="mr-1" />
       <span>
-        {translationMessages[locale][commonMessages.ipfsHashValue.id]}:{' '}
+        {translationMessages[locale][commonMessages.ipfsHashValue.id]}
+        {': '}
         {hashString}
       </span>
     </Label>

@@ -33,7 +33,7 @@ import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 import { changeQuestionType, payBounty } from './actions';
 import { QUESTION_TYPE } from './constants';
 import { getPermissions, hasGlobalModeratorRole } from '../../utils/properties';
-import ipfsLogo from 'images/ipfs-logo.svg?external';
+import blockchainLogo from 'images/blockchain-outline-32.svg?external';
 import IPFSInformation from 'containers/Questions/Content/Body/IPFSInformation';
 
 const RatingBox = styled.div`
@@ -267,7 +267,7 @@ const ContentHeader = props => {
               disabled={isPopoverOpen}
               onClick={() => setPopoverOpen(true)}
             >
-              <IconMd icon={ipfsLogo} />
+              <IconMd icon={blockchainLogo} />
               <FormattedMessage {...commonMessages.source} />
             </Button>
 

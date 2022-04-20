@@ -183,7 +183,7 @@
   "app.common.metaMaskIsLocked":
     "Пожалуйста, проверьте соединение MetaMask и попробуйте перезагрузить страницу",
 
-  "app.common.ipfsHashValue": "Значение IPFS хеша",
+  "app.common.ipfsHashValue": "IPFS",
   "app.common.source": "Источник",
 
   "app.telegram.user": "Телеграм пользователь",
