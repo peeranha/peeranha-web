@@ -2,6 +2,7 @@ import { Contract, ethers } from 'ethers';
 import Web3Modal from 'web3modal';
 import WalletConnect from '@walletconnect/web3-provider';
 import Torus from '@toruslabs/torus-embed';
+import Fortmatic from 'fortmatic';
 import Peeranha from '../../../peeranha/artifacts/contracts/Peeranha.sol/Peeranha.json';
 import PeeranhaToken from '../../../peeranha/artifacts/contracts/PeeranhaToken.sol/PeeranhaToken.json';
 import { WebIntegrationErrorByCode } from './errors';
@@ -50,7 +51,12 @@ class EthereumService {
   }
 
   getProviderOptions = () => {
-    const infuraId = '8354e9750bad49ec84592ea9ab45a794';
+    const networkOptions = {
+      rpcUrl: process.env.ETHEREUM_NETWORK,
+      chainId: process.env.CHAIN_ID,
+    };
+
+    const infuraId = process.env.INFURA_API_KEY;
     return {
       walletconnect: {
         package: WalletConnect,
@@ -60,6 +66,13 @@ class EthereumService {
       },
       torus: {
         package: Torus,
+      },
+      fortmatic: {
+        package: Fortmatic,
+        options: {
+          key: process.env.FORMATIC_API_KEY,
+          network: networkOptions,
+        },
       },
     };
   };
