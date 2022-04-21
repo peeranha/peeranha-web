@@ -27,7 +27,8 @@ export default {
     message: messages.newest,
   },
   subscribed: {
-    sortBy: 'users_subscribed',
+    sortBy: 'followingUsers',
+    //sortBy: 'users_subscribed',
     order: 'desc',
     message: messages.subscribed,
   },
