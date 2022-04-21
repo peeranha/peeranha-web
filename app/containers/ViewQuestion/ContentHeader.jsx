@@ -34,6 +34,7 @@ import { QUESTION_TYPE } from './constants';
 import { getPermissions, hasGlobalModeratorRole } from '../../utils/properties';
 import blockchainLogo from 'images/blockchain-outline-32.svg?external';
 import IPFSInformation from 'containers/Questions/Content/Body/IPFSInformation';
+import commonMessages from 'common-messages';
 
 const RatingBox = styled.div`
   border-right: 1px solid ${BORDER_SECONDARY};
@@ -103,7 +104,7 @@ const ContentHeader = props => {
     isChangeTypeAvailable,
     infiniteImpact,
   } = props;
-  
+
   const ipfsHashValue =
     type === QUESTION_TYPE
       ? questionData.ipfsHash
@@ -178,7 +179,10 @@ const ContentHeader = props => {
           {type === QUESTION_TYPE && (
             <Button
               id={`${type}_change_type_with_rating_restore_${answerId}`}
-              show={(isGlobalAdmin || isChangeTypeAvailable) && questionData.postType !== POST_TYPE.tutorial}
+              show={
+                (isGlobalAdmin || isChangeTypeAvailable) &&
+                questionData.postType !== POST_TYPE.tutorial
+              }
               onClick={changeQuestionTypeWithRatingRestore}
               disabled={ids.includes(
                 `${type}_change_type_with_rating_restore_${answerId}`,
