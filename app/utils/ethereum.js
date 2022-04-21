@@ -5,7 +5,11 @@ import Torus from '@toruslabs/torus-embed';
 import Fortmatic from 'fortmatic';
 import Peeranha from '../../../peeranha/artifacts/contracts/Peeranha.sol/Peeranha.json';
 import PeeranhaToken from '../../../peeranha/artifacts/contracts/PeeranhaToken.sol/PeeranhaToken.json';
-import { WebIntegrationErrorByCode } from './errors';
+import {
+  ApplicationError,
+  WebIntegrationError,
+  WebIntegrationErrorByCode,
+} from './errors';
 import {
   INVALID_ETHEREUM_PARAMETERS_ERROR_CODE,
   METAMASK_ERROR_CODE,
@@ -82,34 +86,41 @@ class EthereumService {
     };
   };
 
-  handleAccountsChanged = accounts => {
-    if (accounts.length === 0) {
-      throw new WebIntegrationErrorByCode(METAMASK_ERROR_CODE);
-    } else if (this.selectedAccount !== accounts[0]) {
+  initWithWeb3Modal = async () => {
+    this.provider = await this.web3Modal.connect();
+    this.selectedAccount = this.provider.selectedAddress;
+    this.withMetaMask = true;
+    this.metaMaskProviderDetected = true;
+    this.initialized = true;
+
+    this.contract = new Contract(
+      process.env.ETHEREUM_ADDRESS,
+      Peeranha.abi,
+      new ethers.providers.Web3Provider(this.provider),
+    );
+    this.contractToken = new Contract(
+      process.env.PEERANHA_TOKEN,
+      PeeranhaToken.abi,
+      new ethers.providers.Web3Provider(this.provider),
+    );
+  };
+
+  subscribeProvider = async () => {
+    this.provider.on('accountsChanged', accounts => {
       this.selectedAccount = accounts[0];
-    }
+    });
+    this.provider.on('chainChanged', async chainId => {
+      if (parseInt(chainId, 16) !== Number(process.env.CHAIN_ID)) {
+      } else {
+        await this.initWithWeb3Modal();
+      }
+    });
   };
 
   initEthereum = async () => {
-    // TODO for maatic:
-    // ETHEREUM_NETWORK='https://rpc-mumbai.maticvigil.com'
     if (this.web3Modal.cachedProvider) {
-      this.provider = await this.web3Modal.connect();
-      this.selectedAccount = this.provider.selectedAddress;
-      this.withMetaMask = true;
-      this.metaMaskProviderDetected = true;
-      this.initialized = true;
-
-      this.contract = new Contract(
-        process.env.ETHEREUM_ADDRESS,
-        Peeranha.abi,
-        new ethers.providers.Web3Provider(this.provider),
-      );
-      this.contractToken = new Contract(
-        process.env.PEERANHA_TOKEN,
-        PeeranhaToken.abi,
-        new ethers.providers.Web3Provider(this.provider),
-      );
+      await this.initWithWeb3Modal();
+      await this.subscribeProvider();
     } else {
       this.initialized = true;
       this.provider = ethers.providers.getDefaultProvider(
@@ -126,13 +137,11 @@ class EthereumService {
         this.provider,
       );
     }
-    this.provider.on('accountsChanged', accounts => {
-      console.log(accounts);
-    });
   };
 
   metaMaskSignIn = async () => {
     this.provider = await this.web3Modal.connect();
+    await this.subscribeProvider();
     await this.provider.enable();
     this.withMetaMask = true;
     this.selectedAccount = this.provider.selectedAddress;

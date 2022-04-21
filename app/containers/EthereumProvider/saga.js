@@ -55,6 +55,7 @@ export function* initEthereumWorker() {
     yield call(ethereumService.initEthereum);
     yield put(initEthereumSuccess(ethereumService));
   } catch (error) {
+    console.log(error);
     yield put(initEthereumError(error));
   }
 }
