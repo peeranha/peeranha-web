@@ -11,7 +11,33 @@ import {
 
 import { ApplicationError } from './errors';
 import { dateNowInSeconds } from './datetime';
-import { REGISTER_ACC } from './ethConstants';
+import { IS_USER_EXISTS, REGISTER_ACC } from './ethConstants';
+
+export const emptyProfile = account => ({
+  achievementsReached: [],
+  answersGiven: 0,
+  avatar: undefined,
+  balance: 0,
+  boost: null,
+  creationTime: 0,
+  displayName: `${account.substr(1, 8)}${account.substr(-8)}`,
+  followedCommunities: [],
+  highestRating: 0,
+  id: account,
+  loginData: { loginWithMetaMask: true },
+  permissions: [],
+  postCount: 0,
+  profile: {},
+  rating: undefined,
+  ratings: [],
+  stakedInCurrentPeriod: null,
+  stakedInNextPeriod: null,
+  user: account,
+});
+
+export const isUserExists = async (userAddress, ethereumService) => {
+  return await ethereumService.getDataWithArgs(IS_USER_EXISTS, [userAddress]);
+};
 
 export const updateAcc = async (profile, ethereumService) => {
   if (!profile) throw new ApplicationError('No profile');
