@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import commonMessages from 'common-messages';
 import DescriptionList from 'components/DescriptionList';
 import { BG_LIGHT, BORDER_PRIMARY_LIGHT, TEXT_DARK } from 'style-constants';
+import { FormattedMessage } from 'react-intl';
 
 const Base = styled.div`
   position: absolute;
@@ -19,6 +20,11 @@ const Base = styled.div`
 
   span {
     color: ${TEXT_DARK};
+  }
+
+  strong {
+    display: inline-block;
+    margin-bottom: 10px;
   }
 
   > ul {
@@ -38,14 +44,22 @@ const Base = styled.div`
   }
 `;
 
-const Popover = ({ locale, label, items }) => (
+const Popover = ({ locale, title, label, items }) => (
   <Base>
-    <DescriptionList locale={locale} label={label} items={items} />
+    <strong>
+      <FormattedMessage id={title} />
+    </strong>
+    <DescriptionList
+      locale={locale}
+      label={label}
+      items={items}
+    />
   </Base>
 );
 
 Popover.propTypes = {
   locale: PropTypes.string,
+  title: PropTypes.string,
   label: PropTypes.string,
   items: PropTypes.string,
 };

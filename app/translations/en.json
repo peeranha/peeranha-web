@@ -132,6 +132,7 @@
   "app.common.tipAnswer": "Tip answer",
   "app.common.sendTip": "Send tip",
   "app.common.receivedReward": "You received referral reward",
+  "app.common.generalPopoverTitle": "Discussion",
   "app.common.generalPopoverLabel":
     "A topic not requiring expertise or experience to answer that can be one of the following:",
   "app.common.generalPopoverList": [
@@ -140,6 +141,7 @@
     "Feedback or review request;",
     "Answer is widely known."
   ],
+  "app.common.expertPopoverTitle": "Expert",
   "app.common.expertPopoverLabel": "A question that asks one of the following:",
   "app.common.expertPopoverList": [
     "A solution to a problem that requires expert knowledge or experience;",
@@ -147,6 +149,7 @@
     "Explanation or clarification of the information that is complicated to comprehend;",
     "Ask for an instruction or a recipe."
   ],
+  "app.common.tutorialPopoverTitle": "Tutorial",
   "app.common.tutorialPopoverLabel":
     "Tutorial is a manual instruction that can be one of the following:",
   "app.common.tutorialPopoverList": [
