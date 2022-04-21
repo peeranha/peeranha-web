@@ -198,7 +198,7 @@ const MainUserInformation = ({
               {!isTemporaryAccount && (
                 <li>
                   <FormattedMessage {...commonMessages.walletAddress} />
-                  <A to={ {pathname: domainPolygonScan + account }} href={domainPolygonScan + account} target="_blank">
+                  <A to={ {pathname: domainPolygonScan + userId }} href={domainPolygonScan + userId} target="_blank">
                     <span>{userId}</span>
                   </A>
                 </li>
