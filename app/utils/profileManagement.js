@@ -27,6 +27,7 @@ import {
 import { UPDATE_ACC } from './ethConstants';
 import { getUser, getUserStats } from './theGraph';
 import { WebIntegrationError } from './errors';
+import { isUserExists } from './accountManagement';
 
 export const getRatingByCommunity = (user, communityId) => {
   return (
@@ -74,6 +75,10 @@ export async function getProfileInfo(
   let userStats;
 
   if (isLogin) {
+    const isUserRegistered = await isUserExists(user, ethereumService);
+    if (!isUserRegistered) {
+      return;
+    }
     profileInfo = await ethereumService.getProfile(user);
     userStats = await getUserStats(user);
     profileInfo.ratings = userStats?.ratings;
@@ -120,25 +125,6 @@ export async function saveProfile(ethereumService, user, profile) {
   await ethereumService.sendTransactionWithSigner(user, UPDATE_ACC, [
     transactionData,
   ]);
-}
-
-export async function getUserRatings(ethereumService, user, communities) {
-  if (!communities || !user) {
-    return [];
-  }
-
-  const ratings = new Map();
-  for await (const community of communities) {
-    try {
-      ratings.set(
-        community.id.toString(),
-        await ethereumService.getUserRating(user, community.id),
-      );
-    } catch (err) {
-      new WebIntegrationError(err.message);
-    }
-  }
-  return ratings;
 }
 
 export const getNotificationsInfo = async user => {
