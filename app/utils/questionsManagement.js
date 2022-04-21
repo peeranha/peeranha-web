@@ -537,7 +537,7 @@ export const formQuestionObject = async (
   };
 };
 
-const votingStatus = statusHistory => ({
+export const votingStatus = statusHistory => ({
   isUpVoted: statusHistory === UPVOTE_STATUS,
   isDownVoted: statusHistory === DOWNVOTE_STATUS,
   isVotedToDelete: false,
@@ -676,7 +676,7 @@ export const changeQuestionType = async (
   ethereumService,
   user,
   questionId,
-  type
+  type,
 ) => {
   await ethereumService.sendTransactionWithSigner(user, CHANGE_POST_TYPE, [
     questionId,

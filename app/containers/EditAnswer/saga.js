@@ -29,6 +29,8 @@ import {
   getAnswerSuccess,
 } from './actions';
 import { selectEthereum } from '../EthereumProvider/selectors';
+import { saveChangedItemIdToSessionStorage } from 'utils/sessionStorage';
+import { CHANGED_POSTS_KEY } from 'utils/constants';
 
 export function* getAnswerWorker({ questionId, answerId }) {
   try {
@@ -70,6 +72,8 @@ export function* editAnswerWorker({ answer, questionId, answerId, official }) {
         item.isOfficialReply = official;
       }
     }
+
+    saveChangedItemIdToSessionStorage(CHANGED_POSTS_KEY, questionId);
 
     yield put(editAnswerSuccess({ ...cachedQuestion }));
     yield call(createdHistory.push, routes.questionView(questionId, answerId));
