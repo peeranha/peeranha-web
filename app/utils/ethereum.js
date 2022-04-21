@@ -51,11 +51,6 @@ class EthereumService {
   }
 
   getProviderOptions = () => {
-    const networkOptions = {
-      rpcUrl: process.env.ETHEREUM_NETWORK,
-      chainId: process.env.CHAIN_ID,
-    };
-
     const infuraId = process.env.INFURA_API_KEY;
     return {
       walletconnect: {
@@ -66,12 +61,22 @@ class EthereumService {
       },
       torus: {
         package: Torus,
+        options: {
+          networkParams: {
+            host: process.env.ETHEREUM_NETWORK,
+            chainId: process.env.CHAIN_ID,
+            networkId: process.env.CHAIN_ID,
+          },
+        },
       },
       fortmatic: {
         package: Fortmatic,
         options: {
           key: process.env.FORMATIC_API_KEY,
-          network: networkOptions,
+          network: {
+            rpcUrl: process.env.ETHEREUM_NETWORK,
+            chainId: process.env.CHAIN_ID,
+          },
         },
       },
     };
