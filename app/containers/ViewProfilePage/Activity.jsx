@@ -19,7 +19,7 @@ import profileMessages from 'containers/Profile/messages';
 import QuestionsProfileTab from './QuestionsProfileTab';
 import Banner from './Banner';
 
-const DEFAULT_NUMBER = 10;
+const DEFAULT_NUMBER = 100000;
 
 /* eslint indent: 0 */
 const Activity = ({
