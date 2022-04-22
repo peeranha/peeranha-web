@@ -191,7 +191,6 @@ class EthereumService {
     }
 
     const signer = await this.provider.getSigner();
-    console.log(signer);
     this.contract = new Contract(
       process.env.ETHEREUM_ADDRESS,
       Peeranha.abi,
