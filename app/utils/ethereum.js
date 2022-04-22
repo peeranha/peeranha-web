@@ -11,9 +11,12 @@ import {
   WebIntegrationErrorByCode,
 } from './errors';
 import {
+  CHAIN_ID_ERROR_CODE,
+  ETHEREUM_USER_ERROR_CODE,
   INVALID_ETHEREUM_PARAMETERS_ERROR_CODE,
   METAMASK_ERROR_CODE,
   REJECTED_SIGNATURE_REQUEST,
+  USER_NOT_SELECTED_ERROR_CODE,
 } from './constants';
 import { getCookie } from './cookie';
 import { AUTOLOGIN_DATA } from '../containers/Login/constants';
@@ -39,6 +42,7 @@ import {
 class EthereumService {
   constructor() {
     this.contract = null;
+    this.instance = null;
     this.provider = null;
     this.initialized = false;
     this.metaMaskUserAddress = null;
@@ -46,10 +50,11 @@ class EthereumService {
     this.metaMaskProviderDetected = false;
     this.selectedAccount = null;
     this.contractToken = null;
+    this.correctChainId = false;
 
     this.web3Modal = new Web3Modal({
-      network: 'mainnet',
-      cacheProvider: true,
+      network: process.env.ETHEREUM_NETWORK,
+      cacheProvider: false,
       providerOptions: this.getProviderOptions(),
     });
   }
@@ -87,8 +92,12 @@ class EthereumService {
   };
 
   initWithWeb3Modal = async () => {
-    this.provider = await this.web3Modal.connect();
+    this.instance = await this.web3Modal.connect();
+    this.provider = new ethers.providers.Web3Provider(this.instance);
+    await this.subscribeProvider();
+
     this.selectedAccount = this.provider.selectedAddress;
+
     this.withMetaMask = true;
     this.metaMaskProviderDetected = true;
     this.initialized = true;
@@ -96,31 +105,39 @@ class EthereumService {
     this.contract = new Contract(
       process.env.ETHEREUM_ADDRESS,
       Peeranha.abi,
-      new ethers.providers.Web3Provider(this.provider),
+      this.provider,
     );
     this.contractToken = new Contract(
       process.env.PEERANHA_TOKEN,
       PeeranhaToken.abi,
-      new ethers.providers.Web3Provider(this.provider),
+      this.provider,
     );
   };
 
   subscribeProvider = async () => {
-    this.provider.on('accountsChanged', accounts => {
+    if (!this.instance.isFortmatic) {
+      this.instance.on('accountsChanged', accounts => {
+        this.selectedAccount = accounts[0];
+      });
+      this.instance.on('chainChanged', async chainId => {
+        this.correctChainId = Number(chainId) === Number(process.env.CHAIN_ID);
+      });
+    }
+  };
+
+  handleAccountsChanged = accounts => {
+    if (accounts.length === 0) {
+      throw new WebIntegrationErrorByCode(METAMASK_ERROR_CODE);
+    } else if (this.selectedAccount !== accounts[0]) {
       this.selectedAccount = accounts[0];
-    });
-    this.provider.on('chainChanged', async chainId => {
-      if (parseInt(chainId, 16) !== Number(process.env.CHAIN_ID)) {
-      } else {
-        await this.initWithWeb3Modal();
-      }
-    });
+    }
   };
 
   initEthereum = async () => {
     if (this.web3Modal.cachedProvider) {
       await this.initWithWeb3Modal();
-      await this.subscribeProvider();
+      const chainId = (await this.provider.getNetwork()).chainId;
+      this.correctChainId = chainId === Number(process.env.CHAIN_ID);
     } else {
       this.initialized = true;
       this.provider = ethers.providers.getDefaultProvider(
@@ -140,21 +157,59 @@ class EthereumService {
   };
 
   metaMaskSignIn = async () => {
-    this.provider = await this.web3Modal.connect();
+    this.instance = await this.web3Modal.connect();
     await this.subscribeProvider();
-    await this.provider.enable();
+    await this.instance.enable();
     this.withMetaMask = true;
-    this.selectedAccount = this.provider.selectedAddress;
+
+    if (this.instance.isMetaMask) {
+      await this.instance
+        .request({
+          method: 'wallet_requestPermissions',
+          params: [
+            {
+              eth_accounts: {},
+            },
+          ],
+        })
+        .catch(() => {
+          throw new WebIntegrationErrorByCode(USER_NOT_SELECTED_ERROR_CODE);
+        });
+      await this.instance
+        .request({ method: 'eth_requestAccounts' })
+        .then(this.handleAccountsChanged)
+        .catch(() => {
+          throw new WebIntegrationErrorByCode(ETHEREUM_USER_ERROR_CODE);
+        });
+    }
+
+    this.provider = await new ethers.providers.Web3Provider(this.instance);
+    const chainId = (await this.provider.getNetwork()).chainId;
+    this.correctChainId = Number(chainId) === Number(process.env.CHAIN_ID);
+    if (!this.correctChainId) {
+      throw new WebIntegrationErrorByCode(CHAIN_ID_ERROR_CODE);
+    }
+
+    const signer = await this.provider.getSigner();
+    console.log(signer);
     this.contract = new Contract(
       process.env.ETHEREUM_ADDRESS,
       Peeranha.abi,
-      new ethers.providers.Web3Provider(this.provider).getSigner(),
+      signer,
     );
-    return this.provider.selectedAddress;
+    this.contractToken = new Contract(
+      process.env.PEERANHA_TOKEN,
+      PeeranhaToken.abi,
+      this.provider,
+    );
+
+    this.selectedAccount = await signer.getAddress();
+
+    return this.selectedAccount;
   };
 
   resetWeb3Modal = async () => {
-    this.web3Modal.clearCachedProvider();
+    await this.web3Modal.clearCachedProvider();
     this.wasReseted = true;
     this.metaMaskUserAddress = null;
     this.withMetaMask = false;
@@ -188,12 +243,13 @@ class EthereumService {
   };
 
   sendTransactionWithSigner = async (actor, action, data) => {
+    if (!this.correctChainId) {
+      throw new WebIntegrationErrorByCode(CHAIN_ID_ERROR_CODE);
+    }
     if (this.withMetaMask) {
       try {
         const transaction = await this.contract
-          .connect(
-            new ethers.providers.Web3Provider(this.provider).getSigner(actor),
-          )
+          .connect(this.provider.getSigner(actor))
           [action](actor, ...data);
         await transaction.wait();
       } catch (err) {
@@ -215,12 +271,13 @@ class EthereumService {
   };
 
   sendTransactionWithoutDelegating = async (actor, action, data) => {
+    if (!this.correctChainId) {
+      throw new WebIntegrationErrorByCode(CHAIN_ID_ERROR_CODE);
+    }
     if (this.withMetaMask) {
       try {
         const transaction = await this.contract
-          .connect(
-            new ethers.providers.Web3Provider(this.provider).getSigner(actor),
-          )
+          .connect(this.provider.getSigner(actor))
           [action](...data);
         await transaction.wait();
       } catch (err) {
@@ -242,6 +299,9 @@ class EthereumService {
   };
 
   sendTransaction = async (actor, action, data) => {
+    if (!this.correctChainId) {
+      throw new WebIntegrationErrorByCode(CHAIN_ID_ERROR_CODE);
+    }
     try {
       const transactionData = getBytes32FromIpfsHash(data);
       const transaction = await this.getDataWithArgs(action, [transactionData]);
@@ -318,11 +378,12 @@ class EthereumService {
     await this.getTokenDataWithArgs(GET_USER_BALANCE, [user]);
 
   claimUserReward = async (actor, period) => {
+    if (!this.correctChainId) {
+      throw new WebIntegrationErrorByCode(CHAIN_ID_ERROR_CODE);
+    }
     try {
       const transaction = await this.contractToken
-        .connect(
-          new ethers.providers.Web3Provider(this.provider).getSigner(actor),
-        )
+        .connect(this.provider.getSigner(actor))
         [CLAIM_REWARD](actor, period);
       await transaction.wait();
     } catch (err) {

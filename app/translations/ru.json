@@ -27,6 +27,7 @@
   "app.common.signUp": "Регистрация",
   "app.common.all": "Все",
   "app.common.askQuestion": "Новый пост",
+  "app.common.wrongChainId": "Wrong Chain id",
   "app.common.add": "Добавить",
   "app.common.communities": "Сообщества",
   "app.common.allCommunities": "Все сообщества",
