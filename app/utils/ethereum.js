@@ -72,7 +72,7 @@ class EthereumService {
         package: Torus,
         options: {
           networkParams: {
-            host: process.env.ETHEREUM_NETWORK,
+            host: 'mumbai', // Make it configurable
             chainId: process.env.CHAIN_ID,
             networkId: process.env.CHAIN_ID,
           },
