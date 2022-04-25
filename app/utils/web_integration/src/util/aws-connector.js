@@ -36,6 +36,8 @@ const NOTIFICATIONS_INFO_SERVICE = 'notifications/info';
 const NOTIFICATIONS_READ_SERVICE = 'notifications/read';
 const NOTIFICATIONS_TIPS_SERVICE = 'notifications/tips';
 
+const SAVE_FILE_SERVICE = 'save-file';
+
 async function callService(service, props, isGet = false) {
   const url = new URL(process.env.WALLET_API_ENDPOINT + service);
 
@@ -103,4 +105,5 @@ module.exports = {
   BLOCKCHAIN_MAIN_CALL,
   BLOCKCHAIN_TOKEN_CALL,
   BLOCKCHAIN_MAIN_SEND_TRANSACTION,
+  SAVE_FILE_SERVICE,
 };

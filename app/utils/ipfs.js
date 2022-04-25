@@ -3,6 +3,10 @@ import bs58 from 'bs58';
 import { create } from 'ipfs-http-client';
 
 import { ApplicationError } from './errors';
+import {
+  callService,
+  SAVE_FILE_SERVICE,
+} from 'utils/web_integration/src/util/aws-connector';
 
 export function getIpfsApi() {
   return create(process.env.IPFS_API_URL);
@@ -53,11 +57,23 @@ async function saveFileTheGraph(buf) {
 
 export async function saveFile(file) {
   const buf = Buffer.from(file);
-  const saveResult = await getIpfsApi().add(buf);
+  // const saveResult = await getIpfsApi().add(buf);
+  //
+  // await saveFileTheGraph(buf);
 
-  await saveFileTheGraph(buf);
+  const result = await callService(SAVE_FILE_SERVICE, { file });
 
-  return saveResult.cid.toString();
+  // const result = await (await fetch(`http://localhost:4000/save-file`, {
+  //   method: 'POST',
+  //   body: JSON.stringify({
+  //     file: buf,
+  //   }),
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //   },
+  // })).json();
+
+  return result.cid;
 }
 
 export async function getText(hash) {
