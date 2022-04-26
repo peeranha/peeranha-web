@@ -33,9 +33,14 @@ const single = isSingleCommunityWebsite();
 
 const FrontSide = styled.div`
   > div {
-    padding: 20px;
+    padding: 8px 20px 20px;
+
     div {
       margin-bottom: 10px;
+
+      div {
+        margin-bottom: 8px;
+      }
     }
 
     &:not(:last-child) {
@@ -162,13 +167,15 @@ const TopCommunities = ({
 
                         <div>
                           <div>
-                            <Span
-                              className="mt-1"
-                              fontSize="14"
-                              color={TEXT_SECONDARY}
-                            >
-                              <FormattedMessage {...messages.reputation} />
-                            </Span>
+                            <div>
+                              <Span
+                                className="mt-1"
+                                fontSize="14"
+                                color={TEXT_SECONDARY}
+                              >
+                                <FormattedMessage {...messages.reputation} />
+                              </Span>
+                            </div>
                             <RatingStatus
                               className="py-1"
                               size="lg"
