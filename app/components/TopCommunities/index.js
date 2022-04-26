@@ -125,7 +125,7 @@ const TopCommunities = ({
     AllCommunitiesLink = ADefault;
     allCommunitiesRoute = `${process.env.APP_LOCATION}/communities`;
   }
-  if (profile.ratings.length) {
+  if (profile.ratings?.length) {
     return (
       <div className="overlow-hidden" ref={ref}>
         <H4 isHeader>
