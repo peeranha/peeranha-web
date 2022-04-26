@@ -128,7 +128,7 @@ const MainUserInformation = ({
   const isTemporaryAccount = !!profile?.['integer_properties']?.find(
     x => x.key === TEMPORARY_ACCOUNT_KEY && x.value,
   );
-  const domainPolygonScan = process.env.BLOCKCHAIN_EXPLORERE_URL;
+  const userPolygonScanAddress = process.env.BLOCKCHAIN_EXPLORERE_URL + userId;
 
   return (
     <Box position="middle">
@@ -198,7 +198,7 @@ const MainUserInformation = ({
               {!isTemporaryAccount && (
                 <li>
                   <FormattedMessage {...commonMessages.walletAddress} />
-                  <A to={ {pathname: domainPolygonScan + userId }} href={domainPolygonScan + userId} target="_blank">
+                  <A to={ {pathname: userPolygonScanAddress }} href={userPolygonScanAddress} target="_blank">
                     <span>{userId}</span>
                   </A>
                 </li>

@@ -35,7 +35,7 @@ const SubHeader = ({
     stakedInCurrentPeriod >= stakedInNextPeriod
       ? balance - stakedInCurrentPeriod
       : balance - stakedInNextPeriod;
-  const domainPolygonScan = process.env.BLOCKCHAIN_EXPLORERE_URL;
+  const userPolygonScanAddress = process.env.BLOCKCHAIN_EXPLORERE_URL + account;
 
   return (
     <Box position="bottom">
@@ -112,7 +112,7 @@ const SubHeader = ({
               {/*</li>*/}
               <li>
                 <FormattedMessage {...commonMessages.walletAddress} />
-                <A to={ {pathname: domainPolygonScan + account }} href={domainPolygonScan + account} target="_blank">
+                <A to={ {pathname: userPolygonScanAddress }} href={userPolygonScanAddress} target="_blank">
                   <Span>{account}</Span>
                 </A>
               </li>
