@@ -124,6 +124,7 @@ const QuestionType = ({ locale, postType, isPromoted, isExpert }) => {
             {visible && (
               <Popover
                 locale={locale}
+                title={commonMessages.generalPopoverTitle.id}
                 label={commonMessages.generalPopoverLabel.id}
                 items={commonMessages.generalPopoverList.id}
               />
@@ -142,6 +143,7 @@ const QuestionType = ({ locale, postType, isPromoted, isExpert }) => {
             {visible && (
               <Popover
                 locale={locale}
+                title={commonMessages.expertPopoverTitle.id}
                 label={commonMessages.expertPopoverLabel.id}
                 items={commonMessages.expertPopoverList.id}
               />
@@ -160,6 +162,7 @@ const QuestionType = ({ locale, postType, isPromoted, isExpert }) => {
             {visible && (
               <Popover
                 locale={locale}
+                title={commonMessages.tutorialPopoverTitle.id}
                 label={commonMessages.tutorialPopoverLabel.id}
                 items={commonMessages.tutorialPopoverList.id}
               />
