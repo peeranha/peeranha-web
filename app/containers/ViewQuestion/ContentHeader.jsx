@@ -272,7 +272,7 @@ const ContentHeader = props => {
               onClick={() => setPopoverOpen(true)}
             >
               <IconMd icon={blockchainLogo} />
-              <FormattedMessage {...commonMessages.source} />
+              <FormattedMessage id={commonMessages.source.id} />
             </Button>
 
             {isPopoverOpen && (
