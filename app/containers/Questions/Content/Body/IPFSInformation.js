@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React from 'react';
 import commonMessages from 'common-messages';
 import { translationMessages } from 'i18n';
 import styled from 'styled-components';
@@ -46,4 +46,4 @@ IPFSInformation.PropTypes = {
   ipfsHash: PropTypes.string,
 };
 
-export default memo(IPFSInformation);
+export default IPFSInformation;
