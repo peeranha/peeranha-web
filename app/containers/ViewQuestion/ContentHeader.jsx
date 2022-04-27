@@ -35,6 +35,7 @@ import { getPermissions, hasGlobalModeratorRole } from '../../utils/properties';
 import blockchainLogo from 'images/blockchain-outline-32.svg?external';
 import IPFSInformation from 'containers/Questions/Content/Body/IPFSInformation';
 import commonMessages from 'common-messages';
+import { POST_TYPE } from 'utils/constants';
 
 const RatingBox = styled.div`
   border-right: 1px solid ${BORDER_SECONDARY};
