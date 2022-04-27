@@ -147,55 +147,55 @@ export const getCurrentAccountWorker = function*(initAccount) {
     // const stakedInNextPeriod = 0;
     // const boost = {};
 
-    // if (profileInfo) {
-    //   // update user achievements
-    //   yield call(updateUserAchievementsWorker, profileInfo.user);
-    //
-    //   yield call(getNotificationsInfoWorker, profileInfo.user);
-    //   yield call(getWeekStatWorker);
-    //
-    //   // Update info for question depending on user
-    //   const viewQuestion = yield select(selectQuestionData());
-    //   if (
-    //     window.location.pathname.includes(routes.questionView(viewQuestion?.id))
-    //   ) {
-    //     const updatedQuestion = yield call(getQuestionData, {
-    //       questionId: viewQuestion.id,
-    //       user: profileInfo.user,
-    //       promote: viewQuestion.promote || null,
-    //     });
-    //
-    //     yield put(getQuestionDataSuccess(updatedQuestion));
-    //   }
-    //
-    //   profileInfo.balance = balance;
-    //
-    //   if (prevProfileInfo) {
-    //     profileInfo.profile = prevProfileInfo.profile;
-    //   }
-    //
-    //   // update user available balance
-    //   const weekStat = yield call(getWeekStat, eosService, profileInfo);
-    //   const userBoostStat = yield call(
-    //     getUserBoostStatistics,
-    //     eosService,
-    //     profileInfo.user,
-    //   );
-    //
-    //   const boostWeeks = yield call(
-    //     getBoostWeeks,
-    //     weekStat,
-    //     globalBoostStat,
-    //     userBoostStat,
-    //   );
-    //   const { currentWeek, nextWeek } = boostWeeks;
-    //   const { userStake, maxStake } = currentWeek;
-    //
-    //   stakedInCurrentPeriod = currentWeek.userStake;
-    //   stakedInNextPeriod = nextWeek.userStake;
-    //
-    //   boost = yield call(getPredictedBoost, userStake, maxStake);
-    // }
+    if (profileInfo) {
+      //   // update user achievements
+      //   yield call(updateUserAchievementsWorker, profileInfo.user);
+      //
+      yield call(getNotificationsInfoWorker, profileInfo.user);
+      //  yield call(getWeekStatWorker);
+      //
+      //   // Update info for question depending on user
+      //   const viewQuestion = yield select(selectQuestionData());
+      //   if (
+      //     window.location.pathname.includes(routes.questionView(viewQuestion?.id))
+      //   ) {
+      //     const updatedQuestion = yield call(getQuestionData, {
+      //       questionId: viewQuestion.id,
+      //       user: profileInfo.user,
+      //       promote: viewQuestion.promote || null,
+      //     });
+      //
+      //     yield put(getQuestionDataSuccess(updatedQuestion));
+      //   }
+      //
+      //   profileInfo.balance = balance;
+      //
+      //   if (prevProfileInfo) {
+      //     profileInfo.profile = prevProfileInfo.profile;
+      //   }
+      //
+      //   // update user available balance
+      //   const weekStat = yield call(getWeekStat, eosService, profileInfo);
+      //   const userBoostStat = yield call(
+      //     getUserBoostStatistics,
+      //     eosService,
+      //     profileInfo.user,
+      //   );
+      //
+      //   const boostWeeks = yield call(
+      //     getBoostWeeks,
+      //     weekStat,
+      //     globalBoostStat,
+      //     userBoostStat,
+      //   );
+      //   const { currentWeek, nextWeek } = boostWeeks;
+      //   const { userStake, maxStake } = currentWeek;
+      //
+      //   stakedInCurrentPeriod = currentWeek.userStake;
+      //   stakedInNextPeriod = nextWeek.userStake;
+      //
+      //   boost = yield call(getPredictedBoost, userStake, maxStake);
+    }
 
     setCookie({
       name: PROFILE_INFO_LS,

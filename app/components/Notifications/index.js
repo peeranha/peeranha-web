@@ -74,8 +74,7 @@ const Content = styled.div`
   flex-direction: column;
   border-radius: ${BORDER_RADIUS_L};
   width: 100%;
-  padding: 0;
-  height: ${({ height }) => height}px;
+  // height: ${({ height }) => height}px;
 `;
 
 const SubHeader = styled.div`
@@ -250,7 +249,10 @@ const Notifications = ({
           )}
           <WindowScroller onResize={onResize} onScroll={onScroll}>
             {({ height, isScrolling, registerChild, scrollTop }) => (
-              <div ref={registerChild}>
+              <div
+                ref={registerChild}
+                className={!!unreadCount ? 'pb-2' : 'pb-2 pt-2'}
+              >
                 <List
                   autoHeight
                   height={height}
