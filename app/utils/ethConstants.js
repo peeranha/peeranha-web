@@ -32,6 +32,7 @@ export const VOTE_ITEM = 'voteItem';
 export const GET_USER_RATING = 'getUserRating';
 export const GET_USER_BALANCE = 'balanceOf';
 export const CLAIM_REWARD = 'claimReward';
+export const GET_HISTORY = 'getHistory';
 
 export const UPVOTE_STATUS = 1;
 export const DOWNVOTE_STATUS = -1;
@@ -416,6 +417,33 @@ export const rewardsQuery = `
     }
     periods (orderBy: endPeriodTime, orderDirection: desc, first: 2) {
       ${period}
+    }
+  }
+`;
+
+const history = `
+  id
+  transactionHash
+  post {
+    ${post}
+  }
+  reply {
+    ${reply}
+  }
+  comment {
+    ${comment}
+  }
+  eventName
+  actionUser {
+    ${user}
+  }
+  timeStamp
+`;
+
+export const historyQuery = `
+  query {
+    histories {
+      ${history}
     }
   }
 `;

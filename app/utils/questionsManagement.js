@@ -50,7 +50,11 @@ import {
   UPVOTE_STATUS,
   VOTE_ITEM,
 } from './ethConstants';
-import { getUsersAnsweredQuestions, getUsersQuestions } from './theGraph';
+import {
+  getUsersAnsweredQuestions,
+  getUsersQuestions,
+  getAllHistories,
+} from './theGraph';
 
 /* eslint-disable  */
 export class FetcherOfQuestionsForFollowedCommunities {
@@ -742,3 +746,29 @@ export const getQuestionTags = (question, tagList) =>
   question.tags.map(tagId =>
     tagList.find(tag => tag.id === `${question.communityId}-${tagId}`),
   );
+
+export const getHistoriesForPost = async postId => {
+  let histories = await getAllHistories();
+  histories = histories.map(
+    ({
+      id,
+      post,
+      reply,
+      comment,
+      transactionHash,
+      eventName,
+      actionUser,
+      timeStamp,
+    }) => ({
+      id,
+      transactionHash,
+      post: post != null ? post : undefined,
+      reply: reply != null ? reply : undefined,
+      comment: comment != null ? reply : undefined,
+      eventName,
+      actionUser,
+      timeStamp,
+    }),
+  );
+  return histories.filter(history => history.post.id === postId);
+};

@@ -225,6 +225,7 @@ const CommentView = item => {
                 <IPFSInformation
                   locale={item.locale}
                   ipfsHash={item.ipfsHash}
+                  histories={item.histories}
                 />
               </div>
             )}

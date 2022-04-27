@@ -43,6 +43,7 @@ import {
   markAsAccepted,
   voteToDelete,
   resetStore,
+  getHistories,
 } from './actions';
 
 import * as makeSelectViewQuestion from './selectors';
@@ -55,6 +56,8 @@ import { POST_TYPE } from '../../utils/constants';
 
 export const ViewQuestion = ({
   locale,
+  histories,
+  historiesLoading,
   account,
   questionData,
   questionBounty,
@@ -88,6 +91,7 @@ export const ViewQuestion = ({
   redirectToEditAnswerPageDispatch,
   ids,
   resetStoreDispatch,
+  getHistoriesDispatch,
   match,
   profile,
   history,
@@ -118,6 +122,13 @@ export const ViewQuestion = ({
       getQuestionDataDispatch(match.params.id);
     },
     [match.params.id, account],
+  );
+
+  useEffect(
+    () => {
+      getHistoriesDispatch(match.params.id);
+    },
+    [match.params.id],
   );
 
   useEffect(
@@ -155,6 +166,7 @@ export const ViewQuestion = ({
 
   const sendProps = {
     account,
+    histories,
     locale,
     communities,
     questionData,
@@ -238,6 +250,9 @@ export const ViewQuestion = ({
 
 ViewQuestion.propTypes = {
   account: PropTypes.string,
+  histories: PropTypes.array,
+  historiesLoading: PropTypes.bool,
+  getHistoriesDispatch: PropTypes.func,
   locale: PropTypes.string,
   communities: PropTypes.array,
   questionDataLoading: PropTypes.bool,
@@ -295,6 +310,7 @@ const withConnect = connect(
     deleteCommentLoading: makeSelectViewQuestion.selectDeleteCommentLoading(),
     voteToDeleteLoading: makeSelectViewQuestion.selectVoteToDeleteLoading(),
     ids: makeSelectViewQuestion.selectIds(),
+    histories: makeSelectViewQuestion.selectHistories(),
   }),
   (
     dispatch,
@@ -359,6 +375,7 @@ const withConnect = connect(
       redirectToEditAnswerPage,
       dispatch,
     ),
+    getHistoriesDispatch: bindActionCreators(getHistories, dispatch),
   }),
 );
 

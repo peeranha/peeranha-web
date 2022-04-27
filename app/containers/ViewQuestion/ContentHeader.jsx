@@ -35,6 +35,7 @@ import { getPermissions, hasGlobalModeratorRole } from '../../utils/properties';
 import blockchainLogo from 'images/blockchain-outline-32.svg?external';
 import IPFSInformation from 'containers/Questions/Content/Body/IPFSInformation';
 import commonMessages from 'common-messages';
+import { POST_TYPE } from 'utils/constants';
 
 const RatingBox = styled.div`
   border-right: 1px solid ${BORDER_SECONDARY};
@@ -103,12 +104,18 @@ const ContentHeader = props => {
     profile,
     isChangeTypeAvailable,
     infiniteImpact,
+    histories,
   } = props;
 
   const ipfsHashValue =
     type === QUESTION_TYPE
       ? questionData.ipfsHash
       : questionData.answers.find(answer => answer.id === answerId).ipfsHash;
+
+  const formattedHistories = histories;
+  /*type === QUESTION_TYPE
+    ? histories
+    : histories.filter(history => history.reply?.id === `{answerId}`);*/
 
   const [isModalOpen, setModalOpen] = useState(false);
   const refSharingModal = useRef(null);
@@ -276,7 +283,11 @@ const ContentHeader = props => {
 
             {isPopoverOpen && (
               <div ref={refPopover}>
-                <IPFSInformation locale={locale} ipfsHash={ipfsHashValue} />
+                <IPFSInformation
+                  locale={locale}
+                  ipfsHash={ipfsHashValue}
+                  histories={formattedHistories}
+                />
               </div>
             )}
           </DropdownBox>
@@ -322,6 +333,7 @@ ContentHeader.propTypes = {
   profile: PropTypes.object,
   isChangeTypeAvailable: PropTypes.bool,
   infiniteImpact: PropTypes.bool,
+  history: PropTypes.array,
 };
 
 export default React.memo(
