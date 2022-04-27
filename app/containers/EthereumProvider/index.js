@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { bindActionCreators, compose } from 'redux';
@@ -15,6 +15,38 @@ import { initEthereum } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 import { makeSelectEthereum, makeSelectInitializing } from './selectors';
+import {
+  init,
+  useConnectWallet,
+  useSetChain,
+  useWallets,
+} from '@web3-onboard/react';
+import injectedModule from '@web3-onboard/injected-wallets';
+import coinbaseModule from '@web3-onboard/coinbase';
+import walletConnectModule from '@web3-onboard/walletconnect';
+import torusModule from '@web3-onboard/torus';
+
+const injected = injectedModule();
+const coinbase = coinbaseModule();
+const walletConnect = walletConnectModule();
+const torus = torusModule();
+
+const initWeb3Onboard = init({
+  wallets: [torus, injected, walletConnect, coinbase],
+  chains: [
+    {
+      id: '0x13881',
+      token: 'MATIC',
+      label: 'Polygon',
+      rpcUrl: process.env.ETHEREUM_NETWORK,
+    },
+  ],
+  accountCenter: {
+    desktop: {
+      enabled: false,
+    },
+  },
+});
 
 export const EthereumProvider = ({
   children,
@@ -22,7 +54,34 @@ export const EthereumProvider = ({
   initializing,
   ethereum,
 }) => {
+  const [{ wallet }, connect, disconnect] = useConnectWallet();
+  const [{ chains, connectedChain, settingChain }, setChain] = useSetChain();
+  const connectedWallets = useWallets();
+  const [web3Onboard, setWeb3Onboard] = useState(null);
+
+  useEffect(
+    () => {
+      if (ethereum) {
+        ethereum.setData({
+          wallet,
+          connectedWallets,
+          web3Onboard,
+          connectedChain,
+        });
+      }
+    },
+    [wallet, connectedWallets, web3Onboard],
+  );
+
+  const sendProps = {
+    connect,
+    disconnect,
+    setChain,
+    connectedChain,
+  };
+
   useEffect(() => {
+    setWeb3Onboard(initWeb3Onboard);
     const { pathname, hash } = window.location;
     const single = isSingleCommunityWebsite();
     if (single && pathname !== '/') {
@@ -32,9 +91,9 @@ export const EthereumProvider = ({
             ? `https://testpeeranha.io${pathname}${hash}`
             : `${process.env.APP_LOCATION}${pathname}${hash}`;
         window.open(path, '_parent');
-      } else initEthereumDispatch();
+      } else initEthereumDispatch(sendProps);
     } else {
-      initEthereumDispatch();
+      initEthereumDispatch(sendProps);
     }
   }, []);
 

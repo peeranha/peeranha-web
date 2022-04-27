@@ -116,11 +116,12 @@ export const getCurrentAccountWorker = function*(initAccount) {
       ? initAccount
       : call(ethereumService.getSelectedAccount);
 
-    if (!account) {
-      const autoLoginData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
-      if (autoLoginData) {
-        account = autoLoginData.ethereumUserAddress;
-      }
+    const previouslyConnectedWallet = JSON.parse(
+      window.localStorage.getItem('connectedWallet'),
+    );
+    if (!account && previouslyConnectedWallet) {
+      yield call(ethereumService.walletLogIn, previouslyConnectedWallet);
+      account = ethereumService.getSelectedAccount();
     } else if (account.email) {
       account = account.account;
       ethereumService.setSelectedAccount(account);

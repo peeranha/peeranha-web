@@ -203,7 +203,7 @@ export function* showWalletSignUpFormWorker({ metaMask }) {
 
     // sign up with metaMask
     if (metaMask) {
-      currentAccount = yield call(ethereumService.metaMaskSignIn);
+      currentAccount = yield call(ethereumService.walletLogIn);
     }
     let profileInfo = null;
     try {
