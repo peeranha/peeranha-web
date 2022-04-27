@@ -16,7 +16,7 @@ import {
   usersPostsQuery,
   usersQuery,
   userStatsQuery,
-  historyQuery,
+  historiesQuery,
 } from './ethConstants';
 import { dataToString } from 'utils/converters';
 
@@ -226,9 +226,12 @@ export const getRewardStat = async userId => {
   return [response?.data?.userRewards, response?.data?.periods];
 };
 
-export const getAllHistories = async () => {
+export const historiesForPost = async postId => {
   const response = await client.query({
-    query: gql(historyQuery),
+    query: gql(historiesQuery),
+    variables: {
+      postId,
+    },
   });
   return response?.data?.histories;
 };

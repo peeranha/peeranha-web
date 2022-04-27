@@ -803,6 +803,25 @@
   "app.containers.ViewQuestion.bountyStatus": "Статус бонуса",
   "app.containers.ViewQuestion.bountyStatusExpiration":
     "Бонус будет доступен до: ",
+  "app.containers.ViewQuestion.postCreated": "Пост создан",
+  "app.containers.ViewQuestion.replyCreated": "Ответ создан",
+  "app.containers.ViewQuestion.commentCreated": "Комментарий создан",
+  "app.containers.ViewQuestion.postEdited": "Пост изменён",
+  "app.containers.ViewQuestion.replyEdited": "Ответ изменён",
+  "app.containers.ViewQuestion.commentEdited": "Комментарий изменён",
+  "app.containers.ViewQuestion.postDeleted": "Пост удалён",
+  "app.containers.ViewQuestion.replyDeleted": "Ответ удалён",
+  "app.containers.ViewQuestion.commentDeleted": "Комментарий удалён",
+  "app.containers.ViewQuestion.statusOfficialReplyChanged":
+    "Статус официального ответа изменён",
+  "app.containers.ViewQuestion.statusBestReplyChanged":
+    "Статус лучшего ответа изменён",
+  "app.containers.ViewQuestion.forumItemVoted":
+    "За элемент форума проголосовали",
+  "app.containers.ViewQuestion.ChangePostType": "Тип поста изменён",
+  "app.containers.ViewQuestion.transactionHash": "Хеш транзакции",
+  "app.containers.ViewQuestion.eventName": "Событие",
+  "app.containers.ViewQuestion.timeStamp": "Дата и время",
   "app.components.FormFields.requiredField":
     "Вы не можете оставить это поле пустым",
   "app.components.FormFields.requiredAndNotZeroField":

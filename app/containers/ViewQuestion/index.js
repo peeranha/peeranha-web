@@ -53,6 +53,7 @@ import saga from './saga';
 
 import ViewQuestionContainer from './ViewQuestionContainer';
 import { POST_TYPE } from '../../utils/constants';
+import { selectHistoriesLoading } from './selectors';
 
 export const ViewQuestion = ({
   locale,
@@ -241,9 +242,10 @@ export const ViewQuestion = ({
       )}
 
       {!questionDataLoading &&
+        !historiesLoading &&
         questionData && <ViewQuestionContainer {...sendProps} />}
 
-      {questionDataLoading && <LoadingIndicator />}
+      {questionDataLoading && historiesLoading && <LoadingIndicator />}
     </React.Fragment>
   );
 };
@@ -311,6 +313,7 @@ const withConnect = connect(
     voteToDeleteLoading: makeSelectViewQuestion.selectVoteToDeleteLoading(),
     ids: makeSelectViewQuestion.selectIds(),
     histories: makeSelectViewQuestion.selectHistories(),
+    historiesLoading: makeSelectViewQuestion.selectHistoriesLoading(),
   }),
   (
     dispatch,

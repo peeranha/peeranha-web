@@ -53,7 +53,7 @@ import {
 import {
   getUsersAnsweredQuestions,
   getUsersQuestions,
-  getAllHistories,
+  historiesForPost,
 } from './theGraph';
 
 /* eslint-disable  */
@@ -748,8 +748,8 @@ export const getQuestionTags = (question, tagList) =>
   );
 
 export const getHistoriesForPost = async postId => {
-  let histories = await getAllHistories();
-  histories = histories.map(
+  const histories = await historiesForPost(postId);
+  return histories.map(
     ({
       id,
       post,
@@ -762,13 +762,12 @@ export const getHistoriesForPost = async postId => {
     }) => ({
       id,
       transactionHash,
-      post: post != null ? post : undefined,
+      post,
       reply: reply != null ? reply : undefined,
-      comment: comment != null ? reply : undefined,
+      comment: comment != null ? comment : undefined,
       eventName,
       actionUser,
       timeStamp,
     }),
   );
-  return histories.filter(history => history.post.id === postId);
 };

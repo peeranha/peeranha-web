@@ -11,12 +11,7 @@ import { getFormattedDate } from 'utils/datetime';
 import { MONTH_3LETTERS__DAY_YYYY_TIME } from 'utils/constants';
 import A from 'components/A';
 import Span from 'components/Span';
-
-const columns = {
-  transactionHash: 'Transaction Hash',
-  eventName: 'Event Name',
-  timeStamp: 'Date And Time',
-};
+import messages from 'containers/ViewQuestion/messages';
 
 const Label = styled.div`
   position: absolute;
@@ -32,9 +27,14 @@ const Label = styled.div`
 `;
 
 const IPFSInformation = ({ locale, ipfsHash, histories }) => {
-  const hashString = getIpfsHashFromBytes32(ipfsHash);
+  const columns = {
+    transactionHash: translationMessages[locale][messages.transactionHash.id],
+    eventName: translationMessages[locale][messages.eventName.id],
+    timeStamp: translationMessages[locale][messages.timeStamp.id],
+  };
 
-  const polygonURL = 'https://mumbai.polygonscan.com/tx/';
+  const hashString = getIpfsHashFromBytes32(ipfsHash);
+  const polygonURL = process.env.BLOCKCHAIN_TRANSACTION_INFO_URL;
 
   const formattedData = histories?.map(
     ({ transactionHash, eventName, timeStamp }) => ({
@@ -47,7 +47,7 @@ const IPFSInformation = ({ locale, ipfsHash, histories }) => {
           {transactionHash.substring(0, 12) + '...'}
         </A>
       ),
-      eventName,
+      eventName: translationMessages[locale][messages[eventName].id],
       timeStamp: getFormattedDate(
         timeStamp,
         locale,

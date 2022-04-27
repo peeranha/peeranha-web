@@ -112,10 +112,12 @@ const ContentHeader = props => {
       ? questionData.ipfsHash
       : questionData.answers.find(answer => answer.id === answerId).ipfsHash;
 
-  const formattedHistories = histories;
-  /*type === QUESTION_TYPE
-    ? histories
-    : histories.filter(history => history.reply?.id === `{answerId}`);*/
+  const formattedHistories =
+    type === QUESTION_TYPE
+      ? histories
+      : histories.filter(
+          history => history.reply?.id === `${questionData.id}-${answerId}`,
+        );
 
   const [isModalOpen, setModalOpen] = useState(false);
   const refSharingModal = useRef(null);

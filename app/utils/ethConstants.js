@@ -32,7 +32,6 @@ export const VOTE_ITEM = 'voteItem';
 export const GET_USER_RATING = 'getUserRating';
 export const GET_USER_BALANCE = 'balanceOf';
 export const CLAIM_REWARD = 'claimReward';
-export const GET_HISTORY = 'getHistory';
 
 export const UPVOTE_STATUS = 1;
 export const DOWNVOTE_STATUS = -1;
@@ -424,13 +423,19 @@ export const rewardsQuery = `
 const history = `
   id
   transactionHash
-  post {
+  post (
+   where: { isDeleted: false }
+  ) {
     ${post}
   }
-  reply {
+  reply (
+   where: { isDeleted: false }
+  ) {
     ${reply}
   }
-  comment {
+  comment (
+   where: { isDeleted: false }
+  ) {
     ${comment}
   }
   eventName
@@ -440,9 +445,14 @@ const history = `
   timeStamp
 `;
 
-export const historyQuery = `
-  query {
-    histories {
+export const historiesQuery = `
+  query (
+   $postId: ID!,
+ ) {
+    histories (
+      orderBy: timeStamp,
+      where: {post: $postId,}
+    ) {
       ${history}
     }
   }

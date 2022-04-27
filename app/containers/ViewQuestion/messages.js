@@ -139,4 +139,52 @@ export default defineMessages({
   questionIsPromoting: {
     id: 'app.containers.QuestionForm.questionIsPromoting',
   },
+  PostCreated: {
+    id: 'app.containers.ViewQuestion.postCreated',
+  },
+  ReplyCreated: {
+    id: 'app.containers.ViewQuestion.replyCreated',
+  },
+  CommentCreated: {
+    id: 'app.containers.ViewQuestion.commentCreated',
+  },
+  PostEdited: {
+    id: 'app.containers.ViewQuestion.postEdited',
+  },
+  ReplyEdited: {
+    id: 'app.containers.ViewQuestion.replyEdited',
+  },
+  CommentEdited: {
+    id: 'app.containers.ViewQuestion.commentEdited',
+  },
+  PostDeleted: {
+    id: 'app.containers.ViewQuestion.postDeleted',
+  },
+  ReplyDeleted: {
+    id: 'app.containers.ViewQuestion.replyDeleted',
+  },
+  CommentDeleted: {
+    id: 'app.containers.ViewQuestion.commentDeleted',
+  },
+  StatusOfficialReplyChanged: {
+    id: 'app.containers.ViewQuestion.statusOfficialReplyChanged',
+  },
+  StatusBestReplyChanged: {
+    id: 'app.containers.ViewQuestion.statusBestReplyChanged',
+  },
+  ForumItemVoted: {
+    id: 'app.containers.ViewQuestion.forumItemVoted',
+  },
+  ChangePostType: {
+    id: 'app.containers.ViewQuestion.ChangePostType',
+  },
+  transactionHash: {
+    id: 'app.containers.ViewQuestion.transactionHash',
+  },
+  eventName: {
+    id: 'app.containers.ViewQuestion.eventName',
+  },
+  timeStamp: {
+    id: 'app.containers.ViewQuestion.timeStamp',
+  },
 });
