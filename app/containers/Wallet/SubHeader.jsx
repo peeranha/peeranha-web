@@ -19,6 +19,7 @@ import { getFormattedNum3 } from 'utils/numbers';
 
 import { IconLg, IconSm } from 'components/Icon/IconWithSizes';
 import Span from 'components/Span';
+import A from 'components/A';
 import LargeImage from 'components/Img/LargeImage';
 import { Box, UlStyled } from 'containers/ViewProfilePage/MainUserInformation';
 
@@ -34,6 +35,7 @@ const SubHeader = ({
     stakedInCurrentPeriod >= stakedInNextPeriod
       ? balance - stakedInCurrentPeriod
       : balance - stakedInNextPeriod;
+  const userPolygonScanAddress = process.env.BLOCKCHAIN_EXPLORERE_URL + account;
 
   return (
     <Box position="bottom">
@@ -109,8 +111,10 @@ const SubHeader = ({
               {/*  </Span>*/}
               {/*</li>*/}
               <li>
-                <FormattedMessage {...messages.walletAddress} />
-                <Span>{account}</Span>
+                <FormattedMessage {...commonMessages.walletAddress} />
+                <A to={ {pathname: userPolygonScanAddress }} href={userPolygonScanAddress} target="_blank">
+                  <Span>{account}</Span>
+                </A>
               </li>
             </UlStyled>
           </div>

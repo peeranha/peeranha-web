@@ -18,6 +18,7 @@ import questionRoundedIcon from 'images/question2.svg?inline';
 import answerIcon from 'images/answer.svg?inline';
 
 import Base from 'components/Base';
+import A from 'components/A';
 import Ul from 'components/Ul';
 import Span from 'components/Span';
 import RatingStatus from 'components/RatingStatus';
@@ -128,6 +129,7 @@ const MainUserInformation = ({
   const isTemporaryAccount = !!profile?.integer_properties?.find(
     x => x.key === TEMPORARY_ACCOUNT_KEY && x.value,
   );
+  const userPolygonScanAddress = process.env.BLOCKCHAIN_EXPLORERE_URL + userId;
 
   return (
     <Box position="middle">
@@ -201,7 +203,9 @@ const MainUserInformation = ({
               {!isTemporaryAccount && (
                 <li>
                   <FormattedMessage {...commonMessages.walletAddress} />
-                  <span>{userId}</span>
+                  <A to={ {pathname: userPolygonScanAddress }} href={userPolygonScanAddress} target="_blank">
+                    <span>{userId}</span>
+                  </A>
                 </li>
               )}
 
