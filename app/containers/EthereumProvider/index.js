@@ -4,7 +4,10 @@ import { createStructuredSelector } from 'reselect';
 import { bindActionCreators, compose } from 'redux';
 import PropTypes from 'prop-types';
 
-import { isSingleCommunityWebsite } from 'utils/communityManagement';
+import {
+  isSingleCommunityWebsite,
+  singleCommunityStyles,
+} from 'utils/communityManagement';
 import { redirectRoutesForSCM } from 'routes-config';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
@@ -25,11 +28,18 @@ import injectedModule from '@web3-onboard/injected-wallets';
 import coinbaseModule from '@web3-onboard/coinbase';
 import walletConnectModule from '@web3-onboard/walletconnect';
 import torusModule from '@web3-onboard/torus';
+import logo from 'images/LogoBlackOnboard.svg?inline';
+import communitiesConfig from '../../communities-config';
 
 const injected = injectedModule();
 const coinbase = coinbaseModule();
 const walletConnect = walletConnectModule();
 const torus = torusModule();
+
+const single = isSingleCommunityWebsite();
+const styles = singleCommunityStyles();
+
+const src = styles.withoutSubHeader ? communitiesConfig[single].src : logo;
 
 const initWeb3Onboard = init({
   wallets: [torus, injected, walletConnect, coinbase],
@@ -46,6 +56,16 @@ const initWeb3Onboard = init({
       enabled: false,
     },
   },
+  appMetadata: {
+    name: 'Peeranha',
+    icon: src,
+    description: 'Decentralized questions and answers website',
+    agreement: {
+      version: '1.0.0',
+      termsUrl: `${process.env.APP_LOCATION}/terms-and-conditions/`,
+      privacyUrl: `${process.env.APP_LOCATION}/privacy-policy/`,
+    },
+  },
 });
 
 export const EthereumProvider = ({
@@ -55,7 +75,7 @@ export const EthereumProvider = ({
   ethereum,
 }) => {
   const [{ wallet }, connect, disconnect] = useConnectWallet();
-  const [{ chains, connectedChain, settingChain }, setChain] = useSetChain();
+  const [{ connectedChain }, setChain] = useSetChain();
   const connectedWallets = useWallets();
   const [web3Onboard, setWeb3Onboard] = useState(null);
 

@@ -122,7 +122,7 @@ export const getCurrentAccountWorker = function*(initAccount) {
     if (!account && previouslyConnectedWallet) {
       yield call(ethereumService.walletLogIn, previouslyConnectedWallet);
       account = ethereumService.getSelectedAccount();
-    } else if (account.email) {
+    } else if (account?.email) {
       account = account.account;
       ethereumService.setSelectedAccount(account);
     }
