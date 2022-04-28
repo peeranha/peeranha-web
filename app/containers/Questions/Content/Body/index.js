@@ -46,6 +46,7 @@ const Body = ({
   postType,
   isFeed,
   isExpert,
+  isCommunityFeed
 }) => {
   return (
     <Base
@@ -63,7 +64,7 @@ const Body = ({
           topQuestionsCount={topQuestionsCount}
           topQuestionActionProcessing={topQuestionActionProcessing}
         />
-        {(isFeed || isSearchPage) && (
+        {(isFeed || isSearchPage || isCommunityFeed) && (
           <QuestionType
             locale={locale}
             postType={postType}
@@ -116,6 +117,7 @@ Body.propTypes = {
   displayTopQuestionMove: PropTypes.bool,
   topQuestionActionProcessing: PropTypes.bool,
   isPromoted: PropTypes.bool,
+  isCommunityFeed: PropTypes.bool,
 };
 
 export default memo(Body);

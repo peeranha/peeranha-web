@@ -89,6 +89,7 @@ const QI = ({
   replyCount,
   postType,
   isFeed,
+  isCommunityFeed
 }) => {
   const ref = useRef(null);
 
@@ -205,6 +206,7 @@ const QI = ({
           postType={postType}
           isFeed={isFeed}
           isExpert={isExpert}
+          isCommunityFeed={isCommunityFeed}
         />
       </Div>
     </Box>
@@ -235,6 +237,7 @@ export const Content = ({
   isHomePage = false,
   isSearchPage,
   isFeed,
+  isCommunityFeed
 }) => (
   <div className="position-relative">
     {/*{promotedQuestionsList &&*/}
@@ -269,6 +272,7 @@ export const Content = ({
           isHomePage={isHomePage}
           isSearchPage={isSearchPage}
           isFeed={isFeed}
+          isCommunityFeed={isCommunityFeed}
         />
       );
     })}
@@ -303,6 +307,7 @@ QI.propTypes = {
   isPromoted: PropTypes.bool,
   questionBounty: PropTypes.number,
   isHomePage: PropTypes.bool,
+  isCommunityFeed: PropTypes.bool,
 };
 
 Content.propTypes = {
@@ -313,6 +318,7 @@ Content.propTypes = {
   isModerator: PropTypes.bool,
   profileInfo: PropTypes.object,
   isHomePage: PropTypes.bool,
+  isCommunityFeed: PropTypes.bool,
 };
 
 export { QuestionItem };
