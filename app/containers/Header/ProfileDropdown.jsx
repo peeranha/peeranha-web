@@ -10,7 +10,10 @@ import { NO_AVATAR } from 'utils/constants';
 
 import * as routes from 'routes-config';
 import messages from 'common-messages';
-import { singleCommunityStyles } from 'utils/communityManagement';
+import {
+  singleCommunityColors,
+  singleCommunityStyles,
+} from 'utils/communityManagement';
 
 import logoutIcon from 'images/logout.svg?external';
 
@@ -32,6 +35,7 @@ import { selectIsMenuVisible } from '../AppWrapper/selectors';
 import { getPermissions } from '../../utils/properties';
 
 const styles = singleCommunityStyles();
+const colors = singleCommunityColors();
 
 const StatusBox = styled.span`
   display: inline-flex;
@@ -87,7 +91,7 @@ const B = ({ profileInfo, onClick, isMenuVisible, isMobileVersion }) => (
       isMenuVisible={isMenuVisible}
     >
       <Span bold color={(!isMobileVersion && styles.commHeadElemColor) || ''}>
-        {profileInfo?.['displayName']}
+        {profileInfo?.displayName}
       </Span>
     </Info>
   </span>
@@ -99,8 +103,8 @@ export const Button = connect(state => ({
 
 const Menu = memo(
   ({ profileInfo, questionsLength, questionsWithUserAnswersLength }) => {
-    const user = profileInfo.user;
-    const isEmail = profileInfo.loginData.email;
+    const { user, loginData } = profileInfo;
+    const isEmail = loginData.email;
 
     const isModerator = useMemo(() => !!getPermissions(profileInfo)?.length, [
       profileInfo,
@@ -135,7 +139,7 @@ const Menu = memo(
           >
             <FormattedMessage {...messages.settings} />
           </A>
-          {/*TODO PEER20-286 Hide notifications from this version*/}
+          {/* TODO PEER20-286 Hide notifications from this version */}
           {/* <A to={routes.userNotifications(user)}>
             <FormattedMessage {...messages.notifications} />
           </A> */}
@@ -151,8 +155,12 @@ const Menu = memo(
 
         <Ul>
           <Logout>
-            <IconLg className="mr-1" icon={logoutIcon} />
-            <Span color={TEXT_PRIMARY}>
+            <IconLg
+              className="mr-1"
+              fill={colors.linkColor}
+              icon={logoutIcon}
+            />
+            <Span color={colors.linkColor || TEXT_PRIMARY}>
               <FormattedMessage {...messages.logout} />
             </Span>
           </Logout>

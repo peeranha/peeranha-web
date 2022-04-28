@@ -46,63 +46,61 @@ const Body = ({
   postType,
   isFeed,
   isExpert,
-}) => {
-  return (
-    <Base
-      className={displayTopQuestionMove ? 'pl-0' : ''}
-      position="right"
-      paddingTopMedia={20}
-    >
-      <QuestionLabels>
-        <TopQuestion
-          id={id}
-          locale={locale}
-          profileInfo={profileInfo}
-          isTopQuestion={isTopQuestion}
-          isModerator={isModerator}
-          topQuestionsCount={topQuestionsCount}
-          topQuestionActionProcessing={topQuestionActionProcessing}
-        />
-        {(isFeed || isSearchPage) && (
-          <QuestionType
-            locale={locale}
-            postType={postType}
-            isPromoted={isPromoted}
-            isExpert={isExpert}
-          />
-        )}
-      </QuestionLabels>
-
-      <Title
-        locale={locale}
-        title={title}
+}) => (
+  <Base
+    className={displayTopQuestionMove ? 'pl-0' : ''}
+    position="right"
+    paddingTopMedia={20}
+  >
+    <QuestionLabels>
+      <TopQuestion
         id={id}
-        questionBounty={questionBounty}
-        postType={postType}
-      />
-
-      <UserInfo
-        author={author}
         locale={locale}
-        postTime={postTime}
-        isSearchPage={isSearchPage}
-        communityId={communityId}
+        profileInfo={profileInfo}
+        isTopQuestion={isTopQuestion}
+        isModerator={isModerator}
+        topQuestionsCount={topQuestionsCount}
+        topQuestionActionProcessing={topQuestionActionProcessing}
       />
+      {(isFeed || isSearchPage) && (
+        <QuestionType
+          locale={locale}
+          postType={postType}
+          isPromoted={isPromoted}
+          isExpert={isExpert}
+        />
+      )}
+    </QuestionLabels>
 
-      <TagsContainer
-        communities={communities}
-        communityId={communityId}
-        tags={tags}
-      />
-    </Base>
-  );
-};
+    <Title
+      locale={locale}
+      title={title}
+      id={id}
+      questionBounty={questionBounty}
+      postType={postType}
+    />
+
+    <UserInfo
+      author={author}
+      locale={locale}
+      postTime={postTime}
+      isSearchPage={isSearchPage}
+      communityId={communityId}
+    />
+
+    <TagsContainer
+      communities={communities}
+      communityId={communityId}
+      tags={tags}
+    />
+  </Base>
+);
 
 Body.propTypes = {
   id: PropTypes.string,
-  author: PropTypes.string,
+  author: PropTypes.object,
   title: PropTypes.string,
-  postTime: PropTypes.number,
+  postTime: PropTypes.string,
   locale: PropTypes.string,
   communityId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   communities: PropTypes.array,

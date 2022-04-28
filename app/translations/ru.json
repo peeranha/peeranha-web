@@ -109,7 +109,7 @@
   "app.common.preview": "Предварительный просмотр",
   "app.common.showMore": "Показать больше {value}",
   "app.common.showLess": "Показать меньше {value}",
-  "app.common.poweredByTelos": "Powered by {image}",
+  "app.common.poweredBy": "Powered by {image}",
   "app.common.poweredByPeeranha": "Powered by {image}",
   "app.common.terms": "Operating Agreement",
   "app.common.noResults": "Нет результатов",

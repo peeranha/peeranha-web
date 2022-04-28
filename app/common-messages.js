@@ -339,8 +339,8 @@ export default defineMessages({
   showLess: {
     id: 'app.common.showLess',
   },
-  poweredByTelos: {
-    id: 'app.common.poweredByTelos',
+  poweredBy: {
+    id: 'app.common.poweredBy',
   },
   poweredByPeeranha: {
     id: 'app.common.poweredByPeeranha',

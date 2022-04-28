@@ -237,48 +237,46 @@ export const Content = ({
   isFeed,
 }) => (
   <div className="position-relative">
-    {/*{promotedQuestionsList &&*/}
-    {/*  promotedQuestionsList.map((item, index) => (*/}
-    {/*    <QuestionItem*/}
-    {/*      {...item}*/}
-    {/*      index={index}*/}
-    {/*      first={index === 0}*/}
-    {/*      last={index === questionsList.length - 1}*/}
-    {/*      locale={locale}*/}
-    {/*      communities={communities}*/}
-    {/*      key={item.id}*/}
-    {/*      isModerator={isModerator}*/}
-    {/*      profileInfo={profileInfo}*/}
-    {/*      isPromoted*/}
-    {/*      isHomePage={isHomePage}*/}
-    {/*    />*/}
-    {/*  ))}*/}
-    {questionsList.map((item, index) => {
-      return (
-        <QuestionItem
-          {...item}
-          isGeneral={isGeneralQuestion(item)}
-          index={index}
-          first={index === 0}
-          last={index === questionsList.length - 1}
-          locale={locale}
-          communities={communities}
-          key={item.id}
-          isModerator={isModerator}
-          profileInfo={profileInfo}
-          isHomePage={isHomePage}
-          isSearchPage={isSearchPage}
-          isFeed={isFeed}
-        />
-      );
-    })}
+    {/* {promotedQuestionsList && */}
+    {/*  promotedQuestionsList.map((item, index) => ( */}
+    {/*    <QuestionItem */}
+    {/*      {...item} */}
+    {/*      index={index} */}
+    {/*      first={index === 0} */}
+    {/*      last={index === questionsList.length - 1} */}
+    {/*      locale={locale} */}
+    {/*      communities={communities} */}
+    {/*      key={item.id} */}
+    {/*      isModerator={isModerator} */}
+    {/*      profileInfo={profileInfo} */}
+    {/*      isPromoted */}
+    {/*      isHomePage={isHomePage} */}
+    {/*    /> */}
+    {/*  ))} */}
+    {questionsList.map((item, index) => (
+      <QuestionItem
+        {...item}
+        isGeneral={isGeneralQuestion(item)}
+        index={index}
+        first={index === 0}
+        last={index === questionsList.length - 1}
+        locale={locale}
+        communities={communities}
+        key={item.id}
+        isModerator={isModerator}
+        profileInfo={profileInfo}
+        isHomePage={isHomePage}
+        isSearchPage={isSearchPage}
+        isFeed={isFeed}
+      />
+    ))}
   </div>
 );
 
 QI.propTypes = {
   id: PropTypes.string,
   title: PropTypes.string,
-  author: PropTypes.string,
+  author: PropTypes.object,
   postTime: PropTypes.string,
   locale: PropTypes.string,
   communityId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -286,7 +284,6 @@ QI.propTypes = {
   tags: PropTypes.array,
   rating: PropTypes.number,
   answers: PropTypes.array,
-  correct_answer_id: PropTypes.number,
   isGeneral: PropTypes.bool,
   first: PropTypes.bool,
   last: PropTypes.bool,

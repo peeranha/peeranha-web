@@ -9,6 +9,7 @@ import {
   BORDER_SECONDARY,
   BORDER_PRIMARY,
   BORDER_ATTENTION_LIGHT,
+  BG_PRIMARY,
 } from 'style-constants';
 
 import pencilIcon from 'images/pencil.svg?external';
@@ -27,6 +28,8 @@ import {
 import { useOnClickOutside } from 'utils/click-listners';
 
 import { IconSm, IconMd } from 'components/Icon/IconWithSizes';
+import { getPermissions, hasGlobalModeratorRole } from 'utils/properties';
+import { singleCommunityColors } from 'utils/communityManagement';
 import UserInfo from './UserInfo';
 import ContentRating from './ContentRating';
 import Button from './Button';
@@ -37,7 +40,9 @@ import messages from './messages';
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 import { changeQuestionType, payBounty } from './actions';
 import { QUESTION_TYPE } from './constants';
-import { getPermissions, hasGlobalModeratorRole } from '../../utils/properties';
+
+const colors = singleCommunityColors();
+const shareColors = colors.contentHeader || BG_PRIMARY;
 
 const RatingBox = styled.div`
   border-right: 1px solid ${BORDER_SECONDARY};
@@ -63,6 +68,14 @@ const ItemInfo = styled.div`
   button {
     border-radius: 0;
   }
+
+  .fill {
+    fill: ${shareColors};
+  }
+
+  .stroke {
+    stroke: ${shareColors};
+  }
 `;
 
 const Box = styled.div`
@@ -85,6 +98,10 @@ const Box = styled.div`
 
 const DropdownBox = styled.div`
   position: relative;
+
+  button {
+    color: ${shareColors} !important;
+  }
 `;
 
 const ContentHeader = props => {
@@ -116,7 +133,7 @@ const ContentHeader = props => {
     () => hasGlobalModeratorRole(getPermissions(profile)),
     [profile],
   );
-  //todo remove integer_properties
+  // todo remove integer_properties
   const isTemporaryAccount = false;
   //   useMemo(
   //   () =>
@@ -158,7 +175,7 @@ const ContentHeader = props => {
       <ItemInfo>
         <UserInfo
           avatar={getUserAvatar(author.avatar)}
-          name={author?.['displayName']}
+          name={author?.displayName}
           account={author.user}
           rating={getRatingByCommunity(author, props.commId)}
           type={type}
@@ -210,12 +227,9 @@ const ContentHeader = props => {
               params={buttonParams}
               onClick={voteToDelete}
               disabled={ids.includes(`${type}_vote_to_delete_${answerId}`)}
-              isVotedToDelete={true}
+              isVotedToDelete
             >
-              <IconSm
-                icon={blockIcon}
-                fill={true ? BORDER_ATTENTION_LIGHT : BORDER_PRIMARY}
-              />
+              <IconSm icon={blockIcon} fill={BORDER_ATTENTION_LIGHT} />
               <FormattedMessage {...messages.voteToDelete} />
             </Button>
           ) : null}
@@ -234,7 +248,7 @@ const ContentHeader = props => {
                   onClick={onClick}
                   disabled={ids.includes(`${type}_delete_${answerId}`)}
                 >
-                  <IconMd icon={deleteIcon} fill={BORDER_PRIMARY} />
+                  <IconMd icon={deleteIcon} />
                   <FormattedMessage {...messages.deleteButton} />
                 </Button>
               )}
@@ -280,7 +294,7 @@ ContentHeader.propTypes = {
   author: PropTypes.object,
   locale: PropTypes.string,
   lastEditedDate: PropTypes.number,
-  postTime: PropTypes.number,
+  postTime: PropTypes.string,
   type: PropTypes.string,
   deleteItemLoading: PropTypes.bool,
   voteToDeleteLoading: PropTypes.bool,
