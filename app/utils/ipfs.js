@@ -7,6 +7,7 @@ import {
   callService,
   SAVE_FILE_SERVICE,
 } from 'utils/web_integration/src/util/aws-connector';
+import { Web3Storage } from 'web3.storage';
 
 export function getIpfsApi() {
   return create(process.env.IPFS_API_URL);
@@ -55,23 +56,43 @@ async function saveFileTheGraph(buf) {
   // return saveResult.cid.toString();
 }
 
+async function saveFileWEB3Storage(file) {
+  const token = process.env.WEB3_STORAGE_API_TOKEN;
+
+  if (!token) {
+    return console.error(
+      'A token is needed. You can create one on https://web3.storage',
+    );
+  }
+
+  const storage = new Web3Storage({ token });
+
+  console.log(`Uploading file to WEB3.Storage`);
+  const cid = await storage.put(file);
+  console.log('Content added with CID:', cid);
+}
+
 export async function saveFile(file) {
   const buf = Buffer.from(file);
   // const saveResult = await getIpfsApi().add(buf);
   //
   // await saveFileTheGraph(buf);
 
-  const result = await callService(SAVE_FILE_SERVICE, { file });
+  // const result = await callService(SAVE_FILE_SERVICE, { file });
 
-  // const result = await (await fetch(`http://localhost:4000/save-file`, {
-  //   method: 'POST',
-  //   body: JSON.stringify({
-  //     file: buf,
-  //   }),
-  //   headers: {
-  //     'Content-Type': 'application/json',
-  //   },
-  // })).json();
+  const result = await (await fetch(`http://localhost:4000/save-file`, {
+    method: 'POST',
+    body: JSON.stringify({
+      file: buf,
+    }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })).json();
+
+  await saveFileTheGraph(buf);
+
+  await saveFileWEB3Storage(buf);
 
   return result.cid;
 }
