@@ -390,17 +390,26 @@ export default defineMessages({
   receivedReward: {
     id: 'app.common.receivedReward',
   },
+  generalPopoverTitle:{
+    id: 'app.common.generalPopoverTitle'
+  },
   generalPopoverLabel: {
     id: 'app.common.generalPopoverLabel',
   },
   generalPopoverList: {
     id: 'app.common.generalPopoverList',
   },
+  expertPopoverTitle:{
+    id: 'app.common.expertPopoverTitle'
+  },
   expertPopoverLabel: {
     id: 'app.common.expertPopoverLabel',
   },
   expertPopoverList: {
     id: 'app.common.expertPopoverList',
+  },
+  tutorialPopoverTitle:{
+    id: 'app.common.tutorialPopoverTitle'
   },
   tutorialPopoverLabel: {
     id: 'app.common.tutorialPopoverLabel',

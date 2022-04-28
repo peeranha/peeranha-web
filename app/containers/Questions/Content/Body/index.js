@@ -63,7 +63,7 @@ const Body = ({
           topQuestionsCount={topQuestionsCount}
           topQuestionActionProcessing={topQuestionActionProcessing}
         />
-        {isFeed && (
+        {(isFeed || isSearchPage) && (
           <QuestionType
             locale={locale}
             postType={postType}
