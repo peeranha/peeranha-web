@@ -97,6 +97,7 @@ import { makeSelectLocale } from '../LanguageProvider/selectors';
 import { translationMessages } from '../../i18n';
 import { selectEthereum } from '../EthereumProvider/selectors';
 import { hasGlobalModeratorRole } from '../../utils/properties';
+import { getNotificationsInfoWorker } from '../../components/Notifications/saga';
 
 const single = isSingleCommunityWebsite();
 
