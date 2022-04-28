@@ -12,6 +12,9 @@ import {
   BORDER_WARNING_LIGHT_RGB,
   BORDER_RADIUS_M,
 } from 'style-constants';
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
 
 /* eslint indent: 0 */
 const ErrorHandling = error => `
@@ -61,11 +64,11 @@ export const Styles = css`
       ${props =>
         props.error
           ? `rgba(${BORDER_WARNING_LIGHT_RGB}, 0.40)`
-          : `rgba(${BORDER_PRIMARY_RGB}, 0.40)`};
+          : colors.linkColorTransparent || `rgba(${BORDER_PRIMARY_RGB}, 0.40)`};
     border-color: ${props =>
       props.error
         ? `rgb(${BORDER_WARNING_LIGHT_RGB})`
-        : `rgb(${BORDER_PRIMARY_RGB})`};
+        : colors.linkColor || `rgb(${BORDER_PRIMARY_RGB})`};
   }
 
   :disabled {

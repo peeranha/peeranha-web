@@ -28,6 +28,7 @@ import TelegramUserLabel from 'components/Labels/TelegramUserLabel';
 import LoadingIndicator from 'components/LoadingIndicator';
 
 import messages from 'containers/Profile/messages';
+import { customRatingIconColors } from 'constants/customRating';
 
 const InlineLoader = styled(LoadingIndicator)`
   margin: auto;
@@ -124,7 +125,7 @@ const MainUserInformation = ({
   locale,
   redirectToEditProfilePage,
 }) => {
-  const isTemporaryAccount = !!profile?.['integer_properties']?.find(
+  const isTemporaryAccount = !!profile?.integer_properties?.find(
     x => x.key === TEMPORARY_ACCOUNT_KEY && x.value,
   );
 
@@ -155,7 +156,7 @@ const MainUserInformation = ({
         <div>
           <div className="d-flex align-items-center">
             <Span fontSize="38" lineHeight="47" mobileFS="28" bold>
-              {profile?.['displayName']}
+              {profile?.displayName}
             </Span>
           </div>
 
@@ -163,7 +164,11 @@ const MainUserInformation = ({
             <UlStyled>
               <li>
                 <FormattedMessage {...messages.status} />
-                <RatingStatus rating={profile.highestRating.rating} size="lg" />
+                <RatingStatus
+                  customRatingIconColors={customRatingIconColors}
+                  rating={profile.highestRating.rating}
+                  size="lg"
+                />
               </li>
 
               <li>
