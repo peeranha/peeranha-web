@@ -115,7 +115,7 @@ const ContentHeader = props => {
   const formattedHistories =
     type === QUESTION_TYPE
       ? histories
-      : histories.filter(
+      : histories?.filter(
           history => history.reply?.id === `${questionData.id}-${answerId}`,
         );
 

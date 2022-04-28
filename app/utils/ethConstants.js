@@ -423,21 +423,16 @@ export const rewardsQuery = `
 const history = `
   id
   transactionHash
-  post (
-   where: { isDeleted: false }
-  ) {
+  post {
     ${post}
   }
-  reply (
-   where: { isDeleted: false }
-  ) {
+  reply {
     ${reply}
   }
-  comment (
-   where: { isDeleted: false }
-  ) {
+  comment {
     ${comment}
   }
+  eventEntity
   eventName
   actionUser {
     ${user}

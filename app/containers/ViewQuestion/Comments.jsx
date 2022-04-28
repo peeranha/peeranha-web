@@ -149,9 +149,10 @@ const CommentView = item => {
   //   [item.profileInfo],
   // );
 
-  /*const formattedhistories = item.histories.filter(
-    history => history.reply?.id === `${questionData.id}-${answerId}`,
-  );*/
+  const formattedHistories = item.histories?.filter(
+    history =>
+      history.comment?.id === `${item.postId}-${item.answerId}-${item.id}`,
+  );
 
   return (
     <li>
@@ -229,7 +230,7 @@ const CommentView = item => {
                 <IPFSInformation
                   locale={item.locale}
                   ipfsHash={item.ipfsHash}
-                  histories={item.histories}
+                  histories={formattedHistories}
                 />
               </div>
             )}

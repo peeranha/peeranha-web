@@ -139,33 +139,6 @@ export default defineMessages({
   questionIsPromoting: {
     id: 'app.containers.QuestionForm.questionIsPromoting',
   },
-  PostCreated: {
-    id: 'app.containers.ViewQuestion.postCreated',
-  },
-  ReplyCreated: {
-    id: 'app.containers.ViewQuestion.replyCreated',
-  },
-  CommentCreated: {
-    id: 'app.containers.ViewQuestion.commentCreated',
-  },
-  PostEdited: {
-    id: 'app.containers.ViewQuestion.postEdited',
-  },
-  ReplyEdited: {
-    id: 'app.containers.ViewQuestion.replyEdited',
-  },
-  CommentEdited: {
-    id: 'app.containers.ViewQuestion.commentEdited',
-  },
-  PostDeleted: {
-    id: 'app.containers.ViewQuestion.postDeleted',
-  },
-  ReplyDeleted: {
-    id: 'app.containers.ViewQuestion.replyDeleted',
-  },
-  CommentDeleted: {
-    id: 'app.containers.ViewQuestion.commentDeleted',
-  },
   StatusOfficialReplyChanged: {
     id: 'app.containers.ViewQuestion.statusOfficialReplyChanged',
   },
@@ -188,13 +161,13 @@ export default defineMessages({
     id: 'app.containers.ViewQuestion.timeStamp',
   },
   Post: {
-    id: 'app.containers.AskQuestion.postQuestion',
+    id: 'app.containers.ViewQuestion.post',
   },
   Reply: {
     id: 'app.containers.ViewQuestion.reply',
   },
   Comment: {
-    id: 'app.containers.ViewQuestion.commentButton',
+    id: 'app.containers.ViewQuestion.comment',
   },
   Create: {
     id: 'app.containers.ViewQuestion.created',
