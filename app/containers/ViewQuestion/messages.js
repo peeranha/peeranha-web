@@ -187,4 +187,22 @@ export default defineMessages({
   timeStamp: {
     id: 'app.containers.ViewQuestion.timeStamp',
   },
+  Post: {
+    id: 'app.containers.AskQuestion.postQuestion',
+  },
+  Reply: {
+    id: 'app.containers.ViewQuestion.reply',
+  },
+  Comment: {
+    id: 'app.containers.ViewQuestion.commentButton',
+  },
+  Create: {
+    id: 'app.containers.ViewQuestion.created',
+  },
+  Edit: {
+    id: 'app.containers.ViewQuestion.edited',
+  },
+  Delete: {
+    id: 'app.containers.ViewQuestion.deleted',
+  },
 });

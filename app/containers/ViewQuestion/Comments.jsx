@@ -149,6 +149,10 @@ const CommentView = item => {
   //   [item.profileInfo],
   // );
 
+  /*const formattedhistories = item.histories.filter(
+    history => history.reply?.id === `${questionData.id}-${answerId}`,
+  );*/
+
   return (
     <li>
       <div className="d-flex justify-content-between align-items-center position-relative">
@@ -217,7 +221,7 @@ const CommentView = item => {
               onClick={() => setPopoverOpen(true)}
             >
               <IconMd icon={blockchainLogo} />
-              <FormattedMessage {...commonMessages.source} />
+              <FormattedMessage id={commonMessages.source.id} />
             </Button>
 
             {isPopoverOpen && (

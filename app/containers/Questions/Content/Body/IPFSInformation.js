@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React from 'react';
 import commonMessages from 'common-messages';
 import { translationMessages } from 'i18n';
 import styled from 'styled-components';
@@ -37,7 +37,7 @@ const IPFSInformation = ({ locale, ipfsHash, histories }) => {
   const polygonURL = process.env.BLOCKCHAIN_TRANSACTION_INFO_URL;
 
   const formattedData = histories?.map(
-    ({ transactionHash, eventName, timeStamp }) => ({
+    ({ transactionHash, eventName, timeStamp, eventEntity }) => ({
       transactionHash: (
         <A
           target="_blank"
@@ -47,7 +47,10 @@ const IPFSInformation = ({ locale, ipfsHash, histories }) => {
           {transactionHash.substring(0, 12) + '...'}
         </A>
       ),
-      eventName: translationMessages[locale][messages[eventName].id],
+      eventName:
+        translationMessages[locale][messages[eventEntity].id] +
+        ' ' +
+        translationMessages[locale][messages[eventName].id],
       timeStamp: getFormattedDate(
         timeStamp,
         locale,
@@ -90,4 +93,4 @@ IPFSInformation.PropTypes = {
   histories: PropTypes.array,
 };
 
-export default memo(IPFSInformation);
+export default IPFSInformation;

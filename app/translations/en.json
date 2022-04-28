@@ -809,6 +809,10 @@
   "app.containers.ViewQuestion.transactionHash": "Transaction hash",
   "app.containers.ViewQuestion.eventName": "Event name",
   "app.containers.ViewQuestion.timeStamp": "Date and time",
+  "app.containers.ViewQuestion.reply": "Reply",
+  "app.containers.ViewQuestion.created": "Created",
+  "app.containers.ViewQuestion.edited": "Edited",
+  "app.containers.ViewQuestion.deleted": "Deleted",
   "app.components.FormFields.requiredField":
     "You cannot leave this field empty",
   "app.components.FormFields.requiredAndNotZeroField":
