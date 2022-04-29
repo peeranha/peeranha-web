@@ -203,6 +203,8 @@ export const Questions = ({
     [profile],
   );
 
+  const isCommunityFeed = params.hasOwnProperty('communityid');
+
   const questionFilterFromCookies = getCookie(QUESTION_FILTER);
   return display ? (
     <div>
@@ -242,6 +244,7 @@ export const Questions = ({
         >
           <Content
             isFeed={parentPage === feed}
+            isCommunityFeed={isCommunityFeed}
             questionsList={questionsList}
             // promotedQuestionsList={
             //   promotedQuestions[+questionFilterFromCookies ? 'top' : 'all']
