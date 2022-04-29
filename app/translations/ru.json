@@ -186,6 +186,9 @@
   "app.common.metaMaskIsLocked":
     "Пожалуйста, проверьте соединение MetaMask и попробуйте перезагрузить страницу",
 
+  "app.common.ipfsHashValue": "IPFS",
+  "app.common.source": "Источник",
+
   "app.telegram.user": "Телеграм пользователь",
   "app.telegram.userLabelPopover":
     "Это временная учетная запись, предоставленная Telegram Bot.",

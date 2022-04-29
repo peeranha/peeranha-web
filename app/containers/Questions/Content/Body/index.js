@@ -1,19 +1,20 @@
-import React, { memo } from 'react';
+import React, { memo, useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-
 import Base from 'components/Base';
-
 import TopQuestion from './TopQuestion';
 import QuestionType from './QuestionType';
 import Title from './Title';
 import UserInfo from './UserInfo';
 import TagsContainer from './TagsContainer';
+import IPFSInformation from './IPFSInformation';
+import { IconMd } from 'components/Icon/IconWithSizes';
+import blockchainLogo from 'images/blockchain-outline-32.svg?external';
 
 const QuestionLabels = styled.div`
   position: absolute;
-  top: 5px;
-  right: 7px;
+  top: 32px;
+  right: 20px;
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
@@ -26,6 +27,7 @@ const QuestionLabels = styled.div`
 
 const Body = ({
   id,
+  ipfsHash,
   isModerator,
   title,
   author,
@@ -46,61 +48,80 @@ const Body = ({
   postType,
   isFeed,
   isExpert,
-}) => (
-  <Base
-    className={displayTopQuestionMove ? 'pl-0' : ''}
-    position="right"
-    paddingTopMedia={20}
-  >
-    <QuestionLabels>
-      <TopQuestion
-        id={id}
-        locale={locale}
-        profileInfo={profileInfo}
-        isTopQuestion={isTopQuestion}
-        isModerator={isModerator}
-        topQuestionsCount={topQuestionsCount}
-        topQuestionActionProcessing={topQuestionActionProcessing}
-      />
-      {(isFeed || isSearchPage) && (
-        <QuestionType
+}) => {
+  const [visible, changeVisibility] = useState(false);
+
+  const onMouseEnter = useCallback(() => changeVisibility(true), []);
+  const onMouseLeave = useCallback(() => changeVisibility(false), []);
+
+  return (
+    <Base
+      className={displayTopQuestionMove ? 'pl-0' : ''}
+      position="right"
+      paddingTopMedia={20}
+    >
+      <QuestionLabels>
+        <TopQuestion
+          id={id}
           locale={locale}
-          postType={postType}
-          isPromoted={isPromoted}
-          isExpert={isExpert}
+          profileInfo={profileInfo}
+          isTopQuestion={isTopQuestion}
+          isModerator={isModerator}
+          topQuestionsCount={topQuestionsCount}
+          topQuestionActionProcessing={topQuestionActionProcessing}
         />
-      )}
-    </QuestionLabels>
+        {isFeed && (
+          <QuestionType
+            locale={locale}
+            postType={postType}
+            isPromoted={isPromoted}
+            isExpert={isExpert}
+          />
+        )}
+      </QuestionLabels>
 
-    <Title
-      locale={locale}
-      title={title}
-      id={id}
-      questionBounty={questionBounty}
-      postType={postType}
-    />
+      <Title
+        locale={locale}
+        title={title}
+        id={id}
+        questionBounty={questionBounty}
+        postType={postType}
+      />
 
-    <UserInfo
-      author={author}
-      locale={locale}
-      postTime={postTime}
-      isSearchPage={isSearchPage}
-      communityId={communityId}
-    />
+      <UserInfo
+        author={author}
+        locale={locale}
+        postTime={postTime}
+        isSearchPage={isSearchPage}
+        communityId={communityId}
+      />
 
-    <TagsContainer
-      communities={communities}
-      communityId={communityId}
-      tags={tags}
-    />
-  </Base>
-);
+      <div className="d-flex justify-content-between align-items-center">
+        <TagsContainer
+          communities={communities}
+          communityId={communityId}
+          tags={tags}
+        />
+
+        <div
+          onMouseEnter={onMouseEnter}
+          onMouseLeave={onMouseLeave}
+          className="position-relative"
+        >
+          {visible && <IPFSInformation locale={locale} ipfsHash={ipfsHash} />}
+          <IconMd icon={blockchainLogo} />
+        </div>
+      </div>
+    </Base>
+  );
+};
 
 Body.propTypes = {
   id: PropTypes.string,
-  author: PropTypes.object,
+  ipfsHash: PropTypes.string,
+  author: PropTypes.string,
   title: PropTypes.string,
-  postTime: PropTypes.string,
+  postTime: PropTypes.number,
   locale: PropTypes.string,
   communityId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   communities: PropTypes.array,

@@ -9,7 +9,6 @@ import {
   BORDER_SECONDARY,
   BORDER_PRIMARY,
   BORDER_ATTENTION_LIGHT,
-  BG_PRIMARY,
 } from 'style-constants';
 
 import pencilIcon from 'images/pencil.svg?external';
@@ -17,19 +16,11 @@ import shareIcon from 'images/shareIcon.svg?external';
 import deleteIcon from 'images/deleteIcon.svg?external';
 import blockIcon from 'images/blockIcon.svg?external';
 import changeTypeIcon from 'images/change-type.svg?external';
-import currencyPeer from 'images/currencyPeer.svg?external';
 
 import { getRatingByCommunity, getUserAvatar } from 'utils/profileManagement';
-import {
-  MODERATOR_KEY,
-  TEMPORARY_ACCOUNT_KEY,
-  POST_TYPE,
-} from 'utils/constants';
 import { useOnClickOutside } from 'utils/click-listners';
 
 import { IconSm, IconMd } from 'components/Icon/IconWithSizes';
-import { getPermissions, hasGlobalModeratorRole } from 'utils/properties';
-import { singleCommunityColors } from 'utils/communityManagement';
 import UserInfo from './UserInfo';
 import ContentRating from './ContentRating';
 import Button from './Button';
@@ -40,9 +31,11 @@ import messages from './messages';
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 import { changeQuestionType, payBounty } from './actions';
 import { QUESTION_TYPE } from './constants';
-
-const colors = singleCommunityColors();
-const shareColors = colors.contentHeader || BG_PRIMARY;
+import { getPermissions, hasGlobalModeratorRole } from '../../utils/properties';
+import blockchainLogo from 'images/blockchain-outline-32.svg?external';
+import IPFSInformation from 'containers/Questions/Content/Body/IPFSInformation';
+import commonMessages from 'common-messages';
+import { POST_TYPE } from 'utils/constants';
 
 const RatingBox = styled.div`
   border-right: 1px solid ${BORDER_SECONDARY};
@@ -68,14 +61,6 @@ const ItemInfo = styled.div`
   button {
     border-radius: 0;
   }
-
-  .fill {
-    fill: ${shareColors};
-  }
-
-  .stroke {
-    stroke: ${shareColors};
-  }
 `;
 
 const Box = styled.div`
@@ -98,10 +83,6 @@ const Box = styled.div`
 
 const DropdownBox = styled.div`
   position: relative;
-
-  button {
-    color: ${shareColors} !important;
-  }
 `;
 
 const ContentHeader = props => {
@@ -124,16 +105,26 @@ const ContentHeader = props => {
     isChangeTypeAvailable,
     infiniteImpact,
   } = props;
-  const [isModalOpen, setModalOpen] = useState(false);
-  const ref = useRef(null);
 
-  useOnClickOutside(ref, () => setModalOpen(false));
+  const ipfsHashValue =
+    type === QUESTION_TYPE
+      ? questionData.ipfsHash
+      : questionData.answers.find(answer => answer.id === answerId).ipfsHash;
+
+  const [isModalOpen, setModalOpen] = useState(false);
+  const refSharingModal = useRef(null);
+  const [isPopoverOpen, setPopoverOpen] = useState(false);
+  const refPopover = useRef(null);
+
+  useOnClickOutside(refPopover, () => setPopoverOpen(false));
+
+  useOnClickOutside(refSharingModal, () => setModalOpen(false));
 
   const isGlobalAdmin = useMemo(
     () => hasGlobalModeratorRole(getPermissions(profile)),
     [profile],
   );
-  // todo remove integer_properties
+  //todo remove integer_properties
   const isTemporaryAccount = false;
   //   useMemo(
   //   () =>
@@ -175,7 +166,7 @@ const ContentHeader = props => {
       <ItemInfo>
         <UserInfo
           avatar={getUserAvatar(author.avatar)}
-          name={author?.displayName}
+          name={author?.['displayName']}
           account={author.user}
           rating={getRatingByCommunity(author, props.commId)}
           type={type}
@@ -227,7 +218,7 @@ const ContentHeader = props => {
               params={buttonParams}
               onClick={voteToDelete}
               disabled={ids.includes(`${type}_vote_to_delete_${answerId}`)}
-              isVotedToDelete
+              isVotedToDelete={true}
             >
               <IconSm icon={blockIcon} fill={BORDER_ATTENTION_LIGHT} />
               <FormattedMessage {...messages.voteToDelete} />
@@ -248,7 +239,7 @@ const ContentHeader = props => {
                   onClick={onClick}
                   disabled={ids.includes(`${type}_delete_${answerId}`)}
                 >
-                  <IconMd icon={deleteIcon} />
+                  <IconMd icon={deleteIcon} fill={BORDER_PRIMARY} />
                   <FormattedMessage {...messages.deleteButton} />
                 </Button>
               )}
@@ -267,12 +258,30 @@ const ContentHeader = props => {
               </Button>
 
               {isModalOpen && (
-                <div ref={ref}>
+                <div ref={refSharingModal}>
                   <SharingModal questionData={questionData} />
                 </div>
               )}
             </DropdownBox>
           )}
+
+          <DropdownBox>
+            <Button
+              show
+              disabled={isPopoverOpen}
+              onClick={() => setPopoverOpen(true)}
+            >
+              <IconMd icon={blockchainLogo} />
+              <FormattedMessage id={commonMessages.source.id} />
+            </Button>
+
+            {isPopoverOpen && (
+              <div ref={refPopover}>
+                <IPFSInformation locale={locale} ipfsHash={ipfsHashValue} />
+              </div>
+            )}
+          </DropdownBox>
+
           <Button
             show={!!profile && isItWrittenByMe}
             onClick={editItem[0]}
@@ -294,7 +303,7 @@ ContentHeader.propTypes = {
   author: PropTypes.object,
   locale: PropTypes.string,
   lastEditedDate: PropTypes.number,
-  postTime: PropTypes.string,
+  postTime: PropTypes.number,
   type: PropTypes.string,
   deleteItemLoading: PropTypes.bool,
   voteToDeleteLoading: PropTypes.bool,
