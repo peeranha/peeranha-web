@@ -112,7 +112,11 @@ const SubHeader = ({
               {/*</li>*/}
               <li>
                 <FormattedMessage {...commonMessages.walletAddress} />
-                <A to={ {pathname: userPolygonScanAddress }} href={userPolygonScanAddress} target="_blank">
+                <A
+                  to={{ pathname: userPolygonScanAddress }}
+                  href={userPolygonScanAddress}
+                  target="_blank"
+                >
                   <Span>{account}</Span>
                 </A>
               </li>
