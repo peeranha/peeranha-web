@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Base from 'components/Base';
@@ -48,6 +48,7 @@ const Body = ({
   postType,
   isFeed,
   isExpert,
+  isCommunityFeed,
 }) => {
   const [visible, changeVisibility] = useState(false);
 
@@ -70,7 +71,7 @@ const Body = ({
           topQuestionsCount={topQuestionsCount}
           topQuestionActionProcessing={topQuestionActionProcessing}
         />
-        {isFeed && (
+        {(isFeed || isSearchPage || isCommunityFeed) && (
           <QuestionType
             locale={locale}
             postType={postType}
@@ -135,6 +136,7 @@ Body.propTypes = {
   displayTopQuestionMove: PropTypes.bool,
   topQuestionActionProcessing: PropTypes.bool,
   isPromoted: PropTypes.bool,
+  isCommunityFeed: PropTypes.bool,
 };
 
-export default memo(Body);
+export default Body;
