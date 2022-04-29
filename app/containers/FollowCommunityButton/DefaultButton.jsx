@@ -4,7 +4,10 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
-import { isSingleCommunityWebsite } from 'utils/communityManagement';
+import {
+  isSingleCommunityWebsite,
+  singleCommunityColors,
+} from 'utils/communityManagement';
 import OutlinedButton from 'components/Button/Outlined/InfoMedium';
 
 import { TEXT_PRIMARY } from 'style-constants';
@@ -14,10 +17,11 @@ import { FOLLOW_BUTTON, UNFOLLOW_BUTTON } from './constants';
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 
 const single = isSingleCommunityWebsite();
+const colors = singleCommunityColors();
 
 const CustomButton = styled.div`
   margin-top: 16px;
-  color: ${TEXT_PRIMARY};
+  color: ${colors.linkColor || TEXT_PRIMARY};
   font-size: 14px;
   cursor: pointer;
 

@@ -31,7 +31,7 @@ export const Dropdown = ({
   isArrowMarginMobile,
 }) => (
   <DropdownStyled
-    className={`dropdown show ${className}`}
+    className={`dropdown ${className}`}
     isMenuLabelMobile={isMenuLabelMobile}
     isArrowMarginMobile={isArrowMarginMobile}
   >
@@ -47,7 +47,12 @@ export const Dropdown = ({
       {button}
 
       {isArrowed && (
-        <ArrowDown icon={arrowDownIcon} width="10" alt="data-icon" />
+        <ArrowDown
+          icon={arrowDownIcon}
+          width="10"
+          alt="data-icon"
+          className="dropdown-arrow"
+        />
       )}
     </button>
 

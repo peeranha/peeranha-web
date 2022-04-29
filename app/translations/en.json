@@ -109,7 +109,7 @@
   "app.common.answer": "Answer",
   "app.common.showMore": "Show more {value}",
   "app.common.showLess": "Show less {value}",
-  "app.common.poweredByTelos": "Powered by {image}",
+  "app.common.poweredBy": "Powered by {image}",
   "app.common.poweredByPeeranha": "Powered by {image}",
   "app.common.terms": "Operating Agreement",
   "app.common.noResults": "No results",
@@ -187,6 +187,8 @@
   "app.common.notEnoughCPUOrRAM": "Not enough CPU or RAM",
   "app.common.metaMaskIsLocked":
     "Please check Metamask connection and try to reload the page",
+  "app.common.ipfsHashValue": "IPFS",
+  "app.common.source": "Source",
 
   "app.telegram.user": "Telegram user",
   "app.telegram.userLabelPopover":

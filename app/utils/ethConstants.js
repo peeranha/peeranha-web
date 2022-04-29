@@ -53,6 +53,7 @@ const user = `
 
 const comment = `
     id
+    ipfsHash
     author {
       ${user}
     }
@@ -67,6 +68,7 @@ const comment = `
 
 const reply = `
     id
+    ipfsHash
     author {
       ${user}
     }
@@ -94,6 +96,7 @@ const reply = `
 const post = `
     id
     tags
+    ipfsHash
     postType
     author {
       ${user}

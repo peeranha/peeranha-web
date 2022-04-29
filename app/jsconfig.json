@@ -6,6 +6,7 @@
   },
   "include": [
     "./components/**/*",
+    "./constants/**/*",
     "./containers/**/*",
     "./utils/**/*",
     "./images/**/*"

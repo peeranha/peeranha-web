@@ -21,12 +21,11 @@ import {
   required,
   strLength8x100,
   comparePasswords,
-  validateTelosName,
 } from 'components/FormFields/validate';
 
 import TextInputField from 'components/FormFields/TextInputField';
 import SubmitButton from 'components/Button/Contained/InfoLarge';
-import youNeedBlockchainAccount from 'components/SignUpWrapper/SignUpViaEmailWrapper';
+import YouNeedBlockchainAccount from 'components/SignUpWrapper/SignUpViaEmailWrapper';
 import Checkbox, { Icon, Label } from 'components/Input/Checkbox';
 import IAcceptTerms from 'components/IAcceptTerms';
 import Img from 'components/Img';
@@ -98,7 +97,7 @@ const EthereumWalletGenerationForm = ({
   storeMyKeysValue,
   masterKeyValue,
 }) => (
-  <youNeedBlockchainAccount route={routes.signup.accountSetup.name}>
+  <YouNeedBlockchainAccount route={routes.signup.accountSetup.name}>
     <SignUp>
       {({ locale, iHaveEosAccountProcessing, keys: { masterKey } }) => {
         const translate = translationMessages[locale];
@@ -213,7 +212,7 @@ const EthereumWalletGenerationForm = ({
         );
       }}
     </SignUp>
-  </youNeedBlockchainAccount>
+  </YouNeedBlockchainAccount>
 );
 
 EthereumWalletGenerationForm.propTypes = {

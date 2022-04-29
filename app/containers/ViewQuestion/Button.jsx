@@ -1,13 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TEXT_PRIMARY, TEXT_WARNING } from 'style-constants';
+import { BG_PRIMARY, TEXT_PRIMARY, TEXT_WARNING } from 'style-constants';
 
 import { svgDraw } from 'components/Icon/IconStyled';
 import TransparentButton from 'components/Button/Contained/Transparent';
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
 
 /* eslint no-nested-ternary: 0, indent: 0 */
 export const SpanStyled = TransparentButton.extend`
-  ${x => svgDraw({ color: x.isVotedToDelete ? TEXT_WARNING : TEXT_PRIMARY })};
+  ${x =>
+    svgDraw({
+      color: x.isVotedToDelete
+        ? TEXT_WARNING
+        : colors.linkColor || TEXT_PRIMARY,
+    })};
 
   display: inline-flex;
   align-items: center;
