@@ -1,5 +1,5 @@
 import { Contract, ethers } from 'ethers';
-import Peeranha from '../../../peeranha/artifacts/contracts/Peeranha.sol/Peeranha.json';
+import Peeranha from '../../../peeranha-subgraph/abis/Peeranha.json';
 import PeeranhaToken from '../../../peeranha/artifacts/contracts/PeeranhaToken.sol/PeeranhaToken.json';
 import { WebIntegrationErrorByCode } from './errors';
 import {
@@ -52,7 +52,7 @@ class EthereumService {
     );
     this.contract = new Contract(
       process.env.ETHEREUM_ADDRESS,
-      Peeranha.abi,
+      Peeranha,
       this.provider,
     );
     this.contractToken = new Contract(
@@ -87,7 +87,7 @@ class EthereumService {
     const signer = await this.provider.getSigner();
     this.contract = new Contract(
       process.env.ETHEREUM_ADDRESS,
-      Peeranha.abi,
+      Peeranha,
       signer,
     );
     this.contractToken = new Contract(
@@ -134,7 +134,7 @@ class EthereumService {
       const transaction = await this.contract
         .connect(this.provider.getSigner(actor))
         [action](actor, ...data);
-      await transaction.wait();
+      return await transaction.wait();
     } catch (err) {
       switch (err.code) {
         case INVALID_ETHEREUM_PARAMETERS_ERROR_CODE:

@@ -28,9 +28,10 @@ export function askQuestion(val) {
   };
 }
 
-export function askQuestionSuccess() {
+export function askQuestionSuccess(id) {
   return {
     type: ASK_QUESTION_SUCCESS,
+    id,
   };
 }
 
