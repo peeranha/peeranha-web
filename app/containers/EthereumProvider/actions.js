@@ -10,12 +10,10 @@ import {
   INIT_ETHEREUM_ERROR,
 } from './constants';
 
-export function initEthereum(key, initWithMetaMask, selectedAccount) {
+export function initEthereum(data) {
   return {
     type: INIT_ETHEREUM,
-    key,
-    initWithMetaMask,
-    selectedAccount,
+    data,
   };
 }
 

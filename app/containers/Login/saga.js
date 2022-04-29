@@ -130,7 +130,7 @@ export function* loginWithWalletWorker({ metaMask }) {
     let metaMaskUserAddress = null;
 
     if (metaMask) {
-      metaMaskUserAddress = yield call(ethereumService.metaMaskSignIn);
+      metaMaskUserAddress = yield call(ethereumService.walletLogIn);
 
       if (!metaMaskUserAddress) {
         throw new WebIntegrationError(
@@ -148,20 +148,11 @@ export function* loginWithWalletWorker({ metaMask }) {
       profileInfo = emptyProfile(currentAccount);
     }
 
-    const autologinData = metaMask
-      ? { metaMaskUserAddress, loginWithMetaMask: true }
-      : undefined;
-
-    setCookie({
-      name: AUTOLOGIN_DATA,
-      value: JSON.stringify(autologinData),
-      options: {
-        allowSubdomains: true,
-        defaultPath: true,
-      },
-    });
-
-    yield put(addLoginData(autologinData));
+    const connectedWalletLabel = ethereumService.connectedWallets[0].label;
+    window.localStorage.setItem(
+      'connectedWallet',
+      JSON.stringify(connectedWalletLabel),
+    );
 
     if (!isSingleCommunityWebsite()) yield put(redirectToFeed());
 

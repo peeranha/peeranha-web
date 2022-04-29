@@ -27,6 +27,7 @@
   "app.common.signUp": "Sign up",
   "app.common.all": "All",
   "app.common.askQuestion": "New post",
+  "app.common.wrongChainId": "Wrong Chain id",
   "app.common.add": "Add",
   "app.common.communities": "Communities",
   "app.common.allCommunities": "All communities",
