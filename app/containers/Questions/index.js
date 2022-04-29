@@ -213,9 +213,7 @@ export const Questions = ({
         description={translationMessages[locale][messages.description.id]}
         language={locale}
       />
-
       <ScrollToTop />
-
       <Header
         communityIdFilter={Number(params.communityid) || 0}
         followedCommunities={followedCommunities}
@@ -227,7 +225,6 @@ export const Questions = ({
         isExpert={isExpert}
         postsTypes={postsTypes}
       />
-
       {displayBanner && (
         <Banner
           isFeed={parentPage === feed}
@@ -235,7 +232,6 @@ export const Questions = ({
           redirectToAskQuestionPage={redirectToAskQuestionPageDispatch}
         />
       )}
-
       {questionsList.length > 0 && (
         <InfinityLoader
           loadNextPaginatedData={getNextQuestions}
@@ -278,7 +274,6 @@ export const Questions = ({
             )}
         </InfinityLoader>
       )}
-
       {displayLoader && <LoadingIndicator />}
     </div>
   ) : (
