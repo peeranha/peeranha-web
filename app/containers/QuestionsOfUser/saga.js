@@ -17,15 +17,16 @@ export function* getQuestionsWorker({ userId }) {
   try {
     const questions = yield call(() => getQuestionsPostedByUser(userId));
 
-    questions.map(x => {
-      x.elementType = POST_TYPE_QUESTION;
-      x.myPostTime = x.postTime;
-      x.acceptedAnswer = x.bestReply > 0;
-      x.myPostRating = x.rating;
-      x.isGeneral = isGeneralQuestion(x);
-    });
+    const updateQuestions = questions.map(question => ({
+      ...question,
+      elementType: POST_TYPE_QUESTION,
+      myPostTime: question.postTime,
+      acceptedAnswer: question.bestReply > 0,
+      myPostRating: question.rating,
+      isGeneral: isGeneralQuestion(question),
+    }));
 
-    yield put(getQuestionsSuccess(questions));
+    yield put(getQuestionsSuccess(updateQuestions));
   } catch (err) {
     yield put(getQuestionsErr(err));
   }
