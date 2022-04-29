@@ -253,6 +253,16 @@ export const Questions = ({
             isModerator={isModerator}
             profileInfo={profile}
           />
+
+          {parentPage === feed && (
+            <TopCommunities
+              userId={account}
+              account={account}
+              communities={communities}
+              profile={profile}
+            />
+          )}
+
           {!!+questionFilterFromCookies &&
             !displayLoader && (
               <div className="d-flex justify-content-center mb-3">
@@ -264,15 +274,6 @@ export const Questions = ({
               </div>
             )}
         </InfinityLoader>
-      )}
-
-      {parentPage === feed && (
-        <TopCommunities
-          userId={account}
-          account={account}
-          communities={communities}
-          profile={profile}
-        />
       )}
 
       {displayLoader && <LoadingIndicator />}

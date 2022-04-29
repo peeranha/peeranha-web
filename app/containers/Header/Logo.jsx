@@ -11,10 +11,13 @@ const styles = singleCommunityStyles();
 const Logo = styled.div`
   display: flex;
   justify-content: left;
+  align-items: center;
+  font-size: 32px;
   width: ${LEFT_MENU_WIDTH}px;
+  ${styles.logoColor ? `color: ${styles.logoColor}` : ''};
 
   img {
-    width: 180px;
+    width: ${styles.logoText ? 62 : 180}px;
     height: 40px;
     object-fit: contain;
     margin-top: 5px;
@@ -22,9 +25,10 @@ const Logo = styled.div`
 
   @media only screen and (max-width: 992px) {
     width: auto;
+    font-size: 26px;
 
     img {
-      width: 150px;
+      width: ${styles.logoText ? 50 : 150}px;
     }
   }
 `.withComponent(Link);

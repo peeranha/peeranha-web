@@ -19,6 +19,7 @@ import boostWalletIcon from 'images/boost-wallet-icon.svg?external';
 import { getFormattedNum4 } from 'utils/numbers';
 import {
   isSingleCommunityWebsite,
+  singleCommunityColors,
   singleCommunityStyles,
 } from 'utils/communityManagement';
 
@@ -31,6 +32,7 @@ import NotificationIcon from './NotificationIcon';
 
 const single = isSingleCommunityWebsite();
 const styles = singleCommunityStyles();
+const colors = singleCommunityColors();
 
 const ButtonStyled = styled.span`
   position: relative;
@@ -40,7 +42,7 @@ const ButtonStyled = styled.span`
   border-width: 1px;
   border-style: ${({ isBoost }) => (isBoost ? 'dashed' : 'solid')};
   border-color: ${({ isBoost }) =>
-    isBoost ? BORDER_WARNING_LIGHT : BORDER_PRIMARY};
+    isBoost ? BORDER_WARNING_LIGHT : colors.walletButton || BORDER_PRIMARY};
 
   /* set single community border */
   border: ${({ isMobileVersion, isBoost }) =>
@@ -63,7 +65,7 @@ const IconBG = MediumSpecialImage.extend`
   justify-content: center;
   border: ${({ isMobileVersion }) =>
     (!isMobileVersion && styles.communityBorderStyle) ||
-    `1px solid ${BORDER_PRIMARY}`};
+    `1px solid ${colors.walletButton || BORDER_PRIMARY}`};
   color: ${x => x.color};
 `.withComponent('span');
 
@@ -84,7 +86,7 @@ const WalletButton = ({
 }) => (
   <div className="position-relative">
     <ButtonStyled isBoost={!!isBoost} isMobileVersion={isMobileVersion}>
-      {!!isBoost ? (
+      {isBoost ? (
         <>
           <BoostIconWrapper>
             <Icon
@@ -97,7 +99,11 @@ const WalletButton = ({
       ) : (
         <IconBG
           className="mr-2"
-          bg={(!isMobileVersion && styles.fullyTransparent) || BG_PRIMARY}
+          bg={
+            (!isMobileVersion && styles.fullyTransparent) ||
+            colors.walletButton ||
+            BG_PRIMARY
+          }
           color={TEXT_LIGHT}
           isMobileVersion={isMobileVersion}
         >
