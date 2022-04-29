@@ -21,7 +21,7 @@ const Label = styled.div`
   top: 25px;
   z-index: 10000;
   max-height: 350px;
-  overflow-y: scroll;
+  overflow: auto;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
   text-align: left;
   padding: 15px;

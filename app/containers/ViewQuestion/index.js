@@ -245,7 +245,7 @@ export const ViewQuestion = ({
         !historiesLoading &&
         questionData && <ViewQuestionContainer {...sendProps} />}
 
-      {questionDataLoading && historiesLoading && <LoadingIndicator />}
+      {(questionDataLoading || historiesLoading) && <LoadingIndicator />}
     </React.Fragment>
   );
 };
