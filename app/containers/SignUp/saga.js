@@ -192,59 +192,7 @@ export function* signUpComplete({ val }) {
   }
 }
 
-export function* signUpWithWalletWorker({ val, metaMask }) {
-  try {
-    const locale = yield select(makeSelectLocale());
-    const userAddress = yield select(makeSelectAccount());
-    const translations = translationMessages[locale];
-    const profile = {
-      displayName: val[DISPLAY_NAME_FIELD],
-    };
-
-    const ethereumService = yield select(selectEthereum);
-
-    const referralCode = val[REFERRAL_CODE];
-
-    // if (referralCode) {
-    //   const ok = yield call(
-    //     sendReferralCode,
-    //     accountName,
-    //     referralCode,
-    //     eosService,
-    //     signUpWithWalletReferralErr,
-    //   );
-    //   if (!ok) {
-    //     return;
-    //   }
-    // }
-    const registerAccountResult = yield call(
-      registerAccount,
-      userAddress,
-      profile,
-      ethereumService,
-    );
-
-    if (!registerAccountResult) {
-      throw new WebIntegrationError(
-        translations[signupMessages[USER_REJECTED_SIGNATURE_REQUEST_ERROR].id],
-      );
-    }
-
-    yield call(loginWithWalletWorker, { metaMask });
-
-    const singleCommId = isSingleCommunityWebsite();
-
-    // if (singleCommId) {
-    //   yield call(followCommunity, eosService, singleCommId, userAddress);
-    // }
-
-    yield put(signUpWithWalletSuccess());
-
-    yield call(createdHistory.push, routes.questions());
-  } catch (err) {
-    yield put(signUpWithWalletErr(err));
-  }
-}
+export function* signUpWithWalletWorker({ val, metaMask }) {}
 
 export function* showWalletSignUpFormWorker({ metaMask }) {
   try {
@@ -255,7 +203,7 @@ export function* showWalletSignUpFormWorker({ metaMask }) {
 
     // sign up with metaMask
     if (metaMask) {
-      currentAccount = yield call(ethereumService.metaMaskSignIn);
+      currentAccount = yield call(ethereumService.walletLogIn);
     }
     let profileInfo = null;
     try {

@@ -21,6 +21,9 @@ import bestAnswerIcon from 'images/bestAnswer.svg?inline';
 import answerIconEmptyInside from 'images/answerIconEmptyInside.svg?inline';
 import fingerUpAllQuestionsPage from 'images/fingerUpAllQuestionsPage.svg?inline';
 import fingerDownAllQuestionsPage from 'images/fingerDownAllQuestionsPage.svg?inline';
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
 
 const Container = styled.div`
   display: flex;
@@ -98,7 +101,7 @@ const AdditionalInfo = ({
   const color = useMemo(
     () =>
       !correctAnswerId || officialAnswersCount
-        ? TEXT_PRIMARY_DARK
+        ? colors.linkColor || TEXT_PRIMARY_DARK
         : TEXT_SUCCESS,
     [officialAnswersCount, correctAnswerId],
   );
@@ -133,7 +136,9 @@ const AdditionalInfo = ({
       <Div>
         <span>
           <img src={src} alt="icon" />
-          <Span color={TEXT_PRIMARY_DARK}>{formattedRating}</Span>
+          <Span color={colors.linkColor || TEXT_PRIMARY_DARK}>
+            {formattedRating}
+          </Span>
         </span>
       </Div>
     </Container>

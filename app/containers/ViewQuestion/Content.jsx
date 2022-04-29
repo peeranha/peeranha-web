@@ -48,7 +48,7 @@ Content.propTypes = {
   title: PropTypes.string,
   className: PropTypes.string,
   answerId: PropTypes.number,
-  postTime: PropTypes.number,
+  postTime: PropTypes.string,
   lastEditedDate: PropTypes.number,
   communities: PropTypes.array,
   isItWrittenByMe: PropTypes.bool,

@@ -118,7 +118,7 @@ const ContentHeader = props => {
       : histories?.filter(
           history => history.reply?.id === `${questionData.id}-${answerId}`,
         );
-
+  
   const [isModalOpen, setModalOpen] = useState(false);
   const refSharingModal = useRef(null);
   const [isPopoverOpen, setPopoverOpen] = useState(false);

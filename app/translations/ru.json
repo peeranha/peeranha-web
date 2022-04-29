@@ -27,6 +27,7 @@
   "app.common.signUp": "Регистрация",
   "app.common.all": "Все",
   "app.common.askQuestion": "Новый пост",
+  "app.common.wrongChainId": "Wrong Chain id",
   "app.common.add": "Добавить",
   "app.common.communities": "Сообщества",
   "app.common.allCommunities": "Все сообщества",
@@ -109,7 +110,7 @@
   "app.common.preview": "Предварительный просмотр",
   "app.common.showMore": "Показать больше {value}",
   "app.common.showLess": "Показать меньше {value}",
-  "app.common.poweredByTelos": "Powered by {image}",
+  "app.common.poweredBy": "Powered by {image}",
   "app.common.poweredByPeeranha": "Powered by {image}",
   "app.common.terms": "Operating Agreement",
   "app.common.noResults": "Нет результатов",
@@ -132,6 +133,7 @@
   "app.common.tipAnswer": "Чаевые",
   "app.common.sendTip": "Отправить чаевые",
   "app.common.receivedReward": "Вы получили реферальную награду",
+  "app.common.generalPopoverTitle": "Обсуждение",
   "app.common.generalPopoverLabel":
     "Вопрос, для ответа на который не требуется знания или опыта, может быть одним из следующих:",
   "app.common.generalPopoverList": [
@@ -140,12 +142,14 @@
     "Отзыв;",
     "Ответ широко известен."
   ],
+  "app.common.expertPopoverTitle": "Экспертный вопрос",
   "app.common.expertPopoverLabel": "Вопрос, который спрашивает следующее:",
   "app.common.expertPopoverList": [
     "Решение проблемы, требующее экспертных знаний или опыта;",
     "Источник информации или ресурсы по конкретному предмету, который нелегко найти;",
     "Пояснение или разъяснение информации, которую трудно понять."
   ],
+  "app.common.tutorialPopoverTitle": "Руководство",
   "app.common.tutorialPopoverLabel":
     "Tutorial is a manual instruction that can be one of the following:",
   "app.common.tutorialPopoverList": [

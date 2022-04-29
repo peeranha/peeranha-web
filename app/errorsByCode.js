@@ -10,6 +10,9 @@ export default defineMessages({
   1000003: {
     id: 'app.containers.SignUp.userNotSelected',
   },
+  1000004: {
+    id: 'app.common.wrongChainId',
+  },
   3080002: {
     id: 'app.common.notEnoughCPUOrRAM',
   },

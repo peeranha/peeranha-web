@@ -4,6 +4,15 @@ const DropdownStyled = styled.div`
   display: flex;
   align-items: center;
 
+  &.dropdown .dropdown-arrow {
+    transition: 0.5s;
+    transform: rotate(0deg);
+  }
+
+  &.dropdown.show .dropdown-arrow {
+    transform: rotate(180deg);
+  }
+
   button[aria-expanded='false'][data-icon='arrow'] img[alt='data-icon'] {
     transition: 0.5s;
     transform: scale(0.6) rotate(0deg);

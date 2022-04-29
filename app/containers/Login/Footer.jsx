@@ -70,16 +70,13 @@ const Heading = styled.div`
 `;
 
 export const LoginViaMetaMask = ({ action, processing, providerDetected }) => {
-  const redirectToMetaMask = () => {
-    window.open('https://metamask.io/', '_blank').focus();
-  };
+  // const redirectToMetaMask = () => {
+  //   window.open('https://metamask.io/', '_blank').focus();
+  // };
 
   return (
     <>
-      <MetaMaskButton
-        onClick={providerDetected ? action || null : redirectToMetaMask}
-        disabled={processing}
-      >
+      <MetaMaskButton onClick={action} disabled={processing}>
         <Icon icon={metaMaskLogo} height="28" className="mr-2 mb-0" />
       </MetaMaskButton>
     </>
