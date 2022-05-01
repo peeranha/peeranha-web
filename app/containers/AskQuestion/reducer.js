@@ -16,6 +16,7 @@ import {
 } from './constants';
 
 export const initialState = fromJS({
+  postedAnswerIds: [],
   askQuestionLoading: false,
   getExistingQuestionsLoading: false,
   questionError: '',
@@ -24,13 +25,15 @@ export const initialState = fromJS({
 });
 
 function askQuestionReducer(state = initialState, action) {
-  const { type, questionError } = action;
+  const { id, type, questionError } = action;
 
   switch (type) {
     case ASK_QUESTION:
       return state.set('askQuestionLoading', true);
     case ASK_QUESTION_SUCCESS:
-      return state.set('askQuestionLoading', false);
+      return state
+        .set('askQuestionLoading', false)
+        .set('postedAnswerIds', [...state.toJS().postedAnswerIds, id]);
     case ASK_QUESTION_ERROR:
       return state
         .set('askQuestionLoading', false)

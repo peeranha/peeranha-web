@@ -35,12 +35,7 @@ import {
 } from 'utils/questionsManagement';
 import { payBounty } from 'utils/walletManagement';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
-import {
-  ACCOUNT_TABLE,
-  ALL_ACCOUNTS_SCOPE,
-  CHANGED_POSTS_KEY,
-  POST_TYPE,
-} from 'utils/constants';
+import { CHANGED_POSTS_KEY, POST_TYPE } from 'utils/constants';
 import { dateNowInSeconds } from 'utils/datetime';
 
 import {
@@ -62,7 +57,6 @@ import {
 import { isAuthorized } from 'containers/EthereumProvider/saga';
 import { getUniqQuestions } from 'containers/Questions/actions';
 import { updateStoredQuestionsWorker } from 'containers/Questions/saga';
-import { QUESTION_TYPES } from 'components/QuestionForm/QuestionTypeField';
 
 import {
   ANSWER_TYPE,
@@ -80,9 +74,6 @@ import {
   GET_QUESTION_DATA,
   GET_QUESTION_DATA_SUCCESS,
   PAY_BOUNTY,
-  ITEM_DNV_FLAG,
-  ITEM_UPV_FLAG,
-  ITEM_VOTED_TO_DEL_FLAG,
   MARK_AS_ACCEPTED,
   MARK_AS_ACCEPTED_SUCCESS,
   POST_ANSWER,
@@ -152,13 +143,13 @@ import {
 import { selectUsers } from '../DataCacheProvider/selectors';
 import { selectEthereum } from '../EthereumProvider/selectors';
 import { getQuestionFromGraph } from '../../utils/theGraph';
-import orderBy from 'lodash/orderBy';
+
 import {
   isItemChanged,
   saveChangedItemIdToSessionStorage,
 } from 'utils/sessionStorage';
-import { DOWNVOTE_STATUS, UPVOTE_STATUS } from 'utils/ethConstants';
 
+import { selectPostedAnswerIds } from '../AskQuestion/selectors';
 export const isGeneralQuestion = question => Boolean(question.postType === 1);
 
 export const getQuestionTypeValue = postType =>
@@ -173,14 +164,15 @@ const isOwnItem = (questionData, profileInfo, answerId) =>
 export function* getQuestionData({
   questionId,
   user,
-  promote,
 }) /* istanbul ignore next */ {
   const ethereumService = yield select(selectEthereum);
+  const postedAnswerIds = yield select(selectPostedAnswerIds());
   let question;
 
   const isQuestionChanged = isItemChanged(CHANGED_POSTS_KEY, questionId);
+  const isQuestionJustCreated = postedAnswerIds.includes(Number(questionId));
 
-  if (user && isQuestionChanged) {
+  if (user && (isQuestionChanged || isQuestionJustCreated)) {
     question = yield call(getQuestionById, ethereumService, questionId, user);
   } else {
     question = yield call(getQuestionFromGraph, +questionId);

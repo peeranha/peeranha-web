@@ -1,4 +1,5 @@
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
+import { dataToString } from 'utils/converters';
 import {
   allAchievementsQuery,
   allTagsQuery,
@@ -18,7 +19,6 @@ import {
   userStatsQuery,
   historiesQuery,
 } from './ethConstants';
-import { dataToString } from 'utils/converters';
 
 const client = new ApolloClient({
   uri: process.env.THE_GRAPH_QUERY_URL,
@@ -132,12 +132,12 @@ export const getPosts = async (limit, skip, postTypes) => {
       skip,
       postTypes,
     },
+    fetchPolicy: 'network-only',
   });
-  return posts?.data.posts.map(rawPost => {
-    const post = { ...rawPost, answers: rawPost.replies };
-    delete post.replies;
-    return post;
-  });
+  return posts?.data.posts.map(({ replies, ...rawPost }) => ({
+    ...rawPost,
+    answers: replies,
+  }));
 };
 //
 export const getPostsByCommunityId = async (

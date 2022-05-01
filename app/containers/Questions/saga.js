@@ -151,7 +151,7 @@ export function* getQuestionsWorker({
       question.isGeneral = isGeneralQuestion(question);
     });
 
-    //TODO promoted questions
+    // TODO promoted questions
     // yield all(
     //   questionsList.map(function*(question) {
     //     const bounty = yield call(getQuestionBounty, question.id, eosService);
@@ -234,7 +234,7 @@ export function* redirectWorker({ communityIdFilter, isFollowed }) {
 }
 
 export function* updateStoredQuestionsWorker() {
-  //TODO for updating promoted questions
+  // TODO for updating promoted questions
   // const eosService = yield select(selectEos);
   // const initLoadedItems = yield select(selectInitLoadedItems());
   // const offset = 0;
@@ -336,7 +336,7 @@ export function* loadTopCommunityQuestionsWorker({ init }) {
           );
         }
 
-        if (data?.['top_questions'].length) {
+        if (data?.top_questions.length) {
           const topQuestionIdsForLoad = data.top_questions.slice(
             0,
             TOP_QUESTIONS_LOAD_NUMBER,

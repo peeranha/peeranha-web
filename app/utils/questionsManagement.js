@@ -11,22 +11,11 @@ import {
 import {
   ALL_QUESTIONS_SCOPE,
   CHANGE_PROMO_QUEST_COMM,
-  CHANGE_QUESTION_TYPE_METHOD,
-  DEL_ANSWER_METHOD,
-  DEL_COMMENT_METHOD,
-  DEL_QUESTION_METHOD,
-  DOWN_VOTE_METHOD,
-  EDIT_ANSWER_METHOD,
-  EDIT_COMMENT_METHOD,
-  EDIT_QUESTION_METHOD,
   GET_QUESTIONS_FILTERED_BY_COMMUNITY_INDEX_POSITION,
   GET_QUESTIONS_KEY_TYPE,
-  MARK_AS_CORRECT_METHOD,
   PROMOTE_QUESTION_METHOD,
   PROMOTED_QUESTIONS_TABLES,
   QUESTION_TABLE,
-  UP_VOTE_METHOD,
-  USER_ANSWERS_TABLE,
   VOTE_TO_DELETE_METHOD,
 } from './constants';
 import {
@@ -462,6 +451,27 @@ export async function markAsAccepted(
     correctAnswerId,
   ]);
 }
+
+export const getCreatedPostId = async (
+  ethereumService,
+  block,
+  user,
+  communityId,
+) => {
+  const filter = ethereumService.contract.filters.PostCreated();
+  const events = await ethereumService.contract.queryFilter(
+    filter,
+    block,
+    block,
+  );
+  return bigNumberToNumber(
+    events.filter(
+      event =>
+        event.args.user.toLowerCase() === user.toLowerCase() &&
+        Number(event.args.communityId) === Number(communityId),
+    )[0].args.postId,
+  );
+};
 
 const formCommonInfo = (object, statusHistory) => ({
   author: object.author.toLowerCase(),

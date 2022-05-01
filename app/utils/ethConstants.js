@@ -337,6 +337,7 @@ export const postsForSearchQuery = `
           text: $text,
         ) {
            id
+           ipfsHash
            tags
            postType
            author {
