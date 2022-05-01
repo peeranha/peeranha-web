@@ -7,7 +7,7 @@ import {
   callService,
   SAVE_FILE_SERVICE,
 } from 'utils/web_integration/src/util/aws-connector';
-import { Web3Storage } from 'web3.storage';
+import { Web3Storage } from 'web3.storage/dist/bundle.esm.min.js';
 
 export function getIpfsApi() {
   return create(process.env.IPFS_API_URL);
@@ -52,11 +52,14 @@ export async function saveText(text) {
 }
 
 async function saveFileTheGraph(buf) {
-  const saveResult = await getIpfsApiTheGraph().add(buf);
-  // return saveResult.cid.toString();
+  return await getIpfsApiTheGraph().add(buf);
 }
 
-async function saveFileWEB3Storage(file) {
+function prepareFile(data) {
+  return [new File([data], 'data')];
+}
+
+async function saveFileWEB3Storage(data) {
   const token = process.env.WEB3_STORAGE_API_TOKEN;
 
   if (!token) {
@@ -67,34 +70,29 @@ async function saveFileWEB3Storage(file) {
 
   const storage = new Web3Storage({ token });
 
-  console.log(`Uploading file to WEB3.Storage`);
-  const cid = await storage.put(file);
-  console.log('Content added with CID:', cid);
+  return await storage.put(prepareFile(data));
 }
 
 export async function saveFile(file) {
   const buf = Buffer.from(file);
-  // const saveResult = await getIpfsApi().add(buf);
-  //
-  // await saveFileTheGraph(buf);
 
   // const result = await callService(SAVE_FILE_SERVICE, { file });
 
-  const result = await (await fetch(`http://localhost:4000/save-file`, {
-    method: 'POST',
-    body: JSON.stringify({
-      file: buf,
-    }),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })).json();
+  const result = await Promise.all([
+    (await fetch(`http://localhost:4000/save-file`, {
+      method: 'POST',
+      body: JSON.stringify({
+        file: buf,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })).json(),
+    saveFileTheGraph(buf),
+    saveFileWEB3Storage(buf),
+  ])
 
-  await saveFileTheGraph(buf);
-
-  await saveFileWEB3Storage(buf);
-
-  return result.cid;
+  return result[0].cid;
 }
 
 export async function getText(hash) {
