@@ -76,13 +76,13 @@ async function saveFileWEB3Storage(data) {
 export async function saveFile(file) {
   const buf = Buffer.from(file);
 
-  // const result = await callService(SAVE_FILE_SERVICE, { file });
+  // await callService(SAVE_FILE_SERVICE, { file });
 
   const result = await Promise.all([
     (await fetch(`http://localhost:4000/save-file`, {
       method: 'POST',
       body: JSON.stringify({
-        file: buf,
+        file,
       }),
       headers: {
         'Content-Type': 'application/json',
@@ -90,7 +90,7 @@ export async function saveFile(file) {
     })).json(),
     saveFileTheGraph(buf),
     saveFileWEB3Storage(buf),
-  ])
+  ]);
 
   return result[0].cid;
 }
