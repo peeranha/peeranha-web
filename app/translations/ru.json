@@ -27,6 +27,7 @@
   "app.common.signUp": "Регистрация",
   "app.common.all": "Все",
   "app.common.askQuestion": "Новый пост",
+  "app.common.wrongChainId": "Wrong Chain id",
   "app.common.add": "Добавить",
   "app.common.communities": "Сообщества",
   "app.common.allCommunities": "Все сообщества",
@@ -109,7 +110,7 @@
   "app.common.preview": "Предварительный просмотр",
   "app.common.showMore": "Показать больше {value}",
   "app.common.showLess": "Показать меньше {value}",
-  "app.common.poweredByTelos": "Powered by {image}",
+  "app.common.poweredBy": "Powered by {image}",
   "app.common.poweredByPeeranha": "Powered by {image}",
   "app.common.terms": "Operating Agreement",
   "app.common.noResults": "Нет результатов",
@@ -185,6 +186,9 @@
   "app.common.notEnoughCPUOrRAM": "Не достаточно CPU или RAM",
   "app.common.metaMaskIsLocked":
     "Пожалуйста, проверьте соединение MetaMask и попробуйте перезагрузить страницу",
+
+  "app.common.ipfsHashValue": "IPFS",
+  "app.common.source": "Источник",
 
   "app.telegram.user": "Телеграм пользователь",
   "app.telegram.userLabelPopover":

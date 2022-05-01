@@ -4,6 +4,9 @@ import styled, { css } from 'styled-components';
 import { TEXT_DARK, TEXT_PRIMARY } from 'style-constants';
 import { svgDraw } from 'components/Icon/IconStyled';
 import Span from 'components/Span';
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
 
 export const ACss = css`
   text-decoration: none !important;
@@ -15,7 +18,7 @@ export const ACss = css`
   ${x => (x.disabled ? `opacity: 0.6` : ``)};
 
   :hover {
-    ${svgDraw({ color: TEXT_PRIMARY })};
+    ${svgDraw({ color: `${colors.linkColor} !important` || TEXT_PRIMARY })};
   }
 `;
 

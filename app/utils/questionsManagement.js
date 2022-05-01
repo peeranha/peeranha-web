@@ -11,22 +11,11 @@ import {
 import {
   ALL_QUESTIONS_SCOPE,
   CHANGE_PROMO_QUEST_COMM,
-  CHANGE_QUESTION_TYPE_METHOD,
-  DEL_ANSWER_METHOD,
-  DEL_COMMENT_METHOD,
-  DEL_QUESTION_METHOD,
-  DOWN_VOTE_METHOD,
-  EDIT_ANSWER_METHOD,
-  EDIT_COMMENT_METHOD,
-  EDIT_QUESTION_METHOD,
   GET_QUESTIONS_FILTERED_BY_COMMUNITY_INDEX_POSITION,
   GET_QUESTIONS_KEY_TYPE,
-  MARK_AS_CORRECT_METHOD,
   PROMOTE_QUESTION_METHOD,
   PROMOTED_QUESTIONS_TABLES,
   QUESTION_TABLE,
-  UP_VOTE_METHOD,
-  USER_ANSWERS_TABLE,
   VOTE_TO_DELETE_METHOD,
 } from './constants';
 import {
@@ -51,6 +40,7 @@ import {
   VOTE_ITEM,
 } from './ethConstants';
 import { getUsersAnsweredQuestions, getUsersQuestions } from './theGraph';
+import { bigNumberToNumber } from './converters';
 
 /* eslint-disable  */
 export class FetcherOfQuestionsForFollowedCommunities {
@@ -459,6 +449,27 @@ export async function markAsAccepted(
   ]);
 }
 
+export const getCreatedPostId = async (
+  ethereumService,
+  block,
+  user,
+  communityId,
+) => {
+  const filter = ethereumService.contract.filters.PostCreated();
+  const events = await ethereumService.contract.queryFilter(
+    filter,
+    block,
+    block,
+  );
+  return bigNumberToNumber(
+    events.filter(
+      event =>
+        event.args.user.toLowerCase() === user.toLowerCase() &&
+        Number(event.args.communityId) === Number(communityId),
+    )[0].args.postId,
+  );
+};
+
 const formCommonInfo = (object, statusHistory) => ({
   author: object.author.toLowerCase(),
   isDeleted: object.isDeleted,
@@ -479,6 +490,7 @@ export const formCommentObject = async (
   );
   return {
     content,
+    ipfsHash: rawComment.ipfsDoc.hash,
     ...formCommonInfo(rawComment, statusHistory),
     id,
   };
@@ -496,6 +508,7 @@ export const formReplyObject = async (
   );
   return {
     content,
+    ipfsHash: rawReply.ipfsDoc.hash,
     ...formCommonInfo(rawReply, statusHistory),
     commentCount: rawReply.commentCount,
     isFirstReply: rawReply.isFirstReply,
@@ -520,6 +533,7 @@ export const formQuestionObject = async (
   return {
     title,
     content,
+    ipfsHash: rawQuestion.ipfsDoc.hash,
     answers: replies,
     comments,
     ...formCommonInfo(rawQuestion, statusHistory),

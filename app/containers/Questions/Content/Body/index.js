@@ -1,19 +1,20 @@
-import React, { memo } from 'react';
+import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-
 import Base from 'components/Base';
-
 import TopQuestion from './TopQuestion';
 import QuestionType from './QuestionType';
 import Title from './Title';
 import UserInfo from './UserInfo';
 import TagsContainer from './TagsContainer';
+import IPFSInformation from './IPFSInformation';
+import { IconMd } from 'components/Icon/IconWithSizes';
+import blockchainLogo from 'images/blockchain-outline-32.svg?external';
 
 const QuestionLabels = styled.div`
   position: absolute;
-  top: 5px;
-  right: 7px;
+  top: 32px;
+  right: 20px;
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
@@ -26,6 +27,7 @@ const QuestionLabels = styled.div`
 
 const Body = ({
   id,
+  ipfsHash,
   isModerator,
   title,
   author,
@@ -46,7 +48,13 @@ const Body = ({
   postType,
   isFeed,
   isExpert,
+  isCommunityFeed,
 }) => {
+  const [visible, changeVisibility] = useState(false);
+
+  const onMouseEnter = useCallback(() => changeVisibility(true), []);
+  const onMouseLeave = useCallback(() => changeVisibility(false), []);
+
   return (
     <Base
       className={displayTopQuestionMove ? 'pl-0' : ''}
@@ -63,7 +71,7 @@ const Body = ({
           topQuestionsCount={topQuestionsCount}
           topQuestionActionProcessing={topQuestionActionProcessing}
         />
-        {(isFeed || isSearchPage) && (
+        {(isFeed || isSearchPage || isCommunityFeed) && (
           <QuestionType
             locale={locale}
             postType={postType}
@@ -89,17 +97,29 @@ const Body = ({
         communityId={communityId}
       />
 
-      <TagsContainer
-        communities={communities}
-        communityId={communityId}
-        tags={tags}
-      />
+      <div className="d-flex justify-content-between align-items-center">
+        <TagsContainer
+          communities={communities}
+          communityId={communityId}
+          tags={tags}
+        />
+
+        <div
+          onMouseEnter={onMouseEnter}
+          onMouseLeave={onMouseLeave}
+          className="position-relative"
+        >
+          {visible && <IPFSInformation locale={locale} ipfsHash={ipfsHash} />}
+          <IconMd icon={blockchainLogo} />
+        </div>
+      </div>
     </Base>
   );
 };
 
 Body.propTypes = {
   id: PropTypes.string,
+  ipfsHash: PropTypes.string,
   author: PropTypes.string,
   title: PropTypes.string,
   postTime: PropTypes.number,
@@ -116,6 +136,7 @@ Body.propTypes = {
   displayTopQuestionMove: PropTypes.bool,
   topQuestionActionProcessing: PropTypes.bool,
   isPromoted: PropTypes.bool,
+  isCommunityFeed: PropTypes.bool,
 };
 
-export default memo(Body);
+export default Body;

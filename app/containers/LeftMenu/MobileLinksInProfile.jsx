@@ -1,9 +1,8 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import messages from 'common-messages';
 import * as routes from 'routes-config';
-import { MODERATOR_KEY } from 'utils/constants';
 
 import arrowDownIcon from 'images/arrowDown.svg?external';
 
@@ -14,23 +13,23 @@ import { Button as ProfileButton } from 'containers/Header/ProfileDropdown';
 import Logout from 'containers/Logout';
 import { getPermissions } from '../../utils/properties';
 
-export default React.memo(({ profile, isMenuVisible }) => {
-  const [visibleProfileLinks, setVisibilityProfileLinks] = useState(false);
-
+const MobileLinksInProfile = ({ profile, isMenuVisible }) => {
   if (!profile || !isMenuVisible) {
-    const isMenu = useMemo(() => isMenuVisible, [isMenuVisible]);
     return null;
   }
 
-  const isModerator = useMemo(() => !!getPermissions(profile)?.length, [
-    profile,
-  ]);
+  const [visibleProfileLinks, setVisibilityProfileLinks] = useState(false);
+
+  const onClick = () => setVisibilityProfileLinks(!visibleProfileLinks);
+
+  const isModerator = Boolean(getPermissions(profile)?.length);
 
   return (
     <div className="lightbg use-default-links">
       <button
         className="d-flex align-items-center justify-content-between w-100"
-        onClick={() => setVisibilityProfileLinks(!visibleProfileLinks)}
+        onClick={onClick}
+        type="button"
       >
         <ProfileButton profileInfo={profile} isMobileVersion />
         <Icon
@@ -44,44 +43,46 @@ export default React.memo(({ profile, isMenuVisible }) => {
       {visibleProfileLinks && (
         <div className="pb-2">
           <A to={routes.profileView(profile.user)}>
-            <FormattedMessage {...messages.profile} />
+            <FormattedMessage id={messages.profile.id} />
           </A>
 
           <A to={routes.userCommunities(profile.user)}>
-            <FormattedMessage {...messages.myCommunities} />
+            <FormattedMessage id={messages.myCommunities.id} />
           </A>
 
           <A to={routes.userQuestions(profile.user)}>
-            <FormattedMessage {...messages.questions} />
+            <FormattedMessage id={messages.questions.id} />
           </A>
 
           <A to={routes.userAnswers(profile.user)}>
-            <FormattedMessage {...messages.answers} />
+            <FormattedMessage id={messages.answers.id} />
           </A>
 
           <A to={routes.userSettings(profile.user)}>
-            <FormattedMessage {...messages.settings} />
+            <FormattedMessage id={messages.settings.id} />
           </A>
 
           <A to={routes.userNotifications(profile.user)}>
-            <FormattedMessage {...messages.notifications} />
+            <FormattedMessage id={messages.notifications.id} />
           </A>
 
           <A to={routes.userAchievements(profile.user)}>
-            <FormattedMessage {...messages.achievements} />
+            <FormattedMessage id={messages.achievements.id} />
           </A>
 
           {isModerator && (
             <A to={routes.userModeration(profile.user)}>
-              <FormattedMessage {...messages.moderation} />
+              <FormattedMessage id={messages.moderation.id} />
             </A>
           )}
 
           <Logout>
-            <FormattedMessage {...messages.logout} />
+            <FormattedMessage id={messages.logout.id} />
           </Logout>
         </div>
       )}
     </div>
   );
-});
+};
+
+export default MobileLinksInProfile;

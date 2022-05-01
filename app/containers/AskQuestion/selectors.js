@@ -27,8 +27,14 @@ const selectQuestionError = () =>
   );
 
 const selectExistingQuestions = () =>
-  createSelector(selectExistingQuestionsDomain, substate =>
-    substate.toJS().existingQuestions,
+  createSelector(
+    selectExistingQuestionsDomain,
+    substate => substate.toJS().existingQuestions,
+  );
+
+const selectPostedAnswerIds = () =>
+  createSelector(selectAskQuestionDomain, substate =>
+    substate.get('postedAnswerIds'),
   );
 
 export {
@@ -37,4 +43,5 @@ export {
   selectAskQuestionLoading,
   selectQuestionError,
   selectExistingQuestions,
+  selectPostedAnswerIds,
 };

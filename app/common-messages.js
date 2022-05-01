@@ -339,8 +339,8 @@ export default defineMessages({
   showLess: {
     id: 'app.common.showLess',
   },
-  poweredByTelos: {
-    id: 'app.common.poweredByTelos',
+  poweredBy: {
+    id: 'app.common.poweredBy',
   },
   poweredByPeeranha: {
     id: 'app.common.poweredByPeeranha',
@@ -390,8 +390,8 @@ export default defineMessages({
   receivedReward: {
     id: 'app.common.receivedReward',
   },
-  generalPopoverTitle:{
-    id: 'app.common.generalPopoverTitle'
+  generalPopoverTitle: {
+    id: 'app.common.generalPopoverTitle',
   },
   generalPopoverLabel: {
     id: 'app.common.generalPopoverLabel',
@@ -399,8 +399,8 @@ export default defineMessages({
   generalPopoverList: {
     id: 'app.common.generalPopoverList',
   },
-  expertPopoverTitle:{
-    id: 'app.common.expertPopoverTitle'
+  expertPopoverTitle: {
+    id: 'app.common.expertPopoverTitle',
   },
   expertPopoverLabel: {
     id: 'app.common.expertPopoverLabel',
@@ -408,8 +408,8 @@ export default defineMessages({
   expertPopoverList: {
     id: 'app.common.expertPopoverList',
   },
-  tutorialPopoverTitle:{
-    id: 'app.common.tutorialPopoverTitle'
+  tutorialPopoverTitle: {
+    id: 'app.common.tutorialPopoverTitle',
   },
   tutorialPopoverLabel: {
     id: 'app.common.tutorialPopoverLabel',
@@ -503,5 +503,11 @@ export default defineMessages({
   },
   selectCommunity: {
     id: 'app.common.selectCommunity',
+  },
+  ipfsHashValue: {
+    id: 'app.common.ipfsHashValue',
+  },
+  source: {
+    id: 'app.common.source',
   },
 });
