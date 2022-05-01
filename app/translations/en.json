@@ -795,19 +795,13 @@
   "app.containers.ViewQuestion.getBounty": "Get bounty",
   "app.containers.ViewQuestion.bountyStatus": "Bounty Status",
   "app.containers.ViewQuestion.bountyStatusExpiration": "Bounty will expire: ",
-  "app.containers.ViewQuestion.statusOfficialReplyChanged":
-    "Status official reply changed",
-  "app.containers.ViewQuestion.statusBestReplyChanged":
-    "Status best reply changed",
-  "app.containers.ViewQuestion.forumItemVoted": "Forum item voted",
-  "app.containers.ViewQuestion.ChangePostType": "Post type changed",
   "app.containers.ViewQuestion.transactionHash": "Transaction hash",
   "app.containers.ViewQuestion.eventName": "Event name",
   "app.containers.ViewQuestion.timeStamp": "Date and time",
   "app.containers.ViewQuestion.post": "Post",
   "app.containers.ViewQuestion.reply": "Reply",
   "app.containers.ViewQuestion.comment": "Comment",
-  "app.containers.ViewQuestion.created": "created",
+  "app.containers.ViewQuestion.posted": "posted",
   "app.containers.ViewQuestion.edited": "edited",
   "app.containers.ViewQuestion.deleted": "deleted",
   "app.components.FormFields.requiredField":

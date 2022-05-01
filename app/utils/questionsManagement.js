@@ -761,24 +761,20 @@ export const getHistoriesForPost = async postId => {
   const histories = await historiesForPost(postId);
   return histories.map(
     ({
-      id,
       post,
       reply,
       comment,
       eventEntity,
       transactionHash,
       eventName,
-      actionUser,
       timeStamp,
     }) => ({
-      id,
       transactionHash,
       post,
       reply: reply != null ? reply : undefined,
       comment: comment != null ? comment : undefined,
       eventEntity,
       eventName,
-      actionUser,
       timeStamp,
     }),
   );

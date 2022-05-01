@@ -807,13 +807,6 @@
   "app.containers.ViewQuestion.bountyStatus": "Статус бонуса",
   "app.containers.ViewQuestion.bountyStatusExpiration":
     "Бонус будет доступен до: ",
-  "app.containers.ViewQuestion.statusOfficialReplyChanged":
-    "Статус официального ответа изменён",
-  "app.containers.ViewQuestion.statusBestReplyChanged":
-    "Статус лучшего ответа изменён",
-  "app.containers.ViewQuestion.forumItemVoted":
-    "За элемент форума проголосовали",
-  "app.containers.ViewQuestion.ChangePostType": "Тип поста изменён",
   "app.containers.ViewQuestion.transactionHash": "Хеш транзакции",
   "app.containers.ViewQuestion.eventName": "Событие",
   "app.containers.ViewQuestion.timeStamp": "Дата и время",

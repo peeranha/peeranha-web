@@ -422,7 +422,6 @@ export const rewardsQuery = `
 `;
 
 const history = `
-  id
   transactionHash
   post {
     ${post}
@@ -435,9 +434,6 @@ const history = `
   }
   eventEntity
   eventName
-  actionUser {
-    ${user}
-  }
   timeStamp
 `;
 

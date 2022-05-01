@@ -139,18 +139,6 @@ export default defineMessages({
   questionIsPromoting: {
     id: 'app.containers.QuestionForm.questionIsPromoting',
   },
-  StatusOfficialReplyChanged: {
-    id: 'app.containers.ViewQuestion.statusOfficialReplyChanged',
-  },
-  StatusBestReplyChanged: {
-    id: 'app.containers.ViewQuestion.statusBestReplyChanged',
-  },
-  ForumItemVoted: {
-    id: 'app.containers.ViewQuestion.forumItemVoted',
-  },
-  ChangePostType: {
-    id: 'app.containers.ViewQuestion.ChangePostType',
-  },
   transactionHash: {
     id: 'app.containers.ViewQuestion.transactionHash',
   },
@@ -170,7 +158,7 @@ export default defineMessages({
     id: 'app.containers.ViewQuestion.comment',
   },
   Create: {
-    id: 'app.containers.ViewQuestion.created',
+    id: 'app.containers.ViewQuestion.posted',
   },
   Edit: {
     id: 'app.containers.ViewQuestion.edited',
