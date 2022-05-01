@@ -510,4 +510,16 @@ export default defineMessages({
   source: {
     id: 'app.common.source',
   },
+  NFTs: {
+    id: 'app.common.NFTs',
+  },
+  NFTsNumber: {
+    id: 'app.common.NFTsNumber',
+  },
+  limitedEdition: {
+    id: 'app.common.limitedEdition',
+  },
+  contractAddress: {
+    id: 'app.common.contractAddress',
+  },
 });

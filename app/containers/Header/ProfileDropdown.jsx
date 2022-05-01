@@ -33,6 +33,7 @@ import Icon from 'components/Icon/index';
 
 import { selectIsMenuVisible } from '../AppWrapper/selectors';
 import { getPermissions } from '../../utils/properties';
+import { userNFTs } from 'routes-config';
 
 const styles = singleCommunityStyles();
 const colors = singleCommunityColors();
@@ -143,8 +144,8 @@ const Menu = memo(
           {/* <A to={routes.userNotifications(user)}>
             <FormattedMessage {...messages.notifications} />
           </A> */}
-          <A to={routes.userAchievements(user)}>
-            <FormattedMessage {...messages.achievements} />
+          <A to={routes.userNFTs(user)}>
+            <FormattedMessage id={messages.NFTs.id} />
           </A>
           {isModerator && (
             <A to={routes.userModeration(user)}>
