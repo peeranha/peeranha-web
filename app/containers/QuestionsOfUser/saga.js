@@ -13,6 +13,7 @@ import { selectNumber } from '../QuestionsWithAnswersOfUser/selectors';
 export function* getQuestionsWorker({ userId }) {
   try {
     const questionsFromStore = yield select(selectQuestions());
+
     const limit = yield select(selectNumber());
     const offset = questionsFromStore?.length || 0;
 
@@ -22,6 +23,7 @@ export function* getQuestionsWorker({ userId }) {
       limit,
       offset,
     );
+
     const updateQuestions = questions.map(question => ({
       ...question,
       elementType: POST_TYPE_QUESTION,

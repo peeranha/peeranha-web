@@ -19,9 +19,10 @@ import { redirectToFeedWorker } from 'containers/App/saga';
 export function* getQuestionsWithAnswersWorker({ userId }) {
   try {
     const questionsFromStore = yield select(selectQuestionsWithUserAnswers());
+
     const limit = yield select(selectNumber());
     const offset = questionsFromStore?.length || 0;
-    console.log(offset);
+
     const questions = yield call(getAnsweredUsersPosts, userId, limit, offset);
     questions?.map(post => {
       post.elementType = POST_TYPE_ANSWER;

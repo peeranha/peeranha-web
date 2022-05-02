@@ -83,7 +83,6 @@ const ViewProfilePage = ({
         redirectToEditProfilePage={redirectToEditProfilePageDispatch}
       />
 
-      {/*BOTH*/}
       <QuestionsOfUser
         className={path === routes.userQuestions(userId) ? '' : 'd-none'}
         infinityOff={path !== routes.userQuestions(userId)}
