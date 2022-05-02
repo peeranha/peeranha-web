@@ -6,6 +6,7 @@ import { BG_LIGHT, BORDER_RADIUS_L } from 'style-constants';
 import PropTypes from 'prop-types';
 import { getIpfsHashFromBytes32 } from 'utils/ipfs.js';
 import Span from 'components/Span';
+import A from 'components/A';
 
 const Label = styled.div`
   position: absolute;
@@ -24,6 +25,8 @@ const Label = styled.div`
 
 const NFTInformation = ({ id, locale, ipfsHash, contractAddress }) => {
   const hashString = getIpfsHashFromBytes32(ipfsHash);
+  const contractAddressURL =
+    process.env.BLOCKCHAIN_EXPLORERE_URL + contractAddress;
 
   return (
     <Label>
@@ -36,11 +39,13 @@ const NFTInformation = ({ id, locale, ipfsHash, contractAddress }) => {
         {': '}
         {hashString}
       </Span>
-      <Span fontSize="14">
+      <A
+        target="_blank"
+        to={{ pathname: contractAddressURL }}
+        href={contractAddressURL}
+      >
         {translationMessages[locale][commonMessages.contractAddress.id]}
-        {': '}
-        {contractAddress}
-      </Span>
+      </A>
     </Label>
   );
 };

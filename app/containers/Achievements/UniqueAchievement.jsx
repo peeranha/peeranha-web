@@ -76,21 +76,21 @@ const UniqueAchievement = ({
 
   return (
     <Bage>
-      <div
-        onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}
-        className="position-relative"
-      >
-        {visible && (
-          <NFTInformation
-            id={id}
-            locale={locale}
-            contractAddress={contractAddress}
-            ipfsHash={achievementURI}
-          />
-        )}
-        <ImageBlock>
-          {reached && (
+      <ImageBlock>
+        {reached && (
+          <div
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
+            className="position-relative"
+          >
+            {visible && (
+              <NFTInformation
+                id={id}
+                locale={locale}
+                contractAddress={contractAddress}
+                ipfsHash={achievementURI}
+              />
+            )}
             <Icon
               icon={`<object data=${getFileUrl(
                 image,
@@ -98,30 +98,28 @@ const UniqueAchievement = ({
               width="160"
               height="148"
             />
-          )}
-          {!reached && (
-            <Icon icon={achievementNotReached} width="160" height="148" />
-          )}
-          {isNext && (
-            <ProgressBar
-              width="60%"
-              progress={getProgress()}
-              pointsToNext={pointsToNext}
-              groupType={uniqueRatingRelated}
-              messageSingle={
-                translations[
-                  messages.progressBarPopover.ratingRelated.single.id
-                ]
-              }
-              messageMultiple={
-                translations[
-                  messages.progressBarPopover.ratingRelated.multiple.id
-                ]
-              }
-            />
-          )}
-        </ImageBlock>
-      </div>
+          </div>
+        )}
+        {!reached && (
+          <Icon icon={achievementNotReached} width="160" height="148" />
+        )}
+        {isNext && (
+          <ProgressBar
+            width="60%"
+            progress={getProgress()}
+            pointsToNext={pointsToNext}
+            groupType={uniqueRatingRelated}
+            messageSingle={
+              translations[messages.progressBarPopover.ratingRelated.single.id]
+            }
+            messageMultiple={
+              translations[
+                messages.progressBarPopover.ratingRelated.multiple.id
+              ]
+            }
+          />
+        )}
+      </ImageBlock>
       <div>
         <TitleBlock>
           <span>{name}</span>

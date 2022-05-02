@@ -49,7 +49,7 @@
   "app.common.NFTs": "NFTs",
   "app.common.NFTsNumber": "NFTs {number}",
   "app.common.limitedEdition": "Ограниченное издание",
-  "app.common.contractAddress": "Адрес контракта",
+  "app.common.contractAddress": "Ссылка на адрес контракта",
   "app.common.allQuestions": "Все вопросы",
   "app.common.manageMyComm": "Управлять сообществами",
   "app.common.asked": "Задано",
