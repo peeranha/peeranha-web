@@ -9,15 +9,15 @@ import {
 } from 'utils/web_integration/src/util/aws-connector';
 import { Web3Storage } from 'web3.storage/dist/bundle.esm.min.js';
 
-export function getIpfsApi() {
+export function ipfsApi() {
   return create(process.env.IPFS_API_URL);
 }
 
-function getIpfsApiTheGraph() {
+function ipfsApiTheGraph() {
   return create(process.env.IPFS_API_URL_THE_GRAPH);
 }
 
-function getWeb3StorageApi() {
+function web3StorageApi() {
   const token = process.env.WEB3_STORAGE_API_TOKEN;
 
   if (!token) {
@@ -30,12 +30,12 @@ function getWeb3StorageApi() {
 }
 
 async function saveTextTheGraph(buf) {
-  const saveResult = await getIpfsApiTheGraph().add(buf);
+  const saveResult = await ipfsApiTheGraph().add(buf);
   // return saveResult.cid.toString();
 }
 
 async function saveDataWeb3Storage(data) {
-  return await getWeb3StorageApi().put([new File([data], 'data')]);
+  return await web3StorageApi().put([new File([data], 'data')]);
 }
 
 // TODO: test
@@ -61,7 +61,7 @@ export async function saveText(text) {
   }
 
   const buf = Buffer.from(parsedText, 'utf8');
-  const saveResult = await getIpfsApi().add(buf);
+  const saveResult = await ipfsApi().add(buf);
 
   await saveTextTheGraph(buf);
 
@@ -71,7 +71,7 @@ export async function saveText(text) {
 }
 
 async function saveFileTheGraph(buf) {
-  return await getIpfsApiTheGraph().add(buf);
+  return await ipfsApiTheGraph().add(buf);
 }
 
 async function saveFileIpfsS3(file) {
@@ -81,13 +81,13 @@ async function saveFileIpfsS3(file) {
 export async function saveFile(file) {
   const buf = Buffer.from(file);
 
-  const result = await Promise.all([
+  const [resultIpfsS3] = await Promise.all([
     saveFileIpfsS3(file),
     saveFileTheGraph(buf),
     saveDataWeb3Storage(buf),
   ]);
 
-  return result[0].cid;
+  return resultIpfsS3.cid;
 }
 
 export async function getText(hash) {
