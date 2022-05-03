@@ -200,11 +200,16 @@ export const postsForSearch = async (text, single) => {
       text: query,
     },
   });
-  return posts?.data?.postSearch.filter(
-    post =>
-      !post.isDeleted &&
-      (single ? Number(post.communityId) === Number(single) : true),
-  );
+  return posts?.data?.postSearch
+    .slice(0, 100)
+    .sort((a, b) => {
+      return b.postTime - a.postTime;
+    })
+    .filter(
+      post =>
+        !post.isDeleted &&
+        (single ? Number(post.communityId) === Number(single) : true),
+    );
 };
 
 export const getAllAchievements = async userId => {
