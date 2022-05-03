@@ -165,12 +165,12 @@ export class FetcherOfQuestionsForFollowedCommunities {
 
 /* eslint-enable  */
 
-export async function getQuestionsPostedByUser(id) {
-  return await getUsersQuestions(id);
+export async function getQuestionsPostedByUser(id, limit, offset) {
+  return await getUsersQuestions(id, limit, offset);
 }
 
-export async function getAnsweredUsersPosts(id) {
-  return await getUsersAnsweredQuestions(id);
+export async function getAnsweredUsersPosts(id, limit, offset) {
+  return await getUsersAnsweredQuestions(id, limit, offset);
 }
 
 /* eslint no-param-reassign: ["error", { "props": false }] */

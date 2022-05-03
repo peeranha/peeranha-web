@@ -10,14 +10,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators, compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
-import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
-import { DAEMON } from 'utils/constants';
-
-import { STATE_KEY } from './constants';
-import reducer from './reducer';
-import saga from './saga';
-
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
@@ -34,6 +26,10 @@ import {
 import Header from './Header';
 import QuestionsList from './QuestionsList';
 import { getQuestions } from './actions';
+import injectSaga from '../../utils/injectSaga';
+import { STATE_KEY } from './constants';
+import saga from '../QuestionsWithAnswersOfUser/saga';
+import { DAEMON } from '../../utils/constants';
 
 export const QuestionsOfUser = ({
   isLastFetch,
@@ -46,9 +42,11 @@ export const QuestionsOfUser = ({
   userId,
   account,
   displayName,
+  getQuestionsDispatch,
 }) => {
   return (
     <InfinityLoader
+      loadNextPaginatedData={getQuestionsDispatch.bind(null, userId)}
       isLoading={questionsLoading}
       isLastFetch={isLastFetch}
       infinityOff={infinityOff}
@@ -85,7 +83,6 @@ QuestionsOfUser.propTypes = {
 };
 
 export default compose(
-  injectReducer({ key: STATE_KEY, reducer }),
   injectSaga({ key: STATE_KEY, saga, mode: DAEMON }),
   connect(
     createStructuredSelector({
@@ -95,6 +92,9 @@ export default compose(
       questionsLoading: selectQuestionsLoading(),
       isLastFetch: selectIsLastFetch(),
       communities: selectCommunities(),
+    }),
+    dispatch => ({
+      getQuestionsDispatch: bindActionCreators(getQuestions, dispatch),
     }),
   ),
 )(QuestionsOfUser);

@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { translationMessages } from 'i18n';
-import { bindActionCreators } from 'redux';
+import { bindActionCreators, compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
 import Seo from 'components/Seo';
@@ -26,6 +26,12 @@ import {
 } from 'containers/DataCacheProvider/selectors';
 
 import messages from './messages';
+import injectReducer from '../../utils/injectReducer';
+import { STATE_KEY } from '../QuestionsOfUser/constants';
+import reducer from '../QuestionsOfUser/reducer';
+import injectSaga from '../../utils/injectSaga';
+import saga from '../QuestionsWithAnswersOfUser/saga';
+import { DAEMON } from '../../utils/constants';
 
 export const Profile = ({
   userId,
@@ -118,7 +124,11 @@ export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
+export default compose(
+  injectReducer({ key: STATE_KEY, reducer }),
+  injectSaga({ key: STATE_KEY, saga, mode: DAEMON }),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  ),
 )(Profile);

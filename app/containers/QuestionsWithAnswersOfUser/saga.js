@@ -19,30 +19,28 @@ import { redirectToFeedWorker } from 'containers/App/saga';
 export function* getQuestionsWithAnswersWorker({ userId }) {
   try {
     const questionsFromStore = yield select(selectQuestionsWithUserAnswers());
+
     const limit = yield select(selectNumber());
-    const offset =
-      (questionsFromStore[questionsFromStore.length - 1] &&
-        +questionsFromStore[questionsFromStore.length - 1].id + 1) ||
-      0;
+    const offset = questionsFromStore?.length || 0;
 
-    const questions = yield call(() => getAnsweredUsersPosts(userId));
-    questions?.map(x => {
-      x.elementType = POST_TYPE_ANSWER;
-      x.acceptedAnswer = x.correct_answer_id > 0;
-      x.isGeneral = isGeneralQuestion(x);
-      x.replies = x.replies.filter(reply => reply.author.id === userId);
-      const mostRatingAnswer = maxBy(x.replies, 'rating');
+    const questions = yield call(getAnsweredUsersPosts, userId, limit, offset);
+    questions?.map(post => {
+      post.elementType = POST_TYPE_ANSWER;
+      post.acceptedAnswer = post.bestReply > 0;
+      post.isGeneral = isGeneralQuestion(post);
+      post.replies = post.replies.filter(reply => reply.author.id === userId);
+      const mostRatingAnswer = maxBy(post.replies, 'rating');
 
-      x.replies.map(y => {
-        x.myPostTime = y.postTime;
-        x.isMyAnswerAccepted = y.isBestReply;
+      post.replies.map(reply => {
+        post.myPostTime = reply.postTime;
+        post.isMyAnswerAccepted = reply.isBestReply;
 
-        x.isTheLargestRating =
-          y.rating === mostRatingAnswer.rating &&
-          y.rating > TOP_COMMUNITY_DISPLAY_MIN_RATING;
+        post.isTheLargestRating =
+          reply.rating === mostRatingAnswer.rating &&
+          reply.rating > TOP_COMMUNITY_DISPLAY_MIN_RATING;
 
-        x.myPostRating = y.rating;
-        x.answerId = y.id;
+        post.myPostRating = reply.rating;
+        post.answerId = reply.id;
       });
     });
 
