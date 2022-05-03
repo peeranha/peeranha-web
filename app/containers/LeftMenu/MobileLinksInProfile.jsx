@@ -66,8 +66,8 @@ const MobileLinksInProfile = ({ profile, isMenuVisible }) => {
             <FormattedMessage id={messages.notifications.id} />
           </A>
 
-          <A to={routes.userAchievements(profile.user)}>
-            <FormattedMessage id={messages.achievements.id} />
+          <A to={routes.userNFTs(profile.user)}>
+            <FormattedMessage id={messages.NFTs.id} />
           </A>
 
           {isModerator && (
