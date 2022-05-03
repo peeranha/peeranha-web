@@ -49,7 +49,7 @@
   "app.common.NFTs": "NFTs",
   "app.common.NFTsNumber": "NFTs {number}",
   "app.common.limitedEdition": "Limited edition",
-  "app.common.contractAddress": "Link to contract address",
+  "app.common.contractAddress": "Contract",
   "app.common.allQuestions": "All questions",
   "app.common.manageMyComm": "Manage my communities",
   "app.common.asked": "Asked",
