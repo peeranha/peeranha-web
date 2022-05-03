@@ -149,6 +149,11 @@ const CommentView = item => {
   //   [item.profileInfo],
   // );
 
+  const formattedHistories = item.histories?.filter(
+    history =>
+      history.comment?.id === `${item.postId}-${item.answerId}-${item.id}`,
+  );
+
   return (
     <li>
       <div className="d-flex justify-content-between align-items-center position-relative">
@@ -225,6 +230,7 @@ const CommentView = item => {
                 <IPFSInformation
                   locale={item.locale}
                   ipfsHash={item.ipfsHash}
+                  histories={formattedHistories}
                 />
               </div>
             )}

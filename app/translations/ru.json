@@ -46,6 +46,10 @@
   "app.common.ago": "назад",
   "app.common.you": "Вы",
   "app.common.upload": "Загрузить",
+  "app.common.NFTs": "NFTs",
+  "app.common.NFTsNumber": "NFTs {number}",
+  "app.common.limitedEdition": "Ограниченное издание",
+  "app.common.contractAddress": "Контракт",
   "app.common.allQuestions": "Все вопросы",
   "app.common.manageMyComm": "Управлять сообществами",
   "app.common.asked": "Задано",
@@ -807,6 +811,15 @@
   "app.containers.ViewQuestion.bountyStatus": "Статус бонуса",
   "app.containers.ViewQuestion.bountyStatusExpiration":
     "Бонус будет доступен до: ",
+  "app.containers.ViewQuestion.transactionHash": "Хеш транзакции",
+  "app.containers.ViewQuestion.eventName": "Событие",
+  "app.containers.ViewQuestion.timeStamp": "Дата и время",
+  "app.containers.ViewQuestion.post": "Пост",
+  "app.containers.ViewQuestion.reply": "Ответ",
+  "app.containers.ViewQuestion.comment": "Комментарий",
+  "app.containers.ViewQuestion.created": "cоздан",
+  "app.containers.ViewQuestion.edited": "изменен",
+  "app.containers.ViewQuestion.deleted": "удален",
   "app.components.FormFields.requiredField":
     "Вы не можете оставить это поле пустым",
   "app.components.FormFields.requiredAndNotZeroField":

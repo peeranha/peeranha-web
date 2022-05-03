@@ -139,4 +139,31 @@ export default defineMessages({
   questionIsPromoting: {
     id: 'app.containers.QuestionForm.questionIsPromoting',
   },
+  transactionHash: {
+    id: 'app.containers.ViewQuestion.transactionHash',
+  },
+  eventName: {
+    id: 'app.containers.ViewQuestion.eventName',
+  },
+  timeStamp: {
+    id: 'app.containers.ViewQuestion.timeStamp',
+  },
+  Post: {
+    id: 'app.containers.ViewQuestion.post',
+  },
+  Reply: {
+    id: 'app.containers.ViewQuestion.reply',
+  },
+  Comment: {
+    id: 'app.containers.ViewQuestion.comment',
+  },
+  Create: {
+    id: 'app.containers.ViewQuestion.posted',
+  },
+  Edit: {
+    id: 'app.containers.ViewQuestion.edited',
+  },
+  Delete: {
+    id: 'app.containers.ViewQuestion.deleted',
+  },
 });

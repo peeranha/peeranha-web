@@ -23,6 +23,7 @@ import {
   deleteQuestion,
   downVote,
   editComment,
+  getHistoriesForPost,
   getQuestionById,
   getStatusHistory,
   markAsAccepted,
@@ -87,6 +88,9 @@ import {
   UP_VOTE_SUCCESS,
   VOTE_TO_DELETE,
   VOTE_TO_DELETE_SUCCESS,
+  GET_HISTORIES,
+  GET_HISTORIES_SUCCESS,
+  GET_HISTORIES_ERROR,
 } from './constants';
 
 import {
@@ -118,6 +122,8 @@ import {
   upVoteSuccess,
   voteToDeleteErr,
   voteToDeleteSuccess,
+  getHistoriesErr,
+  getHistoriesSuccess,
 } from './actions';
 
 import { selectQuestionBounty, selectQuestionData } from './selectors';
@@ -1149,6 +1155,15 @@ function* payBountyWorker({ buttonId }) {
   }
 }
 
+export function* getHistoriesWorker({ postId }) {
+  try {
+    const histories = yield call(getHistoriesForPost, postId);
+    yield put(getHistoriesSuccess(histories));
+  } catch (err) {
+    yield put(getHistoriesErr(err));
+  }
+}
+
 export function* updateQuestionList({ questionData }) {
   if (questionData?.id) {
     yield put(getUniqQuestions([questionData]));
@@ -1170,6 +1185,7 @@ export default function*() {
   yield takeEvery(VOTE_TO_DELETE, voteToDeleteWorker);
   yield takeEvery(CHANGE_QUESTION_TYPE, changeQuestionTypeWorker);
   yield takeEvery(PAY_BOUNTY, payBountyWorker);
+  yield takeEvery(GET_HISTORIES, getHistoriesWorker);
   yield takeEvery(
     [UP_VOTE_SUCCESS, DOWN_VOTE_SUCCESS, MARK_AS_ACCEPTED_SUCCESS],
     updateQuestionDataAfterTransactionWorker,
@@ -1188,6 +1204,7 @@ export default function*() {
       SAVE_COMMENT_SUCCESS,
       VOTE_TO_DELETE_SUCCESS,
       CHANGE_QUESTION_TYPE_SUCCESS,
+      GET_HISTORIES_SUCCESS,
     ],
     updateStoredQuestionsWorker,
   );

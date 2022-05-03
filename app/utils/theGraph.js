@@ -17,6 +17,7 @@ import {
   usersPostsQuery,
   usersQuery,
   userStatsQuery,
+  historiesQuery,
 } from './ethConstants';
 
 const client = new ApolloClient({
@@ -60,21 +61,25 @@ export const getUserStats = async id => {
   return userStats?.data.user;
 };
 
-export const getUsersQuestions = async id => {
+export const getUsersQuestions = async (id, limit, offset) => {
   const questions = await client.query({
     query: gql(usersPostsQuery),
     variables: {
       id,
+      limit,
+      offset,
     },
   });
   return questions?.data.posts.map(question => ({ ...question }));
 };
 
-export const getUsersAnsweredQuestions = async id => {
+export const getUsersAnsweredQuestions = async (id, limit, offset) => {
   const { data } = await client.query({
     query: gql(usersAnswersQuery),
     variables: {
       id,
+      limit,
+      offset,
     },
   });
   const answeredPosts = await client.query({
@@ -223,4 +228,14 @@ export const getRewardStat = async userId => {
     },
   });
   return [response?.data?.userRewards, response?.data?.periods];
+};
+
+export const historiesForPost = async postId => {
+  const response = await client.query({
+    query: gql(historiesQuery),
+    variables: {
+      postId,
+    },
+  });
+  return response?.data?.histories;
 };

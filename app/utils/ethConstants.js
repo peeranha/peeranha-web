@@ -205,12 +205,14 @@ export const communitiesQuery = `
 export const usersPostsQuery = `
       query(
         $id: ID!,
+        $limit: Int,
+        $offset: Int,
       ) {
         posts (
           orderBy: postTime,
           orderDirection: desc,
-          first: $first,
-          skip: $skip,
+          first: $limit,
+          skip: $offset,
           where: {isDeleted: false, author: $id},
         ) {
            ${post}
@@ -220,11 +222,15 @@ export const usersPostsQuery = `
 export const usersAnswersQuery = `
       query (
         $id: ID!,
+        $limit: Int,
+        $offset: Int,
       ) {
         replies (
              orderBy: postTime,
              orderDirection: desc,
              where: { isDeleted: false, author: $id },
+             first: $limit,
+             skip: $offset,
            ) {
           postId
         }
@@ -417,6 +423,35 @@ export const rewardsQuery = `
     }
     periods (orderBy: endPeriodTime, orderDirection: desc, first: 2) {
       ${period}
+    }
+  }
+`;
+
+const history = `
+  transactionHash
+  post {
+    ${post}
+  }
+  reply {
+    ${reply}
+  }
+  comment {
+    ${comment}
+  }
+  eventEntity
+  eventName
+  timeStamp
+`;
+
+export const historiesQuery = `
+  query (
+   $postId: ID!,
+ ) {
+    histories (
+      orderBy: timeStamp,
+      where: {post: $postId,}
+    ) {
+      ${history}
     }
   }
 `;

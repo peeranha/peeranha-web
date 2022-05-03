@@ -7,7 +7,7 @@ import QuestionType from './QuestionType';
 import Title from './Title';
 import UserInfo from './UserInfo';
 import TagsContainer from './TagsContainer';
-import IPFSInformation from './IPFSInformation';
+// import IPFSInformation from './IPFSInformation';
 import { IconMd } from 'components/Icon/IconWithSizes';
 import blockchainLogo from 'images/blockchain-outline-32.svg?external';
 
@@ -50,10 +50,10 @@ const Body = ({
   isExpert,
   isCommunityFeed,
 }) => {
-  const [visible, changeVisibility] = useState(false);
+  // const [visible, changeVisibility] = useState(false);
 
-  const onMouseEnter = useCallback(() => changeVisibility(true), []);
-  const onMouseLeave = useCallback(() => changeVisibility(false), []);
+  // const onMouseEnter = useCallback(() => changeVisibility(true), []);
+  // const onMouseLeave = useCallback(() => changeVisibility(false), []);
 
   return (
     <Base
@@ -104,14 +104,14 @@ const Body = ({
           tags={tags}
         />
 
-        <div
+        {/* <div
           onMouseEnter={onMouseEnter}
           onMouseLeave={onMouseLeave}
           className="position-relative"
         >
           {visible && <IPFSInformation locale={locale} ipfsHash={ipfsHash} />}
           <IconMd icon={blockchainLogo} />
-        </div>
+        </div> */}
       </div>
     </Base>
   );
