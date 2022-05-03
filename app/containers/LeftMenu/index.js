@@ -24,7 +24,7 @@ import {
   selectIsGlobalAdmin,
 } from 'containers/AccountProvider/selectors';
 
-import { showLoginModal } from 'containers/Login/actions';
+import { loginWithWallet, showLoginModal } from 'containers/Login/actions';
 import { selectIsMenuVisible } from 'containers/AppWrapper/selectors';
 import { showLeftMenu } from 'containers/AppWrapper/actions';
 
@@ -38,7 +38,7 @@ const LeftMenu = /* istanbul ignore next */ ({
   stakedInCurrentPeriod,
   stakedInNextPeriod,
   boost,
-  showLoginModalDispatch,
+  loginWithWalletDispatch,
   showLeftMenuDispatch,
   isGlobalAdmin,
 }) => (
@@ -53,7 +53,7 @@ const LeftMenu = /* istanbul ignore next */ ({
       stakedInCurrentPeriod={stakedInCurrentPeriod}
       stakedInNextPeriod={stakedInNextPeriod}
       boost={boost}
-      showLoginModal={showLoginModalDispatch}
+      showLoginModal={() => loginWithWalletDispatch({ metaMask: true })}
       isGlobalAdmin={isGlobalAdmin}
     />
 
@@ -65,7 +65,7 @@ const LeftMenu = /* istanbul ignore next */ ({
 
 LeftMenu.propTypes = {
   profile: PropTypes.object,
-  showLoginModalDispatch: PropTypes.func,
+  loginWithWalletDispatch: PropTypes.func,
   showLeftMenuDispatch: PropTypes.func,
   balance: PropTypes.number,
   stakedInCurrentPeriod: PropTypes.number,
@@ -86,7 +86,7 @@ const mapStateToProps = createStructuredSelector({
 
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    showLoginModalDispatch: bindActionCreators(showLoginModal, dispatch),
+    loginWithWalletDispatch: bindActionCreators(loginWithWallet, dispatch),
     showLeftMenuDispatch: bindActionCreators(showLeftMenu, dispatch),
   };
 }
