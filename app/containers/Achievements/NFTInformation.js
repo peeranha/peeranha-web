@@ -14,7 +14,7 @@ const Label = styled.div`
   flex-direction: column;
   background-color: ${BG_LIGHT};
   border-radius: ${BORDER_RADIUS_L};
-  width: 420px;
+  width: 500px;
   top: 120px;
   z-index: 10000;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
@@ -30,11 +30,11 @@ const NFTInformation = ({ id, locale, ipfsHash, contractAddress }) => {
 
   return (
     <Label>
-      <Span fontSize="14">
+      <Span>
         {'ID: '}
         {id}
       </Span>
-      <Span fontSize="14">
+      <Span>
         {translationMessages[locale][commonMessages.ipfsHashValue.id]}
         {': '}
         {hashString}
@@ -45,6 +45,8 @@ const NFTInformation = ({ id, locale, ipfsHash, contractAddress }) => {
         href={contractAddressURL}
       >
         {translationMessages[locale][commonMessages.contractAddress.id]}
+        {': '}
+        {contractAddress}
       </A>
     </Label>
   );
