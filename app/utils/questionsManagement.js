@@ -7,6 +7,7 @@ import {
   getText,
   saveText,
 } from './ipfs';
+import { bigNumberToNumber } from './converters';
 
 import {
   ALL_QUESTIONS_SCOPE,
@@ -464,6 +465,7 @@ export const getCreatedPostId = async (
     block,
     block,
   );
+
   return bigNumberToNumber(
     events.filter(
       event =>
