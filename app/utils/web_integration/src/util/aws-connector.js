@@ -11,6 +11,7 @@ const BLOCKCHAIN = 'blockchain';
 const BLOCKCHAIN_MAIN_CALL = `${BLOCKCHAIN}/main/call`;
 const BLOCKCHAIN_TOKEN_CALL = `${BLOCKCHAIN}/token/call`;
 const BLOCKCHAIN_MAIN_SEND_TRANSACTION = `${BLOCKCHAIN}/main/send-transaction`;
+const BLOCKCHAIN_SEND_META_TRANSACTION = `${BLOCKCHAIN}/main/send-meta-transaction`;
 
 const GET_OWNER_KEY_INIT_SERVICE = 'wallet/get-owner-key/init';
 const GET_OWNER_KEY_COMPLETE_SERVICE = 'wallet/get-owner-key/complete';
@@ -103,4 +104,5 @@ module.exports = {
   BLOCKCHAIN_MAIN_CALL,
   BLOCKCHAIN_TOKEN_CALL,
   BLOCKCHAIN_MAIN_SEND_TRANSACTION,
+  BLOCKCHAIN_SEND_META_TRANSACTION,
 };

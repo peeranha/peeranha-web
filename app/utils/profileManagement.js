@@ -122,7 +122,7 @@ export async function getProfileInfo(
 export async function saveProfile(ethereumService, user, profile) {
   const ipfsHash = await saveText(JSON.stringify(profile));
   const transactionData = getBytes32FromIpfsHash(ipfsHash);
-  await ethereumService.sendTransactionWithSigner(user, UPDATE_ACC, [
+  await ethereumService.sendMetaTransaction(user, UPDATE_ACC, [
     transactionData,
   ]);
 }
