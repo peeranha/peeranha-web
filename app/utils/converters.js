@@ -1,5 +1,6 @@
 import { ethers } from 'ethers';
 import { getFormattedDate } from './datetime';
+import { bigNumberToNumber } from './converters';
 import {
   MONTH_3LETTERS__DAY_TIME,
   MONTH_3LETTERS__DAY_YYYY_TIME,
