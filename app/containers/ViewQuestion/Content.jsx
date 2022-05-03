@@ -12,7 +12,7 @@ import ContentBody from './ContentBody';
 import { isTemporaryAccount } from '../../utils/properties';
 
 const BaseStyled = Base.extend`
-  overflow: hidden;
+  //overflow: hidden;
 `.withComponent('section');
 
 export const Content = props => {

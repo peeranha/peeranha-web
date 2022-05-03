@@ -52,6 +52,9 @@ import {
   GET_QUESTION_BOUNTY,
   GET_QUESTION_BOUNTY_SUCCESS,
   GET_QUESTION_BOUNTY_ERROR,
+  GET_HISTORIES,
+  GET_HISTORIES_SUCCESS,
+  GET_HISTORIES_ERROR,
 } from './constants';
 
 export const initialState = fromJS({
@@ -82,6 +85,9 @@ export const initialState = fromJS({
   voteToDeleteLoading: false,
   voteToDeleteError: null,
   ids: [],
+  histories: null,
+  getHistoriesError: null,
+  historiesLoading: true,
 });
 
 function viewQuestionReducer(state = initialState, action) {
@@ -104,6 +110,8 @@ function viewQuestionReducer(state = initialState, action) {
     voteToDeleteError,
     buttonId,
     voteToDeleteLoading,
+    histories,
+    getHistoriesError,
   } = action;
 
   switch (type) {
@@ -313,6 +321,16 @@ function viewQuestionReducer(state = initialState, action) {
         .set('questionBounty', null)
         .set('questionBountyLoading', false)
         .set('getQuestionBountyError', getQuestionBountyError);
+
+    case GET_HISTORIES:
+      return state.set('historiesLoading', true);
+    case GET_HISTORIES_SUCCESS:
+      return state.set('historiesLoading', false).set('histories', histories);
+    case GET_HISTORIES_ERROR:
+      return state
+        .set('histories', null)
+        .set('historiesLoading', false)
+        .set('getHistoriesError', getHistoriesError);
 
     case RESET_STORE:
       return initialState;

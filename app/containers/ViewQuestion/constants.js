@@ -109,6 +109,10 @@ export const BOUNTY_ACTIVE_CLASSNAME = 'bountyActive';
 export const BOUNTY_PAID_CLASSNAME = 'bountyPaid';
 export const BOUNTY_PENDING_CLASSNAME = 'bountyPending';
 
+export const GET_HISTORIES = 'app/ViewQuestion/GET_HISTORIES';
+export const GET_HISTORIES_SUCCESS = 'app/ViewQuestion/GET_HISTORIES_SUCCESS';
+export const GET_HISTORIES_ERROR = 'app/ViewQuestion/GET_HISTORIES_ERROR';
+
 export const POST_TYPES = ['experts', 'questions', 'tutorials'];
 
 export const QUESTION_PROPERTIES = {

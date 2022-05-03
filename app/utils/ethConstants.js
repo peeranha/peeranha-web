@@ -426,3 +426,32 @@ export const rewardsQuery = `
     }
   }
 `;
+
+const history = `
+  transactionHash
+  post {
+    ${post}
+  }
+  reply {
+    ${reply}
+  }
+  comment {
+    ${comment}
+  }
+  eventEntity
+  eventName
+  timeStamp
+`;
+
+export const historiesQuery = `
+  query (
+   $postId: ID!,
+ ) {
+    histories (
+      orderBy: timeStamp,
+      where: {post: $postId,}
+    ) {
+      ${history}
+    }
+  }
+`;

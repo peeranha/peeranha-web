@@ -104,6 +104,7 @@ const ContentHeader = props => {
     profile,
     isChangeTypeAvailable,
     infiniteImpact,
+    histories,
   } = props;
 
   const ipfsHashValue =
@@ -111,6 +112,13 @@ const ContentHeader = props => {
       ? questionData.ipfsHash
       : questionData.answers.find(answer => answer.id === answerId).ipfsHash;
 
+  const formattedHistories =
+    type === QUESTION_TYPE
+      ? histories
+      : histories?.filter(
+          history => history.reply?.id === `${questionData.id}-${answerId}`,
+        );
+  
   const [isModalOpen, setModalOpen] = useState(false);
   const refSharingModal = useRef(null);
   const [isPopoverOpen, setPopoverOpen] = useState(false);
@@ -277,7 +285,11 @@ const ContentHeader = props => {
 
             {isPopoverOpen && (
               <div ref={refPopover}>
-                <IPFSInformation locale={locale} ipfsHash={ipfsHashValue} />
+                <IPFSInformation
+                  locale={locale}
+                  ipfsHash={ipfsHashValue}
+                  histories={formattedHistories}
+                />
               </div>
             )}
           </DropdownBox>
@@ -323,6 +335,7 @@ ContentHeader.propTypes = {
   profile: PropTypes.object,
   isChangeTypeAvailable: PropTypes.bool,
   infiniteImpact: PropTypes.bool,
+  history: PropTypes.array,
 };
 
 export default React.memo(

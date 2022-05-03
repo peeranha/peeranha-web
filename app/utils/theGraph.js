@@ -17,6 +17,7 @@ import {
   usersPostsQuery,
   usersQuery,
   userStatsQuery,
+  historiesQuery,
 } from './ethConstants';
 
 const client = new ApolloClient({
@@ -227,4 +228,14 @@ export const getRewardStat = async userId => {
     },
   });
   return [response?.data?.userRewards, response?.data?.periods];
+};
+
+export const historiesForPost = async postId => {
+  const response = await client.query({
+    query: gql(historiesQuery),
+    variables: {
+      postId,
+    },
+  });
+  return response?.data?.histories;
 };
