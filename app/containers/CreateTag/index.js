@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { translationMessages } from 'i18n';
 import { compose, bindActionCreators } from 'redux';
-import { Redirect } from 'react-router-dom';
 import { tags } from 'routes-config';
 
 import injectSaga from 'utils/injectSaga';
@@ -57,6 +56,8 @@ import tagsReducer from '../Tags/reducer';
 import tagsSaga from '../Tags/saga';
 import { getAllRoles, hasGlobalModeratorRole } from '../../utils/properties';
 
+import { useGlobalAdmin } from '../../hooks/useGlobalAdmin';
+
 const single = isSingleCommunityWebsite();
 
 const CreateTag = ({
@@ -71,6 +72,8 @@ const CreateTag = ({
   isFormLoading,
   isFormAvailable,
 }) => {
+  useGlobalAdmin(tags);
+
   useEffect(() => {
     getFormDispatch();
   }, []);
@@ -107,8 +110,6 @@ const CreateTag = ({
   );
 
   if (isFormLoading) return <LoadingIndicator />;
-
-  if (!isFormAvailable) return <Redirect to={tags()} />;
 
   return (
     <div>
