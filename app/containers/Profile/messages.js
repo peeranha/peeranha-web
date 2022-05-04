@@ -52,8 +52,8 @@ export default defineMessages({
   userHasntActivityYet: {
     id: 'app.containers.Profile.userHasntActivityYet',
   },
-  heHasnoAnswersAndQuestions: {
-    id: 'app.containers.Profile.heHasnoAnswersAndQuestions',
+  heHasNoAnswersAndPosts: {
+    id: 'app.containers.Profile.heHasNoAnswersAndPosts',
   },
   answered: {
     id: 'app.containers.Profile.answered',
