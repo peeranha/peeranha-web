@@ -48,7 +48,7 @@ const PERIOD_LENGTH = {
 export const getBalance = async (ethereumService, user) => {
   if (user) {
     const balance = await ethereumService.getUserBalance(user);
-    return bigNumberToNumber(balance);
+    return Number(balance.toString() / 10 ** 18);
   }
 
   return 0;
