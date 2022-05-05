@@ -12,7 +12,7 @@ import { translationMessages, DEFAULT_LOCALE } from 'i18n';
 import { compose, bindActionCreators } from 'redux';
 import * as routes from 'routes-config';
 
-import { useGlobalAdmin } from '../../hooks/useGlobalAdmin';
+import { useModeratorRole } from '../../hooks/useModeratorRole';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -79,7 +79,7 @@ export const CreateCommunity = ({
   isFormAvailable,
   profile,
 }) => {
-  useGlobalAdmin(routes.communities);
+  useModeratorRole(routes.noAccess);
 
   useEffect(() => {
     setDefaultStoreDispatch();

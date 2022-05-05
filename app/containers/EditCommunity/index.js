@@ -65,7 +65,7 @@ const EditCommunity = ({
     params: { communityId },
   },
 }) => {
-  useModeratorRole(communityId, noAccessRoute);
+  useModeratorRole(noAccessRoute, communityId);
 
   const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
 

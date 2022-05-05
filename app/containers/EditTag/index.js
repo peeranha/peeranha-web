@@ -73,7 +73,7 @@ const EditTag = ({
     editTagData = { communityId: Number(communityId), tagId };
     setEditTagDataDispatch(tagId, communityId);
   
-  useModeratorRole(communityId, routes.noAccess);
+    useModeratorRole(routes.noAccess, communityId);
 
   }
   useEffect(

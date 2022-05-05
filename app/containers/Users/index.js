@@ -28,7 +28,7 @@ import View from './View';
 import * as routes from '../../routes-config';
 import { selectIsGlobalAdmin } from '../AccountProvider/selectors';
 
-import { useGlobalAdmin } from 'hooks/useGlobalAdmin';
+import { useModeratorRole } from 'hooks/useModeratorRole';
 
 const single = isSingleCommunityWebsite();
 
@@ -45,7 +45,7 @@ const Users = ({
   changeSortingTypeDispatch,
   isGlobalAdmin,
 }) => {
-  useGlobalAdmin(routes.questions);
+  useModeratorRole(routes.noAccess);
 
   const getMoreUsers = useCallback(() => {
     getUsersDispatch({ loadMore: true });

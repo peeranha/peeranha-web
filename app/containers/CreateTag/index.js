@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { translationMessages } from 'i18n';
 import { compose, bindActionCreators } from 'redux';
-import { tags } from 'routes-config';
+import { noAccess } from 'routes-config';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -56,7 +56,7 @@ import tagsReducer from '../Tags/reducer';
 import tagsSaga from '../Tags/saga';
 import { getAllRoles, hasGlobalModeratorRole } from '../../utils/properties';
 
-import { useGlobalAdmin } from '../../hooks/useGlobalAdmin';
+import { useModeratorRole } from '../../hooks/useModeratorRole';
 
 const single = isSingleCommunityWebsite();
 
@@ -72,7 +72,7 @@ const CreateTag = ({
   isFormLoading,
   isFormAvailable,
 }) => {
-  useGlobalAdmin(tags);
+  useModeratorRole(noAccess);
 
   useEffect(() => {
     getFormDispatch();

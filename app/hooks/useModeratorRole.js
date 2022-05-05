@@ -6,7 +6,7 @@ import { hasGlobalModeratorRole, hasCommunityModeratorRole } from '../utils/prop
 
 import history from '../createdHistory';
 
-export const useModeratorRole = (communityId, redirectPage) => {
+export const useModeratorRole = (redirectPage, communityId = null) => {
     const [isModeratorRole, setModeratorRole] = useState(null);
 
     useEffect(()=>{
@@ -14,11 +14,11 @@ export const useModeratorRole = (communityId, redirectPage) => {
 
         setModeratorRole(
             hasGlobalModeratorRole(permissions) || 
-            hasCommunityModeratorRole(permissions, parseInt(communityId))
+            !!(communityId && hasCommunityModeratorRole(permissions, parseInt(communityId)))
         );
     }, []); 
 
-    if (isModeratorRole == []) {
+    if (isModeratorRole !== null && !isModeratorRole) {
         history.push(redirectPage());
     }
 }
