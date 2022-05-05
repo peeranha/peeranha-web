@@ -14,7 +14,7 @@ export const useModeratorRole = (redirectPage, communityId = null) => {
 
         setModeratorRole(
             hasGlobalModeratorRole(permissions) || 
-            !!(communityId && hasCommunityModeratorRole(permissions, parseInt(communityId)))
+            Boolean(communityId) && hasCommunityModeratorRole(permissions, Number(communityId))
         );
     }, []); 
 
