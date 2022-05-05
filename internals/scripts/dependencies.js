@@ -12,28 +12,26 @@ const writeFile = fs.writeFileSync;
 
 const defaults = require('lodash/defaultsDeep');
 const pkg = require(path.join(process.cwd(), 'package.json'));
-const config = require('../config');
-const dllConfig = defaults(pkg.dllPlugin, config.dllPlugin.defaults);
-const outputPath = path.join(process.cwd(), dllConfig.path);
-const dllManifestPath = path.join(outputPath, 'package.json');
+const vendorPath = path.join(__dirname, '../../build/');
+const vendorManifestPath = path.join(vendorPath, 'vendor-manifest.json');
 
 /**
  * I use node_modules/react-boilerplate-dlls by default just because
  * it isn't going to be version controlled and babel wont try to parse it.
  */
-mkdir('-p', outputPath);
+mkdir('-p', vendorPath);
 
 echo('Building the Webpack DLL...');
 
 /**
  * Create a manifest so npm install doesn't warn us
  */
-if (!exists(dllManifestPath)) {
+if (!exists(vendorManifestPath)) {
   writeFile(
-    dllManifestPath,
+    vendorManifestPath,
     JSON.stringify(
       defaults({
-        name: 'react-boilerplate-dlls',
+        name: 'build',
         private: true,
         author: pkg.author,
         repository: pkg.repository,
@@ -48,5 +46,5 @@ if (!exists(dllManifestPath)) {
 
 // the BUILDING_DLL env var is set to avoid confusing the development environment
 exec(
-  'cross-env BUILDING_DLL=true webpack --display-chunks --color --config internals/webpack/webpack.dll.babel.js --hide-modules',
+  'cross-env BUILDING_DLL=true webpack --color --config internals/webpack/webpack.dll.babel.js --stats-error-details',
 );

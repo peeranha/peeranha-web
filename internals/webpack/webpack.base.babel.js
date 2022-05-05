@@ -41,44 +41,20 @@ module.exports = options => {
 
   return {
     mode: options.mode,
-    node: {
-      fs: 'empty',
-    },
     entry: options.entry,
-    output: Object.assign(
-      {
-        // Compile into js/build.js
-        path: path.resolve(process.cwd(), 'build'),
-        publicPath: '/',
-      },
-      options.output,
-    ), // Merge with env dependent settings
+    output: {
+      // Compile into js/build.js
+      path: path.resolve(process.cwd(), 'build'),
+      publicPath: '/',
+      ...options.output,
+    }, // Merge with env dependent settings
     optimization: options.optimization,
     module: {
       rules: [
         {
           test: /\.(js|jsx)$/, // Transform all .js files required somewhere with Babel
-          exclude: {
-            test: /node_modules/, // Exclude libraries in node_modules ...
-            not: [
-              // Except for a few of them that needs to be transpiled because they use modern syntax
-              /ipfs-core-types/,
-              /ipfs-core-utils/,
-              /ipfs-utils/,
-              /ipfs-http-client/,
-              /it-map/,
-              /it-first/,
-              /it-last/,
-              /it-all/,
-              /testing-library/,
-            ],
-          },
-          use: {
-            loader: 'babel-loader',
-            options: {
-              presets: [['@babel/preset-env', { targets: 'ie 11' }]],
-            },
-          },
+          exclude: /node_modules/,
+          use: 'babel-loader',
         },
         {
           // Preprocess our own .css files
@@ -192,12 +168,31 @@ module.exports = options => {
 
       // Expose .env config to webpack in order to use `process.env.{key}` inside code
       new webpack.DefinePlugin(envKeys),
+      new webpack.ProvidePlugin({
+        process: 'process/browser',
+        Buffer: ['buffer', 'Buffer'],
+      }),
       new CopyWebpackPlugin([{ from: 'static' }]),
     ]),
     resolve: {
       modules: ['node_modules', 'app'],
-      extensions: ['.js', '.jsx', '.react.js'],
+      extensions: ['.js', '.jsx'],
       mainFields: ['browser', 'jsnext:main', 'main'],
+      fallback: {
+        fs: false,
+        stream: require.resolve('stream-browserify'),
+        crypto: require.resolve('crypto-browserify'),
+        assert: require.resolve('assert'),
+        http: require.resolve('stream-http'),
+        https: require.resolve('https-browserify'),
+        zlib: require.resolve('browserify-zlib'),
+        os: require.resolve('os-browserify/browser'),
+        util: require.resolve('util'),
+        buffer: require.resolve('buffer'),
+        path: require.resolve('path-browserify'),
+        vm: require.resolve('vm-browserify'),
+        symlinks: false,
+      },
     },
     devtool: options.devtool,
     target: 'web', // Make web variables accessible to webpack, e.g. window
