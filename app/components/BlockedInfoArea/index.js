@@ -19,7 +19,7 @@ const ModalDiv = styled.div`
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 1000;
+  z-index: 10;
   background-color: ${BG_PRIMARY_LIGHT};
   background-image: linear-gradient(
     45deg,
