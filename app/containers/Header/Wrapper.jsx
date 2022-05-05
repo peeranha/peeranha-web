@@ -8,7 +8,7 @@ export const Wrapper = styled.header`
   width: 100%;
   height: ${HEADER_HEIGHT}px;
   background: ${BG_LIGHT};
-  z-index: 9999;
+  z-index: 10;
   transform: translate(0px, 0px);
   display: flex;
   flex-direction: column;
@@ -66,6 +66,7 @@ export const MainSubHeader = styled.div`
   align-items: center;
   box-shadow: 0 2px 4px 0 ${BORDER_SECONDARY};
   flex: 2;
+  z-index: 2 !important;
   background-color: ${props =>
     props.mainSubHeaderBgColor ? props.mainSubHeaderBgColor : ''};
 
