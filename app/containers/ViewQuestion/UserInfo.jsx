@@ -82,7 +82,7 @@ UserInfo.propTypes = {
   name: PropTypes.string,
   rating: PropTypes.number,
   type: PropTypes.string,
-  postTime: PropTypes.number,
+  postTime: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   locale: PropTypes.string,
   achievementsCount: PropTypes.number,
   isComment: PropTypes.bool,
