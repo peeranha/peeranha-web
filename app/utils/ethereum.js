@@ -71,6 +71,10 @@ class EthereumService {
   };
 
   walletLogIn = async previouslyConnectedWallet => {
+    try {
+      document.getElementsByTagName('body')[0].style.position = 'fixed';
+    } catch (err) {}
+
     if (previouslyConnectedWallet) {
       await this.connect({ autoSelect: previouslyConnectedWallet });
     } else {
@@ -95,6 +99,9 @@ class EthereumService {
       PeeranhaToken.abi,
       this.provider,
     );
+
+    document.getElementsByTagName('body')[0].style.position = 'relative';
+
     return this.selectedAccount.toLowerCase();
   };
 

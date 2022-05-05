@@ -7,10 +7,11 @@
 import React, { useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 import { translationMessages } from 'i18n';
 import { createStructuredSelector } from 'reselect';
 import { compose, bindActionCreators } from 'redux';
+
+import { useModeratorRole } from '../../hooks/useModeratorRole';
 
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 import Seo from 'components/Seo';
@@ -64,19 +65,9 @@ const EditCommunity = ({
     params: { communityId },
   },
 }) => {
-  const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
-  const editingAllowed = useMemo(
-    () =>
-      hasCommunityModeratorRole(
-        getPermissions(profileInfo),
-        parseInt(communityId),
-      ) || hasGlobalModeratorRole(getPermissions(profileInfo)),
-    [profileInfo],
-  );
+  useModeratorRole(noAccessRoute, communityId);
 
-  // if (!editingAllowed) {
-  //   return <Redirect to={noAccessRoute()} />;
-  // }
+  const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
 
   useEffect(
     () => {
