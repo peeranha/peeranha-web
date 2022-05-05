@@ -23,16 +23,19 @@ import {
   deleteQuestion,
   downVote,
   editComment,
+  getHistoriesForPost,
   getQuestionById,
+  getStatusHistory,
   markAsAccepted,
   postAnswer,
   postComment,
   upVote,
   voteToDelete,
+  votingStatus,
 } from 'utils/questionsManagement';
 import { payBounty } from 'utils/walletManagement';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
-import { ACCOUNT_TABLE, ALL_ACCOUNTS_SCOPE } from 'utils/constants';
+import { CHANGED_POSTS_KEY, POST_TYPE } from 'utils/constants';
 import { dateNowInSeconds } from 'utils/datetime';
 
 import {
@@ -54,7 +57,6 @@ import {
 import { isAuthorized } from 'containers/EthereumProvider/saga';
 import { getUniqQuestions } from 'containers/Questions/actions';
 import { updateStoredQuestionsWorker } from 'containers/Questions/saga';
-import { QUESTION_TYPES } from 'components/QuestionForm/QuestionTypeField';
 
 import {
   ANSWER_TYPE,
@@ -72,9 +74,6 @@ import {
   GET_QUESTION_DATA,
   GET_QUESTION_DATA_SUCCESS,
   PAY_BOUNTY,
-  ITEM_DNV_FLAG,
-  ITEM_UPV_FLAG,
-  ITEM_VOTED_TO_DEL_FLAG,
   MARK_AS_ACCEPTED,
   MARK_AS_ACCEPTED_SUCCESS,
   POST_ANSWER,
@@ -89,6 +88,9 @@ import {
   UP_VOTE_SUCCESS,
   VOTE_TO_DELETE,
   VOTE_TO_DELETE_SUCCESS,
+  GET_HISTORIES,
+  GET_HISTORIES_SUCCESS,
+  GET_HISTORIES_ERROR,
 } from './constants';
 
 import {
@@ -120,6 +122,8 @@ import {
   upVoteSuccess,
   voteToDeleteErr,
   voteToDeleteSuccess,
+  getHistoriesErr,
+  getHistoriesSuccess,
 } from './actions';
 
 import { selectQuestionBounty, selectQuestionData } from './selectors';
@@ -139,12 +143,19 @@ import {
 import { selectUsers } from '../DataCacheProvider/selectors';
 import { selectEthereum } from '../EthereumProvider/selectors';
 import { getQuestionFromGraph } from '../../utils/theGraph';
-import orderBy from 'lodash/orderBy';
 
+import {
+  isItemChanged,
+  saveChangedItemIdToSessionStorage,
+} from 'utils/sessionStorage';
+
+import { selectPostedAnswerIds } from '../AskQuestion/selectors';
 export const isGeneralQuestion = question => Boolean(question.postType === 1);
 
-export const getQuestionTypeValue = isGeneral =>
-  isGeneral ? QUESTION_TYPES.GENERAL.value : QUESTION_TYPES.EXPERT.value;
+export const getQuestionTypeValue = postType =>
+  postType === POST_TYPE.generalPost
+    ? POST_TYPE.expertPost
+    : POST_TYPE.generalPost;
 
 const isOwnItem = (questionData, profileInfo, answerId) =>
   questionData.author.user === profileInfo.user ||
@@ -153,21 +164,70 @@ const isOwnItem = (questionData, profileInfo, answerId) =>
 export function* getQuestionData({
   questionId,
   user,
-  promote,
 }) /* istanbul ignore next */ {
   const ethereumService = yield select(selectEthereum);
+  const postedAnswerIds = yield select(selectPostedAnswerIds());
   let question;
-  if (user) {
+
+  const isQuestionChanged = isItemChanged(CHANGED_POSTS_KEY, questionId);
+  const isQuestionJustCreated = postedAnswerIds.includes(Number(questionId));
+
+  if (user && (isQuestionChanged || isQuestionJustCreated)) {
     question = yield call(getQuestionById, ethereumService, questionId, user);
   } else {
     question = yield call(getQuestionFromGraph, +questionId);
     question.commentCount = question.comments.length;
     question.communityId = Number(question.communityId);
-    question.answers.map(answer => {
-      answer.commentCount = answer.comments.length;
-      answer.id = Number(answer.id.split('-')[1]);
-    });
+
+    question.author = { ...question.author, user: question.author.id };
+
+    if (user) {
+      const statusHistory = yield getStatusHistory(
+        user,
+        questionId,
+        0,
+        0,
+        ethereumService,
+      );
+
+      question.votingStatus = votingStatus(Number(statusHistory));
+    }
+
+    yield all(
+      question.answers.map(function*(answer) {
+        answer.commentCount = answer.comments.length;
+        answer.id = Number(answer.id.split('-')[1]);
+
+        answer.author = { ...answer.author, user: answer.author.id };
+
+        answer.comments = answer.comments.map(comment => ({
+          ...comment,
+          author: { ...comment.author, user: comment.author.id },
+          id: Number(comment.id.split('-')[2]),
+        }));
+
+        if (user) {
+          const answerStatusHistory = yield call(
+            getStatusHistory,
+            user,
+            questionId,
+            answer.id,
+            0,
+            ethereumService,
+          );
+
+          answer.votingStatus = votingStatus(Number(answerStatusHistory));
+        }
+      }),
+    );
+
+    question.comments = question.comments.map(comment => ({
+      ...comment,
+      author: { ...comment.author, user: comment.author.id },
+      id: Number(comment.id.split('-')[2]),
+    }));
   }
+
   // const bounty = yield call(getQuestionBounty, questionId, eosService);
   // yield put(getQuestionBountySuccess(bounty));
   question.isGeneral = isGeneralQuestion(question);
@@ -195,14 +255,6 @@ export function* getQuestionData({
   //
   const getItemStatus = (historyFlag, constantFlag) =>
     historyFlag?.flag & (1 << constantFlag);
-
-  const votingStatus = ({ statusHistory }) => {
-    return {
-      isUpVoted: statusHistory,
-      isDownVoted: !statusHistory,
-      isVotedToDelete: false,
-    };
-  };
 
   const users = new Map();
 
@@ -263,7 +315,8 @@ export function* getQuestionData({
       }),
     );
   }
-  if (user) {
+
+  if (user && isQuestionChanged) {
     yield all([
       processQuestion(),
       processAnswers(),
@@ -272,7 +325,7 @@ export function* getQuestionData({
   }
 
   // To avoid of fetching same user profiles - remember it and to write author here
-  if (user) {
+  if (user && isQuestionChanged) {
     yield all(
       Array.from(users.keys()).map(function*(userFromItem) {
         const author = yield call(getUserProfileWorker, {
@@ -280,7 +333,6 @@ export function* getQuestionData({
           getFullProfile: true,
           isLogin: user === userFromItem,
         });
-
         users.get(userFromItem).map(cachedItem => {
           cachedItem.author = author;
         });
@@ -353,6 +405,8 @@ export function* saveCommentWorker({
 
     yield call(toggleView, true);
 
+    saveChangedItemIdToSessionStorage(CHANGED_POSTS_KEY, questionId);
+
     yield put(saveCommentSuccess({ ...questionData }, buttonId));
   } catch (err) {
     yield put(saveCommentErr(err, buttonId));
@@ -403,6 +457,8 @@ export function* deleteCommentWorker({
       answer.comments = answer.comments.filter(x => x.id !== commentId);
     }
 
+    saveChangedItemIdToSessionStorage(CHANGED_POSTS_KEY, questionId);
+
     yield put(deleteCommentSuccess({ ...questionData }, buttonId));
   } catch (err) {
     yield put(deleteCommentErr(err, buttonId));
@@ -440,6 +496,8 @@ export function* deleteAnswerWorker({ questionId, answerId, buttonId }) {
     );
 
     questionData.answers = questionData.answers.filter(x => x.id !== answerId);
+
+    saveChangedItemIdToSessionStorage(CHANGED_POSTS_KEY, questionId);
 
     yield put(deleteAnswerSuccess({ ...questionData }, buttonId));
   } catch (err) {
@@ -636,6 +694,8 @@ export function* postCommentWorker({
 
     yield call(reset);
 
+    saveChangedItemIdToSessionStorage(CHANGED_POSTS_KEY, questionId);
+
     yield put(postCommentSuccess({ ...questionData }, buttonId));
   } catch (err) {
     yield put(postCommentErr(err, buttonId));
@@ -693,6 +753,8 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
     questionData.answers.push(newAnswer);
 
     yield call(reset);
+
+    saveChangedItemIdToSessionStorage(CHANGED_POSTS_KEY, questionId);
 
     yield put(postAnswerSuccess(questionData));
   } catch (err) {
@@ -756,6 +818,8 @@ export function* downVoteWorker({
       item.votingStatus.isDownVoted = true;
     }
 
+    saveChangedItemIdToSessionStorage(CHANGED_POSTS_KEY, questionId);
+
     yield put(downVoteSuccess({ ...questionData }, usersForUpdate, buttonId));
   } catch (err) {
     yield put(downVoteErr(err, buttonId));
@@ -812,6 +876,8 @@ export function* upVoteWorker({
       item.votingStatus.isUpVoted = true;
     }
 
+    saveChangedItemIdToSessionStorage(CHANGED_POSTS_KEY, questionId);
+
     yield put(upVoteSuccess({ ...questionData }, usersForUpdate, buttonId));
   } catch (err) {
     yield put(upVoteErr(err, buttonId));
@@ -857,6 +923,8 @@ export function* markAsAcceptedWorker({
 
     questionData.bestReply =
       questionData.bestReply === correctAnswerId ? 0 : correctAnswerId;
+
+    saveChangedItemIdToSessionStorage(CHANGED_POSTS_KEY, questionId);
 
     yield put(
       markAsAcceptedSuccess({ ...questionData }, usersForUpdate, buttonId),
@@ -994,12 +1062,15 @@ export function* voteToDeleteWorker({
         voteToDeleteSuccess({ ...questionData }, usersForUpdate, buttonId),
       );
     }
+
+    saveChangedItemIdToSessionStorage(CHANGED_POSTS_KEY, questionId);
   } catch (err) {
     yield put(voteToDeleteErr(err, buttonId));
   }
 }
 
 // Do not spent time for main action - update author as async action after main action
+//TODO after Graph hooks
 export function* updateQuestionDataAfterTransactionWorker({
   usersForUpdate = [],
   questionData,
@@ -1043,31 +1114,23 @@ export function* updateQuestionDataAfterTransactionWorker({
 
 function* changeQuestionTypeWorker({ buttonId }) {
   try {
-    const { questionData, eosService, profileInfo, account } = yield call(
+    const { questionData, ethereumService, profileInfo } = yield call(
       getParams,
     );
-
     yield call(
       changeQuestionType,
+      ethereumService,
       profileInfo.user,
       questionData.id,
-      getQuestionTypeValue(!questionData.isGeneral),
-      eosService.scatterInstalled ? 1 : true,
-      eosService,
+      getQuestionTypeValue(questionData.postType),
     );
 
-    const profile = yield call(
-      eosService.getTableRow,
-      ACCOUNT_TABLE,
-      ALL_ACCOUNTS_SCOPE,
-      account,
-    );
+    saveChangedItemIdToSessionStorage(CHANGED_POSTS_KEY, questionData.id);
 
-    yield put(getUserProfileSuccess(profile));
     yield put(
       getQuestionDataSuccess({
         ...questionData,
-        isGeneral: !questionData.isGeneral,
+        postType: getQuestionTypeValue(questionData.postType),
       }),
     );
     yield put(changeQuestionTypeSuccess(buttonId));
@@ -1092,6 +1155,15 @@ function* payBountyWorker({ buttonId }) {
   }
 }
 
+export function* getHistoriesWorker({ postId }) {
+  try {
+    const histories = yield call(getHistoriesForPost, postId);
+    yield put(getHistoriesSuccess(histories));
+  } catch (err) {
+    yield put(getHistoriesErr(err));
+  }
+}
+
 export function* updateQuestionList({ questionData }) {
   if (questionData?.id) {
     yield put(getUniqQuestions([questionData]));
@@ -1113,6 +1185,7 @@ export default function*() {
   yield takeEvery(VOTE_TO_DELETE, voteToDeleteWorker);
   yield takeEvery(CHANGE_QUESTION_TYPE, changeQuestionTypeWorker);
   yield takeEvery(PAY_BOUNTY, payBountyWorker);
+  yield takeEvery(GET_HISTORIES, getHistoriesWorker);
   yield takeEvery(
     [UP_VOTE_SUCCESS, DOWN_VOTE_SUCCESS, MARK_AS_ACCEPTED_SUCCESS],
     updateQuestionDataAfterTransactionWorker,
@@ -1131,6 +1204,7 @@ export default function*() {
       SAVE_COMMENT_SUCCESS,
       VOTE_TO_DELETE_SUCCESS,
       CHANGE_QUESTION_TYPE_SUCCESS,
+      GET_HISTORIES_SUCCESS,
     ],
     updateStoredQuestionsWorker,
   );

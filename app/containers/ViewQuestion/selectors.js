@@ -214,6 +214,21 @@ const selectIds = () =>
     ...substate.toJS().ids,
   ]);
 
+const selectHistories = () =>
+  createSelector(selectViewQuestionDomain, substate =>
+    substate.get('histories'),
+  );
+
+const selectHistoriesError = () =>
+  createSelector(selectViewQuestionDomain, substate =>
+    substate.get('getHistoriesError'),
+  );
+
+const selectHistoriesLoading = () =>
+  createSelector(selectViewQuestionDomain, substate =>
+    substate.get('historiesLoading'),
+  );
+
 export {
   selectViewQuestionDomain,
   selectQuestionData,
@@ -244,4 +259,7 @@ export {
   selectChangeQuestionTypeLoading,
   selectChangeQuestionTypeError,
   selectIds,
+  selectHistories,
+  selectHistoriesError,
+  selectHistoriesLoading,
 };

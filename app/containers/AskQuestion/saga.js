@@ -2,29 +2,18 @@ import { takeLatest, call, put, select } from 'redux-saga/effects';
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
-import {
-  postQuestion,
-  getQuestionsPostedByUser,
-  promoteQuestion,
-} from 'utils/questionsManagement';
+import { postQuestion, getCreatedPostId } from 'utils/questionsManagement';
 
-import { setBounty } from 'utils/walletManagement';
 import { getResults } from 'utils/custom-search';
-import { getFormattedAsset } from 'utils/numbers';
 
-import { selectEos } from 'containers/EosioProvider/selectors';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 
-import { ONE_HOUR_IN_SECONDS } from 'utils/datetime';
 import {
   FORM_TITLE,
   FORM_CONTENT,
   FORM_COMMUNITY,
   FORM_TAGS,
   FORM_TYPE,
-  FORM_BOUNTY,
-  FORM_BOUNTY_HOURS,
-  FORM_PROMOTE,
 } from 'components/QuestionForm/constants';
 
 import { isAuthorized, isValid } from 'containers/EosioProvider/saga';
@@ -50,7 +39,6 @@ export function* postQuestionWorker({ val }) {
   try {
     const ethereumService = yield select(selectEthereum);
     const selectedAccount = yield select(makeSelectAccount());
-    const communities = yield select(selectCommunities());
     // const promoteValue = +val[FORM_PROMOTE];
     const tags = val[FORM_TAGS].map(tag => Number(tag.id.split('-')[1]));
     const communityId = val[FORM_COMMUNITY].id;
@@ -63,11 +51,7 @@ export function* postQuestionWorker({ val }) {
       // bountyFull: `${getFormattedAsset(+val[FORM_BOUNTY])} PEER`,
       // bountyHours: +val[FORM_BOUNTY_HOURS],
     };
-    const id = communities.reduce((count, community) => {
-      return count + community.postCount + community.deletedPostCount;
-    }, 1);
-
-    yield call(
+    const transaction = yield call(
       postQuestion,
       selectedAccount,
       communityId,
@@ -76,6 +60,14 @@ export function* postQuestionWorker({ val }) {
       tags,
       ethereumService,
     );
+    const id = yield call(
+      getCreatedPostId,
+      ethereumService,
+      transaction.blockNumber,
+      selectedAccount,
+      communityId,
+    );
+
     // if (val[FORM_BOUNTY] && Number(val[FORM_BOUNTY]) > 0) {
     //   const now = Math.round(new Date().valueOf() / 1000);
     //   const bountyTime = now + questionData.bountyHours * ONE_HOUR_IN_SECONDS;
@@ -94,7 +86,7 @@ export function* postQuestionWorker({ val }) {
     //   yield call(promoteQuestion, eosService, selectedAccount, que stionsPostedByUser[0].question_id, promoteValue);
     // }
 
-    yield put(askQuestionSuccess());
+    yield put(askQuestionSuccess(id));
 
     yield call(
       createdHistory.push,

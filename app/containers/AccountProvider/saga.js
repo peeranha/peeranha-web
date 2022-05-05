@@ -1,15 +1,10 @@
 import { all, call, put, select, take, takeLatest } from 'redux-saga/effects';
 
-import { getProfileInfo, getUserTelegramData } from 'utils/profileManagement';
-import { updateAcc } from 'utils/accountManagement';
+import { getProfileInfo } from 'utils/profileManagement';
+import { emptyProfile, isUserExists, updateAcc } from 'utils/accountManagement';
 import {
   convertPeerValueToNumberValue,
   getBalance,
-  getWeekStat,
-  getGlobalBoostStatistics,
-  getUserBoostStatistics,
-  getPredictedBoost,
-  getBoostWeeks,
 } from 'utils/walletManagement';
 import {
   isSingleCommunityWebsite,
@@ -21,7 +16,6 @@ import commonMessages from 'common-messages';
 import { selectEos } from 'containers/EosioProvider/selectors';
 
 import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
-import { getUserTelegramDataSuccess } from 'containers/TelegramAccountAction/actions';
 import { addToast } from 'containers/Toast/actions';
 
 import { redirectToAskQuestionPageWorker } from 'containers/AskQuestion/saga';
@@ -30,10 +24,6 @@ import { redirectToCreateTagWorker } from 'containers/CreateTag/saga';
 import { redirectToEditQuestionPageWorker } from 'containers/EditQuestion/saga';
 import { redirectToEditAnswerPageWorker } from 'containers/EditAnswer/saga';
 import { redirectToEditProfilePageWorker } from 'containers/EditProfilePage/saga';
-import { updateStoredQuestionsWorker } from 'containers/Questions/saga';
-import { getNotificationsInfoWorker } from 'components/Notifications/saga';
-import { updateUserAchievementsWorker } from 'containers/Achievements/saga';
-import { getWeekStatWorker } from 'containers/Wallet/saga';
 
 import {
   ALL_PROPERTY_COMMUNITY_SCOPE,
@@ -42,7 +32,6 @@ import {
   INVITED_USERS_TABLE,
   MODERATOR_KEY,
   REWARD_REFER,
-  COMMUNITY_ADMIN_VALUE,
 } from 'utils/constants';
 import { SHOW_WALLET_SIGNUP_FORM_SUCCESS } from 'containers/SignUp/constants';
 import {
@@ -93,22 +82,17 @@ import {
   REFERRAL_REWARD_RATING,
   REFERRAL_REWARD_RECEIVED,
   REFERRAL_REWARD_SENT,
-  UPDATE_ACC_SUCCESS,
 } from './constants';
 
-import { getQuestionData } from '../ViewQuestion/saga';
-import { getQuestionDataSuccess } from '../ViewQuestion/actions';
 import {
   addLoginData,
   getCurrentAccountError,
   getCurrentAccountProcessing,
   getCurrentAccountSuccess,
-  rewardReferErr,
   updateAccErr,
   updateAccSuccess,
 } from './actions';
-import { makeSelectAccountLoading, makeSelectProfileInfo } from './selectors';
-import { selectQuestionData } from '../ViewQuestion/selectors';
+import { makeSelectProfileInfo } from './selectors';
 import { makeSelectLocale } from '../LanguageProvider/selectors';
 import { translationMessages } from '../../i18n';
 import { selectEthereum } from '../EthereumProvider/selectors';
@@ -122,7 +106,6 @@ export const getCurrentAccountWorker = function*(initAccount) {
     yield put(getCurrentAccountProcessing());
 
     const ethereumService = yield select(selectEthereum);
-    const prevProfileInfo = yield select(makeSelectProfileInfo());
 
     if (ethereumService.withMetaMask)
       yield put(addLoginData({ loginWithMetaMask: true }));
@@ -133,18 +116,27 @@ export const getCurrentAccountWorker = function*(initAccount) {
       ? initAccount
       : call(ethereumService.getSelectedAccount);
 
-    if (!account) {
-      const autoLoginData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
-      if (autoLoginData) {
-        account = autoLoginData.ethereumUserAddress;
-      }
-    } else if (account.email) {
+    const previouslyConnectedWallet = JSON.parse(
+      window.localStorage.getItem('connectedWallet'),
+    );
+    if (!account && previouslyConnectedWallet) {
+      yield call(ethereumService.walletLogIn, previouslyConnectedWallet);
+      account = ethereumService.getSelectedAccount();
+    } else if (account?.email) {
       account = account.account;
       ethereumService.setSelectedAccount(account);
     }
 
     if (account && typeof account === 'object') {
       account = account.ethereumUserAddress;
+    }
+
+    const isUserRegistered = yield call(isUserExists, account, ethereumService);
+
+    if (isUserRegistered === false) {
+      yield put(getUserProfileSuccess(emptyProfile(account)));
+      yield put(getCurrentAccountSuccess(account, 0));
+      return;
     }
 
     const [profileInfo, balance] = yield all([
@@ -215,24 +207,11 @@ export const getCurrentAccountWorker = function*(initAccount) {
       },
     });
 
-    // const userTgInfo = yield call(getUserTelegramData, eosService, account);
-
     yield put(
       addLoginData(JSON.parse(getCookie(AUTOLOGIN_DATA) || null) || {}),
     );
     yield put(getUserProfileSuccess(profileInfo));
-    yield put(getUserProfileSuccess(profileInfo));
-    yield call(getCommunityPropertyWorker, profileInfo);
-    yield put(
-      getCurrentAccountSuccess(
-        account,
-        balance,
-        // stakedInCurrentPeriod,
-        // stakedInNextPeriod,
-        // boost,
-      ),
-    );
-    // yield put(getUserTelegramDataSuccess(userTgInfo));
+    yield put(getCurrentAccountSuccess(account, balance));
   } catch (err) {
     yield put(getCurrentAccountError(err));
   }

@@ -7,7 +7,7 @@ export default {
     message: messages.posts,
   },
   answers: {
-    sortBy: 'answersGiven',
+    sortBy: 'replyCount',
     order: 'desc',
     message: messages.answers,
   },
@@ -18,7 +18,7 @@ export default {
   },
   oldest: {
     sortBy: 'creationTime',
-    order: 'ask',
+    order: 'asc',
     message: messages.oldest,
   },
   newest: {
@@ -27,7 +27,7 @@ export default {
     message: messages.newest,
   },
   subscribed: {
-    sortBy: 'users_subscribed',
+    sortBy: 'followingUsers',
     order: 'desc',
     message: messages.subscribed,
   },

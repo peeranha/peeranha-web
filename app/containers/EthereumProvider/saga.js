@@ -11,7 +11,7 @@ import {
   makeSelectAccount,
 } from 'containers/AccountProvider/selectors';
 
-import { showLoginModal } from 'containers/Login/actions';
+import { loginWithWallet } from 'containers/Login/actions';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { logout } from 'containers/Logout/actions';
 
@@ -29,30 +29,9 @@ import validate from './validate';
 import { getCookie } from '../../utils/cookie';
 import { AUTOLOGIN_DATA } from '../Login/constants';
 
-export function* initEthereumWorker() {
+export function* initEthereumWorker({ data }) {
   try {
-    const autoLoginData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
-    const ethereumService = new EthereumService();
-    if (autoLoginData && autoLoginData.loginWithMetaMask) {
-      yield call(ethereumService.initEthereum);
-      if (ethereumService.metaMaskProviderDetected) {
-        yield call(ethereumService.metaMaskSignIn);
-
-        yield call(
-          ethereumService.setMetaMaskAutologinData,
-          autoLoginData.metaMaskUserAddress,
-        );
-
-        yield put(initEthereumSuccess(ethereumService));
-      }
-      yield put(initEthereumSuccess(ethereumService));
-    } else if (autoLoginData?.ethereumUserAddress) {
-      yield call(
-        ethereumService.setSelectedAccount,
-        autoLoginData.ethereumUserAddress,
-      );
-    }
-
+    const ethereumService = new EthereumService(data);
     yield call(ethereumService.initEthereum);
     yield put(initEthereumSuccess(ethereumService));
   } catch (error) {
@@ -64,7 +43,7 @@ export function* isAuthorized() {
   const profileInfo = yield select(makeSelectProfileInfo());
 
   if (!profileInfo) {
-    yield put(showLoginModal());
+    yield put(loginWithWallet({ metaMask: true }));
     throw new ApplicationError('Not authorized');
   }
 }

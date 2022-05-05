@@ -33,9 +33,14 @@ const single = isSingleCommunityWebsite();
 
 const FrontSide = styled.div`
   > div {
-    padding: 20px;
+    padding: 8px 20px 20px;
+
     div {
       margin-bottom: 10px;
+
+      div {
+        margin-bottom: 8px;
+      }
     }
 
     &:not(:last-child) {
@@ -94,13 +99,7 @@ const TopCommunities = ({
   userId,
   questions,
 }) => {
-  if (
-    account !== userId ||
-    !communities ||
-    !profile ||
-    profile.followedCommunities?.filter(id => !!id).length ||
-    !communities.length
-  ) {
+  if (!communities || !profile || !communities.length) {
     return null;
   }
   const ref = useRef(null);
@@ -126,101 +125,205 @@ const TopCommunities = ({
     AllCommunitiesLink = ADefault;
     allCommunitiesRoute = `${process.env.APP_LOCATION}/communities`;
   }
-  return (
-    <div className="overlow-hidden" ref={ref}>
-      <H4 isHeader>
-        <FormattedMessage {...messages.myCommunities} />
-      </H4>
+  if (profile.ratings?.length) {
+    return (
+      <div className="overlow-hidden" ref={ref}>
+        <H4 isHeader>
+          <FormattedMessage {...messages.communities} />
+        </H4>
 
-      <Grid xl={5} lg={4} md={3} sm={2} xs={1}>
-        {orderBy(profile.ratings, 'rating', 'desc')
-          .slice(0, 9)
-          .map(x => {
-            let Link = AStyled;
-            let route = routes.questions(x.communityId);
-            if (single && x.communityId !== single) {
-              Link = ADefaultStyled;
-              route = `${process.env.APP_LOCATION}${route}`;
-            } else if (single && x.communityId === single) {
-              route = routes.questions();
-            }
-            const community = communities.find(
-              community => community.id == x.communityId,
-            );
+        <Grid xl={5} lg={4} md={3} sm={2} xs={1}>
+          {orderBy(profile.ratings, 'rating', 'desc')
+            .slice(0, 9)
+            .map(x => {
+              let Link = AStyled;
+              let route = routes.questions(x.communityId);
+              if (single && x.communityId !== single) {
+                Link = ADefaultStyled;
+                route = `${process.env.APP_LOCATION}${route}`;
+              } else if (single && x.communityId === single) {
+                route = routes.questions();
+              }
+              const community = communities.find(
+                community => community.id == x.communityId,
+              );
 
-            return (
-              <div key={x.communityId}>
-                <BaseRoundedNoPadding>
-                  <Link href={route} to={route}>
-                    <FrontSide>
-                      <div>
-                        <MediumImage src={community.avatar} alt="comm_img" />
-                        <P fontSize="16" bold>
-                          {community.name}
-                        </P>
-                      </div>
+              return (
+                <div key={x.communityId}>
+                  <BaseRoundedNoPadding>
+                    <Link href={route} to={route}>
+                      <FrontSide>
+                        {community ? (
+                          <div>
+                            <MediumImage
+                              src={community.avatar}
+                              alt="comm_img"
+                            />
+                            <P fontSize="16" bold>
+                              {community.name}
+                            </P>
+                          </div>
+                        ) : null}
 
-                      <div>
                         <div>
-                          <Span
-                            className="mt-1"
-                            fontSize="14"
-                            color={TEXT_SECONDARY}
-                          >
-                            <FormattedMessage {...messages.reputation} />
-                          </Span>
-                          <RatingStatus
-                            className="py-1"
-                            size="lg"
-                            rating={x.rating}
-                            isRankOff={false}
-                          />
+                          <div>
+                            <div>
+                              <Span
+                                className="mt-1"
+                                fontSize="14"
+                                color={TEXT_SECONDARY}
+                              >
+                                <FormattedMessage {...messages.reputation} />
+                              </Span>
+                            </div>
+                            <RatingStatus
+                              className="py-1"
+                              size="lg"
+                              rating={x.rating}
+                              isRankOff={false}
+                            />
+                          </div>
                         </div>
+                      </FrontSide>
 
-                        <FollowCommunityButton
-                          communityIdFilter={community.id}
-                        />
-                      </div>
-                    </FrontSide>
+                      <BackSide>
+                        <div className="d-flex flex-column justify-content-between">
+                          {community ? (
+                            <div>
+                              <P fontSize="16" bold>
+                                {community.name}
+                              </P>
+                              <P>{community.description}</P>
+                            </div>
+                          ) : null}
+                        </div>
+                      </BackSide>
+                    </Link>
+                  </BaseRoundedNoPadding>
+                </div>
+              );
+            })}
 
-                    <BackSide>
-                      <div className="d-flex flex-column justify-content-between">
+          {communities.length > 9 && (
+            <div className="d-flex align-items-center justify-content-center">
+              <AllCommunitiesLink
+                className="d-flex align-items-center"
+                to={allCommunitiesRoute}
+                href={allCommunitiesRoute}
+              >
+                <img className="mr-2" src={allCommunitiesIcon} alt="icon" />
+                <Span color={TEXT_PRIMARY}>
+                  <FormattedMessage {...messages.allCommunities} />
+                </Span>
+              </AllCommunitiesLink>
+            </div>
+          )}
+        </Grid>
+      </div>
+    );
+  } else {
+    return (
+      <div className="overlow-hidden" ref={ref}>
+        <H4 isHeader>
+          <FormattedMessage {...messages.top} />{' '}
+          <span className="text-lowercase">
+            <FormattedMessage {...messages.communities} />
+          </span>
+        </H4>
+
+        <Grid xl={5} lg={4} md={3} sm={2} xs={1}>
+          {orderBy(communities, 'users_subscribed', 'desc')
+            .slice(0, 9)
+            .map(x => {
+              let Link = AStyled;
+              let route = routes.questions(x.id);
+              if (single && x.id !== single) {
+                Link = ADefaultStyled;
+                route = `${process.env.APP_LOCATION}${route}`;
+              } else if (single && x.id === single) {
+                route = routes.questions();
+              }
+              return (
+                <div key={x.id}>
+                  <BaseRoundedNoPadding>
+                    <Link href={route} to={route}>
+                      <FrontSide>
                         <div>
+                          <MediumImage src={x.avatar} alt="comm_img" />
                           <P fontSize="16" bold>
-                            {community.name}
+                            {x.name}
                           </P>
-                          <P>{community.description}</P>
                         </div>
-                        <div>
-                          <FollowCommunityButton
-                            communityIdFilter={community.id}
-                          />
-                        </div>
-                      </div>
-                    </BackSide>
-                  </Link>
-                </BaseRoundedNoPadding>
-              </div>
-            );
-          })}
 
-        {communities.length > 9 && (
-          <div className="d-flex align-items-center justify-content-center">
-            <AllCommunitiesLink
-              className="d-flex align-items-center"
-              to={allCommunitiesRoute}
-              href={allCommunitiesRoute}
-            >
-              <img className="mr-2" src={allCommunitiesIcon} alt="icon" />
-              <Span color={TEXT_PRIMARY}>
-                <FormattedMessage {...messages.allCommunities} />
-              </Span>
-            </AllCommunitiesLink>
-          </div>
-        )}
-      </Grid>
-    </div>
-  );
+                        <div>
+                          <div className="d-flex mb-3">
+                            <div className="d-flex flex-column flex-grow-1">
+                              <Span fontSize="16" bold>
+                                {getFormattedNum2(x.users_subscribed)}
+                              </Span>
+                              <Span
+                                className="mt-1"
+                                fontSize="14"
+                                color={TEXT_SECONDARY}
+                              >
+                                <FormattedMessage {...messages.users} />
+                              </Span>
+                            </div>
+                            <div className="d-flex flex-column flex-grow-1">
+                              <Span fontSize="16" bold>
+                                {getFormattedNum2(x.postCount)}
+                              </Span>
+                              <Span
+                                className="mt-1"
+                                fontSize="14"
+                                color={TEXT_SECONDARY}
+                              >
+                                <FormattedMessage {...messages.posts} />
+                              </Span>
+                            </div>
+                          </div>
+
+                          <FollowCommunityButton communityIdFilter={x.id} />
+                        </div>
+                      </FrontSide>
+
+                      <BackSide>
+                        <div className="d-flex flex-column justify-content-between">
+                          <div>
+                            <P fontSize="16" bold>
+                              {x.name}
+                            </P>
+                            <P>{x.description}</P>
+                          </div>
+                          <div>
+                            <FollowCommunityButton communityIdFilter={x.id} />
+                          </div>
+                        </div>
+                      </BackSide>
+                    </Link>
+                  </BaseRoundedNoPadding>
+                </div>
+              );
+            })}
+
+          {communities?.length > 9 && (
+            <div className="d-flex align-items-center justify-content-center">
+              <AllCommunitiesLink
+                className="d-flex align-items-center"
+                to={allCommunitiesRoute}
+                href={allCommunitiesRoute}
+              >
+                <img className="mr-2" src={allCommunitiesIcon} alt="icon" />
+                <Span color={TEXT_PRIMARY}>
+                  <FormattedMessage {...messages.allCommunities} />
+                </Span>
+              </AllCommunitiesLink>
+            </div>
+          )}
+        </Grid>
+      </div>
+    );
+  }
 };
 
 TopCommunities.propTypes = {

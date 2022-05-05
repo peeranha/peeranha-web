@@ -1,11 +1,11 @@
 export const REGISTER_ACC = 'createUser';
 export const UPDATE_ACC = 'updateUser';
 export const GET_USER_BY_ADDRESS = 'getUserByAddress';
+export const IS_USER_EXISTS = 'isUserExists';
 export const GET_USER_PERMISSIONS = 'getUserPermissions';
 export const GET_USERS_COUNT = 'getUsersCount';
 export const GET_COMMUNITIES_COUNT = 'getCommunitiesCount';
 export const GET_COMMUNITY = 'getCommunity';
-export const GET_TAGS = 'getTags';
 export const GET_QUESTION = 'getPost';
 export const CREATE_COMMUNITY = 'createCommunity';
 export const EDIT_COMMUNITY = 'updateCommunity';
@@ -14,10 +14,10 @@ export const UNFOLLOW_COMMUNITY = 'unfollowCommunity';
 export const CREATE_TAG = 'createTag';
 export const EDIT_TAG = 'updateTag';
 export const POST_QUESTION = 'createPost';
+export const CHANGE_POST_TYPE = 'changePostType';
 export const GET_POST = 'getPost';
 export const GET_REPLY = 'getReply';
 export const GET_STATUS_HISTORY = 'getStatusHistory';
-export const GET_VOTED_USERS = 'getVotedUsers';
 export const GET_COMMENT = 'getComment';
 export const POST_ANSWER = 'createReply';
 export const EDIT_ANSWER = 'editReply';
@@ -53,6 +53,7 @@ const user = `
 
 const comment = `
     id
+    ipfsHash
     author {
       ${user}
     }
@@ -67,6 +68,7 @@ const comment = `
 
 const reply = `
     id
+    ipfsHash
     author {
       ${user}
     }
@@ -94,6 +96,7 @@ const reply = `
 const post = `
     id
     tags
+    ipfsHash
     postType
     author {
       ${user}
@@ -202,12 +205,14 @@ export const communitiesQuery = `
 export const usersPostsQuery = `
       query(
         $id: ID!,
+        $limit: Int,
+        $offset: Int,
       ) {
         posts (
           orderBy: postTime,
           orderDirection: desc,
-          first: $first,
-          skip: $skip,
+          first: $limit,
+          skip: $offset,
           where: {isDeleted: false, author: $id},
         ) {
            ${post}
@@ -217,11 +222,15 @@ export const usersPostsQuery = `
 export const usersAnswersQuery = `
       query (
         $id: ID!,
+        $limit: Int,
+        $offset: Int,
       ) {
         replies (
              orderBy: postTime,
              orderDirection: desc,
              where: { isDeleted: false, author: $id },
+             first: $limit,
+             skip: $offset,
            ) {
           postId
         }
@@ -334,6 +343,7 @@ export const postsForSearchQuery = `
           text: $text,
         ) {
            id
+           ipfsHash
            tags
            postType
            author {
@@ -413,6 +423,35 @@ export const rewardsQuery = `
     }
     periods (orderBy: endPeriodTime, orderDirection: desc, first: 2) {
       ${period}
+    }
+  }
+`;
+
+const history = `
+  transactionHash
+  post {
+    ${post}
+  }
+  reply {
+    ${reply}
+  }
+  comment {
+    ${comment}
+  }
+  eventEntity
+  eventName
+  timeStamp
+`;
+
+export const historiesQuery = `
+  query (
+   $postId: ID!,
+ ) {
+    histories (
+      orderBy: timeStamp,
+      where: {post: $postId,}
+    ) {
+      ${history}
     }
   }
 `;

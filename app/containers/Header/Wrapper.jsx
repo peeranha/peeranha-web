@@ -8,7 +8,7 @@ export const Wrapper = styled.header`
   width: 100%;
   height: ${HEADER_HEIGHT}px;
   background: ${BG_LIGHT};
-  z-index: 9999;
+  z-index: 10;
   transform: translate(0px, 0px);
   display: flex;
   flex-direction: column;

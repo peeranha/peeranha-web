@@ -7,25 +7,30 @@ import {
   BG_PRIMARY_TRANSPARENT,
   BG_PRIMARY_LIGHT,
 } from 'style-constants';
+import { singleCommunityColors } from 'utils/communityManagement';
 
+const colors = singleCommunityColors();
+
+const transparentModalBackgroundColor =
+  colors.blockedInfoArea || BG_PRIMARY_TRANSPARENT;
 const ModalDiv = styled.div`
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: 1000;
+  z-index: 10;
   background-color: ${BG_PRIMARY_LIGHT};
   background-image: linear-gradient(
     45deg,
-    ${BG_PRIMARY_TRANSPARENT} 15%,
+    ${transparentModalBackgroundColor} 15%,
     transparent 15%,
     transparent 35%,
-    ${BG_PRIMARY_TRANSPARENT} 35%,
-    ${BG_PRIMARY_TRANSPARENT} 65%,
+    ${transparentModalBackgroundColor} 35%,
+    ${transparentModalBackgroundColor} 65%,
     transparent 65%,
     transparent 85%,
-    ${BG_PRIMARY_TRANSPARENT} 85%
+    ${transparentModalBackgroundColor} 85%
   );
   background-size: 50px 50px;
   background-repeat: repeat;
@@ -36,7 +41,7 @@ const ModalDiv = styled.div`
 `;
 
 const ModalMessage = styled.p`
-  color: ${TEXT_PRIMARY};
+  color: ${colors.linkColor || TEXT_PRIMARY};
   font-size: 1.5em;
   font-weight: bold;
   position: relative;

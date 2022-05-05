@@ -12,7 +12,7 @@ import ContentBody from './ContentBody';
 import { isTemporaryAccount } from '../../utils/properties';
 
 const BaseStyled = Base.extend`
-  overflow: hidden;
+  //overflow: hidden;
 `.withComponent('section');
 
 export const Content = props => {
@@ -48,7 +48,7 @@ Content.propTypes = {
   title: PropTypes.string,
   className: PropTypes.string,
   answerId: PropTypes.number,
-  postTime: PropTypes.number,
+  postTime: PropTypes.string,
   lastEditedDate: PropTypes.number,
   communities: PropTypes.array,
   isItWrittenByMe: PropTypes.bool,

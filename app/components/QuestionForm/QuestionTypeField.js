@@ -9,6 +9,7 @@ import validationArrowIcon from 'images/validationArrow.svg?inline';
 import { italicFont } from 'global-styles';
 import messages from 'common-messages';
 import questionMessages from './messages';
+import { POST_TYPE } from './constants';
 
 import {
   BORDER_SECONDARY,
@@ -26,15 +27,15 @@ const styles = singleCommunityStyles();
 
 export const QUESTION_TYPES = {
   GENERAL: {
-    value: 'general',
+    value: POST_TYPE.generalPost,
     label: 'general',
   },
   EXPERT: {
-    value: 'expert',
+    value: POST_TYPE.expertPost,
     label: 'expert',
   },
   TUTORIAL: {
-    value: 'tutorial',
+    value: POST_TYPE.tutorial,
     label: 'tutorial',
   },
 };
@@ -105,9 +106,9 @@ const Button = B.extend`
   flex: 1;
   border: 1px solid ${BORDER_SECONDARY};
   border-color: ${({ type, value }) =>
-    type === value && `rgb(${BORDER_PRIMARY_RGB})`};
+    +type === value && `rgb(${BORDER_PRIMARY_RGB})`};
   box-shadow: ${({ type, value }) =>
-    type === value && `0 0 0 3px rgba(${BORDER_PRIMARY_RGB}, 0.4)`};
+    +type === value && `0 0 0 3px rgba(${BORDER_PRIMARY_RGB}, 0.4)`};
 
   &:hover {
     box-shadow: 0 0 0 3px rgba(${BORDER_PRIMARY_RGB}, 0.4);
@@ -130,10 +131,10 @@ const QuestionTypeField = ({
   insideOfSection,
   error,
 }) => {
-  const [type, setType] = useState(null);
+  const [type, setType] = useState();
 
-  function chooseQuestionType(event) {
-    const { value } = event.currentTarget;
+  function chooseQuestionType({ currentTarget }) {
+    const { value } = currentTarget;
     event.preventDefault();
     input.onChange(value);
     setType(value);

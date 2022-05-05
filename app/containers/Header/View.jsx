@@ -105,20 +105,11 @@ const View = ({
       const src = styles.withoutSubHeader
         ? communitiesConfig[single].src
         : peeranhaLogo;
-
-      const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
-
-      return styles.withoutSubHeader ? (
-        <QAndALogo
-          to={isBloggerMode ? routes.detailsHomePage() : routes.questions()}
-        >
-          <FormattedMessage {...messages.questions} />
-          <span>&amp;</span>
-          <FormattedMessage {...messages.answers} />
-        </QAndALogo>
-      ) : (
+      
+      return (
         <LogoStyles to={routes.feed()}>
           <img src={src} alt="logo" />
+          {styles.logoText}
         </LogoStyles>
       );
     },
@@ -127,7 +118,7 @@ const View = ({
 
   return (
     <Wrapper id={HEADER_ID}>
-      {!styles?.customSubHeader &&
+      {/* {!styles?.customSubHeader &&
         !!single && (
           <SingleModeSubHeader>
             <div className="container">
@@ -150,7 +141,7 @@ const View = ({
             </div>
           </SingleModeSubHeader>
         )}
-      {styles?.customSubHeader ?? null}
+      {styles?.customSubHeader ?? null} */}
       <MainSubHeader mainSubHeaderBgColor={styles.mainSubHeaderBgColor}>
         <div className="container">
           <div className="d-flex align-items-center justify-content-between">
@@ -161,7 +152,6 @@ const View = ({
                   color={styles.commHeadElemColor || TEXT_SECONDARY_LIGHT}
                 />
               </button>
-
               <Logo />
             </div>
 
@@ -192,7 +182,11 @@ const View = ({
                   </Button>
                   <Button
                     id="header-ask-question"
-                    onClick={redirectToAskQuestionPage}
+                    onClick={
+                      profileInfo
+                        ? redirectToAskQuestionPage
+                        : showLoginModalDispatch
+                    }
                   >
                     <IconSm fill={BG_LIGHT} icon={addIcon} />
 

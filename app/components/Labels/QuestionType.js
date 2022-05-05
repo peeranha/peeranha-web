@@ -41,7 +41,6 @@ const Type = styled.div`
   font-size: ${({ size }) => SIZE_CONFIG[size].fontSize}px;
   color: ${TEXT_PRIMARY};
   position: relative;
-  padding: 0 9px;
   display: inline-flex;
   align-items: center;
   border-radius: ${BORDER_RADIUS_M};

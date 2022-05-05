@@ -2,16 +2,12 @@ import React, { memo, useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Field, reduxForm } from 'redux-form/immutable';
+import { reduxForm } from 'redux-form/immutable';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
-import styled from 'styled-components';
+import { Router, Prompt } from 'react-router';
 
 import commonMessages from 'common-messages';
-import {
-  BORDER_PRIMARY,
-  LINK_COLOR_SECONDARY,
-  TEXT_SECONDARY,
-} from 'style-constants';
+import { BORDER_PRIMARY, LINK_COLOR_SECONDARY } from 'style-constants';
 
 import { EDIT_QUESTION_FORM } from 'containers/EditQuestion/constants';
 
@@ -20,8 +16,6 @@ import icoTag from 'images/icoTag.svg?external';
 import _uniqBy from 'lodash/uniqBy';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { scrollToErrorField } from 'utils/animation';
-import { getFormattedDate } from 'utils/datetime';
-import { MONTH_3LETTERS__DAY_YYYY_TIME } from 'utils/constants';
 
 import { redirectToCreateTag } from 'containers/CreateTag/actions';
 
@@ -42,10 +36,8 @@ import {
   FORM_COMMUNITY,
   FORM_TAGS,
   FORM_BOUNTY,
-  FORM_BOUNTY_DAYS,
   FORM_BOUNTY_HOURS,
   FORM_PROMOTE,
-  DEFAULT_DOT_RESTRICTION,
   KEY_QUESTIONS_TYPE,
 } from './constants';
 
@@ -67,8 +59,11 @@ import * as routes from '../../routes-config';
 import DescriptionList from '../DescriptionList';
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 import { getPermissions, hasGlobalModeratorRole } from 'utils/properties';
+import { translationMessages } from '../../i18n';
 
 const single = isSingleCommunityWebsite();
+
+const history = createdHistory;
 
 const SuggestTag = memo(({ redirectToCreateTagDispatch, formValues }) => {
   const communityId = useMemo(() => formValues?.[FORM_COMMUNITY]?.value ?? 0, [
@@ -116,7 +111,10 @@ export const QuestionForm = ({
 }) => {
   const [isSelectedType, setIsSelectedType] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [submitPressed, setSubmitPressed] = useState(false);
   const [isClickSubmit, setIsClickSubmit] = useState(false);
+  const postTitle = question?.title;
+  const postContent = question?.content;
 
   const handleSubmitWithType = () => {
     if (communityQuestionsType !== ANY_TYPE) {
@@ -146,124 +144,139 @@ export const QuestionForm = ({
     profile && hasGlobalModeratorRole(getPermissions(profile));
 
   const handleSetClicked = () => setIsClickSubmit(true);
+  const handleButtonClick = () => {
+    handleSetClicked();
+    if (isEdited) {
+      setSubmitPressed(true);
+    }
+  };
+  const isEdited =
+    formValues[FORM_TITLE] !== postTitle ||
+    formValues[FORM_CONTENT] !== postContent;
 
   return (
-    <div>
-      <Header
-        formTitle={formTitle}
-        questionId={questionid}
-        postType={question?.postType}
-        intl={intl}
+    <Router history={history}>
+      <Prompt
+        message={translationMessages[locale][messages.leaveWithoutChanges.id]}
+        when={isEdited && !submitPressed}
       />
-      <TipsBase>
-        <BaseSpecialOne>
-          <FormBox onSubmit={handleSubmitWithType(sendQuestion)}>
-            <CommunityForm
-              intl={intl}
-              communities={communities}
-              change={change}
-              questionLoading={questionLoading}
-              disableCommForm={disableCommForm}
-            />
+      <div>
+        <Header
+          formTitle={formTitle}
+          questionId={questionid}
+          postType={question?.postType}
+          intl={intl}
+        />
+        <TipsBase>
+          <BaseSpecialOne>
+            <FormBox onSubmit={handleSubmitWithType(sendQuestion)}>
+              <CommunityForm
+                intl={intl}
+                communities={communities}
+                change={change}
+                questionLoading={questionLoading}
+                disableCommForm={disableCommForm}
+              />
 
-            {!question &&
-              ((communityQuestionsType === ANY_TYPE && (
-                <TypeForm
-                  intl={intl}
-                  change={change}
-                  questionLoading={questionLoading}
-                  locale={locale}
+              {!question &&
+                ((communityQuestionsType === ANY_TYPE && (
+                  <TypeForm
+                    intl={intl}
+                    change={change}
+                    questionLoading={questionLoading}
+                    locale={locale}
+                    formValues={formValues}
+                    isError={isError}
+                    setIsError={setIsError}
+                    hasSelectedType={isSelectedType}
+                    setHasSelectedType={setIsSelectedType}
+                  />
+                )) ||
+                  (communityQuestionsType === GENERAL_TYPE && (
+                    <>
+                      <DescriptionList
+                        locale={locale}
+                        label={messages.generalQuestionDescriptionLabel.id}
+                        items={messages.generalQuestionDescriptionList.id}
+                      />
+                      <br />
+                    </>
+                  )) || (
+                    <>
+                      <DescriptionList
+                        locale={locale}
+                        label={messages.expertQuestionDescriptionLabel.id}
+                        items={messages.expertQuestionDescriptionList.id}
+                      />
+                      <br />
+                    </>
+                  ))}
+
+              <TitleForm intl={intl} questionLoading={questionLoading} />
+
+              {formValues[FORM_TITLE] &&
+                formValues[FORM_TITLE].length >= 3 &&
+                (existingQuestions?.length ?? 0) > 0 &&
+                !doSkipExistingQuestions && (
+                  <ExistingQuestions
+                    questions={existingQuestions}
+                    skip={skipExistingQuestions}
+                    show={showMoreQuestions}
+                    intl={intl}
+                    communities={communities}
+                  />
+                )}
+
+              <ContentForm
+                intl={intl}
+                questionLoading={questionLoading}
+                formValues={formValues}
+              />
+
+              <TagsForm
+                intl={intl}
+                questionLoading={questionLoading}
+                formValues={formValues}
+                change={change}
+              />
+
+              {profileWithModeratorRights && (
+                <SuggestTag
                   formValues={formValues}
-                  isError={isError}
-                  setIsError={setIsError}
-                  hasSelectedType={isSelectedType}
-                  setHasSelectedType={setIsSelectedType}
-                />
-              )) ||
-                (communityQuestionsType === GENERAL_TYPE && (
-                  <>
-                    <DescriptionList
-                      locale={locale}
-                      label={messages.generalQuestionDescriptionLabel.id}
-                      items={messages.generalQuestionDescriptionList.id}
-                    />
-                    <br />
-                  </>
-                )) || (
-                  <>
-                    <DescriptionList
-                      locale={locale}
-                      label={messages.expertQuestionDescriptionLabel.id}
-                      items={messages.expertQuestionDescriptionList.id}
-                    />
-                    <br />
-                  </>
-                ))}
-
-            <TitleForm intl={intl} questionLoading={questionLoading} />
-
-            {formValues[FORM_TITLE] &&
-              formValues[FORM_TITLE].length >= 3 &&
-              (existingQuestions?.length ?? 0) > 0 &&
-              !doSkipExistingQuestions && (
-                <ExistingQuestions
-                  questions={existingQuestions}
-                  skip={skipExistingQuestions}
-                  show={showMoreQuestions}
-                  intl={intl}
-                  communities={communities}
+                  redirectToCreateTagDispatch={redirectToCreateTagDispatch}
                 />
               )}
 
-            <ContentForm
-              intl={intl}
-              questionLoading={questionLoading}
-              formValues={formValues}
-            />
+              {/*<BountyForm*/}
+              {/*  intl={intl}*/}
+              {/*  questionLoading={questionLoading}*/}
+              {/*  formValues={formValues}*/}
+              {/*  change={change}*/}
+              {/*  dotRestriction={DEFAULT_DOT_RESTRICTION}*/}
+              {/*/>*/}
 
-            <TagsForm
-              intl={intl}
-              questionLoading={questionLoading}
-              formValues={formValues}
-              change={change}
-            />
+              {/*<BountyDateForm*/}
+              {/*  intl={intl}*/}
+              {/*  questionLoading={questionLoading}*/}
+              {/*  formValues={formValues}*/}
+              {/*  change={change}*/}
+              {/*/>*/}
 
-            {profileWithModeratorRights && (
-              <SuggestTag
-                formValues={formValues}
-                redirectToCreateTagDispatch={redirectToCreateTagDispatch}
-              />
-            )}
+              <Button
+                disabled={questionLoading}
+                id={submitButtonId}
+                type="submit"
+                onClick={handleButtonClick}
+              >
+                {submitButtonName}
+              </Button>
+            </FormBox>
+          </BaseSpecialOne>
 
-            {/*<BountyForm*/}
-            {/*  intl={intl}*/}
-            {/*  questionLoading={questionLoading}*/}
-            {/*  formValues={formValues}*/}
-            {/*  change={change}*/}
-            {/*  dotRestriction={DEFAULT_DOT_RESTRICTION}*/}
-            {/*/>*/}
-
-            {/*<BountyDateForm*/}
-            {/*  intl={intl}*/}
-            {/*  questionLoading={questionLoading}*/}
-            {/*  formValues={formValues}*/}
-            {/*  change={change}*/}
-            {/*/>*/}
-
-            <Button
-              disabled={questionLoading}
-              id={submitButtonId}
-              type="submit"
-              onClick={handleSetClicked}
-            >
-              {submitButtonName}
-            </Button>
-          </FormBox>
-        </BaseSpecialOne>
-
-        <Tips />
-      </TipsBase>
-    </div>
+          <Tips />
+        </TipsBase>
+      </div>
+    </Router>
   );
 };
 

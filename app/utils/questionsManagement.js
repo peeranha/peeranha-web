@@ -7,26 +7,16 @@ import {
   getText,
   saveText,
 } from './ipfs';
+import { bigNumberToNumber } from './converters';
 
 import {
   ALL_QUESTIONS_SCOPE,
   CHANGE_PROMO_QUEST_COMM,
-  CHANGE_QUESTION_TYPE_METHOD,
-  DEL_ANSWER_METHOD,
-  DEL_COMMENT_METHOD,
-  DEL_QUESTION_METHOD,
-  DOWN_VOTE_METHOD,
-  EDIT_ANSWER_METHOD,
-  EDIT_COMMENT_METHOD,
-  EDIT_QUESTION_METHOD,
   GET_QUESTIONS_FILTERED_BY_COMMUNITY_INDEX_POSITION,
   GET_QUESTIONS_KEY_TYPE,
-  MARK_AS_CORRECT_METHOD,
   PROMOTE_QUESTION_METHOD,
   PROMOTED_QUESTIONS_TABLES,
   QUESTION_TABLE,
-  UP_VOTE_METHOD,
-  USER_ANSWERS_TABLE,
   VOTE_TO_DELETE_METHOD,
 } from './constants';
 import {
@@ -41,6 +31,7 @@ import {
   GET_COMMENT,
   GET_POST,
   GET_QUESTION,
+  CHANGE_POST_TYPE,
   GET_REPLY,
   GET_STATUS_HISTORY,
   POST_ANSWER,
@@ -49,7 +40,11 @@ import {
   UPVOTE_STATUS,
   VOTE_ITEM,
 } from './ethConstants';
-import { getUsersAnsweredQuestions, getUsersQuestions } from './theGraph';
+import {
+  getUsersAnsweredQuestions,
+  getUsersQuestions,
+  historiesForPost,
+} from './theGraph';
 
 /* eslint-disable  */
 export class FetcherOfQuestionsForFollowedCommunities {
@@ -174,12 +169,12 @@ export class FetcherOfQuestionsForFollowedCommunities {
 
 /* eslint-enable  */
 
-export async function getQuestionsPostedByUser(id) {
-  return await getUsersQuestions(id);
+export async function getQuestionsPostedByUser(id, limit, offset) {
+  return await getUsersQuestions(id, limit, offset);
 }
 
-export async function getAnsweredUsersPosts(id) {
-  return await getUsersAnsweredQuestions(id);
+export async function getAnsweredUsersPosts(id, limit, offset) {
+  return await getUsersAnsweredQuestions(id, limit, offset);
 }
 
 /* eslint no-param-reassign: ["error", { "props": false }] */
@@ -458,6 +453,28 @@ export async function markAsAccepted(
   ]);
 }
 
+export const getCreatedPostId = async (
+  ethereumService,
+  block,
+  user,
+  communityId,
+) => {
+  const filter = ethereumService.contract.filters.PostCreated();
+  const events = await ethereumService.contract.queryFilter(
+    filter,
+    block,
+    block,
+  );
+
+  return bigNumberToNumber(
+    events.filter(
+      event =>
+        event.args.user.toLowerCase() === user.toLowerCase() &&
+        Number(event.args.communityId) === Number(communityId),
+    )[0].args.postId,
+  );
+};
+
 const formCommonInfo = (object, statusHistory) => ({
   author: object.author.toLowerCase(),
   isDeleted: object.isDeleted,
@@ -478,6 +495,7 @@ export const formCommentObject = async (
   );
   return {
     content,
+    ipfsHash: rawComment.ipfsDoc.hash,
     ...formCommonInfo(rawComment, statusHistory),
     id,
   };
@@ -495,6 +513,7 @@ export const formReplyObject = async (
   );
   return {
     content,
+    ipfsHash: rawReply.ipfsDoc.hash,
     ...formCommonInfo(rawReply, statusHistory),
     commentCount: rawReply.commentCount,
     isFirstReply: rawReply.isFirstReply,
@@ -519,6 +538,7 @@ export const formQuestionObject = async (
   return {
     title,
     content,
+    ipfsHash: rawQuestion.ipfsDoc.hash,
     answers: replies,
     comments,
     ...formCommonInfo(rawQuestion, statusHistory),
@@ -533,7 +553,7 @@ export const formQuestionObject = async (
   };
 };
 
-const votingStatus = statusHistory => ({
+export const votingStatus = statusHistory => ({
   isUpVoted: statusHistory === UPVOTE_STATUS,
   isDownVoted: statusHistory === DOWNVOTE_STATUS,
   isVotedToDelete: false,
@@ -669,18 +689,15 @@ export const getAnswer = async (ethereumService, questionId, answerId) => {
 };
 
 export const changeQuestionType = async (
+  ethereumService,
   user,
   questionId,
   type,
-  ratingRestore,
-  eosService,
 ) => {
-  await eosService.sendTransaction(user, CHANGE_QUESTION_TYPE_METHOD, {
-    user,
-    question_id: +questionId,
+  await ethereumService.sendTransactionWithSigner(user, CHANGE_POST_TYPE, [
+    questionId,
     type,
-    restore_rating: ratingRestore,
-  });
+  ]);
 };
 
 export const getPromoteQuestTrActData = (user, questionId, hours) => ({
@@ -741,3 +758,26 @@ export const getQuestionTags = (question, tagList) =>
   question.tags.map(tagId =>
     tagList.find(tag => tag.id === `${question.communityId}-${tagId}`),
   );
+
+export const getHistoriesForPost = async postId => {
+  const histories = await historiesForPost(postId);
+  return histories.map(
+    ({
+      post,
+      reply,
+      comment,
+      eventEntity,
+      transactionHash,
+      eventName,
+      timeStamp,
+    }) => ({
+      transactionHash,
+      post,
+      reply: reply != null ? reply : undefined,
+      comment: comment != null ? comment : undefined,
+      eventEntity,
+      eventName,
+      timeStamp,
+    }),
+  );
+};
