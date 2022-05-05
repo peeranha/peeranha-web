@@ -198,18 +198,14 @@ export const postsForSearch = async (text, single) => {
     query: gql(postsForSearchQuery),
     variables: {
       text: query,
+      first: 2,
     },
   });
-  return posts?.data?.postSearch
-    .slice(0, 100)
-    .sort((a, b) => {
-      return b.postTime - a.postTime;
-    })
-    .filter(
-      post =>
-        !post.isDeleted &&
-        (single ? Number(post.communityId) === Number(single) : true),
-    );
+  return posts?.data?.postSearch.filter(
+    post =>
+      !post.isDeleted &&
+      (single ? Number(post.communityId) === Number(single) : true),
+  );
 };
 
 export const getAllAchievements = async userId => {
