@@ -128,6 +128,7 @@ export function* loginWithEmailWorker({ val }) {
     }
 
     yield put(addLoginData(response.peeranhaAutoLogin));
+    if (!isSingleCommunityWebsite()) yield put(redirectToFeed());
     yield call(continueLogin, response.body);
   } catch (err) {
     yield put(loginWithEmailErr(err));

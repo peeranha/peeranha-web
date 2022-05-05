@@ -25,7 +25,7 @@ export function* logoutWorker() {
 
     yield call(ethereumService.resetMetaMaskUserData);
 
-    yield call(createdHistory.push, routes.questions());
+    yield call(createdHistory.push, routes.feed());
     yield put(getCurrentAccountSuccess());
     yield put(addLoginData({}));
 

@@ -109,13 +109,15 @@ const View = ({
       const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
 
       return styles.withoutSubHeader ? (
-        <QAndALogo to={isBloggerMode ? routes.detailsHomePage() : routes.questions()}>
+        <QAndALogo
+          to={isBloggerMode ? routes.detailsHomePage() : routes.questions()}
+        >
           <FormattedMessage {...messages.questions} />
           <span>&amp;</span>
           <FormattedMessage {...messages.answers} />
         </QAndALogo>
       ) : (
-        <LogoStyles to={routes.questions()}>
+        <LogoStyles to={routes.feed()}>
           <img src={src} alt="logo" />
         </LogoStyles>
       );
@@ -129,17 +131,14 @@ const View = ({
         !!single && (
           <SingleModeSubHeader>
             <div className="container">
-              <ADefault
-                href={`${process.env.APP_LOCATION}${routes.questions()}`}
-              >
+              <ADefault href={`${process.env.APP_LOCATION}${routes.feed()}`}>
                 <img id="peeranha-logo" src={peeranhaLogo} alt="logo" />
               </ADefault>
 
-              {profileInfo && (
-                <ADefault href={`${process.env.APP_LOCATION}${routes.feed()}`}>
-                  <FormattedMessage {...messages.myFeed} />
-                </ADefault>
-              )}
+              <ADefault href={`${process.env.APP_LOCATION}${routes.feed()}`}>
+                <FormattedMessage {...messages.myFeed} />
+              </ADefault>
+
               <ADefault href={`${process.env.APP_LOCATION}/#allquestions`}>
                 <FormattedMessage {...messages.allQuestions} />
               </ADefault>

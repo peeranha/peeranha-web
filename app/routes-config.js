@@ -37,7 +37,7 @@ export const uniqueAnswerId = answerId => `ans${answerId}`;
 
 export const questions = communityId =>
   !communityId
-    ? `${!isBloggerMode ? '/' : '/questions'}`
+    ? `${!isBloggerMode ? '/questions' : '/questions'}`
     : `/questions/community/${communityId}/`;
 
 export const expertPosts = communityId =>
@@ -77,8 +77,7 @@ export const noAccess = () => `/no-access`;
 
 export const detailsHomePage = () => '/';
 
-export const feed = communityId =>
-  `/feed${communityId ? `/${communityId}` : ''}`;
+export const feed = communityId => `/${communityId ? `/${communityId}` : ''}`;
 
 export const communities = () => (!isBloggerMode ? `/communities` : `/`);
 
