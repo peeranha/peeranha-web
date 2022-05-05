@@ -22,16 +22,11 @@ function web3StorageApi() {
 
   if (!token) {
     throw new Error(
-      'A token is needed. You can create one on https://web3.storage',
+      'WEB3_STORAGE_API_TOKEN environment variable is not defined',
     );
   }
 
   return new Web3Storage({ token });
-}
-
-async function saveTextTheGraph(buf) {
-  const saveResult = await ipfsApiTheGraph().add(buf);
-  // return saveResult.cid.toString();
 }
 
 async function saveDataWeb3Storage(data) {
@@ -61,20 +56,21 @@ export async function saveText(text) {
   }
 
   const buf = Buffer.from(parsedText, 'utf8');
-  const saveResult = await ipfsApi().add(buf);
 
-  await saveTextTheGraph(buf);
+  const [resultIpfsS3] = await Promise.all([
+    saveDataIpfsS3(buf),
+    saveDataTheGraph(buf),
+    saveDataWeb3Storage(buf),
+  ]);
 
-  await saveDataWeb3Storage(buf);
-
-  return saveResult.cid.toString();
+  return resultIpfsS3.cid;
 }
 
-async function saveFileTheGraph(buf) {
+async function saveDataTheGraph(buf) {
   return await ipfsApiTheGraph().add(buf);
 }
 
-async function saveFileIpfsS3(file) {
+async function saveDataIpfsS3(file) {
   return await callService(SAVE_FILE_SERVICE, { file });
 }
 
@@ -82,8 +78,8 @@ export async function saveFile(file) {
   const buf = Buffer.from(file);
 
   const [resultIpfsS3] = await Promise.all([
-    saveFileIpfsS3(file),
-    saveFileTheGraph(buf),
+    saveDataIpfsS3(file),
+    saveDataTheGraph(buf),
     saveDataWeb3Storage(buf),
   ]);
 
