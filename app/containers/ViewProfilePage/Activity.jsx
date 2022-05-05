@@ -146,14 +146,14 @@ const Activity = ({
               <FormattedMessage
                 id={profileMessages.seeMore.id}
                 values={{
-                  questions: (
+                  posts: (
                     <TransparentLinkDefault
                       className="d-inline text-lowercase"
                       href={routes.userQuestions(userId)}
                       disabled={!questions.length}
                       tabIndex={!questions.length ? '-1' : undefined}
                     >
-                      <FormattedMessage {...messages.questions} />
+                      <FormattedMessage id={messages.posts.id} />
                     </TransparentLinkDefault>
                   ),
                   answers: (
@@ -165,7 +165,7 @@ const Activity = ({
                         !questionsWithUserAnswers.length ? '-1' : undefined
                       }
                     >
-                      <FormattedMessage {...messages.answers} />
+                      <FormattedMessage id={messages.answers.id} />
                     </TransparentLinkDefault>
                   ),
                 }}
