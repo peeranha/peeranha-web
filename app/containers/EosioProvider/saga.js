@@ -12,7 +12,7 @@ import {
   makeSelectAccount,
 } from 'containers/AccountProvider/selectors';
 
-import { showLoginModal } from 'containers/Login/actions';
+import { loginWithWallet } from 'containers/Login/actions';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { AUTOLOGIN_DATA } from 'containers/Login/constants';
 import { logout } from 'containers/Logout/actions';
@@ -92,7 +92,7 @@ export function* isAuthorized() {
   const profileInfo = yield select(makeSelectProfileInfo());
 
   if (!profileInfo) {
-    yield put(showLoginModal());
+    yield put(loginWithWallet({ metaMask: true }));
     throw new ApplicationError('Not authorized');
   }
 }
