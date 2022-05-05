@@ -185,7 +185,11 @@ const View = ({
                   </Button>
                   <Button
                     id="header-ask-question"
-                    onClick={redirectToAskQuestionPage}
+                    onClick={
+                      profileInfo
+                        ? redirectToAskQuestionPage
+                        : showLoginModalDispatch
+                    }
                   >
                     <IconSm fill={BG_LIGHT} icon={addIcon} />
 

@@ -22,8 +22,8 @@ export default defineMessages({
   subscribeToCommToKeep: {
     id: 'app.containers.Questions.subscribeToCommToKeep',
   },
-  noQuestionsYet: {
-    id: 'app.containers.Questions.noQuestionsYet',
+  noPostsYet: {
+    id: 'app.containers.Questions.noPostsYet',
   },
   thisIsNewCommunity: {
     id: 'app.containers.Questions.thisIsNewCommunity',
