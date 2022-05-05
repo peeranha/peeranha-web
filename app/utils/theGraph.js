@@ -198,7 +198,7 @@ export const postsForSearch = async (text, single) => {
     query: gql(postsForSearchQuery),
     variables: {
       text: query,
-      first: 2,
+      first: 100,
     },
   });
   return posts?.data?.postSearch.filter(
