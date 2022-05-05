@@ -8,6 +8,8 @@ import PropTypes from 'prop-types';
 
 import * as routes from 'routes-config';
 
+import { useModeratorRole } from '../../hooks/useModeratorRole';
+
 import injectSaga from 'utils/injectSaga';
 
 import { selectEditTagData } from 'containers/TagsOfCommunity/selectors';
@@ -70,6 +72,9 @@ const EditTag = ({
     tagId = match.params.tagid;
     editTagData = { communityId: Number(communityId), tagId };
     setEditTagDataDispatch(tagId, communityId);
+  
+    useModeratorRole(routes.noAccess, communityId);
+
   }
   useEffect(
     () => {
