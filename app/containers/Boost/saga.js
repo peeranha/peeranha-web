@@ -59,7 +59,7 @@ export function* changeStakeWorker({ currentStake }) {
     const ethereumService = yield select(selectEthereum);
     const profile = yield select(makeSelectProfileInfo());
     const boostStat = yield select(selectUserBoostStat());
-    console.log(boostStat);
+
     yield call(
       addBoost,
       ethereumService,
