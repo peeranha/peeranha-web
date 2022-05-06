@@ -57,8 +57,13 @@ export async function saveText(text) {
 
   const buf = Buffer.from(parsedText, 'utf8');
 
+  const textIpfsS3 = {
+    content: buf,
+    encoding: 'utf8',
+  };
+
   const [resultIpfsS3] = await Promise.all([
-    saveDataIpfsS3(buf),
+    saveDataIpfsS3(textIpfsS3),
     saveDataTheGraph(buf),
     saveDataWeb3Storage(buf),
   ]);
@@ -77,8 +82,13 @@ async function saveDataIpfsS3(file) {
 export async function saveFile(file) {
   const buf = Buffer.from(file);
 
+  const fileIpfsS3 = {
+    content: file,
+    encoding: 'base64',
+  };
+
   const [resultIpfsS3] = await Promise.all([
-    saveDataIpfsS3(file),
+    saveDataIpfsS3(fileIpfsS3),
     saveDataTheGraph(buf),
     saveDataWeb3Storage(buf),
   ]);
