@@ -253,15 +253,6 @@ export const Questions = ({
             profileInfo={profile}
           />
 
-          {parentPage === feed && (
-            <TopCommunities
-              userId={account}
-              account={account}
-              communities={communities}
-              profile={profile}
-            />
-          )}
-
           {!!+questionFilterFromCookies &&
             !displayLoader && (
               <div className="d-flex justify-content-center mb-3">
