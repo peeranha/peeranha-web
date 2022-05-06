@@ -25,16 +25,7 @@ import { Box, UlStyled } from 'containers/ViewProfilePage/MainUserInformation';
 
 import messages from './messages';
 
-const SubHeader = ({
-  account,
-  balance,
-  stakedInCurrentPeriod,
-  stakedInNextPeriod,
-}) => {
-  const availableBalance =
-    stakedInCurrentPeriod >= stakedInNextPeriod
-      ? balance - stakedInCurrentPeriod
-      : balance - stakedInNextPeriod;
+const SubHeader = ({ account, balance, availableBalance }) => {
   const userPolygonScanAddress = process.env.BLOCKCHAIN_EXPLORERE_URL + account;
 
   return (

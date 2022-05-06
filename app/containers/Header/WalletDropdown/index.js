@@ -61,14 +61,15 @@ const Menu = memo(({ user, number, locale, boost }) => (
         />
       )}
     </A>
-    {/* PEER20-306 - Hide Boost and Send Token from menu in demo version */}
-    {/* <A to={routes.userBoost(user)}>
+
+    <A to={routes.userBoost(user)}>
       <FormattedMessage {...messages.boost} />
       {boost?.value > 1 && <BoostPrediction>{boost?.text}</BoostPrediction>}
     </A>
-    <SendTokens>
-      <FormattedMessage {...messages.sendTokens} />
-    </SendTokens> */}
+
+    {/*<SendTokens>*/}
+    {/*  <FormattedMessage {...messages.sendTokens} />*/}
+    {/*</SendTokens>*/}
   </Ul>
 ));
 

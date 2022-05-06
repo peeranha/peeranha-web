@@ -4,6 +4,7 @@ import { getProfileInfo } from 'utils/profileManagement';
 import { emptyProfile, isUserExists, updateAcc } from 'utils/accountManagement';
 import {
   convertPeerValueToNumberValue,
+  getAvailableBalance,
   getBalance,
 } from 'utils/walletManagement';
 import {
@@ -139,9 +140,10 @@ export const getCurrentAccountWorker = function*(initAccount) {
       return;
     }
 
-    const [profileInfo, balance] = yield all([
+    const [profileInfo, balance, availableBalance] = yield all([
       call(getProfileInfo, account, ethereumService, true, true),
       call(getBalance, ethereumService, account),
+      call(getAvailableBalance, ethereumService, account),
     ]);
 
     // const stakedInCurrentPeriod = 0;
@@ -211,7 +213,7 @@ export const getCurrentAccountWorker = function*(initAccount) {
       addLoginData(JSON.parse(getCookie(AUTOLOGIN_DATA) || null) || {}),
     );
     yield put(getUserProfileSuccess(profileInfo));
-    yield put(getCurrentAccountSuccess(account, balance));
+    yield put(getCurrentAccountSuccess(account, balance, availableBalance));
   } catch (err) {
     yield put(getCurrentAccountError(err));
   }

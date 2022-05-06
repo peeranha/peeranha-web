@@ -9,7 +9,7 @@ import {
   BORDER_SECONDARY,
   BORDER_RADIUS_M,
 } from 'style-constants';
-import { getPredictedBoost } from 'utils/walletManagement';
+import { calculateNewBoost, getPredictedBoost } from 'utils/walletManagement';
 import Label from 'components/FormFields/Label';
 
 import {
@@ -75,26 +75,19 @@ const separators = amount => {
   );
 };
 
-const PredictionForm = ({ locale, formValues, maxStake }) => {
-  const predictedBoost = useMemo(
-    () => getPredictedBoost(formValues[CURRENT_STAKE_FORM], maxStake),
-    [formValues, maxStake],
+const PredictionForm = ({ locale, formValues, userBoostStat }) => {
+  const [predictedBoost] = calculateNewBoost(
+    userBoostStat,
+    formValues[CURRENT_STAKE_FORM],
   );
-  const { value, text } = predictedBoost;
-
-  const progressWidth = value
-    ? ((value - MIN_STAKE_PREDICTION) * 100) /
-      (MAX_STAKE_PREDICTION - MIN_STAKE_PREDICTION)
-    : 0;
-
   return (
     <InputWrapper isPrediction>
       <Label>
         {translationMessages[locale][messages.formBoostPrediction.id]}
       </Label>
-      <PredictedBoost>{text}</PredictedBoost>
-      {separators(MAX_STAKE_PREDICTION - MIN_STAKE_PREDICTION + 1)}
-      <InputProgressBar width={progressWidth} />
+      <PredictedBoost>{predictedBoost}</PredictedBoost>
+      {/*{separators(MAX_STAKE_PREDICTION - MIN_STAKE_PREDICTION + 1)}*/}
+      {/*<InputProgressBar width={progressWidth} />*/}
     </InputWrapper>
   );
 };

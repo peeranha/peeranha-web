@@ -13,22 +13,21 @@ const View = ({
   locale,
   account,
   balance,
+  availableBalance,
   stakedInCurrentPeriod,
   stakedInNextPeriod,
   weekStat,
-  globalBoostStat,
   userBoostStat,
   getWeekStatProcessing,
   changeStakeDispatch,
   changeStakeLoading,
 }) => {
-  const boostWeeks = getBoostWeeks(weekStat, globalBoostStat, userBoostStat);
-  const { nextWeek } = boostWeeks;
-  const { userStake, maxStake } = nextWeek;
+  const userStakeNext = userBoostStat?.userStakeNext ?? 0;
+  const averageStakeNext = userBoostStat?.averageStakeNext ?? 0;
 
   const [currentStake, setCurrentStake] = useState(-1);
 
-  if (currentStake < 0 && !!userStake) setCurrentStake(userStake);
+  if (currentStake < 0 && !!userStakeNext) setCurrentStake(userStakeNext);
 
   const changeCurrentStake = useCallback(
     x => {
@@ -44,6 +43,7 @@ const View = ({
       <SubHeader
         account={account}
         balance={balance}
+        availableBalance={availableBalance}
         stakedInCurrentPeriod={stakedInCurrentPeriod}
         stakedInNextPeriod={stakedInNextPeriod}
       />
@@ -51,12 +51,12 @@ const View = ({
       <Weeks
         locale={locale}
         weekStat={weekStat}
-        globalBoostStat={globalBoostStat}
         userBoostStat={userBoostStat}
         getWeekStatProcessing={getWeekStatProcessing}
       />
 
       <Form
+        userBoostStat={userBoostStat}
         valueHasToBeLessThan={balance}
         currentStake={currentStake}
         maxStake={balance}
@@ -66,7 +66,7 @@ const View = ({
         changeStake={changeStakeDispatch}
         changeStakeLoading={changeStakeLoading}
         locale={locale}
-        nextWeekMaxStake={maxStake}
+        nextWeekMaxStake={averageStakeNext}
       />
     </>
   );

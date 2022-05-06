@@ -1,6 +1,6 @@
 import { Contract, ethers } from 'ethers';
 import Peeranha from '../../../peeranha-subgraph/abis/Peeranha.json';
-import PeeranhaToken from '../../../peeranha/artifacts/contracts/PeeranhaToken.sol/PeeranhaToken.json';
+import PeeranhaToken from '../../../peeranha-subgraph/abis/PeeranhaToken.json';
 import { WebIntegrationErrorByCode } from './errors';
 import {
   INVALID_ETHEREUM_PARAMETERS_ERROR_CODE,
@@ -10,11 +10,13 @@ import {
 
 import {
   CLAIM_REWARD,
+  GET_AVAILABLE_BALANCE,
   GET_COMMUNITY,
   GET_USER_BALANCE,
   GET_USER_BY_ADDRESS,
   GET_USER_PERMISSIONS,
   GET_USER_RATING,
+  SET_STAKE,
 } from './ethConstants';
 import {
   getBytes32FromIpfsHash,
@@ -57,7 +59,7 @@ class EthereumService {
     );
     this.contractToken = new Contract(
       process.env.PEERANHA_TOKEN,
-      PeeranhaToken.abi,
+      PeeranhaToken,
       this.provider,
     );
   };
@@ -92,7 +94,7 @@ class EthereumService {
     );
     this.contractToken = new Contract(
       process.env.PEERANHA_TOKEN,
-      PeeranhaToken.abi,
+      PeeranhaToken,
       this.provider,
     );
     return this.selectedAccount.toLowerCase();
@@ -255,6 +257,20 @@ class EthereumService {
 
   getUserBalance = async user =>
     await this.getTokenDataWithArgs(GET_USER_BALANCE, [user]);
+
+  getUserAvailableBalance = async user =>
+    await this.getTokenDataWithArgs(GET_AVAILABLE_BALANCE, [user]);
+
+  setStake = async (actor, tokens) => {
+    try {
+      const transaction = await this.contractToken
+        .connect(this.provider.getSigner(actor))
+        [SET_STAKE](actor, tokens);
+      await transaction.wait();
+    } catch (err) {
+      throw err;
+    }
+  };
 
   claimUserReward = async (actor, period) => {
     try {

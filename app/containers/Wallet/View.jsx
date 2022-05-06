@@ -11,6 +11,7 @@ const View = ({
   locale,
   account,
   balance,
+  availableBalance,
   stakedInCurrentPeriod,
   stakedInNextPeriod,
   weekStat,
@@ -21,18 +22,20 @@ const View = ({
   ids,
 }) => (
   <>
-    {/*TODO boost*/}
-    {/*<NavHeader userId={userId} />*/}
+    <NavHeader userId={userId} />
 
     <SubHeader
       account={account}
       balance={balance}
+      availableBalance={availableBalance}
       stakedInCurrentPeriod={stakedInCurrentPeriod}
       stakedInNextPeriod={stakedInNextPeriod}
     />
 
     {userBoostStat &&
-      !userBoostStat.length && <BoostBanner userId={userId} locale={locale} />}
+      !(userBoostStat[0] + userBoostStat[1] > 2) && (
+        <BoostBanner userId={userId} locale={locale} />
+      )}
 
     <Weeks
       locale={locale}

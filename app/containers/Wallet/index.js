@@ -8,6 +8,7 @@ import { compose, bindActionCreators } from 'redux';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import {
   makeSelectAccount,
+  makeSelectAvailableBalance,
   makeSelectBalance,
   makeSelectStakedInCurrentPeriod,
   makeSelectStakedInNextPeriod,
@@ -31,6 +32,7 @@ const Wallet = ({
   locale,
   account,
   balance,
+  availableBalance,
   stakedInCurrentPeriod,
   stakedInNextPeriod,
   weekStat,
@@ -74,6 +76,7 @@ const Wallet = ({
         locale={locale}
         account={account}
         balance={balance}
+        availableBalance={availableBalance}
         stakedInCurrentPeriod={stakedInCurrentPeriod}
         stakedInNextPeriod={stakedInNextPeriod}
         weekStat={weekStat}
@@ -113,6 +116,7 @@ export default memo(
         locale: makeSelectLocale(),
         account: makeSelectAccount(),
         balance: makeSelectBalance(),
+        availableBalance: makeSelectAvailableBalance(),
         stakedInCurrentPeriod: makeSelectStakedInCurrentPeriod(),
         stakedInNextPeriod: makeSelectStakedInNextPeriod(),
         weekStat: selectors.selectWeekStat(),

@@ -1,40 +1,32 @@
 /* eslint camelcase: 0 */
 import {
+  CURRENT_STAKE_FORM,
   MAX_STAKE_PREDICTION,
   MIN_STAKE_PREDICTION,
 } from 'containers/Boost/constants';
-
-import JSBI from 'jsbi';
 import { getFormattedNum3 } from './numbers';
-import { bigNumberToNumber } from './converters';
 
 import {
-  ACCOUNTS_TABLE,
   ALL_BOUNTIES_SCOPE,
-  ALL_PERIODS_SCOPE,
   BOUNTY_TABLE,
-  SET_BOUNTY_METHOD,
-  PAY_BOUNTY_METHOD,
-  INF_LIMIT,
-  PERIOD_RATING_TABLE,
-  PERIOD_REWARD_TABLE,
-  PICKUP_REWARD_METHOD,
-  SEND_TOKEN_METHOD,
-  TOTAL_RATING_TABLE,
-  TOTAL_REWARD_TABLE,
-  USER_SUPPLY_SCOPE,
-  USER_SUPPLY_TABLE,
-  BOOST_STATISTICS_TABLE,
-  BOOST_STATISTICS_SCOPE,
-  USER_BOOST_TABLE,
-  ADD_BOOST_METHOD,
   EDIT_BOUNTY_METHOD,
-  TOKEN_AWARDS_TABLE,
+  INF_LIMIT,
+  PAY_BOUNTY_METHOD,
+  SEND_TOKEN_METHOD,
+  SET_BOUNTY_METHOD,
   TOKEN_AWARDS_SCOPE,
+  TOKEN_AWARDS_TABLE,
 } from './constants';
 
 import { ApplicationError } from './errors';
 import { getRewardStat } from './theGraph';
+import {
+  GET_AVAILABLE_BALANCE,
+  GET_AVERAGE_STAKE,
+  GET_BOOST,
+  GET_STAKE,
+  GET_USER_STAKE,
+} from './ethConstants';
 
 const PERIOD_LENGTH = {
   development: 2 * 60 * 60, // two hours
@@ -50,7 +42,14 @@ export const getBalance = async (ethereumService, user) => {
     const balance = await ethereumService.getUserBalance(user);
     return Number(balance.toString() / 10 ** 18);
   }
+  return 0;
+};
 
+export const getAvailableBalance = async (ethereumService, user) => {
+  if (user) {
+    const balance = await ethereumService.getUserAvailableBalance(user);
+    return Number(balance.toString() / 10 ** 18);
+  }
   return 0;
 };
 
@@ -242,51 +241,107 @@ export function convertPeerValueToNumberValue(val) {
   return Number(val.replace(/[a-zA-Z]/gim, '').trim());
 }
 
-export async function getGlobalBoostStatistics(eosService) {
-  const limit = 100;
+export async function getUserBoostStatistics(
+  ethereumService,
+  user,
+  currentPeriod,
+) {
+  const averageStakeCurrent =
+    (await ethereumService.getTokenDataWithArgs(GET_AVERAGE_STAKE, [
+      currentPeriod,
+    ])) /
+    10 ** 18;
+  const averageStakeNext =
+    (await ethereumService.getTokenDataWithArgs(GET_AVERAGE_STAKE, [
+      currentPeriod + 1,
+    ])) /
+    10 ** 18;
 
-  const { rows } = await eosService.getTableRows(
-    BOOST_STATISTICS_TABLE,
-    BOOST_STATISTICS_SCOPE,
-    undefined,
-    limit,
-    undefined,
-    undefined,
-    undefined,
-    process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
-  );
-
-  return rows;
-}
-
-export async function getUserBoostStatistics(eosService, user) {
-  const limit = 100;
-
-  const { rows } = await eosService.getTableRows(
-    USER_BOOST_TABLE,
-    user,
-    undefined,
-    limit,
-    undefined,
-    undefined,
-    undefined,
-    process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
-  );
-
-  return rows;
-}
-
-export async function addBoost(eosService, user, tokens) {
-  await eosService.sendTransaction(
-    user,
-    ADD_BOOST_METHOD,
-    {
+  const availableBalance =
+    (await ethereumService.getTokenDataWithArgs(GET_AVAILABLE_BALANCE, [
       user,
-      tokens,
-    },
-    process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
-    true,
+    ])) /
+    10 ** 18;
+
+  const userStakeCurrent =
+    (await ethereumService.getTokenDataWithArgs(GET_USER_STAKE, [
+      user,
+      currentPeriod,
+    ])) /
+    10 ** 18;
+  const userStakeNext =
+    (await ethereumService.getTokenDataWithArgs(GET_USER_STAKE, [
+      user,
+      currentPeriod + 1,
+    ])) /
+    10 ** 18;
+
+  const userBoostCurrent =
+    (await ethereumService.getTokenDataWithArgs(GET_BOOST, [
+      user,
+      currentPeriod,
+    ])) / 1000;
+  const userBoostNext =
+    (await ethereumService.getTokenDataWithArgs(GET_BOOST, [
+      user,
+      currentPeriod + 1,
+    ])) / 1000;
+
+  const totalPeriodStake = await ethereumService.getTokenDataWithArgs(
+    GET_STAKE,
+    [currentPeriod + 1],
   );
+
+  return {
+    averageStakeCurrent,
+    averageStakeNext,
+    availableBalance,
+    userStakeCurrent,
+    userStakeNext,
+    userBoostCurrent,
+    userBoostNext,
+    totalPeriodStake,
+  };
+}
+
+export async function getUserBoost(ethereumService, user, period) {
+  return Number(
+    (await ethereumService.getTokenDataWithArgs(GET_BOOST, [user, period])) /
+      1000,
+  );
+}
+
+export async function addBoost(ethereumService, user, tokens) {
+  await ethereumService.setStake(user, tokens);
+}
+
+export function calculateNewBoost(userBoostStat, newStake) {
+  let predictedBoost;
+  let newAverageStake;
+  if (userBoostStat) {
+    const totalStake = Number(
+      userBoostStat.totalPeriodStake[0].toString() / 10 ** 18,
+    );
+    const totalUsers = Number(userBoostStat.totalPeriodStake[1].toString());
+    newStake = Number(newStake);
+
+    if (userBoostStat.userStakeNext > 0) {
+      newAverageStake =
+        (totalStake - userBoostStat.userStakeNext + newStake) / totalUsers;
+    } else {
+      newAverageStake = (totalStake + newStake) / (totalUsers + 1);
+    }
+
+    if (newStake <= newAverageStake) {
+      predictedBoost = (newStake / newAverageStake) * 5 + 1;
+    } else {
+      predictedBoost = newStake / newAverageStake + 5;
+    }
+  } else {
+    predictedBoost = 0;
+  }
+
+  return [predictedBoost, newAverageStake];
 }
 
 export const getStakeNum = stake => {
@@ -330,51 +385,6 @@ export const setWeekDataByKey = (boostStat, key, nextWeekPeriod) => {
     getStakeNum(nextWeekValue),
   ];
 };
-
-export function getBoostWeeks(weekStat, globalBoostStat, userBoostStat) {
-  const currentWeek = weekStat ? { ...weekStat[0] } : {};
-  const nextWeek = Object.keys(currentWeek).length
-    ? {
-        period: currentWeek.period + 1,
-        periodStarted: currentWeek.periodFinished,
-        periodFinished:
-          currentWeek.periodFinished + PERIOD_LENGTH[process.env.NODE_ENV],
-      }
-    : {};
-
-  if (globalBoostStat && globalBoostStat.length) {
-    const [currentWeekMaxStake, nextWeekMaxStake] = setWeekDataByKey(
-      globalBoostStat,
-      'max_stake',
-      nextWeek.period,
-    );
-
-    currentWeek.maxStake = currentWeekMaxStake;
-    nextWeek.maxStake = nextWeekMaxStake;
-  } else {
-    currentWeek.maxStake = 0;
-    nextWeek.maxStake = 0;
-  }
-
-  if (userBoostStat && userBoostStat.length) {
-    const [currentWeekUserStake, nextWeekUserStake] = setWeekDataByKey(
-      userBoostStat,
-      'staked_tokens',
-      nextWeek.period,
-    );
-
-    currentWeek.userStake = currentWeekUserStake;
-    nextWeek.userStake = nextWeekUserStake;
-  } else {
-    currentWeek.userStake = 0;
-    nextWeek.userStake = 0;
-  }
-
-  return {
-    currentWeek: { ...currentWeek },
-    nextWeek: { ...nextWeek },
-  };
-}
 
 export const getRewardAmountByBoost = (
   currentPeriod,

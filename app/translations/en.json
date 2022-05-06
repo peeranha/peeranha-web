@@ -245,7 +245,7 @@
   "app.containers.Boost.description": "Boost | Description",
   "app.containers.Boost.currentPeriod": "Current period",
   "app.containers.Boost.nextPeriod": "Next period",
-  "app.containers.Boost.maximumStake": "Maximum stake",
+  "app.containers.Boost.maximumStake": "Average stake",
   "app.containers.Boost.users": "Users",
   "app.containers.Boost.yourStake": "Your stake",
   "app.containers.Boost.yourBoost": "Your boost",
