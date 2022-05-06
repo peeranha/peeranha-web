@@ -1,6 +1,6 @@
 import format from 'date-fns/format';
 import distanceInWordsToNow from 'date-fns/distance_in_words_to_now';
-import differenceInMonths from 'date-fns/difference_in_calendar_months';
+import {differenceInDays, differenceInMonths, differenceInYears} from 'date-fns';
 
 import ru from 'date-fns/locale/ru/index.js';
 import en from 'date-fns/locale/en/index.js';
@@ -52,10 +52,13 @@ export const getFormattedDate = /* istanbul ignore next */ (
   return format(dateInMills, dateView, localeObj);
 };
 
-export const getDifferenceInMonths = /* istanbul ignore next */ date => {
+export const getDifferenceInDate = /* istanbul ignore next */ date => {
   const dateInMills = date * 1000;
-
-  return `${differenceInMonths(Date.now(), dateInMills)}M`;
+  let days = differenceInDays(Date.now(), dateInMills);
+  let months = differenceInMonths(Date.now(), dateInMills);
+  let years = differenceInYears(Date.now(), dateInMills);
+  let difference = months < 1 ? `${days}D`: months < 12 ? `${months}M` : `${years}Y`;
+  return difference;
 };
 
 export const dateNowInSeconds = () => Math.trunc(Date.now() / 1000);
