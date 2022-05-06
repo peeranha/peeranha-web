@@ -160,6 +160,8 @@ export function* loginWithWalletWorker({ metaMask }) {
     yield put(loginWithWalletSuccess());
     yield call(updateAcc, profileInfo, ethereumService);
   } catch (err) {
+    document.getElementsByTagName('body')[0].style.position = 'relative';
+
     yield put(loginWithWalletErr(err));
   }
 }
