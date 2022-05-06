@@ -217,7 +217,7 @@ export const getAllAchievements = async userId => {
   });
   return {
     allAchievements: response?.data.achievements,
-    userAchievements: response?.data.user.achievements,
+    userAchievements: response?.data.user?.achievements || [],
   };
 };
 
