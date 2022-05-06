@@ -198,8 +198,8 @@ export default defineMessages({
   close: {
     id: 'app.common.close',
   },
-  subscribed: {
-    id: 'app.common.subscribed',
+  subscribers: {
+    id: 'app.common.users',
   },
   newest: {
     id: 'app.common.newest',
