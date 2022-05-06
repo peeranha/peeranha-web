@@ -114,6 +114,7 @@ export function* loginWithEmailWorker({ val }) {
     ethereumService.setSelectedAccount(response.body.address);
 
     yield put(addLoginData(response.peeranhaAutoLogin));
+    if (!isSingleCommunityWebsite()) yield put(redirectToFeed());
     yield call(continueLogin, response.body);
   } catch (err) {
     yield put(loginWithEmailErr(err));
