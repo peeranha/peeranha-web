@@ -231,7 +231,7 @@ const Span = styled.span`
   background: ${PEER_PRIMARY_COLOR};
 `;
 
-const highlight = ({ filter, str }) => {
+const Highlight = ({ filter, str }) => {
   if (!filter) return str;
   const regex = new RegExp(filter, 'ig');
   const matchValue = str.match(regex);
