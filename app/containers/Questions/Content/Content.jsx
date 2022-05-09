@@ -23,6 +23,8 @@ import { POST_TYPE } from '../../../utils/constants';
 import { EXPERT_BACKLIGHT, TUTORIAL_BACKLIGHT } from 'style-constants';
 import { isGeneralQuestion } from '../../ViewQuestion/saga';
 
+import { BORDER_SECONDARY, PEER_PRIMARY_COLOR } from 'style-constants';
+
 const Box = BaseNoPadding.extend`
   box-shadow: ${({ isExpert, isTutorial }) =>
     isExpert
@@ -224,23 +226,27 @@ const QuestionItem = connect(
   }),
 )(QI);
 
+const Span = styled.span`
+  width: 100%;
+  background: ${PEER_PRIMARY_COLOR};
+`;
+
 const Highlight = ({ filter, str }) => {
-  //ФУНКЦИЯ ПОДСВЕТКИ НАЙДЕННОГО СОВПАДЕНИЯ
   if (!filter) return str;
   const regex = new RegExp(filter, 'ig');
   const matchValue = str.match(regex);
   if (matchValue) {
-    return str.split(regex).map((s, i, arr) => {
+    return str.split(regex).map((chunk, i, arr) => {
       if (i < arr.length - 1) {
-        const c = matchValue.shift();
+        const head = matchValue.shift();
         return (
           <>
-            {s}
-            <span style={{ background: 'yellow' }}>{c}</span>
+            {chunk}
+            <Span>{head}</Span>
           </>
         );
       }
-      return s;
+      return chunk;
     });
   }
   return str;
@@ -284,28 +290,30 @@ export const Content = ({
       {/*    /> */}
       {/*  ))} */}
       {questionsList.map(
-        (item, index) => (
-          //{
-          //item.title=makeHighlighted(item.title);
-          //return
-          <QuestionItem
-            // {...item, title: makeHighlighted(item.title.toString())}
-            {...item}
-            isGeneral={isGeneralQuestion(item)}
-            index={index}
-            first={index === 0}
-            last={index === questionsList.length - 1}
-            locale={locale}
-            communities={communities}
-            key={item.id}
-            isModerator={isModerator}
-            profileInfo={profileInfo}
-            isHomePage={isHomePage}
-            isSearchPage={isSearchPage}
-            isFeed={isFeed}
-            isCommunityFeed={isCommunityFeed}
-          />
-        ),
+        (item, index) => {
+          const prepearedItem = {
+            ...item,
+            title: makeHighlighted(item.title),
+          };
+          return (
+            <QuestionItem
+              {...prepearedItem}
+              isGeneral={isGeneralQuestion(item)}
+              index={index}
+              first={index === 0}
+              last={index === questionsList.length - 1}
+              locale={locale}
+              communities={communities}
+              key={item.id}
+              isModerator={isModerator}
+              profileInfo={profileInfo}
+              isHomePage={isHomePage}
+              isSearchPage={isSearchPage}
+              isFeed={isFeed}
+              isCommunityFeed={isCommunityFeed}
+            />
+          );
+        },
         //}
       )}
     </div>
