@@ -54,10 +54,10 @@ export const getFormattedDate = /* istanbul ignore next */ (
 
 export const getDifferenceInDate = /* istanbul ignore next */ date => {
   const dateInMills = date * 1000;
-  let days = differenceInDays(Date.now(), dateInMills);
-  let months = differenceInMonths(Date.now(), dateInMills);
-  let years = differenceInYears(Date.now(), dateInMills);
-  let difference = months < 1 ? `${days}D`: months < 12 ? `${months}M` : `${years}Y`;
+  const days = differenceInDays(Date.now(), dateInMills);
+  const months = differenceInMonths(Date.now(), dateInMills);
+  const years = differenceInYears(Date.now(), dateInMills);
+  const difference = months < 1 ? `${days}D`: months < 12 ? `${months}M` : `${years}Y`;
   return difference;
 };
 
