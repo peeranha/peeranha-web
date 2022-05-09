@@ -231,7 +231,7 @@ const Span = styled.span`
   background: ${PEER_PRIMARY_COLOR};
 `;
 
-const Highlight = ({ filter, str }) => {
+const highlight = ({ filter, str }) => {
   if (!filter) return str;
   const regex = new RegExp(filter, 'ig');
   const matchValue = str.match(regex);
@@ -294,6 +294,7 @@ export const Content = ({
           const prepearedItem = {
             ...item,
             title: makeHighlighted(item.title),
+            content: makeHighlighted(item.content),
           };
           return (
             <QuestionItem
