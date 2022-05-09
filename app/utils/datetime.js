@@ -57,8 +57,16 @@ export const getDifferenceInDate = /* istanbul ignore next */ date => {
   const days = differenceInDays(Date.now(), dateInMills);
   const months = differenceInMonths(Date.now(), dateInMills);
   const years = differenceInYears(Date.now(), dateInMills);
-  const difference = months < 1 ? `${days}D`: months < 12 ? `${months}M` : `${years}Y`;
-  return difference;
+
+  if (months < 1) {
+    return `${days}D`;
+  }
+
+  if (months < 12) {
+    return `${months}M`;
+  }
+  
+  return `${years}Y`;
 };
 
 export const dateNowInSeconds = () => Math.trunc(Date.now() / 1000);
