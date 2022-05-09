@@ -34,7 +34,6 @@ import { showLoginModal } from 'containers/Login/actions';
 import { redirectToAskQuestionPage } from 'containers/AskQuestion/actions';
 
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
-import TopCommunities from 'components/TopCommunities';
 import ScrollToTop from 'components/ScrollToTop/index';
 import InfinityLoader from 'components/InfinityLoader';
 import Seo from 'components/Seo';
