@@ -224,6 +224,28 @@ const QuestionItem = connect(
   }),
 )(QI);
 
+const Highlight = ({ filter, str }) => {
+  //ФУНКЦИЯ ПОДСВЕТКИ НАЙДЕННОГО СОВПАДЕНИЯ
+  if (!filter) return str;
+  const regex = new RegExp(filter, 'ig');
+  const matchValue = str.match(regex);
+  if (matchValue) {
+    return str.split(regex).map((s, i, arr) => {
+      if (i < arr.length - 1) {
+        const c = matchValue.shift();
+        return (
+          <>
+            {s}
+            <span style={{ background: 'yellow' }}>{c}</span>
+          </>
+        );
+      }
+      return s;
+    });
+  }
+  return str;
+};
+
 export const Content = ({
   questionsList,
   // promotedQuestionsList,
@@ -232,47 +254,63 @@ export const Content = ({
   isModerator,
   profileInfo,
   isHomePage = false,
+  query,
   isSearchPage,
   isFeed,
   isCommunityFeed,
-}) => (
-  <div className="position-relative">
-    {/* {promotedQuestionsList && */}
-    {/*  promotedQuestionsList.map((item, index) => ( */}
-    {/*    <QuestionItem */}
-    {/*      {...item} */}
-    {/*      index={index} */}
-    {/*      first={index === 0} */}
-    {/*      last={index === questionsList.length - 1} */}
-    {/*      locale={locale} */}
-    {/*      communities={communities} */}
-    {/*      key={item.id} */}
-    {/*      isModerator={isModerator} */}
-    {/*      profileInfo={profileInfo} */}
-    {/*      isPromoted */}
-    {/*      isHomePage={isHomePage} */}
-    {/*    /> */}
-    {/*  ))} */}
-    {questionsList.map((item, index) => (
-      <QuestionItem
-        {...item}
-        isGeneral={isGeneralQuestion(item)}
-        index={index}
-        first={index === 0}
-        last={index === questionsList.length - 1}
-        locale={locale}
-        communities={communities}
-        key={item.id}
-        isModerator={isModerator}
-        profileInfo={profileInfo}
-        isHomePage={isHomePage}
-        isSearchPage={isSearchPage}
-        isFeed={isFeed}
-        isCommunityFeed={isCommunityFeed}
-      />
-    ))}
-  </div>
-);
+}) => {
+  const makeHighlighted = useCallback(
+    str => {
+      return <Highlight filter={query} str={str} />;
+    },
+    [query],
+  );
+  return (
+    <div className="position-relative">
+      {/* {promotedQuestionsList && */}
+      {/*  promotedQuestionsList.map((item, index) => ( */}
+      {/*    <QuestionItem */}
+      {/*      {...item} */}
+      {/*      index={index} */}
+      {/*      first={index === 0} */}
+      {/*      last={index === questionsList.length - 1} */}
+      {/*      locale={locale} */}
+      {/*      communities={communities} */}
+      {/*      key={item.id} */}
+      {/*      isModerator={isModerator} */}
+      {/*      profileInfo={profileInfo} */}
+      {/*      isPromoted */}
+      {/*      isHomePage={isHomePage} */}
+      {/*    /> */}
+      {/*  ))} */}
+      {questionsList.map(
+        (item, index) => (
+          //{
+          //item.title=makeHighlighted(item.title);
+          //return
+          <QuestionItem
+            // {...item, title: makeHighlighted(item.title.toString())}
+            {...item}
+            isGeneral={isGeneralQuestion(item)}
+            index={index}
+            first={index === 0}
+            last={index === questionsList.length - 1}
+            locale={locale}
+            communities={communities}
+            key={item.id}
+            isModerator={isModerator}
+            profileInfo={profileInfo}
+            isHomePage={isHomePage}
+            isSearchPage={isSearchPage}
+            isFeed={isFeed}
+            isCommunityFeed={isCommunityFeed}
+          />
+        ),
+        //}
+      )}
+    </div>
+  );
+};
 
 QI.propTypes = {
   id: PropTypes.string,

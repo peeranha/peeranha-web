@@ -85,6 +85,7 @@ const Search = ({
             createdFilter={0}
             isModerator={false}
             profileInfo={null}
+            query={query}
             isSearchPage
           />
         </InfinityLoader>
