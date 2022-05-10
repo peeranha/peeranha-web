@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
 
+import { Highlight } from './Highlight';
 import BaseNoPadding from 'components/Base/BaseRoundedNoPadding';
 
 import { officialAnswersCount } from 'utils/properties';
@@ -87,6 +88,7 @@ const QI = ({
   isPromoted,
   isHomePage,
   isSearchPage,
+  query,
   replyCount,
   postType,
   isFeed,
@@ -205,6 +207,7 @@ const QI = ({
           topQuestionActionProcessing={topQuestionActionProcessing}
           isPromoted={isPromoted}
           isSearchPage={isSearchPage}
+          query={query}
           postType={postType}
           isFeed={isFeed}
           isExpert={isExpert}
@@ -229,31 +232,31 @@ const QuestionItem = connect(
   }),
 )(QI);
 
-const Span = styled.span`
-  width: 100%;
-  background: ${PEER_PRIMARY_TRANSPARENT_COLOR};
-`;
+// const Span = styled.span`
+//   width: 100%;
+//   background: ${PEER_PRIMARY_TRANSPARENT_COLOR};
+// `;
 
-const Highlight = ({ filter, str }) => {
-  if (!filter) return str;
-  const regex = new RegExp(filter, 'ig');
-  const matchValue = str.match(regex);
-  if (matchValue) {
-    return str.split(regex).map((chunk, i, arr) => {
-      if (i < arr.length - 1) {
-        const head = matchValue.shift();
-        return (
-          <>
-            {chunk}
-            <Span>{head}</Span>
-          </>
-        );
-      }
-      return chunk;
-    });
-  }
-  return str;
-};
+// const Highlight = ({ filter, str }) => {
+//   if (!filter) return str;
+//   const regex = new RegExp(filter, 'ig');
+//   const matchValue = str.match(regex);
+//   if (matchValue) {
+//     return str.split(regex).map((chunk, i, arr) => {
+//       if (i < arr.length - 1) {
+//         const head = matchValue.shift();
+//         return (
+//           <>
+//             {chunk}
+//             <Span>{head}</Span>
+//           </>
+//         );
+//       }
+//       return chunk;
+//     });
+//   }
+//   return str;
+// };
 
 export const Content = ({
   questionsList,
