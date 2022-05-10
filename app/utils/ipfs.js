@@ -33,6 +33,21 @@ async function saveDataWeb3Storage(data) {
   return await web3StorageApi().put([new File([data], 'data')]);
 }
 
+async function saveDataToAllStorages(content, buf, encoding) {
+  const dataIpfsS3 = {
+    content,
+    encoding,
+  };
+
+  const [resultIpfsS3] = await Promise.all([
+    saveDataIpfsS3(dataIpfsS3),
+    saveDataTheGraph(buf),
+    saveDataWeb3Storage(buf),
+  ]);
+
+  return resultIpfsS3;
+}
+
 // TODO: test
 export async function saveText(text) {
   let parsedText;
@@ -57,18 +72,9 @@ export async function saveText(text) {
 
   const buf = Buffer.from(parsedText, 'utf8');
 
-  const textIpfsS3 = {
-    content: buf,
-    encoding: 'utf8',
-  };
+  const result = await saveDataToAllStorages(buf, buf, 'utf8');
 
-  const [resultIpfsS3] = await Promise.all([
-    saveDataIpfsS3(textIpfsS3),
-    saveDataTheGraph(buf),
-    saveDataWeb3Storage(buf),
-  ]);
-
-  return resultIpfsS3.cid;
+  return result.cid;
 }
 
 async function saveDataTheGraph(buf) {
@@ -82,18 +88,9 @@ async function saveDataIpfsS3(file) {
 export async function saveFile(file) {
   const buf = Buffer.from(file);
 
-  const fileIpfsS3 = {
-    content: file,
-    encoding: 'base64',
-  };
+  const result = await saveDataToAllStorages(file, buf, 'base64');
 
-  const [resultIpfsS3] = await Promise.all([
-    saveDataIpfsS3(fileIpfsS3),
-    saveDataTheGraph(buf),
-    saveDataWeb3Storage(buf),
-  ]);
-
-  return resultIpfsS3.cid;
+  return result.cid;
 }
 
 export async function getText(hash) {
