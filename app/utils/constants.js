@@ -53,6 +53,11 @@ export const PERMISSION_GRANTED = '1';
 export const PROPERTY_ANSWER_15_MINUTES = 12;
 export const PROPERTY_FIRST_ANSWER = 13;
 
+export const WEI_IN_ETH = String(10 ** 18);
+export const BOOST_MULTIPLIER = 5;
+export const BOOST_MODIFIER_HIGH = 5;
+export const BOOST_MODIFIER_LOW = 1;
+
 export const POST_TYPE = {
   expertPost: 0,
   generalPost: 1,

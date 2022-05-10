@@ -15,7 +15,6 @@ const NextWeek = ({
   locale,
   averageStakeNext,
   userStakeNext,
-  periodStarted,
   periodFinished,
 }) => (
   <li className="d-flex flex-column flex-grow-1 mb-3">

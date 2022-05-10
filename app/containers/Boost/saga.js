@@ -64,22 +64,25 @@ export function* changeStakeWorker({ currentStake }) {
       addBoost,
       ethereumService,
       profile.user,
-      (currentStake * 10 ** 18).toString(),
+      (currentStake * WEI_IN_ETH).toString(),
     );
 
-    yield put(changeStakedInNextPeriod(+currentStake));
+    yield put(changeStakedInNextPeriod(Number(currentStake)));
 
     const [newBoost, newAverageStake] = calculateNewBoost(
       boostStat,
-      currentStake,
+      Number(currentStake),
     );
 
-    boostStat.availableBalance -= currentStake;
-    boostStat.averageStakeNext = newAverageStake;
-    boostStat.userBoostNext = newBoost;
-    boostStat.userStakeNext = +currentStake;
+    const newBoosStat = {
+      ...boostStat,
+      availableBalance: boostStat.availableBalance - currentStake,
+      averageStakeNext: newAverageStake,
+      userBoostNext: newBoost,
+      userStakeNext: Number(currentStake),
+    };
 
-    yield put(changeStakeSuccess(boostStat));
+    yield put(changeStakeSuccess(newBoosStat));
     yield call(getWeekStatWorker);
   } catch (err) {
     yield put(changeStakeErr(err));

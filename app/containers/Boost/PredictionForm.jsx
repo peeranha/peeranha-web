@@ -78,7 +78,7 @@ const separators = amount => {
 const PredictionForm = ({ locale, formValues, userBoostStat }) => {
   const [predictedBoost] = calculateNewBoost(
     userBoostStat,
-    formValues[CURRENT_STAKE_FORM],
+    Number(formValues[CURRENT_STAKE_FORM]),
   );
   return (
     <InputWrapper isPrediction>

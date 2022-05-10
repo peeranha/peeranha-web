@@ -8,6 +8,9 @@ import { getFormattedNum3 } from './numbers';
 
 import {
   ALL_BOUNTIES_SCOPE,
+  BOOST_MODIFIER_HIGH,
+  BOOST_MODIFIER_LOW,
+  BOOST_MULTIPLIER,
   BOUNTY_TABLE,
   EDIT_BOUNTY_METHOD,
   INF_LIMIT,
@@ -16,6 +19,7 @@ import {
   SET_BOUNTY_METHOD,
   TOKEN_AWARDS_SCOPE,
   TOKEN_AWARDS_TABLE,
+  WEI_IN_ETH,
 } from './constants';
 
 import { ApplicationError } from './errors';
@@ -40,7 +44,7 @@ const PERIOD_LENGTH = {
 export const getBalance = async (ethereumService, user) => {
   if (user) {
     const balance = await ethereumService.getUserBalance(user);
-    return Number(balance.toString() / 10 ** 18);
+    return Number(balance.toString() / WEI_IN_ETH);
   }
   return 0;
 };
@@ -48,7 +52,7 @@ export const getBalance = async (ethereumService, user) => {
 export const getAvailableBalance = async (ethereumService, user) => {
   if (user) {
     const balance = await ethereumService.getUserAvailableBalance(user);
-    return Number(balance.toString() / 10 ** 18);
+    return Number(balance.toString() / WEI_IN_ETH);
   }
   return 0;
 };
@@ -249,32 +253,27 @@ export async function getUserBoostStatistics(
   const averageStakeCurrent =
     (await ethereumService.getTokenDataWithArgs(GET_AVERAGE_STAKE, [
       currentPeriod,
-    ])) /
-    10 ** 18;
+    ])) / WEI_IN_ETH;
   const averageStakeNext =
     (await ethereumService.getTokenDataWithArgs(GET_AVERAGE_STAKE, [
       currentPeriod + 1,
-    ])) /
-    10 ** 18;
+    ])) / WEI_IN_ETH;
 
   const availableBalance =
     (await ethereumService.getTokenDataWithArgs(GET_AVAILABLE_BALANCE, [
       user,
-    ])) /
-    10 ** 18;
+    ])) / WEI_IN_ETH;
 
   const userStakeCurrent =
     (await ethereumService.getTokenDataWithArgs(GET_USER_STAKE, [
       user,
       currentPeriod,
-    ])) /
-    10 ** 18;
+    ])) / WEI_IN_ETH;
   const userStakeNext =
     (await ethereumService.getTokenDataWithArgs(GET_USER_STAKE, [
       user,
       currentPeriod + 1,
-    ])) /
-    10 ** 18;
+    ])) / WEI_IN_ETH;
 
   const userBoostCurrent =
     (await ethereumService.getTokenDataWithArgs(GET_BOOST, [
@@ -316,29 +315,30 @@ export async function addBoost(ethereumService, user, tokens) {
 }
 
 export function calculateNewBoost(userBoostStat, newStake) {
+  if (!userBoostStat) {
+    return [0, null];
+  }
+
   let predictedBoost;
   let newAverageStake;
-  if (userBoostStat) {
-    const totalStake = Number(
-      userBoostStat.totalPeriodStake[0].toString() / 10 ** 18,
-    );
-    const totalUsers = Number(userBoostStat.totalPeriodStake[1].toString());
-    newStake = Number(newStake);
 
-    if (userBoostStat.userStakeNext > 0) {
-      newAverageStake =
-        (totalStake - userBoostStat.userStakeNext + newStake) / totalUsers;
-    } else {
-      newAverageStake = (totalStake + newStake) / (totalUsers + 1);
-    }
+  const totalStake = Number(
+    userBoostStat.totalPeriodStake[0].toString() / WEI_IN_ETH,
+  );
+  const totalUsers = Number(userBoostStat.totalPeriodStake[1].toString());
 
-    if (newStake <= newAverageStake) {
-      predictedBoost = (newStake / newAverageStake) * 5 + 1;
-    } else {
-      predictedBoost = newStake / newAverageStake + 5;
-    }
+  if (userBoostStat.userStakeNext > 0) {
+    newAverageStake =
+      (totalStake - userBoostStat.userStakeNext + newStake) / totalUsers;
   } else {
-    predictedBoost = 0;
+    newAverageStake = (totalStake + newStake) / (totalUsers + 1);
+  }
+
+  if (newStake <= newAverageStake) {
+    predictedBoost =
+      (newStake / newAverageStake) * BOOST_MULTIPLIER + BOOST_MODIFIER_LOW;
+  } else {
+    predictedBoost = newStake / newAverageStake + BOOST_MODIFIER_HIGH;
   }
 
   return [predictedBoost, newAverageStake];

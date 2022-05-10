@@ -20,33 +20,39 @@ const View = ({
   pickupRewardDispatch,
   pickupRewardProcessing,
   ids,
-}) => (
-  <>
-    <NavHeader userId={userId} />
+}) => {
+  const [currentBoostValue, nextBoostValue] = userBoostStat || [];
+  const BOOSTS_SUM_VALUE_WITHOUT_STAKE = 2;
 
-    <SubHeader
-      account={account}
-      balance={balance}
-      availableBalance={availableBalance}
-      stakedInCurrentPeriod={stakedInCurrentPeriod}
-      stakedInNextPeriod={stakedInNextPeriod}
-    />
+  return (
+    <>
+      <NavHeader userId={userId} />
 
-    {userBoostStat &&
-      !(userBoostStat[0] + userBoostStat[1] > 2) && (
-        <BoostBanner userId={userId} locale={locale} />
-      )}
+      <SubHeader
+        account={account}
+        balance={balance}
+        availableBalance={availableBalance}
+        stakedInCurrentPeriod={stakedInCurrentPeriod}
+        stakedInNextPeriod={stakedInNextPeriod}
+      />
 
-    <Weeks
-      locale={locale}
-      weekStat={weekStat}
-      getWeekStatProcessing={getWeekStatProcessing}
-      pickupRewardDispatch={pickupRewardDispatch}
-      pickupRewardProcessing={pickupRewardProcessing}
-      ids={ids}
-    />
-  </>
-);
+      {userBoostStat &&
+        !(
+          currentBoostValue + nextBoostValue >
+          BOOSTS_SUM_VALUE_WITHOUT_STAKE
+        ) && <BoostBanner userId={userId} locale={locale} />}
+
+      <Weeks
+        locale={locale}
+        weekStat={weekStat}
+        getWeekStatProcessing={getWeekStatProcessing}
+        pickupRewardDispatch={pickupRewardDispatch}
+        pickupRewardProcessing={pickupRewardProcessing}
+        ids={ids}
+      />
+    </>
+  );
+};
 
 View.propTypes = {
   userId: PropTypes.string,
