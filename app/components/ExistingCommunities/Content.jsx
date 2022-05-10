@@ -15,7 +15,7 @@ import {
   hasGlobalModeratorRole,
 } from 'utils/properties';
 import { getFormattedNum2 } from 'utils/numbers';
-import { getDifferenceInMonths } from 'utils/datetime';
+import { getDifferenceInDate } from 'utils/datetime';
 
 import commonMessages from 'common-messages';
 
@@ -173,7 +173,7 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
                   </Info>
 
                   <Info>
-                    <P>{getDifferenceInMonths(x.creationTime, locale)}</P>
+                    <P>{getDifferenceInDate(x.creationTime, locale)}</P>
                     <P>
                       <FormattedMessage {...commonMessages.age} />
                     </P>
