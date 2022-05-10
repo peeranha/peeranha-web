@@ -439,6 +439,14 @@ export const rewardsQuery = `
   }
 `;
 
+export const currentPeriodQuery = `
+  query  {
+    periods (orderBy: endPeriodTime, orderDirection: desc, first: 1) {
+      ${period}
+    }
+  }
+`;
+
 const history = `
   transactionHash
   post {

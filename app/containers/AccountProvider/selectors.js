@@ -59,6 +59,7 @@ const makeSelectProfileInfo = () =>
     state => {
       const account = makeSelectAccount()(state);
       const balance = makeSelectBalance()(state);
+      const availableBalance = makeSelectAvailableBalance()(state);
       const stakedInCurrentPeriod = makeSelectStakedInCurrentPeriod()(state);
       const stakedInNextPeriod = makeSelectStakedInNextPeriod()(state);
       const boost = makeSelectBoost()(state);
@@ -69,6 +70,7 @@ const makeSelectProfileInfo = () =>
         return {
           ...profileInfo,
           balance,
+          availableBalance,
           stakedInCurrentPeriod,
           stakedInNextPeriod,
           boost,

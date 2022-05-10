@@ -23,16 +23,12 @@ export const getCurrentAccountSuccess = (
   account,
   balance,
   availableBalance,
-  stakedInCurrentPeriod = 0,
-  stakedInNextPeriod = 0,
   boost,
 ) => ({
   type: GET_CURRENT_ACCOUNT_SUCCESS,
   account,
   balance,
   availableBalance,
-  stakedInCurrentPeriod,
-  stakedInNextPeriod,
   boost,
 });
 

@@ -48,36 +48,36 @@ export const BoostPrediction = styled.span`
 
 const isPositiveNumber = number => Number.isFinite(number) && number > 0;
 
-const Menu = memo(({ user, number, locale, boost }) => (
-  <Ul>
-    <A to={routes.userWallet(user)}>
-      <FormattedMessage {...messages.wallet} />
-      {isPositiveNumber(number) && (
-        <NotificationIcon
-          inline
-          number={number}
-          iconId="walletDropDownInline"
-          locale={locale}
-        />
-      )}
-    </A>
+const Menu = memo(({ user, number, locale, boost }) => {
+  return (
+    <Ul>
+      <A to={routes.userWallet(user)}>
+        <FormattedMessage {...messages.wallet} />
+        {isPositiveNumber(number) && (
+          <NotificationIcon
+            inline
+            number={number}
+            iconId="walletDropDownInline"
+            locale={locale}
+          />
+        )}
+      </A>
 
-    <A to={routes.userBoost(user)}>
-      <FormattedMessage {...messages.boost} />
-      {boost?.value > 1 && <BoostPrediction>{boost?.text}</BoostPrediction>}
-    </A>
+      <A to={routes.userBoost(user)}>
+        <FormattedMessage {...messages.boost} />
+        {boost > 1 && <BoostPrediction>{boost}</BoostPrediction>}
+      </A>
 
-    {/*<SendTokens>*/}
-    {/*  <FormattedMessage {...messages.sendTokens} />*/}
-    {/*</SendTokens>*/}
-  </Ul>
-));
+      {/*<SendTokens>*/}
+      {/*  <FormattedMessage {...messages.sendTokens} />*/}
+      {/*</SendTokens>*/}
+    </Ul>
+  );
+});
 
 const WalletDropdown = ({
   user,
   balance,
-  stakedInCurrentPeriod = 0,
-  stakedInNextPeriod = 0,
   boost,
   locale,
   getWeekStatDispatch,
@@ -93,22 +93,13 @@ const WalletDropdown = ({
     [account],
   );
 
-  const availableBalance =
-    stakedInCurrentPeriod >= stakedInNextPeriod
-      ? balance - stakedInCurrentPeriod
-      : balance - stakedInNextPeriod;
-
   return (
     <div className="position-relative">
       <Dropdown
         id={`profile_id_${Math.random()}`}
         className="d-none d-md-flex mr-1 wallet-dropdown"
         button={
-          <WalletButton
-            balance={availableBalance}
-            locale={locale}
-            isBoost={boost?.value > 1}
-          />
+          <WalletButton balance={balance} locale={locale} isBoost={boost > 1} />
         }
         menu={
           <Menu user={user} number={number} locale={locale} boost={boost} />
@@ -135,8 +126,6 @@ Menu.propTypes = {
 WalletDropdown.propTypes = {
   user: PropTypes.string,
   balance: PropTypes.number,
-  stakedInCurrentPeriod: PropTypes.number,
-  stakedInNextPeriod: PropTypes.number,
   boost: PropTypes.object,
   locale: PropTypes.string,
   getWeekStatDispatch: PropTypes.func,
