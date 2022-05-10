@@ -83,7 +83,6 @@ const QI = ({
   isPromoted,
   isHomePage,
   isSearchPage,
-  query,
   replyCount,
   postType,
   isFeed,
@@ -202,7 +201,6 @@ const QI = ({
           topQuestionActionProcessing={topQuestionActionProcessing}
           isPromoted={isPromoted}
           isSearchPage={isSearchPage}
-          query={query}
           postType={postType}
           isFeed={isFeed}
           isExpert={isExpert}
