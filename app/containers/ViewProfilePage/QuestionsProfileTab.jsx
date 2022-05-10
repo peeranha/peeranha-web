@@ -34,6 +34,7 @@ import Banner from './Banner';
 
 import QuestionType from 'containers/Questions/Content/Body/QuestionType';
 import styled, { css } from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const single = isSingleCommunityWebsite();
 
@@ -96,31 +97,50 @@ const Note = ({
   elementType,
   ...postInfo
 }) => {
-  let Link = _A;
+  let LinkStyled = _A;
   let route = routes.questionView(
     id,
     elementType === POST_TYPE_ANSWER ? answerId.split('-')[1] : null,
   );
   if (single && single !== postInfo.communityId) {
-    Link = ADefault;
+    LinkStyled = ADefault;
     route = `${process.env.APP_LOCATION}${route}`;
   }
 
   return (
-    <Link
-      className="d-flex flex-column flex-sm-row align-items-start align-items-sm-center py-1"
-      to={route}
-      href={route}
-    >
-      <div className="d-flex align-items-center mb-to-sm-2">
-        <PostTypeIcon
-          elementType={elementType}
-          isMyAnswerAccepted={isMyAnswerAccepted}
-        />
-        <Rating acceptedAnswer={false}>{myPostRating}</Rating>
+    <Link to={route} href={route}>
+      <LinkStyled className="d-flex flex-column flex-sm-row align-items-start align-items-sm-center py-1">
+        <div className="d-flex align-items-center mb-to-sm-2">
+          <PostTypeIcon
+            elementType={elementType}
+            isMyAnswerAccepted={isMyAnswerAccepted}
+          />
+          <Rating acceptedAnswer={false}>{myPostRating}</Rating>
+
+          <PostDate
+            className="d-inline-block d-sm-none"
+            color={TEXT_SECONDARY}
+            fontSize="14"
+            mobileFS="12"
+          >
+            {getTimeFromDateToNow(myPostTime, locale)}{' '}
+            <FormattedMessage {...commonMessages.ago} />
+          </PostDate>
+        </div>
+
+        <Span
+          fontSize="16"
+          lineHeight="30"
+          mobileFS="14"
+          className="flex-grow-1 mb-to-sm-2 mr-3"
+        >
+          {title}
+        </Span>
+
+        <QuestionType locale={locale} postType={postType} />
 
         <PostDate
-          className="d-inline-block d-sm-none"
+          className="d-none d-sm-inline-block"
           color={TEXT_SECONDARY}
           fontSize="14"
           mobileFS="12"
@@ -128,28 +148,7 @@ const Note = ({
           {getTimeFromDateToNow(myPostTime, locale)}{' '}
           <FormattedMessage {...commonMessages.ago} />
         </PostDate>
-      </div>
-
-      <Span
-        fontSize="16"
-        lineHeight="30"
-        mobileFS="14"
-        className="flex-grow-1 mb-to-sm-2 mr-3"
-      >
-        {title}
-      </Span>
-
-      <QuestionType locale={locale} postType={postType} />
-
-      <PostDate
-        className="d-none d-sm-inline-block"
-        color={TEXT_SECONDARY}
-        fontSize="14"
-        mobileFS="12"
-      >
-        {getTimeFromDateToNow(myPostTime, locale)}{' '}
-        <FormattedMessage {...commonMessages.ago} />
-      </PostDate>
+      </LinkStyled>
     </Link>
   );
 };
