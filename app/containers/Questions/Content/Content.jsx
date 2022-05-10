@@ -23,7 +23,10 @@ import { POST_TYPE } from '../../../utils/constants';
 import { EXPERT_BACKLIGHT, TUTORIAL_BACKLIGHT } from 'style-constants';
 import { isGeneralQuestion } from '../../ViewQuestion/saga';
 
-import { BORDER_SECONDARY, PEER_PRIMARY_COLOR } from 'style-constants';
+import {
+  PEER_PREMIUM_TRANSPARENT_COLOR,
+  PEER_PRIMARY_TRANSPARENT_COLOR,
+} from 'style-constants';
 
 const Box = BaseNoPadding.extend`
   box-shadow: ${({ isExpert, isTutorial }) =>
@@ -228,7 +231,7 @@ const QuestionItem = connect(
 
 const Span = styled.span`
   width: 100%;
-  background: ${PEER_PRIMARY_COLOR};
+  background: ${PEER_PRIMARY_TRANSPARENT_COLOR};
 `;
 
 const Highlight = ({ filter, str }) => {
