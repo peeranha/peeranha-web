@@ -1104,6 +1104,13 @@
     "Источник информации или ресурсы по конкретному предмету, который нелегко найти;",
     "Пояснение или разъяснение информации, которую трудно понять."
   ],
+  "app.containers.QuestionForm.tutorialQuestionDescriptionLabel":
+    "Руководство это инструкция, которая может представлять из себя:",
+  "app.containers.QuestionForm.tutorialQuestionDescriptionList": [
+    "Пошаговое решение проблемы;",
+    "Техническое руководство;",
+    "Гайд по любой теме."
+  ],
   "app.containers.QuestionForm.promotedLabel": "Продвинуть вопрос",
   "app.containers.QuestionForm.promotedTip": "Продвинуть вопрос",
   "app.containers.QuestionForm.questionIsPromoting":
