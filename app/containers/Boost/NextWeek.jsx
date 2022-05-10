@@ -15,6 +15,7 @@ const NextWeek = ({
   locale,
   averageStakeNext,
   userStakeNext,
+  userBoostNext,
   periodFinished,
 }) => (
   <li className="d-flex flex-column flex-grow-1 mb-3">
@@ -32,7 +33,11 @@ const NextWeek = ({
       />
     </Base>
 
-    <WeekDetails maximumStake={averageStakeNext} yourStake={userStakeNext} />
+    <WeekDetails
+      averageStake={averageStakeNext}
+      yourStake={userStakeNext}
+      userBoost={userBoostNext}
+    />
   </li>
 );
 

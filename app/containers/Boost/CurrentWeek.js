@@ -22,6 +22,7 @@ const CurrentWeek = ({
   userStakeCurrent,
   periodStarted,
   periodFinished,
+  userBoostCurrent,
 }) => (
   <li
     className="d-flex flex-column flex-grow-1 mb-3"
@@ -42,8 +43,9 @@ const CurrentWeek = ({
       />
     </Base>
     <WeekDetails
-      maximumStake={averageStakeCurrent}
+      averageStake={averageStakeCurrent}
       yourStake={userStakeCurrent}
+      userBoost={userBoostCurrent}
       isCurrentWeek
     />
   </li>

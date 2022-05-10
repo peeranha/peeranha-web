@@ -10,8 +10,6 @@ import {
   makeSelectAccount,
   makeSelectAvailableBalance,
   makeSelectBalance,
-  makeSelectStakedInCurrentPeriod,
-  makeSelectStakedInNextPeriod,
 } from 'containers/AccountProvider/selectors';
 
 import Seo from 'components/Seo';
@@ -33,8 +31,6 @@ const Wallet = ({
   account,
   balance,
   availableBalance,
-  stakedInCurrentPeriod,
-  stakedInNextPeriod,
   weekStat,
   userBoostStat,
   getWeekStatDispatch,
@@ -77,8 +73,6 @@ const Wallet = ({
         account={account}
         balance={balance}
         availableBalance={availableBalance}
-        stakedInCurrentPeriod={stakedInCurrentPeriod}
-        stakedInNextPeriod={stakedInNextPeriod}
         weekStat={weekStat}
         userBoostStat={userBoostStat}
         getWeekStatProcessing={getWeekStatProcessing}
@@ -92,8 +86,6 @@ const Wallet = ({
 
 Wallet.propTypes = {
   balance: PropTypes.number,
-  stakedInCurrentPeriod: PropTypes.number,
-  stakedInNextPeriod: PropTypes.number,
   locale: PropTypes.string,
   account: PropTypes.string,
   match: PropTypes.object,
@@ -117,8 +109,6 @@ export default memo(
         account: makeSelectAccount(),
         balance: makeSelectBalance(),
         availableBalance: makeSelectAvailableBalance(),
-        stakedInCurrentPeriod: makeSelectStakedInCurrentPeriod(),
-        stakedInNextPeriod: makeSelectStakedInNextPeriod(),
         weekStat: selectors.selectWeekStat(),
         userBoostStat: selectors.selectUserBoostStat(),
         getWeekStatProcessing: selectors.selectGetWeekStatProcessing(),

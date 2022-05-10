@@ -3,7 +3,7 @@ import {
   getWeekStat,
   pickupReward,
   getUserBoostStatistics,
-  getUserBoost,
+  getUserStake,
 } from 'utils/walletManagement';
 
 import {
@@ -36,10 +36,10 @@ export function* getWeekStatWorker() {
       : [];
 
     const currentBoost = user
-      ? yield call(getUserBoost, ethereumService, user, weekStat[0].period)
+      ? yield call(getUserStake, ethereumService, user, weekStat[0].period)
       : undefined;
     const nextBoost = user
-      ? yield call(getUserBoost, ethereumService, user, weekStat[0].period + 1)
+      ? yield call(getUserStake, ethereumService, user, weekStat[0].period + 1)
       : undefined;
 
     yield put(getWeekStatSuccess(weekStat, [currentBoost, nextBoost]));

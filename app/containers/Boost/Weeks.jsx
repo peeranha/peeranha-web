@@ -46,6 +46,7 @@ const Weeks = ({ locale, weekStat, userBoostStat, getWeekStatProcessing }) => {
                 periodFinished={weekStat[0].periodFinished}
                 averageStakeCurrent={userBoostStat.averageStakeCurrent}
                 userStakeCurrent={userBoostStat.userStakeCurrent}
+                userBoostCurrent={userBoostStat.userBoostCurrent}
               />
 
               <NextWeek
@@ -55,6 +56,7 @@ const Weeks = ({ locale, weekStat, userBoostStat, getWeekStatProcessing }) => {
                 periodFinished={weekStat[0].periodFinished}
                 averageStakeNext={userBoostStat.averageStakeNext}
                 userStakeNext={userBoostStat.userStakeNext}
+                userBoostNext={userBoostStat.userBoostNext}
               />
             </CurrentPendingWeeks>
           </ul>

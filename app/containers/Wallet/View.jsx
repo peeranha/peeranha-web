@@ -12,8 +12,6 @@ const View = ({
   account,
   balance,
   availableBalance,
-  stakedInCurrentPeriod,
-  stakedInNextPeriod,
   weekStat,
   userBoostStat,
   getWeekStatProcessing,
@@ -21,7 +19,7 @@ const View = ({
   pickupRewardProcessing,
   ids,
 }) => {
-  const [currentBoostValue, nextBoostValue] = userBoostStat || [];
+  const [currentUserStake, nextUserStake] = userBoostStat || [];
   const BOOSTS_SUM_VALUE_WITHOUT_STAKE = 2;
 
   return (
@@ -32,13 +30,13 @@ const View = ({
         account={account}
         balance={balance}
         availableBalance={availableBalance}
-        stakedInCurrentPeriod={stakedInCurrentPeriod}
-        stakedInNextPeriod={stakedInNextPeriod}
+        stakedInCurrentPeriod={currentUserStake}
+        stakedInNextPeriod={nextUserStake}
       />
 
       {userBoostStat &&
         !(
-          currentBoostValue + nextBoostValue >
+          currentUserStake + nextUserStake >
           BOOSTS_SUM_VALUE_WITHOUT_STAKE
         ) && <BoostBanner userId={userId} locale={locale} />}
 
@@ -59,8 +57,6 @@ View.propTypes = {
   locale: PropTypes.string,
   account: PropTypes.string,
   balance: PropTypes.number,
-  stakedInCurrentPeriod: PropTypes.number,
-  stakedInNextPeriod: PropTypes.number,
   weekStat: PropTypes.array,
   userBoostStat: PropTypes.array,
   ids: PropTypes.array,

@@ -14,8 +14,6 @@ const View = ({
   account,
   balance,
   availableBalance,
-  stakedInCurrentPeriod,
-  stakedInNextPeriod,
   weekStat,
   userBoostStat,
   getWeekStatProcessing,
@@ -44,8 +42,8 @@ const View = ({
         account={account}
         balance={balance}
         availableBalance={availableBalance}
-        stakedInCurrentPeriod={stakedInCurrentPeriod}
-        stakedInNextPeriod={stakedInNextPeriod}
+        stakedInCurrentPeriod={userBoostStat?.userStakeCurrent}
+        stakedInNextPeriod={userBoostStat?.userStakeNext}
       />
 
       <Weeks
@@ -60,7 +58,7 @@ const View = ({
         valueHasToBeLessThan={balance}
         currentStake={currentStake}
         maxStake={balance}
-        initialUserStake={stakedInNextPeriod || 0}
+        initialUserStake={userBoostStat?.userStakeNext || 0}
         changeCurrentStake={changeCurrentStake}
         onChangeCurrentStake={setCurrentStake}
         changeStake={changeStakeDispatch}
@@ -77,8 +75,6 @@ View.propTypes = {
   locale: PropTypes.string,
   account: PropTypes.string,
   balance: PropTypes.number,
-  stakedInCurrentPeriod: PropTypes.number,
-  stakedInNextPeriod: PropTypes.number,
   weekStat: PropTypes.array,
   globalBoostStat: PropTypes.array,
   userBoostStat: PropTypes.array,

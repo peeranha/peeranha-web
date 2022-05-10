@@ -22,8 +22,6 @@ import {
   makeSelectAccount,
   makeSelectAvailableBalance,
   makeSelectBalance,
-  makeSelectStakedInCurrentPeriod,
-  makeSelectStakedInNextPeriod,
 } from 'containers/AccountProvider/selectors';
 
 import Seo from 'components/Seo';
@@ -38,8 +36,6 @@ const Boost = ({
   account,
   balance,
   availableBalance,
-  stakedInCurrentPeriod,
-  stakedInNextPeriod,
   weekStat,
   globalBoostStat,
   userBoostStat,
@@ -82,8 +78,6 @@ const Boost = ({
         account={account}
         balance={balance}
         availableBalance={availableBalance}
-        stakedInCurrentPeriod={stakedInCurrentPeriod}
-        stakedInNextPeriod={stakedInNextPeriod}
         weekStat={weekStat}
         globalBoostStat={globalBoostStat}
         userBoostStat={userBoostStat}
@@ -121,8 +115,6 @@ export default memo(
         account: makeSelectAccount(),
         balance: makeSelectBalance(),
         availableBalance: makeSelectAvailableBalance(),
-        stakedInCurrentPeriod: makeSelectStakedInCurrentPeriod(),
-        stakedInNextPeriod: makeSelectStakedInNextPeriod(),
         weekStat: selectors.selectWeekStat(),
         globalBoostStat: selectors.selectGlobalBoostStat(),
         userBoostStat: selectors.selectUserBoostStat(),

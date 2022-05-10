@@ -303,10 +303,12 @@ export async function getUserBoostStatistics(
   };
 }
 
-export async function getUserBoost(ethereumService, user, period) {
+export async function getUserStake(ethereumService, user, period) {
   return Number(
-    (await ethereumService.getTokenDataWithArgs(GET_BOOST, [user, period])) /
-      1000,
+    (await ethereumService.getTokenDataWithArgs(GET_USER_STAKE, [
+      user,
+      period,
+    ])) / WEI_IN_ETH,
   );
 }
 
