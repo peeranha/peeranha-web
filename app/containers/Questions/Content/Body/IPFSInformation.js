@@ -73,13 +73,19 @@ const IPFSInformation = ({ locale, ipfsHash, histories }) => {
       {formattedData?.length > 0 && (
         <table className="table mt-1 mb-0">
           <thead>
-            {Object.values(columns).map(column => <th>{column}</th>)}
+            <tr>
+              {Object.values(columns).map((column, index) => (
+                <th key={`${column}${index}`}>{column}</th>
+              ))}
+            </tr>
           </thead>
 
           <tbody>
             {formattedData.map(item => (
-              <tr>
-                {Object.keys(columns).map(column => <td>{item[column]}</td>)}
+              <tr key={item.transactionHash.props.children}>
+                {Object.keys(columns).map((column, index) => (
+                  <td key={`${column}${index}`}>{item[column]}</td>
+                ))}
               </tr>
             ))}
           </tbody>
@@ -89,7 +95,7 @@ const IPFSInformation = ({ locale, ipfsHash, histories }) => {
   );
 };
 
-IPFSInformation.PropTypes = {
+IPFSInformation.propTypes = {
   locale: PropTypes.string,
   ipfsHash: PropTypes.string,
   histories: PropTypes.array,

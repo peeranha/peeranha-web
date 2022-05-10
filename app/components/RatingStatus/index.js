@@ -135,7 +135,7 @@ const RatingStatus = ({
 
 RatingStatus.propTypes = {
   intl: intlShape.isRequired,
-  rating: PropTypes.number.isRequired,
+  rating: PropTypes.number,
   size: PropTypes.string,
   isRankOff: PropTypes.bool,
   ratingNumColor: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),

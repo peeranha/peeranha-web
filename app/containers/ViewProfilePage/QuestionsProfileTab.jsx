@@ -183,9 +183,9 @@ Note.propTypes = {
   acceptedAnswer: PropTypes.bool,
   myPostRating: PropTypes.number,
   title: PropTypes.string,
-  myPostTime: PropTypes.number,
+  myPostTime: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   locale: PropTypes.string,
-  answerId: PropTypes.number,
+  answerId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   id: PropTypes.string,
 };
 
