@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
-import {
-  PEER_PREMIUM_TRANSPARENT_COLOR,
-  PEER_PRIMARY_TRANSPARENT_COLOR,
-} from 'style-constants';
+import PropTypes from 'prop-types';
+
+import { PEER_PRIMARY_TRANSPARENT_COLOR } from 'style-constants';
 
 const Span = styled.span`
   width: 100%;
@@ -11,22 +10,20 @@ const Span = styled.span`
 `;
 
 export const Highlight = ({ filter, str }) => {
-  if (!filter) return str;
-  const regex = new RegExp(filter, 'ig');
-  const matchValue = str.match(regex);
-  if (matchValue) {
-    return str.split(regex).map((chunk, i, arr) => {
-      if (i < arr.length - 1) {
-        const head = matchValue.shift();
-        return (
-          <>
-            {chunk}
-            <Span>{head}</Span>
-          </>
-        );
-      }
-      return chunk;
-    });
-  }
-  return str;
+  const textArray = str.split(filter);
+  return (
+    <>
+      {textArray.map((item, index) => (
+        <Fragment key={item}>
+          {item}
+          {index !== textArray.length - 1 && <Span>{filter}</Span>}
+        </Fragment>
+      ))}
+    </>
+  );
+};
+
+Highlight.propTypes = {
+  filter: PropTypes.string,
+  str: PropTypes.string,
 };
