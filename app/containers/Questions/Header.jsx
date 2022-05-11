@@ -35,6 +35,7 @@ import { BORDER_PRIMARY, ICON_TRASPARENT_BLUE } from 'style-constants';
 import QuestionFilter from './QuestionFilter';
 
 import { selectQuestions, selectTopQuestionsInfoLoaded } from './selectors';
+import {makeSelectProfileInfo} from '../AccountProvider/selectors';
 
 const single = isSingleCommunityWebsite();
 const colors = singleCommunityColors();
@@ -77,6 +78,7 @@ export const Header = ({
   questionFilterFromCookies,
   isExpert,
   postsTypes,
+  profile,
 }) => {
   const isFeed = parentPage === routes.feed();
 
@@ -107,7 +109,7 @@ export const Header = ({
     }
   } else {
     defaultAvatar = myFeedIcon;
-    defaultLabel = intl.formatMessage({ id: messages.myFeed.id });
+    profile ? defaultLabel = intl.formatMessage({ id: messages.feed.id }) : defaultLabel = intl.formatMessage({ id: messages.myFeed.id });
     defaultAvatarWidth = '38';
   }
 
@@ -191,6 +193,7 @@ Header.propTypes = {
   setTypeFilter: PropTypes.func,
   topQuestionsInfoLoaded: PropTypes.bool,
   topQuestions: PropTypes.array,
+  profile: PropTypes.object,
 };
 //
 export default injectIntl(
@@ -199,6 +202,7 @@ export default injectIntl(
       topQuestionsInfoLoaded: selectTopQuestionsInfoLoaded()(state),
       topQuestions: selectQuestions(null, null, null, true)(state),
       communities: selectCommunities()(state),
+      profile: makeSelectProfileInfo()(state),
     }))(Header),
   ),
 );
