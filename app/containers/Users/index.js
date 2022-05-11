@@ -25,10 +25,7 @@ import reducer from './reducer';
 import saga from './saga';
 
 import View from './View';
-import * as routes from '../../routes-config';
 import { selectIsGlobalAdmin } from '../AccountProvider/selectors';
-
-import { useModeratorRole } from 'hooks/useModeratorRole';
 
 const single = isSingleCommunityWebsite();
 
@@ -43,10 +40,7 @@ const Users = ({
   communities,
   getUsersDispatch,
   changeSortingTypeDispatch,
-  isGlobalAdmin,
 }) => {
-  useModeratorRole(routes.noAccess);
-
   const getMoreUsers = useCallback(() => {
     getUsersDispatch({ loadMore: true });
   }, []);

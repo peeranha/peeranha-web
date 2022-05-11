@@ -24,7 +24,6 @@ const View = ({
   stakedInCurrentPeriod,
   stakedInNextPeriod,
   boost,
-  isGlobalAdmin,
 }) => {
   const [currClientHeight, setClientHeight] = useState();
 
@@ -62,11 +61,7 @@ const View = ({
 
       <MobileAdditionalLinks profile={profile} isMenuVisible={isMenuVisible} />
 
-      <MainLinks
-        profile={profile}
-        currClientHeight={currClientHeight}
-        isGlobalAdmin={isGlobalAdmin}
-      />
+      <MainLinks currClientHeight={currClientHeight} />
 
       <AdditionalLinks currClientHeight={currClientHeight} />
     </ViewStyled>

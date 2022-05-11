@@ -5,7 +5,6 @@ import { getAllCommunities } from 'utils/communityManagement';
 import { getProfileInfo } from 'utils/profileManagement';
 import { getStat } from 'utils/statisticsManagement';
 import { getMD } from 'utils/mdManagement';
-import { setCookie } from 'utils/cookie';
 import { getAchievements } from 'utils/achievementsManagement';
 import { USER_ACHIEVEMENTS_TABLE } from 'utils/constants';
 
@@ -18,12 +17,11 @@ import {
   FINISH_REGISTRATION_SUCCESS,
   LOGIN_WITH_EMAIL,
   LOGIN_WITH_WALLET,
-  PROFILE_INFO_LS,
 } from 'containers/Login/constants';
 
 import { SIGNUP_WITH_WALLET_SUCCESS } from 'containers/SignUp/constants';
 
-import { selectCommunities, selectStat, selectUsers } from './selectors';
+import { selectStat, selectUsers } from './selectors';
 
 import {
   getCommunitiesWithTags,
@@ -48,7 +46,6 @@ import {
 } from './constants';
 import { selectEthereum } from '../EthereumProvider/selectors';
 import { getUserStats } from '../../utils/theGraph';
-import { addWeeks } from 'date-fns';
 
 export function* getStatWorker() {
   try {
@@ -125,14 +122,6 @@ export function* getUserProfileWorker({ user, getFullProfile }) {
           ...cachedUserInfo,
           achievementsReached: userAchievements,
         };
-        setCookie({
-          name: PROFILE_INFO_LS,
-          value: JSON.stringify(updatedUserInfo),
-          options: {
-            defaultPath: true,
-            allowSubdomains: true,
-          },
-        });
         yield put(getUserProfileSuccess({ ...updatedUserInfo, ...userStats }));
         return updatedUserInfo;
       }
@@ -148,30 +137,12 @@ export function* getUserProfileWorker({ user, getFullProfile }) {
       isLogin,
     );
 
-    // if (!updatedUserInfo.achievementsReached) {
-    //   const userAchievements = yield call(
-    //     getAchievements,
-    //     ethereumService,
-    //     USER_ACHIEVEMENTS_TABLE,
-    //     user,
-    //   );
-    //   updatedUserInfo.achievementsReached = userAchievements;
-    // }
-
     if (
       (updatedUserInfo && !cachedUserInfo) ||
       (updatedUserInfo &&
         cachedUserInfo &&
         getHash(updatedUserInfo) !== getHash(cachedUserInfo))
     ) {
-      setCookie({
-        name: PROFILE_INFO_LS,
-        value: JSON.stringify(updatedUserInfo),
-        options: {
-          defaultPath: true,
-          allowSubdomains: true,
-        },
-      });
       yield put(getUserProfileSuccess({ ...updatedUserInfo, ...userStats }));
     }
 

@@ -86,11 +86,12 @@ import { getCookie, setCookie } from '../../utils/cookie';
 import { REFERRAL_CODE_URI } from './constants';
 import { AUTOLOGIN_DATA } from '../Login/constants';
 import { redirectToFeed } from './actions';
+import { hasGlobalModeratorRole } from '../../utils/properties';
 
 const single = isSingleCommunityWebsite();
 
 const App = ({
-  location: { pathname, search, hash },
+  location: { pathname, search },
   redirectToFeedDispatch,
   history,
 }) => {
@@ -115,7 +116,7 @@ const App = ({
     }
 
     const loginData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
-    if (loginData && !single && pathname != '/') {
+    if (loginData && !single && pathname !== '/') {
       redirectToFeedDispatch();
     }
   }, []);
@@ -359,11 +360,13 @@ const App = ({
           render={props => Wrapper(EditAnswer, props)}
         />
 
-        <Route
-          exact
-          path={routes.users()}
-          render={props => Wrapper(Users, props)}
-        />
+        {hasGlobalModeratorRole() && (
+          <Route
+            exact
+            path={routes.users()}
+            render={props => Wrapper(Users, props)}
+          />
+        )}
 
         <Route
           path={routes.noAccess()}

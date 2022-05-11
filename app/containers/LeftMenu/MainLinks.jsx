@@ -45,6 +45,7 @@ import generalIcon from 'images/comments-outline-24.svg?external';
 import tutorialIcon from 'images/tutorial.svg?external';
 import { FULL_SIZE } from './constants';
 import { BasicLink } from './Styles';
+import { hasGlobalModeratorRole } from '../../utils/properties';
 
 const styles = singleCommunityStyles();
 const colors = singleCommunityColors();
@@ -133,7 +134,7 @@ const Box = styled.div`
   }
 `;
 
-const MainLinks = ({ profile, currClientHeight, isGlobalAdmin }) => {
+const MainLinks = ({ currClientHeight }) => {
   const { pathname } = window.location;
   let route = pathname.split('/').filter(x => x)[0];
 
@@ -191,7 +192,7 @@ const MainLinks = ({ profile, currClientHeight, isGlobalAdmin }) => {
         <FormattedMessage {...messages.tags} />
       </A1>
 
-      {isGlobalAdmin && (
+      {hasGlobalModeratorRole() && (
         <A1 to={routes.users()} name="users" route={route}>
           <IconLg className="mr-2" icon={usersIcon} />
           <FormattedMessage
