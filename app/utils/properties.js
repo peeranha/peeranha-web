@@ -101,13 +101,18 @@ export const getPermissions = profile => {
   return profile?.permissions ?? [];
 };
 
-export const hasGlobalModeratorRole = permissions => {
+export const hasGlobalModeratorRole = permissionsFromState => {
+  let permissions = permissionsFromState;
+
   if (!permissions) {
     permissions =
       JSON.parse(getCookie('profileinfols') || '""')?.permissions || [];
   }
-  return !!permissions.find(permission =>
-    BigNumber.from(permission).eq(DEFAULT_ADMIN_ROLE),
+
+  return Boolean(
+    permissions.find(permission =>
+      BigNumber.from(permission).eq(DEFAULT_ADMIN_ROLE),
+    ),
   );
 };
 
