@@ -35,7 +35,7 @@ import ErrorBoundary from 'components/ErrorBoundary';
 
 import Wrapper from 'containers/AppWrapper';
 
-import saga from './saga';
+import saga from 'containers/App/saga';
 import {
   EditCommunity,
   HomePage,

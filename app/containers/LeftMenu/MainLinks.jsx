@@ -43,9 +43,9 @@ import { svgDraw } from 'components/Icon/IconStyled';
 import expertIcon from 'images/hat-3-outline-24.svg?external';
 import generalIcon from 'images/comments-outline-24.svg?external';
 import tutorialIcon from 'images/tutorial.svg?external';
-import { FULL_SIZE } from './constants';
-import { BasicLink } from './Styles';
-import { hasGlobalModeratorRole } from '../../utils/properties';
+import { FULL_SIZE } from 'containers/LeftMenu/constants';
+import { BasicLink } from 'containers/LeftMenu/Styles';
+import { hasGlobalModeratorRole } from 'utils/properties';
 
 const styles = singleCommunityStyles();
 const colors = singleCommunityColors();

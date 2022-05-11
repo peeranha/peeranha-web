@@ -21,7 +21,10 @@ import {
 
 import { SIGNUP_WITH_WALLET_SUCCESS } from 'containers/SignUp/constants';
 
-import { selectStat, selectUsers } from './selectors';
+import {
+  selectStat,
+  selectUsers,
+} from 'containers/DataCacheProvider/selectors';
 
 import {
   getCommunitiesWithTags,
@@ -35,7 +38,7 @@ import {
   getTutorialSuccess,
   getUserProfileErr,
   getUserProfileSuccess,
-} from './actions';
+} from 'containers/DataCacheProvider/actions';
 
 import {
   GET_COMMUNITIES_WITH_TAGS,
@@ -43,9 +46,9 @@ import {
   GET_STAT,
   GET_TUTORIAL,
   GET_USER_PROFILE,
-} from './constants';
-import { selectEthereum } from '../EthereumProvider/selectors';
-import { getUserStats } from '../../utils/theGraph';
+} from 'containers/DataCacheProvider/constants';
+import { selectEthereum } from 'containers/EthereumProvider/selectors';
+import { getUserStats } from 'utils/theGraph';
 
 export function* getStatWorker() {
   try {

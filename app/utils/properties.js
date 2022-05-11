@@ -13,8 +13,8 @@ import {
   communityModeratorPermissions,
 } from './constants';
 import { BigNumber } from 'ethers';
-import { selectEthereum } from '../containers/EthereumProvider/selectors';
-import { getCookie } from './cookie';
+import { selectEthereum } from 'containers/EthereumProvider/selectors';
+import { getCookie } from 'utils/cookie';
 
 //todo change to "findRole"
 const findAllPropertiesByKeys = (properties, keys, exact = false) => [];

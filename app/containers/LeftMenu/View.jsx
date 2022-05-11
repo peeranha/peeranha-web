@@ -3,16 +3,16 @@ import PropTypes from 'prop-types';
 
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
-import { LEFT_MENU_ID } from './constants';
+import { LEFT_MENU_ID } from 'containers/LeftMenu/constants';
 
-import AdditionalLinks from './AdditionalLinks';
-import MobileLinksInWallet from './MobileLinksInWallet';
-import MainLinks from './MainLinks';
-import MobileLinksInProfile from './MobileLinksInProfile';
-import MobileAdditionalLinks from './MobileAdditionalLinks';
-import MobileAutorizationButtons from './MobileAutorizationButtons';
-import { ViewStyled } from './Styles';
-import MobileSubHeader from './MobileSubHeader';
+import AdditionalLinks from 'containers/LeftMenu/AdditionalLinks';
+import MobileLinksInWallet from 'containers/LeftMenu/MobileLinksInWallet';
+import MainLinks from 'containers/LeftMenu/MainLinks';
+import MobileLinksInProfile from 'containers/LeftMenu/MobileLinksInProfile';
+import MobileAdditionalLinks from 'containers/LeftMenu/MobileAdditionalLinks';
+import MobileAutorizationButtons from 'containers/LeftMenu/MobileAutorizationButtons';
+import { ViewStyled } from 'containers/LeftMenu/Styles';
+import MobileSubHeader from 'containers/LeftMenu/MobileSubHeader';
 
 const single = isSingleCommunityWebsite();
 
