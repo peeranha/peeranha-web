@@ -118,9 +118,9 @@ const ViewProfilePage = ({
         />
       )}
 
-      {path === routes.userAchievements(userId) && (
+      {path === routes.userNFTs(userId) && (
         <Achievements
-          className={path === routes.userAchievements(userId) ? '' : 'd-none'}
+          className={path === routes.userNFTs(userId) ? '' : 'd-none'}
           isAvailable={account === profile?.user}
           userId={userId}
         />

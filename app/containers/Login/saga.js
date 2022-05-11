@@ -114,6 +114,7 @@ export function* loginWithEmailWorker({ val }) {
     ethereumService.setSelectedAccount(response.body.address);
 
     yield put(addLoginData(response.peeranhaAutoLogin));
+    if (!isSingleCommunityWebsite()) yield put(redirectToFeed());
     yield call(continueLogin, response.body);
   } catch (err) {
     yield put(loginWithEmailErr(err));
@@ -130,7 +131,7 @@ export function* loginWithWalletWorker({ metaMask }) {
     let metaMaskUserAddress = null;
 
     if (metaMask) {
-      metaMaskUserAddress = yield call(ethereumService.metaMaskSignIn);
+      metaMaskUserAddress = yield call(ethereumService.walletLogIn);
 
       if (!metaMaskUserAddress) {
         throw new WebIntegrationError(
@@ -148,26 +149,19 @@ export function* loginWithWalletWorker({ metaMask }) {
       profileInfo = emptyProfile(currentAccount);
     }
 
-    const autologinData = metaMask
-      ? { metaMaskUserAddress, loginWithMetaMask: true }
-      : undefined;
-
-    setCookie({
-      name: AUTOLOGIN_DATA,
-      value: JSON.stringify(autologinData),
-      options: {
-        allowSubdomains: true,
-        defaultPath: true,
-      },
-    });
-
-    yield put(addLoginData(autologinData));
+    const connectedWalletLabel = ethereumService.connectedWallets[0].label;
+    window.localStorage.setItem(
+      'connectedWallet',
+      JSON.stringify(connectedWalletLabel),
+    );
 
     if (!isSingleCommunityWebsite()) yield put(redirectToFeed());
 
     yield put(loginWithWalletSuccess());
     yield call(updateAcc, profileInfo, ethereumService);
   } catch (err) {
+    document.getElementsByTagName('body')[0].style.position = 'relative';
+
     yield put(loginWithWalletErr(err));
   }
 }

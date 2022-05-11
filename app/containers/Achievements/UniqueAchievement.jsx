@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { translationMessages } from 'i18n';
@@ -16,6 +16,7 @@ import messages from './messages';
 import { uniqueRatingRelated } from './constants';
 import { italicFont } from '../../global-styles';
 import { getFileUrl } from '../../utils/ipfs';
+import NFTInformation from './NFTInformation';
 
 const ImageBlock = styled.div`
   margin-right: 15px;
@@ -36,7 +37,7 @@ const DescriptionBlock = styled(TitleBlock)`
 
 const Bage = styled.div`
   display: flex;
-  align-items: flex-start;
+  align-items: center;
 `;
 
 const LimitPhrase = styled.p`
@@ -58,6 +59,8 @@ const UniqueAchievement = ({
   description,
   locale,
   image,
+  id,
+  achievementURI,
 }) => {
   const availiableCount = maxCount - factCount;
   const getProgress = () => (currentValue / lowerValue) * 100;
@@ -66,20 +69,39 @@ const UniqueAchievement = ({
     ? translationMessages[locale]
     : null;
 
+  const [visible, changeVisibility] = useState(false);
+  const contractAddress = process.env.PEERANHA_NFT;
+  const onMouseEnter = useCallback(() => changeVisibility(true), []);
+  const onMouseLeave = useCallback(() => changeVisibility(false), []);
+
   return (
     <Bage>
       <ImageBlock>
         {reached && (
-          <Icon
-            icon={`<object data=${getFileUrl(
-              image,
-            )} type="image/svg+xml" width="80">`}
-            width="80"
-            height="74"
-          />
+          <div
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
+            className="position-relative"
+          >
+            {visible && (
+              <NFTInformation
+                id={id}
+                locale={locale}
+                contractAddress={contractAddress}
+                ipfsHash={achievementURI}
+              />
+            )}
+            <Icon
+              icon={`<object data=${getFileUrl(
+                image,
+              )} type="image/svg+xml" width="160">`}
+              width="160"
+              height="148"
+            />
+          </div>
         )}
         {!reached && (
-          <Icon icon={achievementNotReached} width="80" height="74" />
+          <Icon icon={achievementNotReached} width="160" height="148" />
         )}
         {isNext && (
           <ProgressBar
@@ -118,14 +140,16 @@ const UniqueAchievement = ({
 UniqueAchievement.propTypes = {
   reached: PropTypes.bool,
   name: PropTypes.string,
-  maxCount: PropTypes.number,
+  maxCount: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   isNext: PropTypes.bool,
   lowerValue: PropTypes.number,
   currentValue: PropTypes.number,
   pointsToNext: PropTypes.number,
-  factCount: PropTypes.number,
+  factCount: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   description: PropTypes.string,
   locale: PropTypes.string,
+  achievementURI: PropTypes.string,
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 export default UniqueAchievement;

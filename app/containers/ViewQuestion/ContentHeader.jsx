@@ -16,14 +16,8 @@ import shareIcon from 'images/shareIcon.svg?external';
 import deleteIcon from 'images/deleteIcon.svg?external';
 import blockIcon from 'images/blockIcon.svg?external';
 import changeTypeIcon from 'images/change-type.svg?external';
-import currencyPeer from 'images/currencyPeer.svg?external';
 
 import { getRatingByCommunity, getUserAvatar } from 'utils/profileManagement';
-import {
-  MODERATOR_KEY,
-  TEMPORARY_ACCOUNT_KEY,
-  POST_TYPE,
-} from 'utils/constants';
 import { useOnClickOutside } from 'utils/click-listners';
 
 import { IconSm, IconMd } from 'components/Icon/IconWithSizes';
@@ -38,6 +32,10 @@ import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 import { changeQuestionType, payBounty } from './actions';
 import { QUESTION_TYPE } from './constants';
 import { getPermissions, hasGlobalModeratorRole } from '../../utils/properties';
+import blockchainLogo from 'images/blockchain-outline-32.svg?external';
+import IPFSInformation from 'containers/Questions/Content/Body/IPFSInformation';
+import commonMessages from 'common-messages';
+import { POST_TYPE } from 'utils/constants';
 
 const RatingBox = styled.div`
   border-right: 1px solid ${BORDER_SECONDARY};
@@ -106,11 +104,29 @@ const ContentHeader = props => {
     profile,
     isChangeTypeAvailable,
     infiniteImpact,
+    histories,
   } = props;
-  const [isModalOpen, setModalOpen] = useState(false);
-  const ref = useRef(null);
 
-  useOnClickOutside(ref, () => setModalOpen(false));
+  const ipfsHashValue =
+    type === QUESTION_TYPE
+      ? questionData.ipfsHash
+      : questionData.answers.find(answer => answer.id === answerId).ipfsHash;
+
+  const formattedHistories =
+    type === QUESTION_TYPE
+      ? histories
+      : histories?.filter(
+          history => history.reply?.id === `${questionData.id}-${answerId}`,
+        );
+
+  const [isModalOpen, setModalOpen] = useState(false);
+  const refSharingModal = useRef(null);
+  const [isPopoverOpen, setPopoverOpen] = useState(false);
+  const refPopover = useRef(null);
+
+  useOnClickOutside(refPopover, () => setPopoverOpen(false));
+
+  useOnClickOutside(refSharingModal, () => setModalOpen(false));
 
   const isGlobalAdmin = useMemo(
     () => hasGlobalModeratorRole(getPermissions(profile)),
@@ -212,10 +228,7 @@ const ContentHeader = props => {
               disabled={ids.includes(`${type}_vote_to_delete_${answerId}`)}
               isVotedToDelete={true}
             >
-              <IconSm
-                icon={blockIcon}
-                fill={true ? BORDER_ATTENTION_LIGHT : BORDER_PRIMARY}
-              />
+              <IconSm icon={blockIcon} fill={BORDER_ATTENTION_LIGHT} />
               <FormattedMessage {...messages.voteToDelete} />
             </Button>
           ) : null}
@@ -253,12 +266,34 @@ const ContentHeader = props => {
               </Button>
 
               {isModalOpen && (
-                <div ref={ref}>
+                <div ref={refSharingModal}>
                   <SharingModal questionData={questionData} />
                 </div>
               )}
             </DropdownBox>
           )}
+
+          <DropdownBox>
+            <Button
+              show
+              disabled={isPopoverOpen}
+              onClick={() => setPopoverOpen(true)}
+            >
+              <IconMd icon={blockchainLogo} />
+              <FormattedMessage id={commonMessages.source.id} />
+            </Button>
+
+            {isPopoverOpen && (
+              <div ref={refPopover}>
+                <IPFSInformation
+                  locale={locale}
+                  ipfsHash={ipfsHashValue}
+                  histories={formattedHistories}
+                />
+              </div>
+            )}
+          </DropdownBox>
+
           <Button
             show={!!profile && isItWrittenByMe}
             onClick={editItem[0]}
@@ -280,7 +315,7 @@ ContentHeader.propTypes = {
   author: PropTypes.object,
   locale: PropTypes.string,
   lastEditedDate: PropTypes.number,
-  postTime: PropTypes.number,
+  postTime: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   type: PropTypes.string,
   deleteItemLoading: PropTypes.bool,
   voteToDeleteLoading: PropTypes.bool,
@@ -300,6 +335,7 @@ ContentHeader.propTypes = {
   profile: PropTypes.object,
   isChangeTypeAvailable: PropTypes.bool,
   infiniteImpact: PropTypes.bool,
+  history: PropTypes.array,
 };
 
 export default React.memo(

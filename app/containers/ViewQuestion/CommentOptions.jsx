@@ -11,10 +11,13 @@ import Span from 'components/Span';
 import Icon from 'components/Icon';
 import { IconMd } from 'components/Icon/IconWithSizes';
 import { TextareaStyled } from 'components/Textarea';
+import { singleCommunityColors } from 'utils/communityManagement';
 import CommentForm from './CommentForm';
 
 import messages from './messages';
 import { TOGGLE_ADD_COMMENT_FORM_BUTTON } from './constants';
+
+const colors = singleCommunityColors();
 
 const ButtonStyled = styled.button`
   display: flex;
@@ -74,8 +77,11 @@ export const CommentOptions = ({
           id={toggleFormButtonId}
           onClick={() => checkAddCommentAvailable(toggleFormButtonId, answerId)}
         >
-          <IconMd icon={dotsIcon} fill={BORDER_PRIMARY} />
-          <Span className="ml-1" color={TEXT_PRIMARY}>
+          <IconMd
+            icon={dotsIcon}
+            fill={colors.commentOption || BORDER_PRIMARY}
+          />
+          <Span className="ml-1" color={colors.commentOption || TEXT_PRIMARY}>
             <FormattedMessage {...messages.addComment} />
           </Span>
         </ButtonStyled>

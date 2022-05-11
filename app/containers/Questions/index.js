@@ -34,7 +34,6 @@ import { showLoginModal } from 'containers/Login/actions';
 import { redirectToAskQuestionPage } from 'containers/AskQuestion/actions';
 
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
-import TopCommunities from 'components/TopCommunities';
 import ScrollToTop from 'components/ScrollToTop/index';
 import InfinityLoader from 'components/InfinityLoader';
 import Seo from 'components/Seo';
@@ -203,6 +202,8 @@ export const Questions = ({
     [profile],
   );
 
+  const isCommunityFeed = params.hasOwnProperty('communityid');
+
   const questionFilterFromCookies = getCookie(QUESTION_FILTER);
   return display ? (
     <div>
@@ -211,9 +212,7 @@ export const Questions = ({
         description={translationMessages[locale][messages.description.id]}
         language={locale}
       />
-
       <ScrollToTop />
-
       <Header
         communityIdFilter={Number(params.communityid) || 0}
         followedCommunities={followedCommunities}
@@ -225,7 +224,6 @@ export const Questions = ({
         isExpert={isExpert}
         postsTypes={postsTypes}
       />
-
       {displayBanner && (
         <Banner
           isFeed={parentPage === feed}
@@ -233,7 +231,6 @@ export const Questions = ({
           redirectToAskQuestionPage={redirectToAskQuestionPageDispatch}
         />
       )}
-
       {questionsList.length > 0 && (
         <InfinityLoader
           loadNextPaginatedData={getNextQuestions}
@@ -242,6 +239,7 @@ export const Questions = ({
         >
           <Content
             isFeed={parentPage === feed}
+            isCommunityFeed={isCommunityFeed}
             questionsList={questionsList}
             // promotedQuestionsList={
             //   promotedQuestions[+questionFilterFromCookies ? 'top' : 'all']
@@ -253,6 +251,7 @@ export const Questions = ({
             isModerator={isModerator}
             profileInfo={profile}
           />
+
           {!!+questionFilterFromCookies &&
             !displayLoader && (
               <div className="d-flex justify-content-center mb-3">
@@ -265,16 +264,6 @@ export const Questions = ({
             )}
         </InfinityLoader>
       )}
-
-      {parentPage === feed && (
-        <TopCommunities
-          userId={account}
-          account={account}
-          communities={communities}
-          profile={profile}
-        />
-      )}
-
       {displayLoader && <LoadingIndicator />}
     </div>
   ) : (

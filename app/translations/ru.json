@@ -27,12 +27,13 @@
   "app.common.signUp": "Регистрация",
   "app.common.all": "Все",
   "app.common.askQuestion": "Новый пост",
+  "app.common.wrongChainId": "Wrong Chain id",
   "app.common.add": "Добавить",
   "app.common.communities": "Сообщества",
   "app.common.allCommunities": "Все сообщества",
   "app.common.tags": "Теги",
   "app.common.home": "Главная",
-  "app.common.myFeed": "Моя лента",
+  "app.common.myFeed": "Лента",
   "app.common.users": "Пользователи",
   "app.common.followers": "Подписчики",
   "app.common.usersShort": "Польз.",
@@ -45,6 +46,10 @@
   "app.common.ago": "назад",
   "app.common.you": "Вы",
   "app.common.upload": "Загрузить",
+  "app.common.NFTs": "NFTs",
+  "app.common.NFTsNumber": "NFTs {number}",
+  "app.common.limitedEdition": "Ограниченное издание",
+  "app.common.contractAddress": "Контракт",
   "app.common.allQuestions": "Все вопросы",
   "app.common.manageMyComm": "Управлять сообществами",
   "app.common.asked": "Задано",
@@ -109,7 +114,7 @@
   "app.common.preview": "Предварительный просмотр",
   "app.common.showMore": "Показать больше {value}",
   "app.common.showLess": "Показать меньше {value}",
-  "app.common.poweredByTelos": "Powered by {image}",
+  "app.common.poweredBy": "Powered by {image}",
   "app.common.poweredByPeeranha": "Powered by {image}",
   "app.common.terms": "Operating Agreement",
   "app.common.noResults": "Нет результатов",
@@ -132,6 +137,7 @@
   "app.common.tipAnswer": "Чаевые",
   "app.common.sendTip": "Отправить чаевые",
   "app.common.receivedReward": "Вы получили реферальную награду",
+  "app.common.generalPopoverTitle": "Обсуждение",
   "app.common.generalPopoverLabel":
     "Вопрос, для ответа на который не требуется знания или опыта, может быть одним из следующих:",
   "app.common.generalPopoverList": [
@@ -140,12 +146,14 @@
     "Отзыв;",
     "Ответ широко известен."
   ],
+  "app.common.expertPopoverTitle": "Экспертный вопрос",
   "app.common.expertPopoverLabel": "Вопрос, который спрашивает следующее:",
   "app.common.expertPopoverList": [
     "Решение проблемы, требующее экспертных знаний или опыта;",
     "Источник информации или ресурсы по конкретному предмету, который нелегко найти;",
     "Пояснение или разъяснение информации, которую трудно понять."
   ],
+  "app.common.tutorialPopoverTitle": "Руководство",
   "app.common.tutorialPopoverLabel":
     "Tutorial is a manual instruction that can be one of the following:",
   "app.common.tutorialPopoverList": [
@@ -182,6 +190,9 @@
   "app.common.notEnoughCPUOrRAM": "Не достаточно CPU или RAM",
   "app.common.metaMaskIsLocked":
     "Пожалуйста, проверьте соединение MetaMask и попробуйте перезагрузить страницу",
+
+  "app.common.ipfsHashValue": "IPFS",
+  "app.common.source": "Источник",
 
   "app.telegram.user": "Телеграм пользователь",
   "app.telegram.userLabelPopover":
@@ -236,7 +247,7 @@
   "app.containers.Boost.description": "Boost | Описание",
   "app.containers.Boost.currentPeriod": "Текущий период",
   "app.containers.Boost.nextPeriod": "Следующий период",
-  "app.containers.Boost.maximumStake": "Максимальная ставка",
+  "app.containers.Boost.maximumStake": "Средняя ставка",
   "app.containers.Boost.users": "Пользователи",
   "app.containers.Boost.yourStake": "Ваша ставка",
   "app.containers.Boost.yourBoost": "Ваш Boost",
@@ -417,8 +428,8 @@
     "Информация о пользователе отсутствует",
   "app.containers.Profile.userHasntActivityYet":
     "У этого пользователя пока нет активности",
-  "app.containers.Profile.heHasnoAnswersAndQuestions":
-    "У него нет пока вопросов и ответов",
+  "app.containers.Profile.heHasNoAnswersAndPosts":
+    "У него нет пока постов и ответов",
   "app.containers.Profile.answered": "ответили",
   "app.containers.Profile.lastAnswer": "Последний ответ",
   "app.containers.Profile.noAnswersYet": "Пока нет ответов",
@@ -800,6 +811,15 @@
   "app.containers.ViewQuestion.bountyStatus": "Статус бонуса",
   "app.containers.ViewQuestion.bountyStatusExpiration":
     "Бонус будет доступен до: ",
+  "app.containers.ViewQuestion.transactionHash": "Хеш транзакции",
+  "app.containers.ViewQuestion.eventName": "Событие",
+  "app.containers.ViewQuestion.timeStamp": "Дата и время",
+  "app.containers.ViewQuestion.post": "Пост",
+  "app.containers.ViewQuestion.reply": "Ответ",
+  "app.containers.ViewQuestion.comment": "Комментарий",
+  "app.containers.ViewQuestion.created": "cоздан",
+  "app.containers.ViewQuestion.edited": "изменен",
+  "app.containers.ViewQuestion.deleted": "удален",
   "app.components.FormFields.requiredField":
     "Вы не можете оставить это поле пустым",
   "app.components.FormFields.requiredAndNotZeroField":
@@ -978,7 +998,7 @@
   "app.containers.Profile.newPassword": "Новый пароль",
   "app.containers.Profile.confirmPassword": "Подтвердите пароль",
   "app.containers.Profile.youAnswered": "Вы ответили",
-  "app.containers.Profile.seeMore": "Посмотреть все {questions} и {answers}",
+  "app.containers.Profile.seeMore": "Посмотреть все {posts} и {answers}",
   "app.containers.Profile.tipText":
     "Настройте кошельки для крипто-токенов, чтобы получать чаевые от других пользователей.",
   "app.containers.Profile.crypto": "Крипто-кошелёк",
@@ -1035,9 +1055,9 @@
   "app.containers.Questions.youDontHaveFeedToRead": "У Вас пока нечего читать",
   "app.containers.Questions.subscribeToCommToKeep":
     "Подписывайтесь на сообщества, чтобы быть в курсе тем, в которых Вы заинтересованы.",
-  "app.containers.Questions.noQuestionsYet": "Пока нет вопросов.",
+  "app.containers.Questions.noPostsYet": "Пока нет постов.",
   "app.containers.Questions.thisIsNewCommunity":
-    "Это новое сообщество, Вы можете стать первым и Ваш вопрос может стать самым популярным.",
+    "Это новое сообщество, Вы можете стать первым и Ваш пост может стать самым популярным.",
   "app.containers.Questions.readMyFeed": "Читать мой фид",
   "app.containers.Questions.goToCommunities": "Перейти к сообществам",
   "app.containers.Questions.topQuestionPopover":
@@ -1083,6 +1103,13 @@
     "Решение проблемы, требующее экспертных знаний или опыта;",
     "Источник информации или ресурсы по конкретному предмету, который нелегко найти;",
     "Пояснение или разъяснение информации, которую трудно понять."
+  ],
+  "app.containers.QuestionForm.tutorialQuestionDescriptionLabel":
+    "Руководство это инструкция, которая может представлять из себя:",
+  "app.containers.QuestionForm.tutorialQuestionDescriptionList": [
+    "Пошаговое решение проблемы;",
+    "Техническое руководство;",
+    "Гайд по любой теме."
   ],
   "app.containers.QuestionForm.promotedLabel": "Продвинуть вопрос",
   "app.containers.QuestionForm.promotedTip": "Продвинуть вопрос",

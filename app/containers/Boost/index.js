@@ -5,7 +5,7 @@ import { translationMessages } from 'i18n';
 import { createStructuredSelector } from 'reselect';
 import { compose, bindActionCreators } from 'redux';
 
-import { STATE_KEY } from "./constants";
+import { STATE_KEY } from './constants';
 
 import messages from './messages';
 
@@ -20,9 +20,8 @@ import injectReducer from 'utils/injectReducer';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import {
   makeSelectAccount,
+  makeSelectAvailableBalance,
   makeSelectBalance,
-  makeSelectStakedInCurrentPeriod,
-  makeSelectStakedInNextPeriod,
 } from 'containers/AccountProvider/selectors';
 
 import Seo from 'components/Seo';
@@ -36,8 +35,7 @@ const Boost = ({
   locale,
   account,
   balance,
-  stakedInCurrentPeriod,
-  stakedInNextPeriod,
+  availableBalance,
   weekStat,
   globalBoostStat,
   userBoostStat,
@@ -51,7 +49,7 @@ const Boost = ({
       <div>
         <NotFound withSeo={false} />
       </div>
-    )
+    );
   }
 
   useEffect(
@@ -79,8 +77,7 @@ const Boost = ({
         locale={locale}
         account={account}
         balance={balance}
-        stakedInCurrentPeriod={stakedInCurrentPeriod}
-        stakedInNextPeriod={stakedInNextPeriod}
+        availableBalance={availableBalance}
         weekStat={weekStat}
         globalBoostStat={globalBoostStat}
         userBoostStat={userBoostStat}
@@ -117,8 +114,7 @@ export default memo(
         locale: makeSelectLocale(),
         account: makeSelectAccount(),
         balance: makeSelectBalance(),
-        stakedInCurrentPeriod: makeSelectStakedInCurrentPeriod(),
-        stakedInNextPeriod: makeSelectStakedInNextPeriod(),
+        availableBalance: makeSelectAvailableBalance(),
         weekStat: selectors.selectWeekStat(),
         globalBoostStat: selectors.selectGlobalBoostStat(),
         userBoostStat: selectors.selectUserBoostStat(),

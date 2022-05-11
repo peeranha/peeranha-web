@@ -115,10 +115,8 @@ const App = ({
     }
 
     const loginData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
-    if (loginData && !single && pathname === '/' && hash !== '#allquestions') {
+    if (loginData && !single && pathname != '/') {
       redirectToFeedDispatch();
-    } else if (hash === '#allquestions') {
-      history.push(pathname);
     }
   }, []);
 

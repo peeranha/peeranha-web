@@ -15,6 +15,7 @@ import { createStructuredSelector } from 'reselect';
 import options from './options';
 import { makeSelectLocale } from '../../containers/LanguageProvider/selectors';
 import { DEFAULT_LOCALE } from '../../i18n';
+
 const TEXT_EDITOR_CLASSNAME = 'component-text-editor';
 
 /* eslint no-return-assign: "error" */
@@ -29,7 +30,10 @@ class TextEditor extends React.PureComponent {
     const { locale } = this.props;
     return (
       <SimpleMDE
-        {...this.props}
+        disabled={this.props.disabled}
+        locale={this.props.locale}
+        onChange={this.props.onChange}
+        value={this.props.value}
         className={TEXT_EDITOR_CLASSNAME}
         onBlur={this.onBlurHandler}
         options={{ ...options, spellChecker: locale === DEFAULT_LOCALE }}

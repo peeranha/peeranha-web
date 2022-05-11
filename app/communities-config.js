@@ -46,7 +46,9 @@ const communitiesConfig = {
   },
   test: {
     1: {
-      origin: 'https://community.testpeeranha.io',
+      origin: 'https://polygon.testpeeranha.io',
+      src: PolygonLogo,
+      styles: PolygonStyles,
     },
     2: {
       origin: 'https://filecoin.testpeeranha.io',
@@ -54,9 +56,7 @@ const communitiesConfig = {
       styles: FilecoinStyles,
     },
     3: {
-      origin: 'https://polygon.testpeeranha.io',
-      src: PolygonLogo,
-      styles: PolygonStyles,
+      origin: 'https://community.testpeeranha.io',
     },
     4: {
       origin: 'https://testcommunity.net',

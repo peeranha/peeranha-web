@@ -52,10 +52,10 @@ const CurrentWeek = ({
 );
 
 CurrentWeek.propTypes = {
-  period: PropTypes.number,
+  period: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   locale: PropTypes.string,
-  periodStarted: PropTypes.number,
-  periodFinished: PropTypes.number,
+  periodStarted: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  periodFinished: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   currentWeeksNumber: PropTypes.number,
 };
 

@@ -19,6 +19,7 @@ import ReceivedButton from 'components/Button/Contained/SecondaryLarge';
 import messages from './messages';
 
 import WeekNumber from './WeekNumber';
+import { WEI_IN_ETH } from '../../utils/constants';
 
 const BaseRoundedLi = BaseRounded.extend`
   position: relative;
@@ -89,7 +90,7 @@ const PaidOutWeek = ({
           <P className="d-flex align-items-center">
             <SmallImage className="mr-2" src={currencyPeerImage} alt="icon" />
             <Span fontSize="20" mobileFS={14} bold>
-              {getFormattedNum3(reward)}
+              {getFormattedNum3(reward / WEI_IN_ETH)}
             </Span>
           </P>
 
@@ -99,7 +100,9 @@ const PaidOutWeek = ({
               id={`pickup-reward-${period}`}
               onClick={pickUpReward}
               disabled={
-                hasTaken !== false || !Number(reward) || pickupRewardProcessing
+                hasTaken !== false ||
+                !Number(reward / WEI_IN_ETH) ||
+                pickupRewardProcessing
               }
             >
               <FormattedMessage {...messages.getReward} />
@@ -118,14 +121,14 @@ const PaidOutWeek = ({
 };
 
 PaidOutWeek.propTypes = {
-  period: PropTypes.number,
+  period: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   locale: PropTypes.string,
-  reward: PropTypes.number,
+  reward: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   hasTaken: PropTypes.bool,
   pickupRewardDispatch: PropTypes.func,
   pickupRewardProcessing: PropTypes.bool,
-  periodStarted: PropTypes.number,
-  periodFinished: PropTypes.number,
+  periodStarted: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  periodFinished: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   ids: PropTypes.array,
   registrationWeek: PropTypes.bool,
   style: PropTypes.object,

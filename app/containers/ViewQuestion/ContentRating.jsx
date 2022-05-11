@@ -23,13 +23,20 @@ import Span from 'components/Span';
 import Button from 'components/Button/Contained/Transparent';
 import { IconLg } from 'components/Icon/IconWithSizes';
 
+import { singleCommunityColors } from 'utils/communityManagement';
 import { UP_VOTE_BUTTON, DOWN_VOTE_BUTTON } from './constants';
+
+const colors = singleCommunityColors();
 
 const ImgBox = styled.div`
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  .stroke {
+    stroke: ${colors.votingIconColor};
+  }
 
   :after {
     content: '';
@@ -70,7 +77,7 @@ const ContentRating = ({
   author,
   ids,
 }) => (
-  <React.Fragment>
+  <>
     <Button
       className="overflow-initial"
       onClick={upVote}
@@ -104,7 +111,7 @@ const ContentRating = ({
         votingStatus={votingStatus}
       />
     </Button>
-  </React.Fragment>
+  </>
 );
 
 ContentRating.propTypes = {

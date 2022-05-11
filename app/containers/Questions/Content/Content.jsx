@@ -20,12 +20,7 @@ import MoveSection from './MoveSection';
 import Body from './Body';
 
 import { POST_TYPE } from '../../../utils/constants';
-import {
-  EXPERT_BACKLIGHT,
-  TUTORIAL_BACKLIGHT,
-  BG_LIGHT,
-  BORDER_PRIMARY,
-} from '../../../style-constants';
+import { EXPERT_BACKLIGHT, TUTORIAL_BACKLIGHT } from 'style-constants';
 import { isGeneralQuestion } from '../../ViewQuestion/saga';
 
 const Box = BaseNoPadding.extend`
@@ -59,6 +54,7 @@ const Div = styled.div`
 /* eslint camelcase: 0 */
 const QI = ({
   id,
+  ipfsHash,
   title,
   author,
   postTime,
@@ -89,6 +85,7 @@ const QI = ({
   replyCount,
   postType,
   isFeed,
+  isCommunityFeed,
 }) => {
   const ref = useRef(null);
 
@@ -185,6 +182,7 @@ const QI = ({
         )}
         <Body
           id={id}
+          ipfsHash={ipfsHash}
           isModerator={isModerator}
           title={title}
           author={author}
@@ -205,6 +203,7 @@ const QI = ({
           postType={postType}
           isFeed={isFeed}
           isExpert={isExpert}
+          isCommunityFeed={isCommunityFeed}
         />
       </Div>
     </Box>
@@ -235,58 +234,58 @@ export const Content = ({
   isHomePage = false,
   isSearchPage,
   isFeed,
+  isCommunityFeed,
 }) => (
   <div className="position-relative">
-    {/*{promotedQuestionsList &&*/}
-    {/*  promotedQuestionsList.map((item, index) => (*/}
-    {/*    <QuestionItem*/}
-    {/*      {...item}*/}
-    {/*      index={index}*/}
-    {/*      first={index === 0}*/}
-    {/*      last={index === questionsList.length - 1}*/}
-    {/*      locale={locale}*/}
-    {/*      communities={communities}*/}
-    {/*      key={item.id}*/}
-    {/*      isModerator={isModerator}*/}
-    {/*      profileInfo={profileInfo}*/}
-    {/*      isPromoted*/}
-    {/*      isHomePage={isHomePage}*/}
-    {/*    />*/}
-    {/*  ))}*/}
-    {questionsList.map((item, index) => {
-      return (
-        <QuestionItem
-          {...item}
-          isGeneral={isGeneralQuestion(item)}
-          index={index}
-          first={index === 0}
-          last={index === questionsList.length - 1}
-          locale={locale}
-          communities={communities}
-          key={item.id}
-          isModerator={isModerator}
-          profileInfo={profileInfo}
-          isHomePage={isHomePage}
-          isSearchPage={isSearchPage}
-          isFeed={isFeed}
-        />
-      );
-    })}
+    {/* {promotedQuestionsList && */}
+    {/*  promotedQuestionsList.map((item, index) => ( */}
+    {/*    <QuestionItem */}
+    {/*      {...item} */}
+    {/*      index={index} */}
+    {/*      first={index === 0} */}
+    {/*      last={index === questionsList.length - 1} */}
+    {/*      locale={locale} */}
+    {/*      communities={communities} */}
+    {/*      key={item.id} */}
+    {/*      isModerator={isModerator} */}
+    {/*      profileInfo={profileInfo} */}
+    {/*      isPromoted */}
+    {/*      isHomePage={isHomePage} */}
+    {/*    /> */}
+    {/*  ))} */}
+    {questionsList.map((item, index) => (
+      <QuestionItem
+        {...item}
+        isGeneral={isGeneralQuestion(item)}
+        index={index}
+        first={index === 0}
+        last={index === questionsList.length - 1}
+        locale={locale}
+        communities={communities}
+        key={item.id}
+        isModerator={isModerator}
+        profileInfo={profileInfo}
+        isHomePage={isHomePage}
+        isSearchPage={isSearchPage}
+        isFeed={isFeed}
+        isCommunityFeed={isCommunityFeed}
+      />
+    ))}
   </div>
 );
 
 QI.propTypes = {
   id: PropTypes.string,
+  ipfsHash: PropTypes.string,
   title: PropTypes.string,
-  author: PropTypes.string,
-  postTime: PropTypes.string,
+  author: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+  postTime: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   locale: PropTypes.string,
   communityId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   communities: PropTypes.array,
   tags: PropTypes.array,
   rating: PropTypes.number,
   answers: PropTypes.array,
-  correct_answer_id: PropTypes.number,
   isGeneral: PropTypes.bool,
   first: PropTypes.bool,
   last: PropTypes.bool,
@@ -303,6 +302,7 @@ QI.propTypes = {
   isPromoted: PropTypes.bool,
   questionBounty: PropTypes.number,
   isHomePage: PropTypes.bool,
+  isCommunityFeed: PropTypes.bool,
 };
 
 Content.propTypes = {
@@ -313,6 +313,7 @@ Content.propTypes = {
   isModerator: PropTypes.bool,
   profileInfo: PropTypes.object,
   isHomePage: PropTypes.bool,
+  isCommunityFeed: PropTypes.bool,
 };
 
 export { QuestionItem };

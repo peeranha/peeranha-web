@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import isMobile from 'ismobilejs';
 
 import {
@@ -40,15 +40,17 @@ import A from 'components/A';
 import { IconLg } from 'components/Icon/IconWithSizes';
 import { svgDraw } from 'components/Icon/IconStyled';
 
-import { BasicLink } from './Styles';
-import { FULL_SIZE } from './constants';
 import expertIcon from 'images/hat-3-outline-24.svg?external';
 import generalIcon from 'images/comments-outline-24.svg?external';
 import tutorialIcon from 'images/tutorial.svg?external';
+import { FULL_SIZE } from './constants';
+import { BasicLink } from './Styles';
 
 const styles = singleCommunityStyles();
 const colors = singleCommunityColors();
 const fonts = singleCommunityFonts();
+
+const customColor = colors.linkColor || BORDER_PRIMARY;
 
 const A1 = A.extend`
   ${BasicLink};
@@ -57,44 +59,63 @@ const A1 = A.extend`
 
   ${({ route, name }) =>
     route === name
-      ? `
-    background-color: ${PRIMARY_SPECIAL};
-    border-color: ${BORDER_PRIMARY_DARK};
-    font-family: ${fonts.mainLinksSelected || APP_FONT};
-    letter-spacing: 0.5px;
-    font-weight: bold;
-    color: ${colors.mainLinks ? colors.mainLinks : TEXT_DARK} !important;
-    .fill {
-      fill: ${BORDER_PRIMARY};
-    }
-    .semitransparent{
-      fill: ${ICON_TRASPARENT_BLUE}
-    }
-    :hover {
-      color: ${colors.mainLinks};
-    }
-    ${svgDraw({ color: TEXT_PRIMARY })};
-  `
-      : `
-    background-color: ${BG_TRANSPARENT};
-    border-color: ${BORDER_TRANSPARENT};
-    font-weight: normal;
-    font-family: ${fonts.mainLinksNotSelected || APP_FONT};
-    .opacity {
-      fill: none !important;
-    }
-    .fill {
-      fill: ${BORDER_DARK};
-    }
-    .semitransparent {
-      fill: none;
-    }
-    :hover {
-      .fill {
-        fill: ${BORDER_PRIMARY};
-      }
-    }
-  `};
+      ? css`
+          background-color: ${PRIMARY_SPECIAL};
+          border-color: ${colors.linkColor || BORDER_PRIMARY_DARK};
+          font-family: ${fonts.mainLinksSelected || APP_FONT};
+          letter-spacing: 0.5px;
+          font-weight: bold;
+          color: ${colors.mainLinks || TEXT_DARK} !important;
+          .fill {
+            fill: ${customColor};
+          }
+          .stroke {
+            stroke: ${customColor};
+          }
+          .semitransparent {
+            fill: ${colors.transparentIconColor || ICON_TRASPARENT_BLUE};
+          }
+          :hover {
+            color: ${colors.linkColor || colors.mainLinks};
+            .fill {
+              fill: ${customColor};
+            }
+            .stroke {
+              stroke: ${customColor};
+            }
+            circle {
+              color: ${customColor};
+            }
+          }
+          ${svgDraw({ color: colors.linkColor || TEXT_PRIMARY })};
+        `
+      : css`
+          background-color: ${BG_TRANSPARENT};
+          border-color: ${BORDER_TRANSPARENT};
+          font-weight: normal;
+          font-family: ${fonts.mainLinksNotSelected || APP_FONT};
+          .opacity {
+            fill: none !important;
+          }
+          .fill {
+            fill: ${BORDER_DARK};
+          }
+          .semitransparent {
+            fill: none;
+          }
+          :hover {
+            .fill {
+              fill: ${customColor};
+            }
+            .stroke {
+              stroke: ${customColor};
+            }
+            circle {
+              color: ${customColor};
+            }
+            color: ${colors.linkColor || colors.mainLinks};
+          }
+        `};
 `;
 
 const Box = styled.div`
@@ -120,7 +141,7 @@ const MainLinks = ({ profile, currClientHeight, isGlobalAdmin }) => {
   const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
 
   if (!route) {
-    route = isBloggerMode ? 'home' : 'questions';
+    route = isBloggerMode ? 'home' : 'feed';
   }
 
   return (
@@ -132,13 +153,12 @@ const MainLinks = ({ profile, currClientHeight, isGlobalAdmin }) => {
         </A1>
       )}
 
-      {!singleCommId &&
-        profile && (
-          <A1 to={routes.feed()} name="feed" route={route}>
-            <IconLg className="mr-2" icon={myFeedIcon} />
-            <FormattedMessage {...messages.myFeed} />
-          </A1>
-        )}
+      {!singleCommId && (
+        <A1 to={routes.feed()} name="feed" route={route}>
+          <IconLg className="mr-2" icon={myFeedIcon} />
+          <FormattedMessage {...messages.myFeed} />
+        </A1>
+      )}
 
       <A1 to={routes.questions()} name="questions" route={route}>
         <IconLg className="mr-2" icon={generalIcon} />

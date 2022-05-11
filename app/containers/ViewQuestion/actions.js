@@ -54,6 +54,9 @@ import {
   VOTE_TO_DELETE_ERROR,
   VOTE_TO_DELETE_SUCCESS,
   SET_VOTE_TO_DELETE_LOADING,
+  GET_HISTORIES,
+  GET_HISTORIES_SUCCESS,
+  GET_HISTORIES_ERROR,
 } from './constants';
 
 export function getQuestionData(questionId) {
@@ -428,3 +431,24 @@ export const setVoteToDeleteLoading = voteToDeleteLoading => ({
   type: SET_VOTE_TO_DELETE_LOADING,
   voteToDeleteLoading,
 });
+
+export function getHistories(postId) {
+  return {
+    type: GET_HISTORIES,
+    postId,
+  };
+}
+
+export function getHistoriesSuccess(histories) {
+  return {
+    type: GET_HISTORIES_SUCCESS,
+    histories,
+  };
+}
+
+export function getHistoriesErr(getHistoriesError) {
+  return {
+    type: GET_HISTORIES_ERROR,
+    getHistoriesError,
+  };
+}

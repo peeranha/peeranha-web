@@ -31,23 +31,9 @@ function walletReducer(state = initialState, action) {
     type,
     getWeekStatError,
     weekStat,
-    globalBoostStat,
     userBoostStat,
     changeStakeError,
   } = action;
-
-  let updatedGlobalBoostStat, updatedUserBoostStat;
-
-  if (globalBoostStat && userBoostStat) {
-    updatedGlobalBoostStat = 
-      globalBoostStat.length > 1 ? 
-        globalBoostStat.slice(globalBoostStat.length - 2) : 
-        [...globalBoostStat];
-    updatedUserBoostStat =
-      userBoostStat.length > 1 ?
-        userBoostStat.slice(userBoostStat.length - 2) :
-        [...userBoostStat];
-  }
 
   switch (type) {
     case GET_WEEK_STAT:
@@ -56,8 +42,7 @@ function walletReducer(state = initialState, action) {
       return state
         .set('getWeekStatProcessing', false)
         .set('weekStat', weekStat.slice(0, 1))
-        .set('globalBoostStat', updatedGlobalBoostStat)
-        .set('userBoostStat', updatedUserBoostStat);
+        .set('userBoostStat', userBoostStat);
     case GET_WEEK_STAT_ERROR:
       return state
         .set('getWeekStatProcessing', false)
@@ -70,8 +55,7 @@ function walletReducer(state = initialState, action) {
     case CHANGE_STAKE_SUCCESS:
       return state
         .set('changeStakeLoading', false)
-        .set('globalBoostStat', updatedGlobalBoostStat)
-        .set('userBoostStat', updatedUserBoostStat);
+        .set('userBoostStat', userBoostStat);
     case CHANGE_STAKE_ERROR:
       return state
         .set('changeStakeLoading', false)

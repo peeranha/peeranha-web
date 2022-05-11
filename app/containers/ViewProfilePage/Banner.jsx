@@ -10,17 +10,17 @@ import messages from 'containers/Profile/messages';
 const Banner = () => (
   <div>
     <H4 isHeader>
-      <FormattedMessage {...messages.activity} />
+      <FormattedMessage id={messages.activity.id} />
     </H4>
     <Wrapper>
       <img src={noActivityImg} alt="view-profile" />
       <div>
         <p>
-          <FormattedMessage {...messages.userHasntActivityYet} />
+          <FormattedMessage id={messages.userHasntActivityYet.id} />
         </p>
 
         <p>
-          <FormattedMessage {...messages.heHasnoAnswersAndQuestions} />
+          <FormattedMessage id={messages.heHasNoAnswersAndPosts.id} />
         </p>
       </div>
     </Wrapper>

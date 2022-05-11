@@ -89,7 +89,7 @@ const NotFound = /* istanbul ignore next */ ({ locale }) => {
                 value: (
                   <A className="text-lowercase" to={routes.questions()}>
                     <Span color={LINK_COLOR}>
-                      <FormattedMessage {...commonMessages.questions} />
+                      <FormattedMessage id={commonMessages.posts.id} />
                     </Span>
                   </A>
                 ),

@@ -42,6 +42,7 @@ export const ContentBody = ({
   isItWrittenByMe,
   infiniteImpact,
   commId,
+  histories,
 }) => {
   const isOfficial = useMemo(
     () =>
@@ -99,6 +100,7 @@ export const ContentBody = ({
         ids={ids}
         infiniteImpact={infiniteImpact}
         communityId={commId}
+        histories={histories}
       />
     </Base>
   );
@@ -133,6 +135,7 @@ ContentBody.propTypes = {
   answerId: PropTypes.number,
   isItWrittenByMe: PropTypes.bool,
   infiniteImpact: PropTypes.bool,
+  histories: PropTypes.array,
 };
 
 export default React.memo(ContentBody);
