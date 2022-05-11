@@ -1,22 +1,11 @@
-import _max from 'lodash/max';
-
 import messages from 'common-messages';
 
 import {
   COMMUNITY_ADMIN_INFINITE_IMPACT,
   COMMUNITY_ADMIN_OFFICIAL_ANSWER,
-  COMMUNITY_ADMIN_QUESTION_TYPE,
   COMMUNITY_ADMIN_TOP_QUESTIONS,
   COMMUNITY_ADMIN_CREATE_TAG,
-  MODERATOR_CREATE_COMMUNITY,
-  OFFICIAL_ANSWER_KEYS,
-  PERMISSION_GRANTED,
-  COMMUNITY_ADMIN_VALUE,
-  moderatorPermissions,
   communityAdminPermissions,
-  PROPERTY_ANSWER_15_MINUTES,
-  PROPERTY_FIRST_ANSWER,
-  MODERATOR_KEY,
   COMMUNITY_ADMIN_ROLE,
   DEFAULT_ADMIN_ROLE,
   COMMUNITY_MODERATOR_ROLE,
@@ -24,7 +13,8 @@ import {
   communityModeratorPermissions,
 } from './constants';
 import { BigNumber } from 'ethers';
-import { selectEthereum } from '../containers/EthereumProvider/selectors';
+import { selectEthereum } from 'containers/EthereumProvider/selectors';
+import { getCookie } from 'utils/cookie';
 
 //todo change to "findRole"
 const findAllPropertiesByKeys = (properties, keys, exact = false) => [];
@@ -91,11 +81,6 @@ export const communityAdminOfficialAnswerPermission = (
     COMMUNITY_ADMIN_OFFICIAL_ANSWER,
   ]).filter(({ community }) => communityId === community).length;
 
-export const communityAdminQuestionTypePermission = (properties, communityId) =>
-  !!findAllPropertiesByKeys(properties, [COMMUNITY_ADMIN_QUESTION_TYPE]).filter(
-    ({ community }) => communityId === community,
-  ).length;
-
 export const communityAdminCreateTagPermission = (
   properties = [],
   communityId,
@@ -116,9 +101,18 @@ export const getPermissions = profile => {
   return profile?.permissions ?? [];
 };
 
-export const hasGlobalModeratorRole = permissions => {
-  return !!permissions.find(permission =>
-    BigNumber.from(permission).eq(DEFAULT_ADMIN_ROLE),
+export const hasGlobalModeratorRole = permissionsFromState => {
+  let permissions = permissionsFromState;
+
+  if (!permissions) {
+    permissions =
+      JSON.parse(getCookie('profileinfols') || '""')?.permissions || [];
+  }
+
+  return Boolean(
+    permissions.find(permission =>
+      BigNumber.from(permission).eq(DEFAULT_ADMIN_ROLE),
+    ),
   );
 };
 
