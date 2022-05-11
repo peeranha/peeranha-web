@@ -134,7 +134,7 @@ const Box = styled.div`
   }
 `;
 
-const MainLinks = ({ currClientHeight }) => {
+const MainLinks = ({ currClientHeight, profile }) => {
   const { pathname } = window.location;
   let route = pathname.split('/').filter(x => x)[0];
 
