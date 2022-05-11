@@ -157,7 +157,7 @@ const MainLinks = ({ currClientHeight }) => {
       {!singleCommId && (
         <A1 to={routes.feed()} name="feed" route={route}>
           <IconLg className="mr-2" icon={myFeedIcon} />
-          <FormattedMessage {...messages.myFeed} />
+          <FormattedMessage id={messages[profile ? 'feed' : 'myFeed'].id} />
         </A1>
       )}
 

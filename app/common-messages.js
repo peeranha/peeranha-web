@@ -96,6 +96,9 @@ export default defineMessages({
   home: {
     id: 'app.common.home',
   },
+  feed: {
+    id: 'app.common.feed',
+  },
   myFeed: {
     id: 'app.common.myFeed',
   },
