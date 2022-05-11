@@ -85,6 +85,7 @@ const View = ({
   profileInfo,
   showLoginModalDispatch,
   redirectToAskQuestionPage,
+  showLoginModalWithRedirectToAskQuestionPage,
   faqQuestions,
 }) => {
   const [isSearchFormVisible, setSearchFormVisibility] = useState(false);
@@ -105,7 +106,7 @@ const View = ({
       const src = styles.withoutSubHeader
         ? communitiesConfig[single].src
         : peeranhaLogo;
-      
+
       return (
         <LogoStyles to={routes.feed()}>
           <img src={src} alt="logo" />
@@ -185,7 +186,7 @@ const View = ({
                     onClick={
                       profileInfo
                         ? redirectToAskQuestionPage
-                        : showLoginModalDispatch
+                        : showLoginModalWithRedirectToAskQuestionPage
                     }
                   >
                     <IconSm fill={BG_LIGHT} icon={addIcon} />
@@ -219,6 +220,7 @@ View.propTypes = {
   isMenuVisible: PropTypes.bool,
   showMenu: PropTypes.func,
   showLoginModalDispatch: PropTypes.func,
+  showLoginModalWithRedirectToAskQuestionPage: PropTypes.func,
   redirectToAskQuestionPage: PropTypes.func,
   faqQuestions: PropTypes.array,
 };
