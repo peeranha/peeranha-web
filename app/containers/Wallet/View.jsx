@@ -2,9 +2,10 @@ import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
 import NavHeader from 'components/WalletNavigation';
-import SubHeader from './SubHeader';
-import Weeks from './Weeks';
-import BoostBanner from './BoostBanner';
+import SubHeader from 'containers/Wallet/SubHeader';
+import Weeks from 'containers/Wallet/Weeks';
+import BoostBanner from 'containers/Wallet/BoostBanner';
+import { BOOSTS_SUM_VALUE_WITHOUT_STAKE } from 'utils/constants';
 
 const View = ({
   userId,
@@ -20,7 +21,6 @@ const View = ({
   ids,
 }) => {
   const [currentUserStake, nextUserStake] = userBoostStat || [];
-  const BOOSTS_SUM_VALUE_WITHOUT_STAKE = 2;
 
   return (
     <>

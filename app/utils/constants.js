@@ -57,6 +57,7 @@ export const WEI_IN_ETH = String(10 ** 18);
 export const BOOST_MULTIPLIER = 5;
 export const BOOST_MODIFIER_HIGH = 5;
 export const BOOST_MODIFIER_LOW = 1;
+export const BOOSTS_SUM_VALUE_WITHOUT_STAKE = 2;
 
 export const POST_TYPE = {
   expertPost: 0,
