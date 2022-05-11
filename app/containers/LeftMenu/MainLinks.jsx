@@ -141,7 +141,7 @@ const MainLinks = ({ profile, currClientHeight, isGlobalAdmin }) => {
   const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
 
   if (!route) {
-    route = isBloggerMode ? 'home' : 'questions';
+    route = isBloggerMode ? 'home' : 'feed';
   }
 
   return (
@@ -153,13 +153,12 @@ const MainLinks = ({ profile, currClientHeight, isGlobalAdmin }) => {
         </A1>
       )}
 
-      {!singleCommId &&
-        profile && (
-          <A1 to={routes.feed()} name="feed" route={route}>
-            <IconLg className="mr-2" icon={myFeedIcon} />
-            <FormattedMessage {...messages.myFeed} />
-          </A1>
-        )}
+      {!singleCommId && (
+        <A1 to={routes.feed()} name="feed" route={route}>
+          <IconLg className="mr-2" icon={myFeedIcon} />
+          <FormattedMessage {...messages.myFeed} />
+        </A1>
+      )}
 
       <A1 to={routes.questions()} name="questions" route={route}>
         <IconLg className="mr-2" icon={generalIcon} />

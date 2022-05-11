@@ -61,11 +61,11 @@ const PendingWeek = ({
 );
 
 PendingWeek.propTypes = {
-  period: PropTypes.number,
+  period: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   locale: PropTypes.string,
   reward: PropTypes.number,
-  periodStarted: PropTypes.number,
-  periodFinished: PropTypes.number,
+  periodStarted: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  periodFinished: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   registrationWeek: PropTypes.bool,
 };
 

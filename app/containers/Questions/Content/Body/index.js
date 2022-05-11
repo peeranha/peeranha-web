@@ -120,9 +120,9 @@ const Body = ({
 Body.propTypes = {
   id: PropTypes.string,
   ipfsHash: PropTypes.string,
-  author: PropTypes.string,
+  author: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   title: PropTypes.string,
-  postTime: PropTypes.number,
+  postTime: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   locale: PropTypes.string,
   communityId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   communities: PropTypes.array,
