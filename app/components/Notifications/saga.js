@@ -67,6 +67,7 @@ export function* loadMoreNotificationsWorker() {
         user,
         all: true,
         limit: NOTIFICATIONS_REQUEST_LIMIT,
+        /* TODO: Fix loading notifications when it received on notifications page */
         timestamp:
           !notifications.length || !lastTimestamp
             ? Math.round(now.valueOf() / 1000)
