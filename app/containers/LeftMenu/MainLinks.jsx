@@ -43,9 +43,8 @@ import { svgDraw } from 'components/Icon/IconStyled';
 import expertIcon from 'images/hat-3-outline-24.svg?external';
 import generalIcon from 'images/comments-outline-24.svg?external';
 import tutorialIcon from 'images/tutorial.svg?external';
-import { FULL_SIZE } from 'containers/LeftMenu/constants';
-import { BasicLink } from 'containers/LeftMenu/Styles';
-import { hasGlobalModeratorRole } from 'utils/properties';
+import { FULL_SIZE } from './constants';
+import { BasicLink } from './Styles';
 
 const styles = singleCommunityStyles();
 const colors = singleCommunityColors();
@@ -55,9 +54,7 @@ const customColor = colors.linkColor || BORDER_PRIMARY;
 
 const A1 = A.extend`
   ${BasicLink};
-
   letter-spacing: 0 !important;
-
   ${({ route, name }) =>
     route === name
       ? css`
@@ -134,7 +131,7 @@ const Box = styled.div`
   }
 `;
 
-const MainLinks = ({ currClientHeight }) => {
+const MainLinks = ({ profile, currClientHeight, isGlobalAdmin }) => {
   const { pathname } = window.location;
   let route = pathname.split('/').filter(x => x)[0];
 
@@ -192,7 +189,7 @@ const MainLinks = ({ currClientHeight }) => {
         <FormattedMessage {...messages.tags} />
       </A1>
 
-      {hasGlobalModeratorRole() && (
+      {isGlobalAdmin && (
         <A1 to={routes.users()} name="users" route={route}>
           <IconLg className="mr-2" icon={usersIcon} />
           <FormattedMessage
