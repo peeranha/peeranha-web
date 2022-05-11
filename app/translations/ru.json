@@ -247,7 +247,7 @@
   "app.containers.Boost.description": "Boost | Описание",
   "app.containers.Boost.currentPeriod": "Текущий период",
   "app.containers.Boost.nextPeriod": "Следующий период",
-  "app.containers.Boost.maximumStake": "Максимальная ставка",
+  "app.containers.Boost.maximumStake": "Средняя ставка",
   "app.containers.Boost.users": "Пользователи",
   "app.containers.Boost.yourStake": "Ваша ставка",
   "app.containers.Boost.yourBoost": "Ваш Boost",

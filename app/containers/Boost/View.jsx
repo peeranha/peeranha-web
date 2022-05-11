@@ -13,22 +13,19 @@ const View = ({
   locale,
   account,
   balance,
-  stakedInCurrentPeriod,
-  stakedInNextPeriod,
+  availableBalance,
   weekStat,
-  globalBoostStat,
   userBoostStat,
   getWeekStatProcessing,
   changeStakeDispatch,
   changeStakeLoading,
 }) => {
-  const boostWeeks = getBoostWeeks(weekStat, globalBoostStat, userBoostStat);
-  const { nextWeek } = boostWeeks;
-  const { userStake, maxStake } = nextWeek;
+  const userStakeNext = userBoostStat?.userStakeNext ?? 0;
+  const averageStakeNext = userBoostStat?.averageStakeNext ?? 0;
 
   const [currentStake, setCurrentStake] = useState(-1);
 
-  if (currentStake < 0 && !!userStake) setCurrentStake(userStake);
+  if (currentStake < 0 && !!userStakeNext) setCurrentStake(userStakeNext);
 
   const changeCurrentStake = useCallback(
     x => {
@@ -44,29 +41,30 @@ const View = ({
       <SubHeader
         account={account}
         balance={balance}
-        stakedInCurrentPeriod={stakedInCurrentPeriod}
-        stakedInNextPeriod={stakedInNextPeriod}
+        availableBalance={availableBalance}
+        stakedInCurrentPeriod={userBoostStat?.userStakeCurrent}
+        stakedInNextPeriod={userBoostStat?.userStakeNext}
       />
 
       <Weeks
         locale={locale}
         weekStat={weekStat}
-        globalBoostStat={globalBoostStat}
         userBoostStat={userBoostStat}
         getWeekStatProcessing={getWeekStatProcessing}
       />
 
       <Form
+        userBoostStat={userBoostStat}
         valueHasToBeLessThan={balance}
         currentStake={currentStake}
         maxStake={balance}
-        initialUserStake={stakedInNextPeriod || 0}
+        initialUserStake={userBoostStat?.userStakeNext || 0}
         changeCurrentStake={changeCurrentStake}
         onChangeCurrentStake={setCurrentStake}
         changeStake={changeStakeDispatch}
         changeStakeLoading={changeStakeLoading}
         locale={locale}
-        nextWeekMaxStake={maxStake}
+        nextWeekMaxStake={averageStakeNext}
       />
     </>
   );
@@ -77,8 +75,6 @@ View.propTypes = {
   locale: PropTypes.string,
   account: PropTypes.string,
   balance: PropTypes.number,
-  stakedInCurrentPeriod: PropTypes.number,
-  stakedInNextPeriod: PropTypes.number,
   weekStat: PropTypes.array,
   globalBoostStat: PropTypes.array,
   userBoostStat: PropTypes.array,

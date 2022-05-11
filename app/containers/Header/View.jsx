@@ -105,7 +105,7 @@ const View = ({
       const src = styles.withoutSubHeader
         ? communitiesConfig[single].src
         : peeranhaLogo;
-      
+
       return (
         <LogoStyles to={routes.feed()}>
           <img src={src} alt="logo" />
