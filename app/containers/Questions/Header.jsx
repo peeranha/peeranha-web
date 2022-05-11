@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as routes from 'routes-config';
 import styled from 'styled-components';
+// import Dropdown from '../../components/Dropdown'; ToDo: switch feed page
 
 import { injectIntl, intlShape } from 'react-intl';
 import messages from 'common-messages';
@@ -162,13 +163,14 @@ export const Header = ({
           communities={communities}
         />
         {!!displaySubscribeButton && (
+          //  Todo: switch feed page
           <PageContentHeaderRightPanel
             className={`right-panel m-0 ml-${single ? 3 : 4}`}
           >
-            <FollowCommunityButton
+            {/* <FollowCommunityButton
               communityIdFilter={single || communityIdFilter}
               followedCommunities={followedCommunities}
-            />
+            /> */}
           </PageContentHeaderRightPanel>
         )}
       </PageContentHeader>

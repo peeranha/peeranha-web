@@ -348,34 +348,36 @@ export const postsByCommQuery = `
       }`;
 
 export const postsForSearchQuery = `
-      query (
-        $text: String,
-      ) {
-        postSearch (
-          text: $text,
-        ) {
-           id
-           ipfsHash
-           tags
-           postType
-           author {
-              ${user}
-           }
-           rating
-           postTime
-           communityId
-           title
-           content
-           commentCount
-           replyCount
-           isDeleted
-           officialReply
-           bestReply
-           isFirstReply
-           isQuickReply
-           properties
+  query (
+    $text: String,
+    $first: Int,
+  ) {
+    postSearch (
+      text: $text,
+      first: $first,
+    ) {
+        id
+        ipfsHash
+        tags
+        postType
+        author {
+          ${user}
         }
-      }`;
+        rating
+        postTime
+        communityId
+        title
+        content
+        commentCount
+        replyCount
+        isDeleted
+        officialReply
+        bestReply
+        isFirstReply
+        isQuickReply
+        properties
+    }
+  }`;
 
 export const postQuery = `
       query (

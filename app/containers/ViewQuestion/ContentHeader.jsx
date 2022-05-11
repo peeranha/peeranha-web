@@ -118,7 +118,7 @@ const ContentHeader = props => {
       : histories?.filter(
           history => history.reply?.id === `${questionData.id}-${answerId}`,
         );
-  
+
   const [isModalOpen, setModalOpen] = useState(false);
   const refSharingModal = useRef(null);
   const [isPopoverOpen, setPopoverOpen] = useState(false);
@@ -315,7 +315,7 @@ ContentHeader.propTypes = {
   author: PropTypes.object,
   locale: PropTypes.string,
   lastEditedDate: PropTypes.number,
-  postTime: PropTypes.number,
+  postTime: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   type: PropTypes.string,
   deleteItemLoading: PropTypes.bool,
   voteToDeleteLoading: PropTypes.bool,

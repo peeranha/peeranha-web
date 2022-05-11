@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 
-import { NotFoundPage } from 'containers/App/imports';
 import {
   makeSelectAccount,
   makeSelectAccountLoading,
@@ -26,8 +25,13 @@ const Feed = ({ match, account, loading }) => {
       />
     );
   }
-
-  return <NotFoundPage />;
+  return (
+    <Questions
+      parentPage={routes.home()}
+      match={match}
+      postsTypes={Object.values(POST_TYPE)}
+    />
+  );
 };
 
 Feed.propTypes = {

@@ -33,7 +33,7 @@
   "app.common.allCommunities": "Все сообщества",
   "app.common.tags": "Теги",
   "app.common.home": "Главная",
-  "app.common.myFeed": "Моя лента",
+  "app.common.myFeed": "Лента",
   "app.common.users": "Пользователи",
   "app.common.followers": "Подписчики",
   "app.common.usersShort": "Польз.",
@@ -1103,6 +1103,13 @@
     "Решение проблемы, требующее экспертных знаний или опыта;",
     "Источник информации или ресурсы по конкретному предмету, который нелегко найти;",
     "Пояснение или разъяснение информации, которую трудно понять."
+  ],
+  "app.containers.QuestionForm.tutorialQuestionDescriptionLabel":
+    "Руководство это инструкция, которая может представлять из себя:",
+  "app.containers.QuestionForm.tutorialQuestionDescriptionList": [
+    "Пошаговое решение проблемы;",
+    "Техническое руководство;",
+    "Гайд по любой теме."
   ],
   "app.containers.QuestionForm.promotedLabel": "Продвинуть вопрос",
   "app.containers.QuestionForm.promotedTip": "Продвинуть вопрос",

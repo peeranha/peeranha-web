@@ -199,6 +199,7 @@ export const postsForSearch = async (text, single) => {
     query: gql(postsForSearchQuery),
     variables: {
       text: query,
+      first: 100,
     },
   });
   return posts?.data?.postSearch.filter(
@@ -217,7 +218,7 @@ export const getAllAchievements = async userId => {
   });
   return {
     allAchievements: response?.data.achievements,
-    userAchievements: response?.data.user.achievements,
+    userAchievements: response?.data.user?.achievements || [],
   };
 };
 

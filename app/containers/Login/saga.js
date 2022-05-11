@@ -114,6 +114,7 @@ export function* loginWithEmailWorker({ val }) {
     ethereumService.setSelectedAccount(response.body.address);
 
     yield put(addLoginData(response.peeranhaAutoLogin));
+    if (!isSingleCommunityWebsite()) yield put(redirectToFeed());
     yield call(continueLogin, response.body);
   } catch (err) {
     yield put(loginWithEmailErr(err));
@@ -159,6 +160,8 @@ export function* loginWithWalletWorker({ metaMask }) {
     yield put(loginWithWalletSuccess());
     yield call(updateAcc, profileInfo, ethereumService);
   } catch (err) {
+    document.getElementsByTagName('body')[0].style.position = 'relative';
+
     yield put(loginWithWalletErr(err));
   }
 }

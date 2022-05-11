@@ -121,14 +121,14 @@ const PaidOutWeek = ({
 };
 
 PaidOutWeek.propTypes = {
-  period: PropTypes.number,
+  period: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   locale: PropTypes.string,
-  reward: PropTypes.number,
+  reward: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   hasTaken: PropTypes.bool,
   pickupRewardDispatch: PropTypes.func,
   pickupRewardProcessing: PropTypes.bool,
-  periodStarted: PropTypes.number,
-  periodFinished: PropTypes.number,
+  periodStarted: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  periodFinished: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   ids: PropTypes.array,
   registrationWeek: PropTypes.bool,
   style: PropTypes.object,
