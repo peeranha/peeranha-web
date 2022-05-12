@@ -103,9 +103,6 @@ export const UlStyled = Ul.extend`
       div {
         font-size: 14px !important;
       }
-      div {
-        display: inline;
-      }
     }
 
     @media only screen and (max-width: 500px) {
