@@ -14,17 +14,30 @@ const webpack = require('webpack');
 module.exports = require('./webpack.base.babel')({
   mode: 'development',
   entry: {
-    vendor: ['lodash', 'react', 'bootstrap'],
+    vendor: [
+      'lodash',
+      'react',
+      'bootstrap',
+      'react-dom',
+      'jquery',
+      'react-redux',
+      'react-router',
+      'react-router-dom',
+      'react-router-redux',
+      'redux',
+      'redux-immutable',
+      'redux-saga',
+    ],
   },
   output: {
     filename: 'vendor.bundle.js',
-    path: join(__dirname, '../../build'),
+    path: join(__dirname, '../../build/vendors'),
     library: 'vendor_lib',
   },
   plugins: [
     new webpack.DllPlugin({
       name: 'vendor_lib',
-      path: join(__dirname, '../../build', 'vendor-manifest.json'),
+      path: join(__dirname, '../../build/vendors', 'vendor-manifest.json'),
     }),
   ],
 });

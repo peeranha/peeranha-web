@@ -43,29 +43,19 @@ module.exports = options => {
     mode: options.mode,
     entry: options.entry,
     output: {
-      // Compile into js/build.js
       path: path.resolve(process.cwd(), 'build'),
       publicPath: '/',
       ...options.output,
-    }, // Merge with env dependent settings
+    },
     optimization: options.optimization,
     module: {
       rules: [
         {
-          test: /\.(js|jsx)$/, // Transform all .js files required somewhere with Babel
+          test: /\.(js)x?$/i,
           exclude: /node_modules/,
           use: 'babel-loader',
         },
         {
-          // Preprocess our own .css files
-          // This is the place to add your own loaders (e.g. sass/less etc.)
-          // for a list of loaders, see https://webpack.js.org/loaders/#styling
-          test: /\.css$/,
-          exclude: /node_modules/,
-          use: ['style-loader', 'css-loader'],
-        },
-        {
-          // Preprocess 3rd party .css files located in node_modules
           test: /\.css$/,
           include: /node_modules/,
           use: ['style-loader', 'css-loader'],
@@ -102,7 +92,6 @@ module.exports = options => {
             {
               loader: 'url-loader',
               options: {
-                // Inline files smaller than 10 kB
                 limit: 10 * 1024,
               },
             },
@@ -143,9 +132,6 @@ module.exports = options => {
             },
             {
               loader: 'markdown-loader',
-              options: {
-                /* your options here */
-              },
             },
           ],
         },

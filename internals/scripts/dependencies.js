@@ -12,7 +12,7 @@ const writeFile = fs.writeFileSync;
 
 const defaults = require('lodash/defaultsDeep');
 const pkg = require(path.join(process.cwd(), 'package.json'));
-const vendorPath = path.join(__dirname, '../../build/');
+const vendorPath = path.join(__dirname, '../../build/vendors');
 const vendorManifestPath = path.join(vendorPath, 'vendor-manifest.json');
 
 /**

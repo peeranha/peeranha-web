@@ -1,8 +1,7 @@
-// Important modules this config uses
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackPwaManifest = require('webpack-pwa-manifest');
-const { HashedModuleIdsPlugin } = require('webpack');
+const TerserWebpackPlugin = require('terser-webpack-plugin');
 
 const testPlugins = [
   {
@@ -32,26 +31,18 @@ const plugins = process.env.NODE_ENV === 'test' ? testPlugins : prodPlugins;
 
 module.exports = require('./webpack.base.babel')({
   mode: 'production',
-
-  // In production, we skip all hot-reloading stuff
   entry: [path.join(process.cwd(), 'app/app.js')],
-
-  // Utilize long-term caching by adding content hashes (not compilation hashes) to compiled assets
   output: {
-    filename: '[name].[chunkhash].js',
-    chunkFilename: '[name].[chunkhash].chunk.js',
+    path: path.resolve(__dirname, '../../build'),
+    filename: '[name].[contenthash].js',
+    publicPath: '',
   },
-
   optimization: {
-    runtimeChunk: 'single',
+    runtimeChunk: true,
     minimize: true,
-    nodeEnv: 'production',
-    sideEffects: true,
-    concatenateModules: true,
+    minimizer: [new TerserWebpackPlugin()],
     splitChunks: {
       chunks: 'all',
-      maxInitialRequests: Infinity,
-      minSize: 0,
       cacheGroups: {
         vendor: {
           test: /[\\/]node_modules[\\/]/,
@@ -66,9 +57,7 @@ module.exports = require('./webpack.base.babel')({
       },
     },
   },
-
   plugins: [
-    // Minify and optimize the index.html
     ...plugins.map(
       ({ filename, meta = {} }) =>
         new HtmlWebpackPlugin({
@@ -103,14 +92,7 @@ module.exports = require('./webpack.base.babel')({
         },
       ],
     }),
-
-    new HashedModuleIdsPlugin({
-      hashFunction: 'sha256',
-      hashDigest: 'hex',
-      hashDigestLength: 20,
-    }),
   ],
-
   performance: {
     assetFilter: assetFilename =>
       !/(\.map$)|(^(main\.|favicon\.))/.test(assetFilename),
