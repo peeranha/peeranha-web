@@ -51,9 +51,18 @@ module.exports = options => {
     module: {
       rules: [
         {
-          test: /\.(js)x?$/i,
+          test: /\.(ts|js)x?$/i,
           exclude: /node_modules/,
-          use: 'babel-loader',
+          use: {
+            loader: 'babel-loader',
+            options: {
+              presets: [
+                '@babel/preset-env',
+                '@babel/preset-react',
+                '@babel/preset-typescript',
+              ],
+            },
+          },
         },
         {
           test: /\.css$/,
