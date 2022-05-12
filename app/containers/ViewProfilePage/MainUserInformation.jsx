@@ -91,6 +91,12 @@ export const UlStyled = Ul.extend`
       }
     }
 
+    @media only screen and (max-width: 1354px) {
+      div {
+        display: inline;
+      }
+    }
+
     @media only screen and (max-width: 768px) {
       padding: 10px 25px 5px 0;
       span,
@@ -103,6 +109,7 @@ export const UlStyled = Ul.extend`
     }
 
     @media only screen and (max-width: 500px) {
+      height: 70px;
       span,
       div {
         font-size: 13px !important;
