@@ -46,7 +46,7 @@ export const UlStyled = Ul.extend`
 
   @media (min-width: 400px) and (max-width: 488px) {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   }
 
   @media (max-width: 399px) {
@@ -98,11 +98,15 @@ export const UlStyled = Ul.extend`
       }
     }
 
+    @media only screen and (max-width: 1280px) {
+      padding: 10px 45px;
+    }
+
     @media only screen and (max-width: 768px) {
       padding: 10px 25px 5px 0;
       span,
       div {
-        font-size: 14px !important;
+        font-size: 16px !important;
       }
     }
 
