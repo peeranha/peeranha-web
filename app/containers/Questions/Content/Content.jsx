@@ -238,6 +238,7 @@ export const Content = ({
   isFeed,
   isCommunityFeed,
 }) => {
+  console.log(query);
   const makeHighlighted = useCallback(
     str => {
       return <Highlight filter={query} str={str} />;
@@ -264,13 +265,33 @@ export const Content = ({
       {/*  ))} */}
       {questionsList.map(
         (item, index) => {
+          console.log(item);
           const prepearedItem = {
             ...item,
             title: makeHighlighted(item.title),
           };
           return (
             <QuestionItem
-              {...prepearedItem}
+              id={item.id}
+              ipfsHash={item.ipfsHash}
+              title={<Highlight filter={query} str={item.title} />}
+              author={item.author}
+              postTime={item.postTime}
+              bestReply={item.bestReply}
+              commentCount={item.bestReply}
+              communityId={item.communityId}
+              content={item.content}
+              isDeleted={item.isDeleted}
+              isQuickReply={item.isQuickReply}
+              isFirstReply={item.isFirstReply}
+              officialReply={item.officialReply}
+              postType={item.postType}
+              properties={item.properties}
+              rating={item.rating}
+              replyCount={item.replyCount}
+              tags={item.tags}
+              typename={item.typename}
+              //{...prepearedItem}
               isGeneral={isGeneralQuestion(item)}
               index={index}
               first={index === 0}
@@ -296,7 +317,7 @@ export const Content = ({
 QI.propTypes = {
   id: PropTypes.string,
   ipfsHash: PropTypes.string,
-  title: PropTypes.string,
+  title: PropTypes.object,
   author: PropTypes.object,
   postTime: PropTypes.string,
   locale: PropTypes.string,

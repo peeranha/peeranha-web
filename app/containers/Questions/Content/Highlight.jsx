@@ -10,7 +10,10 @@ const Span = styled.span`
 `;
 
 export const Highlight = ({ filter, str }) => {
+  console.log(filter);
+  if (!filter) return str;
   const textArray = str.split(filter);
+
   return (
     <>
       {textArray.map((item, index) => (
