@@ -156,12 +156,6 @@ module.exports = options => {
       ],
     },
     plugins: options.plugins.concat([
-      new webpack.ProvidePlugin({
-        // make fetch available
-        fetch: 'exports-loader?self.fetch!whatwg-fetch',
-      }),
-
-      // Expose .env config to webpack in order to use `process.env.{key}` inside code
       new webpack.DefinePlugin(envKeys),
       new webpack.ProvidePlugin({
         process: 'process/browser',
