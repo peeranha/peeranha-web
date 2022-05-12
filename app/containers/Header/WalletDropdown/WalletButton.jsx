@@ -83,66 +83,68 @@ const WalletButton = ({
   number,
   locale,
   isBoost,
-}) => (
-  <div className="position-relative">
-    <ButtonStyled isBoost={!!isBoost} isMobileVersion={isMobileVersion}>
-      {isBoost ? (
-        <>
-          <BoostIconWrapper>
-            <Icon
-              width="50"
-              icon={boostWalletIcon}
-              specialStyles={!!single && styles.boostWalletBtnStyles}
-            />
-          </BoostIconWrapper>
-        </>
-      ) : (
-        <IconBG
-          className="mr-2"
-          bg={
-            (!isMobileVersion && styles.fullyTransparent) ||
-            colors.walletButton ||
-            BG_PRIMARY
-          }
-          color={TEXT_LIGHT}
-          isMobileVersion={isMobileVersion}
-        >
-          <IconLg icon={currencyPeerIcon} color="white" />
-        </IconBG>
-      )}
+}) => {
+  return (
+    <div className="position-relative">
+      <ButtonStyled isBoost={!!isBoost} isMobileVersion={isMobileVersion}>
+        {isBoost ? (
+          <>
+            <BoostIconWrapper>
+              <Icon
+                width="50"
+                icon={boostWalletIcon}
+                specialStyles={!!single && styles.boostWalletBtnStyles}
+              />
+            </BoostIconWrapper>
+          </>
+        ) : (
+          <IconBG
+            className="mr-2"
+            bg={
+              (!isMobileVersion && styles.fullyTransparent) ||
+              colors.walletButton ||
+              BG_PRIMARY
+            }
+            color={TEXT_LIGHT}
+            isMobileVersion={isMobileVersion}
+          >
+            <IconLg icon={currencyPeerIcon} color="white" />
+          </IconBG>
+        )}
 
-      <span className="d-flex flex-column text-left">
-        <Span
-          className="align-middle"
-          fontSize="16"
-          bold
-          color={(!isMobileVersion && styles.commHeadElemColor) || ''}
-        >
-          {getFormattedNum4(balance)}
-        </Span>
-        <Span
-          className="align-middle"
-          fontSize="14"
-          lineHeight="18"
-          color={
-            (!isMobileVersion && styles.commHeadElemColor) || TEXT_SECONDARY
-          }
-        >
-          <FormattedMessage {...messages.peers} />
-        </Span>
-      </span>
-    </ButtonStyled>
-    {isMobileVersion &&
-      isPositiveNumber(number) && (
-        <NotificationIcon
-          isMobileVersion={isMobileVersion}
-          number={number}
-          iconId="WalletButton_NotificationIconisMobile"
-          locale={locale}
-        />
-      )}
-  </div>
-);
+        <span className="d-flex flex-column text-left">
+          <Span
+            className="align-middle"
+            fontSize="16"
+            bold
+            color={(!isMobileVersion && styles.commHeadElemColor) || ''}
+          >
+            {getFormattedNum4(balance)}
+          </Span>
+          <Span
+            className="align-middle"
+            fontSize="14"
+            lineHeight="18"
+            color={
+              (!isMobileVersion && styles.commHeadElemColor) || TEXT_SECONDARY
+            }
+          >
+            <FormattedMessage {...messages.peers} />
+          </Span>
+        </span>
+      </ButtonStyled>
+      {isMobileVersion &&
+        isPositiveNumber(number) && (
+          <NotificationIcon
+            isMobileVersion={isMobileVersion}
+            number={number}
+            iconId="WalletButton_NotificationIconisMobile"
+            locale={locale}
+          />
+        )}
+    </div>
+  );
+};
 
 WalletButton.propTypes = {
   balance: PropTypes.number,

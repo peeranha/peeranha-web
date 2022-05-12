@@ -17,17 +17,15 @@ import {
 
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
-import messages from './messages';
+import messages from 'containers/Users/messages';
 
 import * as selectors from './selectors';
-import { changeSortingType, getUsers } from './actions';
-import reducer from './reducer';
-import saga from './saga';
+import { changeSortingType, getUsers } from 'containers/Users/actions';
+import reducer from 'containers/Users/reducer';
+import saga from 'containers/Users/saga';
 
-import View from './View';
-import { Redirect } from 'react-router-dom';
-import * as routes from '../../routes-config';
-import { selectIsGlobalAdmin } from '../AccountProvider/selectors';
+import View from 'containers/Users/View';
+import { selectIsGlobalAdmin } from 'containers/AccountProvider/selectors';
 
 const single = isSingleCommunityWebsite();
 
@@ -42,10 +40,7 @@ const Users = ({
   communities,
   getUsersDispatch,
   changeSortingTypeDispatch,
-  isGlobalAdmin,
 }) => {
-  if (!isGlobalAdmin) return <Redirect to={routes.questions()} />;
-
   const getMoreUsers = useCallback(() => {
     getUsersDispatch({ loadMore: true });
   }, []);

@@ -64,16 +64,16 @@ const QuestionsWithAnswersList = ({ questions, locale, communities }) => (
 Question.propTypes = {
   myPostRating: PropTypes.number,
   title: PropTypes.string,
-  myPostTime: PropTypes.number,
+  myPostTime: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   locale: PropTypes.string,
   acceptedAnswer: PropTypes.bool,
   communities: PropTypes.array,
   id: PropTypes.string,
   communityId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   isMyAnswerAccepted: PropTypes.bool,
-  postType: PropTypes.string,
+  postType: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   isTheLargestRating: PropTypes.bool,
-  answerId: PropTypes.number,
+  answerId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   isGeneral: PropTypes.bool,
 };
 

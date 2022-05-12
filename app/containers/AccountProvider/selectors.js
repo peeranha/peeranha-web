@@ -23,6 +23,12 @@ const makeSelectAccount = () =>
 const makeSelectBalance = () =>
   createSelector(selectAccountProviderDomain, substate => substate.balance);
 
+const makeSelectAvailableBalance = () =>
+  createSelector(
+    selectAccountProviderDomain,
+    substate => substate.availableBalance,
+  );
+
 const makeSelectStakedInCurrentPeriod = () =>
   createSelector(
     selectAccountProviderDomain,
@@ -53,6 +59,7 @@ const makeSelectProfileInfo = () =>
     state => {
       const account = makeSelectAccount()(state);
       const balance = makeSelectBalance()(state);
+      const availableBalance = makeSelectAvailableBalance()(state);
       const stakedInCurrentPeriod = makeSelectStakedInCurrentPeriod()(state);
       const stakedInNextPeriod = makeSelectStakedInNextPeriod()(state);
       const boost = makeSelectBoost()(state);
@@ -63,6 +70,7 @@ const makeSelectProfileInfo = () =>
         return {
           ...profileInfo,
           balance,
+          availableBalance,
           stakedInCurrentPeriod,
           stakedInNextPeriod,
           boost,
@@ -129,6 +137,7 @@ export {
   makeSelectProfileInfo,
   makeSelectFollowedCommunities,
   makeSelectBalance,
+  makeSelectAvailableBalance,
   makeSelectStakedInCurrentPeriod,
   makeSelectStakedInNextPeriod,
   makeSelectBoost,

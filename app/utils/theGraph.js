@@ -18,6 +18,7 @@ import {
   usersQuery,
   userStatsQuery,
   historiesQuery,
+  currentPeriodQuery,
 } from './ethConstants';
 
 const client = new ApolloClient({
@@ -198,6 +199,7 @@ export const postsForSearch = async (text, single) => {
     query: gql(postsForSearchQuery),
     variables: {
       text: query,
+      first: 100,
     },
   });
   return posts?.data?.postSearch.filter(
@@ -216,7 +218,7 @@ export const getAllAchievements = async userId => {
   });
   return {
     allAchievements: response?.data.achievements,
-    userAchievements: response?.data.user.achievements,
+    userAchievements: response?.data.user?.achievements || [],
   };
 };
 
@@ -228,6 +230,13 @@ export const getRewardStat = async userId => {
     },
   });
   return [response?.data?.userRewards, response?.data?.periods];
+};
+
+export const getCurrentPeriod = async () => {
+  const response = await client.query({
+    query: gql(currentPeriodQuery),
+  });
+  return response?.data?.periods?.[0];
 };
 
 export const historiesForPost = async postId => {

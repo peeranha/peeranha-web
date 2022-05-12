@@ -14,18 +14,18 @@ import messages from './messages';
 
 export const AllQuestionsBanner = ({ redirectToAskQuestionPage }) => (
   <Wrapper>
-    <img src={noQuestionsAllQuestionsPage} alt="questions-banner" />
+    <img src={noQuestionsAllQuestionsPage} alt="posts-banner" />
     <div>
       <p>
-        <FormattedMessage {...messages.noQuestionsYet} />
+        <FormattedMessage id={messages.noPostsYet.id} />
       </p>
 
       <p>
-        <FormattedMessage {...messages.thisIsNewCommunity} />
+        <FormattedMessage id={messages.thisIsNewCommunity.id} />
       </p>
 
       <Button id="banner-ask-question" onClick={redirectToAskQuestionPage}>
-        <FormattedMessage {...commonMessages.askQuestion} />
+        <FormattedMessage id={commonMessages.askQuestion.id} />
       </Button>
     </div>
   </Wrapper>

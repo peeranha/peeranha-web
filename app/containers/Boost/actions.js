@@ -50,10 +50,9 @@ export function changeStakeProcessing() {
   };
 }
 
-export function changeStakeSuccess(globalBoostStat, userBoostStat) {
+export function changeStakeSuccess(userBoostStat) {
   return {
     type: CHANGE_STAKE_SUCCESS,
-    globalBoostStat,
     userBoostStat,
   };
 }

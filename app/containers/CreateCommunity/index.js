@@ -10,8 +10,9 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { translationMessages, DEFAULT_LOCALE } from 'i18n';
 import { compose, bindActionCreators } from 'redux';
-import { Redirect } from 'react-router-dom';
 import * as routes from 'routes-config';
+
+import { useModeratorRole } from '../../hooks/useModeratorRole';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -78,6 +79,8 @@ export const CreateCommunity = ({
   isFormAvailable,
   profile,
 }) => {
+  useModeratorRole(routes.noAccess);
+
   useEffect(() => {
     setDefaultStoreDispatch();
 
@@ -119,8 +122,6 @@ export const CreateCommunity = ({
   const path = window.location.pathname + window.location.hash;
 
   if (isFormLoading) return <Loader />;
-
-  if (!isFormAvailable) return <Redirect to={routes.communities()} />;
 
   return (
     <div>

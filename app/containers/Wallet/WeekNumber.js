@@ -14,21 +14,7 @@ import Span from 'components/Span';
 
 import messages from './messages';
 
-const WeekNumber = ({
-  period,
-  locale,
-  periodStarted,
-  periodFinished,
-  currentWeeksNumber,
-}) => {
-  const week = useMemo(
-    () =>
-      currentWeeksNumber === 2
-        ? ` ${period + 1}-${period + 2}`
-        : ` ${period + 1}`,
-    [period, currentWeeksNumber],
-  );
-
+const WeekNumber = ({ period, locale, periodStarted, periodFinished }) => {
   return (
     <P>
       <Span className="mr-3" fontSize="24" mobileFS={21} bold>
@@ -63,10 +49,10 @@ const WeekNumber = ({
 };
 
 WeekNumber.propTypes = {
-  period: PropTypes.number,
+  period: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   locale: PropTypes.string,
-  periodStarted: PropTypes.number,
-  periodFinished: PropTypes.number,
+  periodStarted: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  periodFinished: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   currentWeeksNumber: PropTypes.number,
 };
 

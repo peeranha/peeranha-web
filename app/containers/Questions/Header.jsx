@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as routes from 'routes-config';
 import styled from 'styled-components';
+// import Dropdown from '../../components/Dropdown'; ToDo: switch feed page
 
 import { injectIntl, intlShape } from 'react-intl';
 import messages from 'common-messages';
@@ -34,6 +35,7 @@ import { BORDER_PRIMARY, ICON_TRASPARENT_BLUE } from 'style-constants';
 import QuestionFilter from './QuestionFilter';
 
 import { selectQuestions, selectTopQuestionsInfoLoaded } from './selectors';
+import {makeSelectProfileInfo} from '../AccountProvider/selectors';
 
 const single = isSingleCommunityWebsite();
 const colors = singleCommunityColors();
@@ -76,6 +78,7 @@ export const Header = ({
   questionFilterFromCookies,
   isExpert,
   postsTypes,
+  profile,
 }) => {
   const isFeed = parentPage === routes.feed();
 
@@ -106,7 +109,7 @@ export const Header = ({
     }
   } else {
     defaultAvatar = myFeedIcon;
-    defaultLabel = intl.formatMessage({ id: messages.myFeed.id });
+    defaultLabel = intl.formatMessage({ id: messages[profile ? 'feed' : 'myFeed'].id });
     defaultAvatarWidth = '38';
   }
 
@@ -162,13 +165,14 @@ export const Header = ({
           communities={communities}
         />
         {!!displaySubscribeButton && (
+          //  Todo: switch feed page
           <PageContentHeaderRightPanel
             className={`right-panel m-0 ml-${single ? 3 : 4}`}
           >
-            <FollowCommunityButton
+            {/* <FollowCommunityButton
               communityIdFilter={single || communityIdFilter}
               followedCommunities={followedCommunities}
-            />
+            /> */}
           </PageContentHeaderRightPanel>
         )}
       </PageContentHeader>
@@ -189,6 +193,7 @@ Header.propTypes = {
   setTypeFilter: PropTypes.func,
   topQuestionsInfoLoaded: PropTypes.bool,
   topQuestions: PropTypes.array,
+  profile: PropTypes.object,
 };
 //
 export default injectIntl(
@@ -197,6 +202,7 @@ export default injectIntl(
       topQuestionsInfoLoaded: selectTopQuestionsInfoLoaded()(state),
       topQuestions: selectQuestions(null, null, null, true)(state),
       communities: selectCommunities()(state),
+      profile: makeSelectProfileInfo()(state),
     }))(Header),
   ),
 );

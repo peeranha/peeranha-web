@@ -140,16 +140,16 @@ const UniqueAchievement = ({
 UniqueAchievement.propTypes = {
   reached: PropTypes.bool,
   name: PropTypes.string,
-  maxCount: PropTypes.number,
+  maxCount: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   isNext: PropTypes.bool,
   lowerValue: PropTypes.number,
   currentValue: PropTypes.number,
   pointsToNext: PropTypes.number,
-  factCount: PropTypes.number,
+  factCount: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   description: PropTypes.string,
   locale: PropTypes.string,
   achievementURI: PropTypes.string,
-  id: PropTypes.number,
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 export default UniqueAchievement;

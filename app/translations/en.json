@@ -33,6 +33,7 @@
   "app.common.allCommunities": "All communities",
   "app.common.tags": "Tags",
   "app.common.home": "Home",
+  "app.common.feed": "Feed",
   "app.common.myFeed": "My feed",
   "app.common.users": "Users",
   "app.common.followers": "Followers",
@@ -245,7 +246,7 @@
   "app.containers.Boost.description": "Boost | Description",
   "app.containers.Boost.currentPeriod": "Current period",
   "app.containers.Boost.nextPeriod": "Next period",
-  "app.containers.Boost.maximumStake": "Maximum stake",
+  "app.containers.Boost.maximumStake": "Average stake",
   "app.containers.Boost.users": "Users",
   "app.containers.Boost.yourStake": "Your stake",
   "app.containers.Boost.yourBoost": "Your boost",
@@ -417,8 +418,7 @@
   "app.containers.Profile.activity": "Activity",
   "app.containers.Profile.userHasntActivityYet":
     "This user has no activity yet",
-  "app.containers.Profile.heHasnoAnswersAndQuestions":
-    "No answers or questions noted.",
+  "app.containers.Profile.heHasNoAnswersAndPosts": "No answers or posts noted.",
   "app.containers.Profile.answered": "Answered",
   "app.containers.Profile.lastAnswer": "Last answer",
   "app.containers.Profile.noAnswersYet": "No answers yet",
@@ -986,7 +986,7 @@
   "app.containers.Profile.newPassword": "New password",
   "app.containers.Profile.confirmPassword": "Confirm password",
   "app.containers.Profile.youAnswered": "You answered",
-  "app.containers.Profile.seeMore": "See all {questions} and {answers}",
+  "app.containers.Profile.seeMore": "See all {posts} and {answers}",
   "app.containers.Profile.tipText":
     "Set up wallets for crypto tokens to get tips from other users.",
   "app.containers.Profile.crypto": "Crypto",
@@ -1014,9 +1014,9 @@
     "You don't have any feed to read",
   "app.containers.Questions.subscribeToCommToKeep":
     "Subscribe to communities to keep track of topics that you are interested in.",
-  "app.containers.Questions.noQuestionsYet": "No posts yet.",
+  "app.containers.Questions.noPostsYet": "No posts yet.",
   "app.containers.Questions.thisIsNewCommunity":
-    "This is a new community, you can be the first post a question. Your question may become the most popular.",
+    "This is a new community, you can be the first to post a post. Your post may become the most popular.",
   "app.containers.Questions.readMyFeed": "Read my feed",
   "app.containers.Questions.goToCommunities": "Go to communities",
   "app.containers.Questions.topQuestionPopover":
@@ -1050,11 +1050,10 @@
     "If you feel something is missing that should be here, {value}.",
 
   "app.containers.QuestionForm.communityTip":
-    "Make sure that the question is relevant to the selected community",
+    "Make sure that the post is relevant to the selected community",
   "app.containers.QuestionForm.titleTip":
-    "Short and descriptive title of the question",
-  "app.containers.QuestionForm.tagsTip":
-    "Tags that are relevant to the question",
+    "Short and descriptive title of the post",
+  "app.containers.QuestionForm.tagsTip": "Tags that are relevant to the post",
   "app.containers.QuestionForm.title": "New post",
   "app.containers.QuestionForm.titleLabel": "Title",
   "app.containers.QuestionForm.existingQuestionsLabel":

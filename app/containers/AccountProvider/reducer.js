@@ -20,6 +20,7 @@ export const initialState = fromJS({
   error: null,
   account: null,
   balance: 0,
+  availableBalance: 0,
   stakedInCurrentPeriod: null,
   stakedInNextPeriod: null,
   boost: null,
@@ -38,6 +39,7 @@ function accountProviderReducer(state = initialState, action) {
     err,
     account,
     balance,
+    availableBalance,
     stakedInCurrentPeriod,
     stakedInNextPeriod,
     boost,
@@ -58,6 +60,10 @@ function accountProviderReducer(state = initialState, action) {
         .set('lastUpdate', Date.now())
         .set('account', account || initialState.get('account'))
         .set('balance', balance || initialState.get('balance'))
+        .set(
+          'availableBalance',
+          availableBalance || initialState.get('availableBalance'),
+        )
         .set('boost', boost || initialState.get('boost'))
         .set(
           'stakedInCurrentPeriod',

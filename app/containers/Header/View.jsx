@@ -85,6 +85,7 @@ const View = ({
   profileInfo,
   showLoginModalDispatch,
   redirectToAskQuestionPage,
+  showLoginModalWithRedirectToAskQuestionPage,
   faqQuestions,
 }) => {
   const [isSearchFormVisible, setSearchFormVisibility] = useState(false);
@@ -107,7 +108,7 @@ const View = ({
         : peeranhaLogo;
 
       return (
-        <LogoStyles to={routes.questions()}>
+        <LogoStyles to={routes.feed()}>
           <img src={src} alt="logo" />
           {styles.logoText}
         </LogoStyles>
@@ -122,17 +123,14 @@ const View = ({
         !!single && (
           <SingleModeSubHeader>
             <div className="container">
-              <ADefault
-                href={`${process.env.APP_LOCATION}${routes.questions()}`}
-              >
+              <ADefault href={`${process.env.APP_LOCATION}${routes.feed()}`}>
                 <img id="peeranha-logo" src={peeranhaLogo} alt="logo" />
               </ADefault>
 
-              {profileInfo && (
-                <ADefault href={`${process.env.APP_LOCATION}${routes.feed()}`}>
-                  <FormattedMessage {...messages.myFeed} />
-                </ADefault>
-              )}
+              <ADefault href={`${process.env.APP_LOCATION}${routes.feed()}`}>
+                <FormattedMessage {...messages.myFeed} />
+              </ADefault>
+
               <ADefault href={`${process.env.APP_LOCATION}/#allquestions`}>
                 <FormattedMessage {...messages.allQuestions} />
               </ADefault>
@@ -185,7 +183,11 @@ const View = ({
                   </Button>
                   <Button
                     id="header-ask-question"
-                    onClick={redirectToAskQuestionPage}
+                    onClick={
+                      profileInfo
+                        ? redirectToAskQuestionPage
+                        : showLoginModalWithRedirectToAskQuestionPage
+                    }
                   >
                     <IconSm fill={BG_LIGHT} icon={addIcon} />
 
@@ -218,6 +220,7 @@ View.propTypes = {
   isMenuVisible: PropTypes.bool,
   showMenu: PropTypes.func,
   showLoginModalDispatch: PropTypes.func,
+  showLoginModalWithRedirectToAskQuestionPage: PropTypes.func,
   redirectToAskQuestionPage: PropTypes.func,
   faqQuestions: PropTypes.array,
 };
