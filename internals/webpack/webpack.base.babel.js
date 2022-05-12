@@ -177,7 +177,7 @@ module.exports = options => {
         fs: false,
         stream: require.resolve('stream-browserify'),
         crypto: require.resolve('crypto-browserify'),
-        assert: require.resolve('assert'),
+        assert: require.resolve('assert/'),
         http: require.resolve('stream-http'),
         https: require.resolve('https-browserify'),
         zlib: require.resolve('browserify-zlib'),
