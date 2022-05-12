@@ -38,7 +38,6 @@ const InlineLoader = styled(LoadingIndicator)`
 
 export const UlStyled = Ul.extend`
   display: flex;
-  flex-wrap: nowrap;
   border: none;
   padding: 0;
   overflow-x: hidden;
@@ -51,8 +50,10 @@ export const UlStyled = Ul.extend`
   }
 
   @media (max-width: 399px) {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    display: flex;
+    overflow-x: hidden;
+    white-space: nowrap;
+    flex-wrap: wrap;
   }
 
   li:last-child {
