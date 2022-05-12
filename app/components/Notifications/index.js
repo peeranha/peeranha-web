@@ -266,7 +266,9 @@ const Notifications = ({
             {({ height, isScrolling, registerChild, scrollTop }) => (
               <div
                 ref={registerChild}
-                className={classnames('pb-2', { 'pt-2': Boolean(unreadCount) })}
+                className={classnames('pb-2', {
+                  'pt-2': !Boolean(unreadCount),
+                })}
               >
                 <List
                   autoHeight
