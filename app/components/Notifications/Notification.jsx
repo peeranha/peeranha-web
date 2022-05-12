@@ -42,28 +42,8 @@ const Container = styled.div`
     !read &&
     !small &&
     css`
-    /*::before {
-      position: absolute;
-      left: 15px;
-      margin-top: -3px;
-      content: '';
-      width: 6px;
-      height: 6px;
-      background: ${BORDER_PRIMARY_LIGHT};
-      border-radius: 6px;
-    }
-    @media only screen and (max-width: 815px) {
-      ::before {
-        left: unset;
-        right: 20px;
-        top: 40px;
-        width: 8px;
-        height: 8px;
-        border-radius: 8px;
-      }
-    }*/
-    border-left: 3px solid ${BORDER_PRIMARY_LIGHT};
-  `};
+      border-left: 3px solid ${BORDER_PRIMARY_LIGHT};
+    `};
 
   position: absolute;
   align-items: center;

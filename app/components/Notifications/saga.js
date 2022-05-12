@@ -114,9 +114,7 @@ export function* loadMoreUnreadNotificationsWorker() {
         user,
         all: false,
         limit: NOTIFICATIONS_REQUEST_LIMIT,
-        timestamp: !notifications.length
-          ? Math.round(now.valueOf() / 1000)
-          : lastTimestamp,
+        timestamp: Math.round(now.valueOf() / 1000),
       },
       true,
     );

@@ -55,6 +55,7 @@ import reducer from './reducer';
 import WidthCentered, {
   LoaderContainer,
 } from '../LoadingIndicator/WidthCentered';
+import classnames from 'classnames';
 
 const Container = styled.div`
   ${Wrapper} {
@@ -75,7 +76,6 @@ const Content = styled.div`
   flex-direction: column;
   border-radius: ${BORDER_RADIUS_L};
   width: 100%;
-  // height: ${({ height }) => height}px;
 `;
 
 const SubHeader = styled.div`
@@ -117,9 +117,10 @@ const Notifications = ({
 
   useEffect(
     () => {
-      markAsReadNotificationsAllDispatch(
-        notifications.length ? [0, notifications.length - 1] : [0, 0],
-      );
+      markAsReadNotificationsAllDispatch([
+        0,
+        (notifications.length > 0 && notifications.length - 1) || 0,
+      ]);
     },
     [notifications.length],
   );
@@ -265,7 +266,7 @@ const Notifications = ({
             {({ height, isScrolling, registerChild, scrollTop }) => (
               <div
                 ref={registerChild}
-                className={!!unreadCount ? 'pb-2' : 'pb-2 pt-2'}
+                className={classnames('pb-2', { 'pt-2': Boolean(unreadCount) })}
               >
                 <List
                   autoHeight
