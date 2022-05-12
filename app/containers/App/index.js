@@ -162,13 +162,11 @@ const App = ({
           />
         )}
 
-        {!single && (
-          <Route
-            exact
-            path={routes.feed()}
-            render={props => Wrapper(Feed, props)}
-          />
-        )}
+        <Route
+          exact
+          path={routes.feed()}
+          render={props => Wrapper(Feed, props)}
+        />
 
         {!single && (
           <Route
