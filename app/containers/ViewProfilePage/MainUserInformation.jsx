@@ -43,22 +43,6 @@ export const UlStyled = Ul.extend`
   padding: 0;
   overflow-x: auto;
   white-space: nowrap;
-  flex-wrap: wrap;
-
-  @media (max-width: 488px) {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 2fr));
-  }
-
-  @media (max-width: 768px) {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 2fr));
-  }
-
-  @media (max-width: 1024px) {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 3fr));
-  }
 
   li:last-child {
     padding-right: 0;
@@ -67,8 +51,7 @@ export const UlStyled = Ul.extend`
   li {
     display: flex;
     flex-direction: column;
-    padding: 15px 30px 15px 0;
-    white-space: wrap;
+    padding: 15px 45px 15px 0;
 
     > *:nth-child(1) {
       font-size: 13px;
@@ -91,19 +74,18 @@ export const UlStyled = Ul.extend`
 
     @media only screen and (max-width: 768px) {
       padding: 10px 25px 5px 0;
+    }
+
+    @media only screen and (max-width: 576px) {
+      padding: 7px 15px 7px 0;
+
       span {
         font-size: 14px !important;
-      }
-
-      @media only screen and (max-width: 768px) {
-        span {
-          font-size: 13px !important;
-        }
       }
     }
   }
 `;
-//padding: 7px 15px 7px 0;
+
 export const Box = Base.extend`
   > div {
     display: flex;
@@ -234,13 +216,11 @@ const MainUserInformation = ({
               <li>
                 <span>
                   <FormattedMessage {...messages.memberSince} />
-                  <div>
-                    {getFormattedDate(
-                      profile.creationTime,
-                      locale,
-                      MONTH_3LETTERS__DAY_YYYY,
-                    )}
-                  </div>
+                  {getFormattedDate(
+                    profile.creationTime,
+                    locale,
+                    MONTH_3LETTERS__DAY_YYYY,
+                  )}
                 </span>
               </li>
             </UlStyled>
