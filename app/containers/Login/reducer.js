@@ -35,6 +35,7 @@ export const initialState = fromJS({
   loginWithEmailError: null,
   eosAccount: null,
   loginWithWalletProcessing: false,
+  isNewPostCreationAfterLogin: false,
   loginWithWalletError: null,
   finishRegistrationProcessing: false,
   facebookLoginProcessing: false,
@@ -55,6 +56,7 @@ function loginReducer(state = initialState, action) {
     facebookUserData,
     facebookLoginProcessing,
     finishRegistrationWithDisplayNameError,
+    isNewPostCreationAfterLogin,
   } = action;
 
   switch (type) {
@@ -80,7 +82,9 @@ function loginReducer(state = initialState, action) {
         .set('loginWithEmailProcessing', false);
 
     case LOGIN_WITH_WALLET:
-      return state.set('loginWithWalletProcessing', true);
+      return state
+        .set('loginWithWalletProcessing', true)
+        .set('isNewPostCreationAfterLogin', isNewPostCreationAfterLogin);
     case LOGIN_WITH_WALLET_SUCCESS:
       return state
         .set('loginWithWalletProcessing', false)

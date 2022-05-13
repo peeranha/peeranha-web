@@ -49,3 +49,8 @@ export const selectFacebookLoginProcessing = () =>
   createSelector(selectLoginDomain, substate =>
     substate.get('facebookLoginProcessing'),
   );
+
+export const selectIsNewPostCreationAfterLogin = () =>
+  createSelector(selectLoginDomain, substate =>
+    substate.get('isNewPostCreationAfterLogin'),
+  );

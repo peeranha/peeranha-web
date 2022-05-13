@@ -15,6 +15,7 @@ import SmallImage from 'components/Img/SmallImage';
 
 import messages from './messages';
 import WeekNumber from './WeekNumber';
+import { WEI_IN_ETH } from '../../utils/constants';
 
 const PendingWeek = ({
   period,
@@ -47,7 +48,7 @@ const PendingWeek = ({
           <P className="d-flex align-items-center">
             <SmallImage className="mr-2" src={currencyPeerImage} alt="icon" />
             <Span fontSize="20" mobileFS={14} bold>
-              {getFormattedNum3(reward)}
+              {getFormattedNum3(reward / WEI_IN_ETH)}
             </Span>
           </P>
         </>

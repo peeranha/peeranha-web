@@ -22,15 +22,13 @@ export const getCurrentAccountProcessing = () => ({
 export const getCurrentAccountSuccess = (
   account,
   balance,
-  stakedInCurrentPeriod = 0,
-  stakedInNextPeriod = 0,
+  availableBalance,
   boost,
 ) => ({
   type: GET_CURRENT_ACCOUNT_SUCCESS,
   account,
   balance,
-  stakedInCurrentPeriod,
-  stakedInNextPeriod,
+  availableBalance,
   boost,
 });
 
@@ -62,7 +60,7 @@ export const removeLoginData = () => ({
   type: REMOVE_LOGIN_DATA,
 });
 
-export const changeStakedInNextPeriod = (stakedInNextPeriod) => ({
+export const changeStakedInNextPeriod = stakedInNextPeriod => ({
   type: CHANGE_STAKED_IN_NEXT_PERIOD,
   stakedInNextPeriod,
 });

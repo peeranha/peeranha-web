@@ -32,29 +32,31 @@ const CurrentPendingWeeks = styled.div`
   }
 `;
 
-const Weeks = ({
-  locale,
-  weekStat,
-  globalBoostStat,
-  userBoostStat,
-  getWeekStatProcessing,
-}) => {
-  const boostWeeks = getBoostWeeks(weekStat, globalBoostStat, userBoostStat);
-
+const Weeks = ({ locale, weekStat, userBoostStat, getWeekStatProcessing }) => {
   return (
     <>
-      {boostWeeks &&
+      {userBoostStat &&
         !getWeekStatProcessing && (
           <ul className="mt-3">
             <CurrentPendingWeeks inRow>
               <CurrentWeek
                 locale={locale}
-                {...boostWeeks.currentWeek}
+                period={weekStat[0].period}
+                periodStarted={weekStat[0].periodStarted}
+                periodFinished={weekStat[0].periodFinished}
+                averageStakeCurrent={userBoostStat.averageStakeCurrent}
+                userStakeCurrent={userBoostStat.userStakeCurrent}
+                userBoostCurrent={userBoostStat.userBoostCurrent}
               />
 
               <NextWeek
                 locale={locale}
-                {...boostWeeks.nextWeek}
+                period={weekStat[0].period}
+                periodStarted={weekStat[0].periodStarted}
+                periodFinished={weekStat[0].periodFinished}
+                averageStakeNext={userBoostStat.averageStakeNext}
+                userStakeNext={userBoostStat.userStakeNext}
+                userBoostNext={userBoostStat.userBoostNext}
               />
             </CurrentPendingWeeks>
           </ul>

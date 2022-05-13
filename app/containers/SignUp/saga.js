@@ -156,7 +156,9 @@ export function* signUpComplete({ val }) {
     const address = val[ETHEREUM_WALLET_ADDRESS];
 
     const profile = {
-      displayName: `${address.substring(0, 6)}...${address.substring(account.length-4)}`,
+      displayName: `${address.substring(0, 6)}...${address.substring(
+        account.length - 4,
+      )}`,
     };
 
     const props = {
