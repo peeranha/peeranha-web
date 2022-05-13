@@ -422,7 +422,7 @@
   "app.containers.Profile.answered": "Answered",
   "app.containers.Profile.lastAnswer": "Last answer",
   "app.containers.Profile.noAnswersYet": "No answers yet",
-  "app.containers.Profile.achievements": "Achievements",
+  "app.containers.Profile.achievements": "NFTs",
   "app.containers.Profile.editProfile": "Edit profile",
   "app.containers.Profile.authorizationData": "Authorization data",
   "app.containers.Profile.referralProgram": "Referral Program",
