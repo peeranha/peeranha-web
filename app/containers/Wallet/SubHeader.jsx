@@ -33,8 +33,7 @@ const SubHeader = ({
   stakedInNextPeriod,
 }) => {
   const userPolygonScanAddress = process.env.BLOCKCHAIN_EXPLORERE_URL + account;
-  console.log(stakedInCurrentPeriod);
-  console.log(stakedInNextPeriod);
+
   return (
     <Box position="bottom">
       <div>
