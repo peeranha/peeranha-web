@@ -1,10 +1,9 @@
 const fs = require('fs');
 
 const prettierOptions = JSON.parse(fs.readFileSync('./.prettierrc', 'utf8'));
-
 module.exports = {
   parser: 'babel-eslint',
-  extends: ['airbnb', 'prettier'],
+  extends: ['airbnb', 'prettier', 'plugin:storybook/recommended'],
   plugins: ['prettier', 'redux-saga', 'react', 'jsx-a11y'],
   env: {
     browser: true,
@@ -67,12 +66,22 @@ module.exports = {
     'redux-saga/no-yield-in-race': 2,
     'redux-saga/yield-effects': 2,
     'require-yield': 0,
+    'no-plusplus:': 'off',
   },
   settings: {
     'import/resolver': {
       webpack: {
         config: './internals/webpack/webpack.prod.babel.js',
       },
+      node: {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        paths: ['app'],
+      },
+      alias: [
+        ['components', './app/components'],
+        ['styles', './app/styles'],
+        ['hooks', './app/hooks'],
+      ],
     },
   },
 };

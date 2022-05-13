@@ -17,6 +17,8 @@ import ReactGA from 'react-ga';
 import { bindActionCreators, compose } from 'redux';
 import { connect } from 'react-redux';
 import { Switch, Route, withRouter } from 'react-router-dom';
+import { Global } from '@emotion/react';
+import global from 'styles/global';
 
 import * as routes from 'routes-config';
 
@@ -132,6 +134,7 @@ const App = ({
 
   return (
     <ErrorBoundary>
+      <Global styles={global} />
       <Toast />
       <ProgressIndicator />
 

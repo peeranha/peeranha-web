@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "typeRoots": ["node_modules/@types"],
+    "jsx": "react",
+    "baseUrl": "./",
+    "jsxImportSource": "@emotion/react",
+    "paths": {
+      "components/*": ["app/components/*"],
+      "styles/*": ["app/styles/*"],
+      "hooks/*": ["app/hooks/*"]
+    }
+  },
+  "include": ["./app/**/*.ts", "./app/**/*.tsx"],
+  "exclude": ["node_modules"]
+}

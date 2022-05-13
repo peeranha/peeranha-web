@@ -165,7 +165,7 @@ module.exports = options => {
     ]),
     resolve: {
       modules: ['node_modules', 'app'],
-      extensions: ['.js', '.jsx'],
+      extensions: ['.js', '.jsx', '.ts', '.tsx'],
       mainFields: ['browser', 'jsnext:main', 'main'],
       fallback: {
         fs: false,
@@ -181,6 +181,11 @@ module.exports = options => {
         path: require.resolve('path-browserify'),
         vm: require.resolve('vm-browserify'),
         symlinks: false,
+      },
+      alias: {
+        components: path.join(__dirname, '../../app/components'),
+        styles: path.join(__dirname, '../../app/styles'),
+        hooks: path.join(__dirname, '../../app/hooks'),
       },
     },
     devtool: options.devtool,
