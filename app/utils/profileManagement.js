@@ -93,28 +93,26 @@ export async function getProfileInfo(
     : 0;
   profileInfo.user = user;
 
-  if (getExtendedProfile) {
-    let profile;
-    if (isLogin) {
-      profile = JSON.parse(await getText(profileInfo.ipfsHash));
-      profileInfo.displayName = profile.displayName;
-      profileInfo.avatar = profile.avatar;
-    } else {
-      profile = profileInfo;
-    }
-
-    profileInfo.profile = {
-      about: profile.about,
-      company: profile.company,
-      location: profile.location,
-      position: profile.position,
-    };
-    profileInfo.id = user;
-    profileInfo.postCount = profileInfo.postCount ?? userStats?.postCount ?? 0;
-    profileInfo.answersGiven =
-      profileInfo.replyCount ?? userStats?.replyCount ?? 0;
-    profileInfo.achievementsReached = profileInfo.achievementsReached ?? [];
+  let profile;
+  if (isLogin) {
+    profile = JSON.parse(await getText(profileInfo.ipfsHash));
+    profileInfo.displayName = profile.displayName;
+    profileInfo.avatar = profile.avatar;
+  } else {
+    profile = profileInfo;
   }
+
+  profileInfo.profile = {
+    about: profile.about,
+    company: profile.company,
+    location: profile.location,
+    position: profile.position,
+  };
+  profileInfo.id = user;
+  profileInfo.postCount = profileInfo.postCount ?? userStats?.postCount ?? 0;
+  profileInfo.answersGiven =
+    profileInfo.replyCount ?? userStats?.replyCount ?? 0;
+  profileInfo.achievementsReached = profileInfo.achievementsReached ?? [];
 
   return profileInfo;
 }

@@ -61,6 +61,9 @@ const user = `
     about
     avatar
     creationTime
+    achievements {
+            id
+    }
 `;
 
 const comment = `

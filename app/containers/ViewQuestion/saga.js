@@ -174,8 +174,10 @@ export function* getQuestionData({
 
   if (user && (isQuestionChanged || isQuestionJustCreated)) {
     question = yield call(getQuestionById, ethereumService, questionId, user);
+    console.log(question);
   } else {
     question = yield call(getQuestionFromGraph, +questionId);
+    console.log(question);
     question.commentCount = question.comments.length;
     question.communityId = Number(question.communityId);
 
@@ -316,7 +318,7 @@ export function* getQuestionData({
     );
   }
 
-  if (user && isQuestionChanged) {
+  if (user && (isQuestionChanged || isQuestionJustCreated)) {
     yield all([
       processQuestion(),
       processAnswers(),
@@ -325,7 +327,7 @@ export function* getQuestionData({
   }
 
   // To avoid of fetching same user profiles - remember it and to write author here
-  if (user && isQuestionChanged) {
+  if ((user && isQuestionChanged) || isQuestionJustCreated) {
     yield all(
       Array.from(users.keys()).map(function*(userFromItem) {
         const author = yield call(getUserProfileWorker, {
@@ -339,7 +341,7 @@ export function* getQuestionData({
       }),
     );
   }
-
+  console.log(question);
   return question;
 }
 
@@ -1091,9 +1093,9 @@ export function* updateQuestionDataAfterTransactionWorker({
     const userInfoMe = yield call(getUserProfileWorker, { user });
 
     const changeUserInfo = item => {
-      if (item.user === user) {
+      if (item.author.user === user) {
         item.author = userInfoMe;
-      } else if (item.user === usersForUpdate[0]) {
+      } else if (item.author.user === usersForUpdate[0]) {
         item.author = userInfoOpponent;
       }
     };
@@ -1105,7 +1107,7 @@ export function* updateQuestionDataAfterTransactionWorker({
       changeUserInfo(x);
       x.comments.forEach(y => changeUserInfo(y));
     });
-
+    console.log(questionData);
     yield put(getQuestionDataSuccess({ ...questionData }));
   } catch (err) {
     yield put(getQuestionDataErr(err));
