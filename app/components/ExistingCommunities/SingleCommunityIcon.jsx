@@ -18,7 +18,7 @@ const IconSingle = styled(Icon)`
 const ButtonSingle = styled.button`
   display: inline;
   position: relative;
-  z-index: 1000;
+  z-index: 9;
 
   @media only screen and (max-width: 991px) {
     display: none;

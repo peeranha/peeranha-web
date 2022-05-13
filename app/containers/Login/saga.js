@@ -73,6 +73,8 @@ import { decryptObject } from '../../utils/web_integration/src/util/cipher';
 import { selectEthereum } from '../EthereumProvider/selectors';
 import { DISPLAY_NAME_FIELD } from '../Profile/constants';
 import { saveProfileWorker } from '../EditProfilePage/saga';
+import { redirectToAskQuestionPage } from 'containers/AskQuestion/actions';
+import { selectIsNewPostCreationAfterLogin } from 'containers/Login/selectors';
 
 function* continueLogin({ address }) {
   yield call(getCurrentAccountWorker, address);
@@ -114,6 +116,7 @@ export function* loginWithEmailWorker({ val }) {
     ethereumService.setSelectedAccount(response.body.address);
 
     yield put(addLoginData(response.peeranhaAutoLogin));
+    if (!isSingleCommunityWebsite()) yield put(redirectToFeed());
     yield call(continueLogin, response.body);
   } catch (err) {
     yield put(loginWithEmailErr(err));
@@ -124,13 +127,16 @@ export function* loginWithWalletWorker({ metaMask }) {
   try {
     const ethereumService = yield select(selectEthereum);
     const locale = yield select(makeSelectLocale());
+    const isNewPostCreationAfterLogin = yield select(
+      selectIsNewPostCreationAfterLogin(),
+    );
     const translations = translationMessages[locale];
 
     let currentAccount;
     let metaMaskUserAddress = null;
 
     if (metaMask) {
-      metaMaskUserAddress = yield call(ethereumService.metaMaskSignIn);
+      metaMaskUserAddress = yield call(ethereumService.walletLogIn);
 
       if (!metaMaskUserAddress) {
         throw new WebIntegrationError(
@@ -148,26 +154,25 @@ export function* loginWithWalletWorker({ metaMask }) {
       profileInfo = emptyProfile(currentAccount);
     }
 
-    const autologinData = metaMask
-      ? { metaMaskUserAddress, loginWithMetaMask: true }
-      : undefined;
-
-    setCookie({
-      name: AUTOLOGIN_DATA,
-      value: JSON.stringify(autologinData),
-      options: {
-        allowSubdomains: true,
-        defaultPath: true,
-      },
-    });
-
-    yield put(addLoginData(autologinData));
+    const connectedWalletLabel = ethereumService.connectedWallets[0].label;
+    window.localStorage.setItem(
+      'connectedWallet',
+      JSON.stringify(connectedWalletLabel),
+    );
 
     if (!isSingleCommunityWebsite()) yield put(redirectToFeed());
+
+    if (isNewPostCreationAfterLogin) {
+      const ev = { currentTarget: { id: 1 } };
+
+      yield put(redirectToAskQuestionPage(ev));
+    }
 
     yield put(loginWithWalletSuccess());
     yield call(updateAcc, profileInfo, ethereumService);
   } catch (err) {
+    document.getElementsByTagName('body')[0].style.position = 'relative';
+
     yield put(loginWithWalletErr(err));
   }
 }

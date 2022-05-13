@@ -49,11 +49,7 @@ const Popover = ({ locale, title, label, items }) => (
     <strong>
       <FormattedMessage id={title} />
     </strong>
-    <DescriptionList
-      locale={locale}
-      label={label}
-      items={items}
-    />
+    <DescriptionList locale={locale} label={label} items={items} />
   </Base>
 );
 

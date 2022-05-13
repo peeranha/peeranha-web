@@ -2,7 +2,7 @@ import { showPopover } from 'utils/popover';
 import { ApplicationError } from 'utils/errors';
 
 import messages from './messages';
-import {getRatingByCommunity} from "utils/profileManagement";
+import { getRatingByCommunity } from 'utils/profileManagement';
 
 /* eslint prefer-destructuring: 0 */
 export const voteToDeleteValidator = (
@@ -115,7 +115,7 @@ export const postCommentValidator = (
 ) => {
   const maxCommentsNumber = 200;
 
-  const MIN_RATING_FOR_MY_ITEM = 0;
+  const MIN_RATING_FOR_MY_ITEM = 35;
   const MIN_RATING_FOR_OTHER_ITEMS = 35;
   const MIN_ENERGY = 4;
   const communityId = questionData.communityId;
@@ -133,7 +133,7 @@ export const postCommentValidator = (
   } else if (
     (item.user === profileInfo.user ||
       questionData.author === profileInfo.user) &&
-      getRatingByCommunity(profileInfo, communityId) < MIN_RATING_FOR_MY_ITEM
+    getRatingByCommunity(profileInfo, communityId) < MIN_RATING_FOR_MY_ITEM
   ) {
     message = `${
       translations[messages.notEnoughRating.id]

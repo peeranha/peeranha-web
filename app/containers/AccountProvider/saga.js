@@ -4,7 +4,11 @@ import { getProfileInfo } from 'utils/profileManagement';
 import { emptyProfile, isUserExists, updateAcc } from 'utils/accountManagement';
 import {
   convertPeerValueToNumberValue,
+  getAvailableBalance,
   getBalance,
+  getUserBoost,
+  getUserStake,
+  getWeekStat,
 } from 'utils/walletManagement';
 import {
   isSingleCommunityWebsite,
@@ -32,6 +36,7 @@ import {
   INVITED_USERS_TABLE,
   MODERATOR_KEY,
   REWARD_REFER,
+  WEI_IN_ETH,
 } from 'utils/constants';
 import { SHOW_WALLET_SIGNUP_FORM_SUCCESS } from 'containers/SignUp/constants';
 import {
@@ -98,6 +103,7 @@ import { translationMessages } from '../../i18n';
 import { selectEthereum } from '../EthereumProvider/selectors';
 import { hasGlobalModeratorRole } from '../../utils/properties';
 import { getNotificationsInfoWorker } from '../../components/Notifications/saga';
+import { getCurrentPeriod } from '../../utils/theGraph';
 
 const single = isSingleCommunityWebsite();
 
@@ -117,12 +123,13 @@ export const getCurrentAccountWorker = function*(initAccount) {
       ? initAccount
       : call(ethereumService.getSelectedAccount);
 
-    if (!account) {
-      const autoLoginData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
-      if (autoLoginData) {
-        account = autoLoginData.ethereumUserAddress;
-      }
-    } else if (account.email) {
+    const previouslyConnectedWallet = JSON.parse(
+      window.localStorage.getItem('connectedWallet'),
+    );
+    if (!account && previouslyConnectedWallet) {
+      yield call(ethereumService.walletLogIn, previouslyConnectedWallet);
+      account = ethereumService.getSelectedAccount();
+    } else if (account?.email) {
       account = account.account;
       ethereumService.setSelectedAccount(account);
     }
@@ -139,63 +146,22 @@ export const getCurrentAccountWorker = function*(initAccount) {
       return;
     }
 
-    const [profileInfo, balance] = yield all([
+    const currentPeriod = yield call(getCurrentPeriod);
+
+    const [
+      profileInfo,
+      balance,
+      availableBalance,
+      userCurrentBoost,
+    ] = yield all([
       call(getProfileInfo, account, ethereumService, true, true),
       call(getBalance, ethereumService, account),
+      call(getAvailableBalance, ethereumService, account),
+      call(getUserBoost, ethereumService, account, currentPeriod.id),
     ]);
 
-    // const stakedInCurrentPeriod = 0;
-    // const stakedInNextPeriod = 0;
-    // const boost = {};
-
     if (profileInfo) {
-      //   // update user achievements
-      //   yield call(updateUserAchievementsWorker, profileInfo.user);
-      //
       yield call(getNotificationsInfoWorker, profileInfo.user);
-      //  yield call(getWeekStatWorker);
-      //
-      //   // Update info for question depending on user
-      //   const viewQuestion = yield select(selectQuestionData());
-      //   if (
-      //     window.location.pathname.includes(routes.questionView(viewQuestion?.id))
-      //   ) {
-      //     const updatedQuestion = yield call(getQuestionData, {
-      //       questionId: viewQuestion.id,
-      //       user: profileInfo.user,
-      //       promote: viewQuestion.promote || null,
-      //     });
-      //
-      //     yield put(getQuestionDataSuccess(updatedQuestion));
-      //   }
-      //
-      //   profileInfo.balance = balance;
-      //
-      //   if (prevProfileInfo) {
-      //     profileInfo.profile = prevProfileInfo.profile;
-      //   }
-      //
-      //   // update user available balance
-      //   const weekStat = yield call(getWeekStat, eosService, profileInfo);
-      //   const userBoostStat = yield call(
-      //     getUserBoostStatistics,
-      //     eosService,
-      //     profileInfo.user,
-      //   );
-      //
-      //   const boostWeeks = yield call(
-      //     getBoostWeeks,
-      //     weekStat,
-      //     globalBoostStat,
-      //     userBoostStat,
-      //   );
-      //   const { currentWeek, nextWeek } = boostWeeks;
-      //   const { userStake, maxStake } = currentWeek;
-      //
-      //   stakedInCurrentPeriod = currentWeek.userStake;
-      //   stakedInNextPeriod = nextWeek.userStake;
-      //
-      //   boost = yield call(getPredictedBoost, userStake, maxStake);
     }
 
     setCookie({
@@ -211,7 +177,14 @@ export const getCurrentAccountWorker = function*(initAccount) {
       addLoginData(JSON.parse(getCookie(AUTOLOGIN_DATA) || null) || {}),
     );
     yield put(getUserProfileSuccess(profileInfo));
-    yield put(getCurrentAccountSuccess(account, balance));
+    yield put(
+      getCurrentAccountSuccess(
+        account,
+        balance,
+        availableBalance,
+        userCurrentBoost,
+      ),
+    );
   } catch (err) {
     yield put(getCurrentAccountError(err));
   }

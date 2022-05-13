@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as routes from 'routes-config';
 import styled from 'styled-components';
+// import Dropdown from '../../components/Dropdown'; ToDo: switch feed page
 
 import { injectIntl, intlShape } from 'react-intl';
 import messages from 'common-messages';
@@ -22,17 +23,22 @@ import expertIcon from 'images/hat-3-outline-24.svg?external';
 import generalIcon from 'images/comments-outline-24.svg?external';
 
 import myFeedIcon from 'images/myFeedHeader.svg?external';
-import tutorialPageHeader from 'images/tutorialPageHeader.svg?external';
+import tutorialIcon from 'images/tutorial.svg?external';
 import createdHistory from 'createdHistory';
-import { isSingleCommunityWebsite } from 'utils/communityManagement';
+import {
+  isSingleCommunityWebsite,
+  singleCommunityColors,
+} from 'utils/communityManagement';
 
+import { POST_TYPE } from 'utils/constants';
+import { BORDER_PRIMARY, ICON_TRASPARENT_BLUE } from 'style-constants';
 import QuestionFilter from './QuestionFilter';
 
 import { selectQuestions, selectTopQuestionsInfoLoaded } from './selectors';
-import { POST_TYPE } from '../../utils/constants';
-import { BORDER_PRIMARY } from '../../style-constants';
+import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 
 const single = isSingleCommunityWebsite();
+const colors = singleCommunityColors();
 
 const PageContentHeader = styled.div`
   @media only screen and (max-width: 576px) {
@@ -43,6 +49,21 @@ const PageContentHeader = styled.div`
 
 const PageContentHeaderRightPanel = styled.div`
   flex-shrink: 0;
+`;
+
+const customColor = colors.headerPrimary || BORDER_PRIMARY;
+
+const StyledCustomIconButtonContainer = styled.div`
+  .fill {
+    fill: ${customColor};
+  }
+  .stroke {
+    stroke: ${customColor};
+  }
+
+  .semitransparent {
+    fill: ${colors.transparentIconColor || ICON_TRASPARENT_BLUE};
+  }
 `;
 
 export const Header = ({
@@ -57,6 +78,7 @@ export const Header = ({
   questionFilterFromCookies,
   isExpert,
   postsTypes,
+  profile,
 }) => {
   const isFeed = parentPage === routes.feed();
 
@@ -79,15 +101,17 @@ export const Header = ({
         route = 'expertPosts';
         break;
       case POST_TYPE.tutorial:
-        defaultAvatar = tutorialPageHeader;
+        defaultAvatar = tutorialIcon;
         defaultLabel = intl.formatMessage({ id: messages.tutorials.id });
-        defaultAvatarWidth = '38';
+        defaultAvatarWidth = '28';
         route = 'tutorials';
         break;
     }
   } else {
     defaultAvatar = myFeedIcon;
-    defaultLabel = intl.formatMessage({ id: messages.myFeed.id });
+    defaultLabel = intl.formatMessage({
+      id: messages[profile ? 'feed' : 'myFeed'].id,
+    });
     defaultAvatarWidth = '38';
   }
 
@@ -97,27 +121,25 @@ export const Header = ({
   );
 
   /* eslint react/prop-types: 0 */
-  const Button = ({ communityAvatar, communityLabel }) => {
-    return (
-      <H3>
-        {communityAvatar ? (
-          <MediumImageStyled src={communityAvatar} alt="communityAvatar" />
-        ) : (
-          <>
-            <MediumIconStyled>
-              <IconLg
-                icon={communityAvatar || defaultAvatar}
-                width={defaultAvatarWidth}
-                fill={BORDER_PRIMARY}
-              />
-            </MediumIconStyled>
-          </>
-        )}
+  const Button = ({ communityAvatar, communityLabel }) => (
+    <H3>
+      {communityAvatar ? (
+        <MediumImageStyled src={communityAvatar} alt="communityAvatar" />
+      ) : (
+        <StyledCustomIconButtonContainer>
+          <MediumIconStyled>
+            <IconLg
+              icon={communityAvatar || defaultAvatar}
+              width={defaultAvatarWidth}
+              fill={BORDER_PRIMARY}
+            />
+          </MediumIconStyled>
+        </StyledCustomIconButtonContainer>
+      )}
 
-        <span>{communityLabel || defaultLabel}</span>
-      </H3>
-    );
-  };
+      <span>{communityLabel || defaultLabel}</span>
+    </H3>
+  );
 
   const displaySubscribeButton =
     !!single ||
@@ -145,13 +167,14 @@ export const Header = ({
           communities={communities}
         />
         {!!displaySubscribeButton && (
+          //  Todo: switch feed page
           <PageContentHeaderRightPanel
             className={`right-panel m-0 ml-${single ? 3 : 4}`}
           >
-            <FollowCommunityButton
+            {/* <FollowCommunityButton
               communityIdFilter={single || communityIdFilter}
               followedCommunities={followedCommunities}
-            />
+            /> */}
           </PageContentHeaderRightPanel>
         )}
       </PageContentHeader>
@@ -172,6 +195,7 @@ Header.propTypes = {
   setTypeFilter: PropTypes.func,
   topQuestionsInfoLoaded: PropTypes.bool,
   topQuestions: PropTypes.array,
+  profile: PropTypes.object,
 };
 //
 export default injectIntl(
@@ -180,6 +204,7 @@ export default injectIntl(
       topQuestionsInfoLoaded: selectTopQuestionsInfoLoaded()(state),
       topQuestions: selectQuestions(null, null, null, true)(state),
       communities: selectCommunities()(state),
+      profile: makeSelectProfileInfo()(state),
     }))(Header),
   ),
 );

@@ -29,7 +29,7 @@ export const userCommunities = userRedirect('#communities');
 export const userAnswers = userRedirect('#answers');
 export const userSettings = userRedirect('#settings');
 export const userNotifications = userRedirect('#notifications');
-export const userAchievements = userRedirect('#achievements');
+export const userNFTs = userRedirect('#nfts');
 export const userModeration = userRedirect('#moderation');
 export const userWallet = userRedirect('/wallet');
 export const userBoost = userRedirect('/boost');
@@ -37,7 +37,7 @@ export const uniqueAnswerId = answerId => `ans${answerId}`;
 
 export const questions = communityId =>
   !communityId
-    ? `${!isBloggerMode ? '/' : '/questions'}`
+    ? `${!isBloggerMode ? '/questions' : '/questions'}`
     : `/questions/community/${communityId}/`;
 
 export const expertPosts = communityId =>
@@ -77,8 +77,7 @@ export const noAccess = () => `/no-access`;
 
 export const detailsHomePage = () => '/';
 
-export const feed = communityId =>
-  `/feed${communityId ? `/${communityId}` : ''}`;
+export const feed = communityId => `/${communityId ? `/${communityId}` : ''}`;
 
 export const communities = () => (!isBloggerMode ? `/communities` : `/`);
 

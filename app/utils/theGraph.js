@@ -1,4 +1,5 @@
 import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
+import { dataToString } from 'utils/converters';
 import {
   allAchievementsQuery,
   allTagsQuery,
@@ -16,8 +17,9 @@ import {
   usersPostsQuery,
   usersQuery,
   userStatsQuery,
+  historiesQuery,
+  currentPeriodQuery,
 } from './ethConstants';
-import { dataToString } from 'utils/converters';
 
 const client = new ApolloClient({
   uri: process.env.THE_GRAPH_QUERY_URL,
@@ -60,21 +62,25 @@ export const getUserStats = async id => {
   return userStats?.data.user;
 };
 
-export const getUsersQuestions = async id => {
+export const getUsersQuestions = async (id, limit, offset) => {
   const questions = await client.query({
     query: gql(usersPostsQuery),
     variables: {
       id,
+      limit,
+      offset,
     },
   });
   return questions?.data.posts.map(question => ({ ...question }));
 };
 
-export const getUsersAnsweredQuestions = async id => {
+export const getUsersAnsweredQuestions = async (id, limit, offset) => {
   const { data } = await client.query({
     query: gql(usersAnswersQuery),
     variables: {
       id,
+      limit,
+      offset,
     },
   });
   const answeredPosts = await client.query({
@@ -131,12 +137,12 @@ export const getPosts = async (limit, skip, postTypes) => {
       skip,
       postTypes,
     },
+    fetchPolicy: 'network-only',
   });
-  return posts?.data.posts.map(rawPost => {
-    const post = { ...rawPost, answers: rawPost.replies };
-    delete post.replies;
-    return post;
-  });
+  return posts?.data.posts.map(({ replies, ...rawPost }) => ({
+    ...rawPost,
+    answers: replies,
+  }));
 };
 //
 export const getPostsByCommunityId = async (
@@ -193,6 +199,7 @@ export const postsForSearch = async (text, single) => {
     query: gql(postsForSearchQuery),
     variables: {
       text: query,
+      first: 100,
     },
   });
   return posts?.data?.postSearch.filter(
@@ -211,7 +218,7 @@ export const getAllAchievements = async userId => {
   });
   return {
     allAchievements: response?.data.achievements,
-    userAchievements: response?.data.user.achievements,
+    userAchievements: response?.data.user?.achievements || [],
   };
 };
 
@@ -223,4 +230,21 @@ export const getRewardStat = async userId => {
     },
   });
   return [response?.data?.userRewards, response?.data?.periods];
+};
+
+export const getCurrentPeriod = async () => {
+  const response = await client.query({
+    query: gql(currentPeriodQuery),
+  });
+  return response?.data?.periods?.[0];
+};
+
+export const historiesForPost = async postId => {
+  const response = await client.query({
+    query: gql(historiesQuery),
+    variables: {
+      postId,
+    },
+  });
+  return response?.data?.histories;
 };

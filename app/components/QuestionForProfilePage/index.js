@@ -198,9 +198,9 @@ export const QuestionForProfilePage = ({
             to={href}
             href={href}
             fontSize="24"
-            lineHeight="28"
-            mobileFS="18"
-            bold
+            lineheight="28"
+            mobilefs="18"
+            bold="true"
           >
             {title}
           </Link>
@@ -241,7 +241,7 @@ AcceptedQuestionBadge.propTypes = {
 
 TopCommunityBadge.propTypes = {
   isTheLargestRating: PropTypes.bool,
-  postType: PropTypes.string,
+  postType: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 QuestionCommunity.propTypes = {
@@ -252,12 +252,12 @@ QuestionCommunity.propTypes = {
 QuestionForProfilePage.propTypes = {
   myPostRating: PropTypes.number,
   title: PropTypes.string,
-  myPostTime: PropTypes.number,
+  myPostTime: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   locale: PropTypes.string,
   acceptedAnswer: PropTypes.bool,
   communities: PropTypes.array,
   communityId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  postType: PropTypes.string,
+  postType: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   isMyAnswerAccepted: PropTypes.bool,
   isTheLargestRating: PropTypes.bool,
   route: PropTypes.string,

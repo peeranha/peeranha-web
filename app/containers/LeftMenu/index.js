@@ -24,7 +24,7 @@ import {
   selectIsGlobalAdmin,
 } from 'containers/AccountProvider/selectors';
 
-import { showLoginModal } from 'containers/Login/actions';
+import { loginWithWallet, showLoginModal } from 'containers/Login/actions';
 import { selectIsMenuVisible } from 'containers/AppWrapper/selectors';
 import { showLeftMenu } from 'containers/AppWrapper/actions';
 
@@ -38,34 +38,40 @@ const LeftMenu = /* istanbul ignore next */ ({
   stakedInCurrentPeriod,
   stakedInNextPeriod,
   boost,
-  showLoginModalDispatch,
+  loginWithWalletDispatch,
   showLeftMenuDispatch,
   isGlobalAdmin,
-}) => (
-  <Aside
-    isMenuVisible={isMenuVisible}
-    className={isMenuVisible ? 'd-flex' : 'd-none d-lg-block'}
-  >
-    <View
-      isMenuVisible={isMenuVisible}
-      profile={profile}
-      balance={balance}
-      stakedInCurrentPeriod={stakedInCurrentPeriod}
-      stakedInNextPeriod={stakedInNextPeriod}
-      boost={boost}
-      showLoginModal={showLoginModalDispatch}
-      isGlobalAdmin={isGlobalAdmin}
-    />
+}) => {
+  const showLoginModal = () => {
+    loginWithWalletDispatch({ metaMask: true });
+  };
 
-    <After isMenuVisible={isMenuVisible} onClick={showLeftMenuDispatch}>
-      <Icon width="16" icon={closeIcon} color={TEXT_LIGHT} />
-    </After>
-  </Aside>
-);
+  return (
+    <Aside
+      isMenuVisible={isMenuVisible}
+      className={isMenuVisible ? 'd-flex' : 'd-none d-lg-block'}
+    >
+      <View
+        isMenuVisible={isMenuVisible}
+        profile={profile}
+        balance={balance}
+        stakedInCurrentPeriod={stakedInCurrentPeriod}
+        stakedInNextPeriod={stakedInNextPeriod}
+        boost={boost}
+        showLoginModal={showLoginModal}
+        isGlobalAdmin={isGlobalAdmin}
+      />
+
+      <After isMenuVisible={isMenuVisible} onClick={showLeftMenuDispatch}>
+        <Icon width="16" icon={closeIcon} color={TEXT_LIGHT} />
+      </After>
+    </Aside>
+  );
+};
 
 LeftMenu.propTypes = {
   profile: PropTypes.object,
-  showLoginModalDispatch: PropTypes.func,
+  loginWithWalletDispatch: PropTypes.func,
   showLeftMenuDispatch: PropTypes.func,
   balance: PropTypes.number,
   stakedInCurrentPeriod: PropTypes.number,
@@ -86,7 +92,7 @@ const mapStateToProps = createStructuredSelector({
 
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    showLoginModalDispatch: bindActionCreators(showLoginModal, dispatch),
+    loginWithWalletDispatch: bindActionCreators(loginWithWallet, dispatch),
     showLeftMenuDispatch: bindActionCreators(showLeftMenu, dispatch),
   };
 }

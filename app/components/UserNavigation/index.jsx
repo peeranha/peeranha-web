@@ -173,18 +173,18 @@ const UserNavigation = ({
           </NavigationLink>
 
           <NavigationLink
-            to={routes.userAchievements(userId)}
-            islink={path !== routes.userAchievements(userId) ? 1 : 0}
+            to={routes.userNFTs(userId)}
+            islink={path !== routes.userNFTs(userId) ? 1 : 0}
           >
             <FormattedMessage
-              {...messages.achievementsNumber}
+              id={messages.NFTsNumber.id}
               values={{
                 number: (
                   <Span
                     className="ml-1"
                     fontSize="14"
                     color={
-                      path !== routes.userAchievements(userId)
+                      path !== routes.userNFTs(userId)
                         ? TEXT_SECONDARY
                         : 'inherit'
                     }

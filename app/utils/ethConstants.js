@@ -33,6 +33,18 @@ export const GET_USER_RATING = 'getUserRating';
 export const GET_USER_BALANCE = 'balanceOf';
 export const CLAIM_REWARD = 'claimReward';
 
+export const SET_STAKE = 'setStake';
+export const GET_AVERAGE_STAKE = 'getAverageStake'; //(period)
+
+export const GET_AVAILABLE_BALANCE = 'availableBalanceOf'; // (user)
+
+export const GET_BOOST = 'getBoost'; //(user, period)
+export const GET_STAKE = 'getStake'; //(findingPeriod)
+export const GET_USER_STAKE = 'getUserStake'; //(user, findingPeriod)
+export const GET_STAKE_USER_PERIOD = 'getStakeUserPeriods'; //(user)
+export const GET_STAKE_TOTAL_PERIOD = 'getStakeTotalPeriods'; //()
+export const GET_PERIOD_RATING = 'getPeriodRating'; //()
+
 export const UPVOTE_STATUS = 1;
 export const DOWNVOTE_STATUS = -1;
 
@@ -53,6 +65,7 @@ const user = `
 
 const comment = `
     id
+    ipfsHash
     author {
       ${user}
     }
@@ -67,6 +80,7 @@ const comment = `
 
 const reply = `
     id
+    ipfsHash
     author {
       ${user}
     }
@@ -94,6 +108,7 @@ const reply = `
 const post = `
     id
     tags
+    ipfsHash
     postType
     author {
       ${user}
@@ -202,12 +217,14 @@ export const communitiesQuery = `
 export const usersPostsQuery = `
       query(
         $id: ID!,
+        $limit: Int,
+        $offset: Int,
       ) {
         posts (
           orderBy: postTime,
           orderDirection: desc,
-          first: $first,
-          skip: $skip,
+          first: $limit,
+          skip: $offset,
           where: {isDeleted: false, author: $id},
         ) {
            ${post}
@@ -217,11 +234,15 @@ export const usersPostsQuery = `
 export const usersAnswersQuery = `
       query (
         $id: ID!,
+        $limit: Int,
+        $offset: Int,
       ) {
         replies (
              orderBy: postTime,
              orderDirection: desc,
              where: { isDeleted: false, author: $id },
+             first: $limit,
+             skip: $offset,
            ) {
           postId
         }
@@ -327,33 +348,36 @@ export const postsByCommQuery = `
       }`;
 
 export const postsForSearchQuery = `
-      query (
-        $text: String,
-      ) {
-        postSearch (
-          text: $text,
-        ) {
-           id
-           tags
-           postType
-           author {
-              ${user}
-           }
-           rating
-           postTime
-           communityId
-           title
-           content
-           commentCount
-           replyCount
-           isDeleted
-           officialReply
-           bestReply
-           isFirstReply
-           isQuickReply
-           properties
+  query (
+    $text: String,
+    $first: Int,
+  ) {
+    postSearch (
+      text: $text,
+      first: $first,
+    ) {
+        id
+        ipfsHash
+        tags
+        postType
+        author {
+          ${user}
         }
-      }`;
+        rating
+        postTime
+        communityId
+        title
+        content
+        commentCount
+        replyCount
+        isDeleted
+        officialReply
+        bestReply
+        isFirstReply
+        isQuickReply
+        properties
+    }
+  }`;
 
 export const postQuery = `
       query (
@@ -413,6 +437,43 @@ export const rewardsQuery = `
     }
     periods (orderBy: endPeriodTime, orderDirection: desc, first: 2) {
       ${period}
+    }
+  }
+`;
+
+export const currentPeriodQuery = `
+  query  {
+    periods (orderBy: endPeriodTime, orderDirection: desc, first: 1) {
+      ${period}
+    }
+  }
+`;
+
+const history = `
+  transactionHash
+  post {
+    ${post}
+  }
+  reply {
+    ${reply}
+  }
+  comment {
+    ${comment}
+  }
+  eventEntity
+  eventName
+  timeStamp
+`;
+
+export const historiesQuery = `
+  query (
+   $postId: ID!,
+ ) {
+    histories (
+      orderBy: timeStamp,
+      where: {post: $postId,}
+    ) {
+      ${history}
     }
   }
 `;

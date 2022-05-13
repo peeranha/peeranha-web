@@ -55,7 +55,7 @@ import messages from './messages';
 import Achievement from './Achievement';
 import UniqueAchievement from './UniqueAchievement';
 import Separator from './Separator';
-import { userAchievements } from '../../routes-config';
+import { userNFTs } from '../../routes-config';
 
 const BaseRoundedStyled = styled(BaseRounded)`
   border-top-left-radius: 0;
@@ -64,7 +64,7 @@ const BaseRoundedStyled = styled(BaseRounded)`
 
 const AchievementsBlockStyles = css`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   grid-row-gap: 50px;
   grid-column-gap: 15px;
   padding-top: 35px;
@@ -137,7 +137,7 @@ const Achievements = ({
     <div>
       <BaseRoundedStyled>
         <H3Styled>
-          <FormattedMessage {...commonMessage.achievements} />
+          <FormattedMessage id={commonMessage.NFTs.id} />
         </H3Styled>
 
         {/* {!achievementsLoading && (
@@ -249,7 +249,7 @@ const Achievements = ({
         achievements.length > 0 && (
           <UniqueAchievementsWrapper>
             <UniqueAchievementsTitle>
-              <FormattedMessage {...commonMessage.uniqueAchievements} />
+              <FormattedMessage id={commonMessage.limitedEdition.id} />
             </UniqueAchievementsTitle>
 
             <UniqueAchievementsBlock>

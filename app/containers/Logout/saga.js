@@ -23,9 +23,9 @@ export function* logoutWorker() {
     deleteCookie(AUTOLOGIN_DATA);
     deleteCookie(PROFILE_INFO_LS);
 
-    yield call(ethereumService.resetMetaMaskUserData);
+    yield call(ethereumService.resetWalletState);
 
-    yield call(createdHistory.push, routes.questions());
+    yield call(createdHistory.push, routes.feed());
     yield put(getCurrentAccountSuccess());
     yield put(addLoginData({}));
 

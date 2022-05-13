@@ -85,6 +85,7 @@ const View = ({
   profileInfo,
   showLoginModalDispatch,
   redirectToAskQuestionPage,
+  showLoginModalWithRedirectToAskQuestionPage,
   faqQuestions,
 }) => {
   const [isSearchFormVisible, setSearchFormVisibility] = useState(false);
@@ -106,17 +107,10 @@ const View = ({
         ? communitiesConfig[single].src
         : peeranhaLogo;
 
-      const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
-
-      return styles.withoutSubHeader ? (
-        <QAndALogo to={isBloggerMode ? routes.detailsHomePage() : routes.questions()}>
-          <FormattedMessage {...messages.questions} />
-          <span>&amp;</span>
-          <FormattedMessage {...messages.answers} />
-        </QAndALogo>
-      ) : (
-        <LogoStyles to={routes.questions()}>
+      return (
+        <LogoStyles to={routes.feed()}>
           <img src={src} alt="logo" />
+          {styles.logoText}
         </LogoStyles>
       );
     },
@@ -125,21 +119,18 @@ const View = ({
 
   return (
     <Wrapper id={HEADER_ID}>
-      {!styles?.customSubHeader &&
+      {/* {!styles?.customSubHeader &&
         !!single && (
           <SingleModeSubHeader>
             <div className="container">
-              <ADefault
-                href={`${process.env.APP_LOCATION}${routes.questions()}`}
-              >
+              <ADefault href={`${process.env.APP_LOCATION}${routes.feed()}`}>
                 <img id="peeranha-logo" src={peeranhaLogo} alt="logo" />
               </ADefault>
 
-              {profileInfo && (
-                <ADefault href={`${process.env.APP_LOCATION}${routes.feed()}`}>
-                  <FormattedMessage {...messages.myFeed} />
-                </ADefault>
-              )}
+              <ADefault href={`${process.env.APP_LOCATION}${routes.feed()}`}>
+                <FormattedMessage {...messages.myFeed} />
+              </ADefault>
+
               <ADefault href={`${process.env.APP_LOCATION}/#allquestions`}>
                 <FormattedMessage {...messages.allQuestions} />
               </ADefault>
@@ -151,7 +142,7 @@ const View = ({
             </div>
           </SingleModeSubHeader>
         )}
-      {styles?.customSubHeader ?? null}
+      {styles?.customSubHeader ?? null} */}
       <MainSubHeader mainSubHeaderBgColor={styles.mainSubHeaderBgColor}>
         <div className="container">
           <div className="d-flex align-items-center justify-content-between">
@@ -162,7 +153,6 @@ const View = ({
                   color={styles.commHeadElemColor || TEXT_SECONDARY_LIGHT}
                 />
               </button>
-
               <Logo />
             </div>
 
@@ -193,7 +183,11 @@ const View = ({
                   </Button>
                   <Button
                     id="header-ask-question"
-                    onClick={redirectToAskQuestionPage}
+                    onClick={
+                      profileInfo
+                        ? redirectToAskQuestionPage
+                        : showLoginModalWithRedirectToAskQuestionPage
+                    }
                   >
                     <IconSm fill={BG_LIGHT} icon={addIcon} />
 
@@ -226,6 +220,7 @@ View.propTypes = {
   isMenuVisible: PropTypes.bool,
   showMenu: PropTypes.func,
   showLoginModalDispatch: PropTypes.func,
+  showLoginModalWithRedirectToAskQuestionPage: PropTypes.func,
   redirectToAskQuestionPage: PropTypes.func,
   faqQuestions: PropTypes.array,
 };

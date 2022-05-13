@@ -1,10 +1,19 @@
 import { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 
-import { BG_TRANSPARENT, TEXT_PRIMARY, TEXT_LIGHT } from 'style-constants';
+import {
+  BG_TRANSPARENT,
+  TEXT_LIGHT,
+  BG_PRIMARY,
+  TEXT_PRIMARY,
+} from 'style-constants';
 
+import { singleCommunityColors } from 'utils/communityManagement';
 import Primary from './Primary';
 import Medium from '../Medium';
+
+const colors = singleCommunityColors();
+const linkColor = colors.linkColor || TEXT_PRIMARY;
 
 const ButtonCss = css`
   ${Medium};
@@ -18,16 +27,18 @@ const ButtonCss = css`
 
   ${({ islink }) =>
     islink
-      ? `
-    color: ${TEXT_PRIMARY};
-    background: ${BG_TRANSPARENT};
-    border-radius: 0;
+      ? css`
+          color: ${linkColor};
+          background: ${BG_TRANSPARENT};
+          border-radius: 0;
 
-    :hover {
-      color: ${TEXT_PRIMARY};
-    }
-  `
-      : ``};
+          :hover {
+            color: ${linkColor};
+          }
+        `
+      : css`
+          background: ${colors.linkColor || BG_PRIMARY};
+        `};
 `;
 
 export const NavigationLinkDefault = Primary.extend`
