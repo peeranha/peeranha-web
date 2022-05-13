@@ -174,10 +174,8 @@ export function* getQuestionData({
 
   if (user && (isQuestionChanged || isQuestionJustCreated)) {
     question = yield call(getQuestionById, ethereumService, questionId, user);
-    console.log(question);
   } else {
     question = yield call(getQuestionFromGraph, +questionId);
-    console.log(question);
     question.commentCount = question.comments.length;
     question.communityId = Number(question.communityId);
 
@@ -341,7 +339,7 @@ export function* getQuestionData({
       }),
     );
   }
-  console.log(question);
+
   return question;
 }
 
@@ -1107,7 +1105,7 @@ export function* updateQuestionDataAfterTransactionWorker({
       changeUserInfo(x);
       x.comments.forEach(y => changeUserInfo(y));
     });
-    console.log(questionData);
+
     yield put(getQuestionDataSuccess({ ...questionData }));
   } catch (err) {
     yield put(getQuestionDataErr(err));
