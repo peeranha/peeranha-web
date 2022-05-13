@@ -33,13 +33,15 @@ const SubHeader = ({
   stakedInNextPeriod,
 }) => {
   const userPolygonScanAddress = process.env.BLOCKCHAIN_EXPLORERE_URL + account;
-
+  console.log(stakedInCurrentPeriod);
+  console.log(stakedInNextPeriod);
   return (
     <Box position="bottom">
       <div>
         <div>
           <LargeImage
             className="mr-3"
+            src={walletCoinsImage}
             src={walletCoinsImage}
             alt="wallet"
             bg={BG_PRIMARY_LIGHT}
@@ -82,7 +84,7 @@ const SubHeader = ({
                   <span>{getFormattedNum3(balance)}</span>
                 </Span>
               </li>
-              {stakedInCurrentPeriod && (
+              {Boolean(stakedInCurrentPeriod) && (
                 <li>
                   <FormattedMessage {...messages.stakedInCurrentPeriod} />
                   <Span>
@@ -96,7 +98,7 @@ const SubHeader = ({
                   </Span>
                 </li>
               )}
-              {stakedInNextPeriod && (
+              {Boolean(stakedInNextPeriod) && (
                 <li>
                   <FormattedMessage {...messages.stakedInNextPeriod} />
                   <Span>
