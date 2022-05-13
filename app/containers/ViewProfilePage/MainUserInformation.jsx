@@ -38,11 +38,23 @@ const InlineLoader = styled(LoadingIndicator)`
 
 export const UlStyled = Ul.extend`
   display: flex;
-  flex-wrap: nowrap;
   border: none;
   padding: 0;
-  overflow-x: auto;
+  overflow-x: hidden;
   white-space: nowrap;
+  flex-wrap: wrap;
+
+  @media (min-width: 400px) and (max-width: 488px) {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  }
+
+  @media (max-width: 399px) {
+    display: flex;
+    overflow-x: hidden;
+    white-space: nowrap;
+    flex-wrap: wrap;
+  }
 
   li:last-child {
     padding-right: 0;
@@ -51,7 +63,15 @@ export const UlStyled = Ul.extend`
   li {
     display: flex;
     flex-direction: column;
-    padding: 15px 45px 15px 0;
+    padding: 15px 30px 15px 0;
+
+    @media (max-width: 399px) {
+      white-space: wrap;
+      word-break: break-word;
+      white-space: pre-line;
+      overflow-wrap: break-word;
+      overflow-x: auto;
+    }
 
     > *:nth-child(1) {
       font-size: 13px;
@@ -72,15 +92,29 @@ export const UlStyled = Ul.extend`
       }
     }
 
-    @media only screen and (max-width: 768px) {
-      padding: 10px 25px 5px 0;
+    @media only screen and (max-width: 1354px) {
+      div {
+        display: inline;
+      }
     }
 
-    @media only screen and (max-width: 576px) {
-      padding: 7px 15px 7px 0;
+    @media only screen and (max-width: 1280px) {
+      padding: 10px 45px;
+    }
 
-      span {
-        font-size: 14px !important;
+    @media only screen and (max-width: 768px) {
+      padding: 10px 25px 5px 0;
+      span,
+      div {
+        font-size: 16px !important;
+      }
+    }
+
+    @media only screen and (max-width: 500px) {
+      height: 70px;
+      span,
+      div {
+        font-size: 13px !important;
       }
     }
   }
@@ -214,14 +248,16 @@ const MainUserInformation = ({
               )}
 
               <li>
-                <span>
+                <div>
                   <FormattedMessage {...messages.memberSince} />
-                  {getFormattedDate(
-                    profile.creationTime,
-                    locale,
-                    MONTH_3LETTERS__DAY_YYYY,
-                  )}
-                </span>
+                  <div>
+                    {getFormattedDate(
+                      profile.creationTime,
+                      locale,
+                      MONTH_3LETTERS__DAY_YYYY,
+                    )}
+                  </div>
+                </div>
               </li>
             </UlStyled>
           </div>
