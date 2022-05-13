@@ -112,8 +112,7 @@ export async function getProfileInfo(
   profileInfo.postCount = profileInfo.postCount ?? userStats?.postCount ?? 0;
   profileInfo.answersGiven =
     profileInfo.replyCount ?? userStats?.replyCount ?? 0;
-  profileInfo.achievementsReached = profileInfo.achievementsReached ?? [];
-
+  profileInfo.achievements = profileInfo.achievements ?? [];
   return profileInfo;
 }
 
