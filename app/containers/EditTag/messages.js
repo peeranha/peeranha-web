@@ -1,7 +1,7 @@
-/* 
-  *
-  * Edit tag messages
-  * 
+/*
+ *
+ * Edit tag messages
+ *
  */
 
 import { defineMessages } from 'react-intl';

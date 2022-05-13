@@ -5,16 +5,16 @@ import { initialState } from './reducer';
  * Direct selector to the profile state domain
  */
 
-const selectEditProfileDomain = state =>
+const selectEditProfileDomain = (state) =>
   state.get('editProfileReducer', initialState);
 
 const selectSaveProfileError = () =>
-  createSelector(selectEditProfileDomain, substate =>
+  createSelector(selectEditProfileDomain, (substate) =>
     substate.get('saveProfileError'),
   );
 
 const selectIsProfileSaving = () =>
-  createSelector(selectEditProfileDomain, substate =>
+  createSelector(selectEditProfileDomain, (substate) =>
     substate.get('isProfileSaving'),
   );
 

@@ -7,7 +7,7 @@ import arrowDownWhiteIcon from 'images/arrowDownWhite.svg?inline';
 import arrowDownSmallIcon from 'images/arrowDownSmall.svg?inline';
 
 const Container = styled.div`
-  transform: rotate(${x => (x.shouldBeRotated ? '180deg' : '0deg')});
+  transform: rotate(${(x) => (x.shouldBeRotated ? '180deg' : '0deg')});
   transition: 0.5s;
   margin-right: 16px;
 `;

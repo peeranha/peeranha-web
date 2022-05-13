@@ -1,6 +1,6 @@
 const crypto = require('crypto');
 
-const buildEncryptionKeys = password => {
+const buildEncryptionKeys = (password) => {
   const encryptionKey = crypto
     .createHash('sha256')
     .update(password)

@@ -29,7 +29,7 @@ export const EosioProvider = ({ children, initEOSIO, initializing, eos }) => {
     const { pathname, hash } = window.location;
     const single = isSingleCommunityWebsite();
     if (single && pathname !== '/') {
-      if (redirectRoutesForSCM.find(route => route.startsWith(pathname))) {
+      if (redirectRoutesForSCM.find((route) => route.startsWith(pathname))) {
         const path =
           process.env.ENV === 'dev'
             ? `https://testpeeranha.io${pathname}${hash}`
@@ -56,7 +56,7 @@ const withConnect = connect(
     initializing: makeSelectInitializing(),
     eos: makeSelectEos(),
   }),
-  dispatch => ({
+  (dispatch) => ({
     initEOSIO: bindActionCreators(initEosio, dispatch),
   }),
 );
@@ -64,8 +64,4 @@ const withConnect = connect(
 const withReducer = injectReducer({ key: 'eosioProvider', reducer });
 const withSaga = injectSaga({ key: 'eosioProvider', saga, mode: DAEMON });
 
-export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
-)(EosioProvider);
+export default compose(withReducer, withSaga, withConnect)(EosioProvider);

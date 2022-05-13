@@ -19,8 +19,6 @@ import Notifications from 'components/Notifications';
 import UserNavigation from 'components/UserNavigation';
 import QuestionsOfUser from 'containers/QuestionsOfUser';
 import QuestionsWithAnswersOfUser from 'containers/QuestionsWithAnswersOfUser';
-import ProfileViewForm from './ProfileViewForm';
-import SettingsOfUser from './SettingsOfUser';
 
 import {
   makeSelectAccount,
@@ -42,6 +40,8 @@ import {
 } from 'containers/QuestionsWithAnswersOfUser/selectors';
 import { selectActiveKey } from 'containers/ShowActiveKey/selectors';
 import { selectOwnerKey } from 'containers/ShowOwnerKey/selectors';
+import SettingsOfUser from './SettingsOfUser';
+import ProfileViewForm from './ProfileViewForm';
 import { selectGetUserTgData } from '../TelegramAccountAction/selectors';
 
 import saga from '../QuestionsWithAnswersOfUser/saga';
@@ -194,7 +194,7 @@ const withConnect = connect(
     userTgData: selectGetUserTgData(),
     stat: selectStat(),
   }),
-  dispatch => ({
+  (dispatch) => ({
     redirectToEditProfilePageDispatch: bindActionCreators(
       redirectToEditProfilePage,
       dispatch,

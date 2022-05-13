@@ -38,18 +38,16 @@ const TopQuestion = ({
 
   const onClick = useCallback(() => removeOrAddTopQuestionDispatch(id), [id]);
 
-  const topQuestionIcon = useMemo(
-    () => {
-      if (isTopQuestion) {
-        return topQuestionActiveIcon;
-      } else if (isModerator && topQuestionsCount < MAX_TOP_QUESTIONS_COUNT) {
-        return topQuestionsInactiveIcon;
-      }
+  const topQuestionIcon = useMemo(() => {
+    if (isTopQuestion) {
+      return topQuestionActiveIcon;
+    }
+    if (isModerator && topQuestionsCount < MAX_TOP_QUESTIONS_COUNT) {
+      return topQuestionsInactiveIcon;
+    }
 
-      return undefined;
-    },
-    [isTopQuestion, profileInfo, isModerator],
-  );
+    return undefined;
+  }, [isTopQuestion, profileInfo, isModerator]);
 
   const options = useMemo(
     () => (isModerator ? { onClick } : { onMouseEnter, onMouseLeave }),
@@ -87,13 +85,10 @@ TopQuestion.propTypes = {
 };
 
 export default memo(
-  connect(
-    null,
-    dispatch => ({
-      removeOrAddTopQuestionDispatch: bindActionCreators(
-        removeOrAddTopQuestion,
-        dispatch,
-      ),
-    }),
-  )(TopQuestion),
+  connect(null, (dispatch) => ({
+    removeOrAddTopQuestionDispatch: bindActionCreators(
+      removeOrAddTopQuestion,
+      dispatch,
+    ),
+  }))(TopQuestion),
 );

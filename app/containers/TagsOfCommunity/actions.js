@@ -1,7 +1,7 @@
-/* 
-  *
-  * TagsOfCommunity actions
-  * 
+/*
+ *
+ * TagsOfCommunity actions
+ *
  */
 
 import { SET_EDIT_TAG_DATA, RESET_EDIT_TAG_DATA } from './constants';

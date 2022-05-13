@@ -24,7 +24,7 @@ import { selectIds } from './selectors';
 
 /* eslint-disable react/prefer-stateless-function */
 export class FollowCommunityButton extends React.PureComponent {
-  followHandler = e => {
+  followHandler = (e) => {
     e.preventDefault();
 
     const isFollowed = JSON.parse(e.currentTarget.dataset.isfollowed);
@@ -74,10 +74,7 @@ function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   };
 }
 
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 const withReducer = injectReducer({ key: 'followCommunityButton', reducer });
 const withSaga = injectSaga({

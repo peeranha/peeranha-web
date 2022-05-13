@@ -75,7 +75,7 @@ export function* getFormWorker() {
   }
 }
 
-export default function*() {
+export default function* () {
   yield takeLatest(GET_FORM, getFormWorker);
   yield takeLatest(CREATE_COMMUNITY, createCommunityWorker);
 }

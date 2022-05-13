@@ -113,7 +113,7 @@ export default compose(
       isVerifyFbModal: selectors.selectVerifyFbModal(),
       sendTokensProcessing: selectors.selectSendTokensProcessing(),
     }),
-    dispatch => ({
+    (dispatch) => ({
       hideSendTokensModalDispatch: bindActionCreators(
         hideSendTokensModal,
         dispatch,

@@ -1,31 +1,31 @@
 import { createSelector } from 'reselect';
 import { initialState } from './reducer';
 
-const selectUsersDomain = state => state.get('users', initialState).toJS();
+const selectUsersDomain = (state) => state.get('users', initialState).toJS();
 
 const selectUsers = () =>
-  createSelector(selectUsersDomain, substate => substate.users);
+  createSelector(selectUsersDomain, (substate) => substate.users);
 
 const selectUsersLoading = () =>
-  createSelector(selectUsersDomain, substate => substate.getUsersLoading);
+  createSelector(selectUsersDomain, (substate) => substate.getUsersLoading);
 
 const selectUsersError = () =>
-  createSelector(selectUsersDomain, substate => substate.getUsersError);
+  createSelector(selectUsersDomain, (substate) => substate.getUsersError);
 
 const selectIsLastFetch = () =>
-  createSelector(selectUsersDomain, substate => substate.isLastFetch);
+  createSelector(selectUsersDomain, (substate) => substate.isLastFetch);
 
 const selectSorting = () =>
-  createSelector(selectUsersDomain, substate => substate.sorting);
+  createSelector(selectUsersDomain, (substate) => substate.sorting);
 
 const selectSearchText = () =>
-  createSelector(selectUsersDomain, substate => substate.searchText);
+  createSelector(selectUsersDomain, (substate) => substate.searchText);
 
 const selectLimit = () =>
-  createSelector(selectUsersDomain, substate => substate.limit);
+  createSelector(selectUsersDomain, (substate) => substate.limit);
 
 const selectSkip = () =>
-  createSelector(selectUsersDomain, substate => substate.skip);
+  createSelector(selectUsersDomain, (substate) => substate.skip);
 
 export {
   selectUsersDomain,

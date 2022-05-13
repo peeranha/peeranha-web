@@ -2,25 +2,25 @@ import { createSelector } from 'reselect';
 
 import { initialState } from './reducer';
 
-const selectTelegramAcoountActionDomain = state =>
+const selectTelegramAcoountActionDomain = (state) =>
   state.get('telegramAccountAction', initialState).toJS();
 
 const selectGetUserTgData = () =>
   createSelector(
     selectTelegramAcoountActionDomain,
-    substate => substate.userTgData,
+    (substate) => substate.userTgData,
   );
 
 const selectGetConfirmTelegramAccountProcessing = () =>
   createSelector(
     selectTelegramAcoountActionDomain,
-    substate => substate.confirmTelegramAccountProcessing,
+    (substate) => substate.confirmTelegramAccountProcessing,
   );
 
 const selectGetUnlinkTelegramAccountProcessing = () =>
   createSelector(
     selectTelegramAcoountActionDomain,
-    substate => substate.unlinkTelegramAccountProcessing,
+    (substate) => substate.unlinkTelegramAccountProcessing,
   );
 
 export {

@@ -93,7 +93,7 @@ const SlideIndicatorsStyled = styled.div`
     border-radius: 50%;
     background: ${BG_SECONDARY_LIGHT};
 
-    :nth-child(${x => x.step + 1}) {
+    :nth-child(${(x) => x.step + 1}) {
       background: ${BG_PRIMARY};
     }
   }
@@ -123,9 +123,9 @@ const DeleteFacebookData = ({
               <SlideIndicatorsStyled
                 step={stagesOrder.indexOf(ENTER_FACEBOOK_ID)}
               >
-                {new Array(stagesOrder.length)
-                  .fill()
-                  .map(() => <div key={Math.random()} />)}
+                {new Array(stagesOrder.length).fill().map(() => (
+                  <div key={Math.random()} />
+                ))}
               </SlideIndicatorsStyled>
               <EnterIdRightMenu
                 checkFacebookId={checkFacebookIdDispatch}
@@ -147,9 +147,9 @@ const DeleteFacebookData = ({
               <SlideIndicatorsStyled
                 step={stagesOrder.indexOf(CONFIRM_DELETION)}
               >
-                {new Array(stagesOrder.length)
-                  .fill()
-                  .map(() => <div key={Math.random()} />)}
+                {new Array(stagesOrder.length).fill().map(() => (
+                  <div key={Math.random()} />
+                ))}
               </SlideIndicatorsStyled>
               <ConfirmDelRightMenu
                 confirmDataDeletion={confirmDataDeletionDispatch}
@@ -172,9 +172,9 @@ const DeleteFacebookData = ({
               <SlideIndicatorsStyled
                 step={stagesOrder.indexOf(DELETION_COMPLETED)}
               >
-                {new Array(stagesOrder.length)
-                  .fill()
-                  .map(() => <div key={Math.random()} />)}
+                {new Array(stagesOrder.length).fill().map(() => (
+                  <div key={Math.random()} />
+                ))}
               </SlideIndicatorsStyled>
               <CompletedRightMenu />
             </RightMenu>
@@ -206,7 +206,7 @@ export default React.memo(
         stage: selectors.selectStage(),
         processing: selectors.selectDelFbDataProcessing(),
       }),
-      dispatch => ({
+      (dispatch) => ({
         checkFacebookIdDispatch: bindActionCreators(checkFacebookId, dispatch),
         resetStateToInitialDispatch: bindActionCreators(
           resetStateToInitial,

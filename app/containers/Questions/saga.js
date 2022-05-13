@@ -1,29 +1,12 @@
 /* eslint func-names: 0, array-callback-return: 0, no-param-reassign: 0 */
-import {
-  take,
-  takeLatest,
-  call,
-  put,
-  select,
-  all,
-  takeEvery,
-} from 'redux-saga/effects';
+import { take, takeLatest, call, put, select, all } from 'redux-saga/effects';
 
 import * as routes from 'routes-config';
 import createdHistory from 'createdHistory';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
 
-import { getCookie, setCookie, deleteCookie } from 'utils/cookie';
-import {
-  getQuestions,
-  getQuestionsFilteredByCommunities,
-  getQuestionsForFollowedCommunities,
-  FetcherOfQuestionsForFollowedCommunities,
-  getPromotedQuestions,
-  getRandomQuestions,
-} from 'utils/questionsManagement';
-import { getQuestionBounty } from 'utils/walletManagement';
+import { getCookie, setCookie } from 'utils/cookie';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
 import {
@@ -59,12 +42,9 @@ import {
   REMOVE_OR_ADD_TOP_QUESTION,
   TOP_QUESTIONS_LOAD_NUMBER,
   UP_QUESTION,
-  PROMO_QUESTIONS_AMOUNT,
-  UPDATE_PROMO_QUESTIONS,
 } from './constants';
 
 import {
-  getQuestions as getQuestionsAction,
   getQuestionsSuccess,
   getQuestionsError,
   loadTopCommunityQuestionsSuccess,
@@ -81,18 +61,13 @@ import {
 } from './actions';
 
 import {
-  selectInitLoadedItems,
   selectTopQuestionsInfoLoaded,
   selectQuestionFilter,
   selectLastLoadedTopQuestionIndex,
   selectTopQuestionIds,
   isQuestionTop,
-  selectPromotedQuestions,
-  selectTypeFilter,
 } from './selectors';
 import { getPosts, getPostsByCommunityId } from '../../utils/theGraph';
-import { getUserProfileWorker } from '../DataCacheProvider/saga';
-import { selectUsers } from '../DataCacheProvider/selectors';
 
 const feed = routes.feed();
 const single = isSingleCommunityWebsite();
@@ -147,7 +122,7 @@ export function* getQuestionsWorker({
       );
     }
 
-    questionsList.forEach(question => {
+    questionsList.forEach((question) => {
       question.isGeneral = isGeneralQuestion(question);
     });
 
@@ -291,7 +266,9 @@ export function* loadTopCommunityQuestionsWorker({ init }) {
       }
 
       const rawTopQuestionsIds = yield select(selectTopQuestionIds);
-      const topQuestionsIds = rawTopQuestionsIds.filter(question => !!question);
+      const topQuestionsIds = rawTopQuestionsIds.filter(
+        (question) => !!question,
+      );
       const topQuestionsInfoLoaded = yield select(
         selectTopQuestionsInfoLoaded(),
       );
@@ -304,7 +281,7 @@ export function* loadTopCommunityQuestionsWorker({ init }) {
         );
 
         const loadedQuestionData = yield all(
-          topQuestionIdsForLoad.map(function*(questionId) {
+          topQuestionIdsForLoad.map(function* (questionId) {
             return yield call(getQuestionData, {
               questionId,
             });
@@ -343,7 +320,7 @@ export function* loadTopCommunityQuestionsWorker({ init }) {
           );
 
           const loadedQuestionData = yield all(
-            topQuestionIdsForLoad.map(function*(questionId) {
+            topQuestionIdsForLoad.map(function* (questionId) {
               return yield call(getQuestionData, {
                 questionId,
               });
@@ -407,7 +384,7 @@ export function* loadTopCommunityQuestionsWorker({ init }) {
         const topQuestionIdsForLoad = topQuestionsIds.slice(lastIndex, next);
 
         const loadedQuestionData = yield all(
-          topQuestionIdsForLoad.map(function*(questionId) {
+          topQuestionIdsForLoad.map(function* (questionId) {
             return yield call(getQuestionData, {
               questionId,
             });
@@ -530,7 +507,7 @@ function* moveQuestionWorker({ id, position }) {
   }
 }
 
-export default function*() {
+export default function* () {
   yield takeLatest(GET_QUESTIONS, getQuestionsWorker);
   yield takeLatest(FOLLOW_HANDLER_SUCCESS, redirectWorker);
   yield takeLatest(CHANGE_QUESTION_FILTER, changeQuestionFilterWorker);

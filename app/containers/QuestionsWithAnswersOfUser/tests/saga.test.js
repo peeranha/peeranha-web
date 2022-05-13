@@ -5,8 +5,6 @@
 /* eslint-disable redux-saga/yield-effects */
 import { select } from 'redux-saga/effects';
 
-import { getAnswersPostedByUser } from 'utils/questionsManagement';
-
 import defaultSaga, { getQuestionsWithAnswersWorker } from '../saga';
 
 import { GET_QUESTIONS, GET_QUESTIONS_ERROR } from '../constants';
@@ -21,7 +19,6 @@ jest.mock('redux-saga/effects', () => ({
 }));
 
 jest.mock('utils/questionsManagement', () => ({
-  getAnswersPostedByUser: jest.fn(),
   getQuestionById: jest.fn(),
 }));
 
@@ -33,11 +30,6 @@ describe('getQuestionsWorker', () => {
     { id: 1, answers: [{ id: 1, user: 'user', rating: 10 }] },
   ];
   const answersId = [{ answer_id: 1 }, { answer_id: 2 }];
-
-  const offset =
-    (questionsFromStore[questionsFromStore.length - 1] &&
-      +questionsFromStore[questionsFromStore.length - 1].id + 1) ||
-    0;
 
   const userId = 'userId';
 
@@ -59,16 +51,6 @@ describe('getQuestionsWorker', () => {
     select.mockImplementation(() => eosService);
     const step = generator.next(limit);
     expect(step.value).toEqual(eosService);
-  });
-
-  it('getAnswersPostedByUser', () => {
-    generator.next(eosService);
-    expect(getAnswersPostedByUser).toHaveBeenCalledWith(
-      eosService,
-      userId,
-      offset,
-      limit,
-    );
   });
 
   it('getQuestionById', () => {

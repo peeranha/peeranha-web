@@ -8,8 +8,6 @@ import { compose, bindActionCreators } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
-import { getFormattedAsset } from 'utils/numbers';
-
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import {
   makeSelectAccount,
@@ -27,10 +25,6 @@ import {
   FORM_CONTENT,
   FORM_COMMUNITY,
   FORM_TAGS,
-  FORM_BOUNTY,
-  FORM_BOUNTY_HOURS,
-  FORM_TYPE,
-  FORM_PROMOTE,
   PROMOTE_HOUR_COST,
 } from 'components/QuestionForm/constants';
 
@@ -55,25 +49,22 @@ const EditQuestion = ({
   profile,
   account,
 }) => {
-  const questionid = match.params.questionid;
-  useEffect(
-    () => {
-      if (account) {
-        getAskedQuestionDispatch(questionid);
-      }
-    },
-    [questionid, getAskedQuestionDispatch, account],
-  );
+  const { questionid } = match.params;
+  useEffect(() => {
+    if (account) {
+      getAskedQuestionDispatch(questionid);
+    }
+  }, [questionid, getAskedQuestionDispatch, account]);
 
   const sendQuestion = useCallback(
-    values => {
+    (values) => {
       const val = values.toJS();
       editQuestionDispatch(
         {
           title: val[FORM_TITLE],
           content: val[FORM_CONTENT],
           communityId: val[FORM_COMMUNITY].id,
-          tags: val[FORM_TAGS].map(tag => +tag.id.split('-')[1]),
+          tags: val[FORM_TAGS].map((tag) => +tag.id.split('-')[1]),
           // bounty: +val[FORM_BOUNTY],
           // bountyFull: `${getFormattedAsset(+val[FORM_BOUNTY])} PEER`,
           // bountyHours: +val[FORM_BOUNTY_HOURS],
@@ -91,9 +82,7 @@ const EditQuestion = ({
   );
 
   const titleMessage = useMemo(
-    () => {
-      return translationMessages[locale][(question?.postType)];
-    },
+    () => translationMessages[locale][question?.postType],
     [question?.postType],
   );
 
@@ -168,7 +157,7 @@ export default compose(
       editQuestionLoading: makeSelectEditQuestion.selectEditQuestionLoading(),
       profile: makeSelectProfileInfo(),
     }),
-    dispatch => ({
+    (dispatch) => ({
       getAskedQuestionDispatch: bindActionCreators(getAskedQuestion, dispatch),
       editQuestionDispatch: bindActionCreators(editQuestion, dispatch),
     }),

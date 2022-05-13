@@ -40,7 +40,7 @@ export function getUsersErr(getUsersError) {
   };
 }
 
-export const changeSortingType = sorting => ({
+export const changeSortingType = (sorting) => ({
   type: CHANGE_SORTING_TYPE,
   sorting,
 });

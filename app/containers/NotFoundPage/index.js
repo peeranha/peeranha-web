@@ -62,7 +62,7 @@ const NotFound = /* istanbul ignore next */ ({ locale }) => {
   }, []);
 
   return (
-    <React.Fragment>
+    <>
       <Seo
         title={translationMessages[locale][messages.title.id]}
         description={translationMessages[locale][messages.description.id]}
@@ -131,7 +131,7 @@ const NotFound = /* istanbul ignore next */ ({ locale }) => {
           </P>
         </div>
       </Box>
-    </React.Fragment>
+    </>
   );
 };
 
@@ -143,7 +143,4 @@ const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
 });
 
-export default connect(
-  mapStateToProps,
-  null,
-)(NotFound);
+export default connect(mapStateToProps, null)(NotFound);

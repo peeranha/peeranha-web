@@ -1,26 +1,6 @@
-import { takeLatest, put, call, select } from 'redux-saga/effects';
-import {
-  getWeekStat,
-  getGlobalBoostStatistics,
-  getUserBoostStatistics,
-  addBoost,
-} from 'utils/walletManagement';
-import { getFormattedNum3, getFormattedNum5 } from 'utils/numbers';
-
-import { changeStakedInNextPeriod } from 'containers/AccountProvider/actions';
-
-import { selectEos } from 'containers/EosioProvider/selectors';
-import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
+import { takeLatest } from 'redux-saga/effects';
 
 import { GET_WEEK_STAT, CHANGE_STAKE } from './constants';
-
-import {
-  getWeekStatSuccess,
-  getWeekStatErr,
-  changeStakeProcessing,
-  changeStakeSuccess,
-  changeStakeErr,
-} from './actions';
 
 export function* getWeekStatWorker() {
   // try {

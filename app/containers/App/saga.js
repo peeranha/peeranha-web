@@ -9,6 +9,6 @@ export function* redirectToFeedWorker() {
   yield call(createdHistory.push, routes.feed());
 }
 
-export default function*() {
+export default function* () {
   yield takeLatest(REDIRECT_TO_FEED, redirectToFeedWorker);
 }

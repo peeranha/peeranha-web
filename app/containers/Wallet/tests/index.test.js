@@ -1,4 +1,4 @@
-import { Wallet } from '../index';
+import Wallet from '../index';
 
 const cmp = new Wallet();
 

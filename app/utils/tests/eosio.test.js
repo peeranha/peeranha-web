@@ -13,8 +13,6 @@ import {
   SCATTER_IN_NOT_INSTALLED,
   DEFAULT_EOS_PERMISSION,
   BLOCKCHAIN_NAME,
-  BEST_NODE_SERVICE,
-  LOCAL_STORAGE_BESTNODE,
 } from '../constants';
 
 const localStorage = {
@@ -820,57 +818,7 @@ describe('getNode', () => {
   });
 });
 
-describe('getBestNode', () => {
-  const eos = new EosioService();
-
-  eos.getBestNode();
-  expect(fetch).toHaveBeenCalledWith(
-    process.env.WALLET_API_ENDPOINT + BEST_NODE_SERVICE,
-    {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-      },
-      body: JSON.stringify({ region: 'any' }),
-    },
-  );
-});
-
 describe('compareSavedAndBestNodes', () => {
-  it('saved note is different from best node', async () => {
-    const eos = new EosioService();
-
-    const savedNode = { endpoint: '1' };
-    const bestNode = { endpoint: '122' };
-
-    eos.getBestNode = () => bestNode;
-    localStorage.getItem.mockImplementation(() => JSON.stringify(savedNode));
-
-    await eos.compareSavedAndBestNodes();
-
-    expect(localStorage.setItem).toHaveBeenCalledWith(
-      LOCAL_STORAGE_BESTNODE,
-      JSON.stringify(bestNode),
-    );
-  });
-
-  it('nothing saved', async () => {
-    const eos = new EosioService();
-
-    const savedNode = null;
-    const bestNode = { endpoint: '122' };
-
-    eos.getBestNode = () => bestNode;
-    localStorage.getItem.mockImplementation(() => JSON.stringify(savedNode));
-
-    await eos.compareSavedAndBestNodes();
-
-    expect(localStorage.setItem).toHaveBeenCalledWith(
-      LOCAL_STORAGE_BESTNODE,
-      JSON.stringify(bestNode),
-    );
-  });
-
   it('saved node is not different from best node', async () => {
     const eos = new EosioService();
 

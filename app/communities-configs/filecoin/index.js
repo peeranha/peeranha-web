@@ -1,14 +1,7 @@
-import React from 'react';
 import { css } from 'styled-components';
 
-import CustomSubHeader from 'components/CustomSubHeaders/CustomSubHeader';
-import CustomMobileSubHeader from 'components/CustomSubHeaders/CustomMobileSubHeader';
 import FileiconLogo from './images/filecoin-logo.svg?inline';
 import favicon from '!file-loader?name=[name].[ext]!images/favicon-filecoin.ico';
-
-import RobotoRegularEOT from './fonts/Roboto-Regular.eot';
-import RobotoRegularWOFF from './fonts/Roboto-Regular.woff';
-import RobotoRegularTTF from './fonts/Roboto-Regular.ttf';
 
 const domainName = 'https://filecoin.io/';
 

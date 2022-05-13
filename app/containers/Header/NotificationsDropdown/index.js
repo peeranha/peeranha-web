@@ -69,19 +69,17 @@ const NotificationsDropdown = ({
 }) => {
   const ref = useRef(null);
   const [visible, setVisibility] = useState(false);
-  const onClick = useCallback(
-    () => {
-      if (visible) {
-        filterReadTimestampsDispatch();
-      }
+  const onClick = useCallback(() => {
+    if (visible) {
+      filterReadTimestampsDispatch();
+    }
 
-      setVisibility(!visible);
-    },
-    [visible],
+    setVisibility(!visible);
+  }, [visible]);
+  const number = useMemo(
+    () => (unreadCount < 100 ? unreadCount : '...'),
+    [unreadCount],
   );
-  const number = useMemo(() => (unreadCount < 100 ? unreadCount : '...'), [
-    unreadCount,
-  ]);
 
   return (
     <Container
@@ -121,11 +119,11 @@ NotificationsDropdown.propTypes = {
 
 export default React.memo(
   connect(
-    state => ({
+    (state) => ({
       unreadCount: unreadNotificationsCount()(state),
       notifications: selectUnreadNotifications()(state),
     }),
-    dispatch => ({
+    (dispatch) => ({
       filterReadTimestampsDispatch: bindActionCreators(
         filterReadTimestamps,
         dispatch,

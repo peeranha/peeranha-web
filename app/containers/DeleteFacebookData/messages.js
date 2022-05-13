@@ -1,7 +1,7 @@
 /*
  *
  * DeleteFacebookData Messages
- * 
+ *
  */
 
 import { defineMessages } from 'react-intl';

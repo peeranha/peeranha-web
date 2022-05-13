@@ -3,7 +3,6 @@ import { takeEvery, call, put, select } from 'redux-saga/effects';
 
 import { followCommunity, unfollowCommunity } from 'utils/communityManagement';
 
-import { selectEos } from 'containers/EosioProvider/selectors';
 import { isAuthorized, isValid } from 'containers/EosioProvider/saga';
 import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
 import {
@@ -50,7 +49,7 @@ export function* followHandlerWorker({
       ...profileInfo,
       followedCommunities: isFollowed
         ? profileInfo.followedCommunities.filter(
-            commId => commId !== +communityIdFilter,
+            (commId) => commId !== +communityIdFilter,
           )
         : [...profileInfo.followedCommunities, +communityIdFilter],
     };
@@ -72,6 +71,6 @@ export function* followHandlerWorker({
   }
 }
 
-export default function*() {
+export default function* () {
   yield takeEvery(FOLLOW_HANDLER, followHandlerWorker);
 }

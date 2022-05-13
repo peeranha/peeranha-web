@@ -9,16 +9,15 @@ export function* getUsersWorker({ loadMore, reload }) {
   try {
     const limit = yield select(selectLimit());
     const sorting = yield select(selectSorting());
-    let skip = reload ? 0 : yield select(selectSkip());
-    let users;
+    const skip = reload ? 0 : yield select(selectSkip());
 
-    users = yield getUsers({ limit, skip, sorting });
+    const users = yield getUsers({ limit, skip, sorting });
     yield put(getUsersSuccess(users, loadMore, reload));
   } catch (err) {
     yield put(getUsersErr(err));
   }
 }
 
-export default function*() {
+export default function* () {
   yield takeLatest(GET_USERS, getUsersWorker);
 }

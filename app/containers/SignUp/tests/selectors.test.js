@@ -1,4 +1,4 @@
-import { fromJS } from 'immutable';
+import {fromJS} from 'immutable';
 
 import {
   selectSignUpDomain,
@@ -7,16 +7,10 @@ import {
   selectEmailChecking,
   selectEmailCheckingError,
   selectSignUpViaEmailProcessing,
-  selectIHaveEosAccountError,
-  selectIHaveEosAccountProcessing,
   selectEmailVerificationProcessing,
   selectSignUpViaEmailError,
-  selectSignUpWithScatterProcessing,
-  selectSignUpWithScatterError,
   selectVerifyEmailError,
-  selectShowScatterSignUpProcessing,
   selectKeys,
-  selectShowScatterSignUpFormError,
 } from '../selectors';
 
 describe('selectSignUpDomain', () => {
@@ -96,18 +90,6 @@ describe('selectSignUpDomain', () => {
     expect(isVerifyEmailError(mockedState)).toEqual(verifyEmailError);
   });
 
-  it('selectIHaveEosAccountProcessing', () => {
-    const isIHaveEosAccountProcessing = selectIHaveEosAccountProcessing();
-    expect(isIHaveEosAccountProcessing(mockedState)).toEqual(
-      iHaveEosAccountProcessing,
-    );
-  });
-
-  it('selectIHaveEosAccountError', () => {
-    const isIHaveEosAccountError = selectIHaveEosAccountError();
-    expect(isIHaveEosAccountError(mockedState)).toEqual(iHaveEosAccountError);
-  });
-
   it('selectIdontHaveEosAccountProcessing', () => {
     const isIdontHaveEosAccountProcessing = selectSignUpViaEmailProcessing();
     expect(isIdontHaveEosAccountProcessing(mockedState)).toEqual(
@@ -122,41 +104,8 @@ describe('selectSignUpDomain', () => {
     );
   });
 
-  it('selectSignUpWithScatterProcessing', () => {
-    const isSignUpWithScatterProcessing = selectSignUpWithScatterProcessing();
-    expect(isSignUpWithScatterProcessing(mockedState)).toEqual(
-      signUpWithScatterProcessing,
-    );
-  });
-
-  it('selectSignUpWithScatterError', () => {
-    const isSignUpWithScatterError = selectSignUpWithScatterError();
-    expect(isSignUpWithScatterError(mockedState)).toEqual(
-      signUpWithScatterError,
-    );
-  });
-
   it('selectKeys', () => {
     const isKeys = selectKeys();
     expect(isKeys(mockedState)).toEqual(keys);
-  });
-
-  it('selectShowScatterSignUpProcessing', () => {
-    const isShowScatterSignUpProcessing = selectShowScatterSignUpProcessing();
-    expect(isShowScatterSignUpProcessing(mockedState)).toEqual(
-      showScatterSignUpProcessing,
-    );
-  });
-
-  it('selectShowScatterSignUpFormError', () => {
-    const isShowScatterSignUpFormError = selectShowScatterSignUpFormError();
-    expect(isShowScatterSignUpFormError(mockedState)).toEqual(
-      showScatterSignUpFormError,
-    );
-  });
-
-  it('selectEncryptionKey', () => {
-    const isEncryptionKey = selectEncryptionKey();
-    expect(isEncryptionKey(mockedState)).toEqual(encryptionKey);
   });
 });

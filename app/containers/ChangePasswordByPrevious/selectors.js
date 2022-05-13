@@ -5,43 +5,43 @@ import { initialState } from './reducer';
  * Direct selector to the changePasswordByPrevious state domain
  */
 
-const selectChangePasswordByPreviousDomain = state =>
+const selectChangePasswordByPreviousDomain = (state) =>
   state.get('changePasswordByPrevious', initialState).toJS();
 
 const selectContent = () =>
   createSelector(
     selectChangePasswordByPreviousDomain,
-    subState => subState.content,
+    (subState) => subState.content,
   );
 
 const selectShowModal = () =>
   createSelector(
     selectChangePasswordByPreviousDomain,
-    subState => subState.showModal,
+    (subState) => subState.showModal,
   );
 
 const selectChangePasswordProcessing = () =>
   createSelector(
     selectChangePasswordByPreviousDomain,
-    subState => subState.changePasswordProcessing,
+    (subState) => subState.changePasswordProcessing,
   );
 
 const selectChangePasswordError = () =>
   createSelector(
     selectChangePasswordByPreviousDomain,
-    subState => subState.changePasswordError,
+    (subState) => subState.changePasswordError,
   );
 
 const selectEmail = () =>
   createSelector(
     selectChangePasswordByPreviousDomain,
-    subState => subState.email,
+    (subState) => subState.email,
   );
 
 const selectVerificationCode = () =>
   createSelector(
     selectChangePasswordByPreviousDomain,
-    subState => subState.verificationCode,
+    (subState) => subState.verificationCode,
   );
 
 export {

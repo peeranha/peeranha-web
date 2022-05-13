@@ -27,27 +27,21 @@ import { selectIds } from './selectors';
 
 /* eslint-disable react/prefer-stateless-function */
 export class VoteForNewTagButton extends React.PureComponent {
-  [UPVOTE_METHOD] = e => {
+  [UPVOTE_METHOD] = (e) => {
     const { communityId, tagId } = this.props;
     this.props.upVoteDispatch(communityId, tagId, e.currentTarget.id);
   };
 
-  [DOWNVOTE_METHOD] = e => {
+  [DOWNVOTE_METHOD] = (e) => {
     const { communityId, tagId } = this.props;
     this.props.downVoteDispatch(communityId, tagId, e.currentTarget.id);
   };
 
   render() /* istanbul ignore next */ {
-    const {
-      tagId,
-      clickMethod,
-      render,
-      suggestedTags,
-      account,
-      ids,
-    } = this.props;
+    const { tagId, clickMethod, render, suggestedTags, account, ids } =
+      this.props;
 
-    const tag = suggestedTags.filter(x => x.id === +tagId)[0];
+    const tag = suggestedTags.filter((x) => x.id === +tagId)[0];
 
     if (!tag) return null;
 
@@ -93,16 +87,9 @@ function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   };
 }
 
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 const withReducer = injectReducer({ key: 'voteForNewTagButton', reducer });
 const withSaga = injectSaga({ key: 'voteForNewTagButton', saga, mode: DAEMON });
 
-export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
-)(VoteForNewTagButton);
+export default compose(withReducer, withSaga, withConnect)(VoteForNewTagButton);

@@ -74,16 +74,9 @@ function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   };
 }
 
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 const withReducer = injectReducer({ key: 'homepage', reducer });
 const withSaga = injectSaga({ key: 'homepage', saga });
 
-export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
-)(Support);
+export default compose(withReducer, withSaga, withConnect)(Support);

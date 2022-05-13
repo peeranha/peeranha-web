@@ -5,36 +5,36 @@ import { initialState } from './reducer';
  * Direct selector to the suggestedCommunities state domain
  */
 
-const selectTagsDomain = state => state.get('tags', initialState).toJS();
+const selectTagsDomain = (state) => state.get('tags', initialState).toJS();
 
 const selectSorting = () =>
-  createSelector(selectTagsDomain, substate => substate.sorting);
+  createSelector(selectTagsDomain, (substate) => substate.sorting);
 
 const selectIsLastFetchForSuggestedTags = () =>
   createSelector(
     selectTagsDomain,
-    substate => substate.isLastFetchForSuggestedTags,
+    (substate) => substate.isLastFetchForSuggestedTags,
   );
 
 const selectLimit = () =>
-  createSelector(selectTagsDomain, substate => substate.limit);
+  createSelector(selectTagsDomain, (substate) => substate.limit);
 
 const selectExistingTags = () =>
-  createSelector(selectTagsDomain, substate => substate.existingTags);
+  createSelector(selectTagsDomain, (substate) => substate.existingTags);
 
 const selectExistingTagsLoading = () =>
-  createSelector(selectTagsDomain, substate => substate.existingTagsLoading);
+  createSelector(selectTagsDomain, (substate) => substate.existingTagsLoading);
 
 const selectExistingTagsError = () =>
-  createSelector(selectTagsDomain, substate => substate.getExistingTagsError);
+  createSelector(selectTagsDomain, (substate) => substate.getExistingTagsError);
 
 const selectText = () =>
-  createSelector(selectTagsDomain, substate => substate.text);
+  createSelector(selectTagsDomain, (substate) => substate.text);
 
 const selectIsLastFetchForExistingTags = () =>
   createSelector(
     selectTagsDomain,
-    substate => substate.isLastFetchForExistingTags,
+    (substate) => substate.isLastFetchForExistingTags,
   );
 
 export {

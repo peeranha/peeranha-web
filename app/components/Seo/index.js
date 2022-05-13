@@ -92,7 +92,7 @@ Seo.propTypes = {
 };
 
 export default React.memo(
-  connect(state => {
+  connect((state) => {
     const single = isSingleCommunityWebsite();
     const communities = selectCommunities()(state);
 

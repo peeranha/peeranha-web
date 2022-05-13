@@ -36,17 +36,18 @@ function walletReducer(state = initialState, action) {
     changeStakeError,
   } = action;
 
-  let updatedGlobalBoostStat, updatedUserBoostStat;
+  let updatedGlobalBoostStat;
+  let updatedUserBoostStat;
 
   if (globalBoostStat && userBoostStat) {
-    updatedGlobalBoostStat = 
-      globalBoostStat.length > 1 ? 
-        globalBoostStat.slice(globalBoostStat.length - 2) : 
-        [...globalBoostStat];
+    updatedGlobalBoostStat =
+      globalBoostStat.length > 1
+        ? globalBoostStat.slice(globalBoostStat.length - 2)
+        : [...globalBoostStat];
     updatedUserBoostStat =
-      userBoostStat.length > 1 ?
-        userBoostStat.slice(userBoostStat.length - 2) :
-        [...userBoostStat];
+      userBoostStat.length > 1
+        ? userBoostStat.slice(userBoostStat.length - 2)
+        : [...userBoostStat];
   }
 
   switch (type) {

@@ -33,15 +33,6 @@ import {
 } from './selectors';
 
 import {
-  questionAskedRelated,
-  answerGivenRelated,
-  bestAnswerRelated,
-  firstAnswerIn15Related,
-  firstAnswerRelated,
-  ratingRelated,
-} from './constants';
-
-import {
   getUserAchievements,
   setViewProfileAccount,
   resetViewProfileAccount,
@@ -50,12 +41,8 @@ import {
 
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
 
-import Achievement from './Achievement';
 import UniqueAchievement from './UniqueAchievement';
-import Separator from './Separator';
-import { userNFTs } from '../../routes-config';
 
 const BaseRoundedStyled = styled(BaseRounded)`
   border-top-left-radius: 0;
@@ -118,16 +105,13 @@ const Achievements = ({
   setViewProfileAccountDispatch,
   resetViewProfileAccountDispatch,
 }) => {
-  useEffect(
-    () => {
-      setViewProfileAccountDispatch(userId);
-      getAllAchievementsDispatch();
+  useEffect(() => {
+    setViewProfileAccountDispatch(userId);
+    getAllAchievementsDispatch();
 
-      // ComponentWillUnmount
-      return () => resetViewProfileAccountDispatch();
-    },
-    [userId],
-  );
+    // ComponentWillUnmount
+    return () => resetViewProfileAccountDispatch();
+  }, [userId]);
 
   const translations = translationMessages[locale]
     ? translationMessages[locale]
@@ -240,41 +224,40 @@ const Achievements = ({
               </AchievementsBlock>
             </>
           </>
-        )}*/}
+        )} */}
       </BaseRoundedStyled>
 
       {achievementsLoading && <LoadingIndicator />}
 
-      {!achievementsLoading &&
-        achievements.length > 0 && (
-          <UniqueAchievementsWrapper>
-            <UniqueAchievementsTitle>
-              <FormattedMessage id={commonMessage.limitedEdition.id} />
-            </UniqueAchievementsTitle>
+      {!achievementsLoading && achievements.length > 0 && (
+        <UniqueAchievementsWrapper>
+          <UniqueAchievementsTitle>
+            <FormattedMessage id={commonMessage.limitedEdition.id} />
+          </UniqueAchievementsTitle>
 
-            <UniqueAchievementsBlock>
-              {achievements.map(achievement => (
-                <UniqueAchievement
-                  reached={userAchievements.some(
-                    achievementId => achievementId === achievement.id,
-                  )}
-                  key={achievement.id}
-                  {...achievement}
-                  locale={locale}
-                />
-              ))}
-              {/*{uniqueAchievements.map(el => (*/}
-              {/*  <UniqueAchievement*/}
-              {/*    key={el.name}*/}
-              {/*    {...el}*/}
-              {/*    name={translations[messages[el.name].name.id]}*/}
-              {/*    description={translations[messages[el.name].description.id]}*/}
-              {/*    locale={locale}*/}
-              {/*  />*/}
-              {/*))}*/}
-            </UniqueAchievementsBlock>
-          </UniqueAchievementsWrapper>
-        )}
+          <UniqueAchievementsBlock>
+            {achievements.map((achievement) => (
+              <UniqueAchievement
+                reached={userAchievements.some(
+                  (achievementId) => achievementId === achievement.id,
+                )}
+                key={achievement.id}
+                {...achievement}
+                locale={locale}
+              />
+            ))}
+            {/* {uniqueAchievements.map(el => ( */}
+            {/*  <UniqueAchievement */}
+            {/*    key={el.name} */}
+            {/*    {...el} */}
+            {/*    name={translations[messages[el.name].name.id]} */}
+            {/*    description={translations[messages[el.name].description.id]} */}
+            {/*    locale={locale} */}
+            {/*  /> */}
+            {/* ))} */}
+          </UniqueAchievementsBlock>
+        </UniqueAchievementsWrapper>
+      )}
     </div>
   );
 };
@@ -309,7 +292,7 @@ const mapStateToProps = createStructuredSelector({
   achievementsLoading: selectAchievementsLoading(),
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   getAllAchievementsDispatch: bindActionCreators(getAllAchievements, dispatch),
   getUserAchievementsDispatch: bindActionCreators(
     getUserAchievements,
@@ -325,18 +308,9 @@ const mapDispatchToProps = dispatch => ({
   ),
 });
 
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 const withReducer = injectReducer({ key: 'userAchievements', reducer });
 const withSaga = injectSaga({ key: 'userAchievements', saga });
 
-export default memo(
-  compose(
-    withReducer,
-    withSaga,
-    withConnect,
-  )(Achievements),
-);
+export default memo(compose(withReducer, withSaga, withConnect)(Achievements));

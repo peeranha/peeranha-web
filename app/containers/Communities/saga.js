@@ -36,6 +36,6 @@ export function* getSuggestedCommunitiesWorker() {
   }
 }
 
-export default function*() {
+export default function* () {
   yield takeLatest(GET_SUGGESTED_COMMUNITIES, getSuggestedCommunitiesWorker);
 }

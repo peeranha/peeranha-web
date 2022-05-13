@@ -30,14 +30,9 @@ import {
   sendAnotherCode,
 } from './actions';
 
-import {
-  EMAIL_FORM,
-  VERIFICATION_CODE_FORM,
-  NEW_PASSWORD_FORM,
-} from './constants';
+import { EMAIL_FORM, NEW_PASSWORD_FORM } from './constants';
 
 import EmailForm from './EmailForm';
-import VerificationCodeForm from './VerificationCodeForm';
 import NewPasswordForm from './NewPasswordForm';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -122,16 +117,9 @@ function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   };
 }
 
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 const withReducer = injectReducer({ key: 'forgotPassword', reducer });
 const withSaga = injectSaga({ key: 'forgotPassword', saga, mode: DAEMON });
 
-export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
-)(ForgotPassword);
+export default compose(withReducer, withSaga, withConnect)(ForgotPassword);

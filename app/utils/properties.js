@@ -1,32 +1,22 @@
-import _max from 'lodash/max';
-
 import messages from 'common-messages';
 
+import { BigNumber } from 'ethers';
 import {
   COMMUNITY_ADMIN_INFINITE_IMPACT,
   COMMUNITY_ADMIN_OFFICIAL_ANSWER,
   COMMUNITY_ADMIN_QUESTION_TYPE,
   COMMUNITY_ADMIN_TOP_QUESTIONS,
   COMMUNITY_ADMIN_CREATE_TAG,
-  MODERATOR_CREATE_COMMUNITY,
-  OFFICIAL_ANSWER_KEYS,
-  PERMISSION_GRANTED,
-  COMMUNITY_ADMIN_VALUE,
-  moderatorPermissions,
   communityAdminPermissions,
-  PROPERTY_ANSWER_15_MINUTES,
-  PROPERTY_FIRST_ANSWER,
-  MODERATOR_KEY,
   COMMUNITY_ADMIN_ROLE,
   DEFAULT_ADMIN_ROLE,
   COMMUNITY_MODERATOR_ROLE,
   globalAdminPermissions,
   communityModeratorPermissions,
 } from './constants';
-import { BigNumber } from 'ethers';
 import { selectEthereum } from '../containers/EthereumProvider/selectors';
 
-//todo change to "findRole"
+// todo change to "findRole"
 const findAllPropertiesByKeys = (properties, keys, exact = false) => [];
 
 export const getModeratorPermissions = (
@@ -41,8 +31,8 @@ export const getModeratorPermissions = (
     const rawPermissionsTypes = !communityId
       ? globalAdminPermissions
       : role === COMMUNITY_ADMIN_ROLE
-        ? communityAdminPermissions
-        : communityModeratorPermissions;
+      ? communityAdminPermissions
+      : communityModeratorPermissions;
     const permissionsTypes = Object.entries(rawPermissionsTypes).map(
       ([key, permValue]) => ({
         permissionCode: rawPermissionsTypes[key].code,
@@ -50,9 +40,8 @@ export const getModeratorPermissions = (
       }),
     );
     if (permissions1[communityId]) {
-      permissions1[communityId].blocks = permissions1[
-        communityId
-      ].blocks.concat(permissionsTypes);
+      permissions1[communityId].blocks =
+        permissions1[communityId].blocks.concat(permissionsTypes);
       permissions1[communityId].permission.push(role);
     } else {
       permissions1[communityId] = {
@@ -63,7 +52,7 @@ export const getModeratorPermissions = (
               ?.name || 'TestComm1'
           : translations[messages.globalModerator.id],
         sectionCode: index,
-        communityId: communityId,
+        communityId,
       };
     }
   });
@@ -80,8 +69,8 @@ export const isUserTopCommunityQuestionsModerator = (
 
 export const isAnswerOfficial = ({ isOfficialReply }) => !!isOfficialReply;
 
-export const officialAnswersCount = questionData =>
-  questionData.answers.filter(answer => isAnswerOfficial(answer)).length;
+export const officialAnswersCount = (questionData) =>
+  questionData.answers.filter((answer) => isAnswerOfficial(answer)).length;
 
 export const communityAdminOfficialAnswerPermission = (
   properties = [],
@@ -112,43 +101,37 @@ export const communityAdminInfiniteImpactPermission = (
     COMMUNITY_ADMIN_INFINITE_IMPACT,
   ]).filter(({ community }) => communityId === community).length;
 
-export const getPermissions = profile => {
-  return profile?.permissions ?? [];
-};
+export const getPermissions = (profile) => profile?.permissions ?? [];
 
-export const hasGlobalModeratorRole = permissions => {
-  return !!permissions.find(permission =>
+export const hasGlobalModeratorRole = (permissions) =>
+  !!permissions.find((permission) =>
     BigNumber.from(permission).eq(DEFAULT_ADMIN_ROLE),
   );
-};
 
-export const getCommunityRole = (role, communityId) => {
-  return BigNumber.from(role)
-    .add(BigNumber.from(communityId))
-    .toHexString();
-};
+export const getCommunityRole = (role, communityId) =>
+  BigNumber.from(role).add(BigNumber.from(communityId)).toHexString();
 
-export const isTemporaryAccount = async account => {
+export const isTemporaryAccount = async (account) => {
   const ethereumService = await selectEthereum();
   return ethereumService.getSelectedAccount() === account;
 };
 
 export const getAllRoles = (userRoles = [], communitiesCount) => {
   const communityRoles = [COMMUNITY_MODERATOR_ROLE, COMMUNITY_ADMIN_ROLE];
-  if (!!userRoles.find(role => BigNumber.from(role).eq(DEFAULT_ADMIN_ROLE))) {
+  if (!!userRoles.find((role) => BigNumber.from(role).eq(DEFAULT_ADMIN_ROLE))) {
     return [{ DEFAULT_ADMIN_ROLE }];
   }
-  return userRoles.map(userRole => {
+  return userRoles.map((userRole) => {
     let communityId;
     let role;
-    communityRoles.map(communityRole => {
+    communityRoles.map((communityRole) => {
       const id = BigNumber.from(userRole)
         .sub(BigNumber.from(communityRole))
         .toString();
       if (
         id.length <= communitiesCount.toString().length &&
-        Number.parseInt(id) >= 1 &&
-        Number.parseInt(id) <= communitiesCount
+        Number.parseInt(id, 10) >= 1 &&
+        Number.parseInt(id, 10) <= communitiesCount
       ) {
         communityId = id;
         role = communityRole;
@@ -161,16 +144,14 @@ export const getAllRoles = (userRoles = [], communitiesCount) => {
   });
 };
 
-export const hasCommunityAdminRole = (permissions = [], communityId) => {
-  return !!permissions.filter(
-    permission =>
+export const hasCommunityAdminRole = (permissions = [], communityId) =>
+  !!permissions.filter(
+    (permission) =>
       permission === getCommunityRole(COMMUNITY_ADMIN_ROLE, communityId),
   ).length;
-};
 
-export const hasCommunityModeratorRole = (permissions = [], communityId) => {
-  return !!permissions.filter(
-    permission =>
+export const hasCommunityModeratorRole = (permissions = [], communityId) =>
+  !!permissions.filter(
+    (permission) =>
       permission === getCommunityRole(COMMUNITY_MODERATOR_ROLE, communityId),
   ).length;
-};

@@ -4,26 +4,15 @@ import {
   MIN_STAKE_PREDICTION,
 } from 'containers/Boost/constants';
 
-import JSBI from 'jsbi';
 import { getFormattedNum3 } from './numbers';
-import { bigNumberToNumber } from './converters';
 
 import {
-  ACCOUNTS_TABLE,
   ALL_BOUNTIES_SCOPE,
-  ALL_PERIODS_SCOPE,
   BOUNTY_TABLE,
   SET_BOUNTY_METHOD,
   PAY_BOUNTY_METHOD,
   INF_LIMIT,
-  PERIOD_RATING_TABLE,
-  PERIOD_REWARD_TABLE,
-  PICKUP_REWARD_METHOD,
   SEND_TOKEN_METHOD,
-  TOTAL_RATING_TABLE,
-  TOTAL_REWARD_TABLE,
-  USER_SUPPLY_SCOPE,
-  USER_SUPPLY_TABLE,
   BOOST_STATISTICS_TABLE,
   BOOST_STATISTICS_SCOPE,
   USER_BOOST_TABLE,
@@ -62,8 +51,8 @@ export async function getWeekStat(ethereumService, user) {
   const [rewards, periods] = await getRewardStat(user);
   const inactiveFirstPeriods = [];
 
-  periods.map(period => {
-    if (!rewards.find(reward => reward.period.id === period.id)) {
+  periods.map((period) => {
+    if (!rewards.find((reward) => reward.period.id === period.id)) {
       inactiveFirstPeriods.push({
         period: period.id,
         reward: 0,
@@ -75,7 +64,7 @@ export async function getWeekStat(ethereumService, user) {
   });
 
   const activePeriods = rewards
-    .map(periodReward => ({
+    .map((periodReward) => ({
       period: periodReward.period.id,
       reward: periodReward.tokenToReward,
       hasTaken: periodReward.isPaid,
@@ -109,7 +98,7 @@ export async function sendTokens(
 }
 
 export async function pickupReward(ethereumService, user, periodIndex) {
-  return await ethereumService.claimUserReward(user, periodIndex);
+  return ethereumService.claimUserReward(user, periodIndex);
 }
 
 export async function setBounty(
@@ -154,12 +143,8 @@ export async function editBounty(
   timestamp,
   eosService,
 ) {
-  const {
-    action,
-    data,
-    account,
-    waitForGettingToBlock,
-  } = getEditBountyTrActData(user, bounty, questionId, timestamp);
+  const { action, data, account, waitForGettingToBlock } =
+    getEditBountyTrActData(user, bounty, questionId, timestamp);
 
   await eosService.sendTransaction(
     user,
@@ -289,7 +274,7 @@ export async function addBoost(eosService, user, tokens) {
   );
 }
 
-export const getStakeNum = stake => {
+export const getStakeNum = (stake) => {
   const CURRENCY = ' PEER';
 
   return +stake.slice(0, stake.indexOf(CURRENCY));
@@ -385,7 +370,7 @@ export const getRewardAmountByBoost = (
   if (!amount || !userBoostStat.length) return amount;
 
   const filtredUserBoostStat = userBoostStat.filter(
-    item => item.period < currentPeriod,
+    (item) => item.period < currentPeriod,
   );
 
   if (!filtredUserBoostStat.length) return amount;
@@ -397,7 +382,7 @@ export const getRewardAmountByBoost = (
   if (userStake === 0) return amount;
 
   const currentPeriodGlobalBoostStat = globalBoostStat.find(
-    item => item.period === currentPeriodUserBoostStat.period,
+    (item) => item.period === currentPeriodUserBoostStat.period,
   );
   const maxStake = getStakeNum(currentPeriodGlobalBoostStat.max_stake);
 
@@ -408,7 +393,7 @@ export const getRewardAmountByBoost = (
   return amount * boost.value;
 };
 
-const getTokenAwards = eosService =>
+const getTokenAwards = (eosService) =>
   eosService.getTableRows(
     TOKEN_AWARDS_TABLE,
     TOKEN_AWARDS_SCOPE,

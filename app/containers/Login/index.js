@@ -126,11 +126,12 @@ const withConnect = connect(
     showModal: selectors.makeSelectShowModal(),
     email: selectors.makeSelectEmail(),
     loginWithEmailProcessing: selectors.selectLoginWithEmailProcessing(),
-    finishRegistrationProcessing: selectors.selectFinishRegistrationProcessing(),
+    finishRegistrationProcessing:
+      selectors.selectFinishRegistrationProcessing(),
     loginWithWalletProcessing: selectors.selectLoginWithWalletProcessing(),
     ethereumService: selectEthereum,
   }),
-  dispatch => ({
+  (dispatch) => ({
     hideLoginModalDispatch: bindActionCreators(hideLoginModal, dispatch),
     showEmailPasswordFormDispatch: bindActionCreators(
       showEmailPasswordForm,

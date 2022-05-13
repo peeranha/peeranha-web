@@ -1,7 +1,7 @@
-/* 
-  *
-  * Edit tag constants
-  * 
+/*
+ *
+ * Edit tag constants
+ *
  */
 
 export const GET_EDIT_TAG_FORM = 'containers/EditTag/GET_EDIT_TAG_FORM';

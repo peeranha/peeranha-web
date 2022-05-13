@@ -24,7 +24,7 @@ import {
   selectIsGlobalAdmin,
 } from 'containers/AccountProvider/selectors';
 
-import { loginWithWallet, showLoginModal } from 'containers/Login/actions';
+import { loginWithWallet } from 'containers/Login/actions';
 import { selectIsMenuVisible } from 'containers/AppWrapper/selectors';
 import { showLeftMenu } from 'containers/AppWrapper/actions';
 
@@ -97,9 +97,6 @@ export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   };
 }
 
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 export default compose(withConnect)(LeftMenu);

@@ -53,14 +53,18 @@ function walletReducer(state = initialState, action) {
         .set('pickupRewardProcessing', true)
         .set('ids', [...state.toJS().ids, buttonId]);
     case PICKUP_REWARD_SUCCESS:
-      return state
-        .set('pickupRewardProcessing', false)
-        .set('ids', state.toJS().ids.filter(x => x !== buttonId));
+      return state.set('pickupRewardProcessing', false).set(
+        'ids',
+        state.toJS().ids.filter((x) => x !== buttonId),
+      );
     case PICKUP_REWARD_ERROR:
       return state
         .set('pickupRewardProcessing', false)
         .set('pickupRewardError', pickupRewardError)
-        .set('ids', state.toJS().ids.filter(x => x !== buttonId));
+        .set(
+          'ids',
+          state.toJS().ids.filter((x) => x !== buttonId),
+        );
 
     default:
       return state;

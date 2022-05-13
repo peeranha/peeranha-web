@@ -21,14 +21,11 @@ const Box = ({
   props,
   location,
 }) => {
-  useEffect(
-    () => {
-      if (isMenuVisible) {
-        hideLeftMenuDispatch();
-      }
-    },
-    [location],
-  );
+  useEffect(() => {
+    if (isMenuVisible) {
+      hideLeftMenuDispatch();
+    }
+  }, [location]);
 
   return (
     <>
@@ -65,7 +62,7 @@ const WrapperConnection = connect(
     isMenuVisible: selectIsMenuVisible(),
     location: makeSelectLocation(),
   }),
-  dispatch => ({
+  (dispatch) => ({
     showLeftMenuDispatch: bindActionCreators(showLeftMenu, dispatch),
     hideLeftMenuDispatch: bindActionCreators(hideLeftMenu, dispatch),
   }),

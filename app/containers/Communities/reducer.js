@@ -22,12 +22,8 @@ export const initialState = fromJS({
 
 // TODO: test
 function communitiesReducer(state = initialState, action) {
-  const {
-    type,
-    getSuggestedCommunitiesError,
-    suggestedCommunities,
-    init,
-  } = action;
+  const { type, getSuggestedCommunitiesError, suggestedCommunities, init } =
+    action;
 
   switch (type) {
     case GET_SUGGESTED_COMMUNITIES:

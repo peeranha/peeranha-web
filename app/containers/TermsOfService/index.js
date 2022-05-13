@@ -63,7 +63,7 @@ export class TermsOfService extends React.PureComponent {
         <AsideBox className="d-none d-xl-block">
           <Aside
             content={terms}
-            route={x =>
+            route={(x) =>
               routes.termsAndConditions(getSectionCode(SECTION_ID, x))
             }
           />
@@ -90,16 +90,9 @@ function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   };
 }
 
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 const withReducer = injectReducer({ key: 'termsOfService', reducer });
 const withSaga = injectSaga({ key: 'termsOfService', saga });
 
-export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
-)(TermsOfService);
+export default compose(withReducer, withSaga, withConnect)(TermsOfService);

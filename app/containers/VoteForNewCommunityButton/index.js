@@ -27,12 +27,12 @@ import { selectIds } from './selectors';
 
 /* eslint-disable react/prefer-stateless-function */
 export class VoteForNewCommunityButton extends React.PureComponent {
-  [UPVOTE_METHOD] = e => {
+  [UPVOTE_METHOD] = (e) => {
     const { communityId } = this.props;
     this.props.upVoteDispatch(communityId, e.currentTarget.id);
   };
 
-  [DOWNVOTE_METHOD] = e => {
+  [DOWNVOTE_METHOD] = (e) => {
     const { communityId } = this.props;
     this.props.downVoteDispatch(communityId, e.currentTarget.id);
   };
@@ -48,7 +48,7 @@ export class VoteForNewCommunityButton extends React.PureComponent {
     } = this.props;
 
     const community = suggestedCommunities.filter(
-      x => x.id === +communityId,
+      (x) => x.id === +communityId,
     )[0];
 
     if (!community) return null;
@@ -95,10 +95,7 @@ function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   };
 }
 
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 const withReducer = injectReducer({
   key: 'voteForNewCommunityButton',

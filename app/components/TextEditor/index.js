@@ -24,7 +24,7 @@ class TextEditor extends React.PureComponent {
     this.props.onBlur(this.props.value);
   };
 
-  static getHtmlText = md => EditorOptions.prototype.markdown(md);
+  static getHtmlText = (md) => EditorOptions.prototype.markdown(md);
 
   render() {
     const { locale } = this.props;

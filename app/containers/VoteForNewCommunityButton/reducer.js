@@ -31,28 +31,36 @@ function voteForNewCommunityButtonReducer(state = initialState, action) {
         .set('upVoteLoading', true)
         .set('ids', [...state.toJS().ids, buttonId]);
     case UPVOTE_SUCCESS:
-      return state
-        .set('upVoteLoading', false)
-        .set('ids', state.toJS().ids.filter(x => x !== buttonId));
+      return state.set('upVoteLoading', false).set(
+        'ids',
+        state.toJS().ids.filter((x) => x !== buttonId),
+      );
     case UPVOTE_ERROR:
       return state
         .set('upVoteLoading', false)
         .set('upVoteError', upVoteError)
-        .set('ids', state.toJS().ids.filter(x => x !== buttonId));
+        .set(
+          'ids',
+          state.toJS().ids.filter((x) => x !== buttonId),
+        );
 
     case DOWNVOTE:
       return state
         .set('downVoteLoading', true)
         .set('ids', [...state.toJS().ids, buttonId]);
     case DOWNVOTE_SUCCESS:
-      return state
-        .set('downVoteLoading', false)
-        .set('ids', state.toJS().ids.filter(x => x !== buttonId));
+      return state.set('downVoteLoading', false).set(
+        'ids',
+        state.toJS().ids.filter((x) => x !== buttonId),
+      );
     case DOWNVOTE_ERROR:
       return state
         .set('downVoteLoading', false)
         .set('downVoteError', downVoteError)
-        .set('ids', state.toJS().ids.filter(x => x !== buttonId));
+        .set(
+          'ids',
+          state.toJS().ids.filter((x) => x !== buttonId),
+        );
 
     default:
       return state;

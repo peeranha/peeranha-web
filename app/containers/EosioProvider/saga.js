@@ -127,7 +127,7 @@ export function* isValid({
   );
 }
 
-export default function*() {
+export default function* () {
   yield takeLatest(INIT_EOSIO, initEosioWorker);
   yield takeLatest(INIT_EOSIO_SUCCESS, updateAccWorker);
 }

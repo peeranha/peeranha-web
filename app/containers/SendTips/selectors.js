@@ -5,58 +5,61 @@ import { initialState } from './reducer';
  * Direct selector to the sendTips state domain
  */
 
-const selectSendTipsDomain = state =>
+const selectSendTipsDomain = (state) =>
   state.get('sendTips', initialState).toJS();
 
 const selectShowModal = () =>
-  createSelector(selectSendTipsDomain, substate => substate.showModal);
+  createSelector(selectSendTipsDomain, (substate) => substate.showModal);
 
 const selectSendTipsProcessing = () =>
-  createSelector(selectSendTipsDomain, substate => substate.sendTipsProcessing);
+  createSelector(
+    selectSendTipsDomain,
+    (substate) => substate.sendTipsProcessing,
+  );
 
 const selectSendTipsError = () =>
-  createSelector(selectSendTipsDomain, substate => substate.sendTipsError);
+  createSelector(selectSendTipsDomain, (substate) => substate.sendTipsError);
 
 const selectedScatterAccountSelector = () =>
   createSelector(
     selectSendTipsDomain,
-    substate => substate.selectedScatterAccount,
+    (substate) => substate.selectedScatterAccount,
   );
 
 const selectedKeycatAccountSelector = () =>
   createSelector(
     selectSendTipsDomain,
-    substate => substate.selectedKeycatAccount,
+    (substate) => substate.selectedKeycatAccount,
   );
 
 const selectedAccountProcessingSelector = () =>
   createSelector(
     selectSendTipsDomain,
-    substate => substate.selectAccountProcessing,
+    (substate) => substate.selectAccountProcessing,
   );
 
 const selectTipsScatterEosService = () =>
   createSelector(
     selectSendTipsDomain,
-    substate => substate.tipsScatterEosService,
+    (substate) => substate.tipsScatterEosService,
   );
 
 const selectTipsKeycatEosService = () =>
   createSelector(
     selectSendTipsDomain,
-    substate => substate.tipsKeycatEosService,
+    (substate) => substate.tipsKeycatEosService,
   );
 
 const selectWhoWillBeTipped = () =>
-  createSelector(selectSendTipsDomain, substate => substate.whoWillBeTipped);
+  createSelector(selectSendTipsDomain, (substate) => substate.whoWillBeTipped);
 
 const selectIsVerifyFbModal = () =>
-  createSelector(selectSendTipsDomain, substate => substate.isVerifyFbModal);
+  createSelector(selectSendTipsDomain, (substate) => substate.isVerifyFbModal);
 
 const selectFbSendTipsFormValues = () =>
   createSelector(
     selectSendTipsDomain,
-    substate => substate.fbSendTipsFormValues,
+    (substate) => substate.fbSendTipsFormValues,
   );
 
 export {

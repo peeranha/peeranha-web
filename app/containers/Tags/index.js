@@ -20,15 +20,12 @@ import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 
 import { redirectToCreateTag } from 'containers/CreateTag/actions';
 
-import AsideBox from 'components/Base/Aside';
-
 import reducer from './reducer';
 import saga from './saga';
 import { getExistingTags } from './actions';
 import * as selectors from './selectors';
 
 import Header from './Header';
-import Banner from './Banner';
 
 export const Tags = ({
   communityId,
@@ -42,21 +39,15 @@ export const Tags = ({
   getExistingTagsDispatch,
   profile,
 }) => {
-  useEffect(
-    () => {
-      getExistingTagsDispatch({ communityId });
-    },
-    [communityId],
-  );
+  useEffect(() => {
+    getExistingTagsDispatch({ communityId });
+  }, [communityId]);
 
-  useEffect(
-    () => {
-      if (!communities.length) {
-        getExistingTagsDispatch({ communityId });
-      }
-    },
-    [communities.length],
-  );
+  useEffect(() => {
+    if (!communities.length) {
+      getExistingTagsDispatch({ communityId });
+    }
+  }, [communities.length]);
 
   return (
     <div className="d-flex justify-content-center">
@@ -107,16 +98,9 @@ function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   };
 }
 
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 const withReducer = injectReducer({ key: 'tags', reducer });
 const withSaga = injectSaga({ key: 'tags', saga, mode: DAEMON });
 
-export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
-)(Tags);
+export default compose(withReducer, withSaga, withConnect)(Tags);

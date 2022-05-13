@@ -14,11 +14,9 @@ import {
   USER_ACHIEVEMENTS_LOADING,
   SET_MEMORIZED_ACHIEV_DATA,
   SET_MAX_GROUPS_LOWER_VALUES,
-  GET_ALL_ACHIEVEMENTS,
   GET_ALL_ACHIEVEMENTS_SUCCESS,
   GET_ALL_ACHIEVEMENTS_ERROR,
 } from './constants';
-import { allAchievementsQuery } from '../../utils/ethConstants';
 
 export const initialState = fromJS({
   viewProfileAccount: null,

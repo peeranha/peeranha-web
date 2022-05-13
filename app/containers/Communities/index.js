@@ -37,7 +37,6 @@ import saga from './saga';
 import languages from './languagesOptions';
 
 import Header from './Header';
-import Banner from './Banner';
 
 export const Communities = ({
   locale,
@@ -61,9 +60,9 @@ export const Communities = ({
     getSuggestedCommunitiesDispatch();
   }, []);
 
-  const keywords = useMemo(() => communities.map(x => x.name), [communities]);
+  const keywords = useMemo(() => communities.map((x) => x.name), [communities]);
 
-  const [displayLoadingIndicator, displayBanner] = useMemo(
+  const [displayLoadingIndicator] = useMemo(
     () => [
       (communitiesLoading && route === routes.communities()) ||
         (suggestedCommunitiesLoading &&
@@ -147,7 +146,7 @@ export default memo(
         suggestedCommunitiesLoading: selectSuggestedCommunitiesLoading(),
         isLastFetch: selectIsLastFetch(),
       }),
-      dispatch => ({
+      (dispatch) => ({
         redirectToCreateCommunityDispatch: bindActionCreators(
           redirectToCreateCommunity,
           dispatch,

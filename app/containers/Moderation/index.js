@@ -14,7 +14,7 @@ import {
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 
-import { MODERATOR_KEY, SECTION_ID } from 'utils/constants';
+import { SECTION_ID } from 'utils/constants';
 import { getModeratorPermissions } from 'utils/properties';
 
 import Header from './Header';
@@ -67,7 +67,4 @@ const mapStateToProps = createStructuredSelector({
   communities: selectCommunities(),
 });
 
-export default connect(
-  mapStateToProps,
-  null,
-)(Moderation);
+export default connect(mapStateToProps, null)(Moderation);

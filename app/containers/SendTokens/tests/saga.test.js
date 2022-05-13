@@ -9,10 +9,8 @@ import {
   SEND_TOKENS_SUCCESS,
   SEND_TOKENS,
   SEND_TOKENS_ERROR,
-  EOS_SEND_TO_ACCOUNT_FIELD,
   AMOUNT_FIELD,
   PASSWORD_FIELD,
-  HIDE_SEND_TOKENS_MODAL,
 } from '../constants';
 
 jest.mock('redux-saga/effects', () => ({
@@ -46,7 +44,6 @@ describe('sendTokensWorker', () => {
   const resetForm = jest.fn();
 
   const val = {
-    [EOS_SEND_TO_ACCOUNT_FIELD]: accountTo,
     [AMOUNT_FIELD]: quantity,
     [PASSWORD_FIELD]: password,
   };
@@ -100,11 +97,6 @@ describe('sendTokensWorker', () => {
       it('put @sendTokensSuccess', () => {
         const step = generator.next();
         expect(step.value.type).toBe(SEND_TOKENS_SUCCESS);
-      });
-
-      it('put @hideSendTokensModal', () => {
-        const step = generator.next();
-        expect(step.value.type).toBe(HIDE_SEND_TOKENS_MODAL);
       });
 
       it('call @resetForm', () => {

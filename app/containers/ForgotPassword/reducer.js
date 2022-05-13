@@ -7,7 +7,6 @@
 import { fromJS } from 'immutable';
 
 import {
-  VERIFICATION_CODE_FORM,
   NEW_PASSWORD_FORM,
   SHOW_FORGOT_PASSWORD_MODAL,
   HIDE_FORGOT_PASSWORD_MODAL,

@@ -1,7 +1,5 @@
-import { call, put, takeLatest, select } from 'redux-saga/effects';
+import { put, takeLatest, select } from 'redux-saga/effects';
 import orderBy from 'lodash/orderBy';
-
-import { getExistingTags } from 'utils/communityManagement';
 
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 
@@ -27,18 +25,17 @@ export function* getExistingTagsWorker({ communityId, loadMore }) {
 
     const sliceStart = yield loadMore ? storedTags.length : 0;
 
-    const { tags } = communities.filter(x => x.id === +communityId)[0] || {
+    const { tags } = communities.filter((x) => x.id === +communityId)[0] || {
       tags: [],
     };
 
-    const tagsByInput = tags.filter(x =>
+    const tagsByInput = tags.filter((x) =>
       `${x.name} ${x.description}`.toLowerCase().match(text.toLowerCase()),
     );
 
-    const existingTags = orderBy(tagsByInput, x => x[sorting], ['desc']).slice(
-      sliceStart,
-      sliceStart + limit,
-    );
+    const existingTags = orderBy(tagsByInput, (x) => x[sorting], [
+      'desc',
+    ]).slice(sliceStart, sliceStart + limit);
 
     // const existingTags = yield call(getExistingTags, sortedTags);
 
@@ -48,6 +45,6 @@ export function* getExistingTagsWorker({ communityId, loadMore }) {
   }
 }
 
-export default function*() {
+export default function* () {
   yield takeLatest(GET_EXISTING_TAGS, getExistingTagsWorker);
 }

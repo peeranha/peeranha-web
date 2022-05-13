@@ -7,7 +7,7 @@ import messages from 'telegram-messages';
 import {
   MediumImageLabel,
   MediumImageLabelImage,
-  LABEL_SIZE_LG
+  LABEL_SIZE_LG,
 } from 'components/Img/MediumImage';
 import Popover from 'components/Popover';
 
@@ -16,8 +16,14 @@ import telegram from 'images/telegram-sm.svg?inline';
 const TelegramUserLabel = ({ id, locale, size }) => (
   <Popover
     id={id}
-    styles={{ position: 'absolute', bottom: 0, right: `${size == LABEL_SIZE_LG ? 0 : 7}px` }}
-    hiddenContent={translationMessages[locale][messages.telegramUserLabelPopover.id]}
+    styles={{
+      position: 'absolute',
+      bottom: 0,
+      right: `${size == LABEL_SIZE_LG ? 0 : 7}px`,
+    }}
+    hiddenContent={
+      translationMessages[locale][messages.telegramUserLabelPopover.id]
+    }
   >
     <MediumImageLabel size={size}>
       <MediumImageLabelImage

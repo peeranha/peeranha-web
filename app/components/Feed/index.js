@@ -16,7 +16,8 @@ import { POST_TYPE } from '../../utils/constants';
 const Feed = ({ match, account, loading }) => {
   if (loading) {
     return <WidthCentered />;
-  } else if (account) {
+  }
+  if (account) {
     return (
       <Questions
         parentPage={routes.feed()}
@@ -42,7 +43,7 @@ Feed.propTypes = {
 
 export default memo(
   compose(
-    connect(state => ({
+    connect((state) => ({
       account: makeSelectAccount()(state),
       loading: makeSelectAccountLoading()(state),
     })),

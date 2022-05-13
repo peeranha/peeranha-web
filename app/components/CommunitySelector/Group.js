@@ -15,7 +15,7 @@ const Box = styled.div`
 
 const Group = ({ children, selectProps }) => (
   <Box>
-    {children.map(x => (
+    {children.map((x) => (
       <CustomOption
         key={x.props.data.value}
         innerProps={x.props.innerProps}

@@ -43,9 +43,8 @@ export function* sendEmailWorker({ email, resetForm, withFacebook }) {
   try {
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
-    const isDelete = true;
 
-    const response = yield call(changeCredentialsInit, email, isDelete, locale);
+    const response = yield call(changeCredentialsInit, email);
 
     if (!response.OK) {
       throw new WebIntegrationError(

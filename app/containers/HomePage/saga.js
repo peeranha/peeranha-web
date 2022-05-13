@@ -52,7 +52,7 @@ export function* sendMessageWorker({ val }) {
   }
 }
 
-export default function*() {
+export default function* () {
   yield takeLatest(SEND_MESSAGE, sendMessageWorker);
   yield takeLatest(EMAIL_CHECKING, emailCheckingWorker);
 }

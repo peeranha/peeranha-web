@@ -59,7 +59,7 @@ export class DeleteAccount extends React.PureComponent {
     const { loginWithFacebook } = loginData;
 
     return (
-      <React.Fragment>
+      <>
         <Modal show={showModal} closeModal={hideDeleteAccountModalDispatch}>
           {content === EMAIL_FORM && (
             <EmailForm
@@ -89,7 +89,7 @@ export class DeleteAccount extends React.PureComponent {
             ? sendEmailFacebookDispatch
             : showDeleteAccountModalDispatch,
         })}
-      </React.Fragment>
+      </>
     );
   }
 }
@@ -139,16 +139,9 @@ function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   };
 }
 
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 const withReducer = injectReducer({ key: 'deleteAccount', reducer });
 const withSaga = injectSaga({ key: 'deleteAccount', saga, mode: DAEMON });
 
-export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
-)(DeleteAccount);
+export default compose(withReducer, withSaga, withConnect)(DeleteAccount);

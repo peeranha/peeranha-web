@@ -1,15 +1,14 @@
 import React from 'react';
 import { css } from 'styled-components';
 
+import CustomSubHeader from 'components/CustomSubHeaders/CustomSubHeader';
+import CustomMobileSubHeader from 'components/CustomSubHeaders/CustomMobileSubHeader';
 import OntLogo from './images/ont.svg?inline';
 import favicon from '!file-loader?name=[name].[ext]!images/favicon-ont.ico';
 
 import RobotoRegularEOT from './fonts/Roboto-Regular.eot';
 import RobotoRegularWOFF from './fonts/Roboto-Regular.woff';
 import RobotoRegularTTF from './fonts/Roboto-Regular.ttf';
-
-import CustomSubHeader from 'components/CustomSubHeaders/CustomSubHeader';
-import CustomMobileSubHeader from 'components/CustomSubHeaders/CustomMobileSubHeader';
 
 const domainName = 'https://ont.io/';
 
@@ -30,7 +29,7 @@ export const CustomSubHeaderConfig = {
       background: '#ffffff',
     },
     subHeader: `
-      
+
     `,
     subitems: `
       @media only screen and (max-width: 991px) {
@@ -60,10 +59,10 @@ export const CustomSubHeaderConfig = {
         :first-child {
           margin-left: 0;
         }
-      }        
+      }
     `,
     CustomSubHeader: `
-      
+
     `,
     Highlighted: `
       color: #48a3ff !important;
@@ -141,8 +140,7 @@ export const CustomSubHeaderConfig = {
         },
         {
           text: 'GCC Program',
-          href:
-            'https://medium.com/ontologynetwork/ontology-gcc-global-community-contributor-program-is-coming-e4be768f17e3',
+          href: 'https://medium.com/ontologynetwork/ontology-gcc-global-community-contributor-program-is-coming-e4be768f17e3',
         },
         {
           text: 'Community',
@@ -181,7 +179,7 @@ export const OntStyles = {
   poweredByPeeranha: true,
   withoutAdditionalLinks: true,
   signUpPageLogo: OntLogo,
-  favicon: favicon,
+  favicon,
   mobileSubHeader: (
     <CustomMobileSubHeader config={CustomSubHeaderConfig} logo={OntLogo} />
   ),
@@ -218,7 +216,7 @@ export const OntStyles = {
   },
   fontFace: `@font-face {
     font-family: 'Roboto-Regular';
-    src: 
+    src:
       url(${RobotoRegularEOT}?#iefix) format('embedded-opentype'),
       url(${RobotoRegularWOFF}) format('woff'),
       url(${RobotoRegularTTF}) format('truetype');
@@ -241,5 +239,5 @@ export const OntStyles = {
   headerHeight: 170,
   isDropdownMenuArrow: false,
   customSubHeaderConfig: CustomSubHeaderConfig,
-  domainName: domainName,
+  domainName,
 };

@@ -39,7 +39,7 @@ export const DescriptionList = ({ label, items, locale }) => (
   <Base>
     <FormattedMessage id={label} />
     <ul>
-      {translationMessages[locale][items].map(item => (
+      {translationMessages[locale][items].map((item) => (
         <li key={item}>
           <span>{item}</span>
         </li>

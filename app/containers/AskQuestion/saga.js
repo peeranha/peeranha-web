@@ -33,14 +33,13 @@ import {
   GET_EXISTING_QUESTIONS,
 } from './constants';
 import { selectEthereum } from '../EthereumProvider/selectors';
-import { selectCommunities } from '../DataCacheProvider/selectors';
 
 export function* postQuestionWorker({ val }) {
   try {
     const ethereumService = yield select(selectEthereum);
     const selectedAccount = yield select(makeSelectAccount());
     // const promoteValue = +val[FORM_PROMOTE];
-    const tags = val[FORM_TAGS].map(tag => Number(tag.id.split('-')[1]));
+    const tags = val[FORM_TAGS].map((tag) => Number(tag.id.split('-')[1]));
     const communityId = val[FORM_COMMUNITY].id;
     const postType = +val[FORM_TYPE];
 
@@ -128,6 +127,6 @@ export function* existingQuestionSaga() {
   yield takeLatest(GET_EXISTING_QUESTIONS, qetExistingQuestionsWorker);
 }
 
-export default function*() {
+export default function* () {
   yield takeLatest(ASK_QUESTION, postQuestionWorker);
 }

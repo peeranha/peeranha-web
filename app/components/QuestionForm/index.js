@@ -27,6 +27,8 @@ import FormBox from 'components/Form';
 import TipsBase from 'components/Base/TipsBase';
 import { IconMd } from 'components/Icon/IconWithSizes';
 
+import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
+import { getPermissions, hasGlobalModeratorRole } from 'utils/properties';
 import messages from './messages';
 
 import {
@@ -57,8 +59,6 @@ import {
 import createdHistory from '../../createdHistory';
 import * as routes from '../../routes-config';
 import DescriptionList from '../DescriptionList';
-import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
-import { getPermissions, hasGlobalModeratorRole } from 'utils/properties';
 import { translationMessages } from '../../i18n';
 
 const single = isSingleCommunityWebsite();
@@ -66,9 +66,10 @@ const single = isSingleCommunityWebsite();
 const history = createdHistory;
 
 const SuggestTag = memo(({ redirectToCreateTagDispatch, formValues }) => {
-  const communityId = useMemo(() => formValues?.[FORM_COMMUNITY]?.value ?? 0, [
-    formValues,
-  ]);
+  const communityId = useMemo(
+    () => formValues?.[FORM_COMMUNITY]?.value ?? 0,
+    [formValues],
+  );
 
   return (
     <div style={{ marginBottom: '20px' }}>
@@ -126,16 +127,13 @@ export const QuestionForm = ({
     return handleSubmit(sendQuestion);
   };
 
-  useEffect(
-    () => {
-      if (formValues[FORM_TITLE] && getQuestions) {
-        getQuestions(formValues[FORM_TITLE], true);
-      }
-    },
-    [formValues[FORM_TITLE]],
-  );
+  useEffect(() => {
+    if (formValues[FORM_TITLE] && getQuestions) {
+      getQuestions(formValues[FORM_TITLE], true);
+    }
+  }, [formValues[FORM_TITLE]]);
 
-  const showMoreQuestions = e => {
+  const showMoreQuestions = (e) => {
     e.preventDefault();
     createdHistory.push(routes.search(formValues[FORM_TITLE]));
   };
@@ -247,20 +245,20 @@ export const QuestionForm = ({
                 />
               )}
 
-              {/*<BountyForm*/}
-              {/*  intl={intl}*/}
-              {/*  questionLoading={questionLoading}*/}
-              {/*  formValues={formValues}*/}
-              {/*  change={change}*/}
-              {/*  dotRestriction={DEFAULT_DOT_RESTRICTION}*/}
-              {/*/>*/}
+              {/* <BountyForm */}
+              {/*  intl={intl} */}
+              {/*  questionLoading={questionLoading} */}
+              {/*  formValues={formValues} */}
+              {/*  change={change} */}
+              {/*  dotRestriction={DEFAULT_DOT_RESTRICTION} */}
+              {/* /> */}
 
-              {/*<BountyDateForm*/}
-              {/*  intl={intl}*/}
-              {/*  questionLoading={questionLoading}*/}
-              {/*  formValues={formValues}*/}
-              {/*  change={change}*/}
-              {/*/>*/}
+              {/* <BountyDateForm */}
+              {/*  intl={intl} */}
+              {/*  questionLoading={questionLoading} */}
+              {/*  formValues={formValues} */}
+              {/*  change={change} */}
+              {/* /> */}
 
               <Button
                 disabled={questionLoading}
@@ -309,7 +307,7 @@ QuestionForm.propTypes = {
 };
 
 const FormClone = reduxForm({
-  onSubmitFail: errors => scrollToErrorField(errors),
+  onSubmitFail: (errors) => scrollToErrorField(errors),
 })(QuestionForm);
 
 export default memo(
@@ -319,7 +317,7 @@ export default memo(
         const values = state.toJS().form[formName]?.values[FORM_COMMUNITY];
         const integerProperties = values?.integer_properties ?? [];
         const questionsType = integerProperties.find(
-          prop => prop.key === KEY_QUESTIONS_TYPE,
+          (prop) => prop.key === KEY_QUESTIONS_TYPE,
         )?.value;
 
         // disable community form on edit question page
@@ -364,7 +362,7 @@ export default memo(
                             ({ id }) => id === question?.community?.id,
                           )?.tags,
                         )
-                        .filter(x => x),
+                        .filter((x) => x),
                       'id',
                     ),
                   },
@@ -375,7 +373,7 @@ export default memo(
           disableCommForm,
         };
       },
-      dispatch => ({
+      (dispatch) => ({
         redirectToCreateTagDispatch: bindActionCreators(
           redirectToCreateTag,
           dispatch,

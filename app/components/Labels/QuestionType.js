@@ -2,11 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import {
-  BG_PRIMARY_SPECIAL_2,
-  TEXT_PRIMARY,
-  BORDER_RADIUS_M,
-} from 'style-constants';
+import { TEXT_PRIMARY, BORDER_RADIUS_M } from 'style-constants';
 
 const SIZE_CONFIG = {
   sm: {

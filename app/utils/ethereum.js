@@ -39,7 +39,7 @@ class EthereumService {
     this.connectedWallets = null;
   }
 
-  setData = data => {
+  setData = (data) => {
     this.wallet = data.wallet;
     this.connectedWallets = data.connectedWallets;
     this.selectedAccount = this.wallet?.accounts[0].address.toLowerCase();
@@ -70,10 +70,8 @@ class EthereumService {
     }
   };
 
-  walletLogIn = async previouslyConnectedWallet => {
-    try {
-      document.getElementsByTagName('body')[0].style.position = 'fixed';
-    } catch (err) {}
+  walletLogIn = async (previouslyConnectedWallet) => {
+    document.getElementsByTagName('body')[0].style.position = 'fixed';
 
     if (previouslyConnectedWallet) {
       await this.connect({ autoSelect: previouslyConnectedWallet });
@@ -111,13 +109,13 @@ class EthereumService {
     this.selectedAccount = null;
   };
 
-  setSelectedAccount = account => {
+  setSelectedAccount = (account) => {
     this.selectedAccount = account?.toLowerCase();
   };
 
   getSelectedAccount = () => this.selectedAccount;
 
-  getProfile = async userAddress => {
+  getProfile = async (userAddress) => {
     const user = await this.getDataWithArgs(GET_USER_BY_ADDRESS, [userAddress]);
 
     const permissions = await this.getDataWithArgs(GET_USER_PERMISSIONS, [
@@ -199,47 +197,42 @@ class EthereumService {
     }
   };
 
-  getData = async action => {
-    return await this.contract[action]();
-    // if (this.withMetaMask) {
-    //   return await this.contract[action]();
-    // }
-    //
-    // return await callService(BLOCKCHAIN_MAIN_CALL, {
-    //   action,
-    //   args: [],
-    // });
-  };
+  getData = async (action) => this.contract[action]();
+  // if (this.withMetaMask) {
+  //   return await this.contract[action]();
+  // }
+  //
+  // return await callService(BLOCKCHAIN_MAIN_CALL, {
+  //   action,
+  //   args: [],
+  // });
 
-  getDataWithArgs = async (action, args) => {
-    return await this.contract[action](...args);
-    // if (this.withMetaMask) {
-    //   return await this.contract[action](...args);
-    // }
-    //
-    // const contractResult = await callService(BLOCKCHAIN_MAIN_CALL, {
-    //   action,
-    //   args: [...args],
-    // });
-    //
-    // return contractResult.body?.json;
-  };
+  getDataWithArgs = async (action, args) => this.contract[action](...args);
+  // if (this.withMetaMask) {
+  //   return await this.contract[action](...args);
+  // }
+  //
+  // const contractResult = await callService(BLOCKCHAIN_MAIN_CALL, {
+  //   action,
+  //   args: [...args],
+  // });
+  //
+  // return contractResult.body?.json;
 
-  getTokenDataWithArgs = async (action, args) => {
-    return await this.contractToken[action](...args);
-    // if (this.withMetaMask) {
-    //   return await this.contractToken[action](...args);
-    // }
-    //
-    // const contractResult = await callService(BLOCKCHAIN_TOKEN_CALL, {
-    //   action,
-    //   args: [...args],
-    // });
-    //
-    // return contractResult.body?.json;
-  };
+  getTokenDataWithArgs = async (action, args) =>
+    this.contractToken[action](...args);
+  // if (this.withMetaMask) {
+  //   return await this.contractToken[action](...args);
+  // }
+  //
+  // const contractResult = await callService(BLOCKCHAIN_TOKEN_CALL, {
+  //   action,
+  //   args: [...args],
+  // });
+  //
+  // return contractResult.body?.json;
 
-  getCommunityFromContract = async id => {
+  getCommunityFromContract = async (id) => {
     const rawCommunity = await this.getDataWithArgs(GET_COMMUNITY, [id]);
     const communityInfo = JSON.parse(
       await getText(getIpfsHashFromBytes32(rawCommunity.ipfsDoc.hash)),
@@ -258,10 +251,10 @@ class EthereumService {
   };
 
   getUserRating = async (user, communityId) =>
-    await this.getDataWithArgs(GET_USER_RATING, [user, communityId]);
+    this.getDataWithArgs(GET_USER_RATING, [user, communityId]);
 
-  getUserBalance = async user =>
-    await this.getTokenDataWithArgs(GET_USER_BALANCE, [user]);
+  getUserBalance = async (user) =>
+    this.getTokenDataWithArgs(GET_USER_BALANCE, [user]);
 
   claimUserReward = async (actor, period) => {
     try {

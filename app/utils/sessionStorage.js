@@ -22,7 +22,7 @@ export function isItemChanged(storageKey, itemId) {
   const changedItems = getDataFromSessionStorage(storageKey);
 
   if (changedItems) {
-    return Boolean(changedItems.find(changedItem => changedItem === itemId));
+    return Boolean(changedItems.find((changedItem) => changedItem === itemId));
   }
   return false;
 }

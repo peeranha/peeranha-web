@@ -22,7 +22,7 @@ const OutlinedButton = Button.extend`
   border: 1px solid ${BUTTON_COLOR};
   color: ${BUTTON_COLOR};
 
-  ${props => props.customStyles};
+  ${(props) => props.customStyles};
 
   :hover {
     color: ${TEXT_LIGHT};

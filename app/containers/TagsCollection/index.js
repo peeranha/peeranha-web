@@ -15,7 +15,6 @@ import { redirectToCreateTag } from 'containers/CreateTag/actions';
 
 import Seo from 'components/Seo';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
-import Banner from 'containers/Tags/Banner';
 
 import { createStructuredSelector } from 'reselect';
 
@@ -34,7 +33,9 @@ export const TagsCollection = /* istanbul ignore next */ ({
 }) => {
   const keywords = useMemo(
     () =>
-      communities.map(comm => comm.tags.map(tag => `${comm.name} ${tag.name}`)),
+      communities.map((comm) =>
+        comm.tags.map((tag) => `${comm.name} ${tag.name}`),
+      ),
     [communities],
   );
 
@@ -79,7 +80,4 @@ function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   };
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(TagsCollection);
+export default connect(mapStateToProps, mapDispatchToProps)(TagsCollection);

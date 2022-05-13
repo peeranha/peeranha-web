@@ -20,15 +20,8 @@ export const initialState = fromJS({
 });
 
 function usersReducer(state = initialState, action) {
-  const {
-    type,
-    getUsersError,
-    users,
-    sorting,
-    loadMore,
-    searchText,
-    reload,
-  } = action;
+  const { type, getUsersError, users, sorting, loadMore, searchText, reload } =
+    action;
   switch (type) {
     case GET_USERS:
       return state

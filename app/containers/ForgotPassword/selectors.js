@@ -1,58 +1,58 @@
 import { createSelector } from 'reselect';
 import { initialState } from './reducer';
 
-const selectForgotPasswordDomain = state =>
+const selectForgotPasswordDomain = (state) =>
   state.get('forgotPassword', initialState).toJS();
 
 const selectContent = () =>
-  createSelector(selectForgotPasswordDomain, substate => substate.content);
+  createSelector(selectForgotPasswordDomain, (substate) => substate.content);
 
 const selectShowModal = () =>
-  createSelector(selectForgotPasswordDomain, substate => substate.showModal);
+  createSelector(selectForgotPasswordDomain, (substate) => substate.showModal);
 
 const selectVerificationCodeLoading = () =>
   createSelector(
     selectForgotPasswordDomain,
-    substate => substate.getVerificationCodeLoading,
+    (substate) => substate.getVerificationCodeLoading,
   );
 
 const selectVerificationCodeError = () =>
   createSelector(
     selectForgotPasswordDomain,
-    substate => substate.getVerificationCodeError,
+    (substate) => substate.getVerificationCodeError,
   );
 
 const selectVerifyEmailLoading = () =>
   createSelector(
     selectForgotPasswordDomain,
-    substate => substate.verifyEmailLoading,
+    (substate) => substate.verifyEmailLoading,
   );
 
 const selectVerifyEmailError = () =>
   createSelector(
     selectForgotPasswordDomain,
-    substate => substate.verifyEmailError,
+    (substate) => substate.verifyEmailError,
   );
 
 const selectChangePasswordLoading = () =>
   createSelector(
     selectForgotPasswordDomain,
-    substate => substate.changePasswordLoading,
+    (substate) => substate.changePasswordLoading,
   );
 
 const selectChangePasswordError = () =>
   createSelector(
     selectForgotPasswordDomain,
-    substate => substate.changePasswordError,
+    (substate) => substate.changePasswordError,
   );
 
 const selectEmail = () =>
-  createSelector(selectForgotPasswordDomain, substate => substate.email);
+  createSelector(selectForgotPasswordDomain, (substate) => substate.email);
 
 const selectVerificationCode = () =>
   createSelector(
     selectForgotPasswordDomain,
-    substate => substate.verificationCode,
+    (substate) => substate.verificationCode,
   );
 
 export {

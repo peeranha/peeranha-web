@@ -3,7 +3,6 @@ import { css } from 'styled-components';
 import CustomSubHeader from 'components/CustomSubHeaders/CustomSubHeader';
 import CustomMobileSubHeader from 'components/CustomSubHeaders/CustomMobileSubHeader';
 import polygonLogo from 'communities-configs/polygon/images/polygon-logo.svg?inline';
-import verdanaRegularTTF from 'communities-configs/polygon/fonts/verdana.ttf';
 import {
   domainName,
   domainDocs,

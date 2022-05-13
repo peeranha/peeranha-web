@@ -1,6 +1,6 @@
 /* eslint indent: 0 */
 import React, { useState } from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
@@ -8,20 +8,18 @@ import { singleCommunityStyles } from 'utils/communityManagement';
 import validationArrowIcon from 'images/validationArrow.svg?inline';
 import { italicFont } from 'global-styles';
 import messages from 'common-messages';
-import questionMessages from './messages';
-import { POST_TYPE } from './constants';
 
 import {
   BORDER_SECONDARY,
-  BORDER_PRIMARY,
   BORDER_PRIMARY_RGB,
   BORDER_RADIUS_M,
-  PEER_WARNING_COLOR,
 } from 'style-constants';
 
 import { Wrapper } from 'components/FormFields/Wrapper';
 import { Styles } from 'components/Input/InputStyled';
 import B from 'components/Button';
+import { POST_TYPE } from './constants';
+import questionMessages from './messages';
 
 const styles = singleCommunityStyles();
 
@@ -152,7 +150,7 @@ const QuestionTypeField = ({
         insideOfSection={insideOfSection}
       >
         <ButtonGroup error={error}>
-          {Object.values(QUESTION_TYPES).map(questionType => (
+          {Object.values(QUESTION_TYPES).map((questionType) => (
             <Button
               type={type}
               onClick={chooseQuestionType}

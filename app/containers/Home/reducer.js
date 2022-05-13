@@ -19,7 +19,7 @@ export const initialState = fromJS({
   questionsError: '',
   community: {},
   communityError: '',
-  logo: "",
+  logo: '',
   logoError: '',
 });
 
@@ -39,9 +39,7 @@ function homeReducer(state = initialState, action) {
     case GET_QUESTIONS:
       return state.set('questionsLoading', true);
     case GET_QUESTIONS_SUCCESS:
-      return state
-        .set('questionsLoading', false)
-        .set('questions', questions);
+      return state.set('questionsLoading', false).set('questions', questions);
     case GET_QUESTIONS_ERROR:
       return state
         .set('questionsLoading', false)
@@ -50,9 +48,7 @@ function homeReducer(state = initialState, action) {
     case GET_COMMUNITY:
       return state.set('communityLoading', true);
     case GET_COMMUNITY_SUCCESS:
-      return state
-        .set('communityLoading', false)
-        .set('community', community);
+      return state.set('communityLoading', false).set('community', community);
     case GET_COMMUNITY_ERROR:
       return state
         .set('communityLoading', false)
@@ -61,13 +57,9 @@ function homeReducer(state = initialState, action) {
     case GET_LOGO:
       return state.set('logoLoading', true);
     case GET_LOGO_SUCCESS:
-      return state
-        .set('logoLoading', false)
-        .set('logo', logo);
+      return state.set('logoLoading', false).set('logo', logo);
     case GET_LOGO_ERROR:
-      return state
-        .set('logoLoading', false)
-        .set('logoError', logoError);
+      return state.set('logoLoading', false).set('logoError', logoError);
 
     default:
       return state;

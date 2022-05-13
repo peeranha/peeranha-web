@@ -33,7 +33,7 @@ export function* upVoteWorker({ communityId, tagId, buttonId }) {
     const eosService = yield select(selectEos);
     const account = yield select(makeSelectAccount());
 
-    const activeTag = storedTags?.filter(x => x.id === +tagId)[0];
+    const activeTag = storedTags?.filter((x) => x.id === +tagId)[0];
 
     yield call(isAuthorized);
 
@@ -48,10 +48,10 @@ export function* upVoteWorker({ communityId, tagId, buttonId }) {
     yield call(upVoteToCreateTag, eosService, account, communityId, tagId);
 
     if (activeTag.upvotes.includes(account)) {
-      activeTag.upvotes = activeTag.upvotes.filter(x => x !== account);
+      activeTag.upvotes = activeTag.upvotes.filter((x) => x !== account);
     } else {
       activeTag.upvotes = [...activeTag.upvotes, account];
-      activeTag.downvotes = activeTag.downvotes.filter(x => x !== account);
+      activeTag.downvotes = activeTag.downvotes.filter((x) => x !== account);
     }
 
     yield put(getSuggestedTagsSuccess([...storedTags]));
@@ -67,7 +67,7 @@ export function* downVoteWorker({ communityId, tagId, buttonId }) {
     const eosService = yield select(selectEos);
     const account = yield select(makeSelectAccount());
 
-    const activeTag = storedTags?.filter(x => x.id === +tagId)[0];
+    const activeTag = storedTags?.filter((x) => x.id === +tagId)[0];
 
     yield call(isAuthorized);
 
@@ -82,10 +82,10 @@ export function* downVoteWorker({ communityId, tagId, buttonId }) {
     yield call(downVoteToCreateTag, eosService, account, communityId, tagId);
 
     if (activeTag.downvotes.includes(account)) {
-      activeTag.downvotes = activeTag.downvotes.filter(x => x !== account);
+      activeTag.downvotes = activeTag.downvotes.filter((x) => x !== account);
     } else {
       activeTag.downvotes = [...activeTag.downvotes, account];
-      activeTag.upvotes = activeTag.upvotes.filter(x => x !== account);
+      activeTag.upvotes = activeTag.upvotes.filter((x) => x !== account);
     }
 
     yield put(getSuggestedTagsSuccess([...storedTags]));
@@ -95,7 +95,7 @@ export function* downVoteWorker({ communityId, tagId, buttonId }) {
   }
 }
 
-export default function*() {
+export default function* () {
   yield takeEvery(UPVOTE, upVoteWorker);
   yield takeEvery(DOWNVOTE, downVoteWorker);
 }

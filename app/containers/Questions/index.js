@@ -1,5 +1,5 @@
 /* eslint no-unused-expressions: 0 */
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -12,9 +12,8 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { DAEMON } from 'utils/constants';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
-import { getCookie, setCookie } from 'utils/cookie';
+import { getCookie } from 'utils/cookie';
 import { isUserTopCommunityQuestionsModerator } from 'utils/properties';
-import { FetcherOfQuestionsForFollowedCommunities } from 'utils/questionsManagement';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectEos } from 'containers/EosioProvider/selectors';
@@ -38,12 +37,7 @@ import ScrollToTop from 'components/ScrollToTop/index';
 import InfinityLoader from 'components/InfinityLoader';
 import Seo from 'components/Seo';
 
-import {
-  getQuestions,
-  loadTopCommunityQuestions,
-  setCreatedFilter,
-  setTypeFilter,
-} from './actions';
+import { getQuestions, setCreatedFilter, setTypeFilter } from './actions';
 
 import * as questionsSelector from './selectors';
 import reducer from './reducer';
@@ -56,7 +50,7 @@ import Header from './Header';
 import NotFound from '../ErrorPage';
 import ShowMoreButton from './Content/ShowMoreButton';
 
-import { QUESTION_FILTER, UPDATE_PROMO_QUESTIONS } from './constants';
+import { QUESTION_FILTER } from './constants';
 
 const feed = routes.feed();
 const single = isSingleCommunityWebsite();
@@ -66,13 +60,11 @@ export const Questions = ({
   questionsList,
   questionsLoading,
   topQuestionsLoading,
-  promotedQuestions,
   isLastFetch,
   communities,
   followedCommunities,
   parentPage,
   communitiesLoading,
-  account,
   profile,
   match: { params, path },
   redirectToAskQuestionPageDispatch,
@@ -91,67 +83,55 @@ export const Questions = ({
   const isExpert =
     path === routes.expertPosts() ||
     path === routes.expertPosts(':communityid');
-  const getInitQuestions = useCallback(
-    () => {
-      if (!questionFilter) {
-        getQuestionsDispatch(
-          initLoadedItems,
-          0,
-          postsTypes,
-          Number(params.communityid) || 0,
-          parentPage,
-          false,
-          true,
-        );
-      }
-    },
-    [
-      initLoadedItems,
-      params.communityid,
-      parentPage,
-      questionFilter,
-      postsTypes,
-    ],
-  );
+  const getInitQuestions = useCallback(() => {
+    if (!questionFilter) {
+      getQuestionsDispatch(
+        initLoadedItems,
+        0,
+        postsTypes,
+        Number(params.communityid) || 0,
+        parentPage,
+        false,
+        true,
+      );
+    }
+  }, [
+    initLoadedItems,
+    params.communityid,
+    parentPage,
+    questionFilter,
+    postsTypes,
+  ]);
 
-  const getNextQuestions = useCallback(
-    () => {
-      if (!questionFilter) {
-        getQuestionsDispatch(
-          nextLoadedItems,
-          loadedItems,
-          postsTypes,
-          Number(params.communityid) || 0,
-          parentPage,
-          true,
-        );
-      }
-    },
-    [
-      questionsList,
-      questionsList.length,
-      nextLoadedItems,
-      params.communityid,
-      parentPage,
-      questionFilter,
-      loadTopQuestionsDispatch,
-      postsTypes,
-    ],
-  );
+  const getNextQuestions = useCallback(() => {
+    if (!questionFilter) {
+      getQuestionsDispatch(
+        nextLoadedItems,
+        loadedItems,
+        postsTypes,
+        Number(params.communityid) || 0,
+        parentPage,
+        true,
+      );
+    }
+  }, [
+    questionsList,
+    questionsList.length,
+    nextLoadedItems,
+    params.communityid,
+    parentPage,
+    questionFilter,
+    loadTopQuestionsDispatch,
+    postsTypes,
+  ]);
 
-  useEffect(
-    () => {
-      getInitQuestions();
-    },
-    [typeFilter, createdFilter, postsTypes],
-  );
+  useEffect(() => {
+    getInitQuestions();
+  }, [typeFilter, createdFilter, postsTypes]);
 
-  useEffect(
-    () => {
-      setTypeFilterDispatch(params.communityid ? +params.communityid : 0);
-    },
-    [params.communityid],
-  );
+  useEffect(() => {
+    setTypeFilterDispatch(params.communityid ? +params.communityid : 0);
+  }, [params.communityid]);
 
   const display = useMemo(
     () => !(single && path === routes.questions(':communityid')),
@@ -252,16 +232,15 @@ export const Questions = ({
             profileInfo={profile}
           />
 
-          {!!+questionFilterFromCookies &&
-            !displayLoader && (
-              <div className="d-flex justify-content-center mb-3">
-                <ShowMoreButton
-                  questionFilterFromCookies={questionFilterFromCookies}
-                >
-                  {translationMessages[locale][messages.showAllQuestions.id]}
-                </ShowMoreButton>
-              </div>
-            )}
+          {!!+questionFilterFromCookies && !displayLoader && (
+            <div className="d-flex justify-content-center mb-3">
+              <ShowMoreButton
+                questionFilterFromCookies={questionFilterFromCookies}
+              >
+                {translationMessages[locale][messages.showAllQuestions.id]}
+              </ShowMoreButton>
+            </div>
+          )}
         </InfinityLoader>
       )}
       {displayLoader && <LoadingIndicator />}
@@ -328,7 +307,7 @@ export default compose(
         questionsSelector.isLastTopQuestionLoadedSelector,
       promotedQuestions: questionsSelector.selectPromotedQuestions(),
     }),
-    dispatch => ({
+    (dispatch) => ({
       setTypeFilterDispatch: bindActionCreators(setTypeFilter, dispatch),
       setCreatedFilterDispatch: bindActionCreators(setCreatedFilter, dispatch),
       getQuestionsDispatch: bindActionCreators(getQuestions, dispatch),

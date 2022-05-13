@@ -124,8 +124,10 @@ export default {
   selectedAccountProcessing: selectedAccountProcessingSelector(),
   selectSendTipsProcessing: selectSendTipsProcessing(),
   selectPinActionProcessing: selectTopQuestionActionProcessing(),
-  selectGetConfirmTelegramAccountProcessing: selectGetConfirmTelegramAccountProcessing(),
-  selectGetUnlinkTelegramAccountProcessing: selectGetUnlinkTelegramAccountProcessing(),
+  selectGetConfirmTelegramAccountProcessing:
+    selectGetConfirmTelegramAccountProcessing(),
+  selectGetUnlinkTelegramAccountProcessing:
+    selectGetUnlinkTelegramAccountProcessing(),
   selectChangeStakeLoading: selectChangeStakeLoading(),
   selectDelFbDataProcessing: selectDelFbDataProcessing(),
 };

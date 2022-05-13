@@ -23,12 +23,12 @@ export function initializeAppInFB() {
 }
 
 export const logInUserOnFacebook = (onSuccessCallBack, onErrorCallBack) => {
-  window.FB.getLoginStatus(response => {
+  window.FB.getLoginStatus((response) => {
     if (response.status === 'connected') {
       fbGraph(onSuccessCallBack, response.authResponse);
     } else {
       window.FB.login(
-        loginResponse => {
+        (loginResponse) => {
           if (loginResponse.status === 'connected') {
             fbGraph(onSuccessCallBack, loginResponse.authResponse);
           } else {
@@ -49,7 +49,7 @@ function fbGraph(onSuccessCallBack, authResponse) {
     '/me',
     'GET',
     { fields: 'id,name,email,picture' },
-    fbGraphResponse => {
+    (fbGraphResponse) => {
       onSuccessCallBack({ ...authResponse, ...fbGraphResponse });
     },
   );

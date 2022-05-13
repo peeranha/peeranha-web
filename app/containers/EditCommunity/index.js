@@ -11,8 +11,6 @@ import { translationMessages } from 'i18n';
 import { createStructuredSelector } from 'reselect';
 import { compose, bindActionCreators } from 'redux';
 
-import { useModeratorRole } from '../../hooks/useModeratorRole';
-
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 import Seo from 'components/Seo';
 import TipsBase from 'components/Base/TipsBase';
@@ -31,13 +29,10 @@ import Tips from 'containers/CreateCommunity/Tips';
 
 import { noAccess as noAccessRoute } from 'routes-config';
 
-import {
-  getPermissions,
-  hasCommunityModeratorRole,
-  hasGlobalModeratorRole,
-} from 'utils/properties';
+import { getPermissions, hasGlobalModeratorRole } from 'utils/properties';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import { useModeratorRole } from '../../hooks/useModeratorRole';
 
 import Form from './Form';
 
@@ -69,12 +64,9 @@ const EditCommunity = ({
 
   const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
 
-  useEffect(
-    () => {
-      getCommunityDispatch(communityId);
-    },
-    [communityId],
-  );
+  useEffect(() => {
+    getCommunityDispatch(communityId);
+  }, [communityId]);
 
   const formData = useMemo(
     () => ({
@@ -137,7 +129,7 @@ const withConnect = connect(
     locale: makeSelectLocale(),
     profileInfo: makeSelectProfileInfo(),
   }),
-  dispatch => ({
+  (dispatch) => ({
     editCommunityDispatch: bindActionCreators(editCommunity, dispatch),
     getCommunityDispatch: bindActionCreators(getCommunity, dispatch),
   }),

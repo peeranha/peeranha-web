@@ -8,12 +8,7 @@ import {
   TEXT_PREMIUM,
   BORDER_RADIUS_M,
   BG_PREMIUM_LIGHT,
-  PRIMARY_SPECIAL,
-  BORDER_PRIMARY_DARK,
-  APP_FONT,
   TEXT_DARK,
-  BORDER_PRIMARY,
-  ICON_TRASPARENT_BLUE,
   TEXT_PRIMARY,
   BG_TRANSPARENT,
   BORDER_TRANSPARENT,
@@ -24,22 +19,14 @@ import {
 
 import Container from 'components/Labels/QuestionType';
 
-import Popover from './Popover';
-import { POST_TYPE } from '../../../../utils/constants';
-
 import expertIcon from 'images/hat-3-outline-24.svg?external';
 import generalIcon from 'images/comments-outline-24.svg?external';
 import tutorialIcon from 'images/tutorial.svg?external';
+import { POST_TYPE } from '../../../../utils/constants';
+import Popover from './Popover';
 
 import { IconLg } from '../../../../components/Icon/IconWithSizes';
-import A from '../../../../components/A';
-import { BasicLink } from '../../../LeftMenu/Styles';
 import { svgDraw } from '../../../../components/Icon/IconStyled';
-import {
-  singleCommunityColors,
-  singleCommunityFonts,
-  singleCommunityStyles,
-} from '../../../../utils/communityManagement';
 
 const LabelsWrapper = styled.div`
   display: inline-flex;
@@ -70,10 +57,10 @@ const opacity = ({ isExpert, isTutorial }) =>
     fill: ${TEXT_PRIMARY} !important;
   }`
     : isTutorial
-      ? `.opacity {
+    ? `.opacity {
     fill: ${TUTORIAL_BACKLIGHT} !important;
   }`
-      : `.opacity {
+    : `.opacity {
      fill: none !important;
    }`;
 
@@ -88,8 +75,8 @@ const Icon = styled(IconLg)`
       color: isTutorial
         ? TUTORIAL_ICON_COLOR
         : isExpert
-          ? TEXT_PRIMARY
-          : TEXT_DARK,
+        ? TEXT_PRIMARY
+        : TEXT_DARK,
     })};
   background-color: ${BG_TRANSPARENT};
   border-color: ${BORDER_TRANSPARENT};
@@ -167,7 +154,7 @@ const QuestionType = ({ locale, postType, isPromoted, isExpert }) => {
                 items={commonMessages.tutorialPopoverList.id}
               />
             )}
-            <Icon isTutorial={true} className="mr-2" icon={tutorialIcon} />
+            <Icon isTutorial className="mr-2" icon={tutorialIcon} />
           </Container>
         </LabelItem>
       )}

@@ -1,26 +1,20 @@
 import { saveText } from './ipfs';
 
-import {
-  ACCOUNT_TABLE,
-  ALL_ACCOUNTS_SCOPE,
-  NO_AVATAR,
-  UPDATE_ACC,
-  INVITE_USER,
-  KEY_LAST_RATING_UPDATE_TIME,
-} from './constants';
+import { ACCOUNT_TABLE, ALL_ACCOUNTS_SCOPE, INVITE_USER } from './constants';
 
 import { ApplicationError } from './errors';
-import { dateNowInSeconds } from './datetime';
 import { IS_USER_EXISTS, REGISTER_ACC } from './ethConstants';
 
-export const emptyProfile = account => ({
+export const emptyProfile = (account) => ({
   achievementsReached: [],
   answersGiven: 0,
   avatar: undefined,
   balance: 0,
   boost: null,
   creationTime: 0,
-  displayName: `${account.substring(0, 6)}...${account.substring(account.length-4)}`,
+  displayName: `${account.substring(0, 6)}...${account.substring(
+    account.length - 4,
+  )}`,
   followedCommunities: [],
   highestRating: 0,
   id: account,
@@ -35,14 +29,13 @@ export const emptyProfile = account => ({
   user: account,
 });
 
-export const isUserExists = async (userAddress, ethereumService) => {
-  return await ethereumService.getDataWithArgs(IS_USER_EXISTS, [userAddress]);
-};
+export const isUserExists = async (userAddress, ethereumService) =>
+  ethereumService.getDataWithArgs(IS_USER_EXISTS, [userAddress]);
 
-export const updateAcc = async (profile, ethereumService) => {
+export const updateAcc = async (profile) => {
   if (!profile) throw new ApplicationError('No profile');
 
-  const currentTime = dateNowInSeconds();
+  // const currentTime = dateNowInSeconds();
   // const currentPeriod = Math.floor(
   //   (currentTime - profile.creationTime) /
   //     process.env.ACCOUNT_STAT_RESET_PERIOD,
@@ -105,7 +98,7 @@ export const inviteUser = async (accountName, referralCode, eosService) => {
   );
 };
 
-export const checkUserURL = user => {
+export const checkUserURL = (user) => {
   const path = document.location.pathname.split('/');
   const userInURL = path[1] === 'users' ? path[2] : undefined;
   return userInURL ? userInURL === user : true;

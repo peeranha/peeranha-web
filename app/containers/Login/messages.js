@@ -64,7 +64,7 @@ const messages = defineMessages({
   },
 });
 
-export const getAccountNotSelectedMessageDescriptor = isExtension =>
+export const getAccountNotSelectedMessageDescriptor = (isExtension) =>
   isExtension
     ? messages[SCATTER_BROWSER_EXTENSION_NOT_CONFIGURED]
     : messages[USER_IS_NOT_SELECTED];

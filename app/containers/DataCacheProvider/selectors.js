@@ -16,63 +16,61 @@ const styles = singleCommunityStyles();
  * Direct selector to the dataCacheProvider state domain
  */
 
-const selectDataCacheProviderDomain = state =>
+const selectDataCacheProviderDomain = (state) =>
   state.get('dataCacheProvider', initialState).toJS();
 
 const selectCommunities = () =>
   createSelector(
     selectDataCacheProviderDomain,
-    substate => substate.communities,
+    (substate) => substate.communities,
   );
 
 const selectCommunitiesLoading = () =>
   createSelector(
     selectDataCacheProviderDomain,
-    substate => substate.communitiesLoading,
+    (substate) => substate.communitiesLoading,
   );
 
 const selectGetCommunitiesWithTagsError = () =>
   createSelector(
     selectDataCacheProviderDomain,
-    substate => substate.getCommunitiesWithTagsError,
+    (substate) => substate.getCommunitiesWithTagsError,
   );
 
-const selectUsers = address =>
-  createSelector(
-    selectDataCacheProviderDomain,
-    substate =>
-      address !== undefined ? substate.users[address] : substate.users,
+const selectUsers = (address) =>
+  createSelector(selectDataCacheProviderDomain, (substate) =>
+    address !== undefined ? substate.users[address] : substate.users,
   );
 
 const selectUsersLoading = () =>
   createSelector(
     selectDataCacheProviderDomain,
-    substate => substate.usersLoading,
+    (substate) => substate.usersLoading,
   );
 
 const selectGetUserProfileError = () =>
   createSelector(
     selectDataCacheProviderDomain,
-    substate => substate.getUserProfileError,
+    (substate) => substate.getUserProfileError,
   );
 
 const selectStat = () =>
-  createSelector(selectDataCacheProviderDomain, substate => substate.stat);
+  createSelector(selectDataCacheProviderDomain, (substate) => substate.stat);
 
 const selectStatLoading = () =>
   createSelector(
     selectDataCacheProviderDomain,
-    substate => substate.statLoading,
+    (substate) => substate.statLoading,
   );
 
 const selectStatError = () =>
   createSelector(
     selectDataCacheProviderDomain,
-    substate => substate.getStatError,
+    (substate) => substate.getStatError,
   );
 
 const selectFaq = () =>
-  createSelector(selectDataCacheProviderDomain, substate => substate.faq);
+  createSelector(selectDataCacheProviderDomain, (substate) => substate.faq);
 
 /**
  *
@@ -80,13 +78,13 @@ const selectFaq = () =>
  */
 
 /* eslint array-callback-return: 0, consistent-return: 0 */
-const selectFaqQuestions = questionsIndexes =>
-  createSelector(selectDataCacheProviderDomain, substate => {
+const selectFaqQuestions = (questionsIndexes) =>
+  createSelector(selectDataCacheProviderDomain, (substate) => {
     const { faq } = substate;
 
     if (faq) {
       return questionsIndexes
-        .map(x => {
+        .map((x) => {
           const [sectionIndex, questionIndex] = x.split('.');
           const section = faq.blocks[sectionIndex];
 
@@ -112,7 +110,7 @@ const selectFaqQuestions = questionsIndexes =>
             );
           }
         })
-        .filter(x => x);
+        .filter((x) => x);
     }
 
     return null;
@@ -121,76 +119,79 @@ const selectFaqQuestions = questionsIndexes =>
 const selectGetFaqError = () =>
   createSelector(
     selectDataCacheProviderDomain,
-    substate => substate.getFaqError,
+    (substate) => substate.getFaqError,
   );
 
 const selectGetFaqLoading = () =>
   createSelector(
     selectDataCacheProviderDomain,
-    substate => substate.getFaqLoading,
+    (substate) => substate.getFaqLoading,
   );
 
 const selectTutorial = () =>
-  createSelector(selectDataCacheProviderDomain, substate => substate.tutorial);
+  createSelector(
+    selectDataCacheProviderDomain,
+    (substate) => substate.tutorial,
+  );
 
 const selectGetTutorialError = () =>
   createSelector(
     selectDataCacheProviderDomain,
-    substate => substate.getTutorialError,
+    (substate) => substate.getTutorialError,
   );
 
 const selectGetTutorialLoading = () =>
   createSelector(
     selectDataCacheProviderDomain,
-    substate => substate.getTutorialLoading,
+    (substate) => substate.getTutorialLoading,
   );
 
-const selectUserRatingDCP = user =>
+const selectUserRatingDCP = (user) =>
   createSelector(
     selectDataCacheProviderDomain,
-    substate => substate?.users[user].rating,
+    (substate) => substate?.users[user].rating,
   );
 
-const selectQuestionsAskedValue = user =>
+const selectQuestionsAskedValue = (user) =>
   createSelector(
     selectDataCacheProviderDomain,
-    substate => substate?.users[user].postCount,
+    (substate) => substate?.users[user].postCount,
   );
 
-const selectAnswersGivenValue = user =>
+const selectAnswersGivenValue = (user) =>
   createSelector(
     selectDataCacheProviderDomain,
-    substate => substate?.users[user].answersGiven,
+    (substate) => substate?.users[user].answersGiven,
   );
 
-const selectBestAnswersValue = user =>
+const selectBestAnswersValue = (user) =>
   createSelector(
     selectDataCacheProviderDomain,
-    substate => substate?.users[user].correct_answers,
+    (substate) => substate?.users[user].correct_answers,
   );
 
-const selectFirstIn15AnswersValue = user =>
-  createSelector(selectDataCacheProviderDomain, substate => {
+const selectFirstIn15AnswersValue = (user) =>
+  createSelector(selectDataCacheProviderDomain, (substate) => {
     const answersIn15Data = substate?.users[user]?.integer_properties
-      ? substate.users[user].integer_properties.find(el => el.key === 12)
+      ? substate.users[user].integer_properties.find((el) => el.key === 12)
       : null;
     const answersIn15Value = answersIn15Data ? answersIn15Data.value : 0;
     return answersIn15Value;
   });
 
-const selectFirstAnswersValue = user =>
-  createSelector(selectDataCacheProviderDomain, substate => {
+const selectFirstAnswersValue = (user) =>
+  createSelector(selectDataCacheProviderDomain, (substate) => {
     const firstAnswersData = substate?.users[user]?.integer_properties
-      ? substate.users[user].integer_properties.find(el => el.key === 13)
+      ? substate.users[user].integer_properties.find((el) => el.key === 13)
       : null;
     const firstAnswersValue = firstAnswersData ? firstAnswersData.value : 0;
     return firstAnswersValue;
   });
 
-const selectUserAchievementsDCP = userAccount =>
+const selectUserAchievementsDCP = (userAccount) =>
   createSelector(
     selectDataCacheProviderDomain,
-    substate => substate.users[userAccount]?.achievementsReached,
+    (substate) => substate.users[userAccount]?.achievementsReached,
   );
 
 export {

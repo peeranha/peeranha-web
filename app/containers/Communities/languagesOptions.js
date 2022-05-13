@@ -8,7 +8,7 @@ const languagesOptions = {
   },
 };
 
-appLocales.forEach(x => {
+appLocales.forEach((x) => {
   languagesOptions[x] = {
     message: messages[x],
     sortBy: x,

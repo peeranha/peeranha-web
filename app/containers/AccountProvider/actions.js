@@ -34,7 +34,7 @@ export const getCurrentAccountSuccess = (
   boost,
 });
 
-export const getCurrentAccountError = err => ({
+export const getCurrentAccountError = (err) => ({
   type: GET_CURRENT_ACCOUNT_ERROR,
   err,
 });
@@ -43,17 +43,17 @@ export const updateAccSuccess = () => ({
   type: UPDATE_ACC_SUCCESS,
 });
 
-export const updateAccErr = updateAccError => ({
+export const updateAccErr = (updateAccError) => ({
   type: UPDATE_ACC_ERROR,
   updateAccError,
 });
 
-export const rewardReferErr = rewardReferError => ({
+export const rewardReferErr = (rewardReferError) => ({
   type: REWARD_REFER_ERROR,
   rewardReferError,
 });
 
-export const addLoginData = data => ({
+export const addLoginData = (data) => ({
   type: ADD_LOGIN_DATA,
   ...data,
 });

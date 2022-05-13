@@ -38,16 +38,9 @@ function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   };
 }
 
-const withConnect = connect(
-  null,
-  mapDispatchToProps,
-);
+const withConnect = connect(null, mapDispatchToProps);
 
 const withReducer = injectReducer({ key: 'logout', reducer });
 const withSaga = injectSaga({ key: 'logout', saga, mode: DAEMON });
 
-export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
-)(Logout);
+export default compose(withReducer, withSaga, withConnect)(Logout);

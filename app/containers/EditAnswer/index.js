@@ -47,15 +47,12 @@ const EditAnswer = ({
   getAnswerDispatch,
   editAnswerDispatch,
 }) => {
-  useEffect(
-    () => {
-      getAnswerDispatch(+questionid, +answerid);
-    },
-    [questionid, answerid],
-  );
+  useEffect(() => {
+    getAnswerDispatch(+questionid, +answerid);
+  }, [questionid, answerid]);
 
   const sendAnswer = useCallback(
-    values =>
+    (values) =>
       editAnswerDispatch(
         values.get(TEXT_EDITOR_ANSWER_FORM),
         +questionid,
@@ -160,7 +157,7 @@ export default compose(
       editAnswerLoading: selectEditAnswerLoading(),
       profile: makeSelectProfileInfo(),
     }),
-    dispatch => ({
+    (dispatch) => ({
       getAnswerDispatch: bindActionCreators(getAnswer, dispatch),
       editAnswerDispatch: bindActionCreators(editAnswer, dispatch),
     }),

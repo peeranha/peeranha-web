@@ -9,9 +9,9 @@ import TextBlock from 'components/FormFields/TextBlock';
 import TextEditorField from 'components/FormFields/TextEditorField';
 
 import commonMessages from 'common-messages';
+import { TEXT_SECONDARY } from 'style-constants';
 import messages from './messages';
 
-import { TEXT_SECONDARY } from 'style-constants';
 import { FORM_CONTENT } from './constants';
 
 import { PreviewWrapper } from '../AnswerForm';

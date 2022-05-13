@@ -17,22 +17,18 @@ import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import H3 from 'components/H3';
 import Seo from 'components/Seo';
 import Header from 'components/Header/Simple';
-import Base from 'components/Base/BaseRounded';
 import { MediumImageStyled } from 'components/Img/MediumImage';
-import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 
 import reducer from './reducer';
 import saga from './saga';
 
 import { selectItems, selectGetResultsProcessing } from './selectors';
 import { getResults } from './actions';
-import Item from './Item';
 
 import messages from './messages';
 import Content from '../Questions/Content/Content';
 import { selectCommunities } from '../DataCacheProvider/selectors';
 import InfinityLoader from '../../components/InfinityLoader';
-import ShowMoreButton from '../Questions/Content/ShowMoreButton';
 
 const Search = ({
   match,
@@ -43,14 +39,11 @@ const Search = ({
   communities,
 }) => {
   const query = match.params.q;
-  useEffect(
-    () => {
-      if (query) {
-        getResultsDispatch(query);
-      }
-    },
-    [getResultsDispatch, query],
-  );
+  useEffect(() => {
+    if (query) {
+      getResultsDispatch(query);
+    }
+  }, [getResultsDispatch, query]);
 
   return (
     <div>
@@ -90,12 +83,12 @@ const Search = ({
         </InfinityLoader>
       )}
 
-      {/*  <div>*/}
-      {/*    {getResultsProcessing && <LoadingIndicator />}*/}
-      {/*    {!getResultsProcessing &&*/}
-      {/*      !items.length && <FormattedMessage {...commonMessages.noResults} />}*/}
-      {/*  </div>*/}
-      {/*</Base>*/}
+      {/*  <div> */}
+      {/*    {getResultsProcessing && <LoadingIndicator />} */}
+      {/*    {!getResultsProcessing && */}
+      {/*      !items.length && <FormattedMessage {...commonMessages.noResults} />} */}
+      {/*  </div> */}
+      {/* </Base> */}
     </div>
   );
 };
@@ -118,7 +111,7 @@ export default compose(
       getResultsProcessing: selectGetResultsProcessing(),
       locale: makeSelectLocale(),
     }),
-    dispatch => ({
+    (dispatch) => ({
       getResultsDispatch: bindActionCreators(getResults, dispatch),
     }),
   ),

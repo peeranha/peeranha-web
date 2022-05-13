@@ -18,7 +18,7 @@ const borderTopLeftRadius = ({ bordered, topRightRadius, withoutBR }) =>
 const borderTopRightRadius = ({ bordered, bottomRightRadius, withoutBR }) =>
   (bordered || bottomRightRadius) && !withoutBR ? BORDER_RADIUS_L : 'none';
 
-const borderForTutorial = isTutorial =>
+const borderForTutorial = (isTutorial) =>
   isTutorial ? BORDER_TUTORIAL : BORDER_PRIMARY;
 
 const Base = styled.div`
@@ -58,27 +58,27 @@ const Base = styled.div`
     border-radius: 0;
   }
 
-  ${x =>
+  ${(x) =>
     x.position === 'top'
       ? `border-top-left-radius: ${BORDER_RADIUS_L}; border-top-right-radius: ${BORDER_RADIUS_L}; border-bottom: 1px solid ${BORDER_SECONDARY};`
       : ''}
 
-  ${x =>
+  ${(x) =>
     x.position === 'bottom'
       ? `border-bottom-left-radius: ${BORDER_RADIUS_L}; border-bottom-right-radius: ${BORDER_RADIUS_L}; box-shadow: 0 2px 2px 0 ${SECONDARY_SPECIAL_2};`
       : ''}
 
-  ${x =>
+  ${(x) =>
     x.position === 'left'
       ? `border-top-left-radius: ${BORDER_RADIUS_L}; border-bottom-left-radius: ${BORDER_RADIUS_L}; box-shadow: 0 2px 2px 0 ${SECONDARY_SPECIAL_2}; border-right: 1px solid ${BORDER_SECONDARY};`
       : ''}
 
-  ${x =>
+  ${(x) =>
     x.position === 'right'
       ? `border-top-right-radius: ${BORDER_RADIUS_L}; border-bottom-right-radius: ${BORDER_RADIUS_L}; box-shadow: 0 2px 2px 0 ${SECONDARY_SPECIAL_2};`
       : ''}
 
-  ${x => (x.position === 'middle' ? `border-bottom: none;` : '')}
+  ${(x) => (x.position === 'middle' ? `border-bottom: none;` : '')}
 `;
 
 export default Base;

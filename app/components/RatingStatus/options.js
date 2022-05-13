@@ -1,7 +1,5 @@
 import bannedSm from 'images/bannedSm.svg?external';
 import strangerSm from 'images/strangerSm.svg?external';
-import newbieSm from 'images/newbieSm.svg?external';
-import jrResidentSm from 'images/jrResidentSm.svg?external';
 import residentSm from 'images/residentSm.svg?external';
 import srResidentSm from 'images/srResidentSm.svg?external';
 import heroResidentSm from 'images/heroResidentSm.svg?external';

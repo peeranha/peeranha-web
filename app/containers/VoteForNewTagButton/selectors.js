@@ -5,35 +5,35 @@ import { initialState } from './reducer';
  * Direct selector to the suggestedCommunities state domain
  */
 
-const selectVoteForNewTagButtonDomain = state =>
+const selectVoteForNewTagButtonDomain = (state) =>
   state.get('voteForNewTagButton', initialState).toJS();
 
 const selectUpVoteLoading = () =>
   createSelector(
     selectVoteForNewTagButtonDomain,
-    substate => substate.upVoteLoading,
+    (substate) => substate.upVoteLoading,
   );
 
 const selectUpVoteError = () =>
   createSelector(
     selectVoteForNewTagButtonDomain,
-    substate => substate.upVoteError,
+    (substate) => substate.upVoteError,
   );
 
 const selectDownVoteLoading = () =>
   createSelector(
     selectVoteForNewTagButtonDomain,
-    substate => substate.downVoteLoading,
+    (substate) => substate.downVoteLoading,
   );
 
 const selectDownVoteError = () =>
   createSelector(
     selectVoteForNewTagButtonDomain,
-    substate => substate.downVoteError,
+    (substate) => substate.downVoteError,
   );
 
 const selectIds = () =>
-  createSelector(selectVoteForNewTagButtonDomain, substate => [
+  createSelector(selectVoteForNewTagButtonDomain, (substate) => [
     ...substate.ids,
   ]);
 

@@ -22,43 +22,35 @@ const PaidOutWeeksContainer = ({
 }) => {
   const [width, setWidth] = useState(0);
 
-  const rowRenderer = ({ key, parent, index, style }) => {
-    return (
-      <CellMeasurer
-        key={key}
-        cache={cache}
-        columnIndex={0}
-        parent={parent}
-        rowIndex={index}
-      >
-        <PaidOutWeek
-          pickupRewardDispatch={pickupRewardDispatch}
-          pickupRewardProcessing={pickupRewardProcessing}
-          locale={locale}
-          ids={ids}
-          {...weekStat[index]}
-          style={style}
-          registrationWeek={index === weekStat.length - 1}
-        />
-      </CellMeasurer>
-    );
-  };
-
-  const onResize = useCallback(
-    () => {
-      setWidth(containerRef.current?.getBoundingClientRect().width ?? 0);
-      cache.clearAll();
-    },
-    [containerRef],
+  const rowRenderer = ({ key, parent, index, style }) => (
+    <CellMeasurer
+      key={key}
+      cache={cache}
+      columnIndex={0}
+      parent={parent}
+      rowIndex={index}
+    >
+      <PaidOutWeek
+        pickupRewardDispatch={pickupRewardDispatch}
+        pickupRewardProcessing={pickupRewardProcessing}
+        locale={locale}
+        ids={ids}
+        {...weekStat[index]}
+        style={style}
+        registrationWeek={index === weekStat.length - 1}
+      />
+    </CellMeasurer>
   );
 
-  useEffect(
-    () => {
-      setWidth(containerRef.current?.getBoundingClientRect().width ?? 0);
-      onResize();
-    },
-    [containerRef.current, weekStat?.length, onResize],
-  );
+  const onResize = useCallback(() => {
+    setWidth(containerRef.current?.getBoundingClientRect().width ?? 0);
+    cache.clearAll();
+  }, [containerRef]);
+
+  useEffect(() => {
+    setWidth(containerRef.current?.getBoundingClientRect().width ?? 0);
+    onResize();
+  }, [containerRef.current, weekStat?.length, onResize]);
 
   return (
     <WindowScroller onResize={onResize}>

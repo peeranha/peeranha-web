@@ -214,7 +214,7 @@ export function* sendTipsNotificationWorker({
     let attempts = 1;
     while (attempts <= MAX_NOTIFICAT_ATTEMPTS) {
       // delay before notifications tips service call
-      yield new Promise(res => {
+      yield new Promise((res) => {
         setTimeout(() => {
           res();
         }, 2000);

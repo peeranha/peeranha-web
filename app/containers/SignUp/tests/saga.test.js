@@ -1,4 +1,4 @@
-import { select, call } from 'redux-saga/effects';
+import {select, call} from 'redux-saga/effects';
 
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
@@ -9,11 +9,6 @@ import {
   registerComplete,
 } from 'utils/web_integration/src/wallet/register/register';
 
-import EosioService from 'utils/eosio';
-import { registerAccount } from 'utils/accountManagement';
-import { getProfileInfo } from 'utils/profileManagement';
-import { INIT_EOSIO_SUCCESS } from 'containers/EosioProvider/constants';
-
 import {
   EMAIL_FIELD as EMAIL_LOGIN_FIELD,
   PASSWORD_FIELD as PASSWORD_LOGIN_FIELD,
@@ -21,15 +16,12 @@ import {
 
 import {
   loginWithEmailWorker,
-  loginWithScatterWorker,
 } from 'containers/Login/saga';
 
 import defaultSaga, {
   emailCheckingWorker,
   verifyEmailWorker,
   signUpComplete,
-  signUpWithScatterWorker,
-  showScatterSignUpFormWorker,
 } from '../saga';
 
 import {
@@ -39,28 +31,18 @@ import {
   EMAIL_VERIFICATION,
   EMAIL_VERIFICATION_SUCCESS,
   EMAIL_VERIFICATION_ERROR,
-  EOS_ACTIVE_PRIVATE_KEY_FIELD,
-  EOS_OWNER_PRIVATE_KEY_FIELD,
   MASTER_KEY_FIELD,
   PASSWORD_FIELD,
-  STORE_KEY_FIELD,
   SIGN_UP_VIA_EMAIL,
   SIGN_UP_VIA_EMAIL_SUCCESS,
   SIGN_UP_VIA_EMAIL_ERROR,
   WHY_DO_YOU_LIKE_US_FIELD,
-  EOS_ACCOUNT_FIELD,
-  DISPLAY_NAME_FIELD,
-  SIGNUP_WITH_SCATTER,
-  SIGNUP_WITH_SCATTER_SUCCESS,
-  SIGNUP_WITH_SCATTER_ERROR,
-  SHOW_SCATTER_SIGNUP_FORM,
-  SHOW_SCATTER_SIGNUP_FORM_SUCCESS,
-  SHOW_SCATTER_SIGNUP_FORM_ERROR,
   ACCOUNT_NOT_CREATED_NAME,
 } from '../constants';
 
 jest.mock('redux-saga/effects', () => ({
-  select: jest.fn().mockImplementation(() => {}),
+  select: jest.fn().mockImplementation(() => {
+  }),
   call: jest.fn().mockImplementation((x, ...args) => x(...args)),
   put: jest.fn().mockImplementation(res => res),
   takeLatest: jest.fn().mockImplementation(res => res),
@@ -68,7 +50,6 @@ jest.mock('redux-saga/effects', () => ({
 
 jest.mock('containers/Login/saga', () => ({
   loginWithEmailWorker: jest.fn(),
-  loginWithScatterWorker: jest.fn(),
 }));
 
 jest.mock('utils/web_integration/src/wallet/register/register', () => ({
@@ -109,181 +90,6 @@ beforeEach(() => {
   eosService.selectAccount.mockClear();
 });
 
-describe('showScatterSignUpFormWorker', () => {
-  const locale = 'en';
-
-  describe('scatter is not installed', () => {
-    const generator = showScatterSignUpFormWorker();
-
-    EosioService.mockClear();
-    EosioService.mockImplementation(() => eosService);
-
-    it('select @locale', () => {
-      select.mockImplementation(() => locale);
-      const step = generator.next();
-      expect(step.value).toEqual(locale);
-    });
-
-    it('eosService initialization', () => {
-      eosService.scatterInstalled = false;
-      EosioService.mockImplementation(() => eosService);
-
-      generator.next(locale);
-      expect(eosService.init).toHaveBeenLastCalledWith(null, true);
-    });
-
-    it('put @eosServise to store', () => {
-      const step = generator.next();
-      expect(step.value.type).toBe(INIT_EOSIO_SUCCESS);
-    });
-
-    it('scatter is not installed', () => {
-      const step = generator.next();
-      expect(step.value.type).toBe(SHOW_SCATTER_SIGNUP_FORM_ERROR);
-    });
-  });
-
-  describe('scatter account is not selected', () => {
-    const account = null;
-
-    const generator = showScatterSignUpFormWorker();
-
-    EosioService.mockClear();
-    EosioService.mockImplementation(() => eosService);
-
-    generator.next();
-    generator.next(locale);
-    generator.next();
-
-    it('forgetIdentity', () => {
-      eosService.scatterInstalled = true;
-      eosService.selectedScatterAccount = null;
-      EosioService.mockImplementation(() => eosService);
-
-      expect(eosService.forgetIdentity).toHaveBeenCalledTimes(0);
-      generator.next();
-      expect(eosService.forgetIdentity).toHaveBeenCalledTimes(1);
-    });
-
-    it('select account', () => {
-      expect(eosService.selectAccount).toHaveBeenCalledTimes(0);
-      generator.next();
-      expect(eosService.selectAccount).toHaveBeenCalledTimes(1);
-    });
-
-    it('handling error: user is not selected', () => {
-      const step = generator.next(account);
-      expect(step.value.type).toBe(SHOW_SCATTER_SIGNUP_FORM_ERROR);
-    });
-  });
-
-  describe('user is already registered in Peeranha, showScatterSignUpFormSuccess FAILED', () => {
-    const account = 'account';
-    const profileInfo = { account };
-
-    const generator = showScatterSignUpFormWorker();
-
-    eosService.scatterInstalled = true;
-    eosService.selectedScatterAccount = null;
-
-    EosioService.mockClear();
-    EosioService.mockImplementation(() => eosService);
-
-    generator.next();
-    generator.next(locale);
-    generator.next();
-    generator.next();
-    generator.next();
-
-    it('getting of profileInfo', () => {
-      generator.next(account);
-      expect(getProfileInfo).toHaveBeenCalledWith(account, eosService);
-    });
-
-    it('error handling', () => {
-      const step = generator.next(profileInfo);
-      expect(step.value.type).toBe(SHOW_SCATTER_SIGNUP_FORM_ERROR);
-    });
-  });
-
-  describe('user is not IN system, SUCCESS showScatterSignUpFormSuccess', () => {
-    const account = 'account';
-    const profileInfo = null;
-
-    const generator = showScatterSignUpFormWorker();
-
-    eosService.scatterInstalled = true;
-    eosService.selectedScatterAccount = null;
-
-    EosioService.mockClear();
-    EosioService.mockImplementation(() => eosService);
-
-    generator.next();
-    generator.next(locale);
-    generator.next();
-    generator.next();
-    generator.next();
-    generator.next(account);
-    generator.next(profileInfo);
-
-    it('showScatterSignUpFormSuccess', () => {
-      const step = generator.next();
-      expect(step.value.type).toBe(SHOW_SCATTER_SIGNUP_FORM_SUCCESS);
-    });
-
-    it('redirection', () => {
-      generator.next();
-      expect(createdHistory.push).toHaveBeenCalledWith(
-        routes.signup.displayName.name,
-      );
-    });
-  });
-});
-
-describe('signUpWithScatterWorker', () => {
-  const eosAccount = 'account';
-  const displayName = 'displayName';
-
-  const val = {
-    [EOS_ACCOUNT_FIELD]: eosAccount,
-    [DISPLAY_NAME_FIELD]: displayName,
-  };
-
-  const generator = signUpWithScatterWorker({ val });
-
-  it('select @eosService', () => {
-    select.mockImplementation(() => eosService);
-    const step = generator.next();
-    expect(step.value).toEqual(eosService);
-  });
-
-  it('registerAccount', () => {
-    expect(registerAccount).toHaveBeenCalledTimes(0);
-    generator.next();
-    expect(registerAccount).toHaveBeenCalledTimes(1);
-  });
-
-  it('loginWithScatterWorker', () => {
-    generator.next();
-    expect(call).toHaveBeenCalledWith(loginWithScatterWorker);
-  });
-
-  it('signUpWithScatterSuccess', () => {
-    const step = generator.next();
-    expect(step.value.type).toEqual(SIGNUP_WITH_SCATTER_SUCCESS);
-  });
-
-  it('redirection', () => {
-    generator.next();
-    expect(createdHistory.push).toHaveBeenCalledWith(routes.questions());
-  });
-
-  it('error handling', () => {
-    const step = generator.throw('new error');
-    expect(step.value.type).toEqual(SIGNUP_WITH_SCATTER_ERROR);
-  });
-});
-
 describe('idontHaveEosAccountWorker', () => {
   const email = 'email';
   const locale = 'en';
@@ -315,7 +121,7 @@ describe('idontHaveEosAccountWorker', () => {
       errorCode: 1,
     };
 
-    const generator = signUpComplete({ val });
+    const generator = signUpComplete({val});
 
     it('select @locale', () => {
       select.mockImplementation(() => locale);
@@ -367,7 +173,7 @@ describe('idontHaveEosAccountWorker', () => {
       },
     };
 
-    const generator = signUpComplete({ val });
+    const generator = signUpComplete({val});
 
     registerComplete.mockImplementation(() => response);
 
@@ -406,7 +212,7 @@ describe('idontHaveEosAccountWorker', () => {
       },
     };
 
-    const generator = signUpComplete({ val });
+    const generator = signUpComplete({val});
 
     registerComplete.mockImplementation(() => response);
 
@@ -437,7 +243,7 @@ describe('verifyEmailWorker', () => {
       errorCode: 1,
     };
 
-    const generator = verifyEmailWorker({ verificationCode });
+    const generator = verifyEmailWorker({verificationCode});
 
     it('select @email', () => {
       select.mockImplementation(() => email);
@@ -473,10 +279,10 @@ describe('verifyEmailWorker', () => {
     const response = {
       OK: true,
       errorCode: 1,
-      body: { encryptionKey },
+      body: {encryptionKey},
     };
 
-    const generator = verifyEmailWorker({ verificationCode });
+    const generator = verifyEmailWorker({verificationCode});
 
     registerConfirmEmail.mockImplementation(() => response);
 
@@ -509,7 +315,7 @@ describe('emailCheckingWorker', () => {
       errorCode: 1,
     };
 
-    const generator = emailCheckingWorker({ email });
+    const generator = emailCheckingWorker({email});
 
     it('select @locale', () => {
       select.mockImplementation(() => locale);
@@ -536,7 +342,7 @@ describe('emailCheckingWorker', () => {
       errorCode: 1,
     };
 
-    const generator = emailCheckingWorker({ email });
+    const generator = emailCheckingWorker({email});
 
     registerInit.mockImplementation(() => response);
 
@@ -573,15 +379,5 @@ describe('defaultSaga', () => {
   it('I_HAVE_NOT_EOS_ACCOUNT', () => {
     const step = generator.next();
     expect(step.value).toBe(SIGN_UP_VIA_EMAIL);
-  });
-
-  it('SIGNUP_WITH_SCATTER', () => {
-    const step = generator.next();
-    expect(step.value).toBe(SIGNUP_WITH_SCATTER);
-  });
-
-  it('SHOW_SCATTER_SIGNUP_FORM', () => {
-    const step = generator.next();
-    expect(step.value).toBe(SHOW_SCATTER_SIGNUP_FORM);
   });
 });

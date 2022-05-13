@@ -15,8 +15,6 @@ import Dropdown from 'components/Dropdown';
 import A from 'components/A';
 import Ul from 'components/Ul/SpecialOne';
 
-import SendTokens from 'containers/SendTokens';
-
 import {
   selectWeekStat,
   selectRewardsWeeksNumber,
@@ -46,9 +44,9 @@ export const BoostPrediction = styled.span`
   border-radius: 10px;
 `;
 
-const isPositiveNumber = number => Number.isFinite(number) && number > 0;
+const isPositiveNumber = (number) => Number.isFinite(number) && number > 0;
 
-const Menu = memo(({ user, number, locale, boost }) => (
+const Menu = memo(({ user, number, locale /* boost */ }) => (
   <Ul>
     <A to={routes.userWallet(user)}>
       <FormattedMessage {...messages.wallet} />
@@ -83,14 +81,11 @@ const WalletDropdown = ({
   rewardsWeeksNumber: number,
   account,
 }) => {
-  useEffect(
-    () => {
-      if (account) {
-        getWeekStatDispatch();
-      }
-    },
-    [account],
-  );
+  useEffect(() => {
+    if (account) {
+      getWeekStatDispatch();
+    }
+  }, [account]);
 
   const availableBalance =
     stakedInCurrentPeriod >= stakedInNextPeriod
@@ -155,7 +150,7 @@ export default memo(
         getWeekStatProcessing: selectGetWeekStatProcessing(),
         account: makeSelectAccount(),
       }),
-      dispatch => ({
+      (dispatch) => ({
         getWeekStatDispatch: bindActionCreators(getWeekStat, dispatch),
       }),
     ),

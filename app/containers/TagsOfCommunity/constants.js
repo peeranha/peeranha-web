@@ -1,7 +1,7 @@
-/* 
-  *
-  * TagsOfCommunity constants
-  * 
+/*
+ *
+ * TagsOfCommunity constants
+ *
  */
 
 export const SET_EDIT_TAG_DATA = 'app/TagsOfCommunity/SET_EDIT_TAG_DATA';

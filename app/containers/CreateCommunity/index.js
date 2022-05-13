@@ -12,8 +12,6 @@ import { translationMessages, DEFAULT_LOCALE } from 'i18n';
 import { compose, bindActionCreators } from 'redux';
 import * as routes from 'routes-config';
 
-import { useModeratorRole } from '../../hooks/useModeratorRole';
-
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { DAEMON } from 'utils/constants';
@@ -30,6 +28,7 @@ import {
   WHAT_IS_COMMUNITY_QUESTION,
   WHO_MANAGES_COMMUNITY_QUESTION,
 } from 'containers/Faq/constants';
+import { useModeratorRole } from '../../hooks/useModeratorRole';
 
 import * as selectors from './selectors';
 import reducer from './reducer';
@@ -41,24 +40,12 @@ import { createCommunity, setDefaultStore, getForm } from './actions';
 import {
   COMM_NAME_FIELD,
   COMM_SHORT_DESCRIPTION_FIELD,
-  ABOUT_FIELD,
-  COMM_MAIN_DESCRIPTION_FIELD,
   COMM_OFFICIAL_SITE_FIELD,
   TAG_NAME_FIELD,
   LANGUAGE_FIELD,
   TAG_DESCRIPTION_FIELD,
   COMM_AVATAR_FIELD,
-  FORM_TYPE,
   STATE_KEY,
-  ANY_TYPE,
-  COMM_BANNER_FIELD,
-  FACEBOOK_LINK_FIELD,
-  INSTAGRAM_LINK_FIELD,
-  YOUTUBE_LINK_FIELD,
-  VK_LINK_FIELD,
-  MAIN_COLOR_FIELD,
-  HIGHLIGHT_COLOR_FIELD,
-  COMMUNITY_TYPE,
 } from './constants';
 
 import Form from './Form';
@@ -92,8 +79,8 @@ export const CreateCommunity = ({
     const values = args[0].toJS();
 
     const tags = Object.keys(values.tags)
-      .filter(x => values.tags[x])
-      .map(x => ({
+      .filter((x) => values.tags[x])
+      .map((x) => ({
         name: values.tags[x][TAG_NAME_FIELD],
         description: values.tags[x][TAG_DESCRIPTION_FIELD],
       }));
@@ -170,7 +157,7 @@ const withConnect = connect(
     isFormAvailable: selectors.selectIsFormAvailable(),
     profile: makeSelectProfileInfo(),
   }),
-  dispatch => ({
+  (dispatch) => ({
     createCommunityDispatch: bindActionCreators(createCommunity, dispatch),
     setDefaultStoreDispatch: bindActionCreators(setDefaultStore, dispatch),
     getFormDispatch: bindActionCreators(getForm, dispatch),

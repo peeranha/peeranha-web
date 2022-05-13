@@ -11,7 +11,7 @@ import CheckedItem from 'components/Li/CheckedItem';
 
 // eslint-disable-next-line react/prop-types
 const Button = ({ sorting }) => {
-  const type = Object.values(QUESTION_TYPES).find(x => sorting === x.value);
+  const type = Object.values(QUESTION_TYPES).find((x) => sorting === x.value);
 
   return (
     <Span
@@ -29,7 +29,7 @@ const Menu = ({ sort, sorting }) => (
     {Object.values({
       all: { value: null, label: 'all' },
       ...QUESTION_TYPES,
-    }).map(x => (
+    }).map((x) => (
       <CheckedItem
         key={x.label}
         onClick={() => sort(x.value)}

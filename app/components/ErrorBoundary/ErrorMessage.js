@@ -13,6 +13,7 @@ export const ErrorBoundaryMessage = ({ error, errorInfo }) => (
     </details>
     <button
       className="btn btn-link"
+      type="button"
       onClick={() => {
         document.location.href = '/';
       }}

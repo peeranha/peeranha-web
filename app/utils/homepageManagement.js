@@ -63,7 +63,7 @@ export async function sendEmail(formData, pageInfo) {
 
   const promises = await Promise.all([fetchHubspot(), fetchAws()]);
 
-  const notSuccess = promises.find(x => x.status !== 200);
+  const notSuccess = promises.find((x) => x.status !== 200);
 
   if (notSuccess) {
     const errorMessage = await notSuccess.json();
@@ -72,7 +72,7 @@ export async function sendEmail(formData, pageInfo) {
 }
 
 export async function sendMessage(formData, pageInfo) {
-  const fields = Object.keys(formData).map(name => ({
+  const fields = Object.keys(formData).map((name) => ({
     name,
     value: formData[name],
   }));

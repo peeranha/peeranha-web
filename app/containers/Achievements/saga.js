@@ -57,7 +57,6 @@ import {
   selectMaxGroupsLowerValues,
 } from './selectors';
 import { getAllAchievements } from '../../utils/theGraph';
-import { selectEthereum } from '../EthereumProvider/selectors';
 
 export function* getAchievementsWorker() {
   try {
@@ -66,7 +65,7 @@ export function* getAchievementsWorker() {
       getAllAchievements,
       viewProfileAccount,
     );
-    userAchievements = userAchievements.map(achievement => achievement.id);
+    userAchievements = userAchievements.map((achievement) => achievement.id);
     yield put(getAllAchievementsSuccess(allAchievements, userAchievements));
   } catch (err) {
     yield put(getAllAchievementsError(err));
@@ -78,7 +77,9 @@ export const getNextAchievementId = (
   userAchievements,
   possibleAchievements,
 ) => {
-  const reachedAchievementsIds = userAchievements.map(el => el.achievements_id);
+  const reachedAchievementsIds = userAchievements.map(
+    (el) => el.achievements_id,
+  );
 
   // sort achievements by lower value
   const sortedAchievements = [...possibleAchievements].sort(
@@ -87,7 +88,7 @@ export const getNextAchievementId = (
 
   // current user value less than lower achievement value
   const nextUnreachedAchievement = sortedAchievements.find(
-    el =>
+    (el) =>
       currentValue < el.lowerValue && !reachedAchievementsIds.includes(el.id),
   );
 
@@ -102,7 +103,9 @@ export const getNextUniqueAchievementId = (
   userAchievements,
   projectAchievements = [],
 ) => {
-  const reachedAchievementsIds = userAchievements.map(el => el.achievements_id);
+  const reachedAchievementsIds = userAchievements.map(
+    (el) => el.achievements_id,
+  );
 
   // sort achievements by lower value
   const sortedAchievements = [...uniqueAchievementsArr].sort(
@@ -110,12 +113,12 @@ export const getNextUniqueAchievementId = (
   );
 
   const currAchIndex = sortedAchievements.findIndex(
-    el => userRating >= el.lowerValue && userRating <= el.upperValue,
+    (el) => userRating >= el.lowerValue && userRating <= el.upperValue,
   );
 
-  const nextUnreachedAchievement = sortedAchievements.find(el => {
+  const nextUnreachedAchievement = sortedAchievements.find((el) => {
     const totalAwarded =
-      projectAchievements.find(item => item.id === el.id)?.count || 0;
+      projectAchievements.find((item) => item.id === el.id)?.count || 0;
     return (
       userRating < el.lowerValue &&
       !reachedAchievementsIds.includes(el.id) &&
@@ -131,27 +134,27 @@ export const getNextUniqueAchievementId = (
 
 export const getMaxGroupsLowerValues = () => {
   const maxRatingLowerValue = achievementsArr.find(
-    el => el.upperValue === Infinity,
+    (el) => el.upperValue === Infinity,
   ).lowerValue;
 
   const maxQuestionLowerValue = questionsAskedArr.find(
-    el => el.upperValue === Infinity,
+    (el) => el.upperValue === Infinity,
   ).lowerValue;
 
   const maxAnswersLowerValue = answerGivenArr.find(
-    el => el.upperValue === Infinity,
+    (el) => el.upperValue === Infinity,
   ).lowerValue;
 
   const maxBestAnswersLowerValue = bestAnswerArr.find(
-    el => el.upperValue === Infinity,
+    (el) => el.upperValue === Infinity,
   ).lowerValue;
 
   const maxFirstAnswerLowerValue = firstAnswerArr.find(
-    el => el.upperValue === Infinity,
+    (el) => el.upperValue === Infinity,
   ).lowerValue;
 
   const maxFirstIn15LowerValue = firstIn15Arr.find(
-    el => el.upperValue === Infinity,
+    (el) => el.upperValue === Infinity,
   ).lowerValue;
 
   return {
@@ -184,11 +187,11 @@ export const isProfileInfoUpdated = (
     maxFirstIn15LowerValue,
   } = maxGroupsLowerValues;
 
-  const firstAnswerValue = profileInfo =>
-    profileInfo.integer_properties?.find(el => el.key === 13)?.value ?? 0;
+  const firstAnswerValue = (profileInfo) =>
+    profileInfo.integer_properties?.find((el) => el.key === 13)?.value ?? 0;
 
-  const answersIn15Value = profileInfo =>
-    profileInfo.integer_properties?.find(el => el.key === 12)?.value ?? 0;
+  const answersIn15Value = (profileInfo) =>
+    profileInfo.integer_properties?.find((el) => el.key === 12)?.value ?? 0;
 
   const ratingRelatedUpdated =
     currProfileInfo.rating !== prevProfileInfo.rating &&
@@ -459,7 +462,7 @@ export function* updateUserAchievementsWorker(
   }
 }
 
-export default function*() {
+export default function* () {
   yield takeLatest(GET_USER_ACHIEVEMENTS, getUserAchievementsWorker);
   yield takeLatest(GET_ALL_ACHIEVEMENTS, getAchievementsWorker);
 }

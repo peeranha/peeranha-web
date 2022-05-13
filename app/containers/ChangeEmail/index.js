@@ -64,7 +64,7 @@ export class ChangeEmail extends React.PureComponent {
     } = this.props;
 
     return (
-      <React.Fragment>
+      <>
         <Modal show={showModal} closeModal={hideChangeEmailModalDispatch}>
           {content === OLD_EMAIL_FORM && (
             <SendEmailForm
@@ -93,8 +93,13 @@ export class ChangeEmail extends React.PureComponent {
           )}
         </Modal>
 
-        <Button onClick={showChangeEmailModalDispatch} style={{paddingBottom: 2}}>{children}</Button>
-      </React.Fragment>
+        <Button
+          onClick={showChangeEmailModalDispatch}
+          style={{ paddingBottom: 2 }}
+        >
+          {children}
+        </Button>
+      </>
     );
   }
 }
@@ -143,16 +148,9 @@ function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   };
 }
 
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 const withReducer = injectReducer({ key: 'showChangeEmail', reducer });
 const withSaga = injectSaga({ key: 'showChangeEmail', saga, mode: DAEMON });
 
-export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
-)(ChangeEmail);
+export default compose(withReducer, withSaga, withConnect)(ChangeEmail);

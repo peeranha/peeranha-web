@@ -18,9 +18,7 @@ export const BloggerStyles = {
   withoutSubHeader: true,
   poweredByPeeranha: true,
   withoutAdditionalLinks: true,
-  mobileSubHeader: (
-    <CustomMobileSubHeader config={CustomSubHeaderConfig} />
-  ),
+  mobileSubHeader: <CustomMobileSubHeader config={CustomSubHeaderConfig} />,
   customSubHeader: <CustomSubHeader config={CustomSubHeaderConfig} />,
   withoutFAQ: true,
   headerHeight: 190,

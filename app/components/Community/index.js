@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Community = ({ communities, communityId }) => {
-  const community = communities.filter(x => communityId === x.id)[0];
+  const community = communities.filter((x) => communityId === x.id)[0];
 
   return (
     <div>

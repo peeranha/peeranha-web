@@ -14,25 +14,22 @@ const modalRoot = document.getElementById('modal');
 const el = document.createElement('div');
 
 export const ModalDialog = ({ children, show, closeModal }) => {
-  useEffect(
-    () => {
-      try {
-        if (show && modalRoot.childElementCount === 0) {
-          document.getElementsByTagName('body')[0].style.position = 'fixed';
-          modalRoot.appendChild(el);
-        } else if (!show && modalRoot.childElementCount !== 0) {
-          document.getElementsByTagName('body')[0].style.position = 'relative';
-          modalRoot.removeChild(el);
-        }
-      } catch (err) {}
-    },
-    [show],
-  );
+  useEffect(() => {
+    try {
+      if (show && modalRoot.childElementCount === 0) {
+        document.getElementsByTagName('body')[0].style.position = 'fixed';
+        modalRoot.appendChild(el);
+      } else if (!show && modalRoot.childElementCount !== 0) {
+        document.getElementsByTagName('body')[0].style.position = 'relative';
+        modalRoot.removeChild(el);
+      }
+    } catch (err) {}
+  }, [show]);
 
   if (!show) return null;
 
   return ReactDOM.createPortal(
-    <React.Fragment>
+    <>
       <ModalStyled>
         <div className="d-flex justify-content-end">
           <Icon
@@ -45,7 +42,7 @@ export const ModalDialog = ({ children, show, closeModal }) => {
         <div className="modal-children">{children}</div>
       </ModalStyled>
       <Blanket onClick={closeModal} />
-    </React.Fragment>,
+    </>,
     el,
   );
 };

@@ -4,45 +4,46 @@ import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { createSelector } from 'reselect';
 import { initialState } from './reducer';
 
-const selectNotificationsDomain = state =>
+const selectNotificationsDomain = (state) =>
   state.get('notifications', initialState).toJS();
 
 const selectAllNotificationsInfo = createSelector(
   selectNotificationsDomain,
-  substate => (substate.all.toJS ? substate.all.toJS() : substate.all),
+  (substate) => (substate.all.toJS ? substate.all.toJS() : substate.all),
 );
 
 const selectUnreadNotificationsInfo = createSelector(
   selectNotificationsDomain,
-  substate => (substate.unread.toJS ? substate.unread.toJS() : substate.unread),
+  (substate) =>
+    substate.unread.toJS ? substate.unread.toJS() : substate.unread,
 );
 
 const selectNotifications = createSelector(
   selectNotificationsDomain,
-  substate => substate.notifications,
+  (substate) => substate.notifications,
 );
 
 const selectUnreadTimestamps = createSelector(
   selectUnreadNotificationsInfo,
-  substate => substate.timestamps,
+  (substate) => substate.timestamps,
 );
 
 export const selectAllNotificationsLoading = () =>
-  createSelector(selectAllNotificationsInfo, substate => substate.loading);
+  createSelector(selectAllNotificationsInfo, (substate) => substate.loading);
 
 export const selectUnreadNotificationsLoading = () =>
-  createSelector(selectUnreadNotificationsInfo, substate => substate.loading);
+  createSelector(selectUnreadNotificationsInfo, (substate) => substate.loading);
 
 export const selectReadNotificationsAll = () =>
   createSelector(
     selectAllNotificationsInfo,
-    substate => substate.readNotifications,
+    (substate) => substate.readNotifications,
   );
 
 export const selectReadNotificationsUnread = () =>
   createSelector(
     selectUnreadNotificationsInfo,
-    substate => substate.readNotifications,
+    (substate) => substate.readNotifications,
   );
 
 export const selectAllNotifications = () =>
@@ -51,8 +52,8 @@ export const selectAllNotifications = () =>
     makeSelectLocale(),
     (notifications, locale) =>
       Object.keys(notifications)
-        .map(x => +x)
-        .map(timestamp => ({
+        .map((x) => +x)
+        .map((timestamp) => ({
           ...notifications[timestamp],
           time: timeConverter(timestamp, locale),
         }))
@@ -65,29 +66,32 @@ export const selectUnreadNotifications = () =>
     selectUnreadTimestamps,
     makeSelectLocale(),
     (notifications, timestamps, locale) =>
-      timestamps.map(t => ({
+      timestamps.map((t) => ({
         ...notifications[t],
         time: timeConverter(t, locale),
       })),
   );
 
 export const allNotificationsCount = () =>
-  createSelector(selectAllNotificationsInfo, substate => substate.count);
+  createSelector(selectAllNotificationsInfo, (substate) => substate.count);
 
 export const unreadNotificationsCount = () =>
-  createSelector(selectUnreadNotificationsInfo, substate => substate.count);
+  createSelector(selectUnreadNotificationsInfo, (substate) => substate.count);
 
 export const selectAllNotificationsLastTimestamp = () =>
   createSelector(
     selectAllNotificationsInfo,
-    substate => substate.lastTimestamp,
+    (substate) => substate.lastTimestamp,
   );
 
 export const selectUnreadNotificationsLastTimestamp = () =>
   createSelector(
     selectUnreadNotificationsInfo,
-    substate => substate.lastTimestamp,
+    (substate) => substate.lastTimestamp,
   );
 
 export const isInfoLoadedSelect = () =>
-  createSelector(selectNotificationsDomain, substate => substate.isInfoLoaded);
+  createSelector(
+    selectNotificationsDomain,
+    (substate) => substate.isInfoLoaded,
+  );

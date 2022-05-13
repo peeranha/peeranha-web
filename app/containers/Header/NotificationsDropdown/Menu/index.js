@@ -2,15 +2,14 @@ import React, { memo, useEffect, useMemo, useRef } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import { BORDER_RADIUS_L } from 'style-constants';
+
 import {
   HEADER_AND_FOOTER_HEIGHT,
   MENU_HEIGHT,
   MENU_WIDTH,
   ROW_HEIGHT,
 } from '../constants';
-import { BORDER_RADIUS_L } from 'style-constants';
-
-import { singleCommunityStyles } from 'utils/communityManagement';
 
 import Header from './Header';
 import Content from './Content';
@@ -41,7 +40,7 @@ const MenuContainer = styled.div`
 
 const useDetectOutsideClick = (onClose, parentRef) => {
   const ref = useRef(null);
-  const handleClickOutside = e => {
+  const handleClickOutside = (e) => {
     if (
       ref.current &&
       !ref.current.contains(e.target) &&
@@ -69,7 +68,7 @@ const Menu = ({ notifications, onClose, parentRef, unreadCount }) => {
   return (
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events
     <div
-      onClick={e => {
+      onClick={(e) => {
         e.stopPropagation();
       }}
     >

@@ -55,9 +55,7 @@ export function existingQuestionReducer(state = initialState, action) {
         .set('getExistingQuestionsLoading', false)
         .set(
           'existingQuestions',
-          existingQuestions
-            ? existingQuestions
-            : initialState.get('existingQuestions'),
+          existingQuestions || initialState.get('existingQuestions'),
         );
     case GET_EXISTING_QUESTIONS_ERROR:
       return state

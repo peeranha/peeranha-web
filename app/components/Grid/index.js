@@ -18,41 +18,42 @@ const BuildDevice = ({ screen, marginX, cell }) =>
 export default styled.ul`
   display: flex;
   flex-flow: row wrap;
-  margin: 0 -${x => x.marginX || MARGIN_X}px;
+  margin: 0 -${(x) => x.marginX || MARGIN_X}px;
 
   > * {
-    margin: 0 ${x => x.marginX || MARGIN_X}px ${x => x.marginY || MARGIN_Y}px;
+    margin: 0 ${(x) => x.marginX || MARGIN_X}px
+      ${(x) => x.marginY || MARGIN_Y}px;
   }
 
-  ${x =>
+  ${(x) =>
     BuildDevice({
       screen: 9999,
       marginX: x.marginX || MARGIN_X,
       cell: x.xl,
     })};
 
-  ${x =>
+  ${(x) =>
     BuildDevice({
       screen: 1200,
       marginX: x.marginX || MARGIN_X,
       cell: x.lg,
     })};
 
-  ${x =>
+  ${(x) =>
     BuildDevice({
       screen: 768,
       marginX: x.marginX || MARGIN_X,
       cell: x.md,
     })};
 
-  ${x =>
+  ${(x) =>
     BuildDevice({
       screen: 576,
       marginX: x.marginX || MARGIN_X,
       cell: x.sm,
     })};
 
-  ${x =>
+  ${(x) =>
     BuildDevice({
       screen: 360,
       marginX: x.marginX || MARGIN_X,

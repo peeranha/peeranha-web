@@ -28,7 +28,7 @@ export const AccountProvider = ({
     if (!autoLoginData?.loginWithFacebook) {
       getCurrentAccountDispatch();
     }
-    
+
     setInterval(() => {
       const diff = Date.now() - lastUpdate;
 
@@ -54,7 +54,7 @@ export default compose(
     createStructuredSelector({
       lastUpdate: selectLastUpdate(),
     }),
-    dispatch => ({
+    (dispatch) => ({
       getCurrentAccountDispatch: bindActionCreators(
         getCurrentAccount,
         dispatch,

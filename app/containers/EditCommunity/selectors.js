@@ -6,7 +6,7 @@ import { initialState } from './reducer';
  * Direct selector to the editCommunity state domain
  */
 
-const selectEditCommunityDomain = state =>
+const selectEditCommunityDomain = (state) =>
   state.get('editcommunity', initialState);
 
 /**
@@ -14,26 +14,26 @@ const selectEditCommunityDomain = state =>
  */
 
 export const selectCommunity = () =>
-  createSelector(selectEditCommunityDomain, substate =>
+  createSelector(selectEditCommunityDomain, (substate) =>
     substate.get('community'),
   );
 
 export const selectEditCommunityError = () =>
-  createSelector(selectEditCommunityDomain, substate =>
+  createSelector(selectEditCommunityDomain, (substate) =>
     substate.get('editCommunityError'),
   );
 
 export const selectEditCommunityLoading = () =>
-  createSelector(selectEditCommunityDomain, substate =>
+  createSelector(selectEditCommunityDomain, (substate) =>
     substate.get('editCommunityLoading'),
   );
 
 export const selectGetCommunityError = () =>
-  createSelector(selectEditCommunityDomain, substate =>
+  createSelector(selectEditCommunityDomain, (substate) =>
     substate.get('getCommunityError'),
   );
 
 export const selectGetCommunityLoading = () =>
-  createSelector(selectEditCommunityDomain, substate =>
+  createSelector(selectEditCommunityDomain, (substate) =>
     substate.get('getCommunityLoading'),
   );

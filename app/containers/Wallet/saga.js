@@ -1,9 +1,5 @@
 import { takeEvery, takeLatest, put, call, select } from 'redux-saga/effects';
-import {
-  getWeekStat,
-  pickupReward,
-  getUserBoostStatistics,
-} from 'utils/walletManagement';
+import { getWeekStat, pickupReward } from 'utils/walletManagement';
 
 import {
   makeSelectAccount,
@@ -33,7 +29,7 @@ export function* getWeekStatWorker() {
       ? yield call(getWeekStat, ethereumService, user)
       : [];
 
-    //TODO boost
+    // TODO boost
     // const userBoostStat = profile ? yield call(getUserBoostStatistics, eosService, profile.user) : [];
 
     yield put(getWeekStatSuccess(weekStat));

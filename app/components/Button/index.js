@@ -16,8 +16,8 @@ const Button = styled.button`
   justify-content: center;
 
   position: relative;
-  pointer-events: ${x => (x.disabled ? 'none' : 'auto')};
-  opacity: ${x => (x.disabled ? '0.5' : '1')};
+  pointer-events: ${(x) => (x.disabled ? 'none' : 'auto')};
+  opacity: ${(x) => (x.disabled ? '0.5' : '1')};
 
   :after {
     content: '';

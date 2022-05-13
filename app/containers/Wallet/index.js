@@ -41,14 +41,11 @@ const Wallet = ({
   pickupRewardProcessing,
   ids,
 }) => {
-  useEffect(
-    () => {
-      if (account) {
-        getWeekStatDispatch();
-      }
-    },
-    [account],
-  );
+  useEffect(() => {
+    if (account) {
+      getWeekStatDispatch();
+    }
+  }, [account]);
 
   if (!account || !checkUserURL(account)) {
     return (
@@ -106,8 +103,8 @@ Wallet.propTypes = {
 export default memo(
   compose(
     /*
-    * reducer and saga injections are produced in WalletDropdown container
-    */
+     * reducer and saga injections are produced in WalletDropdown container
+     */
     connect(
       createStructuredSelector({
         locale: makeSelectLocale(),
@@ -121,7 +118,7 @@ export default memo(
         pickupRewardProcessing: selectors.selectPickupRewardProcessing(),
         ids: selectors.selectIds(),
       }),
-      dispatch => ({
+      (dispatch) => ({
         pickupRewardDispatch: bindActionCreators(pickupReward, dispatch),
         getWeekStatDispatch: bindActionCreators(getWeekStat, dispatch),
       }),

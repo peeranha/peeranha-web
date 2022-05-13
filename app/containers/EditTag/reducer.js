@@ -1,7 +1,7 @@
 /*
-  *
-  * Edit tag reducer
-  *
+ *
+ * Edit tag reducer
+ *
  */
 
 import { fromJS } from 'immutable';

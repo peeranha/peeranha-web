@@ -31,62 +31,50 @@ export default defineMessages({
   progressBarPopover: {
     ratingRelated: {
       single: {
-        id:
-          'app.containers.Achievements.progressBarPopover.ratingRelated.single',
+        id: 'app.containers.Achievements.progressBarPopover.ratingRelated.single',
       },
       multiple: {
-        id:
-          'app.containers.Achievements.progressBarPopover.ratingRelated.multiple',
+        id: 'app.containers.Achievements.progressBarPopover.ratingRelated.multiple',
       },
     },
     questionAskedRelated: {
       single: {
-        id:
-          'app.containers.Achievements.progressBarPopover.questionAskedRelated.single',
+        id: 'app.containers.Achievements.progressBarPopover.questionAskedRelated.single',
       },
       multiple: {
-        id:
-          'app.containers.Achievements.progressBarPopover.questionAskedRelated.multiple',
+        id: 'app.containers.Achievements.progressBarPopover.questionAskedRelated.multiple',
       },
     },
     answerGivenRelated: {
       single: {
-        id:
-          'app.containers.Achievements.progressBarPopover.answerGivenRelated.single',
+        id: 'app.containers.Achievements.progressBarPopover.answerGivenRelated.single',
       },
       multiple: {
-        id:
-          'app.containers.Achievements.progressBarPopover.answerGivenRelated.multiple',
+        id: 'app.containers.Achievements.progressBarPopover.answerGivenRelated.multiple',
       },
     },
     bestAnswerRelated: {
       single: {
-        id:
-          'app.containers.Achievements.progressBarPopover.bestAnswerRelated.single',
+        id: 'app.containers.Achievements.progressBarPopover.bestAnswerRelated.single',
       },
       multiple: {
-        id:
-          'app.containers.Achievements.progressBarPopover.bestAnswerRelated.multiple',
+        id: 'app.containers.Achievements.progressBarPopover.bestAnswerRelated.multiple',
       },
     },
     firstAnswerIn15Related: {
       single: {
-        id:
-          'app.containers.Achievements.progressBarPopover.firstAnswerIn15Related.single',
+        id: 'app.containers.Achievements.progressBarPopover.firstAnswerIn15Related.single',
       },
       multiple: {
-        id:
-          'app.containers.Achievements.progressBarPopover.firstAnswerIn15Related.multiple',
+        id: 'app.containers.Achievements.progressBarPopover.firstAnswerIn15Related.multiple',
       },
     },
     firstAnswerRelated: {
       single: {
-        id:
-          'app.containers.Achievements.progressBarPopover.firstAnswerRelated.single',
+        id: 'app.containers.Achievements.progressBarPopover.firstAnswerRelated.single',
       },
       multiple: {
-        id:
-          'app.containers.Achievements.progressBarPopover.firstAnswerRelated.multiple',
+        id: 'app.containers.Achievements.progressBarPopover.firstAnswerRelated.multiple',
       },
     },
   },

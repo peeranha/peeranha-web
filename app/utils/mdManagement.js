@@ -1,7 +1,7 @@
 import { ApplicationError } from './errors';
 
 function parseMD(md) {
-  const getRegExp = tag => {
+  const getRegExp = (tag) => {
     const str = `<${tag}.*`;
     const regexp = new RegExp(str, 'gim');
 

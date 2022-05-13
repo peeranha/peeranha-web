@@ -10,18 +10,9 @@ import {
   verifyEmail,
   verifyEmailSuccess,
   verifyEmailErr,
-  iHaveEosAccount,
-  iHaveEosAccountSuccess,
-  iHaveEosAccountErr,
   signUpViaEmailComplete,
   signUpViaEmailCompleteSuccess,
   signUpViaEmailCompleteError,
-  signUpWithScatter,
-  signUpWithScatterSuccess,
-  signUpWithScatterErr,
-  showScatterSignUpForm,
-  showScatterSignUpFormErr,
-  showScatterSignUpFormSuccess,
   putKeysToState,
   setReducerDefault,
 } from '../actions';
@@ -99,32 +90,6 @@ describe('signUpReducer', () => {
     expect(signUpReducer(state, verifyEmailErr(verifyEmailError))).toEqual(obj);
   });
 
-  it('I_HAVE_EOS_ACCOUNT', () => {
-    const values = fromJS({
-      [VERIFICATION_FIELD]: VERIFICATION_FIELD,
-    });
-
-    const obj = state.set('iHaveEosAccountProcessing', true);
-
-    expect(signUpReducer(state, iHaveEosAccount(values))).toEqual(obj);
-  });
-
-  it('I_HAVE_EOS_ACCOUNT_SUCCESS', () => {
-    const obj = state.set('iHaveEosAccountProcessing', false);
-    expect(signUpReducer(state, iHaveEosAccountSuccess())).toEqual(obj);
-  });
-
-  it('I_HAVE_EOS_ACCOUNT_ERROR', () => {
-    const iHaveEosAccountError = 'iHaveEosAccountError';
-    const obj = state
-      .set('iHaveEosAccountProcessing', false)
-      .set('iHaveEosAccountError', iHaveEosAccountError);
-
-    expect(
-      signUpReducer(state, iHaveEosAccountErr(iHaveEosAccountError)),
-    ).toEqual(obj);
-  });
-
   it('I_HAVE_NOT_EOS_ACCOUNT', () => {
     const values = fromJS({
       [VERIFICATION_FIELD]: VERIFICATION_FIELD,
@@ -150,62 +115,6 @@ describe('signUpReducer', () => {
       signUpReducer(
         state,
         signUpViaEmailCompleteError(idontHaveEosAccountError),
-      ),
-    ).toEqual(obj);
-  });
-
-  it('SIGNUP_WITH_SCATTER', () => {
-    const values = fromJS({
-      [VERIFICATION_FIELD]: VERIFICATION_FIELD,
-    });
-
-    const obj = state.set('signUpWithScatterProcessing', true);
-
-    expect(signUpReducer(state, signUpWithScatter(values))).toEqual(obj);
-  });
-
-  it('SIGNUP_WITH_SCATTER_SUCCESS', () => {
-    const obj = state.set('signUpWithScatterProcessing', false);
-    expect(signUpReducer(state, signUpWithScatterSuccess())).toEqual(obj);
-  });
-
-  it('SIGNUP_WITH_SCATTER_ERROR', () => {
-    const signUpWithScatterError = 'signUpWithScatterError';
-    const obj = state
-      .set('signUpWithScatterProcessing', false)
-      .set('signUpWithScatterError', signUpWithScatterError);
-
-    expect(
-      signUpReducer(state, signUpWithScatterErr(signUpWithScatterError)),
-    ).toEqual(obj);
-  });
-
-  it('SHOW_SCATTER_SIGNUP_FORM', () => {
-    const obj = state.set('showScatterSignUpProcessing', true);
-    expect(signUpReducer(state, showScatterSignUpForm())).toEqual(obj);
-  });
-
-  it('SHOW_SCATTER_SIGNUP_FORM_SUCCESS', () => {
-    const eosAccountName = 'eosAccountName';
-    const obj = state
-      .set('showScatterSignUpProcessing', false)
-      .set('eosAccountName', eosAccountName);
-
-    expect(
-      signUpReducer(state, showScatterSignUpFormSuccess(eosAccountName)),
-    ).toEqual(obj);
-  });
-
-  it('SHOW_SCATTER_SIGNUP_FORM_ERROR', () => {
-    const showScatterSignUpFormError = 'showScatterSignUpFormError';
-    const obj = state
-      .set('showScatterSignUpProcessing', false)
-      .set('showScatterSignUpFormError', showScatterSignUpFormError);
-
-    expect(
-      signUpReducer(
-        state,
-        showScatterSignUpFormErr(showScatterSignUpFormError),
       ),
     ).toEqual(obj);
   });

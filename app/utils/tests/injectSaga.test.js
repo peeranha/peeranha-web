@@ -42,20 +42,18 @@ describe('injectSaga decorator', () => {
   });
 
   it('should inject given saga, mode, and props', () => {
-    const props = { test: 'test' };
-    shallow(<ComponentWithSaga {...props} />, { context: { store } });
+    shallow(<ComponentWithSaga test="test" />, { context: { store } });
 
     expect(injectors.injectSaga).toHaveBeenCalledTimes(1);
     expect(injectors.injectSaga).toHaveBeenCalledWith(
       'test',
       { saga: testSaga, mode: 'testMode' },
-      props,
+      { test: 'test' },
     );
   });
 
   it('should eject on unmount with a correct saga key', () => {
-    const props = { test: 'test' };
-    const renderedComponent = shallow(<ComponentWithSaga {...props} />, {
+    const renderedComponent = shallow(<ComponentWithSaga test="test" />, {
       context: { store },
     });
     renderedComponent.unmount();
@@ -72,8 +70,7 @@ describe('injectSaga decorator', () => {
   });
 
   it('should propagate props', () => {
-    const props = { testProp: 'test' };
-    const renderedComponent = shallow(<ComponentWithSaga {...props} />, {
+    const renderedComponent = shallow(<ComponentWithSaga testProp='test' />, {
       context: { store },
     });
 

@@ -29,7 +29,7 @@ export class Toast extends React.Component {
     this.location = TOP_RIGHT;
   }
 
-  removeToast = e => {
+  removeToast = (e) => {
     this.props.removeToastDispatch(e.currentTarget.dataset.key);
   };
 
@@ -58,16 +58,9 @@ export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   };
 }
 
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 const withReducer = injectReducer({ key: 'toast', reducer });
 const withSaga = injectSaga({ key: 'toast', saga, mode: DAEMON });
 
-export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
-)(Toast);
+export default compose(withReducer, withSaga, withConnect)(Toast);

@@ -40,14 +40,14 @@ const TagsList = ({
   showPopularity,
 }) => {
   const community = useMemo(
-    () => communities.filter(x => +communityId === x.id)[0] || { tags: [] },
+    () => communities.filter((x) => +communityId === x.id)[0] || { tags: [] },
     [communities, communities.length],
   );
 
   const questionTags = useMemo(
     () =>
       tags
-        ? community.tags.filter(x => tags.includes(+x.id.split('-')[1]))
+        ? community.tags.filter((x) => tags.includes(+x.id.split('-')[1]))
         : community.tags,
     [tags, community.tags, community.tags.length],
   );
@@ -56,24 +56,22 @@ const TagsList = ({
 
   return (
     <Box>
-      {questionTags.map((x, index) => {
-        return (
-          <li
-            key={community.id + (x.name || index)}
-            className="d-flex flex-column"
-          >
-            <Tag letterSpacing={fonts.tagsLetterSpacing} className={className}>
-              {x.name}
-            </Tag>
+      {questionTags.map((x, index) => (
+        <li
+          key={community.id + (x.name || index)}
+          className="d-flex flex-column"
+        >
+          <Tag letterSpacing={fonts.tagsLetterSpacing} className={className}>
+            {x.name}
+          </Tag>
 
-            {showPopularity && (
-              <Span color={TEXT_SECONDARY} fontSize="14" lineHeight="18">
-                {x.postCount}
-              </Span>
-            )}
-          </li>
-        );
-      })}
+          {showPopularity && (
+            <Span color={TEXT_SECONDARY} fontSize="14" lineHeight="18">
+              {x.postCount}
+            </Span>
+          )}
+        </li>
+      ))}
 
       {children}
     </Box>

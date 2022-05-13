@@ -8,37 +8,37 @@ import { initialState } from './reducer';
  * Direct selector to the questionsOfUser state domain
  */
 
-const selectQuestionsOfUserDomain = state =>
+const selectQuestionsOfUserDomain = (state) =>
   state.get(STATE_KEY, initialState);
 
 const selectQuestions = () =>
   createSelector(
     selectQuestionsOfUserDomain,
-    substate => substate.toJS().questions,
+    (substate) => substate.toJS().questions,
   );
 
 const selectQuestionsLoading = () =>
   createSelector(
     selectQuestionsOfUserDomain,
-    substate => substate.toJS().questionsLoading,
+    (substate) => substate.toJS().questionsLoading,
   );
 
 const selectGetQuestionsError = () =>
   createSelector(
     selectQuestionsOfUserDomain,
-    substate => substate.toJS().getQuestionsError,
+    (substate) => substate.toJS().getQuestionsError,
   );
 
 const selectIsLastFetch = () =>
   createSelector(
     selectQuestionsOfUserDomain,
-    substate => substate.toJS().isLastFetch,
+    (substate) => substate.toJS().isLastFetch,
   );
 
 const selectNumber = () =>
   createSelector(
     selectQuestionsOfUserDomain,
-    substate => substate.toJS().number,
+    (substate) => substate.toJS().number,
   );
 
 export {

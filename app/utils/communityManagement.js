@@ -13,12 +13,7 @@ import { uploadImg } from './profileManagement';
 import {
   ALL_COMMUNITIES_SCOPE,
   COMMUNITIES_TABLE,
-  CREATED_TAGS_TABLE,
-  EDIT_TAG_ACTION,
-  FOLLOW_COMM,
   SINGLE_COMMUNITY_DETAILS,
-  TAGS_TABLE,
-  UNFOLLOW_COMM,
   VOTE_TO_CREATE_COMMUNITY,
   VOTE_TO_CREATE_TAG,
   VOTE_TO_DELETE_COMMUNITY,
@@ -28,10 +23,8 @@ import {
   CREATE_COMMUNITY,
   CREATE_TAG,
   FOLLOW_COMMUNITY,
-  GET_COMMUNITY,
   UNFOLLOW_COMMUNITY,
   EDIT_COMMUNITY,
-  EDIT_POST,
   EDIT_TAG,
 } from './ethConstants';
 import {
@@ -43,7 +36,7 @@ import {
 
 export const isSingleCommunityWebsite = () =>
   +Object.keys(communitiesConfig).find(
-    id => communitiesConfig[id].origin === window.location.origin,
+    (id) => communitiesConfig[id].origin === window.location.origin,
   );
 
 export const singleCommunityStyles = () =>
@@ -55,7 +48,7 @@ export const singleCommunityColors = () =>
 export const singleCommunityFonts = () =>
   _get(singleCommunityStyles(), 'fonts', {});
 
-export const hasCommunitySingleWebsite = commId =>
+export const hasCommunitySingleWebsite = (commId) =>
   communitiesConfig[commId] ? communitiesConfig[commId].origin : false;
 
 export const getGoogleVerificationData = () =>
@@ -64,13 +57,13 @@ export const getGoogleVerificationData = () =>
 
 export function getFollowedCommunities(allCommunities, followedCommunities) {
   if (!allCommunities || !followedCommunities) return [];
-  return allCommunities.filter(x => followedCommunities.includes(+x.id));
+  return allCommunities.filter((x) => followedCommunities.includes(+x.id));
 }
 
 export function getUnfollowedCommunities(allcommunities, followedcommunities) {
   if (!allcommunities || !followedcommunities) return [];
 
-  return allcommunities.filter(x => !followedcommunities.includes(x.id));
+  return allcommunities.filter((x) => !followedcommunities.includes(x.id));
 }
 
 export const editCommunity = async (
@@ -139,7 +132,7 @@ export const setSingleCommunityDetailsInCookie = (community, id) => {
   });
 };
 
-export const setSingleCommunityDetails = async eosService => {
+export const setSingleCommunityDetails = async (eosService) => {
   const id = isSingleCommunityWebsite();
 
   const row = await eosService.getTableRow(
@@ -227,7 +220,7 @@ export function getTagScope(communityId) {
 
 export async function getExistingTags(tags) {
   await Promise.all(
-    tags.map(async x => {
+    tags.map(async (x) => {
       const ipfsDescription = JSON.parse(await getText(x.ipfs_description));
       x.description = ipfsDescription.description;
     }),
@@ -285,7 +278,7 @@ const formCommunityObjectWithTags = (rawCommunity, tags) => {
     followingUsers: +rawCommunity.followingUsers,
     replyCount: +rawCommunity.replyCount,
     //todo amount of questions in community and tag
-    tags: tags.map(tag => {
+    tags: tags.map((tag) => {
       return { ...tag, label: tag.name };
     }),
   };
@@ -295,17 +288,17 @@ const formCommunityObjectWithTags = (rawCommunity, tags) => {
 export const getAllCommunities = async (ethereumService, count) => {
   const communities = await getCommunities(count);
   const tags = await getAllTags();
-  return communities.map(community => {
+  return communities.map((community) => {
     return formCommunityObjectWithTags(
       community,
-      tags.filter(tag => tag.communityId === community.id),
+      tags.filter((tag) => tag.communityId === community.id),
     );
   });
 };
 
 export const getCommunityWithTags = async (ethereumService, id) => {
   const community = await getCommunityById(id);
-  const tags = (await getTags(community.id)).map(tag => {
+  const tags = (await getTags(community.id)).map((tag) => {
     return { ...tag, label: tag.name };
   });
   return formCommunityObjectWithTags(community, tags);
@@ -354,7 +347,7 @@ export async function createCommunity(
   );
 
   const tags = await Promise.all(
-    community.tags.map(async x => {
+    community.tags.map(async (x) => {
       const hash = getBytes32FromIpfsHash(await saveText(JSON.stringify(x)));
 
       return {

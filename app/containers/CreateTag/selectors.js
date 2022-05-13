@@ -8,30 +8,30 @@ import { initialState } from './reducer';
  * Direct selector to the createTag state domain
  */
 
-const selectCreateTagDomain = state => state.get(STATE_KEY, initialState);
+const selectCreateTagDomain = (state) => state.get(STATE_KEY, initialState);
 
 const selectSuggestTagLoading = () =>
   createSelector(
     selectCreateTagDomain,
-    substate => substate.toJS().suggestTagLoading,
+    (substate) => substate.toJS().suggestTagLoading,
   );
 
 const selectSuggestTagError = () =>
   createSelector(
     selectCreateTagDomain,
-    substate => substate.toJS().suggestTagError,
+    (substate) => substate.toJS().suggestTagError,
   );
 
 const selectIsFormLoading = () =>
   createSelector(
     selectCreateTagDomain,
-    substate => substate.toJS().isFormLoading,
+    (substate) => substate.toJS().isFormLoading,
   );
 
 const selectIsFormAvailable = () =>
   createSelector(
     selectCreateTagDomain,
-    substate => substate.toJS().isFormAvailable,
+    (substate) => substate.toJS().isFormAvailable,
   );
 
 export {

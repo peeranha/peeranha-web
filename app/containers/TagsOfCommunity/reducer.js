@@ -1,7 +1,7 @@
-/* 
-  *
-  * TagsOfCommunity reducer
-  * 
+/*
+ *
+ * TagsOfCommunity reducer
+ *
  */
 
 import { fromJS } from 'immutable';

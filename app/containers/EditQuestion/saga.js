@@ -16,6 +16,8 @@ import { updateQuestionList } from 'containers/ViewQuestion/saga';
 
 import { selectQuestionData } from 'containers/ViewQuestion/selectors';
 
+import { saveChangedItemIdToSessionStorage } from 'utils/sessionStorage';
+import { CHANGED_POSTS_KEY } from 'utils/constants';
 import {
   EDIT_QUESTION,
   EDIT_QUESTION_BUTTON,
@@ -33,8 +35,6 @@ import {
 } from './actions';
 import { selectEthereum } from '../EthereumProvider/selectors';
 import { makeSelectAccount } from '../AccountProvider/selectors';
-import { saveChangedItemIdToSessionStorage } from 'utils/sessionStorage';
-import { CHANGED_POSTS_KEY } from 'utils/constants';
 
 export function* getAskedQuestionWorker({ questionId }) {
   try {
@@ -222,7 +222,7 @@ export function* redirectToEditQuestionPageWorker({ buttonId, link }) {
   } catch (err) {}
 }
 
-export default function*() {
+export default function* () {
   yield takeLatest(GET_ASKED_QUESTION, getAskedQuestionWorker);
   yield takeLatest(EDIT_QUESTION, editQuestionWorker);
   yield takeLatest(EDIT_QUESTION_SUCCESS, updateQuestionList);

@@ -38,7 +38,7 @@ import errorPageMessages from './messages';
 const single = isSingleCommunityWebsite();
 
 const NotFound = ({ locale, withSeo = true }) => (
-  <React.Fragment>
+  <>
     {withSeo && (
       <Seo
         title={translationMessages[locale][errorPageMessages.title.id]}
@@ -111,7 +111,7 @@ const NotFound = ({ locale, withSeo = true }) => (
         </P>
       </div>
     </Box>
-  </React.Fragment>
+  </>
 );
 
 NotFound.propTypes = {
@@ -123,7 +123,4 @@ const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
 });
 
-export default connect(
-  mapStateToProps,
-  null,
-)(NotFound);
+export default connect(mapStateToProps, null)(NotFound);

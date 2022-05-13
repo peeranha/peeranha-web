@@ -22,14 +22,8 @@ export const initialState = fromJS({
 });
 
 function tagsReducer(state = initialState, action) {
-  const {
-    type,
-    sorting,
-    loadMore,
-    existingTags,
-    getExistingTagsError,
-    text,
-  } = action;
+  const { type, sorting, loadMore, existingTags, getExistingTagsError, text } =
+    action;
 
   switch (type) {
     case GET_EXISTING_TAGS:

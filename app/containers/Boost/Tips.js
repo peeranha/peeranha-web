@@ -65,7 +65,4 @@ const mapStateToProps = createStructuredSelector({
 
 export { Li };
 
-export default connect(
-  mapStateToProps,
-  null,
-)(Tips);
+export default connect(mapStateToProps, null)(Tips);

@@ -17,6 +17,7 @@ import {
 
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
+import { useModeratorRole } from 'hooks/useModeratorRole';
 import messages from './messages';
 
 import * as selectors from './selectors';
@@ -27,8 +28,6 @@ import saga from './saga';
 import View from './View';
 import * as routes from '../../routes-config';
 import { selectIsGlobalAdmin } from '../AccountProvider/selectors';
-
-import { useModeratorRole } from 'hooks/useModeratorRole';
 
 const single = isSingleCommunityWebsite();
 
@@ -43,7 +42,6 @@ const Users = ({
   communities,
   getUsersDispatch,
   changeSortingTypeDispatch,
-  isGlobalAdmin,
 }) => {
   useModeratorRole(routes.noAccess);
 
@@ -51,17 +49,18 @@ const Users = ({
     getUsersDispatch({ loadMore: true });
   }, []);
 
-  const communityInfo = useMemo(() => communities.find(x => x.id === single), [
-    communities,
-  ]);
+  const communityInfo = useMemo(
+    () => communities.find((x) => x.id === single),
+    [communities],
+  );
 
   const userCount = useMemo(
-    () => (single ? communityInfo?.['users_subscribed'] ?? 0 : stat.usersCount),
+    () => (single ? communityInfo?.users_subscribed ?? 0 : stat.usersCount),
     [stat.usersCount, communityInfo],
   );
 
   const dropdownFilter = useCallback(
-    sorting => {
+    (sorting) => {
       if (userCount === users.length) {
         changeSortingTypeDispatch(sorting);
       } else {
@@ -106,7 +105,6 @@ Users.propTypes = {
   isLastFetch: PropTypes.bool,
   sorting: PropTypes.string,
   searchText: PropTypes.string,
-  limit: PropTypes.number,
   stat: PropTypes.object,
   communities: PropTypes.array,
   changeSortingTypeDispatch: PropTypes.func,
@@ -127,7 +125,7 @@ export default compose(
       stat: selectStat(),
       isGlobalAdmin: selectIsGlobalAdmin(),
     }),
-    dispatch => ({
+    (dispatch) => ({
       getUsersDispatch: bindActionCreators(getUsers, dispatch),
       changeSortingTypeDispatch: bindActionCreators(
         changeSortingType,

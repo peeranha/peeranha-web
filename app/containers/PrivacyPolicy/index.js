@@ -64,7 +64,7 @@ export const PrivacyPolicy = ({
       <AsideBox className="d-none d-xl-block">
         <Aside
           content={privacyPolicy}
-          route={x => routes.privacyPolicy(getSectionCode(SECTION_ID, x))}
+          route={(x) => routes.privacyPolicy(getSectionCode(SECTION_ID, x))}
         />
       </AsideBox>
     </div>
@@ -86,7 +86,7 @@ export default memo(
         locale: makeSelectLocale(),
         privacyPolicy: selectors.selectPrivacyPolicy(),
       }),
-      dispatch => ({
+      (dispatch) => ({
         getPrivacyPolicyDispatch: bindActionCreators(
           getPrivacyPolicy,
           dispatch,

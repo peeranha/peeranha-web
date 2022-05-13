@@ -1,11 +1,8 @@
-import { fromJS } from 'immutable';
+import {fromJS} from 'immutable';
 
-import tagsReducer, { initialState } from '../reducer';
+import tagsReducer, {initialState} from '../reducer';
 
 import {
-  getSuggestedTags,
-  getSuggestedTagsSuccess,
-  getSuggestedTagsErr,
   getExistingTags,
   getExistingTagsSuccess,
   getExistingTagsErr,
@@ -37,7 +34,7 @@ describe('tagsReducer', () => {
         .set('text', text)
         .set('sorting', sorting);
 
-      expect(tagsReducer(state, getExistingTags({ sorting, text }))).toEqual(
+      expect(tagsReducer(state, getExistingTags({sorting, text}))).toEqual(
         obj,
       );
     });
@@ -48,7 +45,7 @@ describe('tagsReducer', () => {
         .set('text', text)
         .set('sorting', state.get('sorting'));
 
-      expect(tagsReducer(state, getExistingTags({ text }))).toEqual(obj);
+      expect(tagsReducer(state, getExistingTags({text}))).toEqual(obj);
     });
 
     it('text is NOT STRING', () => {
@@ -115,83 +112,6 @@ describe('tagsReducer', () => {
 
     expect(
       tagsReducer(state, getExistingTagsErr(getExistingTagsError)),
-    ).toEqual(obj);
-  });
-
-  describe('getSuggestedTags', () => {
-    const sorting = 'id';
-
-    it('sorting is NOT null', () => {
-      const obj = state
-        .set('suggestedTagsLoading', true)
-        .set('sorting', sorting);
-
-      expect(tagsReducer(state, getSuggestedTags({ sorting }))).toEqual(obj);
-    });
-
-    it('sorting is null', () => {
-      const obj = state
-        .set('suggestedTagsLoading', true)
-        .set('sorting', state.get('sorting'));
-
-      expect(tagsReducer(state, getSuggestedTags({}))).toEqual(obj);
-    });
-  });
-
-  describe('getSuggestedTagsSuccess', () => {
-    let suggestedTags = [];
-    let loadMore = false;
-
-    it('suggestedTags.length < limit', () => {
-      suggestedTags = [];
-
-      const obj = state
-        .set('suggestedTagsLoading', false)
-        .set('suggestedTags', suggestedTags)
-        .set('isLastFetchForSuggestedTags', true);
-
-      expect(
-        tagsReducer(state, getSuggestedTagsSuccess(suggestedTags, loadMore)),
-      ).toEqual(obj);
-    });
-
-    it('suggestedTags.length === limit', () => {
-      suggestedTags = Array(initialState.get('limit')).fill();
-
-      const obj = state
-        .set('suggestedTagsLoading', false)
-        .set('suggestedTags', suggestedTags)
-        .set('isLastFetchForSuggestedTags', false);
-
-      expect(
-        tagsReducer(state, getSuggestedTagsSuccess(suggestedTags, loadMore)),
-      ).toEqual(obj);
-    });
-
-    it('loadMore is TRUE', () => {
-      loadMore = true;
-      suggestedTags = [];
-
-      const obj = state
-        .set('suggestedTagsLoading', false)
-        .set('suggestedTags', state.toJS().suggestedTags.concat(suggestedTags))
-        .set('isLastFetchForSuggestedTags', true);
-
-      expect(
-        tagsReducer(state, getSuggestedTagsSuccess(suggestedTags, loadMore)),
-      ).toEqual(obj);
-    });
-  });
-
-  it('getSuggestedTagsErr', () => {
-    const getSuggestedTagsError = 'getSuggestedTagsError';
-
-    const obj = state
-      .set('suggestedTagsLoading', false)
-      .set('getSuggestedTagsError', getSuggestedTagsError);
-
-    expect(
-      tagsReducer(state, getSuggestedTagsErr(getSuggestedTagsError)),
     ).toEqual(obj);
   });
 });

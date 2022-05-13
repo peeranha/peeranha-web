@@ -24,7 +24,7 @@ export function* getQuestionsWorker({ userId }) {
       offset,
     );
 
-    const updateQuestions = questions.map(question => ({
+    const updateQuestions = questions.map((question) => ({
       ...question,
       elementType: POST_TYPE_QUESTION,
       myPostTime: question.postTime,

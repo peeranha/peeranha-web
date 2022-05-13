@@ -49,8 +49,7 @@ describe('injectReducer decorator', () => {
   });
 
   it('should propagate props', () => {
-    const props = { testProp: 'test' };
-    const renderedComponent = shallow(<ComponentWithReducer {...props} />, {
+    const renderedComponent = shallow(<ComponentWithReducer testProp='test' />, {
       context: { store },
     });
 

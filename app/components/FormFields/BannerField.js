@@ -76,7 +76,7 @@ const Div = styled.div`
 
     > *:nth-child(2) {
       position: absolute;
-      z-index: ${x => (x.disabled ? 2 : 0)};
+      z-index: ${(x) => (x.disabled ? 2 : 0)};
       top: 0;
       left: 0;
       width: inherit;
@@ -129,7 +129,7 @@ const BannerField = ({ input, meta, disabled, label }) => {
             <div className="avatar-wrapper">
               <BannerLoader
                 input={input}
-                onBeforeFileLoad={e => {
+                onBeforeFileLoad={(e) => {
                   if (e.target.files[0].size > IMG_SIZE_LIMIT_B) {
                     setIsFileTooLarge(true);
                     e.target.value = '';

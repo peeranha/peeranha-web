@@ -22,9 +22,7 @@ import * as select from './selectors';
 import QuestionsWithAnswersList from './QuestionsWithAnswersList';
 import Header from './Header';
 import { getQuestions } from './actions';
-import injectReducer from '../../utils/injectReducer';
 import { STATE_KEY } from '../QuestionsOfUser/constants';
-import reducer from './reducer';
 import injectSaga from '../../utils/injectSaga';
 import saga from './saga';
 import { DAEMON } from '../../utils/constants';
@@ -41,30 +39,28 @@ export const QuestionsWithAnswersOfUser = ({
   account,
   userId,
   getQuestionsDispatch,
-}) => {
-  return (
-    <InfinityLoader
-      loadNextPaginatedData={getQuestionsDispatch.bind(null, userId)}
-      isLoading={questionsLoading}
-      isLastFetch={isLastFetch}
-      infinityOff={infinityOff}
-    >
-      <div className={className}>
-        <Header userId={userId} account={account} displayName={displayName} />
+}) => (
+  <InfinityLoader
+    loadNextPaginatedData={getQuestionsDispatch.bind(null, userId)}
+    isLoading={questionsLoading}
+    isLastFetch={isLastFetch}
+    infinityOff={infinityOff}
+  >
+    <div className={className}>
+      <Header userId={userId} account={account} displayName={displayName} />
 
-        {questions.length > 0 && (
-          <QuestionsWithAnswersList
-            questions={questions}
-            locale={locale}
-            communities={communities}
-          />
-        )}
+      {questions.length > 0 && (
+        <QuestionsWithAnswersList
+          questions={questions}
+          locale={locale}
+          communities={communities}
+        />
+      )}
 
-        {questionsLoading && <LoadingIndicator />}
-      </div>
-    </InfinityLoader>
-  );
-};
+      {questionsLoading && <LoadingIndicator />}
+    </div>
+  </InfinityLoader>
+);
 
 QuestionsWithAnswersOfUser.propTypes = {
   isLastFetch: PropTypes.bool,
@@ -91,7 +87,7 @@ export default compose(
       questionsLoading: select.selectQuestionsLoading(),
       isLastFetch: select.selectIsLastFetch(),
     }),
-    dispatch => ({
+    (dispatch) => ({
       getQuestionsDispatch: bindActionCreators(getQuestions, dispatch),
     }),
   ),

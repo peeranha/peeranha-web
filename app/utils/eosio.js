@@ -56,7 +56,7 @@ class EosioService {
     this.withKeycat = false;
   }
 
-  initScatter = async appName => {
+  initScatter = async (appName) => {
     ScatterJS.plugins(new ScatterEOS());
 
     const connected = await ScatterJS.scatter.connect(appName);
@@ -121,7 +121,7 @@ class EosioService {
 
   initKeycat = async () => {
     const { allEndpoints } = await getNodes();
-    const eosNodes = allEndpoints.map(el => el.endpoint);
+    const eosNodes = allEndpoints.map((el) => el.endpoint);
 
     // Connect to telos net
     const keycat = new Keycat({
@@ -154,7 +154,7 @@ class EosioService {
     }
   };
 
-  setKeycatAutoLoginData = async keycatUserData => {
+  setKeycatAutoLoginData = async (keycatUserData) => {
     this.keycatUserData = keycatUserData;
     this.selectedAccount = keycatUserData.accountName;
     this.withKeycat = true;
@@ -167,7 +167,7 @@ class EosioService {
     this.withKeycat = false;
   };
 
-  privateToPublic = privateKey => {
+  privateToPublic = (privateKey) => {
     try {
       return ecc.privateToPublic(privateKey);
     } catch (err) {
@@ -175,14 +175,13 @@ class EosioService {
     }
   };
 
-  publicToAccounts = async publicKey => {
+  publicToAccounts = async (publicKey) => {
     if (!publicKey) {
       return null;
     }
 
-    const accounts = await this.eosApi.authorityProvider.history_get_key_accounts(
-      publicKey,
-    );
+    const accounts =
+      await this.eosApi.authorityProvider.history_get_key_accounts(publicKey);
 
     if (accounts && accounts.account_names) {
       return accounts.account_names[0] || null;
@@ -191,7 +190,7 @@ class EosioService {
     return null;
   };
 
-  getAccount = async eosName => {
+  getAccount = async (eosName) => {
     try {
       const accountInfo = await this.eosApi.authorityProvider.get_account(
         eosName,
@@ -229,7 +228,9 @@ class EosioService {
       return null;
     }
 
-    const account = result.accounts.find(x => x.blockchain === BLOCKCHAIN_NAME);
+    const account = result.accounts.find(
+      (x) => x.blockchain === BLOCKCHAIN_NAME,
+    );
 
     if (!account) {
       return null;
@@ -244,7 +245,7 @@ class EosioService {
     // Race - if identity is unavailable - wait $SCATTER_TIMEOUT_DURATION -
     const identity = await Promise.race([
       ScatterJS.scatter.getIdentity(),
-      new Promise(res => {
+      new Promise((res) => {
         setTimeout(() => {
           res(SCATTER_TIMEOUT_ERROR);
         }, SCATTER_TIMEOUT_DURATION);
@@ -280,8 +281,8 @@ class EosioService {
       this.keycatUserData && this.keycatUserData.accountName === actor;
     const keycatPermission = this.keycatUserData?.permission;
 
-    const actions = actionsData.map(el => {
-      Object.keys(el.data).forEach(x => {
+    const actions = actionsData.map((el) => {
+      Object.keys(el.data).forEach((x) => {
         if (typeof el.data[x] === 'string') {
           el.data[x] = el.data[x].trim();
         }
@@ -371,7 +372,8 @@ class EosioService {
         broadcast: false,
       });
 
-      const requiredKeys = await this.eosApi.signatureProvider.getAvailableKeys();
+      const requiredKeys =
+        await this.eosApi.signatureProvider.getAvailableKeys();
       const serializedTx = serverTransactionPushArgs.serializedTransaction;
       const signArgs = {
         chainId: this.node.chainID,
@@ -395,7 +397,7 @@ class EosioService {
       }
       return trx;
     } catch ({ message }) {
-      const isHandled = Object.keys(blockchainErrors).find(x =>
+      const isHandled = Object.keys(blockchainErrors).find((x) =>
         message.match(blockchainErrors[x].keywords.toLowerCase()),
       );
 
@@ -418,14 +420,14 @@ class EosioService {
     }
   };
 
-  awaitTransactionToBlock = async blockId => {
+  awaitTransactionToBlock = async (blockId) => {
     let waitCycle = 0;
     let success = false;
     while (waitCycle < 20) {
       console.log('Waiting for transaction to complete...');
       try {
         // eslint-disable-next-line no-await-in-loop
-        await new Promise(res => setTimeout(() => res(), 300));
+        await new Promise((res) => setTimeout(() => res(), 300));
         // eslint-disable-next-line no-await-in-loop
         await this.eosApi.authorityProvider.get_block(blockId);
         success = true;
@@ -496,7 +498,7 @@ class EosioService {
       );
 
       if (response && response.rows) {
-        response.rows.forEach(x => parseTableRows(x));
+        response.rows.forEach((x) => parseTableRows(x));
         return response;
       }
 
@@ -539,12 +541,12 @@ class EosioService {
       if (!nodes.length && this.getDefaultEosConfig().endpoint === endpoint)
         throw new Error(errorMsg);
 
-      if (nodes.find(x => x.endpoint === endpoint)) {
+      if (nodes.find((x) => x.endpoint === endpoint)) {
         localStorage.setItem(
           ENDPOINTS_LIST,
           JSON.stringify({
             date,
-            nodes: nodes.filter(x => x.endpoint !== endpoint),
+            nodes: nodes.filter((x) => x.endpoint !== endpoint),
           }),
         );
       }
@@ -629,7 +631,7 @@ class EosioService {
     return this.getDefaultEosConfig();
   };
 
-  sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+  sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 export default EosioService;

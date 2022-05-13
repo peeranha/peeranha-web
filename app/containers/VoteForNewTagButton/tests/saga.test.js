@@ -10,8 +10,6 @@ import {
   downVoteToCreateTag,
 } from 'utils/communityManagement';
 
-import { getSuggestedTagsWorker } from 'containers/Tags/saga';
-
 import { isValid, isAuthorized } from 'containers/EosioProvider/saga';
 
 import defaultSaga, { upVoteWorker, downVoteWorker } from '../saga';
@@ -39,10 +37,6 @@ jest.mock('redux-saga/effects', () => ({
 jest.mock('containers/EosioProvider/saga', () => ({
   isValid: jest.fn(),
   isAuthorized: jest.fn(),
-}));
-
-jest.mock('containers/Tags/saga', () => ({
-  getSuggestedTagsWorker: jest.fn(),
 }));
 
 jest.mock('utils/communityManagement', () => ({
@@ -107,12 +101,6 @@ describe('downVoteWorker', () => {
       props.communityId,
       props.tagId,
     );
-  });
-
-  it('getSuggestedTags', () => {
-    getSuggestedTagsWorker.mockImplementation(() => storedTags);
-    const step = generator.next();
-    expect(step.value).toEqual(storedTags);
   });
 
   it('DOWNVOTE_SUCCESS', () => {
@@ -184,12 +172,6 @@ describe('upVoteWorker', () => {
       props.communityId,
       props.tagId,
     );
-  });
-
-  it('getSuggestedTags', () => {
-    getSuggestedTagsWorker.mockImplementation(() => storedTags);
-    const step = generator.next();
-    expect(step.value).toEqual(storedTags);
   });
 
   it('UPVOTE_SUCCESS', () => {

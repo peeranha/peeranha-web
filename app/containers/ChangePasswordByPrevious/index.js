@@ -106,10 +106,7 @@ function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   };
 }
 
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 const withReducer = injectReducer({ key: 'showChangePassword', reducer });
 const withSaga = injectSaga({ key: 'showChangePassword', saga, mode: DAEMON });

@@ -76,7 +76,7 @@ function questionsReducer(state = initialState, action) {
     ({ id: questionId }) => questionId,
   );
 
-  const element = stateTopQuestionIds.find(questionId => questionId === id);
+  const element = stateTopQuestionIds.find((questionId) => questionId === id);
   const index = stateTopQuestionIds.indexOf(element);
   const tempObject = {};
   let temp = null;
@@ -130,9 +130,9 @@ function questionsReducer(state = initialState, action) {
           orderBy(
             [
               ...new Set(
-                mappedQuestionsList.concat(questionsList.map(x => x.id)),
+                mappedQuestionsList.concat(questionsList.map((x) => x.id)),
               ),
-            ].filter(questionId => !stateQuestions[questionId]?.isDeleted),
+            ].filter((questionId) => !stateQuestions[questionId]?.isDeleted),
             ['id'],
             ['asc'],
           ),
@@ -185,7 +185,7 @@ function questionsReducer(state = initialState, action) {
           'topQuestionIds',
           fromJS(
             isRemove
-              ? stateTopQuestionIds.filter(questionId => questionId !== id)
+              ? stateTopQuestionIds.filter((questionId) => questionId !== id)
               : [...stateTopQuestionIds, id],
           ),
         )

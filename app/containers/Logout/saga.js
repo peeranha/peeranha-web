@@ -37,6 +37,6 @@ export function* logoutWorker() {
   }
 }
 
-export default function*() {
+export default function* () {
   yield takeLatest(LOGOUT, logoutWorker);
 }

@@ -4,19 +4,13 @@ import { HEADER_HEIGHT } from 'containers/Header/constants';
 export function ScrollTo() /* istanbul ignore next */ {
   const { pathname, hash } = window.location;
 
-  useEffect(
-    () => {
-      window.scrollTo(0, 0);
-    },
-    [pathname],
-  );
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
-  useEffect(
-    () => {
-      setTimeout(scrollToSection, 250);
-    },
-    [hash],
-  );
+  useEffect(() => {
+    setTimeout(scrollToSection, 250);
+  }, [hash]);
 
   return null;
 }

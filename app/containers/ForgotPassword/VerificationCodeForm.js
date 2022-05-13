@@ -65,5 +65,5 @@ VerificationCodeForm.propTypes = {
 
 export default reduxForm({
   form: 'VerificationCodeForgotPasswordForm',
-  onSubmitFail: errors => scrollToErrorField(errors),
+  onSubmitFail: (errors) => scrollToErrorField(errors),
 })(VerificationCodeForm);

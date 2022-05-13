@@ -27,7 +27,7 @@ export const LanguageProvider = ({
     } else {
       // find the first suitable language in window.navigator.languages
       const userLocale = window.navigator.languages
-        .find(lang => projectLangs.includes(lang.slice(0, 2)))
+        .find((lang) => projectLangs.includes(lang.slice(0, 2)))
         ?.slice(0, 2);
 
       if (userLocale) {
@@ -54,7 +54,7 @@ export default connect(
   createStructuredSelector({
     locale: makeSelectLocale(),
   }),
-  dispatch => ({
+  (dispatch) => ({
     changeLocaleDispatch: bindActionCreators(changeLocale, dispatch),
   }),
 )(LanguageProvider);

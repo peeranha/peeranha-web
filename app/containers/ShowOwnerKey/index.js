@@ -74,7 +74,7 @@ export class ShowOwnerKey extends React.PureComponent {
     };
 
     return (
-      <React.Fragment>
+      <>
         {!loginWithFacebook && (
           <Modal show={showModal} closeModal={hideOwnerKeyModalDispatch}>
             {content === EMAIL_FORM && (
@@ -112,7 +112,7 @@ export class ShowOwnerKey extends React.PureComponent {
         >
           {children}
         </Button>
-      </React.Fragment>
+      </>
     );
   }
 }
@@ -160,16 +160,9 @@ function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   };
 }
 
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 const withReducer = injectReducer({ key: 'showOwnerKey', reducer });
 const withSaga = injectSaga({ key: 'showOwnerKey', saga, mode: DAEMON });
 
-export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
-)(ShowOwnerKey);
+export default compose(withReducer, withSaga, withConnect)(ShowOwnerKey);

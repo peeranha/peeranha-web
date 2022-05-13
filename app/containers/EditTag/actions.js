@@ -1,7 +1,7 @@
-/* 
-  *
-  * Edit tag actions
-  * 
+/*
+ *
+ * Edit tag actions
+ *
  */
 
 import {
@@ -14,7 +14,7 @@ import {
   EDIT_TAG_ERROR,
 } from './constants';
 
-export const getEditTagForm = communityId => ({
+export const getEditTagForm = (communityId) => ({
   type: GET_EDIT_TAG_FORM,
   communityId,
 });
@@ -36,7 +36,7 @@ export const editTag = (tag, reset) => ({ type: EDIT_TAG, tag, reset });
 
 export const editTagSuccess = () => ({ type: EDIT_TAG_SUCCESS });
 
-export const editTagErr = editTagError => ({
+export const editTagErr = (editTagError) => ({
   type: EDIT_TAG_ERROR,
   editTagError,
 });

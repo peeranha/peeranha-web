@@ -6,8 +6,6 @@ import webIntegrationErrors from 'utils/web_integration/src/wallet/service-error
 import {
   changeCredentialsInit,
   changeCredentialsConfirm,
-  changeCredentialsGetKeysByMK,
-  changeCredentialsComplete,
 } from 'utils/web_integration/src/wallet/change-credentials/change-credentials';
 
 import { WebIntegrationError } from 'utils/errors';
@@ -32,14 +30,14 @@ import {
   SEND_ANOTHER_CODE,
 } from './constants';
 
-import { selectEmail, selectVerificationCode } from './selectors';
+import { selectEmail } from './selectors';
 
 export function* getVerificationCodeWorker({ email }) {
   try {
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
 
-    const response = yield call(changeCredentialsInit, email, false, locale);
+    const response = yield call(changeCredentialsInit, email);
 
     if (!response.OK) {
       throw new WebIntegrationError(
@@ -107,7 +105,7 @@ export function* changePasswordWorker({ code, password }) {
   }
 }
 
-export default function*() {
+export default function* () {
   yield takeLatest(SEND_ANOTHER_CODE, sendAnotherCode);
   yield takeLatest(SEND_ANOTHER_CODE, sendAnotherCodeSuccess);
   yield takeLatest(GET_VERIFICATION_CODE, getVerificationCodeWorker);

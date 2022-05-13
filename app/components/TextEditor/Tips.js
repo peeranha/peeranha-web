@@ -70,14 +70,14 @@ const messagesArray = [
   messages.quoteByPlacing,
 ];
 
-const Tips = ({ faqQuestions }) => (
+const Tips = (/* { faqQuestions } */) => (
   <div>
     <Label className="mb-3">
       <FormattedMessage {...messages.tips} />:
     </Label>
 
     <Ul>
-      {messagesArray.map(x => (
+      {messagesArray.map((x) => (
         <li key={x.id}>
           <FormattedMessage {...x} />{' '}
         </li>
@@ -87,7 +87,7 @@ const Tips = ({ faqQuestions }) => (
     {/* TODO: PEER-285 Hide FAQ Questions
     {faqQuestions && (
       <ul>{faqQuestions.map(x => <Li key={x.props.children}>{x}</Li>)}</ul>
-    )}*/}
+    )} */}
   </div>
 );
 
@@ -107,7 +107,4 @@ const mapStateToProps = createStructuredSelector({
 
 export { Li, Ul };
 
-export default connect(
-  mapStateToProps,
-  null,
-)(Tips);
+export default connect(mapStateToProps, null)(Tips);

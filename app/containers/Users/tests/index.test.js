@@ -1,4 +1,4 @@
-import { Users } from '../index';
+import Users from '../index';
 
 const cmp = new Users();
 

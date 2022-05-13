@@ -34,7 +34,7 @@ export const Box = styled.div`
   box-sizing: border-box;
   border: 1px solid ${BORDER_TRANSPARENT};
 
-  background: ${x => (x.isActive ? BG_SECONDARY_LIGHT : BG_TRANSPARENT)};
+  background: ${(x) => (x.isActive ? BG_SECONDARY_LIGHT : BG_TRANSPARENT)};
 
   :hover {
     border: 1px solid ${BORDER_PRIMARY};
@@ -56,8 +56,8 @@ const DefaultOption = ({ data, isFocused, innerProps = {} }) => {
   );
 };
 
-export const getSelectOptions = initialOptions =>
-  initialOptions.map(x => ({
+export const getSelectOptions = (initialOptions) =>
+  initialOptions.map((x) => ({
     value: x,
     label: x,
   }));
@@ -85,7 +85,7 @@ export const Select2 = ({
   return (
     <S
       {...input}
-      onChange={x => {
+      onChange={(x) => {
         input.value = x;
         input.onChange(x);
       }}
@@ -115,13 +115,16 @@ export const Select2 = ({
       styles={{
         control: (base, state) => ({
           ...base,
-          border: `1px solid ${(error && BORDER_WARNING_LIGHT) ||
+          border: `1px solid ${
+            (error && BORDER_WARNING_LIGHT) ||
             (state.isFocused && BORDER_PRIMARY) ||
-            BORDER_SECONDARY}`,
-          boxShadow: `0 0 0 3px ${(error &&
-            `rgba(${BORDER_WARNING_LIGHT_RGB}, 0.4)`) ||
+            BORDER_SECONDARY
+          }`,
+          boxShadow: `0 0 0 3px ${
+            (error && `rgba(${BORDER_WARNING_LIGHT_RGB}, 0.4)`) ||
             (state.isFocused && `rgba(${BORDER_PRIMARY_RGB}, 0.4)`) ||
-            BORDER_TRANSPARENT}`,
+            BORDER_TRANSPARENT
+          }`,
           borderRadius: '3px',
           color: TEXT_DARK,
           fontFamily: APP_FONT,
@@ -132,7 +135,7 @@ export const Select2 = ({
           margin: `${menuIsOpen ? '10px' : '0'}`,
           padding: '0 5px',
         }),
-        menu: base => ({
+        menu: (base) => ({
           ...base,
           color: TEXT_DARK,
           fontFamily: APP_FONT,
@@ -141,7 +144,7 @@ export const Select2 = ({
           margin: 0,
           boxShadow: 'none',
         }),
-        menuList: base => ({
+        menuList: (base) => ({
           ...base,
           paddingBottom: 0,
           boxShadow: !menuIsOpen ? `0 0 3px ${BORDER_SECONDARY}` : `none`,
@@ -152,7 +155,7 @@ export const Select2 = ({
   );
 };
 
-export const SelectField = props => (
+export const SelectField = (props) => (
   <Wrapper
     label={props.label}
     tip={props.tip}

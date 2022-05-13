@@ -39,20 +39,13 @@ DataCacheProvider.propTypes = {
   children: PropTypes.element,
 };
 
-const withConnect = connect(
-  null,
-  dispatch => ({
-    getStatDispatch: bindActionCreators(getStat, dispatch),
-    getFaqDispatch: bindActionCreators(getFaq, dispatch),
-    getTutorialDispatch: bindActionCreators(getTutorial, dispatch),
-  }),
-);
+const withConnect = connect(null, (dispatch) => ({
+  getStatDispatch: bindActionCreators(getStat, dispatch),
+  getFaqDispatch: bindActionCreators(getFaq, dispatch),
+  getTutorialDispatch: bindActionCreators(getTutorial, dispatch),
+}));
 
 const withReducer = injectReducer({ key: 'dataCacheProvider', reducer });
 const withSaga = injectSaga({ key: 'dataCacheProvider', saga, mode: DAEMON });
 
-export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
-)(DataCacheProvider);
+export default compose(withReducer, withSaga, withConnect)(DataCacheProvider);

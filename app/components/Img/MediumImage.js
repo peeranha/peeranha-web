@@ -36,11 +36,10 @@ export const MediumImageLabel = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  ${({ size }) => 
-    size === LABEL_SIZE_LG ? 
-    'width: 30px; height: 30px; padding: 4px 6px 2px 4px;' : 
-    'width: 18px; height: 18px; padding: 2px 3px 1px 2px;'
-  }  
+  ${({ size }) =>
+    size === LABEL_SIZE_LG
+      ? 'width: 30px; height: 30px; padding: 4px 6px 2px 4px;'
+      : 'width: 18px; height: 18px; padding: 2px 3px 1px 2px;'}
   border-radius: 50%;
   background-color: ${BG_LIGHT};
   box-shadow: 0 0 2px 0 ${BG_BLACK};

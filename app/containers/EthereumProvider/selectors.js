@@ -5,24 +5,24 @@ import { initialState } from './reducer';
  * Direct selector to the ethereumProvider state domain
  */
 
-const selectEthereumProviderDomain = state =>
+const selectEthereumProviderDomain = (state) =>
   state.get('ethereumProvider', initialState);
 
-const selectEthereum = state =>
+const selectEthereum = (state) =>
   selectEthereumProviderDomain(state).get('ethereum');
 
 const makeSelectInitializing = () =>
-  createSelector(selectEthereumProviderDomain, substate =>
+  createSelector(selectEthereumProviderDomain, (substate) =>
     substate.get('initializing'),
   );
 
 const makeSelectEthereum = () =>
-  createSelector(selectEthereumProviderDomain, substate =>
+  createSelector(selectEthereumProviderDomain, (substate) =>
     substate.get('ethereum'),
   );
 
 const makeSelectError = () =>
-  createSelector(selectEthereumProviderDomain, substate =>
+  createSelector(selectEthereumProviderDomain, (substate) =>
     substate.get('error'),
   );
 

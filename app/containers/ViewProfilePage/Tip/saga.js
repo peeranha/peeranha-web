@@ -47,6 +47,6 @@ export function* saveCryptoAccountsWorker({
   }
 }
 
-export default function*() {
+export default function* () {
   yield takeLatest(SAVE_CRYPTO_ACCOUNTS, saveCryptoAccountsWorker);
 }

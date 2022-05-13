@@ -67,7 +67,7 @@ export class ShowActiveKey extends React.PureComponent {
     };
 
     return (
-      <React.Fragment>
+      <>
         <Modal show={showModal} closeModal={hideActiveKeyModalDispatch}>
           {!loginWithFacebook && (
             <ShowActiveKeyForm
@@ -91,7 +91,7 @@ export class ShowActiveKey extends React.PureComponent {
         >
           {children}
         </Button>
-      </React.Fragment>
+      </>
     );
   }
 }
@@ -140,16 +140,9 @@ function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   };
 }
 
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 const withReducer = injectReducer({ key: 'showActiveKey', reducer });
 const withSaga = injectSaga({ key: 'showActiveKey', saga, mode: DAEMON });
 
-export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
-)(ShowActiveKey);
+export default compose(withReducer, withSaga, withConnect)(ShowActiveKey);

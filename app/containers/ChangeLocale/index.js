@@ -52,7 +52,7 @@ export const ChangeLocale = ({ locale, changeLocaleDispatch, withTitle }) => {
     <Dropdown
       className="mr-3"
       button={
-        <React.Fragment>
+        <>
           <Span
             className="d-flex align-items-center mr-1"
             fontSize="16"
@@ -62,12 +62,12 @@ export const ChangeLocale = ({ locale, changeLocaleDispatch, withTitle }) => {
             <Flag src={require(`images/${[locale]}_lang.png`)} alt="country" />
             {withTitle && <FormattedMessage {...commonMessages[locale]} />}
           </Span>
-        </React.Fragment>
+        </>
       }
       // TODO: return when language selection is needed
       menu={
         <ul>
-          {appLocales.map(x => (
+          {appLocales.map((x) => (
             <Li
               key={x}
               role="presentation"
@@ -104,9 +104,6 @@ export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   };
 }
 
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 export default compose(withConnect)(ChangeLocale);

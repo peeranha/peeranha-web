@@ -1,4 +1,4 @@
-export const titleConverter = title => {
+export const titleConverter = (title) => {
   if (title.length < 46) {
     return title;
   }
@@ -17,11 +17,7 @@ export const titleConverter = title => {
     default:
       break;
   }
-  const newTitle = title
-    .split('')
-    .splice(0, k)
-    .join('')
-    .trimRight();
+  const newTitle = title.split('').splice(0, k).join('').trimRight();
 
   return `${newTitle}....`;
 };

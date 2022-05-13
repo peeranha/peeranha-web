@@ -72,11 +72,11 @@ export function* editCommunityWorker({ communityId, communityData }) {
     }
 
     const communityDataCurrent = yield select(selectCommunity());
-    const isEqual = Object.keys(communityData).every(key => {
-      return !(key === 'isBlogger')
+    const isEqual = Object.keys(communityData).every((key) =>
+      !(key === 'isBlogger')
         ? communityData[key] === communityDataCurrent[key]
-        : true;
-    });
+        : true,
+    );
 
     if (!isEqual) {
       const ethereumService = yield select(selectEthereum);
@@ -92,7 +92,7 @@ export function* editCommunityWorker({ communityId, communityData }) {
 
       const cachedCommunities = yield select(selectCommunities());
 
-      const community = cachedCommunities.find(c => c.id === communityId);
+      const community = cachedCommunities.find((c) => c.id === communityId);
 
       if (community) {
         try {

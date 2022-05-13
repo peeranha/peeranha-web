@@ -14,7 +14,7 @@ const Button = styled.button`
   bottom: ${isMobile().apple.phone ? 60 : 20}px;
   right: 20px;
   z-index: 1000;
-  display: ${props => (props.visible ? 'flex' : 'none')};
+  display: ${(props) => (props.visible ? 'flex' : 'none')};
   justify-content: center;
   align-items: center;
   background-color: ${TEXT_SECONDARY};

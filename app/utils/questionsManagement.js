@@ -30,7 +30,6 @@ import {
   EDIT_POST,
   GET_COMMENT,
   GET_POST,
-  GET_QUESTION,
   CHANGE_POST_TYPE,
   GET_REPLY,
   GET_STATUS_HISTORY,
@@ -61,7 +60,7 @@ export class FetcherOfQuestionsForFollowedCommunities {
 
     this.communitiesMap = {};
 
-    communities.forEach(communityId => {
+    communities.forEach((communityId) => {
       const lowerBound = JSBI.leftShift(
         JSBI.BigInt(communityId),
         JSBI.BigInt(36),
@@ -82,10 +81,10 @@ export class FetcherOfQuestionsForFollowedCommunities {
     this.hasMore = true;
   }
 
-  getNextItems = /* istanbul ignore next */ async fetchCount => {
+  getNextItems = /* istanbul ignore next */ async (fetchCount) => {
     if (!this.hasMore) return [];
 
-    const fill_fetcher = async communityId => {
+    const fill_fetcher = async (communityId) => {
       if (
         !this.communitiesMap[communityId].more ||
         this.communitiesMap[communityId].items.length >= fetchCount
@@ -122,7 +121,7 @@ export class FetcherOfQuestionsForFollowedCommunities {
 
     const fill_fetcher_task = [];
 
-    this.communities.forEach(communityId => {
+    this.communities.forEach((communityId) => {
       fill_fetcher_task.push(fill_fetcher(communityId));
     });
 
@@ -130,7 +129,7 @@ export class FetcherOfQuestionsForFollowedCommunities {
 
     let availableItems = 0;
 
-    this.communities.forEach(communityId => {
+    this.communities.forEach((communityId) => {
       availableItems += this.communitiesMap[communityId].items.length;
     });
 
@@ -147,7 +146,7 @@ export class FetcherOfQuestionsForFollowedCommunities {
       let minId = minIdInitializer;
       let communityWithMinId;
 
-      this.communities.forEach(communityId => {
+      this.communities.forEach((communityId) => {
         if (this.communitiesMap[communityId].items.length) {
           const currId = JSBI.BigInt(
             this.communitiesMap[communityId].items[0].id,
@@ -170,11 +169,11 @@ export class FetcherOfQuestionsForFollowedCommunities {
 /* eslint-enable  */
 
 export async function getQuestionsPostedByUser(id, limit, offset) {
-  return await getUsersQuestions(id, limit, offset);
+  return getUsersQuestions(id, limit, offset);
 }
 
 export async function getAnsweredUsersPosts(id, limit, offset) {
-  return await getUsersAnsweredQuestions(id, limit, offset);
+  return getUsersAnsweredQuestions(id, limit, offset);
 }
 
 /* eslint no-param-reassign: ["error", { "props": false }] */
@@ -268,7 +267,7 @@ export async function postQuestion(
 ) {
   const ipfsLink = await saveText(JSON.stringify(questionData));
   const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
-  return await ethereumService.sendTransactionWithSigner(user, POST_QUESTION, [
+  return ethereumService.sendTransactionWithSigner(user, POST_QUESTION, [
     communityId,
     ipfsHash,
     postType,
@@ -286,7 +285,7 @@ export const editQuestion = async (
 ) => {
   const ipfsLink = await saveText(JSON.stringify(questionData));
   const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
-  return await ethereumService.sendTransactionWithSigner(user, EDIT_POST, [
+  return ethereumService.sendTransactionWithSigner(user, EDIT_POST, [
     postId,
     ipfsHash,
     tags,
@@ -434,7 +433,7 @@ export const getStatusHistory = async (
   commentId,
   ethereumService,
 ) =>
-  await ethereumService.getDataWithArgs(GET_STATUS_HISTORY, [
+  ethereumService.getDataWithArgs(GET_STATUS_HISTORY, [
     user,
     questionId,
     answerId,
@@ -468,7 +467,7 @@ export const getCreatedPostId = async (
 
   return bigNumberToNumber(
     events.filter(
-      event =>
+      (event) =>
         event.args.user.toLowerCase() === user.toLowerCase() &&
         Number(event.args.communityId) === Number(communityId),
     )[0].args.postId,
@@ -553,7 +552,7 @@ export const formQuestionObject = async (
   };
 };
 
-export const votingStatus = statusHistory => ({
+export const votingStatus = (statusHistory) => ({
   isUpVoted: statusHistory === UPVOTE_STATUS,
   isDownVoted: statusHistory === DOWNVOTE_STATUS,
   isVotedToDelete: false,
@@ -670,7 +669,7 @@ export async function getQuestionById(ethereumService, questionId, user) {
       }
     }),
   );
-  return await formQuestionObject(
+  return formQuestionObject(
     rawQuestion,
     orderBy(replies, 'postTime'),
     orderBy(comments, 'postTime'),
@@ -685,7 +684,7 @@ export const getAnswer = async (ethereumService, questionId, answerId) => {
     questionId,
     answerId,
   ]);
-  return await formReplyObject(answer, [], answerId, ethereumService);
+  return formReplyObject(answer, [], answerId, ethereumService);
 };
 
 export const changeQuestionType = async (
@@ -744,7 +743,7 @@ export const getRandomQuestions = (questions, amount) => {
       }
     } while (showingPromotedQuestionsIds.length < amount);
 
-    showingPromotedQuestionsIds.forEach(id => {
+    showingPromotedQuestionsIds.forEach((id) => {
       result.push(questions[id]);
     });
   } else {
@@ -755,11 +754,11 @@ export const getRandomQuestions = (questions, amount) => {
 };
 
 export const getQuestionTags = (question, tagList) =>
-  question.tags.map(tagId =>
-    tagList.find(tag => tag.id === `${question.communityId}-${tagId}`),
+  question.tags.map((tagId) =>
+    tagList.find((tag) => tag.id === `${question.communityId}-${tagId}`),
   );
 
-export const getHistoriesForPost = async postId => {
+export const getHistoriesForPost = async (postId) => {
   const histories = await historiesForPost(postId);
   return histories.map(
     ({

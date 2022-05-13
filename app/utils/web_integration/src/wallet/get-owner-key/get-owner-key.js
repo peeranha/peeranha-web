@@ -1,3 +1,4 @@
+const { DEFAULT_LOCALE } = require('i18n');
 const { buildEncryptionKeys } = require('../../util/encryption-key-builder');
 const {
   decryptObject,
@@ -9,8 +10,6 @@ const {
   GET_OWNER_KEY_INIT_SERVICE,
   GET_OWNER_KEY_COMPLETE_SERVICE,
 } = require('../../util/aws-connector');
-
-const { DEFAULT_LOCALE } = require('i18n');
 
 async function getOwnerKeyInit(
   email,

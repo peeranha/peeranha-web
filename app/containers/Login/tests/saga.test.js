@@ -25,9 +25,6 @@ import {
   EMAIL_FIELD,
   PASSWORD_FIELD,
   REMEMBER_ME_FIELD,
-  LOGIN_WITH_SCATTER,
-  LOGIN_WITH_SCATTER_ERROR,
-  LOGIN_WITH_SCATTER_SUCCESS,
   FINISH_REGISTRATION,
   DISPLAY_NAME,
   FINISH_REGISTRATION_SUCCESS,
@@ -113,11 +110,6 @@ describe('loginWithScatterWorker', () => {
       generator.next(locale);
       expect(eosService.init).toHaveBeenLastCalledWith(null, true);
     });
-
-    it('scatter is not installed', () => {
-      const step = generator.next();
-      expect(step.value.type).toBe(LOGIN_WITH_SCATTER_ERROR);
-    });
   });
 
   describe('scatter account is not selected', () => {
@@ -146,11 +138,6 @@ describe('loginWithScatterWorker', () => {
       generator.next();
       expect(eosService.selectAccount).toHaveBeenCalledTimes(1);
     });
-
-    it('handling error: user is not selected', () => {
-      const step = generator.next(account);
-      expect(step.value.type).toBe(LOGIN_WITH_SCATTER_ERROR);
-    });
   });
 
   describe('user is not registered in Peeranha', () => {
@@ -171,11 +158,6 @@ describe('loginWithScatterWorker', () => {
     generator.next();
     generator.next(account);
     generator.next();
-
-    it('error handling, profileInfo is absent', () => {
-      const step = generator.next(profileInfo);
-      expect(step.value.type).toBe(LOGIN_WITH_SCATTER_ERROR);
-    });
   });
 
   describe('user is IN system, SUCCESS login', () => {

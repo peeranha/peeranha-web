@@ -9,10 +9,8 @@ import {
   registerConfirmEmail,
   registerInit,
 } from 'utils/web_integration/src/wallet/register/register';
-import { registerAccount } from 'utils/accountManagement';
 import webIntegrationErrors from 'utils/web_integration/src/wallet/service-errors';
 import { WebIntegrationError } from 'utils/errors';
-import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
 import { successHandling } from 'containers/Toast/saga';
 
@@ -21,18 +19,15 @@ import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import {
   EMAIL_FIELD as EMAIL_LOGIN_FIELD,
   PASSWORD_FIELD as PASSWORD_LOGIN_FIELD,
-  REFERRAL_CODE,
   WE_ARE_HAPPY_FORM,
 } from 'containers/Login/constants';
 
 import {
   loginWithEmailWorker,
-  loginWithWalletWorker,
   redirectToFeedWorker,
 } from 'containers/Login/saga';
 
 import {
-  DISPLAY_NAME_FIELD,
   EMAIL_CHECKING,
   EMAIL_CHECKING_SUCCESS,
   EMAIL_VERIFICATION,
@@ -43,7 +38,6 @@ import {
   SIGNUP_WITH_WALLET,
   SIGNUP_WITH_WALLET_SUCCESS,
   USER_ALREADY_REGISTERED_ERROR,
-  USER_REJECTED_SIGNATURE_REQUEST_ERROR,
   ETHEREUM_WALLET_ADDRESS,
 } from './constants';
 
@@ -54,8 +48,6 @@ import {
   signUpViaEmailCompleteSuccess,
   showWalletSignUpFormErr,
   showWalletSignUpFormSuccess,
-  signUpWithWalletErr,
-  signUpWithWalletSuccess,
   verifyEmailErr,
   verifyEmailSuccess,
 } from './actions';
@@ -66,17 +58,16 @@ import signupMessages from './messages';
 import { REDIRECT_TO_FEED } from '../App/constants';
 import { selectEthereum } from '../EthereumProvider/selectors';
 import { getProfileInfo } from '../../utils/profileManagement';
-import { makeSelectAccount } from '../AccountProvider/selectors';
 import { loginWithEmailSuccess } from '../Login/actions';
 
-const setEmailToStorage = email => {
+const setEmailToStorage = (email) => {
   localStorage.setItem('signup_email', JSON.stringify(email));
 };
 
 const getEmailFromStorage = () =>
   JSON.parse(localStorage.getItem('signup_email'));
 
-const setCodeToStorage = code => {
+const setCodeToStorage = (code) => {
   localStorage.setItem('verification_code', JSON.stringify(code));
 };
 
@@ -124,7 +115,7 @@ export function* verifyEmailWorker({
 
     if (!response.OK) {
       throw new WebIntegrationError(
-        translations[(webIntegrationErrors[response.errorCode]?.id)],
+        translations[webIntegrationErrors[response.errorCode]?.id],
       );
     }
 
@@ -156,7 +147,9 @@ export function* signUpComplete({ val }) {
     const address = val[ETHEREUM_WALLET_ADDRESS];
 
     const profile = {
-      displayName: `${address.substring(0, 6)}...${address.substring(account.length-4)}`,
+      displayName: `${address.substring(0, 6)}...${address.substring(
+        account.length - 4,
+      )}`,
     };
 
     const props = {
@@ -227,7 +220,7 @@ export function* showWalletSignUpFormWorker({ metaMask }) {
   }
 }
 
-export default function*() {
+export default function* () {
   yield takeLatest(SEND_ANOTHER_CODE, sendAnotherCode);
   yield takeLatest(SEND_ANOTHER_CODE, sendAnotherCodeSuccess);
   yield takeLatest(EMAIL_CHECKING, emailCheckingWorker);

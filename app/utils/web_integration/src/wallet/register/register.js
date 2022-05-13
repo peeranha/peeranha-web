@@ -7,11 +7,11 @@ const {
 const { getBytes32FromIpfsHash, saveText } = require('../../../../ipfs');
 
 async function registerInit(email) {
-  return await callService(ACCOUNT_BEGIN_SIGNUP, { email });
+  return callService(ACCOUNT_BEGIN_SIGNUP, { email });
 }
 
 async function registerConfirmEmail(email, code) {
-  return await callService(ACCOUNT_VALIDATE_SIGNUP_CODE, {
+  return callService(ACCOUNT_VALIDATE_SIGNUP_CODE, {
     email,
     code,
   });
@@ -20,7 +20,7 @@ async function registerConfirmEmail(email, code) {
 async function registerComplete(registerProperties, profile) {
   const ipfsHash = await saveText(JSON.stringify(profile));
 
-  return await callService(ACCOUNT_REGISTER, {
+  return callService(ACCOUNT_REGISTER, {
     ...registerProperties,
     ipfsHashHex: getBytes32FromIpfsHash(ipfsHash),
   });

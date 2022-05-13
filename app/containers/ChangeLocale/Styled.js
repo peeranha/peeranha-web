@@ -9,7 +9,7 @@ const Flag = styled.img`
 `;
 
 const Li = styled.li`
-  font-weight: ${x => (x.isBold ? '700' : '400')};
+  font-weight: ${(x) => (x.isBold ? '700' : '400')};
   font-family: ${LANDING_FONT};
   font-size: 14px;
   padding: 8px 20px !important;

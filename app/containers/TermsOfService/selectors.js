@@ -1,22 +1,22 @@
 import { createSelector } from 'reselect';
 import { initialState } from './reducer';
 
-const selectTermsOfServiceDomain = state =>
+const selectTermsOfServiceDomain = (state) =>
   state.get('termsOfService', initialState).toJS();
 
 const selectTerms = () =>
-  createSelector(selectTermsOfServiceDomain, substate => substate.terms);
+  createSelector(selectTermsOfServiceDomain, (substate) => substate.terms);
 
 const selectGetTermsProcessing = () =>
   createSelector(
     selectTermsOfServiceDomain,
-    substate => substate.getTermsProcessing,
+    (substate) => substate.getTermsProcessing,
   );
 
 const selectGetTermsError = () =>
   createSelector(
     selectTermsOfServiceDomain,
-    substate => substate.getTermsError,
+    (substate) => substate.getTermsError,
   );
 
 export {

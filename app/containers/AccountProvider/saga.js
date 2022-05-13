@@ -101,7 +101,7 @@ import { hasGlobalModeratorRole } from '../../utils/properties';
 const single = isSingleCommunityWebsite();
 
 /* eslint func-names: 0, consistent-return: 0 */
-export const getCurrentAccountWorker = function*(initAccount) {
+export const getCurrentAccountWorker = function* (initAccount) {
   try {
     yield put(getCurrentAccountProcessing());
 
@@ -225,7 +225,7 @@ export function* isAvailableAction(isValid, data = {}) {
   }
 
   if (!skipPermissions) {
-    if (profileInfo.integer_properties?.find(x => x.key === MODERATOR_KEY)) {
+    if (profileInfo.integer_properties?.find((x) => x.key === MODERATOR_KEY)) {
       return true;
     }
   }
@@ -233,7 +233,7 @@ export function* isAvailableAction(isValid, data = {}) {
   yield call(isValid);
 }
 
-export const getReferralInfo = async (user, ethereum) => {
+export const getReferralInfo = async (user) => {
   const info = await eosService.getTableRow(
     INVITED_USERS_TABLE,
     INVITED_USERS_SCOPE,

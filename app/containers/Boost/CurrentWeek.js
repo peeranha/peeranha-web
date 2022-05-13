@@ -2,7 +2,11 @@ import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
-import { TEXT_WARNING_LIGHT, BORDER_RADIUS_L, BORDER_WARNING_LIGHT } from 'style-constants';
+import {
+  TEXT_WARNING_LIGHT,
+  BORDER_RADIUS_L,
+  BORDER_WARNING_LIGHT,
+} from 'style-constants';
 
 import P from 'components/P';
 import Base from 'components/Base';
@@ -21,7 +25,10 @@ const CurrentWeek = ({
 }) => (
   <li
     className="d-flex flex-column flex-grow-1 mb-3"
-    style={{border: `1px dashed ${BORDER_WARNING_LIGHT}`, borderRadius: BORDER_RADIUS_L}}
+    style={{
+      border: `1px dashed ${BORDER_WARNING_LIGHT}`,
+      borderRadius: BORDER_RADIUS_L,
+    }}
   >
     <Base className="flex-grow-0" position="top">
       <P className="mb-1" color={TEXT_WARNING_LIGHT} fontSize="13">
@@ -34,11 +41,7 @@ const CurrentWeek = ({
         periodFinished={periodFinished}
       />
     </Base>
-    <WeekDetails
-      maximumStake={maxStake}
-      yourStake={userStake}
-      isCurrentWeek
-    />
+    <WeekDetails maximumStake={maxStake} yourStake={userStake} isCurrentWeek />
   </li>
 );
 

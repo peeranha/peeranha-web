@@ -8,11 +8,7 @@ import { translationMessages } from 'i18n';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { scrollToSection } from 'utils/animation';
-import {
-  communityAdminInfiniteImpactPermission,
-  getPermissions,
-  hasGlobalModeratorRole,
-} from 'utils/properties';
+import { getPermissions, hasGlobalModeratorRole } from 'utils/properties';
 
 import * as routes from 'routes-config';
 
@@ -53,7 +49,6 @@ import saga from './saga';
 
 import ViewQuestionContainer from './ViewQuestionContainer';
 import { POST_TYPE } from '../../utils/constants';
-import { selectHistoriesLoading } from './selectors';
 
 export const ViewQuestion = ({
   locale,
@@ -61,7 +56,6 @@ export const ViewQuestion = ({
   historiesLoading,
   account,
   questionData,
-  questionBounty,
   postAnswerLoading,
   postCommentLoading,
   questionDataLoading,
@@ -102,8 +96,8 @@ export const ViewQuestion = ({
       questionData.postType === POST_TYPE.generalPost
         ? 'questionView'
         : questionData.postType === POST_TYPE.expertPost
-          ? 'expertPostView'
-          : 'tutorialView';
+        ? 'expertPostView'
+        : 'tutorialView';
     if (match.url !== routes[route](match.params.id)) {
       history.push(routes[route](match.params.id));
     }
@@ -118,36 +112,27 @@ export const ViewQuestion = ({
     };
   }, []);
 
-  useEffect(
-    () => {
-      getQuestionDataDispatch(match.params.id);
-    },
-    [match.params.id, account],
-  );
+  useEffect(() => {
+    getQuestionDataDispatch(match.params.id);
+  }, [match.params.id, account]);
 
-  useEffect(
-    () => {
-      getHistoriesDispatch(match.params.id);
-    },
-    [match.params.id],
-  );
+  useEffect(() => {
+    getHistoriesDispatch(match.params.id);
+  }, [match.params.id]);
 
-  useEffect(
-    () => {
-      if (questionData) {
-        setTimeout(scrollToSection, 250);
-      }
+  useEffect(() => {
+    if (questionData) {
+      setTimeout(scrollToSection, 250);
+    }
 
-      if (questionData && !questionDataLoading) {
-        window.isRendered = true;
-      }
+    if (questionData && !questionDataLoading) {
+      window.isRendered = true;
+    }
 
-      if (!questionDataLoading && !questionData) {
-        history.push(routes.notFound());
-      }
-    },
-    [questionData, questionDataLoading],
-  );
+    if (!questionDataLoading && !questionData) {
+      history.push(routes.notFound());
+    }
+  }, [questionData, questionDataLoading]);
 
   const translations = translationMessages[locale];
 
@@ -160,7 +145,7 @@ export const ViewQuestion = ({
   );
 
   const isAnswered = !!questionData?.answers.filter(
-    x => x.author.user === account,
+    (x) => x.author.user === account,
   ).length;
 
   const commId = questionData?.communityId ?? null;
@@ -180,7 +165,7 @@ export const ViewQuestion = ({
     postComment: postCommentDispatch,
     checkAddCommentAvailable: checkAddCommentAvailableDispatch,
     hideAddCommentForm: hideAddCommentFormDispatch,
-    addCommentFormDisplay: addCommentFormDisplay,
+    addCommentFormDisplay,
     saveComment: saveCommentDispatch,
     deleteComment: deleteCommentDispatch,
     upVote: upVoteDispatch,
@@ -220,16 +205,16 @@ export const ViewQuestion = ({
 
   const tagIds = questionData?.tags ?? [];
 
-  const community = communities.filter(x => x.id === commId)[0] || {
+  const community = communities.filter((x) => x.id === commId)[0] || {
     tags: [],
   };
 
-  const tags = community.tags.filter(x => tagIds.includes(x.id));
+  const tags = community.tags.filter((x) => tagIds.includes(x.id));
 
-  const keywords = [...tags.map(x => x.name), helmetTitle];
+  const keywords = [...tags.map((x) => x.name), helmetTitle];
 
   return (
-    <React.Fragment>
+    <>
       {process.env.ENV !== 'dev' && (
         <Seo
           title={helmetTitle}
@@ -241,12 +226,12 @@ export const ViewQuestion = ({
         />
       )}
 
-      {!questionDataLoading &&
-        !historiesLoading &&
-        questionData && <ViewQuestionContainer {...sendProps} />}
+      {!questionDataLoading && !historiesLoading && questionData && (
+        <ViewQuestionContainer {...sendProps} />
+      )}
 
       {(questionDataLoading || historiesLoading) && <LoadingIndicator />}
-    </React.Fragment>
+    </>
   );
 };
 
@@ -385,8 +370,4 @@ const withConnect = connect(
 const withReducer = injectReducer({ key: 'viewQuestion', reducer });
 const withSaga = injectSaga({ key: 'viewQuestion', saga });
 
-export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
-)(ViewQuestion);
+export default compose(withReducer, withSaga, withConnect)(ViewQuestion);

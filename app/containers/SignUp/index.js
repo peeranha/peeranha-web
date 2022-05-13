@@ -83,7 +83,7 @@ export const SignUp = ({
   logo,
   getLogoDispatch,
 }) => {
-  const checkEmailMethod = values => {
+  const checkEmailMethod = (values) => {
     const post = values.get ? values.get(EMAIL_FIELD) : email;
     checkEmailDispatch(post);
   };
@@ -107,14 +107,11 @@ export const SignUp = ({
     }
   }, []);
 
-  useEffect(
-    () => {
-      if (single) {
-        getLogoDispatch();
-      }
-    },
-    [single],
-  );
+  useEffect(() => {
+    if (single) {
+      getLogoDispatch();
+    }
+  }, [single]);
 
   return (
     <>
@@ -182,15 +179,18 @@ const withConnect = connect(
     account: makeSelectAccount(),
     email: signUpSelectors.selectEmail(),
     emailChecking: signUpSelectors.selectEmailChecking(),
-    emailVerificationProcessing: signUpSelectors.selectEmailVerificationProcessing(),
+    emailVerificationProcessing:
+      signUpSelectors.selectEmailVerificationProcessing(),
     signUpViaEmailProcessing: signUpSelectors.selectSignUpViaEmailProcessing(),
-    signUpWithWalletProcessing: signUpSelectors.selectSignUpWithWalletProcessing(),
-    showWalletSignUpProcessing: signUpSelectors.selectShowWalletSignUpProcessing(),
+    signUpWithWalletProcessing:
+      signUpSelectors.selectSignUpWithWalletProcessing(),
+    showWalletSignUpProcessing:
+      signUpSelectors.selectShowWalletSignUpProcessing(),
     ethereumUserAddress: signUpSelectors.selectEthereumUserAddress(),
     keys: signUpSelectors.selectKeys(),
     logo: selectLogo(),
   }),
-  dispatch => ({
+  (dispatch) => ({
     checkEmailDispatch: bindActionCreators(checkEmail, dispatch),
     verifyEmailDispatch: bindActionCreators(verifyEmail, dispatch),
     signUpViaEmailComplete: bindActionCreators(

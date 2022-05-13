@@ -5,58 +5,58 @@ import { initialState } from './reducer';
  * Direct selector to the changeEmail state domain
  */
 
-const selectChangeEmailDomain = state =>
+const selectChangeEmailDomain = (state) =>
   state.get('changeEmail', initialState).toJS();
 
 const selectShowModal = () =>
-  createSelector(selectChangeEmailDomain, substate => substate.showModal);
+  createSelector(selectChangeEmailDomain, (substate) => substate.showModal);
 
 const selectChangeEmailProcessing = () =>
   createSelector(
     selectChangeEmailDomain,
-    substate => substate.changeEmailProcessing,
+    (substate) => substate.changeEmailProcessing,
   );
 
 const selectChangeEmailError = () =>
   createSelector(
     selectChangeEmailDomain,
-    substate => substate.changeEmailError,
+    (substate) => substate.changeEmailError,
   );
 
 const selectContent = () =>
-  createSelector(selectChangeEmailDomain, substate => substate.content);
+  createSelector(selectChangeEmailDomain, (substate) => substate.content);
 
 const selectSendOldEmailProcessing = () =>
   createSelector(
     selectChangeEmailDomain,
-    substate => substate.sendOldEmailProcessing,
+    (substate) => substate.sendOldEmailProcessing,
   );
 
 const selectSendOldEmailError = () =>
   createSelector(
     selectChangeEmailDomain,
-    substate => substate.sendOldEmailError,
+    (substate) => substate.sendOldEmailError,
   );
 
 const selectConfirmOldEmailProcessing = () =>
   createSelector(
     selectChangeEmailDomain,
-    substate => substate.confirmOldEmailProcessing,
+    (substate) => substate.confirmOldEmailProcessing,
   );
 
 const selectConfirmOldEmailError = () =>
   createSelector(
     selectChangeEmailDomain,
-    substate => substate.confirmOldEmailError,
+    (substate) => substate.confirmOldEmailError,
   );
 
 const selectEmail = () =>
-  createSelector(selectChangeEmailDomain, substate => substate.email);
+  createSelector(selectChangeEmailDomain, (substate) => substate.email);
 
 const selectVerificationCode = () =>
   createSelector(
     selectChangeEmailDomain,
-    substate => substate.verificationCode,
+    (substate) => substate.verificationCode,
   );
 
 export {

@@ -26,13 +26,13 @@ import {
 } from './web_integration/src/util/aws-connector';
 import { UPDATE_ACC } from './ethConstants';
 import { getUser, getUserStats } from './theGraph';
-import { WebIntegrationError } from './errors';
 import { isUserExists } from './accountManagement';
 
 export const getRatingByCommunity = (user, communityId) => {
   return (
     user?.ratings?.find(
-      ratingObj => ratingObj.communityId.toString() === communityId?.toString(),
+      (ratingObj) =>
+        ratingObj.communityId.toString() === communityId?.toString(),
     )?.rating ?? 0
   );
 };
@@ -87,8 +87,8 @@ export async function getProfileInfo(
   }
 
   profileInfo.highestRating = profileInfo.ratings?.length
-    ? profileInfo.ratings?.reduce(
-        (max, current) => (max.rating > current.rating ? max : current),
+    ? profileInfo.ratings?.reduce((max, current) =>
+        max.rating > current.rating ? max : current,
       )
     : 0;
   profileInfo.user = user;
@@ -127,7 +127,7 @@ export async function saveProfile(ethereumService, user, profile) {
   ]);
 }
 
-export const getNotificationsInfo = async user => {
+export const getNotificationsInfo = async (user) => {
   const response = await callService(
     NOTIFICATIONS_INFO_SERVICE,
     { user },
@@ -144,10 +144,10 @@ export async function getUserTelegramData(eosService, userName) {
     INF_LIMIT,
   );
 
-  const userTgData = rows.filter(item => item.user === userName);
+  const userTgData = rows.filter((item) => item.user === userName);
   const telegram_id = userTgData.length > 0 ? userTgData[0].telegram_id : 0;
   const temporaryAccount = rows.filter(
-    item => item.telegram_id === telegram_id && item.user !== userName,
+    (item) => item.telegram_id === telegram_id && item.user !== userName,
   );
   const temporaryUser = temporaryAccount.length
     ? temporaryAccount[0].user
@@ -176,7 +176,7 @@ export async function unlinkTelegramAccount(eosService, user) {
   await eosService.sendTransaction(user, UNLINK_TELEGRAM_ACCOUNT, { user });
 }
 
-export const getAvailableBalance = profile => {
+export const getAvailableBalance = (profile) => {
   const stakedInCurrentPeriod = profile?.stakedInCurrentPeriod ?? 0;
   const stakedInNextPeriod = profile?.stakedInNextPeriod ?? 0;
   const balance = profile?.balance ?? 0;

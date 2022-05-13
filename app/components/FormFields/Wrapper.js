@@ -12,21 +12,21 @@ const CL = 350;
 const StyledBox = styled.div`
   position: relative;
   max-width: 100%;
-  margin-bottom: ${x => (!x.insideOfSection ? '15px' : '10px')};
+  margin-bottom: ${(x) => (!x.insideOfSection ? '15px' : '10px')};
   > div:nth-child(2) {
     display: flex;
     flex-wrap: nowrap;
-    align-items: ${x => (x.splitInHalf ? 'center' : 'initial')};
-    flex-direction: ${x => (x.splitInHalf ? 'row' : 'column')};
+    align-items: ${(x) => (x.splitInHalf ? 'center' : 'initial')};
+    flex-direction: ${(x) => (x.splitInHalf ? 'row' : 'column')};
     > div:nth-child(1) {
-      flex: 0 0 ${x => (x.splitInHalf ? `${CL}px` : `100%`)};
-      max-width: ${x => (x.splitInHalf ? `${CL}px` : `100%`)};
+      flex: 0 0 ${(x) => (x.splitInHalf ? `${CL}px` : `100%`)};
+      max-width: ${(x) => (x.splitInHalf ? `${CL}px` : `100%`)};
     }
     > div:nth-child(2) {
-      flex: 0 0 ${x => (x.splitInHalf ? `calc(100% - ${CL}px)` : `100%`)};
-      max-width: ${x => (x.splitInHalf ? `calc(100% - ${CL}px)` : `100%`)};
-      padding-left: ${x => (x.splitInHalf ? '30px' : '0px')};
-      margin-top: ${x => (x.splitInHalf ? '0px' : '8px')};
+      flex: 0 0 ${(x) => (x.splitInHalf ? `calc(100% - ${CL}px)` : `100%`)};
+      max-width: ${(x) => (x.splitInHalf ? `calc(100% - ${CL}px)` : `100%`)};
+      padding-left: ${(x) => (x.splitInHalf ? '30px' : '0px')};
+      margin-top: ${(x) => (x.splitInHalf ? '0px' : '8px')};
     }
   }
   @media only screen and (max-width: 768px) {
@@ -47,7 +47,7 @@ const StyledBox = styled.div`
       }
     }
   }
-  ${x =>
+  ${(x) =>
     x.disabled
       ? `:after {
     content: '';

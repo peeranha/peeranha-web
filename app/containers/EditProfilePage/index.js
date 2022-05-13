@@ -33,7 +33,6 @@ import saga from './saga';
 import { setDefaultReducer, saveProfile } from './actions';
 
 import ProfileEditForm from './ProfileEditForm';
-import * as routes from '../../routes-config';
 
 export const EditProfilePage = ({
   match: {
@@ -45,9 +44,8 @@ export const EditProfilePage = ({
   loginData,
   setDefaultReducerDispatch,
   saveProfileDispatch,
-  history,
 }) => {
-  const saveProfileMethod = values =>
+  const saveProfileMethod = (values) =>
     saveProfileDispatch({
       userKey: id,
       profile: {
@@ -101,7 +99,7 @@ const withConnect = connect(
     questions: selectQuestions(),
     questionsWithUserAnswers: selectQuestionsWithUserAnswers(),
   }),
-  dispatch => ({
+  (dispatch) => ({
     setDefaultReducerDispatch: bindActionCreators(setDefaultReducer, dispatch),
     saveProfileDispatch: bindActionCreators(saveProfile, dispatch),
   }),
@@ -110,8 +108,4 @@ const withConnect = connect(
 const withReducer = injectReducer({ key: 'editProfileReducer', reducer });
 const withSaga = injectSaga({ key: 'editProfileReducer', saga });
 
-export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
-)(EditProfilePage);
+export default compose(withReducer, withSaga, withConnect)(EditProfilePage);

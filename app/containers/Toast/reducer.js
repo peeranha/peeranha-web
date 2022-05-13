@@ -20,15 +20,13 @@ function toastReducer(state = initialState, action) {
         ...state.get('toasts'),
         {
           ...addedToast,
-          toastKey: Math.random()
-            .toString()
-            .slice(2),
+          toastKey: Math.random().toString().slice(2),
         },
       ]);
     case REMOVE_TOAST:
       return state.set(
         'toasts',
-        state.get('toasts').filter(x => x.toastKey !== toastKey),
+        state.get('toasts').filter((x) => x.toastKey !== toastKey),
       );
     default:
       return state;

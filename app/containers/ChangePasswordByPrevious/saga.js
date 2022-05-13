@@ -42,9 +42,7 @@ export function* changePasswordWorker({ resetForm, values }) {
     ) {
       throw new WebIntegrationError(
         translations[
-          webIntegrationErrors[
-            (changeCredentialsCompleteResponse?.errorCode)
-          ].id
+          webIntegrationErrors[changeCredentialsCompleteResponse?.errorCode].id
         ],
       );
     }

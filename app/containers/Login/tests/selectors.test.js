@@ -6,8 +6,6 @@ import {
   makeSelectShowModal,
   makeSelectEmail,
   makeSelectEosAccount,
-  selectLoginWithScatterError,
-  makeSelectLoginProcessing,
   makeSelectLoginWithEmailError,
   selectFinishRegistrationProcessing,
   selectFinishRegistrationError,
@@ -60,11 +58,6 @@ describe('selectLoginDomain', () => {
     expect(isEmail(mockedState)).toEqual(email);
   });
 
-  it('loginProcessing', () => {
-    const isLoginProcessing = makeSelectLoginProcessing();
-    expect(isLoginProcessing(mockedState)).toEqual(loginProcessing);
-  });
-
   it('makeSelectLoginWithEmailError', () => {
     const isLoginWithEmailError = makeSelectLoginWithEmailError();
     expect(isLoginWithEmailError(mockedState)).toEqual(loginWithEmailError);
@@ -73,11 +66,6 @@ describe('selectLoginDomain', () => {
   it('makeSelectEosAccount', () => {
     const isEosAccount = makeSelectEosAccount();
     expect(isEosAccount(mockedState)).toEqual(eosAccount);
-  });
-
-  it('selectLoginWithScatterError', () => {
-    const isLoginWithScatterError = selectLoginWithScatterError();
-    expect(isLoginWithScatterError(mockedState)).toEqual(loginWithScatterError);
   });
 
   it('selectFinishRegistrationProcessing', () => {

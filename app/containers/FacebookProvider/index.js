@@ -36,7 +36,7 @@ const FacebookProvider = ({
     }
   }, []);
 
-  return <React.Fragment> {children}</React.Fragment>;
+  return <> {children}</>;
 };
 
 FacebookProvider.propTypes = {
@@ -50,7 +50,7 @@ export default connect(
   createStructuredSelector({
     locale: makeSelectLocale(),
   }),
-  dispatch => ({
+  (dispatch) => ({
     autoLoginWithFacebookDispatch: bindActionCreators(
       autoLoginWithFacebook,
       dispatch,

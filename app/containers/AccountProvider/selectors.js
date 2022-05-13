@@ -3,54 +3,56 @@ import { createSelector } from 'reselect';
 import { getCookie } from 'utils/cookie';
 import { selectUsers } from 'containers/DataCacheProvider/selectors';
 import { AUTOLOGIN_DATA } from 'containers/Login/constants';
-import { MODERATOR_KEY } from 'utils/constants';
 
 import { initialState } from './reducer';
 import { getPermissions, hasGlobalModeratorRole } from '../../utils/properties';
 
-const selectAccountProviderDomain = state =>
+const selectAccountProviderDomain = (state) =>
   state.get('accountProvider', initialState).toJS();
 
 const makeSelectAccountLoading = () =>
-  createSelector(selectAccountProviderDomain, substate => substate.loading);
+  createSelector(selectAccountProviderDomain, (substate) => substate.loading);
 
 const makeSelectError = () =>
-  createSelector(selectAccountProviderDomain, substate => substate.error);
+  createSelector(selectAccountProviderDomain, (substate) => substate.error);
 
 const makeSelectAccount = () =>
-  createSelector(selectAccountProviderDomain, substate => substate.account);
+  createSelector(selectAccountProviderDomain, (substate) => substate.account);
 
 const makeSelectBalance = () =>
-  createSelector(selectAccountProviderDomain, substate => substate.balance);
+  createSelector(selectAccountProviderDomain, (substate) => substate.balance);
 
 const makeSelectStakedInCurrentPeriod = () =>
   createSelector(
     selectAccountProviderDomain,
-    substate => substate.stakedInCurrentPeriod,
+    (substate) => substate.stakedInCurrentPeriod,
   );
 
 const makeSelectStakedInNextPeriod = () =>
   createSelector(
     selectAccountProviderDomain,
-    substate => substate.stakedInNextPeriod,
+    (substate) => substate.stakedInNextPeriod,
   );
 
 const makeSelectBoost = () =>
-  createSelector(selectAccountProviderDomain, substate => substate.boost);
+  createSelector(selectAccountProviderDomain, (substate) => substate.boost);
 
 const selectLastUpdate = () =>
-  createSelector(selectAccountProviderDomain, substate => substate.lastUpdate);
+  createSelector(
+    selectAccountProviderDomain,
+    (substate) => substate.lastUpdate,
+  );
 
 const makeSelectLoginData = () =>
   createSelector(
     selectAccountProviderDomain,
-    state => state || JSON.parse(getCookie(AUTOLOGIN_DATA) || null),
+    (state) => state || JSON.parse(getCookie(AUTOLOGIN_DATA) || null),
   );
 
 const makeSelectProfileInfo = () =>
   createSelector(
-    state => state,
-    state => {
+    (state) => state,
+    (state) => {
       const account = makeSelectAccount()(state);
       const balance = makeSelectBalance()(state);
       const stakedInCurrentPeriod = makeSelectStakedInCurrentPeriod()(state);
@@ -76,8 +78,8 @@ const makeSelectProfileInfo = () =>
 
 const makeSelectFollowedCommunities = () =>
   createSelector(
-    state => state,
-    state => {
+    (state) => state,
+    (state) => {
       const profileInfo = makeSelectProfileInfo()(state);
       return profileInfo ? profileInfo.followedCommunities : null;
     },
@@ -85,8 +87,8 @@ const makeSelectFollowedCommunities = () =>
 
 const selectUserRating = () =>
   createSelector(
-    state => state,
-    state => {
+    (state) => state,
+    (state) => {
       const profileInfo = makeSelectProfileInfo()(state);
       return profileInfo ? profileInfo.rating : null;
     },
@@ -94,8 +96,8 @@ const selectUserRating = () =>
 
 const selectIsGlobalAdmin = () =>
   createSelector(
-    state => state,
-    state => {
+    (state) => state,
+    (state) => {
       const profileInfo = makeSelectProfileInfo()(state);
       return hasGlobalModeratorRole(getPermissions(profileInfo));
     },
@@ -103,8 +105,8 @@ const selectIsGlobalAdmin = () =>
 
 const selectPermissions = () =>
   createSelector(
-    state => state,
-    state => {
+    (state) => state,
+    (state) => {
       const profileInfo = makeSelectProfileInfo()(state);
       return profileInfo && profileInfo.hasOwnProperty('permissions')
         ? profileInfo.permissions
@@ -114,8 +116,8 @@ const selectPermissions = () =>
 
 const selectUserEnergy = () =>
   createSelector(
-    state => state,
-    state => {
+    (state) => state,
+    (state) => {
       const profileInfo = makeSelectProfileInfo()(state);
       return profileInfo ? profileInfo.energy : null;
     },

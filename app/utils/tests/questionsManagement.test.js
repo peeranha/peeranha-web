@@ -14,14 +14,12 @@ import {
   POST_ANSWER_METHOD,
   EDIT_ANSWER_METHOD,
   DEL_ANSWER_METHOD,
-  POST_COMMENT_METHOD,
   EDIT_COMMENT_METHOD,
   DEL_COMMENT_METHOD,
   UP_VOTE_METHOD,
   DOWN_VOTE_METHOD,
   MARK_AS_CORRECT_METHOD,
   VOTE_TO_DELETE_METHOD,
-  USER_ANSWERS_TABLE,
 } from '../constants';
 
 import {
@@ -29,7 +27,6 @@ import {
   getQuestionsFilteredByCommunities,
   postQuestion,
   postAnswer,
-  postComment,
   upVote,
   downVote,
   markAsAccepted,
@@ -45,7 +42,6 @@ import {
   getQuestionsPostedByUser,
   getQuestionsForFollowedCommunities,
   FetcherOfQuestionsForFollowedCommunities,
-  getAnswersPostedByUser,
   getQuestionById,
 } from '../questionsManagement';
 
@@ -64,29 +60,6 @@ beforeEach(() => {
     getTableRow: jest.fn(),
     getTableRows: jest.fn(),
   };
-});
-
-describe('getAnswersPostedByUser', () => {
-  const user = 'user1';
-  const offset = 10;
-  const limit = 10;
-
-  const answers = [1, 2, 3];
-
-  it('test', async () => {
-    eosService.getTableRows.mockImplementation(() => answers);
-
-    expect(
-      await getAnswersPostedByUser(eosService, user, offset, limit),
-    ).toEqual(answers);
-
-    expect(eosService.getTableRows).toHaveBeenCalledWith(
-      USER_ANSWERS_TABLE,
-      user,
-      offset,
-      limit,
-    );
-  });
 });
 
 /* eslint-disable */
@@ -595,31 +568,6 @@ describe('postAnswer', () => {
       {
         user,
         question_id: +questionId,
-        ipfs_link: ipfsLink,
-      },
-    );
-  });
-});
-
-describe('postComment', () => {
-  const user = 'user';
-  const comment = 'comment';
-  const questionId = 10;
-  const answerId = 50;
-  const ipfsLink = 'ipfsLink';
-
-  it('test', async () => {
-    saveText.mockImplementation(() => ipfsLink);
-
-    await postComment(user, questionId, answerId, comment, eosService);
-    expect(saveText).toHaveBeenCalledWith(comment);
-    expect(eosService.sendTransaction).toHaveBeenCalledWith(
-      user,
-      POST_COMMENT_METHOD,
-      {
-        user,
-        question_id: +questionId,
-        answer_id: +answerId,
         ipfs_link: ipfsLink,
       },
     );

@@ -5,41 +5,41 @@ import { initialState } from './reducer';
  * Direct selector to the deleteAccount state domain
  */
 
-const selectDeleteAccountDomain = state =>
+const selectDeleteAccountDomain = (state) =>
   state.get('deleteAccount', initialState).toJS();
 
 const selectContent = () =>
-  createSelector(selectDeleteAccountDomain, substate => substate.content);
+  createSelector(selectDeleteAccountDomain, (substate) => substate.content);
 
 const selectShowModal = () =>
-  createSelector(selectDeleteAccountDomain, substate => substate.showModal);
+  createSelector(selectDeleteAccountDomain, (substate) => substate.showModal);
 
 const selectSendEmailProcessing = () =>
   createSelector(
     selectDeleteAccountDomain,
-    substate => substate.sendEmailProcessing,
+    (substate) => substate.sendEmailProcessing,
   );
 
 const selectSendEmailError = () =>
   createSelector(
     selectDeleteAccountDomain,
-    substate => substate.sendEmailError,
+    (substate) => substate.sendEmailError,
   );
 
 const selectDeleteAccountProcessing = () =>
   createSelector(
     selectDeleteAccountDomain,
-    substate => substate.deleteAccountProcessing,
+    (substate) => substate.deleteAccountProcessing,
   );
 
 const selectDeleteAccountError = () =>
   createSelector(
     selectDeleteAccountDomain,
-    substate => substate.deleteAccountError,
+    (substate) => substate.deleteAccountError,
   );
 
 const selectEmail = () =>
-  createSelector(selectDeleteAccountDomain, substate => substate.email);
+  createSelector(selectDeleteAccountDomain, (substate) => substate.email);
 
 export {
   selectDeleteAccountDomain,

@@ -42,7 +42,7 @@ export function* sendOldEmailWorker({ resetForm, email }) {
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
 
-    const response = yield call(changeCredentialsInit, email, false, locale);
+    const response = yield call(changeCredentialsInit, email);
 
     if (!response.OK) {
       throw new WebIntegrationError(

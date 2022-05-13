@@ -59,6 +59,10 @@ import { getUniqQuestions } from 'containers/Questions/actions';
 import { updateStoredQuestionsWorker } from 'containers/Questions/saga';
 
 import {
+  isItemChanged,
+  saveChangedItemIdToSessionStorage,
+} from 'utils/sessionStorage';
+import {
   ANSWER_TYPE,
   CHANGE_QUESTION_TYPE,
   CHANGE_QUESTION_TYPE_SUCCESS,
@@ -90,7 +94,6 @@ import {
   VOTE_TO_DELETE_SUCCESS,
   GET_HISTORIES,
   GET_HISTORIES_SUCCESS,
-  GET_HISTORIES_ERROR,
 } from './constants';
 
 import {
@@ -144,22 +147,18 @@ import { selectUsers } from '../DataCacheProvider/selectors';
 import { selectEthereum } from '../EthereumProvider/selectors';
 import { getQuestionFromGraph } from '../../utils/theGraph';
 
-import {
-  isItemChanged,
-  saveChangedItemIdToSessionStorage,
-} from 'utils/sessionStorage';
-
 import { selectPostedAnswerIds } from '../AskQuestion/selectors';
-export const isGeneralQuestion = question => Boolean(question.postType === 1);
+export const isGeneralQuestion = (question) => Boolean(question.postType === 1);
 
-export const getQuestionTypeValue = postType =>
+export const getQuestionTypeValue = (postType) =>
   postType === POST_TYPE.generalPost
     ? POST_TYPE.expertPost
     : POST_TYPE.generalPost;
 
 const isOwnItem = (questionData, profileInfo, answerId) =>
   questionData.author.user === profileInfo.user ||
-  questionData.answers.find(x => x.id === answerId)?.user === profileInfo.user;
+  questionData.answers.find((x) => x.id === answerId)?.user ===
+    profileInfo.user;
 
 export function* getQuestionData({
   questionId,
@@ -194,13 +193,13 @@ export function* getQuestionData({
     }
 
     yield all(
-      question.answers.map(function*(answer) {
+      question.answers.map(function* (answer) {
         answer.commentCount = answer.comments.length;
         answer.id = Number(answer.id.split('-')[1]);
 
         answer.author = { ...answer.author, user: answer.author.id };
 
-        answer.comments = answer.comments.map(comment => ({
+        answer.comments = answer.comments.map((comment) => ({
           ...comment,
           author: { ...comment.author, user: comment.author.id },
           id: Number(comment.id.split('-')[2]),
@@ -221,7 +220,7 @@ export function* getQuestionData({
       }),
     );
 
-    question.comments = question.comments.map(comment => ({
+    question.comments = question.comments.map((comment) => ({
       ...comment,
       author: { ...comment.author, user: comment.author.id },
       id: Number(comment.id.split('-')[2]),
@@ -253,8 +252,9 @@ export function* getQuestionData({
   //   }
   // }
   //
-  const getItemStatus = (historyFlag, constantFlag) =>
-    historyFlag?.flag & (1 << constantFlag);
+
+  // const getItemStatus = (historyFlag, constantFlag) =>
+  //   historyFlag?.flag & (1 << constantFlag);
 
   const users = new Map();
 
@@ -296,11 +296,11 @@ export function* getQuestionData({
 
   function* processAnswers() {
     yield all(
-      question.answers.map(function*(x) {
+      question.answers.map(function* (x) {
         yield call(addOptions, x);
 
         yield all(
-          x.comments.map(function*(y) {
+          x.comments.map(function* (y) {
             yield call(addOptions, y);
           }),
         );
@@ -310,7 +310,7 @@ export function* getQuestionData({
 
   function* processCommentsOfQuestion() {
     yield all(
-      question.comments.map(function*(y) {
+      question.comments.map(function* (y) {
         yield call(addOptions, y);
       }),
     );
@@ -327,13 +327,13 @@ export function* getQuestionData({
   // To avoid of fetching same user profiles - remember it and to write author here
   if (user && isQuestionChanged) {
     yield all(
-      Array.from(users.keys()).map(function*(userFromItem) {
+      Array.from(users.keys()).map(function* (userFromItem) {
         const author = yield call(getUserProfileWorker, {
           user: userFromItem,
           getFullProfile: true,
           isLogin: user === userFromItem,
         });
-        users.get(userFromItem).map(cachedItem => {
+        users.get(userFromItem).map((cachedItem) => {
           cachedItem.author = author;
         });
       }),
@@ -394,11 +394,11 @@ export function* saveCommentWorker({
     let item;
 
     if (answerId === 0) {
-      item = questionData.comments?.find(x => x.id === commentId);
+      item = questionData.comments?.find((x) => x.id === commentId);
     } else if (answerId > 0) {
       item = questionData.answers
-        .find(x => x.id === answerId)
-        .comments.find(x => x.id === commentId);
+        .find((x) => x.id === answerId)
+        .comments.find((x) => x.id === commentId);
     }
 
     item.content = comment;
@@ -450,11 +450,11 @@ export function* deleteCommentWorker({
 
     if (answerId === 0) {
       questionData.comments = questionData.comments.filter(
-        x => x.id !== commentId,
+        (x) => x.id !== commentId,
       );
     } else if (answerId > 0) {
-      const answer = questionData.answers.find(x => x.id === answerId);
-      answer.comments = answer.comments.filter(x => x.id !== commentId);
+      const answer = questionData.answers.find((x) => x.id === answerId);
+      answer.comments = answer.comments.filter((x) => x.id !== commentId);
     }
 
     saveChangedItemIdToSessionStorage(CHANGED_POSTS_KEY, questionId);
@@ -495,7 +495,9 @@ export function* deleteAnswerWorker({ questionId, answerId, buttonId }) {
       ethereumService,
     );
 
-    questionData.answers = questionData.answers.filter(x => x.id !== answerId);
+    questionData.answers = questionData.answers.filter(
+      (x) => x.id !== answerId,
+    );
 
     saveChangedItemIdToSessionStorage(CHANGED_POSTS_KEY, questionId);
 
@@ -512,7 +514,7 @@ export function* deleteQuestionWorker({ questionId, buttonId }) {
       ethereumService,
       locale,
       profileInfo,
-      questionBounty,
+      /* questionBounty, */
     } = yield call(getParams);
 
     yield call(
@@ -566,7 +568,7 @@ export function* getQuestionDataWorker({ questionId }) {
 
     if (account === questionData.author.id) {
       yield all(
-        answers.map(function*({ author: answerUserInfo }) {
+        answers.map(function* ({ author: answerUserInfo }) {
           const answerProfileInfo = yield select(selectUsers(author.id));
           if (!answerProfileInfo.profile) {
             const profile = JSON.parse(
@@ -682,7 +684,7 @@ export function* postCommentWorker({
         id: questionData.comments.length + 1,
       });
     } else {
-      const { comments } = questionData.answers.find(x => x.id === answerId);
+      const { comments } = questionData.answers.find((x) => x.id === answerId);
 
       comments.push({
         ...newComment,
@@ -804,7 +806,7 @@ export function* downVoteWorker({
     const item =
       answerId === 0
         ? questionData
-        : questionData.answers.find(x => x.id === answerId);
+        : questionData.answers.find((x) => x.id === answerId);
 
     if (item.votingStatus.isDownVoted) {
       item.rating += 1;
@@ -862,7 +864,7 @@ export function* upVoteWorker({
     const item =
       answerId === 0
         ? questionData
-        : questionData.answers.find(x => x.id === answerId);
+        : questionData.answers.find((x) => x.id === answerId);
 
     if (item.votingStatus.isUpVoted) {
       item.rating -= 1;
@@ -960,13 +962,15 @@ export function* voteToDeleteWorker({
     if (!item.answerId && !item.commentId) {
       itemData = questionData;
     } else if (!item.answerId && item.commentId) {
-      itemData = questionData.comments.filter(x => x.id === item.commentId)[0];
+      itemData = questionData.comments.filter(
+        (x) => x.id === item.commentId,
+      )[0];
     } else if (item.answerId && !item.commentId) {
-      itemData = questionData.answers.filter(x => x.id === item.answerId)[0];
+      itemData = questionData.answers.filter((x) => x.id === item.answerId)[0];
     } else if (item.answerId && item.commentId) {
       itemData = questionData.answers
-        .filter(x => x.id === item.answerId)[0]
-        .comments.filter(y => y.id === item.commentId)[0];
+        .filter((x) => x.id === item.answerId)[0]
+        .comments.filter((y) => y.id === item.commentId)[0];
     }
 
     yield call(
@@ -1009,11 +1013,11 @@ export function* voteToDeleteWorker({
         // delete comment
         if (answerId === 0) {
           questionData.comments = questionData.comments.filter(
-            x => x.id !== commentId,
+            (x) => x.id !== commentId,
           );
         } else if (answerId > 0) {
-          const answer = questionData.answers.find(x => x.id === answerId);
-          answer.comments = answer.comments.filter(x => x.id !== commentId);
+          const answer = questionData.answers.find((x) => x.id === answerId);
+          answer.comments = answer.comments.filter((x) => x.id !== commentId);
         }
 
         yield put(deleteCommentSuccess({ ...questionData }, buttonId));
@@ -1022,7 +1026,7 @@ export function* voteToDeleteWorker({
       if (isDeleteAnswerButton) {
         // delete answer
         questionData.answers = questionData.answers.filter(
-          x => x.id !== answerId,
+          (x) => x.id !== answerId,
         );
 
         yield put(deleteAnswerSuccess({ ...questionData }, buttonId));
@@ -1047,13 +1051,13 @@ export function* voteToDeleteWorker({
       if (!answerId && !commentId) {
         item = questionData;
       } else if (!answerId && commentId) {
-        item = questionData.comments.find(x => x.id === commentId);
+        item = questionData.comments.find((x) => x.id === commentId);
       } else if (answerId && !commentId) {
-        item = questionData.answers.find(x => x.id === answerId);
+        item = questionData.answers.find((x) => x.id === answerId);
       } else if (answerId && commentId) {
         item = questionData.answers
-          .find(x => x.id === answerId)
-          .comments.find(x => x.id === commentId);
+          .find((x) => x.id === answerId)
+          .comments.find((x) => x.id === commentId);
       }
 
       item.votingStatus.isVotedToDelete = true;
@@ -1070,7 +1074,7 @@ export function* voteToDeleteWorker({
 }
 
 // Do not spent time for main action - update author as async action after main action
-//TODO after Graph hooks
+// TODO after Graph hooks
 export function* updateQuestionDataAfterTransactionWorker({
   usersForUpdate = [],
   questionData,
@@ -1090,7 +1094,7 @@ export function* updateQuestionDataAfterTransactionWorker({
 
     const userInfoMe = yield call(getUserProfileWorker, { user });
 
-    const changeUserInfo = item => {
+    const changeUserInfo = (item) => {
       if (item.user === user) {
         item.author = userInfoMe;
       } else if (item.user === usersForUpdate[0]) {
@@ -1099,11 +1103,11 @@ export function* updateQuestionDataAfterTransactionWorker({
     };
 
     changeUserInfo(questionData);
-    questionData.comments.forEach(x => changeUserInfo(x));
+    questionData.comments.forEach((x) => changeUserInfo(x));
 
-    questionData.answers.forEach(x => {
+    questionData.answers.forEach((x) => {
       changeUserInfo(x);
-      x.comments.forEach(y => changeUserInfo(y));
+      x.comments.forEach((y) => changeUserInfo(y));
     });
 
     yield put(getQuestionDataSuccess({ ...questionData }));
@@ -1170,7 +1174,7 @@ export function* updateQuestionList({ questionData }) {
   }
 }
 
-export default function*() {
+export default function* () {
   yield takeEvery(GET_QUESTION_DATA, getQuestionDataWorker);
   yield takeLatest(POST_ANSWER, postAnswerWorker);
   yield takeEvery(CHECK_ADD_COMMENT_AVAILABLE, showAddCommentFormWorker);

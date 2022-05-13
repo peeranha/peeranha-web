@@ -47,7 +47,7 @@ export class Header extends React.PureComponent {
 
     window.addEventListener(
       'scroll',
-      event => {
+      (event) => {
         const st = window.pageYOffset || document.documentElement.scrollTop;
 
         const { scrollY } = event.currentTarget;
@@ -131,9 +131,6 @@ export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   };
 }
 
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 export default compose(withConnect)(Header);

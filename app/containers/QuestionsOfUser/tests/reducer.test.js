@@ -1,12 +1,11 @@
 import { fromJS } from 'immutable';
 
-import questionsOfUserReducer, { initialState } from '../reducer';
+import questionsOfUserReducer from '../reducer';
 
 import {
   getQuestions,
   getQuestionsSuccess,
   getQuestionsErr,
-  resetStore,
 } from '../actions';
 
 describe('questionsOfUserReducer', () => {
@@ -48,9 +47,5 @@ describe('questionsOfUserReducer', () => {
     expect(
       questionsOfUserReducer(state, getQuestionsErr(getQuestionsError)),
     ).toEqual(obj);
-  });
-
-  it('resetStore', () => {
-    expect(questionsOfUserReducer(state, resetStore())).toEqual(initialState);
   });
 });

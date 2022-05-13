@@ -37,7 +37,7 @@ export function* upVoteWorker({ communityId, buttonId }) {
     const storedCommunities = yield select(selectSuggestedCommunities());
 
     const activeCommunity = storedCommunities.filter(
-      x => x.id === +communityId,
+      (x) => x.id === +communityId,
     )[0];
 
     yield call(isAuthorized);
@@ -53,12 +53,12 @@ export function* upVoteWorker({ communityId, buttonId }) {
 
     if (activeCommunity.upvotes.includes(account)) {
       activeCommunity.upvotes = activeCommunity.upvotes.filter(
-        x => x !== account,
+        (x) => x !== account,
       );
     } else {
       activeCommunity.upvotes = [...activeCommunity.upvotes, account];
       activeCommunity.downvotes = activeCommunity.downvotes.filter(
-        x => x !== account,
+        (x) => x !== account,
       );
     }
 
@@ -77,7 +77,7 @@ export function* downVoteWorker({ communityId, buttonId }) {
     const storedCommunities = yield select(selectSuggestedCommunities());
 
     const activeCommunity = storedCommunities.filter(
-      x => x.id === +communityId,
+      (x) => x.id === +communityId,
     )[0];
 
     yield call(isAuthorized);
@@ -93,12 +93,12 @@ export function* downVoteWorker({ communityId, buttonId }) {
 
     if (activeCommunity.downvotes.includes(account)) {
       activeCommunity.downvotes = activeCommunity.downvotes.filter(
-        x => x !== account,
+        (x) => x !== account,
       );
     } else {
       activeCommunity.downvotes = [...activeCommunity.downvotes, account];
       activeCommunity.upvotes = activeCommunity.upvotes.filter(
-        x => x !== account,
+        (x) => x !== account,
       );
     }
 
@@ -109,7 +109,7 @@ export function* downVoteWorker({ communityId, buttonId }) {
   }
 }
 
-export default function*() {
+export default function* () {
   yield takeEvery(UPVOTE, upVoteWorker);
   yield takeEvery(DOWNVOTE, downVoteWorker);
 }

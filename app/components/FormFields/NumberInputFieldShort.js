@@ -24,7 +24,7 @@ export const NumberInputFieldShort = ({
   onClick,
   infoText,
 }) => {
-  const onChange = x => {
+  const onChange = (x) => {
     try {
       let inputValue = String(x.target.value);
       inputValue = inputValue.replace(/[^0-9.]/, '');

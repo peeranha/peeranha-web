@@ -2,22 +2,7 @@ const crypto = require('crypto');
 const algorithm = 'aes-256-cbc';
 const encoding = 'base64';
 const DEFAULT_IV = Buffer.from([
-  1,
-  2,
-  3,
-  4,
-  5,
-  6,
-  7,
-  8,
-  9,
-  10,
-  11,
-  12,
-  13,
-  14,
-  15,
-  16,
+  1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
 ]);
 
 /* eslint no-throw-literal: 0, no-plusplus: 0, no-bitwise: 0 */

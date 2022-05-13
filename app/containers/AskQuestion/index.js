@@ -56,9 +56,7 @@ export const AskQuestion = ({
   const availableBalance = getAvailableBalance(profileInfo);
 
   const maxPromotingHours = useMemo(
-    () => {
-      return Math.floor(availableBalance / PROMOTE_HOUR_COST);
-    },
+    () => Math.floor(availableBalance / PROMOTE_HOUR_COST),
     [availableBalance],
   );
 
@@ -117,10 +115,7 @@ export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   };
 }
 
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 const withReducer = injectReducer({ key: 'askQuestionReducer', reducer });
 const withSaga = injectSaga({ key: 'askQuestionReducer', saga });

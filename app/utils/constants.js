@@ -278,5 +278,5 @@ export const CHAIN_ID_ERROR_CODE = 1000004;
 export const INVALID_ETHEREUM_PARAMETERS_ERROR_CODE = -32602;
 export const REJECTED_SIGNATURE_REQUEST = 4001;
 
-//session storage keys
+// session storage keys
 export const CHANGED_POSTS_KEY = 'changed-posts';

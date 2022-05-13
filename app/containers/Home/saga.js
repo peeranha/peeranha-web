@@ -66,7 +66,7 @@ export function* getQuestionsWorker({ communityId }) {
 
     if (topQuestionsIds && topQuestionsIds.length) {
       yield all(
-        topQuestionsIds.map(function*(id) {
+        topQuestionsIds.map(function* (id) {
           if (id) {
             const question = yield call(getQuestionById, eosService, id);
 
@@ -89,7 +89,7 @@ export function* getQuestionsWorker({ communityId }) {
 
     const users = new Map();
 
-    questionsList.forEach(question => {
+    questionsList.forEach((question) => {
       question.isGeneral = isGeneralQuestion(question.properties);
 
       users.set(
@@ -101,17 +101,17 @@ export function* getQuestionsWorker({ communityId }) {
     });
 
     yield all(
-      questionsList.map(function*(question) {
+      questionsList.map(function* (question) {
         const bounty = yield call(getQuestionBounty, question.id, eosService);
         question.questionBounty = bounty;
       }),
     );
 
     yield all(
-      Array.from(users.keys()).map(function*(user) {
+      Array.from(users.keys()).map(function* (user) {
         const author = yield call(getUserProfileWorker, { user });
 
-        users.get(user).map(cachedItem => {
+        users.get(user).map((cachedItem) => {
           cachedItem.author = author;
         });
       }),
@@ -127,7 +127,7 @@ export function* getCommunityWorker({ id }) {
   try {
     const cachedCommunities = yield select(selectCommunities());
 
-    let community = cachedCommunities.find(c => c.id === id);
+    let community = cachedCommunities.find((c) => c.id === id);
 
     if (!community) {
       const eosService = yield select(selectEos);
@@ -175,7 +175,7 @@ export function* redirectToEditCommunityPageWorker({ id }) {
   } catch (err) {}
 }
 
-export default function*() {
+export default function* () {
   yield takeEvery(GET_QUESTIONS, getQuestionsWorker);
   yield takeEvery(GET_COMMUNITY, getCommunityWorker);
   yield takeEvery(GET_LOGO, getLogoWorker);

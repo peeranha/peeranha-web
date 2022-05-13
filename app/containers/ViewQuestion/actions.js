@@ -374,12 +374,12 @@ export function resetStore() {
   };
 }
 
-export const changeQuestionType = event => ({
+export const changeQuestionType = (event) => ({
   type: CHANGE_QUESTION_TYPE,
   buttonId: event.currentTarget.id,
 });
 
-export const changeQuestionTypeSuccess = buttonId => ({
+export const changeQuestionTypeSuccess = (buttonId) => ({
   type: CHANGE_QUESTION_TYPE_SUCCESS,
   buttonId,
 });
@@ -390,12 +390,12 @@ export const changeQuestionTypeErr = (changeQuestionTypeError, buttonId) => ({
   buttonId,
 });
 
-export const payBounty = event => ({
+export const payBounty = (event) => ({
   type: PAY_BOUNTY,
   buttonId: event.currentTarget.id,
 });
 
-export const payBountySuccess = buttonId => ({
+export const payBountySuccess = (buttonId) => ({
   type: PAY_BOUNTY_SUCCESS,
   buttonId,
 });
@@ -427,7 +427,7 @@ export function getQuestionBountyErr(getQuestionBountyError) {
   };
 }
 
-export const setVoteToDeleteLoading = voteToDeleteLoading => ({
+export const setVoteToDeleteLoading = (voteToDeleteLoading) => ({
   type: SET_VOTE_TO_DELETE_LOADING,
   voteToDeleteLoading,
 });

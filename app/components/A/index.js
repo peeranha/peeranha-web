@@ -10,12 +10,12 @@ const colors = singleCommunityColors();
 
 export const ACss = css`
   text-decoration: none !important;
-  font-weight: ${x => (x.bold ? '600' : 'inherit')};
-  pointer-events: ${x => (x.disabled ? 'none' : 'auto')};
+  font-weight: ${(x) => (x.bold ? '600' : 'inherit')};
+  pointer-events: ${(x) => (x.disabled ? 'none' : 'auto')};
   ${svgDraw({ color: TEXT_DARK })};
   cursor: pointer;
 
-  ${x => (x.disabled ? `opacity: 0.6` : ``)};
+  ${(x) => (x.disabled ? `opacity: 0.6` : ``)};
 
   :hover {
     ${svgDraw({ color: `${colors.linkColor} !important` || TEXT_PRIMARY })};

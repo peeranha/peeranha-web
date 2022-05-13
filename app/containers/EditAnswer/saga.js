@@ -13,6 +13,8 @@ import {
   selectQuestionData,
 } from 'containers/ViewQuestion/selectors';
 
+import { saveChangedItemIdToSessionStorage } from 'utils/sessionStorage';
+import { CHANGED_POSTS_KEY } from 'utils/constants';
 import {
   EDIT_ANSWER,
   EDIT_ANSWER_BUTTON,
@@ -29,8 +31,6 @@ import {
   getAnswerSuccess,
 } from './actions';
 import { selectEthereum } from '../EthereumProvider/selectors';
-import { saveChangedItemIdToSessionStorage } from 'utils/sessionStorage';
-import { CHANGED_POSTS_KEY } from 'utils/constants';
 
 export function* getAnswerWorker({ questionId, answerId }) {
   try {
@@ -66,7 +66,7 @@ export function* editAnswerWorker({ answer, questionId, answerId, official }) {
     );
 
     if (cachedQuestion) {
-      const item = cachedQuestion.answers.find(x => x.id === answerId);
+      const item = cachedQuestion.answers.find((x) => x.id === answerId);
       item.content = answer;
       if (official) {
         item.isOfficialReply = official;
@@ -102,7 +102,7 @@ export function* redirectToEditAnswerPageWorker({ buttonId, link }) {
   } catch (err) {}
 }
 
-export default function*() {
+export default function* () {
   yield takeLatest(GET_ANSWER, getAnswerWorker);
   yield takeLatest(EDIT_ANSWER, editAnswerWorker);
   yield takeLatest(EDIT_ANSWER_SUCCESS, updateQuestionList);

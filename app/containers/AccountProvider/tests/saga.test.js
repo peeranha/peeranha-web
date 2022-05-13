@@ -11,7 +11,6 @@ import { getBalance } from 'utils/walletManagement';
 import { GET_USER_PROFILE } from 'containers/DataCacheProvider/constants';
 
 import { FOLLOW_HANDLER_SUCCESS } from 'containers/FollowCommunityButton/constants';
-import { SHOW_SCATTER_SIGNUP_FORM_SUCCESS } from 'containers/SignUp/constants';
 
 import {
   ASK_QUESTION_SUCCESS,
@@ -355,7 +354,6 @@ describe('defaultSaga', () => {
     expect(step.value).toEqual([
       GET_CURRENT_ACCOUNT,
       FOLLOW_HANDLER_SUCCESS,
-      SHOW_SCATTER_SIGNUP_FORM_SUCCESS,
       ASK_QUESTION_SUCCESS,
       CREATE_COMMUNITY_SUCCESS,
       SUGGEST_TAG_SUCCESS,

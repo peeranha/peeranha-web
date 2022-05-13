@@ -43,7 +43,7 @@ export const timeConverter = (timestamp, locale) => {
   return time;
 };
 
-export const bigNumberToNumber = bigNumber => {
+export const bigNumberToNumber = (bigNumber) => {
   if (bigNumber === undefined) {
     return 0;
   }
@@ -55,6 +55,5 @@ export const bigNumberToNumber = bigNumber => {
   return bigNumber.toNumber();
 };
 
-export const dataToString = data => {
-  return typeof data === 'string' ? data : String(data);
-};
+export const dataToString = (data) =>
+  typeof data === 'string' ? data : String(data);

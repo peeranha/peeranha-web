@@ -48,11 +48,11 @@ class DebouncedColorInput extends React.Component {
   constructor(input) {
     super(input);
     this.input = input;
-    this.debouncedOnChange = _debounce(event => {
+    this.debouncedOnChange = _debounce((event) => {
       input.onChange(event);
     }, 200);
 
-    this.handleChange = event => {
+    this.handleChange = (event) => {
       event.persist();
       this.debouncedOnChange(event);
     };
@@ -81,25 +81,23 @@ const ColorField = ({
   type = 'color',
   insideOfSection,
   defaultValue,
-}) => {
-  return (
-    <Wrapper
-      tip={tip}
-      meta={meta}
-      splitInHalf={splitInHalf}
+}) => (
+  <Wrapper
+    tip={tip}
+    meta={meta}
+    splitInHalf={splitInHalf}
+    disabled={disabled}
+    id={input.name}
+    insideOfSection={insideOfSection}
+  >
+    <DebouncedColorInput
+      {...input}
+      type={type}
       disabled={disabled}
-      id={input.name}
-      insideOfSection={insideOfSection}
-    >
-      <DebouncedColorInput
-        {...input}
-        type={type}
-        disabled={disabled}
-        defaultValue={defaultValue}
-      />
-      {label}
-    </Wrapper>
-  );
-};
+      defaultValue={defaultValue}
+    />
+    {label}
+  </Wrapper>
+);
 
 export default React.memo(ColorField);

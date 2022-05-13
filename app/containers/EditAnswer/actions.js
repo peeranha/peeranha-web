@@ -22,7 +22,7 @@ export function getAnswer(questionId, answerId) {
   };
 }
 
-export const getAnswerSuccess = answer => ({
+export const getAnswerSuccess = (answer) => ({
   type: GET_ANSWER_SUCCESS,
   answer,
 });

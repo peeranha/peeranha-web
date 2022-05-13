@@ -1,11 +1,8 @@
-import React, { memo, useCallback, useEffect, useState } from 'react';
+import { memo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { bindActionCreators } from 'redux';
-import { FormattedMessage } from 'react-intl';
-
-import commonMessages from 'common-messages';
 
 import {
   BORDER_PRIMARY,
@@ -14,10 +11,9 @@ import {
   BORDER_RADIUS_L,
 } from 'style-constants';
 
-import { setCookie } from 'utils/cookie';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
-import { QUESTION_FILTER, UPDATE_PROMO_QUESTIONS } from './constants';
+import { QUESTION_FILTER } from './constants';
 import { changeQuestionFilter } from './actions';
 
 const Container = styled.div`
@@ -46,7 +42,7 @@ const Button = styled.button`
 
 const single = isSingleCommunityWebsite();
 
-const cookieFilterSetter = value => ({
+const cookieFilterSetter = (value) => ({
   name: QUESTION_FILTER,
   value,
   options: {
@@ -59,63 +55,60 @@ const QuestionFilter = ({
   display,
   changeQuestionFilterDispatch,
   questionFilterFromCookies,
-}) => {
-  return null;
-  //TODO when question filter is ready
-  // if (!single) return null;
+}) => null;
+// TODO when question filter is ready
+// if (!single) return null;
 
-  // const [filter, setFilterValue] = useState(+(questionFilterFromCookies || 1));
+// const [filter, setFilterValue] = useState(+(questionFilterFromCookies || 1));
 
-  // useEffect(
-  //   () => {
-  //     const cookieValue = questionFilterFromCookies;
+// useEffect(
+//   () => {
+//     const cookieValue = questionFilterFromCookies;
 
-  //     setFilterValue(cookieValue);
+//     setFilterValue(cookieValue);
 
-  //     if (!cookieValue || cookieValue === '1') {
-  //       setCookie(cookieFilterSetter(1));
-  //       changeQuestionFilterDispatch(1);
-  //     }
-  //   },
-  //   [filter],
-  // );
-  // const setFilter = useCallback(
-  //   value => {
-  //     if (value !== filter) {
-  //       setFilterValue(value);
-  //       setCookie(cookieFilterSetter(value));
-  //       changeQuestionFilterDispatch(value);
-  //     }
-  //   },
-  //   [filter],
-  // );
-  // const setAllFilter = useCallback(
-  //   () => {
-  //     setFilter(0);
-  //     setCookie({
-  //       name: UPDATE_PROMO_QUESTIONS,
-  //       value: true,
-  //     });
-  //   },
-  //   [filter],
-  // );
-  // const setQuestionFilter = useCallback(() => setFilter(1), [filter]);
-  // return display ? (
-  //   <Container>
-  //     <Button
-  //       active={questionFilterFromCookies === '1'}
-  //       onClick={setQuestionFilter}
-  //       left
-  //     >
-  //       <FormattedMessage {...commonMessages.top} />
-  //     </Button>
-  //     <Button active={questionFilterFromCookies === '0'} onClick={setAllFilter}>
-  //       <FormattedMessage {...commonMessages.all} />
-  //     </Button>
-  //   </Container>
-  // ) : null;
-};
-
+//     if (!cookieValue || cookieValue === '1') {
+//       setCookie(cookieFilterSetter(1));
+//       changeQuestionFilterDispatch(1);
+//     }
+//   },
+//   [filter],
+// );
+// const setFilter = useCallback(
+//   value => {
+//     if (value !== filter) {
+//       setFilterValue(value);
+//       setCookie(cookieFilterSetter(value));
+//       changeQuestionFilterDispatch(value);
+//     }
+//   },
+//   [filter],
+// );
+// const setAllFilter = useCallback(
+//   () => {
+//     setFilter(0);
+//     setCookie({
+//       name: UPDATE_PROMO_QUESTIONS,
+//       value: true,
+//     });
+//   },
+//   [filter],
+// );
+// const setQuestionFilter = useCallback(() => setFilter(1), [filter]);
+// return display ? (
+//   <Container>
+//     <Button
+//       active={questionFilterFromCookies === '1'}
+//       onClick={setQuestionFilter}
+//       left
+//     >
+//       <FormattedMessage {...commonMessages.top} />
+//     </Button>
+//     <Button active={questionFilterFromCookies === '0'} onClick={setAllFilter}>
+//       <FormattedMessage {...commonMessages.all} />
+//     </Button>
+//   </Container>
+// ) : null;
 QuestionFilter.propTypes = {
   display: PropTypes.bool,
   changeQuestionFilterDispatch: PropTypes.func,
@@ -123,13 +116,10 @@ QuestionFilter.propTypes = {
 };
 
 export default memo(
-  connect(
-    null,
-    dispatch => ({
-      changeQuestionFilterDispatch: bindActionCreators(
-        changeQuestionFilter,
-        dispatch,
-      ),
-    }),
-  )(QuestionFilter),
+  connect(null, (dispatch) => ({
+    changeQuestionFilterDispatch: bindActionCreators(
+      changeQuestionFilter,
+      dispatch,
+    ),
+  }))(QuestionFilter),
 );

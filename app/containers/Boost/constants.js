@@ -18,7 +18,7 @@ export const CHANGE_STAKE_ERROR = `${PATH}CHANGE_STAKE_ERROR`;
 export const STATE_KEY = 'boost';
 
 export const FORM_TYPE = 'boostForm';
-export const CURRENT_STAKE_FORM = "app_Boost_CURRENT_STAKE_FORM";
+export const CURRENT_STAKE_FORM = 'app_Boost_CURRENT_STAKE_FORM';
 
 export const MIN_STAKE_PREDICTION = 1;
 export const MAX_STAKE_PREDICTION = 4;

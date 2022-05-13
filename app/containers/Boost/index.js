@@ -5,7 +5,18 @@ import { translationMessages } from 'i18n';
 import { createStructuredSelector } from 'reselect';
 import { compose, bindActionCreators } from 'redux';
 
-import { STATE_KEY } from "./constants";
+import injectSaga from 'utils/injectSaga';
+import injectReducer from 'utils/injectReducer';
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import {
+  makeSelectAccount,
+  makeSelectBalance,
+  makeSelectStakedInCurrentPeriod,
+  makeSelectStakedInNextPeriod,
+} from 'containers/AccountProvider/selectors';
+import Seo from 'components/Seo';
+import NotFound from 'containers/ErrorPage';
+import { STATE_KEY } from './constants';
 
 import messages from './messages';
 
@@ -14,20 +25,7 @@ import saga from './saga';
 import { getWeekStat, changeStake } from './actions';
 import * as selectors from './selectors';
 
-import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
-
-import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import {
-  makeSelectAccount,
-  makeSelectBalance,
-  makeSelectStakedInCurrentPeriod,
-  makeSelectStakedInNextPeriod,
-} from 'containers/AccountProvider/selectors';
-
-import Seo from 'components/Seo';
 import View from './View';
-import NotFound from 'containers/ErrorPage';
 
 const Boost = ({
   match: {
@@ -51,17 +49,14 @@ const Boost = ({
       <div>
         <NotFound withSeo={false} />
       </div>
-    )
+    );
   }
 
-  useEffect(
-    () => {
-      if (account) {
-        getWeekStatDispatch();
-      }
-    },
-    [account],
-  );
+  useEffect(() => {
+    if (account) {
+      getWeekStatDispatch();
+    }
+  }, [account]);
 
   return (
     <div>
@@ -125,7 +120,7 @@ export default memo(
         getWeekStatProcessing: selectors.selectGetWeekStatProcessing(),
         changeStakeLoading: selectors.selectChangeStakeLoading(),
       }),
-      dispatch => ({
+      (dispatch) => ({
         getWeekStatDispatch: bindActionCreators(getWeekStat, dispatch),
         changeStakeDispatch: bindActionCreators(changeStake, dispatch),
       }),

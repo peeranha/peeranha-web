@@ -1,4 +1,4 @@
-import React, { memo, useState, useMemo } from 'react';
+import React, { memo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
@@ -11,16 +11,12 @@ import arrowDownIcon from 'images/arrowDown.svg?external';
 
 import { selectRewardsWeeksNumber } from 'containers/Wallet/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import * as selectors from 'containers/Boost/selectors';
 
 import WalletButton from 'containers/Header/WalletDropdown/WalletButton';
-import { BoostPrediction } from 'containers/Header/WalletDropdown';
 import NotificationIcon from 'containers/Header/WalletDropdown/NotificationIcon';
 
 import A from 'components/A';
 import Icon from 'components/Icon';
-
-import SendTokens from 'containers/SendTokens';
 
 const MobileLinksInWallet = ({
   profile,
@@ -34,7 +30,7 @@ const MobileLinksInWallet = ({
 }) => {
   const [visibleWalletLinks, setVisibilityWalletLinks] = useState(false);
 
-  const isPositiveNumber = number => Number.isFinite(number) && number > 0;
+  const isPositiveNumber = (number) => Number.isFinite(number) && number > 0;
 
   if (!profile || !isMenuVisible) {
     return null;

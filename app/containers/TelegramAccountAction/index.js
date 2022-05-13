@@ -10,10 +10,9 @@ import { connect } from 'react-redux';
 import { compose, bindActionCreators } from 'redux';
 import { FormattedMessage } from 'react-intl';
 
-import messages from './messages';
-
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import messages from './messages';
 
 import reducer from './reducer';
 import saga from './saga';
@@ -47,7 +46,7 @@ export class TelegramAccountAction extends React.PureComponent {
     };
 
     return (
-      <React.Fragment>
+      <>
         {actionType === CONFIRM_TG_ACCOUNT && (
           <button
             id={CONFIRM_TG_ACCOUNT_ID}
@@ -76,7 +75,7 @@ export class TelegramAccountAction extends React.PureComponent {
             <FormattedMessage {...messages.unlink} />
           </button>
         )}
-      </React.Fragment>
+      </>
     );
   }
 }
@@ -100,10 +99,7 @@ function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   };
 }
 
-const withConnect = connect(
-  null,
-  mapDispatchToProps,
-);
+const withConnect = connect(null, mapDispatchToProps);
 
 const withReducer = injectReducer({ key: TG_ACCOUNT_KEY, reducer });
 const withSaga = injectSaga({
