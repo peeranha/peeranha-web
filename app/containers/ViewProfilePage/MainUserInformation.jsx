@@ -126,6 +126,7 @@ const MainUserInformation = ({
   locale,
   redirectToEditProfilePage,
 }) => {
+  console.log(profile);
   const isTemporaryAccount = !!profile?.integer_properties?.find(
     x => x.key === TEMPORARY_ACCOUNT_KEY && x.value,
   );
@@ -191,9 +192,9 @@ const MainUserInformation = ({
 
               <li>
                 <FormattedMessage {...messages.achievements} />
-                {typeof profile.achievementsReached === 'object' ? (
+                {typeof profile.achievements === 'object' ? (
                   <AchievementsStatus
-                    count={profile.achievementsReached.length}
+                    count={profile.achievements.length}
                     size="lg"
                   />
                 ) : (
