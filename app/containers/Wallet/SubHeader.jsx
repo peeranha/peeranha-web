@@ -41,7 +41,6 @@ const SubHeader = ({
           <LargeImage
             className="mr-3"
             src={walletCoinsImage}
-            src={walletCoinsImage}
             alt="wallet"
             bg={BG_PRIMARY_LIGHT}
             isBordered
