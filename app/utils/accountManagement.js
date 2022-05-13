@@ -14,7 +14,7 @@ import { dateNowInSeconds } from './datetime';
 import { IS_USER_EXISTS, REGISTER_ACC } from './ethConstants';
 
 export const emptyProfile = account => ({
-  achievementsReached: [],
+  achievements: [],
   answersGiven: 0,
   avatar: undefined,
   balance: 0,

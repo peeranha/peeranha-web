@@ -82,7 +82,7 @@ const SubHeader = ({
                   <span>{getFormattedNum3(balance)}</span>
                 </Span>
               </li>
-              {stakedInCurrentPeriod && (
+              {Boolean(stakedInCurrentPeriod) && (
                 <li>
                   <FormattedMessage {...messages.stakedInCurrentPeriod} />
                   <Span>
@@ -96,7 +96,7 @@ const SubHeader = ({
                   </Span>
                 </li>
               )}
-              {stakedInNextPeriod && (
+              {Boolean(stakedInNextPeriod) && (
                 <li>
                   <FormattedMessage {...messages.stakedInNextPeriod} />
                   <Span>
