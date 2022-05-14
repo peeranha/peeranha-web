@@ -41,13 +41,11 @@ export class ForgotPassword extends React.Component {
     const {
       getVerificationCodeDispatch,
       hideForgotPasswordModalDispatch,
-      verifyEmailDispatch,
       changePasswordDispatch,
       showModal,
       content,
       verificationCodeLoading,
       locale,
-      verifyEmailLoading,
       changePasswordLoading,
       sendAnotherCodeDispatch,
     } = this.props;
@@ -81,14 +79,12 @@ export class ForgotPassword extends React.Component {
 ForgotPassword.propTypes = {
   getVerificationCodeDispatch: PropTypes.func,
   hideForgotPasswordModalDispatch: PropTypes.func,
-  verifyEmailDispatch: PropTypes.func,
   changePasswordDispatch: PropTypes.func,
   sendAnotherCodeDispatch: PropTypes.func,
   showModal: PropTypes.bool,
   content: PropTypes.string,
   verificationCodeLoading: PropTypes.bool,
   locale: PropTypes.string,
-  verifyEmailLoading: PropTypes.bool,
   changePasswordLoading: PropTypes.bool,
 };
 

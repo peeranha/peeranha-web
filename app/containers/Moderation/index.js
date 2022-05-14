@@ -17,6 +17,7 @@ import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 import { SECTION_ID } from 'utils/constants';
 import { getModeratorPermissions } from 'utils/properties';
 
+import { redirectToFeed } from 'containers/App/actions';
 import Header from './Header';
 import Content from './Content';
 import { selectIsGlobalAdmin } from '../AccountProvider/selectors';
@@ -57,7 +58,7 @@ export const Moderation = ({
 Moderation.propTypes = {
   locale: PropTypes.string,
   communities: PropTypes.array,
-  isGlobalAdmin: PropTypes.bool,
+  communitiesCount: PropTypes.number,
   profile: PropTypes.object,
 };
 

@@ -22,7 +22,11 @@ export const Logout = /* istanbul ignore next */ ({
   logoutDispatch,
   children,
 }) => (
-  <button className="d-flex align-items-center" onClick={logoutDispatch}>
+  <button
+    className="d-flex align-items-center"
+    onClick={logoutDispatch}
+    type="button"
+  >
     {children}
   </button>
 );

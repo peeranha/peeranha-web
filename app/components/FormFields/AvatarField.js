@@ -260,7 +260,7 @@ function AvatarField({ input, meta, disabled }) {
                   setS(false);
                 }}
               />
-              <button className="close-icon" onClick={reload} />
+              <button className="close-icon" onClick={reload} type="button" />
             </div>
 
             <div className="reload-bg" onClick={reload} />
@@ -281,6 +281,7 @@ function AvatarField({ input, meta, disabled }) {
             <button
               className="remove-avatar-action"
               onClick={() => input.onChange(NO_AVATAR)}
+              type="button"
             />
           </div>
         )}

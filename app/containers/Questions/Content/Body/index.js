@@ -107,7 +107,7 @@ const Body = ({
 
 Body.propTypes = {
   id: PropTypes.string,
-  ipfsHash: PropTypes.string,
+  // ipfsHash: PropTypes.string,
   author: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   title: PropTypes.string,
   postTime: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
@@ -117,7 +117,6 @@ Body.propTypes = {
   tags: PropTypes.array,
   profileInfo: PropTypes.object,
   questionBounty: PropTypes.object,
-  isGeneral: PropTypes.bool,
   isModerator: PropTypes.bool,
   isTopQuestion: PropTypes.bool,
   topQuestionsCount: PropTypes.number,
@@ -125,6 +124,10 @@ Body.propTypes = {
   topQuestionActionProcessing: PropTypes.bool,
   isPromoted: PropTypes.bool,
   isCommunityFeed: PropTypes.bool,
+  isSearchPage: PropTypes.bool,
+  postType: PropTypes.number,
+  isFeed: PropTypes.bool,
+  isExpert: PropTypes.bool,
 };
 
 export default Body;

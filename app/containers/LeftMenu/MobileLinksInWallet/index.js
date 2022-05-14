@@ -46,6 +46,7 @@ const MobileLinksInWallet = ({
       <button
         className="d-flex align-items-center justify-content-between w-100"
         onClick={() => setVisibilityWalletLinks(!visibleWalletLinks)}
+        type="button"
       >
         <WalletButton
           balance={availableBalance}

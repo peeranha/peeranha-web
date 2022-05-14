@@ -23,7 +23,7 @@ import {
 
 import { SIGNUP_WITH_WALLET_SUCCESS } from 'containers/SignUp/constants';
 
-import { selectCommunities, selectStat, selectUsers } from './selectors';
+import { selectStat, selectUsers } from './selectors';
 
 import {
   getCommunitiesWithTags,
@@ -48,7 +48,6 @@ import {
 } from './constants';
 import { selectEthereum } from '../EthereumProvider/selectors';
 import { getUserStats } from '../../utils/theGraph';
-import { addWeeks } from 'date-fns';
 
 export function* getStatWorker() {
   try {
@@ -183,7 +182,7 @@ export function* getUserProfileWorker({ user, getFullProfile }) {
   }
 }
 
-export default function*() {
+export default function* () {
   yield takeLatest(GET_COMMUNITIES_WITH_TAGS, getCommunitiesWithTagsWorker);
   yield takeEvery(GET_USER_PROFILE, getUserProfileWorker);
   yield takeLatest(

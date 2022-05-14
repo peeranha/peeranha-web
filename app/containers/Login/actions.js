@@ -118,12 +118,14 @@ export function finishRegistrationWithDisplayNameErr(
   };
 }
 
-export const finishRegistrationReferralErr = finishRegistrationReferralError => ({
+export const finishRegistrationReferralErr = (
+  finishRegistrationReferralError,
+) => ({
   type: FINISH_REGISTRATION_REFERRAL_ERROR,
   finishRegistrationReferralError,
 });
 
-export const setFacebookLoginProcessing = facebookLoginProcessing => ({
+export const setFacebookLoginProcessing = (facebookLoginProcessing) => ({
   type: FACEBOOK_LOGIN_PROCESSING,
   facebookLoginProcessing,
 });
@@ -138,18 +140,18 @@ export const handleFbLoginCallback = (data, isLogin) => ({
   isLogin,
 });
 
-export const autoLoginWithFacebook = data => ({
+export const autoLoginWithFacebook = (data) => ({
   type: AUTOLOGIN_WITH_FACEBOOK,
   data,
   isLogin: true,
 });
 
-export const setFacebookUserData = facebookUserData => ({
+export const setFacebookUserData = (facebookUserData) => ({
   type: SET_FACEBOOK_USER_DATA,
   facebookUserData,
 });
 
-export const facebookLoginErr = facebookError => ({
+export const facebookLoginErr = (facebookError) => ({
   type: FB_LOGIN_ERROR,
   facebookError,
 });

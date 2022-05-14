@@ -21,7 +21,7 @@ export function* getWeekStatWorker() {
   // }
 }
 
-export function* changeStakeWorker({ currentStake }) {
+export function* changeStakeWorker(/* { currentStake } */) {
   // try {
   //   yield put(changeStakeProcessing());
   //

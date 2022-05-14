@@ -92,7 +92,6 @@ export const AskQuestion = ({
 AskQuestion.propTypes = {
   locale: PropTypes.string.isRequired,
   askQuestionLoading: PropTypes.bool.isRequired,
-  balance: PropTypes.number,
   askQuestionDispatch: PropTypes.func.isRequired,
   getQuestionsDispatch: PropTypes.func.isRequired,
   communities: PropTypes.array.isRequired,

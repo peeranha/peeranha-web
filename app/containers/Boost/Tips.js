@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -35,7 +34,7 @@ const ImgWrapper = styled.div`
   margin-bottom: 30px;
 `;
 
-const Tips = ({ faqQuestions }) => (
+const Tips = (/* { faqQuestions } */) => (
   <div>
     <ImgWrapper>
       <img src={boostImage} alt="boost" />
@@ -49,8 +48,8 @@ const Tips = ({ faqQuestions }) => (
 );
 
 Tips.propTypes = {
-  className: PropTypes.string,
-  faqQuestions: PropTypes.array,
+  // className: PropTypes.string,
+  // faqQuestions: PropTypes.array,
 };
 
 const mapStateToProps = createStructuredSelector({

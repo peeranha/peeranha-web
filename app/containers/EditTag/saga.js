@@ -2,14 +2,8 @@ import { call, put, takeLatest, select } from 'redux-saga/effects';
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
-import { communityAdminCreateTagPermission } from 'utils/properties';
 import { saveText } from 'utils/ipfs';
 
-import {
-  makeSelectAccount,
-  makeSelectProfileInfo,
-  selectIsGlobalAdmin,
-} from 'containers/AccountProvider/selectors';
 import { selectEditTagData } from 'containers/TagsOfCommunity/selectors';
 import { selectExistingTags } from 'containers/Tags/selectors';
 
@@ -26,16 +20,16 @@ import { editTag } from '../../utils/communityManagement';
 import { GET_EXISTING_TAGS } from '../Tags/constants';
 import { getExistingTagsWorker } from '../Tags/saga';
 
-export function* getEditTagFormWorker({ communityId }) {
+export function* getEditTagFormWorker(/* { communityId } */) {
   try {
-    const account = yield select(makeSelectAccount());
-    const isGlobalAdmin = yield select(selectIsGlobalAdmin());
+    // const account = yield select(makeSelectAccount());
+    // const isGlobalAdmin = yield select(selectIsGlobalAdmin());
 
-    const profileInfo = yield select(makeSelectProfileInfo());
-    const createTagPermission = communityAdminCreateTagPermission(
-      profileInfo?.permissions,
-      communityId,
-    );
+    // const profileInfo = yield select(makeSelectProfileInfo());
+    // const createTagPermission = communityAdminCreateTagPermission(
+    //   profileInfo?.permissions,
+    //   communityId,
+    // );
 
     // if ((!isGlobalAdmin && !createTagPermission)) {
     //   yield call(

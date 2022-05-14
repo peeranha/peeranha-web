@@ -37,47 +37,49 @@ export const loadMoreUnreadNotifications = () => ({
   type: LOAD_MORE_UNREAD_NOTIFICATIONS,
 });
 
-export const loadMoreUnreadNotificationsSuccess = notifications => ({
+export const loadMoreUnreadNotificationsSuccess = (notifications) => ({
   type: LOAD_MORE_UNREAD_NOTIFICATIONS_SUCCESS,
   notifications,
 });
 
-export const loadMoreUnreadNotificationsErr = loadMoreUnreadNotificationsError => ({
+export const loadMoreUnreadNotificationsErr = (
+  loadMoreUnreadNotificationsError,
+) => ({
   type: LOAD_MORE_UNREAD_NOTIFICATIONS_ERROR,
   loadMoreUnreadNotificationsError,
 });
 
-export const loadMoreNotificationsSuccess = notifications => ({
+export const loadMoreNotificationsSuccess = (notifications) => ({
   type: LOAD_MORE_NOTIFICATIONS_SUCCESS,
   notifications,
 });
 
-export const loadMoreNotificationsErr = loadMoreNotificationsError => ({
+export const loadMoreNotificationsErr = (loadMoreNotificationsError) => ({
   type: LOAD_MORE_NOTIFICATIONS_ERROR,
   loadMoreNotificationsError,
 });
 
-export const markAsReadNotificationsAll = readNotifications => ({
+export const markAsReadNotificationsAll = (readNotifications) => ({
   type: MARK_AS_READ_NOTIFICATIONS_ALL,
   readNotifications,
 });
 
-export const markAsReadNotificationsUnread = readNotifications => ({
+export const markAsReadNotificationsUnread = (readNotifications) => ({
   type: MARK_AS_READ_NOTIFICATIONS_UNREAD,
   readNotifications,
 });
 
-export const markAsReadSuccess = timestamps => ({
+export const markAsReadSuccess = (timestamps) => ({
   type: MARK_AS_READ_SUCCESS,
   timestamps,
 });
 
-export const markAsReadErr = markAsReadError => ({
+export const markAsReadErr = (markAsReadError) => ({
   type: MARK_AS_READ_ERROR,
   markAsReadError,
 });
 
-export const setNotificationsInfo = info => ({
+export const setNotificationsInfo = (info) => ({
   type: SET_NOTIFICATIONS_INFO,
   ...info,
 });

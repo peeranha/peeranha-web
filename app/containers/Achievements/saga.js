@@ -112,9 +112,9 @@ export const getNextUniqueAchievementId = (
     (next, curr) => next.lowerValue - curr.lowerValue,
   );
 
-  const currAchIndex = sortedAchievements.findIndex(
-    (el) => userRating >= el.lowerValue && userRating <= el.upperValue,
-  );
+  // const currAchIndex = sortedAchievements.findIndex(
+  //   (el) => userRating >= el.lowerValue && userRating <= el.upperValue,
+  // );
 
   const nextUnreachedAchievement = sortedAchievements.find((el) => {
     const totalAwarded =

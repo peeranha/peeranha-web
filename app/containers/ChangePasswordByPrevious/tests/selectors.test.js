@@ -4,10 +4,6 @@ import {
   selectChangePasswordByPreviousDomain,
   selectContent,
   selectShowModal,
-  selectSendEmailProcessing,
-  selectSendEmailError,
-  selectSubmitEmailProcessing,
-  selectSubmitEmailError,
   selectChangePasswordProcessing,
   selectChangePasswordError,
   selectEmail,
@@ -71,30 +67,6 @@ describe('selectChangePasswordByPreviousDomain', () => {
   it('selectContent', () => {
     const isSelectContent = selectContent();
     expect(isSelectContent(mockedState)).toEqual(content);
-  });
-
-  it('selectSendEmailProcessing', () => {
-    const isSelectSendEmailProcessing = selectSendEmailProcessing();
-    expect(isSelectSendEmailProcessing(mockedState)).toEqual(
-      sendEmailProcessing,
-    );
-  });
-
-  it('selectSendEmailError', () => {
-    const isSelectSendEmailError = selectSendEmailError();
-    expect(isSelectSendEmailError(mockedState)).toEqual(sendEmailError);
-  });
-
-  it('selectSubmitEmailProcessing', () => {
-    const isSelectSubmitEmailProcessing = selectSubmitEmailProcessing();
-    expect(isSelectSubmitEmailProcessing(mockedState)).toEqual(
-      submitEmailProcessing,
-    );
-  });
-
-  it('selectSubmitEmailError', () => {
-    const isSelectSubmitEmailError = selectSubmitEmailError();
-    expect(isSelectSubmitEmailError(mockedState)).toEqual(submitEmailError);
   });
 
   it('selectEmail', () => {

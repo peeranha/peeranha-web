@@ -73,7 +73,6 @@ export class Header extends React.PureComponent {
     const {
       account,
       profileInfo,
-      showLoginModalDispatch,
       showLeftMenuDispatch,
       redirectToAskQuestionPageDispatch,
       faqQuestions,
@@ -99,7 +98,7 @@ export class Header extends React.PureComponent {
 }
 
 Header.propTypes = {
-  showLoginModalDispatch: PropTypes.func,
+  loginWithWalletDispatch: PropTypes.func,
   account: PropTypes.string,
   profileInfo: PropTypes.object,
   showLeftMenuDispatch: PropTypes.func,

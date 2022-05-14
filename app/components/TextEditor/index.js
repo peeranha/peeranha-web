@@ -46,9 +46,7 @@ class TextEditor extends React.PureComponent {
 }
 
 TextEditor.propTypes = {
-  content: PropTypes.string,
   disabled: PropTypes.bool,
-  height: PropTypes.number,
   onChange: PropTypes.func,
   onBlur: PropTypes.func,
   value: PropTypes.string,

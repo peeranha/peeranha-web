@@ -92,13 +92,7 @@ const ADefaultStyled = ADefault.extend`
   }
 `;
 
-const TopCommunities = ({
-  communities,
-  profile,
-  account,
-  userId,
-  questions,
-}) => {
+const TopCommunities = ({ communities, profile, questions }) => {
   if (!communities || !profile || !communities.length) {
     return null;
   }
@@ -142,7 +136,7 @@ const TopCommunities = ({
                 route = routes.questions();
               }
               const community = communities.find(
-                (community) => community.id == x.communityId,
+                (comm) => comm.id == x.communityId,
               );
 
               return (

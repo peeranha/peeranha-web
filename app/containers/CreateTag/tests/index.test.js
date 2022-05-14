@@ -1,4 +1,4 @@
-import { CreateTag } from '../index';
+import CreateTag from "containers/CreateTag/index";
 import { NAME_FIELD, DESCRIPTION_FIELD, FORM_COMMUNITY } from '../constants';
 
 const cmp = new CreateTag();

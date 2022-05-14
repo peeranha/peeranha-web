@@ -68,7 +68,6 @@ const CreateTag = ({
   permissions = [],
   getFormDispatch,
   isFormLoading,
-  isFormAvailable,
 }) => {
   useModeratorRole(noAccess);
 
@@ -155,8 +154,6 @@ CreateTag.propTypes = {
   permissions: PropTypes.array,
   isFormLoading: PropTypes.bool,
   getFormDispatch: PropTypes.func.isRequired,
-  getSuggestedTagsDispatch: PropTypes.func,
-  isFormAvailable: PropTypes.bool,
 };
 
 export default compose(

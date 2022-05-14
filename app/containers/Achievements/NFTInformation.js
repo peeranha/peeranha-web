@@ -3,10 +3,10 @@ import commonMessages from 'common-messages';
 import { translationMessages } from 'i18n';
 import styled from 'styled-components';
 import { BG_LIGHT, BORDER_RADIUS_L } from 'style-constants';
-import PropTypes from 'prop-types';
 import { getIpfsHashFromBytes32 } from 'utils/ipfs.js';
 import Span from 'components/Span';
 import A from 'components/A';
+import PropTypes from 'prop-types';
 
 const Label = styled.div`
   position: absolute;
@@ -52,7 +52,7 @@ const NFTInformation = ({ id, locale, ipfsHash, contractAddress }) => {
   );
 };
 
-NFTInformation.PropTypes = {
+NFTInformation.propTypes = {
   id: PropTypes.number,
   locale: PropTypes.string,
   ipfsHash: PropTypes.string,

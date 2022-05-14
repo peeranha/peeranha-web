@@ -96,6 +96,7 @@ export const Profile = ({
 Profile.propTypes = {
   children: PropTypes.array,
   userId: PropTypes.string,
+  isLogin: PropTypes.bool,
   profile: PropTypes.object,
   locale: PropTypes.string,
   isProfileLoading: PropTypes.bool,

@@ -113,7 +113,7 @@ const App = ({
     }
 
     const loginData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
-    if (loginData && !single && pathname != '/') {
+    if (loginData && !single && pathname !== '/') {
       redirectToFeedDispatch();
     }
   }, []);

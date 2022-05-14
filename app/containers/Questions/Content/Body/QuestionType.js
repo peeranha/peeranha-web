@@ -13,7 +13,6 @@ import {
   BG_TRANSPARENT,
   BORDER_TRANSPARENT,
   BORDER_DARK,
-  TUTORIAL_BACKLIGHT,
   TUTORIAL_ICON_COLOR,
 } from 'style-constants';
 
@@ -51,18 +50,18 @@ const PromotedLabel = styled.span`
   border-radius: ${BORDER_RADIUS_M};
 `;
 
-const opacity = ({ isExpert, isTutorial }) =>
-  isExpert
-    ? `.opacity {
-    fill: ${TEXT_PRIMARY} !important;
-  }`
-    : isTutorial
-    ? `.opacity {
-    fill: ${TUTORIAL_BACKLIGHT} !important;
-  }`
-    : `.opacity {
-     fill: none !important;
-   }`;
+// const opacity = ({ isExpert, isTutorial }) =>
+//   isExpert
+//     ? `.opacity {
+//     fill: ${TEXT_PRIMARY} !important;
+//   }`
+//     : isTutorial
+//     ? `.opacity {
+//     fill: ${TUTORIAL_BACKLIGHT} !important;
+//   }`
+//     : `.opacity {
+//      fill: none !important;
+//    }`;
 
 // ${({ isExpert, isTutorial } ) => {
 //   console.log(isTutorial)
@@ -93,7 +92,7 @@ const Icon = styled(IconLg)`
   }
 `;
 
-const QuestionType = ({ locale, postType, isPromoted, isExpert }) => {
+const QuestionType = ({ locale, postType, isPromoted }) => {
   const [visible, changeVisibility] = useState(false);
 
   const onMouseEnter = useCallback(() => changeVisibility(true), []);

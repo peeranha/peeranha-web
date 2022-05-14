@@ -3,7 +3,6 @@ import { compose, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { FormattedMessage } from 'react-intl';
-import { translationMessages } from 'i18n';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 
@@ -66,9 +65,9 @@ const AchievementsBlockStyles = css`
   }
 `;
 
-const AchievementsBlock = styled.div`
-  ${AchievementsBlockStyles};
-`;
+// const AchievementsBlock = styled.div`
+//   ${AchievementsBlockStyles};
+// `;
 
 const UniqueAchievementsBlock = styled.div`
   ${AchievementsBlockStyles};
@@ -93,15 +92,15 @@ const Achievements = ({
   getAllAchievementsDispatch,
   achievements,
   userAchievements,
-  ratingAchievements,
-  questionAskedAchievements,
-  anwerGivenAchievements,
-  bestAnswerAchievements,
-  firstAnswerAchievements,
-  firstIn15Achievements,
-  uniqueAchievements,
+  // ratingAchievements,
+  // questionAskedAchievements,
+  // anwerGivenAchievements,
+  // bestAnswerAchievements,
+  // firstAnswerAchievements,
+  // firstIn15Achievements,
+  // uniqueAchievements,
   achievementsLoading,
-  getUserAchievementsDispatch,
+  // getUserAchievementsDispatch,
   setViewProfileAccountDispatch,
   resetViewProfileAccountDispatch,
 }) => {
@@ -113,9 +112,9 @@ const Achievements = ({
     return () => resetViewProfileAccountDispatch();
   }, [userId]);
 
-  const translations = translationMessages[locale]
-    ? translationMessages[locale]
-    : null;
+  // const translations = translationMessages[locale]
+  //   ? translationMessages[locale]
+  //   : null;
 
   return (
     <div>

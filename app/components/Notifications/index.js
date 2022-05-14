@@ -218,7 +218,7 @@ const Notifications = ({
           innerRef={containerRef}
           height={notifications.length * rowHeight + ROW_HEIGHT}
         >
-          {!!unreadCount ? (
+          {unreadCount ? (
             <SubHeader innerRef={ref} height={ROW_HEIGHT} top="0">
               <MarkAllAsReadButton />
             </SubHeader>

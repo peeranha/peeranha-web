@@ -235,13 +235,11 @@ export const QuestionForProfilePage = ({
 
 AcceptedQuestionBadge.propTypes = {
   acceptedAnswer: PropTypes.bool,
-  postType: PropTypes.string,
   isMyAnswerAccepted: PropTypes.bool,
 };
 
 TopCommunityBadge.propTypes = {
   isTheLargestRating: PropTypes.bool,
-  postType: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 QuestionCommunity.propTypes = {

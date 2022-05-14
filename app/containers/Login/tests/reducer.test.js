@@ -8,8 +8,6 @@ import {
   loginWithEmail,
   loginWithEmailSuccess,
   loginWithEmailErr,
-  loginWithScatterSuccess,
-  loginWithScatterErr,
   finishRegistrationWithDisplayName,
   finishRegistrationWithDisplayNameSuccess,
   finishRegistrationWithDisplayNameErr,
@@ -85,24 +83,6 @@ describe('loginReducer', () => {
     expect(loginReducer(state, loginWithEmailErr(loginWithEmailError))).toEqual(
       obj,
     );
-  });
-
-  it('LOGIN_WITH_SCATTER_SUCCESS', () => {
-    const obj = state
-      .set('showModal', initialState.get('showModal'))
-      .set('content', initialState.get('content'));
-
-    expect(loginReducer(state, loginWithScatterSuccess())).toEqual(obj);
-  });
-
-  it('LOGIN_WITH_SCATTER_ERROR', () => {
-    const loginWithScatterError = 'loginWithScatterError';
-
-    const obj = state.set('loginWithScatterError', loginWithScatterError);
-
-    expect(
-      loginReducer(state, loginWithScatterErr(loginWithScatterError)),
-    ).toEqual(obj);
   });
 
   it('FINISH_REGISTRATION', () => {

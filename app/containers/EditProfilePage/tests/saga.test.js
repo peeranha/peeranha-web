@@ -20,7 +20,6 @@ import {
   SAVE_PROFILE,
   EDIT_PROFILE_BUTTON_ID,
   MIN_RATING_TO_EDIT_PROFILE,
-  MIN_ENERGY_TO_EDIT_PROFILE,
 } from '../constants';
 
 jest.mock('createdHistory', () => ({
@@ -72,7 +71,6 @@ describe('saveProfileWorker, AVATAR_FIELD is hash (< 1000 chars)', () => {
     expect(call).toHaveBeenCalledWith(isValid, {
       buttonId: EDIT_PROFILE_BUTTON_ID,
       minRating: MIN_RATING_TO_EDIT_PROFILE,
-      minEnergy: MIN_ENERGY_TO_EDIT_PROFILE,
     });
   });
 

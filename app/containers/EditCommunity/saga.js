@@ -1,5 +1,4 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
-import _isEqual from 'lodash/isEqual';
 
 import { communities as communitiesRoute } from 'routes-config';
 import createdHistory from 'createdHistory';
@@ -12,7 +11,6 @@ import {
   selectCommunities,
   selectStat,
 } from 'containers/DataCacheProvider/selectors';
-import { selectEos } from 'containers/EosioProvider/selectors';
 
 import {
   editCommunity,

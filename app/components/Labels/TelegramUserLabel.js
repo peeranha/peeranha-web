@@ -19,7 +19,7 @@ const TelegramUserLabel = ({ id, locale, size }) => (
     styles={{
       position: 'absolute',
       bottom: 0,
-      right: `${size == LABEL_SIZE_LG ? 0 : 7}px`,
+      right: `${size === LABEL_SIZE_LG ? 0 : 7}px`,
     }}
     hiddenContent={
       translationMessages[locale][messages.telegramUserLabelPopover.id]

@@ -122,7 +122,6 @@ NumberInputField.propTypes = {
   type: PropTypes.string,
   onClick: PropTypes.func,
   dotRestriction: PropTypes.number,
-  maxValue: PropTypes.number,
 };
 
 export default NumberInputField;
