@@ -11,15 +11,12 @@ import {
   BOUNTY_TABLE,
   SET_BOUNTY_METHOD,
   PAY_BOUNTY_METHOD,
-  INF_LIMIT,
   SEND_TOKEN_METHOD,
   BOOST_STATISTICS_TABLE,
   BOOST_STATISTICS_SCOPE,
   USER_BOOST_TABLE,
   ADD_BOOST_METHOD,
   EDIT_BOUNTY_METHOD,
-  TOKEN_AWARDS_TABLE,
-  TOKEN_AWARDS_SCOPE,
 } from './constants';
 
 import { ApplicationError } from './errors';
@@ -51,7 +48,7 @@ export async function getWeekStat(ethereumService, user) {
   const [rewards, periods] = await getRewardStat(user);
   const inactiveFirstPeriods = [];
 
-  periods.map((period) => {
+  periods.forEach((period) => {
     if (!rewards.find((reward) => reward.period.id === period.id)) {
       inactiveFirstPeriods.push({
         period: period.id,
@@ -201,7 +198,7 @@ export function createGetRewardPool(
   for (
     let i = 1;
     i <= Math.floor(period / Number(process.env.INFLATION_PERIOD));
-    i++
+    i += 1
   ) {
     inflationRewardPool = Math.floor(
       inflationRewardPool * Number(process.env.POOL_REDUSE_COEFFICIENT),
@@ -393,14 +390,14 @@ export const getRewardAmountByBoost = (
   return amount * boost.value;
 };
 
-const getTokenAwards = (eosService) =>
-  eosService.getTableRows(
-    TOKEN_AWARDS_TABLE,
-    TOKEN_AWARDS_SCOPE,
-    0,
-    INF_LIMIT,
-    undefined,
-    undefined,
-    undefined,
-    process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
-  );
+// const getTokenAwards = (eosService) =>
+//   eosService.getTableRows(
+//     TOKEN_AWARDS_TABLE,
+//     TOKEN_AWARDS_SCOPE,
+//     0,
+//     INF_LIMIT,
+//     undefined,
+//     undefined,
+//     undefined,
+//     process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
+//   );

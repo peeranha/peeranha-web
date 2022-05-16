@@ -112,7 +112,7 @@ const BannerField = ({ input, meta, disabled, label }) => {
   return (
     <Wrapper label={label} disabled={disabled}>
       <InfoMessage>
-        <FormattedMessage {...messages.communityBannerInfo} />
+        <FormattedMessage id={messages.communityBannerInfo.id} />
       </InfoMessage>
 
       <Div
@@ -153,12 +153,12 @@ const BannerField = ({ input, meta, disabled, label }) => {
 
         {(isFileTooLarge && (
           <LabelErrorStyle>
-            <FormattedMessage {...messages.bannerSizeErrorMsg} />
+            <FormattedMessage id={messages.bannerSizeErrorMsg.id} />
           </LabelErrorStyle>
         )) ||
           (isIncorrectResolution && (
             <LabelErrorStyle>
-              <FormattedMessage {...messages.incorrectBannerResolutionMsg} />
+              <FormattedMessage id={messages.incorrectBannerResolutionMsg.id} />
             </LabelErrorStyle>
           ))}
         <WarningMessage {...meta} isSpecialPosition />

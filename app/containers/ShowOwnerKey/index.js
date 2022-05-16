@@ -133,6 +133,7 @@ ShowOwnerKey.propTypes = {
   loginData: PropTypes.object,
   sendFbVerificationEmailDispatch: PropTypes.func,
   verifyFbActionDispatch: PropTypes.func,
+  sendAnotherCodeDispatch: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({

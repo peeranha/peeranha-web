@@ -12,7 +12,8 @@ import {
 
 import { isValid, isAuthorized } from 'containers/EosioProvider/saga';
 
-import defaultSaga, { upVoteWorker, downVoteWorker } from '../saga';
+import {downVoteWorker, upVoteWorker} from "containers/ViewQuestion/saga";
+import defaultSaga from '../saga';
 
 import {
   UPVOTE,

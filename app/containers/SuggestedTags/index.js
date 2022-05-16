@@ -1,24 +1,11 @@
 import React, { useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
 import { translationMessages } from 'i18n';
-import { bindActionCreators } from 'redux';
 
 import {
   getFollowedCommunities,
   isSingleCommunityWebsite,
 } from 'utils/communityManagement';
-
-import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { getSuggestedTags } from 'containers/Tags/actions';
-
-import {
-  selectExistingTags,
-  selectIsLastFetchForSuggestedTags,
-} from 'containers/Tags/selectors';
-
-import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 
 import Seo from 'components/Seo';
 import Tags from 'containers/Tags';
@@ -125,17 +112,17 @@ SuggestedTags.propTypes = {
   getSuggestedTagsDispatch: PropTypes.func,
 };
 
-const mapStateToProps = createStructuredSelector({
-  locale: makeSelectLocale(),
-  communities: selectCommunities(),
-  isLastFetch: selectIsLastFetchForSuggestedTags(),
-  existingTags: selectExistingTags(),
-});
+// const mapStateToProps = createStructuredSelector({
+//   locale: makeSelectLocale(),
+//   communities: selectCommunities(),
+//   isLastFetch: selectIsLastFetchForSuggestedTags(),
+//   existingTags: selectExistingTags(),
+// });
 
-function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
-  return {
-    getSuggestedTagsDispatch: bindActionCreators(getSuggestedTags, dispatch),
-  };
-}
+// function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
+//   return {
+//     getSuggestedTagsDispatch: bindActionCreators(getSuggestedTags, dispatch),
+//   };
+// }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SuggestedTags);
+// export default connect(mapStateToProps, mapDispatchToProps)(SuggestedTags);

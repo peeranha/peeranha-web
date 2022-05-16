@@ -66,7 +66,7 @@ const MobileLinksInWallet = ({
       {visibleWalletLinks && (
         <div className="pb-2">
           <A to={routes.userWallet(profile.user)}>
-            <FormattedMessage {...messages.wallet} />
+            <FormattedMessage id={messages.wallet.id} />
             {isPositiveNumber(rewardsWeeksNumber) && (
               <NotificationIcon
                 inline

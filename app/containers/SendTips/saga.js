@@ -1,7 +1,6 @@
 import { takeLatest, takeEvery, put, call, select } from 'redux-saga/effects';
 import { translationMessages } from 'i18n';
 import { getFormValues } from 'redux-form/lib/immutable';
-import { reset as reduxFormReset } from 'redux-form';
 
 import _isEqual from 'lodash/isEqual';
 import _cloneDeep from 'lodash/cloneDeep';
@@ -12,7 +11,7 @@ import { sendTokens } from 'utils/walletManagement';
 import { login } from 'utils/web_integration/src/wallet/login/login';
 import webIntegrationErrors from 'utils/web_integration/src/wallet/service-errors';
 import { WebIntegrationError } from 'utils/errors';
-import { SEND_TIPS_SCATTER_APP_NAME, SEND_TIPS_TYPE } from 'utils/constants';
+import { SEND_TIPS_SCATTER_APP_NAME } from 'utils/constants';
 import { getCookie, setCookie } from 'utils/cookie';
 import Eosio from 'utils/eosio';
 import {
@@ -20,23 +19,14 @@ import {
   NOTIFICATIONS_TIPS_SERVICE,
 } from 'utils/web_integration/src/util/aws-connector';
 
-import { changeCredentialsConfirm } from 'utils/web_integration/src/wallet/change-credentials/change-credentials';
-import { sendFbVerificationCode } from 'utils/web_integration/src/wallet/facebook/facebook';
-
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import {
   makeSelectLoginData,
   makeSelectProfileInfo,
 } from 'containers/AccountProvider/selectors';
 import { selectEos } from 'containers/EosioProvider/selectors';
-import { selectFacebookUserData } from 'containers/Login/selectors';
 
 import formFieldsMessages from 'components/FormFields/messages.js';
-
-import {
-  VERIFY_FB_ACTION_FORM,
-  FB_VERIFICATION_CODE_FIELD,
-} from 'components/FbVerificationCodeForm/constants';
 
 import messages, {
   getAccountNotSelectedMessageDescriptor,
@@ -56,9 +46,7 @@ import {
   TIPS_PRESELECT,
   SEND_TIPS_NOTIFICATION,
   MAX_NOTIFICAT_ATTEMPTS,
-  SEND_FB_VERIFICATION_EMAIL,
   SEND_ANOTHER_CODE,
-  VERIFY_FB_ACTION,
 } from './constants';
 
 import {
@@ -71,15 +59,12 @@ import {
   addScatterTipsEosService,
   addTipsKeycatEosService,
   sendTipsNotification,
-  setSendTipsProcessing,
-  showVerifyFbModal,
 } from './actions';
 
 import {
   selectTipsScatterEosService,
   selectTipsKeycatEosService,
   selectedKeycatAccountSelector,
-  selectFbSendTipsFormValues,
 } from './selectors';
 
 import { formName } from './SendTipsForm';
@@ -342,76 +327,76 @@ export function* selectKeycatAccountWorker() {
   }
 }
 
-export function* sendEmailWorker() {
-  try {
-    const locale = yield select(makeSelectLocale());
-    const translations = translationMessages[locale];
-    const { id } = yield select(selectFacebookUserData());
-
-    const response = yield call(
-      sendFbVerificationCode,
-      id,
-      locale,
-      SEND_TIPS_TYPE,
-    );
-
-    if (!response.OK) {
-      throw new WebIntegrationError(
-        translations[webIntegrationErrors[response.errorCode].id],
-      );
-    }
-
-    yield put(setSendTipsProcessing(false));
-    yield put(showVerifyFbModal());
-  } catch (err) {
-    yield put(sendTipsErr(err));
-  }
-}
+// export function* sendEmailWorker() {
+//   try {
+//     const locale = yield select(makeSelectLocale());
+//     const translations = translationMessages[locale];
+//     const { id } = yield select(selectFacebookUserData());
+//
+//     const response = yield call(
+//       sendFbVerificationCode,
+//       id,
+//       locale,
+//       SEND_TIPS_TYPE,
+//     );
+//
+//     if (!response.OK) {
+//       throw new WebIntegrationError(
+//         translations[webIntegrationErrors[response.errorCode].id],
+//       );
+//     }
+//
+//     yield put(setSendTipsProcessing(false));
+//     yield put(showVerifyFbModal());
+//   } catch (err) {
+//     yield put(sendTipsErr(err));
+//   }
+// }
 
 export function* sendAnotherCodeSuccess() {
   yield call(successHandling);
 }
 
-export function* verifyFacebookActionWorker({ verifyFormVals }) {
-  try {
-    yield put(setSendTipsProcessing(true));
-
-    const locale = yield select(makeSelectLocale());
-    const translations = translationMessages[locale];
-    const { email } = yield select(selectFacebookUserData());
-    const verificationCode = verifyFormVals[FB_VERIFICATION_CODE_FIELD];
-
-    const response = yield call(
-      changeCredentialsConfirm,
-      email,
-      verificationCode,
-      SEND_TIPS_TYPE,
-    );
-
-    if (!response.OK) {
-      throw new WebIntegrationError(
-        translations[webIntegrationErrors[response.errorCode].id],
-      );
-    }
-
-    const val = yield select(selectFbSendTipsFormValues());
-    yield sendTipsWorker(val);
-
-    yield put(reduxFormReset(VERIFY_FB_ACTION_FORM));
-  } catch (err) {
-    yield put(sendTipsErr(err));
-  }
-}
+// export function* verifyFacebookActionWorker({ verifyFormVals }) {
+//   try {
+//     yield put(setSendTipsProcessing(true));
+//
+//     const locale = yield select(makeSelectLocale());
+//     const translations = translationMessages[locale];
+//     const { email } = yield select(selectFacebookUserData());
+//     const verificationCode = verifyFormVals[FB_VERIFICATION_CODE_FIELD];
+//
+//     const response = yield call(
+//       changeCredentialsConfirm,
+//       email,
+//       verificationCode,
+//       SEND_TIPS_TYPE,
+//     );
+//
+//     if (!response.OK) {
+//       throw new WebIntegrationError(
+//         translations[webIntegrationErrors[response.errorCode].id],
+//       );
+//     }
+//
+//     const val = yield select(selectFbSendTipsFormValues());
+//     yield sendTipsWorker(val);
+//
+//     yield put(reduxFormReset(VERIFY_FB_ACTION_FORM));
+//   } catch (err) {
+//     yield put(sendTipsErr(err));
+//   }
+// }
 
 export default function* defaultSaga() {
   yield takeLatest(SELECT_SCATTER_ACCOUNT, selectScatterAccountWorker);
   yield takeLatest(SELECT_KEYCAT_ACCOUNT, selectKeycatAccountWorker);
   yield takeLatest(SEND_TIPS, sendTipsWorker);
   yield takeEvery(SEND_TIPS_NOTIFICATION, sendTipsNotificationWorker);
-  yield takeEvery(
-    [SEND_FB_VERIFICATION_EMAIL, SEND_ANOTHER_CODE],
-    sendEmailWorker,
-  );
+  // yield takeEvery(
+  //   [SEND_FB_VERIFICATION_EMAIL, SEND_ANOTHER_CODE],
+  //   sendEmailWorker,
+  // );
   yield takeEvery(SEND_ANOTHER_CODE, sendAnotherCodeSuccess);
-  yield takeLatest(VERIFY_FB_ACTION, verifyFacebookActionWorker);
+  // yield takeLatest(VERIFY_FB_ACTION, verifyFacebookActionWorker);
 }

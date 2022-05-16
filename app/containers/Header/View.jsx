@@ -62,8 +62,8 @@ export const LoginProfile = memo(
 );
 
 const Button = LargeButton.extend`
-  background-color: ${x => x.bg};
-  border: ${x => (x.bg ? '1' : '0')}px solid ${BORDER_SECONDARY};
+  background-color: ${(x) => x.bg};
+  border: ${(x) => (x.bg ? '1' : '0')}px solid ${BORDER_SECONDARY};
 
   @media only screen and (max-width: 991px) {
     padding: 0;
@@ -89,32 +89,26 @@ const View = ({
 }) => {
   const [isSearchFormVisible, setSearchFormVisibility] = useState(false);
 
-  useEffect(
-    () => {
-      if (isSearchFormVisible && !single) {
-        document.getElementById(SEARCH_FORM_ID).focus();
-      }
-    },
-    [isSearchFormVisible],
-  );
+  useEffect(() => {
+    if (isSearchFormVisible && !single) {
+      document.getElementById(SEARCH_FORM_ID).focus();
+    }
+  }, [isSearchFormVisible]);
 
-  const Logo = useCallback(
-    () => {
-      if (isSearchFormVisible) return null;
+  const Logo = useCallback(() => {
+    if (isSearchFormVisible) return null;
 
-      const src = styles.withoutSubHeader
-        ? communitiesConfig[single].src
-        : peeranhaLogo;
-      
-      return (
-        <LogoStyles to={routes.feed()}>
-          <img src={src} alt="logo" />
-          {styles.logoText}
-        </LogoStyles>
-      );
-    },
-    [isSearchFormVisible],
-  );
+    const src = styles.withoutSubHeader
+      ? communitiesConfig[single].src
+      : peeranhaLogo;
+
+    return (
+      <LogoStyles to={routes.feed()}>
+        <img src={src} alt="logo" />
+        {styles.logoText}
+      </LogoStyles>
+    );
+  }, [isSearchFormVisible]);
 
   return (
     <Wrapper id={HEADER_ID}>
@@ -191,7 +185,7 @@ const View = ({
                     <IconSm fill={BG_LIGHT} icon={addIcon} />
 
                     <span className="d-none d-lg-inline ml-2">
-                      <FormattedMessage {...messages.askQuestion} />
+                      <FormattedMessage id={messages.askQuestion.id} />
                     </span>
                   </Button>
                 </>

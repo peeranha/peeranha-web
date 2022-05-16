@@ -96,8 +96,10 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
 
   return (
     <Base>
-      {orderBy(communities, y => y[sorting.sortBy], [sorting.order])
-        .filter(x => (language.sortBy ? x.language === language.sortBy : true))
+      {orderBy(communities, (y) => y[sorting.sortBy], [sorting.order])
+        .filter((x) =>
+          language.sortBy ? x.language === language.sortBy : true,
+        )
         .map(
           (
             { avatar, name, id, description, website, tags, ...x },
@@ -147,35 +149,35 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
                   <Info>
                     <P>{getFormattedNum2(x.followingUsers)}</P>
                     <P>
-                      <FormattedMessage {...commonMessages.usersShort} />
+                      <FormattedMessage id={commonMessages.usersShort.id} />
                     </P>
                   </Info>
 
                   <Info>
                     <P>{getFormattedNum2(x.postCount)}</P>
                     <A to={routes.questions(id)}>
-                      <FormattedMessage {...commonMessages.posts} />
+                      <FormattedMessage id={commonMessages.posts.id} />
                     </A>
                   </Info>
 
                   <Info>
                     <P>{getFormattedNum2(x.replyCount)}</P>
                     <P>
-                      <FormattedMessage {...commonMessages.answers} />
+                      <FormattedMessage id={commonMessages.answers.id} />
                     </P>
                   </Info>
 
                   <Info>
                     <P>{getFormattedNum2(tags?.length)}</P>
                     <A to={routes.communityTags(id)}>
-                      <FormattedMessage {...commonMessages.tags} />
+                      <FormattedMessage id={commonMessages.tags.id} />
                     </A>
                   </Info>
 
                   <Info>
                     <P>{getDifferenceInDate(x.creationTime, locale)}</P>
                     <P>
-                      <FormattedMessage {...commonMessages.age} />
+                      <FormattedMessage id={commonMessages.age.id} />
                     </P>
                   </Info>
 
@@ -190,7 +192,7 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
                           createdHistory.push(routes.communitiesEdit(id))
                         }
                       >
-                        <FormattedMessage {...commonMessages.edit} />
+                        <FormattedMessage id={commonMessages.edit.id} />
                       </InfoButton>
                     )}
                     <FollowCommunityButton communityIdFilter={id} />

@@ -26,7 +26,7 @@ import {
 
 import messages from './messages';
 
-const SendMessageForm = props => {
+const SendMessageForm = (props) => {
   const {
     handleSubmit,
     change,
@@ -41,7 +41,7 @@ const SendMessageForm = props => {
         <Field
           name={NAME_FIELD}
           disabled={sendMessageLoading}
-          label={<FormattedMessage {...messages.yourName} />}
+          label={<FormattedMessage id={messages.yourName.id} />}
           component={FloatingLabelInput}
           validate={[strLength3x20, required]}
           warn={[strLength3x20, required]}
@@ -50,7 +50,7 @@ const SendMessageForm = props => {
         <Field
           name={EMAIL_FIELD}
           disabled={sendMessageLoading}
-          label={<FormattedMessage {...messages.email} />}
+          label={<FormattedMessage id={messages.email.id} />}
           component={FloatingLabelInput}
           validate={[validateEmail, required, strLength254Max]}
           warn={[validateEmail, required, strLength254Max]}
@@ -65,7 +65,7 @@ const SendMessageForm = props => {
             translations[messages.review.id],
             translations[messages.systemError.id],
           ]}
-          label={<FormattedMessage {...messages.subject} />}
+          label={<FormattedMessage id={messages.subject.id} />}
           component={SelectItem}
           validate={[required]}
           warn={[required]}
@@ -75,7 +75,7 @@ const SendMessageForm = props => {
           name={MESSAGE_FIELD}
           multiline
           disabled={sendMessageLoading}
-          label={<FormattedMessage {...messages.message} />}
+          label={<FormattedMessage id={messages.message.id} />}
           component={FloatingLabelInput}
           validate={[strLength15x100, required]}
           warn={[strLength15x100, required]}
@@ -84,7 +84,7 @@ const SendMessageForm = props => {
 
       <div className="d-flex">
         <Button>
-          <FormattedMessage {...messages.sendMessage} />
+          <FormattedMessage id={messages.sendMessage.id} />
         </Button>
       </div>
     </form>
@@ -100,5 +100,5 @@ SendMessageForm.propTypes = {
 };
 
 export default reduxForm({
-  onSubmitFail: errors => scrollToErrorField(errors),
+  onSubmitFail: (errors) => scrollToErrorField(errors),
 })(SendMessageForm);

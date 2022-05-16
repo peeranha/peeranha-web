@@ -99,7 +99,7 @@ const CommunityTypeField = ({
             key={type.label}
             disabled={disabled}
           >
-            <FormattedMessage {...messages[type.label]} />
+            <FormattedMessage id={messages[type.label].id} />
           </Button>
         ))}
       </ButtonGroup>

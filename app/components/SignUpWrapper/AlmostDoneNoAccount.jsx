@@ -5,7 +5,7 @@ import messages from 'containers/SignUp/messages';
 import AlmostDone from './AlmostDone';
 
 const AlmostDoneNoAccountWrapper = () => (
-  <AlmostDone message={<FormattedMessage {...messages.weWillNotify} />} />
+  <AlmostDone message={<FormattedMessage id={messages.weWillNotify.id} />} />
 );
 
 export default AlmostDoneNoAccountWrapper;

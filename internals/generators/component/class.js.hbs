@@ -19,7 +19,7 @@ class {{ properCase name }} extends {{{ type }}} {
     return (
       <div>
       {{#if wantMessages}}
-        <FormattedMessage {...messages.header} />
+        <FormattedMessage id={messages.header.id} />
       {{/if}}
       </div>
     );

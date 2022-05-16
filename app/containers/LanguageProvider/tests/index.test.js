@@ -71,13 +71,13 @@ describe('<ConnectedLanguageProvider />', () => {
     const renderedComponent = mount(
       <Provider store={store}>
         <ConnectedLanguageProvider messages={translationMessages}>
-          <FormattedMessage {...messages.someMessage} />
+          <FormattedMessage id={messages.someMessage.id} />
         </ConnectedLanguageProvider>
       </Provider>,
     );
     expect(
       renderedComponent.contains(
-        <FormattedMessage {...messages.someMessage} />,
+        <FormattedMessage id={messages.someMessage.id} />,
       ),
     ).toBe(true);
   });

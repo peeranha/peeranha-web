@@ -2,10 +2,10 @@ import { fromJS } from 'immutable';
 import React from 'react';
 
 import * as routes from 'routes-config';
-import { getQuestionCode } from 'utils/faqManagement';
 
 import A from 'components/A';
 
+import {getQuestionCode} from "utils/mdManagement";
 import {
   selectDataCacheProviderDomain,
   selectCommunities,

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
@@ -73,13 +72,13 @@ const messagesArray = [
 const Tips = (/* { faqQuestions } */) => (
   <div>
     <Label className="mb-3">
-      <FormattedMessage {...messages.tips} />:
+      <FormattedMessage id={messages.tips.id} />:
     </Label>
 
     <Ul>
       {messagesArray.map((x) => (
         <li key={x.id}>
-          <FormattedMessage {...x} />{' '}
+          <FormattedMessage id={x.id} />{' '}
         </li>
       ))}
     </Ul>
@@ -91,10 +90,10 @@ const Tips = (/* { faqQuestions } */) => (
   </div>
 );
 
-Tips.propTypes = {
-  className: PropTypes.string,
-  faqQuestions: PropTypes.array,
-};
+// Tips.propTypes = {
+//   className: PropTypes.string,
+//   faqQuestions: PropTypes.array,
+// };
 
 const mapStateToProps = createStructuredSelector({
   faqQuestions: selectFaqQuestions([

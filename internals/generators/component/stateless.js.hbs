@@ -17,7 +17,7 @@ function {{ properCase name }}() {
   return (
     <div>
     {{#if wantMessages}}
-      <FormattedMessage {...messages.header} />
+      <FormattedMessage id={messages.header.id} />
     {{/if}}
     </div>
   );

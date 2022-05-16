@@ -19,7 +19,6 @@ import {
   getQuestionById,
 } from 'utils/questionsManagement';
 import {
-  getCommunityById,
   isSingleCommunityWebsite,
   getSingleCommunityDetails,
 } from 'utils/communityManagement';
@@ -33,6 +32,7 @@ import {
   removeOrAddTopQuestionWorker,
 } from 'containers/Questions/saga';
 
+import { getCommunityById } from 'utils/theGraph';
 import {
   GET_QUESTIONS,
   GET_COMMUNITY,

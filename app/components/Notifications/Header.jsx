@@ -5,11 +5,7 @@ import { FormattedMessage } from 'react-intl';
 
 import messages from 'common-messages';
 
-import {
-  BG_SECONDARY_LIGHT,
-  BORDER_SECONDARY,
-  TEXT_SECONDARY_LIGHT,
-} from 'style-constants';
+import { TEXT_SECONDARY_LIGHT } from 'style-constants';
 
 import H3 from '../H3';
 import Span from '../Span';
@@ -30,7 +26,7 @@ const Container = styled.div`
 const Header = ({ notificationsNumber }) => (
   <Container>
     <H3>
-      <FormattedMessage {...messages.notificationCenter} />
+      <FormattedMessage id={messages.notificationCenter.id} />
     </H3>
     <Span
       fontSize="38"

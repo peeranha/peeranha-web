@@ -44,7 +44,6 @@ import * as signUpSelectors from './selectors';
 import {
   checkEmail,
   verifyEmail,
-  iHaveEosAccount,
   signUpViaEmailComplete,
   putKeysToState,
   showWalletSignUpForm,

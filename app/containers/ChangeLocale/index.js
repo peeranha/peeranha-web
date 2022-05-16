@@ -60,7 +60,7 @@ export const ChangeLocale = ({ locale, changeLocaleDispatch, withTitle }) => {
             color={TEXT_SECONDARY}
           >
             <Flag src={require(`images/${[locale]}_lang.png`)} alt="country" />
-            {withTitle && <FormattedMessage {...commonMessages[locale]} />}
+            {withTitle && <FormattedMessage id={commonMessages[locale].id} />}
           </Span>
         </>
       }
@@ -75,7 +75,7 @@ export const ChangeLocale = ({ locale, changeLocaleDispatch, withTitle }) => {
               isBold={x === locale}
             >
               <Flag src={require(`images/${x}_lang.png`)} alt="language" />
-              <FormattedMessage {...commonMessages[x]} />
+              <FormattedMessage id={commonMessages[x].id} />
             </Li>
           ))}
         </ul>

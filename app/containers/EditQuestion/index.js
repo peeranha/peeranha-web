@@ -141,6 +141,8 @@ EditQuestion.propTypes = {
   editQuestionDispatch: PropTypes.func,
   questionLoading: PropTypes.bool,
   editQuestionLoading: PropTypes.bool,
+  balance: PropTypes.number,
+  profile: PropTypes.object,
 };
 
 export default compose(

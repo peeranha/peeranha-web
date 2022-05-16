@@ -22,14 +22,13 @@ const ButtonGroupForNotAuthorizedUser = ({ showLoginModal }) => (
       onClick={showLoginModal}
       customStyles={styles.headerLoginButtonStyles}
     >
-      <FormattedMessage {...messages.login} />
+      <FormattedMessage id={messages.login.id} />
     </LargeOutlinedButton>
   </>
 );
 
 ButtonGroupForNotAuthorizedUser.propTypes = {
   showLoginModal: PropTypes.func,
-  isMenuVisible: PropTypes.bool,
 };
 
 export default React.memo(ButtonGroupForNotAuthorizedUser);

@@ -58,6 +58,7 @@ export const TagsCollection = /* istanbul ignore next */ ({
 };
 
 TagsCollection.propTypes = {
+  profile: PropTypes.object,
   locale: PropTypes.string,
   communities: PropTypes.array,
   communitiesLoading: PropTypes.bool,

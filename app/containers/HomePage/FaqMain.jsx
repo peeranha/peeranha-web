@@ -51,7 +51,7 @@ const Box = Section.extend`
 
 const FaqMain = ({ faqQuestions }) => (
   <Box className="container" id={FOURTH_SCREEN}>
-    {faqQuestions.map(x => (
+    {faqQuestions.map((x) => (
       <h3 className="item" key={x.props.children}>
         <img src={plusIcon} alt="icon" />
         {x}
@@ -61,7 +61,7 @@ const FaqMain = ({ faqQuestions }) => (
     <h3 className="item item-all">
       <img src={arrRight} alt="icon" />
       <a href={routes.faq(getSectionCode(SECTION_ID, ABOUT_PEERANHA_SECTION))}>
-        <FormattedMessage {...messages.getMoreAnswers} />
+        <FormattedMessage id={messages.getMoreAnswers.id} />
       </a>
     </h3>
   </Box>

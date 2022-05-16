@@ -182,7 +182,10 @@ export const Questions = ({
     [profile],
   );
 
-  const isCommunityFeed = params.hasOwnProperty('communityid');
+  const isCommunityFeed = Object.prototype.hasOwnProperty.call(
+    params,
+    'communityid',
+  );
 
   const questionFilterFromCookies = getCookie(QUESTION_FILTER);
   return display ? (
@@ -253,13 +256,11 @@ export const Questions = ({
 Questions.propTypes = {
   locale: PropTypes.string,
   parentPage: PropTypes.string,
-  account: PropTypes.string,
   communities: PropTypes.array,
   followedCommunities: PropTypes.array,
   questionsList: PropTypes.array,
   questionsLoading: PropTypes.bool,
   topQuestionsLoading: PropTypes.bool,
-  promotedQuestions: PropTypes.object,
   communitiesLoading: PropTypes.bool,
   isLastFetch: PropTypes.bool,
   initLoadedItems: PropTypes.number,
@@ -267,7 +268,6 @@ Questions.propTypes = {
   match: PropTypes.object,
   getQuestionsDispatch: PropTypes.func,
   redirectToAskQuestionPageDispatch: PropTypes.func,
-  eosService: PropTypes.object,
   profile: PropTypes.object,
   typeFilter: PropTypes.any,
   createdFilter: PropTypes.any,
@@ -275,6 +275,8 @@ Questions.propTypes = {
   questionFilter: PropTypes.number,
   loadTopQuestionsDispatch: PropTypes.func,
   isLastTopQuestionLoaded: PropTypes.bool,
+  loadedItems: PropTypes.number,
+  postsTypes: PropTypes.array,
 };
 
 export default compose(

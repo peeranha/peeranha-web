@@ -1,4 +1,4 @@
-import { EditQuestion } from '../index';
+import {EditQuestion} from "containers/App/imports";
 
 const cmp = new EditQuestion();
 cmp.props = {

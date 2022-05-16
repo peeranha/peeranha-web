@@ -24,19 +24,19 @@ import sortingOptions from './sortingOptions';
 const Button = ({ sorting, icon }) => (
   <Span className="d-inline-flex align-items-center mr-2 text-capitalize" bold>
     <img className="mr-2" src={icon} alt="icon" />
-    <FormattedMessage {...sorting.message} />
+    <FormattedMessage id={sorting.message.id} />
   </Span>
 );
 
 const Menu = ({ changeSorting, sorting, options }) => (
   <Ul>
-    {Object.keys(options).map(x => (
+    {Object.keys(options).map((x) => (
       <CheckedItem
         key={`${options[x].message.id}_${options[x].order}`}
         onClick={() => changeSorting(options[x])}
         isActive={sorting.message.id === options[x].message.id}
       >
-        <FormattedMessage {...options[x].message} />
+        <FormattedMessage id={options[x].message.id} />
       </CheckedItem>
     ))}
   </Ul>
@@ -55,7 +55,7 @@ export const SubHeader = ({
       <MediumImageStyled src={communitiesHeader} alt="communitiesHeader" />
 
       <span>
-        <FormattedMessage {...commonMessages.communities} />
+        <FormattedMessage id={commonMessages.communities.id} />
         <Span className="ml-2" color={TEXT_SECONDARY} fontSize="30" bold>
           {communitiesNumber}
         </Span>

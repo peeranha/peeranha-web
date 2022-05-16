@@ -1,13 +1,12 @@
 /* eslint redux-saga/yield-effects: 0, no-underscore-dangle: 0 */
-import { select, call } from 'redux-saga/effects';
+import {select, call} from 'redux-saga/effects';
 
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
-import { suggestTag } from 'utils/communityManagement';
+import {isAuthorized} from 'containers/EosioProvider/saga';
 
-import { isAuthorized, isValid } from 'containers/EosioProvider/saga';
-
+import {suggestTag} from "containers/CreateTag/actions";
 import defaultSaga, {
   suggestTagWorker,
   redirectToCreateTagWorker,
@@ -18,12 +17,11 @@ import {
   SUGGEST_TAG,
   SUGGEST_TAG_SUCCESS,
   SUGGEST_TAG_ERROR,
-  MIN_RATING_TO_CREATE_TAG,
-  MIN_ENERGY_TO_CREATE_TAG,
 } from '../constants';
 
 jest.mock('redux-saga/effects', () => ({
-  select: jest.fn().mockImplementation(() => {}),
+  select: jest.fn().mockImplementation(() => {
+  }),
   call: jest.fn().mockImplementation((x, args) => x(args)),
   put: jest.fn().mockImplementation(res => res),
   takeLatest: jest.fn().mockImplementation(res => res),
@@ -105,20 +103,11 @@ describe('suggestTagWorker', () => {
 describe('checkReadinessWorker', () => {
   const buttonId = 'buttonId';
 
-  const generator = checkReadinessWorker({ buttonId });
+  const generator = checkReadinessWorker({buttonId});
 
   it('isAuthorized', () => {
     generator.next();
     expect(call).toHaveBeenCalledWith(isAuthorized);
-  });
-
-  it('isValid', () => {
-    generator.next();
-    expect(call).toHaveBeenCalledWith(isValid, {
-      buttonId,
-      minRating: MIN_RATING_TO_CREATE_TAG,
-      minEnergy: MIN_ENERGY_TO_CREATE_TAG,
-    });
   });
 });
 
@@ -126,7 +115,7 @@ describe('redirectToCreateTagWorker', () => {
   const buttonId = 'buttonId';
   const communityId = 'communityId';
 
-  const generator = redirectToCreateTagWorker({ buttonId, communityId });
+  const generator = redirectToCreateTagWorker({buttonId, communityId});
 
   call.mockImplementationOnce((x, args) => x(args));
 

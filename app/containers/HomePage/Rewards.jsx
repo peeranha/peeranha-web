@@ -17,13 +17,13 @@ const Rewards = ({ emailChecking, checkEmail, translations }) => (
         <div className="col-12">
           <div className="d-flex justify-content-center">
             <h2 className="title">
-              <FormattedMessage {...messages.beTheFirst} />
+              <FormattedMessage id={messages.beTheFirst.id} />
             </h2>
           </div>
 
           <div className="row justify-content-center">
             <p className="col-12 col-lg-10 content-body">
-              <FormattedMessage {...messages.rewardsPool} />
+              <FormattedMessage id={messages.rewardsPool.id} />
             </p>
           </div>
 

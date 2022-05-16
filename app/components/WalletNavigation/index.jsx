@@ -27,12 +27,12 @@ const WalletNavigation = ({ userId, showSendTokensModalDispatch }) => {
       <ul>
         <A to={routes.userWallet(userId)}>
           <NavigationButton islink={path !== routes.userWallet(userId)}>
-            <FormattedMessage {...messages.wallet} />
+            <FormattedMessage id={messages.wallet.id} />
           </NavigationButton>
         </A>
         <A to={routes.userBoost(userId)}>
           <NavigationButton islink={path !== routes.userBoost(userId)}>
-            <FormattedMessage {...messages.boost} />
+            <FormattedMessage id={messages.boost.id} />
           </NavigationButton>
         </A>
       </ul>
@@ -41,7 +41,7 @@ const WalletNavigation = ({ userId, showSendTokensModalDispatch }) => {
         <button onClick={showSendTokensModalDispatch}>
           <Span className="d-flex align-items-center" color={TEXT_PRIMARY}>
             <IconMd className="mr-2" icon={sendtokensIcon} />
-            <FormattedMessage {...messages.sendTokens} />
+            <FormattedMessage id={messages.sendTokens.id} />
           </Span>
         </button>
       </WrapperRightPanel>
@@ -55,13 +55,10 @@ WalletNavigation.propTypes = {
 };
 
 export default React.memo(
-  connect(
-    null,
-    dispatch => ({
-      showSendTokensModalDispatch: bindActionCreators(
-        showSendTokensModal,
-        dispatch,
-      ),
-    }),
-  )(WalletNavigation),
+  connect(null, (dispatch) => ({
+    showSendTokensModalDispatch: bindActionCreators(
+      showSendTokensModal,
+      dispatch,
+    ),
+  }))(WalletNavigation),
 );

@@ -22,8 +22,6 @@ import { redirectToEditProfilePageWorker } from 'containers/EditProfilePage/saga
 import {
   ALL_PROPERTY_COMMUNITY_SCOPE,
   ALL_PROPERTY_COMMUNITY_TABLE,
-  INVITED_USERS_SCOPE,
-  INVITED_USERS_TABLE,
   MODERATOR_KEY,
 } from 'utils/constants';
 import { SHOW_WALLET_SIGNUP_FORM_SUCCESS } from 'containers/SignUp/constants';
@@ -224,15 +222,15 @@ export function* isAvailableAction(isValid, data = {}) {
   yield call(isValid);
 }
 
-export const getReferralInfo = async (user) => {
-  const info = await eosService.getTableRow(
-    INVITED_USERS_TABLE,
-    INVITED_USERS_SCOPE,
-    user,
-    process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
-  );
-  return info;
-};
+// export const getReferralInfo = async (user) => {
+//   const info = await eosService.getTableRow(
+//     INVITED_USERS_TABLE,
+//     INVITED_USERS_SCOPE,
+//     user,
+//     process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
+//   );
+//   return info;
+// };
 
 // function* updateRefer(user, ethereum) {
 //   const receivedCookieName = `${REFERRAL_REWARD_RECEIVED}_${user}`;
@@ -304,7 +302,7 @@ export function* updateAccWorker({ ethereum }) {
     }
 
     if (profileInfo) {
-      const { user, pay_out_rating } = profileInfo;
+      const { user, payOutRating } = profileInfo;
 
       // yield call(updateRefer, user, ethereum);
 
@@ -313,7 +311,7 @@ export function* updateAccWorker({ ethereum }) {
         const noInviterCookieName = `${NO_REFERRAL_INVITER}_${user}`;
         const receivedCookieName = `${REFERRAL_REWARD_RECEIVED}_${user}`;
         if (
-          pay_out_rating > REFERRAL_REWARD_RATING &&
+          payOutRating > REFERRAL_REWARD_RATING &&
           !getCookie(sentCookieName) &&
           !getCookie(noInviterCookieName) &&
           !getCookie(receivedCookieName)

@@ -32,7 +32,7 @@ const WeekNumber = ({
   return (
     <P>
       <Span className="mr-3" fontSize="24" mobileFS={21} bold>
-        <FormattedMessage {...messages.week} /> {week}
+        <FormattedMessage id={messages.week.id} /> {week}
       </Span>
 
       <Span className="d-none d-md-inline-block">

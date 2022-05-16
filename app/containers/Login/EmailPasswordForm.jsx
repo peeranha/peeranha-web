@@ -63,7 +63,7 @@ const EmailPasswordForm = ({
         disabled={loginWithEmailProcessing || loginWithWalletProcessing}
         className="w-100 mb-3"
       >
-        <FormattedMessage {...signupMessages.continue} />
+        <FormattedMessage id={signupMessages.continue.id} />
       </Button>
 
       <div className="d-flex align-items-center justify-content-between">
@@ -73,7 +73,7 @@ const EmailPasswordForm = ({
           component={Checkbox}
           label={
             <Span fontSize="14" lineHeight="20" color={TEXT_PRIMARY}>
-              <FormattedMessage {...loginMessages.staySignedIn} />
+              <FormattedMessage id={loginMessages.staySignedIn.id} />
             </Span>
           }
         />
@@ -83,7 +83,7 @@ const EmailPasswordForm = ({
           onClick={showIForgotPasswordModal}
           type="button"
         >
-          <FormattedMessage {...loginMessages.iForgotPassword} />
+          <FormattedMessage id={loginMessages.iForgotPassword.id} />
         </TransparentButton>
       </div>
     </form>
@@ -111,7 +111,7 @@ const formName = 'EmailPasswordForm';
 /* eslint import/no-mutable-exports: 0 */
 let FormClone = reduxForm({
   form: formName,
-  onSubmitFail: errors => scrollToErrorField(errors),
+  onSubmitFail: (errors) => scrollToErrorField(errors),
 })(EmailPasswordForm);
 
 FormClone = connect((state, props) => ({

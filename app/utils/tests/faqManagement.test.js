@@ -1,5 +1,5 @@
 import { SECTION_ID } from 'containers/Faq/constants';
-import { getFAQ, getSectionCode, getQuestionCode } from '../faqManagement';
+import {getQuestionCode, getSectionCode} from "utils/mdManagement";
 
 jest.mock(
   'faq/en.md',
@@ -11,29 +11,6 @@ jest.mock(
 <p>Prgr</p>
 `,
 );
-
-describe('getFaq', () => {
-  const expected = {
-    blocks: [
-      {
-        blocks: [
-          {
-            content: '<p>Prgr</p>',
-            h3: 'H3',
-            questionCode: 0,
-          },
-        ],
-        h2: 'H2',
-        sectionCode: 0,
-      },
-    ],
-    h1: 'H1',
-  };
-
-  it('test', () => {
-    expect(getFAQ('en')).toEqual(expected);
-  });
-});
 
 describe('getSectionCode', () => {
   const sectionIndex = 0;

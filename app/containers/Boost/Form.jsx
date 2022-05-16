@@ -115,13 +115,13 @@ const Form = ({
       {formValues[CURRENT_STAKE_FORM] !== undefined && (
         <>
           <Title>
-            <FormattedMessage {...messages.formTitle} />
+            <FormattedMessage id={messages.formTitle.id} />
           </Title>
           <TipsBase>
             <BaseSpecialOne className="position-relative">
               {!maxStake && (
                 <BlockedInfoArea>
-                  <FormattedMessage {...messages.notTokensToStake} />
+                  <FormattedMessage id={messages.notTokensToStake.id} />
                 </BlockedInfoArea>
               )}
 
@@ -134,7 +134,7 @@ const Form = ({
 
                 <CurrentStakeForm
                   maxValue={maxStake}
-                  onClickStakeTag={v => changeCurrentStake(v)}
+                  onClickStakeTag={(v) => changeCurrentStake(v)}
                   disabled={changeStakeLoading}
                   formValues={formValues}
                   formSubmitAction={handleSubmit(changeStake)}
@@ -143,10 +143,10 @@ const Form = ({
 
                 <div className="mt-5">
                   <Button type="submit" className="mr-4">
-                    <FormattedMessage {...messages.formSubmit} />
+                    <FormattedMessage id={messages.formSubmit.id} />
                   </Button>
                   <TransparentButton type="reset" onClick={resetAction}>
-                    <FormattedMessage {...messages.formCancel} />
+                    <FormattedMessage id={messages.formCancel.id} />
                   </TransparentButton>
                 </div>
               </FormBox>
@@ -177,7 +177,7 @@ Form.propTypes = {
 
 const FormClone = reduxForm({
   form: FORM_TYPE,
-  onSubmitFail: errors => scrollToErrorField(errors),
+  onSubmitFail: (errors) => scrollToErrorField(errors),
 })(Form);
 
 export default memo(

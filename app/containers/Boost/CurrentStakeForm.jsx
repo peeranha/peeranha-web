@@ -94,16 +94,16 @@ const CurrentStakeForm = ({
   return (
     <InputWrapper>
       <Label>
-        <FormattedMessage {...messages.formCurrentStake} />
+        <FormattedMessage id={messages.formCurrentStake.id} />
       </Label>
       <Tags>
         <TagsLabel>
-          <FormattedMessage {...messages.formTakeAStake} />:
+          <FormattedMessage id={messages.formTakeAStake.id} />:
         </TagsLabel>
-        {STAKE_TAGS.map(item => (
+        {STAKE_TAGS.map((item) => (
           <Tag
             key={item.value}
-            onClick={e => {
+            onClick={(e) => {
               e.preventDefault();
               onClickStakeTag(item.value);
             }}
@@ -113,13 +113,13 @@ const CurrentStakeForm = ({
         ))}
         {!!initialUserStake && (
           <Tag
-            onClick={e => {
+            onClick={(e) => {
               e.preventDefault();
               onClickStakeTag(0);
               setTimeout(() => formSubmitAction(), 1000);
             }}
           >
-            <FormattedMessage {...messages.formUnstakeTokens} />
+            <FormattedMessage id={messages.formUnstakeTokens.id} />
           </Tag>
         )}
       </Tags>
@@ -145,7 +145,6 @@ CurrentStakeForm.propTypes = {
   maxValue: PropTypes.number,
   onClickStakeTag: PropTypes.func,
   disabled: PropTypes.bool,
-  onChange: PropTypes.func,
   formValues: PropTypes.object,
   formSubmitAction: PropTypes.func,
   initialUserStake: PropTypes.number,

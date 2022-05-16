@@ -57,7 +57,7 @@ const Search = ({
       <Header className="mb-to-sm-0 mb-from-sm-3">
         <H3>
           <MediumImageStyled src={searchIcon} alt="search" />
-          <FormattedMessage {...commonMessages.search} />
+          <FormattedMessage id={commonMessages.search.id} />
         </H3>
       </Header>
 
@@ -99,6 +99,7 @@ Search.propTypes = {
   match: PropTypes.object,
   getResultsProcessing: PropTypes.bool,
   locale: PropTypes.string,
+  communities: PropTypes.array,
 };
 
 export default compose(

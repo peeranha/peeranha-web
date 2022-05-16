@@ -21,16 +21,16 @@ import FollowCommunityButton from 'containers/FollowCommunityButton/StyledButton
 const Aside = ({ communities }) => (
   <div>
     <Header className="mb-4" fontSize="24" bold>
-      <FormattedMessage {...commonMessages.top} />{' '}
+      <FormattedMessage id={commonMessages.top.id} />{' '}
       <span className="text-lowercase">
-        <FormattedMessage {...commonMessages.communities} />
+        <FormattedMessage id={commonMessages.communities.id} />
       </span>
     </Header>
 
     <Ul className="pt-0 mb-4">
-      {orderBy(communities, y => y.users_subscribed, ['desc'])
+      {orderBy(communities, (y) => y.users_subscribed, ['desc'])
         .slice(0, 3)
-        .map(x => (
+        .map((x) => (
           <li key={x.id} className="pb-4">
             <div className="d-flex align-items-start mb-2">
               <Img className="mr-1" src={x.avatar} alt="commAvatar" />
@@ -39,7 +39,7 @@ const Aside = ({ communities }) => (
                 <P>
                   <Span bold>{x.users_subscribed}</Span>{' '}
                   <Span fontSize="14">
-                    <FormattedMessage {...commonMessages.users} />
+                    <FormattedMessage id={commonMessages.users.id} />
                   </Span>
                 </P>
               </div>
@@ -54,7 +54,7 @@ const Aside = ({ communities }) => (
       <A className="d-flex align-items-center" to={routes.communities()}>
         <img className="mr-2" src={allCommunitiesIcon} alt="icon" />
         <Span color={TEXT_PRIMARY}>
-          <FormattedMessage {...commonMessages.allCommunities} />
+          <FormattedMessage id={commonMessages.allCommunities.id} />
         </Span>
       </A>
     </footer>

@@ -120,7 +120,7 @@ export const EthereumProvider = ({
 };
 
 EthereumProvider.propTypes = {
-  initEthereum: PropTypes.func,
+  initEthereumDispatch: PropTypes.func,
   children: PropTypes.element,
   initializing: PropTypes.bool,
   ethereum: PropTypes.object,

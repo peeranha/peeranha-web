@@ -78,6 +78,7 @@ LeftMenu.propTypes = {
   stakedInNextPeriod: PropTypes.number,
   boost: PropTypes.object,
   isMenuVisible: PropTypes.bool,
+  isGlobalAdmin: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({

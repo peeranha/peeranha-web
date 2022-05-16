@@ -37,7 +37,7 @@ const Team = ({ translations, sendMessageLoading, sendMessage }) => (
       <div className="container">
         <div className="row fifth-screen">
           <h2 className="col-lg-12 fifth-screen-header">
-            <FormattedMessage {...messages.ourTeam} />
+            <FormattedMessage id={messages.ourTeam.id} />
           </h2>
         </div>
       </div>
@@ -151,7 +151,7 @@ const Team = ({ translations, sendMessageLoading, sendMessage }) => (
               <div className="col-12 col-lg-5">
                 <p className="info-appreciate">
                   <img className="mb-4" src={letterSmile} alt="letter" />
-                  <FormattedMessage {...messages.weAppreciate} />
+                  <FormattedMessage id={messages.weAppreciate.id} />
                 </p>
               </div>
 

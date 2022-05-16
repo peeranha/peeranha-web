@@ -28,11 +28,11 @@ const Box = styled.header`
 export default () => (
   <Box>
     <H4>
-      <FormattedMessage {...commonMessages.login} />
+      <FormattedMessage id={commonMessages.login.id} />
     </H4>
 
     <P>
-      <FormattedMessage {...loginMessages.authUserHasMore} />
+      <FormattedMessage id={loginMessages.authUserHasMore.id} />
     </P>
   </Box>
 );

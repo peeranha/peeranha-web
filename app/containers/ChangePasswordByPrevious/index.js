@@ -30,7 +30,6 @@ import {
   showChangePasswordModal,
   hideChangePasswordModal,
   changePassword,
-  sendAnotherCode,
 } from './actions';
 
 import { CHANGE_PASSWORD_FORM } from './constants';
@@ -93,7 +92,6 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
-    sendAnotherCodeDispatch: bindActionCreators(sendAnotherCode, dispatch),
     changePasswordDispatch: bindActionCreators(changePassword, dispatch),
     showChangePasswordModalDispatch: bindActionCreators(
       showChangePasswordModal,

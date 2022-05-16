@@ -108,7 +108,8 @@ const selectPermissions = () =>
     (state) => state,
     (state) => {
       const profileInfo = makeSelectProfileInfo()(state);
-      return profileInfo && profileInfo.hasOwnProperty('permissions')
+      return profileInfo &&
+        Object.prototype.hasOwnProperty.call(profileInfo, 'permissions')
         ? profileInfo.permissions
         : [];
     },

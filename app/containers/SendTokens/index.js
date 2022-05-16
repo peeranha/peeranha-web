@@ -96,8 +96,8 @@ SendTokens.propTypes = {
   sendTokensDispatch: PropTypes.func,
   sendAnotherCodeDispatch: PropTypes.func,
   loginData: PropTypes.object,
-  balance: PropTypes.number,
   eosService: PropTypes.object,
+  profileInfo: PropTypes.object,
 };
 
 export default compose(

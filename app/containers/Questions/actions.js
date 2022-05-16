@@ -70,27 +70,27 @@ export function getQuestionsError(questionsError) {
   };
 }
 
-export const getUniqQuestions = questionsList => ({
+export const getUniqQuestions = (questionsList) => ({
   type: GET_UNIQ_QUESTIONS,
   questionsList,
 });
 
-export const setTypeFilter = typeFilter => ({
+export const setTypeFilter = (typeFilter) => ({
   type: SET_TYPE_FILTER,
   typeFilter,
 });
 
-export const setCreatedFilter = createdFilter => ({
+export const setCreatedFilter = (createdFilter) => ({
   type: SET_CREATED_FILTER,
   createdFilter,
 });
 
-export const changeQuestionFilter = questionFilter => ({
+export const changeQuestionFilter = (questionFilter) => ({
   type: CHANGE_QUESTION_FILTER,
   questionFilter,
 });
 
-export const loadTopCommunityQuestions = init => ({
+export const loadTopCommunityQuestions = (init) => ({
   type: LOAD_COMMUNITY_TOP_QUESTIONS,
   init,
 });
@@ -108,12 +108,14 @@ export const loadTopCommunityQuestionsSuccess = (
   lastIndex,
 });
 
-export const loadTopCommunityQuestionsErr = loadTopCommunityQuestionsError => ({
+export const loadTopCommunityQuestionsErr = (
+  loadTopCommunityQuestionsError,
+) => ({
   type: LOAD_COMMUNITY_TOP_QUESTIONS_ERROR,
   loadTopCommunityQuestionsError,
 });
 
-export const removeOrAddTopQuestion = id => ({
+export const removeOrAddTopQuestion = (id) => ({
   type: REMOVE_OR_ADD_TOP_QUESTION,
   id,
 });
@@ -124,37 +126,37 @@ export const removeOrAddTopQuestionSuccess = (id, isRemove) => ({
   id,
 });
 
-export const removeOrAddTopQuestionErr = removeOrAddTopQuestionError => ({
+export const removeOrAddTopQuestionErr = (removeOrAddTopQuestionError) => ({
   type: REMOVE_OR_ADD_TOP_QUESTION_ERROR,
   removeOrAddTopQuestionError,
 });
 
-export const upQuestion = id => ({
+export const upQuestion = (id) => ({
   type: UP_QUESTION,
   id,
 });
 
-export const upQuestionSuccess = id => ({
+export const upQuestionSuccess = (id) => ({
   type: UP_QUESTION_SUCCESS,
   id,
 });
 
-export const upQuestionErr = upQuestionError => ({
+export const upQuestionErr = (upQuestionError) => ({
   type: UP_QUESTION_ERROR,
   upQuestionError,
 });
 
-export const downQuestion = id => ({
+export const downQuestion = (id) => ({
   type: DOWN_QUESTION,
   id,
 });
 
-export const downQuestionSuccess = id => ({
+export const downQuestionSuccess = (id) => ({
   type: DOWN_QUESTION_SUCCESS,
   id,
 });
 
-export const downQuestionErr = upQuestionError => ({
+export const downQuestionErr = (upQuestionError) => ({
   type: DOWN_QUESTION_ERROR,
   upQuestionError,
 });
@@ -171,7 +173,7 @@ export const moveQuestionSuccess = (id, position) => ({
   id,
 });
 
-export const moveQuestionErr = moveQuestionError => ({
+export const moveQuestionErr = (moveQuestionError) => ({
   type: MOVE_QUESTION_ERROR,
   moveQuestionError,
 });

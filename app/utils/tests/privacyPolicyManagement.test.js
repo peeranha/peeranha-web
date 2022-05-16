@@ -1,11 +1,6 @@
 import { SECTION_ID } from 'containers/PrivacyPolicy/constants';
-
-import {
-  getPrivacyPolicy,
-  getSectionCode,
-  getQuestionCode,
-  getIndexes,
-} from '../privacyPolicyManagement';
+import {getPrivacyPolicy} from "containers/PrivacyPolicy/actions";
+import {getQuestionCode, getSectionCode} from "utils/mdManagement";
 
 jest.mock(
   'privacy-policy/en.md',
@@ -67,15 +62,5 @@ describe('getQuestionCode', () => {
   it('test without params', () => {
     const questionCode = getQuestionCode();
     expect(questionCode).toBe(`${SECTION_ID}_0_0`);
-  });
-});
-
-describe('getIndexes', () => {
-  const sectionIndex = '0';
-  const questionIndex = '0';
-  const locationHash = `#${SECTION_ID}_${sectionIndex}_${questionIndex}`;
-
-  it('test', () => {
-    expect(getIndexes(locationHash)).toEqual([sectionIndex, questionIndex]);
   });
 });

@@ -116,7 +116,6 @@ SendTips.propTypes = {
   sendFbVerificationEmailDispatch: PropTypes.func,
   sendTipsDispatch: PropTypes.func,
   loginData: PropTypes.object,
-  balance: PropTypes.number,
   cryptoAccounts: PropTypes.object,
   communityId: PropTypes.number,
   questionId: PropTypes.string,
@@ -124,6 +123,9 @@ SendTips.propTypes = {
   isVerifyFbModal: PropTypes.bool,
   sendAnotherCodeDispatch: PropTypes.func,
   verifyFbActionDispatch: PropTypes.func,
+  profileInfo: PropTypes.object,
+  account: PropTypes.string,
+  form: PropTypes.string,
 };
 
 const withReducer = injectReducer({ key: 'sendTips', reducer });

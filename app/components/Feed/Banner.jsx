@@ -14,16 +14,16 @@ export const Banner = () => (
     <img src={noQuestionsFeedPage} alt="feed-banner" />
     <div>
       <p>
-        <FormattedMessage {...messages.youDontHaveFeedToRead} />
+        <FormattedMessage id={messages.youDontHaveFeedToRead.id} />
       </p>
 
       <p>
-        <FormattedMessage {...messages.subscribeToCommToKeep} />
+        <FormattedMessage id={messages.subscribeToCommToKeep.id} />
       </p>
 
       <A to={routes.communities()}>
         <Button>
-          <FormattedMessage {...messages.goToCommunities} />
+          <FormattedMessage id={messages.goToCommunities.id} />
         </Button>
       </A>
     </div>

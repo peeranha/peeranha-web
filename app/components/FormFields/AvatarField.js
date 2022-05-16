@@ -241,9 +241,9 @@ function AvatarField({ input, meta, disabled }) {
                 onCrop={setY}
                 label={
                   isFileTooLarge ? (
-                    <FormattedMessage {...messages.fileSizeErrorMsg} />
+                    <FormattedMessage id={messages.fileSizeErrorMsg.id} />
                   ) : (
-                    <FormattedMessage {...messages.chooseFile} />
+                    <FormattedMessage id={messages.chooseFile.id} />
                   )
                 }
                 labelStyle={isFileTooLarge ? labelErrorStyle : {}}
@@ -260,7 +260,12 @@ function AvatarField({ input, meta, disabled }) {
                   setS(false);
                 }}
               />
-              <button className="close-icon" onClick={reload} type="button" />
+              <button
+                className="close-icon"
+                onClick={reload}
+                type="button"
+                aria-label="close icon"
+              />
             </div>
 
             <div className="reload-bg" onClick={reload} />
@@ -282,12 +287,13 @@ function AvatarField({ input, meta, disabled }) {
               className="remove-avatar-action"
               onClick={() => input.onChange(NO_AVATAR)}
               type="button"
+              aria-label="remove avatar"
             />
           </div>
         )}
       </div>
       <InfoMessage>
-        <FormattedMessage {...messages.profilesUsersInfo} />
+        <FormattedMessage id={messages.profilesUsersInfo.id} />
       </InfoMessage>
       <WarningMessage {...meta} isSpecialPosition />
     </Div>

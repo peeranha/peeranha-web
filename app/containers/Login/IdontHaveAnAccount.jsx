@@ -30,7 +30,7 @@ const Base = styled.div`
 
 const IDontHaveAnAccount = ({ hideLoginModalDispatch, disabled }) => (
   <Base>
-    <FormattedMessage {...loginMessages.iDontHaveAnAccount} />
+    <FormattedMessage id={loginMessages.iDontHaveAnAccount.id} />
     <TransparentButton
       onClick={() => {
         createdHistory.push(routes.signup.email.name);
@@ -39,7 +39,7 @@ const IDontHaveAnAccount = ({ hideLoginModalDispatch, disabled }) => (
       disabled={disabled}
       type="button"
     >
-      <FormattedMessage {...signupMessages.signUp} />
+      <FormattedMessage id={signupMessages.signUp.id} />
     </TransparentButton>
   </Base>
 );
@@ -49,9 +49,6 @@ IDontHaveAnAccount.propTypes = {
   disabled: PropTypes.bool,
 };
 
-export default connect(
-  null,
-  dispatch => ({
-    hideLoginModalDispatch: bindActionCreators(hideLoginModal, dispatch),
-  }),
-)(IDontHaveAnAccount);
+export default connect(null, (dispatch) => ({
+  hideLoginModalDispatch: bindActionCreators(hideLoginModal, dispatch),
+}))(IDontHaveAnAccount);

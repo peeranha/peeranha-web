@@ -12,7 +12,7 @@ import { MediumImageStyled } from 'components/Img/MediumImage';
 import H3 from 'components/H3';
 import Span from 'components/Span';
 import A from 'components/A';
-import Wrapper, {WrapperRightPanel} from 'components/Header/Simple';
+import Wrapper, { WrapperRightPanel } from 'components/Header/Simple';
 
 import messages from './messages';
 
@@ -22,11 +22,11 @@ const Header = () => (
       <MediumImageStyled src={faqPageHeader} alt="faq-header" />
 
       <span className="d-none d-md-inline-block">
-        <FormattedMessage {...messages.faq} />
+        <FormattedMessage id={messages.faq.id} />
       </span>
 
       <span className="d-inline-block d-md-none text-uppercase">
-        <FormattedMessage {...commonMessages.faq} />
+        <FormattedMessage id={commonMessages.faq.id} />
       </span>
     </H3>
 
@@ -35,7 +35,7 @@ const Header = () => (
         <button>
           <img className="mr-1" src={infoIcon} alt="x" />
           <Span color={TEXT_PRIMARY} className="button-label">
-            <FormattedMessage {...commonMessages.support} />
+            <FormattedMessage id={commonMessages.support.id} />
           </Span>
         </button>
       </A>

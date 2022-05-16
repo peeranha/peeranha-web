@@ -81,7 +81,7 @@ const SuggestTag = memo(({ redirectToCreateTagDispatch, formValues }) => {
         color={LINK_COLOR_SECONDARY}
       >
         <IconMd className="mr-2" icon={icoTag} fill={BORDER_PRIMARY} />
-        <FormattedMessage {...commonMessages.createTag} />
+        <FormattedMessage id={commonMessages.createTag.id} />
       </TransparentButton>
     </div>
   );
@@ -304,6 +304,7 @@ QuestionForm.propTypes = {
   skipExistingQuestions: PropTypes.func,
   disableCommForm: PropTypes.bool,
   profile: PropTypes.object,
+  communityQuestionsType: PropTypes.number,
 };
 
 const FormClone = reduxForm({

@@ -174,8 +174,6 @@ export const setSingleCommunityDetails = async (eosService) => {
   if (!prevSingleCommDetails && community.isBlogger) {
     location.reload();
   }
-
-  const communityDetails = getSingleCommunityDetails();
 };
 
 export const getSingleCommunityDetails = () => {

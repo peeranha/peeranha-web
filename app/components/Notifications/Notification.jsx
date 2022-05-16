@@ -21,6 +21,7 @@ import {
   singleCommunityStyles,
 } from 'utils/communityManagement';
 
+import { IconMd } from 'components/Icon/IconWithSizes';
 import {
   NOTIFICATIONS_DATA,
   NOTIFICATIONS_TYPES,
@@ -28,7 +29,6 @@ import {
 } from './constants';
 
 import Span from '../Span';
-import { IconMd } from 'components/Icon/IconWithSizes';
 
 const single = isSingleCommunityWebsite();
 const styles = singleCommunityStyles();
@@ -131,17 +131,20 @@ const Container = styled.div`
       font-size: 12px;
     }
   }
+
   ${({ height }) => (height !== ROW_HEIGHT ? '' : '}')};
 `;
 
 const Time = ({ time: { rightNow, minutes, hours, yesterday, fullDate } }) => (
   <Span color={TEXT_SECONDARY} className="float-right" whiteSpace="nowrap">
-    {!!rightNow && <FormattedMessage {...messages.rightNow} />}
+    {!!rightNow && <FormattedMessage id={messages.rightNow.id} />}
     {!!minutes && (
-      <FormattedMessage {...messages.minutesAgo} values={{ minutes }} />
+      <FormattedMessage id={messages.minutesAgo.id} values={{ minutes }} />
     )}
-    {!!hours && <FormattedMessage {...messages.hoursAgo} values={{ hours }} />}
-    {!!yesterday && <FormattedMessage {...messages.yesterday} />}
+    {!!hours && (
+      <FormattedMessage id={messages.hoursAgo.id} values={{ hours }} />
+    )}
+    {!!yesterday && <FormattedMessage id={messages.yesterday.id} />}
     {!!fullDate && fullDate}
   </Span>
 );
@@ -188,21 +191,18 @@ const Notification = ({
     [data],
   );
 
-  const values = useMemo(
-    () => {
-      if (type < 9) {
-        return {};
-      }
+  const values = useMemo(() => {
+    if (type < 9) {
+      return {};
+    }
 
-      return {
-        quantity: data.quantity
-          .split(' ')
-          .map((x, i) => (i === 0 ? trimRightZeros(x) : x))
-          .join(' '),
-      };
-    },
-    [data],
-  );
+    return {
+      quantity: data.quantity
+        .split(' ')
+        .map((x, i) => (i === 0 ? trimRightZeros(x) : x))
+        .join(' '),
+    };
+  }, [data]);
 
   const isCommunityMod = !!single && Object.keys(styles).length > 0;
 

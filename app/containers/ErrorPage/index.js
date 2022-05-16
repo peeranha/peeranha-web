@@ -53,7 +53,7 @@ const NotFound = ({ locale, withSeo = true }) => (
     <Box>
       <div>
         <Span fontSize="24" bold>
-          <FormattedMessage {...errorPageMessages.weAreSorry} />
+          <FormattedMessage id={errorPageMessages.weAreSorry.id} />
         </Span>
       </div>
 
@@ -69,7 +69,7 @@ const NotFound = ({ locale, withSeo = true }) => (
               value: (
                 <A className="text-lowercase" to={routes.questions()}>
                   <Span color={LINK_COLOR}>
-                    <FormattedMessage {...commonMessages.questions} />
+                    <FormattedMessage id={commonMessages.questions.id} />
                   </Span>
                 </A>
               ),
@@ -88,7 +88,7 @@ const NotFound = ({ locale, withSeo = true }) => (
                   className="text-lowercase"
                 >
                   <Span color={LINK_COLOR}>
-                    <FormattedMessage {...commonMessages.communities} />
+                    <FormattedMessage id={commonMessages.communities.id} />
                   </Span>
                 </ADefault>
               ),
@@ -102,7 +102,7 @@ const NotFound = ({ locale, withSeo = true }) => (
               value: (
                 <A className="text-lowercase" to={routes.support()}>
                   <Span color={LINK_COLOR}>
-                    <FormattedMessage {...commonMessages.contactUs} />
+                    <FormattedMessage id={commonMessages.contactUs.id} />
                   </Span>
                 </A>
               ),

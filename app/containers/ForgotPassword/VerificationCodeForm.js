@@ -27,7 +27,7 @@ const VerificationCodeForm = /* istanbul ignore next */ ({
 }) => (
   <div>
     <H4 className="text-center pb-3">
-      <FormattedMessage {...loginMessages.iForgotPassword} />
+      <FormattedMessage id={loginMessages.iForgotPassword.id} />
     </H4>
 
     <form onSubmit={handleSubmit(verifyEmail)}>
@@ -41,7 +41,7 @@ const VerificationCodeForm = /* istanbul ignore next */ ({
       />
 
       <Button disabled={verifyEmailLoading} className="w-100" type="submit">
-        <FormattedMessage {...signupMessages.continue} />
+        <FormattedMessage id={signupMessages.continue.id} />
       </Button>
 
       <TransparentButton
@@ -49,7 +49,7 @@ const VerificationCodeForm = /* istanbul ignore next */ ({
         onClick={sendAnotherCode}
         type="button"
       >
-        <FormattedMessage {...commonMessages.sendAnotherCode} />
+        <FormattedMessage id={commonMessages.sendAnotherCode.id} />
       </TransparentButton>
     </form>
   </div>

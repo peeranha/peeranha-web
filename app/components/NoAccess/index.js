@@ -21,7 +21,7 @@ function NoAccess() {
       />
 
       <div className="text-center pt-3">
-        <FormattedMessage {...messages.errorMessage} />
+        <FormattedMessage id={messages.errorMessage.id} />
       </div>
     </div>
   );

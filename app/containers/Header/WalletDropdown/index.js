@@ -49,7 +49,7 @@ const isPositiveNumber = (number) => Number.isFinite(number) && number > 0;
 const Menu = memo(({ user, number, locale /* boost */ }) => (
   <Ul>
     <A to={routes.userWallet(user)}>
-      <FormattedMessage {...messages.wallet} />
+      <FormattedMessage id={messages.wallet.id} />
       {isPositiveNumber(number) && (
         <NotificationIcon
           inline
@@ -122,8 +122,8 @@ const WalletDropdown = ({
 
 Menu.propTypes = {
   user: PropTypes.string,
-  balance: PropTypes.string,
   number: PropTypes.number,
+  locale: PropTypes.string,
 };
 
 WalletDropdown.propTypes = {

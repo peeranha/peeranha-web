@@ -1,6 +1,5 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import PropTypes from 'prop-types';
 
 import {
   LANDING_FONT,
@@ -30,9 +29,9 @@ const About = () => (
     <Gradient position="top">
       <div className="container second-screen">
         <h3 className="col-lg-12 second-screen-header">
-          <FormattedMessage {...messages.differentThan} />
+          <FormattedMessage id={messages.differentThan.id} />
           <br />
-          <FormattedMessage {...messages.differentThan2} />
+          <FormattedMessage id={messages.differentThan2.id} />
         </h3>
 
         <ul className="row second-screen-elements main-difference">
@@ -41,10 +40,10 @@ const About = () => (
               <img src={rewardingImg} alt="rewardingImg" />
               <div className="card-body">
                 <h4 className="item-title">
-                  <FormattedMessage {...messages.rewardingUser} />
+                  <FormattedMessage id={messages.rewardingUser.id} />
                 </h4>
                 <p className="item-content">
-                  <FormattedMessage {...messages.peopleSaveHours} />
+                  <FormattedMessage id={messages.peopleSaveHours.id} />
                 </p>
               </div>
             </div>
@@ -55,10 +54,10 @@ const About = () => (
               <img src={ownershipImg} alt="ownershipImg" />
               <div className="card-body">
                 <h4 className="item-title">
-                  <FormattedMessage {...messages.ownershipByUsers} />
+                  <FormattedMessage id={messages.ownershipByUsers.id} />
                 </h4>
                 <p className="item-content">
-                  <FormattedMessage {...messages.peeranhaDecentralized} />
+                  <FormattedMessage id={messages.peeranhaDecentralized.id} />
                 </p>
               </div>
             </div>
@@ -69,10 +68,10 @@ const About = () => (
               <img src={valuingImg} alt="valuingImg" />
               <div className="card-body">
                 <h4 className="item-title">
-                  <FormattedMessage {...messages.earlyAdopters} />
+                  <FormattedMessage id={messages.earlyAdopters.id} />
                 </h4>
                 <p className="item-content">
-                  <FormattedMessage {...messages.peeranhaPhilosophy} />
+                  <FormattedMessage id={messages.peeranhaPhilosophy.id} />
                 </p>
               </div>
             </div>
@@ -95,16 +94,16 @@ const About = () => (
             <div className="col-lg-6 block2">
               <div className={`row ${ANIMATE_TEXT}`}>
                 <h5 className="col-lg-12 text-1">
-                  <FormattedMessage {...messages.simpleAndAffordable} />
+                  <FormattedMessage id={messages.simpleAndAffordable.id} />
                 </h5>
                 <h5 className="col-lg-12 text-2">
-                  <FormattedMessage {...messages.getHelp} />
+                  <FormattedMessage id={messages.getHelp.id} />
                 </h5>
                 <div className="d-block d-md-none col-lg-12">
                   <img src={simpleAndAffordable} alt="simpleAndAffordable" />
                 </div>
                 <p className="col-lg-12 text-3">
-                  <FormattedMessage {...messages.askQuestionAndGetHelp} />
+                  <FormattedMessage id={messages.askQuestionAndGetHelp.id} />
                 </p>
               </div>
             </div>
@@ -121,16 +120,16 @@ const About = () => (
             <div className="col-lg-6 block2">
               <div className={`row ${ANIMATE_TEXT}`}>
                 <h5 className="col-lg-12 text-1">
-                  <FormattedMessage {...messages.helpfulAndGenerous} />
+                  <FormattedMessage id={messages.helpfulAndGenerous.id} />
                 </h5>
                 <h5 className="col-lg-12 text-2">
-                  <FormattedMessage {...messages.shareKnowledge} />
+                  <FormattedMessage id={messages.shareKnowledge.id} />
                 </h5>
                 <div className="d-block d-md-none col-lg-12">
                   <img src={helpfulAndGenerous} alt="helpfulAndGenerous" />
                 </div>
                 <p className="col-lg-12 text-3">
-                  <FormattedMessage {...messages.helpCommunity} />
+                  <FormattedMessage id={messages.helpCommunity.id} />
                 </p>
               </div>
             </div>
@@ -147,16 +146,18 @@ const About = () => (
             <div className="col-lg-6 block2">
               <div className={`row ${ANIMATE_TEXT}`}>
                 <h5 className="col-lg-12 text-1">
-                  <FormattedMessage {...messages.profitableAndModern} />
+                  <FormattedMessage id={messages.profitableAndModern.id} />
                 </h5>
                 <h5 className="col-lg-12 text-2">
-                  <FormattedMessage {...messages.getPaidInCrypto} />
+                  <FormattedMessage id={messages.getPaidInCrypto.id} />
                 </h5>
                 <div className="d-block d-md-none col-lg-12">
                   <img src={profitableAndModern} alt="profitableAndModern" />
                 </div>
                 <p className="col-lg-12 text-3">
-                  <FormattedMessage {...messages.getPaidInCryptoFromWeekly} />
+                  <FormattedMessage
+                    id={messages.getPaidInCryptoFromWeekly.id}
+                  />
                 </p>
               </div>
             </div>
@@ -173,16 +174,16 @@ const About = () => (
             <div className="col-lg-6 block2">
               <div className={`row ${ANIMATE_TEXT}`}>
                 <h5 className="col-lg-12 text-1">
-                  <FormattedMessage {...messages.worthyAndPrestig} />
+                  <FormattedMessage id={messages.worthyAndPrestig.id} />
                 </h5>
                 <h5 className="col-lg-12 text-2">
-                  <FormattedMessage {...messages.earnReputation} />
+                  <FormattedMessage id={messages.earnReputation.id} />
                 </h5>
                 <div className="d-block d-md-none col-lg-12">
                   <img src={worthyAndPrestig} alt="worthyAndPrestig" />
                 </div>
                 <p className="col-lg-12 text-3">
-                  <FormattedMessage {...messages.whetherYouAsk} />
+                  <FormattedMessage id={messages.whetherYouAsk.id} />
                 </p>
               </div>
             </div>
@@ -199,10 +200,10 @@ const About = () => (
             <div className="col-lg-6 block2">
               <div className={`row ${ANIMATE_TEXT}`}>
                 <h5 className="col-lg-12 text-1">
-                  <FormattedMessage {...messages.honorableAndFascinating} />
+                  <FormattedMessage id={messages.honorableAndFascinating.id} />
                 </h5>
                 <h5 className="col-lg-12 text-2">
-                  <FormattedMessage {...messages.ruleThePlatform} />
+                  <FormattedMessage id={messages.ruleThePlatform.id} />
                 </h5>
                 <div className="d-block d-md-none col-lg-12">
                   <img
@@ -211,7 +212,7 @@ const About = () => (
                   />
                 </div>
                 <p className="col-lg-12 text-3">
-                  <FormattedMessage {...messages.participateInModeration} />
+                  <FormattedMessage id={messages.participateInModeration.id} />
                 </p>
               </div>
             </div>
@@ -373,8 +374,6 @@ const Box = Section.extend`
   }
 `;
 
-About.propTypes = {
-  translations: PropTypes.object,
-};
+About.propTypes = {};
 
 export default React.memo(About);

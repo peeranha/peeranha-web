@@ -12,8 +12,6 @@ import {
 
 import {
   CHANGE_PASSWORD_ERROR,
-  SUBMIT_EMAIL_ERROR,
-  SEND_EMAIL_ERROR,
   CHANGE_PASSWORD_SUCCESS,
 } from 'containers/ChangePasswordByPrevious/constants';
 
@@ -72,7 +70,6 @@ import {
 import {
   EMAIL_CHECKING_ERROR,
   EMAIL_VERIFICATION_ERROR,
-  I_HAVE_EOS_ACCOUNT_ERROR,
   SIGN_UP_VIA_EMAIL_ERROR,
   SHOW_WALLET_SIGNUP_FORM_ERROR,
   SIGNUP_WITH_WALLET_ERROR,
@@ -155,10 +152,7 @@ import { GET_QUESTIONS_ERROR } from 'containers/Questions/constants';
 import { GET_QUESTIONS_ERROR as GET_Q_USER_ERROR } from 'containers/QuestionsOfUser/constants';
 import { GET_QUESTIONS_ERROR as GET_QA_USER_ERROR } from 'containers/QuestionsWithAnswersOfUser/constants';
 
-import {
-  GET_SUGGESTED_TAGS_ERROR,
-  GET_EXISTING_TAGS_ERROR,
-} from 'containers/Tags/constants';
+import { GET_EXISTING_TAGS_ERROR } from 'containers/Tags/constants';
 
 import { GET_USERS_ERROR } from 'containers/Users/constants';
 import { GET_RESULTS_ERROR } from 'containers/Search/constants';
@@ -188,7 +182,6 @@ export const otherTypes = [
   GET_QUESTIONS_ERROR,
   GET_Q_USER_ERROR,
   GET_QA_USER_ERROR,
-  GET_SUGGESTED_TAGS_ERROR,
   GET_EXISTING_TAGS_ERROR,
   GET_USERS_ERROR,
   GET_QUESTION_DATA_ERROR,
@@ -205,8 +198,6 @@ export const errHandlingTypes = [
   GET_COMMUNITY_ERROR,
   SEND_OLD_EMAIL_ERROR,
   CONFIRM_OLD_EMAIL_ERROR,
-  SEND_EMAIL_ERROR,
-  SUBMIT_EMAIL_ERROR,
   CHANGE_PASSWORD_ERROR,
   CREATE_COMMUNITY_ERROR,
   SUGGEST_TAG_ERROR,
@@ -232,7 +223,6 @@ export const errHandlingTypes = [
   SHOW_OWNER_KEY_ERROR,
   SHOW_OWNER_KEY_SEND_EMAIL_ERROR,
   EMAIL_VERIFICATION_ERROR,
-  I_HAVE_EOS_ACCOUNT_ERROR,
   SIGN_UP_VIA_EMAIL_ERROR,
   SHOW_WALLET_SIGNUP_FORM_ERROR,
   SIGNUP_WITH_WALLET_ERROR,

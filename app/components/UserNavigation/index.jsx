@@ -61,26 +61,24 @@ const UserNavigation = ({
   const path = window.location.pathname + window.location.hash;
   const ref = useRef(null);
 
-  useEffect(
-    () => {
-      if (
-        hashes.includes(window.location.hash) ||
-        path === routes.profileView(userId)
-      ) {
-        window.scrollTo(0, 0);
-      }
-    },
-    [window.location.hash],
-  );
+  useEffect(() => {
+    if (
+      hashes.includes(window.location.hash) ||
+      path === routes.profileView(userId)
+    ) {
+      window.scrollTo(0, 0);
+    }
+  }, [window.location.hash]);
 
   const isProfilePage =
     userId === account &&
     (path === routes.profileView(account) ||
       path === routes.userCommunities(account));
 
-  const isModerator = useMemo(() => !!getPermissions(profile)?.length, [
-    profile,
-  ]);
+  const isModerator = useMemo(
+    () => !!getPermissions(profile)?.length,
+    [profile],
+  );
 
   return (
     <Wrapper position="top" ref={ref}>
@@ -99,7 +97,7 @@ const UserNavigation = ({
                 : 0
             }
           >
-            <FormattedMessage {...messages.profile} />
+            <FormattedMessage id={messages.profile.id} />
           </NavigationLink>
 
           <NavigationLink
@@ -109,7 +107,7 @@ const UserNavigation = ({
             islink={path !== routes.userQuestions(userId) ? 1 : 0}
           >
             <FormattedMessage
-              {...messages.postsNumber}
+              id={messages.postsNumber.id}
               values={{
                 number: (
                   <Span
@@ -156,15 +154,17 @@ const UserNavigation = ({
 
           <NavigationLink
             className={
-              userId !== account || loginData.email == undefined ? 'd-none' : ''
+              userId !== account || loginData.email === undefined
+                ? 'd-none'
+                : ''
             }
             to={routes.userSettings(userId)}
             islink={path !== routes.userSettings(userId) ? 1 : 0}
           >
-            <FormattedMessage {...messages.settings} />
+            <FormattedMessage id={messages.settings.id} />
           </NavigationLink>
 
-          {/*TODO PEER20-286 Hide notifications from this version*/}
+          {/* TODO PEER20-286 Hide notifications from this version */}
           {/* <NavigationLink
             className={userId !== account ? 'd-none' : ''}
             to={routes.userNotifications(userId)}
@@ -203,7 +203,7 @@ const UserNavigation = ({
               to={routes.userModeration(userId)}
               islink={path !== routes.userModeration(userId) ? 1 : 0}
             >
-              <FormattedMessage {...messages.moderation} />
+              <FormattedMessage id={messages.moderation.id} />
             </NavigationLink>
           )}
 
@@ -218,7 +218,7 @@ const UserNavigation = ({
             data-user={userId}
             islink
           >
-            <FormattedMessage {...messages.edit} />
+            <FormattedMessage id={messages.edit.id} />
           </NavigationButton>
         </Div>
 
@@ -233,7 +233,7 @@ const UserNavigation = ({
           >
             <IconMd icon={pencilIcon} />
             <Span className="ml-1" color={TEXT_PRIMARY}>
-              <FormattedMessage {...messages.edit} />
+              <FormattedMessage id={messages.edit.id} />
             </Span>
           </button>
 
@@ -247,7 +247,7 @@ const UserNavigation = ({
           >
             <IconMd icon={closeIcon} fill={BORDER_PRIMARY} isColorImportant />
             <Span className="ml-1" color={TEXT_PRIMARY}>
-              <FormattedMessage {...messages.close} />
+              <FormattedMessage id={messages.close.id} />
             </Span>
           </A>
         </div>

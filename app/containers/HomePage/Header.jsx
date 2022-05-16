@@ -66,26 +66,26 @@ const Header = ({ showLoginModal, account }) => {
               } d-lg-flex flex-column flex-lg-row navbar`}
             >
               <button onClick={() => toggle(SECOND_SCREEN)}>
-                <FormattedMessage {...messages.about} />
+                <FormattedMessage id={messages.about.id} />
               </button>
 
               <button onClick={() => toggle(THIRD_SCREEN)}>
-                <FormattedMessage {...messages.rewards} />
+                <FormattedMessage id={messages.rewards.id} />
               </button>
 
               <button onClick={() => toggle(FOURTH_SCREEN)}>
-                <FormattedMessage {...messages.faq} />
+                <FormattedMessage id={messages.faq.id} />
               </button>
 
               <button onClick={() => toggle(FIFTH_SCREEN)}>
-                <FormattedMessage {...messages.team} />
+                <FormattedMessage id={messages.team.id} />
               </button>
 
               {!account && (
                 <React.Fragment>
                   <button className="login" onClick={showLoginModal}>
                     <IconLm className="mr-2" icon={login} />
-                    <FormattedMessage {...messages.login} />
+                    <FormattedMessage id={messages.login.id} />
                   </button>
 
                   <Button
@@ -94,7 +94,7 @@ const Header = ({ showLoginModal, account }) => {
                       createdHistory.push(routes.signup.email.name)
                     }
                   >
-                    <FormattedMessage {...messages.signUpFree} />
+                    <FormattedMessage id={messages.signUpFree.id} />
                   </Button>
                 </React.Fragment>
               )}
@@ -104,7 +104,7 @@ const Header = ({ showLoginModal, account }) => {
                   className="signup"
                   onClick={() => createdHistory.push(routes.questions())}
                 >
-                  <FormattedMessage {...messages.goToSite} />
+                  <FormattedMessage id={messages.goToSite.id} />
                 </Button>
               )}
             </div>
@@ -163,7 +163,7 @@ const Box = styled.div`
     padding: 11px 0;
     position: fixed;
     background-color: rgba(23, 35, 74, 1);
-    height: ${x => (x.isToggled ? `100vh` : `auto`)};
+    height: ${(x) => (x.isToggled ? `100vh` : `auto`)};
 
     .logo img {
       width: 180px;

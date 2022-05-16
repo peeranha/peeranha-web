@@ -5,7 +5,6 @@ import { FormattedMessage } from 'react-intl';
 import { TEXT_PRIMARY, BORDER_SECONDARY } from 'style-constants';
 
 import * as routes from 'routes-config';
-import commonMessages from 'common-messages';
 
 import moreVotingIcon from 'images/moreVoting.svg?inline';
 
@@ -30,10 +29,10 @@ const Header = Span.extend``.withComponent('header');
 const Aside = ({ suggestedCommunities }) => (
   <div>
     <Header className="mb-4" fontSize="24" bold>
-      <FormattedMessage {...messages.voteForNewCommunities} />
+      <FormattedMessage id={messages.voteForNewCommunities.id} />
     </Header>
 
-    {suggestedCommunities.slice(0, 3).map(x => (
+    {suggestedCommunities.slice(0, 3).map((x) => (
       <Item key={x.id}>
         <div className="d-flex align-items-center mb-2">
           <Img className="mr-1" src={x.avatar} alt="commAvatar" />
@@ -59,7 +58,7 @@ const Aside = ({ suggestedCommunities }) => (
       >
         <img className="mr-2" src={moreVotingIcon} alt="moreVotingIcon" />
         <Span color={TEXT_PRIMARY}>
-          <FormattedMessage {...commonMessages.moreVoting} />
+          <FormattedMessage id={messages.moreVoting.id} />
         </Span>
       </A>
     </footer>

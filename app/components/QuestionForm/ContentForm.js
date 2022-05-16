@@ -38,7 +38,7 @@ const ContentForm = ({ questionLoading, intl, formValues }) => (
           <TextBlock className="my-2" content={formValues[FORM_CONTENT]} />
         ) : (
           <Span color={TEXT_SECONDARY} fontSize="14" isItalic>
-            <FormattedMessage {...commonMessages.nothingToSeeYet} />
+            <FormattedMessage id={commonMessages.nothingToSeeYet.id} />
           </Span>
         )}
       </PreviewWrapper>

@@ -16,15 +16,15 @@ export const AskQuestionBanner = () => (
     <img src={bannerImage} alt="askQuestionBanner" />
     <div>
       <p>
-        <FormattedMessage {...messages.didntFindAnswer} />
+        <FormattedMessage id={messages.didntFindAnswer.id} />
       </p>
 
       <p>
-        <FormattedMessage {...messages.freeFeelToAsk} />
+        <FormattedMessage id={messages.freeFeelToAsk.id} />
       </p>
 
       <Button onClick={() => createdHistory.push(routes.support())}>
-        <FormattedMessage {...messages.help} />
+        <FormattedMessage id={messages.help.id} />
       </Button>
     </div>
   </Banner>

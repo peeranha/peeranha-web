@@ -45,13 +45,13 @@ const Introduction = ({
         <Box className="col-lg-12 first-screen-banner">
           <div className="d-flex justify-content-center">
             <h1 className="top-level">
-              <FormattedMessage {...messages.yourContributionsRewarded} />
+              <FormattedMessage id={messages.yourContributionsRewarded.id} />
             </h1>
           </div>
 
           <div className="row justify-content-center">
             <p className="col-12 col-lg-8 special-paragraph">
-              <FormattedMessage {...messages.weAreDecentralized} />
+              <FormattedMessage id={messages.weAreDecentralized.id} />
             </p>
           </div>
 

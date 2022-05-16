@@ -26,7 +26,7 @@ const FbVerificationCodeForm = /* istanbul ignore next */ ({
 }) => (
   <div>
     <H4 className="text-center pb-3">
-      <FormattedMessage {...commonMessages.verifyFacebookAccount} />
+      <FormattedMessage id={commonMessages.verifyFacebookAccount.id} />
     </H4>
 
     <form onSubmit={handleSubmit(verifyEmail)}>
@@ -40,7 +40,7 @@ const FbVerificationCodeForm = /* istanbul ignore next */ ({
       />
 
       <Button disabled={verifyEmailLoading} className="w-100" type="submit">
-        <FormattedMessage {...signupMessages.continue} />
+        <FormattedMessage id={signupMessages.continue.id} />
       </Button>
 
       <TransparentButton
@@ -49,7 +49,7 @@ const FbVerificationCodeForm = /* istanbul ignore next */ ({
         type="button"
         disabled={verifyEmailLoading}
       >
-        <FormattedMessage {...commonMessages.sendAnotherCode} />
+        <FormattedMessage id={commonMessages.sendAnotherCode.id} />
       </TransparentButton>
     </form>
   </div>
@@ -65,5 +65,5 @@ FbVerificationCodeForm.propTypes = {
 
 export default reduxForm({
   form: VERIFY_FB_ACTION_FORM,
-  onSubmitFail: errors => scrollToErrorField(errors),
+  onSubmitFail: (errors) => scrollToErrorField(errors),
 })(FbVerificationCodeForm);

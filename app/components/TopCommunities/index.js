@@ -120,7 +120,7 @@ const TopCommunities = ({ communities, profile, questions }) => {
     return (
       <div className="overlow-hidden" ref={ref}>
         <H4 isHeader>
-          <FormattedMessage {...messages.communities} />
+          <FormattedMessage id={messages.communities.id} />
         </H4>
 
         <Grid xl={5} lg={4} md={3} sm={2} xs={1}>
@@ -136,7 +136,7 @@ const TopCommunities = ({ communities, profile, questions }) => {
                 route = routes.questions();
               }
               const community = communities.find(
-                (comm) => comm.id == x.communityId,
+                (comm) => comm.id === x.communityId,
               );
 
               return (
@@ -164,7 +164,7 @@ const TopCommunities = ({ communities, profile, questions }) => {
                                 fontSize="14"
                                 color={TEXT_SECONDARY}
                               >
-                                <FormattedMessage {...messages.reputation} />
+                                <FormattedMessage id={messages.reputation.id} />
                               </Span>
                             </div>
                             <RatingStatus
@@ -204,7 +204,7 @@ const TopCommunities = ({ communities, profile, questions }) => {
               >
                 <img className="mr-2" src={allCommunitiesIcon} alt="icon" />
                 <Span color={TEXT_PRIMARY}>
-                  <FormattedMessage {...messages.allCommunities} />
+                  <FormattedMessage id={messages.allCommunities.id} />
                 </Span>
               </AllCommunitiesLink>
             </div>
@@ -216,9 +216,9 @@ const TopCommunities = ({ communities, profile, questions }) => {
   return (
     <div className="overlow-hidden" ref={ref}>
       <H4 isHeader>
-        <FormattedMessage {...messages.top} />{' '}
+        <FormattedMessage id={messages.top.id} />{' '}
         <span className="text-lowercase">
-          <FormattedMessage {...messages.communities} />
+          <FormattedMessage id={messages.communities.id} />
         </span>
       </H4>
 
@@ -257,7 +257,7 @@ const TopCommunities = ({ communities, profile, questions }) => {
                               fontSize="14"
                               color={TEXT_SECONDARY}
                             >
-                              <FormattedMessage {...messages.users} />
+                              <FormattedMessage id={messages.users.id} />
                             </Span>
                           </div>
                           <div className="d-flex flex-column flex-grow-1">
@@ -269,7 +269,7 @@ const TopCommunities = ({ communities, profile, questions }) => {
                               fontSize="14"
                               color={TEXT_SECONDARY}
                             >
-                              <FormattedMessage {...messages.posts} />
+                              <FormattedMessage id={messages.posts.id} />
                             </Span>
                           </div>
                         </div>
@@ -306,7 +306,7 @@ const TopCommunities = ({ communities, profile, questions }) => {
             >
               <img className="mr-2" src={allCommunitiesIcon} alt="icon" />
               <Span color={TEXT_PRIMARY}>
-                <FormattedMessage {...messages.allCommunities} />
+                <FormattedMessage id={messages.allCommunities.id} />
               </Span>
             </AllCommunitiesLink>
           </div>
@@ -319,8 +319,6 @@ const TopCommunities = ({ communities, profile, questions }) => {
 TopCommunities.propTypes = {
   communities: PropTypes.array,
   profile: PropTypes.object,
-  account: PropTypes.string,
-  userId: PropTypes.string,
   questions: PropTypes.array,
 };
 

@@ -3,6 +3,7 @@ import _debounce from 'lodash/debounce';
 import styled from 'styled-components';
 
 import { BORDER_RADIUS_M, BORDER_SECONDARY } from 'style-constants';
+import PropTypes from 'prop-types';
 
 const Wrapper = styled.div`
   display: flex;
@@ -99,5 +100,17 @@ const ColorField = ({
     {label}
   </Wrapper>
 );
+
+ColorField.propTypes = {
+  input: PropTypes.object,
+  label: PropTypes.string,
+  disabled: PropTypes.bool,
+  meta: PropTypes.object,
+  tip: PropTypes.string,
+  splitInHalf: PropTypes.bool,
+  type: PropTypes.string,
+  insideOfSection: PropTypes.bool,
+  defaultValue: PropTypes.object,
+};
 
 export default React.memo(ColorField);

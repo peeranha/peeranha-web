@@ -73,7 +73,7 @@ const NotFound = /* istanbul ignore next */ ({ locale }) => {
       <Box>
         <div>
           <Span fontSize="24" bold>
-            <FormattedMessage {...messages.weAreSorry} />
+            <FormattedMessage id={messages.weAreSorry.id} />
           </Span>
         </div>
 
@@ -108,7 +108,7 @@ const NotFound = /* istanbul ignore next */ ({ locale }) => {
                     className="text-lowercase"
                   >
                     <Span color={LINK_COLOR}>
-                      <FormattedMessage {...commonMessages.communities} />
+                      <FormattedMessage id={commonMessages.communities.id} />
                     </Span>
                   </ADefault>
                 ),
@@ -122,7 +122,7 @@ const NotFound = /* istanbul ignore next */ ({ locale }) => {
                 value: (
                   <A className="text-lowercase" to={routes.support()}>
                     <Span color={LINK_COLOR}>
-                      <FormattedMessage {...commonMessages.contactUs} />
+                      <FormattedMessage id={commonMessages.contactUs.id} />
                     </Span>
                   </A>
                 ),

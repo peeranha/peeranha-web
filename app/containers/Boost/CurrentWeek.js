@@ -32,7 +32,7 @@ const CurrentWeek = ({
   >
     <Base className="flex-grow-0" position="top">
       <P className="mb-1" color={TEXT_WARNING_LIGHT} fontSize="13">
-        <FormattedMessage {...messages.currentPeriod} />
+        <FormattedMessage id={messages.currentPeriod.id} />
       </P>
       <WeekNumber
         locale={locale}

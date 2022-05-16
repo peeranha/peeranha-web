@@ -24,7 +24,7 @@ const EmailForgotPasswordForm = /* istanbul ignore next */ ({
 }) => (
   <div>
     <H4 className="text-center pb-3">
-      <FormattedMessage {...loginMessages.iForgotPassword} />
+      <FormattedMessage id={loginMessages.iForgotPassword.id} />
     </H4>
 
     <form onSubmit={handleSubmit(getVerificationCode)}>
@@ -38,7 +38,7 @@ const EmailForgotPasswordForm = /* istanbul ignore next */ ({
       />
 
       <Button disabled={verificationCodeLoading} className="w-100">
-        <FormattedMessage {...signupMessages.continue} />
+        <FormattedMessage id={signupMessages.continue.id} />
       </Button>
     </form>
   </div>

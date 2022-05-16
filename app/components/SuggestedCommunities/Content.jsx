@@ -49,19 +49,20 @@ export const Description = BaseSpecial.extend`
   ${P} {
     font-size: 16px;
     line-height: 19px;
-    overflow: ${x => (!x.isOpened && x.isArrowVisible ? 'hidden' : 'visible')};
-    max-height: ${x =>
+    overflow: ${(x) =>
+      !x.isOpened && x.isArrowVisible ? 'hidden' : 'visible'};
+    max-height: ${(x) =>
       !x.isOpened ? `${DEFAULT_DESCRIPTION_HEIGHT}px` : 'auto'};
   }
 
   ${BlockShadow} {
-    display: ${x => (!x.isOpened && x.isArrowVisible ? 'block' : 'none')};
+    display: ${(x) => (!x.isOpened && x.isArrowVisible ? 'block' : 'none')};
   }
 `;
 
 const DESCRIPTION_ID = 'description-content-id';
 
-const Item = x => {
+const Item = (x) => {
   const [isOpened, changeView] = useState(false);
   const [isArrowVisible, changeArrowVisibility] = useState(false);
 
@@ -110,7 +111,7 @@ const Item = x => {
         isArrowVisible={isArrowVisible}
       >
         <P className="d-flex align-items-center mb-2" bold>
-          <FormattedMessage {...messages.whyWeeNeedIt} />
+          <FormattedMessage id={messages.whyWeeNeedIt.id} />
           <Icon
             className={!isArrowVisible ? 'd-none' : 'ml-2'}
             icon={arrowDownIcon}
@@ -145,10 +146,12 @@ const Content = ({
     >
       <div>
         {suggestedCommunities
-          .filter(
-            x => (language.sortBy ? x.language === language.sortBy : true),
+          .filter((x) =>
+            language.sortBy ? x.language === language.sortBy : true,
           )
-          .map(x => <Item key={x.id} {...x} />)}
+          .map((x) => (
+            <Item key={x.id} {...x} />
+          ))}
       </div>
     </InfinityLoader>
   );

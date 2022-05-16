@@ -63,7 +63,6 @@ export const CreateCommunity = ({
   setDefaultStoreDispatch,
   isFormLoading,
   getFormDispatch,
-  isFormAvailable,
   profile,
 }) => {
   useModeratorRole(routes.noAccess);

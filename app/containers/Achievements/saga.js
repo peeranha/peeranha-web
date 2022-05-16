@@ -61,10 +61,9 @@ import { getAllAchievements } from '../../utils/theGraph';
 export function* getAchievementsWorker() {
   try {
     const viewProfileAccount = yield select(selectViewProfileAccount());
-    let { allAchievements, userAchievements } = yield call(
-      getAllAchievements,
-      viewProfileAccount,
-    );
+    const allAchievements = yield call(getAllAchievements);
+    let userAchievements = yield call(viewProfileAccount);
+
     userAchievements = userAchievements.map((achievement) => achievement.id);
     yield put(getAllAchievementsSuccess(allAchievements, userAchievements));
   } catch (err) {

@@ -103,7 +103,7 @@ const EditTag = ({
     [editTagDispatch],
   );
 
-  const title = <FormattedMessage {...messages.title} />;
+  const title = <FormattedMessage id={messages.title.id} />;
 
   if (editTagFormLoading) return <LoadingIndicator />;
 
@@ -141,7 +141,11 @@ const EditTag = ({
 };
 
 EditTag.propTypes = {
+  match: PropTypes.object,
   communities: PropTypes.array,
+  setEditTagDataDispatch: PropTypes.func,
+  resetEditTagReducerDispatch: PropTypes.func,
+  getExistingTagsDispatch: PropTypes.func,
   resetEditTagDataDispatch: PropTypes.func,
   getEditTagFormDispatch: PropTypes.func,
   editTagFormLoading: PropTypes.bool,

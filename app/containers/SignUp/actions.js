@@ -138,7 +138,7 @@ export function signUpWithWalletErr(signUpWithWalletError) {
   };
 }
 
-export const signUpWithWalletReferralErr = signUpWithWalletReferralError => ({
+export const signUpWithWalletReferralErr = (signUpWithWalletReferralError) => ({
   type: SIGNUP_WITH_WALLET_REFERRAL_ERROR,
   signUpWithWalletReferralError,
 });

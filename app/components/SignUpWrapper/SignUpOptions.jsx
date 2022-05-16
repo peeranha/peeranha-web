@@ -98,7 +98,7 @@ const LoginLink = styled.div`
 
 const styles = singleCommunityStyles();
 
-const LeftMenu = ({ faqQuestions, mainLogo }) => (
+const LeftMenu = ({ mainLogo }) => (
   <>
     <div className="mb-4">
       {styles.withoutSubHeader ? (
@@ -121,18 +121,18 @@ const LeftMenu = ({ faqQuestions, mainLogo }) => (
     </div>
 
     <H3 className="mb-4">
-      <FormattedMessage {...messages.signUpOptions} />
+      <FormattedMessage id={messages.signUpOptions.id} />
     </H3>
 
     <div className="mb-4">
       <P>
-        <FormattedMessage {...messages.peeranhaIsNotTypical} />
+        <FormattedMessage id={messages.peeranhaIsNotTypical.id} />
       </P>
       <P>
-        <FormattedMessage {...messages.ifYouLikeToSkip} />
+        <FormattedMessage id={messages.ifYouLikeToSkip.id} />
       </P>
       <P>
-        <FormattedMessage {...messages.weAreHappyToCover} />
+        <FormattedMessage id={messages.weAreHappyToCover.id} />
       </P>
     </div>
 
@@ -141,7 +141,7 @@ const LeftMenu = ({ faqQuestions, mainLogo }) => (
       <ul className="mb-4">
         {faqQuestions.map(x => <Li key={x.props.children}>{x}</Li>)}
       </ul>
-    )}*/}
+    )} */}
   </>
 );
 
@@ -163,12 +163,12 @@ const RightMenuWithoutScatter = ({
         showWalletSignUpProcessing={showWalletSignUpProcessing}
         emailVerificationProcessing={emailVerificationProcessing}
         emailChecking={emailChecking}
-        signUpText={<FormattedMessage {...commonMessages.signUpViaWallet} />}
+        signUpText={<FormattedMessage id={commonMessages.signUpViaWallet.id} />}
         metaMaskProviderDetected={metaMaskProviderDetected}
       />
 
       <LoginLink>
-        <FormattedMessage {...messages.doYouHaveAlreadyAccount} />{' '}
+        <FormattedMessage id={messages.doYouHaveAlreadyAccount.id} />{' '}
         <TransparentButton
           className="py-1"
           onClick={showLoginModal}
@@ -178,7 +178,7 @@ const RightMenuWithoutScatter = ({
             emailVerificationProcessing
           }
         >
-          <FormattedMessage {...commonMessages.login} />
+          <FormattedMessage id={commonMessages.login.id} />
         </TransparentButton>
       </LoginLink>
     </Div>

@@ -28,13 +28,9 @@ export class FollowCommunityButton extends React.PureComponent {
     e.preventDefault();
 
     const isFollowed = JSON.parse(e.currentTarget.dataset.isfollowed);
-    const { communityIdFilter } = this.props;
+    const { communityIdFilter, followHandlerDispatch } = this.props;
 
-    this.props.followHandlerDispatch(
-      communityIdFilter,
-      isFollowed,
-      e.currentTarget.id,
-    );
+    followHandlerDispatch(communityIdFilter, isFollowed, e.currentTarget.id);
   };
 
   render() /* istanbul ignore next */ {

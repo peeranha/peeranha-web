@@ -8,16 +8,16 @@ import { ADefault } from 'components/A';
 
 export default React.memo(() => (
   <FormattedMessage
-    {...messages.iAcceptPrivacyPolicy}
+    id={messages.iAcceptPrivacyPolicy.id}
     values={{
       privacyPolicy: (
         <ADefault href={routes.privacyPolicy()} target="_blank">
-          <FormattedMessage {...messages.privacyPolicy} />
+          <FormattedMessage id={messages.privacyPolicy.id} />
         </ADefault>
       ),
       termsOfService: (
         <ADefault href={routes.termsAndConditions()} target="_blank">
-          <FormattedMessage {...messages.termsOfService} />
+          <FormattedMessage id={messages.termsOfService.id} />
         </ADefault>
       ),
       terms: (
@@ -25,7 +25,7 @@ export default React.memo(() => (
           href="https://resources.telosfoundation.io/governance_documents/TBNOA_Adopted_2018-11-20.pdf"
           target="_blank"
         >
-          <FormattedMessage {...messages.terms} />
+          <FormattedMessage id={messages.terms.id} />
         </ADefault>
       ),
     }}

@@ -96,12 +96,12 @@ const Content = ({
         .fill()
         .map((_, i) => (i + startIndex) * rowHeight)
         .filter(
-          x =>
+          (x) =>
             x >= scrollPosition - THRESHOLD * rowHeight &&
             x + rowHeight <=
               scrollPosition + contentHeight + THRESHOLD * rowHeight,
         )
-        .map(x => x / rowHeight)
+        .map((x) => x / rowHeight)
         .reduce(
           (acc, cur, i, array) => [array[0], array[array.length - 1]],
           [],
@@ -154,7 +154,7 @@ const Content = ({
       {!notifications.length ? (
         <>
           <img alt="1" src={bellIcon} />
-          <FormattedMessage {...messages.youHaveNoNewNotifications} />
+          <FormattedMessage id={messages.youHaveNoNewNotifications.id} />
         </>
       ) : (
         <AutoSizer onResize={onResize}>
@@ -192,11 +192,11 @@ export default memo(
     injectReducer({ key: 'notifications', reducer }),
     injectSaga({ key: 'notifications', saga, mode: DAEMON }),
     connect(
-      state => ({
+      (state) => ({
         loading: selectUnreadNotificationsLoading()(state),
         readNotifications: selectReadNotificationsUnread()(state),
       }),
-      dispatch => ({
+      (dispatch) => ({
         markAsReadNotificationsUnreadDispatch: bindActionCreators(
           markAsReadNotificationsUnread,
           dispatch,

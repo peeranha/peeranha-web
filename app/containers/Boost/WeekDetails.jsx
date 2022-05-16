@@ -46,7 +46,7 @@ const WeekDetails = ({ maximumStake, yourStake = 0, isCurrentWeek }) => {
     <Base position="bottom">
       <BaseGroup>
         <P className="mb-1" fontSize="14" color={TEXT_SECONDARY}>
-          <FormattedMessage {...messages.maximumStake} />
+          <FormattedMessage id={messages.maximumStake.id} />
         </P>
         <P className="d-flex align-items-center">
           <SmallImage className="mr-2" src={currencyPeerImage} alt="icon" />
@@ -57,7 +57,7 @@ const WeekDetails = ({ maximumStake, yourStake = 0, isCurrentWeek }) => {
       </BaseGroup>
       <BaseGroup>
         <P className="mb-1" fontSize="14" color={TEXT_SECONDARY}>
-          <FormattedMessage {...messages.yourStake} />
+          <FormattedMessage id={messages.yourStake.id} />
         </P>
         <P className="d-flex align-items-center">
           <SmallImage className="mr-2" src={currencyPeerImage} alt="icon" />

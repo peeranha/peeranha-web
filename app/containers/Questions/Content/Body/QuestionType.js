@@ -160,7 +160,7 @@ const QuestionType = ({ locale, postType, isPromoted }) => {
       {isPromoted && (
         <LabelItem>
           <PromotedLabel>
-            <FormattedMessage {...commonMessages.promoted} />
+            <FormattedMessage id={commonMessages.promoted.id} />
           </PromotedLabel>
         </LabelItem>
       )}
@@ -171,7 +171,6 @@ const QuestionType = ({ locale, postType, isPromoted }) => {
 QuestionType.propTypes = {
   postType: PropTypes.number,
   locale: PropTypes.string,
-  isGeneral: PropTypes.bool,
   isPromoted: PropTypes.bool,
 };
 

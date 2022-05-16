@@ -17,7 +17,7 @@ import {
 import { selectEthereum } from '../containers/EthereumProvider/selectors';
 
 // todo change to "findRole"
-const findAllPropertiesByKeys = (properties, keys, exact = false) => [];
+const findAllPropertiesByKeys = () => [];
 
 export const getModeratorPermissions = (
   globalModeratorProps,
@@ -27,7 +27,7 @@ export const getModeratorPermissions = (
 ) => {
   const values = getAllRoles(globalModeratorProps, communitiesCount);
   const permissions1 = [];
-  values.map(({ communityId = 0, role }, index) => {
+  values.forEach(({ communityId = 0, role }, index) => {
     const rawPermissionsTypes = !communityId
       ? globalAdminPermissions
       : role === COMMUNITY_ADMIN_ROLE
@@ -118,13 +118,13 @@ export const isTemporaryAccount = async (account) => {
 
 export const getAllRoles = (userRoles = [], communitiesCount) => {
   const communityRoles = [COMMUNITY_MODERATOR_ROLE, COMMUNITY_ADMIN_ROLE];
-  if (!!userRoles.find((role) => BigNumber.from(role).eq(DEFAULT_ADMIN_ROLE))) {
+  if (userRoles.find((role) => BigNumber.from(role).eq(DEFAULT_ADMIN_ROLE))) {
     return [{ DEFAULT_ADMIN_ROLE }];
   }
   return userRoles.map((userRole) => {
     let communityId;
     let role;
-    communityRoles.map((communityRole) => {
+    communityRoles.forEach((communityRole) => {
       const id = BigNumber.from(userRole)
         .sub(BigNumber.from(communityRole))
         .toString();

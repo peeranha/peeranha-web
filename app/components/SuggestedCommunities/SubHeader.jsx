@@ -22,7 +22,7 @@ const SubHeader = ({ setLang, language, languages }) => (
         src={communitiesHeader}
         alt="communities-voting-header"
       />
-      <FormattedMessage {...messages.votingForNewComm} />
+      <FormattedMessage id={messages.votingForNewComm.id} />
     </H3>
 
     <div className="right-panel">

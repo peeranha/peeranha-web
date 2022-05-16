@@ -117,7 +117,7 @@ const Footer = ({
   return (
     <Box>
       <Heading>
-        {signUpText || <FormattedMessage {...messages.loginViaWallet} />}
+        {signUpText || <FormattedMessage id={messages.loginViaWallet.id} />}
       </Heading>
       <div className="d-flex">
         <LoginViaMetaMask
@@ -148,7 +148,6 @@ Footer.propTypes = {
   emailVerificationProcessing: PropTypes.bool,
   emailChecking: PropTypes.bool,
   signUpText: PropTypes.element,
-  locale: PropTypes.string,
 };
 
 export default React.memo(Footer);

@@ -117,6 +117,7 @@ Login.propTypes = {
   loginWithWalletDispatch: PropTypes.func,
   finishRegistrationDispatch: PropTypes.func,
   showForgotPasswordModalDispatch: PropTypes.func,
+  ethereumService: PropTypes.object,
 };
 
 const withConnect = connect(

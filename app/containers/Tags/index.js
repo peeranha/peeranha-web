@@ -71,7 +71,7 @@ Tags.propTypes = {
   sorting: PropTypes.string,
   redirectToCreateTagDispatch: PropTypes.func,
   getExistingTagsDispatch: PropTypes.func,
-  Aside: PropTypes.any,
+  profile: PropTypes.object,
   Content: PropTypes.any,
   sortTags: PropTypes.func,
   tagsNumber: PropTypes.number,

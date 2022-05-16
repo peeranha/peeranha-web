@@ -11,7 +11,6 @@ import {
 } from 'style-constants';
 
 import currencyPeerImage from 'images/currencyPeer.svg?external';
-import lockBoostImage from 'images/lock.svg?external';
 import availableImage from 'images/available.svg?external';
 import walletCoinsImage from 'images/walletCoins.svg?inline';
 
@@ -111,7 +110,7 @@ const SubHeader = ({
               {/*  </Span>*/}
               {/*</li>*/}
               <li>
-                <FormattedMessage {...commonMessages.walletAddress} />
+                <FormattedMessage id={commonMessages.walletAddress.id} />
                 <A
                   to={{ pathname: userPolygonScanAddress }}
                   href={userPolygonScanAddress}

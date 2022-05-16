@@ -51,6 +51,8 @@ UserInfo.propTypes = {
   author: PropTypes.object,
   postTime: PropTypes.string,
   locale: PropTypes.string,
+  isSearchPage: PropTypes.bool,
+  communityId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 export default memo(UserInfo);

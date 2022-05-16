@@ -64,9 +64,9 @@ export function getFormSuccess(isFormAvailable) {
   };
 }
 
-export function getFormError(getFormError) {
+export function getFormError(getFormErr) {
   return {
     type: GET_FORM_ERROR,
-    getFormError,
+    getFormError: getFormErr,
   };
 }

@@ -1,61 +1,46 @@
 import { memo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import styled from 'styled-components';
 import { bindActionCreators } from 'redux';
 
-import {
-  BORDER_PRIMARY,
-  BORDER_PRIMARY_RGB,
-  BORDER_SECONDARY,
-  BORDER_RADIUS_L,
-} from 'style-constants';
-
-import { isSingleCommunityWebsite } from 'utils/communityManagement';
-
-import { QUESTION_FILTER } from './constants';
 import { changeQuestionFilter } from './actions';
 
-const Container = styled.div`
-  display: flex;
-  width: 140px;
-  height: 35px;
-  border-radius: 5px;
-`;
+// const Container = styled.div`
+//   display: flex;
+//   width: 140px;
+//   height: 35px;
+//   border-radius: 5px;
+// `;
+//
+// const Button = styled.button`
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   width: ${({ left }) => (left ? 50 : 50)}%;
+//   border: 1px solid ${({ active }) => (active ? 'blue' : 'black')};
+//   border-top-left-radius: ${({ left }) => (left ? BORDER_RADIUS_L : 0)};
+//   border-bottom-left-radius: ${({ left }) => (left ? BORDER_RADIUS_L : 0)};
+//   border-top-right-radius: ${({ left }) => (!left ? BORDER_RADIUS_L : 0)};
+//   border-bottom-right-radius: ${({ left }) => (!left ? BORDER_RADIUS_L : 0)};
+//   border: 1px solid
+//     ${({ active }) => (active ? BORDER_PRIMARY : BORDER_SECONDARY)};
+//
+//   box-shadow: ${({ active }) =>
+//     active ? `0 0 0 3px rgba(${BORDER_PRIMARY_RGB}, 0.4)` : `none`};
+// `;
+//
+// const single = isSingleCommunityWebsite();
+//
+// const cookieFilterSetter = (value) => ({
+//   name: QUESTION_FILTER,
+//   value,
+//   options: {
+//     defaultPath: true,
+//     neverExpires: true,
+//   },
+// });
 
-const Button = styled.button`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: ${({ left }) => (left ? 50 : 50)}%;
-  border: 1px solid ${({ active }) => (active ? 'blue' : 'black')};
-  border-top-left-radius: ${({ left }) => (left ? BORDER_RADIUS_L : 0)};
-  border-bottom-left-radius: ${({ left }) => (left ? BORDER_RADIUS_L : 0)};
-  border-top-right-radius: ${({ left }) => (!left ? BORDER_RADIUS_L : 0)};
-  border-bottom-right-radius: ${({ left }) => (!left ? BORDER_RADIUS_L : 0)};
-  border: 1px solid
-    ${({ active }) => (active ? BORDER_PRIMARY : BORDER_SECONDARY)};
-
-  box-shadow: ${({ active }) =>
-    active ? `0 0 0 3px rgba(${BORDER_PRIMARY_RGB}, 0.4)` : `none`};
-`;
-
-const single = isSingleCommunityWebsite();
-
-const cookieFilterSetter = (value) => ({
-  name: QUESTION_FILTER,
-  value,
-  options: {
-    defaultPath: true,
-    neverExpires: true,
-  },
-});
-
-const QuestionFilter = ({
-  display,
-  changeQuestionFilterDispatch,
-  questionFilterFromCookies,
-}) => null;
+const QuestionFilter = () => null;
 // TODO when question filter is ready
 // if (!single) return null;
 

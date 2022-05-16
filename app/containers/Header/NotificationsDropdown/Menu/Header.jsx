@@ -10,7 +10,6 @@ import { BORDER_SECONDARY_LIGHT, TEXT_SECONDARY } from 'style-constants';
 import Span from 'components/Span';
 
 import closeIcon from 'images/closeGray.svg?inline';
-import WidthCentered from '../../../../components/LoadingIndicator/WidthCentered';
 
 const Container = styled.div`
   display: flex;
@@ -29,7 +28,7 @@ const Container = styled.div`
 const Header = ({ notificationsNumber, onClose }) => (
   <Container>
     <div>
-      <FormattedMessage {...messages.notifications} />
+      <FormattedMessage id={messages.notifications.id} />
       <Span color={TEXT_SECONDARY}>{notificationsNumber}</Span>
     </div>
     <button onClick={onClose}>

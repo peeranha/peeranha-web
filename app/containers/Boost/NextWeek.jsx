@@ -22,7 +22,7 @@ const NextWeek = ({
   <li className="d-flex flex-column flex-grow-1 mb-3">
     <Base className="flex-grow-0" position="top">
       <P className="mb-1" color={TEXT_WARNING_LIGHT} fontSize="13">
-        <FormattedMessage {...messages.nextPeriod} />
+        <FormattedMessage id={messages.nextPeriod.id} />
       </P>
       <WeekNumber
         locale={locale}
@@ -32,10 +32,7 @@ const NextWeek = ({
       />
     </Base>
 
-    <WeekDetails
-      maximumStake={maxStake}
-      yourStake={userStake}
-    />
+    <WeekDetails maximumStake={maxStake} yourStake={userStake} />
   </li>
 );
 

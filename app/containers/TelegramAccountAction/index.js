@@ -51,6 +51,7 @@ export class TelegramAccountAction extends React.PureComponent {
           <button
             id={CONFIRM_TG_ACCOUNT_ID}
             className="mr-3"
+            type="button"
             onClick={() => {
               confirmTelegramAccountDispatch({
                 profile: newProfile,
@@ -58,7 +59,7 @@ export class TelegramAccountAction extends React.PureComponent {
               });
             }}
           >
-            <FormattedMessage {...messages.confirm} />
+            <FormattedMessage id={messages.confirm.id} />
           </button>
         )}
 
@@ -71,8 +72,9 @@ export class TelegramAccountAction extends React.PureComponent {
                 userKey: profile.user,
               });
             }}
+            type="button"
           >
-            <FormattedMessage {...messages.unlink} />
+            <FormattedMessage id={messages.unlink.id} />
           </button>
         )}
       </>
@@ -81,6 +83,8 @@ export class TelegramAccountAction extends React.PureComponent {
 }
 
 TelegramAccountAction.propTypes = {
+  data: PropTypes.object,
+  profile: PropTypes.object,
   actionType: PropTypes.string,
   confirmTelegramAccountDispatch: PropTypes.func,
   unlinkTelegramAccountDispatch: PropTypes.func,

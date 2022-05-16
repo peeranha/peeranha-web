@@ -43,7 +43,7 @@ const EmailForm = ({
         className="w-100"
         disabled={loginWithEmailProcessing || loginWithWalletProcessing}
       >
-        <FormattedMessage {...signupMessages.continue} />
+        <FormattedMessage id={signupMessages.continue.id} />
       </Button>
     </form>
 
@@ -67,5 +67,5 @@ EmailForm.propTypes = {
 
 export default reduxForm({
   form: 'EmailForm',
-  onSubmitFail: errors => scrollToErrorField(errors),
+  onSubmitFail: (errors) => scrollToErrorField(errors),
 })(EmailForm);

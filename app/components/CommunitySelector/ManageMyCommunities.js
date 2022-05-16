@@ -20,7 +20,7 @@ const ManageMyCommunities = () => (
   <Box to={routes.communities()}>
     <Span color={TEXT_PRIMARY}>
       <img className="mr-2" src={arrowRightIcon} alt="icon" />
-      <FormattedMessage {...messages.manageMyComm} />
+      <FormattedMessage id={messages.manageMyComm.id} />
     </Span>
   </Box>
 );

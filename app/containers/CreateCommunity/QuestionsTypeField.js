@@ -102,7 +102,7 @@ const QuestionTypeField = ({
             key={questionType.label}
             disabled={disabled}
           >
-            <FormattedMessage {...messages[questionType.label]} />
+            <FormattedMessage id={messages[questionType.label].id} />
           </Button>
         ))}
       </ButtonGroup>

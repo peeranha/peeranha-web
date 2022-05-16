@@ -5,12 +5,7 @@ import crypto from 'crypto';
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
-import {
-  inviteUser,
-  isUserInSystem,
-  updateAcc,
-  emptyProfile,
-} from 'utils/accountManagement';
+import { updateAcc, emptyProfile } from 'utils/accountManagement';
 import { login } from 'utils/web_integration/src/wallet/login/login';
 import webIntegrationErrors from 'utils/web_integration/src/wallet/service-errors';
 import { WebIntegrationError } from 'utils/errors';
@@ -20,10 +15,7 @@ import { setCookie } from 'utils/cookie';
 import { redirectToFeed } from 'containers/App/actions';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
-import {
-  getCurrentAccountWorker,
-  getReferralInfo,
-} from 'containers/AccountProvider/saga';
+import { getCurrentAccountWorker } from 'containers/AccountProvider/saga';
 
 import { ACCOUNT_NOT_CREATED_NAME } from 'containers/SignUp/constants';
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
@@ -61,7 +53,6 @@ import {
 } from './constants';
 
 import messages from './messages';
-import { addToast } from '../Toast/actions';
 import { addLoginData, getCurrentAccount } from '../AccountProvider/actions';
 
 import {
@@ -166,34 +157,34 @@ export function* loginWithWalletWorker({ metaMask }) {
   }
 }
 
-export function* sendReferralCode(
-  accountName,
-  referralCode,
-  eosService,
-  error,
-) {
-  const info = yield call(getReferralInfo, accountName, eosService);
-  if (info) {
-    return true;
-  }
-  const isUserIn = yield call(isUserInSystem, referralCode, eosService);
-
-  if (isUserIn) {
-    try {
-      yield call(inviteUser, accountName, referralCode, eosService);
-    } catch (err) {
-      yield put(error(err));
-      return false;
-    }
-    return true;
-  }
-  const locale = yield select(makeSelectLocale());
-  const text = translationMessages[locale][messages.inviterIsNotRegisterYet.id];
-  yield put(addToast({ type: 'error', text }));
-  yield put(error(new Error(text)));
-
-  return false;
-}
+// export function* sendReferralCode(
+//   accountName,
+//   referralCode,
+//   eosService,
+//   error,
+// ) {
+//   const info = yield call(getReferralInfo, accountName, eosService);
+//   if (info) {
+//     return true;
+//   }
+//   const isUserIn = yield call(isUserInSystem, referralCode, eosService);
+//
+//   if (isUserIn) {
+//     try {
+//       yield call(inviteUser, accountName, referralCode, eosService);
+//     } catch (err) {
+//       yield put(error(err));
+//       return false;
+//     }
+//     return true;
+//   }
+//   const locale = yield select(makeSelectLocale());
+//   const text = translationMessages[locale][messages.inviterIsNotRegisterYet.id];
+//   yield put(addToast({ type: 'error', text }));
+//   yield put(error(new Error(text)));
+//
+//   return false;
+// }
 
 export function* finishRegistrationWorker({ val }) {
   try {

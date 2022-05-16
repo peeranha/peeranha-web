@@ -37,7 +37,7 @@ const NewPasswordForm = /* istanbul ignore next */ ({
 }) => (
   <div>
     <H4 className="text-center pb-3">
-      <FormattedMessage {...loginMessages.iForgotPassword} />
+      <FormattedMessage id={loginMessages.iForgotPassword.id} />
     </H4>
 
     <form onSubmit={handleSubmit(changePassword)}>
@@ -71,7 +71,7 @@ const NewPasswordForm = /* istanbul ignore next */ ({
       />
 
       <Button disabled={changePasswordLoading} className="w-100">
-        <FormattedMessage {...signupMessages.continue} />
+        <FormattedMessage id={signupMessages.continue.id} />
       </Button>
 
       <TransparentButton
@@ -79,7 +79,7 @@ const NewPasswordForm = /* istanbul ignore next */ ({
         onClick={sendAnotherCode}
         type="button"
       >
-        <FormattedMessage {...commonMessages.sendAnotherCode} />
+        <FormattedMessage id={commonMessages.sendAnotherCode.id} />
       </TransparentButton>
     </form>
   </div>

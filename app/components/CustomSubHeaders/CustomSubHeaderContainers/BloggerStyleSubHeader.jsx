@@ -49,15 +49,17 @@ const SubHeaderNav = styled.div`
 const BloggerStyleSubHeader = () => {
   const community = getSingleCommunityDetails();
   const { socialNetworks = {} } = community;
-  const hasSocialNetworks = Object.values(socialNetworks).some(link => !!link);
+  const hasSocialNetworks = Object.values(socialNetworks).some(
+    (link) => !!link,
+  );
   return (
     <Container>
       {hasSocialNetworks ? (
         <SubHeaderNav>
-          <FormattedMessage {...messages.followSocialMedia} />
+          <FormattedMessage id={messages.followSocialMedia.id} />
           {Object.keys(socialNetworks)
-            .filter(key => socialNetworks[key])
-            .map(key => (
+            .filter((key) => socialNetworks[key])
+            .map((key) => (
               <a href={socialNetworks[key]} key={key}>
                 <img src={SOCIAL_MEDIA_ICONS[key]} alt={key} />
               </a>

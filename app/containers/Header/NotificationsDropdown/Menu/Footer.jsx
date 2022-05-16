@@ -49,12 +49,12 @@ const Footer = ({ onClose, profile, empty }) => (
       {empty ? (
         <>
           <IconXm className="mr-2" icon={clockIcon} fill={BORDER_PRIMARY} />
-          <FormattedMessage {...messages.archive} />
+          <FormattedMessage id={messages.archive.id} />
         </>
       ) : (
         <>
           <IconXm className="mr-2" icon={notificationsIcon} />
-          <FormattedMessage {...messages.seeAll} />
+          <FormattedMessage id={messages.seeAll.id} />
         </>
       )}
     </Link>
@@ -66,11 +66,10 @@ Footer.propTypes = {
   empty: PropTypes.bool,
   onClose: PropTypes.func,
   profile: PropTypes.string,
-  locale: PropTypes.string,
 };
 
 export default memo(
-  connect(state => ({
+  connect((state) => ({
     profile: makeSelectProfileInfo()(state).user,
     locale: makeSelectLocale()(state),
   }))(Footer),

@@ -212,7 +212,7 @@ export const QuestionForProfilePage = ({
               color={TEXT_SECONDARY}
             >
               <FormattedMessage
-                {...commonMessages[isAnswer ? 'answeredWhen' : 'askedWhen']}
+                id={commonMessages[isAnswer ? 'answeredWhen' : 'askedWhen'].id}
                 values={{
                   when: getFormattedDate(
                     myPostTime,
@@ -236,10 +236,12 @@ export const QuestionForProfilePage = ({
 AcceptedQuestionBadge.propTypes = {
   acceptedAnswer: PropTypes.bool,
   isMyAnswerAccepted: PropTypes.bool,
+  elementType: PropTypes.string,
 };
 
 TopCommunityBadge.propTypes = {
   isTheLargestRating: PropTypes.bool,
+  elementType: PropTypes.string,
 };
 
 QuestionCommunity.propTypes = {
@@ -262,6 +264,7 @@ QuestionForProfilePage.propTypes = {
   isGeneral: PropTypes.bool,
   bordered: PropTypes.bool,
   isAnswer: PropTypes.bool,
+  elementType: PropTypes.string,
 };
 
 export default React.memo(QuestionForProfilePage);

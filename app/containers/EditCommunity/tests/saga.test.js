@@ -2,12 +2,13 @@
  * Test sagas
  */
 
-import { runSaga } from 'redux-saga';
+import {runSaga} from 'redux-saga';
 
-import { editCommunity, getCommunityById } from 'utils/communityManagement';
+import {editCommunity} from 'utils/communityManagement';
 
-import { editCommunitySuccess, getCommunitySuccess } from '../actions';
-import { editCommunityWorker, getCommunityWorker } from '../saga';
+import {getCommunityById} from "utils/theGraph";
+import {editCommunitySuccess, getCommunitySuccess} from '../actions';
+import {editCommunityWorker, getCommunityWorker} from '../saga';
 
 jest.mock('containers/DataCacheProvider/selectors', () => ({
   selectCommunities: jest.fn(() => () => [
@@ -65,7 +66,7 @@ describe('Edit community sagas tests', () => {
   describe('Edit community worker saga', () => {
     it('Expect community not to be updated', async () => {
       const communityId = 1;
-      const communityData = { ...fakeCommunityData };
+      const communityData = {...fakeCommunityData};
 
       const dispatched = [];
 
@@ -74,7 +75,7 @@ describe('Edit community sagas tests', () => {
           dispatch: action => dispatched.push(action),
         },
         editCommunityWorker,
-        { communityId, communityData },
+        {communityId, communityData},
       );
 
       expect(dispatched).toEqual([editCommunitySuccess()]);
@@ -83,7 +84,7 @@ describe('Edit community sagas tests', () => {
 
     it('Expect community to be updated', async () => {
       const communityId = 2;
-      const communityData = { ...fakeCommunityData, name: 'New name' };
+      const communityData = {...fakeCommunityData, name: 'New name'};
 
       const dispatched = [];
 
@@ -92,7 +93,7 @@ describe('Edit community sagas tests', () => {
           dispatch: action => dispatched.push(action),
         },
         editCommunityWorker,
-        { communityId, communityData },
+        {communityId, communityData},
       );
 
       expect(dispatched).toEqual([editCommunitySuccess()]);
@@ -103,7 +104,7 @@ describe('Edit community sagas tests', () => {
   describe('Get community worker saga tests', () => {
     it('Expect community to be returned from cache', async () => {
       const communityId = 1;
-      const community = { ...fakeCommunityData, id: communityId };
+      const community = {...fakeCommunityData, id: communityId};
 
       const dispatched = [];
 
@@ -112,7 +113,7 @@ describe('Edit community sagas tests', () => {
           dispatch: action => dispatched.push(action),
         },
         getCommunityWorker,
-        { communityId },
+        {communityId},
       );
 
       expect(dispatched).toEqual([getCommunitySuccess(community)]);
@@ -121,7 +122,7 @@ describe('Edit community sagas tests', () => {
 
     it('Expect community to be returned by API', async () => {
       const communityId = 2;
-      const community = { ...fakeCommunityData, id: communityId };
+      const community = {...fakeCommunityData, id: communityId};
 
       const dispatched = [];
 
@@ -130,7 +131,7 @@ describe('Edit community sagas tests', () => {
           dispatch: action => dispatched.push(action),
         },
         getCommunityWorker,
-        { communityId },
+        {communityId},
       );
 
       expect(dispatched).toEqual([getCommunitySuccess(community)]);

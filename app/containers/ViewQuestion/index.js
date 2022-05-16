@@ -274,6 +274,8 @@ ViewQuestion.propTypes = {
   redirectToEditAnswerPageDispatch: PropTypes.func,
   ids: PropTypes.array,
   profile: PropTypes.object,
+  hideAddCommentFormDispatch: PropTypes.func,
+  addCommentFormDisplay: PropTypes.array,
 };
 
 const withConnect = connect(

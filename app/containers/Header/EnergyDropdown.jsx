@@ -25,7 +25,7 @@ const styles = singleCommunityStyles();
 export const Button = ({ energy }) => (
   <IconBG
     className="d-none" // REMOVE: temporarily added class
-    //className="d-flex flex-column" TODO: temporarily removed class
+    // className="d-flex flex-column" TODO: temporarily removed class
     bg={styles.fullyTransparent || BG_LIGHT}
     css={{ border: styles.communityBorderStyle }}
   >
@@ -51,7 +51,7 @@ const Menu = ({ energy, maxEnergy, faqQuestions }) => (
           </Span>
         </Span>
         <Span bold>
-          <FormattedMessage {...commonMessages.energy} />
+          <FormattedMessage id={commonMessages.energy.id} />
         </Span>
       </li>
     </Ul>

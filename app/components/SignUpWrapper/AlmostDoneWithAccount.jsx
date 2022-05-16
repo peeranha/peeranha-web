@@ -7,7 +7,7 @@ import AlmostDone from './AlmostDone';
 const AlmostDoneWrapper = () => (
   <AlmostDone
     message={
-      <FormattedMessage {...messages.registrationWithEosAccountAlmostDone} />
+      <FormattedMessage id={messages.registrationWithEosAccountAlmostDone.id} />
     }
   />
 );

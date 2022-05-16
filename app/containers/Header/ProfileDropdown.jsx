@@ -24,8 +24,6 @@ import Dropdown from 'components/Dropdown';
 import Ul from 'components/Ul/SpecialOne';
 import Span from 'components/Span';
 import A from 'components/A';
-import RatingStatus from 'components/RatingStatus';
-import AchievementsStatus from 'components/AchievementsStatus';
 import { MediumSpecialImage } from 'components/Img/MediumImage';
 import { IconLg } from 'components/Icon/IconWithSizes';
 import Logout from 'containers/Logout';
@@ -33,7 +31,6 @@ import Icon from 'components/Icon/index';
 
 import { selectIsMenuVisible } from '../AppWrapper/selectors';
 import { getPermissions } from '../../utils/properties';
-import { userNFTs } from 'routes-config';
 
 const styles = singleCommunityStyles();
 const colors = singleCommunityColors();
@@ -49,8 +46,8 @@ const Info = styled.span`
 
   > span:nth-child(1) {
     display: flex;
-    align-items: ${x => (x.isMenuVisible ? 'stretch' : 'center')};
-    margin-right: ${x => (!x.isMenuVisible ? 7 : 'auto')}px;
+    align-items: ${(x) => (x.isMenuVisible ? 'stretch' : 'center')};
+    margin-right: ${(x) => (!x.isMenuVisible ? 7 : 'auto')}px;
   }
 `;
 
@@ -78,15 +75,14 @@ const B = ({ profileInfo, onClick, isMenuVisible, isMobileVersion }) => (
         />
       </NoAvatarBox>
     )}
-    {profileInfo.avatar &&
-      profileInfo.avatar !== NO_AVATAR && (
-        <MediumSpecialImage
-          isBordered
-          customBorderStyle={!isMobileVersion && styles.communityBorderStyle}
-          src={getUserAvatar(profileInfo.avatar)}
-          alt="avatar"
-        />
-      )}
+    {profileInfo.avatar && profileInfo.avatar !== NO_AVATAR && (
+      <MediumSpecialImage
+        isBordered
+        customBorderStyle={!isMobileVersion && styles.communityBorderStyle}
+        src={getUserAvatar(profileInfo.avatar)}
+        alt="avatar"
+      />
+    )}
     <Info
       className="d-flex flex-column justify-content-center"
       isMenuVisible={isMenuVisible}
@@ -98,7 +94,7 @@ const B = ({ profileInfo, onClick, isMenuVisible, isMobileVersion }) => (
   </span>
 );
 
-export const Button = connect(state => ({
+export const Button = connect((state) => ({
   isMenuVisible: selectIsMenuVisible()(state),
 }))(B);
 
@@ -107,38 +103,39 @@ const Menu = memo(
     const { user, loginData } = profileInfo;
     const isEmail = loginData.email;
 
-    const isModerator = useMemo(() => !!getPermissions(profileInfo)?.length, [
-      profileInfo,
-    ]);
+    const isModerator = useMemo(
+      () => !!getPermissions(profileInfo)?.length,
+      [profileInfo],
+    );
 
     return (
       <nav>
         <Ul>
           <A to={routes.profileView(user)}>
-            <FormattedMessage {...messages.profile} />
+            <FormattedMessage id={messages.profile.id} />
           </A>
           <A to={routes.userCommunities(user)}>
-            <FormattedMessage {...messages.myCommunities} />
+            <FormattedMessage id={messages.myCommunities.id} />
           </A>
           <A
             to={routes.userQuestions(user)}
             disabled={!questionsLength}
             tabIndex={!questionsLength ? '-1' : undefined}
           >
-            <FormattedMessage {...messages.posts} />
+            <FormattedMessage id={messages.posts.id} />
           </A>
           <A
             to={routes.userAnswers(user)}
             disabled={!questionsWithUserAnswersLength}
             tabIndex={!questionsWithUserAnswersLength ? '-1' : undefined}
           >
-            <FormattedMessage {...messages.answers} />
+            <FormattedMessage id={messages.answers.id} />
           </A>
           <A
             className={!isEmail ? 'd-none' : ''}
             to={routes.userSettings(user)}
           >
-            <FormattedMessage {...messages.settings} />
+            <FormattedMessage id={messages.settings.id} />
           </A>
           {/* TODO PEER20-286 Hide notifications from this version */}
           {/* <A to={routes.userNotifications(user)}>
@@ -149,7 +146,7 @@ const Menu = memo(
           </A>
           {isModerator && (
             <A to={routes.userModeration(user)}>
-              <FormattedMessage {...messages.moderation} />
+              <FormattedMessage id={messages.moderation.id} />
             </A>
           )}
         </Ul>
@@ -162,7 +159,7 @@ const Menu = memo(
               icon={logoutIcon}
             />
             <Span color={colors.linkColor || TEXT_PRIMARY}>
-              <FormattedMessage {...messages.logout} />
+              <FormattedMessage id={messages.logout.id} />
             </Span>
           </Logout>
         </Ul>

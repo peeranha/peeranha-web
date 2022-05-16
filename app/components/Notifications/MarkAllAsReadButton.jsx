@@ -10,12 +10,11 @@ import { TEXT_PRIMARY } from 'style-constants';
 
 import closeCircleIcon from 'images/closeCircle.svg?external';
 
+import { IconMd } from 'components/Icon/IconWithSizes';
 import { markAllNotificationsAsRead } from './actions';
 import injectSaga from '../../utils/injectSaga';
 import notificationsSaga from './saga';
 import { DAEMON } from '../../utils/constants';
-
-import { IconMd } from 'components/Icon/IconWithSizes';
 
 const MarkAllAsReadButton = ({ markAllAsReadDispatch }) => (
   <button
@@ -24,7 +23,7 @@ const MarkAllAsReadButton = ({ markAllAsReadDispatch }) => (
     onClick={markAllAsReadDispatch}
   >
     <IconMd className="mr-2" icon={closeCircleIcon} fill={TEXT_PRIMARY} />
-    <FormattedMessage {...commonMessages.markAllAsRead} />
+    <FormattedMessage id={commonMessages.markAllAsRead.id} />
   </button>
 );
 
@@ -35,14 +34,11 @@ MarkAllAsReadButton.propTypes = {
 export default memo(
   compose(
     injectSaga({ key: 'notifications', saga: notificationsSaga, mode: DAEMON }),
-    connect(
-      null,
-      dispatch => ({
-        markAllAsReadDispatch: bindActionCreators(
-          markAllNotificationsAsRead,
-          dispatch,
-        ),
-      }),
-    ),
+    connect(null, (dispatch) => ({
+      markAllAsReadDispatch: bindActionCreators(
+        markAllNotificationsAsRead,
+        dispatch,
+      ),
+    })),
   )(MarkAllAsReadButton),
 );

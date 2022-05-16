@@ -25,7 +25,7 @@ const CurrentWeek = ({
     <Base position="top">
       <P className="mb-1" color={TEXT_WARNING_LIGHT} fontSize="13">
         <FormattedMessage
-          {...messages[period ? 'currentPeriod' : 'registrationWeek']}
+          id={messages[period ? 'currentPeriod' : 'registrationWeek'].id}
         />
       </P>
       <WeekNumber
@@ -40,11 +40,13 @@ const CurrentWeek = ({
       <Icon className="mr-3" icon={calendarImage} width="34" />
       <Span mobileFS={14}>
         <FormattedMessage
-          {...messages[
-            currentWeeksNumber
-              ? 'periodStillInProgress'
-              : 'thisIsRegistrationWeek'
-          ]}
+          id={
+            messages[
+              currentWeeksNumber
+                ? 'periodStillInProgress'
+                : 'thisIsRegistrationWeek'
+            ].id
+          }
         />
       </Span>
     </Base>

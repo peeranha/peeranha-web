@@ -159,7 +159,7 @@ const QuestionTypeField = ({
               key={questionType.label}
               disabled={disabled}
             >
-              <FormattedMessage {...messages[questionType.label]} />
+              <FormattedMessage id={messages[questionType.label].id} />
             </Button>
           ))}
         </ButtonGroup>
@@ -168,7 +168,7 @@ const QuestionTypeField = ({
         <Warning>
           <Img src={validationArrowIcon} alt="icon" />
           <FormattedMessage
-            {...questionMessages.questionPostTypeSelectionError}
+            id={questionMessages.questionPostTypeSelectionError.id}
           />
         </Warning>
       )}
@@ -184,6 +184,7 @@ QuestionTypeField.propTypes = {
   splitInHalf: PropTypes.bool,
   label: PropTypes.string,
   insideOfSection: PropTypes.bool,
+  error: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
 };
 
 export default QuestionTypeField;

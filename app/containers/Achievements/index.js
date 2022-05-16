@@ -264,7 +264,9 @@ const Achievements = ({
 Achievements.propTypes = {
   locale: PropTypes.string,
   userId: PropTypes.string,
+  achievements: PropTypes.array,
   ratingAchievements: PropTypes.array,
+  userAchievements: PropTypes.array,
   questionAskedAchievements: PropTypes.array,
   anwerGivenAchievements: PropTypes.array,
   bestAnswerAchievements: PropTypes.array,
@@ -275,6 +277,7 @@ Achievements.propTypes = {
   setViewProfileAccountDispatch: PropTypes.func,
   resetViewProfileAccountDispatch: PropTypes.func,
   achievementsLoading: PropTypes.bool,
+  getAllAchievementsDispatch: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({

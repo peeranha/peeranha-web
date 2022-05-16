@@ -192,7 +192,7 @@ export const Home = ({
             height: '40px',
           }}
         >
-          <FormattedMessage {...commonMessages.edit} />
+          <FormattedMessage id={commonMessages.edit.id} />
         </InfoButton>
       </>
     ) : null;

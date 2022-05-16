@@ -18,7 +18,7 @@ const Button = ({ sorting }) => {
       className="d-inline-flex align-items-center mr-2 text-capitalize"
       bold
     >
-      <FormattedMessage {...messages[type ? type.label : 'all']} />
+      <FormattedMessage id={messages[type ? type.label : 'all'].id} />
     </Span>
   );
 };
@@ -35,7 +35,7 @@ const Menu = ({ sort, sorting }) => (
         onClick={() => sort(x.value)}
         isActive={x.value === sorting}
       >
-        <FormattedMessage {...messages[x.label]} />
+        <FormattedMessage id={messages[x.label].id} />
       </CheckedItem>
     ))}
   </Ul>

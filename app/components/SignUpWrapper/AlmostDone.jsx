@@ -73,24 +73,26 @@ const LeftMenu = ({ faqQuestions, mainLogo }) => (
     </div>
 
     <H3 className="d-flex align-items-center mb-4">
-      <FormattedMessage {...messages.almostDone} />
+      <FormattedMessage id={messages.almostDone.id} />
     </H3>
 
     <div className="mb-4">
       <P>
-        <FormattedMessage {...messages.firstParagraphAlmostDone} />
+        <FormattedMessage id={messages.firstParagraphAlmostDone.id} />
       </P>
       <P>
-        <FormattedMessage {...messages.secondParagraphAlmostDone} />
+        <FormattedMessage id={messages.secondParagraphAlmostDone.id} />
       </P>
       <P>
-        <FormattedMessage {...messages.thirdParagraphAlmostDone} />
+        <FormattedMessage id={messages.thirdParagraphAlmostDone.id} />
       </P>
     </div>
 
     {faqQuestions && (
       <ul className="mb-4">
-        {faqQuestions.map(x => <Li key={x.props.children}>{x}</Li>)}
+        {faqQuestions.map((x) => (
+          <Li key={x.props.children}>{x}</Li>
+        ))}
       </ul>
     )}
   </>
@@ -108,19 +110,16 @@ const RightMenu = ({ message }) => (
     </P>
     <div>
       <InfoLink to={routes.questions()} className="w-100">
-        <FormattedMessage {...messages.goToMainPage} />
+        <FormattedMessage id={messages.goToMainPage.id} />
       </InfoLink>
     </div>
   </div>
 );
 
 const AlmostDone = ({ faqQuestions, message, logo, getLogoDispatch }) => {
-  useEffect(
-    () => {
-      getLogoDispatch();
-    },
-    [single],
-  );
+  useEffect(() => {
+    getLogoDispatch();
+  }, [single]);
 
   return (
     <SignUpWrapper
@@ -141,7 +140,7 @@ const withConnect = connect(
     ]),
     logo: selectLogo(),
   }),
-  dispatch => ({
+  (dispatch) => ({
     getLogoDispatch: bindActionCreators(getLogo, dispatch),
   }),
 );
