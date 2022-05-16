@@ -16,7 +16,7 @@ import injectReducer from 'utils/injectReducer';
 import Seo from 'components/Seo';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { showLoginModal } from 'containers/Login/actions';
+import { loginWithWallet } from 'containers/Login/actions';
 import { checkEmail } from 'containers/SignUp/actions';
 import { selectEmailChecking } from 'containers/SignUp/selectors';
 
@@ -151,7 +151,7 @@ export const HomePage = ({
   location,
   sendMessageDispatch,
   sendMessageLoading,
-  showLoginModalDispatch,
+  loginWithWalletDispatch,
   emailChecking,
   faqQuestions,
   account,
@@ -178,7 +178,7 @@ export const HomePage = ({
         account={account}
         translations={translations}
         location={location}
-        showLoginModal={showLoginModalDispatch}
+        showLoginModal={() => loginWithWalletDispatch({ metaMask: true })}
         checkEmail={verifyEmail}
         emailChecking={emailChecking}
       />
@@ -211,7 +211,6 @@ HomePage.propTypes = {
   sendMessageLoading: PropTypes.bool,
   checkEmailDispatch: PropTypes.func,
   sendMessageDispatch: PropTypes.func,
-  showLoginModalDispatch: PropTypes.func,
   location: PropTypes.object,
   faqQuestions: PropTypes.array,
 };
@@ -232,7 +231,7 @@ const withConnect = connect(
   }),
   dispatch => ({
     sendMessageDispatch: bindActionCreators(sendMessage, dispatch),
-    showLoginModalDispatch: bindActionCreators(showLoginModal, dispatch),
+    loginWithWalletDispatch: bindActionCreators(loginWithWallet, dispatch),
     checkEmailDispatch: bindActionCreators(checkEmail, dispatch),
   }),
 );
