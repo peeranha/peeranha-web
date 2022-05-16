@@ -59,10 +59,9 @@ const IPFSInformation = ({ locale, ipfsHash, histories }) => {
           {transactionHash.substring(0, 12) + '...'}
         </A>
       ),
-      eventName:
-        translationMessages[locale][messages[eventEntity].id] +
-        ' ' +
-        translationMessages[locale][messages[eventName].id],
+      eventName: `${translationMessages[locale][messages[eventEntity].id]} ${
+        translationMessages[locale][messages[eventName].id]
+      }`,
       timeStamp: getFormattedDate(
         timeStamp,
         locale,
