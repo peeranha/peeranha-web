@@ -5,19 +5,9 @@
 /* eslint-disable redux-saga/yield-effects */
 import { select } from 'redux-saga/effects';
 
-import { getPrivacyPolicy } from 'utils/privacyPolicyManagement';
-
 import defaultSaga, { getPrivacyPolicyWorker } from '../saga';
 
-import {
-  GET_PRIVACY_POLICY,
-  GET_PRIVACY_POLICY_SUCCESS,
-  GET_PRIVACY_POLICY_ERROR,
-} from '../constants';
-
-jest.mock('utils/privacyPolicyManagement', () => ({
-  getPrivacyPolicy: jest.fn(),
-}));
+import { GET_PRIVACY_POLICY, GET_PRIVACY_POLICY_ERROR } from '../constants';
 
 jest.mock('redux-saga/effects', () => ({
   select: jest.fn().mockImplementation(() => {}),
@@ -28,7 +18,6 @@ jest.mock('redux-saga/effects', () => ({
 
 describe('getPrivacyPolicyWorker', () => {
   const locale = 'en';
-  const privacyPolicy = {};
 
   const generator = getPrivacyPolicyWorker();
 
@@ -36,17 +25,6 @@ describe('getPrivacyPolicyWorker', () => {
     select.mockImplementation(() => locale);
     const step = generator.next();
     expect(step.value).toEqual(locale);
-  });
-
-  it('call @getPrivacyPolicy', () => {
-    generator.next(locale);
-    expect(getPrivacyPolicy).toHaveBeenCalledWith(locale);
-  });
-
-  it('put @privacyPolicy', () => {
-    const step = generator.next(privacyPolicy);
-    expect(step.value.privacyPolicy).toEqual(privacyPolicy);
-    expect(step.value.type).toBe(GET_PRIVACY_POLICY_SUCCESS);
   });
 
   it('error handling', () => {

@@ -67,7 +67,7 @@ describe('dataCacheProviderReducer', () => {
     const communities = [];
     const obj = state
       .set('communitiesLoading', false)
-      .set('communities', communities);
+      .set('communities', fromJS(communities));
 
     expect(
       dataCacheProviderReducer(
@@ -139,7 +139,7 @@ describe('dataCacheProviderReducer', () => {
 
   it('getFaqSuccess', () => {
     const faq = [];
-    const obj = state.set('getFaqLoading', false).set('faq', faq);
+    const obj = state.set('getFaqLoading', false).set('faq', fromJS(faq));
 
     expect(dataCacheProviderReducer(state, getFaqSuccess(faq))).toEqual(obj);
   });

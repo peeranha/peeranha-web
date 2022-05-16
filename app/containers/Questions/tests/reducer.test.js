@@ -1,4 +1,5 @@
 import { fromJS } from 'immutable';
+import orderBy from 'lodash/orderBy';
 
 import questionsReducer from '../reducer';
 
@@ -14,11 +15,14 @@ describe('questionsReducer', () => {
   beforeEach(() => {
     state = fromJS({
       questionsList: [{ id: 1 }, { id: 2 }],
+      topQuestionIds: [],
     });
   });
 
   it('returns the initial state', () => {
-    expect(questionsReducer(state, {})).toEqual(state);
+    const questionsList = [{ id: 1 }, { id: 2 }];
+    // state = fromJS({}).set('questionsList', [{ id: 1 }, { id: 2 }]);
+    expect(questionsReducer(state, questionsList)).toEqual(state);
   });
 
   it('getQuestions', () => {
@@ -28,12 +32,33 @@ describe('questionsReducer', () => {
   });
 
   it('getQuestionsSuccess', () => {
-    const questionsList = [{ id: 1 }];
+    const questionsList = [{ id: 1 }, { id: 2 }];
+
+    const mappedQuestionsList = questionsList.map(
+      ({ id: questionId }) => questionId,
+    );
 
     const obj = state
       .set('questionsLoading', false)
-      .set('questionsList', [{ id: 1 }, { id: 2 }])
-      .set('isLastFetch', true);
+      .set(
+        'questionsList',
+        fromJS([...new Set(questionsList.concat(mappedQuestionsList))]),
+      )
+      .set(
+        'loadedItems',
+        Object.keys(questionsList).length + questionsList.length,
+      )
+      .set(
+        'questions',
+        fromJS({
+          ...questionsList.reduce((acc, cur) => {
+            acc[cur.id] = cur;
+            return acc;
+          }, {}),
+        }),
+      )
+      .set('promotedQuestions', {})
+      .set('isLastFetch', questionsList.length === 0);
 
     expect(questionsReducer(state, getQuestionsSuccess(questionsList))).toEqual(
       obj,
@@ -41,12 +66,42 @@ describe('questionsReducer', () => {
   });
 
   it('getUniqQuestions', () => {
-    const questionsList = [{ id: 1, title: 'title' }, { id: 2 }];
-    const obj = state.set('questionsList', questionsList);
+    const questionsList = [{ id: 1 }, { id: 2 }];
 
-    expect(questionsReducer(state, getUniqQuestions(questionsList))).toEqual(
-      obj,
+    const mappedQuestionsList = questionsList.map(
+      ({ id: questionId }) => questionId,
     );
+
+    const obj = state
+      .set(
+        'questionsList',
+        orderBy(
+          [
+            ...new Set(
+              mappedQuestionsList.concat(questionsList.map(x => x.id)),
+            ),
+          ].filter(questionId => !questionsList[questionId]?.isDeleted),
+          ['id'],
+          ['asc'],
+        ),
+      )
+      .set(
+        'questions',
+        fromJS({
+          ...questionsList,
+          ...questionsList.reduce((acc, cur) => {
+            acc[cur.id] = cur;
+            return acc;
+          }, {}),
+        }),
+      );
+
+    expect(
+      questionsReducer(
+        state.set('questions', questionsList),
+        getUniqQuestions(questionsList),
+      ),
+    ).toEqual(obj);
   });
 
   it('getQuestionsError', () => {

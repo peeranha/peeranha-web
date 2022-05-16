@@ -10,7 +10,6 @@ import {
   downVoteToCreateCommunity,
 } from 'utils/communityManagement';
 
-import { CLEAR_SUGGESTED_COMMUNITIES } from 'containers/Communities/constants';
 import { getSuggestedCommunitiesWorker } from 'containers/Communities/saga';
 
 import { isValid, isAuthorized } from 'containers/EosioProvider/saga';
@@ -110,11 +109,6 @@ describe('downVoteWorker', () => {
     );
   });
 
-  it('clearSuggestedCommunities', () => {
-    const step = generator.next();
-    expect(step.value.type).toEqual(CLEAR_SUGGESTED_COMMUNITIES);
-  });
-
   it('getSuggestedCommunitiesWorker', () => {
     getSuggestedCommunitiesWorker.mockImplementation(() => storedCommunities);
     const step = generator.next();
@@ -190,11 +184,6 @@ describe('upVoteWorker', () => {
       account,
       props.communityId,
     );
-  });
-
-  it('clearSuggestedCommunities', () => {
-    const step = generator.next();
-    expect(step.value.type).toEqual(CLEAR_SUGGESTED_COMMUNITIES);
   });
 
   it('getSuggestedCommunitiesWorker', () => {

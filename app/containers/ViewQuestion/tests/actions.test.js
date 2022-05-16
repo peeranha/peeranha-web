@@ -43,6 +43,7 @@ import {
   POST_ANSWER,
   POST_ANSWER_SUCCESS,
   POST_ANSWER_ERROR,
+  POST_COMMENT_BUTTON,
   POST_COMMENT,
   POST_COMMENT_SUCCESS,
   POST_COMMENT_ERROR,
@@ -64,6 +65,7 @@ import {
   DELETE_COMMENT,
   DELETE_COMMENT_SUCCESS,
   DELETE_COMMENT_ERROR,
+  SAVE_COMMENT_BUTTON,
   SAVE_COMMENT,
   SAVE_COMMENT_SUCCESS,
   SAVE_COMMENT_ERROR,
@@ -96,9 +98,9 @@ describe('ViewQuestions actions', () => {
     const expected = {
       type: VOTE_TO_DELETE,
       questionId,
-      answerId: ev.currentTarget.dataset.answerid,
-      commentId: ev.currentTarget.dataset.commentid,
-      postButtonId: ev.currentTarget.id,
+      answerId: +ev.currentTarget.dataset.answerid,
+      commentId: +ev.currentTarget.dataset.commentid,
+      buttonId: ev.currentTarget.id,
       whoWasVoted: ev.currentTarget.dataset.whowasvoted,
     };
 
@@ -133,6 +135,7 @@ describe('ViewQuestions actions', () => {
       commentId: props.commentId,
       comment: val.get(TEXTAREA_COMMENT_FORM),
       toggleView: props.toggleView,
+      buttonId: `${SAVE_COMMENT_BUTTON}${props.answerId}`,
     };
 
     expect(saveComment(questionId, val, null, props)).toEqual(expected);
@@ -162,8 +165,8 @@ describe('ViewQuestions actions', () => {
     const expected = {
       type: DELETE_COMMENT,
       questionId,
-      answerId: ev.currentTarget.dataset.answerid,
-      commentId: ev.currentTarget.dataset.commentid,
+      answerId: +ev.currentTarget.dataset.answerid,
+      commentId: +ev.currentTarget.dataset.commentid,
       buttonId: ev.currentTarget.id,
     };
 
@@ -194,8 +197,8 @@ describe('ViewQuestions actions', () => {
     const expected = {
       type: DELETE_ANSWER,
       questionId,
-      answerId: ev.currentTarget.dataset.answerid,
-      postButtonId: ev.currentTarget.id,
+      answerId: +ev.currentTarget.dataset.answerid,
+      buttonId: ev.currentTarget.id,
     };
 
     expect(deleteAnswer(questionId, ev)).toEqual(expected);
@@ -225,7 +228,7 @@ describe('ViewQuestions actions', () => {
     const expected = {
       type: DELETE_QUESTION,
       questionId,
-      postButtonId: ev.currentTarget.id,
+      buttonId: ev.currentTarget.id,
     };
 
     expect(deleteQuestion(questionId, ev)).toEqual(expected);
@@ -314,6 +317,7 @@ describe('ViewQuestions actions', () => {
       comment: val.get(TEXTAREA_COMMENT_FORM),
       reset: props.reset,
       toggleView: props.toggleView,
+      buttonId: `${POST_COMMENT_BUTTON}${props.answerId}`,
     };
 
     expect(postComment(questionId, val, null, props)).toEqual(expected);
@@ -342,8 +346,8 @@ describe('ViewQuestions actions', () => {
     const expected = {
       type: UP_VOTE,
       questionId,
-      answerId: ev.currentTarget.dataset.answerid,
-      postButtonId: ev.currentTarget.id,
+      answerId: +ev.currentTarget.dataset.answerid,
+      buttonId: ev.currentTarget.id,
       whoWasUpvoted: ev.currentTarget.dataset.whowasupvoted,
     };
     expect(upVote(questionId, ev)).toEqual(expected);
@@ -371,8 +375,8 @@ describe('ViewQuestions actions', () => {
     const expected = {
       type: DOWN_VOTE,
       questionId,
-      answerId: ev.currentTarget.dataset.answerid,
-      postButtonId: ev.currentTarget.id,
+      answerId: +ev.currentTarget.dataset.answerid,
+      buttonId: ev.currentTarget.id,
       whoWasDownvoted: ev.currentTarget.dataset.whowasdownvoted,
     };
     expect(downVote(questionId, ev)).toEqual(expected);
@@ -400,8 +404,8 @@ describe('ViewQuestions actions', () => {
     const expected = {
       type: MARK_AS_ACCEPTED,
       questionId,
-      correctAnswerId: ev.currentTarget.dataset.answerid,
-      postButtonId: ev.currentTarget.id,
+      correctAnswerId: +ev.currentTarget.dataset.answerid,
+      buttonId: ev.currentTarget.id,
       whoWasAccepted: ev.currentTarget.dataset.whowasaccepted,
     };
     expect(markAsAccepted(questionId, ev)).toEqual(expected);

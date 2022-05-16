@@ -18,6 +18,8 @@ describe('achievementsReducer', () => {
     mockState = fromJS({
       viewProfileAccount: null,
       achievements: [],
+      allAchievements: [],
+      allAchievementsError: null,
       projectAchievements: [],
       nextUserAchievements: {},
       userProgressValues: {},
@@ -25,6 +27,7 @@ describe('achievementsReducer', () => {
       maxGroupsLowerValues: {},
       userAchievementsError: null,
       userAchievementsLoading: true,
+      allAchievementsLoading: true,
     });
   });
 

@@ -16,30 +16,36 @@ describe('actions', () => {
   describe('getQuestions Action', () => {
     it('GET_QUESTIONS', () => {
       const limit = 'limit';
-      const offset = 'offset';
-      const communityIdFilter = 'communityIdFilter';
-      const parentPage = 'parentPage';
-      const fetcher = 'fetcher';
+      const skip = 'offset';
+      const postTypes = 'communityIdFilter';
+      const communityIdFilter = 'parentPage';
+      const parentPage = 'fetcher';
       const next = 'next';
+      const toUpdateQuestions = undefined;
+      const isNotUpdatePromotedQuestions = undefined;
 
       const expected = {
         type: GET_QUESTIONS,
         limit,
-        offset,
+        skip,
+        postTypes,
         communityIdFilter,
         parentPage,
-        fetcher,
         next,
+        toUpdateQuestions,
+        isNotUpdatePromotedQuestions,
       };
 
       expect(
         getQuestions(
           limit,
-          offset,
+          skip,
+          postTypes,
           communityIdFilter,
           parentPage,
-          fetcher,
           next,
+          toUpdateQuestions,
+          isNotUpdatePromotedQuestions,
         ),
       ).toEqual(expected);
     });
@@ -49,14 +55,28 @@ describe('actions', () => {
     it('GET_QUESTIONS_SUCCESS', () => {
       const questionsList = 'questionsList';
       const next = 'next';
+      const toUpdateQuestions = undefined;
+      const questionFilter = 0;
+      const promotedQuestions = undefined;
 
       const expected = {
         type: GET_QUESTIONS_SUCCESS,
         questionsList,
         next,
+        toUpdateQuestions,
+        questionFilter,
+        promotedQuestions,
       };
 
-      expect(getQuestionsSuccess(questionsList, next)).toEqual(expected);
+      expect(
+        getQuestionsSuccess(
+          questionsList,
+          next,
+          toUpdateQuestions,
+          questionFilter,
+          promotedQuestions,
+        ),
+      ).toEqual(expected);
     });
   });
 

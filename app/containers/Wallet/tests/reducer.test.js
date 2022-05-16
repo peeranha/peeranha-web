@@ -16,7 +16,7 @@ describe('getWeekStatReducer', () => {
   beforeEach(() => {
     state = fromJS({
       username: '',
-    });
+    }).set('ids', []);
   });
 
   it('returns the initial state', () => {
@@ -31,13 +31,15 @@ describe('getWeekStatReducer', () => {
 
   it('getWeekStatSuccess', () => {
     const weekStat = [];
+    const userBoostStat = 'userBoostStat';
     const obj = state
       .set('getWeekStatProcessing', false)
-      .set('weekStat', weekStat);
+      .set('weekStat', weekStat)
+      .set('userBoostStat', userBoostStat);
 
-    expect(getWeekStatReducer(state, getWeekStatSuccess(weekStat))).toEqual(
-      obj,
-    );
+    expect(
+      getWeekStatReducer(state, getWeekStatSuccess(weekStat, userBoostStat)),
+    ).toEqual(obj);
   });
 
   it('getWeekStatErr', () => {
@@ -53,9 +55,14 @@ describe('getWeekStatReducer', () => {
 
   it('pickupReward', () => {
     const period = 1;
-    const obj = state.set('pickupRewardProcessing', true);
+    const buttonId = 0;
+    const obj = state
+      .set('pickupRewardProcessing', true)
+      .set('ids', [buttonId]);
 
-    expect(getWeekStatReducer(state, pickupReward(period))).toEqual(obj);
+    expect(getWeekStatReducer(state, pickupReward(period, buttonId))).toEqual(
+      obj,
+    );
   });
 
   it('pickupRewardSuccess', () => {

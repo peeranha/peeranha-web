@@ -22,7 +22,9 @@ describe('suggestedCommunitiesReducer', () => {
   });
 
   it('getSuggestedCommunities', () => {
-    const obj = state.set('getSuggestedCommunitiesLoading', true);
+    const obj = state
+      .set('getSuggestedCommunitiesLoading', true)
+      .set('suggestedCommunities', []);
 
     expect(
       suggestedCommunitiesReducer(state, getSuggestedCommunities()),

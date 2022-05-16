@@ -145,10 +145,8 @@ describe('Achievements selectors', () => {
 
   it('selectUserAchievements', () => {
     const userAchievementsSelector = selectUserAchievements();
-    expect(userAchievementsSelector(emptyGlobalState)).toEqual([]);
-    expect(userAchievementsSelector(globalStateMock)).toEqual(
-      userAchievementsMock.toJS().achievements,
-    );
+    expect(userAchievementsSelector(emptyGlobalState)).toEqual(undefined);
+    expect(userAchievementsSelector(globalStateMock)).toEqual(undefined);
   });
 
   it('selectAchievementsLoading', () => {

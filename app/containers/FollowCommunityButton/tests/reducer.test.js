@@ -13,6 +13,9 @@ describe('followCommunityButtonReducer', () => {
   beforeEach(() => {
     state = fromJS({
       username: '',
+      followHandlerLoading: false,
+      followHandlerError: null,
+      ids: [],
     });
   });
 
@@ -21,13 +24,22 @@ describe('followCommunityButtonReducer', () => {
   });
 
   it('followHandler', () => {
-    const obj = state.set('followHandlerLoading', true);
+    const communityIdFilter = 0;
+    const isFollowed = 0;
+    const buttonId = 0;
 
-    expect(followCommunityButtonReducer(state, followHandler())).toEqual(obj);
+    const obj = state.set('followHandlerLoading', true).set('ids', [buttonId]);
+
+    expect(
+      followCommunityButtonReducer(
+        state,
+        followHandler(communityIdFilter, isFollowed, buttonId),
+      ),
+    ).toEqual(obj);
   });
 
   it('followHandlerSuccess', () => {
-    const obj = state.set('followHandlerLoading', false);
+    const obj = state.set('followHandlerLoading', false).set('ids', []);
 
     expect(
       followCommunityButtonReducer(state, followHandlerSuccess({})),
@@ -38,7 +50,8 @@ describe('followCommunityButtonReducer', () => {
     const followHandlerError = 'followHandlerError';
     const obj = state
       .set('followHandlerLoading', false)
-      .set('followHandlerError', followHandlerError);
+      .set('followHandlerError', followHandlerError)
+      .set('ids', []);
 
     expect(
       followCommunityButtonReducer(state, followHandlerErr(followHandlerError)),

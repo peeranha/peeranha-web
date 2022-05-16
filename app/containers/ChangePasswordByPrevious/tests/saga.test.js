@@ -1,36 +1,21 @@
 /* eslint-disable redux-saga/yield-effects */
-import { select, call, take } from 'redux-saga/effects';
+import { select, call } from 'redux-saga/effects';
 
 import {
-  changeCredentialsInit,
-  changeCredentialsConfirm,
   changeCredentialsComplete,
   changeCredentialsGetKeysByPwd,
 } from 'utils/web_integration/src/wallet/change-credentials/change-credentials';
 
 import { LOGOUT } from 'containers/Logout/constants';
 
-import defaultSaga, {
-  sendEmailWorker,
-  submitEmailWorker,
-  changePasswordWorker,
-  sendAnotherCode,
-  sendAnotherCodeSuccess,
-} from '../saga';
+import defaultSaga, { changePasswordWorker } from '../saga';
 
 import {
   CHANGE_PASSWORD,
   CHANGE_PASSWORD_ERROR,
-  SEND_EMAIL,
-  SEND_EMAIL_ERROR,
-  SUBMIT_EMAIL,
-  SUBMIT_EMAIL_ERROR,
-  SEND_EMAIL_SUCCESS,
-  SUBMIT_EMAIL_SUCCESS,
   CHANGE_PASSWORD_SUCCESS,
   NEW_PASSWORD_FIELD,
   OLD_PASSWORD_FIELD,
-  SEND_ANOTHER_CODE,
 } from '../constants';
 
 jest.mock('redux-saga/effects', () => ({
@@ -53,167 +38,6 @@ jest.mock(
 
 beforeEach(() => {
   call.mockClear();
-});
-
-describe('sendAnotherCodeSuccess', () => {
-  const generator = sendAnotherCodeSuccess();
-
-  it('take SEND_OLD_EMAIL_SUCCESS', () => {
-    generator.next();
-    expect(take).toHaveBeenCalledWith(SEND_EMAIL_SUCCESS);
-  });
-
-  it('call successToastHandlingWithDefaultText', () => {
-    call.mockImplementationOnce(() => null);
-
-    expect(call).toHaveBeenCalledTimes(0);
-    generator.next();
-    expect(call).toHaveBeenCalledTimes(1);
-  });
-});
-
-describe('sendAnotherCode', () => {
-  const generator = sendAnotherCode();
-  const email = 'email@email.em';
-
-  it('select email', () => {
-    select.mockImplementation(() => email);
-    const step = generator.next();
-    expect(step.value).toEqual(email);
-  });
-
-  it('call sendEmailWorker', () => {
-    call.mockImplementationOnce(() => email);
-
-    expect(call).toHaveBeenCalledTimes(0);
-    generator.next(email);
-    expect(call).toHaveBeenCalledTimes(1);
-  });
-});
-
-describe('sendEmailWorker', () => {
-  const resetForm = jest.fn();
-  const email = 'email';
-  const locale = 'en';
-
-  describe('sendEmailWorker FAILED', () => {
-    const generator = sendEmailWorker({ resetForm, email });
-
-    const response = {
-      OK: false,
-      errorCode: 1,
-    };
-
-    changeCredentialsInit.mockImplementation(() => response);
-
-    it('select locale', () => {
-      select.mockImplementation(() => locale);
-      const step = generator.next();
-      expect(step.value).toEqual(locale);
-    });
-
-    it('call changeCredentialsInit', () => {
-      generator.next(locale);
-      expect(changeCredentialsInit).toHaveBeenCalledWith(email);
-    });
-
-    it('error handling with talking toast', () => {
-      const step = generator.next(response);
-      expect(step.value.type).toBe(SEND_EMAIL_ERROR);
-    });
-  });
-
-  describe('sendEmailWorker SUCCESS', () => {
-    const generator = sendEmailWorker({ resetForm, email });
-
-    const response = {
-      OK: true,
-    };
-
-    changeCredentialsInit.mockImplementation(() => response);
-
-    generator.next();
-    generator.next(locale);
-
-    it('finish with @sendEmailSuccess', () => {
-      const step = generator.next(response);
-      expect(step.value.type).toBe(SEND_EMAIL_SUCCESS);
-    });
-
-    it('resetForm', () => {
-      expect(resetForm).toHaveBeenCalledTimes(0);
-      generator.next();
-      expect(resetForm).toHaveBeenCalledTimes(1);
-    });
-  });
-});
-
-describe('submitEmailWorker', () => {
-  const resetForm = jest.fn();
-  const email = 'email';
-  const verificationCode = 'verificationCode';
-  const locale = 'en';
-
-  describe('submitEmailWorker FAILED', () => {
-    const generator = submitEmailWorker({ resetForm, verificationCode });
-
-    const response = {
-      OK: false,
-      errorCode: 1,
-    };
-
-    changeCredentialsConfirm.mockImplementation(() => response);
-
-    it('select email', () => {
-      select.mockImplementation(() => email);
-      const step = generator.next();
-      expect(step.value).toEqual(email);
-    });
-
-    it('select locale', () => {
-      select.mockImplementation(() => locale);
-      const step = generator.next(email);
-      expect(step.value).toEqual(locale);
-    });
-
-    it('call changeCredentialsConfirm', () => {
-      generator.next(locale);
-      expect(changeCredentialsConfirm).toHaveBeenCalledWith(
-        email,
-        verificationCode,
-      );
-    });
-
-    it('error handling with talking toast', () => {
-      const step = generator.next(response);
-      expect(step.value.type).toBe(SUBMIT_EMAIL_ERROR);
-    });
-  });
-
-  describe('submitEmailWorker SUCCESS', () => {
-    const generator = submitEmailWorker({ resetForm, verificationCode });
-
-    const response = {
-      OK: true,
-    };
-
-    changeCredentialsConfirm.mockImplementation(() => response);
-
-    generator.next();
-    generator.next(email);
-    generator.next(locale);
-
-    it('finish with @submitEmailSuccess', () => {
-      const step = generator.next(response);
-      expect(step.value.type).toBe(SUBMIT_EMAIL_SUCCESS);
-    });
-
-    it('resetForm', () => {
-      expect(resetForm).toHaveBeenCalledTimes(0);
-      generator.next();
-      expect(resetForm).toHaveBeenCalledTimes(1);
-    });
-  });
 });
 
 describe('changePasswordWorker', () => {
@@ -371,37 +195,8 @@ describe('changePasswordWorker', () => {
 describe('defaultSaga', () => {
   const generator = defaultSaga();
 
-  it('SEND_ANOTHER_CODE', () => {
-    const step = generator.next();
-    expect(step.value).toBe(SEND_ANOTHER_CODE);
-  });
-
-  it('SEND_ANOTHER_CODE', () => {
-    const step = generator.next();
-    expect(step.value).toBe(SEND_ANOTHER_CODE);
-  });
-
-  it('SEND_EMAIL', () => {
-    const step = generator.next();
-    expect(step.value).toBe(SEND_EMAIL);
-  });
-
-  it('SUBMIT_EMAIL', () => {
-    const step = generator.next();
-    expect(step.value).toBe(SUBMIT_EMAIL);
-  });
-
   it('CHANGE_PASSWORD', () => {
     const step = generator.next();
     expect(step.value).toEqual(CHANGE_PASSWORD);
-  });
-
-  it('errorToastHandling', () => {
-    const step = generator.next();
-    expect(step.value).toEqual([
-      SEND_EMAIL_ERROR,
-      SUBMIT_EMAIL_ERROR,
-      CHANGE_PASSWORD_ERROR,
-    ]);
   });
 });

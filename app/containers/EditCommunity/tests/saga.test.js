@@ -4,10 +4,10 @@
 
 import { runSaga } from 'redux-saga';
 
-import { editCommunity, getCommunityById } from 'utils/communityManagement';
+import { editCommunity } from 'utils/communityManagement';
 
-import { editCommunitySuccess, getCommunitySuccess } from '../actions';
-import { editCommunityWorker, getCommunityWorker } from '../saga';
+import { editCommunitySuccess } from '../actions';
+import { editCommunityWorker } from '../saga';
 
 jest.mock('containers/DataCacheProvider/selectors', () => ({
   selectCommunities: jest.fn(() => () => [
@@ -97,44 +97,6 @@ describe('Edit community sagas tests', () => {
 
       expect(dispatched).toEqual([editCommunitySuccess()]);
       expect(editCommunity).toHaveBeenCalled();
-    });
-  });
-
-  describe('Get community worker saga tests', () => {
-    it('Expect community to be returned from cache', async () => {
-      const communityId = 1;
-      const community = { ...fakeCommunityData, id: communityId };
-
-      const dispatched = [];
-
-      await runSaga(
-        {
-          dispatch: action => dispatched.push(action),
-        },
-        getCommunityWorker,
-        { communityId },
-      );
-
-      expect(dispatched).toEqual([getCommunitySuccess(community)]);
-      expect(getCommunityById).not.toHaveBeenCalled();
-    });
-
-    it('Expect community to be returned by API', async () => {
-      const communityId = 2;
-      const community = { ...fakeCommunityData, id: communityId };
-
-      const dispatched = [];
-
-      await runSaga(
-        {
-          dispatch: action => dispatched.push(action),
-        },
-        getCommunityWorker,
-        { communityId },
-      );
-
-      expect(dispatched).toEqual([getCommunitySuccess(community)]);
-      expect(getCommunityById).toHaveBeenCalled();
     });
   });
 });

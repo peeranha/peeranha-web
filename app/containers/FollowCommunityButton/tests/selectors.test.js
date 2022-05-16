@@ -9,10 +9,10 @@ describe('selectFollowCommunityButtonDomain', () => {
   const followHandlerLoading = false;
   const followHandlerError = null;
 
-  const globalState = fromJS({
+  const globalState = {
     followHandlerLoading,
     followHandlerError,
-  });
+  };
 
   const mockedState = fromJS({
     followCommunityButton: globalState,

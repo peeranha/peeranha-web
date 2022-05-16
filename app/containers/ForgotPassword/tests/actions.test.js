@@ -125,13 +125,13 @@ describe('ForgotPassword actions', () => {
 
   it('changePassword', () => {
     const val = fromJS({
-      [MASTER_KEY_FIELD]: MASTER_KEY_FIELD,
+      [VERIFICATION_CODE_FIELD]: VERIFICATION_CODE_FIELD,
       [PASSWORD_FIELD]: PASSWORD_FIELD,
     });
 
     const expected = {
       type: CHANGE_PASSWORD,
-      masterKey: val.get(MASTER_KEY_FIELD),
+      code: val.get(VERIFICATION_CODE_FIELD),
       password: val.get(PASSWORD_FIELD),
     };
 

@@ -62,7 +62,7 @@ describe('validate', () => {
     try {
       validate({
         ...props,
-        energy: 0,
+        energy: 10,
       });
     } catch ({ message }) {
       expect(showPopover).toHaveBeenCalledWith(

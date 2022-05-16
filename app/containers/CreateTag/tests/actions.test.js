@@ -10,12 +10,14 @@ describe('CreateTag actions', () => {
   it('suggestTag', () => {
     const tag = 'tag';
     const reset = 'reset';
+    const communityId = 'communityId';
     const expected = {
       type: SUGGEST_TAG,
+      communityId,
       tag,
       reset,
     };
-    expect(suggestTag(tag, reset)).toEqual(expected);
+    expect(suggestTag(communityId, tag, reset)).toEqual(expected);
   });
 
   it('suggestTagSuccess', () => {

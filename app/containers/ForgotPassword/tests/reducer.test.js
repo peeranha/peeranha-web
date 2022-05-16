@@ -17,7 +17,6 @@ import {
 
 import {
   EMAIL_FIELD,
-  VERIFICATION_CODE_FORM,
   VERIFICATION_CODE_FIELD,
   NEW_PASSWORD_FORM,
   EMAIL_FORM,
@@ -67,7 +66,7 @@ describe('forgotPasswordReducer', () => {
   it('GET_VERIFICATION_CODE_SUCCESS', () => {
     const obj = state
       .set('getVerificationCodeLoading', false)
-      .set('content', VERIFICATION_CODE_FORM);
+      .set('content', NEW_PASSWORD_FORM);
 
     expect(forgotPasswordReducer(state, getVerificationCodeSuccess())).toEqual(
       obj,

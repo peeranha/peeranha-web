@@ -14,12 +14,13 @@ describe('languageProviderReducer', () => {
 
   it('changes the locale', () => {
     expect(
+      // TODO return multi_lang
       languageProviderReducer(undefined, {
         type: CHANGE_LOCALE,
-        locale: 'de',
+        locale: 'en',
       }).toJS(),
     ).toEqual({
-      locale: 'de',
+      locale: 'en',
     });
   });
 });

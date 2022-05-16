@@ -56,7 +56,8 @@ describe('usersReducer', () => {
       const obj = state
         .set('getUsersLoading', false)
         .set('users', users)
-        .set('isLastFetch', true);
+        .set('isLastFetch', true)
+        .set('skip', 50);
 
       expect(usersReducer(state, getUsersSuccess(users, loadMore))).toEqual(
         obj,
@@ -69,7 +70,8 @@ describe('usersReducer', () => {
       const obj = state
         .set('getUsersLoading', false)
         .set('users', users)
-        .set('isLastFetch', false);
+        .set('isLastFetch', false)
+        .set('skip', 50);
 
       expect(usersReducer(state, getUsersSuccess(users, loadMore))).toEqual(
         obj,
@@ -83,7 +85,8 @@ describe('usersReducer', () => {
       const obj = state
         .set('getUsersLoading', false)
         .set('users', state.toJS().users.concat(users))
-        .set('isLastFetch', true);
+        .set('isLastFetch', true)
+        .set('skip', 50);
 
       expect(usersReducer(state, getUsersSuccess(users, loadMore))).toEqual(
         obj,

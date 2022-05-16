@@ -16,7 +16,7 @@ describe('voteForNewCommunityButtonReducer', () => {
   beforeEach(() => {
     state = fromJS({
       username: '',
-    });
+    }).set('ids', []);
   });
 
   it('returns the initial state', () => {
@@ -24,8 +24,13 @@ describe('voteForNewCommunityButtonReducer', () => {
   });
 
   it('upVote', () => {
-    const obj = state.set('upVoteLoading', true);
-    expect(voteForNewCommunityButtonReducer(state, upVote())).toEqual(obj);
+    const communityId = 0;
+    const buttonId = 0;
+
+    const obj = state.set('upVoteLoading', true).set('ids', [buttonId]);
+    expect(
+      voteForNewCommunityButtonReducer(state, upVote(communityId, buttonId)),
+    ).toEqual(obj);
   });
 
   it('upVoteSuccess', () => {
@@ -48,9 +53,14 @@ describe('voteForNewCommunityButtonReducer', () => {
   });
 
   it('downVote', () => {
-    const obj = state.set('downVoteLoading', true);
+    const communityId = 0;
+    const buttonId = 0;
 
-    expect(voteForNewCommunityButtonReducer(state, downVote())).toEqual(obj);
+    const obj = state.set('downVoteLoading', true).set('ids', [buttonId]);
+
+    expect(
+      voteForNewCommunityButtonReducer(state, downVote(communityId, buttonId)),
+    ).toEqual(obj);
   });
 
   it('downVoteSuccess', () => {

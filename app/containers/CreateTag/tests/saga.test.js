@@ -4,9 +4,7 @@ import { select, call } from 'redux-saga/effects';
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
-import { suggestTag } from 'utils/communityManagement';
-
-import { isAuthorized, isValid } from 'containers/EosioProvider/saga';
+import { isAuthorized } from 'containers/EosioProvider/saga';
 
 import defaultSaga, {
   suggestTagWorker,
@@ -18,8 +16,6 @@ import {
   SUGGEST_TAG,
   SUGGEST_TAG_SUCCESS,
   SUGGEST_TAG_ERROR,
-  MIN_RATING_TO_CREATE_TAG,
-  MIN_ENERGY_TO_CREATE_TAG,
 } from '../constants';
 
 jest.mock('redux-saga/effects', () => ({
@@ -73,11 +69,6 @@ describe('suggestTagWorker', () => {
     expect(typeof step.value._invoke).toBe('function');
   });
 
-  it('suggestTag', () => {
-    generator.next(account);
-    expect(suggestTag).toHaveBeenCalledWith(eos, account, props.tag);
-  });
-
   it('suggestTagSuccess', () => {
     const step = generator.next();
     expect(step.value.type).toBe(SUGGEST_TAG_SUCCESS);
@@ -110,15 +101,6 @@ describe('checkReadinessWorker', () => {
   it('isAuthorized', () => {
     generator.next();
     expect(call).toHaveBeenCalledWith(isAuthorized);
-  });
-
-  it('isValid', () => {
-    generator.next();
-    expect(call).toHaveBeenCalledWith(isValid, {
-      buttonId,
-      minRating: MIN_RATING_TO_CREATE_TAG,
-      minEnergy: MIN_ENERGY_TO_CREATE_TAG,
-    });
   });
 });
 

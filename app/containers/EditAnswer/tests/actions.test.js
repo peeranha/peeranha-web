@@ -74,13 +74,13 @@ describe('getAnswer actions', () => {
 
   describe('editAnswerSuccess Action', () => {
     it('EDIT_ANSWER_SUCCESS', () => {
-      const answer = 'answer';
+      const questionData = 'questionData';
       const expected = {
         type: EDIT_ANSWER_SUCCESS,
-        answer,
+        questionData,
       };
 
-      expect(editAnswerSuccess(answer)).toEqual(expected);
+      expect(editAnswerSuccess(questionData)).toEqual(expected);
     });
   });
 

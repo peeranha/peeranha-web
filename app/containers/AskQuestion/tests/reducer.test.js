@@ -8,7 +8,12 @@ describe('askQuestionReducer', () => {
   let state;
   beforeEach(() => {
     state = fromJS({
-      username: '',
+      postedAnswerIds: [],
+      askQuestionLoading: false,
+      getExistingQuestionsLoading: false,
+      questionError: '',
+      getExistingQuestionsError: '',
+      existingQuestions: [],
     });
   });
 
@@ -23,8 +28,11 @@ describe('askQuestionReducer', () => {
   });
 
   it('askQuestionSuccess', () => {
-    const obj = state.set('askQuestionLoading', false);
-    expect(askQuestionReducer(state, askQuestionSuccess())).toEqual(obj);
+    const id = 0;
+    const obj = state
+      .set('askQuestionLoading', false)
+      .set('postedAnswerIds', [...state.toJS().postedAnswerIds, id]);
+    expect(askQuestionReducer(state, askQuestionSuccess(id))).toEqual(obj);
   });
 
   it('askQuestionError', () => {

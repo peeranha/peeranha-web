@@ -20,13 +20,28 @@ describe('getCurrentAccount actions', () => {
 
   it('has a type of GET_CURRENT_ACCOUNT_SUCCESS', () => {
     const account = 'account';
-
+    const balance = 'balance';
+    const stakedInCurrentPeriod = 'stakedInCurrentPeriod';
+    const stakedInNextPeriod = 'stakedInNextPeriod';
+    const boost = 'boost';
     const expected = {
       type: GET_CURRENT_ACCOUNT_SUCCESS,
       account,
+      balance,
+      stakedInCurrentPeriod,
+      stakedInNextPeriod,
+      boost,
     };
 
-    expect(getCurrentAccountSuccess(account)).toEqual(expected);
+    expect(
+      getCurrentAccountSuccess(
+        account,
+        balance,
+        stakedInCurrentPeriod,
+        stakedInNextPeriod,
+        boost,
+      ),
+    ).toEqual(expected);
   });
 
   it('has a type of GET_CURRENT_ACCOUNT_ERROR', () => {

@@ -9,7 +9,6 @@ import getHash from 'object-hash';
 import { getAllCommunities } from 'utils/communityManagement';
 import { getProfileInfo } from 'utils/profileManagement';
 import { getStat } from 'utils/statisticsManagement';
-import { getFAQ } from 'utils/faqManagement';
 
 import defaultSaga, {
   getCommunitiesWithTagsWorker,
@@ -39,10 +38,6 @@ jest.mock('redux-saga/effects', () => ({
   put: jest.fn().mockImplementation(res => res),
   takeLatest: jest.fn().mockImplementation(res => res),
   takeEvery: jest.fn().mockImplementation(res => res),
-}));
-
-jest.mock('utils/faqManagement', () => ({
-  getFAQ: jest.fn(),
 }));
 
 jest.mock('utils/communityManagement', () => ({
@@ -98,11 +93,6 @@ describe('getFaqWorker', () => {
     select.mockImplementation(() => locale);
     const step = generator.next();
     expect(step.value).toEqual(locale);
-  });
-
-  it('step, faq', () => {
-    generator.next(locale);
-    expect(getFAQ).toHaveBeenCalledWith(locale);
   });
 
   it('step, getFaqSuccess', () => {

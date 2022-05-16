@@ -6,7 +6,7 @@ import * as routes from 'routes-config';
 
 import { createCommunity } from 'utils/communityManagement';
 
-import { isValid, isAuthorized } from 'containers/EosioProvider/saga';
+import { isAuthorized } from 'containers/EosioProvider/saga';
 
 import defaultSaga, {
   createCommunityWorker,
@@ -18,8 +18,6 @@ import {
   CREATE_COMMUNITY,
   CREATE_COMMUNITY_SUCCESS,
   CREATE_COMMUNITY_ERROR,
-  MIN_RATING_TO_CREATE_COMMUNITY,
-  MIN_ENERGY_TO_CREATE_COMMUNITY,
 } from '../constants';
 
 jest.mock('redux-saga/effects', () => ({
@@ -109,15 +107,6 @@ describe('checkReadinessWorker', () => {
   it('isAuthorized', () => {
     generator.next();
     expect(call).toHaveBeenCalledWith(isAuthorized);
-  });
-
-  it('isValid', () => {
-    generator.next();
-    expect(call).toHaveBeenCalledWith(isValid, {
-      buttonId,
-      minRating: MIN_RATING_TO_CREATE_COMMUNITY,
-      minEnergy: MIN_ENERGY_TO_CREATE_COMMUNITY,
-    });
   });
 });
 

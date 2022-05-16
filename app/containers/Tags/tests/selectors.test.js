@@ -2,9 +2,6 @@ import { fromJS } from 'immutable';
 
 import {
   selectTagsDomain,
-  selectSuggestedTags,
-  selectSuggestedTagsLoading,
-  selectSuggestedTagsError,
   selectSorting,
   selectIsLastFetchForSuggestedTags,
   selectLimit,
@@ -48,25 +45,6 @@ describe('selectTagsDomain', () => {
 
   it('should select the global state', () => {
     expect(selectTagsDomain(mockedState)).toEqual(globalState.toJS());
-  });
-
-  it('selectSuggestedTags', () => {
-    const isSelectSuggestedTags = selectSuggestedTags();
-    expect(isSelectSuggestedTags(mockedState)).toEqual(suggestedTags);
-  });
-
-  it('selectSuggestedTagsLoading', () => {
-    const isSelectSuggestedTagsLoading = selectSuggestedTagsLoading();
-    expect(isSelectSuggestedTagsLoading(mockedState)).toEqual(
-      suggestedTagsLoading,
-    );
-  });
-
-  it('selectSuggestedTagsError', () => {
-    const isSelectSuggestedTagsError = selectSuggestedTagsError();
-    expect(isSelectSuggestedTagsError(mockedState)).toEqual(
-      getSuggestedTagsError,
-    );
   });
 
   it('selectSorting', () => {

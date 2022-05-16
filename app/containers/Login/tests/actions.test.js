@@ -4,9 +4,6 @@ import {
   showLoginModal,
   hideLoginModal,
   showEmailPasswordForm,
-  loginWithScatter,
-  loginWithScatterSuccess,
-  loginWithScatterErr,
   loginWithEmail,
   loginWithEmailSuccess,
   loginWithEmailErr,
@@ -20,9 +17,6 @@ import {
   HIDE_LOGIN_MODAL,
   EMAIL_FIELD,
   SHOW_EMAIL_PASSWORD_MODAL,
-  LOGIN_WITH_SCATTER,
-  LOGIN_WITH_SCATTER_SUCCESS,
-  LOGIN_WITH_SCATTER_ERROR,
   LOGIN_WITH_EMAIL,
   LOGIN_WITH_EMAIL_SUCCESS,
   LOGIN_WITH_EMAIL_ERROR,
@@ -61,33 +55,6 @@ describe('Login actions', () => {
     expect(showEmailPasswordForm(val)).toEqual(expected);
   });
 
-  it('loginWithScatter', () => {
-    const expected = {
-      type: LOGIN_WITH_SCATTER,
-    };
-
-    expect(loginWithScatter()).toEqual(expected);
-  });
-
-  it('loginWithScatterSuccess', () => {
-    const expected = {
-      type: LOGIN_WITH_SCATTER_SUCCESS,
-    };
-
-    expect(loginWithScatterSuccess()).toEqual(expected);
-  });
-
-  it('loginWithScatterErr', () => {
-    const loginWithScatterError = 'loginWithScatterError';
-
-    const expected = {
-      type: LOGIN_WITH_SCATTER_ERROR,
-      loginWithScatterError,
-    };
-
-    expect(loginWithScatterErr(loginWithScatterError)).toEqual(expected);
-  });
-
   it('loginWithEmail', () => {
     const val = fromJS({
       [EMAIL_FIELD]: EMAIL_FIELD,
@@ -102,16 +69,14 @@ describe('Login actions', () => {
   });
 
   it('loginWithEmailSuccess', () => {
-    const eosAccount = 'eosAccount';
-    const content = 'content';
+    const content = 'eosAccount';
 
     const expected = {
       type: LOGIN_WITH_EMAIL_SUCCESS,
-      eosAccount,
       content,
     };
 
-    expect(loginWithEmailSuccess(eosAccount, content)).toEqual(expected);
+    expect(loginWithEmailSuccess(content)).toEqual(expected);
   });
 
   it('loginWithEmailErr', () => {

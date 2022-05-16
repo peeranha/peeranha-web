@@ -8,12 +8,8 @@ import {
   uploadImg,
   getProfileInfo,
   saveProfile,
-  UsersFetcher,
-  AccountsSortedBy,
   getUserAvatar,
 } from '../profileManagement';
-
-import { ACCOUNT_TABLE, ALL_ACCOUNTS_SCOPE } from '../constants';
 
 jest.mock('../ipfs', () => ({
   saveFile: jest.fn().mockImplementation(() => {}),
@@ -68,51 +64,6 @@ describe('getUserAvatar', () => {
 
     expect(getUserAvatar(avatarHash, userId, account)).toBe(userBodyAvatar);
   });
-});
-
-describe('Fetcher', () => {
-  const firstFetchCount = 10;
-  const fetchCount = 10;
-  const sortType = AccountsSortedBy.rating;
-
-  const fetcherEx = new UsersFetcher(
-    firstFetchCount,
-    fetchCount,
-    sortType,
-    cmp,
-  );
-
-  it('constructor', () => {
-    fetcherEx.constructor(firstFetchCount, fetchCount, sortType, cmp);
-
-    expect(fetcherEx.sortType).toBe(sortType);
-    expect(fetcherEx.firstFetchCount).toBe(firstFetchCount);
-    expect(fetcherEx.fetchCount).toBe(fetchCount);
-    expect(fetcherEx.itemArray).toEqual([]);
-    expect(fetcherEx.hasMoreToFetch).toBe(true);
-    expect(fetcherEx.eosService).toEqual(cmp);
-  });
-
-  it('getNextItems', async () => {
-    fetcherEx.eosService.getTableRows.mockImplementation(() => []);
-
-    const res = await fetcherEx.getNextItems();
-
-    expect(res).not.toBe(undefined);
-  });
-});
-
-it('AccountsSortedBy', () => {
-  expect(typeof AccountsSortedBy.rating).toBe('object');
-  expect(typeof AccountsSortedBy.creationTime).toBe('object');
-});
-
-it('UsersFetcher', () => {
-  const fetcher = new UsersFetcher();
-
-  expect(fetcher.TABLE).toBe(ACCOUNT_TABLE);
-  expect(fetcher.SCOPE).toBe(ALL_ACCOUNTS_SCOPE);
-  expect(fetcher.PRIMARY_KEY).toBe('user');
 });
 
 /* eslint camelcase: 0 */

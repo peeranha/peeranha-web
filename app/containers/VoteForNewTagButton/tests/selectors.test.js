@@ -12,13 +12,15 @@ describe('selectVoteForNewTagButtonDomain', () => {
   const upVoteError = null;
   const downVoteLoading = false;
   const downVoteError = null;
+  const ids = [];
 
-  const globalState = fromJS({
+  const globalState = {
     upVoteLoading,
     upVoteError,
     downVoteLoading,
     downVoteError,
-  });
+    ids,
+  };
 
   const mockedState = fromJS({
     suggestedCommunities: globalState,

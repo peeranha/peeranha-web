@@ -28,7 +28,10 @@ describe('sendTokensReducer', () => {
   });
 
   it('hideSendTokensModal', () => {
-    const obj = state.set('showModal', false);
+    const obj = state
+      .set('showModal', false)
+      .set('isVerifyFbModal', false)
+      .set('fbSendTokensFormValues', null);
     expect(sendTokensReducer(state, hideSendTokensModal())).toEqual(obj);
   });
 
@@ -40,7 +43,10 @@ describe('sendTokensReducer', () => {
   });
 
   it('sendTokensSuccess', () => {
-    const obj = state.set('sendTokensProcessing', false);
+    const obj = state
+      .set('sendTokensProcessing', false)
+      .set('isVerifyFbModal', false)
+      .set('fbSendTokensFormValues', null);
     expect(sendTokensReducer(state, sendTokensSuccess())).toEqual(obj);
   });
 

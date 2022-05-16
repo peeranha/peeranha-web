@@ -1,13 +1,8 @@
 import { fromJS } from 'immutable';
 
-import questionsOfUserReducer, { initialState } from '../reducer';
+import questionsOfUserReducer from '../reducer';
 
-import {
-  getQuestions,
-  getQuestionsSuccess,
-  getQuestionsErr,
-  resetStore,
-} from '../actions';
+import { getQuestions, getQuestionsSuccess, getQuestionsErr } from '../actions';
 
 describe('questionsOfUserReducer', () => {
   let state;
@@ -23,7 +18,7 @@ describe('questionsOfUserReducer', () => {
   });
 
   it('getQuestions', () => {
-    const obj = state.set('questionsLoading', true);
+    const obj = state.set('questionsLoading', true).set('questions', []);
     expect(questionsOfUserReducer(state, getQuestions())).toEqual(obj);
   });
 
@@ -31,7 +26,7 @@ describe('questionsOfUserReducer', () => {
     const questions = [1, 2, 3];
     const obj = state
       .set('questionsLoading', false)
-      .set('questions', state.get('questions').concat(questions))
+      .set('questions', questions)
       .set('isLastFetch', true);
 
     expect(
@@ -48,9 +43,5 @@ describe('questionsOfUserReducer', () => {
     expect(
       questionsOfUserReducer(state, getQuestionsErr(getQuestionsError)),
     ).toEqual(obj);
-  });
-
-  it('resetStore', () => {
-    expect(questionsOfUserReducer(state, resetStore())).toEqual(initialState);
   });
 });

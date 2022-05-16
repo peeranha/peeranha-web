@@ -6,10 +6,6 @@ import {
   hideLoginModal,
   showEmailPasswordForm,
   loginWithEmail,
-  loginWithEmailSuccess,
-  loginWithEmailErr,
-  loginWithScatterSuccess,
-  loginWithScatterErr,
   finishRegistrationWithDisplayName,
   finishRegistrationWithDisplayNameSuccess,
   finishRegistrationWithDisplayNameErr,
@@ -58,51 +54,9 @@ describe('loginReducer', () => {
       [EMAIL_FIELD]: EMAIL_FIELD,
     });
 
-    const obj = state.set('loginProcessing', true);
+    const obj = state.set('loginWithEmailProcessing', true);
 
     expect(loginReducer(state, loginWithEmail(val))).toEqual(obj);
-  });
-
-  it('LOGIN_WITH_EMAIL_SUCCESS', () => {
-    const eosAccount = 'eosAccount';
-
-    const obj = state
-      .set('loginProcessing', false)
-      .set('eosAccount', eosAccount)
-      .set('showModal', initialState.get('showModal'))
-      .set('content', initialState.get('content'));
-
-    expect(loginReducer(state, loginWithEmailSuccess(eosAccount))).toEqual(obj);
-  });
-
-  it('LOGIN_WITH_EMAIL_ERROR', () => {
-    const loginWithEmailError = 'loginWithEmailError';
-
-    const obj = state
-      .set('loginProcessing', false)
-      .set('loginWithEmailError', loginWithEmailError);
-
-    expect(loginReducer(state, loginWithEmailErr(loginWithEmailError))).toEqual(
-      obj,
-    );
-  });
-
-  it('LOGIN_WITH_SCATTER_SUCCESS', () => {
-    const obj = state
-      .set('showModal', initialState.get('showModal'))
-      .set('content', initialState.get('content'));
-
-    expect(loginReducer(state, loginWithScatterSuccess())).toEqual(obj);
-  });
-
-  it('LOGIN_WITH_SCATTER_ERROR', () => {
-    const loginWithScatterError = 'loginWithScatterError';
-
-    const obj = state.set('loginWithScatterError', loginWithScatterError);
-
-    expect(
-      loginReducer(state, loginWithScatterErr(loginWithScatterError)),
-    ).toEqual(obj);
   });
 
   it('FINISH_REGISTRATION', () => {
