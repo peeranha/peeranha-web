@@ -156,7 +156,7 @@ const MainLinks = ({ currClientHeight, profile }) => {
 
       <A1 to={routes.feed()} name="feed" route={route}>
         <IconLg className="mr-2" icon={myFeedIcon} />
-        <FormattedMessage id={messages[profile ? 'feed' : 'myFeed'].id} />
+        <FormattedMessage id={messages[profile ? 'myFeed' : 'feed'].id} />
       </A1>
 
       <A1 to={routes.questions()} name="questions" route={route}>
