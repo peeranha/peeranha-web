@@ -1016,7 +1016,7 @@
     "Subscribe to communities to keep track of topics that you are interested in.",
   "app.containers.Questions.noPostsYet": "No posts yet.",
   "app.containers.Questions.thisIsNewCommunity":
-    "This is a new community, you can be the first to post a post. Your post may become the most popular.",
+    "This is the new community, you can be the first to create a post and it may become the most popular.",
   "app.containers.Questions.readMyFeed": "Read my feed",
   "app.containers.Questions.goToCommunities": "Go to communities",
   "app.containers.Questions.topQuestionPopover":
