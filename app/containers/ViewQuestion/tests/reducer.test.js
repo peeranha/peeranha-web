@@ -57,7 +57,7 @@ describe('viewQuestionReducer', () => {
     state = fromJS({
       username: '',
     }).set('ids', []);
-  }); // ?? just start
+  });
 
   it('returns the initial state', () => {
     expect(viewQuestionReducer(state, {})).toEqual(state);
