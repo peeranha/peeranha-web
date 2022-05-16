@@ -757,7 +757,7 @@
   "app.containers.ViewQuestion.itemsMax":
     "Number of items is reached the maximum",
   "app.containers.ViewQuestion.noRootsToVote":
-    "You cannot vote on your own questions and answers",
+    "You cannot vote on your own posts and answers",
   "app.containers.ViewQuestion.creatorCannot":
     "Creator cannot complete this action",
   "app.containers.ViewQuestion.notEnoughEnergy":
