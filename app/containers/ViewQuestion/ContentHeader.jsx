@@ -180,7 +180,7 @@ const ContentHeader = props => {
           type={type}
           postTime={postTime}
           locale={locale}
-          achievementsCount={author.achievementsReached?.length}
+          achievementsCount={author.achievements?.length}
           isTemporaryAccount={isTemporaryAccount}
         />
 

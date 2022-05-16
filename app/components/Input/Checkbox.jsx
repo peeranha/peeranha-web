@@ -30,7 +30,7 @@ export const Icon = styled.span`
   background-color: ${BG_LIGHT};
   background-repeat: no-repeat;
   background-position: center;
-  z-index: 10;
+  z-index: 9;
   cursor: pointer;
 
   ${({ error }) => ErrorHandling(error)};

@@ -163,7 +163,7 @@ const CommentView = item => {
           name={item.author?.displayName ?? ''}
           rating={getRatingByCommunity(item.author, item.communityId)}
           account={item.author.user}
-          achievementsCount={item.author.achievementsReached?.length}
+          achievementsCount={item.author.achievements?.length}
           postTime={+item.postTime}
           locale={item.locale}
           isComment

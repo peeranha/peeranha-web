@@ -61,7 +61,7 @@ const View = ({
 
       <MobileAdditionalLinks profile={profile} isMenuVisible={isMenuVisible} />
 
-      <MainLinks currClientHeight={currClientHeight} />
+      <MainLinks currClientHeight={currClientHeight} profile={profile} />
 
       <AdditionalLinks currClientHeight={currClientHeight} />
     </ViewStyled>
