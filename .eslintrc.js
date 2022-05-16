@@ -2,9 +2,21 @@ const fs = require('fs');
 
 const prettierOptions = JSON.parse(fs.readFileSync('./.prettierrc', 'utf8'));
 module.exports = {
-  parser: 'babel-eslint',
-  extends: ['airbnb', 'prettier', 'plugin:storybook/recommended'],
-  plugins: ['prettier', 'redux-saga', 'react', 'jsx-a11y'],
+  parser: '@typescript-eslint/parser',
+  extends: [
+    'airbnb',
+    'prettier',
+    'prettier/@typescript-eslint',
+    'plugin:storybook/recommended',
+  ],
+  plugins: [
+    'prettier',
+    'redux-saga',
+    'react',
+    '@typescript-eslint',
+    'jsx-a11y',
+    'react-hooks',
+  ],
   env: {
     browser: true,
     node: true,
@@ -12,10 +24,24 @@ module.exports = {
     es6: true,
   },
   parserOptions: {
-    ecmaVersion: 6,
+    ecmaVersion: 7,
     sourceType: 'module',
     ecmaFeatures: {
+      modules: true,
       jsx: true,
+      forOf: true,
+      blockBindings: true,
+      arrowFunctions: true,
+      classes: true,
+      defaultParams: true,
+      destructuring: true,
+      generators: true,
+      restParams: true,
+      spread: true,
+      superInFunctions: true,
+      templateStrings: true,
+      experimentalObjectRestSpread: true,
+      experimentalDecorators: true,
     },
   },
   rules: {
@@ -67,7 +93,64 @@ module.exports = {
     'redux-saga/yield-effects': 2,
     'require-yield': 0,
     'no-plusplus:': 'off',
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'warn',
   },
+  overrides: [
+    {
+      files: ['*.ts', '*.tsx'],
+      rules: {
+        'no-undef': 'off',
+        'no-unused-vars': 'off',
+        '@typescript-eslint/no-unused-vars': 'off',
+        '@typescript-eslint/no-explicit-any': 'off',
+        '@typescript-eslint/adjacent-overload-signatures': 'error',
+        '@typescript-eslint/ban-ts-comment': 'error',
+        '@typescript-eslint/ban-types': 'error',
+        camelcase: 'off',
+        '@typescript-eslint/naming-convention': [
+          'error',
+          {
+            selector: 'function',
+            format: ['PascalCase', 'camelCase'],
+          },
+        ],
+        '@typescript-eslint/consistent-type-assertions': 'error',
+        '@typescript-eslint/member-delimiter-style': [
+          2,
+          {
+            multiline: {
+              delimiter: 'none',
+            },
+            singleline: {
+              delimiter: 'semi',
+            },
+          },
+        ],
+        'no-array-constructor': 'off',
+        '@typescript-eslint/no-array-constructor': 'error',
+        'no-empty-function': 'off',
+        '@typescript-eslint/no-empty-function': 'error',
+        '@typescript-eslint/no-empty-interface': 'error',
+        '@typescript-eslint/no-inferrable-types': 'error',
+        '@typescript-eslint/no-misused-new': 'error',
+        '@typescript-eslint/no-namespace': 'error',
+        '@typescript-eslint/no-non-null-assertion': 'warn',
+        '@typescript-eslint/no-this-alias': 'error',
+        'no-use-before-define': 'off',
+        '@typescript-eslint/no-use-before-define': 'error',
+        '@typescript-eslint/no-var-requires': 0,
+        '@typescript-eslint/prefer-namespace-keyword': 'error',
+        '@typescript-eslint/triple-slash-reference': 'error',
+        '@typescript-eslint/type-annotation-spacing': 'error',
+        'no-var': 'error',
+        'prefer-const': 'error',
+        'prefer-rest-params': 'error',
+        'prefer-spread': 'error',
+      },
+    },
+  ],
+
   settings: {
     'import/resolver': {
       webpack: {
@@ -81,6 +164,7 @@ module.exports = {
         ['components', './app/components'],
         ['styles', './app/styles'],
         ['hooks', './app/hooks'],
+        ['icons', './app/components/icons'],
       ],
     },
   },
