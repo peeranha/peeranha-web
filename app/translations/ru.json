@@ -767,7 +767,7 @@
     "Вы уже ответили на этот вопрос",
   "app.containers.ViewQuestion.itemsMax": "Число элементов достигло максимума",
   "app.containers.ViewQuestion.noRootsToVote":
-    "Вы не можете голосовать за свои вопросы и ответы",
+    "Вы не можете голосовать за свои посты и ответы",
   "app.containers.ViewQuestion.creatorCannot":
     "Создатель не может совершить это действие",
   "app.containers.ViewQuestion.notEnoughEnergy":
