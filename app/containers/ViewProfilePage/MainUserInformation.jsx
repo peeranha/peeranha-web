@@ -126,7 +126,6 @@ const MainUserInformation = ({
   locale,
   redirectToEditProfilePage,
 }) => {
-  console.log(profile);
   const isTemporaryAccount = !!profile?.integer_properties?.find(
     x => x.key === TEMPORARY_ACCOUNT_KEY && x.value,
   );
