@@ -156,7 +156,7 @@ export const getCurrentAccountWorker = function*(initAccount) {
       call(getProfileInfo, account, ethereumService, true, true),
       call(getBalance, ethereumService, account),
       call(getAvailableBalance, ethereumService, account),
-      call(getUserBoost, ethereumService, account, currentPeriod.id),
+      call(getUserBoost, ethereumService, account, 1),
     ]);
 
     setCookie({
@@ -253,22 +253,6 @@ function* updateRefer(user, ethereum) {
     });
   }
 }
-
-const rewardRefer = async (user, eosService) => {
-  try {
-    await eosService.sendTransaction(
-      user,
-      REWARD_REFER,
-      {
-        invited_user: user,
-      },
-      process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
-      null,
-    );
-  } catch (err) {
-    return err;
-  }
-};
 
 export function* updateAccWorker({ ethereum }) {
   try {

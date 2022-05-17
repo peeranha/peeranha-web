@@ -1,24 +1,15 @@
 /* eslint camelcase: 0 */
 import {
-  CURRENT_STAKE_FORM,
   MAX_STAKE_PREDICTION,
   MIN_STAKE_PREDICTION,
 } from 'containers/Boost/constants';
 import { getFormattedNum3 } from './numbers';
 
 import {
-  ALL_BOUNTIES_SCOPE,
   BOOST_MODIFIER_HIGH,
   BOOST_MODIFIER_LOW,
   BOOST_MULTIPLIER,
-  BOUNTY_TABLE,
   EDIT_BOUNTY_METHOD,
-  INF_LIMIT,
-  PAY_BOUNTY_METHOD,
-  SEND_TOKEN_METHOD,
-  SET_BOUNTY_METHOD,
-  TOKEN_AWARDS_SCOPE,
-  TOKEN_AWARDS_TABLE,
   WEI_IN_ETH,
 } from './constants';
 
@@ -29,21 +20,16 @@ import {
   GET_AVERAGE_STAKE,
   GET_BOOST,
   GET_STAKE,
+  GET_USER_BALANCE,
   GET_USER_STAKE,
 } from './ethConstants';
 
-const PERIOD_LENGTH = {
-  development: 2 * 60 * 60, // two hours
-  test: 2 * 60 * 60, // two hours
-  production: 7 * 24 * 60 * 60, // one week
-};
-
-/**
- * @balance - string, example - '1000.000000 PEER'
- */
 export const getBalance = async (ethereumService, user) => {
   if (user) {
-    const balance = await ethereumService.getUserBalance(user);
+    const balance = await ethereumService.getTokenDataWithArgs(
+      GET_USER_BALANCE,
+      [user],
+    );
     return Number(balance.toString() / WEI_IN_ETH);
   }
   return 0;
@@ -51,15 +37,14 @@ export const getBalance = async (ethereumService, user) => {
 
 export const getAvailableBalance = async (ethereumService, user) => {
   if (user) {
-    const balance = await ethereumService.getUserAvailableBalance(user);
+    const balance = await ethereumService.getTokenDataWithArgs(
+      GET_AVAILABLE_BALANCE,
+      [user],
+    );
     return Number(balance.toString() / WEI_IN_ETH);
   }
   return 0;
 };
-
-/**
- * @reward - string, example - '1000.000000 PEER'
- */
 
 export async function getWeekStat(ethereumService, user) {
   const [rewards, periods] = await getRewardStat(user);
@@ -92,48 +77,10 @@ export async function getWeekStat(ethereumService, user) {
 export async function sendTokens(
   eosService,
   { from, to, quantity, precision, symbol, contractAccount },
-) {
-  const data = {
-    from,
-    to,
-    quantity: getNormalizedCurrency(quantity, precision, symbol),
-    memo: '',
-  };
-
-  const response = await eosService.sendTransaction(
-    from,
-    SEND_TOKEN_METHOD,
-    data,
-    contractAccount,
-    true,
-  );
-
-  return { response, data };
-}
+) {}
 
 export async function pickupReward(ethereumService, user, periodIndex) {
   return await ethereumService.claimUserReward(user, periodIndex);
-}
-
-export async function setBounty(
-  user,
-  bounty,
-  questionId,
-  timestamp,
-  eosService,
-) {
-  await eosService.sendTransaction(
-    user,
-    SET_BOUNTY_METHOD,
-    {
-      user,
-      bounty,
-      question_id: questionId,
-      timestamp,
-    },
-    process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
-    true,
-  );
 }
 
 export function getEditBountyTrActData(user, bounty, questionId, timestamp) {
@@ -150,52 +97,9 @@ export function getEditBountyTrActData(user, bounty, questionId, timestamp) {
   };
 }
 
-export async function editBounty(
-  user,
-  bounty,
-  questionId,
-  timestamp,
-  eosService,
-) {
-  const {
-    action,
-    data,
-    account,
-    waitForGettingToBlock,
-  } = getEditBountyTrActData(user, bounty, questionId, timestamp);
+export async function payBounty(user, questionId, isDeleted, eosService) {}
 
-  await eosService.sendTransaction(
-    user,
-    action,
-    data,
-    account,
-    waitForGettingToBlock,
-  );
-}
-
-export async function payBounty(user, questionId, isDeleted, eosService) {
-  await eosService.sendTransaction(
-    user,
-    PAY_BOUNTY_METHOD,
-    {
-      user,
-      question_id: questionId,
-      on_delete: +isDeleted,
-    },
-    process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
-    true,
-  );
-}
-
-export async function getQuestionBounty(questionId, eosService) {
-  const bountyrow = await eosService.getTableRow(
-    BOUNTY_TABLE,
-    ALL_BOUNTIES_SCOPE,
-    questionId,
-    process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
-  );
-  return bountyrow;
-}
+export async function getQuestionBounty(questionId, eosService) {}
 
 export function getNormalizedCurrency(quantity, precision, symbol) {
   if (!Number(quantity)) {
@@ -205,39 +109,6 @@ export function getNormalizedCurrency(quantity, precision, symbol) {
   const num = getFormattedNum3(Number(quantity), precision).replace(/ /gim, '');
 
   return `${num} ${symbol}`;
-}
-
-// TODO: test
-export function createGetRewardPool(
-  period,
-  totalRating,
-  userSupply,
-  maxUserSupply,
-) {
-  let inflationRewardPool = Number(process.env.START_POOL) * 1000000;
-
-  for (
-    let i = 1;
-    i <= Math.floor(period / Number(process.env.INFLATION_PERIOD));
-    i++
-  ) {
-    inflationRewardPool = Math.floor(
-      inflationRewardPool * Number(process.env.POOL_REDUSE_COEFFICIENT),
-    );
-  }
-
-  inflationRewardPool /= 1000000;
-
-  let rewardPool = totalRating * Number(process.env.RATING_TOKEN_COFICIENT);
-
-  if (rewardPool > inflationRewardPool) {
-    rewardPool = inflationRewardPool;
-  }
-  if (maxUserSupply - userSupply < rewardPool) {
-    return maxUserSupply - userSupply;
-  }
-
-  return Math.round(rewardPool * 1000000) / 1000000;
 }
 
 // TODO: test
@@ -376,65 +247,3 @@ export const getPredictedBoost = (userStake, maxStake) => {
     value: boost,
   };
 };
-
-export const setWeekDataByKey = (boostStat, key, nextWeekPeriod) => {
-  let currentWeekIndex = -1;
-  if (boostStat.length >= 1) {
-    currentWeekIndex =
-      boostStat[boostStat.length - 1].period === nextWeekPeriod
-        ? boostStat.length - 2
-        : boostStat.length - 1;
-  }
-  const currentWeekValue =
-    currentWeekIndex < 0 ? null : boostStat[currentWeekIndex][key];
-  const nextWeekValue = boostStat[boostStat.length - 1][key];
-
-  return [
-    currentWeekValue ? getStakeNum(currentWeekValue) : 0,
-    getStakeNum(nextWeekValue),
-  ];
-};
-
-export const getRewardAmountByBoost = (
-  currentPeriod,
-  amount,
-  globalBoostStat = [],
-  userBoostStat = [],
-) => {
-  if (!amount || !userBoostStat.length) return amount;
-
-  const filtredUserBoostStat = userBoostStat.filter(
-    item => item.period < currentPeriod,
-  );
-
-  if (!filtredUserBoostStat.length) return amount;
-
-  const currentPeriodUserBoostStat =
-    filtredUserBoostStat[filtredUserBoostStat.length - 1];
-  const userStake = getStakeNum(currentPeriodUserBoostStat.staked_tokens);
-
-  if (userStake === 0) return amount;
-
-  const currentPeriodGlobalBoostStat = globalBoostStat.find(
-    item => item.period === currentPeriodUserBoostStat.period,
-  );
-  const maxStake = getStakeNum(currentPeriodGlobalBoostStat.max_stake);
-
-  const boost = getPredictedBoost(userStake, maxStake);
-
-  if (boost.value <= 1) return amount;
-
-  return amount * boost.value;
-};
-
-const getTokenAwards = eosService =>
-  eosService.getTableRows(
-    TOKEN_AWARDS_TABLE,
-    TOKEN_AWARDS_SCOPE,
-    0,
-    INF_LIMIT,
-    undefined,
-    undefined,
-    undefined,
-    process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
-  );
