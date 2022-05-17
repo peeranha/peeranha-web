@@ -184,9 +184,14 @@ module.exports = options => {
       },
       alias: {
         components: path.join(__dirname, '../../app/components'),
+        'common-components': path.join(
+          __dirname,
+          '../../app/components/common',
+        ),
         styles: path.join(__dirname, '../../app/styles'),
         hooks: path.join(__dirname, '../../app/hooks'),
         icons: path.join(__dirname, '../../app/components/icons'),
+        themes: path.join(__dirname, '../../app/themes'),
       },
     },
     devtool: options.devtool,

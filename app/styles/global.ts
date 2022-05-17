@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { css } from '@emotion/react';
 import emotionReset from 'emotion-reset';
 import breakpoints from './breakpoints';
@@ -31,13 +30,14 @@ export default css`
 
   :root {
     ${Object.keys(colors).map(
-    key => `
-      ${key}: ${colors[key]};
+      key => `
+      ${key}: ${(colors as any)[key]};
     `,
-  )};
+    )};
   }
 
-  body {
+  body,
+  button {
     font-family: 'Sourse Sans Pro', sans-serif;
     font-style: normal;
     font-weight: 400;
@@ -52,7 +52,7 @@ export default css`
 
   .container {
     max-width: 1366px;
-    width: calc(100% - 48px);
+    width: calc(100% - 20px);
     margin: 0 auto;
   }
 
@@ -104,10 +104,10 @@ export default css`
   .fww {
     flex-wrap: wrap;
   }
-  .fh {
+  .full-height {
     height: 100%;
   }
-  .fw {
+  .full-width {
     width: 100%;
   }
   .cup {
@@ -136,5 +136,73 @@ export default css`
   }
   .pa {
     position: absolute;
+  }
+  .l0 {
+    left: 0;
+  }
+  .r0 {
+    right: 0;
+  }
+  .t0 {
+    top: 0;
+  }
+  .b0 {
+    bottom: 0;
+  }
+  .ovh {
+    overflow: hidden;
+  }
+  .on {
+    outline: none;
+  }
+  .p0 {
+    padding: 0;
+  }
+  .m0 {
+    margin: 0;
+  }
+  .bd0 {
+    border: none;
+  }
+  .no-wrap {
+    white-space: nowrap;
+  }
+  .border-box {
+    box-sizing: border-box;
+  }
+  .transform90 {
+    transform: rotate(90deg);
+  }
+  .transform180 {
+    transform: rotate(180deg);
+  }
+  .transform270 {
+    transform: rotate(270deg);
+  }
+  .uppercase {
+    text-transform: uppercase;
+  }
+  .capitalize {
+    text-transform: capitalize;
+  }
+  .medium {
+    font-weight: 500;
+  }
+  a {
+    text-decoration: none;
+  }
+  .icon {
+    color: var(--color-background-icon);
+  }
+  .text-ellipsis {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .break-word {
+    word-break: break-word;
+  }
+  .break-all {
+    word-break: break-all;
   }
 `;

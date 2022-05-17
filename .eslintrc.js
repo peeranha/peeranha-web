@@ -4,10 +4,9 @@ const prettierOptions = JSON.parse(fs.readFileSync('./.prettierrc', 'utf8'));
 module.exports = {
   parser: '@typescript-eslint/parser',
   extends: [
-    'airbnb',
-    'prettier',
+    'airbnb-base',
     'prettier/@typescript-eslint',
-    'plugin:storybook/recommended',
+    'plugin:prettier/recommended',
   ],
   plugins: [
     'prettier',
@@ -61,13 +60,7 @@ module.exports = {
     'import/extensions': 0,
     'jsx-a11y/anchor-is-valid': 0,
     'react/jsx-no-bind': 0,
-    indent: [
-      2,
-      2,
-      {
-        SwitchCase: 1,
-      },
-    ],
+    indent: 'off',
     'jsx-a11y/aria-props': 2,
     'jsx-a11y/heading-has-content': 0,
     'jsx-a11y/label-has-for': 2,
@@ -156,15 +149,20 @@ module.exports = {
       webpack: {
         config: './internals/webpack/webpack.prod.babel.js',
       },
+      'babel-module': {
+        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+      },
       node: {
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
         paths: ['app'],
       },
       alias: [
         ['components', './app/components'],
+        ['common-components', './app/components/common'],
         ['styles', './app/styles'],
         ['hooks', './app/hooks'],
         ['icons', './app/components/icons'],
+        ['themes', './app/themes'],
       ],
     },
   },

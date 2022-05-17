@@ -1,28 +1,28 @@
-import { css } from '@emotion/react'
-import React from 'react'
+import { css } from '@emotion/react';
+import React from 'react';
 
 type IconComponentProps = {
-  id?: string
-  viewBox?: string
-  fill?: string
-  stroke?: string
-  size?: number
-  className?: string
-  style?: React.CSSProperties
-  onClick?: (e: React.MouseEvent) => void
-  children: JSX.Element
-}
+  id?: string;
+  viewBox?: string;
+  fill?: string;
+  stroke?: string;
+  size?: number;
+  className?: string;
+  style?: React.CSSProperties;
+  onClick?: (e: React.MouseEvent) => void;
+  children?: JSX.Element | React.ReactNode;
+};
 
-export type IconProps = Omit<IconComponentProps, 'viewBox'>
+export type IconProps = Omit<IconComponentProps, 'viewBox'>;
 
 const IconComponent: React.FC<IconComponentProps> = ({
   className,
   children,
   onClick,
   style,
-  size = 24,
+  size = 18,
   fill = 'currentColor',
-  viewBox = '0 0 24 24',
+  viewBox = '0 0 18 18',
 }): JSX.Element => {
   return (
     <svg
@@ -41,7 +41,7 @@ const IconComponent: React.FC<IconComponentProps> = ({
     >
       {children}
     </svg>
-  )
-}
+  );
+};
 
-export default IconComponent
+export default IconComponent;

@@ -18,16 +18,13 @@
     "jsxImportSource": "@emotion/react",
     "paths": {
       "components/*": ["app/components/*"],
+      "common-components/*": ["app/components/common*"],
       "styles/*": ["app/styles/*"],
       "hooks/*": ["app/hooks/*"],
-      "icons/*": ["app/components/icons/*"]
+      "icons/*": ["app/components/icons/*"],
+      "themes/*": ["app/themes/*"]
     }
   },
-  "include": [
-    "./app/**/*.ts",
-    "./app/**/*.tsx",
-    "app/components/common/Button/Button.stories.jsx",
-    "app/components/icons/Icons.stories.jsx"
-  ],
+  "include": ["emotion.d.ts", "./app/**/*.ts", "./app/**/*.tsx"],
   "exclude": ["node_modules"]
 }
