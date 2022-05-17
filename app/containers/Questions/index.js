@@ -266,11 +266,7 @@ export const Questions = ({
         </InfinityLoader>
       )}
       {questionsList.length === 0 && (
-        <TopCommunities
-          communities={communities}
-          profile={profile}
-          questions={questionsList}
-        />
+        <TopCommunities communities={communities} profile={profile} />
       )}
       {displayLoader && <LoadingIndicator />}
     </div>
