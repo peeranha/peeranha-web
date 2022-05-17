@@ -30,9 +30,6 @@ const Label = styled.div`
 
   @media only screen and (max-width: 600px) {
     transform: translateX(-98%);
-  }
-
-  @media only screen and (max-width: 500px) {
     width: 88vw;
   }
 `;
