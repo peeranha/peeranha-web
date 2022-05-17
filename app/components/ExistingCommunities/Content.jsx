@@ -59,6 +59,11 @@ export const InfoBlock = styled.div`
   }
 `;
 
+const SpanCenter = P.extend`
+  width: 100%;
+  text-align: center;
+`;
+
 const Info = styled.div`
   display: flex;
   flex-direction: column;
@@ -145,38 +150,42 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
 
                 <InfoBlock className="flex-wrap flex-sm-nowrap">
                   <Info>
-                    <P>{getFormattedNum2(x.followingUsers)}</P>
+                    <SpanCenter>
+                      {getFormattedNum2(x.followingUsers)}
+                    </SpanCenter>
                     <P>
                       <FormattedMessage {...commonMessages.usersShort} />
                     </P>
                   </Info>
 
                   <Info>
-                    <P>{getFormattedNum2(x.postCount)}</P>
+                    <SpanCenter>{getFormattedNum2(x.postCount)}</SpanCenter>
                     <A to={routes.questions(id)}>
                       <FormattedMessage {...commonMessages.posts} />
                     </A>
                   </Info>
 
                   <Info>
-                    <P>{getFormattedNum2(x.replyCount)}</P>
+                    <SpanCenter>{getFormattedNum2(x.replyCount)}</SpanCenter>
                     <P>
                       <FormattedMessage {...commonMessages.answers} />
                     </P>
                   </Info>
 
                   <Info>
-                    <P>{getFormattedNum2(tags?.length)}</P>
+                    <SpanCenter>{getFormattedNum2(tags?.length)}</SpanCenter>
                     <A to={routes.communityTags(id)}>
                       <FormattedMessage {...commonMessages.tags} />
                     </A>
                   </Info>
 
                   <Info>
-                    <P>{getDifferenceInDate(x.creationTime, locale)}</P>
-                    <P>
+                    <SpanCenter>
+                      {getDifferenceInDate(x.creationTime, locale)}
+                    </SpanCenter>
+                    <SpanCenter>
                       <FormattedMessage {...commonMessages.age} />
-                    </P>
+                    </SpanCenter>
                   </Info>
 
                   <Info>
