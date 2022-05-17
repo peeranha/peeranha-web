@@ -743,7 +743,7 @@
   "app.containers.ViewQuestion.lastEdited": "Last edited",
   "app.containers.ViewQuestion.voteToDelete": "Vote to delete",
   "app.containers.ViewQuestion.notEnoughRating":
-    "To complete this action, your rating has to be at least",
+    "To complete this action, your reputation has to be at least",
   "app.containers.ViewQuestion.cannotCompleteBecauseBlocked":
     "You can't complete this action. You voted to delete it earlier",
   "app.containers.ViewQuestion.cannotCompleteBecauseVoted":
