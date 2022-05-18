@@ -13,26 +13,17 @@ import { uploadImg } from './profileManagement';
 import {
   ALL_COMMUNITIES_SCOPE,
   COMMUNITIES_TABLE,
-  CREATED_TAGS_TABLE,
-  EDIT_TAG_ACTION,
-  FOLLOW_COMM,
   SINGLE_COMMUNITY_DETAILS,
-  TAGS_TABLE,
-  UNFOLLOW_COMM,
-  VOTE_TO_CREATE_COMMUNITY,
-  VOTE_TO_CREATE_TAG,
-  VOTE_TO_DELETE_COMMUNITY,
-  VOTE_TO_DELETE_TAG,
 } from './constants';
 import {
   CREATE_COMMUNITY,
   CREATE_TAG,
   FOLLOW_COMMUNITY,
-  GET_COMMUNITY,
   UNFOLLOW_COMMUNITY,
   EDIT_COMMUNITY,
-  EDIT_POST,
   EDIT_TAG,
+  CONTRACT_COMMUNITY,
+  CONTRACT_USER,
 } from './ethConstants';
 import {
   getAllTags,
@@ -86,7 +77,8 @@ export const editCommunity = async (
   );
 
   const ipfsHash = getBytes32FromIpfsHash(communityIpfsHash);
-  await ethereumService.sendTransactionWithoutDelegating(
+  await ethereumService.sendTransaction(
+    CONTRACT_COMMUNITY,
     selectedAccount,
     EDIT_COMMUNITY,
     [communityId, ipfsHash],
@@ -239,7 +231,8 @@ export async function getExistingTags(tags) {
 export async function editTag(user, ethereumService, tag, tagId) {
   const ipfsLink = await saveText(JSON.stringify(tag));
   const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
-  return await ethereumService.sendTransactionWithoutDelegating(
+  return await ethereumService.sendTransaction(
+    CONTRACT_COMMUNITY,
     user,
     EDIT_TAG,
     [tag.communityId, tagId, ipfsHash],
@@ -251,26 +244,14 @@ export async function upVoteToCreateTag(
   selectedAccount,
   communityId,
   tagid,
-) {
-  await eosService.sendTransaction(selectedAccount, VOTE_TO_CREATE_TAG, {
-    user: selectedAccount,
-    communityId: +communityId,
-    tag_id: +tagid,
-  });
-}
+) {}
 
 export async function downVoteToCreateTag(
   eosService,
   selectedAccount,
   communityId,
   tagid,
-) {
-  await eosService.sendTransaction(selectedAccount, VOTE_TO_DELETE_TAG, {
-    user: selectedAccount,
-    communityId: +communityId,
-    tag_id: +tagid,
-  });
-}
+) {}
 
 const formCommunityObjectWithTags = (rawCommunity, tags) => {
   return {
@@ -324,9 +305,12 @@ export async function unfollowCommunity(
   communityIdFilter,
   account,
 ) {
-  await ethereumService.sendTransactionWithSigner(account, UNFOLLOW_COMMUNITY, [
-    communityIdFilter,
-  ]);
+  await ethereumService.sendTransaction(
+    CONTRACT_USER,
+    account,
+    UNFOLLOW_COMMUNITY,
+    [communityIdFilter],
+  );
 }
 
 export async function followCommunity(
@@ -334,9 +318,12 @@ export async function followCommunity(
   communityIdFilter,
   account,
 ) {
-  await ethereumService.sendTransactionWithSigner(account, FOLLOW_COMMUNITY, [
-    communityIdFilter,
-  ]);
+  await ethereumService.sendTransaction(
+    CONTRACT_USER,
+    account,
+    FOLLOW_COMMUNITY,
+    [communityIdFilter],
+  );
 }
 
 /* eslint camelcase: 0 */
@@ -366,7 +353,8 @@ export async function createCommunity(
     }),
   );
   const ipfsHash = getBytes32FromIpfsHash(communityIpfsHash);
-  await ethereumService.sendTransactionWithoutDelegating(
+  await ethereumService.sendTransaction(
+    CONTRACT_COMMUNITY,
     selectedAccount,
     CREATE_COMMUNITY,
     [ipfsHash, tags],
@@ -381,7 +369,8 @@ export async function createTag(
 ) {
   const ipfsHash = getBytes32FromIpfsHash(await saveText(JSON.stringify(tag)));
 
-  await ethereumService.sendTransactionWithoutDelegating(
+  await ethereumService.sendTransaction(
+    CONTRACT_COMMUNITY,
     selectedAccount,
     CREATE_TAG,
     [communityId, ipfsHash],
@@ -392,20 +381,10 @@ export async function upVoteToCreateCommunity(
   eosService,
   selectedAccount,
   communityId,
-) {
-  await eosService.sendTransaction(selectedAccount, VOTE_TO_CREATE_COMMUNITY, {
-    user: selectedAccount,
-    communityId: +communityId,
-  });
-}
+) {}
 
 export async function downVoteToCreateCommunity(
   eosService,
   selectedAccount,
   communityId,
-) {
-  await eosService.sendTransaction(selectedAccount, VOTE_TO_DELETE_COMMUNITY, {
-    user: selectedAccount,
-    communityId: +communityId,
-  });
-}
+) {}

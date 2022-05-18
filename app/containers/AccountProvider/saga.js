@@ -255,22 +255,6 @@ function* updateRefer(user, ethereum) {
   }
 }
 
-const rewardRefer = async (user, eosService) => {
-  try {
-    await eosService.sendTransaction(
-      user,
-      REWARD_REFER,
-      {
-        invited_user: user,
-      },
-      process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
-      null,
-    );
-  } catch (err) {
-    return err;
-  }
-};
-
 export function* updateAccWorker({ ethereum }) {
   try {
     const account = yield call(ethereum.getSelectedAccount);
