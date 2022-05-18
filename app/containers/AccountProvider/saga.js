@@ -156,7 +156,7 @@ export const getCurrentAccountWorker = function*(initAccount) {
       call(getProfileInfo, account, ethereumService, true, true),
       call(getBalance, ethereumService, account),
       call(getAvailableBalance, ethereumService, account),
-      call(getUserBoost, ethereumService, account, 1),
+      call(getUserBoost, ethereumService, account, currentPeriod.id),
     ]);
 
     setCookie({
