@@ -21,6 +21,7 @@ const MarkAllAsReadButton = ({ markAllAsReadDispatch }) => (
     style={{ color: TEXT_PRIMARY }}
     className="d-flex align-items-center"
     onClick={markAllAsReadDispatch}
+    type="button"
   >
     <IconMd className="mr-2" icon={closeCircleIcon} fill={TEXT_PRIMARY} />
     <FormattedMessage id={commonMessages.markAllAsRead.id} />

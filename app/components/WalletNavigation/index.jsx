@@ -38,7 +38,7 @@ const WalletNavigation = ({ userId, showSendTokensModalDispatch }) => {
       </ul>
 
       <WrapperRightPanel className="right-panel">
-        <button onClick={showSendTokensModalDispatch}>
+        <button onClick={showSendTokensModalDispatch} type="button">
           <Span className="d-flex align-items-center" color={TEXT_PRIMARY}>
             <IconMd className="mr-2" icon={sendtokensIcon} />
             <FormattedMessage id={messages.sendTokens.id} />

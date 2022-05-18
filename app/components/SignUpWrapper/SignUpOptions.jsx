@@ -196,34 +196,29 @@ export const SignUpOptions = ({
   faqQuestions,
   logo,
   ethereumService,
-}) => {
-  return (
-    <SignUpWrapper
-      LeftMenuChildren={
-        <LeftMenu faqQuestions={faqQuestions} mainLogo={logo} />
-      }
-      RightMenuChildren={
-        !withWallet ? (
-          <RightMenuWithoutScatter
-            children={children}
-            showLoginModal={showLoginModal}
-            showWalletSignUpForm={showWalletSignUpForm}
-            showWalletSignUpProcessing={showWalletSignUpProcessing}
-            emailVerificationProcessing={emailVerificationProcessing}
-            emailChecking={emailChecking}
-            isMobileDevice={isMobile(window.navigator).any}
-            metaMaskProviderDetected={ethereumService.metaMaskProviderDetected}
-          />
-        ) : (
-          children
-        )
-      }
-    />
-  );
-};
+}) => (
+  <SignUpWrapper
+    LeftMenuChildren={<LeftMenu faqQuestions={faqQuestions} mainLogo={logo} />}
+    RightMenuChildren={
+      !withWallet ? (
+        <RightMenuWithoutScatter
+          children={children}
+          showLoginModal={showLoginModal}
+          showWalletSignUpForm={showWalletSignUpForm}
+          showWalletSignUpProcessing={showWalletSignUpProcessing}
+          emailVerificationProcessing={emailVerificationProcessing}
+          emailChecking={emailChecking}
+          isMobileDevice={isMobile(window.navigator).any}
+          metaMaskProviderDetected={ethereumService.metaMaskProviderDetected}
+        />
+      ) : (
+        children
+      )
+    }
+  />
+);
 
 LeftMenu.propTypes = {
-  faqQuestions: PropTypes.array,
   mainLogo: PropTypes.string,
 };
 

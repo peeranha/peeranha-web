@@ -5,6 +5,7 @@ import { FormattedMessage } from 'react-intl';
 import { TEXT_PRIMARY, BORDER_SECONDARY } from 'style-constants';
 
 import * as routes from 'routes-config';
+import commonMessages from 'common-messages';
 
 import moreVotingIcon from 'images/moreVoting.svg?inline';
 
@@ -58,7 +59,7 @@ const Aside = ({ suggestedCommunities }) => (
       >
         <img className="mr-2" src={moreVotingIcon} alt="moreVotingIcon" />
         <Span color={TEXT_PRIMARY}>
-          <FormattedMessage id={messages.moreVoting.id} />
+          <FormattedMessage id={commonMessages.moreVoting.id} />
         </Span>
       </A>
     </footer>

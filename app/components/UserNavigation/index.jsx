@@ -133,7 +133,7 @@ const UserNavigation = ({
             islink={path !== routes.userAnswers(userId) ? 1 : 0}
           >
             <FormattedMessage
-              {...messages.answersNumber}
+              id={messages.answersNumber.id}
               values={{
                 number: (
                   <Span
@@ -230,6 +230,7 @@ const UserNavigation = ({
             }`}
             id={`redireact-to-edit-${userId}-user-page-2`}
             data-user={userId}
+            type="button"
           >
             <IconMd icon={pencilIcon} />
             <Span className="ml-1" color={TEXT_PRIMARY}>
