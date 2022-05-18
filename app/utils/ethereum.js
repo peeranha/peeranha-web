@@ -13,7 +13,7 @@ import {
   INVALID_ETHEREUM_PARAMETERS_ERROR_CODE,
   METAMASK_ERROR_CODE,
   REJECTED_SIGNATURE_REQUEST,
-} from './constants';
+} from './ethConstants';
 
 import {
   CLAIM_REWARD,
@@ -215,11 +215,7 @@ class EthereumService {
       const metaTxContract = this[contract];
       const nonce = await metaTxContract.getNonce(actor);
       let iface = new ethers.utils.Interface(CONTRACT_TO_ABI[contract]);
-      const functionSignature = iface.encodeFunctionData(
-        action,
-        [actor].concat(data),
-      );
-
+      const functionSignature = iface.encodeFunctionData(action, data);
       let message = {};
       message.nonce = parseInt(nonce);
       message.from = actor;
@@ -241,8 +237,8 @@ class EthereumService {
       let domainData = {
         name: CONTRACT_TO_NAME[contract],
         version: '1',
-        verifyingContract: this.contract.address,
-        salt: parseInt(process.env.CHAIN_ID, 10).toString(16),
+        verifyingContract: metaTxContract.address,
+        salt: '0x' + parseInt(process.env.CHAIN_ID, 10).toString(16),
       };
 
       console.log(`Domain data: $${JSON.stringify(domainData)}`);
@@ -275,6 +271,7 @@ class EthereumService {
       console.log('Endpoint - ' + BLOCKCHAIN_SEND_META_TRANSACTION);
 
       const response = await callService(BLOCKCHAIN_SEND_META_TRANSACTION, {
+        contractAddress: metaTxContract.address,
         userAddress: actor,
         functionSignature,
         sigR: r,
