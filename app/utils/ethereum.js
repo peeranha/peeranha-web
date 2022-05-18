@@ -238,7 +238,11 @@ class EthereumService {
         name: CONTRACT_TO_NAME[contract],
         version: '1',
         verifyingContract: metaTxContract.address,
-        salt: '0x' + parseInt(process.env.CHAIN_ID, 10).toString(16),
+        salt:
+          '0x' +
+          parseInt(process.env.CHAIN_ID, 10)
+            .toString(16)
+            .padStart(64, '0'),
       };
 
       console.log(`Domain data: $${JSON.stringify(domainData)}`);
