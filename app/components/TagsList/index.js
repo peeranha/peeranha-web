@@ -25,6 +25,11 @@ const Tag = Span.extend`
   align-items: center;
 `;
 
+const SpanCenter = Span.extend`
+  width: 100%;
+  text-align: center;
+`;
+
 const Box = styled.ul`
   display: flex;
   flex-wrap: wrap;
@@ -67,9 +72,9 @@ const TagsList = ({
             </Tag>
 
             {showPopularity && (
-              <Span color={TEXT_SECONDARY} fontSize="14" lineHeight="18">
+              <SpanCenter color={TEXT_SECONDARY} fontSize="14" lineHeight="18">
                 {x.postCount}
-              </Span>
+              </SpanCenter>
             )}
           </li>
         );
