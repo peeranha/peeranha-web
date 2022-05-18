@@ -22,6 +22,8 @@ import {
   SET_STAKE,
 } from './ethConstants';
 import { getFileUrl, getIpfsHashFromBytes32, getText } from './ipfs';
+import { deleteCookie, getCookie, setCookie } from './cookie';
+import { CURRENCY, META_TRANSACTIONS_ALLOWED } from './constants';
 
 const {
   callService,
@@ -174,7 +176,29 @@ class EthereumService {
   };
 
   sendTransaction = async (contract, actor, action, data) => {
-    if (true) {
+    const dataFromCookies = getCookie(META_TRANSACTIONS_ALLOWED);
+    const balance = this.wallet?.accounts?.[0]?.balance?.[CURRENCY];
+    if (!dataFromCookies) {
+      if (Number(balance) === 0) {
+        //TODO popup
+        setCookie({
+          name: META_TRANSACTIONS_ALLOWED,
+          value: true,
+          options: {
+            neverExpires: true,
+            defaultPath: true,
+            allowSubdomains: true,
+          },
+        });
+      }
+    } else {
+      if (Number(balance) > 0) {
+        deleteCookie(META_TRANSACTIONS_ALLOWED);
+      }
+    }
+
+    const metaTransactionsAllowed = getCookie(META_TRANSACTIONS_ALLOWED);
+    if (metaTransactionsAllowed) {
       await this.sendMetaTransaction(contract, actor, action, data);
     } else {
       try {
