@@ -245,8 +245,6 @@ class EthereumService {
             .padStart(64, '0'),
       };
 
-      console.log(`Domain data: $${JSON.stringify(domainData)}`);
-
       const dataToSign = JSON.stringify({
         types: {
           EIP712Domain: domainType,
@@ -268,11 +266,7 @@ class EthereumService {
         sig: signature,
       });
 
-      console.log(`Original ${actor}, Recovered ${recovered}`);
-
       let { r, s, v } = this.getSignatureParameters(signature);
-
-      console.log('Endpoint - ' + BLOCKCHAIN_SEND_META_TRANSACTION);
 
       const response = await callService(BLOCKCHAIN_SEND_META_TRANSACTION, {
         contractAddress: metaTxContract.address,
@@ -281,9 +275,11 @@ class EthereumService {
         sigR: r,
         sigS: s,
         sigV: v,
+        wait: false,
       });
 
-      console.log(`Response - ${JSON.stringify(response)}`);
+      await this.provider.waitForTransaction(response.body.transactionHash);
+
       return response;
     } catch (err) {
       switch (err.code) {
