@@ -93,7 +93,7 @@ export const checkIsColorsActual = (id, mainColor, highlightColor) => {
     communityValue.colors.main !== mainColor ||
     communityValue.colors.highlight !== highlightColor
   ) {
-    location.reload();
+    window.location.reload();
   }
 };
 
@@ -167,12 +167,12 @@ export const setSingleCommunityDetails = async (eosService) => {
           prevValue.colors.highlight !== community.highlight_color)) ||
       prevValue.isBlogger !== community.isBlogger
     ) {
-      location.reload();
+      window.location.reload();
     }
   }
 
   if (!prevSingleCommDetails && community.isBlogger) {
-    location.reload();
+    window.location.reload();
   }
 };
 

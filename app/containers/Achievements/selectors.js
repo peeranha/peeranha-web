@@ -221,12 +221,11 @@ const selectUniqueUnreachedAchievements = () =>
         ?.count ?? 0;
 
     return uniqueAchievementsArr
-      .filter((el) => {
-        return (
+      .filter(
+        (el) =>
           !reachedAchievementsIds.includes(el.id) &&
-          totalAwarded(el.id) < el.limit
-        );
-      })
+          totalAwarded(el.id) < el.limit,
+      )
       .map((el) => {
         const isNext =
           substate.toJS().nextUserAchievements[uniqueRatingRelated] === el.id;

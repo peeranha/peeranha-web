@@ -51,8 +51,15 @@ const Type = styled.div`
 `;
 
 const QuestionType = ({ size, ...restProps }) => (
-  <TypeContainer {...restProps}>
-    <Type size={size} {...restProps} />
+  <TypeContainer
+    onMouseEnter={restProps.onMouseEnter}
+    onMouseLeave={restProps.onMouseLeave}
+  >
+    <Type
+      size={size}
+      onMouseEnter={restProps.onMouseEnter}
+      onMouseLeave={restProps.onMouseLeave}
+    />
   </TypeContainer>
 );
 

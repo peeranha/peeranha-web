@@ -80,7 +80,13 @@ export const TextEditorField = ({
       disabled={disabled}
       error={meta.touched && (meta.error || meta.warning)}
     >
-      <TextEditor {...input} disabled={disabled} />
+      <TextEditor
+        onChange={input.onChange}
+        onBlur={input.onBlur}
+        value={input.value}
+        locale={input.locale}
+        disabled={disabled}
+      />
     </Div>
   </WrapperBlock>
 );
@@ -90,7 +96,6 @@ TextEditorField.propTypes = {
   input: PropTypes.object,
   meta: PropTypes.object,
   label: PropTypes.string,
-  previewLabel: PropTypes.string,
   tip: PropTypes.string,
   splitInHalf: PropTypes.bool,
 };

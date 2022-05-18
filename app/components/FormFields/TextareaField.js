@@ -21,7 +21,7 @@ export const TextareaField = ({
     id={input.name}
   >
     <Textarea
-      {...input}
+      value={input.value}
       error={meta.touched && (meta.error || meta.warning) ? 1 : 0}
       disabled={disabled}
       placeholder={placeholder}

@@ -14,7 +14,9 @@ import accountProviderReducer from 'containers/AccountProvider/reducer';
 import editProfileReducer from 'containers/EditProfilePage/reducer';
 import signUpReducer from 'containers/SignUp/reducer';
 import questionsReducer from 'containers/Questions/reducer';
+// eslint-disable-next-line import/no-duplicates
 import askQuestionReducer from 'containers/AskQuestion/reducer';
+// eslint-disable-next-line import/no-duplicates
 import existingQuestionReducer from 'containers/AskQuestion/reducer';
 import viewQuestionReducer from 'containers/ViewQuestion/reducer';
 import editQuestionReducer from 'containers/EditQuestion/reducer';

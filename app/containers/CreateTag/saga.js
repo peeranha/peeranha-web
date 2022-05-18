@@ -67,7 +67,7 @@ export function* getFormWorker() {
   }
 }
 
-export default function* () {
+export default function* createTagSaga() {
   yield takeLatest(GET_FORM, getFormWorker);
   yield takeLatest(SUGGEST_TAG, suggestTagWorker);
 }

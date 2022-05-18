@@ -97,7 +97,17 @@ const EditCommunity = ({
       <TipsBase className="overflow-hidden">
         {communityLoading && <LoadingIndicator />}
 
-        {!communityLoading && <Form {...formData} />}
+        {!communityLoading && (
+          <Form
+            community={formData.community}
+            editCommunityDispatch={formData.editCommunityDispatch}
+            communityId={formData.communityId}
+            communityLoading={formData.communityLoading}
+            locale={formData.locale}
+            isModerator={formData.isModerator}
+            isBloggerMode={formData.isBloggerMode}
+          />
+        )}
 
         <Tips faqQuestions={faqQuestions} />
       </TipsBase>

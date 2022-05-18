@@ -73,7 +73,11 @@ export const EditProfilePage = ({
         loginData={loginData}
       />
 
-      <ProfileEditForm {...sendProps} />
+      <ProfileEditForm
+        saveProfile={sendProps.saveProfile}
+        isProfileSaving={sendProps.isProfileSaving}
+        profile={sendProps.profile}
+      />
     </Profile>
   );
 };
@@ -85,8 +89,6 @@ EditProfilePage.propTypes = {
   match: PropTypes.object,
   account: PropTypes.string,
   isProfileSaving: PropTypes.bool,
-  questions: PropTypes.array,
-  questionsWithUserAnswers: PropTypes.array,
   loginData: PropTypes.object,
 };
 

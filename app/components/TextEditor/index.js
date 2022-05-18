@@ -21,19 +21,21 @@ const TEXT_EDITOR_CLASSNAME = 'component-text-editor';
 /* eslint no-return-assign: "error" */
 class TextEditor extends React.PureComponent {
   onBlurHandler = () => {
-    this.props.onBlur(this.props.value);
+    const { onBlur, value } = this.props;
+
+    onBlur(value);
   };
 
   static getHtmlText = (md) => EditorOptions.prototype.markdown(md);
 
   render() {
-    const { locale } = this.props;
+    const { locale, disabled, onChange, value } = this.props;
     return (
       <SimpleMDE
-        disabled={this.props.disabled}
-        locale={this.props.locale}
-        onChange={this.props.onChange}
-        value={this.props.value}
+        disabled={disabled}
+        locale={locale}
+        onChange={onChange}
+        value={value}
         className={TEXT_EDITOR_CLASSNAME}
         onBlur={this.onBlurHandler}
         options={{ ...options, spellChecker: locale === DEFAULT_LOCALE }}

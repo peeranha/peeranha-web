@@ -34,10 +34,12 @@ const Box = ({
       <Main isMenuVisible={isMenuVisible}>
         <div className={isMenuVisible ? '' : 'container container-mobile'}>
           <div className="d-flex">
+            {/* eslint-disable-next-line react/jsx-props-no-spreading */}
             <LeftMenu {...props} />
 
             <WrapStyled className={isMenuVisible ? 'd-none' : ''}>
               <React.Suspense fallback={<Loader />}>
+                {/* eslint-disable-next-line react/jsx-props-no-spreading */}
                 <Comp {...props} />
               </React.Suspense>
             </WrapStyled>

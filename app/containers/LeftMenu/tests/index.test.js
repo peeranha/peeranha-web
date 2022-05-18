@@ -1,9 +1,9 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import { Provider } from 'react-redux';
-import { memoryHistory } from 'react-router-dom';
+import {shallow} from 'enzyme';
+import {Provider} from 'react-redux';
+import {memoryHistory} from 'react-router-dom';
 import configureStore from 'configureStore';
-import { ConnectedRouter } from 'react-router-redux';
+import {ConnectedRouter} from 'react-router-redux';
 import createdHistory from 'createdHistory';
 
 import LanguageProvider from 'containers/LanguageProvider';
@@ -23,7 +23,10 @@ describe('<CommentForm />', () => {
       <Provider store={store}>
         <LanguageProvider locale="en" key="en" messages={{}}>
           <ConnectedRouter history={createdHistory}>
-            <LeftMenu {...props} />
+            <LeftMenu
+              profile={props.profile}
+              isMenuVisible={props.isMenuVisible}
+              showMenu={props.showMenu}/>
           </ConnectedRouter>
         </LanguageProvider>
       </Provider>,

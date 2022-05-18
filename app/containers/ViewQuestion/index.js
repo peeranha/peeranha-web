@@ -92,12 +92,15 @@ export const ViewQuestion = ({
   history,
 }) => {
   if (questionData) {
-    const route =
-      questionData.postType === POST_TYPE.generalPost
-        ? 'questionView'
-        : questionData.postType === POST_TYPE.expertPost
-        ? 'expertPostView'
-        : 'tutorialView';
+    let route = 'tutorialView';
+
+    if (questionData.postType === POST_TYPE.generalPost) {
+      route = 'questionView';
+    }
+    if (questionData.postType === POST_TYPE.expertPost) {
+      route = 'expertPostView';
+    }
+
     if (match.url !== routes[route](match.params.id)) {
       history.push(routes[route](match.params.id));
     }
@@ -227,7 +230,14 @@ export const ViewQuestion = ({
       )}
 
       {!questionDataLoading && !historiesLoading && questionData && (
-        <ViewQuestionContainer {...sendProps} />
+        <ViewQuestionContainer
+          postAnswer={sendProps.postAnswer}
+          postAnswerLoading={sendProps.postAnswerLoading}
+          locale={sendProps.locale}
+          translations={sendProps.translations}
+          questionData={sendProps.questionData}
+          isAnswered={sendProps.isAnswered}
+        />
       )}
 
       {(questionDataLoading || historiesLoading) && <LoadingIndicator />}
@@ -247,7 +257,6 @@ ViewQuestion.propTypes = {
   postCommentLoading: PropTypes.bool,
   saveCommentLoading: PropTypes.bool,
   questionData: PropTypes.object,
-  questionBounty: PropTypes.object,
   match: PropTypes.object,
   history: PropTypes.object,
   getQuestionDataDispatch: PropTypes.func,

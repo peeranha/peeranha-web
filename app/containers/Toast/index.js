@@ -30,16 +30,21 @@ export class Toast extends React.Component {
   }
 
   removeToast = (e) => {
-    this.props.removeToastDispatch(e.currentTarget.dataset.key);
+    const { removeToastDispatch } = this.props;
+
+    removeToastDispatch(e.currentTarget.dataset.key);
   };
 
   render() /* istanbul ignore next */ {
-    const sendProps = {
-      toasts: this.props.toasts,
-      removeToast: this.removeToast,
-      location: this.location,
-    };
-    return <Toasts {...sendProps} />;
+    const { toasts } = this.props;
+
+    return (
+      <Toasts
+        toasts={toasts}
+        removeToast={this.removeToast}
+        location={this.location}
+      />
+    );
   }
 }
 

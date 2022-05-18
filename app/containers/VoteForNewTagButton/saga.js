@@ -68,7 +68,7 @@
 //   }
 // }
 
-export default function* () {
+export default function* voteForNewTagButtonSaga() {
   // yield takeEvery(UPVOTE, upVoteWorker);
   // yield takeEvery(DOWNVOTE, downVoteWorker);
 }

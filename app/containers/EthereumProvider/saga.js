@@ -65,7 +65,7 @@ export function* isValid({ creator, buttonId, minRating = 0, communityId }) {
   );
 }
 
-export default function* () {
+export default function* ethereumProviderSaga() {
   yield takeLatest(INIT_ETHEREUM, initEthereumWorker);
   yield takeLatest(INIT_ETHEREUM_SUCCESS, updateAccWorker);
 }

@@ -63,7 +63,7 @@ describe('<EditCommunity />', () => {
       <Provider store={store}>
         <LanguageProvider locale="en" key="en" messages={translationMessages}>
           <ConnectedRouter history={createdHistory}>
-            <EditCommunity {...props} />
+            <EditCommunity match={props.match} />
           </ConnectedRouter>
         </LanguageProvider>
       </Provider>,

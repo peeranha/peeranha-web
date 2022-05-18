@@ -65,7 +65,7 @@ const imagesAnimation = () => {
     const animatedImagesArray = window.$(`.${ANIMATE_IMAGE}`);
 
     if (scrollY > secondScreenPos && scrollY < thirdScreenPos) {
-      animatedImagesArray.each(function () {
+      animatedImagesArray.each(() => {
         const direction = event.originalEvent.wheelDelta < 0 ? -1 : 1;
         const translatorMax = 30;
         const step = translatorMax * 0.15;
@@ -135,7 +135,7 @@ const parallaxAnimation = () => {
   });
 
   window.requestAnimationFrame(function animation() {
-    patterns.each(function () {
+    patterns.each(() => {
       const modifier = 50;
 
       window.$(this).css({

@@ -50,6 +50,7 @@ const DefaultOption = ({ data, isFocused, innerProps = {} }) => {
   }
 
   return (
+    // eslint-disable-next-line react/jsx-props-no-spreading
     <Box {...innerProps} isActive={isActive}>
       <Span>{data.label}</Span>
     </Box>
@@ -84,7 +85,11 @@ export const Select2 = ({
 
   return (
     <S
-      {...input}
+      name={input.name}
+      onDragStart={input.onDragStart}
+      onDrop={input.onDrop}
+      onFocus={input.onFocus}
+      value={input.value}
       onChange={(x) => {
         input.value = x;
         input.onChange(x);
@@ -178,7 +183,6 @@ DefaultOption.propTypes = {
 
 Select2.propTypes = {
   input: PropTypes.object,
-  defaultValue: PropTypes.object,
   error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
   options: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   isMulti: PropTypes.bool,

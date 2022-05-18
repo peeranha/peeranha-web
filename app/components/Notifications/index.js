@@ -197,7 +197,11 @@ const Notifications = ({
       height={rowHeight}
       notificationsNumber={notifications.length}
       paddingHorizontal="36"
-      {...notifications[index]}
+      data={notifications[index].data}
+      time={notifications[index].time}
+      type={notifications[index].type}
+      read={notifications[index].read}
+      small={notifications[index].small}
     />
   );
 

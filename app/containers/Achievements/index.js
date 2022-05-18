@@ -241,8 +241,16 @@ const Achievements = ({
                   (achievementId) => achievementId === achievement.id,
                 )}
                 key={achievement.id}
-                {...achievement}
                 locale={locale}
+                achievementURI={achievement.achievementURI}
+                achievementsType={achievement.achievementsType}
+                attributes={achievement.attributes}
+                description={achievement.description}
+                factCount={achievement.factCount}
+                id={achievement.id}
+                image={achievement.image}
+                maxCount={achievement.maxCount}
+                name={achievement.name}
               />
             ))}
             {/* {uniqueAchievements.map(el => ( */}
@@ -265,15 +273,7 @@ Achievements.propTypes = {
   locale: PropTypes.string,
   userId: PropTypes.string,
   achievements: PropTypes.array,
-  ratingAchievements: PropTypes.array,
   userAchievements: PropTypes.array,
-  questionAskedAchievements: PropTypes.array,
-  anwerGivenAchievements: PropTypes.array,
-  bestAnswerAchievements: PropTypes.array,
-  firstAnswerAchievements: PropTypes.array,
-  firstIn15Achievements: PropTypes.array,
-  uniqueAchievements: PropTypes.array,
-  getUserAchievementsDispatch: PropTypes.func,
   setViewProfileAccountDispatch: PropTypes.func,
   resetViewProfileAccountDispatch: PropTypes.func,
   achievementsLoading: PropTypes.bool,

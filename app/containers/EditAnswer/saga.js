@@ -102,7 +102,7 @@ export function* redirectToEditAnswerPageWorker({ buttonId, link }) {
   } catch (err) {}
 }
 
-export default function* () {
+export default function* editAnswerSaga() {
   yield takeLatest(GET_ANSWER, getAnswerWorker);
   yield takeLatest(EDIT_ANSWER, editAnswerWorker);
   yield takeLatest(EDIT_ANSWER_SUCCESS, updateQuestionList);

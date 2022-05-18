@@ -56,6 +56,7 @@ const CustomOption = ({
   selectedValue,
   innerProps = {},
 }) => (
+  // eslint-disable-next-line react/jsx-props-no-spreading
   <BoxStyled {...innerProps} isActive={!!isFocused}>
     <Image
       avatar={data.avatar}

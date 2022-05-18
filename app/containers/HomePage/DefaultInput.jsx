@@ -29,7 +29,13 @@ const DefaultInput = ({ input, disabled, meta, placeholder }) => (
     />
 
     <Message className="my-1">
-      <WarningMessage {...meta} />
+      <WarningMessage
+        warning={meta.warning}
+        error={meta.error}
+        visited={meta.visited}
+        touched={meta.touched}
+        active={meta.active}
+      />
     </Message>
   </div>
 );

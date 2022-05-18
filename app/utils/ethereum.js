@@ -100,6 +100,7 @@ class EthereumService {
 
     document.getElementsByTagName('body')[0].style.position = 'relative';
 
+    // eslint-disable-next-line consistent-return
     return this.selectedAccount.toLowerCase();
   };
 

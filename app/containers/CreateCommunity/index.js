@@ -122,7 +122,13 @@ export const CreateCommunity = ({
 
       {path === createCommunityRoute && (
         <TipsBase className="overflow-hidden">
-          <Form {...sendProps} />
+          <Form
+            createCommunity={sendProps.createCommunity}
+            createCommunityLoading={sendProps.createCommunityLoading}
+            translations={sendProps.translations}
+            locale={sendProps.locale}
+            profile={sendProps.profile}
+          />
           <Tips faqQuestions={faqQuestions} />
         </TipsBase>
       )}
@@ -140,7 +146,6 @@ CreateCommunity.propTypes = {
   faqQuestions: PropTypes.array,
   isFormLoading: PropTypes.bool,
   getFormDispatch: PropTypes.func.isRequired,
-  isFromAvailable: PropTypes.bool,
   profile: PropTypes.object,
 };
 

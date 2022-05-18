@@ -461,7 +461,7 @@ export function* updateUserAchievementsWorker(
   }
 }
 
-export default function* () {
+export default function* achievementsSaga() {
   yield takeLatest(GET_USER_ACHIEVEMENTS, getUserAchievementsWorker);
   yield takeLatest(GET_ALL_ACHIEVEMENTS, getAchievementsWorker);
 }

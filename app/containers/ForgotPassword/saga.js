@@ -105,7 +105,7 @@ export function* changePasswordWorker({ code, password }) {
   }
 }
 
-export default function* () {
+export default function* forgotPasswordSaga() {
   yield takeLatest(SEND_ANOTHER_CODE, sendAnotherCode);
   yield takeLatest(SEND_ANOTHER_CODE, sendAnotherCodeSuccess);
   yield takeLatest(GET_VERIFICATION_CODE, getVerificationCodeWorker);

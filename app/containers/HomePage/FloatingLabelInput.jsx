@@ -53,7 +53,7 @@ const Input = styled.input`
     border-color: ${BORDER_WARNING_LIGHT} !important;
   }
 
-  ${x =>
+  ${(x) =>
     x.error
       ? `
     border-color: ${BORDER_WARNING_LIGHT} !important;
@@ -67,7 +67,7 @@ const Input = styled.input`
     padding-bottom: ${1.2 * HEIGHT}px;
   }
 
-  ${x =>
+  ${(x) =>
     x.value
       ? `+ * {
      font-size: 12px !important;
@@ -97,7 +97,13 @@ export const FloatingLabelInput = ({
     </Box>
 
     <Message className="my-1">
-      <WarningMessage {...meta} />
+      <WarningMessage
+        warning={meta.warning}
+        error={meta.error}
+        visited={meta.visited}
+        touched={meta.touched}
+        active={meta.active}
+      />
     </Message>
   </div>
 );

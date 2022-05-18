@@ -50,7 +50,7 @@ export function* getQuestionsWithAnswersWorker({ userId }) {
   }
 }
 
-export default function* () {
+export default function* questionsWithAnswersOfUserSaga() {
   yield takeLatest(GET_ANSWERED_QUESTIONS, getQuestionsWithAnswersWorker);
   yield takeLatest(GET_QUESTIONS, getQuestionsWorker);
   yield takeLatest(REDIRECT_TO_FEED, redirectToFeedWorker);

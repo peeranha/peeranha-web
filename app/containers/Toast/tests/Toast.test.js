@@ -6,7 +6,7 @@ import Toast from '../Toast';
 describe('<Toast />', () => {
   it('snapshot test', () => {
     const props = { type: 'info' };
-    const renderedComponent = shallow(<Toast {...props} />);
+    const renderedComponent = shallow(<Toast type={props.type} />);
     expect(renderedComponent).toMatchSnapshot();
   });
 });

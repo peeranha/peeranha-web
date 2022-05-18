@@ -85,7 +85,7 @@ export function* editTagWorker({ tag, reset }) {
   }
 }
 
-export default function* () {
+export default function* editTagSaga() {
   yield takeLatest(GET_EDIT_TAG_FORM, getEditTagFormWorker);
   yield takeLatest(EDIT_TAG, editTagWorker);
   yield takeLatest(GET_EXISTING_TAGS, getExistingTagsWorker);

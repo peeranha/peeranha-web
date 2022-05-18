@@ -127,6 +127,6 @@ export function* existingQuestionSaga() {
   yield takeLatest(GET_EXISTING_QUESTIONS, qetExistingQuestionsWorker);
 }
 
-export default function* () {
+export default function* askQuestionSaga() {
   yield takeLatest(ASK_QUESTION, postQuestionWorker);
 }

@@ -962,15 +962,13 @@ export function* voteToDeleteWorker({
     if (!item.answerId && !item.commentId) {
       itemData = questionData;
     } else if (!item.answerId && item.commentId) {
-      itemData = questionData.comments.filter(
-        (x) => x.id === item.commentId,
-      )[0];
+      [itemData] = questionData.comments.filter((x) => x.id === item.commentId);
     } else if (item.answerId && !item.commentId) {
-      itemData = questionData.answers.filter((x) => x.id === item.answerId)[0];
+      [itemData] = questionData.answers.filter((x) => x.id === item.answerId);
     } else if (item.answerId && item.commentId) {
-      itemData = questionData.answers
+      [itemData] = questionData.answers
         .filter((x) => x.id === item.answerId)[0]
-        .comments.filter((y) => y.id === item.commentId)[0];
+        .comments.filter((y) => y.id === item.commentId);
     }
 
     yield call(

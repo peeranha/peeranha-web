@@ -42,7 +42,9 @@ const Label = styled.div`
 `;
 
 const BountyLabel = ({ size, ...restProps }) => (
+  // eslint-disable-next-line react/jsx-props-no-spreading
   <BountyLabelContainer {...restProps}>
+    {/* eslint-disable-next-line react/jsx-props-no-spreading */}
     <Label size={size} {...restProps} />
   </BountyLabelContainer>
 );

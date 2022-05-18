@@ -18,6 +18,6 @@ export function* getUsersWorker({ loadMore, reload }) {
   }
 }
 
-export default function* () {
+export default function* usersSaga() {
   yield takeLatest(GET_USERS, getUsersWorker);
 }

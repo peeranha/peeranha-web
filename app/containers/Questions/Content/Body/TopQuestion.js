@@ -57,7 +57,8 @@ const TopQuestion = ({
   return (
     !!topQuestionIcon && (
       <Button
-        {...options}
+        onMouseEnter={options.onMouseEnter}
+        onMouseLeave={options.onMouseLeave}
         className="ml-2"
         active={isModerator}
         disabled={topQuestionActionProcessing}

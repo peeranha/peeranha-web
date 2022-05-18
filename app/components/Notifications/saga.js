@@ -204,7 +204,7 @@ export function* markAsReadUnreadWorker() {
   yield call(markAsRead, notifications, first, last);
 }
 
-export default function* () {
+export default function* NotificationsSaga() {
   yield takeLatest(LOAD_MORE_NOTIFICATIONS, loadMoreNotificationsWorker);
   yield takeLatest(
     LOAD_MORE_UNREAD_NOTIFICATIONS,

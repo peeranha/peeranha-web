@@ -119,7 +119,7 @@ export function* sendAnotherCodeWorker() {
   }
 }
 
-export default function* () {
+export default function* deleteFacebookDataSaga() {
   yield takeLatest(CHECK_FACEBOOK_ID, checkFacebookIdWorker);
   yield takeLatest(CONFIRM_DATA_DELETION, ConfirmFbDataDeletionWorker);
   yield takeLatest(SEND_ANOTHER_CODE, sendAnotherCodeWorker);

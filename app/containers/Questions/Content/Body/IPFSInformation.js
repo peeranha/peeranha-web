@@ -46,13 +46,12 @@ const IPFSInformation = ({ locale, ipfsHash, histories }) => {
           to={{ pathname: polygonURL + transactionHash }}
           href={polygonURL + transactionHash}
         >
-          {transactionHash.substring(0, 12) + '...'}
+          {`${transactionHash.substring(0, 12)}...`}
         </A>
       ),
-      eventName:
-        translationMessages[locale][messages[eventEntity].id] +
-        ' ' +
-        translationMessages[locale][messages[eventName].id],
+      eventName: `${translationMessages[locale][messages[eventEntity].id]} ${
+        translationMessages[locale][messages[eventName].id]
+      }`,
       timeStamp: getFormattedDate(
         timeStamp,
         locale,
@@ -75,6 +74,7 @@ const IPFSInformation = ({ locale, ipfsHash, histories }) => {
           <thead>
             <tr>
               {Object.values(columns).map((column, index) => (
+                // eslint-disable-next-line react/no-array-index-key
                 <th key={`${column}${index}`}>{column}</th>
               ))}
             </tr>
@@ -84,6 +84,7 @@ const IPFSInformation = ({ locale, ipfsHash, histories }) => {
             {formattedData.map((item) => (
               <tr key={item.transactionHash.props.children}>
                 {Object.keys(columns).map((column, index) => (
+                  // eslint-disable-next-line react/no-array-index-key
                   <td key={`${column}${index}`}>{item[column]}</td>
                 ))}
               </tr>

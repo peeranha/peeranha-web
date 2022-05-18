@@ -45,6 +45,6 @@ export function* getExistingTagsWorker({ communityId, loadMore }) {
   }
 }
 
-export default function* () {
+export default function* tagsSaga() {
   yield takeLatest(GET_EXISTING_TAGS, getExistingTagsWorker);
 }

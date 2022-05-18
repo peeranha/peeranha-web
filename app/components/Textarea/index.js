@@ -11,7 +11,7 @@ export const TextareaStyled = styled(TextareaAutosize)`
   overflow: hidden;
 `;
 
-const Textarea = (props) => <TextareaStyled {...props} />;
+const Textarea = ({ value }) => <TextareaStyled value={value} />;
 
 Textarea.propTypes = {
   value: PropTypes.string,

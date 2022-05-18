@@ -35,7 +35,11 @@ const PaidOutWeeksContainer = ({
         pickupRewardProcessing={pickupRewardProcessing}
         locale={locale}
         ids={ids}
-        {...weekStat[index]}
+        hasTaken={weekStat[index].hasTaken}
+        period={weekStat[index].period}
+        periodFinished={weekStat[index].periodFinished}
+        periodStarted={weekStat[index].periodStarted}
+        reward={weekStat[index].reward}
         style={style}
         registrationWeek={index === weekStat.length - 1}
       />

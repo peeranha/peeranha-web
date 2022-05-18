@@ -13,15 +13,18 @@ const StyledBox = styled.div`
   position: relative;
   max-width: 100%;
   margin-bottom: ${(x) => (!x.insideOfSection ? '15px' : '10px')};
+
   > div:nth-child(2) {
     display: flex;
     flex-wrap: nowrap;
     align-items: ${(x) => (x.splitInHalf ? 'center' : 'initial')};
     flex-direction: ${(x) => (x.splitInHalf ? 'row' : 'column')};
+
     > div:nth-child(1) {
       flex: 0 0 ${(x) => (x.splitInHalf ? `${CL}px` : `100%`)};
       max-width: ${(x) => (x.splitInHalf ? `${CL}px` : `100%`)};
     }
+
     > div:nth-child(2) {
       flex: 0 0 ${(x) => (x.splitInHalf ? `calc(100% - ${CL}px)` : `100%`)};
       max-width: ${(x) => (x.splitInHalf ? `calc(100% - ${CL}px)` : `100%`)};
@@ -29,16 +32,19 @@ const StyledBox = styled.div`
       margin-top: ${(x) => (x.splitInHalf ? '0px' : '8px')};
     }
   }
+
   @media only screen and (max-width: 768px) {
     width: 100%;
     > div:nth-child(2) {
       align-items: initial;
       flex-wrap: nowrap;
       flex-direction: column;
+
       > div:nth-child(1) {
         flex: 0 0 100%;
         max-width: 100%;
       }
+
       > div:nth-child(2) {
         flex: 0 0 100%;
         max-width: 100%;
@@ -87,7 +93,11 @@ export const Wrapper = ({
       <InputContainer>{children}</InputContainer>
       {meta && (
         <WarningMessage
-          {...meta}
+          warning={meta.warning}
+          error={meta.error}
+          visited={meta.visited}
+          touched={meta.touched}
+          active={meta.active}
           containerIsSplittedInHalf={splitInHalf}
           tip={tip}
         />

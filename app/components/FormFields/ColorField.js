@@ -92,7 +92,13 @@ const ColorField = ({
     insideOfSection={insideOfSection}
   >
     <DebouncedColorInput
-      {...input}
+      name={input.name}
+      onBlur={input.onBlur}
+      onChange={input.onChange}
+      onDragStart={input.onDragStart}
+      onDrop={input.onDrop}
+      onFocus={input.onFocus}
+      value={input.value}
       type={type}
       disabled={disabled}
       defaultValue={defaultValue}

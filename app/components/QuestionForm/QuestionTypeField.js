@@ -133,6 +133,7 @@ const QuestionTypeField = ({
 
   function chooseQuestionType({ currentTarget }) {
     const { value } = currentTarget;
+    // eslint-disable-next-line no-restricted-globals
     event.preventDefault();
     input.onChange(value);
     setType(value);

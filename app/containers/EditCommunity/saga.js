@@ -93,16 +93,14 @@ export function* editCommunityWorker({ communityId, communityData }) {
       const community = cachedCommunities.find((c) => c.id === communityId);
 
       if (community) {
-        try {
-          const stat = yield select(selectStat());
-          const communities = yield call(
-            getAllCommunities,
-            ethereumService,
-            stat.communitiesCount,
-          );
+        const stat = yield select(selectStat());
+        const communities = yield call(
+          getAllCommunities,
+          ethereumService,
+          stat.communitiesCount,
+        );
 
-          yield put(getCommunitiesWithTagsSuccess(communities));
-        } catch {}
+        yield put(getCommunitiesWithTagsSuccess(communities));
       }
     } else {
       yield call(delay, 1e3);

@@ -15,13 +15,15 @@ const BaseRounded = Base.extend`
 
   :hover {
     box-shadow: 0 5px 5px 0 ${SECONDARY_SPECIAL_2};
-    box-shadow: ${({ isExpert, isTutorial }) =>
-      isExpert
-        ? `6px 6px 5px ${EXPERT_BACKLIGHT}`
-        : isTutorial
-          ? `6px 6px 5px ${TUTORIAL_BACKLIGHT}`
-          : `0 5px 5px 0 ${SECONDARY_SPECIAL_2}`};
-  }
+    box-shadow: ${({ isExpert, isTutorial }) => {
+      if (isExpert) {
+        return `6px 6px 5px ${EXPERT_BACKLIGHT}`;
+      }
+      if (isTutorial) {
+        return `6px 6px 5px ${TUTORIAL_BACKLIGHT}`;
+      }
+      return `0 5px 5px 0 ${SECONDARY_SPECIAL_2}`;
+    }}
 `;
 
 export default BaseRounded;

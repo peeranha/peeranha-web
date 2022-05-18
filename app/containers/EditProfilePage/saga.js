@@ -89,6 +89,6 @@ export function* redirectToEditProfilePageWorker({ buttonId, user }) {
   } catch (err) {}
 }
 
-export default function* () {
+export default function* editProfilePageSaga() {
   yield takeLatest(SAVE_PROFILE, saveProfileWorker);
 }

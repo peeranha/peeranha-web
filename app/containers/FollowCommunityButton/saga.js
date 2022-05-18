@@ -71,6 +71,6 @@ export function* followHandlerWorker({
   }
 }
 
-export default function* () {
+export default function* followCommunityButtonSaga() {
   yield takeEvery(FOLLOW_HANDLER, followHandlerWorker);
 }

@@ -32,7 +32,9 @@ import { SECTION_ID } from './constants';
 /* eslint-disable react/prefer-stateless-function */
 export class TermsOfService extends React.PureComponent {
   componentDidMount() {
-    this.props.getTermsDispatch();
+    const { getTermsDispatch } = this.props;
+
+    getTermsDispatch();
   }
 
   render() {

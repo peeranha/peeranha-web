@@ -222,7 +222,7 @@ export function* redirectToEditQuestionPageWorker({ buttonId, link }) {
   } catch (err) {}
 }
 
-export default function* () {
+export default function* editQuestionSaga() {
   yield takeLatest(GET_ASKED_QUESTION, getAskedQuestionWorker);
   yield takeLatest(EDIT_QUESTION, editQuestionWorker);
   yield takeLatest(EDIT_QUESTION_SUCCESS, updateQuestionList);

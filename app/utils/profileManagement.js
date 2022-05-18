@@ -28,14 +28,10 @@ import { UPDATE_ACC } from './ethConstants';
 import { getUser, getUserStats } from './theGraph';
 import { isUserExists } from './accountManagement';
 
-export const getRatingByCommunity = (user, communityId) => {
-  return (
-    user?.ratings?.find(
-      (ratingObj) =>
-        ratingObj.communityId.toString() === communityId?.toString(),
-    )?.rating ?? 0
-  );
-};
+export const getRatingByCommunity = (user, communityId) =>
+  user?.ratings?.find(
+    (ratingObj) => ratingObj.communityId.toString() === communityId?.toString(),
+  )?.rating ?? 0;
 
 export function getUserAvatar(avatarHash, userId, account) {
   if (avatarHash && avatarHash !== NO_AVATAR) {
@@ -77,7 +73,7 @@ export async function getProfileInfo(
   if (isLogin) {
     const isUserRegistered = await isUserExists(user, ethereumService);
     if (!isUserRegistered) {
-      return;
+      return undefined;
     }
     profileInfo = await ethereumService.getProfile(user);
     userStats = await getUserStats(user);

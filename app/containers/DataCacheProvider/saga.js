@@ -182,7 +182,7 @@ export function* getUserProfileWorker({ user, getFullProfile }) {
   }
 }
 
-export default function* () {
+export default function* dataCacheProviderSaga() {
   yield takeLatest(GET_COMMUNITIES_WITH_TAGS, getCommunitiesWithTagsWorker);
   yield takeEvery(GET_USER_PROFILE, getUserProfileWorker);
   yield takeLatest(

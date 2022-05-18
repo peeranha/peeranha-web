@@ -28,11 +28,15 @@ export const getModeratorPermissions = (
   const values = getAllRoles(globalModeratorProps, communitiesCount);
   const permissions1 = [];
   values.forEach(({ communityId = 0, role }, index) => {
-    const rawPermissionsTypes = !communityId
-      ? globalAdminPermissions
-      : role === COMMUNITY_ADMIN_ROLE
-      ? communityAdminPermissions
-      : communityModeratorPermissions;
+    let rawPermissionsTypes = communityModeratorPermissions;
+
+    if (!communityId) {
+      rawPermissionsTypes = globalAdminPermissions;
+    }
+    if (role === COMMUNITY_ADMIN_ROLE) {
+      rawPermissionsTypes = communityAdminPermissions;
+    }
+
     const permissionsTypes = Object.entries(rawPermissionsTypes).map(
       ([key, permValue]) => ({
         permissionCode: rawPermissionsTypes[key].code,

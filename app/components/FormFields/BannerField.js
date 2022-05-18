@@ -161,7 +161,14 @@ const BannerField = ({ input, meta, disabled, label }) => {
               <FormattedMessage id={messages.incorrectBannerResolutionMsg.id} />
             </LabelErrorStyle>
           ))}
-        <WarningMessage {...meta} isSpecialPosition />
+        <WarningMessage
+          warning={meta.warning}
+          error={meta.error}
+          visited={meta.visited}
+          touched={meta.touched}
+          active={meta.active}
+          isSpecialPosition
+        />
       </Div>
     </Wrapper>
   );
@@ -170,7 +177,6 @@ const BannerField = ({ input, meta, disabled, label }) => {
 BannerField.propTypes = {
   input: PropTypes.object,
   meta: PropTypes.object,
-  size: PropTypes.number,
   disabled: PropTypes.bool,
   label: PropTypes.string,
 };

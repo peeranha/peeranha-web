@@ -12,7 +12,6 @@ import * as routes from 'routes-config';
 
 import ErrorMessage from './ErrorMessage';
 
-/* eslint-disable react/prefer-stateless-function */
 export class ErrorBoundary extends React.PureComponent {
   state = {
     error: null,
@@ -32,11 +31,12 @@ export class ErrorBoundary extends React.PureComponent {
 
   render() {
     const { error, errorInfo } = this.state;
+    const { children } = this.props;
 
     return error || errorInfo ? (
       <ErrorMessage error={error} errorInfo={errorInfo} />
     ) : (
-      <div>{this.props.children}</div>
+      <div>{children}</div>
     );
   }
 }

@@ -120,7 +120,20 @@ const EditAnswer = ({
 
           {!answerLoading && (
             <Wrapper questionid={questionid} answerid={answerid}>
-              <AnswerForm {...sendProps} />
+              <AnswerForm
+                form={sendProps.form}
+                formHeader={sendProps.formHeader}
+                sendButtonId={sendProps.sendButtonId}
+                sendAnswer={sendProps.sendAnswer}
+                sendAnswerLoading={sendProps.sendAnswerLoading}
+                submitButtonName={sendProps.submitButtonName}
+                answer={sendProps.answer}
+                locale={sendProps.locale}
+                label={sendProps.label}
+                previewLabel={sendProps.previewLabel}
+                properties={sendProps.properties}
+                communityId={sendProps.communityId}
+              />
             </Wrapper>
           )}
 
@@ -141,8 +154,6 @@ EditAnswer.propTypes = {
   match: PropTypes.object,
   getAnswerDispatch: PropTypes.func,
   editAnswerDispatch: PropTypes.func,
-  properties: PropTypes.array,
-  communityId: PropTypes.number,
   profile: PropTypes.object,
 };
 

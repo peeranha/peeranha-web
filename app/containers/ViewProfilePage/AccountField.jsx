@@ -37,7 +37,15 @@ const AccountField = ({ input, meta, disabled }) => {
         disabled={disabled}
         error={meta.touched && (meta.error || meta.warning)}
       />
-      {meta && <WarningMessage {...meta} />}
+      {meta && (
+        <WarningMessage
+          warning={meta.warning}
+          error={meta.error}
+          visited={meta.visited}
+          touched={meta.touched}
+          active={meta.active}
+        />
+      )}
     </Div>
   );
 };

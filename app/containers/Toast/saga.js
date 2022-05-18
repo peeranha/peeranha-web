@@ -146,7 +146,7 @@ export function* loggerWorker(error) {
   }
 }
 
-export default function* () {
+export default function* toastSaga() {
   yield takeEvery(ADD_TOAST, addToastWorker);
   yield takeEvery(errHandlingTypes, errHandling);
   yield takeEvery([...otherTypes, ...errHandlingTypes], loggerWorker);

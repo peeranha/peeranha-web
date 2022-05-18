@@ -24,15 +24,18 @@ export default ({ key, reducer }) =>
         WrappedComponent.displayName || WrappedComponent.name || 'Component'
       })`;
 
+      // eslint-disable-next-line react/no-deprecated
       componentWillMount() {
         const { injectReducer } = this.injectors;
 
         injectReducer(key, reducer);
       }
 
+      // eslint-disable-next-line react/destructuring-assignment
       injectors = getInjectors(this.context.store);
 
       render() {
+        // eslint-disable-next-line react/jsx-props-no-spreading
         return <WrappedComponent {...this.props} />;
       }
     }

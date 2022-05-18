@@ -234,7 +234,13 @@ function AvatarField({ input, meta, disabled }) {
           <div>
             <div className="avatar-wrapper">
               <Avatar
-                {...input}
+                name={input.name}
+                onBlur={input.onBlur}
+                onChange={input.onChange}
+                onDragStart={input.onDragStart}
+                onDrop={input.onDrop}
+                onFocus={input.onFocus}
+                value={input.value}
                 imageWidth={isPhone ? 320 : 480}
                 cropRadius={60}
                 closeIconColor="transparent"
@@ -295,7 +301,14 @@ function AvatarField({ input, meta, disabled }) {
       <InfoMessage>
         <FormattedMessage id={messages.profilesUsersInfo.id} />
       </InfoMessage>
-      <WarningMessage {...meta} isSpecialPosition />
+      <WarningMessage
+        warning={meta.warning}
+        error={meta.error}
+        visited={meta.visited}
+        touched={meta.touched}
+        active={meta.active}
+        isSpecialPosition
+      />
     </Div>
   );
 }
@@ -303,7 +316,6 @@ function AvatarField({ input, meta, disabled }) {
 AvatarField.propTypes = {
   input: PropTypes.object,
   meta: PropTypes.object,
-  size: PropTypes.number,
   disabled: PropTypes.bool,
 };
 

@@ -353,7 +353,7 @@ export function* fbLoginErrorCallbackWorker({ autoLogin }) {
   }
 }
 
-export default function* () {
+export default function* loginSaga() {
   yield takeLatest(LOGIN_WITH_EMAIL, loginWithEmailWorker);
   yield takeLatest(LOGIN_WITH_WALLET, loginWithWalletWorker);
   yield takeLatest(FINISH_REGISTRATION, finishRegistrationWorker);

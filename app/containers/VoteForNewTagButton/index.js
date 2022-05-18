@@ -28,13 +28,13 @@ import { selectIds } from './selectors';
 /* eslint-disable react/prefer-stateless-function */
 export class VoteForNewTagButton extends React.PureComponent {
   [UPVOTE_METHOD] = (e) => {
-    const { communityId, tagId } = this.props;
-    this.props.upVoteDispatch(communityId, tagId, e.currentTarget.id);
+    const { communityId, tagId, upVoteDispatch } = this.props;
+    upVoteDispatch(communityId, tagId, e.currentTarget.id);
   };
 
   [DOWNVOTE_METHOD] = (e) => {
-    const { communityId, tagId } = this.props;
-    this.props.downVoteDispatch(communityId, tagId, e.currentTarget.id);
+    const { communityId, tagId, downVoteDispatch } = this.props;
+    downVoteDispatch(communityId, tagId, e.currentTarget.id);
   };
 
   render() /* istanbul ignore next */ {

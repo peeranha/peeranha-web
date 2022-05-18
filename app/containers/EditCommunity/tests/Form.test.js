@@ -1,18 +1,18 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import { fireEvent, render } from '@testing-library/react';
+import {Provider} from 'react-redux';
+import {fireEvent, render} from '@testing-library/react';
 
-import { translationMessages } from 'i18n';
+import {translationMessages} from 'i18n';
 import configureStore from 'configureStore';
 
 import LanguageProvider from 'containers/LanguageProvider';
 
 import Form from '../Form';
 
-jest.mock('react-avatar-edit', () => jest.fn(() => <mock-avatar />));
+jest.mock('react-avatar-edit', () => jest.fn(() => <mock-avatar/>));
 jest.mock('communities-config', () =>
   jest.fn(() => ({
-    key: { origin: '' },
+    key: {origin: ''},
   })),
 );
 
@@ -37,10 +37,14 @@ describe('<Form />', () => {
   const store = configureStore({});
 
   it('renders and matches the snapshot', () => {
-    const { container } = render(
+    const {container} = render(
       <Provider store={store}>
         <LanguageProvider locale="en" key="en" messages={translationMessages}>
-          <Form {...props} />
+          <Form
+            communityId={props.communityId}
+            editCommunityDispatch={props.editCommunityDispatch}
+            community={props.community}
+            communityLoading={props.communityLoading}/>
         </LanguageProvider>
       </Provider>,
     );
@@ -49,10 +53,14 @@ describe('<Form />', () => {
   });
 
   it('handles submitions', () => {
-    const { container } = render(
+    const {container} = render(
       <Provider store={store}>
         <LanguageProvider locale="en" key="en" messages={translationMessages}>
-          <Form {...props} />
+          <Form
+            communityId={props.communityId}
+            editCommunityDispatch={props.editCommunityDispatch}
+            community={props.community}
+            communityLoading={props.communityLoading}/>
         </LanguageProvider>
       </Provider>,
     );

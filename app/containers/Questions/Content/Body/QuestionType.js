@@ -69,14 +69,19 @@ const PromotedLabel = styled.span`
 // }};
 
 const Icon = styled(IconLg)`
-  ${({ isTutorial, isExpert }) =>
+  ${({ isTutorial, isExpert }) => {
     svgDraw({
-      color: isTutorial
-        ? TUTORIAL_ICON_COLOR
-        : isExpert
-        ? TEXT_PRIMARY
-        : TEXT_DARK,
-    })};
+      color: () => {
+        if (isTutorial) {
+          return TUTORIAL_ICON_COLOR;
+        }
+        if (isExpert) {
+          return TEXT_PRIMARY;
+        }
+        return TEXT_DARK;
+      },
+    });
+  }};
   background-color: ${BG_TRANSPARENT};
   border-color: ${BORDER_TRANSPARENT};
   font-weight: normal;

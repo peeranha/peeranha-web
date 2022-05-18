@@ -48,7 +48,7 @@ const SelectItem = ({ input, change, label, disabled, meta, items }) => (
         <Ul>
           <li onClick={() => change([input.name], '')}>None</li>
 
-          {items.map(x => (
+          {items.map((x) => (
             <li onClick={() => change([input.name], x)} key={x}>
               {x}
             </li>
@@ -58,7 +58,13 @@ const SelectItem = ({ input, change, label, disabled, meta, items }) => (
     />
 
     <Message className="my-1">
-      <WarningMessage {...meta} />
+      <WarningMessage
+        warning={meta.warning}
+        error={meta.error}
+        visited={meta.visited}
+        touched={meta.touched}
+        active={meta.active}
+      />
     </Message>
   </div>
 );

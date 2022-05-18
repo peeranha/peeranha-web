@@ -124,7 +124,23 @@ const EditQuestion = ({
         index={false}
       />
 
-      {!questionLoading && <QuestionForm {...sendProps} />}
+      {!questionLoading && (
+        <QuestionForm
+          form={sendProps.form}
+          formTitle={sendProps.formTitle}
+          submitButtonId={sendProps.submitButtonId}
+          submitButtonName={sendProps.submitButtonName}
+          sendQuestion={sendProps.sendQuestion}
+          questionLoading={sendProps.questionLoading}
+          valueHasToBeLessThan={sendProps.valueHasToBeLessThan}
+          communities={sendProps.communities}
+          question={sendProps.question}
+          questionid={sendProps.questionid}
+          locale={sendProps.locale}
+          maxPromotingHours={sendProps.maxPromotingHours}
+          profile={sendProps.profile}
+        />
+      )}
 
       {questionLoading && <LoadingIndicator />}
     </div>

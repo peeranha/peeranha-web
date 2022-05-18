@@ -148,6 +148,7 @@ export function* signUpComplete({ val }) {
 
     const profile = {
       displayName: `${address.substring(0, 6)}...${address.substring(
+        // eslint-disable-next-line no-undef
         account.length - 4,
       )}`,
     };
@@ -185,6 +186,7 @@ export function* signUpComplete({ val }) {
   }
 }
 
+// eslint-disable-next-line no-unused-vars,no-empty-function
 export function* signUpWithWalletWorker({ val, metaMask }) {}
 
 export function* showWalletSignUpFormWorker({ metaMask }) {
@@ -199,15 +201,15 @@ export function* showWalletSignUpFormWorker({ metaMask }) {
       currentAccount = yield call(ethereumService.walletLogIn);
     }
     let profileInfo = null;
-    try {
-      profileInfo = yield call(
-        getProfileInfo,
-        currentAccount,
-        ethereumService,
-        false,
-        true,
-      );
-    } catch (err) {}
+
+    profileInfo = yield call(
+      getProfileInfo,
+      currentAccount,
+      ethereumService,
+      false,
+      true,
+    );
+
     if (profileInfo) {
       throw new WebIntegrationError(
         translations[signupMessages[USER_ALREADY_REGISTERED_ERROR].id],
@@ -220,7 +222,7 @@ export function* showWalletSignUpFormWorker({ metaMask }) {
   }
 }
 
-export default function* () {
+export default function* signUpSaga() {
   yield takeLatest(SEND_ANOTHER_CODE, sendAnotherCode);
   yield takeLatest(SEND_ANOTHER_CODE, sendAnotherCodeSuccess);
   yield takeLatest(EMAIL_CHECKING, emailCheckingWorker);
