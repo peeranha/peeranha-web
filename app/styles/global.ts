@@ -41,6 +41,9 @@ export default css`
     font-family: 'Sourse Sans Pro', sans-serif;
     font-style: normal;
     font-weight: 400;
+  }
+
+  body {
     background: rgb(234, 236, 244);
   }
 

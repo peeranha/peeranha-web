@@ -96,12 +96,13 @@ module.exports = options => {
           ],
         },
         {
-          test: /\.(jpg|png|gif)$/,
+          test: /\.(jpg|png|gif)$/i,
           use: [
             {
               loader: 'url-loader',
               options: {
-                limit: 10 * 1024,
+                limit: 8 * 1024,
+                esModule: false,
               },
             },
             {
