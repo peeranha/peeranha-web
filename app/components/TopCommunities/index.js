@@ -139,7 +139,7 @@ const TopCommunities = ({ communities, profile, questions }) => {
                 route = routes.questions();
               }
               const community = communities.find(
-                comm => comm.id === x.communityId,
+                item => item.id === x.communityId,
               );
 
               return (
