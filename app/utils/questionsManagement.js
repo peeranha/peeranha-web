@@ -410,8 +410,8 @@ export const getCreatedPostId = async (
   user,
   communityId,
 ) => {
-  const filter = ethereumService.contract.filters.PostCreated();
-  const events = await ethereumService.contract.queryFilter(
+  const filter = ethereumService.contractContent.filters.PostCreated();
+  const events = await ethereumService.contractContent.queryFilter(
     filter,
     block,
     block,
