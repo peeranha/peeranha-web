@@ -199,7 +199,7 @@ class EthereumService {
 
     // const metaTransactionsAllowed = getCookie(META_TRANSACTIONS_ALLOWED);
     if (balance < 0.001) {
-      await this.sendMetaTransaction(contract, actor, action, data);
+      return await this.sendMetaTransaction(contract, actor, action, data);
     } else {
       try {
         await this.chainCheck();
@@ -302,9 +302,9 @@ class EthereumService {
         wait: false,
       });
 
-      await this.provider.waitForTransaction(response.body.transactionHash);
-
-      return response;
+      return await this.provider.waitForTransaction(
+        response.body.transactionHash,
+      );
     } catch (err) {
       switch (err.code) {
         case INVALID_ETHEREUM_PARAMETERS_ERROR_CODE:
