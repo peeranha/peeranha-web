@@ -69,7 +69,7 @@ const NotFound = ({ locale, withSeo = true }) => (
               value: (
                 <A className="text-lowercase" to={routes.questions()}>
                   <Span color={LINK_COLOR}>
-                    <FormattedMessage {...commonMessages.posts} />
+                    <FormattedMessage id={commonMessages.posts.id} />
                   </Span>
                 </A>
               ),
