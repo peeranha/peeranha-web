@@ -17,7 +17,6 @@ import {
   CLAIM_REWARD,
   GET_COMMUNITY,
   GET_USER_BY_ADDRESS,
-  GET_USER_PERMISSIONS,
   SET_STAKE,
 } from './ethConstants';
 import { getFileUrl, getIpfsHashFromBytes32, getText } from './ipfs';
@@ -141,10 +140,6 @@ class EthereumService {
 
   getProfile = async userAddress => {
     const user = await this.getUserDataWithArgs(GET_USER_BY_ADDRESS, [
-      userAddress,
-    ]);
-
-    const permissions = await this.getUserDataWithArgs(GET_USER_PERMISSIONS, [
       userAddress,
     ]);
 

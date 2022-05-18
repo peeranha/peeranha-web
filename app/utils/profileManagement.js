@@ -25,7 +25,7 @@ import {
   NOTIFICATIONS_INFO_SERVICE,
 } from './web_integration/src/util/aws-connector';
 import { CONTRACT_USER, UPDATE_ACC } from './ethConstants';
-import { getUser, getUserStats } from './theGraph';
+import { getUser, getUserPermissions, getUserStats } from './theGraph';
 import { WebIntegrationError } from './errors';
 import { isUserExists } from './accountManagement';
 
@@ -80,6 +80,7 @@ export async function getProfileInfo(
       return;
     }
     profileInfo = await ethereumService.getProfile(user);
+    profileInfo.permissions = await getUserPermissions(user);
     userStats = await getUserStats(user);
     profileInfo.ratings = userStats?.ratings;
   } else {

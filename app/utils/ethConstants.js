@@ -31,7 +31,6 @@ export const SET_STAKE = 'setStake';
 //Query names
 export const GET_USER_BY_ADDRESS = 'getUserByAddress';
 export const IS_USER_EXISTS = 'isUserExists';
-export const GET_USER_PERMISSIONS = 'getUserPermissions';
 export const GET_USERS_COUNT = 'getUsersCount';
 export const GET_COMMUNITIES_COUNT = 'getCommunitiesCount';
 export const GET_COMMUNITY = 'getCommunity';
@@ -174,6 +173,17 @@ export const userQuery = `
           ${user}
           postCount
           replyCount
+        }
+      }`;
+
+export const userPermissionsQuery = `
+      query(
+        $id: ID!,
+      ) {
+        userPermissions(
+          where: {user: $id},
+        ) {
+          permission
         }
       }`;
 
