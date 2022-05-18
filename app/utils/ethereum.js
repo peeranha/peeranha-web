@@ -3,11 +3,13 @@ import PeeranhaUser from '../../../peeranha-subgraph/abis/PeeranhaUser.json';
 import PeeranhaToken from '../../../peeranha-subgraph/abis/PeeranhaToken.json';
 import PeeranhaContent from '../../../peeranha-subgraph/abis/PeeranhaContent.json';
 import PeeranhaCommunity from '../../../peeranha-subgraph/abis/PeeranhaCommunity.json';
-import PeeranhaNFT from '../../../peeranha-subgraph/abis/PeeranhaNFT.json';
 
 import { WebIntegrationErrorByCode } from './errors';
 import {
-  DEFAULT_ADMIN_ROLE,
+  CONTRACT_TOKEN,
+  CONTRACT_USER,
+  CONTRACT_CONTENT,
+  CONTRACT_COMMUNITY,
   INVALID_ETHEREUM_PARAMETERS_ERROR_CODE,
   METAMASK_ERROR_CODE,
   REJECTED_SIGNATURE_REQUEST,
@@ -20,6 +22,25 @@ import {
   SET_STAKE,
 } from './ethConstants';
 import { getFileUrl, getIpfsHashFromBytes32, getText } from './ipfs';
+
+const {
+  callService,
+  BLOCKCHAIN_SEND_META_TRANSACTION,
+} = require('./web_integration/src/util/aws-connector');
+
+let sigUtil = require('eth-sig-util');
+
+const CONTRACT_TO_ABI = {};
+CONTRACT_TO_ABI[CONTRACT_TOKEN] = PeeranhaToken;
+CONTRACT_TO_ABI[CONTRACT_USER] = PeeranhaUser;
+CONTRACT_TO_ABI[CONTRACT_COMMUNITY] = PeeranhaCommunity;
+CONTRACT_TO_ABI[CONTRACT_CONTENT] = PeeranhaContent;
+
+const CONTRACT_TO_NAME = {};
+CONTRACT_TO_NAME[CONTRACT_TOKEN] = 'PEER';
+CONTRACT_TO_NAME[CONTRACT_USER] = 'PeeranhaUser';
+CONTRACT_TO_NAME[CONTRACT_COMMUNITY] = 'PeeranhaCommunity';
+CONTRACT_TO_NAME[CONTRACT_CONTENT] = 'PeeranhaContent';
 
 class EthereumService {
   constructor(data) {
@@ -147,19 +168,122 @@ class EthereumService {
       creationTime: user.creationTime,
       ipfsDoc: user.ipfsDoc,
       rating: user.rating,
-      permissions: [DEFAULT_ADMIN_ROLE],
       followedCommunities: user.followedCommunities,
       ipfsHash: getIpfsHashFromBytes32(user.ipfsDoc.hash),
     };
   };
 
   sendTransaction = async (contract, actor, action, data) => {
+    if (true) {
+      await this.sendMetaTransaction(contract, actor, action, data);
+    } else {
+      try {
+        await this.chainCheck();
+        const transaction = await this[contract]
+          .connect(this.provider.getSigner(actor))
+          [action](...data);
+        return await transaction.wait();
+      } catch (err) {
+        switch (err.code) {
+          case INVALID_ETHEREUM_PARAMETERS_ERROR_CODE:
+            throw new WebIntegrationErrorByCode(METAMASK_ERROR_CODE);
+          case REJECTED_SIGNATURE_REQUEST:
+            throw new WebIntegrationErrorByCode(err.code);
+          default:
+            throw err;
+        }
+      }
+    }
+  };
+
+  getSignatureParameters = signature => {
+    var r = signature.slice(0, 66);
+    var s = '0x'.concat(signature.slice(66, 130));
+    var v = '0x'.concat(signature.slice(130, 132));
+    v = parseInt(v, 16);
+    if (![27, 28].includes(v)) v += 27;
+    return {
+      r: r,
+      s: s,
+      v: v,
+    };
+  };
+
+  sendMetaTransaction = async (contract, actor, action, data) => {
     try {
       await this.chainCheck();
-      const transaction = await this[contract]
-        .connect(this.provider.getSigner(actor))
-        [action](...data);
-      return await transaction.wait();
+      const metaTxContract = this[contract];
+      const nonce = await metaTxContract.getNonce(actor);
+      let iface = new ethers.utils.Interface(CONTRACT_TO_ABI[contract]);
+      const functionSignature = iface.encodeFunctionData(
+        action,
+        [actor].concat(data),
+      );
+
+      let message = {};
+      message.nonce = parseInt(nonce);
+      message.from = actor;
+      message.functionSignature = functionSignature;
+
+      const domainType = [
+        { name: 'name', type: 'string' },
+        { name: 'version', type: 'string' },
+        { name: 'verifyingContract', type: 'address' },
+        { name: 'salt', type: 'bytes32' },
+      ];
+
+      const metaTransactionType = [
+        { name: 'nonce', type: 'uint256' },
+        { name: 'from', type: 'address' },
+        { name: 'functionSignature', type: 'bytes' },
+      ];
+
+      let domainData = {
+        name: CONTRACT_TO_NAME[contract],
+        version: '1',
+        verifyingContract: this.contract.address,
+        salt: parseInt(process.env.CHAIN_ID, 10).toString(16),
+      };
+
+      console.log(`Domain data: $${JSON.stringify(domainData)}`);
+
+      const dataToSign = JSON.stringify({
+        types: {
+          EIP712Domain: domainType,
+          MetaTransaction: metaTransactionType,
+        },
+        domain: domainData,
+        primaryType: 'MetaTransaction',
+        message: message,
+      });
+
+      let signature = await this.provider.send('eth_signTypedData_v4', [
+        actor,
+        dataToSign,
+      ]);
+      console.log('Signature: ' + signature);
+
+      const recovered = sigUtil.recoverTypedSignature_v4({
+        data: JSON.parse(dataToSign),
+        sig: signature,
+      });
+
+      console.log(`Original ${actor}, Recovered ${recovered}`);
+
+      let { r, s, v } = this.getSignatureParameters(signature);
+
+      console.log('Endpoint - ' + BLOCKCHAIN_SEND_META_TRANSACTION);
+
+      const response = await callService(BLOCKCHAIN_SEND_META_TRANSACTION, {
+        userAddress: actor,
+        functionSignature,
+        sigR: r,
+        sigS: s,
+        sigV: v,
+      });
+
+      console.log(`Response - ${JSON.stringify(response)}`);
+      return response;
     } catch (err) {
       switch (err.code) {
         case INVALID_ETHEREUM_PARAMETERS_ERROR_CODE:
