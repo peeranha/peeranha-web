@@ -39,6 +39,7 @@ import Footer from './Footer';
 import Introduction from './Introduction';
 import About from './About';
 import Rewards from './Rewards';
+import Partners from './Partners';
 import FaqMain from './FaqMain';
 import Team from './Team';
 
@@ -184,15 +185,13 @@ export const HomePage = ({
       />
 
       <About translations={translations} />
-
+      <Partners />
       <Rewards
         translations={translations}
         checkEmail={verifyEmail}
         emailChecking={emailChecking}
       />
-
       <FaqMain faqQuestions={faqQuestions} />
-
       <Team
         translations={translations}
         sendMessage={sendMessageDispatch}
