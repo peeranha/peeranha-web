@@ -63,7 +63,7 @@ const Info = styled.div`
   display: flex;
   flex-direction: column;
   align-items: start;
-  padding: 0 10px;
+  padding: 0 7px;
 
   p:nth-child(1) {
     font-size: 16px;
