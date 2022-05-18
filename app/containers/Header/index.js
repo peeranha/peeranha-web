@@ -73,7 +73,6 @@ export class Header extends React.PureComponent {
     const {
       account,
       profileInfo,
-      showLoginModalDispatch,
       showLeftMenuDispatch,
       redirectToAskQuestionPageDispatch,
       faqQuestions,

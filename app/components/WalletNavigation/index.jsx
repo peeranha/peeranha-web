@@ -37,14 +37,15 @@ const WalletNavigation = ({ userId, showSendTokensModalDispatch }) => {
         </A>
       </ul>
 
-      <WrapperRightPanel className="right-panel">
-        <button onClick={showSendTokensModalDispatch}>
-          <Span className="d-flex align-items-center" color={TEXT_PRIMARY}>
-            <IconMd className="mr-2" icon={sendtokensIcon} />
-            <FormattedMessage {...messages.sendTokens} />
-          </Span>
-        </button>
-      </WrapperRightPanel>
+      {/*TODO send tokens issue*/}
+      {/*<WrapperRightPanel className="right-panel">*/}
+      {/*  <button onClick={showSendTokensModalDispatch}>*/}
+      {/*    <Span className="d-flex align-items-center" color={TEXT_PRIMARY}>*/}
+      {/*      <IconMd className="mr-2" icon={sendtokensIcon} />*/}
+      {/*      <FormattedMessage {...messages.sendTokens} />*/}
+      {/*    </Span>*/}
+      {/*  </button>*/}
+      {/*</WrapperRightPanel>*/}
     </Wrapper>
   );
 };

@@ -180,8 +180,8 @@
   "app.common.chooseFile": "Choose a file",
   "app.common.skip": "Skip",
   "app.common.showMoreQuestions": "Show more results",
-  "app.common.questionIsAnswered": "You have already answered this question",
-  "app.common.logInToAnswer": "Log in to answer the question",
+  "app.common.questionIsAnswered": "You have already answered this post",
+  "app.common.logInToAnswer": "Log in to answer the post",
   "app.common.activateBoost": "Activate boost",
   "app.common.boost": "Boost",
   "app.common.subscribe": "Subscribe",
@@ -422,7 +422,7 @@
   "app.containers.Profile.answered": "Answered",
   "app.containers.Profile.lastAnswer": "Last answer",
   "app.containers.Profile.noAnswersYet": "No answers yet",
-  "app.containers.Profile.achievements": "Achievements",
+  "app.containers.Profile.achievements": "NFTs",
   "app.containers.Profile.editProfile": "Edit profile",
   "app.containers.Profile.authorizationData": "Authorization data",
   "app.containers.Profile.referralProgram": "Referral Program",
@@ -757,7 +757,7 @@
   "app.containers.ViewQuestion.itemsMax":
     "Number of items is reached the maximum",
   "app.containers.ViewQuestion.noRootsToVote":
-    "You cannot vote on your own questions and answers",
+    "You cannot vote on your own posts and answers",
   "app.containers.ViewQuestion.creatorCannot":
     "Creator cannot complete this action",
   "app.containers.ViewQuestion.notEnoughEnergy":
@@ -1016,7 +1016,7 @@
     "Subscribe to communities to keep track of topics that you are interested in.",
   "app.containers.Questions.noPostsYet": "No posts yet.",
   "app.containers.Questions.thisIsNewCommunity":
-    "This is a new community, you can be the first to post a post. Your post may become the most popular.",
+    "This is the new community, you can be the first to create a post and it may become the most popular.",
   "app.containers.Questions.readMyFeed": "Read my feed",
   "app.containers.Questions.goToCommunities": "Go to communities",
   "app.containers.Questions.topQuestionPopover":

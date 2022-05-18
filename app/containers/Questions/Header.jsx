@@ -35,7 +35,7 @@ import { BORDER_PRIMARY, ICON_TRASPARENT_BLUE } from 'style-constants';
 import QuestionFilter from './QuestionFilter';
 
 import { selectQuestions, selectTopQuestionsInfoLoaded } from './selectors';
-import {makeSelectProfileInfo} from '../AccountProvider/selectors';
+import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 
 const single = isSingleCommunityWebsite();
 const colors = singleCommunityColors();
@@ -109,7 +109,9 @@ export const Header = ({
     }
   } else {
     defaultAvatar = myFeedIcon;
-    defaultLabel = intl.formatMessage({ id: messages[profile ? 'feed' : 'myFeed'].id });
+    defaultLabel = intl.formatMessage({
+      id: messages[profile ? 'myFeed' : 'feed'].id,
+    });
     defaultAvatarWidth = '38';
   }
 
