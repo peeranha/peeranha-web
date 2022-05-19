@@ -1,12 +1,12 @@
+//Contracts
+export const CONTRACT_TOKEN = 'contractToken';
+export const CONTRACT_USER = 'contractUser';
+export const CONTRACT_CONTENT = 'contractContent';
+export const CONTRACT_COMMUNITY = 'contractCommunity';
+
+//Transaction names
 export const REGISTER_ACC = 'createUser';
 export const UPDATE_ACC = 'updateUser';
-export const GET_USER_BY_ADDRESS = 'getUserByAddress';
-export const IS_USER_EXISTS = 'isUserExists';
-export const GET_USER_PERMISSIONS = 'getUserPermissions';
-export const GET_USERS_COUNT = 'getUsersCount';
-export const GET_COMMUNITIES_COUNT = 'getCommunitiesCount';
-export const GET_COMMUNITY = 'getCommunity';
-export const GET_QUESTION = 'getPost';
 export const CREATE_COMMUNITY = 'createCommunity';
 export const EDIT_COMMUNITY = 'updateCommunity';
 export const FOLLOW_COMMUNITY = 'followCommunity';
@@ -15,10 +15,6 @@ export const CREATE_TAG = 'createTag';
 export const EDIT_TAG = 'updateTag';
 export const POST_QUESTION = 'createPost';
 export const CHANGE_POST_TYPE = 'changePostType';
-export const GET_POST = 'getPost';
-export const GET_REPLY = 'getReply';
-export const GET_STATUS_HISTORY = 'getStatusHistory';
-export const GET_COMMENT = 'getComment';
 export const POST_ANSWER = 'createReply';
 export const EDIT_ANSWER = 'editReply';
 export const DELETE_ANSWER = 'deleteReply';
@@ -29,9 +25,25 @@ export const EDIT_COMMENT = 'editComment';
 export const DELETE_COMMENT = 'deleteComment';
 export const CHANGE_STATUS_BEST = 'changeStatusBestReply';
 export const VOTE_ITEM = 'voteItem';
-export const GET_USER_RATING = 'getUserRating';
-export const GET_USER_BALANCE = 'balanceOf';
 export const CLAIM_REWARD = 'claimReward';
+export const SET_STAKE = 'setStake';
+
+//Query names
+export const GET_USER_BY_ADDRESS = 'getUserByAddress';
+export const IS_USER_EXISTS = 'isUserExists';
+export const GET_USERS_COUNT = 'getUsersCount';
+export const GET_COMMUNITIES_COUNT = 'getCommunitiesCount';
+export const GET_COMMUNITY = 'getCommunity';
+export const GET_POST = 'getPost';
+export const GET_REPLY = 'getReply';
+export const GET_STATUS_HISTORY = 'getStatusHistory';
+export const GET_COMMENT = 'getComment';
+export const GET_USER_BALANCE = 'balanceOf';
+export const GET_AVERAGE_STAKE = 'getAverageStake';
+export const GET_AVAILABLE_BALANCE = 'availableBalanceOf';
+export const GET_BOOST = 'getBoost';
+export const GET_STAKE = 'getStake';
+export const GET_USER_STAKE = 'getUserStake';
 
 export const UPVOTE_STATUS = 1;
 export const DOWNVOTE_STATUS = -1;
@@ -49,6 +61,9 @@ const user = `
     about
     avatar
     creationTime
+    achievements {
+            id
+    }
 `;
 
 const comment = `
@@ -158,6 +173,17 @@ export const userQuery = `
           ${user}
           postCount
           replyCount
+        }
+      }`;
+
+export const userPermissionsQuery = `
+      query(
+        $id: ID!,
+      ) {
+        userPermissions(
+          where: {user: $id},
+        ) {
+          permission
         }
       }`;
 
@@ -424,6 +450,14 @@ export const rewardsQuery = `
       isPaid
     }
     periods (orderBy: endPeriodTime, orderDirection: desc, first: 2) {
+      ${period}
+    }
+  }
+`;
+
+export const currentPeriodQuery = `
+  query  {
+    periods (orderBy: endPeriodTime, orderDirection: desc, first: 1) {
       ${period}
     }
   }

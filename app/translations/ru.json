@@ -33,7 +33,8 @@
   "app.common.allCommunities": "Все сообщества",
   "app.common.tags": "Теги",
   "app.common.home": "Главная",
-  "app.common.myFeed": "Лента",
+  "app.common.feed": "Лента",
+  "app.common.myFeed": "Моя лента",
   "app.common.users": "Пользователи",
   "app.common.followers": "Подписчики",
   "app.common.usersShort": "Польз.",
@@ -118,8 +119,7 @@
   "app.common.poweredByPeeranha": "Powered by {image}",
   "app.common.terms": "Operating Agreement",
   "app.common.noResults": "Нет результатов",
-  "app.common.iAcceptPrivacyPolicy":
-    "Я принимаю условия {privacyPolicy}, {termsOfService}",
+  "app.common.iAcceptPrivacyPolicy": "Я принимаю условия {privacyPolicy}, {termsOfService}",
   "app.common.inProgress": "Выполняется",
   "app.common.loginViaWallet": "Войти через кошелек",
   "app.common.loginViaService": "Войти через сервис",
@@ -138,8 +138,7 @@
   "app.common.sendTip": "Отправить чаевые",
   "app.common.receivedReward": "Вы получили реферальную награду",
   "app.common.generalPopoverTitle": "Обсуждение",
-  "app.common.generalPopoverLabel":
-    "Вопрос, для ответа на который не требуется знания или опыта, может быть одним из следующих:",
+  "app.common.generalPopoverLabel": "Вопрос, для ответа на который не требуется знания или опыта, может быть одним из следующих:",
   "app.common.generalPopoverList": [
     "Обмен мнением;",
     "Мозговой штурм;",
@@ -154,8 +153,7 @@
     "Пояснение или разъяснение информации, которую трудно понять."
   ],
   "app.common.tutorialPopoverTitle": "Руководство",
-  "app.common.tutorialPopoverLabel":
-    "Tutorial is a manual instruction that can be one of the following:",
+  "app.common.tutorialPopoverLabel": "Tutorial is a manual instruction that can be one of the following:",
   "app.common.tutorialPopoverList": [
     "Step-by-step solution to a problem;",
     "Technical setup;",
@@ -167,18 +165,15 @@
   "app.common.yesterday": "Вчера",
   "app.common.official": "Официальный",
   "app.common.profilesUsersInfo": "Размер файла не должен превышать 2Мб",
-  "app.common.communityBannerInfo":
-    "Используйте картинку размера 1360 x 120 пикселей. Размер файла не должен превышать 1Мб",
+  "app.common.communityBannerInfo": "Используйте картинку размера 1360 x 120 пикселей. Размер файла не должен превышать 1Мб",
   "app.common.fileSizeErrorMsg": "Размер файла больше 2Мб. Выберите другой...",
-  "app.common.bannerSizeErrorMsg":
-    "Размер файла больше 1Мб. Выберите другой...",
-  "app.common.incorrectBannerResolutionMsg":
-    "Разрешение картинки должно быть 1360 x 120 пикселей",
+  "app.common.bannerSizeErrorMsg": "Размер файла больше 1Мб. Выберите другой...",
+  "app.common.incorrectBannerResolutionMsg": "Разрешение картинки должно быть 1360 x 120 пикселей",
   "app.common.chooseFile": "Выберите файл",
   "app.common.skip": "Пропустить",
   "app.common.showMoreQuestions": "Показать больше найденных вопросов",
-  "app.common.questionIsAnswered": "Вы уже ответили на этот вопрос",
-  "app.common.logInToAnswer": "Авторизуйтесь, чтобы ответить на вопрос",
+  "app.common.questionIsAnswered": "Вы уже ответили на этот пост",
+  "app.common.logInToAnswer": "Авторизуйтесь, чтобы ответить на пост",
   "app.common.activateBoost": "Активировать Boost",
   "app.common.boost": "Boost",
   "app.common.subscribe": "Подписаться",
@@ -188,19 +183,16 @@
   "app.common.blogger": "Блогерский",
   "app.common.cannotTransferToYourself": "Нельзя отправлять самому себе",
   "app.common.notEnoughCPUOrRAM": "Не достаточно CPU или RAM",
-  "app.common.metaMaskIsLocked":
-    "Пожалуйста, проверьте соединение MetaMask и попробуйте перезагрузить страницу",
+  "app.common.metaMaskIsLocked": "Пожалуйста, проверьте соединение MetaMask и попробуйте перезагрузить страницу",
 
   "app.common.ipfsHashValue": "IPFS",
   "app.common.source": "Источник",
 
   "app.telegram.user": "Телеграм пользователь",
-  "app.telegram.userLabelPopover":
-    "Это временная учетная запись, предоставленная Telegram Bot.",
+  "app.telegram.userLabelPopover": "Это временная учетная запись, предоставленная Telegram Bot.",
 
   "app.containers.TermsOfService.title": "Условия обслуживания",
-  "app.containers.TermsOfService.description":
-    "Условия обслуживания : описание",
+  "app.containers.TermsOfService.description": "Условия обслуживания : описание",
   "app.containers.Search.title": "Поиск",
   "app.containers.Search.description": "Поиск: описание",
   "app.containers.ChangeEmail.newEmail": "Новая почта",
@@ -208,17 +200,14 @@
   "app.containers.ChangeEmail.emailsDoNotMatch": "Почты не совпадают",
   "app.containers.DeleteAccount.deleteAccount": "Удалить аккаунт",
   "app.containers.DeleteAccount.areYouLeaving": "Вы уходите?",
-  "app.containers.DeleteAccount.iUnderstand":
-    "Я понимаю, что эта операция не удаляет мой аккаунт на Telos блокчейне. Аккаунт удаляется только из кошелька сервиса.",
-  "app.containers.DeleteAccount.iHaveBackup":
-    "Я сделал бэкап моих Telos приватных ключей.",
+  "app.containers.DeleteAccount.iUnderstand": "Я понимаю, что эта операция не удаляет мой аккаунт на Telos блокчейне. Аккаунт удаляется только из кошелька сервиса.",
+  "app.containers.DeleteAccount.iHaveBackup": "Я сделал бэкап моих Telos приватных ключей.",
 
   "app.containers.Wallet.title": "Кошелек",
   "app.containers.Wallet.description": "Кошелек | Описание",
   "app.containers.Wallet.eosAccount": "Telos аккаунт",
   "app.containers.Wallet.currentPeriod": "Текущий период в прогрессе",
-  "app.containers.Wallet.periodStillInProgress":
-    "Этот период все еще в прогрессе. Вы увидите больше деталей на следующей неделе.",
+  "app.containers.Wallet.periodStillInProgress": "Этот период все еще в прогрессе. Вы увидите больше деталей на следующей неделе.",
   "app.containers.Wallet.payoutPending": "Выплата в ожидании",
   "app.containers.Wallet.estimatedPayout": "Расчетная выплата",
   "app.containers.Wallet.paidOut": "Выплачено",
@@ -226,19 +215,14 @@
   "app.containers.Wallet.week": "Неделя",
   "app.containers.Wallet.getReward": "Получить награду",
   "app.containers.Wallet.received": "Получено",
-  "app.containers.Wallet.thisIsRegistrationWeek":
-    "Это неделя регистрации. Мы настраиваем Ваш кошелёк. Награда за эту неделю будет получена на следующей неделе.",
+  "app.containers.Wallet.thisIsRegistrationWeek": "Это неделя регистрации. Мы настраиваем Ваш кошелёк. Награда за эту неделю будет получена на следующей неделе.",
   "app.containers.Wallet.registrationWeek": "Неделя регистрации",
-  "app.containers.Wallet.yourWalletWasSuccessfullySet":
-    "Ваш кошелёк был успешно настроен в этот период",
+  "app.containers.Wallet.yourWalletWasSuccessfullySet": "Ваш кошелёк был успешно настроен в этот период",
   "app.containers.Wallet.getMoreWithBoost": "Получите больше наград с Boost",
-  "app.containers.Wallet.stakedInCurrentPeriod":
-    "Ставка, сделанная в текущем периоде",
-  "app.containers.Wallet.stakedInNextPeriod":
-    "Ставка, сделанная на следующий период",
+  "app.containers.Wallet.stakedInCurrentPeriod": "Ставка, сделанная в текущем периоде",
+  "app.containers.Wallet.stakedInNextPeriod": "Ставка, сделанная на следующий период",
   "app.containers.Wallet.totalBalance": "Итоговый баланс",
-  "app.containers.Wallet.boostHelp":
-    "Узнайте {whatABoostIs} и {howToStake} в {FAQs}.",
+  "app.containers.Wallet.boostHelp": "Узнайте {whatABoostIs} и {howToStake} в {FAQs}.",
   "app.containers.Wallet.whatABoostIs": "что такое Boost",
   "app.containers.Wallet.howToStake": "как вы можете сделать ставку",
   "app.containers.Wallet.FAQs": "разделе часто задаваемых вопросов",
@@ -247,7 +231,7 @@
   "app.containers.Boost.description": "Boost | Описание",
   "app.containers.Boost.currentPeriod": "Текущий период",
   "app.containers.Boost.nextPeriod": "Следующий период",
-  "app.containers.Boost.maximumStake": "Максимальная ставка",
+  "app.containers.Boost.maximumStake": "Средняя ставка",
   "app.containers.Boost.users": "Пользователи",
   "app.containers.Boost.yourStake": "Ваша ставка",
   "app.containers.Boost.yourBoost": "Ваш Boost",
@@ -259,50 +243,31 @@
   "app.containers.Boost.formCurrentStake": "Ваша ставка",
   "app.containers.Boost.formTakeAStake": "Сделайте ставку",
   "app.containers.Boost.formUnstakeTokens": "Отменить ставку",
-  "app.containers.Boost.notTokensToStake":
-    "У вас нет токенов, чтобы сделать ставку",
+  "app.containers.Boost.notTokensToStake": "У вас нет токенов, чтобы сделать ставку",
 
-  "web_integration.errors.unknownError":
-    "Неизвестная ошибка. Пожалуйста, отправьте отчет об ошибке!",
-  "web_integration.errors.accountAlreadyRegistered":
-    "Аккаунт уже зарегистрирован",
-  "web_integration.errors.invalidEncryptionKey":
-    "Неверный ключ шифрования или IV",
-  "web_integration.errors.userDidntStoreKey":
-    "Пользователь не сохранил owner key в нашем сервисе",
-  "web_integration.errors.userDidntRequestActivateAcc":
-    "Данный пользователь не активировал аккаунт",
-  "web_integration.errors.youSendTooManRequests":
-    "Вы отправили слишком много запросов за последнее время",
-  "web_integration.errors.userDidntMakeRequestToVerifyEmail":
-    "Email не был зарегистрирован или время ожидания истекло",
-  "web_integration.errors.codeExpiredOrIncorrect":
-    "Код истек или был введен некорректно",
+  "web_integration.errors.unknownError": "Неизвестная ошибка. Пожалуйста, отправьте отчет об ошибке!",
+  "web_integration.errors.accountAlreadyRegistered": "Аккаунт уже зарегистрирован",
+  "web_integration.errors.invalidEncryptionKey": "Неверный ключ шифрования или IV",
+  "web_integration.errors.userDidntStoreKey": "Пользователь не сохранил owner key в нашем сервисе",
+  "web_integration.errors.userDidntRequestActivateAcc": "Данный пользователь не активировал аккаунт",
+  "web_integration.errors.youSendTooManRequests": "Вы отправили слишком много запросов за последнее время",
+  "web_integration.errors.userDidntMakeRequestToVerifyEmail": "Email не был зарегистрирован или время ожидания истекло",
+  "web_integration.errors.codeExpiredOrIncorrect": "Код истек или был введен некорректно",
   "web_integration.errors.passphraseIsInvalid": "Passphrase неверен",
-  "web_integration.errors.unableToDecryptUserKey":
-    "Проверьте правильность введенных данных",
+  "web_integration.errors.unableToDecryptUserKey": "Проверьте правильность введенных данных",
   "web_integration.errors.wrongPassword": "Неверный пароль",
   "web_integration.errors.wrongMasterKey": "Неверный Master ключ",
-  "web_integration.errors.accountWithEmailIsntRegistered":
-    "Аккаунт с данной почтой еще не был зарегистрирован",
-  "web_integration.errors.requestExpiredOrSomeOperationWasPassed":
-    "Пользователь еще не завершил операцию или время жизни ключа истекло",
-  "web_integration.errors.invalidCipher":
-    "Неверный ключ шифрования IV in passphase",
+  "web_integration.errors.accountWithEmailIsntRegistered": "Аккаунт с данной почтой еще не был зарегистрирован",
+  "web_integration.errors.requestExpiredOrSomeOperationWasPassed": "Пользователь еще не завершил операцию или время жизни ключа истекло",
+  "web_integration.errors.invalidCipher": "Неверный ключ шифрования IV in passphase",
   "web_integration.errors.emailAlreadyInUse": "Email уже используется",
   "web_integration.errors.unableToBuildModel": "Невозможно построить модель",
-  "web_integration.errors.facebookAlreadyInUse":
-    "Фейсбук аккаунт уже используется",
-  "web_integration.errors.facebookAccountIsntRegistered":
-    "Фейсбук аккаунт ещё не зарегистрирован",
-  "web_integration.errors.incorrectFacebookAccessToken":
-    "Некорректный токен доступа фейсбук",
-  "web_integration.errors.noStoredFacebookData":
-    "В Пиранье нет сохраненных данных заданного фейсбук-аккаунта",
-  "web_integration.errors.privateKeyTypeIsNotSet":
-    "Не задан тип приватного ключа",
-  "web_integration.errors.noFacebookAccountEmail":
-    "В учетной записи фесбук не установлена электронная почта, либо электронная почта не подтвержена",
+  "web_integration.errors.facebookAlreadyInUse": "Фейсбук аккаунт уже используется",
+  "web_integration.errors.facebookAccountIsntRegistered": "Фейсбук аккаунт ещё не зарегистрирован",
+  "web_integration.errors.incorrectFacebookAccessToken": "Некорректный токен доступа фейсбук",
+  "web_integration.errors.noStoredFacebookData": "В Пиранье нет сохраненных данных заданного фейсбук-аккаунта",
+  "web_integration.errors.privateKeyTypeIsNotSet": "Не задан тип приватного ключа",
+  "web_integration.errors.noFacebookAccountEmail": "В учетной записи фесбук не установлена электронная почта, либо электронная почта не подтвержена",
 
   "app.containers.Header.walletTooltipPart1": "Вам доступны ",
   "app.containers.Header.walletTooltipPart2": " поощрений",
@@ -317,73 +282,48 @@
   "app.common.verifyFacebookAccount": "Проверка аккаунта",
   "app.common.facebookButton": "Фейсбук",
   "app.common.selectCommunity": "Выбрать...",
-  "app.containers.DeleteFacebookData.deleteFacebookDataTitle":
-    "Удаление данных фесбук",
-  "app.containers.DeleteFacebookData.pageToCheckFacebookId":
-    "Эта страница помжет Вам проверить, хранит ли Пиранья ваши данные учетной записи фесбук, а также удалить их.",
-  "app.containers.DeleteFacebookData.checkFacebookId":
-    "Пожалуйста, введите ID вашей учетной записи фейсбук и нажмите кнопку 'Проверить ID'.",
-  "app.containers.DeleteFacebookData.ifDataStored":
-    "Если есть сохраненные данные, мы отправим Вам на почту код подтвеждения для продолжения удаления.",
-  "app.containers.DeleteFacebookData.enterYourFacebookId":
-    "Введите ID учетной записи фейсбук",
+  "app.containers.DeleteFacebookData.deleteFacebookDataTitle": "Удаление данных фесбук",
+  "app.containers.DeleteFacebookData.pageToCheckFacebookId": "Эта страница помжет Вам проверить, хранит ли Пиранья ваши данные учетной записи фесбук, а также удалить их.",
+  "app.containers.DeleteFacebookData.checkFacebookId": "Пожалуйста, введите ID вашей учетной записи фейсбук и нажмите кнопку 'Проверить ID'.",
+  "app.containers.DeleteFacebookData.ifDataStored": "Если есть сохраненные данные, мы отправим Вам на почту код подтвеждения для продолжения удаления.",
+  "app.containers.DeleteFacebookData.enterYourFacebookId": "Введите ID учетной записи фейсбук",
   "app.containers.DeleteFacebookData.facebookUserId": "Фейсбук ID",
   "app.containers.DeleteFacebookData.checkId": "Проверить ID",
-  "app.containers.DeleteFacebookData.completeDeletionPage":
-    "Эта страница поможет Вам завершить удаление данных фейсбук.",
-  "app.containers.DeleteFacebookData.completeDeletion":
-    "Для завершения удаления данных, пожалуйста, введите код подтверждения, которых вы получили по почте, и нажмите кнопку 'Подтвердить удаление'.",
-  "app.containers.DeleteFacebookData.ifCodeHasExpired":
-    "Если истек срок действия кода или он является неверным, нажмите кнопку 'Отправить другой код'. На вашу почту будет отправлен новый код.",
-  "app.containers.DeleteFacebookData.contactSupprortTeam":
-    "Если Вам не удается удалить данные, свяжитесь с нашей ",
+  "app.containers.DeleteFacebookData.completeDeletionPage": "Эта страница поможет Вам завершить удаление данных фейсбук.",
+  "app.containers.DeleteFacebookData.completeDeletion": "Для завершения удаления данных, пожалуйста, введите код подтверждения, которых вы получили по почте, и нажмите кнопку 'Подтвердить удаление'.",
+  "app.containers.DeleteFacebookData.ifCodeHasExpired": "Если истек срок действия кода или он является неверным, нажмите кнопку 'Отправить другой код'. На вашу почту будет отправлен новый код.",
+  "app.containers.DeleteFacebookData.contactSupprortTeam": "Если Вам не удается удалить данные, свяжитесь с нашей ",
   "app.containers.DeleteFacebookData.supportTeam": "службой поддержки",
-  "app.containers.DeleteFacebookData.enterYourCode":
-    "Введите код подтверждения",
-  "app.containers.DeleteFacebookData.fbDelDataCompletedTitle":
-    "Удаление данных завершено",
-  "app.containers.DeleteFacebookData.fbDataDeletionCompleted":
-    "Поздравляем! Мы завершили удаление ваший данных фесбук-аккаунта.",
-  "app.containers.DeleteFacebookData.noStoredDataNow":
-    "Мы больше не храним никаких данных о вашем учетной записи фейсбук.",
-  "app.containers.DeleteFacebookData.congratulations":
-    "Поздравляем! Удаление данных успешно завершено!",
+  "app.containers.DeleteFacebookData.enterYourCode": "Введите код подтверждения",
+  "app.containers.DeleteFacebookData.fbDelDataCompletedTitle": "Удаление данных завершено",
+  "app.containers.DeleteFacebookData.fbDataDeletionCompleted": "Поздравляем! Мы завершили удаление ваший данных фесбук-аккаунта.",
+  "app.containers.DeleteFacebookData.noStoredDataNow": "Мы больше не храним никаких данных о вашем учетной записи фейсбук.",
+  "app.containers.DeleteFacebookData.congratulations": "Поздравляем! Удаление данных успешно завершено!",
   "app.containers.DeleteFacebookData.confirmDeletion": "Подтвердить удаление",
 
   "app.containers.Moderation.givePermissions": "Выдача разрешений",
-  "app.containers.Moderation.givePermissionsDescription":
-    "Позволяет выдавать и забирать разрешение модератора комьюнити..",
+  "app.containers.Moderation.givePermissionsDescription": "Позволяет выдавать и забирать разрешение модератора комьюнити..",
 
   "app.containers.Moderation.permissionInfinite": "Безграничное воздействие",
-  "app.containers.Moderation.permissionInfiniteDescription":
-    "Позволяет удалять вопросы, ответы и комментарии в один клик",
+  "app.containers.Moderation.permissionInfiniteDescription": "Позволяет удалять вопросы, ответы и комментарии в один клик",
 
   "app.containers.Moderation.permissionIgnoreRating": "Игнорирование рейтинга",
-  "app.containers.Moderation.permissionIgnoreRatingDescription":
-    "Позволяет выполнять действия с ограниченным рейтингом",
+  "app.containers.Moderation.permissionIgnoreRatingDescription": "Позволяет выполнять действия с ограниченным рейтингом",
 
   "app.containers.Moderation.permissionCreateCommunity": "Создание сообщества",
-  "app.containers.Moderation.permissionCreateCommunityDescription":
-    "Позволяет мгновенно создать сообщество",
+  "app.containers.Moderation.permissionCreateCommunityDescription": "Позволяет мгновенно создать сообщество",
 
   "app.containers.Moderation.permissionCreateTag": "Создание тега",
-  "app.containers.Moderation.permissionCreateTagDescription":
-    "Позволяет мгновенно создать тег",
+  "app.containers.Moderation.permissionCreateTagDescription": "Позволяет мгновенно создать тег",
 
-  "app.containers.Moderation.permissionChangeQuestionType":
-    "Изменение типа вопроса",
-  "app.containers.Moderation.permissionChangeQuestionTypeDescription":
-    "Позволяет изменить тип вопроса",
+  "app.containers.Moderation.permissionChangeQuestionType": "Изменение типа вопроса",
+  "app.containers.Moderation.permissionChangeQuestionTypeDescription": "Позволяет изменить тип вопроса",
 
-  "app.containers.Moderation.permissionSelectTopQuestion":
-    "Выбор «Top» вопроса",
-  "app.containers.Moderation.permissionSelectTopQuestionDescription":
-    "Позволяет выбрать вопрос, который будет отображаться на «Top» странице",
+  "app.containers.Moderation.permissionSelectTopQuestion": "Выбор «Top» вопроса",
+  "app.containers.Moderation.permissionSelectTopQuestionDescription": "Позволяет выбрать вопрос, который будет отображаться на «Top» странице",
 
-  "app.containers.Moderation.permissionOfficialAnswer":
-    "Публикация официального ответа",
-  "app.containers.Moderation.permissionOfficialAnswerDescription":
-    "Позволяет опубликовать официальный ответ",
+  "app.containers.Moderation.permissionOfficialAnswer": "Публикация официального ответа",
+  "app.containers.Moderation.permissionOfficialAnswerDescription": "Позволяет опубликовать официальный ответ",
 
   "app.containers.Tutorial.title": "Руководство",
   "app.containers.Tutorial.description": "Руководство: описание",
@@ -391,8 +331,7 @@
 
   "app.components.AskQuestionBanner.help": "Помощь",
   "app.components.AskQuestionBanner.didntFindAnswer": "Не нашли ответ?",
-  "app.components.AskQuestionBanner.freeFeelToAsk":
-    "Спросите нашу команду. Мы поможем найти ответ.",
+  "app.components.AskQuestionBanner.freeFeelToAsk": "Спросите нашу команду. Мы поможем найти ответ.",
 
   "app.containers.Users.title": "Пользователи",
   "app.containers.Users.description": "Пользователи: описание",
@@ -403,13 +342,10 @@
   "app.containers.FollowCommunityButton.header": "Хедер",
   "app.containers.FollowCommunityButton.subscribe": "Подписаться",
   "app.containers.FollowCommunityButton.unsubscribe": "Отписаться",
-  "app.containers.FollowCommunityButton.subscribeToThisCommunity":
-    "Подписаться на это сообщество",
+  "app.containers.FollowCommunityButton.subscribeToThisCommunity": "Подписаться на это сообщество",
 
-  "app.containers.ExistingCommunities.voteForNewCommunities":
-    "Голосуйте за новые сообщества",
-  "app.containers.ExistingCommunities.singleCommunityTooltip":
-    "У этого сообщества есть сайт вопросов и ответов на отдельном домене",
+  "app.containers.ExistingCommunities.voteForNewCommunities": "Голосуйте за новые сообщества",
+  "app.containers.ExistingCommunities.singleCommunityTooltip": "У этого сообщества есть сайт вопросов и ответов на отдельном домене",
 
   "app.components.RatingStatus.stranger": "Незнакомец",
   "app.components.RatingStatus.newbie": "Новичок",
@@ -424,12 +360,9 @@
   "app.containers.Profile.status": "Наивысший достигнутый статус",
   "app.containers.Profile.risen": "Понравилось",
   "app.containers.Profile.memberSince": "Резидент с ",
-  "app.containers.Profile.informationIsBlank":
-    "Информация о пользователе отсутствует",
-  "app.containers.Profile.userHasntActivityYet":
-    "У этого пользователя пока нет активности",
-  "app.containers.Profile.heHasNoAnswersAndPosts":
-    "У него нет пока постов и ответов",
+  "app.containers.Profile.informationIsBlank": "Информация о пользователе отсутствует",
+  "app.containers.Profile.userHasntActivityYet": "У этого пользователя пока нет активности",
+  "app.containers.Profile.heHasNoAnswersAndPosts": "У него нет пока постов и ответов",
   "app.containers.Profile.answered": "ответили",
   "app.containers.Profile.lastAnswer": "Последний ответ",
   "app.containers.Profile.noAnswersYet": "Пока нет ответов",
@@ -439,8 +372,7 @@
   "app.containers.Profile.referralProgram": "Реферальная программа",
   "app.containers.Profile.referralLink": "Ваша реферальная ссылка",
   "app.containers.Profile.referralCode": "Ваш реферальный код",
-  "app.containers.Profile.referralText":
-    "Поделитесь реферальной ссылкой или кодом с вашим другом и вы оба получите 100 PEER токенов после того, как ваш друг заработает 35 очков репутации.",
+  "app.containers.Profile.referralText": "Поделитесь реферальной ссылкой или кодом с вашим другом и вы оба получите 100 PEER токенов после того, как ваш друг заработает 35 очков репутации.",
 
   "app.containers.SuggestedTags.title": "Предложенные теги",
   "app.containers.SuggestedTags.description": "Предложенные теги | Описание",
@@ -449,31 +381,25 @@
   "app.containers.SuggestedTags.tagDescription": "Описание",
 
   "app.containers.PrivacyPolicy.title": "Политика конфиденциальности",
-  "app.containers.PrivacyPolicy.description":
-    "Политика конфиденциальности, описание",
+  "app.containers.PrivacyPolicy.description": "Политика конфиденциальности, описание",
 
   "app.containers.Support.title": "Поддержка",
   "app.containers.Support.description": "Поддержка | Описание",
   "app.containers.Support.feelFreeToAsk": "Не бойтесь спрашивать",
-  "app.containers.Support.alsoWeHighly":
-    "Мы высоко ценим ваше мнение и предложения по платформе. Отправьте нам несколько строк, если у Вас есть время.",
+  "app.containers.Support.alsoWeHighly": "Мы высоко ценим ваше мнение и предложения по платформе. Отправьте нам несколько строк, если у Вас есть время.",
 
   "app.containers.CreateTag.title": "Предложить тег",
   "app.containers.CreateTag.description": "Предложить тег | Описание",
   "app.containers.CreateTag.community": "Сообщество",
-  "app.containers.CreateTag.communityTip":
-    "Сообщество, в котором будет создан тег",
+  "app.containers.CreateTag.communityTip": "Сообщество, в котором будет создан тег",
   "app.containers.CreateTag.name": "Название",
   "app.containers.CreateTag.nameTip": "Уникальное имя нового тега",
   "app.containers.CreateTag.descriptionField": "Описание",
-  "app.containers.CreateTag.descriptionFieldTip":
-    "Инструкции по использованию тега",
+  "app.containers.CreateTag.descriptionFieldTip": "Инструкции по использованию тега",
   "app.containers.CreateTag.createTag": "Предложить тег",
   "app.containers.CreateTag.newTag": "Новый тег",
-  "app.containers.CreateTag.tagIsKeyword":
-    "Тег – это ключевое слово, которое характеризует Ваш вопрос среди других похожих вопросов.",
-  "app.containers.CreateTag.usingTheRightTags":
-    "Использование верных тегов позволяет другим пользователям быстрее найти и ответить на Ваш вопрос.",
+  "app.containers.CreateTag.tagIsKeyword": "Тег – это ключевое слово, которое характеризует Ваш вопрос среди других похожих вопросов.",
+  "app.containers.CreateTag.usingTheRightTags": "Использование верных тегов позволяет другим пользователям быстрее найти и ответить на Ваш вопрос.",
 
   "app.containers.EditTag.title": "Сохранить тег",
   "app.containers.EditTag.description": "Сохранить тег | Описание",
@@ -481,11 +407,9 @@
   "app.containers.Tags.backToList": "Вернуться к списку",
 
   "app.containers.Tags.didntFindSuitableTag": "Не нашли подходящий тег?",
-  "app.containers.Tags.suggestTagWhichWillbeUseful":
-    "Предложите тег, который будет полезен другим людям, чтобы они могли за него проголосовать",
+  "app.containers.Tags.suggestTagWhichWillbeUseful": "Предложите тег, который будет полезен другим людям, чтобы они могли за него проголосовать",
   "app.containers.Tags.youHaveAlreadyVoted": "Вы уже голосовали",
-  "app.containers.Tags.creatorCannotUpvoteOwnComm":
-    "Нельзя голосовать за свой тег",
+  "app.containers.Tags.creatorCannotUpvoteOwnComm": "Нельзя голосовать за свой тег",
 
   "app.containers.TagsOfCommunity.title": "Теги",
   "app.containers.TagsOfCommunity.description": "Описание тегов",
@@ -495,31 +419,23 @@
   "app.containers.TagsOfCommunity.findTag": "Найти тег",
 
   "app.containers.SuggestedCommunities.title": "Предложенные сообщества",
-  "app.containers.SuggestedCommunities.description":
-    "Предложенные сообщества | Описание",
-  "app.containers.SuggestedCommunities.votingForNewComm":
-    "Голосуй за новое сообщество",
+  "app.containers.SuggestedCommunities.description": "Предложенные сообщества | Описание",
+  "app.containers.SuggestedCommunities.votingForNewComm": "Голосуй за новое сообщество",
   "app.containers.SuggestedCommunities.whyWeeNeedIt": "Зачем мне это нужно?",
 
-  "app.containers.VoteForNewCommunityButton.youHaveAlreadyVoted":
-    "Вы уже проголосовали",
-  "app.containers.VoteForNewCommunityButton.creatorCannotUpvoteOwnComm":
-    "Нельзя голосовать за собственное сообщество",
-  "app.containers.VoteForNewCommunityButton.youCannotChange":
-    "Вы не сможете изменить свой голос. Вы уверены?",
+  "app.containers.VoteForNewCommunityButton.youHaveAlreadyVoted": "Вы уже проголосовали",
+  "app.containers.VoteForNewCommunityButton.creatorCannotUpvoteOwnComm": "Нельзя голосовать за собственное сообщество",
+  "app.containers.VoteForNewCommunityButton.youCannotChange": "Вы не сможете изменить свой голос. Вы уверены?",
 
-  "app.containers.VoteForNewTagButton.creatorCannotUpvoteOwnTag":
-    "Нельзя голосовать за собственный тег",
+  "app.containers.VoteForNewTagButton.creatorCannotUpvoteOwnTag": "Нельзя голосовать за собственный тег",
 
   "app.containers.Communities.title": "Сообщества",
   "app.containers.Communities.description": "Сообщества | Описание",
   "app.containers.Communities.tags": "Теги",
   "app.containers.Communities.voting": "Голосование",
   "app.containers.Communities.suggestCommunity": "Создать сообщество",
-  "app.containers.Communities.didntFindAnyInteresting":
-    "Не нашли ничего интересного?",
-  "app.containers.Communities.suggestInterestingComm":
-    "Предложите сообщество, которое будет интересно Вам и другим людям, которые проголосуют за него.",
+  "app.containers.Communities.didntFindAnyInteresting": "Не нашли ничего интересного?",
+  "app.containers.Communities.suggestInterestingComm": "Предложите сообщество, которое будет интересно Вам и другим людям, которые проголосуют за него.",
 
   "app.containers.CreateCommunity.title": "Сообщества | Создать",
   "app.containers.CreateCommunity.descriptionField": "Описание",
@@ -535,41 +451,27 @@
   "app.containers.CreateCommunity.newCommunity": "Новое сообщество",
   "app.containers.CreateCommunity.oneMoreTag": "Добавить тег",
   "app.containers.CreateCommunity.tags": "Теги",
-  "app.containers.CreateCommunity.tagsAreNeeded":
-    "Теги необходимы при добавлении вопросов. Вы можете указать от {min} до {max} тегов.",
+  "app.containers.CreateCommunity.tagsAreNeeded": "Теги необходимы при добавлении вопросов. Вы можете указать от {min} до {max} тегов.",
   "app.containers.CreateCommunity.tagTitle": "Тег",
   "app.containers.CreateCommunity.tagDescription": "Описание",
-  "app.containers.CreateCommunity.communityTitleTip":
-    "Название нового сообщества",
-  "app.containers.CreateCommunity.shortDescriptionTip":
-    "Краткое описание сообщества и его предназначения.",
-  "app.containers.CreateCommunity.whyWeNeedItTip":
-    "Эта информация видна пользователям, которые голосуют за новые сообщества.",
+  "app.containers.CreateCommunity.communityTitleTip": "Название нового сообщества",
+  "app.containers.CreateCommunity.shortDescriptionTip": "Краткое описание сообщества и его предназначения.",
+  "app.containers.CreateCommunity.whyWeNeedItTip": "Эта информация видна пользователям, которые голосуют за новые сообщества.",
   "app.containers.CreateCommunity.tagTitleTip": "Уникальное имя тега",
-  "app.containers.CreateCommunity.tagDescriptionTip":
-    "Описание, когда использовать тег",
-  "app.containers.CreateCommunity.imageWillBeTheFace":
-    "Изображение станет лицом сообщества",
-  "app.containers.CreateCommunity.specifyMemorableTitle":
-    "Укажите запоминающийся заголовок",
-  "app.containers.CreateCommunity.communityDescriptionShouldBe":
-    "Описание должно говорить о том, кому будет полезно данное сообщество",
-  "app.containers.CreateCommunity.writeWhyDoWeeNeed":
-    "Напишите, как это сообщество будет привлекать внимание и собирать голоса других пользователей",
-  "app.containers.CreateCommunity.onlyTagsWithUniqueTitles":
-    "Форма должна содержать только теги с уникальными именами",
+  "app.containers.CreateCommunity.tagDescriptionTip": "Описание, когда использовать тег",
+  "app.containers.CreateCommunity.imageWillBeTheFace": "Изображение станет лицом сообщества",
+  "app.containers.CreateCommunity.specifyMemorableTitle": "Укажите запоминающийся заголовок",
+  "app.containers.CreateCommunity.communityDescriptionShouldBe": "Описание должно говорить о том, кому будет полезно данное сообщество",
+  "app.containers.CreateCommunity.writeWhyDoWeeNeed": "Напишите, как это сообщество будет привлекать внимание и собирать голоса других пользователей",
+  "app.containers.CreateCommunity.onlyTagsWithUniqueTitles": "Форма должна содержать только теги с уникальными именами",
   "app.containers.CreateCommunity.communityLanguage": "Язык",
-  "app.containers.CreateCommunity.communityLanguageTip":
-    "Вопросы в сообществе будут разрешены только на выбранном языке",
+  "app.containers.CreateCommunity.communityLanguageTip": "Вопросы в сообществе будут разрешены только на выбранном языке",
   "app.containers.CreateCommunity.thatisgreat": "Отлично!",
-  "app.containers.CreateCommunity.communityWillAppear":
-    "Ваше сообщество появится среди предложенных и другие пользователи смогут за него проголосовать. 100 голосов необходимо для создания сообщества.",
+  "app.containers.CreateCommunity.communityWillAppear": "Ваше сообщество появится среди предложенных и другие пользователи смогут за него проголосовать. 100 голосов необходимо для создания сообщества.",
   "app.containers.CreateCommunity.goToList": "Перейти к списку",
-  "app.containers.CreateCommunity.maxTagsNumberReached":
-    "Максимальное число тегов было достигнуто",
+  "app.containers.CreateCommunity.maxTagsNumberReached": "Максимальное число тегов было достигнуто",
   "app.containers.CreateCommunity.questionsType": "Тип вопросов",
-  "app.containers.CreateCommunity.anyQuestionDescriptionLabel":
-    "Пользователи смогут задавать как Общие, так и экспертные вопросы",
+  "app.containers.CreateCommunity.anyQuestionDescriptionLabel": "Пользователи смогут задавать как Общие, так и экспертные вопросы",
   "app.containers.CreateCommunity.anyQuestionDescriptionList": [],
   "app.containers.CreateCommunity.facebook": "Facebook",
   "app.containers.CreateCommunity.instagram": "Instagram",
@@ -590,10 +492,8 @@
   "app.containers.EditCommunity.header": "Редактировать сообщество",
   "app.containers.EditCommunity.pageTitle": "Сообщество | Редактировать",
 
-  "app.containers.HomePage.title":
-    "Peeranha – Децентрализованный веб-сайт вопросов и ответов c вознаграждениями крипто-токенами",
-  "app.containers.HomePage.description":
-    "Децентрализованный веб-сайт вопросов и ответов c вознаграждениями крипто-токенами пользователей за их вклад",
+  "app.containers.HomePage.title": "Peeranha – Децентрализованный веб-сайт вопросов и ответов c вознаграждениями крипто-токенами",
+  "app.containers.HomePage.description": "Децентрализованный веб-сайт вопросов и ответов c вознаграждениями крипто-токенами пользователей за их вклад",
   "app.containers.HomePage.faqTitle": "Peeranha | ЧАВО",
   "app.containers.HomePage.faqDescription": "Peeranha | ЧАВО Описание",
   "app.containers.HomePage.about": "О нас",
@@ -602,98 +502,74 @@
   "app.containers.HomePage.team": "Команда",
   "app.containers.HomePage.login": "Вход",
   "app.containers.HomePage.signUpFree": "Регистрация",
-  "app.containers.HomePage.yourContributionsRewarded":
-    "Вознаграждения за ваш вклад",
-  "app.containers.HomePage.weAreDecentralized":
-    "Децентрализованный веб-сайт вопросов и ответов в котором пользователи вознаграждаются за активность крипто-токенами",
+  "app.containers.HomePage.yourContributionsRewarded": "Вознаграждения за ваш вклад",
+  "app.containers.HomePage.weAreDecentralized": "Децентрализованный веб-сайт вопросов и ответов в котором пользователи вознаграждаются за активность крипто-токенами",
   "app.containers.HomePage.getStarted": "Подписаться",
   "app.containers.HomePage.yourEmail": "Ваш email адрес",
-  "app.containers.HomePage.differentThan":
-    "Peeranha – это больше чем веб-сайт вопросов и ответов.",
+  "app.containers.HomePage.differentThan": "Peeranha – это больше чем веб-сайт вопросов и ответов.",
   "app.containers.HomePage.differentThan2": "Мы сообщество профессионалов где:",
 
-  "app.containers.HomePage.rewardingUser":
-    "Пользователи вознаграждаются крипто-токенами",
-  "app.containers.HomePage.peopleSaveHours":
-    "Миллионы людей экономят часы работы ежедневно благодаря опыту других на веб-сайтах вопросов и ответов. Peeranha вознаграждает пользователей за полезную активность крипто-токенами PEER.",
+  "app.containers.HomePage.rewardingUser": "Пользователи вознаграждаются крипто-токенами",
+  "app.containers.HomePage.peopleSaveHours": "Миллионы людей экономят часы работы ежедневно благодаря опыту других на веб-сайтах вопросов и ответов. Peeranha вознаграждает пользователей за полезную активность крипто-токенами PEER.",
 
-  "app.containers.HomePage.ownershipByUsers":
-    "Пользователи во главе сообщества",
-  "app.containers.HomePage.peeranhaDecentralized":
-    "Peeranha открыт для всех и децентрализован. Вебсайт модерируется сообществом и принадлежит сообществу, а не разработчикам.",
+  "app.containers.HomePage.ownershipByUsers": "Пользователи во главе сообщества",
+  "app.containers.HomePage.peeranhaDecentralized": "Peeranha открыт для всех и децентрализован. Вебсайт модерируется сообществом и принадлежит сообществу, а не разработчикам.",
 
   "app.containers.HomePage.earlyAdopters": "Первые пользователи поощряются",
-  "app.containers.HomePage.peeranhaPhilosophy":
-    "Философия Peeranha заключается в щедром поощрении первых пользователей за их время и усилия потраченные на развитие сообщества. По мере роста веб-сайта, вознаграждения будут выравниваться и распределяться среди большего числа членов сообщества.",
+  "app.containers.HomePage.peeranhaPhilosophy": "Философия Peeranha заключается в щедром поощрении первых пользователей за их время и усилия потраченные на развитие сообщества. По мере роста веб-сайта, вознаграждения будут выравниваться и распределяться среди большего числа членов сообщества.",
 
   "app.containers.HomePage.simpleAndAffordable": "Простой и доступный",
   "app.containers.HomePage.getHelp": "Получайте помощь от сообщества",
-  "app.containers.HomePage.askQuestionAndGetHelp":
-    "Peeranha – это сообщество увлеченных специалистов из разных областей жизни. Пользователи получают ответы на свои вопросы, а также могут помочь другим. Ответы на многие вопросы доступны на сайте и могут быть найдены в считаные минуты.",
+  "app.containers.HomePage.askQuestionAndGetHelp": "Peeranha – это сообщество увлеченных специалистов из разных областей жизни. Пользователи получают ответы на свои вопросы, а также могут помочь другим. Ответы на многие вопросы доступны на сайте и могут быть найдены в считаные минуты.",
 
   "app.containers.HomePage.helpfulAndGenerous": "Полезный и щедрый",
   "app.containers.HomePage.shareKnowledge": "Делитесь своими знаниями",
-  "app.containers.HomePage.helpCommunity":
-    "Специалисты помогают сообществу отвечая на вопросы других участников.  Ответы помогают не только пользователю который задал вопрос, но и тысячам других, которые будут искать ответ на тот же вопрос. После того как на вопрос дан ответ, он будет доступен и существующим и будущим пользователям.",
+  "app.containers.HomePage.helpCommunity": "Специалисты помогают сообществу отвечая на вопросы других участников.  Ответы помогают не только пользователю который задал вопрос, но и тысячам других, которые будут искать ответ на тот же вопрос. После того как на вопрос дан ответ, он будет доступен и существующим и будущим пользователям.",
 
   "app.containers.HomePage.profitableAndModern": "Доходный и современный",
-  "app.containers.HomePage.getPaidInCrypto":
-    "Получайте вознаграждения крипто-токенами",
-  "app.containers.HomePage.getPaidInCryptoFromWeekly":
-    "Еженедельный резерв вознаграждений из токенов распределяется среди пользователей за их полезную активность. Полученные токены могут быть проданы на открытом рынке любому, кто хочет заплатить за контент, который будет размещен на платформе, например, рекламу или вакансии. Пользователи всегда будут вознаграждены за их ценный вклад в сообщество.",
+  "app.containers.HomePage.getPaidInCrypto": "Получайте вознаграждения крипто-токенами",
+  "app.containers.HomePage.getPaidInCryptoFromWeekly": "Еженедельный резерв вознаграждений из токенов распределяется среди пользователей за их полезную активность. Полученные токены могут быть проданы на открытом рынке любому, кто хочет заплатить за контент, который будет размещен на платформе, например, рекламу или вакансии. Пользователи всегда будут вознаграждены за их ценный вклад в сообщество.",
 
   "app.containers.HomePage.worthyAndPrestig": "Достойный и престижный",
   "app.containers.HomePage.earnReputation": "Зарабатывайте репутацию",
-  "app.containers.HomePage.whetherYouAsk":
-    "По мере активного пользования веб-сайтом, пользователи также улучшают свою репутацию. Участники, которые задают вопросы и отвечают на вопросы других – это основная ценность сообщества. По мере повышения репутации пользователи открывают новые привилегии, так как их положение в сообществе возрастает!",
+  "app.containers.HomePage.whetherYouAsk": "По мере активного пользования веб-сайтом, пользователи также улучшают свою репутацию. Участники, которые задают вопросы и отвечают на вопросы других – это основная ценность сообщества. По мере повышения репутации пользователи открывают новые привилегии, так как их положение в сообществе возрастает!",
 
   "app.containers.HomePage.honorableAndFascinating": "Почетный и увлекательный",
   "app.containers.HomePage.ruleThePlatform": "Будьте во главе",
-  "app.containers.HomePage.participateInModeration":
-    "Управление сообществом находится в руках его участников. Пользователи заинтересованы в процветании сообщества. Чем успешнее веб-сайт, тем выше стоимость PEER токена, который используется для вознаграждений. Благодаря встроенной в Peeranha системе управления, веб-сайт модерируется лишь самими пользователями. Будучи децентрализованным проектом с открытым исходным кодом, будущее Peeranha определяется ее пользователем. Ваш голос имеет значение!",
+  "app.containers.HomePage.participateInModeration": "Управление сообществом находится в руках его участников. Пользователи заинтересованы в процветании сообщества. Чем успешнее веб-сайт, тем выше стоимость PEER токена, который используется для вознаграждений. Благодаря встроенной в Peeranha системе управления, веб-сайт модерируется лишь самими пользователями. Будучи децентрализованным проектом с открытым исходным кодом, будущее Peeranha определяется ее пользователем. Ваш голос имеет значение!",
 
-  "app.containers.HomePage.beTheFirst":
-    "Чем раньше Вы присоединитесь, тем больше вознаграждений Вы получите",
-  "app.containers.HomePage.rewardsPool":
-    "Вознаграждения распределяются среди участников еженедельно. По мере того, как число еженедельных участников увеличивается, количество вознаграждений на каждого пользователя уменьшается. Присоединитесь первым и получите максимальное вознаграждение за свой новаторский вклад в молодое и перспективное сообщество.",
+  "app.containers.HomePage.beTheFirst": "Чем раньше Вы присоединитесь, тем больше вознаграждений Вы получите",
+  "app.containers.HomePage.rewardsPool": "Вознаграждения распределяются среди участников еженедельно. По мере того, как число еженедельных участников увеличивается, количество вознаграждений на каждого пользователя уменьшается. Присоединитесь первым и получите максимальное вознаграждение за свой новаторский вклад в молодое и перспективное сообщество.",
 
   "app.containers.HomePage.getReward": "Подписаться",
 
   "app.containers.HomePage.getMoreAnswers": "Получи больше ответов",
   "app.containers.HomePage.ourTeam": "Наша команда",
-  "app.containers.HomePage.weAppreciate":
-    "Мы будем очень благодарны услышать ваш отзыв, мнение или предложение для веб-сайта. Отправьте нам сообщение, или еще лучше, давайте договримся о коротком звонке.",
+  "app.containers.HomePage.weAppreciate": "Мы будем очень благодарны услышать ваш отзыв, мнение или предложение для веб-сайта. Отправьте нам сообщение, или еще лучше, давайте договримся о коротком звонке.",
 
   "app.containers.HomePage.sergeyIlin": "Сергей Ильин",
   "app.containers.HomePage.sergeyIlinRole": "Сооснователь, CTO",
-  "app.containers.HomePage.sergeyIlinDescription":
-    "Программист и архитектор с опытом разработки от веб-сайтов до крупномасштабных информационных систем для компаний из списка Fortune 500. Увлечен идеей найти новаторские практические применения для технологии блокчейн.",
+  "app.containers.HomePage.sergeyIlinDescription": "Программист и архитектор с опытом разработки от веб-сайтов до крупномасштабных информационных систем для компаний из списка Fortune 500. Увлечен идеей найти новаторские практические применения для технологии блокчейн.",
 
   "app.containers.HomePage.nikitaSyr": "Никита Сыроватников",
-  "app.containers.HomePage.nikitaSyrRole":
-    "Бэк-энд разработчик и разработчик умных контрактов",
-  "app.containers.HomePage.nikitaSyrDescription":
-    "Специалист по технологии блокчейн, увлеченный поиском решений для разнообразных проблем и изучением новых технологий. Уверен что любая проблема может быть решена при правильном подходе.",
+  "app.containers.HomePage.nikitaSyrRole": "Бэк-энд разработчик и разработчик умных контрактов",
+  "app.containers.HomePage.nikitaSyrDescription": "Специалист по технологии блокчейн, увлеченный поиском решений для разнообразных проблем и изучением новых технологий. Уверен что любая проблема может быть решена при правильном подходе.",
 
   "app.containers.HomePage.romRem": "Роман Ремнёв",
   "app.containers.HomePage.romRemRole": "Фронт-энд разработчик",
-  "app.containers.HomePage.romRemDescription":
-    "Фронт-энд разработчик из Минска, в настоящее время сосредоточен на проблемах управления данными и удобства для пользователя в децентрализованных приложениях",
+  "app.containers.HomePage.romRemDescription": "Фронт-энд разработчик из Минска, в настоящее время сосредоточен на проблемах управления данными и удобства для пользователя в децентрализованных приложениях",
 
   "app.containers.HomePage.ulyanaPopova": "Ульяна Попова",
   "app.containers.HomePage.ulyanaPopovaRole": "UX и UI дизайнер",
-  "app.containers.HomePage.ulyanaPopovaDescription":
-    "Готова создавать варфреймы, мокапы и прототипы с эффективным, эстетичным и беспрепятственным UX-ом, чтобы модернизировать целые системы. Могу энергично шутить, чтобы поддержать рабочий процесс.",
+  "app.containers.HomePage.ulyanaPopovaDescription": "Готова создавать варфреймы, мокапы и прототипы с эффективным, эстетичным и беспрепятственным UX-ом, чтобы модернизировать целые системы. Могу энергично шутить, чтобы поддержать рабочий процесс.",
 
   "app.containers.HomePage.olgaFyodorova": "Ольга Федорова",
   "app.containers.HomePage.olgaFyodorovaRole": "Маркетинг",
-  "app.containers.HomePage.olgaFyodorovaDescription":
-    "Сильные коммуникативные навыки независимо от аудитории, эффективное взаимодействие с широким кругом людей, руководителей, сотрудников, поставщиков, коллег и заявителей.",
+  "app.containers.HomePage.olgaFyodorovaDescription": "Сильные коммуникативные навыки независимо от аудитории, эффективное взаимодействие с широким кругом людей, руководителей, сотрудников, поставщиков, коллег и заявителей.",
 
   "app.containers.HomePage.steveKreynin": "Стив Крейнин",
   "app.containers.HomePage.steveKreyninRole": "Сооснователь, Президент",
-  "app.containers.HomePage.steveKreyninDescription":
-    "Многократно успешный предприниматель. CEO международной IT консалтинговой компании Forte Group.",
+  "app.containers.HomePage.steveKreyninDescription": "Многократно успешный предприниматель. CEO международной IT консалтинговой компании Forte Group.",
 
   "app.containers.HomePage.yourName": "Ваше имя",
   "app.containers.HomePage.yourNameTip": "Введите ваше имя",
@@ -705,76 +581,52 @@
   "app.containers.HomePage.message": "Сообщение",
   "app.containers.HomePage.messageTip": "Опишите проблему",
   "app.containers.HomePage.sendMessage": "Отправить сообщение",
-  "app.containers.HomePage.platformUnderDeveloping":
-    "В настоящее время веб-сайт находится в разработке. Ваш email адрес был получен. Вы получите email с пошаговой инструкцией когда веб-сайт будет открыт для пользователей.",
+  "app.containers.HomePage.platformUnderDeveloping": "В настоящее время веб-сайт находится в разработке. Ваш email адрес был получен. Вы получите email с пошаговой инструкцией когда веб-сайт будет открыт для пользователей.",
   "app.containers.HomePage.askQuestion": "Новый пост",
   "app.containers.HomePage.review": "Проверить",
   "app.containers.HomePage.systemError": "Системная ошибка",
   "app.containers.HomePage.none": "Ничего",
-  "app.containers.HomePage.messageHasNotBeenSent":
-    "Что-то пошло не так и Ваше сообщение не было отправлено. Пожалуйста, попробуйте снова!",
-  "app.containers.HomePage.yourEmailIsRegistred":
-    "В настоящее время веб-сайт находится в разработке. Ваш email адрес был получен. Вы получите email с пошаговой инструкцией когда веб-сайт будет октрыт для пользователей.",
+  "app.containers.HomePage.messageHasNotBeenSent": "Что-то пошло не так и Ваше сообщение не было отправлено. Пожалуйста, попробуйте снова!",
+  "app.containers.HomePage.yourEmailIsRegistred": "В настоящее время веб-сайт находится в разработке. Ваш email адрес был получен. Вы получите email с пошаговой инструкцией когда веб-сайт будет октрыт для пользователей.",
   "app.containers.HomePage.goToSite": "Перейти на сайт",
   "app.containers.HomePage.questionsTitle": "Актуальные вопросы",
 
-  "app.containers.Notifications.youHaveNoNewNotifications":
-    "У вас нет новых уведомлений",
-  "app.containers.Notifications.yourQuestionWasUpVoted":
-    "Вашему вопросу поставили лайк",
-  "app.containers.Notifications.yourQuestionWasDownVoted":
-    "Вашему вопросу поставили дизлайк",
-  "app.containers.Notifications.yourAnswerWasUpVoted":
-    "Вашему ответу поставили лайк",
-  "app.containers.Notifications.yourAnswerWasDownVoted":
-    "Вашему ответу поставили дизлайк ",
-  "app.containers.Notifications.yourAnswerWasMarkedAsTheBest":
-    "Ваш ответ был помечен как лучший",
-  "app.containers.Notifications.somebodyAnsweredYourQuestion":
-    "Кто-то ответил на ваш вопрос",
-  "app.containers.Notifications.somebodyLeftACommentToYourQuestion":
-    "Кто-то оставил комментарий к вашему вопросу",
-  "app.containers.Notifications.somebodyLeftACommentToYourAnswer":
-    "Кто-то оставил комментарий к вашему ответу",
-  "app.containers.Notifications.yourQuestionWasTipped":
-    "Вашему вопросу отправили чаевые",
-  "app.containers.Notifications.yourAnswerWasTipped":
-    "Вашему ответу отправили чаевые",
+  "app.containers.Notifications.youHaveNoNewNotifications": "У вас нет новых уведомлений",
+  "app.containers.Notifications.yourQuestionWasUpVoted": "Вашему вопросу поставили лайк",
+  "app.containers.Notifications.yourQuestionWasDownVoted": "Вашему вопросу поставили дизлайк",
+  "app.containers.Notifications.yourAnswerWasUpVoted": "Вашему ответу поставили лайк",
+  "app.containers.Notifications.yourAnswerWasDownVoted": "Вашему ответу поставили дизлайк ",
+  "app.containers.Notifications.yourAnswerWasMarkedAsTheBest": "Ваш ответ был помечен как лучший",
+  "app.containers.Notifications.somebodyAnsweredYourQuestion": "Кто-то ответил на ваш вопрос",
+  "app.containers.Notifications.somebodyLeftACommentToYourQuestion": "Кто-то оставил комментарий к вашему вопросу",
+  "app.containers.Notifications.somebodyLeftACommentToYourAnswer": "Кто-то оставил комментарий к вашему ответу",
+  "app.containers.Notifications.yourQuestionWasTipped": "Вашему вопросу отправили чаевые",
+  "app.containers.Notifications.yourAnswerWasTipped": "Вашему ответу отправили чаевые",
 
   "app.containers.EditAnswer.description": "Редактирование ответа | Описание",
   "app.containers.EditAnswer.submitButtonName": "Сохранить",
   "app.containers.EditAnswer.title": "Редактировать ответ",
   "app.containers.EditAnswer.editAnswer": "Редактировать ответ",
 
-  "app.containers.EditQuestion.description":
-    "Редактирование вопроса | Описание",
+  "app.containers.EditQuestion.description": "Редактирование вопроса | Описание",
   "app.containers.EditQuestion.submitButtonName": "Сохранить",
   "app.containers.EditQuestion.title": "Редактировать вопрос",
 
   "app.containers.ViewQuestion.lastEdited": "Последнее редактирование",
   "app.containers.ViewQuestion.voteToDelete": "Проголосовать за удаление",
-  "app.containers.ViewQuestion.notEnoughRating":
-    "Чтобы выполнить это действие, Ваш рейтинг должен быть не меньше",
-  "app.containers.ViewQuestion.cannotCompleteBecauseBlocked":
-    "Вы не можете выполнить это действие, т.к. уже проголосовали за удаление",
-  "app.containers.ViewQuestion.cannotCompleteBecauseVoted":
-    "Вы не можете выполнить это действие, т.к. уже голосовали",
-  "app.containers.ViewQuestion.notEnoughModPoints":
-    "Чтобы выполнить это действие, Ваш рейтинг модератора должен быть больше",
+  "app.containers.ViewQuestion.notEnoughRating": "Чтобы выполнить это действие, Ваша репутация должна быть не меньше",
+  "app.containers.ViewQuestion.cannotCompleteBecauseBlocked": "Вы не можете выполнить это действие, т.к. уже проголосовали за удаление",
+  "app.containers.ViewQuestion.cannotCompleteBecauseVoted": "Вы не можете выполнить это действие, т.к. уже голосовали",
+  "app.containers.ViewQuestion.notEnoughModPoints": "Чтобы выполнить это действие, Ваш рейтинг модератора должен быть больше",
   "app.containers.ViewQuestion.youVoted": "Вы уже выполнили это действие ранее",
-  "app.containers.ViewQuestion.alreadyAnswered":
-    "Вы уже ответили на этот вопрос",
+  "app.containers.ViewQuestion.alreadyAnswered": "Вы уже ответили на этот вопрос",
   "app.containers.ViewQuestion.itemsMax": "Число элементов достигло максимума",
-  "app.containers.ViewQuestion.noRootsToVote":
-    "Вы не можете голосовать за свои вопросы и ответы",
-  "app.containers.ViewQuestion.creatorCannot":
-    "Создатель не может совершить это действие",
-  "app.containers.ViewQuestion.notEnoughEnergy":
-    "Мы обнаружили подозрительную активность в лице Вашего аккаунта и временно заблокировали некоторые действия на вебсайте",
+  "app.containers.ViewQuestion.noRootsToVote": "Вы не можете голосовать за свои посты и ответы",
+  "app.containers.ViewQuestion.creatorCannot": "Создатель не может совершить это действие",
+  "app.containers.ViewQuestion.notEnoughEnergy": "Мы обнаружили подозрительную активность в лице Вашего аккаунта и временно заблокировали некоторые действия на вебсайте",
   "app.containers.ViewQuestion.title": "Страница вопроса",
   "app.containers.ViewQuestion.description": "Содержание вопроса",
-  "app.containers.ViewQuestion.questionNotExist":
-    "Такого вопроса не существует",
+  "app.containers.ViewQuestion.questionNotExist": "Такого вопроса не существует",
   "app.containers.ViewQuestion.deleteButton": "Удалить",
   "app.containers.ViewQuestion.editButton": "Редактировать",
   "app.containers.ViewQuestion.shareButton": "Поделиться",
@@ -785,32 +637,25 @@
   "app.containers.ViewQuestion.answers": "Ответов",
   "app.containers.ViewQuestion.postAnswerButton": "Отправить",
   "app.containers.ViewQuestion.yourAnswer": "Ваш ответ",
-  "app.containers.ViewQuestion.youHaveAnswers":
-    "Вы не можете удалить свой вопрос, т.к. уже были оставлены ответы",
-  "app.containers.ViewQuestion.answerIsCorrect":
-    "Вы не можете удалить свой ответ, т.к. он уже был отмечен как правильный",
+  "app.containers.ViewQuestion.youHaveAnswers": "Вы не можете удалить свой вопрос, т.к. уже были оставлены ответы",
+  "app.containers.ViewQuestion.answerIsCorrect": "Вы не можете удалить свой ответ, т.к. он уже был отмечен как правильный",
   "app.containers.ViewQuestion.theBest": "Лучший",
   "app.containers.ViewQuestion.theBestAnswer": "Отмечен как лучший",
   "app.containers.ViewQuestion.markAsBest": "Отметьте как лучший",
   "app.containers.ViewQuestion.communityChoice": "Выбор сообщества",
   "app.containers.ViewQuestion.moreComments": "Больше комментариев",
   "app.containers.ViewQuestion.addComment": "Добавить комментарий",
-  "app.containers.ViewQuestion.showMoreAnswers":
-    "Показать больше ответов {value}",
-  "app.containers.ViewQuestion.areYouSure":
-    "Вы уверены, что хотите удалить данный элемент?",
-  "app.containers.ViewQuestion.markExpertQuestionAndGetEarn":
-    "Отметьте лучший ответ в своем вопросе и получите +2 очка рейтинга",
-  "app.containers.ViewQuestion.markGeneralQuestionAndGetEarn":
-    "Отметьте лучший ответ в своем вопросе и получите +1 очко рейтинга\"",
+  "app.containers.ViewQuestion.showMoreAnswers": "Показать больше ответов {value}",
+  "app.containers.ViewQuestion.areYouSure": "Вы уверены, что хотите удалить данный элемент?",
+  "app.containers.ViewQuestion.markExpertQuestionAndGetEarn": "Отметьте лучший ответ в своем вопросе и получите +2 очка рейтинга",
+  "app.containers.ViewQuestion.markGeneralQuestionAndGetEarn": "Отметьте лучший ответ в своем вопросе и получите +1 очко рейтинга\"",
   "app.containers.ViewQuestion.generalQuestion": "Общий вопрос",
   "app.containers.ViewQuestion.tutorial": "Туториал",
   "app.containers.ViewQuestion.changeQuestionType": "Изменить тип",
   "app.containers.ViewQuestion.officialAnswer": "Официальный ответ",
   "app.containers.ViewQuestion.getBounty": "Получить бонус",
   "app.containers.ViewQuestion.bountyStatus": "Статус бонуса",
-  "app.containers.ViewQuestion.bountyStatusExpiration":
-    "Бонус будет доступен до: ",
+  "app.containers.ViewQuestion.bountyStatusExpiration": "Бонус будет доступен до: ",
   "app.containers.ViewQuestion.transactionHash": "Хеш транзакции",
   "app.containers.ViewQuestion.eventName": "Событие",
   "app.containers.ViewQuestion.timeStamp": "Дата и время",
@@ -820,123 +665,77 @@
   "app.containers.ViewQuestion.created": "cоздан",
   "app.containers.ViewQuestion.edited": "изменен",
   "app.containers.ViewQuestion.deleted": "удален",
-  "app.components.FormFields.requiredField":
-    "Вы не можете оставить это поле пустым",
-  "app.components.FormFields.requiredAndNotZeroField":
-    "Вы не можете оставить 0 в этом поле",
-  "app.components.FormFields.requiredNonZeroInteger":
-    "Введите целочисленной значение, отличное от нуля",
-  "app.components.FormFields.wrongNumberRange":
-    "Должно быть как минимум {min}, но не более {max}",
-  "app.components.FormFields.wrongLength":
-    "Оставьте не менее {min} и не более {max} символов",
-  "app.components.FormFields.wrongExactLength":
-    "Значение должно быть длины {min} символов",
-  "app.components.FormFields.wrongLengthOfList":
-    "Оставьте не менее {min} и не более {max} элементов",
-  "app.components.FormFields.wrongLengthMin":
-    "Значение должно быть не меньше {min} символов",
-  "app.components.FormFields.wrongLengthMax":
-    "Значение должно быть не больше {max} символов",
+  "app.components.FormFields.requiredField": "Вы не можете оставить это поле пустым",
+  "app.components.FormFields.requiredAndNotZeroField": "Вы не можете оставить 0 в этом поле",
+  "app.components.FormFields.requiredNonZeroInteger": "Введите целочисленной значение, отличное от нуля",
+  "app.components.FormFields.wrongNumberRange": "Должно быть как минимум {min}, но не более {max}",
+  "app.components.FormFields.wrongLength": "Оставьте не менее {min} и не более {max} символов",
+  "app.components.FormFields.wrongExactLength": "Значение должно быть длины {min} символов",
+  "app.components.FormFields.wrongLengthOfList": "Оставьте не менее {min} и не более {max} элементов",
+  "app.components.FormFields.wrongLengthMin": "Значение должно быть не меньше {min} символов",
+  "app.components.FormFields.wrongLengthMax": "Значение должно быть не больше {max} символов",
   "app.components.FormFields.fileSize": "Файл слишком большой",
   "app.components.FormFields.wrongEmail": "Неправильный адрес",
-  "app.components.FormFields.wrongURL":
-    "Используйте правильный формат http(s)://example.com",
-  "app.components.FormFields.wrongBase58Format":
-    "Неверный формат данных. Проверьте содержимое этого поля.",
-  "app.components.FormFields.itemAlreadyExists":
-    "Элемент с таким именем уже существует",
-  "app.components.FormFields.valueIsMore":
-    "Это значение больше, чем Вы можете себе позволить",
+  "app.components.FormFields.wrongURL": "Используйте правильный формат http(s)://example.com",
+  "app.components.FormFields.wrongBase58Format": "Неверный формат данных. Проверьте содержимое этого поля.",
+  "app.components.FormFields.itemAlreadyExists": "Элемент с таким именем уже существует",
+  "app.components.FormFields.valueIsMore": "Это значение больше, чем Вы можете себе позволить",
   "app.components.FormFields.passwordsNotMatch": "Пароли не совпадают",
-  "app.components.FormFields.onlyLowerCaseLettersAndNumbersFromTo":
-    "Значение должно содержать только строчные буквы и цифры от {min} до {max}",
-  "app.components.FormFields.withoutDoubleSpace":
-    "Значение не должно содержать двойного пробела",
-  "app.components.FormFields.wrongByteLength":
-    "Байтовая длина строки слишком большая",
-  "app.components.FormFields.numbersFromTo":
-    "Значение должно содержать только цифры от {min} до {max}",
-  "app.components.FormFields.onlyOneDotValue":
-    "Значение должно содержать только 1 точку",
-  "app.components.FormFields.telosNameLength":
-    "Имя Telos аккаунта должно содержать только 12 символов",
-  "app.components.FormFields.telosCorrectSymbols":
-    "Только a-z буквы и 1-5 цифры разрешены",
-  "app.components.FormFields.notAbleChangeAfterCreation":
-    "У Вас не будет возможности изменить его после создания",
-  "app.components.FormFields.thisTelosNameIsAvailable":
-    "Это Telos имя не занято",
-  "app.components.FormFields.thisTelosNameIsntAvailable":
-    "Это Telos имя занято",
-  "app.components.FormFields.hasToBeMoreThanPrev":
-    "Вы не можете установить значение меньше предыдущего",
-  "app.components.FormFields.atLeastOneLetter":
-    "Telos имя должно содержать хотя бы одну букву",
-  "app.components.FormFields.exactFromAndToAccounts":
-    "Отправитель и получатель не могут быть одним и тем же",
-  "app.components.FormFields.valueIsNotPositiveInteger":
-    "Значение не является целым положительным числом",
+  "app.components.FormFields.onlyLowerCaseLettersAndNumbersFromTo": "Значение должно содержать только строчные буквы и цифры от {min} до {max}",
+  "app.components.FormFields.withoutDoubleSpace": "Значение не должно содержать двойного пробела",
+  "app.components.FormFields.wrongByteLength": "Байтовая длина строки слишком большая",
+  "app.components.FormFields.numbersFromTo": "Значение должно содержать только цифры от {min} до {max}",
+  "app.components.FormFields.onlyOneDotValue": "Значение должно содержать только 1 точку",
+  "app.components.FormFields.telosNameLength": "Имя Telos аккаунта должно содержать только 12 символов",
+  "app.components.FormFields.telosCorrectSymbols": "Только a-z буквы и 1-5 цифры разрешены",
+  "app.components.FormFields.notAbleChangeAfterCreation": "У Вас не будет возможности изменить его после создания",
+  "app.components.FormFields.thisTelosNameIsAvailable": "Это Telos имя не занято",
+  "app.components.FormFields.thisTelosNameIsntAvailable": "Это Telos имя занято",
+  "app.components.FormFields.hasToBeMoreThanPrev": "Вы не можете установить значение меньше предыдущего",
+  "app.components.FormFields.atLeastOneLetter": "Telos имя должно содержать хотя бы одну букву",
+  "app.components.FormFields.exactFromAndToAccounts": "Отправитель и получатель не могут быть одним и тем же",
+  "app.components.FormFields.valueIsNotPositiveInteger": "Значение не является целым положительным числом",
 
   "app.components.Footer.header": "Авторские права: Peeranha",
 
-  "app.containers.Login.authUserHasMore":
-    "Авторизованный пользователь имеет больше привилегий",
+  "app.containers.Login.authUserHasMore": "Авторизованный пользователь имеет больше привилегий",
   "app.containers.Login.staySignedIn": "Запомнить меня",
   "app.containers.Login.iForgotPassword": "Я забыл пароль",
-  "app.containers.Login.scatterIsNotInstalled":
-    "Проверьте, установлены ли настройки кошелька и сети",
-  "app.containers.Login.scatterBrowserExtensionNotConfigured":
-    "Проверьте, настроено ли расширение браузера для работы с кошельком",
+  "app.containers.Login.scatterIsNotInstalled": "Проверьте, установлены ли настройки кошелька и сети",
+  "app.containers.Login.scatterBrowserExtensionNotConfigured": "Проверьте, настроено ли расширение браузера для работы с кошельком",
   "app.containers.Login.userIsNotRegistered": "Пользователь не зарегистрирован",
   "app.containers.Login.userIsNotSelected": "Пользователь не выбран",
-  "app.containers.Login.fbAutologinError":
-    "Ошибка автоинициализации приложения с фейсбук аккаунтом",
+  "app.containers.Login.fbAutologinError": "Ошибка автоинициализации приложения с фейсбук аккаунтом",
   "app.containers.Login.fbLoginError": "Ошибка логинизации с фейсбук аккаунтом",
   "app.containers.Login.weAreHappyYouAreHere": "Мы рады, что вы с нами!",
-  "app.containers.Login.yourUsernameIsHow":
-    "Имя, которое будет у Вас в Peeranha.",
+  "app.containers.Login.yourUsernameIsHow": "Имя, которое будет у Вас в Peeranha.",
   "app.containers.Login.referralMessage": "Это код, который друг дал тебе.",
   "app.containers.Login.optionalReferralCode": "(опционально)",
   "app.containers.Login.accountNotCreatedName": "Аккаунт пока не создан",
-  "app.containers.Login.inviterIsNotRegisterYet":
-    "Пригласитель еще не зарегистрирован",
+  "app.containers.Login.inviterIsNotRegisterYet": "Пригласитель еще не зарегистрирован",
   "app.containers.Login.iDontHaveAnAccount": "У меня нет аккаунта.",
 
-  "app.containers.ForgotPassword.youGotThisKey":
-    "Вы получили этот ключ при регистрации и сохранили в безопасное место.",
+  "app.containers.ForgotPassword.youGotThisKey": "Вы получили этот ключ при регистрации и сохранили в безопасное место.",
 
   "app.containers.SignUp.checkYourEmail": "Код подтверждения.",
   "app.containers.SignUp.almostDone": "Почти все",
-  "app.containers.SignUp.firstParagraphAlmostDone":
-    "Peeranha нетипичная платформа для вопросов и ответов. Она работает на блокчейне.",
-  "app.containers.SignUp.secondParagraphAlmostDone":
-    "Telos блокчейн аккаунт требуется для использования Peeranha. Для создания аккаунта требуется комиссия.",
-  "app.containers.SignUp.thirdParagraphAlmostDone":
-    "Мы рады покрыть эту стоимость за Вас, но нам нужен Ваш email и телефонный номер, чтобы проверить, что Вы реальный пользователь. Процесс может загять 1-2 недели.",
-  "app.containers.SignUp.weWillNotify":
-    "Мы сообщим Вам, когда Ваш аккаунт будет готов. Обычно это занимает не больше 4 часов.",
+  "app.containers.SignUp.firstParagraphAlmostDone": "Peeranha нетипичная платформа для вопросов и ответов. Она работает на блокчейне.",
+  "app.containers.SignUp.secondParagraphAlmostDone": "Telos блокчейн аккаунт требуется для использования Peeranha. Для создания аккаунта требуется комиссия.",
+  "app.containers.SignUp.thirdParagraphAlmostDone": "Мы рады покрыть эту стоимость за Вас, но нам нужен Ваш email и телефонный номер, чтобы проверить, что Вы реальный пользователь. Процесс может загять 1-2 недели.",
+  "app.containers.SignUp.weWillNotify": "Мы сообщим Вам, когда Ваш аккаунт будет готов. Обычно это занимает не больше 4 часов.",
   "app.containers.SignUp.goToMainPage": "Перейти на главную страницу",
   "app.containers.SignUp.downloadSecretPhrase": "Скачать Секретную фразу",
-  "app.containers.SignUp.youNeedBlockchainAccount":
-    "Создание аккаунта на блокчейне",
-  "app.containers.SignUp.theWayBlockchainAccountWorks":
-    "Мы создаем для вас аккаунт на блокчейне для работы с платформой. Только у вас будет доступ к секретному ключу для этого аккаунта. Наш сервисный аккаунт сможет бупликовать ограниченный набор действий от имени вашего аккаунта для вашего удобства. Вы можете в любой момент отозвать доступ у сервесного аккаунта.",
-  "app.containers.SignUp.dontWorryAboutBlockchainAccount":
-    "Звучит слишком сложно? Не волнуйтесь! Просто не забудьте записать Секретную Фразу и сохранить ее в надежном месте. Секретная Фраза - единственный способ получить доступ к аккаунту на блокчейне и вашим вознагражденияем. Мы предоставим вам подробную инструкцию как использовать Секретную Фразу что бы получить доступ к вознаграждениям.",
+  "app.containers.SignUp.youNeedBlockchainAccount": "Создание аккаунта на блокчейне",
+  "app.containers.SignUp.theWayBlockchainAccountWorks": "Мы создаем для вас аккаунт на блокчейне для работы с платформой. Только у вас будет доступ к секретному ключу для этого аккаунта. Наш сервисный аккаунт сможет бупликовать ограниченный набор действий от имени вашего аккаунта для вашего удобства. Вы можете в любой момент отозвать доступ у сервесного аккаунта.",
+  "app.containers.SignUp.dontWorryAboutBlockchainAccount": "Звучит слишком сложно? Не волнуйтесь! Просто не забудьте записать Секретную Фразу и сохранить ее в надежном месте. Секретная Фраза - единственный способ получить доступ к аккаунту на блокчейне и вашим вознагражденияем. Мы предоставим вам подробную инструкцию как использовать Секретную Фразу что бы получить доступ к вознаграждениям.",
   "app.containers.SignUp.signUpOptions": "Опции при регистрации",
-  "app.containers.SignUp.peeranhaIsNotTypical":
-    "Peeranha нетипичная платформа для вопросов и ответов. Она работает на блокчейне.",
-  "app.containers.SignUp.telosBlockchainPowers":
-    "Telos блокчейн поддерживает многие децентрализованные приложения, такие как Peeranha, которым управляют члены сообщества по всему миру. Для использования этих приложений требуется Telos блокчейн аккаунт.",
-  "app.containers.SignUp.weAreHappyToCover":
-    "Если вы предпочитаете использовать приложение-кошелек для управления своим блокчейн аккаунтом, тогда доступна опция регистрации с помощью кошелька.",
-  "app.containers.SignUp.ifYouLikeToSkip":
-    "Новичок в блокчейне? Не волнуйтесь! Вы сможете получить доступ к Peeranha, используя свой адрес электронной почты и пароль, как любой другой веб-сайт.",
+  "app.containers.SignUp.peeranhaIsNotTypical": "Peeranha нетипичная платформа для вопросов и ответов. Она работает на блокчейне.",
+  "app.containers.SignUp.telosBlockchainPowers": "Telos блокчейн поддерживает многие децентрализованные приложения, такие как Peeranha, которым управляют члены сообщества по всему миру. Для использования этих приложений требуется Telos блокчейн аккаунт.",
+  "app.containers.SignUp.weAreHappyToCover": "Если вы предпочитаете использовать приложение-кошелек для управления своим блокчейн аккаунтом, тогда доступна опция регистрации с помощью кошелька.",
+  "app.containers.SignUp.ifYouLikeToSkip": "Новичок в блокчейне? Не волнуйтесь! Вы сможете получить доступ к Peeranha, используя свой адрес электронной почты и пароль, как любой другой веб-сайт.",
   "app.containers.SignUp.or": "или",
   "app.containers.SignUp.doYouHaveAlreadyAccount": "У вас уже есть аккаунт?",
-  "app.containers.SignUp.youHaveToSaveKeys":
-    "Секретная фраза - единственный способ получить доступ к аккаунту на блокчене и вашим вознагражденияем! Напишите свою секретную фразу на листе бумаги и храните его в надежном месте. В качестве альтернативы сохраните свою секретную фразу в диспетчере паролей, таком как 1Password.",
+  "app.containers.SignUp.youHaveToSaveKeys": "Секретная фраза - единственный способ получить доступ к аккаунту на блокчене и вашим вознагражденияем! Напишите свою секретную фразу на листе бумаги и храните его в надежном месте. В качестве альтернативы сохраните свою секретную фразу в диспетчере паролей, таком как 1Password.",
   "app.containers.SignUp.passwordsDoNotMatch": "Пароли не совпадают",
   "app.containers.SignUp.iHaveEosAccount": "Есть Telos аккаунт",
   "app.containers.SignUp.idontHaveEosAccount": "Нет Telos аккаунта",
@@ -960,18 +759,13 @@
   "app.containers.SignUp.signUp": "Зарегистрироваться",
   "app.containers.SignUp.password": "Пароль",
   "app.containers.SignUp.confirmPassword": "Подтвердить пароль",
-  "app.containers.SignUp.iSaveSecretPhrase":
-    "Я сохранил Секретную фразу в безопасном месте. Понимаю, что Секретная фраза - единственный способ получить доступ к моему аккаунту на блокчейне и вознаграждениям.",
-  "app.containers.SignUp.userAlreadyRegistered":
-    "Пользователь с таким identity уже зарегистрирован",
-  "app.containers.SignUp.userRejectedSignatureRequest":
-    "Пользователь отклонил запрос подписи",
+  "app.containers.SignUp.iSaveSecretPhrase": "Я сохранил Секретную фразу в безопасном месте. Понимаю, что Секретная фраза - единственный способ получить доступ к моему аккаунту на блокчейне и вознаграждениям.",
+  "app.containers.SignUp.userAlreadyRegistered": "Пользователь с таким identity уже зарегистрирован",
+  "app.containers.SignUp.userRejectedSignatureRequest": "Пользователь отклонил запрос подписи",
   "app.containers.SignUp.userIsNotSelected": "Пользователь не выбран",
   "app.containers.SignUp.eosAccountNotFound": "Данный Telos аккаунт не найден",
-  "app.containers.SignUp.keysDoNotMatch":
-    "Приватные ключи не соответствуют Telos аккаунт имени",
-  "app.containers.SignUp.registrationWithEosAccountAlmostDone":
-    "Регистрация успешно завершена. Сейчас Вы можете авторизоваться и продолжить работу в нашем приложении!",
+  "app.containers.SignUp.keysDoNotMatch": "Приватные ключи не соответствуют Telos аккаунт имени",
+  "app.containers.SignUp.registrationWithEosAccountAlmostDone": "Регистрация успешно завершена. Сейчас Вы можете авторизоваться и продолжить работу в нашем приложении!",
   "app.containers.SignUp.autogenerated": "Автосгенерированное",
   "app.containers.SignUp.myOwn": "Моё собственное",
   "app.containers.SignUp.tgAccountID": "ID телеграм аккаунта",
@@ -989,8 +783,7 @@
   "app.containers.Profile.aboutLabel": "Обо мне",
   "app.containers.Profile.saveButton": "Сохранить",
   "app.containers.Profile.locationLabel": "Город",
-  "app.containers.Profile.displayNameTip":
-    "Так ваше имя будет отображаться на сайте",
+  "app.containers.Profile.displayNameTip": "Так ваше имя будет отображаться на сайте",
   "app.containers.Profile.companyTip": "Опционально",
   "app.containers.Profile.positionTip": "Опционально",
   "app.containers.Profile.locationTip": "Опционально",
@@ -999,8 +792,7 @@
   "app.containers.Profile.confirmPassword": "Подтвердите пароль",
   "app.containers.Profile.youAnswered": "Вы ответили",
   "app.containers.Profile.seeMore": "Посмотреть все {posts} и {answers}",
-  "app.containers.Profile.tipText":
-    "Настройте кошельки для крипто-токенов, чтобы получать чаевые от других пользователей.",
+  "app.containers.Profile.tipText": "Настройте кошельки для крипто-токенов, чтобы получать чаевые от других пользователей.",
   "app.containers.Profile.crypto": "Крипто-кошелёк",
   "app.containers.Profile.account": "Аккаунт",
   "app.containers.Profile.sendFromAccount": "Отправить с аккаунта",
@@ -1008,15 +800,13 @@
   "app.containers.Profile.changeAccount": "Изменить аккаунт",
   "app.containers.Profile.chooseAccount": "Выбрать аккаунт",
 
-  "app.components.NoAccess.errorMessage":
-    "Нет прав, чтобы выполнить данное действие!",
+  "app.components.NoAccess.errorMessage": "Нет прав, чтобы выполнить данное действие!",
 
   "app.containers.ButtonGroupForAuthorizedUser.profile": "Профиль",
 
   "app.containers.ErrorBoundary.title": "Ошибка",
   "app.containers.ErrorBoundary.description": "Описание error-контейнера",
-  "app.containers.ErrorBoundary.problemWithWebpage":
-    "Возникла проблема в приложении",
+  "app.containers.ErrorBoundary.problemWithWebpage": "Возникла проблема в приложении",
   "app.containers.ErrorBoundary.details": "Детали",
   "app.containers.ErrorBoundary.reloadPage": "Перегрузить страницу",
 
@@ -1026,53 +816,39 @@
 
   "app.containers.ErrorPage.title": "Возникла ошибка...",
   "app.containers.ErrorPage.description": "Возникла ошибка... описание",
-  "app.containers.ErrorPage.weAreSorry":
-    "Извините, возникла неожиданная ошибка...",
+  "app.containers.ErrorPage.weAreSorry": "Извините, возникла неожиданная ошибка...",
   "app.containers.ErrorPage.accountDoesNotExist": "Аккаунт не существует",
-  "app.containers.ErrorPage.cannotTransferToSelf":
-    "Нельзя отправлять самому себе",
+  "app.containers.ErrorPage.cannotTransferToSelf": "Нельзя отправлять самому себе",
   "app.containers.ErrorPage.notEnoughCPU": "Недостаточно CPU",
-  "app.containers.ErrorPage.checkScatterConnection":
-    "Проверьте подключение кошелька",
+  "app.containers.ErrorPage.checkScatterConnection": "Проверьте подключение кошелька",
 
   "app.containers.NotFoundPage.title": "404",
   "app.containers.NotFoundPage.description": "404",
-  "app.containers.NotFoundPage.weAreSorry":
-    "Извините, такой страницы не существует.",
-  "app.containers.NotFoundPage.tryToBrowse":
-    "Попробуйте посмотреть наши последние {value}.",
-  "app.containers.NotFoundPage.browseOurPopular":
-    "Посмотрите наши популярные {value}.",
-  "app.containers.NotFoundPage.ifYouFeelSomething":
-    "Если Вы чувствуете, что чего-то не хватает, {value}.",
+  "app.containers.NotFoundPage.weAreSorry": "Извините, такой страницы не существует.",
+  "app.containers.NotFoundPage.tryToBrowse": "Попробуйте посмотреть наши последние {value}.",
+  "app.containers.NotFoundPage.browseOurPopular": "Посмотрите наши популярные {value}.",
+  "app.containers.NotFoundPage.ifYouFeelSomething": "Если Вы чувствуете, что чего-то не хватает, {value}.",
 
   "app.containers.Questions.title": "Вопросы",
   "app.containers.Questions.description": "Описание",
   "app.containers.Questions.noQuestions": "Вопросов нет",
   "app.containers.Questions.allCommunities": "Все сообщества",
-  "app.containers.Questions.bountyPopover":
-    "Дополнительное вознаграждение от автора вопроса.",
+  "app.containers.Questions.bountyPopover": "Дополнительное вознаграждение от автора вопроса.",
   "app.containers.Questions.youDontHaveFeedToRead": "У Вас пока нечего читать",
-  "app.containers.Questions.subscribeToCommToKeep":
-    "Подписывайтесь на сообщества, чтобы быть в курсе тем, в которых Вы заинтересованы.",
+  "app.containers.Questions.subscribeToCommToKeep": "Подписывайтесь на сообщества, чтобы быть в курсе тем, в которых Вы заинтересованы.",
   "app.containers.Questions.noPostsYet": "Пока нет постов.",
-  "app.containers.Questions.thisIsNewCommunity":
-    "Это новое сообщество, Вы можете стать первым и Ваш пост может стать самым популярным.",
+  "app.containers.Questions.thisIsNewCommunity": "Это новое сообщество, Вы можете стать первым, кто создаст пост, и Ваш пост может стать самым популярным.",
   "app.containers.Questions.readMyFeed": "Читать мой фид",
   "app.containers.Questions.goToCommunities": "Перейти к сообществам",
-  "app.containers.Questions.topQuestionPopover":
-    "Часто задаваемый вопрос этого сообщества.",
+  "app.containers.Questions.topQuestionPopover": "Часто задаваемый вопрос этого сообщества.",
   "app.containers.Questions.showAllQuestions": "Смотреть все вопросы",
 
-  "app.containers.QuestionForm.communityTip":
-    "Убедитесь, что вопрос актуален для выбранного сообщества",
-  "app.containers.QuestionForm.titleTip":
-    "Краткий и описательный заголовок вопроса",
+  "app.containers.QuestionForm.communityTip": "Убедитесь, что вопрос актуален для выбранного сообщества",
+  "app.containers.QuestionForm.titleTip": "Краткий и описательный заголовок вопроса",
   "app.containers.QuestionForm.tagsTip": "Теги, имеющие отношение к вопросу",
   "app.containers.QuestionForm.title": "Новый пост",
   "app.containers.QuestionForm.titleLabel": "Заголовок",
-  "app.containers.QuestionForm.existingQuestionsLabel":
-    "Чтобы избежать дублирования, проверьте существующие вопросы.",
+  "app.containers.QuestionForm.existingQuestionsLabel": "Чтобы избежать дублирования, проверьте существующие вопросы.",
   "app.containers.QuestionForm.questionBodyLabel": "Содержание",
   "app.containers.QuestionForm.communityLabel": "Сообщество",
   "app.containers.QuestionForm.bountyLabel": "Бонусное вознаграждение",
@@ -1081,18 +857,14 @@
   "app.containers.QuestionForm.daysPlaceholder": "Дни",
   "app.containers.QuestionForm.hoursPlaceholder": "Часы",
   "app.containers.QuestionForm.bountyTip": "Бонус за лучший ответ",
-  "app.containers.QuestionForm.bountyHoursTip":
-    "Количество часов,в течение которого бонус активен",
-  "app.containers.QuestionForm.bountyDaysTip":
-    "Количество дней,в течение которого бонус активен",
+  "app.containers.QuestionForm.bountyHoursTip": "Количество часов,в течение которого бонус активен",
+  "app.containers.QuestionForm.bountyDaysTip": "Количество дней,в течение которого бонус активен",
   "app.containers.QuestionForm.tagsLabel": "Теги",
   "app.containers.QuestionForm.previewLabel": "Предпросмотр",
   "app.containers.QuestionForm.questionType": "Тип поста  ",
   "app.containers.QuestionForm.questionTypeTip": "Необязательное",
-  "app.containers.QuestionForm.generalQuestionDescriptionLabel":
-    "Вопрос, для ответа на который не требуется знания или опыта, может быть одним из следующих:",
-  "app.containers.QuestionForm.expertQuestionDescriptionLabel":
-    "Вопрос, который спрашивает следующее:",
+  "app.containers.QuestionForm.generalQuestionDescriptionLabel": "Вопрос, для ответа на который не требуется знания или опыта, может быть одним из следующих:",
+  "app.containers.QuestionForm.expertQuestionDescriptionLabel": "Вопрос, который спрашивает следующее:",
   "app.containers.QuestionForm.generalQuestionDescriptionList": [
     "Обмен мнением",
     "Мозговой штурм;",
@@ -1104,8 +876,7 @@
     "Источник информации или ресурсы по конкретному предмету, который нелегко найти;",
     "Пояснение или разъяснение информации, которую трудно понять."
   ],
-  "app.containers.QuestionForm.tutorialQuestionDescriptionLabel":
-    "Руководство это инструкция, которая может представлять из себя:",
+  "app.containers.QuestionForm.tutorialQuestionDescriptionLabel": "Руководство это инструкция, которая может представлять из себя:",
   "app.containers.QuestionForm.tutorialQuestionDescriptionList": [
     "Пошаговое решение проблемы;",
     "Техническое руководство;",
@@ -1113,160 +884,104 @@
   ],
   "app.containers.QuestionForm.promotedLabel": "Продвинуть вопрос",
   "app.containers.QuestionForm.promotedTip": "Продвинуть вопрос",
-  "app.containers.QuestionForm.questionIsPromoting":
-    "Этот вопрос продвигается до",
-  "app.containers.QuestionForm.postTypeSelectionError":
-    "Необходимо выбрать тип поста",
-  "app.containers.QuestionForm.leaveWithoutChanges":
-    "Вы собираетесь покинуть страницу, не сохранив изменений. Вы уверены, что хотите продолжить?",
+  "app.containers.QuestionForm.questionIsPromoting": "Этот вопрос продвигается до",
+  "app.containers.QuestionForm.postTypeSelectionError": "Необходимо выбрать тип поста",
+  "app.containers.QuestionForm.leaveWithoutChanges": "Вы собираетесь покинуть страницу, не сохранив изменений. Вы уверены, что хотите продолжить?",
 
   "app.containers.AnswerForm.titleLabel": "Ваш ответ",
 
   "app.components.TextEditor.tips": "Подсказки",
-  "app.components.TextEditor.putReturnsBetweenParagraphs":
-    "Жмите enter для абзаца",
-  "app.components.TextEditor.addForLineBreaks":
-    "Для лайнбрейка поставьте 2 пробела в конце",
+  "app.components.TextEditor.putReturnsBetweenParagraphs": "Жмите enter для абзаца",
+  "app.components.TextEditor.addForLineBreaks": "Для лайнбрейка поставьте 2 пробела в конце",
   "app.components.TextEditor.italicAndBold": "*курсив* или **жирный**",
   "app.components.TextEditor.indentCode": "4 пробела для индент кода",
   "app.components.TextEditor.backtipEscapes": "бэктик `like _so_`",
-  "app.components.TextEditor.quoteByPlacing":
-    "квот размещением &gt; в начале строки",
-  "app.components.TextEditor.toMakeLinks":
-    "делать ссылки &lt;http://foo.com&gt;[foo](http://foo.com)&lt;a href=&quot;http://foo.com&quot;&gt;fo",
+  "app.components.TextEditor.quoteByPlacing": "квот размещением &gt; в начале строки",
+  "app.components.TextEditor.toMakeLinks": "делать ссылки &lt;http://foo.com&gt;[foo](http://foo.com)&lt;a href=&quot;http://foo.com&quot;&gt;fo",
 
   "app.containers.Achievements.questionAsked.bronze.title": "Броза - Ученик",
-  "app.containers.Achievements.questionAsked.bronze.description":
-    "Задайте 10 вопросов",
-  "app.containers.Achievements.questionAsked.silver.title":
-    "Серебро - Копаю глубже",
-  "app.containers.Achievements.questionAsked.silver.description":
-    "Задайте 50 вопросов",
-  "app.containers.Achievements.questionAsked.gold.title":
-    "Золото - Хочу знать всё!",
-  "app.containers.Achievements.questionAsked.gold.description":
-    "Задайте 100 вопросов",
+  "app.containers.Achievements.questionAsked.bronze.description": "Задайте 10 вопросов",
+  "app.containers.Achievements.questionAsked.silver.title": "Серебро - Копаю глубже",
+  "app.containers.Achievements.questionAsked.silver.description": "Задайте 50 вопросов",
+  "app.containers.Achievements.questionAsked.gold.title": "Золото - Хочу знать всё!",
+  "app.containers.Achievements.questionAsked.gold.description": "Задайте 100 вопросов",
 
   "app.containers.Achievements.answerGiven.bronze.title": "Бронза - Эксперт",
-  "app.containers.Achievements.answerGiven.bronze.description":
-    "Ответьте на 20 вопросов",
+  "app.containers.Achievements.answerGiven.bronze.description": "Ответьте на 20 вопросов",
   "app.containers.Achievements.answerGiven.silver.title": "Серебро - Мастер",
-  "app.containers.Achievements.answerGiven.silver.description":
-    "Ответьте на 100 вопросов",
+  "app.containers.Achievements.answerGiven.silver.description": "Ответьте на 100 вопросов",
   "app.containers.Achievements.answerGiven.gold.title": "Золото - Гуру",
-  "app.containers.Achievements.answerGiven.gold.description":
-    "Ответьте на 200 вопросов",
+  "app.containers.Achievements.answerGiven.gold.description": "Ответьте на 200 вопросов",
 
-  "app.containers.Achievements.bestAnswer.bronze.title":
-    "Бронза - Настоящий профессионал",
-  "app.containers.Achievements.bestAnswer.bronze.description":
-    "Получите 5 отметок \"Лучший ответ\"",
+  "app.containers.Achievements.bestAnswer.bronze.title": "Бронза - Настоящий профессионал",
+  "app.containers.Achievements.bestAnswer.bronze.description": "Получите 5 отметок \"Лучший ответ\"",
   "app.containers.Achievements.bestAnswer.silver.title": "Серебро - Эрудит",
-  "app.containers.Achievements.bestAnswer.silver.description":
-    "Получите 25 отметок \"Лучший ответ\"",
-  "app.containers.Achievements.bestAnswer.gold.title":
-    "Золото - Искусственный интеллект",
-  "app.containers.Achievements.bestAnswer.gold.description":
-    "Получите 50 отметок \"Лучший ответ\"",
+  "app.containers.Achievements.bestAnswer.silver.description": "Получите 25 отметок \"Лучший ответ\"",
+  "app.containers.Achievements.bestAnswer.gold.title": "Золото - Искусственный интеллект",
+  "app.containers.Achievements.bestAnswer.gold.description": "Получите 50 отметок \"Лучший ответ\"",
 
-  "app.containers.Achievements.firstIn15.bronze.title":
-    "Бронза - Самая быстрая рука на диком западе",
-  "app.containers.Achievements.firstIn15.bronze.description":
-    "Ответьте первым на 5 вопросов в течение первых 15 минут",
-  "app.containers.Achievements.firstIn15.silver.title":
-    "Серебро - В пол педаль",
-  "app.containers.Achievements.firstIn15.silver.description":
-    "Ответьте первым на 10 вопросов в течение первых 15 минут",
+  "app.containers.Achievements.firstIn15.bronze.title": "Бронза - Самая быстрая рука на диком западе",
+  "app.containers.Achievements.firstIn15.bronze.description": "Ответьте первым на 5 вопросов в течение первых 15 минут",
+  "app.containers.Achievements.firstIn15.silver.title": "Серебро - В пол педаль",
+  "app.containers.Achievements.firstIn15.silver.description": "Ответьте первым на 10 вопросов в течение первых 15 минут",
   "app.containers.Achievements.firstIn15.gold.title": "Золото - Молния",
-  "app.containers.Achievements.firstIn15.gold.description":
-    "Ответьте первым на 20 вопросов в течение первых 15 минут",
+  "app.containers.Achievements.firstIn15.gold.description": "Ответьте первым на 20 вопросов в течение первых 15 минут",
 
-  "app.containers.Achievements.firstAnswer.bronze.title":
-    "Бронза - Быстрая помощь",
-  "app.containers.Achievements.firstAnswer.bronze.description":
-    "Ответьте первым на 10 различных вопросов",
-  "app.containers.Achievements.firstAnswer.silver.title":
-    "Серебро - Я здесь первый!",
-  "app.containers.Achievements.firstAnswer.silver.description":
-    "Ответьте первым на 25 различных вопросов",
-  "app.containers.Achievements.firstAnswer.gold.title":
-    "Gold - Абсолютный чемпион",
-  "app.containers.Achievements.firstAnswer.gold.description":
-    "Ответьте первым на 50 различных вопросов",
+  "app.containers.Achievements.firstAnswer.bronze.title": "Бронза - Быстрая помощь",
+  "app.containers.Achievements.firstAnswer.bronze.description": "Ответьте первым на 10 различных вопросов",
+  "app.containers.Achievements.firstAnswer.silver.title": "Серебро - Я здесь первый!",
+  "app.containers.Achievements.firstAnswer.silver.description": "Ответьте первым на 25 различных вопросов",
+  "app.containers.Achievements.firstAnswer.gold.title": "Gold - Абсолютный чемпион",
+  "app.containers.Achievements.firstAnswer.gold.description": "Ответьте первым на 50 различных вопросов",
 
   "app.containers.Achievements.welcomeStranger.title": "Здравствуй, Незнакомец",
-  "app.containers.Achievements.welcomeStranger.description":
-    "Успешно зарегистрируйтесь на Peeranha",
+  "app.containers.Achievements.welcomeStranger.description": "Успешно зарегистрируйтесь на Peeranha",
   "app.containers.Achievements.newbie.title": "Начало великого путешествия",
-  "app.containers.Achievements.newbie.description":
-    "Получите статус \"Новичок\"",
+  "app.containers.Achievements.newbie.description": "Получите статус \"Новичок\"",
   "app.containers.Achievements.junior.title": "Не называйте меня младшим",
   "app.containers.Achievements.junior.description": "Получите статус \"Юниор\"",
   "app.containers.Achievements.resident.title": "Пиранья - мой дом",
-  "app.containers.Achievements.resident.description":
-    "Получите статус \"Постоялец\"",
+  "app.containers.Achievements.resident.description": "Получите статус \"Постоялец\"",
   "app.containers.Achievements.senior.title": "Я научу вас чему угодно",
-  "app.containers.Achievements.senior.description":
-    "Получите статус \"Знаток\"",
+  "app.containers.Achievements.senior.description": "Получите статус \"Знаток\"",
   "app.containers.Achievements.hero.title": "Сайту нужен герой",
   "app.containers.Achievements.hero.description": "Получите статус \"Герой\"",
   "app.containers.Achievements.superhero.title": "Живая легенда",
-  "app.containers.Achievements.superhero.description":
-    "Получите статус \"Супергерой\"",
+  "app.containers.Achievements.superhero.description": "Получите статус \"Супергерой\"",
 
   "app.containers.Achievements.foundingMember.title": "Основатель",
-  "app.containers.Achievements.foundingMember.description":
-    "Будьте одним и 10000 первых пользователей, зарегистрировавшихся на Пиранье",
+  "app.containers.Achievements.foundingMember.description": "Будьте одним и 10000 первых пользователей, зарегистрировавшихся на Пиранье",
   "app.containers.Achievements.activist.title": "Активист",
-  "app.containers.Achievements.activist.description":
-    "Будьте одним и 700 первых пользователей, получивших статус \"Новичок\"",
+  "app.containers.Achievements.activist.description": "Будьте одним и 700 первых пользователей, получивших статус \"Новичок\"",
   "app.containers.Achievements.researcher.title": "Исследователь",
-  "app.containers.Achievements.researcher.description":
-    "Будьте одним и 500 первых пользователей, получивших статус \"Юниор\"",
+  "app.containers.Achievements.researcher.description": "Будьте одним и 500 первых пользователей, получивших статус \"Юниор\"",
   "app.containers.Achievements.honorableResident.title": "Почётный Постоялец",
-  "app.containers.Achievements.honorableResident.description":
-    "Будьте одним и 300 первых пользователей, получивших статус \"Постоялец\"",
+  "app.containers.Achievements.honorableResident.description": "Будьте одним и 300 первых пользователей, получивших статус \"Постоялец\"",
   "app.containers.Achievements.theWisest.title": "Самый мудрый",
-  "app.containers.Achievements.theWisest.description":
-    "Будьте одним и 150 первых пользователей, получивших статус \"Знаток\"",
+  "app.containers.Achievements.theWisest.description": "Будьте одним и 150 первых пользователей, получивших статус \"Знаток\"",
   "app.containers.Achievements.modernHero.title": "Современный герой",
-  "app.containers.Achievements.modernHero.description":
-    "Будьте одним и 50 первых пользователей, получивших статус \"Герой\"",
+  "app.containers.Achievements.modernHero.description": "Будьте одним и 50 первых пользователей, получивших статус \"Герой\"",
   "app.containers.Achievements.kingOfTheHill.title": "Царь горы",
-  "app.containers.Achievements.kingOfTheHill.description":
-    "Будьте одним и 10 первых пользователей, получивших статус \"Супергерой\"",
+  "app.containers.Achievements.kingOfTheHill.description": "Будьте одним и 10 первых пользователей, получивших статус \"Супергерой\"",
 
-  "app.containers.Achievements.progressBarPopover.ratingRelated.single":
-    "пункт рейтинга остался до следующего досижения",
-  "app.containers.Achievements.progressBarPopover.ratingRelated.multiple":
-    "пунктов рейтинга осталось до следующего досижения",
-  "app.containers.Achievements.progressBarPopover.questionAskedRelated.single":
-    "вопрос остался до следующего досижения",
-  "app.containers.Achievements.progressBarPopover.questionAskedRelated.multiple":
-    "вопросов осталось до следующего досижения",
-  "app.containers.Achievements.progressBarPopover.answerGivenRelated.single":
-    "ответ остался до следующего досижения",
-  "app.containers.Achievements.progressBarPopover.answerGivenRelated.multiple":
-    "ответов осталось до следующего досижения",
-  "app.containers.Achievements.progressBarPopover.bestAnswerRelated.single":
-    "лучший ответ остался до следующего досижения",
-  "app.containers.Achievements.progressBarPopover.bestAnswerRelated.multiple":
-    "лучших ответов осталось до следующего досижения",
-  "app.containers.Achievements.progressBarPopover.firstAnswerIn15Related.single":
-    "первый за 15 минут ответ остался до следующего досижения",
-  "app.containers.Achievements.progressBarPopover.firstAnswerIn15Related.multiple":
-    "первых за 15 минут ответов осталось до следующего досижения",
-  "app.containers.Achievements.progressBarPopover.firstAnswerRelated.single":
-    "первый ответ остался до следующего досижения",
-  "app.containers.Achievements.progressBarPopover.firstAnswerRelated.multiple":
-    "первых ответов осталось до следующего досижения",
+  "app.containers.Achievements.progressBarPopover.ratingRelated.single": "пункт рейтинга остался до следующего досижения",
+  "app.containers.Achievements.progressBarPopover.ratingRelated.multiple": "пунктов рейтинга осталось до следующего досижения",
+  "app.containers.Achievements.progressBarPopover.questionAskedRelated.single": "вопрос остался до следующего досижения",
+  "app.containers.Achievements.progressBarPopover.questionAskedRelated.multiple": "вопросов осталось до следующего досижения",
+  "app.containers.Achievements.progressBarPopover.answerGivenRelated.single": "ответ остался до следующего досижения",
+  "app.containers.Achievements.progressBarPopover.answerGivenRelated.multiple": "ответов осталось до следующего досижения",
+  "app.containers.Achievements.progressBarPopover.bestAnswerRelated.single": "лучший ответ остался до следующего досижения",
+  "app.containers.Achievements.progressBarPopover.bestAnswerRelated.multiple": "лучших ответов осталось до следующего досижения",
+  "app.containers.Achievements.progressBarPopover.firstAnswerIn15Related.single": "первый за 15 минут ответ остался до следующего досижения",
+  "app.containers.Achievements.progressBarPopover.firstAnswerIn15Related.multiple": "первых за 15 минут ответов осталось до следующего досижения",
+  "app.containers.Achievements.progressBarPopover.firstAnswerRelated.single": "первый ответ остался до следующего досижения",
+  "app.containers.Achievements.progressBarPopover.firstAnswerRelated.multiple": "первых ответов осталось до следующего досижения",
 
   "app.containers.Achievements.separators.ratingRelated": "Рейтинг",
   "app.containers.Achievements.separators.questionAskedRelated": "Вопросы",
   "app.containers.Achievements.separators.answerGivenRelated": "Ответы",
   "app.containers.Achievements.separators.bestAnswerRelated": "Лучшие ответы",
-  "app.containers.Achievements.separators.firstAnswerIn15Related":
-    "Первые ответы в течение 15 минут",
+  "app.containers.Achievements.separators.firstAnswerIn15Related": "Первые ответы в течение 15 минут",
   "app.containers.Achievements.separators.firstAnswerRelated": "Первые ответы",
 
   "app.containers.TelegramInfo.confirm": "Подтвердить",

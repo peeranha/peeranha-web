@@ -87,15 +87,6 @@ const Header = ({ showLoginModal, account }) => {
                     <IconLm className="mr-2" icon={login} />
                     <FormattedMessage id={messages.login.id} />
                   </button>
-
-                  <Button
-                    className="signup"
-                    onClick={() =>
-                      createdHistory.push(routes.signup.email.name)
-                    }
-                  >
-                    <FormattedMessage id={messages.signUpFree.id} />
-                  </Button>
                 </React.Fragment>
               )}
 

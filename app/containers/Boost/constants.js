@@ -22,3 +22,5 @@ export const CURRENT_STAKE_FORM = 'app_Boost_CURRENT_STAKE_FORM';
 
 export const MIN_STAKE_PREDICTION = 1;
 export const MAX_STAKE_PREDICTION = 4;
+
+export const TOKENS_AFTER_ZERO = '000000000000000000';

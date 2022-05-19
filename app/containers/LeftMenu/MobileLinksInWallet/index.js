@@ -77,12 +77,14 @@ const MobileLinksInWallet = ({
               />
             )}
           </A>
-          {/* PEER20-306 - Hide Boost and Send Token from menu in demo version */}
-          {/* <A to={routes.userBoost(profile.user)}>
+
+          <A to={routes.userBoost(profile.user)}>
             <FormattedMessage {...messages.boost} />
-            {boost.value > 1 && <BoostPrediction>{boost.text}</BoostPrediction>}
+            {boost > 1 && <BoostPrediction>{boost}</BoostPrediction>}
           </A>
-          <SendTokens>
+
+          {/*TODO send tokens issue*/}
+          {/*<SendTokens>
             <FormattedMessage {...messages.sendTokens} />
           </SendTokens> */}
         </div>

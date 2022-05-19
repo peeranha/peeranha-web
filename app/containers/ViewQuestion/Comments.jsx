@@ -133,7 +133,7 @@ const CommentEdit = ({
 );
 
 /* eslint react/no-danger: 0 */
-const CommentView = item => {
+const CommentView = (item) => {
   const isItWrittenByMe = !!item.profileInfo
     ? item.author?.user === item.profileInfo.user
     : false;
@@ -150,7 +150,7 @@ const CommentView = item => {
   // );
 
   const formattedHistories = item.histories?.filter(
-    history =>
+    (history) =>
       history.comment?.id === `${item.postId}-${item.answerId}-${item.id}`,
   );
 
@@ -163,7 +163,7 @@ const CommentView = item => {
           name={item.author?.displayName ?? ''}
           rating={getRatingByCommunity(item.author, item.communityId)}
           account={item.author.user}
-          achievementsCount={item.author.achievementsReached?.length}
+          achievementsCount={item.author.achievements?.length}
           postTime={+item.postTime}
           locale={item.locale}
           isComment
@@ -248,7 +248,7 @@ const CommentView = item => {
   );
 };
 
-const Comment = item => {
+const Comment = (item) => {
   const [isView, toggleView] = useState(true);
 
   return (
@@ -262,7 +262,7 @@ const Comment = item => {
   );
 };
 
-const Comments = props => {
+const Comments = (props) => {
   const isPhone = window.screen.width <= 576;
   const DEFAULT_COMMENTS_NUMBER = isPhone ? 0 : 3;
   const [isAllCommentsView, changeCommentsView] = useState(false);
@@ -273,11 +273,9 @@ const Comments = props => {
     <div>
       {props.comments.length > 0 && (
         <CommentsStyled>
-          {props.comments
-            .slice(0, commentsNum)
-            .map(item => (
-              <Comment {...item} {...props} key={`${COMMENT_TYPE}${item.id}`} />
-            ))}
+          {props.comments.slice(0, commentsNum).map((item) => (
+            <Comment {...item} {...props} key={`${COMMENT_TYPE}${item.id}`} />
+          ))}
         </CommentsStyled>
       )}
 
@@ -322,12 +320,9 @@ CommentEdit.propTypes = {
 
 export { Comment, CommentEdit, CommentView, Comments };
 export default React.memo(
-  connect(
-    state => {
-      return {
-        profileInfo: makeSelectProfileInfo()(state),
-      };
-    },
-    null,
-  )(Comments),
+  connect((state) => {
+    return {
+      profileInfo: makeSelectProfileInfo()(state),
+    };
+  }, null)(Comments),
 );

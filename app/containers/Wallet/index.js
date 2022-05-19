@@ -8,9 +8,8 @@ import { compose, bindActionCreators } from 'redux';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import {
   makeSelectAccount,
+  makeSelectAvailableBalance,
   makeSelectBalance,
-  makeSelectStakedInCurrentPeriod,
-  makeSelectStakedInNextPeriod,
 } from 'containers/AccountProvider/selectors';
 
 import Seo from 'components/Seo';
@@ -31,8 +30,7 @@ const Wallet = ({
   locale,
   account,
   balance,
-  stakedInCurrentPeriod,
-  stakedInNextPeriod,
+  availableBalance,
   weekStat,
   userBoostStat,
   getWeekStatDispatch,
@@ -71,8 +69,7 @@ const Wallet = ({
         locale={locale}
         account={account}
         balance={balance}
-        stakedInCurrentPeriod={stakedInCurrentPeriod}
-        stakedInNextPeriod={stakedInNextPeriod}
+        availableBalance={availableBalance}
         weekStat={weekStat}
         userBoostStat={userBoostStat}
         getWeekStatProcessing={getWeekStatProcessing}
@@ -86,8 +83,6 @@ const Wallet = ({
 
 Wallet.propTypes = {
   balance: PropTypes.number,
-  stakedInCurrentPeriod: PropTypes.number,
-  stakedInNextPeriod: PropTypes.number,
   locale: PropTypes.string,
   account: PropTypes.string,
   match: PropTypes.object,
@@ -110,8 +105,7 @@ export default memo(
         locale: makeSelectLocale(),
         account: makeSelectAccount(),
         balance: makeSelectBalance(),
-        stakedInCurrentPeriod: makeSelectStakedInCurrentPeriod(),
-        stakedInNextPeriod: makeSelectStakedInNextPeriod(),
+        availableBalance: makeSelectAvailableBalance(),
         weekStat: selectors.selectWeekStat(),
         userBoostStat: selectors.selectUserBoostStat(),
         getWeekStatProcessing: selectors.selectGetWeekStatProcessing(),

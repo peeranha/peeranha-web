@@ -45,8 +45,8 @@ const Item = styled.div`
   max-height: 110px;
   overflow: hidden;
   transition: 0.15s;
-  margin-right: ${x => (!x.isInputBox ? '-17px' : '0')};
-  padding: ${x => (!x.isInputBox ? '2px 32px 2px 15px' : '2px 15px')};
+  margin-right: ${(x) => (!x.isInputBox ? '-17px' : '0')};
+  padding: ${(x) => (!x.isInputBox ? '2px 32px 2px 15px' : '2px 15px')};
 
   input {
     background: none;
@@ -97,13 +97,12 @@ const Content = ({
   existingTagsLoading,
   typeInput,
   text,
-  clearTextField,
   locale,
   communityId,
   setEditTagData,
   profileInfo,
 }) => {
-  const showEditTagForm = tagId => {
+  const showEditTagForm = (tagId) => {
     setEditTagData(tagId, communityId);
     createdHistory.push(routes.editTag(communityId, tagId));
   };
@@ -137,17 +136,16 @@ const Content = ({
                 input={{ onChange: typeInput, value: text }}
                 placeholder={translationMessages[locale][messages.findTag.id]}
                 isSearchable
-                onClick={clearTextField}
               />
             </Item>
           </li>
         ) : null}
 
-        {tags.map(x => (
+        {tags.map((x) => (
           <Tag key={x.id} editTagModerator={editTagModerator}>
             <Base>
               <Item
-                onMouseLeave={e => {
+                onMouseLeave={(e) => {
                   e.currentTarget.scrollTop = 0;
                 }}
               >

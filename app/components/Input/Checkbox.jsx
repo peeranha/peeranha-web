@@ -30,7 +30,7 @@ export const Icon = styled.span`
   background-color: ${BG_LIGHT};
   background-repeat: no-repeat;
   background-position: center;
-  z-index: 10;
+  z-index: 9;
   cursor: pointer;
 
   ${({ error }) => ErrorHandling(error)};
@@ -65,7 +65,7 @@ export const Label = Span.extend`
   min-width: 110px;
   cursor: pointer;
   flex: 1;
-  opacity: ${x => (x.disabled ? '0.6' : '1')};
+  opacity: ${(x) => (x.disabled ? '0.6' : '1')};
 `.withComponent('label');
 
 /* eslint jsx-a11y/label-has-for: 0 */

@@ -2,6 +2,7 @@ import { showPopover } from 'utils/popover';
 import { ApplicationError } from 'utils/errors';
 
 import { getRatingByCommunity } from 'utils/profileManagement';
+import { hasGlobalModeratorRole } from 'utils/properties';
 import messages from './messages';
 
 /* eslint prefer-destructuring: 0 */
@@ -115,7 +116,7 @@ export const postCommentValidator = (
 ) => {
   const maxCommentsNumber = 200;
 
-  const MIN_RATING_FOR_MY_ITEM = 0;
+  const MIN_RATING_FOR_MY_ITEM = 35;
   const MIN_RATING_FOR_OTHER_ITEMS = 35;
   const MIN_ENERGY = 4;
   const communityId = questionData.communityId;
@@ -207,7 +208,8 @@ export const upVoteValidator = (
   ) {
     message = `${translations[messages.noRootsToVote.id]}`;
   } else if (
-    getRatingByCommunity(profileInfo, communityId) < MIN_RATING_TO_UPVOTE
+    getRatingByCommunity(profileInfo, communityId) < MIN_RATING_TO_UPVOTE &&
+    !hasGlobalModeratorRole(profileInfo.permissions)
   ) {
     message = `${
       translations[messages.notEnoughRating.id]
@@ -252,7 +254,8 @@ export const downVoteValidator = (
   } else if (item.author.user === profileInfo.user) {
     message = `${translations[messages.noRootsToVote.id]}`;
   } else if (
-    getRatingByCommunity(profileInfo, communityId) < MIN_RATING_TO_DOWNVOTE
+    getRatingByCommunity(profileInfo, communityId) < MIN_RATING_TO_DOWNVOTE &&
+    !hasGlobalModeratorRole(profileInfo.permissions)
   ) {
     message = `${
       translations[messages.notEnoughRating.id]

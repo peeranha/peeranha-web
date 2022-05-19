@@ -1,10 +1,8 @@
 import messages from 'common-messages';
 
-import { BigNumber } from 'ethers';
 import {
   COMMUNITY_ADMIN_INFINITE_IMPACT,
   COMMUNITY_ADMIN_OFFICIAL_ANSWER,
-  COMMUNITY_ADMIN_QUESTION_TYPE,
   COMMUNITY_ADMIN_TOP_QUESTIONS,
   COMMUNITY_ADMIN_CREATE_TAG,
   communityAdminPermissions,
@@ -14,10 +12,12 @@ import {
   globalAdminPermissions,
   communityModeratorPermissions,
 } from './constants';
-import { selectEthereum } from '../containers/EthereumProvider/selectors';
+import { BigNumber } from 'ethers';
+import { selectEthereum } from 'containers/EthereumProvider/selectors';
+import { getCookie } from 'utils/cookie';
 
-// todo change to "findRole"
-const findAllPropertiesByKeys = () => [];
+//todo change to "findRole"
+const findAllPropertiesByKeys = (properties, keys, exact = false) => [];
 
 export const getModeratorPermissions = (
   globalModeratorProps,
@@ -84,11 +84,6 @@ export const communityAdminOfficialAnswerPermission = (
     COMMUNITY_ADMIN_OFFICIAL_ANSWER,
   ]).filter(({ community }) => communityId === community).length;
 
-export const communityAdminQuestionTypePermission = (properties, communityId) =>
-  !!findAllPropertiesByKeys(properties, [COMMUNITY_ADMIN_QUESTION_TYPE]).filter(
-    ({ community }) => communityId === community,
-  ).length;
-
 export const communityAdminCreateTagPermission = (
   properties = [],
   communityId,
@@ -107,10 +102,20 @@ export const communityAdminInfiniteImpactPermission = (
 
 export const getPermissions = (profile) => profile?.permissions ?? [];
 
-export const hasGlobalModeratorRole = (permissions) =>
-  !!permissions.find((permission) =>
-    BigNumber.from(permission).eq(DEFAULT_ADMIN_ROLE),
+export const hasGlobalModeratorRole = (permissionsFromState) => {
+  let permissions = permissionsFromState;
+
+  if (!permissions) {
+    permissions =
+      JSON.parse(getCookie('profileinfols') || '""')?.permissions || [];
+  }
+
+  return Boolean(
+    permissions.find((permission) =>
+      BigNumber.from(permission).eq(DEFAULT_ADMIN_ROLE),
+    ),
   );
+};
 
 export const getCommunityRole = (role, communityId) =>
   BigNumber.from(role).add(BigNumber.from(communityId)).toHexString();

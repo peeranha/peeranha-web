@@ -51,10 +51,14 @@ export function showEmailPasswordForm(val) {
 
 // Login with Wallet
 
-export function loginWithWallet({ metaMask }) {
+export function loginWithWallet(
+  { metaMask },
+  isNewPostCreationAfterLogin = false,
+) {
   return {
     type: LOGIN_WITH_WALLET,
     metaMask,
+    isNewPostCreationAfterLogin,
   };
 }
 

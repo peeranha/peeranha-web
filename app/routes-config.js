@@ -11,7 +11,7 @@ import {
 } from 'utils/communityManagement';
 import { REFERRAL_CODE_URI } from './containers/App/constants';
 
-const userRedirect = where => id => `/users/${id}${where}`;
+const userRedirect = (where) => (id) => `/users/${id}${where}`;
 
 const singleCommId = isSingleCommunityWebsite();
 const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
@@ -22,7 +22,7 @@ export const notFound = () => `/404`;
 export const errorPage = () => `/error-occured`;
 
 export const profileView = userRedirect('');
-export const profileEdit = id => `/users/edit/${id}`;
+export const profileEdit = (id) => `/users/edit/${id}`;
 
 export const userQuestions = userRedirect('#questions');
 export const userCommunities = userRedirect('#communities');
@@ -33,19 +33,19 @@ export const userNFTs = userRedirect('#nfts');
 export const userModeration = userRedirect('#moderation');
 export const userWallet = userRedirect('/wallet');
 export const userBoost = userRedirect('/boost');
-export const uniqueAnswerId = answerId => `ans${answerId}`;
+export const uniqueAnswerId = (answerId) => `ans${answerId}`;
 
-export const questions = communityId =>
+export const questions = (communityId) =>
   !communityId
     ? `${!isBloggerMode ? '/questions' : '/questions'}`
     : `/questions/community/${communityId}/`;
 
-export const expertPosts = communityId =>
+export const expertPosts = (communityId) =>
   !communityId
     ? `${!isBloggerMode ? '/experts' : '/experts'}`
     : `/experts/community/${communityId}/`;
 
-export const tutorials = communityId =>
+export const tutorials = (communityId) =>
   !communityId
     ? `${!isBloggerMode ? '/tutorials' : '/experts'}`
     : `/tutorials/community/${communityId}/`;
@@ -77,7 +77,8 @@ export const noAccess = () => `/no-access`;
 
 export const detailsHomePage = () => '/';
 
-export const feed = communityId => `/${communityId ? `/${communityId}` : ''}`;
+export const feed = (communityId) =>
+  `/${communityId ? `feed/${communityId}` : ''}`;
 
 export const communities = () => (!isBloggerMode ? `/communities` : `/`);
 
@@ -85,34 +86,34 @@ export const tags = () => `/tags`;
 
 export const users = () => '/users';
 
-export const faq = code => `/faq${code ? `#${code}` : ``}`;
-export const moderation = code => `#moderation${code ? `#${code}` : ``}`;
-export const support = section => `/support/${section ? `#${section}` : ''}`;
-export const search = q => `/search/${q || ''}`;
+export const faq = (code) => `/faq${code ? `#${code}` : ``}`;
+export const moderation = (code) => `#moderation${code ? `#${code}` : ``}`;
+export const support = (section) => `/support/${section ? `#${section}` : ''}`;
+export const search = (q) => `/search/${q || ''}`;
 
 export const supportForm = () => '/support/#support_form';
 
-export const privacyPolicy = section =>
+export const privacyPolicy = (section) =>
   `/privacy-policy/${section ? `#${section}` : ''}`;
 
-export const termsAndConditions = section =>
+export const termsAndConditions = (section) =>
   `/terms-and-conditions/${section ? `#${section}` : ''}`;
 
 export const communitiesCreate = () => `/communities/create`;
-export const communitiesEdit = communityId =>
+export const communitiesEdit = (communityId) =>
   !isBloggerMode ? `/communities/${communityId}/edit` : `/${communityId}/edit`;
 export const communitiesCreatedBanner = () => `/communities/create#banner`;
 export const suggestedCommunities = () => `/communities/suggested`;
 
-export const communityTags = communityId =>
+export const communityTags = (communityId) =>
   !singleCommId ? `/communities/${communityId}/tags` : `/tags`;
 
-export const suggestedTags = communityId =>
+export const suggestedTags = (communityId) =>
   !singleCommId
     ? `/communities/${communityId}/tags/suggested`
     : `/tags/suggested`;
 
-export const tagsCreate = communityId =>
+export const tagsCreate = (communityId) =>
   !singleCommId ? `/tags/community/${communityId || 0}/create` : `/tags/create`;
 
 export const editTag = (communityId, tagId) =>
@@ -124,7 +125,7 @@ export const registrationStage = 'signup';
 
 export const preloaderPage = () => '/preloader-page';
 
-export const referralPage = user => `/?${REFERRAL_CODE_URI}=${user}`;
+export const referralPage = (user) => `/?${REFERRAL_CODE_URI}=${user}`;
 
 export const facebookDataDeletion = () => '/facebook-data-deletion';
 

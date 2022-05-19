@@ -92,6 +92,7 @@ const Title = styled.p`
 `;
 
 const Form = ({
+  userBoostStat,
   handleSubmit,
   reset,
   changeStake,
@@ -103,13 +104,11 @@ const Form = ({
   onChangeCurrentStake,
   locale,
   formValues,
-  nextWeekMaxStake,
 }) => {
   const resetAction =
     initialUserStake === currentStake
       ? reset
       : () => onChangeCurrentStake(initialUserStake || 0);
-
   return (
     <div className="mb-5">
       {formValues[CURRENT_STAKE_FORM] !== undefined && (
@@ -129,7 +128,7 @@ const Form = ({
                 <PredictionForm
                   locale={locale}
                   formValues={formValues}
-                  maxStake={nextWeekMaxStake}
+                  userBoostStat={userBoostStat}
                 />
 
                 <CurrentStakeForm

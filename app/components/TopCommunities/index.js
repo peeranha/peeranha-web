@@ -136,7 +136,7 @@ const TopCommunities = ({ communities, profile, questions }) => {
                 route = routes.questions();
               }
               const community = communities.find(
-                (comm) => comm.id === x.communityId,
+                (item) => item.id === x.communityId,
               );
 
               return (
@@ -250,7 +250,7 @@ const TopCommunities = ({ communities, profile, questions }) => {
                         <div className="d-flex mb-3">
                           <div className="d-flex flex-column flex-grow-1">
                             <Span fontSize="16" bold>
-                              {getFormattedNum2(x.users_subscribed)}
+                              {getFormattedNum2(x.followingUsers)}
                             </Span>
                             <Span
                               className="mt-1"

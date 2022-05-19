@@ -59,10 +59,6 @@ import { getUniqQuestions } from 'containers/Questions/actions';
 import { updateStoredQuestionsWorker } from 'containers/Questions/saga';
 
 import {
-  isItemChanged,
-  saveChangedItemIdToSessionStorage,
-} from 'utils/sessionStorage';
-import {
   ANSWER_TYPE,
   CHANGE_QUESTION_TYPE,
   CHANGE_QUESTION_TYPE_SUCCESS,
@@ -94,6 +90,7 @@ import {
   VOTE_TO_DELETE_SUCCESS,
   GET_HISTORIES,
   GET_HISTORIES_SUCCESS,
+  GET_HISTORIES_ERROR,
 } from './constants';
 
 import {
@@ -146,6 +143,11 @@ import {
 import { selectUsers } from '../DataCacheProvider/selectors';
 import { selectEthereum } from '../EthereumProvider/selectors';
 import { getQuestionFromGraph } from '../../utils/theGraph';
+
+import {
+  isItemChanged,
+  saveChangedItemIdToSessionStorage,
+} from 'utils/sessionStorage';
 
 import { selectPostedAnswerIds } from '../AskQuestion/selectors';
 export const isGeneralQuestion = (question) => Boolean(question.postType === 1);
@@ -252,9 +254,8 @@ export function* getQuestionData({
   //   }
   // }
   //
-
-  // const getItemStatus = (historyFlag, constantFlag) =>
-  //   historyFlag?.flag & (1 << constantFlag);
+  const getItemStatus = (historyFlag, constantFlag) =>
+    historyFlag?.flag & (1 << constantFlag);
 
   const users = new Map();
 
@@ -316,7 +317,7 @@ export function* getQuestionData({
     );
   }
 
-  if (user && isQuestionChanged) {
+  if (user && (isQuestionChanged || isQuestionJustCreated)) {
     yield all([
       processQuestion(),
       processAnswers(),
@@ -325,7 +326,7 @@ export function* getQuestionData({
   }
 
   // To avoid of fetching same user profiles - remember it and to write author here
-  if (user && isQuestionChanged) {
+  if ((user && isQuestionChanged) || isQuestionJustCreated) {
     yield all(
       Array.from(users.keys()).map(function* (userFromItem) {
         const author = yield call(getUserProfileWorker, {
@@ -514,7 +515,7 @@ export function* deleteQuestionWorker({ questionId, buttonId }) {
       ethereumService,
       locale,
       profileInfo,
-      /* questionBounty, */
+      questionBounty,
     } = yield call(getParams);
 
     yield call(
@@ -1093,9 +1094,9 @@ export function* updateQuestionDataAfterTransactionWorker({
     const userInfoMe = yield call(getUserProfileWorker, { user });
 
     const changeUserInfo = (item) => {
-      if (item.user === user) {
+      if (item.author.user === user) {
         item.author = userInfoMe;
-      } else if (item.user === usersForUpdate[0]) {
+      } else if (item.author.user === usersForUpdate[0]) {
         item.author = userInfoOpponent;
       }
     };

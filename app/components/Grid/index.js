@@ -20,6 +20,10 @@ export default styled.ul`
   flex-flow: row wrap;
   margin: 0 -${(x) => x.marginX || MARGIN_X}px;
 
+  @media only screen and (max-width: 576px) {
+    padding: 0 10px;
+  }
+
   > * {
     margin: 0 ${(x) => x.marginX || MARGIN_X}px
       ${(x) => x.marginY || MARGIN_Y}px;

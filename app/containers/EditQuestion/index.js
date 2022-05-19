@@ -82,7 +82,7 @@ const EditQuestion = ({
   );
 
   const titleMessage = useMemo(
-    () => translationMessages[locale][question?.postType],
+    () => translationMessages[locale][messages.title.id[question?.postType]],
     [question?.postType],
   );
 
@@ -156,8 +156,8 @@ EditQuestion.propTypes = {
   editQuestionDispatch: PropTypes.func,
   questionLoading: PropTypes.bool,
   editQuestionLoading: PropTypes.bool,
-  balance: PropTypes.number,
   profile: PropTypes.object,
+  balance: PropTypes.number,
 };
 
 export default compose(

@@ -35,13 +35,12 @@ const PredictionPower = Span.extend`
   border-radius: 20px;
 `;
 
-const WeekDetails = ({ maximumStake, yourStake = 0, isCurrentWeek }) => {
-  const predictedBoost = useMemo(
-    () => getPredictedBoost(yourStake, maximumStake),
-    [yourStake, maximumStake],
-  );
-  const { value, text } = predictedBoost;
-
+const WeekDetails = ({
+  averageStake,
+  yourStake = 0,
+  userBoost,
+  isCurrentWeek,
+}) => {
   return (
     <Base position="bottom">
       <BaseGroup>
@@ -51,7 +50,7 @@ const WeekDetails = ({ maximumStake, yourStake = 0, isCurrentWeek }) => {
         <P className="d-flex align-items-center">
           <SmallImage className="mr-2" src={currencyPeerImage} alt="icon" />
           <Span fontSize="20" mobileFS={14} bold>
-            {getFormattedNum3(maximumStake)}
+            {getFormattedNum3(averageStake)}
           </Span>
         </P>
       </BaseGroup>
@@ -66,7 +65,7 @@ const WeekDetails = ({ maximumStake, yourStake = 0, isCurrentWeek }) => {
           </Span>
         </P>
       </BaseGroup>
-      {value > 1 && (
+      {userBoost > 1 && (
         <BaseGroup>
           <P className="mb-1" fontSize="14" color={TEXT_SECONDARY}>
             <FormattedMessage
@@ -81,7 +80,7 @@ const WeekDetails = ({ maximumStake, yourStake = 0, isCurrentWeek }) => {
               mobileFS={14}
               isCurrentWeek={!!isCurrentWeek}
             >
-              {text}
+              {userBoost}
             </PredictionPower>
           </P>
         </BaseGroup>
@@ -91,7 +90,7 @@ const WeekDetails = ({ maximumStake, yourStake = 0, isCurrentWeek }) => {
 };
 
 WeekDetails.propTypes = {
-  maximumStake: PropTypes.number,
+  averageStake: PropTypes.number,
   yourStake: PropTypes.number,
   isCurrentWeek: PropTypes.bool,
 };

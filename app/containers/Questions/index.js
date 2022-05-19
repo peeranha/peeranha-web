@@ -35,6 +35,7 @@ import { redirectToAskQuestionPage } from 'containers/AskQuestion/actions';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 import ScrollToTop from 'components/ScrollToTop/index';
 import InfinityLoader from 'components/InfinityLoader';
+import TopCommunities from 'components/TopCommunities';
 import Seo from 'components/Seo';
 
 import { getQuestions, setCreatedFilter, setTypeFilter } from './actions';
@@ -245,6 +246,9 @@ export const Questions = ({
             </div>
           )}
         </InfinityLoader>
+      )}
+      {questionsList.length === 0 && (
+        <TopCommunities communities={communities} profile={profile} />
       )}
       {displayLoader && <LoadingIndicator />}
     </div>

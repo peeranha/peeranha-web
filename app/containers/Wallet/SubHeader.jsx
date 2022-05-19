@@ -27,13 +27,10 @@ import messages from './messages';
 const SubHeader = ({
   account,
   balance,
+  availableBalance,
   stakedInCurrentPeriod,
   stakedInNextPeriod,
 }) => {
-  const availableBalance =
-    stakedInCurrentPeriod >= stakedInNextPeriod
-      ? balance - stakedInCurrentPeriod
-      : balance - stakedInNextPeriod;
   const userPolygonScanAddress = process.env.BLOCKCHAIN_EXPLORERE_URL + account;
 
   return (
@@ -84,31 +81,34 @@ const SubHeader = ({
                   <span>{getFormattedNum3(balance)}</span>
                 </Span>
               </li>
-              {/*TODO boost*/}
-              {/*<li>*/}
-              {/*  <FormattedMessage {...messages.stakedInCurrentPeriod} />*/}
-              {/*  <Span>*/}
-              {/*    <IconSm*/}
-              {/*      className="mr-2"*/}
-              {/*      icon={lockBoostImage}*/}
-              {/*      color={TEXT_PRIMARY}*/}
-              {/*      fill={TEXT_PRIMARY}*/}
-              {/*    />*/}
-              {/*    <span>{getFormattedNum3(stakedInCurrentPeriod)}</span>*/}
-              {/*  </Span>*/}
-              {/*</li>*/}
-              {/*<li>*/}
-              {/*  <FormattedMessage {...messages.stakedInNextPeriod} />*/}
-              {/*  <Span>*/}
-              {/*    <IconSm*/}
-              {/*      className="mr-2"*/}
-              {/*      icon={lockBoostImage}*/}
-              {/*      color={TEXT_PRIMARY}*/}
-              {/*      fill={TEXT_PRIMARY}*/}
-              {/*    />*/}
-              {/*    <span>{getFormattedNum3(stakedInNextPeriod)}</span>*/}
-              {/*  </Span>*/}
-              {/*</li>*/}
+              {Boolean(stakedInCurrentPeriod) && (
+                <li>
+                  <FormattedMessage {...messages.stakedInCurrentPeriod} />
+                  <Span>
+                    <IconSm
+                      className="mr-2"
+                      icon={lockBoostImage}
+                      color={TEXT_PRIMARY}
+                      fill={TEXT_PRIMARY}
+                    />
+                    <span>{getFormattedNum3(stakedInCurrentPeriod)}</span>
+                  </Span>
+                </li>
+              )}
+              {Boolean(stakedInNextPeriod) && (
+                <li>
+                  <FormattedMessage {...messages.stakedInNextPeriod} />
+                  <Span>
+                    <IconSm
+                      className="mr-2"
+                      icon={lockBoostImage}
+                      color={TEXT_PRIMARY}
+                      fill={TEXT_PRIMARY}
+                    />
+                    <span>{getFormattedNum3(stakedInNextPeriod)}</span>
+                  </Span>
+                </li>
+              )}
               <li>
                 <FormattedMessage id={commonMessages.walletAddress.id} />
                 <A

@@ -22,15 +22,13 @@ export const getCurrentAccountProcessing = () => ({
 export const getCurrentAccountSuccess = (
   account,
   balance,
-  stakedInCurrentPeriod = 0,
-  stakedInNextPeriod = 0,
+  availableBalance,
   boost,
 ) => ({
   type: GET_CURRENT_ACCOUNT_SUCCESS,
   account,
   balance,
-  stakedInCurrentPeriod,
-  stakedInNextPeriod,
+  availableBalance,
   boost,
 });
 

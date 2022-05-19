@@ -64,6 +64,8 @@ import { decryptObject } from '../../utils/web_integration/src/util/cipher';
 import { selectEthereum } from '../EthereumProvider/selectors';
 import { DISPLAY_NAME_FIELD } from '../Profile/constants';
 import { saveProfileWorker } from '../EditProfilePage/saga';
+import { redirectToAskQuestionPage } from 'containers/AskQuestion/actions';
+import { selectIsNewPostCreationAfterLogin } from 'containers/Login/selectors';
 
 function* continueLogin({ address }) {
   yield call(getCurrentAccountWorker, address);
@@ -116,6 +118,9 @@ export function* loginWithWalletWorker({ metaMask }) {
   try {
     const ethereumService = yield select(selectEthereum);
     const locale = yield select(makeSelectLocale());
+    const isNewPostCreationAfterLogin = yield select(
+      selectIsNewPostCreationAfterLogin(),
+    );
     const translations = translationMessages[locale];
 
     let currentAccount;
@@ -147,6 +152,12 @@ export function* loginWithWalletWorker({ metaMask }) {
     );
 
     if (!isSingleCommunityWebsite()) yield put(redirectToFeed());
+
+    if (isNewPostCreationAfterLogin) {
+      const ev = { currentTarget: { id: 1 } };
+
+      yield put(redirectToAskQuestionPage(ev));
+    }
 
     yield put(loginWithWalletSuccess());
     yield call(updateAcc, profileInfo, ethereumService);

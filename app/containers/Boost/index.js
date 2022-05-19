@@ -5,17 +5,6 @@ import { translationMessages } from 'i18n';
 import { createStructuredSelector } from 'reselect';
 import { compose, bindActionCreators } from 'redux';
 
-import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
-import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import {
-  makeSelectAccount,
-  makeSelectBalance,
-  makeSelectStakedInCurrentPeriod,
-  makeSelectStakedInNextPeriod,
-} from 'containers/AccountProvider/selectors';
-import Seo from 'components/Seo';
-import NotFound from 'containers/ErrorPage';
 import { STATE_KEY } from './constants';
 
 import messages from './messages';
@@ -25,7 +14,19 @@ import saga from './saga';
 import { getWeekStat, changeStake } from './actions';
 import * as selectors from './selectors';
 
+import injectSaga from 'utils/injectSaga';
+import injectReducer from 'utils/injectReducer';
+
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import {
+  makeSelectAccount,
+  makeSelectAvailableBalance,
+  makeSelectBalance,
+} from 'containers/AccountProvider/selectors';
+
+import Seo from 'components/Seo';
 import View from './View';
+import NotFound from 'containers/ErrorPage';
 
 const Boost = ({
   match: {
@@ -34,8 +35,7 @@ const Boost = ({
   locale,
   account,
   balance,
-  stakedInCurrentPeriod,
-  stakedInNextPeriod,
+  availableBalance,
   weekStat,
   globalBoostStat,
   userBoostStat,
@@ -74,8 +74,7 @@ const Boost = ({
         locale={locale}
         account={account}
         balance={balance}
-        stakedInCurrentPeriod={stakedInCurrentPeriod}
-        stakedInNextPeriod={stakedInNextPeriod}
+        availableBalance={availableBalance}
         weekStat={weekStat}
         globalBoostStat={globalBoostStat}
         userBoostStat={userBoostStat}
@@ -112,8 +111,7 @@ export default memo(
         locale: makeSelectLocale(),
         account: makeSelectAccount(),
         balance: makeSelectBalance(),
-        stakedInCurrentPeriod: makeSelectStakedInCurrentPeriod(),
-        stakedInNextPeriod: makeSelectStakedInNextPeriod(),
+        availableBalance: makeSelectAvailableBalance(),
         weekStat: selectors.selectWeekStat(),
         globalBoostStat: selectors.selectGlobalBoostStat(),
         userBoostStat: selectors.selectUserBoostStat(),

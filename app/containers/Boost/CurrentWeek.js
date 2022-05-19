@@ -10,7 +10,7 @@ import {
 
 import P from 'components/P';
 import Base from 'components/Base';
-import WeekNumber from './WeekNumber';
+import WeekNumber from '../Wallet/WeekNumber';
 import WeekDetails from './WeekDetails';
 
 import messages from './messages';
@@ -18,10 +18,11 @@ import messages from './messages';
 const CurrentWeek = ({
   period,
   locale,
-  maxStake,
-  userStake,
+  averageStakeCurrent,
+  userStakeCurrent,
   periodStarted,
   periodFinished,
+  userBoostCurrent,
 }) => (
   <li
     className="d-flex flex-column flex-grow-1 mb-3"
@@ -41,7 +42,12 @@ const CurrentWeek = ({
         periodFinished={periodFinished}
       />
     </Base>
-    <WeekDetails maximumStake={maxStake} yourStake={userStake} isCurrentWeek />
+    <WeekDetails
+      averageStake={averageStakeCurrent}
+      yourStake={userStakeCurrent}
+      userBoost={userBoostCurrent}
+      isCurrentWeek
+    />
   </li>
 );
 

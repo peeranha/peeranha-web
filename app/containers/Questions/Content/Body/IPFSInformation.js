@@ -18,14 +18,20 @@ const Label = styled.div`
   background-color: ${BG_LIGHT};
   border-radius: ${BORDER_RADIUS_L};
   width: 450px;
-  top: 25px;
+  left: 50%;
+  top: calc(100% + 10px);
+  transform: translateX(-95%);
   z-index: 10000;
   max-height: 350px;
   overflow: auto;
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
   text-align: left;
   padding: 15px;
-  left: -401px;
+
+  @media only screen and (max-width: 600px) {
+    transform: translateX(-98%);
+    width: 88vw;
+  }
 `;
 
 const IPFSInformation = ({ locale, ipfsHash, histories }) => {
@@ -70,7 +76,7 @@ const IPFSInformation = ({ locale, ipfsHash, histories }) => {
       </Span>
 
       {formattedData?.length > 0 && (
-        <table className="table mt-1 mb-0">
+        <table className="table mt-2 mb-0">
           <thead>
             <tr>
               {Object.values(columns).map((column, index) => (

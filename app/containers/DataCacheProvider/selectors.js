@@ -191,7 +191,7 @@ const selectFirstAnswersValue = (user) =>
 const selectUserAchievementsDCP = (userAccount) =>
   createSelector(
     selectDataCacheProviderDomain,
-    (substate) => substate.users[userAccount]?.achievementsReached,
+    (substate) => substate.users[userAccount]?.achievements,
   );
 
 export {

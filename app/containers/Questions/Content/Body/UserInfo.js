@@ -32,7 +32,7 @@ const UserInfo = ({ author, postTime, locale, isSearchPage, communityId }) => (
             isRankOff
             customRatingIconColors={customRatingIconColors}
           />
-          <AchievementsStatus count={author.achievementsReached?.length} />
+          <AchievementsStatus count={author.achievements?.length} />
         </>
       )}
 

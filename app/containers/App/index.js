@@ -35,7 +35,7 @@ import ErrorBoundary from 'components/ErrorBoundary';
 
 import Wrapper from 'containers/AppWrapper';
 
-import saga from './saga';
+import saga from 'containers/App/saga';
 import {
   EditCommunity,
   HomePage,
@@ -84,6 +84,7 @@ import { getCookie, setCookie } from '../../utils/cookie';
 import { REFERRAL_CODE_URI } from './constants';
 import { AUTOLOGIN_DATA } from '../Login/constants';
 import { redirectToFeed } from './actions';
+import { hasGlobalModeratorRole } from '../../utils/properties';
 
 const single = isSingleCommunityWebsite();
 
@@ -156,13 +157,11 @@ const App = ({
           />
         )}
 
-        {!single && (
-          <Route
-            exact
-            path={routes.feed()}
-            render={(props) => Wrapper(Feed, props)}
-          />
-        )}
+        <Route
+          exact
+          path={routes.feed()}
+          render={(props) => Wrapper(Feed, props)}
+        />
 
         {!single && (
           <Route
@@ -354,11 +353,13 @@ const App = ({
           render={(props) => Wrapper(EditAnswer, props)}
         />
 
-        <Route
-          exact
-          path={routes.users()}
-          render={(props) => Wrapper(Users, props)}
-        />
+        {hasGlobalModeratorRole() && (
+          <Route
+            exact
+            path={routes.users()}
+            render={(props) => Wrapper(Users, props)}
+          />
+        )}
 
         <Route
           path={routes.noAccess()}

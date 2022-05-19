@@ -28,6 +28,7 @@ import {
 } from 'containers/Login/saga';
 
 import {
+  DISPLAY_NAME_FIELD,
   EMAIL_CHECKING,
   EMAIL_CHECKING_SUCCESS,
   EMAIL_VERIFICATION,
@@ -38,6 +39,7 @@ import {
   SIGNUP_WITH_WALLET,
   SIGNUP_WITH_WALLET_SUCCESS,
   USER_ALREADY_REGISTERED_ERROR,
+  USER_REJECTED_SIGNATURE_REQUEST_ERROR,
   ETHEREUM_WALLET_ADDRESS,
 } from './constants';
 
@@ -48,6 +50,8 @@ import {
   signUpViaEmailCompleteSuccess,
   showWalletSignUpFormErr,
   showWalletSignUpFormSuccess,
+  signUpWithWalletErr,
+  signUpWithWalletSuccess,
   verifyEmailErr,
   verifyEmailSuccess,
 } from './actions';
@@ -58,6 +62,7 @@ import signupMessages from './messages';
 import { REDIRECT_TO_FEED } from '../App/constants';
 import { selectEthereum } from '../EthereumProvider/selectors';
 import { getProfileInfo } from '../../utils/profileManagement';
+import { makeSelectAccount } from '../AccountProvider/selectors';
 import { loginWithEmailSuccess } from '../Login/actions';
 
 const setEmailToStorage = (email) => {
@@ -148,7 +153,6 @@ export function* signUpComplete({ val }) {
 
     const profile = {
       displayName: `${address.substring(0, 6)}...${address.substring(
-        // eslint-disable-next-line no-undef
         account.length - 4,
       )}`,
     };
@@ -186,7 +190,6 @@ export function* signUpComplete({ val }) {
   }
 }
 
-// eslint-disable-next-line no-unused-vars,no-empty-function
 export function* signUpWithWalletWorker({ val, metaMask }) {}
 
 export function* showWalletSignUpFormWorker({ metaMask }) {
