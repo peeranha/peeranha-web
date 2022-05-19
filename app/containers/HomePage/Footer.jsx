@@ -95,7 +95,7 @@ const MediaLink = ({ href, src }) =>
 
 const Footer = ({ locale }) => (
   <Box position="bottom">
-    <div className="container ">
+    <div className="container">
       <div className="d-flex-column d-sm-flex justify-content-between align-items-center">
         <div className="d-flex justify-content-between align-items-center logo">
           <Link to={routes.questions()}>
