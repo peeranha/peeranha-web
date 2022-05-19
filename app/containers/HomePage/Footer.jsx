@@ -15,6 +15,7 @@ import ChangeLocale from 'containers/ChangeLocale';
 
 import Icon from 'components/Icon';
 
+import partners from 'images/footer-partners.svg?inline';
 import logo from 'images/LogoBlack.svg?inline';
 import medium from 'images/medium.svg?external';
 import twitter from 'images/twitter.svg?external';
@@ -106,9 +107,9 @@ const Footer = ({ locale }) => (
         </div>
 
         <div className="d-flex align-items-center justify-content-between media-section">
-          <div className="locale">
+          {/* <div className="locale">
             <ChangeLocale />
-          </div>
+          </div> */}
 
           <div className="d-none d-lg-flex align-items-center icons">
             <MediaLink href={getLinks(locale).facebook} src={facebook} />
@@ -117,6 +118,7 @@ const Footer = ({ locale }) => (
             <MediaLink href={getLinks(locale).medium} src={medium} />
             <MediaLink href={getLinks(locale).linkedin} src={linkedin} />
             <MediaLink href={getLinks(locale).telegram} src={telegram} />
+            <MediaLink href={getLinks(locale).telegram} src={partners} />
           </div>
         </div>
       </div>
