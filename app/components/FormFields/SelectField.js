@@ -160,17 +160,49 @@ export const Select2 = ({
   );
 };
 
-export const SelectField = (props) => (
+export const SelectField = ({
+  label,
+  tip,
+  meta,
+  splitInHalf,
+  input,
+  options,
+  isMulti,
+  isClearable,
+  isSearchable,
+  disabled,
+  isAsync,
+  loadOptions,
+  autoFocus,
+  menuIsOpen,
+  Group,
+  CustomOption,
+  placeholder,
+  isWrapped,
+}) => (
   <Wrapper
-    label={props.label}
-    tip={props.tip}
-    meta={props.meta}
-    splitInHalf={props.splitInHalf}
-    id={props.input.name}
+    label={label}
+    tip={tip}
+    meta={meta}
+    splitInHalf={splitInHalf}
+    id={input.name}
   >
     <Select2
-      {...props}
-      error={props.meta.touched && (props.meta.error || props.meta.warning)}
+      input={input}
+      options={options}
+      isMulti={isMulti}
+      isClearable={isClearable}
+      isSearchable={isSearchable}
+      disabled={disabled}
+      isAsync={isAsync}
+      loadOptions={loadOptions}
+      autoFocus={autoFocus}
+      menuIsOpen={menuIsOpen}
+      Group={Group}
+      CustomOption={CustomOption}
+      placeholder={placeholder}
+      isWrapped={isWrapped}
+      error={meta.touched && (meta.error || meta.warning)}
     />
   </Wrapper>
 );
@@ -205,6 +237,20 @@ SelectField.propTypes = {
   label: PropTypes.string,
   tip: PropTypes.string,
   splitInHalf: PropTypes.bool,
+  error: PropTypes.oneOfType([PropTypes.object, PropTypes.bool]),
+  options: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+  isMulti: PropTypes.bool,
+  isClearable: PropTypes.bool,
+  isSearchable: PropTypes.bool,
+  disabled: PropTypes.bool,
+  isAsync: PropTypes.bool,
+  loadOptions: PropTypes.func,
+  autoFocus: PropTypes.bool,
+  menuIsOpen: PropTypes.bool,
+  isWrapped: PropTypes.bool,
+  Group: PropTypes.any,
+  CustomOption: PropTypes.any,
+  placeholder: PropTypes.string,
 };
 
 export default SelectField;

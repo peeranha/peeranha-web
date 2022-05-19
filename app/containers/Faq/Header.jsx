@@ -32,7 +32,7 @@ const Header = () => (
 
     <WrapperRightPanel className="right-panel">
       <A to={routes.support()}>
-        <button>
+        <button type="button">
           <img className="mr-1" src={infoIcon} alt="x" />
           <Span color={TEXT_PRIMARY} className="button-label">
             <FormattedMessage id={commonMessages.support.id} />

@@ -56,10 +56,10 @@ const PromotedLabel = styled.span`
 //     fill: ${TEXT_PRIMARY} !important;
 //   }`
 //     : isTutorial
-//     ? `.opacity {
+//       ? `.opacity {
 //     fill: ${TUTORIAL_BACKLIGHT} !important;
 //   }`
-//     : `.opacity {
+//       : `.opacity {
 //      fill: none !important;
 //    }`;
 

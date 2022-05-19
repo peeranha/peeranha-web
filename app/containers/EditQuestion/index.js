@@ -141,7 +141,6 @@ const EditQuestion = ({
           profile={sendProps.profile}
         />
       )}
-
       {questionLoading && <LoadingIndicator />}
     </div>
   );

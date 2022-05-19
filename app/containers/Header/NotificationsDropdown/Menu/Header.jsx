@@ -31,7 +31,7 @@ const Header = ({ notificationsNumber, onClose }) => (
       <FormattedMessage id={messages.notifications.id} />
       <Span color={TEXT_SECONDARY}>{notificationsNumber}</Span>
     </div>
-    <button onClick={onClose}>
+    <button onClick={onClose} type="button">
       <img src={closeIcon} width="15" alt="close_icon" />
     </button>
   </Container>

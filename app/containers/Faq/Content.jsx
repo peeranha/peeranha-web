@@ -213,7 +213,9 @@ const Section = ({
           <BaseTransparent className="pt-1">
             <Button onClick={extendSection.bind(null, !isExtendedSection)}>
               <FormattedMessage
-                {...commonMessages[isExtendedSection ? 'showLess' : 'showMore']}
+                id={
+                  commonMessages[isExtendedSection ? 'showLess' : 'showMore'].id
+                }
                 values={{ value: `${questionsNumber}/${blocks.length}` }}
               />
               <Icon

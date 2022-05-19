@@ -149,7 +149,6 @@ WalletButton.propTypes = {
   isMobileVersion: PropTypes.bool,
   number: PropTypes.number,
   isBoost: PropTypes.bool,
-  getWeekStatDispatch: PropTypes.func,
 };
 
 export { IconBG };

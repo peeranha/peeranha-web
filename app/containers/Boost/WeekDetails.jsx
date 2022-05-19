@@ -70,7 +70,9 @@ const WeekDetails = ({ maximumStake, yourStake = 0, isCurrentWeek }) => {
         <BaseGroup>
           <P className="mb-1" fontSize="14" color={TEXT_SECONDARY}>
             <FormattedMessage
-              {...messages[isCurrentWeek ? 'yourBoost' : 'yourPredictedBoost']}
+              id={
+                messages[isCurrentWeek ? 'yourBoost' : 'yourPredictedBoost'].id
+              }
             />
           </P>
           <P className="d-flex align-items-center">

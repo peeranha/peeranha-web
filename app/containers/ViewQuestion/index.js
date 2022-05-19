@@ -231,12 +231,42 @@ export const ViewQuestion = ({
 
       {!questionDataLoading && !historiesLoading && questionData && (
         <ViewQuestionContainer
-          postAnswer={sendProps.postAnswer}
-          postAnswerLoading={sendProps.postAnswerLoading}
+          account={sendProps.account}
+          histories={sendProps.histories}
           locale={sendProps.locale}
-          translations={sendProps.translations}
+          communities={sendProps.communities}
           questionData={sendProps.questionData}
+          postAnswerLoading={sendProps.postAnswerLoading}
+          postCommentLoading={sendProps.postCommentLoading}
+          saveCommentLoading={sendProps.saveCommentLoading}
+          postAnswer={sendProps.postAnswer}
+          deleteAnswer={sendProps.deleteAnswer}
+          deleteQuestion={sendProps.deleteQuestion}
+          postComment={sendProps.postComment}
+          checkAddCommentAvailable={sendProps.checkAddCommentAvailable}
+          hideAddCommentForm={sendProps.hideAddCommentForm}
+          addCommentFormDisplay={sendProps.addCommentFormDisplay}
+          saveComment={sendProps.saveComment}
+          deleteComment={sendProps.deleteComment}
+          upVote={sendProps.upVote}
+          downVote={sendProps.downVote}
+          markAsAccepted={sendProps.markAsAccepted}
+          voteToDelete={sendProps.voteToDelete}
+          translations={sendProps.translations}
+          upVoteLoading={sendProps.upVoteLoading}
+          downVoteLoading={sendProps.downVoteLoading}
+          markAsAcceptedLoading={sendProps.markAsAcceptedLoading}
+          deleteQuestionLoading={sendProps.deleteQuestionLoading}
+          deleteAnswerLoading={sendProps.deleteAnswerLoading}
+          deleteCommentLoading={sendProps.deleteCommentLoading}
+          voteToDeleteLoading={sendProps.voteToDeleteLoading}
+          redirectToEditQuestionPage={sendProps.redirectToEditQuestionPage}
+          redirectToEditAnswerPage={sendProps.redirectToEditAnswerPage}
+          ids={sendProps.ids}
+          isChangeTypeAvailable={sendProps.isChangeTypeAvailable}
+          infiniteImpact={sendProps.infiniteImpact}
           isAnswered={sendProps.isAnswered}
+          commId={sendProps.commId}
         />
       )}
 

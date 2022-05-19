@@ -7,7 +7,7 @@ import { TOP_LEFT } from '../constants';
 describe('<ToastBox />', () => {
   it('snapshot test', () => {
     const props = { location: TOP_LEFT };
-    const renderedComponent = shallow(<ToastBox {...props} />);
+    const renderedComponent = shallow(<ToastBox location={props.location} />);
     expect(renderedComponent).toMatchSnapshot();
   });
 });

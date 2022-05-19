@@ -23,7 +23,8 @@ const BaseRounded = Base.extend`
         return `6px 6px 5px ${TUTORIAL_BACKLIGHT}`;
       }
       return `0 5px 5px 0 ${SECONDARY_SPECIAL_2}`;
-    }}
+    }};
+  }
 `;
 
 export default BaseRounded;
