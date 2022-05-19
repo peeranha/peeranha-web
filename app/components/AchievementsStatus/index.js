@@ -15,6 +15,11 @@ const StatusSpan = styled.span`
   align-items: baseline;
   margin-right: 0.5rem;
   padding-left: ${props => (props.size === 'lg' ? '22px' : '12px')};
+
+  @media (max-width: 350px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const Count = styled.span`
@@ -23,12 +28,22 @@ const Count = styled.span`
     props.size === 'lg'
       ? 'inherit'
       : props.achievementsNumColor || PEER_PRIMARY_COLOR};
+
+  @media (max-width: 350px) {
+    padding-top: 5px;
+    margin-left: 0;
+  }
 `;
 
 const IconAbsolute = styled(Icon)`
   position: absolute;
   top: ${props => (props.size === 'lg' ? '2px' : '3.4px')};
   left: 0;
+
+  @media (max-width: 350px) {
+    position: static;
+    transform: translateY(30%);
+  }
 
   .achievement-inline * {
     stroke-width: ${props => (props.size === 'lg' ? '0.7px' : '1px')};
