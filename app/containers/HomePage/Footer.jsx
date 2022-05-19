@@ -11,8 +11,6 @@ import {
   TEXT_SECONDARY_LIGHT,
 } from 'style-constants';
 
-import ChangeLocale from 'containers/ChangeLocale';
-
 import Icon from 'components/Icon';
 
 import partners from 'images/footer-partners.svg?inline';
@@ -97,28 +95,25 @@ const MediaLink = ({ href, src }) =>
 
 const Footer = ({ locale }) => (
   <Box position="bottom">
-    <div className="container">
-      <div className="d-flex justify-content-between align-items-center">
-        <div className="d-flex align-items-center logo">
+    <div className="container ">
+      <div className="d-flex-column d-sm-flex justify-content-between align-items-center">
+        <div className="d-flex justify-content-between align-items-center logo">
           <Link to={routes.questions()}>
             <img src={logo} alt="logo" />
           </Link>
           <span className="d-none d-lg-inline year">© {Year}</span>
+          <div className="d-flex align-items-center">
+            <img width={87} height={55} src={partners} alt="Partners" />
+          </div>
         </div>
-
-        <div className="d-flex align-items-center justify-content-between media-section">
-          {/* <div className="locale">
-            <ChangeLocale />
-          </div> */}
-
-          <div className="d-none d-lg-flex align-items-center icons">
+        <div className="d-flex align-items-center justify-content-center media-section">
+          <div className="d-flex justify-content-center align-items-center icons">
             <MediaLink href={getLinks(locale).facebook} src={facebook} />
             <MediaLink href={getLinks(locale).twitter} src={twitter} />
             <MediaLink href={getLinks(locale).github} src={github} />
             <MediaLink href={getLinks(locale).medium} src={medium} />
             <MediaLink href={getLinks(locale).linkedin} src={linkedin} />
             <MediaLink href={getLinks(locale).telegram} src={telegram} />
-            <MediaLink href={getLinks(locale).telegram} src={partners} />
           </div>
         </div>
       </div>
