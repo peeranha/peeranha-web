@@ -2,19 +2,49 @@ import React, { memo } from 'react';
 import * as routes from 'routes-config';
 import Questions from 'containers/Questions';
 import PropTypes from 'prop-types';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
 
+import {
+  makeSelectAccount,
+  makeSelectAccountLoading,
+} from 'containers/AccountProvider/selectors';
+
+import WidthCentered from '../LoadingIndicator/WidthCentered';
 import { POST_TYPE } from '../../utils/constants';
 
-const Feed = ({ match }) => (
-  <Questions
-    parentPage={routes.feed()}
-    match={match}
-    postsTypes={Object.values(POST_TYPE)}
-  />
-);
+const Feed = ({ match, account, loading }) => {
+  if (loading) {
+    return <WidthCentered />;
+  } else if (account) {
+    return (
+      <Questions
+        parentPage={routes.feed()}
+        match={match}
+        postsTypes={Object.values(POST_TYPE)}
+      />
+    );
+  }
+  return (
+    <Questions
+      parentPage={routes.home()}
+      match={match}
+      postsTypes={Object.values(POST_TYPE)}
+    />
+  );
+};
 
 Feed.propTypes = {
   match: PropTypes.object,
+  account: PropTypes.string,
+  loading: PropTypes.bool,
 };
 
-export default memo(Feed);
+export default memo(
+  compose(
+    connect(state => ({
+      account: makeSelectAccount()(state),
+      loading: makeSelectAccountLoading()(state),
+    })),
+  )(Feed),
+);
