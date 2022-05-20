@@ -316,7 +316,7 @@ export function* getQuestionData({
     );
   }
 
-  if (user && isQuestionChanged) {
+  if (user && (isQuestionChanged || isQuestionJustCreated)) {
     yield all([
       processQuestion(),
       processAnswers(),
@@ -325,7 +325,7 @@ export function* getQuestionData({
   }
 
   // To avoid of fetching same user profiles - remember it and to write author here
-  if (user && isQuestionChanged) {
+  if ((user && isQuestionChanged) || isQuestionJustCreated) {
     yield all(
       Array.from(users.keys()).map(function*(userFromItem) {
         const author = yield call(getUserProfileWorker, {
@@ -1091,9 +1091,9 @@ export function* updateQuestionDataAfterTransactionWorker({
     const userInfoMe = yield call(getUserProfileWorker, { user });
 
     const changeUserInfo = item => {
-      if (item.user === user) {
+      if (item.author.user === user) {
         item.author = userInfoMe;
-      } else if (item.user === usersForUpdate[0]) {
+      } else if (item.author.user === usersForUpdate[0]) {
         item.author = userInfoOpponent;
       }
     };

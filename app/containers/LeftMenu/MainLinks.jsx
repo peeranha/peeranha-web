@@ -43,8 +43,9 @@ import { svgDraw } from 'components/Icon/IconStyled';
 import expertIcon from 'images/hat-3-outline-24.svg?external';
 import generalIcon from 'images/comments-outline-24.svg?external';
 import tutorialIcon from 'images/tutorial.svg?external';
-import { FULL_SIZE } from './constants';
-import { BasicLink } from './Styles';
+import { FULL_SIZE } from 'containers/LeftMenu/constants';
+import { BasicLink } from 'containers/LeftMenu/Styles';
+import { hasGlobalModeratorRole } from 'utils/properties';
 
 const styles = singleCommunityStyles();
 const colors = singleCommunityColors();
@@ -133,7 +134,7 @@ const Box = styled.div`
   }
 `;
 
-const MainLinks = ({ profile, currClientHeight, isGlobalAdmin }) => {
+const MainLinks = ({ currClientHeight, profile }) => {
   const { pathname } = window.location;
   let route = pathname.split('/').filter(x => x)[0];
 
@@ -153,12 +154,10 @@ const MainLinks = ({ profile, currClientHeight, isGlobalAdmin }) => {
         </A1>
       )}
 
-      {!singleCommId && (
-        <A1 to={routes.feed()} name="feed" route={route}>
-          <IconLg className="mr-2" icon={myFeedIcon} />
-          <FormattedMessage {...messages.myFeed} />
-        </A1>
-      )}
+      <A1 to={routes.feed()} name="feed" route={route}>
+        <IconLg className="mr-2" icon={myFeedIcon} />
+        <FormattedMessage id={messages[profile ? 'myFeed' : 'feed'].id} />
+      </A1>
 
       <A1 to={routes.questions()} name="questions" route={route}>
         <IconLg className="mr-2" icon={generalIcon} />
@@ -191,7 +190,7 @@ const MainLinks = ({ profile, currClientHeight, isGlobalAdmin }) => {
         <FormattedMessage {...messages.tags} />
       </A1>
 
-      {isGlobalAdmin && (
+      {hasGlobalModeratorRole() && (
         <A1 to={routes.users()} name="users" route={route}>
           <IconLg className="mr-2" icon={usersIcon} />
           <FormattedMessage

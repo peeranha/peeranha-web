@@ -16,6 +16,7 @@ import {
   usersAnswersQuery,
   usersPostsQuery,
   usersQuery,
+  userPermissionsQuery,
   userStatsQuery,
   historiesQuery,
   currentPeriodQuery,
@@ -50,6 +51,16 @@ export const getUser = async id => {
     },
   });
   return { ...user?.data?.user };
+};
+
+export const getUserPermissions = async id => {
+  const userPermissions = await client.query({
+    query: gql(userPermissionsQuery),
+    variables: {
+      id: dataToString(id).toLowerCase(),
+    },
+  });
+  return userPermissions?.data?.userPermissions?.map(p => p.permission);
 };
 
 export const getUserStats = async id => {

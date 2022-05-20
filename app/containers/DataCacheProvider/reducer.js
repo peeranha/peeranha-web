@@ -154,7 +154,7 @@ function dataCacheProviderReducer(state = initialState, action) {
 
     case UPDATE_USER_ACHIEVEMENTS:
       return state.setIn(
-        ['users', `${userForUpdate}`, 'achievementsReached'],
+        ['users', `${userForUpdate}`, 'achievements'],
         updatedAchCount,
       );
 

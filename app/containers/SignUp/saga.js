@@ -9,10 +9,8 @@ import {
   registerConfirmEmail,
   registerInit,
 } from 'utils/web_integration/src/wallet/register/register';
-import { registerAccount } from 'utils/accountManagement';
 import webIntegrationErrors from 'utils/web_integration/src/wallet/service-errors';
 import { WebIntegrationError } from 'utils/errors';
-import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
 import { successHandling } from 'containers/Toast/saga';
 
@@ -21,13 +19,11 @@ import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import {
   EMAIL_FIELD as EMAIL_LOGIN_FIELD,
   PASSWORD_FIELD as PASSWORD_LOGIN_FIELD,
-  REFERRAL_CODE,
   WE_ARE_HAPPY_FORM,
 } from 'containers/Login/constants';
 
 import {
   loginWithEmailWorker,
-  loginWithWalletWorker,
   redirectToFeedWorker,
 } from 'containers/Login/saga';
 

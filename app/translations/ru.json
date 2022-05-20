@@ -33,7 +33,8 @@
   "app.common.allCommunities": "Все сообщества",
   "app.common.tags": "Теги",
   "app.common.home": "Главная",
-  "app.common.myFeed": "Лента",
+  "app.common.feed": "Лента",
+  "app.common.myFeed": "Моя лента",
   "app.common.users": "Пользователи",
   "app.common.followers": "Подписчики",
   "app.common.usersShort": "Польз.",
@@ -177,8 +178,8 @@
   "app.common.chooseFile": "Выберите файл",
   "app.common.skip": "Пропустить",
   "app.common.showMoreQuestions": "Показать больше найденных вопросов",
-  "app.common.questionIsAnswered": "Вы уже ответили на этот вопрос",
-  "app.common.logInToAnswer": "Авторизуйтесь, чтобы ответить на вопрос",
+  "app.common.questionIsAnswered": "Вы уже ответили на этот пост",
+  "app.common.logInToAnswer": "Авторизуйтесь, чтобы ответить на пост",
   "app.common.activateBoost": "Активировать Boost",
   "app.common.boost": "Boost",
   "app.common.subscribe": "Подписаться",
@@ -754,7 +755,7 @@
   "app.containers.ViewQuestion.lastEdited": "Последнее редактирование",
   "app.containers.ViewQuestion.voteToDelete": "Проголосовать за удаление",
   "app.containers.ViewQuestion.notEnoughRating":
-    "Чтобы выполнить это действие, Ваш рейтинг должен быть не меньше",
+    "Чтобы выполнить это действие, Ваша репутация должна быть не меньше",
   "app.containers.ViewQuestion.cannotCompleteBecauseBlocked":
     "Вы не можете выполнить это действие, т.к. уже проголосовали за удаление",
   "app.containers.ViewQuestion.cannotCompleteBecauseVoted":
@@ -766,7 +767,7 @@
     "Вы уже ответили на этот вопрос",
   "app.containers.ViewQuestion.itemsMax": "Число элементов достигло максимума",
   "app.containers.ViewQuestion.noRootsToVote":
-    "Вы не можете голосовать за свои вопросы и ответы",
+    "Вы не можете голосовать за свои посты и ответы",
   "app.containers.ViewQuestion.creatorCannot":
     "Создатель не может совершить это действие",
   "app.containers.ViewQuestion.notEnoughEnergy":
@@ -1057,7 +1058,7 @@
     "Подписывайтесь на сообщества, чтобы быть в курсе тем, в которых Вы заинтересованы.",
   "app.containers.Questions.noPostsYet": "Пока нет постов.",
   "app.containers.Questions.thisIsNewCommunity":
-    "Это новое сообщество, Вы можете стать первым и Ваш пост может стать самым популярным.",
+    "Это новое сообщество, Вы можете стать первым, кто создаст пост, и Ваш пост может стать самым популярным.",
   "app.containers.Questions.readMyFeed": "Читать мой фид",
   "app.containers.Questions.goToCommunities": "Перейти к сообществам",
   "app.containers.Questions.topQuestionPopover":
