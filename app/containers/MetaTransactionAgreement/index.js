@@ -57,8 +57,16 @@ export const MetaTransactionAgreement = ({
         <FormattedMessage {...messages.agreeWithMetaTransactions} />
       </H4>
 
-      <div className="pb-4">
+      <div className="pb-4" style={{ textAlign: 'center' }}>
         <FormattedMessage {...messages.youNeedMetaBecause} />
+      </div>
+
+      <div className="pb-4" style={{ textAlign: 'center' }}>
+        <FormattedMessage {...messages.dontWorry} />
+      </div>
+
+      <div className="pb-4" style={{ textAlign: 'center' }}>
+        <FormattedMessage {...messages.wouldYouLike} />
       </div>
 
       <div className="d-flex align-items-center pb-3">

@@ -7,6 +7,12 @@ const messages = defineMessages({
   youNeedMetaBecause: {
     id: 'app.containers.MetaTransactionAgreement.youNeedMetaBecause',
   },
+  dontWorry: {
+    id: 'app.containers.MetaTransactionAgreement.dontWorry',
+  },
+  wouldYouLike: {
+    id: 'app.containers.MetaTransactionAgreement.wouldYouLike',
+  },
   confirm: {
     id: 'app.containers.MetaTransactionAgreement.confirm',
   },
