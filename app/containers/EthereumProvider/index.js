@@ -14,9 +14,9 @@ import injectSaga from 'utils/injectSaga';
 import { DAEMON } from 'utils/constants';
 import LoadingIndicator from 'components/LoadingIndicator/HeightWidthCentered';
 
-import { initEthereum } from './actions';
-import reducer from './reducer';
-import saga from './saga';
+import { initEthereum, showModal } from './actions';
+import reducer from 'containers/EthereumProvider/reducer';
+import saga from 'containers/EthereumProvider/saga';
 import { makeSelectEthereum, makeSelectInitializing } from './selectors';
 import {
   init,
@@ -72,6 +72,7 @@ const initWeb3Onboard = init({
 export const EthereumProvider = ({
   children,
   initEthereumDispatch,
+  showModalDispatch,
   initializing,
   ethereum,
 }) => {
@@ -99,6 +100,7 @@ export const EthereumProvider = ({
     disconnect,
     setChain,
     connectedChain,
+    showModalDispatch,
   };
 
   useEffect(() => {
@@ -137,6 +139,7 @@ const withConnect = connect(
   }),
   dispatch => ({
     initEthereumDispatch: bindActionCreators(initEthereum, dispatch),
+    showModalDispatch: bindActionCreators(showModal, dispatch),
   }),
 );
 

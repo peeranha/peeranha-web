@@ -1258,5 +1258,12 @@
   "app.containers.Achievements.separators.firstAnswerRelated": "First answers",
 
   "app.containers.TelegramInfo.confirm": "Confirm",
-  "app.containers.TelegramInfo.unlink": "Unlink"
+  "app.containers.TelegramInfo.unlink": "Unlink",
+
+  "app.containers.MetaTransactionAgreement.agreeWithMetaTransactions":
+    "We got you covered",
+  "app.containers.MetaTransactionAgreement.youNeedMetaBecause":
+    "Your MATIC balance is 0. MATIC is needed to pay transaction fees.\nDon’t worry! We got you covered.\nWould you like us to relay your transactions and cover transaction fees?",
+  "app.containers.MetaTransactionAgreement.confirm": "Confirm",
+  "app.containers.MetaTransactionAgreement.cansel": "Cansel"
 }
