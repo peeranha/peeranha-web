@@ -85,7 +85,7 @@ const Buttons = styled.div`
   display: flex;
   align-items: center;
   @media only screen and (max-width: 576px) {
-    overflow-x: scroll;
+    overflow: ${({ isToggled }) => (isToggled ? 'auto' : 'visible')};
   }
 `;
 
@@ -192,7 +192,7 @@ const ContentHeader = props => {
           isTemporaryAccount={isTemporaryAccount}
         />
 
-        <Buttons>
+        <Buttons isToggled={!isPopoverOpen && !isModalOpen}>
           {type === QUESTION_TYPE && (
             <Button
               id={`${type}_change_type_with_rating_restore_${answerId}`}
