@@ -1,9 +1,3 @@
-/**
- *
- * Login
- *
- */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -26,12 +20,12 @@ import {
   makeSelectShowModal,
 } from '../EthereumProvider/selectors';
 import { FormattedMessage } from 'react-intl';
-import H4 from '../../components/H4';
-import OutlinedButton from '../../components/Button/Outlined/InfoLargeHeightStretching';
-import ContainedButton from '../../components/Button/Contained/InfoLargeHeightStretching';
-import messages from './messages';
-import { hideModal } from '../EthereumProvider/actions';
-import { setCookie } from '../../utils/cookie';
+import H4 from 'components/H4';
+import OutlinedButton from 'components/Button/Outlined/InfoLargeHeightStretching';
+import ContainedButton from 'components/Button/Contained/InfoLargeHeightStretching';
+import messages from 'containers/MetaTransactionAgreement/messages';
+import { hideModal } from 'containers/EthereumProvider/actions';
+import { setCookie } from 'utils/cookie';
 
 /* eslint-disable react/prefer-stateless-function */
 export const MetaTransactionAgreement = ({
