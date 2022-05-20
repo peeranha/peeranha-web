@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
@@ -30,6 +30,7 @@ import LoadingIndicator from 'components/LoadingIndicator';
 
 import messages from 'containers/Profile/messages';
 import { customRatingIconColors } from 'constants/customRating';
+import ProfileSince from 'components/ProfileSince';
 
 const InlineLoader = styled(LoadingIndicator)`
   margin: auto;
@@ -163,8 +164,8 @@ const MainUserInformation = ({
   const isTemporaryAccount = !!profile?.integer_properties?.find(
     x => x.key === TEMPORARY_ACCOUNT_KEY && x.value,
   );
-  const userPolygonScanAddress = process.env.BLOCKCHAIN_EXPLORERE_URL + userId;
 
+  const userPolygonScanAddress = process.env.BLOCKCHAIN_EXPLORERE_URL + userId;
   return (
     <Box position="middle">
       <div>
@@ -251,11 +252,10 @@ const MainUserInformation = ({
                 <div>
                   <FormattedMessage {...messages.memberSince} />
                   <div>
-                    {getFormattedDate(
-                      profile.creationTime,
-                      locale,
-                      MONTH_3LETTERS__DAY_YYYY,
-                    )}
+                    <ProfileSince
+                      creationTime={profile?.creationTime}
+                      locale={locale}
+                    />
                   </div>
                 </div>
               </li>
