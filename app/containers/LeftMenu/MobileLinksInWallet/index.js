@@ -17,6 +17,7 @@ import NotificationIcon from 'containers/Header/WalletDropdown/NotificationIcon'
 
 import A from 'components/A';
 import Icon from 'components/Icon';
+import { BoostPrediction } from 'containers/Header/WalletDropdown';
 
 const MobileLinksInWallet = ({
   profile,
@@ -79,12 +80,12 @@ const MobileLinksInWallet = ({
           </A>
 
           <A to={routes.userBoost(profile.user)}>
-            <FormattedMessage {...messages.boost} />
+            <FormattedMessage id={messages.boost.id} />
             {boost > 1 && <BoostPrediction>{boost}</BoostPrediction>}
           </A>
 
-          {/*TODO send tokens issue*/}
-          {/*<SendTokens>
+          {/* TODO send tokens issue */}
+          {/* <SendTokens>
             <FormattedMessage {...messages.sendTokens} />
           </SendTokens> */}
         </div>

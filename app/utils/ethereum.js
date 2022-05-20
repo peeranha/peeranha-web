@@ -10,27 +10,25 @@ import {
   CONTRACT_USER,
   CONTRACT_CONTENT,
   CONTRACT_COMMUNITY,
-  INVALID_ETHEREUM_PARAMETERS_ERROR_CODE,
-  METAMASK_ERROR_CODE,
-  REJECTED_SIGNATURE_REQUEST,
-} from './ethConstants';
-
-import {
   CLAIM_REWARD,
   GET_COMMUNITY,
   GET_USER_BY_ADDRESS,
   SET_STAKE,
 } from './ethConstants';
-import { getFileUrl, getIpfsHashFromBytes32, getText } from './ipfs';
-import { deleteCookie, getCookie, setCookie } from './cookie';
-import { CURRENCY, META_TRANSACTIONS_ALLOWED } from './constants';
 
+import { getFileUrl, getIpfsHashFromBytes32, getText } from './ipfs';
+import {
+  CURRENCY,
+  INVALID_ETHEREUM_PARAMETERS_ERROR_CODE,
+  METAMASK_ERROR_CODE,
+  REJECTED_SIGNATURE_REQUEST,
+} from './constants';
+
+const sigUtil = require('eth-sig-util');
 const {
   callService,
   BLOCKCHAIN_SEND_META_TRANSACTION,
 } = require('./web_integration/src/util/aws-connector');
-
-let sigUtil = require('eth-sig-util');
 
 const CONTRACT_TO_ABI = {};
 CONTRACT_TO_ABI[CONTRACT_TOKEN] = PeeranhaToken;
@@ -144,6 +142,7 @@ class EthereumService {
 
     document.getElementsByTagName('body')[0].style.position = 'relative';
 
+    // eslint-disable-next-line consistent-return
     return this.selectedAccount.toLowerCase();
   };
 
@@ -197,37 +196,36 @@ class EthereumService {
 
     // const metaTransactionsAllowed = getCookie(META_TRANSACTIONS_ALLOWED);
     if (balance < 0.001) {
-      return await this.sendMetaTransaction(contract, actor, action, data);
-    } else {
-      try {
-        await this.chainCheck();
-        const transaction = await this[contract]
-          .connect(this.provider.getSigner(actor))
-          [action](...data);
-        return await transaction.wait();
-      } catch (err) {
-        switch (err.code) {
-          case INVALID_ETHEREUM_PARAMETERS_ERROR_CODE:
-            throw new WebIntegrationErrorByCode(METAMASK_ERROR_CODE);
-          case REJECTED_SIGNATURE_REQUEST:
-            throw new WebIntegrationErrorByCode(err.code);
-          default:
-            throw err;
-        }
+      return this.sendMetaTransaction(contract, actor, action, data);
+    }
+    try {
+      await this.chainCheck();
+      const transaction = await this[contract]
+        .connect(this.provider.getSigner(actor))
+        [action](...data);
+      return await transaction.wait();
+    } catch (err) {
+      switch (err.code) {
+        case INVALID_ETHEREUM_PARAMETERS_ERROR_CODE:
+          throw new WebIntegrationErrorByCode(METAMASK_ERROR_CODE);
+        case REJECTED_SIGNATURE_REQUEST:
+          throw new WebIntegrationErrorByCode(err.code);
+        default:
+          throw err;
       }
     }
   };
 
   getSignatureParameters = (signature) => {
-    var r = signature.slice(0, 66);
-    var s = '0x'.concat(signature.slice(66, 130));
-    var v = '0x'.concat(signature.slice(130, 132));
+    const r = signature.slice(0, 66);
+    const s = '0x'.concat(signature.slice(66, 130));
+    let v = '0x'.concat(signature.slice(130, 132));
     v = parseInt(v, 16);
     if (![27, 28].includes(v)) v += 27;
     return {
-      r: r,
-      s: s,
-      v: v,
+      r,
+      s,
+      v,
     };
   };
 
@@ -236,10 +234,10 @@ class EthereumService {
       await this.chainCheck();
       const metaTxContract = this[contract];
       const nonce = await metaTxContract.getNonce(actor);
-      let iface = new ethers.utils.Interface(CONTRACT_TO_ABI[contract]);
+      const iface = new ethers.utils.Interface(CONTRACT_TO_ABI[contract]);
       const functionSignature = iface.encodeFunctionData(action, data);
-      let message = {};
-      message.nonce = parseInt(nonce);
+      const message = {};
+      message.nonce = parseInt(nonce, 10);
       message.from = actor;
       message.functionSignature = functionSignature;
 
@@ -256,13 +254,13 @@ class EthereumService {
         { name: 'functionSignature', type: 'bytes' },
       ];
 
-      let domainData = {
+      const domainData = {
         name: CONTRACT_TO_NAME[contract],
         version: '1',
         verifyingContract: metaTxContract.address,
-        salt:
-          '0x' +
-          parseInt(process.env.CHAIN_ID, 10).toString(16).padStart(64, '0'),
+        salt: `0x${parseInt(process.env.CHAIN_ID, 10)
+          .toString(16)
+          .padStart(64, '0')}`,
       };
 
       const dataToSign = JSON.stringify({
@@ -272,21 +270,19 @@ class EthereumService {
         },
         domain: domainData,
         primaryType: 'MetaTransaction',
-        message: message,
+        message,
       });
 
-      let signature = await this.provider.send('eth_signTypedData_v4', [
+      const signature = await this.provider.send('eth_signTypedData_v4', [
         actor,
         dataToSign,
       ]);
-      console.log('Signature: ' + signature);
-
-      const recovered = sigUtil.recoverTypedSignature_v4({
+      console.log(`Signature: ${signature}`);
+      sigUtil.recoverTypedSignature_v4({
         data: JSON.parse(dataToSign),
         sig: signature,
       });
-
-      let { r, s, v } = this.getSignatureParameters(signature);
+      const { r, s, v } = this.getSignatureParameters(signature);
 
       const response = await callService(BLOCKCHAIN_SEND_META_TRANSACTION, {
         contractAddress: metaTxContract.address,
@@ -313,18 +309,17 @@ class EthereumService {
     }
   };
 
-  getUserDataWithArgs = async (action, args) => {
-    return await this.contractUser[action](...args);
-  };
-  getCommunityDataWithArgs = async (action, args) => {
-    return await this.contractCommunity[action](...args);
-  };
-  getContentDataWithArgs = async (action, args) => {
-    return await this.contractContent[action](...args);
-  };
-  getTokenDataWithArgs = async (action, args) => {
-    return await this.contractToken[action](...args);
-  };
+  getUserDataWithArgs = async (action, args) =>
+    this.contractUser[action](...args);
+
+  getCommunityDataWithArgs = async (action, args) =>
+    this.contractCommunity[action](...args);
+
+  getContentDataWithArgs = async (action, args) =>
+    this.contractContent[action](...args);
+
+  getTokenDataWithArgs = async (action, args) =>
+    this.contractToken[action](...args);
 
   getCommunityFromContract = async (id) => {
     const rawCommunity = await this.getCommunityDataWithArgs(GET_COMMUNITY, [

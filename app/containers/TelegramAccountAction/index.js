@@ -10,12 +10,10 @@ import { connect } from 'react-redux';
 import { compose, bindActionCreators } from 'redux';
 import { FormattedMessage } from 'react-intl';
 
-import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import messages from './messages';
 
 import reducer from './reducer';
-import saga from './saga';
 
 import { confirmTelegramAccount, unlinkTelegramAccount } from './actions';
 
@@ -106,13 +104,5 @@ function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
 const withConnect = connect(null, mapDispatchToProps);
 
 const withReducer = injectReducer({ key: TG_ACCOUNT_KEY, reducer });
-const withSaga = injectSaga({
-  key: TG_ACCOUNT_KEY,
-  saga,
-});
 
-export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
-)(TelegramAccountAction);
+export default compose(withReducer, withConnect)(TelegramAccountAction);

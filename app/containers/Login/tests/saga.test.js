@@ -5,7 +5,6 @@ import createdHistory from 'createdHistory';
 
 import EosioService from 'utils/eosio';
 import { login } from 'utils/web_integration/src/wallet/login/login';
-import { registerAccount } from 'utils/accountManagement';
 
 import { INIT_EOSIO_SUCCESS } from 'containers/EosioProvider/constants';
 import { ACCOUNT_NOT_CREATED_NAME } from 'containers/SignUp/constants';
@@ -231,11 +230,6 @@ describe('finishRegistrationWorker', () => {
     [DISPLAY_NAME]: DISPLAY_NAME,
   };
 
-  const profile = {
-    accountName: eosAccount,
-    displayName: val[DISPLAY_NAME],
-  };
-
   const generator = finishRegistrationWorker({ val });
 
   it('select @eosService', () => {
@@ -248,11 +242,6 @@ describe('finishRegistrationWorker', () => {
     select.mockImplementation(() => eosAccount);
     const step = generator.next(eosService);
     expect(step.value).toEqual(eosAccount);
-  });
-
-  it('registerAccount', () => {
-    generator.next(eosAccount);
-    expect(registerAccount).toHaveBeenCalledWith(profile, eosService);
   });
 
   it('getCurrentAccountWorker', () => {

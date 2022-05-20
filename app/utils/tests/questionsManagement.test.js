@@ -19,12 +19,9 @@ import {
   UP_VOTE_METHOD,
   DOWN_VOTE_METHOD,
   MARK_AS_CORRECT_METHOD,
-  VOTE_TO_DELETE_METHOD,
 } from '../constants';
 
 import {
-  getQuestions,
-  getQuestionsFilteredByCommunities,
   postQuestion,
   postAnswer,
   upVote,
@@ -38,7 +35,6 @@ import {
   deleteQuestion,
   getAnswer,
   getAskedQuestion,
-  voteToDelete,
   getQuestionsPostedByUser,
   getQuestionsForFollowedCommunities,
   FetcherOfQuestionsForFollowedCommunities,
@@ -484,26 +480,6 @@ describe('editQuestion', () => {
   });
 });
 
-describe('getQuestions', () => {
-  const limit = 10;
-  const offset = 10;
-  const questionsMass = [];
-
-  it('test', async () => {
-    eosService.getTableRows.mockImplementation(() => questionsMass);
-
-    const questions = await getQuestions(eosService, limit, offset);
-
-    expect(questions).toEqual(questionsMass);
-    expect(eosService.getTableRows).toHaveBeenCalledWith(
-      QUESTION_TABLE,
-      ALL_QUESTIONS_SCOPE,
-      offset,
-      limit,
-    );
-  });
-});
-
 describe('postQuestion', () => {
   const value = 12;
   const user = 'user';
@@ -607,49 +583,6 @@ describe('downVote', () => {
         user,
         question_id: +questionId,
         answer_id: +answerId,
-      },
-    );
-  });
-});
-
-describe('voteToDelete', () => {
-  const user = 'user';
-  const questionId = 10;
-  let commentId = 10;
-  let answerId = 50;
-
-  it('test, answerId, commentId - falsy', async () => {
-    commentId = undefined;
-    answerId = undefined;
-
-    await voteToDelete(user, questionId, answerId, commentId, eosService);
-
-    expect(eosService.sendTransaction).toHaveBeenCalledWith(
-      user,
-      VOTE_TO_DELETE_METHOD,
-      {
-        user,
-        question_id: +questionId,
-        answer_id: 0,
-        comment_id: 0,
-      },
-    );
-  });
-
-  it('test, answerId, commentId - true', async () => {
-    commentId = 10;
-    answerId = 10;
-
-    await voteToDelete(user, questionId, answerId, commentId, eosService);
-
-    expect(eosService.sendTransaction).toHaveBeenCalledWith(
-      user,
-      VOTE_TO_DELETE_METHOD,
-      {
-        user,
-        question_id: +questionId,
-        answer_id: +answerId,
-        comment_id: +commentId,
       },
     );
   });

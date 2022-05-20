@@ -15,8 +15,6 @@ import Dropdown from 'components/Dropdown';
 import A from 'components/A';
 import Ul from 'components/Ul/SpecialOne';
 
-import SendTokens from 'containers/SendTokens';
-
 import {
   selectWeekStat,
   selectRewardsWeeksNumber,
@@ -48,32 +46,30 @@ export const BoostPrediction = styled.span`
 
 const isPositiveNumber = (number) => Number.isFinite(number) && number > 0;
 
-const Menu = memo(({ user, number, locale, boost }) => {
-  return (
-    <Ul>
-      <A to={routes.userWallet(user)}>
-        <FormattedMessage {...messages.wallet} />
-        {isPositiveNumber(number) && (
-          <NotificationIcon
-            inline
-            number={number}
-            iconId="walletDropDownInline"
-            locale={locale}
-          />
-        )}
-      </A>
+const Menu = memo(({ user, number, locale, boost }) => (
+  <Ul>
+    <A to={routes.userWallet(user)}>
+      <FormattedMessage id={messages.wallet.id} />
+      {isPositiveNumber(number) && (
+        <NotificationIcon
+          inline
+          number={number}
+          iconId="walletDropDownInline"
+          locale={locale}
+        />
+      )}
+    </A>
 
-      <A to={routes.userBoost(user)}>
-        <FormattedMessage {...messages.boost} />
-        {boost > 1 && <BoostPrediction>{boost}</BoostPrediction>}
-      </A>
+    <A to={routes.userBoost(user)}>
+      <FormattedMessage id={messages.boost.id} />
+      {boost > 1 && <BoostPrediction>{boost}</BoostPrediction>}
+    </A>
 
-      {/*<SendTokens>*/}
-      {/*  <FormattedMessage {...messages.sendTokens} />*/}
-      {/*</SendTokens>*/}
-    </Ul>
-  );
-});
+    {/* <SendTokens> */}
+    {/*  <FormattedMessage {...messages.sendTokens} /> */}
+    {/* </SendTokens> */}
+  </Ul>
+));
 
 const WalletDropdown = ({
   user,
@@ -116,8 +112,9 @@ const WalletDropdown = ({
 
 Menu.propTypes = {
   user: PropTypes.string,
-  balance: PropTypes.string,
   number: PropTypes.number,
+  boost: PropTypes.object,
+  locale: PropTypes.string,
 };
 
 WalletDropdown.propTypes = {

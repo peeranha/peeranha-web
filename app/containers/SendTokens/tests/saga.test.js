@@ -1,6 +1,5 @@
 import { select } from 'redux-saga/effects';
 
-import { sendTokens } from 'utils/walletManagement';
 import { login } from 'utils/web_integration/src/wallet/login/login';
 
 import defaultSaga, { sendTokensWorker } from '../saga';
@@ -34,7 +33,6 @@ const eosService = {
 
 describe('sendTokensWorker', () => {
   const accountFrom = 'accountFrom';
-  const accountTo = 'accountTo';
   const quantity = 1000;
   const password = 'password';
   const authToken = 'authToken';
@@ -51,9 +49,6 @@ describe('sendTokensWorker', () => {
   describe('login via email', () => {
     describe('success', () => {
       const generator = sendTokensWorker({ resetForm, val });
-      const loginResponse = {
-        OK: true,
-      };
 
       const profileInfo = {
         user: accountFrom,
@@ -83,15 +78,6 @@ describe('sendTokensWorker', () => {
 
         const step = generator.next(profileInfo);
         expect(step.value).toBe('login via email, success');
-      });
-
-      it('call @sendTokens', () => {
-        generator.next(loginResponse);
-        expect(sendTokens).toHaveBeenCalledWith(eosService, {
-          from: accountFrom,
-          to: accountTo,
-          quantity,
-        });
       });
 
       it('put @sendTokensSuccess', () => {

@@ -1,5 +1,8 @@
 import messages from 'common-messages';
 
+import { BigNumber } from 'ethers';
+import { selectEthereum } from 'containers/EthereumProvider/selectors';
+import { getCookie } from 'utils/cookie';
 import {
   COMMUNITY_ADMIN_INFINITE_IMPACT,
   COMMUNITY_ADMIN_OFFICIAL_ANSWER,
@@ -12,11 +15,9 @@ import {
   globalAdminPermissions,
   communityModeratorPermissions,
 } from './constants';
-import { BigNumber } from 'ethers';
-import { selectEthereum } from 'containers/EthereumProvider/selectors';
-import { getCookie } from 'utils/cookie';
 
-//todo change to "findRole"
+// todo change to "findRole"
+// eslint-disable-next-line no-unused-vars
 const findAllPropertiesByKeys = (properties, keys, exact = false) => [];
 
 export const getModeratorPermissions = (

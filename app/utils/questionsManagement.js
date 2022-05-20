@@ -13,9 +13,7 @@ import {
   ALL_QUESTIONS_SCOPE,
   GET_QUESTIONS_FILTERED_BY_COMMUNITY_INDEX_POSITION,
   GET_QUESTIONS_KEY_TYPE,
-  PROMOTED_QUESTIONS_TABLES,
   QUESTION_TABLE,
-  VOTE_TO_DELETE_METHOD,
 } from './constants';
 import {
   CHANGE_POST_TYPE,
@@ -175,31 +173,10 @@ export async function getAnsweredUsersPosts(id, limit, offset) {
   return getUsersAnsweredQuestions(id, limit, offset);
 }
 
-/* eslint no-param-reassign: ["error", { "props": false }] */
-export async function getQuestions(eosService, limit, offset) {}
-
-/* eslint no-bitwise: 0 no-undef: 0 */
-export async function getQuestionsFilteredByCommunities(
-  eosService,
-  limit,
-  offset,
-  communityId,
-) {}
-
 /* eslint no-undef: 0 */
 export async function getQuestionsForFollowedCommunities(limit, fetcher) {
-  return await fetcher.getNextItems(limit);
+  return fetcher.getNextItems(limit);
 }
-
-export async function getPromotedQuestions(eosService, communityId) {}
-
-export async function voteToDelete(
-  user,
-  questionId,
-  answerId,
-  commentId,
-  eosService,
-) {}
 
 export async function getAskedQuestion(link) {
   return JSON.parse(await getText(link));
@@ -215,7 +192,7 @@ export async function postQuestion(
 ) {
   const ipfsLink = await saveText(JSON.stringify(questionData));
   const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
-  return await ethereumService.sendTransaction(
+  return ethereumService.sendTransaction(
     CONTRACT_CONTENT,
     user,
     POST_QUESTION,
@@ -233,12 +210,11 @@ export const editQuestion = async (
 ) => {
   const ipfsLink = await saveText(JSON.stringify(questionData));
   const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
-  return await ethereumService.sendTransaction(
-    CONTRACT_CONTENT,
-    user,
-    EDIT_POST,
-    [postId, ipfsHash, tags],
-  );
+  return ethereumService.sendTransaction(CONTRACT_CONTENT, user, EDIT_POST, [
+    postId,
+    ipfsHash,
+    tags,
+  ]);
 };
 
 // export const getEditQuestTrActData = async (user, id, question) => {
@@ -383,7 +359,7 @@ export const getStatusHistory = async (
   commentId,
   ethereumService,
 ) =>
-  await ethereumService.getContentDataWithArgs(GET_STATUS_HISTORY, [
+  ethereumService.getContentDataWithArgs(GET_STATUS_HISTORY, [
     user,
     questionId,
     answerId,

@@ -2,7 +2,6 @@ import { takeLatest, put, call, select } from 'redux-saga/effects';
 import { translationMessages } from 'i18n';
 import { reset as reduxFormReset } from 'redux-form';
 
-import { sendTokens } from 'utils/walletManagement';
 import { login } from 'utils/web_integration/src/wallet/login/login';
 import webIntegrationErrors from 'utils/web_integration/src/wallet/service-errors';
 import { WebIntegrationError } from 'utils/errors';
@@ -11,12 +10,10 @@ import messages from 'common-messages';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
-import { selectEos } from 'containers/EosioProvider/selectors';
 
 import {
   SEND_TOKENS,
   EOS_ACCOUNT_FIELD,
-  AMOUNT_FIELD,
   PASSWORD_FIELD,
   SEND_TOKENS_FORM,
   SEND_ANOTHER_CODE,
@@ -27,7 +24,6 @@ import {
   sendTokensErr,
   hideSendTokensModal,
 } from './actions';
-import { CURRENCIES } from '../../wallet-config';
 import { successHandling } from '../Toast/saga';
 
 export function* sendTokensWorker({ val }) {
@@ -35,7 +31,6 @@ export function* sendTokensWorker({ val }) {
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
 
-    const eosService = yield select(selectEos);
     const profile = yield select(makeSelectProfileInfo());
 
     const password = val[PASSWORD_FIELD];
@@ -61,20 +56,6 @@ export function* sendTokensWorker({ val }) {
         translations[messages.cannotTransferToYourself.id],
       );
     }
-
-    const a = yield call(sendTokens, eosService, {
-      from: profile.user,
-      to: val[EOS_ACCOUNT_FIELD],
-      quantity: val[AMOUNT_FIELD],
-      ...CURRENCIES.PEER,
-    });
-    console.log(a);
-    /* from: "tuesdaytest1"
-to: "yuliachorno2"
-quantity: "0.001"
-precision: 4
-symbol: "TLOS"
-contractAccount: "eosio.token" */
 
     yield put(sendTokensSuccess());
     yield put(hideSendTokensModal());

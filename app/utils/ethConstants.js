@@ -1,10 +1,10 @@
-//Contracts
+// Contracts
 export const CONTRACT_TOKEN = 'contractToken';
 export const CONTRACT_USER = 'contractUser';
 export const CONTRACT_CONTENT = 'contractContent';
 export const CONTRACT_COMMUNITY = 'contractCommunity';
 
-//Transaction names
+// Transaction names
 export const REGISTER_ACC = 'createUser';
 export const UPDATE_ACC = 'updateUser';
 export const CREATE_COMMUNITY = 'createCommunity';
@@ -28,7 +28,7 @@ export const VOTE_ITEM = 'voteItem';
 export const CLAIM_REWARD = 'claimReward';
 export const SET_STAKE = 'setStake';
 
-//Query names
+// Query names
 export const GET_USER_BY_ADDRESS = 'getUserByAddress';
 export const IS_USER_EXISTS = 'isUserExists';
 export const GET_USERS_COUNT = 'getUsersCount';

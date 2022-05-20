@@ -56,8 +56,9 @@ CurrentWeek.propTypes = {
   locale: PropTypes.string,
   periodStarted: PropTypes.number,
   periodFinished: PropTypes.number,
-  maxStake: PropTypes.number,
-  userStake: PropTypes.number,
+  averageStakeCurrent: PropTypes.number,
+  userStakeCurrent: PropTypes.number,
+  userBoostCurrent: PropTypes.number,
 };
 
 export default memo(CurrentWeek);

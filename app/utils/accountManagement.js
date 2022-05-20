@@ -1,9 +1,6 @@
-import { saveText } from './ipfs';
-
-import { ACCOUNT_TABLE, ALL_ACCOUNTS_SCOPE, INVITE_USER } from './constants';
+import { ACCOUNT_TABLE, ALL_ACCOUNTS_SCOPE } from './constants';
 
 import { ApplicationError } from './errors';
-import { dateNowInSeconds } from './datetime';
 import { IS_USER_EXISTS } from './ethConstants';
 
 export const emptyProfile = (account) => ({
@@ -30,16 +27,13 @@ export const emptyProfile = (account) => ({
   user: account,
 });
 
-export const isUserExists = async (userAddress, ethereumService) => {
-  return await ethereumService.getUserDataWithArgs(IS_USER_EXISTS, [
-    userAddress,
-  ]);
-};
+export const isUserExists = async (userAddress, ethereumService) =>
+  ethereumService.getUserDataWithArgs(IS_USER_EXISTS, [userAddress]);
 
-export const updateAcc = async (profile, ethereumService) => {
+export const updateAcc = async (profile /* ethereumService */) => {
   if (!profile) throw new ApplicationError('No profile');
 
-  const currentTime = dateNowInSeconds();
+  // const currentTime = dateNowInSeconds();
   // const currentPeriod = Math.floor(
   //   (currentTime - profile.creationTime) /
   //     process.env.ACCOUNT_STAT_RESET_PERIOD,
@@ -73,8 +67,6 @@ export const isUserInSystem = async (user, eosService) => {
 
   return Boolean(profile);
 };
-
-export const inviteUser = async (accountName, referralCode, eosService) => {};
 
 export const checkUserURL = (user) => {
   const path = document.location.pathname.split('/');

@@ -10,33 +10,19 @@ import {
   saveText,
 } from './ipfs';
 
-import {
-  ACCOUNT_TABLE,
-  ALL_ACCOUNTS_SCOPE,
-  ALL_TG_ACCOUNTS_SCOPE,
-  CONFIRM_TELEGRAM_ACCOUNT,
-  INF_LIMIT,
-  NO_AVATAR,
-  TG_ACCOUNT_TABLE,
-  UNLINK_TELEGRAM_ACCOUNT,
-} from './constants';
+import { NO_AVATAR } from './constants';
 import {
   callService,
   NOTIFICATIONS_INFO_SERVICE,
 } from './web_integration/src/util/aws-connector';
 import { CONTRACT_USER, UPDATE_ACC } from './ethConstants';
 import { getUser, getUserPermissions, getUserStats } from './theGraph';
-import { WebIntegrationError } from './errors';
 import { isUserExists } from './accountManagement';
 
-export const getRatingByCommunity = (user, communityId) => {
-  return (
-    user?.ratings?.find(
-      (ratingObj) =>
-        ratingObj.communityId.toString() === communityId?.toString(),
-    )?.rating ?? 0
-  );
-};
+export const getRatingByCommunity = (user, communityId) =>
+  user?.ratings?.find(
+    (ratingObj) => ratingObj.communityId.toString() === communityId?.toString(),
+  )?.rating ?? 0;
 
 export function getUserAvatar(avatarHash, userId, account) {
   if (avatarHash && avatarHash !== NO_AVATAR) {
@@ -134,12 +120,6 @@ export const getNotificationsInfo = async (user) => {
   );
   return response.OK ? response.body : { all: 0, unread: 0 };
 };
-
-export async function getUserTelegramData(eosService, userName) {}
-
-export async function confirmTelegramAccount(eosService, user) {}
-
-export async function unlinkTelegramAccount(eosService, user) {}
 
 export const getAvailableBalance = (profile) => {
   const stakedInCurrentPeriod = profile?.stakedInCurrentPeriod ?? 0;

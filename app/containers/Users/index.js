@@ -19,13 +19,13 @@ import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
 import messages from 'containers/Users/messages';
 
-import * as selectors from './selectors';
 import { changeSortingType, getUsers } from 'containers/Users/actions';
 import reducer from 'containers/Users/reducer';
 import saga from 'containers/Users/saga';
 
 import View from 'containers/Users/View';
 import { selectIsGlobalAdmin } from 'containers/AccountProvider/selectors';
+import * as selectors from './selectors';
 
 const single = isSingleCommunityWebsite();
 
@@ -51,7 +51,7 @@ const Users = ({
   );
 
   const userCount = useMemo(
-    () => (single ? communityInfo?.['users_subscribed'] ?? 0 : stat.usersCount),
+    () => (single ? communityInfo?.users_subscribed ?? 0 : stat.usersCount),
     [stat.usersCount, communityInfo],
   );
 
@@ -101,7 +101,6 @@ Users.propTypes = {
   isLastFetch: PropTypes.bool,
   sorting: PropTypes.string,
   searchText: PropTypes.string,
-  limit: PropTypes.number,
   stat: PropTypes.object,
   communities: PropTypes.array,
   changeSortingTypeDispatch: PropTypes.func,

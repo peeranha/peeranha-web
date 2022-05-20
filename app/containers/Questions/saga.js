@@ -1,81 +1,21 @@
 /* eslint func-names: 0, array-callback-return: 0, no-param-reassign: 0 */
-import { take, takeLatest, call, put, select, all } from 'redux-saga/effects';
+import { take, takeLatest, call, put, select } from 'redux-saga/effects';
 
 import * as routes from 'routes-config';
 import createdHistory from 'createdHistory';
 
-import { selectEos } from 'containers/EosioProvider/selectors';
-
-import { getCookie, setCookie } from 'utils/cookie';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
-
-import {
-  ADD_TO_TOP_COMMUNITY_METHOD,
-  ALL_TOP_QUESTIONS_SCOPE,
-  ALL_TOP_QUESTIONS_TABLE,
-  DOWN_QUESTION_METHOD,
-  MOVE_QUESTION_METHOD,
-  REMOVE_FROM_TOP_COMMUNITY_METHOD,
-  UP_QUESTION_METHOD,
-} from 'utils/constants';
 
 import { FOLLOW_HANDLER_SUCCESS } from 'containers/FollowCommunityButton/constants';
 import { GET_USER_PROFILE_SUCCESS } from 'containers/DataCacheProvider/constants';
-import {
-  makeSelectFollowedCommunities,
-  makeSelectProfileInfo,
-} from 'containers/AccountProvider/selectors';
-import {
-  getQuestionData,
-  isGeneralQuestion,
-} from 'containers/ViewQuestion/saga';
+import { makeSelectFollowedCommunities } from 'containers/AccountProvider/selectors';
+import { isGeneralQuestion } from 'containers/ViewQuestion/saga';
 
-import { getQuestionsWorker as getTopQuestions } from '../Home/saga';
+import { GET_QUESTIONS } from './constants';
 
-import {
-  CHANGE_QUESTION_FILTER,
-  DOWN_QUESTION,
-  GET_QUESTIONS,
-  LOAD_COMMUNITY_TOP_QUESTIONS,
-  MOVE_QUESTION,
-  QUESTION_FILTER,
-  REMOVE_OR_ADD_TOP_QUESTION,
-  TOP_QUESTIONS_LOAD_NUMBER,
-  UP_QUESTION,
-  PROMO_QUESTIONS_AMOUNT,
-  UPDATE_PROMO_QUESTIONS,
-} from './constants';
+import { getQuestionsSuccess, getQuestionsError } from './actions';
 
-import {
-  getQuestions as getQuestionsAction,
-  getQuestionsSuccess,
-  getQuestionsError,
-  loadTopCommunityQuestionsSuccess,
-  loadTopCommunityQuestionsErr,
-  removeOrAddTopQuestionSuccess,
-  removeOrAddTopQuestionErr,
-  upQuestionSuccess,
-  upQuestionErr,
-  downQuestionSuccess,
-  downQuestionErr,
-  moveQuestionErr,
-  moveQuestionSuccess,
-  changeQuestionFilter,
-} from './actions';
-
-import {
-  selectInitLoadedItems,
-  selectTopQuestionsInfoLoaded,
-  selectQuestionFilter,
-  selectLastLoadedTopQuestionIndex,
-  selectTopQuestionIds,
-  isQuestionTop,
-  selectPromotedQuestions,
-  selectTypeFilter,
-} from './selectors';
 import { getPosts, getPostsByCommunityId } from '../../utils/theGraph';
-import { getUserProfileWorker } from '../DataCacheProvider/saga';
-import { selectUsers } from '../DataCacheProvider/selectors';
 
 const feed = routes.feed();
 const single = isSingleCommunityWebsite();
@@ -184,32 +124,7 @@ export function* updateStoredQuestionsWorker() {
   // );
 }
 
-function* changeQuestionFilterWorker({ questionFilter }) {
-  if (questionFilter) {
-    yield call(loadTopCommunityQuestionsWorker, { init: true });
-  }
-}
-
-export function* loadTopCommunityQuestionsWorker({ init }) {}
-
-export function* removeOrAddTopQuestionWorker({ id }) {}
-
-function* upQuestionWorker({ id }) {}
-
-function* downQuestionWorker({ id }) {}
-
-function* moveQuestionWorker({ id, position }) {}
-
 export default function* () {
   yield takeLatest(GET_QUESTIONS, getQuestionsWorker);
   yield takeLatest(FOLLOW_HANDLER_SUCCESS, redirectWorker);
-  yield takeLatest(CHANGE_QUESTION_FILTER, changeQuestionFilterWorker);
-  yield takeLatest(
-    LOAD_COMMUNITY_TOP_QUESTIONS,
-    loadTopCommunityQuestionsWorker,
-  );
-  yield takeLatest(REMOVE_OR_ADD_TOP_QUESTION, removeOrAddTopQuestionWorker);
-  yield takeLatest(UP_QUESTION, upQuestionWorker);
-  yield takeLatest(DOWN_QUESTION, downQuestionWorker);
-  yield takeLatest(MOVE_QUESTION, moveQuestionWorker);
 }

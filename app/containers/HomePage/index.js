@@ -214,6 +214,7 @@ HomePage.propTypes = {
   sendMessageDispatch: PropTypes.func,
   location: PropTypes.object,
   faqQuestions: PropTypes.array,
+  loginWithWalletDispatch: PropTypes.func,
 };
 
 const withConnect = connect(

@@ -83,6 +83,7 @@ const Wallet = ({
 
 Wallet.propTypes = {
   balance: PropTypes.number,
+  availableBalance: PropTypes.number,
   locale: PropTypes.string,
   account: PropTypes.string,
   match: PropTypes.object,

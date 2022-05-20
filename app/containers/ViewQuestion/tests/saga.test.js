@@ -18,7 +18,6 @@ import {
   deleteAnswer,
   deleteComment,
   editComment,
-  voteToDelete,
 } from 'utils/questionsManagement';
 
 import createdHistory from 'createdHistory';
@@ -1371,17 +1370,6 @@ describe('voteToDeleteWorker', () => {
           answerId,
           commentId,
         },
-      );
-    });
-
-    it('step, voteToDelete', () => {
-      generator.next();
-      expect(voteToDelete).toHaveBeenCalledWith(
-        profileInfo.user,
-        res.questionId,
-        answerId,
-        commentId,
-        eos,
       );
     });
 

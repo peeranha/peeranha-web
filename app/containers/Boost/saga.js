@@ -13,12 +13,8 @@ import {
   makeSelectProfileInfo,
 } from 'containers/AccountProvider/selectors';
 
-import {
-  GET_WEEK_STAT,
-  CHANGE_STAKE,
-  TOKENS_AFTER_ZERO,
-  CURRENT_STAKE_FORM,
-} from './constants';
+import { WEI_IN_ETH } from 'utils/constants';
+import { GET_WEEK_STAT, CHANGE_STAKE } from './constants';
 
 import {
   getWeekStatSuccess,
@@ -38,7 +34,7 @@ export function* getWeekStatWorker() {
     const weekStat = profile
       ? yield call(getWeekStat, ethereumService, user)
       : [];
-    //TODO boost
+    // TODO boost
     // const userBoostStat = profile ? yield call(getUserBoostStatistics, eosService, profile.user) : [];
 
     const currentPeriod = weekStat[0].period;

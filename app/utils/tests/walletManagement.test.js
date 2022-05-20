@@ -1,14 +1,12 @@
 import {
   getBalance,
   getWeekStat,
-  sendTokens,
   getNormalizedCurrency,
   pickupReward,
 } from '../walletManagement';
 
 import {
   ACCOUNTS_TABLE,
-  SEND_TOKEN_METHOD,
   APP_CURRENCY,
   PICKUP_REWARD_METHOD,
 } from '../constants';
@@ -121,30 +119,6 @@ describe('getWeekStat', () => {
     const res = await getWeekStat(eosService, user);
 
     expect(res).toMatchSnapshot();
-  });
-});
-
-describe('sendTokens', () => {
-  const info = {
-    from: 'from',
-    to: 'to',
-    quantity: '1000',
-  };
-
-  it('test', async () => {
-    await sendTokens(eosService, info);
-
-    expect(eosService.sendTransaction).toHaveBeenCalledWith(
-      info.from,
-      SEND_TOKEN_METHOD,
-      {
-        from: info.from,
-        to: info.to,
-        quantity: getNormalizedCurrency(info.quantity),
-        memo: '',
-      },
-      process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
-    );
   });
 });
 

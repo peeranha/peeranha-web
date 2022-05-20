@@ -30,10 +30,8 @@ import {
   postAnswer,
   postComment,
   upVote,
-  voteToDelete,
   votingStatus,
 } from 'utils/questionsManagement';
-import { payBounty } from 'utils/walletManagement';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { CHANGED_POSTS_KEY, POST_TYPE } from 'utils/constants';
 import { dateNowInSeconds } from 'utils/datetime';
@@ -59,7 +57,10 @@ import { getUniqQuestions } from 'containers/Questions/actions';
 import { updateStoredQuestionsWorker } from 'containers/Questions/saga';
 
 import {
-  ANSWER_TYPE,
+  isItemChanged,
+  saveChangedItemIdToSessionStorage,
+} from 'utils/sessionStorage';
+import {
   CHANGE_QUESTION_TYPE,
   CHANGE_QUESTION_TYPE_SUCCESS,
   CHECK_ADD_COMMENT_AVAILABLE,
@@ -73,7 +74,6 @@ import {
   DOWN_VOTE_SUCCESS,
   GET_QUESTION_DATA,
   GET_QUESTION_DATA_SUCCESS,
-  PAY_BOUNTY,
   MARK_AS_ACCEPTED,
   MARK_AS_ACCEPTED_SUCCESS,
   POST_ANSWER,
@@ -81,16 +81,13 @@ import {
   POST_ANSWER_SUCCESS,
   POST_COMMENT,
   POST_COMMENT_SUCCESS,
-  QUESTION_TYPE,
   SAVE_COMMENT,
   SAVE_COMMENT_SUCCESS,
   UP_VOTE,
   UP_VOTE_SUCCESS,
-  VOTE_TO_DELETE,
   VOTE_TO_DELETE_SUCCESS,
   GET_HISTORIES,
   GET_HISTORIES_SUCCESS,
-  GET_HISTORIES_ERROR,
 } from './constants';
 
 import {
@@ -108,20 +105,15 @@ import {
   getQuestionDataSuccess,
   markAsAcceptedErr,
   markAsAcceptedSuccess,
-  payBountyError,
-  payBountySuccess,
   postAnswerErr,
   postAnswerSuccess,
   postCommentErr,
   postCommentSuccess,
   saveCommentErr,
   saveCommentSuccess,
-  setVoteToDeleteLoading,
   showAddCommentForm,
   upVoteErr,
   upVoteSuccess,
-  voteToDeleteErr,
-  voteToDeleteSuccess,
   getHistoriesErr,
   getHistoriesSuccess,
 } from './actions';
@@ -138,16 +130,10 @@ import {
   postAnswerValidator,
   postCommentValidator,
   upVoteValidator,
-  voteToDeleteValidator,
 } from './validate';
 import { selectUsers } from '../DataCacheProvider/selectors';
 import { selectEthereum } from '../EthereumProvider/selectors';
 import { getQuestionFromGraph } from '../../utils/theGraph';
-
-import {
-  isItemChanged,
-  saveChangedItemIdToSessionStorage,
-} from 'utils/sessionStorage';
 
 import { selectPostedAnswerIds } from '../AskQuestion/selectors';
 export const isGeneralQuestion = (question) => Boolean(question.postType === 1);
@@ -254,9 +240,6 @@ export function* getQuestionData({
   //   }
   // }
   //
-  const getItemStatus = (historyFlag, constantFlag) =>
-    historyFlag?.flag & (1 << constantFlag);
-
   const users = new Map();
 
   function* addOptions(currentItem) {
@@ -510,13 +493,9 @@ export function* deleteAnswerWorker({ questionId, answerId, buttonId }) {
 
 export function* deleteQuestionWorker({ questionId, buttonId }) {
   try {
-    const {
-      questionData,
-      ethereumService,
-      locale,
-      profileInfo,
-      questionBounty,
-    } = yield call(getParams);
+    const { questionData, ethereumService, locale, profileInfo } = yield call(
+      getParams,
+    );
 
     yield call(
       isAvailableAction,
@@ -937,141 +916,6 @@ export function* markAsAcceptedWorker({
   }
 }
 
-export function* voteToDeleteWorker({
-  questionId,
-  answerId,
-  commentId,
-  buttonId,
-  whoWasVoted,
-}) {
-  try {
-    const { questionData, eosService, profileInfo, locale } = yield call(
-      getParams,
-    );
-
-    const usersForUpdate = [whoWasVoted];
-
-    yield call(isAuthorized);
-
-    const item = {
-      questionId,
-      answerId,
-      commentId,
-    };
-
-    let itemData;
-    if (!item.answerId && !item.commentId) {
-      itemData = questionData;
-    } else if (!item.answerId && item.commentId) {
-      [itemData] = questionData.comments.filter((x) => x.id === item.commentId);
-    } else if (item.answerId && !item.commentId) {
-      [itemData] = questionData.answers.filter((x) => x.id === item.answerId);
-    } else if (item.answerId && item.commentId) {
-      [itemData] = questionData.answers
-        .filter((x) => x.id === item.answerId)[0]
-        .comments.filter((y) => y.id === item.commentId);
-    }
-
-    yield call(
-      isAvailableAction,
-      () =>
-        voteToDeleteValidator(
-          profileInfo,
-          questionData,
-          translationMessages[locale],
-          buttonId,
-          item,
-        ),
-      {
-        communityID: questionData.communityId,
-        skipPermissions: itemData.votingStatus.isUpVoted,
-      },
-    );
-
-    yield call(
-      voteToDelete,
-      profileInfo.user,
-      questionId,
-      answerId,
-      commentId,
-      eosService,
-    );
-
-    const isDeleteCommentButton = buttonId.includes('delete-comment-');
-    const isDeleteAnswerButton = buttonId.includes(`${ANSWER_TYPE}_delete_`);
-    const isDeleteQuestionButton = buttonId.includes(
-      `${QUESTION_TYPE}_delete_`,
-    );
-
-    const isModeratorDelete =
-      isDeleteCommentButton || isDeleteAnswerButton || isDeleteQuestionButton;
-
-    // handle moderator delete action
-    if (isModeratorDelete) {
-      if (isDeleteCommentButton) {
-        // delete comment
-        if (answerId === 0) {
-          questionData.comments = questionData.comments.filter(
-            (x) => x.id !== commentId,
-          );
-        } else if (answerId > 0) {
-          const answer = questionData.answers.find((x) => x.id === answerId);
-          answer.comments = answer.comments.filter((x) => x.id !== commentId);
-        }
-
-        yield put(deleteCommentSuccess({ ...questionData }, buttonId));
-      }
-
-      if (isDeleteAnswerButton) {
-        // delete answer
-        questionData.answers = questionData.answers.filter(
-          (x) => x.id !== answerId,
-        );
-
-        yield put(deleteAnswerSuccess({ ...questionData }, buttonId));
-      }
-
-      if (isDeleteQuestionButton) {
-        // delete question
-        yield put(
-          deleteQuestionSuccess({ ...questionData, isDeleted: true }, buttonId),
-        );
-
-        yield call(createdHistory.push, routes.questions());
-      }
-
-      yield put(setVoteToDeleteLoading(false));
-    }
-
-    // handle common vote to delete action
-    else {
-      let item;
-
-      if (!answerId && !commentId) {
-        item = questionData;
-      } else if (!answerId && commentId) {
-        item = questionData.comments.find((x) => x.id === commentId);
-      } else if (answerId && !commentId) {
-        item = questionData.answers.find((x) => x.id === answerId);
-      } else if (answerId && commentId) {
-        item = questionData.answers
-          .find((x) => x.id === answerId)
-          .comments.find((x) => x.id === commentId);
-      }
-
-      item.votingStatus.isVotedToDelete = true;
-
-      yield put(
-        voteToDeleteSuccess({ ...questionData }, usersForUpdate, buttonId),
-      );
-    }
-
-    saveChangedItemIdToSessionStorage(CHANGED_POSTS_KEY, questionId);
-  } catch (err) {
-    yield put(voteToDeleteErr(err, buttonId));
-  }
-}
-
 // Do not spent time for main action - update author as async action after main action
 // TODO after Graph hooks
 export function* updateQuestionDataAfterTransactionWorker({
@@ -1142,22 +986,6 @@ function* changeQuestionTypeWorker({ buttonId }) {
   }
 }
 
-function* payBountyWorker({ buttonId }) {
-  try {
-    const { questionData, eosService, profileInfo } = yield call(getParams);
-    yield call(
-      payBounty,
-      profileInfo?.user,
-      questionData?.id,
-      false,
-      eosService,
-    );
-    yield put(payBountySuccess(buttonId));
-  } catch (err) {
-    yield put(payBountyError(err, buttonId));
-  }
-}
-
 export function* getHistoriesWorker({ postId }) {
   try {
     const histories = yield call(getHistoriesForPost, postId);
@@ -1185,9 +1013,7 @@ export default function* () {
   yield takeEvery(DELETE_ANSWER, deleteAnswerWorker);
   yield takeEvery(DELETE_COMMENT, deleteCommentWorker);
   yield takeEvery(SAVE_COMMENT, saveCommentWorker);
-  yield takeEvery(VOTE_TO_DELETE, voteToDeleteWorker);
   yield takeEvery(CHANGE_QUESTION_TYPE, changeQuestionTypeWorker);
-  yield takeEvery(PAY_BOUNTY, payBountyWorker);
   yield takeEvery(GET_HISTORIES, getHistoriesWorker);
   yield takeEvery(
     [UP_VOTE_SUCCESS, DOWN_VOTE_SUCCESS, MARK_AS_ACCEPTED_SUCCESS],

@@ -6,8 +6,6 @@
 import { select, all, take } from 'redux-saga/effects';
 
 import {
-  getQuestions,
-  getQuestionsFilteredByCommunities,
   getQuestionsForFollowedCommunities,
 } from 'utils/questionsManagement';
 
@@ -92,11 +90,6 @@ describe('getQuestionsWorker', () => {
       expect(step.value).toEqual(communities);
     });
 
-    it('getQuestions', () => {
-      generator.next(communities);
-      expect(getQuestions).toHaveBeenCalledWith(eos, res.limit, res.offset);
-    });
-
     it('questionsList mapping, get author', () => {
       const waitPromise = true;
 
@@ -115,20 +108,6 @@ describe('getQuestionsWorker', () => {
       const err = 'error';
       const putDescriptor = generator.throw(err);
       expect(putDescriptor.value.type).toBe(GET_QUESTIONS_ERROR);
-    });
-  });
-
-  describe('communityIdFilter > 0', () => {
-    res.communityIdFilter = 10;
-
-    const generator = getQuestionsWorker(res);
-
-    generator.next();
-    generator.next(eos);
-
-    it('getQuestionsFilteredByCommunities', () => {
-      generator.next(communities);
-      expect(getQuestionsFilteredByCommunities).toHaveBeenCalled();
     });
   });
 

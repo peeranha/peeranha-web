@@ -50,7 +50,7 @@ export async function getWeekStat(ethereumService, user) {
   const [rewards, periods] = await getRewardStat(user);
   const inactiveFirstPeriods = [];
 
-  periods.map((period) => {
+  periods.forEach((period) => {
     if (!rewards.find((reward) => reward.period.id === period.id)) {
       inactiveFirstPeriods.push({
         period: period.id,
@@ -74,13 +74,8 @@ export async function getWeekStat(ethereumService, user) {
   return inactiveFirstPeriods.concat(activePeriods);
 }
 
-export async function sendTokens(
-  eosService,
-  { from, to, quantity, precision, symbol, contractAccount },
-) {}
-
 export async function pickupReward(ethereumService, user, periodIndex) {
-  return await ethereumService.claimUserReward(user, periodIndex);
+  return ethereumService.claimUserReward(user, periodIndex);
 }
 
 export function getEditBountyTrActData(user, bounty, questionId, timestamp) {
@@ -96,10 +91,6 @@ export function getEditBountyTrActData(user, bounty, questionId, timestamp) {
     waitForGettingToBlock: true,
   };
 }
-
-export async function payBounty(user, questionId, isDeleted, eosService) {}
-
-export async function getQuestionBounty(questionId, eosService) {}
 
 export function getNormalizedCurrency(quantity, precision, symbol) {
   if (!Number(quantity)) {

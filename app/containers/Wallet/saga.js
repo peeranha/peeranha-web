@@ -2,7 +2,6 @@ import { takeEvery, takeLatest, put, call, select } from 'redux-saga/effects';
 import {
   getWeekStat,
   pickupReward,
-  getUserBoostStatistics,
   getUserStake,
 } from 'utils/walletManagement';
 
@@ -12,7 +11,6 @@ import {
 } from 'containers/AccountProvider/selectors';
 
 import {
-  GET_CURRENT_BOOST,
   GET_WEEK_STAT,
   PICKUP_REWARD,
   PICKUP_REWARD_SUCCESS,
