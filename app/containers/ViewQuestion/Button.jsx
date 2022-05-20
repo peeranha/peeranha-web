@@ -32,18 +32,18 @@ export const SpanStyled = TransparentButton.extend`
     }
   }
 
-  @media only screen and (max-width: 1110px) {
+  @media only screen and (max-width: 1116px) {
     display: flex;
     flex-direction: column;
   }
 
-  @media only screen and (max-width: 1045px) {
+  @media only screen and (max-width: 1052px) {
     margin-left: 20px;
     font-size: 14px;
   }
 
-  @media only screen and (max-width: 763px) {
-    font-size: 13px;
+  @media only screen and (max-width: 768px) {
+    font-size: 12px;
   }
 `;
 
