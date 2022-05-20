@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
@@ -6,12 +6,7 @@ import styled from 'styled-components';
 import commonMessages from 'common-messages';
 import { TEXT_DARK, TEXT_SECONDARY } from 'style-constants';
 import { LABEL_SIZE_LG } from 'components/Img/MediumImage';
-import {
-  MONTH_3LETTERS__DAY_YYYY,
-  TEMPORARY_ACCOUNT_KEY,
-} from 'utils/constants';
-
-import { getFormattedDate } from 'utils/datetime';
+import { TEMPORARY_ACCOUNT_KEY } from 'utils/constants';
 import { getUserAvatar } from 'utils/profileManagement';
 
 import questionRoundedIcon from 'images/question2.svg?inline';
@@ -164,7 +159,6 @@ const MainUserInformation = ({
   const isTemporaryAccount = !!profile?.integer_properties?.find(
     x => x.key === TEMPORARY_ACCOUNT_KEY && x.value,
   );
-
   const userPolygonScanAddress = process.env.BLOCKCHAIN_EXPLORERE_URL + userId;
   return (
     <Box position="middle">
