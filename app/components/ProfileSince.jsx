@@ -7,7 +7,9 @@ import styled from 'styled-components';
 import { MONTH_3LETTERS__DAY_YYYY } from 'utils/constants';
 
 const Span = styled.span`
-  font-weight: 600;
+  @media only screen and (min-width: 1354px) {
+    font-weight: 600;
+  }
 `;
 
 export const ProfileSince = ({ creationTime, locale }) => {

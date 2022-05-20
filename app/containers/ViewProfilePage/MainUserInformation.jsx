@@ -45,7 +45,7 @@ export const UlStyled = Ul.extend`
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   }
 
-  @media (max-width: 399px) {
+  @media (max-width: 420px) {
     display: flex;
     overflow-x: hidden;
     white-space: nowrap;
