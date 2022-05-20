@@ -71,14 +71,12 @@ const Body = ({
           topQuestionsCount={topQuestionsCount}
           topQuestionActionProcessing={topQuestionActionProcessing}
         />
-        {(isFeed || isSearchPage || isCommunityFeed) && (
-          <QuestionType
-            locale={locale}
-            postType={postType}
-            isPromoted={isPromoted}
-            isExpert={isExpert}
-          />
-        )}
+        <QuestionType
+          locale={locale}
+          postType={postType}
+          isPromoted={isPromoted}
+          isExpert={isExpert}
+        />
       </QuestionLabels>
 
       <Title
