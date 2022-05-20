@@ -2,12 +2,12 @@
 import bs58 from 'bs58';
 import { create } from 'ipfs-http-client';
 
-import { ApplicationError } from './errors';
 import {
   callService,
   SAVE_FILE_SERVICE,
 } from 'utils/web_integration/src/util/aws-connector';
 import { Web3Storage } from 'web3.storage/dist/bundle.esm.min.js';
+import { ApplicationError } from './errors';
 
 export function ipfsApi() {
   return create(process.env.IPFS_API_URL);
@@ -30,7 +30,7 @@ function web3StorageApi() {
 }
 
 async function saveDataWeb3Storage(data) {
-  return await web3StorageApi().put([new File([data], 'data')]);
+  return web3StorageApi().put([new File([data], 'data')]);
 }
 
 async function saveDataToAllStorages(content, buf, encoding) {
@@ -78,11 +78,11 @@ export async function saveText(text) {
 }
 
 async function saveDataTheGraph(buf) {
-  return await ipfsApiTheGraph().add(buf);
+  return ipfsApiTheGraph().add(buf);
 }
 
 async function saveDataIpfsS3(file) {
-  return await callService(SAVE_FILE_SERVICE, { file });
+  return callService(SAVE_FILE_SERVICE, { file });
 }
 
 export async function saveFile(file) {
@@ -133,7 +133,7 @@ export const getBytes32FromIpfsHash = ipfsListing =>
     .toString('hex')}`;
 
 export const getIpfsHashFromBytes32 = bytes32Hex => {
-  const hashHex = '1220' + bytes32Hex.slice(2);
+  const hashHex = `1220${bytes32Hex.slice(2)}`;
   const hashBytes = Buffer.from(hashHex, 'hex');
   return bs58.encode(hashBytes);
 };
