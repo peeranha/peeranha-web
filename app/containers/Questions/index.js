@@ -35,6 +35,7 @@ import { redirectToAskQuestionPage } from 'containers/AskQuestion/actions';
 
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 import ScrollToTop from 'components/ScrollToTop/index';
+import TopCommunities from 'components/TopCommunities';
 import InfinityLoader from 'components/InfinityLoader';
 import Seo from 'components/Seo';
 
@@ -88,6 +89,8 @@ export const Questions = ({
   isLastTopQuestionLoaded,
   postsTypes,
 }) => {
+  const isTopCommunitiesDisplay =
+    parentPage === routes.feed() && questionsList.length === 0;
   const isExpert =
     path === routes.expertPosts() ||
     path === routes.expertPosts(':communityid');
@@ -263,6 +266,9 @@ export const Questions = ({
               </div>
             )}
         </InfinityLoader>
+      )}
+      {isTopCommunitiesDisplay && (
+        <TopCommunities communities={communities} profile={profile} />
       )}
       {displayLoader && <LoadingIndicator />}
     </div>
