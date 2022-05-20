@@ -183,7 +183,7 @@ const TopCommunities = ({ communities, profile, questions }) => {
                       <BackSide>
                         <div className="d-flex flex-column justify-content-between">
                           {community ? (
-                            <div>
+                            <div className="overflow-auto">
                               <P fontSize="16" bold>
                                 {community.name}
                               </P>
@@ -283,13 +283,13 @@ const TopCommunities = ({ communities, profile, questions }) => {
 
                     <BackSide>
                       <div className="d-flex flex-column justify-content-between">
-                        <div>
+                        <div className="overflow-auto">
                           <P fontSize="16" bold>
                             {x.name}
                           </P>
                           <P>{x.description}</P>
                         </div>
-                        <div>
+                        <div className="mt-2">
                           <FollowCommunityButton communityIdFilter={x.id} />
                         </div>
                       </div>
