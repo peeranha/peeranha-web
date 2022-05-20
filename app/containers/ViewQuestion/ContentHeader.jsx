@@ -1,4 +1,10 @@
-import React, { useState, useRef, useMemo, useCallback } from 'react';
+import React, {
+  useState,
+  useRef,
+  useMemo,
+  useCallback,
+  useEffect,
+} from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
@@ -9,6 +15,8 @@ import {
   BORDER_SECONDARY,
   BORDER_PRIMARY,
   BORDER_ATTENTION_LIGHT,
+  TEXT_LIGHT,
+  BORDER_RADIUS_L,
 } from 'style-constants';
 
 import pencilIcon from 'images/pencil.svg?external';
@@ -16,11 +24,13 @@ import shareIcon from 'images/shareIcon.svg?external';
 import deleteIcon from 'images/deleteIcon.svg?external';
 import blockIcon from 'images/blockIcon.svg?external';
 import changeTypeIcon from 'images/change-type.svg?external';
+import closeIcon from 'images/close.svg?external';
+import headerNavigation from 'images/headerNavigation.svg?external';
 
 import { getRatingByCommunity, getUserAvatar } from 'utils/profileManagement';
 import { useOnClickOutside } from 'utils/click-listners';
 
-import { IconSm, IconMd } from 'components/Icon/IconWithSizes';
+import { IconSm, IconMd, IconLm } from 'components/Icon/IconWithSizes';
 import UserInfo from './UserInfo';
 import ContentRating from './ContentRating';
 import Button from './Button';
@@ -78,6 +88,14 @@ const Box = styled.div`
       flex-basis: 60px;
       padding: 0 15px;
     }
+  }
+`;
+
+const Buttons = styled.div`
+  display: flex;
+  align-items: center;
+  @media only screen and (max-width: 576px) {
+    overflow-x: scroll;
   }
 `;
 
@@ -184,7 +202,7 @@ const ContentHeader = props => {
           isTemporaryAccount={isTemporaryAccount}
         />
 
-        <div className="d-flex align-items-center">
+        <Buttons>
           {type === QUESTION_TYPE && (
             <Button
               id={`${type}_change_type_with_rating_restore_${answerId}`}
@@ -305,7 +323,7 @@ const ContentHeader = props => {
             <IconMd icon={pencilIcon} />
             <FormattedMessage {...messages.editButton} />
           </Button>
-        </div>
+        </Buttons>
       </ItemInfo>
     </Box>
   );
