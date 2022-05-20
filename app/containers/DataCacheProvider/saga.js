@@ -113,7 +113,7 @@ export function* getUserProfileWorker({ user, getFullProfile }) {
 
     // take userProfile from STORE
     if (cachedUserInfo && !getFullProfile && !isLogin) {
-      if (!cachedUserInfo.achievementsReached) {
+      if (!cachedUserInfo.achievements) {
         const userAchievements = yield call(
           getAchievements,
           ethereumService,
@@ -123,7 +123,7 @@ export function* getUserProfileWorker({ user, getFullProfile }) {
 
         const updatedUserInfo = {
           ...cachedUserInfo,
-          achievementsReached: userAchievements,
+          achievements: userAchievements,
         };
         yield put(getUserProfileSuccess({ ...updatedUserInfo, ...userStats }));
         return updatedUserInfo;

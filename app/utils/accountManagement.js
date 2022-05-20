@@ -11,10 +11,10 @@ import {
 
 import { ApplicationError } from './errors';
 import { dateNowInSeconds } from './datetime';
-import { IS_USER_EXISTS, REGISTER_ACC } from './ethConstants';
+import { IS_USER_EXISTS } from './ethConstants';
 
 export const emptyProfile = account => ({
-  achievementsReached: [],
+  achievements: [],
   answersGiven: 0,
   avatar: undefined,
   balance: 0,
@@ -38,7 +38,9 @@ export const emptyProfile = account => ({
 });
 
 export const isUserExists = async (userAddress, ethereumService) => {
-  return await ethereumService.getDataWithArgs(IS_USER_EXISTS, [userAddress]);
+  return await ethereumService.getUserDataWithArgs(IS_USER_EXISTS, [
+    userAddress,
+  ]);
 };
 
 export const updateAcc = async (profile, ethereumService) => {
@@ -69,21 +71,6 @@ export const updateAcc = async (profile, ethereumService) => {
   // }
 };
 
-export const registerAccount = async (
-  userAddress,
-  profile,
-  ethereumService,
-) => {
-  const ipfsHash = await saveText(JSON.stringify(profile));
-
-  try {
-    await ethereumService.sendTransaction(userAddress, REGISTER_ACC, ipfsHash);
-    return true;
-  } catch (e) {
-    return false;
-  }
-};
-
 export const isUserInSystem = async (user, eosService) => {
   const profile = await eosService.getTableRow(
     ACCOUNT_TABLE,
@@ -94,18 +81,7 @@ export const isUserInSystem = async (user, eosService) => {
   return Boolean(profile);
 };
 
-export const inviteUser = async (accountName, referralCode, eosService) => {
-  await eosService.sendTransaction(
-    accountName,
-    INVITE_USER,
-    {
-      inviter: referralCode,
-      invited_user: accountName,
-    },
-    process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
-    false,
-  );
-};
+export const inviteUser = async (accountName, referralCode, eosService) => {};
 
 export const checkUserURL = user => {
   const path = document.location.pathname.split('/');

@@ -11,6 +11,7 @@ import Icon from 'components/Icon';
 import { Button as ProfileButton } from 'containers/Header/ProfileDropdown';
 
 import Logout from 'containers/Logout';
+import PropTypes from 'prop-types';
 import { getPermissions } from '../../utils/properties';
 
 const MobileLinksInProfile = ({ profile, isMenuVisible }) => {
@@ -50,21 +51,24 @@ const MobileLinksInProfile = ({ profile, isMenuVisible }) => {
             <FormattedMessage id={messages.myCommunities.id} />
           </A>
 
-          <A to={routes.userQuestions(profile.user)}>
-            <FormattedMessage id={messages.questions.id} />
+          <A
+            disabled={profile.postCount === 0}
+            to={routes.userQuestions(profile.user)}
+          >
+            <FormattedMessage id={messages.posts.id} />
           </A>
 
-          <A to={routes.userAnswers(profile.user)}>
+          <A
+            to={routes.userAnswers(profile.user)}
+            disabled={profile.answersGiven === 0}
+          >
             <FormattedMessage id={messages.answers.id} />
           </A>
 
-          <A to={routes.userSettings(profile.user)}>
-            <FormattedMessage id={messages.settings.id} />
-          </A>
-
+          {/* TODO PEER-44 'Notifications' option must be displayed when this feature will be added
           <A to={routes.userNotifications(profile.user)}>
             <FormattedMessage id={messages.notifications.id} />
-          </A>
+          </A>*/}
 
           <A to={routes.userNFTs(profile.user)}>
             <FormattedMessage id={messages.NFTs.id} />
@@ -83,6 +87,11 @@ const MobileLinksInProfile = ({ profile, isMenuVisible }) => {
       )}
     </div>
   );
+};
+
+MobileLinksInProfile.propTypes = {
+  profile: PropTypes.object,
+  isMenuVisible: PropTypes.bool,
 };
 
 export default MobileLinksInProfile;

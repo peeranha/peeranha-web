@@ -110,7 +110,7 @@ export const Header = ({
   } else {
     defaultAvatar = myFeedIcon;
     defaultLabel = intl.formatMessage({
-      id: messages[profile ? 'feed' : 'myFeed'].id,
+      id: messages[profile ? 'myFeed' : 'feed'].id,
     });
     defaultAvatarWidth = '38';
   }

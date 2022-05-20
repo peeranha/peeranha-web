@@ -193,6 +193,9 @@ export const getCurrentAccountWorker = function*(initAccount) {
 export function* isAvailableAction(isValid, data = {}) {
   const { skipPermissions } = data;
   const profileInfo = yield select(makeSelectProfileInfo());
+
+  yield call(isValid);
+
   if (hasGlobalModeratorRole(profileInfo.permissions)) {
     return true;
   }
@@ -202,8 +205,6 @@ export function* isAvailableAction(isValid, data = {}) {
       return true;
     }
   }
-
-  yield call(isValid);
 }
 
 export const getReferralInfo = async (user, ethereum) => {
@@ -258,22 +259,6 @@ function* updateRefer(user, ethereum) {
     });
   }
 }
-
-const rewardRefer = async (user, eosService) => {
-  try {
-    await eosService.sendTransaction(
-      user,
-      REWARD_REFER,
-      {
-        invited_user: user,
-      },
-      process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
-      null,
-    );
-  } catch (err) {
-    return err;
-  }
-};
 
 export function* updateAccWorker({ ethereum }) {
   try {

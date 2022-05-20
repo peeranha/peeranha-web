@@ -69,15 +69,6 @@ export const TagsOfCommunity = ({
     [currentCommunity.id],
   );
 
-  const clearTextField = useCallback(
-    () =>
-      getExistingTagsDispatch({
-        communityId: currentCommunity.id,
-        text: '',
-      }),
-    [currentCommunity.id],
-  );
-
   const sortTags = useCallback(
     ev =>
       getExistingTagsDispatch({
@@ -132,7 +123,6 @@ export const TagsOfCommunity = ({
             existingTagsLoading={existingTagsLoading}
             typeInput={typeInput}
             text={text}
-            clearTextField={clearTextField}
             locale={locale}
             communityId={communityId}
             setEditTagData={setEditTagDataDispatch}

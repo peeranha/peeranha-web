@@ -8,8 +8,6 @@ import { compose, bindActionCreators } from 'redux';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
-import { getFormattedAsset } from 'utils/numbers';
-
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import {
   makeSelectAccount,
@@ -27,10 +25,6 @@ import {
   FORM_CONTENT,
   FORM_COMMUNITY,
   FORM_TAGS,
-  FORM_BOUNTY,
-  FORM_BOUNTY_HOURS,
-  FORM_TYPE,
-  FORM_PROMOTE,
   PROMOTE_HOUR_COST,
 } from 'components/QuestionForm/constants';
 
@@ -55,7 +49,7 @@ const EditQuestion = ({
   profile,
   account,
 }) => {
-  const questionid = match.params.questionid;
+  const { questionid } = match.params;
   useEffect(
     () => {
       if (account) {
@@ -91,9 +85,7 @@ const EditQuestion = ({
   );
 
   const titleMessage = useMemo(
-    () => {
-      return translationMessages[locale][(question?.postType)];
-    },
+    () => translationMessages[locale][messages.title.id[(question?.postType)]],
     [question?.postType],
   );
 
@@ -152,6 +144,8 @@ EditQuestion.propTypes = {
   editQuestionDispatch: PropTypes.func,
   questionLoading: PropTypes.bool,
   editQuestionLoading: PropTypes.bool,
+  profile: PropTypes.object,
+  balance: PropTypes.number,
 };
 
 export default compose(
