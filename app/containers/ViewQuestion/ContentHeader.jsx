@@ -69,7 +69,7 @@ const Box = styled.div`
   border-bottom: 1px solid ${BORDER_SECONDARY};
   height: 77px;
 
-  @media only screen and (max-width: 576px) {
+  @media only screen and (max-width: 635px) {
     flex-direction: column;
     align-items: stretch;
     height: auto;

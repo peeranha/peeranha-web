@@ -20,30 +20,30 @@ export const SpanStyled = TransparentButton.extend`
   display: inline-flex;
   align-items: center;
   margin-left: 30px;
+  width: max-content;
 
   > *:last-child {
     margin-left: 7px;
   }
 
-  @media only screen and (max-width: 748px) {
-    margin-left: 8px;
+  @media only screen and (max-width: 780px) {
     > *:last-child {
       display: none;
     }
   }
 
-  @media only screen and (max-width: 1116px) {
-    display: flex;
-    flex-direction: column;
+  @media only screen and (max-width: 785px) {
+    font-size: 12px;
   }
 
-  @media only screen and (max-width: 1052px) {
-    margin-left: 20px;
+  @media only screen and (max-width: 1105px) {
+    margin-left: 10px;
     font-size: 14px;
   }
 
-  @media only screen and (max-width: 768px) {
-    font-size: 12px;
+  @media only screen and (max-width: 1205px) {
+    display: flex;
+    flex-direction: column;
   }
 `;
 
