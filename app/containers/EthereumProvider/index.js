@@ -60,11 +60,23 @@ const initWeb3Onboard = init({
   appMetadata: {
     name: 'Peeranha',
     icon: src,
-    description: 'Decentralized questions and answers website',
+    description: 'Knowledge sharing protocol for Web3',
     agreement: {
       version: '1.0.0',
       termsUrl: `${process.env.APP_LOCATION}/terms-and-conditions/`,
       privacyUrl: `${process.env.APP_LOCATION}/privacy-policy/`,
+    },
+  },
+  i18n: {
+    en: {
+      connect: {
+        selectingWallet: {
+          sidebar: {
+            paragraph:
+              'Connecting your wallet is like "logging in" to Web3. Not sure where to start? Select Torus wallet to log in with email, Google, or social media account.',
+          },
+        },
+      },
     },
   },
 });
