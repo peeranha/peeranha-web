@@ -1261,11 +1261,11 @@
   "app.containers.TelegramInfo.unlink": "Unlink",
 
   "app.containers.MetaTransactionAgreement.agreeWithMetaTransactions":
-    "We got you covered",
+    "We've got you covered",
   "app.containers.MetaTransactionAgreement.youNeedMetaBecause":
     "Your MATIC balance is 0. MATIC is needed to pay transaction fees.  ",
   "app.containers.MetaTransactionAgreement.dontWorry":
-    "Don’t worry! We got you covered.",
+    "Don’t worry! We've got you covered.",
   "app.containers.MetaTransactionAgreement.wouldYouLike":
     "Would you like us to relay your transactions and cover transaction fees?",
   "app.containers.MetaTransactionAgreement.confirm": "Yes",
