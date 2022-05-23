@@ -92,7 +92,9 @@ const B = ({ profileInfo, onClick, isMenuVisible, isMobileVersion }) => (
       isMenuVisible={isMenuVisible}
     >
       <Span bold color={(!isMobileVersion && styles.commHeadElemColor) || ''}>
-        {profileInfo?.displayName}
+        {profileInfo.loginData.account.substring(0, 6)}...{profileInfo.loginData.account.substring(
+          profileInfo.loginData.account.length - 4,
+        )}
       </Span>
     </Info>
   </span>
