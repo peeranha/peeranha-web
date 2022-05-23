@@ -9,6 +9,7 @@ import WalletsSignUpForm from 'containers/SignUp/WalletsSignUpForm';
 import RegistrationAlmostDoneWithAccount from 'components/SignUpWrapper/AlmostDoneWithAccount';
 import RegistrationAlmostDoneNoAccount from 'components/SignUpWrapper/AlmostDoneNoAccount';
 import Login from 'containers/Login';
+import MetaTransactionAgreement from 'containers/MetaTransactionAgreement';
 import ForgotPassword from 'containers/ForgotPassword';
 
 const HomePage = React.lazy(() => import('containers/HomePage'));
@@ -97,4 +98,5 @@ export {
   FullWidthPreloader,
   TermsOfService,
   DeleteFacebookData,
+  MetaTransactionAgreement,
 };
