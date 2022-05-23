@@ -27,7 +27,7 @@ const PendingWeek = ({
   <li className="flex-grow-1 mb-3">
     <Base position="top">
       <P className="mb-1" color={TEXT_WARNING_LIGHT} fontSize="13">
-        <FormattedMessage {...messages.payoutPending} />
+        <FormattedMessage id={messages.payoutPending.id} />
       </P>
       <WeekNumber
         locale={locale}
@@ -39,7 +39,7 @@ const PendingWeek = ({
     <Base position="bottom">
       <>
         <P className="mb-1" fontSize="14" color={TEXT_SECONDARY}>
-          <FormattedMessage {...messages.estimatedPayout} />
+          <FormattedMessage id={messages.estimatedPayout} />
         </P>
         <P className="d-flex align-items-center">
           <SmallImage className="mr-2" src={currencyPeerImage} alt="icon" />

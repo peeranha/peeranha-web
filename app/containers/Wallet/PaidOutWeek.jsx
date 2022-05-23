@@ -72,7 +72,7 @@ const PaidOutWeek = ({
       <BaseRoundedLi className="align-items-center">
         <div>
           <P fontSize="13" color={TEXT_SECONDARY}>
-            <FormattedMessage {...messages.paidOut} />
+            <FormattedMessage id={messages.paidOut.id} />
           </P>
           <WeekNumber
             locale={locale}
@@ -101,13 +101,13 @@ const PaidOutWeek = ({
                 pickupRewardProcessing
               }
             >
-              <FormattedMessage {...messages.getReward} />
+              <FormattedMessage id={messages.getReward.id} />
             </PickupButton>
           )}
 
           {hasTaken && (
             <ReceivedButton className="ml-4">
-              <FormattedMessage {...messages.received} />
+              <FormattedMessage id={messages.received.id} />
             </ReceivedButton>
           )}
         </WeekActions>

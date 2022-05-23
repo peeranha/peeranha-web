@@ -235,12 +235,12 @@ export const getAllAchievements = async userId => {
 };
 
 export const getRewardStat = async (userId, ethereumService) => {
-  const periodsCount = (await isUserExists(userId, ethereumService)) ? 2 : 1;
+  const isNewUser = await isUserExists(userId, ethereumService);
   const response = await client.query({
     query: gql(rewardsQuery),
     variables: {
       userId,
-      periodsCount,
+      periodsCount: isNewUser ? 1 : 2,
     },
   });
   return [response?.data?.userRewards, response?.data?.periods];

@@ -77,7 +77,15 @@ const Weeks = ({
                 />
               )}
 
-              {pendingWeek && <PendingWeek locale={locale} {...pendingWeek} />}
+              {pendingWeek && (
+                <PendingWeek
+                  locale={locale}
+                  period={pendingWeek.period}
+                  reward={pendingWeek.reward}
+                  periodStarted={pendingWeek.periodStarted}
+                  periodFinished={pendingWeek.periodFinished}
+                />
+              )}
             </CurrentPendingWeeks>
 
             <PaidOutWeeksContainer
