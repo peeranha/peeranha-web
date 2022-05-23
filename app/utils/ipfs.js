@@ -44,8 +44,7 @@ async function saveDataToAllStorages(content, buf, encoding) {
     saveDataTheGraph(buf),
     saveDataWeb3Storage(buf),
   ]);
-
-  return resultIpfsS3;
+  return resultIpfsS3.body.cid;
 }
 
 // TODO: test
@@ -72,9 +71,7 @@ export async function saveText(text) {
 
   const buf = Buffer.from(parsedText, 'utf8');
 
-  const result = await saveDataToAllStorages(buf, buf, 'utf8');
-
-  return result.cid;
+  return saveDataToAllStorages(buf, buf, 'utf8');
 }
 
 async function saveDataTheGraph(buf) {
@@ -88,9 +85,7 @@ async function saveDataIpfsS3(file) {
 export async function saveFile(file) {
   const buf = Buffer.from(file);
 
-  const result = await saveDataToAllStorages(file, buf, 'base64');
-
-  return result.cid;
+  return saveDataToAllStorages(file, buf, 'base64');
 }
 
 export async function getText(hash) {
