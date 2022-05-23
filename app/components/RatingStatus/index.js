@@ -79,7 +79,7 @@ const IconWithStatus = ({
   }
 
   return (
-    <span className={`d-flex align-items-center ${className}`}>
+    <span className={`d-flex-column d-sm-flex align-items-center ${className}`}>
       <Icon
         className="d-inline-flex mr-1"
         icon={full?.icon[size || 'sm']}

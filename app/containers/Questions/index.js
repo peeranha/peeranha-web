@@ -35,8 +35,8 @@ import { redirectToAskQuestionPage } from 'containers/AskQuestion/actions';
 
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 import ScrollToTop from 'components/ScrollToTop/index';
-import TopCommunities from 'components/TopCommunities';
 import InfinityLoader from 'components/InfinityLoader';
+import TopCommunities from 'components/TopCommunities';
 import Seo from 'components/Seo';
 
 import {
@@ -92,10 +92,8 @@ export const Questions = ({
   const isExpert =
     path === routes.expertPosts() ||
     path === routes.expertPosts(':communityid');
-  const isFeed = parentPage === feed;
-  const isTopCommunitiesDisplay =
-    isFeed && !single && questionsList.length === 0;
 
+  const isFeed = parentPage == feed;
   const getInitQuestions = useCallback(
     () => {
       if (!questionFilter) {
@@ -269,9 +267,11 @@ export const Questions = ({
             )}
         </InfinityLoader>
       )}
-      {isTopCommunitiesDisplay && (
-        <TopCommunities communities={communities} profile={profile} />
-      )}
+      {isFeed &&
+        !single &&
+        questionsList.length === 0 && (
+          <TopCommunities communities={communities} profile={profile} />
+        )}
       {displayLoader && <LoadingIndicator />}
     </div>
   ) : (

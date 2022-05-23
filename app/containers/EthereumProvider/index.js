@@ -14,9 +14,9 @@ import injectSaga from 'utils/injectSaga';
 import { DAEMON } from 'utils/constants';
 import LoadingIndicator from 'components/LoadingIndicator/HeightWidthCentered';
 
-import { initEthereum } from './actions';
-import reducer from './reducer';
-import saga from './saga';
+import { initEthereum, showModal } from './actions';
+import reducer from 'containers/EthereumProvider/reducer';
+import saga from 'containers/EthereumProvider/saga';
 import { makeSelectEthereum, makeSelectInitializing } from './selectors';
 import {
   init,
@@ -60,11 +60,23 @@ const initWeb3Onboard = init({
   appMetadata: {
     name: 'Peeranha',
     icon: src,
-    description: 'Decentralized questions and answers website',
+    description: 'Knowledge sharing protocol for Web3',
     agreement: {
       version: '1.0.0',
       termsUrl: `${process.env.APP_LOCATION}/terms-and-conditions/`,
       privacyUrl: `${process.env.APP_LOCATION}/privacy-policy/`,
+    },
+  },
+  i18n: {
+    en: {
+      connect: {
+        selectingWallet: {
+          sidebar: {
+            paragraph:
+              'Connecting your wallet is like "logging in" to Web3. Not sure where to start? Select Torus wallet to log in with email, Google, or social media account.',
+          },
+        },
+      },
     },
   },
 });
@@ -72,6 +84,7 @@ const initWeb3Onboard = init({
 export const EthereumProvider = ({
   children,
   initEthereumDispatch,
+  showModalDispatch,
   initializing,
   ethereum,
 }) => {
@@ -99,6 +112,7 @@ export const EthereumProvider = ({
     disconnect,
     setChain,
     connectedChain,
+    showModalDispatch,
   };
 
   useEffect(() => {
@@ -137,6 +151,7 @@ const withConnect = connect(
   }),
   dispatch => ({
     initEthereumDispatch: bindActionCreators(initEthereum, dispatch),
+    showModalDispatch: bindActionCreators(showModal, dispatch),
   }),
 );
 
