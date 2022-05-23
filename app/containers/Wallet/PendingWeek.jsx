@@ -23,14 +23,11 @@ const PendingWeek = ({
   locale,
   periodStarted,
   periodFinished,
-  registrationWeek,
 }) => (
   <li className="flex-grow-1 mb-3">
     <Base position="top">
       <P className="mb-1" color={TEXT_WARNING_LIGHT} fontSize="13">
-        <FormattedMessage
-          {...messages[registrationWeek ? 'registrationWeek' : 'payoutPending']}
-        />
+        <FormattedMessage id={messages.payoutPending.id} />
       </P>
       <WeekNumber
         locale={locale}
@@ -40,23 +37,17 @@ const PendingWeek = ({
       />
     </Base>
     <Base position="bottom">
-      {!registrationWeek ? (
-        <>
-          <P className="mb-1" fontSize="14" color={TEXT_SECONDARY}>
-            <FormattedMessage {...messages.estimatedPayout} />
-          </P>
-          <P className="d-flex align-items-center">
-            <SmallImage className="mr-2" src={currencyPeerImage} alt="icon" />
-            <Span fontSize="20" mobileFS={14} bold>
-              {getFormattedNum3(reward / WEI_IN_ETH)}
-            </Span>
-          </P>
-        </>
-      ) : (
-        <P>
-          <FormattedMessage {...messages.thisIsRegistrationWeek} />
+      <>
+        <P className="mb-1" fontSize="14" color={TEXT_SECONDARY}>
+          <FormattedMessage id={messages.estimatedPayout.id} />
         </P>
-      )}
+        <P className="d-flex align-items-center">
+          <SmallImage className="mr-2" src={currencyPeerImage} alt="icon" />
+          <Span fontSize="20" mobileFS={14} bold>
+            {getFormattedNum3(reward / WEI_IN_ETH)}
+          </Span>
+        </P>
+      </>
     </Base>
   </li>
 );
@@ -67,7 +58,6 @@ PendingWeek.propTypes = {
   reward: PropTypes.number,
   periodStarted: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   periodFinished: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  registrationWeek: PropTypes.bool,
 };
 
 export default memo(PendingWeek);
