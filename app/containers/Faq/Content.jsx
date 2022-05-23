@@ -195,39 +195,43 @@ const Section = ({
         </H4>
       </BaseTransparent>
 
-      <div className={isOpened ? 'd-block' : 'd-none'}>
-        <ul>
-          {blocks
-            .slice(0, questionsNumber)
-            .map(x => (
-              <Question
-                {...x}
-                key={x.h3}
-                sectionCode={sectionCode}
-                route={route}
-                getQuestionCode={getQuestionCode}
-              />
-            ))}
-        </ul>
+      {isOpened && (
+        <div className="d-block">
+          <ul>
+            {blocks
+              .slice(0, questionsNumber)
+              .map(x => (
+                <Question
+                  {...x}
+                  key={x.h3}
+                  sectionCode={sectionCode}
+                  route={route}
+                  getQuestionCode={getQuestionCode}
+                />
+              ))}
+          </ul>
 
-        {blocks.length > DEFAULT_QST_NUM && (
-          <BaseTransparent className="pt-1">
-            <Button onClick={extendSection.bind(null, !isExtendedSection)}>
-              <FormattedMessage
-                {...commonMessages[isExtendedSection ? 'showLess' : 'showMore']}
-                values={{ value: `${questionsNumber}/${blocks.length}` }}
-              />
-              <Icon
-                className="ml-2"
-                rotate={isExtendedSection}
-                isTransition={false}
-                icon={arrowIconNotFilled}
-                width="8"
-              />
-            </Button>
-          </BaseTransparent>
-        )}
-      </div>
+          {blocks.length > DEFAULT_QST_NUM && (
+            <BaseTransparent className="pt-1">
+              <Button onClick={extendSection.bind(null, !isExtendedSection)}>
+                <FormattedMessage
+                  {...commonMessages[
+                    isExtendedSection ? 'showLess' : 'showMore'
+                  ]}
+                  values={{ value: `${questionsNumber}/${blocks.length}` }}
+                />
+                <Icon
+                  className="ml-2"
+                  rotate={isExtendedSection}
+                  isTransition={false}
+                  icon={arrowIconNotFilled}
+                  width="8"
+                />
+              </Button>
+            </BaseTransparent>
+          )}
+        </div>
+      )}
     </SectionStyled>
   );
 };
