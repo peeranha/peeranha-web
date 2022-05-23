@@ -98,15 +98,6 @@ function notificationsReducer(state = initialState, action) {
             lastTimestamp:
               notifications[notifications.length - 1].timestamp - 1,
             loading: false,
-          })
-          .set('unread', {
-            ...unreadSubState,
-            timestamps: notifications
-              .filter(n => !n.read)
-              .map(({ timestamp }) => timestamp),
-            lastTimestamp:
-              notifications[notifications.length - 1].timestamp - 1,
-            loading: false,
           });
       }
 
@@ -144,13 +135,6 @@ function notificationsReducer(state = initialState, action) {
             ),
             lastTimestamp:
               notifications[notifications.length - 1].timestamp - 1,
-            loading: false,
-          })
-          .set('all', {
-            ...allSubState,
-            readNotifications: allSubState.readNotifications.map(
-              n => n + newNots.length,
-            ),
             loading: false,
           });
       }

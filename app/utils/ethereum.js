@@ -61,8 +61,6 @@ class EthereumService {
     this.setChain = data.setChain;
     this.wallet = null;
     this.connectedWallets = null;
-    this.showModalDispatch = data.showModalDispatch;
-    this.stopWaiting = null;
   }
 
   setData = data => {
@@ -177,31 +175,30 @@ class EthereumService {
     };
   };
 
-  waitForCloseModal() {
-    return new Promise(resolve => {
-      this.stopWaiting = function() {
-        resolve();
-      };
-    });
-  }
-
   sendTransaction = async (contract, actor, action, data) => {
-    const dataFromCookies = getCookie(META_TRANSACTIONS_ALLOWED);
+    // const dataFromCookies = getCookie(META_TRANSACTIONS_ALLOWED);
     const balance = this.wallet?.accounts?.[0]?.balance?.[CURRENCY];
+    // if (!dataFromCookies) {
+    //   if (Number(balance) === 0) {
+    //     //TODO popup
+    //     setCookie({
+    //       name: META_TRANSACTIONS_ALLOWED,
+    //       value: true,
+    //       options: {
+    //         neverExpires: true,
+    //         defaultPath: true,
+    //         allowSubdomains: true,
+    //       },
+    //     });
+    //   }
+    // } else {
+    //   if (Number(balance) > 0) {
+    //     deleteCookie(META_TRANSACTIONS_ALLOWED);
+    //   }
+    // }
 
-    if (!dataFromCookies) {
-      if (Number(balance) === 0) {
-        this.showModalDispatch();
-        await this.waitForCloseModal();
-      }
-    } else {
-      if (Number(balance) > 0) {
-        deleteCookie(META_TRANSACTIONS_ALLOWED);
-      }
-    }
-
-    const metaTransactionsAllowed = getCookie(META_TRANSACTIONS_ALLOWED);
-    if (metaTransactionsAllowed) {
+    // const metaTransactionsAllowed = getCookie(META_TRANSACTIONS_ALLOWED);
+    if (balance < 0.001) {
       return await this.sendMetaTransaction(contract, actor, action, data);
     } else {
       try {

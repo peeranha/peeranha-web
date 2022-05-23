@@ -164,13 +164,14 @@ const UserNavigation = ({
             <FormattedMessage {...messages.settings} />
           </NavigationLink>
 
-          <NavigationLink
+          {/*TODO PEER20-286 Hide notifications from this version*/}
+          {/* <NavigationLink
             className={userId !== account ? 'd-none' : ''}
             to={routes.userNotifications(userId)}
             islink={path !== routes.userNotifications(userId) ? 1 : 0}
           >
             <FormattedMessage {...messages.notifications} />
-          </NavigationLink>
+          </NavigationLink> */}
 
           <NavigationLink
             to={routes.userNFTs(userId)}

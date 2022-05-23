@@ -15,7 +15,6 @@ import { LOGOUT } from './constants';
 import { logoutSuccess, logoutErr } from './actions';
 import { clearNotificationsData } from '../../components/Notifications/actions';
 import { selectEthereum } from '../EthereumProvider/selectors';
-import { META_TRANSACTIONS_ALLOWED } from '../../utils/constants';
 
 export function* logoutWorker() {
   try {
@@ -23,7 +22,6 @@ export function* logoutWorker() {
 
     deleteCookie(AUTOLOGIN_DATA);
     deleteCookie(PROFILE_INFO_LS);
-    deleteCookie(META_TRANSACTIONS_ALLOWED);
 
     yield call(ethereumService.resetWalletState);
 

@@ -80,7 +80,6 @@ import {
   FullWidthPreloader,
   TermsOfService,
   DeleteFacebookData,
-  MetaTransactionAgreement,
 } from './imports';
 import { getValueFromSearchString } from '../../utils/url';
 import { getCookie, setCookie } from '../../utils/cookie';
@@ -138,7 +137,6 @@ const App = ({
 
       <Login />
       <ForgotPassword />
-      <MetaTransactionAgreement />
 
       <ScrollTo />
       <Popover />

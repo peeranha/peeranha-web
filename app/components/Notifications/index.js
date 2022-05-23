@@ -43,7 +43,6 @@ import {
   loadMoreNotifications,
   markAsReadNotificationsAll,
   filterReadTimestamps,
-  markAllNotificationsAsRead,
 } from './actions';
 
 import Header from './Header';
@@ -55,7 +54,6 @@ import reducer from './reducer';
 import WidthCentered, {
   LoaderContainer,
 } from '../LoadingIndicator/WidthCentered';
-import classnames from 'classnames';
 
 const Container = styled.div`
   ${Wrapper} {
@@ -76,6 +74,8 @@ const Content = styled.div`
   flex-direction: column;
   border-radius: ${BORDER_RADIUS_L};
   width: 100%;
+  padding: 0;
+  height: ${({ height }) => height}px;
 `;
 
 const SubHeader = styled.div`
@@ -115,16 +115,6 @@ const Notifications = ({
   const ref = useRef(null);
   const containerRef = useRef(null);
 
-  useEffect(
-    () => {
-      markAsReadNotificationsAllDispatch([
-        0,
-        (notifications.length > 0 && notifications.length - 1) || 0,
-      ]);
-    },
-    [notifications.length],
-  );
-
   const rowHeight = useMemo(
     () => (containerWidth <= 768 ? ROW_HEIGHT_FOR_SMALL : ROW_HEIGHT),
     [containerWidth],
@@ -134,8 +124,9 @@ const Notifications = ({
     () => {
       const calc = Array.from(new Array(notifications.length).keys()).filter(
         x =>
-          x * rowHeight >= scrollPosition &&
-          (x + 1) * rowHeight - scrollPosition <= window.innerHeight,
+          x * rowHeight + ROW_HEIGHT + y + VERTICAL_OFFSET >= scrollPosition &&
+          x * rowHeight + ROW_HEIGHT - scrollPosition + VERTICAL_OFFSET <=
+            window.innerHeight,
       );
       const { 0: start, [calc.length - 1]: stop } = calc;
       return [start || 0, stop || 0];
@@ -152,15 +143,11 @@ const Notifications = ({
         indexToStop,
       ]);
 
-      /*
-      * TODO: Fix bug with reading notifications, information in Notification center and Dropdown
-      * may vary if notifications are received on the notifications page
-      */
-      /*if (!_isEqual(union, readNotifications) && !document.hidden) {
+      if (!_isEqual(union, readNotifications)) {
         markAsReadNotificationsAllDispatch(union);
       } else if (notifications.length === 1) {
         markAsReadNotificationsAllDispatch([0, 0]);
-      }*/
+      }
 
       setCalculatedRanges({
         ...calculatedRanges,
@@ -175,8 +162,7 @@ const Notifications = ({
       setScrollPosition(scrollTop);
       recalculateRanges();
 
-      /* TODO: Fix loading notifications */
-      if (!loading && indexToStop + 1 < notifications.length) {
+      if (!loading && indexToStop + 10 >= notifications.length) {
         loadMoreNotificationsDispatch();
       }
     },
@@ -264,12 +250,7 @@ const Notifications = ({
           )}
           <WindowScroller onResize={onResize} onScroll={onScroll}>
             {({ height, isScrolling, registerChild, scrollTop }) => (
-              <div
-                ref={registerChild}
-                className={classnames('pb-2', {
-                  'pt-2': !Boolean(unreadCount),
-                })}
-              >
+              <div ref={registerChild}>
                 <List
                   autoHeight
                   height={height}

@@ -81,14 +81,6 @@ const Box = styled.div`
   }
 `;
 
-const Buttons = styled.div`
-  display: flex;
-  align-items: center;
-  @media only screen and (max-width: 576px) {
-    overflow-x: scroll;
-  }
-`;
-
 const DropdownBox = styled.div`
   position: relative;
 `;
@@ -192,7 +184,7 @@ const ContentHeader = props => {
           isTemporaryAccount={isTemporaryAccount}
         />
 
-        <Buttons>
+        <div className="d-flex align-items-center">
           {type === QUESTION_TYPE && (
             <Button
               id={`${type}_change_type_with_rating_restore_${answerId}`}
@@ -313,7 +305,7 @@ const ContentHeader = props => {
             <IconMd icon={pencilIcon} />
             <FormattedMessage {...messages.editButton} />
           </Button>
-        </Buttons>
+        </div>
       </ItemInfo>
     </Box>
   );

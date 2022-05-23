@@ -132,8 +132,7 @@ export const postCommentValidator = (
   if (item.comments.length === maxCommentsNumber) {
     message = `${translations[messages.itemsMax.id]}`;
   } else if (
-    !hasGlobalModeratorRole(profileInfo.permissions) &&
-    (item.author.user === profileInfo.user ||
+    (item.user === profileInfo.user ||
       questionData.author === profileInfo.user) &&
     getRatingByCommunity(profileInfo, communityId) < MIN_RATING_FOR_MY_ITEM
   ) {
@@ -141,8 +140,7 @@ export const postCommentValidator = (
       translations[messages.notEnoughRating.id]
     } ${MIN_RATING_FOR_MY_ITEM}`;
   } else if (
-    item.author.user !== profileInfo.user &&
-    !hasGlobalModeratorRole(profileInfo.permissions) &&
+    item.user !== profileInfo.user &&
     questionData.author !== profileInfo.user &&
     getRatingByCommunity(profileInfo, communityId) < MIN_RATING_FOR_OTHER_ITEMS
   ) {

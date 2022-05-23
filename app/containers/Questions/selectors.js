@@ -3,9 +3,6 @@ import { makeSelectFollowedCommunities } from 'containers/AccountProvider/select
 
 import { initialState } from './reducer';
 
-import { isSingleCommunityWebsite } from 'utils/communityManagement';
-const single = isSingleCommunityWebsite();
-
 export const selectQuestionsDomain = state =>
   state.get('questionsReducer', initialState);
 
@@ -73,10 +70,6 @@ export const selectQuestions = (
         return questionsList.filter(
           x => Number(x.communityId) === Number(communityId),
         );
-      }
-
-      if (isFeed && single) {
-        return questionsList;
       }
 
       if (isFeed && followedCommunities) {

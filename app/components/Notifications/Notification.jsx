@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
@@ -13,9 +13,6 @@ import {
   BORDER_SECONDARY_LIGHT,
   TEXT_SECONDARY,
   BORDER_WARNING_LIGHT,
-  PEER_PRIMARY_COLOR,
-  BORDER_PRIMARY,
-  BORDER_PRIMARY_LIGHT,
 } from 'style-constants';
 
 import { trimRightZeros } from 'utils/numbers';
@@ -37,14 +34,6 @@ const single = isSingleCommunityWebsite();
 const styles = singleCommunityStyles();
 
 const Container = styled.div`
-  border-left: 3px solid transparent;
-  ${({ read, small }) =>
-    !read &&
-    !small &&
-    css`
-      border-left: 3px solid ${BORDER_PRIMARY_LIGHT};
-    `};
-
   position: absolute;
   align-items: center;
   justify-content: space-between;
