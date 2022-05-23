@@ -231,7 +231,7 @@ export const Questions = ({
       />
       {displayBanner && (
         <Banner
-          isFeed={parentPage === feed}
+          isFeed={isFeed}
           followedCommunities={followedCommunities}
           redirectToAskQuestionPage={redirectToAskQuestionPageDispatch}
         />
@@ -243,7 +243,7 @@ export const Questions = ({
           isLastFetch={lastFetched}
         >
           <Content
-            isFeed={parentPage === feed}
+            isFeed={isFeed}
             isCommunityFeed={isCommunityFeed}
             questionsList={questionsList}
             // promotedQuestionsList={
