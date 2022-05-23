@@ -69,7 +69,7 @@ const Box = styled.div`
   border-bottom: 1px solid ${BORDER_SECONDARY};
   height: 77px;
 
-  @media only screen and (max-width: 635px) {
+  @media only screen and (max-width: 640px) {
     flex-direction: column;
     align-items: stretch;
     height: auto;
@@ -84,9 +84,6 @@ const Box = styled.div`
 const Buttons = styled.div`
   display: flex;
   align-items: center;
-  @media only screen and (max-width: 576px) {
-    overflow-x: scroll;
-  }
 `;
 
 const DropdownBox = styled.div`
