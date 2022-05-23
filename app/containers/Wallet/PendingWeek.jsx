@@ -39,7 +39,7 @@ const PendingWeek = ({
     <Base position="bottom">
       <>
         <P className="mb-1" fontSize="14" color={TEXT_SECONDARY}>
-          <FormattedMessage id={messages.estimatedPayout} />
+          <FormattedMessage id={messages.estimatedPayout.id} />
         </P>
         <P className="d-flex align-items-center">
           <SmallImage className="mr-2" src={currencyPeerImage} alt="icon" />
