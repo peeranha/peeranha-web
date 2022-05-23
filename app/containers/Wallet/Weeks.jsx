@@ -77,13 +77,7 @@ const Weeks = ({
                 />
               )}
 
-              {pendingWeek && (
-                <PendingWeek
-                  locale={locale}
-                  registrationWeek={pendingWeek && weekStat.length === 2}
-                  {...pendingWeek}
-                />
-              )}
+              {pendingWeek && <PendingWeek locale={locale} {...pendingWeek} />}
             </CurrentPendingWeeks>
 
             <PaidOutWeeksContainer

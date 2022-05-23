@@ -62,8 +62,6 @@ const PaidOutWeek = ({
   pickupRewardProcessing,
   periodStarted,
   periodFinished,
-  ids,
-  registrationWeek,
   style,
 }) => {
   const pickUpReward = () => {
@@ -74,9 +72,7 @@ const PaidOutWeek = ({
       <BaseRoundedLi className="align-items-center">
         <div>
           <P fontSize="13" color={TEXT_SECONDARY}>
-            <FormattedMessage
-              {...messages[registrationWeek ? 'registrationWeek' : 'paidOut']}
-            />
+            <FormattedMessage {...messages.paidOut} />
           </P>
           <WeekNumber
             locale={locale}
@@ -129,8 +125,6 @@ PaidOutWeek.propTypes = {
   pickupRewardProcessing: PropTypes.bool,
   periodStarted: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   periodFinished: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  ids: PropTypes.array,
-  registrationWeek: PropTypes.bool,
   style: PropTypes.object,
 };
 
