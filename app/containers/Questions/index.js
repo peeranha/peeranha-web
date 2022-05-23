@@ -59,7 +59,7 @@ import ShowMoreButton from './Content/ShowMoreButton';
 
 import { QUESTION_FILTER, UPDATE_PROMO_QUESTIONS } from './constants';
 
-const feed = routes.feed();
+const isFeed = window.location.pathname.includes(routes.feed());
 const single = isSingleCommunityWebsite();
 
 export const Questions = ({
@@ -227,7 +227,7 @@ export const Questions = ({
       />
       {displayBanner && (
         <Banner
-          isFeed={parentPage === feed}
+          isFeed={isFeed}
           followedCommunities={followedCommunities}
           redirectToAskQuestionPage={redirectToAskQuestionPageDispatch}
         />
@@ -239,7 +239,7 @@ export const Questions = ({
           isLastFetch={lastFetched}
         >
           <Content
-            isFeed={parentPage === feed}
+            isFeed={isFeed}
             isCommunityFeed={isCommunityFeed}
             questionsList={questionsList}
             // promotedQuestionsList={
