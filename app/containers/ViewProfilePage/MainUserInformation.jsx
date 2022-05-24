@@ -254,7 +254,7 @@ const MainUserInformation = ({
                   <FormattedMessage {...messages.memberSince} />
                   <div>
                     <ProfileSince
-                      creationTime={profile.creationTime}
+                      creationTime={profile?.creationTime}
                       locale={locale}
                     />
                   </div>
