@@ -24,14 +24,10 @@ import Dropdown from 'components/Dropdown';
 import Ul from 'components/Ul/SpecialOne';
 import Span from 'components/Span';
 import A from 'components/A';
-import RatingStatus from 'components/RatingStatus';
-import AchievementsStatus from 'components/AchievementsStatus';
 import { MediumSpecialImage } from 'components/Img/MediumImage';
 import { IconLg } from 'components/Icon/IconWithSizes';
 import Logout from 'containers/Logout';
 import Icon from 'components/Icon/index';
-
-import { userNFTs } from 'routes-config';
 import { selectIsMenuVisible } from '../AppWrapper/selectors';
 import { getPermissions } from '../../utils/properties';
 
@@ -68,17 +64,16 @@ const NoAvatarBox = styled.div`
 
 const B = ({ profileInfo, onClick, isMenuVisible, isMobileVersion }) => {
   const profileName = () => {
-    const profileHash = `${profileInfo.loginData.account.substring(
+    if (profileInfo.displayName) {
+      return profileInfo.displayName;
+    }
+
+    return `${profileInfo.loginData.account.substring(
       0,
       6,
     )}...${profileInfo.loginData.account.substring(
       profileInfo.loginData.account.length - 4,
     )}`;
-
-    if (profileInfo.displayName) {
-      return profileInfo.displayName;
-    }
-    return profileHash;
   };
 
   return (
