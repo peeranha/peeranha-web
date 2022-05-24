@@ -21,6 +21,7 @@ import {
   historiesQuery,
   currentPeriodQuery,
 } from './ethConstants';
+import { isUserExists } from './accountManagement';
 
 const client = new ApolloClient({
   uri: process.env.THE_GRAPH_QUERY_URL,
@@ -233,11 +234,13 @@ export const getAllAchievements = async userId => {
   };
 };
 
-export const getRewardStat = async userId => {
+export const getRewardStat = async (userId, ethereumService) => {
+  const isNewUser = await isUserExists(userId, ethereumService);
   const response = await client.query({
     query: gql(rewardsQuery),
     variables: {
       userId,
+      periodsCount: isNewUser ? 1 : 2,
     },
   });
   return [response?.data?.userRewards, response?.data?.periods];

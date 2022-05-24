@@ -47,7 +47,7 @@ export const getAvailableBalance = async (ethereumService, user) => {
 };
 
 export async function getWeekStat(ethereumService, user) {
-  const [rewards, periods] = await getRewardStat(user);
+  const [rewards, periods] = await getRewardStat(user, ethereumService);
   const inactiveFirstPeriods = [];
 
   periods.map(period => {

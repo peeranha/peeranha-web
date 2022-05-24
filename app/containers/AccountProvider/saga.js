@@ -102,6 +102,7 @@ import { makeSelectLocale } from '../LanguageProvider/selectors';
 import { translationMessages } from '../../i18n';
 import { selectEthereum } from '../EthereumProvider/selectors';
 import { hasGlobalModeratorRole } from '../../utils/properties';
+import { getNotificationsInfoWorker } from '../../components/Notifications/saga';
 import { getCurrentPeriod } from '../../utils/theGraph';
 
 const single = isSingleCommunityWebsite();
@@ -158,6 +159,10 @@ export const getCurrentAccountWorker = function*(initAccount) {
       call(getAvailableBalance, ethereumService, account),
       call(getUserBoost, ethereumService, account, currentPeriod.id),
     ]);
+
+    if (profileInfo) {
+      yield call(getNotificationsInfoWorker, profileInfo.user);
+    }
 
     setCookie({
       name: PROFILE_INFO_LS,

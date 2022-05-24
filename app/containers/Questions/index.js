@@ -92,6 +92,9 @@ export const Questions = ({
   const isExpert =
     path === routes.expertPosts() ||
     path === routes.expertPosts(':communityid');
+  const isFeed = parentPage === feed;
+  const isTopCommunitiesDisplay =
+    isFeed && !single && questionsList.length === 0;
   const getInitQuestions = useCallback(
     () => {
       if (!questionFilter) {
@@ -227,7 +230,7 @@ export const Questions = ({
       />
       {displayBanner && (
         <Banner
-          isFeed={parentPage === feed}
+          isFeed={isFeed}
           followedCommunities={followedCommunities}
           redirectToAskQuestionPage={redirectToAskQuestionPageDispatch}
         />
@@ -239,7 +242,7 @@ export const Questions = ({
           isLastFetch={lastFetched}
         >
           <Content
-            isFeed={parentPage === feed}
+            isFeed={isFeed}
             isCommunityFeed={isCommunityFeed}
             questionsList={questionsList}
             // promotedQuestionsList={
@@ -265,7 +268,7 @@ export const Questions = ({
             )}
         </InfinityLoader>
       )}
-      {questionsList.length === 0 && (
+      {isTopCommunitiesDisplay && (
         <TopCommunities communities={communities} profile={profile} />
       )}
       {displayLoader && <LoadingIndicator />}

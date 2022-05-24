@@ -92,7 +92,9 @@ const B = ({ profileInfo, onClick, isMenuVisible, isMobileVersion }) => (
       isMenuVisible={isMenuVisible}
     >
       <Span bold color={(!isMobileVersion && styles.commHeadElemColor) || ''}>
-        {profileInfo?.displayName}
+        {profileInfo.loginData.account.substring(0, 6)}...{profileInfo.loginData.account.substring(
+          profileInfo.loginData.account.length - 4,
+        )}
       </Span>
     </Info>
   </span>
@@ -140,10 +142,9 @@ const Menu = memo(
           >
             <FormattedMessage {...messages.settings} />
           </A>
-          {/* TODO PEER20-286 Hide notifications from this version */}
-          {/* <A to={routes.userNotifications(user)}>
+          <A to={routes.userNotifications(user)}>
             <FormattedMessage {...messages.notifications} />
-          </A> */}
+          </A>
           <A to={routes.userNFTs(user)}>
             <FormattedMessage id={messages.NFTs.id} />
           </A>

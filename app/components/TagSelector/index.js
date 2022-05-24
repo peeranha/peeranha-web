@@ -42,7 +42,17 @@ const ScrollDropdown = styled.div`
 `;
 
 const Base = styled.div`
-  margin-bottom: ${({ isOpen }) => (isOpen ? 120 : 0)}px;
+    margin-bottom: ${({ isOpen }) => (isOpen ? 120 : 0)}px;
+    @media only screen and (min-width: 769px) and (max-width: 991px) {
+      padding-bottom: ${({ isOpen }) => (isOpen ? 150 : 0)}px;
+    }
+    @media only screen and (min-width: 235px) and (max-width: 768px) {
+      padding-bottom: ${({ isOpen }) => (isOpen ? 130 : 0)}px;
+    }
+    @media only screen and (max-width: 234px) {
+      padding-bottom: ${({ isOpen }) => (isOpen ? 110 : 0)}px;
+    }
+  }
 `;
 
 export const TagSelector = ({

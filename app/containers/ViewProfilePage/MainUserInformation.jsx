@@ -108,10 +108,16 @@ export const UlStyled = Ul.extend`
 
     @media only screen and (max-width: 500px) {
       height: 70px;
+      padding: 10px 15px 5px 0;
       span,
       div {
         font-size: 13px !important;
       }
+    }
+    @media only screen and (max-width: 400px) {
+      display: block;
+      width: 100%;
+      padding: 10px 25px 5px 0;
     }
   }
 `;

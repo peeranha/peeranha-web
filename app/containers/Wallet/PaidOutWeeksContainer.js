@@ -38,7 +38,6 @@ const PaidOutWeeksContainer = ({
           ids={ids}
           {...weekStat[index]}
           style={style}
-          registrationWeek={index === weekStat.length - 1}
         />
       </CellMeasurer>
     );

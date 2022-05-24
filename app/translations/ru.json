@@ -52,7 +52,7 @@
   "app.common.limitedEdition": "Ограниченное издание",
   "app.common.contractAddress": "Контракт",
   "app.common.allQuestions": "Все вопросы",
-  "app.common.manageMyComm": "Управлять сообществами",
+  "app.common.manageMyComm": "Смотреть все сообщества",
   "app.common.asked": "Задано",
   "app.common.askedWhen": "Задано {when}",
   "app.common.answeredWhen": "Отвечено {when}",
