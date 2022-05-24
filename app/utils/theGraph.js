@@ -236,7 +236,6 @@ export const getAllAchievements = async userId => {
 
 export const getRewardStat = async (userId, ethereumService) => {
   const isUserRegistered = await isUserExists(userId, ethereumService);
-  console.log('isUserRegistered', isUserRegistered);
   const response = await client.query({
     query: gql(rewardsQuery),
     variables: {

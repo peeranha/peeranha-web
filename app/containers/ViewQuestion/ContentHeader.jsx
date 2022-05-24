@@ -69,7 +69,7 @@ const Box = styled.div`
   border-bottom: 1px solid ${BORDER_SECONDARY};
   height: 77px;
 
-  @media only screen and (max-width: 576px) {
+  @media only screen and (max-width: 640px) {
     flex-direction: column;
     align-items: stretch;
     height: auto;
@@ -79,6 +79,11 @@ const Box = styled.div`
       padding: 0 15px;
     }
   }
+`;
+
+const Buttons = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 const DropdownBox = styled.div`
@@ -184,7 +189,7 @@ const ContentHeader = props => {
           isTemporaryAccount={isTemporaryAccount}
         />
 
-        <div className="d-flex align-items-center">
+        <Buttons>
           {type === QUESTION_TYPE && (
             <Button
               id={`${type}_change_type_with_rating_restore_${answerId}`}
@@ -305,7 +310,7 @@ const ContentHeader = props => {
             <IconMd icon={pencilIcon} />
             <FormattedMessage {...messages.editButton} />
           </Button>
-        </div>
+        </Buttons>
       </ItemInfo>
     </Box>
   );
