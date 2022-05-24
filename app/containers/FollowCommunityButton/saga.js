@@ -54,14 +54,6 @@ export function* followHandlerWorker({
           )
         : [...profileInfo.followedCommunities, +communityIdFilter],
     };
-    // setCookie({
-    //   name: PROFILE_INFO_LS,
-    //   value: JSON.stringify(updatedProfileInfo),
-    //   options: {
-    //     defaultPath: true,
-    //     allowSubdomains: true,
-    //   },
-    // });
 
     yield put(getUserProfileSuccess(updatedProfileInfo));
     yield put(
