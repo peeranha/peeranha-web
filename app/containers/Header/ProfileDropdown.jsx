@@ -24,16 +24,12 @@ import Dropdown from 'components/Dropdown';
 import Ul from 'components/Ul/SpecialOne';
 import Span from 'components/Span';
 import A from 'components/A';
-import RatingStatus from 'components/RatingStatus';
-import AchievementsStatus from 'components/AchievementsStatus';
 import { MediumSpecialImage } from 'components/Img/MediumImage';
 import { IconLg } from 'components/Icon/IconWithSizes';
 import Logout from 'containers/Logout';
 import Icon from 'components/Icon/index';
-
 import { selectIsMenuVisible } from '../AppWrapper/selectors';
 import { getPermissions } from '../../utils/properties';
-import { userNFTs } from 'routes-config';
 
 const styles = singleCommunityStyles();
 const colors = singleCommunityColors();
@@ -66,39 +62,52 @@ const NoAvatarBox = styled.div`
   align-items: center;
 `;
 
-const B = ({ profileInfo, onClick, isMenuVisible, isMobileVersion }) => (
-  <span className="d-flex" onClick={onClick}>
-    {(!profileInfo.avatar || profileInfo.avatar === NO_AVATAR) && (
-      <NoAvatarBox isMobileVersion={isMobileVersion}>
-        <Icon
-          width="17"
-          height="19"
-          icon={userBodyIconAvatar}
-          specialStyles={!isMobileVersion && styles.dropDownIconStyles}
-        />
-      </NoAvatarBox>
-    )}
-    {profileInfo.avatar &&
-      profileInfo.avatar !== NO_AVATAR && (
-        <MediumSpecialImage
-          isBordered
-          customBorderStyle={!isMobileVersion && styles.communityBorderStyle}
-          src={getUserAvatar(profileInfo.avatar)}
-          alt="avatar"
-        />
+const B = ({ profileInfo, onClick, isMenuVisible, isMobileVersion }) => {
+  const profileName = () => {
+    if (profileInfo.displayName) {
+      return profileInfo.displayName;
+    }
+
+    return `${profileInfo.loginData.account.substring(
+      0,
+      6,
+    )}...${profileInfo.loginData.account.substring(
+      profileInfo.loginData.account.length - 4,
+    )}`;
+  };
+
+  return (
+    <span className="d-flex" onClick={onClick}>
+      {(!profileInfo.avatar || profileInfo.avatar === NO_AVATAR) && (
+        <NoAvatarBox isMobileVersion={isMobileVersion}>
+          <Icon
+            width="17"
+            height="19"
+            icon={userBodyIconAvatar}
+            specialStyles={!isMobileVersion && styles.dropDownIconStyles}
+          />
+        </NoAvatarBox>
       )}
-    <Info
-      className="d-flex flex-column justify-content-center"
-      isMenuVisible={isMenuVisible}
-    >
-      <Span bold color={(!isMobileVersion && styles.commHeadElemColor) || ''}>
-        {profileInfo.loginData.account.substring(0, 6)}...{profileInfo.loginData.account.substring(
-          profileInfo.loginData.account.length - 4,
+      {profileInfo.avatar &&
+        profileInfo.avatar !== NO_AVATAR && (
+          <MediumSpecialImage
+            isBordered
+            customBorderStyle={!isMobileVersion && styles.communityBorderStyle}
+            src={getUserAvatar(profileInfo.avatar)}
+            alt="avatar"
+          />
         )}
-      </Span>
-    </Info>
-  </span>
-);
+      <Info
+        className="d-flex flex-column justify-content-center"
+        isMenuVisible={isMenuVisible}
+      >
+        <Span bold color={(!isMobileVersion && styles.commHeadElemColor) || ''}>
+          {profileName()}
+        </Span>
+      </Info>
+    </span>
+  );
+};
 
 export const Button = connect(state => ({
   isMenuVisible: selectIsMenuVisible()(state),
