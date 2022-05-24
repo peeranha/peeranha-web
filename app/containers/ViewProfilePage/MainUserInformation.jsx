@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
@@ -166,6 +166,11 @@ const MainUserInformation = ({
     x => x.key === TEMPORARY_ACCOUNT_KEY && x.value,
   );
   const userPolygonScanAddress = process.env.BLOCKCHAIN_EXPLORERE_URL + userId;
+
+  // const creationTime = useMemo(() => {
+  //   return profile.creationTime}
+  //   ,[]);
+  console.log(profile);
   return (
     <Box position="middle">
       <div>
@@ -252,10 +257,7 @@ const MainUserInformation = ({
                 <div>
                   <FormattedMessage {...messages.memberSince} />
                   <div>
-                    <ProfileSince
-                      creationTime={profile?.creationTime}
-                      locale={locale}
-                    />
+                    <ProfileSince creationTime={creationTime} locale={locale} />
                   </div>
                 </div>
               </li>

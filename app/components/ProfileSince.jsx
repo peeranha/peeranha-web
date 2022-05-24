@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
 import { getFormattedDate } from 'utils/datetime';
@@ -17,6 +17,13 @@ export const ProfileSince = ({ creationTime, locale }) => {
     () => getFormattedDate(creationTime, locale, MONTH_3LETTERS__DAY_YYYY),
     [],
   );
+
+  console.log(creationTime);
+  // useEffect(()=>{
+  //   if (profileSince == 'Invalid Date') {
+  //     window.location.reload()
+  //   }
+  // })
 
   return <Span>{profileSince}</Span>;
 };
