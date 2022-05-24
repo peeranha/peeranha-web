@@ -33,11 +33,11 @@ import { Flag, Li } from './Styled';
 /* eslint global-require: 0 */
 export const ChangeLocale = ({ locale, changeLocaleDispatch, withTitle }) => {
   function setLocale(newLocale) {
-    // setCookie({
-    //   name: APP_LOCALE,
-    //   value: newLocale,
-    //   options: { neverExpires: true, defaultPath: true, allowSubdomains: true },
-    // });
+    setCookie({
+      name: APP_LOCALE,
+      value: newLocale,
+      options: { neverExpires: true, defaultPath: true, allowSubdomains: true },
+    });
 
     const path = window.location.pathname + window.location.hash;
 
