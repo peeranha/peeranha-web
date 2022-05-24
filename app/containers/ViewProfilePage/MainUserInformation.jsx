@@ -167,10 +167,6 @@ const MainUserInformation = ({
   );
   const userPolygonScanAddress = process.env.BLOCKCHAIN_EXPLORERE_URL + userId;
 
-  // const creationTime = useMemo(() => {
-  //   return profile.creationTime}
-  //   ,[]);
-  console.log(profile);
   return (
     <Box position="middle">
       <div>
@@ -257,7 +253,10 @@ const MainUserInformation = ({
                 <div>
                   <FormattedMessage {...messages.memberSince} />
                   <div>
-                    <ProfileSince creationTime={creationTime} locale={locale} />
+                    <ProfileSince
+                      creationTime={profile.creationTime}
+                      locale={locale}
+                    />
                   </div>
                 </div>
               </li>

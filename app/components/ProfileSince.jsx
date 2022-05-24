@@ -18,14 +18,13 @@ export const ProfileSince = ({ creationTime, locale }) => {
     [],
   );
 
-  console.log(creationTime);
-  // useEffect(()=>{
-  //   if (profileSince == 'Invalid Date') {
-  //     window.location.reload()
-  //   }
-  // })
+  useEffect(() => {
+    if (profileSince == 'Invalid Date') {
+      window.location.reload();
+    }
+  });
 
-  return <Span>{profileSince}</Span>;
+  return profileSince == 'Invalid Date' ? null : <Span>{profileSince}</Span>;
 };
 
 ProfileSince.propTypes = {
