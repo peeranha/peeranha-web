@@ -66,44 +66,53 @@ const NoAvatarBox = styled.div`
   align-items: center;
 `;
 
-const B = ({ profileInfo, onClick, isMenuVisible, isMobileVersion }) => (
-  <span className="d-flex" onClick={onClick}>
-    {(!profileInfo.avatar || profileInfo.avatar === NO_AVATAR) && (
-      <NoAvatarBox isMobileVersion={isMobileVersion}>
-        <Icon
-          width="17"
-          height="19"
-          icon={userBodyIconAvatar}
-          specialStyles={!isMobileVersion && styles.dropDownIconStyles}
-        />
-      </NoAvatarBox>
-    )}
-    {profileInfo.avatar &&
-      profileInfo.avatar !== NO_AVATAR && (
-        <MediumSpecialImage
-          isBordered
-          customBorderStyle={!isMobileVersion && styles.communityBorderStyle}
-          src={getUserAvatar(profileInfo.avatar)}
-          alt="avatar"
-        />
+const B = ({ profileInfo, onClick, isMenuVisible, isMobileVersion }) => {
+  const profileName = () => {
+    const profileHash = `${profileInfo.loginData.account.substring(
+      0,
+      6,
+    )}...${profileInfo.loginData.account.substring(
+      profileInfo.loginData.account.length - 4,
+    )}`;
+
+    if (profileInfo.displayName) {
+      return profileInfo.displayName;
+    }
+    return profileHash;
+  };
+
+  return (
+    <span className="d-flex" onClick={onClick}>
+      {(!profileInfo.avatar || profileInfo.avatar === NO_AVATAR) && (
+        <NoAvatarBox isMobileVersion={isMobileVersion}>
+          <Icon
+            width="17"
+            height="19"
+            icon={userBodyIconAvatar}
+            specialStyles={!isMobileVersion && styles.dropDownIconStyles}
+          />
+        </NoAvatarBox>
       )}
-    <Info
-      className="d-flex flex-column justify-content-center"
-      isMenuVisible={isMenuVisible}
-    >
-      <Span bold color={(!isMobileVersion && styles.commHeadElemColor) || ''}>
-        {profileInfo.displayName
-          ? profileInfo.displayName
-          : `${profileInfo.loginData.account.substring(
-              0,
-              6,
-            )}...${profileInfo.loginData.account.substring(
-              profileInfo.loginData.account.length - 4,
-            )}`}
-      </Span>
-    </Info>
-  </span>
-);
+      {profileInfo.avatar &&
+        profileInfo.avatar !== NO_AVATAR && (
+          <MediumSpecialImage
+            isBordered
+            customBorderStyle={!isMobileVersion && styles.communityBorderStyle}
+            src={getUserAvatar(profileInfo.avatar)}
+            alt="avatar"
+          />
+        )}
+      <Info
+        className="d-flex flex-column justify-content-center"
+        isMenuVisible={isMenuVisible}
+      >
+        <Span bold color={(!isMobileVersion && styles.commHeadElemColor) || ''}>
+          {profileName()}
+        </Span>
+      </Info>
+    </span>
+  );
+};
 
 export const Button = connect(state => ({
   isMenuVisible: selectIsMenuVisible()(state),
