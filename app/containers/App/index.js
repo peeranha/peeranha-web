@@ -103,17 +103,17 @@ const App = ({
   useEffect(() => {
     if (!getCookie(REFERRAL_CODE_URI)) {
       const value = getValueFromSearchString(search, REFERRAL_CODE_URI);
-      if (value) {
-        setCookie({
-          name: REFERRAL_CODE_URI,
-          value,
-          options: {
-            allowSubdomains: true,
-            neverExpires: true,
-            defaultPath: true,
-          },
-        });
-      }
+      // if (value) {
+      //   setCookie({
+      //     name: REFERRAL_CODE_URI,
+      //     value,
+      //     options: {
+      //       allowSubdomains: true,
+      //       neverExpires: true,
+      //       defaultPath: true,
+      //     },
+      //});
+      // }
     }
 
     const loginData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
