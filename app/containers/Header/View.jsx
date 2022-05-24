@@ -20,23 +20,25 @@ import peeranhaLogo from 'images/LogoBlack.svg?inline';
 import {
   isSingleCommunityWebsite,
   singleCommunityStyles,
-  getSingleCommunityDetails,
+  singleCommunityColors,
 } from 'utils/communityManagement';
 
 import LargeButton from 'components/Button/Contained/InfoLarge';
 import Icon from 'components/Icon';
 import { IconSm, IconLm } from 'components/Icon/IconWithSizes';
-import { ADefault } from 'components/A';
 
-import { Wrapper, MainSubHeader, SingleModeSubHeader } from './Wrapper';
+import { Wrapper, MainSubHeader } from './Wrapper';
 import Section from './Section';
-import LogoStyles, { QAndALogo } from './Logo';
+import LogoStyles from './Logo';
 
 import ButtonGroupForNotAuthorizedUser from './ButtonGroupForNotAuthorizedUser';
 import ButtonGroupForAuthorizedUser from './ButtonGroupForAuthorizedUser';
 import SearchForm from './SearchForm';
 
-import { HEADER_ID, SEARCH_FORM_ID } from './constants';
+import { HEADER_ID, LOADER_HEIGHT, SEARCH_FORM_ID } from './constants';
+import styled from 'styled-components';
+import processIndicator from '../../images/progress-indicator.svg?inline';
+import { ADefault } from '../../components/A';
 
 const single = isSingleCommunityWebsite();
 const styles = singleCommunityStyles();
@@ -60,6 +62,29 @@ export const LoginProfile = memo(
       />
     ),
 );
+
+const colors = singleCommunityColors();
+
+const ProgressIndicator = styled.div`
+  background: ${colors.mainBackground
+    ? colors.mainBackground
+    : 'rgb(234, 236, 244)'};
+  min-height: ${LOADER_HEIGHT}px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+
+  img {
+    margin-right: 10px;
+    animation: rotation 1s infinite linear;
+  }
+
+  div {
+    display: flex;
+    align-items: center;
+  }
+`;
 
 const Button = LargeButton.extend`
   background-color: ${x => x.bg};
@@ -87,6 +112,8 @@ const View = ({
   redirectToAskQuestionPage,
   showLoginModalWithRedirectToAskQuestionPage,
   faqQuestions,
+  isTransactionInPending,
+  transactionHash,
 }) => {
   const [isSearchFormVisible, setSearchFormVisibility] = useState(false);
 
@@ -118,31 +145,28 @@ const View = ({
   );
 
   return (
-    <Wrapper id={HEADER_ID}>
-      {/* {!styles?.customSubHeader &&
-        !!single && (
-          <SingleModeSubHeader>
-            <div className="container">
-              <ADefault href={`${process.env.APP_LOCATION}${routes.feed()}`}>
-                <img id="peeranha-logo" src={peeranhaLogo} alt="logo" />
-              </ADefault>
+    <Wrapper id={HEADER_ID} isTransactionInPending={isTransactionInPending}>
+      {isTransactionInPending && (
+        <ProgressIndicator>
+          <div>
+            <img src={processIndicator} alt="icon" />
+            <FormattedMessage
+              {...messages.transactionInPending}
+              values={{
+                transaction: (
+                  <ADefault
+                    href={`https://mumbai.polygonscan.com/tx/${transactionHash}`}
+                    target="_blank"
+                  >
+                    <FormattedMessage {...messages.transaction} />
+                  </ADefault>
+                ),
+              }}
+            />
+          </div>
+        </ProgressIndicator>
+      )}
 
-              <ADefault href={`${process.env.APP_LOCATION}${routes.feed()}`}>
-                <FormattedMessage {...messages.myFeed} />
-              </ADefault>
-
-              <ADefault href={`${process.env.APP_LOCATION}/#allquestions`}>
-                <FormattedMessage {...messages.allQuestions} />
-              </ADefault>
-              <ADefault
-                href={`${process.env.APP_LOCATION}${routes.communities()}`}
-              >
-                <FormattedMessage {...messages.allCommunities} />
-              </ADefault>
-            </div>
-          </SingleModeSubHeader>
-        )}
-      {styles?.customSubHeader ?? null} */}
       <MainSubHeader mainSubHeaderBgColor={styles.mainSubHeaderBgColor}>
         <div className="container">
           <div className="d-flex align-items-center justify-content-between">

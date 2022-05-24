@@ -63,6 +63,8 @@ class EthereumService {
     this.connectedWallets = null;
     this.showModalDispatch = data.showModalDispatch;
     this.stopWaiting = null;
+    this.transactionInPending = data.transactionInPendingDispatch;
+    this.transactionCompleted = data.transactionCompletedDispatch;
   }
 
   setData = data => {
@@ -209,7 +211,11 @@ class EthereumService {
         const transaction = await this[contract]
           .connect(this.provider.getSigner(actor))
           [action](...data);
-        return await transaction.wait();
+        console.log(transaction.hash);
+        this.transactionInPending(transaction.hash);
+        const result = await transaction.wait();
+        this.transactionCompleted();
+        return result;
       } catch (err) {
         switch (err.code) {
           case INVALID_ETHEREUM_PARAMETERS_ERROR_CODE:

@@ -26,6 +26,7 @@ import { makeSelectToasts } from './selectors';
 
 import { errHandlingTypes, successHandlingTypes, otherTypes } from './imports';
 import errorMessages from 'errorsByCode';
+import { selectTransactionHash } from '../EthereumProvider/selectors';
 
 export function* errHandling(error) {
   const locale = yield select(makeSelectLocale());
@@ -88,11 +89,15 @@ export function* errHandling(error) {
 export function* successHandling() {
   const locale = yield select(makeSelectLocale());
   const msg = translationMessages[locale];
-
+  const transactionHash = yield select(selectTransactionHash());
+  console.log(transactionHash);
+  const text = Boolean(transactionHash)
+    ? msg[messages.transactionCompleted.id]
+    : msg[messages.successMessage.id];
   yield put(
     addToast({
       type: 'success',
-      text: msg[messages.successMessage.id],
+      text: text,
     }),
   );
 }

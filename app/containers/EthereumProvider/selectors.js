@@ -31,10 +31,22 @@ export const makeSelectShowModal = () =>
     substate.get('showModal'),
   );
 
+const selectTransactionInPending = () =>
+  createSelector(selectEthereumProviderDomain, substate =>
+    substate.get('inPending'),
+  );
+
+const selectTransactionHash = () =>
+  createSelector(selectEthereumProviderDomain, substate =>
+    substate.get('transactionHash'),
+  );
+
 export {
   selectEthereumProviderDomain,
   selectEthereum,
   makeSelectInitializing,
   makeSelectEthereum,
   makeSelectError,
+  selectTransactionInPending,
+  selectTransactionHash,
 };

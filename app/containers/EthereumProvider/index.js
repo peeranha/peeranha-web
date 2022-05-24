@@ -14,7 +14,12 @@ import injectSaga from 'utils/injectSaga';
 import { DAEMON } from 'utils/constants';
 import LoadingIndicator from 'components/LoadingIndicator/HeightWidthCentered';
 
-import { initEthereum, showModal } from './actions';
+import {
+  initEthereum,
+  showModal,
+  transactionCompleted,
+  transactionInPending,
+} from './actions';
 import reducer from 'containers/EthereumProvider/reducer';
 import saga from 'containers/EthereumProvider/saga';
 import { makeSelectEthereum, makeSelectInitializing } from './selectors';
@@ -85,6 +90,8 @@ export const EthereumProvider = ({
   children,
   initEthereumDispatch,
   showModalDispatch,
+  transactionInPendingDispatch,
+  transactionCompletedDispatch,
   initializing,
   ethereum,
 }) => {
@@ -113,6 +120,8 @@ export const EthereumProvider = ({
     setChain,
     connectedChain,
     showModalDispatch,
+    transactionInPendingDispatch,
+    transactionCompletedDispatch,
   };
 
   useEffect(() => {
@@ -152,6 +161,14 @@ const withConnect = connect(
   dispatch => ({
     initEthereumDispatch: bindActionCreators(initEthereum, dispatch),
     showModalDispatch: bindActionCreators(showModal, dispatch),
+    transactionInPendingDispatch: bindActionCreators(
+      transactionInPending,
+      dispatch,
+    ),
+    transactionCompletedDispatch: bindActionCreators(
+      transactionCompleted,
+      dispatch,
+    ),
   }),
 );
 

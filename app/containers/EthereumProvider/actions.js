@@ -10,6 +10,8 @@ import {
   INIT_ETHEREUM_ERROR,
   SHOW_MODAL,
   HIDE_MODAL,
+  TRANSACTION_COMPLETED,
+  TRANSACTION_IN_PENDING,
 } from './constants';
 
 export function initEthereum(data) {
@@ -42,5 +44,18 @@ export function showModal() {
 export function hideModal() {
   return {
     type: HIDE_MODAL,
+  };
+}
+
+export function transactionInPending(transactionHash) {
+  return {
+    type: TRANSACTION_IN_PENDING,
+    transactionHash,
+  };
+}
+
+export function transactionCompleted() {
+  return {
+    type: TRANSACTION_COMPLETED,
   };
 }

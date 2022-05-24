@@ -11,6 +11,8 @@ import {
   INIT_ETHEREUM_ERROR,
   SHOW_MODAL,
   HIDE_MODAL,
+  TRANSACTION_IN_PENDING,
+  TRANSACTION_COMPLETED,
 } from './constants';
 
 export const initialState = fromJS({
@@ -18,10 +20,12 @@ export const initialState = fromJS({
   ethereum: null,
   error: null,
   showModal: false,
+  inPending: false,
+  transactionHash: null,
 });
 
 function ethereumProviderReducer(state = initialState, action) {
-  const { type, error, ethereum } = action;
+  const { type, error, ethereum, transactionHash } = action;
 
   switch (type) {
     case INIT_ETHEREUM:
@@ -34,6 +38,12 @@ function ethereumProviderReducer(state = initialState, action) {
       return state.set('showModal', true);
     case HIDE_MODAL:
       return state.set('showModal', false);
+    case TRANSACTION_IN_PENDING:
+      return state
+        .set('inPending', true)
+        .set('transactionHash', transactionHash);
+    case TRANSACTION_COMPLETED:
+      return state.set('inPending', false);
     default:
       return state;
   }

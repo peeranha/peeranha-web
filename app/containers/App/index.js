@@ -134,7 +134,7 @@ const App = ({
   return (
     <ErrorBoundary>
       <Toast />
-      <ProgressIndicator />
+      {/*<ProgressIndicator />*/}
 
       <Login />
       <ForgotPassword />

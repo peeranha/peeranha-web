@@ -213,7 +213,7 @@ export async function postQuestion(
   tags,
   ethereumService,
 ) {
-  const ipfsLink = await saveText(JSON.stringify(questionData));
+  const ipfsLink = await saveText(JSON.stringify('eddrftgyhujeifkrf'));
   const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
   return await ethereumService.sendTransaction(
     CONTRACT_CONTENT,

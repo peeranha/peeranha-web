@@ -195,6 +195,10 @@
     "Please check Metamask connection and try to reload the page",
   "app.common.ipfsHashValue": "IPFS",
   "app.common.source": "Source",
+  "app.common.transactionInPending":
+    "Waiting for {transaction} confirmation...",
+  "app.common.transaction": "transaction",
+  "app.common.transactionCompleted": "Transaction completed successfully",
 
   "app.telegram.user": "Telegram user",
   "app.telegram.userLabelPopover":
