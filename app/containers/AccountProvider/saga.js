@@ -123,9 +123,8 @@ export const getCurrentAccountWorker = function*(initAccount) {
       ? initAccount
       : call(ethereumService.getSelectedAccount);
 
-    const previouslyConnectedWallet = JSON.parse(
-      window.localStorage.getItem('connectedWallet'),
-    );
+    const previouslyConnectedWallet = JSON.parse(getCookie('connectedWallet'));
+
     if (!account && previouslyConnectedWallet) {
       yield call(ethereumService.walletLogIn, previouslyConnectedWallet);
       account = ethereumService.getSelectedAccount();
