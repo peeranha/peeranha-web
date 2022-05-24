@@ -53,7 +53,7 @@ export async function getWeekStat(ethereumService, user) {
   periods.map(period => {
     if (!rewards.find(reward => reward.period.id === period.id)) {
       inactiveFirstPeriods.push({
-        period: period.id,
+        period: period.id + 1,
         reward: 0,
         hasTaken: false,
         periodStarted: period.startPeriodTime,
@@ -64,7 +64,7 @@ export async function getWeekStat(ethereumService, user) {
 
   const activePeriods = rewards
     .map(periodReward => ({
-      period: periodReward.period.id,
+      period: periodReward.period.id + 1,
       reward: periodReward.tokenToReward,
       hasTaken: periodReward.isPaid,
       periodStarted: periodReward.period.startPeriodTime,
