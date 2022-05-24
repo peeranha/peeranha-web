@@ -31,9 +31,9 @@ import { IconLg } from 'components/Icon/IconWithSizes';
 import Logout from 'containers/Logout';
 import Icon from 'components/Icon/index';
 
+import { userNFTs } from 'routes-config';
 import { selectIsMenuVisible } from '../AppWrapper/selectors';
 import { getPermissions } from '../../utils/properties';
-import { userNFTs } from 'routes-config';
 
 const styles = singleCommunityStyles();
 const colors = singleCommunityColors();
@@ -92,9 +92,14 @@ const B = ({ profileInfo, onClick, isMenuVisible, isMobileVersion }) => (
       isMenuVisible={isMenuVisible}
     >
       <Span bold color={(!isMobileVersion && styles.commHeadElemColor) || ''}>
-        {profileInfo.loginData.account.substring(0, 6)}...{profileInfo.loginData.account.substring(
-          profileInfo.loginData.account.length - 4,
-        )}
+        {profileInfo.displayName
+          ? profileInfo.displayName
+          : `${profileInfo.loginData.account.substring(
+              0,
+              6,
+            )}...${profileInfo.loginData.account.substring(
+              profileInfo.loginData.account.length - 4,
+            )}`}
       </Span>
     </Info>
   </span>
