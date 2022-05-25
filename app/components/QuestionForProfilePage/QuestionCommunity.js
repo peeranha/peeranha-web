@@ -22,12 +22,12 @@ const QuestionCommunity = ({ communities, communityId, className }) => {
   let route = null;
   let Link = A;
   if (single && communityId !== single) {
-    route = `${process.env.APP_LOCATION}${routes.questions(communityId)}`;
+    route = `${process.env.APP_LOCATION}${routes.feed(communityId)}`;
     Link = ADefault;
   } else if (single && communityId === single) {
-    route = routes.questions();
+    route = routes.feed();
   } else if (!single) {
-    route = routes.questions(communityId);
+    route = routes.feed(communityId);
   }
 
   return (
