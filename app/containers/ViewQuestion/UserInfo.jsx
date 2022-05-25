@@ -46,7 +46,7 @@ const Block = styled.div`
     }
   }
 
-  @media only screen and (max-width: 370px) {
+  @media only screen and (max-width: 380px) {
     > span {
       max-width: 125px;
     }

@@ -45,12 +45,12 @@ const RatingBox = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  @media only screen and (max-width: 576px) {
+  @media only screen and (max-width: 680px) {
     border-right: none;
     border-bottom: 1px solid ${BORDER_SECONDARY};
   }
 
-  @media only screen and (max-width: 660px) {
+  @media only screen and (max-width: 680px) {
     padding: 0 10px;
   }
 `;
@@ -73,7 +73,7 @@ const Box = styled.div`
   border-bottom: 1px solid ${BORDER_SECONDARY};
   height: 77px;
 
-  @media only screen and (max-width: 640px) {
+  @media only screen and (max-width: 680px) {
     flex-direction: column;
     align-items: stretch;
     height: auto;
