@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import styled from 'styled-components';
 import { TEXT_SECONDARY } from 'style-constants';
 
 import * as routes from 'routes-config';
@@ -20,6 +20,37 @@ import TelegramUserLabel from 'components/Labels/TelegramUserLabel';
 
 import { customRatingIconColors } from 'constants/customRating';
 import { COMMENT_TYPE } from './constants';
+
+const Block = styled.div`
+  display: flex;
+  align-items: flex-start;
+  flex-direction: ${({ type }) => (type !== COMMENT_TYPE ? 'column' : 'row')};
+  max-width: cacl(100% - 50px - 152px);
+
+  @media only screen and (max-width: 576px) {
+    > span {
+      max-width: 230px;
+    }
+  }
+
+  @media only screen and (max-width: 480px) {
+    > span {
+      max-width: 190px;
+    }
+  }
+
+  @media only screen and (max-width: 420px) {
+    > span {
+      max-width: 150px;
+    }
+  }
+
+  @media only screen and (max-width: 370px) {
+    > span {
+      max-width: 125px;
+    }
+  }
+`;
 
 export const UserInfo = ({
   rating,
@@ -51,13 +82,14 @@ export const UserInfo = ({
       </MediumImageWrapper>
     )}
 
-    <div
-      className={`d-flex justify-content-center ${
-        type !== COMMENT_TYPE ? 'flex-column' : 'flex-row'
-      }`}
-    >
+    <Block type={type}>
       <span className={`d-flex align-items-center ${isComment ? '' : 'mr-2'}`}>
-        <Span className="mr-2" fontSize="14" lineHeight="18">
+        <Span
+          className="mr-2"
+          fontSize="14"
+          lineHeight="18"
+          textOverflow="ellipsis"
+        >
           {name}
         </Span>
         <RatingStatus
@@ -72,7 +104,7 @@ export const UserInfo = ({
       <Span color={TEXT_SECONDARY} fontSize="14" lineHeight="18">
         {getFormattedDate(postTime, locale, MONTH_3LETTERS__DAY_YYYY_TIME)}
       </Span>
-    </div>
+    </Block>
   </A>
 );
 

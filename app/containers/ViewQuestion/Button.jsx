@@ -45,6 +45,18 @@ export const SpanStyled = TransparentButton.extend`
   @media only screen and (max-width: 763px) {
     font-size: 13px;
   }
+
+  @media only screen and (max-width: 576px) {
+    margin-left: 15px;
+  }
+
+  @media only screen and (max-width: 440px) {
+    margin-left: 10px;
+  }
+
+  @media only screen and (max-width: 350px) {
+    margin-left: 7px;
+  }
 `;
 
 export const Button = ({

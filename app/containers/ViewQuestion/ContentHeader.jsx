@@ -49,6 +49,10 @@ const RatingBox = styled.div`
     border-right: none;
     border-bottom: 1px solid ${BORDER_SECONDARY};
   }
+
+  @media only screen and (max-width: 660px) {
+    padding: 0 10px;
+  }
 `;
 
 const ItemInfo = styled.div`
@@ -78,14 +82,6 @@ const Box = styled.div`
       flex-basis: 60px;
       padding: 0 15px;
     }
-  }
-`;
-
-const Buttons = styled.div`
-  display: flex;
-  align-items: center;
-  @media only screen and (max-width: 576px) {
-    overflow: ${({ isToggled }) => (isToggled ? 'auto' : 'visible')};
   }
 `;
 
@@ -192,7 +188,7 @@ const ContentHeader = props => {
           isTemporaryAccount={isTemporaryAccount}
         />
 
-        <Buttons isToggled={!isPopoverOpen && !isModalOpen}>
+        <div className="d-flex align-items-center">
           {type === QUESTION_TYPE && (
             <Button
               id={`${type}_change_type_with_rating_restore_${answerId}`}
@@ -313,7 +309,7 @@ const ContentHeader = props => {
             <IconMd icon={pencilIcon} />
             <FormattedMessage {...messages.editButton} />
           </Button>
-        </Buttons>
+        </div>
       </ItemInfo>
     </Box>
   );
