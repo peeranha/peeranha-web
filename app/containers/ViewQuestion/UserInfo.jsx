@@ -24,6 +24,7 @@ import { COMMENT_TYPE } from './constants';
 const Block = styled.div`
   display: flex;
   align-items: flex-start;
+  justify-content: center;
   flex-direction: ${({ type }) => (type !== COMMENT_TYPE ? 'column' : 'row')};
   max-width: cacl(100% - 50px - 152px);
 
