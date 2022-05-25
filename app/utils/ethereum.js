@@ -10,18 +10,23 @@ import {
   CONTRACT_USER,
   CONTRACT_CONTENT,
   CONTRACT_COMMUNITY,
-  INVALID_ETHEREUM_PARAMETERS_ERROR_CODE,
-  METAMASK_ERROR_CODE,
-  REJECTED_SIGNATURE_REQUEST,
+} from './ethConstants';
+
+import {
   CLAIM_REWARD,
   GET_COMMUNITY,
   GET_USER_BY_ADDRESS,
   SET_STAKE,
 } from './ethConstants';
-
 import { getFileUrl, getIpfsHashFromBytes32, getText } from './ipfs';
-import { deleteCookie, getCookie, setCookie } from './cookie';
-import { CURRENCY, META_TRANSACTIONS_ALLOWED } from './constants';
+import { deleteCookie, getCookie } from './cookie';
+import {
+  CURRENCY,
+  INVALID_ETHEREUM_PARAMETERS_ERROR_CODE,
+  META_TRANSACTIONS_ALLOWED,
+  METAMASK_ERROR_CODE,
+  REJECTED_SIGNATURE_REQUEST,
+} from './constants';
 
 const sigUtil = require('eth-sig-util');
 const {
@@ -60,6 +65,10 @@ class EthereumService {
     this.connectedWallets = null;
     this.showModalDispatch = data.showModalDispatch;
     this.stopWaiting = null;
+    this.transactionInPending = data.transactionInPendingDispatch;
+    this.transactionCompleted = data.transactionCompletedDispatch;
+    this.transactionFailed = data.transactionFailedDispatch;
+    this.waitForConfirm = data.waitForConfirmDispatch;
   }
 
   setData = data => {
@@ -185,6 +194,8 @@ class EthereumService {
   }
 
   sendTransaction = async (contract, actor, action, data) => {
+    this.waitForConfirm();
+
     const dataFromCookies = getCookie(META_TRANSACTIONS_ALLOWED);
     const balance = this.wallet?.accounts?.[0]?.balance?.[CURRENCY];
 
@@ -206,15 +217,23 @@ class EthereumService {
       const transaction = await this[contract]
         .connect(this.provider.getSigner(actor))
         [action](...data);
-      return await transaction.wait();
+      this.transactionInPending(transaction.hash);
+      const result = await transaction.wait();
+      this.transactionCompleted();
+      return result;
     } catch (err) {
       switch (err.code) {
         case INVALID_ETHEREUM_PARAMETERS_ERROR_CODE:
-          throw new WebIntegrationErrorByCode(METAMASK_ERROR_CODE);
+          this.transactionFailed(
+            new WebIntegrationErrorByCode(METAMASK_ERROR_CODE),
+          );
+          break;
         case REJECTED_SIGNATURE_REQUEST:
-          throw new WebIntegrationErrorByCode(err.code);
+          this.transactionFailed(new WebIntegrationErrorByCode(err.code));
+          break;
         default:
-          throw err;
+          this.transactionFailed();
+          break;
       }
     }
   };
