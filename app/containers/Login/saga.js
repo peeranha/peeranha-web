@@ -30,6 +30,8 @@ import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 import { hideLeftMenu } from 'containers/AppWrapper/actions';
 import { selectIsMenuVisible } from 'containers/AppWrapper/selectors';
 
+import { redirectToAskQuestionPage } from 'containers/AskQuestion/actions';
+import { selectIsNewPostCreationAfterLogin } from 'containers/Login/selectors';
 import {
   loginWithEmailSuccess,
   loginWithEmailErr,
@@ -73,8 +75,6 @@ import { decryptObject } from '../../utils/web_integration/src/util/cipher';
 import { selectEthereum } from '../EthereumProvider/selectors';
 import { DISPLAY_NAME_FIELD } from '../Profile/constants';
 import { saveProfileWorker } from '../EditProfilePage/saga';
-import { redirectToAskQuestionPage } from 'containers/AskQuestion/actions';
-import { selectIsNewPostCreationAfterLogin } from 'containers/Login/selectors';
 
 function* continueLogin({ address }) {
   yield call(getCurrentAccountWorker, address);
@@ -159,8 +159,6 @@ export function* loginWithWalletWorker({ metaMask }) {
       'connectedWallet',
       JSON.stringify(connectedWalletLabel),
     );
-
-    if (!isSingleCommunityWebsite()) yield put(redirectToFeed());
 
     if (isNewPostCreationAfterLogin) {
       const ev = { currentTarget: { id: 1 } };

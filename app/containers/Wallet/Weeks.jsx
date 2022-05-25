@@ -80,8 +80,10 @@ const Weeks = ({
               {pendingWeek && (
                 <PendingWeek
                   locale={locale}
-                  registrationWeek={pendingWeek && weekStat.length === 2}
-                  {...pendingWeek}
+                  period={pendingWeek.period}
+                  reward={pendingWeek.reward}
+                  periodStarted={pendingWeek.periodStarted}
+                  periodFinished={pendingWeek.periodFinished}
                 />
               )}
             </CurrentPendingWeeks>
