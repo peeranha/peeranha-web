@@ -201,12 +201,13 @@ const MainLinks = ({ currClientHeight, profile }) => {
         </A1>
       )}
 
-      {!styles.withoutFAQ && (
-        <A1 to={routes.faq()} name="faq" route={route}>
-          <IconLg className="mr-2" icon={faqIcon} fill={BORDER_PRIMARY} />
-          <FormattedMessage {...messages.faq} />
-        </A1>
-      )}
+      {!styles.withoutFAQ &&
+        !singleCommId && (
+          <A1 to={routes.faq()} name="faq" route={route}>
+            <IconLg className="mr-2" icon={faqIcon} fill={BORDER_PRIMARY} />
+            <FormattedMessage {...messages.faq} />
+          </A1>
+        )}
     </Box>
   );
 };

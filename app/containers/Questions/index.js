@@ -92,8 +92,9 @@ export const Questions = ({
   const isExpert =
     path === routes.expertPosts() ||
     path === routes.expertPosts(':communityid');
-
-  const isFeed = parentPage == feed;
+  const isFeed = parentPage === feed;
+  const isTopCommunitiesDisplay =
+    isFeed && !single && questionsList.length === 0;
   const getInitQuestions = useCallback(
     () => {
       if (!questionFilter) {
@@ -267,11 +268,9 @@ export const Questions = ({
             )}
         </InfinityLoader>
       )}
-      {isFeed &&
-        !single &&
-        questionsList.length === 0 && (
-          <TopCommunities communities={communities} profile={profile} />
-        )}
+      {isTopCommunitiesDisplay && (
+        <TopCommunities communities={communities} profile={profile} />
+      )}
       {displayLoader && <LoadingIndicator />}
     </div>
   ) : (
