@@ -32,17 +32,6 @@ const RatingStatusStyled = styled.span`
   margin-right: 0.5rem;
 `;
 
-const Div = styled.div`
-  display: flex;
-  align-items: center;
-  width: max-content;
-  margin-left: 5px;
-
-  @media (max-width: 350px) {
-    flex-direction: column;
-  }
-`;
-
 const getStatus = rating =>
   Object.keys(options).filter(
     x => options[x].minRating <= rating && options[x].maxRating >= rating,
@@ -90,7 +79,7 @@ const IconWithStatus = ({
   }
 
   return (
-    <Div className={`${className}`}>
+    <span className={`d-flex-column d-sm-flex align-items-center ${className}`}>
       <Icon
         className="d-inline-flex mr-1"
         icon={full?.icon[size || 'sm']}
@@ -110,7 +99,7 @@ const IconWithStatus = ({
       >
         {getFormattedNum(rating)}
       </Span>
-    </Div>
+    </span>
   );
 };
 
