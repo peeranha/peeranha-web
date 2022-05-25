@@ -36,6 +36,7 @@ import blockchainLogo from 'images/blockchain-outline-32.svg?external';
 import IPFSInformation from 'containers/Questions/Content/Body/IPFSInformation';
 import commonMessages from 'common-messages';
 import { POST_TYPE } from 'utils/constants';
+import { getUserName } from 'utils/user';
 
 const RatingBox = styled.div`
   border-right: 1px solid ${BORDER_SECONDARY};
@@ -178,7 +179,7 @@ const ContentHeader = props => {
       <ItemInfo>
         <UserInfo
           avatar={getUserAvatar(author.avatar)}
-          name={author?.['displayName']}
+          name={getUserName(author.displayName, author.id)}
           account={author.user}
           rating={getRatingByCommunity(author, props.commId)}
           type={type}

@@ -14,6 +14,7 @@ import AchievementsStatus from 'components/AchievementsStatus';
 import { TEXT_SECONDARY } from 'style-constants';
 import { getRatingByCommunity } from 'utils/profileManagement';
 import { customRatingIconColors } from 'constants/customRating';
+import { getUserName } from 'utils/user';
 
 const UserInfo = ({ author, postTime, locale, isSearchPage, communityId }) => (
   <p className="mb-3">
@@ -24,7 +25,7 @@ const UserInfo = ({ author, postTime, locale, isSearchPage, communityId }) => (
       {!isSearchPage && (
         <>
           <Span className="mr-1 d-block text-truncate" fontSize="14">
-            {author?.displayName}
+            {getUserName(author.displayName, author.id)}
           </Span>
           <RatingStatus
             rating={getRatingByCommunity(author, communityId)}
