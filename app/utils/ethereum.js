@@ -318,11 +318,16 @@ class EthereumService {
     } catch (err) {
       switch (err.code) {
         case INVALID_ETHEREUM_PARAMETERS_ERROR_CODE:
-          throw new WebIntegrationErrorByCode(METAMASK_ERROR_CODE);
+          this.transactionFailed(
+            new WebIntegrationErrorByCode(METAMASK_ERROR_CODE),
+          );
+          break;
         case REJECTED_SIGNATURE_REQUEST:
-          throw new WebIntegrationErrorByCode(err.code);
+          this.transactionFailed(new WebIntegrationErrorByCode(err.code));
+          break;
         default:
-          throw err;
+          this.transactionFailed();
+          break;
       }
     }
   };
