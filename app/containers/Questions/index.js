@@ -93,7 +93,6 @@ export const Questions = ({
   const isExpert =
     path === routes.expertPosts() ||
     path === routes.expertPosts(':communityid');
-  const isFeed = parentPage === feed;
   const isTopCommunitiesDisplay =
     isFeed && !single && questionsList.length === 0;
   const getInitQuestions = useCallback(
