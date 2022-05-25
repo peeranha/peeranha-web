@@ -59,7 +59,6 @@ import ShowMoreButton from './Content/ShowMoreButton';
 
 import { QUESTION_FILTER, UPDATE_PROMO_QUESTIONS } from './constants';
 
-const feed = routes.feed();
 const single = isSingleCommunityWebsite();
 
 export const Questions = ({
@@ -89,6 +88,8 @@ export const Questions = ({
   isLastTopQuestionLoaded,
   postsTypes,
 }) => {
+  const isFeed = window.location.pathname === routes.feed(params.communityid);
+
   const isExpert =
     path === routes.expertPosts() ||
     path === routes.expertPosts(':communityid');
