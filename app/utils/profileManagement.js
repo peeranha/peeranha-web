@@ -83,6 +83,10 @@ export async function getProfileInfo(
     profileInfo.permissions = await getUserPermissions(user);
     userStats = await getUserStats(user);
     profileInfo.ratings = userStats?.ratings;
+    if (!profileInfo.creationTime) {
+      const profile = await getUser(user);
+      profileInfo.creationTime = profile.creationTime;
+    }
   } else {
     profileInfo = await getUser(user);
   }
