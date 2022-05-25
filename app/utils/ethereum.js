@@ -153,7 +153,7 @@ class EthereumService {
 
   resetWalletState = async () => {
     await this.disconnect(this.wallet);
-    window.localStorage.removeItem('connectedWallet');
+    deleteCookie('connectedWallet');
     this.selectedAccount = null;
   };
 

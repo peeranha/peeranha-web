@@ -158,7 +158,11 @@ export function* loginWithWalletWorker({ metaMask }) {
 
     setCookie({
       name: 'connectedWallet',
-      value: JSON.stringify(connectedWalletLabel),
+      value: connectedWalletLabel,
+    });
+    setCookie({
+      name: 'agreement',
+      value: window.localStorage.getItem('onboard.js:agreement'),
     });
 
     if (!isSingleCommunityWebsite()) yield put(redirectToFeed());
