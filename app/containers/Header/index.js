@@ -75,7 +75,7 @@ export class Header extends React.PureComponent {
   };
 
   render() /* istanbul ignore next */ {
-    let {
+    const {
       account,
       profileInfo,
       showLeftMenuDispatch,

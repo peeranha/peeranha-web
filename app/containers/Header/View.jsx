@@ -176,12 +176,12 @@ const View = ({
                   id={messages.transactionInPending.id}
                   values={{
                     transaction: (
-                      <ADefault
+                      <a
                         href={`https://mumbai.polygonscan.com/tx/${transactionHash}`}
                         target="_blank"
                       >
                         <FormattedMessage id={messages.transaction.id} />
-                      </ADefault>
+                      </a>
                     ),
                   }}
                 />
