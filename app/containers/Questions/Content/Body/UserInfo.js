@@ -15,37 +15,49 @@ import { TEXT_SECONDARY } from 'style-constants';
 import { getRatingByCommunity } from 'utils/profileManagement';
 import { customRatingIconColors } from 'constants/customRating';
 
-const UserInfo = ({ author, postTime, locale, isSearchPage, communityId }) => (
-  <p className="mb-3">
-    <A
-      to={routes.profileView(author.id)}
-      className="d-inline-flex align-items-center"
-    >
-      {!isSearchPage && (
-        <>
-          <Span className="mr-1 d-block text-truncate" fontSize="14">
-            {author?.displayName}
-          </Span>
-          <RatingStatus
-            rating={getRatingByCommunity(author, communityId)}
-            size="sm"
-            isRankOff
-            customRatingIconColors={customRatingIconColors}
-          />
-          <AchievementsStatus count={author.achievements?.length} />
-        </>
-      )}
+const UserInfo = ({ author, postTime, locale, isSearchPage, communityId }) => {
+  const profileName = () => {
+    if (author.displayName) {
+      return author.displayName;
+    }
 
-      <Span
-        className="text-capitalize mr-3"
-        fontSize="14"
-        color={TEXT_SECONDARY}
+    return `${author.id.substring(0, 6)}...${author.id.substring(
+      author.id.length - 4,
+    )}`;
+  };
+
+  return (
+    <p className="mb-3">
+      <A
+        to={routes.profileView(author.id)}
+        className="d-inline-flex align-items-center"
       >
-        {getFormattedDate(postTime, locale, MONTH_3LETTERS__DAY_YYYY_TIME)}
-      </Span>
-    </A>
-  </p>
-);
+        {!isSearchPage && (
+          <>
+            <Span className="mr-1 d-block text-truncate" fontSize="14">
+              {profileName()}
+            </Span>
+            <RatingStatus
+              rating={getRatingByCommunity(author, communityId)}
+              size="sm"
+              isRankOff
+              customRatingIconColors={customRatingIconColors}
+            />
+            <AchievementsStatus count={author.achievements?.length} />
+          </>
+        )}
+
+        <Span
+          className="text-capitalize mr-3"
+          fontSize="14"
+          color={TEXT_SECONDARY}
+        >
+          {getFormattedDate(postTime, locale, MONTH_3LETTERS__DAY_YYYY_TIME)}
+        </Span>
+      </A>
+    </p>
+  );
+};
 
 UserInfo.propTypes = {
   author: PropTypes.object,

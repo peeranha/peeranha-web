@@ -156,6 +156,16 @@ const ContentHeader = props => {
     [changeQuestionTypeDispatch],
   );
 
+  const profileName = () => {
+    if (author.displayName) {
+      return author.displayName;
+    }
+
+    return `${author.id.substring(0, 6)}...${author.id.substring(
+      author.id.length - 4,
+    )}`;
+  };
+
   // eslint-disable-next-line camelcase
   const correctAnswerId = questionData?.correct_answer_id;
   const correctAnswer = questionData?.answers?.find(
@@ -179,7 +189,7 @@ const ContentHeader = props => {
       <ItemInfo>
         <UserInfo
           avatar={getUserAvatar(author.avatar)}
-          name={author?.['displayName']}
+          name={profileName()}
           account={author.user}
           rating={getRatingByCommunity(author, props.commId)}
           type={type}
