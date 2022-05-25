@@ -26,6 +26,11 @@ const makeSelectError = () =>
     substate.get('error'),
   );
 
+export const makeSelectShowModal = () =>
+  createSelector(selectEthereumProviderDomain, substate =>
+    substate.get('showModal'),
+  );
+
 export {
   selectEthereumProviderDomain,
   selectEthereum,

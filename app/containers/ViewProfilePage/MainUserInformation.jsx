@@ -6,12 +6,7 @@ import styled from 'styled-components';
 import commonMessages from 'common-messages';
 import { TEXT_DARK, TEXT_SECONDARY } from 'style-constants';
 import { LABEL_SIZE_LG } from 'components/Img/MediumImage';
-import {
-  MONTH_3LETTERS__DAY_YYYY,
-  TEMPORARY_ACCOUNT_KEY,
-} from 'utils/constants';
-
-import { getFormattedDate } from 'utils/datetime';
+import { TEMPORARY_ACCOUNT_KEY } from 'utils/constants';
 import { getUserAvatar } from 'utils/profileManagement';
 
 import questionRoundedIcon from 'images/question2.svg?inline';
@@ -30,6 +25,7 @@ import LoadingIndicator from 'components/LoadingIndicator';
 
 import messages from 'containers/Profile/messages';
 import { customRatingIconColors } from 'constants/customRating';
+import ProfileSince from 'components/ProfileSince';
 
 const InlineLoader = styled(LoadingIndicator)`
   margin: auto;
@@ -49,7 +45,7 @@ export const UlStyled = Ul.extend`
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   }
 
-  @media (max-width: 399px) {
+  @media (max-width: 420px) {
     display: flex;
     overflow-x: hidden;
     white-space: nowrap;
@@ -170,7 +166,6 @@ const MainUserInformation = ({
     x => x.key === TEMPORARY_ACCOUNT_KEY && x.value,
   );
   const userPolygonScanAddress = process.env.BLOCKCHAIN_EXPLORERE_URL + userId;
-
   return (
     <Box position="middle">
       <div>
@@ -257,11 +252,10 @@ const MainUserInformation = ({
                 <div>
                   <FormattedMessage {...messages.memberSince} />
                   <div>
-                    {getFormattedDate(
-                      profile.creationTime,
-                      locale,
-                      MONTH_3LETTERS__DAY_YYYY,
-                    )}
+                    <ProfileSince
+                      creationTime={profile?.creationTime}
+                      locale={locale}
+                    />
                   </div>
                 </div>
               </li>
