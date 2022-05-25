@@ -34,13 +34,19 @@ const RatingStatusStyled = styled.span`
 
 const Div = styled.div`
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   width: max-content;
   margin-left: 5px;
 
   @media (max-width: 350px) {
     flex-direction: column;
   }
+`;
+
+const RatingText = styled.p`
+  height: 25px;
+  line-height: 100%;
+  padding-left: 5px;
 `;
 
 const getStatus = rating =>
@@ -90,6 +96,7 @@ const IconWithStatus = ({
   }
 
   return (
+    // <span className={`d-flex-column d-sm-flex align-items-center ${className}`}>
     <Div className={`${className}`}>
       <Icon
         className="d-inline-flex mr-1"
@@ -138,7 +145,7 @@ const RatingStatus = ({
         fontSize={size === 'lg' ? 16 : 14}
         color={size === 'lg' ? TEXT_DARK : TEXT_SECONDARY}
       >
-        {intl.formatMessage({ id: full.messageId })}
+        <RatingText>{intl.formatMessage({ id: full.messageId })}</RatingText>
       </Span>
     </RatingStatusStyled>
   );
