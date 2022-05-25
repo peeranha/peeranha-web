@@ -58,7 +58,11 @@ export const UserInfo = ({
     >
       <span className={`d-flex align-items-center ${isComment ? '' : 'mr-2'}`}>
         <Span className="mr-2" fontSize="14" lineHeight="18">
-          {name}
+          {name !== null
+            ? name
+            : account.substring(0, 6) +
+              '...' +
+              account.substring(account.length - 4)}
         </Span>
         <RatingStatus
           rating={rating}
