@@ -525,6 +525,9 @@ export default defineMessages({
   contractAddress: {
     id: 'app.common.contractAddress',
   },
+  waitingForConfirm: {
+    id: 'app.common.waitingForConfirm',
+  },
   transactionInPending: {
     id: 'app.common.transactionInPending',
   },

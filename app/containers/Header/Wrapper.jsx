@@ -11,7 +11,7 @@ export const Wrapper = styled.header`
   position: fixed;
   width: 100%;
   height: ${x =>
-    x.isTransactionInPending ? HEADER_HEIGHT + LOADER_HEIGHT : HEADER_HEIGHT}px;
+    x.transactionInitialised ? HEADER_HEIGHT + LOADER_HEIGHT : HEADER_HEIGHT}px;
   background: ${BG_LIGHT};
   z-index: 10;
   transform: translate(0px, 0px);
@@ -22,13 +22,13 @@ export const Wrapper = styled.header`
   &.sticky {
     transform: translate(
       0px,
-      -${x => (x.isTransactionInPending ? HEADER_HEIGHT + LOADER_HEIGHT : HEADER_HEIGHT)}px
+      -${x => (x.transactionInitialised ? HEADER_HEIGHT + LOADER_HEIGHT : HEADER_HEIGHT)}px
     );
   }
 
   @media only screen and (max-width: 991px) {
     height: ${x =>
-      x.isTransactionInPending
+      x.transactionInitialised
         ? MOBILE_HEADER_HEIGHT + LOADER_HEIGHT
         : MOBILE_HEADER_HEIGHT}px;
 

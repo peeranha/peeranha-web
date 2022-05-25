@@ -13,7 +13,10 @@ import Loader from 'components/LoadingIndicator/WidthCentered';
 import { Main, WrapStyled } from './Box';
 import { selectIsMenuVisible } from './selectors';
 import { showLeftMenu, hideLeftMenu } from './actions';
-import { selectTransactionInPending } from '../EthereumProvider/selectors';
+import {
+  selectTransactionInitialised,
+  selectTransactionInPending,
+} from '../EthereumProvider/selectors';
 
 const Box = ({
   isMenuVisible,
@@ -21,7 +24,7 @@ const Box = ({
   Comp,
   props,
   location,
-  isTransactionInPending,
+  transactionInitialised,
 }) => {
   useEffect(
     () => {
@@ -38,7 +41,7 @@ const Box = ({
 
       <Main
         isMenuVisible={isMenuVisible}
-        isTransactionInPending={isTransactionInPending}
+        transactionInitialised={transactionInitialised}
       >
         <div className={isMenuVisible ? '' : 'container container-mobile'}>
           <div className="d-flex">
@@ -69,7 +72,7 @@ const WrapperConnection = connect(
   createStructuredSelector({
     isMenuVisible: selectIsMenuVisible(),
     location: makeSelectLocation(),
-    isTransactionInPending: selectTransactionInPending(),
+    transactionInitialised: selectTransactionInitialised(),
   }),
   dispatch => ({
     showLeftMenuDispatch: bindActionCreators(showLeftMenu, dispatch),

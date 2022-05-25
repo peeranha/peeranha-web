@@ -195,6 +195,7 @@
     "Please check Metamask connection and try to reload the page",
   "app.common.ipfsHashValue": "IPFS",
   "app.common.source": "Source",
+  "app.common.waitingForConfirm": "Confirm this transaction in your wallet...",
   "app.common.transactionInPending":
     "Waiting for {transaction} confirmation...",
   "app.common.transaction": "transaction",

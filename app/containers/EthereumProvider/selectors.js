@@ -41,6 +41,11 @@ const selectTransactionHash = () =>
     substate.get('transactionHash'),
   );
 
+const selectTransactionInitialised = () =>
+  createSelector(selectEthereumProviderDomain, substate =>
+    substate.get('transactionInitialised'),
+  );
+
 export {
   selectEthereumProviderDomain,
   selectEthereum,
@@ -49,4 +54,5 @@ export {
   makeSelectError,
   selectTransactionInPending,
   selectTransactionHash,
+  selectTransactionInitialised,
 };

@@ -18,7 +18,9 @@ import {
   initEthereum,
   showModal,
   transactionCompleted,
+  transactionFailed,
   transactionInPending,
+  transactionInitialised,
 } from './actions';
 import reducer from 'containers/EthereumProvider/reducer';
 import saga from 'containers/EthereumProvider/saga';
@@ -92,6 +94,8 @@ export const EthereumProvider = ({
   showModalDispatch,
   transactionInPendingDispatch,
   transactionCompletedDispatch,
+  waitForConfirmDispatch,
+  transactionFailedDispatch,
   initializing,
   ethereum,
 }) => {
@@ -122,6 +126,8 @@ export const EthereumProvider = ({
     showModalDispatch,
     transactionInPendingDispatch,
     transactionCompletedDispatch,
+    transactionFailedDispatch,
+    waitForConfirmDispatch,
   };
 
   useEffect(() => {
@@ -167,6 +173,11 @@ const withConnect = connect(
     ),
     transactionCompletedDispatch: bindActionCreators(
       transactionCompleted,
+      dispatch,
+    ),
+    transactionFailedDispatch: bindActionCreators(transactionFailed, dispatch),
+    waitForConfirmDispatch: bindActionCreators(
+      transactionInitialised,
       dispatch,
     ),
   }),

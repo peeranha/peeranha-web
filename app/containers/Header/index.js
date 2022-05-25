@@ -34,6 +34,7 @@ import { HEADER_ID } from './constants';
 import {
   selectTransactionHash,
   selectTransactionInPending,
+  selectTransactionInitialised,
 } from '../EthereumProvider/selectors';
 
 export class Header extends React.PureComponent {
@@ -74,7 +75,7 @@ export class Header extends React.PureComponent {
   };
 
   render() /* istanbul ignore next */ {
-    const {
+    let {
       account,
       profileInfo,
       showLeftMenuDispatch,
@@ -84,9 +85,18 @@ export class Header extends React.PureComponent {
       loginWithWalletDispatch,
       isTransactionInPending,
       transactionHash,
+      transactionInitialised,
     } = this.props;
 
     if (isMenuVisible) return null;
+
+    try {
+      if (isTransactionInPending || transactionInitialised) {
+        document.getElementsByTagName('body')[0].style.position = 'fixed';
+      } else {
+        document.getElementsByTagName('body')[0].style.position = 'relative';
+      }
+    } catch (err) {}
 
     return (
       <View
@@ -103,6 +113,7 @@ export class Header extends React.PureComponent {
         faqQuestions={faqQuestions}
         isTransactionInPending={isTransactionInPending}
         transactionHash={transactionHash}
+        transactionInitialised={transactionInitialised}
       />
     );
   }
@@ -129,6 +140,7 @@ const mapStateToProps = createStructuredSelector({
   ]),
   isTransactionInPending: selectTransactionInPending(),
   transactionHash: selectTransactionHash(),
+  transactionInitialised: selectTransactionInitialised(),
 });
 
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
