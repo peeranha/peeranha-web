@@ -17,9 +17,6 @@ const Span = styled.span`
   font-family: ${({ fontFamily }) => fontFamily || APP_FONT};
   text-align: left;
   letter-spacing: ${({ letterSpacing }) => letterSpacing || 'normal'};
-  text-overflow: ${({ textOverflow }) => textOverflow || 'clip'};
-  white-space: ${({ textOverflow }) => (textOverflow ? 'nowrap' : 'normal')};
-  overflow: ${({ textOverflow }) => (textOverflow ? 'hidden' : 'visible')};
 
   @media only screen and (max-width: 576px) {
     ${({ mobileFS, mobileLH }) =>
