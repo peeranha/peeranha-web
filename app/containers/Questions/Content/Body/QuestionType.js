@@ -103,10 +103,10 @@ const Icon = styled(IconLg)`
   }
   .semitransparent {
     fill: none;
+  }
 
-    @media (max-width: 576px) {
-      margin-top: 50px;
-    }
+  @media (max-width: 576px) {
+    margin-top: 50px;
   }
 `;
 
