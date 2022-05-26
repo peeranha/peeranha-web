@@ -160,9 +160,9 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
 
                   <Info>
                     <SpanCenter>{getFormattedNum2(x.postCount)}</SpanCenter>
-                    <A to={routes.questions(id)}>
+                    <P>
                       <FormattedMessage {...commonMessages.posts} />
-                    </A>
+                    </P>
                   </Info>
 
                   <Info>
