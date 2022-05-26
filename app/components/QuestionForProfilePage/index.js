@@ -225,6 +225,7 @@ export const QuestionForProfilePage = ({
             <QuestionCommunity
               communities={communities}
               communityId={communityId}
+              postType={postType}
             />
           </p>
         </div>
