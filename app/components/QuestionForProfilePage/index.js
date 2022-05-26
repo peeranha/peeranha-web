@@ -9,7 +9,7 @@ import {
   BG_SUCCESS,
   TEXT_SECONDARY,
   BG_PRIMARY,
-  //BG_PRIMARY_DARK,
+  // BG_PRIMARY_DARK,
   BORDER_RADIUS_M,
   BORDER_RADIUS_L,
 } from 'style-constants';
@@ -17,7 +17,7 @@ import {
 import commonMessages from 'common-messages';
 
 import { getFormattedDate } from 'utils/datetime';
-import { MONTH_3LETTERS__DAY_YYYY_TIME } from 'utils/constants';
+import { MONTH_3LETTERS__DAY_YYYY_TIME, POST_TYPE } from 'utils/constants';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
 import okayIcon from 'images/okay.svg?inline';
@@ -26,15 +26,15 @@ import crownIcon from 'images/crownIcon.svg?inline';
 import Base from 'components/Base';
 import Span from 'components/Span';
 import { AProps, APropsDefault } from 'components/A';
-//import QuestionType from 'components/Labels/QuestionType';
+// import QuestionType from 'components/Labels/QuestionType';
 
 import {
   POST_TYPE_ANSWER,
   POST_TYPE_QUESTION,
 } from 'containers/Profile/constants';
 
-import QuestionCommunity from './QuestionCommunity';
 import QuestionType from 'containers/Questions/Content/Body/QuestionType';
+import QuestionCommunity from './QuestionCommunity';
 
 const single = isSingleCommunityWebsite();
 
@@ -160,6 +160,9 @@ export const QuestionForProfilePage = ({
     Link = APropsDefault;
     href = `${process.env.APP_LOCATION}${route}`;
   }
+
+  const isGeneralPost = postType === POST_TYPE.generalPost;
+  const isExpertPost = postType === POST_TYPE.expertPost;
   return (
     <BaseStyled bordered={bordered && !isGeneral}>
       {/* TODO: PEER-281 frame and inscription 'expert'
@@ -167,7 +170,7 @@ export const QuestionForProfilePage = ({
         <QuestionType size="sm">
           <FormattedMessage {...commonMessages.expert} />
         </QuestionType>
-      )}*/}
+      )} */}
       <ContentContainer>
         <QuestionLabels>
           <QuestionType
@@ -225,6 +228,8 @@ export const QuestionForProfilePage = ({
             <QuestionCommunity
               communities={communities}
               communityId={communityId}
+              isGeneral={isGeneralPost}
+              isExpert={isExpertPost}
             />
           </p>
         </div>
@@ -247,6 +252,8 @@ TopCommunityBadge.propTypes = {
 QuestionCommunity.propTypes = {
   communities: PropTypes.array,
   communityId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  isGeneral: PropTypes.bool,
+  isExpert: PropTypes.bool,
 };
 
 QuestionForProfilePage.propTypes = {

@@ -13,7 +13,14 @@ import Img from 'components/Img';
 
 const single = isSingleCommunityWebsite();
 
-const QuestionCommunity = ({ communities, communityId, className }) => {
+const QuestionCommunity = ({
+  communities,
+  communityId,
+  className,
+  isFeed,
+  isGeneral,
+  isExpert,
+}) => {
   if (!communities[0]) {
     return null;
   }
@@ -28,6 +35,17 @@ const QuestionCommunity = ({ communities, communityId, className }) => {
     route = routes.feed();
   } else if (!single) {
     route = routes.feed(communityId);
+  }
+
+  if (!isFeed) {
+    route = routes.tutorials(communityId);
+
+    if (isGeneral) {
+      route = routes.questions(communityId);
+    }
+    if (isExpert) {
+      route = routes.expertPosts(communityId);
+    }
   }
 
   return (
@@ -46,6 +64,9 @@ QuestionCommunity.propTypes = {
   communities: PropTypes.array,
   communityId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   className: PropTypes.string,
+  isFeed: PropTypes.bool,
+  isGeneral: PropTypes.bool,
+  isExpert: PropTypes.bool,
 };
 
 export default QuestionCommunity;
