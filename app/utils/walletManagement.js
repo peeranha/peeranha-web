@@ -23,6 +23,7 @@ import {
   GET_USER_BALANCE,
   GET_USER_STAKE,
 } from './ethConstants';
+import _ from 'lodash';
 
 export const getBalance = async (ethereumService, user) => {
   if (user) {
@@ -46,14 +47,14 @@ export const getAvailableBalance = async (ethereumService, user) => {
   return 0;
 };
 
-export async function getWeekStat(ethereumService, user) {
-  const [rewards, periods] = await getRewardStat(user, ethereumService);
+export async function getWeekStat(ethereumService, userId) {
+  const [rewards, periods, user] = await getRewardStat(userId, ethereumService);
   const inactiveFirstPeriods = [];
 
-  periods.map(period => {
+  periods.forEach(period => {
     if (!rewards.find(reward => reward.period.id === period.id)) {
       inactiveFirstPeriods.push({
-        period: period.id + 1,
+        period: period.id,
         reward: 0,
         hasTaken: false,
         periodStarted: period.startPeriodTime,
@@ -62,16 +63,25 @@ export async function getWeekStat(ethereumService, user) {
     }
   });
 
-  const activePeriods = rewards
-    .map(periodReward => ({
-      period: periodReward.period.id + 1,
-      reward: periodReward.tokenToReward,
-      hasTaken: periodReward.isPaid,
-      periodStarted: periodReward.period.startPeriodTime,
-      periodFinished: periodReward.period.endPeriodTime,
-    }))
-    .reverse();
-  return inactiveFirstPeriods.concat(activePeriods);
+  const activePeriods = rewards.map(periodReward => ({
+    period: periodReward.period.id,
+    reward: periodReward.tokenToReward,
+    hasTaken: periodReward.isPaid,
+    periodStarted: periodReward.period.startPeriodTime,
+    periodFinished: periodReward.period.endPeriodTime,
+  }));
+
+  const weekStat = inactiveFirstPeriods
+    .concat(activePeriods)
+    .sort((first, second) => second.periodStarted - first.periodStarted);
+
+  if (user?.creationTime) {
+    return weekStat.filter(
+      period =>
+        parseInt(user?.creationTime, 10) < parseInt(period.periodFinished, 10),
+    );
+  }
+  return weekStat;
 }
 
 export async function sendTokens(

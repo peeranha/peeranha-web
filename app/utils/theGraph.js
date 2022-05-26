@@ -243,7 +243,11 @@ export const getRewardStat = async (userId, ethereumService) => {
       periodsCount: isOldUser ? 2 : 1,
     },
   });
-  return [response?.data?.userRewards, response?.data?.periods];
+  return [
+    response?.data?.userRewards,
+    response?.data?.periods,
+    response?.data?.user,
+  ];
 };
 
 export const getCurrentPeriod = async () => {
