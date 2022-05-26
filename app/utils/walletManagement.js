@@ -23,7 +23,6 @@ import {
   GET_USER_BALANCE,
   GET_USER_STAKE,
 } from './ethConstants';
-import _ from 'lodash';
 
 export const getBalance = async (ethereumService, user) => {
   if (user) {
@@ -77,8 +76,7 @@ export async function getWeekStat(ethereumService, userId) {
 
   if (user?.creationTime) {
     return weekStat.filter(
-      period =>
-        parseInt(user?.creationTime, 10) < parseInt(period.periodFinished, 10),
+      period => Number(user?.creationTime) < Number(period.periodFinished),
     );
   }
   return weekStat;
