@@ -17,6 +17,12 @@ const Container = styled.div`
 const Link = styled.a`
   font-weight: normal;
 `;
+
+const Span = styled.span`
+  font-weight: normal;
+  color: #007bff;
+`;
+
 const Button = styled.p`
   padding: 6px 16px;
 `;
@@ -56,9 +62,9 @@ const ExistingQuestions = ({ questions, skip, show, intl, communities }) => {
     <Container>
       <Label>
         {intl.formatMessage(messages.existingQuestionsLabel)}{' '}
-        <Link href="#" onClick={skip}>
+        <Span onClick={skip}>
           {intl.formatMessage(messages.skipExistingQuestions)}
-        </Link>
+        </Span>
       </Label>
       <List>
         {findQuestions.map(q => (

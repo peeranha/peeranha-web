@@ -123,6 +123,7 @@ export const BG_PRIMARY_LIGHT = lightblue;
 export const BG_PRIMARY_DARK = darkblue;
 export const BG_PRIMARY_DARK_RGB = darkBlueRGB;
 export const BG_PRIMARY_SPECIAL = purple;
+export const BG_PRIMARY_BLANKET = 'rgba(234,236,244,0.34)';
 export const BG_PREMIUM_LIGHT = premiumLight;
 export const BG_LIGHT = white;
 
