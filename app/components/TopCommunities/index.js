@@ -58,6 +58,7 @@ const BackSide = styled.div`
   background: ${BG_LIGHT};
   display: none;
   border-radius: 5px;
+  overflow-y: auto;
 
   > div {
     position: relative;
@@ -183,7 +184,7 @@ const TopCommunities = ({ communities, profile, questions }) => {
                       <BackSide>
                         <div className="d-flex flex-column justify-content-between">
                           {community ? (
-                            <div className="overflow-auto">
+                            <div>
                               <P fontSize="16" bold>
                                 {community.name}
                               </P>
@@ -283,7 +284,7 @@ const TopCommunities = ({ communities, profile, questions }) => {
 
                     <BackSide>
                       <div className="d-flex flex-column justify-content-between">
-                        <div className="overflow-auto">
+                        <div>
                           <P fontSize="16" bold>
                             {x.name}
                           </P>

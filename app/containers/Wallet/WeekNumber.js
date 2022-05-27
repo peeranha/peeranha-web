@@ -18,7 +18,7 @@ const WeekNumber = ({ period, locale, periodStarted, periodFinished }) => {
   return (
     <P>
       <Span className="mr-3" fontSize="24" mobileFS={21} bold>
-        <FormattedMessage {...messages.week} /> {period}
+        <FormattedMessage id={messages.week.id} /> {Number(period) + 1}
       </Span>
 
       <Span className="d-none d-md-inline-block">

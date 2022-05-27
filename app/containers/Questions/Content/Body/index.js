@@ -102,9 +102,8 @@ const Body = ({
           communities={communities}
           communityId={communityId}
           tags={tags}
+          postType={postType}
           isFeed={isFeed}
-          isGeneral={isGeneral}
-          isExpert={isExpert}
         />
 
         {/* <div
@@ -140,8 +139,8 @@ Body.propTypes = {
   topQuestionActionProcessing: PropTypes.bool,
   isPromoted: PropTypes.bool,
   isCommunityFeed: PropTypes.bool,
+  postType: PropTypes.number,
   isFeed: PropTypes.bool,
-  isExpert: PropTypes.bool,
 };
 
 export default Body;

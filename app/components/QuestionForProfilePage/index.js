@@ -17,7 +17,7 @@ import {
 import commonMessages from 'common-messages';
 
 import { getFormattedDate } from 'utils/datetime';
-import { MONTH_3LETTERS__DAY_YYYY_TIME, POST_TYPE } from 'utils/constants';
+import { MONTH_3LETTERS__DAY_YYYY_TIME } from 'utils/constants';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
 import okayIcon from 'images/okay.svg?inline';
@@ -33,8 +33,8 @@ import {
   POST_TYPE_QUESTION,
 } from 'containers/Profile/constants';
 
-import QuestionType from 'containers/Questions/Content/Body/QuestionType';
 import QuestionCommunity from './QuestionCommunity';
+import QuestionType from 'containers/Questions/Content/Body/QuestionType';
 
 const single = isSingleCommunityWebsite();
 
@@ -160,9 +160,6 @@ export const QuestionForProfilePage = ({
     Link = APropsDefault;
     href = `${process.env.APP_LOCATION}${route}`;
   }
-
-  const isGeneralPost = postType === POST_TYPE.generalPost;
-  const isExpertPost = postType === POST_TYPE.expertPost;
   return (
     <BaseStyled bordered={bordered && !isGeneral}>
       {/* TODO: PEER-281 frame and inscription 'expert'
@@ -196,7 +193,7 @@ export const QuestionForProfilePage = ({
           />
         </div>
 
-        <div className="d-flex flex-column flex-grow-1">
+        <div className="d-flex px-3 flex-column flex-grow-1">
           <Link
             to={href}
             href={href}
@@ -214,22 +211,29 @@ export const QuestionForProfilePage = ({
               fontSize="14"
               color={TEXT_SECONDARY}
             >
-              <FormattedMessage
-                {...commonMessages[isAnswer ? 'answeredWhen' : 'askedWhen']}
-                values={{
-                  when: getFormattedDate(
-                    myPostTime,
-                    locale,
-                    MONTH_3LETTERS__DAY_YYYY_TIME,
-                  ),
-                }}
-              />
+              {isAnswer ? (
+                <FormattedMessage
+                  id={commonMessages.answeredWhen.id}
+                  values={{
+                    when: getFormattedDate(
+                      myPostTime,
+                      locale,
+                      MONTH_3LETTERS__DAY_YYYY_TIME,
+                    ),
+                  }}
+                />
+              ) : (
+                getFormattedDate(
+                  myPostTime,
+                  locale,
+                  MONTH_3LETTERS__DAY_YYYY_TIME,
+                )
+              )}
             </Span>
             <QuestionCommunity
               communities={communities}
               communityId={communityId}
-              isGeneral={isGeneralPost}
-              isExpert={isExpertPost}
+              postType={postType}
             />
           </p>
         </div>
@@ -252,8 +256,6 @@ TopCommunityBadge.propTypes = {
 QuestionCommunity.propTypes = {
   communities: PropTypes.array,
   communityId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  isGeneral: PropTypes.bool,
-  isExpert: PropTypes.bool,
 };
 
 QuestionForProfilePage.propTypes = {

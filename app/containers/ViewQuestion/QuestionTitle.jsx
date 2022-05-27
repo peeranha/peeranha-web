@@ -11,7 +11,7 @@ import checkIcon from 'images/okayGreen.svg?inline';
 
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { getFormattedDate, dateNowInSeconds } from 'utils/datetime';
-import { MONTH_3LETTERS__DAY_YYYY_TIME, POST_TYPE } from 'utils/constants';
+import { MONTH_3LETTERS__DAY_YYYY_TIME } from 'utils/constants';
 
 import Base from 'components/Base';
 import H3 from 'components/H3';
@@ -105,9 +105,6 @@ export const QuestionTitle = ({
 
   const isItWrittenByMe = profileInfo ? user === profileInfo.user : false;
 
-  const isGeneralPost = postType === POST_TYPE.generalPost;
-  const isExpertPost = postType === POST_TYPE.expertPost;
-
   return title ? (
     <Base
       paddingTop="5"
@@ -147,8 +144,7 @@ export const QuestionTitle = ({
               className="my-1"
               communities={communities}
               communityId={communityId}
-              isGeneral={isGeneralPost}
-              isExpert={isExpertPost}
+              postType={postType}
             />
           ) : null}
         </TagList>
