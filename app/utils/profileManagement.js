@@ -21,7 +21,7 @@ import { isUserExists } from './accountManagement';
 
 export const getRatingByCommunity = (user, communityId) =>
   user?.ratings?.find(
-    ratingObj => ratingObj.communityId.toString() === communityId?.toString(),
+    (ratingObj) => ratingObj.communityId.toString() === communityId?.toString(),
   )?.rating ?? 0;
 
 export function getUserAvatar(avatarHash, userId, account) {
@@ -79,8 +79,8 @@ export async function getProfileInfo(
   }
 
   profileInfo.highestRating = profileInfo.ratings?.length
-    ? profileInfo.ratings?.reduce(
-        (max, current) => (max.rating > current.rating ? max : current),
+    ? profileInfo.ratings?.reduce((max, current) =>
+        max.rating > current.rating ? max : current,
       )
     : 0;
   profileInfo.user = user;
@@ -116,7 +116,7 @@ export async function saveProfile(ethereumService, user, profile) {
   ]);
 }
 
-export const getNotificationsInfo = async user => {
+export const getNotificationsInfo = async (user) => {
   const response = await callService(
     NOTIFICATIONS_INFO_SERVICE,
     { user },
@@ -125,7 +125,7 @@ export const getNotificationsInfo = async user => {
   return response.OK ? response.body : { all: 0, unread: 0 };
 };
 
-export const getAvailableBalance = profile => {
+export const getAvailableBalance = (profile) => {
   const stakedInCurrentPeriod = profile?.stakedInCurrentPeriod ?? 0;
   const stakedInNextPeriod = profile?.stakedInNextPeriod ?? 0;
   const balance = profile?.balance ?? 0;

@@ -96,9 +96,7 @@ export function* loadMoreUnreadNotificationsWorker() {
     const now = new Date();
     const { user } = yield select(makeSelectProfileInfo());
     const notifications = yield select(selectUnreadNotifications());
-    const lastTimestamp = yield select(
-      selectUnreadNotificationsLastTimestamp(),
-    );
+    yield select(selectUnreadNotificationsLastTimestamp());
     const count = yield select(unreadNotificationsCount());
     const isInfoLoaded = yield select(isInfoLoadedSelect());
 

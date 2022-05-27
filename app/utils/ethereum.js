@@ -10,9 +10,6 @@ import {
   CONTRACT_USER,
   CONTRACT_CONTENT,
   CONTRACT_COMMUNITY,
-} from './ethConstants';
-
-import {
   CLAIM_REWARD,
   GET_COMMUNITY,
   GET_USER_BY_ADDRESS,
@@ -29,7 +26,6 @@ import {
   REJECTED_SIGNATURE_REQUEST,
 } from './constants';
 
-const sigUtil = require('eth-sig-util');
 const {
   callService,
   BLOCKCHAIN_SEND_META_TRANSACTION,
@@ -72,7 +68,7 @@ class EthereumService {
     this.waitForConfirm = data.waitForConfirmDispatch;
   }
 
-  setData = data => {
+  setData = (data) => {
     this.wallet = data.wallet;
     this.connectedWallets = data.connectedWallets;
     this.selectedAccount = this.wallet?.accounts[0].address.toLowerCase();
@@ -113,7 +109,7 @@ class EthereumService {
     }
   };
 
-  walletLogIn = async previouslyConnectedWallet => {
+  walletLogIn = async (previouslyConnectedWallet) => {
     document.getElementsByTagName('body')[0].style.position = 'fixed';
 
     if (previouslyConnectedWallet) {
@@ -165,13 +161,13 @@ class EthereumService {
     this.selectedAccount = null;
   };
 
-  setSelectedAccount = account => {
+  setSelectedAccount = (account) => {
     this.selectedAccount = account?.toLowerCase();
   };
 
   getSelectedAccount = () => this.selectedAccount;
 
-  getProfile = async userAddress => {
+  getProfile = async (userAddress) => {
     const user = await this.getUserDataWithArgs(GET_USER_BY_ADDRESS, [
       userAddress,
     ]);
@@ -186,8 +182,8 @@ class EthereumService {
   };
 
   waitForCloseModal() {
-    return new Promise(resolve => {
-      this.stopWaiting = function() {
+    return new Promise((resolve) => {
+      this.stopWaiting = () => {
         resolve();
       };
     });
@@ -210,7 +206,7 @@ class EthereumService {
 
     const metaTransactionsAllowed = getCookie(META_TRANSACTIONS_ALLOWED);
     if (metaTransactionsAllowed) {
-      return await this.sendMetaTransaction(contract, actor, action, data);
+      return this.sendMetaTransaction(contract, actor, action, data);
     }
     try {
       await this.chainCheck();
@@ -239,19 +235,20 @@ class EthereumService {
     }
   };
 
-  getSignatureParameters = signature => {
+  getSignatureParameters = (signature) => {
     const r = signature.slice(0, 66);
     const s = '0x'.concat(signature.slice(66, 130));
     let v = '0x'.concat(signature.slice(130, 132));
     v = parseInt(v, 16);
     if (![27, 28].includes(v)) v += 27;
     return {
-      r: r,
-      s: s,
-      v: v,
+      r,
+      s,
+      v,
     };
   };
 
+  // eslint-disable-next-line consistent-return
   sendMetaTransaction = async (contract, actor, action, data) => {
     try {
       await this.chainCheck();
@@ -260,7 +257,7 @@ class EthereumService {
       const iface = new ethers.utils.Interface(CONTRACT_TO_ABI[contract]);
       const functionSignature = iface.encodeFunctionData(action, data);
       const message = {};
-      message.nonce = parseInt(nonce);
+      message.nonce = parseInt(nonce, 10);
       message.from = actor;
       message.functionSignature = functionSignature;
 
@@ -337,18 +334,18 @@ class EthereumService {
   };
 
   getUserDataWithArgs = async (action, args) =>
-    await this.contractUser[action](...args);
+    this.contractUser[action](...args);
 
   getCommunityDataWithArgs = async (action, args) =>
-    await this.contractCommunity[action](...args);
+    this.contractCommunity[action](...args);
 
   getContentDataWithArgs = async (action, args) =>
-    await this.contractContent[action](...args);
+    this.contractContent[action](...args);
 
   getTokenDataWithArgs = async (action, args) =>
-    await this.contractToken[action](...args);
+    this.contractToken[action](...args);
 
-  getCommunityFromContract = async id => {
+  getCommunityFromContract = async (id) => {
     const rawCommunity = await this.getCommunityDataWithArgs(GET_COMMUNITY, [
       id,
     ]);

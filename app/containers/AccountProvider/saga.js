@@ -96,7 +96,7 @@ import { getCurrentPeriod } from '../../utils/theGraph';
 const single = isSingleCommunityWebsite();
 
 /* eslint func-names: 0, consistent-return: 0 */
-export const getCurrentAccountWorker = function*(initAccount) {
+export const getCurrentAccountWorker = function* (initAccount) {
   try {
     yield put(getCurrentAccountProcessing());
 
@@ -142,17 +142,13 @@ export const getCurrentAccountWorker = function*(initAccount) {
 
     const currentPeriod = yield call(getCurrentPeriod);
 
-    const [
-      profileInfo,
-      balance,
-      availableBalance,
-      userCurrentBoost,
-    ] = yield all([
-      call(getProfileInfo, account, ethereumService, true, true),
-      call(getBalance, ethereumService, account),
-      call(getAvailableBalance, ethereumService, account),
-      call(getUserBoost, ethereumService, account, currentPeriod.id),
-    ]);
+    const [profileInfo, balance, availableBalance, userCurrentBoost] =
+      yield all([
+        call(getProfileInfo, account, ethereumService, true, true),
+        call(getBalance, ethereumService, account),
+        call(getAvailableBalance, ethereumService, account),
+        call(getUserBoost, ethereumService, account, currentPeriod.id),
+      ]);
 
     if (profileInfo) {
       yield call(getNotificationsInfoWorker, profileInfo.user);
@@ -195,7 +191,7 @@ export function* isAvailableAction(isValid, data = {}) {
   }
 
   if (!skipPermissions) {
-    if (profileInfo.integer_properties?.find(x => x.key === MODERATOR_KEY)) {
+    if (profileInfo.integer_properties?.find((x) => x.key === MODERATOR_KEY)) {
       return true;
     }
   }

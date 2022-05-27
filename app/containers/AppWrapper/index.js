@@ -13,10 +13,7 @@ import Loader from 'components/LoadingIndicator/WidthCentered';
 import { Main, WrapStyled } from './Box';
 import { selectIsMenuVisible } from './selectors';
 import { showLeftMenu, hideLeftMenu } from './actions';
-import {
-  selectTransactionInitialised,
-  selectTransactionInPending,
-} from '../EthereumProvider/selectors';
+import { selectTransactionInitialised } from '../EthereumProvider/selectors';
 
 const Box = ({
   isMenuVisible,
@@ -26,14 +23,11 @@ const Box = ({
   location,
   transactionInitialised,
 }) => {
-  useEffect(
-    () => {
-      if (isMenuVisible) {
-        hideLeftMenuDispatch();
-      }
-    },
-    [location],
-  );
+  useEffect(() => {
+    if (isMenuVisible) {
+      hideLeftMenuDispatch();
+    }
+  }, [location]);
 
   return (
     <>
@@ -68,6 +62,7 @@ Box.propTypes = {
   isMenuVisible: PropTypes.bool,
   showLeftMenuDispatch: PropTypes.func,
   hideLeftMenuDispatch: PropTypes.func,
+  transactionInitialised: PropTypes.bool,
 };
 
 const WrapperConnection = connect(
@@ -76,7 +71,7 @@ const WrapperConnection = connect(
     location: makeSelectLocation(),
     transactionInitialised: selectTransactionInitialised(),
   }),
-  dispatch => ({
+  (dispatch) => ({
     showLeftMenuDispatch: bindActionCreators(showLeftMenu, dispatch),
     hideLeftMenuDispatch: bindActionCreators(hideLeftMenu, dispatch),
   }),

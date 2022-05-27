@@ -52,7 +52,7 @@ export class Header extends React.PureComponent {
 
     window.addEventListener(
       'scroll',
-      event => {
+      (event) => {
         const st = window.pageYOffset || document.documentElement.scrollTop;
 
         const { scrollY } = event.currentTarget;
@@ -90,13 +90,11 @@ export class Header extends React.PureComponent {
 
     if (isMenuVisible) return null;
 
-    try {
-      if (isTransactionInPending || transactionInitialised) {
-        document.getElementsByTagName('body')[0].style.position = 'fixed';
-      } else {
-        document.getElementsByTagName('body')[0].style.position = 'relative';
-      }
-    } catch (err) {}
+    if (isTransactionInPending || transactionInitialised) {
+      document.getElementsByTagName('body')[0].style.position = 'fixed';
+    } else {
+      document.getElementsByTagName('body')[0].style.position = 'relative';
+    }
 
     return (
       <View
@@ -127,6 +125,9 @@ Header.propTypes = {
   redirectToAskQuestionPageDispatch: PropTypes.func,
   faqQuestions: PropTypes.array,
   isMenuVisible: PropTypes.bool,
+  isTransactionInPending: PropTypes.bool,
+  transactionHash: PropTypes.string,
+  transactionInitialised: PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -155,9 +156,6 @@ export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   };
 }
 
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 export default compose(withConnect)(Header);

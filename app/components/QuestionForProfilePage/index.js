@@ -9,7 +9,6 @@ import {
   BG_SUCCESS,
   TEXT_SECONDARY,
   BG_PRIMARY,
-  //BG_PRIMARY_DARK,
   BORDER_RADIUS_M,
   BORDER_RADIUS_L,
 } from 'style-constants';
@@ -26,15 +25,14 @@ import crownIcon from 'images/crownIcon.svg?inline';
 import Base from 'components/Base';
 import Span from 'components/Span';
 import { AProps, APropsDefault } from 'components/A';
-//import QuestionType from 'components/Labels/QuestionType';
 
 import {
   POST_TYPE_ANSWER,
   POST_TYPE_QUESTION,
 } from 'containers/Profile/constants';
 
-import QuestionCommunity from './QuestionCommunity';
 import QuestionType from 'containers/Questions/Content/Body/QuestionType';
+import QuestionCommunity from './QuestionCommunity';
 
 const single = isSingleCommunityWebsite();
 
@@ -244,14 +242,13 @@ export const QuestionForProfilePage = ({
 
 AcceptedQuestionBadge.propTypes = {
   acceptedAnswer: PropTypes.bool,
-  postType: PropTypes.string,
   isMyAnswerAccepted: PropTypes.bool,
   elementType: PropTypes.string,
 };
 
 TopCommunityBadge.propTypes = {
   isTheLargestRating: PropTypes.bool,
-  postType: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  elementType: PropTypes.string,
 };
 
 QuestionCommunity.propTypes = {
@@ -274,6 +271,7 @@ QuestionForProfilePage.propTypes = {
   isGeneral: PropTypes.bool,
   bordered: PropTypes.bool,
   isAnswer: PropTypes.bool,
+  elementType: PropTypes.string,
 };
 
 export default React.memo(QuestionForProfilePage);

@@ -15,10 +15,6 @@ import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import reducer from 'containers/EthereumProvider/reducer';
 import saga from 'containers/EthereumProvider/saga';
 
-import {
-  makeSelectEthereum,
-  makeSelectShowModal,
-} from '../EthereumProvider/selectors';
 import { FormattedMessage } from 'react-intl';
 import H4 from 'components/H4';
 import OutlinedButton from 'components/Button/Outlined/InfoLargeHeightStretching';
@@ -26,6 +22,10 @@ import ContainedButton from 'components/Button/Contained/InfoLargeHeightStretchi
 import messages from 'containers/MetaTransactionAgreement/messages';
 import { hideModal } from 'containers/EthereumProvider/actions';
 import { setCookie } from 'utils/cookie';
+import {
+  makeSelectEthereum,
+  makeSelectShowModal,
+} from '../EthereumProvider/selectors';
 
 /* eslint-disable react/prefer-stateless-function */
 export const MetaTransactionAgreement = ({
@@ -54,28 +54,28 @@ export const MetaTransactionAgreement = ({
   return (
     <ModalDialog closeModal={hideModal} show={showModal}>
       <H4 className="text-center pb-3">
-        <FormattedMessage {...messages.agreeWithMetaTransactions} />
+        <FormattedMessage id={messages.agreeWithMetaTransactions.id} />
       </H4>
 
       <div className="pb-4" style={{ textAlign: 'center' }}>
-        <FormattedMessage {...messages.youNeedMetaBecause} />
+        <FormattedMessage id={messages.youNeedMetaBecause.id} />
       </div>
 
       <div className="pb-4" style={{ textAlign: 'center' }}>
-        <FormattedMessage {...messages.dontWorry} />
+        <FormattedMessage id={messages.dontWorry.id} />
       </div>
 
       <div className="pb-4" style={{ textAlign: 'center' }}>
-        <FormattedMessage {...messages.wouldYouLike} />
+        <FormattedMessage id={messages.wouldYouLike.id} />
       </div>
 
       <div className="d-flex align-items-center pb-3">
         <OutlinedButton className="mr-3" onClick={hideModal}>
-          <FormattedMessage {...messages.cansel} />
+          <FormattedMessage id={messages.cansel.id} />
         </OutlinedButton>
 
         <ContainedButton onClick={agreeWithMeta}>
-          <FormattedMessage {...messages.confirm} />
+          <FormattedMessage id={messages.confirm.id} />
         </ContainedButton>
       </div>
     </ModalDialog>
@@ -83,19 +83,9 @@ export const MetaTransactionAgreement = ({
 };
 
 MetaTransactionAgreement.propTypes = {
-  content: PropTypes.string,
   showModal: PropTypes.bool,
-  hideLoginModalDispatch: PropTypes.func,
-  locale: PropTypes.string,
-  email: PropTypes.string,
-  loginWithEmailProcessing: PropTypes.bool,
-  finishRegistrationProcessing: PropTypes.bool,
-  loginWithWalletProcessing: PropTypes.bool,
-  showEmailPasswordFormDispatch: PropTypes.func,
-  loginWithEmailDispatch: PropTypes.func,
-  loginWithWalletDispatch: PropTypes.func,
-  finishRegistrationDispatch: PropTypes.func,
-  showForgotPasswordModalDispatch: PropTypes.func,
+  hideModalDispatch: PropTypes.func,
+  ethereum: PropTypes.object,
 };
 
 const withConnect = connect(
@@ -104,7 +94,7 @@ const withConnect = connect(
     showModal: makeSelectShowModal(),
     ethereum: makeSelectEthereum(),
   }),
-  dispatch => ({
+  (dispatch) => ({
     hideModalDispatch: bindActionCreators(hideModal, dispatch),
   }),
 );

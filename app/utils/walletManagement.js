@@ -50,8 +50,8 @@ export async function getWeekStat(ethereumService, userId) {
   const [rewards, periods, user] = await getRewardStat(userId, ethereumService);
   const inactiveFirstPeriods = [];
 
-  periods.forEach(period => {
-    if (!rewards.find(reward => reward.period.id === period.id)) {
+  periods.forEach((period) => {
+    if (!rewards.find((reward) => reward.period.id === period.id)) {
       inactiveFirstPeriods.push({
         period: period.id,
         reward: 0,
@@ -62,7 +62,7 @@ export async function getWeekStat(ethereumService, userId) {
     }
   });
 
-  const activePeriods = rewards.map(periodReward => ({
+  const activePeriods = rewards.map((periodReward) => ({
     period: periodReward.period.id,
     reward: periodReward.tokenToReward,
     hasTaken: periodReward.isPaid,
@@ -76,19 +76,14 @@ export async function getWeekStat(ethereumService, userId) {
 
   if (user?.creationTime) {
     return weekStat.filter(
-      period => Number(user.creationTime) < Number(period.periodFinished),
+      (period) => Number(user.creationTime) < Number(period.periodFinished),
     );
   }
   return weekStat;
 }
 
-export async function sendTokens(
-  eosService,
-  { from, to, quantity, precision, symbol, contractAccount },
-) {}
-
 export async function pickupReward(ethereumService, user, periodIndex) {
-  return await ethereumService.claimUserReward(user, periodIndex);
+  return ethereumService.claimUserReward(user, periodIndex);
 }
 
 export function getEditBountyTrActData(user, bounty, questionId, timestamp) {
@@ -104,10 +99,6 @@ export function getEditBountyTrActData(user, bounty, questionId, timestamp) {
     waitForGettingToBlock: true,
   };
 }
-
-export async function payBounty(user, questionId, isDeleted, eosService) {}
-
-export async function getQuestionBounty(questionId, eosService) {}
 
 export function getNormalizedCurrency(quantity, precision, symbol) {
   if (!Number(quantity)) {
@@ -232,7 +223,7 @@ export function calculateNewBoost(userBoostStat, newStake) {
   return [predictedBoost, newAverageStake];
 }
 
-export const getStakeNum = stake => {
+export const getStakeNum = (stake) => {
   const CURRENCY = ' PEER';
 
   return +stake.slice(0, stake.indexOf(CURRENCY));

@@ -13,8 +13,6 @@ import {
   BORDER_SECONDARY_LIGHT,
   TEXT_SECONDARY,
   BORDER_WARNING_LIGHT,
-  PEER_PRIMARY_COLOR,
-  BORDER_PRIMARY,
   BORDER_PRIMARY_LIGHT,
 } from 'style-constants';
 
@@ -202,21 +200,18 @@ const Notification = ({
     [data],
   );
 
-  const values = useMemo(
-    () => {
-      if (type < 9) {
-        return {};
-      }
+  const values = useMemo(() => {
+    if (type < 9) {
+      return {};
+    }
 
-      return {
-        quantity: data.quantity
-          .split(' ')
-          .map((x, i) => (i === 0 ? trimRightZeros(x) : x))
-          .join(' '),
-      };
-    },
-    [data],
-  );
+    return {
+      quantity: data.quantity
+        .split(' ')
+        .map((x, i) => (i === 0 ? trimRightZeros(x) : x))
+        .join(' '),
+    };
+  }, [data]);
 
   const isCommunityMod = !!single && Object.keys(styles).length > 0;
 

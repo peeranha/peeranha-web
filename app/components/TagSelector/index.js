@@ -13,7 +13,7 @@ import { Input } from 'components/Input/InputStyled';
 import { IconMd } from 'components/Icon/IconWithSizes';
 
 const TagsContainer = styled.ul`
-  ${props => Input(props)};
+  ${(props) => Input(props)};
 
   cursor: pointer;
   height: auto !important;
@@ -67,29 +67,27 @@ export const TagSelector = ({
 }) => {
   const [isOpen, toggleOpen] = useState(false);
 
-  const [value, filteredOptions] = useMemo(
-    () => {
-      const v = (input?.value?.toJS ? input.value.toJS() : input?.value) || [];
-      const valueIds = v?.map(x => x.id);
+  const [value, filteredOptions] = useMemo(() => {
+    const v = (input?.value?.toJS ? input.value.toJS() : input?.value) || [];
+    const valueIds = v?.map((x) => x.id);
 
-      // In menu show only which are NOT chosen
-      const fO = options?.filter(x => !valueIds.includes(x?.id));
-      return [v, fO];
-    },
-    [input, input.value],
+    // In menu show only which are NOT chosen
+    const fO = options?.filter((x) => !valueIds.includes(x?.id));
+    return [v, fO];
+  }, [input, input.value]);
+
+  const error = useMemo(
+    () => meta.touched && (meta.warning || meta.error),
+    [meta],
   );
 
-  const error = useMemo(() => meta.touched && (meta.warning || meta.error), [
-    meta,
-  ]);
-
   const toggle = useCallback(() => toggleOpen(!isOpen), [isOpen]);
-  const onChange = useCallback(x => setTags([...value, x]), [setTags, value]);
+  const onChange = useCallback((x) => setTags([...value, x]), [setTags, value]);
 
   const onClick = useCallback(
     (e, id) => {
       e.stopPropagation();
-      setTags(value.filter(y => y.id !== id));
+      setTags(value.filter((y) => y.id !== id));
     },
     [value, setTags],
   );
@@ -112,7 +110,7 @@ export const TagSelector = ({
               {value.map(({ label: valueLabel, id }) => (
                 <Tag key={valueLabel}>
                   <span>{valueLabel}</span>
-                  <RemoveTagIcon type="button" onClick={e => onClick(e, id)}>
+                  <RemoveTagIcon type="button" onClick={(e) => onClick(e, id)}>
                     <IconMd icon={closeIcon} fill={BORDER_PRIMARY} />
                   </RemoveTagIcon>
                 </Tag>

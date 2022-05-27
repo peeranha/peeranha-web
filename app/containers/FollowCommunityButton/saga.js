@@ -17,8 +17,6 @@ import {
 } from './constants';
 
 import { followHandlerSuccess, followHandlerErr } from './actions';
-import { setCookie } from '../../utils/cookie';
-import { PROFILE_INFO_LS } from '../Login/constants';
 import { selectEthereum } from '../EthereumProvider/selectors';
 
 export function* followHandlerWorker({
@@ -49,7 +47,7 @@ export function* followHandlerWorker({
       ...profileInfo,
       followedCommunities: isFollowed
         ? profileInfo.followedCommunities.filter(
-            commId => commId !== +communityIdFilter,
+            (commId) => commId !== +communityIdFilter,
           )
         : [...profileInfo.followedCommunities, +communityIdFilter],
     };

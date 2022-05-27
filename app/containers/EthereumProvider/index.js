@@ -14,17 +14,8 @@ import injectSaga from 'utils/injectSaga';
 import { DAEMON } from 'utils/constants';
 import LoadingIndicator from 'components/LoadingIndicator/HeightWidthCentered';
 
-import {
-  initEthereum,
-  showModal,
-  transactionCompleted,
-  transactionFailed,
-  transactionInPending,
-  transactionInitialised,
-} from './actions';
 import reducer from 'containers/EthereumProvider/reducer';
 import saga from 'containers/EthereumProvider/saga';
-import { makeSelectEthereum, makeSelectInitializing } from './selectors';
 import {
   init,
   useConnectWallet,
@@ -36,6 +27,15 @@ import coinbaseModule from '@web3-onboard/coinbase';
 import walletConnectModule from '@web3-onboard/walletconnect';
 import torusModule from '@web3-onboard/torus';
 import logo from 'images/LogoBlackOnboard.svg?inline';
+import { makeSelectEthereum, makeSelectInitializing } from './selectors';
+import {
+  initEthereum,
+  showModal,
+  transactionCompleted,
+  transactionFailed,
+  transactionInPending,
+  transactionInitialised,
+} from './actions';
 import communitiesConfig from '../../communities-config';
 
 const injected = injectedModule();
@@ -104,19 +104,16 @@ export const EthereumProvider = ({
   const connectedWallets = useWallets();
   const [web3Onboard, setWeb3Onboard] = useState(null);
 
-  useEffect(
-    () => {
-      if (ethereum) {
-        ethereum.setData({
-          wallet,
-          connectedWallets,
-          web3Onboard,
-          connectedChain,
-        });
-      }
-    },
-    [wallet, connectedWallets, web3Onboard],
-  );
+  useEffect(() => {
+    if (ethereum) {
+      ethereum.setData({
+        wallet,
+        connectedWallets,
+        web3Onboard,
+        connectedChain,
+      });
+    }
+  }, [wallet, connectedWallets, web3Onboard]);
 
   const sendProps = {
     connect,
@@ -135,7 +132,7 @@ export const EthereumProvider = ({
     const { pathname, hash } = window.location;
     const single = isSingleCommunityWebsite();
     if (single && pathname !== '/') {
-      if (redirectRoutesForSCM.find(route => route.startsWith(pathname))) {
+      if (redirectRoutesForSCM.find((route) => route.startsWith(pathname))) {
         const path =
           process.env.ENV === 'dev'
             ? `https://testpeeranha.io${pathname}${hash}`
@@ -153,10 +150,15 @@ export const EthereumProvider = ({
 };
 
 EthereumProvider.propTypes = {
-  initEthereum: PropTypes.func,
   children: PropTypes.element,
   initializing: PropTypes.bool,
   ethereum: PropTypes.object,
+  initEthereumDispatch: PropTypes.func,
+  showModalDispatch: PropTypes.func,
+  transactionInPendingDispatch: PropTypes.func,
+  transactionCompletedDispatch: PropTypes.func,
+  waitForConfirmDispatch: PropTypes.func,
+  transactionFailedDispatch: PropTypes.func,
 };
 
 const withConnect = connect(
@@ -164,7 +166,7 @@ const withConnect = connect(
     initializing: makeSelectInitializing(),
     ethereum: makeSelectEthereum(),
   }),
-  dispatch => ({
+  (dispatch) => ({
     initEthereumDispatch: bindActionCreators(initEthereum, dispatch),
     showModalDispatch: bindActionCreators(showModal, dispatch),
     transactionInPendingDispatch: bindActionCreators(
@@ -186,8 +188,4 @@ const withConnect = connect(
 const withReducer = injectReducer({ key: 'ethereumProvider', reducer });
 const withSaga = injectSaga({ key: 'ethereumProvider', saga, mode: DAEMON });
 
-export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
-)(EthereumProvider);
+export default compose(withReducer, withSaga, withConnect)(EthereumProvider);
