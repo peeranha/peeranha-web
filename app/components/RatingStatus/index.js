@@ -32,7 +32,7 @@ const RatingStatusStyled = styled.span`
   margin-right: 0.5rem;
 `;
 
-const Div = styled.div`
+const RaitingInfo = styled.span`
   display: flex;
   align-items: center;
   width: max-content;
@@ -45,12 +45,6 @@ const Div = styled.div`
       margin-left: 4px;
     }
   }
-`;
-
-const RatingText = styled.p`
-  height: 25px;
-  line-height: 100%;
-  padding-left: 5px;
 `;
 
 const getStatus = rating =>
@@ -100,7 +94,7 @@ const IconWithStatus = ({
   }
 
   return (
-    <Div className={`${className}`}>
+    <RaitingInfo className={`${className}`}>
       <Icon
         className="d-inline-flex mr-1"
         icon={full?.icon[size || 'sm']}
@@ -120,7 +114,7 @@ const IconWithStatus = ({
       >
         {getFormattedNum(rating)}
       </Span>
-    </Div>
+    </RaitingInfo>
   );
 };
 
@@ -148,7 +142,7 @@ const RatingStatus = ({
         fontSize={size === 'lg' ? 16 : 14}
         color={size === 'lg' ? TEXT_DARK : TEXT_SECONDARY}
       >
-        <RatingText>{intl.formatMessage({ id: full.messageId })}</RatingText>
+        {intl.formatMessage({ id: full.messageId })}
       </Span>
     </RatingStatusStyled>
   );
