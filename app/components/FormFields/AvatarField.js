@@ -277,7 +277,7 @@ function AvatarField({ input, meta, disabled }) {
           alt="icon"
         />
         {input.name === AVATAR_FIELD &&
-          input.value !== NO_AVATAR && (
+          input.value && (
             <div className="remove-avatar-action-container">
               <button
                 className="remove-avatar-action"
