@@ -9,7 +9,8 @@ import { MONTH_3LETTERS__DAY_YYYY } from 'utils/constants';
 import messages from 'containers/Profile/messages';
 
 const Div = styled.div`
-  display: ${({ view }) => view === 'Invalid Date' && 'none'};
+  display: ${({ profileSince, creationTime }) =>
+    (profileSince === 'Invalid Date' || creationTime === 0) && 'none'};
 `;
 
 const Span = styled.span`
