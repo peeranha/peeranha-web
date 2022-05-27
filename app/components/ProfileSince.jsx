@@ -25,7 +25,7 @@ export const ProfileSince = ({ creationTime, locale }) => {
   );
 
   return (
-    <Div view={profileSince}>
+    <Div profileSince={profileSince} creationTime={creationTime}>
       <FormattedMessage {...messages.memberSince} />
       <div>
         <Span>{profileSince}</Span>
