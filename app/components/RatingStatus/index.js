@@ -36,6 +36,7 @@ const RaitingInfo = styled.span`
   display: flex;
   align-items: center;
   width: max-content;
+  margin-left: 5px;
 
   @media (max-width: 350px) {
     flex-direction: column;
