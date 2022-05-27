@@ -211,10 +211,23 @@ export const QuestionForProfilePage = ({
               fontSize="14"
               color={TEXT_SECONDARY}
             >
-              {getFormattedDate(
-                myPostTime,
-                locale,
-                MONTH_3LETTERS__DAY_YYYY_TIME,
+              {isAnswer ? (
+                <FormattedMessage
+                  {...commonMessages['answeredWhen']}
+                  values={{
+                    when: getFormattedDate(
+                      myPostTime,
+                      locale,
+                      MONTH_3LETTERS__DAY_YYYY_TIME,
+                    ),
+                  }}
+                />
+              ) : (
+                getFormattedDate(
+                  myPostTime,
+                  locale,
+                  MONTH_3LETTERS__DAY_YYYY_TIME,
+                )
               )}
             </Span>
             <QuestionCommunity
