@@ -1,10 +1,17 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { getFormattedDate } from 'utils/datetime';
 import styled from 'styled-components';
 
 import { MONTH_3LETTERS__DAY_YYYY } from 'utils/constants';
+import messages from 'containers/Profile/messages';
+
+const Div = styled.div`
+  display: ${({ profileSince, creationTime }) =>
+    (profileSince === 'Invalid Date' || creationTime === 0) && 'none'};
+`;
 
 const Span = styled.span`
   @media only screen and (min-width: 1354px) {
@@ -18,7 +25,14 @@ export const ProfileSince = ({ creationTime, locale }) => {
     [],
   );
 
-  return <Span>{profileSince}</Span>;
+  return (
+    <Div profileSince={profileSince} creationTime={creationTime}>
+      <FormattedMessage id={messages.memberSince.id} />
+      <div>
+        <Span>{profileSince}</Span>
+      </div>
+    </Div>
+  );
 };
 
 ProfileSince.propTypes = {
