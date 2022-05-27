@@ -10,10 +10,10 @@ export const ImgContainer = styled.div`
   justify-content: center;
   align-items: center;
   margin: 0;
-  padding: 0 115px 182px;
+  padding: 0 115px 80px;
 
   @media (max-width: 756px) {
-    padding: 50px;
+    padding: 0 50px 50px;
   }
 `;
 
