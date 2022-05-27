@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { BG_PRIMARY, TEXT_PRIMARY, TEXT_WARNING } from 'style-constants';
+import { TEXT_PRIMARY, TEXT_WARNING } from 'style-constants';
 
 import { svgDraw } from 'components/Icon/IconStyled';
 import TransparentButton from 'components/Button/Contained/Transparent';
@@ -25,25 +25,22 @@ export const SpanStyled = TransparentButton.extend`
     margin-left: 7px;
   }
 
-  @media only screen and (max-width: 748px) {
-    margin-left: 8px;
+  @media only screen and (max-width: 1200px) {
     > *:last-child {
       display: none;
     }
   }
 
-  @media only screen and (max-width: 1110px) {
-    display: flex;
-    flex-direction: column;
+  @media only screen and (max-width: 576px) {
+    margin-left: 15px;
   }
 
-  @media only screen and (max-width: 1045px) {
-    margin-left: 20px;
-    font-size: 14px;
+  @media only screen and (max-width: 440px) {
+    margin-left: 8px;
   }
 
-  @media only screen and (max-width: 763px) {
-    font-size: 13px;
+  @media only screen and (max-width: 350px) {
+    margin-left: 3px;
   }
 `;
 

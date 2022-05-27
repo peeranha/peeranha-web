@@ -13,13 +13,13 @@ const StatusSpan = styled.span`
   display: flex;
   font-size: ${props => (props.size === 'lg' ? '16px' : '14px')};
   align-items: baseline;
-  margin-right: 0.5rem;
   padding-left: ${props => (props.size === 'lg' ? '22px' : '12px')};
 
   @media (max-width: 350px) {
     flex-direction: ${({ isProfilePage }) => !isProfilePage && 'column'};
     margin-left: ${({ isProfilePage }) => isProfilePage && '-25px'};
     align-items: center;
+    padding-left: 5px;
   }
 `;
 

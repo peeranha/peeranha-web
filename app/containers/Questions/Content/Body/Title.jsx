@@ -11,8 +11,13 @@ import Bounty from 'containers/ViewQuestion/Bounty';
 import { APP_FONT } from 'style-constants';
 
 import { singleCommunityFonts } from 'utils/communityManagement';
+import styled from 'styled-components';
 import messages from '../../messages';
 import { POST_TYPE } from '../../../../utils/constants';
+
+const Wrapper = styled.div`
+  margin-right: 30px;
+`;
 
 const fonts = singleCommunityFonts();
 
@@ -24,7 +29,7 @@ const Title = ({ locale, title, id, questionBounty, postType }) => {
         ? routes.expertPostView(id, null)
         : routes.tutorialView(id);
   return (
-    <div className="mb-1">
+    <Wrapper className="mb-1">
       <Bounty
         bountyMessage={translationMessages[locale][messages.bountyPopover.id]}
         className="questionTitle"
@@ -44,7 +49,7 @@ const Title = ({ locale, title, id, questionBounty, postType }) => {
           {title}
         </Span>
       </A>
-    </div>
+    </Wrapper>
   );
 };
 Title.propTypes = {
