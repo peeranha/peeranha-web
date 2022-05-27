@@ -43,7 +43,11 @@ const QuestionCommunity = ({
   let route = null;
   let Link = A;
   if (single && communityId !== single) {
-    route = `${process.env.APP_LOCATION}${routes.questions(communityId)}`;
+    route = `${process.env.APP_LOCATION}${getRouteByPostType(
+      postType,
+      isFeed,
+      communityId,
+    )}`;
     Link = ADefault;
   } else if (single && communityId === single) {
     route = getRouteByPostType(postType, isFeed);
