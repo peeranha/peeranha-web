@@ -233,8 +233,8 @@ class EthereumService {
           break;
         default:
           this.transactionFailed();
-          break;
       }
+      throw new Error(err.message);
     }
   };
 
