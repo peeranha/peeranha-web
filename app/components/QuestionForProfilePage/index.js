@@ -213,7 +213,7 @@ export const QuestionForProfilePage = ({
             >
               {isAnswer ? (
                 <FormattedMessage
-                  {...commonMessages['answeredWhen']}
+                  id={commonMessages.answeredWhen.id}
                   values={{
                     when: getFormattedDate(
                       myPostTime,
