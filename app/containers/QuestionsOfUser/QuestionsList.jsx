@@ -66,7 +66,7 @@ const LastAnswer = ({ lastAnswer, locale }) => {
     <span className="d-flex flex-column">
       {lastAnswer.author && (
         <A
-          to={routes.profileView(lastAnswer.user)}
+          to={routes.profileView(lastAnswer.author.id)}
           className="d-flex align-items-center"
         >
           <Span className="mr-2" fontSize="14" lineHeight="18">

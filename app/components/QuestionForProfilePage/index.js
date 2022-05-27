@@ -193,7 +193,7 @@ export const QuestionForProfilePage = ({
           />
         </div>
 
-        <div className="d-flex flex-column flex-grow-1">
+        <div className="d-flex px-3 flex-column flex-grow-1">
           <Link
             to={href}
             href={href}
@@ -211,16 +211,24 @@ export const QuestionForProfilePage = ({
               fontSize="14"
               color={TEXT_SECONDARY}
             >
-              <FormattedMessage
-                {...commonMessages[isAnswer ? 'answeredWhen' : 'askedWhen']}
-                values={{
-                  when: getFormattedDate(
-                    myPostTime,
-                    locale,
-                    MONTH_3LETTERS__DAY_YYYY_TIME,
-                  ),
-                }}
-              />
+              {isAnswer ? (
+                <FormattedMessage
+                  id={commonMessages.answeredWhen.id}
+                  values={{
+                    when: getFormattedDate(
+                      myPostTime,
+                      locale,
+                      MONTH_3LETTERS__DAY_YYYY_TIME,
+                    ),
+                  }}
+                />
+              ) : (
+                getFormattedDate(
+                  myPostTime,
+                  locale,
+                  MONTH_3LETTERS__DAY_YYYY_TIME,
+                )
+              )}
             </Span>
             <QuestionCommunity
               communities={communities}
