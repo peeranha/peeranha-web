@@ -76,7 +76,7 @@ export async function getWeekStat(ethereumService, userId) {
 
   if (user?.creationTime) {
     return weekStat.filter(
-      period => Number(user?.creationTime) < Number(period.periodFinished),
+      period => Number(user.creationTime) < Number(period.periodFinished),
     );
   }
   return weekStat;
