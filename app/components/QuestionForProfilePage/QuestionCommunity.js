@@ -15,7 +15,7 @@ import { POST_TYPE } from 'utils/constants';
 
 const single = isSingleCommunityWebsite();
 
-const getRouteByPostType = (postType, isFeed, communityId = 0) => {
+const getRouteByPostType = ({ postType, isFeed, communityId = 0 }) => {
   if (isFeed) {
     return routes.feed(communityId);
   }
@@ -43,16 +43,16 @@ const QuestionCommunity = ({
   let route = null;
   let Link = A;
   if (single && communityId !== single) {
-    route = `${process.env.APP_LOCATION}${getRouteByPostType(
+    route = `${process.env.APP_LOCATION}${getRouteByPostType({
       postType,
       isFeed,
       communityId,
-    )}`;
+    })}`;
     Link = ADefault;
   } else if (single && communityId === single) {
-    route = getRouteByPostType(postType, isFeed);
+    route = getRouteByPostType({ postType, isFeed });
   } else if (!single) {
-    route = getRouteByPostType(postType, isFeed, communityId);
+    route = getRouteByPostType({ postType, isFeed, communityId });
   }
 
   return (
