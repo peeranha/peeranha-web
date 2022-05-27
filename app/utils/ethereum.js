@@ -235,6 +235,7 @@ class EthereumService {
           this.transactionFailed();
           break;
       }
+      throw new Error(err.message);
     }
   };
 
