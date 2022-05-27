@@ -36,6 +36,7 @@ import blockchainLogo from 'images/blockchain-outline-32.svg?external';
 import IPFSInformation from 'containers/Questions/Content/Body/IPFSInformation';
 import commonMessages from 'common-messages';
 import { POST_TYPE } from 'utils/constants';
+import { getUserName } from 'utils/user';
 
 const RatingBox = styled.div`
   border-right: 1px solid ${BORDER_SECONDARY};
@@ -45,9 +46,13 @@ const RatingBox = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  @media only screen and (max-width: 576px) {
+  @media only screen and (max-width: 680px) {
     border-right: none;
     border-bottom: 1px solid ${BORDER_SECONDARY};
+  }
+
+  @media only screen and (max-width: 680px) {
+    padding: 0 10px;
   }
 `;
 
@@ -69,7 +74,7 @@ const Box = styled.div`
   border-bottom: 1px solid ${BORDER_SECONDARY};
   height: 77px;
 
-  @media only screen and (max-width: 576px) {
+  @media only screen and (max-width: 680px) {
     flex-direction: column;
     align-items: stretch;
     height: auto;
@@ -174,7 +179,7 @@ const ContentHeader = props => {
       <ItemInfo>
         <UserInfo
           avatar={getUserAvatar(author.avatar)}
-          name={author?.['displayName']}
+          name={getUserName(author.displayName, author.id)}
           account={author.user}
           rating={getRatingByCommunity(author, props.commId)}
           type={type}

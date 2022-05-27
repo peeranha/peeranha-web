@@ -80,6 +80,7 @@ import {
   FullWidthPreloader,
   TermsOfService,
   DeleteFacebookData,
+  MetaTransactionAgreement,
 } from './imports';
 import { getValueFromSearchString } from '../../utils/url';
 import { getCookie, setCookie } from '../../utils/cookie';
@@ -87,6 +88,7 @@ import { REFERRAL_CODE_URI } from './constants';
 import { AUTOLOGIN_DATA } from '../Login/constants';
 import { redirectToFeed } from './actions';
 import { hasGlobalModeratorRole } from '../../utils/properties';
+import Blanket from '../../components/ModalDialog/Blanket';
 
 const single = isSingleCommunityWebsite();
 
@@ -133,10 +135,10 @@ const App = ({
   return (
     <ErrorBoundary>
       <Toast />
-      <ProgressIndicator />
 
       <Login />
       <ForgotPassword />
+      <MetaTransactionAgreement />
 
       <ScrollTo />
       <Popover />

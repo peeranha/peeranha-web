@@ -58,6 +58,7 @@ const BackSide = styled.div`
   background: ${BG_LIGHT};
   display: none;
   border-radius: 5px;
+  overflow-y: auto;
 
   > div {
     position: relative;
@@ -119,7 +120,7 @@ const TopCommunities = ({ communities, profile, questions }) => {
     AllCommunitiesLink = ADefault;
     allCommunitiesRoute = `${process.env.APP_LOCATION}/communities`;
   }
-  if (profile.ratings?.length) {
+  if (profile.followedCommunities?.length) {
     return (
       <div className="overlow-hidden" ref={ref}>
         <H4 isHeader>
@@ -289,7 +290,7 @@ const TopCommunities = ({ communities, profile, questions }) => {
                           </P>
                           <P>{x.description}</P>
                         </div>
-                        <div>
+                        <div className="mt-2">
                           <FollowCommunityButton communityIdFilter={x.id} />
                         </div>
                       </div>

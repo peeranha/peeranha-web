@@ -102,6 +102,7 @@ import { makeSelectLocale } from '../LanguageProvider/selectors';
 import { translationMessages } from '../../i18n';
 import { selectEthereum } from '../EthereumProvider/selectors';
 import { hasGlobalModeratorRole } from '../../utils/properties';
+import { getNotificationsInfoWorker } from '../../components/Notifications/saga';
 import { getCurrentPeriod } from '../../utils/theGraph';
 
 const single = isSingleCommunityWebsite();
@@ -122,9 +123,15 @@ export const getCurrentAccountWorker = function*(initAccount) {
       ? initAccount
       : call(ethereumService.getSelectedAccount);
 
-    const previouslyConnectedWallet = JSON.parse(
-      window.localStorage.getItem('connectedWallet'),
-    );
+    const previouslyConnectedWallet = getCookie('connectedWallet');
+
+    if (!window.localStorage.getItem('onboard.js:agreement')) {
+      window.localStorage.setItem(
+        'onboard.js:agreement',
+        getCookie('agreement'),
+      );
+    }
+
     if (!account && previouslyConnectedWallet) {
       yield call(ethereumService.walletLogIn, previouslyConnectedWallet);
       account = ethereumService.getSelectedAccount();
@@ -158,6 +165,10 @@ export const getCurrentAccountWorker = function*(initAccount) {
       call(getAvailableBalance, ethereumService, account),
       call(getUserBoost, ethereumService, account, currentPeriod.id),
     ]);
+
+    if (profileInfo) {
+      yield call(getNotificationsInfoWorker, profileInfo.user);
+    }
 
     setCookie({
       name: PROFILE_INFO_LS,

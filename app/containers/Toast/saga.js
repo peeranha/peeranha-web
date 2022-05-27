@@ -24,8 +24,13 @@ import { ADD_TOAST, REMOVE_TIMEOUT } from './constants';
 import { addToast, removeToast } from './actions';
 import { makeSelectToasts } from './selectors';
 
-import { errHandlingTypes, successHandlingTypes, otherTypes } from './imports';
+import { errHandlingTypes, otherTypes } from './imports';
 import errorMessages from 'errorsByCode';
+import { selectTransactionHash } from '../EthereumProvider/selectors';
+import {
+  TRANSACTION_COMPLETED,
+  TRANSACTION_FAILED,
+} from '../EthereumProvider/constants';
 
 export function* errHandling(error) {
   const locale = yield select(makeSelectLocale());
@@ -88,11 +93,10 @@ export function* errHandling(error) {
 export function* successHandling() {
   const locale = yield select(makeSelectLocale());
   const msg = translationMessages[locale];
-
   yield put(
     addToast({
       type: 'success',
-      text: msg[messages.successMessage.id],
+      text: msg[messages.transactionCompleted.id],
     }),
   );
 }
@@ -148,7 +152,7 @@ export function* loggerWorker(error) {
 
 export default function*() {
   yield takeEvery(ADD_TOAST, addToastWorker);
-  yield takeEvery(errHandlingTypes, errHandling);
+  yield takeEvery(TRANSACTION_FAILED, errHandling);
   yield takeEvery([...otherTypes, ...errHandlingTypes], loggerWorker);
-  yield takeEvery(successHandlingTypes, successHandling);
+  yield takeEvery(TRANSACTION_COMPLETED, successHandling);
 }
