@@ -15,6 +15,17 @@ import { DAEMON } from 'utils/constants';
 import LoadingIndicator from 'components/LoadingIndicator/HeightWidthCentered';
 
 import {
+  initEthereum,
+  showModal,
+  transactionCompleted,
+  transactionFailed,
+  transactionInPending,
+  transactionInitialised,
+} from './actions';
+import reducer from 'containers/EthereumProvider/reducer';
+import saga from 'containers/EthereumProvider/saga';
+import { makeSelectEthereum, makeSelectInitializing } from './selectors';
+import {
   init,
   useConnectWallet,
   useSetChain,
@@ -25,10 +36,6 @@ import coinbaseModule from '@web3-onboard/coinbase';
 import walletConnectModule from '@web3-onboard/walletconnect';
 import torusModule from '@web3-onboard/torus';
 import logo from 'images/LogoBlackOnboard.svg?inline';
-import { makeSelectEthereum, makeSelectInitializing } from './selectors';
-import saga from './saga';
-import reducer from './reducer';
-import { initEthereum } from './actions';
 import communitiesConfig from '../../communities-config';
 
 const injected = injectedModule();
@@ -60,11 +67,23 @@ const initWeb3Onboard = init({
   appMetadata: {
     name: 'Peeranha',
     icon: src,
-    description: 'Decentralized questions and answers website',
+    description: 'Knowledge sharing protocol for Web3',
     agreement: {
       version: '1.0.0',
       termsUrl: `${process.env.APP_LOCATION}/terms-and-conditions/`,
       privacyUrl: `${process.env.APP_LOCATION}/privacy-policy/`,
+    },
+  },
+  i18n: {
+    en: {
+      connect: {
+        selectingWallet: {
+          sidebar: {
+            paragraph:
+              'Connecting your wallet is like "logging in" to Web3. Not sure where to start? Select Torus wallet to log in with email, Google, or social media account.',
+          },
+        },
+      },
     },
   },
 });
@@ -72,6 +91,11 @@ const initWeb3Onboard = init({
 export const EthereumProvider = ({
   children,
   initEthereumDispatch,
+  showModalDispatch,
+  transactionInPendingDispatch,
+  transactionCompletedDispatch,
+  waitForConfirmDispatch,
+  transactionFailedDispatch,
   initializing,
   ethereum,
 }) => {
@@ -80,22 +104,30 @@ export const EthereumProvider = ({
   const connectedWallets = useWallets();
   const [web3Onboard, setWeb3Onboard] = useState(null);
 
-  useEffect(() => {
-    if (ethereum) {
-      ethereum.setData({
-        wallet,
-        connectedWallets,
-        web3Onboard,
-        connectedChain,
-      });
-    }
-  }, [wallet, connectedWallets, web3Onboard]);
+  useEffect(
+    () => {
+      if (ethereum) {
+        ethereum.setData({
+          wallet,
+          connectedWallets,
+          web3Onboard,
+          connectedChain,
+        });
+      }
+    },
+    [wallet, connectedWallets, web3Onboard],
+  );
 
   const sendProps = {
     connect,
     disconnect,
     setChain,
     connectedChain,
+    showModalDispatch,
+    transactionInPendingDispatch,
+    transactionCompletedDispatch,
+    transactionFailedDispatch,
+    waitForConfirmDispatch,
   };
 
   useEffect(() => {
@@ -103,7 +135,7 @@ export const EthereumProvider = ({
     const { pathname, hash } = window.location;
     const single = isSingleCommunityWebsite();
     if (single && pathname !== '/') {
-      if (redirectRoutesForSCM.find((route) => route.startsWith(pathname))) {
+      if (redirectRoutesForSCM.find(route => route.startsWith(pathname))) {
         const path =
           process.env.ENV === 'dev'
             ? `https://testpeeranha.io${pathname}${hash}`
@@ -121,7 +153,7 @@ export const EthereumProvider = ({
 };
 
 EthereumProvider.propTypes = {
-  initEthereumDispatch: PropTypes.func,
+  initEthereum: PropTypes.func,
   children: PropTypes.element,
   initializing: PropTypes.bool,
   ethereum: PropTypes.object,
@@ -132,12 +164,30 @@ const withConnect = connect(
     initializing: makeSelectInitializing(),
     ethereum: makeSelectEthereum(),
   }),
-  (dispatch) => ({
+  dispatch => ({
     initEthereumDispatch: bindActionCreators(initEthereum, dispatch),
+    showModalDispatch: bindActionCreators(showModal, dispatch),
+    transactionInPendingDispatch: bindActionCreators(
+      transactionInPending,
+      dispatch,
+    ),
+    transactionCompletedDispatch: bindActionCreators(
+      transactionCompleted,
+      dispatch,
+    ),
+    transactionFailedDispatch: bindActionCreators(transactionFailed, dispatch),
+    waitForConfirmDispatch: bindActionCreators(
+      transactionInitialised,
+      dispatch,
+    ),
   }),
 );
 
 const withReducer = injectReducer({ key: 'ethereumProvider', reducer });
 const withSaga = injectSaga({ key: 'ethereumProvider', saga, mode: DAEMON });
 
-export default compose(withReducer, withSaga, withConnect)(EthereumProvider);
+export default compose(
+  withReducer,
+  withSaga,
+  withConnect,
+)(EthereumProvider);

@@ -136,7 +136,7 @@ const Box = styled.div`
 
 const MainLinks = ({ currClientHeight, profile }) => {
   const { pathname } = window.location;
-  let route = pathname.split('/').filter((x) => x)[0];
+  let route = pathname.split('/').filter(x => x)[0];
 
   const singleCommId = +isSingleCommunityWebsite();
   const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
@@ -156,7 +156,9 @@ const MainLinks = ({ currClientHeight, profile }) => {
 
       <A1 to={routes.feed()} name="feed" route={route}>
         <IconLg className="mr-2" icon={myFeedIcon} />
-        <FormattedMessage id={messages[profile ? 'myFeed' : 'feed'].id} />
+        <FormattedMessage
+          id={messages[profile && !singleCommId ? 'myFeed' : 'feed'].id}
+        />
       </A1>
 
       <A1 to={routes.questions()} name="questions" route={route}>
@@ -199,12 +201,13 @@ const MainLinks = ({ currClientHeight, profile }) => {
         </A1>
       )}
 
-      {!styles.withoutFAQ && (
-        <A1 to={routes.faq()} name="faq" route={route}>
-          <IconLg className="mr-2" icon={faqIcon} fill={BORDER_PRIMARY} />
-          <FormattedMessage {...messages.faq} />
-        </A1>
-      )}
+      {!styles.withoutFAQ &&
+        !singleCommId && (
+          <A1 to={routes.faq()} name="faq" route={route}>
+            <IconLg className="mr-2" icon={faqIcon} fill={BORDER_PRIMARY} />
+            <FormattedMessage {...messages.faq} />
+          </A1>
+        )}
     </Box>
   );
 };

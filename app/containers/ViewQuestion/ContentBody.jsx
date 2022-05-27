@@ -77,6 +77,7 @@ export const ContentBody = ({
       <TextBlock content={content} />
 
       <Comments
+        postId={questionData.id}
         locale={locale}
         type={type}
         saveComment={saveComment}
@@ -136,6 +137,7 @@ ContentBody.propTypes = {
   isItWrittenByMe: PropTypes.bool,
   infiniteImpact: PropTypes.bool,
   histories: PropTypes.array,
+  commId: PropTypes.number,
 };
 
 export default React.memo(ContentBody);

@@ -28,7 +28,7 @@ import { MediumSpecialImage } from 'components/Img/MediumImage';
 import { IconLg } from 'components/Icon/IconWithSizes';
 import Logout from 'containers/Logout';
 import Icon from 'components/Icon/index';
-
+import { getUserName } from 'utils/user';
 import { selectIsMenuVisible } from '../AppWrapper/selectors';
 import { getPermissions } from '../../utils/properties';
 
@@ -46,8 +46,8 @@ const Info = styled.span`
 
   > span:nth-child(1) {
     display: flex;
-    align-items: ${(x) => (x.isMenuVisible ? 'stretch' : 'center')};
-    margin-right: ${(x) => (!x.isMenuVisible ? 7 : 'auto')}px;
+    align-items: ${x => (x.isMenuVisible ? 'stretch' : 'center')};
+    margin-right: ${x => (!x.isMenuVisible ? 7 : 'auto')}px;
   }
 `;
 
@@ -75,26 +75,27 @@ const B = ({ profileInfo, onClick, isMenuVisible, isMobileVersion }) => (
         />
       </NoAvatarBox>
     )}
-    {profileInfo.avatar && profileInfo.avatar !== NO_AVATAR && (
-      <MediumSpecialImage
-        isBordered
-        customBorderStyle={!isMobileVersion && styles.communityBorderStyle}
-        src={getUserAvatar(profileInfo.avatar)}
-        alt="avatar"
-      />
-    )}
+    {profileInfo.avatar &&
+      profileInfo.avatar !== NO_AVATAR && (
+        <MediumSpecialImage
+          isBordered
+          customBorderStyle={!isMobileVersion && styles.communityBorderStyle}
+          src={getUserAvatar(profileInfo.avatar)}
+          alt="avatar"
+        />
+      )}
     <Info
       className="d-flex flex-column justify-content-center"
       isMenuVisible={isMenuVisible}
     >
       <Span bold color={(!isMobileVersion && styles.commHeadElemColor) || ''}>
-        {profileInfo?.displayName}
+        {getUserName(profileInfo.displayName, profileInfo.loginData.account)}
       </Span>
     </Info>
   </span>
 );
 
-export const Button = connect((state) => ({
+export const Button = connect(state => ({
   isMenuVisible: selectIsMenuVisible()(state),
 }))(B);
 
@@ -103,10 +104,9 @@ const Menu = memo(
     const { user, loginData } = profileInfo;
     const isEmail = loginData.email;
 
-    const isModerator = useMemo(
-      () => !!getPermissions(profileInfo)?.length,
-      [profileInfo],
-    );
+    const isModerator = useMemo(() => !!getPermissions(profileInfo)?.length, [
+      profileInfo,
+    ]);
 
     return (
       <nav>
@@ -137,10 +137,9 @@ const Menu = memo(
           >
             <FormattedMessage id={messages.settings.id} />
           </A>
-          {/* TODO PEER20-286 Hide notifications from this version */}
-          {/* <A to={routes.userNotifications(user)}>
+          <A to={routes.userNotifications(user)}>
             <FormattedMessage {...messages.notifications} />
-          </A> */}
+          </A>
           <A to={routes.userNFTs(user)}>
             <FormattedMessage id={messages.NFTs.id} />
           </A>

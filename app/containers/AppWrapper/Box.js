@@ -4,6 +4,7 @@ import { singleCommunityColors } from 'utils/communityManagement';
 
 import {
   HEADER_HEIGHT,
+  LOADER_HEIGHT,
   MOBILE_HEADER_HEIGHT,
 } from 'containers/Header/constants';
 
@@ -16,11 +17,31 @@ const Main = styled.div`
     ? colors.mainBackground
     : 'rgb(234, 236, 244)'};
   min-height: 100vh;
-  padding-top: ${(x) => (!x.isMenuVisible ? HEADER_HEIGHT : 0)}px;
-  padding-bottom: ${(x) => (!x.isMenuVisible ? 75 : 0)}px;
+  padding-top: ${x => {
+    if (x.isMenuVisible) {
+      return 0;
+    }
+
+    if (x.transactionInitialised) {
+      return HEADER_HEIGHT + LOADER_HEIGHT;
+    }
+
+    return HEADER_HEIGHT;
+  }}px;
+  padding-bottom: ${x => (!x.isMenuVisible ? 75 : 0)}px;
 
   @media only screen and (max-width: 991px) {
-    padding-top: ${(x) => (!x.isMenuVisible ? MOBILE_HEADER_HEIGHT : 0)}px;
+    padding-top: ${x => {
+      if (x.isMenuVisible) {
+        return 0;
+      }
+
+      if (x.transactionInitialised) {
+        return MOBILE_HEADER_HEIGHT + LOADER_HEIGHT;
+      }
+
+      return MOBILE_HEADER_HEIGHT;
+    }}px;
     padding-bottom: 0px;
   }
 `;

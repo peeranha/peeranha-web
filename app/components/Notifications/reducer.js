@@ -84,7 +84,7 @@ function notificationsReducer(state = initialState, action) {
       });
     case LOAD_MORE_NOTIFICATIONS_SUCCESS:
       if (notifications.length) {
-        notifications.forEach((notification) => {
+        notifications.forEach(notification => {
           if (!stateNotifications[notification.timestamp]) {
             stateNotifications[notification.timestamp] = notification;
           }
@@ -95,6 +95,15 @@ function notificationsReducer(state = initialState, action) {
           })
           .set('all', {
             ...allSubState,
+            lastTimestamp:
+              notifications[notifications.length - 1].timestamp - 1,
+            loading: false,
+          })
+          .set('unread', {
+            ...unreadSubState,
+            timestamps: notifications
+              .filter(n => !n.read)
+              .map(({ timestamp }) => timestamp),
             lastTimestamp:
               notifications[notifications.length - 1].timestamp - 1,
             loading: false,
@@ -120,7 +129,7 @@ function notificationsReducer(state = initialState, action) {
         const newNots = notifications.filter(
           ({ timestamp }) => !stateNotifications[timestamp],
         );
-        newNots.forEach((notification) => {
+        newNots.forEach(notification => {
           stateNotifications[notification.timestamp] = notification;
         });
 
@@ -136,6 +145,13 @@ function notificationsReducer(state = initialState, action) {
             lastTimestamp:
               notifications[notifications.length - 1].timestamp - 1,
             loading: false,
+          })
+          .set('all', {
+            ...allSubState,
+            readNotifications: allSubState.readNotifications.map(
+              n => n + newNots.length,
+            ),
+            loading: false,
           });
       }
 
@@ -149,8 +165,8 @@ function notificationsReducer(state = initialState, action) {
         .set('loadMoreUnreadNotificationsErr', loadMoreUnreadNotificationsErr);
 
     case MARK_ALL_NOTIFICATIONS_AS_READ_SUCCESS:
-      Object.keys(stateNotifications).forEach((timestamp) => {
-        _update(stateNotifications, timestamp, (notification) => ({
+      Object.keys(stateNotifications).forEach(timestamp => {
+        _update(stateNotifications, timestamp, notification => ({
           ...notification,
           read: true,
         }));
@@ -167,9 +183,9 @@ function notificationsReducer(state = initialState, action) {
         .set('notifications', { ...stateNotifications });
 
     case FILTER_READ_TIMESTAMPS:
-      Object.keys(stateNotifications).forEach((timestamp) => {
+      Object.keys(stateNotifications).forEach(timestamp => {
         if (stateReadTimestamps.includes(+timestamp)) {
-          _update(stateNotifications, timestamp, (notification) => ({
+          _update(stateNotifications, timestamp, notification => ({
             ...notification,
             read: true,
           }));
@@ -182,7 +198,7 @@ function notificationsReducer(state = initialState, action) {
           readNotifications: [0, 0],
           count: Math.max(0, unreadSubState.count - stateReadTimestamps.length),
           timestamps: unreadSubState.timestamps.filter(
-            (timestamp) => !stateNotifications[timestamp].read,
+            timestamp => !stateNotifications[timestamp].read,
           ),
         })
         .set('readTimestamps', [])

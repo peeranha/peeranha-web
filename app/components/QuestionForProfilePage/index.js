@@ -9,6 +9,7 @@ import {
   BG_SUCCESS,
   TEXT_SECONDARY,
   BG_PRIMARY,
+  //BG_PRIMARY_DARK,
   BORDER_RADIUS_M,
   BORDER_RADIUS_L,
 } from 'style-constants';
@@ -25,14 +26,15 @@ import crownIcon from 'images/crownIcon.svg?inline';
 import Base from 'components/Base';
 import Span from 'components/Span';
 import { AProps, APropsDefault } from 'components/A';
+//import QuestionType from 'components/Labels/QuestionType';
 
 import {
   POST_TYPE_ANSWER,
   POST_TYPE_QUESTION,
 } from 'containers/Profile/constants';
 
-import QuestionType from 'containers/Questions/Content/Body/QuestionType';
 import QuestionCommunity from './QuestionCommunity';
+import QuestionType from 'containers/Questions/Content/Body/QuestionType';
 
 const single = isSingleCommunityWebsite();
 
@@ -191,7 +193,7 @@ export const QuestionForProfilePage = ({
           />
         </div>
 
-        <div className="d-flex flex-column flex-grow-1">
+        <div className="d-flex px-3 flex-column flex-grow-1">
           <Link
             to={href}
             href={href}
@@ -209,20 +211,29 @@ export const QuestionForProfilePage = ({
               fontSize="14"
               color={TEXT_SECONDARY}
             >
-              <FormattedMessage
-                id={commonMessages[isAnswer ? 'answeredWhen' : 'askedWhen'].id}
-                values={{
-                  when: getFormattedDate(
-                    myPostTime,
-                    locale,
-                    MONTH_3LETTERS__DAY_YYYY_TIME,
-                  ),
-                }}
-              />
+              {isAnswer ? (
+                <FormattedMessage
+                  id={commonMessages.answeredWhen.id}
+                  values={{
+                    when: getFormattedDate(
+                      myPostTime,
+                      locale,
+                      MONTH_3LETTERS__DAY_YYYY_TIME,
+                    ),
+                  }}
+                />
+              ) : (
+                getFormattedDate(
+                  myPostTime,
+                  locale,
+                  MONTH_3LETTERS__DAY_YYYY_TIME,
+                )
+              )}
             </Span>
             <QuestionCommunity
               communities={communities}
               communityId={communityId}
+              postType={postType}
             />
           </p>
         </div>
@@ -233,13 +244,14 @@ export const QuestionForProfilePage = ({
 
 AcceptedQuestionBadge.propTypes = {
   acceptedAnswer: PropTypes.bool,
+  postType: PropTypes.string,
   isMyAnswerAccepted: PropTypes.bool,
   elementType: PropTypes.string,
 };
 
 TopCommunityBadge.propTypes = {
   isTheLargestRating: PropTypes.bool,
-  elementType: PropTypes.string,
+  postType: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 QuestionCommunity.propTypes = {
@@ -262,7 +274,6 @@ QuestionForProfilePage.propTypes = {
   isGeneral: PropTypes.bool,
   bordered: PropTypes.bool,
   isAnswer: PropTypes.bool,
-  elementType: PropTypes.string,
 };
 
 export default React.memo(QuestionForProfilePage);

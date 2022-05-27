@@ -437,19 +437,20 @@ const period = `
 export const rewardsQuery = `
   query (
     $userId: ID!,
+    $periodsCount: Int
   ) {
-    userRewards (where: {user: $userId}) {
+    user (id: $userId) {
+      ${user}
+    }
+    userRewards (where: {user: $userId, tokenToReward_not: 0}) {
       id
       period {
         ${period}
       }
-      user {
-        ${user}
-      }
       tokenToReward
       isPaid
     }
-    periods (orderBy: endPeriodTime, orderDirection: desc, first: 2) {
+    periods (orderBy: endPeriodTime, orderDirection: desc, first: $periodsCount) {
       ${period}
     }
   }

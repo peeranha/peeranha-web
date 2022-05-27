@@ -95,6 +95,10 @@ const Icon = styled(IconLg)`
   .semitransparent {
     fill: none;
   }
+
+  @media (max-width: 576px) {
+    margin-top: 50px;
+  }
 `;
 
 const QuestionType = ({ locale, postType, isPromoted }) => {

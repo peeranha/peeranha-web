@@ -58,6 +58,7 @@ const BackSide = styled.div`
   background: ${BG_LIGHT};
   display: none;
   border-radius: 5px;
+  overflow-y: auto;
 
   > div {
     position: relative;
@@ -97,18 +98,21 @@ const TopCommunities = ({ communities, profile, questions }) => {
     return null;
   }
   const ref = useRef(null);
-  useEffect(() => {
-    let offset = 75;
-    if (single && window.innerWidth > 576) {
-      offset = 113;
-    } else if (window.innerWidth < 577) {
-      offset = 55;
-    }
+  useEffect(
+    () => {
+      let offset = 75;
+      if (single && window.innerWidth > 576) {
+        offset = 113;
+      } else if (window.innerWidth < 577) {
+        offset = 55;
+      }
 
-    if (window.location.hash === '#communities') {
-      window.scrollTo(0, ref.current.offsetTop - offset);
-    }
-  }, [window.location.hash, questions]);
+      if (window.location.hash === '#communities') {
+        window.scrollTo(0, ref.current.offsetTop - offset);
+      }
+    },
+    [window.location.hash, questions],
+  );
 
   let AllCommunitiesLink = A;
   let allCommunitiesRoute = routes.communities();
@@ -116,7 +120,7 @@ const TopCommunities = ({ communities, profile, questions }) => {
     AllCommunitiesLink = ADefault;
     allCommunitiesRoute = `${process.env.APP_LOCATION}/communities`;
   }
-  if (profile.ratings?.length) {
+  if (profile.followedCommunities?.length) {
     return (
       <div className="overlow-hidden" ref={ref}>
         <H4 isHeader>
@@ -126,7 +130,7 @@ const TopCommunities = ({ communities, profile, questions }) => {
         <Grid xl={5} lg={4} md={3} sm={2} xs={1}>
           {orderBy(profile.ratings, 'rating', 'desc')
             .slice(0, 9)
-            .map((x) => {
+            .map(x => {
               let Link = AStyled;
               let route = routes.questions(x.communityId);
               if (single && x.communityId !== single) {
@@ -136,7 +140,7 @@ const TopCommunities = ({ communities, profile, questions }) => {
                 route = routes.questions();
               }
               const community = communities.find(
-                (item) => item.id === x.communityId,
+                item => item.id === x.communityId,
               );
 
               return (
@@ -225,7 +229,7 @@ const TopCommunities = ({ communities, profile, questions }) => {
       <Grid xl={5} lg={4} md={3} sm={2} xs={1}>
         {orderBy(communities, 'users_subscribed', 'desc')
           .slice(0, 9)
-          .map((x) => {
+          .map(x => {
             let Link = AStyled;
             let route = routes.questions(x.id);
             if (single && x.id !== single) {
@@ -286,7 +290,7 @@ const TopCommunities = ({ communities, profile, questions }) => {
                           </P>
                           <P>{x.description}</P>
                         </div>
-                        <div>
+                        <div className="mt-2">
                           <FollowCommunityButton communityIdFilter={x.id} />
                         </div>
                       </div>

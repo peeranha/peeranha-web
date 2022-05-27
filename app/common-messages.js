@@ -525,4 +525,16 @@ export default defineMessages({
   contractAddress: {
     id: 'app.common.contractAddress',
   },
+  waitingForConfirm: {
+    id: 'app.common.waitingForConfirm',
+  },
+  transactionInPending: {
+    id: 'app.common.transactionInPending',
+  },
+  transaction: {
+    id: 'app.common.transaction',
+  },
+  transactionCompleted: {
+    id: 'app.common.transactionCompleted',
+  },
 });

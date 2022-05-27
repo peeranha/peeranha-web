@@ -110,7 +110,7 @@ export const Header = ({
   } else {
     defaultAvatar = myFeedIcon;
     defaultLabel = intl.formatMessage({
-      id: messages[profile ? 'myFeed' : 'feed'].id,
+      id: messages[profile && !single ? 'myFeed' : 'feed'].id,
     });
     defaultAvatarWidth = '38';
   }
@@ -158,7 +158,7 @@ export const Header = ({
         <CommunitySelector
           isArrowed
           Button={Button}
-          toggle={(choice) => {
+          toggle={choice => {
             createdHistory.push(routes[route](choice, false, false));
             setTypeFilter(choice);
           }}
@@ -200,7 +200,7 @@ Header.propTypes = {
 //
 export default injectIntl(
   React.memo(
-    connect((state) => ({
+    connect(state => ({
       topQuestionsInfoLoaded: selectTopQuestionsInfoLoaded()(state),
       topQuestions: selectQuestions(null, null, null, true)(state),
       communities: selectCommunities()(state),

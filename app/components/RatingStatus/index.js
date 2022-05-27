@@ -32,9 +32,24 @@ const RatingStatusStyled = styled.span`
   margin-right: 0.5rem;
 `;
 
-const getStatus = (rating) =>
+const RaitingInfo = styled.span`
+  display: flex;
+  align-items: center;
+  width: max-content;
+  margin-left: 5px;
+
+  @media (max-width: 350px) {
+    flex-direction: column;
+
+    > *:first-child {
+      margin-left: 4px;
+    }
+  }
+`;
+
+const getStatus = rating =>
   Object.keys(options).filter(
-    (x) => options[x].minRating <= rating && options[x].maxRating >= rating,
+    x => options[x].minRating <= rating && options[x].maxRating >= rating,
   )[0];
 
 const IconWithStatus = ({
@@ -46,8 +61,13 @@ const IconWithStatus = ({
 }) => {
   // ratingNumColor and customRatingIconColors are used for kanda community styling
 
-  const { strokeColor, bannedFill, strangerFill, residentFill, superheroFill } =
-    customRatingIconColors;
+  const {
+    strokeColor,
+    bannedFill,
+    strangerFill,
+    residentFill,
+    superheroFill,
+  } = customRatingIconColors;
   const full = options[getStatus(rating)];
 
   let color = TEXT_DARK;
@@ -74,7 +94,7 @@ const IconWithStatus = ({
   }
 
   return (
-    <span className={`d-flex align-items-center ${className}`}>
+    <RaitingInfo className={`${className}`}>
       <Icon
         className="d-inline-flex mr-1"
         icon={full?.icon[size || 'sm']}
@@ -94,7 +114,7 @@ const IconWithStatus = ({
       >
         {getFormattedNum(rating)}
       </Span>
-    </span>
+    </RaitingInfo>
   );
 };
 

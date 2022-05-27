@@ -36,6 +36,7 @@ import blockchainLogo from 'images/blockchain-outline-32.svg?external';
 import IPFSInformation from 'containers/Questions/Content/Body/IPFSInformation';
 import commonMessages from 'common-messages';
 import { POST_TYPE } from 'utils/constants';
+import { getUserName } from 'utils/user';
 
 const RatingBox = styled.div`
   border-right: 1px solid ${BORDER_SECONDARY};
@@ -45,9 +46,13 @@ const RatingBox = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  @media only screen and (max-width: 576px) {
+  @media only screen and (max-width: 680px) {
     border-right: none;
     border-bottom: 1px solid ${BORDER_SECONDARY};
+  }
+
+  @media only screen and (max-width: 680px) {
+    padding: 0 10px;
   }
 `;
 
@@ -69,7 +74,7 @@ const Box = styled.div`
   border-bottom: 1px solid ${BORDER_SECONDARY};
   height: 77px;
 
-  @media only screen and (max-width: 576px) {
+  @media only screen and (max-width: 680px) {
     flex-direction: column;
     align-items: stretch;
     height: auto;
@@ -85,7 +90,7 @@ const DropdownBox = styled.div`
   position: relative;
 `;
 
-const ContentHeader = (props) => {
+const ContentHeader = props => {
   const {
     author,
     type,
@@ -110,13 +115,13 @@ const ContentHeader = (props) => {
   const ipfsHashValue =
     type === QUESTION_TYPE
       ? questionData.ipfsHash
-      : questionData.answers.find((answer) => answer.id === answerId).ipfsHash;
+      : questionData.answers.find(answer => answer.id === answerId).ipfsHash;
 
   const formattedHistories =
     type === QUESTION_TYPE
       ? histories
       : histories?.filter(
-          (history) => history.reply?.id === `${questionData.id}-${answerId}`,
+          history => history.reply?.id === `${questionData.id}-${answerId}`,
         );
 
   const [isModalOpen, setModalOpen] = useState(false);
@@ -147,7 +152,7 @@ const ContentHeader = (props) => {
   );
 
   const changeQuestionTypeWithRatingRestore = useCallback(
-    (event) => changeQuestionTypeDispatch(event),
+    event => changeQuestionTypeDispatch(event),
     [changeQuestionTypeDispatch],
   );
 
@@ -174,7 +179,7 @@ const ContentHeader = (props) => {
       <ItemInfo>
         <UserInfo
           avatar={getUserAvatar(author.avatar)}
-          name={author?.['displayName']}
+          name={getUserName(author.displayName, author.id)}
           account={author.user}
           rating={getRatingByCommunity(author, props.commId)}
           type={type}
@@ -300,7 +305,9 @@ const ContentHeader = (props) => {
             show={!!profile && isItWrittenByMe}
             onClick={editItem[0]}
             params={{ ...buttonParams, link: editItem[1] }}
-            id={`redirect-to-edit-item-${answerId}-${buttonParams.questionId}-${commentId}`}
+            id={`redirect-to-edit-item-${answerId}-${
+              buttonParams.questionId
+            }-${commentId}`}
           >
             <IconMd icon={pencilIcon} />
             <FormattedMessage {...messages.editButton} />
@@ -340,10 +347,10 @@ ContentHeader.propTypes = {
 
 export default React.memo(
   connect(
-    (state) => ({
+    state => ({
       profile: makeSelectProfileInfo()(state),
     }),
-    (dispatch) => ({
+    dispatch => ({
       changeQuestionTypeDispatch: bindActionCreators(
         changeQuestionType,
         dispatch,

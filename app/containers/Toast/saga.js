@@ -20,19 +20,24 @@ import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import blockchainErrorMsgs from 'containers/ErrorPage/blockchainErrors';
 import { AUTOLOGIN_DATA } from 'containers/Login/constants';
 
-import errorMessages from 'errorsByCode';
 import { ADD_TOAST, REMOVE_TIMEOUT } from './constants';
 import { addToast, removeToast } from './actions';
 import { makeSelectToasts } from './selectors';
 
-import { errHandlingTypes, successHandlingTypes, otherTypes } from './imports';
+import { errHandlingTypes, otherTypes } from './imports';
+import errorMessages from 'errorsByCode';
+import { selectTransactionHash } from '../EthereumProvider/selectors';
+import {
+  TRANSACTION_COMPLETED,
+  TRANSACTION_FAILED,
+} from '../EthereumProvider/constants';
 
 export function* errHandling(error) {
   const locale = yield select(makeSelectLocale());
   const msg = translationMessages[locale];
 
   try {
-    const key = Object.keys(error).find((x) => x.toLowerCase().match('err'));
+    const key = Object.keys(error).find(x => x.toLowerCase().match('err'));
     const errorValue = error[key];
 
     if (errorValue instanceof WebIntegrationErrorByCode) {
@@ -57,7 +62,7 @@ export function* errHandling(error) {
       let errorCode = null;
 
       try {
-        errorCode = Object.keys(blockchainErrorMsgs).find((x) =>
+        errorCode = Object.keys(blockchainErrorMsgs).find(x =>
           errorValue.message
             .toLowerCase()
             .includes(blockchainErrorMsgs[x].keywords.toLowerCase()),
@@ -88,11 +93,10 @@ export function* errHandling(error) {
 export function* successHandling() {
   const locale = yield select(makeSelectLocale());
   const msg = translationMessages[locale];
-
   yield put(
     addToast({
       type: 'success',
-      text: msg[messages.successMessage.id],
+      text: msg[messages.transactionCompleted.id],
     }),
   );
 }
@@ -101,7 +105,7 @@ export function* addToastWorker() {
   const toasts = yield select(makeSelectToasts());
   const { toastKey } = toasts[toasts.length - 1];
 
-  yield new Promise((resolve) => {
+  yield new Promise(resolve => {
     setTimeout(resolve, REMOVE_TIMEOUT);
   });
 
@@ -110,7 +114,7 @@ export function* addToastWorker() {
 
 export function* loggerWorker(error) {
   try {
-    const key = Object.keys(error).find((x) => x.toLowerCase().match('err'));
+    const key = Object.keys(error).find(x => x.toLowerCase().match('err'));
 
     const user = yield select(makeSelectAccount());
 
@@ -148,7 +152,7 @@ export function* loggerWorker(error) {
 
 export default function* toastSaga() {
   yield takeEvery(ADD_TOAST, addToastWorker);
-  yield takeEvery(errHandlingTypes, errHandling);
+  yield takeEvery(TRANSACTION_FAILED, errHandling);
   yield takeEvery([...otherTypes, ...errHandlingTypes], loggerWorker);
-  yield takeEvery(successHandlingTypes, successHandling);
+  yield takeEvery(TRANSACTION_COMPLETED, successHandling);
 }

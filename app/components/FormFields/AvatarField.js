@@ -142,7 +142,7 @@ const Div = styled.div`
     }
 
     > *:nth-child(1) {
-      ${(x) =>
+      ${x =>
         x.s
           ? `
         position: fixed;
@@ -170,7 +170,7 @@ const Div = styled.div`
 
     > *:nth-child(2) {
       position: absolute;
-      z-index: ${(x) => (x.disabled ? 2 : 0)};
+      z-index: ${x => (x.disabled ? 2 : 0)};
       top: 0;
       left: 0;
       width: inherit;
@@ -253,7 +253,7 @@ function AvatarField({ input, meta, disabled }) {
                   )
                 }
                 labelStyle={isFileTooLarge ? labelErrorStyle : {}}
-                onBeforeFileLoad={(e) => {
+                onBeforeFileLoad={e => {
                   if (e.target.files[0].size > IMG_SIZE_LIMIT_B) {
                     setIsFileTooLarge(true);
                     e.target.value = '';
@@ -287,16 +287,17 @@ function AvatarField({ input, meta, disabled }) {
           }
           alt="icon"
         />
-        {input.name === AVATAR_FIELD && input.value !== NO_AVATAR && (
-          <div className="remove-avatar-action-container">
-            <button
-              className="remove-avatar-action"
-              onClick={() => input.onChange(NO_AVATAR)}
-              type="button"
-              aria-label="remove avatar"
-            />
-          </div>
-        )}
+        {input.name === AVATAR_FIELD &&
+          input.value && (
+            <div className="remove-avatar-action-container">
+              <button
+                className="remove-avatar-action"
+                onClick={() => input.onChange(NO_AVATAR)}
+                type="button"
+                aria-label="remove avatar"
+              />
+            </div>
+          )}
       </div>
       <InfoMessage>
         <FormattedMessage id={messages.profilesUsersInfo.id} />
