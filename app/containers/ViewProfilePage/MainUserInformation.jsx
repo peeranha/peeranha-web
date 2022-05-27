@@ -207,6 +207,7 @@ const MainUserInformation = ({
               <li>
                 <FormattedMessage {...messages.status} />
                 <RatingStatus
+                  isProfilePage={true}
                   customRatingIconColors={customRatingIconColors}
                   rating={profile.highestRating.rating}
                   size="lg"
@@ -233,6 +234,7 @@ const MainUserInformation = ({
                 <FormattedMessage {...messages.achievements} />
                 {typeof profile.achievements === 'object' ? (
                   <AchievementsStatus
+                    isProfilePage={true}
                     count={profile.achievements.length}
                     size="lg"
                   />
