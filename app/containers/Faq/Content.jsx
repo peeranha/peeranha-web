@@ -202,8 +202,10 @@ const Section = ({
               .slice(0, questionsNumber)
               .map(x => (
                 <Question
-                  {...x}
                   key={x.h3}
+                  h3={x.h3}
+                  content={x.content}
+                  questionCode={x.questionCode}
                   sectionCode={sectionCode}
                   route={route}
                   getQuestionCode={getQuestionCode}
@@ -215,9 +217,10 @@ const Section = ({
             <BaseTransparent className="pt-1">
               <Button onClick={extendSection.bind(null, !isExtendedSection)}>
                 <FormattedMessage
-                  {...commonMessages[
-                    isExtendedSection ? 'showLess' : 'showMore'
-                  ]}
+                  id={
+                    commonMessages[isExtendedSection ? 'showLess' : 'showMore']
+                      .id
+                  }
                   values={{ value: `${questionsNumber}/${blocks.length}` }}
                 />
                 <Icon
@@ -240,8 +243,10 @@ const Content = ({ content, route, getSectionCode, getQuestionCode }) => (
   <div className="mb-3">
     {content.blocks.map(x => (
       <Section
-        {...x}
         key={x.h2}
+        h2={x.h2}
+        blocks={x.blocks}
+        sectionCode={x.sectionCode}
         route={route}
         getSectionCode={getSectionCode}
         getQuestionCode={getQuestionCode}
