@@ -14,7 +14,7 @@ import { translationMessages } from 'i18n';
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
-import { getText } from 'utils/ipfs';
+import { getBytes32FromIpfsHash, getText, saveText } from 'utils/ipfs';
 
 import {
   changeQuestionType,
@@ -59,6 +59,10 @@ import { getUniqQuestions } from 'containers/Questions/actions';
 import { updateStoredQuestionsWorker } from 'containers/Questions/saga';
 
 import {
+  isItemChanged,
+  saveChangedItemIdToSessionStorage,
+} from 'utils/sessionStorage';
+import {
   ANSWER_TYPE,
   CHANGE_QUESTION_TYPE,
   CHANGE_QUESTION_TYPE_SUCCESS,
@@ -90,7 +94,6 @@ import {
   VOTE_TO_DELETE_SUCCESS,
   GET_HISTORIES,
   GET_HISTORIES_SUCCESS,
-  GET_HISTORIES_ERROR,
 } from './constants';
 
 import {
@@ -126,7 +129,11 @@ import {
   getHistoriesSuccess,
 } from './actions';
 
-import { selectQuestionBounty, selectQuestionData } from './selectors';
+import {
+  selectHistories,
+  selectQuestionBounty,
+  selectQuestionData,
+} from './selectors';
 
 import {
   deleteAnswerValidator,
@@ -143,11 +150,6 @@ import {
 import { selectUsers } from '../DataCacheProvider/selectors';
 import { selectEthereum } from '../EthereumProvider/selectors';
 import { getQuestionFromGraph } from '../../utils/theGraph';
-
-import {
-  isItemChanged,
-  saveChangedItemIdToSessionStorage,
-} from 'utils/sessionStorage';
 
 import { selectPostedAnswerIds } from '../AskQuestion/selectors';
 export const isGeneralQuestion = question => Boolean(question.postType === 1);
@@ -253,8 +255,6 @@ export function* getQuestionData({
   //   }
   // }
   //
-  const getItemStatus = (historyFlag, constantFlag) =>
-    historyFlag?.flag & (1 << constantFlag);
 
   const users = new Map();
 
@@ -350,6 +350,7 @@ export function* getParams() {
   const profileInfo = yield select(makeSelectProfileInfo());
   const account = yield select(makeSelectAccount());
   const questionBounty = yield select(selectQuestionBounty());
+  const histories = yield select(selectHistories());
 
   return {
     questionData,
@@ -358,6 +359,7 @@ export function* getParams() {
     account,
     profileInfo,
     questionBounty,
+    histories,
   };
 }
 
@@ -371,9 +373,13 @@ export function* saveCommentWorker({
   buttonId,
 }) {
   try {
-    const { questionData, ethereumService, profileInfo, locale } = yield call(
-      getParams,
-    );
+    const {
+      questionData,
+      ethereumService,
+      profileInfo,
+      locale,
+      histories,
+    } = yield call(getParams);
 
     yield call(isAvailableAction, () =>
       editCommentValidator(profileInfo, buttonId, translationMessages[locale]),
@@ -381,13 +387,16 @@ export function* saveCommentWorker({
     const commentData = {
       content: comment,
     };
-    yield call(
+    const ipfsLink = yield call(saveText, JSON.stringify(commentData));
+    const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
+
+    const transaction = yield call(
       editComment,
       profileInfo.user,
       questionId,
       answerId,
       commentId,
-      commentData,
+      ipfsHash,
       ethereumService,
     );
 
@@ -401,7 +410,19 @@ export function* saveCommentWorker({
         .comments.find(x => x.id === commentId);
     }
 
+    const newHistory = {
+      transactionHash: transaction.transactionHash,
+      post: { id: questionId },
+      reply: { id: `${questionId}-${answerId}` },
+      comment: { id: `${questionId}-${answerId}-${commentId}` },
+      eventEntity: 'Comment',
+      eventName: 'Edit',
+      timeStamp: String(dateNowInSeconds()),
+    };
+
     item.content = comment;
+
+    histories.push(newHistory);
 
     yield call(toggleView, true);
 
@@ -420,9 +441,13 @@ export function* deleteCommentWorker({
   buttonId,
 }) {
   try {
-    const { questionData, ethereumService, locale, profileInfo } = yield call(
-      getParams,
-    );
+    const {
+      questionData,
+      ethereumService,
+      locale,
+      profileInfo,
+      histories,
+    } = yield call(getParams);
 
     yield call(
       isAvailableAction,
@@ -439,7 +464,7 @@ export function* deleteCommentWorker({
       },
     );
 
-    yield call(
+    const transaction = yield call(
       deleteComment,
       profileInfo.user,
       questionId,
@@ -456,6 +481,15 @@ export function* deleteCommentWorker({
       const answer = questionData.answers.find(x => x.id === answerId);
       answer.comments = answer.comments.filter(x => x.id !== commentId);
     }
+
+    const newHistory = {
+      transactionHash: transaction.transactionHash,
+      eventEntity: 'Comment',
+      eventName: 'Delete',
+      timeStamp: String(dateNowInSeconds()),
+    };
+
+    histories.push(newHistory);
 
     saveChangedItemIdToSessionStorage(CHANGED_POSTS_KEY, questionId);
 
@@ -507,13 +541,9 @@ export function* deleteAnswerWorker({ questionId, answerId, buttonId }) {
 
 export function* deleteQuestionWorker({ questionId, buttonId }) {
   try {
-    const {
-      questionData,
-      ethereumService,
-      locale,
-      profileInfo,
-      questionBounty,
-    } = yield call(getParams);
+    const { questionData, ethereumService, locale, profileInfo } = yield call(
+      getParams,
+    );
 
     yield call(
       isAvailableAction,
@@ -648,25 +678,52 @@ export function* postCommentWorker({
   buttonId,
 }) {
   try {
-    const { questionData, ethereumService, profileInfo } = yield call(
-      getParams,
-    );
+    const {
+      questionData,
+      ethereumService,
+      profileInfo,
+      histories,
+    } = yield call(getParams);
 
     yield call(checkPostCommentAvailableWorker, buttonId, answerId);
     const commentData = {
       content: comment,
     };
-    yield call(
+
+    const ipfsLink = yield call(saveText, JSON.stringify(commentData));
+    const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
+
+    const transaction = yield call(
       postComment,
       profileInfo.user,
       questionId,
       answerId,
-      commentData,
+      ipfsHash,
       ethereumService,
     );
 
+    let commentId;
+    const { comments } = questionData.answers.find(x => x.id === answerId);
+
+    if (answerId === 0) {
+      commentId = questionData.comments.length + 1;
+    } else {
+      commentId = comments.length + 1;
+    }
+
+    const newHistory = {
+      transactionHash: transaction.transactionHash,
+      post: { id: questionId },
+      reply: { id: `${questionId}-${answerId}` },
+      comment: { id: `${questionId}-${answerId}-${commentId}` },
+      eventEntity: 'Comment',
+      eventName: 'Create',
+      timeStamp: String(dateNowInSeconds()),
+    };
+
     const newComment = {
-      postTime: String(dateNowInSeconds()),
+      ipfsHash,
+      postTime: newHistory.timeStamp,
       user: profileInfo.user,
       properties: [],
       history: [],
@@ -679,16 +736,16 @@ export function* postCommentWorker({
     if (answerId === 0) {
       questionData.comments.push({
         ...newComment,
-        id: questionData.comments.length + 1,
+        id: commentId,
       });
     } else {
-      const { comments } = questionData.answers.find(x => x.id === answerId);
-
       comments.push({
         ...newComment,
-        id: comments.length + 1,
+        id: commentId,
       });
     }
+
+    histories.push(newHistory);
 
     yield call(toggleView);
 
@@ -1070,7 +1127,7 @@ export function* voteToDeleteWorker({
 }
 
 // Do not spent time for main action - update author as async action after main action
-//TODO after Graph hooks
+// TODO after Graph hooks
 export function* updateQuestionDataAfterTransactionWorker({
   usersForUpdate = [],
   questionData,
