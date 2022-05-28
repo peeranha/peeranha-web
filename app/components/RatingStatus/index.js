@@ -36,13 +36,12 @@ const RaitingInfo = styled.span`
   display: flex;
   align-items: center;
   width: max-content;
-  margin-left: 5px;
 
   @media (max-width: 350px) {
     flex-direction: ${({ isProfilePage }) => !isProfilePage && 'column'};
 
     > *:first-child {
-      margin-left: 4px;
+      margin-left: ${({ isProfilePage }) => !isProfilePage && '4px'};
     }
   }
 `;
