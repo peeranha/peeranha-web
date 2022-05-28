@@ -501,9 +501,13 @@ export function* deleteCommentWorker({
 
 export function* deleteAnswerWorker({ questionId, answerId, buttonId }) {
   try {
-    const { questionData, ethereumService, locale, profileInfo } = yield call(
-      getParams,
-    );
+    const {
+      questionData,
+      ethereumService,
+      locale,
+      profileInfo,
+      histories,
+    } = yield call(getParams);
 
     yield call(
       isAvailableAction,
@@ -521,13 +525,22 @@ export function* deleteAnswerWorker({ questionId, answerId, buttonId }) {
       },
     );
 
-    yield call(
+    const transaction = yield call(
       deleteAnswer,
       profileInfo.user,
       questionId,
       answerId,
       ethereumService,
     );
+
+    const newHistory = {
+      transactionHash: transaction.transactionHash,
+      eventEntity: 'Reply',
+      eventName: 'Delete',
+      timeStamp: String(dateNowInSeconds()),
+    };
+
+    histories.push(newHistory);
 
     questionData.answers = questionData.answers.filter(x => x.id !== answerId);
 
@@ -703,11 +716,12 @@ export function* postCommentWorker({
     );
 
     let commentId;
-    const { comments } = questionData.answers.find(x => x.id === answerId);
+    let comments;
 
     if (answerId === 0) {
       commentId = questionData.comments.length + 1;
     } else {
+      comments = questionData.answers.find(x => x.id === answerId).comments;
       commentId = comments.length + 1;
     }
 
@@ -761,9 +775,13 @@ export function* postCommentWorker({
 
 export function* postAnswerWorker({ questionId, answer, official, reset }) {
   try {
-    const { questionData, ethereumService, profileInfo, locale } = yield call(
-      getParams,
-    );
+    const {
+      questionData,
+      ethereumService,
+      profileInfo,
+      locale,
+      histories,
+    } = yield call(getParams);
 
     yield call(isAuthorized);
 
@@ -784,11 +802,15 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
     const answerData = {
       content: answer,
     };
-    yield call(
+
+    const ipfsLink = yield call(saveText, JSON.stringify(answerData));
+    const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
+
+    const transaction = yield call(
       postAnswer,
       profileInfo.user,
       questionId,
-      answerData,
+      ipfsHash,
       official,
       ethereumService,
     );
@@ -805,7 +827,19 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
       comments: [],
       rating: 0,
       content: answer,
+      ipfsHash,
     };
+
+    const newHistory = {
+      transactionHash: transaction.transactionHash,
+      post: { id: questionId },
+      reply: { id: `${questionId}-${newAnswer.id}` },
+      eventEntity: 'Reply',
+      eventName: 'Create',
+      timeStamp: newAnswer.postTime,
+    };
+
+    histories.push(newHistory);
 
     questionData.answers.push(newAnswer);
 

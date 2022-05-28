@@ -263,22 +263,20 @@ export async function deleteQuestion(user, questionId, ethereumService) {
   ]);
 }
 
-export const postAnswer = async (
+export async function postAnswer(
   user,
   questionId,
-  answerData,
+  ipfsHash,
   official,
   ethereumService,
-) => {
-  const ipfsLink = await saveText(JSON.stringify(answerData));
-  const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
-  await ethereumService.sendTransaction(CONTRACT_CONTENT, user, POST_ANSWER, [
-    questionId,
-    0,
-    ipfsHash,
-    official,
-  ]);
-};
+) {
+  return await ethereumService.sendTransaction(
+    CONTRACT_CONTENT,
+    user,
+    POST_ANSWER,
+    [questionId, 0, ipfsHash, official],
+  );
+}
 
 export async function editAnswer(
   user,
@@ -303,10 +301,12 @@ export async function deleteAnswer(
   answerId,
   ethereumService,
 ) {
-  await ethereumService.sendTransaction(CONTRACT_CONTENT, user, DELETE_ANSWER, [
-    questionId,
-    answerId,
-  ]);
+  return await ethereumService.sendTransaction(
+    CONTRACT_CONTENT,
+    user,
+    DELETE_ANSWER,
+    [questionId, answerId],
+  );
 }
 
 export async function postComment(
