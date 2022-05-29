@@ -52,7 +52,7 @@
   "app.common.limitedEdition": "Limited edition",
   "app.common.contractAddress": "Contract",
   "app.common.allQuestions": "All questions",
-  "app.common.manageMyComm": "Manage my communities",
+  "app.common.manageMyComm": "See all communities",
   "app.common.asked": "Asked",
   "app.common.askedWhen": "Asked {when}",
   "app.common.answeredWhen": "Answered {when}",
@@ -180,8 +180,8 @@
   "app.common.chooseFile": "Choose a file",
   "app.common.skip": "Skip",
   "app.common.showMoreQuestions": "Show more results",
-  "app.common.questionIsAnswered": "You have already answered this question",
-  "app.common.logInToAnswer": "Log in to answer the question",
+  "app.common.questionIsAnswered": "You have already answered this post",
+  "app.common.logInToAnswer": "Log in to answer the post",
   "app.common.activateBoost": "Activate boost",
   "app.common.boost": "Boost",
   "app.common.subscribe": "Subscribe",
@@ -195,6 +195,11 @@
     "Please check Metamask connection and try to reload the page",
   "app.common.ipfsHashValue": "IPFS",
   "app.common.source": "Source",
+  "app.common.waitingForConfirm": "Confirm this transaction in your wallet...",
+  "app.common.transactionInPending":
+    "Waiting for {transaction} confirmation...",
+  "app.common.transaction": "transaction",
+  "app.common.transactionCompleted": "Transaction completed successfully",
 
   "app.telegram.user": "Telegram user",
   "app.telegram.userLabelPopover":
@@ -708,9 +713,9 @@
   "app.containers.Notifications.youHaveNoNewNotifications":
     "You have no new notifications.",
   "app.containers.Notifications.yourQuestionWasUpVoted":
-    "Your question was upvoted",
+    "Your post was upvoted",
   "app.containers.Notifications.yourQuestionWasDownVoted":
-    "Your question was downvoted",
+    "Your post was downvoted",
   "app.containers.Notifications.yourAnswerWasUpVoted":
     "Your answer was upvoted",
   "app.containers.Notifications.yourAnswerWasDownVoted":
@@ -718,15 +723,15 @@
   "app.containers.Notifications.yourAnswerWasMarkedAsTheBest":
     "Your answer was marked as the best",
   "app.containers.Notifications.somebodyAnsweredYourQuestion":
-    "Somebody answered your question",
+    "Your post was answered",
   "app.containers.Notifications.somebodyLeftACommentToYourQuestion":
-    "Somebody left a comment to your question",
+    "Your post was commented",
   "app.containers.Notifications.somebodyLeftACommentToYourAnswer":
-    "Somebody left a comment to your answer",
+    "Your answer was commented",
   "app.containers.Notifications.yourQuestionWasTipped":
-    "You question was tipped {quantity}",
+    "Your post was tipped {quantity}",
   "app.containers.Notifications.yourAnswerWasTipped":
-    "You answer was tipped {quantity}",
+    "Your answer was tipped {quantity}",
 
   "app.containers.EditAnswer.description": "Edit Answer Description",
   "app.containers.EditAnswer.submitButtonName": "Save",
@@ -743,7 +748,7 @@
   "app.containers.ViewQuestion.lastEdited": "Last edited",
   "app.containers.ViewQuestion.voteToDelete": "Vote to delete",
   "app.containers.ViewQuestion.notEnoughRating":
-    "To complete this action, your rating has to be at least",
+    "To complete this action, your reputation has to be at least",
   "app.containers.ViewQuestion.cannotCompleteBecauseBlocked":
     "You can't complete this action. You voted to delete it earlier",
   "app.containers.ViewQuestion.cannotCompleteBecauseVoted":
@@ -1258,5 +1263,16 @@
   "app.containers.Achievements.separators.firstAnswerRelated": "First answers",
 
   "app.containers.TelegramInfo.confirm": "Confirm",
-  "app.containers.TelegramInfo.unlink": "Unlink"
+  "app.containers.TelegramInfo.unlink": "Unlink",
+
+  "app.containers.MetaTransactionAgreement.agreeWithMetaTransactions":
+    "We’ve got you covered",
+  "app.containers.MetaTransactionAgreement.youNeedMetaBecause":
+    "Your MATIC balance is 0. MATIC is required to pay transaction fees.  ",
+  "app.containers.MetaTransactionAgreement.dontWorry":
+    "Don’t worry! We’ve got you covered.",
+  "app.containers.MetaTransactionAgreement.wouldYouLike":
+    "Would you like us to relay your transactions and cover transaction fees?",
+  "app.containers.MetaTransactionAgreement.confirm": "Yes",
+  "app.containers.MetaTransactionAgreement.cansel": "No"
 }

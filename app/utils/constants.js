@@ -65,6 +65,9 @@ export const POST_TYPE = {
   tutorial: 2,
 };
 
+export const META_TRANSACTIONS_ALLOWED = 'meta_tr_allowed';
+export const CURRENCY = 'MATIC';
+
 export const globalAdminPermissions = {
   ADMIN_INFINITE_IMPACT: {
     code: 1,

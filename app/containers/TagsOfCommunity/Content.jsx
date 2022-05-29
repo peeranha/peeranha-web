@@ -97,7 +97,6 @@ const Content = ({
   existingTagsLoading,
   typeInput,
   text,
-  clearTextField,
   locale,
   communityId,
   setEditTagData,
@@ -137,7 +136,6 @@ const Content = ({
                 input={{ onChange: typeInput, value: text }}
                 placeholder={translationMessages[locale][messages.findTag.id]}
                 isSearchable
-                onClick={clearTextField}
               />
             </Item>
           </li>

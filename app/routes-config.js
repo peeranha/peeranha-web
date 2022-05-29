@@ -77,7 +77,8 @@ export const noAccess = () => `/no-access`;
 
 export const detailsHomePage = () => '/';
 
-export const feed = communityId => `/${communityId ? `/${communityId}` : ''}`;
+export const feed = communityId =>
+  `/${communityId ? `feed/${communityId}` : ''}`;
 
 export const communities = () => (!isBloggerMode ? `/communities` : `/`);
 

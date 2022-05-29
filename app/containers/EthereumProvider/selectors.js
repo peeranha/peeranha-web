@@ -26,10 +26,33 @@ const makeSelectError = () =>
     substate.get('error'),
   );
 
+export const makeSelectShowModal = () =>
+  createSelector(selectEthereumProviderDomain, substate =>
+    substate.get('showModal'),
+  );
+
+const selectTransactionInPending = () =>
+  createSelector(selectEthereumProviderDomain, substate =>
+    substate.get('inPending'),
+  );
+
+const selectTransactionHash = () =>
+  createSelector(selectEthereumProviderDomain, substate =>
+    substate.get('transactionHash'),
+  );
+
+const selectTransactionInitialised = () =>
+  createSelector(selectEthereumProviderDomain, substate =>
+    substate.get('transactionInitialised'),
+  );
+
 export {
   selectEthereumProviderDomain,
   selectEthereum,
   makeSelectInitializing,
   makeSelectEthereum,
   makeSelectError,
+  selectTransactionInPending,
+  selectTransactionHash,
+  selectTransactionInitialised,
 };

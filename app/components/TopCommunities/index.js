@@ -58,6 +58,7 @@ const BackSide = styled.div`
   background: ${BG_LIGHT};
   display: none;
   border-radius: 5px;
+  overflow-y: auto;
 
   > div {
     position: relative;
@@ -92,13 +93,7 @@ const ADefaultStyled = ADefault.extend`
   }
 `;
 
-const TopCommunities = ({
-  communities,
-  profile,
-  account,
-  userId,
-  questions,
-}) => {
+const TopCommunities = ({ communities, profile, questions }) => {
   if (!communities || !profile || !communities.length) {
     return null;
   }
@@ -125,11 +120,11 @@ const TopCommunities = ({
     AllCommunitiesLink = ADefault;
     allCommunitiesRoute = `${process.env.APP_LOCATION}/communities`;
   }
-  if (profile.ratings?.length) {
+  if (profile.followedCommunities?.length) {
     return (
       <div className="overlow-hidden" ref={ref}>
         <H4 isHeader>
-          <FormattedMessage {...messages.communities} />
+          <FormattedMessage id={messages.communities.id} />
         </H4>
 
         <Grid xl={5} lg={4} md={3} sm={2} xs={1}>
@@ -145,7 +140,7 @@ const TopCommunities = ({
                 route = routes.questions();
               }
               const community = communities.find(
-                community => community.id == x.communityId,
+                item => item.id === x.communityId,
               );
 
               return (
@@ -173,7 +168,7 @@ const TopCommunities = ({
                                 fontSize="14"
                                 color={TEXT_SECONDARY}
                               >
-                                <FormattedMessage {...messages.reputation} />
+                                <FormattedMessage id={messages.reputation.id} />
                               </Span>
                             </div>
                             <RatingStatus
@@ -213,109 +208,7 @@ const TopCommunities = ({
               >
                 <img className="mr-2" src={allCommunitiesIcon} alt="icon" />
                 <Span color={TEXT_PRIMARY}>
-                  <FormattedMessage {...messages.allCommunities} />
-                </Span>
-              </AllCommunitiesLink>
-            </div>
-          )}
-        </Grid>
-      </div>
-    );
-  } else {
-    return (
-      <div className="overlow-hidden" ref={ref}>
-        <H4 isHeader>
-          <FormattedMessage {...messages.top} />{' '}
-          <span className="text-lowercase">
-            <FormattedMessage {...messages.communities} />
-          </span>
-        </H4>
-
-        <Grid xl={5} lg={4} md={3} sm={2} xs={1}>
-          {orderBy(communities, 'users_subscribed', 'desc')
-            .slice(0, 9)
-            .map(x => {
-              let Link = AStyled;
-              let route = routes.questions(x.id);
-              if (single && x.id !== single) {
-                Link = ADefaultStyled;
-                route = `${process.env.APP_LOCATION}${route}`;
-              } else if (single && x.id === single) {
-                route = routes.questions();
-              }
-              return (
-                <div key={x.id}>
-                  <BaseRoundedNoPadding>
-                    <Link href={route} to={route}>
-                      <FrontSide>
-                        <div>
-                          <MediumImage src={x.avatar} alt="comm_img" />
-                          <P fontSize="16" bold>
-                            {x.name}
-                          </P>
-                        </div>
-
-                        <div>
-                          <div className="d-flex mb-3">
-                            <div className="d-flex flex-column flex-grow-1">
-                              <Span fontSize="16" bold>
-                                {getFormattedNum2(x.users_subscribed)}
-                              </Span>
-                              <Span
-                                className="mt-1"
-                                fontSize="14"
-                                color={TEXT_SECONDARY}
-                              >
-                                <FormattedMessage {...messages.users} />
-                              </Span>
-                            </div>
-                            <div className="d-flex flex-column flex-grow-1">
-                              <Span fontSize="16" bold>
-                                {getFormattedNum2(x.postCount)}
-                              </Span>
-                              <Span
-                                className="mt-1"
-                                fontSize="14"
-                                color={TEXT_SECONDARY}
-                              >
-                                <FormattedMessage {...messages.posts} />
-                              </Span>
-                            </div>
-                          </div>
-
-                          <FollowCommunityButton communityIdFilter={x.id} />
-                        </div>
-                      </FrontSide>
-
-                      <BackSide>
-                        <div className="d-flex flex-column justify-content-between">
-                          <div>
-                            <P fontSize="16" bold>
-                              {x.name}
-                            </P>
-                            <P>{x.description}</P>
-                          </div>
-                          <div>
-                            <FollowCommunityButton communityIdFilter={x.id} />
-                          </div>
-                        </div>
-                      </BackSide>
-                    </Link>
-                  </BaseRoundedNoPadding>
-                </div>
-              );
-            })}
-
-          {communities?.length > 9 && (
-            <div className="d-flex align-items-center justify-content-center">
-              <AllCommunitiesLink
-                className="d-flex align-items-center"
-                to={allCommunitiesRoute}
-                href={allCommunitiesRoute}
-              >
-                <img className="mr-2" src={allCommunitiesIcon} alt="icon" />
-                <Span color={TEXT_PRIMARY}>
-                  <FormattedMessage {...messages.allCommunities} />
+                  <FormattedMessage id={messages.allCommunities.id} />
                 </Span>
               </AllCommunitiesLink>
             </div>
@@ -324,13 +217,112 @@ const TopCommunities = ({
       </div>
     );
   }
+  return (
+    <div className="overlow-hidden" ref={ref}>
+      <H4 isHeader>
+        <FormattedMessage id={messages.top.id} />{' '}
+        <span className="text-lowercase">
+          <FormattedMessage id={messages.communities.id} />
+        </span>
+      </H4>
+
+      <Grid xl={5} lg={4} md={3} sm={2} xs={1}>
+        {orderBy(communities, 'users_subscribed', 'desc')
+          .slice(0, 9)
+          .map(x => {
+            let Link = AStyled;
+            let route = routes.questions(x.id);
+            if (single && x.id !== single) {
+              Link = ADefaultStyled;
+              route = `${process.env.APP_LOCATION}${route}`;
+            } else if (single && x.id === single) {
+              route = routes.questions();
+            }
+            return (
+              <div key={x.id}>
+                <BaseRoundedNoPadding>
+                  <Link href={route} to={route}>
+                    <FrontSide>
+                      <div>
+                        <MediumImage src={x.avatar} alt="comm_img" />
+                        <P fontSize="16" bold>
+                          {x.name}
+                        </P>
+                      </div>
+
+                      <div>
+                        <div className="d-flex mb-3">
+                          <div className="d-flex flex-column flex-grow-1">
+                            <Span fontSize="16" bold>
+                              {getFormattedNum2(x.followingUsers)}
+                            </Span>
+                            <Span
+                              className="mt-1"
+                              fontSize="14"
+                              color={TEXT_SECONDARY}
+                            >
+                              <FormattedMessage id={messages.users.id} />
+                            </Span>
+                          </div>
+                          <div className="d-flex flex-column flex-grow-1">
+                            <Span fontSize="16" bold>
+                              {getFormattedNum2(x.postCount)}
+                            </Span>
+                            <Span
+                              className="mt-1"
+                              fontSize="14"
+                              color={TEXT_SECONDARY}
+                            >
+                              <FormattedMessage id={messages.posts.id} />
+                            </Span>
+                          </div>
+                        </div>
+
+                        <FollowCommunityButton communityIdFilter={x.id} />
+                      </div>
+                    </FrontSide>
+
+                    <BackSide>
+                      <div className="d-flex flex-column justify-content-between">
+                        <div>
+                          <P fontSize="16" bold>
+                            {x.name}
+                          </P>
+                          <P>{x.description}</P>
+                        </div>
+                        <div className="mt-2">
+                          <FollowCommunityButton communityIdFilter={x.id} />
+                        </div>
+                      </div>
+                    </BackSide>
+                  </Link>
+                </BaseRoundedNoPadding>
+              </div>
+            );
+          })}
+
+        {communities?.length > 9 && (
+          <div className="d-flex align-items-center justify-content-center">
+            <AllCommunitiesLink
+              className="d-flex align-items-center"
+              to={allCommunitiesRoute}
+              href={allCommunitiesRoute}
+            >
+              <img className="mr-2" src={allCommunitiesIcon} alt="icon" />
+              <Span color={TEXT_PRIMARY}>
+                <FormattedMessage id={messages.allCommunities.id} />
+              </Span>
+            </AllCommunitiesLink>
+          </div>
+        )}
+      </Grid>
+    </div>
+  );
 };
 
 TopCommunities.propTypes = {
   communities: PropTypes.array,
   profile: PropTypes.object,
-  account: PropTypes.string,
-  userId: PropTypes.string,
   questions: PropTypes.array,
 };
 

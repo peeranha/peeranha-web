@@ -33,7 +33,6 @@ import {
 } from 'utils/communityManagement';
 
 import Loader from 'components/LoadingIndicator/HeightWidthCentered';
-import ProgressIndicator from 'containers/ProgressIndicator';
 import ErrorBoundary from 'components/ErrorBoundary';
 
 import Wrapper from 'containers/AppWrapper';
@@ -43,7 +42,6 @@ import {
   EditCommunity,
   HomePage,
   Faq,
-  Tutorial,
   Users,
   EditQuestion,
   EditProfilePage,
@@ -68,7 +66,6 @@ import {
   EmailEnteringForm,
   EmailVerificationForm,
   WalletsSignUpForm,
-  EthereumWalletGenerationForm,
   SignUpViaEmail,
   RegistrationAlmostDoneWithAccount,
   RegistrationAlmostDoneNoAccount,
@@ -83,6 +80,7 @@ import {
   FullWidthPreloader,
   TermsOfService,
   DeleteFacebookData,
+  MetaTransactionAgreement,
 } from './imports';
 import { getValueFromSearchString } from '../../utils/url';
 import { getCookie, setCookie } from '../../utils/cookie';
@@ -138,10 +136,10 @@ const App = ({
       <ThemeProvider theme={theme}>
         <Global styles={global} />
         <Toast />
-        <ProgressIndicator />
 
         <Login />
         <ForgotPassword />
+        <MetaTransactionAgreement />
 
         <ScrollTo />
         <Popover />

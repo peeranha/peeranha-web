@@ -52,7 +52,7 @@
   "app.common.limitedEdition": "Ограниченное издание",
   "app.common.contractAddress": "Контракт",
   "app.common.allQuestions": "Все вопросы",
-  "app.common.manageMyComm": "Управлять сообществами",
+  "app.common.manageMyComm": "Смотреть все сообщества",
   "app.common.asked": "Задано",
   "app.common.askedWhen": "Задано {when}",
   "app.common.answeredWhen": "Отвечено {when}",
@@ -178,8 +178,8 @@
   "app.common.chooseFile": "Выберите файл",
   "app.common.skip": "Пропустить",
   "app.common.showMoreQuestions": "Показать больше найденных вопросов",
-  "app.common.questionIsAnswered": "Вы уже ответили на этот вопрос",
-  "app.common.logInToAnswer": "Авторизуйтесь, чтобы ответить на вопрос",
+  "app.common.questionIsAnswered": "Вы уже ответили на этот пост",
+  "app.common.logInToAnswer": "Авторизуйтесь, чтобы ответить на пост",
   "app.common.activateBoost": "Активировать Boost",
   "app.common.boost": "Boost",
   "app.common.subscribe": "Подписаться",
@@ -722,9 +722,9 @@
   "app.containers.Notifications.youHaveNoNewNotifications":
     "У вас нет новых уведомлений",
   "app.containers.Notifications.yourQuestionWasUpVoted":
-    "Вашему вопросу поставили лайк",
+    "Вашему посту поставили лайк",
   "app.containers.Notifications.yourQuestionWasDownVoted":
-    "Вашему вопросу поставили дизлайк",
+    "Вашему посту поставили дизлайк",
   "app.containers.Notifications.yourAnswerWasUpVoted":
     "Вашему ответу поставили лайк",
   "app.containers.Notifications.yourAnswerWasDownVoted":
@@ -734,11 +734,11 @@
   "app.containers.Notifications.somebodyAnsweredYourQuestion":
     "Кто-то ответил на ваш вопрос",
   "app.containers.Notifications.somebodyLeftACommentToYourQuestion":
-    "Кто-то оставил комментарий к вашему вопросу",
+    "Ваш пост прокомментировали",
   "app.containers.Notifications.somebodyLeftACommentToYourAnswer":
-    "Кто-то оставил комментарий к вашему ответу",
+    "Ваш ответ прокомментировали",
   "app.containers.Notifications.yourQuestionWasTipped":
-    "Вашему вопросу отправили чаевые",
+    "Вашему посту отправили чаевые",
   "app.containers.Notifications.yourAnswerWasTipped":
     "Вашему ответу отправили чаевые",
 
@@ -755,7 +755,7 @@
   "app.containers.ViewQuestion.lastEdited": "Последнее редактирование",
   "app.containers.ViewQuestion.voteToDelete": "Проголосовать за удаление",
   "app.containers.ViewQuestion.notEnoughRating":
-    "Чтобы выполнить это действие, Ваш рейтинг должен быть не меньше",
+    "Чтобы выполнить это действие, Ваша репутация должна быть не меньше",
   "app.containers.ViewQuestion.cannotCompleteBecauseBlocked":
     "Вы не можете выполнить это действие, т.к. уже проголосовали за удаление",
   "app.containers.ViewQuestion.cannotCompleteBecauseVoted":

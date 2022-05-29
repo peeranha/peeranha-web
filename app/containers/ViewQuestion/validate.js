@@ -1,8 +1,9 @@
 import { showPopover } from 'utils/popover';
 import { ApplicationError } from 'utils/errors';
 
-import messages from './messages';
 import { getRatingByCommunity } from 'utils/profileManagement';
+import { hasGlobalModeratorRole } from 'utils/properties';
+import messages from './messages';
 
 /* eslint prefer-destructuring: 0 */
 export const voteToDeleteValidator = (
@@ -131,7 +132,8 @@ export const postCommentValidator = (
   if (item.comments.length === maxCommentsNumber) {
     message = `${translations[messages.itemsMax.id]}`;
   } else if (
-    (item.user === profileInfo.user ||
+    !hasGlobalModeratorRole(profileInfo.permissions) &&
+    (item.author.user === profileInfo.user ||
       questionData.author === profileInfo.user) &&
     getRatingByCommunity(profileInfo, communityId) < MIN_RATING_FOR_MY_ITEM
   ) {
@@ -139,7 +141,8 @@ export const postCommentValidator = (
       translations[messages.notEnoughRating.id]
     } ${MIN_RATING_FOR_MY_ITEM}`;
   } else if (
-    item.user !== profileInfo.user &&
+    item.author.user !== profileInfo.user &&
+    !hasGlobalModeratorRole(profileInfo.permissions) &&
     questionData.author !== profileInfo.user &&
     getRatingByCommunity(profileInfo, communityId) < MIN_RATING_FOR_OTHER_ITEMS
   ) {
@@ -207,7 +210,8 @@ export const upVoteValidator = (
   ) {
     message = `${translations[messages.noRootsToVote.id]}`;
   } else if (
-    getRatingByCommunity(profileInfo, communityId) < MIN_RATING_TO_UPVOTE
+    getRatingByCommunity(profileInfo, communityId) < MIN_RATING_TO_UPVOTE &&
+    !hasGlobalModeratorRole(profileInfo.permissions)
   ) {
     message = `${
       translations[messages.notEnoughRating.id]
@@ -252,7 +256,8 @@ export const downVoteValidator = (
   } else if (item.author.user === profileInfo.user) {
     message = `${translations[messages.noRootsToVote.id]}`;
   } else if (
-    getRatingByCommunity(profileInfo, communityId) < MIN_RATING_TO_DOWNVOTE
+    getRatingByCommunity(profileInfo, communityId) < MIN_RATING_TO_DOWNVOTE &&
+    !hasGlobalModeratorRole(profileInfo.permissions)
   ) {
     message = `${
       translations[messages.notEnoughRating.id]

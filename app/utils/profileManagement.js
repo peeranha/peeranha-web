@@ -24,8 +24,8 @@ import {
   callService,
   NOTIFICATIONS_INFO_SERVICE,
 } from './web_integration/src/util/aws-connector';
-import { UPDATE_ACC } from './ethConstants';
-import { getUser, getUserStats } from './theGraph';
+import { CONTRACT_USER, UPDATE_ACC } from './ethConstants';
+import { getUser, getUserPermissions, getUserStats } from './theGraph';
 import { WebIntegrationError } from './errors';
 import { isUserExists } from './accountManagement';
 
@@ -80,8 +80,13 @@ export async function getProfileInfo(
       return;
     }
     profileInfo = await ethereumService.getProfile(user);
+    profileInfo.permissions = await getUserPermissions(user);
     userStats = await getUserStats(user);
     profileInfo.ratings = userStats?.ratings;
+    if (!profileInfo.creationTime) {
+      const profile = await getUser(user);
+      profileInfo.creationTime = profile.creationTime;
+    }
   } else {
     profileInfo = await getUser(user);
   }
@@ -119,7 +124,7 @@ export async function getProfileInfo(
 export async function saveProfile(ethereumService, user, profile) {
   const ipfsHash = await saveText(JSON.stringify(profile));
   const transactionData = getBytes32FromIpfsHash(ipfsHash);
-  await ethereumService.sendTransactionWithSigner(user, UPDATE_ACC, [
+  await ethereumService.sendTransaction(CONTRACT_USER, user, UPDATE_ACC, [
     transactionData,
   ]);
 }
@@ -133,45 +138,11 @@ export const getNotificationsInfo = async user => {
   return response.OK ? response.body : { all: 0, unread: 0 };
 };
 
-export async function getUserTelegramData(eosService, userName) {
-  const { rows } = await eosService.getTableRows(
-    TG_ACCOUNT_TABLE,
-    ALL_TG_ACCOUNTS_SCOPE,
-    0,
-    INF_LIMIT,
-  );
+export async function getUserTelegramData(eosService, userName) {}
 
-  const userTgData = rows.filter(item => item.user === userName);
-  const telegram_id = userTgData.length > 0 ? userTgData[0].telegram_id : 0;
-  const temporaryAccount = rows.filter(
-    item => item.telegram_id === telegram_id && item.user !== userName,
-  );
-  const temporaryUser = temporaryAccount.length
-    ? temporaryAccount[0].user
-    : undefined;
-  const profile = await eosService.getTableRow(
-    ACCOUNT_TABLE,
-    ALL_ACCOUNTS_SCOPE,
-    temporaryUser,
-  );
-  const temporaryAccountDisplayName =
-    profile && profile.user === temporaryUser ? profile.displayName : undefined;
-  return userTgData.length > 0
-    ? {
-        ...userTgData[0],
-        temporaryUser,
-        temporaryAccountDisplayName,
-      }
-    : null;
-}
+export async function confirmTelegramAccount(eosService, user) {}
 
-export async function confirmTelegramAccount(eosService, user) {
-  await eosService.sendTransaction(user, CONFIRM_TELEGRAM_ACCOUNT, { user });
-}
-
-export async function unlinkTelegramAccount(eosService, user) {
-  await eosService.sendTransaction(user, UNLINK_TELEGRAM_ACCOUNT, { user });
-}
+export async function unlinkTelegramAccount(eosService, user) {}
 
 export const getAvailableBalance = profile => {
   const stakedInCurrentPeriod = profile?.stakedInCurrentPeriod ?? 0;
