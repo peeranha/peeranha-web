@@ -8,9 +8,12 @@
  * the webpack process.
  */
 
+/* eslint-disable */
 const { join } = require('path');
 const webpack = require('webpack');
+/* eslint-enable */
 
+/* eslint-disable-next-line */
 module.exports = require('./webpack.base.babel')({
   mode: 'development',
   entry: {
@@ -31,13 +34,13 @@ module.exports = require('./webpack.base.babel')({
   },
   output: {
     filename: 'vendor.bundle.js',
-    path: join(__dirname, '../../build/vendors'),
+    path: join(__dirname, '../../public/vendors'),
     library: 'vendor_lib',
   },
   plugins: [
     new webpack.DllPlugin({
       name: 'vendor_lib',
-      path: join(__dirname, '../../build/vendors', 'vendor-manifest.json'),
+      path: join(__dirname, '../../public/vendors', 'vendor-manifest.json'),
     }),
   ],
 });

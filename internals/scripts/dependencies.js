@@ -5,6 +5,7 @@ if (process.env.NODE_ENV === 'production') {
 
 require('shelljs/global');
 
+/* eslint-disable */
 const path = require('path');
 const fs = require('fs');
 const exists = fs.existsSync;
@@ -12,7 +13,7 @@ const writeFile = fs.writeFileSync;
 
 const defaults = require('lodash/defaultsDeep');
 const pkg = require(path.join(process.cwd(), 'package.json'));
-const vendorPath = path.join(__dirname, '../../build/vendors');
+const vendorPath = path.join(__dirname, '../../public/vendors');
 const vendorManifestPath = path.join(vendorPath, 'vendor-manifest.json');
 
 /**
@@ -31,7 +32,7 @@ if (!exists(vendorManifestPath)) {
     vendorManifestPath,
     JSON.stringify(
       defaults({
-        name: 'build',
+        name: 'public',
         private: true,
         author: pkg.author,
         repository: pkg.repository,
@@ -48,3 +49,4 @@ if (!exists(vendorManifestPath)) {
 exec(
   'cross-env BUILDING_DLL=true webpack --color --config internals/webpack/webpack.dll.babel.js --stats-error-details',
 );
+/* eslint-enable */

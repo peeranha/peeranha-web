@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-// import { Source } from '@storybook/addon-docs';
-import * as icons from './index';
 import { css } from '@emotion/react';
 import colors from 'styles/colors';
+import * as icons from './index';
 
 export default {
   title: 'Thema',
@@ -21,22 +20,18 @@ export default {
   },
 };
 
-export const Colors = () => {
-  return (
-    <div>
-      {Object.keys(colors).map(varname => (
-        <div className="df aic" style={{ margin: 10 }} key={varname}>
-          <div
-            style={{ background: colors[varname], width: 100, height: 50 }}
-          />
-          <div style={{ marginLeft: 10 }}>
-            {varname}: {colors[varname]}
-          </div>
+export const Colors = () => (
+  <div>
+    {Object.keys(colors).map(varname => (
+      <div className="df aic" style={{ margin: 10 }} key={varname}>
+        <div style={{ background: colors[varname], width: 100, height: 50 }} />
+        <div style={{ marginLeft: 10 }}>
+          {varname}: {colors[varname]}
         </div>
-      ))}
-    </div>
-  );
-};
+      </div>
+    ))}
+  </div>
+);
 
 export const Icons = () => {
   const [search, setSearch] = useState('');
@@ -52,12 +47,15 @@ export const Icons = () => {
           onChange={e => setSearch(e.target.value)}
         />
       </div>
-      {/* <Source
-        language={'javascript'}
-        code={`
-import ${iconName}Icon from 'icons/${iconName}'
+      <div
+        css={css`
+          background: #f1f1f1;
+          padding: 10px;
+          margin-top: 10px;
         `}
-      /> */}
+      >
+        {`import ${iconName}Icon from 'icons/${iconName}';`}
+      </div>
       <div
         css={css`
           display: flex;

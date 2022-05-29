@@ -2,10 +2,12 @@
  * COMMON WEBPACK CONFIGURATION
  */
 
+/* eslint-disable */
 const path = require('path');
 const webpack = require('webpack');
 const dotenv = require('dotenv');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+/* eslint-enable */
 
 // Remove this line once the following warning goes away (it was meant for webpack loader authors not users):
 // 'DeprecationWarning: loaderUtils.parseQuery() received a non-string value which can be problematic,

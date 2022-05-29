@@ -1,3 +1,4 @@
+/* eslint-disable-next-line */
 const fs = require('fs');
 
 const prettierOptions = JSON.parse(fs.readFileSync('./.prettierrc', 'utf8'));
@@ -5,16 +6,20 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   extends: [
     'airbnb-base',
-    'prettier/@typescript-eslint',
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'plugin:import/warnings',
+    'plugin:import/errors',
+    'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
   ],
   plugins: [
-    'prettier',
-    'redux-saga',
     'react',
+    'react-hooks',
+    'redux-saga',
     '@typescript-eslint',
     'jsx-a11y',
-    'react-hooks',
+    'prettier',
   ],
   env: {
     browser: true,
@@ -52,11 +57,11 @@ module.exports = {
     'import/imports-first': 0,
     'import/newline-after-import': 0,
     'import/no-dynamic-require': 0,
-    'import/no-extraneous-dependencies': 0,
-    'import/no-named-as-default': 0,
-    'import/no-unresolved': 2,
+    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+    'import/no-named-as-default': 'off',
+    'import/no-unresolved': 'off',
     'import/no-webpack-loader-syntax': 0,
-    'import/prefer-default-export': 0,
+    'import/prefer-default-export': 'off',
     'import/extensions': 0,
     'jsx-a11y/anchor-is-valid': 0,
     'react/jsx-no-bind': 0,
@@ -74,7 +79,19 @@ module.exports = {
     'no-use-before-define': 0,
     'prefer-template': 2,
     'react/jsx-closing-tag-location': 0,
-    'react/forbid-prop-types': 0,
+    'react/prop-types': [
+      'off',
+      {
+        ignore: [
+          'className',
+          'children',
+          'dispatch',
+          'location',
+          'match',
+          'history',
+        ],
+      },
+    ],
     'react/jsx-first-prop-new-line': [2, 'multiline'],
     'react/jsx-filename-extension': 0,
     'react/jsx-no-target-blank': 0,
@@ -88,6 +105,7 @@ module.exports = {
     'no-plusplus:': 'off',
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
+    'react/react-in-jsx-scope': 'off',
   },
   overrides: [
     {
@@ -113,7 +131,7 @@ module.exports = {
           2,
           {
             multiline: {
-              delimiter: 'none',
+              delimiter: 'semi',
             },
             singleline: {
               delimiter: 'semi',
@@ -132,7 +150,7 @@ module.exports = {
         '@typescript-eslint/no-this-alias': 'error',
         'no-use-before-define': 'off',
         '@typescript-eslint/no-use-before-define': 'error',
-        '@typescript-eslint/no-var-requires': 0,
+        '@typescript-eslint/no-var-requires': 'off',
         '@typescript-eslint/prefer-namespace-keyword': 'error',
         '@typescript-eslint/triple-slash-reference': 'error',
         '@typescript-eslint/type-annotation-spacing': 'error',
@@ -146,9 +164,6 @@ module.exports = {
 
   settings: {
     'import/resolver': {
-      webpack: {
-        config: './internals/webpack/webpack.prod.babel.js',
-      },
       'babel-module': {
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
       },

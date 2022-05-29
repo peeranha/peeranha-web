@@ -2,12 +2,14 @@
  * DEVELOPMENT WEBPACK CONFIGURATION
  */
 
+/* eslint-disable */
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 // const CircularDependencyPlugin = require('circular-dependency-plugin');
 const WebpackBar = require('webpackbar');
+/* eslint-enable */
 
 const plugins = [
   new webpack.HotModuleReplacementPlugin(), // Tell webpack we want hot reloading
@@ -20,20 +22,21 @@ const plugins = [
   //   failOnError: false, // show a warning when there is a circular dependency
   // }),
   new AddAssetHtmlPlugin({
-    filepath: 'build/vendors/vendor.bundle.js',
+    filepath: 'public/vendors/vendor.bundle.js',
     includeSourcemap: false,
   }),
   new webpack.DllReferencePlugin({
     context: __dirname,
     manifest: path.join(
       __dirname,
-      '../../build/vendors',
+      '../../public/vendors',
       'vendor-manifest.json',
     ),
   }),
   new WebpackBar(),
 ];
 
+/* eslint-disable-next-line */
 module.exports = require('./webpack.base.babel')({
   mode: 'development',
 

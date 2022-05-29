@@ -1,7 +1,9 @@
+/* eslint-disable */
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackPwaManifest = require('webpack-pwa-manifest');
 const TerserWebpackPlugin = require('terser-webpack-plugin');
+/* eslint-enable */
 
 const testPlugins = [
   {
@@ -29,6 +31,7 @@ const prodPlugins = [
 
 const plugins = process.env.NODE_ENV === 'test' ? testPlugins : prodPlugins;
 
+/* eslint-disable-next-line */
 module.exports = require('./webpack.base.babel')({
   mode: 'production',
   entry: [path.join(process.cwd(), 'app/app.js')],

@@ -1,5 +1,5 @@
-import Button from './index';
 import PlusIcon from 'icons/Plus';
+import Button from './index';
 
 const Store = {
   component: Button,
