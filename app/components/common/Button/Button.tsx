@@ -11,6 +11,7 @@ type ButtonProps = {
   className?: string;
   disabled?: boolean;
   type?: 'button' | 'submit';
+  /** Icon for the button */
   icon?: typeof IconComponent;
 };
 
