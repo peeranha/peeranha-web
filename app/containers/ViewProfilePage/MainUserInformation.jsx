@@ -26,6 +26,7 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import messages from 'containers/Profile/messages';
 import { customRatingIconColors } from 'constants/customRating';
 import ProfileSince from 'components/ProfileSince';
+import { getUserName } from 'utils/user';
 
 const InlineLoader = styled(LoadingIndicator)`
   margin: auto;
@@ -193,7 +194,7 @@ const MainUserInformation = ({
         <div>
           <div className="d-flex align-items-center">
             <Span fontSize="38" lineHeight="47" mobileFS="28" bold>
-              {profile?.displayName}
+              {getUserName(profile?.displayName, userId)}
             </Span>
           </div>
 
