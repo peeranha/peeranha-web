@@ -715,29 +715,9 @@ export function* postCommentWorker({
       ethereumService,
     );
 
-    let commentId;
-    let comments;
-
-    if (answerId === 0) {
-      commentId = questionData.comments.length + 1;
-    } else {
-      comments = questionData.answers.find(x => x.id === answerId).comments;
-      commentId = comments.length + 1;
-    }
-
-    const newHistory = {
-      transactionHash: transaction.transactionHash,
-      post: { id: questionId },
-      reply: { id: `${questionId}-${answerId}` },
-      comment: { id: `${questionId}-${answerId}-${commentId}` },
-      eventEntity: 'Comment',
-      eventName: 'Create',
-      timeStamp: String(dateNowInSeconds()),
-    };
-
     const newComment = {
       ipfsHash,
-      postTime: newHistory.timeStamp,
+      postTime: String(dateNowInSeconds()),
       user: profileInfo.user,
       properties: [],
       history: [],
@@ -747,17 +727,36 @@ export function* postCommentWorker({
       author: profileInfo,
     };
 
+    let commentId;
+
     if (answerId === 0) {
+      questionData.commentCount += 1;
+      commentId = questionData.commentCount;
       questionData.comments.push({
         ...newComment,
         id: commentId,
       });
     } else {
+      const { comments, commentCount } = questionData.answers.find(
+        x => x.id === answerId,
+      );
+      questionData.answers.find(x => x.id === answerId).commentCount += 1;
+      commentId = commentCount + 1;
       comments.push({
         ...newComment,
         id: commentId,
       });
     }
+
+    const newHistory = {
+      transactionHash: transaction.transactionHash,
+      post: { id: questionId },
+      reply: { id: `${questionId}-${answerId}` },
+      comment: { id: `${questionId}-${answerId}-${commentId}` },
+      eventEntity: 'Comment',
+      eventName: 'Create',
+      timeStamp: newComment.postTime,
+    };
 
     histories.push(newHistory);
 
@@ -815,8 +814,11 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
       ethereumService,
     );
 
+    questionData.replyCount += 1;
+    const replyId = questionData.replyCount;
+
     const newAnswer = {
-      id: questionData.answers.length + 1,
+      id: replyId,
       postTime: String(dateNowInSeconds()),
       user: profileInfo.user,
       properties: official ? [{ key: 10, value: 1 }] : [],
@@ -825,6 +827,7 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
       votingStatus: {},
       author: profileInfo,
       comments: [],
+      commentCount: 0,
       rating: 0,
       content: answer,
       ipfsHash,
