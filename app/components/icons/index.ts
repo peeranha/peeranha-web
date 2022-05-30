@@ -15,3 +15,4 @@ export { default as BestAnswer } from './BestAnswer';
 export { default as Like } from './Like';
 export { default as Answer } from './Answer';
 export { default as StatusBanned } from './StatusBanned';
+export { default as StatusStranger } from './StatusStranger';
