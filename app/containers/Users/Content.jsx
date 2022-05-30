@@ -76,7 +76,7 @@ const Content = ({
                   )}
                 </MediumImageWrapper>
                 <div>
-                  <P fontSize="14">{getUserName(x?.displayName, x.id)}</P>
+                  <P fontSize="14">{getUserName(x?.displayName, x?.id)}</P>
                   <IconWithStatus
                     className="py-1"
                     size="sm"
