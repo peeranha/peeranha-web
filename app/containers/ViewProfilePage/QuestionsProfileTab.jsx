@@ -31,9 +31,8 @@ import questionRoundedIcon from 'images/question2.svg?inline';
 import answerIcon from 'images/answer.svg?inline';
 import bestAnswerIcon from 'images/bestAnswer.svg?inline';
 
-import Banner from './Banner';
-
 import QuestionType from 'containers/Questions/Content/Body/QuestionType';
+import Banner from './Banner';
 
 const single = isSingleCommunityWebsite();
 
@@ -42,9 +41,15 @@ const Rating = Span.extend`
   padding: 2px 3px;
   font-size: 14px;
   border: 1px solid
-    ${x => (x.acceptedAnswer ? BORDER_SUCCESS : BORDER_SECONDARY)};
+    ${x =>
+      (x.acceptedAnswer && x.isMyPost) || x.isMyAnswerAccepted
+        ? BORDER_SUCCESS
+        : BORDER_SECONDARY};
 
-  color: ${x => (x.acceptedAnswer ? TEXT_SUCCESS : TEXT_SECONDARY)};
+  color: ${x =>
+    (x.acceptedAnswer && x.isMyPost) || x.isMyAnswerAccepted
+      ? TEXT_SUCCESS
+      : TEXT_SECONDARY};
   display: inline-block;
   text-align: center;
   border-radius: 3px;
@@ -88,6 +93,7 @@ const Note = ({
   id,
   answerId,
   elementType,
+  isMyPost,
   ...postInfo
 }) => {
   let LinkStyled = A;
@@ -108,7 +114,13 @@ const Note = ({
           isMyAnswerAccepted={isMyAnswerAccepted}
         />
 
-        <Rating>{myPostRating}</Rating>
+        <Rating
+          acceptedAnswer={acceptedAnswer}
+          isMyAnswerAccepted={isMyAnswerAccepted}
+          isMyPost={isMyPost}
+        >
+          {myPostRating}
+        </Rating>
 
         <Span fontSize="16" lineHeight="30" mobileFS="14">
           {title}
@@ -130,7 +142,13 @@ const Note = ({
   );
 };
 
-const QuestionsProfileTab = ({ questions, className, loading, locale }) => (
+const QuestionsProfileTab = ({
+  questions,
+  className,
+  loading,
+  locale,
+  userId,
+}) => (
   <div className={className}>
     <div>
       {questions.map(x => (
@@ -138,6 +156,7 @@ const QuestionsProfileTab = ({ questions, className, loading, locale }) => (
           {...x}
           key={`${x.id}_profile_tab_${x.postType}`}
           locale={locale}
+          isMyPost={userId === x.author.id}
         />
       ))}
     </div>
@@ -163,6 +182,7 @@ Note.propTypes = {
   locale: PropTypes.string,
   answerId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   id: PropTypes.string,
+  isMyPost: PropTypes.bool,
 };
 
 QuestionsProfileTab.propTypes = {
@@ -170,6 +190,7 @@ QuestionsProfileTab.propTypes = {
   className: PropTypes.string,
   loading: PropTypes.bool,
   locale: PropTypes.string,
+  userId: PropTypes.string,
 };
 
 export default React.memo(QuestionsProfileTab);
