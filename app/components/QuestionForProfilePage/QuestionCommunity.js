@@ -11,9 +11,30 @@ import A, { ADefault } from 'components/A';
 import Span from 'components/Span';
 import Img from 'components/Img';
 
+import { POST_TYPE } from 'utils/constants';
+
 const single = isSingleCommunityWebsite();
 
-const QuestionCommunity = ({ communities, communityId, className }) => {
+const getRouteByPostType = ({ postType, isFeed, communityId = 0 }) => {
+  if (isFeed) {
+    return routes.feed(communityId);
+  }
+  if (postType === POST_TYPE.tutorial) {
+    return routes.tutorials(communityId);
+  }
+  if (postType === POST_TYPE.expertPost) {
+    return routes.expertPosts(communityId);
+  }
+  return routes.questions(communityId);
+};
+
+const QuestionCommunity = ({
+  communities,
+  communityId,
+  className,
+  postType,
+  isFeed = false,
+}) => {
   if (!communities[0]) {
     return null;
   }
@@ -22,12 +43,16 @@ const QuestionCommunity = ({ communities, communityId, className }) => {
   let route = null;
   let Link = A;
   if (single && communityId !== single) {
-    route = `${process.env.APP_LOCATION}${routes.feed(communityId)}`;
+    route = `${process.env.APP_LOCATION}${getRouteByPostType({
+      postType,
+      isFeed,
+      communityId,
+    })}`;
     Link = ADefault;
   } else if (single && communityId === single) {
-    route = routes.feed();
+    route = getRouteByPostType({ postType, isFeed });
   } else if (!single) {
-    route = routes.feed(communityId);
+    route = getRouteByPostType({ postType, isFeed, communityId });
   }
 
   return (
@@ -46,6 +71,8 @@ QuestionCommunity.propTypes = {
   communities: PropTypes.array,
   communityId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   className: PropTypes.string,
+  postType: PropTypes.number,
+  isFeed: PropTypes.bool,
 };
 
 export default QuestionCommunity;

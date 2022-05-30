@@ -249,15 +249,10 @@ const MainUserInformation = ({
               )}
 
               <li>
-                <div>
-                  <FormattedMessage {...messages.memberSince} />
-                  <div>
-                    <ProfileSince
-                      creationTime={profile?.creationTime}
-                      locale={locale}
-                    />
-                  </div>
-                </div>
+                <ProfileSince
+                  creationTime={profile?.creationTime}
+                  locale={locale}
+                />
               </li>
             </UlStyled>
           </div>

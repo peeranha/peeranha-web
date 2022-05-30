@@ -155,10 +155,15 @@ export function* loginWithWalletWorker({ metaMask }) {
     }
 
     const connectedWalletLabel = ethereumService.connectedWallets[0].label;
-    window.localStorage.setItem(
-      'connectedWallet',
-      JSON.stringify(connectedWalletLabel),
-    );
+
+    setCookie({
+      name: 'connectedWallet',
+      value: connectedWalletLabel,
+    });
+    setCookie({
+      name: 'agreement',
+      value: window.localStorage.getItem('onboard.js:agreement'),
+    });
 
     if (isNewPostCreationAfterLogin) {
       const ev = { currentTarget: { id: 1 } };
