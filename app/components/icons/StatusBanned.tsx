@@ -4,7 +4,7 @@ import IconComponent, { IconProps } from './IconComponent';
 const StatusBanned: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
-    id="statusbanned"
+    id="status-banned"
     fill="curentColor"
     viewBox="0 0 9 9"
     size={[9, 9]}

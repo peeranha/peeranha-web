@@ -4,7 +4,7 @@ import IconComponent, { IconProps } from './IconComponent';
 const PeercoinSmall: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
-    id="peercoin"
+    id="peercoin-small"
     fill="curentColor"
     viewBox="0 0 15 15"
     size={[15, 15]}
