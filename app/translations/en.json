@@ -790,6 +790,7 @@
   "app.containers.ViewQuestion.markAsBest": "Mark as the best",
   "app.containers.ViewQuestion.communityChoice": "Community choice",
   "app.containers.ViewQuestion.moreComments": "More comments",
+  "app.containers.ViewQuestion.moreComment": "More comment",
   "app.containers.ViewQuestion.addComment": "Add comment",
   "app.containers.ViewQuestion.showMoreAnswers": "Show more answers {value}",
   "app.containers.ViewQuestion.areYouSure":

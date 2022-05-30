@@ -62,7 +62,11 @@ export const CommentOptions = ({
           <ButtonStyled onClick={() => changeCommentsView(!isAllCommentsView)}>
             <Span className="mr-1" bold>{`${commentsNumber} `}</Span>
             <Span className="text-lowercase" color={TEXT_SECONDARY}>
-              <FormattedMessage {...messages.moreComments} />
+              {commentsNumber === 1 ? (
+                <FormattedMessage {...messages.moreComment} />
+              ) : (
+                <FormattedMessage {...messages.moreComments} />
+              )}
               <Icon
                 className="ml-1"
                 rotate={isAllCommentsView}
