@@ -27,6 +27,7 @@ import {
   METAMASK_ERROR_CODE,
   REJECTED_SIGNATURE_REQUEST,
 } from './constants';
+import Torus from '@toruslabs/torus-embed';
 
 const sigUtil = require('eth-sig-util');
 const {
@@ -113,6 +114,10 @@ class EthereumService {
   };
 
   walletLogIn = async previouslyConnectedWallet => {
+    const torus = new Torus();
+    await torus.init();
+    await torus.login(); // await torus.ethereum.enable()
+    this.provider = new ethers.providers.Web3Provider(torus.provider);
     try {
       document.getElementsByTagName('body')[0].style.position = 'fixed';
     } catch (err) {}

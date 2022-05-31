@@ -176,7 +176,7 @@
     "@babel/polyfill": "7.4.3",
     "@metamask/detect-provider": "^1.2.0",
     "@telosnetwork/ual-telos-keycat": "^1.10.3",
-    "@toruslabs/torus-embed": "^1.22.2",
+    "@toruslabs/torus-embed": "^1.23.2",
     "@walletconnect/web3-provider": "^1.7.7",
     "@web3-onboard/coinbase": "^2.0.0",
     "@web3-onboard/fortmatic": "^2.0.2",
