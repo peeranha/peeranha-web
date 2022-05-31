@@ -269,7 +269,11 @@ export const Questions = ({
         </InfinityLoader>
       )}
       {isTopCommunitiesDisplay && (
-        <TopCommunities communities={communities} profile={profile} />
+        <TopCommunities
+          communities={communities}
+          profile={profile}
+          isTopCommunitiesOnly
+        />
       )}
       {displayLoader && <LoadingIndicator />}
     </div>
