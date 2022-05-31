@@ -59,7 +59,6 @@ import ShowMoreButton from './Content/ShowMoreButton';
 
 import { QUESTION_FILTER, UPDATE_PROMO_QUESTIONS } from './constants';
 
-const feed = routes.feed();
 const single = isSingleCommunityWebsite();
 
 export const Questions = ({
@@ -89,10 +88,11 @@ export const Questions = ({
   isLastTopQuestionLoaded,
   postsTypes,
 }) => {
+  const isFeed = window.location.pathname === routes.feed(params.communityid);
+
   const isExpert =
     path === routes.expertPosts() ||
     path === routes.expertPosts(':communityid');
-  const isFeed = parentPage === feed;
   const isTopCommunitiesDisplay =
     isFeed && !single && questionsList.length === 0;
   const getInitQuestions = useCallback(
@@ -206,8 +206,6 @@ export const Questions = ({
     [profile],
   );
 
-  const isCommunityFeed = params.hasOwnProperty('communityid');
-
   const questionFilterFromCookies = getCookie(QUESTION_FILTER);
   return display ? (
     <div>
@@ -243,7 +241,6 @@ export const Questions = ({
         >
           <Content
             isFeed={isFeed}
-            isCommunityFeed={isCommunityFeed}
             questionsList={questionsList}
             // promotedQuestionsList={
             //   promotedQuestions[+questionFilterFromCookies ? 'top' : 'all']
@@ -269,7 +266,11 @@ export const Questions = ({
         </InfinityLoader>
       )}
       {isTopCommunitiesDisplay && (
-        <TopCommunities communities={communities} profile={profile} />
+        <TopCommunities
+          communities={communities}
+          profile={profile}
+          isTopCommunitiesOnly
+        />
       )}
       {displayLoader && <LoadingIndicator />}
     </div>
