@@ -24,7 +24,10 @@ const UserInfo = ({ author, postTime, locale, isSearchPage, communityId }) => (
     >
       {!isSearchPage && (
         <>
-          <Span className="mr-1 d-block text-truncate" fontSize="14">
+          <Span
+            className="mr-1 d-block text-nowrap text-truncate"
+            fontSize="14"
+          >
             {getUserName(author.displayName, author.id)}
           </Span>
           <RatingStatus
