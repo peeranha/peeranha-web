@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
@@ -89,23 +89,25 @@ const Note = ({
   id,
   answerId,
   elementType,
-  ...postInfo
+  communityId,
 }) => {
-  let LinkStyled = A;
+  const LinkStyled = single && single !== communityId ? ADefault : A;
 
   const answerRouteId =
     elementType === POST_TYPE_ANSWER ? answerId.split('-')[1] : null;
 
-  let route = routes.questionView(id, answerRouteId);
+  const [route, setRoute] = useState(() =>
+    routes.questionView(id, answerRouteId),
+  );
 
-  if (postType === POST_TYPE.expertPost) {
-    route = routes.expertPostView(id, answerRouteId);
-  }
-
-  if (single && single !== postInfo.communityId) {
-    LinkStyled = ADefault;
-    route = `${process.env.APP_LOCATION}${route}`;
-  }
+  useEffect(
+    () => {
+      if (postType === POST_TYPE.expertPost) {
+        setRoute(routes.expertPostView(id, answerRouteId));
+      }
+    },
+    [postType, id, answerId],
+  );
 
   return (
     <LinkStyled to={route} href={route}>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import * as routes from 'routes-config';
 
@@ -23,11 +23,18 @@ const Question = ({
   isGeneral,
   elementType,
 }) => {
-  let route = routes.questionView(id, answerId.split('-')[1]);
+  const [route, setRoute] = useState(() =>
+    routes.questionView(id, answerId.split('-')[1]),
+  );
 
-  if (postType === POST_TYPE.expertPost) {
-    route = routes.expertPostView(id, answerId.split('-')[1]);
-  }
+  useEffect(
+    () => {
+      if (postType === POST_TYPE.expertPost) {
+        setRoute(routes.expertPostView(id, answerId.split('-')[1]));
+      }
+    },
+    [postType, id, answerId],
+  );
 
   return (
     <Li className="mb-3">
