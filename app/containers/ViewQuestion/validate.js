@@ -84,14 +84,14 @@ export const postAnswerValidator = (
   } else if (isAnswered) {
     message = `${translations[messages.alreadyAnswered.id]}`;
   } else if (
-    questionData.user === profileInfo.user &&
+    questionData.author.user === profileInfo.user &&
     communityRating < MIN_RATING_FOR_MY_QUESTION
   ) {
     message = `${
       translations[messages.notEnoughRating.id]
     } ${MIN_RATING_FOR_MY_QUESTION}`;
   } else if (
-    questionData.user !== profileInfo.user &&
+    questionData.author.user !== profileInfo.user &&
     communityRating < MIN_RATING_FOR_OTHER_QUESTIONS
   ) {
     message = `${
@@ -116,7 +116,7 @@ export const postCommentValidator = (
 ) => {
   const maxCommentsNumber = 200;
 
-  const MIN_RATING_FOR_MY_ITEM = 35;
+  const MIN_RATING_FOR_MY_ITEM = 0;
   const MIN_RATING_FOR_OTHER_ITEMS = 35;
   const MIN_ENERGY = 4;
   const communityId = questionData.communityId;
@@ -134,7 +134,7 @@ export const postCommentValidator = (
   } else if (
     !hasGlobalModeratorRole(profileInfo.permissions) &&
     (item.author.user === profileInfo.user ||
-      questionData.author === profileInfo.user) &&
+      questionData.author.user === profileInfo.user) &&
     getRatingByCommunity(profileInfo, communityId) < MIN_RATING_FOR_MY_ITEM
   ) {
     message = `${
@@ -143,7 +143,7 @@ export const postCommentValidator = (
   } else if (
     item.author.user !== profileInfo.user &&
     !hasGlobalModeratorRole(profileInfo.permissions) &&
-    questionData.author !== profileInfo.user &&
+    questionData.author.user !== profileInfo.user &&
     getRatingByCommunity(profileInfo, communityId) < MIN_RATING_FOR_OTHER_ITEMS
   ) {
     message = `${
