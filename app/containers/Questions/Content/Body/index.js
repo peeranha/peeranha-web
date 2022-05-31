@@ -48,7 +48,6 @@ const Body = ({
   postType,
   isFeed,
   isExpert,
-  isCommunityFeed,
 }) => {
   // const [visible, changeVisibility] = useState(false);
 
@@ -71,7 +70,7 @@ const Body = ({
           topQuestionsCount={topQuestionsCount}
           topQuestionActionProcessing={topQuestionActionProcessing}
         />
-        {(isFeed || isSearchPage || isCommunityFeed) && (
+        {(isFeed || isSearchPage) && (
           <QuestionType
             locale={locale}
             postType={postType}
