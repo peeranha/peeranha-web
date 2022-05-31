@@ -44,10 +44,12 @@ export const AskQuestion = ({
   getQuestionsDispatch,
   existingQuestions,
   profileInfo,
+  questionError,
 }) => {
   const getQuestionsDispatchDebounced = _debounce(getQuestionsDispatch, 250);
 
   const [skipExistingQuestions, setSkipExistingQuestions] = useState(false);
+  const isFailed = questionError !== '';
 
   useEffect(() => () => {
     getQuestionsDispatchDebounced.cancel();
@@ -56,9 +58,7 @@ export const AskQuestion = ({
   const availableBalance = getAvailableBalance(profileInfo);
 
   const maxPromotingHours = useMemo(
-    () => {
-      return Math.floor(availableBalance / PROMOTE_HOUR_COST);
-    },
+    () => Math.floor(availableBalance / PROMOTE_HOUR_COST),
     [availableBalance],
   );
 
@@ -86,6 +86,7 @@ export const AskQuestion = ({
         existingQuestions={existingQuestions}
         doSkipExistingQuestions={skipExistingQuestions}
         skipExistingQuestions={() => setSkipExistingQuestions(true)}
+        isFailed={isFailed}
       />
     </div>
   );
@@ -94,11 +95,12 @@ export const AskQuestion = ({
 AskQuestion.propTypes = {
   locale: PropTypes.string.isRequired,
   askQuestionLoading: PropTypes.bool.isRequired,
-  balance: PropTypes.number,
   askQuestionDispatch: PropTypes.func.isRequired,
   getQuestionsDispatch: PropTypes.func.isRequired,
   communities: PropTypes.array.isRequired,
   existingQuestions: PropTypes.array.isRequired,
+  profileInfo: PropTypes.object,
+  questionError: PropTypes.string,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -108,6 +110,7 @@ const mapStateToProps = createStructuredSelector({
   profileInfo: makeSelectProfileInfo(),
   existingQuestions: askQuestionSelector.selectExistingQuestions(),
   askQuestionLoading: askQuestionSelector.selectAskQuestionLoading(),
+  questionError: askQuestionSelector.selectQuestionError(),
 });
 
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {

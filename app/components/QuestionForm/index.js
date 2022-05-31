@@ -108,6 +108,7 @@ export const QuestionForm = ({
   communityQuestionsType,
   disableCommForm,
   profile,
+  isFailed,
 }) => {
   const [isSelectedType, setIsSelectedType] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -158,7 +159,7 @@ export const QuestionForm = ({
     <Router history={history}>
       <Prompt
         message={translationMessages[locale][messages.leaveWithoutChanges.id]}
-        when={isEdited && !submitPressed}
+        when={isEdited && (!submitPressed || isFailed)}
       />
       <div>
         <Header
@@ -306,6 +307,7 @@ QuestionForm.propTypes = {
   skipExistingQuestions: PropTypes.func,
   disableCommForm: PropTypes.bool,
   profile: PropTypes.object,
+  isFailed: PropTypes.bool,
 };
 
 const FormClone = reduxForm({
