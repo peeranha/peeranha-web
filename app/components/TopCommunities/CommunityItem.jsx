@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 import * as routes from '../../routes-config';
 import BaseRoundedNoPadding from '../Base/BaseRoundedNoPadding';
@@ -25,14 +24,21 @@ const CommunityItem = ({
   postCount,
   description,
 }) => {
-  let Link = AStyled;
-  let route = routes.questions(id);
-  if (single && id !== single) {
-    Link = ADefaultStyled;
-    route = `${process.env.APP_LOCATION}${route}`;
-  } else if (single && id === single) {
-    route = routes.questions();
-  }
+  const [route, setRoute] = useState(() => routes.questions(id));
+  const Link = single && id !== single ? ADefaultStyled : AStyled;
+
+  useEffect(
+    () => {
+      if (single && id !== single) {
+        setRoute(`${process.env.APP_LOCATION}${route}`);
+      }
+
+      if (single && id === single) {
+        setRoute(routes.questions());
+      }
+    },
+    [single, id],
+  );
   return (
     <BaseRoundedNoPadding>
       <Link href={route} to={route}>

@@ -1,5 +1,4 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import * as routes from '../../routes-config';
@@ -21,14 +20,22 @@ const CommunityItemWithRating = ({
   communityId,
   rating,
 }) => {
-  let Link = AStyled;
-  let route = routes.questions(communityId);
-  if (single && communityId !== single) {
-    Link = ADefaultStyled;
-    route = `${process.env.APP_LOCATION}${route}`;
-  } else if (single && communityId === single) {
-    route = routes.questions();
-  }
+  const [route, setRoute] = useState(() => routes.questions(communityId));
+  const Link = single && communityId !== single ? ADefaultStyled : AStyled;
+
+  useEffect(
+    () => {
+      if (single && communityId !== single) {
+        setRoute(`${process.env.APP_LOCATION}${route}`);
+      }
+
+      if (single && communityId === single) {
+        setRoute(routes.questions());
+      }
+    },
+    [single, communityId],
+  );
+
   const community = communities.find(item => item.id === communityId);
 
   return (

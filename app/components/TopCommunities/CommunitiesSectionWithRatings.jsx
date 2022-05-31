@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import orderBy from 'lodash/orderBy';
@@ -22,12 +22,19 @@ const CommunitiesSectionWithRatings = ({
   single,
   communities,
 }) => {
-  let AllCommunitiesLink = A;
-  let allCommunitiesRoute = routes.communities();
-  if (single) {
-    AllCommunitiesLink = ADefault;
-    allCommunitiesRoute = `${process.env.APP_LOCATION}/communities`;
-  }
+  const [allCommunitiesRoute, setAllCommunitiesRoute] = useState(() =>
+    routes.communities(),
+  );
+  const AllCommunitiesLink = single ? ADefault : A;
+
+  useEffect(
+    () => {
+      if (single) {
+        setAllCommunitiesRoute(`${process.env.APP_LOCATION}/communities`);
+      }
+    },
+    [single],
+  );
   return (
     <div className="overflow-hidden" ref={ref}>
       <H4 isHeader>
