@@ -13,12 +13,7 @@ import {
   makeSelectProfileInfo,
 } from 'containers/AccountProvider/selectors';
 
-import {
-  GET_WEEK_STAT,
-  CHANGE_STAKE,
-  TOKENS_AFTER_ZERO,
-  CURRENT_STAKE_FORM,
-} from './constants';
+import { GET_WEEK_STAT, CHANGE_STAKE } from './constants';
 
 import {
   getWeekStatSuccess,
@@ -29,6 +24,7 @@ import {
 } from './actions';
 import { selectEthereum } from '../EthereumProvider/selectors';
 import { selectUserBoostStat } from './selectors';
+import { WEI_IN_ETH } from '../../utils/constants';
 
 export function* getWeekStatWorker() {
   try {
