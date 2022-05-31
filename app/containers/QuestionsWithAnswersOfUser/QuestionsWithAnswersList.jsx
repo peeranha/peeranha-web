@@ -4,6 +4,7 @@ import * as routes from 'routes-config';
 
 import QuestionForProfilePage from 'components/QuestionForProfilePage';
 import { Li } from 'containers/QuestionsOfUser/QuestionsList';
+import { POST_TYPE } from 'utils/constants';
 
 /* eslint camelcase: 0 */
 const Question = ({
@@ -22,10 +23,16 @@ const Question = ({
   isGeneral,
   elementType,
 }) => {
+  let route = routes.questionView(id, answerId.split('-')[1]);
+
+  if (postType === POST_TYPE.expertPost) {
+    route = routes.expertPostView(id, answerId.split('-')[1]);
+  }
+
   return (
     <Li className="mb-3">
       <QuestionForProfilePage
-        route={routes.questionView(id, answerId.split('-')[1])}
+        route={route}
         myPostRating={myPostRating}
         title={title}
         myPostTime={myPostTime}

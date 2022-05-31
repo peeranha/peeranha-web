@@ -34,6 +34,7 @@ import bestAnswerIcon from 'images/bestAnswer.svg?inline';
 import Banner from './Banner';
 
 import QuestionType from 'containers/Questions/Content/Body/QuestionType';
+import { POST_TYPE } from 'utils/constants';
 
 const single = isSingleCommunityWebsite();
 
@@ -91,10 +92,16 @@ const Note = ({
   ...postInfo
 }) => {
   let LinkStyled = A;
-  let route = routes.questionView(
-    id,
-    elementType === POST_TYPE_ANSWER ? answerId.split('-')[1] : null,
-  );
+
+  const answerRouteId =
+    elementType === POST_TYPE_ANSWER ? answerId.split('-')[1] : null;
+
+  let route = routes.questionView(id, answerRouteId);
+
+  if (postType === POST_TYPE.expertPost) {
+    route = routes.expertPostView(id, answerRouteId);
+  }
+
   if (single && single !== postInfo.communityId) {
     LinkStyled = ADefault;
     route = `${process.env.APP_LOCATION}${route}`;
