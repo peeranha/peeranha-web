@@ -9,7 +9,7 @@ import TopCommunitiesSection from './TopCommunitiesSection';
 
 const single = isSingleCommunityWebsite();
 
-const offset = () => {
+const getOffset = () => {
   if (single && window.innerWidth > 576) {
     return 113;
   }
@@ -37,10 +37,13 @@ const TopCommunities = ({
         history.default?.location.hash === '#communities' &&
         refCommunitiesSection.current
       ) {
-        window.scrollTo(0, refCommunitiesSection.current.offsetTop - offset());
+        window.scrollTo(
+          0,
+          refCommunitiesSection.current.offsetTop - getOffset(),
+        );
       }
     },
-    [window.location.hash, questions, refCommunitiesSection],
+    [history.default?.location.hash, questions, refCommunitiesSection],
   );
 
   if (profile.ratings?.length && !isTopCommunitiesOnly) {
