@@ -49,7 +49,10 @@ export const voteToDeleteValidator = (
     message = `${translations[messages.noRootsToVote.id]}`;
   } else if (itemData.votingStatus.isVotedToDelete) {
     message = `${translations[messages.youVoted.id]}`;
-  } else if (profileInfo.rating < MIN_RATING) {
+  } else if (
+    !hasGlobalModeratorRole(profileInfo.permissions) &&
+    profileInfo.rating < MIN_RATING
+  ) {
     message = `${translations[messages.notEnoughRating.id]} ${MIN_RATING}`;
   } else if (profileInfo.energy < minEnergy) {
     message = translations[messages.notEnoughEnergy.id];
@@ -84,6 +87,7 @@ export const postAnswerValidator = (
   } else if (isAnswered) {
     message = `${translations[messages.alreadyAnswered.id]}`;
   } else if (
+    !hasGlobalModeratorRole(profileInfo.permissions) &&
     questionData.user === profileInfo.user &&
     communityRating < MIN_RATING_FOR_MY_QUESTION
   ) {
@@ -91,6 +95,7 @@ export const postAnswerValidator = (
       translations[messages.notEnoughRating.id]
     } ${MIN_RATING_FOR_MY_QUESTION}`;
   } else if (
+    !hasGlobalModeratorRole(profileInfo.permissions) &&
     questionData.user !== profileInfo.user &&
     communityRating < MIN_RATING_FOR_OTHER_QUESTIONS
   ) {
@@ -172,7 +177,10 @@ export const markAsAcceptedValidator = (
 
   if (profileInfo.user !== questionData.author.user) {
     message = `${translations[messages.noRootsToVote.id]}`;
-  } else if (getRatingByCommunity(profileInfo, communityId) < MIN_RATING) {
+  } else if (
+    !hasGlobalModeratorRole(profileInfo.permissions) &&
+    getRatingByCommunity(profileInfo, communityId) < MIN_RATING
+  ) {
     message = `${translations[messages.notEnoughRating.id]} ${MIN_RATING}`;
   } else if (profileInfo.energy < MIN_ENERGY) {
     message = translations[messages.notEnoughEnergy.id];
