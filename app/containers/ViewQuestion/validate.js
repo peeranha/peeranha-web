@@ -290,8 +290,6 @@ export const deleteQuestionValidator = (
 
   if (questionData.votingStatus.isUpVoted) {
     message = `${translations[messages.cannotCompleteBecauseVoted.id]}`;
-  } else if (answersNum > ANSWERS_LIMIT) {
-    message = `${translations[messages.youHaveAnswers.id]}`;
   } else if (profileInfo.energy < MIN_ENERGY) {
     message = translations[messages.notEnoughEnergy.id];
   }
