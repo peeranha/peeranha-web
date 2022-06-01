@@ -4,7 +4,6 @@ import { ApplicationError } from 'utils/errors';
 import { getRatingByCommunity } from 'utils/profileManagement';
 import { getPermissions, hasGlobalModeratorRole } from 'utils/properties';
 import messages from './messages';
-import { useMemo } from 'react';
 
 /* eslint prefer-destructuring: 0 */
 export const voteToDeleteValidator = (
