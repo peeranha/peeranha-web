@@ -57,7 +57,7 @@ const CommunitiesForm = ({
     moreRoute = `${process.env.APP_LOCATION}/communities`;
   }
 
-  const ref = useRef(null);
+  const ref = useRef(0);
   useEffect(
     () => {
       let offset = 75;

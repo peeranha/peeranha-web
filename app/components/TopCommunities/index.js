@@ -19,7 +19,7 @@ const TopCommunities = ({
     return null;
   }
   // console.log('profile', profile);
-  const ref = useRef(null);
+  const ref = useRef(0);
   useEffect(
     () => {
       let offset = 75;
