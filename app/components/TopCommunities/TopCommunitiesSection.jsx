@@ -37,7 +37,7 @@ const TopCommunitiesSection = ({ ref, single, communities }) => {
       </H4>
 
       <Grid xl={5} lg={4} md={3} sm={2} xs={1}>
-        {orderBy(communities, 'users_subscribed', 'desc')
+        {orderBy(communities, 'followingUsers', 'desc')
           .slice(0, 9)
           .map(item => (
             <CommunityItem
