@@ -2,19 +2,49 @@
 import bs58 from 'bs58';
 import { create } from 'ipfs-http-client';
 
+import {
+  callService,
+  SAVE_FILE_SERVICE,
+} from 'utils/web_integration/src/util/aws-connector';
+import { Web3Storage } from 'web3.storage/dist/bundle.esm.min.js';
 import { ApplicationError } from './errors';
 
-export function getIpfsApi() {
+export function ipfsApi() {
   return create(process.env.IPFS_API_URL);
 }
 
-function getIpfsApiTheGraph() {
+function ipfsApiTheGraph() {
   return create(process.env.IPFS_API_URL_THE_GRAPH);
 }
 
-async function saveTextTheGraph(buf) {
-  const saveResult = await getIpfsApiTheGraph().add(buf);
-  // return saveResult.cid.toString();
+function web3StorageApi() {
+  const token = process.env.WEB3_STORAGE_API_TOKEN;
+
+  if (!token) {
+    throw new Error(
+      'WEB3_STORAGE_API_TOKEN environment variable is not defined',
+    );
+  }
+
+  return new Web3Storage({ token });
+}
+
+async function saveDataWeb3Storage(data) {
+  return web3StorageApi().put([new File([data], 'data')]);
+}
+
+async function saveDataToAllStorages(content, buf, encoding) {
+  const dataIpfsS3 = {
+    content,
+    encoding,
+  };
+
+  const [resultIpfsS3] = await Promise.all([
+    saveDataIpfsS3(dataIpfsS3),
+    saveDataTheGraph(buf),
+    saveDataWeb3Storage(buf),
+  ]);
+  return resultIpfsS3.body.cid;
 }
 
 // TODO: test
@@ -40,24 +70,22 @@ export async function saveText(text) {
   }
 
   const buf = Buffer.from(parsedText, 'utf8');
-  const saveResult = await getIpfsApi().add(buf);
 
-  await saveTextTheGraph(buf);
-  return saveResult.cid.toString();
+  return saveDataToAllStorages(buf, buf, 'utf8');
 }
 
-async function saveFileTheGraph(buf) {
-  const saveResult = await getIpfsApiTheGraph().add(buf);
-  // return saveResult.cid.toString();
+async function saveDataTheGraph(buf) {
+  return ipfsApiTheGraph().add(buf);
+}
+
+async function saveDataIpfsS3(file) {
+  return callService(SAVE_FILE_SERVICE, { file });
 }
 
 export async function saveFile(file) {
   const buf = Buffer.from(file);
-  const saveResult = await getIpfsApi().add(buf);
 
-  await saveFileTheGraph(buf);
-
-  return saveResult.cid.toString();
+  return saveDataToAllStorages(file, buf, 'base64');
 }
 
 export async function getText(hash) {
@@ -100,7 +128,7 @@ export const getBytes32FromIpfsHash = ipfsListing =>
     .toString('hex')}`;
 
 export const getIpfsHashFromBytes32 = bytes32Hex => {
-  const hashHex = '1220' + bytes32Hex.slice(2);
+  const hashHex = `1220${bytes32Hex.slice(2)}`;
   const hashBytes = Buffer.from(hashHex, 'hex');
   return bs58.encode(hashBytes);
 };
