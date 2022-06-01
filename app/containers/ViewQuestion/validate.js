@@ -2,7 +2,7 @@ import { showPopover } from 'utils/popover';
 import { ApplicationError } from 'utils/errors';
 
 import { getRatingByCommunity } from 'utils/profileManagement';
-import { hasGlobalModeratorRole } from 'utils/properties';
+import { getPermissions, hasGlobalModeratorRole } from 'utils/properties';
 import messages from './messages';
 
 /* eslint prefer-destructuring: 0 */
@@ -310,12 +310,14 @@ export const deleteAnswerValidator = (
 ) => {
   const MIN_ENERGY = 2;
 
+  const isGlobalAdmin = hasGlobalModeratorRole(getPermissions(profileInfo));
+
   let message;
   const itemData = questionData.answers.filter(x => x.id === answerid)[0];
 
-  if (itemData.votingStatus.isUpVoted) {
+  if (itemData.votingStatus.isUpVoted && !isGlobalAdmin) {
     message = `${translations[messages.cannotCompleteBecauseVoted.id]}`;
-  } else if (answerid === correctAnswerId) {
+  } else if (answerid === correctAnswerId && !isGlobalAdmin) {
     message = `${translations[messages.answerIsCorrect.id]}`;
   } else if (profileInfo.energy < MIN_ENERGY) {
     message = translations[messages.notEnoughEnergy.id];
