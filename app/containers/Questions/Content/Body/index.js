@@ -48,7 +48,6 @@ const Body = ({
   postType,
   isFeed,
   isExpert,
-  isCommunityFeed,
 }) => {
   // const [visible, changeVisibility] = useState(false);
 
@@ -71,7 +70,7 @@ const Body = ({
           topQuestionsCount={topQuestionsCount}
           topQuestionActionProcessing={topQuestionActionProcessing}
         />
-        {(isFeed || isSearchPage || isCommunityFeed) && (
+        {(isFeed || isSearchPage) && (
           <QuestionType
             locale={locale}
             postType={postType}
@@ -102,6 +101,8 @@ const Body = ({
           communities={communities}
           communityId={communityId}
           tags={tags}
+          postType={postType}
+          isFeed={isFeed}
         />
 
         {/* <div
@@ -137,6 +138,8 @@ Body.propTypes = {
   topQuestionActionProcessing: PropTypes.bool,
   isPromoted: PropTypes.bool,
   isCommunityFeed: PropTypes.bool,
+  postType: PropTypes.number,
+  isFeed: PropTypes.bool,
 };
 
 export default Body;

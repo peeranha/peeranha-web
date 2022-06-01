@@ -5,9 +5,8 @@ import TopCommunities from 'components/TopCommunities';
 
 import MainUserInformation from './MainUserInformation';
 import AdditionalUserInformation from './AdditionalUserInformation';
-import CommunitiesForm from './CommunitiesForm';
 import Activity from './Activity';
-import Tip from './Tip/Tip';
+import * as routes from '../../routes-config';
 
 const ProfileViewForm = ({
   profile,
@@ -21,43 +20,50 @@ const ProfileViewForm = ({
   locale,
   className,
   redirectToEditProfilePage,
-}) => (
-  <div className={className}>
-    <MainUserInformation
-      profile={profile}
-      userId={userId}
-      account={account}
-      locale={locale}
-      redirectToEditProfilePage={redirectToEditProfilePage}
-    />
+}) => {
+  const path = window.location.pathname + window.location.hash;
+  const isProfilePage =
+    profile.id === account &&
+    (path === routes.profileView(account) ||
+      path === routes.userCommunities(account));
+  return (
+    <div className={className}>
+      <MainUserInformation
+        profile={profile}
+        userId={userId}
+        account={account}
+        locale={locale}
+        redirectToEditProfilePage={redirectToEditProfilePage}
+      />
 
-    <AdditionalUserInformation
-      profile={profile}
-      userId={userId}
-      account={account}
-      redirectToEditProfilePage={redirectToEditProfilePage}
-    />
+      <AdditionalUserInformation
+        profile={profile}
+        userId={userId}
+        account={account}
+        redirectToEditProfilePage={redirectToEditProfilePage}
+      />
 
-    <TopCommunities
-      userId={userId}
-      account={account}
-      communities={communities}
-      profile={profile}
-      questions={questions}
-    />
+      {(isProfilePage || profile.ratings?.length > 0) && (
+        <TopCommunities
+          communities={communities}
+          profile={profile}
+          questions={questions}
+        />
+      )}
 
-    <Activity
-      account={account}
-      userId={userId}
-      questions={questions}
-      questionsWithUserAnswers={questionsWithUserAnswers}
-      questionsLoading={questionsLoading}
-      questionsWithAnswersLoading={questionsWithAnswersLoading}
-      locale={locale}
-      profile={profile}
-    />
-  </div>
-);
+      <Activity
+        account={account}
+        userId={userId}
+        questions={questions}
+        questionsWithUserAnswers={questionsWithUserAnswers}
+        questionsLoading={questionsLoading}
+        questionsWithAnswersLoading={questionsWithAnswersLoading}
+        locale={locale}
+        profile={profile}
+      />
+    </div>
+  );
+};
 
 ProfileViewForm.propTypes = {
   profile: PropTypes.object,

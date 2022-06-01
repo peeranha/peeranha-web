@@ -14,7 +14,16 @@ import AchievementsStatus from 'components/AchievementsStatus';
 import { TEXT_SECONDARY } from 'style-constants';
 import { getRatingByCommunity } from 'utils/profileManagement';
 import { customRatingIconColors } from 'constants/customRating';
+import { getUserName } from 'utils/user';
 
+export const AuthorName = Span.extend`
+  width: max-content;
+  min-width: 55px;
+  padding-right: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
 const UserInfo = ({ author, postTime, locale, isSearchPage, communityId }) => (
   <p className="mb-3">
     <A
@@ -23,9 +32,9 @@ const UserInfo = ({ author, postTime, locale, isSearchPage, communityId }) => (
     >
       {!isSearchPage && (
         <>
-          <Span className="mr-1 d-block text-truncate" fontSize="14">
-            {author?.displayName}
-          </Span>
+          <AuthorName fontSize="14">
+            {getUserName(author.displayName, author.id)}
+          </AuthorName>
           <RatingStatus
             rating={getRatingByCommunity(author, communityId)}
             size="sm"

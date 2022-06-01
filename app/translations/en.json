@@ -52,14 +52,14 @@
   "app.common.limitedEdition": "Limited edition",
   "app.common.contractAddress": "Contract",
   "app.common.allQuestions": "All questions",
-  "app.common.manageMyComm": "Manage my communities",
+  "app.common.manageMyComm": "See all communities",
   "app.common.asked": "Asked",
   "app.common.askedWhen": "Asked {when}",
   "app.common.answeredWhen": "Answered {when}",
   "app.common.somebodyAsked": "{account} asked",
   "app.common.somebodyAnswered": "{account} answered",
   "app.common.youAnswered": "You answered",
-  "app.common.youAsked": "You asked",
+  "app.common.youAsked": "You posted",
   "app.common.answered": "Answered",
   "app.common.cancel": "Cancel",
   "app.common.nothingToSeeYet": "Nothing to see yet",
@@ -195,6 +195,11 @@
     "Please check Metamask connection and try to reload the page",
   "app.common.ipfsHashValue": "IPFS",
   "app.common.source": "Source",
+  "app.common.waitingForConfirm": "Confirm this transaction in your wallet...",
+  "app.common.transactionInPending":
+    "Waiting for {transaction} confirmation...",
+  "app.common.transaction": "transaction",
+  "app.common.transactionCompleted": "Transaction completed successfully",
 
   "app.telegram.user": "Telegram user",
   "app.telegram.userLabelPopover":
@@ -708,9 +713,9 @@
   "app.containers.Notifications.youHaveNoNewNotifications":
     "You have no new notifications.",
   "app.containers.Notifications.yourQuestionWasUpVoted":
-    "Your question was upvoted",
+    "Your post was upvoted",
   "app.containers.Notifications.yourQuestionWasDownVoted":
-    "Your question was downvoted",
+    "Your post was downvoted",
   "app.containers.Notifications.yourAnswerWasUpVoted":
     "Your answer was upvoted",
   "app.containers.Notifications.yourAnswerWasDownVoted":
@@ -718,15 +723,15 @@
   "app.containers.Notifications.yourAnswerWasMarkedAsTheBest":
     "Your answer was marked as the best",
   "app.containers.Notifications.somebodyAnsweredYourQuestion":
-    "Somebody answered your question",
+    "Your post was answered",
   "app.containers.Notifications.somebodyLeftACommentToYourQuestion":
-    "Somebody left a comment to your question",
+    "Your post was commented",
   "app.containers.Notifications.somebodyLeftACommentToYourAnswer":
-    "Somebody left a comment to your answer",
+    "Your answer was commented",
   "app.containers.Notifications.yourQuestionWasTipped":
-    "You question was tipped {quantity}",
+    "Your post was tipped {quantity}",
   "app.containers.Notifications.yourAnswerWasTipped":
-    "You answer was tipped {quantity}",
+    "Your answer was tipped {quantity}",
 
   "app.containers.EditAnswer.description": "Edit Answer Description",
   "app.containers.EditAnswer.submitButtonName": "Save",

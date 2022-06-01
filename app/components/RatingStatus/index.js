@@ -32,12 +32,27 @@ const RatingStatusStyled = styled.span`
   margin-right: 0.5rem;
 `;
 
+const RaitingInfo = styled.span`
+  display: flex;
+  align-items: center;
+  width: max-content;
+
+  @media (max-width: 350px) {
+    flex-direction: ${({ isProfilePage }) => !isProfilePage && 'column'};
+
+    > *:first-child {
+      margin-left: ${({ isProfilePage }) => !isProfilePage && '4px'};
+    }
+  }
+`;
+
 const getStatus = rating =>
   Object.keys(options).filter(
     x => options[x].minRating <= rating && options[x].maxRating >= rating,
   )[0];
 
 const IconWithStatus = ({
+  isProfilePage,
   className,
   size,
   rating,
@@ -79,7 +94,7 @@ const IconWithStatus = ({
   }
 
   return (
-    <span className={`d-flex-column d-sm-flex align-items-center ${className}`}>
+    <RaitingInfo isProfilePage={isProfilePage} className={`${className}`}>
       <Icon
         className="d-inline-flex mr-1"
         icon={full?.icon[size || 'sm']}
@@ -99,12 +114,13 @@ const IconWithStatus = ({
       >
         {getFormattedNum(rating)}
       </Span>
-    </span>
+    </RaitingInfo>
   );
 };
 
 /* eslint no-nested-ternary: 0 */
 const RatingStatus = ({
+  isProfilePage,
   rating = 0,
   size,
   intl,
@@ -115,8 +131,9 @@ const RatingStatus = ({
   const full = options[getStatus(rating)];
 
   return (
-    <RatingStatusStyled>
+    <RatingStatusStyled isProfilePage={isProfilePage}>
       <IconWithStatus
+        isProfilePage={isProfilePage}
         size={size}
         rating={rating}
         ratingNumColor={ratingNumColor || ''}
