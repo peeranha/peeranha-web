@@ -3,11 +3,21 @@ import PropTypes from 'prop-types';
 
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
+import history from 'createdHistory';
 import CommunitiesSectionWithRatings from './CommunitiesSectionWithRatings';
 import TopCommunitiesSection from './TopCommunitiesSection';
-import * as routes from '../../routes-config';
 
 const single = isSingleCommunityWebsite();
+
+const offset = () => {
+  if (single && window.innerWidth > 576) {
+    return 113;
+  }
+  if (window.innerWidth < 577) {
+    return 55;
+  }
+  return 75;
+};
 
 const TopCommunities = ({
   communities,
@@ -18,22 +28,19 @@ const TopCommunities = ({
   if (!communities || !profile || !communities.length) {
     return null;
   }
-  // console.log('profile', profile);
-  const ref = useRef(0);
+
+  const refCommunitiesSection = useRef(null);
+
   useEffect(
     () => {
-      let offset = 75;
-      if (single && window.innerWidth > 576) {
-        offset = 113;
-      } else if (window.innerWidth < 577) {
-        offset = 55;
-      }
-
-      if (window.location.hash === '#communities') {
-        window.scrollTo(0, ref.current.offsetTop - offset);
+      if (
+        history.default?.location.hash === '#communities' &&
+        refCommunitiesSection.current
+      ) {
+        window.scrollTo(0, refCommunitiesSection.current.offsetTop - offset());
       }
     },
-    [window.location.hash, questions],
+    [window.location.hash, questions, refCommunitiesSection],
   );
 
   if (profile.ratings?.length && !isTopCommunitiesOnly) {
@@ -42,7 +49,7 @@ const TopCommunities = ({
         profile={profile}
         communities={communities}
         single={single}
-        ref={ref}
+        ref={refCommunitiesSection}
       />
     );
   }
@@ -50,7 +57,7 @@ const TopCommunities = ({
     <TopCommunitiesSection
       communities={communities}
       single={single}
-      ref={ref}
+      ref={refCommunitiesSection}
     />
   );
 };
@@ -62,4 +69,4 @@ TopCommunities.propTypes = {
   isTopCommunitiesOnly: PropTypes.bool,
 };
 
-export default React.memo(TopCommunities);
+export default TopCommunities;
