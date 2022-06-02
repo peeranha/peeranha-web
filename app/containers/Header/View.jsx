@@ -122,7 +122,7 @@ const Button = LargeButton.extend`
     height: 36px !important;
   }
 
-  @media only screen and (max-width: 360px) {
+  @media only screen and (max-width: 340px) {
     width: 30px !important;
     height: 30px !important;
   }
@@ -145,10 +145,10 @@ const MenuLogo = styled.div`
 
   @media only screen and (max-width: 340px) {
     align-items: flex-start;
-    width: 90%;
+    width: 80%;
     justify-content: space-between;
-    margin-left: -70px;
-    transform: scale(0.8);
+    margin-left: -50px;
+    transform: scale(0.9);
   }
 `;
 
@@ -156,7 +156,7 @@ const Buttons = Section.extend`
   @media only screen and (max-width: 340px) {
     width: 120%;
     justify-content: space-between;
-    margin: -20px 0 0 40px;
+    margin: -20px 0 0 50px;
     transform: scale(0.8);
   }
 `;

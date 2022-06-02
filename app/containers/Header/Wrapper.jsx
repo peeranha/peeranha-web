@@ -11,7 +11,7 @@ export const Wrapper = styled.header`
   position: fixed;
   width: 100%;
   height: ${x =>
-    x.transactionInitialised ? HEADER_HEIGHT + LOADER_HEIGHT : HEADER_HEIGHT*2}px;
+    x.transactionInitialised ? HEADER_HEIGHT + LOADER_HEIGHT : HEADER_HEIGHT}px;
   background: ${BG_LIGHT};
   z-index: 10;
   transform: translate(0px, 0px);
@@ -22,10 +22,7 @@ export const Wrapper = styled.header`
   &.sticky {
     transform: translate(
       0px,
-      -${x =>
-        x.transactionInitialised
-          ? HEADER_HEIGHT + LOADER_HEIGHT
-          : HEADER_HEIGHT}px
+      -${x => (x.transactionInitialised ? HEADER_HEIGHT + LOADER_HEIGHT : HEADER_HEIGHT)}px
     );
   }
 
@@ -38,10 +35,7 @@ export const Wrapper = styled.header`
     &.sticky {
       transform: translate(
         0px,
-        -${x =>
-          x.isTransactionInPending
-            ? MOBILE_HEADER_HEIGHT + LOADER_HEIGHT
-            : MOBILE_HEADER_HEIGHT}px
+        -${x => (x.isTransactionInPending ? MOBILE_HEADER_HEIGHT + LOADER_HEIGHT : MOBILE_HEADER_HEIGHT)}px
       );
     }
   }
