@@ -19,13 +19,6 @@ export const Wrapper = styled.header`
   flex-direction: column;
   transition: all 0.4s ease;
 
-  /* @media only screen and (max-width: 360px) {
-    height: ${x =>
-      x.transactionInitialised
-        ? HEADER_HEIGHT + LOADER_HEIGHT
-        : HEADER_HEIGHT}px;
-  } */
-
   &.sticky {
     transform: translate(
       0px,
@@ -96,10 +89,8 @@ export const MainSubHeader = styled.div`
   background-color: ${props =>
     props.mainSubHeaderBgColor ? props.mainSubHeaderBgColor : ''};
 
-@media only screen and (max-width: 360px) {
-   
+@media only screen and (max-width: 340px) {
     height: 100%;
-
   }
 
   form {

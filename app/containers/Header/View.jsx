@@ -134,7 +134,7 @@ const HeaderContainer = styled.div`
   align-items: center;
   height: 100%;
 
-  @media only screen and (max-width: 360px) {
+  @media only screen and (max-width: 340px) {
     flex-direction: column;
   }
 `;
@@ -143,7 +143,7 @@ const MenuLogo = styled.div`
   display: flex;
   align-items: center;
 
-  @media only screen and (max-width: 360px) {
+  @media only screen and (max-width: 340px) {
     align-items: flex-start;
     width: 90%;
     justify-content: space-between;
@@ -153,11 +153,10 @@ const MenuLogo = styled.div`
 `;
 
 const Buttons = Section.extend`
-
-  @media only screen and (max-width: 360px) {
-    width: 130%;
+  @media only screen and (max-width: 340px) {
+    width: 120%;
     justify-content: space-between;
-    margin: -20px 0 0 70px;
+    margin: -15px 0 0 40px;
     transform: scale(0.7);
    
   }
