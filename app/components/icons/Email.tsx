@@ -12,7 +12,6 @@ const Email: React.FC<IconProps> = (props): JSX.Element => (
     <defs>
       <rect id="path-1" x="0" y="0" width="28" height="19" rx="2" />
     </defs>
-    {/* <g stroke={props.stroke || '#282828'} fill="none"> */}
     <g
       fill={props.fill || '#FFF'}
       stroke="none"
