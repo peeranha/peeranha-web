@@ -21,37 +21,46 @@ const Question = ({
   answerId,
   isGeneral,
   elementType,
-}) => {
-  return (
-    <Li className="mb-3">
-      <QuestionForProfilePage
-        route={routes.questionView(id, answerId.split('-')[1])}
-        myPostRating={myPostRating}
-        title={title}
-        myPostTime={myPostTime}
-        locale={locale}
-        acceptedAnswer={acceptedAnswer}
-        communities={communities}
-        id={id}
-        communityId={communityId}
-        postType={postType}
-        isMyAnswerAccepted={isMyAnswerAccepted}
-        isTheLargestRating={isTheLargestRating}
-        isGeneral={isGeneral}
-        bordered={false}
-        isAnswer
-        elementType={elementType}
-      />
-    </Li>
-  );
-};
+}) => (
+  <Li className="mb-3" postType={postType}>
+    <QuestionForProfilePage
+      route={routes.questionView(id, answerId.split('-')[1])}
+      myPostRating={myPostRating}
+      title={title}
+      myPostTime={myPostTime}
+      locale={locale}
+      acceptedAnswer={acceptedAnswer}
+      communities={communities}
+      id={id}
+      communityId={communityId}
+      postType={postType}
+      isMyAnswerAccepted={isMyAnswerAccepted}
+      isTheLargestRating={isTheLargestRating}
+      isGeneral={isGeneral}
+      bordered={false}
+      isAnswer
+      elementType={elementType}
+    />
+  </Li>
+);
 
 const QuestionsWithAnswersList = ({ questions, locale, communities }) => (
   <div>
     <ul>
       {questions.map(x => (
         <Question
-          {...x}
+          myPostRating={x.myPostRating}
+          title={x.title}
+          myPostTime={x.myPostTime}
+          acceptedAnswer={x.acceptedAnswer}
+          id={x.id}
+          communityId={x.communityId}
+          isMyAnswerAccepted={x.isMyAnswerAccepted}
+          postType={x.postType}
+          isTheLargestRating={x.isTheLargestRating}
+          answerId={x.answerId}
+          isGeneral={x.isGeneral}
+          elementType={x.elementType}
           locale={locale}
           communities={communities}
           key={`answer_${x.id}`}
@@ -75,6 +84,7 @@ Question.propTypes = {
   isTheLargestRating: PropTypes.bool,
   answerId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   isGeneral: PropTypes.bool,
+  elementType: PropTypes.string,
 };
 
 QuestionsWithAnswersList.propTypes = {

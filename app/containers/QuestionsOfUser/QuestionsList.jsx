@@ -6,12 +6,15 @@ import * as routes from 'routes-config';
 import {
   BORDER_PRIMARY,
   BORDER_SECONDARY,
+  EXPERT_BACKLIGHT,
+  SECONDARY_SPECIAL_2,
   TEXT_PRIMARY_DARK,
   TEXT_SECONDARY,
+  TUTORIAL_BACKLIGHT,
 } from 'style-constants';
 
 import { getFormattedDate } from 'utils/datetime';
-import { MONTH_3LETTERS__DAY_YYYY_TIME } from 'utils/constants';
+import { MONTH_3LETTERS__DAY_YYYY_TIME, POST_TYPE } from 'utils/constants';
 
 import answerIconEmptyInside from 'images/answerIconEmptyInside.svg?inline';
 
@@ -19,7 +22,6 @@ import Base from 'components/Base';
 import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
 import Span from 'components/Span';
 import A from 'components/A';
-import RatingStatus from 'components/RatingStatus';
 import QuestionForProfilePage from 'components/QuestionForProfilePage';
 
 import messages from 'containers/Profile/messages';
@@ -39,6 +41,12 @@ const RightBlock = Base.extend`
 export const Li = BaseRoundedNoPadding.extend`
   display: flex;
   border: ${x => (x.bordered ? `1px solid ${BORDER_PRIMARY} !important` : '0')};
+  box-shadow: ${({ postType }) =>
+    postType === POST_TYPE.expertPost
+      ? `3px 3px 5px ${EXPERT_BACKLIGHT}`
+      : postType === POST_TYPE.tutorial
+        ? `3px 3px 5px ${TUTORIAL_BACKLIGHT}`
+        : null};
   > div:nth-child(2) {
     border-left: 1px solid ${BORDER_SECONDARY};
   }
@@ -51,13 +59,22 @@ export const Li = BaseRoundedNoPadding.extend`
       border-top: 1px solid ${BORDER_SECONDARY};
     }
   }
+
+  :hover {
+    box-shadow: ${({ postType }) =>
+      postType === POST_TYPE.expertPost
+        ? `6px 6px 5px ${EXPERT_BACKLIGHT}`
+        : postType === POST_TYPE.tutorial
+          ? `6px 6px 5px ${TUTORIAL_BACKLIGHT}`
+          : `0 5px 5px 0 ${SECONDARY_SPECIAL_2}`};
+  }
 `;
 
 const LastAnswer = ({ lastAnswer, locale }) => {
   if (!lastAnswer) {
     return (
       <Span fontSize="14" color={TEXT_SECONDARY}>
-        <FormattedMessage {...messages.noAnswersYet} />
+        <FormattedMessage id={messages.noAnswersYet.id} />
       </Span>
     );
   }
@@ -76,7 +93,7 @@ const LastAnswer = ({ lastAnswer, locale }) => {
       )}
 
       <Span fontSize="14" lineHeight="18" color={TEXT_SECONDARY}>
-        <FormattedMessage {...messages.lastAnswer} />{' '}
+        <FormattedMessage id={messages.lastAnswer.id} />{' '}
         {getFormattedDate(
           lastAnswer.postTime,
           locale,
@@ -102,44 +119,52 @@ const Question = ({
   isMyAnswerAccepted,
   isGeneral,
   elementType,
-}) => {
-  return (
-    <Li className="mb-3">
-      <QuestionForProfilePage
-        route={routes.questionView(id, null)}
-        myPostRating={myPostRating}
-        title={title}
-        myPostTime={myPostTime}
-        locale={locale}
-        acceptedAnswer={acceptedAnswer}
-        communities={communities}
-        id={id}
-        communityId={communityId}
-        postType={postType}
-        isMyAnswerAccepted={isMyAnswerAccepted}
-        isGeneral={isGeneral}
-        elementType={elementType}
-      />
-      <RightBlock>
-        <span className="d-flex align-items-center mb-2">
-          <img src={answerIconEmptyInside} className="mr-2" alt="icon" />
-          <Span color={TEXT_PRIMARY_DARK} bold>
-            {replies.length}
-          </Span>
-        </span>
+}) => (
+  <Li className="mb-3" postType={postType}>
+    <QuestionForProfilePage
+      route={routes.questionView(id, null)}
+      myPostRating={myPostRating}
+      title={title}
+      myPostTime={myPostTime}
+      locale={locale}
+      acceptedAnswer={acceptedAnswer}
+      communities={communities}
+      id={id}
+      communityId={communityId}
+      postType={postType}
+      isMyAnswerAccepted={isMyAnswerAccepted}
+      isGeneral={isGeneral}
+      elementType={elementType}
+    />
+    <RightBlock>
+      <span className="d-flex align-items-center mb-2">
+        <img src={answerIconEmptyInside} className="mr-2" alt="icon" />
+        <Span color={TEXT_PRIMARY_DARK} bold>
+          {replies.length}
+        </Span>
+      </span>
 
-        <LastAnswer lastAnswer={replies[replies.length - 1]} locale={locale} />
-      </RightBlock>
-    </Li>
-  );
-};
+      <LastAnswer lastAnswer={replies[replies.length - 1]} locale={locale} />
+    </RightBlock>
+  </Li>
+);
 
 const QuestionsList = ({ questions, locale, communities }) => (
   <div>
     <ul>
       {questions.map(x => (
         <Question
-          {...x}
+          myPostRating={x.myPostRating}
+          title={x.title}
+          myPostTime={x.myPostTime}
+          replies={x.replies}
+          acceptedAnswer={x.acceptedAnswer}
+          id={x.id}
+          communityId={x.communityId}
+          postType={x.postType}
+          isMyAnswerAccepted={x.isMyAnswerAccepted}
+          isGeneral={x.isGeneral}
+          elementType={x.elementType}
           locale={locale}
           communities={communities}
           key={`question_${x.id}`}
@@ -152,7 +177,6 @@ const QuestionsList = ({ questions, locale, communities }) => (
 LastAnswer.propTypes = {
   lastAnswer: PropTypes.object,
   locale: PropTypes.string,
-  user: PropTypes.string,
 };
 
 Question.propTypes = {
@@ -168,6 +192,7 @@ Question.propTypes = {
   isMyAnswerAccepted: PropTypes.bool,
   communityId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   isGeneral: PropTypes.bool,
+  elementType: PropTypes.string,
 };
 
 QuestionsList.propTypes = {
