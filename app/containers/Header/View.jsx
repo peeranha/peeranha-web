@@ -148,7 +148,7 @@ const MenuLogo = styled.div`
     width: 90%;
     justify-content: space-between;
     margin-left: -70px;
-    transform: scale(0.7);
+    transform: scale(0.8);
   }
 `;
 
@@ -156,9 +156,8 @@ const Buttons = Section.extend`
   @media only screen and (max-width: 340px) {
     width: 120%;
     justify-content: space-between;
-    margin: -15px 0 0 40px;
-    transform: scale(0.7);
-   
+    margin: -20px 0 0 40px;
+    transform: scale(0.8);
   }
 `;
 
