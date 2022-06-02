@@ -1,10 +1,10 @@
 import React from 'react';
 import IconComponent, { IconProps } from './IconComponent';
 
-const Notification: React.FC<IconProps> = (props): JSX.Element => (
+const Clock: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
-    id="notification"
+    id="clock"
     fill="curentColor"
     viewBox="0 0 15 15"
     size={[15, 15]}
@@ -44,4 +44,4 @@ const Notification: React.FC<IconProps> = (props): JSX.Element => (
   </IconComponent>
 );
 
-export default Notification;
+export default Clock;

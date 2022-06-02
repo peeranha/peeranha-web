@@ -12,7 +12,7 @@ const Communities: React.FC<IconProps> = (props): JSX.Element => (
     <g
       transform="translate(3 3)"
       fillRule="nonzero"
-      stroke="#282828"
+      stroke={props.stroke || '#282828'}
       fill="none"
     >
       <circle cx="9" cy="5" r="5.5" />

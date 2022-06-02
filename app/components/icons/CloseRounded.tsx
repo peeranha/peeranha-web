@@ -18,7 +18,7 @@ const CloseRounded: React.FC<IconProps> = (props): JSX.Element => (
         fillOpacity=".2"
         stroke={props.stroke || '#282828'}
       />
-      <g fill="#000">
+      <g fill={props.fill || '#282828'}>
         <path d="m10.328 3.964.708.708-6.364 6.364-.708-.708z" />
         <path d="m11.036 10.328-.708.708-6.364-6.364.708-.708z" />
       </g>
