@@ -123,6 +123,19 @@ const Button = LargeButton.extend`
   }
 `;
 
+const HeaderContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  @media only screen and (max-width: 360px) {
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+  }
+`;
+
 const View = ({
   showMenu,
   intl,
@@ -194,7 +207,8 @@ const View = ({
 
         <MainSubHeader mainSubHeaderBgColor={styles.mainSubHeaderBgColor}>
           <div className="container">
-            <div className="d-flex align-items-center justify-content-between">
+            {/* <HeaderContainer className="d-flex align-items-center justify-content-between"> */}
+            <HeaderContainer>
               <div className="d-flex align-items-center">
                 <button
                   className="mt-1 mr-3 d-flex d-lg-none"
@@ -259,7 +273,7 @@ const View = ({
                   />
                 ) : null}
               </Section>
-            </div>
+            </HeaderContainer>
           </div>
         </MainSubHeader>
       </Wrapper>

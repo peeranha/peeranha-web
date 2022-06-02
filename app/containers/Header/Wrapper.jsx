@@ -19,10 +19,20 @@ export const Wrapper = styled.header`
   flex-direction: column;
   transition: all 0.4s ease;
 
+  /* @media only screen and (max-width: 360px) {
+    height: ${x =>
+      x.transactionInitialised
+        ? HEADER_HEIGHT * 2 + LOADER_HEIGHT
+        : HEADER_HEIGHT * 2}px;
+  } */
+
   &.sticky {
     transform: translate(
       0px,
-      -${x => (x.transactionInitialised ? HEADER_HEIGHT + LOADER_HEIGHT : HEADER_HEIGHT)}px
+      -${x =>
+        x.transactionInitialised
+          ? HEADER_HEIGHT + LOADER_HEIGHT
+          : HEADER_HEIGHT}px
     );
   }
 
@@ -35,7 +45,10 @@ export const Wrapper = styled.header`
     &.sticky {
       transform: translate(
         0px,
-        -${x => (x.isTransactionInPending ? MOBILE_HEADER_HEIGHT + LOADER_HEIGHT : MOBILE_HEADER_HEIGHT)}px
+        -${x =>
+          x.isTransactionInPending
+            ? MOBILE_HEADER_HEIGHT + LOADER_HEIGHT
+            : MOBILE_HEADER_HEIGHT}px
       );
     }
   }
