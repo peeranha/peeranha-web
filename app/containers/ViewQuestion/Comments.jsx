@@ -39,6 +39,7 @@ import { IconMd } from 'components/Icon/IconWithSizes';
 import blockchainLogo from 'images/blockchain-outline-32.svg?external';
 import commonMessages from 'common-messages';
 import IPFSInformation from 'containers/Questions/Content/Body/IPFSInformation';
+import { getUserName } from 'utils/user';
 
 const CommentManage = styled.div`
   display: flex;
@@ -160,7 +161,7 @@ const CommentView = item => {
         <UserInfo
           type={COMMENT_TYPE}
           avatar={getUserAvatar(item.author.avatar)}
-          name={item.author?.displayName ?? ''}
+          name={getUserName(item.author?.displayName, item.author?.id)}
           rating={getRatingByCommunity(item.author, item.communityId)}
           account={item.author.user}
           achievementsCount={item.author.achievements?.length}
