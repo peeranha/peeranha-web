@@ -11,7 +11,7 @@ export const Wrapper = styled.header`
   position: fixed;
   width: 100%;
   height: ${x =>
-    x.transactionInitialised ? HEADER_HEIGHT + LOADER_HEIGHT : HEADER_HEIGHT}px;
+    x.transactionInitialised ? HEADER_HEIGHT + LOADER_HEIGHT : HEADER_HEIGHT*2}px;
   background: ${BG_LIGHT};
   z-index: 10;
   transform: translate(0px, 0px);
@@ -22,8 +22,8 @@ export const Wrapper = styled.header`
   /* @media only screen and (max-width: 360px) {
     height: ${x =>
       x.transactionInitialised
-        ? HEADER_HEIGHT * 2 + LOADER_HEIGHT
-        : HEADER_HEIGHT * 2}px;
+        ? HEADER_HEIGHT + LOADER_HEIGHT
+        : HEADER_HEIGHT}px;
   } */
 
   &.sticky {
@@ -95,6 +95,12 @@ export const MainSubHeader = styled.div`
   flex: 2;
   background-color: ${props =>
     props.mainSubHeaderBgColor ? props.mainSubHeaderBgColor : ''};
+
+@media only screen and (max-width: 360px) {
+   
+    height: 100%;
+
+  }
 
   form {
     flex: 1;

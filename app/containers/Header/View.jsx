@@ -121,18 +121,45 @@ const Button = LargeButton.extend`
     width: 36px !important;
     height: 36px !important;
   }
+
+  @media only screen and (max-width: 360px) {
+    width: 30px !important;
+    height: 30px !important;
+  }
 `;
 
 const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 100%;
 
   @media only screen and (max-width: 360px) {
     flex-direction: column;
-    justify-content: flex-start;
-    margin-bottom: 10px;
-    padding-bottom: 10px;
+  }
+`;
+
+const MenuLogo = styled.div`
+  display: flex;
+  align-items: center;
+
+  @media only screen and (max-width: 360px) {
+    align-items: flex-start;
+    width: 90%;
+    justify-content: space-between;
+    margin-left: -70px;
+    transform: scale(0.7);
+  }
+`;
+
+const Buttons = Section.extend`
+
+  @media only screen and (max-width: 360px) {
+    width: 130%;
+    justify-content: space-between;
+    margin: -20px 0 0 70px;
+    transform: scale(0.7);
+   
   }
 `;
 
@@ -207,9 +234,10 @@ const View = ({
 
         <MainSubHeader mainSubHeaderBgColor={styles.mainSubHeaderBgColor}>
           <div className="container">
-            {/* <HeaderContainer className="d-flex align-items-center justify-content-between"> */}
+            {/* <div className="d-flex align-items-center justify-content-between"> */}
             <HeaderContainer>
-              <div className="d-flex align-items-center">
+            {/* <div className="d-flex align-items-center"> */}
+              <MenuLogo className="d-flex align-items-center">
                 <button
                   className="mt-1 mr-3 d-flex d-lg-none"
                   onClick={showMenu}
@@ -220,9 +248,9 @@ const View = ({
                   />
                 </button>
                 <Logo />
-              </div>
+              </MenuLogo>
 
-              <Section className="insides">
+              <Buttons className="insides">
                 <SearchForm
                   searchFormId={SEARCH_FORM_ID}
                   onBlur={() => setSearchFormVisibility(false)}
@@ -272,7 +300,7 @@ const View = ({
                     faqQuestions={faqQuestions}
                   />
                 ) : null}
-              </Section>
+              </Buttons>
             </HeaderContainer>
           </div>
         </MainSubHeader>
