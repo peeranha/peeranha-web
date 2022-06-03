@@ -83,10 +83,6 @@ export const MainSubHeader = styled.div`
   background-color: ${props =>
     props.mainSubHeaderBgColor ? props.mainSubHeaderBgColor : ''};
 
-@media only screen and (max-width: 340px) {
-    height: 100%;
-  }
-
   form {
     flex: 1;
   }
