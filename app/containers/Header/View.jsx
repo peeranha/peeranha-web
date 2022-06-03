@@ -156,7 +156,8 @@ const Buttons = Section.extend`
   @media only screen and (max-width: 340px) {
     width: 120%;
     justify-content: space-between;
-    margin: -20px 0 0 50px;
+    margin: -20px 0 0 40px;
+    padding: 0 10px;
     transform: scale(0.8);
   }
 `;
