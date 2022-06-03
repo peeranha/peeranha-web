@@ -153,12 +153,19 @@ const MenuLogo = styled.div`
 `;
 
 const Buttons = Section.extend`
+  
   @media only screen and (max-width: 340px) {
-    width: 125%;
+    width: 110%;
+    display: flex;
     justify-content: space-between;
-    margin: -20px 0 0 40px;
-    padding: 0 10px;
+    margin: -20px 0 0 45px;
+    padding-right: 20px;
     transform: scale(0.8);
+  }
+
+  @media only screen and (max-width: 290px) {
+    width: 120%;
+    padding-right: 10px;
   }
 `;
 
