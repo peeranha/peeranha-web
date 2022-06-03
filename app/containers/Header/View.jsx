@@ -164,8 +164,6 @@ const Buttons = Section.extend`
     padding-top: 5px;
     transform: scale(0.8);
   }
-
-  
 `;
 
 const View = ({
