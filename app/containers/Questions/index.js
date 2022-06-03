@@ -59,7 +59,6 @@ import ShowMoreButton from './Content/ShowMoreButton';
 
 import { QUESTION_FILTER, UPDATE_PROMO_QUESTIONS } from './constants';
 
-const feed = routes.feed();
 const single = isSingleCommunityWebsite();
 
 export const Questions = ({
@@ -89,9 +88,13 @@ export const Questions = ({
   isLastTopQuestionLoaded,
   postsTypes,
 }) => {
+  const isFeed = window.location.pathname === routes.feed(params.communityid);
+
   const isExpert =
     path === routes.expertPosts() ||
     path === routes.expertPosts(':communityid');
+  const isTopCommunitiesDisplay =
+    isFeed && !single && questionsList.length === 0;
   const getInitQuestions = useCallback(
     () => {
       if (!questionFilter) {
@@ -203,8 +206,6 @@ export const Questions = ({
     [profile],
   );
 
-  const isCommunityFeed = params.hasOwnProperty('communityid');
-
   const questionFilterFromCookies = getCookie(QUESTION_FILTER);
   return display ? (
     <div>
@@ -227,7 +228,7 @@ export const Questions = ({
       />
       {displayBanner && (
         <Banner
-          isFeed={parentPage === feed}
+          isFeed={isFeed}
           followedCommunities={followedCommunities}
           redirectToAskQuestionPage={redirectToAskQuestionPageDispatch}
         />
@@ -239,8 +240,7 @@ export const Questions = ({
           isLastFetch={lastFetched}
         >
           <Content
-            isFeed={parentPage === feed}
-            isCommunityFeed={isCommunityFeed}
+            isFeed={isFeed}
             questionsList={questionsList}
             // promotedQuestionsList={
             //   promotedQuestions[+questionFilterFromCookies ? 'top' : 'all']
@@ -265,8 +265,12 @@ export const Questions = ({
             )}
         </InfinityLoader>
       )}
-      {questionsList.length === 0 && (
-        <TopCommunities communities={communities} profile={profile} />
+      {isTopCommunitiesDisplay && (
+        <TopCommunities
+          communities={communities}
+          profile={profile}
+          isTopCommunitiesOnly
+        />
       )}
       {displayLoader && <LoadingIndicator />}
     </div>

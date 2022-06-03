@@ -14,7 +14,7 @@ import { translationMessages } from 'i18n';
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
-import { getText } from 'utils/ipfs';
+import { getBytes32FromIpfsHash, getText, saveText } from 'utils/ipfs';
 
 import {
   changeQuestionType,
@@ -59,6 +59,10 @@ import { getUniqQuestions } from 'containers/Questions/actions';
 import { updateStoredQuestionsWorker } from 'containers/Questions/saga';
 
 import {
+  isItemChanged,
+  saveChangedItemIdToSessionStorage,
+} from 'utils/sessionStorage';
+import {
   ANSWER_TYPE,
   CHANGE_QUESTION_TYPE,
   CHANGE_QUESTION_TYPE_SUCCESS,
@@ -90,7 +94,6 @@ import {
   VOTE_TO_DELETE_SUCCESS,
   GET_HISTORIES,
   GET_HISTORIES_SUCCESS,
-  GET_HISTORIES_ERROR,
 } from './constants';
 
 import {
@@ -126,7 +129,11 @@ import {
   getHistoriesSuccess,
 } from './actions';
 
-import { selectQuestionBounty, selectQuestionData } from './selectors';
+import {
+  selectHistories,
+  selectQuestionBounty,
+  selectQuestionData,
+} from './selectors';
 
 import {
   deleteAnswerValidator,
@@ -143,11 +150,6 @@ import {
 import { selectUsers } from '../DataCacheProvider/selectors';
 import { selectEthereum } from '../EthereumProvider/selectors';
 import { getQuestionFromGraph } from '../../utils/theGraph';
-
-import {
-  isItemChanged,
-  saveChangedItemIdToSessionStorage,
-} from 'utils/sessionStorage';
 
 import { selectPostedAnswerIds } from '../AskQuestion/selectors';
 export const isGeneralQuestion = question => Boolean(question.postType === 1);
@@ -253,8 +255,6 @@ export function* getQuestionData({
   //   }
   // }
   //
-  const getItemStatus = (historyFlag, constantFlag) =>
-    historyFlag?.flag & (1 << constantFlag);
 
   const users = new Map();
 
@@ -350,6 +350,7 @@ export function* getParams() {
   const profileInfo = yield select(makeSelectProfileInfo());
   const account = yield select(makeSelectAccount());
   const questionBounty = yield select(selectQuestionBounty());
+  const histories = yield select(selectHistories());
 
   return {
     questionData,
@@ -358,6 +359,7 @@ export function* getParams() {
     account,
     profileInfo,
     questionBounty,
+    histories,
   };
 }
 
@@ -371,9 +373,13 @@ export function* saveCommentWorker({
   buttonId,
 }) {
   try {
-    const { questionData, ethereumService, profileInfo, locale } = yield call(
-      getParams,
-    );
+    const {
+      questionData,
+      ethereumService,
+      profileInfo,
+      locale,
+      histories,
+    } = yield call(getParams);
 
     yield call(isAvailableAction, () =>
       editCommentValidator(profileInfo, buttonId, translationMessages[locale]),
@@ -381,13 +387,16 @@ export function* saveCommentWorker({
     const commentData = {
       content: comment,
     };
-    yield call(
+    const ipfsLink = yield call(saveText, JSON.stringify(commentData));
+    const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
+
+    const transaction = yield call(
       editComment,
       profileInfo.user,
       questionId,
       answerId,
       commentId,
-      commentData,
+      ipfsHash,
       ethereumService,
     );
 
@@ -401,7 +410,19 @@ export function* saveCommentWorker({
         .comments.find(x => x.id === commentId);
     }
 
+    const newHistory = {
+      transactionHash: transaction.transactionHash,
+      post: { id: questionId },
+      reply: { id: `${questionId}-${answerId}` },
+      comment: { id: `${questionId}-${answerId}-${commentId}` },
+      eventEntity: 'Comment',
+      eventName: 'Edit',
+      timeStamp: String(dateNowInSeconds()),
+    };
+
     item.content = comment;
+
+    histories.push(newHistory);
 
     yield call(toggleView, true);
 
@@ -420,9 +441,13 @@ export function* deleteCommentWorker({
   buttonId,
 }) {
   try {
-    const { questionData, ethereumService, locale, profileInfo } = yield call(
-      getParams,
-    );
+    const {
+      questionData,
+      ethereumService,
+      locale,
+      profileInfo,
+      histories,
+    } = yield call(getParams);
 
     yield call(
       isAvailableAction,
@@ -439,7 +464,7 @@ export function* deleteCommentWorker({
       },
     );
 
-    yield call(
+    const transaction = yield call(
       deleteComment,
       profileInfo.user,
       questionId,
@@ -457,6 +482,15 @@ export function* deleteCommentWorker({
       answer.comments = answer.comments.filter(x => x.id !== commentId);
     }
 
+    const newHistory = {
+      transactionHash: transaction.transactionHash,
+      eventEntity: 'Comment',
+      eventName: 'Delete',
+      timeStamp: String(dateNowInSeconds()),
+    };
+
+    histories.push(newHistory);
+
     saveChangedItemIdToSessionStorage(CHANGED_POSTS_KEY, questionId);
 
     yield put(deleteCommentSuccess({ ...questionData }, buttonId));
@@ -467,9 +501,13 @@ export function* deleteCommentWorker({
 
 export function* deleteAnswerWorker({ questionId, answerId, buttonId }) {
   try {
-    const { questionData, ethereumService, locale, profileInfo } = yield call(
-      getParams,
-    );
+    const {
+      questionData,
+      ethereumService,
+      locale,
+      profileInfo,
+      histories,
+    } = yield call(getParams);
 
     yield call(
       isAvailableAction,
@@ -487,13 +525,22 @@ export function* deleteAnswerWorker({ questionId, answerId, buttonId }) {
       },
     );
 
-    yield call(
+    const transaction = yield call(
       deleteAnswer,
       profileInfo.user,
       questionId,
       answerId,
       ethereumService,
     );
+
+    const newHistory = {
+      transactionHash: transaction.transactionHash,
+      eventEntity: 'Reply',
+      eventName: 'Delete',
+      timeStamp: String(dateNowInSeconds()),
+    };
+
+    histories.push(newHistory);
 
     questionData.answers = questionData.answers.filter(x => x.id !== answerId);
 
@@ -507,13 +554,9 @@ export function* deleteAnswerWorker({ questionId, answerId, buttonId }) {
 
 export function* deleteQuestionWorker({ questionId, buttonId }) {
   try {
-    const {
-      questionData,
-      ethereumService,
-      locale,
-      profileInfo,
-      questionBounty,
-    } = yield call(getParams);
+    const { questionData, ethereumService, locale, profileInfo } = yield call(
+      getParams,
+    );
 
     yield call(
       isAvailableAction,
@@ -648,24 +691,32 @@ export function* postCommentWorker({
   buttonId,
 }) {
   try {
-    const { questionData, ethereumService, profileInfo } = yield call(
-      getParams,
-    );
+    const {
+      questionData,
+      ethereumService,
+      profileInfo,
+      histories,
+    } = yield call(getParams);
 
     yield call(checkPostCommentAvailableWorker, buttonId, answerId);
     const commentData = {
       content: comment,
     };
-    yield call(
+
+    const ipfsLink = yield call(saveText, JSON.stringify(commentData));
+    const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
+
+    const transaction = yield call(
       postComment,
       profileInfo.user,
       questionId,
       answerId,
-      commentData,
+      ipfsHash,
       ethereumService,
     );
 
     const newComment = {
+      ipfsHash,
       postTime: String(dateNowInSeconds()),
       user: profileInfo.user,
       properties: [],
@@ -676,19 +727,38 @@ export function* postCommentWorker({
       author: profileInfo,
     };
 
+    let commentId;
+
     if (answerId === 0) {
+      questionData.commentCount += 1;
+      commentId = questionData.commentCount;
       questionData.comments.push({
         ...newComment,
-        id: questionData.comments.length + 1,
+        id: commentId,
       });
     } else {
-      const { comments } = questionData.answers.find(x => x.id === answerId);
-
+      const { comments, commentCount } = questionData.answers.find(
+        x => x.id === answerId,
+      );
+      questionData.answers.find(x => x.id === answerId).commentCount += 1;
+      commentId = commentCount + 1;
       comments.push({
         ...newComment,
-        id: comments.length + 1,
+        id: commentId,
       });
     }
+
+    const newHistory = {
+      transactionHash: transaction.transactionHash,
+      post: { id: questionId },
+      reply: { id: `${questionId}-${answerId}` },
+      comment: { id: `${questionId}-${answerId}-${commentId}` },
+      eventEntity: 'Comment',
+      eventName: 'Create',
+      timeStamp: newComment.postTime,
+    };
+
+    histories.push(newHistory);
 
     yield call(toggleView);
 
@@ -704,9 +774,13 @@ export function* postCommentWorker({
 
 export function* postAnswerWorker({ questionId, answer, official, reset }) {
   try {
-    const { questionData, ethereumService, profileInfo, locale } = yield call(
-      getParams,
-    );
+    const {
+      questionData,
+      ethereumService,
+      profileInfo,
+      locale,
+      histories,
+    } = yield call(getParams);
 
     yield call(isAuthorized);
 
@@ -727,17 +801,24 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
     const answerData = {
       content: answer,
     };
-    yield call(
+
+    const ipfsLink = yield call(saveText, JSON.stringify(answerData));
+    const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
+
+    const transaction = yield call(
       postAnswer,
       profileInfo.user,
       questionId,
-      answerData,
+      ipfsHash,
       official,
       ethereumService,
     );
 
+    questionData.replyCount += 1;
+    const replyId = questionData.replyCount;
+
     const newAnswer = {
-      id: questionData.answers.length + 1,
+      id: replyId,
       postTime: String(dateNowInSeconds()),
       user: profileInfo.user,
       properties: official ? [{ key: 10, value: 1 }] : [],
@@ -746,9 +827,22 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
       votingStatus: {},
       author: profileInfo,
       comments: [],
+      commentCount: 0,
       rating: 0,
       content: answer,
+      ipfsHash,
     };
+
+    const newHistory = {
+      transactionHash: transaction.transactionHash,
+      post: { id: questionId },
+      reply: { id: `${questionId}-${newAnswer.id}` },
+      eventEntity: 'Reply',
+      eventName: 'Create',
+      timeStamp: newAnswer.postTime,
+    };
+
+    histories.push(newHistory);
 
     questionData.answers.push(newAnswer);
 
@@ -1070,7 +1164,7 @@ export function* voteToDeleteWorker({
 }
 
 // Do not spent time for main action - update author as async action after main action
-//TODO after Graph hooks
+// TODO after Graph hooks
 export function* updateQuestionDataAfterTransactionWorker({
   usersForUpdate = [],
   questionData,

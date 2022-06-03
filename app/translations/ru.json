@@ -52,7 +52,7 @@
   "app.common.limitedEdition": "Ограниченное издание",
   "app.common.contractAddress": "Контракт",
   "app.common.allQuestions": "Все вопросы",
-  "app.common.manageMyComm": "Управлять сообществами",
+  "app.common.manageMyComm": "Смотреть все сообщества",
   "app.common.asked": "Задано",
   "app.common.askedWhen": "Задано {when}",
   "app.common.answeredWhen": "Отвечено {when}",
@@ -722,9 +722,9 @@
   "app.containers.Notifications.youHaveNoNewNotifications":
     "У вас нет новых уведомлений",
   "app.containers.Notifications.yourQuestionWasUpVoted":
-    "Вашему вопросу поставили лайк",
+    "Вашему посту поставили лайк",
   "app.containers.Notifications.yourQuestionWasDownVoted":
-    "Вашему вопросу поставили дизлайк",
+    "Вашему посту поставили дизлайк",
   "app.containers.Notifications.yourAnswerWasUpVoted":
     "Вашему ответу поставили лайк",
   "app.containers.Notifications.yourAnswerWasDownVoted":
@@ -734,11 +734,11 @@
   "app.containers.Notifications.somebodyAnsweredYourQuestion":
     "Кто-то ответил на ваш вопрос",
   "app.containers.Notifications.somebodyLeftACommentToYourQuestion":
-    "Кто-то оставил комментарий к вашему вопросу",
+    "Ваш пост прокомментировали",
   "app.containers.Notifications.somebodyLeftACommentToYourAnswer":
-    "Кто-то оставил комментарий к вашему ответу",
+    "Ваш ответ прокомментировали",
   "app.containers.Notifications.yourQuestionWasTipped":
-    "Вашему вопросу отправили чаевые",
+    "Вашему посту отправили чаевые",
   "app.containers.Notifications.yourAnswerWasTipped":
     "Вашему ответу отправили чаевые",
 

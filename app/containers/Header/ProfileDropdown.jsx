@@ -24,16 +24,13 @@ import Dropdown from 'components/Dropdown';
 import Ul from 'components/Ul/SpecialOne';
 import Span from 'components/Span';
 import A from 'components/A';
-import RatingStatus from 'components/RatingStatus';
-import AchievementsStatus from 'components/AchievementsStatus';
 import { MediumSpecialImage } from 'components/Img/MediumImage';
 import { IconLg } from 'components/Icon/IconWithSizes';
 import Logout from 'containers/Logout';
 import Icon from 'components/Icon/index';
-
+import { getUserName } from 'utils/user';
 import { selectIsMenuVisible } from '../AppWrapper/selectors';
 import { getPermissions } from '../../utils/properties';
-import { userNFTs } from 'routes-config';
 
 const styles = singleCommunityStyles();
 const colors = singleCommunityColors();
@@ -92,7 +89,7 @@ const B = ({ profileInfo, onClick, isMenuVisible, isMobileVersion }) => (
       isMenuVisible={isMenuVisible}
     >
       <Span bold color={(!isMobileVersion && styles.commHeadElemColor) || ''}>
-        {profileInfo?.displayName}
+        {getUserName(profileInfo.displayName, profileInfo.loginData.account)}
       </Span>
     </Info>
   </span>
@@ -140,10 +137,9 @@ const Menu = memo(
           >
             <FormattedMessage {...messages.settings} />
           </A>
-          {/* TODO PEER20-286 Hide notifications from this version */}
-          {/* <A to={routes.userNotifications(user)}>
+          <A to={routes.userNotifications(user)}>
             <FormattedMessage {...messages.notifications} />
-          </A> */}
+          </A>
           <A to={routes.userNFTs(user)}>
             <FormattedMessage id={messages.NFTs.id} />
           </A>

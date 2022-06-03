@@ -15,6 +15,12 @@ const StatusSpan = styled.span`
   align-items: baseline;
   margin-right: 0.5rem;
   padding-left: ${props => (props.size === 'lg' ? '22px' : '12px')};
+
+  @media (max-width: 350px) {
+    flex-direction: ${({ isProfilePage }) => !isProfilePage && 'column'};
+    margin-left: ${({ isProfilePage }) => isProfilePage && '-26px'};
+    align-items: center;
+  }
 `;
 
 const Count = styled.span`
@@ -23,12 +29,22 @@ const Count = styled.span`
     props.size === 'lg'
       ? 'inherit'
       : props.achievementsNumColor || PEER_PRIMARY_COLOR};
+
+  @media (max-width: 350px) {
+    padding-top: 5px;
+    margin-left: 0;
+  }
 `;
 
 const IconAbsolute = styled(Icon)`
   position: absolute;
   top: ${props => (props.size === 'lg' ? '2px' : '3.4px')};
   left: 0;
+
+  @media (max-width: 350px) {
+    position: static;
+    transform: translateY(30%);
+  }
 
   .achievement-inline * {
     stroke-width: ${props => (props.size === 'lg' ? '0.7px' : '1px')};
@@ -40,6 +56,7 @@ const IconAbsolute = styled(Icon)`
 `;
 
 const AchievementsStatus = ({
+  isProfilePage,
   count,
   size,
   achievementsNumColor,
@@ -47,7 +64,7 @@ const AchievementsStatus = ({
 }) => {
   if (typeof count === 'number')
     return (
-      <StatusSpan size={size}>
+      <StatusSpan size={size} isProfilePage={isProfilePage}>
         <IconAbsolute
           icon={achievementsIcon}
           width={size === 'lg' ? '24' : '14'}

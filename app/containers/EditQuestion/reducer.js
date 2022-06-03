@@ -36,7 +36,9 @@ function editQuestionReducer(state = initialState, action) {
         .set('getAskedQuestionError', getAskedQuestionError)
         .set('questionLoading', false);
     case EDIT_QUESTION:
-      return state.set('editQuestionLoading', true);
+      return state
+        .set('editQuestionLoading', true)
+        .set('editQuestionError', null);
     case EDIT_QUESTION_SUCCESS:
       return state.set('editQuestionLoading', false);
     case EDIT_QUESTION_ERROR:

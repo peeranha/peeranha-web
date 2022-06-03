@@ -77,6 +77,7 @@ export const QuestionTitle = ({
     isGeneral,
     promote,
     author: questionAuthor,
+    postType,
   } = questionData;
 
   const isActivePromotion = useMemo(
@@ -146,6 +147,7 @@ export const QuestionTitle = ({
               className="my-1"
               communities={communities}
               communityId={communityId}
+              postType={postType}
             />
           ) : null}
         </TagList>
