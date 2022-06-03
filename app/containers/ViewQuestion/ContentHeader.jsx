@@ -65,10 +65,6 @@ const ItemInfo = styled.div`
 
   button {
     border-radius: 0;
-    /* @media only screen and (max-width: 1250px) {
-    > div {
-      padding: 0 ;
-    }} */
   }
 `;
 
