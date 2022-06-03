@@ -65,6 +65,10 @@ const ItemInfo = styled.div`
 
   button {
     border-radius: 0;
+    /* @media only screen and (max-width: 1250px) {
+    > div {
+      padding: 0 ;
+    }} */
   }
 `;
 
@@ -83,6 +87,12 @@ const Box = styled.div`
   border-bottom: 1px solid ${BORDER_SECONDARY};
   height: 77px;
 
+  @media only screen and (max-width: 1250px) {
+    > div {
+      padding: 15px;
+    }
+  }
+
   @media only screen and (max-width: 680px) {
     flex-direction: column;
     align-items: stretch;
@@ -90,7 +100,6 @@ const Box = styled.div`
 
     > div {
       flex-basis: 60px;
-      padding: 0 15px;
     }
   }
 
