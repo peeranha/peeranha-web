@@ -133,14 +133,14 @@ const MenuLogo = styled.div`
   display: flex;
   align-items: center;
 
-   @media only screen and (max-width: 340px) {
+  @media only screen and (max-width: 340px) {
     margin-left: -20px;
     transform: scale(0.85);
   }
 `;
 
 const Buttons = Section.extend`
-  @media only screen and (max-width: 320px) {
+  @media only screen and (max-width: 325px) {
     margin-left: -30px;
     transform: scale(0.8);
   }
@@ -219,7 +219,7 @@ const View = ({
           <div className="container">
             {/* <div className="d-flex align-items-center justify-content-between"> */}
             <HeaderContainer>
-            {/* <div className="d-flex align-items-center"> */}
+              {/* <div className="d-flex align-items-center"> */}
               <MenuLogo className="d-flex align-items-center">
                 <button
                   className="mt-1 mr-3 d-flex d-lg-none"

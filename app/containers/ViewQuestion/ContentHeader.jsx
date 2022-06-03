@@ -68,6 +68,15 @@ const ItemInfo = styled.div`
   }
 `;
 
+const ButtonContainer = styled.div`
+  display: flex;
+  align-items: center;
+
+  @media only screen and (max-width: 290px) {
+    margin-left: -15px;
+  }
+`;
+
 const Box = styled.div`
   display: flex;
   flex-direction: row;
@@ -82,6 +91,12 @@ const Box = styled.div`
     > div {
       flex-basis: 60px;
       padding: 0 15px;
+    }
+  }
+
+  @media only screen and (max-width: 310px) {
+    > div {
+      padding: 0 2px;
     }
   }
 `;
@@ -188,8 +203,7 @@ const ContentHeader = props => {
           achievementsCount={author.achievements?.length}
           isTemporaryAccount={isTemporaryAccount}
         />
-
-        <div className="d-flex align-items-center">
+        <ButtonContainer>
           {type === QUESTION_TYPE && (
             <Button
               id={`${type}_change_type_with_rating_restore_${answerId}`}
@@ -310,7 +324,7 @@ const ContentHeader = props => {
             <IconMd icon={pencilIcon} />
             <FormattedMessage {...messages.editButton} />
           </Button>
-        </div>
+        </ButtonContainer>
       </ItemInfo>
     </Box>
   );
