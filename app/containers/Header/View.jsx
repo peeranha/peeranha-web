@@ -154,7 +154,7 @@ const MenuLogo = styled.div`
 
 const Buttons = Section.extend`
   @media only screen and (max-width: 340px) {
-    width: 120%;
+    width: 125%;
     justify-content: space-between;
     margin: -20px 0 0 40px;
     padding: 0 10px;
