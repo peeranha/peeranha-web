@@ -135,6 +135,7 @@ const HeaderContainer = styled.div`
   height: 100%;
 
   @media only screen and (max-width: 340px) {
+    padding-top: 2px;
     flex-wrap: wrap ;
   }
 `;
@@ -148,10 +149,6 @@ const MenuLogo = styled.div`
     justify-content: space-between;
     transform: scale(0.9);
   }
-
-  @media only screen and (max-width: 290px) {
-    width: 100%;
-  }
 `;
 
 const Buttons = Section.extend`
@@ -160,8 +157,7 @@ const Buttons = Section.extend`
     display: flex;
     justify-content: space-between;
     margin-top: -20px;
-    padding-left: 25px;
-    padding-top: 5px;
+    padding: 5px 0 4px 30px;
     transform: scale(0.8);
   }
 `;
