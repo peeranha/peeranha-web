@@ -787,7 +787,7 @@
   "app.containers.ViewQuestion.postAnswerButton": "Отправить",
   "app.containers.ViewQuestion.yourAnswer": "Ваш ответ",
   "app.containers.ViewQuestion.youHaveAnswers":
-    "Вы не можете удалить свой вопрос, т.к. уже были оставлены ответы",
+    "Вы не можете удалить свой пост, т.к. уже были оставлены ответы",
   "app.containers.ViewQuestion.answerIsCorrect":
     "Вы не можете удалить свой ответ, т.к. он уже был отмечен как правильный",
   "app.containers.ViewQuestion.theBest": "Лучший",
