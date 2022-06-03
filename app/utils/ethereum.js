@@ -367,29 +367,6 @@ class EthereumService {
       value: +id,
     };
   };
-
-  setStake = async (actor, tokens) => {
-    try {
-      const transaction = await this.contractToken
-        .connect(this.provider.getSigner(actor))
-        [SET_STAKE](actor, tokens);
-      await transaction.wait();
-    } catch (err) {
-      throw err;
-    }
-  };
-
-  claimUserReward = async (actor, period) => {
-    try {
-      await this.chainCheck();
-      const transaction = await this.contractToken
-        .connect(this.provider.getSigner(actor))
-        [CLAIM_REWARD](period);
-      await transaction.wait();
-    } catch (err) {
-      throw err;
-    }
-  };
 }
 
 export default EthereumService;

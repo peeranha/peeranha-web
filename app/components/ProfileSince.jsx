@@ -10,7 +10,10 @@ import messages from 'containers/Profile/messages';
 
 const Div = styled.div`
   display: ${({ profileSince, creationTime }) =>
-    (profileSince === 'Invalid Date' || creationTime === 0) && 'none'};
+    (profileSince === 'Invalid Date' ||
+      profileSince === 'Jan 1, 1970' ||
+      creationTime === 0) &&
+    'none'};
 `;
 
 const Span = styled.span`

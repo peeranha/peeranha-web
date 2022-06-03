@@ -142,7 +142,7 @@ export const ViewQuestion = ({
         window.isRendered = true;
       }
 
-      if (!questionDataLoading && !questionData) {
+      if ((!questionDataLoading && !questionData) || questionData?.isDeleted) {
         history.push(routes.notFound());
       }
     },
