@@ -286,12 +286,10 @@ export const downVoteValidator = (
 
 export const deleteQuestionValidator = (
   postButtonId,
-  answersNum,
   translations,
   profileInfo,
   questionData,
 ) => {
-  const ANSWERS_LIMIT = 0;
   const MIN_ENERGY = 2;
 
   let message;
