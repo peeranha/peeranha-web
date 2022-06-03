@@ -217,9 +217,7 @@ const View = ({
 
         <MainSubHeader mainSubHeaderBgColor={styles.mainSubHeaderBgColor}>
           <div className="container">
-            {/* <div className="d-flex align-items-center justify-content-between"> */}
             <HeaderContainer>
-              {/* <div className="d-flex align-items-center"> */}
               <MenuLogo className="d-flex align-items-center">
                 <button
                   className="mt-1 mr-3 d-flex d-lg-none"
