@@ -122,10 +122,7 @@ const Button = LargeButton.extend`
     height: 36px !important;
   }
 
-  @media only screen and (max-width: 340px) {
-    width: 30px !important;
-    height: 30px !important;
-  }
+  
 `;
 
 const HeaderContainer = styled.div`
@@ -133,32 +130,22 @@ const HeaderContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   height: 100%;
-  width: 100%;
-
-  @media only screen and (max-width: 340px) {
-    
-    padding: 2px;
-
-  }
 `;
 
 const MenuLogo = styled.div`
   display: flex;
   align-items: center;
 
-  @media only screen and (max-width: 340px) {
-
-    justify-content: space-between;
-    transform: scale(0.5);
+   @media only screen and (max-width: 340px) {
+    margin-left: -20px;
+    transform: scale(0.85);
   }
 `;
 
 const Buttons = Section.extend`
-  @media only screen and (max-width: 340px) {
-
-    display: flex;
-    justify-content: space-between;
-    transform: scale(0.5);
+  @media only screen and (max-width: 320px) {
+    margin-left: -30px;
+    transform: scale(0.8);
   }
 `;
 
