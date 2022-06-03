@@ -72,7 +72,9 @@ const ButtonContainer = styled.div`
   display: flex;
   align-items: center;
 
-  @media only screen and (max-width: 290px) {
+  @media only screen and (max-width: 360px) {
+    width: 40%;
+    justify-content: space-between;
     margin-left: -15px;
   }
 `;
