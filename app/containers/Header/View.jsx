@@ -135,7 +135,7 @@ const HeaderContainer = styled.div`
   height: 100%;
 
   @media only screen and (max-width: 340px) {
-    flex-direction: column;
+    flex-wrap: wrap ;
   }
 `;
 
@@ -144,29 +144,28 @@ const MenuLogo = styled.div`
   align-items: center;
 
   @media only screen and (max-width: 340px) {
-    align-items: flex-start;
-    width: 80%;
+    width: 100%;
     justify-content: space-between;
-    margin-left: -50px;
     transform: scale(0.9);
+  }
+
+  @media only screen and (max-width: 290px) {
+    width: 100%;
   }
 `;
 
 const Buttons = Section.extend`
-  
   @media only screen and (max-width: 340px) {
-    width: 110%;
+    width: 100%;
     display: flex;
     justify-content: space-between;
-    margin: -20px 0 0 45px;
-    padding-right: 20px;
+    margin-top: -20px;
+    padding-left: 25px;
+    padding-top: 5px;
     transform: scale(0.8);
   }
 
-  @media only screen and (max-width: 290px) {
-    width: 120%;
-    padding-right: 10px;
-  }
+  
 `;
 
 const View = ({
