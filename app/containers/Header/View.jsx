@@ -133,10 +133,12 @@ const HeaderContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   height: 100%;
+  width: 100%;
 
   @media only screen and (max-width: 340px) {
-    padding-top: 2px;
-    flex-wrap: wrap ;
+    
+    padding: 2px;
+
   }
 `;
 
@@ -145,20 +147,18 @@ const MenuLogo = styled.div`
   align-items: center;
 
   @media only screen and (max-width: 340px) {
-    width: 100%;
+
     justify-content: space-between;
-    transform: scale(0.9);
+    transform: scale(0.5);
   }
 `;
 
 const Buttons = Section.extend`
   @media only screen and (max-width: 340px) {
-    width: 100%;
+
     display: flex;
     justify-content: space-between;
-    margin-top: -20px;
-    padding: 5px 0 5px 30px;
-    transform: scale(0.8);
+    transform: scale(0.5);
   }
 `;
 
