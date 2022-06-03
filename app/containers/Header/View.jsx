@@ -121,15 +121,12 @@ const Button = LargeButton.extend`
     width: 36px !important;
     height: 36px !important;
   }
-
-  
 `;
 
 const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 100%;
 `;
 
 const MenuLogo = styled.div`
