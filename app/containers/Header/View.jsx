@@ -157,7 +157,7 @@ const Buttons = Section.extend`
     display: flex;
     justify-content: space-between;
     margin-top: -20px;
-    padding: 5px 0 4px 30px;
+    padding: 5px 0 5px 30px;
     transform: scale(0.8);
   }
 `;
