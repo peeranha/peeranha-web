@@ -21,7 +21,7 @@ import commonMessages from 'common-messages';
 
 import InfoButton from 'components/Button/Outlined/InfoMedium';
 import P from 'components/P';
-import A, { ADefault } from 'components/A';
+import A from 'components/A';
 import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
 import { BaseSpecial } from 'components/Base/BaseTransparent';
 import FollowCommunityButton from 'containers/FollowCommunityButton/StyledButton';
@@ -128,15 +128,15 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
 
                   <div>
                     <P fontSize="24" lineHeight="31" bold>
-                      <ADefault
-                        href={origin || routes.questions(id)}
+                      <A
+                        to={origin || routes.questions(id)}
                         css={{ position: 'relative' }}
                       >
                         {name}
                         {origin && (
                           <SingleCommunityIcon locale={locale} id={id} />
                         )}
-                      </ADefault>
+                      </A>
                     </P>
                     {/* <P className="d-none d-md-block" fontSize="14" lineHeight="18">
                   <FormattedMessage {...commonMessages[x.language]} />
