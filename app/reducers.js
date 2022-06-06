@@ -41,7 +41,6 @@ import changeEmailReducer from 'containers/ChangeEmail/reducer';
 import deleteAccountReducer from 'containers/DeleteAccount/reducer';
 import sendTokensReducer from 'containers/SendTokens/reducer';
 import searchReducer from 'containers/Search/reducer';
-import termsOfServiceReducer from 'containers/TermsOfService/reducer';
 import appWrapperReducer from 'containers/AppWrapper/reducer';
 import telegramAccountActionReducer from './containers/TelegramAccountAction/reducer';
 import notificationsReducer from './components/Notifications/reducer';
@@ -116,7 +115,6 @@ export default injectedReducers =>
     deleteAccount: deleteAccountReducer,
     sendTokens: sendTokensReducer,
     search: searchReducer,
-    termsOfService: termsOfServiceReducer,
     appWrapper: appWrapperReducer,
     notifications: notificationsReducer,
     telegramAccountAction: telegramAccountActionReducer,

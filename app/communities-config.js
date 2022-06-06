@@ -46,17 +46,17 @@ const communitiesConfig = {
   },
   test: {
     1: {
-      origin: 'https://polygon.testpeeranha.io',
+      origin: `https://polygon${process.env.COOKIE_DOMAIN}`,
       src: PolygonLogo,
       styles: PolygonStyles,
     },
     2: {
-      origin: 'https://filecoin.testpeeranha.io',
+      origin: `https://filecoin${process.env.COOKIE_DOMAIN}`,
       src: FileiconLogo,
       styles: FilecoinStyles,
     },
     3: {
-      origin: 'https://community.testpeeranha.io',
+      origin: `https://community${process.env.COOKIE_DOMAIN}`,
     },
     4: {
       origin: 'https://testcommunity.net',
