@@ -66,6 +66,4 @@ typings/
 # build folder
 build
 
-package-lock.json
-
 .idea
