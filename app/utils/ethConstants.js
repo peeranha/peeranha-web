@@ -160,6 +160,7 @@ export const usersQuery = `
           ${user}
           postCount
           replyCount
+          followedCommunities
         }
       }`;
 

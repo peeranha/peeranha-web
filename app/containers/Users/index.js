@@ -19,13 +19,13 @@ import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
 import messages from 'containers/Users/messages';
 
-import * as selectors from './selectors';
 import { changeSortingType, getUsers } from 'containers/Users/actions';
 import reducer from 'containers/Users/reducer';
 import saga from 'containers/Users/saga';
 
 import View from 'containers/Users/View';
 import { selectIsGlobalAdmin } from 'containers/AccountProvider/selectors';
+import * as selectors from './selectors';
 
 const single = isSingleCommunityWebsite();
 
@@ -41,16 +41,19 @@ const Users = ({
   getUsersDispatch,
   changeSortingTypeDispatch,
 }) => {
-  const getMoreUsers = useCallback(() => {
-    getUsersDispatch({ loadMore: true });
-  }, []);
+  const getMoreUsers = useCallback(
+    () => {
+      getUsersDispatch({ loadMore: true, communityId: single });
+    },
+    [single],
+  );
 
   const communityInfo = useMemo(() => communities.find(x => x.id === single), [
     communities,
   ]);
 
   const userCount = useMemo(
-    () => (single ? communityInfo?.['users_subscribed'] ?? 0 : stat.usersCount),
+    () => (single ? communityInfo?.followingUsers ?? 0 : stat.usersCount),
     [stat.usersCount, communityInfo],
   );
 
@@ -59,15 +62,23 @@ const Users = ({
       if (userCount === users.length) {
         changeSortingTypeDispatch(sorting);
       } else {
-        getUsersDispatch({ loadMore: false, sorting, reload: true });
+        getUsersDispatch({
+          loadMore: false,
+          sorting,
+          reload: true,
+          communityId: single,
+        });
       }
     },
-    [userCount, communityInfo, users],
+    [userCount, single, users],
   );
 
-  useEffect(() => {
-    getUsersDispatch({ loadMore: false, reload: true });
-  }, []);
+  useEffect(
+    () => {
+      getUsersDispatch({ loadMore: false, reload: true, communityId: single });
+    },
+    [single],
+  );
 
   return (
     <>
@@ -100,7 +111,6 @@ Users.propTypes = {
   isLastFetch: PropTypes.bool,
   sorting: PropTypes.string,
   searchText: PropTypes.string,
-  limit: PropTypes.number,
   stat: PropTypes.object,
   communities: PropTypes.array,
   changeSortingTypeDispatch: PropTypes.func,
