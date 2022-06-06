@@ -66,6 +66,11 @@ const PostDate = Span.extend`
   white-space: nowrap;
   width: 120px;
   text-align: right;
+
+  @media (max-width: 330px) {
+    text-align: center;
+    margin-left: -15px;
+  }
 `;
 
 const PostTypeIcon = ({ elementType, isMyAnswerAccepted }) => {
