@@ -77,6 +77,16 @@ const PostTypeIcon = ({ elementType, isMyAnswerAccepted }) => {
   return <Img src={icon} notRounded alt="icon" />;
 };
 
+const TitleHolder = Span.extend`
+  @media (max-width: 576px) {
+    min-width: 55px;
+    padding-right: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+`;
+
 const Note = ({
   postType,
   isMyAnswerAccepted,
@@ -107,15 +117,11 @@ const Note = ({
           elementType={elementType}
           isMyAnswerAccepted={isMyAnswerAccepted}
         />
-
         <Rating>{myPostRating}</Rating>
-
-        <Span fontSize="16" lineHeight="30" mobileFS="14">
+        <TitleHolder fontSize="16" lineHeight="30" mobileFS="14" title={title}>
           {title}
-        </Span>
-
+        </TitleHolder>
         <QuestionType locale={locale} postType={postType} />
-
         <PostDate
           className="d-inline-block"
           color={TEXT_SECONDARY}
