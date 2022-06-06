@@ -110,15 +110,40 @@ const Icon = styled(IconLg)`
   }
 `;
 
-const QuestionType = ({ locale, postType, isPromoted, isExpert }) => {
+const types = {
+  [POST_TYPE.generalPost]: {
+    title: commonMessages.generalPopoverTitle.id,
+    label: commonMessages.generalPopoverLabel.id,
+    items: commonMessages.generalPopoverList.id,
+    icon: generalIcon,
+  },
+  [POST_TYPE.expertPost]: {
+    title: commonMessages.expertPopoverTitle.id,
+    label: commonMessages.expertPopoverLabel.id,
+    items: commonMessages.expertPopoverList.id,
+    icon: expertIcon,
+    isExpert: true,
+  },
+  [POST_TYPE.tutorial]: {
+    title: commonMessages.tutorialPopoverTitle.id,
+    label: commonMessages.tutorialPopoverLabel.id,
+    items: commonMessages.tutorialPopoverList.id,
+    icon: tutorialIcon,
+    isTutorial: true,
+  },
+};
+
+const QuestionType = ({ locale, postType, isPromoted }) => {
   const [visible, changeVisibility] = useState(false);
 
   const onMouseEnter = useCallback(() => changeVisibility(true), []);
   const onMouseLeave = useCallback(() => changeVisibility(false), []);
 
+  const type = types[postType];
+
   return (
     <LabelsWrapper>
-      {postType === POST_TYPE.generalPost && (
+      {type && (
         <LabelItem>
           <Container
             onMouseEnter={onMouseEnter}
@@ -128,57 +153,25 @@ const QuestionType = ({ locale, postType, isPromoted, isExpert }) => {
             {visible && (
               <Popover
                 locale={locale}
-                title={commonMessages.generalPopoverTitle.id}
-                label={commonMessages.generalPopoverLabel.id}
-                items={commonMessages.generalPopoverList.id}
+                title={type.title}
+                label={type.label}
+                items={type.items}
               />
             )}
-            <Icon className="mr-2" icon={generalIcon} />
+            <Icon
+              isExpert={type.isExpert}
+              isTutorial={type.isTutorial}
+              className="mr-2"
+              icon={type.icon}
+            />
           </Container>
         </LabelItem>
       )}
-      {postType === POST_TYPE.expertPost && (
-        <LabelItem>
-          <Container
-            onMouseEnter={onMouseEnter}
-            onMouseLeave={onMouseLeave}
-            size="sm"
-          >
-            {visible && (
-              <Popover
-                locale={locale}
-                title={commonMessages.expertPopoverTitle.id}
-                label={commonMessages.expertPopoverLabel.id}
-                items={commonMessages.expertPopoverList.id}
-              />
-            )}
-            <Icon isExpert className="mr-2" icon={expertIcon} />
-          </Container>
-        </LabelItem>
-      )}
-      {postType === POST_TYPE.tutorial && (
-        <LabelItem>
-          <Container
-            onMouseEnter={onMouseEnter}
-            onMouseLeave={onMouseLeave}
-            size="sm"
-          >
-            {visible && (
-              <Popover
-                locale={locale}
-                title={commonMessages.tutorialPopoverTitle.id}
-                label={commonMessages.tutorialPopoverLabel.id}
-                items={commonMessages.tutorialPopoverList.id}
-              />
-            )}
-            <Icon isTutorial={true} className="mr-2" icon={tutorialIcon} />
-          </Container>
-        </LabelItem>
-      )}
+
       {isPromoted && (
         <LabelItem>
           <PromotedLabel>
-            <FormattedMessage {...commonMessages.promoted} />
+            <FormattedMessage id={commonMessages.promoted.id} />
           </PromotedLabel>
         </LabelItem>
       )}
@@ -189,7 +182,6 @@ const QuestionType = ({ locale, postType, isPromoted, isExpert }) => {
 QuestionType.propTypes = {
   postType: PropTypes.number,
   locale: PropTypes.string,
-  isGeneral: PropTypes.bool,
   isPromoted: PropTypes.bool,
 };
 
