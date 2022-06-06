@@ -67,9 +67,9 @@ const PostDate = Span.extend`
   width: 120px;
   text-align: right;
 
-  @media (max-width: 330px) {
-    text-align: center;
-    margin-left: -15px;
+  @media (max-width: 576px) {
+    width: 90px;
+    padding-right: 5px;
   }
 `;
 
@@ -82,10 +82,16 @@ const PostTypeIcon = ({ elementType, isMyAnswerAccepted }) => {
   return <Img src={icon} notRounded alt="icon" />;
 };
 
+const QuestionTypeHolder = styled.div`
+  @media (max-width: 576px) {
+    margin-top: -20px;
+  }
+`;
+
 const TitleHolder = Span.extend`
   @media (max-width: 576px) {
     min-width: 55px;
-    padding-right: 10px;
+    margin-right: 0px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -126,7 +132,10 @@ const Note = ({
         <TitleHolder fontSize="16" lineHeight="30" mobileFS="14" title={title}>
           {title}
         </TitleHolder>
-        <QuestionType locale={locale} postType={postType} />
+        <QuestionTypeHolder>
+          <QuestionType locale={locale} postType={postType} />
+        </QuestionTypeHolder>
+
         <PostDate
           className="d-inline-block"
           color={TEXT_SECONDARY}
