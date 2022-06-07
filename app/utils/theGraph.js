@@ -242,6 +242,7 @@ export const getRewardStat = async (userId, ethereumService) => {
       userId,
       periodsCount: isOldUser ? 2 : 1,
     },
+    fetchPolicy: 'network-only',
   });
   return [
     response?.data?.userRewards,
