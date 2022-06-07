@@ -26,6 +26,7 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import messages from 'containers/Profile/messages';
 import { customRatingIconColors } from 'constants/customRating';
 import ProfileSince from 'components/ProfileSince';
+import { getUserName } from 'utils/user';
 
 const InlineLoader = styled(LoadingIndicator)`
   margin: auto;
@@ -40,7 +41,7 @@ export const UlStyled = Ul.extend`
   white-space: nowrap;
   flex-wrap: wrap;
 
-  @media (min-width: 400px) and (max-width: 488px) {
+  @media (min-width: 421px) and (max-width: 488px) {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   }
@@ -108,7 +109,7 @@ export const UlStyled = Ul.extend`
 
     @media only screen and (max-width: 500px) {
       height: 70px;
-      padding: 10px 15px 5px 0;
+      padding: 10px 20px 5px 0;
       span,
       div {
         font-size: 13px !important;
@@ -117,7 +118,7 @@ export const UlStyled = Ul.extend`
     @media only screen and (max-width: 400px) {
       display: block;
       width: 100%;
-      padding: 10px 25px 5px 0;
+      padding: 10px 15px 5px 0;
     }
   }
 `;
@@ -193,7 +194,7 @@ const MainUserInformation = ({
         <div>
           <div className="d-flex align-items-center">
             <Span fontSize="38" lineHeight="47" mobileFS="28" bold>
-              {profile?.displayName}
+              {getUserName(profile?.displayName, userId)}
             </Span>
           </div>
 
@@ -202,6 +203,7 @@ const MainUserInformation = ({
               <li>
                 <FormattedMessage {...messages.status} />
                 <RatingStatus
+                  isProfilePage={true}
                   customRatingIconColors={customRatingIconColors}
                   rating={profile.highestRating.rating}
                   size="lg"
@@ -228,6 +230,7 @@ const MainUserInformation = ({
                 <FormattedMessage {...messages.achievements} />
                 {typeof profile.achievements === 'object' ? (
                   <AchievementsStatus
+                    isProfilePage={true}
                     count={profile.achievements.length}
                     size="lg"
                   />

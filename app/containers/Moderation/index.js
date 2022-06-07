@@ -17,6 +17,7 @@ import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 import { MODERATOR_KEY, SECTION_ID } from 'utils/constants';
 import { getModeratorPermissions } from 'utils/properties';
 
+import { redirectToFeed } from 'containers/App/actions';
 import Header from './Header';
 import Content from './Content';
 import { selectIsGlobalAdmin } from '../AccountProvider/selectors';
