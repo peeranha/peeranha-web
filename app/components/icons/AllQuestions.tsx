@@ -11,8 +11,7 @@ const AllQuestions: React.FC<IconProps> = (props): JSX.Element => (
   >
     <g
       transform="translate(3 5)"
-      fillRule="nonzero"
-      stroke="#282828"
+      stroke={props.stroke || '#282828'}
       fill="none"
     >
       <rect x=".5" y=".5" width="3" height="3" rx="1" />

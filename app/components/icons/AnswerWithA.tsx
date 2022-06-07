@@ -9,9 +9,9 @@ const AnswerWithA: React.FC<IconProps> = (props): JSX.Element => (
     viewBox="0 0 18 18"
     size={[18, 18]}
   >
-    <g fill="none" fillRule="evenodd">
+    <g fill="none">
       <path
-        fill="#000"
+        fill={props.stroke || '#282828'}
         d="M7.859 7.063h2.167l-.341-1.1a70.367 70.367 0 0 1-.715-2.431h-.044a70.367 70.367 0 0 1-.715 2.431l-.352 1.1ZM10.95 10l-.693-2.2H7.628L6.935 10H6l2.442-7.216h1.034L11.918 10h-.968Z"
       />
       <path

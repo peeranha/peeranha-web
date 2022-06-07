@@ -9,7 +9,7 @@ const AddComment: React.FC<IconProps> = (props): JSX.Element => (
     viewBox="0 0 18 18"
     size={[18, 18]}
   >
-    <g transform="translate(3 7)" fill="#282828" fillRule="nonzero">
+    <g transform="translate(3 7)">
       <circle cx="1.5" cy="1.5" r="1.5" />
       <circle cx="6.5" cy="1.5" r="1.5" />
       <circle cx="11.5" cy="1.5" r="1.5" />
