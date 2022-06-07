@@ -110,7 +110,7 @@ const List = ({ communities }) => {
                   alt={x.name}
                 />
                 <div>
-                  <NameHolder fontSize="24" lineHeight="31" bold>
+                  <NameHolder fontSize="24" lineHeight="31" bold title={x.name}>
                     {x.name}
                   </NameHolder>
                   <P
