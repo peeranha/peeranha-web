@@ -94,7 +94,7 @@ export const Questions = ({
     path === routes.expertPosts() ||
     path === routes.expertPosts(':communityid');
   const isTopCommunitiesDisplay =
-    isFeed && !single && questionsList.length === 0;
+    isFeed && !single && questionsList.length === 0 && !questionsLoading;
   const getInitQuestions = useCallback(
     () => {
       if (!questionFilter) {
