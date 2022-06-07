@@ -38,7 +38,7 @@ const Menu = ({ sort, sorting }) => (
     {Object.keys(options).map(x => (
       <CheckedItem
         key={x}
-        onClick={() => sort(options[x].sortBy)}
+        onClick={() => sort(options[x].orderDirection)}
         isActive={x === sorting}
       >
         <FormattedMessage {...options[x].message} />
@@ -75,7 +75,7 @@ export const Header = ({ sorting, dropdownFilter, userCount }) => {
       </WrapperRightPanel>
     </Wrapper>
   );
-}
+};
 
 Button.propTypes = {
   sorting: PropTypes.string,

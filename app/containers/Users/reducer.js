@@ -13,7 +13,7 @@ export const initialState = fromJS({
   getUsersLoading: false,
   getUsersError: null,
   isLastFetch: false,
-  sorting: 'creationTime',
+  sorting: 'asc',
   searchText: '',
   limit: 50,
   skip: 0,

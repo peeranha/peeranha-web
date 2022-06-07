@@ -31,14 +31,16 @@ const client = new ApolloClient({
 export const getUsers = async ({
   limit = 50,
   skip,
-  sorting = 'creationTime',
+  sortingAttribute = 'creationTime',
+  sorting = 'desc',
 }) => {
   const users = await client.query({
     query: gql(usersQuery),
     variables: {
       first: limit,
       skip,
-      orderBy: sorting,
+      orderBy: sortingAttribute,
+      orderDirection: sorting,
     },
   });
   return users?.data.users;
