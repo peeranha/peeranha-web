@@ -66,31 +66,22 @@ const TagsBlock = styled.div`
 `;
 
 export const NameHolder = P.extend`
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-
-  @media only screen and (min-width: 768px) and (max-width: 2400px) {
-    max-width: 35%;
-  }
-
   @media only screen and (max-width: 767px) {
-    max-width: 75%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 90%;
   }
 
   @media only screen and (max-width: 650px) {
-    max-width: 65%;
+    max-width: 85%;
   }
 
   @media only screen and (max-width: 536px) {
-    max-width: 40%;
+    max-width: 60%;
   }
 
   @media only screen and (max-width: 360px) {
-    max-width: 30%;
-  }
-
-  @media only screen and (max-width: 300px) {
     max-width: 205px;
   }
 `;
@@ -120,7 +111,7 @@ const List = ({ communities }) => {
                 />
                 <div>
                   <NameHolder fontSize="24" lineHeight="31" bold>
-                    {x.name}AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                    {x.name}Long Long Very Long Title Of
                   </NameHolder>
                   <P
                     className="text-lowercase"
