@@ -111,7 +111,7 @@ const List = ({ communities }) => {
                 />
                 <div>
                   <NameHolder fontSize="24" lineHeight="31" bold>
-                    {x.name}Long Long Very Long Title Of
+                    {x.name}
                   </NameHolder>
                   <P
                     className="text-lowercase"
