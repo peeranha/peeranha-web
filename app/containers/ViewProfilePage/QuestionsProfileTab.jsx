@@ -68,13 +68,11 @@ const PostDate = Span.extend`
   text-align: right;
 
   @media (max-width: 576px) {
-    width: 80px;
-    padding-right: 5px;
+    width: 90px;
   }
 
   @media (max-width: 290px) {
-    width: 110px;
-    text-align: left;
+    width: 100px;
   }
 `;
 
@@ -95,7 +93,7 @@ const QuestionTypeHolder = styled.div`
 
 const TitleHolder = Span.extend`
   @media (max-width: 576px) {
-    min-width: 55px;
+    min-width: 45px;
     margin-right: 0;
     white-space: nowrap;
     overflow: hidden;
@@ -103,7 +101,7 @@ const TitleHolder = Span.extend`
   }
 
   @media (max-width: 290px) {
-    min-width: 45px;
+    min-width: 35px;
   }
 `;
 
