@@ -22,6 +22,7 @@ const TagListBox = styled.div`
 
   ul {
     display: flex;
+    flex-wrap: wrap;
     flex: 1;
     overflow: hidden;
     position: relative;
