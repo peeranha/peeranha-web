@@ -25,6 +25,7 @@ import {
   GET_USER_STAKE,
   SET_STAKE,
 } from './ethConstants';
+import { formatEther } from 'ethers/lib/utils';
 
 export const getBalance = async (ethereumService, user) => {
   if (user) {
@@ -32,7 +33,7 @@ export const getBalance = async (ethereumService, user) => {
       GET_USER_BALANCE,
       [user],
     );
-    return Number(balance.toString() / WEI_IN_ETH);
+    return Number(formatEther(balance));
   }
   return 0;
 };
@@ -43,7 +44,7 @@ export const getAvailableBalance = async (ethereumService, user) => {
       GET_AVAILABLE_BALANCE,
       [user],
     );
-    return Number(balance.toString() / WEI_IN_ETH);
+    return Number(formatEther(balance));
   }
   return 0;
 };
