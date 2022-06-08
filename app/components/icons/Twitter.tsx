@@ -9,7 +9,7 @@ const Twitter: React.FC<IconProps> = (props): JSX.Element => (
     viewBox="0 0 24 24"
     size={[24, 24]}
   >
-    <g transform="translate(0, 0)">
+    <g>
       <path
         fill={props.fill || '#282828'}
         d="M24,4.6c-0.9,0.4-1.8,0.7-2.8,0.8c1-0.6,1.8-1.6,2.2-2.7c-1,0.6-2,1-3.1,1.2c-0.9-1-2.2-1.6-3.6-1.6

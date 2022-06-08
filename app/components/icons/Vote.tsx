@@ -9,7 +9,7 @@ const Vote: React.FC<IconProps> = (props): JSX.Element => (
     viewBox="0 0 18 18"
     size={[18, 18]}
   >
-    <g fillRule="nonzero" fill="none">
+    <g fill="none">
       <circle
         stroke={props.stroke || '#282828'}
         transform="translate(2 1)"

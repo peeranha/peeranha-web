@@ -10,7 +10,6 @@ const Star: React.FC<IconProps> = (props): JSX.Element => (
     size={[24, 24]}
   >
     <path
-      fillRule="nonzero"
       stroke={props.stroke || '#282828'}
       fill="none"
       d="m18.39 20.794-1.22-7.114 5.168-5.04-7.143-1.037L12 1.13 8.805 7.603 1.662 8.64 6.83 13.68l-1.22 7.114L12 17.435l6.39 3.36Z"

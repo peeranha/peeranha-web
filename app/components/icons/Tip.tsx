@@ -9,7 +9,7 @@ const Tip: React.FC<IconProps> = (props): JSX.Element => (
     viewBox="0 0 18 20"
     size={[18, 20]}
   >
-    <g stroke={props.stroke || '#282828'} fill="#FFF" fillRule="nonzero">
+    <g stroke={props.stroke || '#282828'} fill="#FFF">
       <ellipse cx="6" cy="14.4" rx="3.5" ry="2.167" />
       <ellipse cx="6" cy="11.2" rx="3.5" ry="2.167" />
       <ellipse cx="6" cy="8" rx="3.5" ry="2.167" />

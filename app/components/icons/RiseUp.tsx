@@ -12,7 +12,6 @@ const RiseUp: React.FC<IconProps> = (props): JSX.Element => (
     <path
       stroke={props.stroke || '#282828'}
       fill="#FFF"
-      fillRule="nonzero"
       fillOpacity=".2"
       d="M10.121 6.5 6.05.855 1.977 6.5H4.53v6h3.039v-6h2.552Z"
     />

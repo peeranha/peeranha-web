@@ -9,7 +9,7 @@ const Tutorial: React.FC<IconProps> = (props): JSX.Element => (
     viewBox="0 0 24 24"
     size={[24, 24]}
   >
-    <g fill="none" fillRule="evenodd">
+    <g fill="none">
       <path
         fill="#000"
         d="M8 6h13v16H8zM4 4h4v18H6.03C4.596 22 4 20.955 4 19.773V4Z"

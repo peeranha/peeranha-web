@@ -9,12 +9,11 @@ const SearchFaq: React.FC<IconProps> = (props): JSX.Element => (
     viewBox="0 0 43 43"
     size={[43, 43]}
   >
-    <g transform="translate(8 7)" fill="none" fillRule="evenodd">
-      <circle fill="#FFF" fillRule="nonzero" cx="14.5" cy="14.5" r="14.5" />
+    <g transform="translate(8 7)" fill="none">
+      <circle fill="#FFF" cx="14.5" cy="14.5" r="14.5" />
       <circle
         stroke={props.stroke || '#282828'}
         fill="#FFF"
-        fillRule="nonzero"
         cx="13.5"
         cy="13.5"
         r="13"

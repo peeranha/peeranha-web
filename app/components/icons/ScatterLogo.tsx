@@ -9,7 +9,7 @@ const ScatterLogo: React.FC<IconProps> = (props): JSX.Element => (
     viewBox="0 0 54 19"
     size={[54, 19]}
   >
-    <g fill="none" fillRule="evenodd">
+    <g fill="none">
       <g transform="translate(10 1)">
         <path
           fill={props.fill || '#282828'}

@@ -9,7 +9,7 @@ const UsersBig: React.FC<IconProps> = (props): JSX.Element => (
     viewBox="0 0 43 43"
     size={[43, 43]}
   >
-    <g transform="translate(6 8)" fillRule="nonzero" fill="none">
+    <g transform="translate(6 8)" fill="none">
       <circle
         stroke={props.stroke || '#282828'}
         strokeWidth="2"

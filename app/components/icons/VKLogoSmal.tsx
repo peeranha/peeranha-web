@@ -9,10 +9,8 @@ const VKLogoSmal: React.FC<IconProps> = (props): JSX.Element => (
     viewBox="0 0 24 24"
     size={[24, 24]}
   >
-    <g transform="translate(0, 0)">
+    <g>
       <path
-        fillRule="evenodd"
-        clipRule="evenodd"
         fill={props.fill || '#282828'}
         d="M20.302,0H3.698C1.656,0,0,1.656,0,3.698v16.604
 	        C0,22.344,1.656,24,3.698,24h16.604C22.344,24,24,22.344,24,20.302V3.698C24,1.656,22.344,0,20.302,0z M19.703,16.897h-2.019
