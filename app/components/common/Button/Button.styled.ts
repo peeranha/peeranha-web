@@ -46,6 +46,14 @@ export const variants = {
       fill: var(--color-white);
     }
   `,
+  link: css`
+    background: none;
+    color: var(--color-stroke-icon);
+    fill: var(--color-stroke-icon);
+    line-height: 18px;
+    font-size: 16px;
+    padding: 1px;
+  `,
 };
 
 export const iconLeft = css`
@@ -56,5 +64,9 @@ export const iconLeft = css`
     height: 14px;
     margin-right: 8px;
     margin-top: 2px;
+
+    :last-child {
+      margin-right: 0;
+    }
   }
 `;

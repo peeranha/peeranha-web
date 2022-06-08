@@ -6,13 +6,14 @@ import { base, variants, iconLeft } from './Button.styled';
 
 type ButtonProps = {
   children: string;
-  variant?: 'primary' | 'secondary';
+  variant?: 'primary' | 'secondary' | 'link';
   onClick?: () => void;
   className?: string;
   disabled?: boolean;
   type?: 'button' | 'submit';
   /** Icon for the button */
   icon?: typeof IconComponent;
+  isHideText?: boolean;
 };
 
 const Button: React.FC<ButtonProps> = ({
@@ -23,6 +24,7 @@ const Button: React.FC<ButtonProps> = ({
   disabled = false,
   type = 'button',
   icon,
+  isHideText = false,
 }): JSX.Element => {
   const theme = useTheme();
 
@@ -43,7 +45,7 @@ const Button: React.FC<ButtonProps> = ({
     >
       <>
         {icon}
-        <span>{children}</span>
+        {!isHideText && <span>{children}</span>}
       </>
     </button>
   );

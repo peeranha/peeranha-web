@@ -22,6 +22,20 @@ export const Variants = () => (
         Button Secondary Icon
       </Button>
     </div>
+    <div style={{ padding: 10 }}>
+      <Button variant="link" icon={<PlusIcon className="icon" />}>
+        Change type
+      </Button>
+    </div>
+    <div style={{ padding: 10 }}>
+      <Button
+        variant="link"
+        icon={<PlusIcon className="icon" />}
+        isHideText={true}
+      >
+        Button Link with hidden text
+      </Button>
+    </div>
   </div>
 );
 
