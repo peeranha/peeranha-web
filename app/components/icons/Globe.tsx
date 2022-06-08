@@ -9,7 +9,7 @@ const Globe: React.FC<IconProps> = (props): JSX.Element => (
     viewBox="0 0 16 16"
     size={[16, 16]}
   >
-    <g transform="translate(0, 0)">
+    <g>
       <ellipse
         cx="8.5"
         cy="8.5"

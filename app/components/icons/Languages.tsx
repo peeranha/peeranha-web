@@ -9,7 +9,7 @@ const Languages: React.FC<IconProps> = (props): JSX.Element => (
     viewBox="0 0 18 18"
     size={[18, 18]}
   >
-    <g fill="none" fill-rule="nonzero">
+    <g fill="none">
       <circle
         cx="9.5"
         cy="8.5"

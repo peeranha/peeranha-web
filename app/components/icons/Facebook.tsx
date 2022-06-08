@@ -1,10 +1,10 @@
 import React from 'react';
 import IconComponent, { IconProps } from './IconComponent';
 
-const FacebookLogoSmall: React.FC<IconProps> = (props): JSX.Element => (
+const Facebook: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
-    id="facebook-logo-small"
+    id="facebook"
     fill="curentColor"
     viewBox="0 0 24 24"
     size={[24, 24]}
@@ -18,4 +18,4 @@ const FacebookLogoSmall: React.FC<IconProps> = (props): JSX.Element => (
   </IconComponent>
 );
 
-export default FacebookLogoSmall;
+export default Facebook;

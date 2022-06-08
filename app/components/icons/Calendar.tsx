@@ -9,14 +9,13 @@ const Calendar: React.FC<IconProps> = (props): JSX.Element => (
     viewBox="0 0 34 33"
     size={[34, 33]}
   >
-    <g fill="none" fill-rule="nonzero">
-      <rect width="32" height="29" x="2" y="4" fill="#FFF" rx="3" />
+    <g fill="none">
+      <rect width="32" height="29" x="2" y="4" rx="3" />
       <rect
         width="31"
         height="28"
         x=".5"
         y="2.5"
-        fill="#FFF"
         stroke={props.stroke || '#282828'}
         rx="3"
       />

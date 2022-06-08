@@ -9,9 +9,9 @@ const Clock: React.FC<IconProps> = (props): JSX.Element => (
     viewBox="0 0 15 15"
     size={[15, 15]}
   >
-    <g stroke={props.stroke || '#282828'} fill="none">
-      <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-        <g transform="translate(-27.000000, -277.000000)" fillRule="nonzero">
+    <g stroke={props.stroke || '#282828'}>
+      <g stroke="none" strokeWidth="1">
+        <g transform="translate(-27.000000, -277.000000)">
           <g transform="translate(25.000000, 276.000000)">
             <g transform="translate(2.000000, 1.000000)">
               <g

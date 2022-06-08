@@ -1,10 +1,10 @@
 import React from 'react';
 import IconComponent, { IconProps } from './IconComponent';
 
-const ArrowDownFat: React.FC<IconProps> = (props): JSX.Element => (
+const Triangle: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
-    id="arrow-down-fat"
+    id="triangle"
     fill="curentColor"
     viewBox="0 0 41 22"
     size={[41, 22]}
@@ -16,4 +16,4 @@ const ArrowDownFat: React.FC<IconProps> = (props): JSX.Element => (
   </IconComponent>
 );
 
-export default ArrowDownFat;
+export default Triangle;

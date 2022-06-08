@@ -9,7 +9,7 @@ const CloseRounded: React.FC<IconProps> = (props): JSX.Element => (
     viewBox="0 0 15 15"
     size={[15, 15]}
   >
-    <g fillRule="nonzero" fill="none">
+    <g>
       <circle
         cx="7.5"
         cy="7.5"

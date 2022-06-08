@@ -9,7 +9,7 @@ const Filter: React.FC<IconProps> = (props): JSX.Element => (
     viewBox="0 0 18 18"
     size={[18, 18]}
   >
-    <g stroke={props.stroke || '#282828'} fillRule="nonzero" fill="none">
+    <g stroke={props.stroke || '#282828'} fill="none">
       <circle
         fillOpacity=".2"
         fill={props.fill || '#282828'}

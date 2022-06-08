@@ -9,7 +9,7 @@ const EditSmall: React.FC<IconProps> = (props): JSX.Element => (
     viewBox="0 0 13 13"
     size={[13, 13]}
   >
-    <g fill="none" fill-rule="nonzero">
+    <g fill="none">
       <path
         fill={props.fill || '#282828'}
         fillOpacity=".2"

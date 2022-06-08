@@ -14,7 +14,6 @@ const Blockchain: React.FC<IconProps> = (props): JSX.Element => (
         points="2 6.5 9 10 16 6.5"
         fill="none"
         stroke={props.stroke || '#282828'}
-        strokeMiterlimit="10"
         strokeWidth="1"
       />
 
@@ -25,7 +24,6 @@ const Blockchain: React.FC<IconProps> = (props): JSX.Element => (
         y2="18.5"
         fill="none"
         stroke={props.stroke || '#282828'}
-        strokeMiterlimit="10"
         strokeWidth="1"
       />
 
@@ -34,7 +32,6 @@ const Blockchain: React.FC<IconProps> = (props): JSX.Element => (
         fill="none"
         stroke={props.stroke || '#282828'}
         strokeLinecap="square"
-        strokeMiterlimit="10"
         strokeWidth="1"
       />
 
@@ -42,7 +39,6 @@ const Blockchain: React.FC<IconProps> = (props): JSX.Element => (
         points="16 6.5 23 10 30 6.5"
         fill="none"
         stroke={props.stroke || '#282828'}
-        strokeMiterlimit="10"
         strokeWidth="1"
       />
 
@@ -53,7 +49,6 @@ const Blockchain: React.FC<IconProps> = (props): JSX.Element => (
         y2="18.5"
         fill="none"
         stroke={props.stroke || '#282828'}
-        strokeMiterlimit="10"
         strokeWidth="1"
       />
 
@@ -62,7 +57,6 @@ const Blockchain: React.FC<IconProps> = (props): JSX.Element => (
         fill="none"
         stroke={props.stroke || '#282828'}
         strokeLinecap="square"
-        strokeMiterlimit="10"
         strokeWidth="1"
       />
 
@@ -70,7 +64,6 @@ const Blockchain: React.FC<IconProps> = (props): JSX.Element => (
         points="9 18.5 16 22 23 18.5"
         fill="none"
         stroke={props.stroke || '#282828'}
-        strokeMiterlimit="10"
         strokeWidth="1"
       />
 
@@ -81,7 +74,6 @@ const Blockchain: React.FC<IconProps> = (props): JSX.Element => (
         y2="30.5"
         fill="none"
         stroke={props.stroke || '#282828'}
-        strokeMiterlimit="10"
         strokeWidth="1"
       />
 
@@ -90,7 +82,6 @@ const Blockchain: React.FC<IconProps> = (props): JSX.Element => (
         fill="none"
         stroke={props.stroke || '#282828'}
         strokeLinecap="square"
-        strokeMiterlimit="10"
         strokeWidth="1"
       />
     </g>

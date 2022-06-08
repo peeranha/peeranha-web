@@ -9,7 +9,7 @@ const Download: React.FC<IconProps> = (props): JSX.Element => (
     viewBox="0 0 18 18"
     size={[18, 18]}
   >
-    <g fill="none" fillRule="nonzero" stroke={props.stroke || '#282828'}>
+    <g stroke={props.stroke || '#282828'}>
       <rect width="16" height="1" x=".5" y="17.5" rx=".5" />
       <rect width="1" height="3" x=".5" y="14.5" rx=".5" />
       <rect width="1" height="3" x="16.5" y="14.5" rx=".5" />

@@ -9,7 +9,7 @@ const InstagramLogoSmal: React.FC<IconProps> = (props): JSX.Element => (
     viewBox="0 0 24 24"
     size={[24, 24]}
   >
-    <g transform="translate(0, 0)">
+    <g>
       <path
         fill={props.fill || '#282828'}
         d="M12,2.162c3.204,0,3.584,0.012,4.849,0.07c1.366,0.062,2.633,0.336,3.608,1.311

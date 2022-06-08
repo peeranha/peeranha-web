@@ -1,10 +1,10 @@
 import React from 'react';
 import IconComponent, { IconProps } from './IconComponent';
 
-const ArrowDownSmall: React.FC<IconProps> = (props): JSX.Element => (
+const ArrowDownFill: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
-    id="arrow-down-small"
+    id="arrow-down-fill"
     fill="curentColor"
     viewBox="0 0 8 6"
     size={[8, 6]}
@@ -13,4 +13,4 @@ const ArrowDownSmall: React.FC<IconProps> = (props): JSX.Element => (
   </IconComponent>
 );
 
-export default ArrowDownSmall;
+export default ArrowDownFill;

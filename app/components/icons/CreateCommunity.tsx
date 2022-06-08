@@ -12,7 +12,6 @@ const CreateCommunity: React.FC<IconProps> = (props): JSX.Element => (
     <g
       fill={props.fill || '#282828'}
       fillOpacity=".2"
-      fillRule="nonzero"
       stroke={props.stroke || '#282828'}
     >
       <circle cx="4.5" cy="4.5" r="4" transform="translate(5)" />

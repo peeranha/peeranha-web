@@ -9,12 +9,7 @@ const Delete: React.FC<IconProps> = (props): JSX.Element => (
     viewBox="0 0 18 18"
     size={[18, 18]}
   >
-    <g
-      transform="translate(1)"
-      fillRule="nonzero"
-      stroke={props.stroke || '#282828'}
-      fill="none"
-    >
+    <g transform="translate(1)" stroke={props.stroke || '#282828'} fill="none">
       <rect x="6" y="8" width="1" height="6" rx=".5" />
       <rect x="9" y="8" width="1" height="6" rx=".5" />
       <path
