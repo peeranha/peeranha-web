@@ -19,7 +19,7 @@ import ReceivedButton from 'components/Button/Contained/SecondaryLarge';
 import messages from './messages';
 
 import WeekNumber from './WeekNumber';
-import { WEI_IN_ETH } from '../../utils/constants';
+import { formatEther } from 'ethers/lib/utils';
 
 const BaseRoundedLi = BaseRounded.extend`
   position: relative;
@@ -86,7 +86,7 @@ const PaidOutWeek = ({
           <P className="d-flex align-items-center">
             <SmallImage className="mr-2" src={currencyPeerImage} alt="icon" />
             <Span fontSize="20" mobileFS={14} bold>
-              {getFormattedNum3(reward / WEI_IN_ETH)}
+              {getFormattedNum3(formatEther(reward))}
             </Span>
           </P>
 
@@ -97,7 +97,7 @@ const PaidOutWeek = ({
               onClick={pickUpReward}
               disabled={
                 hasTaken !== false ||
-                !Number(reward / WEI_IN_ETH) ||
+                !Number(formatEther(reward)) ||
                 pickupRewardProcessing
               }
             >
