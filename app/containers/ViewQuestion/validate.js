@@ -43,11 +43,11 @@ export const voteToDeleteValidator = (
     minEnergy = MIN_ENERGY_TO_DELETE_COMMENT;
   }
 
-  if (itemData.votingStatus.isUpVoted || itemData.votingStatus.isDownVoted) {
+  if (itemData.votingStatus?.isUpVoted || itemData.votingStatus?.isDownVoted) {
     message = `${translations[messages.cannotCompleteBecauseVoted.id]}`;
   } else if (itemData.user === profileInfo.user) {
     message = `${translations[messages.noRootsToVote.id]}`;
-  } else if (itemData.votingStatus.isVotedToDelete) {
+  } else if (itemData.votingStatus?.isVotedToDelete) {
     message = `${translations[messages.youVoted.id]}`;
   } else if (
     !hasGlobalModeratorRole(profileInfo.permissions) &&
@@ -347,7 +347,7 @@ export const deleteCommentValidator = (
   let message;
   const itemData = questionData.comments.filter(x => x.id === commentId)[0];
 
-  if (itemData?.votingStatus.isUpVoted) {
+  if (itemData?.votingStatus?.isUpVoted) {
     message = `${translations[messages.cannotCompleteBecauseVoted.id]}`;
   } else if (profileInfo.energy < MIN_ENERGY) {
     message = translations[messages.notEnoughEnergy.id];

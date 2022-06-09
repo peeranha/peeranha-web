@@ -1075,7 +1075,7 @@ export function* voteToDeleteWorker({
         ),
       {
         communityID: questionData.communityId,
-        skipPermissions: itemData.votingStatus.isUpVoted,
+        skipPermissions: itemData.votingStatus?.isUpVoted,
       },
     );
 
