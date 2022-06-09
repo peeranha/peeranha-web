@@ -79,6 +79,7 @@ export { default as In } from './In';
 export { default as Ipfs } from './Ipfs';
 export { default as KeycatText } from './KeycatText';
 export { default as Lock } from './Lock';
+export { default as WalletAvailable } from './WalletAvailable';
 export { default as Login } from './Login';
 export { default as Facebook } from './Facebook';
 export { default as InstagramLogoSmal } from './InstagramLogoSmal';
