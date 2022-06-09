@@ -30,6 +30,7 @@ import {
 } from '../AccountProvider/selectors';
 
 import messages from './messages';
+import QuestionLabel from './QuestionLabel';
 
 export const B = Button.extend`
   align-items: center;
@@ -42,6 +43,7 @@ export const B = Button.extend`
 
 const QuestionName = H3.extend`
   display: inline;
+  margin-right: 20px;
 `.withComponent('h3');
 
 const Div = styled.div`
@@ -51,6 +53,9 @@ const TitleContainer = styled.div`
   .${BOUNTY_PAID_CLASSNAME} {
     background-color: ${BG_SUCCESS};
   }
+
+  display: flex;
+  align-items: start;
 `;
 
 const PromotionInfo = styled.div`
@@ -70,7 +75,7 @@ export const QuestionTitle = ({
 }) => {
   const {
     tags,
-    communityId: communityId,
+    communityId,
     bestReply: correctAnswerId,
     answers,
     questionBounty,
@@ -81,13 +86,10 @@ export const QuestionTitle = ({
   } = questionData;
 
   const isActivePromotion = useMemo(
-    () => {
-      return (
-        promote &&
-        promote.endsTime > dateNowInSeconds() &&
-        account === questionAuthor
-      );
-    },
+    () =>
+      promote &&
+      promote.endsTime > dateNowInSeconds() &&
+      account === questionAuthor,
     [promote, account, questionAuthor],
   );
 
@@ -122,9 +124,11 @@ export const QuestionTitle = ({
             <MarkAnswerNotification className="d-inline-flex">
               <img className="mr-2" src={checkIcon} alt="icon" />
               <FormattedMessage
-                {...(isGeneral
-                  ? messages.markGeneralQuestionAndGetEarn
-                  : messages.markExpertQuestionAndGetEarn)}
+                id={
+                  isGeneral
+                    ? messages.markGeneralQuestionAndGetEarn.id
+                    : messages.markExpertQuestionAndGetEarn.id
+                }
               />
             </MarkAnswerNotification>
             <br />
@@ -132,8 +136,18 @@ export const QuestionTitle = ({
         ) : null}
 
         <TitleContainer>
-          <Bounty {...questionBounty} />
+          {questionBounty && (
+            <Bounty
+              amount={questionBounty.amount}
+              status={questionBounty.status}
+              timestamp={questionBounty.timestamp}
+              disabled={questionBounty.disabled}
+              bountyMessage={questionBounty.bountyMessage}
+              locale={questionBounty.locale}
+            />
+          )}
           <QuestionName>{title}</QuestionName>
+          <QuestionLabel postType={postType} />
         </TitleContainer>
 
         <TagList
@@ -153,7 +167,7 @@ export const QuestionTitle = ({
         </TagList>
         {isActivePromotion && (
           <PromotionInfo>
-            <FormattedMessage {...messages.questionIsPromoting} />{' '}
+            <FormattedMessage id={messages.questionIsPromoting} />{' '}
             {promotedQuestionEndsTime}
           </PromotionInfo>
         )}
@@ -167,18 +181,13 @@ QuestionTitle.propTypes = {
   tags: PropTypes.array,
   communityId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   communities: PropTypes.array,
-  isItWrittenByMe: PropTypes.bool,
   isGeneral: PropTypes.bool,
-  correctAnswerId: PropTypes.number,
-  answersNumber: PropTypes.number,
   user: PropTypes.string,
   questionData: PropTypes.object,
   questionBounty: PropTypes.object,
   profileInfo: PropTypes.object,
-  isTemporaryAccount: PropTypes.bool,
   locale: PropTypes.string,
   account: PropTypes.string,
-  questionAuthor: PropTypes.string,
 };
 
 export default React.memo(
