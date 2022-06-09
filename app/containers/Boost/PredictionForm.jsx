@@ -21,6 +21,7 @@ import {
 import messages from './messages';
 
 import { InputWrapper, InputProgressBar } from './Form';
+import { getFormattedNum3 } from 'utils/numbers';
 
 const PredictedBoost = styled.div`
   height: 45px;
@@ -85,7 +86,7 @@ const PredictionForm = ({ locale, formValues, userBoostStat }) => {
       <Label>
         {translationMessages[locale][messages.formBoostPrediction.id]}
       </Label>
-      <PredictedBoost>{predictedBoost}</PredictedBoost>
+      <PredictedBoost>{getFormattedNum3(predictedBoost)}</PredictedBoost>
       {/*{separators(MAX_STAKE_PREDICTION - MIN_STAKE_PREDICTION + 1)}*/}
       {/*<InputProgressBar width={progressWidth} />*/}
     </InputWrapper>
