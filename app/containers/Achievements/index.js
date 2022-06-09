@@ -102,7 +102,7 @@ const Achievements = ({
     },
     [userId],
   );
-
+  console.log(achievements);
   return (
     <div>
       <BaseRoundedStyled>
@@ -233,20 +233,19 @@ const Achievements = ({
                           Number(achievementId) === achievement.id,
                       )}
                       key={achievement.id}
+                      maxCount={achievement.maxCount}
+                      factCount={achievement.factCount}
+                      lowerValue={achievement.lowerValue}
+                      name={achievement.name}
+                      description={achievement.description}
+                      image={achievement.image}
+                      id={achievement.id}
+                      achievementURI={achievement.achievementURI}
                       {...achievement}
                       locale={locale}
                     />
                   ),
               )}
-              {/*{uniqueAchievements.map(el => (*/}
-              {/*  <UniqueAchievement*/}
-              {/*    key={el.name}*/}
-              {/*    {...el}*/}
-              {/*    name={translations[messages[el.name].name.id]}*/}
-              {/*    description={translations[messages[el.name].description.id]}*/}
-              {/*    locale={locale}*/}
-              {/*  />*/}
-              {/*))}*/}
             </UniqueAchievementsBlock>
           </UniqueAchievementsWrapper>
         )}
