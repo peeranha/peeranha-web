@@ -43,8 +43,8 @@ const PendingWeek = ({
         </P>
         <P className="d-flex align-items-center">
           <SmallImage className="mr-2" src={currencyPeerImage} alt="icon" />
-          <Span fontSize="20" mobileFS={14} bold>
-            {getFormattedNum3(reward / WEI_IN_ETH)}
+          <Span mobileFS={14}>
+            <FormattedMessage id={messages.weAreAnalyzing.id} />
           </Span>
         </P>
       </>
