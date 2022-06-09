@@ -294,7 +294,7 @@ export const deleteQuestionValidator = (
 
   let message;
 
-  if (questionData.votingStatus.isUpVoted) {
+  if (questionData.votingStatus?.isUpVoted) {
     message = `${translations[messages.cannotCompleteBecauseVoted.id]}`;
   } else if (profileInfo.energy < MIN_ENERGY) {
     message = translations[messages.notEnoughEnergy.id];
