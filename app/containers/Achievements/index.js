@@ -241,7 +241,6 @@ const Achievements = ({
                       image={achievement.image}
                       id={achievement.id}
                       achievementURI={achievement.achievementURI}
-                      {...achievement}
                       locale={locale}
                     />
                   ),
