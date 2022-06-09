@@ -24,7 +24,7 @@ import {
 } from './actions';
 import { selectEthereum } from '../EthereumProvider/selectors';
 import { selectUserBoostStat } from './selectors';
-import { WEI_IN_ETH } from '../../utils/constants';
+import { parseEther } from 'ethers/lib/utils';
 
 export function* getWeekStatWorker() {
   try {
@@ -60,7 +60,7 @@ export function* changeStakeWorker({ currentStake }) {
       addBoost,
       ethereumService,
       profile.user,
-      (currentStake * WEI_IN_ETH).toString(),
+      parseEther(currentStake),
     );
 
     yield put(changeStakedInNextPeriod(Number(currentStake)));
