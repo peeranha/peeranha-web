@@ -43,25 +43,26 @@ export const B = Button.extend`
 
 const QuestionName = H3.extend`
   display: inline;
-  margin-right: 20px;
 `.withComponent('h3');
 
 const Div = styled.div`
   min-width: 140px;
+  margin-right: 10px;
 `;
 const TitleContainer = styled.div`
   .${BOUNTY_PAID_CLASSNAME} {
     background-color: ${BG_SUCCESS};
   }
-
-  display: flex;
-  align-items: start;
 `;
 
 const PromotionInfo = styled.div`
   color: ${TEXT_PREMIUM};
   margin-top: 10px;
   text-align: right;
+`;
+
+const BaseExtnded = Base.extend`
+  display: flex;
 `;
 
 export const QuestionTitle = ({
@@ -111,7 +112,7 @@ export const QuestionTitle = ({
   const isItWrittenByMe = profileInfo ? user === profileInfo.user : false;
 
   return title ? (
-    <Base
+    <BaseExtnded
       paddingTop="5"
       paddingTopMedia="5"
       position="middle"
@@ -125,9 +126,11 @@ export const QuestionTitle = ({
               <img className="mr-2" src={checkIcon} alt="icon" />
               <FormattedMessage
                 id={
-                  isGeneral
-                    ? messages.markGeneralQuestionAndGetEarn.id
-                    : messages.markExpertQuestionAndGetEarn.id
+                  messages[
+                    isGeneral
+                      ? 'markGeneralQuestionAndGetEarn'
+                      : 'markExpertQuestionAndGetEarn'
+                  ].id
                 }
               />
             </MarkAnswerNotification>
@@ -147,7 +150,6 @@ export const QuestionTitle = ({
             />
           )}
           <QuestionName>{title}</QuestionName>
-          <QuestionLabel postType={postType} />
         </TitleContainer>
 
         <TagList
@@ -172,7 +174,8 @@ export const QuestionTitle = ({
           </PromotionInfo>
         )}
       </Div>
-    </Base>
+      <QuestionLabel postType={postType} />
+    </BaseExtnded>
   ) : null;
 };
 

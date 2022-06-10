@@ -12,6 +12,21 @@ import { FormattedMessage } from 'react-intl';
 import commonMessages from 'common-messages';
 import { POST_TYPE } from '../../utils/constants';
 
+const types = {
+  [POST_TYPE.generalPost]: {
+    title: commonMessages.general.id,
+    color: TEXT_PRIMARY_DARK,
+  },
+  [POST_TYPE.expertPost]: {
+    title: commonMessages.expert.id,
+    color: TEXT_PRIMARY,
+  },
+  [POST_TYPE.tutorial]: {
+    title: commonMessages.tutorial.id,
+    color: TUTORIAL_ICON_COLOR,
+  },
+};
+
 export const TypeContainer = styled.div`
   position: relative;
   height: 30px;
@@ -47,28 +62,11 @@ export const TypeContainer = styled.div`
   }
 `;
 
-const QuestionType = ({ postType }) => {
-  const types = {
-    [POST_TYPE.generalPost]: {
-      title: commonMessages.general.id,
-      color: TEXT_PRIMARY_DARK,
-    },
-    [POST_TYPE.expertPost]: {
-      title: commonMessages.expert.id,
-      color: TEXT_PRIMARY,
-    },
-    [POST_TYPE.tutorial]: {
-      title: commonMessages.tutorial.id,
-      color: TUTORIAL_ICON_COLOR,
-    },
-  };
-
-  return (
-    <TypeContainer color={types[postType].color}>
-      <FormattedMessage id={types[postType].title} />
-    </TypeContainer>
-  );
-};
+const QuestionType = ({ postType }) => (
+  <TypeContainer color={types[postType].color}>
+    <FormattedMessage id={types[postType].title} />
+  </TypeContainer>
+);
 
 QuestionType.propTypes = {
   postType: PropTypes.number,
