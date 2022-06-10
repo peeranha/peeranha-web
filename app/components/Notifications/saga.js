@@ -23,6 +23,7 @@ import {
 
 import {
   allNotificationsCount,
+  getLastUser,
   isInfoLoadedSelect,
   selectAllNotifications,
   selectAllNotificationsLastTimestamp,
@@ -34,6 +35,7 @@ import {
 } from './selectors';
 
 import {
+  clearNotificationsData,
   loadMoreNotificationsErr,
   loadMoreNotificationsSuccess,
   loadMoreUnreadNotificationsErr,
@@ -42,6 +44,7 @@ import {
   markAllNotificationsAsReadSuccess,
   markAsReadErr,
   markAsReadSuccess,
+  setLastUser,
   setNotificationsInfo,
 } from './actions';
 import { titleConverterMapper } from './utils';
@@ -136,6 +139,11 @@ export function* loadMoreUnreadNotificationsWorker() {
 
 export function* getNotificationsInfoWorker(user) {
   const notificationsInfo = yield call(getNotificationsInfo, user);
+  const lastUser = yield select(getLastUser());
+  if (lastUser !== user) {
+    yield put(clearNotificationsData());
+    yield put(setLastUser(user));
+  }
 
   yield put(setNotificationsInfo(notificationsInfo));
 
