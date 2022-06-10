@@ -31,6 +31,9 @@ export default defineMessages({
   estimatedPayout: {
     id: 'app.containers.Wallet.estimatedPayout',
   },
+  weAreAnalyzing: {
+    id: 'app.containers.Wallet.weAreAnalyzing',
+  },
   paidOut: {
     id: 'app.containers.Wallet.paidOut',
   },

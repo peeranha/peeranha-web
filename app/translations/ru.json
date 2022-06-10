@@ -221,6 +221,8 @@
   "app.containers.Wallet.periodStillInProgress":
     "Этот период все еще в прогрессе. Вы увидите больше деталей на следующей неделе.",
   "app.containers.Wallet.payoutPending": "Выплата в ожидании",
+  "app.containers.Wallet.weAreAnalyzing":
+    "Мы анализируем действия текущего периода. Подробная информация будет доступна на следующей неделе.",
   "app.containers.Wallet.estimatedPayout": "Расчетная выплата",
   "app.containers.Wallet.paidOut": "Выплачено",
   "app.containers.Wallet.rewarded": "Награждено",
