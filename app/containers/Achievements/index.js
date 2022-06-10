@@ -102,7 +102,7 @@ const Achievements = ({
     },
     [userId],
   );
-  console.log(achievements);
+
   return (
     <div>
       <BaseRoundedStyled>

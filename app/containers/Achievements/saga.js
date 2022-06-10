@@ -69,7 +69,7 @@ export function* getAchievementsWorker() {
     userAchievements = userAchievements.map(achievement => achievement.id);
     yield put(
       getAllAchievementsSuccess(
-        process.env.ENV === 'dev' ? allAchievements.slice(6) : allAchievements,
+        process.env.ENV === 'dev' ? allAchievements.slice(28) : allAchievements,
         userAchievements,
       ),
     );
