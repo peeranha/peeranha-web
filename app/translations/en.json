@@ -718,10 +718,18 @@
     "Your post was upvoted",
   "app.containers.Notifications.yourQuestionWasDownVoted":
     "Your post was downvoted",
+  "app.containers.Notifications.yourQuestionUpVoteWasCanceled":
+    "Your post's upvote was canceled",
+  "app.containers.Notifications.yourQuestionDownVoteWasCanceled":
+    "Your post's downvote was canceled",
   "app.containers.Notifications.yourAnswerWasUpVoted":
     "Your answer was upvoted",
   "app.containers.Notifications.yourAnswerWasDownVoted":
     "Your answer was downvoted ",
+  "app.containers.Notifications.yourAnswerUpVoteWasCanceled":
+    "Your answer's upvote was canceled",
+  "app.containers.Notifications.yourAnswerDownVoteWasCanceled":
+    "Your answer's downvote was canceled",
   "app.containers.Notifications.yourAnswerWasMarkedAsTheBest":
     "Your answer was marked as the best",
   "app.containers.Notifications.somebodyAnsweredYourQuestion":
