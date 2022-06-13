@@ -65,26 +65,34 @@ const BoostBanner = ({ userId, locale }) => (
   <Wrapper className="mt-3">
     <img src={activateBoostBanner} alt="boost-banner" />
 
-    <div>
-      <p>
-        <FormattedMessage {...messages.getMoreWithBoost} />
-      </p>
+    {(process.env.REWARD_CLAIMING_ENABLED === 'true' && (
+      <div>
+        <p>
+          <FormattedMessage {...messages.getMoreWithBoost} />
+        </p>
 
-      <p>
-        <FormattedMessage
-          {...messages.boostHelp}
-          values={{
-            whatABoostIs: whatABoostIs(locale),
-            howToStake: howToStake(locale),
-            FAQs: FAQs(locale),
-          }}
-        />
-      </p>
+        <p>
+          <FormattedMessage
+            {...messages.boostHelp}
+            values={{
+              whatABoostIs: whatABoostIs(locale),
+              howToStake: howToStake(locale),
+              FAQs: FAQs(locale),
+            }}
+          />
+        </p>
 
-      <GoToBoostPage to={routes.userBoost(userId)}>
-        <FormattedMessage {...commonMessages.activateBoost} />
-      </GoToBoostPage>
-    </div>
+        <GoToBoostPage to={routes.userBoost(userId)}>
+          <FormattedMessage {...commonMessages.activateBoost} />
+        </GoToBoostPage>
+      </div>
+    )) || (
+      <div>
+        <p>
+          <FormattedMessage {...messages.rewardsWillBeAvailable} />
+        </p>
+      </div>
+    )}
   </Wrapper>
 );
 

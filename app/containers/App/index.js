@@ -261,10 +261,12 @@ const App = ({
           render={props => Wrapper(Wallet, props)}
         />
 
-        <Route
-          path={routes.userBoost(':id')}
-          render={props => Wrapper(Boost, props)}
-        />
+        {process.env.REWARD_CLAIMING_ENABLED === 'true' && (
+          <Route
+            path={routes.userBoost(':id')}
+            render={props => Wrapper(Boost, props)}
+          />
+        )}
 
         <Route
           path={routes.support()}

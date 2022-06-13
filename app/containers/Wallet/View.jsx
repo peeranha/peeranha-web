@@ -24,7 +24,9 @@ const View = ({
 
   return (
     <>
-      <NavHeader userId={userId} />
+      {process.env.REWARD_CLAIMING_ENABLED === 'true' && (
+        <NavHeader userId={userId} />
+      )}
 
       <SubHeader
         account={account}
@@ -33,6 +35,10 @@ const View = ({
         stakedInCurrentPeriod={currentUserStake}
         stakedInNextPeriod={nextUserStake}
       />
+
+      {process.env.REWARD_CLAIMING_ENABLED === 'false' && (
+        <BoostBanner userId={userId} locale={locale} />
+      )}
 
       {userBoostStat &&
         !(

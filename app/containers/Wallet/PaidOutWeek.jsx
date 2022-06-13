@@ -53,6 +53,11 @@ const WeekActions = styled.div`
   }
 `;
 
+const EstimatedReward = styled.div`
+  display: inline-grid;
+  grid-template-columns: 40% 25% 35%;
+`;
+
 const PaidOutWeek = ({
   period,
   reward,
@@ -81,36 +86,53 @@ const PaidOutWeek = ({
             periodFinished={periodFinished}
           />
         </div>
+        {(process.env.REWARD_CLAIMING_ENABLED === 'true' && (
+          <WeekActions className="d-flex align-items-center justify-content-end">
+            <React.Fragment>
+              <P className="d-flex align-items-center">
+                <SmallImage
+                  className="mr-2"
+                  src={currencyPeerImage}
+                  alt="icon"
+                />
+                <Span fontSize="20" mobileFS={14} bold>
+                  {getFormattedNum3(formatEther(reward))}
+                </Span>
+              </P>
 
-        <WeekActions className="d-flex align-items-center justify-content-end">
-          <P className="d-flex align-items-center">
-            <SmallImage className="mr-2" src={currencyPeerImage} alt="icon" />
-            <Span fontSize="20" mobileFS={14} bold>
+              {!hasTaken && (
+                <PickupButton
+                  className="ml-4"
+                  id={`pickup-reward-${period}`}
+                  onClick={pickUpReward}
+                  disabled={
+                    hasTaken !== false ||
+                    !Number(formatEther(reward)) ||
+                    pickupRewardProcessing
+                  }
+                >
+                  <FormattedMessage id={messages.getReward.id} />
+                </PickupButton>
+              )}
+
+              {hasTaken && (
+                <ReceivedButton className="ml-4">
+                  <FormattedMessage id={messages.received.id} />
+                </ReceivedButton>
+              )}
+            </React.Fragment>
+          </WeekActions>
+        )) || (
+          <EstimatedReward>
+            <font style={{ gridColumn: '2' }} color={TEXT_SECONDARY}>
+              <FormattedMessage id={messages.estimatedReward.id} />
+            </font>
+            <Span fontSize="20" mobileFS={14} bold style={{ gridColumn: '3' }}>
+              <SmallImage className="mr-2" src={currencyPeerImage} alt="icon" />
               {getFormattedNum3(formatEther(reward))}
             </Span>
-          </P>
-
-          {!hasTaken && (
-            <PickupButton
-              className="ml-4"
-              id={`pickup-reward-${period}`}
-              onClick={pickUpReward}
-              disabled={
-                hasTaken !== false ||
-                !Number(formatEther(reward)) ||
-                pickupRewardProcessing
-              }
-            >
-              <FormattedMessage id={messages.getReward.id} />
-            </PickupButton>
-          )}
-
-          {hasTaken && (
-            <ReceivedButton className="ml-4">
-              <FormattedMessage id={messages.received.id} />
-            </ReceivedButton>
-          )}
-        </WeekActions>
+          </EstimatedReward>
+        )}
       </BaseRoundedLi>
     </Container>
   );

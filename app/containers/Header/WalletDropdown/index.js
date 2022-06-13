@@ -62,11 +62,12 @@ const Menu = memo(({ user, number, locale, boost }) => {
           />
         )}
       </A>
-
-      <A to={routes.userBoost(user)}>
-        <FormattedMessage {...messages.boost} />
-        {boost > 1 && <BoostPrediction>{boost}</BoostPrediction>}
-      </A>
+      {process.env.REWARD_CLAIMING_ENABLED === 'true' && (
+        <A to={routes.userBoost(user)}>
+          <FormattedMessage {...messages.boost} />
+          {boost > 1 && <BoostPrediction>{boost}</BoostPrediction>}
+        </A>
+      )}
 
       {/*<SendTokens>*/}
       {/*  <FormattedMessage {...messages.sendTokens} />*/}
