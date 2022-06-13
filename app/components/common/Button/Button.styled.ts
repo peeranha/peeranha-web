@@ -1,4 +1,4 @@
-import { css } from '@emotion/react';
+import { css, useTheme } from '@emotion/react';
 import breakpoints from 'styles/breakpoints';
 
 export const base = css`
@@ -52,7 +52,7 @@ export const variants = {
     fill: var(--color-stroke-icon);
     line-height: 18px;
     font-size: 16px;
-    padding: 1px;
+    padding: 2px;
   `,
 };
 

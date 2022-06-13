@@ -14,6 +14,8 @@ type ButtonProps = {
   /** Icon for the button */
   icon?: typeof IconComponent;
   isHideText?: boolean;
+  spinner?: any;
+  isLoading?: boolean;
 };
 
 const Button: React.FC<ButtonProps> = ({
@@ -25,6 +27,8 @@ const Button: React.FC<ButtonProps> = ({
   type = 'button',
   icon,
   isHideText = false,
+  isLoading = false,
+  spinner = false,
 }): JSX.Element => {
   const theme = useTheme();
 
@@ -36,15 +40,18 @@ const Button: React.FC<ButtonProps> = ({
         base,
         {
           borderRadius: theme.buttonBorderRadius,
+          background: theme.buttonBackgroundColor,
+          color: theme.buttonTextColor,
         },
         variants[variant],
         icon && iconLeft,
+        spinner && iconLeft,
       ]}
       onClick={onClick}
       disabled={disabled}
     >
       <>
-        {icon}
+        {!isLoading ? icon : spinner}
         {!isHideText && <span>{children}</span>}
       </>
     </button>

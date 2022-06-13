@@ -7,6 +7,8 @@ import './global.css';
 
 import { theme as PeeranhaTheme } from 'themes/default';
 import { theme as KandaTheme } from 'themes/kanda';
+import { theme as FilecoinTheme } from 'themes/filecoin';
+import { theme as PolygonTheme } from 'themes/polygon';
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
@@ -15,6 +17,8 @@ export const parameters = {
 const themeObjects = {
   peeranha: PeeranhaTheme,
   kanda: KandaTheme,
+  filecoin: FilecoinTheme,
+  polygon: PolygonTheme,
 };
 
 const chooseTheme = choice => {
@@ -40,7 +44,11 @@ addDecorator((Story, context) => {
       <div className="storybook-custom-story__body">
         <ThemeProvider
           theme={chooseTheme(
-            select('Choose Theme', ['Peeranha', 'Kanda'], 'Peeranha'),
+            select(
+              'Choose Theme',
+              ['Peeranha', 'Kanda', 'Filecoin', 'Polygon'],
+              'Peeranha',
+            ),
           )}
         >
           <Global styles={global} />
