@@ -35,6 +35,7 @@ import { getWeekStat } from 'containers/Wallet/actions';
 
 import NotificationIcon from './NotificationIcon';
 import WalletButton from './WalletButton';
+import { REWARD_CLAIMING_ENABLED } from '../../../utils/constants';
 
 export const BoostPrediction = styled.span`
   padding: 3px 6px 3.5px;
@@ -62,9 +63,9 @@ const Menu = memo(({ user, number, locale, boost }) => {
           />
         )}
       </A>
-      {process.env.REWARD_CLAIMING_ENABLED === 'true' && (
+      {REWARD_CLAIMING_ENABLED && (
         <A to={routes.userBoost(user)}>
-          <FormattedMessage {...messages.boost} />
+          <FormattedMessage id={messages.boost.id} />
           {boost > 1 && <BoostPrediction>{boost}</BoostPrediction>}
         </A>
       )}

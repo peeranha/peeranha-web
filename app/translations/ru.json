@@ -194,6 +194,9 @@
 
   "app.common.ipfsHashValue": "IPFS",
   "app.common.source": "Источник",
+  "app.common.estimatedReward": "Расчетная награда",
+  "app.common.rewardsWillBeAvailable":
+    "На странице отображается предполагаемое вознаграждение, которое вы сможете получить после запуска токена. Мы работаем с командой юристов, чтобы уточнить детали.",
 
   "app.telegram.user": "Телеграм пользователь",
   "app.telegram.userLabelPopover":

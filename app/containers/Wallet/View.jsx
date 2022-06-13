@@ -5,7 +5,10 @@ import NavHeader from 'components/WalletNavigation';
 import SubHeader from 'containers/Wallet/SubHeader';
 import Weeks from 'containers/Wallet/Weeks';
 import BoostBanner from 'containers/Wallet/BoostBanner';
-import { BOOSTS_SUM_VALUE_WITHOUT_STAKE } from 'utils/constants';
+import {
+  BOOSTS_SUM_VALUE_WITHOUT_STAKE,
+  REWARD_CLAIMING_ENABLED,
+} from 'utils/constants';
 
 const View = ({
   userId,
@@ -22,11 +25,14 @@ const View = ({
 }) => {
   const [currentUserStake, nextUserStake] = userBoostStat || [];
 
+  const displayBoostBanner =
+    (userBoostStat &&
+      !(currentUserStake + nextUserStake > BOOSTS_SUM_VALUE_WITHOUT_STAKE)) ||
+    !REWARD_CLAIMING_ENABLED;
+
   return (
     <>
-      {process.env.REWARD_CLAIMING_ENABLED === 'true' && (
-        <NavHeader userId={userId} />
-      )}
+      {REWARD_CLAIMING_ENABLED && <NavHeader userId={userId} />}
 
       <SubHeader
         account={account}
@@ -36,15 +42,7 @@ const View = ({
         stakedInNextPeriod={nextUserStake}
       />
 
-      {process.env.REWARD_CLAIMING_ENABLED === 'false' && (
-        <BoostBanner userId={userId} locale={locale} />
-      )}
-
-      {userBoostStat &&
-        !(
-          currentUserStake + nextUserStake >
-          BOOSTS_SUM_VALUE_WITHOUT_STAKE
-        ) && <BoostBanner userId={userId} locale={locale} />}
+      {displayBoostBanner && <BoostBanner userId={userId} locale={locale} />}
 
       <Weeks
         locale={locale}

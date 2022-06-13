@@ -20,6 +20,7 @@ import messages from './messages';
 
 import WeekNumber from './WeekNumber';
 import { formatEther } from 'ethers/lib/utils';
+import { REWARD_CLAIMING_ENABLED } from '../../utils/constants';
 
 const BaseRoundedLi = BaseRounded.extend`
   position: relative;
@@ -86,41 +87,35 @@ const PaidOutWeek = ({
             periodFinished={periodFinished}
           />
         </div>
-        {(process.env.REWARD_CLAIMING_ENABLED === 'true' && (
+        {(REWARD_CLAIMING_ENABLED && (
           <WeekActions className="d-flex align-items-center justify-content-end">
-            <React.Fragment>
-              <P className="d-flex align-items-center">
-                <SmallImage
-                  className="mr-2"
-                  src={currencyPeerImage}
-                  alt="icon"
-                />
-                <Span fontSize="20" mobileFS={14} bold>
-                  {getFormattedNum3(formatEther(reward))}
-                </Span>
-              </P>
+            <P className="d-flex align-items-center">
+              <SmallImage className="mr-2" src={currencyPeerImage} alt="icon" />
+              <Span fontSize="20" mobileFS={14} bold>
+                {getFormattedNum3(formatEther(reward))}
+              </Span>
+            </P>
 
-              {!hasTaken && (
-                <PickupButton
-                  className="ml-4"
-                  id={`pickup-reward-${period}`}
-                  onClick={pickUpReward}
-                  disabled={
-                    hasTaken !== false ||
-                    !Number(formatEther(reward)) ||
-                    pickupRewardProcessing
-                  }
-                >
-                  <FormattedMessage id={messages.getReward.id} />
-                </PickupButton>
-              )}
+            {!hasTaken && (
+              <PickupButton
+                className="ml-4"
+                id={`pickup-reward-${period}`}
+                onClick={pickUpReward}
+                disabled={
+                  hasTaken !== false ||
+                  !Number(formatEther(reward)) ||
+                  pickupRewardProcessing
+                }
+              >
+                <FormattedMessage id={messages.getReward.id} />
+              </PickupButton>
+            )}
 
-              {hasTaken && (
-                <ReceivedButton className="ml-4">
-                  <FormattedMessage id={messages.received.id} />
-                </ReceivedButton>
-              )}
-            </React.Fragment>
+            {hasTaken && (
+              <ReceivedButton className="ml-4">
+                <FormattedMessage id={messages.received.id} />
+              </ReceivedButton>
+            )}
           </WeekActions>
         )) || (
           <EstimatedReward>

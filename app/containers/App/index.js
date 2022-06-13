@@ -21,7 +21,7 @@ import { Switch, Route, withRouter } from 'react-router-dom';
 import * as routes from 'routes-config';
 
 import injectSaga from 'utils/injectSaga';
-import { DAEMON, POST_TYPE } from 'utils/constants';
+import { DAEMON, POST_TYPE, REWARD_CLAIMING_ENABLED } from 'utils/constants';
 import { ScrollTo } from 'utils/animation';
 import { closePopover as Popover } from 'utils/popover';
 import {
@@ -261,7 +261,7 @@ const App = ({
           render={props => Wrapper(Wallet, props)}
         />
 
-        {process.env.REWARD_CLAIMING_ENABLED === 'true' && (
+        {REWARD_CLAIMING_ENABLED && (
           <Route
             path={routes.userBoost(':id')}
             render={props => Wrapper(Boost, props)}

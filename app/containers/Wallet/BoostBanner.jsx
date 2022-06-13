@@ -24,6 +24,7 @@ import Button from 'components/Button/Contained/InfoLarge';
 import A from 'components/A';
 import Span from 'components/Span';
 import { translationMessages } from '../../i18n';
+import { REWARD_CLAIMING_ENABLED } from '../../utils/constants';
 
 const GoToBoostPage = Button.extend`
   margin-top: 10px;
@@ -65,15 +66,15 @@ const BoostBanner = ({ userId, locale }) => (
   <Wrapper className="mt-3">
     <img src={activateBoostBanner} alt="boost-banner" />
 
-    {(process.env.REWARD_CLAIMING_ENABLED === 'true' && (
+    {(REWARD_CLAIMING_ENABLED && (
       <div>
         <p>
-          <FormattedMessage {...messages.getMoreWithBoost} />
+          <FormattedMessage id={messages.getMoreWithBoost.id} />
         </p>
 
         <p>
           <FormattedMessage
-            {...messages.boostHelp}
+            id={messages.boostHelp.id}
             values={{
               whatABoostIs: whatABoostIs(locale),
               howToStake: howToStake(locale),
@@ -83,13 +84,13 @@ const BoostBanner = ({ userId, locale }) => (
         </p>
 
         <GoToBoostPage to={routes.userBoost(userId)}>
-          <FormattedMessage {...commonMessages.activateBoost} />
+          <FormattedMessage id={commonMessages.activateBoost.id} />
         </GoToBoostPage>
       </div>
     )) || (
       <div>
         <p>
-          <FormattedMessage {...messages.rewardsWillBeAvailable} />
+          <FormattedMessage id={messages.rewardsWillBeAvailable.id} />
         </p>
       </div>
     )}
