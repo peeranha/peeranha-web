@@ -201,7 +201,7 @@ const Notification = ({
 
   const values = useMemo(
     () => {
-      if (type < 9) {
+      if (type < 13) {
         return {};
       }
 
