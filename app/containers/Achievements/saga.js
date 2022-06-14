@@ -67,14 +67,7 @@ export function* getAchievementsWorker() {
       viewProfileAccount,
     );
     userAchievements = userAchievements.map(achievement => achievement.id);
-    yield put(
-      getAllAchievementsSuccess(
-        ['dev', 'test'].includes(process.env.ENV)
-          ? allAchievements.slice(28)
-          : allAchievements,
-        userAchievements,
-      ),
-    );
+    yield put(getAllAchievementsSuccess(allAchievements, userAchievements));
   } catch (err) {
     yield put(getAllAchievementsError(err));
   }

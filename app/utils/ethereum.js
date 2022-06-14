@@ -125,7 +125,7 @@ class EthereumService {
 
     if (!this.connectedWallets?.length) {
       document.getElementsByTagName('body')[0].style.position = 'relative';
-
+      deleteCookie('connectedWallet');
       return;
     }
 
