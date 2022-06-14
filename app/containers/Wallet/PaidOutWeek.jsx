@@ -46,7 +46,9 @@ const WeekActions = styled.div`
   @media only screen and (max-width: 730px) {
     flex-direction: column;
     flex-grow: 0;
-    font-size: 16px button {
+    font-size: 16px;
+
+    button {
       margin: 7px 0 0 !important;
     }
   }
