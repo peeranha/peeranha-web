@@ -49,34 +49,31 @@ export const BoostPrediction = styled.span`
 
 const isPositiveNumber = number => Number.isFinite(number) && number > 0;
 
-const Menu = memo(({ user, number, locale, boost }) => {
-  return (
-    <Ul>
-      <A to={routes.userWallet(user)}>
-        <FormattedMessage {...messages.wallet} />
-        {isPositiveNumber(number) && (
-          <NotificationIcon
-            inline
-            number={number}
-            iconId="walletDropDownInline"
-            locale={locale}
-          />
-        )}
-      </A>
-      {REWARD_CLAIMING_ENABLED && (
-        <A to={routes.userBoost(user)}>
-          <FormattedMessage id={messages.boost.id} />
-          {boost > 1 && <BoostPrediction>{boost}</BoostPrediction>}
-        </A>
+const Menu = memo(({ user, number, locale, boost }) => (
+  <Ul>
+    <A to={routes.userWallet(user)}>
+      <FormattedMessage {...messages.wallet} />
+      {isPositiveNumber(number) && (
+        <NotificationIcon
+          inline
+          number={number}
+          iconId="walletDropDownInline"
+          locale={locale}
+        />
       )}
+    </A>
 
-      {/*<SendTokens>*/}
-      {/*  <FormattedMessage {...messages.sendTokens} />*/}
-      {/*</SendTokens>*/}
-    </Ul>
-  );
-});
+    <A to={routes.userBoost(user)}>
+      <FormattedMessage {...messages.boost} />
+      {boost > 1 && <BoostPrediction>{boost}</BoostPrediction>}
+    </A>
 
+    {/* <SendTokens> */}
+    {/*  <FormattedMessage {...messages.sendTokens} /> */}
+    {/* </SendTokens> */}
+  </Ul>
+));
+       
 const WalletDropdown = ({
   user,
   balance,
@@ -138,7 +135,11 @@ WalletDropdown.propTypes = {
 export default memo(
   compose(
     injectReducer({ key: 'wallet', reducer }),
-    injectSaga({ key: 'wallet', saga }),
+    injectSaga({
+      key: 'wallet',
+      saga,
+      disableEject: true,
+    }),
     connect(
       createStructuredSelector({
         locale: makeSelectLocale(),
