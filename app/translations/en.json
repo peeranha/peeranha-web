@@ -200,6 +200,9 @@
     "Waiting for {transaction} confirmation...",
   "app.common.transaction": "transaction",
   "app.common.transactionCompleted": "Transaction completed successfully",
+  "app.common.estimatedReward": "Estimated reward",
+  "app.common.rewardsWillBeAvailable":
+    "Oops, you can't claim your tokens right now. No worries, the estimated reward will be available for you to claim after the token launch. Our legal team is backing us to finalize the details of the token launch. Thank you!",
 
   "app.telegram.user": "Telegram user",
   "app.telegram.userLabelPopover":

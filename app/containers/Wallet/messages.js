@@ -82,4 +82,10 @@ export default defineMessages({
   FAQs: {
     id: 'app.containers.Wallet.FAQs',
   },
+  estimatedReward: {
+    id: 'app.common.estimatedReward',
+  },
+  rewardsWillBeAvailable: {
+    id: 'app.common.rewardsWillBeAvailable',
+  },
 });

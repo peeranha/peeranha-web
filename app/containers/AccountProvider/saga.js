@@ -110,8 +110,6 @@ const single = isSingleCommunityWebsite();
 /* eslint func-names: 0, consistent-return: 0 */
 export const getCurrentAccountWorker = function*(initAccount) {
   try {
-    yield put(getCurrentAccountProcessing());
-
     const ethereumService = yield select(selectEthereum);
 
     if (ethereumService.withMetaMask)

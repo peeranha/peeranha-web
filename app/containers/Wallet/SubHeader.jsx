@@ -55,7 +55,11 @@ const SubHeader = ({
                 icon={currencyPeerImage}
                 color={TEXT_PRIMARY}
               />
-              <span>{getFormattedNum3(availableBalance)}</span>
+              <span>
+                {getFormattedNum3(
+                  Math.round(availableBalance * 1000000) / 1000000,
+                )}
+              </span>
             </Span>
             <Span
               className="d-none d-sm-inline-block ml-2"

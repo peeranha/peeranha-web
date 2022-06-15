@@ -35,6 +35,7 @@ import { getWeekStat } from 'containers/Wallet/actions';
 
 import NotificationIcon from './NotificationIcon';
 import WalletButton from './WalletButton';
+import { REWARD_CLAIMING_ENABLED } from '../../../utils/constants';
 
 export const BoostPrediction = styled.span`
   padding: 3px 6px 3.5px;
@@ -72,7 +73,7 @@ const Menu = memo(({ user, number, locale, boost }) => (
     {/* </SendTokens> */}
   </Ul>
 ));
-
+       
 const WalletDropdown = ({
   user,
   balance,
