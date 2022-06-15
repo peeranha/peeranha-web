@@ -126,7 +126,11 @@ const withConnect = connect(
 );
 
 const withReducer = injectReducer({ key: 'askQuestionReducer', reducer });
-const withSaga = injectSaga({ key: 'askQuestionReducer', saga });
+const withSaga = injectSaga({
+  key: 'askQuestionReducer',
+  saga,
+  disableEject: true,
+});
 const withExistingQuestionReducer = injectReducer({
   key: 'existingQuestionReducer',
   reducer: existingQuestionReducer,
