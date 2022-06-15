@@ -87,7 +87,7 @@ const Activity = ({
                   fontSize="14"
                   color={tab !== 'quest' ? TEXT_SECONDARY : 'inherit'}
                 >
-                  {profile.postCount}
+                  {(profile.postCount >= 0 && profile.postCount) || 0}
                 </Span>
               ),
             }}
