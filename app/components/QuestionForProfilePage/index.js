@@ -95,13 +95,15 @@ const ContentContainer = styled.div`
 `;
 
 export const TitleHolder = styled.p`
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 80vw;
+  @media only screen and (max-width: 768px) {
+    font-size: 20px;
+  }
 
   @media only screen and (max-width: 576px) {
-    font-size: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 80vw;
   }
 `;
 
@@ -213,7 +215,10 @@ export const QuestionForProfilePage = ({
             mobilefs="18"
             bold="true"
           >
-            <TitleHolder title={title}> {title}</TitleHolder>
+            <TitleHolder title={title}>
+              {' '}
+              {title}PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
+            </TitleHolder>
           </Link>
 
           <p className="d-flex-column d-sm-flex align-items-center my-1">
