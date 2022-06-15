@@ -215,10 +215,7 @@ export const QuestionForProfilePage = ({
             mobilefs="18"
             bold="true"
           >
-            <TitleHolder title={title}>
-              {' '}
-              {title}PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP
-            </TitleHolder>
+            <TitleHolder title={title}>{title}</TitleHolder>
           </Link>
 
           <p className="d-flex-column d-sm-flex align-items-center my-1">
