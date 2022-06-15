@@ -94,6 +94,17 @@ const ContentContainer = styled.div`
   }
 `;
 
+export const TitleHolder = styled.p`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 80vw;
+
+  @media only screen and (max-width: 576px) {
+    font-size: 20px;
+  }
+`;
+
 const QuestionLabels = styled.div`
   position: absolute;
   top: 24px;
@@ -103,8 +114,8 @@ const QuestionLabels = styled.div`
   align-items: center;
 
   @media only screen and (max-width: 576px) {
-    top: 50px;
-    right: 3px;
+    top: 0;
+    right: 5px;
   }
 `;
 
@@ -202,10 +213,10 @@ export const QuestionForProfilePage = ({
             mobilefs="18"
             bold="true"
           >
-            {title}
+            <TitleHolder title={title}> {title}</TitleHolder>
           </Link>
 
-          <p className="d-flex align-items-center my-1">
+          <p className="d-flex-column d-sm-flex align-items-center my-1">
             <Span
               className="text-capitalize mr-3"
               fontSize="14"
