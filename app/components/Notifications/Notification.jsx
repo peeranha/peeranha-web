@@ -201,7 +201,12 @@ const Notification = ({
 
   const values = useMemo(
     () => {
-      if (type < 13) {
+      if (
+        ![
+          NOTIFICATIONS_TYPES.answerTipped,
+          NOTIFICATIONS_TYPES.questionTipped,
+        ].includes(type)
+      ) {
         return {};
       }
 
