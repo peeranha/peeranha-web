@@ -43,7 +43,7 @@ export const ContentBody = ({
   histories,
   isOfficialReply,
 }) => {
-  const isOfficial = questionData.officialReply === answerId;
+  const isOfficial = questionData.officialReply === answerId || isOfficialReply;
 
   return (
     <Base position="bottom" paddingTop="10">
