@@ -66,7 +66,7 @@ const EditAnswer = ({
   );
 
   const msg = useMemo(() => translationMessages[locale], [locale]);
-  const { properties, communityId, content } = useMemo(
+  const { properties, communityId, content, isOfficialReply } = useMemo(
     () => answer || { properties: [] },
     [answer],
   );
@@ -83,7 +83,7 @@ const EditAnswer = ({
       locale,
       label: msg[commonMessages.answer.id],
       previewLabel: msg[commonMessages.preview.id],
-      properties,
+      isOfficialReply,
       communityId,
     }),
     [

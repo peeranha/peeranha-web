@@ -628,6 +628,13 @@ export async function getQuestionById(ethereumService, questionId, user) {
   );
 }
 
+export const getQuestion = async (ethereumService, questionId) => {
+  const question = await ethereumService.getContentDataWithArgs(GET_POST, [
+    questionId,
+  ]);
+  return await formQuestionObject(question, [], [], ethereumService);
+};
+
 export const getAnswer = async (ethereumService, questionId, answerId) => {
   const answer = await ethereumService.getContentDataWithArgs(GET_REPLY, [
     questionId,

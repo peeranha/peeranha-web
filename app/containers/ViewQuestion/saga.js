@@ -176,6 +176,9 @@ export function* getQuestionData({
 
   if (user && (isQuestionChanged || isQuestionJustCreated)) {
     question = yield call(getQuestionById, ethereumService, questionId, user);
+    question.answers.find(
+      answer => answer.id === question.officialReply,
+    ).isOfficialReply = true;
   } else {
     question = yield call(getQuestionFromGraph, +questionId);
     question.commentCount = question.comments.length;
