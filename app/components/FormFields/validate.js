@@ -85,6 +85,11 @@ const required = value => {
   return !val ? messages.requiredField : undefined;
 };
 
+const requiredPostTypeSelection = value => {
+  let val = Number(value);
+  return val >= 0 ? undefined : messages.postTypeSelectionError;
+};
+
 const requiredAndNotZero = value => {
   let message;
   let val = value;
@@ -216,6 +221,7 @@ export {
   requiredAndNotZero,
   requiredForObjectField,
   requiredForNumericalField,
+  requiredPostTypeSelection,
   requiredNonZeroInteger,
   strLength1x5,
   strLength1x1000,
