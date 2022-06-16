@@ -94,7 +94,7 @@ const ContentContainer = styled.div`
   }
 `;
 
-export const TitleHolder = styled.p`
+const TitleHolder = styled.p`
   @media only screen and (max-width: 768px) {
     font-size: 20px;
   }
