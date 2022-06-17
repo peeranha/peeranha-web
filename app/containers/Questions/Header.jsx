@@ -142,9 +142,9 @@ export const Header = ({
   );
 
   const displaySubscribeButton =
-    !!single ||
-    (!isFeed &&
-      window.location.pathname !== routes.questions() &&
+    single &&
+    isFeed &&
+    (window.location.pathname !== routes.questions() &&
       window.location.pathname !== routes.expertPosts() &&
       window.location.pathname !== routes.tutorials());
 
@@ -167,14 +167,13 @@ export const Header = ({
           communities={communities}
         />
         {!!displaySubscribeButton && (
-          //  Todo: switch feed page
           <PageContentHeaderRightPanel
             className={`right-panel m-0 ml-${single ? 3 : 4}`}
           >
-            {/* <FollowCommunityButton
+            <FollowCommunityButton
               communityIdFilter={single || communityIdFilter}
               followedCommunities={followedCommunities}
-            /> */}
+            />
           </PageContentHeaderRightPanel>
         )}
       </PageContentHeader>
