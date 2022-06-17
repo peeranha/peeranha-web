@@ -10,14 +10,12 @@ import {
   CONTRACT_USER,
   CONTRACT_CONTENT,
   CONTRACT_COMMUNITY,
-} from './ethConstants';
-
-import {
   CLAIM_REWARD,
   GET_COMMUNITY,
   GET_USER_BY_ADDRESS,
   SET_STAKE,
 } from './ethConstants';
+
 import { getFileUrl, getIpfsHashFromBytes32, getText } from './ipfs';
 import { deleteCookie, getCookie } from './cookie';
 import {
@@ -69,7 +67,13 @@ class EthereumService {
     this.transactionCompleted = data.transactionCompletedDispatch;
     this.transactionFailed = data.transactionFailedDispatch;
     this.waitForConfirm = data.waitForConfirmDispatch;
+    this.isTransactionInitialised = null;
+    this.addToast = data.addToast;
   }
+
+  setTransactionInitialised = toggle => {
+    this.isTransactionInitialised = toggle;
+  };
 
   setData = data => {
     this.wallet = data.wallet;
@@ -194,6 +198,15 @@ class EthereumService {
   }
 
   sendTransaction = async (contract, actor, action, data) => {
+    if (this.isTransactionInitialised) {
+      this.addToast({
+        type: 'info',
+        text: 'Wait for the end of the current transaction.',
+      });
+      throw new Error('Wait for the end of the current transaction.');
+    }
+
+    this.setTransactionInitialised(true);
     this.waitForConfirm();
 
     const dataFromCookies = getCookie(META_TRANSACTIONS_ALLOWED);
@@ -220,8 +233,11 @@ class EthereumService {
       this.transactionInPending(transaction.hash);
       const result = await transaction.wait();
       this.transactionCompleted();
+      this.setTransactionInitialised(false);
       return result;
     } catch (err) {
+      this.setTransactionInitialised(false);
+
       switch (err.code) {
         case INVALID_ETHEREUM_PARAMETERS_ERROR_CODE:
           this.transactionFailed(
@@ -318,8 +334,10 @@ class EthereumService {
         response.body.transactionHash,
       );
       this.transactionCompleted();
+      this.setTransactionInitialised(false);
       return result;
     } catch (err) {
+      this.setTransactionInitialised(false);
       switch (err.code) {
         case INVALID_ETHEREUM_PARAMETERS_ERROR_CODE:
           this.transactionFailed(
