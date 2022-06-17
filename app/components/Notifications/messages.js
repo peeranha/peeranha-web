@@ -10,11 +10,23 @@ export default defineMessages({
   yourQuestionWasDownVoted: {
     id: 'app.containers.Notifications.yourQuestionWasDownVoted',
   },
+  yourQuestionUpVoteWasCanceled: {
+    id: 'app.containers.Notifications.yourQuestionUpVoteWasCanceled',
+  },
+  yourQuestionDownVoteWasCanceled: {
+    id: 'app.containers.Notifications.yourQuestionDownVoteWasCanceled',
+  },
   yourAnswerWasUpVoted: {
     id: 'app.containers.Notifications.yourAnswerWasUpVoted',
   },
   yourAnswerWasDownVoted: {
     id: 'app.containers.Notifications.yourAnswerWasDownVoted',
+  },
+  yourAnswerUpVoteWasCanceled: {
+    id: 'app.containers.Notifications.yourAnswerUpVoteWasCanceled',
+  },
+  yourAnswerDownVoteWasCanceled: {
+    id: 'app.containers.Notifications.yourAnswerDownVoteWasCanceled',
   },
   yourAnswerWasMarkedAsTheBest: {
     id: 'app.containers.Notifications.yourAnswerWasMarkedAsTheBest',

@@ -730,10 +730,18 @@
     "Вашему посту поставили лайк",
   "app.containers.Notifications.yourQuestionWasDownVoted":
     "Вашему посту поставили дизлайк",
+  "app.containers.Notifications.yourQuestionUpVoteWasCanceled":
+    "Вашему посту отменили лайк",
+  "app.containers.Notifications.yourQuestionDownVoteWasCanceled":
+    "Вашему посту отменили дизлайк",
   "app.containers.Notifications.yourAnswerWasUpVoted":
     "Вашему ответу поставили лайк",
   "app.containers.Notifications.yourAnswerWasDownVoted":
     "Вашему ответу поставили дизлайк ",
+  "app.containers.Notifications.yourAnswerUpVoteWasCanceled":
+    "Вашему ответу отменили лайк",
+  "app.containers.Notifications.yourAnswerDownVoteWasCanceled":
+    "Вашему ответу отменили дизлайк",
   "app.containers.Notifications.yourAnswerWasMarkedAsTheBest":
     "Ваш ответ был помечен как лучший",
   "app.containers.Notifications.somebodyAnsweredYourQuestion":
