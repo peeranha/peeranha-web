@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
-import * as routes from 'routes-config';
-
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
 import {
@@ -31,9 +29,9 @@ import questionRoundedIcon from 'images/question2.svg?inline';
 import answerIcon from 'images/answer.svg?inline';
 import bestAnswerIcon from 'images/bestAnswer.svg?inline';
 
-import Banner from './Banner';
-
 import QuestionType from 'containers/Questions/Content/Body/QuestionType';
+import { getPostRoute } from 'routes-config';
+import Banner from './Banner';
 
 const single = isSingleCommunityWebsite();
 
@@ -88,17 +86,14 @@ const Note = ({
   id,
   answerId,
   elementType,
-  ...postInfo
+  communityId,
 }) => {
-  let LinkStyled = A;
-  let route = routes.questionView(
-    id,
-    elementType === POST_TYPE_ANSWER ? answerId.split('-')[1] : null,
-  );
-  if (single && single !== postInfo.communityId) {
-    LinkStyled = ADefault;
-    route = `${process.env.APP_LOCATION}${route}`;
-  }
+  const LinkStyled = single && single !== communityId ? ADefault : A;
+
+  const answerRouteId =
+    elementType === POST_TYPE_ANSWER ? answerId.split('-')[1] : null;
+
+  const route = getPostRoute(postType, id, answerRouteId);
 
   return (
     <LinkStyled to={route} href={route}>
