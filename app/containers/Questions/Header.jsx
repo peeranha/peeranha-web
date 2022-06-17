@@ -142,9 +142,9 @@ export const Header = ({
   );
 
   const displaySubscribeButton =
-    single &&
-    isFeed &&
-    (window.location.pathname !== routes.questions() &&
+    !!single &&
+    (isFeed &&
+      window.location.pathname !== routes.questions() &&
       window.location.pathname !== routes.expertPosts() &&
       window.location.pathname !== routes.tutorials());
 
