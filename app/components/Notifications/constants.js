@@ -51,6 +51,8 @@ export const SET_NOTIFICATIONS_INFO =
 export const FILTER_READ_TIMESTAMPS =
   'app/Notifications/FILTER_UNREAD_TIMESTAMPS';
 
+export const SET_LAST_USER = 'app/Notifications/SET_LAST_USER';
+
 export const NOTIFICATIONS_TYPES = {
   questionUpvoted: 1,
   questionDownvoted: 2,

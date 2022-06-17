@@ -15,8 +15,6 @@ import Dropdown from 'components/Dropdown';
 import A from 'components/A';
 import Ul from 'components/Ul/SpecialOne';
 
-import SendTokens from 'containers/SendTokens';
-
 import {
   selectWeekStat,
   selectRewardsWeeksNumber,
@@ -51,7 +49,7 @@ const isPositiveNumber = number => Number.isFinite(number) && number > 0;
 const Menu = memo(({ user, number, locale, boost }) => (
   <Ul>
     <A to={routes.userWallet(user)}>
-      <FormattedMessage {...messages.wallet} />
+      <FormattedMessage id={messages.wallet.id} />
       {isPositiveNumber(number) && (
         <NotificationIcon
           inline
@@ -63,7 +61,7 @@ const Menu = memo(({ user, number, locale, boost }) => (
     </A>
 
     <A to={routes.userBoost(user)}>
-      <FormattedMessage {...messages.boost} />
+      <FormattedMessage id={messages.boost.id} />
       {boost > 1 && <BoostPrediction>{boost}</BoostPrediction>}
     </A>
 
@@ -117,7 +115,6 @@ const WalletDropdown = ({
 
 Menu.propTypes = {
   user: PropTypes.string,
-  balance: PropTypes.string,
   number: PropTypes.number,
 };
 

@@ -229,7 +229,9 @@ export const getAllAchievements = async userId => {
     },
   });
   return {
-    allAchievements: response?.data.achievements,
+    allAchievements: response?.data.achievements
+      .map(achievement => ({ ...achievement, id: Number(achievement.id) }))
+      .sort((x, y) => x.id - y.id),
     userAchievements: response?.data.user?.achievements || [],
   };
 };
