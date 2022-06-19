@@ -21,6 +21,7 @@
   "app.common.archive": "Archive",
   "app.common.markAllAsRead": "Mark all as Read",
   "app.common.edit": "Edit",
+  "app.common.editCommunity": "Edit community",
   "app.common.logout": "Log out",
   "app.common.search": "Search",
   "app.common.login": "Log in",

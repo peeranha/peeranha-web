@@ -1,7 +1,7 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
 import _isEqual from 'lodash/isEqual';
 
-import { communities as communitiesRoute } from 'routes-config';
+import { communities as communitiesRoute, feed } from 'routes-config';
 import createdHistory from 'createdHistory';
 
 import { HASH_CHARS_LIMIT } from 'components/FormFields/AvatarField';
@@ -20,6 +20,7 @@ import {
   getCommunityFromContract,
   getSingleCommunityDetails,
   setSingleCommunityDetailsInCookie,
+  isSingleCommunityWebsite,
 } from 'utils/communityManagement';
 import { uploadImg } from 'utils/profileManagement';
 import { delay } from 'utils/reduxUtils';
@@ -72,6 +73,7 @@ export function* editCommunityWorker({ communityId, communityData }) {
     }
 
     const communityDataCurrent = yield select(selectCommunity());
+    const isSingleCommunityMode = !!isSingleCommunityWebsite();
     const isEqual = Object.keys(communityData).every(key => {
       return !(key === 'isBlogger')
         ? communityData[key] === communityDataCurrent[key]
@@ -112,7 +114,10 @@ export function* editCommunityWorker({ communityId, communityData }) {
 
     yield put(editCommunitySuccess());
 
-    yield call(createdHistory.push, communitiesRoute());
+    yield call(
+      createdHistory.push,
+      `${isSingleCommunityMode ? feed() : communitiesRoute()}`,
+    );
   } catch (error) {
     yield put(editCommunityError(error));
   }

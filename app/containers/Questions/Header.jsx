@@ -5,7 +5,7 @@ import * as routes from 'routes-config';
 import styled from 'styled-components';
 // import Dropdown from '../../components/Dropdown'; ToDo: switch feed page
 
-import { injectIntl, intlShape } from 'react-intl';
+import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import messages from 'common-messages';
 
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
@@ -15,12 +15,14 @@ import FollowCommunityButton from 'containers/FollowCommunityButton/DefaultButto
 import { MediumImageStyled } from 'components/Img/MediumImage';
 import CommunitySelector from 'components/CommunitySelector';
 import { MediumIconStyled } from 'components/Icon/MediumIcon';
-import { IconLg } from 'components/Icon/IconWithSizes';
+import { IconLg, IconMd } from 'components/Icon/IconWithSizes';
 import H3 from 'components/H3';
 import Wrapper from 'components/Header/Simple';
+import Span from 'components/Span/index';
 
 import expertIcon from 'images/hat-3-outline-24.svg?external';
 import generalIcon from 'images/comments-outline-24.svg?external';
+import pencilIcon from 'images/pencil.svg?external';
 
 import myFeedIcon from 'images/myFeedHeader.svg?external';
 import tutorialIcon from 'images/tutorial.svg?external';
@@ -31,7 +33,11 @@ import {
 } from 'utils/communityManagement';
 
 import { POST_TYPE } from 'utils/constants';
-import { BORDER_PRIMARY, ICON_TRASPARENT_BLUE } from 'style-constants';
+import {
+  BORDER_PRIMARY,
+  ICON_TRASPARENT_BLUE,
+  TEXT_PRIMARY,
+} from 'style-constants';
 import QuestionFilter from './QuestionFilter';
 
 import { selectQuestions, selectTopQuestionsInfoLoaded } from './selectors';
@@ -182,6 +188,17 @@ export const Header = ({
         display={displayQuestionFilter}
         questionFilterFromCookies={questionFilterFromCookies}
       />
+      {!!single && (
+        <button
+          onClick={() => createdHistory.push(routes.communitiesEdit(single))}
+          className={`align-items-center d-inline-flex`}
+        >
+          <IconMd icon={pencilIcon} />
+          <Span className="ml-1" color={TEXT_PRIMARY}>
+            <FormattedMessage {...messages.editCommunity} />
+          </Span>
+        </button>
+      )}
     </Wrapper>
   );
 };

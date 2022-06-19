@@ -63,6 +63,9 @@ export default defineMessages({
   edit: {
     id: 'app.common.edit',
   },
+  editCommunity: {
+    id: 'app.common.editCommunity',
+  },
   logout: {
     id: 'app.common.logout',
   },
