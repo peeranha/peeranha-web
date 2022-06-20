@@ -69,7 +69,6 @@ class EthereumService {
     this.transactionFailed = data.transactionFailedDispatch;
     this.waitForConfirm = data.waitForConfirmDispatch;
     this.getRecaptchaToken = data.getRecaptchaToken;
-    this.executeRecaptcha = data.executeRecaptcha;
   }
 
   setData = data => {

@@ -27,7 +27,6 @@ import coinbaseModule from '@web3-onboard/coinbase';
 import walletConnectModule from '@web3-onboard/walletconnect';
 import torusModule from '@web3-onboard/torus';
 import logo from 'images/LogoBlackOnboard.svg?inline';
-import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import communitiesConfig from '../../communities-config';
 import { makeSelectEthereum, makeSelectInitializing } from './selectors';
 import {
