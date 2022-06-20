@@ -292,6 +292,7 @@ export async function editAnswer(
     questionId,
     answerId,
     ipfsHash,
+    official,
   ]);
 }
 
