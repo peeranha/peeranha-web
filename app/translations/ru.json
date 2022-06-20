@@ -196,6 +196,9 @@
 
   "app.common.ipfsHashValue": "IPFS",
   "app.common.source": "Источник",
+  "app.common.estimatedReward": "Расчетная награда",
+  "app.common.rewardsWillBeAvailable":
+    "К сожалению, вы не можете получить свои токены прямо сейчас. Не беспокойтесь, предполагаемое вознаграждение будет доступно для вас после запуска токена. Наша юридическая команда поддерживает нас в окончательной доработке деталей запуска токена. Благодарим вас!",
 
   "app.telegram.user": "Телеграм пользователь",
   "app.telegram.userLabelPopover":
@@ -731,10 +734,18 @@
     "Вашему посту поставили лайк",
   "app.containers.Notifications.yourQuestionWasDownVoted":
     "Вашему посту поставили дизлайк",
+  "app.containers.Notifications.yourQuestionUpVoteWasCanceled":
+    "Вашему посту отменили лайк",
+  "app.containers.Notifications.yourQuestionDownVoteWasCanceled":
+    "Вашему посту отменили дизлайк",
   "app.containers.Notifications.yourAnswerWasUpVoted":
     "Вашему ответу поставили лайк",
   "app.containers.Notifications.yourAnswerWasDownVoted":
     "Вашему ответу поставили дизлайк ",
+  "app.containers.Notifications.yourAnswerUpVoteWasCanceled":
+    "Вашему ответу отменили лайк",
+  "app.containers.Notifications.yourAnswerDownVoteWasCanceled":
+    "Вашему ответу отменили дизлайк",
   "app.containers.Notifications.yourAnswerWasMarkedAsTheBest":
     "Ваш ответ был помечен как лучший",
   "app.containers.Notifications.somebodyAnsweredYourQuestion":

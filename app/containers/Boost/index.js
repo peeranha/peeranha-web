@@ -5,6 +5,16 @@ import { translationMessages } from 'i18n';
 import { createStructuredSelector } from 'reselect';
 import { compose, bindActionCreators } from 'redux';
 
+import injectSaga from 'utils/injectSaga';
+import injectReducer from 'utils/injectReducer';
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import {
+  makeSelectAccount,
+  makeSelectAvailableBalance,
+  makeSelectBalance,
+} from 'containers/AccountProvider/selectors';
+import Seo from 'components/Seo';
+import NotFound from 'containers/ErrorPage';
 import { STATE_KEY } from './constants';
 
 import messages from './messages';
@@ -14,19 +24,7 @@ import saga from './saga';
 import { getWeekStat, changeStake } from './actions';
 import * as selectors from './selectors';
 
-import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
-
-import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import {
-  makeSelectAccount,
-  makeSelectAvailableBalance,
-  makeSelectBalance,
-} from 'containers/AccountProvider/selectors';
-
-import Seo from 'components/Seo';
 import View from './View';
-import NotFound from 'containers/ErrorPage';
 
 const Boost = ({
   match: {
@@ -108,7 +106,11 @@ Boost.propTypes = {
 export default memo(
   compose(
     injectReducer({ key: STATE_KEY, reducer }),
-    injectSaga({ key: STATE_KEY, saga }),
+    injectSaga({
+      key: STATE_KEY,
+      saga,
+      disableEject: true,
+    }),
     connect(
       createStructuredSelector({
         locale: makeSelectLocale(),

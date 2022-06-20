@@ -65,12 +65,12 @@ export function injectSagaFactory(store, isValid) {
 }
 
 export function ejectSagaFactory(store, isValid) {
-  return function ejectSaga(key) {
+  return function ejectSaga(key, disableEject) {
     if (!isValid) checkStore(store);
 
     checkKey(key);
 
-    if (Reflect.has(store.injectedSagas, key)) {
+    if (Reflect.has(store.injectedSagas, key) && !disableEject) {
       const descriptor = store.injectedSagas[key];
       if (descriptor.mode && descriptor.mode !== DAEMON) {
         descriptor.task.cancel();

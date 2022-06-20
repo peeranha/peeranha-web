@@ -27,6 +27,16 @@ import coinbaseModule from '@web3-onboard/coinbase';
 import walletConnectModule from '@web3-onboard/walletconnect';
 import torusModule from '@web3-onboard/torus';
 import logo from 'images/LogoBlackOnboard.svg?inline';
+import { makeSelectEthereum, makeSelectInitializing } from './selectors';
+import { addToast } from '../Toast/actions';
+import {
+  initEthereum,
+  showModal,
+  transactionCompleted,
+  transactionFailed,
+  transactionInPending,
+  transactionInitialised,
+} from './actions';
 import communitiesConfig from '../../communities-config';
 import { makeSelectEthereum, makeSelectInitializing } from './selectors';
 import {
@@ -98,6 +108,7 @@ export const EthereumProvider = ({
   transactionFailedDispatch,
   initializing,
   ethereum,
+  addToast,
 }) => {
   const [{ wallet }, connect, disconnect] = useConnectWallet();
   const [{ connectedChain }, setChain] = useSetChain();
@@ -167,6 +178,7 @@ export const EthereumProvider = ({
     transactionCompletedDispatch,
     transactionFailedDispatch,
     waitForConfirmDispatch,
+    addToast,
   };
 
   useEffect(() => {
@@ -192,10 +204,10 @@ export const EthereumProvider = ({
 };
 
 EthereumProvider.propTypes = {
-  initEthereum: PropTypes.func,
   children: PropTypes.element,
   initializing: PropTypes.bool,
   ethereum: PropTypes.object,
+  addToast: PropTypes.func,
 };
 
 const withConnect = connect(
@@ -219,6 +231,7 @@ const withConnect = connect(
       transactionInitialised,
       dispatch,
     ),
+    addToast: bindActionCreators(addToast, dispatch),
   }),
 );
 
