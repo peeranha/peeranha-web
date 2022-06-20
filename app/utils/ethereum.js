@@ -4,20 +4,18 @@ import PeeranhaToken from '../../../peeranha-subgraph/abis/PeeranhaToken.json';
 import PeeranhaContent from '../../../peeranha-subgraph/abis/PeeranhaContent.json';
 import PeeranhaCommunity from '../../../peeranha-subgraph/abis/PeeranhaCommunity.json';
 
-import { WebIntegrationErrorByCode } from './errors';
+import { WebIntegrationError, WebIntegrationErrorByCode } from './errors';
 import {
   CONTRACT_TOKEN,
   CONTRACT_USER,
   CONTRACT_CONTENT,
   CONTRACT_COMMUNITY,
-} from './ethConstants';
-
-import {
   CLAIM_REWARD,
   GET_COMMUNITY,
   GET_USER_BY_ADDRESS,
   SET_STAKE,
 } from './ethConstants';
+
 import { getFileUrl, getIpfsHashFromBytes32, getText } from './ipfs';
 import { deleteCookie, getCookie } from './cookie';
 import {
@@ -25,6 +23,7 @@ import {
   INVALID_ETHEREUM_PARAMETERS_ERROR_CODE,
   META_TRANSACTIONS_ALLOWED,
   METAMASK_ERROR_CODE,
+  RECAPTCHA_VERIFY_FAILED_CODE,
   REJECTED_SIGNATURE_REQUEST,
 } from './constants';
 
@@ -69,6 +68,8 @@ class EthereumService {
     this.transactionCompleted = data.transactionCompletedDispatch;
     this.transactionFailed = data.transactionFailedDispatch;
     this.waitForConfirm = data.waitForConfirmDispatch;
+    this.getRecaptchaToken = data.getRecaptchaToken;
+    this.executeRecaptcha = data.executeRecaptcha;
   }
 
   setData = data => {
@@ -210,7 +211,14 @@ class EthereumService {
 
     const metaTransactionsAllowed = getCookie(META_TRANSACTIONS_ALLOWED);
     if (metaTransactionsAllowed) {
-      return await this.sendMetaTransaction(contract, actor, action, data);
+      const token = await this.getRecaptchaToken();
+      return await this.sendMetaTransaction(
+        contract,
+        actor,
+        action,
+        data,
+        token,
+      );
     }
     try {
       await this.chainCheck();
@@ -252,7 +260,7 @@ class EthereumService {
     };
   };
 
-  sendMetaTransaction = async (contract, actor, action, data) => {
+  sendMetaTransaction = async (contract, actor, action, data, token) => {
     try {
       await this.chainCheck();
       const metaTxContract = this[contract];
@@ -311,7 +319,12 @@ class EthereumService {
         sigS: s,
         sigV: v,
         wait: false,
+        reCaptchaToken: token,
       });
+
+      if (response.errorCode) {
+        throw response;
+      }
 
       this.transactionInPending(response.body.transactionHash);
       const result = await this.provider.waitForTransaction(
@@ -320,14 +333,18 @@ class EthereumService {
       this.transactionCompleted();
       return result;
     } catch (err) {
-      switch (err.code) {
+      const errorCode = err.code || err.errorCode;
+      switch (errorCode) {
         case INVALID_ETHEREUM_PARAMETERS_ERROR_CODE:
           this.transactionFailed(
             new WebIntegrationErrorByCode(METAMASK_ERROR_CODE),
           );
           break;
         case REJECTED_SIGNATURE_REQUEST:
-          this.transactionFailed(new WebIntegrationErrorByCode(err.code));
+          this.transactionFailed(new WebIntegrationErrorByCode(errorCode));
+          break;
+        case RECAPTCHA_VERIFY_FAILED_CODE:
+          this.transactionFailed(new WebIntegrationErrorByCode(errorCode));
           break;
         default:
           this.transactionFailed();

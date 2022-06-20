@@ -117,6 +117,8 @@
   "app.common.showLess": "Показать меньше {value}",
   "app.common.poweredBy": "Powered by {image}",
   "app.common.poweredByPeeranha": "Powered by {image}",
+  "app.common.reCaptchaMention":
+    "Этот сайт защищен reCAPTCHA, и к нему применяется {privacyPolicy} и {termsOfService} Google.",
   "app.common.terms": "Operating Agreement",
   "app.common.noResults": "Нет результатов",
   "app.common.iAcceptPrivacyPolicy":
@@ -306,6 +308,8 @@
     "Не задан тип приватного ключа",
   "web_integration.errors.noFacebookAccountEmail":
     "В учетной записи фесбук не установлена электронная почта, либо электронная почта не подтвержена",
+  "web_integration.errors.reCaptchaVerifyFailed":
+    "Вы не прошли скрытую проверку на то, что вы не робот",
 
   "app.containers.Header.walletTooltipPart1": "Вам доступны ",
   "app.containers.Header.walletTooltipPart2": " поощрений",

@@ -10,7 +10,7 @@ import telosIcon from 'images/telosIconLight.svg?inline';
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
 import infoIcon from 'images/information.svg?external';
 
-import { TEXT_SECONDARY } from 'style-constants';
+import { TEXT_PRIMARY, TEXT_SECONDARY } from 'style-constants';
 import messages from 'common-messages';
 
 import Icon from 'components/Icon';
@@ -84,6 +84,17 @@ const LiAdditionalStyles = css`
 
 const StyledIcon = styled(Icon)`
   margin-right: 10px !important;
+`;
+
+const ASimple = styled.a`
+  font-weight: 600;
+  color: ${TEXT_PRIMARY};
+  transition: opacity 0.3s ease-out;
+  padding: 0 !important;
+
+  :hover {
+    opacity: 0.8;
+  }
 `;
 
 const Link = ({ path, message, cssStyles }) =>
@@ -180,15 +191,15 @@ export default React.memo(({ currClientHeight }) => {
         {!styles.withoutCopyright && (
           <div>
             <FormattedMessage
-              {...messages.copyrightPeeranha}
+              id={messages.copyrightPeeranha.id}
               values={{ year: new Date().getFullYear() }}
             />
           </div>
         )}
-        <div className="mt-2">
-          {styles.poweredByPeeranha ? (
+        {styles.poweredByPeeranha && (
+          <div className="mt-2">
             <FormattedMessage
-              {...messages.poweredBy}
+              id={messages.poweredBy}
               values={{
                 image: <Img key="peeranha" src={peeranhaLogo} alt="peeranha" />,
               }}
@@ -203,7 +214,30 @@ export default React.memo(({ currClientHeight }) => {
                 </a>
               )}
             </FormattedMessage>
-          ) : null}
+          </div>
+        )}
+        <div className="mt-2">
+          <FormattedMessage
+            id={messages.reCaptchaMention.id}
+            values={{
+              privacyPolicy: (
+                <ASimple
+                  href="https://policies.google.com/privacy"
+                  target="_blank"
+                >
+                  <FormattedMessage id={messages.privacyPolicy.id} />
+                </ASimple>
+              ),
+              termsOfService: (
+                <ASimple
+                  href="https://policies.google.com/terms"
+                  target="_blank"
+                >
+                  <FormattedMessage id={messages.termsOfService.id} />
+                </ASimple>
+              ),
+            }}
+          />
         </div>
       </FooterStyled>
     </AdditionalLinks>

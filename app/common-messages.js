@@ -348,6 +348,9 @@ export default defineMessages({
   poweredByPeeranha: {
     id: 'app.common.poweredByPeeranha',
   },
+  reCaptchaMention: {
+    id: 'app.common.reCaptchaMention',
+  },
   noResults: {
     id: 'app.common.noResults',
   },

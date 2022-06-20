@@ -19,4 +19,7 @@ export default defineMessages({
   4001: {
     id: 'app.containers.SignUp.userRejectedSignatureRequest',
   },
+  600613: {
+    id: 'web_integration.errors.reCaptchaVerifyFailed',
+  },
 });
