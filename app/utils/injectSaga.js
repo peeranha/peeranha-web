@@ -35,7 +35,7 @@ export default ({
     componentWillMount() {
       const { injectSaga } = this.injectors;
 
-      injectSaga(key, { saga, mode }, this.props);
+      injectSaga(key, { saga, mode, disableEject }, this.props);
     }
 
     componentWillUnmount() {
