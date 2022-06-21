@@ -1179,6 +1179,7 @@ export function* updateQuestionDataAfterTransactionWorker({
       yield put(removeUserProfile(usersForUpdate[0]));
       userInfoOpponent = yield call(getUserProfileWorker, {
         user: usersForUpdate[0],
+        communityIdForRating: questionData.communityId,
       });
     }
 
