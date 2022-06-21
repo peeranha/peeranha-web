@@ -54,7 +54,7 @@ const initWeb3Onboard = init({
   wallets: [torus, injected, walletConnect, coinbase],
   chains: [
     {
-      id: '0x13881',
+      id: `0x${Number(process.env.CHAIN_ID).toString(16)}`,
       token: 'MATIC',
       label: 'Polygon',
       rpcUrl: process.env.ETHEREUM_NETWORK,
