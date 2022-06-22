@@ -197,7 +197,13 @@ class EthereumService {
     });
   }
 
-  sendTransaction = async (contract, actor, action, data) => {
+  sendTransaction = async (
+    contract,
+    actor,
+    action,
+    data,
+    confirmations = 1,
+  ) => {
     if (this.isTransactionInitialised) {
       this.addToast({
         type: 'info',
@@ -223,7 +229,13 @@ class EthereumService {
 
     const metaTransactionsAllowed = getCookie(META_TRANSACTIONS_ALLOWED);
     if (metaTransactionsAllowed) {
-      return await this.sendMetaTransaction(contract, actor, action, data);
+      return await this.sendMetaTransaction(
+        contract,
+        actor,
+        action,
+        data,
+        confirmations,
+      );
     }
     try {
       await this.chainCheck();
@@ -231,7 +243,7 @@ class EthereumService {
         .connect(this.provider.getSigner(actor))
         [action](...data);
       this.transactionInPending(transaction.hash);
-      const result = await transaction.wait();
+      const result = await transaction.wait(confirmations);
       this.transactionCompleted();
       this.setTransactionInitialised(false);
       return result;
@@ -268,7 +280,13 @@ class EthereumService {
     };
   };
 
-  sendMetaTransaction = async (contract, actor, action, data) => {
+  sendMetaTransaction = async (
+    contract,
+    actor,
+    action,
+    data,
+    confirmations = 1,
+  ) => {
     try {
       await this.chainCheck();
       const metaTxContract = this[contract];
@@ -332,6 +350,7 @@ class EthereumService {
       this.transactionInPending(response.body.transactionHash);
       const result = await this.provider.waitForTransaction(
         response.body.transactionHash,
+        confirmations,
       );
       this.transactionCompleted();
       this.setTransactionInitialised(false);
