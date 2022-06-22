@@ -43,8 +43,8 @@ export class Header extends React.PureComponent {
   }
 
   componentDidUpdate() {
-    $(`#${HEADER_ID}`).removeClass('sticky');
-    $(`#${LEFT_MENU_ID}`).removeClass('sticky');
+    document.querySelector(`#${HEADER_ID}`).classList.remove('sticky');
+    document.querySelector(`#${LEFT_MENU_ID}`).classList.remove('sticky');
   }
 
   animate = /* istanbul ignore next */ () => {
@@ -60,11 +60,13 @@ export class Header extends React.PureComponent {
 
         if (scrollY > innerHeight) {
           if (st > lastScrollTop) {
-            $(`#${HEADER_ID}`).addClass('sticky');
-            $(`#${LEFT_MENU_ID}`).addClass('sticky');
+            document.querySelector(`#${HEADER_ID}`).classList.add('sticky');
+            document.querySelector(`#${LEFT_MENU_ID}`).classList.add('sticky');
           } else {
-            $(`#${HEADER_ID}`).removeClass('sticky');
-            $(`#${LEFT_MENU_ID}`).removeClass('sticky');
+            document.querySelector(`#${HEADER_ID}`).classList.remove('sticky');
+            document
+              .querySelector(`#${LEFT_MENU_ID}`)
+              .classList.remove('sticky');
           }
         }
 

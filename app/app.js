@@ -48,8 +48,6 @@ import { translationMessages } from './i18n';
 import './global-styles';
 import EthereumProvider from './containers/EthereumProvider';
 
-window.$ = $;
-
 // Create redux store with history
 const initialState = {};
 const store = configureStore(initialState, createdHistory);
