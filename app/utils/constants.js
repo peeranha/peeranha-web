@@ -120,12 +120,8 @@ export const communityModeratorPermissions = {
     code: 5,
     title: 'permissionChangePostType',
   },
-  // COMMUNITY_MODERATOR_TOP_QUESTIONS: {
-  //   code: 6,
-  //   title: 'permissionSelectTopQuestion',
-  // },
   COMMUNITY_MODERATOR_OFFICIAL_ANSWER: {
-    code: 5,
+    code: 6,
     title: 'permissionOfficialAnswer',
   },
 };
