@@ -18,14 +18,6 @@ cmp.props = {
   faqQuestions: [],
 };
 
-const off = jest.fn();
-const on = jest.fn();
-
-window.$ = jest.fn(() => ({
-  off,
-  on,
-}));
-
 describe('HomePage', () => {
   describe('checkEmail', () => {
     const val = new Map();
@@ -58,14 +50,6 @@ describe('HomePage', () => {
       expect(cmp.headerAnimation).toHaveBeenCalledTimes(1);
       expect(cmp.parallaxAnimation).toHaveBeenCalledTimes(1);
       expect(scrollToSection).toHaveBeenCalledTimes(1);
-    });
-  });
-
-  describe('componentWillUnmount', () => {
-    it('test', () => {
-      cmp.componentWillUnmount();
-      expect(window.$).toHaveBeenCalledWith(window);
-      expect(off).toHaveBeenCalled();
     });
   });
 
