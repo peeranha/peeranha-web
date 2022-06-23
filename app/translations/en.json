@@ -115,7 +115,7 @@
   "app.common.answer": "Answer",
   "app.common.showMore": "Show more {value}",
   "app.common.showLess": "Show less {value}",
-  "app.common.poweredBy": "Powered by {image}",
+  "app.common.poweredBy": "©{year} Powered by {image}",
   "app.common.poweredByPeeranha": "Powered by {image}",
   "app.common.terms": "Operating Agreement",
   "app.common.noResults": "No results",
