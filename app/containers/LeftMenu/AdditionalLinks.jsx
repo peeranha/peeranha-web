@@ -4,9 +4,11 @@ import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import isMobile from 'ismobilejs';
 
-import { singleCommunityStyles } from 'utils/communityManagement';
+import {
+  isSingleCommunityWebsite,
+  singleCommunityStyles,
+} from 'utils/communityManagement';
 
-import telosIcon from 'images/telosIconLight.svg?inline';
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
 import infoIcon from 'images/information.svg?external';
 
@@ -23,6 +25,8 @@ import { Li } from 'containers/ChangeLocale/Styled';
 import { FULL_SIZE, INFO_LINKS, SEMI_SIZE } from './constants';
 
 const styles = singleCommunityStyles();
+
+const single = isSingleCommunityWebsite();
 
 const AdditionalLinks = styled.div`
   display: flex;
@@ -177,7 +181,7 @@ export default React.memo(({ currClientHeight }) => {
         )}
 
       <FooterStyled currClientHeight={currClientHeight}>
-        {!styles.withoutCopyright && (
+        {!single && (
           <div>
             <FormattedMessage
               {...messages.copyrightPeeranha}
@@ -186,7 +190,7 @@ export default React.memo(({ currClientHeight }) => {
           </div>
         )}
         <div className="mt-2">
-          {styles.poweredByPeeranha ? (
+          {!!single ? (
             <FormattedMessage
               {...messages.poweredBy}
               values={{
