@@ -8,11 +8,7 @@ import { translationMessages } from 'i18n';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { scrollToSection } from 'utils/animation';
-import {
-  communityAdminInfiniteImpactPermission,
-  getPermissions,
-  hasGlobalModeratorRole,
-} from 'utils/properties';
+import { getPermissions, hasGlobalModeratorRole } from 'utils/properties';
 
 import * as routes from 'routes-config';
 
@@ -53,7 +49,6 @@ import saga from './saga';
 
 import ViewQuestionContainer from './ViewQuestionContainer';
 import { POST_TYPE } from '../../utils/constants';
-import { selectHistoriesLoading } from './selectors';
 
 export const ViewQuestion = ({
   locale,
@@ -61,7 +56,6 @@ export const ViewQuestion = ({
   historiesLoading,
   account,
   questionData,
-  questionBounty,
   postAnswerLoading,
   postCommentLoading,
   questionDataLoading,
@@ -113,7 +107,6 @@ export const ViewQuestion = ({
     resetStoreDispatch();
 
     return () => {
-      window.$(window).off();
       resetStoreDispatch();
     };
   }, []);
