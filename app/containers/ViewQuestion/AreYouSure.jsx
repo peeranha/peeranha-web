@@ -23,30 +23,32 @@ const AreYouSure = ({ Button, submitAction }) => {
         }}
       />
 
-      <ModalDialog closeModal={() => open(false)} show={isOpened}>
-        <H4 className="text-center pb-3">
-          <FormattedMessage {...commonMessages.delete} />
-        </H4>
+      {isOpened && (
+        <ModalDialog closeModal={() => open(false)} show={isOpened}>
+          <H4 className="text-center pb-3">
+            <FormattedMessage {...commonMessages.delete} />
+          </H4>
 
-        <div className="pb-4">
-          <FormattedMessage {...questionsMessages.areYouSure} />
-        </div>
+          <div className="pb-4">
+            <FormattedMessage {...questionsMessages.areYouSure} />
+          </div>
 
-        <div className="d-flex align-items-center pb-3">
-          <OutlinedButton className="mr-3" onClick={() => open(false)}>
-            <FormattedMessage {...commonMessages.no} />
-          </OutlinedButton>
+          <div className="d-flex align-items-center pb-3">
+            <OutlinedButton className="mr-3" onClick={() => open(false)}>
+              <FormattedMessage {...commonMessages.no} />
+            </OutlinedButton>
 
-          <ContainedButton
-            onClick={() => {
-              open(false);
-              submitAction({ currentTarget });
-            }}
-          >
-            <FormattedMessage {...commonMessages.yes} />
-          </ContainedButton>
-        </div>
-      </ModalDialog>
+            <ContainedButton
+              onClick={() => {
+                open(false);
+                submitAction({ currentTarget });
+              }}
+            >
+              <FormattedMessage {...commonMessages.yes} />
+            </ContainedButton>
+          </div>
+        </ModalDialog>
+      )}
     </React.Fragment>
   );
 };
