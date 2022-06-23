@@ -67,7 +67,8 @@ const FooterStyled = styled.footer`
 
 const Img = styled.img`
   width: ${({ alt }) => (alt === 'telos' ? 40 : 60)}px;
-  height: 12px;
+  height: 15px;
+  margin-left: 1px;
   filter: gray;
   filter: grayscale(100%);
 `;
@@ -194,6 +195,7 @@ export default React.memo(({ currClientHeight }) => {
             <FormattedMessage
               {...messages.poweredBy}
               values={{
+                year: new Date().getFullYear(),
                 image: <Img key="peeranha" src={peeranhaLogo} alt="peeranha" />,
               }}
             >
