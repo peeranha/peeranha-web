@@ -218,7 +218,6 @@
     "ip": "1.1.5",
     "ipfs-http-client": "^52.0.2",
     "ismobilejs": "^1.1.1",
-    "jquery": "3.4.0",
     "jsbi": "^3.1.3",
     "keycatjs": "^0.10.0-0",
     "lodash": "4.17.13",
