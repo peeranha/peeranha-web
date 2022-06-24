@@ -5,7 +5,6 @@
  */
 
 import React from 'react';
-import $ from 'jquery';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose, bindActionCreators } from 'redux';
@@ -43,8 +42,13 @@ export class Header extends React.PureComponent {
   }
 
   componentDidUpdate() {
-    document.querySelector(`#${HEADER_ID}`).classList.remove('sticky');
-    document.querySelector(`#${LEFT_MENU_ID}`).classList.remove('sticky');
+    const header = document.querySelector(`#${HEADER_ID}`);
+    const leftMenu = document.querySelector(`#${LEFT_MENU_ID}`);
+
+    if (header && leftMenu) {
+      header.classList.remove('sticky');
+      leftMenu.classList.remove('sticky');
+    }
   }
 
   animate = /* istanbul ignore next */ () => {
@@ -114,7 +118,6 @@ export class Header extends React.PureComponent {
 }
 
 Header.propTypes = {
-  showLoginModalDispatch: PropTypes.func,
   account: PropTypes.string,
   profileInfo: PropTypes.object,
   showLeftMenuDispatch: PropTypes.func,
