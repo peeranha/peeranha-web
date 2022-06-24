@@ -57,42 +57,39 @@ import { sendMessage } from './actions';
 import messages from './messages';
 
 const imagesAnimation = () => {
-  window.$(window).on('DOMMouseScroll mousewheel', event => {
+  window.addEventListener('DOMMouseScroll mousewheel', event => {
     const { scrollY } = event.currentTarget;
-    const secondScreenPos = window.$(`#${SECOND_SCREEN}`).position().top;
-    const thirdScreenPos = window.$(`#${THIRD_SCREEN}`).position().top;
+    const secondScreenPos = document
+      .querySelector(`#${SECOND_SCREEN}`)
+      .position().top;
+    const thirdScreenPos = document.querySelector(`#${THIRD_SCREEN}`).position()
+      .top;
 
-    const animatedImagesArray = window.$(`.${ANIMATE_IMAGE}`);
+    const animatedImagesArray = document.querySelectorAll(`.${ANIMATE_IMAGE}`);
 
     if (scrollY > secondScreenPos && scrollY < thirdScreenPos) {
-      animatedImagesArray.each(function() {
+      animatedImagesArray.each(animatedImage => {
         const direction = event.originalEvent.wheelDelta < 0 ? -1 : 1;
         const translatorMax = 30;
         const step = translatorMax * 0.15;
 
-        const matrix = window
-          .$(this)
+        const matrix = animatedImage
           .css('transform')
           .replace(/[^0-9\-.,]/g, '')
           .split(',');
 
         const translateY = +(matrix[13] || matrix[5]) || 0;
-        const imageY = window.$(this).offset().top;
+        const imageY = animatedImage.offset().top;
 
-        // Check if image is in area of scrolling
         if (
           scrollY + window.innerHeight / 2 > imageY &&
           scrollY - window.innerHeight / 2 < imageY
         ) {
           if (Math.abs(direction * step + translateY) < translatorMax) {
-            // Image translating
-            window.$(this).css({
-              transform: `translate(0px, ${direction * step + translateY}px)`,
-            });
+            animatedImage.style.transform = `translate(0px, ${direction * step +
+              translateY}px)`;
 
-            // Text translating
-            window
-              .$(this)
+            animatedImage
               .parent()
               .parent()
               .find(`.${ANIMATE_TEXT}`)
@@ -108,38 +105,38 @@ const imagesAnimation = () => {
 };
 
 const headerAnimation = () => {
-  window.$(window).on('scroll', event => {
+  window.addEventListener('scroll', event => {
     const { scrollY } = event.currentTarget;
     const { innerHeight } = window;
 
-    const show = window.$(`#${HEADER_ID}`).hasClass('scroll');
+    const show = document
+      .querySelector(`#${HEADER_ID}`)
+      .classList.contains('scroll');
 
     if (scrollY > innerHeight * 0.9 && !show) {
-      window.$(`#${HEADER_ID}`).addClass('scroll');
+      document.querySelector(`#${HEADER_ID}`).classList.add('scroll');
     } else if (scrollY < innerHeight * 0.9 && show) {
-      window.$(`#${HEADER_ID}`).removeClass('scroll');
+      document.querySelector(`#${HEADER_ID}`).classList.remove('scroll');
     }
   });
 };
 
 const parallaxAnimation = () => {
-  const patterns = window.$(`#${LANDING_ID}`).find('.pattern');
-
   let x = 0;
   let y = 0;
 
-  window.$(window).on('mousemove', event => {
+  window.addEventListener('mousemove', event => {
     x = event.pageX;
     y = event.pageY;
   });
 
   window.requestAnimationFrame(function animation() {
-    patterns.each(function() {
-      const modifier = 50;
+    const modifier = 50;
+    const patterns = document.querySelectorAll('.pattern');
 
-      window.$(this).css({
-        transform: `translate(${x / modifier}px, ${y / modifier}px)`,
-      });
+    patterns.forEach(pattern => {
+      pattern.style.transform = `translate(${x / modifier}px, ${y /
+        modifier}px)`;
     });
 
     window.requestAnimationFrame(animation);
