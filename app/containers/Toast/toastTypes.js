@@ -1,5 +1,6 @@
 import successIcon from 'images/Ok.svg?inline';
 import errorIcon from 'images/Error.svg?inline';
+import infoIcon from 'images/icon-information.svg?inline';
 
 const toastTypes = {
   success: {
@@ -8,6 +9,7 @@ const toastTypes = {
   },
   info: {
     color: '#3a87ad',
+    icon: infoIcon,
   },
   warning: {
     color: '#c09853',

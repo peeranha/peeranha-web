@@ -108,7 +108,11 @@ const withConnect = connect(
 );
 
 const withReducer = injectReducer({ key: 'editProfileReducer', reducer });
-const withSaga = injectSaga({ key: 'editProfileReducer', saga });
+const withSaga = injectSaga({
+  key: 'editProfileReducer',
+  saga,
+  disableEject: true,
+});
 
 export default compose(
   withReducer,
