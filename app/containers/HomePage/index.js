@@ -17,7 +17,6 @@ import Seo from 'components/Seo';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { loginWithWallet } from 'containers/Login/actions';
-import { checkEmail } from 'containers/SignUp/actions';
 import { selectEmailChecking } from 'containers/SignUp/selectors';
 
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
@@ -152,12 +151,9 @@ export const HomePage = ({
   sendMessageDispatch,
   sendMessageLoading,
   loginWithWalletDispatch,
-  emailChecking,
   faqQuestions,
   account,
-  checkEmailDispatch,
 }) => {
-  const verifyEmail = val => checkEmailDispatch(val.get(EMAIL_FIELD));
   const translations = translationMessages[locale];
 
   useEffect(() => {
@@ -179,17 +175,11 @@ export const HomePage = ({
         translations={translations}
         location={location}
         showLoginModal={() => loginWithWalletDispatch({ metaMask: true })}
-        checkEmail={verifyEmail}
-        emailChecking={emailChecking}
       />
 
       <About translations={translations} />
 
-      <Rewards
-        translations={translations}
-        checkEmail={verifyEmail}
-        emailChecking={emailChecking}
-      />
+      <Rewards translations={translations} />
 
       <FaqMain faqQuestions={faqQuestions} />
 
@@ -207,9 +197,7 @@ export const HomePage = ({
 HomePage.propTypes = {
   locale: PropTypes.string,
   account: PropTypes.string,
-  emailChecking: PropTypes.bool,
   sendMessageLoading: PropTypes.bool,
-  checkEmailDispatch: PropTypes.func,
   sendMessageDispatch: PropTypes.func,
   location: PropTypes.object,
   faqQuestions: PropTypes.array,
@@ -232,7 +220,6 @@ const withConnect = connect(
   dispatch => ({
     sendMessageDispatch: bindActionCreators(sendMessage, dispatch),
     loginWithWalletDispatch: bindActionCreators(loginWithWallet, dispatch),
-    checkEmailDispatch: bindActionCreators(checkEmail, dispatch),
   }),
 );
 
