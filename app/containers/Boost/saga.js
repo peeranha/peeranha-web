@@ -13,12 +13,7 @@ import {
   makeSelectProfileInfo,
 } from 'containers/AccountProvider/selectors';
 
-import {
-  GET_WEEK_STAT,
-  CHANGE_STAKE,
-  TOKENS_AFTER_ZERO,
-  CURRENT_STAKE_FORM,
-} from './constants';
+import { GET_WEEK_STAT, CHANGE_STAKE } from './constants';
 
 import {
   getWeekStatSuccess,
@@ -29,6 +24,7 @@ import {
 } from './actions';
 import { selectEthereum } from '../EthereumProvider/selectors';
 import { selectUserBoostStat } from './selectors';
+import { parseEther } from 'ethers/lib/utils';
 
 export function* getWeekStatWorker() {
   try {
@@ -64,7 +60,7 @@ export function* changeStakeWorker({ currentStake }) {
       addBoost,
       ethereumService,
       profile.user,
-      (currentStake * WEI_IN_ETH).toString(),
+      parseEther(currentStake),
     );
 
     yield put(changeStakedInNextPeriod(Number(currentStake)));

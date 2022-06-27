@@ -18,6 +18,7 @@ import {
   MARK_AS_READ_NOTIFICATIONS_UNREAD,
   MARK_AS_READ_SUCCESS,
   FILTER_READ_TIMESTAMPS,
+  SET_LAST_USER,
 } from './constants';
 
 const initialStateObject = {
@@ -39,6 +40,7 @@ const initialStateObject = {
   isInfoLoaded: false,
   loadMoreNotificationsError: null,
   loadMoreUnreadNotificationsErr: null,
+  lastUser: null,
 };
 
 export const initialState = fromJS(initialStateObject);
@@ -53,6 +55,7 @@ function notificationsReducer(state = initialState, action) {
     readNotifications,
     loadMoreNotificationsError,
     loadMoreUnreadNotificationsErr,
+    lastUser,
   } = action;
   const allSubState = state.get('all')?.toJS
     ? state.get('all').toJS()
@@ -102,7 +105,7 @@ function notificationsReducer(state = initialState, action) {
           .set('unread', {
             ...unreadSubState,
             timestamps: notifications
-              .filter(n => !n.read)
+              .filter(notification => !notification.read)
               .map(({ timestamp }) => timestamp),
             lastTimestamp:
               notifications[notifications.length - 1].timestamp - 1,
@@ -149,7 +152,7 @@ function notificationsReducer(state = initialState, action) {
           .set('all', {
             ...allSubState,
             readNotifications: allSubState.readNotifications.map(
-              n => n + newNots.length,
+              notification => notification + newNots.length,
             ),
             loading: false,
           });
@@ -215,12 +218,15 @@ function notificationsReducer(state = initialState, action) {
         })
         .set('isInfoLoaded', true);
 
+    case SET_LAST_USER:
+      return state.set('lastUser', lastUser);
+
     case CLEAR_NOTIFICATIONS_DATA:
       return state
         .set('all', initialStateObject.all)
         .set('unread', initialStateObject.unread)
         .set('isInfoLoaded', initialStateObject.isInfoLoaded)
-        .set('notifications', initialStateObject.notifications)
+        .set('notifications', {})
         .set(
           'loadMoreNotificationsError',
           initialStateObject.loadMoreNotificationsError,
@@ -228,7 +234,8 @@ function notificationsReducer(state = initialState, action) {
         .set(
           'loadMoreUnreadNotificationsErr',
           initialStateObject.loadMoreUnreadNotificationsErr,
-        );
+        )
+        .set('lastUser', initialStateObject.lastUser);
 
     default:
       return state;

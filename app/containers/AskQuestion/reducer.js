@@ -29,7 +29,7 @@ function askQuestionReducer(state = initialState, action) {
 
   switch (type) {
     case ASK_QUESTION:
-      return state.set('askQuestionLoading', true);
+      return state.set('askQuestionLoading', true).set('questionError', '');
     case ASK_QUESTION_SUCCESS:
       return state
         .set('askQuestionLoading', false)
@@ -55,9 +55,7 @@ export function existingQuestionReducer(state = initialState, action) {
         .set('getExistingQuestionsLoading', false)
         .set(
           'existingQuestions',
-          existingQuestions
-            ? existingQuestions
-            : initialState.get('existingQuestions'),
+          existingQuestions || initialState.get('existingQuestions'),
         );
     case GET_EXISTING_QUESTIONS_ERROR:
       return state

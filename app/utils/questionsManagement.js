@@ -220,6 +220,7 @@ export async function postQuestion(
     user,
     POST_QUESTION,
     [communityId, ipfsHash, postType, tags],
+    2, // wait for additional confirmation to avoid 404 error when redirect to newly created post
   );
 }
 
@@ -263,22 +264,20 @@ export async function deleteQuestion(user, questionId, ethereumService) {
   ]);
 }
 
-export const postAnswer = async (
+export async function postAnswer(
   user,
   questionId,
-  answerData,
+  ipfsHash,
   official,
   ethereumService,
-) => {
-  const ipfsLink = await saveText(JSON.stringify(answerData));
-  const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
-  await ethereumService.sendTransaction(CONTRACT_CONTENT, user, POST_ANSWER, [
-    questionId,
-    0,
-    ipfsHash,
-    official,
-  ]);
-};
+) {
+  return await ethereumService.sendTransaction(
+    CONTRACT_CONTENT,
+    user,
+    POST_ANSWER,
+    [questionId, 0, ipfsHash, official],
+  );
+}
 
 export async function editAnswer(
   user,
@@ -303,26 +302,27 @@ export async function deleteAnswer(
   answerId,
   ethereumService,
 ) {
-  await ethereumService.sendTransaction(CONTRACT_CONTENT, user, DELETE_ANSWER, [
-    questionId,
-    answerId,
-  ]);
+  return await ethereumService.sendTransaction(
+    CONTRACT_CONTENT,
+    user,
+    DELETE_ANSWER,
+    [questionId, answerId],
+  );
 }
 
 export async function postComment(
   user,
   questionId,
   answerId,
-  commentData,
+  ipfsHash,
   ethereumService,
 ) {
-  const ipfsLink = await saveText(JSON.stringify(commentData));
-  const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
-  await ethereumService.sendTransaction(CONTRACT_CONTENT, user, POST_COMMENT, [
-    questionId,
-    answerId,
-    ipfsHash,
-  ]);
+  return await ethereumService.sendTransaction(
+    CONTRACT_CONTENT,
+    user,
+    POST_COMMENT,
+    [questionId, answerId, ipfsHash],
+  );
 }
 
 export async function editComment(
@@ -330,17 +330,15 @@ export async function editComment(
   questionId,
   answerId,
   commentId,
-  commentData,
+  ipfsHash,
   ethereumService,
 ) {
-  const ipfsLink = await saveText(JSON.stringify(commentData));
-  const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
-  await ethereumService.sendTransaction(CONTRACT_CONTENT, user, EDIT_COMMENT, [
-    questionId,
-    answerId,
-    commentId,
-    ipfsHash,
-  ]);
+  return await ethereumService.sendTransaction(
+    CONTRACT_CONTENT,
+    user,
+    EDIT_COMMENT,
+    [questionId, answerId, commentId, ipfsHash],
+  );
 }
 
 export async function deleteComment(
@@ -350,7 +348,7 @@ export async function deleteComment(
   commentId,
   ethereumService,
 ) {
-  await ethereumService.sendTransaction(
+  return await ethereumService.sendTransaction(
     CONTRACT_CONTENT,
     user,
     DELETE_COMMENT,

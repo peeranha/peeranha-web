@@ -19,8 +19,8 @@ import NotificationIcon from 'containers/Header/WalletDropdown/NotificationIcon'
 
 import A from 'components/A';
 import Icon from 'components/Icon';
-
 import SendTokens from 'containers/SendTokens';
+import { REWARD_CLAIMING_ENABLED } from '../../../utils/constants';
 
 const MobileLinksInWallet = ({
   profile,
@@ -50,6 +50,7 @@ const MobileLinksInWallet = ({
       <button
         className="d-flex align-items-center justify-content-between w-100"
         onClick={() => setVisibilityWalletLinks(!visibleWalletLinks)}
+        type="button"
       >
         <WalletButton
           balance={availableBalance}
@@ -81,13 +82,15 @@ const MobileLinksInWallet = ({
             )}
           </A>
 
-          <A to={routes.userBoost(profile.user)}>
-            <FormattedMessage {...messages.boost} />
-            {boost > 1 && <BoostPrediction>{boost}</BoostPrediction>}
-          </A>
+          {REWARD_CLAIMING_ENABLED && (
+            <A to={routes.userBoost(profile.user)}>
+              <FormattedMessage {...messages.boost} />
+              {boost > 1 && <BoostPrediction>{boost}</BoostPrediction>}
+            </A>
+          )}
 
-          {/*TODO send tokens issue*/}
-          {/*<SendTokens>
+          {/* TODO send tokens issue */}
+          {/* <SendTokens>
             <FormattedMessage {...messages.sendTokens} />
           </SendTokens> */}
         </div>

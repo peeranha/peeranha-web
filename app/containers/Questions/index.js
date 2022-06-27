@@ -94,7 +94,7 @@ export const Questions = ({
     path === routes.expertPosts() ||
     path === routes.expertPosts(':communityid');
   const isTopCommunitiesDisplay =
-    isFeed && !single && questionsList.length === 0;
+    isFeed && !single && questionsList.length === 0 && !questionsLoading;
   const getInitQuestions = useCallback(
     () => {
       if (!questionFilter) {
@@ -206,8 +206,6 @@ export const Questions = ({
     [profile],
   );
 
-  const isCommunityFeed = params.hasOwnProperty('communityid');
-
   const questionFilterFromCookies = getCookie(QUESTION_FILTER);
   return display ? (
     <div>
@@ -243,7 +241,6 @@ export const Questions = ({
         >
           <Content
             isFeed={isFeed}
-            isCommunityFeed={isCommunityFeed}
             questionsList={questionsList}
             // promotedQuestionsList={
             //   promotedQuestions[+questionFilterFromCookies ? 'top' : 'all']
@@ -269,7 +266,11 @@ export const Questions = ({
         </InfinityLoader>
       )}
       {isTopCommunitiesDisplay && (
-        <TopCommunities communities={communities} profile={profile} />
+        <TopCommunities
+          communities={communities}
+          profile={profile}
+          isTopCommunitiesOnly
+        />
       )}
       {displayLoader && <LoadingIndicator />}
     </div>

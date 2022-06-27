@@ -15,6 +15,7 @@ import {
   SET_NOTIFICATIONS_INFO,
   CLEAR_NOTIFICATIONS_DATA,
   FILTER_READ_TIMESTAMPS,
+  SET_LAST_USER,
 } from './constants';
 
 export const markAllNotificationsAsRead = () => ({
@@ -88,4 +89,9 @@ export const clearNotificationsData = () => ({
 
 export const filterReadTimestamps = () => ({
   type: FILTER_READ_TIMESTAMPS,
+});
+
+export const setLastUser = lastUser => ({
+  type: SET_LAST_USER,
+  lastUser,
 });
