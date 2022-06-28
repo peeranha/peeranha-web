@@ -13,21 +13,24 @@ import { FilecoinStyles } from './communities-configs/filecoin';
 
 const communitiesConfig = {
   prod: {
-    2: {
-      origin: 'https://faq.telos.net',
-      src: TelosLogo,
-      styles: TelosStyles,
+    1: {
+      origin: 'https://meta.peeranha.io',
     },
-    3: {
-      origin: 'https://ont.peeranha.io',
-      src: OntLogo,
-      styles: OntStyles,
-    },
-    17: {
-      origin: 'https://kanda.peeranha.io',
-      src: KandaLogo,
-      styles: KandaStyles,
-    },
+    // 2: {
+    //   origin: 'https://faq.telos.net',
+    //   src: TelosLogo,
+    //   styles: TelosStyles,
+    // },
+    // 3: {
+    //   origin: 'https://ont.peeranha.io',
+    //   src: OntLogo,
+    //   styles: OntStyles,
+    // },
+    // 17: {
+    //   origin: 'https://kanda.peeranha.io',
+    //   src: KandaLogo,
+    //   styles: KandaStyles,
+    // },
   },
   staging: {
     1: {
@@ -46,20 +49,20 @@ const communitiesConfig = {
   },
   test: {
     1: {
-      origin: 'https://meta.testpeeranha.io',
+      origin: `https://meta${process.env.COOKIE_DOMAIN}`,
     },
     2: {
-      origin: 'https://polygon.testpeeranha.io',
+      origin: `https://polygon${process.env.COOKIE_DOMAIN}`,
       src: PolygonLogo,
       styles: PolygonStyles,
     },
     3: {
-      origin: 'https://filecoin.testpeeranha.io',
+      origin: `https://filecoin${process.env.COOKIE_DOMAIN}`,
       src: FileiconLogo,
       styles: FilecoinStyles,
     },
     4: {
-      origin: 'https://community.testpeeranha.io',
+      origin: `https://community${process.env.COOKIE_DOMAIN}`,
     },
     5: {
       origin: 'https://testcommunity.net',

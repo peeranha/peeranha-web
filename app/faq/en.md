@@ -92,6 +92,7 @@ Communities are an area on the website dedicated to question and answers for a s
 ### How are new communities and tags created?
 
 <!---Communities and tags are created by community voting.--->
+
 During the first year, the Peeranha team will be able to create communities without voting. Contact support at hello@peeranha.io if you’re interested in creating a community for your project.
 
 ## Questions, Answers and Comments
@@ -253,7 +254,7 @@ New tokens are created once per week. The maximum starting emission is 1 000 000
 
 ### When are rewards paid out?
 
-Rewards are paid out weekly, starting from Peeranha’s launch date on December 16th, 2019.
+Rewards are paid out weekly, starting from Peeranha’s launch date on June 23rd, 2022.
 
 To prevent abuse of the system, there is a safety period of one additional week before rewards are available for users.
 

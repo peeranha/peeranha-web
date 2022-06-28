@@ -174,7 +174,9 @@ const View = ({
                 values={{
                   transaction: (
                     <a
-                      href={`https://mumbai.polygonscan.com/tx/${transactionHash}`}
+                      href={process.env.BLOCKCHAIN_TRANSACTION_INFO_URL.concat(
+                        transactionHash,
+                      )}
                       target="_blank"
                     >
                       <FormattedMessage id={messages.transaction.id} />
