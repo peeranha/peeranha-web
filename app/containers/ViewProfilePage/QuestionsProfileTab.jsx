@@ -106,7 +106,7 @@ const Note = ({
         setRoute(routes.expertPostView(id, answerRouteId));
       }
     },
-    [postType, id, answerId],
+    [postType, id, answerRouteId],
   );
 
   return (
