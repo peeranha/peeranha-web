@@ -1,9 +1,9 @@
 {
   "app.common.peeranha": "Peeranha",
   "app.common.copyrightPeeranha": "©{year} Peeranha",
-  "app.common.confirm": "Принять и продолжить",
+  "app.common.confirm": "Принять",
   "app.common.cookieConsent":
-    "We use cookies to ensure you get the best experience on our website.",
+    "Для улучшения работы сайта и его взаимодействия с пользователями мы используем файлы cookie.",
   "app.common.profile": "Профиль",
   "app.common.myCommunities": "Мои сообщества",
   "app.common.questions": "Вопросы",

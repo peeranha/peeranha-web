@@ -12,12 +12,8 @@ const CookieConsent = styled.div`
   background: #f0f8ffff;
   position: fixed;
   bottom: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
   width: 100%;
   z-index: 9999;
-  padding: 24px 0;
 
   animation: ${props =>
     props.enableAnimation ? 'animation 1s forwards' : 'none'};
@@ -31,6 +27,17 @@ const CookieConsent = styled.div`
       display: none;
     }
   }
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 0;
+`;
+
+const Text = styled.p`
+  padding-right: 20px;
 `;
 
 const CookieConsentPopup = () => {
@@ -50,16 +57,20 @@ const CookieConsentPopup = () => {
     <>
       {!isCookieConsent && (
         <CookieConsent enableAnimation={enableAnimation}>
-          <p>
-            <FormattedMessage id={commonMessages.cookieConsent.id} />
-            <Link to="/privacy-policy">More info</Link>
-          </p>
-          <LargeOutlinedButton
-            onClick={acceptCookiePolicy}
-            customStyles={styles.headerLoginButtonStyles}
-          >
-            <FormattedMessage id={commonMessages.confirm.id} />
-          </LargeOutlinedButton>
+          <div className="container">
+            <Wrapper>
+              <Text>
+                <FormattedMessage id={commonMessages.cookieConsent.id} />
+                <Link to="/privacy-policy">More info</Link>
+              </Text>
+              <LargeOutlinedButton
+                onClick={acceptCookiePolicy}
+                customStyles={styles.headerLoginButtonStyles}
+              >
+                <FormattedMessage id={commonMessages.confirm.id} />
+              </LargeOutlinedButton>
+            </Wrapper>
+          </div>
         </CookieConsent>
       )}
     </>
