@@ -13,21 +13,24 @@ import { FilecoinStyles } from './communities-configs/filecoin';
 
 const communitiesConfig = {
   prod: {
-    2: {
-      origin: 'https://faq.telos.net',
-      src: TelosLogo,
-      styles: TelosStyles,
+    1: {
+      origin: 'https://meta.peeranha.io',
     },
-    3: {
-      origin: 'https://ont.peeranha.io',
-      src: OntLogo,
-      styles: OntStyles,
-    },
-    17: {
-      origin: 'https://kanda.peeranha.io',
-      src: KandaLogo,
-      styles: KandaStyles,
-    },
+    // 2: {
+    //   origin: 'https://faq.telos.net',
+    //   src: TelosLogo,
+    //   styles: TelosStyles,
+    // },
+    // 3: {
+    //   origin: 'https://ont.peeranha.io',
+    //   src: OntLogo,
+    //   styles: OntStyles,
+    // },
+    // 17: {
+    //   origin: 'https://kanda.peeranha.io',
+    //   src: KandaLogo,
+    //   styles: KandaStyles,
+    // },
   },
   staging: {
     1: {

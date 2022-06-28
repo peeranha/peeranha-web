@@ -252,10 +252,12 @@ const MainUserInformation = ({
               )}
 
               <li>
-                <ProfileSince
-                  creationTime={profile?.creationTime}
-                  locale={locale}
-                />
+                {!!profile?.creationTime && (
+                  <ProfileSince
+                    creationTime={profile?.creationTime}
+                    locale={locale}
+                  />
+                )}
               </li>
             </UlStyled>
           </div>

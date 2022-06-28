@@ -115,7 +115,7 @@
   "app.common.answer": "Answer",
   "app.common.showMore": "Show more {value}",
   "app.common.showLess": "Show less {value}",
-  "app.common.poweredBy": "Powered by {image}",
+  "app.common.poweredBy": "©{year} Powered by {image}",
   "app.common.poweredByPeeranha": "Powered by {image}",
   "app.common.terms": "Operating Agreement",
   "app.common.noResults": "No results",
@@ -202,7 +202,7 @@
   "app.common.transactionCompleted": "Transaction completed successfully",
   "app.common.estimatedReward": "Estimated reward",
   "app.common.rewardsWillBeAvailable":
-    "The page displays an estimated reward that will be available for you to claim after token launch. We are working with the legal team to finalize the details of the token launch.",
+    "Oops, you can't claim your tokens right now. No worries, the estimated reward will be available for you to claim after the token launch. Our legal team is backing us to finalize the details of the token launch. Thank you!",
 
   "app.telegram.user": "Telegram user",
   "app.telegram.userLabelPopover":
@@ -721,10 +721,18 @@
     "Your post was upvoted",
   "app.containers.Notifications.yourQuestionWasDownVoted":
     "Your post was downvoted",
+  "app.containers.Notifications.yourQuestionUpVoteWasCanceled":
+    "Your post's upvote was canceled",
+  "app.containers.Notifications.yourQuestionDownVoteWasCanceled":
+    "Your post's downvote was canceled",
   "app.containers.Notifications.yourAnswerWasUpVoted":
     "Your answer was upvoted",
   "app.containers.Notifications.yourAnswerWasDownVoted":
     "Your answer was downvoted ",
+  "app.containers.Notifications.yourAnswerUpVoteWasCanceled":
+    "Your answer's upvote was canceled",
+  "app.containers.Notifications.yourAnswerDownVoteWasCanceled":
+    "Your answer's downvote was canceled",
   "app.containers.Notifications.yourAnswerWasMarkedAsTheBest":
     "Your answer was marked as the best",
   "app.containers.Notifications.somebodyAnsweredYourQuestion":
