@@ -3,11 +3,13 @@ import Link from 'react-router-dom/Link';
 import styled from 'styled-components';
 import LargeOutlinedButton from '../Button/Outlined/InfoLarge';
 import { singleCommunityStyles } from '../../utils/communityManagement';
+import { FormattedMessage } from 'react-intl';
+import commonMessages from '../../common-messages';
 
 const styles = singleCommunityStyles();
 
 const CookieConsent = styled.div`
-  background: aliceblue;
+  background: #f0f8ffff;
   position: fixed;
   bottom: 0;
   display: flex;
@@ -17,7 +19,8 @@ const CookieConsent = styled.div`
   z-index: 9999;
   padding: 24px 0;
 
-  animation: ${props => (props.yeah ? 'animation 1s forwards' : 'none')};
+  animation: ${props =>
+    props.enableAnimation ? 'animation 1s forwards' : 'none'};
 
   @keyframes animation {
     0% {
@@ -31,15 +34,14 @@ const CookieConsent = styled.div`
 `;
 
 const CookieConsentPopup = () => {
-  const [yeah, setYeah] = useState(false);
-
+  const [enableAnimation, setEnableAnimation] = useState(false);
   const [isCookieConsent, setIsCookieConsent] = useState(
     !!localStorage.getItem('cookie-consent'),
   );
 
   const acceptCookiePolicy = () => {
     localStorage.setItem('cookie-consent', 'true');
-    setYeah(true);
+    setEnableAnimation(true);
 
     setTimeout(() => setIsCookieConsent(true), 2000);
   };
@@ -47,17 +49,16 @@ const CookieConsentPopup = () => {
   return (
     <>
       {!isCookieConsent && (
-        <CookieConsent yeah={yeah}>
+        <CookieConsent enableAnimation={enableAnimation}>
           <p>
-            We use cookies to ensure you get the best experience on our website.
+            <FormattedMessage id={commonMessages.cookieConsent.id} />
             <Link to="/privacy-policy">More info</Link>
           </p>
           <LargeOutlinedButton
-            className="d-none d-sm-flex"
             onClick={acceptCookiePolicy}
             customStyles={styles.headerLoginButtonStyles}
           >
-            Accept
+            <FormattedMessage id={commonMessages.confirm.id} />
           </LargeOutlinedButton>
         </CookieConsent>
       )}

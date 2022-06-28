@@ -12,6 +12,12 @@ export default defineMessages({
   copyrightPeeranha: {
     id: 'app.common.copyrightPeeranha',
   },
+  confirm: {
+    id: 'app.common.confirm',
+  },
+  cookieConsent: {
+    id: 'app.common.cookieConsent',
+  },
   profile: {
     id: 'app.common.profile',
   },
