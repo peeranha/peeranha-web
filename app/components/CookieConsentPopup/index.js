@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import Link from 'react-router-dom/Link';
 import styled from 'styled-components';
 import LargeOutlinedButton from '../Button/Outlined/InfoLarge';
@@ -17,8 +17,7 @@ const CookieConsent = styled.div`
   z-index: 9999;
   padding: 24px 0;
 
-  animation: ${props =>
-    props.isCookieConsent ? 'animation 2s forwards' : 'none'};
+  animation: ${props => (props.yeah ? 'animation 1s forwards' : 'none')};
 
   @keyframes animation {
     0% {
@@ -32,19 +31,23 @@ const CookieConsent = styled.div`
 `;
 
 const CookieConsentPopup = () => {
+  const [yeah, setYeah] = useState(false);
+
   const [isCookieConsent, setIsCookieConsent] = useState(
     !!localStorage.getItem('cookie-consent'),
   );
 
   const acceptCookiePolicy = () => {
     localStorage.setItem('cookie-consent', 'true');
-    setIsCookieConsent(true);
+    setYeah(true);
+
+    setTimeout(() => setIsCookieConsent(true), 2000);
   };
 
   return (
     <>
       {!isCookieConsent && (
-        <CookieConsent id="cookie-consent" isCookieConsent={isCookieConsent}>
+        <CookieConsent yeah={yeah}>
           <p>
             We use cookies to ensure you get the best experience on our website.
             <Link to="/privacy-policy">More info</Link>
