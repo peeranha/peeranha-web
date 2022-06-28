@@ -180,7 +180,7 @@ export const ViewQuestion = ({
     postComment: postCommentDispatch,
     checkAddCommentAvailable: checkAddCommentAvailableDispatch,
     hideAddCommentForm: hideAddCommentFormDispatch,
-    addCommentFormDisplay: addCommentFormDisplay,
+    addCommentFormDisplay,
     saveComment: saveCommentDispatch,
     deleteComment: deleteCommentDispatch,
     upVote: upVoteDispatch,
@@ -229,7 +229,7 @@ export const ViewQuestion = ({
   const keywords = [...tags.map(x => x.name), helmetTitle];
 
   return (
-    <React.Fragment>
+    <>
       {process.env.ENV !== 'dev' && (
         <Seo
           title={helmetTitle}
@@ -246,7 +246,7 @@ export const ViewQuestion = ({
         questionData && <ViewQuestionContainer {...sendProps} />}
 
       {(questionDataLoading || historiesLoading) && <LoadingIndicator />}
-    </React.Fragment>
+    </>
   );
 };
 
@@ -383,7 +383,11 @@ const withConnect = connect(
 );
 
 const withReducer = injectReducer({ key: 'viewQuestion', reducer });
-const withSaga = injectSaga({ key: 'viewQuestion', saga });
+const withSaga = injectSaga({
+  key: 'viewQuestion',
+  saga,
+  disableEject: true,
+});
 
 export default compose(
   withReducer,

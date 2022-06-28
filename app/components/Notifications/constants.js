@@ -2,8 +2,9 @@ import answerIcon from 'images/answer.svg?external';
 import questionIcon from 'images/question2.svg?external';
 import bestAnswerIcon from 'images/bestAnswer.svg?external';
 import downVoteIcon from 'images/redFingerDownSingleQuestion.svg?external';
-import upVoteIcon from 'images/fingerUpSingleQuestionPage.svg?external';
+import grayDownVoteIcon from 'images/grayFingerDownSingleQuestion.svg?external';
 import greenUpVoteIcon from 'images/greenFingerUpSingleQuestion.svg?external';
+import grayUpVoteIcon from 'images/grayFingerUpSingleQuestion.svg?external';
 import coinsIcon from 'images/coins.svg?external';
 
 import messages from './messages';
@@ -54,34 +55,54 @@ export const FILTER_READ_TIMESTAMPS =
 export const SET_LAST_USER = 'app/Notifications/SET_LAST_USER';
 
 export const NOTIFICATIONS_TYPES = {
-  questionUpvoted: 1,
-  questionDownvoted: 2,
-  answerUpvoted: 3,
-  answerDownvoted: 4,
-  answerMarkedTheBest: 5,
-  questionAnswered: 6,
-  questionCommented: 7,
-  answerCommented: 8,
-  questionTipped: 9,
-  answerTipped: 10,
+  questionUpVoted: 1,
+  questionDownVoted: 2,
+  questionUpVoteCanceled: 3,
+  questionDownVoteCanceled: 4,
+  answerUpVoted: 5,
+  answerDownVoted: 6,
+  answerUpVoteCanceled: 7,
+  answerDownVoteCanceled: 8,
+  answerMarkedTheBest: 9,
+  questionAnswered: 10,
+  questionCommented: 11,
+  answerCommented: 12,
+  questionTipped: 13,
+  answerTipped: 14,
 };
 
 export const NOTIFICATIONS_DATA = {
-  [NOTIFICATIONS_TYPES.questionUpvoted]: {
+  [NOTIFICATIONS_TYPES.questionUpVoted]: {
     ...messages.yourQuestionWasUpVoted,
     src: greenUpVoteIcon,
   },
-  [NOTIFICATIONS_TYPES.questionDownvoted]: {
+  [NOTIFICATIONS_TYPES.questionDownVoted]: {
     ...messages.yourQuestionWasDownVoted,
     src: downVoteIcon,
   },
-  [NOTIFICATIONS_TYPES.answerUpvoted]: {
+  [NOTIFICATIONS_TYPES.questionUpVoteCanceled]: {
+    ...messages.yourQuestionUpVoteWasCanceled,
+    src: grayUpVoteIcon,
+  },
+  [NOTIFICATIONS_TYPES.questionDownVoteCanceled]: {
+    ...messages.yourQuestionDownVoteWasCanceled,
+    src: grayDownVoteIcon,
+  },
+  [NOTIFICATIONS_TYPES.answerUpVoted]: {
     ...messages.yourAnswerWasUpVoted,
     src: greenUpVoteIcon,
   },
-  [NOTIFICATIONS_TYPES.answerDownvoted]: {
+  [NOTIFICATIONS_TYPES.answerDownVoted]: {
     ...messages.yourAnswerWasDownVoted,
     src: downVoteIcon,
+  },
+  [NOTIFICATIONS_TYPES.answerUpVoteCanceled]: {
+    ...messages.yourAnswerUpVoteWasCanceled,
+    src: grayUpVoteIcon,
+  },
+  [NOTIFICATIONS_TYPES.answerDownVoteCanceled]: {
+    ...messages.yourAnswerDownVoteWasCanceled,
+    src: grayDownVoteIcon,
   },
   [NOTIFICATIONS_TYPES.answerMarkedTheBest]: {
     ...messages.yourAnswerWasMarkedAsTheBest,

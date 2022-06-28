@@ -8,39 +8,39 @@
  * the webpack process.
  */
 
+/* eslint-disable */
 const { join } = require('path');
-const defaults = require('lodash/defaultsDeep');
 const webpack = require('webpack');
-const pkg = require(join(process.cwd(), 'package.json'));
-const { dllPlugin } = require('../config');
+/* eslint-enable */
 
-if (!pkg.dllPlugin) {
-  process.exit(0);
-}
-
-const dllConfig = defaults(pkg.dllPlugin, dllPlugin.defaults);
-const outputPath = join(process.cwd(), dllConfig.path);
-
+/* eslint-disable-next-line */
 module.exports = require('./webpack.base.babel')({
   mode: 'development',
-  context: process.cwd(),
-  entry: dllConfig.dlls ? dllConfig.dlls : dllPlugin.entry(pkg),
-  optimization: {
-    minimize: false,
+  entry: {
+    vendor: [
+      'lodash',
+      'react',
+      'bootstrap',
+      'react-dom',
+      'jquery',
+      'react-redux',
+      'react-router',
+      'react-router-dom',
+      'react-router-redux',
+      'redux',
+      'redux-immutable',
+      'redux-saga',
+    ],
   },
-  devtool: 'eval',
   output: {
-    filename: '[name].dll.js',
-    path: outputPath,
-    library: '[name]',
+    filename: 'vendor.bundle.js',
+    path: join(__dirname, '../../public/vendors'),
+    library: 'vendor_lib',
   },
   plugins: [
     new webpack.DllPlugin({
-      name: '[name]',
-      path: join(outputPath, '[name].json'),
+      name: 'vendor_lib',
+      path: join(__dirname, '../../public/vendors', 'vendor-manifest.json'),
     }),
   ],
-  performance: {
-    hints: false,
-  },
 });
