@@ -64,7 +64,12 @@ const withConnect = connect(
 );
 
 const withReducer = injectReducer({ key: 'toast', reducer });
-const withSaga = injectSaga({ key: 'toast', saga, mode: DAEMON });
+const withSaga = injectSaga({
+  key: 'toast',
+  saga,
+  mode: DAEMON,
+  disableEject: true,
+});
 
 export default compose(
   withReducer,

@@ -2,10 +2,12 @@
  * COMMON WEBPACK CONFIGURATION
  */
 
+/* eslint-disable */
 const path = require('path');
 const webpack = require('webpack');
 const dotenv = require('dotenv');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+/* eslint-enable */
 
 // Remove this line once the following warning goes away (it was meant for webpack loader authors not users):
 // 'DeprecationWarning: loaderUtils.parseQuery() received a non-string value which can be problematic,
@@ -41,55 +43,30 @@ module.exports = options => {
 
   return {
     mode: options.mode,
-    node: {
-      fs: 'empty',
-    },
     entry: options.entry,
-    output: Object.assign(
-      {
-        // Compile into js/build.js
-        path: path.resolve(process.cwd(), 'build'),
-        publicPath: '/',
-      },
-      options.output,
-    ), // Merge with env dependent settings
+    output: {
+      path: path.resolve(process.cwd(), 'build'),
+      publicPath: '/',
+      ...options.output,
+    },
     optimization: options.optimization,
     module: {
       rules: [
         {
-          test: /\.(js|jsx)$/, // Transform all .js files required somewhere with Babel
-          exclude: {
-            test: /node_modules/, // Exclude libraries in node_modules ...
-            not: [
-              // Except for a few of them that needs to be transpiled because they use modern syntax
-              /ipfs-core-types/,
-              /ipfs-core-utils/,
-              /ipfs-utils/,
-              /ipfs-http-client/,
-              /it-map/,
-              /it-first/,
-              /it-last/,
-              /it-all/,
-              /testing-library/,
-            ],
-          },
+          test: /\.(ts|js)x?$/i,
+          exclude: /node_modules/,
           use: {
             loader: 'babel-loader',
             options: {
-              presets: [['@babel/preset-env', { targets: 'ie 11' }]],
+              presets: [
+                '@babel/preset-env',
+                '@babel/preset-react',
+                '@babel/preset-typescript',
+              ],
             },
           },
         },
         {
-          // Preprocess our own .css files
-          // This is the place to add your own loaders (e.g. sass/less etc.)
-          // for a list of loaders, see https://webpack.js.org/loaders/#styling
-          test: /\.css$/,
-          exclude: /node_modules/,
-          use: ['style-loader', 'css-loader'],
-        },
-        {
-          // Preprocess 3rd party .css files located in node_modules
           test: /\.css$/,
           include: /node_modules/,
           use: ['style-loader', 'css-loader'],
@@ -121,13 +98,13 @@ module.exports = options => {
           ],
         },
         {
-          test: /\.(jpg|png|gif)$/,
+          test: /\.(jpg|png|gif)$/i,
           use: [
             {
               loader: 'url-loader',
               options: {
-                // Inline files smaller than 10 kB
-                limit: 10 * 1024,
+                limit: 8 * 1024,
+                esModule: false,
               },
             },
             {
@@ -161,17 +138,7 @@ module.exports = options => {
         },
         {
           test: /\.md$/,
-          use: [
-            {
-              loader: 'html-loader',
-            },
-            {
-              loader: 'markdown-loader',
-              options: {
-                /* your options here */
-              },
-            },
-          ],
+          use: ['html-loader', 'markdown-loader'],
         },
         {
           test: /\.(mp4|webm)$/,
@@ -185,19 +152,43 @@ module.exports = options => {
       ],
     },
     plugins: options.plugins.concat([
-      new webpack.ProvidePlugin({
-        // make fetch available
-        fetch: 'exports-loader?self.fetch!whatwg-fetch',
-      }),
-
-      // Expose .env config to webpack in order to use `process.env.{key}` inside code
       new webpack.DefinePlugin(envKeys),
+      new webpack.ProvidePlugin({
+        process: 'process/browser',
+        Buffer: ['buffer', 'Buffer'],
+      }),
       new CopyWebpackPlugin([{ from: 'static' }]),
     ]),
     resolve: {
       modules: ['node_modules', 'app'],
-      extensions: ['.js', '.jsx', '.react.js'],
+      extensions: ['.js', '.jsx', '.ts', '.tsx'],
       mainFields: ['browser', 'jsnext:main', 'main'],
+      fallback: {
+        fs: false,
+        stream: require.resolve('stream-browserify'),
+        crypto: require.resolve('crypto-browserify'),
+        assert: require.resolve('assert/'),
+        http: require.resolve('stream-http'),
+        https: require.resolve('https-browserify'),
+        zlib: require.resolve('browserify-zlib'),
+        os: require.resolve('os-browserify/browser'),
+        util: require.resolve('util'),
+        buffer: require.resolve('buffer'),
+        path: require.resolve('path-browserify'),
+        vm: require.resolve('vm-browserify'),
+        symlinks: false,
+      },
+      alias: {
+        components: path.join(__dirname, '../../app/components'),
+        'common-components': path.join(
+          __dirname,
+          '../../app/components/common',
+        ),
+        styles: path.join(__dirname, '../../app/styles'),
+        hooks: path.join(__dirname, '../../app/hooks'),
+        icons: path.join(__dirname, '../../app/components/icons'),
+        themes: path.join(__dirname, '../../app/themes'),
+      },
     },
     devtool: options.devtool,
     target: 'web', // Make web variables accessible to webpack, e.g. window

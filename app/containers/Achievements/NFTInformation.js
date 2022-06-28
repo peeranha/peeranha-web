@@ -24,7 +24,6 @@ const Label = styled.div`
 `;
 
 const NFTInformation = ({ id, locale, ipfsHash, contractAddress }) => {
-  const hashString = getIpfsHashFromBytes32(ipfsHash);
   const contractAddressURL =
     process.env.BLOCKCHAIN_EXPLORERE_URL + contractAddress;
 
@@ -37,7 +36,7 @@ const NFTInformation = ({ id, locale, ipfsHash, contractAddress }) => {
       <Span>
         {translationMessages[locale][commonMessages.ipfsHashValue.id]}
         {': '}
-        {hashString}
+        {ipfsHash}
       </Span>
       <A
         target="_blank"
