@@ -129,10 +129,8 @@ export const QuestionForm = ({
 
   const getExistingQuestions = questions => {
     if (single) {
-      const singleCommunityId = String(single);
-
       return questions.filter(
-        question => question.communityId === singleCommunityId,
+        question => question.communityId === String(single),
       );
     }
 
