@@ -86,8 +86,7 @@ const required = value => {
 };
 
 const requiredPostTypeSelection = value => {
-  let val = Number(value);
-  return val >= 0 ? undefined : messages.postTypeSelectionError;
+  return Number(value) >= 0 ? undefined : messages.postTypeSelectionError;
 };
 
 const requiredAndNotZero = value => {
