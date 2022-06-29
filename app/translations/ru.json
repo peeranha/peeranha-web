@@ -3,7 +3,8 @@
   "app.common.copyrightPeeranha": "©{year} Peeranha",
   "app.common.confirm": "Принять",
   "app.common.cookieConsent":
-    "Для улучшения работы сайта и его взаимодействия с пользователями мы используем файлы cookie.",
+    "Для улучшения работы сайта и его взаимодействия с пользователями мы используем файлы cookie. ",
+  "app.common.moreInfo": "Подробнее",
   "app.common.profile": "Профиль",
   "app.common.myCommunities": "Мои сообщества",
   "app.common.questions": "Вопросы",

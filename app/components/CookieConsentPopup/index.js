@@ -6,6 +6,7 @@ import { singleCommunityStyles } from '../../utils/communityManagement';
 import { FormattedMessage } from 'react-intl';
 import commonMessages from '../../common-messages';
 import { css } from '@emotion/react';
+import { wait } from '../../utils/wait';
 
 // const styles = singleCommunityStyles();
 //
@@ -103,7 +104,7 @@ const CookieConsentPopup = () => {
     localStorage.setItem('cookie-consent', 'true');
     setEnableAnimation(true);
 
-    setTimeout(() => setIsCookieConsent(true), 2000);
+    wait(2000).then(() => setIsCookieConsent(true));
   };
 
   return (
@@ -129,12 +130,15 @@ const CookieConsentPopup = () => {
               }
             }
           `}
+          style={{ background: 'aliceblue' }}
         >
           <div className="container">
             <Wrapper>
               <Text>
                 <FormattedMessage id={commonMessages.cookieConsent.id} />
-                <Link to="/privacy-policy">More info</Link>
+                <Link to="/privacy-policy">
+                  <FormattedMessage id={commonMessages.moreInfo.id} />
+                </Link>
               </Text>
               <LargeOutlinedButton
                 onClick={acceptCookiePolicy}
