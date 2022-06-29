@@ -31,7 +31,11 @@ import messages from './messages';
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 import { changeQuestionType, payBounty } from './actions';
 import { QUESTION_TYPE } from './constants';
-import { getPermissions, hasGlobalModeratorRole } from '../../utils/properties';
+import {
+  getPermissions,
+  hasCommunityModeratorRole,
+  hasGlobalModeratorRole,
+} from '../../utils/properties';
 import blockchainLogo from 'images/blockchain-outline-32.svg?external';
 import IPFSInformation from 'containers/Questions/Content/Body/IPFSInformation';
 import commonMessages from 'common-messages';
@@ -156,7 +160,12 @@ const ContentHeader = props => {
   useOnClickOutside(refSharingModal, () => setModalOpen(false));
 
   const isGlobalAdmin = useMemo(
-    () => hasGlobalModeratorRole(getPermissions(profile)),
+    () =>
+      hasGlobalModeratorRole(getPermissions(profile)) ||
+      hasCommunityModeratorRole(
+        getPermissions(profile),
+        questionData.communityId,
+      ),
     [profile],
   );
   //todo remove integer_properties

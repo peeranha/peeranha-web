@@ -27,6 +27,7 @@ import LargeButton from 'components/Button/Contained/InfoLarge';
 import Icon from 'components/Icon';
 import { IconSm, IconLm } from 'components/Icon/IconWithSizes';
 
+import styled from 'styled-components';
 import { Wrapper, MainSubHeader } from './Wrapper';
 import Section from './Section';
 import LogoStyles from './Logo';
@@ -36,10 +37,7 @@ import ButtonGroupForAuthorizedUser from './ButtonGroupForAuthorizedUser';
 import SearchForm from './SearchForm';
 
 import { HEADER_ID, LOADER_HEIGHT, SEARCH_FORM_ID } from './constants';
-import styled from 'styled-components';
 import processIndicator from '../../images/progress-indicator.svg?inline';
-import { ADefault } from '../../components/A';
-import Blanket from './Blanket';
 
 const single = isSingleCommunityWebsite();
 const styles = singleCommunityStyles();
@@ -188,118 +186,120 @@ const View = ({
   );
 
   return (
-    <React.Fragment>
-      <Wrapper id={HEADER_ID} transactionInitialised={transactionInitialised}>
-        {transactionInitialised && (
-          <ProgressIndicator>
-            <div>
-              <img src={processIndicator} alt="icon" />
-              {isTransactionInPending ? (
-                <FormattedMessage
-                  id={messages.transactionInPending.id}
-                  values={{
-                    transaction: (
-                      <a
-                        href={`https://mumbai.polygonscan.com/tx/${transactionHash}`}
-                        target="_blank"
-                      >
-                        <FormattedMessage id={messages.transaction.id} />
-                      </a>
-                    ),
-                  }}
-                />
-              ) : (
-                <FormattedMessage id={messages.waitingForConfirm.id} />
-              )}
-            </div>
-          </ProgressIndicator>
-        )}
-
-        <MainSubHeader mainSubHeaderBgColor={styles.mainSubHeaderBgColor}>
-          <div className="container">
-            <HeaderContainer>
-              <MenuLogo className="d-flex align-items-center">
-                <button
-                  className="mt-1 mr-3 d-flex d-lg-none"
-                  onClick={showMenu}
-                >
-                  <IconLm
-                    icon={headerNavigationIcon}
-                    color={styles.commHeadElemColor || TEXT_SECONDARY_LIGHT}
-                  />
-                </button>
-                <Logo />
-              </MenuLogo>
-
-              <Buttons className="insides">
-                <SearchForm
-                  searchFormId={SEARCH_FORM_ID}
-                  onBlur={() => setSearchFormVisibility(false)}
-                  className={`${isSearchFormVisible ? '' : 'd-none'} d-lg-flex`}
-                  placeholder={intl.formatMessage({
-                    id: messages.search.id,
-                  })}
-                />
-
-                {!isSearchFormVisible && (
-                  <>
-                    <Button
-                      bg={BG_LIGHT}
-                      className="d-flex d-lg-none"
-                      onClick={() =>
-                        setSearchFormVisibility(!isSearchFormVisible)
-                      }
+    <Wrapper id={HEADER_ID} transactionInitialised={transactionInitialised}>
+      {transactionInitialised && (
+        <ProgressIndicator>
+          <div>
+            <img src={processIndicator} alt="icon" />
+            {isTransactionInPending ? (
+              <FormattedMessage
+                id={messages.transactionInPending.id}
+                values={{
+                  transaction: (
+                    <a
+                      href={process.env.BLOCKCHAIN_TRANSACTION_INFO_URL.concat(
+                        transactionHash,
+                      )}
+                      target="_blank"
                     >
-                      <Icon
-                        icon={searchIcon}
-                        width="16"
-                        color={TEXT_SECONDARY_LIGHT}
-                      />
-                    </Button>
-                    <Button
-                      id="header-ask-question"
-                      onClick={
-                        profileInfo
-                          ? redirectToAskQuestionPage
-                          : showLoginModalWithRedirectToAskQuestionPage
-                      }
-                    >
-                      <IconSm fill={BG_LIGHT} icon={addIcon} />
-
-                      <span className="d-none d-lg-inline ml-2">
-                        <FormattedMessage {...messages.askQuestion} />
-                      </span>
-                    </Button>
-                  </>
-                )}
-
-                {!single.withoutSubHeader || !profileInfo ? (
-                  <LoginProfile
-                    isSearchFormVisible={isSearchFormVisible}
-                    showLoginModalDispatch={showLoginModalDispatch}
-                    profileInfo={profileInfo}
-                    faqQuestions={faqQuestions}
-                  />
-                ) : null}
-              </Buttons>
-            </HeaderContainer>
+                      <FormattedMessage id={messages.transaction.id} />
+                    </a>
+                  ),
+                }}
+              />
+            ) : (
+              <FormattedMessage id={messages.waitingForConfirm.id} />
+            )}
           </div>
-        </MainSubHeader>
-      </Wrapper>
-      {transactionInitialised && <Blanket hieght={window.innerHeight} />}
-    </React.Fragment>
+        </ProgressIndicator>
+      )}
+
+      <MainSubHeader mainSubHeaderBgColor={styles.mainSubHeaderBgColor}>
+        <div className="container">
+          <div className="d-flex align-items-center justify-content-between">
+            <div className="d-flex align-items-center">
+              <button
+                className="mt-1 mr-3 d-flex d-lg-none"
+                onClick={showMenu}
+                type="button"
+              >
+                <IconLm
+                  icon={headerNavigationIcon}
+                  color={styles.commHeadElemColor || TEXT_SECONDARY_LIGHT}
+                />
+              </button>
+              <Logo />
+            </div>
+
+            <Section className="insides">
+              <SearchForm
+                searchFormId={SEARCH_FORM_ID}
+                onBlur={() => setSearchFormVisibility(false)}
+                className={`${isSearchFormVisible ? '' : 'd-none'} d-lg-flex`}
+                placeholder={intl.formatMessage({
+                  id: messages.search.id,
+                })}
+              />
+
+              {!isSearchFormVisible && (
+                <>
+                  <Button
+                    bg={BG_LIGHT}
+                    className="d-flex d-lg-none"
+                    onClick={() =>
+                      setSearchFormVisibility(!isSearchFormVisible)
+                    }
+                  >
+                    <Icon
+                      icon={searchIcon}
+                      width="16"
+                      color={TEXT_SECONDARY_LIGHT}
+                    />
+                  </Button>
+                  <Button
+                    id="header-ask-question"
+                    onClick={
+                      profileInfo
+                        ? redirectToAskQuestionPage
+                        : showLoginModalWithRedirectToAskQuestionPage
+                    }
+                  >
+                    <IconSm fill={BG_LIGHT} icon={addIcon} />
+
+                    <span className="d-none d-lg-inline ml-2">
+                      <FormattedMessage id={messages.askQuestion.id} />
+                    </span>
+                  </Button>
+                </>
+              )}
+
+              {!single.withoutSubHeader || !profileInfo ? (
+                <LoginProfile
+                  isSearchFormVisible={isSearchFormVisible}
+                  showLoginModalDispatch={showLoginModalDispatch}
+                  profileInfo={profileInfo}
+                  faqQuestions={faqQuestions}
+                />
+              ) : null}
+            </Section>
+          </div>
+        </div>
+      </MainSubHeader>
+    </Wrapper>
   );
 };
 
 View.propTypes = {
   intl: intlShape.isRequired,
   profileInfo: PropTypes.object,
-  isMenuVisible: PropTypes.bool,
   showMenu: PropTypes.func,
   showLoginModalDispatch: PropTypes.func,
   showLoginModalWithRedirectToAskQuestionPage: PropTypes.func,
   redirectToAskQuestionPage: PropTypes.func,
   faqQuestions: PropTypes.array,
+  isTransactionInPending: PropTypes.bool,
+  transactionHash: PropTypes.string,
+  transactionInitialised: PropTypes.bool,
 };
 
 LoginProfile.propTypes = {

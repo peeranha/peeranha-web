@@ -11,8 +11,6 @@ import { translationMessages } from 'i18n';
 import { createStructuredSelector } from 'reselect';
 import { compose, bindActionCreators } from 'redux';
 
-import { useModeratorRole } from '../../hooks/useModeratorRole';
-
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 import Seo from 'components/Seo';
 import TipsBase from 'components/Base/TipsBase';
@@ -38,6 +36,7 @@ import {
 } from 'utils/properties';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import { useModeratorRole } from '../../hooks/useModeratorRole';
 
 import Form from './Form';
 
@@ -145,6 +144,10 @@ const withConnect = connect(
 
 export default compose(
   injectReducer({ key: 'editcommunity', reducer }),
-  injectSaga({ key: 'editcommunity', saga }),
+  injectSaga({
+    key: 'editcommunity',
+    saga,
+    disableEject: true,
+  }),
   withConnect,
 )(EditCommunity);

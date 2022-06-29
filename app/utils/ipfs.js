@@ -101,6 +101,14 @@ export function getFileUrl(hash) {
   return hash?.includes(IPFS_DOMAIN) ? hash : `${IPFS_DOMAIN}${hash}`;
 }
 
+export function getNFTUrl(hash) {
+  if (window.renderedByPuppeteer) {
+    return null;
+  }
+  const NFT_DOMAIN = process.env.IPFS_NFT_URL;
+  return hash?.includes(NFT_DOMAIN) ? hash : `${NFT_DOMAIN}${hash}`;
+}
+
 // TODO: test
 export function HashToString(byteArray) {
   if (byteArray.length < 2) {
