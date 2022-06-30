@@ -26,9 +26,12 @@ export const LanguageProvider = ({
       changeLocaleDispatch(storedLocale);
     } else {
       // find the first suitable language in window.navigator.languages
-      const userLocale = window.navigator.languages
-        .find(lang => projectLangs.includes(lang.slice(0, 2)))
-        ?.slice(0, 2);
+      const userLocale =
+        process.env.MULTI_LANG === 'true'
+          ? window.navigator.languages
+              .find(lang => projectLangs.includes(lang.slice(0, 2)))
+              ?.slice(0, 2)
+          : 'en';
 
       if (userLocale) {
         changeLocaleDispatch(userLocale);
