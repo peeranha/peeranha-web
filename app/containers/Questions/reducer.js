@@ -27,6 +27,8 @@ import {
   UP_QUESTION_SUCCESS,
 } from './constants';
 
+import { MARK_AS_ACCEPTED_SUCCESS } from '../ViewQuestion/constants';
+
 export const initialState = fromJS({
   initLoadedItems: 50,
   loadedItems: 50,
@@ -64,6 +66,7 @@ function questionsReducer(state = initialState, action) {
     lastIndex,
     isRemove,
     promotedQuestions = {},
+    questionData,
   } = action;
   const {
     topQuestionIds: stateTopQuestionIds,
@@ -118,11 +121,17 @@ function questionsReducer(state = initialState, action) {
         )
         .set('promotedQuestions', promotedQuestions)
         .set('isLastFetch', questionsList.length === 0);
-    case GET_QUESTIONS_ERROR:
-      return state
-        .set('questionsLoading', false)
-        .set('questionsError', questionsError);
-
+    case MARK_AS_ACCEPTED_SUCCESS:
+      console.log('statequestions', stateQuestions);
+      console.log('questionsfromJSvalues', Object.values(stateQuestions));
+      console.log('questionsList', questionsList);
+      return state.set(
+        'questionsList',
+        Object.values(stateQuestions).map(
+          question =>
+            question.id === questionData.id ? questionData : question,
+        ),
+      );
     case GET_UNIQ_QUESTIONS:
       return state
         .set(
