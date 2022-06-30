@@ -116,7 +116,7 @@ const selectPostCommentLoading = () =>
 
 const selectAddCommentFormDisplay = () =>
   createSelector(selectViewQuestionDomain, substate =>
-    substate.get('addCommentFormDisplay').toJS(),
+    substate.get('addCommentFormDisplay'),
   );
 
 const selectUpVoteError = () =>

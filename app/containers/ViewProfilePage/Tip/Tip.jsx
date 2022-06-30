@@ -322,7 +322,12 @@ const FORM_NAME = 'tip_form';
 
 export default compose(
   injectReducer({ key: 'editCryptoAccounts', reducer }),
-  injectSaga({ key: 'editCryptoAccounts', saga, mode: DAEMON }),
+  injectSaga({
+    key: 'editCryptoAccounts',
+    saga,
+    mode: DAEMON,
+    disableEject: true,
+  }),
   connect(
     (state, { profile, account }) => {
       const isSaveCryptoAccountsProcessing = selectIsSaveCryptoAccountsProcessing()(

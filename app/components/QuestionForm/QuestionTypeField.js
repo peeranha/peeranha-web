@@ -115,7 +115,7 @@ const Button = B.extend`
   @media only screen and (max-width: 576px) {
     height: 36px;
     margin-top: -10px;
-    padding: 0 15px;
+    padding: 0 5px;
   }
 `;
 
