@@ -13,12 +13,13 @@ const StatusSpan = styled.span`
   display: flex;
   font-size: ${props => (props.size === 'lg' ? '16px' : '14px')};
   align-items: baseline;
+  margin-right: 0.5rem;
   padding-left: ${props => (props.size === 'lg' ? '22px' : '12px')};
 
   @media (max-width: 350px) {
-    flex-direction: column;
+    flex-direction: ${({ isProfilePage }) => !isProfilePage && 'column'};
+    margin-left: ${({ isProfilePage }) => isProfilePage && '-26px'};
     align-items: center;
-    padding-left: 5px;
   }
 `;
 
@@ -55,6 +56,7 @@ const IconAbsolute = styled(Icon)`
 `;
 
 const AchievementsStatus = ({
+  isProfilePage,
   count,
   size,
   achievementsNumColor,
@@ -62,7 +64,7 @@ const AchievementsStatus = ({
 }) => {
   if (typeof count === 'number')
     return (
-      <StatusSpan size={size}>
+      <StatusSpan size={size} isProfilePage={isProfilePage}>
         <IconAbsolute
           icon={achievementsIcon}
           width={size === 'lg' ? '24' : '14'}
