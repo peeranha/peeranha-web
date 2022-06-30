@@ -39,6 +39,7 @@ import { IconMd } from 'components/Icon/IconWithSizes';
 import blockchainLogo from 'images/blockchain-outline-32.svg?external';
 import commonMessages from 'common-messages';
 import IPFSInformation from 'containers/Questions/Content/Body/IPFSInformation';
+import { getPermissions, hasGlobalModeratorRole } from 'utils/properties';
 
 const CommentManage = styled.div`
   display: flex;
@@ -143,11 +144,7 @@ const CommentView = item => {
 
   useOnClickOutside(refPopover, () => setPopoverOpen(false));
 
-  const isModerator = false;
-  //   useMemo(
-  //   () => hasGlobalModeratorRole(getRoles(item.profileInfo)),
-  //   [item.profileInfo],
-  // );
+  const isModerator = hasGlobalModeratorRole(getPermissions(item.profileInfo));
 
   const formattedHistories = item.histories?.filter(
     history =>
@@ -185,11 +182,7 @@ const CommentView = item => {
 
           <div id={`delete-comment-${item.answerId}${item.id}`}>
             <AreYouSure
-              submitAction={
-                isModerator && !isItWrittenByMe
-                  ? item.voteToDelete
-                  : item.deleteComment
-              }
+              submitAction={item.deleteComment}
               Button={({ onClick }) => (
                 <Button
                   show={(!!item.profileInfo && isItWrittenByMe) || isModerator}

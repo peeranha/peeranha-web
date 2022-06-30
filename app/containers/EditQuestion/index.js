@@ -155,7 +155,11 @@ EditQuestion.propTypes = {
 
 export default compose(
   injectReducer({ key: 'editQuestion', reducer }),
-  injectSaga({ key: 'editQuestion', saga }),
+  injectSaga({
+    key: 'editQuestion',
+    saga,
+    disableEject: true,
+  }),
   connect(
     createStructuredSelector({
       locale: makeSelectLocale(),
