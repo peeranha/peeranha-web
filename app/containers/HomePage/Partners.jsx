@@ -1,32 +1,54 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import PartnersImg from 'images/partners.svg?inline';
+import { FormattedMessage } from 'react-intl';
+import commonMessages from '../../common-messages';
 
-export const ImgContainer = styled.div`
+const PartnersHeader = styled.h3`
+  display: flex;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 50px;
+  line-height: 38px;
+
+  @media (max-width: 1130px) {
+    font-size: 40px;
+  }
+
+  @media (max-width: 940px) {
+    font-size: 32px;
+  }
+`;
+
+const ImgContainer = styled.div`
   display: flex;
   width: 100%;
   justify-content: center;
   align-items: center;
   margin: 0;
-  padding: 0 115px 80px;
+  padding: 53px 115px 80px;
 
   @media (max-width: 756px) {
-    padding: 0 50px 50px;
+    padding: 20px 30px 50px;
   }
 `;
 
 const ImgAdaptive = styled.img`
-  width: 100%;
   min-width: 200px;
+  max-width: 1200px;
   height: 100%;
 `;
 
 const Partners = () => (
-  <ImgContainer>
-    <ImgAdaptive src={PartnersImg} alt="Partners" />
-  </ImgContainer>
+  <>
+    <PartnersHeader>
+      <FormattedMessage id={commonMessages.partners.id} />
+    </PartnersHeader>
+    <ImgContainer>
+      <ImgAdaptive src={PartnersImg} alt="Partners" />
+    </ImgContainer>
+  </>
 );
 
 export default Partners;

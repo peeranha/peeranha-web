@@ -88,6 +88,7 @@
   "app.common.contacts": "Contacts",
   "app.common.support": "Support",
   "app.common.privacyPolicy": "Privacy Policy",
+  "app.common.partners": "Partners",
   "app.common.termsOfService": "Terms of Service",
   "app.common.privacyPolicyShort": "Privacy Policy",
   "app.common.more": "More",
@@ -618,7 +619,7 @@
   "app.containers.HomePage.ownershipByUsers":
     "All question and answers in one place",
   "app.containers.HomePage.peeranhaDecentralized":
-    "Peeranha puts power in the hands of the web3 projects.We help to grow faster and access the structured knowledgebase.",
+    "Peeranha puts power in the hands of the web3 projects. We help to grow faster and access the structured knowledgebase.",
 
   "app.containers.HomePage.earlyAdopters": "Valuing Early Adopters",
   "app.containers.HomePage.peeranhaPhilosophy":
