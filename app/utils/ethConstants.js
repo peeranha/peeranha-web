@@ -150,12 +150,13 @@ export const usersQuery = `
         $first: Int,
         $skip: Int,
         $orderBy: BigInt,
+        $orderDirection: String,
       ) {
         users(
           first: $first,
           skip: $skip,
           orderBy: $orderBy,
-          orderDirection: desc,
+          orderDirection: $orderDirection,
         ) {
           ${user}
           postCount

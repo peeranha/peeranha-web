@@ -19,7 +19,7 @@ import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
 import messages from 'containers/Users/messages';
 
-import { changeSortingType, getUsers } from 'containers/Users/actions';
+import { getUsers } from 'containers/Users/actions';
 import reducer from 'containers/Users/reducer';
 import saga from 'containers/Users/saga';
 
@@ -39,7 +39,6 @@ const Users = ({
   stat,
   communities,
   getUsersDispatch,
-  changeSortingTypeDispatch,
 }) => {
   const getMoreUsers = useCallback(
     () => {
@@ -59,16 +58,12 @@ const Users = ({
 
   const dropdownFilter = useCallback(
     sorting => {
-      if (userCount === users.length) {
-        changeSortingTypeDispatch(sorting);
-      } else {
-        getUsersDispatch({
+      getUsersDispatch({
           loadMore: false,
           sorting,
           reload: true,
           communityId: single,
-        });
-      }
+      });
     },
     [userCount, single, users],
   );
@@ -113,7 +108,6 @@ Users.propTypes = {
   searchText: PropTypes.string,
   stat: PropTypes.object,
   communities: PropTypes.array,
-  changeSortingTypeDispatch: PropTypes.func,
 };
 
 export default compose(
@@ -133,10 +127,6 @@ export default compose(
     }),
     dispatch => ({
       getUsersDispatch: bindActionCreators(getUsers, dispatch),
-      changeSortingTypeDispatch: bindActionCreators(
-        changeSortingType,
-        dispatch,
-      ),
     }),
   ),
 )(Users);

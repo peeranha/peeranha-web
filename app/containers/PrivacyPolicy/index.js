@@ -1,15 +1,13 @@
-import React, { memo, useEffect } from 'react';
+import React from 'react';
 import { translationMessages } from 'i18n';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { compose, bindActionCreators } from 'redux';
+import { compose } from 'redux';
 
 import * as routes from 'routes-config';
 
-import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
-import { getQuestionCode, getSectionCode } from 'utils/mdManagement';
+import { getQuestionCode, getSectionCode, parseMD } from 'utils/mdManagement';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
@@ -19,28 +17,18 @@ import AsideBox from 'components/Base/Aside';
 import Content from 'containers/Faq/Content';
 import Aside from 'containers/Faq/Aside';
 
-import * as selectors from './selectors';
-import reducer from './reducer';
-import saga from './saga';
 import messages from './messages';
-
-import { getPrivacyPolicy } from './actions';
 
 import Header from './Header';
 import { SECTION_ID } from './constants';
+import privacyPolicyEn from '../../privacy-policy/en.md';
+import privacyPolicyRu from '../../privacy-policy/ru.md';
 
-export const PrivacyPolicy = ({
-  locale,
-  privacyPolicy,
-  getPrivacyPolicyDispatch,
-}) => {
-  useEffect(() => {
-    getPrivacyPolicyDispatch();
-  }, []);
-
+export const PrivacyPolicy = ({ locale }) => {
   const translations = translationMessages[locale];
-
-  if (!privacyPolicy) return null;
+  const privacyPolicy = parseMD(
+    locale === 'en' ? privacyPolicyEn : privacyPolicyRu,
+  );
 
   return (
     <div className="d-flex justify-content-center">
@@ -72,26 +60,16 @@ export const PrivacyPolicy = ({
 };
 
 PrivacyPolicy.propTypes = {
-  getPrivacyPolicyDispatch: PropTypes.func,
   locale: PropTypes.string,
-  privacyPolicy: PropTypes.object,
 };
 
-export default memo(
-  compose(
-    injectReducer({ key: 'privacyPolicy', reducer }),
-    injectSaga({ key: 'privacyPolicy', saga }),
-    connect(
-      createStructuredSelector({
-        locale: makeSelectLocale(),
-        privacyPolicy: selectors.selectPrivacyPolicy(),
-      }),
-      dispatch => ({
-        getPrivacyPolicyDispatch: bindActionCreators(
-          getPrivacyPolicy,
-          dispatch,
-        ),
-      }),
-    ),
-  )(PrivacyPolicy),
+const enhance = compose(
+  connect(
+    createStructuredSelector({
+      locale: makeSelectLocale(),
+    }),
+    null,
+  ),
 );
+
+export default enhance(PrivacyPolicy);
