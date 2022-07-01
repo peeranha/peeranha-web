@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
-import * as routes from 'routes-config';
-
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
 import {
@@ -32,7 +30,7 @@ import answerIcon from 'images/answer.svg?inline';
 import bestAnswerIcon from 'images/bestAnswer.svg?inline';
 
 import QuestionType from 'containers/Questions/Content/Body/QuestionType';
-import { POST_TYPE } from 'utils/constants';
+import { getPostRoute } from 'routes-config';
 import Banner from './Banner';
 
 const single = isSingleCommunityWebsite();
@@ -102,18 +100,7 @@ const Note = ({
   const answerRouteId =
     elementType === POST_TYPE_ANSWER ? answerId.split('-')[1] : null;
 
-  const [route, setRoute] = useState(() =>
-    routes.questionView(id, answerRouteId),
-  );
-
-  useEffect(
-    () => {
-      if (postType === POST_TYPE.expertPost) {
-        setRoute(routes.expertPostView(id, answerRouteId));
-      }
-    },
-    [postType, id, answerRouteId],
-  );
+  const route = getPostRoute(postType, id, answerRouteId);
 
   return (
     <LinkStyled to={route} href={route}>

@@ -23,6 +23,8 @@ import RatingStatus from 'components/RatingStatus';
 import QuestionForProfilePage from 'components/QuestionForProfilePage';
 
 import messages from 'containers/Profile/messages';
+import { POST_TYPE_ANSWER } from '../Profile/constants';
+import { getPostRoute } from '../../routes-config';
 
 const RightBlock = Base.extend`
   display: flex;
@@ -103,10 +105,15 @@ const Question = ({
   isGeneral,
   elementType,
 }) => {
+  const answerRouteId =
+    elementType === POST_TYPE_ANSWER ? answerId.split('-')[1] : null;
+
+  const route = getPostRoute(postType, id, answerRouteId);
+
   return (
     <Li className="mb-3">
       <QuestionForProfilePage
-        route={routes.questionView(id, null)}
+        route={route}
         myPostRating={myPostRating}
         title={title}
         myPostTime={myPostTime}

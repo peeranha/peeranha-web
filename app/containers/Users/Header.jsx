@@ -58,7 +58,9 @@ export const Header = ({ sorting, dropdownFilter, userCount }) => {
         </MediumIconStyled>
 
         <span>
-          <FormattedMessage {...commonMessages[isBloggerMode ? "followers" : 'users']} />
+          <FormattedMessage
+            {...commonMessages[isBloggerMode ? 'followers' : 'users']}
+          />
           <Span className="ml-2" color={TEXT_SECONDARY} fontSize="30" bold>
             {getFormattedNum2(userCount)}
           </Span>
