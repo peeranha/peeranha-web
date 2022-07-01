@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
@@ -32,6 +32,7 @@ import answerIcon from 'images/answer.svg?inline';
 import bestAnswerIcon from 'images/bestAnswer.svg?inline';
 
 import QuestionType from 'containers/Questions/Content/Body/QuestionType';
+import { POST_TYPE } from 'utils/constants';
 import Banner from './Banner';
 
 const single = isSingleCommunityWebsite();
@@ -96,15 +97,23 @@ const Note = ({
   isMyPost,
   communityId,
 }) => {
-  let LinkStyled = A;
-  let route = routes.questionView(
-    id,
-    elementType === POST_TYPE_ANSWER ? answerId.split('-')[1] : null,
+  const LinkStyled = single && single !== communityId ? ADefault : A;
+
+  const answerRouteId =
+    elementType === POST_TYPE_ANSWER ? answerId.split('-')[1] : null;
+
+  const [route, setRoute] = useState(() =>
+    routes.questionView(id, answerRouteId),
   );
-  if (single && single !== communityId) {
-    LinkStyled = ADefault;
-    route = `${process.env.APP_LOCATION}${route}`;
-  }
+
+  useEffect(
+    () => {
+      if (postType === POST_TYPE.expertPost) {
+        setRoute(routes.expertPostView(id, answerRouteId));
+      }
+    },
+    [postType, id, answerRouteId],
+  );
 
   return (
     <LinkStyled to={route} href={route}>

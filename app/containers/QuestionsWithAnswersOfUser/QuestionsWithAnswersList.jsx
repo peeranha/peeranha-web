@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import * as routes from 'routes-config';
 
 import QuestionForProfilePage from 'components/QuestionForProfilePage';
 import { Li } from 'containers/QuestionsOfUser/QuestionsList';
+import { POST_TYPE } from 'utils/constants';
 
 /* eslint camelcase: 0 */
 const Question = ({
@@ -22,10 +23,23 @@ const Question = ({
   isGeneral,
   elementType,
 }) => {
+  const [route, setRoute] = useState(() =>
+    routes.questionView(id, answerId.split('-')[1]),
+  );
+
+  useEffect(
+    () => {
+      if (postType === POST_TYPE.expertPost) {
+        setRoute(routes.expertPostView(id, answerId.split('-')[1]));
+      }
+    },
+    [postType, id, answerId],
+  );
+
   return (
     <Li className="mb-3">
       <QuestionForProfilePage
-        route={routes.questionView(id, answerId.split('-')[1])}
+        route={route}
         myPostRating={myPostRating}
         title={title}
         myPostTime={myPostTime}
