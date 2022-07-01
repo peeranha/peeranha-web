@@ -332,10 +332,10 @@ export default memo(
           formValues: state.toJS().form[formName]?.values ?? {},
           communityQuestionsType: questionsType ?? ANY_TYPE,
           initialValues: {
-            [FORM_TYPE]: question?.type ?? QUESTION_TYPES.GENERAL.value,
             [FORM_PROMOTE]: (0).toString(),
             ...(question
               ? {
+                  [FORM_TYPE]: question?.type,
                   [FORM_TITLE]: question?.title,
                   [FORM_CONTENT]: question?.content,
                   [FORM_COMMUNITY]: {
