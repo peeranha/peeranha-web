@@ -229,7 +229,9 @@ export const getAllAchievements = async userId => {
     },
   });
   return {
-    allAchievements: response?.data.achievements,
+    allAchievements: response?.data.achievements
+      .map(achievement => ({ ...achievement, id: Number(achievement.id) }))
+      .sort((x, y) => x.id - y.id),
     userAchievements: response?.data.user?.achievements || [],
   };
 };
@@ -242,6 +244,7 @@ export const getRewardStat = async (userId, ethereumService) => {
       userId,
       periodsCount: isOldUser ? 2 : 1,
     },
+    fetchPolicy: 'network-only',
   });
   return [
     response?.data?.userRewards,
