@@ -29,6 +29,10 @@ export const Div = styled.div`
       transform: ${x =>
         x.isSpecialPosition ? 'rotate(90deg) translateX(8px)' : '0deg'};
     }
+
+    span {
+      min-width: 160px;
+    }
   }
 `;
 
