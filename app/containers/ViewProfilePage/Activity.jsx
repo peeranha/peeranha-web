@@ -123,6 +123,7 @@ const Activity = ({
           className={tab === 'posts' ? '' : 'd-none'}
           questions={myPosts}
           loading={questionsWithAnswersLoading || questionsLoading}
+          userId={userId}
         />
 
         <QuestionsProfileTab
@@ -130,6 +131,7 @@ const Activity = ({
           className={tab === 'quest' ? '' : 'd-none'}
           questions={questions.slice(0, DEFAULT_NUMBER)}
           loading={questionsLoading}
+          userId={userId}
         />
 
         <QuestionsProfileTab
@@ -137,6 +139,7 @@ const Activity = ({
           className={tab === 'answ' ? '' : 'd-none'}
           questions={questionsWithUserAnswers.slice(0, DEFAULT_NUMBER)}
           loading={questionsWithAnswersLoading}
+          userId={userId}
         />
 
         {!questionsWithAnswersLoading &&

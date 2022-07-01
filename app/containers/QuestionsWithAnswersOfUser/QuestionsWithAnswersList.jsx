@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as routes from 'routes-config';
 
 import QuestionForProfilePage from 'components/QuestionForProfilePage';
 import { Li } from 'containers/QuestionsOfUser/QuestionsList';
+import { getPostRoute } from '../../routes-config';
+import { POST_TYPE_ANSWER } from '../Profile/constants';
 
 /* eslint camelcase: 0 */
 const Question = ({
@@ -22,10 +23,15 @@ const Question = ({
   isGeneral,
   elementType,
 }) => {
+  const answerRouteId =
+    elementType === POST_TYPE_ANSWER ? answerId.split('-')[1] : null;
+
+  const route = getPostRoute(postType, id, answerRouteId);
+
   return (
     <Li className="mb-3">
       <QuestionForProfilePage
-        route={routes.questionView(id, answerId.split('-')[1])}
+        route={route}
         myPostRating={myPostRating}
         title={title}
         myPostTime={myPostTime}
