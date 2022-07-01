@@ -70,6 +70,14 @@ const PostDate = Span.extend`
   white-space: nowrap;
   width: 120px;
   text-align: right;
+
+  @media (max-width: 576px) {
+    width: 90px;
+  }
+
+  @media (max-width: 290px) {
+    width: 100px;
+  }
 `;
 
 const PostTypeIcon = ({ elementType, isMyAnswerAccepted }) => {
@@ -80,6 +88,26 @@ const PostTypeIcon = ({ elementType, isMyAnswerAccepted }) => {
 
   return <Img src={icon} notRounded alt="icon" />;
 };
+
+const QuestionTypeHolder = styled.div`
+  @media (max-width: 576px) {
+    margin-top: -20px;
+  }
+`;
+
+const TitleHolder = Span.extend`
+  @media (max-width: 576px) {
+    min-width: 45px;
+    margin-right: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  @media (max-width: 290px) {
+    min-width: 35px;
+  }
+`;
 
 const Note = ({
   postType,
@@ -118,11 +146,12 @@ const Note = ({
           {myPostRating}
         </Rating>
 
-        <Span fontSize="16" lineHeight="30" mobileFS="14">
+        <TitleHolder fontSize="16" lineHeight="30" mobileFS="14" title={title}>
           {title}
-        </Span>
-
-        <QuestionType locale={locale} postType={postType} />
+        </TitleHolder>
+        <QuestionTypeHolder>
+          <QuestionType locale={locale} postType={postType} />
+        </QuestionTypeHolder>
 
         <PostDate
           className="d-inline-block"
