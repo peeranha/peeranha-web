@@ -22,6 +22,9 @@ export default defineMessages({
   requiredField: {
     id: 'app.components.FormFields.requiredField',
   },
+  postTypeSelectionError: {
+    id: 'app.containers.QuestionForm.postTypeSelectionError',
+  },
   requiredAndNotZeroField: {
     id: 'app.components.FormFields.requiredAndNotZeroField',
   },

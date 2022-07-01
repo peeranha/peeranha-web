@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as routes from 'routes-config';
 
 import QuestionForProfilePage from 'components/QuestionForProfilePage';
 import { Li } from 'containers/QuestionsOfUser/QuestionsList';

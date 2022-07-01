@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
@@ -40,9 +40,15 @@ const Rating = Span.extend`
   padding: 2px 3px;
   font-size: 14px;
   border: 1px solid
-    ${x => (x.acceptedAnswer ? BORDER_SUCCESS : BORDER_SECONDARY)};
+    ${({ acceptedAnswer, isMyPost, isMyAnswerAccepted }) =>
+      (acceptedAnswer && isMyPost) || isMyAnswerAccepted
+        ? BORDER_SUCCESS
+        : BORDER_SECONDARY};
 
-  color: ${x => (x.acceptedAnswer ? TEXT_SUCCESS : TEXT_SECONDARY)};
+  color: ${({ acceptedAnswer, isMyPost, isMyAnswerAccepted }) =>
+    (acceptedAnswer && isMyPost) || isMyAnswerAccepted
+      ? TEXT_SUCCESS
+      : TEXT_SECONDARY};
   display: inline-block;
   text-align: center;
   border-radius: 3px;
@@ -86,6 +92,7 @@ const Note = ({
   id,
   answerId,
   elementType,
+  isMyPost,
   communityId,
 }) => {
   const LinkStyled = single && single !== communityId ? ADefault : A;
@@ -103,7 +110,13 @@ const Note = ({
           isMyAnswerAccepted={isMyAnswerAccepted}
         />
 
-        <Rating>{myPostRating}</Rating>
+        <Rating
+          acceptedAnswer={acceptedAnswer}
+          isMyAnswerAccepted={isMyAnswerAccepted}
+          isMyPost={isMyPost}
+        >
+          {myPostRating}
+        </Rating>
 
         <Span fontSize="16" lineHeight="30" mobileFS="14">
           {title}
@@ -125,14 +138,30 @@ const Note = ({
   );
 };
 
-const QuestionsProfileTab = ({ questions, className, loading, locale }) => (
+const QuestionsProfileTab = ({
+  questions,
+  className,
+  loading,
+  locale,
+  userId,
+}) => (
   <div className={className}>
     <div>
-      {questions.map(x => (
+      {questions.map(item => (
         <Note
-          {...x}
-          key={`${x.id}_profile_tab_${x.postType}`}
+          postType={item.postType}
+          isMyAnswerAccepted={item.isMyAnswerAccepted}
+          acceptedAnswer={item.acceptedAnswer}
+          myPostRating={item.myPostRating}
+          title={item.title}
+          myPostTime={item.myPostTime}
+          id={item.id}
+          answerId={item.answerId}
+          elementType={item.elementType}
+          communityId={item.communityId}
+          key={`${item.id}_profile_tab_${item.postType}`}
           locale={locale}
+          isMyPost={userId === item.author.id}
         />
       ))}
     </div>
@@ -144,7 +173,7 @@ const QuestionsProfileTab = ({ questions, className, loading, locale }) => (
 );
 
 PostTypeIcon.propTypes = {
-  postType: PropTypes.string,
+  elementType: PropTypes.string,
   isMyAnswerAccepted: PropTypes.bool,
 };
 
@@ -158,6 +187,9 @@ Note.propTypes = {
   locale: PropTypes.string,
   answerId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   id: PropTypes.string,
+  isMyPost: PropTypes.bool,
+  elementType: PropTypes.string,
+  communityId: PropTypes.string,
 };
 
 QuestionsProfileTab.propTypes = {
@@ -165,6 +197,7 @@ QuestionsProfileTab.propTypes = {
   className: PropTypes.string,
   loading: PropTypes.bool,
   locale: PropTypes.string,
+  userId: PropTypes.string,
 };
 
 export default React.memo(QuestionsProfileTab);
