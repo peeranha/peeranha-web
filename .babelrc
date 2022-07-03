@@ -5,6 +5,13 @@
       "@babel/preset-react",
       { "runtime": "automatic", "importSource": "@emotion/react" }
     ],
+    [
+      "@emotion/babel-preset-css-prop",
+      {
+        "autoLabel": "dev-only",
+        "labelFormat": "[local]"
+      }
+    ],
     "@babel/preset-typescript"
   ],
   "plugins": [
@@ -14,7 +21,6 @@
       {
         "regenerator": true
       }
-    ],
-    "babel-plugin-styled-components"
+    ]
   ]
 }
