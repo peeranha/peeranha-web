@@ -34,7 +34,7 @@ export function injectSagaFactory(store, isValid) {
       ...descriptor,
       mode: descriptor.mode || RESTART_ON_REMOUNT,
     };
-    const { saga, mode } = newDescriptor;
+    const { saga, mode, disableEject } = newDescriptor;
 
     checkKey(key);
     checkDescriptor(newDescriptor);
@@ -52,7 +52,10 @@ export function injectSagaFactory(store, isValid) {
 
     if (
       !hasSaga ||
-      (hasSaga && mode !== DAEMON && mode !== ONCE_TILL_UNMOUNT)
+      (hasSaga &&
+        mode !== DAEMON &&
+        mode !== ONCE_TILL_UNMOUNT &&
+        !disableEject)
     ) {
       /* eslint-disable no-param-reassign */
       store.injectedSagas[key] = {
@@ -65,12 +68,12 @@ export function injectSagaFactory(store, isValid) {
 }
 
 export function ejectSagaFactory(store, isValid) {
-  return function ejectSaga(key) {
+  return function ejectSaga(key, disableEject) {
     if (!isValid) checkStore(store);
 
     checkKey(key);
 
-    if (Reflect.has(store.injectedSagas, key)) {
+    if (Reflect.has(store.injectedSagas, key) && !disableEject) {
       const descriptor = store.injectedSagas[key];
       if (descriptor.mode && descriptor.mode !== DAEMON) {
         descriptor.task.cancel();

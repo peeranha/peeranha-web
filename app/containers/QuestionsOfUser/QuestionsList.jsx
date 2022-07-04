@@ -25,6 +25,8 @@ import A from 'components/A';
 import QuestionForProfilePage from 'components/QuestionForProfilePage';
 
 import messages from 'containers/Profile/messages';
+import { POST_TYPE_ANSWER } from '../Profile/constants';
+import { getPostRoute } from '../../routes-config';
 
 const RightBlock = Base.extend`
   display: flex;
@@ -129,35 +131,42 @@ const Question = ({
   isMyAnswerAccepted,
   isGeneral,
   elementType,
-}) => (
-  <Li className="mb-3" postType={postType}>
-    <QuestionForProfilePage
-      route={routes.questionView(id, null)}
-      myPostRating={myPostRating}
-      title={title}
-      myPostTime={myPostTime}
-      locale={locale}
-      acceptedAnswer={acceptedAnswer}
-      communities={communities}
-      id={id}
-      communityId={communityId}
-      postType={postType}
-      isMyAnswerAccepted={isMyAnswerAccepted}
-      isGeneral={isGeneral}
-      elementType={elementType}
-    />
-    <RightBlock>
-      <span className="d-flex align-items-center mb-2">
-        <img src={answerIconEmptyInside} className="mr-2" alt="icon" />
-        <Span color={TEXT_PRIMARY_DARK} bold>
-          {replies.length}
-        </Span>
-      </span>
+}) => {
+  const answerRouteId =
+    elementType === POST_TYPE_ANSWER ? answerId.split('-')[1] : null;
 
-      <LastAnswer lastAnswer={replies[replies.length - 1]} locale={locale} />
-    </RightBlock>
-  </Li>
-);
+  const route = getPostRoute(postType, id, answerRouteId);
+
+  return (
+    <Li className="mb-3">
+      <QuestionForProfilePage
+        route={route}
+        myPostRating={myPostRating}
+        title={title}
+        myPostTime={myPostTime}
+        locale={locale}
+        acceptedAnswer={acceptedAnswer}
+        communities={communities}
+        id={id}
+        communityId={communityId}
+        postType={postType}
+        isMyAnswerAccepted={isMyAnswerAccepted}
+        isGeneral={isGeneral}
+        elementType={elementType}
+      />
+      <RightBlock>
+        <span className="d-flex align-items-center mb-2">
+          <img src={answerIconEmptyInside} className="mr-2" alt="icon" />
+          <Span color={TEXT_PRIMARY_DARK} bold>
+            {replies.length}
+          </Span>
+        </span>
+
+        <LastAnswer lastAnswer={replies[replies.length - 1]} locale={locale} />
+      </RightBlock>
+    </Li>
+  );
+};
 
 const QuestionsList = ({ questions, locale, communities }) => (
   <div>

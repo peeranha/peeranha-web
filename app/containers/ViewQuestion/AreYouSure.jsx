@@ -5,7 +5,7 @@ import commonMessages from 'common-messages';
 
 import ContainedButton from 'components/Button/Contained/InfoLargeHeightStretching';
 import OutlinedButton from 'components/Button/Outlined/InfoLargeHeightStretching';
-import ModalDialog from 'components/ModalDialog';
+import ModalDialog, { el, modalRoot } from 'components/ModalDialog';
 import H4 from 'components/H4';
 
 import questionsMessages from './messages';
@@ -13,6 +13,13 @@ import questionsMessages from './messages';
 const AreYouSure = ({ Button, submitAction }) => {
   const [currentTarget, changeEventData] = useState(null);
   const [isOpened, open] = useState(false);
+
+  const closeModal = () => {
+    document.getElementsByTagName('body')[0].style.position = 'relative';
+    modalRoot.removeChild(el);
+
+    open(false);
+  };
 
   return (
     <React.Fragment>
@@ -23,30 +30,32 @@ const AreYouSure = ({ Button, submitAction }) => {
         }}
       />
 
-      <ModalDialog closeModal={() => open(false)} show={isOpened}>
-        <H4 className="text-center pb-3">
-          <FormattedMessage {...commonMessages.delete} />
-        </H4>
+      {isOpened && (
+        <ModalDialog closeModal={closeModal} show={isOpened}>
+          <H4 className="text-center pb-3">
+            <FormattedMessage {...commonMessages.delete} />
+          </H4>
 
-        <div className="pb-4">
-          <FormattedMessage {...questionsMessages.areYouSure} />
-        </div>
+          <div className="pb-4">
+            <FormattedMessage {...questionsMessages.areYouSure} />
+          </div>
 
-        <div className="d-flex align-items-center pb-3">
-          <OutlinedButton className="mr-3" onClick={() => open(false)}>
-            <FormattedMessage {...commonMessages.no} />
-          </OutlinedButton>
+          <div className="d-flex align-items-center pb-3">
+            <OutlinedButton className="mr-3" onClick={closeModal}>
+              <FormattedMessage {...commonMessages.no} />
+            </OutlinedButton>
 
-          <ContainedButton
-            onClick={() => {
-              open(false);
-              submitAction({ currentTarget });
-            }}
-          >
-            <FormattedMessage {...commonMessages.yes} />
-          </ContainedButton>
-        </div>
-      </ModalDialog>
+            <ContainedButton
+              onClick={() => {
+                closeModal();
+                submitAction({ currentTarget });
+              }}
+            >
+              <FormattedMessage {...commonMessages.yes} />
+            </ContainedButton>
+          </div>
+        </ModalDialog>
+      )}
     </React.Fragment>
   );
 };

@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as routes from 'routes-config';
 
 import QuestionForProfilePage from 'components/QuestionForProfilePage';
 import { Li } from 'containers/QuestionsOfUser/QuestionsList';
+import { getPostRoute } from '../../routes-config';
+import { POST_TYPE_ANSWER } from '../Profile/constants';
 
 /* eslint camelcase: 0 */
 const Question = ({
@@ -21,28 +22,35 @@ const Question = ({
   answerId,
   isGeneral,
   elementType,
-}) => (
-  <Li className="mb-3" postType={postType}>
-    <QuestionForProfilePage
-      route={routes.questionView(id, answerId.split('-')[1])}
-      myPostRating={myPostRating}
-      title={title}
-      myPostTime={myPostTime}
-      locale={locale}
-      acceptedAnswer={acceptedAnswer}
-      communities={communities}
-      id={id}
-      communityId={communityId}
-      postType={postType}
-      isMyAnswerAccepted={isMyAnswerAccepted}
-      isTheLargestRating={isTheLargestRating}
-      isGeneral={isGeneral}
-      bordered={false}
-      isAnswer
-      elementType={elementType}
-    />
-  </Li>
-);
+}) => {
+  const answerRouteId =
+    elementType === POST_TYPE_ANSWER ? answerId.split('-')[1] : null;
+
+  const route = getPostRoute(postType, id, answerRouteId);
+
+  return (
+    <Li className="mb-3">
+      <QuestionForProfilePage
+        route={route}
+        myPostRating={myPostRating}
+        title={title}
+        myPostTime={myPostTime}
+        locale={locale}
+        acceptedAnswer={acceptedAnswer}
+        communities={communities}
+        id={id}
+        communityId={communityId}
+        postType={postType}
+        isMyAnswerAccepted={isMyAnswerAccepted}
+        isTheLargestRating={isTheLargestRating}
+        isGeneral={isGeneral}
+        bordered={false}
+        isAnswer
+        elementType={elementType}
+      />
+    </Li>
+  );
+};
 
 const QuestionsWithAnswersList = ({ questions, locale, communities }) => (
   <div>

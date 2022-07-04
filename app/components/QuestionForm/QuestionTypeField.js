@@ -5,10 +5,8 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
 import { singleCommunityStyles } from 'utils/communityManagement';
-import validationArrowIcon from 'images/validationArrow.svg?inline';
 import { italicFont } from 'global-styles';
 import messages from 'common-messages';
-import questionMessages from './messages';
 import { POST_TYPE } from './constants';
 
 import {
@@ -117,7 +115,7 @@ const Button = B.extend`
   @media only screen and (max-width: 576px) {
     height: 36px;
     margin-top: -10px;
-    padding: 0 15px;
+    padding: 0 5px;
   }
 `;
 
@@ -166,14 +164,6 @@ const QuestionTypeField = ({
           ))}
         </ButtonGroup>
       </Wrapper>
-      {error && (
-        <Warning>
-          <Img src={validationArrowIcon} alt="icon" />
-          <FormattedMessage
-            {...questionMessages.questionPostTypeSelectionError}
-          />
-        </Warning>
-      )}
     </QuestionTypeContainer>
   );
 };
