@@ -63,9 +63,9 @@ export const CommentOptions = ({
             <Span className="mr-1" bold>{`${commentsNumber} `}</Span>
             <Span className="text-lowercase" color={TEXT_SECONDARY}>
               {commentsNumber === 1 ? (
-                <FormattedMessage {...messages.moreComment} />
+                <FormattedMessage id={messages.moreComment.id} />
               ) : (
-                <FormattedMessage {...messages.moreComments} />
+                <FormattedMessage id={messages.moreComments.id} />
               )}
               <Icon
                 className="ml-1"
