@@ -39,7 +39,11 @@ import { IconMd } from 'components/Icon/IconWithSizes';
 import blockchainLogo from 'images/blockchain-outline-32.svg?external';
 import commonMessages from 'common-messages';
 import IPFSInformation from 'containers/Questions/Content/Body/IPFSInformation';
-import { getPermissions, hasGlobalModeratorRole } from 'utils/properties';
+import {
+  getPermissions,
+  hasCommunityModeratorRole,
+  hasGlobalModeratorRole,
+} from 'utils/properties';
 
 const CommentManage = styled.div`
   display: flex;
@@ -144,7 +148,12 @@ const CommentView = item => {
 
   useOnClickOutside(refPopover, () => setPopoverOpen(false));
 
-  const isModerator = hasGlobalModeratorRole(getPermissions(item.profileInfo));
+  const isModerator =
+    hasGlobalModeratorRole(getPermissions(item.profileInfo)) ||
+    hasCommunityModeratorRole(
+      getPermissions(item.profileInfo),
+      item.communityId,
+    );
 
   const formattedHistories = item.histories?.filter(
     history =>

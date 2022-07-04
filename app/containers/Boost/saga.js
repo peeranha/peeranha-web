@@ -13,6 +13,7 @@ import {
   makeSelectProfileInfo,
 } from 'containers/AccountProvider/selectors';
 
+import { parseEther } from 'ethers/lib/utils';
 import { GET_WEEK_STAT, CHANGE_STAKE } from './constants';
 
 import {
@@ -24,7 +25,6 @@ import {
 } from './actions';
 import { selectEthereum } from '../EthereumProvider/selectors';
 import { selectUserBoostStat } from './selectors';
-import { parseEther } from 'ethers/lib/utils';
 
 export function* getWeekStatWorker() {
   try {
@@ -34,7 +34,7 @@ export function* getWeekStatWorker() {
     const weekStat = profile
       ? yield call(getWeekStat, ethereumService, user)
       : [];
-    //TODO boost
+    // TODO boost
     // const userBoostStat = profile ? yield call(getUserBoostStatistics, eosService, profile.user) : [];
 
     const currentPeriod = weekStat[0].period;
@@ -63,7 +63,12 @@ export function* changeStakeWorker({ currentStake }) {
       parseEther(currentStake),
     );
 
-    yield put(changeStakedInNextPeriod(Number(currentStake)));
+    yield put(
+      changeStakedInNextPeriod(
+        Number(currentStake),
+        boostStat.availableBalance - (currentStake - boostStat.userStakeNext),
+      ),
+    );
 
     const [newBoost, newAverageStake] = calculateNewBoost(
       boostStat,

@@ -81,7 +81,9 @@ const SubHeader = ({
                 color={TEXT_PRIMARY}
               />
               <AvailableBalance>
-                {getFormattedNum3(availableBalance)}
+                {getFormattedNum3(
+                  Math.round(availableBalance * 1000000) / 1000000,
+                )}
               </AvailableBalance>
             </Span>
             <Span

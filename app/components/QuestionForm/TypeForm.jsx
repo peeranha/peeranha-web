@@ -2,7 +2,7 @@ import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form/immutable';
 import { intlShape } from 'react-intl';
-
+import { requiredPostTypeSelection } from 'components/FormFields/validate';
 import { FORM_TYPE } from './constants';
 import messages from './messages';
 import QuestionTypeField from './QuestionTypeField';
@@ -60,6 +60,7 @@ const TypeForm = ({
         onChange={onChange}
         label={intl.formatMessage(messages.questionType)}
         tip={intl.formatMessage(messages.questionTypeTip)}
+        validate={requiredPostTypeSelection}
         splitInHalf
         error={isError}
       />

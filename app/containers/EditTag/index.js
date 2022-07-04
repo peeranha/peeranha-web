@@ -8,8 +8,6 @@ import PropTypes from 'prop-types';
 
 import * as routes from 'routes-config';
 
-import { useModeratorRole } from '../../hooks/useModeratorRole';
-
 import injectSaga from 'utils/injectSaga';
 
 import { selectEditTagData } from 'containers/TagsOfCommunity/selectors';
@@ -41,8 +39,9 @@ import {
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import { Header } from 'containers/CreateTag/Header';
-import { Tips } from '../CreateTag/Tips';
 import Form from 'containers/CreateTag/Form';
+import { Tips } from '../CreateTag/Tips';
+import { useModeratorRole } from '../../hooks/useModeratorRole';
 
 import messages from './messages';
 import editTagSaga from './saga';
@@ -183,7 +182,11 @@ function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
 }
 
 export default compose(
-  injectSaga({ key: 'editTag', saga: editTagSaga }),
+  injectSaga({
+    key: 'editTag',
+    saga: editTagSaga,
+    disableEject: true,
+  }),
   connect(
     mapStateToProps,
     mapDispatchToProps,

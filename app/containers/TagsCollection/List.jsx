@@ -22,7 +22,7 @@ const TagListBox = styled.div`
 
   ul {
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     flex: 1;
     overflow: hidden;
     position: relative;
@@ -65,6 +65,27 @@ const TagsBlock = styled.div`
   }
 `;
 
+export const NameHolder = P.extend`
+  @media only screen and (max-width: 767px) {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 90%;
+  }
+
+  @media only screen and (max-width: 650px) {
+    max-width: 85%;
+  }
+
+  @media only screen and (max-width: 536px) {
+    max-width: 60%;
+  }
+
+  @media only screen and (max-width: 360px) {
+    max-width: 205px;
+  }
+`;
+
 const List = ({ communities }) => {
   if (!communities || !communities.length) return null;
 
@@ -89,9 +110,9 @@ const List = ({ communities }) => {
                   alt={x.name}
                 />
                 <div>
-                  <P fontSize="24" lineHeight="31" bold>
+                  <NameHolder fontSize="24" lineHeight="31" bold title={x.name}>
                     {x.name}
-                  </P>
+                  </NameHolder>
                   <P
                     className="text-lowercase"
                     fontSize="14"

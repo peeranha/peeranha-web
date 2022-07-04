@@ -84,6 +84,7 @@ const withSaga = injectSaga({
   key: 'followCommunityButton',
   saga,
   mode: DAEMON,
+  disableEject: true,
 });
 
 export default compose(
