@@ -86,7 +86,7 @@ export const CommentOptions = ({
             fill={colors.commentOption || BORDER_PRIMARY}
           />
           <Span className="ml-1" color={colors.commentOption || TEXT_PRIMARY}>
-            <FormattedMessage {...messages.addComment} />
+            <FormattedMessage id={messages.addComment.id} />
           </Span>
         </ButtonStyled>
       </div>
@@ -114,7 +114,6 @@ CommentOptions.propTypes = {
   submitButtonId: PropTypes.string,
   submitButtonName: PropTypes.string,
   sendCommentLoading: PropTypes.bool,
-  isPhone: PropTypes.bool,
   sendComment: PropTypes.func,
   checkAddCommentAvailable: PropTypes.func,
   hideAddCommentForm: PropTypes.func,
