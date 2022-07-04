@@ -155,41 +155,46 @@ const Section = ({
         </H4>
       </BaseTransparent>
 
-      <div className={isOpened ? 'd-block' : 'd-none'}>
-        <ul>
-          {blocks
-            .slice(0, questionsNumber)
-            .map(x => (
-              <Question
-                key={x.h3}
-                content={x.content}
-                questionCode={x.questionCode}
-                sectionCode={sectionCode}
-                getQuestionCode={getQuestionCode}
-              />
-            ))}
-        </ul>
+      {isOpened && (
+        <div className="d-block">
+          <ul>
+            {blocks
+              .slice(0, questionsNumber)
+              .map(x => (
+                <Question
+                  key={x.h3}
+                  h3={x.h3}
+                  content={x.content}
+                  questionCode={x.questionCode}
+                  sectionCode={sectionCode}
+                  route={route}
+                  getQuestionCode={getQuestionCode}
+                />
+              ))}
+          </ul>
 
-        {blocks.length > DEFAULT_QST_NUM && (
-          <BaseTransparent className="pt-1">
-            <Button onClick={extendSection.bind(null, !isExtendedSection)}>
-              <FormattedMessage
-                id={
-                  commonMessages[isExtendedSection ? 'showLess' : 'showMore'].id
-                }
-                values={{ value: `${questionsNumber}/${blocks.length}` }}
-              />
-              <Icon
-                className="ml-2"
-                rotate={isExtendedSection}
-                isTransition={false}
-                icon={arrowIconNotFilled}
-                width="8"
-              />
-            </Button>
-          </BaseTransparent>
-        )}
-      </div>
+          {blocks.length > DEFAULT_QST_NUM && (
+            <BaseTransparent className="pt-1">
+              <Button onClick={extendSection.bind(null, !isExtendedSection)}>
+                <FormattedMessage
+                  id={
+                    commonMessages[isExtendedSection ? 'showLess' : 'showMore']
+                      .id
+                  }
+                  values={{ value: `${questionsNumber}/${blocks.length}` }}
+                />
+                <Icon
+                  className="ml-2"
+                  rotate={isExtendedSection}
+                  isTransition={false}
+                  icon={arrowIconNotFilled}
+                  width="8"
+                />
+              </Button>
+            </BaseTransparent>
+          )}
+        </div>
+      )}
     </SectionStyled>
   );
 };
@@ -199,8 +204,9 @@ const Content = ({ content, route, getSectionCode, getQuestionCode }) => (
     {content.blocks.map(x => (
       <Section
         key={x.h2}
-        blocks={x.blocks}
         h2={x.h2}
+        blocks={x.blocks}
+        sectionCode={x.sectionCode}
         route={route}
         getSectionCode={getSectionCode}
         getQuestionCode={getQuestionCode}
