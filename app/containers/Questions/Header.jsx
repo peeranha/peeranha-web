@@ -154,6 +154,9 @@ export const Header = ({
       window.location.pathname !== routes.expertPosts() &&
       window.location.pathname !== routes.tutorials());
 
+  const routeToEditCommunity = () => {
+    createdHistory.push(routes.communitiesEdit(single));
+  };
   return (
     <Wrapper
       single={single}
@@ -190,12 +193,12 @@ export const Header = ({
       />
       {!!single && (
         <button
-          onClick={() => createdHistory.push(routes.communitiesEdit(single))}
+          onClick={routeToEditCommunity}
           className={`align-items-center d-inline-flex`}
         >
           <IconMd icon={pencilIcon} />
           <Span className="ml-1" color={TEXT_PRIMARY}>
-            <FormattedMessage {...messages.editCommunity} />
+            <FormattedMessage id={messages.editCommunity.id} />
           </Span>
         </button>
       )}

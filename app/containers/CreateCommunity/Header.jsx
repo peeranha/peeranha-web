@@ -21,6 +21,7 @@ import { feed } from './../../routes-config';
 
 export const Header = ({ headerDescriptor }) => {
   const isSingleCommunityMode = !!isSingleCommunityWebsite();
+  const nextRoute = isSingleCommunityMode ? routes.feed : routes.communities;
 
   return (
     <Wrapper className="mb-to-sm-0 mb-from-sm-3">
@@ -30,35 +31,19 @@ export const Header = ({ headerDescriptor }) => {
       </H3>
 
       <WrapperRightPanel className="right-panel">
-        {isSingleCommunityMode ? (
-          <A to={routes.feed()}>
-            <button>
-              <IconMd
-                className="mr-1"
-                icon={closeIcon}
-                fill={BORDER_PRIMARY}
-                isColorImportant={true}
-              />
-              <Span color={TEXT_PRIMARY} className="button-label">
-                <FormattedMessage {...commonMessages.close} />
-              </Span>
-            </button>
-          </A>
-        ) : (
-          <A to={routes.communities()}>
-            <button>
-              <IconMd
-                className="mr-1"
-                icon={closeIcon}
-                fill={BORDER_PRIMARY}
-                isColorImportant={true}
-              />
-              <Span color={TEXT_PRIMARY} className="button-label">
-                <FormattedMessage {...commonMessages.close} />
-              </Span>
-            </button>
-          </A>
-        )}
+        <A to={nextRoute()}>
+          <button>
+            <IconMd
+              className="mr-1"
+              icon={closeIcon}
+              fill={BORDER_PRIMARY}
+              isColorImportant={true}
+            />
+            <Span color={TEXT_PRIMARY} className="button-label">
+              <FormattedMessage {...commonMessages.close} />
+            </Span>
+          </button>
+        </A>
       </WrapperRightPanel>
     </Wrapper>
   );
