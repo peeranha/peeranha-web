@@ -537,4 +537,7 @@ export default defineMessages({
   transactionCompleted: {
     id: 'app.common.transactionCompleted',
   },
+  gotIt: {
+    id: 'app.common.gotIt',
+  },
 });
