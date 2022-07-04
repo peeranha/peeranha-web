@@ -8,13 +8,14 @@ import createdHistory from 'createdHistory';
 
 import messages from './messages';
 
+const routeToFeed = () => {
+  createdHistory.push(routes.feed());
+};
+
 const ClickRouteToFeed = () => (
   <div className="d-flex">
-    <Button
-      className="getStarted"
-      onClick={() => createdHistory.push(routes.feed())}
-    >
-      <FormattedMessage {...messages.getStarted} />
+    <Button className="getStarted" onClick={routeToFeed}>
+      <FormattedMessage id={messages.getStarted.id} />
     </Button>
   </div>
 );
@@ -23,4 +24,4 @@ ClickRouteToFeed.propTypes = {
   button: PropTypes.object,
 };
 
-export default React.memo(ClickRouteToFeed);
+export default ClickRouteToFeed;
