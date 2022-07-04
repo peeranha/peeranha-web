@@ -91,6 +91,13 @@ const Info = styled.div`
   }
 `;
 
+const DescriptionText = P.extend`
+  @media (max-width: 320px) {
+    width: 85%;
+    padding-right: 5px;
+  }
+`;
+
 const Content = ({ communities, sorting, locale, language, profile }) => {
   if (!communities || !communities.length) return null;
 
@@ -141,9 +148,9 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
                     {/* <P className="d-none d-md-block" fontSize="14" lineHeight="18">
                   <FormattedMessage {...commonMessages[x.language]} />
                 </P> */}
-                    <P fontSize="14" lineHeight="18">
+                    <DescriptionText fontSize="14" lineHeight="18">
                       {description}
-                    </P>
+                    </DescriptionText>
                     {website && <OfficialSiteLink website={website} />}
                   </div>
                 </DescriptionBlock>
