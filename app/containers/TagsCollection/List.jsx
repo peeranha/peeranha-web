@@ -66,23 +66,13 @@ const TagsBlock = styled.div`
 `;
 
 export const NameHolder = P.extend`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 250px;
+
   @media only screen and (max-width: 767px) {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 90%;
-  }
-
-  @media only screen and (max-width: 650px) {
-    max-width: 85%;
-  }
-
-  @media only screen and (max-width: 536px) {
-    max-width: 60%;
-  }
-
-  @media only screen and (max-width: 360px) {
-    max-width: 205px;
+    max-width: 70vw;
   }
 `;
 

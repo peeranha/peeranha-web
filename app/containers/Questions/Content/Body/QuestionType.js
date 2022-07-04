@@ -106,7 +106,7 @@ const Icon = styled(IconLg)`
   }
 
   @media (max-width: 576px) {
-    margin-top: 50px;
+    margin-top: 40px;
   }
 `;
 
