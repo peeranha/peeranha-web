@@ -60,7 +60,7 @@ const AchievementsBlockStyles = css`
     grid-template-columns: 1fr 1fr;
   }
 
-  @media only screen and (max-width: 576px) {
+  @media only screen and (max-width: 690px) {
     grid-template-columns: 1fr;
   }
 `;
