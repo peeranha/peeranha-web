@@ -41,12 +41,17 @@ const RightBlock = Base.extend`
 export const Li = BaseRoundedNoPadding.extend`
   display: flex;
   border: ${x => (x.bordered ? `1px solid ${BORDER_PRIMARY} !important` : '0')};
-  box-shadow: ${({ postType }) =>
-    postType === POST_TYPE.expertPost
-      ? `3px 3px 5px ${EXPERT_BACKLIGHT}`
-      : postType === POST_TYPE.tutorial
-        ? `3px 3px 5px ${TUTORIAL_BACKLIGHT}`
-        : null};
+  box-shadow: ${({ postType }) => {
+    if (postType === POST_TYPE.expertPost) {
+      return `3px 3px 5px ${EXPERT_BACKLIGHT}`;
+    }
+
+    if (postType === POST_TYPE.tutorial) {
+      return `3px 3px 5px ${TUTORIAL_BACKLIGHT}`;
+    }
+
+    return null;
+  }};
   > div:nth-child(2) {
     border-left: 1px solid ${BORDER_SECONDARY};
   }
@@ -61,12 +66,17 @@ export const Li = BaseRoundedNoPadding.extend`
   }
 
   :hover {
-    box-shadow: ${({ postType }) =>
-      postType === POST_TYPE.expertPost
-        ? `6px 6px 5px ${EXPERT_BACKLIGHT}`
-        : postType === POST_TYPE.tutorial
-          ? `6px 6px 5px ${TUTORIAL_BACKLIGHT}`
-          : `0 5px 5px 0 ${SECONDARY_SPECIAL_2}`};
+    box-shadow: ${({ postType }) => {
+      if (postType === POST_TYPE.expertPost) {
+        return `6px 6px 5px ${EXPERT_BACKLIGHT}`;
+      }
+
+      if (postType === POST_TYPE.tutorial) {
+        return `6px 6px 5px ${TUTORIAL_BACKLIGHT}`;
+      }
+
+      return `0 5px 5px 0 ${SECONDARY_SPECIAL_2}`;
+    }};
   }
 `;
 
