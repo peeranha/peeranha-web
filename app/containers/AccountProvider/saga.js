@@ -110,8 +110,6 @@ const single = isSingleCommunityWebsite();
 /* eslint func-names: 0, consistent-return: 0 */
 export const getCurrentAccountWorker = function*(initAccount) {
   try {
-    yield put(getCurrentAccountProcessing());
-
     const ethereumService = yield select(selectEthereum);
 
     if (ethereumService.withMetaMask)
@@ -123,9 +121,15 @@ export const getCurrentAccountWorker = function*(initAccount) {
       ? initAccount
       : call(ethereumService.getSelectedAccount);
 
-    const previouslyConnectedWallet = JSON.parse(
-      window.localStorage.getItem('connectedWallet'),
-    );
+    const previouslyConnectedWallet = getCookie('connectedWallet');
+
+    if (!window.localStorage.getItem('onboard.js:agreement')) {
+      window.localStorage.setItem(
+        'onboard.js:agreement',
+        getCookie('agreement'),
+      );
+    }
+
     if (!account && previouslyConnectedWallet) {
       yield call(ethereumService.walletLogIn, previouslyConnectedWallet);
       account = ethereumService.getSelectedAccount();

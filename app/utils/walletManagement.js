@@ -9,20 +9,23 @@ import {
   BOOST_MODIFIER_HIGH,
   BOOST_MODIFIER_LOW,
   BOOST_MULTIPLIER,
-  EDIT_BOUNTY_METHOD,
   WEI_IN_ETH,
 } from './constants';
 
 import { ApplicationError } from './errors';
 import { getRewardStat } from './theGraph';
 import {
+  CLAIM_REWARD,
+  CONTRACT_TOKEN,
   GET_AVAILABLE_BALANCE,
   GET_AVERAGE_STAKE,
   GET_BOOST,
   GET_STAKE,
   GET_USER_BALANCE,
   GET_USER_STAKE,
+  SET_STAKE,
 } from './ethConstants';
+import { formatEther } from 'ethers/lib/utils';
 
 export const getBalance = async (ethereumService, user) => {
   if (user) {
@@ -30,7 +33,7 @@ export const getBalance = async (ethereumService, user) => {
       GET_USER_BALANCE,
       [user],
     );
-    return Number(balance.toString() / WEI_IN_ETH);
+    return Number(formatEther(balance));
   }
   return 0;
 };
@@ -41,16 +44,16 @@ export const getAvailableBalance = async (ethereumService, user) => {
       GET_AVAILABLE_BALANCE,
       [user],
     );
-    return Number(balance.toString() / WEI_IN_ETH);
+    return Number(formatEther(balance));
   }
   return 0;
 };
 
-export async function getWeekStat(ethereumService, user) {
-  const [rewards, periods] = await getRewardStat(user);
+export async function getWeekStat(ethereumService, userId) {
+  const [rewards, periods, user] = await getRewardStat(userId, ethereumService);
   const inactiveFirstPeriods = [];
 
-  periods.map(period => {
+  periods.forEach(period => {
     if (!rewards.find(reward => reward.period.id === period.id)) {
       inactiveFirstPeriods.push({
         period: period.id,
@@ -62,16 +65,24 @@ export async function getWeekStat(ethereumService, user) {
     }
   });
 
-  const activePeriods = rewards
-    .map(periodReward => ({
-      period: periodReward.period.id,
-      reward: periodReward.tokenToReward,
-      hasTaken: periodReward.isPaid,
-      periodStarted: periodReward.period.startPeriodTime,
-      periodFinished: periodReward.period.endPeriodTime,
-    }))
-    .reverse();
-  return inactiveFirstPeriods.concat(activePeriods);
+  const activePeriods = rewards.map(periodReward => ({
+    period: periodReward.period.id,
+    reward: periodReward.tokenToReward,
+    hasTaken: periodReward.isPaid,
+    periodStarted: periodReward.period.startPeriodTime,
+    periodFinished: periodReward.period.endPeriodTime,
+  }));
+
+  const weekStat = inactiveFirstPeriods
+    .concat(activePeriods)
+    .sort((first, second) => second.periodStarted - first.periodStarted);
+
+  if (user?.creationTime) {
+    return weekStat.filter(
+      period => Number(user.creationTime) < Number(period.periodFinished),
+    );
+  }
+  return weekStat;
 }
 
 export async function sendTokens(
@@ -80,21 +91,12 @@ export async function sendTokens(
 ) {}
 
 export async function pickupReward(ethereumService, user, periodIndex) {
-  return await ethereumService.claimUserReward(user, periodIndex);
-}
-
-export function getEditBountyTrActData(user, bounty, questionId, timestamp) {
-  return {
-    action: EDIT_BOUNTY_METHOD,
-    data: {
-      user,
-      bounty,
-      question_id: questionId,
-      timestamp,
-    },
-    account: process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
-    waitForGettingToBlock: true,
-  };
+  return await ethereumService.sendTransaction(
+    CONTRACT_TOKEN,
+    user,
+    CLAIM_REWARD,
+    [periodIndex],
+  );
 }
 
 export async function payBounty(user, questionId, isDeleted, eosService) {}
@@ -191,11 +193,16 @@ export async function getUserStake(ethereumService, user, period) {
 }
 
 export async function addBoost(ethereumService, user, tokens) {
-  await ethereumService.setStake(user, tokens);
+  return await ethereumService.sendTransaction(
+    CONTRACT_TOKEN,
+    user,
+    SET_STAKE,
+    [user, tokens],
+  );
 }
 
 export function calculateNewBoost(userBoostStat, newStake) {
-  if (!userBoostStat) {
+  if (!userBoostStat || !newStake) {
     return [0, null];
   }
 
@@ -223,12 +230,6 @@ export function calculateNewBoost(userBoostStat, newStake) {
 
   return [predictedBoost, newAverageStake];
 }
-
-export const getStakeNum = stake => {
-  const CURRENCY = ' PEER';
-
-  return +stake.slice(0, stake.indexOf(CURRENCY));
-};
 
 export const getPredictedBoost = (userStake, maxStake) => {
   let boost = 1;

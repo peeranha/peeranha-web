@@ -8,7 +8,13 @@ import QuestionCommunity from 'components/QuestionForProfilePage/QuestionCommuni
 
 const single = isSingleCommunityWebsite();
 
-const TagsContainer = ({ communities, communityId, tags }) => {
+const TagsContainer = ({
+  communities,
+  communityId,
+  tags,
+  postType,
+  isFeed = false,
+}) => {
   return (
     <div className="d-flex align-items-center flex-wrap">
       <Tags
@@ -22,6 +28,8 @@ const TagsContainer = ({ communities, communityId, tags }) => {
             className="my-1"
             communities={communities}
             communityId={communityId}
+            postType={postType}
+            isFeed={isFeed}
           />
         ) : null}
       </Tags>
@@ -33,6 +41,8 @@ TagsContainer.propTypes = {
   communityId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   communities: PropTypes.array,
   tags: PropTypes.array,
+  postType: PropTypes.number,
+  isFeed: PropTypes.bool,
 };
 
 export default memo(TagsContainer);

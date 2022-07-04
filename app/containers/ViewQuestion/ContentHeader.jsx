@@ -31,11 +31,16 @@ import messages from './messages';
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 import { changeQuestionType, payBounty } from './actions';
 import { QUESTION_TYPE } from './constants';
-import { getPermissions, hasGlobalModeratorRole } from '../../utils/properties';
+import {
+  getPermissions,
+  hasCommunityModeratorRole,
+  hasGlobalModeratorRole,
+} from '../../utils/properties';
 import blockchainLogo from 'images/blockchain-outline-32.svg?external';
 import IPFSInformation from 'containers/Questions/Content/Body/IPFSInformation';
 import commonMessages from 'common-messages';
 import { POST_TYPE } from 'utils/constants';
+import { getUserName } from 'utils/user';
 
 const RatingBox = styled.div`
   border-right: 1px solid ${BORDER_SECONDARY};
@@ -45,9 +50,13 @@ const RatingBox = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  @media only screen and (max-width: 576px) {
+  @media only screen and (max-width: 680px) {
     border-right: none;
     border-bottom: 1px solid ${BORDER_SECONDARY};
+  }
+
+  @media only screen and (max-width: 680px) {
+    padding: 0 10px;
   }
 `;
 
@@ -69,7 +78,7 @@ const Box = styled.div`
   border-bottom: 1px solid ${BORDER_SECONDARY};
   height: 77px;
 
-  @media only screen and (max-width: 576px) {
+  @media only screen and (max-width: 680px) {
     flex-direction: column;
     align-items: stretch;
     height: auto;
@@ -78,14 +87,6 @@ const Box = styled.div`
       flex-basis: 60px;
       padding: 0 15px;
     }
-  }
-`;
-
-const Buttons = styled.div`
-  display: flex;
-  align-items: center;
-  @media only screen and (max-width: 576px) {
-    overflow-x: scroll;
   }
 `;
 
@@ -137,7 +138,12 @@ const ContentHeader = props => {
   useOnClickOutside(refSharingModal, () => setModalOpen(false));
 
   const isGlobalAdmin = useMemo(
-    () => hasGlobalModeratorRole(getPermissions(profile)),
+    () =>
+      hasGlobalModeratorRole(getPermissions(profile)) ||
+      hasCommunityModeratorRole(
+        getPermissions(profile),
+        questionData.communityId,
+      ),
     [profile],
   );
   //todo remove integer_properties
@@ -182,7 +188,7 @@ const ContentHeader = props => {
       <ItemInfo>
         <UserInfo
           avatar={getUserAvatar(author.avatar)}
-          name={author?.['displayName']}
+          name={getUserName(author.displayName, author.id)}
           account={author.user}
           rating={getRatingByCommunity(author, props.commId)}
           type={type}
@@ -192,7 +198,7 @@ const ContentHeader = props => {
           isTemporaryAccount={isTemporaryAccount}
         />
 
-        <Buttons>
+        <div className="d-flex align-items-center">
           {type === QUESTION_TYPE && (
             <Button
               id={`${type}_change_type_with_rating_restore_${answerId}`}
@@ -313,7 +319,7 @@ const ContentHeader = props => {
             <IconMd icon={pencilIcon} />
             <FormattedMessage {...messages.editButton} />
           </Button>
-        </Buttons>
+        </div>
       </ItemInfo>
     </Box>
   );

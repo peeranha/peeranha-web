@@ -20,23 +20,24 @@ import peeranhaLogo from 'images/LogoBlack.svg?inline';
 import {
   isSingleCommunityWebsite,
   singleCommunityStyles,
-  getSingleCommunityDetails,
+  singleCommunityColors,
 } from 'utils/communityManagement';
 
 import LargeButton from 'components/Button/Contained/InfoLarge';
 import Icon from 'components/Icon';
 import { IconSm, IconLm } from 'components/Icon/IconWithSizes';
-import { ADefault } from 'components/A';
 
-import { Wrapper, MainSubHeader, SingleModeSubHeader } from './Wrapper';
+import styled from 'styled-components';
+import { Wrapper, MainSubHeader } from './Wrapper';
 import Section from './Section';
-import LogoStyles, { QAndALogo } from './Logo';
+import LogoStyles from './Logo';
 
 import ButtonGroupForNotAuthorizedUser from './ButtonGroupForNotAuthorizedUser';
 import ButtonGroupForAuthorizedUser from './ButtonGroupForAuthorizedUser';
 import SearchForm from './SearchForm';
 
-import { HEADER_ID, SEARCH_FORM_ID } from './constants';
+import { HEADER_ID, LOADER_HEIGHT, SEARCH_FORM_ID } from './constants';
+import processIndicator from '../../images/progress-indicator.svg?inline';
 
 const single = isSingleCommunityWebsite();
 const styles = singleCommunityStyles();
@@ -60,6 +61,47 @@ export const LoginProfile = memo(
       />
     ),
 );
+
+const colors = singleCommunityColors();
+
+const ProgressIndicator = styled.div`
+  background: ${colors.mainBackground
+    ? colors.mainBackground
+    : 'rgb(234, 236, 244)'};
+  min-height: ${LOADER_HEIGHT}px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  animation: animation 0.5s forwards;
+
+  @keyframes animation {
+    0% {
+      transform: translateY(-100%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  img {
+    margin-right: 10px;
+    animation: rotation 1s infinite linear;
+  }
+
+  div {
+    display: flex;
+    align-items: center;
+  }
+
+  @keyframes rotation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+`;
 
 const Button = LargeButton.extend`
   background-color: ${x => x.bg};
@@ -87,6 +129,9 @@ const View = ({
   redirectToAskQuestionPage,
   showLoginModalWithRedirectToAskQuestionPage,
   faqQuestions,
+  isTransactionInPending,
+  transactionHash,
+  transactionInitialised,
 }) => {
   const [isSearchFormVisible, setSearchFormVisibility] = useState(false);
 
@@ -118,36 +163,43 @@ const View = ({
   );
 
   return (
-    <Wrapper id={HEADER_ID}>
-      {/* {!styles?.customSubHeader &&
-        !!single && (
-          <SingleModeSubHeader>
-            <div className="container">
-              <ADefault href={`${process.env.APP_LOCATION}${routes.feed()}`}>
-                <img id="peeranha-logo" src={peeranhaLogo} alt="logo" />
-              </ADefault>
+    <Wrapper id={HEADER_ID} transactionInitialised={transactionInitialised}>
+      {transactionInitialised && (
+        <ProgressIndicator>
+          <div>
+            <img src={processIndicator} alt="icon" />
+            {isTransactionInPending ? (
+              <FormattedMessage
+                id={messages.transactionInPending.id}
+                values={{
+                  transaction: (
+                    <a
+                      href={process.env.BLOCKCHAIN_TRANSACTION_INFO_URL.concat(
+                        transactionHash,
+                      )}
+                      target="_blank"
+                    >
+                      <FormattedMessage id={messages.transaction.id} />
+                    </a>
+                  ),
+                }}
+              />
+            ) : (
+              <FormattedMessage id={messages.waitingForConfirm.id} />
+            )}
+          </div>
+        </ProgressIndicator>
+      )}
 
-              <ADefault href={`${process.env.APP_LOCATION}${routes.feed()}`}>
-                <FormattedMessage {...messages.myFeed} />
-              </ADefault>
-
-              <ADefault href={`${process.env.APP_LOCATION}/#allquestions`}>
-                <FormattedMessage {...messages.allQuestions} />
-              </ADefault>
-              <ADefault
-                href={`${process.env.APP_LOCATION}${routes.communities()}`}
-              >
-                <FormattedMessage {...messages.allCommunities} />
-              </ADefault>
-            </div>
-          </SingleModeSubHeader>
-        )}
-      {styles?.customSubHeader ?? null} */}
       <MainSubHeader mainSubHeaderBgColor={styles.mainSubHeaderBgColor}>
         <div className="container">
           <div className="d-flex align-items-center justify-content-between">
             <div className="d-flex align-items-center">
-              <button className="mt-1 mr-3 d-flex d-lg-none" onClick={showMenu}>
+              <button
+                className="mt-1 mr-3 d-flex d-lg-none"
+                onClick={showMenu}
+                type="button"
+              >
                 <IconLm
                   icon={headerNavigationIcon}
                   color={styles.commHeadElemColor || TEXT_SECONDARY_LIGHT}
@@ -192,7 +244,7 @@ const View = ({
                     <IconSm fill={BG_LIGHT} icon={addIcon} />
 
                     <span className="d-none d-lg-inline ml-2">
-                      <FormattedMessage {...messages.askQuestion} />
+                      <FormattedMessage id={messages.askQuestion.id} />
                     </span>
                   </Button>
                 </>
@@ -217,12 +269,14 @@ const View = ({
 View.propTypes = {
   intl: intlShape.isRequired,
   profileInfo: PropTypes.object,
-  isMenuVisible: PropTypes.bool,
   showMenu: PropTypes.func,
   showLoginModalDispatch: PropTypes.func,
   showLoginModalWithRedirectToAskQuestionPage: PropTypes.func,
   redirectToAskQuestionPage: PropTypes.func,
   faqQuestions: PropTypes.array,
+  isTransactionInPending: PropTypes.bool,
+  transactionHash: PropTypes.string,
+  transactionInitialised: PropTypes.bool,
 };
 
 LoginProfile.propTypes = {

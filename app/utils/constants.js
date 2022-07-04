@@ -53,6 +53,9 @@ export const PERMISSION_GRANTED = '1';
 export const PROPERTY_ANSWER_15_MINUTES = 12;
 export const PROPERTY_FIRST_ANSWER = 13;
 
+export const REWARD_CLAIMING_ENABLED =
+  process.env.REWARD_CLAIMING_ENABLED === 'true';
+
 export const WEI_IN_ETH = String(10 ** 18);
 export const BOOST_MULTIPLIER = 5;
 export const BOOST_MODIFIER_HIGH = 5;
@@ -113,16 +116,12 @@ export const communityModeratorPermissions = {
     code: 4,
     title: 'permissionCreateTag',
   },
-  COMMUNITY_MODERATOR_QUESTION_TYPE: {
+  COMMUNITY_MODERATOR_POST_TYPE: {
     code: 5,
-    title: 'permissionChangeQuestionType',
-  },
-  COMMUNITY_MODERATOR_TOP_QUESTIONS: {
-    code: 6,
-    title: 'permissionSelectTopQuestion',
+    title: 'permissionChangePostType',
   },
   COMMUNITY_MODERATOR_OFFICIAL_ANSWER: {
-    code: 7,
+    code: 6,
     title: 'permissionOfficialAnswer',
   },
 };

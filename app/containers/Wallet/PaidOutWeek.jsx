@@ -19,7 +19,8 @@ import ReceivedButton from 'components/Button/Contained/SecondaryLarge';
 import messages from './messages';
 
 import WeekNumber from './WeekNumber';
-import { WEI_IN_ETH } from '../../utils/constants';
+import { formatEther } from 'ethers/lib/utils';
+import { REWARD_CLAIMING_ENABLED } from '../../utils/constants';
 
 const BaseRoundedLi = BaseRounded.extend`
   position: relative;
@@ -53,6 +54,11 @@ const WeekActions = styled.div`
   }
 `;
 
+const EstimatedReward = styled.div`
+  display: inline-grid;
+  grid-template-columns: 40% 25% 35%;
+`;
+
 const PaidOutWeek = ({
   period,
   reward,
@@ -62,8 +68,6 @@ const PaidOutWeek = ({
   pickupRewardProcessing,
   periodStarted,
   periodFinished,
-  ids,
-  registrationWeek,
   style,
 }) => {
   const pickUpReward = () => {
@@ -74,9 +78,7 @@ const PaidOutWeek = ({
       <BaseRoundedLi className="align-items-center">
         <div>
           <P fontSize="13" color={TEXT_SECONDARY}>
-            <FormattedMessage
-              {...messages[registrationWeek ? 'registrationWeek' : 'paidOut']}
-            />
+            <FormattedMessage id={messages.paidOut.id} />
           </P>
           <WeekNumber
             locale={locale}
@@ -85,36 +87,47 @@ const PaidOutWeek = ({
             periodFinished={periodFinished}
           />
         </div>
+        {(REWARD_CLAIMING_ENABLED && (
+          <WeekActions className="d-flex align-items-center justify-content-end">
+            <P className="d-flex align-items-center">
+              <SmallImage className="mr-2" src={currencyPeerImage} alt="icon" />
+              <Span fontSize="20" mobileFS={14} bold>
+                {getFormattedNum3(formatEther(reward))}
+              </Span>
+            </P>
 
-        <WeekActions className="d-flex align-items-center justify-content-end">
-          <P className="d-flex align-items-center">
-            <SmallImage className="mr-2" src={currencyPeerImage} alt="icon" />
-            <Span fontSize="20" mobileFS={14} bold>
-              {getFormattedNum3(reward / WEI_IN_ETH)}
+            {!hasTaken && (
+              <PickupButton
+                className="ml-4"
+                id={`pickup-reward-${period}`}
+                onClick={pickUpReward}
+                disabled={
+                  hasTaken !== false ||
+                  !Number(formatEther(reward)) ||
+                  pickupRewardProcessing
+                }
+              >
+                <FormattedMessage id={messages.getReward.id} />
+              </PickupButton>
+            )}
+
+            {hasTaken && (
+              <ReceivedButton className="ml-4">
+                <FormattedMessage id={messages.received.id} />
+              </ReceivedButton>
+            )}
+          </WeekActions>
+        )) || (
+          <EstimatedReward>
+            <font style={{ gridColumn: '2' }} color={TEXT_SECONDARY}>
+              <FormattedMessage id={messages.estimatedReward.id} />
+            </font>
+            <Span fontSize="20" mobileFS={14} bold style={{ gridColumn: '3' }}>
+              <SmallImage className="mr-2" src={currencyPeerImage} alt="icon" />
+              {getFormattedNum3(formatEther(reward))}
             </Span>
-          </P>
-
-          {!hasTaken && (
-            <PickupButton
-              className="ml-4"
-              id={`pickup-reward-${period}`}
-              onClick={pickUpReward}
-              disabled={
-                hasTaken !== false ||
-                !Number(reward / WEI_IN_ETH) ||
-                pickupRewardProcessing
-              }
-            >
-              <FormattedMessage {...messages.getReward} />
-            </PickupButton>
-          )}
-
-          {hasTaken && (
-            <ReceivedButton className="ml-4">
-              <FormattedMessage {...messages.received} />
-            </ReceivedButton>
-          )}
-        </WeekActions>
+          </EstimatedReward>
+        )}
       </BaseRoundedLi>
     </Container>
   );
@@ -129,8 +142,6 @@ PaidOutWeek.propTypes = {
   pickupRewardProcessing: PropTypes.bool,
   periodStarted: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   periodFinished: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  ids: PropTypes.array,
-  registrationWeek: PropTypes.bool,
   style: PropTypes.object,
 };
 

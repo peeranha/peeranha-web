@@ -65,10 +65,9 @@ const MobileLinksInProfile = ({ profile, isMenuVisible }) => {
             <FormattedMessage id={messages.answers.id} />
           </A>
 
-          {/* TODO PEER-44 'Notifications' option must be displayed when this feature will be added
           <A to={routes.userNotifications(profile.user)}>
             <FormattedMessage id={messages.notifications.id} />
-          </A>*/}
+          </A>
 
           <A to={routes.userNFTs(profile.user)}>
             <FormattedMessage id={messages.NFTs.id} />

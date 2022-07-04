@@ -17,6 +17,7 @@ import Grid from 'components/Grid';
 import { IconWithStatus } from 'components/RatingStatus';
 import MediumImage, { MediumImageWrapper } from 'components/Img/MediumImage';
 import TelegramUserLabel from 'components/Labels/TelegramUserLabel';
+import { getUserName } from 'utils/user';
 
 const User = Base.extend`
   min-height: 84px;
@@ -75,7 +76,7 @@ const Content = ({
                   )}
                 </MediumImageWrapper>
                 <div>
-                  <P fontSize="14">{x?.['displayName']}</P>
+                  <P fontSize="14">{getUserName(x?.displayName, x?.id)}</P>
                   <IconWithStatus
                     className="py-1"
                     size="sm"

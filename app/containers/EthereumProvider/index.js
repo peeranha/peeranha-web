@@ -14,10 +14,8 @@ import injectSaga from 'utils/injectSaga';
 import { DAEMON } from 'utils/constants';
 import LoadingIndicator from 'components/LoadingIndicator/HeightWidthCentered';
 
-import { initEthereum, showModal } from './actions';
 import reducer from 'containers/EthereumProvider/reducer';
 import saga from 'containers/EthereumProvider/saga';
-import { makeSelectEthereum, makeSelectInitializing } from './selectors';
 import {
   init,
   useConnectWallet,
@@ -29,6 +27,16 @@ import coinbaseModule from '@web3-onboard/coinbase';
 import walletConnectModule from '@web3-onboard/walletconnect';
 import torusModule from '@web3-onboard/torus';
 import logo from 'images/LogoBlackOnboard.svg?inline';
+import { makeSelectEthereum, makeSelectInitializing } from './selectors';
+import { addToast } from '../Toast/actions';
+import {
+  initEthereum,
+  showModal,
+  transactionCompleted,
+  transactionFailed,
+  transactionInPending,
+  transactionInitialised,
+} from './actions';
 import communitiesConfig from '../../communities-config';
 
 const injected = injectedModule();
@@ -46,7 +54,7 @@ const initWeb3Onboard = init({
   wallets: [torus, injected, walletConnect, coinbase],
   chains: [
     {
-      id: '0x13881',
+      id: `0x${Number(process.env.CHAIN_ID).toString(16)}`,
       token: 'MATIC',
       label: 'Polygon',
       rpcUrl: process.env.ETHEREUM_NETWORK,
@@ -85,8 +93,13 @@ export const EthereumProvider = ({
   children,
   initEthereumDispatch,
   showModalDispatch,
+  transactionInPendingDispatch,
+  transactionCompletedDispatch,
+  waitForConfirmDispatch,
+  transactionFailedDispatch,
   initializing,
   ethereum,
+  addToast,
 }) => {
   const [{ wallet }, connect, disconnect] = useConnectWallet();
   const [{ connectedChain }, setChain] = useSetChain();
@@ -113,6 +126,11 @@ export const EthereumProvider = ({
     setChain,
     connectedChain,
     showModalDispatch,
+    transactionInPendingDispatch,
+    transactionCompletedDispatch,
+    transactionFailedDispatch,
+    waitForConfirmDispatch,
+    addToast,
   };
 
   useEffect(() => {
@@ -138,10 +156,10 @@ export const EthereumProvider = ({
 };
 
 EthereumProvider.propTypes = {
-  initEthereum: PropTypes.func,
   children: PropTypes.element,
   initializing: PropTypes.bool,
   ethereum: PropTypes.object,
+  addToast: PropTypes.func,
 };
 
 const withConnect = connect(
@@ -152,6 +170,20 @@ const withConnect = connect(
   dispatch => ({
     initEthereumDispatch: bindActionCreators(initEthereum, dispatch),
     showModalDispatch: bindActionCreators(showModal, dispatch),
+    transactionInPendingDispatch: bindActionCreators(
+      transactionInPending,
+      dispatch,
+    ),
+    transactionCompletedDispatch: bindActionCreators(
+      transactionCompleted,
+      dispatch,
+    ),
+    transactionFailedDispatch: bindActionCreators(transactionFailed, dispatch),
+    waitForConfirmDispatch: bindActionCreators(
+      transactionInitialised,
+      dispatch,
+    ),
+    addToast: bindActionCreators(addToast, dispatch),
   }),
 );
 

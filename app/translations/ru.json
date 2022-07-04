@@ -52,7 +52,7 @@
   "app.common.limitedEdition": "Ограниченное издание",
   "app.common.contractAddress": "Контракт",
   "app.common.allQuestions": "Все вопросы",
-  "app.common.manageMyComm": "Управлять сообществами",
+  "app.common.manageMyComm": "Смотреть все сообщества",
   "app.common.asked": "Задано",
   "app.common.askedWhen": "Задано {when}",
   "app.common.answeredWhen": "Отвечено {when}",
@@ -88,6 +88,7 @@
   "app.common.contacts": "Контакты",
   "app.common.support": "Поддержка",
   "app.common.privacyPolicy": "Политика конфиденциальности",
+  "app.common.partners": "Партнеры",
   "app.common.termsOfService": "Условия обслуживания",
   "app.common.privacyPolicyShort": "Политика конфид-ти",
   "app.common.more": "Ещё",
@@ -115,7 +116,7 @@
   "app.common.preview": "Предварительный просмотр",
   "app.common.showMore": "Показать больше {value}",
   "app.common.showLess": "Показать меньше {value}",
-  "app.common.poweredBy": "Powered by {image}",
+  "app.common.poweredBy": "©{year} Powered by {image}",
   "app.common.poweredByPeeranha": "Powered by {image}",
   "app.common.terms": "Operating Agreement",
   "app.common.noResults": "Нет результатов",
@@ -194,6 +195,9 @@
 
   "app.common.ipfsHashValue": "IPFS",
   "app.common.source": "Источник",
+  "app.common.estimatedReward": "Расчетная награда",
+  "app.common.rewardsWillBeAvailable":
+    "К сожалению, вы не можете получить свои токены прямо сейчас. Не беспокойтесь, предполагаемое вознаграждение будет доступно для вас после запуска токена. Наша юридическая команда поддерживает нас в окончательной доработке деталей запуска токена. Благодарим вас!",
 
   "app.telegram.user": "Телеграм пользователь",
   "app.telegram.userLabelPopover":
@@ -221,6 +225,8 @@
   "app.containers.Wallet.periodStillInProgress":
     "Этот период все еще в прогрессе. Вы увидите больше деталей на следующей неделе.",
   "app.containers.Wallet.payoutPending": "Выплата в ожидании",
+  "app.containers.Wallet.weAreAnalyzing":
+    "Мы анализируем действия текущего периода. Подробная информация будет доступна на следующей неделе.",
   "app.containers.Wallet.estimatedPayout": "Расчетная выплата",
   "app.containers.Wallet.paidOut": "Выплачено",
   "app.containers.Wallet.rewarded": "Награждено",
@@ -722,23 +728,31 @@
   "app.containers.Notifications.youHaveNoNewNotifications":
     "У вас нет новых уведомлений",
   "app.containers.Notifications.yourQuestionWasUpVoted":
-    "Вашему вопросу поставили лайк",
+    "Вашему посту поставили лайк",
   "app.containers.Notifications.yourQuestionWasDownVoted":
-    "Вашему вопросу поставили дизлайк",
+    "Вашему посту поставили дизлайк",
+  "app.containers.Notifications.yourQuestionUpVoteWasCanceled":
+    "Вашему посту отменили лайк",
+  "app.containers.Notifications.yourQuestionDownVoteWasCanceled":
+    "Вашему посту отменили дизлайк",
   "app.containers.Notifications.yourAnswerWasUpVoted":
     "Вашему ответу поставили лайк",
   "app.containers.Notifications.yourAnswerWasDownVoted":
     "Вашему ответу поставили дизлайк ",
+  "app.containers.Notifications.yourAnswerUpVoteWasCanceled":
+    "Вашему ответу отменили лайк",
+  "app.containers.Notifications.yourAnswerDownVoteWasCanceled":
+    "Вашему ответу отменили дизлайк",
   "app.containers.Notifications.yourAnswerWasMarkedAsTheBest":
     "Ваш ответ был помечен как лучший",
   "app.containers.Notifications.somebodyAnsweredYourQuestion":
     "Кто-то ответил на ваш вопрос",
   "app.containers.Notifications.somebodyLeftACommentToYourQuestion":
-    "Кто-то оставил комментарий к вашему вопросу",
+    "Ваш пост прокомментировали",
   "app.containers.Notifications.somebodyLeftACommentToYourAnswer":
-    "Кто-то оставил комментарий к вашему ответу",
+    "Ваш ответ прокомментировали",
   "app.containers.Notifications.yourQuestionWasTipped":
-    "Вашему вопросу отправили чаевые",
+    "Вашему посту отправили чаевые",
   "app.containers.Notifications.yourAnswerWasTipped":
     "Вашему ответу отправили чаевые",
 

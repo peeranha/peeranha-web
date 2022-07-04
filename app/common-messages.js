@@ -15,6 +15,9 @@ export default defineMessages({
   profile: {
     id: 'app.common.profile',
   },
+  partners: {
+    id: 'app.common.partners',
+  },
   myCommunities: {
     id: 'app.common.myCommunities',
   },
@@ -524,5 +527,17 @@ export default defineMessages({
   },
   contractAddress: {
     id: 'app.common.contractAddress',
+  },
+  waitingForConfirm: {
+    id: 'app.common.waitingForConfirm',
+  },
+  transactionInPending: {
+    id: 'app.common.transactionInPending',
+  },
+  transaction: {
+    id: 'app.common.transaction',
+  },
+  transactionCompleted: {
+    id: 'app.common.transactionCompleted',
   },
 });
