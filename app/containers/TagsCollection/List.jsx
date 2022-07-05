@@ -22,7 +22,7 @@ const TagListBox = styled.div`
 
   ul {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     flex: 1;
     overflow: hidden;
     position: relative;
@@ -30,6 +30,10 @@ const TagListBox = styled.div`
 
   ul li {
     margin-right: 30px;
+  }
+
+  @media only screen and (max-width: 768px) {
+    flex-wrap: wrap;
   }
 `;
 
