@@ -11,10 +11,10 @@ import { wait } from '../../utils/wait';
 
 const styles = singleCommunityStyles();
 
-const CookieConsentPopup: React.FC = () => {
+const CookieConsentPopup: React.FC<{}> = (): JSX.Element => {
   const [enableAnimation, setEnableAnimation] = useState<boolean>(false);
-  const [isCookieConsent, setIsCookieConsent] = useState<boolean>(
-    !!localStorage.getItem('cookie-consent'),
+  const [isCookieConsent, setIsCookieConsent] = useState<boolean>(() =>
+    Boolean(localStorage.getItem('cookie-consent')),
   );
 
   const acceptCookiePolicy = () => {
