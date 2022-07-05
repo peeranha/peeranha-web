@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
-import { css } from '@emotion/react';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
+import cn from 'classnames';
 import LargeOutlinedButton from '../Button/Outlined/InfoLarge';
 import { singleCommunityStyles } from '../../utils/communityManagement';
 
 import commonMessages from '../../common-messages';
 
 import { wait } from '../../utils/wait';
+import {
+  cookieConsent,
+  cookieConsentAnimation,
+} from './CookieConsentPopup.styled';
 
 const styles = singleCommunityStyles();
 
@@ -28,40 +32,12 @@ const CookieConsentPopup: React.FC<{}> = (): JSX.Element => {
     <>
       {!isCookieConsent && (
         <div
-          css={css`
-            background: aliceblue;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            z-index: 9999;
-
-            animation: ${enableAnimation ? 'animation 1s forwards' : 'none'};
-
-            @keyframes animation {
-              0% {
-                transform: translateY(0);
-              }
-              100% {
-                transform: translateY(100%);
-                display: none;
-              }
-            }
-          `}
+          className={cn('pf b0 full-width')}
+          css={[cookieConsent, enableAnimation && cookieConsentAnimation]}
         >
           <div className="container">
-            <div
-              css={css`
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                padding: 24px 0;
-              `}
-            >
-              <p
-                css={css`
-                  padding-right: 20px;
-                `}
-              >
+            <div className={cn('df aic jcsb pt24 pb24')}>
+              <p className={cn('pr20')}>
                 <FormattedMessage id={commonMessages.cookieConsent.id} />
                 <Link to="/privacy-policy">
                   <FormattedMessage id={commonMessages.moreInfo.id} />
