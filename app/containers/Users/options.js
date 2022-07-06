@@ -1,12 +1,12 @@
 import messages from 'common-messages';
 
 export default {
-  creationTime: {
-    sortBy: 'creationTime',
-    message: messages.date,
+  desc: {
+    orderDirection: 'desc',
+    message: messages.sortAscending,
   },
-  rating: {
-    sortBy: 'rating',
-    message: messages.reputation,
+  asc: {
+    orderDirection: 'asc',
+    message: messages.sortDescending,
   },
 };
