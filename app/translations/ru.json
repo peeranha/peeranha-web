@@ -104,6 +104,7 @@
   "app.common.eosAccount": "Telos аккаунт",
   "app.common.walletAddress": "Адрес кошелька",
   "app.common.successMessage": "Действие было выполнено успешно!",
+  "app.common.messageSendedSuccessfully": "Сообщение успешно отправлено",
   "app.common.errorMessage": "Возникла ошибка",
   "app.common.energy": "Энергия",
   "app.common.show": "Показать",
