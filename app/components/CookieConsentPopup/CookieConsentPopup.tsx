@@ -11,11 +11,14 @@ import { wait } from '../../utils/wait';
 import {
   cookieConsent,
   cookieConsentAnimation,
+  cookieImage,
 } from './CookieConsentPopup.styled';
+
+const cookie = require('../../images/cookie.svg?inline');
 
 const styles = singleCommunityStyles();
 
-const CookieConsentPopup: React.FC<{}> = (): JSX.Element => {
+const CookieConsentPopup: React.FC = (): JSX.Element => {
   const [enableAnimation, setEnableAnimation] = useState<boolean>(false);
   const [isCookieConsent, setIsCookieConsent] = useState<boolean>(() =>
     Boolean(localStorage.getItem('cookie-consent')),
@@ -35,14 +38,22 @@ const CookieConsentPopup: React.FC<{}> = (): JSX.Element => {
           className={cn('pf b0 full-width')}
           css={[cookieConsent, enableAnimation && cookieConsentAnimation]}
         >
-          <div className="container">
+          <div className={cn('container')}>
             <div className={cn('df aic jcsb pt24 pb24')}>
-              <p className={cn('pr20')}>
-                <FormattedMessage id={commonMessages.cookieConsent.id} />
-                <Link to="/privacy-policy">
-                  <FormattedMessage id={commonMessages.moreInfo.id} />
-                </Link>
-              </p>
+              <div className={cn('df aic')}>
+                <img
+                  src={cookie}
+                  alt={'cookie'}
+                  className={cn('mr20')}
+                  css={cookieImage}
+                />
+                <p className={cn('pr20 pl10')}>
+                  <FormattedMessage id={commonMessages.cookieConsent.id} />
+                  <Link to="/privacy-policy">
+                    <FormattedMessage id={commonMessages.moreInfo.id} />
+                  </Link>
+                </p>
+              </div>
               <LargeOutlinedButton
                 onClick={acceptCookiePolicy}
                 customStyles={styles.headerLoginButtonStyles}

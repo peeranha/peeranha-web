@@ -5,6 +5,14 @@ export const cookieConsent = css`
   z-index: 999;
 `;
 
+export const cookieImage = css`
+  width: 70px;
+
+  @media only screen and (max-width: 450px) {
+    display: none;
+  }
+`;
+
 export const cookieConsentAnimation = css`
   animation: animation 1s forwards;
 
