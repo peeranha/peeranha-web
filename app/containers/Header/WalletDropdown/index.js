@@ -104,14 +104,15 @@ const WalletDropdown = ({
           <Menu user={user} number={number} locale={locale} boost={boost} />
         }
       />
-      {isPositiveNumber(number) && (
+      {/* PEER-300 - hide wallet notifications on Prod version */}
+      {/* {isPositiveNumber(number) && (
         <NotificationIcon
           isMobileVersion={false}
           number={number}
           iconId="WalletDropDown_NotificationIcon"
           locale={locale}
         />
-      )}
+      )} */}
     </div>
   );
 };
