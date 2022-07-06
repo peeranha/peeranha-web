@@ -38,6 +38,10 @@ const DescriptionBlock = styled(TitleBlock)`
 const Bage = styled.div`
   display: flex;
   align-items: center;
+
+  @media only screen and (max-width: 330px) {
+    flex-direction: column;
+  }
 `;
 
 const LimitPhrase = styled.p`
