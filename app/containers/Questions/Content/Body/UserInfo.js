@@ -32,7 +32,10 @@ const UserInfo = ({ author, postTime, locale, isSearchPage, communityId }) => (
     >
       {!isSearchPage && (
         <>
-          <AuthorName fontSize="14">
+          <AuthorName
+            fontSize="14"
+            title={getUserName(author.displayName, author.id)}
+          >
             {getUserName(author.displayName, author.id)}
           </AuthorName>
           <RatingStatus

@@ -20,6 +20,7 @@ import messages from './messages';
 
 import WeekNumber from './WeekNumber';
 import { formatEther } from 'ethers/lib/utils';
+import { REWARD_CLAIMING_ENABLED } from '../../utils/constants';
 
 const BaseRoundedLi = BaseRounded.extend`
   position: relative;
@@ -43,14 +44,20 @@ const Container = styled.div`
 `;
 
 const WeekActions = styled.div`
-  @media only screen and (max-width: 576px) {
+  @media only screen and (max-width: 730px) {
     flex-direction: column;
     flex-grow: 0;
+    font-size: 16px;
 
     button {
       margin: 7px 0 0 !important;
     }
   }
+`;
+
+const EstimatedReward = styled.div`
+  display: inline-grid;
+  grid-template-columns: 40% 25% 35%;
 `;
 
 const PaidOutWeek = ({
@@ -81,36 +88,47 @@ const PaidOutWeek = ({
             periodFinished={periodFinished}
           />
         </div>
+        {(REWARD_CLAIMING_ENABLED && (
+          <WeekActions className="d-flex align-items-center justify-content-end">
+            <P className="d-flex align-items-center">
+              <SmallImage className="mr-2" src={currencyPeerImage} alt="icon" />
+              <Span fontSize="20" mobileFS={14} bold>
+                {getFormattedNum3(formatEther(reward))}
+              </Span>
+            </P>
 
-        <WeekActions className="d-flex align-items-center justify-content-end">
-          <P className="d-flex align-items-center">
-            <SmallImage className="mr-2" src={currencyPeerImage} alt="icon" />
-            <Span fontSize="20" mobileFS={14} bold>
+            {!hasTaken && (
+              <PickupButton
+                className="ml-4"
+                id={`pickup-reward-${period}`}
+                onClick={pickUpReward}
+                disabled={
+                  hasTaken !== false ||
+                  !Number(formatEther(reward)) ||
+                  pickupRewardProcessing
+                }
+              >
+                <FormattedMessage id={messages.getReward.id} />
+              </PickupButton>
+            )}
+
+            {hasTaken && (
+              <ReceivedButton className="ml-4">
+                <FormattedMessage id={messages.received.id} />
+              </ReceivedButton>
+            )}
+          </WeekActions>
+        )) || (
+          <EstimatedReward>
+            <font style={{ gridColumn: '2' }} color={TEXT_SECONDARY}>
+              <FormattedMessage id={messages.estimatedReward.id} />
+            </font>
+            <Span fontSize="20" mobileFS={14} bold style={{ gridColumn: '3' }}>
+              <SmallImage className="mr-2" src={currencyPeerImage} alt="icon" />
               {getFormattedNum3(formatEther(reward))}
             </Span>
-          </P>
-
-          {!hasTaken && (
-            <PickupButton
-              className="ml-4"
-              id={`pickup-reward-${period}`}
-              onClick={pickUpReward}
-              disabled={
-                hasTaken !== false ||
-                !Number(formatEther(reward)) ||
-                pickupRewardProcessing
-              }
-            >
-              <FormattedMessage id={messages.getReward.id} />
-            </PickupButton>
-          )}
-
-          {hasTaken && (
-            <ReceivedButton className="ml-4">
-              <FormattedMessage id={messages.received.id} />
-            </ReceivedButton>
-          )}
-        </WeekActions>
+          </EstimatedReward>
+        )}
       </BaseRoundedLi>
     </Container>
   );

@@ -15,7 +15,7 @@ import messages from './messages';
 
 import { uniqueRatingRelated } from './constants';
 import { italicFont } from '../../global-styles';
-import { getFileUrl } from '../../utils/ipfs';
+import { getNFTUrl } from '../../utils/ipfs';
 import NFTInformation from './NFTInformation';
 
 const ImageBlock = styled.div`
@@ -38,6 +38,10 @@ const DescriptionBlock = styled(TitleBlock)`
 const Bage = styled.div`
   display: flex;
   align-items: center;
+
+  @media only screen and (max-width: 330px) {
+    flex-direction: column;
+  }
 `;
 
 const LimitPhrase = styled.p`
@@ -91,12 +95,10 @@ const UniqueAchievement = ({
                 ipfsHash={achievementURI}
               />
             )}
-            <Icon
-              icon={`<object data=${getFileUrl(
-                image,
-              )} type="image/svg+xml" width="160">`}
-              width="160"
-              height="148"
+            <img
+              src={getNFTUrl(image?.slice(7))}
+              style={{ width: '160px', height: '148px' }}
+              alt={'image'}
             />
           </div>
         )}

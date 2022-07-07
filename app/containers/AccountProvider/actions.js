@@ -60,7 +60,11 @@ export const removeLoginData = () => ({
   type: REMOVE_LOGIN_DATA,
 });
 
-export const changeStakedInNextPeriod = stakedInNextPeriod => ({
+export const changeStakedInNextPeriod = (
+  stakedInNextPeriod,
+  availableBalance,
+) => ({
   type: CHANGE_STAKED_IN_NEXT_PERIOD,
   stakedInNextPeriod,
+  availableBalance,
 });

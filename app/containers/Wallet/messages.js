@@ -31,6 +31,9 @@ export default defineMessages({
   estimatedPayout: {
     id: 'app.containers.Wallet.estimatedPayout',
   },
+  weAreAnalyzing: {
+    id: 'app.containers.Wallet.weAreAnalyzing',
+  },
   paidOut: {
     id: 'app.containers.Wallet.paidOut',
   },
@@ -78,5 +81,11 @@ export default defineMessages({
   },
   FAQs: {
     id: 'app.containers.Wallet.FAQs',
+  },
+  estimatedReward: {
+    id: 'app.common.estimatedReward',
+  },
+  rewardsWillBeAvailable: {
+    id: 'app.common.rewardsWillBeAvailable',
   },
 });

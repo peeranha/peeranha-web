@@ -31,7 +31,11 @@ import messages from './messages';
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 import { changeQuestionType, payBounty } from './actions';
 import { QUESTION_TYPE } from './constants';
-import { getPermissions, hasGlobalModeratorRole } from '../../utils/properties';
+import {
+  getPermissions,
+  hasCommunityModeratorRole,
+  hasGlobalModeratorRole,
+} from '../../utils/properties';
 import blockchainLogo from 'images/blockchain-outline-32.svg?external';
 import IPFSInformation from 'containers/Questions/Content/Body/IPFSInformation';
 import commonMessages from 'common-messages';
@@ -68,11 +72,28 @@ const ItemInfo = styled.div`
   }
 `;
 
+const ButtonContainer = styled.div`
+  display: flex;
+  align-items: center;
+
+  @media only screen and (max-width: 360px) {
+    width: 40%;
+    justify-content: space-between;
+    margin-left: -15px;
+  }
+`;
+
 const Box = styled.div`
   display: flex;
   flex-direction: row;
   border-bottom: 1px solid ${BORDER_SECONDARY};
   height: 77px;
+
+  @media only screen and (max-width: 1250px) {
+    > div {
+      padding: 15px;
+    }
+  }
 
   @media only screen and (max-width: 680px) {
     flex-direction: column;
@@ -81,7 +102,12 @@ const Box = styled.div`
 
     > div {
       flex-basis: 60px;
-      padding: 0 15px;
+    }
+  }
+
+  @media only screen and (max-width: 310px) {
+    > div {
+      padding: 0 2px;
     }
   }
 `;
@@ -134,7 +160,12 @@ const ContentHeader = props => {
   useOnClickOutside(refSharingModal, () => setModalOpen(false));
 
   const isGlobalAdmin = useMemo(
-    () => hasGlobalModeratorRole(getPermissions(profile)),
+    () =>
+      hasGlobalModeratorRole(getPermissions(profile)) ||
+      hasCommunityModeratorRole(
+        getPermissions(profile),
+        questionData.communityId,
+      ),
     [profile],
   );
   //todo remove integer_properties
@@ -188,8 +219,7 @@ const ContentHeader = props => {
           achievementsCount={author.achievements?.length}
           isTemporaryAccount={isTemporaryAccount}
         />
-
-        <div className="d-flex align-items-center">
+        <ButtonContainer>
           {type === QUESTION_TYPE && (
             <Button
               id={`${type}_change_type_with_rating_restore_${answerId}`}
@@ -310,7 +340,7 @@ const ContentHeader = props => {
             <IconMd icon={pencilIcon} />
             <FormattedMessage {...messages.editButton} />
           </Button>
-        </div>
+        </ButtonContainer>
       </ItemInfo>
     </Box>
   );

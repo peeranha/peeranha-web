@@ -1,4 +1,7 @@
 export const titleConverter = title => {
+  if (!title) {
+    return '....';
+  }
   if (title.length < 46) {
     return title;
   }
