@@ -51,15 +51,15 @@ const Menu = memo(({ user, number, locale, boost }) => (
   <Ul>
     <A to={routes.userWallet(user)}>
       <FormattedMessage id={messages.wallet.id} />
-      {/* PEER-300 - hide wallet notifications on Prod version */}
-      {/* {isPositiveNumber(number) && (
-        <NotificationIcon
-          inline
-          number={number}
-          iconId="walletDropDownInline"
-          locale={locale}
-        />
-      )} */}
+      {REWARD_CLAIMING_ENABLED &&
+        isPositiveNumber(number) && (
+          <NotificationIcon
+            inline
+            number={number}
+            iconId="walletDropDownInline"
+            locale={locale}
+          />
+        )}
     </A>
 
     {REWARD_CLAIMING_ENABLED && (
