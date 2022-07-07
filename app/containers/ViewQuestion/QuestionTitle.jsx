@@ -70,7 +70,7 @@ export const QuestionTitle = ({
 }) => {
   const {
     tags,
-    communityId: communityId,
+    communityId,
     bestReply: correctAnswerId,
     answers,
     questionBounty,
@@ -81,13 +81,10 @@ export const QuestionTitle = ({
   } = questionData;
 
   const isActivePromotion = useMemo(
-    () => {
-      return (
-        promote &&
-        promote.endsTime > dateNowInSeconds() &&
-        account === questionAuthor
-      );
-    },
+    () =>
+      promote &&
+      promote.endsTime > dateNowInSeconds() &&
+      account === questionAuthor,
     [promote, account, questionAuthor],
   );
 

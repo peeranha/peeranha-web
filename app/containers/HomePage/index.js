@@ -38,8 +38,8 @@ import Footer from './Footer';
 import Introduction from './Introduction';
 import About from './About';
 import Rewards from './Rewards';
-import FaqMain from './FaqMain';
-import Team from './Team';
+import Partners from './Partners';
+import FeedbackForm from './FeedbackForm';
 
 import {
   HEADER_ID,
@@ -151,7 +151,7 @@ export const HomePage = ({
   sendMessageDispatch,
   sendMessageLoading,
   loginWithWalletDispatch,
-  faqQuestions,
+  emailChecking,
   account,
 }) => {
   const translations = translationMessages[locale];
@@ -178,12 +178,14 @@ export const HomePage = ({
       />
 
       <About translations={translations} />
-
-      <Rewards translations={translations} />
-
-      <FaqMain faqQuestions={faqQuestions} />
-
-      <Team
+      
+      <Partners />
+      <Rewards
+        translations={translations}
+        checkEmail={verifyEmail}
+        emailChecking={emailChecking}
+      />
+      <FeedbackForm
         translations={translations}
         sendMessage={sendMessageDispatch}
         sendMessageLoading={sendMessageLoading}
@@ -200,7 +202,7 @@ HomePage.propTypes = {
   sendMessageLoading: PropTypes.bool,
   sendMessageDispatch: PropTypes.func,
   location: PropTypes.object,
-  faqQuestions: PropTypes.array,
+  loginWithWalletDispatch: PropTypes.func,
 };
 
 const withConnect = connect(

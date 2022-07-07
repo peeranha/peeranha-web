@@ -1,7 +1,6 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
-import * as routes from 'routes-config';
 import { translationMessages } from 'i18n';
 
 import A from 'components/A';
@@ -12,8 +11,8 @@ import { APP_FONT } from 'style-constants';
 
 import { singleCommunityFonts } from 'utils/communityManagement';
 import styled from 'styled-components';
+import { getPostRoute } from 'routes-config';
 import messages from '../../messages';
-import { POST_TYPE } from '../../../../utils/constants';
 
 const Wrapper = styled.div`
   margin-right: 30px;
@@ -22,12 +21,8 @@ const Wrapper = styled.div`
 const fonts = singleCommunityFonts();
 
 const Title = ({ locale, title, id, questionBounty, postType }) => {
-  const link =
-    postType === POST_TYPE.generalPost
-      ? routes.questionView(id, null)
-      : postType === POST_TYPE.expertPost
-        ? routes.expertPostView(id, null)
-        : routes.tutorialView(id);
+  const link = getPostRoute(postType, id);
+
   return (
     <Wrapper className="mb-1">
       <Bounty
