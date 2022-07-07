@@ -18,13 +18,6 @@ const ModalWindow = styled.div`
   z-index: 9999;
   padding: 20px;
   border-radius: 30px;
-  @media (max-width: 990px) {
-    width: 100%;
-    height: 100%;
-    left: 0;
-    border-radius: 0;
-    justify-content: start;
-  }
   animation: animation 1s forwards;
   @keyframes animation {
     0% {
@@ -33,6 +26,15 @@ const ModalWindow = styled.div`
     100% {
       transform: translateY(0);
     }
+  }
+  @media (max-width: 990px) {
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 6%;
+    border-radius: 0;
+    justify-content: start;
+    padding-top: 0;
   }
 `;
 
@@ -43,6 +45,7 @@ const Content = styled.div`
   justify-content: space-around;
   width: 100%;
   padding: 24px 0;
+  line-height: 1.5;
 `;
 const Text = styled.div`
   padding: 10px;
@@ -89,10 +92,7 @@ const Popup = () => {
             </Text>
             <Text>Thank you!</Text>
           </Content>
-          <LargeOutlinedButton
-            className="d-none d-sm-flex"
-            onClick={acceptWithRules}
-          >
+          <LargeOutlinedButton onClick={acceptWithRules}>
             <FormattedMessage id={commonMessages.gotIt.id} />
           </LargeOutlinedButton>
         </ModalWindow>
