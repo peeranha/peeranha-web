@@ -49,18 +49,18 @@ const isPositiveNumber = number => Number.isFinite(number) && number > 0;
 
 const Menu = memo(({ user, number, locale, boost }) => (
   <Ul>
-    {/* PEER-300 - hide wallet notifications on Prod version */}
-    {/* <A to={routes.userWallet(user)}>
+    <A to={routes.userWallet(user)}>
       <FormattedMessage id={messages.wallet.id} />
-      {isPositiveNumber(number) && (
+      {/* PEER-300 - hide wallet notifications on Prod version */}
+      {/* {isPositiveNumber(number) && (
         <NotificationIcon
           inline
           number={number}
           iconId="walletDropDownInline"
           locale={locale}
         />
-      )}
-    </A> */}
+      )} */}
+    </A>
 
     {REWARD_CLAIMING_ENABLED && (
       <A to={routes.userBoost(user)}>
