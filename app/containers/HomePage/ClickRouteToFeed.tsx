@@ -8,12 +8,12 @@ import createdHistory from 'createdHistory';
 
 import messages from './messages';
 
-const routeToFeed = () => {
+const routeToFeed = (): void => {
   createdHistory.push(routes.feed());
 };
 
-const ClickRouteToFeed = () => (
-  <div className="d-flex">
+const ClickRouteToFeed: React.FC<{}> = (): JSX.Element => (
+  <div className="df">
     <Button className="getStarted" onClick={routeToFeed}>
       <FormattedMessage id={messages.getStarted.id} />
     </Button>
