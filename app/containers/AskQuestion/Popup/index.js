@@ -49,12 +49,11 @@ const Text = styled.div`
 `;
 
 const Popup = () => {
-  const [IsAgreeRules, setIsAgreeRules] = useState(
-    !!localStorage.getItem('agreement with the rules'),
+  const [IsAgreeRules, setIsAgreeRules] = useState(() =>
+    Boolean(localStorage.getItem('agreement with the rules')),
   );
   const acceptWithRules = () => {
     localStorage.setItem('agreement with the rules', 'true');
-    setTimeout(() => setIsAgreeRules(true), 1000);
     wait(1000).then(() => setIsAgreeRules(true));
   };
 
