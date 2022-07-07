@@ -95,7 +95,9 @@ function accountProviderReducer(state = initialState, action) {
         .set('loginWithMetaMask', null);
 
     case CHANGE_STAKED_IN_NEXT_PERIOD:
-      return state.set('stakedInNextPeriod', stakedInNextPeriod);
+      return state
+        .set('stakedInNextPeriod', stakedInNextPeriod)
+        .set('availableBalance', availableBalance);
 
     default:
       return state;

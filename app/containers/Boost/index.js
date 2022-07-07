@@ -10,6 +10,7 @@ import injectReducer from 'utils/injectReducer';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import {
   makeSelectAccount,
+  makeSelectAccountLoading,
   makeSelectAvailableBalance,
   makeSelectBalance,
 } from 'containers/AccountProvider/selectors';
@@ -41,8 +42,9 @@ const Boost = ({
   getWeekStatProcessing,
   changeStakeDispatch,
   changeStakeLoading,
+  loading,
 }) => {
-  if (!account) {
+  if (!account && !loading) {
     return (
       <div>
         <NotFound withSeo={false} />
@@ -101,6 +103,7 @@ Boost.propTypes = {
   getWeekStatProcessing: PropTypes.bool,
   changeStakeDispatch: PropTypes.func,
   changeStakeLoading: PropTypes.bool,
+  loading: PropTypes.bool,
 };
 
 export default memo(
@@ -122,6 +125,7 @@ export default memo(
         userBoostStat: selectors.selectUserBoostStat(),
         getWeekStatProcessing: selectors.selectGetWeekStatProcessing(),
         changeStakeLoading: selectors.selectChangeStakeLoading(),
+        loading: makeSelectAccountLoading(),
       }),
       dispatch => ({
         getWeekStatDispatch: bindActionCreators(getWeekStat, dispatch),
