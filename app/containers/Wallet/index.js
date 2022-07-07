@@ -8,6 +8,7 @@ import { compose, bindActionCreators } from 'redux';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import {
   makeSelectAccount,
+  makeSelectAccountLoading,
   makeSelectAvailableBalance,
   makeSelectBalance,
 } from 'containers/AccountProvider/selectors';
@@ -38,6 +39,7 @@ const Wallet = ({
   pickupRewardDispatch,
   pickupRewardProcessing,
   ids,
+  loading,
 }) => {
   useEffect(
     () => {
@@ -48,7 +50,7 @@ const Wallet = ({
     [account],
   );
 
-  if (!account || !checkUserURL(account)) {
+  if ((!account || !checkUserURL(account)) && !loading) {
     return (
       <div>
         <NotFound withSeo={false} />
@@ -96,6 +98,7 @@ Wallet.propTypes = {
   getWeekStatDispatch: PropTypes.func,
   getWeekStatProcessing: PropTypes.bool,
   pickupRewardProcessing: PropTypes.bool,
+  loading: PropTypes.bool,
 };
 
 export default memo(
@@ -114,6 +117,7 @@ export default memo(
         getWeekStatProcessing: selectors.selectGetWeekStatProcessing(),
         pickupRewardProcessing: selectors.selectPickupRewardProcessing(),
         ids: selectors.selectIds(),
+        loading: makeSelectAccountLoading(),
       }),
       dispatch => ({
         pickupRewardDispatch: bindActionCreators(pickupReward, dispatch),

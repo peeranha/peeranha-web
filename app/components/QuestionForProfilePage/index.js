@@ -9,7 +9,7 @@ import {
   BG_SUCCESS,
   TEXT_SECONDARY,
   BG_PRIMARY,
-  //BG_PRIMARY_DARK,
+  // BG_PRIMARY_DARK,
   BORDER_RADIUS_M,
   BORDER_RADIUS_L,
 } from 'style-constants';
@@ -26,7 +26,7 @@ import crownIcon from 'images/crownIcon.svg?inline';
 import Base from 'components/Base';
 import Span from 'components/Span';
 import { AProps, APropsDefault } from 'components/A';
-//import QuestionType from 'components/Labels/QuestionType';
+// import QuestionType from 'components/Labels/QuestionType';
 
 import {
   POST_TYPE_ANSWER,
@@ -94,6 +94,19 @@ const ContentContainer = styled.div`
   }
 `;
 
+const TitleHolder = styled.p`
+  @media only screen and (max-width: 768px) {
+    font-size: 20px;
+  }
+
+  @media only screen and (max-width: 576px) {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 80vw;
+  }
+`;
+
 const QuestionLabels = styled.div`
   position: absolute;
   top: 24px;
@@ -103,8 +116,8 @@ const QuestionLabels = styled.div`
   align-items: center;
 
   @media only screen and (max-width: 576px) {
-    top: 50px;
-    right: 3px;
+    top: 0;
+    right: 5px;
   }
 `;
 
@@ -167,7 +180,7 @@ export const QuestionForProfilePage = ({
         <QuestionType size="sm">
           <FormattedMessage {...commonMessages.expert} />
         </QuestionType>
-      )}*/}
+      )} */}
       <ContentContainer>
         <QuestionLabels>
           <QuestionType
@@ -202,10 +215,10 @@ export const QuestionForProfilePage = ({
             mobilefs="18"
             bold="true"
           >
-            {title}
+            <TitleHolder title={title}>{title}</TitleHolder>
           </Link>
 
-          <p className="d-flex align-items-center my-1">
+          <p className="d-flex-column d-sm-flex align-items-center my-1">
             <Span
               className="text-capitalize mr-3"
               fontSize="14"

@@ -18,13 +18,7 @@ import A from 'components/A';
 import { IconLm } from 'components/Icon/IconWithSizes';
 import Button from 'components/Button/Outlined/InfoLarge';
 
-import {
-  HEADER_ID,
-  SECOND_SCREEN,
-  THIRD_SCREEN,
-  FOURTH_SCREEN,
-  FIFTH_SCREEN,
-} from './constants';
+import { HEADER_ID, SECOND_SCREEN, THIRD_SCREEN } from './constants';
 
 import messages from './messages';
 
@@ -71,14 +65,6 @@ const Header = ({ showLoginModal, account }) => {
 
               <button onClick={() => toggle(THIRD_SCREEN)}>
                 <FormattedMessage {...messages.rewards} />
-              </button>
-
-              <button onClick={() => toggle(FOURTH_SCREEN)}>
-                <FormattedMessage {...messages.faq} />
-              </button>
-
-              <button onClick={() => toggle(FIFTH_SCREEN)}>
-                <FormattedMessage {...messages.team} />
               </button>
 
               {!account && (

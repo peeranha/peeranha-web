@@ -79,6 +79,8 @@
   "app.common.seeAll": "See all",
   "app.common.voting": "Voting",
   "app.common.date": "Date",
+  "app.common.sortAscending": "Date ascending",
+  "app.common.sortDescending": "Date descending",
   "app.common.popularity": "Popularity",
   "app.common.moreVoting": "More voting",
   "app.common.reputation": "Reputation",
@@ -88,6 +90,7 @@
   "app.common.contacts": "Contacts",
   "app.common.support": "Support",
   "app.common.privacyPolicy": "Privacy Policy",
+  "app.common.partners": "Partners",
   "app.common.termsOfService": "Terms of Service",
   "app.common.privacyPolicyShort": "Privacy Policy",
   "app.common.more": "More",
@@ -603,7 +606,7 @@
   "app.containers.HomePage.yourContributionsRewarded":
     "Your Contributions Rewarded",
   "app.containers.HomePage.weAreDecentralized":
-    "Decentralized website with questions and answers that rewards users with crypto tokens for their contributions.",
+    "Community questions and answers platform for solving your technical challenges in Web3.",
   "app.containers.HomePage.getStarted": "Get started",
   "app.containers.HomePage.yourEmail": "Your email address",
   "app.containers.HomePage.differentThan":
@@ -613,15 +616,16 @@
 
   "app.containers.HomePage.rewardingUser": "Rewarding Users with Crypto",
   "app.containers.HomePage.peopleSaveHours":
-    "On daily basis, millions of people save hundreds of hours through knowledge of others on Q&A websites. Peeranha’s users are rewarded with PEER crypto tokens for valuable contributions.",
+    "Peeranha motivates to ask questions and provide relevant answers as they are rewarded with PEER crypto tokens.",
 
-  "app.containers.HomePage.ownershipByUsers": "Ownership by Users",
+  "app.containers.HomePage.ownershipByUsers":
+    "All question and answers in one place",
   "app.containers.HomePage.peeranhaDecentralized":
-    "Peeranha is completely permissionless and decentralized. Website governance is created for the community, by the community. Peeranha puts power in the hands of the contributors, not the developers.",
+    "Peeranha puts power in the hands of the Web3 projects. We help to grow faster and access the structured knowledgebase.",
 
   "app.containers.HomePage.earlyAdopters": "Valuing Early Adopters",
   "app.containers.HomePage.peeranhaPhilosophy":
-    "Peeranha’s philosophy is to reward early users generously for their time. As the website grows, rewards will even out and be distributed to more members of the community.",
+    "Peeranha generously rewards early users for their time. As the website grows, rewards will even out and be distributed to more members of the community.",
 
   "app.containers.HomePage.simpleAndAffordable": "Simple and affordable",
   "app.containers.HomePage.getHelp": "Getting Help from the Community",
