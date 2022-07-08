@@ -98,7 +98,7 @@ const Footer = ({ locale }) => (
     <div className="container">
       <div className="d-flex-column d-sm-flex justify-content-between align-items-center">
         <div className="d-flex justify-content-between align-items-center logo">
-          <Link to={routes.questions()}>
+          <Link to={routes.feed()}>
             <img src={logo} alt="logo" />
           </Link>
           <span className="d-none d-lg-inline year">© {Year}</span>
