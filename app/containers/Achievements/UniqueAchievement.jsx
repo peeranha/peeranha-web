@@ -57,16 +57,16 @@ const UniqueAchievement = ({
   factCount,
   lowerValue,
   currentValue,
-  isNext,
-  pointsToNext,
   name,
   description,
   locale,
   image,
   id,
   achievementURI,
+  currentUser,
 }) => {
   const availiableCount = maxCount - factCount;
+  const pointsToNext = lowerValue - currentValue;
   const getProgress = () => (currentValue / lowerValue) * 100;
 
   const translations = translationMessages[locale]
@@ -105,22 +105,25 @@ const UniqueAchievement = ({
         {!reached && (
           <Icon icon={achievementNotReached} width="160" height="148" />
         )}
-        {isNext && (
-          <ProgressBar
-            width="60%"
-            progress={getProgress()}
-            pointsToNext={pointsToNext}
-            groupType={uniqueRatingRelated}
-            messageSingle={
-              translations[messages.progressBarPopover.ratingRelated.single.id]
-            }
-            messageMultiple={
-              translations[
-                messages.progressBarPopover.ratingRelated.multiple.id
-              ]
-            }
-          />
-        )}
+        {currentUser &&
+          !reached && (
+            <ProgressBar
+              width="60%"
+              progress={getProgress()}
+              pointsToNext={pointsToNext}
+              groupType={uniqueRatingRelated}
+              messageSingle={
+                translations[
+                  messages.progressBarPopover.ratingRelated.single.id
+                ]
+              }
+              messageMultiple={
+                translations[
+                  messages.progressBarPopover.ratingRelated.multiple.id
+                ]
+              }
+            />
+          )}
       </ImageBlock>
       <div>
         <TitleBlock>
@@ -146,7 +149,6 @@ UniqueAchievement.propTypes = {
   isNext: PropTypes.bool,
   lowerValue: PropTypes.number,
   currentValue: PropTypes.number,
-  pointsToNext: PropTypes.number,
   factCount: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   description: PropTypes.string,
   locale: PropTypes.string,

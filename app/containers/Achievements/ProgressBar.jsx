@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { showPopover } from 'utils/popover';
-
 const Wrapper = styled.span`
   position: relative;
   display: inline-block;
@@ -11,6 +9,7 @@ const Wrapper = styled.span`
   height: 7px;
   background-color: rgb(194, 198, 216, 0.4);
   border-radius: 7px;
+  overflow: hidden;
 `;
 
 const Progress = styled.span`
@@ -24,27 +23,11 @@ const Progress = styled.span`
   border-radius: 7px;
 `;
 
-const ProgressBar = ({
-  width,
-  progress,
-  pointsToNext,
-  groupType,
-  messageSingle = '',
-  messageMultiple = '',
-}) => {
+const ProgressBar = ({ width, progress, groupType }) => {
   const id = `progress_bar_${groupType}`;
 
-  const currentMessage =
-    pointsToNext === 1
-      ? `${pointsToNext} ${messageSingle}`
-      : `${pointsToNext} ${messageMultiple}`;
-
-  const showTooltip = () => {
-    if (currentMessage) showPopover(id, currentMessage);
-  };
-
   return (
-    <Wrapper id={id} width={width} onMouseEnter={showTooltip}>
+    <Wrapper id={id} width={width}>
       <Progress progress={progress} />
     </Wrapper>
   );
