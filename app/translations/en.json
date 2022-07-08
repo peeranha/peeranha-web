@@ -103,6 +103,7 @@
   "app.common.password": "Password",
   "app.common.walletAddress": "Wallet address",
   "app.common.successMessage": "Action completed successfully",
+  "app.common.messageSendedSuccessfully": "Message sended successfully",
   "app.common.errorMessage": "An error occurred",
   "app.common.energy": "Energy",
   "app.common.show": "Show",
