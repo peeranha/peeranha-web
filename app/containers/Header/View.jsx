@@ -121,6 +121,29 @@ const Button = LargeButton.extend`
   }
 `;
 
+const HeaderContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const MenuLogo = styled.div`
+  display: flex;
+  align-items: center;
+
+  @media only screen and (max-width: 340px) {
+    margin-left: -20px;
+    transform: scale(0.85);
+  }
+`;
+
+const Buttons = Section.extend`
+  @media only screen and (max-width: 325px) {
+    margin-left: -30px;
+    transform: scale(0.8);
+  }
+`;
+
 const View = ({
   showMenu,
   intl,
@@ -174,7 +197,9 @@ const View = ({
                 values={{
                   transaction: (
                     <a
-                      href={`https://mumbai.polygonscan.com/tx/${transactionHash}`}
+                      href={process.env.BLOCKCHAIN_TRANSACTION_INFO_URL.concat(
+                        transactionHash,
+                      )}
                       target="_blank"
                     >
                       <FormattedMessage id={messages.transaction.id} />

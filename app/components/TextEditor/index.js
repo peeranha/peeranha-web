@@ -7,7 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import SimpleMDE from 'react-simplemde-editor';
-import EditorOptions from 'simplemde';
+import { marked } from 'marked';
 import 'easymde/dist/easymde.min.css';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -24,7 +24,7 @@ class TextEditor extends React.PureComponent {
     this.props.onBlur(this.props.value);
   };
 
-  static getHtmlText = md => EditorOptions.prototype.markdown(md);
+  static getHtmlText = md => marked.parse(md);
 
   render() {
     const { locale } = this.props;

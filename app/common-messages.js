@@ -15,6 +15,9 @@ export default defineMessages({
   profile: {
     id: 'app.common.profile',
   },
+  partners: {
+    id: 'app.common.partners',
+  },
   myCommunities: {
     id: 'app.common.myCommunities',
   },
@@ -248,6 +251,12 @@ export default defineMessages({
   },
   date: {
     id: 'app.common.date',
+  },
+  sortAscending: {
+    id: 'app.common.sortAscending',
+  },
+  sortDescending: {
+    id: 'app.common.sortDescending',
   },
   popularity: {
     id: 'app.common.popularity',
@@ -539,5 +548,8 @@ export default defineMessages({
   },
   transactionCompleted: {
     id: 'app.common.transactionCompleted',
+  },
+  messageSendedSuccessfully: {
+    id: 'app.common.messageSendedSuccessfully',
   },
 });
