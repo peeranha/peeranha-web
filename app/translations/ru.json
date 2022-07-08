@@ -811,6 +811,7 @@
   "app.containers.ViewQuestion.markAsBest": "Отметьте как лучший",
   "app.containers.ViewQuestion.communityChoice": "Выбор сообщества",
   "app.containers.ViewQuestion.moreComments": "Больше комментариев",
+  "app.containers.ViewQuestion.moreComment": "Ещё комментарий",
   "app.containers.ViewQuestion.addComment": "Добавить комментарий",
   "app.containers.ViewQuestion.showMoreAnswers":
     "Показать больше ответов {value}",
