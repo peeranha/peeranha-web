@@ -38,7 +38,7 @@ const Menu = ({ sort, sorting }) => (
     {Object.keys(options).map(x => (
       <CheckedItem
         key={x}
-        onClick={() => sort(options[x].sortBy)}
+        onClick={() => sort(options[x].orderDirection)}
         isActive={x === sorting}
       >
         <FormattedMessage {...options[x].message} />
@@ -58,7 +58,9 @@ export const Header = ({ sorting, dropdownFilter, userCount }) => {
         </MediumIconStyled>
 
         <span>
-          <FormattedMessage {...commonMessages[isBloggerMode ? "followers" : 'users']} />
+          <FormattedMessage
+            {...commonMessages[isBloggerMode ? 'followers' : 'users']}
+          />
           <Span className="ml-2" color={TEXT_SECONDARY} fontSize="30" bold>
             {getFormattedNum2(userCount)}
           </Span>
@@ -75,7 +77,7 @@ export const Header = ({ sorting, dropdownFilter, userCount }) => {
       </WrapperRightPanel>
     </Wrapper>
   );
-}
+};
 
 Button.propTypes = {
   sorting: PropTypes.string,

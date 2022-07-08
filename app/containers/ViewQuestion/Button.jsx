@@ -25,7 +25,7 @@ export const SpanStyled = TransparentButton.extend`
     margin-left: 7px;
   }
 
-  @media only screen and (max-width: 1200px) {
+  @media only screen and (max-width: 1260px) {
     > *:last-child {
       display: none;
     }

@@ -31,6 +31,15 @@ const Logo = styled.div`
       width: ${styles.logoText ? 50 : 150}px;
     }
   }
+
+  @media only screen and (max-width: 350px) {
+    width: auto;
+    font-size: 26px;
+
+    img {
+      width: ${styles.logoText ? 50 : 100}px;
+    }
+  }
 `.withComponent(Link);
 
 const QAndALogo = styled.div`

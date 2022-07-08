@@ -40,6 +40,11 @@ import blockchainLogo from 'images/blockchain-outline-32.svg?external';
 import commonMessages from 'common-messages';
 import IPFSInformation from 'containers/Questions/Content/Body/IPFSInformation';
 import { getUserName } from 'utils/user';
+import {
+  getPermissions,
+  hasCommunityModeratorRole,
+  hasGlobalModeratorRole,
+} from 'utils/properties';
 
 const CommentManage = styled.div`
   display: flex;
@@ -135,7 +140,7 @@ const CommentEdit = ({
 
 /* eslint react/no-danger: 0 */
 const CommentView = item => {
-  const isItWrittenByMe = !!item.profileInfo
+  const isItWrittenByMe = item.profileInfo
     ? item.author?.user === item.profileInfo.user
     : false;
 
@@ -144,11 +149,12 @@ const CommentView = item => {
 
   useOnClickOutside(refPopover, () => setPopoverOpen(false));
 
-  const isModerator = false;
-  //   useMemo(
-  //   () => hasGlobalModeratorRole(getRoles(item.profileInfo)),
-  //   [item.profileInfo],
-  // );
+  const isModerator =
+    hasGlobalModeratorRole(getPermissions(item.profileInfo)) ||
+    hasCommunityModeratorRole(
+      getPermissions(item.profileInfo),
+      item.communityId,
+    );
 
   const formattedHistories = item.histories?.filter(
     history =>
@@ -186,11 +192,7 @@ const CommentView = item => {
 
           <div id={`delete-comment-${item.answerId}${item.id}`}>
             <AreYouSure
-              submitAction={
-                isModerator && !isItWrittenByMe
-                  ? item.voteToDelete
-                  : item.deleteComment
-              }
+              submitAction={item.deleteComment}
               Button={({ onClick }) => (
                 <Button
                   show={(!!item.profileInfo && isItWrittenByMe) || isModerator}
@@ -324,11 +326,9 @@ CommentEdit.propTypes = {
 export { Comment, CommentEdit, CommentView, Comments };
 export default React.memo(
   connect(
-    state => {
-      return {
-        profileInfo: makeSelectProfileInfo()(state),
-      };
-    },
+    state => ({
+      profileInfo: makeSelectProfileInfo()(state),
+    }),
     null,
   )(Comments),
 );

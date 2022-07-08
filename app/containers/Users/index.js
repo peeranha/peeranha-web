@@ -19,13 +19,13 @@ import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
 import messages from 'containers/Users/messages';
 
-import * as selectors from './selectors';
-import { changeSortingType, getUsers } from 'containers/Users/actions';
+import { getUsers } from 'containers/Users/actions';
 import reducer from 'containers/Users/reducer';
 import saga from 'containers/Users/saga';
 
 import View from 'containers/Users/View';
 import { selectIsGlobalAdmin } from 'containers/AccountProvider/selectors';
+import * as selectors from './selectors';
 
 const single = isSingleCommunityWebsite();
 
@@ -39,7 +39,6 @@ const Users = ({
   stat,
   communities,
   getUsersDispatch,
-  changeSortingTypeDispatch,
 }) => {
   const getMoreUsers = useCallback(() => {
     getUsersDispatch({ loadMore: true });
@@ -56,11 +55,11 @@ const Users = ({
 
   const dropdownFilter = useCallback(
     sorting => {
-      if (userCount === users.length) {
-        changeSortingTypeDispatch(sorting);
-      } else {
-        getUsersDispatch({ loadMore: false, sorting, reload: true });
-      }
+      getUsersDispatch({
+        loadMore: false,
+        sorting,
+        reload: true,
+      });
     },
     [userCount, communityInfo, users],
   );
@@ -103,7 +102,6 @@ Users.propTypes = {
   limit: PropTypes.number,
   stat: PropTypes.object,
   communities: PropTypes.array,
-  changeSortingTypeDispatch: PropTypes.func,
 };
 
 export default compose(
@@ -123,10 +121,6 @@ export default compose(
     }),
     dispatch => ({
       getUsersDispatch: bindActionCreators(getUsers, dispatch),
-      changeSortingTypeDispatch: bindActionCreators(
-        changeSortingType,
-        dispatch,
-      ),
     }),
   ),
 )(Users);

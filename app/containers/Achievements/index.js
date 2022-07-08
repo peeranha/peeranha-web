@@ -3,7 +3,6 @@ import { compose, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { FormattedMessage } from 'react-intl';
-import { translationMessages } from 'i18n';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 
@@ -33,15 +32,6 @@ import {
 } from './selectors';
 
 import {
-  questionAskedRelated,
-  answerGivenRelated,
-  bestAnswerRelated,
-  firstAnswerIn15Related,
-  firstAnswerRelated,
-  ratingRelated,
-} from './constants';
-
-import {
   getUserAchievements,
   setViewProfileAccount,
   resetViewProfileAccount,
@@ -50,12 +40,8 @@ import {
 
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
 
-import Achievement from './Achievement';
 import UniqueAchievement from './UniqueAchievement';
-import Separator from './Separator';
-import { userNFTs } from '../../routes-config';
 
 const BaseRoundedStyled = styled(BaseRounded)`
   border-top-left-radius: 0;
@@ -74,13 +60,9 @@ const AchievementsBlockStyles = css`
     grid-template-columns: 1fr 1fr;
   }
 
-  @media only screen and (max-width: 576px) {
+  @media only screen and (max-width: 690px) {
     grid-template-columns: 1fr;
   }
-`;
-
-const AchievementsBlock = styled.div`
-  ${AchievementsBlockStyles};
 `;
 
 const UniqueAchievementsBlock = styled.div`
@@ -106,15 +88,7 @@ const Achievements = ({
   getAllAchievementsDispatch,
   achievements,
   userAchievements,
-  ratingAchievements,
-  questionAskedAchievements,
-  anwerGivenAchievements,
-  bestAnswerAchievements,
-  firstAnswerAchievements,
-  firstIn15Achievements,
-  uniqueAchievements,
   achievementsLoading,
-  getUserAchievementsDispatch,
   setViewProfileAccountDispatch,
   resetViewProfileAccountDispatch,
 }) => {
@@ -128,10 +102,6 @@ const Achievements = ({
     },
     [userId],
   );
-
-  const translations = translationMessages[locale]
-    ? translationMessages[locale]
-    : null;
 
   return (
     <div>
@@ -253,25 +223,28 @@ const Achievements = ({
             </UniqueAchievementsTitle>
 
             <UniqueAchievementsBlock>
-              {achievements.map(achievement => (
-                <UniqueAchievement
-                  reached={userAchievements.some(
-                    achievementId => achievementId === achievement.id,
-                  )}
-                  key={achievement.id}
-                  {...achievement}
-                  locale={locale}
-                />
-              ))}
-              {/*{uniqueAchievements.map(el => (*/}
-              {/*  <UniqueAchievement*/}
-              {/*    key={el.name}*/}
-              {/*    {...el}*/}
-              {/*    name={translations[messages[el.name].name.id]}*/}
-              {/*    description={translations[messages[el.name].description.id]}*/}
-              {/*    locale={locale}*/}
-              {/*  />*/}
-              {/*))}*/}
+              {/*TODO revert for PROD*/}
+              {achievements.map(
+                achievement =>
+                  achievement.name !== 'error IPFS2' && (
+                    <UniqueAchievement
+                      reached={userAchievements.some(
+                        achievementId =>
+                          Number(achievementId) === achievement.id,
+                      )}
+                      key={achievement.id}
+                      maxCount={achievement.maxCount}
+                      factCount={achievement.factCount}
+                      lowerValue={achievement.lowerValue}
+                      name={achievement.name}
+                      description={achievement.description}
+                      image={achievement.image}
+                      id={achievement.id}
+                      achievementURI={achievement.achievementURI}
+                      locale={locale}
+                    />
+                  ),
+              )}
             </UniqueAchievementsBlock>
           </UniqueAchievementsWrapper>
         )}
