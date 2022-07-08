@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import styled from 'styled-components';
 
 import commonMessages from 'common-messages';
 
@@ -24,6 +25,30 @@ import LargeImage from 'components/Img/LargeImage';
 import { Box, UlStyled } from 'containers/ViewProfilePage/MainUserInformation';
 
 import messages from './messages';
+
+const AvailableBalance = styled.span`
+  @media (max-width: 590px) {
+    font-size: 30px;
+    line-height: 35px;
+  }
+
+  @media (max-width: 350px) {
+    display: inline-flex;
+    font-size: 19px;
+    transform: translateY(-7px);
+  }
+`;
+
+const WalletUl = UlStyled.extend`
+  li {
+    @media (max-width: 399px) {
+      padding: 5px;
+    }
+  }
+  @media (min-width: 400px) and (max-width: 488px) {
+    display: flex;
+  }
+`;
 
 const SubHeader = ({
   account,
@@ -55,11 +80,11 @@ const SubHeader = ({
                 icon={currencyPeerImage}
                 color={TEXT_PRIMARY}
               />
-              <span>
+              <AvailableBalance>
                 {getFormattedNum3(
                   Math.round(availableBalance * 1000000) / 1000000,
                 )}
-              </span>
+              </AvailableBalance>
             </Span>
             <Span
               className="d-none d-sm-inline-block ml-2"
@@ -73,7 +98,7 @@ const SubHeader = ({
           </div>
 
           <div className="d-flex align-items-center">
-            <UlStyled>
+            <WalletUl>
               <li>
                 <FormattedMessage {...messages.totalBalance} />
                 <Span>
@@ -124,7 +149,7 @@ const SubHeader = ({
                   <Span>{account}</Span>
                 </A>
               </li>
-            </UlStyled>
+            </WalletUl>
           </div>
         </div>
       </div>
