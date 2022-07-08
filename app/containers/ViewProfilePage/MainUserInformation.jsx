@@ -41,11 +41,6 @@ export const UlStyled = Ul.extend`
   white-space: nowrap;
   flex-wrap: wrap;
 
-  @media (min-width: 421px) and (max-width: 488px) {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  }
-
   @media (max-width: 420px) {
     display: flex;
     overflow-x: hidden;
@@ -62,11 +57,13 @@ export const UlStyled = Ul.extend`
     flex-direction: column;
     padding: 15px 30px 15px 0;
 
-    @media (max-width: 399px) {
-      white-space: wrap;
+    @media (max-width: 450px) {
       word-break: break-word;
       white-space: pre-line;
       overflow-wrap: break-word;
+    }
+
+    @media (max-width: 399px) {
       overflow-x: auto;
     }
 
@@ -107,10 +104,15 @@ export const UlStyled = Ul.extend`
       }
     }
 
+    @media only screen and (max-width: 640px) {
+      span {
+        font-size: 13px !important;
+      }
+    }
+
     @media only screen and (max-width: 500px) {
       height: 70px;
       padding: 10px 20px 5px 0;
-      span,
       div {
         font-size: 13px !important;
       }

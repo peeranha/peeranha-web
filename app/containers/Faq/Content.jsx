@@ -1,4 +1,3 @@
-/* eslint react/jsx-no-bind: 0, jsx-a11y/click-events-have-key-events: 0, jsx-a11y/no-noninteractive-element-interactions: 0 */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -12,8 +11,6 @@ import commonMessages from 'common-messages';
 import {
   BORDER_SECONDARY,
   BG_SECONDARY_SPECIAL_4,
-  BG_TRANSPARENT,
-  BORDER_TRANSPARENT,
   TEXT_PRIMARY,
   TEXT_DARK,
   BORDER_PRIMARY_LIGHT,
@@ -21,20 +18,17 @@ import {
 
 import plusIcon from 'images/Plus.svg?inline';
 import minusIcon from 'images/Minus.svg?inline';
-import arrowIconFilled from 'images/arrowDown.svg?external';
 import arrowIconNotFilled from 'images/arrowDownNotFilled.svg?external';
 
 import H4 from 'components/H4';
-import Span from 'components/Span';
 import Icon from 'components/Icon';
-import { IconSm } from 'components/Icon/IconWithSizes';
 import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
 import BaseTransparent from 'components/Base/BaseTransparent';
 import Button from 'components/Button/Outlined/PrimaryLarge';
 
 export const TextBlock = styled.div`
-  display: ${x => (x.isOpened ? 'block' : 'none')};
-  margin-top: ${x => (x.isOpened ? '15px' : '0px')};
+  display: block;
+  margin-top: 15px;
 
   ${textBlockStyles};
 
@@ -82,9 +76,8 @@ const QuestionBox = BaseTransparent.extend`
   display: flex;
   align-items: baseline;
   padding: 10px 30px;
-  background: ${x => (x.isOpened ? BG_SECONDARY_SPECIAL_4 : BG_TRANSPARENT)};
-  border: 1px solid
-    ${x => (x.isOpened ? BORDER_PRIMARY_LIGHT : BORDER_TRANSPARENT)};
+  background: ${BG_SECONDARY_SPECIAL_4};
+  border: 1px solid ${BORDER_PRIMARY_LIGHT};
 
   h5 span {
     color: ${x => (x.isOpened ? TEXT_PRIMARY : TEXT_DARK)};
@@ -103,46 +96,13 @@ const QuestionBoxBody = styled.div`
   width: 100%;
 `;
 
-const Question = ({
-  h3,
-  content,
-  questionCode,
-  sectionCode,
-  route,
-  getQuestionCode,
-}) => {
-  const { hash } = window.location;
-
-  const [isOpened, collapse] = useState(false);
-
-  const collapseQuestion = () => {
-    createdHistory.push(route());
-    collapse(!isOpened);
-  };
-
+const Question = ({ content, questionCode, sectionCode, getQuestionCode }) => {
   const questionId = getQuestionCode(sectionCode, questionCode);
 
-  if (hash.match(questionId) && !isOpened) {
-    collapse(true);
-  }
-
   return (
-    <QuestionBox id={questionId} isOpened={isOpened}>
-      <ImgWrapper onClick={collapseQuestion}>
-        <IconSm rotate={isOpened} icon={arrowIconFilled} />
-      </ImgWrapper>
-
+    <QuestionBox id={questionId}>
       <QuestionBoxBody>
-        <h5 className="d-flex align-items-center" onClick={collapseQuestion}>
-          <Span fontSize="20" lineHeight="30" mobileFS="16">
-            {h3}
-          </Span>
-        </h5>
-
-        <TextBlock
-          isOpened={isOpened}
-          dangerouslySetInnerHTML={{ __html: content }}
-        />
+        <TextBlock dangerouslySetInnerHTML={{ __html: content }} />
       </QuestionBoxBody>
     </QuestionBox>
   );
@@ -195,39 +155,46 @@ const Section = ({
         </H4>
       </BaseTransparent>
 
-      <div className={isOpened ? 'd-block' : 'd-none'}>
-        <ul>
-          {blocks
-            .slice(0, questionsNumber)
-            .map(x => (
-              <Question
-                {...x}
-                key={x.h3}
-                sectionCode={sectionCode}
-                route={route}
-                getQuestionCode={getQuestionCode}
-              />
-            ))}
-        </ul>
+      {isOpened && (
+        <div className="d-block">
+          <ul>
+            {blocks
+              .slice(0, questionsNumber)
+              .map(x => (
+                <Question
+                  key={x.h3}
+                  h3={x.h3}
+                  content={x.content}
+                  questionCode={x.questionCode}
+                  sectionCode={sectionCode}
+                  route={route}
+                  getQuestionCode={getQuestionCode}
+                />
+              ))}
+          </ul>
 
-        {blocks.length > DEFAULT_QST_NUM && (
-          <BaseTransparent className="pt-1">
-            <Button onClick={extendSection.bind(null, !isExtendedSection)}>
-              <FormattedMessage
-                {...commonMessages[isExtendedSection ? 'showLess' : 'showMore']}
-                values={{ value: `${questionsNumber}/${blocks.length}` }}
-              />
-              <Icon
-                className="ml-2"
-                rotate={isExtendedSection}
-                isTransition={false}
-                icon={arrowIconNotFilled}
-                width="8"
-              />
-            </Button>
-          </BaseTransparent>
-        )}
-      </div>
+          {blocks.length > DEFAULT_QST_NUM && (
+            <BaseTransparent className="pt-1">
+              <Button onClick={extendSection.bind(null, !isExtendedSection)}>
+                <FormattedMessage
+                  id={
+                    commonMessages[isExtendedSection ? 'showLess' : 'showMore']
+                      .id
+                  }
+                  values={{ value: `${questionsNumber}/${blocks.length}` }}
+                />
+                <Icon
+                  className="ml-2"
+                  rotate={isExtendedSection}
+                  isTransition={false}
+                  icon={arrowIconNotFilled}
+                  width="8"
+                />
+              </Button>
+            </BaseTransparent>
+          )}
+        </div>
+      )}
     </SectionStyled>
   );
 };
@@ -236,8 +203,10 @@ const Content = ({ content, route, getSectionCode, getQuestionCode }) => (
   <div className="mb-3">
     {content.blocks.map(x => (
       <Section
-        {...x}
         key={x.h2}
+        h2={x.h2}
+        blocks={x.blocks}
+        sectionCode={x.sectionCode}
         route={route}
         getSectionCode={getSectionCode}
         getQuestionCode={getQuestionCode}
@@ -247,11 +216,9 @@ const Content = ({ content, route, getSectionCode, getQuestionCode }) => (
 );
 
 Question.propTypes = {
-  h3: PropTypes.string,
   content: PropTypes.string,
   questionCode: PropTypes.number,
   sectionCode: PropTypes.number,
-  route: PropTypes.func,
   getQuestionCode: PropTypes.func,
 };
 
