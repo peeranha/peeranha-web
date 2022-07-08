@@ -19,10 +19,10 @@ import Base from 'components/Base';
 import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
 import Span from 'components/Span';
 import A from 'components/A';
-import RatingStatus from 'components/RatingStatus';
 import QuestionForProfilePage from 'components/QuestionForProfilePage';
 
 import messages from 'containers/Profile/messages';
+import { getUserName } from 'utils/user';
 import { POST_TYPE_ANSWER } from '../Profile/constants';
 import { getPostRoute } from '../../routes-config';
 
@@ -72,7 +72,7 @@ const LastAnswer = ({ lastAnswer, locale }) => {
           className="d-flex align-items-center"
         >
           <Span className="mr-2" fontSize="14" lineHeight="18">
-            {lastAnswer.author?.displayName}
+            {getUserName(lastAnswer.author?.displayName, lastAnswer.author.id)}
           </Span>
         </A>
       )}
