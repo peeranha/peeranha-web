@@ -1,28 +1,31 @@
-import { css } from '@emotion/react';
+export const styles = {
+  cookieConsent: {
+    background: '#f0f8ff',
+    zIndex: 999,
+  },
 
-export const cookieConsent = css`
-  background: #f0f8ff;
-  z-index: 999;
-`;
+  cookieImage: {
+    '@media (min-width: 450px)': {
+      display: 'inline',
+      width: 70,
+    },
+  },
 
-export const cookieImage = css`
-  width: 70px;
+  cookieConsentAnimation: {
+    animation: 'animationCookiePopup 1s forwards',
 
-  @media only screen and (max-width: 450px) {
-    display: none;
-  }
-`;
+    '@keyframes animationCookiePopup': {
+      '0%': {
+        transform: 'translateY(0)',
+      },
+      '100%': {
+        transform: 'translateY(100%)',
+        display: 'none',
+      },
+    },
+  },
 
-export const cookieConsentAnimation = css`
-  animation: animation 1s forwards;
-
-  @keyframes animation {
-    0% {
-      transform: translateY(0);
-    }
-    100% {
-      transform: translateY(100%);
-      display: none;
-    }
-  }
-`;
+  text: {
+    lineHeight: '20px',
+  },
+};

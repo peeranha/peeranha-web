@@ -8,15 +8,12 @@ import { singleCommunityStyles } from '../../utils/communityManagement';
 import commonMessages from '../../common-messages';
 
 import { wait } from '../../utils/wait';
-import {
-  cookieConsent,
-  cookieConsentAnimation,
-  cookieImage,
-} from './CookieConsentPopup.styled';
+import { css } from '@emotion/react';
+import { styles } from './CookieConsentPopup.styled';
 
 const cookie = require('../../images/cookie.svg?inline');
 
-const styles = singleCommunityStyles();
+const stylesCommunity = singleCommunityStyles();
 
 const CookieConsentPopup: React.FC = (): JSX.Element => {
   const [enableAnimation, setEnableAnimation] = useState<boolean>(false);
@@ -36,7 +33,10 @@ const CookieConsentPopup: React.FC = (): JSX.Element => {
       {!isCookieConsent && (
         <div
           className={cn('pf b0 full-width')}
-          css={[cookieConsent, enableAnimation && cookieConsentAnimation]}
+          css={css({
+            ...styles.cookieConsent,
+            ...(enableAnimation && styles.cookieConsentAnimation),
+          })}
         >
           <div className={cn('container')}>
             <div className={cn('df aic jcsb pt24 pb24')}>
@@ -44,10 +44,10 @@ const CookieConsentPopup: React.FC = (): JSX.Element => {
                 <img
                   src={cookie}
                   alt={'cookie'}
-                  className={cn('mr20')}
-                  css={cookieImage}
+                  className={cn('mr20 dn')}
+                  css={css(styles.cookieImage)}
                 />
-                <p className={cn('pr20 pl10')}>
+                <p className={cn('pr20 pl10')} css={css(styles.text)}>
                   <FormattedMessage id={commonMessages.cookieConsent.id} />
                   <Link to="/privacy-policy">
                     <FormattedMessage id={commonMessages.moreInfo.id} />
@@ -56,7 +56,7 @@ const CookieConsentPopup: React.FC = (): JSX.Element => {
               </div>
               <LargeOutlinedButton
                 onClick={acceptCookiePolicy}
-                customStyles={styles.headerLoginButtonStyles}
+                customStyles={stylesCommunity.headerLoginButtonStyles}
               >
                 <FormattedMessage id={commonMessages.confirm.id} />
               </LargeOutlinedButton>
