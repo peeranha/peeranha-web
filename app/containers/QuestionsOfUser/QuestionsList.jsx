@@ -138,7 +138,7 @@ const Question = ({
   const route = getPostRoute(postType, id, answerRouteId);
 
   return (
-    <Li className="mb-3">
+    <Li className="mb-3" postType={postType}>
       <QuestionForProfilePage
         route={route}
         myPostRating={myPostRating}
