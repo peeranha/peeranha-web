@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
+import { css } from '@emotion/react';
 import cn from 'classnames';
+import useEventListener from 'hooks/useEventListener';
 import LargeOutlinedButton from '../Button/Outlined/InfoLarge';
 import { singleCommunityStyles } from '../../utils/communityManagement';
 
 import commonMessages from '../../common-messages';
-
-import { wait } from '../../utils/wait';
-import { css } from '@emotion/react';
 import { styles } from './CookieConsentPopup.styled';
 
 const cookie = require('../../images/cookie.svg?inline');
@@ -20,18 +19,23 @@ const CookieConsentPopup: React.FC = (): JSX.Element => {
   const [isCookieConsent, setIsCookieConsent] = useState<boolean>(() =>
     Boolean(localStorage.getItem('cookie-consent')),
   );
+  const popup = useRef();
+  useEventListener({
+    target: popup.current,
+    event: 'animationend',
+    handler: () => setIsCookieConsent(true),
+  });
 
   const acceptCookiePolicy = () => {
     localStorage.setItem('cookie-consent', 'true');
     setEnableAnimation(true);
-
-    wait(2000).then(() => setIsCookieConsent(true));
   };
 
   return (
     <>
       {!isCookieConsent && (
         <div
+          ref={popup.current}
           className={cn('pf b0 full-width')}
           css={css({
             ...styles.cookieConsent,
