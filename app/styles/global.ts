@@ -139,6 +139,9 @@ export default css`
   .pa {
     position: absolute;
   }
+  .pf {
+    position: fixed;
+  }
   .l0 {
     left: 0;
   }
