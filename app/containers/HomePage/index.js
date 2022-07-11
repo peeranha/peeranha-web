@@ -17,7 +17,6 @@ import Seo from 'components/Seo';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { loginWithWallet } from 'containers/Login/actions';
-import { selectEmailChecking } from 'containers/SignUp/selectors';
 
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
@@ -151,7 +150,6 @@ export const HomePage = ({
   sendMessageDispatch,
   sendMessageLoading,
   loginWithWalletDispatch,
-  emailChecking,
   account,
 }) => {
   const translations = translationMessages[locale];
@@ -182,8 +180,6 @@ export const HomePage = ({
       <Partners />
       <Rewards
         translations={translations}
-        checkEmail={verifyEmail}
-        emailChecking={emailChecking}
       />
       <FeedbackForm
         translations={translations}
@@ -209,7 +205,6 @@ const withConnect = connect(
   createStructuredSelector({
     account: makeSelectAccount(),
     locale: makeSelectLocale(),
-    emailChecking: selectEmailChecking(),
     sendMessageLoading: homepageSelectors.selectSendMessageLoading(),
     faqQuestions: selectFaqQuestions([
       WHAT_IS_PEERANHA,
