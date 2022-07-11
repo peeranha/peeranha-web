@@ -31,6 +31,10 @@ import {
   isSingleCommunityWebsite,
   singleCommunityColors,
 } from 'utils/communityManagement';
+import {
+  getPermissions,
+  hasGlobalModeratorRole,
+} from 'utils/properties';
 
 import { POST_TYPE } from 'utils/constants';
 import {
@@ -87,6 +91,7 @@ export const Header = ({
   profile,
 }) => {
   const isFeed = parentPage === routes.feed();
+  const isBloggerMode = hasGlobalModeratorRole(getPermissions(profile));
 
   let defaultAvatar = null;
   let defaultLabel = null;
@@ -190,7 +195,7 @@ export const Header = ({
         display={displayQuestionFilter}
         questionFilterFromCookies={questionFilterFromCookies}
       />
-      {!!single && (
+      {!!single && isBloggerMode && (
         <button
           onClick={routeToEditCommunity}
           className={`align-items-center d-inline-flex`}
