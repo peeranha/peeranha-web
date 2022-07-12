@@ -62,7 +62,11 @@ export const CommentOptions = ({
           <ButtonStyled onClick={() => changeCommentsView(!isAllCommentsView)}>
             <Span className="mr-1" bold>{`${commentsNumber} `}</Span>
             <Span className="text-lowercase" color={TEXT_SECONDARY}>
-              <FormattedMessage {...messages.moreComments} />
+              {commentsNumber === 1 ? (
+                <FormattedMessage id={messages.moreComment.id} />
+              ) : (
+                <FormattedMessage id={messages.moreComments.id} />
+              )}
               <Icon
                 className="ml-1"
                 rotate={isAllCommentsView}
@@ -82,7 +86,7 @@ export const CommentOptions = ({
             fill={colors.commentOption || BORDER_PRIMARY}
           />
           <Span className="ml-1" color={colors.commentOption || TEXT_PRIMARY}>
-            <FormattedMessage {...messages.addComment} />
+            <FormattedMessage id={messages.addComment.id} />
           </Span>
         </ButtonStyled>
       </div>
@@ -110,7 +114,6 @@ CommentOptions.propTypes = {
   submitButtonId: PropTypes.string,
   submitButtonName: PropTypes.string,
   sendCommentLoading: PropTypes.bool,
-  isPhone: PropTypes.bool,
   sendComment: PropTypes.func,
   checkAddCommentAvailable: PropTypes.func,
   hideAddCommentForm: PropTypes.func,

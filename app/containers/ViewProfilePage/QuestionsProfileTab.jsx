@@ -1,8 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-
-import * as routes from 'routes-config';
 
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
@@ -32,6 +30,7 @@ import answerIcon from 'images/answer.svg?inline';
 import bestAnswerIcon from 'images/bestAnswer.svg?inline';
 
 import QuestionType from 'containers/Questions/Content/Body/QuestionType';
+import { getPostRoute } from 'routes-config';
 import Banner from './Banner';
 
 const single = isSingleCommunityWebsite();
@@ -71,6 +70,14 @@ const PostDate = Span.extend`
   white-space: nowrap;
   width: 120px;
   text-align: right;
+
+  @media (max-width: 576px) {
+    width: 90px;
+  }
+
+  @media (max-width: 290px) {
+    width: 100px;
+  }
 `;
 
 const PostTypeIcon = ({ elementType, isMyAnswerAccepted }) => {
@@ -81,6 +88,26 @@ const PostTypeIcon = ({ elementType, isMyAnswerAccepted }) => {
 
   return <Img src={icon} notRounded alt="icon" />;
 };
+
+const QuestionTypeHolder = styled.div`
+  @media (max-width: 576px) {
+    margin-top: -20px;
+  }
+`;
+
+const TitleHolder = Span.extend`
+  @media (max-width: 576px) {
+    min-width: 45px;
+    margin-right: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  @media (max-width: 290px) {
+    min-width: 35px;
+  }
+`;
 
 const Note = ({
   postType,
@@ -96,15 +123,12 @@ const Note = ({
   isMyPost,
   communityId,
 }) => {
-  let LinkStyled = A;
-  let route = routes.questionView(
-    id,
-    elementType === POST_TYPE_ANSWER ? answerId.split('-')[1] : null,
-  );
-  if (single && single !== communityId) {
-    LinkStyled = ADefault;
-    route = `${process.env.APP_LOCATION}${route}`;
-  }
+  const LinkStyled = single && single !== communityId ? ADefault : A;
+
+  const answerRouteId =
+    elementType === POST_TYPE_ANSWER ? answerId.split('-')[1] : null;
+
+  const route = getPostRoute(postType, id, answerRouteId);
 
   return (
     <LinkStyled to={route} href={route}>
@@ -122,11 +146,12 @@ const Note = ({
           {myPostRating}
         </Rating>
 
-        <Span fontSize="16" lineHeight="30" mobileFS="14">
+        <TitleHolder fontSize="16" lineHeight="30" mobileFS="14" title={title}>
           {title}
-        </Span>
-
-        <QuestionType locale={locale} postType={postType} />
+        </TitleHolder>
+        <QuestionTypeHolder>
+          <QuestionType locale={locale} postType={postType} />
+        </QuestionTypeHolder>
 
         <PostDate
           className="d-inline-block"

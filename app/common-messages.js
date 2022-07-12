@@ -12,8 +12,20 @@ export default defineMessages({
   copyrightPeeranha: {
     id: 'app.common.copyrightPeeranha',
   },
+  moreInfo: {
+    id: 'app.common.moreInfo',
+  },
+  confirm: {
+    id: 'app.common.confirm',
+  },
+  cookieConsent: {
+    id: 'app.common.cookieConsent',
+  },
   profile: {
     id: 'app.common.profile',
+  },
+  partners: {
+    id: 'app.common.partners',
   },
   myCommunities: {
     id: 'app.common.myCommunities',
@@ -245,6 +257,12 @@ export default defineMessages({
   },
   date: {
     id: 'app.common.date',
+  },
+  sortAscending: {
+    id: 'app.common.sortAscending',
+  },
+  sortDescending: {
+    id: 'app.common.sortDescending',
   },
   popularity: {
     id: 'app.common.popularity',
@@ -539,5 +557,8 @@ export default defineMessages({
   },
   gotIt: {
     id: 'app.common.gotIt',
+  },
+  messageSendedSuccessfully: {
+    id: 'app.common.messageSendedSuccessfully',
   },
 });

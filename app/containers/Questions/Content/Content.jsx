@@ -303,6 +303,7 @@ QI.propTypes = {
   questionBounty: PropTypes.number,
   isHomePage: PropTypes.bool,
   isCommunityFeed: PropTypes.bool,
+  isFeed: PropTypes.bool,
 };
 
 Content.propTypes = {
@@ -314,6 +315,7 @@ Content.propTypes = {
   profileInfo: PropTypes.object,
   isHomePage: PropTypes.bool,
   isCommunityFeed: PropTypes.bool,
+  isFeed: PropTypes.bool,
 };
 
 export { QuestionItem };

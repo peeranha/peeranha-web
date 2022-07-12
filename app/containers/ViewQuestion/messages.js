@@ -34,6 +34,9 @@ export default defineMessages({
   moreComments: {
     id: 'app.containers.ViewQuestion.moreComments',
   },
+  moreComment: {
+    id: 'app.containers.ViewQuestion.moreComment',
+  },
   addComment: {
     id: 'app.containers.ViewQuestion.addComment',
   },

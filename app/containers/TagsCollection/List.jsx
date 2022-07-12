@@ -22,7 +22,7 @@ const TagListBox = styled.div`
 
   ul {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     flex: 1;
     overflow: hidden;
     position: relative;
@@ -30,6 +30,10 @@ const TagListBox = styled.div`
 
   ul li {
     margin-right: 30px;
+  }
+
+  @media only screen and (max-width: 768px) {
+    flex-wrap: wrap;
   }
 `;
 
@@ -66,23 +70,13 @@ const TagsBlock = styled.div`
 `;
 
 export const NameHolder = P.extend`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 250px;
+
   @media only screen and (max-width: 767px) {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 90%;
-  }
-
-  @media only screen and (max-width: 650px) {
-    max-width: 85%;
-  }
-
-  @media only screen and (max-width: 536px) {
-    max-width: 60%;
-  }
-
-  @media only screen and (max-width: 360px) {
-    max-width: 205px;
+    max-width: 70vw;
   }
 `;
 
