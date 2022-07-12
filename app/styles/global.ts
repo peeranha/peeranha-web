@@ -207,4 +207,10 @@ export default css`
   .break-all {
     word-break: break-all;
   }
+  .text-block strong {
+    font-weight: 700;
+  }
+  .text-block em {
+    font-style: italic;
+  }
 `;
