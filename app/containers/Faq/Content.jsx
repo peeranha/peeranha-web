@@ -32,6 +32,21 @@ export const TextBlock = styled.div`
 
   ${textBlockStyles};
 
+  table {
+    th,
+    td {
+      min-width: 70px;
+
+      :first-child {
+        padding-left: 0;
+      }
+
+      :last-child {
+        padding-right: 0;
+      }
+    }
+  }
+
   > * {
     margin-bottom: 5px;
   }
