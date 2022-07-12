@@ -1,55 +1,47 @@
 import React from 'react';
 import { css } from '@emotion/react';
+import cn from 'classnames';
+import warning from 'images/feedback.svg?inline';
 
 const RulesBlock: React.FC<{}> = (): JSX.Element => (
   <div
+    className={cn('full-width full-height df')}
     css={css`
-      width: 100%;
-      height: 100%;
       padding: 10px;
-      border: solid 2px red;
-      color: red;
+      background-color: #ffecd8;
+      border-radius: 10px;
     `}
   >
     <div
       css={css`
-        display: flex;
-        align-items: start;
-        flex-direction: column;
-        justify-content: space-around;
-        line-height: 1.5;
+        padding-left: 20px;
       `}
     >
-      <div
-        css={css`
-          padding-bottom: 15px;
-        `}
-      >
-        Here are some tips to make your answer helpful and doesn't get deleted
-        by a moderator:
-      </div>
-      <div
-        css={css`
-          padding-left: 30px;
-        `}
-      >
-        1. Read the question carefully to understand the problem and provide the
-        best reply you can.
-      </div>
-      <div
-        css={css`
-          padding-left: 30px;
-        `}
-      >
-        2. Make sure your answer answers the question and isn't just a comment
-        or gratitude.
-      </div>
-      <div
-        css={css`
-          padding-left: 30px;
-        `}
-      >
-        3. Be polite and respectful to others.
+      <img src={warning} alt={'warning'} />
+    </div>
+    <div
+      css={css`
+        padding-left: 20px;
+      `}
+    >
+      <div className={cn('df fdc jcsb lh')}>
+        <div
+          css={css`
+            padding-bottom: 15px;
+          `}
+        >
+          Here are some tips to make your answer helpful and doesn't get deleted
+          by a moderator:
+        </div>
+        <div>
+          1. Read the question carefully to understand the problem and provide
+          the best reply you can.
+        </div>
+        <div>
+          2. Make sure your answer answers the question and isn't just a comment
+          or gratitude.
+        </div>
+        <div>3. Be polite and respectful to others.</div>
       </div>
     </div>
   </div>
