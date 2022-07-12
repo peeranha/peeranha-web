@@ -35,7 +35,7 @@ import messages from './messages';
 
 import { POST_QUESTION_BUTTON, ASK_QUESTION_FORM } from './constants';
 import { getAvailableBalance } from '../../utils/profileManagement';
-import Popup from './Popup';
+import AskQuestionPopup from './Popup/index';
 
 export const AskQuestion = ({
   locale,
@@ -65,7 +65,7 @@ export const AskQuestion = ({
 
   return (
     <div>
-      <Popup />
+      <AskQuestionPopup />
 
       <Seo
         title={translationMessages[locale][messages.title.id]}

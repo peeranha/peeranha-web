@@ -210,4 +210,7 @@ export default css`
   .break-all {
     word-break: break-all;
   }
+  .lh {
+    line-height: 1.5;
+  }
 `;
