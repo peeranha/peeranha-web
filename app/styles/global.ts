@@ -67,6 +67,9 @@ export default css`
   .dib {
     display: inline-block;
   }
+  .dif {
+    display: inline-flex;
+  }
   .dn {
     display: none;
   }
@@ -112,6 +115,9 @@ export default css`
   .full-width {
     width: 100%;
   }
+  .full-br {
+    border-radius: 100%;
+  }
   .cup {
     cursor: pointer;
   }
@@ -150,6 +156,15 @@ export default css`
   }
   .b0 {
     bottom: 0;
+  }
+  .w0 {
+    width: 0;
+  }
+  .h0 {
+    height: 0;
+  }
+  .op0 {
+    opacity: 0;
   }
   .ovh {
     overflow: hidden;
