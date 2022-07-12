@@ -20,10 +20,13 @@ import {
 
 import plusIcon from 'images/Plus.svg?inline';
 import minusIcon from 'images/Minus.svg?inline';
+import arrowIconFilled from 'images/arrowDown.svg?external';
 import arrowIconNotFilled from 'images/arrowDownNotFilled.svg?external';
 
 import H4 from 'components/H4';
+import Span from 'components/Span';
 import Icon from 'components/Icon';
+import { IconSm } from 'components/Icon/IconWithSizes';
 import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
 import BaseTransparent from 'components/Base/BaseTransparent';
 import Button from 'components/Button/Outlined/PrimaryLarge';
@@ -133,9 +136,22 @@ const Question = ({
   const questionId = getQuestionCode(sectionCode, questionCode);
 
   return (
-    <QuestionBox id={questionId}>
+    <QuestionBox id={questionId} isOpened={isOpened}>
+      <ImgWrapper onClick={collapseQuestion}>
+        <IconSm rotate={isOpened} icon={arrowIconFilled} />
+      </ImgWrapper>
+
       <QuestionBoxBody>
-        <TextBlock dangerouslySetInnerHTML={{ __html: content }} />
+        <h5 className="d-flex align-items-center" onClick={collapseQuestion}>
+          <Span fontSize="20" lineHeight="30" mobileFS="16">
+            {h3}
+          </Span>
+        </h5>
+
+        <TextBlock
+          isOpened={isOpened}
+          dangerouslySetInnerHTML={{ __html: content }}
+        />
       </QuestionBoxBody>
     </QuestionBox>
   );
