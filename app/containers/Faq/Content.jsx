@@ -11,6 +11,8 @@ import commonMessages from 'common-messages';
 import {
   BORDER_SECONDARY,
   BG_SECONDARY_SPECIAL_4,
+  BG_TRANSPARENT,
+  BORDER_TRANSPARENT,
   TEXT_PRIMARY,
   TEXT_DARK,
   BORDER_PRIMARY_LIGHT,
@@ -18,17 +20,20 @@ import {
 
 import plusIcon from 'images/Plus.svg?inline';
 import minusIcon from 'images/Minus.svg?inline';
+import arrowIconFilled from 'images/arrowDown.svg?external';
 import arrowIconNotFilled from 'images/arrowDownNotFilled.svg?external';
 
 import H4 from 'components/H4';
+import Span from 'components/Span';
 import Icon from 'components/Icon';
+import { IconSm } from 'components/Icon/IconWithSizes';
 import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
 import BaseTransparent from 'components/Base/BaseTransparent';
 import Button from 'components/Button/Outlined/PrimaryLarge';
 
 export const TextBlock = styled.div`
-  display: block;
-  margin-top: 15px;
+  display: ${({ isOpened }) => (isOpened ? 'block' : 'none')};
+  margin-top: ${({ isOpened }) => (isOpened ? '15px' : '0px')};
 
   ${textBlockStyles};
 
@@ -61,7 +66,8 @@ const SectionStyled = BaseRoundedNoPadding.extend`
   }
 
   > :not(:last-child) {
-    border-bottom: ${x => (x.isOpened ? '1' : '0')}px solid ${BORDER_SECONDARY};
+    border-bottom: ${({ isOpened }) => (isOpened ? '1' : '0')}px solid
+      ${BORDER_SECONDARY};
   }
 
   ${Button} {
@@ -91,11 +97,12 @@ const QuestionBox = BaseTransparent.extend`
   display: flex;
   align-items: baseline;
   padding: 10px 30px;
-  background: ${BG_SECONDARY_SPECIAL_4};
-  border: 1px solid ${BORDER_PRIMARY_LIGHT};
-
+  background: ${({ isOpened }) =>
+    isOpened ? BG_SECONDARY_SPECIAL_4 : BG_TRANSPARENT};
+  border: 1px solid
+    ${({ isOpened }) => (isOpened ? BORDER_PRIMARY_LIGHT : BORDER_TRANSPARENT)};
   h5 span {
-    color: ${x => (x.isOpened ? TEXT_PRIMARY : TEXT_DARK)};
+    color: ${({ isOpened }) => (isOpened ? TEXT_PRIMARY : TEXT_DARK)};
   }
 
   &:first-child {
@@ -111,13 +118,40 @@ const QuestionBoxBody = styled.div`
   width: 100%;
 `;
 
-const Question = ({ content, questionCode, sectionCode, getQuestionCode }) => {
+const Question = ({
+  h3,
+  content,
+  questionCode,
+  sectionCode,
+  route,
+  getQuestionCode,
+}) => {
+  const [isOpened, collapse] = useState(false);
+
+  const collapseQuestion = () => {
+    createdHistory.push(route());
+    collapse(prevIsOpen => !prevIsOpen);
+  };
+
   const questionId = getQuestionCode(sectionCode, questionCode);
 
   return (
-    <QuestionBox id={questionId}>
+    <QuestionBox id={questionId} isOpened={isOpened}>
+      <ImgWrapper onClick={collapseQuestion}>
+        <IconSm rotate={isOpened} icon={arrowIconFilled} />
+      </ImgWrapper>
+
       <QuestionBoxBody>
-        <TextBlock dangerouslySetInnerHTML={{ __html: content }} />
+        <h5 className="d-flex align-items-center" onClick={collapseQuestion}>
+          <Span fontSize="20" lineHeight="30" mobileFS="16">
+            {h3}
+          </Span>
+        </h5>
+
+        <TextBlock
+          isOpened={isOpened}
+          dangerouslySetInnerHTML={{ __html: content }}
+        />
       </QuestionBoxBody>
     </QuestionBox>
   );
@@ -133,8 +167,6 @@ const Section = ({
   getSectionCode,
   getQuestionCode,
 }) => {
-  const { hash } = window.location;
-
   const [isOpened, collapse] = useState(false);
   const [isExtendedSection, extendSection] = useState(false);
 
@@ -142,18 +174,10 @@ const Section = ({
 
   const collapseSection = () => {
     createdHistory.push(route());
-    collapse(!isOpened);
+    collapse(prevIsOpen => !prevIsOpen);
   };
 
   const sectionId = getSectionCode(sectionCode);
-
-  if (hash.match(sectionId) && !isOpened) {
-    collapse(true);
-
-    if (!isExtendedSection) {
-      extendSection(true);
-    }
-  }
 
   return (
     <SectionStyled isOpened={isOpened} id={sectionId}>
@@ -175,12 +199,12 @@ const Section = ({
           <ul>
             {blocks
               .slice(0, questionsNumber)
-              .map(x => (
+              .map(block => (
                 <Question
-                  key={x.h3}
-                  h3={x.h3}
-                  content={x.content}
-                  questionCode={x.questionCode}
+                  key={block.h3}
+                  h3={block.h3}
+                  content={block.content}
+                  questionCode={block.questionCode}
                   sectionCode={sectionCode}
                   route={route}
                   getQuestionCode={getQuestionCode}
@@ -216,12 +240,12 @@ const Section = ({
 
 const Content = ({ content, route, getSectionCode, getQuestionCode }) => (
   <div className="mb-3">
-    {content.blocks.map(x => (
+    {content.blocks.map(block => (
       <Section
-        key={x.h2}
-        h2={x.h2}
-        blocks={x.blocks}
-        sectionCode={x.sectionCode}
+        key={block.h2}
+        h2={block.h2}
+        blocks={block.blocks}
+        sectionCode={block.sectionCode}
         route={route}
         getSectionCode={getSectionCode}
         getQuestionCode={getQuestionCode}
@@ -231,9 +255,11 @@ const Content = ({ content, route, getSectionCode, getQuestionCode }) => (
 );
 
 Question.propTypes = {
+  h3: PropTypes.string,
   content: PropTypes.string,
   questionCode: PropTypes.number,
   sectionCode: PropTypes.number,
+  route: PropTypes.func,
   getQuestionCode: PropTypes.func,
 };
 
