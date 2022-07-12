@@ -546,4 +546,7 @@ export default defineMessages({
   transactionCompleted: {
     id: 'app.common.transactionCompleted',
   },
+  messageSendedSuccessfully: {
+    id: 'app.common.messageSendedSuccessfully',
+  },
 });

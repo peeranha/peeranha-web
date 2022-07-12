@@ -104,6 +104,7 @@
   "app.common.eosAccount": "Telos аккаунт",
   "app.common.walletAddress": "Адрес кошелька",
   "app.common.successMessage": "Действие было выполнено успешно!",
+  "app.common.messageSendedSuccessfully": "Сообщение успешно отправлено",
   "app.common.errorMessage": "Возникла ошибка",
   "app.common.energy": "Энергия",
   "app.common.show": "Показать",
@@ -484,7 +485,7 @@
   "app.containers.CreateTag.usingTheRightTags":
     "Использование верных тегов позволяет другим пользователям быстрее найти и ответить на Ваш вопрос.",
 
-  "app.containers.EditTag.title": "Сохранить тег",
+  "app.containers.EditTag.title": "Изменить тег",
   "app.containers.EditTag.description": "Сохранить тег | Описание",
 
   "app.containers.Tags.backToList": "Вернуться к списку",
@@ -811,6 +812,7 @@
   "app.containers.ViewQuestion.markAsBest": "Отметьте как лучший",
   "app.containers.ViewQuestion.communityChoice": "Выбор сообщества",
   "app.containers.ViewQuestion.moreComments": "Больше комментариев",
+  "app.containers.ViewQuestion.moreComment": "Ещё комментарий",
   "app.containers.ViewQuestion.addComment": "Добавить комментарий",
   "app.containers.ViewQuestion.showMoreAnswers":
     "Показать больше ответов {value}",

@@ -103,6 +103,7 @@
   "app.common.password": "Password",
   "app.common.walletAddress": "Wallet address",
   "app.common.successMessage": "Action completed successfully",
+  "app.common.messageSendedSuccessfully": "Message sended successfully",
   "app.common.errorMessage": "An error occurred",
   "app.common.energy": "Energy",
   "app.common.show": "Show",
@@ -476,7 +477,7 @@
   "app.containers.CreateTag.usingTheRightTags":
     "Using the right tags makes it easier for other users to find your questions.",
 
-  "app.containers.EditTag.title": "Save",
+  "app.containers.EditTag.title": "Edit tag",
   "app.containers.EditTag.description": "Save | Description",
 
   "app.containers.Tags.backToList": "Back to list",
@@ -807,6 +808,7 @@
   "app.containers.ViewQuestion.markAsBest": "Mark as the best",
   "app.containers.ViewQuestion.communityChoice": "Community choice",
   "app.containers.ViewQuestion.moreComments": "More comments",
+  "app.containers.ViewQuestion.moreComment": "More comment",
   "app.containers.ViewQuestion.addComment": "Add comment",
   "app.containers.ViewQuestion.showMoreAnswers": "Show more answers {value}",
   "app.containers.ViewQuestion.areYouSure":
