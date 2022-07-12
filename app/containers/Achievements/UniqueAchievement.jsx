@@ -108,6 +108,7 @@ const UniqueAchievement = ({
         {currentUser &&
           !reached && (
             <ProgressBar
+              achievementId={id}
               width="60%"
               progress={getProgress()}
               pointsToNext={pointsToNext}

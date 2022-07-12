@@ -26,6 +26,7 @@ const Progress = styled.span`
 `;
 
 const ProgressBar = ({
+  achievementId,
   width,
   progress,
   pointsToNext,
@@ -33,7 +34,7 @@ const ProgressBar = ({
   messageSingle = '',
   messageMultiple = '',
 }) => {
-  const id = `progress_bar_${groupType}`;
+  const id = `progress_bar_${groupType}_${achievementId}`;
 
   const currentMessage =
     pointsToNext === 1
