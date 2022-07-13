@@ -18,19 +18,34 @@ const TypeForm = ({
   setHasSelectedType,
   isError,
   setIsError,
+  isCommunityModerator,
 }) => {
   const onChange = useCallback(val => change(FORM_TYPE, val[0]), []);
 
   const labelConditional = n => {
-    if (n === '1') return messages.generalQuestionDescriptionLabel.id;
-    if (n === '0') return messages.expertQuestionDescriptionLabel.id;
-    if (n === '2') return messages.tutorialQuestionDescriptionLabel.id;
+    switch (n) {
+      case '1':
+        return messages.generalQuestionDescriptionLabel.id;
+      case '0':
+        return messages.expertQuestionDescriptionLabel.id;
+      case '2':
+        return messages.tutorialQuestionDescriptionLabel.id;
+      case '3':
+        return messages.faqDescriptionLabel.id;
+    }
   };
 
   const listConditional = n => {
-    if (n === '1') return messages.generalQuestionDescriptionList.id;
-    if (n === '0') return messages.expertQuestionDescriptionList.id;
-    if (n === '2') return messages.tutorialQuestionDescriptionList.id;
+    switch (n) {
+      case '1':
+        return messages.generalQuestionDescriptionList.id;
+      case '0':
+        return messages.expertQuestionDescriptionList.id;
+      case '2':
+        return messages.tutorialQuestionDescriptionList.id;
+      case '3':
+        return messages.faqDescriptionList.id;
+    }
   };
 
   const [descriptionListLabel, descriptionListItems] = useMemo(
@@ -63,6 +78,7 @@ const TypeForm = ({
         validate={requiredPostTypeSelection}
         splitInHalf
         error={isError}
+        isCommunityModerator={isCommunityModerator}
       />
       {hasSelectedType && (
         <DescriptionList

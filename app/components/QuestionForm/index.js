@@ -39,6 +39,7 @@ import {
   FORM_BOUNTY_HOURS,
   FORM_PROMOTE,
   KEY_QUESTIONS_TYPE,
+  POST_TYPE,
 } from './constants';
 
 import Header from './Header';
@@ -58,7 +59,11 @@ import createdHistory from '../../createdHistory';
 import * as routes from '../../routes-config';
 import DescriptionList from '../DescriptionList';
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
-import { getPermissions, hasGlobalModeratorRole } from 'utils/properties';
+import {
+  getPermissions,
+  hasCommunityModeratorRole,
+  hasGlobalModeratorRole,
+} from 'utils/properties';
 import { translationMessages } from '../../i18n';
 
 const single = isSingleCommunityWebsite();
@@ -116,6 +121,11 @@ export const QuestionForm = ({
   const [isClickSubmit, setIsClickSubmit] = useState(false);
   const postTitle = question?.title;
   const postContent = question?.content;
+
+  const communityId = single || formValues[FORM_COMMUNITY]?.id;
+  const isCommunityModerator = communityId
+    ? hasCommunityModeratorRole(getPermissions(profile), communityId)
+    : false;
 
   const handleSubmitWithType = () => {
     if (communityQuestionsType !== ANY_TYPE) {
@@ -201,6 +211,7 @@ export const QuestionForm = ({
                     setIsError={setIsError}
                     hasSelectedType={isSelectedType}
                     setHasSelectedType={setIsSelectedType}
+                    isCommunityModerator={isCommunityModerator}
                   />
                 )) ||
                   (communityQuestionsType === GENERAL_TYPE && (
@@ -239,24 +250,30 @@ export const QuestionForm = ({
                   />
                 )}
 
-              <ContentForm
-                intl={intl}
-                questionLoading={questionLoading}
-                formValues={formValues}
-              />
-
-              <TagsForm
-                intl={intl}
-                questionLoading={questionLoading}
-                formValues={formValues}
-                change={change}
-              />
-
-              {profileWithModeratorRights && (
-                <SuggestTag
+              {Number(formValues[FORM_TYPE]) !== POST_TYPE.faq && (
+                <ContentForm
+                  intl={intl}
+                  questionLoading={questionLoading}
                   formValues={formValues}
-                  redirectToCreateTagDispatch={redirectToCreateTagDispatch}
                 />
+              )}
+
+              {Number(formValues[FORM_TYPE]) !== POST_TYPE.faq && (
+                <>
+                  <TagsForm
+                    intl={intl}
+                    questionLoading={questionLoading}
+                    formValues={formValues}
+                    change={change}
+                  />
+
+                  {profileWithModeratorRights && (
+                    <SuggestTag
+                      formValues={formValues}
+                      redirectToCreateTagDispatch={redirectToCreateTagDispatch}
+                    />
+                  )}
+                </>
               )}
 
               {/*<BountyForm*/}

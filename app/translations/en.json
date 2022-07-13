@@ -1116,6 +1116,9 @@
   ],
   "app.containers.QuestionForm.tutorialQuestionDescriptionLabel":
     "Tutorial is a manual instruction that can be one of the following:",
+  "app.containers.QuestionForm.faqDescriptionLabel":
+    "This section provides answers to a list of typical questions that users might ask regarding a particular community or subject.",
+  "app.containers.QuestionForm.faqDescriptionList": [],
   "app.containers.QuestionForm.tutorialQuestionDescriptionList": [
     "Step-by-step solution to a problem;",
     "Technical setup;",

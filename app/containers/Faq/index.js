@@ -4,13 +4,19 @@
  *
  */
 
+import reducer from 'containers/Faq/reducer';
+import saga from 'containers/Faq/saga';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { translationMessages } from 'i18n';
+import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
 import * as routes from 'routes-config';
+import { DAEMON } from 'utils/constants';
+import injectReducer from 'utils/injectReducer';
+import injectSaga from 'utils/injectSaga';
 
 import { getSectionCode, getQuestionCode } from 'utils/mdManagement';
 
@@ -75,7 +81,11 @@ const mapStateToProps = createStructuredSelector({
   faq: selectFaq(),
 });
 
-export default connect(
-  mapStateToProps,
-  null,
+export default compose(
+  injectReducer({ key: 'faqReducer', reducer }),
+  injectSaga({ key: 'faqReducer', saga, mode: DAEMON }),
+  connect(
+    mapStateToProps,
+    null,
+  ),
 )(Faq);

@@ -35,19 +35,23 @@ const Base = styled.div`
   }
 `;
 
-export const DescriptionList = ({ label, items, locale }) => (
-  <Base>
-    <FormattedMessage id={label} />
-    <ul>
-      {translationMessages[locale][items].map(item => (
-        <li key={item}>
-          <span>{item}</span>
-        </li>
-      ))}
-    </ul>
-  </Base>
-);
-
+export const DescriptionList = ({ label, items, locale }) => {
+  if (!items) {
+    return null;
+  }
+  return (
+    <Base>
+      <FormattedMessage id={label} />
+      <ul>
+        {translationMessages[locale][items]?.map(item => (
+          <li key={item}>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </Base>
+  );
+};
 DescriptionList.propTypes = {
   label: PropTypes.string,
   locale: PropTypes.string,
