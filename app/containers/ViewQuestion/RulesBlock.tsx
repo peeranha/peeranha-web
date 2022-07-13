@@ -1,11 +1,12 @@
 import React from 'react';
 import { css } from '@emotion/react';
-import cn from 'classnames';
+import { FormattedMessage } from 'react-intl';
+import commonMessages from '../../common-messages';
 import warning from 'images/feedback.svg?inline';
 
 const RulesBlock: React.FC<{}> = (): JSX.Element => (
   <div
-    className={cn('full-width full-height df')}
+    className="full-width full-height df"
     css={css`
       padding: 10px;
       background-color: #ffecd8;
@@ -24,24 +25,23 @@ const RulesBlock: React.FC<{}> = (): JSX.Element => (
         padding-left: 20px;
       `}
     >
-      <div className={cn('df fdc jcsb lh')}>
+      <div className="df fdc jcsb lh1-5">
         <div
           css={css`
             padding-bottom: 15px;
           `}
         >
-          Here are some tips to make your answer helpful and doesn't get deleted
-          by a moderator:
+          <FormattedMessage id={commonMessages.viewQuestionRulesBlock_1.id} />
         </div>
         <div>
-          1. Read the question carefully to understand the problem and provide
-          the best reply you can.
+          <FormattedMessage id={commonMessages.viewQuestionRulesBlock_2.id} />
         </div>
         <div>
-          2. Make sure your answer answers the question and isn't just a comment
-          or gratitude.
+          <FormattedMessage id={commonMessages.viewQuestionRulesBlock_3.id} />
         </div>
-        <div>3. Be polite and respectful to others.</div>
+        <div>
+          <FormattedMessage id={commonMessages.viewQuestionRulesBlock_4.id} />
+        </div>
       </div>
     </div>
   </div>
