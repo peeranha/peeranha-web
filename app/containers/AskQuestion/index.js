@@ -35,7 +35,7 @@ import messages from './messages';
 
 import { POST_QUESTION_BUTTON, ASK_QUESTION_FORM } from './constants';
 import { getAvailableBalance } from '../../utils/profileManagement';
-import AskQuestionPopup from './Popup/index';
+import AskQuestionPopup from './AskQuestionPopup';
 
 export const AskQuestion = ({
   locale,

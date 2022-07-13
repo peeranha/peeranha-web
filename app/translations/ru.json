@@ -1047,6 +1047,20 @@
   "app.containers.AskQuestion.title": "Новый пост",
   "app.containers.AskQuestion.description": "Новый пост | Описание",
   "app.containers.AskQuestion.postQuestion": "Отправить",
+  "app.containers.AskQuestion.contentPopupBlock_1": "Привет!",
+  "app.containers.AskQuestion.contentPopupBlock_2":
+    "Добро пожаловать в Peeranha. Мы рады, что Вы здесь и готовы сделать свою первую публикацию. Здесь есть всего несколько простых правил, которым мы все следуем:",
+  "app.containers.AskQuestion.contentPopupBlock_3":
+    "1. Убедитесь, что ваши вопросы связаны с конкретным сообществом.",
+  "app.containers.AskQuestion.contentPopupBlock_4":
+    "2. Проведите небольшое исследование, чтобы убедиться, что ваш вопрос не задавали раньше.",
+  "app.containers.AskQuestion.contentPopupBlock_5":
+    "3. Ответы должны фактически отвечать на вопрос, а не просто быть комментарием.",
+  "app.containers.AskQuestion.contentPopupBlock_6":
+    "4. Убедитесь, что ваш ответ содержит ценную информацию, а не является повторением того, что уже было сказано.",
+  "app.containers.AskQuestion.contentPopupBlock_7":
+    "И самое главное правило — быть вежливым и дружелюбным по отношению к другим пользователям.",
+  "app.containers.AskQuestion.contentPopupBlock_8": "Спасибо!",
 
   "app.containers.ErrorPage.title": "Возникла ошибка...",
   "app.containers.ErrorPage.description": "Возникла ошибка... описание",
