@@ -12,22 +12,28 @@ import {
   BORDER_SECONDARY,
   BG_SECONDARY_SPECIAL_4,
   TEXT_PRIMARY,
+  TEXT_DARK,
   BORDER_PRIMARY_LIGHT,
+  BG_TRANSPARENT,
+  BORDER_TRANSPARENT,
 } from 'style-constants';
 
 import plusIcon from 'images/Plus.svg?inline';
 import minusIcon from 'images/Minus.svg?inline';
+import arrowIconFilled from 'images/arrowDown.svg?external';
 import arrowIconNotFilled from 'images/arrowDownNotFilled.svg?external';
 
 import H4 from 'components/H4';
+import Span from 'components/Span';
 import Icon from 'components/Icon';
+import { IconSm } from 'components/Icon/IconWithSizes';
 import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
 import BaseTransparent from 'components/Base/BaseTransparent';
 import Button from 'components/Button/Outlined/PrimaryLarge';
 
 export const TextBlock = styled.div`
-  display: block;
-  margin-top: 15px;
+  display: ${({ isOpened }) => (isOpened ? 'block' : 'none')};
+  margin-top: ${({ isOpened }) => (isOpened ? '15px' : '0px')};
 
   ${textBlockStyles};
 
@@ -60,7 +66,8 @@ const SectionStyled = BaseRoundedNoPadding.extend`
   }
 
   > :not(:last-child) {
-    border-bottom: 1px solid ${BORDER_SECONDARY};
+    border-bottom: ${({ isOpened }) => (isOpened ? '1' : '0')}px solid
+      ${BORDER_SECONDARY};
   }
 
   ${Button} {
@@ -90,10 +97,12 @@ const QuestionBox = BaseTransparent.extend`
   display: flex;
   align-items: baseline;
   padding: 10px 30px;
-  background: ${BG_SECONDARY_SPECIAL_4};
-  border: 1px solid ${BORDER_PRIMARY_LIGHT};
+  background: ${({ isOpened }) =>
+    isOpened ? BG_SECONDARY_SPECIAL_4 : BG_TRANSPARENT};
+  border: 1px solid
+    ${({ isOpened }) => (isOpened ? BORDER_PRIMARY_LIGHT : BORDER_TRANSPARENT)};
   h5 span {
-    color: ${TEXT_PRIMARY};
+    color: ${({ isOpened }) => (isOpened ? TEXT_PRIMARY : TEXT_DARK)};
   }
 
   &:first-child {
@@ -109,13 +118,44 @@ const QuestionBoxBody = styled.div`
   width: 100%;
 `;
 
-const Question = ({ content, questionCode, sectionCode, getQuestionCode }) => {
+const Question = ({
+  h3,
+  content,
+  questionCode,
+  sectionCode,
+  route,
+  getQuestionCode,
+  collapsedMenu,
+}) => {
+  const [isOpened, collapse] = useState(false);
+
+  const collapseQuestion = () => {
+    createdHistory.push(route());
+    collapse(prevIsOpen => !prevIsOpen);
+  };
+
   const questionId = getQuestionCode(sectionCode, questionCode);
 
   return (
-    <QuestionBox id={questionId}>
+    <QuestionBox id={questionId} isOpened={isOpened}>
+      {collapsedMenu && (
+        <ImgWrapper onClick={collapseQuestion}>
+          <IconSm rotate={isOpened} icon={arrowIconFilled} />
+        </ImgWrapper>
+      )}
       <QuestionBoxBody>
-        <TextBlock dangerouslySetInnerHTML={{ __html: content }} />
+        {collapsedMenu && (
+          <h5 className="d-flex align-items-center" onClick={collapseQuestion}>
+            <Span fontSize="20" lineHeight="30" mobileFS="16">
+              {h3}
+            </Span>
+          </h5>
+        )}
+
+        <TextBlock
+          isOpened={!collapsedMenu || isOpened}
+          dangerouslySetInnerHTML={{ __html: content }}
+        />
       </QuestionBoxBody>
     </QuestionBox>
   );
@@ -130,6 +170,7 @@ const Section = ({
   route,
   getSectionCode,
   getQuestionCode,
+  collapsedMenu,
 }) => {
   const [isOpened, collapse] = useState(false);
   const [isExtendedSection, extendSection] = useState(false);
@@ -172,6 +213,7 @@ const Section = ({
                   sectionCode={sectionCode}
                   route={route}
                   getQuestionCode={getQuestionCode}
+                  collapsedMenu={collapsedMenu}
                 />
               ))}
           </ul>
@@ -202,7 +244,13 @@ const Section = ({
   );
 };
 
-const Content = ({ content, route, getSectionCode, getQuestionCode }) => (
+const Content = ({
+  content,
+  route,
+  getSectionCode,
+  getQuestionCode,
+  collapsedMenu = true,
+}) => (
   <div className="mb-3">
     {content.blocks.map(block => (
       <Section
@@ -213,6 +261,7 @@ const Content = ({ content, route, getSectionCode, getQuestionCode }) => (
         route={route}
         getSectionCode={getSectionCode}
         getQuestionCode={getQuestionCode}
+        collapsedMenu={collapsedMenu}
       />
     ))}
   </div>
@@ -223,6 +272,7 @@ Question.propTypes = {
   questionCode: PropTypes.number,
   sectionCode: PropTypes.number,
   getQuestionCode: PropTypes.func,
+  collapsedMenu: PropTypes.bool,
 };
 
 Section.propTypes = {
@@ -232,6 +282,7 @@ Section.propTypes = {
   route: PropTypes.func,
   getSectionCode: PropTypes.func,
   getQuestionCode: PropTypes.func,
+  collapsedMenu: PropTypes.bool,
 };
 
 Content.propTypes = {
@@ -239,6 +290,7 @@ Content.propTypes = {
   route: PropTypes.func,
   getSectionCode: PropTypes.func,
   getQuestionCode: PropTypes.func,
+  collapsedMenu: PropTypes.bool,
 };
 
 export default Content;
