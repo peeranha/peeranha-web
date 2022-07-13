@@ -482,7 +482,7 @@
   "app.containers.CreateTag.usingTheRightTags":
     "Using the right tags makes it easier for other users to find your questions.",
 
-  "app.containers.EditTag.title": "Save",
+  "app.containers.EditTag.title": "Edit tag",
   "app.containers.EditTag.description": "Save | Description",
 
   "app.containers.Tags.backToList": "Back to list",

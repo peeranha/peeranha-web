@@ -213,4 +213,10 @@ export default css`
   .lh1-5 {
     line-height: 1.5;
   }
+  .text-block strong {
+    font-weight: 700;
+  }
+  .text-block em {
+    font-style: italic;
+  }
 `;
