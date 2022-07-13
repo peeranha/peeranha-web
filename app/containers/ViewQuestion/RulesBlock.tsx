@@ -6,31 +6,18 @@ import warning from 'images/feedback.svg?inline';
 
 const RulesBlock: React.FC<{}> = (): JSX.Element => (
   <div
-    className="full-width full-height df"
+    className="full-width full-height p20 df"
     css={css`
-      padding: 10px;
       background-color: #ffecd8;
       border-radius: 10px;
     `}
   >
-    <div
-      css={css`
-        padding-left: 20px;
-      `}
-    >
+    <div className="pl20">
       <img src={warning} alt={'warning'} />
     </div>
-    <div
-      css={css`
-        padding-left: 20px;
-      `}
-    >
+    <div className="pl20">
       <div className="df fdc jcsb lh1-5">
-        <div
-          css={css`
-            padding-bottom: 15px;
-          `}
-        >
+        <div className="pb20">
           <FormattedMessage id={commonMessages.viewQuestionRulesBlock_1.id} />
         </div>
         <div>
