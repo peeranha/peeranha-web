@@ -2,7 +2,7 @@ import React, { useRef, useState, RefObject } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { css } from '@emotion/react';
 import useEventListener from 'hooks/useEventListener';
-import LargeOutlinedButton from '../../../components/Button/Outlined/InfoLarge';
+import LargeOutlinedButton from 'components/Button/Outlined/InfoLarge';
 import { singleCommunityStyles } from '../../../utils/communityManagement';
 
 import commonMessages from '../../../common-messages';
