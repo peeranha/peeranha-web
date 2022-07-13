@@ -20,6 +20,7 @@ import {
   userStatsQuery,
   historiesQuery,
   currentPeriodQuery,
+  usersByCommunityQuery,
 } from './ethConstants';
 import { isUserExists } from './accountManagement';
 
@@ -44,6 +45,22 @@ export const getUsers = async ({
     },
   });
   return users?.data.users;
+};
+
+export const getUsersByCommunity = async ({
+  limit = 50,
+  skip,
+  communityId,
+}) => {
+  const users = await client.query({
+    query: gql(usersByCommunityQuery),
+    variables: {
+      first: limit,
+      skip,
+      communityId,
+    },
+  });
+  return users?.data.userCommunityRatings.map(item => item.user);
 };
 
 export const getUser = async id => {

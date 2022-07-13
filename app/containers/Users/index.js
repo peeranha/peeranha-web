@@ -10,10 +10,7 @@ import injectReducer from 'utils/injectReducer';
 
 import Seo from 'components/Seo';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import {
-  selectStat,
-  selectCommunities,
-} from 'containers/DataCacheProvider/selectors';
+import { selectStat } from 'containers/DataCacheProvider/selectors';
 
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
@@ -37,42 +34,44 @@ const Users = ({
   searchText,
   isLastFetch,
   stat,
-  communities,
   getUsersDispatch,
 }) => {
   const getMoreUsers = useCallback(
     () => {
-      getUsersDispatch({ loadMore: true, communityId: single });
-    },
-    [single],
-  );
-
-  const communityInfo = useMemo(() => communities.find(x => x.id === single), [
-    communities,
-  ]);
-
-  const userCount = useMemo(
-    () => (single ? communityInfo?.followingUsers ?? 0 : stat.usersCount),
-    [stat.usersCount, communityInfo],
-  );
-
-  const dropdownFilter = useCallback(
-    sorting => {
       getUsersDispatch({
-          loadMore: false,
-          sorting,
-          reload: true,
-          communityId: single,
+        loadMore: true,
+        communityId: single || 0,
       });
     },
-    [userCount, single, users],
+    [getUsersDispatch],
+  );
+
+  const userCount = useMemo(() => (single ? users.length : stat.usersCount), [
+    stat.usersCount,
+    users.length,
+  ]);
+
+  const dropdownFilter = useCallback(
+    sortingAttribute => {
+      getUsersDispatch({
+        loadMore: false,
+        sortingAttribute,
+        reload: true,
+        communityId: single || 0,
+      });
+    },
+    [getUsersDispatch],
   );
 
   useEffect(
     () => {
-      getUsersDispatch({ loadMore: false, reload: true, communityId: single });
+      getUsersDispatch({
+        loadMore: false,
+        reload: true,
+        communityId: single || 0,
+      });
     },
-    [single],
+    [getUsersDispatch],
   );
 
   return (
@@ -107,7 +106,6 @@ Users.propTypes = {
   sorting: PropTypes.string,
   searchText: PropTypes.string,
   stat: PropTypes.object,
-  communities: PropTypes.array,
 };
 
 export default compose(
@@ -116,7 +114,6 @@ export default compose(
   connect(
     createStructuredSelector({
       locale: makeSelectLocale(),
-      communities: selectCommunities(),
       users: selectors.selectUsers(),
       usersLoading: selectors.selectUsersLoading(),
       sorting: selectors.selectSorting(),

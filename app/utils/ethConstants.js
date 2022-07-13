@@ -161,7 +161,25 @@ export const usersQuery = `
           ${user}
           postCount
           replyCount
-          followedCommunities
+        }
+      }`;
+
+export const usersByCommunityQuery = `
+      query(
+        $first: Int,
+        $skip: Int,
+        $communityId: Int,
+      ) {
+        userCommunityRatings(
+          first: $first,
+          skip: $skip,
+          where: { communityId: $communityId }
+        ) {
+          user {
+            ${user}
+            postCount
+            replyCount
+          }
         }
       }`;
 
