@@ -1,6 +1,10 @@
 {
   "app.common.peeranha": "Peeranha",
   "app.common.copyrightPeeranha": "©{year} Peeranha",
+  "app.common.confirm": "Accept",
+  "app.common.cookieConsent":
+    "We use cookies to ensure you get the best experience on our website. ",
+  "app.common.moreInfo": "More info",
   "app.common.profile": "Profile",
   "app.common.myCommunities": "My communities",
   "app.common.questions": "Questions",
@@ -477,7 +481,7 @@
   "app.containers.CreateTag.usingTheRightTags":
     "Using the right tags makes it easier for other users to find your questions.",
 
-  "app.containers.EditTag.title": "Save",
+  "app.containers.EditTag.title": "Edit tag",
   "app.containers.EditTag.description": "Save | Description",
 
   "app.containers.Tags.backToList": "Back to list",
