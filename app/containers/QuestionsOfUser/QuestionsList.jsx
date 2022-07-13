@@ -104,6 +104,7 @@ const Question = ({
   isMyAnswerAccepted,
   isGeneral,
   elementType,
+  answerId,
 }) => {
   const answerRouteId =
     elementType === POST_TYPE_ANSWER ? answerId.split('-')[1] : null;
