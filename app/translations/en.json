@@ -176,7 +176,7 @@
   "app.common.communityBannerInfo":
     "Use an image that’s at least 1360 x 120 pixels. File size should not exceed 1Mb",
   "app.common.fileSizeErrorMsg":
-    "File size is more than 2Mb. Choose another one...",
+    "File size is more than 5Mb. Choose another one...",
   "app.common.bannerSizeErrorMsg":
     "File size is more than 1Mb. Choose another one...",
   "app.common.incorrectBannerResolutionMsg":

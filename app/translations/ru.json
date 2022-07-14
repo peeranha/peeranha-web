@@ -174,7 +174,7 @@
   "app.common.profilesUsersInfo": "Размер файла не должен превышать 2Мб",
   "app.common.communityBannerInfo":
     "Используйте картинку размера 1360 x 120 пикселей. Размер файла не должен превышать 1Мб",
-  "app.common.fileSizeErrorMsg": "Размер файла больше 2Мб. Выберите другой...",
+  "app.common.fileSizeErrorMsg": "Размер файла больше 5Мб. Выберите другой...",
   "app.common.bannerSizeErrorMsg":
     "Размер файла больше 1Мб. Выберите другой...",
   "app.common.incorrectBannerResolutionMsg":

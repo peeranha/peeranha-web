@@ -30,7 +30,7 @@ import { italicFont } from '../../global-styles';
 
 // < 1000 chars - hash, >> 1000 - is base64 (new image)
 export const HASH_CHARS_LIMIT = 1000;
-const IMG_SIZE_LIMIT_B = 2 * 1024 * 1024;
+const IMG_SIZE_LIMIT_B = 5 * 1024 * 1024;
 
 const Div = styled.div`
   position: relative;
