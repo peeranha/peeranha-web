@@ -112,6 +112,7 @@ const Div = styled.div`
     }
 
     .avatar-wrapper {
+      height: 60vmin;
       position: relative;
       z-index: 12;
 
