@@ -112,8 +112,8 @@ const Div = styled.div`
     }
 
     .avatar-wrapper {
-      height: 60vmin;
       position: relative;
+      max-height: 95vh;
       z-index: 12;
 
       svg,
@@ -205,8 +205,6 @@ function AvatarField({ input, meta, disabled }) {
   const [v, setV] = useState(true);
   const [isFileTooLarge, setIsFileTooLarge] = useState(false);
 
-  const isPhone = window.screen.width <= 576;
-
   const reload = () => {
     setS(false);
     setV(false);
@@ -236,7 +234,7 @@ function AvatarField({ input, meta, disabled }) {
             <div className="avatar-wrapper">
               <Avatar
                 {...input}
-                imageWidth={isPhone ? 320 : 480}
+                imageWidth={320}
                 cropRadius={60}
                 closeIconColor="transparent"
                 onCrop={setY}
