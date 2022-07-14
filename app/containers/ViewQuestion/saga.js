@@ -331,7 +331,7 @@ export function* getQuestionData({
         const author = yield call(getUserProfileWorker, {
           user: userFromItem,
           getFullProfile: true,
-          isLogin: user === userFromItem,
+          communityIdForRating: question.communityId,
         });
         users.get(userFromItem).map(cachedItem => {
           cachedItem.author = author;

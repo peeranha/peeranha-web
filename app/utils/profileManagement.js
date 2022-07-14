@@ -10,7 +10,7 @@ import {
   saveText,
 } from './ipfs';
 
-import { NO_AVATAR } from './constants';
+import { INIT_RATING, NO_AVATAR } from './constants';
 import {
   callService,
   NOTIFICATIONS_INFO_SERVICE,
@@ -73,6 +73,7 @@ export async function getProfileInfo(
     profileInfo = await ethereumService.getProfile(user);
     profileInfo.permissions = await getUserPermissions(user);
     userStats = await getUserStats(user);
+    profileInfo.ratings = userStats.ratings;
     if (!profileInfo.creationTime) {
       const profile = await getUser(user);
       profileInfo.creationTime = profile.creationTime;
@@ -82,10 +83,11 @@ export async function getProfileInfo(
   }
 
   if (communityIdForRating) {
-    const newRating = await ethereumService.getUserDataWithArgs(
-      GET_USER_RATING,
-      [user, communityIdForRating],
-    );
+    const newRating =
+      (await ethereumService.getUserDataWithArgs(GET_USER_RATING, [
+        user,
+        communityIdForRating,
+      ])) || INIT_RATING;
     //avoiding "Cannot assign to read only property" error
     profileInfo.ratings = profileInfo.ratings.map(ratingData => {
       return {
