@@ -38,17 +38,7 @@ const B = ({ isFollowed, onClick, id, disabled, profile }) => {
     return null;
   }
 
-  return single && profile ? (
-    <CustomButton
-      id={id}
-      data-isfollowed={isFollowed}
-      onClick={onClick}
-      disabled={disabled}
-      className={isFollowed ? 'd-none' : ''}
-    >
-      <FormattedMessage {...messages.subscribeToThisCommunity} />
-    </CustomButton>
-  ) : (
+  return (
     <OutlinedButton
       id={id}
       data-isfollowed={isFollowed}

@@ -9,6 +9,8 @@ import {
   singleCommunityStyles,
 } from 'utils/communityManagement';
 
+import * as routes from 'routes-config';
+
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
 import infoIcon from 'images/information.svg?external';
 
@@ -200,13 +202,9 @@ export default React.memo(({ currClientHeight }) => {
               }}
             >
               {(...chunks) => (
-                <a
-                  className="d-flex align-content-center"
-                  href={process.env.APP_LOCATION}
-                  target="_blank"
-                >
+                <A className="d-flex align-content-center" to={routes.feed()}>
                   {chunks}
-                </a>
+                </A>
               )}
             </FormattedMessage>
           ) : null}

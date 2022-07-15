@@ -12,8 +12,20 @@ export default defineMessages({
   copyrightPeeranha: {
     id: 'app.common.copyrightPeeranha',
   },
+  moreInfo: {
+    id: 'app.common.moreInfo',
+  },
+  confirm: {
+    id: 'app.common.confirm',
+  },
+  cookieConsent: {
+    id: 'app.common.cookieConsent',
+  },
   profile: {
     id: 'app.common.profile',
+  },
+  partners: {
+    id: 'app.common.partners',
   },
   myCommunities: {
     id: 'app.common.myCommunities',
@@ -542,5 +554,8 @@ export default defineMessages({
   },
   transactionCompleted: {
     id: 'app.common.transactionCompleted',
+  },
+  messageSendedSuccessfully: {
+    id: 'app.common.messageSendedSuccessfully',
   },
 });

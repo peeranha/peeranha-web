@@ -227,7 +227,8 @@ export const QuestionForm = ({
 
               {formValues[FORM_TITLE] &&
                 formValues[FORM_TITLE].length >= 3 &&
-                (getExistingQuestions(existingQuestions).length ?? 0) > 0 &&
+                (getExistingQuestions(existingQuestions || []).length ?? 0) >
+                  0 &&
                 !doSkipExistingQuestions && (
                   <ExistingQuestions
                     questions={getExistingQuestions(existingQuestions)}

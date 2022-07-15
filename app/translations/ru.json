@@ -1,6 +1,10 @@
 {
   "app.common.peeranha": "Peeranha",
   "app.common.copyrightPeeranha": "©{year} Peeranha",
+  "app.common.confirm": "Принять",
+  "app.common.cookieConsent":
+    "Для улучшения работы сайта и его взаимодействия с пользователями мы используем файлы cookie. ",
+  "app.common.moreInfo": "Подробнее",
   "app.common.profile": "Профиль",
   "app.common.myCommunities": "Мои сообщества",
   "app.common.questions": "Вопросы",
@@ -90,6 +94,7 @@
   "app.common.contacts": "Контакты",
   "app.common.support": "Поддержка",
   "app.common.privacyPolicy": "Политика конфиденциальности",
+  "app.common.partners": "Партнеры",
   "app.common.termsOfService": "Условия обслуживания",
   "app.common.privacyPolicyShort": "Политика конфид-ти",
   "app.common.more": "Ещё",
@@ -103,6 +108,7 @@
   "app.common.eosAccount": "Telos аккаунт",
   "app.common.walletAddress": "Адрес кошелька",
   "app.common.successMessage": "Действие было выполнено успешно!",
+  "app.common.messageSendedSuccessfully": "Сообщение успешно отправлено",
   "app.common.errorMessage": "Возникла ошибка",
   "app.common.energy": "Энергия",
   "app.common.show": "Показать",
@@ -483,7 +489,7 @@
   "app.containers.CreateTag.usingTheRightTags":
     "Использование верных тегов позволяет другим пользователям быстрее найти и ответить на Ваш вопрос.",
 
-  "app.containers.EditTag.title": "Сохранить тег",
+  "app.containers.EditTag.title": "Изменить тег",
   "app.containers.EditTag.description": "Сохранить тег | Описание",
 
   "app.containers.Tags.backToList": "Вернуться к списку",
@@ -810,6 +816,7 @@
   "app.containers.ViewQuestion.markAsBest": "Отметьте как лучший",
   "app.containers.ViewQuestion.communityChoice": "Выбор сообщества",
   "app.containers.ViewQuestion.moreComments": "Больше комментариев",
+  "app.containers.ViewQuestion.moreComment": "Ещё комментарий",
   "app.containers.ViewQuestion.addComment": "Добавить комментарий",
   "app.containers.ViewQuestion.showMoreAnswers":
     "Показать больше ответов {value}",

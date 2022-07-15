@@ -51,14 +51,15 @@ const Menu = memo(({ user, number, locale, boost }) => (
   <Ul>
     <A to={routes.userWallet(user)}>
       <FormattedMessage id={messages.wallet.id} />
-      {isPositiveNumber(number) && (
-        <NotificationIcon
-          inline
-          number={number}
-          iconId="walletDropDownInline"
-          locale={locale}
-        />
-      )}
+      {REWARD_CLAIMING_ENABLED &&
+        isPositiveNumber(number) && (
+          <NotificationIcon
+            inline
+            number={number}
+            iconId="walletDropDownInline"
+            locale={locale}
+          />
+        )}
     </A>
 
     {REWARD_CLAIMING_ENABLED && (
@@ -104,14 +105,16 @@ const WalletDropdown = ({
           <Menu user={user} number={number} locale={locale} boost={boost} />
         }
       />
-      {isPositiveNumber(number) && (
-        <NotificationIcon
-          isMobileVersion={false}
-          number={number}
-          iconId="WalletDropDown_NotificationIcon"
-          locale={locale}
-        />
-      )}
+
+      {REWARD_CLAIMING_ENABLED &&
+        isPositiveNumber(number) && (
+          <NotificationIcon
+            isMobileVersion={false}
+            number={number}
+            iconId="WalletDropDown_NotificationIcon"
+            locale={locale}
+          />
+        )}
     </div>
   );
 };
