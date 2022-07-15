@@ -1,8 +1,9 @@
 import { Contract, ethers } from 'ethers';
-import PeeranhaUser from '../../../peeranha-subgraph/abis/PeeranhaUser.json';
-import PeeranhaToken from '../../../peeranha-subgraph/abis/PeeranhaToken.json';
-import PeeranhaContent from '../../../peeranha-subgraph/abis/PeeranhaContent.json';
-import PeeranhaCommunity from '../../../peeranha-subgraph/abis/PeeranhaCommunity.json';
+
+import PeeranhaUser from 'abis-config/PeeranhaUser.json';
+import PeeranhaToken from 'abis-config/PeeranhaToken.json';
+import PeeranhaContent from 'abis-config/PeeranhaContent.json';
+import PeeranhaCommunity from 'abis-config/PeeranhaCommunity.json';
 
 import { WebIntegrationErrorByCode } from './errors';
 import {

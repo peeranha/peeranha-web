@@ -1,0 +1,3 @@
+[submodule "abis-config"]
+	path = abis-config
+	url = git@github.com:peeranha/abis-config.git

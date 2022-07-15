@@ -178,6 +178,7 @@ module.exports = {
         ['hooks', './app/hooks'],
         ['icons', './app/components/icons'],
         ['themes', './app/themes'],
+        ['abis-config', './abis-config'],
       ],
     },
   },

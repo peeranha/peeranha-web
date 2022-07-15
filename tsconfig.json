@@ -22,7 +22,8 @@
       "styles/*": ["app/styles/*"],
       "hooks/*": ["app/hooks/*"],
       "icons/*": ["app/components/icons/*"],
-      "themes/*": ["app/themes/*"]
+      "themes/*": ["app/themes/*"],
+      "abis-config/*": ["abis-config/*"]
     }
   },
   "include": ["emotion.d.ts", "./app/**/*.ts", "./app/**/*.tsx"],
