@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
-
+import styled from 'styled-components';
 import * as routes from 'routes-config';
 import { getQuestionCode, getSectionCode } from 'utils/mdManagement';
 
@@ -34,6 +34,16 @@ const GoToBoostPage = Button.extend`
   }
 `.withComponent(Link);
 
+const Container = styled.div`
+  display: flex;
+  align-items: center;
+
+  @media only screen and (max-width: 1005px) {
+    img {
+      display: none;
+    }
+  }
+`;
 const whatABoostIs = locale => (
   <A to={routes.faq(getQuestionCode(SECTION_ID, ...WHAT_IS_BOOST.split('.')))}>
     <Span color={TEXT_PRIMARY}>
@@ -64,36 +74,38 @@ const FAQs = locale => (
 
 const BoostBanner = ({ userId, locale }) => (
   <Wrapper className="mt-3">
-    <img src={activateBoostBanner} alt="boost-banner" />
+    <Container>
+      <img src={activateBoostBanner} alt="boost-banner" />
 
-    {(REWARD_CLAIMING_ENABLED && (
-      <div>
-        <p>
-          <FormattedMessage id={messages.getMoreWithBoost.id} />
-        </p>
+      {(REWARD_CLAIMING_ENABLED && (
+        <div>
+          <p>
+            <FormattedMessage id={messages.getMoreWithBoost.id} />
+          </p>
 
-        <p>
-          <FormattedMessage
-            id={messages.boostHelp.id}
-            values={{
-              whatABoostIs: whatABoostIs(locale),
-              howToStake: howToStake(locale),
-              FAQs: FAQs(locale),
-            }}
-          />
-        </p>
+          <p>
+            <FormattedMessage
+              id={messages.boostHelp.id}
+              values={{
+                whatABoostIs: whatABoostIs(locale),
+                howToStake: howToStake(locale),
+                FAQs: FAQs(locale),
+              }}
+            />
+          </p>
 
-        <GoToBoostPage to={routes.userBoost(userId)}>
-          <FormattedMessage id={commonMessages.activateBoost.id} />
-        </GoToBoostPage>
-      </div>
-    )) || (
-      <div>
-        <p>
-          <FormattedMessage id={messages.rewardsWillBeAvailable.id} />
-        </p>
-      </div>
-    )}
+          <GoToBoostPage to={routes.userBoost(userId)}>
+            <FormattedMessage id={commonMessages.activateBoost.id} />
+          </GoToBoostPage>
+        </div>
+      )) || (
+        <div>
+          <p>
+            <FormattedMessage id={messages.rewardsWillBeAvailable.id} />
+          </p>
+        </div>
+      )}
+    </Container>
   </Wrapper>
 );
 

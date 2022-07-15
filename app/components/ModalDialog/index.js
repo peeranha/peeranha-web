@@ -10,8 +10,8 @@ import Icon from 'components/Icon';
 import ModalStyled from './ModalStyled';
 import Blanket from './Blanket';
 
-const modalRoot = document.getElementById('modal');
-const el = document.createElement('div');
+export const modalRoot = document.getElementById('modal');
+export const el = document.createElement('div');
 
 export const ModalDialog = ({ children, show, closeModal }) => {
   useEffect(

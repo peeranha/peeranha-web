@@ -90,14 +90,6 @@ export class Header extends React.PureComponent {
 
     if (isMenuVisible) return null;
 
-    try {
-      if (isTransactionInPending || transactionInitialised) {
-        document.getElementsByTagName('body')[0].style.position = 'fixed';
-      } else {
-        document.getElementsByTagName('body')[0].style.position = 'relative';
-      }
-    } catch (err) {}
-
     return (
       <View
         account={account}

@@ -17,6 +17,9 @@ import ReactGA from 'react-ga';
 import { bindActionCreators, compose } from 'redux';
 import { connect } from 'react-redux';
 import { Switch, Route, withRouter } from 'react-router-dom';
+import { Global, ThemeProvider } from '@emotion/react';
+import global from 'styles/global';
+import { theme } from 'themes/default';
 
 import * as routes from 'routes-config';
 
@@ -30,7 +33,6 @@ import {
 } from 'utils/communityManagement';
 
 import Loader from 'components/LoadingIndicator/HeightWidthCentered';
-import ProgressIndicator from 'containers/ProgressIndicator';
 import ErrorBoundary from 'components/ErrorBoundary';
 
 import Wrapper from 'containers/AppWrapper';
@@ -40,7 +42,6 @@ import {
   EditCommunity,
   HomePage,
   Faq,
-  Tutorial,
   Users,
   EditQuestion,
   EditProfilePage,
@@ -65,7 +66,6 @@ import {
   EmailEnteringForm,
   EmailVerificationForm,
   WalletsSignUpForm,
-  EthereumWalletGenerationForm,
   SignUpViaEmail,
   RegistrationAlmostDoneWithAccount,
   RegistrationAlmostDoneNoAccount,
@@ -88,7 +88,7 @@ import { REFERRAL_CODE_URI } from './constants';
 import { AUTOLOGIN_DATA } from '../Login/constants';
 import { redirectToFeed } from './actions';
 import { hasGlobalModeratorRole } from '../../utils/properties';
-import Blanket from '../../components/ModalDialog/Blanket';
+import CookieConsentPopup from '../../components/CookieConsentPopup';
 
 const single = isSingleCommunityWebsite();
 
@@ -134,307 +134,317 @@ const App = ({
 
   return (
     <ErrorBoundary>
-      <Toast />
+      <ThemeProvider theme={theme}>
+        <Global styles={global} />
+        <Toast />
 
-      <Login />
-      <ForgotPassword />
-      <MetaTransactionAgreement />
+        <Login />
+        <ForgotPassword />
+        <MetaTransactionAgreement />
 
-      <ScrollTo />
-      <Popover />
+        <ScrollTo />
+        <Popover />
+        <CookieConsentPopup />
 
-      <Switch>
-        <Route exact path={routes.home()}>
-          <React.Suspense fallback={<Loader />}>
-            <HomePage />
-          </React.Suspense>
-        </Route>
+        <Switch>
+          <Route exact path={routes.home()}>
+            <React.Suspense fallback={<Loader />}>
+              <HomePage />
+            </React.Suspense>
+          </Route>
 
-        <Route
-          exact
-          path={routes.preloaderPage()}
-          render={props => Wrapper(FullWidthPreloader, props)}
-        />
-
-        {!!isBloggerMode && (
           <Route
             exact
-            path={routes.detailsHomePage()}
-            render={props => Wrapper(Home, props)}
+            path={routes.preloaderPage()}
+            render={props => Wrapper(FullWidthPreloader, props)}
           />
-        )}
 
-        <Route
-          exact
-          path={routes.feed()}
-          render={props => Wrapper(Feed, props)}
-        />
+          {!!isBloggerMode && (
+            <Route
+              exact
+              path={routes.detailsHomePage()}
+              render={props => Wrapper(Home, props)}
+            />
+          )}
 
-        {!single && (
           <Route
-            path={routes.feed(':communityid')}
+            exact
+            path={routes.feed()}
             render={props => Wrapper(Feed, props)}
           />
-        )}
 
-        <Route
-          exact
-          path={routes.profileView(':id')}
-          render={props => Wrapper(ViewProfilePage, props)}
-        />
+          {!single && (
+            <Route
+              path={routes.feed(':communityid')}
+              render={props => Wrapper(Feed, props)}
+            />
+          )}
 
-        <Route
-          path={routes.profileEdit(':id')}
-          render={props => Wrapper(EditProfilePage, props)}
-        />
-
-        {!single && (
           <Route
             exact
-            path={routes.communities()}
-            render={props => Wrapper(Communities, props)}
+            path={routes.profileView(':id')}
+            render={props => Wrapper(ViewProfilePage, props)}
           />
-        )}
 
-        {!single && (
           <Route
-            path={routes.communitiesCreate()}
-            render={props => Wrapper(CreateCommunity, props)}
+            path={routes.profileEdit(':id')}
+            render={props => Wrapper(EditProfilePage, props)}
           />
-        )}
 
-        <Route
-          path={routes.communitiesEdit(':communityId')}
-          render={props => Wrapper(EditCommunity, props)}
-        />
+          {!single && (
+            <Route
+              exact
+              path={routes.communities()}
+              render={props => Wrapper(Communities, props)}
+            />
+          )}
 
-        {!single && (
+          {!single && (
+            <Route
+              path={routes.communitiesCreate()}
+              render={props => Wrapper(CreateCommunity, props)}
+            />
+          )}
+
           <Route
-            path={routes.suggestedCommunities()}
-            render={props => Wrapper(SuggestedCommunities, props)}
+            path={routes.communitiesEdit(':communityId')}
+            render={props => Wrapper(EditCommunity, props)}
           />
-        )}
 
-        {!single && (
-          <Route
-            exact
-            path={routes.tags()}
-            render={props => Wrapper(TagsCollection, props)}
-          />
-        )}
+          {!single && (
+            <Route
+              path={routes.suggestedCommunities()}
+              render={props => Wrapper(SuggestedCommunities, props)}
+            />
+          )}
 
-        <Route
-          exact
-          path={routes.communityTags(':communityid')}
-          render={props => Wrapper(TagsOfCommunity, props)}
-        />
+          {!single && (
+            <Route
+              exact
+              path={routes.tags()}
+              render={props => Wrapper(TagsCollection, props)}
+            />
+          )}
 
-        <Route
-          path={routes.tagsCreate(':communityid')}
-          render={props => Wrapper(CreateTag, props)}
-        />
-
-        <Route
-          path={routes.editTag(':communityId', ':tagid')}
-          render={props => Wrapper(EditTag, props)}
-        />
-
-        <Route
-          path={routes.suggestedTags(':communityid')}
-          render={props => Wrapper(SuggestedTags, props)}
-        />
-
-        <Route
-          exact
-          path={routes.faq()}
-          render={props => Wrapper(Faq, props)}
-        />
-
-        <Route
-          exact
-          path={routes.termsAndConditions()}
-          render={props => Wrapper(TermsOfService, props)}
-        />
-
-        <Route
-          path={routes.userWallet(':id')}
-          render={props => Wrapper(Wallet, props)}
-        />
-
-        {REWARD_CLAIMING_ENABLED && (
-          <Route
-            path={routes.userBoost(':id')}
-            render={props => Wrapper(Boost, props)}
-          />
-        )}
-
-        <Route
-          path={routes.support()}
-          render={props => Wrapper(Support, props)}
-        />
-
-        <Route
-          path={routes.privacyPolicy()}
-          render={props => Wrapper(PrivacyPolicy, props)}
-        />
-
-        <Route
-          exact
-          path={routes.questions()}
-          render={props =>
-            Wrapper(Questions, {
-              ...props,
-              postsTypes: [POST_TYPE.generalPost],
-            })
-          }
-        />
-
-        <Route
-          exact
-          path={routes.expertPosts()}
-          render={props =>
-            Wrapper(Questions, { ...props, postsTypes: [POST_TYPE.expertPost] })
-          }
-        />
-
-        <Route
-          path={routes.questions(':communityid')}
-          render={props =>
-            Wrapper(Questions, {
-              ...props,
-              postsTypes: [POST_TYPE.generalPost],
-            })
-          }
-        />
-
-        <Route
-          path={routes.expertPosts(':communityid')}
-          render={props =>
-            Wrapper(Questions, { ...props, postsTypes: [POST_TYPE.expertPost] })
-          }
-        />
-
-        <Route
-          exact
-          path={routes.tutorials()}
-          render={props =>
-            Wrapper(Questions, { ...props, postsTypes: [POST_TYPE.tutorial] })
-          }
-        />
-
-        <Route
-          path={routes.tutorials(':communityid')}
-          render={props =>
-            Wrapper(Questions, { ...props, postsTypes: [POST_TYPE.tutorial] })
-          }
-        />
-
-        <Route
-          path={routes.questionAsk()}
-          render={props => Wrapper(AskQuestion, props)}
-        />
-
-        <Route
-          exact
-          path={routes.questionView(':id')}
-          render={props => Wrapper(ViewQuestion, props)}
-        />
-
-        <Route
-          exact
-          path={routes.expertPostView(':id')}
-          render={props => Wrapper(ViewQuestion, props)}
-        />
-
-        <Route
-          exact
-          path={routes.tutorialView(':id')}
-          render={props => Wrapper(ViewQuestion, props)}
-        />
-
-        <Route
-          path={routes.questionEdit(':postType', ':questionid')}
-          render={props => Wrapper(EditQuestion, props)}
-        />
-
-        <Route
-          path={routes.answerEdit(':questionid', ':answerid')}
-          render={props => Wrapper(EditAnswer, props)}
-        />
-
-        {hasGlobalModeratorRole() && (
           <Route
             exact
-            path={routes.users()}
-            render={props => Wrapper(Users, props)}
+            path={routes.communityTags(':communityid')}
+            render={props => Wrapper(TagsOfCommunity, props)}
           />
-        )}
 
-        <Route
-          path={routes.noAccess()}
-          render={props => Wrapper(NoAccess, props)}
-        />
+          <Route
+            path={routes.tagsCreate(':communityid')}
+            render={props => Wrapper(CreateTag, props)}
+          />
 
-        <Route
-          exact
-          path={routes.search()}
-          render={props => Wrapper(Search, props)}
-        />
+          <Route
+            path={routes.editTag(':communityId', ':tagid')}
+            render={props => Wrapper(EditTag, props)}
+          />
 
-        <Route
-          path={routes.search(':q')}
-          render={props => Wrapper(Search, props)}
-        />
+          <Route
+            path={routes.suggestedTags(':communityid')}
+            render={props => Wrapper(SuggestedTags, props)}
+          />
 
-        <Route
-          path={routes.errorPage()}
-          render={props => Wrapper(ErrorPage, props)}
-        />
+          <Route
+            exact
+            path={routes.faq()}
+            render={props => Wrapper(Faq, props)}
+          />
 
-        <Route exact path={routes.facebookDataDeletion()}>
-          <React.Suspense fallback={null}>
-            <DeleteFacebookData />
-          </React.Suspense>
-        </Route>
+          <Route
+            exact
+            path={routes.termsAndConditions()}
+            render={props => Wrapper(TermsOfService, props)}
+          />
 
-        <Route path={routes.signup.email.name}>
-          <React.Suspense fallback={<Loader />}>
-            <EmailEnteringForm />
-          </React.Suspense>
-        </Route>
+          <Route
+            path={routes.userWallet(':id')}
+            render={props => Wrapper(Wallet, props)}
+          />
 
-        <Route path={routes.signup.emailVerification.name}>
-          <React.Suspense fallback={null}>
-            <EmailVerificationForm />
-          </React.Suspense>
-        </Route>
+          {REWARD_CLAIMING_ENABLED && (
+            <Route
+              path={routes.userBoost(':id')}
+              render={props => Wrapper(Boost, props)}
+            />
+          )}
 
-        <Route path={routes.signup.displayName.name}>
-          <React.Suspense fallback={null}>
-            <WalletsSignUpForm />
-          </React.Suspense>
-        </Route>
+          <Route
+            path={routes.support()}
+            render={props => Wrapper(Support, props)}
+          />
 
-        <Route exact path={routes.signup.accountSetup.name}>
-          <React.Suspense fallback={null}>
-            <SignUpViaEmail />
-          </React.Suspense>
-        </Route>
+          <Route
+            path={routes.privacyPolicy()}
+            render={props => Wrapper(PrivacyPolicy, props)}
+          />
 
-        <Route path={routes.signup.almostDoneWithAccount.name}>
-          <React.Suspense fallback={null}>
-            <RegistrationAlmostDoneWithAccount />
-          </React.Suspense>
-        </Route>
+          <Route
+            exact
+            path={routes.questions()}
+            render={props =>
+              Wrapper(Questions, {
+                ...props,
+                postsTypes: [POST_TYPE.generalPost],
+              })
+            }
+          />
 
-        <Route path={routes.signup.almostDoneNoAccount.name}>
-          <React.Suspense fallback={null}>
-            <RegistrationAlmostDoneNoAccount />
-          </React.Suspense>
-        </Route>
+          <Route
+            exact
+            path={routes.expertPosts()}
+            render={props =>
+              Wrapper(Questions, {
+                ...props,
+                postsTypes: [POST_TYPE.expertPost],
+              })
+            }
+          />
 
-        <Route render={props => Wrapper(NotFoundPage, props)} />
-      </Switch>
+          <Route
+            path={routes.questions(':communityid')}
+            render={props =>
+              Wrapper(Questions, {
+                ...props,
+                postsTypes: [POST_TYPE.generalPost],
+              })
+            }
+          />
+
+          <Route
+            path={routes.expertPosts(':communityid')}
+            render={props =>
+              Wrapper(Questions, {
+                ...props,
+                postsTypes: [POST_TYPE.expertPost],
+              })
+            }
+          />
+
+          <Route
+            exact
+            path={routes.tutorials()}
+            render={props =>
+              Wrapper(Questions, { ...props, postsTypes: [POST_TYPE.tutorial] })
+            }
+          />
+
+          <Route
+            path={routes.tutorials(':communityid')}
+            render={props =>
+              Wrapper(Questions, { ...props, postsTypes: [POST_TYPE.tutorial] })
+            }
+          />
+
+          <Route
+            path={routes.questionAsk()}
+            render={props => Wrapper(AskQuestion, props)}
+          />
+
+          <Route
+            exact
+            path={routes.questionView(':id')}
+            render={props => Wrapper(ViewQuestion, props)}
+          />
+
+          <Route
+            exact
+            path={routes.expertPostView(':id')}
+            render={props => Wrapper(ViewQuestion, props)}
+          />
+
+          <Route
+            exact
+            path={routes.tutorialView(':id')}
+            render={props => Wrapper(ViewQuestion, props)}
+          />
+
+          <Route
+            path={routes.questionEdit(':postType', ':questionid')}
+            render={props => Wrapper(EditQuestion, props)}
+          />
+
+          <Route
+            path={routes.answerEdit(':questionid', ':answerid')}
+            render={props => Wrapper(EditAnswer, props)}
+          />
+
+          {hasGlobalModeratorRole() && (
+            <Route
+              exact
+              path={routes.users()}
+              render={props => Wrapper(Users, props)}
+            />
+          )}
+
+          <Route
+            path={routes.noAccess()}
+            render={props => Wrapper(NoAccess, props)}
+          />
+
+          <Route
+            exact
+            path={routes.search()}
+            render={props => Wrapper(Search, props)}
+          />
+
+          <Route
+            path={routes.search(':q')}
+            render={props => Wrapper(Search, props)}
+          />
+
+          <Route
+            path={routes.errorPage()}
+            render={props => Wrapper(ErrorPage, props)}
+          />
+
+          <Route exact path={routes.facebookDataDeletion()}>
+            <React.Suspense fallback={null}>
+              <DeleteFacebookData />
+            </React.Suspense>
+          </Route>
+
+          <Route path={routes.signup.email.name}>
+            <React.Suspense fallback={<Loader />}>
+              <EmailEnteringForm />
+            </React.Suspense>
+          </Route>
+
+          <Route path={routes.signup.emailVerification.name}>
+            <React.Suspense fallback={null}>
+              <EmailVerificationForm />
+            </React.Suspense>
+          </Route>
+
+          <Route path={routes.signup.displayName.name}>
+            <React.Suspense fallback={null}>
+              <WalletsSignUpForm />
+            </React.Suspense>
+          </Route>
+
+          <Route exact path={routes.signup.accountSetup.name}>
+            <React.Suspense fallback={null}>
+              <SignUpViaEmail />
+            </React.Suspense>
+          </Route>
+
+          <Route path={routes.signup.almostDoneWithAccount.name}>
+            <React.Suspense fallback={null}>
+              <RegistrationAlmostDoneWithAccount />
+            </React.Suspense>
+          </Route>
+
+          <Route path={routes.signup.almostDoneNoAccount.name}>
+            <React.Suspense fallback={null}>
+              <RegistrationAlmostDoneNoAccount />
+            </React.Suspense>
+          </Route>
+
+          <Route render={props => Wrapper(NotFoundPage, props)} />
+        </Switch>
+      </ThemeProvider>
     </ErrorBoundary>
   );
 };

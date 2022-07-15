@@ -10,14 +10,12 @@ import {
   CONTRACT_USER,
   CONTRACT_CONTENT,
   CONTRACT_COMMUNITY,
-} from './ethConstants';
-
-import {
   CLAIM_REWARD,
   GET_COMMUNITY,
   GET_USER_BY_ADDRESS,
   SET_STAKE,
 } from './ethConstants';
+
 import { getFileUrl, getIpfsHashFromBytes32, getText } from './ipfs';
 import { deleteCookie, getCookie } from './cookie';
 import {
@@ -69,7 +67,13 @@ class EthereumService {
     this.transactionCompleted = data.transactionCompletedDispatch;
     this.transactionFailed = data.transactionFailedDispatch;
     this.waitForConfirm = data.waitForConfirmDispatch;
+    this.isTransactionInitialised = null;
+    this.addToast = data.addToast;
   }
+
+  setTransactionInitialised = toggle => {
+    this.isTransactionInitialised = toggle;
+  };
 
   setData = data => {
     this.wallet = data.wallet;
@@ -193,7 +197,22 @@ class EthereumService {
     });
   }
 
-  sendTransaction = async (contract, actor, action, data) => {
+  sendTransaction = async (
+    contract,
+    actor,
+    action,
+    data,
+    confirmations = 1,
+  ) => {
+    if (this.isTransactionInitialised) {
+      this.addToast({
+        type: 'info',
+        text: 'Wait for the end of the current transaction.',
+      });
+      throw new Error('Wait for the end of the current transaction.');
+    }
+
+    this.setTransactionInitialised(true);
     this.waitForConfirm();
 
     const dataFromCookies = getCookie(META_TRANSACTIONS_ALLOWED);
@@ -210,7 +229,13 @@ class EthereumService {
 
     const metaTransactionsAllowed = getCookie(META_TRANSACTIONS_ALLOWED);
     if (metaTransactionsAllowed) {
-      return await this.sendMetaTransaction(contract, actor, action, data);
+      return await this.sendMetaTransaction(
+        contract,
+        actor,
+        action,
+        data,
+        confirmations,
+      );
     }
     try {
       await this.chainCheck();
@@ -218,10 +243,13 @@ class EthereumService {
         .connect(this.provider.getSigner(actor))
         [action](...data);
       this.transactionInPending(transaction.hash);
-      const result = await transaction.wait();
+      const result = await transaction.wait(confirmations);
       this.transactionCompleted();
+      this.setTransactionInitialised(false);
       return result;
     } catch (err) {
+      this.setTransactionInitialised(false);
+
       switch (err.code) {
         case INVALID_ETHEREUM_PARAMETERS_ERROR_CODE:
           this.transactionFailed(
@@ -252,7 +280,13 @@ class EthereumService {
     };
   };
 
-  sendMetaTransaction = async (contract, actor, action, data) => {
+  sendMetaTransaction = async (
+    contract,
+    actor,
+    action,
+    data,
+    confirmations = 1,
+  ) => {
     try {
       await this.chainCheck();
       const metaTxContract = this[contract];
@@ -316,10 +350,13 @@ class EthereumService {
       this.transactionInPending(response.body.transactionHash);
       const result = await this.provider.waitForTransaction(
         response.body.transactionHash,
+        confirmations,
       );
       this.transactionCompleted();
+      this.setTransactionInitialised(false);
       return result;
     } catch (err) {
+      this.setTransactionInitialised(false);
       switch (err.code) {
         case INVALID_ETHEREUM_PARAMETERS_ERROR_CODE:
           this.transactionFailed(

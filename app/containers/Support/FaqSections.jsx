@@ -29,25 +29,29 @@ const Base = styled.div`
   }
 `;
 
-const FaqSections = ({ faq }) => (
-  <Base>
-    <h6>
-      <FormattedMessage {...commonMessages.faq} />
-    </h6>
+const FaqSections = ({ faq }) => {
+  const faqBlocks = faq.blocks.slice(0, 7).filter((item, index) => index !== 1);
 
-    {faq && (
-      <ul>
-        {faq.blocks.map((x, sectionIndex) => (
-          <li key={x.h2}>
-            <A to={routes.faq(getSectionCode(SECTION_ID, sectionIndex))}>
-              {x.h2}
-            </A>
-          </li>
-        ))}
-      </ul>
-    )}
-  </Base>
-);
+  return (
+    <Base>
+      <h6>
+        <FormattedMessage {...commonMessages.faq} />
+      </h6>
+
+      {faq && (
+        <ul>
+          {faqBlocks.map((x, sectionIndex) => (
+            <li key={x.h2}>
+              <A to={routes.faq(getSectionCode(SECTION_ID, sectionIndex))}>
+                {x.h2}
+              </A>
+            </li>
+          ))}
+        </ul>
+      )}
+    </Base>
+  );
+};
 
 FaqSections.propTypes = {
   faq: PropTypes.object,

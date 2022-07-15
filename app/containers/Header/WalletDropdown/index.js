@@ -15,8 +15,6 @@ import Dropdown from 'components/Dropdown';
 import A from 'components/A';
 import Ul from 'components/Ul/SpecialOne';
 
-import SendTokens from 'containers/SendTokens';
-
 import {
   selectWeekStat,
   selectRewardsWeeksNumber,
@@ -49,12 +47,12 @@ export const BoostPrediction = styled.span`
 
 const isPositiveNumber = number => Number.isFinite(number) && number > 0;
 
-const Menu = memo(({ user, number, locale, boost }) => {
-  return (
-    <Ul>
-      <A to={routes.userWallet(user)}>
-        <FormattedMessage {...messages.wallet} />
-        {isPositiveNumber(number) && (
+const Menu = memo(({ user, number, locale, boost }) => (
+  <Ul>
+    <A to={routes.userWallet(user)}>
+      <FormattedMessage id={messages.wallet.id} />
+      {REWARD_CLAIMING_ENABLED &&
+        isPositiveNumber(number) && (
           <NotificationIcon
             inline
             number={number}
@@ -62,20 +60,20 @@ const Menu = memo(({ user, number, locale, boost }) => {
             locale={locale}
           />
         )}
-      </A>
-      {REWARD_CLAIMING_ENABLED && (
-        <A to={routes.userBoost(user)}>
-          <FormattedMessage id={messages.boost.id} />
-          {boost > 1 && <BoostPrediction>{boost}</BoostPrediction>}
-        </A>
-      )}
+    </A>
 
-      {/*<SendTokens>*/}
-      {/*  <FormattedMessage {...messages.sendTokens} />*/}
-      {/*</SendTokens>*/}
-    </Ul>
-  );
-});
+    {REWARD_CLAIMING_ENABLED && (
+      <A to={routes.userBoost(user)}>
+        <FormattedMessage id={messages.boost.id} />
+        {boost > 1 && <BoostPrediction>{boost}</BoostPrediction>}
+      </A>
+    )}
+
+    {/* <SendTokens> */}
+    {/*  <FormattedMessage {...messages.sendTokens} /> */}
+    {/* </SendTokens> */}
+  </Ul>
+));
 
 const WalletDropdown = ({
   user,
@@ -107,21 +105,22 @@ const WalletDropdown = ({
           <Menu user={user} number={number} locale={locale} boost={boost} />
         }
       />
-      {isPositiveNumber(number) && (
-        <NotificationIcon
-          isMobileVersion={false}
-          number={number}
-          iconId="WalletDropDown_NotificationIcon"
-          locale={locale}
-        />
-      )}
+
+      {REWARD_CLAIMING_ENABLED &&
+        isPositiveNumber(number) && (
+          <NotificationIcon
+            isMobileVersion={false}
+            number={number}
+            iconId="WalletDropDown_NotificationIcon"
+            locale={locale}
+          />
+        )}
     </div>
   );
 };
 
 Menu.propTypes = {
   user: PropTypes.string,
-  balance: PropTypes.string,
   number: PropTypes.number,
 };
 
@@ -138,7 +137,11 @@ WalletDropdown.propTypes = {
 export default memo(
   compose(
     injectReducer({ key: 'wallet', reducer }),
-    injectSaga({ key: 'wallet', saga }),
+    injectSaga({
+      key: 'wallet',
+      saga,
+      disableEject: true,
+    }),
     connect(
       createStructuredSelector({
         locale: makeSelectLocale(),

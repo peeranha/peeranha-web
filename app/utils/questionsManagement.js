@@ -220,6 +220,7 @@ export async function postQuestion(
     user,
     POST_QUESTION,
     [communityId, ipfsHash, postType, tags],
+    2, // wait for additional confirmation to avoid 404 error when redirect to newly created post
   );
 }
 

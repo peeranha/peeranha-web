@@ -7,10 +7,10 @@ import bg from 'images/BG_Rewards.jpg';
 import { THIRD_SCREEN, SEND_EMAIL_FORM_REWARDS } from './constants';
 import messages from './messages';
 
-import EmailLandingForm from './EmailLandingForm';
+import ClickRouteToFeed from './ClickRouteToFeed';
 import Section from './Section';
 
-const Rewards = ({ emailChecking, checkEmail, translations }) => (
+const Rewards = ({ translations }) => (
   <Box id={THIRD_SCREEN}>
     <div className="container">
       <div className="row justify-content-center align-items-center">
@@ -29,13 +29,7 @@ const Rewards = ({ emailChecking, checkEmail, translations }) => (
 
           <div className="row justify-content-center">
             <div className="col-12 col-md-8 col-xl-6 bottom-level mx-auto">
-              <EmailLandingForm
-                form={SEND_EMAIL_FORM_REWARDS}
-                button={messages.getReward}
-                translations={translations}
-                checkEmail={checkEmail}
-                emailChecking={emailChecking}
-              />
+              <ClickRouteToFeed />
             </div>
           </div>
         </div>
@@ -66,8 +60,6 @@ const Box = Section.extend`
 `;
 
 Rewards.propTypes = {
-  emailChecking: PropTypes.bool,
-  checkEmail: PropTypes.func,
   translations: PropTypes.object,
 };
 
