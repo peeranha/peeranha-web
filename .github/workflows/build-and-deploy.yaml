@@ -16,6 +16,9 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
+      with:
+        ssh-key: ${{ secrets.SUBMODULE_CONTENT_PULL_KEY }}
+        submodules: 'recursive'
 
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
