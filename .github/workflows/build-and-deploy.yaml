@@ -15,10 +15,20 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v2
+
+    - name: Clone submodule
+      uses: actions/checkout@v2
       with:
+        repository: git@github.com:peeranha/abis-config.git
+        path: path
         ssh-key: ${{ secrets.SUBMODULE_CONTENT_PULL_KEY }}
-        submodules: recursive
+        persist-credentials: true
+
+    - name: Checkout submodule
+      run: |
+        git submodule init
+        git submodule update
 
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
