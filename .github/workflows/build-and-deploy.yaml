@@ -15,17 +15,23 @@ jobs:
 
     steps:
     - name: Checkout
-      # uses: actions/checkout@v3
-      uses: shaunco/ssh-agent@git-repo-mapping
+      uses: actions/checkout@v2
       with:
-        ssh-private-key: |
-          ${{ secrets.SUBMODULE_CONTENT_PULL_KEY}}
-        repo-mappings: |
-          git@github.com:peeranha/abis-config.git
+        ssh-key: |
+          ${{ secrets.SUBMODULE_CONTENT_PULL_KEY }}
+          ${{ secrets.MODULE_CONTENT_PULL_KEY }}
+        submodules: 'recursive'
+    #   # uses: actions/checkout@v3
+    #   uses: shaunco/ssh-agent@git-repo-mapping
+    #   with:
+    #     ssh-private-key: |
+    #       ${{ secrets.SUBMODULE_CONTENT_PULL_KEY}}
+    #     repo-mappings: |
+    #       git@github.com:peeranha/abis-config.git
 
-    - uses: actions/checkout@v3
-      with:
-        submodules: recursive
+    # - uses: actions/checkout@v3
+    #   with:
+    #     submodules: recursive
 
     # - name: Clone submodule
     #   uses: actions/checkout@v3
