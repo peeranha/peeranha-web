@@ -12,7 +12,7 @@ on:
         DIST: build
         REGION: us-east-1
         DIST_ID: E2Z00NWCAJVG7H
-      steps:
+    steps:
       - name: Checkout
         uses: actions/checkout@v2
 
