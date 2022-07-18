@@ -1,3 +1,7 @@
+import { Fragment } from 'react';
+import globalStyles from 'styles/global';
+import { css } from '@emotion/react';
+
 export default {
   title: 'Docs',
   parameters: {
@@ -12,129 +16,46 @@ export default {
   },
 };
 
-const listCSSClasses = [
-  'Classname:',
-  'CSS property:',
-  'container',
-  'max-width: 1366px; width: calc(100% - 20px); margin: 0 auto;',
-  'scroll-disabled',
-  'overflow: hidden; height: 100%;',
-  'dib',
-  'display: inline-block;',
-  'dn',
-  'display: none;',
-  'db',
-  'display: block;',
-  'df',
-  'display: flex;',
-  'dg',
-  ' display: grid;',
-  'jcsb',
-  ' justify-content: space-between;',
-  'jcc',
-  'justify-content: center;',
-  'jcfs',
-  'justify-content: flex-start;',
-  'jcfe',
-  'justify-content: flex-end;',
-  'jcfe',
-  'align-items: center;',
-  'aife ',
-  'align-items: flex-end;',
-  'fdc',
-  'flex-direction: column;',
-  'f1',
-  'flex: 1;',
-  'fww',
-  'flex-wrap: wrap;',
-  'full-height ',
-  'height: 100%;',
-  'full-width',
-  'width: 100%;',
-  'cup',
-  'cursor: pointer;',
-  'tr',
-  'text-align: right;',
-  'tc',
-  'text-align: center;',
-  'tl',
-  'text-align: left;',
-  'fz14',
-  'font-size: 14px;',
-  'fz16',
-  'font-size: 16px;',
-  'fz18',
-  'font-size: 18px;',
-  'pr',
-  'position: relative;',
-  'pa',
-  'position: absolute;',
-  'pf',
-  'position: fixed;',
-  'lo',
-  'left: 0;',
-  'r0',
-  'right: 0;',
-  't0',
-  'top: 0;',
-  'b0',
-  'bottom: 0;',
-  'ovh',
-  'overflow: hidden;',
-  'on',
-  'outline: none;',
-  'p0',
-  'padding: 0;',
-  'm0',
-  'margin: 0;',
-  'bd0',
-  'border: none;',
-  'no-wrap',
-  'white-space: nowrap;',
-  'border-box',
-  'box-sizing: border-box;',
-  'transform90',
-  'transform: rotate(90deg);',
-  'transform180',
-  'transform: rotate(180deg);',
-  'transform270',
-  'transform: rotate(270deg);',
-  'uppercase',
-  'text-transform: uppercase;',
-  'capitalize',
-  'text-transform: capitalize;',
-  'medium',
-  'font-weight: 500;',
-  'a',
-  'text-decoration: none;',
-  'icon',
-  'color: var(--color-background-icon);',
-  'text-ellipsis',
-  'overflow: hidden; white-space: nowrap; text-overflow: ellipsis;',
-  'break-word',
-  'word-break: break-word;',
-  'break-all',
-  'word-break: break-all;',
-  'text-block strong',
-  'font-weight: 700;',
-  'text-block em',
-  'font-style: italic;',
-];
+const stylesRow = {
+  height: 'auto',
+  padding: 10,
+};
+
+const clearStyles = globalStyles.styles
+  .split('.')
+  .map(item => item.replace(/\s{2,}/gi, ''))
+  .slice(1)
+  .filter(item => !item.includes(':root') && !/\s.+{/gi.test(item));
 
 export const GlobalCSSStyles = () => (
   <div
-    style={{
+    css={css({
       display: 'grid',
-      gridTemplateColumns: '1fr 1fr',
+      gridTemplateColumns: '100px 300px',
       fontSize: '16px',
       textAlign: 'center',
       fontFamily: 'sans-serif',
-    }}
+    })}
   >
-    {listCSSClasses.map(item => (
-      <div style={{ height: 'auto', border: 'solid 1px', padding: 10 }}>
-        {item}
-      </div>
+    {clearStyles.map((item, index) => (
+      <Fragment key={item}>
+        <div
+          css={css({
+            ...stylesRow,
+            ...(index % 2 > 0 && { backgroundColor: '#f1f1f1' }),
+          })}
+        >
+          {item}
+        </div>
+        <div
+          css={css({
+            ...stylesRow,
+            ...(index % 2 > 0 && { backgroundColor: '#f1f1f1' }),
+          })}
+        >
+          {item}
+        </div>
+      </Fragment>
     ))}
   </div>
 );
