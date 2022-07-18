@@ -21,11 +21,15 @@ const stylesRow = {
   padding: 10,
 };
 
+const sortArray = (firstString, secondString) =>
+  firstString.localeCompare(secondString, 'en-u-kn-true');
+
 const clearStyles = globalStyles.styles
   .split('.')
   .map(item => item.replace(/\s{2,}/gi, ''))
   .slice(1)
-  .filter(item => !item.includes(':root') && !/\s.+{/gi.test(item));
+  .filter(item => !item.includes(':root') && !/\s.+{/gi.test(item))
+  .sort(sortArray);
 
 export const GlobalCSSStyles = () => (
   <div
@@ -45,7 +49,7 @@ export const GlobalCSSStyles = () => (
             ...(index % 2 > 0 && { backgroundColor: '#f1f1f1' }),
           })}
         >
-          {item}
+          {item.split('{')[0]}
         </div>
         <div
           css={css({
@@ -53,7 +57,11 @@ export const GlobalCSSStyles = () => (
             ...(index % 2 > 0 && { backgroundColor: '#f1f1f1' }),
           })}
         >
-          {item}
+          {item
+            .split('{')[1]
+            .replace(/;}/gi, '')
+            .split(';')
+            .map(content => <div>{content}</div>)}
         </div>
       </Fragment>
     ))}
