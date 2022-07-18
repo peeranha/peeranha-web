@@ -16,15 +16,9 @@ import {
 } from './constants';
 
 import Header from './Header';
-import EmailLandingForm from './EmailLandingForm';
+import ClickRouteToFeed from './ClickRouteToFeed';
 
-const Introduction = ({
-  translations,
-  showLoginModal,
-  checkEmail,
-  emailChecking,
-  account,
-}) => (
+const Introduction = ({ translations, showLoginModal, account }) => (
   <Parallax id={FIRST_SCREEN}>
     <div className="layers">
       <div className="pattern pattern-1">
@@ -57,13 +51,7 @@ const Introduction = ({
 
           <div className="row justify-content-center">
             <div className="col-12 col-md-8 col-xl-6 bottom-level mx-auto">
-              <EmailLandingForm
-                form={SEND_EMAIL_FORM_INTRODUCTION}
-                button={messages.getStarted}
-                emailChecking={emailChecking}
-                checkEmail={checkEmail}
-                translations={translations}
-              />
+              <ClickRouteToFeed />
             </div>
           </div>
 
@@ -161,8 +149,6 @@ const Wrapper = styled.div`
 `;
 
 Introduction.propTypes = {
-  emailChecking: PropTypes.bool,
-  checkEmail: PropTypes.func,
   showLoginModal: PropTypes.func,
   account: PropTypes.string,
   translations: PropTypes.object,

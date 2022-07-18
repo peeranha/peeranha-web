@@ -119,7 +119,7 @@ const WalletButton = ({
             bold
             color={(!isMobileVersion && styles.commHeadElemColor) || ''}
           >
-            {getFormattedNum4(balance)}
+            {getFormattedNum4(Math.round(balance * 100) / 100)}
           </Span>
           <Span
             className="align-middle"

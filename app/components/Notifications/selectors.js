@@ -91,3 +91,6 @@ export const selectUnreadNotificationsLastTimestamp = () =>
 
 export const isInfoLoadedSelect = () =>
   createSelector(selectNotificationsDomain, substate => substate.isInfoLoaded);
+
+export const getLastUser = () =>
+  createSelector(selectNotificationsDomain, substate => substate.lastUser);

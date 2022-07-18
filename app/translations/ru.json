@@ -1,6 +1,10 @@
 {
   "app.common.peeranha": "Peeranha",
   "app.common.copyrightPeeranha": "©{year} Peeranha",
+  "app.common.confirm": "Принять",
+  "app.common.cookieConsent":
+    "Для улучшения работы сайта и его взаимодействия с пользователями мы используем файлы cookie. ",
+  "app.common.moreInfo": "Подробнее",
   "app.common.profile": "Профиль",
   "app.common.myCommunities": "Мои сообщества",
   "app.common.questions": "Вопросы",
@@ -79,6 +83,8 @@
   "app.common.seeAll": "Посмотреть все",
   "app.common.voting": "Голосование",
   "app.common.date": "Дата",
+  "app.common.sortAscending": "Сортировать по возрастанию",
+  "app.common.sortDescending": "Сортировать по убыванию",
   "app.common.popularity": "Популярность",
   "app.common.moreVoting": "Больше голосований",
   "app.common.reputation": "Репутация",
@@ -88,6 +94,7 @@
   "app.common.contacts": "Контакты",
   "app.common.support": "Поддержка",
   "app.common.privacyPolicy": "Политика конфиденциальности",
+  "app.common.partners": "Партнеры",
   "app.common.termsOfService": "Условия обслуживания",
   "app.common.privacyPolicyShort": "Политика конфид-ти",
   "app.common.more": "Ещё",
@@ -101,6 +108,7 @@
   "app.common.eosAccount": "Telos аккаунт",
   "app.common.walletAddress": "Адрес кошелька",
   "app.common.successMessage": "Действие было выполнено успешно!",
+  "app.common.messageSendedSuccessfully": "Сообщение успешно отправлено",
   "app.common.errorMessage": "Возникла ошибка",
   "app.common.energy": "Энергия",
   "app.common.show": "Показать",
@@ -115,7 +123,7 @@
   "app.common.preview": "Предварительный просмотр",
   "app.common.showMore": "Показать больше {value}",
   "app.common.showLess": "Показать меньше {value}",
-  "app.common.poweredBy": "Powered by {image}",
+  "app.common.poweredBy": "©{year} Powered by {image}",
   "app.common.poweredByPeeranha": "Powered by {image}",
   "app.common.terms": "Operating Agreement",
   "app.common.noResults": "Нет результатов",
@@ -194,6 +202,9 @@
 
   "app.common.ipfsHashValue": "IPFS",
   "app.common.source": "Источник",
+  "app.common.estimatedReward": "Расчетная награда",
+  "app.common.rewardsWillBeAvailable":
+    "К сожалению, вы не можете получить свои токены прямо сейчас. Не беспокойтесь, предполагаемое вознаграждение будет доступно для вас после запуска токена. Наша юридическая команда поддерживает нас в окончательной доработке деталей запуска токена. Благодарим вас!",
 
   "app.telegram.user": "Телеграм пользователь",
   "app.telegram.userLabelPopover":
@@ -221,6 +232,8 @@
   "app.containers.Wallet.periodStillInProgress":
     "Этот период все еще в прогрессе. Вы увидите больше деталей на следующей неделе.",
   "app.containers.Wallet.payoutPending": "Выплата в ожидании",
+  "app.containers.Wallet.weAreAnalyzing":
+    "Мы анализируем действия текущего периода. Подробная информация будет доступна на следующей неделе.",
   "app.containers.Wallet.estimatedPayout": "Расчетная выплата",
   "app.containers.Wallet.paidOut": "Выплачено",
   "app.containers.Wallet.rewarded": "Награждено",
@@ -476,7 +489,7 @@
   "app.containers.CreateTag.usingTheRightTags":
     "Использование верных тегов позволяет другим пользователям быстрее найти и ответить на Ваш вопрос.",
 
-  "app.containers.EditTag.title": "Сохранить тег",
+  "app.containers.EditTag.title": "Изменить тег",
   "app.containers.EditTag.description": "Сохранить тег | Описание",
 
   "app.containers.Tags.backToList": "Вернуться к списку",
@@ -725,10 +738,18 @@
     "Вашему посту поставили лайк",
   "app.containers.Notifications.yourQuestionWasDownVoted":
     "Вашему посту поставили дизлайк",
+  "app.containers.Notifications.yourQuestionUpVoteWasCanceled":
+    "Вашему посту отменили лайк",
+  "app.containers.Notifications.yourQuestionDownVoteWasCanceled":
+    "Вашему посту отменили дизлайк",
   "app.containers.Notifications.yourAnswerWasUpVoted":
     "Вашему ответу поставили лайк",
   "app.containers.Notifications.yourAnswerWasDownVoted":
     "Вашему ответу поставили дизлайк ",
+  "app.containers.Notifications.yourAnswerUpVoteWasCanceled":
+    "Вашему ответу отменили лайк",
+  "app.containers.Notifications.yourAnswerDownVoteWasCanceled":
+    "Вашему ответу отменили дизлайк",
   "app.containers.Notifications.yourAnswerWasMarkedAsTheBest":
     "Ваш ответ был помечен как лучший",
   "app.containers.Notifications.somebodyAnsweredYourQuestion":
@@ -795,6 +816,7 @@
   "app.containers.ViewQuestion.markAsBest": "Отметьте как лучший",
   "app.containers.ViewQuestion.communityChoice": "Выбор сообщества",
   "app.containers.ViewQuestion.moreComments": "Больше комментариев",
+  "app.containers.ViewQuestion.moreComment": "Ещё комментарий",
   "app.containers.ViewQuestion.addComment": "Добавить комментарий",
   "app.containers.ViewQuestion.showMoreAnswers":
     "Показать больше ответов {value}",

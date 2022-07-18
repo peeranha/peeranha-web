@@ -1,4 +1,8 @@
 import { ApplicationError } from './errors';
+import faqEn from '../faq/en.md';
+import faqRu from '../faq/ru.md';
+import tutorialEn from '../tutorial/en.md';
+import tutorialRu from '../tutorial/ru.md';
 
 function parseMD(md) {
   const getRegExp = tag => {
@@ -61,22 +65,15 @@ function parseMD(md) {
   return { h1, blocks: H2BlocksObject };
 }
 
-/* eslint global-require: 0 */
 function getMD(prefix, locale) {
   let md = null;
 
   switch (prefix) {
     case 'faq':
-      md = require(`faq/${locale}.md`);
+      md = locale === 'en' ? faqEn : faqRu;
       break;
     case 'tutorial':
-      md = require(`tutorial/${locale}.md`);
-      break;
-    case 'privacy-policy':
-      md = require(`privacy-policy/${locale}.md`);
-      break;
-    case 'terms-of-service':
-      md = require(`terms-of-service/${locale}.md`);
+      md = locale === 'en' ? tutorialEn : tutorialRu;
       break;
     default:
       throw new ApplicationError('There are no passed args');

@@ -42,6 +42,7 @@ import {
 } from 'containers/QuestionsWithAnswersOfUser/selectors';
 import { selectActiveKey } from 'containers/ShowActiveKey/selectors';
 import { selectOwnerKey } from 'containers/ShowOwnerKey/selectors';
+import { getUserName } from 'utils/user';
 import { selectGetUserTgData } from '../TelegramAccountAction/selectors';
 
 import saga from '../QuestionsWithAnswersOfUser/saga';
@@ -86,14 +87,14 @@ const ViewProfilePage = ({
       <QuestionsOfUser
         className={path === routes.userQuestions(userId) ? '' : 'd-none'}
         infinityOff={path !== routes.userQuestions(userId)}
-        displayName={profile?.displayName}
+        displayName={getUserName(profile?.displayName, userId)}
         userId={userId}
       />
 
       <QuestionsWithAnswersOfUser
         className={path === routes.userAnswers(userId) ? '' : 'd-none'}
         infinityOff={path !== routes.userAnswers(userId)}
-        displayName={profile?.displayName}
+        displayName={getUserName(profile?.displayName, userId)}
         userId={userId}
       />
 

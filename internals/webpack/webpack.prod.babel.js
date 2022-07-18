@@ -38,7 +38,7 @@ module.exports = require('./webpack.base.babel')({
   output: {
     path: path.resolve(__dirname, '../../build'),
     filename: '[name].[contenthash].js',
-    publicPath: '',
+    publicPath: '/',
   },
   optimization: {
     runtimeChunk: true,
@@ -46,18 +46,18 @@ module.exports = require('./webpack.base.babel')({
     minimizer: [new TerserWebpackPlugin()],
     splitChunks: {
       chunks: 'all',
-      cacheGroups: {
-        vendor: {
-          test: /[\\/]node_modules[\\/]/,
-          name(module) {
-            const packageName = module.context.match(
-              /[\\/]node_modules[\\/](.*?)([\\/]|$)/,
-            )[1];
+      // cacheGroups: {
+      //   vendor: {
+      //     test: /[\\/]node_modules[\\/]/,
+      //     name(module) {
+      //       const packageName = module.context.match(
+      //         /[\\/]node_modules[\\/](.*?)([\\/]|$)/,
+      //       )[1];
 
-            return `npm.${packageName.replace('@', '')}`;
-          },
-        },
-      },
+      //       return `npm.${packageName.replace('@', '')}`;
+      //     },
+      //   },
+      // },
     },
   },
   plugins: [

@@ -1,6 +1,10 @@
 {
   "app.common.peeranha": "Peeranha",
   "app.common.copyrightPeeranha": "©{year} Peeranha",
+  "app.common.confirm": "Accept",
+  "app.common.cookieConsent":
+    "We use cookies to ensure you get the best experience on our website. ",
+  "app.common.moreInfo": "More info",
   "app.common.profile": "Profile",
   "app.common.myCommunities": "My communities",
   "app.common.questions": "Questions",
@@ -59,7 +63,7 @@
   "app.common.somebodyAsked": "{account} asked",
   "app.common.somebodyAnswered": "{account} answered",
   "app.common.youAnswered": "You answered",
-  "app.common.youAsked": "You asked",
+  "app.common.youAsked": "You posted",
   "app.common.answered": "Answered",
   "app.common.cancel": "Cancel",
   "app.common.nothingToSeeYet": "Nothing to see yet",
@@ -79,6 +83,8 @@
   "app.common.seeAll": "See all",
   "app.common.voting": "Voting",
   "app.common.date": "Date",
+  "app.common.sortAscending": "Date ascending",
+  "app.common.sortDescending": "Date descending",
   "app.common.popularity": "Popularity",
   "app.common.moreVoting": "More voting",
   "app.common.reputation": "Reputation",
@@ -88,6 +94,7 @@
   "app.common.contacts": "Contacts",
   "app.common.support": "Support",
   "app.common.privacyPolicy": "Privacy Policy",
+  "app.common.partners": "Partners",
   "app.common.termsOfService": "Terms of Service",
   "app.common.privacyPolicyShort": "Privacy Policy",
   "app.common.more": "More",
@@ -100,6 +107,7 @@
   "app.common.password": "Password",
   "app.common.walletAddress": "Wallet address",
   "app.common.successMessage": "Action completed successfully",
+  "app.common.messageSendedSuccessfully": "Message sended successfully",
   "app.common.errorMessage": "An error occurred",
   "app.common.energy": "Energy",
   "app.common.show": "Show",
@@ -115,7 +123,7 @@
   "app.common.answer": "Answer",
   "app.common.showMore": "Show more {value}",
   "app.common.showLess": "Show less {value}",
-  "app.common.poweredBy": "Powered by {image}",
+  "app.common.poweredBy": "©{year} Powered by {image}",
   "app.common.poweredByPeeranha": "Powered by {image}",
   "app.common.terms": "Operating Agreement",
   "app.common.noResults": "No results",
@@ -200,6 +208,9 @@
     "Waiting for {transaction} confirmation...",
   "app.common.transaction": "transaction",
   "app.common.transactionCompleted": "Transaction completed successfully",
+  "app.common.estimatedReward": "Estimated reward",
+  "app.common.rewardsWillBeAvailable":
+    "Oops, you can't claim your tokens right now. No worries, the estimated reward will be available for you to claim after the token launch. Our legal team is backing us to finalize the details of the token launch. Thank you!",
 
   "app.telegram.user": "Telegram user",
   "app.telegram.userLabelPopover":
@@ -224,8 +235,10 @@
   "app.containers.Wallet.eosAccount": "Telos account",
   "app.containers.Wallet.currentPeriod": "Current period in progress",
   "app.containers.Wallet.periodStillInProgress":
-    "This period is still in progress. You will see more details next period.",
+    "This period is still in progress. It's high time to increase your reputation and gain some tokens.",
   "app.containers.Wallet.payoutPending": "Payout pending",
+  "app.containers.Wallet.weAreAnalyzing":
+    "We are analyzing the activities for this period. You will  see more details next period.",
   "app.containers.Wallet.estimatedPayout": "Estimated payout",
   "app.containers.Wallet.paidOut": "Paid out",
   "app.containers.Wallet.rewarded": "Rewarded",
@@ -468,7 +481,7 @@
   "app.containers.CreateTag.usingTheRightTags":
     "Using the right tags makes it easier for other users to find your questions.",
 
-  "app.containers.EditTag.title": "Save",
+  "app.containers.EditTag.title": "Edit tag",
   "app.containers.EditTag.description": "Save | Description",
 
   "app.containers.Tags.backToList": "Back to list",
@@ -598,7 +611,7 @@
   "app.containers.HomePage.yourContributionsRewarded":
     "Your Contributions Rewarded",
   "app.containers.HomePage.weAreDecentralized":
-    "Decentralized website with questions and answers that rewards users with crypto tokens for their contributions.",
+    "Community questions and answers platform for solving your technical challenges in Web3.",
   "app.containers.HomePage.getStarted": "Get started",
   "app.containers.HomePage.yourEmail": "Your email address",
   "app.containers.HomePage.differentThan":
@@ -608,15 +621,16 @@
 
   "app.containers.HomePage.rewardingUser": "Rewarding Users with Crypto",
   "app.containers.HomePage.peopleSaveHours":
-    "On daily basis, millions of people save hundreds of hours through knowledge of others on Q&A websites. Peeranha’s users are rewarded with PEER crypto tokens for valuable contributions.",
+    "Peeranha motivates to ask questions and provide relevant answers as they are rewarded with PEER crypto tokens.",
 
-  "app.containers.HomePage.ownershipByUsers": "Ownership by Users",
+  "app.containers.HomePage.ownershipByUsers":
+    "All question and answers in one place",
   "app.containers.HomePage.peeranhaDecentralized":
-    "Peeranha is completely permissionless and decentralized. Website governance is created for the community, by the community. Peeranha puts power in the hands of the contributors, not the developers.",
+    "Peeranha puts power in the hands of the Web3 projects. We help to grow faster and access the structured knowledgebase.",
 
   "app.containers.HomePage.earlyAdopters": "Valuing Early Adopters",
   "app.containers.HomePage.peeranhaPhilosophy":
-    "Peeranha’s philosophy is to reward early users generously for their time. As the website grows, rewards will even out and be distributed to more members of the community.",
+    "Peeranha generously rewards early users for their time. As the website grows, rewards will even out and be distributed to more members of the community.",
 
   "app.containers.HomePage.simpleAndAffordable": "Simple and affordable",
   "app.containers.HomePage.getHelp": "Getting Help from the Community",
@@ -716,10 +730,18 @@
     "Your post was upvoted",
   "app.containers.Notifications.yourQuestionWasDownVoted":
     "Your post was downvoted",
+  "app.containers.Notifications.yourQuestionUpVoteWasCanceled":
+    "Your post's upvote was canceled",
+  "app.containers.Notifications.yourQuestionDownVoteWasCanceled":
+    "Your post's downvote was canceled",
   "app.containers.Notifications.yourAnswerWasUpVoted":
     "Your answer was upvoted",
   "app.containers.Notifications.yourAnswerWasDownVoted":
     "Your answer was downvoted ",
+  "app.containers.Notifications.yourAnswerUpVoteWasCanceled":
+    "Your answer's upvote was canceled",
+  "app.containers.Notifications.yourAnswerDownVoteWasCanceled":
+    "Your answer's downvote was canceled",
   "app.containers.Notifications.yourAnswerWasMarkedAsTheBest":
     "Your answer was marked as the best",
   "app.containers.Notifications.somebodyAnsweredYourQuestion":
@@ -790,6 +812,7 @@
   "app.containers.ViewQuestion.markAsBest": "Mark as the best",
   "app.containers.ViewQuestion.communityChoice": "Community choice",
   "app.containers.ViewQuestion.moreComments": "More comments",
+  "app.containers.ViewQuestion.moreComment": "More comment",
   "app.containers.ViewQuestion.addComment": "Add comment",
   "app.containers.ViewQuestion.showMoreAnswers": "Show more answers {value}",
   "app.containers.ViewQuestion.areYouSure":

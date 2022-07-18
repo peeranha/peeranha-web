@@ -48,6 +48,7 @@ const EditQuestion = ({
   getAskedQuestionDispatch,
   profile,
   account,
+  editQuestionError,
 }) => {
   const { questionid } = match.params;
   useEffect(
@@ -89,6 +90,8 @@ const EditQuestion = ({
     [question?.postType],
   );
 
+  const isFailed = editQuestionError !== null;
+
   const sendProps = useMemo(
     () => ({
       form: EDIT_QUESTION_FORM,
@@ -105,6 +108,7 @@ const EditQuestion = ({
       locale,
       maxPromotingHours,
       profile,
+      isFailed,
     }),
     [questionid, question, communities, editQuestionLoading, sendQuestion],
   );
@@ -146,11 +150,16 @@ EditQuestion.propTypes = {
   editQuestionLoading: PropTypes.bool,
   profile: PropTypes.object,
   balance: PropTypes.number,
+  editQuestionError: PropTypes.object,
 };
 
 export default compose(
   injectReducer({ key: 'editQuestion', reducer }),
-  injectSaga({ key: 'editQuestion', saga }),
+  injectSaga({
+    key: 'editQuestion',
+    saga,
+    disableEject: true,
+  }),
   connect(
     createStructuredSelector({
       locale: makeSelectLocale(),
@@ -160,6 +169,7 @@ export default compose(
       question: makeSelectEditQuestion.selectQuestion(),
       questionLoading: makeSelectEditQuestion.selectQuestionLoading(),
       editQuestionLoading: makeSelectEditQuestion.selectEditQuestionLoading(),
+      editQuestionError: makeSelectEditQuestion.selectEditQuestionError(),
       profile: makeSelectProfileInfo(),
     }),
     dispatch => ({

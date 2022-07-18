@@ -138,14 +138,7 @@ module.exports = options => {
         },
         {
           test: /\.md$/,
-          use: [
-            {
-              loader: 'html-loader',
-            },
-            {
-              loader: 'markdown-loader',
-            },
-          ],
+          use: ['html-loader', 'markdown-loader'],
         },
         {
           test: /\.(mp4|webm)$/,

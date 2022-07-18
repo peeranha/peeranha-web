@@ -26,6 +26,7 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import messages from 'containers/Profile/messages';
 import { customRatingIconColors } from 'constants/customRating';
 import ProfileSince from 'components/ProfileSince';
+import { getUserName } from 'utils/user';
 
 const InlineLoader = styled(LoadingIndicator)`
   margin: auto;
@@ -39,11 +40,6 @@ export const UlStyled = Ul.extend`
   overflow-x: hidden;
   white-space: nowrap;
   flex-wrap: wrap;
-
-  @media (min-width: 400px) and (max-width: 488px) {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  }
 
   @media (max-width: 420px) {
     display: flex;
@@ -61,11 +57,13 @@ export const UlStyled = Ul.extend`
     flex-direction: column;
     padding: 15px 30px 15px 0;
 
-    @media (max-width: 399px) {
-      white-space: wrap;
+    @media (max-width: 450px) {
       word-break: break-word;
       white-space: pre-line;
       overflow-wrap: break-word;
+    }
+
+    @media (max-width: 399px) {
       overflow-x: auto;
     }
 
@@ -106,10 +104,15 @@ export const UlStyled = Ul.extend`
       }
     }
 
+    @media only screen and (max-width: 640px) {
+      span {
+        font-size: 13px !important;
+      }
+    }
+
     @media only screen and (max-width: 500px) {
       height: 70px;
-      padding: 10px 15px 5px 0;
-      span,
+      padding: 10px 20px 5px 0;
       div {
         font-size: 13px !important;
       }
@@ -117,7 +120,7 @@ export const UlStyled = Ul.extend`
     @media only screen and (max-width: 400px) {
       display: block;
       width: 100%;
-      padding: 10px 25px 5px 0;
+      padding: 10px 15px 5px 0;
     }
   }
 `;
@@ -193,7 +196,7 @@ const MainUserInformation = ({
         <div>
           <div className="d-flex align-items-center">
             <Span fontSize="38" lineHeight="47" mobileFS="28" bold>
-              {profile?.displayName}
+              {getUserName(profile?.displayName, userId)}
             </Span>
           </div>
 
@@ -202,6 +205,7 @@ const MainUserInformation = ({
               <li>
                 <FormattedMessage {...messages.status} />
                 <RatingStatus
+                  isProfilePage={true}
                   customRatingIconColors={customRatingIconColors}
                   rating={profile.highestRating.rating}
                   size="lg"
@@ -228,6 +232,7 @@ const MainUserInformation = ({
                 <FormattedMessage {...messages.achievements} />
                 {typeof profile.achievements === 'object' ? (
                   <AchievementsStatus
+                    isProfilePage={true}
                     count={profile.achievements.length}
                     size="lg"
                   />
@@ -249,10 +254,12 @@ const MainUserInformation = ({
               )}
 
               <li>
-                <ProfileSince
-                  creationTime={profile?.creationTime}
-                  locale={locale}
-                />
+                {!!profile?.creationTime && (
+                  <ProfileSince
+                    creationTime={profile?.creationTime}
+                    locale={locale}
+                  />
+                )}
               </li>
             </UlStyled>
           </div>

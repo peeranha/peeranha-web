@@ -108,6 +108,7 @@ export const QuestionForm = ({
   communityQuestionsType,
   disableCommForm,
   profile,
+  isFailed,
 }) => {
   const [isSelectedType, setIsSelectedType] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -124,6 +125,16 @@ export const QuestionForm = ({
       return setIsError(true);
     }
     return handleSubmit(sendQuestion);
+  };
+
+  const getExistingQuestions = questions => {
+    if (single) {
+      return questions.filter(
+        question => question.communityId === String(single),
+      );
+    }
+
+    return questions;
   };
 
   useEffect(
@@ -158,7 +169,7 @@ export const QuestionForm = ({
     <Router history={history}>
       <Prompt
         message={translationMessages[locale][messages.leaveWithoutChanges.id]}
-        when={isEdited && !submitPressed}
+        when={isEdited && (!submitPressed || isFailed)}
       />
       <div>
         <Header
@@ -216,10 +227,11 @@ export const QuestionForm = ({
 
               {formValues[FORM_TITLE] &&
                 formValues[FORM_TITLE].length >= 3 &&
-                (existingQuestions?.length ?? 0) > 0 &&
+                (getExistingQuestions(existingQuestions || []).length ?? 0) >
+                  0 &&
                 !doSkipExistingQuestions && (
                   <ExistingQuestions
-                    questions={existingQuestions}
+                    questions={getExistingQuestions(existingQuestions)}
                     skip={skipExistingQuestions}
                     show={showMoreQuestions}
                     intl={intl}
@@ -306,6 +318,7 @@ QuestionForm.propTypes = {
   skipExistingQuestions: PropTypes.func,
   disableCommForm: PropTypes.bool,
   profile: PropTypes.object,
+  isFailed: PropTypes.bool,
 };
 
 const FormClone = reduxForm({
@@ -330,10 +343,10 @@ export default memo(
           formValues: state.toJS().form[formName]?.values ?? {},
           communityQuestionsType: questionsType ?? ANY_TYPE,
           initialValues: {
-            [FORM_TYPE]: question?.type ?? QUESTION_TYPES.GENERAL.value,
             [FORM_PROMOTE]: (0).toString(),
             ...(question
               ? {
+                  [FORM_TYPE]: question?.type,
                   [FORM_TITLE]: question?.title,
                   [FORM_CONTENT]: question?.content,
                   [FORM_COMMUNITY]: {

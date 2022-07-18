@@ -32,7 +32,7 @@ export const MarkAnswerNotification = styled.div`
   padding: 5px 15px 5px 10px;
   font-size: 16px;
   line-height: 20px;
-  margin-bottom: 8px;
+  margin: 10px 0 5px;
 `;
 
 export const LabelStyles = css`
