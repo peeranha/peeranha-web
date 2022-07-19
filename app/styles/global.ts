@@ -48,6 +48,7 @@ export default css`
   }
 
   html,
+  body,
   #app {
     height: 100%;
   }
