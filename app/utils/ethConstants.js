@@ -164,6 +164,25 @@ export const usersQuery = `
         }
       }`;
 
+export const usersByCommunityQuery = `
+      query(
+        $first: Int,
+        $skip: Int,
+        $communityId: Int,
+      ) {
+        userCommunityRatings(
+          first: $first,
+          skip: $skip,
+          where: { communityId: $communityId }
+        ) {
+          user {
+            ${user}
+            postCount
+            replyCount
+          }
+        }
+      }`;
+
 export const userQuery = `
       query(
         $id: ID!,
