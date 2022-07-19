@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
+import { css } from '@emotion/react';
 
 import commonMessages from 'common-messages';
 import { TEXT_DARK, TEXT_SECONDARY } from 'style-constants';
@@ -61,6 +62,11 @@ export const UlStyled = Ul.extend`
       word-break: break-word;
       white-space: pre-line;
       overflow-wrap: break-word;
+
+      button {
+        left: 75%;
+        top: 80%;
+      }
     }
 
     @media (max-width: 399px) {
@@ -90,6 +96,10 @@ export const UlStyled = Ul.extend`
       div {
         display: inline;
       }
+      button {
+        left: 80%;
+        top: 75%;
+      }
     }
 
     @media only screen and (max-width: 1280px) {
@@ -101,6 +111,10 @@ export const UlStyled = Ul.extend`
       span,
       div {
         font-size: 16px !important;
+      }
+      button {
+        left: 80%;
+        top: 80%;
       }
     }
 
@@ -169,6 +183,13 @@ const MainUserInformation = ({
     x => x.key === TEMPORARY_ACCOUNT_KEY && x.value,
   );
   const userPolygonScanAddress = process.env.BLOCKCHAIN_EXPLORERE_URL + userId;
+  const [copied, setCopied] = useState(false);
+
+  const copiedUserId = () => {
+    navigator.clipboard.writeText(userId);
+    setCopied(true);
+  };
+
   return (
     <Box position="middle">
       <div>
@@ -203,7 +224,7 @@ const MainUserInformation = ({
           <div className="d-flex align-items-center">
             <UlStyled>
               <li>
-                <FormattedMessage {...messages.status} />
+                <FormattedMessage id={messages.status.id} />
                 <RatingStatus
                   isProfilePage={true}
                   customRatingIconColors={customRatingIconColors}
@@ -213,7 +234,7 @@ const MainUserInformation = ({
               </li>
 
               <li>
-                <FormattedMessage {...commonMessages.posts} />
+                <FormattedMessage id={commonMessages.posts.id} />
                 <span>
                   <img src={questionRoundedIcon} alt="icon" />
                   {profile.postCount}
@@ -221,7 +242,7 @@ const MainUserInformation = ({
               </li>
 
               <li>
-                <FormattedMessage {...commonMessages.answers} />
+                <FormattedMessage id={commonMessages.answers.id} />
                 <span>
                   <img src={answerIcon} alt="icon" />
                   {profile.answersGiven}
@@ -229,7 +250,7 @@ const MainUserInformation = ({
               </li>
 
               <li>
-                <FormattedMessage {...messages.achievements} />
+                <FormattedMessage id={messages.achievements.id} />
                 {typeof profile.achievements === 'object' ? (
                   <AchievementsStatus
                     isProfilePage={true}
@@ -241,15 +262,44 @@ const MainUserInformation = ({
                 )}
               </li>
               {!isTemporaryAccount && (
-                <li>
-                  <FormattedMessage {...commonMessages.walletAddress} />
+                <li className="pr">
+                  <FormattedMessage id={commonMessages.walletAddress.id} />
                   <A
                     to={{ pathname: userPolygonScanAddress }}
                     href={userPolygonScanAddress}
                     target="_blank"
                   >
-                    <span>{userId}</span>
+                    <span
+                      id="copytext1"
+                      css={css`
+                        border-bottom: 1px solid;
+                        color: #0000ff;
+                      `}
+                    >
+                      {userId}
+                    </span>
                   </A>
+                  <button
+                    css={css`
+                      color: #adaeae;
+                      border: 1px solid;
+                      border-radius: 10px;
+                      font-size: 14px;
+                      padding: 5px 10px;
+                      height: 35px;
+                      margin-top: 15px;
+                      box-shadow: 10px 5px 5px #adaeae;
+                      position: absolute;
+                      left: 95%;
+                    `}
+                    onClick={copiedUserId}
+                  >
+                    {copied ? (
+                      <FormattedMessage id={commonMessages.copied.id} />
+                    ) : (
+                      <FormattedMessage id={commonMessages.copy.id} />
+                    )}
+                  </button>
                 </li>
               )}
 
