@@ -3,7 +3,7 @@ import { call, put, select, takeLatest } from 'redux-saga/effects';
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
-import { editAnswer, getAnswer } from 'utils/questionsManagement';
+import { editAnswer, getAnswer, getQuestion } from 'utils/questionsManagement';
 
 import { isAuthorized, isValid } from 'containers/EosioProvider/saga';
 import { updateQuestionList } from 'containers/ViewQuestion/saga';
@@ -36,12 +36,19 @@ export function* getAnswerWorker({ questionId, answerId }) {
   try {
     const ethereumService = yield select(selectEthereum);
     let answer = yield select(selectAnswer(answerId));
+    const question = yield call(getQuestion, ethereumService, questionId);
 
     if (!answer) {
       answer = yield call(getAnswer, ethereumService, questionId, answerId);
     }
 
-    yield put(getAnswerSuccess(answer));
+    yield put(
+      getAnswerSuccess({
+        ...answer,
+        communityId: question.communityId,
+        isOfficialReply: question.officialReply === answerId,
+      }),
+    );
   } catch (err) {
     yield put(getAnswerErr(err));
   }

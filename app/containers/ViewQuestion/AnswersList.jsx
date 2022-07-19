@@ -41,6 +41,7 @@ export const AnswersList = props => {
           postTime,
           lastEditedDate,
           votingStatus,
+          isOfficialReply,
         }) => (
           <Content
             {...props}
@@ -73,6 +74,7 @@ export const AnswersList = props => {
               whowasvoted: author.user,
             }}
             commId={props.commId}
+            isOfficialReply={isOfficialReply}
           />
         ),
       )}
