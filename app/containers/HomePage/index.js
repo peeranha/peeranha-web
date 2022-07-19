@@ -176,11 +176,9 @@ export const HomePage = ({
       />
 
       <About translations={translations} />
-      
+
       <Partners />
-      <Rewards
-        translations={translations}
-      />
+      <Rewards translations={translations} />
       <FeedbackForm
         translations={translations}
         sendMessage={sendMessageDispatch}

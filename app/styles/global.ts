@@ -210,6 +210,9 @@ export default css`
   .break-all {
     word-break: break-all;
   }
+  .lh1-5 {
+    line-height: 1.5;
+  }
   .text-block strong {
     font-weight: 700;
   }

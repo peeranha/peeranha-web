@@ -75,6 +75,7 @@
   "app.common.yes": "Yes",
   "app.common.no": "No",
   "app.common.agree": "Upvote",
+  "app.common.gotIt": "Got it!",
   "app.common.agreeShort": "Upvote",
   "app.common.disagree": "Downvote",
   "app.common.disagreeShort": "Downvote",
@@ -1056,6 +1057,20 @@
   "app.containers.AskQuestion.title": "New post",
   "app.containers.AskQuestion.description": "New post | Description",
   "app.containers.AskQuestion.postQuestion": "Post",
+  "app.containers.AskQuestion.contentPopupBlock_1": "Hey there!",
+  "app.containers.AskQuestion.contentPopupBlock_2":
+    "Welcome to Peeranha. We're glad you're here and ready to make your first publication. There are just a few simple rules we all follow around here:",
+  "app.containers.AskQuestion.contentPopupBlock_3":
+    "1. Make sure your questions are related to a particular community.",
+  "app.containers.AskQuestion.contentPopupBlock_4":
+    "2. Do a bit of research to be sure your question hasn't been asked before.",
+  "app.containers.AskQuestion.contentPopupBlock_5":
+    "3. Answers have to actually answer the question, and not just be a comment.",
+  "app.containers.AskQuestion.contentPopupBlock_6":
+    "4. Be sure your answer provides valuable information and isn't just a repeat of what's already been said.",
+  "app.containers.AskQuestion.contentPopupBlock_7":
+    "And the most important rule is to be polite and friendly to other users.",
+  "app.containers.AskQuestion.contentPopupBlock_8": "Thank you!",
 
   "app.containers.ErrorPage.title": "Some error occured...",
   "app.containers.ErrorPage.description": "Some error occured... description",
