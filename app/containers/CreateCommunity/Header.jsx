@@ -16,30 +16,38 @@ import Wrapper, { WrapperRightPanel } from 'components/Header/Simple';
 import { MediumImageStyled } from 'components/Img/MediumImage';
 import { IconMd } from 'components/Icon/IconWithSizes';
 
-export const Header = ({ headerDescriptor }) => (
-  <Wrapper className="mb-to-sm-0 mb-from-sm-3">
-    <H3>
-      <MediumImageStyled src={createCommunityHeader} alt="Community icon" />
-      <FormattedMessage {...headerDescriptor} />
-    </H3>
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
+import { feed } from './../../routes-config';
 
-    <WrapperRightPanel className="right-panel">
-      <A to={routes.communities()}>
-        <button>
-          <IconMd
-            className="mr-1"
-            icon={closeIcon}
-            fill={BORDER_PRIMARY}
-            isColorImportant={true}
-          />
-          <Span color={TEXT_PRIMARY} className="button-label">
-            <FormattedMessage {...commonMessages.close} />
-          </Span>
-        </button>
-      </A>
-    </WrapperRightPanel>
-  </Wrapper>
-);
+export const Header = ({ headerDescriptor }) => {
+  const isSingleCommunityMode = !!isSingleCommunityWebsite();
+  const nextRoute = isSingleCommunityMode ? routes.feed : routes.communities;
+
+  return (
+    <Wrapper className="mb-to-sm-0 mb-from-sm-3">
+      <H3>
+        <MediumImageStyled src={createCommunityHeader} alt="Community icon" />
+        <FormattedMessage {...headerDescriptor} />
+      </H3>
+
+      <WrapperRightPanel className="right-panel">
+        <A to={nextRoute()}>
+          <button>
+            <IconMd
+              className="mr-1"
+              icon={closeIcon}
+              fill={BORDER_PRIMARY}
+              isColorImportant={true}
+            />
+            <Span color={TEXT_PRIMARY} className="button-label">
+              <FormattedMessage {...commonMessages.close} />
+            </Span>
+          </button>
+        </A>
+      </WrapperRightPanel>
+    </Wrapper>
+  );
+};
 
 Header.propTypes = {
   headerDescriptor: PropTypes.object.isRequired,

@@ -25,6 +25,7 @@
   "app.common.archive": "Архив",
   "app.common.markAllAsRead": "Пометить все как прочитанные",
   "app.common.edit": "Редактировать",
+  "app.common.editCommunity": "Редактировать сообщество",
   "app.common.logout": "Выход",
   "app.common.search": "Поиск",
   "app.common.login": "Вход",
