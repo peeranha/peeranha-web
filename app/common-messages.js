@@ -75,6 +75,9 @@ export default defineMessages({
   edit: {
     id: 'app.common.edit',
   },
+  editCommunity: {
+    id: 'app.common.editCommunity',
+  },
   logout: {
     id: 'app.common.logout',
   },
@@ -555,6 +558,9 @@ export default defineMessages({
   transactionCompleted: {
     id: 'app.common.transactionCompleted',
   },
+  gotIt: {
+    id: 'app.common.gotIt',
+  },
   messageSendedSuccessfully: {
     id: 'app.common.messageSendedSuccessfully',
   },
@@ -569,5 +575,28 @@ export default defineMessages({
   },
   viewQuestionRulesBlock_4: {
     id: 'app.containers.ViewQuestion.RulesBlock_4',
+  rulesAskQuestionPopupBlock_1: {
+    id: 'app.containers.AskQuestion.contentPopupBlock_1',
+  },
+  rulesAskQuestionPopupBlock_2: {
+    id: 'app.containers.AskQuestion.contentPopupBlock_2',
+  },
+  rulesAskQuestionPopupBlock_3: {
+    id: 'app.containers.AskQuestion.contentPopupBlock_3',
+  },
+  rulesAskQuestionPopupBlock_4: {
+    id: 'app.containers.AskQuestion.contentPopupBlock_4',
+  },
+  rulesAskQuestionPopupBlock_5: {
+    id: 'app.containers.AskQuestion.contentPopupBlock_5',
+  },
+  rulesAskQuestionPopupBlock_6: {
+    id: 'app.containers.AskQuestion.contentPopupBlock_6',
+  },
+  rulesAskQuestionPopupBlock_7: {
+    id: 'app.containers.AskQuestion.contentPopupBlock_7',
+  },
+  rulesAskQuestionPopupBlock_8: {
+    id: 'app.containers.AskQuestion.contentPopupBlock_8',
   },
 });

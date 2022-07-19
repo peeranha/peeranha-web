@@ -6,12 +6,15 @@ import * as routes from 'routes-config';
 import {
   BORDER_PRIMARY,
   BORDER_SECONDARY,
+  EXPERT_BACKLIGHT,
+  SECONDARY_SPECIAL_2,
   TEXT_PRIMARY_DARK,
   TEXT_SECONDARY,
+  TUTORIAL_BACKLIGHT,
 } from 'style-constants';
 
 import { getFormattedDate } from 'utils/datetime';
-import { MONTH_3LETTERS__DAY_YYYY_TIME } from 'utils/constants';
+import { MONTH_3LETTERS__DAY_YYYY_TIME, POST_TYPE } from 'utils/constants';
 
 import answerIconEmptyInside from 'images/answerIconEmptyInside.svg?inline';
 
@@ -41,6 +44,17 @@ const RightBlock = Base.extend`
 export const Li = BaseRoundedNoPadding.extend`
   display: flex;
   border: ${x => (x.bordered ? `1px solid ${BORDER_PRIMARY} !important` : '0')};
+  box-shadow: ${({ postType }) => {
+    if (postType === POST_TYPE.expertPost) {
+      return `3px 3px 5px ${EXPERT_BACKLIGHT}`;
+    }
+
+    if (postType === POST_TYPE.tutorial) {
+      return `3px 3px 5px ${TUTORIAL_BACKLIGHT}`;
+    }
+
+    return null;
+  }};
   > div:nth-child(2) {
     border-left: 1px solid ${BORDER_SECONDARY};
   }
@@ -53,13 +67,27 @@ export const Li = BaseRoundedNoPadding.extend`
       border-top: 1px solid ${BORDER_SECONDARY};
     }
   }
+
+  :hover {
+    box-shadow: ${({ postType }) => {
+      if (postType === POST_TYPE.expertPost) {
+        return `6px 6px 5px ${EXPERT_BACKLIGHT}`;
+      }
+
+      if (postType === POST_TYPE.tutorial) {
+        return `6px 6px 5px ${TUTORIAL_BACKLIGHT}`;
+      }
+
+      return `0 5px 5px 0 ${SECONDARY_SPECIAL_2}`;
+    }};
+  }
 `;
 
 const LastAnswer = ({ lastAnswer, locale }) => {
   if (!lastAnswer) {
     return (
       <Span fontSize="14" color={TEXT_SECONDARY}>
-        <FormattedMessage {...messages.noAnswersYet} />
+        <FormattedMessage id={messages.noAnswersYet.id} />
       </Span>
     );
   }
@@ -78,7 +106,7 @@ const LastAnswer = ({ lastAnswer, locale }) => {
       )}
 
       <Span fontSize="14" lineHeight="18" color={TEXT_SECONDARY}>
-        <FormattedMessage {...messages.lastAnswer} />{' '}
+        <FormattedMessage id={messages.lastAnswer.id} />{' '}
         {getFormattedDate(
           lastAnswer.postTime,
           locale,
@@ -112,7 +140,7 @@ const Question = ({
   const route = getPostRoute(postType, id, answerRouteId);
 
   return (
-    <Li className="mb-3">
+    <Li className="mb-3" postType={postType}>
       <QuestionForProfilePage
         route={route}
         myPostRating={myPostRating}
@@ -147,7 +175,17 @@ const QuestionsList = ({ questions, locale, communities }) => (
     <ul>
       {questions.map(x => (
         <Question
-          {...x}
+          myPostRating={x.myPostRating}
+          title={x.title}
+          myPostTime={x.myPostTime}
+          replies={x.replies}
+          acceptedAnswer={x.acceptedAnswer}
+          id={x.id}
+          communityId={x.communityId}
+          postType={x.postType}
+          isMyAnswerAccepted={x.isMyAnswerAccepted}
+          isGeneral={x.isGeneral}
+          elementType={x.elementType}
           locale={locale}
           communities={communities}
           key={`question_${x.id}`}
@@ -160,7 +198,6 @@ const QuestionsList = ({ questions, locale, communities }) => (
 LastAnswer.propTypes = {
   lastAnswer: PropTypes.object,
   locale: PropTypes.string,
-  user: PropTypes.string,
 };
 
 Question.propTypes = {
@@ -176,6 +213,7 @@ Question.propTypes = {
   isMyAnswerAccepted: PropTypes.bool,
   communityId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   isGeneral: PropTypes.bool,
+  elementType: PropTypes.string,
 };
 
 QuestionsList.propTypes = {
