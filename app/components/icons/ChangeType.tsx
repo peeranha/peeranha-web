@@ -9,7 +9,7 @@ const ChangeType: React.FC<IconProps> = (props): JSX.Element => (
     viewBox="0 0 64 64"
     size={[64, 64]}
   >
-    <g stroke-width="2">
+    <g strokeWidth="2">
       <polygon
         points="55.8 55.8 46 57.2 47.4 47.4 55.8 55.8"
         stroke={props.stroke || '#282828'}

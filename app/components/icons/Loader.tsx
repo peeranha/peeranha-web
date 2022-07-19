@@ -1,10 +1,10 @@
 import React from 'react';
 import IconComponent, { IconProps } from './IconComponent';
 
-const ProgressIndicator: React.FC<IconProps> = (props): JSX.Element => (
+const Loader: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
-    id="progress-indicator"
+    id="loader"
     fill="curentColor"
     viewBox="0 0 24 24"
     size={[24, 24]}
@@ -16,4 +16,4 @@ const ProgressIndicator: React.FC<IconProps> = (props): JSX.Element => (
   </IconComponent>
 );
 
-export default ProgressIndicator;
+export default Loader;

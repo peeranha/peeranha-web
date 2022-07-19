@@ -1,10 +1,10 @@
 import React from 'react';
 import IconComponent, { IconProps } from './IconComponent';
 
-const StatusJunior: React.FC<IconProps> = (props): JSX.Element => (
+const Junior: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
-    id="status-junior"
+    id="junior"
     fill="curentColor"
     viewBox="0 0 15 9"
     size={[15, 9]}
@@ -16,4 +16,4 @@ const StatusJunior: React.FC<IconProps> = (props): JSX.Element => (
   </IconComponent>
 );
 
-export default StatusJunior;
+export default Junior;

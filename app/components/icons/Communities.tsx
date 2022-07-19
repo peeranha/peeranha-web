@@ -11,7 +11,6 @@ const Communities: React.FC<IconProps> = (props): JSX.Element => (
   >
     <g
       transform="translate(3 3)"
-      fillRule="nonzero"
       stroke={props.stroke || '#282828'}
       fill="none"
     >

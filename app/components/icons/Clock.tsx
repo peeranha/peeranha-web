@@ -16,7 +16,7 @@ const Clock: React.FC<IconProps> = (props): JSX.Element => (
             <g transform="translate(2.000000, 1.000000)">
               <g
                 fill={props.fill || '#282828'}
-                fill-opacity="0.2"
+                fillOpacity="0.2"
                 stroke={props.stroke || '#282828'}
               >
                 <circle id="Oval" cx="7.5" cy="7.5" r="7" />

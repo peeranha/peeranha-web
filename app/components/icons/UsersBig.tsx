@@ -19,7 +19,7 @@ const UsersBig: React.FC<IconProps> = (props): JSX.Element => (
       />
       <circle
         stroke={props.stroke || '#282828'}
-        stroke-width="2"
+        strokeWidth="2"
         cx="22.5"
         cy="6.5"
         r="4.5"

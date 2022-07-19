@@ -1,10 +1,10 @@
 import React from 'react';
 import IconComponent, { IconProps } from './IconComponent';
 
-const StatusBanned: React.FC<IconProps> = (props): JSX.Element => (
+const Banned: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
-    id="status-banned"
+    id="banned"
     fill="curentColor"
     viewBox="0 0 9 9"
     size={[9, 9]}
@@ -16,4 +16,4 @@ const StatusBanned: React.FC<IconProps> = (props): JSX.Element => (
   </IconComponent>
 );
 
-export default StatusBanned;
+export default Banned;

@@ -1,10 +1,10 @@
 import React from 'react';
 import IconComponent, { IconProps } from './IconComponent';
 
-const MyFeed: React.FC<IconProps> = (props): JSX.Element => (
+const Feed: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
-    id="myfeed"
+    id="feed"
     fill="curentColor"
     viewBox="0 0 24 24"
     size={[24, 24]}
@@ -24,4 +24,4 @@ const MyFeed: React.FC<IconProps> = (props): JSX.Element => (
   </IconComponent>
 );
 
-export default MyFeed;
+export default Feed;

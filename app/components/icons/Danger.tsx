@@ -9,7 +9,7 @@ const Danger: React.FC<IconProps> = (props): JSX.Element => (
     viewBox="0 0 26 22"
     size={[26, 22]}
   >
-    <g fill="none" fillRule="evenodd">
+    <g fill="none">
       <path
         fill={props.fill || '#282828'}
         d="M25.771 19.583L14.364.783A1.595 1.595 0 0 0 13 .016c-.558 0-1.076.29-1.364.765L.229 19.582a1.575 1.575 0 0 0-.023 1.597c.282.497.812.804 1.387.804h22.814c.574 0 1.104-.307 1.387-.804a1.575 1.575 0 0 0-.023-1.596z"

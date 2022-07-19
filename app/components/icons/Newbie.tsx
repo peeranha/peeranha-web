@@ -1,10 +1,10 @@
 import React from 'react';
 import IconComponent, { IconProps } from './IconComponent';
 
-const NewbieBig: React.FC<IconProps> = (props): JSX.Element => (
+const Newbie: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
-    id="newbie-big"
+    id="newbie"
     fill="curentColor"
     viewBox="0 0 26 16"
     size={[26, 16]}
@@ -20,4 +20,4 @@ const NewbieBig: React.FC<IconProps> = (props): JSX.Element => (
   </IconComponent>
 );
 
-export default NewbieBig;
+export default Newbie;

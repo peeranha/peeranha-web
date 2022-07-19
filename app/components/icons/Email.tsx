@@ -13,7 +13,6 @@ const Email: React.FC<IconProps> = (props): JSX.Element => (
       fill={props.fill || '#FFF'}
       stroke="none"
       strokeWidth="1"
-      fillRule="evenodd"
       transform="translate(-1236.000000, -225.000000)"
     >
       <g transform="translate(1236.000000, 225.000000)">

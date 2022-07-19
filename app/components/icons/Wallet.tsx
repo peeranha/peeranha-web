@@ -1,10 +1,10 @@
 import React from 'react';
 import IconComponent, { IconProps } from './IconComponent';
 
-const WalletAvailable: React.FC<IconProps> = (props): JSX.Element => (
+const Wallet: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
-    id="wallet-available"
+    id="wallet"
     fill="curentColor"
     viewBox="0 0 14 16"
     size={[14, 16]}
@@ -27,4 +27,4 @@ const WalletAvailable: React.FC<IconProps> = (props): JSX.Element => (
   </IconComponent>
 );
 
-export default WalletAvailable;
+export default Wallet;

@@ -1,10 +1,10 @@
 import React from 'react';
 import IconComponent, { IconProps } from './IconComponent';
 
-const StatusRedident: React.FC<IconProps> = (props): JSX.Element => (
+const Redident: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
-    id="status-redident"
+    id="redident"
     fill="curentColor"
     viewBox="0 0 21 9"
     size={[21, 9]}
@@ -17,4 +17,4 @@ const StatusRedident: React.FC<IconProps> = (props): JSX.Element => (
   </IconComponent>
 );
 
-export default StatusRedident;
+export default Redident;
