@@ -564,6 +564,17 @@ export default defineMessages({
   messageSendedSuccessfully: {
     id: 'app.common.messageSendedSuccessfully',
   },
+  viewQuestionRulesBlock_1: {
+    id: 'app.containers.ViewQuestion.RulesBlock_1',
+  },
+  viewQuestionRulesBlock_2: {
+    id: 'app.containers.ViewQuestion.RulesBlock_2',
+  },
+  viewQuestionRulesBlock_3: {
+    id: 'app.containers.ViewQuestion.RulesBlock_3',
+  },
+  viewQuestionRulesBlock_4: {
+    id: 'app.containers.ViewQuestion.RulesBlock_4',
   rulesAskQuestionPopupBlock_1: {
     id: 'app.containers.AskQuestion.contentPopupBlock_1',
   },
