@@ -2,23 +2,27 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import Icon from 'components/Icon';
-import achievementsIcon from 'images/achievement_inline.svg?external';
+import AchivementsIcon from 'icons/Achivements';
 
-import { PEER_PRIMARY_COLOR } from 'style-constants';
-import { customRatingIconColors } from 'constants/customRating';
+import {
+  PEER_PRIMARY_COLOR,
+  PEER_PRIMARY_TRANSPARENT_COLOR,
+} from 'style-constants';
 
 const StatusSpan = styled.span`
   position: relative;
   display: flex;
   font-size: ${props => (props.size === 'lg' ? '16px' : '14px')};
-  align-items: baseline;
+  align-items: center;
   margin-right: 0.5rem;
-  padding-left: ${props => (props.size === 'lg' ? '22px' : '12px')};
+
+  & svg {
+    position: relative;
+    top: 4px;
+  }
 
   @media (max-width: 350px) {
     flex-direction: ${({ isProfilePage }) => !isProfilePage && 'column'};
-    margin-left: ${({ isProfilePage }) => isProfilePage && '-26px'};
     align-items: center;
   }
 `;
@@ -36,41 +40,19 @@ const Count = styled.span`
   }
 `;
 
-const IconAbsolute = styled(Icon)`
-  position: absolute;
-  top: ${props => (props.size === 'lg' ? '2px' : '3.4px')};
-  left: 0;
-
-  @media (max-width: 350px) {
-    position: static;
-    transform: translateY(30%);
-  }
-
-  .achievement-inline * {
-    stroke-width: ${props => (props.size === 'lg' ? '0.7px' : '1px')};
-  }
-
-  .stroke {
-    stroke: ${customRatingIconColors.strokeColor};
-  }
-`;
-
 const AchievementsStatus = ({
   isProfilePage,
   count,
   size,
   achievementsNumColor,
-  achievIconStyles,
 }) => {
   if (typeof count === 'number')
     return (
       <StatusSpan size={size} isProfilePage={isProfilePage}>
-        <IconAbsolute
-          icon={achievementsIcon}
-          width={size === 'lg' ? '24' : '14'}
-          height={size === 'lg' ? '24' : '14'}
-          size={size}
-          specialStyles={achievIconStyles}
+        <AchivementsIcon
+          stroke={PEER_PRIMARY_COLOR}
+          circleFill={PEER_PRIMARY_TRANSPARENT_COLOR}
+          size={size === 'lg' ? [24, 24] : [14, 14]}
         />
         <Count size={size} achievementsNumColor={achievementsNumColor}>
           {count}

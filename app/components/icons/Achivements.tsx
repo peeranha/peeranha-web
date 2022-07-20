@@ -1,16 +1,23 @@
 import React from 'react';
 import IconComponent, { IconProps } from './IconComponent';
 
-const Achivements: React.FC<IconProps> = (props): JSX.Element => (
+type AchievementsProps = {
+  circleFill?: string;
+};
+
+const Achivements: React.FC<IconProps & AchievementsProps> = ({
+  size,
+  stroke,
+  circleFill,
+}): JSX.Element => (
   <IconComponent
-    {...props}
-    id="achivements"
-    fill="curentColor"
+    id="achievements"
+    fill="currentColor"
     viewBox="0 0 16 16"
-    size={[16, 16]}
+    size={size || [16, 16]}
   >
     <circle
-      stroke={props.stroke || '#282828'}
+      stroke={stroke || '#282828'}
       strokeWidth="1.2px"
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -18,10 +25,10 @@ const Achivements: React.FC<IconProps> = (props): JSX.Element => (
       cx="8"
       cy="5"
       r="4.5"
-      fill="none"
+      fill={circleFill || 'none'}
     />
     <polyline
-      stroke={props.stroke || '#282828'}
+      stroke={stroke || '#282828'}
       strokeWidth="1.2px"
       strokeLinecap="round"
       strokeLinejoin="round"
