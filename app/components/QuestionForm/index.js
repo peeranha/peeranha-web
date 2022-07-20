@@ -341,10 +341,7 @@ QuestionForm.propTypes = {
 };
 
 const FormClone = reduxForm({
-  onSubmitFail: errors => {
-    console.log(errors);
-    return scrollToErrorField(errors);
-  },
+  onSubmitFail: errors => scrollToErrorField(errors),
 })(QuestionForm);
 
 export default memo(
