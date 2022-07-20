@@ -5,34 +5,32 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose, bindActionCreators } from 'redux';
 import { translationMessages } from 'i18n';
+import { css } from '@emotion/react';
+import cn from 'classnames';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
 import commonMessages from 'common-messages';
-import searchIcon from 'images/searchIcon.svg?inline';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import H3 from 'components/H3';
 import Seo from 'components/Seo';
 import Header from 'components/Header/Simple';
-import Base from 'components/Base/BaseRounded';
-import { MediumImageStyled } from 'components/Img/MediumImage';
-import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
+import { BG_PRIMARY_SPECIAL_2 } from 'style-constants';
+import SearchIcon from 'icons/Search';
 
 import reducer from './reducer';
 import saga from './saga';
 
 import { selectItems, selectGetResultsProcessing } from './selectors';
 import { getResults } from './actions';
-import Item from './Item';
 
 import messages from './messages';
 import Content from '../Questions/Content/Content';
 import { selectCommunities } from '../DataCacheProvider/selectors';
 import InfinityLoader from '../../components/InfinityLoader';
-import ShowMoreButton from '../Questions/Content/ShowMoreButton';
 
 const Search = ({
   match,
@@ -63,7 +61,20 @@ const Search = ({
 
       <Header className="mb-to-sm-0 mb-from-sm-3">
         <H3>
-          <MediumImageStyled src={searchIcon} alt="search" />
+          <div
+            className={cn('mr16 brc')}
+            css={css`
+              background: ${BG_PRIMARY_SPECIAL_2};
+              border: 1px solid #c2c6d8;
+              line-height: 8px;
+            `}
+          >
+            <SearchIcon
+              stroke="#576FED"
+              shadowFill="#BBBEC8"
+              stickFill="#A5BCFF"
+            />
+          </div>
           <FormattedMessage {...commonMessages.search} />
         </H3>
       </Header>
@@ -76,9 +87,6 @@ const Search = ({
         >
           <Content
             questionsList={items}
-            // promotedQuestionsList={
-            //   promotedQuestions[+questionFilterFromCookies ? 'top' : 'all']
-            // }
             locale={locale}
             communities={communities}
             typeFilter={0}
@@ -89,13 +97,6 @@ const Search = ({
           />
         </InfinityLoader>
       )}
-
-      {/*  <div>*/}
-      {/*    {getResultsProcessing && <LoadingIndicator />}*/}
-      {/*    {!getResultsProcessing &&*/}
-      {/*      !items.length && <FormattedMessage {...commonMessages.noResults} />}*/}
-      {/*  </div>*/}
-      {/*</Base>*/}
     </div>
   );
 };

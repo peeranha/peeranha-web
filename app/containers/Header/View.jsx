@@ -13,7 +13,7 @@ import communitiesConfig from 'communities-config';
 import messages from 'common-messages';
 
 import addIcon from 'images/add.svg?external';
-import searchIcon from 'images/search.svg?external';
+import SearchFeed from 'icons/SearchFeed';
 import headerNavigationIcon from 'images/headerNavigation.svg?external';
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
 
@@ -24,7 +24,6 @@ import {
 } from 'utils/communityManagement';
 
 import LargeButton from 'components/Button/Contained/InfoLarge';
-import Icon from 'components/Icon';
 import { IconSm, IconLm } from 'components/Icon/IconWithSizes';
 
 import styled from 'styled-components';
@@ -120,30 +119,6 @@ const Button = LargeButton.extend`
     height: 36px !important;
   }
 `;
-
-const HeaderContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const MenuLogo = styled.div`
-  display: flex;
-  align-items: center;
-
-  @media only screen and (max-width: 340px) {
-    margin-left: -20px;
-    transform: scale(0.85);
-  }
-`;
-
-const Buttons = Section.extend`
-  @media only screen and (max-width: 325px) {
-    margin-left: -30px;
-    transform: scale(0.8);
-  }
-`;
-
 const View = ({
   showMenu,
   intl,
@@ -250,11 +225,7 @@ const View = ({
                       setSearchFormVisibility(!isSearchFormVisible)
                     }
                   >
-                    <Icon
-                      icon={searchIcon}
-                      width="16"
-                      color={TEXT_SECONDARY_LIGHT}
-                    />
+                    <SearchFeed fill={TEXT_SECONDARY_LIGHT} size={[16, 16]} />
                   </Button>
                   <Button
                     id="header-ask-question"

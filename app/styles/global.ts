@@ -176,6 +176,9 @@ export default css`
   .border-box {
     box-sizing: border-box;
   }
+  .brc {
+    border-radius: 50%;
+  }
   .transform90 {
     transform: rotate(90deg);
   }
