@@ -36,12 +36,12 @@ export const initialState = fromJS({
   faqError: '',
 });
 
-function questionsReducer(state = initialState, action) {
+function faqReducer(state = initialState, action) {
   const { type, faqList = [], faqError } = action;
 
   switch (type) {
     case GET_FAQ:
-      return state.set('questionsLoading', true);
+      return state.set('faqLoading', true);
     case GET_FAQ_SUCCESS:
       return state.set('faqLoading', false).set('faqList', faqList);
     case GET_FAQ_ERROR:
@@ -51,4 +51,4 @@ function questionsReducer(state = initialState, action) {
   }
 }
 
-export default questionsReducer;
+export default faqReducer;

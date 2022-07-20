@@ -20,6 +20,7 @@ import {
   userStatsQuery,
   historiesQuery,
   currentPeriodQuery,
+  faqByCommQuery,
 } from './ethConstants';
 import { isUserExists } from './accountManagement';
 
@@ -172,6 +173,21 @@ export const getPostsByCommunityId = async (
       first: limit,
       skip,
       postTypes,
+    },
+  });
+
+  return posts?.data.posts.map(rawPost => {
+    const post = { ...rawPost, answers: rawPost.replies };
+    delete post.replies;
+    return post;
+  });
+};
+
+export const getFaqByCommunityId = async communityId => {
+  const posts = await client.query({
+    query: gql(faqByCommQuery),
+    variables: {
+      communityId,
     },
   });
 

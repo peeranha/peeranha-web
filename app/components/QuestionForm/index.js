@@ -131,7 +131,7 @@ export const QuestionForm = ({
     if (communityQuestionsType !== ANY_TYPE) {
       change(FORM_TYPE, communityQuestionsType);
     }
-    if (!isSelectedType && !isError && isClickSubmit) {
+    if (!question && !isSelectedType && !isError && isClickSubmit) {
       return setIsError(true);
     }
     return handleSubmit(sendQuestion);
@@ -175,6 +175,7 @@ export const QuestionForm = ({
     formValues[FORM_TITLE] !== postTitle ||
     formValues[FORM_CONTENT] !== postContent;
 
+  const isFaq = question ? question.postType === POST_TYPE.faq : false;
   return (
     <Router history={history}>
       <Prompt
@@ -250,31 +251,32 @@ export const QuestionForm = ({
                   />
                 )}
 
-              {Number(formValues[FORM_TYPE]) !== POST_TYPE.faq && (
-                <ContentForm
-                  intl={intl}
-                  questionLoading={questionLoading}
-                  formValues={formValues}
-                />
-              )}
+              <ContentForm
+                intl={intl}
+                questionLoading={questionLoading}
+                formValues={formValues}
+              />
 
-              {Number(formValues[FORM_TYPE]) !== POST_TYPE.faq && (
-                <>
-                  <TagsForm
-                    intl={intl}
-                    questionLoading={questionLoading}
-                    formValues={formValues}
-                    change={change}
-                  />
-
-                  {profileWithModeratorRights && (
-                    <SuggestTag
+              {!isFaq &&
+                Number(formValues[FORM_TYPE]) !== POST_TYPE.faq && (
+                  <>
+                    <TagsForm
+                      intl={intl}
+                      questionLoading={questionLoading}
                       formValues={formValues}
-                      redirectToCreateTagDispatch={redirectToCreateTagDispatch}
+                      change={change}
                     />
-                  )}
-                </>
-              )}
+
+                    {profileWithModeratorRights && (
+                      <SuggestTag
+                        formValues={formValues}
+                        redirectToCreateTagDispatch={
+                          redirectToCreateTagDispatch
+                        }
+                      />
+                    )}
+                  </>
+                )}
 
               {/*<BountyForm*/}
               {/*  intl={intl}*/}
@@ -339,7 +341,10 @@ QuestionForm.propTypes = {
 };
 
 const FormClone = reduxForm({
-  onSubmitFail: errors => scrollToErrorField(errors),
+  onSubmitFail: errors => {
+    console.log(errors);
+    return scrollToErrorField(errors);
+  },
 })(QuestionForm);
 
 export default memo(

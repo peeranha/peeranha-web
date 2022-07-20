@@ -554,10 +554,17 @@ export function* deleteAnswerWorker({ questionId, answerId, buttonId }) {
 
 export function* deleteQuestionWorker({ questionId, buttonId }) {
   try {
-    const { questionData, ethereumService, locale, profileInfo } = yield call(
+    let { questionData, ethereumService, locale, profileInfo } = yield call(
       getParams,
     );
-
+    if (!questionData) {
+      questionData = yield call(
+        getQuestionById,
+        ethereumService,
+        questionId,
+        profileInfo.user,
+      );
+    }
     yield call(
       isAvailableAction,
       () =>

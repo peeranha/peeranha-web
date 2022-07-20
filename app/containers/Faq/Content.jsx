@@ -1,3 +1,7 @@
+import AreYouSure from 'containers/ViewQuestion/AreYouSure';
+import messages from 'containers/ViewQuestion/messages';
+import pencilIcon from 'images/pencil.svg?external';
+import deleteIcon from 'images/deleteIcon.svg?external';
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -16,6 +20,7 @@ import {
   BORDER_PRIMARY_LIGHT,
   BG_TRANSPARENT,
   BORDER_TRANSPARENT,
+  BORDER_PRIMARY,
 } from 'style-constants';
 
 import plusIcon from 'images/Plus.svg?inline';
@@ -26,10 +31,11 @@ import arrowIconNotFilled from 'images/arrowDownNotFilled.svg?external';
 import H4 from 'components/H4';
 import Span from 'components/Span';
 import Icon from 'components/Icon';
-import { IconSm } from 'components/Icon/IconWithSizes';
+import { IconMd, IconSm } from 'components/Icon/IconWithSizes';
 import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
 import BaseTransparent from 'components/Base/BaseTransparent';
 import Button from 'components/Button/Outlined/PrimaryLarge';
+import IconButton from 'containers/ViewQuestion/Button';
 
 export const TextBlock = styled.div`
   display: ${({ isOpened }) => (isOpened ? 'block' : 'none')};
@@ -74,6 +80,12 @@ const SectionStyled = BaseRoundedNoPadding.extend`
     margin-left: 43px;
     margin-bottom: 10px;
   }
+`;
+
+const SectionHeader = BaseTransparent.extend`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 `;
 
 const ImgWrapper = styled.div`
@@ -159,6 +171,17 @@ const Question = ({
 
 const DEFAULT_QST_NUM = 5;
 
+const ButtonContainer = styled.div`
+  display: flex;
+  align-items: center;
+
+  @media only screen and (max-width: 360px) {
+    width: 40%;
+    justify-content: space-between;
+    margin-left: -15px;
+  }
+`;
+
 const Section = ({
   h2,
   blocks,
@@ -166,6 +189,10 @@ const Section = ({
   route,
   getSectionCode,
   getQuestionCode,
+  faqId,
+  isCommunityModerator,
+  editItem,
+  deleteItem,
 }) => {
   const [isOpened, collapse] = useState(false);
   const [isExtendedSection, extendSection] = useState(false);
@@ -181,7 +208,7 @@ const Section = ({
 
   return (
     <SectionStyled isOpened={isOpened} id={sectionId}>
-      <BaseTransparent>
+      <SectionHeader>
         <H4
           className="d-flex align-items-center"
           onClick={collapseSection}
@@ -192,7 +219,37 @@ const Section = ({
           </ImgWrapper>
           <span>{h2}</span>
         </H4>
-      </BaseTransparent>
+
+        {isCommunityModerator && (
+          <ButtonContainer>
+            <div id={`faq_delete_${faqId}`}>
+              <AreYouSure
+                submitAction={deleteItem.bind(null, faqId)}
+                Button={({ onClick }) => (
+                  <IconButton
+                    show={isCommunityModerator}
+                    id={`faq_delete_${faqId}`}
+                    onClick={onClick}
+                  >
+                    <IconMd icon={deleteIcon} fill={BORDER_PRIMARY} />
+                    <FormattedMessage {...messages.deleteButton} />
+                  </IconButton>
+                )}
+              />
+            </div>
+
+            <IconButton
+              show={isCommunityModerator}
+              onClick={editItem[0]}
+              params={{ link: editItem[1]('faq', faqId) }}
+              id={`redirect-to-edit-item-0-${faqId}-0`}
+            >
+              <IconMd icon={pencilIcon} />
+              <FormattedMessage {...messages.editButton} />
+            </IconButton>
+          </ButtonContainer>
+        )}
+      </SectionHeader>
 
       {isOpened && (
         <div className="d-block">
@@ -238,7 +295,15 @@ const Section = ({
   );
 };
 
-const Content = ({ content, route, getSectionCode, getQuestionCode }) => (
+const Content = ({
+  content,
+  route,
+  getSectionCode,
+  getQuestionCode,
+  isCommunityModerator,
+  editItem,
+  deleteItem,
+}) => (
   <div className="mb-3">
     {content.blocks.map(block => (
       <Section
@@ -246,9 +311,13 @@ const Content = ({ content, route, getSectionCode, getQuestionCode }) => (
         h2={block.h2}
         blocks={block.blocks}
         sectionCode={block.sectionCode}
+        faqId={block.faqId}
         route={route}
         getSectionCode={getSectionCode}
         getQuestionCode={getQuestionCode}
+        isCommunityModerator={isCommunityModerator}
+        editItem={editItem}
+        deleteItem={deleteItem}
       />
     ))}
   </div>

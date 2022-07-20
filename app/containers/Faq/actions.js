@@ -4,21 +4,21 @@ import {
   GET_FAQ_SUCCESS,
 } from 'containers/Faq/constants';
 
-export function getQuestions(communityIdFilter) {
+export function getFaq({ communityIdFilter }) {
   return {
     type: GET_FAQ,
     communityIdFilter,
   };
 }
 
-export function getQuestionsSuccess(faqList) {
+export function getFaqSuccess(faqList) {
   return {
     type: GET_FAQ_SUCCESS,
     faqList,
   };
 }
 
-export function getQuestionsError(faqError) {
+export function getFaqError(faqError) {
   return {
     type: GET_FAQ_ERROR,
     faqError,

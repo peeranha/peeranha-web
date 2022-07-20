@@ -362,6 +362,19 @@ export const postsByCommQuery = `
         }
       }`;
 
+export const faqByCommQuery = `
+      query (
+        $communityId: Int,
+      ) {
+        posts (
+          orderBy: postTime,
+          orderDirection: desc,
+          where: { communityId: $communityId, isDeleted: false, postType: 3 },
+        ) {
+           ${post}
+        }
+      }`;
+
 export const postsForSearchQuery = `
   query (
     $text: String,

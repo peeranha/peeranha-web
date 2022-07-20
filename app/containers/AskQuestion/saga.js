@@ -95,7 +95,9 @@ export function* postQuestionWorker({ val }) {
 
     yield call(
       createdHistory.push,
-      routes.questionView(id, false, communityId),
+      postType === POST_TYPE.faq
+        ? routes.faq()
+        : routes.questionView(id, false, communityId),
     );
   } catch (err) {
     yield put(askQuestionError(err));
