@@ -841,9 +841,9 @@
   "app.containers.ViewQuestion.RulesBlock_1":
     "Here are some tips to make your answer helpful and doesn't get deleted by a moderator:",
   "app.containers.ViewQuestion.RulesBlock_2":
-    "1. Read the question carefully to understand the problem and provide the best reply you can.",
+    "1. Read the post carefully to understand the problem and provide the best reply you can.",
   "app.containers.ViewQuestion.RulesBlock_3":
-    "2. Make sure your answer answers the question and isn't just a comment or gratitude.",
+    "2. Make sure your answer replies the question asked in a post and isn't just a comment or gratitude.",
   "app.containers.ViewQuestion.RulesBlock_4":
     "3. Be polite and respectful to others.",
   "app.components.FormFields.requiredField":
