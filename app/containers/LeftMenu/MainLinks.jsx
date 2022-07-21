@@ -31,7 +31,6 @@ import {
 
 import FeedIcon from 'icons/Feed';
 import homeIcon from 'images/house.svg?external';
-import myFeedIcon from 'images/myFeed.svg?external';
 import communitiesIcon from 'images/communities.svg?external';
 import tagsIcon from 'images/tags.svg?external';
 import usersIcon from 'images/users.svg?external';
@@ -47,6 +46,7 @@ import tutorialIcon from 'images/tutorial.svg?external';
 import { FULL_SIZE } from 'containers/LeftMenu/constants';
 import { BasicLink } from 'containers/LeftMenu/Styles';
 import { hasGlobalModeratorRole } from 'utils/properties';
+import cn from 'classnames';
 
 const styles = singleCommunityStyles();
 const colors = singleCommunityColors();
@@ -156,8 +156,7 @@ const MainLinks = ({ currClientHeight, profile }) => {
       )}
 
       <A1 to={routes.feed()} name="feed" route={route}>
-        <IconLg className="mr-2" icon={myFeedIcon} />
-        <FeedIcon />
+        <FeedIcon className={cn('mr8')} />
         <FormattedMessage
           id={messages[profile && !singleCommId ? 'myFeed' : 'feed'].id}
         />
