@@ -55,7 +55,8 @@ export const Faq = /* istanbul ignore next */ ({
   deleteQuestionDispatch,
   redirectToEditQuestionPageDispatch,
 }) => {
-  const single = isSingleCommunityWebsite();
+  const single = 1;
+
   const isCommunityModerator = single
     ? hasCommunityModeratorRole(getPermissions(profileInfo), single)
     : false;

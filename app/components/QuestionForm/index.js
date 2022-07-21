@@ -46,25 +46,22 @@ import Header from './Header';
 import { QUESTION_TYPES } from './QuestionTypeField';
 import CommunityForm from './CommunityForm';
 import ExistingQuestions from './ExistingQuestions';
-import TypeForm from './TypeForm';
+import TypeForm from 'components/QuestionForm/TypeForm';
 import TitleForm from './TitleForm';
 import ContentForm from './ContentForm';
 import TagsForm from './TagsForm';
 
-import {
-  ANY_TYPE,
-  GENERAL_TYPE,
-} from '../../containers/CreateCommunity/constants';
+import { ANY_TYPE, GENERAL_TYPE } from 'containers/CreateCommunity/constants';
 import createdHistory from '../../createdHistory';
 import * as routes from '../../routes-config';
-import DescriptionList from '../DescriptionList';
+import DescriptionList from 'components/DescriptionList';
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 import {
   getPermissions,
   hasCommunityModeratorRole,
   hasGlobalModeratorRole,
 } from 'utils/properties';
-import { translationMessages } from '../../i18n';
+import { translationMessages } from 'i18n';
 
 const single = isSingleCommunityWebsite();
 

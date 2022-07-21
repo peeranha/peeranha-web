@@ -32,7 +32,7 @@ export const EosioProvider = ({ children, initEOSIO, initializing, eos }) => {
       if (redirectRoutesForSCM.find(route => route.startsWith(pathname))) {
         const path =
           process.env.ENV === 'dev'
-            ? `https://localhost:3000${pathname}${hash}`
+            ? `https://testpeeranha.io${pathname}${hash}`
             : `${process.env.APP_LOCATION}${pathname}${hash}`;
         window.open(path, '_parent');
       } else initEOSIO();

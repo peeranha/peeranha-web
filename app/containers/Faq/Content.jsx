@@ -7,6 +7,10 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
+import { css } from '@emotion/react';
+import cn from 'classnames';
+import { styles } from 'containers/Faq/Faq.styled';
+
 import createdHistory from 'createdHistory';
 
 import textBlockStyles from 'text-block-styles';
@@ -82,29 +86,6 @@ const SectionStyled = BaseRoundedNoPadding.extend`
   }
 `;
 
-const SectionHeader = BaseTransparent.extend`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-`;
-
-const ImgWrapper = styled.div`
-  margin-right: 18px;
-  width: 42px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-
-  :hover {
-    cursor: pointer;
-  }
-
-  @media only screen and (max-width: 576px) {
-    margin-right: 8px;
-  }
-`;
-
 const QuestionBox = BaseTransparent.extend`
   display: flex;
   align-items: baseline;
@@ -149,9 +130,9 @@ const Question = ({
 
   return (
     <QuestionBox id={questionId} isOpened={isOpened}>
-      <ImgWrapper onClick={collapseQuestion}>
+      <div css={css({ ...styles.collapseImage })} onClick={collapseQuestion}>
         <IconSm rotate={isOpened} icon={arrowIconFilled} />
-      </ImgWrapper>
+      </div>
 
       <QuestionBoxBody>
         <h5 className="d-flex align-items-center" onClick={collapseQuestion}>
@@ -170,17 +151,6 @@ const Question = ({
 };
 
 const DEFAULT_QST_NUM = 5;
-
-const ButtonContainer = styled.div`
-  display: flex;
-  align-items: center;
-
-  @media only screen and (max-width: 360px) {
-    width: 40%;
-    justify-content: space-between;
-    margin-left: -15px;
-  }
-`;
 
 const Section = ({
   h2,
@@ -208,20 +178,20 @@ const Section = ({
 
   return (
     <SectionStyled isOpened={isOpened} id={sectionId}>
-      <SectionHeader>
+      <BaseTransparent className={cn('df fdr jcsb')}>
         <H4
           className="d-flex align-items-center"
           onClick={collapseSection}
           mobileFS="24"
         >
-          <ImgWrapper>
+          <div css={css({ ...styles.collapseImage })}>
             <img src={isOpened ? minusIcon : plusIcon} alt="icon" />
-          </ImgWrapper>
+          </div>
           <span>{h2}</span>
         </H4>
 
         {isCommunityModerator && (
-          <ButtonContainer>
+          <div css={css({ ...styles.buttonContainer })}>
             <div id={`faq_delete_${faqId}`}>
               <AreYouSure
                 submitAction={deleteItem.bind(null, faqId)}
@@ -247,9 +217,9 @@ const Section = ({
               <IconMd icon={pencilIcon} />
               <FormattedMessage {...messages.editButton} />
             </IconButton>
-          </ButtonContainer>
+          </div>
         )}
-      </SectionHeader>
+      </BaseTransparent>
 
       {isOpened && (
         <div className="d-block">

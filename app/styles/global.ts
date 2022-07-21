@@ -100,6 +100,9 @@ export default css`
   .fdc {
     flex-direction: column;
   }
+  .fdr {
+    flex-direction: row;
+  }
   .f1 {
     flex: 1;
   }

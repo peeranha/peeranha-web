@@ -1,10 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
+
 import styled from 'styled-components';
 
 import { translationMessages } from 'i18n';
-import { FormattedMessage } from 'react-intl';
-
 import { BORDER_PRIMARY_LIGHT, TEXT_DARK } from 'style-constants';
 
 const Base = styled.div`
@@ -35,7 +34,13 @@ const Base = styled.div`
   }
 `;
 
-export const DescriptionList = ({ label, items, locale }) => {
+type DescriptionListProps = {
+  label: string;
+  items?: Array<object>;
+  locale: string;
+}
+
+export const DescriptionList: React.FC<DescriptionListProps> = ({ label, items, locale }): JSX.Element | null => {
   if (!items) {
     return null;
   }
@@ -43,7 +48,7 @@ export const DescriptionList = ({ label, items, locale }) => {
     <Base>
       <FormattedMessage id={label} />
       <ul>
-        {translationMessages[locale][items]?.map(item => (
+        {translationMessages[locale][items]?.map((item: any) => (
           <li key={item}>
             <span>{item}</span>
           </li>
@@ -51,11 +56,6 @@ export const DescriptionList = ({ label, items, locale }) => {
       </ul>
     </Base>
   );
-};
-DescriptionList.propTypes = {
-  label: PropTypes.string,
-  locale: PropTypes.string,
-  items: PropTypes.string,
 };
 
 export default React.memo(DescriptionList);
