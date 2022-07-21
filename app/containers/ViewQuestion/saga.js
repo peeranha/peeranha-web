@@ -176,6 +176,14 @@ export function* getQuestionData({
 
   if (user && (isQuestionChanged || isQuestionJustCreated)) {
     question = yield call(getQuestionById, ethereumService, questionId, user);
+    if (question.officialReply) {
+      const officialReply = question.answers.find(
+        answer => answer.id === question.officialReply,
+      );
+      if (officialReply) {
+        officialReply.isOfficialReply = true;
+      }
+    }
   } else {
     question = yield call(getQuestionFromGraph, +questionId);
     question.commentCount = question.comments.length;
@@ -822,6 +830,7 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
       postTime: String(dateNowInSeconds()),
       user: profileInfo.user,
       properties: official ? [{ key: 10, value: 1 }] : [],
+      isOfficialReply: official,
       history: [],
       isItWrittenByMe: true,
       votingStatus: {},

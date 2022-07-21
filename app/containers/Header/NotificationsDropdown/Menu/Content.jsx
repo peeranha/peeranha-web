@@ -20,7 +20,8 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { rangeUnionWithIntersection } from 'utils/rangeOperations';
 
-import bellIcon from 'images/bellGray.jpg';
+import bellIcon from 'images/Notifications_Disabled.svg?external';
+import { IconXl } from 'components/Icon/IconWithSizes';
 
 import saga from 'components/Notifications/saga';
 
@@ -153,7 +154,7 @@ const Content = ({
     <Container empty={!notifications.length}>
       {!notifications.length ? (
         <>
-          <img alt="1" src={bellIcon} />
+          <IconXl icon={bellIcon} color={TEXT_SECONDARY} />
           <FormattedMessage {...messages.youHaveNoNewNotifications} />
         </>
       ) : (

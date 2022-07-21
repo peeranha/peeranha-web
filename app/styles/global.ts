@@ -139,6 +139,9 @@ export default css`
   .pa {
     position: absolute;
   }
+  .pf {
+    position: fixed;
+  }
   .l0 {
     left: 0;
   }
@@ -206,6 +209,9 @@ export default css`
   }
   .break-all {
     word-break: break-all;
+  }
+  .lh1-5 {
+    line-height: 1.5;
   }
   .text-block strong {
     font-weight: 700;

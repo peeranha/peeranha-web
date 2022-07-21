@@ -293,6 +293,7 @@ export async function editAnswer(
     questionId,
     answerId,
     ipfsHash,
+    official,
   ]);
 }
 
@@ -628,6 +629,13 @@ export async function getQuestionById(ethereumService, questionId, user) {
     statusHistory,
   );
 }
+
+export const getQuestion = async (ethereumService, questionId) => {
+  const question = await ethereumService.getContentDataWithArgs(GET_POST, [
+    questionId,
+  ]);
+  return await formQuestionObject(question, [], [], ethereumService);
+};
 
 export const getAnswer = async (ethereumService, questionId, answerId) => {
   const answer = await ethereumService.getContentDataWithArgs(GET_REPLY, [

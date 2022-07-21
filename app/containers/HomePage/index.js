@@ -17,8 +17,6 @@ import Seo from 'components/Seo';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { loginWithWallet } from 'containers/Login/actions';
-import { checkEmail } from 'containers/SignUp/actions';
-import { selectEmailChecking } from 'containers/SignUp/selectors';
 
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
@@ -152,11 +150,8 @@ export const HomePage = ({
   sendMessageDispatch,
   sendMessageLoading,
   loginWithWalletDispatch,
-  emailChecking,
   account,
-  checkEmailDispatch,
 }) => {
-  const verifyEmail = val => checkEmailDispatch(val.get(EMAIL_FIELD));
   const translations = translationMessages[locale];
 
   useEffect(() => {
@@ -178,17 +173,12 @@ export const HomePage = ({
         translations={translations}
         location={location}
         showLoginModal={() => loginWithWalletDispatch({ metaMask: true })}
-        checkEmail={verifyEmail}
-        emailChecking={emailChecking}
       />
 
       <About translations={translations} />
+
       <Partners />
-      <Rewards
-        translations={translations}
-        checkEmail={verifyEmail}
-        emailChecking={emailChecking}
-      />
+      <Rewards translations={translations} />
       <FeedbackForm
         translations={translations}
         sendMessage={sendMessageDispatch}
@@ -203,9 +193,7 @@ export const HomePage = ({
 HomePage.propTypes = {
   locale: PropTypes.string,
   account: PropTypes.string,
-  emailChecking: PropTypes.bool,
   sendMessageLoading: PropTypes.bool,
-  checkEmailDispatch: PropTypes.func,
   sendMessageDispatch: PropTypes.func,
   location: PropTypes.object,
   loginWithWalletDispatch: PropTypes.func,
@@ -215,7 +203,6 @@ const withConnect = connect(
   createStructuredSelector({
     account: makeSelectAccount(),
     locale: makeSelectLocale(),
-    emailChecking: selectEmailChecking(),
     sendMessageLoading: homepageSelectors.selectSendMessageLoading(),
     faqQuestions: selectFaqQuestions([
       WHAT_IS_PEERANHA,
@@ -228,7 +215,6 @@ const withConnect = connect(
   dispatch => ({
     sendMessageDispatch: bindActionCreators(sendMessage, dispatch),
     loginWithWalletDispatch: bindActionCreators(loginWithWallet, dispatch),
-    checkEmailDispatch: bindActionCreators(checkEmail, dispatch),
   }),
 );
 

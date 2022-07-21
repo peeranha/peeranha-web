@@ -203,7 +203,6 @@ export default React.memo(({ currClientHeight }) => {
                 <a
                   className="d-flex align-content-center"
                   href={process.env.APP_LOCATION}
-                  target="_blank"
                 >
                   {chunks}
                 </a>

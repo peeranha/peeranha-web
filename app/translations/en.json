@@ -1,6 +1,10 @@
 {
   "app.common.peeranha": "Peeranha",
   "app.common.copyrightPeeranha": "©{year} Peeranha",
+  "app.common.confirm": "Accept",
+  "app.common.cookieConsent":
+    "We use cookies to ensure you get the best experience on our website. ",
+  "app.common.moreInfo": "More info",
   "app.common.profile": "Profile",
   "app.common.myCommunities": "My communities",
   "app.common.questions": "Questions",
@@ -21,6 +25,7 @@
   "app.common.archive": "Archive",
   "app.common.markAllAsRead": "Mark all as Read",
   "app.common.edit": "Edit",
+  "app.common.editCommunity": "Edit community",
   "app.common.logout": "Log out",
   "app.common.search": "Search",
   "app.common.login": "Log in",
@@ -71,6 +76,7 @@
   "app.common.yes": "Yes",
   "app.common.no": "No",
   "app.common.agree": "Upvote",
+  "app.common.gotIt": "Got it!",
   "app.common.agreeShort": "Upvote",
   "app.common.disagree": "Downvote",
   "app.common.disagreeShort": "Downvote",
@@ -832,6 +838,14 @@
   "app.containers.ViewQuestion.posted": "posted",
   "app.containers.ViewQuestion.edited": "edited",
   "app.containers.ViewQuestion.deleted": "deleted",
+  "app.containers.ViewQuestion.RulesBlock_1":
+    "Here are some tips to make your answer helpful and doesn't get deleted by a moderator:",
+  "app.containers.ViewQuestion.RulesBlock_2":
+    "1. Read the post carefully to understand the problem and provide the best reply you can.",
+  "app.containers.ViewQuestion.RulesBlock_3":
+    "2. Make sure your answer replies the question asked in a post and isn't just a comment or gratitude.",
+  "app.containers.ViewQuestion.RulesBlock_4":
+    "3. Be polite and respectful to others.",
   "app.components.FormFields.requiredField":
     "You cannot leave this field empty",
   "app.components.FormFields.requiredAndNotZeroField":
@@ -1052,6 +1066,20 @@
   "app.containers.AskQuestion.title": "New post",
   "app.containers.AskQuestion.description": "New post | Description",
   "app.containers.AskQuestion.postQuestion": "Post",
+  "app.containers.AskQuestion.contentPopupBlock_1": "Hey there!",
+  "app.containers.AskQuestion.contentPopupBlock_2":
+    "Welcome to Peeranha. We're glad you're here and ready to make your first publication. There are just a few simple rules we all follow around here:",
+  "app.containers.AskQuestion.contentPopupBlock_3":
+    "1. Make sure your posts are related to a particular community.",
+  "app.containers.AskQuestion.contentPopupBlock_4":
+    "2. Do a bit of research to be sure the same post hasn't been published before.",
+  "app.containers.AskQuestion.contentPopupBlock_5":
+    "3. Answers have to actually answer the question, and not just be a comment.",
+  "app.containers.AskQuestion.contentPopupBlock_6":
+    "4. Be sure your answer provides valuable information and isn't just a repeat of what's already been said.",
+  "app.containers.AskQuestion.contentPopupBlock_7":
+    "And the most important rule is to be polite and friendly to other users.",
+  "app.containers.AskQuestion.contentPopupBlock_8": "Thank you!",
 
   "app.containers.ErrorPage.title": "Some error occured...",
   "app.containers.ErrorPage.description": "Some error occured... description",
