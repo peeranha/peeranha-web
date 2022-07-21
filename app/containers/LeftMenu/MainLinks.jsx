@@ -29,6 +29,7 @@ import {
   getSingleCommunityDetails,
 } from 'utils/communityManagement';
 
+import FeedIcon from 'icons/Feed';
 import homeIcon from 'images/house.svg?external';
 import myFeedIcon from 'images/myFeed.svg?external';
 import communitiesIcon from 'images/communities.svg?external';
@@ -156,6 +157,7 @@ const MainLinks = ({ currClientHeight, profile }) => {
 
       <A1 to={routes.feed()} name="feed" route={route}>
         <IconLg className="mr-2" icon={myFeedIcon} />
+        <FeedIcon />
         <FormattedMessage
           id={messages[profile && !singleCommId ? 'myFeed' : 'feed'].id}
         />

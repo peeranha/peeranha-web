@@ -11,10 +11,10 @@ import {
 import * as routes from 'routes-config';
 import communitiesConfig from 'communities-config';
 import messages from 'common-messages';
+import BurgerIcon from 'icons/Burger';
 
 import addIcon from 'images/add.svg?external';
 import SearchFeed from 'icons/SearchFeed';
-import headerNavigationIcon from 'images/headerNavigation.svg?external';
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
 
 import {
@@ -24,7 +24,7 @@ import {
 } from 'utils/communityManagement';
 
 import LargeButton from 'components/Button/Contained/InfoLarge';
-import { IconSm, IconLm } from 'components/Icon/IconWithSizes';
+import { IconSm } from 'components/Icon/IconWithSizes';
 
 import styled from 'styled-components';
 import { Wrapper, MainSubHeader } from './Wrapper';
@@ -198,9 +198,8 @@ const View = ({
                 onClick={showMenu}
                 type="button"
               >
-                <IconLm
-                  icon={headerNavigationIcon}
-                  color={styles.commHeadElemColor || TEXT_SECONDARY_LIGHT}
+                <BurgerIcon
+                  fill={styles.commHeadElemColor || TEXT_SECONDARY_LIGHT}
                 />
               </button>
               <Logo />

@@ -1,15 +1,14 @@
 import React from 'react';
 import IconComponent, { IconProps } from './IconComponent';
 
-const Feed: React.FC<IconProps> = (props): JSX.Element => (
+const Feed: React.FC<IconProps> = ({ stroke }): JSX.Element => (
   <IconComponent
-    {...props}
     id="feed"
-    fill="curentColor"
+    fill="currentColor"
     viewBox="0 0 24 24"
     size={[24, 24]}
   >
-    <g stroke={props.stroke || '#282828'} fill="none">
+    <g stroke={stroke || '#282828'} fill="none">
       <path
         d="M20 7.867 16.023 4h-8.46c-.661 0-.863.039-1.068.149a.818.818 0 0 0-.346.346C6.039 4.7 6 4.902 6 5.564v14.872c0 .662.039.864.149 1.07a.818.818 0 0 0 .346.345c.205.11.407.149 1.069.149h9.59c1.068 0 1.449-.073 1.84-.283.314-.168.555-.409.723-.723.21-.391.283-.772.283-1.84V7.867Z"
         strokeWidth="2"
