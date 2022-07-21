@@ -39,7 +39,12 @@ import { IconMd } from 'components/Icon/IconWithSizes';
 import blockchainLogo from 'images/blockchain-outline-32.svg?external';
 import commonMessages from 'common-messages';
 import IPFSInformation from 'containers/Questions/Content/Body/IPFSInformation';
-import { getPermissions, hasGlobalModeratorRole } from 'utils/properties';
+import { getUserName } from 'utils/user';
+import {
+  getPermissions,
+  hasCommunityModeratorRole,
+  hasGlobalModeratorRole,
+} from 'utils/properties';
 
 const CommentManage = styled.div`
   display: flex;
@@ -135,7 +140,7 @@ const CommentEdit = ({
 
 /* eslint react/no-danger: 0 */
 const CommentView = item => {
-  const isItWrittenByMe = !!item.profileInfo
+  const isItWrittenByMe = item.profileInfo
     ? item.author?.user === item.profileInfo.user
     : false;
 
@@ -144,7 +149,12 @@ const CommentView = item => {
 
   useOnClickOutside(refPopover, () => setPopoverOpen(false));
 
-  const isModerator = hasGlobalModeratorRole(getPermissions(item.profileInfo));
+  const isModerator =
+    hasGlobalModeratorRole(getPermissions(item.profileInfo)) ||
+    hasCommunityModeratorRole(
+      getPermissions(item.profileInfo),
+      item.communityId,
+    );
 
   const formattedHistories = item.histories?.filter(
     history =>
@@ -157,7 +167,7 @@ const CommentView = item => {
         <UserInfo
           type={COMMENT_TYPE}
           avatar={getUserAvatar(item.author.avatar)}
-          name={item.author?.displayName ?? ''}
+          name={getUserName(item.author?.displayName, item.author?.id)}
           rating={getRatingByCommunity(item.author, item.communityId)}
           account={item.author.user}
           achievementsCount={item.author.achievements?.length}
@@ -316,11 +326,9 @@ CommentEdit.propTypes = {
 export { Comment, CommentEdit, CommentView, Comments };
 export default React.memo(
   connect(
-    state => {
-      return {
-        profileInfo: makeSelectProfileInfo()(state),
-      };
-    },
+    state => ({
+      profileInfo: makeSelectProfileInfo()(state),
+    }),
     null,
   )(Comments),
 );

@@ -16,7 +16,7 @@ export const showPopover = (elemId, message, restParamets = {}) => {
     callback,
     timeout = 2500,
     timer = true,
-    position = 'auto',
+    position = 'top',
   } = restParamets;
 
   // if there are no running timers

@@ -12,6 +12,7 @@ export function getUsers({
   sorting,
   fetcher,
   reload,
+  communityId,
 }) {
   return {
     type: GET_USERS,
@@ -21,6 +22,7 @@ export function getUsers({
     loadMore,
     fetcher,
     reload,
+    communityId,
   };
 }
 

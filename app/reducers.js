@@ -39,10 +39,8 @@ import showOwnerKeyReducer from 'containers/ShowOwnerKey/reducer';
 import changePasswordByPreviousReducer from 'containers/ChangePasswordByPrevious/reducer';
 import changeEmailReducer from 'containers/ChangeEmail/reducer';
 import deleteAccountReducer from 'containers/DeleteAccount/reducer';
-import privacyPolicyReducer from 'containers/PrivacyPolicy/reducer';
 import sendTokensReducer from 'containers/SendTokens/reducer';
 import searchReducer from 'containers/Search/reducer';
-import termsOfServiceReducer from 'containers/TermsOfService/reducer';
 import appWrapperReducer from 'containers/AppWrapper/reducer';
 import telegramAccountActionReducer from './containers/TelegramAccountAction/reducer';
 import notificationsReducer from './components/Notifications/reducer';
@@ -115,10 +113,8 @@ export default injectedReducers =>
     changePasswordByPrevious: changePasswordByPreviousReducer,
     changeEmail: changeEmailReducer,
     deleteAccount: deleteAccountReducer,
-    privacyPolicy: privacyPolicyReducer,
     sendTokens: sendTokensReducer,
     search: searchReducer,
-    termsOfService: termsOfServiceReducer,
     appWrapper: appWrapperReducer,
     notifications: notificationsReducer,
     telegramAccountAction: telegramAccountActionReducer,

@@ -9,10 +9,7 @@ import { Field, reduxForm } from 'redux-form/immutable';
 import messages from 'common-messages';
 
 import { scrollToErrorField } from 'utils/animation';
-import {
-  isAnswerOfficial,
-  communityAdminOfficialAnswerPermission,
-} from 'utils/properties';
+import { hasCommunityModeratorRole } from 'utils/properties';
 import { strLength15x30000, required } from 'components/FormFields/validate';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
@@ -136,16 +133,15 @@ export default React.memo(
   connect(
     (
       state,
-      { answer, communityId, properties, questionView, form: formName },
+      { answer, communityId, questionView, isOfficialReply, form: formName },
     ) => {
       const form = state.toJS().form[formName] || { values: {} };
       const locale = makeSelectLocale()(state);
       const translate = translationMessages[locale];
       const profileInfo = makeSelectProfileInfo()(state);
-      const official = isAnswerOfficial({ properties, id: true });
-      const isOfficialRepresentative = communityAdminOfficialAnswerPermission(
+      const isOfficialRepresentative = hasCommunityModeratorRole(
         profileInfo?.permissions,
-        communityId,
+        communityId || 0,
       );
       const account = makeSelectAccount()(state);
 
@@ -159,7 +155,7 @@ export default React.memo(
           [TEXT_EDITOR_ANSWER_FORM]: answer,
           [ANSWER_TYPE_FORM]: questionView
             ? isOfficialRepresentative
-            : official,
+            : isOfficialReply,
         },
       };
     },

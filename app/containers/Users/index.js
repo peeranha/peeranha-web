@@ -10,22 +10,19 @@ import injectReducer from 'utils/injectReducer';
 
 import Seo from 'components/Seo';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import {
-  selectStat,
-  selectCommunities,
-} from 'containers/DataCacheProvider/selectors';
+import { selectStat } from 'containers/DataCacheProvider/selectors';
 
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
 import messages from 'containers/Users/messages';
 
-import * as selectors from './selectors';
-import { changeSortingType, getUsers } from 'containers/Users/actions';
+import { getUsers } from 'containers/Users/actions';
 import reducer from 'containers/Users/reducer';
 import saga from 'containers/Users/saga';
 
 import View from 'containers/Users/View';
 import { selectIsGlobalAdmin } from 'containers/AccountProvider/selectors';
+import * as selectors from './selectors';
 
 const single = isSingleCommunityWebsite();
 
@@ -37,37 +34,45 @@ const Users = ({
   searchText,
   isLastFetch,
   stat,
-  communities,
   getUsersDispatch,
-  changeSortingTypeDispatch,
 }) => {
-  const getMoreUsers = useCallback(() => {
-    getUsersDispatch({ loadMore: true });
-  }, []);
+  const getMoreUsers = useCallback(
+    () => {
+      getUsersDispatch({
+        loadMore: true,
+        communityId: single || 0,
+      });
+    },
+    [getUsersDispatch],
+  );
 
-  const communityInfo = useMemo(() => communities.find(x => x.id === single), [
-    communities,
+  const userCount = useMemo(() => (single ? users.length : stat.usersCount), [
+    stat.usersCount,
+    users.length,
   ]);
 
-  const userCount = useMemo(
-    () => (single ? communityInfo?.['users_subscribed'] ?? 0 : stat.usersCount),
-    [stat.usersCount, communityInfo],
-  );
-
   const dropdownFilter = useCallback(
-    sorting => {
-      if (userCount === users.length) {
-        changeSortingTypeDispatch(sorting);
-      } else {
-        getUsersDispatch({ loadMore: false, sorting, reload: true });
-      }
+    sortingAttribute => {
+      getUsersDispatch({
+        loadMore: false,
+        sortingAttribute,
+        reload: true,
+        communityId: single || 0,
+      });
     },
-    [userCount, communityInfo, users],
+    [getUsersDispatch],
   );
 
-  useEffect(() => {
-    getUsersDispatch({ loadMore: false, reload: true });
-  }, []);
+  useEffect(
+    () => {
+      getUsersDispatch({
+        loadMore: false,
+        reload: true,
+        communityId: single || 0,
+      });
+    },
+    [getUsersDispatch],
+  );
 
   return (
     <>
@@ -100,10 +105,7 @@ Users.propTypes = {
   isLastFetch: PropTypes.bool,
   sorting: PropTypes.string,
   searchText: PropTypes.string,
-  limit: PropTypes.number,
   stat: PropTypes.object,
-  communities: PropTypes.array,
-  changeSortingTypeDispatch: PropTypes.func,
 };
 
 export default compose(
@@ -112,7 +114,6 @@ export default compose(
   connect(
     createStructuredSelector({
       locale: makeSelectLocale(),
-      communities: selectCommunities(),
       users: selectors.selectUsers(),
       usersLoading: selectors.selectUsersLoading(),
       sorting: selectors.selectSorting(),
@@ -123,10 +124,6 @@ export default compose(
     }),
     dispatch => ({
       getUsersDispatch: bindActionCreators(getUsers, dispatch),
-      changeSortingTypeDispatch: bindActionCreators(
-        changeSortingType,
-        dispatch,
-      ),
     }),
   ),
 )(Users);

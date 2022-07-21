@@ -116,16 +116,12 @@ export const communityModeratorPermissions = {
     code: 4,
     title: 'permissionCreateTag',
   },
-  COMMUNITY_MODERATOR_QUESTION_TYPE: {
+  COMMUNITY_MODERATOR_POST_TYPE: {
     code: 5,
-    title: 'permissionChangeQuestionType',
-  },
-  COMMUNITY_MODERATOR_TOP_QUESTIONS: {
-    code: 6,
-    title: 'permissionSelectTopQuestion',
+    title: 'permissionChangePostType',
   },
   COMMUNITY_MODERATOR_OFFICIAL_ANSWER: {
-    code: 7,
+    code: 6,
     title: 'permissionOfficialAnswer',
   },
 };

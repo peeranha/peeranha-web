@@ -150,16 +150,36 @@ export const usersQuery = `
         $first: Int,
         $skip: Int,
         $orderBy: BigInt,
+        $orderDirection: String,
       ) {
         users(
           first: $first,
           skip: $skip,
           orderBy: $orderBy,
-          orderDirection: desc,
+          orderDirection: $orderDirection,
         ) {
           ${user}
           postCount
           replyCount
+        }
+      }`;
+
+export const usersByCommunityQuery = `
+      query(
+        $first: Int,
+        $skip: Int,
+        $communityId: Int,
+      ) {
+        userCommunityRatings(
+          first: $first,
+          skip: $skip,
+          where: { communityId: $communityId }
+        ) {
+          user {
+            ${user}
+            postCount
+            replyCount
+          }
         }
       }`;
 

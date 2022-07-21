@@ -8,6 +8,7 @@ import Base from 'components/Base/BaseRounded';
 
 import Question from './Question';
 import Answers from './Answers';
+import RulesBlock from './RulesBlock';
 
 import messages from './messages';
 
@@ -28,6 +29,7 @@ export const ViewQuestionContainer = props => {
           <Answers {...props} />
 
           <Base className="mt-3 position-relative overflow-hidden">
+            <RulesBlock />
             <AnswerForm
               answer=""
               communityId={props.questionData.communityId}

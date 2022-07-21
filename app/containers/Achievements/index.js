@@ -42,6 +42,8 @@ import reducer from './reducer';
 import saga from './saga';
 
 import UniqueAchievement from './UniqueAchievement';
+import { makeSelectProfileInfo } from '../AccountProvider/selectors';
+import { achievementsArr } from './constants';
 
 const BaseRoundedStyled = styled(BaseRounded)`
   border-top-left-radius: 0;
@@ -60,7 +62,7 @@ const AchievementsBlockStyles = css`
     grid-template-columns: 1fr 1fr;
   }
 
-  @media only screen and (max-width: 576px) {
+  @media only screen and (max-width: 690px) {
     grid-template-columns: 1fr;
   }
 `;
@@ -91,6 +93,7 @@ const Achievements = ({
   achievementsLoading,
   setViewProfileAccountDispatch,
   resetViewProfileAccountDispatch,
+  profile,
 }) => {
   useEffect(
     () => {
@@ -210,7 +213,7 @@ const Achievements = ({
               </AchievementsBlock>
             </>
           </>
-        )}*/}
+        )} */}
       </BaseRoundedStyled>
 
       {achievementsLoading && <LoadingIndicator />}
@@ -223,9 +226,9 @@ const Achievements = ({
             </UniqueAchievementsTitle>
 
             <UniqueAchievementsBlock>
-              {/*TODO revert for PROD*/}
+              {/* TODO revert for PROD */}
               {achievements.map(
-                achievement =>
+                (achievement, index) =>
                   achievement.name !== 'error IPFS2' && (
                     <UniqueAchievement
                       reached={userAchievements.some(
@@ -235,13 +238,15 @@ const Achievements = ({
                       key={achievement.id}
                       maxCount={achievement.maxCount}
                       factCount={achievement.factCount}
-                      lowerValue={achievement.lowerValue}
+                      currentValue={profile?.highestRating?.rating}
+                      lowerValue={achievementsArr[index].lowerValue}
                       name={achievement.name}
                       description={achievement.description}
                       image={achievement.image}
                       id={achievement.id}
                       achievementURI={achievement.achievementURI}
                       locale={locale}
+                      currentUser={profile.id === userId}
                     />
                   ),
               )}
@@ -266,6 +271,7 @@ Achievements.propTypes = {
   setViewProfileAccountDispatch: PropTypes.func,
   resetViewProfileAccountDispatch: PropTypes.func,
   achievementsLoading: PropTypes.bool,
+  profile: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -280,6 +286,7 @@ const mapStateToProps = createStructuredSelector({
   firstIn15Achievements: selectFirstIn15Achievements(),
   uniqueAchievements: selectUniqueAchievements(),
   achievementsLoading: selectAchievementsLoading(),
+  profile: makeSelectProfileInfo(),
 });
 
 const mapDispatchToProps = dispatch => ({

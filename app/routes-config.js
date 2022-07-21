@@ -10,6 +10,7 @@ import {
   getSingleCommunityDetails,
 } from 'utils/communityManagement';
 import { REFERRAL_CODE_URI } from './containers/App/constants';
+import { POST_TYPE } from './utils/constants';
 
 const userRedirect = where => id => `/users/${id}${where}`;
 
@@ -62,6 +63,16 @@ export const tutorialView = (id, answerId) =>
   answerId
     ? `/tutorials/${id}#${uniqueAnswerId(answerId)}`
     : `/tutorials/${id}`;
+
+export const getPostRoute = (postType, id, answerId = null) => {
+  if (postType === POST_TYPE.generalPost) {
+    return questionView(id, answerId);
+  }
+  if (postType === POST_TYPE.expertPost) {
+    return expertPostView(id, answerId);
+  }
+  return tutorialView(id);
+};
 
 export const questionEdit = (postType, questionId) =>
   `/${postType}/${questionId}/edit`;

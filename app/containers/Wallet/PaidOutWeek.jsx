@@ -44,9 +44,10 @@ const Container = styled.div`
 `;
 
 const WeekActions = styled.div`
-  @media only screen and (max-width: 576px) {
+  @media only screen and (max-width: 730px) {
     flex-direction: column;
     flex-grow: 0;
+    font-size: 16px;
 
     button {
       margin: 7px 0 0 !important;
@@ -56,7 +57,7 @@ const WeekActions = styled.div`
 
 const EstimatedReward = styled.div`
   display: inline-grid;
-  grid-template-columns: 40% 25% 35%;
+  grid-template-columns: 5% 95%;
 `;
 
 const PaidOutWeek = ({
@@ -119,10 +120,22 @@ const PaidOutWeek = ({
           </WeekActions>
         )) || (
           <EstimatedReward>
-            <font style={{ gridColumn: '2' }} color={TEXT_SECONDARY}>
+            <font
+              style={{
+                gridColumn: '2',
+                textAlign: 'right',
+              }}
+              color={TEXT_SECONDARY}
+              className="align-items-center"
+            >
               <FormattedMessage id={messages.estimatedReward.id} />
             </font>
-            <Span fontSize="20" mobileFS={14} bold style={{ gridColumn: '3' }}>
+            <Span
+              fontSize="20"
+              mobileFS={14}
+              bold
+              style={{ gridColumn: '2', textAlign: 'right' }}
+            >
               <SmallImage className="mr-2" src={currencyPeerImage} alt="icon" />
               {getFormattedNum3(formatEther(reward))}
             </Span>

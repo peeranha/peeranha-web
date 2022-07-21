@@ -33,6 +33,7 @@ import { getWeekStat } from 'containers/Wallet/actions';
 
 import NotificationIcon from './NotificationIcon';
 import WalletButton from './WalletButton';
+import { REWARD_CLAIMING_ENABLED } from '../../../utils/constants';
 
 export const BoostPrediction = styled.span`
   padding: 3px 6px 3.5px;
@@ -50,20 +51,23 @@ const Menu = memo(({ user, number, locale, boost }) => (
   <Ul>
     <A to={routes.userWallet(user)}>
       <FormattedMessage id={messages.wallet.id} />
-      {isPositiveNumber(number) && (
-        <NotificationIcon
-          inline
-          number={number}
-          iconId="walletDropDownInline"
-          locale={locale}
-        />
-      )}
+      {REWARD_CLAIMING_ENABLED &&
+        isPositiveNumber(number) && (
+          <NotificationIcon
+            inline
+            number={number}
+            iconId="walletDropDownInline"
+            locale={locale}
+          />
+        )}
     </A>
 
-    <A to={routes.userBoost(user)}>
-      <FormattedMessage id={messages.boost.id} />
-      {boost > 1 && <BoostPrediction>{boost}</BoostPrediction>}
-    </A>
+    {REWARD_CLAIMING_ENABLED && (
+      <A to={routes.userBoost(user)}>
+        <FormattedMessage id={messages.boost.id} />
+        {boost > 1 && <BoostPrediction>{boost}</BoostPrediction>}
+      </A>
+    )}
 
     {/* <SendTokens> */}
     {/*  <FormattedMessage {...messages.sendTokens} /> */}
@@ -101,14 +105,16 @@ const WalletDropdown = ({
           <Menu user={user} number={number} locale={locale} boost={boost} />
         }
       />
-      {isPositiveNumber(number) && (
-        <NotificationIcon
-          isMobileVersion={false}
-          number={number}
-          iconId="WalletDropDown_NotificationIcon"
-          locale={locale}
-        />
-      )}
+
+      {REWARD_CLAIMING_ENABLED &&
+        isPositiveNumber(number) && (
+          <NotificationIcon
+            isMobileVersion={false}
+            number={number}
+            iconId="WalletDropDown_NotificationIcon"
+            locale={locale}
+          />
+        )}
     </div>
   );
 };

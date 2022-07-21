@@ -4,9 +4,13 @@ import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import isMobile from 'ismobilejs';
 
-import { singleCommunityStyles } from 'utils/communityManagement';
+import {
+  isSingleCommunityWebsite,
+  singleCommunityStyles,
+} from 'utils/communityManagement';
 
-import telosIcon from 'images/telosIconLight.svg?inline';
+import * as routes from 'routes-config';
+
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
 import infoIcon from 'images/information.svg?external';
 
@@ -23,6 +27,8 @@ import { Li } from 'containers/ChangeLocale/Styled';
 import { FULL_SIZE, INFO_LINKS, SEMI_SIZE } from './constants';
 
 const styles = singleCommunityStyles();
+
+const single = isSingleCommunityWebsite();
 
 const AdditionalLinks = styled.div`
   display: flex;
@@ -63,8 +69,8 @@ const FooterStyled = styled.footer`
 
 const Img = styled.img`
   width: ${({ alt }) => (alt === 'telos' ? 40 : 60)}px;
-  height: 12px;
-  filter: gray;
+  height: 15px;
+  margin-left: 1px;
   filter: grayscale(100%);
 `;
 
@@ -188,7 +194,7 @@ export default React.memo(({ currClientHeight }) => {
         )}
 
       <FooterStyled currClientHeight={currClientHeight}>
-        {!styles.withoutCopyright && (
+        {!single && (
           <div>
             <FormattedMessage
               id={messages.copyrightPeeranha.id}
@@ -196,22 +202,19 @@ export default React.memo(({ currClientHeight }) => {
             />
           </div>
         )}
-        {styles.poweredByPeeranha && (
+        {!!single && (
           <div className="mt-2">
             <FormattedMessage
               id={messages.poweredBy}
               values={{
+                year: new Date().getFullYear(),
                 image: <Img key="peeranha" src={peeranhaLogo} alt="peeranha" />,
               }}
             >
               {(...chunks) => (
-                <a
-                  className="d-flex align-content-center"
-                  href={process.env.APP_LOCATION}
-                  target="_blank"
-                >
+                <A className="d-flex align-content-center" to={routes.feed()}>
                   {chunks}
-                </a>
+                </A>
               )}
             </FormattedMessage>
           </div>

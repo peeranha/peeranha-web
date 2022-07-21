@@ -27,7 +27,7 @@ export const B1 = `
     }
   }
 
-  @media only screen and (max-width: 576px) {
+  @media only screen and (max-width: 620px) {
     flex-direction: column;
     height: auto;
 

@@ -20,6 +20,7 @@ import {
   userStatsQuery,
   historiesQuery,
   currentPeriodQuery,
+  usersByCommunityQuery,
 } from './ethConstants';
 import { isUserExists } from './accountManagement';
 
@@ -31,17 +32,35 @@ const client = new ApolloClient({
 export const getUsers = async ({
   limit = 50,
   skip,
-  sorting = 'creationTime',
+  sortingAttribute = 'creationTime',
+  sorting = 'desc',
 }) => {
   const users = await client.query({
     query: gql(usersQuery),
     variables: {
       first: limit,
       skip,
-      orderBy: sorting,
+      orderBy: sortingAttribute,
+      orderDirection: sorting,
     },
   });
   return users?.data.users;
+};
+
+export const getUsersByCommunity = async ({
+  limit = 50,
+  skip,
+  communityId,
+}) => {
+  const users = await client.query({
+    query: gql(usersByCommunityQuery),
+    variables: {
+      first: limit,
+      skip,
+      communityId,
+    },
+  });
+  return users?.data.userCommunityRatings.map(item => item.user);
 };
 
 export const getUser = async id => {

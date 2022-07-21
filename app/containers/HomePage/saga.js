@@ -18,9 +18,12 @@ import {
 import { sendMessageSuccess, sendMessageErr } from './actions';
 
 import messages from './messages';
+import { addToast } from '../Toast/actions';
+import commonMessages from '../../common-messages';
 
 export function* sendMessageWorker({ val }) {
   const locale = yield select(makeSelectLocale());
+  const msg = translationMessages[locale];
 
   try {
     const { reset, form } = val[2];
@@ -45,6 +48,13 @@ export function* sendMessageWorker({ val }) {
     yield call(sendMessage, formData, pageInfo);
 
     yield call(reset);
+
+    yield put(
+      addToast({
+        type: 'success',
+        text: msg[commonMessages.messageSendedSuccessfully.id],
+      }),
+    );
 
     yield put(sendMessageSuccess());
   } catch (err) {
