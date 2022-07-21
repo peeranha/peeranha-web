@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
@@ -14,6 +14,10 @@ import {
 import { getTimeFromDateToNow } from 'utils/datetime';
 import commonMessages from 'common-messages';
 
+import AnswerWithAIcon from 'icons/AnswerWithA';
+import QuestionIcon from 'icons/Question';
+import BestAnswerIcon from 'icons/BestAnswer';
+
 import {
   POST_TYPE_ANSWER,
   POST_TYPE_QUESTION,
@@ -21,13 +25,8 @@ import {
 
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 import Span from 'components/Span';
-import Img from 'components/Img/SmallImage';
 import A, { ADefault } from 'components/A';
 import styled from 'styled-components';
-
-import questionRoundedIcon from 'images/question2.svg?inline';
-import answerIcon from 'images/answer.svg?inline';
-import bestAnswerIcon from 'images/bestAnswer.svg?inline';
 
 import QuestionType from 'containers/Questions/Content/Body/QuestionType';
 import { getPostRoute } from 'routes-config';
@@ -81,12 +80,10 @@ const PostDate = Span.extend`
 `;
 
 const PostTypeIcon = ({ elementType, isMyAnswerAccepted }) => {
-  let icon = answerIcon;
-
-  if (elementType === POST_TYPE_QUESTION) icon = questionRoundedIcon;
-  if (isMyAnswerAccepted) icon = bestAnswerIcon;
-
-  return <Img src={icon} notRounded alt="icon" />;
+  if (isMyAnswerAccepted) return <BestAnswerIcon stroke="#28A745" />;
+  if (elementType === POST_TYPE_QUESTION)
+    return <QuestionIcon stroke="#354A89" />;
+  return <AnswerWithAIcon stroke="#354A89" />;
 };
 
 const QuestionTypeHolder = styled.div`

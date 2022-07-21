@@ -9,8 +9,8 @@ import { LABEL_SIZE_LG } from 'components/Img/MediumImage';
 import { TEMPORARY_ACCOUNT_KEY } from 'utils/constants';
 import { getUserAvatar } from 'utils/profileManagement';
 
-import questionRoundedIcon from 'images/question2.svg?inline';
-import answerIcon from 'images/answer.svg?inline';
+import QuestionIcon from 'icons/Question';
+import AnswerWithAIcon from 'icons/AnswerWithA';
 
 import Base from 'components/Base';
 import A from 'components/A';
@@ -80,7 +80,7 @@ export const UlStyled = Ul.extend`
       font-weight: 600;
       color: ${TEXT_DARK};
 
-      img {
+      svg {
         margin-right: 5px;
         height: 18px;
       }
@@ -215,7 +215,7 @@ const MainUserInformation = ({
               <li>
                 <FormattedMessage {...commonMessages.posts} />
                 <span>
-                  <img src={questionRoundedIcon} alt="icon" />
+                  <QuestionIcon stroke="#354A89" />
                   {profile.postCount}
                 </span>
               </li>
@@ -223,7 +223,7 @@ const MainUserInformation = ({
               <li>
                 <FormattedMessage {...commonMessages.answers} />
                 <span>
-                  <img src={answerIcon} alt="icon" />
+                  <AnswerWithAIcon stroke="#354A89" />
                   {profile.answersGiven}
                 </span>
               </li>
