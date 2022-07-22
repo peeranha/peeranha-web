@@ -103,6 +103,12 @@ const ASimple = styled.a`
   }
 `;
 
+const DivMention = styled.div`
+  margin-top: 5px;
+  line-height: 1.2;
+  font-size: 10px;
+`;
+
 const Link = ({ path, message, cssStyles }) =>
   document.location.origin === process.env.APP_LOCATION ? (
     <A to={path} css={cssStyles}>
@@ -219,7 +225,7 @@ export default React.memo(({ currClientHeight }) => {
             </FormattedMessage>
           </div>
         )}
-        <div className="mt-2">
+        <DivMention>
           <FormattedMessage
             id={messages.reCaptchaMention.id}
             values={{
@@ -241,7 +247,7 @@ export default React.memo(({ currClientHeight }) => {
               ),
             }}
           />
-        </div>
+        </DivMention>
       </FooterStyled>
     </AdditionalLinks>
   );
