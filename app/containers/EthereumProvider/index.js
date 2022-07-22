@@ -38,15 +38,6 @@ import {
   transactionInitialised,
 } from './actions';
 import communitiesConfig from '../../communities-config';
-import { makeSelectEthereum, makeSelectInitializing } from './selectors';
-import {
-  initEthereum,
-  showModal,
-  transactionCompleted,
-  transactionFailed,
-  transactionInPending,
-  transactionInitialised,
-} from './actions';
 
 const injected = injectedModule();
 const coinbase = coinbaseModule();
