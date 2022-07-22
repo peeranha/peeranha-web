@@ -39,6 +39,7 @@ const AdditionalLinks = styled.div`
     a:hover,
     a {
       color: ${TEXT_SECONDARY};
+      white-space: nowrap;
     }
   }
 
