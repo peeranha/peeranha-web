@@ -14,6 +14,7 @@ export default {
   '--color-premium': '#FF8500',
   '--color-premium-light': '#FFECCC',
   '--color-purple': '#273868',
+  '--color-violet': '#6433b9',
   '--color-green': '#28A745',
   '--color-green-light': '#EBFFE7',
   '--color-red-dark': '#DC3545',

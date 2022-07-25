@@ -20,7 +20,7 @@ const Link = styled.a`
 
 const Span = styled.span`
   font-weight: normal;
-  color: #007bff;
+  color: var(--color-blue);
 `;
 
 const Button = styled.p`

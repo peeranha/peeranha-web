@@ -19,7 +19,7 @@ import Footer from './Footer';
 const MenuContainer = styled.div`
   width: ${MENU_WIDTH}px;
   height: ${MENU_HEIGHT}px;
-  background: #fff;
+  background: var(--color-white);
   display: flex;
   position: absolute;
   flex-direction: column;

@@ -96,7 +96,7 @@ const AskQuestionPopup: React.FC = (): JSX.Element => {
             css={css`
               z-index: 9;
               opacity: 0.3;
-              background-color: black;
+              background-color: var(--color-black);
             `}
           />
         </div>
