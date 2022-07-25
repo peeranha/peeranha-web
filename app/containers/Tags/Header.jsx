@@ -7,9 +7,10 @@ import { TEXT_SECONDARY, BORDER_PRIMARY } from 'style-constants';
 import commonMessages from 'common-messages';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
+import PlusIcon from 'icons/Plus';
 import icoTagIcon from 'images/icoTag.svg?external';
+import TagsIcon from 'icons/Tags';
 import arrowLeft from 'images/arrowLeft.svg?inline';
-import addIcon from 'images/add.svg?external';
 import communitiesHeaderFilter from 'images/communitiesHeaderFilter.svg?external';
 
 import H3 from 'components/H3';
@@ -17,7 +18,7 @@ import Dropdown from 'components/Dropdown';
 import Span from 'components/Span';
 import Ul from 'components/Ul';
 import MediumIcon from 'components/Icon/MediumIcon';
-import { IconSm, IconMd } from 'components/Icon/IconWithSizes';
+import { IconMd } from 'components/Icon/IconWithSizes';
 import CheckedItem from 'components/Li/CheckedItem';
 import Wrapper, {
   SubHeaderWrapperRightPanel as WrapperRightPanel,
@@ -122,11 +123,7 @@ export const Header = ({
                 />
               </MediumIcon>
 
-              <IconSm
-                className="d-inline-flex d-sm-none"
-                fill={BORDER_PRIMARY}
-                icon={addIcon}
-              />
+              <PlusIcon fill={BORDER_PRIMARY} className="d-sm-none" />
 
               <span className="ml-1 button-label">
                 <FormattedMessage {...commonMessages.createTag} />

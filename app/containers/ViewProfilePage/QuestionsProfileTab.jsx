@@ -14,10 +14,6 @@ import {
 import { getTimeFromDateToNow } from 'utils/datetime';
 import commonMessages from 'common-messages';
 
-import AnswerWithAIcon from 'icons/AnswerWithA';
-import QuestionIcon from 'icons/Question';
-import BestAnswerIcon from 'icons/BestAnswer';
-
 import {
   POST_TYPE_ANSWER,
   POST_TYPE_QUESTION,
@@ -27,6 +23,10 @@ import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 import Span from 'components/Span';
 import A, { ADefault } from 'components/A';
 import styled from 'styled-components';
+
+import AnswerWithAIcon from 'icons/AnswerWithA';
+import QuestionIcon from 'icons/Question';
+import BestAnswerIcon from 'icons/BestAnswer';
 
 import QuestionType from 'containers/Questions/Content/Body/QuestionType';
 import { getPostRoute } from 'routes-config';

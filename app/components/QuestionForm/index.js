@@ -11,13 +11,15 @@ import { BORDER_PRIMARY, LINK_COLOR_SECONDARY } from 'style-constants';
 
 import { EDIT_QUESTION_FORM } from 'containers/EditQuestion/constants';
 
-import icoTag from 'images/icoTag.svg?external';
+import TagsIcon from 'icons/Tags';
 
 import _uniqBy from 'lodash/uniqBy';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { scrollToErrorField } from 'utils/animation';
+import { getPermissions, hasGlobalModeratorRole } from 'utils/properties';
 
 import { redirectToCreateTag } from 'containers/CreateTag/actions';
+import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 
 import Button from 'components/Button/Contained/InfoLarge';
 import TransparentButton from 'components/Button/Contained/Transparent';
@@ -25,7 +27,6 @@ import { BaseSpecialOne } from 'components/Base/BaseTransparent';
 import Tips from 'components/TextEditor/Tips';
 import FormBox from 'components/Form';
 import TipsBase from 'components/Base/TipsBase';
-import { IconMd } from 'components/Icon/IconWithSizes';
 
 import messages from './messages';
 
@@ -42,7 +43,6 @@ import {
 } from './constants';
 
 import Header from './Header';
-import { QUESTION_TYPES } from './QuestionTypeField';
 import CommunityForm from './CommunityForm';
 import ExistingQuestions from './ExistingQuestions';
 import TypeForm from './TypeForm';
@@ -57,8 +57,6 @@ import {
 import createdHistory from '../../createdHistory';
 import * as routes from '../../routes-config';
 import DescriptionList from '../DescriptionList';
-import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
-import { getPermissions, hasGlobalModeratorRole } from 'utils/properties';
 import { translationMessages } from '../../i18n';
 
 const single = isSingleCommunityWebsite();
@@ -79,7 +77,8 @@ const SuggestTag = memo(({ redirectToCreateTagDispatch, formValues }) => {
         type="button"
         color={LINK_COLOR_SECONDARY}
       >
-        <IconMd className="mr-2" icon={icoTag} fill={BORDER_PRIMARY} />
+        <TagsIcon className="mr-2" fill={BORDER_PRIMARY} size={[20, 20]} />
+
         <FormattedMessage {...commonMessages.createTag} />
       </TransparentButton>
     </div>
@@ -258,21 +257,6 @@ export const QuestionForm = ({
                   redirectToCreateTagDispatch={redirectToCreateTagDispatch}
                 />
               )}
-
-              {/*<BountyForm*/}
-              {/*  intl={intl}*/}
-              {/*  questionLoading={questionLoading}*/}
-              {/*  formValues={formValues}*/}
-              {/*  change={change}*/}
-              {/*  dotRestriction={DEFAULT_DOT_RESTRICTION}*/}
-              {/*/>*/}
-
-              {/*<BountyDateForm*/}
-              {/*  intl={intl}*/}
-              {/*  questionLoading={questionLoading}*/}
-              {/*  formValues={formValues}*/}
-              {/*  change={change}*/}
-              {/*/>*/}
 
               <Button
                 disabled={questionLoading}

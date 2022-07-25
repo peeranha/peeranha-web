@@ -3,44 +3,33 @@ import PropTypes from 'prop-types';
 
 import { TEXT_SECONDARY_LIGHT } from 'style-constants';
 
-import searchIcon from 'images/search.svg?external';
-import closeIcon from 'images/close.svg?external';
-import refreshIcon from 'images/reload.svg?external';
-import eyeOpenedIcon from 'images/eyeOpened.svg?external';
-import eyeClosedIcon from 'images/eyeСlosed.svg?external';
+import SearchFeedIcon from 'icons/SearchFeed';
+import ChangeTypeIcon from 'icons/ChangeType';
+import EyeOpenedIcon from 'icons/EyeOpened';
+import EyeClosedIcon from 'icons/EyeClosed';
 
-import { IconMd } from 'components/Icon/IconWithSizes';
 import InputStyled from './InputStyled';
 
-/* eslint jsx-a11y/click-events-have-key-events: 0 */
-/* eslint jsx-a11y/no-noninteractive-element-interactions: 0 */
-
-const Handler = ({
-  isRefreshable,
-  isSearchable,
-  isPassword,
-  onClick,
-  value,
-}) => {
-  const src = useMemo(
+const Handler = ({ isRefreshable, isSearchable, isPassword, onClick }) => {
+  const icon = useMemo(
     () => {
       if (isSearchable) {
-        return searchIcon;
+        return <SearchFeedIcon fill={TEXT_SECONDARY_LIGHT} />;
       } else if (isRefreshable) {
-        return refreshIcon;
+        return <ChangeTypeIcon stroke={TEXT_SECONDARY_LIGHT} size={[18, 18]} />;
       } else if (isPassword[0] && !isPassword[1]) {
-        return eyeClosedIcon;
+        return <EyeClosedIcon fill={TEXT_SECONDARY_LIGHT} />;
       } else if (isPassword[0] && isPassword[1]) {
-        return eyeOpenedIcon;
+        return <EyeOpenedIcon fill={TEXT_SECONDARY_LIGHT} />;
       }
       return null;
     },
     [isSearchable, isRefreshable, isPassword],
   );
 
-  return src ? (
+  return icon ? (
     <button onMouseDown={onClick || null} type="button" tabIndex="-1">
-      <IconMd icon={src} color={TEXT_SECONDARY_LIGHT} />
+      {icon}
     </button>
   ) : null;
 };

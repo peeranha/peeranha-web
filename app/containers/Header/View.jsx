@@ -11,11 +11,12 @@ import {
 import * as routes from 'routes-config';
 import communitiesConfig from 'communities-config';
 import messages from 'common-messages';
-import BurgerIcon from 'icons/Burger';
 
-import addIcon from 'images/add.svg?external';
-import SearchFeed from 'icons/SearchFeed';
+import SearchFeedIcon from 'icons/SearchFeed';
+import BurgerIcon from 'icons/Burger';
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
+import LoaderIcon from 'icons/Loader';
+import PlusIcon from 'icons/Plus';
 
 import {
   isSingleCommunityWebsite,
@@ -24,7 +25,6 @@ import {
 } from 'utils/communityManagement';
 
 import LargeButton from 'components/Button/Contained/InfoLarge';
-import { IconSm } from 'components/Icon/IconWithSizes';
 
 import styled from 'styled-components';
 import { Wrapper, MainSubHeader } from './Wrapper';
@@ -36,7 +36,6 @@ import ButtonGroupForAuthorizedUser from './ButtonGroupForAuthorizedUser';
 import SearchForm from './SearchForm';
 
 import { HEADER_ID, LOADER_HEIGHT, SEARCH_FORM_ID } from './constants';
-import processIndicator from '../../images/progress-indicator.svg?inline';
 
 const single = isSingleCommunityWebsite();
 const styles = singleCommunityStyles();
@@ -82,7 +81,7 @@ const ProgressIndicator = styled.div`
       transform: translateY(0);
     }
   }
-  img {
+  svg {
     margin-right: 10px;
     animation: rotation 1s infinite linear;
   }
@@ -119,6 +118,7 @@ const Button = LargeButton.extend`
     height: 36px !important;
   }
 `;
+
 const View = ({
   showMenu,
   intl,
@@ -165,7 +165,7 @@ const View = ({
       {transactionInitialised && (
         <ProgressIndicator>
           <div>
-            <img src={processIndicator} alt="icon" />
+            <LoaderIcon fill="#576fed" />
             {isTransactionInPending ? (
               <FormattedMessage
                 id={messages.transactionInPending.id}
@@ -224,7 +224,10 @@ const View = ({
                       setSearchFormVisibility(!isSearchFormVisible)
                     }
                   >
-                    <SearchFeed fill={TEXT_SECONDARY_LIGHT} size={[16, 16]} />
+                    <SearchFeedIcon
+                      fill={TEXT_SECONDARY_LIGHT}
+                      size={[16, 16]}
+                    />
                   </Button>
                   <Button
                     id="header-ask-question"
@@ -234,7 +237,7 @@ const View = ({
                         : showLoginModalWithRedirectToAskQuestionPage
                     }
                   >
-                    <IconSm fill={BG_LIGHT} icon={addIcon} />
+                    <PlusIcon fill={BG_LIGHT} />
 
                     <span className="d-none d-lg-inline ml-2">
                       <FormattedMessage id={messages.askQuestion.id} />

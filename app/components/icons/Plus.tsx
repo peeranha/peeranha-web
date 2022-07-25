@@ -1,5 +1,4 @@
 import React from 'react';
-import { css } from '@emotion/react';
 import IconComponent, { IconProps } from './IconComponent';
 
 const Plus: React.FC<IconProps> = (props): JSX.Element => (

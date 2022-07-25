@@ -11,6 +11,7 @@ import {
 } from 'style-constants';
 
 import icoTag from 'images/icoTag.svg?inline';
+import TagsIcon from 'icons/Tags';
 import closeIcon from 'images/close.svg?external';
 
 import { formatStringToHtmlId, scrollToErrorField } from 'utils/animation';

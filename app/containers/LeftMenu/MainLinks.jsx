@@ -1,4 +1,3 @@
-/* eslint indent: 0 */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -20,6 +19,7 @@ import {
 
 import * as routes from 'routes-config';
 import messages from 'common-messages';
+import cn from 'classnames';
 
 import {
   isSingleCommunityWebsite,
@@ -30,23 +30,21 @@ import {
 } from 'utils/communityManagement';
 
 import FeedIcon from 'icons/Feed';
-import homeIcon from 'images/house.svg?external';
-import communitiesIcon from 'images/communities.svg?external';
-import tagsIcon from 'images/tags.svg?external';
-import usersIcon from 'images/users.svg?external';
-import faqIcon from 'images/faq.svg?external';
+import CommunitiesIcon from 'icons/Communities';
+import TutorialIcon from 'icons/Tutorial';
+import TagsIcon from 'icons/Tags';
+import HomeIcon from 'icons/Home';
+import HatIcon from 'icons/Hat';
+import UsersIcon from 'icons/Users';
+import DiscussionsIcon from 'icons/Discussions';
+import FaqIcon from 'icons/Faq';
 
 import A from 'components/A';
-import { IconLg } from 'components/Icon/IconWithSizes';
 import { svgDraw } from 'components/Icon/IconStyled';
 
-import expertIcon from 'images/hat-3-outline-24.svg?external';
-import generalIcon from 'images/comments-outline-24.svg?external';
-import tutorialIcon from 'images/tutorial.svg?external';
 import { FULL_SIZE } from 'containers/LeftMenu/constants';
 import { BasicLink } from 'containers/LeftMenu/Styles';
 import { hasGlobalModeratorRole } from 'utils/properties';
-import cn from 'classnames';
 
 const styles = singleCommunityStyles();
 const colors = singleCommunityColors();
@@ -150,7 +148,7 @@ const MainLinks = ({ currClientHeight, profile }) => {
     <Box currClientHeight={currClientHeight}>
       {isBloggerMode && (
         <A1 to={routes.detailsHomePage()} name="home" route={route}>
-          <IconLg className="mr-2" icon={homeIcon} />
+          <HomeIcon className={cn('mr8')} />
           <FormattedMessage {...messages.home} />
         </A1>
       )}
@@ -163,23 +161,23 @@ const MainLinks = ({ currClientHeight, profile }) => {
       </A1>
 
       <A1 to={routes.questions()} name="questions" route={route}>
-        <IconLg className="mr-2" icon={generalIcon} />
+        <DiscussionsIcon className={cn('mr8')} />
         <FormattedMessage {...messages.discussions} />
       </A1>
 
       <A1 to={routes.expertPosts()} name="experts" route={route}>
-        <IconLg className="mr-2" icon={expertIcon} />
+        <HatIcon className={cn('mr8')} />
         <FormattedMessage {...messages.expertPosts} />
       </A1>
 
       <A1 to={routes.tutorials()} name="tutorials" route={route}>
-        <IconLg className="mr-2" icon={tutorialIcon} fill={BORDER_PRIMARY} />
+        <TutorialIcon className={cn('mr8')} />
         <FormattedMessage {...messages.tutorials} />
       </A1>
 
       {!singleCommId && (
         <A1 to={routes.communities()} name="communities" route={route}>
-          <IconLg className="mr-2" icon={communitiesIcon} />
+          <CommunitiesIcon className={cn('mr8')} />
           <FormattedMessage {...messages.communities} />
         </A1>
       )}
@@ -189,13 +187,13 @@ const MainLinks = ({ currClientHeight, profile }) => {
         name="tags"
         route={route}
       >
-        <IconLg className="mr-2" icon={tagsIcon} />
+        <TagsIcon className={cn('mr8')} />
         <FormattedMessage {...messages.tags} />
       </A1>
 
       {hasGlobalModeratorRole() && (
         <A1 to={routes.users()} name="users" route={route}>
-          <IconLg className="mr-2" icon={usersIcon} />
+          <UsersIcon className={cn('mr8')} />
           <FormattedMessage
             {...messages[isBloggerMode ? 'followers' : 'users']}
           />
@@ -205,7 +203,7 @@ const MainLinks = ({ currClientHeight, profile }) => {
       {!styles.withoutFAQ &&
         !singleCommId && (
           <A1 to={routes.faq()} name="faq" route={route}>
-            <IconLg className="mr-2" icon={faqIcon} fill={BORDER_PRIMARY} />
+            <FaqIcon className={cn('mr8')} />
             <FormattedMessage {...messages.faq} />
           </A1>
         )}

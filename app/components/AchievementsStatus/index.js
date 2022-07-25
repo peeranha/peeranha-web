@@ -18,7 +18,7 @@ const StatusSpan = styled.span`
 
   & svg {
     position: relative;
-    top: 4px;
+    top: 3px;
   }
 
   @media (max-width: 350px) {

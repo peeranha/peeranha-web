@@ -4,14 +4,14 @@ import { FormattedMessage } from 'react-intl';
 
 import messages from 'common-messages';
 import { BORDER_PRIMARY } from 'style-constants';
+import cn from 'classnames';
 
 import suggestTagIcon from 'images/tagsHeaderIcon.svg?inline';
-import icoTagIcon from 'images/icoTag.svg?inline';
-import addIcon from 'images/add.svg?external';
+import TagsIcon from 'icons/Tags';
+import PlusIcon from 'icons/Plus';
 
 import Wrapper, { WrapperRightPanel } from 'components/Header/Simple';
 import H3 from 'components/H3';
-import { IconSm } from 'components/Icon/IconWithSizes';
 import { MediumImageStyled } from 'components/Img/MediumImage';
 import TransparentButton from 'components/Button/Contained/Transparent';
 
@@ -27,6 +27,11 @@ const Header = ({ openTagForm, profile }) => {
     <Wrapper className="mb-to-sm-0 mb-from-sm-3">
       <H3>
         <MediumImageStyled src={suggestTagIcon} alt="tags-collection" />
+        {/*<TagsIcon*/}
+        {/*  fill={BORDER_PRIMARY}*/}
+        {/*  size={[33, 33]}*/}
+        {/*  className={cn('')}*/}
+        {/*/>*/}
         <FormattedMessage {...messages.tags} />
       </H3>
       {profileWithModeratorRights && (
@@ -36,17 +41,13 @@ const Header = ({ openTagForm, profile }) => {
             data-communityid=""
             id={`${GO_TO_CREATE_TAG_SCREEN_BUTTON_ID}_tags_collection`}
           >
-            <img
+            <TagsIcon
+              fill={BORDER_PRIMARY}
+              size={[20, 20]}
               className="d-none d-sm-inline-block"
-              src={icoTagIcon}
-              alt="icon"
             />
 
-            <IconSm
-              className="d-inline-flex d-sm-none"
-              fill={BORDER_PRIMARY}
-              icon={addIcon}
-            />
+            <PlusIcon fill={BORDER_PRIMARY} className="d-sm-none" />
 
             <span className="ml-1 button-label">
               <FormattedMessage {...messages.createTag} />

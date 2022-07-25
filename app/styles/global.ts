@@ -170,6 +170,9 @@ export default css`
   .bd0 {
     border: none;
   }
+  .brc {
+    border-radius: 50%;
+  }
   .no-wrap {
     white-space: nowrap;
   }

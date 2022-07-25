@@ -1,18 +1,19 @@
 import React from 'react';
 import IconComponent, { IconProps } from './IconComponent';
 
-const Tags: React.FC<IconProps> = (props): JSX.Element => (
+const Tags: React.FC<IconProps> = ({ className, fill, size }): JSX.Element => (
   <IconComponent
-    {...props}
     id="tags"
-    fill="curentColor"
+    fill="currentColor"
     viewBox="0 0 24 24"
-    size={[24, 24]}
+    size={size || [24, 24]}
+    className={className}
   >
     <path
       d="m5.001 8.007 5.986 5.996.997-1-5.986-5.995-.997.999Zm11.949 3.768-5.195 5.204c-1.075 1.077-2.448 1.077-3.525 0l-6.238-6.25c-.52-.52-.997-1.228-.993-1.965l.032-6.075c.004-.824.83-1.652 1.653-1.656L8.75 1c.735-.004 1.441.473 1.962.994l6.238 6.249c1.076 1.078 1.076 2.453 0 3.53ZM18.095 7.9 11.1.905A3.089 3.089 0 0 0 8.899 0L1.89.036c-.116 0-.232.015-.345.043C.75.272.04 1.083.036 1.889L0 8.899a3.089 3.089 0 0 0 .905 2.2L7.9 18.096a3.09 3.09 0 0 0 2.185.905 3.084 3.084 0 0 0 2.185-.905l5.825-5.825c.25-.25.434-.536.581-.837.208-.426.324-.884.324-1.348a3.08 3.08 0 0 0-.905-2.184ZM6.996 6.008l5.986 5.997.998-1-5.986-5.996-.998.999ZM5.559 3.442a1.478 1.478 0 0 0-2.108 0 1.516 1.516 0 0 0 0 2.129 1.48 1.48 0 0 0 2.108 0 1.516 1.516 0 0 0 0-2.13Z"
-      fill="#282828"
+      fill={fill || '#282828'}
       transform="translate(3 2)"
+      className="fill"
     />
   </IconComponent>
 );

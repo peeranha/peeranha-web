@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components';
 
 import Wrapper from 'components/FormFields/Wrapper';
 
-import RefreshIcon from 'images/reload.svg?external';
+import ChangeTypeIcon from 'icons/ChangeType';
 import CopyIcon from 'images/copy.svg?external';
 import Textarea from 'components/Textarea';
 import Icon from 'components/Icon';
@@ -119,21 +119,12 @@ export const MnemonicPhrase = ({
         />
 
         <StyledRefreshIconContainer onClick={handleGenerateMasterKey}>
-          <Icon
-            fill={BORDER_PRIMARY}
-            icon={RefreshIcon}
-            width="24"
-            height="24"
-          />
+          <ChangeTypeIcon stroke={BORDER_PRIMARY} size={[24, 24]} />
         </StyledRefreshIconContainer>
         <CopyIconContainer isCopied={isCopied} onClick={handleCopyPhrase}>
           <Icon stroke-width={1} icon={CopyIcon} width="32" height="32" />
         </CopyIconContainer>
       </StyledMasterInputContainer>
-
-      {/* <CopyButton onClick={writeToBuffer} id="copy" type="button"> */}
-      {/*  <FormattedMessage {...commonMessages.copy} /> */}
-      {/* </CopyButton> */}
     </StyledWrapper>
   );
 };

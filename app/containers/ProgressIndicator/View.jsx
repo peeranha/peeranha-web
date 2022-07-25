@@ -1,4 +1,3 @@
-/* eslint indent: 0 */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -7,7 +6,7 @@ import styled from 'styled-components';
 import commonMessages from 'common-messages';
 import { BG_PRIMARY_LIGHT, BORDER_SECONDARY } from 'style-constants';
 
-import processIndicator from 'images/progress-indicator.svg?inline';
+import LoaderIcon from 'icons/Loader';
 
 import {
   HEADER_HEIGHT,
@@ -34,7 +33,7 @@ const Box = styled.div`
   justify-content: center;
   align-items: center;
 
-  img {
+  svg {
     margin-right: 10px;
     animation: rotation 1s infinite linear;
   }
@@ -60,7 +59,7 @@ const Box = styled.div`
 
 const View = ({ inProgress }) => (
   <Box inProgress={inProgress}>
-    <img src={processIndicator} alt="icon" />
+    <LoaderIcon fill="#576fed" />
     <FormattedMessage {...commonMessages.inProgress} />
   </Box>
 );
