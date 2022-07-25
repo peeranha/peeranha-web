@@ -21,7 +21,7 @@ const CookieConsentPopup: React.FC = (): JSX.Element => {
   );
   const popup = useRef();
   useEventListener({
-    target: popup.current,
+    target: popup,
     event: 'animationend',
     handler: () => setIsCookieConsent(true),
   });
@@ -35,7 +35,7 @@ const CookieConsentPopup: React.FC = (): JSX.Element => {
     <>
       {!isCookieConsent && (
         <div
-          ref={popup.current}
+          ref={popup}
           className={cn('pf b0 full-width')}
           css={css({
             ...styles.cookieConsent,

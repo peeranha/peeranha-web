@@ -30,7 +30,7 @@ import { italicFont } from '../../global-styles';
 
 // < 1000 chars - hash, >> 1000 - is base64 (new image)
 export const HASH_CHARS_LIMIT = 1000;
-const IMG_SIZE_LIMIT_B = 2 * 1024 * 1024;
+const IMG_SIZE_LIMIT_B = 5 * 1024 * 1024;
 
 const Div = styled.div`
   position: relative;
@@ -113,6 +113,7 @@ const Div = styled.div`
 
     .avatar-wrapper {
       position: relative;
+      max-height: 95vh;
       z-index: 12;
 
       svg,
@@ -204,8 +205,6 @@ function AvatarField({ input, meta, disabled }) {
   const [v, setV] = useState(true);
   const [isFileTooLarge, setIsFileTooLarge] = useState(false);
 
-  const isPhone = window.screen.width <= 576;
-
   const reload = () => {
     setS(false);
     setV(false);
@@ -235,7 +234,7 @@ function AvatarField({ input, meta, disabled }) {
             <div className="avatar-wrapper">
               <Avatar
                 {...input}
-                imageWidth={isPhone ? 320 : 480}
+                imageWidth={320}
                 cropRadius={60}
                 closeIconColor="transparent"
                 onCrop={setY}

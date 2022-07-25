@@ -1,7 +1,7 @@
 export const styles = {
   rulesConsent: {
     background: '#f0f8ff',
-    zIndex: 999,
+    zIndex: 10,
     top: '61px',
     '@media (min-width: 992px)': {
       width: '50%',
@@ -14,14 +14,14 @@ export const styles = {
   },
 
   rulesConsentAnimation: {
-    animation: 'animationRulesPopup 1s forwards',
+    animation: 'animationRulesPopup 3s forwards',
 
     '@keyframes animationRulesPopup': {
       '0%': {
         transform: 'translateY(0)',
       },
       '100%': {
-        transform: 'translateY(100%)',
+        transform: 'translateY(300%)',
         display: 'none',
       },
     },

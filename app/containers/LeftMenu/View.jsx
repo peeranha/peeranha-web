@@ -12,7 +12,6 @@ import MobileLinksInProfile from 'containers/LeftMenu/MobileLinksInProfile';
 import MobileAdditionalLinks from 'containers/LeftMenu/MobileAdditionalLinks';
 import MobileAutorizationButtons from 'containers/LeftMenu/MobileAutorizationButtons';
 import { ViewStyled } from 'containers/LeftMenu/Styles';
-import MobileSubHeader from 'containers/LeftMenu/MobileSubHeader';
 
 const single = isSingleCommunityWebsite();
 
@@ -40,8 +39,6 @@ const View = ({
 
   return (
     <ViewStyled id={LEFT_MENU_ID} single={single} isMenuVisible={isMenuVisible}>
-      {single && isMenuVisible ? <MobileSubHeader profile={!!profile} /> : null}
-
       <MobileAutorizationButtons
         profile={profile}
         isMenuVisible={isMenuVisible}

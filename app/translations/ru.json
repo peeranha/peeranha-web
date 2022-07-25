@@ -180,7 +180,7 @@
   "app.common.profilesUsersInfo": "Размер файла не должен превышать 2Мб",
   "app.common.communityBannerInfo":
     "Используйте картинку размера 1360 x 120 пикселей. Размер файла не должен превышать 1Мб",
-  "app.common.fileSizeErrorMsg": "Размер файла больше 2Мб. Выберите другой...",
+  "app.common.fileSizeErrorMsg": "Размер файла больше 5Мб. Выберите другой...",
   "app.common.bannerSizeErrorMsg":
     "Размер файла больше 1Мб. Выберите другой...",
   "app.common.incorrectBannerResolutionMsg":
@@ -848,7 +848,7 @@
   "app.containers.ViewQuestion.RulesBlock_1":
     "Несколько советов, которые помогут сделать ваш ответ полезным и избежать дополнительного внимания модератора:",
   "app.containers.ViewQuestion.RulesBlock_2":
-    "1. Внимательно прочитайте вопрос и дайте детальный ответ насколько это возможно.",
+    "1. Внимательно прочитайте вопрос в посте и дайте как можно более подробный ответ.",
   "app.containers.ViewQuestion.RulesBlock_3":
     "2. Убедитесь, что ваш ответ действительно отвечает на вопрос, а не является комментарием или благодарностью.",
   "app.containers.ViewQuestion.RulesBlock_4":
@@ -1061,9 +1061,9 @@
   "app.containers.AskQuestion.contentPopupBlock_2":
     "Мы рады, что вы здесь и готовы сделать свою первую публикацию. У нас есть несколько простых правил, которым мы следуем:",
   "app.containers.AskQuestion.contentPopupBlock_3":
-    "1. Убедитесь, что ваши вопросы относятся к определенному сообществу.",
+    "1. Убедитесь, что ваши посты относятся к определенному сообществу.",
   "app.containers.AskQuestion.contentPopupBlock_4":
-    "2. Просмотрите уже заданные вопросы, чтобы избежать повторений.",
+    "2. Просмотрите уже опубликованные посты, чтобы избежать повторений.",
   "app.containers.AskQuestion.contentPopupBlock_5":
     "3. Ответ должны быть ответом на вопрос, а не комментарием к нему.",
   "app.containers.AskQuestion.contentPopupBlock_6":
