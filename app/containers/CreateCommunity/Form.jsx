@@ -47,7 +47,6 @@ import {
   COMM_AVATAR_FIELD,
   COMM_NAME_FIELD,
   COMM_SHORT_DESCRIPTION_FIELD,
-  COMM_MAIN_DESCRIPTION_FIELD,
   COMM_OFFICIAL_SITE_FIELD,
   TAG_NAME_FIELD,
   TAG_DESCRIPTION_FIELD,
@@ -59,8 +58,6 @@ import {
   ANY_TYPE,
 } from './constants';
 
-import TypeForm from './QuestionsTypeForm';
-import CommunityTypeForm from './CommunityTypeForm';
 import BloggerModeForm from './BloggerModeForm';
 
 const MIN_TAGS_NUMBER = 5;
@@ -88,12 +85,7 @@ const CreateCommunityForm = ({
   profile,
 }) => {
   const [tags, changeTags] = useState(DEFAULT_TAGS_ARRAY);
-
-  const profileWithModeratorRights = useMemo(
-    () => hasGlobalModeratorRole(getPermissions(profile)),
-    [profile],
-  );
-
+  useMemo(() => hasGlobalModeratorRole(getPermissions(profile)), [profile]);
   const removeTag = e => {
     const { key } = e.currentTarget.dataset;
     const index = tags.findIndex(x => x === +key);
@@ -165,17 +157,6 @@ const CreateCommunityForm = ({
           tip={translations[messages.websiteTip.id]}
           splitInHalf
         />
-
-        {/*{profileWithModeratorRights && (*/}
-        {/*  <TypeForm*/}
-        {/*    locale={locale}*/}
-        {/*    change={change}*/}
-        {/*    formValues={formValues}*/}
-        {/*    intl={intl}*/}
-        {/*  />*/}
-        {/*)}*/}
-
-        {/*<CommunityTypeForm change={change} intl={intl} />*/}
 
         {+formValues[COMMUNITY_TYPE] ? (
           <BloggerModeForm

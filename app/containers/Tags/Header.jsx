@@ -8,7 +8,6 @@ import commonMessages from 'common-messages';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
 import PlusIcon from 'icons/Plus';
-import icoTagIcon from 'images/icoTag.svg?external';
 import TagsIcon from 'icons/Tags';
 import arrowLeft from 'images/arrowLeft.svg?inline';
 import communitiesHeaderFilter from 'images/communitiesHeaderFilter.svg?external';
@@ -115,11 +114,10 @@ export const Header = ({
               islink
             >
               <MediumIcon>
-                <IconMd
-                  className="d-none d-sm-inline-block"
-                  icon={icoTagIcon}
-                  isColorImportant={true}
+                <TagsIcon
                   fill={BORDER_PRIMARY}
+                  size={[18, 18]}
+                  className="d-none d-sm-inline-block"
                 />
               </MediumIcon>
 

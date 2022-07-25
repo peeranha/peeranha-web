@@ -1,18 +1,17 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import { css } from '@emotion/react';
 
 import messages from 'common-messages';
-import { BORDER_PRIMARY } from 'style-constants';
+import { BG_PRIMARY_SPECIAL_2, BORDER_PRIMARY } from 'style-constants';
 import cn from 'classnames';
 
-import suggestTagIcon from 'images/tagsHeaderIcon.svg?inline';
 import TagsIcon from 'icons/Tags';
 import PlusIcon from 'icons/Plus';
 
 import Wrapper, { WrapperRightPanel } from 'components/Header/Simple';
 import H3 from 'components/H3';
-import { MediumImageStyled } from 'components/Img/MediumImage';
 import TransparentButton from 'components/Button/Contained/Transparent';
 
 import { GO_TO_CREATE_TAG_SCREEN_BUTTON_ID } from 'containers/Tags/constants';
@@ -26,12 +25,18 @@ const Header = ({ openTagForm, profile }) => {
   return (
     <Wrapper className="mb-to-sm-0 mb-from-sm-3">
       <H3>
-        <MediumImageStyled src={suggestTagIcon} alt="tags-collection" />
-        {/*<TagsIcon*/}
-        {/*  fill={BORDER_PRIMARY}*/}
-        {/*  size={[33, 33]}*/}
-        {/*  className={cn('')}*/}
-        {/*/>*/}
+        <div
+          className={cn('mr16 brc df aic jcc')}
+          css={css`
+            display: flex;
+            background: ${BG_PRIMARY_SPECIAL_2};
+            border: 1px solid #c2c6d8;
+            width: 43px;
+            height: 43px;
+          `}
+        >
+          <TagsIcon fill={BORDER_PRIMARY} size={[30, 30]} />
+        </div>
         <FormattedMessage {...messages.tags} />
       </H3>
       {profileWithModeratorRights && (
