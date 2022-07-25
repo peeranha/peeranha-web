@@ -5,13 +5,15 @@ import styled from 'styled-components';
 import { css } from '@emotion/react';
 
 import commonMessages from 'common-messages';
-import { TEXT_DARK, TEXT_SECONDARY } from 'style-constants';
+import { TEXT_DARK, TEXT_SECONDARY, LINK_COLOR } from 'style-constants';
 import { LABEL_SIZE_LG } from 'components/Img/MediumImage';
 import { TEMPORARY_ACCOUNT_KEY } from 'utils/constants';
 import { getUserAvatar } from 'utils/profileManagement';
 
 import questionRoundedIcon from 'images/question2.svg?inline';
 import answerIcon from 'images/answer.svg?inline';
+import iconCopy from 'images/document-copy.svg?inline';
+import iconCopySelect from 'images/document-copy-select.svg?inline';
 
 import Base from 'components/Base';
 import A from 'components/A';
@@ -74,7 +76,7 @@ export const UlStyled = Ul.extend`
     }
 
     > *:nth-child(1) {
-      font-size: 13px;
+      font-size: 14px;
       line-height: 25px;
       color: ${TEXT_SECONDARY};
     }
@@ -95,10 +97,6 @@ export const UlStyled = Ul.extend`
     @media only screen and (max-width: 1354px) {
       div {
         display: inline;
-      }
-      button {
-        left: 80%;
-        top: 75%;
       }
     }
 
@@ -190,6 +188,8 @@ const MainUserInformation = ({
     setCopied(true);
   };
 
+  const iconType = copied ? iconCopySelect : iconCopy;
+
   return (
     <Box position="middle">
       <div>
@@ -273,7 +273,8 @@ const MainUserInformation = ({
                       id="copytext1"
                       css={css`
                         border-bottom: 1px solid;
-                        color: #0000ff;
+                        color: ${LINK_COLOR};
+                        font-weight: 400;
                       `}
                     >
                       {userId}
@@ -282,23 +283,19 @@ const MainUserInformation = ({
                   <button
                     css={css`
                       color: #adaeae;
-                      border: 1px solid;
-                      border-radius: 10px;
-                      font-size: 14px;
-                      padding: 5px 10px;
-                      height: 35px;
-                      margin-top: 15px;
-                      box-shadow: 10px 5px 5px #adaeae;
                       position: absolute;
                       left: 95%;
+                      margin-top: 23px;
                     `}
                     onClick={copiedUserId}
                   >
-                    {copied ? (
-                      <FormattedMessage id={commonMessages.copied.id} />
-                    ) : (
-                      <FormattedMessage id={commonMessages.copy.id} />
-                    )}
+                    <img
+                      src={iconType}
+                      alt="copy"
+                      css={css`
+                        height: 20px;
+                      `}
+                    />
                   </button>
                 </li>
               )}
