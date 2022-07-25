@@ -108,6 +108,9 @@ const DivMention = styled.div`
   margin-top: 5px;
   line-height: 1.2;
   font-size: 10px;
+  > span {
+    white-space: normal;
+  }
 `;
 
 const Link = ({ path, message, cssStyles }) =>
@@ -210,7 +213,7 @@ export default React.memo(({ currClientHeight }) => {
           </div>
         )}
 
-        {single && (
+        {!!single && (
           <div className="mt-2">
             <FormattedMessage
               id={messages.poweredBy}
