@@ -48,7 +48,7 @@ const Container = styled.div`
 
 const Base = styled.div`
   padding: 20px 30px;
-  background-color: white;
+  background-color: var(--color-white);
   border-radius: 5px;
   display: flex;
   flex-direction: column;

@@ -37,7 +37,7 @@ const Label = Button.extend`
   height: 1%;
   min-height: 32px;
   max-width: 300px;
-  color: ${({ color }) => color || 'white'};
+  color: ${({ color }) => color || 'var(--color-white)'};
   background: ${({ bg }) => bg || 'inherit'};
   ${({ border }) => `border: 1px solid ${border}` || ''};
 `;

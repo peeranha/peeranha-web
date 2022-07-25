@@ -198,7 +198,7 @@ export default css`
     text-decoration: none;
   }
   .icon {
-    color: var(--color-background-icon);
+    color: var(--color-icon-background);
   }
   .text-ellipsis {
     overflow: hidden;
