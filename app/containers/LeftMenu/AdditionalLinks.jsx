@@ -41,6 +41,7 @@ const AdditionalLinks = styled.div`
     a:hover,
     a {
       color: ${TEXT_SECONDARY};
+      white-space: nowrap;
     }
   }
 
@@ -208,7 +209,8 @@ export default React.memo(({ currClientHeight }) => {
             />
           </div>
         )}
-        {!!single && (
+
+        {single && (
           <div className="mt-2">
             <FormattedMessage
               id={messages.poweredBy}
@@ -218,13 +220,17 @@ export default React.memo(({ currClientHeight }) => {
               }}
             >
               {(...chunks) => (
-                <A className="d-flex align-content-center" to={routes.feed()}>
+                <a
+                  className="d-flex align-content-center"
+                  href={process.env.APP_LOCATION}
+                >
                   {chunks}
-                </A>
+                </a>
               )}
             </FormattedMessage>
           </div>
         )}
+
         <DivMention>
           <FormattedMessage
             id={messages.reCaptchaMention.id}

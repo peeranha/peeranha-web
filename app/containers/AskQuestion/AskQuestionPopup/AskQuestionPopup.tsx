@@ -31,64 +31,74 @@ const AskQuestionPopup: React.FC = (): JSX.Element => {
   return (
     <>
       {!IsAgreeRules && (
-        <div
-          ref={popupRef}
-          className="pf l0 full-width full-height"
-          css={css({
-            ...styles.rulesConsent,
-            ...(enableAnimation && styles.rulesConsentAnimation),
-          })}
-        >
-          <div className="container">
-            <div className="df fdc jcsb pt24 pb24 lh1-5">
-              <div className="pb20 tc">
-                <FormattedMessage
-                  id={commonMessages.rulesAskQuestionPopupBlock_1.id}
-                />
+        <div>
+          <div
+            ref={popupRef}
+            className="pf l0 full-width full-height"
+            css={css({
+              ...styles.rulesConsent,
+              ...(enableAnimation && styles.rulesConsentAnimation),
+            })}
+          >
+            <div className="container">
+              <div className="df fdc jcsb pt24 pb24 lh1-5">
+                <div className="pb20 tc">
+                  <FormattedMessage
+                    id={commonMessages.rulesAskQuestionPopupBlock_1.id}
+                  />
+                </div>
+                <div>
+                  <FormattedMessage
+                    id={commonMessages.rulesAskQuestionPopupBlock_2.id}
+                  />
+                </div>
+                <div>
+                  <FormattedMessage
+                    id={commonMessages.rulesAskQuestionPopupBlock_3.id}
+                  />
+                </div>
+                <div>
+                  <FormattedMessage
+                    id={commonMessages.rulesAskQuestionPopupBlock_4.id}
+                  />
+                </div>
+                <div>
+                  <FormattedMessage
+                    id={commonMessages.rulesAskQuestionPopupBlock_5.id}
+                  />
+                </div>
+                <div>
+                  <FormattedMessage
+                    id={commonMessages.rulesAskQuestionPopupBlock_6.id}
+                  />
+                </div>
+                <div>
+                  <FormattedMessage
+                    id={commonMessages.rulesAskQuestionPopupBlock_7.id}
+                  />
+                </div>
+                <div className="p20 tc">
+                  <FormattedMessage
+                    id={commonMessages.rulesAskQuestionPopupBlock_8.id}
+                  />
+                </div>
+                <LargeOutlinedButton
+                  onClick={acceptWithRules}
+                  customStyles={stylesCommunity.headerLoginButtonStyles}
+                >
+                  <FormattedMessage id={commonMessages.gotIt.id} />
+                </LargeOutlinedButton>
               </div>
-              <div>
-                <FormattedMessage
-                  id={commonMessages.rulesAskQuestionPopupBlock_2.id}
-                />
-              </div>
-              <div>
-                <FormattedMessage
-                  id={commonMessages.rulesAskQuestionPopupBlock_3.id}
-                />
-              </div>
-              <div>
-                <FormattedMessage
-                  id={commonMessages.rulesAskQuestionPopupBlock_4.id}
-                />
-              </div>
-              <div>
-                <FormattedMessage
-                  id={commonMessages.rulesAskQuestionPopupBlock_5.id}
-                />
-              </div>
-              <div>
-                <FormattedMessage
-                  id={commonMessages.rulesAskQuestionPopupBlock_6.id}
-                />
-              </div>
-              <div>
-                <FormattedMessage
-                  id={commonMessages.rulesAskQuestionPopupBlock_7.id}
-                />
-              </div>
-              <div className="p20 tc">
-                <FormattedMessage
-                  id={commonMessages.rulesAskQuestionPopupBlock_8.id}
-                />
-              </div>
-              <LargeOutlinedButton
-                onClick={acceptWithRules}
-                customStyles={stylesCommunity.headerLoginButtonStyles}
-              >
-                <FormattedMessage id={commonMessages.gotIt.id} />
-              </LargeOutlinedButton>
             </div>
           </div>
+          <div
+            className="pa t0 l0 full-width full-height"
+            css={css`
+              z-index: 9;
+              opacity: 0.3;
+              background-color: black;
+            `}
+          />
         </div>
       )}
     </>

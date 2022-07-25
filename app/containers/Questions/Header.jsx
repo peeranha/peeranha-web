@@ -31,7 +31,11 @@ import {
   isSingleCommunityWebsite,
   singleCommunityColors,
 } from 'utils/communityManagement';
-import { getPermissions, hasGlobalModeratorRole } from 'utils/properties';
+import {
+  getPermissions,
+  hasGlobalModeratorRole,
+  hasCommunityModeratorRole,
+} from 'utils/properties';
 
 import { POST_TYPE } from 'utils/constants';
 import {
@@ -88,6 +92,10 @@ export const Header = ({
   profile,
 }) => {
   const isFeed = parentPage === routes.feed();
+  const isModeratorModeSingleCommunity = single
+    ? hasGlobalModeratorRole(getPermissions(profile)) ||
+      hasCommunityModeratorRole(getPermissions(profile), single)
+    : false;
   const isBloggerMode = hasGlobalModeratorRole(getPermissions(profile));
 
   let defaultAvatar = null;
@@ -192,18 +200,17 @@ export const Header = ({
         display={displayQuestionFilter}
         questionFilterFromCookies={questionFilterFromCookies}
       />
-      {!!single &&
-        isBloggerMode && (
-          <button
-            onClick={routeToEditCommunity}
-            className={`align-items-center d-inline-flex`}
-          >
-            <IconMd icon={pencilIcon} />
-            <Span className="ml-1" color={TEXT_PRIMARY}>
-              <FormattedMessage id={messages.editCommunity.id} />
-            </Span>
-          </button>
-        )}
+      {isModeratorModeSingleCommunity && (
+        <button
+          onClick={routeToEditCommunity}
+          className={`align-items-center d-inline-flex`}
+        >
+          <IconMd icon={pencilIcon} />
+          <Span className="ml-1" color={TEXT_PRIMARY}>
+            <FormattedMessage id={messages.editCommunity.id} />
+          </Span>
+        </button>
+      )}
     </Wrapper>
   );
 };
