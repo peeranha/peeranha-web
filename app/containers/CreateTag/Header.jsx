@@ -4,18 +4,21 @@ import { FormattedMessage } from 'react-intl';
 
 import * as routes from 'routes-config';
 import commonMessages from 'common-messages';
-import { TEXT_PRIMARY, BORDER_PRIMARY } from 'style-constants';
+import {
+  TEXT_PRIMARY,
+  BORDER_PRIMARY,
+  BG_PRIMARY_SPECIAL_2,
+} from 'style-constants';
+import cn from 'classnames';
+import { css } from '@emotion/react';
 
-import suggestTagIcon from 'images/tagsHeaderIcon.svg?external';
-import closeIcon from 'images/closeCircle.svg?external';
+import TagsIcon from 'icons/Tags';
+import CloseRoundedIcon from 'icons/CloseRounded';
 
 import A from 'components/A';
 import H3 from 'components/H3';
 import Span from 'components/Span';
 import Wrapper, { WrapperRightPanel } from 'components/Header/Simple';
-import Icon from 'components/Icon';
-import { IconMd } from 'components/Icon/IconWithSizes';
-import { MediumIconStyled } from 'components/Icon/MediumIcon';
 
 import messages from './messages';
 
@@ -26,26 +29,25 @@ export const Header = ({
 }) => (
   <Wrapper className="mb-to-sm-0 mb-from-sm-3">
     <H3>
-      <MediumIconStyled>
-        <Icon
-          icon={suggestTagIcon}
-          width="43"
-          fill={BORDER_PRIMARY}
-          isColorImportant
-        />
-      </MediumIconStyled>
+      <div
+        className={cn('mr16 brc df aic jcc')}
+        css={css`
+          display: flex;
+          background: ${BG_PRIMARY_SPECIAL_2};
+          border: 1px solid #c2c6d8;
+          width: 43px;
+          height: 43px;
+        `}
+      >
+        <TagsIcon fill={BORDER_PRIMARY} size={[30, 30]} />
+      </div>
       {title || <FormattedMessage {...messages.newTag} />}
     </H3>
 
     <WrapperRightPanel className="right-panel">
       <A to={closeRedirectPage || routes.tags()} onClick={closeButtonAction}>
         <button>
-          <IconMd
-            className="mr-1"
-            icon={closeIcon}
-            fill={BORDER_PRIMARY}
-            isColorImportant
-          />
+          <CloseRoundedIcon fill={BORDER_PRIMARY} className="mr-1" />
           <Span color={TEXT_PRIMARY} className="button-label">
             <FormattedMessage {...commonMessages.close} />
           </Span>

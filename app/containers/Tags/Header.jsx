@@ -10,14 +10,13 @@ import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import PlusIcon from 'icons/Plus';
 import TagsIcon from 'icons/Tags';
 import arrowLeft from 'images/arrowLeft.svg?inline';
-import communitiesHeaderFilter from 'images/communitiesHeaderFilter.svg?external';
+import FilterIcon from 'icons/Filter';
 
 import H3 from 'components/H3';
 import Dropdown from 'components/Dropdown';
 import Span from 'components/Span';
 import Ul from 'components/Ul';
 import MediumIcon from 'components/Icon/MediumIcon';
-import { IconMd } from 'components/Icon/IconWithSizes';
 import CheckedItem from 'components/Li/CheckedItem';
 import Wrapper, {
   SubHeaderWrapperRightPanel as WrapperRightPanel,
@@ -38,7 +37,7 @@ const single = isSingleCommunityWebsite();
 const Button = ({ sorting }) => (
   <Span className="d-inline-flex align-items-center mr-2 text-capitalize" bold>
     <MediumIcon>
-      <IconMd className="mr-2" icon={communitiesHeaderFilter} />
+      <FilterIcon className="mr-2" stroke="#576fed" />
     </MediumIcon>
     <FormattedMessage {...options[sorting].message} />
   </Span>

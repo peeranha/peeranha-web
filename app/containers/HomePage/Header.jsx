@@ -9,8 +9,8 @@ import * as routes from 'routes-config';
 
 import logo from 'images/Logo.svg?inline';
 import login from 'images/Login.svg?external';
-import closeIcon from 'images/close.svg?external';
-import headerNavigation from 'images/headerNavigation.svg?external';
+import CloseIcon from 'icons/Close';
+import BurgerIcon from 'icons/Burger';
 
 import { scrollToSection } from 'utils/animation';
 
@@ -47,10 +47,11 @@ const Header = ({ showLoginModal, account }) => {
                 type="button"
                 onClick={toggle}
               >
-                <IconLm
-                  icon={isToggled ? closeIcon : headerNavigation}
-                  color={TEXT_LIGHT}
-                />
+                {isToggled ? (
+                  <CloseIcon fill={TEXT_LIGHT} size={[22, 22]} />
+                ) : (
+                  <BurgerIcon fill={TEXT_LIGHT} />
+                )}
               </button>
             </div>
 

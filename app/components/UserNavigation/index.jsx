@@ -7,8 +7,8 @@ import * as routes from 'routes-config';
 import messages from 'common-messages';
 import { TEXT_PRIMARY, TEXT_SECONDARY, BORDER_PRIMARY } from 'style-constants';
 
-import pencilIcon from 'images/pencil.svg?external';
-import closeIcon from 'images/closeCircle.svg?external';
+import EditIcon from 'icons/Edit';
+import CloseRoundedIcon from 'icons/CloseRounded';
 
 import NavigationButton, {
   NavigationLink,
@@ -16,7 +16,6 @@ import NavigationButton, {
 import Wrapper from 'components/Header/Complex';
 import Span from 'components/Span/index';
 import A from 'components/A/index';
-import { IconMd } from 'components/Icon/IconWithSizes';
 import { getPermissions } from '../../utils/properties';
 
 const Ul = styled.ul`
@@ -230,7 +229,7 @@ const UserNavigation = ({
             id={`redireact-to-edit-${userId}-user-page-2`}
             data-user={userId}
           >
-            <IconMd icon={pencilIcon} />
+            <EditIcon stroke="#576fed" />
             <Span className="ml-1" color={TEXT_PRIMARY}>
               <FormattedMessage {...messages.edit} />
             </Span>
@@ -244,7 +243,7 @@ const UserNavigation = ({
             }`}
             to={routes.profileView(account)}
           >
-            <IconMd icon={closeIcon} fill={BORDER_PRIMARY} isColorImportant />
+            <CloseRoundedIcon fill={BORDER_PRIMARY} />
             <Span className="ml-1" color={TEXT_PRIMARY}>
               <FormattedMessage {...messages.close} />
             </Span>

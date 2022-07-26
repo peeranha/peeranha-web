@@ -9,8 +9,7 @@ import { BORDER_SECONDARY_LIGHT, TEXT_SECONDARY } from 'style-constants';
 
 import Span from 'components/Span';
 
-import closeIcon from 'images/closeGray.svg?inline';
-import WidthCentered from '../../../../components/LoadingIndicator/WidthCentered';
+import CloseIcon from 'icons/Close';
 
 const Container = styled.div`
   display: flex;
@@ -33,7 +32,7 @@ const Header = ({ notificationsNumber, onClose }) => (
       <Span color={TEXT_SECONDARY}>{notificationsNumber}</Span>
     </div>
     <button onClick={onClose}>
-      <img src={closeIcon} width="15" alt="close_icon" />
+      <CloseIcon fill={TEXT_SECONDARY} size={[17, 17]} />
     </button>
   </Container>
 );

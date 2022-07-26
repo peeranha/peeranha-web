@@ -11,16 +11,22 @@ import {
   BORDER_ATTENTION_LIGHT,
 } from 'style-constants';
 
-import pencilIcon from 'images/pencil.svg?external';
-import shareIcon from 'images/shareIcon.svg?external';
-import deleteIcon from 'images/deleteIcon.svg?external';
+import EditIcon from 'icons/Edit';
+import ShareIcon from 'icons/Share';
+import DeleteIcon from 'icons/Delete';
 import blockIcon from 'images/blockIcon.svg?external';
-import changeTypeIcon from 'images/change-type.svg?external';
+import ChangeTypeIcon from 'icons/ChangeType';
+import BlockchainIcon from 'icons/Blockchain';
+
+import IPFSInformation from 'containers/Questions/Content/Body/IPFSInformation';
+import commonMessages from 'common-messages';
+import { POST_TYPE } from 'utils/constants';
+import { getUserName } from 'utils/user';
 
 import { getRatingByCommunity, getUserAvatar } from 'utils/profileManagement';
 import { useOnClickOutside } from 'utils/click-listners';
 
-import { IconSm, IconMd } from 'components/Icon/IconWithSizes';
+import { IconSm } from 'components/Icon/IconWithSizes';
 import UserInfo from './UserInfo';
 import ContentRating from './ContentRating';
 import Button from './Button';
@@ -36,11 +42,6 @@ import {
   hasCommunityModeratorRole,
   hasGlobalModeratorRole,
 } from '../../utils/properties';
-import blockchainLogo from 'images/blockchain-outline-32.svg?external';
-import IPFSInformation from 'containers/Questions/Content/Body/IPFSInformation';
-import commonMessages from 'common-messages';
-import { POST_TYPE } from 'utils/constants';
-import { getUserName } from 'utils/user';
 
 const RatingBox = styled.div`
   border-right: 1px solid ${BORDER_SECONDARY};
@@ -130,7 +131,6 @@ const ContentHeader = props => {
     commentId,
     deleteItem,
     changeQuestionTypeDispatch,
-    giveBountyDispatch,
     questionData,
     profile,
     isChangeTypeAvailable,
@@ -170,13 +170,7 @@ const ContentHeader = props => {
   );
   //todo remove integer_properties
   const isTemporaryAccount = false;
-  //   useMemo(
-  //   () =>
-  //     !!author?.['integer_properties'].find(
-  //       x => x.key === TEMPORARY_ACCOUNT_KEY && x.value,
-  //     ),
-  //   [author],
-  // );
+
   const isItWrittenByMe = useMemo(
     () => (profile ? author.user === profile.user : false),
     [profile, author],
@@ -189,12 +183,7 @@ const ContentHeader = props => {
 
   // eslint-disable-next-line camelcase
   const correctAnswerId = questionData?.correct_answer_id;
-  const correctAnswer = questionData?.answers?.find(
-    ({ id }) => id === correctAnswerId,
-  );
-  const correctAnswerUserName = correctAnswer?.user;
-  const currentUserName = profile?.user;
-
+  questionData?.answers?.find(({ id }) => id === correctAnswerId);
   let deleteAction = null;
   if (isItWrittenByMe) {
     deleteAction = deleteItem;
@@ -232,24 +221,10 @@ const ContentHeader = props => {
                 `${type}_change_type_with_rating_restore_${answerId}`,
               )}
             >
-              <IconSm icon={changeTypeIcon} fill={BORDER_PRIMARY} />
+              <ChangeTypeIcon stroke={BORDER_PRIMARY} size={[14, 14]} />
               <FormattedMessage {...messages.changeQuestionType} />
             </Button>
           )}
-
-          {/* {type === QUESTION_TYPE && (
-            <Button
-              id={`${type}_give_bounty_${answerId}`}
-              show={
-                currentUserName && correctAnswerUserName === currentUserName
-              }
-              onClick={event => giveBountyDispatch(event)}
-              disabled={ids.includes(`${type}_give_bounty_${answerId}`)}
-            >
-              <IconSm icon={currencyPeer} fill={BORDER_PRIMARY} />
-              <FormattedMessage {...messages.getBounty} />
-            </Button>
-          )} */}
           {infiniteImpact ? (
             <Button
               show={
@@ -282,7 +257,7 @@ const ContentHeader = props => {
                   onClick={onClick}
                   disabled={ids.includes(`${type}_delete_${answerId}`)}
                 >
-                  <IconMd icon={deleteIcon} fill={BORDER_PRIMARY} />
+                  <DeleteIcon stroke={BORDER_PRIMARY} />
                   <FormattedMessage {...messages.deleteButton} />
                 </Button>
               )}
@@ -296,7 +271,7 @@ const ContentHeader = props => {
                 disabled={isModalOpen}
                 onClick={() => setModalOpen(true)}
               >
-                <IconSm icon={shareIcon} />
+                <ShareIcon size={[14, 14]} />
                 <FormattedMessage {...messages.shareButton} />
               </Button>
 
@@ -314,7 +289,7 @@ const ContentHeader = props => {
               disabled={isPopoverOpen}
               onClick={() => setPopoverOpen(true)}
             >
-              <IconMd icon={blockchainLogo} />
+              <BlockchainIcon size={[18, 18]} stroke="#576fed" />
               <FormattedMessage id={commonMessages.source.id} />
             </Button>
 
@@ -337,7 +312,7 @@ const ContentHeader = props => {
               buttonParams.questionId
             }-${commentId}`}
           >
-            <IconMd icon={pencilIcon} />
+            <EditIcon stroke="#576fed" />
             <FormattedMessage {...messages.editButton} />
           </Button>
         </ButtonContainer>

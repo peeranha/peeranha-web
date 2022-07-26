@@ -11,6 +11,20 @@ import {
   BORDER_RADIUS_M,
 } from 'style-constants';
 
+import Span from 'components/Span';
+import Icon from 'components/Icon';
+import { TextareaStyled } from 'components/Textarea';
+import { useOnClickOutside } from 'utils/click-listners';
+import commonMessages from 'common-messages';
+import IPFSInformation from 'containers/Questions/Content/Body/IPFSInformation';
+import { getUserName } from 'utils/user';
+import {
+  getPermissions,
+  hasCommunityModeratorRole,
+  hasGlobalModeratorRole,
+} from 'utils/properties';
+
+import BlockchainIcon from 'icons/Blockchain';
 import editSmallIcon from 'images/editSmallIcon.svg?external';
 import deleteSmallIcon from 'images/deleteSmallIcon.svg?external';
 
@@ -18,9 +32,6 @@ import { getRatingByCommunity, getUserAvatar } from 'utils/profileManagement';
 
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 
-import Span from 'components/Span';
-import Icon from 'components/Icon';
-import { TextareaStyled } from 'components/Textarea';
 import Button from './Button';
 import UserInfo from './UserInfo';
 import CommentOptions from './CommentOptions';
@@ -34,17 +45,6 @@ import {
   SAVE_COMMENT_BUTTON,
   SAVE_COMMENT_FORM,
 } from './constants';
-import { useOnClickOutside } from 'utils/click-listners';
-import { IconMd } from 'components/Icon/IconWithSizes';
-import blockchainLogo from 'images/blockchain-outline-32.svg?external';
-import commonMessages from 'common-messages';
-import IPFSInformation from 'containers/Questions/Content/Body/IPFSInformation';
-import { getUserName } from 'utils/user';
-import {
-  getPermissions,
-  hasCommunityModeratorRole,
-  hasGlobalModeratorRole,
-} from 'utils/properties';
 
 const CommentManage = styled.div`
   display: flex;
@@ -224,7 +224,7 @@ const CommentView = item => {
               disabled={isPopoverOpen}
               onClick={() => setPopoverOpen(true)}
             >
-              <IconMd icon={blockchainLogo} />
+              <BlockchainIcon size={[18, 18]} stroke="#576fed" />
               <FormattedMessage id={commonMessages.source.id} />
             </Button>
 

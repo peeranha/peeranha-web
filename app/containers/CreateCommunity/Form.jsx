@@ -5,14 +5,14 @@ import { Field, reduxForm, FormSection } from 'redux-form/immutable';
 import { FormattedMessage, injectIntl } from 'react-intl';
 
 import {
+  BORDER_PRIMARY,
   PEER_PRIMARY_COLOR,
   PEER_WARNING_COLOR,
   TEXT_SECONDARY_LIGHT,
 } from 'style-constants';
 
-import icoTag from 'images/icoTag.svg?inline';
 import TagsIcon from 'icons/Tags';
-import closeIcon from 'images/close.svg?external';
+import CloseIcon from 'icons/Close';
 
 import { formatStringToHtmlId, scrollToErrorField } from 'utils/animation';
 import { showPopover } from 'utils/popover';
@@ -35,7 +35,6 @@ import Wrapper from 'components/FormFields/Wrapper';
 import TextareaField from 'components/FormFields/TextareaField';
 import TextInputField from 'components/FormFields/TextInputField';
 import AvatarField from 'components/FormFields/AvatarField';
-import { IconSm } from 'components/Icon/IconWithSizes';
 import FormBox from 'components/Form';
 import LargeButton from 'components/Button/Contained/InfoLarge';
 import TransparentButton from 'components/Button/Contained/Transparent';
@@ -74,7 +73,6 @@ for (let i = 0; i < MIN_TAGS_NUMBER; i++) {
 // TODO: return language for multi lang.
 
 const CreateCommunityForm = ({
-  locale,
   handleSubmit,
   createCommunity,
   createCommunityLoading,
@@ -188,7 +186,7 @@ const CreateCommunityForm = ({
                     onClick={removeTag}
                     tabIndex="-1"
                   >
-                    <IconSm icon={closeIcon} color={TEXT_SECONDARY_LIGHT} />
+                    <CloseIcon fill={TEXT_SECONDARY_LIGHT} size={[15, 15]} />
                   </button>
                 )}
 
@@ -234,7 +232,7 @@ const CreateCommunityForm = ({
           tabIndex="-1"
           id={ADD_TAG_BUTTON_ID}
         >
-          <img className="mr-2" src={icoTag} alt="icoTag" />
+          <TagsIcon className="mr-2" fill={BORDER_PRIMARY} size={[20, 20]} />
           <FormattedMessage {...messages.oneMoreTag} />
         </TransparentButton>
 

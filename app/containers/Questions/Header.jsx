@@ -15,14 +15,15 @@ import FollowCommunityButton from 'containers/FollowCommunityButton/DefaultButto
 import { MediumImageStyled } from 'components/Img/MediumImage';
 import CommunitySelector from 'components/CommunitySelector';
 import { MediumIconStyled } from 'components/Icon/MediumIcon';
-import { IconLg, IconMd } from 'components/Icon/IconWithSizes';
+import { IconLg } from 'components/Icon/IconWithSizes';
 import H3 from 'components/H3';
 import Wrapper from 'components/Header/Simple';
 import Span from 'components/Span/index';
 
 import expertIcon from 'images/hat-3-outline-24.svg?external';
 import generalIcon from 'images/comments-outline-24.svg?external';
-import pencilIcon from 'images/pencil.svg?external';
+import EditIcon from 'icons/Edit';
+import FeedIcon from 'icons/Feed';
 
 import myFeedIcon from 'images/myFeedHeader.svg?external';
 import tutorialIcon from 'images/tutorial.svg?external';
@@ -31,10 +32,7 @@ import {
   isSingleCommunityWebsite,
   singleCommunityColors,
 } from 'utils/communityManagement';
-import {
-  getPermissions,
-  hasGlobalModeratorRole,
-} from 'utils/properties';
+import { getPermissions, hasGlobalModeratorRole } from 'utils/properties';
 
 import { POST_TYPE } from 'utils/constants';
 import {
@@ -86,7 +84,6 @@ export const Header = ({
   topQuestions,
   topQuestionsInfoLoaded,
   questionFilterFromCookies,
-  isExpert,
   postsTypes,
   profile,
 }) => {
@@ -195,17 +192,18 @@ export const Header = ({
         display={displayQuestionFilter}
         questionFilterFromCookies={questionFilterFromCookies}
       />
-      {!!single && isBloggerMode && (
-        <button
-          onClick={routeToEditCommunity}
-          className={`align-items-center d-inline-flex`}
-        >
-          <IconMd icon={pencilIcon} />
-          <Span className="ml-1" color={TEXT_PRIMARY}>
-            <FormattedMessage id={messages.editCommunity.id} />
-          </Span>
-        </button>
-      )}
+      {!!single &&
+        isBloggerMode && (
+          <button
+            onClick={routeToEditCommunity}
+            className={`align-items-center d-inline-flex`}
+          >
+            <EditIcon stroke="#576fed" />
+            <Span className="ml-1" color={TEXT_PRIMARY}>
+              <FormattedMessage id={messages.editCommunity.id} />
+            </Span>
+          </button>
+        )}
     </Wrapper>
   );
 };

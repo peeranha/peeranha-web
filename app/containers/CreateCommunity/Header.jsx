@@ -4,20 +4,23 @@ import { FormattedMessage } from 'react-intl';
 
 import * as routes from 'routes-config';
 import commonMessages from 'common-messages';
-import { TEXT_PRIMARY, BORDER_PRIMARY } from 'style-constants';
+import {
+  TEXT_PRIMARY,
+  BORDER_PRIMARY,
+  BG_PRIMARY_SPECIAL_2,
+} from 'style-constants';
 
-import createCommunityHeader from 'images/communitiesHeader.svg?inline';
-import closeIcon from 'images/closeCircle.svg?external';
+import CloseRoundedIcon from 'icons/CloseRounded';
+import CommunitiesIcon from 'icons/Communities';
 
 import A from 'components/A';
 import H3 from 'components/H3';
 import Span from 'components/Span';
 import Wrapper, { WrapperRightPanel } from 'components/Header/Simple';
-import { MediumImageStyled } from 'components/Img/MediumImage';
-import { IconMd } from 'components/Icon/IconWithSizes';
 
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
-import { feed } from './../../routes-config';
+import cn from 'classnames';
+import { css } from '@emotion/react';
 
 export const Header = ({ headerDescriptor }) => {
   const isSingleCommunityMode = !!isSingleCommunityWebsite();
@@ -26,19 +29,25 @@ export const Header = ({ headerDescriptor }) => {
   return (
     <Wrapper className="mb-to-sm-0 mb-from-sm-3">
       <H3>
-        <MediumImageStyled src={createCommunityHeader} alt="Community icon" />
+        <div
+          className={cn('mr16 brc df aic jcc')}
+          css={css`
+            display: flex;
+            background: ${BG_PRIMARY_SPECIAL_2};
+            border: 1px solid #c2c6d8;
+            width: 43px;
+            height: 43px;
+          `}
+        >
+          <CommunitiesIcon stroke="#576FED" size={[30, 30]} />
+        </div>
         <FormattedMessage {...headerDescriptor} />
       </H3>
 
       <WrapperRightPanel className="right-panel">
         <A to={nextRoute()}>
           <button>
-            <IconMd
-              className="mr-1"
-              icon={closeIcon}
-              fill={BORDER_PRIMARY}
-              isColorImportant={true}
-            />
+            <CloseRoundedIcon fill={BORDER_PRIMARY} className="mr-1" />
             <Span color={TEXT_PRIMARY} className="button-label">
               <FormattedMessage {...commonMessages.close} />
             </Span>

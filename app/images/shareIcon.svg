@@ -1,9 +1,0 @@
-<svg width="18px" height="18px" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg">            
-    <g id="Group-13" fill="#7699FF" fill-opacity="0.2">
-        <circle class="stroke fill" id="Oval" cx="3" cy="9" r="2.5"></circle>
-        <circle class="stroke fill" id="Oval-Copy-11" cx="12" cy="3" r="2.5"></circle>
-        <circle class="stroke fill" id="Oval-Copy-12" cx="12" cy="15" r="2.5"></circle>
-    </g>
-    <path class="stroke" d="M5,8 L10,4" id="Path-7"></path>
-    <path class="stroke" d="M5,14 L10,10" id="Path-7-Copy" transform="translate(7.500000, 12.000000) scale(1, -1) translate(-7.500000, -12.000000) "></path>    
-</svg>

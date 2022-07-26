@@ -6,8 +6,8 @@ import commonMessages from 'common-messages';
 import { FormattedMessage } from 'react-intl';
 import { TEXT_PRIMARY } from 'style-constants';
 
-import myFeedIcon from 'images/myFeedHeader.svg?external';
-import closeIcon from 'images/closeCircle.svg?external';
+import FeedIcon from 'icons/Feed';
+import CloseRoundedIcon from 'icons/CloseRounded';
 
 import TipsBase from 'components/Base/TipsBase';
 import { BaseSpecialOne } from 'components/Base/BaseTransparent';
@@ -16,7 +16,6 @@ import Tips from 'components/TextEditor/Tips';
 import Span from 'components/Span';
 import H3 from 'components/H3';
 import A from 'components/A';
-import { IconMd, IconLg } from 'components/Icon/IconWithSizes';
 import { MediumIconStyled } from 'components/Icon/MediumIcon';
 
 import messages from './messages';
@@ -26,7 +25,7 @@ const Wrapper = ({ children, questionid, answerid }) => (
     <Header className="mb-to-sm-0 mb-from-sm-3">
       <H3>
         <MediumIconStyled>
-          <IconLg icon={myFeedIcon} width="38" />
+          <FeedIcon size={[30, 30]} />
         </MediumIconStyled>
         <FormattedMessage {...messages.editAnswer} />
       </H3>
@@ -34,12 +33,7 @@ const Wrapper = ({ children, questionid, answerid }) => (
       <div className="right-panel">
         <A to={routes.questionView(questionid, answerid)}>
           <button>
-            <IconMd
-              className="mr-1"
-              icon={closeIcon}
-              fill={TEXT_PRIMARY}
-              isColorImportant={true}
-            />
+            <CloseRoundedIcon fill={TEXT_PRIMARY} className="mr-1" />
             <Span color={TEXT_PRIMARY} className="button-label">
               <FormattedMessage {...commonMessages.close} />
             </Span>

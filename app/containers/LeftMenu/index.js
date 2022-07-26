@@ -11,9 +11,9 @@ import { createStructuredSelector } from 'reselect';
 import { compose, bindActionCreators } from 'redux';
 
 import { TEXT_LIGHT } from 'style-constants';
+import cn from 'classnames';
 
-import closeIcon from 'images/close.svg?external';
-import Icon from 'components/Icon';
+import CloseIcon from 'icons/Close';
 
 import {
   makeSelectProfileInfo,
@@ -24,7 +24,7 @@ import {
   selectIsGlobalAdmin,
 } from 'containers/AccountProvider/selectors';
 
-import { loginWithWallet, showLoginModal } from 'containers/Login/actions';
+import { loginWithWallet } from 'containers/Login/actions';
 import { selectIsMenuVisible } from 'containers/AppWrapper/selectors';
 import { showLeftMenu } from 'containers/AppWrapper/actions';
 
@@ -63,7 +63,7 @@ const LeftMenu = /* istanbul ignore next */ ({
       />
 
       <After isMenuVisible={isMenuVisible} onClick={showLeftMenuDispatch}>
-        <Icon width="16" icon={closeIcon} color={TEXT_LIGHT} />
+        <CloseIcon fill={TEXT_LIGHT} size={[16, 16]} className={cn('cup')} />
       </After>
     </Aside>
   );

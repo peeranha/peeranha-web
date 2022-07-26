@@ -4,12 +4,13 @@ import IconComponent, { IconProps } from './IconComponent';
 const Communities: React.FC<IconProps> = ({
   stroke,
   className,
+  size,
 }): JSX.Element => (
   <IconComponent
     id="communities"
     fill="currentColor"
     viewBox="0 0 24 24"
-    size={[24, 24]}
+    size={size || [24, 24]}
     className={className}
   >
     <g

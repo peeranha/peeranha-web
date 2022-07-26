@@ -6,12 +6,10 @@ import { intlShape } from 'react-intl';
 
 import { TEXT_PRIMARY } from 'style-constants';
 
-import Icon from 'components/Icon';
-import { IconMd } from 'components/Icon/IconWithSizes';
 import { MediumIconStyled } from 'components/Icon/MediumIcon';
 
-import closeIcon from 'images/closeCircle.svg?external';
-import questionIcon from 'images/question.svg?external';
+import CloseRoundedIcon from 'icons/CloseRounded';
+import FeedQuestionIcon from 'icons/FeedQuestion';
 
 import A from '../A';
 import Span from '../Span';
@@ -23,7 +21,7 @@ const Header = ({ formTitle, questionId, intl }) => (
   <Wrapper className="mb-to-sm-0 mb-from-sm-3">
     <H3>
       <MediumIconStyled>
-        <Icon icon={questionIcon} width="43" />
+        <FeedQuestionIcon stroke="#576FED" />
       </MediumIconStyled>
       <span>{formTitle}</span>
     </H3>
@@ -32,12 +30,7 @@ const Header = ({ formTitle, questionId, intl }) => (
       <div className="right-panel">
         <A to={routes.questionView(questionId)}>
           <button>
-            <IconMd
-              className="mr-1"
-              icon={closeIcon}
-              fill={TEXT_PRIMARY}
-              isColorImportant={true}
-            />
+            <CloseRoundedIcon fill={TEXT_PRIMARY} className="mr-1" />
             <Span color={TEXT_PRIMARY} className="button-label">
               {intl.formatMessage(commonMessages.close)}
             </Span>

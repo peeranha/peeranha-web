@@ -5,9 +5,9 @@ const UsersBig: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
     id="users-big"
-    fill="curentColor"
+    fill="currentColor"
     viewBox="0 0 43 43"
-    size={[43, 43]}
+    size={props.size || [43, 43]}
   >
     <g transform="translate(6 8)" fill="none">
       <circle
@@ -43,7 +43,7 @@ const UsersBig: React.FC<IconProps> = (props): JSX.Element => (
       />
       <circle
         stroke={props.stroke || '#282828'}
-        fill="#BEBEBE"
+        fill={props.fill || '#BEBEBE'}
         cx="21.5"
         cy="5.5"
         r="5"
@@ -51,7 +51,7 @@ const UsersBig: React.FC<IconProps> = (props): JSX.Element => (
       <path
         d="M29.5 17.778c0-4.01-3.572-7.278-8-7.278-2.875 0-5.479 1.39-6.905 3.6a6.777 6.777 0 0 0-1.095 3.678c0 .59.494 1.144 1.49 1.614 4.478 2.113 14.51 1.054 14.51-1.614Z"
         stroke={props.stroke || '#282828'}
-        fill="#BEBEBE"
+        fill={props.fill || '#BEBEBE'}
       />
       <path
         d="M16.5 21.778c0-4.01-3.572-7.278-8-7.278s-8 3.269-8 7.278c0 3.63 16 3.63 16 0Z"

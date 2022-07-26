@@ -5,9 +5,9 @@ const Blockchain: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
     id="blockchain"
-    fill="curentColor"
+    fill="currentColor"
     viewBox="0 0 32 32"
-    size={[32, 32]}
+    size={props.size || [32, 32]}
   >
     <g strokeWidth="1" transform="translate(0.5, 0.5)">
       <polyline

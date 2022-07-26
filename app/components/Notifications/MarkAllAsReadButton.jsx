@@ -8,14 +8,12 @@ import commonMessages from 'common-messages';
 
 import { TEXT_PRIMARY } from 'style-constants';
 
-import closeCircleIcon from 'images/closeCircle.svg?external';
+import CloseRoundedIcon from 'icons/CloseRounded';
 
 import { markAllNotificationsAsRead } from './actions';
 import injectSaga from '../../utils/injectSaga';
 import notificationsSaga from './saga';
 import { DAEMON } from '../../utils/constants';
-
-import { IconMd } from 'components/Icon/IconWithSizes';
 
 const MarkAllAsReadButton = ({ markAllAsReadDispatch }) => (
   <button
@@ -23,7 +21,7 @@ const MarkAllAsReadButton = ({ markAllAsReadDispatch }) => (
     className="d-flex align-items-center"
     onClick={markAllAsReadDispatch}
   >
-    <IconMd className="mr-2" icon={closeCircleIcon} fill={TEXT_PRIMARY} />
+    <CloseRoundedIcon fill={TEXT_PRIMARY} className="mr-2" />
     <FormattedMessage {...commonMessages.markAllAsRead} />
   </button>
 );

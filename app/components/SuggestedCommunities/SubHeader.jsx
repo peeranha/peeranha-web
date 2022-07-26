@@ -1,44 +1,36 @@
-/* eslint no-unused-vars: 0 */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
-import communitiesHeader from 'images/communitiesHeader.svg?inline';
-import languageIcon from 'images/ico-languages.svg?inline';
+import cn from 'classnames';
+import { css } from '@emotion/react';
+import CommunitiesIcon from 'icons/Communities';
 
 import H3 from 'components/H3';
-import Dropdown from 'components/Dropdown';
-import { MediumImageStyled } from 'components/Img/MediumImage';
 import SubHeaderWrapper from 'components/Header/Complex';
 
-import { Button, Menu } from 'components/ExistingCommunities/SubHeader';
-
 import messages from './messages';
+import { BG_PRIMARY_SPECIAL_2 } from '../../style-constants';
 
-const SubHeader = ({ setLang, language, languages }) => (
+const SubHeader = () => (
   <SubHeaderWrapper position="bottom">
     <H3>
-      <MediumImageStyled
-        src={communitiesHeader}
-        alt="communities-voting-header"
-      />
+      <div
+        className={cn('mr16 brc df aic jcc')}
+        css={css`
+          display: flex;
+          background: ${BG_PRIMARY_SPECIAL_2};
+          border: 1px solid #c2c6d8;
+          width: 43px;
+          height: 43px;
+        `}
+      >
+        <CommunitiesIcon stroke="#576FED" size={[30, 30]} />
+      </div>
       <FormattedMessage {...messages.votingForNewComm} />
     </H3>
 
-    <div className="right-panel">
-      {/* <Dropdown
-        button={<Button sorting={language} icon={languageIcon} />}
-        menu={
-          <Menu
-            changeSorting={setLang}
-            sorting={language}
-            options={languages}
-          />
-        }
-        id="choose-language-dropdown"
-        isArrowed
-      /> */}
-    </div>
+    <div className="right-panel" />
   </SubHeaderWrapper>
 );
 

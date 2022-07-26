@@ -4,8 +4,7 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
 import { TEXT_SECONDARY_LIGHT } from 'style-constants';
-import closeIcon from 'images/close.svg?external';
-import Icon from 'components/Icon';
+import CloseIcon from 'icons/Close';
 
 import ModalStyled from './ModalStyled';
 import Blanket from './Blanket';
@@ -35,11 +34,10 @@ export const ModalDialog = ({ children, show, closeModal }) => {
     <React.Fragment>
       <ModalStyled>
         <div className="d-flex justify-content-end">
-          <Icon
+          <CloseIcon
+            fill={TEXT_SECONDARY_LIGHT}
+            size={[16, 16]}
             onClick={closeModal}
-            icon={closeIcon}
-            width="16"
-            color={TEXT_SECONDARY_LIGHT}
           />
         </div>
         <div className="modal-children">{children}</div>

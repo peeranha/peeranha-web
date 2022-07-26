@@ -9,8 +9,8 @@ import commonMessages from 'common-messages';
 import { getFormattedNum2 } from 'utils/numbers';
 import { getSingleCommunityDetails } from 'utils/communityManagement';
 
-import usersHeaderFilter from 'images/communitiesHeaderFilter.svg?external';
-import usersHeader from 'images/usersHeader.svg?external';
+import FilterIcon from 'icons/Filter';
+import UsersBigIcon from 'icons/UsersBig';
 
 import H3 from 'components/H3';
 import Dropdown from 'components/Dropdown';
@@ -18,8 +18,6 @@ import Span from 'components/Span';
 import Ul from 'components/Ul';
 import CheckedItem from 'components/Li/CheckedItem';
 import MediumIcon, { MediumIconStyled } from 'components/Icon/MediumIcon';
-import Icon from 'components/Icon';
-import { IconMd } from 'components/Icon/IconWithSizes';
 import Wrapper, { WrapperRightPanel } from 'components/Header/Simple';
 
 import options from './options';
@@ -27,7 +25,7 @@ import options from './options';
 const Button = ({ sorting }) => (
   <Span className="d-inline-flex align-items-center mr-2 text-capitalize" bold>
     <MediumIcon>
-      <IconMd className="mr-2" icon={usersHeaderFilter} />
+      <FilterIcon className="mr-2" stroke="#576fed" />
     </MediumIcon>
     <FormattedMessage {...options[sorting].message} />
   </Span>
@@ -54,7 +52,7 @@ export const Header = ({ sorting, dropdownFilter, userCount }) => {
     <Wrapper className="mb-to-sm-0 mb-from-sm-3">
       <H3>
         <MediumIconStyled>
-          <Icon icon={usersHeader} width="38" />
+          <UsersBigIcon stroke="#576fed" fill="#A5BCFF" size={[38, 38]} />
         </MediumIconStyled>
 
         <span>

@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="64px" height="64px" viewBox="0 0 64 64">
-  <g stroke-width="2" transform="translate(0, 0)">
-    <polygon class="stroke" points="55.8 55.8 46 57.2 47.4 47.4 55.8 55.8" fill="none" stroke="#576FED" stroke-miterlimit="10" stroke-width="5" stroke-linecap="butt" stroke-linejoin="miter" />
-    <polygon class="stroke" points="16.6 16.6 18 6.8 8.2 8.2 16.6 16.6" fill="none" stroke="#576FED" stroke-miterlimit="10" stroke-width="5" stroke-linecap="butt" stroke-linejoin="miter"/>
-    <path class="stroke" d="M51.8,51.8A28,28,0,0,0,32,4" fill="none" stroke="#576FED" stroke-miterlimit="10" stroke-width="5" stroke-linecap="butt" stroke-linejoin="miter"/>
-    <path class="stroke" d="M12.2,12.2A28,28,0,0,0,32,60" fill="none" stroke="#576FED" stroke-miterlimit="10" stroke-width="5" stroke-linecap="butt" stroke-linejoin="miter"/>
-  </g>
-</svg>
