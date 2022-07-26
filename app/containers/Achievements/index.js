@@ -246,7 +246,7 @@ const Achievements = ({
                       id={achievement.id}
                       achievementURI={achievement.achievementURI}
                       locale={locale}
-                      currentUser={profile.id === userId}
+                      currentUser={profile?.id === userId}
                     />
                   ),
               )}
