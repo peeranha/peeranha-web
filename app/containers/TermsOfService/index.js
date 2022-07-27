@@ -44,6 +44,7 @@ const TermsOfService = ({ locale }) => {
           route={routes.termsAndConditions}
           getSectionCode={getSectionCode.bind(null, SECTION_ID)}
           getQuestionCode={getQuestionCode.bind(null, SECTION_ID)}
+          collapsedMenu={false}
         />
       </div>
 

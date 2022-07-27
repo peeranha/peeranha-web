@@ -182,7 +182,7 @@
   "app.common.communityBannerInfo":
     "Use an image that’s at least 1360 x 120 pixels. File size should not exceed 1Mb",
   "app.common.fileSizeErrorMsg":
-    "File size is more than 2Mb. Choose another one...",
+    "File size is more than 5Mb. Choose another one...",
   "app.common.bannerSizeErrorMsg":
     "File size is more than 1Mb. Choose another one...",
   "app.common.incorrectBannerResolutionMsg":
@@ -841,9 +841,9 @@
   "app.containers.ViewQuestion.RulesBlock_1":
     "Here are some tips to make your answer helpful and doesn't get deleted by a moderator:",
   "app.containers.ViewQuestion.RulesBlock_2":
-    "1. Read the question carefully to understand the problem and provide the best reply you can.",
+    "1. Read the post carefully to understand the problem and provide the best reply you can.",
   "app.containers.ViewQuestion.RulesBlock_3":
-    "2. Make sure your answer answers the question and isn't just a comment or gratitude.",
+    "2. Make sure your answer replies the question asked in a post and isn't just a comment or gratitude.",
   "app.containers.ViewQuestion.RulesBlock_4":
     "3. Be polite and respectful to others.",
   "app.components.FormFields.requiredField":
@@ -1070,9 +1070,9 @@
   "app.containers.AskQuestion.contentPopupBlock_2":
     "Welcome to Peeranha. We're glad you're here and ready to make your first publication. There are just a few simple rules we all follow around here:",
   "app.containers.AskQuestion.contentPopupBlock_3":
-    "1. Make sure your questions are related to a particular community.",
+    "1. Make sure your posts are related to a particular community.",
   "app.containers.AskQuestion.contentPopupBlock_4":
-    "2. Do a bit of research to be sure your question hasn't been asked before.",
+    "2. Do a bit of research to be sure the same post hasn't been published before.",
   "app.containers.AskQuestion.contentPopupBlock_5":
     "3. Answers have to actually answer the question, and not just be a comment.",
   "app.containers.AskQuestion.contentPopupBlock_6":
