@@ -18,7 +18,7 @@ import {
 import logoutIcon from 'images/logout.svg?external';
 
 import { getUserAvatar } from 'utils/profileManagement';
-import userBodyIconAvatar from 'images/user2.svg?external';
+import UserNoPhotoIcon from 'icons/UserNoPhoto';
 
 import Dropdown from 'components/Dropdown';
 import Ul from 'components/Ul/SpecialOne';
@@ -67,12 +67,7 @@ const B = ({ profileInfo, onClick, isMenuVisible, isMobileVersion }) => (
   <span className="d-flex" onClick={onClick}>
     {(!profileInfo.avatar || profileInfo.avatar === NO_AVATAR) && (
       <NoAvatarBox isMobileVersion={isMobileVersion}>
-        <Icon
-          width="17"
-          height="19"
-          icon={userBodyIconAvatar}
-          specialStyles={!isMobileVersion && styles.dropDownIconStyles}
-        />
+        <UserNoPhotoIcon />
       </NoAvatarBox>
     )}
     {profileInfo.avatar &&

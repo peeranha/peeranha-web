@@ -1,11 +1,10 @@
-/* eslint indent: 0 */
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { TEXT_SECONDARY } from 'style-constants';
 
-import validationArrowIcon from 'images/validationArrow.svg?inline';
+import HintArrowIcon from 'icons/HintArrow';
 import { italicFont } from '../../global-styles';
 
 export const Div = styled.div`
@@ -24,7 +23,7 @@ export const Div = styled.div`
     align-items: center;
     flex-direction: ${x => (x.isSpecialPosition ? 'column' : 'row')};
 
-    img {
+    svg {
       margin-right: ${x => (x.isSpecialPosition ? '0px' : '12px')};
       transform: ${x =>
         x.isSpecialPosition ? 'rotate(90deg) translateX(8px)' : '0deg'};
@@ -58,12 +57,10 @@ export const WarningMessage = ({
     <Div className={className} isSpecialPosition={isSpecialPosition}>
       <div>
         {(tip || isSpecialPosition) && (
-          <img
+          <HintArrowIcon
             className={`${!isSpecialPosition ? 'd-none' : ''} ${
               containerIsSplittedInHalf ? 'd-md-inline' : ''
             }`}
-            src={validationArrowIcon}
-            alt="icon"
           />
         )}
 

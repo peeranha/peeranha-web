@@ -7,7 +7,7 @@ const UserNoPhoto: React.FC<IconProps> = (props): JSX.Element => (
     id="user-no-photo"
     fill="curentColor"
     viewBox="0 0 21 21"
-    size={[21, 21]}
+    size={props.size || [21, 21]}
   >
     <g transform="translate(1)" stroke="#BDBDBD" fill="none">
       <circle cx="9.5" cy="5.5" r="5" />

@@ -10,23 +10,13 @@ import {
   saveText,
 } from './ipfs';
 
-import {
-  ACCOUNT_TABLE,
-  ALL_ACCOUNTS_SCOPE,
-  ALL_TG_ACCOUNTS_SCOPE,
-  CONFIRM_TELEGRAM_ACCOUNT,
-  INF_LIMIT,
-  NO_AVATAR,
-  TG_ACCOUNT_TABLE,
-  UNLINK_TELEGRAM_ACCOUNT,
-} from './constants';
+import { NO_AVATAR } from './constants';
 import {
   callService,
   NOTIFICATIONS_INFO_SERVICE,
 } from './web_integration/src/util/aws-connector';
 import { CONTRACT_USER, UPDATE_ACC } from './ethConstants';
 import { getUser, getUserPermissions, getUserStats } from './theGraph';
-import { WebIntegrationError } from './errors';
 import { isUserExists } from './accountManagement';
 
 export const getRatingByCommunity = (user, communityId) => {
