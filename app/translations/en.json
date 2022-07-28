@@ -1276,9 +1276,9 @@
     "Be the one of first 10 Users to achieve the \"Superhero\" status",
 
   "app.containers.Achievements.progressBarPopover.ratingRelated.single":
-    "rating point left to unlock this achievement",
+    "reputation point left to unlock this achievement",
   "app.containers.Achievements.progressBarPopover.ratingRelated.multiple":
-    "rating points left to unlock this achievement",
+    "reputation points left to unlock this achievement",
   "app.containers.Achievements.progressBarPopover.questionAskedRelated.single":
     "question left to unlock this achievement",
   "app.containers.Achievements.progressBarPopover.questionAskedRelated.multiple":
