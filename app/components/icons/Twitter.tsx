@@ -5,9 +5,9 @@ const Twitter: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
     id="twitter"
-    fill="curentColor"
+    fill="currentColor"
     viewBox="0 0 24 24"
-    size={[24, 24]}
+    size={props.size || [24, 24]}
   >
     <path
       fill={props.fill || '#282828'}

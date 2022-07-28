@@ -70,7 +70,7 @@ export { default as Copy } from './Copy';
 export { default as CreateCommunity } from './CreateCommunity';
 export { default as Download } from './Download';
 export { default as EditSmall } from './EditSmall';
-export { default as GithabSupport } from './GithabSupport';
+export { default as GithubSupport } from './GithubSupport';
 export { default as Hat } from './Hat';
 export { default as Burger } from './Burger';
 export { default as Email } from './Email';

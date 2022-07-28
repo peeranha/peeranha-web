@@ -7,13 +7,12 @@ import commonMessages from 'common-messages';
 import { getLinks } from 'media-links';
 import { TEXT_PRIMARY } from 'style-constants';
 
-import mediumIcon from 'images/mediumsupport.svg?inline';
-import twitterIcon from 'images/twittersupport.svg?inline';
-import linkedinIcon from 'images/linkedinsupport.svg?inline';
-import githubIcon from 'images/guthubsupport.svg?inline';
-import facebookIcon from 'images/facebook.svg?inline';
-import calendarIcon from 'images/ico_email.svg?inline';
-import telegramIcon from 'images/telegramOfficialBlue.svg?inline';
+import MediumSupportIcon from 'icons/MediumSupport';
+import TwitterIcon from 'icons/Twitter';
+import GithubSupportIcon from 'icons/GithubSupport';
+import LinkedinIcon from 'icons/Linkedin';
+import EmailIcon from 'icons/Email';
+import TelegramIcon from 'icons/Telegram';
 
 import Span from 'components/Span';
 import H3 from 'components/H3';
@@ -31,7 +30,7 @@ const MediaItem = Base.extend`
   padding: 20px;
   white-space: nowrap;
 
-  img {
+  svg {
     width: 25px;
     height: 25px;
     object-fit: contain;
@@ -82,32 +81,32 @@ const Contacts = ({ locale }) => (
 
     <MediaList>
       <MediaItem href={getLinks(locale).twitter} target="_blank">
-        <img src={twitterIcon} alt="twitter" />
+        <TwitterIcon fill="#05ADEE" />
         <Span bold>Twitter</Span>
       </MediaItem>
 
       <MediaItem href={getLinks(locale).github} target="_blank">
-        <img src={githubIcon} alt="github" />
+        <GithubSupportIcon fill="#435761" size={[35, 35]} />
         <Span bold>Github</Span>
       </MediaItem>
 
       <MediaItem href={getLinks(locale).linkedin} target="_blank">
-        <img src={linkedinIcon} alt="linkedin" />
+        <LinkedinIcon fill="#0277B5" size={[29, 29]} />
         <Span bold>Linkedin</Span>
       </MediaItem>
 
       <MediaItem href={getLinks(locale).medium} target="_blank">
-        <img src={mediumIcon} alt="medium" />
+        <MediumSupportIcon fill="#313131" />
         <Span bold>Medium</Span>
       </MediaItem>
 
       <MediaItem href={getLinks(locale).telegram} target="_blank">
-        <img src={telegramIcon} alt="telegram" />
+        <TelegramIcon fill="#32afed" />
         <Span bold>Telegram</Span>
       </MediaItem>
 
       <MediaItem href={getLinks(locale).email}>
-        <img src={calendarIcon} alt="calendar" />
+        <EmailIcon stroke="#576FED" />
         <EmailSpan>hello@peeranha.io</EmailSpan>
       </MediaItem>
     </MediaList>

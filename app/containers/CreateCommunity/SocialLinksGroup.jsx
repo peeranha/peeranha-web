@@ -3,8 +3,6 @@ import { Field } from 'redux-form/immutable';
 import { intlShape } from 'react-intl';
 import PropTypes from 'prop-types';
 
-import { strLength8x100 } from 'components/FormFields/validate';
-
 import facebookIcon from 'images/logo-facebook.svg?external';
 import instagramIcon from 'images/logo-instagram.svg?external';
 import youtubeIcon from 'images/logo-youtube.svg?external';

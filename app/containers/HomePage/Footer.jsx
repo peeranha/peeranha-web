@@ -11,16 +11,14 @@ import {
   TEXT_SECONDARY_LIGHT,
 } from 'style-constants';
 
-import Icon from 'components/Icon';
-
 import partners from 'images/footer-partners.svg?inline';
 import logo from 'images/LogoBlack.svg?inline';
-import medium from 'images/medium.svg?external';
-import twitter from 'images/twitter.svg?external';
-import linkedin from 'images/in.svg?external';
-import github from 'images/github.svg?external';
-import facebook from 'images/facebook.svg?external';
-import telegram from 'images/social-media-logos/logo-telegram-glyph-24.svg?external';
+import MediumSupportIcon from 'icons/MediumSupport';
+import TwitterIcon from 'icons/Twitter';
+import GithubSupportIcon from 'icons/GithubSupport';
+import LinkedinIcon from 'icons/Linkedin';
+import TelegramIcon from 'icons/Telegram';
+import FacebookIcon from 'icons/Facebook';
 
 import * as routes from 'routes-config';
 
@@ -55,7 +53,7 @@ const Box = Gradient.extend`
           text-align: center;
           cursor: pointer;
           color: ${TEXT_SECONDARY_LIGHT};
-          height: 20px;
+          line-height: 22px;
           overflow: hidden;
 
           &:hover {
@@ -86,10 +84,10 @@ const Box = Gradient.extend`
 
 const Year = new Date().getFullYear();
 
-const MediaLink = ({ href, src }) =>
+const MediaLink = ({ href, icon }) =>
   href ? (
     <a href={href} target="_blank">
-      <Icon icon={src} width="22" />
+      {icon}
     </a>
   ) : null;
 
@@ -108,12 +106,34 @@ const Footer = ({ locale }) => (
         </div>
         <div className="d-flex align-items-center justify-content-center media-section">
           <div className="d-flex justify-content-center align-items-center icons">
-            <MediaLink href={getLinks(locale).facebook} src={facebook} />
-            <MediaLink href={getLinks(locale).twitter} src={twitter} />
-            <MediaLink href={getLinks(locale).github} src={github} />
-            <MediaLink href={getLinks(locale).medium} src={medium} />
-            <MediaLink href={getLinks(locale).linkedin} src={linkedin} />
-            <MediaLink href={getLinks(locale).telegram} src={telegram} />
+            <MediaLink
+              href={getLinks(locale).facebook}
+              icon={<FacebookIcon fill="rgb(87, 111, 237)" size={[22, 22]} />}
+            />
+            <MediaLink
+              href={getLinks(locale).twitter}
+              icon={<TwitterIcon fill="rgb(87, 111, 237)" size={[22, 22]} />}
+            />
+            <MediaLink
+              href={getLinks(locale).github}
+              icon={
+                <GithubSupportIcon fill="rgb(87, 111, 237)" size={[22, 22]} />
+              }
+            />
+            <MediaLink
+              href={getLinks(locale).medium}
+              icon={
+                <MediumSupportIcon fill="rgb(87, 111, 237)" size={[22, 20]} />
+              }
+            />
+            <MediaLink
+              href={getLinks(locale).linkedin}
+              icon={<LinkedinIcon fill="rgb(87, 111, 237)" size={[22, 22]} />}
+            />
+            <MediaLink
+              href={getLinks(locale).telegram}
+              icon={<TelegramIcon fill="rgb(87, 111, 237)" size={[22, 22]} />}
+            />
           </div>
         </div>
       </div>

@@ -3,6 +3,8 @@ import { FormattedMessage } from 'react-intl';
 
 import commonMessages from 'common-messages';
 
+import TutorialIcon from 'icons/Tutorial';
+
 import tutorialPageHeader from 'images/tutorialPageHeader.svg?external';
 
 import { MediumIconStyled } from 'components/Icon/MediumIcon';
@@ -15,6 +17,7 @@ const Header = () => (
     <H3>
       <MediumIconStyled>
         <Icon icon={tutorialPageHeader} width="38" />
+        {/*<TutorialIcon/>*/}
       </MediumIconStyled>
 
       <span className="">

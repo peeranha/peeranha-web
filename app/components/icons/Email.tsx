@@ -7,7 +7,7 @@ const Email: React.FC<IconProps> = (props): JSX.Element => (
     id="email"
     fill="curentColor"
     viewBox="0 0 28 19"
-    size={[28, 19]}
+    size={props.size || [28, 19]}
   >
     <g
       fill={props.fill || '#FFF'}

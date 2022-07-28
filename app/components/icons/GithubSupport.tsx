@@ -1,13 +1,13 @@
 import React from 'react';
 import IconComponent, { IconProps } from './IconComponent';
 
-const GithabSupport: React.FC<IconProps> = (props): JSX.Element => (
+const GithubSupport: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
-    id="githab-support."
-    fill="curentColor"
+    id="github-support."
+    fill="currentColor"
     viewBox="0 0 32 32"
-    size={[32, 32]}
+    size={props.size || [32, 32]}
   >
     <path
       fill={props.fill || '#282828'}
@@ -16,4 +16,4 @@ const GithabSupport: React.FC<IconProps> = (props): JSX.Element => (
   </IconComponent>
 );
 
-export default GithabSupport;
+export default GithubSupport;
