@@ -2,21 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { translationMessages } from 'i18n';
-import { FormattedMessage } from 'react-intl';
 import { Field, reduxForm } from 'redux-form/immutable';
-
-import messages from 'common-messages';
 
 import { scrollToErrorField } from 'utils/animation';
 import { hasCommunityModeratorRole } from 'utils/properties';
 import { strLength15x30000, required } from 'components/FormFields/validate';
 
-import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import {
   makeSelectAccount,
   makeSelectProfileInfo,
 } from 'containers/AccountProvider/selectors';
+import { useTranslation } from 'react-i18next';
 
 import Wrapper from 'components/FormFields/Wrapper';
 import Span from 'components/Span';
@@ -50,61 +46,60 @@ export const AnswerForm = ({
   label,
   previewLabel,
   textEditorValue,
-  answerTypeLabel,
   isOfficialRepresentative,
   isAnswered,
   account,
-}) => (
-  <FormBox onSubmit={handleSubmit(sendAnswer)}>
-    {isAnswered && (
-      <BlockedInfoArea>
-        <FormattedMessage {...messages.questionIsAnswered} />
-      </BlockedInfoArea>
-    )}
-    {!account && (
-      <BlockedInfoArea>
-        <FormattedMessage {...messages.logInToAnswer} />
-      </BlockedInfoArea>
-    )}
-    <Field
-      name={TEXT_EDITOR_ANSWER_FORM}
-      component={TextEditorField}
-      disabled={sendAnswerLoading}
-      validate={[strLength15x30000, required]}
-      warn={[strLength15x30000, required]}
-      label={label}
-      previewLabel={previewLabel}
-    />
-    {isOfficialRepresentative && (
+}) => {
+  const { t } = useTranslation();
+
+  return (
+    <FormBox onSubmit={handleSubmit(sendAnswer)}>
+      {isAnswered && (
+        <BlockedInfoArea>{t('common.questionIsAnswered')}</BlockedInfoArea>
+      )}
+      {!account && (
+        <BlockedInfoArea>{t('common.logInToAnswer')}</BlockedInfoArea>
+      )}
       <Field
-        name={ANSWER_TYPE_FORM}
-        component={Checkbox}
+        name={TEXT_EDITOR_ANSWER_FORM}
+        component={TextEditorField}
         disabled={sendAnswerLoading}
-        label={<span>{answerTypeLabel}</span>}
+        validate={[strLength15x30000, required]}
+        warn={[strLength15x30000, required]}
+        label={label}
         previewLabel={previewLabel}
-        width="90px"
       />
-    )}
-    <Wrapper label={previewLabel} className="mt-3">
-      <PreviewWrapper>
-        {textEditorValue ? (
-          <TextBlock className="my-2" content={textEditorValue} />
-        ) : (
-          <Span color={TEXT_SECONDARY} fontSize="14" isItalic>
-            <FormattedMessage {...messages.nothingToSeeYet} />
-          </Span>
-        )}
-      </PreviewWrapper>
-    </Wrapper>
-    <Button
-      id={sendButtonId}
-      disabled={sendAnswerLoading || isAnswered || !account}
-      type="submit"
-    >
-      {submitButtonName}
-    </Button>
-  </FormBox>
-);
+      {isOfficialRepresentative && (
+        <Field
+          name={ANSWER_TYPE_FORM}
+          component={Checkbox}
+          disabled={sendAnswerLoading}
+          label={<span>{t('common.official')}</span>}
+          previewLabel={previewLabel}
+          width="90px"
+        />
+      )}
+      <Wrapper label={previewLabel} className="mt-3">
+        <PreviewWrapper>
+          {textEditorValue ? (
+            <TextBlock className="my-2" content={textEditorValue} />
+          ) : (
+            <Span color={TEXT_SECONDARY} fontSize="14" isItalic>
+              {t('common.nothingToSeeYet')}
+            </Span>
+          )}
+        </PreviewWrapper>
+      </Wrapper>
+      <Button
+        id={sendButtonId}
+        disabled={sendAnswerLoading || isAnswered || !account}
+        type="submit"
+      >
+        {submitButtonName}
+      </Button>
+    </FormBox>
+  );
+};
 
 AnswerForm.propTypes = {
   handleSubmit: PropTypes.func,
@@ -116,7 +111,6 @@ AnswerForm.propTypes = {
   sendAnswerLoading: PropTypes.bool,
   communityId: PropTypes.number,
   textEditorValue: PropTypes.string,
-  answerTypeLabel: PropTypes.string,
   isOfficialRepresentative: PropTypes.bool,
   properties: PropTypes.array,
   questionView: PropTypes.bool,
@@ -136,8 +130,6 @@ export default React.memo(
       { answer, communityId, questionView, isOfficialReply, form: formName },
     ) => {
       const form = state.toJS().form[formName] || { values: {} };
-      const locale = makeSelectLocale()(state);
-      const translate = translationMessages[locale];
       const profileInfo = makeSelectProfileInfo()(state);
       const isOfficialRepresentative = hasCommunityModeratorRole(
         profileInfo?.permissions,
@@ -150,7 +142,6 @@ export default React.memo(
         enableReinitialize: true,
         isOfficialRepresentative,
         textEditorValue: form.values[TEXT_EDITOR_ANSWER_FORM],
-        answerTypeLabel: translate[messages.official.id],
         initialValues: {
           [TEXT_EDITOR_ANSWER_FORM]: answer,
           [ANSWER_TYPE_FORM]: questionView

@@ -1,10 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
 import { getSingleCommunityDetails } from 'utils/communityManagement';
-
-import messages from 'common-messages';
 
 import facebookIcon from 'images/logo-facebook.svg?inline';
 import instagramIcon from 'images/logo-instagram.svg?inline';
@@ -47,14 +45,16 @@ const SubHeaderNav = styled.div`
 `;
 
 const BloggerStyleSubHeader = () => {
+  const { t } = useTranslation();
   const community = getSingleCommunityDetails();
   const { socialNetworks = {} } = community;
   const hasSocialNetworks = Object.values(socialNetworks).some(link => !!link);
+
   return (
     <Container>
       {hasSocialNetworks ? (
         <SubHeaderNav>
-          <FormattedMessage {...messages.followSocialMedia} />
+          {t('common.followSocialMedia')}
           {Object.keys(socialNetworks)
             .filter(key => socialNetworks[key])
             .map(key => (

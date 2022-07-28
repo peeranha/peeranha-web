@@ -1,0 +1,30 @@
+{
+  "title": "Wallet",
+  "description": "Wallet | Description",
+  "eosAccount": "Telos account",
+  "currentPeriod": "Current period in progress",
+  "periodStillInProgress":
+    "This period is still in progress. It's high time to increase your reputation and gain some tokens.",
+  "payoutPending": "Payout pending",
+  "weAreAnalyzing":
+    "We are analyzing the activities for this period. You will  see more details next period.",
+  "estimatedPayout": "Estimated payout",
+  "paidOut": "Paid out",
+  "rewarded": "Rewarded",
+  "week": "Period",
+  "getReward": "Get reward",
+  "received": "Received",
+  "thisIsRegistrationWeek":
+    "This is registration period. We are setting up your wallet. Reward for this period will be applied to the next period.",
+  "registrationWeek": "Registration period",
+  "yourWalletWasSuccessfullySet":
+    "Your wallet was successfully set during this period",
+  "getMoreWithBoost": "Get more rewards with Boost",
+  "stakedInCurrentPeriod": "Staked in the current period",
+  "stakedInNextPeriod": "Staked in next period",
+  "totalBalance": "Total balance",
+  "boostHelp": "Learn {whatABoostIs} and {howToStake} in the {FAQs}.",
+  "whatABoostIs": "what a Boost is",
+  "howToStake": "how you place a stake",
+  "FAQs": "FAQs"
+}

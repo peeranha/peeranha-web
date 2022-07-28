@@ -1,0 +1,995 @@
+{
+  "app.telegram.user": "Telegram user",
+  "app.telegram.userLabelPopover":
+    "This is a temporary account provided by Telegram Bot",
+
+  "app.containers.TermsOfService.title": "Terms of Service",
+  "app.containers.TermsOfService.description": "Terms of Service: description",
+  "app.containers.Search.title": "Search",
+  "app.containers.Search.description": "Search: description",
+  "app.containers.ChangeEmail.newEmail": "New email",
+  "app.containers.ChangeEmail.confirmNewEmail": "Confirm new email",
+  "app.containers.ChangeEmail.emailsDoNotMatch": "Emails do not match",
+  "app.containers.DeleteAccount.deleteAccount": "Delete account",
+  "app.containers.DeleteAccount.areYouLeaving": "Are you leaving?",
+  "app.containers.DeleteAccount.iUnderstand":
+    "I understand that this operation does not remove my account on Telos blockchain. Account is removed only from wallet service.",
+  "app.containers.DeleteAccount.iHaveBackup":
+    "I have back up for my Telos private keys.",
+
+  "app.containers.Header.walletTooltipPart1": "You have ",
+  "app.containers.Header.walletTooltipPart2": " rewards ready",
+
+  "app.containers.Faq.title": "FAQ",
+  "app.containers.Faq.description": "FAQ: description",
+  "app.containers.Faq.faq": "Frequently asked questions",
+
+  "app.containers.Moderation.title": "Moderator permissions",
+  "app.common.globalModerator": "Global moderator",
+
+  "app.common.verifyFacebookAccount": "Account verification",
+  "app.common.facebookButton": "Facebook",
+  "app.common.selectCommunity": "Select...",
+  "app.containers.DeleteFacebookData.deleteFacebookDataTitle":
+    "Delete facebook data",
+  "app.containers.DeleteFacebookData.pageToCheckFacebookId":
+    "This page will help you to check whether Peeranha stores your facebook data and delete it.",
+  "app.containers.DeleteFacebookData.checkFacebookId":
+    "Please, enter your facebook user ID and click 'Check ID' button.",
+  "app.containers.DeleteFacebookData.ifDataStored":
+    "If there is stored data we will send you email with verification code to confirm data deletion.",
+  "app.containers.DeleteFacebookData.enterYourFacebookId":
+    "Enter your facebook user ID",
+  "app.containers.DeleteFacebookData.facebookUserId": "Facebook user ID",
+  "app.containers.DeleteFacebookData.checkId": "Check ID",
+  "app.containers.DeleteFacebookData.completeDeletionPage":
+    "This page will help you to complete facebook data deletion from Peeranha.",
+  "app.containers.DeleteFacebookData.completeDeletion":
+    "To complete data deletion, please, enter verification code you recieved via email and click the 'Confirm deletion' button.",
+  "app.containers.DeleteFacebookData.ifCodeHasExpired":
+    "If your verification code has expired or something went wrong, click the 'Send another code' button and check your email for a new code.",
+  "app.containers.DeleteFacebookData.contactSupprortTeam":
+    "If you are unable to delete the data, please contact our ",
+  "app.containers.DeleteFacebookData.supportTeam": "support team",
+  "app.containers.DeleteFacebookData.enterYourCode":
+    "Enter your verification code",
+  "app.containers.DeleteFacebookData.fbDelDataCompletedTitle":
+    "Data deletion completed",
+  "app.containers.DeleteFacebookData.fbDataDeletionCompleted":
+    "Congratulations! Peeranha has finished deleting all your facebook user data.",
+  "app.containers.DeleteFacebookData.noStoredDataNow":
+    "We no longer store any of your facebook data.",
+  "app.containers.DeleteFacebookData.congratulations":
+    "Congratulations! Data deletion is successfully completed!",
+  "app.containers.DeleteFacebookData.confirmDeletion": "Confirm deletion",
+
+  "app.containers.Moderation.givePermissions": "Give permissions",
+  "app.containers.Moderation.givePermissionsDescription":
+    "Allows you to give and revoke community moderator permission.",
+
+  "app.containers.Moderation.permissionInfinite": "Infinite Impact",
+  "app.containers.Moderation.permissionInfiniteDescription":
+    "Allows you to delete posts, answers and comments in one click",
+
+  "app.containers.Moderation.permissionIgnoreRating": "Ignore rating",
+  "app.containers.Moderation.permissionIgnoreRatingDescription":
+    "Allows you to perform actions that are rating restricted",
+
+  "app.containers.Moderation.permissionCreateCommunity": "Create community",
+  "app.containers.Moderation.permissionCreateCommunityDescription":
+    "Allows you to instantly create a community",
+
+  "app.containers.Moderation.permissionCreateTag": "Create tag",
+  "app.containers.Moderation.permissionCreateTagDescription":
+    "Allows you to instantly create a tag",
+
+  "app.containers.Moderation.permissionChangePostType": "Change post type",
+  "app.containers.Moderation.permissionChangePostTypeDescription":
+    "Allows you to change post type",
+
+  "app.containers.Moderation.permissionSelectTopQuestion":
+    "Select top question",
+  "app.containers.Moderation.permissionSelectTopQuestionDescription":
+    "Allows you to select a question that will be displayed on \"Top\" page",
+
+  "app.containers.Moderation.permissionOfficialAnswer": "Post official answer",
+  "app.containers.Moderation.permissionOfficialAnswerDescription":
+    "Allows you to post an official answer",
+
+  "app.containers.Tutorial.title": "Tutorial",
+  "app.containers.Tutorial.description": "Tutorial: description",
+  "app.containers.Tutorial.tutorial": "Tutorial",
+
+  "app.containers.Users.title": "Users",
+  "app.containers.Users.description": "Users: description",
+
+  "app.containers.FollowCommunityButton.header": "Header",
+  "app.containers.FollowCommunityButton.subscribe": "Subscribe",
+  "app.containers.FollowCommunityButton.unsubscribe": "Unsubscribe",
+  "app.containers.FollowCommunityButton.subscribeToThisCommunity":
+    "Subscribe to this community",
+
+  "app.containers.ExistingCommunities.singleCommunityTooltip":
+    "This community has Q&A website on another domain",
+
+  "app.components.RatingStatus.stranger": "Stranger",
+  "app.components.RatingStatus.newbie": "Newbie",
+  "app.components.RatingStatus.jrResident": "Junior",
+  "app.components.RatingStatus.resident": "Resident",
+  "app.components.RatingStatus.srResident": "Senior",
+  "app.components.RatingStatus.heroResident": "Hero",
+  "app.components.RatingStatus.legResident": "Superhero",
+  "app.components.RatingStatus.banned": "Banned",
+
+  "app.containers.SuggestedTags.title": "Suggested tags",
+  "app.containers.SuggestedTags.description": "Suggested tags | Description",
+  "app.containers.SuggestedTags.noSuggestedTags": "There are no suggested tags",
+  "app.containers.SuggestedTags.topTagsInCommunity": "Top tags in community",
+  "app.containers.SuggestedTags.tagDescription": "Description",
+
+  "app.containers.PrivacyPolicy.title": "Privacy policy",
+  "app.containers.PrivacyPolicy.description": "Privacy policy, description",
+
+  "app.containers.Support.title": "Support",
+  "app.containers.Support.description": "Support | Description",
+  "app.containers.Support.feelFreeToAsk": "Feel free to ask",
+  "app.containers.Support.alsoWeHighly":
+    "We highly appreciate your feedback, opinion, and suggestions for our platform. Please, send us a few lines or even better let us know if you have 15 minutes to chat.",
+
+  "app.containers.CreateTag.title": "Create tag",
+  "app.containers.CreateTag.description": "Create tag | Description",
+  "app.containers.CreateTag.community": "Community",
+  "app.containers.CreateTag.communityTip":
+    "Community where tag will be created",
+  "app.containers.CreateTag.name": "Name",
+  "app.containers.CreateTag.nameTip": "Unique name of the new tag",
+  "app.containers.CreateTag.descriptionField": "Description",
+  "app.containers.CreateTag.descriptionFieldTip":
+    "Instructions on how to use tag",
+  "app.containers.CreateTag.createTag": "Create tag",
+  "app.containers.CreateTag.newTag": "New tag",
+  "app.containers.CreateTag.tagIsKeyword":
+    "A tag is used as a keyword or a label to categorize your question.",
+  "app.containers.CreateTag.usingTheRightTags":
+    "Using the right tags makes it easier for other users to find your questions.",
+
+  "app.containers.EditTag.title": "Edit tag",
+  "app.containers.EditTag.description": "Save | Description",
+
+  "app.containers.Tags.backToList": "Back to list",
+  "app.containers.Tags.didntFindSuitableTag": "Did not find suitable tags?",
+  "app.containers.Tags.youHaveAlreadyVoted": "You already voted",
+  "app.containers.Tags.suggestTagWhichWillbeUseful":
+    "Suggest a tag, which will be useful to you and 100 other users who will vote for it.",
+  "app.containers.Tags.creatorCannotUpvoteOwnComm":
+    "Creators cannot upvote their own tag",
+
+  "app.containers.TagsOfCommunity.title": "Tags",
+  "app.containers.TagsOfCommunity.description": "Description of Tags",
+  "app.containers.TagsOfCommunity.suggestedTags": "Suggested tags",
+  "app.containers.TagsOfCommunity.createTag": "Create tag",
+  "app.containers.TagsOfCommunity.voteForNewTags": "Vote for new tags",
+  "app.containers.TagsOfCommunity.findTag": "Find a tag",
+
+  "app.containers.SuggestedCommunities.title": "Suggested communities",
+  "app.containers.SuggestedCommunities.description":
+    "Suggested communities | Description",
+  "app.containers.SuggestedCommunities.votingForNewComm":
+    "Vote for new community",
+  "app.containers.SuggestedCommunities.whyWeeNeedIt": "Why do we need it?",
+
+  "app.containers.VoteForNewCommunityButton.youHaveAlreadyVoted":
+    "You have already voted",
+  "app.containers.VoteForNewCommunityButton.creatorCannotUpvoteOwnComm":
+    "Creators cannot upvote their own community",
+  "app.containers.VoteForNewCommunityButton.youCannotChange":
+    "You cannot change your vote. Are you sure?",
+
+  "app.containers.VoteForNewTagButton.creatorCannotUpvoteOwnTag":
+    "Creators cannot upvote their own tag",
+
+  "app.containers.Communities.title": "Communities",
+  "app.containers.Communities.description": "Communities | Description",
+  "app.containers.Communities.tags": "Tags",
+  "app.containers.Communities.voting": "Voting",
+  "app.containers.Communities.suggestCommunity": "Create community",
+
+  "app.containers.CreateCommunity.title": "Community | Create",
+  "app.containers.CreateCommunity.description":
+    "Description of CreateCommunity",
+  "app.containers.CreateCommunity.website": "Official site",
+  "app.containers.CreateCommunity.websiteTip": "Optional",
+  "app.containers.CreateCommunity.avatar": "Avatar",
+  "app.containers.CreateCommunity.communityTitle": "Title",
+  "app.containers.CreateCommunity.shortDescription": "Short description",
+  "app.containers.CreateCommunity.about": "About community",
+  "app.containers.CreateCommunity.optional": "Optional",
+  "app.containers.CreateCommunity.whyWeNeedIt": "Why we need it?",
+  "app.containers.CreateCommunity.newCommunity": "New community",
+  "app.containers.CreateCommunity.createCommunity": "Create community",
+  "app.containers.CreateCommunity.oneMoreTag": "One more tag",
+  "app.containers.CreateCommunity.tags": "Tags",
+  "app.containers.CreateCommunity.tagsAreNeeded":
+    "Tags are needed for asking questions. You are required to specify {min}-{max} main tags.",
+  "app.containers.CreateCommunity.tagTitle": "Tag",
+  "app.containers.CreateCommunity.tagDescription": "Description",
+  "app.containers.CreateCommunity.communityTitleTip": "Name of new community",
+  "app.containers.CreateCommunity.shortDescriptionTip":
+    "Brief description about the community and its purpose.",
+  "app.containers.CreateCommunity.whyWeNeedItTip":
+    "This information is visible to users who vote for new communities.",
+  "app.containers.CreateCommunity.tagTitleTip": "Unique name of the tag",
+  "app.containers.CreateCommunity.tagDescriptionTip":
+    "Description when to use the tag",
+  "app.containers.CreateCommunity.imageWillBeTheFace":
+    "Image will be the face of community",
+  "app.containers.CreateCommunity.specifyMemorableTitle":
+    "Specify a memorable title",
+  "app.containers.CreateCommunity.communityDescriptionShouldBe":
+    "Community description should be concise and have a clear description for its users",
+  "app.containers.CreateCommunity.writeWhyDoWeeNeed":
+    "Describe how this community will attract the attention of other users and collect votes",
+  "app.containers.CreateCommunity.onlyTagsWithUniqueTitles":
+    "Form should allow only tags with unique names",
+  "app.containers.CreateCommunity.communityLanguage": "Language",
+  "app.containers.CreateCommunity.communityLanguageTip":
+    "Questions in the community will only be allowed in the selected language",
+  "app.containers.CreateCommunity.thatisgreat": "That's great!",
+  "app.containers.CreateCommunity.communityWillAppear":
+    "Your community will appear in the list and other users can vote for it. 100 votes are needed for a community to be created.",
+  "app.containers.CreateCommunity.goToList": "Go to list",
+  "app.containers.CreateCommunity.maxTagsNumberReached":
+    "Max tags number was reached",
+  "app.containers.CreateCommunity.questionsType": "Questions Type",
+  "app.containers.CreateCommunity.anyQuestionDescriptionLabel":
+    "Users will be able to ask both General and Expert types of question in this community",
+  "app.containers.CreateCommunity.anyQuestionDescriptionList": [],
+  "app.containers.CreateCommunity.facebook": "Facebook",
+  "app.containers.CreateCommunity.instagram": "Instagram",
+  "app.containers.CreateCommunity.youtube": "YouTube",
+  "app.containers.CreateCommunity.vk": "VK",
+  "app.containers.CreateCommunity.mainColor": "Main color",
+  "app.containers.CreateCommunity.highlightColor": "Highlight color",
+  "app.containers.CreateCommunity.communityType": "Community Type",
+  "app.containers.CreateCommunity.communityTypeTip": "Optional",
+  "app.containers.CreateCommunity.socialLinks": "Social links",
+  "app.containers.CreateCommunity.socialLinksTip": "Optional",
+  "app.containers.CreateCommunity.colors": "Colors",
+  "app.containers.CreateCommunity.topBanner": "Top banner",
+
+  "app.containers.EditCommunity.communityTitleTip": "Name of the community",
+  "app.containers.EditCommunity.description": "Description of EditCommunity",
+  "app.containers.EditCommunity.editCommunity": "Save",
+  "app.containers.EditCommunity.header": "Edit community",
+  "app.containers.EditCommunity.pageTitle": "Community | Edit",
+
+  "app.containers.Communities.didntFindAnyInteresting":
+    "Didn’t find anything interesting?",
+  "app.containers.Communities.suggestInterestingComm":
+    "Suggest a community, which will be interesting to you and 100 other users who will vote for it.",
+
+  "app.containers.HomePage.title":
+    "Peeranha - Decentralized Q&A website with crypto rewards",
+  "app.containers.HomePage.description":
+    "Decentralized questions and answers website that rewards users with crypto tokens for their contributions.",
+  "app.containers.HomePage.faqTitle": "Peeranha | FAQ",
+  "app.containers.HomePage.faqDescription": "Peeranha | FAQ Description",
+  "app.containers.HomePage.about": "About",
+  "app.containers.HomePage.rewards": "Rewards",
+  "app.containers.HomePage.faq": "FAQ",
+  "app.containers.HomePage.team": "Team",
+  "app.containers.HomePage.login": "Log in",
+  "app.containers.HomePage.signUpFree": "Sign up",
+  "app.containers.HomePage.yourContributionsRewarded":
+    "Your Contributions Rewarded",
+  "app.containers.HomePage.weAreDecentralized":
+    "Community questions and answers platform for solving your technical challenges in Web3.",
+  "app.containers.HomePage.getStarted": "Get started",
+  "app.containers.HomePage.yourEmail": "Your email address",
+  "app.containers.HomePage.differentThan":
+    "Peeranha is more than a Q&A website.",
+  "app.containers.HomePage.differentThan2":
+    "It is a community that puts users at the heart by:",
+
+  "app.containers.HomePage.rewardingUser": "Rewarding Users with Crypto",
+  "app.containers.HomePage.peopleSaveHours":
+    "Peeranha motivates to ask questions and provide relevant answers as they are rewarded with PEER crypto tokens.",
+
+  "app.containers.HomePage.ownershipByUsers":
+    "All question and answers in one place",
+  "app.containers.HomePage.peeranhaDecentralized":
+    "Peeranha puts power in the hands of the Web3 projects. We help to grow faster and access the structured knowledgebase.",
+
+  "app.containers.HomePage.earlyAdopters": "Valuing Early Adopters",
+  "app.containers.HomePage.peeranhaPhilosophy":
+    "Peeranha generously rewards early users for their time. As the website grows, rewards will even out and be distributed to more members of the community.",
+
+  "app.containers.HomePage.simpleAndAffordable": "Simple and affordable",
+  "app.containers.HomePage.getHelp": "Getting Help from the Community",
+  "app.containers.HomePage.askQuestionAndGetHelp":
+    "Peeranha has passionate experts from all areas of life that are ready to help others. Users can return the favor by helping thousands of others answer questions they may also have. Users can get the answers to their questions in a matter of minutes.",
+
+  "app.containers.HomePage.helpfulAndGenerous": "Helpful and generous",
+  "app.containers.HomePage.shareKnowledge": "Sharing Knowledge",
+  "app.containers.HomePage.helpCommunity":
+    "Experts contribute to the community by answering questions from their peers. Answers not only help the person who asked the question but thousands of others who have similar questions. Once a question has been answered, the knowledge can be shared with current and future users.",
+
+  "app.containers.HomePage.profitableAndModern": "Profitable and modern",
+  "app.containers.HomePage.getPaidInCrypto": "Receiving Crypto Token Rewards",
+  "app.containers.HomePage.getPaidInCryptoFromWeekly":
+    "A weekly pool of reward tokens is distributed to users for their contributions. Contributions consist of posting and answering questions. Reward tokens can be sold on the open market to anyone wanting to pay for content to be placed on the platform. An example of paid content can be product advertisements or job openings. Users are always rewarded for their valuable contributions. ",
+
+  "app.containers.HomePage.worthyAndPrestig": "Worthy and prestigious",
+  "app.containers.HomePage.earnReputation": "Earning Reputation",
+  "app.containers.HomePage.whetherYouAsk":
+    "As users build their level of contributions, they also improve their reputation. The community recognizes valuable contributors that answer questions for others. Earning a high reputation unlocks privileges and the user’s standing within the community increases!",
+
+  "app.containers.HomePage.honorableAndFascinating":
+    "Honorable and fascinating",
+  "app.containers.HomePage.ruleThePlatform": "Governing the Community",
+  "app.containers.HomePage.participateInModeration":
+    "Governing the community is in the hands of its members. The best decisions for the platform result in higher token values. Through the governance structure built into Peeranha, the website is moderated by its users. As a decentralized, open source project, the future is decided by the user. Much like a local community, your voice matters.",
+
+  "app.containers.HomePage.beTheFirst":
+    "Joining early means enjoying higher levels of rewards",
+  "app.containers.HomePage.rewardsPool":
+    "Rewards are distributed weekly to all contributors.  As the number of weekly contributors goes up, rewards per user decrease over time. Joining early means enjoying higher levels of rewards for your pioneering contributions to an early community.",
+
+  "app.containers.HomePage.getReward": "Sign up",
+
+  "app.containers.HomePage.getMoreAnswers": "Get more answers",
+  "app.containers.HomePage.ourTeam": "Our team",
+  "app.containers.HomePage.weAppreciate":
+    "We highly appreciate your feedback, opinions or suggestion for the platform. Send us few lines or even better let us know if you have 15 minutes to chat.",
+
+  "app.containers.HomePage.sergeyIlin": "Sergey Ilin",
+  "app.containers.HomePage.sergeyIlinRole": "Co-founder, CTO",
+  "app.containers.HomePage.sergeyIlinDescription":
+    "Developer and architect with over decade of experience building software from websites to large scale enterprise solutions for Fortune 500 companies. Passionate about finding groundbreaking practical applications of Blockchain technology.",
+
+  "app.containers.HomePage.nikitaSyr": "Nikita Syrovatnikov",
+  "app.containers.HomePage.nikitaSyrRole":
+    "Back-end and Smart-contract Developer",
+  "app.containers.HomePage.nikitaSyrDescription":
+    "Blockchain app technician, interested in solving different problems and learning new technologies. I believe that any problem can be solved with the right approach.",
+
+  "app.containers.HomePage.romRem": "Roman Remniov",
+  "app.containers.HomePage.romRemRole": "Front-end Developer",
+  "app.containers.HomePage.romRemDescription":
+    "Based in Minsk front-end developer, currently focused on data-management and User Experience in decentralized applications.",
+
+  "app.containers.HomePage.ulyanaPopova": "Ulyana Popova",
+  "app.containers.HomePage.ulyanaPopovaRole": "UX and UI Designer",
+  "app.containers.HomePage.ulyanaPopovaDescription":
+    "Ready to produce wire-frames, mock-ups, and prototypes which help implement the modernization of systems with an effective, efficient, aesthetic and uncluttered user experience. Able to use humor and energy to keep the momentum going.",
+
+  "app.containers.HomePage.olgaFyodorova": "Olga Fedorova",
+  "app.containers.HomePage.olgaFyodorovaRole": "Marketing",
+  "app.containers.HomePage.olgaFyodorovaDescription":
+    "Strong communication skills regardless of the audience and is able interact effectively with a wide range of people, executives, staff, suppliers, colleagues and applicants.",
+
+  "app.containers.HomePage.steveKreynin": "Steve Kreynin",
+  "app.containers.HomePage.steveKreyninRole": "Co-founder, President",
+  "app.containers.HomePage.steveKreyninDescription":
+    "Successful serial entrepreneur, CEO of Forte Group, an international IT Consulting Company.",
+
+  "app.containers.HomePage.yourName": "Your name",
+  "app.containers.HomePage.yourNameTip": "Type your name",
+  "app.containers.HomePage.email": "Email",
+  "app.containers.HomePage.emailTip": "Type your email",
+  "app.containers.HomePage.refCode": "Ref. code",
+  "app.containers.HomePage.subject": "Subject",
+  "app.containers.HomePage.subjectTip": "Choose subject of question",
+  "app.containers.HomePage.message": "Message",
+  "app.containers.HomePage.messageTip": "Describe problem",
+  "app.containers.HomePage.sendMessage": "Send message",
+  "app.containers.HomePage.platformUnderDeveloping":
+    "Website is currently under development. Sign up for notifications to be one of the first to join and earn higher rewards as an early adopter.",
+  "app.containers.HomePage.askQuestion": "New post",
+  "app.containers.HomePage.review": "Review",
+  "app.containers.HomePage.systemError": "System error",
+  "app.containers.HomePage.none": "None",
+  "app.containers.HomePage.messageHasNotBeenSent":
+    "Something went wrong and your message has not been sent. Please try again.",
+  "app.containers.HomePage.yourEmailIsRegistred":
+    "Website is under development but your email is registered. You will receive an email with the steps to continue your registration when the website is ready.",
+  "app.containers.HomePage.goToSite": "Go to site",
+  "app.containers.HomePage.questionsTitle": "Trending",
+
+  "app.containers.Notifications.youHaveNoNewNotifications":
+    "You have no new notifications.",
+  "app.containers.Notifications.yourQuestionWasUpVoted":
+    "Your post was upvoted",
+  "app.containers.Notifications.yourQuestionWasDownVoted":
+    "Your post was downvoted",
+  "app.containers.Notifications.yourQuestionUpVoteWasCanceled":
+    "Your post's upvote was canceled",
+  "app.containers.Notifications.yourQuestionDownVoteWasCanceled":
+    "Your post's downvote was canceled",
+  "app.containers.Notifications.yourAnswerWasUpVoted":
+    "Your answer was upvoted",
+  "app.containers.Notifications.yourAnswerWasDownVoted":
+    "Your answer was downvoted ",
+  "app.containers.Notifications.yourAnswerUpVoteWasCanceled":
+    "Your answer's upvote was canceled",
+  "app.containers.Notifications.yourAnswerDownVoteWasCanceled":
+    "Your answer's downvote was canceled",
+  "app.containers.Notifications.yourAnswerWasMarkedAsTheBest":
+    "Your answer was marked as the best",
+  "app.containers.Notifications.somebodyAnsweredYourQuestion":
+    "Your post was answered",
+  "app.containers.Notifications.somebodyLeftACommentToYourQuestion":
+    "Your post was commented",
+  "app.containers.Notifications.somebodyLeftACommentToYourAnswer":
+    "Your answer was commented",
+  "app.containers.Notifications.yourQuestionWasTipped":
+    "Your post was tipped {quantity}",
+  "app.containers.Notifications.yourAnswerWasTipped":
+    "Your answer was tipped {quantity}",
+
+  "app.containers.EditAnswer.description": "Edit Answer Description",
+  "app.containers.EditAnswer.submitButtonName": "Save",
+  "app.containers.EditAnswer.title": "Edit Answer",
+  "app.containers.EditAnswer.editAnswer": "Edit Answer",
+
+  "app.containers.EditQuestion.description": "Edit Question Description",
+  "app.containers.EditQuestion.submitButtonName": "Save",
+  "app.containers.EditQuestion.title": "Edit question",
+  "app.containers.EditDiscussion.title": "Edit Discussion",
+  "app.containers.EditExpertQ&A.title": "Edit Expert Q&A",
+  "app.containers.EditTutorial.title": "Edit Tutorial",
+
+  "app.containers.ViewQuestion.lastEdited": "Last edited",
+  "app.containers.ViewQuestion.voteToDelete": "Vote to delete",
+  "app.containers.ViewQuestion.notEnoughRating":
+    "To complete this action, your reputation has to be at least",
+  "app.containers.ViewQuestion.cannotCompleteBecauseBlocked":
+    "You can't complete this action. You voted to delete it earlier",
+  "app.containers.ViewQuestion.cannotCompleteBecauseVoted":
+    "You can't complete this action. You voted earlier",
+  "app.containers.ViewQuestion.notEnoughModPoints":
+    "To complete this action, your moderation points rating has to be more than",
+  "app.containers.ViewQuestion.youVoted":
+    "You have completed this action earlier",
+  "app.containers.ViewQuestion.alreadyAnswered":
+    "You already answered this question",
+  "app.containers.ViewQuestion.itemsMax":
+    "Number of items is reached the maximum",
+  "app.containers.ViewQuestion.noRootsToVote":
+    "You cannot vote on your own posts and answers",
+  "app.containers.ViewQuestion.creatorCannot":
+    "Creator cannot complete this action",
+  "app.containers.ViewQuestion.notEnoughEnergy":
+    "We detected suspicious activity on your account and temporarily locked all access on the website",
+  "app.containers.ViewQuestion.title": "Questions page",
+  "app.containers.ViewQuestion.description": "Question description",
+  "app.containers.ViewQuestion.questionNotExist":
+    "This question does not exist",
+  "app.containers.ViewQuestion.deleteButton": "Delete",
+  "app.containers.ViewQuestion.editButton": "Edit",
+  "app.containers.ViewQuestion.shareButton": "Share",
+  "app.containers.ViewQuestion.shareTitle": "Share a link to this question",
+  "app.containers.ViewQuestion.saveButton": "Save",
+  "app.containers.ViewQuestion.commentButton": "Comment",
+  "app.containers.ViewQuestion.postCommentButton": "Post comment",
+  "app.containers.ViewQuestion.answers": "Answers",
+  "app.containers.ViewQuestion.postAnswerButton": "Post answer",
+  "app.containers.ViewQuestion.yourAnswer": "Your answer",
+  "app.containers.ViewQuestion.youHaveAnswers":
+    "Cannot be deleted as some of the questions have been answered",
+  "app.containers.ViewQuestion.answerIsCorrect":
+    "Cannot be deleted because the answer is marked as correct",
+  "app.containers.ViewQuestion.theBest": "The best",
+  "app.containers.ViewQuestion.theBestAnswer": "Marked as the best",
+  "app.containers.ViewQuestion.markAsBest": "Mark as the best",
+  "app.containers.ViewQuestion.communityChoice": "Community choice",
+  "app.containers.ViewQuestion.moreComments": "More comments",
+  "app.containers.ViewQuestion.moreComment": "More comment",
+  "app.containers.ViewQuestion.addComment": "Add comment",
+  "app.containers.ViewQuestion.showMoreAnswers": "Show more answers {value}",
+  "app.containers.ViewQuestion.areYouSure":
+    "Are you sure you want to delete the item?",
+  "app.containers.ViewQuestion.markExpertQuestionAndGetEarn":
+    "Mark the best answer to this question and earn +2 reputation points",
+  "app.containers.ViewQuestion.markGeneralQuestionAndGetEarn":
+    "Mark the best answer to this question and earn +1 reputation point",
+  "app.containers.ViewQuestion.tutorial": "Tutorial",
+  "app.containers.ViewQuestion.changeQuestionType": "Change type",
+  "app.containers.ViewQuestion.officialAnswer": "Official answer",
+  "app.containers.ViewQuestion.getBounty": "Get bounty",
+  "app.containers.ViewQuestion.bountyStatus": "Bounty Status",
+  "app.containers.ViewQuestion.bountyStatusExpiration": "Bounty will expire: ",
+  "app.containers.ViewQuestion.transactionHash": "Transaction hash",
+  "app.containers.ViewQuestion.eventName": "Event name",
+  "app.containers.ViewQuestion.timeStamp": "Date and time",
+  "app.containers.ViewQuestion.post": "Post",
+  "app.containers.ViewQuestion.reply": "Reply",
+  "app.containers.ViewQuestion.comment": "Comment",
+  "app.containers.ViewQuestion.posted": "posted",
+  "app.containers.ViewQuestion.edited": "edited",
+  "app.containers.ViewQuestion.deleted": "deleted",
+  "app.containers.ViewQuestion.RulesBlock_1":
+    "Here are some tips to make your answer helpful and doesn't get deleted by a moderator:",
+  "app.containers.ViewQuestion.RulesBlock_2":
+    "1. Read the post carefully to understand the problem and provide the best reply you can.",
+  "app.containers.ViewQuestion.RulesBlock_3":
+    "2. Make sure your answer replies the question asked in a post and isn't just a comment or gratitude.",
+  "app.containers.ViewQuestion.RulesBlock_4":
+    "3. Be polite and respectful to others.",
+  "app.components.FormFields.requiredField":
+    "You cannot leave this field empty",
+  "app.components.FormFields.requiredAndNotZeroField":
+    "You cannot leave 0 in this field",
+  "app.components.FormFields.requiredNonZeroInteger":
+    "You can only enter a non-zero integer",
+  "app.components.FormFields.wrongLength":
+    "Leave at least {min} char but no more than {max}",
+  "app.components.FormFields.wrongNumberRange":
+    "Should be at least {min} but no more than {max}",
+  "app.components.FormFields.wrongExactLength":
+    "Value must be {min} characters long",
+  "app.components.FormFields.wrongLengthOfList":
+    "Leave at least {min} item but no more than {max}",
+  "app.components.FormFields.wrongLengthMin":
+    "Value must be at least {min} characters",
+  "app.components.FormFields.wrongLengthMax":
+    "Value must be no longer than {max} characters",
+  "app.components.FormFields.fileSize": "The file is too large",
+  "app.components.FormFields.wrongEmail": "Wrong email",
+  "app.components.FormFields.wrongURL":
+    "Use valid URL format http(s)://example.com",
+  "app.components.FormFields.wrongBase58Format":
+    "Wrong data format. Recheck your inputs.",
+  "app.components.FormFields.itemAlreadyExists":
+    "Item with that name exists already ",
+  "app.components.FormFields.valueIsMore":
+    "This value is more than you can afford",
+  "app.components.FormFields.passwordsNotMatch": "Passwords do not match",
+  "app.components.FormFields.onlyLowerCaseLettersAndNumbersFromTo":
+    "Value must contain only lowercase letters and numbers from {min} to {max}",
+  "app.components.FormFields.withoutDoubleSpace":
+    "Value must not contain a double space",
+  "app.components.FormFields.wrongByteLength": "Value byte length is too long",
+  "app.components.FormFields.numbersFromTo":
+    "Value must contain digits from {min} to {max}",
+  "app.components.FormFields.onlyOneDotValue":
+    "Value must contain only one dot",
+  "app.components.FormFields.telosNameLength":
+    "Telos account name must be 12 characters long",
+  "app.components.FormFields.telosCorrectSymbols":
+    "Only a-z letters and 1-5 numbers are allowed",
+  "app.components.FormFields.notAbleChangeAfterCreation":
+    "You will not be able to change it after creation",
+  "app.components.FormFields.thisTelosNameIsAvailable":
+    "This Telos account name is available",
+  "app.components.FormFields.thisTelosNameIsntAvailable":
+    "This Telos account name is not available",
+  "app.components.FormFields.atLeastOneLetter":
+    "Telos name must contain at least one letter",
+  "app.components.FormFields.exactFromAndToAccounts":
+    "Sender and receiver cannot be the same",
+  "app.components.FormFields.hasToBeMoreThanPrev": "You cannot set lower value",
+  "app.components.FormFields.valueIsNotPositiveInteger":
+    "Value is not a positive integer",
+
+  "app.containers.TagsCollection.title": "Tags collection",
+  "app.containers.TagsCollection.description": "Tags Description",
+
+  "app.components.Footer.header": "Copyright: Peeranha",
+
+  "app.containers.Login.authUserHasMore": "An authorized user has more options",
+  "app.containers.Login.staySignedIn": "Stay signed in",
+  "app.containers.Login.iForgotPassword": "I forgot password",
+  "app.containers.Login.scatterIsNotInstalled":
+    "Check whether the wallet and network settings are installed",
+  "app.containers.Login.scatterBrowserExtensionNotConfigured":
+    "Check whether the wallet browser extension is configured",
+  "app.containers.Login.userIsNotRegistered": "User is not registered",
+  "app.containers.Login.userIsNotSelected": "User is not selected",
+  "app.containers.Login.fbAutologinError":
+    "Could not auto login with facebook account",
+  "app.containers.Login.fbLoginError": "Could not login with facebook account",
+  "app.containers.Login.weAreHappyYouAreHere": "We are happy, you are here",
+  "app.containers.Login.yourUsernameIsHow":
+    "The username is how you'll be known on Peeranha.",
+  "app.containers.Login.referralMessage":
+    "This is the code your friend gave you.",
+  "app.containers.Login.optionalReferralCode": "(optional)",
+  "app.containers.Login.accountNotCreatedName": "Account is not created yet",
+  "app.containers.Login.inviterIsNotRegisterYet": "Inviter isn't register yet",
+  "app.containers.Login.iDontHaveAnAccount": "I don't have an account.",
+
+  "app.containers.ForgotPassword.youGotThisKey":
+    "You received this key with the authorization which was saved in a safe place. Try to find it.",
+
+  "app.containers.SignUp.checkYourEmail": "Verification code.",
+  "app.containers.SignUp.almostDone": "Almost done",
+  "app.containers.SignUp.firstParagraphAlmostDone":
+    "Peeranha is not a typical Q&A platform. It’s powered by blockchain.",
+  "app.containers.SignUp.secondParagraphAlmostDone":
+    "Telos blockchain account is required to use Peeranha. A fee is required to create an account.",
+  "app.containers.SignUp.thirdParagraphAlmostDone":
+    "We're happy to cover this fee for you but we'll need your email and phone number to manually check that you're a real person. This process could take 1-2 weeks.",
+  "app.containers.SignUp.weWillNotify":
+    "We will notify you when your account will be ready. Usually it takes no longer than 4 hours.",
+  "app.containers.SignUp.goToMainPage": "Go to main page",
+  "app.containers.SignUp.downloadSecretPhrase": "Download Secret Phrase",
+  "app.containers.SignUp.youNeedBlockchainAccount":
+    "Create account on blockchain",
+  "app.containers.SignUp.theWayBlockchainAccountWorks":
+    "We are creating a blockchain account for you to interact with the platform. Only you will have access to the private key for the account. Our service will be authorized to post a limited set of actions on the platform on behalf of your account in order to provide you with a convenient experience. You'll be able to revoke that permission of service account at any time.",
+  "app.containers.SignUp.dontWorryAboutBlockchainAccount":
+    "Sounds too complicated? Don’t worry! Just remember to write down your Secret Phrase and save it in a safe place. Secret Phrase is the only way to access your blockchain account and the rewards that you'll earn. We will guide you when it is time to use your Secret Phrase to withdraw the rewards.",
+  "app.containers.SignUp.signUpOptions": "Sign up options",
+  "app.containers.SignUp.peeranhaIsNotTypical":
+    "Peeranha is not a typical Q&A platform. It’s powered by blockchain.",
+  "app.containers.SignUp.telosBlockchainPowers":
+    "Telos blockchain powers many decentralized applications like Peeranha, which is run by community members all around the world. Telos blockchain account is required to use these applications.",
+  "app.containers.SignUp.weAreHappyToCover":
+    "If you prefer to use a wallet application to manage your blockchain account, then wallet sign up option is available.",
+  "app.containers.SignUp.ifYouLikeToSkip":
+    "New to blockchain? Do not worry! You will be able to access Peeranha using your email address and password as any other website.",
+  "app.containers.SignUp.or": "or",
+  "app.containers.SignUp.doYouHaveAlreadyAccount":
+    "Do you already have an account?",
+  "app.containers.SignUp.youHaveToSaveKeys":
+    "Secret Phrase is the only way to access your blockchain account and rewards that you'll earn! Write your Secret Phrase on a piece of paper and store it in a secure location. Alternatively, store your Secret Phrase in a password manager like 1Password.",
+  "app.containers.SignUp.passwordsDoNotMatch": "Passwords do not match",
+  "app.containers.SignUp.iHaveEosAccount": "I have Telos account",
+  "app.containers.SignUp.idontHaveEosAccount": "I don't have Telos account",
+  "app.containers.SignUp.downloadKeys": "Download key",
+  "app.containers.SignUp.whyYouLikeUs": "Why do you like Peeranha?",
+  "app.containers.SignUp.title": "Registration",
+  "app.containers.SignUp.description": "Registration | Description",
+  "app.containers.SignUp.continue": "Continue",
+  "app.containers.SignUp.email": "Email",
+  "app.containers.SignUp.verificationCode": "Verification code",
+  "app.containers.SignUp.verify": "Verify",
+  "app.containers.SignUp.sendAnotherCode": "Send another code",
+  "app.containers.SignUp.eosActivePrivateKey": "Telos Active Private Key",
+  "app.containers.SignUp.privateKey": "Private Key",
+  "app.containers.SignUp.eosOwnerPrivateKey": "Telos Owner Private Key",
+  "app.containers.SignUp.storeThisKey": "Store this key",
+  "app.containers.SignUp.secretPhrase": "Secret Phrase",
+  "app.containers.SignUp.displayName": "Display name",
+  "app.containers.SignUp.referralCode": "Referral code {optional}",
+  "app.containers.SignUp.ethereumUserAddress": "Ethereum address",
+  "app.containers.SignUp.signUp": "Sign up",
+  "app.containers.SignUp.password": "Password",
+  "app.containers.SignUp.confirmPassword": "Confirm password",
+  "app.containers.SignUp.iSaveSecretPhrase":
+    "I saved Secret Phrase in a safe place. I understand that Secret Phrase is the only way to access my blockchain account and rewards.",
+  "app.containers.SignUp.userAlreadyRegistered":
+    "User with such identity has been already registered",
+  "app.containers.SignUp.userRejectedSignatureRequest":
+    "User rejected signature request",
+  "app.containers.SignUp.userIsNotSelected": "User is not selected",
+  "app.containers.SignUp.eosAccountNotFound": "Telos account not be found",
+  "app.containers.SignUp.keysDoNotMatch":
+    "Private keys do not match Telos account name",
+  "app.containers.SignUp.registrationWithEosAccountAlmostDone":
+    "Registration is successfully passed. Now you can login and continue work in our app!",
+  "app.containers.SignUp.autogenerated": "Autogenerated",
+  "app.containers.SignUp.myOwn": "My own",
+  "app.containers.SignUp.tgAccountID": "Telegram account ID",
+  "app.containers.SignUp.tgAccountName": "Telegram account name",
+  "app.containers.SignUp.metaMaskIsNotInstalled": "MetaMask is not installed",
+  "app.containers.SignUp.userNotSelected": "User is not selected  ",
+
+  "app.containers.Profile.profile": "Profile",
+  "app.containers.Profile.profileDescription": "Profile description",
+  "app.containers.Profile.wrongUser": "Wrong user",
+  "app.containers.Profile.displayNameLabel": "Display name",
+  "app.containers.Profile.positionLabel": "Position",
+  "app.containers.Profile.companyLabel": "Company",
+  "app.containers.Profile.aboutLabel": "About me",
+  "app.containers.Profile.saveButton": "Save",
+  "app.containers.Profile.locationLabel": "Location",
+  "app.containers.Profile.displayNameTip":
+    "This is how your name will appear on the website",
+  "app.containers.Profile.companyTip": "Optional",
+  "app.containers.Profile.positionTip": "Optional",
+  "app.containers.Profile.locationTip": "Optional",
+  "app.containers.Profile.oldPassword": "Old password",
+  "app.containers.Profile.newPassword": "New password",
+  "app.containers.Profile.confirmPassword": "Confirm password",
+  "app.containers.Profile.youAnswered": "You answered",
+  "app.containers.Profile.seeMore": "See all {posts} and {answers}",
+  "app.containers.Profile.tipText":
+    "Set up wallets for crypto tokens to get tips from other users.",
+  "app.containers.Profile.crypto": "Crypto",
+  "app.containers.Profile.account": "Account",
+  "app.containers.Profile.sendFromAccount": "Send from account",
+  "app.containers.Profile.sendToAccount": "Send to account",
+  "app.containers.Profile.changeAccount": "Change account",
+  "app.containers.Profile.chooseAccount": "Choose account",
+  "app.components.NoAccess.errorMessage": "No access to complete this action!",
+
+  "app.containers.ButtonGroupForAuthorizedUser.profile": "Profile",
+
+  "app.containers.ErrorBoundary.title": "Error",
+  "app.containers.ErrorBoundary.description": "Description of error boundary",
+  "app.containers.ErrorBoundary.problemWithWebpage":
+    "A problem occurred with this webpage",
+  "app.containers.ErrorBoundary.details": "Details",
+  "app.containers.ErrorBoundary.reloadPage": "Reload page",
+
+  "app.containers.Questions.title": "Questions",
+  "app.containers.Questions.description": "Description",
+  "app.containers.Questions.noQuestions": "No questions",
+  "app.containers.Questions.allCommunities": "All communities",
+  "app.containers.Questions.youDontHaveFeedToRead":
+    "You don't have any feed to read",
+  "app.containers.Questions.subscribeToCommToKeep":
+    "Subscribe to communities to keep track of topics that you are interested in.",
+  "app.containers.Questions.noPostsYet": "No posts yet.",
+  "app.containers.Questions.thisIsNewCommunity":
+    "This is the new community, you can be the first to create a post and it may become the most popular.",
+  "app.containers.Questions.readMyFeed": "Read my feed",
+  "app.containers.Questions.goToCommunities": "Go to communities",
+  "app.containers.Questions.topQuestionPopover":
+    "Top question of this community",
+  "app.containers.Questions.showAllQuestions": "Show all questions",
+  "app.containers.Questions.bountyPopover":
+    "Bounty - extra PEER reward from author.",
+
+  "app.containers.AskQuestion.title": "New post",
+  "app.containers.AskQuestion.description": "New post | Description",
+  "app.containers.AskQuestion.postQuestion": "Post",
+  "app.containers.AskQuestion.contentPopupBlock_1": "Hey there!",
+  "app.containers.AskQuestion.contentPopupBlock_2":
+    "Welcome to Peeranha. We're glad you're here and ready to make your first publication. There are just a few simple rules we all follow around here:",
+  "app.containers.AskQuestion.contentPopupBlock_3":
+    "1. Make sure your posts are related to a particular community.",
+  "app.containers.AskQuestion.contentPopupBlock_4":
+    "2. Do a bit of research to be sure the same post hasn't been published before.",
+  "app.containers.AskQuestion.contentPopupBlock_5":
+    "3. Answers have to actually answer the question, and not just be a comment.",
+  "app.containers.AskQuestion.contentPopupBlock_6":
+    "4. Be sure your answer provides valuable information and isn't just a repeat of what's already been said.",
+  "app.containers.AskQuestion.contentPopupBlock_7":
+    "And the most important rule is to be polite and friendly to other users.",
+  "app.containers.AskQuestion.contentPopupBlock_8": "Thank you!",
+
+  "app.containers.ErrorPage.title": "Some error occured...",
+  "app.containers.ErrorPage.description": "Some error occured... description",
+  "app.containers.ErrorPage.weAreSorry":
+    "We're sorry, unexpected error has occured.",
+  "app.containers.ErrorPage.accountDoesNotExist": "Account does not exist",
+  "app.containers.ErrorPage.cannotTransferToSelf":
+    "Cannot transfer to yourself",
+  "app.containers.ErrorPage.notEnoughCPU": "Not enough CPU",
+  "app.containers.ErrorPage.checkScatterConnection": "Check wallet connection",
+
+  "app.containers.NotFoundPage.title": "404",
+  "app.containers.NotFoundPage.description": "404",
+  "app.containers.NotFoundPage.weAreSorry":
+    "We're sorry, we couldn't find the page you requested.",
+  "app.containers.NotFoundPage.tryToBrowse":
+    "Try to browse our recent {value}.",
+  "app.containers.NotFoundPage.browseOurPopular": "Browse our popular {value}.",
+  "app.containers.NotFoundPage.ifYouFeelSomething":
+    "If you feel something is missing that should be here, {value}.",
+
+  "app.containers.QuestionForm.communityTip":
+    "Make sure that the post is relevant to the selected community",
+  "app.containers.QuestionForm.titleTip":
+    "Short and descriptive title of the post",
+  "app.containers.QuestionForm.tagsTip": "Tags that are relevant to the post",
+  "app.containers.QuestionForm.title": "New post",
+  "app.containers.QuestionForm.titleLabel": "Title",
+  "app.containers.QuestionForm.existingQuestionsLabel":
+    "To avoid duplicates check existing questions.",
+  "app.containers.QuestionForm.questionBodyLabel": "Body",
+  "app.containers.QuestionForm.communityLabel": "Community",
+  "app.containers.QuestionForm.tagsLabel": "Tags",
+  "app.containers.QuestionForm.bountyLabel": "Bounty",
+  "app.containers.QuestionForm.bountyDaysLabel": "Bounty Days",
+  "app.containers.QuestionForm.bountyHoursLabel": "Bounty Hours",
+  "app.containers.QuestionForm.daysPlaceholder": "Days",
+  "app.containers.QuestionForm.hoursPlaceholder": "Hours",
+  "app.containers.QuestionForm.bountyTip": "Bounty to the best answer",
+  "app.containers.QuestionForm.bountyHoursTip":
+    "Number of hours while bounty is active",
+  "app.containers.QuestionForm.bountyDaysTip":
+    "Number of days while bounty is active",
+  "app.containers.QuestionForm.previewLabel": "Preview",
+  "app.containers.QuestionForm.questionType": "Post Type",
+  "app.containers.QuestionForm.questionTypeTip": "Optional",
+  "app.containers.QuestionForm.generalQuestionDescriptionLabel":
+    "A topic not requiring expertise or experience to answer that can be one of the following:",
+  "app.containers.QuestionForm.expertQuestionDescriptionLabel":
+    "A question that asks one of the following:",
+  "app.containers.QuestionForm.generalQuestionDescriptionList": [
+    "Subjective opinion exchange;",
+    "Brainstorming;",
+    "Feedback or review request;",
+    "Answer is widely known."
+  ],
+  "app.containers.QuestionForm.expertQuestionDescriptionList": [
+    "A solution to a problem that requires expert knowledge or experience;",
+    "Source of information or resources on a specific subject that is not easily found;",
+    "Explanation or clarification of the information that is complicated to comprehend;",
+    "Ask for an instruction or a recipe."
+  ],
+  "app.containers.QuestionForm.tutorialQuestionDescriptionLabel":
+    "Tutorial is a manual instruction that can be one of the following:",
+  "app.containers.QuestionForm.tutorialQuestionDescriptionList": [
+    "Step-by-step solution to a problem;",
+    "Technical setup;",
+    "'How-to' guides."
+  ],
+  "app.containers.QuestionForm.promotedLabel": "Promote question",
+  "app.containers.QuestionForm.promotedTip": "Promote question",
+  "app.containers.QuestionForm.questionIsPromoting": "Promoted till",
+  "app.containers.QuestionForm.postTypeSelectionError":
+    "You need to select post type",
+  "app.containers.QuestionForm.leaveWithoutChanges":
+    "You are about to leave the page without saving your changes. Are you sure want to continue?",
+
+  "app.containers.AnswerForm.titleLabel": "Your Answer",
+
+  "app.components.TextEditor.tips": "Tips",
+  "app.components.TextEditor.putReturnsBetweenParagraphs":
+    "markdown is supported",
+  "app.components.TextEditor.addForLineBreaks":
+    "for linebreak add 2 spaces at end",
+  "app.components.TextEditor.italicAndBold": "_italic_ or **bold**",
+  "app.components.TextEditor.indentCode": "indent code by 4 spaces",
+  "app.components.TextEditor.backtipEscapes":
+    "use backtick escapes for code blocks`like _so_`",
+  "app.components.TextEditor.quoteByPlacing":
+    "quote by placing > at start of line",
+  "app.components.TextEditor.toMakeLinks":
+    "to make links &lt;http://foo.com&gt;[foo](http://foo.com)&lt;a href=&quot;http://foo.com&quot;&gt;fo",
+
+  "app.containers.Achievements.questionAsked.bronze.title":
+    "Bronze - The learner",
+  "app.containers.Achievements.questionAsked.bronze.description":
+    "Ask 10 Questions",
+  "app.containers.Achievements.questionAsked.silver.title":
+    "Silver - Digging deep",
+  "app.containers.Achievements.questionAsked.silver.description":
+    "Ask 50 Questions",
+  "app.containers.Achievements.questionAsked.gold.title":
+    "Gold - I want to know everything!",
+  "app.containers.Achievements.questionAsked.gold.description":
+    "Ask 100 Questions",
+
+  "app.containers.Achievements.answerGiven.bronze.title": "Bronze - Expert",
+  "app.containers.Achievements.answerGiven.bronze.description":
+    "Answer 20 questions",
+  "app.containers.Achievements.answerGiven.silver.title": "Silver - Master",
+  "app.containers.Achievements.answerGiven.silver.description":
+    "Answer 100 questions",
+  "app.containers.Achievements.answerGiven.gold.title": "Gold - Guru",
+  "app.containers.Achievements.answerGiven.gold.description":
+    "Answer 200 questions",
+
+  "app.containers.Achievements.bestAnswer.bronze.title":
+    "Bronze - A true professional",
+  "app.containers.Achievements.bestAnswer.bronze.description":
+    "Receive 5 marks as \"The best\"",
+  "app.containers.Achievements.bestAnswer.silver.title": "Silver - Erudite",
+  "app.containers.Achievements.bestAnswer.silver.description":
+    "Receive 25 marks as \"The best\"",
+  "app.containers.Achievements.bestAnswer.gold.title":
+    "Gold - Artificial Intelligence",
+  "app.containers.Achievements.bestAnswer.gold.description":
+    "Receive 50 marks as \"The best\"",
+
+  "app.containers.Achievements.firstIn15.bronze.title":
+    "Bronze - Fastest hand in the West",
+  "app.containers.Achievements.firstIn15.bronze.description":
+    "Post answers for 5 different questions in 15 minutes after questions were asked",
+  "app.containers.Achievements.firstIn15.silver.title":
+    "Silver - Pedal to the metal",
+  "app.containers.Achievements.firstIn15.silver.description":
+    "Post answers for 10 different questions in 15 minutes after questions were asked",
+  "app.containers.Achievements.firstIn15.gold.title": "Gold - Lightning",
+  "app.containers.Achievements.firstIn15.gold.description":
+    "Post answers for 10 different questions in 15 minutes after questions were asked",
+
+  "app.containers.Achievements.firstAnswer.bronze.title": "Bronze - Quick help",
+  "app.containers.Achievements.firstAnswer.bronze.description":
+    "Be the first one, who posts an answer for 10 different questions",
+  "app.containers.Achievements.firstAnswer.silver.title":
+    "Silver - I was here first!",
+  "app.containers.Achievements.firstAnswer.silver.description":
+    "Be the first one, who posts an answer for 25 different questions",
+  "app.containers.Achievements.firstAnswer.gold.title":
+    "Gold - Undisputed champion",
+  "app.containers.Achievements.firstAnswer.gold.description":
+    "Be the first one, who posts an answer for 50 different questions",
+
+  "app.containers.Achievements.welcomeStranger.title": "Welcome, Stranger",
+  "app.containers.Achievements.welcomeStranger.description":
+    "Successfully register on Peeranha",
+  "app.containers.Achievements.newbie.title": "A beginning of a great journey",
+  "app.containers.Achievements.newbie.description":
+    "Achieve the \"Newbie\" status",
+  "app.containers.Achievements.junior.title": "Don't call me Junior!",
+  "app.containers.Achievements.junior.description":
+    "Achieve the \"Junior\" status",
+  "app.containers.Achievements.resident.title": "Peeranha is my home",
+  "app.containers.Achievements.resident.description":
+    "Achieve the \"Resident\" status",
+  "app.containers.Achievements.senior.title": "I can teach you anything",
+  "app.containers.Achievements.senior.description":
+    "Achieve the \"Senior\" status",
+  "app.containers.Achievements.hero.title": "This website needs a hero",
+  "app.containers.Achievements.hero.description": "Achieve the \"Hero\" status",
+  "app.containers.Achievements.superhero.title": "A living Legend",
+  "app.containers.Achievements.superhero.description":
+    "Achieve the \"Superhero\" status",
+
+  "app.containers.Achievements.foundingMember.title": "Founding Member",
+  "app.containers.Achievements.foundingMember.description":
+    "Be the one of first 10 000 Users to successfully register on Peeranha",
+  "app.containers.Achievements.activist.title": "Activist",
+  "app.containers.Achievements.activist.description":
+    "Be the one of first 700 Users to achieve the \"Newbie\" status",
+  "app.containers.Achievements.researcher.title": "Researcher",
+  "app.containers.Achievements.researcher.description":
+    "Be the one of first 500 Users to achieve the \"Junior\" status",
+  "app.containers.Achievements.honorableResident.title": "Honorable Resident",
+  "app.containers.Achievements.honorableResident.description":
+    "Be the one of first 300 Users to achieve the \"Resident\" status",
+  "app.containers.Achievements.theWisest.title": "The wisest",
+  "app.containers.Achievements.theWisest.description":
+    "Be the one of first 150 Users to achieve the \"Senior\" status",
+  "app.containers.Achievements.modernHero.title": "Modern hero",
+  "app.containers.Achievements.modernHero.description":
+    "Be the one of first 50 Users to achieve the \"Hero\" status",
+  "app.containers.Achievements.kingOfTheHill.title": "King of the hill",
+  "app.containers.Achievements.kingOfTheHill.description":
+    "Be the one of first 10 Users to achieve the \"Superhero\" status",
+
+  "app.containers.Achievements.progressBarPopover.ratingRelated.single":
+    "rating point left to unlock this achievement",
+  "app.containers.Achievements.progressBarPopover.ratingRelated.multiple":
+    "rating points left to unlock this achievement",
+  "app.containers.Achievements.progressBarPopover.questionAskedRelated.single":
+    "question left to unlock this achievement",
+  "app.containers.Achievements.progressBarPopover.questionAskedRelated.multiple":
+    "questions left to unlock this achievement",
+  "app.containers.Achievements.progressBarPopover.answerGivenRelated.single":
+    "answer left to unlock this achievement",
+  "app.containers.Achievements.progressBarPopover.answerGivenRelated.multiple":
+    "answers left to unlock this achievement",
+  "app.containers.Achievements.progressBarPopover.bestAnswerRelated.single":
+    "best answer left to unlock this achievement",
+  "app.containers.Achievements.progressBarPopover.bestAnswerRelated.multiple":
+    "best answers left to unlock this achievement",
+  "app.containers.Achievements.progressBarPopover.firstAnswerIn15Related.single":
+    "answer in 15 minutes left to unlock this achievement",
+  "app.containers.Achievements.progressBarPopover.firstAnswerIn15Related.multiple":
+    "answers in 15 minutes left to unlock this achievement",
+  "app.containers.Achievements.progressBarPopover.firstAnswerRelated.single":
+    "first answer left to unlock this achievement",
+  "app.containers.Achievements.progressBarPopover.firstAnswerRelated.multiple":
+    "first answers left to unlock this achievement",
+
+  "app.containers.Achievements.separators.ratingRelated": "Rating",
+  "app.containers.Achievements.separators.questionAskedRelated": "Questions",
+  "app.containers.Achievements.separators.answerGivenRelated": "Answers",
+  "app.containers.Achievements.separators.bestAnswerRelated":
+    "The best answers",
+  "app.containers.Achievements.separators.firstAnswerIn15Related":
+    "Answers in 15 minutes",
+  "app.containers.Achievements.separators.firstAnswerRelated": "First answers",
+
+  "app.containers.TelegramInfo.confirm": "Confirm",
+  "app.containers.TelegramInfo.unlink": "Unlink",
+
+  "app.containers.MetaTransactionAgreement.agreeWithMetaTransactions":
+    "We’ve got you covered",
+  "app.containers.MetaTransactionAgreement.youNeedMetaBecause":
+    "Your MATIC balance is 0. MATIC is required to pay transaction fees.  ",
+  "app.containers.MetaTransactionAgreement.dontWorry":
+    "Don’t worry! We’ve got you covered.",
+  "app.containers.MetaTransactionAgreement.wouldYouLike":
+    "Would you like us to relay your transactions and cover transaction fees?",
+  "app.containers.MetaTransactionAgreement.confirm": "Yes",
+  "app.containers.MetaTransactionAgreement.cansel": "No"
+}

@@ -12,7 +12,7 @@
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "typeRoots": ["node_modules/@types"],
+    "typeRoots": ["node_modules/@types", "app/types"],
     "jsx": "preserve",
     "baseUrl": "./",
     "jsxImportSource": "@emotion/react",
@@ -22,9 +22,10 @@
       "styles/*": ["app/styles/*"],
       "hooks/*": ["app/hooks/*"],
       "icons/*": ["app/components/icons/*"],
-      "themes/*": ["app/themes/*"]
+      "themes/*": ["app/themes/*"],
+      "app/*": ["app/*"]
     }
   },
-  "include": ["emotion.d.ts", "./app/**/*.ts", "./app/**/*.tsx"],
+  "include": ["app"],
   "exclude": ["node_modules"]
 }

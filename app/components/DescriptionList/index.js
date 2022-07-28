@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import { translationMessages } from 'i18n';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
 import { BORDER_PRIMARY_LIGHT, TEXT_DARK } from 'style-constants';
 
@@ -35,18 +35,22 @@ const Base = styled.div`
   }
 `;
 
-export const DescriptionList = ({ label, items, locale }) => (
-  <Base>
-    <FormattedMessage id={label} />
-    <ul>
-      {translationMessages[locale][items].map(item => (
-        <li key={item}>
-          <span>{item}</span>
-        </li>
-      ))}
-    </ul>
-  </Base>
-);
+export const DescriptionList = ({ label, items, locale }) => {
+  const { t } = useTranslation();
+
+  return (
+    <Base>
+      {t(label)}
+      <ul>
+        {translationMessages[locale][items].map(item => (
+          <li key={item}>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </Base>
+  );
+};
 
 DescriptionList.propTypes = {
   label: PropTypes.string,

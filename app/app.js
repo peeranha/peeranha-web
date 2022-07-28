@@ -25,7 +25,6 @@ import 'sanitize.css/sanitize.css';
 import App from 'containers/App';
 
 // Import Providers
-import LanguageProvider from 'containers/LanguageProvider';
 import DataCacheProvider from 'containers/DataCacheProvider';
 import AccountProvider from 'containers/AccountProvider';
 import FacebookProvider from './containers/FacebookProvider';
@@ -42,7 +41,7 @@ import createdHistory from './createdHistory';
 import './analytics';
 
 // Import i18n messages
-import { translationMessages } from './i18n';
+import './i18n';
 
 // Import CSS reset and Global Styles
 import './global-styles';
@@ -55,20 +54,18 @@ const initialState = {};
 const store = configureStore(initialState, createdHistory);
 const MOUNT_NODE = document.getElementById('app');
 
-const render = messages => {
+const render = () => {
   ReactDOM.render(
     <Provider store={store}>
       <EthereumProvider>
         <AccountProvider>
-          <LanguageProvider messages={messages}>
-            <FacebookProvider>
-              <DataCacheProvider>
-                <ConnectedRouter history={createdHistory}>
-                  <App />
-                </ConnectedRouter>
-              </DataCacheProvider>
-            </FacebookProvider>
-          </LanguageProvider>
+          <FacebookProvider>
+            <DataCacheProvider>
+              <ConnectedRouter history={createdHistory}>
+                <App />
+              </ConnectedRouter>
+            </DataCacheProvider>
+          </FacebookProvider>
         </AccountProvider>
       </EthereumProvider>
     </Provider>,
@@ -82,7 +79,7 @@ if (module.hot) {
   // have to be constants at compile-time
   module.hot.accept(['./i18n', 'containers/App'], () => {
     ReactDOM.unmountComponentAtNode(MOUNT_NODE);
-    render(translationMessages);
+    render();
   });
 }
 
@@ -92,10 +89,10 @@ if (!window.Intl) {
     resolve(import('intl'));
   })
     .then(() => Promise.all([import('intl/locale-data/jsonp/en.js')]))
-    .then(() => render(translationMessages))
+    .then(() => render())
     .catch(err => {
       throw err;
     });
 } else {
-  render(translationMessages);
+  render();
 }

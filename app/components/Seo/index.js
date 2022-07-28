@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { appLocales } from 'i18n';
+import { appLocales } from 'app/i18-old';
 
 import {
   isSingleCommunityWebsite,

@@ -1,12 +1,10 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { injectIntl } from 'react-intl';
-import { FormattedMessage } from 'react-intl';
 import { getFormattedDate } from 'utils/datetime';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 
 import { MONTH_3LETTERS__DAY_YYYY } from 'utils/constants';
-import messages from 'containers/Profile/messages';
 
 const Div = styled.div`
   display: ${({ profileSince, creationTime }) =>
@@ -23,14 +21,14 @@ const Span = styled.span`
 `;
 
 export const ProfileSince = ({ creationTime, locale }) => {
-  const profileSince = useMemo(
-    () => getFormattedDate(creationTime, locale, MONTH_3LETTERS__DAY_YYYY),
-    [],
-  );
+  const { t } = useTranslation();
+  const profileSince = () => {
+    getFormattedDate(creationTime, locale, MONTH_3LETTERS__DAY_YYYY);
+  };
 
   return (
     <Div profileSince={profileSince} creationTime={creationTime}>
-      <FormattedMessage id={messages.memberSince.id} />
+      {t('profile.memberSince')}
       <div>
         <Span>{profileSince}</Span>
       </div>
@@ -43,4 +41,4 @@ ProfileSince.propTypes = {
   locale: PropTypes.string,
 };
 
-export default React.memo(injectIntl(ProfileSince));
+export default ProfileSince;

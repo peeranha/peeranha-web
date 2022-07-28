@@ -188,6 +188,7 @@ module.exports = options => {
         hooks: path.join(__dirname, '../../app/hooks'),
         icons: path.join(__dirname, '../../app/components/icons'),
         themes: path.join(__dirname, '../../app/themes'),
+        app: path.join(__dirname, '../../app'),
       },
     },
     devtool: options.devtool,

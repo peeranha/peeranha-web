@@ -1,7 +1,7 @@
 /* eslint no-unused-vars: 0 */
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import orderBy from 'lodash/orderBy';
 
@@ -16,8 +16,6 @@ import {
 } from 'utils/properties';
 import { getFormattedNum2 } from 'utils/numbers';
 import { getDifferenceInDate } from 'utils/datetime';
-
-import commonMessages from 'common-messages';
 
 import InfoButton from 'components/Button/Outlined/InfoMedium';
 import P from 'components/P';
@@ -99,6 +97,7 @@ const DescriptionText = P.extend`
 `;
 
 const Content = ({ communities, sorting, locale, language, profile }) => {
+  const { t } = useTranslation();
   if (!communities || !communities.length) return null;
 
   const communityEditingAllowed = useMemo(
@@ -145,9 +144,6 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
                         )}
                       </ADefault>
                     </P>
-                    {/* <P className="d-none d-md-block" fontSize="14" lineHeight="18">
-                  <FormattedMessage {...commonMessages[x.language]} />
-                </P> */}
                     <DescriptionText fontSize="14" lineHeight="18">
                       {description}
                     </DescriptionText>
@@ -160,39 +156,29 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
                     <SpanCenter>
                       {getFormattedNum2(x.followingUsers)}
                     </SpanCenter>
-                    <P>
-                      <FormattedMessage {...commonMessages.usersShort} />
-                    </P>
+                    <P>{t('common.usersShort')}</P>
                   </Info>
 
                   <Info>
                     <SpanCenter>{getFormattedNum2(x.postCount)}</SpanCenter>
-                    <P>
-                      <FormattedMessage {...commonMessages.posts} />
-                    </P>
+                    <P>{t('common.posts')}</P>
                   </Info>
 
                   <Info>
                     <SpanCenter>{getFormattedNum2(x.replyCount)}</SpanCenter>
-                    <P>
-                      <FormattedMessage {...commonMessages.answers} />
-                    </P>
+                    <P>{t('common.answers')}</P>
                   </Info>
 
                   <Info>
                     <SpanCenter>{getFormattedNum2(tags?.length)}</SpanCenter>
-                    <A to={routes.communityTags(id)}>
-                      <FormattedMessage {...commonMessages.tags} />
-                    </A>
+                    <A to={routes.communityTags(id)}>{t('common.tags')}</A>
                   </Info>
 
                   <Info>
                     <SpanCenter>
                       {getDifferenceInDate(x.creationTime, locale)}
                     </SpanCenter>
-                    <SpanCenter>
-                      <FormattedMessage {...commonMessages.age} />
-                    </SpanCenter>
+                    <SpanCenter>{t('common.age')}</SpanCenter>
                   </Info>
 
                   <Info>
@@ -206,7 +192,7 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
                           createdHistory.push(routes.communitiesEdit(id))
                         }
                       >
-                        <FormattedMessage {...commonMessages.edit} />
+                        {t('common.edit')}
                       </InfoButton>
                     )}
                     <FollowCommunityButton communityIdFilter={id} />

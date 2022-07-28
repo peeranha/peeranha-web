@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import { TEXT_PRIMARY, BORDER_SECONDARY } from 'style-constants';
 
 import * as routes from 'routes-config';
-import commonMessages from 'common-messages';
 
 import moreVotingIcon from 'images/moreVoting.svg?inline';
 
@@ -17,8 +16,6 @@ import A from 'components/A';
 import VoteUpButton from 'containers/VoteForNewCommunityButton/VoteUpButton';
 import VoteDownButton from 'containers/VoteForNewCommunityButton/VoteDownButton';
 
-import messages from './messages';
-
 const Item = styled.div`
   border-bottom: 1px solid ${BORDER_SECONDARY};
   padding-bottom: 20px;
@@ -27,44 +24,46 @@ const Item = styled.div`
 
 const Header = Span.extend``.withComponent('header');
 
-const Aside = ({ suggestedCommunities }) => (
-  <div>
-    <Header className="mb-4" fontSize="24" bold>
-      <FormattedMessage {...messages.voteForNewCommunities} />
-    </Header>
+const Aside = ({ suggestedCommunities }) => {
+  const { t } = useTranslation();
 
-    {suggestedCommunities.slice(0, 3).map(x => (
-      <Item key={x.id}>
-        <div className="d-flex align-items-center mb-2">
-          <Img className="mr-1" src={x.avatar} alt="commAvatar" />
-          <Span bold>{x.name}</Span>
-        </div>
+  return (
+    <div>
+      <Header className="mb-4" fontSize="24" bold>
+        {t('common.voteForNewCommunities')}
+      </Header>
 
-        <P className="mb-3" fontSize="14">
-          {x.description}
-        </P>
+      {suggestedCommunities.slice(0, 3).map(x => (
+        <Item key={x.id}>
+          <div className="d-flex align-items-center mb-2">
+            <Img className="mr-1" src={x.avatar} alt="commAvatar" />
+            <Span bold>{x.name}</Span>
+          </div>
 
-        <div>
-          <VoteUpButton className="mr-2" communityId={x.id} />
-          <VoteDownButton communityId={x.id} />
-        </div>
-      </Item>
-    ))}
+          <P className="mb-3" fontSize="14">
+            {x.description}
+          </P>
 
-    <footer>
-      <A
-        className="d-flex align-items-center"
-        to={routes.suggestedCommunities()}
-        href={routes.suggestedCommunities()}
-      >
-        <img className="mr-2" src={moreVotingIcon} alt="moreVotingIcon" />
-        <Span color={TEXT_PRIMARY}>
-          <FormattedMessage {...commonMessages.moreVoting} />
-        </Span>
-      </A>
-    </footer>
-  </div>
-);
+          <div>
+            <VoteUpButton className="mr-2" communityId={x.id} />
+            <VoteDownButton communityId={x.id} />
+          </div>
+        </Item>
+      ))}
+
+      <footer>
+        <A
+          className="d-flex align-items-center"
+          to={routes.suggestedCommunities()}
+          href={routes.suggestedCommunities()}
+        >
+          <img className="mr-2" src={moreVotingIcon} alt="moreVotingIcon" />
+          <Span color={TEXT_PRIMARY}>{t('common.moreVoting')}</Span>
+        </A>
+      </footer>
+    </div>
+  );
+};
 
 Aside.propTypes = {
   suggestedCommunities: PropTypes.array,

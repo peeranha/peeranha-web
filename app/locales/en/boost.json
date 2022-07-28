@@ -1,0 +1,19 @@
+{
+  "title": "Boost",
+  "description": "Boost | Description",
+  "currentPeriod": "Current period",
+  "nextPeriod": "Next period",
+  "maximumStake": "Average stake",
+  "users": "Users",
+  "yourStake": "Your stake",
+  "yourBoost": "Your boost",
+  "yourPredictedBoost": "Your predicted boost",
+  "formTitle": "Next period stake",
+  "formSubmit": "Save",
+  "formCancel": "Cancel",
+  "formBoostPrediction": "Boost prediction",
+  "formCurrentStake": "Your stake",
+  "formTakeAStake": "Take a stake",
+  "formUnstakeTokens": "Unstake tokens",
+  "notTokensToStake": "You don't have tokens to stake"
+}

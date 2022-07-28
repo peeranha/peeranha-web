@@ -1,0 +1,30 @@
+{
+  "unknownError": "Unknown error. Please submit bug report!",
+  "accountAlreadyRegistered": "Account already registered",
+  "invalidEncryptionKey": "Invalid encryption key",
+  "userDidntStoreKey": "User did not store owner key in our service",
+  "unableToDecryptUserKey": "Check  entered data",
+  "wrongPassword": "Wrong password",
+  "wrongMasterKey": "Wrong master key",
+  "userDidntRequestActivateAcc":
+    "This user did not request to activate account",
+  "youSendTooManRequests": "You sent too many requests in the last period",
+  "userDidntMakeRequestToVerifyEmail":
+    "Email does not require registration or request expired",
+  "codeExpiredOrIncorrect": "Code expired or entered incorrectly",
+  "passphraseIsInvalid": "The passphrase is invalid",
+  "accountWithEmailIsntRegistered":
+    "Account with given email isn't registered yet",
+  "requestExpiredOrSomeOperationWasPassed":
+    "User did not request the opertion or request expired",
+  "invalidCipher": "Invalid cipher IV in passphase",
+  "emailAlreadyInUse": "Email already in use",
+  "unableToBuildModel": "Unable to build model",
+  "facebookAlreadyInUse": "Facebook account already in use",
+  "facebookAccountIsntRegistered": "Facebook account isn't registered yet",
+  "incorrectFacebookAccessToken": "Incorrect facebook access token",
+  "noStoredFacebookData": "There is no stored facebook user data in Peeranha",
+  "privateKeyTypeIsNotSet": "The private key type is not set",
+  "noFacebookAccountEmail":
+    "The Facebook account does not have an installed email or the email is not verified"
+}
