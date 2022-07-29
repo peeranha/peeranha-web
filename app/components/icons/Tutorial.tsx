@@ -1,12 +1,12 @@
 import React from 'react';
 import IconComponent, { IconProps } from './IconComponent';
 
-const Tutorial: React.FC<IconProps> = ({ className }): JSX.Element => (
+const Tutorial: React.FC<IconProps> = ({ className, size }): JSX.Element => (
   <IconComponent
     id="tutorial"
     fill="currentColor"
     viewBox="0 0 24 24"
-    size={[24, 24]}
+    size={size || [24, 24]}
     className={className}
   >
     <g stroke="none" fill="none" transform="translate(3, 1)">

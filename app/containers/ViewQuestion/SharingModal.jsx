@@ -21,19 +21,18 @@ import {
 } from 'style-constants';
 import { APP_TWITTER_NICKNAME } from 'utils/constants';
 
-import commonMessages from 'common-messages';
-import messages from './messages';
+import TwitterIcon from 'icons/Twitter';
+import TelegramIcon from 'icons/Telegram';
+import RedditGlyphIcon from 'icons/RedditGlyph';
 
 import { showPopover } from 'utils/popover';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
-import twitter from 'images/social-media-logos/logo-twitter-glyph-24.svg?external';
-import telegram from 'images/social-media-logos/logo-telegram-glyph-24.svg?external';
-import reddit from 'images/social-media-logos/logo-reddit-glyph-24.svg?external';
-
 import Input from 'components/Input';
-import { IconLg } from 'components/Icon/IconWithSizes';
+
+import commonMessages from 'common-messages';
+import messages from './messages';
 
 const DropdownModal = styled.div`
   position: absolute;
@@ -107,19 +106,19 @@ const SharingModal = ({ questionData, locale }) => {
             title={questionData.content.title}
             via={APP_TWITTER_NICKNAME}
           >
-            <IconLg icon={twitter} />
+            <TwitterIcon fill="#576fed" />
           </TwitterShareButton>
           <TelegramShareButton
             url={window.location.href}
             title={questionData.content.title}
           >
-            <IconLg icon={telegram} />
+            <TelegramIcon fill="#576fed" />
           </TelegramShareButton>
           <RedditShareButton
             url={window.location.href}
             title={questionData.content.title}
           >
-            <IconLg icon={reddit} />
+            <RedditGlyphIcon fill="#576fed" />
           </RedditShareButton>
         </div>
         <button

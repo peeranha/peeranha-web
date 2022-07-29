@@ -6,8 +6,7 @@ import { TEXT_LIGHT, TEXT_SECONDARY } from 'style-constants';
 import { LEFT_MENU_ID } from 'containers/LeftMenu/constants';
 import { HEADER_ID } from 'containers/Header/constants';
 
-import Icon from 'components/Icon';
-import toTopArrow from 'images/toTopArrow.svg?external';
+import ArrowDownFillIcon from 'icons/ArrowDownFill';
 
 const Button = styled.button`
   position: fixed;
@@ -94,7 +93,7 @@ const ScrollToTop = () => {
 
   return (
     <Button visible={visible} onClick={clickHandler} gray>
-      <Icon icon={toTopArrow} width="14" height="14" />
+      <ArrowDownFillIcon size={[14, 14]} className="transform180" />
     </Button>
   );
 };

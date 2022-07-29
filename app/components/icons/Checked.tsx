@@ -1,12 +1,12 @@
 import React from 'react';
 import IconComponent, { IconProps } from './IconComponent';
 
-const Checked: React.FC<IconProps> = ({ stroke }): JSX.Element => (
+const Checked: React.FC<IconProps> = ({ stroke, size }): JSX.Element => (
   <IconComponent
     id="block"
     fill="currentColor"
     viewBox="0 0 13 10"
-    size={[13, 10]}
+    size={size || [13, 10]}
   >
     <g stroke={stroke || '#282828'} fill="none">
       <path

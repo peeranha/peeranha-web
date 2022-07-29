@@ -23,7 +23,6 @@ import Span from 'components/Span/index';
 import expertIcon from 'images/hat-3-outline-24.svg?external';
 import generalIcon from 'images/comments-outline-24.svg?external';
 import EditIcon from 'icons/Edit';
-import FeedIcon from 'icons/Feed';
 
 import myFeedIcon from 'images/myFeedHeader.svg?external';
 import tutorialIcon from 'images/tutorial.svg?external';
@@ -96,7 +95,6 @@ export const Header = ({
     ? hasGlobalModeratorRole(getPermissions(profile)) ||
       hasCommunityModeratorRole(getPermissions(profile), single)
     : false;
-  const isBloggerMode = hasGlobalModeratorRole(getPermissions(profile));
 
   let defaultAvatar = null;
   let defaultLabel = null;

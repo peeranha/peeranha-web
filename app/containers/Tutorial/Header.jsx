@@ -5,10 +5,7 @@ import commonMessages from 'common-messages';
 
 import TutorialIcon from 'icons/Tutorial';
 
-import tutorialPageHeader from 'images/tutorialPageHeader.svg?external';
-
 import { MediumIconStyled } from 'components/Icon/MediumIcon';
-import Icon from 'components/Icon';
 import H3 from 'components/H3';
 import Wrapper from 'components/Header/Simple';
 
@@ -16,8 +13,7 @@ const Header = () => (
   <Wrapper className="mb-to-sm-0 mb-from-sm-3">
     <H3>
       <MediumIconStyled>
-        <Icon icon={tutorialPageHeader} width="38" />
-        {/*<TutorialIcon/>*/}
+        <TutorialIcon size={[38, 38]} />
       </MediumIconStyled>
 
       <span className="">
