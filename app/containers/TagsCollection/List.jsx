@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import orderBy from 'lodash/orderBy';
-import { PEER_PRIMARY_COLOR, TEXT_SECONDARY } from 'style-constants';
+import { TEXT_SECONDARY } from 'style-constants';
 import commonMessages from 'common-messages';
 import * as routes from 'routes-config';
 import A from 'components/A';
@@ -34,17 +34,17 @@ const TagListBox = styled.div`
 
       ::-webkit-scrollbar-track {
         -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.1);
-        background-color: #f5f5f5;
+        background-color: rgb(245, 245, 245);
         border-radius: 10px;
       }
 
       ::-webkit-scrollbar {
         height: 5px;
-        background-color: #f5f5f5;
+        background-color: rgb(245, 245, 245);
       }
 
       ::-webkit-scrollbar-thumb {
-        background-color: ${PEER_PRIMARY_COLOR};
+        background-color: rgb(189, 189, 189);
         border-radius: 10px;
       }
     }
