@@ -46,7 +46,12 @@ const ProgressBar = ({
   };
 
   return (
-    <Wrapper id={id} width={width} onMouseEnter={showTooltip}>
+    <Wrapper
+      id={id}
+      width={width}
+      onMouseEnter={showTooltip}
+      onClick={showTooltip}
+    >
       <Progress progress={progress} />
     </Wrapper>
   );
