@@ -1,3 +1,4 @@
+import { isAddress } from 'ethers/lib/utils';
 import _get from 'lodash/get';
 import { CURRENCIES } from 'wallet-config';
 
@@ -180,6 +181,10 @@ const valueHasToBeLessThanMaxPromotingHours = (...args) => {
   return value > comparedValue ? messages.valueIsMore : undefined;
 };
 
+const stringHasToBeEthereumAddress = value => {
+  return !isAddress(value) ? messages.wrongAddressFormat : undefined;
+};
+
 const comparePasswords = (...args) => {
   const value = args[0];
   const list = args[2].passwordList;
@@ -248,4 +253,5 @@ export {
   atLeastOneLetter,
   valueHasToBePositiveInteger,
   valueHasToBeLessThanMaxPromotingHours,
+  stringHasToBeEthereumAddress,
 };

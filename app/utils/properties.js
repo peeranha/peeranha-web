@@ -155,7 +155,14 @@ export const getAllRoles = (userRoles = [], communitiesCount) => {
   });
 };
 
-export const hasCommunityAdminRole = (permissions = [], communityId) => {
+export const hasCommunityAdminRole = (permissionsFromState, communityId) => {
+  let permissions = permissionsFromState;
+
+  if (!permissions) {
+    permissions =
+      JSON.parse(getCookie('profileinfols') || '""')?.permissions || [];
+  }
+
   return !!permissions.filter(
     permission =>
       permission === getCommunityRole(COMMUNITY_ADMIN_ROLE, communityId),

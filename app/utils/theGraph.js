@@ -21,6 +21,7 @@ import {
   historiesQuery,
   currentPeriodQuery,
   usersByCommunityQuery,
+  moderationQuery,
 } from './ethConstants';
 import { isUserExists } from './accountManagement';
 
@@ -45,6 +46,16 @@ export const getUsers = async ({
     },
   });
   return users?.data.users;
+};
+
+export const getModerators = async roles => {
+  const administrators = await client.query({
+    query: gql(moderationQuery),
+    variables: {
+      roles: roles,
+    },
+  });
+  return [...administrators?.data.userPermissions];
 };
 
 export const getUsersByCommunity = async ({

@@ -44,6 +44,7 @@
   "app.common.followers": "Подписчики",
   "app.common.usersShort": "Польз.",
   "app.common.faq": "ЧАВО",
+  "app.common.administration": "Администрация",
   "app.common.moderationHeader": "Права модератора",
   "app.common.tutorials": "Руководство",
   "app.common.subscribeMore": "Подписаться еще",
@@ -77,6 +78,15 @@
   "app.common.no": "Нет",
   "app.common.agree": "Согласен",
   "app.common.gotIt": "Понятно!",
+  "app.containers.Administration.communityModerator": "Модератор комьюнити",
+  "app.containers.Administration.communityAdministrator":
+    "Фдминистратор комьюнити",
+  "app.containers.Administration.addModerator": "Назначить модератора",
+  "app.containers.Administration.confirm": "Подтвердить",
+  "app.containers.Administration.cancel": "Отменить",
+  "app.containers.Administration.wantToRevoke":
+    "Вы уверены, что хотите отозвать этого модератора?",
+  "app.containers.Administration.revoke": "Отозвать",
   "app.common.agreeShort": "Согл.",
   "app.common.disagree": "Не согласен",
   "app.common.disagreeShort": "Не согл.",
@@ -910,6 +920,8 @@
     "Отправитель и получатель не могут быть одним и тем же",
   "app.components.FormFields.valueIsNotPositiveInteger":
     "Значение не является целым положительным числом",
+  "app.components.FormFields.wrongAddressFormat":
+    "Значение не является адресом Ethereum",
 
   "app.components.Footer.header": "Авторские права: Peeranha",
 

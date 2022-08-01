@@ -42,6 +42,7 @@ import {
   EditCommunity,
   HomePage,
   Faq,
+  Administration,
   Users,
   EditQuestion,
   EditProfilePage,
@@ -87,7 +88,10 @@ import { getCookie, setCookie } from '../../utils/cookie';
 import { REFERRAL_CODE_URI } from './constants';
 import { AUTOLOGIN_DATA } from '../Login/constants';
 import { redirectToFeed } from './actions';
-import { hasGlobalModeratorRole } from '../../utils/properties';
+import {
+  hasCommunityAdminRole,
+  hasGlobalModeratorRole,
+} from '../../utils/properties';
 import CookieConsentPopup from '../../components/CookieConsentPopup';
 
 const single = isSingleCommunityWebsite();
@@ -131,6 +135,9 @@ const App = ({
   );
 
   const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
+
+  const hasCommunityOrProtocolAdminRole =
+    single && (hasGlobalModeratorRole() || hasCommunityAdminRole(null, single));
 
   return (
     <ErrorBoundary>
@@ -378,6 +385,15 @@ const App = ({
               render={props => Wrapper(Users, props)}
             />
           )}
+
+          {single &&
+            hasCommunityOrProtocolAdminRole && (
+              <Route
+                exact
+                path={routes.administration()}
+                render={props => Wrapper(Administration, props)}
+              />
+            )}
 
           <Route
             path={routes.noAccess()}

@@ -27,6 +27,10 @@ export const CHANGE_STATUS_BEST = 'changeStatusBestReply';
 export const VOTE_ITEM = 'voteItem';
 export const CLAIM_REWARD = 'claimReward';
 export const SET_STAKE = 'setStake';
+export const GIVE_COMMUNITY_MODERATOR_PERMISSION =
+  'giveCommunityModeratorPermission';
+export const REVOKE_COMMUNITY_MODERATOR_PERMISSION =
+  'revokeCommunityModeratorPermission';
 
 //Query names
 export const GET_USER_BY_ADDRESS = 'getUserByAddress';
@@ -163,6 +167,20 @@ export const usersQuery = `
           replyCount
         }
       }`;
+
+export const moderationQuery = `
+  query(
+    $roles: [String],
+  ) {
+    userPermissions (where: {permission_in: $roles}) {
+      id
+      user {
+        ${user}
+      }
+      permission
+    }
+  }
+`;
 
 export const usersByCommunityQuery = `
       query(

@@ -94,11 +94,17 @@ export default css`
   .aic {
     align-items: center;
   }
+  .ais {
+    align-items: start;
+  }
   .aife {
     align-items: flex-end;
   }
   .fdc {
     flex-direction: column;
+  }
+  .fdr {
+    flex-direction: row;
   }
   .f1 {
     flex: 1;

@@ -44,6 +44,7 @@
   "app.common.followers": "Followers",
   "app.common.usersShort": "Users",
   "app.common.faq": "FAQ",
+  "app.common.administration": "Administration",
   "app.common.moderationHeader": "Moderator permissions",
   "app.common.tutorials": "Tutorials",
   "app.common.subscribeMore": "Subscribe more",
@@ -77,6 +78,15 @@
   "app.common.no": "No",
   "app.common.agree": "Upvote",
   "app.common.gotIt": "Got it!",
+  "app.containers.Administration.communityModerator": "Community Moderator",
+  "app.containers.Administration.communityAdministrator":
+    "Community Administrator",
+  "app.containers.Administration.addModerator": "Add moderator",
+  "app.containers.Administration.confirm": "Confirm",
+  "app.containers.Administration.cancel": "Cancel",
+  "app.containers.Administration.wantToRevoke":
+    "Are you sure you want to revoke this moderator?",
+  "app.containers.Administration.revoke": "Revoke",
   "app.common.agreeShort": "Upvote",
   "app.common.disagree": "Downvote",
   "app.common.disagreeShort": "Downvote",
@@ -901,6 +911,8 @@
   "app.components.FormFields.hasToBeMoreThanPrev": "You cannot set lower value",
   "app.components.FormFields.valueIsNotPositiveInteger":
     "Value is not a positive integer",
+  "app.components.FormFields.wrongAddressFormat":
+    "Value is not an Ethereum address",
 
   "app.containers.TagsCollection.title": "Tags collection",
   "app.containers.TagsCollection.description": "Tags Description",

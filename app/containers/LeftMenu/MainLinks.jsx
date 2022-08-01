@@ -2,6 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import { administration } from 'routes-config';
 import styled, { css } from 'styled-components';
 import isMobile from 'ismobilejs';
 
@@ -45,7 +46,10 @@ import generalIcon from 'images/comments-outline-24.svg?external';
 import tutorialIcon from 'images/tutorial.svg?external';
 import { FULL_SIZE } from 'containers/LeftMenu/constants';
 import { BasicLink } from 'containers/LeftMenu/Styles';
-import { hasGlobalModeratorRole } from 'utils/properties';
+import {
+  hasCommunityAdminRole,
+  hasGlobalModeratorRole,
+} from 'utils/properties';
 
 const styles = singleCommunityStyles();
 const colors = singleCommunityColors();
@@ -145,6 +149,10 @@ const MainLinks = ({ currClientHeight, profile }) => {
     route = isBloggerMode ? 'home' : 'feed';
   }
 
+  const hasCommunityOrProtocolAdminRole =
+    singleCommId &&
+    (hasGlobalModeratorRole() || hasCommunityAdminRole(null, singleCommId));
+
   return (
     <Box currClientHeight={currClientHeight}>
       {isBloggerMode && (
@@ -208,6 +216,13 @@ const MainLinks = ({ currClientHeight, profile }) => {
             <FormattedMessage {...messages.faq} />
           </A1>
         )}
+
+      {Boolean(singleCommId && hasCommunityOrProtocolAdminRole) && (
+        <A1 to={routes.administration()} name="administration" route={route}>
+          <IconLg className="mr-2" icon={usersIcon} fill={BORDER_PRIMARY} />
+          <FormattedMessage {...messages.administration} />
+        </A1>
+      )}
     </Box>
   );
 };
