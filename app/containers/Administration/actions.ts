@@ -9,6 +9,7 @@ import {
   REVOKE_MODERATOR_ERROR,
   REVOKE_MODERATOR_SUCCESS,
 } from 'containers/Administration/constants';
+import { Moderator } from 'containers/Administration/types';
 
 export function getModerators(communityId: number) {
   return {
@@ -17,7 +18,7 @@ export function getModerators(communityId: number) {
   };
 }
 
-export function getModeratorsSuccess(moderatorsList: Array<object>) {
+export function getModeratorsSuccess(moderatorsList: Array<Moderator>) {
   return {
     type: GET_MODERATORS_SUCCESS,
     moderatorsList,
