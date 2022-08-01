@@ -82,10 +82,8 @@ const communitiesConfig = {
     // },
   },
   dev: {
-    1: {
-      origin: 'http://localhost:3000',
-      // src: PolygonLogo,
-      // styles: PolygonStyles,
+    3: {
+      origin: 'http://localhost:3100',
     },
   },
 };
