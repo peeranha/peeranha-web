@@ -8,7 +8,6 @@ import commonMessages from 'common-messages';
 import * as routes from 'routes-config';
 import A from 'components/A';
 import P from 'components/P';
-import BlockShadow from 'components/BlockShadow';
 import TagList from 'components/TagsList';
 import { BaseSpecial } from 'components/Base/BaseTransparent';
 import { MediumImageStyled } from 'components/Img/MediumImage';
@@ -22,14 +21,18 @@ const TagListBox = styled.div`
 
   ul {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     flex: 1;
-    overflow: hidden;
+    overflow: auto;
+    overflow-y: hidden;
     position: relative;
   }
 
   ul li {
     margin-right: 30px;
+  }
+  li {
+    margin-bottom: 10px;
   }
 `;
 
@@ -122,7 +125,6 @@ const List = ({ communities }) => {
                     communityId={x.id}
                     showPopularity
                   />
-                  <BlockShadow toSide="right" />
                 </TagListBox>
 
                 <SeeAllButton>
