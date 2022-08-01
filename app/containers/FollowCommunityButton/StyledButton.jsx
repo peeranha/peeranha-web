@@ -2,13 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
-import okayIcon from 'images/okay.svg?inline';
+import CheckedIcon from 'icons/Checked';
 
 import PrimaryButton from 'components/Button/Contained/PrimaryMedium';
 import InfoButton from 'components/Button/Outlined/InfoMedium';
 
 import Button from './index';
 import messages from './messages';
+import { BG_LIGHT } from '../../style-constants';
 
 const B = ({ isFollowed, onClick, id, disabled }) => {
   if (isFollowed) {
@@ -19,7 +20,7 @@ const B = ({ isFollowed, onClick, id, disabled }) => {
         onClick={onClick}
         disabled={disabled}
       >
-        <img className="py-1" src={okayIcon} alt="icon" />
+        <CheckedIcon stroke={BG_LIGHT} />
       </PrimaryButton>
     );
   }

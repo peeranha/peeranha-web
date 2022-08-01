@@ -12,9 +12,6 @@ import {
   BG_SECONDARY_SPECIAL_4,
   BORDER_SECONDARY_LIGHT,
   TEXT_SECONDARY,
-  BORDER_WARNING_LIGHT,
-  PEER_PRIMARY_COLOR,
-  BORDER_PRIMARY,
   BORDER_PRIMARY_LIGHT,
 } from 'style-constants';
 
@@ -31,7 +28,6 @@ import {
 } from './constants';
 
 import Span from '../Span';
-import { IconMd } from 'components/Icon/IconWithSizes';
 
 const single = isSingleCommunityWebsite();
 const styles = singleCommunityStyles();
@@ -80,7 +76,7 @@ const Container = styled.div`
     margin-bottom: 4px;
   }
 
-  > div:nth-child(2) a > span:first-child {
+  > div:nth-child(2) a > svg:first-child {
     height: 20px;
     margin-right: 8px;
     flex-shrink: 0;
@@ -247,15 +243,7 @@ const Notification = ({
       </Span>
       <div className="d-flex align-items-center justify-content-between">
         <NotificationLink isAnotherCommItem={isAnotherCommItem} href={href}>
-          <IconMd
-            icon={NOTIFICATIONS_DATA[type].src}
-            color={
-              !isCommunityMod && tipNotification ? BORDER_WARNING_LIGHT : null
-            }
-            specialStyles={
-              isCommunityMod && tipNotification && styles.coinsIconStyles
-            }
-          />
+          {NOTIFICATIONS_DATA[type].icon}
           <span>{data.title}</span>
         </NotificationLink>
       </div>

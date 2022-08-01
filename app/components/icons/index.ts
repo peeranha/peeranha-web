@@ -1,5 +1,6 @@
 export { default as Share } from './Share';
 export { default as Plus } from './Plus';
+export { default as PlusCircle } from './PlusCircle';
 export { default as Notification } from './Notification';
 export { default as Energy } from './Energy';
 export { default as Peercoin } from './Peercoin';
@@ -91,6 +92,7 @@ export { default as Minus } from './Minus';
 export { default as Official } from './Official';
 export { default as Loader } from './Loader';
 export { default as Reload } from './Reload';
+export { default as NoAvatar } from './NoAvatar';
 export { default as Scatter } from './Scatter';
 export { default as Search } from './Search';
 export { default as SingleCommunity } from './SingleCommunity';

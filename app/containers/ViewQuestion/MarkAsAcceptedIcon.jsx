@@ -13,8 +13,7 @@ import {
   BG_SUCCESS_LIGHT,
 } from 'style-constants';
 
-import okayIconWhite from 'images/okay.svg?inline';
-import okayIconGreen from 'images/okayGreen.svg?inline';
+import CheckedIcon from 'icons/Checked';
 
 import { Icon } from 'components/Input/Checkbox';
 import AcceptAnswerView from 'components/Button/Contained/SuccessMedium';
@@ -58,7 +57,6 @@ const Label = AcceptAnswerView.extend`
 
   ${Icon} {
     background-color: ${BG_LIGHT};
-    background-image: url(${x => (x.value ? okayIconGreen : '')});
     border: ${x => (!x.value ? '1' : '0')}px solid ${BORDER_SUCCESS};
     box-shadow: none;
 
@@ -85,7 +83,7 @@ export const MarkAsAcceptedIcon = ({
   ) {
     return (
       <Label className={className} inactive value>
-        <img className="d-inline-flex mr-2" src={okayIconWhite} alt="icon" />
+        <CheckedIcon className="mr8" stroke={BG_LIGHT} />
         <FormattedMessage {...messages.theBest} />
       </Label>
     );
@@ -103,7 +101,11 @@ export const MarkAsAcceptedIcon = ({
         value={correctAnswerId === answerId}
         id={id}
       >
-        <Icon />
+        <Icon>
+          <CheckedIcon
+            stroke={correctAnswerId === answerId ? BG_SUCCESS : BG_LIGHT}
+          />
+        </Icon>
         <FormattedMessage
           {...messages[
             correctAnswerId === answerId ? 'theBestAnswer' : 'markAsBest'

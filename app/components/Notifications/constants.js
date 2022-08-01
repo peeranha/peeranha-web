@@ -1,13 +1,11 @@
-import answerIcon from 'images/answer.svg?external';
-import questionIcon from 'images/question2.svg?external';
-import bestAnswerIcon from 'images/bestAnswer.svg?external';
-import downVoteIcon from 'images/redFingerDownSingleQuestion.svg?external';
-import grayDownVoteIcon from 'images/grayFingerDownSingleQuestion.svg?external';
-import greenUpVoteIcon from 'images/greenFingerUpSingleQuestion.svg?external';
-import grayUpVoteIcon from 'images/grayFingerUpSingleQuestion.svg?external';
-import coinsIcon from 'images/coins.svg?external';
+import LikeIcon from 'icons/Like';
+import DisLikeIcon from 'icons/DisLike';
+import AnswerWithAIcon from 'icons/AnswerWithA';
+import FaqIcon from 'icons/Faq';
+import TipIcon from 'icons/Tip';
 
 import messages from './messages';
+import { PEER_PRIMARY_COLOR } from '../../style-constants';
 
 export const ROW_HEIGHT = 40;
 export const VERTICAL_OFFSET = 5 * ROW_HEIGHT;
@@ -74,58 +72,58 @@ export const NOTIFICATIONS_TYPES = {
 export const NOTIFICATIONS_DATA = {
   [NOTIFICATIONS_TYPES.questionUpVoted]: {
     ...messages.yourQuestionWasUpVoted,
-    src: greenUpVoteIcon,
+    icon: <LikeIcon fill="#28A745" stroke="#28A745" />,
   },
   [NOTIFICATIONS_TYPES.questionDownVoted]: {
     ...messages.yourQuestionWasDownVoted,
-    src: downVoteIcon,
+    icon: <DisLikeIcon fill="#F76F60" stroke="#F76F60" />,
   },
   [NOTIFICATIONS_TYPES.questionUpVoteCanceled]: {
     ...messages.yourQuestionUpVoteWasCanceled,
-    src: grayUpVoteIcon,
+    icon: <LikeIcon fill="#5F5F5F" stroke="#5F5F5F" />,
   },
   [NOTIFICATIONS_TYPES.questionDownVoteCanceled]: {
     ...messages.yourQuestionDownVoteWasCanceled,
-    src: grayDownVoteIcon,
+    icon: <DisLikeIcon fill="#5F5F5F" stroke="#5F5F5F" />,
   },
   [NOTIFICATIONS_TYPES.answerUpVoted]: {
     ...messages.yourAnswerWasUpVoted,
-    src: greenUpVoteIcon,
+    icon: <LikeIcon fill="#28A745" stroke="#28A745" />,
   },
   [NOTIFICATIONS_TYPES.answerDownVoted]: {
     ...messages.yourAnswerWasDownVoted,
-    src: downVoteIcon,
+    icon: <DisLikeIcon fill="#F76F60" stroke="#F76F60" />,
   },
   [NOTIFICATIONS_TYPES.answerUpVoteCanceled]: {
     ...messages.yourAnswerUpVoteWasCanceled,
-    src: grayUpVoteIcon,
+    icon: <LikeIcon fill="#5F5F5F" stroke="#5F5F5F" />,
   },
   [NOTIFICATIONS_TYPES.answerDownVoteCanceled]: {
     ...messages.yourAnswerDownVoteWasCanceled,
-    src: grayDownVoteIcon,
+    icon: <DisLikeIcon fill="#5F5F5F" stroke="#5F5F5F" />,
   },
   [NOTIFICATIONS_TYPES.answerMarkedTheBest]: {
     ...messages.yourAnswerWasMarkedAsTheBest,
-    src: bestAnswerIcon,
+    icon: <AnswerWithAIcon stroke="#28A745" />,
   },
   [NOTIFICATIONS_TYPES.questionAnswered]: {
     ...messages.somebodyAnsweredYourQuestion,
-    src: questionIcon,
+    icon: <FaqIcon stroke="#354A89" size={[18, 18]} />,
   },
   [NOTIFICATIONS_TYPES.questionCommented]: {
     ...messages.somebodyLeftACommentToYourQuestion,
-    src: questionIcon,
+    icon: <FaqIcon stroke="#354A89" size={[18, 18]} />,
   },
   [NOTIFICATIONS_TYPES.answerCommented]: {
     ...messages.somebodyLeftACommentToYourAnswer,
-    src: answerIcon,
+    icon: <AnswerWithAIcon stroke="#354A89" />,
   },
   [NOTIFICATIONS_TYPES.questionTipped]: {
     ...messages.yourQuestionWasTipped,
-    src: coinsIcon,
+    icon: <TipIcon fill="#FEF1F1" stroke={PEER_PRIMARY_COLOR} />,
   },
   [NOTIFICATIONS_TYPES.answerTipped]: {
     ...messages.yourAnswerWasTipped,
-    src: coinsIcon,
+    icon: <TipIcon fill="#FEF1F1" stroke={PEER_PRIMARY_COLOR} />,
   },
 };

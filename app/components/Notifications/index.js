@@ -267,7 +267,7 @@ const Notifications = ({
               <div
                 ref={registerChild}
                 className={classnames('pb-2', {
-                  'pt-2': !Boolean(unreadCount),
+                  'pt-2': !unreadCount,
                 })}
               >
                 <List

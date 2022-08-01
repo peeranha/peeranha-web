@@ -11,7 +11,7 @@ import {
   BORDER_SECONDARY,
 } from 'style-constants';
 
-import checkedIcon from 'images/okay.svg?inline';
+import CheckedIcon from 'icons/Checked';
 
 import Span from 'components/Span';
 import { DisableHandling, ErrorHandling } from './InputStyled';
@@ -52,7 +52,7 @@ const Input = styled.input`
   cursor: pointer;
 
   :checked + span {
-    background-image: url(${checkedIcon});
+    background-image: ${CheckedIcon};
     background-color: ${BG_PRIMARY_DARK};
 
     border: 1px solid ${BORDER_PRIMARY_DARK};

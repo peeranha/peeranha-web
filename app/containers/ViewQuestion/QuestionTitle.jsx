@@ -6,8 +6,7 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 
 import { BG_SUCCESS, TEXT_PREMIUM } from 'style-constants';
-
-import checkIcon from 'images/okayGreen.svg?inline';
+import CheckedIcon from 'icons/Checked';
 
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { getFormattedDate, dateNowInSeconds } from 'utils/datetime';
@@ -61,7 +60,7 @@ const PromotionInfo = styled.div`
   text-align: right;
 `;
 
-const BaseExtnded = Base.extend`
+const BaseExtended = Base.extend`
   display: flex;
 `;
 
@@ -112,7 +111,7 @@ export const QuestionTitle = ({
   const isItWrittenByMe = profileInfo ? user === profileInfo.user : false;
 
   return title ? (
-    <BaseExtnded
+    <BaseExtended
       paddingTop="5"
       paddingTopMedia="5"
       position="middle"
@@ -123,7 +122,11 @@ export const QuestionTitle = ({
         {!correctAnswerId && isItWrittenByMe && answers.length ? (
           <>
             <MarkAnswerNotification className="d-inline-flex">
-              <img className="mr-2" src={checkIcon} alt="icon" />
+              <CheckedIcon
+                className="mr-2"
+                stroke={BG_SUCCESS}
+                size={[16, 18]}
+              />
               <FormattedMessage
                 id={
                   messages[
@@ -175,7 +178,7 @@ export const QuestionTitle = ({
         )}
       </Div>
       <QuestionLabel postType={postType} />
-    </BaseExtnded>
+    </BaseExtended>
   ) : null;
 };
 

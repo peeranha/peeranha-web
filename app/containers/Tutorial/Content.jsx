@@ -10,13 +10,13 @@ import textBlockStyles from 'text-block-styles';
 import commonMessages from 'common-messages';
 
 import { BORDER_SECONDARY } from 'style-constants';
+import cn from 'classnames';
 
-import plusIcon from 'images/Plus.svg?inline';
-import minusIcon from 'images/Minus.svg?inline';
-import arrowIconNotFilled from 'images/arrowDownNotFilled.svg?external';
+import MinusIcon from 'icons/Minus';
+import PlusCircleIcon from 'icons/PlusCircle';
+import ArrowDownFillIcon from 'icons/ArrowDownFill';
 
 import H4 from 'components/H4';
-import Icon from 'components/Icon';
 import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
 import BaseTransparent from 'components/Base/BaseTransparent';
 import Button from 'components/Button/Outlined/PrimaryLarge';
@@ -105,7 +105,11 @@ const Section = ({
           mobileFS="24"
         >
           <ImgWrapper>
-            <img src={isOpened ? minusIcon : plusIcon} alt="icon" />
+            {isOpened ? (
+              <MinusIcon fill="#7699ff" />
+            ) : (
+              <PlusCircleIcon fill="#7699ff" />
+            )}
           </ImgWrapper>
           <span>{h2}</span>
         </H4>
@@ -134,12 +138,10 @@ const Section = ({
                 {...commonMessages[isExtendedSection ? 'showLess' : 'showMore']}
                 values={{ value: `${questionsNumber}/${blocks.length}` }}
               />
-              <Icon
-                className="ml-2"
-                rotate={isExtendedSection}
-                isTransition={false}
-                icon={arrowIconNotFilled}
-                width="8"
+              <ArrowDownFillIcon
+                className={cn(`ml-2 ${isExtendedSection && 'transform180'}`)}
+                size={[16, 12]}
+                fill="#7B7B7B"
               />
             </Button>
           </BaseTransparent>

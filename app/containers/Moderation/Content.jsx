@@ -16,16 +16,15 @@ import {
   TEXT_PRIMARY,
   TEXT_DARK,
   BORDER_PRIMARY_LIGHT,
+  BG_SUCCESS,
 } from 'style-constants';
 
-import plusIcon from 'images/Plus.svg?inline';
-import minusIcon from 'images/Minus.svg?inline';
-import okayGreen from 'images/okayGreen.svg?external';
-import notOkay from 'images/notOkayRed.svg?external';
+import MinusIcon from 'icons/Minus';
+import PlusCircleIcon from 'icons/PlusCircle';
+import CheckedIcon from 'icons/Checked';
 
 import H4 from 'components/H4';
 import Span from 'components/Span';
-import { IconSm } from 'components/Icon/IconWithSizes';
 import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
 import BaseTransparent from 'components/Base/BaseTransparent';
 import Button from 'components/Button/Outlined/PrimaryLarge';
@@ -110,11 +109,10 @@ const Permission = ({
   getPermissionCode,
 }) => {
   const permissionId = getPermissionCode(sectionCode, permissionCode);
-  const ico = okayGreen;
   return (
     <PermissionBox key={permissionId} id={permissionId} isOpened={false}>
       <ImgWrapper>
-        <IconSm icon={ico} />
+        <CheckedIcon stroke={BG_SUCCESS} size={[16, 18]} />
       </ImgWrapper>
 
       <PermissionBoxBody>
@@ -169,7 +167,11 @@ const Section = ({
           mobileFS="24"
         >
           <ImgWrapper>
-            <img src={isOpened ? minusIcon : plusIcon} alt="icon" />
+            {isOpened ? (
+              <MinusIcon fill="#7699ff" />
+            ) : (
+              <PlusCircleIcon fill="#7699ff" />
+            )}
           </ImgWrapper>
           <span>{h2}</span>
         </H4>

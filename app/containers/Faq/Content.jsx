@@ -18,18 +18,16 @@ import {
   BORDER_TRANSPARENT,
 } from 'style-constants';
 
-import plusIcon from 'images/Plus.svg?inline';
-import minusIcon from 'images/Minus.svg?inline';
-import arrowIconFilled from 'images/arrowDown.svg?external';
-import arrowIconNotFilled from 'images/arrowDownNotFilled.svg?external';
+import MinusIcon from 'icons/Minus';
+import PlusCircleIcon from 'icons/PlusCircle';
+import ArrowDownFillIcon from 'icons/ArrowDownFill';
 
 import H4 from 'components/H4';
 import Span from 'components/Span';
-import Icon from 'components/Icon';
-import { IconSm } from 'components/Icon/IconWithSizes';
 import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
 import BaseTransparent from 'components/Base/BaseTransparent';
 import Button from 'components/Button/Outlined/PrimaryLarge';
+import cn from 'classnames';
 
 export const TextBlock = styled.div`
   display: ${({ isOpened }) => (isOpened ? 'block' : 'none')};
@@ -140,7 +138,11 @@ const Question = ({
     <QuestionBox id={questionId} isOpened={isOpened}>
       {collapsedMenu && (
         <ImgWrapper onClick={collapseQuestion}>
-          <IconSm rotate={isOpened} icon={arrowIconFilled} />
+          <ArrowDownFillIcon
+            className={isOpened && 'transform180'}
+            size={[16, 12]}
+            fill="#7B7B7B"
+          />
         </ImgWrapper>
       )}
       <QuestionBoxBody>
@@ -193,7 +195,11 @@ const Section = ({
           mobileFS="24"
         >
           <ImgWrapper>
-            <img src={isOpened ? minusIcon : plusIcon} alt="icon" />
+            {isOpened ? (
+              <MinusIcon fill="#7699ff" />
+            ) : (
+              <PlusCircleIcon fill="#7699ff" />
+            )}
           </ImgWrapper>
           <span>{h2}</span>
         </H4>
@@ -228,12 +234,8 @@ const Section = ({
                   }
                   values={{ value: `${questionsNumber}/${blocks.length}` }}
                 />
-                <Icon
-                  className="ml-2"
-                  rotate={isExtendedSection}
-                  isTransition={false}
-                  icon={arrowIconNotFilled}
-                  width="8"
+                <ArrowDownFillIcon
+                  className={cn(`ml-2 ${isExtendedSection && 'transform180'}`)}
                 />
               </Button>
             </BaseTransparent>

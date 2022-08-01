@@ -5,30 +5,23 @@ import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
 import { BG_PRIMARY, BG_PRIMARY_RGB, BUTTON_COLOR } from 'style-constants';
-import { TEMPORARY_ACCOUNT_KEY } from 'utils/constants';
 
 import { formatStringToHtmlId } from 'utils/animation';
-import { singleCommunityStyles } from 'utils/communityManagement';
 
 import commonMessages from 'common-messages';
-
-import coinsIcon from 'images/coins.svg?external';
-import crownIcon from 'images/crownIcon.svg?external';
-import officialIcon from 'images/officialWhite.svg?external';
+import TipIcon from 'icons/Tip';
+import SuperHeroIcon from 'icons/SuperHero';
+import OfficialIcon from 'icons/Official';
 
 import Button from 'components/Button/Contained/PrimaryMedium';
 import MarkAsAcceptedIcon, { LabelStyles } from './MarkAsAcceptedIcon';
 import { B } from './QuestionTitle';
 import SendTips from '../SendTips';
-import { IconMd } from 'components/Icon/IconWithSizes';
-import Icon from 'components/Icon';
 
 import { MARK_AS_BUTTON } from './constants';
 import messages from './messages';
 
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
-
-const styles = singleCommunityStyles();
 
 const Label = Button.extend`
   ${LabelStyles};
@@ -97,11 +90,7 @@ export const BestAnswerMarker = ({
           account={whoWasAccepted}
         >
           <B>
-            <IconMd
-              className="mr-1"
-              icon={styles.coinsIcon ? styles.coinsIcon : coinsIcon}
-              color={BUTTON_COLOR}
-            />
+            <TipIcon stroke={BUTTON_COLOR} className="mr-1" />
             <FormattedMessage {...commonMessages.tipAnswer} />
           </B>
         </SendTips>
@@ -122,7 +111,11 @@ export const BestAnswerMarker = ({
 
       {isTheLargestRating && (
         <Label bg={BG_PRIMARY} inactive>
-          <Icon className="d-inline-flex mr-2" icon={crownIcon} width="11" />
+          <SuperHeroIcon
+            className="d-inline-flex mr-2"
+            stroke={BG_PRIMARY}
+            size={[15, 15]}
+          />
           <FormattedMessage {...messages.communityChoice} />
         </Label>
       )}
@@ -134,12 +127,7 @@ export const BestAnswerMarker = ({
           color={BG_PRIMARY}
           inactive
         >
-          <Icon
-            className="d-inline-flex mr-2"
-            icon={officialIcon}
-            width="16"
-            color={BG_PRIMARY}
-          />
+          <OfficialIcon className="d-inline-flex mr-2" stroke={BG_PRIMARY} />
           <FormattedMessage {...messages.officialAnswer} />
         </Label>
       )}

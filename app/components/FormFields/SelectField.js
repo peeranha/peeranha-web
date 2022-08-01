@@ -19,9 +19,8 @@ import {
   TEXT_SECONDARY_LIGHT,
 } from 'style-constants';
 
-import arrowDown from 'images/arrowDownNotFilled.svg?external';
+import ArrowDownFillIcon from 'icons/ArrowDownFill';
 import Span from 'components/Span';
-import Icon from 'components/Icon';
 
 import Wrapper from './Wrapper';
 
@@ -92,11 +91,10 @@ export const Select2 = ({
       components={{
         Group,
         DropdownIndicator: () => (
-          <Icon
+          <ArrowDownFillIcon
             className="mr-1"
-            icon={arrowDown}
-            width="16"
-            color={TEXT_SECONDARY_LIGHT}
+            size={[16, 12]}
+            fill={TEXT_SECONDARY_LIGHT}
           />
         ),
         IndicatorSeparator: null,

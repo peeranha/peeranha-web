@@ -9,7 +9,6 @@ import {
   BG_SUCCESS,
   TEXT_SECONDARY,
   BG_PRIMARY,
-  // BG_PRIMARY_DARK,
   BORDER_RADIUS_M,
   BORDER_RADIUS_L,
 } from 'style-constants';
@@ -19,14 +18,14 @@ import commonMessages from 'common-messages';
 import { getFormattedDate } from 'utils/datetime';
 import { MONTH_3LETTERS__DAY_YYYY_TIME } from 'utils/constants';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
+import QuestionType from 'containers/Questions/Content/Body/QuestionType';
 
-import okayIcon from 'images/okay.svg?inline';
-import crownIcon from 'images/crownIcon.svg?inline';
+import SuperHeroIcon from 'icons/SuperHero';
+import CheckedIcon from 'icons/Checked';
 
 import Base from 'components/Base';
 import Span from 'components/Span';
 import { AProps, APropsDefault } from 'components/A';
-// import QuestionType from 'components/Labels/QuestionType';
 
 import {
   POST_TYPE_ANSWER,
@@ -34,7 +33,6 @@ import {
 } from 'containers/Profile/constants';
 
 import QuestionCommunity from './QuestionCommunity';
-import QuestionType from 'containers/Questions/Content/Body/QuestionType';
 
 const single = isSingleCommunityWebsite();
 
@@ -130,10 +128,9 @@ const AcceptedQuestionBadge = ({
   (elementType === POST_TYPE_QUESTION && acceptedAnswer) ||
   (elementType === POST_TYPE_ANSWER && isMyAnswerAccepted) ? (
     <AcceptedQuestionBadgeStyled>
-      <img
+      <CheckedIcon
         className="d-flex align-items-center justify-content-center"
-        src={okayIcon}
-        alt="icon"
+        stroke="#FFF"
       />
     </AcceptedQuestionBadgeStyled>
   ) : null;
@@ -141,10 +138,10 @@ const AcceptedQuestionBadge = ({
 const TopCommunityBadge = ({ isTheLargestRating, elementType }) =>
   isTheLargestRating && elementType === POST_TYPE_ANSWER ? (
     <TopCommunityBadgeStyled>
-      <img
+      <SuperHeroIcon
         className="d-flex align-items-center justify-content-center"
-        src={crownIcon}
-        alt="icon"
+        stroke={BG_PRIMARY}
+        size={[15, 15]}
       />
     </TopCommunityBadgeStyled>
   ) : null;
