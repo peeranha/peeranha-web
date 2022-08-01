@@ -177,7 +177,7 @@
   "app.common.hoursAgo": "{hours} часов назад",
   "app.common.yesterday": "Вчера",
   "app.common.official": "Официальный",
-  "app.common.profilesUsersInfo": "Размер файла не должен превышать 2Мб",
+  "app.common.profilesUsersInfo": "Размер файла не должен превышать 5Мб",
   "app.common.communityBannerInfo":
     "Используйте картинку размера 1360 x 120 пикселей. Размер файла не должен превышать 1Мб",
   "app.common.fileSizeErrorMsg": "Размер файла больше 5Мб. Выберите другой...",

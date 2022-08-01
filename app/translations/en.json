@@ -178,7 +178,7 @@
   "app.common.hoursAgo": "{hours} hours ago",
   "app.common.yesterday": "Yesterday",
   "app.common.official": "Official",
-  "app.common.profilesUsersInfo": "File size should not exceed 2Mb",
+  "app.common.profilesUsersInfo": "File size should not exceed 5Mb",
   "app.common.communityBannerInfo":
     "Use an image that’s at least 1360 x 120 pixels. File size should not exceed 1Mb",
   "app.common.fileSizeErrorMsg":
