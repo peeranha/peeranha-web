@@ -130,7 +130,11 @@ const Question = ({
 
   return (
     <QuestionBox id={questionId} isOpened={isOpened}>
-      <div css={css(styles.collapseImage)} onClick={collapseQuestion}>
+      <div
+        className="aic jcc"
+        css={css(styles.collapseImage)}
+        onClick={collapseQuestion}
+      >
         <IconSm rotate={isOpened} icon={arrowIconFilled} />
       </div>
 
@@ -191,7 +195,7 @@ const Section = ({
         </H4>
 
         {isCommunityModerator && (
-          <div css={css(styles.buttonContainer)}>
+          <div className="df aic" css={css(styles.buttonContainer)}>
             <div id={`faq_delete_${faqId}`}>
               <AreYouSure
                 submitAction={deleteItem.bind(null, faqId)}
@@ -202,7 +206,7 @@ const Section = ({
                     onClick={onClick}
                   >
                     <IconMd icon={deleteIcon} fill={BORDER_PRIMARY} />
-                    <FormattedMessage {...messages.deleteButton} />
+                    <FormattedMessage id={messages.deleteButton.id} />
                   </IconButton>
                 )}
               />
@@ -215,7 +219,7 @@ const Section = ({
               id={`redirect-to-edit-item-0-${faqId}-0`}
             >
               <IconMd icon={pencilIcon} />
-              <FormattedMessage {...messages.editButton} />
+              <FormattedMessage id={messages.editButton.id} />
             </IconButton>
           </div>
         )}

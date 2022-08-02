@@ -1,8 +1,5 @@
 export const styles = {
   buttonContainer: {
-    display: 'flex',
-    'align-items': 'center',
-
     '@media only screen and (max-width: 360px)': {
       width: '40%',
       'justify-content': 'space-between',
@@ -14,8 +11,6 @@ export const styles = {
     'margin-right': '18px',
     width: '42px',
     display: 'inline-flex',
-    'align-items': 'center',
-    'justify-content': 'center',
     'flex-shrink': 0,
 
     ':hover': {
