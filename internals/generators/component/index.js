@@ -83,8 +83,8 @@ module.exports = {
     if (data.wantMessages) {
       actions.push({
         type: 'add',
-        path: '../../app/components/{{properCase name}}/messages.js',
-        templateFile: './component/messages.js.hbs',
+        path: '../../app/components/{{properCase name}}/messages.ts',
+        templateFile: './component/messages.ts.hbs',
         abortOnFail: true,
       });
     }

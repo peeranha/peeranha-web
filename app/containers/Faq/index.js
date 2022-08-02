@@ -39,12 +39,12 @@ import {
   hasGlobalModeratorRole,
 } from 'utils/properties';
 
-import messages from './messages';
+import messages from 'containers/Faq/messages';
 
 import Header from './Header';
 import Content from './Content';
 import Aside from './Aside';
-import { SECTION_ID } from './constants';
+import { SECTION_ID } from 'containers/Faq/constants';
 
 export const Faq = /* istanbul ignore next */ ({
   locale,
@@ -55,17 +55,20 @@ export const Faq = /* istanbul ignore next */ ({
   deleteQuestionDispatch,
   redirectToEditQuestionPageDispatch,
 }) => {
+  // const single = isSingleCommunityWebsite();
   const single = 1;
 
   const isCommunityModerator = single
     ? hasCommunityModeratorRole(getPermissions(profileInfo), single)
     : false;
 
-  const faqList = single
-    ? faqFromGraph.blocks
-      ? faqFromGraph
-      : { blocks: [] }
-    : faq;
+  let faqList;
+
+  if (single) {
+    faqList = faqFromGraph.blocks ? faqFromGraph : { blocks: [] };
+  } else {
+    faqList = faq;
+  }
 
   if (!single) {
     faqList.blocks.splice(7, 3);

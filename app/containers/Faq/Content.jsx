@@ -130,7 +130,7 @@ const Question = ({
 
   return (
     <QuestionBox id={questionId} isOpened={isOpened}>
-      <div css={css({ ...styles.collapseImage })} onClick={collapseQuestion}>
+      <div css={css(styles.collapseImage)} onClick={collapseQuestion}>
         <IconSm rotate={isOpened} icon={arrowIconFilled} />
       </div>
 
@@ -184,14 +184,14 @@ const Section = ({
           onClick={collapseSection}
           mobileFS="24"
         >
-          <div css={css({ ...styles.collapseImage })}>
+          <div css={css(styles.collapseImage)}>
             <img src={isOpened ? minusIcon : plusIcon} alt="icon" />
           </div>
           <span>{h2}</span>
         </H4>
 
         {isCommunityModerator && (
-          <div css={css({ ...styles.buttonContainer })}>
+          <div css={css(styles.buttonContainer)}>
             <div id={`faq_delete_${faqId}`}>
               <AreYouSure
                 submitAction={deleteItem.bind(null, faqId)}

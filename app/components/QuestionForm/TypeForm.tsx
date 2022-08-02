@@ -5,6 +5,10 @@ import { FORM_TYPE } from './constants';
 import messages from './messages';
 import QuestionTypeField from './QuestionTypeField';
 import DescriptionList from 'components/DescriptionList';
+import {
+  labelConditional,
+  listConditional,
+} from 'components/QuestionForm/utils';
 
 type TypeFormProps = {
   intl: any;
@@ -32,32 +36,6 @@ const TypeForm: React.FC<TypeFormProps> = ({
   isCommunityModerator,
 }): JSX.Element | null => {
   const onChange = useCallback((val: any[]) => change(FORM_TYPE, val[0]), []);
-
-  const labelConditional = (n: string) => {
-    switch (n) {
-      case '1':
-        return messages.generalQuestionDescriptionLabel.id;
-      case '0':
-        return messages.expertQuestionDescriptionLabel.id;
-      case '2':
-        return messages.tutorialQuestionDescriptionLabel.id;
-      case '3':
-        return messages.faqDescriptionLabel.id;
-    }
-  };
-
-  const listConditional = (n: string) => {
-    switch (n) {
-      case '1':
-        return messages.generalQuestionDescriptionList.id;
-      case '0':
-        return messages.expertQuestionDescriptionList.id;
-      case '2':
-        return messages.tutorialQuestionDescriptionList.id;
-      case '3':
-        return messages.faqDescriptionList.id;
-    }
-  };
 
   const [descriptionListLabel, descriptionListItems] = useMemo(
     () => [

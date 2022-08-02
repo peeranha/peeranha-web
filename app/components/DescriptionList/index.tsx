@@ -36,7 +36,7 @@ const Base = styled.div`
 
 type DescriptionListProps = {
   label: string;
-  items?: Array<object>;
+  items?: string;
   locale: string;
 }
 
@@ -58,4 +58,4 @@ export const DescriptionList: React.FC<DescriptionListProps> = ({ label, items, 
   );
 };
 
-export default React.memo(DescriptionList);
+export default DescriptionList;

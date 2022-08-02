@@ -1,28 +1,28 @@
-import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
+import { ApolloClient, gql, InMemoryCache } from '@apollo/client';
 import { dataToString } from 'utils/converters';
+import { isUserExists } from './accountManagement';
 import {
   allAchievementsQuery,
   allTagsQuery,
   answeredPostsQuery,
   communitiesQuery,
   communityQuery,
+  currentPeriodQuery,
+  faqByCommQuery,
+  historiesQuery,
   postQuery,
   postsByCommQuery,
   postsForSearchQuery,
   postsQuery,
   rewardsQuery,
   tagsQuery,
+  userPermissionsQuery,
   userQuery,
   usersAnswersQuery,
   usersPostsQuery,
   usersQuery,
-  userPermissionsQuery,
   userStatsQuery,
-  historiesQuery,
-  currentPeriodQuery,
-  faqByCommQuery,
 } from './ethConstants';
-import { isUserExists } from './accountManagement';
 
 const client = new ApolloClient({
   uri: process.env.THE_GRAPH_QUERY_URL,
@@ -192,9 +192,8 @@ export const getFaqByCommunityId = async communityId => {
   });
 
   return posts?.data.posts.map(rawPost => {
-    const post = { ...rawPost, answers: rawPost.replies };
-    delete post.replies;
-    return post;
+    const { replies, ...propsWithoutReplies } = rawPost;
+    return { answers: replies, ...propsWithoutReplies };
   });
 };
 

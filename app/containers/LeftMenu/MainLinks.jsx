@@ -204,7 +204,7 @@ const MainLinks = ({ currClientHeight, profile }) => {
       {
         <A1 to={routes.faq()} name="faq" route={route}>
           <IconLg className="mr-2" icon={faqIcon} fill={BORDER_PRIMARY} />
-          <FormattedMessage {...messages.faq} />
+          <FormattedMessage id={messages.faq.id} />
         </A1>
       }
     </Box>

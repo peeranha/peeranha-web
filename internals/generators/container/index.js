@@ -98,20 +98,20 @@ module.exports = {
     if (data.wantMessages) {
       actions.push({
         type: 'add',
-        path: '../../app/containers/{{properCase name}}/messages.js',
-        templateFile: './container/messages.js.hbs',
+        path: '../../app/containers/{{properCase name}}/messages.ts',
+        templateFile: './container/messages.ts.hbs',
         abortOnFail: true,
       });
     }
 
-    // If they want actions and a reducer, generate actions.js, constants.js,
-    // reducer.js and the corresponding tests for actions and the reducer
+    // If they want actions and a reducer, generate actions.ts, constants.js,
+    // reducer.ts and the corresponding tests for actions and the reducer
     if (data.wantActionsAndReducer) {
       // Actions
       actions.push({
         type: 'add',
-        path: '../../app/containers/{{properCase name}}/actions.js',
-        templateFile: './container/actions.js.hbs',
+        path: '../../app/containers/{{properCase name}}/actions.ts',
+        templateFile: './container/actions.ts.hbs',
         abortOnFail: true,
       });
       actions.push({
@@ -132,8 +132,8 @@ module.exports = {
       // Selectors
       actions.push({
         type: 'add',
-        path: '../../app/containers/{{properCase name}}/selectors.js',
-        templateFile: './container/selectors.js.hbs',
+        path: '../../app/containers/{{properCase name}}/selectors.ts',
+        templateFile: './container/selectors.ts.hbs',
         abortOnFail: true,
       });
       actions.push({
@@ -147,8 +147,8 @@ module.exports = {
       // Reducer
       actions.push({
         type: 'add',
-        path: '../../app/containers/{{properCase name}}/reducer.js',
-        templateFile: './container/reducer.js.hbs',
+        path: '../../app/containers/{{properCase name}}/reducer.ts',
+        templateFile: './container/reducer.ts.hbs',
         abortOnFail: true,
       });
       actions.push({
@@ -163,8 +163,8 @@ module.exports = {
     if (data.wantSaga) {
       actions.push({
         type: 'add',
-        path: '../../app/containers/{{properCase name}}/saga.js',
-        templateFile: './container/saga.js.hbs',
+        path: '../../app/containers/{{properCase name}}/saga.ts',
+        templateFile: './container/saga.ts.hbs',
         abortOnFail: true,
       });
       actions.push({
