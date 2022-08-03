@@ -58,9 +58,10 @@ export const Content: React.FC<ContentProps> = ({
       {moderators.map((moderator, index) => {
         let role;
         if (moderator.permission === moderatorRole) {
-          role = translationMessages[locale][messages.communityModerator];
+          role = translationMessages[locale][messages.communityModerator.id];
         } else if (moderator.permission === adminRole) {
-          role = translationMessages[locale][messages.communityAdministrator];
+          role =
+            translationMessages[locale][messages.communityAdministrator.id];
         }
 
         const baseSpecialProps = {
