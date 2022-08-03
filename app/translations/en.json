@@ -127,6 +127,8 @@
   "app.common.showLess": "Show less {value}",
   "app.common.poweredBy": "©{year} Powered by {image}",
   "app.common.poweredByPeeranha": "Powered by {image}",
+  "app.common.reCaptchaMention":
+    "This site is protected by reCAPTCHA and the Google {privacyPolicy} and {termsOfService} apply.",
   "app.common.terms": "Operating Agreement",
   "app.common.noResults": "No results",
   "app.common.iAcceptPrivacyPolicy":
@@ -318,6 +320,8 @@
     "The private key type is not set",
   "web_integration.errors.noFacebookAccountEmail":
     "The Facebook account does not have an installed email or the email is not verified",
+  "web_integration.errors.reCaptchaVerifyFailed":
+    "You have not passed the hidden check that you are not a robot",
 
   "app.containers.Header.walletTooltipPart1": "You have ",
   "app.containers.Header.walletTooltipPart2": " rewards ready",

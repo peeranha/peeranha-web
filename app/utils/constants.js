@@ -287,6 +287,7 @@ export const USER_NOT_SELECTED_ERROR_CODE = 1000003;
 export const CHAIN_ID_ERROR_CODE = 1000004;
 export const INVALID_ETHEREUM_PARAMETERS_ERROR_CODE = -32602;
 export const REJECTED_SIGNATURE_REQUEST = 4001;
+export const RECAPTCHA_VERIFY_FAILED_CODE = 600613;
 
 //session storage keys
 export const CHANGED_POSTS_KEY = 'changed-posts';
