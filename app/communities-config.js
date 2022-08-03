@@ -1,11 +1,9 @@
-import OntLogo from './communities-configs/ont/images/ont.svg?inline';
 import FileiconLogo from './communities-configs/filecoin/images/filecoin-logo.svg?inline';
 import TelosLogo from './communities-configs/telos/images/telos-logo-dark.svg?inline';
 import PolygonLogo from './communities-configs/polygon/images/polygon-logo.svg?inline';
 
 import { TelosStyles } from './communities-configs/telos';
 import { PolygonStyles } from './communities-configs/polygon';
-import { OntStyles } from './communities-configs/ont';
 import { KandaStyles } from './communities-configs/kanda';
 import { FilecoinStyles } from './communities-configs/filecoin';
 
@@ -18,11 +16,6 @@ const communitiesConfig = {
     //   origin: 'https://faq.telos.net',
     //   src: TelosLogo,
     //   styles: TelosStyles,
-    // },
-    // 3: {
-    //   origin: 'https://ont.peeranha.io',
-    //   src: OntLogo,
-    //   styles: OntStyles,
     // },
     // 17: {
     //   origin: 'https://kanda.peeranha.io',
