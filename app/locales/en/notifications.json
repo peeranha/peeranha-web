@@ -1,0 +1,17 @@
+{
+  "youHaveNoNewNotifications": "You have no new notifications.",
+  "yourQuestionWasUpVoted": "Your post was upvoted",
+  "yourQuestionWasDownVoted": "Your post was downvoted",
+  "yourQuestionUpVoteWasCanceled": "Your post's upvote was canceled",
+  "yourQuestionDownVoteWasCanceled": "Your post's downvote was canceled",
+  "yourAnswerWasUpVoted": "Your answer was upvoted",
+  "yourAnswerWasDownVoted": "Your answer was downvoted ",
+  "yourAnswerUpVoteWasCanceled": "Your answer's upvote was canceled",
+  "yourAnswerDownVoteWasCanceled": "Your answer's downvote was canceled",
+  "yourAnswerWasMarkedAsTheBest": "Your answer was marked as the best",
+  "somebodyAnsweredYourQuestion": "Your post was answered",
+  "somebodyLeftACommentToYourQuestion": "Your post was commented",
+  "somebodyLeftACommentToYourAnswer": "Your answer was commented",
+  "yourQuestionWasTipped": "Your post was tipped {{quantity}}",
+  "yourAnswerWasTipped": "Your answer was tipped {{quantity}}"
+}

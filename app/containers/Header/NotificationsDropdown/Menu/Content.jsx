@@ -6,9 +6,7 @@ import { bindActionCreators, compose } from 'redux';
 
 import AutoSizer from 'react-virtualized/dist/commonjs/AutoSizer/AutoSizer';
 import List from 'react-virtualized/dist/commonjs/List';
-import { FormattedMessage } from 'react-intl';
-
-import messages from 'components/Notifications/messages';
+import { useTranslation } from 'react-i18next';
 
 import { TEXT_SECONDARY } from 'style-constants';
 
@@ -69,6 +67,7 @@ const Content = ({
   markAsReadNotificationsUnreadDispatch,
   loadMoreUnreadNotificationsDispatch,
 }) => {
+  const { t } = useTranslation();
   const listRef = useRef(null);
 
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -155,7 +154,7 @@ const Content = ({
       {!notifications.length ? (
         <>
           <IconXl icon={bellIcon} color={TEXT_SECONDARY} />
-          <FormattedMessage {...messages.youHaveNoNewNotifications} />
+          {t('notifications.youHaveNoNewNotifications')}
         </>
       ) : (
         <AutoSizer onResize={onResize}>

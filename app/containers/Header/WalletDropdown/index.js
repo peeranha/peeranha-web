@@ -1,13 +1,12 @@
 import React, { memo, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 import { compose, bindActionCreators } from 'redux';
 import styled from 'styled-components';
 
 import * as routes from 'routes-config';
-import messages from 'common-messages';
 
 import { BG_WARNING_LIGHT, TEXT_LIGHT } from 'style-constants';
 
@@ -47,33 +46,33 @@ export const BoostPrediction = styled.span`
 
 const isPositiveNumber = number => Number.isFinite(number) && number > 0;
 
-const Menu = memo(({ user, number, locale, boost }) => (
-  <Ul>
-    <A to={routes.userWallet(user)}>
-      <FormattedMessage id={messages.wallet.id} />
-      {REWARD_CLAIMING_ENABLED &&
-        isPositiveNumber(number) && (
-          <NotificationIcon
-            inline
-            number={number}
-            iconId="walletDropDownInline"
-            locale={locale}
-          />
-        )}
-    </A>
+const Menu = memo(({ user, number, locale, boost }) => {
+  const { t } = useTranslation();
 
-    {REWARD_CLAIMING_ENABLED && (
-      <A to={routes.userBoost(user)}>
-        <FormattedMessage id={messages.boost.id} />
-        {boost > 1 && <BoostPrediction>{boost}</BoostPrediction>}
+  return (
+    <Ul>
+      <A to={routes.userWallet(user)}>
+        {t('common.wallet')}
+        {REWARD_CLAIMING_ENABLED &&
+          isPositiveNumber(number) && (
+            <NotificationIcon
+              inline
+              number={number}
+              iconId="walletDropDownInline"
+              locale={locale}
+            />
+          )}
       </A>
-    )}
 
-    {/* <SendTokens> */}
-    {/*  <FormattedMessage {...messages.sendTokens} /> */}
-    {/* </SendTokens> */}
-  </Ul>
-));
+      {REWARD_CLAIMING_ENABLED && (
+        <A to={routes.userBoost(user)}>
+          {t('common.boost')}
+          {boost > 1 && <BoostPrediction>{boost}</BoostPrediction>}
+        </A>
+      )}
+    </Ul>
+  );
+});
 
 const WalletDropdown = ({
   user,

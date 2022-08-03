@@ -1,8 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form/immutable';
-import { FormattedMessage } from 'react-intl';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 
 import { scrollToErrorField } from 'utils/animation';
@@ -17,79 +16,75 @@ import TextInputField from 'components/FormFields/TextInputField';
 import Button from 'components/Button/Contained/InfoLarge';
 import H4 from 'components/H4';
 
-import signupMessages from 'containers/SignUp/messages';
-import loginMessages from 'containers/Login/messages';
-
 import {
   PASSWORD_FIELD,
   NEW_PASSWORD_FIELD,
   VERIFICATION_CODE_FIELD,
 } from './constants';
-import commonMessages from '../../common-messages';
 import TransparentButton from '../../components/Button/Contained/Transparent';
 
-const NewPasswordForm = /* istanbul ignore next */ ({
+const NewPasswordForm = ({
   handleSubmit,
-  locale,
   changePassword,
   sendAnotherCode,
   changePasswordLoading,
-}) => (
-  <div>
-    <H4 className="text-center pb-3">
-      <FormattedMessage {...loginMessages.iForgotPassword} />
-    </H4>
+}) => {
+  const { t } = useTranslation();
 
-    <form onSubmit={handleSubmit(changePassword)}>
-      <Field
-        name={VERIFICATION_CODE_FIELD}
-        disabled={changePasswordLoading}
-        label={translationMessages[locale][signupMessages.checkYourEmail.id]}
-        component={TextInputField}
-        validate={[required]}
-        warn={[required]}
-      />
+  return (
+    <div>
+      <H4 className="text-center pb-3">{t('login.iForgotPassword')}</H4>
 
-      <Field
-        name={PASSWORD_FIELD}
-        disabled={changePasswordLoading}
-        label={translationMessages[locale][signupMessages.password.id]}
-        component={TextInputField}
-        validate={[required, strLength8x100, comparePasswords]}
-        warn={[required, strLength8x100, comparePasswords]}
-        type="password"
-      />
+      <form onSubmit={handleSubmit(changePassword)}>
+        <Field
+          name={VERIFICATION_CODE_FIELD}
+          disabled={changePasswordLoading}
+          label={t('signUp.checkYourEmail')}
+          component={TextInputField}
+          validate={[required]}
+          warn={[required]}
+        />
 
-      <Field
-        name={NEW_PASSWORD_FIELD}
-        disabled={changePasswordLoading}
-        label={translationMessages[locale][signupMessages.confirmPassword.id]}
-        component={TextInputField}
-        validate={[required, strLength8x100, comparePasswords]}
-        warn={[required, strLength8x100, comparePasswords]}
-        type="password"
-      />
+        <Field
+          name={PASSWORD_FIELD}
+          disabled={changePasswordLoading}
+          label={t('signUp.password')}
+          component={TextInputField}
+          validate={[required, strLength8x100, comparePasswords]}
+          warn={[required, strLength8x100, comparePasswords]}
+          type="password"
+        />
 
-      <Button disabled={changePasswordLoading} className="w-100">
-        <FormattedMessage {...signupMessages.continue} />
-      </Button>
+        <Field
+          name={NEW_PASSWORD_FIELD}
+          disabled={changePasswordLoading}
+          label={t('signUp.confirmPassword')}
+          component={TextInputField}
+          validate={[required, strLength8x100, comparePasswords]}
+          warn={[required, strLength8x100, comparePasswords]}
+          type="password"
+        />
 
-      <TransparentButton
-        className="mt-3"
-        onClick={sendAnotherCode}
-        type="button"
-      >
-        <FormattedMessage {...commonMessages.sendAnotherCode} />
-      </TransparentButton>
-    </form>
-  </div>
-);
+        <Button disabled={changePasswordLoading} className="w-100">
+          {t('signUp.continue')}
+        </Button>
+
+        <TransparentButton
+          className="mt-3"
+          onClick={sendAnotherCode}
+          type="button"
+        >
+          {t('common.sendAnotherCode')}
+        </TransparentButton>
+      </form>
+    </div>
+  );
+};
 
 NewPasswordForm.propTypes = {
   handleSubmit: PropTypes.func,
   changePassword: PropTypes.func,
   sendAnotherCode: PropTypes.func,
-  locale: PropTypes.string,
   changePasswordLoading: PropTypes.bool,
 };
 

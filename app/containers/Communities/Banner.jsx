@@ -1,36 +1,35 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
 import Wrapper from 'components/Banner';
 import Button from 'components/Button/Contained/InfoLarge';
 
 import communitySuggestBanner from 'images/communitySuggest.svg?inline';
 
-import messages from './messages';
 import { GO_TO_CREATE_COMMUNITY_SCREEN_BUTTON_ID } from './constants';
 
-export const Banner = ({ goToCreateCommunityScreen }) => (
-  <Wrapper>
-    <img src={communitySuggestBanner} alt="create-community" />
-    <div>
-      <p>
-        <FormattedMessage {...messages.didntFindAnyInteresting} />
-      </p>
+export const Banner = ({ goToCreateCommunityScreen }) => {
+  const { t } = useTranslation();
 
-      <p>
-        <FormattedMessage {...messages.suggestInterestingComm} />
-      </p>
+  return (
+    <Wrapper>
+      <img src={communitySuggestBanner} alt="create-community" />
+      <div>
+        <p>{t('common.didntFindAnyInteresting')}</p>
 
-      <Button
-        id={`${GO_TO_CREATE_COMMUNITY_SCREEN_BUTTON_ID}_banner`}
-        onClick={goToCreateCommunityScreen}
-      >
-        <FormattedMessage {...messages.suggestCommunity} />
-      </Button>
-    </div>
-  </Wrapper>
-);
+        <p>{t('common.suggestInterestingComm')}</p>
+
+        <Button
+          id={`${GO_TO_CREATE_COMMUNITY_SCREEN_BUTTON_ID}_banner`}
+          onClick={goToCreateCommunityScreen}
+        >
+          {t('common.suggestCommunity')}
+        </Button>
+      </div>
+    </Wrapper>
+  );
+};
 
 Banner.propTypes = {
   goToCreateCommunityScreen: PropTypes.func,

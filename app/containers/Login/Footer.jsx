@@ -1,10 +1,9 @@
 import React, { useMemo } from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
 import { TEXT_DARK, BG_LIGHT, TEXT_SECONDARY } from 'style-constants';
-import messages from 'common-messages';
 
 import metaMaskLogo from 'images/mm-logo.svg?external';
 
@@ -69,19 +68,13 @@ const Heading = styled.div`
   }
 `;
 
-export const LoginViaMetaMask = ({ action, processing, providerDetected }) => {
-  // const redirectToMetaMask = () => {
-  //   window.open('https://metamask.io/', '_blank').focus();
-  // };
-
-  return (
-    <>
-      <MetaMaskButton onClick={action} disabled={processing}>
-        <Icon icon={metaMaskLogo} height="28" className="mr-2 mb-0" />
-      </MetaMaskButton>
-    </>
-  );
-};
+export const LoginViaMetaMask = ({ action, processing }) => (
+  <>
+    <MetaMaskButton onClick={action} disabled={processing}>
+      <Icon icon={metaMaskLogo} height="28" className="mr-2 mb-0" />
+    </MetaMaskButton>
+  </>
+);
 
 LoginViaMetaMask.propTypes = {
   action: PropTypes.func,
@@ -99,6 +92,7 @@ const Footer = ({
   signUpText = null,
   metaMaskProviderDetected,
 }) => {
+  const { t } = useTranslation();
   const { metaMaskAction } = useMemo(
     () => ({
       metaMaskAction: () => walletAction({ metaMask: true }),
@@ -116,9 +110,7 @@ const Footer = ({
 
   return (
     <Box>
-      <Heading>
-        {signUpText || <FormattedMessage {...messages.loginViaWallet} />}
-      </Heading>
+      <Heading>{signUpText || t('common.loginViaWallet')}</Heading>
       <div className="d-flex">
         <LoginViaMetaMask
           action={metaMaskAction}
@@ -147,7 +139,7 @@ Footer.propTypes = {
   loginWithEmailProcessing: PropTypes.bool,
   emailVerificationProcessing: PropTypes.bool,
   emailChecking: PropTypes.bool,
-  signUpText: PropTypes.element,
+  signUpText: PropTypes.string,
   locale: PropTypes.string,
 };
 

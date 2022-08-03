@@ -1,9 +1,3 @@
-/**
- *
- * ForgotPassword
- *
- */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -30,29 +24,21 @@ import {
   sendAnotherCode,
 } from './actions';
 
-import {
-  EMAIL_FORM,
-  VERIFICATION_CODE_FORM,
-  NEW_PASSWORD_FORM,
-} from './constants';
+import { EMAIL_FORM, NEW_PASSWORD_FORM } from './constants';
 
 import EmailForm from './EmailForm';
-import VerificationCodeForm from './VerificationCodeForm';
 import NewPasswordForm from './NewPasswordForm';
 
-/* eslint-disable react/prefer-stateless-function */
 export class ForgotPassword extends React.Component {
-  render() /* istanbul ignore next */ {
+  render() {
     const {
       getVerificationCodeDispatch,
       hideForgotPasswordModalDispatch,
-      verifyEmailDispatch,
       changePasswordDispatch,
       showModal,
       content,
       verificationCodeLoading,
       locale,
-      verifyEmailLoading,
       changePasswordLoading,
       sendAnotherCodeDispatch,
     } = this.props;
@@ -64,7 +50,6 @@ export class ForgotPassword extends React.Component {
       >
         {content === EMAIL_FORM && (
           <EmailForm
-            locale={locale}
             getVerificationCode={getVerificationCodeDispatch}
             verificationCodeLoading={verificationCodeLoading}
           />
@@ -72,7 +57,6 @@ export class ForgotPassword extends React.Component {
 
         {content === NEW_PASSWORD_FORM && (
           <NewPasswordForm
-            locale={locale}
             changePassword={changePasswordDispatch}
             sendAnotherCode={sendAnotherCodeDispatch}
             changePasswordLoading={changePasswordLoading}

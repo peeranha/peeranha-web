@@ -1,40 +1,35 @@
-/* eslint indent: 0 */
 import React, { useState } from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
-
-import { singleCommunityStyles } from 'utils/communityManagement';
-import { italicFont } from 'global-styles';
-import messages from 'common-messages';
-import { POST_TYPE } from './constants';
+import { useTranslation } from 'react-i18next';
 
 import {
   BORDER_SECONDARY,
-  BORDER_PRIMARY,
   BORDER_PRIMARY_RGB,
   BORDER_RADIUS_M,
-  PEER_WARNING_COLOR,
 } from 'style-constants';
 
 import { Wrapper } from 'components/FormFields/Wrapper';
 import { Styles } from 'components/Input/InputStyled';
 import B from 'components/Button';
 
+import { singleCommunityStyles } from 'utils/communityManagement';
+import { POST_TYPE } from './constants';
+
 const styles = singleCommunityStyles();
 
 export const QUESTION_TYPES = {
   GENERAL: {
     value: POST_TYPE.generalPost,
-    label: 'general',
+    label: 'common.general',
   },
   EXPERT: {
     value: POST_TYPE.expertPost,
-    label: 'expert',
+    label: 'common.expert',
   },
   TUTORIAL: {
     value: POST_TYPE.tutorial,
-    label: 'tutorial',
+    label: 'common.tutorial',
   },
 };
 
@@ -49,23 +44,6 @@ const QuestionTypeContainer = styled.div`
   }
 `;
 
-const Warning = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-left: 205px;
-  padding-top: 10px;
-  font-style: ${italicFont};
-  color: grey;
-  font-size: 14px;
-  line-height: 18px;
-
-  @media (max-width: 768px) {
-    padding-top: 0;
-    margin: -7px 0 0;
-  }
-`;
-
 const ButtonGroup = styled.div`
   ${Styles};
   padding: 0;
@@ -74,16 +52,6 @@ const ButtonGroup = styled.div`
   @media (max-width: 576px) {
     padding-left: 0 !important;
     padding-right: 0 !important;
-  }
-`;
-
-const Img = styled.img`
-  width: 10px;
-  height: 40px;
-  margin-right: 8px;
-
-  @media (max-width: 768px) {
-    display: none;
   }
 `;
 
@@ -129,6 +97,7 @@ const QuestionTypeField = ({
   insideOfSection,
   error,
 }) => {
+  const { t } = useTranslation();
   const [type, setType] = useState();
 
   function chooseQuestionType({ currentTarget }) {
@@ -159,7 +128,7 @@ const QuestionTypeField = ({
               key={questionType.label}
               disabled={disabled}
             >
-              <FormattedMessage {...messages[questionType.label]} />
+              {t(questionType.label)}
             </Button>
           ))}
         </ButtonGroup>

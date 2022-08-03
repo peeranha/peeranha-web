@@ -1,0 +1,58 @@
+{
+  "title": "Сообщества | Создать",
+  "descriptionField": "Описание",
+  "website": "Официальный сайт",
+  "websiteTip": "Опционально",
+  "avatar": "Аватар",
+  "communityTitle": "Название",
+  "shortDescription": "Краткое описание",
+  "about": "О сообществе",
+  "optional": "Опционально",
+  "whyWeNeedIt": "Зачем нам нужно это?",
+  "createCommunity": "Создать сообщество",
+  "newCommunity": "Новое сообщество",
+  "oneMoreTag": "Добавить тег",
+  "tags": "Теги",
+  "tagsAreNeeded":
+    "Теги необходимы при добавлении вопросов. Вы можете указать от {{min}} до {{max}} тегов.",
+  "tagTitle": "Тег",
+  "tagDescription": "Описание",
+  "communityTitleTip": "Название нового сообщества",
+  "shortDescriptionTip": "Краткое описание сообщества и его предназначения.",
+  "whyWeNeedItTip":
+    "Эта информация видна пользователям, которые голосуют за новые сообщества.",
+  "tagTitleTip": "Уникальное имя тега",
+  "tagDescriptionTip": "Описание, когда использовать тег",
+  "imageWillBeTheFace": "Изображение станет лицом сообщества",
+  "specifyMemorableTitle": "Укажите запоминающийся заголовок",
+  "communityDescriptionShouldBe":
+    "Описание должно говорить о том, кому будет полезно данное сообщество",
+  "writeWhyDoWeeNeed":
+    "Напишите, как это сообщество будет привлекать внимание и собирать голоса других пользователей",
+  "onlyTagsWithUniqueTitles":
+    "Форма должна содержать только теги с уникальными именами",
+  "communityLanguage": "Язык",
+  "communityLanguageTip":
+    "Вопросы в сообществе будут разрешены только на выбранном языке",
+  "thatisgreat": "Отлично!",
+  "communityWillAppear":
+    "Ваше сообщество появится среди предложенных и другие пользователи смогут за него проголосовать. 100 голосов необходимо для создания сообщества.",
+  "goToList": "Перейти к списку",
+  "maxTagsNumberReached": "Максимальное число тегов было достигнуто",
+  "questionsType": "Тип вопросов",
+  "anyQuestionDescriptionLabel":
+    "Пользователи смогут задавать как Общие, так и экспертные вопросы",
+  "anyQuestionDescriptionList": [],
+  "facebook": "Facebook",
+  "instagram": "Instagram",
+  "youtube": "YouTube",
+  "vk": "Вконтакте",
+  "mainColor": "Основной цвет",
+  "highlightColor": "Цвет выделения",
+  "communityType": "Тип сообщества",
+  "communityTypeTip": "Необязательный",
+  "socialLinks": "Ссылки на социальные сети",
+  "socialLinksTip": "Необязательный",
+  "colors": "Цвета",
+  "topBanner": "Верхний баннер"
+}

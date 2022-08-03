@@ -1,6 +1,6 @@
 import React, { memo, useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
 import {
   BG_LIGHT,
@@ -10,7 +10,6 @@ import {
 
 import * as routes from 'routes-config';
 import communitiesConfig from 'communities-config';
-import messages from 'common-messages';
 
 import addIcon from 'images/add.svg?external';
 import searchIcon from 'images/search.svg?external';
@@ -146,7 +145,6 @@ const Buttons = Section.extend`
 
 const View = ({
   showMenu,
-  intl,
   profileInfo,
   showLoginModalDispatch,
   redirectToAskQuestionPage,
@@ -156,6 +154,7 @@ const View = ({
   transactionHash,
   transactionInitialised,
 }) => {
+  const { t } = useTranslation();
   const [isSearchFormVisible, setSearchFormVisibility] = useState(false);
 
   useEffect(
@@ -192,23 +191,20 @@ const View = ({
           <div>
             <img src={processIndicator} alt="icon" />
             {isTransactionInPending ? (
-              <FormattedMessage
-                id={messages.transactionInPending.id}
-                values={{
-                  transaction: (
-                    <a
-                      href={process.env.BLOCKCHAIN_TRANSACTION_INFO_URL.concat(
-                        transactionHash,
-                      )}
-                      target="_blank"
-                    >
-                      <FormattedMessage id={messages.transaction.id} />
-                    </a>
-                  ),
-                }}
-              />
+              <>
+                {t('common.transactionInPending')}{' '}
+                <a
+                  href={process.env.BLOCKCHAIN_TRANSACTION_INFO_URL.concat(
+                    transactionHash,
+                  )}
+                  target="_blank"
+                >
+                  {t('common.transaction')}
+                </a>{' '}
+                {t('common.transactionInPendingEnd')}
+              </>
             ) : (
-              <FormattedMessage id={messages.waitingForConfirm.id} />
+              t('common.waitingForConfirm')
             )}
           </div>
         </ProgressIndicator>
@@ -236,9 +232,7 @@ const View = ({
                 searchFormId={SEARCH_FORM_ID}
                 onBlur={() => setSearchFormVisibility(false)}
                 className={`${isSearchFormVisible ? '' : 'd-none'} d-lg-flex`}
-                placeholder={intl.formatMessage({
-                  id: messages.search.id,
-                })}
+                placeholder={t('common.search')}
               />
 
               {!isSearchFormVisible && (
@@ -267,7 +261,7 @@ const View = ({
                     <IconSm fill={BG_LIGHT} icon={addIcon} />
 
                     <span className="d-none d-lg-inline ml-2">
-                      <FormattedMessage id={messages.askQuestion.id} />
+                      {t('common.askQuestion')}
                     </span>
                   </Button>
                 </>
@@ -290,7 +284,6 @@ const View = ({
 };
 
 View.propTypes = {
-  intl: intlShape.isRequired,
   profileInfo: PropTypes.object,
   showMenu: PropTypes.func,
   showLoginModalDispatch: PropTypes.func,
@@ -309,4 +302,4 @@ LoginProfile.propTypes = {
   faqQuestions: PropTypes.array,
 };
 
-export default injectIntl(memo(View));
+export default memo(View);

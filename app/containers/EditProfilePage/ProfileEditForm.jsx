@@ -1,10 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import { Field, reduxForm } from 'redux-form/immutable';
-
-import messages from 'containers/Profile/messages';
 
 import {
   AVATAR_FIELD,
@@ -35,88 +33,84 @@ import { EDIT_PROFILE_BUTTON_ID, PROFILE_EDIT_FORM } from './constants';
 export const ProfileEditForm = ({
   formValues,
   handleSubmit,
-  intl,
   saveProfile,
   isProfileSaving,
-}) => (
-  <Box position="bottom">
-    <Field
-      name={AVATAR_FIELD}
-      component={AvatarField}
-      disabled={isProfileSaving}
-      validate={imageValidation}
-      warn={imageValidation}
-    />
+}) => {
+  const { t } = useTranslation();
 
-    <FormBox onSubmit={handleSubmit(saveProfile)}>
-      <H3>
-        <FormattedMessage {...messages.editProfile} />
-      </H3>
-
+  return (
+    <Box position="bottom">
       <Field
-        name={DISPLAY_NAME_FIELD}
-        component={TextInputField}
-        label={intl.formatMessage({ id: messages.displayNameLabel.id })}
-        tip={intl.formatMessage({ id: messages.displayNameTip.id })}
+        name={AVATAR_FIELD}
+        component={AvatarField}
         disabled={isProfileSaving}
-        validate={[required, strLength3x20]}
-        warn={[required, strLength3x20]}
-        splitInHalf
+        validate={imageValidation}
+        warn={imageValidation}
       />
 
-      <Field
-        name={COMPANY_FIELD}
-        component={TextInputField}
-        label={intl.formatMessage({ id: messages.companyLabel.id })}
-        tip={intl.formatMessage({ id: messages.companyTip.id })}
-        disabled={isProfileSaving}
-        validate={strLength3x20}
-        warn={strLength3x20}
-        splitInHalf
-      />
+      <FormBox onSubmit={handleSubmit(saveProfile)}>
+        <H3>{t('profile.editProfile')}</H3>
 
-      <Field
-        name={POSITION_FIELD}
-        component={TextInputField}
-        label={intl.formatMessage({ id: messages.positionLabel.id })}
-        tip={intl.formatMessage({ id: messages.positionTip.id })}
-        disabled={isProfileSaving}
-        validate={strLength3x20}
-        warn={strLength3x20}
-        splitInHalf
-      />
+        <Field
+          name={DISPLAY_NAME_FIELD}
+          component={TextInputField}
+          label={t('profile.displayNameLabel')}
+          tip={t('profile.displayNameTip')}
+          disabled={isProfileSaving}
+          validate={[required, strLength3x20]}
+          warn={[required, strLength3x20]}
+          splitInHalf
+        />
 
-      <Field
-        name={LOCATION_FIELD}
-        label={intl.formatMessage({ id: messages.locationLabel.id })}
-        tip={intl.formatMessage({ id: messages.locationTip.id })}
-        disabled={isProfileSaving}
-        component={TextInputField}
-        validate={strLength3x20}
-        warn={strLength3x20}
-        splitInHalf
-      />
+        <Field
+          name={COMPANY_FIELD}
+          component={TextInputField}
+          label={t('profile.companyLabel')}
+          tip={t('profile.companyTip')}
+          disabled={isProfileSaving}
+          validate={strLength3x20}
+          warn={strLength3x20}
+          splitInHalf
+        />
 
-      <AboutForm
-        formValues={formValues}
-        intl={intl}
-        isProfileSaving={isProfileSaving}
-      />
+        <Field
+          name={POSITION_FIELD}
+          component={TextInputField}
+          label={t('profile.positionLabel')}
+          tip={t('profile.positionTip')}
+          disabled={isProfileSaving}
+          validate={strLength3x20}
+          warn={strLength3x20}
+          splitInHalf
+        />
 
-      <Button
-        id={EDIT_PROFILE_BUTTON_ID}
-        disabled={isProfileSaving}
-        type="submit"
-      >
-        <FormattedMessage {...messages.saveButton} />
-      </Button>
-    </FormBox>
-  </Box>
-);
+        <Field
+          name={LOCATION_FIELD}
+          label={t('profile.locationLabel')}
+          tip={t('profile.locationTip')}
+          disabled={isProfileSaving}
+          component={TextInputField}
+          validate={strLength3x20}
+          warn={strLength3x20}
+          splitInHalf
+        />
+
+        <AboutForm formValues={formValues} isProfileSaving={isProfileSaving} />
+
+        <Button
+          id={EDIT_PROFILE_BUTTON_ID}
+          disabled={isProfileSaving}
+          type="submit"
+        >
+          {t('profile.saveButton')}
+        </Button>
+      </FormBox>
+    </Box>
+  );
+};
 
 ProfileEditForm.propTypes = {
   formValues: PropTypes.object,
-  intl: intlShape.isRequired,
   handleSubmit: PropTypes.func,
   change: PropTypes.func,
   location: PropTypes.object,
@@ -125,6 +119,7 @@ ProfileEditForm.propTypes = {
   profile: PropTypes.object,
 };
 
+// eslint-disable-next-line
 let FormClone = reduxForm({
   form: PROFILE_EDIT_FORM,
 })(ProfileEditForm);
@@ -139,4 +134,4 @@ FormClone = connect((state, props) => ({
   },
 }))(FormClone);
 
-export default injectIntl(FormClone);
+export default FormClone;

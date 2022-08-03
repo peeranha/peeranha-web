@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -17,9 +17,6 @@ import {
 } from 'containers/Faq/constants';
 
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
-
-import commonMessages from 'common-messages';
-import messages from 'containers/SignUp/messages';
 
 import { singleCommunityStyles } from 'utils/communityManagement';
 
@@ -98,54 +95,42 @@ const LoginLink = styled.div`
 
 const styles = singleCommunityStyles();
 
-const LeftMenu = ({ faqQuestions, mainLogo }) => (
-  <>
-    <div className="mb-4">
-      {styles.withoutSubHeader ? (
-        <CommunityLogoWrapper>
-          <Link to={routes.questions()} href={routes.questions()}>
-            <Logo src={mainLogo} width={styles.signUpLogoWidth} />
-          </Link>
-          <CommunityLogoDescr>
-            <span>Q&A on</span>
+const LeftMenu = ({ mainLogo }) => {
+  const { t } = useTranslation();
+
+  return (
+    <>
+      <div className="mb-4">
+        {styles.withoutSubHeader ? (
+          <CommunityLogoWrapper>
             <Link to={routes.questions()} href={routes.questions()}>
-              <img src={peeranhaLogo} width="90px" alt="Peeranha logo" />
+              <Logo src={mainLogo} width={styles.signUpLogoWidth} />
             </Link>
-          </CommunityLogoDescr>
-        </CommunityLogoWrapper>
-      ) : (
-        <Link to={routes.questions()} href={routes.questions()}>
-          <img src={peeranhaLogo} width="180px" alt="Peeranha logo" />
-        </Link>
-      )}
-    </div>
+            <CommunityLogoDescr>
+              <span>Q&A on</span>
+              <Link to={routes.questions()} href={routes.questions()}>
+                <img src={peeranhaLogo} width="90px" alt="Peeranha logo" />
+              </Link>
+            </CommunityLogoDescr>
+          </CommunityLogoWrapper>
+        ) : (
+          <Link to={routes.questions()} href={routes.questions()}>
+            <img src={peeranhaLogo} width="180px" alt="Peeranha logo" />
+          </Link>
+        )}
+      </div>
 
-    <H3 className="mb-4">
-      <FormattedMessage {...messages.signUpOptions} />
-    </H3>
+      <H3 className="mb-4">{t('sign-up.signUpOptions')}</H3>
 
-    <div className="mb-4">
-      <P>
-        <FormattedMessage {...messages.peeranhaIsNotTypical} />
-      </P>
-      <P>
-        <FormattedMessage {...messages.ifYouLikeToSkip} />
-      </P>
-      <P>
-        <FormattedMessage {...messages.weAreHappyToCover} />
-      </P>
-    </div>
+      <div className="mb-4">
+        <P>{t('sign-up.peeranhaIsNotTypical')}</P>
+        <P>{t('sign-up.ifYouLikeToSkip')}</P>
+        <P>{t('sign-up.weAreHappyToCover')}</P>
+      </div>
+    </>
+  );
+};
 
-    {/* TODO: PEER-285 Hide FAQ Questions
-    {faqQuestions && (
-      <ul className="mb-4">
-        {faqQuestions.map(x => <Li key={x.props.children}>{x}</Li>)}
-      </ul>
-    )}*/}
-  </>
-);
-
-/* eslint react/no-children-prop: 0 */
 const RightMenuWithoutScatter = ({
   children,
   showLoginModal,
@@ -154,36 +139,40 @@ const RightMenuWithoutScatter = ({
   emailVerificationProcessing,
   emailChecking,
   metaMaskProviderDetected,
-}) => (
-  <div className="py-5">
-    {children}
-    <Div>
-      <Footer
-        walletAction={showWalletSignUpForm}
-        showWalletSignUpProcessing={showWalletSignUpProcessing}
-        emailVerificationProcessing={emailVerificationProcessing}
-        emailChecking={emailChecking}
-        signUpText={<FormattedMessage {...commonMessages.signUpViaWallet} />}
-        metaMaskProviderDetected={metaMaskProviderDetected}
-      />
+}) => {
+  const { t } = useTranslation();
 
-      <LoginLink>
-        <FormattedMessage {...messages.doYouHaveAlreadyAccount} />{' '}
-        <TransparentButton
-          className="py-1"
-          onClick={showLoginModal}
-          disabled={
-            showWalletSignUpProcessing ||
-            emailChecking ||
-            emailVerificationProcessing
-          }
-        >
-          <FormattedMessage {...commonMessages.login} />
-        </TransparentButton>
-      </LoginLink>
-    </Div>
-  </div>
-);
+  return (
+    <div className="py-5">
+      {children}
+      <Div>
+        <Footer
+          walletAction={showWalletSignUpForm}
+          showWalletSignUpProcessing={showWalletSignUpProcessing}
+          emailVerificationProcessing={emailVerificationProcessing}
+          emailChecking={emailChecking}
+          signUpText={t('common.signUpViaWallet')}
+          metaMaskProviderDetected={metaMaskProviderDetected}
+        />
+
+        <LoginLink>
+          {t('sign-up.doYouHaveAlreadyAccount')}{' '}
+          <TransparentButton
+            className="py-1"
+            onClick={showLoginModal}
+            disabled={
+              showWalletSignUpProcessing ||
+              emailChecking ||
+              emailVerificationProcessing
+            }
+          >
+            {t('common.login')}
+          </TransparentButton>
+        </LoginLink>
+      </Div>
+    </div>
+  );
+};
 
 export const SignUpOptions = ({
   children,
@@ -196,31 +185,27 @@ export const SignUpOptions = ({
   faqQuestions,
   logo,
   ethereumService,
-}) => {
-  return (
-    <SignUpWrapper
-      LeftMenuChildren={
-        <LeftMenu faqQuestions={faqQuestions} mainLogo={logo} />
-      }
-      RightMenuChildren={
-        !withWallet ? (
-          <RightMenuWithoutScatter
-            children={children}
-            showLoginModal={showLoginModal}
-            showWalletSignUpForm={showWalletSignUpForm}
-            showWalletSignUpProcessing={showWalletSignUpProcessing}
-            emailVerificationProcessing={emailVerificationProcessing}
-            emailChecking={emailChecking}
-            isMobileDevice={isMobile(window.navigator).any}
-            metaMaskProviderDetected={ethereumService.metaMaskProviderDetected}
-          />
-        ) : (
-          children
-        )
-      }
-    />
-  );
-};
+}) => (
+  <SignUpWrapper
+    LeftMenuChildren={<LeftMenu faqQuestions={faqQuestions} mainLogo={logo} />}
+    RightMenuChildren={
+      !withWallet ? (
+        <RightMenuWithoutScatter
+          children={children}
+          showLoginModal={showLoginModal}
+          showWalletSignUpForm={showWalletSignUpForm}
+          showWalletSignUpProcessing={showWalletSignUpProcessing}
+          emailVerificationProcessing={emailVerificationProcessing}
+          emailChecking={emailChecking}
+          isMobileDevice={isMobile(window.navigator).any}
+          metaMaskProviderDetected={ethereumService.metaMaskProviderDetected}
+        />
+      ) : (
+        children
+      )
+    }
+  />
+);
 
 LeftMenu.propTypes = {
   faqQuestions: PropTypes.array,

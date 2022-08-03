@@ -67,16 +67,16 @@ export const WarningMessage = ({
           />
         )}
 
-        {(err && (
-          <FormattedMessage
-            id={err.id}
-            values={{
-              min: err.min,
-              max: err.max,
-            }}
-          />
+        {/* {(err && (
+          // <FormattedMessage
+          //   id={err.id}
+          //   values={{
+          //     min: err.min,
+          //     max: err.max,
+          //   }}
+          // />
         )) ||
-          tip}
+          tip} */}
       </div>
     </Div>
   ) : null;

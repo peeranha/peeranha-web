@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form/immutable';
+import { useTranslation } from 'react-i18next';
+import { selectExistingTags } from 'containers/Tags/selectors';
 
 import {
   getFollowedCommunities,
@@ -30,18 +32,15 @@ import {
   FORM_NAME,
 } from './constants';
 
-import messages from './messages';
-import { selectExistingTags } from 'containers/Tags/selectors';
-
 export const Form = ({
   tagFormLoading,
   submitAction,
   handleSubmit,
-  translations,
   communities,
   getSuggestedTagsDispatch,
   isEditTagForm,
 }) => {
+  const { t } = useTranslation();
   const onChange = value => {
     if (value) {
       getSuggestedTagsDispatch({ communityId: value.id });
@@ -55,8 +54,8 @@ export const Form = ({
         name={FORM_COMMUNITY}
         component={CommunityField}
         disabled={isEditTagForm ? true : tagFormLoading}
-        label={translations[messages.community.id]}
-        tip={translations[messages.communityTip.id]}
+        label={t('tags.community')}
+        tip={t('tags.communityTip')}
         options={communities}
         validate={[requiredForObjectField]}
         warn={[requiredForObjectField]}
@@ -68,8 +67,8 @@ export const Form = ({
         disabled={tagFormLoading}
         name={NAME_FIELD}
         component={TextInputField}
-        label={translations[messages.name.id]}
-        tip={translations[messages.nameTip.id]}
+        label={t('tags.name')}
+        tip={t('tags.nameTip')}
         validate={[strLength2x15, required, valueHasNotBeInList]}
         warn={[strLength2x15, required, valueHasNotBeInList]}
         splitInHalf
@@ -79,17 +78,15 @@ export const Form = ({
         disabled={tagFormLoading}
         name={DESCRIPTION_FIELD}
         component={TextareaField}
-        label={translations[messages.descriptionField.id]}
-        tip={translations[messages.descriptionFieldTip.id]}
+        label={t('tags.descriptionField')}
+        tip={t('tags.descriptionFieldTip')}
         validate={[strLength20x1000, required]}
         warn={[strLength20x1000, required]}
         splitInHalf
       />
 
       <Button type="submit" disabled={tagFormLoading}>
-        {isEditTagForm
-          ? translations[messages.editTag.id]
-          : translations[messages.createTag.id]}
+        {isEditTagForm ? t('tags.titleEdit') : t('tags.createTag')}
       </Button>
     </FormBox>
   );
@@ -98,7 +95,6 @@ Form.propTypes = {
   tagFormLoading: PropTypes.bool,
   submitAction: PropTypes.func,
   handleSubmit: PropTypes.func,
-  translations: PropTypes.object,
   communities: PropTypes.array,
   getSuggestedTagsDispatch: PropTypes.func,
 };

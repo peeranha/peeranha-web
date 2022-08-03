@@ -1,11 +1,12 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
-import messages from 'containers/SignUp/messages';
 import AlmostDone from './AlmostDone';
 
-const AlmostDoneNoAccountWrapper = () => (
-  <AlmostDone message={<FormattedMessage {...messages.weWillNotify} />} />
-);
+const AlmostDoneNoAccountWrapper = () => {
+  const { t } = useTranslation();
+
+  return <AlmostDone message={t('sign-up.weWillNotify')} />;
+};
 
 export default AlmostDoneNoAccountWrapper;

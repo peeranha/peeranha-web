@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form/immutable';
 import styled from 'styled-components';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
 import {
   requiredForNumericalField,
@@ -20,7 +20,6 @@ import { InputWrapper, InputProgressBar } from './Form';
 
 import { CURRENT_STAKE_FORM } from './constants';
 
-import messages from './messages';
 import { italicFont } from '../../global-styles';
 
 const STAKE_TAGS = [
@@ -88,18 +87,15 @@ const CurrentStakeForm = ({
   formSubmitAction,
   initialUserStake,
 }) => {
+  const { t } = useTranslation();
   const value = +formValues[CURRENT_STAKE_FORM];
   const progressWidth = value && maxValue ? (value * 100) / maxValue : 0;
 
   return (
     <InputWrapper>
-      <Label>
-        <FormattedMessage {...messages.formCurrentStake} />
-      </Label>
+      <Label>{t('boost.formCurrentStake')}</Label>
       <Tags>
-        <TagsLabel>
-          <FormattedMessage {...messages.formTakeAStake} />:
-        </TagsLabel>
+        <TagsLabel>{t('boost.formTakeAStake')}:</TagsLabel>
         {STAKE_TAGS.map(item => (
           <Tag
             key={item.value}
@@ -119,7 +115,7 @@ const CurrentStakeForm = ({
               setTimeout(() => formSubmitAction(), 1000);
             }}
           >
-            <FormattedMessage {...messages.formUnstakeTokens} />
+            {t('boost.formUnstakeTokens')}
           </Tag>
         )}
       </Tags>

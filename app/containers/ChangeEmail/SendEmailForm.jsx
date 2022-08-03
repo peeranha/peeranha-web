@@ -2,54 +2,48 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form/immutable';
-import { FormattedMessage } from 'react-intl';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 
-import commonMessages from 'common-messages';
 import { scrollToErrorField } from 'utils/animation';
 
 import H4 from 'components/H4';
 import TextInputField from 'components/FormFields/TextInputField';
 import Button from 'components/Button/Contained/InfoLarge';
-import signUpMessages from 'containers/SignUp/messages';
 
 import { validateEmail, required } from 'components/FormFields/validate';
 
 import { OLD_EMAIL_FORM, OLD_EMAIL_FIELD } from './constants';
 
-const EmailForm = ({
-  handleSubmit,
-  locale,
-  sendOldEmail,
-  sendOldEmailProcessing,
-}) => (
-  <div>
-    <H4 className="text-center pb-3">
-      <FormattedMessage {...commonMessages.change} />{' '}
-      <FormattedMessage {...signUpMessages.email} />
-    </H4>
+const EmailForm = ({ handleSubmit, sendOldEmail, sendOldEmailProcessing }) => {
+  const { t } = useTranslation();
 
-    <form onSubmit={handleSubmit(sendOldEmail)}>
-      <Field
-        name={OLD_EMAIL_FIELD}
-        disabled
-        label={translationMessages[locale][signUpMessages.email.id]}
-        component={TextInputField}
-        validate={[validateEmail, required]}
-        warn={[validateEmail, required]}
-      />
+  return (
+    <div>
+      <H4 className="text-center pb-3">
+        {t('common.change')} {t('sign-up.email')}
+      </H4>
 
-      <Button disabled={sendOldEmailProcessing} className="w-100 mb-3">
-        <FormattedMessage {...commonMessages.submit} />
-      </Button>
-    </form>
-  </div>
-);
+      <form onSubmit={handleSubmit(sendOldEmail)}>
+        <Field
+          name={OLD_EMAIL_FIELD}
+          disabled
+          label={t('sign-up.email')}
+          component={TextInputField}
+          validate={[validateEmail, required]}
+          warn={[validateEmail, required]}
+        />
+
+        <Button disabled={sendOldEmailProcessing} className="w-100 mb-3">
+          {t('common.submit')}
+        </Button>
+      </form>
+    </div>
+  );
+};
 
 EmailForm.propTypes = {
   handleSubmit: PropTypes.func,
   sendOldEmail: PropTypes.func,
-  locale: PropTypes.string,
   sendOldEmailProcessing: PropTypes.bool,
 };
 

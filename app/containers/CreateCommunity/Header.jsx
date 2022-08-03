@@ -1,9 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
 import * as routes from 'routes-config';
-import commonMessages from 'common-messages';
 import { TEXT_PRIMARY, BORDER_PRIMARY } from 'style-constants';
 
 import createCommunityHeader from 'images/communitiesHeader.svg?inline';
@@ -17,9 +15,9 @@ import { MediumImageStyled } from 'components/Img/MediumImage';
 import { IconMd } from 'components/Icon/IconWithSizes';
 
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
-import { feed } from './../../routes-config';
 
-export const Header = ({ headerDescriptor }) => {
+export const Header = () => {
+  const { t } = useTranslation();
   const isSingleCommunityMode = !!isSingleCommunityWebsite();
   const nextRoute = isSingleCommunityMode ? routes.feed : routes.communities;
 
@@ -27,7 +25,7 @@ export const Header = ({ headerDescriptor }) => {
     <Wrapper className="mb-to-sm-0 mb-from-sm-3">
       <H3>
         <MediumImageStyled src={createCommunityHeader} alt="Community icon" />
-        <FormattedMessage {...headerDescriptor} />
+        {t('createCommunity.newCommunity')}
       </H3>
 
       <WrapperRightPanel className="right-panel">
@@ -40,7 +38,7 @@ export const Header = ({ headerDescriptor }) => {
               isColorImportant={true}
             />
             <Span color={TEXT_PRIMARY} className="button-label">
-              <FormattedMessage {...commonMessages.close} />
+              {t('common.close')}
             </Span>
           </button>
         </A>
@@ -49,8 +47,4 @@ export const Header = ({ headerDescriptor }) => {
   );
 };
 
-Header.propTypes = {
-  headerDescriptor: PropTypes.object.isRequired,
-};
-
-export default React.memo(Header);
+export default Header;

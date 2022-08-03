@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
 import okayIcon from 'images/okay.svg?inline';
 
@@ -8,9 +8,10 @@ import PrimaryButton from 'components/Button/Contained/PrimaryMedium';
 import InfoButton from 'components/Button/Outlined/InfoMedium';
 
 import Button from './index';
-import messages from './messages';
 
 const B = ({ isFollowed, onClick, id, disabled }) => {
+  const { t } = useTranslation();
+
   if (isFollowed) {
     return (
       <PrimaryButton
@@ -31,7 +32,7 @@ const B = ({ isFollowed, onClick, id, disabled }) => {
       onClick={onClick}
       disabled={disabled}
     >
-      <FormattedMessage {...messages.subscribe} />
+      {t('common.followCommunity.subscribe')}
     </InfoButton>
   );
 };

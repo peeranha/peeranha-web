@@ -1,12 +1,7 @@
-/*
- * Landing
- *
- */
-
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { createStructuredSelector } from 'reselect';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { compose, bindActionCreators } from 'redux';
 
@@ -47,12 +42,9 @@ import {
   ANIMATE_TEXT,
   SECOND_SCREEN,
   THIRD_SCREEN,
-  EMAIL_FIELD,
 } from './constants';
 
 import { sendMessage } from './actions';
-
-import messages from './messages';
 
 const imagesAnimation = () => {
   window.$(window).on('DOMMouseScroll mousewheel', event => {
@@ -152,7 +144,7 @@ export const HomePage = ({
   loginWithWalletDispatch,
   account,
 }) => {
-  const translations = translationMessages[locale];
+  const { t } = useTranslation();
 
   useEffect(() => {
     imagesAnimation();
@@ -163,24 +155,22 @@ export const HomePage = ({
   return (
     <div id={LANDING_ID}>
       <Seo
-        title={translations[messages.title.id]}
-        description={translations[messages.description.id]}
+        title={t('about.title')}
+        description={t('about.description')}
         language={locale}
       />
 
       <Introduction
         account={account}
-        translations={translations}
         location={location}
         showLoginModal={() => loginWithWalletDispatch({ metaMask: true })}
       />
 
-      <About translations={translations} />
+      <About />
 
       <Partners />
-      <Rewards translations={translations} />
+      <Rewards />
       <FeedbackForm
-        translations={translations}
         sendMessage={sendMessageDispatch}
         sendMessageLoading={sendMessageLoading}
       />

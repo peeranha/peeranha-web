@@ -1,8 +1,8 @@
-import React, { memo, useMemo, useState } from 'react';
+import React, { memo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Field, reduxForm, FormSection } from 'redux-form/immutable';
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
 import {
   PEER_PRIMARY_COLOR,
@@ -15,7 +15,6 @@ import closeIcon from 'images/close.svg?external';
 
 import { formatStringToHtmlId, scrollToErrorField } from 'utils/animation';
 import { showPopover } from 'utils/popover';
-import { getPermissions, hasGlobalModeratorRole } from 'utils/properties';
 
 import {
   required,
@@ -39,14 +38,12 @@ import FormBox from 'components/Form';
 import LargeButton from 'components/Button/Contained/InfoLarge';
 import TransparentButton from 'components/Button/Contained/Transparent';
 
-import messages from './messages';
 import {
   FORM_NAME,
   COMMUNITY_TYPE,
   COMM_AVATAR_FIELD,
   COMM_NAME_FIELD,
   COMM_SHORT_DESCRIPTION_FIELD,
-  COMM_MAIN_DESCRIPTION_FIELD,
   COMM_OFFICIAL_SITE_FIELD,
   TAG_NAME_FIELD,
   TAG_DESCRIPTION_FIELD,
@@ -58,8 +55,6 @@ import {
   ANY_TYPE,
 } from './constants';
 
-import TypeForm from './QuestionsTypeForm';
-import CommunityTypeForm from './CommunityTypeForm';
 import BloggerModeForm from './BloggerModeForm';
 
 const MIN_TAGS_NUMBER = 5;
@@ -76,22 +71,14 @@ for (let i = 0; i < MIN_TAGS_NUMBER; i++) {
 // TODO: return language for multi lang.
 
 const CreateCommunityForm = ({
-  locale,
   handleSubmit,
   createCommunity,
   createCommunityLoading,
-  translations,
   change,
   formValues,
-  intl,
-  profile,
 }) => {
+  const { t } = useTranslation();
   const [tags, changeTags] = useState(DEFAULT_TAGS_ARRAY);
-
-  const profileWithModeratorRights = useMemo(
-    () => hasGlobalModeratorRole(getPermissions(profile)),
-    [profile],
-  );
 
   const removeTag = e => {
     const { key } = e.currentTarget.dataset;
@@ -113,10 +100,7 @@ const CreateCommunityForm = ({
     }
 
     if (tags.length === MAX_TAGS_NUMBER) {
-      showPopover(
-        ADD_TAG_BUTTON_ID,
-        translations[messages.maxTagsNumberReached.id],
-      );
+      showPopover(ADD_TAG_BUTTON_ID, t('createCommunity.maxTagsNumberReached'));
     }
   };
 
@@ -135,10 +119,10 @@ const CreateCommunityForm = ({
           disabled={createCommunityLoading}
           name={COMM_NAME_FIELD}
           component={TextInputField}
-          label={translations[messages.communityTitle.id]}
+          label={t('createCommunity.communityTitle')}
           validate={[strLength3x20, required]}
           warn={[strLength3x20, required]}
-          tip={translations[messages.communityTitleTip.id]}
+          tip={t('createCommunity.communityTitleTip')}
           splitInHalf
         />
 
@@ -146,10 +130,10 @@ const CreateCommunityForm = ({
           disabled={createCommunityLoading}
           name={COMM_SHORT_DESCRIPTION_FIELD}
           component={TextInputField}
-          label={translations[messages.shortDescription.id]}
+          label={t('createCommunity.shortDescription')}
           validate={[strLength15x250, required]}
           warn={[strLength15x250, required]}
-          tip={translations[messages.shortDescriptionTip.id]}
+          tip={t('createCommunity.shortDescriptionTip')}
           splitInHalf
         />
 
@@ -157,39 +141,27 @@ const CreateCommunityForm = ({
           disabled={createCommunityLoading}
           name={COMM_OFFICIAL_SITE_FIELD}
           component={TextInputField}
-          label={translations[messages.website.id]}
+          label={t('createCommunity.website')}
           validate={[validateURL, strLength100Max]}
           warn={[validateURL]}
           placeholder="https://example.com"
-          tip={translations[messages.websiteTip.id]}
+          tip={t('createCommunity.websiteTip')}
           splitInHalf
         />
-
-        {/*{profileWithModeratorRights && (*/}
-        {/*  <TypeForm*/}
-        {/*    locale={locale}*/}
-        {/*    change={change}*/}
-        {/*    formValues={formValues}*/}
-        {/*    intl={intl}*/}
-        {/*  />*/}
-        {/*)}*/}
-
-        {/*<CommunityTypeForm change={change} intl={intl} />*/}
 
         {+formValues[COMMUNITY_TYPE] ? (
           <BloggerModeForm
             disabled={createCommunityLoading}
             formValues={formValues}
-            intl={intl}
           />
         ) : null}
 
         <div>
-          <Wrapper label={translations[messages.tags.id]} splitInHalf>
-            <FormattedMessage
-              {...messages.tagsAreNeeded}
-              values={{ max: MAX_TAGS_NUMBER, min: MIN_TAGS_NUMBER }}
-            />
+          <Wrapper label={t('createCommunity.tags')} splitInHalf>
+            {t('createCommunity.tagsAreNeeded', {
+              max: MAX_TAGS_NUMBER,
+              min: MIN_TAGS_NUMBER,
+            })}
           </Wrapper>
 
           <FormSection name="tags">
@@ -214,7 +186,7 @@ const CreateCommunityForm = ({
                   disabled={createCommunityLoading}
                   name={TAG_NAME_FIELD}
                   component={TextInputField}
-                  placeholder={translations[messages.tagTitle.id]}
+                  placeholder={t('createCommunity.tagTitle')}
                   validate={[
                     strLength2x15,
                     required,
@@ -225,7 +197,7 @@ const CreateCommunityForm = ({
                     required,
                     valueHasNotBeInListMoreThanOneTime,
                   ]}
-                  tip={translations[messages.tagTitleTip.id]}
+                  tip={t('createCommunity.tagTitleTip')}
                   splitInHalf
                   insideOfSection
                 />
@@ -234,10 +206,10 @@ const CreateCommunityForm = ({
                   disabled={createCommunityLoading}
                   name={TAG_DESCRIPTION_FIELD}
                   component={TextareaField}
-                  placeholder={translations[messages.tagDescription.id]}
+                  placeholder={t('createCommunity.tagDescription')}
                   validate={[strLength20x1000, required]}
                   warn={[strLength20x1000, required]}
-                  tip={translations[messages.tagDescriptionTip.id]}
+                  tip={t('createCommunity.tagDescriptionTip')}
                   splitInHalf
                 />
               </FormSection>
@@ -253,7 +225,7 @@ const CreateCommunityForm = ({
           id={ADD_TAG_BUTTON_ID}
         >
           <img className="mr-2" src={icoTag} alt="icoTag" />
-          <FormattedMessage {...messages.oneMoreTag} />
+          {t('createCommunity.oneMoreTag')}
         </TransparentButton>
 
         <LargeButton
@@ -261,7 +233,7 @@ const CreateCommunityForm = ({
           type="submit"
           id={CREATE_COMMUNITY_BUTTON}
         >
-          {translations[messages.createCommunity.id]}
+          {t('createCommunity.createCommunity')}
         </LargeButton>
       </FormBox>
     </ExtendedBase>
@@ -272,14 +244,12 @@ CreateCommunityForm.propTypes = {
   handleSubmit: PropTypes.func,
   createCommunity: PropTypes.func,
   createCommunityLoading: PropTypes.bool,
-  translations: PropTypes.object,
   invalid: PropTypes.bool,
   submitting: PropTypes.bool,
   change: PropTypes.func,
   formValues: PropTypes.object,
 };
 
-/* eslint import/no-mutable-exports: 0, consistent-return: 0 */
 const FormCloneRedux = reduxForm({
   form: FORM_NAME,
   onSubmitFail: err => {
@@ -295,30 +265,28 @@ const FormCloneRedux = reduxForm({
 })(CreateCommunityForm);
 
 export default memo(
-  injectIntl(
-    connect(state => {
-      const form = state.toJS().form[FORM_NAME] || { values: {} };
+  connect(state => {
+    const form = state.toJS().form[FORM_NAME] || { values: {} };
 
-      if (form.values && form.values.tags) {
-        const { tags } = form.values;
-        const tagNames = Object.keys(tags)
-          .filter(x => tags[x])
-          .map(x => tags[x][TAG_NAME_FIELD]);
-        return {
-          valueHasNotBeInListValidate: tagNames,
-          formValues: form?.values ?? {},
-        };
-      }
-
+    if (form.values && form.values.tags) {
+      const { tags } = form.values;
+      const tagNames = Object.keys(tags)
+        .filter(x => tags[x])
+        .map(x => tags[x][TAG_NAME_FIELD]);
       return {
+        valueHasNotBeInListValidate: tagNames,
         formValues: form?.values ?? {},
-        initialValues: {
-          [COMMUNITY_TYPE]: 0,
-          [MAIN_COLOR_FIELD]: PEER_PRIMARY_COLOR,
-          [HIGHLIGHT_COLOR_FIELD]: PEER_WARNING_COLOR,
-          [FORM_TYPE]: ANY_TYPE,
-        },
       };
-    })(FormCloneRedux),
-  ),
+    }
+
+    return {
+      formValues: form?.values ?? {},
+      initialValues: {
+        [COMMUNITY_TYPE]: 0,
+        [MAIN_COLOR_FIELD]: PEER_PRIMARY_COLOR,
+        [HIGHLIGHT_COLOR_FIELD]: PEER_WARNING_COLOR,
+        [FORM_TYPE]: ANY_TYPE,
+      },
+    };
+  })(FormCloneRedux),
 );

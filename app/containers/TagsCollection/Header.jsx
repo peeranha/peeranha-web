@@ -1,8 +1,7 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
-import messages from 'common-messages';
 import { BORDER_PRIMARY } from 'style-constants';
 
 import suggestTagIcon from 'images/tagsHeaderIcon.svg?inline';
@@ -19,6 +18,7 @@ import { GO_TO_CREATE_TAG_SCREEN_BUTTON_ID } from 'containers/Tags/constants';
 import { getPermissions, hasGlobalModeratorRole } from '../../utils/properties';
 
 const Header = ({ openTagForm, profile }) => {
+  const { t } = useTranslation();
   const profileWithModeratorRights =
     profile &&
     useMemo(() => hasGlobalModeratorRole(getPermissions(profile)), [profile]);
@@ -27,7 +27,7 @@ const Header = ({ openTagForm, profile }) => {
     <Wrapper className="mb-to-sm-0 mb-from-sm-3">
       <H3>
         <MediumImageStyled src={suggestTagIcon} alt="tags-collection" />
-        <FormattedMessage {...messages.tags} />
+        {t('common.tags')}
       </H3>
       {profileWithModeratorRights && (
         <WrapperRightPanel className="right-panel">
@@ -48,9 +48,7 @@ const Header = ({ openTagForm, profile }) => {
               icon={addIcon}
             />
 
-            <span className="ml-1 button-label">
-              <FormattedMessage {...messages.createTag} />
-            </span>
+            <span className="ml-1 button-label">{t('common.createTag')}</span>
           </TransparentButton>
         </WrapperRightPanel>
       )}

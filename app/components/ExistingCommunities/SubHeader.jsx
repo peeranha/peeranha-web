@@ -30,7 +30,7 @@ const Button = ({ sorting, icon }) => {
     >
       <img className="mr-2" src={icon} alt="icon" />
       {t('')}
-      <FormattedMessage {...sorting.message} />
+      {/* <FormattedMessage {...sorting.message} /> */}
     </Span>
   );
 };

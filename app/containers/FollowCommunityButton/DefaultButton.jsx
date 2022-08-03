@@ -1,39 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import styled from 'styled-components';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
-import {
-  isSingleCommunityWebsite,
-  singleCommunityColors,
-} from 'utils/communityManagement';
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import OutlinedButton from 'components/Button/Outlined/InfoMedium';
 
-import { TEXT_PRIMARY } from 'style-constants';
 import Button from './index';
-import messages from './messages';
 import { FOLLOW_BUTTON, UNFOLLOW_BUTTON } from './constants';
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 
 const single = isSingleCommunityWebsite();
-const colors = singleCommunityColors();
-
-const CustomButton = styled.div`
-  margin-top: 16px;
-  color: ${colors.linkColor || TEXT_PRIMARY};
-  font-size: 14px;
-  cursor: pointer;
-
-  @media only screen and (max-width: 576px) {
-    max-width: 95px;
-    margin-top: 9px;
-
-    text-align: right;
-  }
-`;
 
 const B = ({ isFollowed, onClick, id, disabled, profile }) => {
+  const { t } = useTranslation();
+
   if (single && !profile) {
     return null;
   }
@@ -45,9 +26,11 @@ const B = ({ isFollowed, onClick, id, disabled, profile }) => {
       onClick={onClick}
       disabled={disabled}
     >
-      <FormattedMessage
-        {...messages[isFollowed ? UNFOLLOW_BUTTON : FOLLOW_BUTTON]}
-      />
+      {t(
+        `common.followCommunity.${
+          isFollowed ? UNFOLLOW_BUTTON : FOLLOW_BUTTON
+        }`,
+      )}
     </OutlinedButton>
   );
 };

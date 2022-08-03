@@ -1,0 +1,58 @@
+{
+  "title": "Community | Create",
+  "description": "Description of CreateCommunity",
+  "website": "Official site",
+  "websiteTip": "Optional",
+  "avatar": "Avatar",
+  "communityTitle": "Title",
+  "shortDescription": "Short description",
+  "about": "About community",
+  "optional": "Optional",
+  "whyWeNeedIt": "Why we need it?",
+  "newCommunity": "New community",
+  "createCommunity": "Create community",
+  "oneMoreTag": "One more tag",
+  "tags": "Tags",
+  "tagsAreNeeded":
+    "Tags are needed for asking questions. You are required to specify {{min}}-{{max}} main tags.",
+  "tagTitle": "Tag",
+  "tagDescription": "Description",
+  "communityTitleTip": "Name of new community",
+  "shortDescriptionTip":
+    "Brief description about the community and its purpose.",
+  "whyWeNeedItTip":
+    "This information is visible to users who vote for new communities.",
+  "tagTitleTip": "Unique name of the tag",
+  "tagDescriptionTip": "Description when to use the tag",
+  "imageWillBeTheFace": "Image will be the face of community",
+  "specifyMemorableTitle": "Specify a memorable title",
+  "communityDescriptionShouldBe":
+    "Community description should be concise and have a clear description for its users",
+  "writeWhyDoWeeNeed":
+    "Describe how this community will attract the attention of other users and collect votes",
+  "onlyTagsWithUniqueTitles": "Form should allow only tags with unique names",
+  "communityLanguage": "Language",
+  "communityLanguageTip":
+    "Questions in the community will only be allowed in the selected language",
+  "thatisgreat": "That's great!",
+  "communityWillAppear":
+    "Your community will appear in the list and other users can vote for it. 100 votes are needed for a community to be created.",
+  "goToList": "Go to list",
+  "maxTagsNumberReached": "Max tags number was reached",
+  "questionsType": "Questions Type",
+  "anyQuestionDescriptionLabel":
+    "Users will be able to ask both General and Expert types of question in this community",
+  "anyQuestionDescriptionList": [],
+  "facebook": "Facebook",
+  "instagram": "Instagram",
+  "youtube": "YouTube",
+  "vk": "VK",
+  "mainColor": "Main color",
+  "highlightColor": "Highlight color",
+  "communityType": "Community Type",
+  "communityTypeTip": "Optional",
+  "socialLinks": "Social links",
+  "socialLinksTip": "Optional",
+  "colors": "Colors",
+  "topBanner": "Top banner"
+}

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { bindActionCreators, compose } from 'redux';
@@ -21,9 +21,6 @@ import { selectLogo } from 'containers/Home/selectors';
 import H3 from 'components/H3';
 
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
-import telosIcon from 'images/telosIcon.svg?inline';
-
-import messages from 'containers/SignUp/messages';
 
 import {
   HOW_STORE_MY_KEYS_QUESTION,
@@ -40,7 +37,6 @@ import saga from 'containers/Home/saga';
 
 import SignUpWrapper from './index';
 import {
-  Li,
   P,
   CommunityLogoWrapper,
   CommunityLogoDescr,
@@ -50,58 +46,42 @@ import {
 const styles = singleCommunityStyles();
 const single = isSingleCommunityWebsite();
 
-const LeftMenu = ({ faqQuestions, route, mainLogo }) => (
-  <>
-    <div className="mb-4">
-      {styles.withoutSubHeader ? (
-        <CommunityLogoWrapper>
-          <Link to={routes.questions()} href={routes.questions()}>
-            <Logo src={mainLogo} width={styles.signUpLogoWidth} />
-          </Link>
-          <CommunityLogoDescr>
-            <span>Q&A on</span>
+const LeftMenu = ({ mainLogo }) => {
+  const { t } = useTranslation();
+
+  return (
+    <>
+      <div className="mb-4">
+        {styles.withoutSubHeader ? (
+          <CommunityLogoWrapper>
             <Link to={routes.questions()} href={routes.questions()}>
-              <img src={peeranhaLogo} width="90px" alt="Peeranha logo" />
+              <Logo src={mainLogo} width={styles.signUpLogoWidth} />
             </Link>
-          </CommunityLogoDescr>
-        </CommunityLogoWrapper>
-      ) : (
-        <Link to={routes.questions()} href={routes.questions()}>
-          <img src={mainLogo} width="180px" alt="Peeranha logo" />
-        </Link>
-      )}
-    </div>
+            <CommunityLogoDescr>
+              <span>Q&A on</span>
+              <Link to={routes.questions()} href={routes.questions()}>
+                <img src={peeranhaLogo} width="90px" alt="Peeranha logo" />
+              </Link>
+            </CommunityLogoDescr>
+          </CommunityLogoWrapper>
+        ) : (
+          <Link to={routes.questions()} href={routes.questions()}>
+            <img src={mainLogo} width="180px" alt="Peeranha logo" />
+          </Link>
+        )}
+      </div>
 
-    <H3 className="d-flex align-items-center mb-4">
-      <FormattedMessage
-        {...messages.youNeedBlockchainAccount}
-        values={{
-          image: (
-            <a href="https://www.telosfoundation.io/" target="_blank">
-              <img src={telosIcon} alt="telos" />
-            </a>
-          ),
-        }}
-      />
-    </H3>
+      <H3 className="d-flex align-items-center mb-4">
+        {t('sign-up.youNeedBlockchainAccount')}
+      </H3>
 
-    <div className="mb-4">
-      <P>
-        <FormattedMessage {...messages.theWayBlockchainAccountWorks} />
-      </P>
-      <P>
-        <FormattedMessage {...messages.dontWorryAboutBlockchainAccount} />
-      </P>
-    </div>
-
-    {/* {faqQuestions?.length > 0 && (
-      <ul className="mb-4"> */}
-    {/* eslint-disable-next-line react/no-array-index-key */}
-    {/* {faqQuestions.map((x, index) => <Li key={index}>{x}</Li>)}
-      </ul>
-    )} */}
-  </>
-);
+      <div className="mb-4">
+        <P>{t('sign-up.theWayBlockchainAccountWorks')}</P>
+        <P>{t('sign-up.dontWorryAboutBlockchainAccount')}</P>
+      </div>
+    </>
+  );
+};
 
 const SignUpViaEmailWrapper = ({
   children,

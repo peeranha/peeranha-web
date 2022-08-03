@@ -3,9 +3,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Avatar from 'react-avatar-edit';
 import styled from 'styled-components';
-import { FormattedMessage } from 'react-intl';
-
-import messages from 'common-messages';
+import { useTranslation } from 'react-i18next';
 
 import {
   BG_PRIMARY_SPECIAL,
@@ -200,6 +198,7 @@ const InfoMessage = styled.div`
 `;
 
 function AvatarField({ input, meta, disabled }) {
+  const { t } = useTranslation();
   const [s, setS] = useState(false);
   const [y, setY] = useState(null);
   const [v, setV] = useState(true);
@@ -239,11 +238,9 @@ function AvatarField({ input, meta, disabled }) {
                 closeIconColor="transparent"
                 onCrop={setY}
                 label={
-                  isFileTooLarge ? (
-                    <FormattedMessage {...messages.fileSizeErrorMsg} />
-                  ) : (
-                    <FormattedMessage {...messages.chooseFile} />
-                  )
+                  isFileTooLarge
+                    ? t('common.fileSizeErrorMsg')
+                    : t('common.chooseFile')
                 }
                 labelStyle={isFileTooLarge ? labelErrorStyle : {}}
                 onBeforeFileLoad={e => {
@@ -285,9 +282,7 @@ function AvatarField({ input, meta, disabled }) {
             </div>
           )}
       </div>
-      <InfoMessage>
-        <FormattedMessage {...messages.profilesUsersInfo} />
-      </InfoMessage>
+      <InfoMessage>{t('common.profilesUsersInfo')}</InfoMessage>
       <WarningMessage {...meta} isSpecialPosition />
     </Div>
   );

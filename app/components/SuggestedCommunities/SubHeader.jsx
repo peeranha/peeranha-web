@@ -1,46 +1,30 @@
-/* eslint no-unused-vars: 0 */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
 import communitiesHeader from 'images/communitiesHeader.svg?inline';
-import languageIcon from 'images/ico-languages.svg?inline';
 
 import H3 from 'components/H3';
-import Dropdown from 'components/Dropdown';
 import { MediumImageStyled } from 'components/Img/MediumImage';
 import SubHeaderWrapper from 'components/Header/Complex';
 
-import { Button, Menu } from 'components/ExistingCommunities/SubHeader';
+const SubHeader = () => {
+  const { t } = useTranslation();
 
-import messages from './messages';
+  return (
+    <SubHeaderWrapper position="bottom">
+      <H3>
+        <MediumImageStyled
+          src={communitiesHeader}
+          alt="communities-voting-header"
+        />
+        {t('common.votingForNewComm')}
+      </H3>
 
-const SubHeader = ({ setLang, language, languages }) => (
-  <SubHeaderWrapper position="bottom">
-    <H3>
-      <MediumImageStyled
-        src={communitiesHeader}
-        alt="communities-voting-header"
-      />
-      <FormattedMessage {...messages.votingForNewComm} />
-    </H3>
-
-    <div className="right-panel">
-      {/* <Dropdown
-        button={<Button sorting={language} icon={languageIcon} />}
-        menu={
-          <Menu
-            changeSorting={setLang}
-            sorting={language}
-            options={languages}
-          />
-        }
-        id="choose-language-dropdown"
-        isArrowed
-      /> */}
-    </div>
-  </SubHeaderWrapper>
-);
+      <div className="right-panel" />
+    </SubHeaderWrapper>
+  );
+};
 
 SubHeader.propTypes = {
   setLang: PropTypes.func,
@@ -48,4 +32,4 @@ SubHeader.propTypes = {
   languages: PropTypes.object,
 };
 
-export default React.memo(SubHeader);
+export default SubHeader;

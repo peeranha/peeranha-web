@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation, Trans } from 'react-i18next';
 import PropTypes from 'prop-types';
 import isMobile from 'ismobilejs';
 
@@ -9,13 +9,10 @@ import {
   singleCommunityStyles,
 } from 'utils/communityManagement';
 
-import * as routes from 'routes-config';
-
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
 import infoIcon from 'images/information.svg?external';
 
 import { TEXT_SECONDARY } from 'style-constants';
-import messages from 'common-messages';
 
 import Icon from 'components/Icon';
 import Dropdown from 'components/Dropdown';
@@ -94,16 +91,19 @@ const StyledIcon = styled(Icon)`
   margin-right: 10px !important;
 `;
 
-const Link = ({ path, message, cssStyles }) =>
-  document.location.origin === process.env.APP_LOCATION ? (
+const Link = ({ path, message, cssStyles }) => {
+  const { t } = useTranslation();
+
+  return document.location.origin === process.env.APP_LOCATION ? (
     <A to={path} css={cssStyles}>
-      <FormattedMessage {...message} />
+      {t(message)}
     </A>
   ) : (
     <ADefault href={`${process.env.APP_LOCATION}${path}`} css={cssStyles}>
-      <FormattedMessage {...message} />
+      {t(message)}
     </ADefault>
   );
+};
 
 Link.propTypes = {
   path: PropTypes.string,
@@ -111,46 +111,51 @@ Link.propTypes = {
   cssStyles: PropTypes.array,
 };
 
-const InfoLinksDropDown = ({ withTitle }) => (
-  <Dropdown
-    className="mr-3"
-    button={
-      <>
-        <Span
-          className="d-flex align-items-center mr-1"
-          fontSize="16"
-          lineHeight="20"
-          color={TEXT_SECONDARY}
-        >
-          <StyledIcon icon={infoIcon} width="16" height="16" />
-          {withTitle && <FormattedMessage {...messages.more} />}
-        </Span>
-      </>
-    }
-    menu={
-      <ul>
-        {INFO_LINKS.map(el => (
-          <Li key={el.route} css={LiAdditionalStyles}>
-            <Link
-              key={el.title}
-              path={el.route}
-              message={el.title}
-              cssStyles={LinkAdditionalStyles}
-            />
-          </Li>
-        ))}
-      </ul>
-    }
-    id="choose-language-dropdown"
-    isArrowed
-  />
-);
+const InfoLinksDropDown = ({ withTitle }) => {
+  const { t } = useTranslation();
+
+  return (
+    <Dropdown
+      className="mr-3"
+      button={
+        <>
+          <Span
+            className="d-flex align-items-center mr-1"
+            fontSize="16"
+            lineHeight="20"
+            color={TEXT_SECONDARY}
+          >
+            <StyledIcon icon={infoIcon} width="16" height="16" />
+            {withTitle && t('common.more')}
+          </Span>
+        </>
+      }
+      menu={
+        <ul>
+          {INFO_LINKS.map(el => (
+            <Li key={el.route} css={LiAdditionalStyles}>
+              <Link
+                key={el.title}
+                path={el.route}
+                message={el.title}
+                cssStyles={LinkAdditionalStyles}
+              />
+            </Li>
+          ))}
+        </ul>
+      }
+      id="choose-language-dropdown"
+      isArrowed
+    />
+  );
+};
 
 InfoLinksDropDown.propTypes = {
   withTitle: PropTypes.bool,
 };
 
-export default React.memo(({ currClientHeight }) => {
+const AdditionalLinksComponent = ({ currClientHeight }) => {
+  const { t } = useTranslation();
   const basicCondition =
     !styles.withoutAdditionalLinks && !isMobile(window.navigator).any;
 
@@ -187,33 +192,26 @@ export default React.memo(({ currClientHeight }) => {
       <FooterStyled currClientHeight={currClientHeight}>
         {!single && (
           <div>
-            <FormattedMessage
-              {...messages.copyrightPeeranha}
-              values={{ year: new Date().getFullYear() }}
-            />
+            {t('common.copyrightPeeranha', { year: new Date().getFullYear() })}
           </div>
         )}
         <div className="mt-2">
-          {single ? (
-            <FormattedMessage
-              {...messages.poweredBy}
-              values={{
-                year: new Date().getFullYear(),
-                image: <Img key="peeranha" src={peeranhaLogo} alt="peeranha" />,
-              }}
+          {single && (
+            <a
+              className="d-flex align-content-center"
+              href={process.env.APP_LOCATION}
             >
-              {(...chunks) => (
-                <a
-                  className="d-flex align-content-center"
-                  href={process.env.APP_LOCATION}
-                >
-                  {chunks}
-                </a>
-              )}
-            </FormattedMessage>
-          ) : null}
+              <Trans
+                i18nKey="common.poweredBy"
+                values={{ year: new Date().getFullYear() }}
+                components={[<Img key="0" src={peeranhaLogo} alt="peeranha" />]}
+              />
+            </a>
+          )}
         </div>
       </FooterStyled>
     </AdditionalLinks>
   );
-});
+};
+
+export default React.memo(AdditionalLinksComponent);

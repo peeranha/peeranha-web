@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
 import {
   BG_PRIMARY,
@@ -10,8 +10,6 @@ import {
   TEXT_LIGHT,
   TEXT_SECONDARY,
 } from 'style-constants';
-
-import messages from 'common-messages';
 
 import currencyPeerIcon from 'images/currencyPeer.svg?external';
 import boostWalletIcon from 'images/boost-wallet-icon.svg?external';
@@ -84,6 +82,8 @@ const WalletButton = ({
   locale,
   isBoost,
 }) => {
+  const { t } = useTranslation();
+
   return (
     <div className="position-relative">
       <ButtonStyled isBoost={!!isBoost} isMobileVersion={isMobileVersion}>
@@ -129,7 +129,7 @@ const WalletButton = ({
               (!isMobileVersion && styles.commHeadElemColor) || TEXT_SECONDARY
             }
           >
-            <FormattedMessage {...messages.peers} />
+            {t('common.peers')}
           </Span>
         </span>
       </ButtonStyled>

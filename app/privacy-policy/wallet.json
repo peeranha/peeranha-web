@@ -1,0 +1,30 @@
+{
+  "title": "Кошелек",
+  "description": "Кошелек | Описание",
+  "eosAccount": "Telos аккаунт",
+  "currentPeriod": "Текущий период в прогрессе",
+  "periodStillInProgress":
+    "Этот период все еще в прогрессе. Вы увидите больше деталей на следующей неделе.",
+  "payoutPending": "Выплата в ожидании",
+  "weAreAnalyzing":
+    "Мы анализируем действия текущего периода. Подробная информация будет доступна на следующей неделе.",
+  "estimatedPayout": "Расчетная выплата",
+  "paidOut": "Выплачено",
+  "rewarded": "Награждено",
+  "week": "Неделя",
+  "getReward": "Получить награду",
+  "received": "Получено",
+  "thisIsRegistrationWeek":
+    "Это неделя регистрации. Мы настраиваем Ваш кошелёк. Награда за эту неделю будет получена на следующей неделе.",
+  "registrationWeek": "Неделя регистрации",
+  "yourWalletWasSuccessfullySet":
+    "Ваш кошелёк был успешно настроен в этот период",
+  "getMoreWithBoost": "Получите больше наград с Boost",
+  "stakedInCurrentPeriod": "Ставка, сделанная в текущем периоде",
+  "stakedInNextPeriod": "Ставка, сделанная на следующий период",
+  "totalBalance": "Итоговый баланс",
+  "boostHelp": "Узнайте {whatABoostIs} и {howToStake} в {FAQs}.",
+  "whatABoostIs": "что такое Boost",
+  "howToStake": "как вы можете сделать ставку",
+  "FAQs": "разделе часто задаваемых вопросов"
+}

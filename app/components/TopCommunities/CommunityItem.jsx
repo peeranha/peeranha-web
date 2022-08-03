@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import * as routes from '../../routes-config';
 import BaseRoundedNoPadding from '../Base/BaseRoundedNoPadding';
 import MediumImage from '../Img/MediumImage';
@@ -8,7 +8,6 @@ import P from '../P';
 import Span from '../Span';
 import { getFormattedNum2 } from '../../utils/numbers';
 import { TEXT_SECONDARY } from '../../style-constants';
-import messages from '../../common-messages';
 import FollowCommunityButton from '../../containers/FollowCommunityButton/StyledButton';
 import AStyled from './AStyled';
 import ADefaultStyled from './ADefaultStyled';
@@ -24,6 +23,7 @@ const CommunityItem = ({
   postCount,
   description,
 }) => {
+  const { t } = useTranslation();
   const [route, setRoute] = useState(() => routes.questions(id));
   const Link = single && id !== single ? ADefaultStyled : AStyled;
 
@@ -57,7 +57,7 @@ const CommunityItem = ({
                   {getFormattedNum2(followingUsers)}
                 </Span>
                 <Span className="mt-1" fontSize="14" color={TEXT_SECONDARY}>
-                  <FormattedMessage id={messages.users.id} />
+                  {t('common.users')}
                 </Span>
               </div>
               <div className="d-flex flex-column flex-grow-1">
@@ -65,7 +65,7 @@ const CommunityItem = ({
                   {getFormattedNum2(postCount)}
                 </Span>
                 <Span className="mt-1" fontSize="14" color={TEXT_SECONDARY}>
-                  <FormattedMessage id={messages.posts.id} />
+                  {t('common.posts')}
                 </Span>
               </div>
             </div>

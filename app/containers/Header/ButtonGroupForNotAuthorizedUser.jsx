@@ -1,31 +1,27 @@
-/**
- *
- * ButtonGroupForNotAuthorizedUser
- *
- */
-
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
-
-import messages from 'common-messages';
+import { useTranslation } from 'react-i18next';
 
 import LargeOutlinedButton from 'components/Button/Outlined/InfoLarge';
 
 import { singleCommunityStyles } from 'utils/communityManagement';
 const styles = singleCommunityStyles();
 
-const ButtonGroupForNotAuthorizedUser = ({ showLoginModal }) => (
-  <>
-    <LargeOutlinedButton
-      className="d-none d-sm-flex"
-      onClick={showLoginModal}
-      customStyles={styles.headerLoginButtonStyles}
-    >
-      <FormattedMessage {...messages.login} />
-    </LargeOutlinedButton>
-  </>
-);
+const ButtonGroupForNotAuthorizedUser = ({ showLoginModal }) => {
+  const { t } = useTranslation();
+
+  return (
+    <>
+      <LargeOutlinedButton
+        className="d-none d-sm-flex"
+        onClick={showLoginModal}
+        customStyles={styles.headerLoginButtonStyles}
+      >
+        {t('common.login')}
+      </LargeOutlinedButton>
+    </>
+  );
+};
 
 ButtonGroupForNotAuthorizedUser.propTypes = {
   showLoginModal: PropTypes.func,

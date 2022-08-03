@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form/immutable';
-import { injectIntl, FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
 import { scrollToErrorField } from 'utils/animation';
 import { singleCommunityStyles } from 'utils/communityManagement';
@@ -22,8 +22,6 @@ import PredictionForm from './PredictionForm';
 import CurrentStakeForm, { MinStake } from './CurrentStakeForm';
 
 import { FORM_TYPE, CURRENT_STAKE_FORM } from './constants';
-
-import messages from './messages';
 
 const { projectBorderRadius } = singleCommunityStyles();
 
@@ -105,23 +103,21 @@ const Form = ({
   locale,
   formValues,
 }) => {
+  const { t } = useTranslation();
   const resetAction =
     initialUserStake === currentStake
       ? reset
       : () => onChangeCurrentStake(initialUserStake || 0);
+
   return (
     <div className="mb-5">
       {formValues[CURRENT_STAKE_FORM] !== undefined && (
         <>
-          <Title>
-            <FormattedMessage {...messages.formTitle} />
-          </Title>
+          <Title>{t('boost.formTitle')}</Title>
           <TipsBase>
             <BaseSpecialOne className="position-relative">
               {!maxStake && (
-                <BlockedInfoArea>
-                  <FormattedMessage {...messages.notTokensToStake} />
-                </BlockedInfoArea>
+                <BlockedInfoArea>{t('boost.notTokensToStake')}</BlockedInfoArea>
               )}
 
               <FormBox onSubmit={handleSubmit(changeStake)}>
@@ -142,10 +138,10 @@ const Form = ({
 
                 <div className="mt-5">
                   <Button type="submit" className="mr-4">
-                    <FormattedMessage {...messages.formSubmit} />
+                    {t('boost.formSubmit')}
                   </Button>
                   <TransparentButton type="reset" onClick={resetAction}>
-                    <FormattedMessage {...messages.formCancel} />
+                    {t('boost.formCancel')}
                   </TransparentButton>
                 </div>
               </FormBox>
@@ -180,20 +176,18 @@ const FormClone = reduxForm({
 })(Form);
 
 export default memo(
-  injectIntl(
-    connect((state, { currentStake }) => {
-      const form = state.toJS().form[FORM_TYPE] || { values: {} };
+  connect((state, { currentStake }) => {
+    const form = state.toJS().form[FORM_TYPE] || { values: {} };
 
-      const currentStakeValue =
-        typeof currentStake === 'number' && currentStake > 0 ? currentStake : 0;
+    const currentStakeValue =
+      typeof currentStake === 'number' && currentStake > 0 ? currentStake : 0;
 
-      return {
-        formValues: form.values,
-        initialValues: {
-          [CURRENT_STAKE_FORM]: currentStakeValue.toString(),
-        },
-        enableReinitialize: true,
-      };
-    })(FormClone),
-  ),
+    return {
+      formValues: form.values,
+      initialValues: {
+        [CURRENT_STAKE_FORM]: currentStakeValue.toString(),
+      },
+      enableReinitialize: true,
+    };
+  })(FormClone),
 );

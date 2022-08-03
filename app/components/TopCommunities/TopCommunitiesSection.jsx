@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import orderBy from 'lodash/orderBy';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import H4 from '../H4';
-import messages from '../../common-messages';
 import Grid from '../Grid';
 import CommunityItem from './CommunityItem';
 import allCommunitiesIcon from '../../images/createCommunity.svg?inline';
@@ -13,6 +12,7 @@ import A, { ADefault } from '../A';
 import * as routes from '../../routes-config';
 
 const TopCommunitiesSection = ({ ref, single, communities }) => {
+  const { t } = useTranslation();
   const [allCommunitiesRoute, setAllCommunitiesRoute] = useState(() =>
     routes.communities(),
   );
@@ -30,10 +30,8 @@ const TopCommunitiesSection = ({ ref, single, communities }) => {
   return (
     <div className="overflow-hidden" ref={ref}>
       <H4 isHeader>
-        <FormattedMessage id={messages.top.id} />{' '}
-        <span className="text-lowercase">
-          <FormattedMessage id={messages.communities.id} />
-        </span>
+        {t('common.id')}{' '}
+        <span className="text-lowercase">{t('common.communities')}</span>
       </H4>
 
       <Grid xl={5} lg={4} md={3} sm={2} xs={1}>
@@ -48,6 +46,7 @@ const TopCommunitiesSection = ({ ref, single, communities }) => {
               avatar={item.avatar}
               followingUsers={item.followingUsers}
               single={single}
+              key={item.id}
             />
           ))}
 
@@ -59,9 +58,7 @@ const TopCommunitiesSection = ({ ref, single, communities }) => {
               href={allCommunitiesRoute}
             >
               <img className="mr-2" src={allCommunitiesIcon} alt="icon" />
-              <Span color={TEXT_PRIMARY}>
-                <FormattedMessage id={messages.allCommunities.id} />
-              </Span>
+              <Span color={TEXT_PRIMARY}>{t('common.allCommunities')}</Span>
             </AllCommunitiesLink>
           </div>
         )}

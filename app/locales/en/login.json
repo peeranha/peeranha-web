@@ -1,0 +1,20 @@
+{
+  "authUserHasMore": "An authorized user has more options",
+  "staySignedIn": "Stay signed in",
+  "iForgotPassword": "I forgot password",
+  "scatterIsNotInstalled":
+    "Check whether the wallet and network settings are installed",
+  "scatterBrowserExtensionNotConfigured":
+    "Check whether the wallet browser extension is configured",
+  "userIsNotRegistered": "User is not registered",
+  "userIsNotSelected": "User is not selected",
+  "fbAutologinError": "Could not auto login with facebook account",
+  "fbLoginError": "Could not login with facebook account",
+  "weAreHappyYouAreHere": "We are happy, you are here",
+  "yourUsernameIsHow": "The username is how you'll be known on Peeranha.",
+  "referralMessage": "This is the code your friend gave you.",
+  "optionalReferralCode": "(optional)",
+  "accountNotCreatedName": "Account is not created yet",
+  "inviterIsNotRegisterYet": "Inviter isn't register yet",
+  "iDontHaveAnAccount": "I don't have an account."
+}

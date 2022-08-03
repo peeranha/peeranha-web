@@ -1,0 +1,30 @@
+{
+  "title": "Create tag",
+  "description": "Create tag | Description",
+  "community": "Community",
+  "communityTip": "Community where tag will be created",
+  "name": "Name",
+  "nameTip": "Unique name of the new tag",
+  "descriptionField": "Description",
+  "descriptionFieldTip": "Instructions on how to use tag",
+  "newTag": "New tag",
+  "tagIsKeyword":
+    "A tag is used as a keyword or a label to categorize your question.",
+  "usingTheRightTags":
+    "Using the right tags makes it easier for other users to find your questions.",
+  "titleEdit": "Edit tag",
+  "descriptionSave": "Save | Description",
+  "backToList": "Back to list",
+  "didntFindSuitableTag": "Did not find suitable tags?",
+  "youHaveAlreadyVoted": "You already voted",
+  "suggestTagWhichWillbeUseful":
+    "Suggest a tag, which will be useful to you and 100 other users who will vote for it.",
+  "creatorCannotUpvoteOwnComm": "Creators cannot upvote their own tag",
+  "descriptionTags": "Description of Tags",
+  "suggestedTags": "Suggested tags",
+  "createTag": "Create tag",
+  "voteForNewTags": "Vote for new tags",
+  "findTag": "Find a tag",
+  "tagsCollection": "Tags collection",
+  "tagsDescription": "Tags Description"
+}

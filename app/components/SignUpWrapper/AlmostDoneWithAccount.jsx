@@ -1,15 +1,14 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
-import messages from 'containers/SignUp/messages';
 import AlmostDone from './AlmostDone';
 
-const AlmostDoneWrapper = () => (
-  <AlmostDone
-    message={
-      <FormattedMessage {...messages.registrationWithEosAccountAlmostDone} />
-    }
-  />
-);
+const AlmostDoneWrapper = () => {
+  const { t } = useTranslation();
+
+  return (
+    <AlmostDone message={t('sign-up.registrationWithEosAccountAlmostDone')} />
+  );
+};
 
 export default AlmostDoneWrapper;

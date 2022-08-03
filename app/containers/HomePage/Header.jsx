@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
 import { LANDING_FONT, TEXT_PRIMARY, TEXT_LIGHT } from 'style-constants';
 import createdHistory from 'createdHistory';
@@ -20,11 +20,8 @@ import Button from 'components/Button/Outlined/InfoLarge';
 
 import { HEADER_ID, SECOND_SCREEN, THIRD_SCREEN } from './constants';
 
-import messages from './messages';
-
-/* eslint jsx-a11y/no-noninteractive-element-interactions: 0 */
-
 const Header = ({ showLoginModal, account }) => {
+  const { t } = useTranslation();
   const [isToggled, setToggled] = useState(false);
 
   function toggle(screen) {
@@ -60,18 +57,18 @@ const Header = ({ showLoginModal, account }) => {
               } d-lg-flex flex-column flex-lg-row navbar`}
             >
               <button onClick={() => toggle(SECOND_SCREEN)}>
-                <FormattedMessage {...messages.about} />
+                {t('about.about')}
               </button>
 
               <button onClick={() => toggle(THIRD_SCREEN)}>
-                <FormattedMessage {...messages.rewards} />
+                {t('about.rewards')}
               </button>
 
               {!account && (
                 <React.Fragment>
                   <button className="login" onClick={showLoginModal}>
                     <IconLm className="mr-2" icon={login} />
-                    <FormattedMessage {...messages.login} />
+                    {t('about.login')}
                   </button>
                 </React.Fragment>
               )}
@@ -81,7 +78,7 @@ const Header = ({ showLoginModal, account }) => {
                   className="signup"
                   onClick={() => createdHistory.push(routes.feed())}
                 >
-                  <FormattedMessage {...messages.goToSite} />
+                  {t('about.goToSite')}
                 </Button>
               )}
             </div>

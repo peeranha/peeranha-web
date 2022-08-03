@@ -1,18 +1,11 @@
-/**
- *
- * CreateCommunity
- *
- */
-
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { translationMessages, DEFAULT_LOCALE } from 'i18n';
+import { DEFAULT_LOCALE } from 'i18n';
+import { useTranslation } from 'react-i18next';
 import { compose, bindActionCreators } from 'redux';
 import * as routes from 'routes-config';
-
-import { useModeratorRole } from '../../hooks/useModeratorRole';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -30,35 +23,23 @@ import {
   WHAT_IS_COMMUNITY_QUESTION,
   WHO_MANAGES_COMMUNITY_QUESTION,
 } from 'containers/Faq/constants';
+import { useModeratorRole } from '../../hooks/useModeratorRole';
 
 import * as selectors from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
 
 import { createCommunity, setDefaultStore, getForm } from './actions';
 
 import {
   COMM_NAME_FIELD,
   COMM_SHORT_DESCRIPTION_FIELD,
-  ABOUT_FIELD,
-  COMM_MAIN_DESCRIPTION_FIELD,
   COMM_OFFICIAL_SITE_FIELD,
   TAG_NAME_FIELD,
   LANGUAGE_FIELD,
   TAG_DESCRIPTION_FIELD,
   COMM_AVATAR_FIELD,
-  FORM_TYPE,
   STATE_KEY,
-  ANY_TYPE,
-  COMM_BANNER_FIELD,
-  FACEBOOK_LINK_FIELD,
-  INSTAGRAM_LINK_FIELD,
-  YOUTUBE_LINK_FIELD,
-  VK_LINK_FIELD,
-  MAIN_COLOR_FIELD,
-  HIGHLIGHT_COLOR_FIELD,
-  COMMUNITY_TYPE,
 } from './constants';
 
 import Form from './Form';
@@ -76,9 +57,9 @@ export const CreateCommunity = ({
   setDefaultStoreDispatch,
   isFormLoading,
   getFormDispatch,
-  isFormAvailable,
   profile,
 }) => {
+  const { t } = useTranslation();
   useModeratorRole(routes.noAccess);
 
   useEffect(() => {
@@ -114,7 +95,6 @@ export const CreateCommunity = ({
   const sendProps = {
     createCommunity: createCommunityMethod,
     createCommunityLoading,
-    translations: translationMessages[locale],
     locale,
     profile,
   };
@@ -126,13 +106,13 @@ export const CreateCommunity = ({
   return (
     <div>
       <Seo
-        title={sendProps.translations[messages.title.id]}
-        description={sendProps.translations[messages.description.id]}
+        title={t('createCommunity.title')}
+        description={t('createCommunity.description')}
         language={locale}
         index={false}
       />
 
-      <Header headerDescriptor={messages.newCommunity} />
+      <Header />
 
       {path === createCommunityRoute && (
         <TipsBase className="overflow-hidden">
@@ -167,7 +147,6 @@ const withConnect = connect(
     ]),
     createCommunityLoading: selectors.selectCreateCommunityLoading(),
     isFormLoading: selectors.selectIsFormLoading(),
-    isFormAvailable: selectors.selectIsFormAvailable(),
     profile: makeSelectProfileInfo(),
   }),
   dispatch => ({

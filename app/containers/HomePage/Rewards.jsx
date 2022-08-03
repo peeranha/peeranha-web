@@ -1,42 +1,42 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
 import bg from 'images/BG_Rewards.jpg';
 
-import { THIRD_SCREEN, SEND_EMAIL_FORM_REWARDS } from './constants';
-import messages from './messages';
+import { THIRD_SCREEN } from './constants';
 
 import ClickRouteToFeed from './ClickRouteToFeed';
 import Section from './Section';
 
-const Rewards = ({ translations }) => (
-  <Box id={THIRD_SCREEN}>
-    <div className="container">
-      <div className="row justify-content-center align-items-center">
-        <div className="col-12">
-          <div className="d-flex justify-content-center">
-            <h2 className="title">
-              <FormattedMessage {...messages.beTheFirst} />
-            </h2>
-          </div>
+const Rewards = () => {
+  const { t } = useTranslation();
 
-          <div className="row justify-content-center">
-            <p className="col-12 col-lg-10 content-body">
-              <FormattedMessage {...messages.rewardsPool} />
-            </p>
-          </div>
+  return (
+    <Box id={THIRD_SCREEN}>
+      <div className="container">
+        <div className="row justify-content-center align-items-center">
+          <div className="col-12">
+            <div className="d-flex justify-content-center">
+              <h2 className="title">{t('about.beTheFirst')}</h2>
+            </div>
 
-          <div className="row justify-content-center">
-            <div className="col-12 col-md-8 col-xl-6 bottom-level mx-auto">
-              <ClickRouteToFeed />
+            <div className="row justify-content-center">
+              <p className="col-12 col-lg-10 content-body">
+                {t('about.rewardsPool')}
+              </p>
+            </div>
+
+            <div className="row justify-content-center">
+              <div className="col-12 col-md-8 col-xl-6 bottom-level mx-auto">
+                <ClickRouteToFeed />
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </Box>
-);
+    </Box>
+  );
+};
 
 const Box = Section.extend`
   position: relative;
@@ -58,9 +58,5 @@ const Box = Section.extend`
     padding-bottom: 55px;
   }
 `;
-
-Rewards.propTypes = {
-  translations: PropTypes.object,
-};
 
 export default Rewards;

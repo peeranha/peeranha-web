@@ -73,59 +73,59 @@ export const NOTIFICATIONS_TYPES = {
 
 export const NOTIFICATIONS_DATA = {
   [NOTIFICATIONS_TYPES.questionUpVoted]: {
-    ...messages.yourQuestionWasUpVoted,
+    keyTranslate: 'notifications.yourQuestionWasUpVoted',
     src: greenUpVoteIcon,
   },
   [NOTIFICATIONS_TYPES.questionDownVoted]: {
-    ...messages.yourQuestionWasDownVoted,
+    keyTranslate: 'notifications.yourQuestionWasDownVoted',
     src: downVoteIcon,
   },
   [NOTIFICATIONS_TYPES.questionUpVoteCanceled]: {
-    ...messages.yourQuestionUpVoteWasCanceled,
+    keyTranslate: 'notifications.yourQuestionUpVoteWasCanceled',
     src: grayUpVoteIcon,
   },
   [NOTIFICATIONS_TYPES.questionDownVoteCanceled]: {
-    ...messages.yourQuestionDownVoteWasCanceled,
+    keyTranslate: 'notifications.yourQuestionDownVoteWasCanceled',
     src: grayDownVoteIcon,
   },
   [NOTIFICATIONS_TYPES.answerUpVoted]: {
-    ...messages.yourAnswerWasUpVoted,
+    keyTranslate: 'notifications.yourAnswerWasUpVoted',
     src: greenUpVoteIcon,
   },
   [NOTIFICATIONS_TYPES.answerDownVoted]: {
-    ...messages.yourAnswerWasDownVoted,
+    keyTranslate: 'notifications.yourAnswerWasDownVoted',
     src: downVoteIcon,
   },
   [NOTIFICATIONS_TYPES.answerUpVoteCanceled]: {
-    ...messages.yourAnswerUpVoteWasCanceled,
+    keyTranslate: 'notifications.yourAnswerUpVoteWasCanceled',
     src: grayUpVoteIcon,
   },
   [NOTIFICATIONS_TYPES.answerDownVoteCanceled]: {
-    ...messages.yourAnswerDownVoteWasCanceled,
+    keyTranslate: 'notifications.yourAnswerDownVoteWasCanceled',
     src: grayDownVoteIcon,
   },
   [NOTIFICATIONS_TYPES.answerMarkedTheBest]: {
-    ...messages.yourAnswerWasMarkedAsTheBest,
+    keyTranslate: 'notifications.yourAnswerWasMarkedAsTheBest',
     src: bestAnswerIcon,
   },
   [NOTIFICATIONS_TYPES.questionAnswered]: {
-    ...messages.somebodyAnsweredYourQuestion,
+    keyTranslate: 'notifications.somebodyAnsweredYourQuestion',
     src: questionIcon,
   },
   [NOTIFICATIONS_TYPES.questionCommented]: {
-    ...messages.somebodyLeftACommentToYourQuestion,
+    keyTranslate: 'notifications.somebodyLeftACommentToYourQuestion',
     src: questionIcon,
   },
   [NOTIFICATIONS_TYPES.answerCommented]: {
-    ...messages.somebodyLeftACommentToYourAnswer,
+    keyTranslate: 'notifications.somebodyLeftACommentToYourAnswer',
     src: answerIcon,
   },
   [NOTIFICATIONS_TYPES.questionTipped]: {
-    ...messages.yourQuestionWasTipped,
+    keyTranslate: 'notifications.yourQuestionWasTipped',
     src: coinsIcon,
   },
   [NOTIFICATIONS_TYPES.answerTipped]: {
-    ...messages.yourAnswerWasTipped,
+    keyTranslate: 'notifications.yourAnswerWasTipped',
     src: coinsIcon,
   },
 };

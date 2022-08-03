@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import { userNotifications } from 'routes-config';
-import messages from 'common-messages';
 
 import {
   BORDER_SECONDARY_LIGHT,
@@ -43,24 +42,28 @@ const Container = styled.div`
   }
 `;
 
-const Footer = ({ onClose, profile, empty }) => (
-  <Container>
-    <Link onClick={onClose} to={userNotifications(profile)}>
-      {empty ? (
-        <>
-          <IconXm className="mr-2" icon={clockIcon} fill={BORDER_PRIMARY} />
-          <FormattedMessage {...messages.archive} />
-        </>
-      ) : (
-        <>
-          <IconXm className="mr-2" icon={notificationsIcon} />
-          <FormattedMessage {...messages.seeAll} />
-        </>
-      )}
-    </Link>
-    {!empty && <MarkAllAsReadButton />}
-  </Container>
-);
+const Footer = ({ onClose, profile, empty }) => {
+  const { t } = useTranslation();
+
+  return (
+    <Container>
+      <Link onClick={onClose} to={userNotifications(profile)}>
+        {empty ? (
+          <>
+            <IconXm className="mr-2" icon={clockIcon} fill={BORDER_PRIMARY} />
+            {t('common.archive')}
+          </>
+        ) : (
+          <>
+            <IconXm className="mr-2" icon={notificationsIcon} />
+            {t('common.seeAll')}
+          </>
+        )}
+      </Link>
+      {!empty && <MarkAllAsReadButton />}
+    </Container>
+  );
+};
 
 Footer.propTypes = {
   empty: PropTypes.bool,

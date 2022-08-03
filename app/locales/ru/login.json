@@ -1,0 +1,20 @@
+{
+  "authUserHasMore": "Авторизованный пользователь имеет больше привилегий",
+  "staySignedIn": "Запомнить меня",
+  "iForgotPassword": "Я забыл пароль",
+  "scatterIsNotInstalled":
+    "Проверьте, установлены ли настройки кошелька и сети",
+  "scatterBrowserExtensionNotConfigured":
+    "Проверьте, настроено ли расширение браузера для работы с кошельком",
+  "userIsNotRegistered": "Пользователь не зарегистрирован",
+  "userIsNotSelected": "Пользователь не выбран",
+  "fbAutologinError": "Ошибка автоинициализации приложения с фейсбук аккаунтом",
+  "fbLoginError": "Ошибка логинизации с фейсбук аккаунтом",
+  "weAreHappyYouAreHere": "Мы рады, что вы с нами!",
+  "yourUsernameIsHow": "Имя, которое будет у Вас в Peeranha.",
+  "referralMessage": "Это код, который друг дал тебе.",
+  "optionalReferralCode": "(опционально)",
+  "accountNotCreatedName": "Аккаунт пока не создан",
+  "inviterIsNotRegisterYet": "Пригласитель еще не зарегистрирован",
+  "iDontHaveAnAccount": "У меня нет аккаунта."
+}

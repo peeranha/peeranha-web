@@ -8,10 +8,10 @@ import { defineMessages } from 'react-intl';
 
 export default defineMessages({
   title: {
-    id: 'app.containers.Communities.title',
+    id: 'app.containers.Communities.titleCommunities',
   },
   description: {
-    id: 'app.containers.Communities.description',
+    id: 'app.containers.Communities.descriptionCommunities',
   },
   tags: {
     id: 'app.containers.Communities.tags',

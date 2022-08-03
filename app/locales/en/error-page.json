@@ -1,0 +1,9 @@
+{
+  "title": "Some error occured...",
+  "description": "Some error occured... description",
+  "weAreSorry": "We're sorry, unexpected error has occured.",
+  "accountDoesNotExist": "Account does not exist",
+  "cannotTransferToSelf": "Cannot transfer to yourself",
+  "notEnoughCPU": "Not enough CPU",
+  "checkScatterConnection": "Check wallet connection"
+}

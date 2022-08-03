@@ -1,10 +1,9 @@
 import React, { useEffect, useMemo, useRef } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation, Trans } from 'react-i18next';
 
 import * as routes from 'routes-config';
-import messages from 'common-messages';
 import { TEXT_PRIMARY, TEXT_SECONDARY, BORDER_PRIMARY } from 'style-constants';
 
 import pencilIcon from 'images/pencil.svg?external';
@@ -58,6 +57,7 @@ const UserNavigation = ({
   userAchievementsLength,
   redirectToEditProfilePage,
 }) => {
+  const { t } = useTranslation();
   const path = window.location.pathname + window.location.hash;
   const ref = useRef(null);
 
@@ -99,7 +99,7 @@ const UserNavigation = ({
                 : 0
             }
           >
-            <FormattedMessage {...messages.profile} />
+            {t('common.profile')}
           </NavigationLink>
 
           <NavigationLink
@@ -108,23 +108,21 @@ const UserNavigation = ({
             tabIndex={!questionsLength ? '-1' : undefined}
             islink={path !== routes.userQuestions(userId) ? 1 : 0}
           >
-            <FormattedMessage
-              {...messages.postsNumber}
-              values={{
-                number: (
-                  <Span
-                    className="ml-1"
-                    fontSize="14"
-                    color={
-                      path !== routes.userQuestions(userId)
-                        ? TEXT_SECONDARY
-                        : 'inherit'
-                    }
-                  >
-                    {questionsLength}
-                  </Span>
-                ),
-              }}
+            <Trans
+              i18nKey="common.postsNumber"
+              values={{ number: questionsLength }}
+              components={[
+                <Span
+                  className="ml-1"
+                  fontSize="14"
+                  color={
+                    path !== routes.userQuestions(userId)
+                      ? TEXT_SECONDARY
+                      : 'inherit'
+                  }
+                  key="0"
+                />,
+              ]}
             />
           </NavigationLink>
 
@@ -134,34 +132,34 @@ const UserNavigation = ({
             tabIndex={!questionsWithUserAnswersLength ? '-1' : undefined}
             islink={path !== routes.userAnswers(userId) ? 1 : 0}
           >
-            <FormattedMessage
-              {...messages.answersNumber}
-              values={{
-                number: (
-                  <Span
-                    className="ml-1"
-                    fontSize="14"
-                    color={
-                      path !== routes.userAnswers(userId)
-                        ? TEXT_SECONDARY
-                        : 'inherit'
-                    }
-                  >
-                    {questionsWithUserAnswersLength}
-                  </Span>
-                ),
-              }}
+            <Trans
+              i18nKey="common.answersNumber"
+              values={{ number: questionsWithUserAnswersLength }}
+              components={[
+                <Span
+                  className="ml-1"
+                  fontSize="14"
+                  color={
+                    path !== routes.userAnswers(userId)
+                      ? TEXT_SECONDARY
+                      : 'inherit'
+                  }
+                  key="0"
+                />,
+              ]}
             />
           </NavigationLink>
 
           <NavigationLink
             className={
-              userId !== account || loginData.email == undefined ? 'd-none' : ''
+              userId !== account || loginData.email === undefined
+                ? 'd-none'
+                : ''
             }
             to={routes.userSettings(userId)}
             islink={path !== routes.userSettings(userId) ? 1 : 0}
           >
-            <FormattedMessage {...messages.settings} />
+            {t('common.settings')}
           </NavigationLink>
 
           <NavigationLink
@@ -169,30 +167,28 @@ const UserNavigation = ({
             to={routes.userNotifications(userId)}
             islink={path !== routes.userNotifications(userId) ? 1 : 0}
           >
-            <FormattedMessage {...messages.notifications} />
+            {t('common.notifications')}
           </NavigationLink>
 
           <NavigationLink
             to={routes.userNFTs(userId)}
             islink={path !== routes.userNFTs(userId) ? 1 : 0}
           >
-            <FormattedMessage
-              id={messages.NFTsNumber.id}
-              values={{
-                number: (
-                  <Span
-                    className="ml-1"
-                    fontSize="14"
-                    color={
-                      path !== routes.userNFTs(userId)
-                        ? TEXT_SECONDARY
-                        : 'inherit'
-                    }
-                  >
-                    {userAchievementsLength}
-                  </Span>
-                ),
-              }}
+            <Trans
+              i18nKey="common.NFTsNumber"
+              values={{ number: userAchievementsLength }}
+              components={[
+                <Span
+                  className="ml-1"
+                  fontSize="14"
+                  color={
+                    path !== routes.userNFTs(userId)
+                      ? TEXT_SECONDARY
+                      : 'inherit'
+                  }
+                  key="0"
+                />,
+              ]}
             />
           </NavigationLink>
 
@@ -202,7 +198,7 @@ const UserNavigation = ({
               to={routes.userModeration(userId)}
               islink={path !== routes.userModeration(userId) ? 1 : 0}
             >
-              <FormattedMessage {...messages.moderation} />
+              {t('common.moderation')}
             </NavigationLink>
           )}
 
@@ -217,7 +213,7 @@ const UserNavigation = ({
             data-user={userId}
             islink
           >
-            <FormattedMessage {...messages.edit} />
+            {t('common.edit')}
           </NavigationButton>
         </Div>
 
@@ -232,7 +228,7 @@ const UserNavigation = ({
           >
             <IconMd icon={pencilIcon} />
             <Span className="ml-1" color={TEXT_PRIMARY}>
-              <FormattedMessage {...messages.edit} />
+              {t('common.edit')}
             </Span>
           </button>
 
@@ -246,7 +242,7 @@ const UserNavigation = ({
           >
             <IconMd icon={closeIcon} fill={BORDER_PRIMARY} isColorImportant />
             <Span className="ml-1" color={TEXT_PRIMARY}>
-              <FormattedMessage {...messages.close} />
+              {t('common.close')}
             </Span>
           </A>
         </div>

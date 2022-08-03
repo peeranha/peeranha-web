@@ -1,9 +1,7 @@
 import React, { memo } from 'react';
 import { Field } from 'redux-form/immutable';
-import { intlShape } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
-
-import { strLength8x100 } from 'components/FormFields/validate';
 
 import facebookIcon from 'images/logo-facebook.svg?external';
 import instagramIcon from 'images/logo-instagram.svg?external';
@@ -19,7 +17,6 @@ import {
   YOUTUBE_LINK_FIELD,
   VK_LINK_FIELD,
 } from './constants';
-import messages from './messages';
 
 const SOCIAL_MEDIA = {
   facebook: {
@@ -40,29 +37,32 @@ const SOCIAL_MEDIA = {
   },
 };
 
-const SocialLinksGroup = ({ disabled, intl }) => (
-  <Wrapper
-    label={intl.formatMessage(messages.socialLinks)}
-    tip={intl.formatMessage(messages.socialLinksTip)}
-    disabled={disabled}
-  >
-    {Object.keys(SOCIAL_MEDIA).map(key => (
-      <Field
-        disabled={disabled}
-        name={SOCIAL_MEDIA[key].fieldName}
-        component={TextInputField}
-        splitInHalf
-        iconLabel={SOCIAL_MEDIA[key].icon}
-        key={key}
-        isShowLabel={false}
-      />
-    ))}
-  </Wrapper>
-);
+const SocialLinksGroup = ({ disabled }) => {
+  const { t } = useTranslation();
+
+  return (
+    <Wrapper
+      label={t('createCommunity.socialLinks')}
+      tip={t('createCommunity.socialLinksTip')}
+      disabled={disabled}
+    >
+      {Object.keys(SOCIAL_MEDIA).map(key => (
+        <Field
+          disabled={disabled}
+          name={SOCIAL_MEDIA[key].fieldName}
+          component={TextInputField}
+          splitInHalf
+          iconLabel={SOCIAL_MEDIA[key].icon}
+          key={key}
+          isShowLabel={false}
+        />
+      ))}
+    </Wrapper>
+  );
+};
 
 SocialLinksGroup.propTypes = {
   disabled: PropTypes.bool,
-  intl: intlShape.isRequired,
 };
 
 export default memo(SocialLinksGroup);

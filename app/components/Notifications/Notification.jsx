@@ -2,9 +2,8 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
-import { FormattedMessage } from 'react-intl';
-
-import messages from 'common-messages';
+import { useTranslation } from 'react-i18next';
+import { IconMd } from 'components/Icon/IconWithSizes';
 
 import * as routes from 'routes-config';
 
@@ -13,8 +12,6 @@ import {
   BORDER_SECONDARY_LIGHT,
   TEXT_SECONDARY,
   BORDER_WARNING_LIGHT,
-  PEER_PRIMARY_COLOR,
-  BORDER_PRIMARY,
   BORDER_PRIMARY_LIGHT,
 } from 'style-constants';
 
@@ -31,7 +28,6 @@ import {
 } from './constants';
 
 import Span from '../Span';
-import { IconMd } from 'components/Icon/IconWithSizes';
 
 const single = isSingleCommunityWebsite();
 const styles = singleCommunityStyles();
@@ -145,17 +141,19 @@ const Container = styled.div`
   ${({ height }) => (height !== ROW_HEIGHT ? '' : '}')};
 `;
 
-const Time = ({ time: { rightNow, minutes, hours, yesterday, fullDate } }) => (
-  <Span color={TEXT_SECONDARY} className="float-right" whiteSpace="nowrap">
-    {!!rightNow && <FormattedMessage {...messages.rightNow} />}
-    {!!minutes && (
-      <FormattedMessage {...messages.minutesAgo} values={{ minutes }} />
-    )}
-    {!!hours && <FormattedMessage {...messages.hoursAgo} values={{ hours }} />}
-    {!!yesterday && <FormattedMessage {...messages.yesterday} />}
-    {!!fullDate && fullDate}
-  </Span>
-);
+const Time = ({ time: { rightNow, minutes, hours, yesterday, fullDate } }) => {
+  const { t } = useTranslation();
+
+  return (
+    <Span color={TEXT_SECONDARY} className="float-right" whiteSpace="nowrap">
+      {!!rightNow && t('common.rightNow')}
+      {!!minutes && t('common.minutesAgo', { minutes })}
+      {!!hours && t('common.hoursAgo', { hours })}
+      {!!yesterday && t('common.yesterday')}
+      {!!fullDate && fullDate}
+    </Span>
+  );
+};
 
 const NotificationLink = ({ isAnotherCommItem, href, children }) =>
   isAnotherCommItem ? (
@@ -183,6 +181,7 @@ const Notification = ({
   paddingHorizontal,
   notificationsNumber,
 }) => {
+  const { t } = useTranslation();
   const ref = useRef(null);
   const [width, setWidth] = useState(0);
 
@@ -243,7 +242,7 @@ const Notification = ({
       paddingHorizontal={paddingHorizontal || 0}
     >
       <Span fontSize="16">
-        <FormattedMessage id={NOTIFICATIONS_DATA[type].id} values={values} />
+        {t(NOTIFICATIONS_DATA[type].keyTranslate, { quantity: values })}
       </Span>
       <div className="d-flex align-items-center justify-content-between">
         <NotificationLink isAnotherCommItem={isAnotherCommItem} href={href}>

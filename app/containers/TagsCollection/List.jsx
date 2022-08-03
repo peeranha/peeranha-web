@@ -1,10 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import orderBy from 'lodash/orderBy';
 import { TEXT_SECONDARY } from 'style-constants';
-import commonMessages from 'common-messages';
 import * as routes from 'routes-config';
 import A from 'components/A';
 import P from 'components/P';
@@ -81,6 +80,7 @@ export const NameHolder = P.extend`
 `;
 
 const List = ({ communities }) => {
+  const { t } = useTranslation();
   if (!communities || !communities.length) return null;
 
   const communitiesWithLimitedTagNumber = communities.map(z => ({
@@ -90,53 +90,49 @@ const List = ({ communities }) => {
 
   return (
     <Base>
-      {orderBy(communities, y => y.popularity, 'desc').map(x => {
-        return (
-          <BaseSpecial key={x.id}>
-            <A
-              className="d-flex align-items-start flex-column flex-md-row align-items-stretch align-items-md-start"
-              to={routes.communityTags(x.id)}
-            >
-              <DescriptionBlock>
-                <MediumImageStyled
-                  className="bg-transparent"
-                  src={x.avatar}
-                  alt={x.name}
+      {orderBy(communities, y => y.popularity, 'desc').map(x => (
+        <BaseSpecial key={x.id}>
+          <A
+            className="d-flex align-items-start flex-column flex-md-row align-items-stretch align-items-md-start"
+            to={routes.communityTags(x.id)}
+          >
+            <DescriptionBlock>
+              <MediumImageStyled
+                className="bg-transparent"
+                src={x.avatar}
+                alt={x.name}
+              />
+              <div>
+                <NameHolder fontSize="24" lineHeight="31" bold title={x.name}>
+                  {x.name}
+                </NameHolder>
+                <P
+                  className="text-lowercase"
+                  fontSize="14"
+                  lineHeight="18"
+                  color={TEXT_SECONDARY}
+                >
+                  <span>{`${x.tags.length} `}</span>
+                  {t('common.tags')}
+                </P>
+              </div>
+            </DescriptionBlock>
+
+            <TagsBlock>
+              <TagListBox>
+                <TagList
+                  communities={communitiesWithLimitedTagNumber}
+                  communityId={x.id}
+                  showPopularity
                 />
-                <div>
-                  <NameHolder fontSize="24" lineHeight="31" bold title={x.name}>
-                    {x.name}
-                  </NameHolder>
-                  <P
-                    className="text-lowercase"
-                    fontSize="14"
-                    lineHeight="18"
-                    color={TEXT_SECONDARY}
-                  >
-                    <span>{`${x.tags.length} `}</span>
-                    <FormattedMessage {...commonMessages.tags} />
-                  </P>
-                </div>
-              </DescriptionBlock>
+                <BlockShadow toSide="right" />
+              </TagListBox>
 
-              <TagsBlock>
-                <TagListBox>
-                  <TagList
-                    communities={communitiesWithLimitedTagNumber}
-                    communityId={x.id}
-                    showPopularity
-                  />
-                  <BlockShadow toSide="right" />
-                </TagListBox>
-
-                <SeeAllButton>
-                  <FormattedMessage {...commonMessages.seeAll} />
-                </SeeAllButton>
-              </TagsBlock>
-            </A>
-          </BaseSpecial>
-        );
-      })}
+              <SeeAllButton>{t('common.seeAll')}</SeeAllButton>
+            </TagsBlock>
+          </A>
+        </BaseSpecial>
+      ))}
     </Base>
   );
 };

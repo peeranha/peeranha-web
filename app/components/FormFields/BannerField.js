@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
 import messages from 'common-messages';
 
@@ -106,14 +107,13 @@ const LabelErrorStyle = styled.div`
 `;
 
 const BannerField = ({ input, meta, disabled, label }) => {
+  const { t } = useTranslation();
   const [isFileTooLarge, setIsFileTooLarge] = useState(false);
   const [isIncorrectResolution, setIsCorrectResolution] = useState(false);
 
   return (
     <Wrapper label={label} disabled={disabled}>
-      <InfoMessage>
-        <FormattedMessage {...messages.communityBannerInfo} />
-      </InfoMessage>
+      <InfoMessage>{t('common.communityBannerInfo')}</InfoMessage>
 
       <Div
         disabled={disabled}
@@ -152,13 +152,11 @@ const BannerField = ({ input, meta, disabled, label }) => {
         </div>
 
         {(isFileTooLarge && (
-          <LabelErrorStyle>
-            <FormattedMessage {...messages.bannerSizeErrorMsg} />
-          </LabelErrorStyle>
+          <LabelErrorStyle>{t('common.bannerSizeErrorMsg')}</LabelErrorStyle>
         )) ||
           (isIncorrectResolution && (
             <LabelErrorStyle>
-              <FormattedMessage {...messages.incorrectBannerResolutionMsg} />
+              {t('common.incorrectBannerResolutionMsg')}
             </LabelErrorStyle>
           ))}
         <WarningMessage {...meta} isSpecialPosition />

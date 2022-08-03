@@ -1,72 +1,71 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
 import { scrollToSection } from 'utils/animation';
 import arrowDown from 'images/arrow_down.svg?inline';
 
-import messages from './messages';
 import Parallax from './Parallax';
 
-import {
-  FIRST_SCREEN,
-  SECOND_SCREEN,
-  SEND_EMAIL_FORM_INTRODUCTION,
-} from './constants';
+import { FIRST_SCREEN, SECOND_SCREEN } from './constants';
 
 import Header from './Header';
 import ClickRouteToFeed from './ClickRouteToFeed';
 
-const Introduction = ({ translations, showLoginModal, account }) => (
-  <Parallax id={FIRST_SCREEN}>
-    <div className="layers">
-      <div className="pattern pattern-1">
-        <div className="inner" />
+const Introduction = ({ showLoginModal, account }) => {
+  const { t } = useTranslation();
+
+  return (
+    <Parallax id={FIRST_SCREEN}>
+      <div className="layers">
+        <div className="pattern pattern-1">
+          <div className="inner" />
+        </div>
+        <div className="pattern pattern-2">
+          <div className="inner" />
+        </div>
+        <div className="pattern pattern-3">
+          <div className="inner" />
+        </div>
       </div>
-      <div className="pattern pattern-2">
-        <div className="inner" />
-      </div>
-      <div className="pattern pattern-3">
-        <div className="inner" />
-      </div>
-    </div>
 
-    <Header showLoginModal={showLoginModal} account={account} />
+      <Header showLoginModal={showLoginModal} account={account} />
 
-    <Wrapper className="container">
-      <div className="row align-items-center justify-content-center">
-        <Box className="col-lg-12 first-screen-banner">
-          <div className="d-flex justify-content-center">
-            <h1 className="top-level">
-              <FormattedMessage {...messages.yourContributionsRewarded} />
-            </h1>
-          </div>
-
-          <div className="row justify-content-center">
-            <p className="col-12 col-lg-8 special-paragraph">
-              <FormattedMessage {...messages.weAreDecentralized} />
-            </p>
-          </div>
-
-          <div className="row justify-content-center">
-            <div className="col-12 col-md-8 col-xl-6 bottom-level mx-auto">
-              <ClickRouteToFeed />
+      <Wrapper className="container">
+        <div className="row align-items-center justify-content-center">
+          <Box className="col-lg-12 first-screen-banner">
+            <div className="d-flex justify-content-center">
+              <h1 className="top-level">
+                {t('about.yourContributionsRewarded')}
+              </h1>
             </div>
-          </div>
 
-          <div className="d-none d-lg-flex justify-content-center">
-            <div className="justify-content-center icon-down">
-              <Icon onClick={() => scrollToSection(`#${SECOND_SCREEN}`)}>
-                <img src={arrowDown} alt="arrowDown" />
-              </Icon>
+            <div className="row justify-content-center">
+              <p className="col-12 col-lg-8 special-paragraph">
+                {t('about.weAreDecentralized')}
+              </p>
             </div>
-          </div>
-        </Box>
-      </div>
-    </Wrapper>
-  </Parallax>
-);
+
+            <div className="row justify-content-center">
+              <div className="col-12 col-md-8 col-xl-6 bottom-level mx-auto">
+                <ClickRouteToFeed />
+              </div>
+            </div>
+
+            <div className="d-none d-lg-flex justify-content-center">
+              <div className="justify-content-center icon-down">
+                <Icon onClick={() => scrollToSection(`#${SECOND_SCREEN}`)}>
+                  <img src={arrowDown} alt="arrowDown" />
+                </Icon>
+              </div>
+            </div>
+          </Box>
+        </div>
+      </Wrapper>
+    </Parallax>
+  );
+};
 
 const Box = styled.div`
   color: #ffffff !important;
@@ -151,7 +150,6 @@ const Wrapper = styled.div`
 Introduction.propTypes = {
   showLoginModal: PropTypes.func,
   account: PropTypes.string,
-  translations: PropTypes.object,
 };
 
 export default React.memo(Introduction);

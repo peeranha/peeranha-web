@@ -2,16 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form/immutable';
-import { FormattedMessage } from 'react-intl';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 
-import commonMessages from 'common-messages';
 import { scrollToErrorField } from 'utils/animation';
 
 import H4 from 'components/H4';
 import TextInputField from 'components/FormFields/TextInputField';
 import Button from 'components/Button/Contained/InfoLarge';
-import signUpMessages from 'containers/SignUp/messages';
 
 import {
   required,
@@ -26,58 +23,55 @@ import {
   CHANGE_EMAIL_FORM,
 } from './constants';
 
-import changeEmailMessages from './messages';
-
 const ChangeEmailForm = ({
   handleSubmit,
-  locale,
   changeEmail,
   changeEmailProcessing,
-}) => (
-  <div>
-    <H4 className="text-center pb-3">
-      <FormattedMessage {...commonMessages.change} />{' '}
-      <FormattedMessage {...signUpMessages.email} />
-    </H4>
+}) => {
+  const { t } = useTranslation();
 
-    <form onSubmit={handleSubmit(changeEmail)}>
-      <Field
-        name={NEW_EMAIL_FIELD}
-        disabled={changeEmailProcessing}
-        label={translationMessages[locale][changeEmailMessages.newEmail.id]}
-        component={TextInputField}
-      />
+  return (
+    <div>
+      <H4 className="text-center pb-3">
+        {t('common.change')} {t('sign-up.email')}
+      </H4>
 
-      <Field
-        name={CONFIRM_EMAIL_FIELD}
-        disabled={changeEmailProcessing}
-        label={
-          translationMessages[locale][changeEmailMessages.confirmNewEmail.id]
-        }
-        component={TextInputField}
-      />
+      <form onSubmit={handleSubmit(changeEmail)}>
+        <Field
+          name={NEW_EMAIL_FIELD}
+          disabled={changeEmailProcessing}
+          label={t('common.newEmail')}
+          component={TextInputField}
+        />
 
-      <Field
-        name={PASSWORD_FIELD}
-        disabled={changeEmailProcessing}
-        label={translationMessages[locale][signUpMessages.password.id]}
-        component={TextInputField}
-        validate={required}
-        warn={required}
-        type="password"
-      />
+        <Field
+          name={CONFIRM_EMAIL_FIELD}
+          disabled={changeEmailProcessing}
+          label={t('common.confirmNewEmail')}
+          component={TextInputField}
+        />
 
-      <Button disabled={changeEmailProcessing} className="w-100 mb-3">
-        <FormattedMessage {...commonMessages.submit} />
-      </Button>
-    </form>
-  </div>
-);
+        <Field
+          name={PASSWORD_FIELD}
+          disabled={changeEmailProcessing}
+          label={t('sign-up.password')}
+          component={TextInputField}
+          validate={required}
+          warn={required}
+          type="password"
+        />
+
+        <Button disabled={changeEmailProcessing} className="w-100 mb-3">
+          {t('common.submit')}
+        </Button>
+      </form>
+    </div>
+  );
+};
 
 ChangeEmailForm.propTypes = {
   handleSubmit: PropTypes.func,
   changeEmail: PropTypes.func,
-  locale: PropTypes.string,
   changeEmailProcessing: PropTypes.bool,
 };
 
@@ -109,8 +103,8 @@ export const validateEmails = (state, fields) => {
   }
 
   if (email && emailConf && email !== emailConf) {
-    errors[emailField] = { id: changeEmailMessages.emailsDoNotMatch.id };
-    errors[confirmEmailField] = { id: changeEmailMessages.emailsDoNotMatch.id };
+    errors[emailField] = { id: 'common.emailsDoNotMatch' };
+    errors[confirmEmailField] = { id: 'common.emailsDoNotMatch' };
   }
 
   return errors;
@@ -122,13 +116,10 @@ let FormClone = reduxForm({
   onSubmitFail: errors => scrollToErrorField(errors),
 })(ChangeEmailForm);
 
-FormClone = connect(
-  /* istanbul ignore next */ () => ({
-    validate: state =>
-      validateEmails(state, [NEW_EMAIL_FIELD, CONFIRM_EMAIL_FIELD]),
-    warn: state =>
-      validateEmails(state, [NEW_EMAIL_FIELD, CONFIRM_EMAIL_FIELD]),
-  }),
-)(FormClone);
+FormClone = connect(() => ({
+  validate: state =>
+    validateEmails(state, [NEW_EMAIL_FIELD, CONFIRM_EMAIL_FIELD]),
+  warn: state => validateEmails(state, [NEW_EMAIL_FIELD, CONFIRM_EMAIL_FIELD]),
+}))(FormClone);
 
 export default FormClone;

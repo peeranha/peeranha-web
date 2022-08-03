@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
@@ -17,7 +17,6 @@ import { appLocales } from 'i18n';
 import * as routes from 'routes-config';
 
 import createdHistory from 'createdHistory';
-import commonMessages from 'common-messages';
 
 import { setCookie } from 'utils/cookie';
 
@@ -32,6 +31,8 @@ import { Flag, Li } from './Styled';
 
 /* eslint global-require: 0 */
 export const ChangeLocale = ({ locale, changeLocaleDispatch, withTitle }) => {
+  const { t } = useTranslation();
+
   function setLocale(newLocale) {
     setCookie({
       name: APP_LOCALE,
@@ -41,7 +42,6 @@ export const ChangeLocale = ({ locale, changeLocaleDispatch, withTitle }) => {
 
     const path = window.location.pathname + window.location.hash;
 
-    // ReactIntl && Redux Saga conflict => redirect solution
     createdHistory.push(routes.preloaderPage());
     changeLocaleDispatch(newLocale);
     setTimeout(() => createdHistory.push(path), 0);
@@ -60,22 +60,21 @@ export const ChangeLocale = ({ locale, changeLocaleDispatch, withTitle }) => {
             color={TEXT_SECONDARY}
           >
             <Flag src={require(`images/${[locale]}_lang.png`)} alt="country" />
-            {withTitle && <FormattedMessage {...commonMessages[locale]} />}
+            {withTitle && t(`common.${locale}`)}
           </Span>
         </React.Fragment>
       }
-      // TODO: return when language selection is needed
       menu={
         <ul>
-          {appLocales.map(x => (
+          {appLocales.map(item => (
             <Li
-              key={x}
+              key={item}
               role="presentation"
-              onClick={() => setLocale(x)}
-              isBold={x === locale}
+              onClick={() => setLocale(item)}
+              isBold={item === locale}
             >
-              <Flag src={require(`images/${x}_lang.png`)} alt="language" />
-              <FormattedMessage {...commonMessages[x]} />
+              <Flag src={require(`images/${item}_lang.png`)} alt="language" />
+              {t(`common.${item}`)}
             </Li>
           ))}
         </ul>
@@ -98,7 +97,7 @@ const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
 });
 
-export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
+export function mapDispatchToProps(dispatch) {
   return {
     changeLocaleDispatch: bindActionCreators(changeLocale, dispatch),
   };

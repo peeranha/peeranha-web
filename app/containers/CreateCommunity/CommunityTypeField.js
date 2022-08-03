@@ -1,10 +1,11 @@
-/* eslint indent: 0 */
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
-import messages from 'common-messages';
+import { Wrapper } from 'components/FormFields/Wrapper';
+import { Styles } from 'components/Input/InputStyled';
+import B from 'components/Button';
 
 import {
   BORDER_SECONDARY,
@@ -15,18 +16,14 @@ import {
 
 import { STANDART_TYPE, BLOGGER_TYPE } from './constants';
 
-import { Wrapper } from 'components/FormFields/Wrapper';
-import { Styles } from 'components/Input/InputStyled';
-import B from 'components/Button';
-
 export const COMMUNITY_TYPES = {
   STANDART: {
     value: STANDART_TYPE,
-    label: 'standart',
+    label: 'common.standart',
   },
   BLOGGER: {
     value: BLOGGER_TYPE,
-    label: 'blogger',
+    label: 'common.blogger',
   },
 };
 
@@ -76,6 +73,8 @@ const CommunityTypeField = ({
   splitInHalf,
   insideOfSection,
 }) => {
+  const { t } = useTranslation();
+
   function chooseQuestionType(event) {
     event.preventDefault();
     input.onChange(event.currentTarget.value);
@@ -100,7 +99,7 @@ const CommunityTypeField = ({
             key={type.label}
             disabled={disabled}
           >
-            <FormattedMessage {...messages[type.label]} />
+            {t(type.label)}
           </Button>
         ))}
       </ButtonGroup>

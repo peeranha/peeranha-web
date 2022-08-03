@@ -1,7 +1,6 @@
-/* eslint react/prop-types: 0 */
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { bindActionCreators, compose } from 'redux';
@@ -23,8 +22,6 @@ import { selectLogo } from 'containers/Home/selectors';
 
 import H3 from 'components/H3';
 import { InfoLink } from 'components/Button/Outlined/InfoLarge';
-
-import messages from 'containers/SignUp/messages';
 
 import {
   ALMOST_DONE_1ST_QUESTION,
@@ -50,69 +47,71 @@ import {
 const styles = singleCommunityStyles();
 const single = isSingleCommunityWebsite();
 
-const LeftMenu = ({ faqQuestions, mainLogo }) => (
-  <>
-    <div className="mb-4">
-      {styles.withoutSubHeader ? (
-        <CommunityLogoWrapper>
-          <Link to={routes.questions()} href={routes.questions()}>
-            <Logo src={mainLogo} width={styles.signUpLogoWidth} />
-          </Link>
-          <CommunityLogoDescr>
-            <span>Q&A on</span>
+const LeftMenu = ({ faqQuestions, mainLogo }) => {
+  const { t } = useTranslation();
+
+  return (
+    <>
+      <div className="mb-4">
+        {styles.withoutSubHeader ? (
+          <CommunityLogoWrapper>
             <Link to={routes.questions()} href={routes.questions()}>
-              <img src={peeranhaLogo} width="90px" alt="Peeranha logo" />
+              <Logo src={mainLogo} width={styles.signUpLogoWidth} />
             </Link>
-          </CommunityLogoDescr>
-        </CommunityLogoWrapper>
-      ) : (
-        <Link to={routes.questions()} href={routes.questions()}>
-          <img src={peeranhaLogo} width="180px" alt="Peeranha logo" />
-        </Link>
+            <CommunityLogoDescr>
+              <span>Q&A on</span>
+              <Link to={routes.questions()} href={routes.questions()}>
+                <img src={peeranhaLogo} width="90px" alt="Peeranha logo" />
+              </Link>
+            </CommunityLogoDescr>
+          </CommunityLogoWrapper>
+        ) : (
+          <Link to={routes.questions()} href={routes.questions()}>
+            <img src={peeranhaLogo} width="180px" alt="Peeranha logo" />
+          </Link>
+        )}
+      </div>
+
+      <H3 className="d-flex align-items-center mb-4">
+        {t('sign-up.almostDone')}
+      </H3>
+
+      <div className="mb-4">
+        <P>{t('sign-up.firstParagraphAlmostDone')}</P>
+        <P>{t('sign-up.secondParagraphAlmostDone')}</P>
+        <P>{t('sign-up.thirdParagraphAlmostDone')}</P>
+      </div>
+
+      {faqQuestions && (
+        <ul className="mb-4">
+          {faqQuestions.map(x => <Li key={x.props.children}>{x}</Li>)}
+        </ul>
       )}
-    </div>
+    </>
+  );
+};
 
-    <H3 className="d-flex align-items-center mb-4">
-      <FormattedMessage {...messages.almostDone} />
-    </H3>
+const RightMenu = ({ message }) => {
+  const { t } = useTranslation();
 
-    <div className="mb-4">
-      <P>
-        <FormattedMessage {...messages.firstParagraphAlmostDone} />
+  return (
+    <div className="text-center py-5 px-4">
+      <img
+        className="mb-2"
+        src={almostDoneBanner}
+        alt="peeranha registration almost done"
+      />
+      <P className="text-center mb-4" mobileFS="16">
+        {message}
       </P>
-      <P>
-        <FormattedMessage {...messages.secondParagraphAlmostDone} />
-      </P>
-      <P>
-        <FormattedMessage {...messages.thirdParagraphAlmostDone} />
-      </P>
+      <div>
+        <InfoLink to={routes.questions()} className="w-100">
+          {t('common.goToMainPage')}
+        </InfoLink>
+      </div>
     </div>
-
-    {faqQuestions && (
-      <ul className="mb-4">
-        {faqQuestions.map(x => <Li key={x.props.children}>{x}</Li>)}
-      </ul>
-    )}
-  </>
-);
-
-const RightMenu = ({ message }) => (
-  <div className="text-center py-5 px-4">
-    <img
-      className="mb-2"
-      src={almostDoneBanner}
-      alt="peeranha registration almost done"
-    />
-    <P className="text-center mb-4" mobileFS="16">
-      {message}
-    </P>
-    <div>
-      <InfoLink to={routes.questions()} className="w-100">
-        <FormattedMessage {...messages.goToMainPage} />
-      </InfoLink>
-    </div>
-  </div>
-);
+  );
+};
 
 const AlmostDone = ({ faqQuestions, message, logo, getLogoDispatch }) => {
   useEffect(

@@ -1,16 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { FormattedMessage } from 'react-intl';
-
-import messages from 'common-messages';
+import { useTranslation } from 'react-i18next';
 
 import { BORDER_SECONDARY_LIGHT, TEXT_SECONDARY } from 'style-constants';
 
 import Span from 'components/Span';
 
 import closeIcon from 'images/closeGray.svg?inline';
-import WidthCentered from '../../../../components/LoadingIndicator/WidthCentered';
 
 const Container = styled.div`
   display: flex;
@@ -26,17 +23,21 @@ const Container = styled.div`
   }
 `;
 
-const Header = ({ notificationsNumber, onClose }) => (
-  <Container>
-    <div>
-      <FormattedMessage {...messages.notifications} />
-      <Span color={TEXT_SECONDARY}>{notificationsNumber}</Span>
-    </div>
-    <button onClick={onClose}>
-      <img src={closeIcon} width="15" alt="close_icon" />
-    </button>
-  </Container>
-);
+const Header = ({ notificationsNumber, onClose }) => {
+  const { t } = useTranslation();
+
+  return (
+    <Container>
+      <div>
+        {t('common.notifications')}
+        <Span color={TEXT_SECONDARY}>{notificationsNumber}</Span>
+      </div>
+      <button onClick={onClose}>
+        <img src={closeIcon} width="15" alt="close_icon" />
+      </button>
+    </Container>
+  );
+};
 
 Header.propTypes = {
   onClose: PropTypes.func,

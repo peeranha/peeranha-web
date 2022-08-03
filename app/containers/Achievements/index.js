@@ -2,7 +2,7 @@ import React, { useEffect, memo } from 'react';
 import { compose, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 
@@ -11,7 +11,6 @@ import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 
 import { BORDER_SECONDARY } from 'style-constants';
-import commonMessage from 'common-messages';
 
 import BaseRounded from 'components/Base/BaseRounded';
 import H3 from 'components/H3';
@@ -95,6 +94,8 @@ const Achievements = ({
   resetViewProfileAccountDispatch,
   profile,
 }) => {
+  const { t } = useTranslation();
+
   useEffect(
     () => {
       setViewProfileAccountDispatch(userId);
@@ -109,111 +110,7 @@ const Achievements = ({
   return (
     <div>
       <BaseRoundedStyled>
-        <H3Styled>
-          <FormattedMessage id={commonMessage.NFTs.id} />
-        </H3Styled>
-
-        {/* {!achievementsLoading && (
-          <>
-            <Separator groupType={ratingRelated} locale={locale} />
-            <AchievementsBlock>
-              {ratingAchievements.map(el => (
-                <Achievement
-                  key={el.name}
-                  {...el}
-                  name={translations[messages[el.name].name.id]}
-                  description={translations[messages[el.name].description.id]}
-                  locale={locale}
-                />
-              ))}
-            </AchievementsBlock>
-
-           <>
-              <Separator groupType={questionAskedRelated} locale={locale} />
-              <AchievementsBlock>
-                {questionAskedAchievements.map(el => (
-                  <Achievement
-                    key={el.name}
-                    {...el}
-                    name={translations[messages[el.name].name.id]}
-                    description={
-                      translations[messages[el.name].description.id]
-                    }
-                    locale={locale}
-                  />
-                ))}
-              </AchievementsBlock>
-            </>
-
-            <>
-              <Separator groupType={answerGivenRelated} locale={locale} />
-              <AchievementsBlock>
-                {anwerGivenAchievements.map(el => (
-                  <Achievement
-                    key={el.name}
-                    {...el}
-                    name={translations[messages[el.name].name.id]}
-                    description={
-                      translations[messages[el.name].description.id]
-                    }
-                    locale={locale}
-                  />
-                ))}
-              </AchievementsBlock>
-            </>
-
-            <>
-              <Separator groupType={bestAnswerRelated} locale={locale} />
-              <AchievementsBlock>
-                {bestAnswerAchievements.map(el => (
-                  <Achievement
-                    key={el.name}
-                    {...el}
-                    name={translations[messages[el.name].name.id]}
-                    description={
-                      translations[messages[el.name].description.id]
-                    }
-                    locale={locale}
-                  />
-                ))}
-              </AchievementsBlock>
-            </>
-
-            <>
-              <Separator groupType={firstAnswerRelated} locale={locale} />
-              <AchievementsBlock>
-                {firstAnswerAchievements.map(el => (
-                  <Achievement
-                    key={el.name}
-                    {...el}
-                    name={translations[messages[el.name].name.id]}
-                    description={
-                      translations[messages[el.name].description.id]
-                    }
-                    locale={locale}
-                  />
-                ))}
-              </AchievementsBlock>
-            </>
-
-            <>
-              <Separator groupType={firstAnswerIn15Related} locale={locale} />
-              <AchievementsBlock>
-                {firstIn15Achievements.map(el => (
-                  <Achievement
-                    key={el.name}
-                    {...el}
-                    name={translations[messages[el.name].name.id]}
-                    description={
-                      translations[messages[el.name].description.id]
-                    }
-                    locale={locale}
-                  />
-                ))}
-              </AchievementsBlock>
-            </>
-          </>
-        )} */}
+        <H3Styled>{t('common.NFTs')}</H3Styled>
       </BaseRoundedStyled>
 
       {achievementsLoading && <LoadingIndicator />}
@@ -222,7 +119,7 @@ const Achievements = ({
         achievements.length > 0 && (
           <UniqueAchievementsWrapper>
             <UniqueAchievementsTitle>
-              <FormattedMessage id={commonMessage.limitedEdition.id} />
+              {t('common.limitedEdition')}
             </UniqueAchievementsTitle>
 
             <UniqueAchievementsBlock>

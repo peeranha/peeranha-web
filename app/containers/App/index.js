@@ -400,12 +400,6 @@ const App = ({
             render={props => Wrapper(ErrorPage, props)}
           />
 
-          <Route exact path={routes.facebookDataDeletion()}>
-            <React.Suspense fallback={null}>
-              <DeleteFacebookData />
-            </React.Suspense>
-          </Route>
-
           <Route path={routes.signup.email.name}>
             <React.Suspense fallback={<Loader />}>
               <EmailEnteringForm />

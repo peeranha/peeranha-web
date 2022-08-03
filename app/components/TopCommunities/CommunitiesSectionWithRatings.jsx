@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import orderBy from 'lodash/orderBy';
 
 import { TEXT_PRIMARY } from 'style-constants';
 
 import * as routes from 'routes-config';
-import messages from 'common-messages';
 
 import allCommunitiesIcon from 'images/createCommunity.svg?inline';
 
@@ -22,6 +21,7 @@ const CommunitiesSectionWithRatings = ({
   single,
   communities,
 }) => {
+  const { t } = useTranslation();
   const [allCommunitiesRoute, setAllCommunitiesRoute] = useState(() =>
     routes.communities(),
   );
@@ -37,9 +37,7 @@ const CommunitiesSectionWithRatings = ({
   );
   return (
     <div className="overflow-hidden" ref={ref}>
-      <H4 isHeader>
-        <FormattedMessage id={messages.communities.id} />
-      </H4>
+      <H4 isHeader>{t('common.communities')}</H4>
 
       <Grid xl={5} lg={4} md={3} sm={2} xs={1}>
         {orderBy(profile.ratings, 'rating', 'desc')
@@ -50,6 +48,7 @@ const CommunitiesSectionWithRatings = ({
               rating={item.rating}
               single={single}
               communities={communities}
+              key={item.communityId}
             />
           ))}
 
@@ -61,9 +60,7 @@ const CommunitiesSectionWithRatings = ({
               href={allCommunitiesRoute}
             >
               <img className="mr-2" src={allCommunitiesIcon} alt="icon" />
-              <Span color={TEXT_PRIMARY}>
-                <FormattedMessage id={messages.allCommunities.id} />
-              </Span>
+              <Span color={TEXT_PRIMARY}>{t('common.allCommunities')}</Span>
             </AllCommunitiesLink>
           </div>
         )}

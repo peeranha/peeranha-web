@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
@@ -18,8 +18,6 @@ import {
 
 import A from 'components/A';
 import Label from 'components/FormFields/Label';
-
-import messages from './messages';
 
 const Li = styled.li`
   ${A} {
@@ -62,34 +60,28 @@ const Ul = styled.ul`
 `;
 
 const messagesArray = [
-  messages.putReturnsBetweenParagraphs,
-  messages.addForLineBreaks,
-  messages.italicAndBold,
-  messages.indentCode,
-  messages.backtipEscapes,
-  messages.quoteByPlacing,
+  'common.putReturnsBetweenParagraphs',
+  'common.addForLineBreaks',
+  'common.italicAndBold',
+  'common.indentCode',
+  'common.backtipEscapes',
+  'common.quoteByPlacing',
 ];
 
-const Tips = ({ faqQuestions }) => (
-  <div>
-    <Label className="mb-3">
-      <FormattedMessage {...messages.tips} />:
-    </Label>
+const Tips = () => {
+  const { t } = useTranslation();
 
-    <Ul>
-      {messagesArray.map(x => (
-        <li key={x.id}>
-          <FormattedMessage {...x} />{' '}
-        </li>
-      ))}
-    </Ul>
+  return (
+    <div>
+      <Label className="mb-3">
+        {t('common.tips')}
+        :
+      </Label>
 
-    {/* TODO: PEER-285 Hide FAQ Questions
-    {faqQuestions && (
-      <ul>{faqQuestions.map(x => <Li key={x.props.children}>{x}</Li>)}</ul>
-    )}*/}
-  </div>
-);
+      <Ul>{messagesArray.map(item => <li key={item}>{t(item)} </li>)}</Ul>
+    </div>
+  );
+};
 
 Tips.propTypes = {
   className: PropTypes.string,

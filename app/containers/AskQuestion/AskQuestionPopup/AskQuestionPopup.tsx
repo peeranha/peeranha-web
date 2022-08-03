@@ -1,16 +1,16 @@
 import React, { useRef, useState, RefObject } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import { css } from '@emotion/react';
 import useEventListener from 'hooks/useEventListener';
 import LargeOutlinedButton from 'components/Button/Outlined/InfoLarge';
 import { singleCommunityStyles } from '../../../utils/communityManagement';
 
-import commonMessages from '../../../common-messages';
 import { styles } from './AskQuestionPopup.styled';
 
 const stylesCommunity = singleCommunityStyles();
 
 const AskQuestionPopup: React.FC = (): JSX.Element => {
+  const { t } = useTranslation();
   const [enableAnimation, setEnableAnimation] = useState<boolean>(false);
   const [IsAgreeRules, setIsAgreeRules] = useState<boolean>(() =>
     Boolean(localStorage.getItem('agreement with the rules')),
@@ -42,51 +42,19 @@ const AskQuestionPopup: React.FC = (): JSX.Element => {
           >
             <div className="container">
               <div className="df fdc jcsb pt24 pb24 lh1-5">
-                <div className="pb20 tc">
-                  <FormattedMessage
-                    id={commonMessages.rulesAskQuestionPopupBlock_1.id}
-                  />
-                </div>
-                <div>
-                  <FormattedMessage
-                    id={commonMessages.rulesAskQuestionPopupBlock_2.id}
-                  />
-                </div>
-                <div>
-                  <FormattedMessage
-                    id={commonMessages.rulesAskQuestionPopupBlock_3.id}
-                  />
-                </div>
-                <div>
-                  <FormattedMessage
-                    id={commonMessages.rulesAskQuestionPopupBlock_4.id}
-                  />
-                </div>
-                <div>
-                  <FormattedMessage
-                    id={commonMessages.rulesAskQuestionPopupBlock_5.id}
-                  />
-                </div>
-                <div>
-                  <FormattedMessage
-                    id={commonMessages.rulesAskQuestionPopupBlock_6.id}
-                  />
-                </div>
-                <div>
-                  <FormattedMessage
-                    id={commonMessages.rulesAskQuestionPopupBlock_7.id}
-                  />
-                </div>
-                <div className="p20 tc">
-                  <FormattedMessage
-                    id={commonMessages.rulesAskQuestionPopupBlock_8.id}
-                  />
-                </div>
+                <div className="pb20 tc">{t('common.contentPopupBlock_1')}</div>
+                <div>{t('common.contentPopupBlock_2')}</div>
+                <div>{t('common.contentPopupBlock_3')}</div>
+                <div>{t('common.contentPopupBlock_4')}</div>
+                <div>{t('common.contentPopupBlock_5')}</div>
+                <div>{t('common.contentPopupBlock_6')}</div>
+                <div>{t('common.contentPopupBlock_7')}</div>
+                <div className="p20 tc">{t('common.contentPopupBlock_8')}</div>
                 <LargeOutlinedButton
                   onClick={acceptWithRules}
                   customStyles={stylesCommunity.headerLoginButtonStyles}
                 >
-                  <FormattedMessage id={commonMessages.gotIt.id} />
+                  {t('common.gotIt')}
                 </LargeOutlinedButton>
               </div>
             </div>

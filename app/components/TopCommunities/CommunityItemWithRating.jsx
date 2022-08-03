@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import * as routes from '../../routes-config';
 import BaseRoundedNoPadding from '../Base/BaseRoundedNoPadding';
@@ -7,7 +7,6 @@ import MediumImage from '../Img/MediumImage';
 import P from '../P';
 import Span from '../Span';
 import { TEXT_SECONDARY } from '../../style-constants';
-import messages from '../../common-messages';
 import RatingStatus from '../RatingStatus';
 import AStyled from './AStyled';
 import ADefaultStyled from './ADefaultStyled';
@@ -20,6 +19,7 @@ const CommunityItemWithRating = ({
   communityId,
   rating,
 }) => {
+  const { t } = useTranslation();
   const [route, setRoute] = useState(() => routes.questions(communityId));
   const Link = single && communityId !== single ? ADefaultStyled : AStyled;
 
@@ -55,7 +55,7 @@ const CommunityItemWithRating = ({
             <div>
               <div>
                 <Span className="mt-1" fontSize="14" color={TEXT_SECONDARY}>
-                  <FormattedMessage id={messages.reputation.id} />
+                  {t('common.reputation')}
                 </Span>
               </div>
               <RatingStatus

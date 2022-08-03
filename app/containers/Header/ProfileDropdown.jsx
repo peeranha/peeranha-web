@@ -1,9 +1,8 @@
-/* eslint jsx-a11y/no-static-element-interactions: 0, jsx-a11y/click-events-have-key-events: 0 */
 import React, { memo, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
 import { BORDER_SECONDARY, TEXT_PRIMARY } from 'style-constants';
 import { NO_AVATAR } from 'utils/constants';
@@ -34,12 +33,6 @@ import { getPermissions } from '../../utils/properties';
 
 const styles = singleCommunityStyles();
 const colors = singleCommunityColors();
-
-const StatusBox = styled.span`
-  display: inline-flex;
-  font-size: 14px;
-  margin-top: 2px;
-`;
 
 const Info = styled.span`
   padding: 0 10px;
@@ -101,6 +94,7 @@ export const Button = connect(state => ({
 
 const Menu = memo(
   ({ profileInfo, questionsLength, questionsWithUserAnswersLength }) => {
+    const { t } = useTranslation();
     const { user, loginData } = profileInfo;
     const isEmail = loginData.email;
 
@@ -111,42 +105,32 @@ const Menu = memo(
     return (
       <nav>
         <Ul>
-          <A to={routes.profileView(user)}>
-            <FormattedMessage {...messages.profile} />
-          </A>
-          <A to={routes.userCommunities(user)}>
-            <FormattedMessage {...messages.myCommunities} />
-          </A>
+          <A to={routes.profileView(user)}>{t('common.profile')}</A>
+          <A to={routes.userCommunities(user)}>{t('common.myCommunities')}</A>
           <A
             to={routes.userQuestions(user)}
             disabled={!questionsLength}
             tabIndex={!questionsLength ? '-1' : undefined}
           >
-            <FormattedMessage {...messages.posts} />
+            {t('common.posts')}
           </A>
           <A
             to={routes.userAnswers(user)}
             disabled={!questionsWithUserAnswersLength}
             tabIndex={!questionsWithUserAnswersLength ? '-1' : undefined}
           >
-            <FormattedMessage {...messages.answers} />
+            {t('common.answers')}
           </A>
           <A
             className={!isEmail ? 'd-none' : ''}
             to={routes.userSettings(user)}
           >
-            <FormattedMessage {...messages.settings} />
+            {t('common.settings')}
           </A>
-          <A to={routes.userNotifications(user)}>
-            <FormattedMessage {...messages.notifications} />
-          </A>
-          <A to={routes.userNFTs(user)}>
-            <FormattedMessage id={messages.NFTs.id} />
-          </A>
+          <A to={routes.userNotifications(user)}>{t('common.notifications')}</A>
+          <A to={routes.userNFTs(user)}>{t('common.NFTs')}</A>
           {isModerator && (
-            <A to={routes.userModeration(user)}>
-              <FormattedMessage {...messages.moderation} />
-            </A>
+            <A to={routes.userModeration(user)}>{t('common.moderation')}</A>
           )}
         </Ul>
 
@@ -158,7 +142,7 @@ const Menu = memo(
               icon={logoutIcon}
             />
             <Span color={colors.linkColor || TEXT_PRIMARY}>
-              <FormattedMessage {...messages.logout} />
+              {t('common.logout')}
             </Span>
           </Logout>
         </Ul>

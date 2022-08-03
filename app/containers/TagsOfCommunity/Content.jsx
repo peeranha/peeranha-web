@@ -1,11 +1,10 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import { translationMessages } from 'i18n';
 import createdHistory from 'createdHistory';
 
-import commonMessages from 'common-messages';
 import * as routes from 'routes-config';
 
 import {
@@ -102,6 +101,7 @@ const Content = ({
   setEditTagData,
   profileInfo,
 }) => {
+  const { t } = useTranslation();
   const showEditTagForm = tagId => {
     setEditTagData(tagId, communityId);
     createdHistory.push(routes.editTag(communityId, tagId));
@@ -169,7 +169,7 @@ const Content = ({
                     className="ml-15"
                     onClick={() => showEditTagForm(x.id)}
                   >
-                    <FormattedMessage {...commonMessages.edit} />
+                    {t('common.edit')}
                   </InfoButton>
                 </EditTagBtnContainer>
               )}

@@ -10,24 +10,22 @@ const ButtonGroupForAuthorizedUser = ({
   profileInfo,
   faqQuestions,
   isSearchFormVisible,
-}) => {
-  return (
-    <React.Fragment>
-      {!isSearchFormVisible && <NotificationsDropdown />}
-      <EnergyDropdown
-        rating={profileInfo.rating}
-        energy={profileInfo.energy}
-        faqQuestions={faqQuestions}
-      />
-      <WalletDropdown
-        user={profileInfo.user}
-        balance={profileInfo.availableBalance}
-        boost={profileInfo.boost}
-      />
-      <ProfileDropdown profileInfo={profileInfo} />
-    </React.Fragment>
-  );
-};
+}) => (
+  <React.Fragment>
+    {!isSearchFormVisible && <NotificationsDropdown />}
+    <EnergyDropdown
+      rating={profileInfo.rating}
+      energy={profileInfo.energy}
+      faqQuestions={faqQuestions}
+    />
+    <WalletDropdown
+      user={profileInfo.user}
+      balance={profileInfo.availableBalance}
+      boost={profileInfo.boost}
+    />
+    <ProfileDropdown profileInfo={profileInfo} />
+  </React.Fragment>
+);
 
 ButtonGroupForAuthorizedUser.propTypes = {
   profileInfo: PropTypes.object,
