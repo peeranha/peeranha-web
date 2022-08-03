@@ -9,10 +9,8 @@ import commonMessages from 'common-messages';
 import { showPopover } from 'utils/popover';
 
 import Base from 'components/Base/BaseRounded';
-import ReferralProgram from './ReferralProgram';
 import NotFound from '../ErrorPage';
 import AuthorizationData from './AuthorizationData';
-import Tip from './Tip/Tip';
 
 export const BaseStyled = Base.extend`
   > :nth-child(2) {

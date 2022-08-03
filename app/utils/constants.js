@@ -7,8 +7,6 @@ export const ONCE_TILL_UNMOUNT = '@@saga-injector/once-till-unmount';
 export const BLOCKCHAIN_NAME = 'eos';
 export const DEFAULT_EOS_PERMISSION = 'active';
 export const SCATTER_APP_NAME = 'Peeranha';
-export const SEND_TIPS_SCATTER_APP_NAME = 'PeeranhaSendTips';
-
 export const EOS_IS_NOT_INIT = 'EOS is not initialized.';
 export const SCATTER_IN_NOT_INSTALLED = 'Scatter is not installed.';
 export const SCATTER_TIMEOUT_ERROR = 'Scatter timeout';
@@ -272,7 +270,6 @@ export const SINGLE_COMMUNITY_DETAILS = 'singleCommunityDetails';
 export const KEY_LAST_RATING_UPDATE_TIME = 18;
 
 // verification codes types
-export const SEND_TIPS_TYPE = 'sendTips';
 export const SEND_TOKENS_TYPE = 'sendTokens';
 export const SHOW_ACTIVE_KEY_TYPE = 'showActiveKey';
 export const SHOW_OWNER_KEY_TYPE = 'showOwnerKey';

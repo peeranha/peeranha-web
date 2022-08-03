@@ -168,16 +168,6 @@ import { GET_USER_ACHIEVEMENTS_ERROR } from 'containers/Achievements/constants';
 import { CHANGE_STAKE_ERROR } from 'containers/Boost/constants';
 import { DELETE_FB_DATA_ERROR } from 'containers/DeleteFacebookData/constants';
 
-import {
-  SAVE_CRYPTO_ACCOUNTS_ERROR,
-  SAVE_CRYPTO_ACCOUNTS_SUCCESS,
-} from '../ViewProfilePage/Tip/constants';
-import {
-  SELECT_ACCOUNT_ERROR,
-  SEND_TIPS_ERROR,
-  SEND_TIPS_SUCCESS,
-} from '../SendTips/constants';
-
 export const otherTypes = [
   GET_CURRENT_ACCOUNT_ERROR,
   GET_SUGGESTED_COMMUNITIES_ERROR,
@@ -255,9 +245,6 @@ export const errHandlingTypes = [
   GET_RESULTS_ERROR,
   INIT_EOSIO_ERROR,
   CHANGE_QUESTION_TYPE_ERROR,
-  SAVE_CRYPTO_ACCOUNTS_ERROR,
-  SELECT_ACCOUNT_ERROR,
-  SEND_TIPS_ERROR,
   GET_USER_ACHIEVEMENTS_ERROR,
   GET_ASKED_QUESTION_ERROR,
   CHANGE_STAKE_ERROR,
@@ -283,7 +270,5 @@ export const successHandlingTypes = [
   DELETE_ANSWER_SUCCESS,
   DELETE_COMMENT_SUCCESS,
   CHANGE_QUESTION_TYPE_SUCCESS,
-  SAVE_CRYPTO_ACCOUNTS_SUCCESS,
-  SEND_TIPS_SUCCESS,
   FORGOT_PASSWORD_CHANGE_PASSWORD_SUCCESS,
 ];

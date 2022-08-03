@@ -22,13 +22,9 @@ import { redirectToEditAnswerPageWorker } from 'containers/EditAnswer/saga';
 import { redirectToEditProfilePageWorker } from 'containers/EditProfilePage/saga';
 
 import {
-  ALL_PROPERTY_COMMUNITY_SCOPE,
-  ALL_PROPERTY_COMMUNITY_TABLE,
   INVITED_USERS_SCOPE,
   INVITED_USERS_TABLE,
   MODERATOR_KEY,
-  REWARD_REFER,
-  WEI_IN_ETH,
 } from 'utils/constants';
 import { SHOW_WALLET_SIGNUP_FORM_SUCCESS } from 'containers/SignUp/constants';
 import {
@@ -52,7 +48,6 @@ import {
   REDIRECT_TO_EDIT_QUESTION_PAGE,
 } from 'containers/EditQuestion/constants';
 import { SEND_TOKENS_SUCCESS } from 'containers/SendTokens/constants';
-import { SEND_TIPS_SUCCESS } from 'containers/SendTips/constants';
 import { PICKUP_REWARD_SUCCESS } from 'containers/Wallet/constants';
 import {
   DOWNVOTE_SUCCESS as DOWNVOTE_COMM_SUCCESS,
@@ -84,7 +79,6 @@ import {
 import {
   addLoginData,
   getCurrentAccountError,
-  getCurrentAccountProcessing,
   getCurrentAccountSuccess,
   updateAccErr,
   updateAccSuccess,
@@ -336,7 +330,6 @@ export default function* defaultSaga() {
       EDIT_ANSWER_SUCCESS,
       EDIT_QUESTION_SUCCESS,
       SEND_TOKENS_SUCCESS,
-      SEND_TIPS_SUCCESS,
       UPVOTE_COMM_SUCCESS,
       DOWNVOTE_COMM_SUCCESS,
       UPVOTE_TAGS_SUCCESS,

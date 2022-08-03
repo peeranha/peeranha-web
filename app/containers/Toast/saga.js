@@ -26,7 +26,6 @@ import { makeSelectToasts } from './selectors';
 
 import { errHandlingTypes, otherTypes } from './imports';
 import errorMessages from 'errorsByCode';
-import { selectTransactionHash } from '../EthereumProvider/selectors';
 import {
   TRANSACTION_COMPLETED,
   TRANSACTION_FAILED,

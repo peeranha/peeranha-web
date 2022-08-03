@@ -1,8 +1,6 @@
 import FileiconLogo from './communities-configs/filecoin/images/filecoin-logo.svg?inline';
-import TelosLogo from './communities-configs/telos/images/telos-logo-dark.svg?inline';
 import PolygonLogo from './communities-configs/polygon/images/polygon-logo.svg?inline';
 
-import { TelosStyles } from './communities-configs/telos';
 import { PolygonStyles } from './communities-configs/polygon';
 import { FilecoinStyles } from './communities-configs/filecoin';
 
@@ -11,11 +9,6 @@ const communitiesConfig = {
     1: {
       origin: 'https://meta.peeranha.io',
     },
-    // 2: {
-    //   origin: 'https://faq.telos.net',
-    //   src: TelosLogo,
-    //   styles: TelosStyles,
-    // },
   },
   staging: {
     1: {

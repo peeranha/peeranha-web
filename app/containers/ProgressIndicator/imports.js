@@ -22,10 +22,6 @@ import {
   selectChangeQuestionTypeLoading,
 } from 'containers/ViewQuestion/selectors';
 import { selectPickupRewardProcessing } from 'containers/Wallet/selectors';
-import {
-  selectedAccountProcessingSelector,
-  selectSendTipsProcessing,
-} from '../SendTips/selectors';
 import { selectTopQuestionActionProcessing } from '../Questions/selectors';
 import { selectChangeStakeLoading } from '../Boost/selectors';
 import {
@@ -56,8 +52,6 @@ export default {
   selectSaveCommentLoading: selectSaveCommentLoading(),
   selectChangeQuestionTypeLoading: selectChangeQuestionTypeLoading(),
   selectPickupRewardProcessing: selectPickupRewardProcessing(),
-  selectedAccountProcessing: selectedAccountProcessingSelector(),
-  selectSendTipsProcessing: selectSendTipsProcessing(),
   selectPinActionProcessing: selectTopQuestionActionProcessing(),
   selectChangeStakeLoading: selectChangeStakeLoading(),
   selectTransactionInPending: selectTransactionInPending(),

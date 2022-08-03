@@ -4,19 +4,15 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
-import { BG_PRIMARY, BG_PRIMARY_RGB, BUTTON_COLOR } from 'style-constants';
+import { BG_PRIMARY, BG_PRIMARY_RGB } from 'style-constants';
 
 import { formatStringToHtmlId } from 'utils/animation';
 
-import commonMessages from 'common-messages';
-import TipIcon from 'icons/Tip';
 import SuperHeroIcon from 'icons/SuperHero';
 import OfficialIcon from 'icons/Official';
 
 import Button from 'components/Button/Contained/PrimaryMedium';
 import MarkAsAcceptedIcon, { LabelStyles } from './MarkAsAcceptedIcon';
-import { B } from './QuestionTitle';
-import SendTips from '../SendTips';
 
 import { MARK_AS_BUTTON } from './constants';
 import messages from './messages';
@@ -58,44 +54,12 @@ export const BestAnswerMarker = ({
   whoWasAccepted,
   isTheLargestRating,
   ids,
-  questionId,
   isOfficial,
-  profileInfo,
-  author,
 }) => {
   if (answerId === 0) return null;
-  const isItWrittenByMe = profileInfo
-    ? author.user === profileInfo.user
-    : false;
-
-  const isTemporaryAccount = true;
-  //   !!author?.['integer_properties'].find(
-  //   x => x.key === TEMPORARY_ACCOUNT_KEY && x.value,
-  // );
-
-  const displayTips =
-    (!profileInfo && !isTemporaryAccount) ||
-    (!!profileInfo &&
-      !isItWrittenByMe &&
-      answerId !== 0 &&
-      !isTemporaryAccount);
 
   return (
     <Div>
-      {displayTips && (
-        <SendTips
-          form="tip-answer"
-          questionId={questionId}
-          answerId={answerId}
-          account={whoWasAccepted}
-        >
-          <B>
-            <TipIcon stroke={BUTTON_COLOR} className="mr-1" />
-            <FormattedMessage {...commonMessages.tipAnswer} />
-          </B>
-        </SendTips>
-      )}
-
       <MarkAsAcceptedIcon
         id={formatStringToHtmlId(`${MARK_AS_BUTTON}${answerId}`)}
         answerId={answerId}

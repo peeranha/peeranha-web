@@ -42,7 +42,6 @@ import {
   setSendTokensProcessing,
   showVerifyFbModal,
 } from './actions';
-import { CURRENCIES } from '../../wallet-config';
 import { selectFbSendTokensFormValues } from './selectors';
 import { successHandling } from '../Toast/saga';
 
@@ -82,7 +81,6 @@ export function* sendTokensWorker({ val }) {
       from: profile.user,
       to: val[EOS_ACCOUNT_FIELD],
       quantity: val[AMOUNT_FIELD],
-      ...CURRENCIES.PEER,
     });
     console.log(a);
     /* from: "tuesdaytest1"

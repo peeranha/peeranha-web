@@ -34,19 +34,6 @@ const WalletButtonStyles = css`
     &:not(:last-child) {
       margin-right: 14px;
     }
-
-    &[alt='scatter'] {
-      height: 16px;
-    }
-
-    &[alt='sqrl'] {
-      height: 24px;
-    }
-
-    &[alt='wombat'] {
-      height: 18px;
-    }
-  }
 `;
 
 export const MetaMaskButton = styled(Button)`
