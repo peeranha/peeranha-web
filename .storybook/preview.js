@@ -6,7 +6,6 @@ import { select } from '@storybook/addon-knobs';
 import './global.css';
 
 import { theme as PeeranhaTheme } from 'themes/default';
-import { theme as KandaTheme } from 'themes/kanda';
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
@@ -14,7 +13,6 @@ export const parameters = {
 
 const themeObjects = {
   peeranha: PeeranhaTheme,
-  kanda: KandaTheme,
 };
 
 const chooseTheme = choice => {
@@ -39,9 +37,7 @@ addDecorator((Story, context) => {
       </div>
       <div className="storybook-custom-story__body">
         <ThemeProvider
-          theme={chooseTheme(
-            select('Choose Theme', ['Peeranha', 'Kanda'], 'Peeranha'),
-          )}
+          theme={chooseTheme(select('Choose Theme', ['Peeranha'], 'Peeranha'))}
         >
           <Global styles={global} />
           <Story />

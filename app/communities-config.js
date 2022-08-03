@@ -4,7 +4,6 @@ import PolygonLogo from './communities-configs/polygon/images/polygon-logo.svg?i
 
 import { TelosStyles } from './communities-configs/telos';
 import { PolygonStyles } from './communities-configs/polygon';
-import { KandaStyles } from './communities-configs/kanda';
 import { FilecoinStyles } from './communities-configs/filecoin';
 
 const communitiesConfig = {
@@ -16,11 +15,6 @@ const communitiesConfig = {
     //   origin: 'https://faq.telos.net',
     //   src: TelosLogo,
     //   styles: TelosStyles,
-    // },
-    // 17: {
-    //   origin: 'https://kanda.peeranha.io',
-    //   src: KandaLogo,
-    //   styles: KandaStyles,
     // },
   },
   staging: {
@@ -58,11 +52,6 @@ const communitiesConfig = {
     5: {
       origin: 'https://testcommunity.net',
     },
-    // 5: {
-    //   origin: 'https://kanda.testpeeranha.io',
-    //   src: KandaLogo,
-    //   styles: KandaStyles,
-    // },
   },
   dev: {
     3: {

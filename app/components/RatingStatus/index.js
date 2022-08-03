@@ -59,8 +59,6 @@ const IconWithStatus = ({
   ratingNumColor,
   customRatingIconColors = {},
 }) => {
-  // ratingNumColor and customRatingIconColors are used for kanda community styling
-
   const {
     strokeColor,
     bannedFill,
