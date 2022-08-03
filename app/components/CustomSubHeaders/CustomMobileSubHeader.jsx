@@ -5,8 +5,6 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
-import { getSingleCommunityDetails } from 'utils/communityManagement';
-
 import { selectLogo } from 'containers/Home/selectors';
 
 import Arrow from '../Arrow';
@@ -21,9 +19,11 @@ const Div = styled.div`
   width: 100%;
   height: ${({ visible }) => (visible ? 'auto' : '70px')};
 
-  color: ${({ styles }) => styles.color && styles.color.a ? styles.color.a : `#ffffff`};
+  color: ${({ styles }) =>
+    styles.color && styles.color.a ? styles.color.a : `#ffffff`};
 
-  background: ${({ styles }) => styles.bg.burgerHeader || styles.bg.header || `rgb(${'80, 101, 165'})`};
+  background: ${({ styles }) =>
+    styles.bg.burgerHeader || styles.bg.header || `rgb(${'80, 101, 165'})`};
 
   * {
     padding: 10px 0 10px 15px;
@@ -51,7 +51,8 @@ const Div = styled.div`
 
   > div {
     padding-top: 0;
-    font-family: ${({ styles }) => styles.font && styles.font.body ? styles.font.body : `inherit`};
+    font-family: ${({ styles }) =>
+      styles.font && styles.font.body ? styles.font.body : `inherit`};
     font-size: 15px;
     letter-spacing: 1px;
     display: flex;
@@ -60,15 +61,18 @@ const Div = styled.div`
   }
 
   a {
-    color: ${({ styles }) => styles.color && styles.color.a ? styles.color.a : `#ffffff`};
+    color: ${({ styles }) =>
+      styles.color && styles.color.a ? styles.color.a : `#ffffff`};
 
     :visited {
-      color: ${({ styles }) => styles.color && styles.color.a ? styles.color.a : `#ffffff`};
+      color: ${({ styles }) =>
+        styles.color && styles.color.a ? styles.color.a : `#ffffff`};
     }
   }
 
   span {
-    color: ${({ styles }) => styles.color && styles.color.a ? styles.color.a : `#ffffff`};
+    color: ${({ styles }) =>
+      styles.color && styles.color.a ? styles.color.a : `#ffffff`};
   }
 `;
 
@@ -80,7 +84,6 @@ const CustomMobileSubHeader = ({
   const [visible, setVisibility] = useState(false);
   const setVis = useCallback(() => setVisibility(!visible), [visible]);
   const { styles, links } = config;
-  const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
 
   return (
     <Div
@@ -91,18 +94,15 @@ const CustomMobileSubHeader = ({
       <button
         className="d-flex justify-content-between align-items-center"
         onClick={setVis}
-        disabled={isBloggerMode}
       >
         <img src={communityLogo || showingLogo} alt="" />
-        {!isBloggerMode && (
-          <Arrow
-            className="mt-auto mb-auto"
-            color={styles.color.arrow}
-            rotate={visible}
-          />
-        )}
+        <Arrow
+          className="mt-auto mb-auto"
+          color={styles.color.arrow}
+          rotate={visible}
+        />
       </button>
-      {(visible && !isBloggerMode) && <Links links={links} styles={styles} device="mobile" />}
+      {visible && <Links links={links} styles={styles} device="mobile" />}
     </Div>
   );
 };
@@ -120,6 +120,4 @@ const withConnect = connect(
   null,
 );
 
-export default compose(
-  withConnect,
-)(CustomMobileSubHeader);
+export default compose(withConnect)(CustomMobileSubHeader);

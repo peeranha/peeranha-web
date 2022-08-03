@@ -29,11 +29,7 @@ import Tips from 'containers/CreateCommunity/Tips';
 
 import { noAccess as noAccessRoute } from 'routes-config';
 
-import {
-  getPermissions,
-  hasCommunityModeratorRole,
-  hasGlobalModeratorRole,
-} from 'utils/properties';
+import { getPermissions, hasGlobalModeratorRole } from 'utils/properties';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { useModeratorRole } from '../../hooks/useModeratorRole';
@@ -49,7 +45,6 @@ import {
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
-import { getSingleCommunityDetails } from '../../utils/communityManagement';
 
 const EditCommunity = ({
   community,
@@ -66,8 +61,6 @@ const EditCommunity = ({
 }) => {
   useModeratorRole(noAccessRoute, communityId);
 
-  const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
-
   useEffect(
     () => {
       getCommunityDispatch(communityId);
@@ -83,7 +76,6 @@ const EditCommunity = ({
       communityLoading: editCommunityLoading,
       locale,
       isModerator: hasGlobalModeratorRole(getPermissions(profileInfo)),
-      isBloggerMode,
     }),
     [community, communityId, editCommunityDispatch, editCommunityLoading],
   );

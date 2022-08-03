@@ -8,8 +8,6 @@ import {
   takeLatest,
 } from 'redux-saga/effects';
 
-import { HASH_CHARS_LIMIT } from 'components/FormFields/AvatarField';
-
 import { selectEos } from 'containers/EosioProvider/selectors';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 import { selectTopQuestionIds } from 'containers/Questions/selectors';
@@ -18,13 +16,8 @@ import {
   getQuestionsFilteredByCommunities,
   getQuestionById,
 } from 'utils/questionsManagement';
-import {
-  getCommunityById,
-  isSingleCommunityWebsite,
-  getSingleCommunityDetails,
-} from 'utils/communityManagement';
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { getQuestionBounty } from 'utils/walletManagement';
-import { getUserAvatar } from 'utils/profileManagement';
 
 import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
 import { isGeneralQuestion } from 'containers/ViewQuestion/saga';
@@ -48,7 +41,6 @@ import {
   getLogoSuccess,
   getLogoError,
 } from './actions';
-import { selectCommunity } from './selectors';
 import createdHistory from '../../createdHistory';
 import * as routes from '../../routes-config';
 import { REMOVE_OR_ADD_TOP_QUESTION } from '../Questions/constants';
@@ -123,51 +115,6 @@ export function* getQuestionsWorker({ communityId }) {
   }
 }
 
-export function* getCommunityWorker({ id }) {
-  try {
-    const cachedCommunities = yield select(selectCommunities());
-
-    let community = cachedCommunities.find(c => c.id === id);
-
-    if (!community) {
-      const eosService = yield select(selectEos);
-
-      community = yield call(getCommunityById, eosService, id);
-    }
-
-    yield put(getCommunitySuccess(community));
-  } catch (err) {
-    yield put(getCommunityError(err));
-  }
-}
-
-export function* getLogoWorker() {
-  try {
-    let logo = '';
-
-    const single = isSingleCommunityWebsite();
-    if (single) {
-      yield call(getCommunityWorker, { id: single });
-
-      const community = yield select(selectCommunity());
-
-      const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
-
-      if (isBloggerMode) {
-        const { avatar } = community;
-
-        logo =
-          avatar && avatar.length > HASH_CHARS_LIMIT
-            ? avatar
-            : getUserAvatar(avatar, true, true);
-      }
-    }
-
-    yield put(getLogoSuccess(logo));
-  } catch (err) {
-    yield put(getLogoError(err));
-  }
-}
 /* eslint no-empty: ["error", { "allowEmptyCatch": true }] */
 export function* redirectToEditCommunityPageWorker({ id }) {
   try {
@@ -177,8 +124,6 @@ export function* redirectToEditCommunityPageWorker({ id }) {
 
 export default function*() {
   yield takeEvery(GET_QUESTIONS, getQuestionsWorker);
-  yield takeEvery(GET_COMMUNITY, getCommunityWorker);
-  yield takeEvery(GET_LOGO, getLogoWorker);
   yield takeLatest(
     REDIRECT_TO_EDIT_COMMUNITY_PAGE,
     redirectToEditCommunityPageWorker,

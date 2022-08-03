@@ -1,5 +1,4 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
-import _isEqual from 'lodash/isEqual';
 
 import { communities as communitiesRoute, feed } from 'routes-config';
 import createdHistory from 'createdHistory';
@@ -12,14 +11,11 @@ import {
   selectCommunities,
   selectStat,
 } from 'containers/DataCacheProvider/selectors';
-import { selectEos } from 'containers/EosioProvider/selectors';
 
 import {
   editCommunity,
   getAllCommunities,
   getCommunityFromContract,
-  getSingleCommunityDetails,
-  setSingleCommunityDetailsInCookie,
   isSingleCommunityWebsite,
 } from 'utils/communityManagement';
 import { uploadImg } from 'utils/profileManagement';
@@ -54,7 +50,6 @@ export function* getCommunityWorker({ communityId }) {
 
 export function* editCommunityWorker({ communityId, communityData }) {
   try {
-    const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
     if (communityData.avatar.length > HASH_CHARS_LIMIT) {
       const { imgHash } = yield call(uploadImg, communityData.avatar);
       communityData.avatar = imgHash;
@@ -68,17 +63,11 @@ export function* editCommunityWorker({ communityId, communityData }) {
       communityData.banner = imgHash;
     }
 
-    if (isBloggerMode) {
-      setSingleCommunityDetailsInCookie(communityData, communityId);
-    }
-
     const communityDataCurrent = yield select(selectCommunity());
     const isSingleCommunityMode = !!isSingleCommunityWebsite();
-    const isEqual = Object.keys(communityData).every(key => {
-      return !(key === 'isBlogger')
-        ? communityData[key] === communityDataCurrent[key]
-        : true;
-    });
+    const isEqual = Object.keys(communityData).every(
+      key => communityData[key] === communityDataCurrent[key],
+    );
 
     if (!isEqual) {
       const ethereumService = yield select(selectEthereum);

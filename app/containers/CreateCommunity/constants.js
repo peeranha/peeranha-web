@@ -44,6 +44,4 @@ export const GENERAL_TYPE = 1;
 export const EXPERT_TYPE = 0;
 
 export const STANDART_TYPE = 0;
-export const BLOGGER_TYPE = 1;
-
 export const STATE_KEY = 'createCommunity';

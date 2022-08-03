@@ -27,10 +27,7 @@ import injectSaga from 'utils/injectSaga';
 import { DAEMON, POST_TYPE, REWARD_CLAIMING_ENABLED } from 'utils/constants';
 import { ScrollTo } from 'utils/animation';
 import { closePopover as Popover } from 'utils/popover';
-import {
-  isSingleCommunityWebsite,
-  getSingleCommunityDetails,
-} from 'utils/communityManagement';
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
 import Loader from 'components/LoadingIndicator/HeightWidthCentered';
 import ErrorBoundary from 'components/ErrorBoundary';
@@ -130,8 +127,6 @@ const App = ({
     [history],
   );
 
-  const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
-
   return (
     <ErrorBoundary>
       <ThemeProvider theme={theme}>
@@ -158,14 +153,6 @@ const App = ({
             path={routes.preloaderPage()}
             render={props => Wrapper(FullWidthPreloader, props)}
           />
-
-          {!!isBloggerMode && (
-            <Route
-              exact
-              path={routes.detailsHomePage()}
-              render={props => Wrapper(Home, props)}
-            />
-          )}
 
           <Route
             exact

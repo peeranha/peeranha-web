@@ -13,22 +13,11 @@ import {
   BORDER_RADIUS_M,
 } from 'style-constants';
 
-import { STANDART_TYPE, BLOGGER_TYPE } from './constants';
+import { STANDART_TYPE } from './constants';
 
 import { Wrapper } from 'components/FormFields/Wrapper';
 import { Styles } from 'components/Input/InputStyled';
 import B from 'components/Button';
-
-export const COMMUNITY_TYPES = {
-  STANDART: {
-    value: STANDART_TYPE,
-    label: 'standart',
-  },
-  BLOGGER: {
-    value: BLOGGER_TYPE,
-    label: 'blogger',
-  },
-};
 
 const ButtonGroup = styled.div`
   ${Styles};
@@ -92,17 +81,15 @@ const CommunityTypeField = ({
       insideOfSection={insideOfSection}
     >
       <ButtonGroup>
-        {Object.values(COMMUNITY_TYPES).map(type => (
-          <Button
-            onClick={chooseQuestionType}
-            value={type.value}
-            currentValue={input.value}
-            key={type.label}
-            disabled={disabled}
-          >
-            <FormattedMessage {...messages[type.label]} />
-          </Button>
-        ))}
+        <Button
+          onClick={chooseQuestionType}
+          value={STANDART_TYPE}
+          currentValue={input.value}
+          key="standard"
+          disabled={disabled}
+        >
+          <FormattedMessage {...messages[type.label]} />
+        </Button>
       </ButtonGroup>
     </Wrapper>
   );

@@ -7,14 +7,10 @@ import communitiesConfig, {
 import _get from 'lodash/get';
 
 import { getBytes32FromIpfsHash, getFileUrl, getText, saveText } from './ipfs';
-import { getCookie, setCookie } from './cookie';
+import { getCookie } from './cookie';
 import { uploadImg } from './profileManagement';
 
-import {
-  ALL_COMMUNITIES_SCOPE,
-  COMMUNITIES_TABLE,
-  SINGLE_COMMUNITY_DETAILS,
-} from './constants';
+import { SINGLE_COMMUNITY_DETAILS } from './constants';
 import {
   CREATE_COMMUNITY,
   CREATE_TAG,
@@ -94,98 +90,6 @@ export const checkIsColorsActual = (id, mainColor, highlightColor) => {
   ) {
     location.reload();
   }
-};
-
-export const setSingleCommunityDetailsInCookie = (community, id) => {
-  const {
-    isBlogger,
-    banner,
-    facebook,
-    instagram,
-    youtube,
-    vk,
-    main_color,
-    highlight_color,
-  } = community;
-
-  setCookie({
-    name: `${SINGLE_COMMUNITY_DETAILS}_${id}`,
-    value: JSON.stringify({
-      isBlogger,
-      banner,
-      socialNetworks: {
-        facebook,
-        instagram,
-        youtube,
-        vk,
-      },
-      colors: {
-        main: isBlogger ? main_color : '#576fed',
-        highlight: isBlogger ? highlight_color : '#fc6655',
-      },
-    }),
-    options: {
-      defaultPath: true,
-      allowSubdomains: true,
-    },
-  });
-};
-
-export const setSingleCommunityDetails = async eosService => {
-  const id = isSingleCommunityWebsite();
-
-  const row = await eosService.getTableRow(
-    COMMUNITIES_TABLE,
-    ALL_COMMUNITIES_SCOPE,
-    id,
-  );
-
-  const community = JSON.parse(await getText(row.ipfs_description));
-
-  // get previous isBloger field value
-
-  let prevIsBlogger = null;
-  const prevSingleCommDetails = getCookie(`${SINGLE_COMMUNITY_DETAILS}_${id}`);
-  if (prevSingleCommDetails && prevSingleCommDetails.length) {
-    prevIsBlogger = JSON.parse(prevSingleCommDetails).isBlogger;
-  }
-
-  if (
-    community.isBlogger ||
-    (typeof prevIsBlogger === 'boolean' &&
-      community.isBlogger !== prevIsBlogger)
-  ) {
-    setSingleCommunityDetailsInCookie(community, id);
-  }
-
-  if (prevSingleCommDetails && prevSingleCommDetails.length) {
-    const prevValue = JSON.parse(prevSingleCommDetails);
-    if (
-      (community.isBlogger &&
-        (prevValue.colors.main !== community.main_color ||
-          prevValue.colors.highlight !== community.highlight_color)) ||
-      prevValue.isBlogger !== community.isBlogger
-    ) {
-      location.reload();
-    }
-  }
-
-  if (!prevSingleCommDetails && community.isBlogger) {
-    location.reload();
-  }
-
-  const communityDetails = getSingleCommunityDetails();
-};
-
-export const getSingleCommunityDetails = () => {
-  const id = isSingleCommunityWebsite();
-  const dataFromCookie = id
-    ? getCookie(`${SINGLE_COMMUNITY_DETAILS}_${id}`)
-    : '';
-  const communityDetails = dataFromCookie.length
-    ? JSON.parse(dataFromCookie)
-    : {};
-  return communityDetails.isBlogger ? { ...communityDetails } : {};
 };
 
 /* eslint-disable */

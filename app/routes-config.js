@@ -5,17 +5,13 @@
  */
 
 /* eslint camelcase: 0, prettier/prettier: 0 */
-import {
-  isSingleCommunityWebsite,
-  getSingleCommunityDetails,
-} from 'utils/communityManagement';
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { REFERRAL_CODE_URI } from './containers/App/constants';
 import { POST_TYPE } from './utils/constants';
 
 const userRedirect = where => id => `/users/${id}${where}`;
 
 const singleCommId = isSingleCommunityWebsite();
-const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
 
 export const home = () => `/about`;
 
@@ -37,19 +33,13 @@ export const userBoost = userRedirect('/boost');
 export const uniqueAnswerId = answerId => `ans${answerId}`;
 
 export const questions = communityId =>
-  !communityId
-    ? `${!isBloggerMode ? '/questions' : '/questions'}`
-    : `/questions/community/${communityId}/`;
+  !communityId ? `/questions` : `/questions/community/${communityId}/`;
 
 export const expertPosts = communityId =>
-  !communityId
-    ? `${!isBloggerMode ? '/experts' : '/experts'}`
-    : `/experts/community/${communityId}/`;
+  !communityId ? `/experts` : `/experts/community/${communityId}/`;
 
 export const tutorials = communityId =>
-  !communityId
-    ? `${!isBloggerMode ? '/tutorials' : '/experts'}`
-    : `/tutorials/community/${communityId}/`;
+  !communityId ? `/tutorials` : `/tutorials/community/${communityId}/`;
 
 export const questionView = (id, answerId) =>
   answerId
@@ -91,7 +81,7 @@ export const detailsHomePage = () => '/';
 export const feed = communityId =>
   `/${communityId ? `feed/${communityId}` : ''}`;
 
-export const communities = () => (!isBloggerMode ? `/communities` : `/`);
+export const communities = () => `/communities`;
 
 export const tags = () => `/tags`;
 
@@ -112,7 +102,7 @@ export const termsAndConditions = section =>
 
 export const communitiesCreate = () => `/communities/create`;
 export const communitiesEdit = communityId =>
-  !isBloggerMode ? `/communities/${communityId}/edit` : `/${communityId}/edit`;
+  `/communities/${communityId}/edit`;
 export const communitiesCreatedBanner = () => `/communities/create#banner`;
 export const suggestedCommunities = () => `/communities/suggested`;
 

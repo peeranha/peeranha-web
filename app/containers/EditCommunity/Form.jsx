@@ -31,21 +31,7 @@ import {
   EDIT_COMMUNITY_BUTTON,
   EDIT_COMMUNITY_FORM,
 } from './constants';
-import TypeForm from '../CreateCommunity/QuestionsTypeForm';
-import {
-  COMM_BANNER_FIELD,
-  FACEBOOK_LINK_FIELD,
-  FORM_TYPE,
-  HIGHLIGHT_COLOR_FIELD,
-  INSTAGRAM_LINK_FIELD,
-  COMMUNITY_TYPE,
-  MAIN_COLOR_FIELD,
-  VK_LINK_FIELD,
-  YOUTUBE_LINK_FIELD,
-  ABOUT_FIELD,
-} from '../CreateCommunity/constants';
-import CommunityTypeForm from '../CreateCommunity/CommunityTypeForm';
-import BloggerModeForm from '../CreateCommunity/BloggerModeForm';
+import { COMMUNITY_TYPE } from '../CreateCommunity/constants';
 
 const EditCommunityForm = ({
   communityId,
@@ -53,12 +39,6 @@ const EditCommunityForm = ({
   editCommunityDispatch,
   handleSubmit,
   intl,
-  change,
-  formValues,
-  initialValues,
-  locale,
-  isModerator,
-  isBloggerMode,
 }) => {
   const editCommunity = useCallback(
     values => {
@@ -66,17 +46,7 @@ const EditCommunityForm = ({
         avatar: values.get(COMM_AVATAR_FIELD),
         name: values.get(COMM_NAME_FIELD),
         description: values.get(COMM_SHORT_DESCRIPTION_FIELD),
-        // about: values.get(ABOUT_FIELD),
         website: values.get(COMM_OFFICIAL_SITE_FIELD),
-        // questionsType: parseInt(values.get(FORM_TYPE)),
-        isBlogger: !!parseInt(values.get(COMMUNITY_TYPE)),
-        // banner: values.get(COMM_BANNER_FIELD),
-        // facebook: values.get(FACEBOOK_LINK_FIELD),
-        // instagram: values.get(INSTAGRAM_LINK_FIELD),
-        // youtube: values.get(YOUTUBE_LINK_FIELD),
-        // vk: values.get(VK_LINK_FIELD),
-        // main_color: values.get(MAIN_COLOR_FIELD),
-        // highlight_color: values.get(HIGHLIGHT_COLOR_FIELD),
       };
 
       editCommunityDispatch(communityId, communityData);
@@ -129,28 +99,6 @@ const EditCommunityForm = ({
           tip={intl.formatMessage(messages.websiteTip)}
         />
 
-        {/*{isModerator &&*/}
-        {/*  !isBloggerMode && (*/}
-        {/*    <TypeForm*/}
-        {/*      locale={locale}*/}
-        {/*      change={change}*/}
-        {/*      formValues={formValues}*/}
-        {/*      intl={intl}*/}
-        {/*    />*/}
-        {/*  )}*/}
-
-        {/*{isModerator &&*/}
-        {/*  !isBloggerMode && <CommunityTypeForm change={change} intl={intl} />}*/}
-
-        {+formValues[COMMUNITY_TYPE] ? (
-          <BloggerModeForm
-            disabled={communityLoading}
-            formValues={formValues}
-            intl={intl}
-            initialValues={initialValues}
-          />
-        ) : null}
-
         <LargeButton
           id={EDIT_COMMUNITY_BUTTON}
           type="submit"
@@ -187,17 +135,8 @@ export default injectIntl(
           [COMM_AVATAR_FIELD]: community.avatar,
           [COMM_NAME_FIELD]: community.name,
           [COMM_SHORT_DESCRIPTION_FIELD]: community.description,
-          // [ABOUT_FIELD]: community.about,
           [COMM_OFFICIAL_SITE_FIELD]: community.website,
-          // [FORM_TYPE]: community.questionsType,
-          [COMMUNITY_TYPE]: community.isBlogger ? 1 : 0,
-          // [COMM_BANNER_FIELD]: community.banner,
-          // [FACEBOOK_LINK_FIELD]: community.socialLinks.facebook,
-          // [INSTAGRAM_LINK_FIELD]: community.socialLinks.instagram,
-          // [YOUTUBE_LINK_FIELD]: community.socialLinks.youtube,
-          // [VK_LINK_FIELD]: community.socialLinks.vk,
-          // [MAIN_COLOR_FIELD]: community.colors.main,
-          // [HIGHLIGHT_COLOR_FIELD]: community.colors.highlight,
+          [COMMUNITY_TYPE]: 0,
         }
       : {},
   }))(FormClone),

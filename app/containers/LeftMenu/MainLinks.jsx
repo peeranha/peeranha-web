@@ -26,14 +26,12 @@ import {
   singleCommunityStyles,
   singleCommunityColors,
   singleCommunityFonts,
-  getSingleCommunityDetails,
 } from 'utils/communityManagement';
 
 import FeedIcon from 'icons/Feed';
 import CommunitiesIcon from 'icons/Communities';
 import TutorialIcon from 'icons/Tutorial';
 import TagsIcon from 'icons/Tags';
-import HomeIcon from 'icons/Home';
 import HatIcon from 'icons/Hat';
 import UsersIcon from 'icons/Users';
 import DiscussionsIcon from 'icons/Discussions';
@@ -138,21 +136,13 @@ const MainLinks = ({ currClientHeight, profile }) => {
   let route = pathname.split('/').filter(x => x)[0];
 
   const singleCommId = +isSingleCommunityWebsite();
-  const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
 
   if (!route) {
-    route = isBloggerMode ? 'home' : 'feed';
+    route = 'feed';
   }
 
   return (
     <Box currClientHeight={currClientHeight}>
-      {isBloggerMode && (
-        <A1 to={routes.detailsHomePage()} name="home" route={route}>
-          <HomeIcon className={cn('mr8')} />
-          <FormattedMessage {...messages.home} />
-        </A1>
-      )}
-
       <A1 to={routes.feed()} name="feed" route={route}>
         <FeedIcon className={cn('mr8')} />
         <FormattedMessage
@@ -194,9 +184,7 @@ const MainLinks = ({ currClientHeight, profile }) => {
       {hasGlobalModeratorRole() && (
         <A1 to={routes.users()} name="users" route={route}>
           <UsersIcon className={cn('mr8')} />
-          <FormattedMessage
-            {...messages[isBloggerMode ? 'followers' : 'users']}
-          />
+          <FormattedMessage {...messages.users} />
         </A1>
       )}
 

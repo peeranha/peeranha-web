@@ -513,9 +513,6 @@ export default defineMessages({
   standart: {
     id: 'app.common.standart',
   },
-  blogger: {
-    id: 'app.common.blogger',
-  },
   cannotTransferToYourself: {
     id: 'app.common.cannotTransferToYourself',
   },

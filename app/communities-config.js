@@ -7,7 +7,6 @@ import { TelosStyles } from './communities-configs/telos';
 import { PolygonStyles } from './communities-configs/polygon';
 import { OntStyles } from './communities-configs/ont';
 import { KandaStyles } from './communities-configs/kanda';
-import { BloggerStyles } from './communities-configs/blogger';
 import { FilecoinStyles } from './communities-configs/filecoin';
 
 const communitiesConfig = {
@@ -70,14 +69,6 @@ const communitiesConfig = {
     //   origin: 'https://kanda.testpeeranha.io',
     //   src: KandaLogo,
     //   styles: KandaStyles,
-    // },
-    // 6: {
-    //   origin: 'https://bloggerdemo.testpeeranha.io',
-    //   styles: BloggerStyles,
-    // },
-    // 10: {
-    //   origin: 'https://ivan.testpeeranha.io',
-    //   styles: BloggerStyles,
     // },
   },
   dev: {

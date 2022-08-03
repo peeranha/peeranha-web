@@ -7,7 +7,6 @@ import { TEXT_SECONDARY } from 'style-constants';
 import commonMessages from 'common-messages';
 
 import { getFormattedNum2 } from 'utils/numbers';
-import { getSingleCommunityDetails } from 'utils/communityManagement';
 
 import FilterIcon from 'icons/Filter';
 import UsersBigIcon from 'icons/UsersBig';
@@ -45,37 +44,31 @@ const Menu = ({ sort, sorting }) => (
   </Ul>
 );
 
-export const Header = ({ sorting, dropdownFilter, userCount }) => {
-  const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
+export const Header = ({ sorting, dropdownFilter, userCount }) => (
+  <Wrapper className="mb-to-sm-0 mb-from-sm-3">
+    <H3>
+      <MediumIconStyled>
+        <UsersBigIcon stroke="#576fed" fill="#A5BCFF" size={[38, 38]} />
+      </MediumIconStyled>
 
-  return (
-    <Wrapper className="mb-to-sm-0 mb-from-sm-3">
-      <H3>
-        <MediumIconStyled>
-          <UsersBigIcon stroke="#576fed" fill="#A5BCFF" size={[38, 38]} />
-        </MediumIconStyled>
+      <span>
+        <FormattedMessage {...commonMessages.users} />
+        <Span className="ml-2" color={TEXT_SECONDARY} fontSize="30" bold>
+          {getFormattedNum2(userCount)}
+        </Span>
+      </span>
+    </H3>
 
-        <span>
-          <FormattedMessage
-            {...commonMessages[isBloggerMode ? 'followers' : 'users']}
-          />
-          <Span className="ml-2" color={TEXT_SECONDARY} fontSize="30" bold>
-            {getFormattedNum2(userCount)}
-          </Span>
-        </span>
-      </H3>
-
-      <WrapperRightPanel className="right-panel">
-        <Dropdown
-          button={<Button sorting={sorting} />}
-          menu={<Menu sort={dropdownFilter} sorting={sorting} />}
-          id="users-dropdown"
-          isArrowed
-        />
-      </WrapperRightPanel>
-    </Wrapper>
-  );
-};
+    <WrapperRightPanel className="right-panel">
+      <Dropdown
+        button={<Button sorting={sorting} />}
+        menu={<Menu sort={dropdownFilter} sorting={sorting} />}
+        id="users-dropdown"
+        isArrowed
+      />
+    </WrapperRightPanel>
+  </Wrapper>
+);
 
 Button.propTypes = {
   sorting: PropTypes.string,

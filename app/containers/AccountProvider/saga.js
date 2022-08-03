@@ -7,17 +7,9 @@ import {
   getAvailableBalance,
   getBalance,
   getUserBoost,
-  getUserStake,
-  getWeekStat,
 } from 'utils/walletManagement';
-import {
-  isSingleCommunityWebsite,
-  setSingleCommunityDetails,
-} from 'utils/communityManagement';
 
 import commonMessages from 'common-messages';
-
-import { selectEos } from 'containers/EosioProvider/selectors';
 
 import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
 import { addToast } from 'containers/Toast/actions';
@@ -105,8 +97,6 @@ import { hasGlobalModeratorRole } from '../../utils/properties';
 import { getNotificationsInfoWorker } from '../../components/Notifications/saga';
 import { getCurrentPeriod } from '../../utils/theGraph';
 
-const single = isSingleCommunityWebsite();
-
 /* eslint func-names: 0, consistent-return: 0 */
 export const getCurrentAccountWorker = function*(initAccount) {
   try {
@@ -114,8 +104,6 @@ export const getCurrentAccountWorker = function*(initAccount) {
 
     if (ethereumService.withMetaMask)
       yield put(addLoginData({ loginWithMetaMask: true }));
-
-    // const globalBoostStat = yield call(getGlobalBoostStatistics, eosService);
 
     let account = yield typeof initAccount === 'string'
       ? initAccount
@@ -315,33 +303,6 @@ export function* updateAccWorker({ ethereum }) {
     yield put(updateAccErr(err));
   }
 }
-
-export function* getCommunityPropertyWorker(profile) {
-  try {
-    const profileInfo = profile || (yield select(makeSelectProfileInfo()));
-    const eosService = yield select(selectEos);
-
-    if (single) {
-      yield call(setSingleCommunityDetails, eosService);
-    }
-
-    const info = yield call(
-      eosService.getTableRow,
-      ALL_PROPERTY_COMMUNITY_TABLE,
-      ALL_PROPERTY_COMMUNITY_SCOPE,
-      profileInfo.user,
-    );
-
-    yield put(
-      getUserProfileSuccess({
-        ...profile,
-        permissions: info?.properties ?? [],
-      }),
-    );
-    // eslint-disable-next-line no-empty
-  } catch (e) {}
-}
-
 export default function* defaultSaga() {
   yield takeLatest(
     REDIRECT_TO_EDIT_ANSWER_PAGE,
