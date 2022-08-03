@@ -73,7 +73,7 @@ export async function getProfileInfo(
     profileInfo = await ethereumService.getProfile(user);
     profileInfo.permissions = await getUserPermissions(user);
     userStats = await getUserStats(user);
-    profileInfo.ratings = userStats.ratings;
+    profileInfo.ratings = userStats?.ratings ?? [];
     if (!profileInfo.creationTime) {
       const profile = await getUser(user);
       profileInfo.creationTime = profile.creationTime;
