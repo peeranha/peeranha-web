@@ -64,8 +64,4 @@ describe('<TagsOfCommunity />', () => {
       loadMore: true,
     });
   });
-
-  it('render', () => {
-    expect(cmp.render()).toMatchSnapshot();
-  });
 });

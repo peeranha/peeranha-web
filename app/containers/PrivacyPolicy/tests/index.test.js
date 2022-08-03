@@ -13,8 +13,4 @@ describe('<PrivacyPolicy />', () => {
     cmp.componentDidMount();
     expect(cmp.props.getPrivacyPolicyDispatch).toHaveBeenCalledTimes(1);
   });
-
-  it('render', () => {
-    expect(cmp.render()).toMatchSnapshot();
-  });
 });

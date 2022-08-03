@@ -57,10 +57,6 @@ beforeEach(() => {
 });
 
 describe('SignUp', () => {
-  it('render', () => {
-    expect(cmp.render()).toMatchSnapshot();
-  });
-
   it('getLinkToDownloadKeys', () => {
     const keys = { key1: 'key1', key2: 'key2' };
 

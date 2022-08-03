@@ -47,8 +47,4 @@ describe('SuggestedTags', () => {
       communityId: cmp.currentCommunity.id,
     });
   });
-
-  it('render', () => {
-    expect(cmp.render()).toMatchSnapshot();
-  });
 });

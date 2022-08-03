@@ -29,16 +29,4 @@ describe('<Login />', () => {
     expect(cmp.props.hideLoginModalDispatch).toHaveBeenCalledTimes(1);
     expect(cmp.props.showForgotPasswordModalDispatch).toHaveBeenCalledTimes(1);
   });
-
-  describe('render', () => {
-    it('content === EMAIL_PASSWORD_FORM', () => {
-      cmp.props.content = EMAIL_PASSWORD_FORM;
-      expect(cmp.render()).toMatchSnapshot();
-    });
-
-    it('content === WE_ARE_HAPPY_FORM', () => {
-      cmp.props.content = WE_ARE_HAPPY_FORM;
-      expect(cmp.render()).toMatchSnapshot();
-    });
-  });
 });

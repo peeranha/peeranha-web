@@ -21,10 +21,6 @@ beforeEach(() => {
 });
 
 describe('Profile', () => {
-  it('render', () => {
-    expect(cmp.render()).toMatchSnapshot();
-  });
-
   it('componentDidMount', () => {
     const userId = 'user111';
 

@@ -36,8 +36,4 @@ describe('<CreateTag />', () => {
     cmp.createTag(obj0, obj1, obj2);
     expect(cmp.props.suggestTagDispatch).toHaveBeenCalledWith(tag, obj2.reset);
   });
-
-  it('render', () => {
-    expect(cmp.render()).toMatchSnapshot();
-  });
 });

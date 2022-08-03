@@ -39,29 +39,4 @@ describe('EditQuestion', () => {
       cmp.props.match.params.questionid,
     );
   });
-
-  describe('render test', () => {
-    it('questionLoading is falsy', () => {
-      cmp.props.questionLoading = false;
-      expect(cmp.render()).toMatchSnapshot();
-    });
-
-    it('questionLoading is true', () => {
-      cmp.props.questionLoading = true;
-      expect(cmp.render()).toMatchSnapshot();
-    });
-
-    it('question is null', () => {
-      cmp.props.question = null;
-      expect(cmp.render()).toMatchSnapshot();
-    });
-
-    it('question is NOT null', () => {
-      cmp.props.question = {
-        title: 'title',
-        content: 'content',
-      };
-      expect(cmp.render()).toMatchSnapshot();
-    });
-  });
 });

@@ -19,8 +19,4 @@ describe('Support', () => {
     cmp.componentDidUpdate();
     expect(scrollToSection).toHaveBeenCalledTimes(1);
   });
-
-  it('render', () => {
-    expect(cmp.render()).toMatchSnapshot();
-  });
 });

@@ -30,10 +30,4 @@ describe('<VoteForNewCommunityButton />', () => {
       cmp.props.id,
     );
   });
-
-  describe('render', () => {
-    it('test', () => {
-      expect(cmp.render()).toMatchSnapshot();
-    });
-  });
 });

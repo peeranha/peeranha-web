@@ -114,22 +114,4 @@ describe('<ViewQuestion />', () => {
       expect(cmp.props.resetStoreDispatch).toHaveBeenCalled();
     });
   });
-
-  describe('render', () => {
-    it('!@questionDataLoading && @questionData', () => {
-      cmp.props.questionDataLoading = false;
-      expect(cmp.render()).toMatchSnapshot();
-    });
-
-    it('!@questionDataLoading && !@questionData', () => {
-      cmp.props.questionDataLoading = false;
-      cmp.props.questionData = null;
-      expect(cmp.render()).toMatchSnapshot();
-    });
-
-    it('@questionDataLoading is true', () => {
-      cmp.props.questionDataLoading = true;
-      expect(cmp.render()).toMatchSnapshot();
-    });
-  });
 });

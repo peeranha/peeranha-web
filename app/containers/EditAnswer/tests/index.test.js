@@ -34,16 +34,4 @@ describe('EditAnswer', () => {
       cmp.props.match.params.answerid,
     );
   });
-
-  describe('render test', () => {
-    it('answerLoading is falsy', () => {
-      cmp.props.answerLoading = false;
-      expect(cmp.render()).toMatchSnapshot();
-    });
-
-    it('answerLoading is true', () => {
-      cmp.props.answerLoading = true;
-      expect(cmp.render()).toMatchSnapshot();
-    });
-  });
 });

@@ -34,29 +34,4 @@ describe('QuestionsOfUser', () => {
       cmp.props.userId,
     );
   });
-
-  describe('render', () => {
-    it('questionsLoading TRUE', () => {
-      cmp.props.questionsLoading = true;
-      expect(cmp.render()).toMatchSnapshot();
-    });
-
-    it('questions[0] TRUE', () => {
-      cmp.props.questions = [
-        {
-          myPostRating: 100,
-          title: 'title',
-          myPostTime: 1550837750334,
-          answers: [],
-          locale: 'en',
-          acceptedAnswer: false,
-          communities: [],
-          id: 'id',
-          communityId: 123,
-        },
-      ];
-
-      expect(cmp.render()).toMatchSnapshot();
-    });
-  });
 });

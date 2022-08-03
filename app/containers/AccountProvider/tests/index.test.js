@@ -10,8 +10,4 @@ describe('<AccountProvider />', () => {
     await cmp.componentDidMount();
     expect(cmp.props.getCurrentAccountDispatch).toHaveBeenCalled();
   });
-
-  it('render', () => {
-    expect(cmp.render()).toMatchSnapshot();
-  });
 });

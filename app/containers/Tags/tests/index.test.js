@@ -60,16 +60,4 @@ describe('<Tags />', () => {
       });
     });
   });
-
-  describe('render', () => {
-    it('!currentCommunity.tags.length', () => {
-      cmp.props.currentCommunity.tags = [];
-      expect(cmp.render()).toMatchSnapshot();
-    });
-
-    it('currentCommunity.tags.length > 0', () => {
-      cmp.props.currentCommunity.tags = Array(1).fill({});
-      expect(cmp.render()).toMatchSnapshot();
-    });
-  });
 });

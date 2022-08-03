@@ -54,12 +54,6 @@ describe('componentWillMount', () => {
   });
 });
 
-describe('<LanguageProvider />', () => {
-  it('should render its children', () => {
-    expect(cmp.render()).toMatchSnapshot();
-  });
-});
-
 describe('<ConnectedLanguageProvider />', () => {
   let store;
 

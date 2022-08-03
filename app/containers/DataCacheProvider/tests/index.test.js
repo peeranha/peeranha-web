@@ -22,8 +22,4 @@ describe('<DataCacheProvider />', () => {
     expect(cmp.props.getCommunitiesWithTagsDispatch).toHaveBeenCalledTimes(1);
     expect(cmp.props.getFaqDispatch).toHaveBeenCalledTimes(1);
   });
-
-  it('render', () => {
-    expect(cmp.render()).toMatchSnapshot();
-  });
 });

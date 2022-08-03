@@ -25,18 +25,6 @@ beforeEach(() => {
 });
 
 describe('<Communities />', () => {
-  describe('render', () => {
-    it('communities []', () => {
-      cmp.props.communities = [];
-      expect(cmp.render()).toMatchSnapshot();
-    });
-
-    it('communities [{ id: 1 }]', () => {
-      cmp.props.communities = [{ id: 1 }];
-      expect(cmp.render()).toMatchSnapshot();
-    });
-  });
-
   describe('componentDidMount', () => {
     it('test', () => {
       expect(cmp.props.getSuggestedCommunitiesDispatch).toHaveBeenCalledTimes(

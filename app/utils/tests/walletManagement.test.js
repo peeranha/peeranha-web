@@ -61,69 +61,6 @@ describe('getBalance', () => {
   });
 });
 
-describe('getWeekStat', () => {
-  const user = 'user';
-
-  it('test', async () => {
-    const totalReward = [
-      {
-        period: 1,
-        total_reward: '10000.000000 PEER',
-      },
-      {
-        period: 2,
-        total_reward: '20000.000000 PEER',
-      },
-    ];
-
-    const totalRating = [
-      {
-        period: 1,
-        total_rating_to_reward: 4005,
-      },
-      {
-        period: 2,
-        total_rating_to_reward: 30,
-      },
-    ];
-
-    const periodRating = [
-      {
-        period: 1,
-        rating: 15,
-        rating_to_award: 0,
-      },
-      {
-        period: 2,
-        rating: 40,
-        rating_to_award: 10,
-      },
-    ];
-
-    const weekRewards = [
-      {
-        period: 1,
-      },
-      {
-        period: 2,
-      },
-    ];
-
-    Promise.all = jest
-      .fn()
-      .mockImplementation(() => [
-        totalReward,
-        totalRating,
-        periodRating,
-        weekRewards,
-      ]);
-
-    const res = await getWeekStat(eosService, user);
-
-    expect(res).toMatchSnapshot();
-  });
-});
-
 describe('sendTokens', () => {
   const info = {
     from: 'from',

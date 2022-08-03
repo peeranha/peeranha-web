@@ -68,10 +68,4 @@ describe('HomePage', () => {
       expect(off).toHaveBeenCalled();
     });
   });
-
-  describe('render', () => {
-    it('test', () => {
-      expect(cmp.render()).toMatchSnapshot();
-    });
-  });
 });

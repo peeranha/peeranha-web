@@ -49,8 +49,4 @@ describe('ChangeLocale', () => {
     );
     expect(createdHistory.push).toHaveBeenCalledTimes(2);
   });
-
-  it('render html', () => {
-    expect(renderer.html()).toMatchSnapshot();
-  });
 });

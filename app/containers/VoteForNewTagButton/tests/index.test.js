@@ -36,10 +36,4 @@ describe('<VoteForNewTagButton />', () => {
       cmp.props.buttonId,
     );
   });
-
-  describe('render', () => {
-    it('test', () => {
-      expect(cmp.render()).toMatchSnapshot();
-    });
-  });
 });

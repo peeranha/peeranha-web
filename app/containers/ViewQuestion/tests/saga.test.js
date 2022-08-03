@@ -308,7 +308,6 @@ describe('updateQuestionDataAfterTransactionWorker', () => {
 
     it('put, getQuestionData', () => {
       generator.next(userInfoMe);
-      expect(questionData).toMatchSnapshot();
       expect(put).toHaveBeenCalledWith(
         getQuestionDataSuccess({ ...questionData }),
       );
@@ -359,30 +358,6 @@ describe('saveCommentWorker', () => {
     toggleView,
   };
 
-  describe('asnwerId > 0', () => {
-    const questionData = {
-      comments: [{ id: 1 }, { id: 2 }],
-      answers: [
-        { id: 1, comments: [{ id: 1 }, { id: 2 }] },
-        { id: 2, comments: [{ id: 1 }, { id: 2 }] },
-      ],
-    };
-
-    const generator = sagaImports.saveCommentWorker({
-      ...res,
-      answerId: 1,
-    });
-
-    generator.next();
-    generator.next({ questionData, eosService, profileInfo });
-    generator.next();
-
-    it('test', () => {
-      const step = generator.next();
-      expect(JSON.stringify(step.value.questionData)).toMatchSnapshot();
-    });
-  });
-
   describe('+answerId === 0', () => {
     const questionData = {
       comments: [{ id: 1 }, { id: 2 }],
@@ -422,7 +397,6 @@ describe('saveCommentWorker', () => {
     it('step, saveCommentSuccess', () => {
       const step = generator.next();
       expect(step.value.type).toBe(SAVE_COMMENT_SUCCESS);
-      expect(JSON.stringify(step.value.questionData)).toMatchSnapshot();
     });
 
     it('error handling', () => {
@@ -487,7 +461,6 @@ describe('deleteCommentWorker', () => {
   it('step, deleteCommentSuccess', () => {
     const step = generator.next();
     expect(step.value.type).toBe(DELETE_COMMENT_SUCCESS);
-    expect(JSON.stringify(step.value.questionData)).toMatchSnapshot();
   });
 
   it('error handling', () => {
@@ -550,7 +523,6 @@ describe('deleteAnswerWorker', () => {
   it('step, deleteAnswerSuccess', () => {
     const step = generator.next();
     expect(step.value.type).toBe(DELETE_ANSWER_SUCCESS);
-    expect(JSON.stringify(step.value.questionData)).toMatchSnapshot();
   });
 
   it('error handling', () => {
@@ -716,7 +688,6 @@ describe('postCommentWorker', () => {
     it('step, postCommentSuccess', () => {
       const step = generator.next();
       expect(questionData.comments.length).toBe(1);
-      expect(questionData).toMatchSnapshot();
       expect(step.value).toEqual(postCommentSuccess({ ...questionData }));
     });
 
@@ -747,7 +718,6 @@ describe('postCommentWorker', () => {
       const step = generator.next();
 
       expect(questionData.answers[0].comments.length).toBe(1);
-      expect(questionData).toMatchSnapshot();
       expect(step.value).toEqual(postCommentSuccess({ ...questionData }));
     });
   });
@@ -806,7 +776,6 @@ describe('postAnswerWorker', () => {
 
   it('step, POST_ANSWER_SUCCESS', () => {
     const step = generator.next();
-    expect(questionData).toMatchSnapshot();
     expect(questionData.answers.length).toBe(1);
     expect(step.value).toEqual(postAnswerSuccess({ ...questionData }));
   });
@@ -896,86 +865,12 @@ describe('upVoteWorker', () => {
       it('step, UP_VOTE_SUCCESS', () => {
         const step = generator.next();
         expect(step.value.type).toBe(UP_VOTE_SUCCESS);
-        expect(JSON.stringify(step.value.questionData)).toMatchSnapshot();
       });
 
       it('error handling', () => {
         const err = new Error('some error');
         const putDescriptor = generator.throw(err);
         expect(putDescriptor.value.type).toBe(UP_VOTE_ERROR);
-      });
-    });
-
-    describe('isDownVoted is true', () => {
-      const generator = sagaImports.upVoteWorker({ ...res, answerId });
-
-      const clone = cloneDeep(questionData);
-
-      clone.votingStatus.isDownVoted = true;
-
-      generator.next();
-      generator.next({
-        profileInfo,
-        eosService: eos,
-        questionData: clone,
-        locale,
-      });
-      generator.next();
-      generator.next();
-
-      it('test', () => {
-        const step = generator.next();
-        expect(JSON.stringify(step.value.questionData)).toMatchSnapshot();
-      });
-    });
-
-    describe('isUpVoted is false', () => {
-      const generator = sagaImports.upVoteWorker({ ...res, answerId });
-
-      const clone = cloneDeep(questionData);
-
-      clone.votingStatus.isUpVoted = false;
-
-      generator.next();
-      generator.next({
-        profileInfo,
-        eosService: eos,
-        questionData: clone,
-        locale,
-      });
-      generator.next();
-      generator.next();
-
-      it('test', () => {
-        const step = generator.next();
-        expect(JSON.stringify(step.value.questionData)).toMatchSnapshot();
-      });
-    });
-  });
-
-  describe('answerId > 0', () => {
-    const answerId = 1;
-
-    describe('isUpVoted is true', () => {
-      const generator = sagaImports.upVoteWorker({ ...res, answerId });
-
-      const clone = cloneDeep(questionData);
-
-      clone.answers.find(x => x.id === answerId).votingStatus.isUpVoted = true;
-
-      generator.next();
-      generator.next({
-        profileInfo,
-        eosService: eos,
-        questionData: clone,
-        locale,
-      });
-      generator.next();
-      generator.next();
-
-      it('test', () => {
-        const step = generator.next();
-        expect(JSON.stringify(step.value.questionData)).toMatchSnapshot();
       });
     });
   });
@@ -1059,7 +954,6 @@ describe('downVoteWorker', () => {
       it('step, DOWN_VOTE_SUCCESS', () => {
         const step = generator.next();
         expect(step.value.type).toBe(DOWN_VOTE_SUCCESS);
-        expect(JSON.stringify(step.value.questionData)).toMatchSnapshot();
       });
 
       it('error handling', () => {
@@ -1089,7 +983,6 @@ describe('downVoteWorker', () => {
       it('test', () => {
         const step = generator.next();
         expect(step.value.type).toBe(DOWN_VOTE_SUCCESS);
-        expect(JSON.stringify(step.value.questionData)).toMatchSnapshot();
       });
     });
 
@@ -1113,7 +1006,6 @@ describe('downVoteWorker', () => {
       it('test', () => {
         const step = generator.next();
         expect(step.value.type).toBe(DOWN_VOTE_SUCCESS);
-        expect(JSON.stringify(step.value.questionData)).toMatchSnapshot();
       });
     });
   });
@@ -1143,7 +1035,6 @@ describe('downVoteWorker', () => {
       it('test', () => {
         const step = generator.next();
         expect(step.value.type).toBe(DOWN_VOTE_SUCCESS);
-        expect(JSON.stringify(step.value.questionData)).toMatchSnapshot();
       });
     });
   });
@@ -1253,86 +1144,6 @@ describe('voteToDeleteWorker', () => {
     ],
   };
 
-  describe('+answerId && commentId', () => {
-    const answerId = 1;
-    const commentId = 1;
-
-    const generator = sagaImports.voteToDeleteWorker({
-      ...res,
-      answerId,
-      commentId,
-    });
-
-    generator.next();
-    generator.next({
-      profileInfo,
-      eosService: eos,
-      questionData,
-      locale,
-    });
-    generator.next();
-    generator.next();
-
-    it('step, VOTE_TO_DELETE_SUCCESS', () => {
-      const step = generator.next();
-      expect(JSON.stringify(step.value.questionData)).toMatchSnapshot();
-    });
-  });
-
-  describe('+answerId && !commentId', () => {
-    const answerId = 1;
-    const commentId = null;
-
-    const generator = sagaImports.voteToDeleteWorker({
-      ...res,
-      answerId,
-      commentId,
-    });
-
-    generator.next();
-    generator.next({
-      profileInfo,
-      eosService: eos,
-      questionData,
-      locale,
-    });
-    generator.next();
-    generator.next();
-
-    it('step, VOTE_TO_DELETE_SUCCESS', () => {
-      const step = generator.next();
-      expect(JSON.stringify(step.value.questionData)).toMatchSnapshot();
-    });
-  });
-
-  describe('!+answerId && commentId', () => {
-    const answerId = null;
-    const commentId = 1;
-
-    const generator = sagaImports.voteToDeleteWorker({
-      ...res,
-      answerId,
-      commentId,
-    });
-
-    const copy = cloneDeep(questionData);
-
-    generator.next();
-    generator.next({
-      profileInfo,
-      eosService: eos,
-      questionData: copy,
-      locale,
-    });
-    generator.next();
-    generator.next();
-
-    it('step, VOTE_TO_DELETE_SUCCESS', () => {
-      const step = generator.next();
-      expect(JSON.stringify(step.value.questionData)).toMatchSnapshot();
-    });
-  });
-
   describe('!+answerId && !commentId', () => {
     const answerId = null;
     const commentId = null;
@@ -1390,7 +1201,6 @@ describe('voteToDeleteWorker', () => {
 
       const step = generator.next();
       expect(step.value.type).toBe(VOTE_TO_DELETE_SUCCESS);
-      expect(JSON.stringify(step.value.questionData)).toMatchSnapshot();
     });
 
     it('error handling', () => {

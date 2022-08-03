@@ -36,18 +36,6 @@ const props = {
 describe('<Form />', () => {
   const store = configureStore({});
 
-  it('renders and matches the snapshot', () => {
-    const { container } = render(
-      <Provider store={store}>
-        <LanguageProvider locale="en" key="en" messages={translationMessages}>
-          <Form {...props} />
-        </LanguageProvider>
-      </Provider>,
-    );
-
-    expect(container.firstChild).toMatchSnapshot();
-  });
-
   it('handles submitions', () => {
     const { container } = render(
       <Provider store={store}>

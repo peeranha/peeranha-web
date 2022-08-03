@@ -100,8 +100,4 @@ describe('Users', () => {
       expect(cmp.props.getUsersDispatch).toHaveBeenCalledTimes(0);
     });
   });
-
-  it('render', () => {
-    expect(cmp.render()).toMatchSnapshot();
-  });
 });

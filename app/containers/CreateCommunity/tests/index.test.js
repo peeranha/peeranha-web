@@ -59,8 +59,4 @@ describe('<CreateCommunity />', () => {
       obj2.reset,
     );
   });
-
-  it('render', () => {
-    expect(cmp.render()).toMatchSnapshot();
-  });
 });

@@ -165,16 +165,4 @@ describe('Questions', () => {
       );
     });
   });
-
-  describe('snapshot test', () => {
-    it('@questionsLoading is falsy', () => {
-      cmp.props.questionsLoading = false;
-      expect(cmp.render()).toMatchSnapshot();
-    });
-
-    it('@questionsLoading is true', () => {
-      cmp.props.questionsLoading = true;
-      expect(cmp.render()).toMatchSnapshot();
-    });
-  });
 });

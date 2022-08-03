@@ -46,10 +46,4 @@ describe('<EditProfilePage>', () => {
       });
     });
   });
-
-  describe('render', () => {
-    it('test', () => {
-      expect(cmp.render()).toMatchSnapshot();
-    });
-  });
 });

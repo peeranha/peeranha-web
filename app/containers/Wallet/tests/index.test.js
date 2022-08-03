@@ -16,10 +16,6 @@ beforeEach(() => {
 });
 
 describe('Wallet', () => {
-  it('render', () => {
-    expect(cmp.render()).toMatchSnapshot();
-  });
-
   describe('componentDidMount', () => {
     it('account truthy', () => {
       expect(cmp.props.getWeekStatDispatch).toHaveBeenCalledTimes(0);

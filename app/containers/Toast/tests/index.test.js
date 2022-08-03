@@ -33,19 +33,4 @@ describe('<Toast />', () => {
       expect(cmp.removeToast(event)).toBe(removed);
     });
   });
-
-  describe('render', () => {
-    describe('snapshot test', () => {
-      it('toasts === MAP', () => {
-        cmp.props.toasts = new Map();
-        expect(cmp.render()).toMatchSnapshot();
-      });
-
-      it('toasts === Map.set', () => {
-        const toasts = new Map();
-        cmp.props.toasts = toasts.set('obj', {});
-        expect(cmp.render()).toMatchSnapshot();
-      });
-    });
-  });
 });
