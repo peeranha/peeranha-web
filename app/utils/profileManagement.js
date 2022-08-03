@@ -10,23 +10,13 @@ import {
   saveText,
 } from './ipfs';
 
-import {
-  ACCOUNT_TABLE,
-  ALL_ACCOUNTS_SCOPE,
-  ALL_TG_ACCOUNTS_SCOPE,
-  CONFIRM_TELEGRAM_ACCOUNT,
-  INF_LIMIT,
-  NO_AVATAR,
-  TG_ACCOUNT_TABLE,
-  UNLINK_TELEGRAM_ACCOUNT,
-} from './constants';
+import { INIT_RATING, NO_AVATAR } from './constants';
 import {
   callService,
   NOTIFICATIONS_INFO_SERVICE,
 } from './web_integration/src/util/aws-connector';
-import { CONTRACT_USER, UPDATE_ACC } from './ethConstants';
+import { CONTRACT_USER, GET_USER_RATING, UPDATE_ACC } from './ethConstants';
 import { getUser, getUserPermissions, getUserStats } from './theGraph';
-import { WebIntegrationError } from './errors';
 import { isUserExists } from './accountManagement';
 
 export const getRatingByCommunity = (user, communityId) => {
@@ -69,6 +59,7 @@ export async function getProfileInfo(
   ethereumService,
   getExtendedProfile,
   isLogin,
+  communityIdForRating,
 ) {
   if (!user) return null;
   let profileInfo;
@@ -82,13 +73,31 @@ export async function getProfileInfo(
     profileInfo = await ethereumService.getProfile(user);
     profileInfo.permissions = await getUserPermissions(user);
     userStats = await getUserStats(user);
-    profileInfo.ratings = userStats?.ratings;
+    profileInfo.ratings = userStats.ratings;
     if (!profileInfo.creationTime) {
       const profile = await getUser(user);
       profileInfo.creationTime = profile.creationTime;
     }
   } else {
     profileInfo = await getUser(user);
+  }
+
+  if (communityIdForRating) {
+    const newRating =
+      (await ethereumService.getUserDataWithArgs(GET_USER_RATING, [
+        user,
+        communityIdForRating,
+      ])) || INIT_RATING;
+    //avoiding "Cannot assign to read only property" error
+    profileInfo.ratings = profileInfo.ratings.map(ratingData => {
+      return {
+        communityId: ratingData.communityId,
+        rating:
+          ratingData.communityId === communityIdForRating
+            ? newRating
+            : ratingData.rating,
+      };
+    });
   }
 
   profileInfo.highestRating = profileInfo.ratings?.length

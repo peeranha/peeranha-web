@@ -56,6 +56,8 @@ export const PROPERTY_FIRST_ANSWER = 13;
 export const REWARD_CLAIMING_ENABLED =
   process.env.REWARD_CLAIMING_ENABLED === 'true';
 
+export const INIT_RATING = 10;
+
 export const WEI_IN_ETH = String(10 ** 18);
 export const BOOST_MULTIPLIER = 5;
 export const BOOST_MODIFIER_HIGH = 5;

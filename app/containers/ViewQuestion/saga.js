@@ -339,7 +339,7 @@ export function* getQuestionData({
         const author = yield call(getUserProfileWorker, {
           user: userFromItem,
           getFullProfile: true,
-          isLogin: user === userFromItem,
+          communityIdForRating: question.communityId,
         });
         users.get(userFromItem).map(cachedItem => {
           cachedItem.author = author;
@@ -1188,6 +1188,7 @@ export function* updateQuestionDataAfterTransactionWorker({
       yield put(removeUserProfile(usersForUpdate[0]));
       userInfoOpponent = yield call(getUserProfileWorker, {
         user: usersForUpdate[0],
+        communityIdForRating: questionData.communityId,
       });
     }
 
