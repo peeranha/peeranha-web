@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { translationMessages } from 'i18n';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
 import { CURRENCIES, WALLETS } from 'wallet-config';
 import {
@@ -14,8 +13,6 @@ import {
 
 import { Wrapper } from 'components/FormFields/Wrapper';
 import Label from 'components/FormFields/Label';
-
-import messages from '../Profile/messages';
 
 const Option = styled.div`
   padding: 8px 14px;
@@ -62,12 +59,13 @@ const CurrencyField = ({
   selectScatterAccount,
   selectKeycatAccount,
   isPeer,
-  locale,
   withKeycat,
   withScatter,
   isKeycatWalletSelected,
   isScatterWalletSelected,
 }) => {
+  const { t } = useTranslation();
+
   if (!options) return null;
 
   const value = input.value.toJS ? input.value.toJS() : input.value;
@@ -127,20 +125,18 @@ const CurrencyField = ({
 
       {!isCurrency && (
         <div className="d-flex">
-          <LabelFitContent>
-            {translationMessages[locale]?.[messages.sendFromAccount.id]}
-          </LabelFitContent>
+          <LabelFitContent>{t('profile.sendFromAccount')}</LabelFitContent>
           {!isPeer &&
             !(withScatter && isScatterWalletSelected) &&
             !(withKeycat && isKeycatWalletSelected) && (
               <B onClick={selectAccount} type="button">
-                <FormattedMessage
-                  {...messages[
+                {t(
+                  `profile.${
                     sendFromAccountFieldValue
                       ? 'changeAccount'
                       : 'chooseAccount'
-                  ]}
-                />
+                  }`,
+                )}
               </B>
             )}
         </div>
@@ -156,7 +152,6 @@ CurrencyField.propTypes = {
   label: PropTypes.string,
   options: PropTypes.array,
   isPeer: PropTypes.bool,
-  locale: PropTypes.string,
   selectScatterAccount: PropTypes.func,
   selectKeycatAccount: PropTypes.func,
   sendFromAccountFieldValue: PropTypes.string,

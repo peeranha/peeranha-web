@@ -1,73 +1,45 @@
-import { defineMessages } from 'react-intl';
-
-export default defineMessages({
+export const permissions = {
   permissions: {
     givePermissions: {
-      title: {
-        id: 'app.containers.Moderation.givePermissions',
-      },
-      description: {
-        id: 'app.containers.Moderation.givePermissionsDescription',
-      },
+      title: 'common.moderationPermitions.givePermissions',
+      description: 'common.moderationPermitions.givePermissionsDescription',
     },
     permissionInfinite: {
-      title: {
-        id: 'app.containers.Moderation.permissionInfinite',
-      },
-      description: {
-        id: 'app.containers.Moderation.permissionInfiniteDescription',
-      },
+      title: 'common.moderationPermitions.permissionInfinite',
+      description: 'common.moderationPermitions.permissionInfiniteDescription',
     },
     permissionIgnoreRating: {
-      title: {
-        id: 'app.containers.Moderation.permissionIgnoreRating',
-      },
-      description: {
-        id: 'app.containers.Moderation.permissionIgnoreRatingDescription',
-      },
+      title: 'common.moderationPermitions.permissionIgnoreRating',
+      description:
+        'common.moderationPermitions.permissionIgnoreRatingDescription',
     },
     permissionCreateCommunity: {
-      title: {
-        id: 'app.containers.Moderation.permissionCreateCommunity',
-      },
-      description: {
-        id: 'app.containers.Moderation.permissionCreateCommunityDescription',
-      },
+      title: 'common.moderationPermitions.permissionCreateCommunity',
+      description:
+        'common.moderationPermitions.permissionCreateCommunityDescription',
     },
     permissionCreateTag: {
       title: {
-        id: 'app.containers.Moderation.permissionCreateTag',
+        id: 'common.moderationPermitions.permissionCreateTag',
       },
       description: {
-        id: 'app.containers.Moderation.permissionCreateTagDescription',
+        id: 'common.moderationPermitions.permissionCreateTagDescription',
       },
     },
     permissionChangePostType: {
-      title: {
-        id: 'app.containers.Moderation.permissionChangePostType',
-      },
-      description: {
-        id: 'app.containers.Moderation.permissionChangePostTypeDescription',
-      },
+      title: 'common.moderationPermitions.permissionChangePostType',
+      description:
+        'common.moderationPermitions.permissionChangePostTypeDescription',
     },
     permissionSelectTopQuestion: {
-      title: {
-        id: 'app.containers.Moderation.permissionSelectTopQuestion',
-      },
-      description: {
-        id: 'app.containers.Moderation.permissionSelectTopQuestionDescription',
-      },
+      title: 'common.moderationPermitions.permissionSelectTopQuestion',
+      description:
+        'common.moderationPermitions.permissionSelectTopQuestionDescription',
     },
     permissionOfficialAnswer: {
-      title: {
-        id: 'app.containers.Moderation.permissionOfficialAnswer',
-      },
-      description: {
-        id: 'app.containers.Moderation.permissionOfficialAnswerDescription',
-      },
+      title: 'common.moderationPermitions.permissionOfficialAnswer',
+      description:
+        'common.moderationPermitions.permissionOfficialAnswerDescription',
     },
   },
-  title: {
-    id: 'app.containers.Moderation.title',
-  },
-});
+};

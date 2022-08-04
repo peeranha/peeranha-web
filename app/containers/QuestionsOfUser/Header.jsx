@@ -1,26 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
 import H3 from 'components/H3';
 import Wrapper from 'components/Header/Complex';
 
-import commonMessages from 'common-messages';
+const Header = ({ userId, account, displayName }) => {
+  const { t } = useTranslation();
 
-const Header = ({ userId, account, displayName }) => (
-  <Wrapper className="mb-to-sm-0 mb-from-sm-3" position="bottom">
-    <H3>
-      <FormattedMessage
-        {...commonMessages[
-          account && userId === account ? 'youAsked' : 'somebodyAsked'
-        ]}
-        values={{
-          account: displayName,
-        }}
-      />
-    </H3>
-  </Wrapper>
-);
+  return (
+    <Wrapper className="mb-to-sm-0 mb-from-sm-3" position="bottom">
+      <H3>
+        {t(
+          `common.${
+            account && userId === account ? 'youAsked' : 'somebodyAsked'
+          }`,
+          {
+            account: displayName,
+          },
+        )}
+      </H3>
+    </Wrapper>
+  );
+};
 
 Header.propTypes = {
   account: PropTypes.string,

@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
-
-import commonMessages from 'common-messages';
 
 import {
   BG_PRIMARY_LIGHT,
@@ -23,8 +21,6 @@ import Span from 'components/Span';
 import A from 'components/A';
 import LargeImage from 'components/Img/LargeImage';
 import { Box, UlStyled } from 'containers/ViewProfilePage/MainUserInformation';
-
-import messages from './messages';
 
 const AvailableBalance = styled.span`
   @media (max-width: 590px) {
@@ -57,6 +53,7 @@ const SubHeader = ({
   stakedInCurrentPeriod,
   stakedInNextPeriod,
 }) => {
+  const { t } = useTranslation();
   const userPolygonScanAddress = process.env.BLOCKCHAIN_EXPLORERE_URL + account;
 
   return (
@@ -93,14 +90,14 @@ const SubHeader = ({
               color={TEXT_SECONDARY_LIGHT}
               bold
             >
-              <FormattedMessage {...commonMessages.peers} />
+              {t('common.peers')}
             </Span>
           </div>
 
           <div className="d-flex align-items-center">
             <WalletUl>
               <li>
-                <FormattedMessage {...messages.totalBalance} />
+                {t('wallet.totalBalance')}
                 <Span>
                   <IconSm
                     className="mr-2"
@@ -113,7 +110,7 @@ const SubHeader = ({
               </li>
               {Boolean(stakedInCurrentPeriod) && (
                 <li>
-                  <FormattedMessage {...messages.stakedInCurrentPeriod} />
+                  {t('wallet.stakedInCurrentPeriod')}
                   <Span>
                     <IconSm
                       className="mr-2"
@@ -127,7 +124,7 @@ const SubHeader = ({
               )}
               {Boolean(stakedInNextPeriod) && (
                 <li>
-                  <FormattedMessage {...messages.stakedInNextPeriod} />
+                  {t('wallet.stakedInNextPeriod')}
                   <Span>
                     <IconSm
                       className="mr-2"
@@ -140,7 +137,7 @@ const SubHeader = ({
                 </li>
               )}
               <li>
-                <FormattedMessage {...commonMessages.walletAddress} />
+                {t('common.walletAddress')}
                 <A
                   to={{ pathname: userPolygonScanAddress }}
                   href={userPolygonScanAddress}

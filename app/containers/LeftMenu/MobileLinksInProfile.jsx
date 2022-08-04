@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
-import messages from 'common-messages';
 import * as routes from 'routes-config';
 
 import arrowDownIcon from 'images/arrowDown.svg?external';
@@ -15,11 +14,12 @@ import PropTypes from 'prop-types';
 import { getPermissions } from '../../utils/properties';
 
 const MobileLinksInProfile = ({ profile, isMenuVisible }) => {
+  const { t } = useTranslation();
+  const [visibleProfileLinks, setVisibilityProfileLinks] = useState(false);
+
   if (!profile || !isMenuVisible) {
     return null;
   }
-
-  const [visibleProfileLinks, setVisibilityProfileLinks] = useState(false);
 
   const onClick = () => setVisibilityProfileLinks(!visibleProfileLinks);
 
@@ -43,45 +43,39 @@ const MobileLinksInProfile = ({ profile, isMenuVisible }) => {
 
       {visibleProfileLinks && (
         <div className="pb-2">
-          <A to={routes.profileView(profile.user)}>
-            <FormattedMessage id={messages.profile.id} />
-          </A>
+          <A to={routes.profileView(profile.user)}>{t('common.profile')}</A>
 
           <A to={routes.userCommunities(profile.user)}>
-            <FormattedMessage id={messages.myCommunities.id} />
+            {t('common.myCommunities')}
           </A>
 
           <A
             disabled={profile.postCount === 0}
             to={routes.userQuestions(profile.user)}
           >
-            <FormattedMessage id={messages.posts.id} />
+            {t('common.posts')}
           </A>
 
           <A
             to={routes.userAnswers(profile.user)}
             disabled={profile.answersGiven === 0}
           >
-            <FormattedMessage id={messages.answers.id} />
+            {t('common.answers')}
           </A>
 
           <A to={routes.userNotifications(profile.user)}>
-            <FormattedMessage id={messages.notifications.id} />
+            {t('common.notifications')}
           </A>
 
-          <A to={routes.userNFTs(profile.user)}>
-            <FormattedMessage id={messages.NFTs.id} />
-          </A>
+          <A to={routes.userNFTs(profile.user)}>{t('common.NFTs')}</A>
 
           {isModerator && (
             <A to={routes.userModeration(profile.user)}>
-              <FormattedMessage id={messages.moderation.id} />
+              {t('common.moderation')}
             </A>
           )}
 
-          <Logout>
-            <FormattedMessage id={messages.logout.id} />
-          </Logout>
+          <Logout>{t('common.logout')}</Logout>
         </div>
       )}
     </div>

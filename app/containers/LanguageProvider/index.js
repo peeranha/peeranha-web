@@ -15,7 +15,6 @@ import { APP_LOCALE } from './constants';
 export const LanguageProvider = ({
   children,
   locale,
-  messages,
   changeLocaleDispatch,
 }) => {
   useEffect(() => {
@@ -40,7 +39,7 @@ export const LanguageProvider = ({
   }, []);
 
   return (
-    <IntlProvider locale={locale} key={locale} messages={messages[locale]}>
+    <IntlProvider locale={locale} key={locale}>
       {children}
     </IntlProvider>
   );

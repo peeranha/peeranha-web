@@ -35,16 +35,16 @@ const Base = styled.div`
   }
 `;
 
-export const DescriptionList = ({ label, items, locale }) => {
+export const DescriptionList = ({ label, items }) => {
   const { t } = useTranslation();
 
   return (
     <Base>
       {t(label)}
       <ul>
-        {translationMessages[locale][items].map(item => (
+        {t(items, { returnObjects: true }).map(item => (
           <li key={item}>
-            <span>{item}</span>
+            <span>{t(item)}</span>
           </li>
         ))}
       </ul>

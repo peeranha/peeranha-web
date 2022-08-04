@@ -1,13 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import * as routes from 'routes-config';
 import { getQuestionCode, getSectionCode } from 'utils/mdManagement';
-
-import messages from './messages';
-import commonMessages from 'common-messages';
 
 import { TEXT_PRIMARY, TEXT_LIGHT } from 'style-constants';
 import {
@@ -23,7 +20,6 @@ import Wrapper from 'components/Banner';
 import Button from 'components/Button/Contained/InfoLarge';
 import A from 'components/A';
 import Span from 'components/Span';
-import { translationMessages } from '../../i18n';
 import { REWARD_CLAIMING_ENABLED } from '../../utils/constants';
 
 const GoToBoostPage = Button.extend`
@@ -44,70 +40,75 @@ const Container = styled.div`
     }
   }
 `;
-const whatABoostIs = locale => (
-  <A to={routes.faq(getQuestionCode(SECTION_ID, ...WHAT_IS_BOOST.split('.')))}>
-    <Span color={TEXT_PRIMARY}>
-      {translationMessages[locale][messages.whatABoostIs.id]}
-    </Span>
-  </A>
-);
+const WhatABoostIs = () => {
+  const { t } = useTranslation();
 
-const howToStake = locale => (
-  <A
-    to={routes.faq(
-      getQuestionCode(SECTION_ID, ...HOW_TO_MAKE_A_STAKE.split('.')),
-    )}
-  >
-    <Span color={TEXT_PRIMARY}>
-      {translationMessages[locale][messages.howToStake.id]}
-    </Span>
-  </A>
-);
+  return (
+    <A
+      to={routes.faq(getQuestionCode(SECTION_ID, ...WHAT_IS_BOOST.split('.')))}
+    >
+      <Span color={TEXT_PRIMARY}>{t('wallet.whatABoostIs')}</Span>
+    </A>
+  );
+};
 
-const FAQs = locale => (
-  <A to={routes.faq(getSectionCode(SECTION_ID, BOOST_SECTION))}>
-    <Span color={TEXT_PRIMARY}>
-      {translationMessages[locale][messages.FAQs.id]}
-    </Span>
-  </A>
-);
+const HowToStake = () => {
+  const { t } = useTranslation();
 
-const BoostBanner = ({ userId, locale }) => (
-  <Wrapper className="mt-3">
-    <Container>
-      <img src={activateBoostBanner} alt="boost-banner" />
-
-      {(REWARD_CLAIMING_ENABLED && (
-        <div>
-          <p>
-            <FormattedMessage id={messages.getMoreWithBoost.id} />
-          </p>
-
-          <p>
-            <FormattedMessage
-              id={messages.boostHelp.id}
-              values={{
-                whatABoostIs: whatABoostIs(locale),
-                howToStake: howToStake(locale),
-                FAQs: FAQs(locale),
-              }}
-            />
-          </p>
-
-          <GoToBoostPage to={routes.userBoost(userId)}>
-            <FormattedMessage id={commonMessages.activateBoost.id} />
-          </GoToBoostPage>
-        </div>
-      )) || (
-        <div>
-          <p>
-            <FormattedMessage id={messages.rewardsWillBeAvailable.id} />
-          </p>
-        </div>
+  return (
+    <A
+      to={routes.faq(
+        getQuestionCode(SECTION_ID, ...HOW_TO_MAKE_A_STAKE.split('.')),
       )}
-    </Container>
-  </Wrapper>
-);
+    >
+      <Span color={TEXT_PRIMARY}>{t('wallet.howToStake')}</Span>
+    </A>
+  );
+};
+
+const FAQs = () => {
+  const { t } = useTranslation();
+
+  return (
+    <A to={routes.faq(getSectionCode(SECTION_ID, BOOST_SECTION))}>
+      <Span color={TEXT_PRIMARY}>{t('wallet.FAQs')}</Span>
+    </A>
+  );
+};
+
+const BoostBanner = ({ userId, locale }) => {
+  const { t } = useTranslation();
+
+  return (
+    <Wrapper className="mt-3">
+      <Container>
+        <img src={activateBoostBanner} alt="boost-banner" />
+
+        {(REWARD_CLAIMING_ENABLED && (
+          <div>
+            <p>{t('wallet.getMoreWithBoost')}</p>
+
+            <p>
+              {t('wallet.boostHelp', {
+                whatABoostIs: WhatABoostIs(),
+                howToStake: HowToStake(),
+                FAQs: FAQs(),
+              })}
+            </p>
+
+            <GoToBoostPage to={routes.userBoost(userId)}>
+              {t('common.activateBoost')}
+            </GoToBoostPage>
+          </div>
+        )) || (
+          <div>
+            <p>{t('common.rewardsWillBeAvailable')}</p>
+          </div>
+        )}
+      </Container>
+    </Wrapper>
+  );
+};
 
 BoostBanner.propTypes = {
   userId: PropTypes.string.isRequired,

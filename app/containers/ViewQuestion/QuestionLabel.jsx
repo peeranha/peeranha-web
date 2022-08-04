@@ -8,21 +8,20 @@ import {
   TEXT_PRIMARY_DARK,
   TUTORIAL_ICON_COLOR,
 } from 'style-constants';
-import { FormattedMessage } from 'react-intl';
-import commonMessages from 'common-messages';
+import { useTranslation } from 'react-i18next';
 import { POST_TYPE } from '../../utils/constants';
 
 const types = {
   [POST_TYPE.generalPost]: {
-    title: commonMessages.general.id,
+    title: 'common.general',
     color: TEXT_PRIMARY_DARK,
   },
   [POST_TYPE.expertPost]: {
-    title: commonMessages.expert.id,
+    title: 'common.expert',
     color: TEXT_PRIMARY,
   },
   [POST_TYPE.tutorial]: {
-    title: commonMessages.tutorial.id,
+    title: 'common.tutorial',
     color: TUTORIAL_ICON_COLOR,
   },
 };
@@ -62,11 +61,15 @@ export const TypeContainer = styled.div`
   }
 `;
 
-const QuestionType = ({ postType }) => (
-  <TypeContainer color={types[postType].color}>
-    <FormattedMessage id={types[postType].title} />
-  </TypeContainer>
-);
+const QuestionType = ({ postType }) => {
+  const { t } = useTranslation();
+
+  return (
+    <TypeContainer color={types[postType].color}>
+      {t(types[postType].title)}
+    </TypeContainer>
+  );
+};
 
 QuestionType.propTypes = {
   postType: PropTypes.number,

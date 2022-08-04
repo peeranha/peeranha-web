@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
 import {
   BG_LIGHT,
@@ -9,8 +9,6 @@ import {
   BORDER_RADIUS_L,
   TEXT_DARK,
 } from 'style-constants';
-
-import messages from './messages';
 
 const Base = styled.div`
   position: absolute;
@@ -44,17 +42,21 @@ const Base = styled.div`
   }
 `;
 
-const BountyPopover = ({ date, bountyMessage }) => (
-  <Base>
-    <span>{bountyMessage}</span>
-    {date && (
-      <span>
-        <FormattedMessage {...messages.bountyStatusExpiration} />
-        {date}
-      </span>
-    )}
-  </Base>
-);
+const BountyPopover = ({ date, bountyMessage }) => {
+  const { t } = useTranslation();
+
+  return (
+    <Base>
+      <span>{bountyMessage}</span>
+      {date && (
+        <span>
+          {t('post.bountyStatusExpiration')}
+          {date}
+        </span>
+      )}
+    </Base>
+  );
+};
 
 BountyPopover.propTypes = {
   date: PropTypes.string,

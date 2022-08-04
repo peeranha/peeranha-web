@@ -1,24 +1,25 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
-import commonMessages from 'common-messages';
 import H3 from 'components/H3';
 import Wrapper from 'components/Header/Simple';
 
-import messages from './messages';
+const Header = () => {
+  const { t } = useTranslation();
 
-const Header = () => (
-  <Wrapper className="mb-to-sm-0 mb-from-sm-3">
-    <H3>
-      <span className="d-none d-md-inline-block">
-        <FormattedMessage {...messages.title} />
-      </span>
+  return (
+    <Wrapper className="mb-to-sm-0 mb-from-sm-3">
+      <H3>
+        <span className="d-none d-md-inline-block">
+          {t('common.moderationPermitions.title')}
+        </span>
 
-      <span className="d-inline-block d-md-none">
-        <FormattedMessage {...commonMessages.moderationHeader} />
-      </span>
-    </H3>
-  </Wrapper>
-);
+        <span className="d-inline-block d-md-none">
+          {t('common.moderationHeader')}
+        </span>
+      </H3>
+    </Wrapper>
+  );
+};
 
-export default React.memo(Header);
+export default Header;

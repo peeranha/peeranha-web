@@ -1,6 +1,6 @@
 import React, { useState, memo, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
 import * as routes from 'routes-config';
 
@@ -9,11 +9,10 @@ import Button from 'components/Button/Outlined/PrimaryStretching';
 import Content from './Content';
 import { ANSWER_TYPE } from './constants';
 
-import messages from './messages';
-
 const DEFAULT_NUMBER = 10;
 
 export const AnswersList = props => {
+  const { t } = useTranslation();
   const [allVisible, setAllVisible] = useState(false);
   const { answers } = props.questionData;
 
@@ -82,10 +81,9 @@ export const AnswersList = props => {
       {answers.length > DEFAULT_NUMBER && (
         <div className="d-flex">
           <Button className="py-2" onClick={changeVisibility}>
-            <FormattedMessage
-              id={messages.showMoreAnswers.id}
-              values={{ value: `(${visibleAnswers.length}/${answers.length})` }}
-            />
+            {t('post.showMoreAnswers', {
+              value: `(${visibleAnswers.length}/${answers.length})`,
+            })}
           </Button>
         </div>
       )}

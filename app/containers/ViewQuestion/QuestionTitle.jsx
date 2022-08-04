@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import { createStructuredSelector } from 'reselect';
 
 import { BG_SUCCESS, TEXT_PREMIUM } from 'style-constants';
@@ -29,7 +29,6 @@ import {
   makeSelectProfileInfo,
 } from '../AccountProvider/selectors';
 
-import messages from './messages';
 import QuestionLabel from './QuestionLabel';
 
 export const B = Button.extend`
@@ -74,6 +73,7 @@ export const QuestionTitle = ({
   locale,
   account,
 }) => {
+  const { t } = useTranslation();
   const {
     tags,
     communityId,
@@ -124,15 +124,13 @@ export const QuestionTitle = ({
           <>
             <MarkAnswerNotification className="d-inline-flex">
               <img className="mr-2" src={checkIcon} alt="icon" />
-              <FormattedMessage
-                id={
-                  messages[
-                    isGeneral
-                      ? 'markGeneralQuestionAndGetEarn'
-                      : 'markExpertQuestionAndGetEarn'
-                  ].id
-                }
-              />
+              {t(
+                `post.${
+                  isGeneral
+                    ? 'markGeneralQuestionAndGetEarn'
+                    : 'markExpertQuestionAndGetEarn'
+                }`,
+              )}
             </MarkAnswerNotification>
             <br />
           </>
@@ -169,8 +167,7 @@ export const QuestionTitle = ({
         </TagList>
         {isActivePromotion && (
           <PromotionInfo>
-            <FormattedMessage id={messages.questionIsPromoting} />{' '}
-            {promotedQuestionEndsTime}
+            {t('post.questionIsPromoting')} {promotedQuestionEndsTime}
           </PromotionInfo>
         )}
       </Div>

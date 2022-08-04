@@ -1,7 +1,6 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form/immutable';
-import { FormattedMessage } from 'react-intl';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 
 import letterImg from 'images/letter-smile.svg?inline';
@@ -14,7 +13,6 @@ import SignUpOptions, { P } from 'components/SignUpWrapper/SignUpOptions';
 
 import SignUp from './index';
 import { VERIFICATION_FIELD } from './constants';
-import messages from './messages';
 
 import { Div } from './EthereumWalletGenerationForm';
 
@@ -22,62 +20,69 @@ export const Form = Div.extend`
   position: relative;
 `.withComponent('form');
 
-const EmailVerificationForm = ({ handleSubmit }) => (
-  <SignUp>
-    {({
-      verifyEmail,
-      locale,
-      emailVerificationProcessing,
-      sendAnotherCode,
-      showLoginModal,
-      showWalletSignUpForm,
-      showWalletSignUpProcessing,
-      logo,
-    }) => (
-      <SignUpOptions
-        showLoginModal={showLoginModal}
-        showWalletSignUpForm={showWalletSignUpForm}
-        showWalletSignUpProcessing={showWalletSignUpProcessing}
-        emailVerificationProcessing={emailVerificationProcessing}
-        logo={logo}
-      >
-        <div className="text-center">
-          <img src={letterImg} alt="check your email" />
-          <P className="text-center py-2">
-            <FormattedMessage {...messages.checkYourEmail} />
-          </P>
-        </div>
+const EmailVerificationForm = ({ handleSubmit }) => {
+  const { t } = useTranslation();
 
-        <Form onSubmit={handleSubmit(verifyEmail)}>
-          <Field
-            name={VERIFICATION_FIELD}
-            disabled={emailVerificationProcessing || showWalletSignUpProcessing}
-            label={translationMessages[locale][messages.verificationCode.id]}
-            component={TextInputField}
-            validate={[required]}
-            warn={[required]}
-          />
+  return (
+    <SignUp>
+      {({
+        verifyEmail,
+        emailVerificationProcessing,
+        sendAnotherCode,
+        showLoginModal,
+        showWalletSignUpForm,
+        showWalletSignUpProcessing,
+        logo,
+      }) => (
+        <SignUpOptions
+          showLoginModal={showLoginModal}
+          showWalletSignUpForm={showWalletSignUpForm}
+          showWalletSignUpProcessing={showWalletSignUpProcessing}
+          emailVerificationProcessing={emailVerificationProcessing}
+          logo={logo}
+        >
+          <div className="text-center">
+            <img src={letterImg} alt="check your email" />
+            <P className="text-center py-2">{t('signUp.checkYourEmail')}</P>
+          </div>
 
-          <SendAnotherCodeButton
-            onClick={sendAnotherCode}
-            className="mb-3"
-            type="button"
-            disabled={emailVerificationProcessing || showWalletSignUpProcessing}
-          >
-            <FormattedMessage {...messages.sendAnotherCode} />
-          </SendAnotherCodeButton>
+          <Form onSubmit={handleSubmit(verifyEmail)}>
+            <Field
+              name={VERIFICATION_FIELD}
+              disabled={
+                emailVerificationProcessing || showWalletSignUpProcessing
+              }
+              label={t('signUp.verificationCode')}
+              component={TextInputField}
+              validate={[required]}
+              warn={[required]}
+            />
 
-          <SubmitButton
-            disabled={emailVerificationProcessing || showWalletSignUpProcessing}
-            className="w-100"
-          >
-            <FormattedMessage {...messages.verify} />
-          </SubmitButton>
-        </Form>
-      </SignUpOptions>
-    )}
-  </SignUp>
-);
+            <SendAnotherCodeButton
+              onClick={sendAnotherCode}
+              className="mb-3"
+              type="button"
+              disabled={
+                emailVerificationProcessing || showWalletSignUpProcessing
+              }
+            >
+              {t('signUp.sendAnotherCode')}
+            </SendAnotherCodeButton>
+
+            <SubmitButton
+              disabled={
+                emailVerificationProcessing || showWalletSignUpProcessing
+              }
+              className="w-100"
+            >
+              {t('signUp.verify')}
+            </SubmitButton>
+          </Form>
+        </SignUpOptions>
+      )}
+    </SignUp>
+  );
+};
 
 EmailVerificationForm.propTypes = {
   handleSubmit: PropTypes.func,

@@ -1,17 +1,15 @@
-import React, { memo, useState, useMemo } from 'react';
+import React, { memo, useState } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 
 import * as routes from 'routes-config';
-import messages from 'common-messages';
 
 import arrowDownIcon from 'images/arrowDown.svg?external';
 
 import { selectRewardsWeeksNumber } from 'containers/Wallet/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import * as selectors from 'containers/Boost/selectors';
 
 import WalletButton from 'containers/Header/WalletDropdown/WalletButton';
 import { BoostPrediction } from 'containers/Header/WalletDropdown';
@@ -19,7 +17,6 @@ import NotificationIcon from 'containers/Header/WalletDropdown/NotificationIcon'
 
 import A from 'components/A';
 import Icon from 'components/Icon';
-import SendTokens from 'containers/SendTokens';
 import { REWARD_CLAIMING_ENABLED } from '../../../utils/constants';
 
 const MobileLinksInWallet = ({
@@ -32,6 +29,7 @@ const MobileLinksInWallet = ({
   rewardsWeeksNumber,
   locale,
 }) => {
+  const { t } = useTranslation();
   const [visibleWalletLinks, setVisibilityWalletLinks] = useState(false);
 
   const isPositiveNumber = number => Number.isFinite(number) && number > 0;
@@ -70,7 +68,7 @@ const MobileLinksInWallet = ({
       {visibleWalletLinks && (
         <div className="pb-2">
           <A to={routes.userWallet(profile.user)}>
-            <FormattedMessage {...messages.wallet} />
+            {t('common.wallet')}
             {isPositiveNumber(rewardsWeeksNumber) && (
               <NotificationIcon
                 inline
@@ -84,15 +82,10 @@ const MobileLinksInWallet = ({
 
           {REWARD_CLAIMING_ENABLED && (
             <A to={routes.userBoost(profile.user)}>
-              <FormattedMessage {...messages.boost} />
+              {t('common.boost')}
               {boost > 1 && <BoostPrediction>{boost}</BoostPrediction>}
             </A>
           )}
-
-          {/* TODO send tokens issue */}
-          {/* <SendTokens>
-            <FormattedMessage {...messages.sendTokens} />
-          </SendTokens> */}
         </div>
       )}
     </div>

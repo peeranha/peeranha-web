@@ -34,7 +34,7 @@
   "newPassword": "New password",
   "confirmPassword": "Confirm password",
   "youAnswered": "You answered",
-  "seeMore": "See all {posts} and {answers}",
+  "seeMore": "See all <0>{{posts}}</0> and <1>{{answers}}</1>",
   "tipText": "Set up wallets for crypto tokens to get tips from other users.",
   "crypto": "Crypto",
   "account": "Account",

@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
 import { TEXT_WARNING_LIGHT } from 'style-constants';
 
@@ -11,7 +11,6 @@ import Span from 'components/Span';
 import Base from 'components/Base';
 import Icon from 'components/Icon';
 
-import messages from './messages';
 import WeekNumber from './WeekNumber';
 
 const CurrentWeek = ({
@@ -20,28 +19,30 @@ const CurrentWeek = ({
   periodStarted,
   periodFinished,
   currentWeeksNumber,
-}) => (
-  <li className="flex-grow-1 mb-3">
-    <Base position="top">
-      <P className="mb-1" color={TEXT_WARNING_LIGHT} fontSize="13">
-        <FormattedMessage id={messages.currentPeriod.id} />
-      </P>
-      <WeekNumber
-        currentWeeksNumber={currentWeeksNumber}
-        locale={locale}
-        period={period}
-        periodStarted={periodStarted}
-        periodFinished={periodFinished}
-      />
-    </Base>
-    <Base className="d-flex align-items-center" position="bottom">
-      <Icon className="mr-3" icon={calendarImage} width="34" />
-      <Span mobileFS={14}>
-        <FormattedMessage id={messages.periodStillInProgress.id} />
-      </Span>
-    </Base>
-  </li>
-);
+}) => {
+  const { t } = useTranslation();
+
+  return (
+    <li className="flex-grow-1 mb-3">
+      <Base position="top">
+        <P className="mb-1" color={TEXT_WARNING_LIGHT} fontSize="13">
+          {t('wallet.currentPeriod')}
+        </P>
+        <WeekNumber
+          currentWeeksNumber={currentWeeksNumber}
+          locale={locale}
+          period={period}
+          periodStarted={periodStarted}
+          periodFinished={periodFinished}
+        />
+      </Base>
+      <Base className="d-flex align-items-center" position="bottom">
+        <Icon className="mr-3" icon={calendarImage} width="34" />
+        <Span mobileFS={14}>{t('wallet.periodStillInProgress')}</Span>
+      </Base>
+    </li>
+  );
+};
 
 CurrentWeek.propTypes = {
   period: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

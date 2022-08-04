@@ -1,7 +1,5 @@
-/* eslint no-unused-vars: 0 */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
 import { useTranslation } from 'react-i18next';
 import { TEXT_SECONDARY } from 'style-constants';
 
@@ -29,8 +27,7 @@ const Button = ({ sorting, icon }) => {
       bold
     >
       <img className="mr-2" src={icon} alt="icon" />
-      {t('')}
-      {/* <FormattedMessage {...sorting.message} /> */}
+      {t(sorting.message)}
     </Span>
   );
 };

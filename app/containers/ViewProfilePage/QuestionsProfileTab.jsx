@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
@@ -12,7 +12,6 @@ import {
 } from 'style-constants';
 
 import { getTimeFromDateToNow } from 'utils/datetime';
-import commonMessages from 'common-messages';
 
 import {
   POST_TYPE_ANSWER,
@@ -123,6 +122,7 @@ const Note = ({
   isMyPost,
   communityId,
 }) => {
+  const { t } = useTranslation();
   const LinkStyled = single && single !== communityId ? ADefault : A;
 
   const answerRouteId =
@@ -159,8 +159,7 @@ const Note = ({
           fontSize="14"
           mobileFS="12"
         >
-          {getTimeFromDateToNow(myPostTime, locale)}{' '}
-          <FormattedMessage id={commonMessages.ago.id} />
+          {getTimeFromDateToNow(myPostTime, locale)} {t('common.ago')}
         </PostDate>
       </Block>
     </LinkStyled>

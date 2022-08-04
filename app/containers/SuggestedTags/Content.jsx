@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
-
-import commonMessages from 'common-messages';
 
 import arrowDownIcon from 'images/arrowDown.svg?external';
 
@@ -40,6 +38,7 @@ const TagLarge = Tag.extend`
 const DESCRIPTION_ID = 'description-content-id';
 
 const Item = x => {
+  const { t } = useTranslation();
   const [isOpened, changeView] = useState(false);
   const [isArrowVisible, changeArrowVisibility] = useState(false);
 
@@ -77,7 +76,7 @@ const Item = x => {
         isArrowVisible={isArrowVisible}
       >
         <P className="d-flex align-items-center mb-2" bold>
-          <FormattedMessage {...commonMessages.description} />
+          {t('common.description')}
           <Icon
             className={!isArrowVisible ? 'd-none' : 'ml-2'}
             icon={arrowDownIcon}

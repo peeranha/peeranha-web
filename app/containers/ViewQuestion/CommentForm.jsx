@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import { Field, reduxForm } from 'redux-form/immutable';
-import messages from 'common-messages';
 
 import InfoButton from 'components/Button/Contained/InfoLarge';
 import TransparentButton from 'components/Button/Contained/TransparentLarge';
@@ -21,36 +20,40 @@ const CommentForm = ({
   toggleView,
   submitButtonName,
   className,
-}) => (
-  <form className={className} onSubmit={handleSubmit(sendComment)}>
-    <div>
-      <Field
-        name={TEXTAREA_COMMENT_FORM}
-        disabled={sendCommentLoading}
-        component={TextareaField}
-        validate={[strLength1x1000, required]}
-        warn={[strLength1x1000, required]}
-      />
-    </div>
-    <div>
-      <InfoButton
-        id={`${submitButtonId}${answerId}`}
-        disabled={sendCommentLoading}
-        typeAttr="submit"
-      >
-        {submitButtonName}
-      </InfoButton>
+}) => {
+  const { t } = useTranslation();
 
-      <TransparentButton
-        disabled={sendCommentLoading}
-        onClick={toggleView}
-        typeAttr="button"
-      >
-        <FormattedMessage {...messages.cancel} />
-      </TransparentButton>
-    </div>
-  </form>
-);
+  return (
+    <form className={className} onSubmit={handleSubmit(sendComment)}>
+      <div>
+        <Field
+          name={TEXTAREA_COMMENT_FORM}
+          disabled={sendCommentLoading}
+          component={TextareaField}
+          validate={[strLength1x1000, required]}
+          warn={[strLength1x1000, required]}
+        />
+      </div>
+      <div>
+        <InfoButton
+          id={`${submitButtonId}${answerId}`}
+          disabled={sendCommentLoading}
+          typeAttr="submit"
+        >
+          {submitButtonName}
+        </InfoButton>
+
+        <TransparentButton
+          disabled={sendCommentLoading}
+          onClick={toggleView}
+          typeAttr="button"
+        >
+          {t('common.cancel')}
+        </TransparentButton>
+      </div>
+    </form>
+  );
+};
 
 CommentForm.propTypes = {
   answerId: PropTypes.number,

@@ -1,0 +1,31 @@
+{
+  "unknownError": "Неизвестная ошибка. Пожалуйста, отправьте отчет об ошибке!",
+  "accountAlreadyRegistered": "Аккаунт уже зарегистрирован",
+  "invalidEncryptionKey": "Неверный ключ шифрования или IV",
+  "userDidntStoreKey": "Пользователь не сохранил owner key в нашем сервисе",
+  "userDidntRequestActivateAcc": "Данный пользователь не активировал аккаунт",
+  "youSendTooManRequests":
+    "Вы отправили слишком много запросов за последнее время",
+  "userDidntMakeRequestToVerifyEmail":
+    "Email не был зарегистрирован или время ожидания истекло",
+  "codeExpiredOrIncorrect": "Код истек или был введен некорректно",
+  "passphraseIsInvalid": "Passphrase неверен",
+  "unableToDecryptUserKey": "Проверьте правильность введенных данных",
+  "wrongPassword": "Неверный пароль",
+  "wrongMasterKey": "Неверный Master ключ",
+  "accountWithEmailIsntRegistered":
+    "Аккаунт с данной почтой еще не был зарегистрирован",
+  "requestExpiredOrSomeOperationWasPassed":
+    "Пользователь еще не завершил операцию или время жизни ключа истекло",
+  "invalidCipher": "Неверный ключ шифрования IV in passphase",
+  "emailAlreadyInUse": "Email уже используется",
+  "unableToBuildModel": "Невозможно построить модель",
+  "facebookAlreadyInUse": "Фейсбук аккаунт уже используется",
+  "facebookAccountIsntRegistered": "Фейсбук аккаунт ещё не зарегистрирован",
+  "incorrectFacebookAccessToken": "Некорректный токен доступа фейсбук",
+  "noStoredFacebookData":
+    "В Пиранье нет сохраненных данных заданного фейсбук-аккаунта",
+  "privateKeyTypeIsNotSet": "Не задан тип приватного ключа",
+  "noFacebookAccountEmail":
+    "В учетной записи фесбук не установлена электронная почта, либо электронная почта не подтвержена"
+}

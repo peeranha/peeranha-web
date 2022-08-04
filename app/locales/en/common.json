@@ -15,7 +15,7 @@
   "achievements": "Achievements",
   "postsNumber": "Posts <0>{{number}}</0>",
   "answersNumber": "Answers <0>{{number}}</0>",
-  "allActivitiesNumber": "All {{number}}",
+  "allActivitiesNumber": "All <0>{{number}}</0>",
   "achievementsNumber": "Achievements {{number}}",
   "settings": "Settings",
   "notifications": "Notifications",
@@ -334,5 +334,129 @@
     "subscribe": "Subscribe",
     "unsubscribe": "Unsubscribe",
     "subscribeToThisCommunity": "Subscribe to this community"
-  }
+  },
+  "metaTransaction": {
+    "agreeWithMetaTransactions": "We’ve got you covered",
+    "youNeedMetaBecause":
+      "Your MATIC balance is 0. MATIC is required to pay transaction fees.  ",
+    "dontWorry": "Don’t worry! We’ve got you covered.",
+    "wouldYouLike":
+      "Would you like us to relay your transactions and cover transaction fees?",
+    "confirm": "Yes",
+    "cansel": "No"
+  },
+  "moderationPermitions": {
+    "title": "Moderator permissions",
+    "givePermissions": "Give permissions",
+    "givePermissionsDescription":
+      "Allows you to give and revoke community moderator permission.",
+    "permissionInfinite": "Infinite Impact",
+    "permissionInfiniteDescription":
+      "Allows you to delete posts, answers and comments in one click",
+    "permissionIgnoreRating": "Ignore rating",
+    "permissionIgnoreRatingDescription":
+      "Allows you to perform actions that are rating restricted",
+    "permissionCreateCommunity": "Create community",
+    "permissionCreateCommunityDescription":
+      "Allows you to instantly create a community",
+    "permissionCreateTag": "Create tag",
+    "permissionCreateTagDescription": "Allows you to instantly create a tag",
+    "permissionChangePostType": "Change post type",
+    "permissionChangePostTypeDescription": "Allows you to change post type",
+    "permissionSelectTopQuestion": "Select top question",
+    "permissionSelectTopQuestionDescription":
+      "Allows you to select a question that will be displayed on \"Top\" page",
+    "permissionOfficialAnswer": "Post official answer",
+    "permissionOfficialAnswerDescription":
+      "Allows you to post an official answer"
+  },
+  "telegram": {
+    "user": "Telegram user",
+    "userLabelPopover": "This is a temporary account provided by Telegram Bot",
+    "confirm": "Confirm",
+    "unlink": "Unlink"
+  },
+  "termsOfServiceDesc": {
+    "title": "Terms of Service",
+    "description": "Terms of Service: description"
+  },
+  "descriptionSearch": "Search: description",
+  "header": {
+    "walletTooltipPart1": "You have ",
+    "walletTooltipPart2": " rewards ready"
+  },
+  "tutorialDesc": {
+    "title": "Tutorial",
+    "description": "Tutorial: description",
+    "tutorial": "Tutorial"
+  },
+  "askQuestionBanner": {
+    "help": "Help",
+    "didntFindAnswer": "Didn’t find the answer?",
+    "freeFeelToAsk":
+      "Feel free to ask our team.  We will help to find the answer."
+  },
+  "usersDesc": {
+    "title": "Users",
+    "description": "Users: description"
+  },
+  "existingCommunities": {
+    "voteForNewCommunities": "Vote for new communities",
+    "singleCommunityTooltip": "This community has Q&A website on another domain"
+  },
+  "ratingStatus": {
+    "stranger": "Stranger",
+    "newbie": "Newbie",
+    "jrResident": "Junior",
+    "resident": "Resident",
+    "srResident": "Senior",
+    "heroResident": "Hero",
+    "legResident": "Superhero",
+    "banned": "Banned"
+  },
+  "privacyPolicyDesc": {
+    "title": "Privacy policy",
+    "description": "Privacy policy, description"
+  },
+  "supportDesc": {
+    "title": "Support",
+    "description": "Support | Description",
+    "feelFreeToAsk": "Feel free to ask",
+    "alsoWeHighly":
+      "We highly appreciate your feedback, opinion, and suggestions for our platform. Please, send us a few lines or even better let us know if you have 15 minutes to chat."
+  },
+  "voteNewCommunity": {
+    "youHaveAlreadyVoted": "You have already voted",
+    "creatorCannotUpvoteOwnComm": "Creators cannot upvote their own community",
+    "youCannotChange": "You cannot change your vote. Are you sure?"
+  },
+  "creatorCannotUpvoteOwnTag": "Creators cannot upvote their own tag",
+  "editCommunityDesc": {
+    "communityTitleTip": "Name of the community",
+    "description": "Description of EditCommunity",
+    "editCommunity": "Save",
+    "header": "Edit community",
+    "pageTitle": "Community | Edit"
+  },
+  "editQuestion": {
+    "description": "Edit Question Description",
+    "submitButtonName": "Save",
+    "title": "Edit question"
+  },
+  "editDiscussion": "Edit Discussion",
+  "editExpertQ&A": "Edit Expert Q&A",
+  "editTutorial": "Edit Tutorial",
+  "footerHeader": "Copyright: Peeranha",
+  "youGotThisKey":
+    "You received this key with the authorization which was saved in a safe place. Try to find it.",
+  "noAccessError": "No access to complete this action!",
+  "groupForAuthorizedUser": "Profile",
+  "errorBoundary": {
+    "title": "Error",
+    "description": "Description of error boundary",
+    "problemWithWebpage": "A problem occurred with this webpage",
+    "details": "Details",
+    "reloadPage": "Reload page"
+  },
+  "answerForm": "Your Answer"
 }

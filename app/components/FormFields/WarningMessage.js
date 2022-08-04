@@ -1,8 +1,7 @@
-/* eslint indent: 0 */
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import { TEXT_SECONDARY } from 'style-constants';
 
 import validationArrowIcon from 'images/validationArrow.svg?inline';
@@ -47,6 +46,7 @@ export const WarningMessage = ({
   visited,
   touched,
 }) => {
+  const { t } = useTranslation();
   const err = error || warning;
 
   if (err && err.size) {
@@ -67,16 +67,12 @@ export const WarningMessage = ({
           />
         )}
 
-        {/* {(err && (
-          // <FormattedMessage
-          //   id={err.id}
-          //   values={{
-          //     min: err.min,
-          //     max: err.max,
-          //   }}
-          // />
-        )) ||
-          tip} */}
+        {(err &&
+          t(err.id, {
+            min: err.min,
+            max: err.max,
+          })) ||
+          tip}
       </div>
     </Div>
   ) : null;

@@ -1,27 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { translationMessages } from 'i18n';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
 import H3 from 'components/H3';
-import InfoLabel from 'components/InfoLabelWithPopover';
 import InfoButton from 'components/Button/Outlined/InfoMedium';
 import styled from 'styled-components';
 
-import commonMessages from 'common-messages';
 import {
   CONFIRM_TG_ACCOUNT,
   UNLINK_TG_ACCOUNT,
 } from '../TelegramAccountAction/constants';
-import signupMessages from '../SignUp/messages';
-import profileMessages from '../Profile/messages';
-import deleteAccountMessages from '../DeleteAccount/messages';
-import forgotPasswordMessages from '../ForgotPassword/messages';
 
 import { BaseStyled } from './SettingsOfUser';
 import ChangeEmailButton from '../ChangeEmail';
-import ShowOwnerKeyButton from '../ShowOwnerKey';
-import ShowActiveKeyButton from '../ShowActiveKey';
 import DeleteAccountButton from '../DeleteAccount';
 import ChangePasswordButton from '../ChangePasswordByPrevious';
 import TelegramAccountAction from '../TelegramAccountAction';
@@ -34,16 +25,8 @@ const Link = styled(A)`
   ${svgDraw({ color: TEXT_PRIMARY })};
 `;
 
-const AuthorizationData = ({
-  locale,
-  ownerKey,
-  loginData,
-  className,
-  activeKey,
-  writeToBuffer,
-  tgData,
-  profile,
-}) => {
+const AuthorizationData = ({ loginData, className, tgData, profile }) => {
+  const { t } = useTranslation();
   const { loginWithFacebook, loginWithScatter, loginWithKeycat } = loginData;
   const isLoggedInWithWallet = loginWithScatter || loginWithKeycat;
 
@@ -55,9 +38,7 @@ const AuthorizationData = ({
 
   return (
     <BaseStyled position="bottom" notRoundedStyle className={className}>
-      <H3>
-        <FormattedMessage {...profileMessages.authorizationData} />
-      </H3>
+      <H3>{t('profile.authorizationData')}</H3>
 
       <div>
         <table>
@@ -65,14 +46,10 @@ const AuthorizationData = ({
             !isLoggedInWithWallet && (
               <thead>
                 <tr>
-                  <td>
-                    <FormattedMessage {...signupMessages.email} />
-                  </td>
+                  <td>{t('signUp.email')}</td>
                   <td>{loginData?.email ?? null}</td>
                   <td>
-                    <ChangeEmailButton>
-                      <FormattedMessage {...commonMessages.change} />{' '}
-                    </ChangeEmailButton>
+                    <ChangeEmailButton>{t('common.change')} </ChangeEmailButton>
                   </td>
                 </tr>
               </thead>
@@ -82,13 +59,11 @@ const AuthorizationData = ({
             {!loginWithFacebook &&
               !isLoggedInWithWallet && (
                 <tr>
-                  <td>
-                    <FormattedMessage {...signupMessages.password} />
-                  </td>
+                  <td>{t('signUp.password')}</td>
                   <td>• • • • • • • • • • • • •</td>
                   <td>
                     <ChangePasswordButton>
-                      <FormattedMessage {...commonMessages.change} />{' '}
+                      {t('common.change')}{' '}
                     </ChangePasswordButton>
                   </td>
                 </tr>
@@ -99,9 +74,7 @@ const AuthorizationData = ({
                 <tr>
                   {(!!tgAccountName && (
                     <>
-                      <td>
-                        <FormattedMessage {...signupMessages.tgAccountName} />
-                      </td>
+                      <td>{t('signUp.tgAccountName')}</td>
                       {(tgData.temporaryUser && (
                         <Link to={routes.profileView(tgData.temporaryUser)}>
                           {tgAccountName}
@@ -110,9 +83,7 @@ const AuthorizationData = ({
                     </>
                   )) || (
                     <>
-                      <td>
-                        <FormattedMessage {...signupMessages.tgAccountID} />
-                      </td>
+                      <td>{t('signUp.tgAccountID')}</td>
                       <td>{tgData.telegram_id}</td>
                     </>
                   )}
@@ -142,7 +113,7 @@ const AuthorizationData = ({
           <DeleteAccountButton
             render={({ onClick }) => (
               <InfoButton onClick={onClick}>
-                <FormattedMessage {...deleteAccountMessages.deleteAccount} />
+                {t('common.deleteAccount')}
               </InfoButton>
             )}
           />

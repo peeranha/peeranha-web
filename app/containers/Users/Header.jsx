@@ -1,10 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
 import { TEXT_SECONDARY } from 'style-constants';
-
-import commonMessages from 'common-messages';
 
 import { getFormattedNum2 } from 'utils/numbers';
 import { getSingleCommunityDetails } from 'utils/communityManagement';
@@ -24,30 +22,42 @@ import Wrapper, { WrapperRightPanel } from 'components/Header/Simple';
 
 import options from './options';
 
-const Button = ({ sorting }) => (
-  <Span className="d-inline-flex align-items-center mr-2 text-capitalize" bold>
-    <MediumIcon>
-      <IconMd className="mr-2" icon={usersHeaderFilter} />
-    </MediumIcon>
-    <FormattedMessage {...options[sorting].message} />
-  </Span>
-);
+const Button = ({ sorting }) => {
+  const { t } = useTranslation();
 
-const Menu = ({ sort, sorting }) => (
-  <Ul>
-    {Object.keys(options).map(x => (
-      <CheckedItem
-        key={x}
-        onClick={() => sort(options[x].orderDirection)}
-        isActive={x === sorting}
-      >
-        <FormattedMessage {...options[x].message} />
-      </CheckedItem>
-    ))}
-  </Ul>
-);
+  return (
+    <Span
+      className="d-inline-flex align-items-center mr-2 text-capitalize"
+      bold
+    >
+      <MediumIcon>
+        <IconMd className="mr-2" icon={usersHeaderFilter} />
+      </MediumIcon>
+      {t(options[sorting].message)}
+    </Span>
+  );
+};
+
+const Menu = ({ sort, sorting }) => {
+  const { t } = useTranslation();
+
+  return (
+    <Ul>
+      {Object.keys(options).map(x => (
+        <CheckedItem
+          key={x}
+          onClick={() => sort(options[x].orderDirection)}
+          isActive={x === sorting}
+        >
+          {t(options[x].message)}
+        </CheckedItem>
+      ))}
+    </Ul>
+  );
+};
 
 export const Header = ({ sorting, dropdownFilter, userCount }) => {
+  const { t } = useTranslation();
   const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
 
   return (
@@ -58,9 +68,7 @@ export const Header = ({ sorting, dropdownFilter, userCount }) => {
         </MediumIconStyled>
 
         <span>
-          <FormattedMessage
-            {...commonMessages[isBloggerMode ? 'followers' : 'users']}
-          />
+          {t(`common.${isBloggerMode ? 'followers' : 'users'}`)}
           <Span className="ml-2" color={TEXT_SECONDARY} fontSize="30" bold>
             {getFormattedNum2(userCount)}
           </Span>

@@ -78,7 +78,6 @@ export const ContentBody = ({
         voteToDelete={voteToDelete}
         voteToDeleteLoading={voteToDeleteLoading}
         buttonParams={buttonParams}
-        translations={translations}
         answerId={answerId}
         comments={comments}
         form={`${ADD_COMMENT_FORM}${answerId}`}

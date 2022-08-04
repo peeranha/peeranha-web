@@ -12,10 +12,8 @@ import _get from 'lodash/get';
 import _pickBy from 'lodash/pickBy';
 import _isEmpty from 'lodash/isEmpty';
 
-import commonMessages from 'common-messages';
-
 import { CURRENCIES } from 'wallet-config';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import H4 from 'components/H4';
 import ContainedButton from 'components/Button/Contained/InfoLarge';
 import OutlinedButton from 'components/Button/Outlined/InfoLarge';
@@ -26,7 +24,6 @@ import saga from './saga';
 
 import AccountField from '../AccountField';
 
-import profileMessages from '../../Profile/messages';
 import { saveCryptoAccounts } from './actions';
 import { DAEMON } from '../../../utils/constants';
 import { selectIsSaveCryptoAccountsProcessing } from './selectors';
@@ -228,6 +225,7 @@ const Tip = ({
   isSaveCryptoAccountsProcessing,
   valid,
 }) => {
+  const { t } = useTranslation();
   const saveAccounts = form =>
     saveCryptoAccountsDispatch({
       cryptoAccounts: _pickBy(form.toJS(), value => !_isEmpty(value)),
@@ -239,19 +237,15 @@ const Tip = ({
   return (
     <Container className={className} style={{ marginTop: '10px' }}>
       <Base>
-        <H4>
-          <FormattedMessage {...commonMessages.tip} />
-        </H4>
-        <FormattedMessage {...profileMessages.tipText} />
+        <H4>{t('common.tip')}</H4>
+        {t('profile.tipText')}
         <Form>
           <DivTable className={changed ? 'mb-4' : ''}>
             <DivHeader>
               <HeadCryptoColumn className="pl-2">
-                <FormattedMessage {...profileMessages.crypto} />
+                {t('profile.crypto')}
               </HeadCryptoColumn>
-              <HeadAccountColumn>
-                <FormattedMessage {...profileMessages.account} />
-              </HeadAccountColumn>
+              <HeadAccountColumn>{t('profile.account')}</HeadAccountColumn>
             </DivHeader>
             <DivBody>
               {Object.keys(CURRENCIES).map(currency => {
@@ -288,13 +282,13 @@ const Tip = ({
                 onClick={handleSubmit(saveAccounts)}
                 disabled={isSaveCryptoAccountsProcessing}
               >
-                <FormattedMessage {...profileMessages.saveButton} />
+                {t('profile.saveButton')}
               </ContainedButton>
               <OutlinedButton
                 onClick={reset}
                 disabled={isSaveCryptoAccountsProcessing}
               >
-                <FormattedMessage {...commonMessages.cancel} />
+                {t('common.cancel')}
               </OutlinedButton>
             </SaveCancelButtons>
           )}

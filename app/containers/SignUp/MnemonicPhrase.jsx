@@ -130,10 +130,6 @@ export const MnemonicPhrase = ({
           <Icon stroke-width={1} icon={CopyIcon} width="32" height="32" />
         </CopyIconContainer>
       </StyledMasterInputContainer>
-
-      {/* <CopyButton onClick={writeToBuffer} id="copy" type="button"> */}
-      {/*  <FormattedMessage {...commonMessages.copy} /> */}
-      {/* </CopyButton> */}
     </StyledWrapper>
   );
 };

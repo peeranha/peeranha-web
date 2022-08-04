@@ -7,6 +7,7 @@ import { fromJS } from 'immutable';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { reducer as formReducer } from 'redux-form/immutable';
 
+import languageProviderReducer from 'containers/LanguageProvider/reducer';
 import loginReducer from 'containers/Login/reducer';
 import toastReducer from 'containers/Toast/reducer';
 import accountProviderReducer from 'containers/AccountProvider/reducer';
@@ -79,6 +80,7 @@ export function routeReducer(state = routeInitialState, action) {
 export default injectedReducers =>
   combineReducers({
     route: routeReducer,
+    language: languageProviderReducer,
     signUp: signUpReducer,
     login: loginReducer,
     logout: logoutReducer,

@@ -1,12 +1,10 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import { BORDER_SECONDARY } from 'style-constants';
 
 import letterSmile from 'images/letter-smile.svg?inline';
 
 import Banner from 'components/Banner/Transparent';
-
-import messages from './messages';
 
 const BannerStyled = Banner.extend`
   padding-top: 20px;
@@ -22,16 +20,18 @@ const BannerStyled = Banner.extend`
   }
 `;
 
-export default React.memo(() => (
-  <BannerStyled>
-    <img src={letterSmile} alt="leave-message" />
-    <div>
-      <p>
-        <FormattedMessage {...messages.feelFreeToAsk} />
-      </p>
-      <p>
-        <FormattedMessage {...messages.alsoWeHighly} />
-      </p>
-    </div>
-  </BannerStyled>
-));
+const BannerComponent = () => {
+  const { t } = useTranslation();
+
+  return (
+    <BannerStyled>
+      <img src={letterSmile} alt="leave-message" />
+      <div>
+        <p>{t('common.supportDesc.feelFreeToAsk')}</p>
+        <p>{t('common.supportDesc.alsoWeHighly')}</p>
+      </div>
+    </BannerStyled>
+  );
+};
+
+export default BannerComponent;

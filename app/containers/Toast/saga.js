@@ -1,8 +1,4 @@
-/* eslint consistent-return: 0 */
 import { takeEvery, put, select, call } from 'redux-saga/effects';
-
-import { translationMessages } from 'i18n';
-import messages from 'common-messages';
 
 import {
   ApplicationError,
@@ -15,7 +11,6 @@ import { logError } from 'utils/web_integration/src/logger/index';
 import { ENDPOINTS_LIST } from 'utils/constants';
 import { getCookie } from 'utils/cookie';
 
-import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import blockchainErrorMsgs from 'containers/ErrorPage/blockchainErrors';
 import { AUTOLOGIN_DATA } from 'containers/Login/constants';
@@ -26,16 +21,12 @@ import { makeSelectToasts } from './selectors';
 
 import { errHandlingTypes, otherTypes } from './imports';
 import errorMessages from 'errorsByCode';
-import { selectTransactionHash } from '../EthereumProvider/selectors';
 import {
   TRANSACTION_COMPLETED,
   TRANSACTION_FAILED,
 } from '../EthereumProvider/constants';
 
-export function* errHandling(error) {
-  const locale = yield select(makeSelectLocale());
-  const msg = translationMessages[locale];
-
+export function* errHandling({ error = {}, translation }) {
   try {
     const key = Object.keys(error).find(x => x.toLowerCase().match('err'));
     const errorValue = error[key];
@@ -44,9 +35,9 @@ export function* errHandling(error) {
       if (isNaN(errorValue?.message)) {
         const errObjWrapper = errorValue.message;
         const errorCode = JSON.parse(errObjWrapper).error.code;
-        throw msg[errorMessages[errorCode].id];
+        throw translation(errorMessages[errorCode]);
       } else {
-        throw msg[errorMessages[errorValue.message].id];
+        throw translation(errorMessages[errorValue.message]);
       }
     }
 
@@ -72,7 +63,7 @@ export function* errHandling(error) {
       }
 
       if (errorCode) {
-        throw msg[blockchainErrorMsgs[errorCode].id];
+        throw translation(blockchainErrorMsgs[errorCode]);
       }
     }
 
@@ -84,19 +75,17 @@ export function* errHandling(error) {
         text:
           typeof catchError === 'string'
             ? catchError
-            : msg[messages.errorMessage.id],
+            : translation('common.errorMessage'),
       }),
     );
   }
 }
 
-export function* successHandling() {
-  const locale = yield select(makeSelectLocale());
-  const msg = translationMessages[locale];
+export function* successHandling(translation) {
   yield put(
     addToast({
       type: 'success',
-      text: msg[messages.transactionCompleted.id],
+      text: translation('common.transactionCompleted'),
     }),
   );
 }

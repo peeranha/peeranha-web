@@ -1,11 +1,12 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
 import { TEXT_SECONDARY } from 'style-constants';
 
 import { getFormattedNum3 } from 'utils/numbers';
+import { formatEther } from 'ethers/lib/utils';
 
 import currencyPeerImage from 'images/currencyPeer.svg?inline';
 
@@ -16,10 +17,7 @@ import SmallImage from 'components/Img/SmallImage';
 import PickupButton from 'components/Button/Contained/InfoLarge';
 import ReceivedButton from 'components/Button/Contained/SecondaryLarge';
 
-import messages from './messages';
-
 import WeekNumber from './WeekNumber';
-import { formatEther } from 'ethers/lib/utils';
 import { REWARD_CLAIMING_ENABLED } from '../../utils/constants';
 
 const BaseRoundedLi = BaseRounded.extend`
@@ -71,15 +69,17 @@ const PaidOutWeek = ({
   periodFinished,
   style,
 }) => {
+  const { t } = useTranslation();
   const pickUpReward = () => {
     pickupRewardDispatch(period);
   };
+
   return (
     <Container style={style}>
       <BaseRoundedLi className="align-items-center">
         <div>
           <P fontSize="13" color={TEXT_SECONDARY}>
-            <FormattedMessage id={messages.paidOut.id} />
+            {t('wallet.paidOut')}
           </P>
           <WeekNumber
             locale={locale}
@@ -108,13 +108,13 @@ const PaidOutWeek = ({
                   pickupRewardProcessing
                 }
               >
-                <FormattedMessage id={messages.getReward.id} />
+                {t('wallet.getReward')}
               </PickupButton>
             )}
 
             {hasTaken && (
               <ReceivedButton className="ml-4">
-                <FormattedMessage id={messages.received.id} />
+                {t('wallet.received')}
               </ReceivedButton>
             )}
           </WeekActions>
@@ -128,7 +128,7 @@ const PaidOutWeek = ({
               color={TEXT_SECONDARY}
               className="align-items-center"
             >
-              <FormattedMessage id={messages.estimatedReward.id} />
+              {t('common.estimatedReward')}
             </font>
             <Span
               fontSize="20"

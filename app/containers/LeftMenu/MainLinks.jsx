@@ -1,7 +1,6 @@
-/* eslint indent: 0 */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import styled, { css } from 'styled-components';
 import isMobile from 'ismobilejs';
 
@@ -19,7 +18,6 @@ import {
 } from 'style-constants';
 
 import * as routes from 'routes-config';
-import messages from 'common-messages';
 
 import {
   isSingleCommunityWebsite,
@@ -135,6 +133,7 @@ const Box = styled.div`
 `;
 
 const MainLinks = ({ currClientHeight, profile }) => {
+  const { t } = useTranslation();
   const { pathname } = window.location;
   let route = pathname.split('/').filter(x => x)[0];
 
@@ -150,36 +149,34 @@ const MainLinks = ({ currClientHeight, profile }) => {
       {isBloggerMode && (
         <A1 to={routes.detailsHomePage()} name="home" route={route}>
           <IconLg className="mr-2" icon={homeIcon} />
-          <FormattedMessage {...messages.home} />
+          {t('common.home')}
         </A1>
       )}
 
       <A1 to={routes.feed()} name="feed" route={route}>
         <IconLg className="mr-2" icon={myFeedIcon} />
-        <FormattedMessage
-          id={messages[profile && !singleCommId ? 'myFeed' : 'feed'].id}
-        />
+        {t(`common.${profile && !singleCommId ? 'myFeed' : 'feed'}`)}
       </A1>
 
       <A1 to={routes.questions()} name="questions" route={route}>
         <IconLg className="mr-2" icon={generalIcon} />
-        <FormattedMessage {...messages.discussions} />
+        {t('common.discussions')}
       </A1>
 
       <A1 to={routes.expertPosts()} name="experts" route={route}>
         <IconLg className="mr-2" icon={expertIcon} />
-        <FormattedMessage {...messages.expertPosts} />
+        {t('common.expertPosts')}
       </A1>
 
       <A1 to={routes.tutorials()} name="tutorials" route={route}>
         <IconLg className="mr-2" icon={tutorialIcon} fill={BORDER_PRIMARY} />
-        <FormattedMessage {...messages.tutorials} />
+        {t('common.tutorials')}
       </A1>
 
       {!singleCommId && (
         <A1 to={routes.communities()} name="communities" route={route}>
           <IconLg className="mr-2" icon={communitiesIcon} />
-          <FormattedMessage {...messages.communities} />
+          {t('common.communities')}
         </A1>
       )}
 
@@ -189,15 +186,13 @@ const MainLinks = ({ currClientHeight, profile }) => {
         route={route}
       >
         <IconLg className="mr-2" icon={tagsIcon} />
-        <FormattedMessage {...messages.tags} />
+        {t('common.tags')}
       </A1>
 
       {hasGlobalModeratorRole() && (
         <A1 to={routes.users()} name="users" route={route}>
           <IconLg className="mr-2" icon={usersIcon} />
-          <FormattedMessage
-            {...messages[isBloggerMode ? 'followers' : 'users']}
-          />
+          {t(`common.${isBloggerMode ? 'followers' : 'users'}`)}
         </A1>
       )}
 
@@ -205,7 +200,7 @@ const MainLinks = ({ currClientHeight, profile }) => {
         !singleCommId && (
           <A1 to={routes.faq()} name="faq" route={route}>
             <IconLg className="mr-2" icon={faqIcon} fill={BORDER_PRIMARY} />
-            <FormattedMessage {...messages.faq} />
+            {t('common.faq')}
           </A1>
         )}
     </Box>

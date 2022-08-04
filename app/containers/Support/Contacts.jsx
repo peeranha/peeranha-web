@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
-import commonMessages from 'common-messages';
 import { getLinks } from 'media-links';
 import { TEXT_PRIMARY } from 'style-constants';
 
@@ -11,7 +10,6 @@ import mediumIcon from 'images/mediumsupport.svg?inline';
 import twitterIcon from 'images/twittersupport.svg?inline';
 import linkedinIcon from 'images/linkedinsupport.svg?inline';
 import githubIcon from 'images/guthubsupport.svg?inline';
-import facebookIcon from 'images/facebook.svg?inline';
 import calendarIcon from 'images/ico_email.svg?inline';
 import telegramIcon from 'images/telegramOfficialBlue.svg?inline';
 
@@ -72,47 +70,49 @@ const EmailSpan = Span.extend`
   color: ${TEXT_PRIMARY};
 `;
 
-const Contacts = ({ locale }) => (
-  <div id={CONTACTS_ID}>
-    <Wrapper className="mb-to-sm-0 mb-from-sm-3">
-      <H3>
-        <FormattedMessage {...commonMessages.contacts} />
-      </H3>
-    </Wrapper>
+const Contacts = ({ locale }) => {
+  const { t } = useTranslation();
 
-    <MediaList>
-      <MediaItem href={getLinks(locale).twitter} target="_blank">
-        <img src={twitterIcon} alt="twitter" />
-        <Span bold>Twitter</Span>
-      </MediaItem>
+  return (
+    <div id={CONTACTS_ID}>
+      <Wrapper className="mb-to-sm-0 mb-from-sm-3">
+        <H3>{t('common.contacts')}</H3>
+      </Wrapper>
 
-      <MediaItem href={getLinks(locale).github} target="_blank">
-        <img src={githubIcon} alt="github" />
-        <Span bold>Github</Span>
-      </MediaItem>
+      <MediaList>
+        <MediaItem href={getLinks(locale).twitter} target="_blank">
+          <img src={twitterIcon} alt="twitter" />
+          <Span bold>Twitter</Span>
+        </MediaItem>
 
-      <MediaItem href={getLinks(locale).linkedin} target="_blank">
-        <img src={linkedinIcon} alt="linkedin" />
-        <Span bold>Linkedin</Span>
-      </MediaItem>
+        <MediaItem href={getLinks(locale).github} target="_blank">
+          <img src={githubIcon} alt="github" />
+          <Span bold>Github</Span>
+        </MediaItem>
 
-      <MediaItem href={getLinks(locale).medium} target="_blank">
-        <img src={mediumIcon} alt="medium" />
-        <Span bold>Medium</Span>
-      </MediaItem>
+        <MediaItem href={getLinks(locale).linkedin} target="_blank">
+          <img src={linkedinIcon} alt="linkedin" />
+          <Span bold>Linkedin</Span>
+        </MediaItem>
 
-      <MediaItem href={getLinks(locale).telegram} target="_blank">
-        <img src={telegramIcon} alt="telegram" />
-        <Span bold>Telegram</Span>
-      </MediaItem>
+        <MediaItem href={getLinks(locale).medium} target="_blank">
+          <img src={mediumIcon} alt="medium" />
+          <Span bold>Medium</Span>
+        </MediaItem>
 
-      <MediaItem href={getLinks(locale).email}>
-        <img src={calendarIcon} alt="calendar" />
-        <EmailSpan>hello@peeranha.io</EmailSpan>
-      </MediaItem>
-    </MediaList>
-  </div>
-);
+        <MediaItem href={getLinks(locale).telegram} target="_blank">
+          <img src={telegramIcon} alt="telegram" />
+          <Span bold>Telegram</Span>
+        </MediaItem>
+
+        <MediaItem href={getLinks(locale).email}>
+          <img src={calendarIcon} alt="calendar" />
+          <EmailSpan>hello@peeranha.io</EmailSpan>
+        </MediaItem>
+      </MediaList>
+    </div>
+  );
+};
 
 Contacts.propTypes = {
   locale: PropTypes.string,

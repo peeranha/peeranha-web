@@ -1,45 +1,31 @@
 import React, { memo, useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
-import commonMessages from 'common-messages';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 
 import {
   TEXT_PREMIUM,
   BORDER_RADIUS_M,
   BG_PREMIUM_LIGHT,
-  PRIMARY_SPECIAL,
-  BORDER_PRIMARY_DARK,
-  APP_FONT,
   TEXT_DARK,
-  BORDER_PRIMARY,
-  ICON_TRASPARENT_BLUE,
   TEXT_PRIMARY,
   BG_TRANSPARENT,
   BORDER_TRANSPARENT,
   BORDER_DARK,
-  TUTORIAL_BACKLIGHT,
   TUTORIAL_ICON_COLOR,
 } from 'style-constants';
 
 import Container from 'components/Labels/QuestionType';
 
-import Popover from './Popover';
-import { POST_TYPE } from '../../../../utils/constants';
-
 import expertIcon from 'images/hat-3-outline-24.svg?external';
 import generalIcon from 'images/comments-outline-24.svg?external';
 import tutorialIcon from 'images/tutorial.svg?external';
 
+import Popover from './Popover';
+import { POST_TYPE } from '../../../../utils/constants';
+
 import { IconLg } from '../../../../components/Icon/IconWithSizes';
-import A from '../../../../components/A';
-import { BasicLink } from '../../../LeftMenu/Styles';
 import { svgDraw } from '../../../../components/Icon/IconStyled';
-import {
-  singleCommunityColors,
-  singleCommunityFonts,
-  singleCommunityStyles,
-} from '../../../../utils/communityManagement';
 
 const LabelsWrapper = styled.div`
   display: inline-flex;
@@ -63,24 +49,6 @@ const PromotedLabel = styled.span`
   align-items: center;
   border-radius: ${BORDER_RADIUS_M};
 `;
-
-const opacity = ({ isExpert, isTutorial }) =>
-  isExpert
-    ? `.opacity {
-    fill: ${TEXT_PRIMARY} !important;
-  }`
-    : isTutorial
-      ? `.opacity {
-    fill: ${TUTORIAL_BACKLIGHT} !important;
-  }`
-      : `.opacity {
-     fill: none !important;
-   }`;
-
-// ${({ isExpert, isTutorial } ) => {
-//   console.log(isTutorial)
-//   return opacity({isExpert, isTutorial})
-// }};
 
 const Icon = styled(IconLg)`
   ${({ isTutorial, isExpert }) =>
@@ -112,28 +80,29 @@ const Icon = styled(IconLg)`
 
 const types = {
   [POST_TYPE.generalPost]: {
-    title: commonMessages.generalPopoverTitle.id,
-    label: commonMessages.generalPopoverLabel.id,
-    items: commonMessages.generalPopoverList.id,
+    title: 'common.generalPopoverTitle',
+    label: 'common.generalPopoverLabel',
+    items: 'common.generalPopoverList',
     icon: generalIcon,
   },
   [POST_TYPE.expertPost]: {
-    title: commonMessages.expertPopoverTitle.id,
-    label: commonMessages.expertPopoverLabel.id,
-    items: commonMessages.expertPopoverList.id,
+    title: 'common.expertPopoverTitle',
+    label: 'common.expertPopoverLabel',
+    items: 'common.expertPopoverList',
     icon: expertIcon,
     isExpert: true,
   },
   [POST_TYPE.tutorial]: {
-    title: commonMessages.tutorialPopoverTitle.id,
-    label: commonMessages.tutorialPopoverLabel.id,
-    items: commonMessages.tutorialPopoverList.id,
+    title: 'common.tutorialPopoverTitle',
+    label: 'common.tutorialPopoverLabel',
+    items: 'common.tutorialPopoverList',
     icon: tutorialIcon,
     isTutorial: true,
   },
 };
 
-const QuestionType = ({ locale, postType, isPromoted }) => {
+const QuestionType = ({ postType, isPromoted }) => {
+  const { t } = useTranslation();
   const [visible, changeVisibility] = useState(false);
 
   const onMouseEnter = useCallback(() => changeVisibility(true), []);
@@ -152,7 +121,6 @@ const QuestionType = ({ locale, postType, isPromoted }) => {
           >
             {visible && (
               <Popover
-                locale={locale}
                 title={type.title}
                 label={type.label}
                 items={type.items}
@@ -170,9 +138,7 @@ const QuestionType = ({ locale, postType, isPromoted }) => {
 
       {isPromoted && (
         <LabelItem>
-          <PromotedLabel>
-            <FormattedMessage id={commonMessages.promoted.id} />
-          </PromotedLabel>
+          <PromotedLabel>{t('common.promoted')}</PromotedLabel>
         </LabelItem>
       )}
     </LabelsWrapper>
@@ -181,7 +147,6 @@ const QuestionType = ({ locale, postType, isPromoted }) => {
 
 QuestionType.propTypes = {
   postType: PropTypes.number,
-  locale: PropTypes.string,
   isPromoted: PropTypes.bool,
 };
 

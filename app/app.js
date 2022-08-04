@@ -20,11 +20,13 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
 import 'sanitize.css/sanitize.css';
+import { I18nextProvider } from 'react-i18next';
 
 // Import root app
 import App from 'containers/App';
 
 // Import Providers
+import LanguageProvider from 'containers/LanguageProvider';
 import DataCacheProvider from 'containers/DataCacheProvider';
 import AccountProvider from 'containers/AccountProvider';
 import FacebookProvider from './containers/FacebookProvider';
@@ -40,8 +42,7 @@ import createdHistory from './createdHistory';
 // Import Analytics
 import './analytics';
 
-// Import i18n messages
-import './i18n';
+import i18n from './i18n';
 
 // Import CSS reset and Global Styles
 import './global-styles';
@@ -56,19 +57,23 @@ const MOUNT_NODE = document.getElementById('app');
 
 const render = () => {
   ReactDOM.render(
-    <Provider store={store}>
-      <EthereumProvider>
-        <AccountProvider>
-          <FacebookProvider>
-            <DataCacheProvider>
-              <ConnectedRouter history={createdHistory}>
-                <App />
-              </ConnectedRouter>
-            </DataCacheProvider>
-          </FacebookProvider>
-        </AccountProvider>
-      </EthereumProvider>
-    </Provider>,
+    <I18nextProvider i18n={i18n}>
+      <Provider store={store}>
+        <EthereumProvider>
+          <AccountProvider>
+            <LanguageProvider>
+              <FacebookProvider>
+                <DataCacheProvider>
+                  <ConnectedRouter history={createdHistory}>
+                    <App />
+                  </ConnectedRouter>
+                </DataCacheProvider>
+              </FacebookProvider>
+            </LanguageProvider>
+          </AccountProvider>
+        </EthereumProvider>
+      </Provider>
+    </I18nextProvider>,
     MOUNT_NODE,
   );
 };

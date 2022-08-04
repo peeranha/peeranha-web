@@ -318,5 +318,84 @@
     "subscribe": "Подписаться",
     "unsubscribe": "Отписаться",
     "subscribeToThisCommunity": "Подписаться на это сообщество"
+  },
+  "moderationPermitions": {
+    "title": "Права модератора",
+    "givePermissions": "Выдача разрешений",
+    "givePermissionsDescription":
+      "Позволяет выдавать и забирать разрешение модератора комьюнити..",
+    "permissionInfinite": "Безграничное воздействие",
+    "permissionInfiniteDescription":
+      "Позволяет удалять вопросы, ответы и комментарии в один клик",
+    "permissionIgnoreRating": "Игнорирование рейтинга",
+    "permissionIgnoreRatingDescription":
+      "Позволяет выполнять действия с ограниченным рейтингом",
+    "permissionCreateCommunity": "Создание сообщества",
+    "permissionCreateCommunityDescription":
+      "Позволяет мгновенно создать сообщество",
+    "permissionCreateTag": "Создание тега",
+    "permissionCreateTagDescription": "Позволяет мгновенно создать тег",
+    "permissionChangeQuestionType": "Изменение типа вопроса",
+    "permissionChangeQuestionTypeDescription": "Позволяет изменить тип вопроса",
+    "permissionSelectTopQuestion": "Выбор «Top» вопроса",
+    "permissionSelectTopQuestionDescription":
+      "Позволяет выбрать вопрос, который будет отображаться на «Top» странице",
+    "permissionOfficialAnswer": "Публикация официального ответа",
+    "permissionOfficialAnswerDescription":
+      "Позволяет опубликовать официальный ответ"
+  },
+  "telegram": {
+    "user": "Телеграм пользователь",
+    "userLabelPopover":
+      "Это временная учетная запись, предоставленная Telegram Bot."
+  },
+  "termsOfServiceDesc": {
+    "title": "Условия обслуживания",
+    "description": "Условия обслуживания : описание"
+  },
+  "searchDesc": {
+    "title": "Поиск",
+    "description": "Поиск: описание"
+  },
+  "header": {
+    "walletTooltipPart1": "Вам доступны ",
+    "walletTooltipPart2": " поощрений"
+  },
+  "globalModerator": "Глобальный модератор",
+  "verifyFacebookAccount": "Проверка аккаунта",
+  "facebookButton": "Фейсбук",
+  "selectCommunity": "Выбрать...",
+  "tutorialDesc": {
+    "title": "Руководство",
+    "description": "Руководство: описание",
+    "tutorial": "Руководство"
+  },
+  "askQuestionBanner": {
+    "help": "Помощь",
+    "didntFindAnswer": "Не нашли ответ?",
+    "freeFeelToAsk": "Спросите нашу команду. Мы поможем найти ответ."
+  },
+  "usersDesc": {
+    "title": "Пользователи",
+    "description": "Пользователи: описание"
+  },
+  "existingCommunities": {
+    "voteForNewCommunities": "Голосуйте за новые сообщества",
+    "singleCommunityTooltip":
+      "У этого сообщества есть сайт вопросов и ответов на отдельном домене"
+  },
+  "ratingStatus": {
+    "stranger": "Незнакомец",
+    "newbie": "Новичок",
+    "jrResident": "Юниор",
+    "resident": "Постоялец",
+    "srResident": "Знаток",
+    "heroResident": "Герой",
+    "legResident": "Супергерой",
+    "banned": "Заблокирован"
+  },
+  "privacyPolicyDesc": {
+    "title": "Политика конфиденциальности",
+    "description": "Политика конфиденциальности, описание"
   }
 }

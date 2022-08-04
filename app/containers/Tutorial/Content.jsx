@@ -1,13 +1,11 @@
-/* eslint react/jsx-no-bind: 0, jsx-a11y/click-events-have-key-events: 0, jsx-a11y/no-noninteractive-element-interactions: 0 */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
 import createdHistory from 'createdHistory';
 
 import textBlockStyles from 'text-block-styles';
-import commonMessages from 'common-messages';
 
 import { BORDER_SECONDARY } from 'style-constants';
 
@@ -74,6 +72,7 @@ const Section = ({
   getSectionCode,
   getQuestionCode,
 }) => {
+  const { t } = useTranslation();
   const { hash } = window.location;
 
   const [isOpened, collapse] = useState(false);
@@ -130,10 +129,10 @@ const Section = ({
         {blocks.length > DEFAULT_QST_NUM && (
           <BaseTransparent className="pt-1">
             <Button onClick={extendSection.bind(null, !isExtendedSection)}>
-              <FormattedMessage
-                {...commonMessages[isExtendedSection ? 'showLess' : 'showMore']}
-                values={{ value: `${questionsNumber}/${blocks.length}` }}
-              />
+              {t(`common.${isExtendedSection ? 'showLess' : 'showMore'}`, {
+                value: `${questionsNumber}/${blocks.length}`,
+              })}
+
               <Icon
                 className="ml-2"
                 rotate={isExtendedSection}

@@ -1,5 +1,6 @@
-import messages from 'common-messages';
-
+import { BigNumber } from 'ethers';
+import { selectEthereum } from 'containers/EthereumProvider/selectors';
+import { getCookie } from 'utils/cookie';
 import {
   COMMUNITY_ADMIN_INFINITE_IMPACT,
   COMMUNITY_ADMIN_OFFICIAL_ANSWER,
@@ -12,11 +13,8 @@ import {
   globalAdminPermissions,
   communityModeratorPermissions,
 } from './constants';
-import { BigNumber } from 'ethers';
-import { selectEthereum } from 'containers/EthereumProvider/selectors';
-import { getCookie } from 'utils/cookie';
 
-//todo change to "findRole"
+// todo change to "findRole"
 const findAllPropertiesByKeys = (properties, keys, exact = false) => [];
 
 export const getModeratorPermissions = (
@@ -51,9 +49,9 @@ export const getModeratorPermissions = (
         h2: communityId
           ? communities.find(({ id }) => Number(id) === Number(communityId))
               ?.name || 'TestComm1'
-          : translations[messages.globalModerator.id],
+          : translations('common.globalModerator'),
         sectionCode: index,
-        communityId: communityId,
+        communityId,
       };
     }
   });
@@ -97,9 +95,7 @@ export const communityAdminInfiniteImpactPermission = (
     COMMUNITY_ADMIN_INFINITE_IMPACT,
   ]).filter(({ community }) => communityId === community).length;
 
-export const getPermissions = profile => {
-  return profile?.permissions ?? [];
-};
+export const getPermissions = profile => profile?.permissions ?? [];
 
 export const hasGlobalModeratorRole = permissionsFromState => {
   let permissions = permissionsFromState;
@@ -116,11 +112,10 @@ export const hasGlobalModeratorRole = permissionsFromState => {
   );
 };
 
-export const getCommunityRole = (role, communityId) => {
-  return BigNumber.from(role)
+export const getCommunityRole = (role, communityId) =>
+  BigNumber.from(role)
     .add(BigNumber.from(communityId))
     .toHexString();
-};
 
 export const isTemporaryAccount = async account => {
   const ethereumService = await selectEthereum();
@@ -129,7 +124,7 @@ export const isTemporaryAccount = async account => {
 
 export const getAllRoles = (userRoles = [], communitiesCount) => {
   const communityRoles = [COMMUNITY_MODERATOR_ROLE, COMMUNITY_ADMIN_ROLE];
-  if (!!userRoles.find(role => BigNumber.from(role).eq(DEFAULT_ADMIN_ROLE))) {
+  if (userRoles.find(role => BigNumber.from(role).eq(DEFAULT_ADMIN_ROLE))) {
     return [{ DEFAULT_ADMIN_ROLE }];
   }
   return userRoles.map(userRole => {
@@ -155,16 +150,14 @@ export const getAllRoles = (userRoles = [], communitiesCount) => {
   });
 };
 
-export const hasCommunityAdminRole = (permissions = [], communityId) => {
-  return !!permissions.filter(
+export const hasCommunityAdminRole = (permissions = [], communityId) =>
+  !!permissions.filter(
     permission =>
       permission === getCommunityRole(COMMUNITY_ADMIN_ROLE, communityId),
   ).length;
-};
 
-export const hasCommunityModeratorRole = (permissions = [], communityId) => {
-  return !!permissions.filter(
+export const hasCommunityModeratorRole = (permissions = [], communityId) =>
+  !!permissions.filter(
     permission =>
       permission === getCommunityRole(COMMUNITY_MODERATOR_ROLE, communityId),
   ).length;
-};

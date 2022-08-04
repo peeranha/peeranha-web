@@ -24,5 +24,14 @@
   "descriptionTags": "Описание тегов",
   "suggestedTags": "Предложенные теги",
   "voteForNewTags": "Голосуйте за новые теги",
-  "findTag": "Найти тег"
+  "findTag": "Найти тег",
+  "tagsCollection": "Подборка тегов",
+  "tagsDescription": "Описание тегов",
+  "suggested": {
+    "title": "Предложенные теги",
+    "description": "Предложенные теги | Описание",
+    "noSuggestedTags": "Нет предложенных тегов",
+    "topTagsInCommunity": "Лучшие теги в сообществе",
+    "tagDescription": "Описание"
+  }
 }

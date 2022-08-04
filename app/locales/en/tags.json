@@ -26,5 +26,12 @@
   "voteForNewTags": "Vote for new tags",
   "findTag": "Find a tag",
   "tagsCollection": "Tags collection",
-  "tagsDescription": "Tags Description"
+  "tagsDescription": "Tags Description",
+  "suggested": {
+    "title": "Suggested tags",
+    "description": "Suggested tags | Description",
+    "noSuggestedTags": "There are no suggested tags",
+    "topTagsInCommunity": "Top tags in community",
+    "tagDescription": "Description"
+  }
 }

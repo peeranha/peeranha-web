@@ -1,9 +1,3 @@
-/*
- * Support Messages
- *
- * This contains all the text for the Support component.
- */
-
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({

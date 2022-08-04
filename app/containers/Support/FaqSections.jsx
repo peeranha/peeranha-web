@@ -1,10 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
 import * as routes from 'routes-config';
-import commonMessages from 'common-messages';
 import { TEXT_PRIMARY } from 'style-constants';
 
 import { getSectionCode } from 'utils/mdManagement';
@@ -30,13 +29,12 @@ const Base = styled.div`
 `;
 
 const FaqSections = ({ faq }) => {
+  const { t } = useTranslation();
   const faqBlocks = faq.blocks.slice(0, 7).filter((item, index) => index !== 1);
 
   return (
     <Base>
-      <h6>
-        <FormattedMessage {...commonMessages.faq} />
-      </h6>
+      <h6>{t('common.faq')}</h6>
 
       {faq && (
         <ul>

@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 
-import commonMessages from 'common-messages';
 import { TEXT_DARK, TEXT_SECONDARY } from 'style-constants';
 import { LABEL_SIZE_LG } from 'components/Img/MediumImage';
 import { TEMPORARY_ACCOUNT_KEY } from 'utils/constants';
@@ -23,7 +22,6 @@ import LargeImage from 'components/Img/LargeImage';
 import TelegramUserLabel from 'components/Labels/TelegramUserLabel';
 import LoadingIndicator from 'components/LoadingIndicator';
 
-import messages from 'containers/Profile/messages';
 import { customRatingIconColors } from 'constants/customRating';
 import ProfileSince from 'components/ProfileSince';
 import { getUserName } from 'utils/user';
@@ -165,10 +163,12 @@ const MainUserInformation = ({
   locale,
   redirectToEditProfilePage,
 }) => {
+  const { t } = useTranslation();
   const isTemporaryAccount = !!profile?.integer_properties?.find(
     x => x.key === TEMPORARY_ACCOUNT_KEY && x.value,
   );
   const userPolygonScanAddress = process.env.BLOCKCHAIN_EXPLORERE_URL + userId;
+
   return (
     <Box position="middle">
       <div>
@@ -203,7 +203,7 @@ const MainUserInformation = ({
           <div className="d-flex align-items-center">
             <UlStyled>
               <li>
-                <FormattedMessage {...messages.status} />
+                {t('profile.status')}
                 <RatingStatus
                   isProfilePage={true}
                   customRatingIconColors={customRatingIconColors}
@@ -213,7 +213,7 @@ const MainUserInformation = ({
               </li>
 
               <li>
-                <FormattedMessage {...commonMessages.posts} />
+                {t('common.posts')}
                 <span>
                   <img src={questionRoundedIcon} alt="icon" />
                   {profile.postCount}
@@ -221,7 +221,7 @@ const MainUserInformation = ({
               </li>
 
               <li>
-                <FormattedMessage {...commonMessages.answers} />
+                {t('common.answers')}
                 <span>
                   <img src={answerIcon} alt="icon" />
                   {profile.answersGiven}
@@ -229,7 +229,7 @@ const MainUserInformation = ({
               </li>
 
               <li>
-                <FormattedMessage {...messages.achievements} />
+                {t('profile.achievements')}
                 {typeof profile.achievements === 'object' ? (
                   <AchievementsStatus
                     isProfilePage={true}
@@ -242,7 +242,7 @@ const MainUserInformation = ({
               </li>
               {!isTemporaryAccount && (
                 <li>
-                  <FormattedMessage {...commonMessages.walletAddress} />
+                  {t('common.walletAddress')}
                   <A
                     to={{ pathname: userPolygonScanAddress }}
                     href={userPolygonScanAddress}

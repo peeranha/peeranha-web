@@ -15,17 +15,17 @@ import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import reducer from 'containers/EthereumProvider/reducer';
 import saga from 'containers/EthereumProvider/saga';
 
+import { useTranslation } from 'react-i18next';
+import H4 from 'components/H4';
+import OutlinedButton from 'components/Button/Outlined/InfoLargeHeightStretching';
+import ContainedButton from 'components/Button/Contained/InfoLargeHeightStretching';
+import { hideModal } from 'containers/EthereumProvider/actions';
+import { setCookie } from 'utils/cookie';
+
 import {
   makeSelectEthereum,
   makeSelectShowModal,
 } from '../EthereumProvider/selectors';
-import { FormattedMessage } from 'react-intl';
-import H4 from 'components/H4';
-import OutlinedButton from 'components/Button/Outlined/InfoLargeHeightStretching';
-import ContainedButton from 'components/Button/Contained/InfoLargeHeightStretching';
-import messages from 'containers/MetaTransactionAgreement/messages';
-import { hideModal } from 'containers/EthereumProvider/actions';
-import { setCookie } from 'utils/cookie';
 
 /* eslint-disable react/prefer-stateless-function */
 export const MetaTransactionAgreement = ({
@@ -33,6 +33,13 @@ export const MetaTransactionAgreement = ({
   hideModalDispatch,
   ethereum,
 }) => {
+  const { t } = useTranslation();
+
+  const hideModal = () => {
+    ethereum.stopWaiting();
+    hideModalDispatch();
+  };
+
   const agreeWithMeta = () => {
     setCookie({
       name: META_TRANSACTIONS_ALLOWED,
@@ -46,36 +53,31 @@ export const MetaTransactionAgreement = ({
     hideModal();
   };
 
-  const hideModal = () => {
-    ethereum.stopWaiting();
-    hideModalDispatch();
-  };
-
   return (
     <ModalDialog closeModal={hideModal} show={showModal}>
       <H4 className="text-center pb-3">
-        <FormattedMessage {...messages.agreeWithMetaTransactions} />
+        {t('common.metaTransaction.youDontHaveFeedToRead')}
       </H4>
 
       <div className="pb-4" style={{ textAlign: 'center' }}>
-        <FormattedMessage {...messages.youNeedMetaBecause} />
+        {t('common.metaTransaction.youNeedMetaBecause')}
       </div>
 
       <div className="pb-4" style={{ textAlign: 'center' }}>
-        <FormattedMessage {...messages.dontWorry} />
+        {t('common.metaTransaction.dontWorry')}
       </div>
 
       <div className="pb-4" style={{ textAlign: 'center' }}>
-        <FormattedMessage {...messages.wouldYouLike} />
+        {t('common.metaTransaction.wouldYouLike')}
       </div>
 
       <div className="d-flex align-items-center pb-3">
         <OutlinedButton className="mr-3" onClick={hideModal}>
-          <FormattedMessage {...messages.cansel} />
+          {t('common.metaTransaction.cansel')}
         </OutlinedButton>
 
         <ContainedButton onClick={agreeWithMeta}>
-          <FormattedMessage {...messages.confirm} />
+          {t('common.metaTransaction.confirm')}
         </ContainedButton>
       </div>
     </ModalDialog>

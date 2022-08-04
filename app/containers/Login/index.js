@@ -1,9 +1,3 @@
-/**
- *
- * Login
- *
- */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -16,7 +10,6 @@ import { DAEMON } from 'utils/constants';
 
 import ModalDialog from 'components/ModalDialog';
 
-import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { showForgotPasswordModal } from 'containers/ForgotPassword/actions';
 
 import notificationsReducer from 'components/Notifications/reducer';
@@ -45,12 +38,10 @@ import EmailPasswordForm from './EmailPasswordForm';
 import WeAreHappyYouAreHereForm from './WeAreHappyYouAreHereForm';
 import { selectEthereum } from '../EthereumProvider/selectors';
 
-/* eslint-disable react/prefer-stateless-function */
 export const Login = ({
   content,
   showModal,
   hideLoginModalDispatch,
-  locale,
   email,
   loginWithEmailProcessing,
   finishRegistrationProcessing,
@@ -71,7 +62,6 @@ export const Login = ({
     <ModalDialog show={showModal} closeModal={hideLoginModalDispatch}>
       {content === EMAIL_FORM && (
         <EmailForm
-          locale={locale}
           showEmailPasswordForm={showEmailPasswordFormDispatch}
           loginWithEmailProcessing={loginWithEmailProcessing}
           loginWithWallet={loginWithWalletDispatch}
@@ -82,7 +72,6 @@ export const Login = ({
 
       {content === EMAIL_PASSWORD_FORM && (
         <EmailPasswordForm
-          locale={locale}
           login={loginWithEmailDispatch}
           loginWithEmailProcessing={loginWithEmailProcessing}
           showIForgotPasswordModal={showIForgotPasswordModal}
@@ -94,7 +83,6 @@ export const Login = ({
 
       {content === WE_ARE_HAPPY_FORM && (
         <WeAreHappyYouAreHereForm
-          locale={locale}
           finishRegistration={finishRegistrationDispatch}
           finishRegistrationProcessing={finishRegistrationProcessing}
         />
@@ -107,7 +95,6 @@ Login.propTypes = {
   content: PropTypes.string,
   showModal: PropTypes.bool,
   hideLoginModalDispatch: PropTypes.func,
-  locale: PropTypes.string,
   email: PropTypes.string,
   loginWithEmailProcessing: PropTypes.bool,
   finishRegistrationProcessing: PropTypes.bool,
@@ -121,7 +108,6 @@ Login.propTypes = {
 
 const withConnect = connect(
   createStructuredSelector({
-    locale: makeSelectLocale(),
     content: selectors.makeSelectContent(),
     showModal: selectors.makeSelectShowModal(),
     email: selectors.makeSelectEmail(),

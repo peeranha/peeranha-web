@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
-import commonMessages from 'common-messages';
+import { useTranslation } from 'react-i18next';
 
 import ContainedButton from 'components/Button/Contained/InfoLargeHeightStretching';
 import OutlinedButton from 'components/Button/Outlined/InfoLargeHeightStretching';
 import ModalDialog, { el, modalRoot } from 'components/ModalDialog';
 import H4 from 'components/H4';
 
-import questionsMessages from './messages';
-
 const AreYouSure = ({ Button, submitAction }) => {
+  const { t } = useTranslation();
   const [currentTarget, changeEventData] = useState(null);
   const [isOpened, open] = useState(false);
 
@@ -32,17 +30,13 @@ const AreYouSure = ({ Button, submitAction }) => {
 
       {isOpened && (
         <ModalDialog closeModal={closeModal} show={isOpened}>
-          <H4 className="text-center pb-3">
-            <FormattedMessage {...commonMessages.delete} />
-          </H4>
+          <H4 className="text-center pb-3">{t('common.delete')}</H4>
 
-          <div className="pb-4">
-            <FormattedMessage {...questionsMessages.areYouSure} />
-          </div>
+          <div className="pb-4">{t('post.areYouSure')}</div>
 
           <div className="d-flex align-items-center pb-3">
             <OutlinedButton className="mr-3" onClick={closeModal}>
-              <FormattedMessage {...commonMessages.no} />
+              {t('common.no')}
             </OutlinedButton>
 
             <ContainedButton
@@ -51,7 +45,7 @@ const AreYouSure = ({ Button, submitAction }) => {
                 submitAction({ currentTarget });
               }}
             >
-              <FormattedMessage {...commonMessages.yes} />
+              {t('common.yes')}
             </ContainedButton>
           </div>
         </ModalDialog>

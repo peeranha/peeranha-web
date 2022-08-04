@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { TEXT_SECONDARY, TEXT_PRIMARY, BORDER_PRIMARY } from 'style-constants';
 
@@ -14,7 +14,6 @@ import { TextareaStyled } from 'components/Textarea';
 import { singleCommunityColors } from 'utils/communityManagement';
 import CommentForm from './CommentForm';
 
-import messages from './messages';
 import { TOGGLE_ADD_COMMENT_FORM_BUTTON } from './constants';
 
 const colors = singleCommunityColors();
@@ -49,6 +48,7 @@ export const CommentOptions = ({
   isAllCommentsView,
   commentsNumber,
 }) => {
+  const { t } = useTranslation();
   const toggleFormButtonId = `${TOGGLE_ADD_COMMENT_FORM_BUTTON}${answerId}`;
 
   const showCommentForm =
@@ -62,11 +62,9 @@ export const CommentOptions = ({
           <ButtonStyled onClick={() => changeCommentsView(!isAllCommentsView)}>
             <Span className="mr-1" bold>{`${commentsNumber} `}</Span>
             <Span className="text-lowercase" color={TEXT_SECONDARY}>
-              {commentsNumber === 1 ? (
-                <FormattedMessage id={messages.moreComment.id} />
-              ) : (
-                <FormattedMessage id={messages.moreComments.id} />
-              )}
+              {commentsNumber === 1
+                ? t('post.moreComment')
+                : t('post.moreComments')}
               <Icon
                 className="ml-1"
                 rotate={isAllCommentsView}
@@ -86,7 +84,7 @@ export const CommentOptions = ({
             fill={colors.commentOption || BORDER_PRIMARY}
           />
           <Span className="ml-1" color={colors.commentOption || TEXT_PRIMARY}>
-            <FormattedMessage id={messages.addComment.id} />
+            {t('post.addComment')}
           </Span>
         </ButtonStyled>
       </div>

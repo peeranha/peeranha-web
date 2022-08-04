@@ -1,7 +1,5 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
-
-import commonMessages from 'common-messages';
+import { useTranslation } from 'react-i18next';
 
 import tutorialPageHeader from 'images/tutorialPageHeader.svg?external';
 
@@ -10,18 +8,20 @@ import Icon from 'components/Icon';
 import H3 from 'components/H3';
 import Wrapper from 'components/Header/Simple';
 
-const Header = () => (
-  <Wrapper className="mb-to-sm-0 mb-from-sm-3">
-    <H3>
-      <MediumIconStyled>
-        <Icon icon={tutorialPageHeader} width="38" />
-      </MediumIconStyled>
+const Header = () => {
+  const { t } = useTranslation();
 
-      <span className="">
-        <FormattedMessage {...commonMessages.tutorial} />
-      </span>
-    </H3>
-  </Wrapper>
-);
+  return (
+    <Wrapper className="mb-to-sm-0 mb-from-sm-3">
+      <H3>
+        <MediumIconStyled>
+          <Icon icon={tutorialPageHeader} width="38" />
+        </MediumIconStyled>
 
-export default React.memo(Header);
+        <span className="">{t('common.tutorial')}</span>
+      </H3>
+    </Wrapper>
+  );
+};
+
+export default Header;
