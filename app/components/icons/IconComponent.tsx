@@ -6,7 +6,7 @@ type IconComponentProps = {
   viewBox?: string;
   fill?: string;
   stroke?: string;
-  size?: number;
+  size?: number[];
   className?: string;
   style?: React.CSSProperties;
   onClick?: (e: React.MouseEvent) => void;
@@ -20,7 +20,7 @@ const IconComponent: React.FC<IconComponentProps> = ({
   children,
   onClick,
   style,
-  size = 18,
+  size = [18, 18],
   fill = 'currentColor',
   viewBox = '0 0 18 18',
 }): JSX.Element => (
@@ -30,8 +30,8 @@ const IconComponent: React.FC<IconComponentProps> = ({
     fill={fill}
     style={style}
     css={css`
-      width: ${size}px;
-      height: ${size}px;
+      width: ${size[0]}px;
+      height: ${size[1]}px;
       display: inline-block;
       flex-shrink: 0;
       user-select: none;

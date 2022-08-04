@@ -44,6 +44,7 @@ export const GET_AVAILABLE_BALANCE = 'availableBalanceOf';
 export const GET_BOOST = 'getBoost';
 export const GET_STAKE = 'getStake';
 export const GET_USER_STAKE = 'getUserStake';
+export const GET_USER_RATING = 'getUserRating';
 
 export const UPVOTE_STATUS = 1;
 export const DOWNVOTE_STATUS = -1;

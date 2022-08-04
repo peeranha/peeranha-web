@@ -60,9 +60,15 @@ export const Icons = () => {
         css={css`
           display: flex;
           color: #282828;
+          flex-wrap: wrap;
+          padding-top: 10px;
           & span {
             margin: 8px;
             cursor: pointer;
+            & svg {
+              width: 24px;
+              height: 24px;
+            }
           }
         `}
       >

@@ -92,7 +92,7 @@ export const Header = ({
   profile,
 }) => {
   const isFeed = parentPage === routes.feed();
-  const isModeratorModeSingleCommunity = !!single
+  const isModeratorModeSingleCommunity = single
     ? hasGlobalModeratorRole(getPermissions(profile)) ||
       hasCommunityModeratorRole(getPermissions(profile), single)
     : false;
