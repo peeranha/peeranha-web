@@ -19,13 +19,10 @@ import { CONTRACT_USER, GET_USER_RATING, UPDATE_ACC } from './ethConstants';
 import { getUser, getUserPermissions, getUserStats } from './theGraph';
 import { isUserExists } from './accountManagement';
 
-export const getRatingByCommunity = (user, communityId) => {
-  return (
-    user?.ratings?.find(
-      ratingObj => ratingObj.communityId.toString() === communityId?.toString(),
-    )?.rating ?? 0
-  );
-};
+export const getRatingByCommunity = (user, communityId) =>
+  user?.ratings?.find(
+    ratingObj => ratingObj.communityId.toString() === communityId?.toString(),
+  )?.rating ?? 0;
 
 export function getUserAvatar(avatarHash, userId, account) {
   if (avatarHash && avatarHash !== NO_AVATAR) {
@@ -73,7 +70,7 @@ export async function getProfileInfo(
     profileInfo = await ethereumService.getProfile(user);
     profileInfo.permissions = await getUserPermissions(user);
     userStats = await getUserStats(user);
-    profileInfo.ratings = userStats.ratings;
+    profileInfo.ratings = userStats?.ratings ?? [];
     if (!profileInfo.creationTime) {
       const profile = await getUser(user);
       profileInfo.creationTime = profile.creationTime;
@@ -88,16 +85,26 @@ export async function getProfileInfo(
         user,
         communityIdForRating,
       ])) || INIT_RATING;
-    //avoiding "Cannot assign to read only property" error
-    profileInfo.ratings = profileInfo.ratings.map(ratingData => {
-      return {
+
+    const foundRating = profileInfo.ratings.find(
+      ratingData => ratingData.communityId === communityIdForRating,
+    );
+    if (!foundRating) {
+      // avoiding "Cannot assign to read only property" error
+      profileInfo.ratings = profileInfo.ratings.concat({
+        communityId: communityIdForRating,
+        rating: newRating,
+      });
+    } else {
+      // avoiding "Cannot assign to read only property" error
+      profileInfo.ratings = profileInfo.ratings.map(ratingData => ({
         communityId: ratingData.communityId,
         rating:
           ratingData.communityId === communityIdForRating
             ? newRating
             : ratingData.rating,
-      };
-    });
+      }));
+    }
   }
 
   profileInfo.highestRating = profileInfo.ratings?.length
