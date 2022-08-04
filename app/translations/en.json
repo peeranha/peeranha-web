@@ -447,12 +447,6 @@
   "app.containers.Profile.referralText":
     "Share the link or the code with your friend and you both will receive 100 PEER tokens after your friend earns 35 reputation points.",
 
-  "app.containers.SuggestedTags.title": "Suggested tags",
-  "app.containers.SuggestedTags.description": "Suggested tags | Description",
-  "app.containers.SuggestedTags.noSuggestedTags": "There are no suggested tags",
-  "app.containers.SuggestedTags.topTagsInCommunity": "Top tags in community",
-  "app.containers.SuggestedTags.tagDescription": "Description",
-
   "app.containers.PrivacyPolicy.title": "Privacy policy",
   "app.containers.PrivacyPolicy.description": "Privacy policy, description",
 
@@ -485,14 +479,11 @@
   "app.containers.Tags.backToList": "Back to list",
   "app.containers.Tags.didntFindSuitableTag": "Did not find suitable tags?",
   "app.containers.Tags.youHaveAlreadyVoted": "You already voted",
-  "app.containers.Tags.suggestTagWhichWillbeUseful":
-    "Suggest a tag, which will be useful to you and 100 other users who will vote for it.",
   "app.containers.Tags.creatorCannotUpvoteOwnComm":
     "Creators cannot upvote their own tag",
 
   "app.containers.TagsOfCommunity.title": "Tags",
   "app.containers.TagsOfCommunity.description": "Description of Tags",
-  "app.containers.TagsOfCommunity.suggestedTags": "Suggested tags",
   "app.containers.TagsOfCommunity.createTag": "Create tag",
   "app.containers.TagsOfCommunity.findTag": "Find a tag",
 

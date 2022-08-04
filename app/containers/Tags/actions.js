@@ -1,9 +1,3 @@
-/*
- *
- * SuggestedTags actions
- *
- */
-
 import {
   GET_EXISTING_TAGS,
   GET_EXISTING_TAGS_SUCCESS,

@@ -53,7 +53,6 @@ import {
   TagsOfCommunity,
   TagsCollection,
   CreateTag,
-  SuggestedTags,
   EditTag,
   NoAccess,
   Home,
@@ -227,11 +226,6 @@ const App = ({
           <Route
             path={routes.editTag(':communityId', ':tagid')}
             render={props => Wrapper(EditTag, props)}
-          />
-
-          <Route
-            path={routes.suggestedTags(':communityid')}
-            render={props => Wrapper(SuggestedTags, props)}
           />
 
           <Route

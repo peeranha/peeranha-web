@@ -79,10 +79,6 @@ export const Header = ({
     () => routes.communityTags(currentCommunity.id),
     [currentCommunity.id],
   );
-  // const suggestedTagsRoute = useMemo(
-  //   () => routes.suggestedTags(currentCommunity.id),
-  //   [currentCommunity.id],
-  // );
   const displaySortTagDropdown = useMemo(
     () => path === communityTagsRoute && !!tagsNumber,
     [path, communityTagsRoute, tagsNumber],

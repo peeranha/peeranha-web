@@ -145,10 +145,7 @@ import { GET_QUESTIONS_ERROR } from 'containers/Questions/constants';
 import { GET_QUESTIONS_ERROR as GET_Q_USER_ERROR } from 'containers/QuestionsOfUser/constants';
 import { GET_QUESTIONS_ERROR as GET_QA_USER_ERROR } from 'containers/QuestionsWithAnswersOfUser/constants';
 
-import {
-  GET_SUGGESTED_TAGS_ERROR,
-  GET_EXISTING_TAGS_ERROR,
-} from 'containers/Tags/constants';
+import { GET_EXISTING_TAGS_ERROR } from 'containers/Tags/constants';
 
 import { GET_USERS_ERROR } from 'containers/Users/constants';
 import { GET_RESULTS_ERROR } from 'containers/Search/constants';
@@ -168,7 +165,6 @@ export const otherTypes = [
   GET_QUESTIONS_ERROR,
   GET_Q_USER_ERROR,
   GET_QA_USER_ERROR,
-  GET_SUGGESTED_TAGS_ERROR,
   GET_EXISTING_TAGS_ERROR,
   GET_USERS_ERROR,
   GET_QUESTION_DATA_ERROR,

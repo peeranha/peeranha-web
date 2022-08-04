@@ -18,8 +18,6 @@ import {
   SUGGEST_TAG,
   SUGGEST_TAG_SUCCESS,
   SUGGEST_TAG_ERROR,
-  MIN_RATING_TO_CREATE_TAG,
-  MIN_ENERGY_TO_CREATE_TAG,
 } from '../constants';
 
 jest.mock('redux-saga/effects', () => ({
@@ -86,13 +84,6 @@ describe('suggestTagWorker', () => {
   it('reset', () => {
     generator.next();
     expect(call).toHaveBeenCalledWith(props.reset);
-  });
-
-  it('createdHistory.push', () => {
-    generator.next();
-    expect(createdHistory.push).toHaveBeenCalledWith(
-      routes.suggestedTags(props.tag.communityId),
-    );
   });
 
   it('error handling', () => {

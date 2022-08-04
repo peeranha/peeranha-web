@@ -21,10 +21,6 @@ export const Banner = ({ openTagForm, communityId }) => (
         <FormattedMessage {...messages.didntFindSuitableTag} />
       </p>
 
-      <p>
-        <FormattedMessage {...messages.suggestTagWhichWillbeUseful} />
-      </p>
-
       <Button
         data-communityid={communityId}
         id={`${GO_TO_CREATE_TAG_SCREEN_BUTTON_ID}_banner`}

@@ -39,68 +39,58 @@ export const Form = ({
   handleSubmit,
   translations,
   communities,
-  getSuggestedTagsDispatch,
   isEditTagForm,
-}) => {
-  const onChange = value => {
-    if (value) {
-      getSuggestedTagsDispatch({ communityId: value.id });
-    }
-  };
+}) => (
+  <FormBox onSubmit={handleSubmit(submitAction)}>
+    <Field
+      className={isSingleCommunityWebsite() ? 'd-none' : ''}
+      name={FORM_COMMUNITY}
+      component={CommunityField}
+      disabled={isEditTagForm ? true : tagFormLoading}
+      label={translations[messages.community.id]}
+      tip={translations[messages.communityTip.id]}
+      options={communities}
+      validate={[requiredForObjectField]}
+      warn={[requiredForObjectField]}
+      splitInHalf
+    />
 
-  return (
-    <FormBox onSubmit={handleSubmit(submitAction)}>
-      <Field
-        className={isSingleCommunityWebsite() ? 'd-none' : ''}
-        name={FORM_COMMUNITY}
-        component={CommunityField}
-        disabled={isEditTagForm ? true : tagFormLoading}
-        label={translations[messages.community.id]}
-        tip={translations[messages.communityTip.id]}
-        options={communities}
-        validate={[requiredForObjectField]}
-        warn={[requiredForObjectField]}
-        splitInHalf
-        onChange={onChange}
-      />
+    <Field
+      disabled={tagFormLoading}
+      name={NAME_FIELD}
+      component={TextInputField}
+      label={translations[messages.name.id]}
+      tip={translations[messages.nameTip.id]}
+      validate={[strLength2x15, required, valueHasNotBeInList]}
+      warn={[strLength2x15, required, valueHasNotBeInList]}
+      splitInHalf
+    />
 
-      <Field
-        disabled={tagFormLoading}
-        name={NAME_FIELD}
-        component={TextInputField}
-        label={translations[messages.name.id]}
-        tip={translations[messages.nameTip.id]}
-        validate={[strLength2x15, required, valueHasNotBeInList]}
-        warn={[strLength2x15, required, valueHasNotBeInList]}
-        splitInHalf
-      />
+    <Field
+      disabled={tagFormLoading}
+      name={DESCRIPTION_FIELD}
+      component={TextareaField}
+      label={translations[messages.descriptionField.id]}
+      tip={translations[messages.descriptionFieldTip.id]}
+      validate={[strLength20x1000, required]}
+      warn={[strLength20x1000, required]}
+      splitInHalf
+    />
 
-      <Field
-        disabled={tagFormLoading}
-        name={DESCRIPTION_FIELD}
-        component={TextareaField}
-        label={translations[messages.descriptionField.id]}
-        tip={translations[messages.descriptionFieldTip.id]}
-        validate={[strLength20x1000, required]}
-        warn={[strLength20x1000, required]}
-        splitInHalf
-      />
+    <Button type="submit" disabled={tagFormLoading}>
+      {isEditTagForm
+        ? translations[messages.editTag.id]
+        : translations[messages.createTag.id]}
+    </Button>
+  </FormBox>
+);
 
-      <Button type="submit" disabled={tagFormLoading}>
-        {isEditTagForm
-          ? translations[messages.editTag.id]
-          : translations[messages.createTag.id]}
-      </Button>
-    </FormBox>
-  );
-};
 Form.propTypes = {
   tagFormLoading: PropTypes.bool,
   submitAction: PropTypes.func,
   handleSubmit: PropTypes.func,
   translations: PropTypes.object,
   communities: PropTypes.array,
-  getSuggestedTagsDispatch: PropTypes.func,
 };
 
 let FormClone = reduxForm({
@@ -123,12 +113,7 @@ FormClone = connect(
       return {
         valueHasNotBeInListValidate: existingTags
           .filter(tag => tag.id !== tagId)
-          .map(x => x.name?.toLowerCase())
-          .concat(
-            (state?.toJS()?.tags?.suggestedTags ?? []).map(x =>
-              x.name?.toLowerCase(),
-            ),
-          ),
+          .map(x => x.name?.toLowerCase()),
         initialValues: {
           [FORM_COMMUNITY]: selectedCommunity,
           [NAME_FIELD]: selectedTag?.name,
@@ -142,13 +127,7 @@ FormClone = connect(
     return {
       valueHasNotBeInListValidate: (
         state?.toJS()?.form?.[FORM_NAME]?.values?.[FORM_COMMUNITY]?.tags ?? []
-      )
-        .map(x => x.name?.toLowerCase())
-        .concat(
-          (state?.toJS()?.tags?.suggestedTags ?? []).map(x =>
-            x.name?.toLowerCase(),
-          ),
-        ),
+      ).map(x => x.name?.toLowerCase()),
       initialValues: {
         [FORM_COMMUNITY]: getFollowedCommunities(communities, [communityId])[0],
       },

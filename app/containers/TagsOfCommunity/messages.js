@@ -7,9 +7,6 @@ export default defineMessages({
   description: {
     id: 'app.containers.TagsOfCommunity.description',
   },
-  suggestedTags: {
-    id: 'app.containers.TagsOfCommunity.suggestedTags',
-  },
   createTag: {
     id: 'app.containers.TagsOfCommunity.createTag',
   },

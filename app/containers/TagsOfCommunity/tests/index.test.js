@@ -21,7 +21,6 @@ beforeEach(() => {
     existingTagsLoading: false,
     isLastFetch: false,
     text: 'text',
-    suggestedTags: [{ id: 12 }, { id: 23 }],
     emptyCommunity: { tags: [] },
     getExistingTagsDispatch: jest.fn(),
     match: { params: { communityid: 1 } },

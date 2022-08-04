@@ -31,7 +31,6 @@ const CreateCommunity = React.lazy(() => import('containers/CreateCommunity'));
 const TagsOfCommunity = React.lazy(() => import('containers/TagsOfCommunity'));
 const TagsCollection = React.lazy(() => import('containers/TagsCollection'));
 const CreateTag = React.lazy(() => import('containers/CreateTag'));
-const SuggestedTags = React.lazy(() => import('containers/SuggestedTags'));
 const EditTag = React.lazy(() => import('containers/EditTag'));
 const Wallet = React.lazy(() => import('containers/Wallet'));
 const Boost = React.lazy(() => import('containers/Boost'));
@@ -73,7 +72,6 @@ export {
   TagsOfCommunity,
   TagsCollection,
   CreateTag,
-  SuggestedTags,
   EditTag,
   NoAccess,
   Home,

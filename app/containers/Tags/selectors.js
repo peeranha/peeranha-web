@@ -10,12 +10,6 @@ const selectTagsDomain = state => state.get('tags', initialState).toJS();
 const selectSorting = () =>
   createSelector(selectTagsDomain, substate => substate.sorting);
 
-const selectIsLastFetchForSuggestedTags = () =>
-  createSelector(
-    selectTagsDomain,
-    substate => substate.isLastFetchForSuggestedTags,
-  );
-
 const selectLimit = () =>
   createSelector(selectTagsDomain, substate => substate.limit);
 
@@ -40,7 +34,6 @@ const selectIsLastFetchForExistingTags = () =>
 export {
   selectTagsDomain,
   selectSorting,
-  selectIsLastFetchForSuggestedTags,
   selectLimit,
   selectExistingTags,
   selectExistingTagsLoading,

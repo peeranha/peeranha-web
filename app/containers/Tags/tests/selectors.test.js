@@ -2,11 +2,7 @@ import { fromJS } from 'immutable';
 
 import {
   selectTagsDomain,
-  selectSuggestedTags,
-  selectSuggestedTagsLoading,
-  selectSuggestedTagsError,
   selectSorting,
-  selectIsLastFetchForSuggestedTags,
   selectLimit,
   selectExistingTags,
   selectExistingTagsLoading,
@@ -16,11 +12,7 @@ import {
 } from '../selectors';
 
 describe('selectTagsDomain', () => {
-  const suggestedTags = 'suggestedTags';
-  const suggestedTagsLoading = 'suggestedTagsLoading';
-  const getSuggestedTagsError = 'getSuggestedTagsError';
   const sorting = 'sorting';
-  const isLastFetchForSuggestedTags = 'isLastFetchForSuggestedTags';
   const limit = 'limit';
   const existingTags = 'existingTags';
   const existingTagsLoading = 'existingTagsLoading';
@@ -29,11 +21,7 @@ describe('selectTagsDomain', () => {
   const isLastFetchForExistingTags = 'isLastFetchForExistingTags';
 
   const globalState = fromJS({
-    suggestedTags,
-    suggestedTagsLoading,
-    getSuggestedTagsError,
     sorting,
-    isLastFetchForSuggestedTags,
     existingTags,
     existingTagsLoading,
     getExistingTagsError,
@@ -50,35 +38,9 @@ describe('selectTagsDomain', () => {
     expect(selectTagsDomain(mockedState)).toEqual(globalState.toJS());
   });
 
-  it('selectSuggestedTags', () => {
-    const isSelectSuggestedTags = selectSuggestedTags();
-    expect(isSelectSuggestedTags(mockedState)).toEqual(suggestedTags);
-  });
-
-  it('selectSuggestedTagsLoading', () => {
-    const isSelectSuggestedTagsLoading = selectSuggestedTagsLoading();
-    expect(isSelectSuggestedTagsLoading(mockedState)).toEqual(
-      suggestedTagsLoading,
-    );
-  });
-
-  it('selectSuggestedTagsError', () => {
-    const isSelectSuggestedTagsError = selectSuggestedTagsError();
-    expect(isSelectSuggestedTagsError(mockedState)).toEqual(
-      getSuggestedTagsError,
-    );
-  });
-
   it('selectSorting', () => {
     const isSelectSorting = selectSorting();
     expect(isSelectSorting(mockedState)).toEqual(sorting);
-  });
-
-  it('selectIsLastFetchForSuggestedTags', () => {
-    const isSelectIsLastFetchForSuggestedTags = selectIsLastFetchForSuggestedTags();
-    expect(isSelectIsLastFetchForSuggestedTags(mockedState)).toEqual(
-      isLastFetchForSuggestedTags,
-    );
   });
 
   it('selectLimit', () => {

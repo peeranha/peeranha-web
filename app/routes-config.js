@@ -109,11 +109,6 @@ export const suggestedCommunities = () => `/communities/suggested`;
 export const communityTags = communityId =>
   !singleCommId ? `/communities/${communityId}/tags` : `/tags`;
 
-export const suggestedTags = communityId =>
-  !singleCommId
-    ? `/communities/${communityId}/tags/suggested`
-    : `/tags/suggested`;
-
 export const tagsCreate = communityId =>
   !singleCommId ? `/tags/community/${communityId || 0}/create` : `/tags/create`;
 

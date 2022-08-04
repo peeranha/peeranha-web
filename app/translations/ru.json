@@ -454,12 +454,6 @@
   "app.containers.Profile.referralText":
     "Поделитесь реферальной ссылкой или кодом с вашим другом и вы оба получите 100 PEER токенов после того, как ваш друг заработает 35 очков репутации.",
 
-  "app.containers.SuggestedTags.title": "Предложенные теги",
-  "app.containers.SuggestedTags.description": "Предложенные теги | Описание",
-  "app.containers.SuggestedTags.noSuggestedTags": "Нет предложенных тегов",
-  "app.containers.SuggestedTags.topTagsInCommunity": "Лучшие теги в сообществе",
-  "app.containers.SuggestedTags.tagDescription": "Описание",
-
   "app.containers.PrivacyPolicy.title": "Политика конфиденциальности",
   "app.containers.PrivacyPolicy.description":
     "Политика конфиденциальности, описание",
@@ -493,15 +487,12 @@
   "app.containers.Tags.backToList": "Вернуться к списку",
 
   "app.containers.Tags.didntFindSuitableTag": "Не нашли подходящий тег?",
-  "app.containers.Tags.suggestTagWhichWillbeUseful":
-    "Предложите тег, который будет полезен другим людям, чтобы они могли за него проголосовать",
   "app.containers.Tags.youHaveAlreadyVoted": "Вы уже голосовали",
   "app.containers.Tags.creatorCannotUpvoteOwnComm":
     "Нельзя голосовать за свой тег",
 
   "app.containers.TagsOfCommunity.title": "Теги",
   "app.containers.TagsOfCommunity.description": "Описание тегов",
-  "app.containers.TagsOfCommunity.suggestedTags": "Предложенные теги",
   "app.containers.TagsOfCommunity.createTag": "Предложить тег",
   "app.containers.TagsOfCommunity.findTag": "Найти тег",
 

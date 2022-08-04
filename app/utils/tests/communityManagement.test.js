@@ -21,8 +21,6 @@ import {
   followCommunity,
   getAllCommunities,
   getTagScope,
-  suggestTag,
-  getSuggestedTags,
   upVoteToCreateTag,
   downVoteToCreateTag,
   upVoteToCreateCommunity,
@@ -134,32 +132,7 @@ describe('createCommunity', () => {
         user,
         name: community.name,
         ipfs_description: communityIpfsHash,
-        suggested_tags: [
-          {
-            name: 'name',
-            ipfs_description: communityIpfsHash,
-          },
-        ],
       },
-    );
-  });
-});
-
-describe('getSuggestedCommunities', () => {
-  const communities = [];
-  const lowerBound = 10;
-  const limit = 10;
-
-  it('test', async () => {
-    eosService.getTableRows.mockImplementation(() => communities);
-    const fetch = await getSuggestedCommunities(eosService, lowerBound, limit);
-
-    expect(fetch).toEqual(communities);
-    expect(eosService.getTableRows).toHaveBeenCalledWith(
-      CREATED_COMMUNITIES_TABLE,
-      ALL_COMMUNITIES_SCOPE,
-      lowerBound,
-      limit,
     );
   });
 });
@@ -233,54 +206,6 @@ describe('upVoteToCreateTag', () => {
         tag_id: +tagid,
       },
     );
-  });
-});
-
-describe('getSuggestedTags', () => {
-  const tags = [];
-  const communityId = '1';
-  const lowerBound = 10;
-  const limit = 10;
-
-  it('test', async () => {
-    eosService.getTableRows.mockImplementation(() => tags);
-
-    const fetch = await getSuggestedTags(
-      eosService,
-      communityId,
-      lowerBound,
-      limit,
-    );
-
-    expect(fetch).toEqual(tags);
-    expect(eosService.getTableRows).toHaveBeenCalledWith(
-      CREATED_TAGS_TABLE,
-      getTagScope(communityId),
-      lowerBound,
-      limit,
-    );
-  });
-});
-
-describe('suggestTag', () => {
-  const tagIpfsHash = 'tagIpfsHash';
-  const user = 'user';
-  const tag = {
-    communityId: '1',
-    name: 'name',
-  };
-
-  it('test', async () => {
-    saveText.mockImplementation(() => tagIpfsHash);
-    await suggestTag(eosService, user, tag);
-
-    expect(saveText).toHaveBeenCalledWith(JSON.stringify(tag));
-    expect(eosService.sendTransaction).toHaveBeenCalledWith(user, CREATE_TAG, {
-      user,
-      communityId: +tag.communityId,
-      name: tag.name,
-      ipfs_description: tagIpfsHash,
-    });
   });
 });
 

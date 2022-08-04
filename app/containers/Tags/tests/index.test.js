@@ -8,7 +8,6 @@ beforeEach(() => {
     sorting: 'id',
     profile: {},
     showLoginModalDispatch: jest.fn(),
-    getSuggestedTagsDispatch: jest.fn(),
     getExistingTagsDispatch: jest.fn(),
     Aside: null,
     Content: null,
@@ -24,19 +23,13 @@ beforeEach(() => {
 
 describe('<Tags />', () => {
   it('componentDidMount', () => {
-    const {
-      communityId,
-      getSuggestedTagsDispatch,
-      getExistingTagsDispatch,
-    } = cmp.props;
+    const { communityId, getExistingTagsDispatch } = cmp.props;
 
     expect(getExistingTagsDispatch).toHaveBeenCalledTimes(0);
-    expect(getSuggestedTagsDispatch).toHaveBeenCalledTimes(0);
 
     cmp.componentDidMount();
 
     expect(getExistingTagsDispatch).toHaveBeenCalledWith({ communityId });
-    expect(getSuggestedTagsDispatch).toHaveBeenCalledWith({ communityId });
   });
 
   describe('componentDidUpdate', () => {

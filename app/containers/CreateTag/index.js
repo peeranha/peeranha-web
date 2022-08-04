@@ -10,8 +10,6 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
-import { COMMUNITY_ADMIN_VALUE } from 'utils/constants';
-
 import Seo from 'components/Seo';
 import TipsBase from 'components/Base/TipsBase';
 import { BaseSpecialOne } from 'components/Base/BaseTransparent';
@@ -70,7 +68,6 @@ const CreateTag = ({
   permissions = [],
   getFormDispatch,
   isFormLoading,
-  isFormAvailable,
 }) => {
   useModeratorRole(noAccess);
 
@@ -133,7 +130,6 @@ const CreateTag = ({
               tagFormLoading={createTagLoading}
               submitAction={createTag}
               translations={translationMessages[locale]}
-              getSuggestedTagsDispatch={() => {}}
             />
           </BaseSpecialOne>
 
@@ -156,7 +152,6 @@ CreateTag.propTypes = {
   permissions: PropTypes.array,
   isFormLoading: PropTypes.bool,
   getFormDispatch: PropTypes.func.isRequired,
-  getSuggestedTagsDispatch: PropTypes.func,
   isFormAvailable: PropTypes.bool,
 };
 
