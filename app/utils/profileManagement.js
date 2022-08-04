@@ -94,7 +94,7 @@ export async function getProfileInfo(
     });
     if (!foundRating) {
       //avoiding "Cannot assign to read only property" error
-      profileInfo.ratings = [...profileInfo.ratings].push({
+      profileInfo.ratings = profileInfo.ratings.concat({
         communityId: communityIdForRating,
         rating: newRating,
       });
