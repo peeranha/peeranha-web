@@ -8,8 +8,6 @@ import { isAuthorized, isValid } from 'containers/EosioProvider/saga';
 
 import { selectIsGlobalAdmin } from 'containers/AccountProvider/selectors';
 
-import { getSuggestedCommunities } from 'containers/Communities/actions';
-
 import {
   createCommunitySuccess,
   createCommunityErr,
@@ -31,8 +29,6 @@ export function* createCommunityWorker({ community, reset }) {
     const selectedAccount = yield call(ethereumService.getSelectedAccount);
 
     yield call(createCommunity, ethereumService, selectedAccount, community);
-
-    yield put(getSuggestedCommunities(true));
 
     yield put(createCommunitySuccess());
 

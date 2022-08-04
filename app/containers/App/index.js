@@ -58,7 +58,6 @@ import {
   Home,
   Feed,
   Communities,
-  SuggestedCommunities,
   EmailEnteringForm,
   EmailVerificationForm,
   WalletsSignUpForm,
@@ -196,13 +195,6 @@ const App = ({
             path={routes.communitiesEdit(':communityId')}
             render={props => Wrapper(EditCommunity, props)}
           />
-
-          {!single && (
-            <Route
-              path={routes.suggestedCommunities()}
-              render={props => Wrapper(SuggestedCommunities, props)}
-            />
-          )}
 
           {!single && (
             <Route

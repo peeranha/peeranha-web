@@ -132,8 +132,6 @@ import {
   UPDATE_ACC_ERROR,
 } from 'containers/AccountProvider/constants';
 
-import { GET_SUGGESTED_COMMUNITIES_ERROR } from 'containers/Communities/constants';
-
 import {
   GET_COMMUNITIES_WITH_TAGS_ERROR,
   GET_USER_PROFILE_ERROR,
@@ -157,7 +155,6 @@ import { DELETE_FB_DATA_ERROR } from 'containers/DeleteFacebookData/constants';
 
 export const otherTypes = [
   GET_CURRENT_ACCOUNT_ERROR,
-  GET_SUGGESTED_COMMUNITIES_ERROR,
   GET_COMMUNITIES_WITH_TAGS_ERROR,
   GET_USER_PROFILE_ERROR,
   GET_STAT_ERROR,

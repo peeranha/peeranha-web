@@ -487,11 +487,6 @@
   "app.containers.TagsOfCommunity.createTag": "Create tag",
   "app.containers.TagsOfCommunity.findTag": "Find a tag",
 
-  "app.containers.SuggestedCommunities.title": "Suggested communities",
-  "app.containers.SuggestedCommunities.description":
-    "Suggested communities | Description",
-  "app.containers.SuggestedCommunities.whyWeeNeedIt": "Why do we need it?",
-
   "app.containers.Communities.title": "Communities",
   "app.containers.Communities.description": "Communities | Description",
   "app.containers.Communities.tags": "Tags",

@@ -1,14 +1,10 @@
-import React, { memo, useState, useEffect, useMemo } from 'react';
+import React, { memo, useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { createStructuredSelector } from 'reselect';
 import { translationMessages } from 'i18n';
 import { connect } from 'react-redux';
-import { compose, bindActionCreators } from 'redux';
+import { bindActionCreators } from 'redux';
 import * as routes from 'routes-config';
-
-import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
-import { DAEMON } from 'utils/constants';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
@@ -22,18 +18,7 @@ import { redirectToCreateCommunity } from 'containers/CreateCommunity/actions';
 
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 import Seo from 'components/Seo';
-
-import {
-  selectSuggestedCommunities,
-  selectSuggestedCommunitiesLoading,
-  selectIsLastFetch,
-} from './selectors';
-
-import { getSuggestedCommunities } from './actions';
 import messages from './messages';
-import reducer from './reducer';
-import saga from './saga';
-
 import languages from './languagesOptions';
 
 import Header from './Header';
@@ -42,8 +27,6 @@ export const Communities = ({
   locale,
   communities,
   communitiesLoading,
-  suggestedCommunities,
-  suggestedCommunitiesLoading,
   isLastFetch,
   Content,
   SubHeader,
@@ -51,27 +34,18 @@ export const Communities = ({
   sorting,
   redirectToCreateCommunityDispatch,
   route,
-  getSuggestedCommunitiesDispatch,
   profile,
 }) => {
   const [language, setLanguage] = useState(languages.all);
-
-  useEffect(() => {
-    getSuggestedCommunitiesDispatch();
-  }, []);
 
   const keywords = useMemo(() => communities.map(x => x.name), [communities]);
 
   const [displayLoadingIndicator, displayBanner] = useMemo(
     () => [
-      (communitiesLoading && route === routes.communities()) ||
-        (suggestedCommunitiesLoading &&
-          route === routes.suggestedCommunities()),
-      (!communitiesLoading && route === routes.communities()) ||
-        (!suggestedCommunitiesLoading &&
-          route === routes.suggestedCommunities()),
+      communitiesLoading && route === routes.communities(),
+      !communitiesLoading && route === routes.communities(),
     ],
-    [communitiesLoading, route, suggestedCommunitiesLoading],
+    [communitiesLoading, route],
   );
 
   return (
@@ -98,9 +72,6 @@ export const Communities = ({
         />
 
         <Content
-          suggestedCommunities={suggestedCommunities}
-          suggestedCommunitiesLoading={suggestedCommunitiesLoading}
-          getSuggestedCommunities={getSuggestedCommunitiesDispatch}
           isLastFetch={isLastFetch}
           communities={communities}
           sorting={sorting}
@@ -117,45 +88,31 @@ export const Communities = ({
 
 Communities.propTypes = {
   communities: PropTypes.array,
-  suggestedCommunities: PropTypes.array,
   locale: PropTypes.string,
   route: PropTypes.string,
   sorting: PropTypes.object,
   changeSorting: PropTypes.func,
   SubHeader: PropTypes.any,
   Content: PropTypes.any,
-  suggestedCommunitiesLoading: PropTypes.bool,
   isLastFetch: PropTypes.bool,
   communitiesLoading: PropTypes.bool,
-  getSuggestedCommunitiesDispatch: PropTypes.func,
   redirectToCreateCommunityDispatch: PropTypes.func,
   profile: PropTypes.object,
 };
 
 export default memo(
-  compose(
-    injectReducer({ key: 'communities', reducer }),
-    injectSaga({ key: 'communities', saga, mode: DAEMON }),
-    connect(
-      createStructuredSelector({
-        locale: makeSelectLocale(),
-        communities: selectCommunities(),
-        communitiesLoading: selectCommunitiesLoading(),
-        profile: makeSelectProfileInfo(),
-        suggestedCommunities: selectSuggestedCommunities(),
-        suggestedCommunitiesLoading: selectSuggestedCommunitiesLoading(),
-        isLastFetch: selectIsLastFetch(),
-      }),
-      dispatch => ({
-        redirectToCreateCommunityDispatch: bindActionCreators(
-          redirectToCreateCommunity,
-          dispatch,
-        ),
-        getSuggestedCommunitiesDispatch: bindActionCreators(
-          getSuggestedCommunities,
-          dispatch,
-        ),
-      }),
-    ),
+  connect(
+    createStructuredSelector({
+      locale: makeSelectLocale(),
+      communities: selectCommunities(),
+      communitiesLoading: selectCommunitiesLoading(),
+      profile: makeSelectProfileInfo(),
+    }),
+    dispatch => ({
+      redirectToCreateCommunityDispatch: bindActionCreators(
+        redirectToCreateCommunity,
+        dispatch,
+      ),
+    }),
   )(Communities),
 );

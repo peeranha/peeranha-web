@@ -104,7 +104,6 @@ export const communitiesCreate = () => `/communities/create`;
 export const communitiesEdit = communityId =>
   `/communities/${communityId}/edit`;
 export const communitiesCreatedBanner = () => `/communities/create#banner`;
-export const suggestedCommunities = () => `/communities/suggested`;
 
 export const communityTags = communityId =>
   !singleCommId ? `/communities/${communityId}/tags` : `/tags`;

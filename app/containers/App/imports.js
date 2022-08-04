@@ -45,9 +45,6 @@ const Communities = React.lazy(() => import('components/ExistingCommunities'));
 const FullWidthPreloader = React.lazy(() =>
   import('components/LoadingIndicator/FullWidthPreloader'),
 );
-const SuggestedCommunities = React.lazy(() =>
-  import('components/SuggestedCommunities'),
-);
 
 const DeleteFacebookData = React.lazy(() =>
   import('containers/DeleteFacebookData'),
@@ -77,7 +74,6 @@ export {
   Home,
   Feed,
   Communities,
-  SuggestedCommunities,
   EmailEnteringForm,
   EmailVerificationForm,
   EthereumWalletGenerationForm,

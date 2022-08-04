@@ -23,7 +23,6 @@ import homepageReducer from 'containers/HomePage/reducer';
 import dataCacheProviderReducer from 'containers/DataCacheProvider/reducer';
 import followCommunityButtonReducer from 'containers/FollowCommunityButton/reducer';
 import createCommunityReducer from 'containers/CreateCommunity/reducer';
-import communitiesReducer from 'containers/Communities/reducer';
 import createTagReducer from 'containers/CreateTag/reducer';
 import tagsReducer from 'containers/Tags/reducer';
 import editTagReducer from 'containers/EditTag/reducer';
@@ -96,7 +95,6 @@ export default injectedReducers =>
     dataCacheProvider: dataCacheProviderReducer,
     followCommunityButton: followCommunityButtonReducer,
     createCommunity: createCommunityReducer,
-    communities: communitiesReducer,
     createTag: createTagReducer,
     tags: tagsReducer,
     editTag: editTagReducer,

@@ -3,12 +3,9 @@ import { uploadImg } from '../profileManagement';
 
 import {
   COMMUNITIES_TABLE,
-  CREATED_TAGS_TABLE,
-  CREATED_COMMUNITIES_TABLE,
   FOLLOW_COMM,
   UNFOLLOW_COMM,
   ALL_COMMUNITIES_SCOPE,
-  CREATE_TAG,
   VOTE_TO_CREATE_TAG,
   VOTE_TO_DELETE_TAG,
   VOTE_TO_CREATE_COMMUNITY,
@@ -25,7 +22,6 @@ import {
   downVoteToCreateTag,
   upVoteToCreateCommunity,
   downVoteToCreateCommunity,
-  getSuggestedCommunities,
   createCommunity,
   getFollowedCommunities,
   getUnfollowedCommunities,

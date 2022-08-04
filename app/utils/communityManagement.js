@@ -200,10 +200,6 @@ export const getCommunityFromContract = async (ethereumService, id) => {
   return await ethereumService.getCommunityFromContract(id);
 };
 
-export async function getSuggestedCommunities(eosService, lowerBound, limit) {
-  return [];
-}
-
 export async function unfollowCommunity(
   ethereumService,
   communityIdFilter,

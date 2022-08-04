@@ -1,10 +1,6 @@
 import { createSelector } from 'reselect';
 import { initialState } from './reducer';
 
-/**
- * Direct selector to the suggestedCommunities state domain
- */
-
 const selectTagsDomain = state => state.get('tags', initialState).toJS();
 
 const selectSorting = () =>
