@@ -834,7 +834,6 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
       true,
       questionData.communityId,
     );
-    console.log(updatedProfileInfo);
 
     const newAnswer = {
       id: replyId,

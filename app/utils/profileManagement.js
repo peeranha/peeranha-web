@@ -88,16 +88,28 @@ export async function getProfileInfo(
         user,
         communityIdForRating,
       ])) || INIT_RATING;
-    //avoiding "Cannot assign to read only property" error
-    profileInfo.ratings = profileInfo.ratings.map(ratingData => {
-      return {
-        communityId: ratingData.communityId,
-        rating:
-          ratingData.communityId === communityIdForRating
-            ? newRating
-            : ratingData.rating,
-      };
+
+    const foundRating = profileInfo.ratings.find(ratingData => {
+      return ratingData.communityId === communityIdForRating;
     });
+    if (!foundRating) {
+      //avoiding "Cannot assign to read only property" error
+      profileInfo.ratings = [...profileInfo.ratings].push({
+        communityId: communityIdForRating,
+        rating: newRating,
+      });
+    } else {
+      //avoiding "Cannot assign to read only property" error
+      profileInfo.ratings = profileInfo.ratings.map(ratingData => {
+        return {
+          communityId: ratingData.communityId,
+          rating:
+            ratingData.communityId === communityIdForRating
+              ? newRating
+              : ratingData.rating,
+        };
+      });
+    }
   }
 
   profileInfo.highestRating = profileInfo.ratings?.length
