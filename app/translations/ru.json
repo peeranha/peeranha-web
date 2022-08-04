@@ -420,9 +420,6 @@
   "app.containers.FollowCommunityButton.unsubscribe": "Отписаться",
   "app.containers.FollowCommunityButton.subscribeToThisCommunity":
     "Подписаться на это сообщество",
-
-  "app.containers.ExistingCommunities.voteForNewCommunities":
-    "Голосуйте за новые сообщества",
   "app.containers.ExistingCommunities.singleCommunityTooltip":
     "У этого сообщества есть сайт вопросов и ответов на отдельном домене",
 
@@ -506,25 +503,12 @@
   "app.containers.TagsOfCommunity.description": "Описание тегов",
   "app.containers.TagsOfCommunity.suggestedTags": "Предложенные теги",
   "app.containers.TagsOfCommunity.createTag": "Предложить тег",
-  "app.containers.TagsOfCommunity.voteForNewTags": "Голосуйте за новые теги",
   "app.containers.TagsOfCommunity.findTag": "Найти тег",
 
   "app.containers.SuggestedCommunities.title": "Предложенные сообщества",
   "app.containers.SuggestedCommunities.description":
     "Предложенные сообщества | Описание",
-  "app.containers.SuggestedCommunities.votingForNewComm":
-    "Голосуй за новое сообщество",
   "app.containers.SuggestedCommunities.whyWeeNeedIt": "Зачем мне это нужно?",
-
-  "app.containers.VoteForNewCommunityButton.youHaveAlreadyVoted":
-    "Вы уже проголосовали",
-  "app.containers.VoteForNewCommunityButton.creatorCannotUpvoteOwnComm":
-    "Нельзя голосовать за собственное сообщество",
-  "app.containers.VoteForNewCommunityButton.youCannotChange":
-    "Вы не сможете изменить свой голос. Вы уверены?",
-
-  "app.containers.VoteForNewTagButton.creatorCannotUpvoteOwnTag":
-    "Нельзя голосовать за собственный тег",
 
   "app.containers.Communities.title": "Сообщества",
   "app.containers.Communities.description": "Сообщества | Описание",

@@ -20,9 +20,6 @@ import {
   DEFAULT_DESCRIPTION_HEIGHT,
 } from 'components/SuggestedCommunities/Content';
 
-import VoteUpButton from 'containers/VoteForNewTagButton/VoteUpButton';
-import VoteDownButton from 'containers/VoteForNewTagButton/VoteDownButton';
-
 const TagLarge = Tag.extend`
   font-size: 22px;
   font-weight: 600;
@@ -58,16 +55,6 @@ const Item = x => {
       <BaseTransparent className="d-flex flex-column flex-sm-row align-items-sm-center justify-content-sm-between">
         <div className="d-flex align-items-center">
           <TagLarge className="mb-to-sm-2">{x.name}</TagLarge>
-        </div>
-
-        <div>
-          <VoteUpButton
-            className="mr-2"
-            communityId={x.communityId}
-            tagId={x.id}
-          />
-
-          <VoteDownButton communityId={x.communityId} tagId={x.id} />
         </div>
       </BaseTransparent>
 

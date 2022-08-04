@@ -3,8 +3,6 @@ import React, { useState, useEffect } from 'react';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 
-import commonMessages from 'common-messages';
-
 import { BORDER_SECONDARY } from 'style-constants';
 
 import arrowDownIcon from 'images/arrowDown.svg?external';
@@ -17,8 +15,6 @@ import { MediumImageStyled } from 'components/Img/MediumImage';
 import InfinityLoader from 'components/InfinityLoader';
 import BlockShadow from 'components/BlockShadow';
 
-import VoteUpButton from 'containers/VoteForNewCommunityButton/VoteUpButton';
-import VoteDownButton from 'containers/VoteForNewCommunityButton/VoteDownButton';
 import { DescriptionBlock } from 'components/ExistingCommunities/Content';
 
 import messages from './messages';
@@ -97,11 +93,6 @@ const Item = x => {
             </P>
           </div>
         </DescriptionBlock>
-
-        <div className="flex-shrink-0">
-          <VoteUpButton communityId={x.id} />
-          <VoteDownButton communityId={x.id} />
-        </div>
       </BaseSpecial>
 
       <Description

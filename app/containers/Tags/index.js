@@ -20,15 +20,12 @@ import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 
 import { redirectToCreateTag } from 'containers/CreateTag/actions';
 
-import AsideBox from 'components/Base/Aside';
-
 import reducer from './reducer';
 import saga from './saga';
 import { getExistingTags } from './actions';
 import * as selectors from './selectors';
 
 import Header from './Header';
-import Banner from './Banner';
 
 export const Tags = ({
   communityId,
@@ -80,7 +77,6 @@ Tags.propTypes = {
   sorting: PropTypes.string,
   redirectToCreateTagDispatch: PropTypes.func,
   getExistingTagsDispatch: PropTypes.func,
-  Aside: PropTypes.any,
   Content: PropTypes.any,
   sortTags: PropTypes.func,
   tagsNumber: PropTypes.number,

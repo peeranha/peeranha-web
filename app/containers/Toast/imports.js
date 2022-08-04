@@ -108,16 +108,6 @@ import {
 } from 'containers/Wallet/constants';
 
 import {
-  UPVOTE_ERROR as COMMUNITY_UPVOTE_ERROR,
-  DOWNVOTE_ERROR as COMMUNITY_DOWNVOTE_ERROR,
-} from 'containers/VoteForNewCommunityButton/constants';
-
-import {
-  UPVOTE_ERROR as TAG_UPVOTE_ERROR,
-  DOWNVOTE_ERROR as TAG_DOWNVOTE_ERROR,
-} from 'containers/VoteForNewTagButton/constants';
-
-import {
   POST_COMMENT_ERROR,
   POST_ANSWER_ERROR,
   UP_VOTE_ERROR,
@@ -228,10 +218,6 @@ export const errHandlingTypes = [
   SIGNUP_WITH_WALLET_ERROR,
   FOLLOW_HANDLER_ERROR,
   PICKUP_REWARD_ERROR,
-  COMMUNITY_UPVOTE_ERROR,
-  TAG_UPVOTE_ERROR,
-  COMMUNITY_DOWNVOTE_ERROR,
-  TAG_DOWNVOTE_ERROR,
   POST_COMMENT_ERROR,
   POST_ANSWER_ERROR,
   UP_VOTE_ERROR,

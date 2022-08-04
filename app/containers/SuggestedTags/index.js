@@ -26,7 +26,6 @@ import Tags from 'containers/Tags';
 import messages from './messages';
 
 import Content from './Content';
-import Aside from './Aside';
 
 const single = isSingleCommunityWebsite();
 
@@ -86,12 +85,6 @@ export const SuggestedTags = ({
         sortTags={sortTags}
         communityId={commId}
         currentCommunity={currentCommunity}
-        Aside={
-          <Aside
-            existingTags={existingTags}
-            currentCommunity={currentCommunity}
-          />
-        }
         Content={
           <Content
             loadMoreTags={loadMoreTags}

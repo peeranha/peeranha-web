@@ -42,16 +42,6 @@ import {
   SAVE_COMMENT_SUCCESS,
 } from 'containers/ViewQuestion/constants';
 
-import {
-  UPVOTE_SUCCESS as UPVOTE_COMM_SUCCESS,
-  DOWNVOTE_SUCCESS as DOWNVOTE_COMM_SUCCESS,
-} from 'containers/VoteForNewCommunityButton/constants';
-
-import {
-  UPVOTE_SUCCESS as UPVOTE_TAGS_SUCCESS,
-  DOWNVOTE_SUCCESS as DOWNVOTE_TAGS_SUCCESS,
-} from 'containers/VoteForNewTagButton/constants';
-
 import defaultSaga, { getCurrentAccountWorker } from '../saga';
 
 import { GET_CURRENT_ACCOUNT, GET_CURRENT_ACCOUNT_ERROR } from '../constants';
@@ -362,10 +352,6 @@ describe('defaultSaga', () => {
       EDIT_ANSWER_SUCCESS,
       EDIT_QUESTION_SUCCESS,
       SEND_TOKENS_SUCCESS,
-      UPVOTE_COMM_SUCCESS,
-      DOWNVOTE_COMM_SUCCESS,
-      UPVOTE_TAGS_SUCCESS,
-      DOWNVOTE_TAGS_SUCCESS,
       PICKUP_REWARD_SUCCESS,
       DELETE_QUESTION_SUCCESS,
       DELETE_ANSWER_SUCCESS,

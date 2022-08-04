@@ -16,9 +16,6 @@ export default defineMessages({
   noSuggestedCommunities: {
     id: 'app.containers.SuggestedCommunities.noSuggestedCommunities',
   },
-  votingForNewComm: {
-    id: 'app.containers.SuggestedCommunities.votingForNewComm',
-  },
   whyWeeNeedIt: {
     id: 'app.containers.SuggestedCommunities.whyWeeNeedIt',
   },

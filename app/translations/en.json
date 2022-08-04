@@ -414,9 +414,6 @@
   "app.containers.FollowCommunityButton.unsubscribe": "Unsubscribe",
   "app.containers.FollowCommunityButton.subscribeToThisCommunity":
     "Subscribe to this community",
-
-  "app.containers.ExistingCommunities.voteForNewCommunities":
-    "Vote for new communities",
   "app.containers.ExistingCommunities.singleCommunityTooltip":
     "This community has Q&A website on another domain",
 
@@ -497,25 +494,12 @@
   "app.containers.TagsOfCommunity.description": "Description of Tags",
   "app.containers.TagsOfCommunity.suggestedTags": "Suggested tags",
   "app.containers.TagsOfCommunity.createTag": "Create tag",
-  "app.containers.TagsOfCommunity.voteForNewTags": "Vote for new tags",
   "app.containers.TagsOfCommunity.findTag": "Find a tag",
 
   "app.containers.SuggestedCommunities.title": "Suggested communities",
   "app.containers.SuggestedCommunities.description":
     "Suggested communities | Description",
-  "app.containers.SuggestedCommunities.votingForNewComm":
-    "Vote for new community",
   "app.containers.SuggestedCommunities.whyWeeNeedIt": "Why do we need it?",
-
-  "app.containers.VoteForNewCommunityButton.youHaveAlreadyVoted":
-    "You have already voted",
-  "app.containers.VoteForNewCommunityButton.creatorCannotUpvoteOwnComm":
-    "Creators cannot upvote their own community",
-  "app.containers.VoteForNewCommunityButton.youCannotChange":
-    "You cannot change your vote. Are you sure?",
-
-  "app.containers.VoteForNewTagButton.creatorCannotUpvoteOwnTag":
-    "Creators cannot upvote their own tag",
 
   "app.containers.Communities.title": "Communities",
   "app.containers.Communities.description": "Communities | Description",

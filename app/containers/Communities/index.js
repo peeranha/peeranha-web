@@ -37,7 +37,6 @@ import saga from './saga';
 import languages from './languagesOptions';
 
 import Header from './Header';
-import Banner from './Banner';
 
 export const Communities = ({
   locale,

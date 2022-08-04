@@ -29,8 +29,6 @@ import tagsReducer from 'containers/Tags/reducer';
 import editTagReducer from 'containers/EditTag/reducer';
 import questionsOfUserReducer from 'containers/QuestionsOfUser/reducer';
 import questionsWithAnswersOfUserReducer from 'containers/QuestionsWithAnswersOfUser/reducer';
-import voteForNewCommunityButtonReducer from 'containers/VoteForNewCommunityButton/reducer';
-import voteForNewTagButtonReducer from 'containers/VoteForNewTagButton/reducer';
 import usersReducer from 'containers/Users/reducer';
 import forgotPasswordReducer from 'containers/ForgotPassword/reducer';
 import logoutReducer from 'containers/Logout/reducer';
@@ -104,8 +102,6 @@ export default injectedReducers =>
     editTag: editTagReducer,
     questionsOfUser: questionsOfUserReducer,
     questionsWithAnswersOfUser: questionsWithAnswersOfUserReducer,
-    voteForNewCommunityButton: voteForNewCommunityButtonReducer,
-    voteForNewTagButton: voteForNewTagButtonReducer,
     users: usersReducer,
     form: formReducer,
     showActiveKey: showActiveKeyReducer,

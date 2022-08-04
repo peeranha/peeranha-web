@@ -33,7 +33,6 @@ import { setEditTagData } from './actions';
 import messages from './messages';
 
 import Content from './Content';
-import Aside from './Aside';
 
 const single = isSingleCommunityWebsite();
 
@@ -114,7 +113,6 @@ export const TagsOfCommunity = ({
         communityId={communityId}
         tagsNumber={currentCommunity.tags.length}
         currentCommunity={currentCommunity}
-        Aside={<Aside suggestedTags={[]} communityId={communityId} />}
         Content={
           <Content
             tags={existingTags}

@@ -27,7 +27,6 @@ const SubHeader = () => (
       >
         <CommunitiesIcon stroke="#576FED" size={[30, 30]} />
       </div>
-      <FormattedMessage {...messages.votingForNewComm} />
     </H3>
 
     <div className="right-panel" />
