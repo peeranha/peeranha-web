@@ -1,6 +1,5 @@
 import React from 'react';
-import commonMessages from 'common-messages';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { BG_LIGHT, BORDER_RADIUS_L } from 'style-constants';
 import PropTypes from 'prop-types';
@@ -35,10 +34,11 @@ const Label = styled.div`
 `;
 
 const IPFSInformation = ({ locale, ipfsHash, histories }) => {
+  const { t } = useTranslation();
   const columns = {
-    transactionHash: translationMessages[locale][messages.transactionHash.id],
-    eventName: translationMessages[locale][messages.eventName.id],
-    timeStamp: translationMessages[locale][messages.timeStamp.id],
+    transactionHash: t('post.transactionHash'),
+    eventName: t('post.eventName'),
+    timeStamp: t('post.timeStamp'),
   };
 
   const hashString = getIpfsHashFromBytes32(ipfsHash);
@@ -52,12 +52,10 @@ const IPFSInformation = ({ locale, ipfsHash, histories }) => {
           to={{ pathname: polygonURL + transactionHash }}
           href={polygonURL + transactionHash}
         >
-          {transactionHash.substring(0, 12) + '...'}
+          {`${transactionHash.substring(0, 12)}...`}
         </A>
       ),
-      eventName: `${translationMessages[locale][messages[eventEntity].id]} ${
-        translationMessages[locale][messages[eventName].id]
-      }`,
+      eventName: `${t(messages[eventEntity])} ${t(messages[eventName])}`,
       timeStamp: getFormattedDate(
         timeStamp,
         locale,
@@ -70,7 +68,7 @@ const IPFSInformation = ({ locale, ipfsHash, histories }) => {
     <Label>
       <IconSm icon={ipfsLogo} className="mr-1" />
       <Span fontSize="14">
-        {translationMessages[locale][commonMessages.ipfsHashValue.id]}
+        {t('common.ipfsHashValue')}
         {': '}
         {hashString}
       </Span>
