@@ -271,10 +271,6 @@ export const KEY_LAST_RATING_UPDATE_TIME = 18;
 
 // verification codes types
 export const SEND_TOKENS_TYPE = 'sendTokens';
-export const SHOW_ACTIVE_KEY_TYPE = 'showActiveKey';
-export const SHOW_OWNER_KEY_TYPE = 'showOwnerKey';
-export const DELETE_ACCOUNT_TYPE = 'deleteAccount';
-export const DELETE_FB_DATA_TYPE = 'deleteFbData';
 
 export const METAMASK_ERROR_CODE = 1000001;
 export const ETHEREUM_USER_ERROR_CODE = 1000002;
@@ -283,5 +279,5 @@ export const CHAIN_ID_ERROR_CODE = 1000004;
 export const INVALID_ETHEREUM_PARAMETERS_ERROR_CODE = -32602;
 export const REJECTED_SIGNATURE_REQUEST = 4001;
 
-//session storage keys
+// session storage keys
 export const CHANGED_POSTS_KEY = 'changed-posts';

@@ -516,12 +516,6 @@ export default defineMessages({
   cannotTransferToYourself: {
     id: 'app.common.cannotTransferToYourself',
   },
-  verifyFacebookAccount: {
-    id: 'app.common.verifyFacebookAccount',
-  },
-  facebookButton: {
-    id: 'app.common.facebookButton',
-  },
   selectCommunity: {
     id: 'app.common.selectCommunity',
   },

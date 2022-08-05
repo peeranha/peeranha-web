@@ -81,7 +81,6 @@ const Footer = ({
   showWalletSignUpProcessing,
   loginWithEmailProcessing,
   emailVerificationProcessing,
-  facebookLoginProcessing,
   emailChecking,
   signUpText = null,
   metaMaskProviderDetected,
@@ -98,8 +97,7 @@ const Footer = ({
     showWalletSignUpProcessing ||
     emailChecking ||
     emailVerificationProcessing ||
-    loginWithEmailProcessing ||
-    facebookLoginProcessing;
+    loginWithEmailProcessing;
 
   return (
     <Box>

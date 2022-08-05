@@ -95,7 +95,6 @@ MetaTransactionAgreement.propTypes = {
   loginWithEmailDispatch: PropTypes.func,
   loginWithWalletDispatch: PropTypes.func,
   finishRegistrationDispatch: PropTypes.func,
-  showForgotPasswordModalDispatch: PropTypes.func,
 };
 
 const withConnect = connect(

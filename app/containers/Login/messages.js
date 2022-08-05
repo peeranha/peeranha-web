@@ -9,8 +9,6 @@ import {
   SCATTER_BROWSER_EXTENSION_NOT_CONFIGURED,
   USER_IS_NOT_REGISTERED,
   USER_IS_NOT_SELECTED,
-  FACEBOOK_AUTOLOGIN_ERROR,
-  FACEBOOK_LOGIN_ERROR,
 } from './constants';
 
 const messages = defineMessages({
@@ -19,9 +17,6 @@ const messages = defineMessages({
   },
   staySignedIn: {
     id: 'app.containers.Login.staySignedIn',
-  },
-  iForgotPassword: {
-    id: 'app.containers.Login.iForgotPassword',
   },
   weAreHappyYouAreHere: {
     id: 'app.containers.Login.weAreHappyYouAreHere',
@@ -46,12 +41,6 @@ const messages = defineMessages({
   },
   [USER_IS_NOT_SELECTED]: {
     id: 'app.containers.Login.userIsNotSelected',
-  },
-  [FACEBOOK_AUTOLOGIN_ERROR]: {
-    id: 'app.containers.Login.fbAutologinError',
-  },
-  [FACEBOOK_LOGIN_ERROR]: {
-    id: 'app.containers.Login.fbLoginError',
   },
   accountNotCreatedName: {
     id: 'app.containers.Login.accountNotCreatedName',

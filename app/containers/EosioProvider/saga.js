@@ -60,7 +60,7 @@ export function* initEosioWorker({
       return null;
     }
 
-    if (autoLoginData && autoLoginData.loginWithFacebook) {
+    if (autoLoginData) {
       yield call(eosService.initEosioWithoutScatter);
     }
 

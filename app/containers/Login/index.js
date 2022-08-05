@@ -17,7 +17,6 @@ import { DAEMON } from 'utils/constants';
 import ModalDialog from 'components/ModalDialog';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { showForgotPasswordModal } from 'containers/ForgotPassword/actions';
 
 import notificationsReducer from 'components/Notifications/reducer';
 
@@ -59,14 +58,8 @@ export const Login = ({
   loginWithWalletProcessing,
   loginWithWalletDispatch,
   finishRegistrationDispatch,
-  showForgotPasswordModalDispatch,
   ethereumService,
 }) => {
-  const showIForgotPasswordModal = () => {
-    hideLoginModalDispatch();
-    showForgotPasswordModalDispatch();
-  };
-
   return (
     <ModalDialog show={showModal} closeModal={hideLoginModalDispatch}>
       {content === EMAIL_FORM && (
@@ -85,7 +78,6 @@ export const Login = ({
           locale={locale}
           login={loginWithEmailDispatch}
           loginWithEmailProcessing={loginWithEmailProcessing}
-          showIForgotPasswordModal={showIForgotPasswordModal}
           email={email}
           loginWithWallet={loginWithWalletDispatch}
           loginWithWalletProcessing={loginWithWalletProcessing}
@@ -116,7 +108,6 @@ Login.propTypes = {
   loginWithEmailDispatch: PropTypes.func,
   loginWithWalletDispatch: PropTypes.func,
   finishRegistrationDispatch: PropTypes.func,
-  showForgotPasswordModalDispatch: PropTypes.func,
 };
 
 const withConnect = connect(
@@ -138,10 +129,6 @@ const withConnect = connect(
     ),
     loginWithEmailDispatch: bindActionCreators(loginWithEmail, dispatch),
     loginWithWalletDispatch: bindActionCreators(loginWithWallet, dispatch),
-    showForgotPasswordModalDispatch: bindActionCreators(
-      showForgotPasswordModal,
-      dispatch,
-    ),
     finishRegistrationDispatch: bindActionCreators(
       finishRegistrationWithDisplayName,
       dispatch,

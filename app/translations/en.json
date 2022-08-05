@@ -221,15 +221,6 @@
   "app.containers.TermsOfService.description": "Terms of Service: description",
   "app.containers.Search.title": "Search",
   "app.containers.Search.description": "Search: description",
-  "app.containers.ChangeEmail.newEmail": "New email",
-  "app.containers.ChangeEmail.confirmNewEmail": "Confirm new email",
-  "app.containers.ChangeEmail.emailsDoNotMatch": "Emails do not match",
-  "app.containers.DeleteAccount.deleteAccount": "Delete account",
-  "app.containers.DeleteAccount.areYouLeaving": "Are you leaving?",
-  "app.containers.DeleteAccount.iUnderstand":
-    "I understand that this operation does not remove my account on Telos blockchain. Account is removed only from wallet service.",
-  "app.containers.DeleteAccount.iHaveBackup":
-    "I have back up for my Telos private keys.",
 
   "app.containers.Wallet.title": "Wallet",
   "app.containers.Wallet.description": "Wallet | Description",
@@ -305,18 +296,6 @@
   "web_integration.errors.invalidCipher": "Invalid cipher IV in passphase",
   "web_integration.errors.emailAlreadyInUse": "Email already in use",
   "web_integration.errors.unableToBuildModel": "Unable to build model",
-  "web_integration.errors.facebookAlreadyInUse":
-    "Facebook account already in use",
-  "web_integration.errors.facebookAccountIsntRegistered":
-    "Facebook account isn't registered yet",
-  "web_integration.errors.incorrectFacebookAccessToken":
-    "Incorrect facebook access token",
-  "web_integration.errors.noStoredFacebookData":
-    "There is no stored facebook user data in Peeranha",
-  "web_integration.errors.privateKeyTypeIsNotSet":
-    "The private key type is not set",
-  "web_integration.errors.noFacebookAccountEmail":
-    "The Facebook account does not have an installed email or the email is not verified",
 
   "app.containers.Header.walletTooltipPart1": "You have ",
   "app.containers.Header.walletTooltipPart2": " rewards ready",
@@ -328,41 +307,7 @@
   "app.containers.Moderation.title": "Moderator permissions",
   "app.common.globalModerator": "Global moderator",
 
-  "app.common.verifyFacebookAccount": "Account verification",
-  "app.common.facebookButton": "Facebook",
   "app.common.selectCommunity": "Select...",
-  "app.containers.DeleteFacebookData.deleteFacebookDataTitle":
-    "Delete facebook data",
-  "app.containers.DeleteFacebookData.pageToCheckFacebookId":
-    "This page will help you to check whether Peeranha stores your facebook data and delete it.",
-  "app.containers.DeleteFacebookData.checkFacebookId":
-    "Please, enter your facebook user ID and click 'Check ID' button.",
-  "app.containers.DeleteFacebookData.ifDataStored":
-    "If there is stored data we will send you email with verification code to confirm data deletion.",
-  "app.containers.DeleteFacebookData.enterYourFacebookId":
-    "Enter your facebook user ID",
-  "app.containers.DeleteFacebookData.facebookUserId": "Facebook user ID",
-  "app.containers.DeleteFacebookData.checkId": "Check ID",
-  "app.containers.DeleteFacebookData.completeDeletionPage":
-    "This page will help you to complete facebook data deletion from Peeranha.",
-  "app.containers.DeleteFacebookData.completeDeletion":
-    "To complete data deletion, please, enter verification code you recieved via email and click the 'Confirm deletion' button.",
-  "app.containers.DeleteFacebookData.ifCodeHasExpired":
-    "If your verification code has expired or something went wrong, click the 'Send another code' button and check your email for a new code.",
-  "app.containers.DeleteFacebookData.contactSupprortTeam":
-    "If you are unable to delete the data, please contact our ",
-  "app.containers.DeleteFacebookData.supportTeam": "support team",
-  "app.containers.DeleteFacebookData.enterYourCode":
-    "Enter your verification code",
-  "app.containers.DeleteFacebookData.fbDelDataCompletedTitle":
-    "Data deletion completed",
-  "app.containers.DeleteFacebookData.fbDataDeletionCompleted":
-    "Congratulations! Peeranha has finished deleting all your facebook user data.",
-  "app.containers.DeleteFacebookData.noStoredDataNow":
-    "We no longer store any of your facebook data.",
-  "app.containers.DeleteFacebookData.congratulations":
-    "Congratulations! Data deletion is successfully completed!",
-  "app.containers.DeleteFacebookData.confirmDeletion": "Confirm deletion",
 
   "app.containers.Moderation.givePermissions": "Give permissions",
   "app.containers.Moderation.givePermissionsDescription":
@@ -543,10 +488,6 @@
   "app.containers.CreateCommunity.anyQuestionDescriptionLabel":
     "Users will be able to ask both General and Expert types of question in this community",
   "app.containers.CreateCommunity.anyQuestionDescriptionList": [],
-  "app.containers.CreateCommunity.facebook": "Facebook",
-  "app.containers.CreateCommunity.instagram": "Instagram",
-  "app.containers.CreateCommunity.youtube": "YouTube",
-  "app.containers.CreateCommunity.vk": "VK",
   "app.containers.CreateCommunity.mainColor": "Main color",
   "app.containers.CreateCommunity.highlightColor": "Highlight color",
   "app.containers.CreateCommunity.communityType": "Community Type",
@@ -878,16 +819,12 @@
 
   "app.containers.Login.authUserHasMore": "An authorized user has more options",
   "app.containers.Login.staySignedIn": "Stay signed in",
-  "app.containers.Login.iForgotPassword": "I forgot password",
   "app.containers.Login.scatterIsNotInstalled":
     "Check whether the wallet and network settings are installed",
   "app.containers.Login.scatterBrowserExtensionNotConfigured":
     "Check whether the wallet browser extension is configured",
   "app.containers.Login.userIsNotRegistered": "User is not registered",
   "app.containers.Login.userIsNotSelected": "User is not selected",
-  "app.containers.Login.fbAutologinError":
-    "Could not auto login with facebook account",
-  "app.containers.Login.fbLoginError": "Could not login with facebook account",
   "app.containers.Login.weAreHappyYouAreHere": "We are happy, you are here",
   "app.containers.Login.yourUsernameIsHow":
     "The username is how you'll be known on Peeranha.",
@@ -897,9 +834,6 @@
   "app.containers.Login.accountNotCreatedName": "Account is not created yet",
   "app.containers.Login.inviterIsNotRegisterYet": "Inviter isn't register yet",
   "app.containers.Login.iDontHaveAnAccount": "I don't have an account.",
-
-  "app.containers.ForgotPassword.youGotThisKey":
-    "You received this key with the authorization which was saved in a safe place. Try to find it.",
 
   "app.containers.SignUp.checkYourEmail": "Verification code.",
   "app.containers.SignUp.almostDone": "Almost done",

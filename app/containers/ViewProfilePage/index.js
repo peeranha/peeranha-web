@@ -40,8 +40,6 @@ import {
   selectQuestionsLoading as selectQuestionsWithAnswersLoading,
   selectQuestionsWithUserAnswers,
 } from 'containers/QuestionsWithAnswersOfUser/selectors';
-import { selectActiveKey } from 'containers/ShowActiveKey/selectors';
-import { selectOwnerKey } from 'containers/ShowOwnerKey/selectors';
 import { getUserName } from 'utils/user';
 import { selectGetUserTgData } from '../TelegramAccountAction/selectors';
 
@@ -190,8 +188,6 @@ const withConnect = connect(
     questionsWithUserAnswers: selectQuestionsWithUserAnswers(),
     questionsLoading: selectQuestionsLoading(),
     questionsWithAnswersLoading: selectQuestionsWithAnswersLoading(),
-    activeKey: selectActiveKey(),
-    ownerKey: selectOwnerKey(),
     userTgData: selectGetUserTgData(),
     stat: selectStat(),
   }),

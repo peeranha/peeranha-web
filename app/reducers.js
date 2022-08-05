@@ -29,13 +29,7 @@ import editTagReducer from 'containers/EditTag/reducer';
 import questionsOfUserReducer from 'containers/QuestionsOfUser/reducer';
 import questionsWithAnswersOfUserReducer from 'containers/QuestionsWithAnswersOfUser/reducer';
 import usersReducer from 'containers/Users/reducer';
-import forgotPasswordReducer from 'containers/ForgotPassword/reducer';
 import logoutReducer from 'containers/Logout/reducer';
-import showActiveKeyReducer from 'containers/ShowActiveKey/reducer';
-import showOwnerKeyReducer from 'containers/ShowOwnerKey/reducer';
-import changePasswordByPreviousReducer from 'containers/ChangePasswordByPrevious/reducer';
-import changeEmailReducer from 'containers/ChangeEmail/reducer';
-import deleteAccountReducer from 'containers/DeleteAccount/reducer';
 import sendTokensReducer from 'containers/SendTokens/reducer';
 import searchReducer from 'containers/Search/reducer';
 import appWrapperReducer from 'containers/AppWrapper/reducer';
@@ -81,7 +75,6 @@ export default injectedReducers =>
     signUp: signUpReducer,
     login: loginReducer,
     logout: logoutReducer,
-    forgotPassword: forgotPasswordReducer,
     toast: toastReducer,
     account: accountProviderReducer,
     editProfileReducer,
@@ -102,11 +95,6 @@ export default injectedReducers =>
     questionsWithAnswersOfUser: questionsWithAnswersOfUserReducer,
     users: usersReducer,
     form: formReducer,
-    showActiveKey: showActiveKeyReducer,
-    showOwnerKey: showOwnerKeyReducer,
-    changePasswordByPrevious: changePasswordByPreviousReducer,
-    changeEmail: changeEmailReducer,
-    deleteAccount: deleteAccountReducer,
     sendTokens: sendTokensReducer,
     search: searchReducer,
     appWrapper: appWrapperReducer,

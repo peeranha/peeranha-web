@@ -51,18 +51,14 @@ const SendTokensForm = ({
   sendTokensProcessing,
   loginData,
 }) => {
-  const { loginWithScatter, loginWithKeycat, loginWithFacebook } = loginData;
+  const { loginWithScatter, loginWithKeycat } = loginData;
   return (
     <div>
       <H4 className="text-center pb-3">
         <FormattedMessage {...commonMessages.sendTokens} />
       </H4>
 
-      <form
-        onSubmit={handleSubmit(
-          loginWithFacebook ? sendFbVerificationEmail : sendTokens,
-        )}
-      >
+      <form onSubmit={handleSubmit(sendTokens)}>
         <Field
           name={EOS_ACCOUNT_FIELD}
           disabled={sendTokensProcessing}
@@ -81,7 +77,7 @@ const SendTokensForm = ({
           warn={[requiredAndNotZero, valueHasToBeLessThan]}
         />
 
-        {!(loginWithScatter || loginWithKeycat || loginWithFacebook) && (
+        {!(loginWithScatter || loginWithKeycat) && (
           <Field
             name={PASSWORD_FIELD}
             disabled={sendTokensProcessing}

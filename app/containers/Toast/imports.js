@@ -4,20 +4,6 @@ import {
 } from 'containers/AskQuestion/constants';
 
 import {
-  CHANGE_EMAIL_ERROR,
-  SEND_OLD_EMAIL_ERROR,
-  CONFIRM_OLD_EMAIL_ERROR,
-  CHANGE_EMAIL_SUCCESS,
-} from 'containers/ChangeEmail/constants';
-
-import {
-  CHANGE_PASSWORD_ERROR,
-  SUBMIT_EMAIL_ERROR,
-  SEND_EMAIL_ERROR,
-  CHANGE_PASSWORD_SUCCESS,
-} from 'containers/ChangePasswordByPrevious/constants';
-
-import {
   CREATE_COMMUNITY_SUCCESS,
   CREATE_COMMUNITY_ERROR,
 } from 'containers/CreateCommunity/constants';
@@ -28,12 +14,6 @@ import {
 } from 'containers/CreateTag/constants';
 
 import { EDIT_TAG_SUCCESS, EDIT_TAG_ERROR } from 'containers/EditTag/constants';
-
-import {
-  DELETE_ACCOUNT_ERROR,
-  DELETE_ACCOUNT_SUCCESS,
-  SEND_EMAIL_ERROR as DELETE_ACCOUNT_SEND_EMAIL_ERROR,
-} from 'containers/DeleteAccount/constants';
 
 import {
   EDIT_ANSWER_ERROR,
@@ -58,13 +38,6 @@ import {
 } from 'containers/EditQuestion/constants';
 
 import {
-  GET_VERIFICATION_CODE_ERROR,
-  VERIFY_EMAIL_ERROR,
-  CHANGE_PASSWORD_ERROR as FORGOT_PASSWORD_CHANGE_PASSWORD_ERROR,
-  CHANGE_PASSWORD_SUCCESS as FORGOT_PASSWORD_CHANGE_PASSWORD_SUCCESS,
-} from 'containers/ForgotPassword/constants';
-
-import {
   SEND_MESSAGE_SUCCESS,
   SEND_MESSAGE_ERROR,
 } from 'containers/HomePage/constants';
@@ -84,7 +57,6 @@ import {
   LOGIN_WITH_EMAIL_ERROR,
   FINISH_REGISTRATION_ERROR,
   FINISH_REGISTRATION_REFERRAL_ERROR,
-  FB_LOGIN_ERROR,
 } from 'containers/Login/constants';
 
 import { LOGOUT_ERROR } from 'containers/Logout/constants';
@@ -93,13 +65,6 @@ import {
   SEND_TOKENS_ERROR,
   SEND_TOKENS_SUCCESS,
 } from 'containers/SendTokens/constants';
-
-import { SHOW_ACTIVE_KEY_ERROR } from 'containers/ShowActiveKey/constants';
-
-import {
-  SHOW_OWNER_KEY_ERROR,
-  SEND_EMAIL_ERROR as SHOW_OWNER_KEY_SEND_EMAIL_ERROR,
-} from 'containers/ShowOwnerKey/constants';
 
 import { FOLLOW_HANDLER_ERROR } from 'containers/FollowCommunityButton/constants';
 import {
@@ -151,7 +116,6 @@ import { GET_TERMS_ERROR } from 'containers/TermsOfService/constants';
 import { INIT_EOSIO_ERROR } from 'containers/EosioProvider/constants';
 import { GET_USER_ACHIEVEMENTS_ERROR } from 'containers/Achievements/constants';
 import { CHANGE_STAKE_ERROR } from 'containers/Boost/constants';
-import { DELETE_FB_DATA_ERROR } from 'containers/DeleteFacebookData/constants';
 
 export const otherTypes = [
   GET_CURRENT_ACCOUNT_ERROR,
@@ -173,25 +137,14 @@ export const otherTypes = [
 
 export const errHandlingTypes = [
   ASK_QUESTION_ERROR,
-  CHANGE_EMAIL_ERROR,
   EDIT_COMMUNITY_ERROR,
   GET_COMMUNITY_ERROR,
-  SEND_OLD_EMAIL_ERROR,
-  CONFIRM_OLD_EMAIL_ERROR,
-  SEND_EMAIL_ERROR,
-  SUBMIT_EMAIL_ERROR,
-  CHANGE_PASSWORD_ERROR,
   CREATE_COMMUNITY_ERROR,
   SUGGEST_TAG_ERROR,
   EDIT_TAG_ERROR,
-  DELETE_ACCOUNT_SEND_EMAIL_ERROR,
-  DELETE_ACCOUNT_ERROR,
   EDIT_ANSWER_ERROR,
   SAVE_PROFILE_ERROR,
   EDIT_QUESTION_ERROR,
-  GET_VERIFICATION_CODE_ERROR,
-  VERIFY_EMAIL_ERROR,
-  FORGOT_PASSWORD_CHANGE_PASSWORD_ERROR,
   SEND_MESSAGE_ERROR,
   EMAIL_CHECKING_ERROR,
   LOGIN_WITH_WALLET_ERROR,
@@ -201,9 +154,6 @@ export const errHandlingTypes = [
   SIGNUP_WITH_WALLET_REFERRAL_ERROR,
   LOGOUT_ERROR,
   SEND_TOKENS_ERROR,
-  SHOW_ACTIVE_KEY_ERROR,
-  SHOW_OWNER_KEY_ERROR,
-  SHOW_OWNER_KEY_SEND_EMAIL_ERROR,
   EMAIL_VERIFICATION_ERROR,
   I_HAVE_EOS_ACCOUNT_ERROR,
   SIGN_UP_VIA_EMAIL_ERROR,
@@ -227,19 +177,14 @@ export const errHandlingTypes = [
   GET_USER_ACHIEVEMENTS_ERROR,
   GET_ASKED_QUESTION_ERROR,
   CHANGE_STAKE_ERROR,
-  FB_LOGIN_ERROR,
-  DELETE_FB_DATA_ERROR,
 ];
 
 export const successHandlingTypes = [
   ASK_QUESTION_SUCCESS,
-  CHANGE_EMAIL_SUCCESS,
-  CHANGE_PASSWORD_SUCCESS,
   CREATE_COMMUNITY_SUCCESS,
   EDIT_COMMUNITY_SUCCESS,
   SUGGEST_TAG_SUCCESS,
   EDIT_TAG_SUCCESS,
-  DELETE_ACCOUNT_SUCCESS,
   EDIT_ANSWER_SUCCESS,
   SAVE_PROFILE_SUCCESS,
   EDIT_QUESTION_SUCCESS,
@@ -249,5 +194,4 @@ export const successHandlingTypes = [
   DELETE_ANSWER_SUCCESS,
   DELETE_COMMENT_SUCCESS,
   CHANGE_QUESTION_TYPE_SUCCESS,
-  FORGOT_PASSWORD_CHANGE_PASSWORD_SUCCESS,
 ];

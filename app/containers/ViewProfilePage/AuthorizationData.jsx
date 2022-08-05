@@ -1,29 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { translationMessages } from 'i18n';
 import { FormattedMessage } from 'react-intl';
 
 import H3 from 'components/H3';
-import InfoLabel from 'components/InfoLabelWithPopover';
-import InfoButton from 'components/Button/Outlined/InfoMedium';
+
 import styled from 'styled-components';
 
-import commonMessages from 'common-messages';
 import {
   CONFIRM_TG_ACCOUNT,
   UNLINK_TG_ACCOUNT,
 } from '../TelegramAccountAction/constants';
 import signupMessages from '../SignUp/messages';
 import profileMessages from '../Profile/messages';
-import deleteAccountMessages from '../DeleteAccount/messages';
-import forgotPasswordMessages from '../ForgotPassword/messages';
 
 import { BaseStyled } from './SettingsOfUser';
-import ChangeEmailButton from '../ChangeEmail';
-import ShowOwnerKeyButton from '../ShowOwnerKey';
-import ShowActiveKeyButton from '../ShowActiveKey';
-import DeleteAccountButton from '../DeleteAccount';
-import ChangePasswordButton from '../ChangePasswordByPrevious';
 import TelegramAccountAction from '../TelegramAccountAction';
 import * as routes from '../../routes-config';
 import A from '../../components/A';
@@ -34,17 +24,8 @@ const Link = styled(A)`
   ${svgDraw({ color: TEXT_PRIMARY })};
 `;
 
-const AuthorizationData = ({
-  locale,
-  ownerKey,
-  loginData,
-  className,
-  activeKey,
-  writeToBuffer,
-  tgData,
-  profile,
-}) => {
-  const { loginWithFacebook, loginWithScatter, loginWithKeycat } = loginData;
+const AuthorizationData = ({ loginData, className, tgData, profile }) => {
+  const { loginWithScatter, loginWithKeycat } = loginData;
   const isLoggedInWithWallet = loginWithScatter || loginWithKeycat;
 
   const tgAccountName =
@@ -61,38 +42,25 @@ const AuthorizationData = ({
 
       <div>
         <table>
-          {!loginWithFacebook &&
-            !isLoggedInWithWallet && (
-              <thead>
-                <tr>
-                  <td>
-                    <FormattedMessage {...signupMessages.email} />
-                  </td>
-                  <td>{loginData?.email ?? null}</td>
-                  <td>
-                    <ChangeEmailButton>
-                      <FormattedMessage {...commonMessages.change} />{' '}
-                    </ChangeEmailButton>
-                  </td>
-                </tr>
-              </thead>
-            )}
+          {!isLoggedInWithWallet && (
+            <thead>
+              <tr>
+                <td>
+                  <FormattedMessage {...signupMessages.email} />
+                </td>
+                <td>{loginData?.email ?? null}</td>
+              </tr>
+            </thead>
+          )}
 
           <tbody>
-            {!loginWithFacebook &&
-              !isLoggedInWithWallet && (
-                <tr>
-                  <td>
-                    <FormattedMessage {...signupMessages.password} />
-                  </td>
-                  <td>• • • • • • • • • • • • •</td>
-                  <td>
-                    <ChangePasswordButton>
-                      <FormattedMessage {...commonMessages.change} />{' '}
-                    </ChangePasswordButton>
-                  </td>
-                </tr>
-              )}
+            {!isLoggedInWithWallet && (
+              <tr>
+                <td>
+                  <FormattedMessage {...signupMessages.password} />
+                </td>
+              </tr>
+            )}
 
             {tgData && (
               <>
@@ -137,16 +105,6 @@ const AuthorizationData = ({
             )}
           </tbody>
         </table>
-
-        {!isLoggedInWithWallet && (
-          <DeleteAccountButton
-            render={({ onClick }) => (
-              <InfoButton onClick={onClick}>
-                <FormattedMessage {...deleteAccountMessages.deleteAccount} />
-              </InfoButton>
-            )}
-          />
-        )}
       </div>
     </BaseStyled>
   );

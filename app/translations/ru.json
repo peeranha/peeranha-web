@@ -216,15 +216,6 @@
     "Условия обслуживания : описание",
   "app.containers.Search.title": "Поиск",
   "app.containers.Search.description": "Поиск: описание",
-  "app.containers.ChangeEmail.newEmail": "Новая почта",
-  "app.containers.ChangeEmail.confirmNewEmail": "Подтвердите новую почту",
-  "app.containers.ChangeEmail.emailsDoNotMatch": "Почты не совпадают",
-  "app.containers.DeleteAccount.deleteAccount": "Удалить аккаунт",
-  "app.containers.DeleteAccount.areYouLeaving": "Вы уходите?",
-  "app.containers.DeleteAccount.iUnderstand":
-    "Я понимаю, что эта операция не удаляет мой аккаунт на Telos блокчейне. Аккаунт удаляется только из кошелька сервиса.",
-  "app.containers.DeleteAccount.iHaveBackup":
-    "Я сделал бэкап моих Telos приватных ключей.",
 
   "app.containers.Wallet.title": "Кошелек",
   "app.containers.Wallet.description": "Кошелек | Описание",
@@ -306,18 +297,8 @@
     "Неверный ключ шифрования IV in passphase",
   "web_integration.errors.emailAlreadyInUse": "Email уже используется",
   "web_integration.errors.unableToBuildModel": "Невозможно построить модель",
-  "web_integration.errors.facebookAlreadyInUse":
-    "Фейсбук аккаунт уже используется",
-  "web_integration.errors.facebookAccountIsntRegistered":
-    "Фейсбук аккаунт ещё не зарегистрирован",
-  "web_integration.errors.incorrectFacebookAccessToken":
-    "Некорректный токен доступа фейсбук",
-  "web_integration.errors.noStoredFacebookData":
-    "В Пиранье нет сохраненных данных заданного фейсбук-аккаунта",
   "web_integration.errors.privateKeyTypeIsNotSet":
     "Не задан тип приватного ключа",
-  "web_integration.errors.noFacebookAccountEmail":
-    "В учетной записи фесбук не установлена электронная почта, либо электронная почта не подтвержена",
 
   "app.containers.Header.walletTooltipPart1": "Вам доступны ",
   "app.containers.Header.walletTooltipPart2": " поощрений",
@@ -329,41 +310,7 @@
   "app.containers.Moderation.title": "Права модератора",
   "app.common.globalModerator": "Глобальный модератор",
 
-  "app.common.verifyFacebookAccount": "Проверка аккаунта",
-  "app.common.facebookButton": "Фейсбук",
   "app.common.selectCommunity": "Выбрать...",
-  "app.containers.DeleteFacebookData.deleteFacebookDataTitle":
-    "Удаление данных фесбук",
-  "app.containers.DeleteFacebookData.pageToCheckFacebookId":
-    "Эта страница помжет Вам проверить, хранит ли Пиранья ваши данные учетной записи фесбук, а также удалить их.",
-  "app.containers.DeleteFacebookData.checkFacebookId":
-    "Пожалуйста, введите ID вашей учетной записи фейсбук и нажмите кнопку 'Проверить ID'.",
-  "app.containers.DeleteFacebookData.ifDataStored":
-    "Если есть сохраненные данные, мы отправим Вам на почту код подтвеждения для продолжения удаления.",
-  "app.containers.DeleteFacebookData.enterYourFacebookId":
-    "Введите ID учетной записи фейсбук",
-  "app.containers.DeleteFacebookData.facebookUserId": "Фейсбук ID",
-  "app.containers.DeleteFacebookData.checkId": "Проверить ID",
-  "app.containers.DeleteFacebookData.completeDeletionPage":
-    "Эта страница поможет Вам завершить удаление данных фейсбук.",
-  "app.containers.DeleteFacebookData.completeDeletion":
-    "Для завершения удаления данных, пожалуйста, введите код подтверждения, которых вы получили по почте, и нажмите кнопку 'Подтвердить удаление'.",
-  "app.containers.DeleteFacebookData.ifCodeHasExpired":
-    "Если истек срок действия кода или он является неверным, нажмите кнопку 'Отправить другой код'. На вашу почту будет отправлен новый код.",
-  "app.containers.DeleteFacebookData.contactSupprortTeam":
-    "Если Вам не удается удалить данные, свяжитесь с нашей ",
-  "app.containers.DeleteFacebookData.supportTeam": "службой поддержки",
-  "app.containers.DeleteFacebookData.enterYourCode":
-    "Введите код подтверждения",
-  "app.containers.DeleteFacebookData.fbDelDataCompletedTitle":
-    "Удаление данных завершено",
-  "app.containers.DeleteFacebookData.fbDataDeletionCompleted":
-    "Поздравляем! Мы завершили удаление ваший данных фесбук-аккаунта.",
-  "app.containers.DeleteFacebookData.noStoredDataNow":
-    "Мы больше не храним никаких данных о вашем учетной записи фейсбук.",
-  "app.containers.DeleteFacebookData.congratulations":
-    "Поздравляем! Удаление данных успешно завершено!",
-  "app.containers.DeleteFacebookData.confirmDeletion": "Подтвердить удаление",
 
   "app.containers.Moderation.givePermissions": "Выдача разрешений",
   "app.containers.Moderation.givePermissionsDescription":
@@ -556,10 +503,6 @@
   "app.containers.CreateCommunity.anyQuestionDescriptionLabel":
     "Пользователи смогут задавать как Общие, так и экспертные вопросы",
   "app.containers.CreateCommunity.anyQuestionDescriptionList": [],
-  "app.containers.CreateCommunity.facebook": "Facebook",
-  "app.containers.CreateCommunity.instagram": "Instagram",
-  "app.containers.CreateCommunity.youtube": "YouTube",
-  "app.containers.CreateCommunity.vk": "Вконтакте",
   "app.containers.CreateCommunity.mainColor": "Основной цвет",
   "app.containers.CreateCommunity.highlightColor": "Цвет выделения",
   "app.containers.CreateCommunity.communityType": "Тип сообщества",
@@ -885,7 +828,6 @@
   "app.containers.Login.authUserHasMore":
     "Авторизованный пользователь имеет больше привилегий",
   "app.containers.Login.staySignedIn": "Запомнить меня",
-  "app.containers.Login.iForgotPassword": "Я забыл пароль",
   "app.containers.Login.scatterIsNotInstalled":
     "Проверьте, установлены ли настройки кошелька и сети",
   "app.containers.Login.scatterBrowserExtensionNotConfigured":
@@ -904,9 +846,6 @@
   "app.containers.Login.inviterIsNotRegisterYet":
     "Пригласитель еще не зарегистрирован",
   "app.containers.Login.iDontHaveAnAccount": "У меня нет аккаунта.",
-
-  "app.containers.ForgotPassword.youGotThisKey":
-    "Вы получили этот ключ при регистрации и сохранили в безопасное место.",
 
   "app.containers.SignUp.checkYourEmail": "Код подтверждения.",
   "app.containers.SignUp.almostDone": "Почти все",

@@ -65,7 +65,6 @@ import {
   RegistrationAlmostDoneWithAccount,
   RegistrationAlmostDoneNoAccount,
   Login,
-  ForgotPassword,
   Toast,
   Wallet,
   Boost,
@@ -74,7 +73,6 @@ import {
   PrivacyPolicy,
   FullWidthPreloader,
   TermsOfService,
-  DeleteFacebookData,
   MetaTransactionAgreement,
 } from './imports';
 import { getValueFromSearchString } from '../../utils/url';
@@ -132,7 +130,6 @@ const App = ({
         <Toast />
 
         <Login />
-        <ForgotPassword />
         <MetaTransactionAgreement />
 
         <ScrollTo />
@@ -372,12 +369,6 @@ const App = ({
             path={routes.errorPage()}
             render={props => Wrapper(ErrorPage, props)}
           />
-
-          <Route exact path={routes.facebookDataDeletion()}>
-            <React.Suspense fallback={null}>
-              <DeleteFacebookData />
-            </React.Suspense>
-          </Route>
 
           <Route path={routes.signup.email.name}>
             <React.Suspense fallback={<Loader />}>

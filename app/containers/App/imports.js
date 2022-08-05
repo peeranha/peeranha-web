@@ -10,7 +10,6 @@ import RegistrationAlmostDoneWithAccount from 'components/SignUpWrapper/AlmostDo
 import RegistrationAlmostDoneNoAccount from 'components/SignUpWrapper/AlmostDoneNoAccount';
 import Login from 'containers/Login';
 import MetaTransactionAgreement from 'containers/MetaTransactionAgreement';
-import ForgotPassword from 'containers/ForgotPassword';
 
 const HomePage = React.lazy(() => import('containers/HomePage'));
 const EditCommunity = React.lazy(() => import('containers/EditCommunity'));
@@ -46,10 +45,6 @@ const FullWidthPreloader = React.lazy(() =>
   import('components/LoadingIndicator/FullWidthPreloader'),
 );
 
-const DeleteFacebookData = React.lazy(() =>
-  import('containers/DeleteFacebookData'),
-);
-
 export {
   EditCommunity,
   HomePage,
@@ -82,7 +77,6 @@ export {
   RegistrationAlmostDoneWithAccount,
   RegistrationAlmostDoneNoAccount,
   Login,
-  ForgotPassword,
   Toast,
   Wallet,
   Boost,
@@ -91,6 +85,5 @@ export {
   PrivacyPolicy,
   FullWidthPreloader,
   TermsOfService,
-  DeleteFacebookData,
   MetaTransactionAgreement,
 };

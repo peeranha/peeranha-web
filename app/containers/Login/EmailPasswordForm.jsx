@@ -32,7 +32,6 @@ const EmailPasswordForm = ({
   login,
   locale,
   loginWithEmailProcessing,
-  showIForgotPasswordModal,
   loginWithWalletProcessing,
   loginWithWallet,
 }) => (
@@ -77,14 +76,6 @@ const EmailPasswordForm = ({
             </Span>
           }
         />
-
-        <TransparentButton
-          disabled={loginWithEmailProcessing || loginWithWalletProcessing}
-          onClick={showIForgotPasswordModal}
-          type="button"
-        >
-          <FormattedMessage {...loginMessages.iForgotPassword} />
-        </TransparentButton>
       </div>
     </form>
 
@@ -101,7 +92,6 @@ EmailPasswordForm.propTypes = {
   login: PropTypes.func,
   locale: PropTypes.string,
   loginWithEmailProcessing: PropTypes.bool,
-  showIForgotPasswordModal: PropTypes.func,
   loginWithWallet: PropTypes.func,
   loginWithWalletProcessing: PropTypes.bool,
 };

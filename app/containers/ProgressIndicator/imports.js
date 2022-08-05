@@ -3,7 +3,6 @@ import { selectFollowHandlerLoading } from 'containers/FollowCommunityButton/sel
 import { selectAskQuestionLoading } from 'containers/AskQuestion/selectors';
 import { selectCreateCommunityLoading } from 'containers/CreateCommunity/selectors';
 import { selectEditTagProcessing } from 'containers/EditTag/selectors';
-import { selectDeleteAccountProcessing } from 'containers/DeleteAccount/selectors';
 import { selectEditAnswerLoading } from 'containers/EditAnswer/selectors';
 import { selectIsProfileSaving } from 'containers/EditProfilePage/selectors';
 import { selectEditQuestionLoading } from 'containers/EditQuestion/selectors';
@@ -33,7 +32,6 @@ export default {
   selectEditCommunityLoading: selectEditCommunityLoading(),
   selectCreateCommunityLoading: selectCreateCommunityLoading(),
   selectEditTagProcessing: selectEditTagProcessing(),
-  selectDeleteAccountProcessing: selectDeleteAccountProcessing(),
   selectEditAnswerLoading: selectEditAnswerLoading(),
   selectIsProfileSaving: selectIsProfileSaving(),
   selectEditQuestionLoading: selectEditQuestionLoading(),

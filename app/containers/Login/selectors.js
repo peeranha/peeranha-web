@@ -40,16 +40,6 @@ export const selectLoginWithWalletProcessing = () =>
     substate.get('loginWithWalletProcessing'),
   );
 
-export const selectLoginWithWalletError = () =>
-  createSelector(selectLoginDomain, substate =>
-    substate.get('loginWithWalletError'),
-  );
-
-export const selectFacebookLoginProcessing = () =>
-  createSelector(selectLoginDomain, substate =>
-    substate.get('facebookLoginProcessing'),
-  );
-
 export const selectIsNewPostCreationAfterLogin = () =>
   createSelector(selectLoginDomain, substate =>
     substate.get('isNewPostCreationAfterLogin'),

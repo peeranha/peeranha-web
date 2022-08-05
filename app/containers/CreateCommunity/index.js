@@ -41,24 +41,12 @@ import { createCommunity, setDefaultStore, getForm } from './actions';
 import {
   COMM_NAME_FIELD,
   COMM_SHORT_DESCRIPTION_FIELD,
-  ABOUT_FIELD,
-  COMM_MAIN_DESCRIPTION_FIELD,
   COMM_OFFICIAL_SITE_FIELD,
   TAG_NAME_FIELD,
   LANGUAGE_FIELD,
   TAG_DESCRIPTION_FIELD,
   COMM_AVATAR_FIELD,
-  FORM_TYPE,
   STATE_KEY,
-  ANY_TYPE,
-  COMM_BANNER_FIELD,
-  FACEBOOK_LINK_FIELD,
-  INSTAGRAM_LINK_FIELD,
-  YOUTUBE_LINK_FIELD,
-  VK_LINK_FIELD,
-  MAIN_COLOR_FIELD,
-  HIGHLIGHT_COLOR_FIELD,
-  COMMUNITY_TYPE,
 } from './constants';
 
 import Form from './Form';
@@ -76,7 +64,6 @@ export const CreateCommunity = ({
   setDefaultStoreDispatch,
   isFormLoading,
   getFormDispatch,
-  isFormAvailable,
   profile,
 }) => {
   useModeratorRole(routes.noAccess);

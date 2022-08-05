@@ -130,18 +130,6 @@ export default defineMessages({
   expertQuestionDescriptionList: {
     id: 'app.containers.QuestionForm.expertQuestionDescriptionList',
   },
-  facebook: {
-    id: 'app.containers.CreateCommunity.facebook',
-  },
-  instagram: {
-    id: 'app.containers.CreateCommunity.instagram',
-  },
-  youtube: {
-    id: 'app.containers.CreateCommunity.youtube',
-  },
-  vk: {
-    id: 'app.containers.CreateCommunity.vk',
-  },
   mainColor: {
     id: 'app.containers.CreateCommunity.mainColor',
   },

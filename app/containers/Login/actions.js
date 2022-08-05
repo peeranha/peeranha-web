@@ -15,17 +15,9 @@ import {
   FINISH_REGISTRATION,
   FINISH_REGISTRATION_SUCCESS,
   FINISH_REGISTRATION_ERROR,
-  FINISH_REGISTRATION_REFERRAL_ERROR,
   LOGIN_WITH_WALLET,
   LOGIN_WITH_WALLET_SUCCESS,
   LOGIN_WITH_WALLET_ERROR,
-  FACEBOOK_LOGIN_PROCESSING,
-  FACEBOOK_LOGIN_BUTTON_CLICK,
-  FACEBOOK_LOGIN_DATA_RECEIVE,
-  AUTOLOGIN_WITH_FACEBOOK,
-  SET_FACEBOOK_USER_DATA,
-  FB_LOGIN_ERROR,
-  HANDLE_FB_LOGIN_ERROR,
 } from './constants';
 
 // Show | Hide (modal)
@@ -121,44 +113,3 @@ export function finishRegistrationWithDisplayNameErr(
     finishRegistrationWithDisplayNameError,
   };
 }
-
-export const finishRegistrationReferralErr = finishRegistrationReferralError => ({
-  type: FINISH_REGISTRATION_REFERRAL_ERROR,
-  finishRegistrationReferralError,
-});
-
-export const setFacebookLoginProcessing = facebookLoginProcessing => ({
-  type: FACEBOOK_LOGIN_PROCESSING,
-  facebookLoginProcessing,
-});
-
-export const handleFbButtonClick = () => ({
-  type: FACEBOOK_LOGIN_BUTTON_CLICK,
-});
-
-export const handleFbLoginCallback = (data, isLogin) => ({
-  type: FACEBOOK_LOGIN_DATA_RECEIVE,
-  data,
-  isLogin,
-});
-
-export const autoLoginWithFacebook = data => ({
-  type: AUTOLOGIN_WITH_FACEBOOK,
-  data,
-  isLogin: true,
-});
-
-export const setFacebookUserData = facebookUserData => ({
-  type: SET_FACEBOOK_USER_DATA,
-  facebookUserData,
-});
-
-export const facebookLoginErr = facebookError => ({
-  type: FB_LOGIN_ERROR,
-  facebookError,
-});
-
-export const handleFbLoginError = (autoLogin = false) => ({
-  type: HANDLE_FB_LOGIN_ERROR,
-  autoLogin,
-});

@@ -9,7 +9,6 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 
 import Modal from 'components/ModalDialog';
-import FbVerificationCodeForm from 'components/FbVerificationCodeForm/index';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
@@ -68,14 +67,6 @@ export const SendTokens = /* istanbul ignore next */ ({
             eosService={eosService}
           />
         )}
-        {isVerifyFbModal && (
-          <FbVerificationCodeForm
-            locale={locale}
-            verifyEmail={verifyFbActionDispatch}
-            verifyEmailLoading={sendTokensProcessing}
-            sendAnotherCode={sendAnotherCodeDispatch}
-          />
-        )}
       </Modal>
 
       <Button onClick={showSendTokensModalDispatch}>{children}</Button>
@@ -91,8 +82,6 @@ SendTokens.propTypes = {
   sendTokensProcessing: PropTypes.bool,
   hideSendTokensModalDispatch: PropTypes.func,
   showSendTokensModalDispatch: PropTypes.func,
-  verifyFbActionDispatch: PropTypes.func,
-  sendFbVerificationEmailDispatch: PropTypes.func,
   sendTokensDispatch: PropTypes.func,
   sendAnotherCodeDispatch: PropTypes.func,
   loginData: PropTypes.object,
