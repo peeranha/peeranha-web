@@ -46,7 +46,6 @@ const asyncValidate = async (value, dispatch, { eosService }) => {
 const SendTokensForm = ({
   handleSubmit,
   sendTokens,
-  sendFbVerificationEmail,
   locale,
   sendTokensProcessing,
   loginData,
@@ -100,7 +99,6 @@ const SendTokensForm = ({
 SendTokensForm.propTypes = {
   handleSubmit: PropTypes.func,
   sendTokens: PropTypes.func,
-  sendFbVerificationEmail: PropTypes.func,
   locale: PropTypes.string,
   sendTokensProcessing: PropTypes.bool,
   loginData: PropTypes.object,

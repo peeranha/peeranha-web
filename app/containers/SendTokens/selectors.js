@@ -20,20 +20,9 @@ const selectSendTokensProcessing = () =>
 const selectSendTokensError = () =>
   createSelector(selectSendTokensDomain, substate => substate.sendTokensError);
 
-const selectVerifyFbModal = () =>
-  createSelector(selectSendTokensDomain, substate => substate.isVerifyFbModal);
-
-const selectFbSendTokensFormValues = () =>
-  createSelector(
-    selectSendTokensDomain,
-    substate => substate.fbSendTokensFormValues,
-  );
-
 export {
   selectSendTokensDomain,
   selectShowModal,
-  selectVerifyFbModal,
   selectSendTokensProcessing,
   selectSendTokensError,
-  selectFbSendTokensFormValues,
 };
