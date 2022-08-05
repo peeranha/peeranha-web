@@ -216,7 +216,7 @@ export default React.memo(({ currClientHeight }) => {
         {!!single && (
           <div className="mt-2">
             <FormattedMessage
-              id={messages.poweredBy}
+              id={messages.poweredBy.id}
               values={{
                 year: new Date().getFullYear(),
                 image: <Img key="peeranha" src={peeranhaLogo} alt="peeranha" />,
