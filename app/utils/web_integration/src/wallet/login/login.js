@@ -1,12 +1,6 @@
 const { AUTOLOGIN_DATA } = require('containers/Login/constants');
 
-const {
-  decryptObject,
-  encryptObject,
-  getRandomIv,
-  getRandomKey,
-  xorArray,
-} = require('../../util/cipher');
+const { decryptObject, xorArray } = require('../../util/cipher');
 
 const {
   callService,

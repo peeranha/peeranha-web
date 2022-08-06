@@ -1,5 +1,5 @@
 /* eslint no-unused-expressions: 0 */
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -12,9 +12,8 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { DAEMON } from 'utils/constants';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
-import { getCookie, setCookie } from 'utils/cookie';
+import { getCookie } from 'utils/cookie';
 import { isUserTopCommunityQuestionsModerator } from 'utils/properties';
-import { FetcherOfQuestionsForFollowedCommunities } from 'utils/questionsManagement';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectEthereum } from 'containers/EthereumProvider/selectors';
@@ -39,12 +38,7 @@ import InfinityLoader from 'components/InfinityLoader';
 import TopCommunities from 'components/TopCommunities';
 import Seo from 'components/Seo';
 
-import {
-  getQuestions,
-  loadTopCommunityQuestions,
-  setCreatedFilter,
-  setTypeFilter,
-} from './actions';
+import { getQuestions, setCreatedFilter, setTypeFilter } from './actions';
 
 import * as questionsSelector from './selectors';
 import reducer from './reducer';
@@ -57,7 +51,7 @@ import Header from './Header';
 import NotFound from '../ErrorPage';
 import ShowMoreButton from './Content/ShowMoreButton';
 
-import { QUESTION_FILTER, UPDATE_PROMO_QUESTIONS } from './constants';
+import { QUESTION_FILTER } from './constants';
 
 const single = isSingleCommunityWebsite();
 
@@ -313,7 +307,7 @@ export default compose(
     createStructuredSelector({
       account: makeSelectAccount(),
       profile: makeSelectProfileInfo(),
-      ethereumService: selectEthereum(),
+      ethereumService: selectEthereum,
       locale: makeSelectLocale(),
       communities: selectCommunities(),
       communitiesLoading: selectCommunitiesLoading(),

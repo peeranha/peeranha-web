@@ -35,15 +35,12 @@ import {
   EMAIL_FIELD,
   PASSWORD_FIELD,
   REMEMBER_ME_FIELD,
-  DISPLAY_NAME,
   LOGIN_WITH_WALLET,
 } from './constants';
 
 import messages from './messages';
 import { addLoginData } from '../AccountProvider/actions';
 import { selectEthereum } from '../EthereumProvider/selectors';
-import { DISPLAY_NAME_FIELD } from '../Profile/constants';
-import { saveProfileWorker } from '../EditProfilePage/saga';
 
 function* continueLogin({ address }) {
   yield call(getCurrentAccountWorker, address);

@@ -24,7 +24,6 @@ import {
 import { getQuestionsSuccess, getQuestionsError } from './actions';
 
 import { getPosts, getPostsByCommunityId } from '../../utils/theGraph';
-import { selectEthereum } from '../EthereumProvider/selectors';
 
 const feed = routes.feed();
 const single = isSingleCommunityWebsite();
