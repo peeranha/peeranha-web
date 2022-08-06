@@ -100,13 +100,11 @@
   "app.common.privacyPolicyShort": "Политика конфид-ти",
   "app.common.more": "Ещё",
   "app.common.wallet": "Кошелек",
-  "app.common.sendTokens": "Отправить токены",
   "app.common.peers": "PEER",
   "app.common.submit": "Подтвердить",
   "app.common.amount": "Количество",
   "app.common.bounty": "Бонус",
   "app.common.password": "Пароль",
-  "app.common.eosAccount": "Telos аккаунт",
   "app.common.walletAddress": "Адрес кошелька",
   "app.common.successMessage": "Действие было выполнено успешно!",
   "app.common.messageSendedSuccessfully": "Сообщение успешно отправлено",
@@ -214,7 +212,6 @@
 
   "app.containers.Wallet.title": "Кошелек",
   "app.containers.Wallet.description": "Кошелек | Описание",
-  "app.containers.Wallet.eosAccount": "Telos аккаунт",
   "app.containers.Wallet.currentPeriod": "Текущий период в прогрессе",
   "app.containers.Wallet.periodStillInProgress":
     "Этот период все еще в прогрессе. Вы увидите больше деталей на следующей неделе.",
@@ -789,20 +786,10 @@
     "Значение должно содержать только цифры от {min} до {max}",
   "app.components.FormFields.onlyOneDotValue":
     "Значение должно содержать только 1 точку",
-  "app.components.FormFields.telosNameLength":
-    "Имя Telos аккаунта должно содержать только 12 символов",
-  "app.components.FormFields.telosCorrectSymbols":
-    "Только a-z буквы и 1-5 цифры разрешены",
   "app.components.FormFields.notAbleChangeAfterCreation":
     "У Вас не будет возможности изменить его после создания",
-  "app.components.FormFields.thisTelosNameIsAvailable":
-    "Это Telos имя не занято",
-  "app.components.FormFields.thisTelosNameIsntAvailable":
-    "Это Telos имя занято",
   "app.components.FormFields.hasToBeMoreThanPrev":
     "Вы не можете установить значение меньше предыдущего",
-  "app.components.FormFields.atLeastOneLetter":
-    "Telos имя должно содержать хотя бы одну букву",
   "app.components.FormFields.exactFromAndToAccounts":
     "Отправитель и получатель не могут быть одним и тем же",
   "app.components.FormFields.valueIsNotPositiveInteger":

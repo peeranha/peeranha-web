@@ -100,7 +100,6 @@
   "app.common.privacyPolicyShort": "Privacy Policy",
   "app.common.more": "More",
   "app.common.wallet": "Wallet",
-  "app.common.sendTokens": "Send tokens",
   "app.common.peers": "PEER",
   "app.common.submit": "Submit",
   "app.common.amount": "Amount",
@@ -218,7 +217,6 @@
 
   "app.containers.Wallet.title": "Wallet",
   "app.containers.Wallet.description": "Wallet | Description",
-  "app.containers.Wallet.eosAccount": "Telos account",
   "app.containers.Wallet.currentPeriod": "Current period in progress",
   "app.containers.Wallet.periodStillInProgress":
     "This period is still in progress. It's high time to increase your reputation and gain some tokens.",
@@ -774,18 +772,8 @@
     "Value must contain digits from {min} to {max}",
   "app.components.FormFields.onlyOneDotValue":
     "Value must contain only one dot",
-  "app.components.FormFields.telosNameLength":
-    "Telos account name must be 12 characters long",
-  "app.components.FormFields.telosCorrectSymbols":
-    "Only a-z letters and 1-5 numbers are allowed",
   "app.components.FormFields.notAbleChangeAfterCreation":
     "You will not be able to change it after creation",
-  "app.components.FormFields.thisTelosNameIsAvailable":
-    "This Telos account name is available",
-  "app.components.FormFields.thisTelosNameIsntAvailable":
-    "This Telos account name is not available",
-  "app.components.FormFields.atLeastOneLetter":
-    "Telos name must contain at least one letter",
   "app.components.FormFields.exactFromAndToAccounts":
     "Sender and receiver cannot be the same",
   "app.components.FormFields.hasToBeMoreThanPrev": "You cannot set lower value",

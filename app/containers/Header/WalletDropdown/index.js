@@ -68,10 +68,6 @@ const Menu = memo(({ user, number, locale, boost }) => (
         {boost > 1 && <BoostPrediction>{boost}</BoostPrediction>}
       </A>
     )}
-
-    {/* <SendTokens> */}
-    {/*  <FormattedMessage {...messages.sendTokens} /> */}
-    {/* </SendTokens> */}
   </Ul>
 ));
 

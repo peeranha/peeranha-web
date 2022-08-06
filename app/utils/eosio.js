@@ -123,7 +123,6 @@ class EosioService {
     const { allEndpoints } = await getNodes();
     const eosNodes = allEndpoints.map(el => el.endpoint);
 
-    // Connect to telos net
     const keycat = new Keycat({
       blockchain: {
         name: 'telos',

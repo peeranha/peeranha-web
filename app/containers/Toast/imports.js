@@ -49,11 +49,6 @@ import {
 
 import { LOGOUT_ERROR } from 'containers/Logout/constants';
 
-import {
-  SEND_TOKENS_ERROR,
-  SEND_TOKENS_SUCCESS,
-} from 'containers/SendTokens/constants';
-
 import { FOLLOW_HANDLER_ERROR } from 'containers/FollowCommunityButton/constants';
 import {
   PICKUP_REWARD_ERROR,
@@ -137,7 +132,6 @@ export const errHandlingTypes = [
   LOGIN_WITH_WALLET_ERROR,
   LOGIN_WITH_EMAIL_ERROR,
   LOGOUT_ERROR,
-  SEND_TOKENS_ERROR,
   FOLLOW_HANDLER_ERROR,
   PICKUP_REWARD_ERROR,
   POST_COMMENT_ERROR,
@@ -168,7 +162,6 @@ export const successHandlingTypes = [
   SAVE_PROFILE_SUCCESS,
   EDIT_QUESTION_SUCCESS,
   SEND_MESSAGE_SUCCESS,
-  SEND_TOKENS_SUCCESS,
   DELETE_QUESTION_SUCCESS,
   DELETE_ANSWER_SUCCESS,
   DELETE_COMMENT_SUCCESS,

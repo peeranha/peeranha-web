@@ -6,7 +6,6 @@ import { selectEditTagProcessing } from 'containers/EditTag/selectors';
 import { selectEditAnswerLoading } from 'containers/EditAnswer/selectors';
 import { selectIsProfileSaving } from 'containers/EditProfilePage/selectors';
 import { selectEditQuestionLoading } from 'containers/EditQuestion/selectors';
-import { selectSendTokensProcessing } from 'containers/SendTokens/selectors';
 import {
   selectPostAnswerLoading,
   selectPostCommentLoading,
@@ -36,7 +35,6 @@ export default {
   selectIsProfileSaving: selectIsProfileSaving(),
   selectEditQuestionLoading: selectEditQuestionLoading(),
   selectFollowHandlerLoading: selectFollowHandlerLoading(),
-  selectSendTokensProcessing: selectSendTokensProcessing(),
   selectPostAnswerLoading: selectPostAnswerLoading(),
   selectPostCommentLoading: selectPostCommentLoading(),
   selectUpVoteLoading: selectUpVoteLoading(),

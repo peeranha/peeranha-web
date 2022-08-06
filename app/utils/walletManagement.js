@@ -85,11 +85,6 @@ export async function getWeekStat(ethereumService, userId) {
   return weekStat;
 }
 
-export async function sendTokens(
-  eosService,
-  { from, to, quantity, precision, symbol, contractAccount },
-) {}
-
 export async function pickupReward(ethereumService, user, periodIndex) {
   return await ethereumService.sendTransaction(
     CONTRACT_TOKEN,

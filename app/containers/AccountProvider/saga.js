@@ -38,7 +38,6 @@ import {
   EDIT_QUESTION_SUCCESS,
   REDIRECT_TO_EDIT_QUESTION_PAGE,
 } from 'containers/EditQuestion/constants';
-import { SEND_TOKENS_SUCCESS } from 'containers/SendTokens/constants';
 import { PICKUP_REWARD_SUCCESS } from 'containers/Wallet/constants';
 import { AUTOLOGIN_DATA, PROFILE_INFO_LS } from 'containers/Login/constants';
 import { REDIRECT_TO_EDIT_PROFILE_PAGE } from 'containers/EditProfilePage/constants';
@@ -217,7 +216,6 @@ export default function* defaultSaga() {
       SUGGEST_TAG_SUCCESS,
       EDIT_ANSWER_SUCCESS,
       EDIT_QUESTION_SUCCESS,
-      SEND_TOKENS_SUCCESS,
       PICKUP_REWARD_SUCCESS,
       DELETE_QUESTION_SUCCESS,
       DELETE_ANSWER_SUCCESS,

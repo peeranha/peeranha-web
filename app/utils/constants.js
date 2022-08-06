@@ -217,7 +217,6 @@ export const EDIT_TAG_ACTION = 'edittag';
 export const VOTE_TO_CREATE_TAG = 'vtcrtag';
 export const VOTE_TO_DELETE_TAG = 'vtdeltag';
 
-export const SEND_TOKEN_METHOD = 'transfer';
 export const PICKUP_REWARD_METHOD = 'pickupreward';
 export const ADD_BOOST_METHOD = 'addboost';
 
@@ -265,9 +264,6 @@ export const BOUNTY_STATUS_PENDING = 3;
 export const SINGLE_COMMUNITY_DETAILS = 'singleCommunityDetails';
 
 export const KEY_LAST_RATING_UPDATE_TIME = 18;
-
-// verification codes types
-export const SEND_TOKENS_TYPE = 'sendTokens';
 
 export const METAMASK_ERROR_CODE = 1000001;
 export const ETHEREUM_USER_ERROR_CODE = 1000002;

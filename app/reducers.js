@@ -29,7 +29,6 @@ import questionsOfUserReducer from 'containers/QuestionsOfUser/reducer';
 import questionsWithAnswersOfUserReducer from 'containers/QuestionsWithAnswersOfUser/reducer';
 import usersReducer from 'containers/Users/reducer';
 import logoutReducer from 'containers/Logout/reducer';
-import sendTokensReducer from 'containers/SendTokens/reducer';
 import searchReducer from 'containers/Search/reducer';
 import appWrapperReducer from 'containers/AppWrapper/reducer';
 import telegramAccountActionReducer from './containers/TelegramAccountAction/reducer';
@@ -93,7 +92,6 @@ export default injectedReducers =>
     questionsWithAnswersOfUser: questionsWithAnswersOfUserReducer,
     users: usersReducer,
     form: formReducer,
-    sendTokens: sendTokensReducer,
     search: searchReducer,
     appWrapper: appWrapperReducer,
     notifications: notificationsReducer,

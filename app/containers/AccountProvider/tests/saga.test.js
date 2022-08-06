@@ -29,7 +29,6 @@ import {
 
 import { EDIT_ANSWER_SUCCESS } from 'containers/EditAnswer/constants';
 import { EDIT_QUESTION_SUCCESS } from 'containers/EditQuestion/constants';
-import { SEND_TOKENS_SUCCESS } from 'containers/SendTokens/constants';
 import { PICKUP_REWARD_SUCCESS } from 'containers/Wallet/constants';
 import { PROFILE_INFO_LS } from 'containers/Login/constants';
 import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
@@ -349,7 +348,6 @@ describe('defaultSaga', () => {
       SUGGEST_TAG_SUCCESS,
       EDIT_ANSWER_SUCCESS,
       EDIT_QUESTION_SUCCESS,
-      SEND_TOKENS_SUCCESS,
       PICKUP_REWARD_SUCCESS,
       DELETE_QUESTION_SUCCESS,
       DELETE_ANSWER_SUCCESS,

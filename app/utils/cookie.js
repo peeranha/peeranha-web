@@ -1,6 +1,5 @@
 export const NEVER_EXPIRES = 'Tue, 19 Jan 2038 01:14:07 GMT';
 export const DEFAULT_PATH = '/';
-export const TELOS_DOMAIN = '.telos.net';
 export const TEST_COMM_DOMAIN = 'testcommunity.net';
 
 export const getCookie = name => {
@@ -33,9 +32,6 @@ export const setCookie = ({
     } else if (optionKey === 'allowSubdomains' && process.env.ENV !== 'dev') {
       let domain = process.env.COOKIE_DOMAIN;
 
-      if (window.location.origin.endsWith(TELOS_DOMAIN)) {
-        domain = TELOS_DOMAIN;
-      }
       if (window.location.origin.endsWith(TEST_COMM_DOMAIN)) {
         domain = TEST_COMM_DOMAIN;
       }

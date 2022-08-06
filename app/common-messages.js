@@ -282,9 +282,6 @@ export default defineMessages({
   wallet: {
     id: 'app.common.wallet',
   },
-  sendTokens: {
-    id: 'app.common.sendTokens',
-  },
   peers: {
     id: 'app.common.peers',
   },

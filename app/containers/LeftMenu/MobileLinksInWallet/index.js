@@ -11,7 +11,6 @@ import arrowDownIcon from 'images/arrowDown.svg?external';
 
 import { selectRewardsWeeksNumber } from 'containers/Wallet/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import * as selectors from 'containers/Boost/selectors';
 
 import WalletButton from 'containers/Header/WalletDropdown/WalletButton';
 import { BoostPrediction } from 'containers/Header/WalletDropdown';
@@ -19,7 +18,6 @@ import NotificationIcon from 'containers/Header/WalletDropdown/NotificationIcon'
 
 import A from 'components/A';
 import Icon from 'components/Icon';
-import SendTokens from 'containers/SendTokens';
 import { REWARD_CLAIMING_ENABLED } from '../../../utils/constants';
 
 const MobileLinksInWallet = ({
@@ -88,11 +86,6 @@ const MobileLinksInWallet = ({
               {boost > 1 && <BoostPrediction>{boost}</BoostPrediction>}
             </A>
           )}
-
-          {/* TODO send tokens issue */}
-          {/* <SendTokens>
-            <FormattedMessage {...messages.sendTokens} />
-          </SendTokens> */}
         </div>
       )}
     </div>
