@@ -369,9 +369,6 @@ export default defineMessages({
   noResults: {
     id: 'app.common.noResults',
   },
-  iAcceptPrivacyPolicy: {
-    id: 'app.common.iAcceptPrivacyPolicy',
-  },
   terms: {
     id: 'app.common.terms',
   },
