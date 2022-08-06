@@ -86,7 +86,6 @@ describe('getCurrentAccountWorker', () => {
     const balance = 10;
 
     const ethereum = {
-      scatterInstalled: true,
       initialized: true,
       getSelectedAccount: () => account,
     };
@@ -114,7 +113,6 @@ describe('getCurrentAccountWorker', () => {
       const profileInfoLS = { user: account, balance: 10 };
 
       const ethereum = {
-        scatterInstalled: true,
         initialized: true,
         getSelectedAccount: () => account,
       };
@@ -158,7 +156,6 @@ describe('getCurrentAccountWorker', () => {
       const balance = 10;
 
       const ethereum = {
-        scatterInstalled: true,
         initialized: true,
         getSelectedAccount: () => null,
       };

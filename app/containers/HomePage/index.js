@@ -47,7 +47,6 @@ import {
   ANIMATE_TEXT,
   SECOND_SCREEN,
   THIRD_SCREEN,
-  EMAIL_FIELD,
 } from './constants';
 
 import { sendMessage } from './actions';

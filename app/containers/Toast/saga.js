@@ -138,7 +138,6 @@ export function* loggerWorker(error) {
           typeof error[key] === 'string' ? error[key] : error[key].message,
         stack: error[key].stack,
         node: endpointsData && endpointsData.nodes[0],
-        isScatter: loginData ? Boolean(loginData.loginWithScatter) : false,
         userAgent: navigator.userAgent,
       }),
     });

@@ -800,10 +800,6 @@
   "app.containers.Login.authUserHasMore":
     "Авторизованный пользователь имеет больше привилегий",
   "app.containers.Login.staySignedIn": "Запомнить меня",
-  "app.containers.Login.scatterIsNotInstalled":
-    "Проверьте, установлены ли настройки кошелька и сети",
-  "app.containers.Login.scatterBrowserExtensionNotConfigured":
-    "Проверьте, настроено ли расширение браузера для работы с кошельком",
   "app.containers.Login.userIsNotRegistered": "Пользователь не зарегистрирован",
   "app.containers.Login.userIsNotSelected": "Пользователь не выбран",
   "app.containers.Login.fbAutologinError":
@@ -880,8 +876,6 @@
   "app.containers.ErrorPage.cannotTransferToSelf":
     "Нельзя отправлять самому себе",
   "app.containers.ErrorPage.notEnoughCPU": "Недостаточно CPU",
-  "app.containers.ErrorPage.checkScatterConnection":
-    "Проверьте подключение кошелька",
 
   "app.containers.NotFoundPage.title": "404",
   "app.containers.NotFoundPage.description": "404",

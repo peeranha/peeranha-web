@@ -1,5 +1,4 @@
 import { defineMessages } from 'react-intl';
-import { SCATTER_TIMEOUT_ERROR } from 'utils/constants';
 
 export default defineMessages({
   accountDoesNotExist: {
@@ -13,9 +12,5 @@ export default defineMessages({
   notEnoughCPU: {
     id: 'app.containers.ErrorPage.notEnoughCPU',
     keywords: '3080004',
-  },
-  checkScatterConnection: {
-    id: 'app.containers.ErrorPage.checkScatterConnection',
-    keywords: SCATTER_TIMEOUT_ERROR,
   },
 });

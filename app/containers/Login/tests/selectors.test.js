@@ -16,7 +16,6 @@ describe('selectLoginDomain', () => {
   const loginProcessing = 'loginProcessing';
   const loginWithEmailError = 'loginWithEmailError';
   const ethereumAccount = 'ethereumAccount';
-  const loginWithScatterError = 'loginWithScatterError';
 
   const globalState = fromJS({
     content,
@@ -25,7 +24,6 @@ describe('selectLoginDomain', () => {
     loginProcessing,
     loginWithEmailError,
     ethereumAccount,
-    loginWithScatterError,
   });
 
   const mockedState = fromJS({

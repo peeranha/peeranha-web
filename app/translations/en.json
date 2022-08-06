@@ -787,10 +787,6 @@
 
   "app.containers.Login.authUserHasMore": "An authorized user has more options",
   "app.containers.Login.staySignedIn": "Stay signed in",
-  "app.containers.Login.scatterIsNotInstalled":
-    "Check whether the wallet and network settings are installed",
-  "app.containers.Login.scatterBrowserExtensionNotConfigured":
-    "Check whether the wallet browser extension is configured",
   "app.containers.Login.userIsNotRegistered": "User is not registered",
   "app.containers.Login.userIsNotSelected": "User is not selected",
   "app.containers.Login.yourUsernameIsHow":
@@ -880,7 +876,6 @@
   "app.containers.ErrorPage.cannotTransferToSelf":
     "Cannot transfer to yourself",
   "app.containers.ErrorPage.notEnoughCPU": "Not enough CPU",
-  "app.containers.ErrorPage.checkScatterConnection": "Check wallet connection",
 
   "app.containers.NotFoundPage.title": "404",
   "app.containers.NotFoundPage.description": "404",

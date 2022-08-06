@@ -4,11 +4,6 @@ export const RESTART_ON_REMOUNT = '@@saga-injector/restart-on-remount';
 export const DAEMON = '@@saga-injector/daemon';
 export const ONCE_TILL_UNMOUNT = '@@saga-injector/once-till-unmount';
 
-export const SCATTER_APP_NAME = 'Peeranha';
-export const SCATTER_IN_NOT_INSTALLED = 'Scatter is not installed.';
-export const SCATTER_TIMEOUT_ERROR = 'Scatter timeout';
-export const SCATTER_TIMEOUT_DURATION = 10000; // 1 sec
-
 export const AWS_URL =
   'https://yb1ib2fyhc.execute-api.us-east-2.amazonaws.com/default/regsterPromo';
 export const HUBSPOT_URL =

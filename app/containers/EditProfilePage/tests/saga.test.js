@@ -48,7 +48,6 @@ jest.mock('utils/profileManagement', () => ({
 }));
 
 const ethereum = {
-  scatterInstalled: true,
   initialized: true,
   getSelectedAccount: () => null,
 };
