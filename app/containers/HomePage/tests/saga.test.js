@@ -9,11 +9,6 @@ import { select } from 'redux-saga/effects';
 
 import { sendMessage } from 'utils/homepageManagement';
 
-import {
-  EMAIL_CHECKING,
-  EMAIL_CHECKING_ERROR,
-} from 'containers/SignUp/constants';
-
 import defaultSaga, { sendMessageWorker } from '../saga';
 
 import {
@@ -105,11 +100,6 @@ describe('defaultSaga', () => {
     expect(step.value).toBe(SEND_MESSAGE);
   });
 
-  it('EMAIL_CHECKING', () => {
-    const step = generator.next();
-    expect(step.value).toBe(EMAIL_CHECKING);
-  });
-
   it('SEND_MESSAGE_SUCCESS', () => {
     const step = generator.next();
     expect(step.value).toBe(SEND_MESSAGE_SUCCESS);
@@ -118,10 +108,5 @@ describe('defaultSaga', () => {
   it('SEND_MESSAGE_ERROR', () => {
     const step = generator.next();
     expect(step.value).toBe(SEND_MESSAGE_ERROR);
-  });
-
-  it('EMAIL_CHECKING_ERROR', () => {
-    const step = generator.next();
-    expect(step.value).toBe(EMAIL_CHECKING_ERROR);
   });
 });

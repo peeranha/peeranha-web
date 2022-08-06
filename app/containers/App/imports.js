@@ -1,13 +1,6 @@
 import React from 'react';
 
 import Toast from 'containers/Toast';
-import EmailEnteringForm from 'containers/SignUp/EmailEnteringForm';
-import EmailVerificationForm from 'containers/SignUp/EmailVerificationForm';
-import EthereumWalletGenerationForm from 'containers/SignUp/EthereumWalletGenerationForm';
-import SignUpViaEmail from 'containers/SignUp/SignUpViaEmail';
-import WalletsSignUpForm from 'containers/SignUp/WalletsSignUpForm';
-import RegistrationAlmostDoneWithAccount from 'components/SignUpWrapper/AlmostDoneWithAccount';
-import RegistrationAlmostDoneNoAccount from 'components/SignUpWrapper/AlmostDoneNoAccount';
 import Login from 'containers/Login';
 import MetaTransactionAgreement from 'containers/MetaTransactionAgreement';
 
@@ -69,13 +62,6 @@ export {
   Home,
   Feed,
   Communities,
-  EmailEnteringForm,
-  EmailVerificationForm,
-  EthereumWalletGenerationForm,
-  SignUpViaEmail,
-  WalletsSignUpForm,
-  RegistrationAlmostDoneWithAccount,
-  RegistrationAlmostDoneNoAccount,
   Login,
   Toast,
   Wallet,

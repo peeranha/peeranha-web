@@ -14,11 +14,7 @@ import {
   LOGIN_WITH_EMAIL,
   LOGIN_WITH_EMAIL_SUCCESS,
   LOGIN_WITH_EMAIL_ERROR,
-  FINISH_REGISTRATION,
-  FINISH_REGISTRATION_SUCCESS,
-  FINISH_REGISTRATION_ERROR,
   EMAIL_FORM,
-  FINISH_REGISTRATION_REFERRAL_ERROR,
   LOGIN_WITH_WALLET,
   LOGIN_WITH_WALLET_SUCCESS,
   LOGIN_WITH_WALLET_ERROR,
@@ -34,8 +30,6 @@ export const initialState = fromJS({
   loginWithWalletProcessing: false,
   isNewPostCreationAfterLogin: false,
   loginWithWalletError: null,
-  finishRegistrationProcessing: false,
-  finishRegistrationWithDisplayNameError: null,
 });
 
 function loginReducer(state = initialState, action) {
@@ -46,7 +40,6 @@ function loginReducer(state = initialState, action) {
     loginWithEmailError,
     eosAccount,
     loginWithWalletError,
-    finishRegistrationWithDisplayNameError,
     isNewPostCreationAfterLogin,
   } = action;
 
@@ -85,23 +78,6 @@ function loginReducer(state = initialState, action) {
       return state
         .set('loginWithWalletProcessing', false)
         .set('loginWithWalletError', loginWithWalletError);
-
-    case FINISH_REGISTRATION:
-      return state.set('finishRegistrationProcessing', true);
-    case FINISH_REGISTRATION_SUCCESS:
-      return state
-        .set('finishRegistrationProcessing', false)
-        .set('showModal', initialState.get('showModal'))
-        .set('content', initialState.get('content'));
-    case FINISH_REGISTRATION_ERROR:
-      return state
-        .set(
-          'finishRegistrationWithDisplayNameError',
-          finishRegistrationWithDisplayNameError,
-        )
-        .set('finishRegistrationProcessing', false);
-    case FINISH_REGISTRATION_REFERRAL_ERROR:
-      return state.set('finishRegistrationProcessing', false);
 
     default:
       return state;

@@ -20,7 +20,6 @@ import UserNavigation from 'components/UserNavigation';
 import QuestionsOfUser from 'containers/QuestionsOfUser';
 import QuestionsWithAnswersOfUser from 'containers/QuestionsWithAnswersOfUser';
 import ProfileViewForm from './ProfileViewForm';
-import SettingsOfUser from './SettingsOfUser';
 
 import {
   makeSelectAccount,
@@ -94,20 +93,6 @@ const ViewProfilePage = ({
         infinityOff={path !== routes.userAnswers(userId)}
         displayName={getUserName(profile?.displayName, userId)}
         userId={userId}
-      />
-
-      <SettingsOfUser
-        className={path === routes.userSettings(userId) ? '' : 'd-none'}
-        userId={userId}
-        locale={locale}
-        activeKey={activeKey}
-        ownerKey={ownerKey}
-        loginData={loginData}
-        profile={profile}
-        account={account}
-        user={profile?.user ?? null}
-        isAvailable={profile && account === profile.user}
-        tgData={userTgData}
       />
 
       {path === routes.userNotifications(userId) && (

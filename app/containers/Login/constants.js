@@ -9,7 +9,6 @@ export const EMAIL_FIELD = 'email';
 export const PASSWORD_FIELD = 'password';
 export const REMEMBER_ME_FIELD = 'remember';
 export const DISPLAY_NAME = 'displayName';
-export const REFERRAL_CODE = 'referral_code';
 // Title
 export const EMAIL_FORM = 'EMAIL_FORM';
 export const EMAIL_PASSWORD_FORM = 'EMAIL_PASSWORD_FORM';
@@ -32,14 +31,6 @@ export const LOGIN_WITH_WALLET_SUCCESS =
   'app/containers/Login/LOGIN_WITH_WALLET_SUCCESS';
 export const LOGIN_WITH_WALLET_ERROR =
   'app/containers/Login/LOGIN_WITH_WALLET_ERROR';
-
-export const FINISH_REGISTRATION = 'app/containers/Login/FINISH_REGISTRATION';
-export const FINISH_REGISTRATION_SUCCESS =
-  'app/containers/Login/FINISH_REGISTRATION_SUCCESS';
-export const FINISH_REGISTRATION_ERROR =
-  'app/containers/Login/FINISH_REGISTRATION_ERROR';
-export const FINISH_REGISTRATION_REFERRAL_ERROR =
-  'app/containers/Login/FINISH_REGISTRATION_REFERRAL_ERROR';
 
 // Errors
 export const SCATTER_MODE_ERROR = 'SCATTER_MODE_ERROR';

@@ -9,14 +9,12 @@ import {
 } from 'redux-saga/effects';
 
 import { selectEos } from 'containers/EosioProvider/selectors';
-import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 import { selectTopQuestionIds } from 'containers/Questions/selectors';
 
 import {
   getQuestionsFilteredByCommunities,
   getQuestionById,
 } from 'utils/questionsManagement';
-import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { getQuestionBounty } from 'utils/walletManagement';
 
 import { getUserProfileWorker } from 'containers/DataCacheProvider/saga';
@@ -28,19 +26,10 @@ import {
 
 import {
   GET_QUESTIONS,
-  GET_COMMUNITY,
-  GET_LOGO,
   REDIRECT_TO_EDIT_COMMUNITY_PAGE,
   FOLLOW_HANDLER,
 } from './constants';
-import {
-  getQuestionsSuccess,
-  getQuestionsError,
-  getCommunitySuccess,
-  getCommunityError,
-  getLogoSuccess,
-  getLogoError,
-} from './actions';
+import { getQuestionsSuccess, getQuestionsError } from './actions';
 import createdHistory from '../../createdHistory';
 import * as routes from '../../routes-config';
 import { REMOVE_OR_ADD_TOP_QUESTION } from '../Questions/constants';

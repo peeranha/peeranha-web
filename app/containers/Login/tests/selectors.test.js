@@ -6,11 +6,7 @@ import {
   makeSelectShowModal,
   makeSelectEmail,
   makeSelectEosAccount,
-  selectLoginWithScatterError,
-  makeSelectLoginProcessing,
   makeSelectLoginWithEmailError,
-  selectFinishRegistrationProcessing,
-  selectFinishRegistrationError,
 } from '../selectors';
 
 describe('selectLoginDomain', () => {
@@ -21,9 +17,6 @@ describe('selectLoginDomain', () => {
   const loginWithEmailError = 'loginWithEmailError';
   const eosAccount = 'eosAccount';
   const loginWithScatterError = 'loginWithScatterError';
-  const finishRegistrationProcessing = 'finishRegistrationProcessing';
-  const finishRegistrationWithDisplayNameError =
-    'finishRegistrationWithDisplayNameError';
 
   const globalState = fromJS({
     content,
@@ -33,8 +26,6 @@ describe('selectLoginDomain', () => {
     loginWithEmailError,
     eosAccount,
     loginWithScatterError,
-    finishRegistrationProcessing,
-    finishRegistrationWithDisplayNameError,
   });
 
   const mockedState = fromJS({
@@ -60,11 +51,6 @@ describe('selectLoginDomain', () => {
     expect(isEmail(mockedState)).toEqual(email);
   });
 
-  it('loginProcessing', () => {
-    const isLoginProcessing = makeSelectLoginProcessing();
-    expect(isLoginProcessing(mockedState)).toEqual(loginProcessing);
-  });
-
   it('makeSelectLoginWithEmailError', () => {
     const isLoginWithEmailError = makeSelectLoginWithEmailError();
     expect(isLoginWithEmailError(mockedState)).toEqual(loginWithEmailError);
@@ -73,24 +59,5 @@ describe('selectLoginDomain', () => {
   it('makeSelectEosAccount', () => {
     const isEosAccount = makeSelectEosAccount();
     expect(isEosAccount(mockedState)).toEqual(eosAccount);
-  });
-
-  it('selectLoginWithScatterError', () => {
-    const isLoginWithScatterError = selectLoginWithScatterError();
-    expect(isLoginWithScatterError(mockedState)).toEqual(loginWithScatterError);
-  });
-
-  it('selectFinishRegistrationProcessing', () => {
-    const isFinishRegistrationProcessing = selectFinishRegistrationProcessing();
-    expect(isFinishRegistrationProcessing(mockedState)).toEqual(
-      finishRegistrationProcessing,
-    );
-  });
-
-  it('selectFinishRegistrationError', () => {
-    const isFinishRegistrationError = selectFinishRegistrationError();
-    expect(isFinishRegistrationError(mockedState)).toEqual(
-      finishRegistrationWithDisplayNameError,
-    );
   });
 });

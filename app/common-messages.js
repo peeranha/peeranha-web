@@ -87,9 +87,6 @@ export default defineMessages({
   askQuestion: {
     id: 'app.common.askQuestion',
   },
-  signUp: {
-    id: 'app.common.signUp',
-  },
   login: {
     id: 'app.common.login',
   },
@@ -386,12 +383,6 @@ export default defineMessages({
   },
   loginViaService: {
     id: 'app.common.loginViaService',
-  },
-  signUpViaWallet: {
-    id: 'app.common.signUpViaWallet',
-  },
-  signUpViaService: {
-    id: 'app.common.signUpViaService',
   },
   general: {
     id: 'app.common.general',

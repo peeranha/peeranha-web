@@ -1,13 +1,4 @@
-import { saveText } from './ipfs';
-
-import {
-  ACCOUNT_TABLE,
-  ALL_ACCOUNTS_SCOPE,
-  NO_AVATAR,
-  UPDATE_ACC,
-  INVITE_USER,
-  KEY_LAST_RATING_UPDATE_TIME,
-} from './constants';
+import { ACCOUNT_TABLE, ALL_ACCOUNTS_SCOPE } from './constants';
 
 import { ApplicationError } from './errors';
 import { dateNowInSeconds } from './datetime';
@@ -80,8 +71,6 @@ export const isUserInSystem = async (user, eosService) => {
 
   return Boolean(profile);
 };
-
-export const inviteUser = async (accountName, referralCode, eosService) => {};
 
 export const checkUserURL = user => {
   const path = document.location.pathname.split('/');

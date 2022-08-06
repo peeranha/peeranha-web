@@ -148,7 +148,6 @@ export const PERIOD_RATING_TABLE = 'periodrating';
 export const TOTAL_REWARD_TABLE = 'totalreward';
 export const TOTAL_RATING_TABLE = 'totalrating';
 export const USER_SUPPLY_TABLE = 'stat';
-export const INVITED_USERS_TABLE = 'invited';
 export const ALL_TOP_QUESTIONS_TABLE = 'topquestion';
 export const ALL_PROPERTY_COMMUNITY_TABLE = 'propertycomm';
 export const TG_ACCOUNT_TABLE = 'telegramacc';
@@ -168,7 +167,6 @@ export const ALL_COMMUNITIES_SCOPE = 'allcomm';
 export const ALL_STAT_SCOPE = 'allstat';
 export const ALL_PERIODS_SCOPE = 'allperiods';
 export const USER_SUPPLY_SCOPE = 'PEER';
-export const INVITED_USERS_SCOPE = 'allinvited';
 export const ALL_TOP_QUESTIONS_SCOPE = 'alltopquest';
 export const ALL_PROPERTY_COMMUNITY_SCOPE = 'allprprtcomm';
 export const ALL_TG_ACCOUNTS_SCOPE = 'alltelacc';
@@ -185,7 +183,6 @@ export const SAVE_PROFILE_METHOD = 'setaccprof';
 
 export const REGISTER_ACC = 'registeracc';
 export const UPDATE_ACC = 'updateacc';
-export const INVITE_USER = 'inviteuser';
 export const REWARD_REFER = 'rewardrefer';
 
 export const VOTE_TO_DELETE_METHOD = 'reportforum';

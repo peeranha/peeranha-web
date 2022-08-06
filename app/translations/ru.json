@@ -29,7 +29,6 @@
   "app.common.logout": "Выход",
   "app.common.search": "Поиск",
   "app.common.login": "Вход",
-  "app.common.signUp": "Регистрация",
   "app.common.all": "Все",
   "app.common.askQuestion": "Новый пост",
   "app.common.wrongChainId": "Wrong Chain id",
@@ -134,8 +133,6 @@
   "app.common.inProgress": "Выполняется",
   "app.common.loginViaWallet": "Войти через кошелек",
   "app.common.loginViaService": "Войти через сервис",
-  "app.common.signUpViaWallet": "Регистрация через кошелек",
-  "app.common.signUpViaService": "Регистрация через сервис",
   "app.common.general": "Общий",
   "app.common.expert": "Экспертный",
   "app.common.tutorial": "Туториал",
@@ -232,9 +229,6 @@
   "app.containers.Wallet.week": "Неделя",
   "app.containers.Wallet.getReward": "Получить награду",
   "app.containers.Wallet.received": "Получено",
-  "app.containers.Wallet.thisIsRegistrationWeek":
-    "Это неделя регистрации. Мы настраиваем Ваш кошелёк. Награда за эту неделю будет получена на следующей неделе.",
-  "app.containers.Wallet.registrationWeek": "Неделя регистрации",
   "app.containers.Wallet.yourWalletWasSuccessfullySet":
     "Ваш кошелёк был успешно настроен в этот период",
   "app.containers.Wallet.getMoreWithBoost": "Получите больше наград с Boost",
@@ -394,12 +388,6 @@
   "app.containers.Profile.noAnswersYet": "Пока нет ответов",
   "app.containers.Profile.achievements": "Достижения",
   "app.containers.Profile.editProfile": "Редактировать профиль",
-  "app.containers.Profile.authorizationData": "Данные авторизации",
-  "app.containers.Profile.referralProgram": "Реферальная программа",
-  "app.containers.Profile.referralLink": "Ваша реферальная ссылка",
-  "app.containers.Profile.referralCode": "Ваш реферальный код",
-  "app.containers.Profile.referralText":
-    "Поделитесь реферальной ссылкой или кодом с вашим другом и вы оба получите 100 PEER токенов после того, как ваш друг заработает 35 очков репутации.",
 
   "app.containers.PrivacyPolicy.title": "Политика конфиденциальности",
   "app.containers.PrivacyPolicy.description":
@@ -529,7 +517,6 @@
   "app.containers.HomePage.faq": "ЧАВО",
   "app.containers.HomePage.team": "Команда",
   "app.containers.HomePage.login": "Вход",
-  "app.containers.HomePage.signUpFree": "Регистрация",
   "app.containers.HomePage.yourContributionsRewarded":
     "Вознаграждения за ваш вклад",
   "app.containers.HomePage.weAreDecentralized":
@@ -836,89 +823,9 @@
   "app.containers.Login.userIsNotSelected": "Пользователь не выбран",
   "app.containers.Login.fbAutologinError":
     "Ошибка автоинициализации приложения с фейсбук аккаунтом",
-  "app.containers.Login.fbLoginError": "Ошибка логинизации с фейсбук аккаунтом",
-  "app.containers.Login.weAreHappyYouAreHere": "Мы рады, что вы с нами!",
   "app.containers.Login.yourUsernameIsHow":
     "Имя, которое будет у Вас в Peeranha.",
-  "app.containers.Login.referralMessage": "Это код, который друг дал тебе.",
-  "app.containers.Login.optionalReferralCode": "(опционально)",
   "app.containers.Login.accountNotCreatedName": "Аккаунт пока не создан",
-  "app.containers.Login.inviterIsNotRegisterYet":
-    "Пригласитель еще не зарегистрирован",
-  "app.containers.Login.iDontHaveAnAccount": "У меня нет аккаунта.",
-
-  "app.containers.SignUp.checkYourEmail": "Код подтверждения.",
-  "app.containers.SignUp.almostDone": "Почти все",
-  "app.containers.SignUp.firstParagraphAlmostDone":
-    "Peeranha нетипичная платформа для вопросов и ответов. Она работает на блокчейне.",
-  "app.containers.SignUp.secondParagraphAlmostDone":
-    "Telos блокчейн аккаунт требуется для использования Peeranha. Для создания аккаунта требуется комиссия.",
-  "app.containers.SignUp.thirdParagraphAlmostDone":
-    "Мы рады покрыть эту стоимость за Вас, но нам нужен Ваш email и телефонный номер, чтобы проверить, что Вы реальный пользователь. Процесс может загять 1-2 недели.",
-  "app.containers.SignUp.weWillNotify":
-    "Мы сообщим Вам, когда Ваш аккаунт будет готов. Обычно это занимает не больше 4 часов.",
-  "app.containers.SignUp.goToMainPage": "Перейти на главную страницу",
-  "app.containers.SignUp.downloadSecretPhrase": "Скачать Секретную фразу",
-  "app.containers.SignUp.youNeedBlockchainAccount":
-    "Создание аккаунта на блокчейне",
-  "app.containers.SignUp.theWayBlockchainAccountWorks":
-    "Мы создаем для вас аккаунт на блокчейне для работы с платформой. Только у вас будет доступ к секретному ключу для этого аккаунта. Наш сервисный аккаунт сможет бупликовать ограниченный набор действий от имени вашего аккаунта для вашего удобства. Вы можете в любой момент отозвать доступ у сервесного аккаунта.",
-  "app.containers.SignUp.dontWorryAboutBlockchainAccount":
-    "Звучит слишком сложно? Не волнуйтесь! Просто не забудьте записать Секретную Фразу и сохранить ее в надежном месте. Секретная Фраза - единственный способ получить доступ к аккаунту на блокчейне и вашим вознагражденияем. Мы предоставим вам подробную инструкцию как использовать Секретную Фразу что бы получить доступ к вознаграждениям.",
-  "app.containers.SignUp.signUpOptions": "Опции при регистрации",
-  "app.containers.SignUp.peeranhaIsNotTypical":
-    "Peeranha нетипичная платформа для вопросов и ответов. Она работает на блокчейне.",
-  "app.containers.SignUp.telosBlockchainPowers":
-    "Telos блокчейн поддерживает многие децентрализованные приложения, такие как Peeranha, которым управляют члены сообщества по всему миру. Для использования этих приложений требуется Telos блокчейн аккаунт.",
-  "app.containers.SignUp.weAreHappyToCover":
-    "Если вы предпочитаете использовать приложение-кошелек для управления своим блокчейн аккаунтом, тогда доступна опция регистрации с помощью кошелька.",
-  "app.containers.SignUp.ifYouLikeToSkip":
-    "Новичок в блокчейне? Не волнуйтесь! Вы сможете получить доступ к Peeranha, используя свой адрес электронной почты и пароль, как любой другой веб-сайт.",
-  "app.containers.SignUp.or": "или",
-  "app.containers.SignUp.doYouHaveAlreadyAccount": "У вас уже есть аккаунт?",
-  "app.containers.SignUp.youHaveToSaveKeys":
-    "Секретная фраза - единственный способ получить доступ к аккаунту на блокчене и вашим вознагражденияем! Напишите свою секретную фразу на листе бумаги и храните его в надежном месте. В качестве альтернативы сохраните свою секретную фразу в диспетчере паролей, таком как 1Password.",
-  "app.containers.SignUp.passwordsDoNotMatch": "Пароли не совпадают",
-  "app.containers.SignUp.iHaveEosAccount": "Есть Telos аккаунт",
-  "app.containers.SignUp.idontHaveEosAccount": "Нет Telos аккаунта",
-  "app.containers.SignUp.downloadKeys": "Загрузить ключ",
-  "app.containers.SignUp.whyYouLikeUs": "Почему Вам нравится Peeranha?",
-  "app.containers.SignUp.title": "Регистрация",
-  "app.containers.SignUp.description": "Регистрация | Описание",
-  "app.containers.SignUp.continue": "Продолжить",
-  "app.containers.SignUp.email": "Почта",
-  "app.containers.SignUp.verificationCode": "Код подтверждения",
-  "app.containers.SignUp.verify": "Подтвердить",
-  "app.containers.SignUp.sendAnotherCode": "Отправить другой код",
-  "app.containers.SignUp.eosActivePrivateKey": "Telos Active Private Key",
-  "app.containers.SignUp.privateKey": "Личный ключ",
-  "app.containers.SignUp.eosOwnerPrivateKey": "Telos Owner Private Key",
-  "app.containers.SignUp.storeThisKey": "Хранить этот ключ",
-  "app.containers.SignUp.secretPhrase": "Секретная фраза",
-  "app.containers.SignUp.displayName": "Отображаемое имя",
-  "app.containers.SignUp.referralCode": "Реферальный код {optional}",
-  "app.containers.SignUp.ethereumUserAddress": "Адрес в Ethereum",
-  "app.containers.SignUp.signUp": "Зарегистрироваться",
-  "app.containers.SignUp.password": "Пароль",
-  "app.containers.SignUp.confirmPassword": "Подтвердить пароль",
-  "app.containers.SignUp.iSaveSecretPhrase":
-    "Я сохранил Секретную фразу в безопасном месте. Понимаю, что Секретная фраза - единственный способ получить доступ к моему аккаунту на блокчейне и вознаграждениям.",
-  "app.containers.SignUp.userAlreadyRegistered":
-    "Пользователь с таким identity уже зарегистрирован",
-  "app.containers.SignUp.userRejectedSignatureRequest":
-    "Пользователь отклонил запрос подписи",
-  "app.containers.SignUp.userIsNotSelected": "Пользователь не выбран",
-  "app.containers.SignUp.eosAccountNotFound": "Данный Telos аккаунт не найден",
-  "app.containers.SignUp.keysDoNotMatch":
-    "Приватные ключи не соответствуют Telos аккаунт имени",
-  "app.containers.SignUp.registrationWithEosAccountAlmostDone":
-    "Регистрация успешно завершена. Сейчас Вы можете авторизоваться и продолжить работу в нашем приложении!",
-  "app.containers.SignUp.autogenerated": "Автосгенерированное",
-  "app.containers.SignUp.myOwn": "Моё собственное",
-  "app.containers.SignUp.tgAccountID": "ID телеграм аккаунта",
-  "app.containers.SignUp.tgAccountName": "Имя телеграм аккаунта",
-  "app.containers.SignUp.metaMaskIsNotInstalled": "MetaMask не установлен",
-  "app.containers.SignUp.userNotSelected": "Пользователь не выбран",
 
   "app.containers.Profile.profile": "Профиль",
   "app.containers.Profile.profileDescription": "Описание профиля",

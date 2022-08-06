@@ -4,8 +4,6 @@ import { translationMessages } from 'i18n';
 import { sendMessage } from 'utils/homepageManagement';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { EMAIL_CHECKING } from 'containers/SignUp/constants';
-import { emailCheckingWorker } from 'containers/SignUp/saga';
 
 import {
   SEND_MESSAGE,
@@ -64,5 +62,4 @@ export function* sendMessageWorker({ val }) {
 
 export default function*() {
   yield takeLatest(SEND_MESSAGE, sendMessageWorker);
-  yield takeLatest(EMAIL_CHECKING, emailCheckingWorker);
 }

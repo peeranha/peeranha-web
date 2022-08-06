@@ -7,14 +7,9 @@
 import {
   SHOW_LOGIN_MODAL,
   HIDE_LOGIN_MODAL,
-  SHOW_EMAIL_PASSWORD_MODAL,
   LOGIN_WITH_EMAIL,
   LOGIN_WITH_EMAIL_SUCCESS,
   LOGIN_WITH_EMAIL_ERROR,
-  EMAIL_FIELD,
-  FINISH_REGISTRATION,
-  FINISH_REGISTRATION_SUCCESS,
-  FINISH_REGISTRATION_ERROR,
   LOGIN_WITH_WALLET,
   LOGIN_WITH_WALLET_SUCCESS,
   LOGIN_WITH_WALLET_ERROR,
@@ -31,13 +26,6 @@ export function showLoginModal() {
 export function hideLoginModal() {
   return {
     type: HIDE_LOGIN_MODAL,
-  };
-}
-
-export function showEmailPasswordForm(val) {
-  return {
-    type: SHOW_EMAIL_PASSWORD_MODAL,
-    email: val.get(EMAIL_FIELD),
   };
 }
 
@@ -87,29 +75,5 @@ export function loginWithEmailErr(loginWithEmailError) {
   return {
     type: LOGIN_WITH_EMAIL_ERROR,
     loginWithEmailError,
-  };
-}
-
-// Finish registration (enter display name)
-
-export function finishRegistrationWithDisplayName(val) {
-  return {
-    type: FINISH_REGISTRATION,
-    val: val.toJS(),
-  };
-}
-
-export function finishRegistrationWithDisplayNameSuccess() {
-  return {
-    type: FINISH_REGISTRATION_SUCCESS,
-  };
-}
-
-export function finishRegistrationWithDisplayNameErr(
-  finishRegistrationWithDisplayNameError,
-) {
-  return {
-    type: FINISH_REGISTRATION_ERROR,
-    finishRegistrationWithDisplayNameError,
   };
 }

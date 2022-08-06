@@ -29,7 +29,6 @@
   "app.common.logout": "Log out",
   "app.common.search": "Search",
   "app.common.login": "Log in",
-  "app.common.signUp": "Sign up",
   "app.common.all": "All",
   "app.common.askQuestion": "New post",
   "app.common.wrongChainId": "Wrong Chain id",
@@ -134,8 +133,6 @@
   "app.common.inProgress": "In progress",
   "app.common.loginViaWallet": "Login via wallet",
   "app.common.loginViaService": "Login via service",
-  "app.common.signUpViaWallet": "Sign up via wallet",
-  "app.common.signUpViaService": "Sign up via service",
   "app.common.general": "Discussion",
   "app.common.expert": "Expert",
   "app.common.tutorial": "Tutorial",
@@ -147,7 +144,6 @@
   "app.common.tip": "Tip",
   "app.common.tipAnswer": "Tip answer",
   "app.common.sendTip": "Send tip",
-  "app.common.receivedReward": "You received referral reward",
   "app.common.generalPopoverTitle": "Discussion",
   "app.common.generalPopoverLabel":
     "A topic not requiring expertise or experience to answer that can be one of the following:",
@@ -237,9 +233,6 @@
   "app.containers.Wallet.week": "Period",
   "app.containers.Wallet.getReward": "Get reward",
   "app.containers.Wallet.received": "Received",
-  "app.containers.Wallet.thisIsRegistrationWeek":
-    "This is registration period. We are setting up your wallet. Reward for this period will be applied to the next period.",
-  "app.containers.Wallet.registrationWeek": "Registration period",
   "app.containers.Wallet.yourWalletWasSuccessfullySet":
     "Your wallet was successfully set during this period",
   "app.containers.Wallet.getMoreWithBoost": "Get more rewards with Boost",
@@ -284,8 +277,6 @@
     "This user did not request to activate account",
   "web_integration.errors.youSendTooManRequests":
     "You sent too many requests in the last period",
-  "web_integration.errors.userDidntMakeRequestToVerifyEmail":
-    "Email does not require registration or request expired",
   "web_integration.errors.codeExpiredOrIncorrect":
     "Code expired or entered incorrectly",
   "web_integration.errors.passphraseIsInvalid": "The passphrase is invalid",
@@ -385,12 +376,6 @@
   "app.containers.Profile.noAnswersYet": "No answers yet",
   "app.containers.Profile.achievements": "NFTs",
   "app.containers.Profile.editProfile": "Edit profile",
-  "app.containers.Profile.authorizationData": "Authorization data",
-  "app.containers.Profile.referralProgram": "Referral Program",
-  "app.containers.Profile.referralLink": "Your referral link",
-  "app.containers.Profile.referralCode": "Your referral code",
-  "app.containers.Profile.referralText":
-    "Share the link or the code with your friend and you both will receive 100 PEER tokens after your friend earns 35 reputation points.",
 
   "app.containers.PrivacyPolicy.title": "Privacy policy",
   "app.containers.PrivacyPolicy.description": "Privacy policy, description",
@@ -519,7 +504,6 @@
   "app.containers.HomePage.faq": "FAQ",
   "app.containers.HomePage.team": "Team",
   "app.containers.HomePage.login": "Log in",
-  "app.containers.HomePage.signUpFree": "Sign up",
   "app.containers.HomePage.yourContributionsRewarded":
     "Your Contributions Rewarded",
   "app.containers.HomePage.weAreDecentralized":
@@ -631,8 +615,6 @@
   "app.containers.HomePage.none": "None",
   "app.containers.HomePage.messageHasNotBeenSent":
     "Something went wrong and your message has not been sent. Please try again.",
-  "app.containers.HomePage.yourEmailIsRegistred":
-    "Website is under development but your email is registered. You will receive an email with the steps to continue your registration when the website is ready.",
   "app.containers.HomePage.goToSite": "Go to site",
   "app.containers.HomePage.questionsTitle": "Trending",
 
@@ -825,89 +807,9 @@
     "Check whether the wallet browser extension is configured",
   "app.containers.Login.userIsNotRegistered": "User is not registered",
   "app.containers.Login.userIsNotSelected": "User is not selected",
-  "app.containers.Login.weAreHappyYouAreHere": "We are happy, you are here",
   "app.containers.Login.yourUsernameIsHow":
     "The username is how you'll be known on Peeranha.",
-  "app.containers.Login.referralMessage":
-    "This is the code your friend gave you.",
-  "app.containers.Login.optionalReferralCode": "(optional)",
   "app.containers.Login.accountNotCreatedName": "Account is not created yet",
-  "app.containers.Login.inviterIsNotRegisterYet": "Inviter isn't register yet",
-  "app.containers.Login.iDontHaveAnAccount": "I don't have an account.",
-
-  "app.containers.SignUp.checkYourEmail": "Verification code.",
-  "app.containers.SignUp.almostDone": "Almost done",
-  "app.containers.SignUp.firstParagraphAlmostDone":
-    "Peeranha is not a typical Q&A platform. It’s powered by blockchain.",
-  "app.containers.SignUp.secondParagraphAlmostDone":
-    "Telos blockchain account is required to use Peeranha. A fee is required to create an account.",
-  "app.containers.SignUp.thirdParagraphAlmostDone":
-    "We're happy to cover this fee for you but we'll need your email and phone number to manually check that you're a real person. This process could take 1-2 weeks.",
-  "app.containers.SignUp.weWillNotify":
-    "We will notify you when your account will be ready. Usually it takes no longer than 4 hours.",
-  "app.containers.SignUp.goToMainPage": "Go to main page",
-  "app.containers.SignUp.downloadSecretPhrase": "Download Secret Phrase",
-  "app.containers.SignUp.youNeedBlockchainAccount":
-    "Create account on blockchain",
-  "app.containers.SignUp.theWayBlockchainAccountWorks":
-    "We are creating a blockchain account for you to interact with the platform. Only you will have access to the private key for the account. Our service will be authorized to post a limited set of actions on the platform on behalf of your account in order to provide you with a convenient experience. You'll be able to revoke that permission of service account at any time.",
-  "app.containers.SignUp.dontWorryAboutBlockchainAccount":
-    "Sounds too complicated? Don’t worry! Just remember to write down your Secret Phrase and save it in a safe place. Secret Phrase is the only way to access your blockchain account and the rewards that you'll earn. We will guide you when it is time to use your Secret Phrase to withdraw the rewards.",
-  "app.containers.SignUp.signUpOptions": "Sign up options",
-  "app.containers.SignUp.peeranhaIsNotTypical":
-    "Peeranha is not a typical Q&A platform. It’s powered by blockchain.",
-  "app.containers.SignUp.telosBlockchainPowers":
-    "Telos blockchain powers many decentralized applications like Peeranha, which is run by community members all around the world. Telos blockchain account is required to use these applications.",
-  "app.containers.SignUp.weAreHappyToCover":
-    "If you prefer to use a wallet application to manage your blockchain account, then wallet sign up option is available.",
-  "app.containers.SignUp.ifYouLikeToSkip":
-    "New to blockchain? Do not worry! You will be able to access Peeranha using your email address and password as any other website.",
-  "app.containers.SignUp.or": "or",
-  "app.containers.SignUp.doYouHaveAlreadyAccount":
-    "Do you already have an account?",
-  "app.containers.SignUp.youHaveToSaveKeys":
-    "Secret Phrase is the only way to access your blockchain account and rewards that you'll earn! Write your Secret Phrase on a piece of paper and store it in a secure location. Alternatively, store your Secret Phrase in a password manager like 1Password.",
-  "app.containers.SignUp.passwordsDoNotMatch": "Passwords do not match",
-  "app.containers.SignUp.iHaveEosAccount": "I have Telos account",
-  "app.containers.SignUp.idontHaveEosAccount": "I don't have Telos account",
-  "app.containers.SignUp.downloadKeys": "Download key",
-  "app.containers.SignUp.whyYouLikeUs": "Why do you like Peeranha?",
-  "app.containers.SignUp.title": "Registration",
-  "app.containers.SignUp.description": "Registration | Description",
-  "app.containers.SignUp.continue": "Continue",
-  "app.containers.SignUp.email": "Email",
-  "app.containers.SignUp.verificationCode": "Verification code",
-  "app.containers.SignUp.verify": "Verify",
-  "app.containers.SignUp.sendAnotherCode": "Send another code",
-  "app.containers.SignUp.eosActivePrivateKey": "Telos Active Private Key",
-  "app.containers.SignUp.privateKey": "Private Key",
-  "app.containers.SignUp.eosOwnerPrivateKey": "Telos Owner Private Key",
-  "app.containers.SignUp.storeThisKey": "Store this key",
-  "app.containers.SignUp.secretPhrase": "Secret Phrase",
-  "app.containers.SignUp.displayName": "Display name",
-  "app.containers.SignUp.referralCode": "Referral code {optional}",
-  "app.containers.SignUp.ethereumUserAddress": "Ethereum address",
-  "app.containers.SignUp.signUp": "Sign up",
-  "app.containers.SignUp.password": "Password",
-  "app.containers.SignUp.confirmPassword": "Confirm password",
-  "app.containers.SignUp.iSaveSecretPhrase":
-    "I saved Secret Phrase in a safe place. I understand that Secret Phrase is the only way to access my blockchain account and rewards.",
-  "app.containers.SignUp.userAlreadyRegistered":
-    "User with such identity has been already registered",
-  "app.containers.SignUp.userRejectedSignatureRequest":
-    "User rejected signature request",
-  "app.containers.SignUp.userIsNotSelected": "User is not selected",
-  "app.containers.SignUp.eosAccountNotFound": "Telos account not be found",
-  "app.containers.SignUp.keysDoNotMatch":
-    "Private keys do not match Telos account name",
-  "app.containers.SignUp.registrationWithEosAccountAlmostDone":
-    "Registration is successfully passed. Now you can login and continue work in our app!",
-  "app.containers.SignUp.autogenerated": "Autogenerated",
-  "app.containers.SignUp.myOwn": "My own",
-  "app.containers.SignUp.tgAccountID": "Telegram account ID",
-  "app.containers.SignUp.tgAccountName": "Telegram account name",
-  "app.containers.SignUp.metaMaskIsNotInstalled": "MetaMask is not installed",
-  "app.containers.SignUp.userNotSelected": "User is not selected  ",
 
   "app.containers.Profile.profile": "Profile",
   "app.containers.Profile.profileDescription": "Profile description",

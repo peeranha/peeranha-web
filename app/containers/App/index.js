@@ -58,12 +58,6 @@ import {
   Home,
   Feed,
   Communities,
-  EmailEnteringForm,
-  EmailVerificationForm,
-  WalletsSignUpForm,
-  SignUpViaEmail,
-  RegistrationAlmostDoneWithAccount,
-  RegistrationAlmostDoneNoAccount,
   Login,
   Toast,
   Wallet,
@@ -75,9 +69,7 @@ import {
   TermsOfService,
   MetaTransactionAgreement,
 } from './imports';
-import { getValueFromSearchString } from '../../utils/url';
-import { getCookie, setCookie } from '../../utils/cookie';
-import { REFERRAL_CODE_URI } from './constants';
+import { getCookie } from '../../utils/cookie';
 import { AUTOLOGIN_DATA } from '../Login/constants';
 import { redirectToFeed } from './actions';
 import { hasGlobalModeratorRole } from '../../utils/properties';
@@ -95,21 +87,6 @@ const App = ({
   }
 
   useEffect(() => {
-    if (!getCookie(REFERRAL_CODE_URI)) {
-      const value = getValueFromSearchString(search, REFERRAL_CODE_URI);
-      if (value) {
-        setCookie({
-          name: REFERRAL_CODE_URI,
-          value,
-          options: {
-            allowSubdomains: true,
-            neverExpires: true,
-            defaultPath: true,
-          },
-        });
-      }
-    }
-
     const loginData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
     if (loginData && !single && pathname !== '/') {
       redirectToFeedDispatch();
@@ -369,42 +346,6 @@ const App = ({
             path={routes.errorPage()}
             render={props => Wrapper(ErrorPage, props)}
           />
-
-          <Route path={routes.signup.email.name}>
-            <React.Suspense fallback={<Loader />}>
-              <EmailEnteringForm />
-            </React.Suspense>
-          </Route>
-
-          <Route path={routes.signup.emailVerification.name}>
-            <React.Suspense fallback={null}>
-              <EmailVerificationForm />
-            </React.Suspense>
-          </Route>
-
-          <Route path={routes.signup.displayName.name}>
-            <React.Suspense fallback={null}>
-              <WalletsSignUpForm />
-            </React.Suspense>
-          </Route>
-
-          <Route exact path={routes.signup.accountSetup.name}>
-            <React.Suspense fallback={null}>
-              <SignUpViaEmail />
-            </React.Suspense>
-          </Route>
-
-          <Route path={routes.signup.almostDoneWithAccount.name}>
-            <React.Suspense fallback={null}>
-              <RegistrationAlmostDoneWithAccount />
-            </React.Suspense>
-          </Route>
-
-          <Route path={routes.signup.almostDoneNoAccount.name}>
-            <React.Suspense fallback={null}>
-              <RegistrationAlmostDoneNoAccount />
-            </React.Suspense>
-          </Route>
 
           <Route render={props => Wrapper(NotFoundPage, props)} />
         </Switch>

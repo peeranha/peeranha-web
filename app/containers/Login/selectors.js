@@ -25,16 +25,6 @@ export const makeSelectLoginWithEmailError = () =>
 export const makeSelectEosAccount = () =>
   createSelector(selectLoginDomain, substate => substate.get('eosAccount'));
 
-export const selectFinishRegistrationProcessing = () =>
-  createSelector(selectLoginDomain, substate =>
-    substate.get('finishRegistrationProcessing'),
-  );
-
-export const selectFinishRegistrationError = () =>
-  createSelector(selectLoginDomain, substate =>
-    substate.get('finishRegistrationWithDisplayNameError'),
-  );
-
 export const selectLoginWithWalletProcessing = () =>
   createSelector(selectLoginDomain, substate =>
     substate.get('loginWithWalletProcessing'),

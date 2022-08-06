@@ -1,16 +1,10 @@
 import { call, put, takeLatest, select } from 'redux-saga/effects';
 import { translationMessages } from 'i18n';
-import crypto from 'crypto';
 
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
-import {
-  inviteUser,
-  isUserInSystem,
-  updateAcc,
-  emptyProfile,
-} from 'utils/accountManagement';
+import { updateAcc, emptyProfile } from 'utils/accountManagement';
 import { login } from 'utils/web_integration/src/wallet/login/login';
 import webIntegrationErrors from 'utils/web_integration/src/wallet/service-errors';
 import { WebIntegrationError } from 'utils/errors';
@@ -31,14 +25,11 @@ import { selectIsNewPostCreationAfterLogin } from 'containers/Login/selectors';
 import {
   loginWithEmailSuccess,
   loginWithEmailErr,
-  finishRegistrationWithDisplayNameSuccess,
-  finishRegistrationWithDisplayNameErr,
   loginWithWalletSuccess,
   loginWithWalletErr,
 } from './actions';
 
 import {
-  FINISH_REGISTRATION,
   LOGIN_WITH_EMAIL,
   USER_IS_NOT_SELECTED,
   EMAIL_FIELD,
@@ -56,13 +47,6 @@ import { saveProfileWorker } from '../EditProfilePage/saga';
 
 function* continueLogin({ address }) {
   yield call(getCurrentAccountWorker, address);
-  const profileInfo = yield select(makeSelectProfileInfo());
-
-  if (
-    profileInfo &&
-    window.location.pathname.includes(routes.registrationStage)
-  )
-    yield put(redirectToFeed());
 
   yield put(loginWithEmailSuccess());
 }
@@ -158,35 +142,6 @@ export function* loginWithWalletWorker({ metaMask }) {
   }
 }
 
-export function* finishRegistrationWorker({ val }) {
-  try {
-    const ethereumService = yield select(selectEthereum);
-    const account = yield call(ethereumService.getSelectedAccount);
-
-    let ethereumUserAddress = account;
-    const isNavigate = false;
-
-    if (typeof account !== 'string' && !!account?.ethereumUserAddress) {
-      ethereumUserAddress = account.ethereumUserAddress;
-    }
-
-    yield call(
-      saveProfileWorker,
-      {
-        profile: {
-          [DISPLAY_NAME_FIELD]: val[DISPLAY_NAME],
-        },
-        userKey: ethereumUserAddress,
-      },
-      isNavigate,
-    );
-
-    yield put(finishRegistrationWithDisplayNameSuccess());
-  } catch (err) {
-    yield put(finishRegistrationWithDisplayNameErr(err));
-  }
-}
-
 export function* redirectToFeedWorker() {
   const isLeftMenuVisible = yield select(selectIsMenuVisible());
   const profileInfo = yield select(makeSelectProfileInfo());
@@ -206,5 +161,4 @@ export function* redirectToFeedWorker() {
 export default function*() {
   yield takeLatest(LOGIN_WITH_EMAIL, loginWithEmailWorker);
   yield takeLatest(LOGIN_WITH_WALLET, loginWithWalletWorker);
-  yield takeLatest(FINISH_REGISTRATION, finishRegistrationWorker);
 }

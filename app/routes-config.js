@@ -6,7 +6,6 @@
 
 /* eslint camelcase: 0, prettier/prettier: 0 */
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
-import { REFERRAL_CODE_URI } from './containers/App/constants';
 import { POST_TYPE } from './utils/constants';
 
 const userRedirect = where => id => `/users/${id}${where}`;
@@ -116,11 +115,7 @@ export const editTag = (communityId, tagId) =>
     ? `/communities/${communityId}/tags/${tagId}/edit`
     : `/tags/${tagId}/edit`;
 
-export const registrationStage = 'signup';
-
 export const preloaderPage = () => '/preloader-page';
-
-export const referralPage = user => `/?${REFERRAL_CODE_URI}=${user}`;
 
 export const redirectRoutesForSCM = [
   faq(),
@@ -129,36 +124,3 @@ export const redirectRoutesForSCM = [
   support(),
   home(),
 ];
-
-export const signup = {
-  email: {
-    step: 1,
-    name: `/${registrationStage}/email`,
-    scatter: false,
-  },
-  displayName: {
-    step: 1,
-    name: `/${registrationStage}/with-wallet/display-name`,
-    scatter: true,
-  },
-  emailVerification: {
-    step: 2,
-    name: `/${registrationStage}/email-verification`,
-    scatter: false,
-  },
-  accountSetup: {
-    step: 3,
-    name: `/${registrationStage}/account-setup`,
-    scatter: false,
-  },
-  almostDoneWithAccount: {
-    step: 4,
-    name: `/${registrationStage}/account/almost-done`,
-    scatter: false,
-  },
-  almostDoneNoAccount: {
-    step: 4,
-    name: `/${registrationStage}/almost-done`,
-    scatter: false,
-  },
-};

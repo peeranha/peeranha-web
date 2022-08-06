@@ -22,26 +22,14 @@ import notificationsReducer from 'components/Notifications/reducer';
 
 import * as selectors from './selectors';
 
-import {
-  hideLoginModal,
-  showEmailPasswordForm,
-  loginWithEmail,
-  loginWithWallet,
-  finishRegistrationWithDisplayName,
-} from './actions';
+import { hideLoginModal, loginWithEmail, loginWithWallet } from './actions';
 
-import {
-  EMAIL_FORM,
-  EMAIL_PASSWORD_FORM,
-  WE_ARE_HAPPY_FORM,
-} from './constants';
+import { EMAIL_FORM } from './constants';
 
 import reducer from './reducer';
 import saga from './saga';
 
 import EmailForm from './EmailForm';
-import EmailPasswordForm from './EmailPasswordForm';
-import WeAreHappyYouAreHereForm from './WeAreHappyYouAreHereForm';
 import { selectEthereum } from '../EthereumProvider/selectors';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -50,50 +38,23 @@ export const Login = ({
   showModal,
   hideLoginModalDispatch,
   locale,
-  email,
   loginWithEmailProcessing,
-  finishRegistrationProcessing,
-  showEmailPasswordFormDispatch,
-  loginWithEmailDispatch,
   loginWithWalletProcessing,
   loginWithWalletDispatch,
-  finishRegistrationDispatch,
   ethereumService,
-}) => {
-  return (
-    <ModalDialog show={showModal} closeModal={hideLoginModalDispatch}>
-      {content === EMAIL_FORM && (
-        <EmailForm
-          locale={locale}
-          showEmailPasswordForm={showEmailPasswordFormDispatch}
-          loginWithEmailProcessing={loginWithEmailProcessing}
-          loginWithWallet={loginWithWalletDispatch}
-          loginWithWalletProcessing={loginWithWalletProcessing}
-          metaMaskProviderDetected={ethereumService.metaMaskProviderDetected}
-        />
-      )}
-
-      {content === EMAIL_PASSWORD_FORM && (
-        <EmailPasswordForm
-          locale={locale}
-          login={loginWithEmailDispatch}
-          loginWithEmailProcessing={loginWithEmailProcessing}
-          email={email}
-          loginWithWallet={loginWithWalletDispatch}
-          loginWithWalletProcessing={loginWithWalletProcessing}
-        />
-      )}
-
-      {content === WE_ARE_HAPPY_FORM && (
-        <WeAreHappyYouAreHereForm
-          locale={locale}
-          finishRegistration={finishRegistrationDispatch}
-          finishRegistrationProcessing={finishRegistrationProcessing}
-        />
-      )}
-    </ModalDialog>
-  );
-};
+}) => (
+  <ModalDialog show={showModal} closeModal={hideLoginModalDispatch}>
+    {content === EMAIL_FORM && (
+      <EmailForm
+        locale={locale}
+        loginWithEmailProcessing={loginWithEmailProcessing}
+        loginWithWallet={loginWithWalletDispatch}
+        loginWithWalletProcessing={loginWithWalletProcessing}
+        metaMaskProviderDetected={ethereumService.metaMaskProviderDetected}
+      />
+    )}
+  </ModalDialog>
+);
 
 Login.propTypes = {
   content: PropTypes.string,
@@ -102,12 +63,9 @@ Login.propTypes = {
   locale: PropTypes.string,
   email: PropTypes.string,
   loginWithEmailProcessing: PropTypes.bool,
-  finishRegistrationProcessing: PropTypes.bool,
   loginWithWalletProcessing: PropTypes.bool,
-  showEmailPasswordFormDispatch: PropTypes.func,
   loginWithEmailDispatch: PropTypes.func,
   loginWithWalletDispatch: PropTypes.func,
-  finishRegistrationDispatch: PropTypes.func,
 };
 
 const withConnect = connect(
@@ -117,22 +75,13 @@ const withConnect = connect(
     showModal: selectors.makeSelectShowModal(),
     email: selectors.makeSelectEmail(),
     loginWithEmailProcessing: selectors.selectLoginWithEmailProcessing(),
-    finishRegistrationProcessing: selectors.selectFinishRegistrationProcessing(),
     loginWithWalletProcessing: selectors.selectLoginWithWalletProcessing(),
     ethereumService: selectEthereum,
   }),
   dispatch => ({
     hideLoginModalDispatch: bindActionCreators(hideLoginModal, dispatch),
-    showEmailPasswordFormDispatch: bindActionCreators(
-      showEmailPasswordForm,
-      dispatch,
-    ),
     loginWithEmailDispatch: bindActionCreators(loginWithEmail, dispatch),
     loginWithWalletDispatch: bindActionCreators(loginWithWallet, dispatch),
-    finishRegistrationDispatch: bindActionCreators(
-      finishRegistrationWithDisplayName,
-      dispatch,
-    ),
   }),
 );
 

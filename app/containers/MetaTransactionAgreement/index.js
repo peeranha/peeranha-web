@@ -89,12 +89,9 @@ MetaTransactionAgreement.propTypes = {
   locale: PropTypes.string,
   email: PropTypes.string,
   loginWithEmailProcessing: PropTypes.bool,
-  finishRegistrationProcessing: PropTypes.bool,
   loginWithWalletProcessing: PropTypes.bool,
-  showEmailPasswordFormDispatch: PropTypes.func,
   loginWithEmailDispatch: PropTypes.func,
   loginWithWalletDispatch: PropTypes.func,
-  finishRegistrationDispatch: PropTypes.func,
 };
 
 const withConnect = connect(

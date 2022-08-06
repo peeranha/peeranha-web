@@ -3,16 +3,12 @@ import { all, call, put, select, take, takeLatest } from 'redux-saga/effects';
 import { getProfileInfo } from 'utils/profileManagement';
 import { emptyProfile, isUserExists, updateAcc } from 'utils/accountManagement';
 import {
-  convertPeerValueToNumberValue,
   getAvailableBalance,
   getBalance,
   getUserBoost,
 } from 'utils/walletManagement';
 
-import commonMessages from 'common-messages';
-
 import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
-import { addToast } from 'containers/Toast/actions';
 
 import { redirectToAskQuestionPageWorker } from 'containers/AskQuestion/saga';
 import { redirectToCreateCommunityWorker } from 'containers/CreateCommunity/saga';
@@ -21,12 +17,7 @@ import { redirectToEditQuestionPageWorker } from 'containers/EditQuestion/saga';
 import { redirectToEditAnswerPageWorker } from 'containers/EditAnswer/saga';
 import { redirectToEditProfilePageWorker } from 'containers/EditProfilePage/saga';
 
-import {
-  INVITED_USERS_SCOPE,
-  INVITED_USERS_TABLE,
-  MODERATOR_KEY,
-} from 'utils/constants';
-import { SHOW_WALLET_SIGNUP_FORM_SUCCESS } from 'containers/SignUp/constants';
+import { MODERATOR_KEY } from 'utils/constants';
 import {
   ASK_QUESTION_SUCCESS,
   REDIRECT_TO_ASK_QUESTION_PAGE,
@@ -59,14 +50,7 @@ import {
   SAVE_COMMENT_SUCCESS,
 } from 'containers/ViewQuestion/constants';
 import { getCookie, setCookie } from 'utils/cookie';
-import {
-  GET_CURRENT_ACCOUNT,
-  GET_CURRENT_ACCOUNT_SUCCESS,
-  NO_REFERRAL_INVITER,
-  REFERRAL_REWARD_RATING,
-  REFERRAL_REWARD_RECEIVED,
-  REFERRAL_REWARD_SENT,
-} from './constants';
+import { GET_CURRENT_ACCOUNT, GET_CURRENT_ACCOUNT_SUCCESS } from './constants';
 
 import {
   addLoginData,
@@ -76,8 +60,6 @@ import {
   updateAccSuccess,
 } from './actions';
 import { makeSelectProfileInfo } from './selectors';
-import { makeSelectLocale } from '../LanguageProvider/selectors';
-import { translationMessages } from '../../i18n';
 import { selectEthereum } from '../EthereumProvider/selectors';
 import { hasGlobalModeratorRole } from '../../utils/properties';
 import { getNotificationsInfoWorker } from '../../components/Notifications/saga';
@@ -185,59 +167,6 @@ export function* isAvailableAction(isValid, data = {}) {
   }
 }
 
-export const getReferralInfo = async (user, ethereum) => {
-  const info = await eosService.getTableRow(
-    INVITED_USERS_TABLE,
-    INVITED_USERS_SCOPE,
-    user,
-    process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
-  );
-  return info;
-};
-
-function* updateRefer(user, ethereum) {
-  const receivedCookieName = `${REFERRAL_REWARD_RECEIVED}_${user}`;
-  const noInviterCookieName = `${NO_REFERRAL_INVITER}_${user}`;
-
-  if (getCookie(receivedCookieName) || getCookie(noInviterCookieName)) {
-    return;
-  }
-
-  const info = yield call(getReferralInfo, user, ethereum);
-
-  if (info) {
-    const reward = +convertPeerValueToNumberValue(info.common_reward);
-    if (reward) {
-      const locale = yield select(makeSelectLocale());
-      setCookie({
-        name: receivedCookieName,
-        value: true,
-        options: {
-          allowSubdomains: true,
-          neverExpires: true,
-          defaultPath: true,
-        },
-      });
-      yield put(
-        addToast({
-          type: 'success',
-          text: translationMessages[locale][commonMessages.receivedReward.id],
-        }),
-      );
-    }
-  } else {
-    setCookie({
-      name: noInviterCookieName,
-      value: true,
-      options: {
-        allowSubdomains: true,
-        neverExpires: true,
-        defaultPath: true,
-      },
-    });
-  }
-}
-
 export function* updateAccWorker({ ethereum }) {
   try {
     const account = yield call(ethereum.getSelectedAccount);
@@ -248,42 +177,10 @@ export function* updateAccWorker({ ethereum }) {
       profileInfo = yield select(makeSelectProfileInfo());
     }
 
-    if (profileInfo) {
-      const { user, pay_out_rating } = profileInfo;
-
-      // yield call(updateRefer, user, ethereum);
-
-      if (account) {
-        const sentCookieName = `${REFERRAL_REWARD_SENT}_${user}`;
-        const noInviterCookieName = `${NO_REFERRAL_INVITER}_${user}`;
-        const receivedCookieName = `${REFERRAL_REWARD_RECEIVED}_${user}`;
-        if (
-          pay_out_rating > REFERRAL_REWARD_RATING &&
-          !getCookie(sentCookieName) &&
-          !getCookie(noInviterCookieName) &&
-          !getCookie(receivedCookieName)
-        ) {
-          // const err = yield call(rewardRefer, user, ethereum);
-          //
-          // if (err instanceof Error) {
-          //   yield put(rewardReferErr(err));
-          // } else {
-          setCookie({
-            name: sentCookieName,
-            value: true,
-            options: {
-              allowSubdomains: true,
-              neverExpires: true,
-              defaultPath: true,
-            },
-          });
-          // }
-        }
-
-        yield call(updateAcc, profileInfo, ethereum);
-        yield call(getCurrentAccountWorker);
-        yield put(updateAccSuccess());
-      }
+    if (profileInfo && account) {
+      yield call(updateAcc, profileInfo, ethereum);
+      yield call(getCurrentAccountWorker);
+      yield put(updateAccSuccess());
     }
   } catch (err) {
     yield put(updateAccErr(err));
@@ -314,7 +211,6 @@ export default function* defaultSaga() {
   yield takeLatest(
     [
       GET_CURRENT_ACCOUNT,
-      SHOW_WALLET_SIGNUP_FORM_SUCCESS,
       ASK_QUESTION_SUCCESS,
       POST_ANSWER_SUCCESS,
       CREATE_COMMUNITY_SUCCESS,

@@ -1,7 +1,5 @@
 const { getCookie } = require('../../../cookie');
 const { AUTOLOGIN_DATA } = require('../../../../containers/Login/constants');
-const ACCOUNT_BEGIN_SIGNUP = 'account/begin-signup';
-const ACCOUNT_VALIDATE_SIGNUP_CODE = 'account/validate-signup-code';
 const ACCOUNT_REGISTER = 'account/register';
 
 const LOGIN_SERVICE = 'account/login';
@@ -68,8 +66,6 @@ async function callService(service, props, isGet = false) {
 
 module.exports = {
   callService,
-  ACCOUNT_BEGIN_SIGNUP,
-  ACCOUNT_VALIDATE_SIGNUP_CODE,
   ACCOUNT_REGISTER,
   LOGIN_SERVICE,
   LOGIN_AUTOLOGIN_DATA_SERVICE,

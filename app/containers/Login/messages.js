@@ -18,17 +18,8 @@ const messages = defineMessages({
   staySignedIn: {
     id: 'app.containers.Login.staySignedIn',
   },
-  weAreHappyYouAreHere: {
-    id: 'app.containers.Login.weAreHappyYouAreHere',
-  },
   yourUsernameIsHow: {
     id: 'app.containers.Login.yourUsernameIsHow',
-  },
-  referralMessage: {
-    id: 'app.containers.Login.referralMessage',
-  },
-  optionalReferralCode: {
-    id: 'app.containers.Login.optionalReferralCode',
   },
   [SCATTER_MODE_ERROR]: {
     id: 'app.containers.Login.scatterIsNotInstalled',
@@ -45,17 +36,5 @@ const messages = defineMessages({
   accountNotCreatedName: {
     id: 'app.containers.Login.accountNotCreatedName',
   },
-  inviterIsNotRegisterYet: {
-    id: 'app.containers.Login.inviterIsNotRegisterYet',
-  },
-  iDontHaveAnAccount: {
-    id: 'app.containers.Login.iDontHaveAnAccount',
-  },
 });
-
-export const getAccountNotSelectedMessageDescriptor = isExtension =>
-  isExtension
-    ? messages[SCATTER_BROWSER_EXTENSION_NOT_CONFIGURED]
-    : messages[USER_IS_NOT_SELECTED];
-
 export default messages;

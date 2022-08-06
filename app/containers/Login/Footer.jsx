@@ -10,7 +10,6 @@ import metaMaskLogo from 'images/mm-logo.svg?external';
 
 import Button from 'components/Button/Outlined/SecondaryLarge';
 import Icon from 'components/Icon';
-import IdontHaveAnAccount from './IdontHaveAnAccount';
 
 const Box = styled.div`
   margin: 15px -30px -30px -30px;
@@ -78,11 +77,8 @@ LoginViaMetaMask.propTypes = {
 const Footer = ({
   walletAction,
   loginWithWalletProcessing,
-  showWalletSignUpProcessing,
   loginWithEmailProcessing,
-  emailVerificationProcessing,
   emailChecking,
-  signUpText = null,
   metaMaskProviderDetected,
 }) => {
   const { metaMaskAction } = useMemo(
@@ -93,16 +89,12 @@ const Footer = ({
   );
 
   const processing =
-    loginWithWalletProcessing ||
-    showWalletSignUpProcessing ||
-    emailChecking ||
-    emailVerificationProcessing ||
-    loginWithEmailProcessing;
+    loginWithWalletProcessing || emailChecking || loginWithEmailProcessing;
 
   return (
     <Box>
       <Heading>
-        {signUpText || <FormattedMessage {...messages.loginViaWallet} />}
+        <FormattedMessage {...messages.loginViaWallet} />
       </Heading>
       <div className="d-flex">
         <LoginViaMetaMask
@@ -111,16 +103,6 @@ const Footer = ({
           providerDetected={metaMaskProviderDetected}
         />
       </div>
-
-      {!signUpText && (
-        <IdontHaveAnAccount
-          disabled={
-            loginWithWalletProcessing ||
-            loginWithEmailProcessing ||
-            showWalletSignUpProcessing
-          }
-        />
-      )}
     </Box>
   );
 };
@@ -128,11 +110,8 @@ const Footer = ({
 Footer.propTypes = {
   walletAction: PropTypes.func,
   loginWithWalletProcessing: PropTypes.bool,
-  showWalletSignUpProcessing: PropTypes.bool,
   loginWithEmailProcessing: PropTypes.bool,
-  emailVerificationProcessing: PropTypes.bool,
   emailChecking: PropTypes.bool,
-  signUpText: PropTypes.element,
   locale: PropTypes.string,
 };
 

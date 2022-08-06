@@ -34,9 +34,6 @@ export default defineMessages({
   login: {
     id: 'app.containers.HomePage.login',
   },
-  signUpFree: {
-    id: 'app.containers.HomePage.signUpFree',
-  },
   yourContributionsRewarded: {
     id: 'app.containers.HomePage.yourContributionsRewarded',
   },
