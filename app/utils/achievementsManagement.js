@@ -1,7 +1,7 @@
-export async function getAchievements(eosService, tableTitle, scope) {
+export async function getAchievements(ethereumService, tableTitle, scope) {
   // const selectFromId = 0;
   // const limit = 100;
-  // const { rows } = await eosService.getTableRows(
+  // const { rows } = await ethereumService.getTableRows(
   //   tableTitle,
   //   scope,
   //   selectFromId,

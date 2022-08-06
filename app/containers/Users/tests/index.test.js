@@ -12,7 +12,7 @@ beforeEach(() => {
     sorting: 'id',
     searchText: 'user1',
     limit: 10,
-    eosService: null,
+    ethereumService: null,
     stat: {},
   };
 });
@@ -20,7 +20,7 @@ beforeEach(() => {
 describe('Users', () => {
   describe('componentDidMount', () => {
     it('fetcher was initialized', () => {
-      cmp.props.eosService = {};
+      cmp.props.ethereumService = {};
 
       expect(cmp.props.getUsersDispatch).toHaveBeenCalledTimes(0);
       cmp.componentDidMount();
@@ -31,7 +31,7 @@ describe('Users', () => {
     });
 
     it('fetcher was NOT initialized', () => {
-      cmp.eosService = null;
+      cmp.ethereumService = null;
 
       expect(cmp.props.getUsersDispatch).toHaveBeenCalledTimes(0);
       cmp.componentDidMount();
@@ -40,16 +40,16 @@ describe('Users', () => {
   });
 
   describe('initFetcher', () => {
-    it('fetcher, eosService are null => it will not be init', () => {
-      cmp.props.eosService = null;
+    it('fetcher, ethereumService are null => it will not be init', () => {
+      cmp.props.ethereumService = null;
       cmp.fetcher = null;
 
       cmp.componentDidMount();
       expect(cmp.fetcher).toBe(null);
     });
 
-    it('fetcher is null, eosService is TRUE => it will be init', () => {
-      cmp.props.eosService = {};
+    it('fetcher is null, ethereumService is TRUE => it will be init', () => {
+      cmp.props.ethereumService = {};
       cmp.fetcher = null;
 
       cmp.componentDidMount();
@@ -59,7 +59,7 @@ describe('Users', () => {
 
   describe('getMoreUsers', () => {
     it('fetcher is true', () => {
-      cmp.props.eosService = {};
+      cmp.props.ethereumService = {};
 
       expect(cmp.props.getUsersDispatch).toHaveBeenCalledTimes(0);
       cmp.getMoreUsers();
@@ -70,7 +70,7 @@ describe('Users', () => {
     });
 
     it('fetcher is false', () => {
-      cmp.eosService = null;
+      cmp.ethereumService = null;
 
       expect(cmp.props.getUsersDispatch).toHaveBeenCalledTimes(0);
       cmp.componentDidMount();
@@ -82,7 +82,7 @@ describe('Users', () => {
     it('fetcher was initialized', () => {
       const sorting = 'rating';
 
-      cmp.props.eosService = {};
+      cmp.props.ethereumService = {};
 
       cmp.dropdownFilter(sorting);
       expect(cmp.props.getUsersDispatch).toHaveBeenCalledWith({
@@ -94,7 +94,7 @@ describe('Users', () => {
     it('fetcher was not init', () => {
       const sorting = 'rating';
 
-      cmp.props.eosService = null;
+      cmp.props.ethereumService = null;
 
       cmp.dropdownFilter(sorting);
       expect(cmp.props.getUsersDispatch).toHaveBeenCalledTimes(0);

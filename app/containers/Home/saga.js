@@ -8,7 +8,7 @@ import {
   takeLatest,
 } from 'redux-saga/effects';
 
-import { selectEos } from 'containers/EosioProvider/selectors';
+import { selectEthereum } from 'containers/EthereumProvider/selectors';
 import { selectTopQuestionIds } from 'containers/Questions/selectors';
 
 import {
@@ -37,7 +37,7 @@ import { followHandlerWorker } from '../FollowCommunityButton/saga';
 
 export function* getQuestionsWorker({ communityId }) {
   try {
-    const eosService = yield select(selectEos);
+    const ethereumService = yield select(selectEthereum);
 
     yield call(loadTopCommunityQuestionsWorker, { init: true });
 
@@ -49,7 +49,7 @@ export function* getQuestionsWorker({ communityId }) {
       yield all(
         topQuestionsIds.map(function*(id) {
           if (id) {
-            const question = yield call(getQuestionById, eosService, id);
+            const question = yield call(getQuestionById, ethereumService, id);
 
             questionsList.push(question);
           }
@@ -61,7 +61,7 @@ export function* getQuestionsWorker({ communityId }) {
 
       questionsList = yield call(
         getQuestionsFilteredByCommunities,
-        eosService,
+        ethereumService,
         limit,
         offset,
         communityId,
@@ -83,7 +83,11 @@ export function* getQuestionsWorker({ communityId }) {
 
     yield all(
       questionsList.map(function*(question) {
-        const bounty = yield call(getQuestionBounty, question.id, eosService);
+        const bounty = yield call(
+          getQuestionBounty,
+          question.id,
+          ethereumService,
+        );
         question.questionBounty = bounty;
       }),
     );

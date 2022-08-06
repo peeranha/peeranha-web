@@ -7,7 +7,7 @@ import {
   saveProfile,
 } from 'utils/profileManagement';
 
-import { selectEos } from '../EosioProvider/selectors';
+import { selectEthereum } from '../EthereumProvider/selectors';
 import { AVATAR_FIELD } from '../Profile/constants';
 
 import { CONFIRM_TELEGRAM_ACCOUNT, UNLINK_TELEGRAM_ACCOUNT } from './constants';
@@ -21,20 +21,24 @@ import {
 
 export function* confirmTelegramAccountWorker({ profile, userKey }) {
   try {
-    const eosService = yield select(selectEos);
+    const ethereumService = yield select(selectEthereum);
     yield call(
       saveProfile,
-      eosService,
+      ethereumService,
       userKey,
       profile[AVATAR_FIELD] || '',
       profile,
     );
 
-    const account = yield call(eosService.getSelectedAccount);
+    const account = yield call(ethereumService.getSelectedAccount);
 
-    yield call(confirmTelegramAccount, eosService, account);
+    yield call(confirmTelegramAccount, ethereumService, account);
 
-    const userTgInfo = yield call(getUserTelegramData, eosService, account);
+    const userTgInfo = yield call(
+      getUserTelegramData,
+      ethereumService,
+      account,
+    );
 
     const data = {
       ...userTgInfo,
@@ -49,15 +53,15 @@ export function* confirmTelegramAccountWorker({ profile, userKey }) {
 
 export function* unlinkTelegramAccountWorker({ profile, userKey }) {
   try {
-    const eosService = yield select(selectEos);
+    const ethereumService = yield select(selectEthereum());
 
-    const account = yield call(eosService.getSelectedAccount);
+    const account = yield call(ethereumService.getSelectedAccount);
 
-    yield call(unlinkTelegramAccount, eosService, account);
+    yield call(unlinkTelegramAccount, ethereumService, account);
 
     yield call(
       saveProfile,
-      eosService,
+      ethereumService,
       userKey,
       profile[AVATAR_FIELD] || '',
       profile,

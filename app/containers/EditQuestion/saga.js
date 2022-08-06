@@ -11,7 +11,7 @@ import {
 } from 'utils/questionsManagement';
 import { getCommunityWithTags } from 'utils/communityManagement';
 
-import { isAuthorized, isValid } from 'containers/EosioProvider/saga';
+import { isAuthorized, isValid } from 'containers/EthereumProvider/saga';
 import { updateQuestionList } from 'containers/ViewQuestion/saga';
 
 import { selectQuestionData } from 'containers/ViewQuestion/selectors';
@@ -71,7 +71,7 @@ export function* getAskedQuestionWorker({ questionId }) {
 
     // const promotedQuestions = yield call(
     //   getPromotedQuestions,
-    //   eosService,
+    //   ethereumService,
     //   question.community?.id,
     // );
     //
@@ -134,7 +134,7 @@ export function* editQuestionWorker({ question, questionId }) {
     //     question?.bountyFull,
     //     questionId,
     //     bountyTime,
-    //     eosService,
+    //     ethereumService,
     //   );
     //
     //   actionsData.push(transActData);
@@ -176,7 +176,7 @@ export function* editQuestionWorker({ question, questionId }) {
     // );
 
     // yield call(
-    //   eosService.sendTransactionMult,
+    //   ethereumService.sendTransactionMult,
     //   selectedAccount,
     //   actionsData,
     //   waitForGettingToBlock,

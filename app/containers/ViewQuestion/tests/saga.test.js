@@ -24,7 +24,7 @@ import {
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
-import { isAuthorized } from 'containers/EosioProvider/saga';
+import { isAuthorized } from 'containers/EthereumProvider/saga';
 import { removeUserProfile } from 'containers/DataCacheProvider/actions';
 import { getCurrentAccountWorker } from 'containers/AccountProvider/saga';
 import { getUniqQuestions } from 'containers/Questions/actions';
@@ -87,7 +87,7 @@ import {
   postCommentSuccess,
 } from '../actions';
 
-jest.mock('containers/EosioProvider/saga', () => ({
+jest.mock('containers/EthereumProvider/saga', () => ({
   isAuthorized: jest.fn(),
 }));
 
@@ -149,10 +149,10 @@ jest.mock('containers/AccountProvider/saga', () => ({
 window.Date.now = jest.fn().mockImplementation(() => '15151515151');
 
 describe('getQuestionData', () => {
-  const eosService = {};
+  const ethereumService = {};
   const questionId = 1;
   const user = 'user';
-  const res = { eosService, questionId, user };
+  const res = { ethereumService, questionId, user };
 
   const question = {
     answers: [{}],
@@ -211,7 +211,7 @@ describe('getQuestionData', () => {
 
 describe('getParams', () => {
   const questionData = 'questionData';
-  const eosService = 'eosService';
+  const ethereumService = 'ethereumService';
   const locale = 'locale';
   const profileInfo = 'profileInfo';
   const account = 'account';
@@ -224,10 +224,10 @@ describe('getParams', () => {
     expect(selectDescriptor.value).toEqual(questionData);
   });
 
-  it('select eosService', () => {
-    select.mockImplementationOnce(() => eosService);
+  it('select ethereumService', () => {
+    select.mockImplementationOnce(() => ethereumService);
     const selectDescriptor = generator.next();
-    expect(selectDescriptor.value).toEqual(eosService);
+    expect(selectDescriptor.value).toEqual(ethereumService);
   });
 
   it('select locale', () => {
@@ -343,7 +343,7 @@ describe('updateQuestionDataAfterTransactionWorker', () => {
 
 /* eslint no-underscore-dangle: 0 */
 describe('saveCommentWorker', () => {
-  const eosService = {};
+  const ethereumService = {};
 
   const questionId = 1;
   const commentId = 1;
@@ -378,14 +378,14 @@ describe('saveCommentWorker', () => {
     });
 
     it('step, editComment', () => {
-      generator.next({ questionData, eosService, profileInfo });
+      generator.next({ questionData, ethereumService, profileInfo });
       expect(editComment).toHaveBeenCalledWith(
         profileInfo.user,
         questionId,
         0,
         commentId,
         comment,
-        eosService,
+        ethereumService,
       );
     });
 
@@ -408,7 +408,7 @@ describe('saveCommentWorker', () => {
 });
 
 describe('deleteCommentWorker', () => {
-  const eos = {};
+  const ethereum = {};
   const locale = 'en';
   const questionId = 1;
   const answerId = 1;
@@ -439,7 +439,12 @@ describe('deleteCommentWorker', () => {
   });
 
   it('step, deleteCommentValidator', () => {
-    generator.next({ questionData, eosService: eos, locale, profileInfo });
+    generator.next({
+      questionData,
+      ethereumService: ethereum,
+      locale,
+      profileInfo,
+    });
     expect(deleteCommentValidator).toHaveBeenCalledWith(
       profileInfo,
       buttonId,
@@ -454,7 +459,7 @@ describe('deleteCommentWorker', () => {
       questionId,
       answerId,
       commentId,
-      eos,
+      ethereum,
     );
   });
 
@@ -471,7 +476,7 @@ describe('deleteCommentWorker', () => {
 });
 
 describe('deleteAnswerWorker', () => {
-  const eos = {};
+  const ethereum = {};
   const locale = 'en';
   const profileInfo = { user: 'user' };
   const questionId = 1;
@@ -500,7 +505,12 @@ describe('deleteAnswerWorker', () => {
   });
 
   it('step, deleteAnswerValidator', () => {
-    generator.next({ questionData, eosService: eos, locale, profileInfo });
+    generator.next({
+      questionData,
+      ethereumService: ethereum,
+      locale,
+      profileInfo,
+    });
     expect(deleteAnswerValidator).toHaveBeenCalledWith(
       postButtonId,
       answerId,
@@ -516,7 +526,7 @@ describe('deleteAnswerWorker', () => {
       profileInfo.user,
       questionId,
       answerId,
-      eos,
+      ethereum,
     );
   });
 
@@ -533,7 +543,7 @@ describe('deleteAnswerWorker', () => {
 });
 
 describe('deleteQuestionWorker', () => {
-  const eos = {};
+  const ethereum = {};
   const locale = 'en';
   const questionId = 11;
   const postButtonId = 'postButtonId';
@@ -557,7 +567,12 @@ describe('deleteQuestionWorker', () => {
   });
 
   it('step, deleteQuestionValidator', () => {
-    generator.next({ questionData, eosService: eos, locale, profileInfo });
+    generator.next({
+      questionData,
+      ethereumService: ethereum,
+      locale,
+      profileInfo,
+    });
     expect(deleteQuestionValidator).toHaveBeenCalledWith(
       postButtonId,
       questionData.answers.length,
@@ -571,7 +586,7 @@ describe('deleteQuestionWorker', () => {
     expect(deleteQuestion).toHaveBeenCalledWith(
       profileInfo.user,
       questionId,
-      eos,
+      ethereum,
     );
   });
 
@@ -596,7 +611,7 @@ describe('getQuestionDataWorker', () => {
   const res = { questionId: 1 };
   const generator = sagaImports.getQuestionDataWorker(res);
   const account = 'account';
-  const eosService = {};
+  const ethereumService = {};
 
   it('step, getParams', () => {
     const step = generator.next();
@@ -604,7 +619,7 @@ describe('getQuestionDataWorker', () => {
   });
 
   it('step, getQuestionData', () => {
-    const step = generator.next({ eosService, account });
+    const step = generator.next({ ethereumService, account });
     expect(typeof step.value._invoke).toBe('function');
   });
 
@@ -631,7 +646,7 @@ describe('postCommentWorker', () => {
 
   const profileInfo = { user: 'user' };
   const locale = 'en';
-  const eos = {};
+  const ethereum = {};
 
   describe('comment of question', () => {
     const answerId = 0;
@@ -648,7 +663,12 @@ describe('postCommentWorker', () => {
     });
 
     it('step, isAuthorized', () => {
-      generator.next({ profileInfo, eosService: eos, questionData, locale });
+      generator.next({
+        profileInfo,
+        ethereumService: ethereum,
+        questionData,
+        locale,
+      });
       expect(questionData.comments.length).toBe(0);
       expect(call).toHaveBeenCalledWith(isAuthorized);
     });
@@ -671,7 +691,7 @@ describe('postCommentWorker', () => {
         res.questionId,
         answerId,
         res.comment,
-        eos,
+        ethereum,
       );
     });
 
@@ -708,7 +728,12 @@ describe('postCommentWorker', () => {
     };
 
     generator.next();
-    generator.next({ profileInfo, eosService: eos, questionData, locale });
+    generator.next({
+      profileInfo,
+      ethereumService: ethereum,
+      questionData,
+      locale,
+    });
     generator.next();
     generator.next(true);
     generator.next();
@@ -736,7 +761,7 @@ describe('postAnswerWorker', () => {
   const profileInfo = { user: 'user' };
   const locale = 'en';
   const questionData = { answers: [] };
-  const eos = {};
+  const ethereum = {};
 
   it('step, getParams', () => {
     const step = generator.next();
@@ -744,7 +769,12 @@ describe('postAnswerWorker', () => {
   });
 
   it('step, isAuthorized', () => {
-    generator.next({ profileInfo, eosService: eos, questionData, locale });
+    generator.next({
+      profileInfo,
+      ethereumService: ethereum,
+      questionData,
+      locale,
+    });
     expect(questionData.answers.length).toBe(0);
     expect(call).toHaveBeenCalledWith(isAuthorized);
   });
@@ -765,7 +795,7 @@ describe('postAnswerWorker', () => {
       profileInfo.user,
       res.questionId,
       res.answer,
-      eos,
+      ethereum,
     );
   });
 
@@ -795,7 +825,7 @@ describe('upVoteWorker', () => {
   };
 
   const profileInfo = { user: 'user' };
-  const eos = {};
+  const ethereum = {};
   const locale = 'en';
 
   const questionData = {
@@ -834,7 +864,7 @@ describe('upVoteWorker', () => {
       it('step, isAuthorized', () => {
         generator.next({
           profileInfo,
-          eosService: eos,
+          ethereumService: ethereum,
           questionData: clone,
           locale,
         });
@@ -858,7 +888,7 @@ describe('upVoteWorker', () => {
           profileInfo.user,
           res.questionId,
           answerId,
-          eos,
+          ethereum,
         );
       });
 
@@ -884,7 +914,7 @@ describe('downVoteWorker', () => {
   };
 
   const profileInfo = { user: 'user' };
-  const eos = {};
+  const ethereum = {};
   const locale = 'en';
 
   const questionData = {
@@ -923,7 +953,7 @@ describe('downVoteWorker', () => {
       it('step, isAuthorized', () => {
         generator.next({
           profileInfo,
-          eosService: eos,
+          ethereumService: ethereum,
           questionData: clone,
           locale,
         });
@@ -947,7 +977,7 @@ describe('downVoteWorker', () => {
           profileInfo.user,
           res.questionId,
           answerId,
-          eos,
+          ethereum,
         );
       });
 
@@ -973,7 +1003,7 @@ describe('downVoteWorker', () => {
       generator.next();
       generator.next({
         profileInfo,
-        eosService: eos,
+        ethereumService: ethereum,
         questionData: clone,
         locale,
       });
@@ -996,7 +1026,7 @@ describe('downVoteWorker', () => {
       generator.next();
       generator.next({
         profileInfo,
-        eosService: eos,
+        ethereumService: ethereum,
         questionData: clone,
         locale,
       });
@@ -1025,7 +1055,7 @@ describe('downVoteWorker', () => {
       generator.next();
       generator.next({
         profileInfo,
-        eosService: eos,
+        ethereumService: ethereum,
         questionData: clone,
         locale,
       });
@@ -1049,7 +1079,7 @@ describe('markAsAcceptedWorker', () => {
   };
 
   const profileInfo = { user: 'user' };
-  const eos = {};
+  const ethereum = {};
   const locale = 'en';
 
   describe('correctAnswerId !== questionData.correctAnswerId', () => {
@@ -1057,7 +1087,12 @@ describe('markAsAcceptedWorker', () => {
     const questionData = { correct_answer_id: 0 };
 
     generator.next();
-    generator.next({ profileInfo, eosService: eos, questionData, locale });
+    generator.next({
+      profileInfo,
+      ethereumService: ethereum,
+      questionData,
+      locale,
+    });
     generator.next();
     generator.next();
 
@@ -1080,7 +1115,12 @@ describe('markAsAcceptedWorker', () => {
     });
 
     it('step, isAuthorized', () => {
-      generator.next({ profileInfo, eosService: eos, questionData, locale });
+      generator.next({
+        profileInfo,
+        ethereumService: ethereum,
+        questionData,
+        locale,
+      });
       expect(call).toHaveBeenCalledWith(isAuthorized);
     });
 
@@ -1100,7 +1140,7 @@ describe('markAsAcceptedWorker', () => {
         profileInfo.user,
         res.questionId,
         res.correctAnswerId,
-        eos,
+        ethereum,
       );
     });
 
@@ -1129,7 +1169,7 @@ describe('voteToDeleteWorker', () => {
   };
 
   const locale = 'en';
-  const eos = {};
+  const ethereum = {};
   const profileInfo = { user: 'user1' };
 
   const questionData = {
@@ -1162,7 +1202,7 @@ describe('voteToDeleteWorker', () => {
     it('step, isAuthorized', () => {
       generator.next({
         profileInfo,
-        eosService: eos,
+        ethereumService: ethereum,
         questionData,
         locale,
       });
@@ -1192,7 +1232,7 @@ describe('voteToDeleteWorker', () => {
         res.questionId,
         answerId,
         commentId,
-        eos,
+        ethereum,
       );
     });
 

@@ -1,6 +1,4 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
-
-import { selectEos } from 'containers/EosioProvider/selectors';
 import {
   selectUsers,
   selectUserAchievementsDCP,
@@ -280,7 +278,7 @@ export function* getUserAchievementsWorker() {
 
     // get new achievements data
     else {
-      const eosService = yield select(selectEos);
+      const ethereumService = yield select(selectEthereum());
       const cachedUserAchievements = yield select(
         selectUserAchievementsDCP(viewProfileAccount),
       );
@@ -292,7 +290,7 @@ export function* getUserAchievementsWorker() {
       } else {
         userAchievements = yield call(
           getAchievements,
-          eosService,
+          ethereumService,
           USER_ACHIEVEMENTS_TABLE,
           viewProfileAccount,
         );
@@ -307,7 +305,7 @@ export function* getUserAchievementsWorker() {
 
       const projectAchievements = yield call(
         getAchievements,
-        eosService,
+        ethereumService,
         PROJECT_ACHIEVEMENTS_TABLE,
         ALL_ACHIEVEMENTS_SCOPE,
       );
@@ -424,7 +422,7 @@ export function* updateUserAchievementsWorker(
   { updatedAchievements, updateRender = true } = {},
 ) {
   try {
-    const eosService = yield select(selectEos);
+    const ethereumService = yield select(selectEthereum);
 
     // logged user achievements count changed
 
@@ -435,7 +433,7 @@ export function* updateUserAchievementsWorker(
     } else {
       userAchievements = yield call(
         getAchievements,
-        eosService,
+        ethereumService,
         USER_ACHIEVEMENTS_TABLE,
         userAccount,
       );

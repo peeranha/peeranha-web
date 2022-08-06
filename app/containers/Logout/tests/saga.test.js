@@ -2,7 +2,7 @@ import { select } from 'redux-saga/effects';
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
-import { INIT_EOSIO } from 'containers/EosioProvider/constants';
+import { INIT_ETHEREUM } from 'containers/EthereumProvider/constants';
 import { getCurrentAccountSuccess } from 'containers/AccountProvider/actions';
 
 import defaultSaga, { logoutWorker } from '../saga';
@@ -19,28 +19,28 @@ jest.mock('createdHistory', () => ({
   push: jest.fn(),
 }));
 
-const eosService = {
+const ethereumService = {
   forgetIdentity: jest.fn(),
 };
 
 describe('logoutWorker', () => {
   const generator = logoutWorker();
 
-  it('select @eosService', () => {
-    select.mockImplementation(() => eosService);
+  it('select @ethereumService', () => {
+    select.mockImplementation(() => ethereumService);
     const step = generator.next();
-    expect(step.value).toEqual(eosService);
+    expect(step.value).toEqual(ethereumService);
   });
 
   it('forget identity', () => {
-    expect(eosService.forgetIdentity).toHaveBeenCalledTimes(0);
-    generator.next(eosService);
-    expect(eosService.forgetIdentity).toHaveBeenCalledTimes(1);
+    expect(ethereumService.forgetIdentity).toHaveBeenCalledTimes(0);
+    generator.next(ethereumService);
+    expect(ethereumService.forgetIdentity).toHaveBeenCalledTimes(1);
   });
 
-  it('INIT_EOSIO', () => {
+  it('INIT_ETHEREUM', () => {
     const step = generator.next();
-    expect(step.value.type).toBe(INIT_EOSIO);
+    expect(step.value.type).toBe(INIT_ETHEREUM);
   });
 
   it('GET_CURRENT_ACCOUNT_SUCCESS', () => {

@@ -6,7 +6,7 @@ import * as routes from 'routes-config';
 
 import { createCommunity } from 'utils/communityManagement';
 
-import { isValid, isAuthorized } from 'containers/EosioProvider/saga';
+import { isValid, isAuthorized } from 'containers/EthereumProvider/saga';
 
 import defaultSaga, {
   createCommunityWorker,
@@ -29,7 +29,7 @@ jest.mock('redux-saga/effects', () => ({
   takeLatest: jest.fn().mockImplementation(res => res),
 }));
 
-jest.mock('containers/EosioProvider/saga', () => ({
+jest.mock('containers/EthereumProvider/saga', () => ({
   isValid: jest.fn(),
   isAuthorized: jest.fn(),
 }));
@@ -50,20 +50,20 @@ describe('createCommunityWorker', () => {
   const props = { community: null, reset: jest.fn() };
 
   const account = 'user1';
-  const eos = {
+  const ethereum = {
     getSelectedAccount: jest.fn().mockImplementation(() => account),
   };
 
   const generator = createCommunityWorker(props);
 
-  it('step, eos', () => {
-    select.mockImplementation(() => eos);
+  it('step, ethereum', () => {
+    select.mockImplementation(() => ethereum);
     const step = generator.next();
-    expect(step.value).toEqual(eos);
+    expect(step.value).toEqual(ethereum);
   });
 
   it('getSelectedAccount', () => {
-    const step = generator.next(eos);
+    const step = generator.next(ethereum);
     expect(step.value).toEqual(account);
   });
 
@@ -74,7 +74,11 @@ describe('createCommunityWorker', () => {
 
   it('createCommunity', () => {
     generator.next();
-    expect(createCommunity).toHaveBeenCalledWith(eos, account, props.community);
+    expect(createCommunity).toHaveBeenCalledWith(
+      ethereum,
+      account,
+      props.community,
+    );
   });
 
   it('createCommunitySuccess', () => {

@@ -47,15 +47,17 @@ describe('loginReducer', () => {
   });
 
   it('LOGIN_WITH_EMAIL_SUCCESS', () => {
-    const eosAccount = 'eosAccount';
+    const ethereumAccount = 'ethereumAccount';
 
     const obj = state
       .set('loginProcessing', false)
-      .set('eosAccount', eosAccount)
+      .set('ethereumAccount', ethereumAccount)
       .set('showModal', initialState.get('showModal'))
       .set('content', initialState.get('content'));
 
-    expect(loginReducer(state, loginWithEmailSuccess(eosAccount))).toEqual(obj);
+    expect(loginReducer(state, loginWithEmailSuccess(ethereumAccount))).toEqual(
+      obj,
+    );
   });
 
   it('LOGIN_WITH_EMAIL_ERROR', () => {

@@ -6,7 +6,7 @@ import * as routes from 'routes-config';
 
 import { suggestTag } from 'utils/communityManagement';
 
-import { isAuthorized, isValid } from 'containers/EosioProvider/saga';
+import { isAuthorized, isValid } from 'containers/EthereumProvider/saga';
 
 import defaultSaga, {
   suggestTagWorker,
@@ -27,7 +27,7 @@ jest.mock('redux-saga/effects', () => ({
   takeLatest: jest.fn().mockImplementation(res => res),
 }));
 
-jest.mock('containers/EosioProvider/saga', () => ({
+jest.mock('containers/EthereumProvider/saga', () => ({
   isValid: jest.fn(),
   isAuthorized: jest.fn(),
 }));
@@ -49,20 +49,20 @@ describe('suggestTagWorker', () => {
   };
 
   const account = 'user1';
-  const eos = {
+  const ethereum = {
     getSelectedAccount: jest.fn().mockImplementation(() => account),
   };
 
   const generator = suggestTagWorker(props);
 
-  it('step, eos', () => {
-    select.mockImplementation(() => eos);
+  it('step, ethereum', () => {
+    select.mockImplementation(() => ethereum);
     const step = generator.next();
-    expect(step.value).toEqual(eos);
+    expect(step.value).toEqual(ethereum);
   });
 
   it('getSelectedAccount', () => {
-    const step = generator.next(eos);
+    const step = generator.next(ethereum);
     expect(step.value).toEqual(account);
   });
 
@@ -73,7 +73,7 @@ describe('suggestTagWorker', () => {
 
   it('suggestTag', () => {
     generator.next(account);
-    expect(suggestTag).toHaveBeenCalledWith(eos, account, props.tag);
+    expect(suggestTag).toHaveBeenCalledWith(ethereum, account, props.tag);
   });
 
   it('suggestTagSuccess', () => {

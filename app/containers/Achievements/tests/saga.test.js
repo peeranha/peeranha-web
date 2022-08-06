@@ -56,7 +56,7 @@ const emptyMaxGroupsLowerValues = {};
 const memorizedUserAchievements = { profileInfo: { integer_properties: [1] } };
 const profileInfoUpdatedTrue = true;
 const profileInfoUpdatedFalse = false;
-const eos = { eosfield: '' };
+const ethereum = { ethereumfield: '' };
 const cachedUserAchievements = [];
 const projectAchievements = [];
 const userRating = 1;
@@ -196,14 +196,14 @@ describe('getUserAchievementsWorker', () => {
     });
 
     describe('should update user achievements', () => {
-      it('should select eos', () => {
-        select.mockImplementation(() => eos);
-        expect(generator.next(profileInfoUpdatedTrue).value).toEqual(eos);
+      it('should select ethereum', () => {
+        select.mockImplementation(() => ethereum);
+        expect(generator.next(profileInfoUpdatedTrue).value).toEqual(ethereum);
       });
 
       it('should select cached user achievements', () => {
         select.mockImplementation(() => cachedUserAchievements);
-        expect(generator.next(eos).value).toEqual(cachedUserAchievements);
+        expect(generator.next(ethereum).value).toEqual(cachedUserAchievements);
         clone = generator.clone();
       });
 
@@ -212,7 +212,7 @@ describe('getUserAchievementsWorker', () => {
         clone.next(undefined);
         expect(call).toBeCalledWith(
           getAchievements,
-          eos,
+          ethereum,
           USER_ACHIEVEMENTS_TABLE,
           viewProfileAccount,
         );
@@ -236,7 +236,7 @@ describe('getUserAchievementsWorker', () => {
         generator.next(cachedUserAchievements);
         expect(call).toBeCalledWith(
           getAchievements,
-          eos,
+          ethereum,
           PROJECT_ACHIEVEMENTS_TABLE,
           ALL_ACHIEVEMENTS_SCOPE,
         );
@@ -421,16 +421,16 @@ describe('updateUserAchievementsWorker', () => {
   });
 
   describe('should execute the main script', () => {
-    it('should select eos', () => {
-      select.mockImplementation(() => eos);
-      expect(generator.next().value).toEqual(eos);
+    it('should select ethereum', () => {
+      select.mockImplementation(() => ethereum);
+      expect(generator.next().value).toEqual(ethereum);
     });
 
     it('should handle not defined updatedAchievements -> get user achievements', () => {
-      generator.next(eos);
+      generator.next(ethereum);
       expect(call).toHaveBeenLastCalledWith(
         getAchievements,
-        eos,
+        ethereum,
         USER_ACHIEVEMENTS_TABLE,
         updatedAccount,
       );

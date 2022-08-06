@@ -9,7 +9,7 @@ import {
 import * as routes from 'routes-config';
 import createdHistory from 'createdHistory';
 
-import { isAuthorized, isValid } from 'containers/EosioProvider/saga';
+import { isAuthorized, isValid } from 'containers/EthereumProvider/saga';
 
 import {
   FORM_TITLE,
@@ -39,7 +39,7 @@ jest.mock('redux-saga/effects', () => ({
   takeLatest: jest.fn().mockImplementation(res => res),
 }));
 
-jest.mock('containers/EosioProvider/saga', () => ({
+jest.mock('containers/EthereumProvider/saga', () => ({
   isAuthorized: jest.fn(),
   isValid: jest.fn(),
 }));
@@ -55,7 +55,7 @@ jest.mock('createdHistory', () => ({
 
 describe('postQuestionWorker', () => {
   const selectedAccount = 'selectedAccount';
-  const eos = {};
+  const ethereum = {};
 
   const val = {
     [FORM_TITLE]: 'title',
@@ -66,15 +66,15 @@ describe('postQuestionWorker', () => {
 
   const generator = postQuestionWorker({ val });
 
-  it('step, eosService', () => {
-    select.mockImplementation(() => eos);
+  it('step, ethereumService', () => {
+    select.mockImplementation(() => ethereum);
     const step = generator.next();
-    expect(step.value).toEqual(eos);
+    expect(step.value).toEqual(ethereum);
   });
 
   it('step, selectedAccount', () => {
     select.mockImplementation(() => selectedAccount);
-    const step = generator.next(eos);
+    const step = generator.next(ethereum);
     expect(step.value).toEqual(selectedAccount);
   });
 
@@ -97,7 +97,7 @@ describe('postQuestionWorker', () => {
         community: val[FORM_COMMUNITY],
         tags: val[FORM_TAGS],
       },
-      eos,
+      ethereum,
     );
   });
 
@@ -108,7 +108,10 @@ describe('postQuestionWorker', () => {
 
   it('step, getQuestionsPostedByUser', () => {
     generator.next();
-    expect(getQuestionsPostedByUser).toHaveBeenCalledWith(eos, selectedAccount);
+    expect(getQuestionsPostedByUser).toHaveBeenCalledWith(
+      ethereum,
+      selectedAccount,
+    );
   });
 
   it('step, push to question page', () => {

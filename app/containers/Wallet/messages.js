@@ -16,9 +16,6 @@ export default defineMessages({
   description: {
     id: 'app.containers.Wallet.description',
   },
-  eosAccount: {
-    id: 'app.containers.Wallet.eosAccount',
-  },
   currentPeriod: {
     id: 'app.containers.Wallet.currentPeriod',
   },

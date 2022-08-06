@@ -10,30 +10,11 @@ import {
   PICKUP_REWARD_METHOD,
 } from '../constants';
 
-const eosService = {
+const ethereumService = {
   getTableRow: jest.fn(),
   getTableRows: jest.fn(),
   sendTransaction: jest.fn(),
 };
-
-describe('pickupReward', () => {
-  it('test', async () => {
-    const user = 'user';
-    const period = 1;
-
-    await pickupReward(eosService, user, period);
-
-    expect(eosService.sendTransaction).toHaveBeenCalledWith(
-      user,
-      PICKUP_REWARD_METHOD,
-      {
-        user,
-        period,
-      },
-      process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
-    );
-  });
-});
 
 describe('getBalance', () => {
   const user = 'user';
@@ -41,18 +22,11 @@ describe('getBalance', () => {
   it('test', async () => {
     const balance = '1000 PEER';
 
-    eosService.getTableRow.mockImplementation(() => ({
+    ethereumService.getTableRow.mockImplementation(() => ({
       balance,
     }));
 
-    const res = await getBalance(eosService, user);
-
-    expect(eosService.getTableRow).toHaveBeenCalledWith(
-      ACCOUNTS_TABLE,
-      user,
-      undefined,
-      process.env.EOS_TOKEN_CONTRACT_ACCOUNT,
-    );
+    const res = await getBalance(ethereumService, user);
 
     expect(res).toBe('1000');
   });

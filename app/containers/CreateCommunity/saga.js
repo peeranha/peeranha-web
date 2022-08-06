@@ -4,7 +4,7 @@ import * as routes from 'routes-config';
 
 import { createCommunity } from 'utils/communityManagement';
 
-import { isAuthorized, isValid } from 'containers/EosioProvider/saga';
+import { isAuthorized, isValid } from 'containers/EthereumProvider/saga';
 
 import { selectIsGlobalAdmin } from 'containers/AccountProvider/selectors';
 

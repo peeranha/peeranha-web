@@ -35,7 +35,7 @@ export function* getWeekStatWorker() {
       ? yield call(getWeekStat, ethereumService, user)
       : [];
     // TODO boost
-    // const userBoostStat = profile ? yield call(getUserBoostStatistics, eosService, profile.user) : [];
+    // const userBoostStat = profile ? yield call(getUserBoostStatistics, ethereumService, profile.user) : [];
 
     const currentPeriod = weekStat[0].period;
     const boostStat = profile

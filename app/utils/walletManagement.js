@@ -94,9 +94,9 @@ export async function pickupReward(ethereumService, user, periodIndex) {
   );
 }
 
-export async function payBounty(user, questionId, isDeleted, eosService) {}
+export async function payBounty(user, questionId, isDeleted, ethereumService) {}
 
-export async function getQuestionBounty(questionId, eosService) {}
+export async function getQuestionBounty(questionId, ethereumService) {}
 
 export function getNormalizedCurrency(quantity, precision, symbol) {
   if (!Number(quantity)) {

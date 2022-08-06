@@ -78,130 +78,6 @@ beforeEach(() => {
 });
 
 describe('getCurrentAccountWorker', () => {
-  describe('eos service was initialized with account', () => {
-    const account = 'account';
-    const prevProfileInfo = null;
-    const profileInfoLS = null;
-
-    const profileInfo = {};
-    const balance = 10;
-
-    const eos = {
-      scatterInstalled: true,
-      initialized: true,
-      getSelectedAccount: () => account,
-    };
-
-    const generator = getCurrentAccountWorker();
-
-    it('put getUserProfile', () => {
-      const step = generator.next();
-      expect(step.value.type).toBe(GET_USER_PROFILE);
-    });
-
-    it('select @eosService', () => {
-      select.mockImplementationOnce(() => eos);
-      const selectDescriptor = generator.next();
-      expect(selectDescriptor.value).toEqual(eos);
-    });
-
-    it('select @prevProfileInfo', () => {
-      select.mockImplementationOnce(() => prevProfileInfo);
-      const selectDescriptor = generator.next(eos);
-      expect(selectDescriptor.value).toEqual(prevProfileInfo);
-    });
-
-    it('get @account', () => {
-      localStorage.getItem.mockImplementationOnce(() => profileInfoLS);
-
-      generator.next(prevProfileInfo);
-      expect(call).toHaveBeenCalledWith(eos.getSelectedAccount);
-    });
-
-    it('get @profileInfo and @balance', () => {
-      getProfileInfo.mockImplementationOnce(() => profileInfo);
-      getBalance.mockImplementationOnce(() => balance);
-
-      const step = generator.next(account);
-
-      expect(step.value).toEqual([profileInfo, balance]);
-      expect(call).toHaveBeenCalledWith(getBalance, eos, account);
-      expect(call).toHaveBeenCalledWith(
-        getProfileInfo,
-        account,
-        eos,
-        !prevProfileInfo,
-      );
-    });
-
-    it('getUserProfileSuccess', () => {
-      const updatedProfileInfo = {
-        ...profileInfo,
-        balance,
-      };
-
-      const step = generator.next([profileInfo, balance]);
-
-      expect(step.value).toEqual(getUserProfileSuccess(updatedProfileInfo));
-      expect(profileInfo).toEqual(updatedProfileInfo);
-      expect(localStorage.setItem).toHaveBeenCalledWith(
-        PROFILE_INFO_LS,
-        JSON.stringify(updatedProfileInfo),
-      );
-    });
-
-    it('getCurrentAccountSuccess', () => {
-      const step = generator.next();
-      expect(step.value).toEqual(getCurrentAccountSuccess(account, balance));
-    });
-
-    it('error handling', () => {
-      const err = 'some error';
-      const step = generator.throw(err);
-      expect(step.value.type).toBe(GET_CURRENT_ACCOUNT_ERROR);
-    });
-  });
-
-  describe('eos service was NOT initialized with account and there is no @initAccount', () => {
-    const account = null;
-    const prevProfileInfo = { profile: {} };
-
-    const autoLoginData = {
-      eosAccountName: 'eosAccountName111',
-    };
-
-    const profileInfo = {};
-    const balance = 10;
-
-    const eos = {
-      scatterInstalled: true,
-      initialized: true,
-      getSelectedAccount: () => account,
-    };
-
-    const generator = getCurrentAccountWorker();
-
-    generator.next();
-    generator.next();
-    generator.next(eos);
-    generator.next(prevProfileInfo);
-
-    it('get eosName from localStorage', () => {
-      localStorage.getItem.mockImplementationOnce(() =>
-        JSON.stringify(autoLoginData),
-      );
-
-      generator.next(account);
-      generator.next([profileInfo, balance]);
-
-      expect(profileInfo).toEqual({
-        ...profileInfo,
-        profile: prevProfileInfo.profile,
-        balance,
-      });
-    });
-  });
-
   describe('@initAccount was passed', () => {
     const account = 'account';
     const prevProfileInfo = { profile: {} };
@@ -209,7 +85,7 @@ describe('getCurrentAccountWorker', () => {
     const profileInfo = {};
     const balance = 10;
 
-    const eos = {
+    const ethereum = {
       scatterInstalled: true,
       initialized: true,
       getSelectedAccount: () => account,
@@ -219,7 +95,7 @@ describe('getCurrentAccountWorker', () => {
 
     generator.next();
     generator.next();
-    generator.next(eos);
+    generator.next(ethereum);
     generator.next(prevProfileInfo);
     generator.next(account);
     generator.next([profileInfo, balance]);
@@ -237,7 +113,7 @@ describe('getCurrentAccountWorker', () => {
 
       const profileInfoLS = { user: account, balance: 10 };
 
-      const eos = {
+      const ethereum = {
         scatterInstalled: true,
         initialized: true,
         getSelectedAccount: () => account,
@@ -247,7 +123,7 @@ describe('getCurrentAccountWorker', () => {
 
       generator.next();
       generator.next();
-      generator.next(eos);
+      generator.next(ethereum);
       generator.next(prevProfileInfo);
 
       it('getUserProfileSuccess', () => {
@@ -281,7 +157,7 @@ describe('getCurrentAccountWorker', () => {
       const profileInfo = {};
       const balance = 10;
 
-      const eos = {
+      const ethereum = {
         scatterInstalled: true,
         initialized: true,
         getSelectedAccount: () => null,
@@ -291,7 +167,7 @@ describe('getCurrentAccountWorker', () => {
 
       generator.next();
       generator.next();
-      generator.next(eos);
+      generator.next(ethereum);
       generator.next(prevProfileInfo);
 
       it('current account is not equal to local storage profile', () => {

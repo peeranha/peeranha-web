@@ -238,7 +238,7 @@ export function* getQuestionData({
     }));
   }
 
-  // const bounty = yield call(getQuestionBounty, questionId, eosService);
+  // const bounty = yield call(getQuestionBounty, questionId, ethereumService);
   // yield put(getQuestionBountySuccess(bounty));
   question.isGeneral = isGeneralQuestion(question);
 
@@ -247,7 +247,7 @@ export function* getQuestionData({
   // } else {
   //   const promotedQuestions = yield call(
   //     getPromotedQuestions,
-  //     eosService,
+  //     ethereumService,
   //     question.communityId,
   //   );
   //
@@ -581,7 +581,7 @@ export function* deleteQuestionWorker({ questionId, buttonId }) {
       },
     );
     // if (questionBounty) {
-    //   yield call(payBounty, profileInfo?.user, questionId, true, eosService);
+    //   yield call(payBounty, profileInfo?.user, questionId, true, ethereumService);
     //   yield put(payBountySuccess(buttonId));
     // }
 
@@ -636,7 +636,7 @@ export function* getQuestionDataWorker({ questionId }) {
 
     // const promotedQuestions = yield call(
     //   getPromotedQuestions,
-    //   eosService,
+    //   ethereumService,
     //   questionData.communityId,
     // );
     //
@@ -1045,7 +1045,7 @@ export function* voteToDeleteWorker({
   whoWasVoted,
 }) {
   try {
-    const { questionData, eosService, profileInfo, locale } = yield call(
+    const { questionData, ethereumService, profileInfo, locale } = yield call(
       getParams,
     );
 
@@ -1094,7 +1094,7 @@ export function* voteToDeleteWorker({
       questionId,
       answerId,
       commentId,
-      eosService,
+      ethereumService,
     );
 
     const isDeleteCommentButton = buttonId.includes('delete-comment-');
@@ -1244,13 +1244,15 @@ function* changeQuestionTypeWorker({ buttonId }) {
 
 function* payBountyWorker({ buttonId }) {
   try {
-    const { questionData, eosService, profileInfo } = yield call(getParams);
+    const { questionData, ethereumService, profileInfo } = yield call(
+      getParams,
+    );
     yield call(
       payBounty,
       profileInfo?.user,
       questionData?.id,
       false,
-      eosService,
+      ethereumService,
     );
     yield put(payBountySuccess(buttonId));
   } catch (err) {

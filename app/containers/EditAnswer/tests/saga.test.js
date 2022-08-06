@@ -14,7 +14,7 @@ import {
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
-import { isValid } from 'containers/EosioProvider/saga';
+import { isValid } from 'containers/EthereumProvider/saga';
 
 import defaultSaga, { getAnswerWorker, editAnswerWorker } from '../saga';
 
@@ -35,7 +35,7 @@ jest.mock('createdHistory', () => ({
   push: jest.fn(),
 }));
 
-jest.mock('containers/EosioProvider/saga', () => ({
+jest.mock('containers/EthereumProvider/saga', () => ({
   isValid: jest.fn(),
   isAuthorized: jest.fn(),
 }));
@@ -57,21 +57,21 @@ describe('getAnswerWorker', () => {
   const questionId = 'questionId';
   const answerId = 'answerId';
 
-  const eos = {};
+  const ethereum = {};
 
   describe('there is cached answer', () => {
     const generator = getAnswerWorker({ questionId, answerId });
     const cachedAnswer = { content: {} };
 
-    it('step, eosService', () => {
-      select.mockImplementation(() => eos);
+    it('step, ethereumService', () => {
+      select.mockImplementation(() => ethereum);
       const step = generator.next();
-      expect(step.value).toEqual(eos);
+      expect(step.value).toEqual(ethereum);
     });
 
     it('step, cachedAnswer', () => {
       select.mockImplementation(() => cachedAnswer);
-      const step = generator.next(eos);
+      const step = generator.next(ethereum);
       expect(step.value).toEqual(cachedAnswer);
     });
 
@@ -99,11 +99,11 @@ describe('getAnswerWorker', () => {
     const answer = question.answers.filter(x => x.id === answerId)[0];
 
     generator.next();
-    generator.next(eos);
+    generator.next(ethereum);
 
     it('call @getQuestionById', () => {
       generator.next(cachedAnswer);
-      expect(getQuestionById).toHaveBeenCalledWith(eos, questionId);
+      expect(getQuestionById).toHaveBeenCalledWith(ethereum, questionId);
     });
 
     it('call @getAnswer', () => {
@@ -130,21 +130,21 @@ describe('editAnswerWorker', () => {
     answerId,
   };
 
-  const eos = {
+  const ethereum = {
     getSelectedAccount: jest.fn(),
   };
 
   const generator = editAnswerWorker(props);
 
-  it('step, eosService', () => {
-    select.mockImplementation(() => eos);
+  it('step, ethereumService', () => {
+    select.mockImplementation(() => ethereum);
     const step = generator.next();
-    expect(step.value).toEqual(eos);
+    expect(step.value).toEqual(ethereum);
   });
 
   it('getSelectedAccount', () => {
-    generator.next(eos);
-    expect(call).toHaveBeenCalledWith(eos.getSelectedAccount);
+    generator.next(ethereum);
+    expect(call).toHaveBeenCalledWith(ethereum.getSelectedAccount);
   });
 
   it('isValid', () => {
@@ -163,7 +163,7 @@ describe('editAnswerWorker', () => {
       questionId,
       answerId,
       answer,
-      eos,
+      ethereum,
     );
   });
 

@@ -21,8 +21,8 @@ jest.mock('containers/DataCacheProvider/selectors', () => ({
   ]),
   selectStat: jest.fn(() => () => ({})),
 }));
-jest.mock('containers/EosioProvider/selectors', () => ({
-  selectEos: jest.fn(() => ({
+jest.mock('containers/EthereumProvider/selectors', () => ({
+  selectEthereum: jest.fn(() => ({
     getSelectedAccount: jest.fn(() => ({})),
   })),
 }));

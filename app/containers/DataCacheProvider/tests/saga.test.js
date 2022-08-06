@@ -60,20 +60,20 @@ jest.mock('utils/profileManagement', () => ({
 }));
 
 describe('getStatWorker', () => {
-  const eos = {};
+  const ethereum = {};
   const stat = {};
 
   const generator = getStatWorker();
 
-  it('step, eos', () => {
-    select.mockImplementation(() => eos);
+  it('step, ethereum', () => {
+    select.mockImplementation(() => ethereum);
     const step = generator.next();
-    expect(step.value).toEqual(eos);
+    expect(step.value).toEqual(ethereum);
   });
 
   it('step, getStat', () => {
-    generator.next(eos);
-    expect(getStat).toHaveBeenCalledWith(eos);
+    generator.next(ethereum);
+    expect(getStat).toHaveBeenCalledWith(ethereum);
   });
 
   it('step, getStatSuccess', () => {
@@ -118,19 +118,19 @@ describe('getFaqWorker', () => {
 });
 
 describe('getCommunitiesWithTagsWorker', () => {
-  const eos = {};
+  const ethereum = {};
   const generator = getCommunitiesWithTagsWorker();
 
-  it('step, eos', () => {
-    select.mockImplementation(() => eos);
+  it('step, ethereum', () => {
+    select.mockImplementation(() => ethereum);
 
     const step = generator.next();
-    expect(step.value).toEqual(eos);
+    expect(step.value).toEqual(ethereum);
   });
 
   it('step, getAllCommunities', () => {
-    generator.next(eos);
-    expect(getAllCommunities).toHaveBeenCalledWith(eos);
+    generator.next(ethereum);
+    expect(getAllCommunities).toHaveBeenCalledWith(ethereum);
   });
 
   it('step, getCommunitiesWithTagsSuccess', () => {
@@ -148,7 +148,7 @@ describe('getCommunitiesWithTagsWorker', () => {
 });
 
 describe('getUserProfileWorker', () => {
-  const eos = {};
+  const ethereum = {};
   const user = 'user';
   const getFullProfile = false;
 
@@ -156,20 +156,20 @@ describe('getUserProfileWorker', () => {
     const cachedUserInfo = {};
     const generator = getUserProfileWorker({ user, getFullProfile });
 
-    it('step, eos', () => {
-      select.mockImplementation(() => eos);
+    it('step, ethereum', () => {
+      select.mockImplementation(() => ethereum);
       const step = generator.next();
-      expect(step.value).toEqual(eos);
+      expect(step.value).toEqual(ethereum);
     });
 
     it('step, cachedUserInfo', () => {
       select.mockImplementation(() => cachedUserInfo);
-      const step = generator.next(eos);
+      const step = generator.next(ethereum);
       expect(step.value).toEqual(cachedUserInfo);
     });
 
     it('step, cachedUserInfo', () => {
-      const step = generator.next(eos);
+      const step = generator.next(ethereum);
       expect(step.value).toEqual(cachedUserInfo);
     });
 
@@ -187,11 +187,15 @@ describe('getUserProfileWorker', () => {
       const generator = getUserProfileWorker({ user, getFullProfile });
 
       generator.next();
-      generator.next(eos);
+      generator.next(ethereum);
 
       it('getUpdatedProfileInfo', () => {
         generator.next(cachedUserInfo);
-        expect(getProfileInfo).toHaveBeenCalledWith(user, eos, getFullProfile);
+        expect(getProfileInfo).toHaveBeenCalledWith(
+          user,
+          ethereum,
+          getFullProfile,
+        );
       });
 
       it('put updatedUserInfo to store', () => {
@@ -225,7 +229,7 @@ describe('getUserProfileWorker', () => {
       getHash.mockImplementation(() => null);
 
       generator.next();
-      generator.next(eos);
+      generator.next(ethereum);
       generator.next(cachedUserInfo);
 
       it('to finish processing', () => {

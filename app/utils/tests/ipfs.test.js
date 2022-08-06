@@ -54,7 +54,7 @@ describe('ipfs', () => {
   });
 
   describe('getTableRow', () => {
-    it('retrieves single record from eosio table', async () => {
+    it('retrieves single record from ethereum table', async () => {
       const textFromIpfs = await getText(dummyHash);
       expect(textFromIpfs).toBeDefined();
     });

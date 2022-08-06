@@ -96,7 +96,7 @@ import { GET_EXISTING_TAGS_ERROR } from 'containers/Tags/constants';
 import { GET_USERS_ERROR } from 'containers/Users/constants';
 import { GET_RESULTS_ERROR } from 'containers/Search/constants';
 import { GET_TERMS_ERROR } from 'containers/TermsOfService/constants';
-import { INIT_EOSIO_ERROR } from 'containers/EosioProvider/constants';
+import { INIT_ETHEREUM_ERROR } from 'containers/EthereumProvider/constants';
 import { GET_USER_ACHIEVEMENTS_ERROR } from 'containers/Achievements/constants';
 import { CHANGE_STAKE_ERROR } from 'containers/Boost/constants';
 
@@ -145,7 +145,7 @@ export const errHandlingTypes = [
   SAVE_COMMENT_ERROR,
   VOTE_TO_DELETE_ERROR,
   GET_RESULTS_ERROR,
-  INIT_EOSIO_ERROR,
+  INIT_ETHEREUM_ERROR,
   CHANGE_QUESTION_TYPE_ERROR,
   GET_USER_ACHIEVEMENTS_ERROR,
   GET_ASKED_QUESTION_ERROR,

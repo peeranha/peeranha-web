@@ -21,7 +21,7 @@ beforeEach(() => {
     initLoadedItems: 25,
     nextLoadedItems: 10,
     communityIdFilter: 10,
-    eosService: {},
+    ethereumService: {},
     getQuestionsDispatch: jest.fn(),
     setDefaultReducerDispatch: jest.fn(),
     followHandlerDispatch: jest.fn(),
@@ -47,7 +47,7 @@ describe('Questions', () => {
       expect(cmp.props.getQuestionsDispatch).toHaveBeenCalledTimes(0);
 
       cmp.fetcher = null;
-      cmp.props.eosService = {};
+      cmp.props.ethereumService = {};
       cmp.props.parentPage = 'parentPage';
 
       cmp.componentDidUpdate();
@@ -74,7 +74,7 @@ describe('Questions', () => {
         },
       };
 
-      cmp.props.eosService = null;
+      cmp.props.ethereumService = null;
       cmp.props.match.params.communityid = 'id222';
 
       cmp.componentDidUpdate(prevProps);

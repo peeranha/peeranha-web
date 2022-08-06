@@ -48,16 +48,16 @@ describe('Login actions', () => {
   });
 
   it('loginWithEmailSuccess', () => {
-    const eosAccount = 'eosAccount';
+    const ethereumAccount = 'ethereumAccount';
     const content = 'content';
 
     const expected = {
       type: LOGIN_WITH_EMAIL_SUCCESS,
-      eosAccount,
+      ethereumAccount,
       content,
     };
 
-    expect(loginWithEmailSuccess(eosAccount, content)).toEqual(expected);
+    expect(loginWithEmailSuccess(ethereumAccount, content)).toEqual(expected);
   });
 
   it('loginWithEmailErr', () => {

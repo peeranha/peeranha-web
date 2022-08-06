@@ -3,8 +3,7 @@ import { takeEvery, call, put, select } from 'redux-saga/effects';
 
 import { followCommunity, unfollowCommunity } from 'utils/communityManagement';
 
-import { selectEos } from 'containers/EosioProvider/selectors';
-import { isAuthorized, isValid } from 'containers/EosioProvider/saga';
+import { isAuthorized, isValid } from 'containers/EthereumProvider/saga';
 import { getUserProfileSuccess } from 'containers/DataCacheProvider/actions';
 import {
   makeSelectAccount,
@@ -18,8 +17,6 @@ import {
 } from './constants';
 
 import { followHandlerSuccess, followHandlerErr } from './actions';
-import { setCookie } from '../../utils/cookie';
-import { PROFILE_INFO_LS } from '../Login/constants';
 import { selectEthereum } from '../EthereumProvider/selectors';
 
 export function* followHandlerWorker({

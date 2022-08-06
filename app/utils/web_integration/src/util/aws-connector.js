@@ -16,7 +16,6 @@ const GET_OWNER_KEY_COMPLETE_SERVICE = 'wallet/get-owner-key/complete';
 
 const LOGGER_SERVICE = 'status/ui/report-error';
 const PAY_FOR_CPU_SERVICE = 'wallet/pay-for-cpu/pay';
-const BEST_NODE_SERVICE = 'status/eos-endpoints/get-all';
 
 const NOTIFICATIONS_GET_SERVICE = 'notifications/get';
 const NOTIFICATIONS_INFO_SERVICE = 'notifications/info';
@@ -73,7 +72,6 @@ module.exports = {
   GET_OWNER_KEY_COMPLETE_SERVICE,
   LOGGER_SERVICE,
   PAY_FOR_CPU_SERVICE,
-  BEST_NODE_SERVICE,
   NOTIFICATIONS_GET_SERVICE,
   NOTIFICATIONS_INFO_SERVICE,
   NOTIFICATIONS_READ_SERVICE,

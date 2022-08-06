@@ -16,7 +16,7 @@ import {
   FORM_TYPE,
 } from 'components/QuestionForm/constants';
 
-import { isAuthorized, isValid } from 'containers/EosioProvider/saga';
+import { isAuthorized, isValid } from 'containers/EthereumProvider/saga';
 
 import {
   askQuestionSuccess,
@@ -33,7 +33,6 @@ import {
   GET_EXISTING_QUESTIONS,
 } from './constants';
 import { selectEthereum } from '../EthereumProvider/selectors';
-import { selectCommunities } from '../DataCacheProvider/selectors';
 
 export function* postQuestionWorker({ val }) {
   try {
@@ -78,12 +77,12 @@ export function* postQuestionWorker({ val }) {
     //     questionData.bountyFull,
     //     questionsPostedByUser[0].question_id,
     //     bountyTime,
-    //     eosService,
+    //     ethereumService,
     //   );
     // }
 
     // if (promoteValue) {
-    //   yield call(promoteQuestion, eosService, selectedAccount, que stionsPostedByUser[0].question_id, promoteValue);
+    //   yield call(promoteQuestion, ethereumService, selectedAccount, questionsPostedByUser[0].question_id, promoteValue);
     // }
 
     yield put(askQuestionSuccess(id));

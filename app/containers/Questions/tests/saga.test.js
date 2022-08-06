@@ -68,7 +68,7 @@ describe('getQuestionsWorker', () => {
     },
   ];
 
-  const eos = { id: 1, getSelectedAccount: jest.fn() };
+  const ethereum = { id: 1, getSelectedAccount: jest.fn() };
 
   describe('communityIdFilter === 0 && parentPage !== feed', () => {
     const communityIdFilter = 0;
@@ -80,21 +80,25 @@ describe('getQuestionsWorker', () => {
       parentPage,
     });
 
-    it('eosService', () => {
-      select.mockImplementation(() => eos);
+    it('ethereumService', () => {
+      select.mockImplementation(() => ethereum);
       const step = generator.next();
-      expect(step.value).toEqual(eos);
+      expect(step.value).toEqual(ethereum);
     });
 
     it('followedCommunities', () => {
       select.mockImplementation(() => communities);
-      const step = generator.next(eos);
+      const step = generator.next(ethereum);
       expect(step.value).toEqual(communities);
     });
 
     it('getQuestions', () => {
       generator.next(communities);
-      expect(getQuestions).toHaveBeenCalledWith(eos, res.limit, res.offset);
+      expect(getQuestions).toHaveBeenCalledWith(
+        ethereum,
+        res.limit,
+        res.offset,
+      );
     });
 
     it('questionsList mapping, get author', () => {
@@ -124,7 +128,7 @@ describe('getQuestionsWorker', () => {
     const generator = getQuestionsWorker(res);
 
     generator.next();
-    generator.next(eos);
+    generator.next(ethereum);
 
     it('getQuestionsFilteredByCommunities', () => {
       generator.next(communities);
@@ -142,7 +146,7 @@ describe('getQuestionsWorker', () => {
     const generator = getQuestionsWorker(res);
 
     generator.next();
-    generator.next(eos);
+    generator.next(ethereum);
 
     it('getQuestionsForFollowedCommunities', () => {
       generator.next(communities);

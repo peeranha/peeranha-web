@@ -25,7 +25,7 @@ jest.mock('utils/walletManagement', () => ({
   pickupReward: jest.fn(),
 }));
 
-const eosService = {
+const ethereumService = {
   forgetIdentity: jest.fn(),
 };
 
@@ -34,15 +34,15 @@ describe('pickupRewardWorker', () => {
   const period = 1;
   const generator = pickupRewardWorker({ period });
 
-  it('select @eosService', () => {
-    select.mockImplementation(() => eosService);
+  it('select @ethereumService', () => {
+    select.mockImplementation(() => ethereumService);
     const step = generator.next();
-    expect(step.value).toEqual(eosService);
+    expect(step.value).toEqual(ethereumService);
   });
 
   it('select @account', () => {
     select.mockImplementation(() => account);
-    const step = generator.next(eosService);
+    const step = generator.next(ethereumService);
     expect(step.value).toEqual(account);
   });
 
@@ -50,7 +50,7 @@ describe('pickupRewardWorker', () => {
     generator.next(account);
     expect(call).toHaveBeenCalledWith(
       pickupReward,
-      eosService,
+      ethereumService,
       account,
       period,
     );
@@ -72,21 +72,21 @@ describe('getWeekStatWorker', () => {
   const account = 'account';
   const generator = getWeekStatWorker();
 
-  it('select @eosService', () => {
-    select.mockImplementation(() => eosService);
+  it('select @ethereumService', () => {
+    select.mockImplementation(() => ethereumService);
     const step = generator.next();
-    expect(step.value).toEqual(eosService);
+    expect(step.value).toEqual(ethereumService);
   });
 
   it('select @account', () => {
     select.mockImplementation(() => account);
-    const step = generator.next(eosService);
+    const step = generator.next(ethereumService);
     expect(step.value).toEqual(account);
   });
 
   it('call @getWeekStat', () => {
     generator.next(account);
-    expect(getWeekStat).toHaveBeenCalledWith(eosService, account);
+    expect(getWeekStat).toHaveBeenCalledWith(ethereumService, account);
   });
 
   it('GET_WEEK_STAT_SUCCESS', () => {

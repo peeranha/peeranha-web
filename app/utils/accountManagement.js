@@ -54,7 +54,7 @@ export const updateAcc = async (profile, ethereumService) => {
   //   periodsHavePassed > 0 ||
   //   timeSinceRatingUpdate >= process.env.ACCOUNT_STAT_RESET_PERIOD
   // ) {
-  //   await eosService.sendTransaction(profile.user, UPDATE_ACC, {
+  //   await ethereumService.sendTransaction(profile.user, UPDATE_ACC, {
   //     user: profile.user,
   //   });
   // } else {
@@ -62,8 +62,8 @@ export const updateAcc = async (profile, ethereumService) => {
   // }
 };
 
-export const isUserInSystem = async (user, eosService) => {
-  const profile = await eosService.getTableRow(
+export const isUserInSystem = async (user, ethereumService) => {
+  const profile = await ethereumService.getTableRow(
     ACCOUNT_TABLE,
     ALL_ACCOUNTS_SCOPE,
     user,

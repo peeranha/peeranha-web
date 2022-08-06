@@ -10,7 +10,7 @@ import createdHistory from 'createdHistory';
 import { uploadImg, saveProfile } from 'utils/profileManagement';
 
 import { AVATAR_FIELD } from 'containers/Profile/constants';
-import { isValid } from 'containers/EosioProvider/saga';
+import { isValid } from 'containers/EthereumProvider/saga';
 
 import defaultSaga, { saveProfileWorker } from '../saga';
 
@@ -38,7 +38,7 @@ jest.mock('containers/DataCacheProvider/saga', () => ({
   getUserProfileWorker: jest.fn(),
 }));
 
-jest.mock('containers/EosioProvider/saga', () => ({
+jest.mock('containers/EthereumProvider/saga', () => ({
   isValid: jest.fn(),
 }));
 
@@ -47,7 +47,7 @@ jest.mock('utils/profileManagement', () => ({
   saveProfile: jest.fn(),
 }));
 
-const eos = {
+const ethereum = {
   scatterInstalled: true,
   initialized: true,
   getSelectedAccount: () => null,
@@ -61,14 +61,14 @@ describe('saveProfileWorker, AVATAR_FIELD is hash (< 1000 chars)', () => {
 
   const generator = saveProfileWorker({ profile, userKey });
 
-  it('select @eosService', () => {
-    select.mockImplementationOnce(() => eos);
+  it('select @ethereumService', () => {
+    select.mockImplementationOnce(() => ethereum);
     const selectDescriptor = generator.next();
-    expect(selectDescriptor.value).toEqual(eos);
+    expect(selectDescriptor.value).toEqual(ethereum);
   });
 
   it('call isValid', () => {
-    generator.next(eos);
+    generator.next(ethereum);
     expect(call).toHaveBeenCalledWith(isValid, {
       buttonId: EDIT_PROFILE_BUTTON_ID,
       minRating: MIN_RATING_TO_EDIT_PROFILE,
@@ -80,7 +80,7 @@ describe('saveProfileWorker, AVATAR_FIELD is hash (< 1000 chars)', () => {
     generator.next();
 
     expect(saveProfile).toHaveBeenCalledWith(
-      eos,
+      ethereum,
       userKey,
       profile[AVATAR_FIELD],
       profile,
@@ -110,7 +110,7 @@ describe('saveProfileWorker, AVATAR_FIELD is new Image (>> 1000 chars)', () => {
   const generator = saveProfileWorker({ profile, userKey });
 
   generator.next();
-  generator.next(eos);
+  generator.next(ethereum);
 
   it('uploadImg - new image', () => {
     uploadImg.mockImplementation(() => ({ imgHash }));
@@ -122,7 +122,7 @@ describe('saveProfileWorker, AVATAR_FIELD is new Image (>> 1000 chars)', () => {
   it('saveProfile', () => {
     generator.next({ imgHash });
 
-    expect(saveProfile).toHaveBeenCalledWith(eos, userKey, imgHash, {
+    expect(saveProfile).toHaveBeenCalledWith(ethereum, userKey, imgHash, {
       ...profile,
       [AVATAR_FIELD]: imgHash,
     });

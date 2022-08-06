@@ -6,7 +6,7 @@
 import { select, call } from 'redux-saga/effects';
 
 import { followCommunity, unfollowCommunity } from 'utils/communityManagement';
-import { isAuthorized, isValid } from 'containers/EosioProvider/saga';
+import { isAuthorized, isValid } from 'containers/EthereumProvider/saga';
 
 import defaultSaga, { followHandlerWorker } from '../saga';
 
@@ -25,7 +25,7 @@ jest.mock('redux-saga/effects', () => ({
   takeLatest: jest.fn().mockImplementation(res => res),
 }));
 
-jest.mock('containers/EosioProvider/saga', () => ({
+jest.mock('containers/EthereumProvider/saga', () => ({
   isAuthorized: jest.fn(),
   isValid: jest.fn(),
 }));
@@ -47,7 +47,7 @@ describe('followHandlerWorker', () => {
   };
 
   const account = 'user1';
-  const eos = {
+  const ethereum = {
     getSelectedAccount: jest.fn().mockImplementation(() => account),
   };
 
@@ -57,15 +57,15 @@ describe('followHandlerWorker', () => {
       isFollowed: false,
     });
 
-    it('select eosService', () => {
-      select.mockImplementationOnce(() => eos);
+    it('select ethereumService', () => {
+      select.mockImplementationOnce(() => ethereum);
       const service = generator.next();
-      expect(service.value).toEqual(eos);
+      expect(service.value).toEqual(ethereum);
     });
 
     it('getSelectedAccount', () => {
-      generator.next(eos);
-      expect(call).toHaveBeenCalledWith(eos.getSelectedAccount);
+      generator.next(ethereum);
+      expect(call).toHaveBeenCalledWith(ethereum.getSelectedAccount);
     });
 
     it('isAuthorized', () => {
@@ -85,7 +85,7 @@ describe('followHandlerWorker', () => {
     it('props.isFollowed === false', () => {
       generator.next();
       expect(followCommunity).toHaveBeenCalledWith(
-        eos,
+        ethereum,
         props.communityIdFilter,
         account,
       );
@@ -110,14 +110,14 @@ describe('followHandlerWorker', () => {
     });
 
     generator.next();
-    generator.next(eos);
+    generator.next(ethereum);
     generator.next(account);
     generator.next();
 
     it('props.isFollowed === true', () => {
       generator.next();
       expect(unfollowCommunity).toHaveBeenCalledWith(
-        eos,
+        ethereum,
         props.communityIdFilter,
         account,
       );

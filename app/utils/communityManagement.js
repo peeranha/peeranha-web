@@ -144,14 +144,14 @@ export async function editTag(user, ethereumService, tag, tagId) {
 }
 
 export async function upVoteToCreateTag(
-  eosService,
+  ethereumService,
   selectedAccount,
   communityId,
   tagid,
 ) {}
 
 export async function downVoteToCreateTag(
-  eosService,
+  ethereumService,
   selectedAccount,
   communityId,
   tagid,
@@ -278,13 +278,13 @@ export async function createTag(
 }
 
 export async function upVoteToCreateCommunity(
-  eosService,
+  ethereumService,
   selectedAccount,
   communityId,
 ) {}
 
 export async function downVoteToCreateCommunity(
-  eosService,
+  ethereumService,
   selectedAccount,
   communityId,
 ) {}

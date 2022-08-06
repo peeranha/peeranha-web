@@ -30,7 +30,7 @@ jest.mock('utils/questionsManagement', () => ({
 }));
 
 describe('getQuestionsWorker', () => {
-  const eosService = {};
+  const ethereumService = {};
   const limit = 10;
   const questionsFromStore = [{ id: 1 }];
   const freshQuestions = [{ id: 1, answers: [{ id: 1, user: 'user' }] }];
@@ -57,16 +57,16 @@ describe('getQuestionsWorker', () => {
     expect(step.value).toEqual(limit);
   });
 
-  it('step, eosService', () => {
-    select.mockImplementation(() => eosService);
+  it('step, ethereumService', () => {
+    select.mockImplementation(() => ethereumService);
     const step = generator.next(limit);
-    expect(step.value).toEqual(eosService);
+    expect(step.value).toEqual(ethereumService);
   });
 
   it('getQuestionsPostedByUser', () => {
-    generator.next(eosService);
+    generator.next(ethereumService);
     expect(getQuestionsPostedByUser).toHaveBeenCalledWith(
-      eosService,
+      ethereumService,
       userId,
       offset,
       limit,
@@ -76,7 +76,7 @@ describe('getQuestionsWorker', () => {
   it('getQuestionById', () => {
     generator.next(idOfQuestions);
     expect(getQuestionById).toHaveBeenCalledWith(
-      eosService,
+      ethereumService,
       idOfQuestions[0].question_id,
       userId,
     );

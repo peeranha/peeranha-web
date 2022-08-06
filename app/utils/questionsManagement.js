@@ -44,14 +44,13 @@ import {
   historiesForPost,
 } from './theGraph';
 
-/* eslint-disable  */
 export class FetcherOfQuestionsForFollowedCommunities {
   constructor(
     firstFetchCount = 5,
     communities,
-    eosService,
+    ethereumService,
   ) /* istanbul ignore next */ {
-    this.eosService = eosService;
+    this.ethereumService = ethereumService;
     this.firstFetchCount = firstFetchCount;
     this.communities = communities;
 
@@ -93,7 +92,7 @@ export class FetcherOfQuestionsForFollowedCommunities {
       const limit =
         this.firstFetchCount - this.communitiesMap[communityId].items.length;
 
-      const { rows } = await this.eosService.getTableRows(
+      const { rows } = await this.ethereumService.getTableRows(
         QUESTION_TABLE,
         ALL_QUESTIONS_SCOPE,
         this.communitiesMap[communityId].lastKeyFetched,
@@ -176,11 +175,11 @@ export async function getAnsweredUsersPosts(id, limit, offset) {
 }
 
 /* eslint no-param-reassign: ["error", { "props": false }] */
-export async function getQuestions(eosService, limit, offset) {}
+export async function getQuestions(ethereumService, limit, offset) {}
 
 /* eslint no-bitwise: 0 no-undef: 0 */
 export async function getQuestionsFilteredByCommunities(
-  eosService,
+  ethereumService,
   limit,
   offset,
   communityId,
@@ -191,14 +190,14 @@ export async function getQuestionsForFollowedCommunities(limit, fetcher) {
   return await fetcher.getNextItems(limit);
 }
 
-export async function getPromotedQuestions(eosService, communityId) {}
+export async function getPromotedQuestions(ethereumService, communityId) {}
 
 export async function voteToDelete(
   user,
   questionId,
   answerId,
   commentId,
-  eosService,
+  ethereumService,
 ) {}
 
 export async function getAskedQuestion(link) {

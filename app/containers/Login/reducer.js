@@ -26,7 +26,7 @@ export const initialState = fromJS({
   email: null,
   loginWithEmailProcessing: false,
   loginWithEmailError: null,
-  eosAccount: null,
+  ethereumAccount: null,
   loginWithWalletProcessing: false,
   isNewPostCreationAfterLogin: false,
   loginWithWalletError: null,
@@ -38,7 +38,7 @@ function loginReducer(state = initialState, action) {
     email,
     content,
     loginWithEmailError,
-    eosAccount,
+    ethereumAccount,
     loginWithWalletError,
     isNewPostCreationAfterLogin,
   } = action;
@@ -57,7 +57,7 @@ function loginReducer(state = initialState, action) {
     case LOGIN_WITH_EMAIL_SUCCESS:
       return state
         .set('loginWithEmailProcessing', false)
-        .set('eosAccount', eosAccount)
+        .set('ethereumAccount', ethereumAccount)
         .set('showModal', Boolean(content))
         .set('content', content || initialState.get('content'));
     case LOGIN_WITH_EMAIL_ERROR:

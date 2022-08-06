@@ -22,8 +22,10 @@ export const makeSelectLoginWithEmailError = () =>
     substate.get('loginWithEmailError'),
   );
 
-export const makeSelectEosAccount = () =>
-  createSelector(selectLoginDomain, substate => substate.get('eosAccount'));
+export const makeSelectEthereumAccount = () =>
+  createSelector(selectLoginDomain, substate =>
+    substate.get('ethereumAccount'),
+  );
 
 export const selectLoginWithWalletProcessing = () =>
   createSelector(selectLoginDomain, substate =>

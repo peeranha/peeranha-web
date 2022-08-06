@@ -39,10 +39,10 @@ jest.mock('../profileManagement', () => ({
 
 window.BigInt = jest.fn().mockImplementation(x => x);
 
-let eosService;
+let ethereumService;
 
 beforeEach(() => {
-  eosService = {
+  ethereumService = {
     sendTransaction: jest.fn(),
     getTableRow: jest.fn(),
     getTableRows: jest.fn(),
@@ -112,7 +112,7 @@ describe('createCommunity', () => {
   it('test', async () => {
     saveText.mockImplementation(() => communityIpfsHash);
     uploadImg.mockImplementation(() => ({ imgHash }));
-    await createCommunity(eosService, user, community);
+    await createCommunity(ethereumService, user, community);
 
     expect(saveText).toHaveBeenCalledWith(
       JSON.stringify({
@@ -121,7 +121,7 @@ describe('createCommunity', () => {
       }),
     );
 
-    expect(eosService.sendTransaction).toHaveBeenCalledWith(
+    expect(ethereumService.sendTransaction).toHaveBeenCalledWith(
       user,
       CREATE_COMMUNITY,
       {
@@ -138,8 +138,12 @@ describe('downVoteToCreateCommunity', () => {
   const communityId = 'communityId';
 
   it('test', async () => {
-    await downVoteToCreateCommunity(eosService, selectedAccount, communityId);
-    expect(eosService.sendTransaction).toHaveBeenCalledWith(
+    await downVoteToCreateCommunity(
+      ethereumService,
+      selectedAccount,
+      communityId,
+    );
+    expect(ethereumService.sendTransaction).toHaveBeenCalledWith(
       selectedAccount,
       VOTE_TO_DELETE_COMMUNITY,
       {
@@ -155,8 +159,12 @@ describe('upVoteToCreateCommunity', () => {
   const communityId = 'communityId';
 
   it('test', async () => {
-    await upVoteToCreateCommunity(eosService, selectedAccount, communityId);
-    expect(eosService.sendTransaction).toHaveBeenCalledWith(
+    await upVoteToCreateCommunity(
+      ethereumService,
+      selectedAccount,
+      communityId,
+    );
+    expect(ethereumService.sendTransaction).toHaveBeenCalledWith(
       selectedAccount,
       VOTE_TO_CREATE_COMMUNITY,
       {
@@ -173,8 +181,13 @@ describe('downVoteToCreateTag', () => {
   const tagid = 'tagid';
 
   it('test', async () => {
-    await downVoteToCreateTag(eosService, selectedAccount, communityId, tagid);
-    expect(eosService.sendTransaction).toHaveBeenCalledWith(
+    await downVoteToCreateTag(
+      ethereumService,
+      selectedAccount,
+      communityId,
+      tagid,
+    );
+    expect(ethereumService.sendTransaction).toHaveBeenCalledWith(
       selectedAccount,
       VOTE_TO_DELETE_TAG,
       {
@@ -192,8 +205,13 @@ describe('upVoteToCreateTag', () => {
   const tagid = 'tagid';
 
   it('test', async () => {
-    await upVoteToCreateTag(eosService, selectedAccount, communityId, tagid);
-    expect(eosService.sendTransaction).toHaveBeenCalledWith(
+    await upVoteToCreateTag(
+      ethereumService,
+      selectedAccount,
+      communityId,
+      tagid,
+    );
+    expect(ethereumService.sendTransaction).toHaveBeenCalledWith(
       selectedAccount,
       VOTE_TO_CREATE_TAG,
       {
@@ -211,20 +229,20 @@ describe('getAllCommunities', async () => {
     name: 'com1',
   };
 
-  const eos = {
+  const ethereum = {
     getTableRows: jest.fn().mockImplementation(() => [community]),
   };
 
-  await getAllCommunities(eos);
+  await getAllCommunities(ethereum);
 
-  it('eos', () => {
-    expect(eos.getTableRows).toHaveBeenCalledWith(
+  it('ethereum', () => {
+    expect(ethereum.getTableRows).toHaveBeenCalledWith(
       COMMUNITIES_TABLE,
       ALL_COMMUNITIES_SCOPE,
       0,
     );
 
-    expect(eos.getTableRows).toHaveBeenCalledWith(
+    expect(ethereum.getTableRows).toHaveBeenCalledWith(
       COMMUNITIES_TABLE,
       getTagScope(community.id),
       0,
@@ -237,9 +255,13 @@ describe('unfollowCommunity', () => {
   const selectedAccount = 10;
 
   it('test', async () => {
-    await unfollowCommunity(eosService, communityIdFilter, selectedAccount);
+    await unfollowCommunity(
+      ethereumService,
+      communityIdFilter,
+      selectedAccount,
+    );
 
-    expect(eosService.sendTransaction).toHaveBeenCalledWith(
+    expect(ethereumService.sendTransaction).toHaveBeenCalledWith(
       selectedAccount,
       UNFOLLOW_COMM,
       {
@@ -255,9 +277,9 @@ describe('followCommunity', () => {
   const selectedAccount = 10;
 
   it('test', async () => {
-    await followCommunity(eosService, communityIdFilter, selectedAccount);
+    await followCommunity(ethereumService, communityIdFilter, selectedAccount);
 
-    expect(eosService.sendTransaction).toHaveBeenCalledWith(
+    expect(ethereumService.sendTransaction).toHaveBeenCalledWith(
       selectedAccount,
       FOLLOW_COMM,
       {

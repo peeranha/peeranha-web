@@ -56,10 +56,10 @@ jest.mock('../ipfs', () => ({
 
 window.BigInt = jest.fn().mockImplementation(x => x);
 
-let eosService;
+let ethereumService;
 
 beforeEach(() => {
-  eosService = {
+  ethereumService = {
     sendTransaction: jest.fn(),
     getTableRow: jest.fn(),
     getTableRows: jest.fn(),
@@ -74,13 +74,13 @@ describe('getAnswersPostedByUser', () => {
   const answers = [1, 2, 3];
 
   it('test', async () => {
-    eosService.getTableRows.mockImplementation(() => answers);
+    ethereumService.getTableRows.mockImplementation(() => answers);
 
     expect(
-      await getAnswersPostedByUser(eosService, user, offset, limit),
+      await getAnswersPostedByUser(ethereumService, user, offset, limit),
     ).toEqual(answers);
 
-    expect(eosService.getTableRows).toHaveBeenCalledWith(
+    expect(ethereumService.getTableRows).toHaveBeenCalledWith(
       USER_ANSWERS_TABLE,
       user,
       offset,
@@ -94,7 +94,7 @@ describe('FetcherOfQuestionsForFollowedCommunities', () => {
   let firstFetchCount = 30;
   let communities = [1, 2, 3];
 
-  eosService = {
+  ethereumService = {
     sendTransaction: jest.fn(),
     getTableRow: jest.fn(),
     getTableRows: jest.fn(),
@@ -104,7 +104,7 @@ describe('FetcherOfQuestionsForFollowedCommunities', () => {
     const fetcher = new FetcherOfQuestionsForFollowedCommunities(
       firstFetchCount,
       communities,
-      eosService,
+      ethereumService,
     );
 
     it('communities.length 0', () => {
@@ -112,7 +112,7 @@ describe('FetcherOfQuestionsForFollowedCommunities', () => {
       const fetch = fetcher.constructor(
         firstFetchCount,
         communities,
-        eosService,
+        ethereumService,
       );
 
       expect(fetch).toBe(null);
@@ -120,12 +120,12 @@ describe('FetcherOfQuestionsForFollowedCommunities', () => {
 
     it('communities.length > 0', () => {
       communities = [1, 2, 3];
-      fetcher.constructor(firstFetchCount, communities, eosService);
+      fetcher.constructor(firstFetchCount, communities, ethereumService);
 
-      expect(fetcher.eosService).toEqual(eosService);
+      expect(fetcher.ethereumService).toEqual(ethereumService);
       expect(fetcher.firstFetchCount).toEqual(firstFetchCount);
       expect(fetcher.hasMore).toEqual(true);
-      expect(fetcher.eosService).toEqual(eosService);
+      expect(fetcher.ethereumService).toEqual(ethereumService);
 
       expect(fetcher.communitiesMap[communities[0]]).toEqual({
         items: [],
@@ -147,10 +147,10 @@ describe('FetcherOfQuestionsForFollowedCommunities', () => {
     const fetcher = new FetcherOfQuestionsForFollowedCommunities(
       firstFetchCount,
       communities,
-      eosService,
+      ethereumService,
     );
 
-    await fetcher.constructor(firstFetchCount, communities, eosService);
+    await fetcher.constructor(firstFetchCount, communities, ethereumService);
 
     it('hasMore FALSE', async () => {
       fetcher.hasMore = false;
@@ -171,7 +171,9 @@ describe('FetcherOfQuestionsForFollowedCommunities', () => {
 
         const ID = 1;
 
-        fetcher.eosService.getTableRows.mockImplementation(() => [{ id: ID }]);
+        fetcher.ethereumService.getTableRows.mockImplementation(() => [
+          { id: ID },
+        ]);
 
         const fetch = await fetcher.getNextItems(fetchCount);
         expect(fetcher.communitiesMap[communities[0]].lastKeyFetched).toEqual(
@@ -187,7 +189,9 @@ describe('FetcherOfQuestionsForFollowedCommunities', () => {
 
         const ID = 1;
 
-        fetcher.eosService.getTableRows.mockImplementation(() => [{ id: ID }]);
+        fetcher.ethereumService.getTableRows.mockImplementation(() => [
+          { id: ID },
+        ]);
         expect(fetcher.communitiesMap[communities[0]].more).toBe(false);
       });
     });
@@ -208,7 +212,7 @@ describe('FetcherOfQuestionsForFollowedCommunities', () => {
           0.5 * fetchCount,
         );
 
-        expect(fetch.eosService.getTableRows).toHaveBeenCalledWith(
+        expect(fetch.ethereumService.getTableRows).toHaveBeenCalledWith(
           QUESTION_TABLE,
           ALL_QUESTIONS_SCOPE,
           fetcher.communitiesMap[communities[0]].lastKeyFetched,
@@ -220,11 +224,11 @@ describe('FetcherOfQuestionsForFollowedCommunities', () => {
       });
     });
 
-    it('fetch.eosService.getTableRows => [1, 2]', async () => {
+    it('fetch.ethereumService.getTableRows => [1, 2]', async () => {
       const items = [1, 2];
 
       fetcher.hasMore = true;
-      fetch.eosService.getTableRows.mockImplementation(() => items);
+      fetch.ethereumService.getTableRows.mockImplementation(() => items);
 
       const fetch = await fetcher.getNextItems(fetchCount);
       expect(fetcher.communitiesMap[communities[0]].items).toEqual([
@@ -270,12 +274,12 @@ describe('getQuestionsForFollowedCommunities', () => {
 describe('getQuestionsPostedByUser', async () => {
   const user = 'user1';
   const questionsMass = [];
-  eosService.getTableRows.mockImplementation(() => questionsMass);
+  ethereumService.getTableRows.mockImplementation(() => questionsMass);
 
-  const questions = await getQuestionsPostedByUser(eosService, user);
+  const questions = await getQuestionsPostedByUser(ethereumService, user);
 
   it('test', () => {
-    expect(eosService.getTableRows).toHaveBeenCalledWith(
+    expect(ethereumService.getTableRows).toHaveBeenCalledWith(
       USER_QUESTIONS_TABLE,
       user,
       0,
@@ -298,17 +302,17 @@ describe('getQuestionsFilteredByCommunities', () => {
   const communityId = 10;
 
   it('test1', async () => {
-    eosService.getTableRows.mockImplementation(() => questions);
+    ethereumService.getTableRows.mockImplementation(() => questions);
 
     const getQuestions = await getQuestionsFilteredByCommunities(
-      eosService,
+      ethereumService,
       limit,
       offset,
       communityId,
     );
 
     expect(getQuestions).toEqual(questions);
-    expect(eosService.getTableRows).toHaveBeenCalledWith(
+    expect(ethereumService.getTableRows).toHaveBeenCalledWith(
       QUESTION_TABLE,
       ALL_QUESTIONS_SCOPE,
       JSBI.add(
@@ -353,9 +357,9 @@ describe('deleteQuestion', () => {
   const questionId = 10;
 
   it('test', async () => {
-    await deleteQuestion(user, questionId, eosService);
+    await deleteQuestion(user, questionId, ethereumService);
 
-    expect(eosService.sendTransaction).toHaveBeenCalledWith(
+    expect(ethereumService.sendTransaction).toHaveBeenCalledWith(
       user,
       DEL_QUESTION_METHOD,
       {
@@ -372,9 +376,9 @@ describe('deleteAnswer', () => {
   const answerId = 10;
 
   it('test', async () => {
-    await deleteAnswer(user, questionId, answerId, eosService);
+    await deleteAnswer(user, questionId, answerId, ethereumService);
 
-    expect(eosService.sendTransaction).toHaveBeenCalledWith(
+    expect(ethereumService.sendTransaction).toHaveBeenCalledWith(
       user,
       DEL_ANSWER_METHOD,
       {
@@ -393,9 +397,9 @@ describe('deleteComment', () => {
   const commentId = 10;
 
   it('test', async () => {
-    await deleteComment(user, questionId, answerId, commentId, eosService);
+    await deleteComment(user, questionId, answerId, commentId, ethereumService);
 
-    expect(eosService.sendTransaction).toHaveBeenCalledWith(
+    expect(ethereumService.sendTransaction).toHaveBeenCalledWith(
       user,
       DEL_COMMENT_METHOD,
       {
@@ -425,10 +429,10 @@ describe('editComment', () => {
       answerId,
       commentId,
       textComment,
-      eosService,
+      ethereumService,
     );
 
-    expect(eosService.sendTransaction).toHaveBeenCalledWith(
+    expect(ethereumService.sendTransaction).toHaveBeenCalledWith(
       user,
       EDIT_COMMENT_METHOD,
       {
@@ -452,8 +456,8 @@ describe('editAnswer', () => {
   saveText.mockImplementation(() => ipfsLink);
 
   it('test', async () => {
-    await editAnswer(user, questionId, answerId, textAnswer, eosService);
-    expect(eosService.sendTransaction).toHaveBeenCalledWith(
+    await editAnswer(user, questionId, answerId, textAnswer, ethereumService);
+    expect(ethereumService.sendTransaction).toHaveBeenCalledWith(
       user,
       EDIT_ANSWER_METHOD,
       {
@@ -495,8 +499,8 @@ describe('editQuestion', () => {
   saveText.mockImplementation(() => ipfsLink);
 
   it('test', async () => {
-    await editQuestion(user, id, question, eosService);
-    expect(eosService.sendTransaction).toHaveBeenCalledWith(
+    await editQuestion(user, id, question, ethereumService);
+    expect(ethereumService.sendTransaction).toHaveBeenCalledWith(
       user,
       EDIT_QUESTION_METHOD,
       {
@@ -517,12 +521,12 @@ describe('getQuestions', () => {
   const questionsMass = [];
 
   it('test', async () => {
-    eosService.getTableRows.mockImplementation(() => questionsMass);
+    ethereumService.getTableRows.mockImplementation(() => questionsMass);
 
-    const questions = await getQuestions(eosService, limit, offset);
+    const questions = await getQuestions(ethereumService, limit, offset);
 
     expect(questions).toEqual(questionsMass);
-    expect(eosService.getTableRows).toHaveBeenCalledWith(
+    expect(ethereumService.getTableRows).toHaveBeenCalledWith(
       QUESTION_TABLE,
       ALL_QUESTIONS_SCOPE,
       offset,
@@ -557,14 +561,14 @@ describe('postQuestion', () => {
   const ipfsLink = 'ipfsLink';
 
   it('test', async () => {
-    eosService.sendTransaction.mockImplementation(() => questionInfo);
+    ethereumService.sendTransaction.mockImplementation(() => questionInfo);
 
     saveText.mockImplementation(() => ipfsLink);
 
-    const question = await postQuestion(user, questionData, eosService);
+    const question = await postQuestion(user, questionData, ethereumService);
     expect(question).toEqual(questionInfo);
     expect(saveText).toHaveBeenCalledWith(JSON.stringify(questionData));
-    expect(eosService.sendTransaction).toHaveBeenCalledWith(
+    expect(ethereumService.sendTransaction).toHaveBeenCalledWith(
       user,
       POST_QUESTION_METHOD,
       {
@@ -587,9 +591,9 @@ describe('postAnswer', () => {
   it('test', async () => {
     saveText.mockImplementation(() => ipfsLink);
 
-    await postAnswer(user, questionId, answer, eosService);
+    await postAnswer(user, questionId, answer, ethereumService);
     expect(saveText).toHaveBeenCalledWith(answer);
-    expect(eosService.sendTransaction).toHaveBeenCalledWith(
+    expect(ethereumService.sendTransaction).toHaveBeenCalledWith(
       user,
       POST_ANSWER_METHOD,
       {
@@ -611,9 +615,9 @@ describe('postComment', () => {
   it('test', async () => {
     saveText.mockImplementation(() => ipfsLink);
 
-    await postComment(user, questionId, answerId, comment, eosService);
+    await postComment(user, questionId, answerId, comment, ethereumService);
     expect(saveText).toHaveBeenCalledWith(comment);
-    expect(eosService.sendTransaction).toHaveBeenCalledWith(
+    expect(ethereumService.sendTransaction).toHaveBeenCalledWith(
       user,
       POST_COMMENT_METHOD,
       {
@@ -632,8 +636,8 @@ describe('upVote', () => {
   const answerId = 50;
 
   it('test', async () => {
-    await upVote(user, questionId, answerId, eosService);
-    expect(eosService.sendTransaction).toHaveBeenCalledWith(
+    await upVote(user, questionId, answerId, ethereumService);
+    expect(ethereumService.sendTransaction).toHaveBeenCalledWith(
       user,
       UP_VOTE_METHOD,
       {
@@ -651,8 +655,8 @@ describe('downVote', () => {
   const answerId = 50;
 
   it('test', async () => {
-    await downVote(user, questionId, answerId, eosService);
-    expect(eosService.sendTransaction).toHaveBeenCalledWith(
+    await downVote(user, questionId, answerId, ethereumService);
+    expect(ethereumService.sendTransaction).toHaveBeenCalledWith(
       user,
       DOWN_VOTE_METHOD,
       {
@@ -674,9 +678,9 @@ describe('voteToDelete', () => {
     commentId = undefined;
     answerId = undefined;
 
-    await voteToDelete(user, questionId, answerId, commentId, eosService);
+    await voteToDelete(user, questionId, answerId, commentId, ethereumService);
 
-    expect(eosService.sendTransaction).toHaveBeenCalledWith(
+    expect(ethereumService.sendTransaction).toHaveBeenCalledWith(
       user,
       VOTE_TO_DELETE_METHOD,
       {
@@ -692,9 +696,9 @@ describe('voteToDelete', () => {
     commentId = 10;
     answerId = 10;
 
-    await voteToDelete(user, questionId, answerId, commentId, eosService);
+    await voteToDelete(user, questionId, answerId, commentId, ethereumService);
 
-    expect(eosService.sendTransaction).toHaveBeenCalledWith(
+    expect(ethereumService.sendTransaction).toHaveBeenCalledWith(
       user,
       VOTE_TO_DELETE_METHOD,
       {
@@ -713,8 +717,8 @@ describe('markAsAccepted', () => {
   const answerId = 50;
 
   it('test', async () => {
-    await markAsAccepted(user, questionId, answerId, eosService);
-    expect(eosService.sendTransaction).toHaveBeenCalledWith(
+    await markAsAccepted(user, questionId, answerId, ethereumService);
+    expect(ethereumService.sendTransaction).toHaveBeenCalledWith(
       user,
       MARK_AS_CORRECT_METHOD,
       {
@@ -733,10 +737,12 @@ describe('getQuestionById', () => {
   };
 
   it('test', async () => {
-    eosService.getTableRow.mockImplementation(() => questionInfo);
+    ethereumService.getTableRow.mockImplementation(() => questionInfo);
 
-    expect(await getQuestionById(eosService, questionId)).toEqual(questionInfo);
-    expect(eosService.getTableRow).toHaveBeenCalledWith(
+    expect(await getQuestionById(ethereumService, questionId)).toEqual(
+      questionInfo,
+    );
+    expect(ethereumService.getTableRow).toHaveBeenCalledWith(
       QUESTION_TABLE,
       ALL_QUESTIONS_SCOPE,
       questionId,

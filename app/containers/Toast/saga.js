@@ -137,9 +137,7 @@ export function* loggerWorker(error) {
         message:
           typeof error[key] === 'string' ? error[key] : error[key].message,
         stack: error[key].stack,
-        node:
-          (endpointsData && endpointsData.nodes[0]) ||
-          process.env.EOS_ENDPOINT_DEFAULT,
+        node: endpointsData && endpointsData.nodes[0],
         isScatter: loginData ? Boolean(loginData.loginWithScatter) : false,
         userAgent: navigator.userAgent,
       }),
