@@ -1,21 +1,6 @@
-import { fromJS } from 'immutable';
+import { showLoginModal, hideLoginModal } from '../actions';
 
-import {
-  showLoginModal,
-  hideLoginModal,
-  loginWithEmail,
-  loginWithEmailSuccess,
-  loginWithEmailErr,
-} from '../actions';
-
-import {
-  SHOW_LOGIN_MODAL,
-  HIDE_LOGIN_MODAL,
-  EMAIL_FIELD,
-  LOGIN_WITH_EMAIL,
-  LOGIN_WITH_EMAIL_SUCCESS,
-  LOGIN_WITH_EMAIL_ERROR,
-} from '../constants';
+import { SHOW_LOGIN_MODAL, HIDE_LOGIN_MODAL } from '../constants';
 
 describe('Login actions', () => {
   it('showLoginModal', () => {
@@ -32,42 +17,5 @@ describe('Login actions', () => {
     };
 
     expect(hideLoginModal()).toEqual(expected);
-  });
-
-  it('loginWithEmail', () => {
-    const val = fromJS({
-      [EMAIL_FIELD]: EMAIL_FIELD,
-    });
-
-    const expected = {
-      type: LOGIN_WITH_EMAIL,
-      val: val.toJS(),
-    };
-
-    expect(loginWithEmail(val)).toEqual(expected);
-  });
-
-  it('loginWithEmailSuccess', () => {
-    const ethereumAccount = 'ethereumAccount';
-    const content = 'content';
-
-    const expected = {
-      type: LOGIN_WITH_EMAIL_SUCCESS,
-      ethereumAccount,
-      content,
-    };
-
-    expect(loginWithEmailSuccess(ethereumAccount, content)).toEqual(expected);
-  });
-
-  it('loginWithEmailErr', () => {
-    const loginWithEmailError = 'loginWithEmailError';
-
-    const expected = {
-      type: LOGIN_WITH_EMAIL_ERROR,
-      loginWithEmailError,
-    };
-
-    expect(loginWithEmailErr(loginWithEmailError)).toEqual(expected);
   });
 });

@@ -88,9 +88,7 @@ MetaTransactionAgreement.propTypes = {
   hideLoginModalDispatch: PropTypes.func,
   locale: PropTypes.string,
   email: PropTypes.string,
-  loginWithEmailProcessing: PropTypes.bool,
   loginWithWalletProcessing: PropTypes.bool,
-  loginWithEmailDispatch: PropTypes.func,
   loginWithWalletDispatch: PropTypes.func,
 };
 

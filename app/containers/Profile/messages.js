@@ -82,15 +82,6 @@ export default defineMessages({
   locationTip: {
     id: 'app.containers.Profile.locationTip',
   },
-  oldPassword: {
-    id: 'app.containers.Profile.oldPassword',
-  },
-  newPassword: {
-    id: 'app.containers.Profile.newPassword',
-  },
-  confirmPassword: {
-    id: 'app.containers.Profile.confirmPassword',
-  },
   youAnswered: {
     id: 'app.containers.Profile.youAnswered',
   },

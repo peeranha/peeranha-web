@@ -104,7 +104,6 @@
   "app.common.submit": "Подтвердить",
   "app.common.amount": "Количество",
   "app.common.bounty": "Бонус",
-  "app.common.password": "Пароль",
   "app.common.walletAddress": "Адрес кошелька",
   "app.common.successMessage": "Действие было выполнено успешно!",
   "app.common.messageSendedSuccessfully": "Сообщение успешно отправлено",
@@ -261,8 +260,6 @@
     "Неизвестная ошибка. Пожалуйста, отправьте отчет об ошибке!",
   "web_integration.errors.accountAlreadyRegistered":
     "Аккаунт уже зарегистрирован",
-  "web_integration.errors.invalidEncryptionKey":
-    "Неверный ключ шифрования или IV",
   "web_integration.errors.userDidntStoreKey":
     "Пользователь не сохранил owner key в нашем сервисе",
   "web_integration.errors.userDidntRequestActivateAcc":
@@ -276,10 +273,7 @@
   "web_integration.errors.passphraseIsInvalid": "Passphrase неверен",
   "web_integration.errors.unableToDecryptUserKey":
     "Проверьте правильность введенных данных",
-  "web_integration.errors.wrongPassword": "Неверный пароль",
   "web_integration.errors.wrongMasterKey": "Неверный Master ключ",
-  "web_integration.errors.accountWithEmailIsntRegistered":
-    "Аккаунт с данной почтой еще не был зарегистрирован",
   "web_integration.errors.requestExpiredOrSomeOperationWasPassed":
     "Пользователь еще не завершил операцию или время жизни ключа истекло",
   "web_integration.errors.invalidCipher":
@@ -775,7 +769,6 @@
     "Элемент с таким именем уже существует",
   "app.components.FormFields.valueIsMore":
     "Это значение больше, чем Вы можете себе позволить",
-  "app.components.FormFields.passwordsNotMatch": "Пароли не совпадают",
   "app.components.FormFields.onlyLowerCaseLettersAndNumbersFromTo":
     "Значение должно содержать только строчные буквы и цифры от {min} до {max}",
   "app.components.FormFields.withoutDoubleSpace":
@@ -823,9 +816,6 @@
   "app.containers.Profile.companyTip": "Опционально",
   "app.containers.Profile.positionTip": "Опционально",
   "app.containers.Profile.locationTip": "Опционально",
-  "app.containers.Profile.oldPassword": "Старый пароль",
-  "app.containers.Profile.newPassword": "Новый пароль",
-  "app.containers.Profile.confirmPassword": "Подтвердите пароль",
   "app.containers.Profile.youAnswered": "Вы ответили",
   "app.containers.Profile.seeMore": "Посмотреть все {posts} и {answers}",
   "app.containers.Profile.tipText":

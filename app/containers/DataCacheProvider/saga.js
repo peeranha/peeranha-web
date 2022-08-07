@@ -13,10 +13,7 @@ import { LOGOUT_SUCCESS } from 'containers/Logout/constants';
 import { SAVE_PROFILE_SUCCESS } from 'containers/EditProfilePage/constants';
 import { updateStoredQuestionsWorker } from 'containers/Questions/saga';
 
-import {
-  LOGIN_WITH_EMAIL,
-  LOGIN_WITH_WALLET,
-} from 'containers/Login/constants';
+import { LOGIN_WITH_WALLET } from 'containers/Login/constants';
 
 import {
   selectStat,
@@ -161,7 +158,7 @@ export default function*() {
   yield takeLatest(GET_FAQ, getFaqWorker);
   yield takeLatest(GET_TUTORIAL, getTutorialWorker);
   yield takeLatest(
-    [LOGOUT_SUCCESS, LOGIN_WITH_WALLET, LOGIN_WITH_EMAIL, SAVE_PROFILE_SUCCESS],
+    [LOGOUT_SUCCESS, LOGIN_WITH_WALLET, SAVE_PROFILE_SUCCESS],
     updateStoredQuestionsWorker,
   );
 }

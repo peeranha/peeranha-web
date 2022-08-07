@@ -173,15 +173,6 @@ const valueHasToBeLessThanMaxPromotingHours = (...args) => {
   return value > comparedValue ? messages.valueIsMore : undefined;
 };
 
-const comparePasswords = (...args) => {
-  const value = args[0];
-  const list = args[2].passwordList;
-
-  return list.filter(x => x !== value)[0]
-    ? messages.passwordsNotMatch
-    : undefined;
-};
-
 const withoutDoubleSpace = str =>
   str && str.includes('  ') ? messages.withoutDoubleSpace : undefined;
 
@@ -234,7 +225,6 @@ export {
   valueHasToBeLessThan,
   bountyCannotBeLessThenPrev,
   hoursCannotBeLessThenPrev,
-  comparePasswords,
   valueHasNotBeInListMoreThanOneTime,
   withoutDoubleSpace,
   maxByteLength,

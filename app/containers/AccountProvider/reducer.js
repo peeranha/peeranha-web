@@ -25,7 +25,6 @@ export const initialState = fromJS({
   stakedInNextPeriod: null,
   boost: null,
   lastUpdate: null,
-  email: null,
   authToken: null,
   passwordUserPart: null,
   encryptedKeys: null,
@@ -42,7 +41,6 @@ function accountProviderReducer(state = initialState, action) {
     stakedInCurrentPeriod,
     stakedInNextPeriod,
     boost,
-    email,
     authToken,
     passwordUserPart,
     encryptedKeys,
@@ -76,7 +74,6 @@ function accountProviderReducer(state = initialState, action) {
 
     case ADD_LOGIN_DATA:
       return state
-        .set('email', email)
         .set('authToken', authToken)
         .set('account', account || state.get('account'))
         .set('passwordUserPart', passwordUserPart)
@@ -84,7 +81,6 @@ function accountProviderReducer(state = initialState, action) {
         .set('loginWithMetaMask', loginWithMetaMask);
     case REMOVE_LOGIN_DATA:
       return state
-        .set('email', null)
         .set('authToken', null)
         .set('passwordUserPart', null)
         .set('encryptedKeys', null)

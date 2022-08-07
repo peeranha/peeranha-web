@@ -1,15 +1,9 @@
 import { fromJS } from 'immutable';
-import loginReducer, { initialState } from '../reducer';
+import loginReducer from '../reducer';
 
-import {
-  showLoginModal,
-  hideLoginModal,
-  loginWithEmail,
-  loginWithEmailSuccess,
-  loginWithEmailErr,
-} from '../actions';
+import { showLoginModal, hideLoginModal } from '../actions';
 
-import { EMAIL_FORM, EMAIL_FIELD } from '../constants';
+import { EMAIL_FORM } from '../constants';
 
 describe('loginReducer', () => {
   let state;
@@ -34,41 +28,5 @@ describe('loginReducer', () => {
   it('HIDE_LOGIN_MODAL', () => {
     const obj = state.set('showModal', false);
     expect(loginReducer(state, hideLoginModal())).toEqual(obj);
-  });
-
-  it('LOGIN_WITH_EMAIL', () => {
-    const val = fromJS({
-      [EMAIL_FIELD]: EMAIL_FIELD,
-    });
-
-    const obj = state.set('loginProcessing', true);
-
-    expect(loginReducer(state, loginWithEmail(val))).toEqual(obj);
-  });
-
-  it('LOGIN_WITH_EMAIL_SUCCESS', () => {
-    const ethereumAccount = 'ethereumAccount';
-
-    const obj = state
-      .set('loginProcessing', false)
-      .set('ethereumAccount', ethereumAccount)
-      .set('showModal', initialState.get('showModal'))
-      .set('content', initialState.get('content'));
-
-    expect(loginReducer(state, loginWithEmailSuccess(ethereumAccount))).toEqual(
-      obj,
-    );
-  });
-
-  it('LOGIN_WITH_EMAIL_ERROR', () => {
-    const loginWithEmailError = 'loginWithEmailError';
-
-    const obj = state
-      .set('loginProcessing', false)
-      .set('loginWithEmailError', loginWithEmailError);
-
-    expect(loginReducer(state, loginWithEmailErr(loginWithEmailError))).toEqual(
-      obj,
-    );
   });
 });

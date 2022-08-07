@@ -4,9 +4,7 @@ import {
   selectLoginDomain,
   makeSelectContent,
   makeSelectShowModal,
-  makeSelectEmail,
   makeSelectEthereumAccount,
-  makeSelectLoginWithEmailError,
 } from '../selectors';
 
 describe('selectLoginDomain', () => {
@@ -14,7 +12,6 @@ describe('selectLoginDomain', () => {
   const showModal = 'showModal';
   const email = 'email';
   const loginProcessing = 'loginProcessing';
-  const loginWithEmailError = 'loginWithEmailError';
   const ethereumAccount = 'ethereumAccount';
 
   const globalState = fromJS({
@@ -22,7 +19,6 @@ describe('selectLoginDomain', () => {
     showModal,
     email,
     loginProcessing,
-    loginWithEmailError,
     ethereumAccount,
   });
 
@@ -42,16 +38,6 @@ describe('selectLoginDomain', () => {
   it('makeSelectShowModal', () => {
     const isShowModal = makeSelectShowModal();
     expect(isShowModal(mockedState)).toEqual(showModal);
-  });
-
-  it('makeSelectEmail', () => {
-    const isEmail = makeSelectEmail();
-    expect(isEmail(mockedState)).toEqual(email);
-  });
-
-  it('makeSelectLoginWithEmailError', () => {
-    const isLoginWithEmailError = makeSelectLoginWithEmailError();
-    expect(isLoginWithEmailError(mockedState)).toEqual(loginWithEmailError);
   });
 
   it('makeSelectEthereumAccount', () => {

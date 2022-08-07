@@ -5,9 +5,6 @@ module.exports = {
   1: {
     id: 'web_integration.errors.accountAlreadyRegistered',
   },
-  2: {
-    id: 'web_integration.errors.invalidEncryptionKey',
-  },
   3: {
     id: 'web_integration.errors.userDidntStoreKey',
   },
@@ -28,12 +25,6 @@ module.exports = {
   },
   9: {
     id: 'web_integration.errors.passphraseIsInvalid',
-  },
-  10: {
-    id: 'web_integration.errors.wrongPassword',
-  },
-  11: {
-    id: 'web_integration.errors.accountWithEmailIsntRegistered',
   },
   12: {
     id: 'web_integration.errors.requestExpiredOrSomeOperationWasPassed',

@@ -42,10 +42,7 @@ import {
   SEND_MESSAGE_ERROR,
 } from 'containers/HomePage/constants';
 
-import {
-  LOGIN_WITH_WALLET_ERROR,
-  LOGIN_WITH_EMAIL_ERROR,
-} from 'containers/Login/constants';
+import { LOGIN_WITH_WALLET_ERROR } from 'containers/Login/constants';
 
 import { LOGOUT_ERROR } from 'containers/Logout/constants';
 
@@ -130,7 +127,6 @@ export const errHandlingTypes = [
   EDIT_QUESTION_ERROR,
   SEND_MESSAGE_ERROR,
   LOGIN_WITH_WALLET_ERROR,
-  LOGIN_WITH_EMAIL_ERROR,
   LOGOUT_ERROR,
   FOLLOW_HANDLER_ERROR,
   PICKUP_REWARD_ERROR,

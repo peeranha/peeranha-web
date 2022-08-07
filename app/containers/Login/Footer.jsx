@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
-import { TEXT_DARK, BG_LIGHT, TEXT_SECONDARY } from 'style-constants';
+import { BG_LIGHT, TEXT_DARK, TEXT_SECONDARY } from 'style-constants';
 import messages from 'common-messages';
 
 import metaMaskLogo from 'images/mm-logo.svg?external';
@@ -77,8 +77,6 @@ LoginViaMetaMask.propTypes = {
 const Footer = ({
   walletAction,
   loginWithWalletProcessing,
-  loginWithEmailProcessing,
-  emailChecking,
   metaMaskProviderDetected,
 }) => {
   const { metaMaskAction } = useMemo(
@@ -88,9 +86,6 @@ const Footer = ({
     [walletAction],
   );
 
-  const processing =
-    loginWithWalletProcessing || emailChecking || loginWithEmailProcessing;
-
   return (
     <Box>
       <Heading>
@@ -99,7 +94,7 @@ const Footer = ({
       <div className="d-flex">
         <LoginViaMetaMask
           action={metaMaskAction}
-          processing={processing}
+          processing={loginWithWalletProcessing}
           providerDetected={metaMaskProviderDetected}
         />
       </div>
@@ -110,8 +105,6 @@ const Footer = ({
 Footer.propTypes = {
   walletAction: PropTypes.func,
   loginWithWalletProcessing: PropTypes.bool,
-  loginWithEmailProcessing: PropTypes.bool,
-  emailChecking: PropTypes.bool,
   locale: PropTypes.string,
 };
 

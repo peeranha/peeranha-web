@@ -263,11 +263,9 @@
     "Unknown error. Please submit bug report!",
   "web_integration.errors.accountAlreadyRegistered":
     "Account already registered",
-  "web_integration.errors.invalidEncryptionKey": "Invalid encryption key",
   "web_integration.errors.userDidntStoreKey":
     "User did not store owner key in our service",
   "web_integration.errors.unableToDecryptUserKey": "Check  entered data",
-  "web_integration.errors.wrongPassword": "Wrong password",
   "web_integration.errors.wrongMasterKey": "Wrong master key",
   "web_integration.errors.userDidntRequestActivateAcc":
     "This user did not request to activate account",
@@ -276,8 +274,6 @@
   "web_integration.errors.codeExpiredOrIncorrect":
     "Code expired or entered incorrectly",
   "web_integration.errors.passphraseIsInvalid": "The passphrase is invalid",
-  "web_integration.errors.accountWithEmailIsntRegistered":
-    "Account with given email isn't registered yet",
   "web_integration.errors.requestExpiredOrSomeOperationWasPassed":
     "User did not request the opertion or request expired",
   "web_integration.errors.invalidCipher": "Invalid cipher IV in passphase",
@@ -762,7 +758,6 @@
     "Item with that name exists already ",
   "app.components.FormFields.valueIsMore":
     "This value is more than you can afford",
-  "app.components.FormFields.passwordsNotMatch": "Passwords do not match",
   "app.components.FormFields.onlyLowerCaseLettersAndNumbersFromTo":
     "Value must contain only lowercase letters and numbers from {min} to {max}",
   "app.components.FormFields.withoutDoubleSpace":
@@ -807,9 +802,6 @@
   "app.containers.Profile.companyTip": "Optional",
   "app.containers.Profile.positionTip": "Optional",
   "app.containers.Profile.locationTip": "Optional",
-  "app.containers.Profile.oldPassword": "Old password",
-  "app.containers.Profile.newPassword": "New password",
-  "app.containers.Profile.confirmPassword": "Confirm password",
   "app.containers.Profile.youAnswered": "You answered",
   "app.containers.Profile.seeMore": "See all {posts} and {answers}",
   "app.containers.Profile.tipText":

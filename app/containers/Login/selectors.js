@@ -9,19 +9,6 @@ export const makeSelectContent = () =>
 export const makeSelectShowModal = () =>
   createSelector(selectLoginDomain, substate => substate.get('showModal'));
 
-export const makeSelectEmail = () =>
-  createSelector(selectLoginDomain, substate => substate.get('email'));
-
-export const selectLoginWithEmailProcessing = () =>
-  createSelector(selectLoginDomain, substate =>
-    substate.get('loginWithEmailProcessing'),
-  );
-
-export const makeSelectLoginWithEmailError = () =>
-  createSelector(selectLoginDomain, substate =>
-    substate.get('loginWithEmailError'),
-  );
-
 export const makeSelectEthereumAccount = () =>
   createSelector(selectLoginDomain, substate =>
     substate.get('ethereumAccount'),

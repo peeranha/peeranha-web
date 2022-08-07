@@ -49,9 +49,6 @@ export default defineMessages({
   valueIsMore: {
     id: 'app.components.FormFields.valueIsMore',
   },
-  passwordsNotMatch: {
-    id: 'app.components.FormFields.passwordsNotMatch',
-  },
   onlyLowerCaseLettersAndNumbersFromTo: {
     id: 'app.components.FormFields.onlyLowerCaseLettersAndNumbersFromTo',
   },

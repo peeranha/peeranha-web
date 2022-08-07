@@ -22,38 +22,16 @@ import notificationsReducer from 'components/Notifications/reducer';
 
 import * as selectors from './selectors';
 
-import { hideLoginModal, loginWithEmail, loginWithWallet } from './actions';
-
-import { EMAIL_FORM } from './constants';
+import { hideLoginModal, loginWithWallet } from './actions';
 
 import reducer from './reducer';
 import saga from './saga';
 
-import EmailForm from './EmailForm';
 import { selectEthereum } from '../EthereumProvider/selectors';
 
 /* eslint-disable react/prefer-stateless-function */
-export const Login = ({
-  content,
-  showModal,
-  hideLoginModalDispatch,
-  locale,
-  loginWithEmailProcessing,
-  loginWithWalletProcessing,
-  loginWithWalletDispatch,
-  ethereumService,
-}) => (
-  <ModalDialog show={showModal} closeModal={hideLoginModalDispatch}>
-    {content === EMAIL_FORM && (
-      <EmailForm
-        locale={locale}
-        loginWithEmailProcessing={loginWithEmailProcessing}
-        loginWithWallet={loginWithWalletDispatch}
-        loginWithWalletProcessing={loginWithWalletProcessing}
-        metaMaskProviderDetected={ethereumService.metaMaskProviderDetected}
-      />
-    )}
-  </ModalDialog>
+export const Login = ({ showModal, hideLoginModalDispatch }) => (
+  <ModalDialog show={showModal} closeModal={hideLoginModalDispatch} />
 );
 
 Login.propTypes = {
@@ -61,10 +39,7 @@ Login.propTypes = {
   showModal: PropTypes.bool,
   hideLoginModalDispatch: PropTypes.func,
   locale: PropTypes.string,
-  email: PropTypes.string,
-  loginWithEmailProcessing: PropTypes.bool,
   loginWithWalletProcessing: PropTypes.bool,
-  loginWithEmailDispatch: PropTypes.func,
   loginWithWalletDispatch: PropTypes.func,
 };
 
@@ -73,14 +48,11 @@ const withConnect = connect(
     locale: makeSelectLocale(),
     content: selectors.makeSelectContent(),
     showModal: selectors.makeSelectShowModal(),
-    email: selectors.makeSelectEmail(),
-    loginWithEmailProcessing: selectors.selectLoginWithEmailProcessing(),
     loginWithWalletProcessing: selectors.selectLoginWithWalletProcessing(),
     ethereumService: selectEthereum,
   }),
   dispatch => ({
     hideLoginModalDispatch: bindActionCreators(hideLoginModal, dispatch),
-    loginWithEmailDispatch: bindActionCreators(loginWithEmail, dispatch),
     loginWithWalletDispatch: bindActionCreators(loginWithWallet, dispatch),
   }),
 );

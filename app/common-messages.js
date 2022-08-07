@@ -294,9 +294,6 @@ export default defineMessages({
   bounty: {
     id: 'app.common.bounty',
   },
-  password: {
-    id: 'app.common.password',
-  },
   walletAddress: {
     id: 'app.common.walletAddress',
   },
