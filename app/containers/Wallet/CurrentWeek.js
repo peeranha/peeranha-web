@@ -4,12 +4,11 @@ import { FormattedMessage } from 'react-intl';
 
 import { TEXT_WARNING_LIGHT } from 'style-constants';
 
-import calendarImage from 'images/calendar.svg?external';
+import CalendarIcon from 'icons/Calendar';
 
 import P from 'components/P';
 import Span from 'components/Span';
 import Base from 'components/Base';
-import Icon from 'components/Icon';
 
 import messages from './messages';
 import WeekNumber from './WeekNumber';
@@ -35,7 +34,7 @@ const CurrentWeek = ({
       />
     </Base>
     <Base className="d-flex align-items-center" position="bottom">
-      <Icon className="mr-3" icon={calendarImage} width="34" />
+      <CalendarIcon className="mr-3" stroke="#576FED" fill="#BDC0C9" />
       <Span mobileFS={14}>
         <FormattedMessage id={messages.periodStillInProgress.id} />
       </Span>

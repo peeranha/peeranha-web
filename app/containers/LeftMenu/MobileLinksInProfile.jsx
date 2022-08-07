@@ -3,11 +3,11 @@ import { FormattedMessage } from 'react-intl';
 
 import messages from 'common-messages';
 import * as routes from 'routes-config';
+import cn from 'classnames';
 
-import arrowDownIcon from 'images/arrowDown.svg?external';
+import ArrowDownFillIcon from 'icons/ArrowDownFill';
 
 import A from 'components/A';
-import Icon from 'components/Icon';
 import { Button as ProfileButton } from 'containers/Header/ProfileDropdown';
 
 import Logout from 'containers/Logout';
@@ -33,11 +33,10 @@ const MobileLinksInProfile = ({ profile, isMenuVisible }) => {
         type="button"
       >
         <ProfileButton profileInfo={profile} isMobileVersion />
-        <Icon
-          className="mr-3"
-          icon={arrowDownIcon}
-          width="16"
-          rotate={visibleProfileLinks}
+        <ArrowDownFillIcon
+          size={[17, 11]}
+          fill="#7B7B7B"
+          className={cn(`mr-3 ${visibleProfileLinks && 'transform180'}`)}
         />
       </button>
 

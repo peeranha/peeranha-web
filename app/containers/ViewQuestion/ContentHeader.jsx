@@ -14,7 +14,7 @@ import {
 import EditIcon from 'icons/Edit';
 import ShareIcon from 'icons/Share';
 import DeleteIcon from 'icons/Delete';
-import blockIcon from 'images/blockIcon.svg?external';
+import BlockIcon from 'icons/Block';
 import ChangeTypeIcon from 'icons/ChangeType';
 import BlockchainIcon from 'icons/Blockchain';
 
@@ -26,7 +26,6 @@ import { getUserName } from 'utils/user';
 import { getRatingByCommunity, getUserAvatar } from 'utils/profileManagement';
 import { useOnClickOutside } from 'utils/click-listners';
 
-import { IconSm } from 'components/Icon/IconWithSizes';
 import UserInfo from './UserInfo';
 import ContentRating from './ContentRating';
 import Button from './Button';
@@ -238,7 +237,10 @@ const ContentHeader = props => {
               disabled={ids.includes(`${type}_vote_to_delete_${answerId}`)}
               isVotedToDelete={true}
             >
-              <IconSm icon={blockIcon} fill={BORDER_ATTENTION_LIGHT} />
+              <BlockIcon
+                stroke={BORDER_ATTENTION_LIGHT}
+                fill={BORDER_ATTENTION_LIGHT}
+              />
               <FormattedMessage {...messages.voteToDelete} />
             </Button>
           ) : null}

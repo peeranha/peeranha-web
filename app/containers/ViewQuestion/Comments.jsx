@@ -12,7 +12,6 @@ import {
 } from 'style-constants';
 
 import Span from 'components/Span';
-import Icon from 'components/Icon';
 import { TextareaStyled } from 'components/Textarea';
 import { useOnClickOutside } from 'utils/click-listners';
 import commonMessages from 'common-messages';
@@ -25,8 +24,8 @@ import {
 } from 'utils/properties';
 
 import BlockchainIcon from 'icons/Blockchain';
-import editSmallIcon from 'images/editSmallIcon.svg?external';
-import deleteSmallIcon from 'images/deleteSmallIcon.svg?external';
+import EditSmallIcon from 'icons/EditSmall';
+import DeleteIcon from 'icons/Delete';
 
 import { getRatingByCommunity, getUserAvatar } from 'utils/profileManagement';
 
@@ -186,7 +185,11 @@ const CommentView = item => {
             }}
             onClick={() => item.toggleView(!item.isView)}
           >
-            <Icon icon={editSmallIcon} width="13" fill={BORDER_PRIMARY} />
+            <EditSmallIcon
+              fill={BORDER_PRIMARY}
+              stroke={BORDER_PRIMARY}
+              size={[16, 16]}
+            />
             <FormattedMessage {...messages.editButton} />
           </Button>
 
@@ -207,11 +210,7 @@ const CommentView = item => {
                     `delete-comment-${item.answerId}${item.id}`,
                   )}
                 >
-                  <Icon
-                    icon={deleteSmallIcon}
-                    width="13"
-                    fill={BORDER_PRIMARY}
-                  />
+                  <DeleteIcon stroke={BORDER_PRIMARY} size={[15, 15]} />
                   <FormattedMessage {...messages.deleteButton} />
                 </Button>
               )}

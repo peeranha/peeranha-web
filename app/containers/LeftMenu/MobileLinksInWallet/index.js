@@ -1,4 +1,4 @@
-import React, { memo, useState, useMemo } from 'react';
+import React, { memo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
@@ -6,8 +6,9 @@ import { connect } from 'react-redux';
 
 import * as routes from 'routes-config';
 import messages from 'common-messages';
+import cn from 'classnames';
 
-import arrowDownIcon from 'images/arrowDown.svg?external';
+import ArrowDownFillIcon from 'icons/ArrowDownFill';
 
 import { selectRewardsWeeksNumber } from 'containers/Wallet/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
@@ -17,7 +18,6 @@ import { BoostPrediction } from 'containers/Header/WalletDropdown';
 import NotificationIcon from 'containers/Header/WalletDropdown/NotificationIcon';
 
 import A from 'components/A';
-import Icon from 'components/Icon';
 import { REWARD_CLAIMING_ENABLED } from '../../../utils/constants';
 
 const MobileLinksInWallet = ({
@@ -57,11 +57,10 @@ const MobileLinksInWallet = ({
           isBoost={boost ? boost.value > 1 : false}
           isMobileVersion
         />
-        <Icon
-          className="mr-3"
-          icon={arrowDownIcon}
-          width="16"
-          rotate={visibleWalletLinks}
+        <ArrowDownFillIcon
+          size={[17, 11]}
+          fill="#7B7B7B"
+          className={cn(`mr-3 ${visibleWalletLinks && 'transform180'}`)}
         />
       </button>
 

@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import arrowDownIcon from 'images/arrowDown.svg?inline';
+import ArrowDownFillIcon from 'icons/ArrowDownFill';
 
 import CommunitySelector from 'components/CommunitySelector';
 import Img from 'components/Img';
@@ -17,7 +17,7 @@ const Div = styled.div`
 
   ${props => Input(props)};
 
-  img[alt='icon'] {
+  svg {
     position: absolute;
     right: 0;
   }
@@ -63,7 +63,11 @@ export const CommunityField = ({
               </>
             )}
             <Span>{communityLabel}</Span>
-            <img className="mr-2" src={arrowDownIcon} alt="icon" />
+            <ArrowDownFillIcon
+              size={[17, 11]}
+              fill="#7B7B7B"
+              className="mr-2"
+            />
           </Div>
         )}
       />

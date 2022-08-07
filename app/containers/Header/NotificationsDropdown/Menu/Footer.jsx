@@ -14,10 +14,9 @@ import {
 } from 'style-constants';
 
 import MarkAllAsReadButton from 'components/Notifications/MarkAllAsReadButton';
-import { IconXm } from 'components/Icon/IconWithSizes';
 
-import clockIcon from 'images/clockIcon.svg?external';
-import notificationsIcon from 'images/notificationsBlue.svg?external';
+import ClockIcon from 'icons/Clock';
+import NotificationIcon from 'icons/Notification';
 
 import { makeSelectProfileInfo } from '../../../AccountProvider/selectors';
 import { makeSelectLocale } from '../../../LanguageProvider/selectors';
@@ -48,12 +47,16 @@ const Footer = ({ onClose, profile, empty }) => (
     <Link onClick={onClose} to={userNotifications(profile)}>
       {empty ? (
         <>
-          <IconXm className="mr-2" icon={clockIcon} fill={BORDER_PRIMARY} />
+          <ClockIcon
+            className="mr-2"
+            fill={BORDER_PRIMARY}
+            stroke={BORDER_PRIMARY}
+          />
           <FormattedMessage {...messages.archive} />
         </>
       ) : (
         <>
-          <IconXm className="mr-2" icon={notificationsIcon} />
+          <NotificationIcon className="mr-2" stroke={BORDER_PRIMARY} />
           <FormattedMessage {...messages.seeAll} />
         </>
       )}

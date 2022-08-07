@@ -2,7 +2,8 @@ import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 
-import Arrow from '../Arrow';
+import ArrowDownFillIcon from 'icons/ArrowDownFill';
+import cn from 'classnames';
 import CustomSubHeaderContainer from './CustomSubHeaderContainer';
 
 const transitionStyle = css`
@@ -298,10 +299,10 @@ export const B = ({
 
             {isDropdownMenuArrow && (
               <ArrowButton onClick={setVis}>
-                <Arrow
-                  className="mt-auto mb-auto"
-                  color="small"
-                  rotate={visible}
+                <ArrowDownFillIcon
+                  size={[14, 10]}
+                  fill="#7B7B7B"
+                  className={cn(`mr-3 ${visible && 'transform180'}`)}
                 />
               </ArrowButton>
             )}
@@ -330,7 +331,11 @@ export const B = ({
               {text}
             </span>
             {isDropdownMenuArrow && (
-              <Arrow className="mt-auto mb-auto" color="small" />
+              <ArrowDownFillIcon
+                size={[14, 10]}
+                fill="#7B7B7B"
+                className={cn('mt-auto mb-auto')}
+              />
             )}
           </SubitemsTitle>
           <Subitems styles={styles.subitems}>

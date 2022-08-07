@@ -3,13 +3,11 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 import { TEXT_SECONDARY, TEXT_PRIMARY, BORDER_PRIMARY } from 'style-constants';
-
-import dotsIcon from 'images/dots.svg?external';
-import arrowDownOutlined from 'images/arrowDown.svg?external';
+import cn from 'classnames';
+import ArrowDownFillIcon from 'icons/ArrowDownFill';
+import AddCommentIcon from 'icons/AddComment';
 
 import Span from 'components/Span';
-import Icon from 'components/Icon';
-import { IconMd } from 'components/Icon/IconWithSizes';
 import { TextareaStyled } from 'components/Textarea';
 import { singleCommunityColors } from 'utils/communityManagement';
 import CommentForm from './CommentForm';
@@ -67,11 +65,9 @@ export const CommentOptions = ({
               ) : (
                 <FormattedMessage id={messages.moreComments.id} />
               )}
-              <Icon
-                className="ml-1"
-                rotate={isAllCommentsView}
-                icon={arrowDownOutlined}
-                width="9"
+              <ArrowDownFillIcon
+                size={[9, 7]}
+                className={cn(`dib ml4 ${isAllCommentsView && 'transform180'}`)}
               />
             </Span>
           </ButtonStyled>
@@ -81,10 +77,7 @@ export const CommentOptions = ({
           id={toggleFormButtonId}
           onClick={() => checkAddCommentAvailable(toggleFormButtonId, answerId)}
         >
-          <IconMd
-            icon={dotsIcon}
-            fill={colors.commentOption || BORDER_PRIMARY}
-          />
+          <AddCommentIcon fill={colors.commentOption || BORDER_PRIMARY} />
           <Span className="ml-1" color={colors.commentOption || TEXT_PRIMARY}>
             <FormattedMessage id={messages.addComment.id} />
           </Span>

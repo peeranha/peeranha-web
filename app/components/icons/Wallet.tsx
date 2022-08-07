@@ -5,9 +5,9 @@ const Wallet: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
     id="wallet"
-    fill="curentColor"
+    fill="currentColor"
     viewBox="0 0 14 16"
-    size={[14, 16]}
+    size={props.size || [14, 16]}
   >
     <rect
       stroke={props.stroke || '#282828'}

@@ -7,7 +7,7 @@ const Delete: React.FC<IconProps> = (props): JSX.Element => (
     id="delete"
     fill="currentColor"
     viewBox="0 0 18 18"
-    size={[18, 18]}
+    size={props.size || [18, 18]}
   >
     <g transform="translate(1)" stroke={props.stroke || '#282828'} fill="none">
       <rect x="6" y="8" width="0.5" height="6" rx=".5" />

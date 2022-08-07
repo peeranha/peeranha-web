@@ -1,25 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import ArrowDownFillIcon from 'icons/ArrowDownFill';
 
-import {
-  singleCommunityColors,
-  singleCommunityStyles,
-} from 'utils/communityManagement';
-import arrowDownIcon from 'images/arrowDown.svg?external';
-
-import Icon from 'components/Icon/index';
 import DropdownStyled from './DropdownStyled';
 import MenuStyled from './MenuStyled';
-
-const styles = singleCommunityStyles();
-const colors = singleCommunityColors();
-
-const ArrowDown = styled(Icon)`
-  path {
-    fill: ${colors.localeArrowColor || styles.commHeadElemColor || ''};
-  }
-`;
 
 export const Dropdown = ({
   button,
@@ -47,10 +31,9 @@ export const Dropdown = ({
       {button}
 
       {isArrowed && (
-        <ArrowDown
-          icon={arrowDownIcon}
-          width="10"
-          alt="data-icon"
+        <ArrowDownFillIcon
+          size={[14, 10]}
+          fill="#7B7B7B"
           className="dropdown-arrow"
         />
       )}

@@ -7,7 +7,7 @@ const Lock: React.FC<IconProps> = (props): JSX.Element => (
     id="lock"
     fill="curentColor"
     viewBox="0 0 13 16"
-    size={[13, 16]}
+    size={props.size || [13, 16]}
   >
     <path
       stroke={props.stroke || '#282828'}
@@ -23,8 +23,14 @@ const Lock: React.FC<IconProps> = (props): JSX.Element => (
       height="10"
       rx="2"
     />
-    <rect x="6" y="10" width="1" height="3" />
-    <rect x="5" y="9" width="3" height="1" />
+    <rect
+      x="6"
+      y="10"
+      width="1"
+      height="3"
+      stroke={props.stroke || '#282828'}
+    />
+    <rect x="5" y="9" width="3" height="1" stroke={props.stroke || '#282828'} />
   </IconComponent>
 );
 

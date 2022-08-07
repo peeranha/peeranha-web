@@ -9,8 +9,6 @@ import {
   singleCommunityStyles,
 } from 'utils/communityManagement';
 
-import * as routes from 'routes-config';
-
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
 import infoIcon from 'images/information.svg?external';
 

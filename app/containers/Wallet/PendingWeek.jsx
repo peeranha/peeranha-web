@@ -4,18 +4,14 @@ import { FormattedMessage } from 'react-intl';
 
 import { TEXT_WARNING_LIGHT, TEXT_SECONDARY } from 'style-constants';
 
-import { getFormattedNum3 } from 'utils/numbers';
-
-import currencyPeerImage from 'images/currencyPeer.svg?inline';
+import PeercoinIcon from 'icons/Peercoin';
 
 import P from 'components/P';
 import Span from 'components/Span';
 import Base from 'components/Base';
-import SmallImage from 'components/Img/SmallImage';
 
 import messages from './messages';
 import WeekNumber from './WeekNumber';
-import { WEI_IN_ETH } from '../../utils/constants';
 
 const PendingWeek = ({
   period,
@@ -42,7 +38,7 @@ const PendingWeek = ({
           <FormattedMessage id={messages.estimatedPayout.id} />
         </P>
         <P className="d-flex align-items-center">
-          <SmallImage className="mr-2" src={currencyPeerImage} alt="icon" />
+          <PeercoinIcon className="mr-2" size={[16, 16]} />
           <Span mobileFS={14}>
             <FormattedMessage id={messages.weAreAnalyzing.id} />
           </Span>

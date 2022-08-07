@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import arrowDownIcon from 'images/arrowDown.svg?inline';
+import ArrowDownFillIcon from 'icons/ArrowDownFill';
 
 import Menu from './MenuStyled';
 
@@ -45,9 +45,15 @@ const Dropdown = ({ children, isOpen, target, toggle, isArrowed }) => (
     <TargetButton onClick={toggle}>
       {target}
       {isArrowed && (
-        <Chevron isOpen={isOpen}>
-          <img src={arrowDownIcon} alt="icon" />
-        </Chevron>
+        <>
+          <Chevron isOpen={isOpen}>
+            <ArrowDownFillIcon
+              size={[17, 11]}
+              fill="#7B7B7B"
+              className={isOpen && 'transform180'}
+            />
+          </Chevron>
+        </>
       )}
     </TargetButton>
 

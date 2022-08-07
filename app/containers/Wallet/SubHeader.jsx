@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
+import cn from 'classnames';
 
 import commonMessages from 'common-messages';
 
@@ -11,14 +12,13 @@ import {
   TEXT_PRIMARY,
 } from 'style-constants';
 
-import currencyPeerImage from 'images/currencyPeer.svg?external';
-import lockBoostImage from 'images/lock.svg?external';
-import availableImage from 'images/available.svg?external';
+import PeercoinIcon from 'icons/Peercoin';
+import LockIcon from 'icons/Lock';
+import WalletIcon from 'icons/Wallet';
 import walletCoinsImage from 'images/walletCoins.svg?inline';
 
 import { getFormattedNum3 } from 'utils/numbers';
 
-import { IconLg, IconSm } from 'components/Icon/IconWithSizes';
 import Span from 'components/Span';
 import A from 'components/A';
 import LargeImage from 'components/Img/LargeImage';
@@ -74,12 +74,14 @@ const SubHeader = ({
 
         <div>
           <div className="d-flex align-items-center">
-            <Span fontSize="38" lineHeight="47" mobileFS="28" bold>
-              <IconLg
-                className="mr-2"
-                icon={currencyPeerImage}
-                color={TEXT_PRIMARY}
-              />
+            <Span
+              className={cn('df aic')}
+              fontSize="38"
+              lineHeight="47"
+              mobileFS="28"
+              bold
+            >
+              <PeercoinIcon className="mr-2" stroke="#dfe3f2" />
               <AvailableBalance>
                 {getFormattedNum3(
                   Math.round(availableBalance * 1000000) / 1000000,
@@ -102,11 +104,11 @@ const SubHeader = ({
               <li>
                 <FormattedMessage {...messages.totalBalance} />
                 <Span>
-                  <IconSm
+                  <WalletIcon
                     className="mr-2"
-                    icon={availableImage}
-                    color={TEXT_PRIMARY}
+                    stroke={TEXT_PRIMARY}
                     fill={TEXT_PRIMARY}
+                    size={[12, 14]}
                   />
                   <span>{getFormattedNum3(balance)}</span>
                 </Span>
@@ -115,11 +117,11 @@ const SubHeader = ({
                 <li>
                   <FormattedMessage {...messages.stakedInCurrentPeriod} />
                   <Span>
-                    <IconSm
+                    <LockIcon
                       className="mr-2"
-                      icon={lockBoostImage}
-                      color={TEXT_PRIMARY}
+                      stroke={TEXT_PRIMARY}
                       fill={TEXT_PRIMARY}
+                      size={[11, 14]}
                     />
                     <span>{getFormattedNum3(stakedInCurrentPeriod)}</span>
                   </Span>
@@ -129,11 +131,11 @@ const SubHeader = ({
                 <li>
                   <FormattedMessage {...messages.stakedInNextPeriod} />
                   <Span>
-                    <IconSm
+                    <LockIcon
                       className="mr-2"
-                      icon={lockBoostImage}
-                      color={TEXT_PRIMARY}
+                      stroke={TEXT_PRIMARY}
                       fill={TEXT_PRIMARY}
+                      size={[11, 14]}
                     />
                     <span>{getFormattedNum3(stakedInNextPeriod)}</span>
                   </Span>

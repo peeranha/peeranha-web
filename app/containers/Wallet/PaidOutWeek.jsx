@@ -7,14 +7,12 @@ import { TEXT_SECONDARY } from 'style-constants';
 
 import { getFormattedNum3 } from 'utils/numbers';
 
-import currencyPeerImage from 'images/currencyPeer.svg?inline';
-
 import P from 'components/P';
 import Span from 'components/Span';
 import BaseRounded from 'components/Base/BaseRounded';
-import SmallImage from 'components/Img/SmallImage';
 import PickupButton from 'components/Button/Contained/InfoLarge';
 import ReceivedButton from 'components/Button/Contained/SecondaryLarge';
+import PeercoinIcon from 'icons/Peercoin';
 
 import messages from './messages';
 
@@ -91,7 +89,7 @@ const PaidOutWeek = ({
         {(REWARD_CLAIMING_ENABLED && (
           <WeekActions className="d-flex align-items-center justify-content-end">
             <P className="d-flex align-items-center">
-              <SmallImage className="mr-2" src={currencyPeerImage} alt="icon" />
+              <PeercoinIcon className="mr-2" size={[16, 16]} />
               <Span fontSize="20" mobileFS={14} bold>
                 {getFormattedNum3(formatEther(reward))}
               </Span>
@@ -136,7 +134,7 @@ const PaidOutWeek = ({
               bold
               style={{ gridColumn: '2', textAlign: 'right' }}
             >
-              <SmallImage className="mr-2" src={currencyPeerImage} alt="icon" />
+              <PeercoinIcon className="mr-2" size={[16, 16]} />
               {getFormattedNum3(formatEther(reward))}
             </Span>
           </EstimatedReward>

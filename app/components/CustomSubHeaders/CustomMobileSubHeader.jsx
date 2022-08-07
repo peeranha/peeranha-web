@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
+import cn from 'classnames';
 
 import { selectLogo } from 'containers/Home/selectors';
-
-import Arrow from '../Arrow';
+import ArrowDownFillIcon from 'icons/ArrowDownFill';
 import { Links } from './CustomSubHeader';
 
 const Div = styled.div`
@@ -96,10 +96,10 @@ const CustomMobileSubHeader = ({
         onClick={setVis}
       >
         <img src={communityLogo || showingLogo} alt="" />
-        <Arrow
-          className="mt-auto mb-auto"
-          color={styles.color.arrow}
-          rotate={visible}
+        <ArrowDownFillIcon
+          size={[17, 11]}
+          fill={styles.color.arrow}
+          className={cn(`mt-auto mb-auto ${visible && 'transform180'}`)}
         />
       </button>
       {visible && <Links links={links} styles={styles} device="mobile" />}

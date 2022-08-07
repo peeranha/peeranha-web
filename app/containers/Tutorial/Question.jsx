@@ -6,9 +6,8 @@ import createdHistory from 'createdHistory';
 
 import BaseTransparent from 'components/Base/BaseTransparent';
 
-import { IconSm } from 'components/Icon/IconWithSizes';
 import Span from 'components/Span';
-import arrowIconFilled from 'images/arrowDown.svg?external';
+import ArrowDownFillIcon from 'icons/ArrowDownFill';
 
 import {
   BG_SECONDARY_SPECIAL_4,
@@ -118,7 +117,10 @@ const Question = ({
   return (
     <QuestionBox id={questionId} isOpened={isOpened}>
       <ImgWrapper>
-        <IconSm rotate={isOpened} icon={arrowIconFilled} />
+        <ArrowDownFillIcon
+          size={[9, 7]}
+          className={isOpened && 'transform180'}
+        />
       </ImgWrapper>
 
       <QuestionBoxBody>

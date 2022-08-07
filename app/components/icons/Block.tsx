@@ -5,12 +5,13 @@ const Block: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
     id="block"
-    fill="curentColor"
+    fill="currentColor"
     viewBox="0 0 18 18"
     size={[18, 18]}
   >
     <g stroke={props.stroke || '#282828'} fill="none">
       <circle
+        fill={props.fill || 'none'}
         cx="7.5"
         cy="7.5"
         r="7"
