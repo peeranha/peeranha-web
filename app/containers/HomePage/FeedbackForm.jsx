@@ -6,7 +6,7 @@ import { TEXT_DARK, TEXT_LIGHT } from 'style-constants';
 
 import { scrollToSection } from 'utils/animation';
 
-import arrowUp from 'images/ArrowUP.svg?inline';
+import ArrowLeftThinIcon from 'icons/ArrowLeftThin';
 import letterSmile from 'images/letter-smile.svg?inline';
 
 import { FIRST_SCREEN, FIFTH_SCREEN, SEND_MESSAGE_FORM } from './constants';
@@ -43,7 +43,11 @@ const FeedbackForm = ({ translations, sendMessageLoading, sendMessage }) => (
                   className="icon-arrow-up d-none d-xl-flex"
                   onClick={() => scrollToSection(`#${FIRST_SCREEN}`)}
                 >
-                  <img src={arrowUp} alt="arrowUp" />
+                  <ArrowLeftThinIcon
+                    className="transform90"
+                    size={[24, 15]}
+                    fill="#7699ff"
+                  />
                 </button>
               </div>
             </div>

@@ -7,7 +7,7 @@ const DisLike: React.FC<IconProps> = (props): JSX.Element => (
     id="dislike"
     fill="currentColor"
     viewBox="0 0 18 18"
-    size={[18, 18]}
+    size={props.size || [18, 18]}
   >
     <g
       stroke={props.stroke || '#282828'}

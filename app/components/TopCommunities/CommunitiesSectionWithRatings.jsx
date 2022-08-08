@@ -8,7 +8,7 @@ import { TEXT_PRIMARY } from 'style-constants';
 import * as routes from 'routes-config';
 import messages from 'common-messages';
 
-import allCommunitiesIcon from 'images/createCommunity.svg?inline';
+import CreateCommunityIcon from 'icons/CreateCommunity';
 
 import A, { ADefault } from 'components/A';
 import H4 from 'components/H4';
@@ -60,7 +60,11 @@ const CommunitiesSectionWithRatings = ({
               to={allCommunitiesRoute}
               href={allCommunitiesRoute}
             >
-              <img className="mr-2" src={allCommunitiesIcon} alt="icon" />
+              <CreateCommunityIcon
+                className="mr-2"
+                fill="#7699FF"
+                stroke="#576FED"
+              />
               <Span color={TEXT_PRIMARY}>
                 <FormattedMessage id={messages.allCommunities.id} />
               </Span>

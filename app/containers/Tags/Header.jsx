@@ -9,7 +9,7 @@ import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
 import PlusIcon from 'icons/Plus';
 import TagsIcon from 'icons/Tags';
-import arrowLeft from 'images/arrowLeft.svg?inline';
+import ArrowLeftThinIcon from 'icons/ArrowLeftThin';
 import FilterIcon from 'icons/Filter';
 
 import H3 from 'components/H3';
@@ -90,7 +90,7 @@ export const Header = ({
           {!single && (
             <A to={tagsRoute}>
               <NavigationButton className="pl-0" islink>
-                <img src={arrowLeft} alt="x" />
+                <ArrowLeftThinIcon fill="#576FED" />
                 <span className="d-none d-sm-inline ml-2">
                   <FormattedMessage {...messages.backToList} />
                 </span>

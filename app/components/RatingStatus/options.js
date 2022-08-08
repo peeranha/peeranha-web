@@ -1,18 +1,11 @@
-import bannedSm from 'images/bannedSm.svg?external';
-import strangerSm from 'images/strangerSm.svg?external';
-import residentSm from 'images/residentSm.svg?external';
-import srResidentSm from 'images/srResidentSm.svg?external';
-import heroResidentSm from 'images/heroResidentSm.svg?external';
-import legendaryResidentSm from 'images/legendaryResidentSm.svg?external';
-
-import bannedLg from 'images/bannedLg.svg?external';
-import strangerLg from 'images/strangerLg.svg?external';
-import newbieLg from 'images/newbieLg.svg?external';
-import jrResidentLg from 'images/jrResidentLg.svg?external';
-import residentLg from 'images/residentLg.svg?external';
-import srResidentLg from 'images/srResidentLg.svg?external';
-import heroResidentLg from 'images/heroResidentLg.svg?external';
-import legendaryResidentLg from 'images/legendaryResidentLg.svg?external';
+import BannedIcon from 'icons/Banned';
+import StrangerBigIcon from 'icons/StrangerBig';
+import StrangerIcon from 'icons/Stranger';
+import NewbieIcon from 'icons/Newbie';
+import HeroIcon from 'icons/Hero';
+import JuniorIcon from 'icons/Junior';
+import RedidentIcon from 'icons/Redident';
+import SuperHeroIcon from 'icons/SuperHero';
 
 import messages from './messages';
 
@@ -23,8 +16,8 @@ const options = {
     maxEnergy: 0,
     messageId: messages.banned.id,
     icon: {
-      sm: bannedSm,
-      lg: bannedLg,
+      sm: <BannedIcon className="dif mr-1" stroke="#DC3545" />,
+      lg: <BannedIcon className="dif mr-1" stroke="#DC3545" size={[16, 16]} />,
       size: {
         sm: {
           width: '9',
@@ -43,8 +36,8 @@ const options = {
     maxEnergy: 50,
     messageId: messages.stranger.id,
     icon: {
-      sm: strangerSm,
-      lg: strangerLg,
+      sm: <StrangerBigIcon size={[15, 9]} stroke="#576FED" fill="#dde2fb" />,
+      lg: <StrangerBigIcon size={[26, 16]} stroke="#576FED" fill="#dde2fb" />,
       size: {
         sm: {
           width: '9',
@@ -63,8 +56,8 @@ const options = {
     maxEnergy: 100,
     messageId: messages.newbie.id,
     icon: {
-      sm: srResidentSm,
-      lg: newbieLg,
+      sm: <NewbieIcon size={[15, 9]} stroke="#576FED" fill="#dde2fb" />,
+      lg: <NewbieIcon size={[26, 16]} stroke="#576FED" fill="#dde2fb" />,
       size: {
         sm: {
           width: '15',
@@ -83,8 +76,8 @@ const options = {
     maxEnergy: 150,
     messageId: messages.jrResident.id,
     icon: {
-      sm: heroResidentSm,
-      lg: jrResidentLg,
+      sm: <HeroIcon size={[21, 9]} stroke="#576FED" fill="#dde2fb" />,
+      lg: <HeroIcon size={[36, 16]} stroke="#576FED" fill="#dde2fb" />,
       size: {
         sm: {
           width: '21',
@@ -103,8 +96,8 @@ const options = {
     maxEnergy: 200,
     messageId: messages.resident.id,
     icon: {
-      sm: residentSm,
-      lg: residentLg,
+      sm: <StrangerIcon size={[9, 9]} stroke="#576FED" fill="#dde2fb" />,
+      lg: <StrangerIcon size={[16, 16]} stroke="#576FED" fill="#dde2fb" />,
       size: {
         sm: {
           width: '9',
@@ -123,8 +116,8 @@ const options = {
     maxEnergy: 250,
     messageId: messages.srResident.id,
     icon: {
-      sm: srResidentSm,
-      lg: srResidentLg,
+      sm: <JuniorIcon size={[15, 9]} stroke="#576FED" fill="#dde2fb" />,
+      lg: <JuniorIcon size={[26, 16]} stroke="#576FED" fill="#dde2fb" />,
       size: {
         sm: {
           width: '15',
@@ -143,8 +136,8 @@ const options = {
     maxEnergy: 300,
     messageId: messages.heroResident.id,
     icon: {
-      sm: heroResidentSm,
-      lg: heroResidentLg,
+      sm: <RedidentIcon size={[21, 9]} stroke="#576FED" fill="#dde2fb" />,
+      lg: <RedidentIcon size={[36, 16]} stroke="#576FED" fill="#dde2fb" />,
       size: {
         sm: {
           width: '21',
@@ -163,8 +156,8 @@ const options = {
     maxEnergy: 350,
     messageId: messages.legResident.id,
     icon: {
-      sm: legendaryResidentSm,
-      lg: legendaryResidentLg,
+      sm: <SuperHeroIcon size={[11, 9]} stroke="#576FED" fill="#dde2fb" />,
+      lg: <SuperHeroIcon size={[19, 16]} stroke="#576FED" fill="#dde2fb" />,
       size: {
         sm: {
           width: '11',

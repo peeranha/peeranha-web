@@ -12,7 +12,7 @@ const SuperHero: React.FC<IconProps> = (props): JSX.Element => (
     <path
       d="M1.448 8.5h8.104l.772-6.943-2.36 2.753L5.5.86 3.036 4.31.676 1.557 1.448 8.5Z"
       stroke={props.stroke || '#282828'}
-      fill="#FFF"
+      fill={props.fill || '#FFF'}
     />
   </IconComponent>
 );

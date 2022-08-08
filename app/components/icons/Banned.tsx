@@ -5,9 +5,9 @@ const Banned: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
     id="banned"
-    fill="curentColor"
+    fill="currentColor"
     viewBox="0 0 9 9"
-    size={[9, 9]}
+    size={props.size || [9, 9]}
   >
     <g stroke={props.stroke || '#282828'} fill="none">
       <circle cx="4.5" cy="4.5" r="4" />

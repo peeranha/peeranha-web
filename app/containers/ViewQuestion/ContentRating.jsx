@@ -11,6 +11,7 @@ import disabledFingerUp from 'images/disabledFingerUp.svg?external';
 import disabledFingerDown from 'images/disabledFingerDown.svg?external';
 import emptyFingerUp from 'images/emptyFingerUp.svg?external';
 import emptyFingerDown from 'images/emptyFingerDown.svg?external';
+import DisLikeIcon from 'icons/DisLike';
 
 import {
   BORDER_SUCCESS,
@@ -23,20 +24,13 @@ import Span from 'components/Span';
 import Button from 'components/Button/Contained/Transparent';
 import { IconLg } from 'components/Icon/IconWithSizes';
 
-import { singleCommunityColors } from 'utils/communityManagement';
 import { UP_VOTE_BUTTON, DOWN_VOTE_BUTTON } from './constants';
-
-const colors = singleCommunityColors();
 
 const ImgBox = styled.div`
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-
-  .stroke {
-    stroke: ${colors.votingIconColor};
-  }
 
   :after {
     content: '';
@@ -46,24 +40,6 @@ const ImgBox = styled.div`
     width: 42px;
     height: 42px;
     border-radius: 50%;
-
-    ${x =>
-      x.src === greenFingerUpSingleQuestion
-        ? `border: 1px solid ${BORDER_SUCCESS};`
-        : ``};
-
-    ${x =>
-      x.src === redFingerDownSingleQuestion
-        ? `border: 1px solid ${BORDER_ATTENTION_LIGHT};`
-        : ``};
-  }
-
-  @media only screen and (max-width: 576px) {
-    ${x =>
-      x.src === greenFingerUpSingleQuestion ||
-      x.src === redFingerDownSingleQuestion
-        ? `width: 42px; height: 42px;`
-        : ``};
   }
 `;
 
@@ -151,23 +127,19 @@ UpvoteIcon.propTypes = {
 };
 
 function DownvoteIcon({ account, author, votingStatus }) {
-  let src = null;
+  let icon = null;
 
   if (account === author.user) {
-    src = disabledFingerDown;
+    icon = <DisLikeIcon size={[22, 22]} fill="#BDBDBD" stroke="#BDBDBD" />;
   } else if (votingStatus?.isDownVoted) {
-    src = redFingerDownSingleQuestion;
+    icon = <DisLikeIcon size={[22, 22]} fill="#F76F60" stroke="#F76F60" />;
   } else if (votingStatus?.isUpVoted) {
-    src = emptyFingerDown;
+    icon = <DisLikeIcon size={[22, 22]} fill="none" stroke="#BDBDBD" />;
   } else {
-    src = fingerDownSingleQuestionPage;
+    icon = <DisLikeIcon size={[22, 22]} fill="#7699FF" stroke="#576FED" />;
   }
 
-  return (
-    <ImgBox src={src}>
-      <IconLg icon={src} fill={BORDER_PRIMARY_LIGHT} />
-    </ImgBox>
-  );
+  return <ImgBox>{icon}</ImgBox>;
 }
 
 DownvoteIcon.propTypes = {

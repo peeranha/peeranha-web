@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import orderBy from 'lodash/orderBy';
 import { FormattedMessage } from 'react-intl';
 import PropTypes from 'prop-types';
+import CreateCommunityIcon from 'icons/CreateCommunity';
 import H4 from '../H4';
 import messages from '../../common-messages';
 import Grid from '../Grid';
 import CommunityItem from './CommunityItem';
-import allCommunitiesIcon from '../../images/createCommunity.svg?inline';
 import Span from '../Span';
 import { TEXT_PRIMARY } from '../../style-constants';
 import A, { ADefault } from '../A';
@@ -58,7 +58,11 @@ const TopCommunitiesSection = ({ ref, single, communities }) => {
               to={allCommunitiesRoute}
               href={allCommunitiesRoute}
             >
-              <img className="mr-2" src={allCommunitiesIcon} alt="icon" />
+              <CreateCommunityIcon
+                className="mr-2"
+                fill="#7699FF"
+                stroke="#576FED"
+              />
               <Span color={TEXT_PRIMARY}>
                 <FormattedMessage id={messages.allCommunities.id} />
               </Span>

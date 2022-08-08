@@ -6,7 +6,7 @@ import { BORDER_PRIMARY } from 'style-constants';
 
 import PlusIcon from 'icons/Plus';
 
-import createCommunityIcon from 'images/createCommunity.svg?inline';
+import CreateCommunityIcon from 'icons/CreateCommunity';
 
 import TransparentButton from 'components/Button/Contained/Transparent';
 import SubHeaderWrapper, {
@@ -42,12 +42,11 @@ const Header = ({
               className="d-flex align-items-center"
             >
               <span>
-                <img
+                <CreateCommunityIcon
                   className="d-none d-sm-inline-block"
-                  src={createCommunityIcon}
-                  alt="icon"
+                  fill="#7699FF"
+                  stroke="#576FED"
                 />
-
                 <PlusIcon fill={BORDER_PRIMARY} className="d-sm-none" />
               </span>
 

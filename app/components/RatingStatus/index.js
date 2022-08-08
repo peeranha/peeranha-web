@@ -93,17 +93,7 @@ const IconWithStatus = ({
 
   return (
     <RaitingInfo isProfilePage={isProfilePage} className={`${className}`}>
-      <Icon
-        className="d-inline-flex mr-1"
-        icon={full?.icon[size || 'sm']}
-        width={full?.icon.size[size || 'sm'].width}
-        height={full?.icon.size[size || 'sm'].height}
-        color={color}
-        fill={fill}
-        isColorImportant
-        specialStyles={bannedUser && styles.bannedIconStyles}
-      />
-
+      {full?.icon[size || 'sm']}
       <Span
         fontSize={size === 'lg' ? 18 : 14}
         lineHeight={size === 'lg' ? 18 : 14}
