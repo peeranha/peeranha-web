@@ -4,16 +4,12 @@ import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
 import { scrollToSection } from 'utils/animation';
-import arrowDown from 'images/arrow_down.svg?inline';
+import TriangleIcon from 'icons/Triangle';
 
 import messages from './messages';
 import Parallax from './Parallax';
 
-import {
-  FIRST_SCREEN,
-  SECOND_SCREEN,
-  SEND_EMAIL_FORM_INTRODUCTION,
-} from './constants';
+import { FIRST_SCREEN, SECOND_SCREEN } from './constants';
 
 import Header from './Header';
 import ClickRouteToFeed from './ClickRouteToFeed';
@@ -58,7 +54,7 @@ const Introduction = ({ translations, showLoginModal, account }) => (
           <div className="d-none d-lg-flex justify-content-center">
             <div className="justify-content-center icon-down">
               <Icon onClick={() => scrollToSection(`#${SECOND_SCREEN}`)}>
-                <img src={arrowDown} alt="arrowDown" />
+                <TriangleIcon />
               </Icon>
             </div>
           </div>

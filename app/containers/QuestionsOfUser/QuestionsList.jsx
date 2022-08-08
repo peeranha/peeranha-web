@@ -16,7 +16,7 @@ import {
 import { getFormattedDate } from 'utils/datetime';
 import { MONTH_3LETTERS__DAY_YYYY_TIME, POST_TYPE } from 'utils/constants';
 
-import answerIconEmptyInside from 'images/answerIconEmptyInside.svg?inline';
+import AnswerIcon from 'icons/Answer';
 
 import Base from 'components/Base';
 import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
@@ -158,7 +158,7 @@ const Question = ({
       />
       <RightBlock>
         <span className="d-flex align-items-center mb-2">
-          <img src={answerIconEmptyInside} className="mr-2" alt="icon" />
+          <AnswerIcon className="mr-2" stroke="#354A89" />
           <Span color={TEXT_PRIMARY_DARK} bold>
             {replies.length}
           </Span>

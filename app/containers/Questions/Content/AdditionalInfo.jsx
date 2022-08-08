@@ -16,11 +16,11 @@ import {
 
 import { getFormattedNum, getFormattedNum2 } from 'utils/numbers';
 
-import officialIcon from 'images/official.svg?inline';
-import bestAnswerIcon from 'images/bestAnswer.svg?inline';
-import answerIconEmptyInside from 'images/answerIconEmptyInside.svg?inline';
-import fingerUpAllQuestionsPage from 'images/fingerUpAllQuestionsPage.svg?inline';
-import fingerDownAllQuestionsPage from 'images/fingerDownAllQuestionsPage.svg?inline';
+import OfficialIcon from 'icons/Official';
+import BestAnswerIcon from 'icons/BestAnswer';
+import AnswerIcon from 'icons/Answer';
+import LikeIcon from 'icons/Like';
+import DisLikeIcon from 'icons/DisLike';
 import { singleCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
@@ -51,7 +51,7 @@ const Div = Base.extend`
     align-items: center;
     justify-content: center;
 
-    > img {
+    > svg {
       width: 18px;
       margin-right: 8px;
     }
@@ -90,28 +90,23 @@ const AdditionalInfo = ({
   const icon = useMemo(
     () => {
       if (officialAnswersCount) {
-        return officialIcon;
+        return <OfficialIcon stroke="#444444" />;
       }
 
-      return correctAnswerId ? bestAnswerIcon : answerIconEmptyInside;
+      return correctAnswerId ? (
+        <BestAnswerIcon stroke="#28A745" />
+      ) : (
+        <AnswerIcon stroke="#354A89" />
+      );
     },
     [correctAnswerId],
   );
-
   const color = useMemo(
     () =>
       !correctAnswerId || officialAnswersCount
         ? colors.linkColor || TEXT_PRIMARY_DARK
         : TEXT_SUCCESS,
     [officialAnswersCount, correctAnswerId],
-  );
-
-  const [src, formattedRating] = useMemo(
-    () => [
-      rating >= 0 ? fingerUpAllQuestionsPage : fingerDownAllQuestionsPage,
-      getFormattedNum2(rating),
-    ],
-    [rating],
   );
 
   const formattedAnswerCount = useMemo(
@@ -127,7 +122,7 @@ const AdditionalInfo = ({
       {!isTutorial && (
         <Div isAccepted={correctAnswerId}>
           <span>
-            <img src={icon} alt="icon" />
+            {icon}
             <Span color={color}>{formattedAnswerCount}</Span>
           </span>
         </Div>
@@ -135,9 +130,13 @@ const AdditionalInfo = ({
 
       <Div>
         <span>
-          <img src={src} alt="icon" />
+          {rating >= 0 ? (
+            <LikeIcon stroke="#354A89" />
+          ) : (
+            <DisLikeIcon stroke="#354A89" />
+          )}
           <Span color={colors.linkColor || TEXT_PRIMARY_DARK}>
-            {formattedRating}
+            {getFormattedNum2(rating)}
           </Span>
         </span>
       </Div>

@@ -8,25 +8,18 @@ import {
   TEXT_PREMIUM,
   BORDER_RADIUS_M,
   BG_PREMIUM_LIGHT,
-  TEXT_DARK,
   TEXT_PRIMARY,
-  BG_TRANSPARENT,
-  BORDER_TRANSPARENT,
-  BORDER_DARK,
   TUTORIAL_ICON_COLOR,
 } from 'style-constants';
+
+import TutorialIcon from 'icons/Tutorial';
+import HatIcon from 'icons/Hat';
+import DiscussionsIcon from 'icons/Discussions';
 
 import Container from 'components/Labels/QuestionType';
 
 import Popover from './Popover';
 import { POST_TYPE } from '../../../../utils/constants';
-
-import expertIcon from 'images/hat-3-outline-24.svg?external';
-import generalIcon from 'images/comments-outline-24.svg?external';
-import tutorialIcon from 'images/tutorial.svg?external';
-
-import { IconLg } from '../../../../components/Icon/IconWithSizes';
-import { svgDraw } from '../../../../components/Icon/IconStyled';
 
 const LabelsWrapper = styled.div`
   display: inline-flex;
@@ -51,53 +44,22 @@ const PromotedLabel = styled.span`
   border-radius: ${BORDER_RADIUS_M};
 `;
 
-const Icon = styled(IconLg)`
-  ${({ isTutorial, isExpert }) =>
-    svgDraw({
-      color: isTutorial
-        ? TUTORIAL_ICON_COLOR
-        : isExpert
-          ? TEXT_PRIMARY
-          : TEXT_DARK,
-    })};
-  background-color: ${BG_TRANSPARENT};
-  border-color: ${BORDER_TRANSPARENT};
-  font-weight: normal;
-  .opacity {
-    fill: none !important;
-  }
-  .fill {
-    fill: ${({ isTutorial }) =>
-      isTutorial ? TUTORIAL_ICON_COLOR : BORDER_DARK};
-  }
-  .semitransparent {
-    fill: none;
-  }
-
-  @media (max-width: 576px) {
-    margin-top: 40px;
-  }
-`;
-
 const types = {
   [POST_TYPE.generalPost]: {
     title: commonMessages.generalPopoverTitle.id,
     label: commonMessages.generalPopoverLabel.id,
     items: commonMessages.generalPopoverList.id,
-    icon: generalIcon,
   },
   [POST_TYPE.expertPost]: {
     title: commonMessages.expertPopoverTitle.id,
     label: commonMessages.expertPopoverLabel.id,
     items: commonMessages.expertPopoverList.id,
-    icon: expertIcon,
     isExpert: true,
   },
   [POST_TYPE.tutorial]: {
     title: commonMessages.tutorialPopoverTitle.id,
     label: commonMessages.tutorialPopoverLabel.id,
     items: commonMessages.tutorialPopoverList.id,
-    icon: tutorialIcon,
     isTutorial: true,
   },
 };
@@ -109,6 +71,16 @@ const QuestionType = ({ locale, postType, isPromoted }) => {
   const onMouseLeave = useCallback(() => changeVisibility(false), []);
 
   const type = types[postType];
+
+  const typeIcon = iconType => {
+    if (iconType.isTutorial) {
+      return <TutorialIcon stroke={TUTORIAL_ICON_COLOR} className="mr-2" />;
+    }
+    if (iconType.isExpert) {
+      return <HatIcon stroke={TEXT_PRIMARY} className="mr-2" />;
+    }
+    return <DiscussionsIcon className="mr-2" />;
+  };
 
   return (
     <LabelsWrapper>
@@ -127,12 +99,7 @@ const QuestionType = ({ locale, postType, isPromoted }) => {
                 items={type.items}
               />
             )}
-            <Icon
-              isExpert={type.isExpert}
-              isTutorial={type.isTutorial}
-              className="mr-2"
-              icon={type.icon}
-            />
+            {typeIcon(type)}
           </Container>
         </LabelItem>
       )}

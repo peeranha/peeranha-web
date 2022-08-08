@@ -15,17 +15,16 @@ import FollowCommunityButton from 'containers/FollowCommunityButton/DefaultButto
 import { MediumImageStyled } from 'components/Img/MediumImage';
 import CommunitySelector from 'components/CommunitySelector';
 import { MediumIconStyled } from 'components/Icon/MediumIcon';
-import { IconLg } from 'components/Icon/IconWithSizes';
 import H3 from 'components/H3';
 import Wrapper from 'components/Header/Simple';
 import Span from 'components/Span/index';
 
-import expertIcon from 'images/hat-3-outline-24.svg?external';
-import generalIcon from 'images/comments-outline-24.svg?external';
+import TutorialIcon from 'icons/Tutorial';
+import HatIcon from 'icons/Hat';
+import DiscussionsIcon from 'icons/Discussions';
+import FeedIcon from 'icons/Feed';
 import EditIcon from 'icons/Edit';
 
-import myFeedIcon from 'images/myFeedHeader.svg?external';
-import tutorialIcon from 'images/tutorial.svg?external';
 import createdHistory from 'createdHistory';
 import {
   isSingleCommunityWebsite,
@@ -96,38 +95,41 @@ export const Header = ({
       hasCommunityModeratorRole(getPermissions(profile), single)
     : false;
 
-  let defaultAvatar = null;
   let defaultLabel = null;
-  let defaultAvatarWidth = null;
   let route = 'feed';
   if (postsTypes.length === 1) {
     switch (postsTypes[0]) {
       case POST_TYPE.generalPost:
-        defaultAvatar = generalIcon;
         defaultLabel = intl.formatMessage({ id: messages.discussions.id });
-        defaultAvatarWidth = '24';
         route = 'questions';
         break;
       case POST_TYPE.expertPost:
-        defaultAvatar = expertIcon;
         defaultLabel = intl.formatMessage({ id: messages.expertPosts.id });
-        defaultAvatarWidth = '28';
         route = 'expertPosts';
         break;
       case POST_TYPE.tutorial:
-        defaultAvatar = tutorialIcon;
         defaultLabel = intl.formatMessage({ id: messages.tutorials.id });
-        defaultAvatarWidth = '28';
         route = 'tutorials';
         break;
     }
   } else {
-    defaultAvatar = myFeedIcon;
     defaultLabel = intl.formatMessage({
       id: messages[profile && !single ? 'myFeed' : 'feed'].id,
     });
-    defaultAvatarWidth = '38';
   }
+
+  const typeIcon = postsTypes => {
+    if (postsTypes.length === 1) {
+      if (postsTypes[0] === POST_TYPE.tutorial) {
+        return <TutorialIcon stroke={TEXT_PRIMARY} />;
+      }
+      if (postsTypes[0] === POST_TYPE.expertPost) {
+        return <HatIcon stroke={TEXT_PRIMARY} />;
+      }
+      return <DiscussionsIcon />;
+    }
+    return <FeedIcon />;
+  };
 
   const displayQuestionFilter = useMemo(
     () => !!single && !!topQuestions.length,
@@ -141,13 +143,7 @@ export const Header = ({
         <MediumImageStyled src={communityAvatar} alt="communityAvatar" />
       ) : (
         <StyledCustomIconButtonContainer>
-          <MediumIconStyled>
-            <IconLg
-              icon={communityAvatar || defaultAvatar}
-              width={defaultAvatarWidth}
-              fill={BORDER_PRIMARY}
-            />
-          </MediumIconStyled>
+          <MediumIconStyled>{typeIcon(postsTypes)}</MediumIconStyled>
         </StyledCustomIconButtonContainer>
       )}
 
