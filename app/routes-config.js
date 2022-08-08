@@ -21,6 +21,7 @@ export const home = () => `/about`;
 
 export const notFound = () => `/404`;
 export const errorPage = () => `/error-occured`;
+export const errorPostIsDeleted = () => `/errorPostIsDeleted`;
 
 export const profileView = userRedirect('');
 export const profileEdit = id => `/users/edit/${id}`;

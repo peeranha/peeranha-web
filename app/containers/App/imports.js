@@ -23,6 +23,9 @@ const EditProfilePage = React.lazy(() => import('containers/EditProfilePage'));
 const ViewProfilePage = React.lazy(() => import('containers/ViewProfilePage'));
 const NotFoundPage = React.lazy(() => import('containers/NotFoundPage'));
 const ErrorPage = React.lazy(() => import('containers/ErrorPage'));
+const ErrorPostIsDeleted = React.lazy(() =>
+  import('containers/ErrorPostIsDeleted'),
+);
 const Questions = React.lazy(() => import('containers/Questions'));
 const AskQuestion = React.lazy(() => import('containers/AskQuestion'));
 const ViewQuestion = React.lazy(() => import('containers/ViewQuestion'));
@@ -65,6 +68,7 @@ export {
   ViewProfilePage,
   NotFoundPage,
   ErrorPage,
+  ErrorPostIsDeleted,
   Questions,
   AskQuestion,
   ViewQuestion,

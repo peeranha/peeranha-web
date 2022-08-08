@@ -142,8 +142,16 @@ export const ViewQuestion = ({
         window.isRendered = true;
       }
 
-      if ((!questionDataLoading && !questionData) || questionData?.isDeleted) {
+      if (!questionDataLoading && !questionData) {
         history.push(routes.notFound());
+      }
+
+      if (
+        !questionDataLoading &&
+        !questionData &&
+        questionData?.isDeleted == undefined
+      ) {
+        history.push(routes.errorPostIsDeleted());
       }
     },
     [questionData, questionDataLoading],

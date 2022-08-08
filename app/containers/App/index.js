@@ -48,6 +48,7 @@ import {
   ViewProfilePage,
   NotFoundPage,
   ErrorPage,
+  ErrorPostIsDeleted,
   Questions,
   AskQuestion,
   ViewQuestion,
@@ -398,6 +399,11 @@ const App = ({
           <Route
             path={routes.errorPage()}
             render={props => Wrapper(ErrorPage, props)}
+          />
+
+          <Route
+            path={routes.errorPostIsDeleted()}
+            render={props => Wrapper(ErrorPostIsDeleted, props)}
           />
 
           <Route exact path={routes.facebookDataDeletion()}>
