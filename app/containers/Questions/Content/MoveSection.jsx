@@ -2,7 +2,7 @@ import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 
 import styled from 'styled-components';
-import arrowDownIcon from 'images/arrowDownCircleTwo.svg?inline';
+import ArrowDownCircleIcon from 'icons/ArrowDownCircle';
 
 const MoveButton = styled.button`
   opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
@@ -20,12 +20,12 @@ const Container = styled.div`
     display: flex;
     align-items: center;
 
-    > button img {
+    > button svg {
       width: 20px;
     }
   }
 
-  > div:nth-child(1) button img {
+  > div:nth-child(1) button svg {
     transform: rotate(180deg);
   }
 `;
@@ -51,7 +51,7 @@ const MoveSection = ({
           disabled={topQuestionActionProcessing}
           onClick={upQuestionMethod}
         >
-          <img src={arrowDownIcon} alt="up" />
+          <ArrowDownCircleIcon stroke="#444444" />
         </MoveButton>
       )}
     </div>
@@ -61,7 +61,7 @@ const MoveSection = ({
           disabled={topQuestionActionProcessing}
           onClick={downQuestionMethod}
         >
-          <img src={arrowDownIcon} alt="down" />
+          <ArrowDownCircleIcon stroke="#444444" />
         </MoveButton>
       )}
     </div>
