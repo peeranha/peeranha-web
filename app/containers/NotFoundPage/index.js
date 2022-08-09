@@ -21,7 +21,8 @@ import * as routes from 'routes-config';
 import { LINK_COLOR } from 'style-constants';
 
 import notFoundImage from 'images/404.svg?inline';
-
+import errorImage from 'images/oops.svg?inline';
+import history from 'createdHistory';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
@@ -73,12 +74,21 @@ const NotFound = /* istanbul ignore next */ ({ locale }) => {
       <Box>
         <div>
           <Span fontSize="24" bold>
-            <FormattedMessage {...messages.weAreSorry} />
+            <FormattedMessage
+              id={
+                history.location.hash
+                  ? messages.weAreSorryIsDeleted.id
+                  : messages.weAreSorry.id
+              }
+            />
           </Span>
         </div>
 
         <div>
-          <img src={notFoundImage} alt="404 page" />
+          <img
+            src={history.location.hash ? errorImage : notFoundImage}
+            alt="404 page"
+          />
         </div>
 
         <div>

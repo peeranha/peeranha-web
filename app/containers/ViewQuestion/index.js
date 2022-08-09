@@ -142,16 +142,8 @@ export const ViewQuestion = ({
         window.isRendered = true;
       }
 
-      if (!questionDataLoading && !questionData) {
-        history.push(routes.notFound());
-      }
-
-      if (
-        !questionDataLoading &&
-        !questionData &&
-        questionData?.isDeleted == undefined
-      ) {
-        history.push(routes.errorPostIsDeleted());
+      if ((!questionDataLoading && !questionData) || questionData?.isDeleted) {
+        history.push(routes.notFound(match.params.id));
       }
     },
     [questionData, questionDataLoading],
