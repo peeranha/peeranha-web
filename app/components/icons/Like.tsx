@@ -7,7 +7,7 @@ const Like: React.FC<IconProps> = (props): JSX.Element => (
     id="like"
     fill="currentColor"
     viewBox="0 0 18 18"
-    size={[18, 18]}
+    size={props.size || [18, 18]}
   >
     <g
       stroke={props.stroke || '#282828'}

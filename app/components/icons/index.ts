@@ -26,6 +26,7 @@ export { default as Discussions } from './Discussions';
 export { default as Answer } from './Answer';
 export { default as AnswerWithA } from './AnswerWithA';
 export { default as Banned } from './Banned';
+export { default as Feedback } from './Feedback';
 export { default as Stranger } from './Stranger';
 export { default as ArrowDown } from './ArrowDown';
 export { default as ArrowDownFill } from './ArrowDownFill';

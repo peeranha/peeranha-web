@@ -3,26 +3,12 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-import fingerUpSingleQuestionPage from 'images/fingerUpSingleQuestionPage.svg?external';
-import greenFingerUpSingleQuestion from 'images/greenFingerUpSingleQuestion.svg?external';
-import fingerDownSingleQuestionPage from 'images/fingerDownSingleQuestionPage.svg?external';
-import redFingerDownSingleQuestion from 'images/redFingerDownSingleQuestion.svg?external';
-import disabledFingerUp from 'images/disabledFingerUp.svg?external';
-import disabledFingerDown from 'images/disabledFingerDown.svg?external';
-import emptyFingerUp from 'images/emptyFingerUp.svg?external';
-import emptyFingerDown from 'images/emptyFingerDown.svg?external';
 import DisLikeIcon from 'icons/DisLike';
-
-import {
-  BORDER_SUCCESS,
-  BORDER_ATTENTION_LIGHT,
-  BORDER_PRIMARY_LIGHT,
-} from 'style-constants';
+import LikeIcon from 'icons/Like';
 import { getFormattedNum } from 'utils/numbers';
 
 import Span from 'components/Span';
 import Button from 'components/Button/Contained/Transparent';
-import { IconLg } from 'components/Icon/IconWithSizes';
 
 import { UP_VOTE_BUTTON, DOWN_VOTE_BUTTON } from './constants';
 
@@ -102,22 +88,18 @@ ContentRating.propTypes = {
 };
 
 function UpvoteIcon({ account, author, votingStatus }) {
-  let src = null;
+  let icon = null;
   if (account === author.user) {
-    src = disabledFingerUp;
+    icon = <LikeIcon size={[22, 22]} fill="#BDBDBD" stroke="#BDBDBD" />;
   } else if (votingStatus?.isUpVoted) {
-    src = greenFingerUpSingleQuestion;
+    icon = <LikeIcon size={[22, 22]} fill="#28A745" stroke="#28A745" />;
   } else if (votingStatus?.isDownVoted) {
-    src = emptyFingerUp;
+    icon = <LikeIcon size={[22, 22]} fill="none" stroke="#BDBDBD" />;
   } else {
-    src = fingerUpSingleQuestionPage;
+    icon = <LikeIcon size={[22, 22]} fill="#7699FF" stroke="#576FED" />;
   }
 
-  return (
-    <ImgBox src={src}>
-      <IconLg icon={src} fill={BORDER_PRIMARY_LIGHT} />
-    </ImgBox>
-  );
+  return <ImgBox>{icon}</ImgBox>;
 }
 
 UpvoteIcon.propTypes = {

@@ -7,11 +7,10 @@ import { BG_LIGHT, TEXT_SECONDARY } from 'style-constants';
 
 import { singleCommunityStyles } from 'utils/communityManagement';
 
-import energyIcon from 'images/energy.svg?external';
+import EnergyIcon from 'icons/Energy';
 
 import Ul, { Ul1 } from 'components/Ul/SpecialOne';
 import Span from 'components/Span';
-import { IconEm, IconLm } from 'components/Icon/IconWithSizes';
 import Dropdown from 'components/Dropdown';
 import { getStatus } from 'components/RatingStatus';
 import userStatusOptions from 'components/RatingStatus/options';
@@ -32,7 +31,7 @@ export const Button = ({ energy }) => (
     <Span fontSize="16" bold css={styles.energyNumberStyles}>
       {energy}
     </Span>
-    <IconEm icon={energyIcon} css={styles.dropDownIconStyles} />
+    <EnergyIcon size={[19, 19]} fill="#7699FF" stroke="#576FED" />
   </IconBG>
 );
 
@@ -40,7 +39,7 @@ const Menu = ({ energy, maxEnergy, faqQuestions }) => (
   <nav>
     <Ul>
       <li>
-        <IconLm icon={energyIcon} />
+        <EnergyIcon size={[20, 20]} fill="#7699FF" stroke="#576FED" />
         <Span className="mx-1">
           <Span fontSize="16" bold>
             {energy}

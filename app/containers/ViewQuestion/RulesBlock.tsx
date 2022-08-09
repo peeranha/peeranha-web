@@ -1,8 +1,8 @@
 import React from 'react';
 import { css } from '@emotion/react';
 import { FormattedMessage } from 'react-intl';
+import FeedbackIcon from 'icons/Feedback';
 import commonMessages from '../../common-messages';
-import warning from 'images/feedback.svg?inline';
 
 const RulesBlock: React.FC<{}> = (): JSX.Element => (
   <div
@@ -13,7 +13,7 @@ const RulesBlock: React.FC<{}> = (): JSX.Element => (
     `}
   >
     <div className="pl20">
-      <img src={warning} alt={'warning'} />
+      <FeedbackIcon />
     </div>
     <div className="pl20">
       <div className="df fdc jcsb lh1-5">
