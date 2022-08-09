@@ -7,7 +7,7 @@ const CloseRounded: React.FC<IconProps> = (props): JSX.Element => (
     id="close-rounded"
     fill="currentColor"
     viewBox="0 0 15 15"
-    size={[15, 15]}
+    size={props.size || [15, 15]}
   >
     <circle
       cx="7.5"

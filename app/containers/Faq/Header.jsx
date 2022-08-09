@@ -6,7 +6,7 @@ import commonMessages from 'common-messages';
 
 import { TEXT_PRIMARY } from 'style-constants';
 import faqPageHeader from 'images/faqPageHeader.svg?inline';
-import infoIcon from 'images/icon-information.svg?inline';
+import InformationIcon from 'icons/Information';
 
 import { MediumImageStyled } from 'components/Img/MediumImage';
 import H3 from 'components/H3';
@@ -33,7 +33,7 @@ const Header = () => (
     <WrapperRightPanel className="right-panel">
       <A to={routes.support()}>
         <button>
-          <img className="mr-1" src={infoIcon} alt="x" />
+          <InformationIcon className="mr-1" stroke="#576FED" fill="#576FED" />
           <Span color={TEXT_PRIMARY} className="button-label">
             <FormattedMessage {...commonMessages.support} />
           </Span>
