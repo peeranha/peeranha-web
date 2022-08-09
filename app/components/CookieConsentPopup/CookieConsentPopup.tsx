@@ -2,7 +2,6 @@ import React, { useRef, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import { css } from '@emotion/react';
-import cn from 'classnames';
 import useEventListener from 'hooks/useEventListener';
 import LargeOutlinedButton from '../Button/Outlined/InfoLarge';
 import { singleCommunityStyles } from '../../utils/communityManagement';
@@ -36,22 +35,22 @@ const CookieConsentPopup: React.FC = (): JSX.Element => {
       {!isCookieConsent && (
         <div
           ref={popup}
-          className={cn('pf b0 full-width')}
+          className="pf b0 full-width"
           css={css({
             ...styles.cookieConsent,
             ...(enableAnimation && styles.cookieConsentAnimation),
           })}
         >
-          <div className={cn('container')}>
-            <div className={cn('df aic jcsb pt24 pb24')}>
-              <div className={cn('df aic')}>
+          <div className="container">
+            <div className="df aic jcsb pt24 pb24">
+              <div className="df aic">
                 <img
                   src={cookie}
                   alt={'cookie'}
-                  className={cn('mr20 dn')}
+                  className="mr20 dn"
                   css={css(styles.cookieImage)}
                 />
-                <p className={cn('pr20 pl10')} css={css(styles.text)}>
+                <p className="pr20 pl10" css={css(styles.text)}>
                   <FormattedMessage id={commonMessages.cookieConsent.id} />
                   <Link to="/privacy-policy">
                     <FormattedMessage id={commonMessages.moreInfo.id} />

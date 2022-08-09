@@ -5,7 +5,7 @@ const EditSmall: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
     id="edit-small"
-    fill="curentColor"
+    fill="currentColor"
     viewBox="0 0 13 13"
     size={props.size || [13, 13]}
   >

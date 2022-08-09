@@ -19,7 +19,6 @@ import Span from 'components/Span';
 import Wrapper, { WrapperRightPanel } from 'components/Header/Simple';
 
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
-import cn from 'classnames';
 import { css } from '@emotion/react';
 
 export const Header = ({ headerDescriptor }) => {
@@ -30,7 +29,7 @@ export const Header = ({ headerDescriptor }) => {
     <Wrapper className="mb-to-sm-0 mb-from-sm-3">
       <H3>
         <div
-          className={cn('mr16 brc df aic jcc')}
+          className="mr16 brc df aic jcc"
           css={css`
             display: flex;
             background: ${BG_PRIMARY_SPECIAL_2};

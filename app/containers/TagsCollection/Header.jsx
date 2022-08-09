@@ -5,7 +5,6 @@ import { css } from '@emotion/react';
 
 import messages from 'common-messages';
 import { BG_PRIMARY_SPECIAL_2, BORDER_PRIMARY } from 'style-constants';
-import cn from 'classnames';
 
 import TagsIcon from 'icons/Tags';
 import PlusIcon from 'icons/Plus';
@@ -26,7 +25,7 @@ const Header = ({ openTagForm, profile }) => {
     <Wrapper className="mb-to-sm-0 mb-from-sm-3">
       <H3>
         <div
-          className={cn('mr16 brc df aic jcc')}
+          className="mr16 brc df aic jcc"
           css={css`
             display: flex;
             background: ${BG_PRIMARY_SPECIAL_2};

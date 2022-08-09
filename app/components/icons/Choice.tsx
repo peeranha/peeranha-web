@@ -1,11 +1,11 @@
 import React from 'react';
 import IconComponent, { IconProps } from './IconComponent';
 
-const Choise: React.FC<IconProps> = (props): JSX.Element => (
+const Choice: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
-    id="choise"
-    fill="curentColor"
+    id="choice"
+    fill="currentColor"
     viewBox="0 0 18 20"
     size={[18, 20]}
   >
@@ -16,4 +16,4 @@ const Choise: React.FC<IconProps> = (props): JSX.Element => (
   </IconComponent>
 );
 
-export default Choise;
+export default Choice;

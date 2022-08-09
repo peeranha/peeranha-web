@@ -334,7 +334,7 @@ export const B = ({
               <ArrowDownFillIcon
                 size={[14, 10]}
                 fill="#7B7B7B"
-                className={cn('mt-auto mb-auto')}
+                className="mt-auto mb-auto"
               />
             )}
           </SubitemsTitle>

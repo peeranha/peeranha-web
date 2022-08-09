@@ -1,13 +1,13 @@
 import React from 'react';
 import IconComponent, { IconProps } from './IconComponent';
 
-const Home: React.FC<IconProps> = ({ className }): JSX.Element => (
+const Home: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
+    {...props}
     id="tags"
     fill="currentColor"
     viewBox="0 0 24 24"
     size={[24, 24]}
-    className={className}
   >
     <g transform="translate(0.5, 0.5)">
       <polyline

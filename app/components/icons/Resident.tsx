@@ -1,11 +1,11 @@
 import React from 'react';
 import IconComponent, { IconProps } from './IconComponent';
 
-const Redident: React.FC<IconProps> = (props): JSX.Element => (
+const Resident: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
-    id="redident"
-    fill="curentColor"
+    id="resident"
+    fill="currentColor"
     viewBox="0 0 21 9"
     size={[21, 9]}
   >
@@ -17,4 +17,4 @@ const Redident: React.FC<IconProps> = (props): JSX.Element => (
   </IconComponent>
 );
 
-export default Redident;
+export default Resident;

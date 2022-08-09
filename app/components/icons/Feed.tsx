@@ -1,13 +1,13 @@
 import React from 'react';
 import IconComponent, { IconProps } from './IconComponent';
 
-const Feed: React.FC<IconProps> = ({ size, className }): JSX.Element => (
+const Feed: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
+    {...props}
     id="feed"
     fill="currentColor"
     viewBox="0 0 24 24"
-    size={size || [24, 24]}
-    className={className}
+    size={props.size || [24, 24]}
   >
     <g className="opacity" fill="#FFFFFF">
       <path

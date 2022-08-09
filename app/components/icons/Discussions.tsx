@@ -1,13 +1,13 @@
 import React from 'react';
 import IconComponent, { IconProps } from './IconComponent';
 
-const Discussions: React.FC<IconProps> = ({ className }): JSX.Element => (
+const Discussions: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
+    {...props}
     id="users"
     fill="currentColor"
     viewBox="0 0 24 24"
     size={[24, 24]}
-    className={className}
   >
     <g
       transform="translate(0.5, 0.5)"

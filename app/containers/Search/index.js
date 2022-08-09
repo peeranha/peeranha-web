@@ -6,7 +6,6 @@ import { createStructuredSelector } from 'reselect';
 import { compose, bindActionCreators } from 'redux';
 import { translationMessages } from 'i18n';
 import { css } from '@emotion/react';
-import cn from 'classnames';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -62,7 +61,7 @@ const Search = ({
       <Header className="mb-to-sm-0 mb-from-sm-3">
         <H3>
           <div
-            className={cn('mr16 brc')}
+            className="mr16 brc"
             css={css`
               background: ${BG_PRIMARY_SPECIAL_2};
               border: 1px solid #c2c6d8;

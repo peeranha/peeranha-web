@@ -3,7 +3,6 @@ import * as routes from 'routes-config';
 import { FormattedMessage } from 'react-intl';
 
 import commonMessages from 'common-messages';
-import cn from 'classnames';
 import { css } from '@emotion/react';
 
 import { BG_PRIMARY_SPECIAL_2, TEXT_PRIMARY } from 'style-constants';
@@ -21,7 +20,7 @@ const Header = () => (
   <Wrapper className="mb-to-sm-0 mb-from-sm-3">
     <H3>
       <div
-        className={cn('mr16 brc df aic jcc')}
+        className="mr16 brc df aic jcc"
         css={css`
           background: ${BG_PRIMARY_SPECIAL_2};
           border: 1px solid #c2c6d8;

@@ -5,7 +5,7 @@ const Lock: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
     id="lock"
-    fill="curentColor"
+    fill="currentColor"
     viewBox="0 0 13 16"
     size={props.size || [13, 16]}
   >

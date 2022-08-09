@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import {
   BG_TRANSPARENT,
   BORDER_TRANSPARENT,
-  TEXT_PRIMARY,
   LINK_COLOR,
 } from 'style-constants';
 

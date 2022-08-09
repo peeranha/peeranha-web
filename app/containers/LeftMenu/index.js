@@ -11,7 +11,6 @@ import { createStructuredSelector } from 'reselect';
 import { compose, bindActionCreators } from 'redux';
 
 import { TEXT_LIGHT } from 'style-constants';
-import cn from 'classnames';
 
 import CloseIcon from 'icons/Close';
 
@@ -63,7 +62,7 @@ const LeftMenu = /* istanbul ignore next */ ({
       />
 
       <After isMenuVisible={isMenuVisible} onClick={showLeftMenuDispatch}>
-        <CloseIcon fill={TEXT_LIGHT} size={[16, 16]} className={cn('cup')} />
+        <CloseIcon fill={TEXT_LIGHT} size={[16, 16]} className="cup" />
       </After>
     </Aside>
   );

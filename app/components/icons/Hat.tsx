@@ -8,7 +8,6 @@ const Hat: React.FC<IconProps> = (props): JSX.Element => (
     fill="currentColor"
     viewBox="0 0 24 24"
     size={[24, 24]}
-    className={props.className}
   >
     <g strokeWidth="1" transform="translate(0.5, 0.5)" fill="none">
       <line

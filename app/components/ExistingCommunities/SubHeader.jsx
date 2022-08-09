@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import commonMessages from 'common-messages';
-import cn from 'classnames';
 import { css } from '@emotion/react';
 import { BG_PRIMARY_SPECIAL_2, TEXT_SECONDARY } from 'style-constants';
 
@@ -45,7 +44,7 @@ export const SubHeader = ({ changeSorting, sorting, communitiesNumber }) => (
   <SubHeaderWrapper position="bottom">
     <H3>
       <div
-        className={cn('mr16 brc df aic jcc')}
+        className="mr16 brc df aic jcc"
         css={css`
           display: flex;
           background: ${BG_PRIMARY_SPECIAL_2};

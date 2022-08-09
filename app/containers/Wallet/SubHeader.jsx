@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
-import cn from 'classnames';
 
 import commonMessages from 'common-messages';
 
@@ -75,7 +74,7 @@ const SubHeader = ({
         <div>
           <div className="d-flex align-items-center">
             <Span
-              className={cn('df aic')}
+              className="df aic"
               fontSize="38"
               lineHeight="47"
               mobileFS="28"

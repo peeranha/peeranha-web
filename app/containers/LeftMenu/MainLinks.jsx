@@ -19,7 +19,6 @@ import {
 
 import * as routes from 'routes-config';
 import messages from 'common-messages';
-import cn from 'classnames';
 
 import {
   isSingleCommunityWebsite,
@@ -144,30 +143,30 @@ const MainLinks = ({ currClientHeight, profile }) => {
   return (
     <Box currClientHeight={currClientHeight}>
       <A1 to={routes.feed()} name="feed" route={route}>
-        <FeedIcon className={cn('mr8')} />
+        <FeedIcon className="mr8" />
         <FormattedMessage
           id={messages[profile && !singleCommId ? 'myFeed' : 'feed'].id}
         />
       </A1>
 
       <A1 to={routes.questions()} name="questions" route={route}>
-        <DiscussionsIcon className={cn('mr8')} />
+        <DiscussionsIcon className="mr8" />
         <FormattedMessage {...messages.discussions} />
       </A1>
 
       <A1 to={routes.expertPosts()} name="experts" route={route}>
-        <HatIcon className={cn('mr8')} />
+        <HatIcon className="mr8" />
         <FormattedMessage {...messages.expertPosts} />
       </A1>
 
       <A1 to={routes.tutorials()} name="tutorials" route={route}>
-        <TutorialIcon className={cn('mr8')} />
+        <TutorialIcon className="mr8" />
         <FormattedMessage {...messages.tutorials} />
       </A1>
 
       {!singleCommId && (
         <A1 to={routes.communities()} name="communities" route={route}>
-          <CommunitiesIcon className={cn('mr8')} />
+          <CommunitiesIcon className="mr8" />
           <FormattedMessage {...messages.communities} />
         </A1>
       )}
@@ -177,13 +176,13 @@ const MainLinks = ({ currClientHeight, profile }) => {
         name="tags"
         route={route}
       >
-        <TagsIcon className={cn('mr8')} />
+        <TagsIcon className="mr8" />
         <FormattedMessage {...messages.tags} />
       </A1>
 
       {hasGlobalModeratorRole() && (
         <A1 to={routes.users()} name="users" route={route}>
-          <UsersIcon className={cn('mr8')} />
+          <UsersIcon className="mr8" />
           <FormattedMessage {...messages.users} />
         </A1>
       )}
@@ -191,7 +190,7 @@ const MainLinks = ({ currClientHeight, profile }) => {
       {!styles.withoutFAQ &&
         !singleCommId && (
           <A1 to={routes.faq()} name="faq" route={route}>
-            <FaqIcon className={cn('mr8')} />
+            <FaqIcon className="mr8" />
             <FormattedMessage {...messages.faq} />
           </A1>
         )}

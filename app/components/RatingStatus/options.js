@@ -4,7 +4,7 @@ import StrangerIcon from 'icons/Stranger';
 import NewbieIcon from 'icons/Newbie';
 import HeroIcon from 'icons/Hero';
 import JuniorIcon from 'icons/Junior';
-import RedidentIcon from 'icons/Redident';
+import ResidentIcon from 'icons/Resident';
 import SuperHeroIcon from 'icons/SuperHero';
 
 import messages from './messages';
@@ -136,8 +136,8 @@ const options = {
     maxEnergy: 300,
     messageId: messages.heroResident.id,
     icon: {
-      sm: <RedidentIcon size={[21, 9]} stroke="#576FED" fill="#dde2fb" />,
-      lg: <RedidentIcon size={[36, 16]} stroke="#576FED" fill="#dde2fb" />,
+      sm: <ResidentIcon size={[21, 9]} stroke="#576FED" fill="#dde2fb" />,
+      lg: <ResidentIcon size={[36, 16]} stroke="#576FED" fill="#dde2fb" />,
       size: {
         sm: {
           width: '21',

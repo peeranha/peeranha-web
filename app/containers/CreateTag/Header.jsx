@@ -9,7 +9,6 @@ import {
   BORDER_PRIMARY,
   BG_PRIMARY_SPECIAL_2,
 } from 'style-constants';
-import cn from 'classnames';
 import { css } from '@emotion/react';
 
 import TagsIcon from 'icons/Tags';
@@ -30,7 +29,7 @@ export const Header = ({
   <Wrapper className="mb-to-sm-0 mb-from-sm-3">
     <H3>
       <div
-        className={cn('mr16 brc df aic jcc')}
+        className="mr16 brc df aic jcc"
         css={css`
           display: flex;
           background: ${BG_PRIMARY_SPECIAL_2};
