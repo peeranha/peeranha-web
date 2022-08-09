@@ -7,7 +7,7 @@ const SingleCommunity: React.FC<IconProps> = (props): JSX.Element => (
     id="search-big"
     fill="curentColor"
     viewBox="0 0 16 16"
-    size={[16, 16]}
+    size={props.size || [16, 16]}
   >
     <line
       fill="none"

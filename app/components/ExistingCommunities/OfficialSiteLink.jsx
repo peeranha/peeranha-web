@@ -4,19 +4,9 @@ import styled from 'styled-components';
 
 import { TEXT_PRIMARY } from 'style-constants';
 
-import globe from 'images/globe-outline-16.svg?external';
-import Icon from 'components/Icon';
+import GlobeIcon from 'icons/Globe';
 
 import { ADefault } from 'components/A';
-
-const SiteIcon = styled(Icon)`
-  display: flex;
-  align-items: center;
-  margin-right: 4px;
-  .globeStroke {
-    stroke: ${TEXT_PRIMARY};
-  }
-`;
 
 const SiteText = styled.span`
   max-width: 220px;
@@ -50,7 +40,7 @@ const OfficialSiteLink = ({ website }) => (
     target="_blank"
     rel="noopener noreferrer"
   >
-    <SiteIcon icon={globe} width="12" height="12" />
+    <GlobeIcon size={[12, 12]} stroke={TEXT_PRIMARY} className="mr4" />
     <SiteText>{getShortUrl(website)}</SiteText>
   </SiteLink>
 );

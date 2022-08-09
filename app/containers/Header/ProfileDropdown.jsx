@@ -15,31 +15,22 @@ import {
   singleCommunityStyles,
 } from 'utils/communityManagement';
 
-import logoutIcon from 'images/logout.svg?external';
-
 import { getUserAvatar } from 'utils/profileManagement';
 import UserNoPhotoIcon from 'icons/UserNoPhoto';
+import LogOutIcon from 'icons/LogOut';
 
 import Dropdown from 'components/Dropdown';
 import Ul from 'components/Ul/SpecialOne';
 import Span from 'components/Span';
 import A from 'components/A';
 import { MediumSpecialImage } from 'components/Img/MediumImage';
-import { IconLg } from 'components/Icon/IconWithSizes';
 import Logout from 'containers/Logout';
-import Icon from 'components/Icon/index';
 import { getUserName } from 'utils/user';
 import { selectIsMenuVisible } from '../AppWrapper/selectors';
 import { getPermissions } from '../../utils/properties';
 
 const styles = singleCommunityStyles();
 const colors = singleCommunityColors();
-
-const StatusBox = styled.span`
-  display: inline-flex;
-  font-size: 14px;
-  margin-top: 2px;
-`;
 
 const Info = styled.span`
   padding: 0 10px;
@@ -147,11 +138,7 @@ const Menu = memo(
 
         <Ul>
           <Logout>
-            <IconLg
-              className="mr-1"
-              fill={colors.linkColor}
-              icon={logoutIcon}
-            />
+            <LogOutIcon className="mr-1" stroke="#576FED" size={[24, 24]} />
             <Span color={colors.linkColor || TEXT_PRIMARY}>
               <FormattedMessage {...messages.logout} />
             </Span>

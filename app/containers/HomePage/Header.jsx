@@ -7,15 +7,14 @@ import { LANDING_FONT, TEXT_PRIMARY, TEXT_LIGHT } from 'style-constants';
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
+import LoginIcon from 'icons/Login';
 import logo from 'images/Logo.svg?inline';
-import login from 'images/Login.svg?external';
 import CloseIcon from 'icons/Close';
 import BurgerIcon from 'icons/Burger';
 
 import { scrollToSection } from 'utils/animation';
 
 import A from 'components/A';
-import { IconLm } from 'components/Icon/IconWithSizes';
 import Button from 'components/Button/Outlined/InfoLarge';
 
 import { HEADER_ID, SECOND_SCREEN, THIRD_SCREEN } from './constants';
@@ -71,7 +70,7 @@ const Header = ({ showLoginModal, account }) => {
               {!account && (
                 <React.Fragment>
                   <button className="login" onClick={showLoginModal}>
-                    <IconLm className="mr-2" icon={login} />
+                    <LoginIcon className="mr-2" />
                     <FormattedMessage {...messages.login} />
                   </button>
                 </React.Fragment>

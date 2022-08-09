@@ -4,10 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
 
-import { IconLm } from 'components/Icon/IconWithSizes';
-
-import topQuestionActiveIcon from 'images/starActive.svg?external';
-import topQuestionsInactiveIcon from 'images/star.svg?external';
+import StarIcon from 'icons/Star';
 
 import { BORDER_WARNING_LIGHT } from 'style-constants';
 
@@ -41,9 +38,11 @@ const TopQuestion = ({
   const topQuestionIcon = useMemo(
     () => {
       if (isTopQuestion) {
-        return topQuestionActiveIcon;
+        return (
+          <StarIcon fill={BORDER_WARNING_LIGHT} stroke={BORDER_WARNING_LIGHT} />
+        );
       } else if (isModerator && topQuestionsCount < MAX_TOP_QUESTIONS_COUNT) {
-        return topQuestionsInactiveIcon;
+        return <StarIcon stroke={BORDER_WARNING_LIGHT} />;
       }
 
       return undefined;
@@ -65,11 +64,7 @@ const TopQuestion = ({
         disabled={topQuestionActionProcessing}
       >
         {visible && <TopQuestionPopover locale={locale} />}
-        <IconLm
-          icon={topQuestionIcon}
-          fill={BORDER_WARNING_LIGHT}
-          color={BORDER_WARNING_LIGHT}
-        />
+        {topQuestionIcon}
       </Button>
     )
   );

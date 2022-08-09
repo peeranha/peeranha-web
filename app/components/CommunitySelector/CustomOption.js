@@ -6,8 +6,7 @@ import { TEXT_SECONDARY } from 'style-constants';
 import Img, { CELL } from 'components/Img';
 import Span from 'components/Span';
 import { Box } from 'components/FormFields/SelectField';
-
-import okayBlueIcon from 'images/okayBlueIcon.svg?inline';
+import CheckedIcon from 'icons/Checked';
 
 const EmptyOption = styled.span`
   width: ${CELL}px;
@@ -16,6 +15,7 @@ const EmptyOption = styled.span`
 export const ImgWrapper = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
   margin-left: -14%;
 `;
 
@@ -28,7 +28,7 @@ const Image = ({ avatar, selectedOptionId, optionValue }) => {
   if (selectedOptionId === optionValue)
     return (
       <ImgWrapper>
-        <Img src={okayBlueIcon} alt="chosen" />
+        <CheckedIcon stroke="#576FED" className="ml12 mr8" />
         {avatar ? (
           <Img src={avatar} alt="comm_avatar" />
         ) : (

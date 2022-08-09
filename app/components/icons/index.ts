@@ -13,6 +13,7 @@ export { default as Communities } from './Communities';
 export { default as Tags } from './Tags';
 export { default as Users } from './Users';
 export { default as UsersBig } from './UsersBig';
+export { default as DisabledNotification } from './DisabledNotification';
 export { default as Faq } from './Faq';
 export { default as BestAnswer } from './BestAnswer';
 export { default as Globe } from './Globe';

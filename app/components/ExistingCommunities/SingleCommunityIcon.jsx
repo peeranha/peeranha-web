@@ -3,17 +3,10 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { translationMessages } from 'i18n';
 
-import singleCommunity from 'images/singleCommunity.svg?external';
+import SingleCommunityIc from 'icons/SingleCommunity';
 import { showPopover, closePopover } from 'utils/popover';
 
-import Icon from 'components/Icon';
-
 import messages from './messages';
-
-const IconSingle = styled(Icon)`
-  margin-left: 8px;
-  margin-right: 8px;
-`;
 
 const ButtonSingle = styled.button`
   display: inline;
@@ -88,14 +81,14 @@ const SingleCommunityIcon = ({ locale, id }) => {
         onClick={e => iPadClick(e)}
         onBlur={onBlur}
       >
-        <IconSingle icon={singleCommunity} width="14" height="14" />
+        <SingleCommunityIc className="ml8 mr8" size={[14, 14]} />
       </ButtonSingle>
       <ButtonSingleMob
         onBlur={onBlur}
         id={idMobile}
         onClick={e => toggleTooltipMobile(e)}
       >
-        <IconSingle icon={singleCommunity} width="14" height="14" />
+        <SingleCommunityIc className="ml8 mr8" size={[14, 14]} />
       </ButtonSingleMob>
     </>
   );

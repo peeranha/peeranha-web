@@ -7,7 +7,7 @@ const Globe: React.FC<IconProps> = (props): JSX.Element => (
     id="globe"
     fill="curentColor"
     viewBox="0 0 16 16"
-    size={[16, 16]}
+    size={props.size || [16, 16]}
   >
     <ellipse
       cx="8.5"

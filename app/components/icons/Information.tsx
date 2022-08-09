@@ -7,7 +7,7 @@ const Information: React.FC<IconProps> = (props): JSX.Element => (
     id="information"
     fill="curentColor"
     viewBox="0 0 18 19"
-    size={[18, 19]}
+    size={props.size || [18, 19]}
   >
     <g transform="translate(2 1)" fill="none">
       <circle

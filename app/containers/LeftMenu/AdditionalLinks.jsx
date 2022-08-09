@@ -10,12 +10,11 @@ import {
 } from 'utils/communityManagement';
 
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
-import infoIcon from 'images/information.svg?external';
+import InformationIcon from 'icons/Information';
 
 import { TEXT_SECONDARY } from 'style-constants';
 import messages from 'common-messages';
 
-import Icon from 'components/Icon';
 import Dropdown from 'components/Dropdown';
 import A, { ADefault } from 'components/A';
 
@@ -88,10 +87,6 @@ const LiAdditionalStyles = css`
   padding: 0 !important;
 `;
 
-const StyledIcon = styled(Icon)`
-  margin-right: 10px !important;
-`;
-
 const Link = ({ path, message, cssStyles }) =>
   document.location.origin === process.env.APP_LOCATION ? (
     <A to={path} css={cssStyles}>
@@ -120,7 +115,7 @@ const InfoLinksDropDown = ({ withTitle }) => (
           lineHeight="20"
           color={TEXT_SECONDARY}
         >
-          <StyledIcon icon={infoIcon} width="16" height="16" />
+          <InformationIcon size={[16, 16]} className="mr8" />
           {withTitle && <FormattedMessage {...messages.more} />}
         </Span>
       </>

@@ -5,8 +5,7 @@ import styled from 'styled-components';
 import { BG_LIGHT, BORDER_RADIUS_L } from 'style-constants';
 import PropTypes from 'prop-types';
 import { getIpfsHashFromBytes32 } from 'utils/ipfs.js';
-import ipfsLogo from 'images/ipfs-logo.svg?external';
-import { IconSm } from 'components/Icon/IconWithSizes';
+import IpfsIcon from 'icons/Ipfs';
 import { getFormattedDate } from 'utils/datetime';
 import { MONTH_3LETTERS__DAY_YYYY_TIME } from 'utils/constants';
 import A from 'components/A';
@@ -68,7 +67,12 @@ const IPFSInformation = ({ locale, ipfsHash, histories }) => {
 
   return (
     <Label>
-      <IconSm icon={ipfsLogo} className="mr-1" />
+      <IpfsIcon
+        className="mr-1"
+        size={[14, 14]}
+        fill="#469ea2"
+        stroke="#469ea2"
+      />
       <Span fontSize="14">
         {translationMessages[locale][commonMessages.ipfsHashValue.id]}
         {': '}
