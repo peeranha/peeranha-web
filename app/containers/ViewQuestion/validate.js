@@ -323,11 +323,11 @@ export const deleteAnswerValidator = (
   questionData,
 ) => {
   const MIN_ENERGY = 2;
-  const communityId = questionData.communityId;
+
   const isGlobalAdmin = hasGlobalModeratorRole(getPermissions(profileInfo));
   const isCommunityModerator = hasCommunityModeratorRole(
     profileInfo.permissions,
-    communityId,
+    questionData.communityId,
   );
   let message;
   const itemData = questionData.answers.filter(x => x.id === answerid)[0];
