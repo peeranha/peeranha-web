@@ -10,7 +10,7 @@
  */
 
 import React, { useEffect } from 'react';
-import PropTypes, { number } from 'prop-types';
+import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { translationMessages } from 'i18n';
 import { createStructuredSelector } from 'reselect';
