@@ -10,7 +10,7 @@
  */
 
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { number } from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { translationMessages } from 'i18n';
 import { createStructuredSelector } from 'reselect';
@@ -62,6 +62,9 @@ const NotFound = /* istanbul ignore next */ ({ locale }) => {
     };
   }, []);
 
+  const getParameter = history.location.search.split('=');
+  const checkGetParameter = getParameter[0] == '?id' && !isNaN(getParameter[1]);
+
   return (
     <React.Fragment>
       <Seo
@@ -76,7 +79,7 @@ const NotFound = /* istanbul ignore next */ ({ locale }) => {
           <Span fontSize="24" bold>
             <FormattedMessage
               id={
-                history.location.hash
+                checkGetParameter
                   ? messages.weAreSorryIsDeleted.id
                   : messages.weAreSorry.id
               }
@@ -86,7 +89,7 @@ const NotFound = /* istanbul ignore next */ ({ locale }) => {
 
         <div>
           <img
-            src={history.location.hash ? errorImage : notFoundImage}
+            src={checkGetParameter ? errorImage : notFoundImage}
             alt="404 page"
           />
         </div>
