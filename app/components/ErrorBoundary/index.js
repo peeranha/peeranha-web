@@ -13,20 +13,23 @@ import * as routes from 'routes-config';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { reportUIError } from 'utils/web_integration/src/util/uiError';
+import { logError } from 'utils/web_integration/src/logger/index';
 import ErrorMessage from './ErrorMessage';
 
 /* eslint-disable react/prefer-stateless-function */
 export class ErrorBoundary extends React.PureComponent {
-  state = {
-    error: null,
-    errorInfo: null,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      error: null,
+      errorInfo: null,
+    };
+  }
 
   componentDidCatch(error, errorInfo) {
     if (process.env.NODE_ENV === 'production' && !process.env.IS_TEST_ENV) {
-      const { account } = this.props;
-      reportUIError(account, error);
+      const { user } = this.props;
+      logError({ user, error: JSON.stringify({ stack: error.stack }) });
       createdHistory.push(routes.errorPage());
     } else {
       this.setState({
@@ -49,11 +52,11 @@ export class ErrorBoundary extends React.PureComponent {
 
 ErrorBoundary.propTypes = {
   children: PropTypes.any,
-  account: PropTypes.string,
+  user: PropTypes.string,
 };
 
 export default compose(
   connect(state => ({
-    account: makeSelectAccount()(state),
+    user: makeSelectAccount()(state),
   })),
 )(ErrorBoundary);

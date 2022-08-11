@@ -133,7 +133,7 @@ export function* loggerWorker(error) {
     const loginData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
 
     yield call(logError, {
-      user: user || 'none',
+      user,
       error: JSON.stringify({
         message:
           typeof error[key] === 'string' ? error[key] : error[key].message,
