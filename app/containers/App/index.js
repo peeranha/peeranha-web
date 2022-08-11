@@ -88,6 +88,7 @@ import { REFERRAL_CODE_URI } from './constants';
 import { AUTOLOGIN_DATA } from '../Login/constants';
 import { redirectToFeed } from './actions';
 import { hasGlobalModeratorRole } from '../../utils/properties';
+import CookieConsentPopup from '../../components/CookieConsentPopup';
 
 const single = isSingleCommunityWebsite();
 
@@ -143,6 +144,7 @@ const App = ({
 
         <ScrollTo />
         <Popover />
+        <CookieConsentPopup />
 
         <Switch>
           <Route exact path={routes.home()}>
@@ -369,7 +371,7 @@ const App = ({
             render={props => Wrapper(EditAnswer, props)}
           />
 
-          {hasGlobalModeratorRole() && (
+          {(hasGlobalModeratorRole() || single) && (
             <Route
               exact
               path={routes.users()}

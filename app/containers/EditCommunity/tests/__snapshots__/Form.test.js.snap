@@ -33,7 +33,7 @@ exports[`<Form /> renders and matches the snapshot 1`] = `
       class="AvatarField__InfoMessage-sc-1bmtuz8-1 bKZxys"
     >
       <span>
-        File size should not exceed 2Mb
+        File size should not exceed 5Mb
       </span>
     </div>
   </div>

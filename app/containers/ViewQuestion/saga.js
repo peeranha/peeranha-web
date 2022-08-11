@@ -1,5 +1,6 @@
 /* eslint consistent-return: 0, array-callback-return: 0, eqeqeq: 0, no-param-reassign: 0, no-bitwise: 0, no-shadow: 0, func-names: 0 */
 
+import { getProfileInfo } from 'utils/profileManagement';
 import {
   all,
   call,
@@ -176,6 +177,14 @@ export function* getQuestionData({
 
   if (user && (isQuestionChanged || isQuestionJustCreated)) {
     question = yield call(getQuestionById, ethereumService, questionId, user);
+    if (question.officialReply) {
+      const officialReply = question.answers.find(
+        answer => answer.id === question.officialReply,
+      );
+      if (officialReply) {
+        officialReply.isOfficialReply = true;
+      }
+    }
   } else {
     question = yield call(getQuestionFromGraph, +questionId);
     question.commentCount = question.comments.length;
@@ -331,7 +340,7 @@ export function* getQuestionData({
         const author = yield call(getUserProfileWorker, {
           user: userFromItem,
           getFullProfile: true,
-          isLogin: user === userFromItem,
+          communityIdForRating: question.communityId,
         });
         users.get(userFromItem).map(cachedItem => {
           cachedItem.author = author;
@@ -824,15 +833,25 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
     questionData.replyCount += 1;
     const replyId = questionData.replyCount;
 
+    const updatedProfileInfo = yield call(
+      getProfileInfo,
+      profileInfo.user,
+      ethereumService,
+      true,
+      true,
+      questionData.communityId,
+    );
+
     const newAnswer = {
       id: replyId,
       postTime: String(dateNowInSeconds()),
       user: profileInfo.user,
       properties: official ? [{ key: 10, value: 1 }] : [],
+      isOfficialReply: official,
       history: [],
       isItWrittenByMe: true,
       votingStatus: {},
-      author: profileInfo,
+      author: updatedProfileInfo,
       comments: [],
       commentCount: 0,
       rating: 0,
@@ -1186,6 +1205,7 @@ export function* updateQuestionDataAfterTransactionWorker({
       yield put(removeUserProfile(usersForUpdate[0]));
       userInfoOpponent = yield call(getUserProfileWorker, {
         user: usersForUpdate[0],
+        communityIdForRating: questionData.communityId,
       });
     }
 

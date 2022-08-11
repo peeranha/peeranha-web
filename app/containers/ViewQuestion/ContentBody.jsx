@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import Base from 'components/Base';
 import TextBlock from 'components/FormFields/TextBlock';
 
-import { isAnswerOfficial } from 'utils/properties';
-
 import Comments from './Comments';
 import BestAnswerMarker from './BestAnswerMarker';
 
@@ -43,16 +41,9 @@ export const ContentBody = ({
   infiniteImpact,
   commId,
   histories,
+  isOfficialReply,
 }) => {
-  const isOfficial = useMemo(
-    () =>
-      isAnswerOfficial(
-        questionData.answers.find(({ id }) => id === answerId) || {
-          isOfficialReply: false,
-        },
-      ),
-    [questionData.answers, answerId],
-  );
+  const isOfficial = questionData.officialReply === answerId || isOfficialReply;
 
   return (
     <Base position="bottom" paddingTop="10">

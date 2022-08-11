@@ -47,6 +47,22 @@ export const getUsers = async ({
   return users?.data.users;
 };
 
+export const getUsersByCommunity = async ({
+  limit = 50,
+  skip,
+  communityId,
+}) => {
+  const users = await client.query({
+    query: gql(usersByCommunityQuery),
+    variables: {
+      first: limit,
+      skip,
+      communityId,
+    },
+  });
+  return users?.data.userCommunityRatings.map(item => item.user);
+};
+
 export const getUser = async id => {
   const user = await client.query({
     query: gql(userQuery),
@@ -73,6 +89,7 @@ export const getUserStats = async id => {
     variables: {
       id: dataToString(id).toLowerCase(),
     },
+    fetchPolicy: 'network-only',
   });
   return userStats?.data.user;
 };

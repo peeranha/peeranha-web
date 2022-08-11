@@ -11,6 +11,7 @@ const Wrapper = styled.span`
   height: 7px;
   background-color: rgb(194, 198, 216, 0.4);
   border-radius: 7px;
+  overflow: hidden;
 `;
 
 const Progress = styled.span`
@@ -25,6 +26,7 @@ const Progress = styled.span`
 `;
 
 const ProgressBar = ({
+  achievementId,
   width,
   progress,
   pointsToNext,
@@ -32,7 +34,7 @@ const ProgressBar = ({
   messageSingle = '',
   messageMultiple = '',
 }) => {
-  const id = `progress_bar_${groupType}`;
+  const id = `progress_bar_${groupType}_${achievementId}`;
 
   const currentMessage =
     pointsToNext === 1

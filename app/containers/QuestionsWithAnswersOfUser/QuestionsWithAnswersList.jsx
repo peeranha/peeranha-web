@@ -29,7 +29,7 @@ const Question = ({
   const route = getPostRoute(postType, id, answerRouteId);
 
   return (
-    <Li className="mb-3">
+    <Li className="mb-3" postType={postType}>
       <QuestionForProfilePage
         route={route}
         myPostRating={myPostRating}
@@ -57,7 +57,18 @@ const QuestionsWithAnswersList = ({ questions, locale, communities }) => (
     <ul>
       {questions.map(x => (
         <Question
-          {...x}
+          myPostRating={x.myPostRating}
+          title={x.title}
+          myPostTime={x.myPostTime}
+          acceptedAnswer={x.acceptedAnswer}
+          id={x.id}
+          communityId={x.communityId}
+          isMyAnswerAccepted={x.isMyAnswerAccepted}
+          postType={x.postType}
+          isTheLargestRating={x.isTheLargestRating}
+          answerId={x.answerId}
+          isGeneral={x.isGeneral}
+          elementType={x.elementType}
           locale={locale}
           communities={communities}
           key={`answer_${x.id}`}
@@ -81,6 +92,7 @@ Question.propTypes = {
   isTheLargestRating: PropTypes.bool,
   answerId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   isGeneral: PropTypes.bool,
+  elementType: PropTypes.string,
 };
 
 QuestionsWithAnswersList.propTypes = {

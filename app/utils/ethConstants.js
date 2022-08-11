@@ -44,6 +44,7 @@ export const GET_AVAILABLE_BALANCE = 'availableBalanceOf';
 export const GET_BOOST = 'getBoost';
 export const GET_STAKE = 'getStake';
 export const GET_USER_STAKE = 'getUserStake';
+export const GET_USER_RATING = 'getUserRating';
 
 export const UPVOTE_STATUS = 1;
 export const DOWNVOTE_STATUS = -1;
@@ -161,6 +162,25 @@ export const usersQuery = `
           ${user}
           postCount
           replyCount
+        }
+      }`;
+
+export const usersByCommunityQuery = `
+      query(
+        $first: Int,
+        $skip: Int,
+        $communityId: Int,
+      ) {
+        userCommunityRatings(
+          first: $first,
+          skip: $skip,
+          where: { communityId: $communityId }
+        ) {
+          user {
+            ${user}
+            postCount
+            replyCount
+          }
         }
       }`;
 

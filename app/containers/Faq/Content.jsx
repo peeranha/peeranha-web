@@ -118,6 +118,7 @@ const Question = ({
   sectionCode,
   route,
   getQuestionCode,
+  collapsedMenu,
 }) => {
   const [isOpened, collapse] = useState(false);
 
@@ -130,23 +131,26 @@ const Question = ({
 
   return (
     <QuestionBox id={questionId} isOpened={isOpened}>
-      <div
-        className="aic jcc"
-        css={css(styles.collapseImage)}
-        onClick={collapseQuestion}
-      >
-        <IconSm rotate={isOpened} icon={arrowIconFilled} />
-      </div>
-
+      {collapsedMenu && (
+        <div
+          className="aic jcc"
+          css={css(styles.collapseImage)}
+          onClick={collapseQuestion}
+        >
+          <IconSm rotate={isOpened} icon={arrowIconFilled} />
+        </div>
+      )}
       <QuestionBoxBody>
-        <h5 className="d-flex align-items-center" onClick={collapseQuestion}>
-          <Span fontSize="20" lineHeight="30" mobileFS="16">
-            {h3}
-          </Span>
-        </h5>
+        {collapsedMenu && (
+          <h5 className="d-flex align-items-center" onClick={collapseQuestion}>
+            <Span fontSize="20" lineHeight="30" mobileFS="16">
+              {h3}
+            </Span>
+          </h5>
+        )}
 
         <TextBlock
-          isOpened={isOpened}
+          isOpened={!collapsedMenu || isOpened}
           dangerouslySetInnerHTML={{ __html: content }}
         />
       </QuestionBoxBody>
@@ -167,6 +171,7 @@ const Section = ({
   isCommunityModerator,
   editItem,
   deleteItem,
+  collapsedMenu,
 }) => {
   const [isOpened, collapse] = useState(false);
   const [isExtendedSection, extendSection] = useState(false);
@@ -239,6 +244,7 @@ const Section = ({
                   sectionCode={sectionCode}
                   route={route}
                   getQuestionCode={getQuestionCode}
+                  collapsedMenu={collapsedMenu}
                 />
               ))}
           </ul>
@@ -277,6 +283,7 @@ const Content = ({
   isCommunityModerator,
   editItem,
   deleteItem,
+  collapsedMenu = true,
 }) => (
   <div className="mb-3">
     {content.blocks.map(block => (
@@ -292,6 +299,7 @@ const Content = ({
         isCommunityModerator={isCommunityModerator}
         editItem={editItem}
         deleteItem={deleteItem}
+        collapsedMenu={collapsedMenu}
       />
     ))}
   </div>
@@ -302,6 +310,7 @@ Question.propTypes = {
   questionCode: PropTypes.number,
   sectionCode: PropTypes.number,
   getQuestionCode: PropTypes.func,
+  collapsedMenu: PropTypes.bool,
 };
 
 Section.propTypes = {
@@ -311,6 +320,7 @@ Section.propTypes = {
   route: PropTypes.func,
   getSectionCode: PropTypes.func,
   getQuestionCode: PropTypes.func,
+  collapsedMenu: PropTypes.bool,
 };
 
 Content.propTypes = {
@@ -318,6 +328,7 @@ Content.propTypes = {
   route: PropTypes.func,
   getSectionCode: PropTypes.func,
   getQuestionCode: PropTypes.func,
+  collapsedMenu: PropTypes.bool,
 };
 
 export default Content;
