@@ -1084,6 +1084,8 @@
   "app.containers.AskQuestion.contentPopupBlock_7":
     "And the most important rule is to be polite and friendly to other users.",
   "app.containers.AskQuestion.contentPopupBlock_8": "Thank you!",
+  "app.containers.AskQuestion.errorMinReputation":
+    "To complete this action, your reputation has to be at least 0",
 
   "app.containers.ErrorPage.title": "Some error occured...",
   "app.containers.ErrorPage.description": "Some error occured... description",
