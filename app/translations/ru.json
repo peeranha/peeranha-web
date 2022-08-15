@@ -778,6 +778,10 @@
     "Редактирование вопроса | Описание",
   "app.containers.EditQuestion.submitButtonName": "Сохранить",
   "app.containers.EditQuestion.title": "Редактировать вопрос",
+  "app.containers.EditDiscussion.title": "Редактировать обсуждение",
+  "app.containers.EditExpertQ&A.title": "Редактировать экспертный пост",
+  "app.containers.EditTutorial.title": "Редактировать туториал",
+  "app.containers.EditFaq.title": "Редактировать ЧАВО",
 
   "app.containers.ViewQuestion.lastEdited": "Последнее редактирование",
   "app.containers.ViewQuestion.voteToDelete": "Проголосовать за удаление",
