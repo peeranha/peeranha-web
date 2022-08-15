@@ -62,8 +62,8 @@ const NotFound = /* istanbul ignore next */ ({ locale }) => {
     };
   }, []);
 
-  const getParameter = history.location.search.split('=');
-  const checkGetParameter = getParameter[0] == '?id' && !isNaN(getParameter[1]);
+  const isUrlGetParameter =
+    new URLSearchParams(history.location.search).get('type') === 'deleted';
 
   return (
     <React.Fragment>
@@ -79,7 +79,7 @@ const NotFound = /* istanbul ignore next */ ({ locale }) => {
           <Span fontSize="24" bold>
             <FormattedMessage
               id={
-                checkGetParameter
+                isUrlGetParameter
                   ? messages.weAreSorryIsDeleted.id
                   : messages.weAreSorry.id
               }
@@ -89,7 +89,7 @@ const NotFound = /* istanbul ignore next */ ({ locale }) => {
 
         <div>
           <img
-            src={checkGetParameter ? errorImage : notFoundImage}
+            src={isUrlGetParameter ? errorImage : notFoundImage}
             alt="404 page"
           />
         </div>

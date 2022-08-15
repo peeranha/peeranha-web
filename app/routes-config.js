@@ -19,7 +19,7 @@ const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
 
 export const home = () => `/about`;
 
-export const notFound = id => `/404?${id}`;
+export const notFound = type => `/404?${type}`;
 export const errorPage = () => `/error-occured`;
 
 export const profileView = userRedirect('');

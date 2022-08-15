@@ -143,7 +143,7 @@ export const ViewQuestion = ({
       }
 
       if ((!questionDataLoading && !questionData) || questionData?.isDeleted) {
-        history.push(routes.notFound(`id=${match.params.id}`));
+        history.push(routes.notFound('type=deleted'));
       }
     },
     [questionData, questionDataLoading],
