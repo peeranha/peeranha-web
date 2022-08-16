@@ -260,7 +260,7 @@ export const usersPostsQuery = `
           orderDirection: desc,
           first: $limit,
           skip: $offset,
-          where: {isDeleted: false, author: $id},
+          where: {isDeleted: false, author: $id, postType_lt: 3},
         ) {
            ${post}
         }
