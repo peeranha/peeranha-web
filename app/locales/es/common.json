@@ -1,0 +1,479 @@
+{
+  "peeranha": "Peeranha",
+  "copyrightPeeranha": "©{{year}} Peeranha",
+  "confirm": "Aceptar",
+  "cookieConsent":
+    "Usamos cookies para asegurar que obtengas la mejor experiencia en nuestro sitio web. ",
+  "moreInfo": "Más información",
+  "profile": "Perfil",
+  "myCommunities": "Mis comunidades",
+  "questions": "Preguntas",
+  "discussions": "Discusiones",
+  "expertPosts": "Preguntas y respuestas de expertos",
+  "answers": "Respuestas",
+  "posts": "Publicaciones",
+  "achievements": "Logros",
+  "postsNumber": "Logros <0>{{número}}</0>",
+  "answersNumber": "Respuestas <0>{{número}}</0>",
+  "allActivitiesNumber": "Todos {{número}}",
+  "achievementsNumber": "Logros {{número}}",
+  "settings": "Ajustes",
+  "notifications": "Notificaciones",
+  "moderation": "Moderación",
+  "uniqueAchievements": "Logros únicos",
+  "notificationCenter": "Centro de Notificaciones",
+  "archive": "Archivo",
+  "markAllAsRead": "Marcar todo como Leido",
+  "edit": "Editar",
+  "editCommunity": "Editar comunidad",
+  "logout": "Cerrar sesión",
+  "search": "Búsqueda",
+  "login": "Iniciar sesión",
+  "signUp": "Inscribirse",
+  "all": "Todos",
+  "askQuestion": "Nueva publicación",
+  "wrongChainId": "Identificación de cadena incorrecta",
+  "add": "Agregar",
+  "communities": "Comunidades",
+  "allCommunities": "Todas las comunidades",
+  "tags": "Etiquetas",
+  "home": "Hogar",
+  "feed": "Alimento",
+  "myFeed": "Mi feed",
+  "users": "Usuarios",
+  "followers": "Seguidores",
+  "usersShort": "Usuarios",
+  "faq": "PMF",
+  "moderationHeader": "Permisos de moderador",
+  "tutorials": "Tutoriales",
+  "subscribeMore": "Suscríbete más",
+  "top": "Parte superior",
+  "see": "Ver",
+  "ago": "atrás",
+  "you": "Tú",
+  "upload": "Subir",
+  "NFTs": "NFTs",
+  "NFTsNumber": "NFTs <0>{{número}}</0>",
+  "limitedEdition": "Edición limitada",
+  "contractAddress": "Contrato",
+  "allQuestions": "Todas las preguntas",
+  "manageMyComm": "Ver todas las comunidades",
+  "asked": "Preguntó",
+  "askedWhen": "Preguntó {{cuando}}",
+  "answeredWhen": "Contestada {{cuando}}",
+  "somebodyAsked": "{{cuenta}} preguntó",
+  "somebodyAnswered": "{{cuenta}} contestada",
+  "youAnswered": "Tu respondiste",
+  "youAsked": "Has publicado",
+  "answered": "Contestada",
+  "cancel": "Cancelar",
+  "nothingToSeeYet": "Nada que ver todavía",
+  "close": "Cerca",
+  "subscribed": "Suscrito",
+  "newest": "Más reciente",
+  "oldest": "Más antiguo",
+  "age": "Años",
+  "yes": "Sí",
+  "no": "No",
+  "agree": "Votar a favor",
+  "gotIt": "Entiendo!",
+  "agreeShort": "Votar a favor",
+  "disagree": "Voto negativo",
+  "disagreeShort": "Voto negativo",
+  "tips": "Puntas",
+  "createTag": "Crear etiqueta",
+  "seeAll": "Ver todo",
+  "voting": "Votación",
+  "date": "Fecha",
+  "sortAscending": "Fecha ascendente",
+  "sortDescending": "Fecha descendente",
+  "popularity": "Popularidad",
+  "moreVoting": "Más votaciones",
+  "reputation": "Reputación",
+  "en": "Inglés",
+  "es": "Español",
+  "zh": "Chino",
+  "vi": "Vietnamita",
+  "about": "Sobre",
+  "contacts": "Contactos",
+  "support": "Apoyo",
+  "privacyPolicy": "Política de Privacidad",
+  "partners": "Socios",
+  "termsOfService": "Términos de Servicio",
+  "privacyPolicyShort": "Política de Privacidad",
+  "more": "Más",
+  "wallet": "Cartera",
+  "sendTokens": "Enviar fichas",
+  "peers": "PEER",
+  "submit": "Enviar",
+  "amount": "Monto",
+  "bounty": "Monto de la recompensa",
+  "password": "Clave",
+  "walletAddress": "Dirección de la billetera",
+  "successMessage": "Acción completada con éxito",
+  "messageSendedSuccessfully": "Mensaje enviado con éxito",
+  "errorMessage": "Ocurrió un error",
+  "energy": "Energía",
+  "show": "Espectáculo",
+  "change": "Cambio",
+  "contactUs": "Contacta con nosotros",
+  "sendAnotherCode": "Contacta con nosotros",
+  "copy": "Copiar",
+  "copied": "Copiado",
+  "hide": "Ocultar",
+  "delete": "Borrar",
+  "description": "Descripción",
+  "preview": "Avance",
+  "answer": "Responder",
+  "showMore": "Mostrar más {{valor}}",
+  "showLess": "Muestra menos {{valor}}",
+  "poweredBy": "©{{año}} Energizado por <0></0>",
+  "poweredByPeeranha": "Energizado por {{imagen}}",
+  "terms": "Acuerdo de operación",
+  "noResults": "No hay resultados",
+  "iAcceptPrivacyPolicy": "Acepto ",
+  "inProgress": "En progreso",
+  "loginViaWallet": "Iniciar sesión a través de la billetera",
+  "loginViaService": "Iniciar sesión a través del servicio",
+  "signUpViaWallet": "Regístrese a través de la billetera",
+  "signUpViaService": "Regístrese a través del servicio",
+  "general": "Discusión",
+  "expert": "Experto",
+  "tutorial": "Tutorial",
+  "promoted": "Promovido",
+  "any": "Ningún",
+  "tipQuestion": "Pregunta de consejo",
+  "chooseCrypto": "Elija Cripto",
+  "chooseWallet": "Elija Monedero",
+  "tip": "Consejo",
+  "tipAnswer": "Respuesta de sugerencia",
+  "sendTip": "Envía propina",
+  "receivedReward": "Recibiste una recompensa por recomendación",
+  "generalPopoverTitle": "Discusión",
+  "generalPopoverLabel":
+    "Un tema que no requiere conocimientos ni experiencia para responder y que puede ser uno de los siguientes:",
+  "generalPopoverList": [
+    "Intercambio de opiniones subjetivas;",
+    "Lluvia de ideas;",
+    "Solicitud de opinión o revisión;",
+    "La respuesta es muy conocida."
+  ],
+  "expertPopoverTitle": "Preguntas y respuestas de los expertos",
+  "expertPopoverLabel":
+    "Una pregunta que plantea una de las siguientes cuestiones:",
+  "expertPopoverList": [
+    "Una solución a un problema que requiere conocimientos o experiencia de expertos;",
+    "Fuente de información o recursos sobre un tema específico que no se encuentra fácilmente;",
+    "Explicación o aclaración de la información que es complicada de comprender;",
+    "Pedir una instrucción o una receta"
+  ],
+  "tutorialPopoverTitle": "Tutorial",
+  "tutorialPopoverLabel":
+    "La tutoría es una instrucción manual que puede ser una de las siguientes:",
+  "tutorialPopoverList": [
+    "Solución paso a paso de un problema;",
+    "Configuración técnica;",
+    "Guías prácticas"
+  ],
+  "rightNow": "Ahora mismo",
+  "minutesAgo": "{{minutos}} hace minutos",
+  "hoursAgo": "{{hours}} hace horas",
+  "yesterday": "Yesterday",
+  "official": "Ayer",
+  "profilesUsersInfo": "El tamaño del archivo no debe superar los 5Mb",
+  "communityBannerInfo":
+    "Utilice una imagen de al menos 1360 x 120 píxeles. El tamaño del archivo no debe superar 1Mb",
+  "fileSizeErrorMsg": "El tamaño del archivo es superior a 5Mb. Elija otro...",
+  "bannerSizeErrorMsg":
+    "El tamaño del archivo es superior a 1Mb. Elija otro...",
+  "incorrectBannerResolutionMsg":
+    "La resolución de la imagen debe ser de 1360 x 120 píxeles",
+  "chooseFile": "Elija un archivo",
+  "skip": "Saltar",
+  "showMoreQuestions": "Mostrar más resultados",
+  "questionIsAnswered": "Ya has respondido a este post",
+  "logInToAnswer": "Conéctate para responder al mensaje",
+  "activateBoost": "Activar el impulso",
+  "boost": "Impulsar",
+  "subscribe": "Suscríbase a",
+  "unsubscribe": "Cancelar la suscripción",
+  "followSocialMedia": "Síganos en las redes sociales:",
+  "standart": "Standart",
+  "blogger": "Blogger",
+  "cannotTransferToYourself": "No puede transferirse a sí mismo",
+  "notEnoughCPUOrRAM": "No hay suficiente CPU o RAM",
+  "metaMaskIsLocked":
+    "Por favor, compruebe la conexión de Metamask e intente recargar la página",
+  "ipfsHashValue": "IPFS",
+  "source": "Fuente",
+  "waitingForConfirm": "Confirma esta transacción en tu monedero...",
+  "transactionInPending": "Esperando",
+  "transactionInPendingEnd": "confirmación...",
+  "transaction": "transacción",
+  "transactionCompleted": "Transacción completada con éxito",
+  "estimatedReward": "Recompensa estimada",
+  "rewardsWillBeAvailable":
+    "Vaya, no puedes reclamar tus tokens en este momento. No se preocupe, la recompensa estimada estará disponible para que la reclame después del lanzamiento del token. Nuestro equipo legal nos respalda para finalizar los detalles del lanzamiento del token. Gracias!",
+  "help": "Ayuda",
+  "didntFindAnswer": "no encontre la respuesta?",
+  "freeFeelToAsk":
+    "No dude en preguntar a nuestro equipo. Ayudaremos a encontrar la respuesta.",
+  "voteForNewCommunities": "Vota por nuevas comunidades",
+  "globalModerator": "Moderador global",
+  "verifyFacebookAccount": "Verificación de la cuenta",
+  "facebookButton": "Facebook",
+  "selectCommunity": "Seleccione...",
+  "title": "Preguntas",
+  "noQuestions": "Sin preguntas",
+  "youDontHaveFeedToRead": "No tienes ningún feed para leer",
+  "subscribeToCommToKeep":
+    "Suscríbase a las comunidades para realizar un seguimiento de los temas que le interesan.",
+  "noPostsYet": "Aún no hay publicaciones.",
+  "thisIsNewCommunity":
+    "Esta es la nueva comunidad, puedes ser el primero en crear una publicación y puede convertirse en la más popular.",
+  "readMyFeed": "Leer mi feed",
+  "goToCommunities": "Ir a las comunidades",
+  "topQuestionPopover": "Pregunta principal de esta comunidad",
+  "showAllQuestions": "Mostrar todas las preguntas",
+  "bountyPopover": "Bounty - recompensa adicional PEER del autor.",
+  "communityTip":
+    "Asegúrate de que la publicación sea relevante para la comunidad seleccionada",
+  "titleTip": "Título corto y descriptivo de la publicación.",
+  "tagsTip": "Etiquetas que son relevantes para la publicación",
+  "newPost": "Nueva publicación",
+  "titleLabel": "Título",
+  "existingQuestionsLabel":
+    "Para evitar duplicados verifique las preguntas existentes.",
+  "questionBodyLabel": "Cuerpo",
+  "communityLabel": "Comunidad",
+  "tagsLabel": "Etiquetas",
+  "bountyLabel": "Generosidad",
+  "bountyDaysLabel": "Días de recompensa",
+  "bountyHoursLabel": "Horas de recompensa",
+  "daysPlaceholder": "Días",
+  "hoursPlaceholder": "Horas",
+  "bountyTip": "Recompensa a la mejor respuesta",
+  "bountyHoursTip": "Número de horas mientras la recompensa está activa",
+  "bountyDaysTip": "Número de días mientras la recompensa está activa",
+  "previewLabel": "Avance",
+  "questionType": "Tipo de mensaje",
+  "questionTypeTip": "Opcional",
+  "generalQuestionDescriptionLabel":
+    "Un tema que no requiera conocimientos o experiencia para responder que puede ser uno de los siguientes:",
+  "expertQuestionDescriptionLabel":
+    "Una pregunta que hace uno de los siguientes:",
+  "generalQuestionDescriptionList": [
+    "Intercambio subjetivo de opiniones;",
+    "Lluvia de ideas;",
+    "Solicitud de comentarios o revisión;",
+    "La respuesta es ampliamente conocida."
+  ],
+  "expertQuestionDescriptionList": [
+    "Una solución a un problema que requiere conocimiento experto o experiencia;",
+    "Fuente de información o recursos sobre un tema específico que no se encuentra fácilmente;",
+    "Explicación o aclaración de la información que es complicada de comprender;",
+    "Pide una instrucción o una receta."
+  ],
+  "tutorialQuestionDescriptionLabel":
+    "El tutorial es una instrucción manual que puede ser una de las siguientes:",
+  "tutorialQuestionDescriptionList": [
+    "Solución paso a paso a un problema;",
+    "Configuración técnica;",
+    "'Guías' prácticas."
+  ],
+  "promotedLabel": "Promover pregunta",
+  "promotedTip": "Promover pregunta",
+  "questionIsPromoting": "Promocionado hasta",
+  "postTypeSelectionError": "Debe seleccionar el tipo de publicación",
+  "leaveWithoutChanges":
+    "Está a punto de salir de la página sin guardar los cambios. ¿Seguro que quieres continuar?",
+  "titleSuggestedCommunities": "Comunidades sugeridas",
+  "descriptionSuggestedCommunities": "Comunidades sugeridas | Descripción",
+  "votingForNewComm": "Vota por la nueva comunidad",
+  "whyWeeNeedIt": "Porque lo necesitamos?",
+  "putReturnsBetweenParagraphs": "se admite la rebaja",
+  "addForLineBreaks": "para salto de línea agregue 2 espacios al final",
+  "italicAndBold": "_cursiva_ o **negrita**",
+  "indentCode": "código de sangría por 4 espacios",
+  "backtipEscapes":
+    "use escapes de comillas invertidas para bloques de código como _so_`",
+  "quoteByPlacing": "cite colocando > al comienzo de la línea",
+  "toMakeLinks":
+    "para hacer enlaces &lt;http://foo.com&gt;[foo](http://foo.com)&lt;a href=&quot;http://foo.com&quot;&gt;fo",
+  "titleAskQuestion": "Nueva publicación",
+  "descriptionAskQuestion": "Nueva publicación | Descripción",
+  "postQuestion": "Correo",
+  "contentPopupBlock_1": "Hola!",
+  "contentPopupBlock_2":
+    "Bienvenido a Peeranha. Nos alegra que estés aquí y listo para hacer tu primera publicación. Hay algunas reglas simples que todos seguimos aquí:",
+  "contentPopupBlock_3":
+    "1. Asegúrate de que tus publicaciones estén relacionadas con una comunidad en particular.",
+  "contentPopupBlock_4":
+    "2. Investigue un poco para asegurarse de que la misma publicación no se haya publicado antes.",
+  "contentPopupBlock_5":
+    "3. Las respuestas tienen que responder realmente a la pregunta, y no ser solo un comentario.",
+  "contentPopupBlock_6":
+    "4. Asegúrese de que su respuesta proporcione información valiosa y no sea solo una repetición de lo que ya se ha dicho.",
+  "contentPopupBlock_7":
+    "Y la regla más importante es ser cortés y amigable con otros usuarios..",
+  "contentPopupBlock_8": "Gracias!",
+  "newEmail": "Nuevo correo electrónico",
+  "confirmNewEmail": "Confirme nuevo correo electrónico",
+  "emailsDoNotMatch": "Los correos no coinciden",
+  "didntFindAnyInteresting": "No encontraste nada interesante?",
+  "suggestInterestingComm":
+    "Sugiere una comunidad, que será interesante para ti y otros 100 usuarios que votarán por ella.",
+  "titleCommunities": "Comunidades",
+  "descriptionCommunities": "Comunidades | Descripción",
+  "suggestCommunity": "Crear comunidad",
+  "deleteAccount": "Borrar cuenta",
+  "areYouLeaving": "Te vas??",
+  "iUnderstand":
+    "Entiendo que esta operación no elimina mi cuenta en Telos blockchain. La cuenta se elimina solo del servicio de billetera.",
+  "iHaveBackup":
+    "Tengo una copia de seguridad de mis claves privadas de Telos.",
+  "faqPage": {
+    "title": "PMF",
+    "description": "PMF: Descripción",
+    "faq": "Preguntas más frecuentes"
+  },
+  "followCommunity": {
+    "header": "Encabezamiento",
+    "subscribe": "Suscribir",
+    "unsubscribe": "Darse de baja",
+    "subscribeToThisCommunity": "Suscríbete a esta comunidad"
+  },
+  "metaTransaction": {
+    "agreeWithMetaTransactions": "Lo tenemos cubierto",
+    "youNeedMetaBecause":
+      "Su saldo MATIC es 0. Se requiere MATIC para pagar las tarifas de transacción.  ",
+    "dontWorry": "No te preocupes! Te tenemos cubierto.",
+    "wouldYouLike":
+      "Le gustaría que transmitamos sus transacciones y cubramos las tarifas de transacción?",
+    "confirm": "Sí",
+    "cansel": "No"
+  },
+  "moderationPermitions": {
+    "title": "Permisos de moderador",
+    "givePermissions": "Dar permisos",
+    "givePermissionsDescription":
+      "Le permite dar y revocar el permiso de moderador de la comunidad.",
+    "permissionInfinite": "Impacto infinito",
+    "permissionInfiniteDescription":
+      "Le permite eliminar publicaciones, respuestas y comentarios con un solo clic",
+    "permissionIgnoreRating": "Ignore rating",
+    "permissionIgnoreRatingDescription":
+      "Le permite realizar acciones que están restringidas por calificación",
+    "permissionCreateCommunity": "Crear comunidad",
+    "permissionCreateCommunityDescription":
+      "Le permite crear instantáneamente una comunidad",
+    "permissionCreateTag": "Crear etiqueta",
+    "permissionCreateTagDescription":
+      "Le permite crear instantáneamente una etiqueta",
+    "permissionChangePostType": "Cambiar tipo de publicación",
+    "permissionChangePostTypeDescription":
+      "Te permite cambiar el tipo de publicación.",
+    "permissionSelectTopQuestion": "Seleccione la pregunta principal",
+    "permissionSelectTopQuestionDescription":
+      "Le permite seleccionar una pregunta que se mostrará en la página \"Arriba\"",
+    "permissionOfficialAnswer": "Publicar respuesta oficial",
+    "permissionOfficialAnswerDescription":
+      "Le permite publicar una respuesta oficial"
+  },
+  "telegram": {
+    "user": "Usuario de telegramas",
+    "userLabelPopover":
+      "Esta es una cuenta temporal proporcionada por Telegram Bot",
+    "confirm": "Confirmar",
+    "unlink": "Desconectar"
+  },
+  "termsOfServiceDesc": {
+    "title": "Términos de servicio",
+    "description": "Términos de servicio: descripción"
+  },
+  "searchDesc": {
+    "title": "Búsqueda",
+    "description": "Búsqueda: descripción"
+  },
+  "header": {
+    "walletTooltipPart1": "Tú tienes ",
+    "walletTooltipPart2": " recompensas listas"
+  },
+  "tutorialDesc": {
+    "title": "Tutorial",
+    "description": "Tutorial: descripción",
+    "tutorial": "Tutorial"
+  },
+  "askQuestionBanner": {
+    "help": "Ayuda",
+    "didntFindAnswer": "No encontraste la respuesta?",
+    "freeFeelToAsk":
+      "No dude en preguntar a nuestro equipo. Ayudaremos a encontrar la respuesta."
+  },
+  "usersDesc": {
+    "title": "Usuarios",
+    "description": "Usuarios: descripción"
+  },
+  "existingCommunities": {
+    "voteForNewCommunities": "Vota por nuevas comunidades",
+    "singleCommunityTooltip":
+      "Esta comunidad tiene un sitio web de preguntas y respuestas en otro dominio"
+  },
+  "ratingStatus": {
+    "stranger": "Extraño",
+    "newbie": "Novato",
+    "jrResident": "Júnior",
+    "resident": "Residente",
+    "srResident": "Sénior",
+    "heroResident": "Héroe",
+    "legResident": "Superhéroe",
+    "banned": "Prohibido"
+  },
+  "privacyPolicyDesc": {
+    "title": "Política de privacidad",
+    "description": "Política de privacidad, descripción"
+  },
+  "supportDesc": {
+    "title": "Apoyo",
+    "description": "Apoyo | descripción",
+    "feelFreeToAsk": "Siéntete libre de preguntar",
+    "alsoWeHighly":
+      "Apreciamos mucho sus comentarios, opiniones y sugerencias para nuestra plataforma. Por favor, envíenos unas líneas o, mejor aún, háganos saber si tiene 15 minutos para chatear."
+  },
+  "voteNewCommunity": {
+    "youHaveAlreadyVoted": "Tú ya has votado",
+    "creatorCannotUpvoteOwnComm":
+      "Los creadores no pueden votar a su propia comunidad.",
+    "youCannotChange": "No puede cambiar su voto. Está seguro?"
+  },
+  "creatorCannotUpvoteOwnTag":
+    "Los creadores no pueden votar su propia etiqueta",
+  "editCommunityDesc": {
+    "communityTitleTip": "Nombre de la comunidad",
+    "description": "Descripción de editarComunidad",
+    "editCommunity": "Ahorrar",
+    "header": "Editar comunidad",
+    "pageTitle": "Comunidad | Editar"
+  },
+  "editQuestion": {
+    "description": "Editar descripción de la pregunta",
+    "submitButtonName": "Ahorrar",
+    "title": "Editar pregunta"
+  },
+  "editDiscussion": "Editar discusión",
+  "editExpertQ&A": "Editar preguntas y respuestas de expertos",
+  "editTutorial": "Editar Tutorial",
+  "footerHeader": "Derechos de autor: Peeranha",
+  "youGotThisKey":
+    "Recibió esta clave con la autorización que se guardó en un lugar seguro. Intenta encontrarlo.",
+  "noAccessError": "Sin acceso para completar esta acción!",
+  "groupForAuthorizedUser": "Perfil",
+  "errorBoundary": {
+    "title": "Error",
+    "description": "Descripción del límite de error",
+    "problemWithWebpage": "Ocurrió un problema con esta página web",
+    "details": "Detalles",
+    "reloadPage": "Recargar página"
+  },
+  "answerForm": "Tu respuesta"
+}

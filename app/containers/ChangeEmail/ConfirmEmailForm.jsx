@@ -28,19 +28,19 @@ const ConfirmEmailForm = ({
   return (
     <div>
       <H4 className="text-center pb-3">
-        {t('common.change')} {t('sign-up.email')}
+        {t('common.change')} {t('signUp.email')}
       </H4>
 
       <div className="text-center pb-3">
         <img src={letterImg} alt="check your email" />
-        <P className="text-center py-2">{t('sign-up.checkYourEmail')}</P>
+        <P className="text-center py-2">{t('signUp.checkYourEmail')}</P>
       </div>
 
       <form onSubmit={handleSubmit(confirmOldEmail)}>
         <Field
           name={CODE_FIELD}
           disabled={confirmOldEmailProcessing}
-          label={t('sign-up.verificationCode')}
+          label={t('signUp.verificationCode')}
           component={TextInputField}
           validate={required}
           warn={required}

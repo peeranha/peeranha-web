@@ -6,7 +6,7 @@ import AlmostDone from './AlmostDone';
 const AlmostDoneNoAccountWrapper = () => {
   const { t } = useTranslation();
 
-  return <AlmostDone message={t('sign-up.weWillNotify')} />;
+  return <AlmostDone message={t('signUp.weWillNotify')} />;
 };
 
 export default AlmostDoneNoAccountWrapper;

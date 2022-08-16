@@ -33,7 +33,7 @@ const ChangeEmailForm = ({
   return (
     <div>
       <H4 className="text-center pb-3">
-        {t('common.change')} {t('sign-up.email')}
+        {t('common.change')} {t('signUp.email')}
       </H4>
 
       <form onSubmit={handleSubmit(changeEmail)}>
@@ -54,7 +54,7 @@ const ChangeEmailForm = ({
         <Field
           name={PASSWORD_FIELD}
           disabled={changeEmailProcessing}
-          label={t('sign-up.password')}
+          label={t('signUp.password')}
           component={TextInputField}
           validate={required}
           warn={required}

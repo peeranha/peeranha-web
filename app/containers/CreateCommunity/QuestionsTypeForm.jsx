@@ -1,48 +1,41 @@
 import React, { memo, useCallback, useMemo } from 'react';
-import { ANY_TYPE, EXPERT_TYPE, FORM_TYPE, GENERAL_TYPE } from './constants';
-import messages from './messages';
 import { Field } from 'redux-form/immutable';
+import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 import QuestionTypeField from './QuestionsTypeField';
 import DescriptionList from '../../components/DescriptionList';
-import PropTypes from 'prop-types';
-import { intlShape } from 'react-intl';
+import { ANY_TYPE, EXPERT_TYPE, FORM_TYPE, GENERAL_TYPE } from './constants';
 
-const QuestionsTypeForm = ({
-  change,
-  locale,
-  formValues,
-  intl,
-  initialValue = 0,
-}) => {
-  const onChange = useCallback(val => {
-    return change(FORM_TYPE, val[0]);
-  }, []);
+const QuestionsTypeForm = ({ change, locale, formValues }) => {
+  const { t } = useTranslation();
+  const onChange = useCallback(val => change(FORM_TYPE, val[0]), []);
   const [descriptionListLabel, descriptionListItems] = useMemo(
     () => {
       let label;
       let items;
       switch (+formValues[FORM_TYPE]) {
         case ANY_TYPE:
-          label = messages.anyQuestionDescriptionLabel.id;
-          items = messages.anyQuestionDescriptionList.id;
+          label = 'createCommunity.anyQuestionDescriptionLabel';
+          items = 'createCommunity.anyQuestionDescriptionList';
           break;
         case GENERAL_TYPE:
-          label = messages.generalQuestionDescriptionLabel.id;
-          items = messages.generalQuestionDescriptionList.id;
+          label = 'common.generalQuestionDescriptionLabel';
+          items = 'common.generalQuestionDescriptionList';
           break;
         case EXPERT_TYPE:
-          label = messages.expertQuestionDescriptionLabel.id;
-          items = messages.expertQuestionDescriptionList.id;
+          label = 'common.expertQuestionDescriptionLabel';
+          items = 'common.expertQuestionDescriptionList';
           break;
         default:
-          label = messages.anyQuestionDescriptionLabel.id;
-          items = messages.anyQuestionDescriptionList.id;
+          label = 'createCommunity.anyQuestionDescriptionLabel';
+          items = 'createCommunity.anyQuestionDescriptionList';
           break;
       }
       return [label, items];
     },
     [formValues],
   );
+
   return (
     <>
       <Field
@@ -50,8 +43,8 @@ const QuestionsTypeForm = ({
         component={QuestionTypeField}
         disabled={false}
         onChange={onChange}
-        label={intl.formatMessage(messages.questionsType)}
-        tip={intl.formatMessage(messages.questionsTypeTip)}
+        label={t('createCommunity.questionsType')}
+        tip={t('createCommunity.questionsTypeTip')}
         splitInHalf
       />
 
@@ -69,7 +62,6 @@ QuestionsTypeForm.propTypes = {
   change: PropTypes.func,
   questionLoading: PropTypes.bool,
   communities: PropTypes.array,
-  intl: intlShape.isRequired,
   locale: PropTypes.string,
   formValues: PropTypes.object,
 };

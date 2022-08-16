@@ -1,0 +1,35 @@
+{
+  "title": "创建标签",
+  "description": "创建标签 | 描述",
+  "community": "社区",
+  "communityTip": "将创建标签的社区",
+  "name": "姓名",
+  "nameTip": "新标签的唯一名称",
+  "descriptionField": "描述",
+  "descriptionFieldTip": "标签使用说明",
+  "newTag": "新标记",
+  "tagIsKeyword": "标签用作关键字或标签来对您的问题进行分类。",
+  "usingTheRightTags": "使用正确的标签可以让其他用户更容易找到您的问题。",
+  "titleEdit": "编辑标签",
+  "descriptionSave": "节省 | 描述",
+  "backToList": "返回列表",
+  "didntFindSuitableTag": "没有找到合适的标签？",
+  "youHaveAlreadyVoted": "你已经投票了",
+  "suggestTagWhichWillbeUseful":
+    "建议一个标签，这将对您和其他 100 位投票的用户有用。",
+  "creatorCannotUpvoteOwnComm": "创作者不能为自己的标签投票",
+  "descriptionTags": "标签说明",
+  "suggestedTags": "建议的标签",
+  "createTag": "创建标签",
+  "voteForNewTags": "为新标签投票",
+  "findTag": "查找标签",
+  "tagsCollection": "标签集合",
+  "tagsDescription": "标签 描述",
+  "suggested": {
+    "title": "建议的标签",
+    "description": "建议的标签 | 描述",
+    "noSuggestedTags": "没有建议的标签",
+    "topTagsInCommunity": "社区中的热门标签",
+    "tagDescription": "描述"
+  }
+}

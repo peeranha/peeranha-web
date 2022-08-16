@@ -1,9 +1,0 @@
-{
-  "title": "Возникла ошибка...",
-  "description": "Возникла ошибка... описание",
-  "weAreSorry": "Извините, возникла неожиданная ошибка...",
-  "accountDoesNotExist": "Аккаунт не существует",
-  "cannotTransferToSelf": "Нельзя отправлять самому себе",
-  "notEnoughCPU": "Недостаточно CPU",
-  "checkScatterConnection": "Проверьте подключение кошелька"
-}

@@ -45,11 +45,11 @@ export function setDefaultReducer() {
   };
 }
 
-// TODO: test
-export function redirectToEditProfilePage(ev) {
+export function redirectToEditProfilePage({ t, buttonId, user }) {
   return {
     type: REDIRECT_TO_EDIT_PROFILE_PAGE,
-    buttonId: ev.currentTarget.id,
-    user: ev.currentTarget.dataset.user,
+    t,
+    buttonId,
+    user,
   };
 }

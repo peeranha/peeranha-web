@@ -1,0 +1,76 @@
+{
+  "description": "Chỉnh sửa câu trả lời Mô tả",
+  "submitButtonName": "Lưu",
+  "title": "Chỉnh sửa câu trả lời",
+  "editAnswer": "Chỉnh sửa câu trả lời",
+  "lastEdited": "Chỉnh sửa lần cuối",
+  "voteToDelete": "Bình chọn để xóa",
+  "notEnoughRating":
+    "Để hoàn thành hành động này, danh tiếng của bạn ít nhất phải",
+  "cannotCompleteBecauseBlocked":
+    "Bạn không thể hoàn thành hành động này. Bạn đã bỏ phiếu để xóa nó sớm hơn",
+  "cannotCompleteBecauseVoted":
+    "Bạn không thể hoàn thành hành động này. Bạn đã bỏ phiếu trước đó",
+  "notEnoughModPoints":
+    "Để hoàn thành hành động này, xếp hạng điểm kiểm duyệt của bạn phải nhiều hơn",
+  "youVoted": "Bạn đã hoàn thành hành động này sớm hơn",
+  "alreadyAnswered": "Bạn đã trả lời câu hỏi này",
+  "itemsMax": "Số lượng mặt hàng đạt đến mức tối đa",
+  "noRootsToVote":
+    "Bạn không thể bỏ phiếu cho bài viết và câu trả lời của riêng bạn",
+  "creatorCannot": "Người tạo không thể hoàn thành hành động này",
+  "notEnoughEnergy":
+    "Chúng tôi đã phát hiện hoạt động đáng ngờ trên tài khoản của bạn và tạm thời khóa tất cả quyền truy cập trên trang web",
+  "questions": {
+    "title": "Trang câu hỏi",
+    "description": "Mô tả câu hỏi"
+  },
+  "questionNotExist": "Câu hỏi này không tồn tại",
+  "deleteButton": "Xóa",
+  "editButton": "Chỉnh sửa",
+  "shareButton": "Chia sẻ",
+  "shareTitle": "Chia sẻ một liên kết đến câu hỏi này",
+  "saveButton": "Lưu",
+  "commentButton": "Bình luận",
+  "postCommentButton": "Đăng bình luận",
+  "answers": "Câu trả lời",
+  "postAnswerButton": "Đăng câu trả lời",
+  "yourAnswer": "Câu trả lời của bạn",
+  "youHaveAnswers": "Không thể xóa vì một số câu hỏi đã được trả lời",
+  "answerIsCorrect": "Không thể xóa vì câu trả lời được đánh dấu là chính xác",
+  "theBest": "Tốt nhất",
+  "theBestAnswer": "Được đánh dấu là tốt nhất",
+  "markAsBest": "Đánh dấu là tốt nhất",
+  "communityChoice": "Lựa chọn cộng đồng",
+  "moreComments": "Các bình luận khác",
+  "moreComment": "Bình luận thêm",
+  "addComment": "Thêm bình luận",
+  "showMoreAnswers": "Hiển thị thêm câu trả lời {value}",
+  "areYouSure": "Bạn có chắc chắn muốn xóa mục này?",
+  "markExpertQuestionAndGetEarn":
+    "Đánh dấu câu trả lời tốt nhất cho câu hỏi này và kiếm được + 2 điểm danh tiếng",
+  "markGeneralQuestionAndGetEarn":
+    "Đánh dấu câu trả lời hay nhất cho câu hỏi này và kiếm 1 điểm danh tiếng",
+  "tutorial": "Hướng dẫn",
+  "changeQuestionType": "Thay đổi kiểu",
+  "officialAnswer": "Câu trả lời chính thức",
+  "getBounty": "Nhận tiền thưởng",
+  "bountyStatus": "Tình trạng tiền thưởng",
+  "bountyStatusExpiration": "Tiền thưởng sẽ hết hạn: ",
+  "transactionHash": "Giao dịch băm",
+  "eventName": "Tên sự kiện",
+  "timeStamp": "Ngày và giờ",
+  "post": "Bài đăng",
+  "reply": "Trả lời",
+  "comment": "Bình luận",
+  "posted": "đã đăng",
+  "edited": "đã chỉnh sửa",
+  "deleted": "đã xóa",
+  "RulesBlock_1":
+    "Dưới đây là một số mẹo giúp câu trả lời của bạn hữu ích và không bị người kiểm duyệt xóa:",
+  "RulesBlock_2":
+    "1. Đọc kỹ bài đăng để hiểu vấn đề và đưa ra câu trả lời tốt nhất mà bạn có thể.",
+  "RulesBlock_3":
+    "2. Đảm bảo rằng câu trả lời của bạn trả lời câu hỏi được hỏi trong một bài đăng và không chỉ là một nhận xét hay lòng biết ơn.",
+  "RulesBlock_4": "3. Lịch sự và tôn trọng người khác."
+}

@@ -46,6 +46,7 @@ export function sendTips(...args) {
     resetForm: args[2].reset,
     questionId: args[4],
     answerId: args[5],
+    t: args[6],
   };
 }
 
@@ -79,8 +80,9 @@ export function sendTipsNotification(
   };
 }
 
-export const selectScatterAccount = () => ({
+export const selectScatterAccount = data => ({
   type: SELECT_SCATTER_ACCOUNT,
+  data,
 });
 
 export const selectScatterAccountSuccess = selectedScatterAccount => ({
@@ -88,8 +90,9 @@ export const selectScatterAccountSuccess = selectedScatterAccount => ({
   selectedScatterAccount,
 });
 
-export const selectKeycatAccount = () => ({
+export const selectKeycatAccount = data => ({
   type: SELECT_KEYCAT_ACCOUNT,
+  data,
 });
 
 export const selectKeycatAccountSuccess = selectedKeycatAccount => ({
@@ -143,9 +146,10 @@ export function showVerifyFbModal() {
   };
 }
 
-export function sendAnotherCode() {
+export function sendAnotherCode(data) {
   return {
     type: SEND_ANOTHER_CODE,
+    data,
   };
 }
 

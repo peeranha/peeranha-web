@@ -1,0 +1,17 @@
+{
+  "youHaveNoNewNotifications": "您没有新的通知。",
+  "yourQuestionWasUpVoted": "你的帖子被点赞了",
+  "yourQuestionWasDownVoted": "你的帖子被否决了",
+  "yourQuestionUpVoteWasCanceled": "您的帖子的点赞已取消",
+  "yourQuestionDownVoteWasCanceled": "您的帖子的反对票已取消",
+  "yourAnswerWasUpVoted": "你的回答被赞成",
+  "yourAnswerWasDownVoted": "你的回答被否决了",
+  "yourAnswerUpVoteWasCanceled": "你的回答被取消了",
+  "yourAnswerDownVoteWasCanceled": "您的答案的反对票已被取消",
+  "yourAnswerWasMarkedAsTheBest": "您的答案被标记为最佳",
+  "somebodyAnsweredYourQuestion": "你的帖子被回复了",
+  "somebodyLeftACommentToYourQuestion": "你的帖子被评论了",
+  "somebodyLeftACommentToYourAnswer": "你的回答被评论了",
+  "yourQuestionWasTipped": "您的帖子被提示 {{quantity}}",
+  "yourAnswerWasTipped": "您的答案已提示 {{quantity}}"
+}

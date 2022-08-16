@@ -19,9 +19,19 @@ import { getPermissions, hasGlobalModeratorRole } from '../../utils/properties';
 
 const Header = ({ openTagForm, profile }) => {
   const { t } = useTranslation();
-  const profileWithModeratorRights =
-    profile &&
-    useMemo(() => hasGlobalModeratorRole(getPermissions(profile)), [profile]);
+
+  const profileWithModeratorRights = useMemo(
+    () => profile && hasGlobalModeratorRole(getPermissions(profile)),
+    [profile],
+  );
+
+  const onClickOpenTagForm = ({ currentTarget: { id, communityid } }) => {
+    openTagForm({
+      t,
+      buttonId: id,
+      communityId: communityid,
+    });
+  };
 
   return (
     <Wrapper className="mb-to-sm-0 mb-from-sm-3">
@@ -32,7 +42,7 @@ const Header = ({ openTagForm, profile }) => {
       {profileWithModeratorRights && (
         <WrapperRightPanel className="right-panel">
           <TransparentButton
-            onClick={openTagForm}
+            onClick={onClickOpenTagForm}
             data-communityid=""
             id={`${GO_TO_CREATE_TAG_SCREEN_BUTTON_ID}_tags_collection`}
           >

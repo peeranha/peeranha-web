@@ -1,0 +1,175 @@
+{
+  "questionAsked": {
+    "bronze": {
+      "title": "Đồng - Người học",
+      "description": "Đặt 10 câu hỏi"
+    },
+    "silver": {
+      "title": "Bạc - Đào sâu",
+      "description": "Đặt 50 câu hỏi"
+    },
+    "gold": {
+      "title": "Vàng - Tôi muốn biết tất cả mọi thứ!",
+      "description": "Đặt 100 câu hỏi"
+    }
+  },
+  "answerGiven": {
+    "bronze": {
+      "title": "Đồng - Chuyên gia",
+      "description": "Trả lời 20 câu hỏi"
+    },
+    "silver": {
+      "title": "Bạc - Thạc sĩ",
+      "description": "Trả lời 100 câu hỏi"
+    },
+    "gold": {
+      "title": "Vàng- Đạo sư",
+      "description": "Trả lời 200 câu hỏi"
+    }
+  },
+  "bestAnswer": {
+    "bronze": {
+      "title": "Đồng - Một chuyên gia thực thụ",
+      "description": "Nhận 5 điểm là \"Tốt nhất\""
+    },
+    "silver": {
+      "title": "Bạc - Uyên bác",
+      "description": "Nhận 25 điểm là \"Tốt nhất\""
+    },
+    "gold": {
+      "title": "Vàng - Trí tuệ nhân tạo",
+      "description": "Nhận 50 điểm là \"Tốt nhất\""
+    }
+  },
+  "firstIn15": {
+    "bronze": {
+      "title": "Đồng - Bàn tay nhanh nhất ở phương Tây",
+      "description":
+        "Đăng câu trả lời cho 5 câu hỏi khác nhau trong 15 phút sau khi câu hỏi được hỏi"
+    },
+    "silver": {
+      "title": "Bạc - Bàn đạp vào kim loại",
+      "description":
+        "Đăng câu trả lời cho 10 câu hỏi khác nhau trong 15 phút sau khi câu hỏi được hỏi"
+    },
+    "gold": {
+      "title": "Vàng - Tia chớp",
+      "description":
+        "Đăng câu trả lời cho 10 câu hỏi khác nhau trong 15 phút sau khi câu hỏi được hỏi"
+    }
+  },
+  "firstAnswer": {
+    "bronze": {
+      "title": "Đồng - Trợ giúp nhanh chóng",
+      "description":
+        "Hãy là người đầu tiên, người đăng câu trả lời cho 10 câu hỏi khác nhau"
+    },
+    "silver": {
+      "title": "Bạc - Tôi đã ở đây đầu tiên!",
+      "description":
+        "Hãy là người đầu tiên, người đăng câu trả lời cho 25 câu hỏi khác nhau"
+    },
+    "gold": {
+      "title": "Vàng - Nhà vô địch không thể tranh cãi",
+      "description":
+        "Hãy là người đầu tiên, người đăng câu trả lời cho 50 câu hỏi khác nhau"
+    }
+  },
+  "welcomeStranger": {
+    "title": "Chào mừng, Người lạ",
+    "description": "Đăng ký thành công trên Peeranha"
+  },
+  "newbie": {
+    "title": "Khởi đầu của một cuộc hành trình tuyệt vời",
+    "description": "Đạt được trạng thái \"Thành viên mới\""
+  },
+  "junior": {
+    "title": "Đừng gọi tôi là Junior!",
+    "description": "Đạt được trạng thái \"Trẻ tuổi\""
+  },
+  "resident": {
+    "title": "Peeranha là nhà của tôi",
+    "description": "Đạt được trạng thái \"Cư dân\""
+  },
+  "senior": {
+    "title": "Tôi có thể dạy bạn bất cứ điều gì",
+    "description": "Đạt được trạng thái \"Người lớn tuổi\""
+  },
+  "hero": {
+    "title": "Trang web này cần một anh hùng",
+    "description": "Đạt được trạng thái \"Anh hùng\""
+  },
+  "superhero": {
+    "title": "Một huyền thoại sống động",
+    "description": "Đạt được trạng thái \"Siêu anh hùng\""
+  },
+  "foundingMember": {
+    "title": "Thành viên sáng lập",
+    "description":
+      "Hãy là một trong 10 000 Người dùng đầu tiên đăng ký thành công trên Peeranha"
+  },
+  "activist": {
+    "title": "Nhà hoạt động",
+    "description":
+      "Hãy là một trong 700 Người dùng đầu tiên đạt được trạng thái \"Thành viên mới\""
+  },
+  "researcher": {
+    "title": "Nhà nghiên cứu",
+    "description":
+      "Hãy là một trong 500 Người dùng đầu tiên đạt được trạng thái \"Trẻ tuổi\""
+  },
+  "honorableResident": {
+    "title": "Cư dân đáng kính",
+    "description":
+      "Hãy là một trong 300 Người dùng đầu tiên đạt được trạng thái \"Cư dân\""
+  },
+  "theWisest": {
+    "title": "Khôn ngoan nhất",
+    "description":
+      "Hãy là một trong 150 Người dùng đầu tiên đạt được trạng thái \"Người lớn tuổi\""
+  },
+  "modernHero": {
+    "title": "Anh hùng hiện đại",
+    "description":
+      "Hãy là một trong 50 Người dùng đầu tiên đạt được trạng thái \"Anh hùng\""
+  },
+  "kingOfTheHill": {
+    "title": "Vua của ngọn đồi",
+    "description":
+      "Hãy là một trong 10 Người dùng đầu tiên đạt được trạng thái \"Siêu anh hùng\""
+  },
+  "progressBarPopover": {
+    "ratingRelated": {
+      "single": "điểm đánh giá còn lại để mở khóa thành tích này",
+      "multiple": "điểm đánh giá còn lại để mở khóa thành tích này"
+    },
+    "questionAskedRelated": {
+      "single": "câu hỏi còn lại để mở khóa thành tích này",
+      "multiple": "câu hỏi còn lại để mở khóa thành tích này"
+    },
+    "answerGivenRelated": {
+      "single": "câu trả lời còn lại để mở khóa thành tích này",
+      "multiple": "câu trả lời còn lại để mở khóa thành tích này"
+    },
+    "bestAnswerRelated": {
+      "single": "tốt nhất câu trả lời còn lại để mở khóa thành tích này",
+      "multiple": "tốt nhất câu trả lời còn lại để mở khóa thành tích này"
+    },
+    "firstAnswerIn15Related": {
+      "single": "trả lời trong 15 phút còn lại để mở khóa thành tích này",
+      "multiple": "trả lời trong 15 phút còn lại để mở khóa thành tích này"
+    },
+    "firstAnswerRelated": {
+      "single": "câu trả lời đầu tiên còn lại để mở khóa thành tích này",
+      "multiple": "câu trả lời đầu tiên còn lại để mở khóa thành tích này"
+    }
+  },
+  "separators": {
+    "ratingRelated": "Xếp loại",
+    "questionAskedRelated": "Câu hỏi",
+    "answerGivenRelated": "Câu trả lời",
+    "bestAnswerRelated": "Câu trả lời tốt nhất",
+    "firstAnswerIn15Related": "Trả lời trong 15 phút",
+    "firstAnswerRelated": "Câu trả lời đầu tiên"
+  }
+}

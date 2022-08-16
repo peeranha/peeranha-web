@@ -1,13 +1,12 @@
 import React, { memo, useState } from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 
 import { BG_WARNING_LIGHT } from 'style-constants';
 
 import Span from 'components/Span';
 import { showPopover, closePopover } from 'utils/popover';
-import headerMessages from './messages';
 
 const IconCss = css`
   display: flex;
@@ -54,18 +53,12 @@ const IconNumber = Span.extend`
   padding-right: 4px;
 `;
 
-const NotificationIcon = ({
-  number,
-  inline,
-  isMobileVersion,
-  iconId,
-  locale,
-}) => {
-  const translations = translationMessages[locale];
+const NotificationIcon = ({ number, inline, isMobileVersion, iconId }) => {
+  const { t } = useTranslation();
   const tooltipText =
-    translations[headerMessages.walletTooltipPart1.id] +
+    t('common.header.walletTooltipPart1') +
     number +
-    translations[headerMessages.walletTooltipPart2.id];
+    t('common.header.walletTooltipPart2');
 
   const [opened, setOpened] = useState(false);
   const setOpenedFalse = () => setOpened(false);
@@ -129,7 +122,6 @@ NotificationIcon.propTypes = {
   inline: PropTypes.bool,
   isMobileVersion: PropTypes.bool,
   iconId: PropTypes.string,
-  locale: PropTypes.string,
 };
 
 export default memo(NotificationIcon);

@@ -7,7 +7,7 @@ const AlmostDoneWrapper = () => {
   const { t } = useTranslation();
 
   return (
-    <AlmostDone message={t('sign-up.registrationWithEosAccountAlmostDone')} />
+    <AlmostDone message={t('signUp.registrationWithEosAccountAlmostDone')} />
   );
 };
 

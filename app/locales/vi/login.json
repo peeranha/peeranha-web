@@ -1,0 +1,21 @@
+{
+  "authUserHasMore": "Người dùng được ủy quyền có nhiều tùy chọn hơn",
+  "staySignedIn": "Vẫn đăng nhập",
+  "iForgotPassword": "Tôi quên mật khẩu",
+  "scatterIsNotInstalled":
+    "Kiểm tra xem ví và cài đặt mạng có được cài đặt không",
+  "scatterBrowserExtensionNotConfigured":
+    "Kiểm tra xem phần mở rộng trình duyệt ví có được cấu hình không",
+  "userIsNotRegistered": "Người dùng chưa đăng ký",
+  "userIsNotSelected": "Người dùng không được chọn",
+  "fbAutologinError": "Không thể tự động đăng nhập bằng tài khoản facebook",
+  "fbLoginError": "Không thể đăng nhập bằng tài khoản facebook",
+  "weAreHappyYouAreHere": "Chúng tôi rất vui, bạn đang ở đây",
+  "yourUsernameIsHow":
+    "Tên người dùng là cách bạn sẽ được biết đến trên Peeranha.",
+  "referralMessage": "Đây là mã mà bạn của bạn đã cho bạn.",
+  "optionalReferralCode": "(tùy chọn)",
+  "accountNotCreatedName": "Tài khoản chưa được tạo",
+  "inviterIsNotRegisterYet": "Inviter chưa đăng ký",
+  "iDontHaveAnAccount": "Tôi không có tài khoản."
+}

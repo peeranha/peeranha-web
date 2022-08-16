@@ -1,0 +1,19 @@
+{
+  "title": "Tăng",
+  "description": "Tăng | Sự miêu tả",
+  "currentPeriod": "Thời kỳ hiện tại",
+  "nextPeriod": "Kỳ tiếp theo",
+  "maximumStake": "Cổ phần trung bình",
+  "users": "Người dùng",
+  "yourStake": "Cổ phần của bạn",
+  "yourBoost": "Tăng của bạn",
+  "yourPredictedBoost": "Dự đoán của bạn",
+  "formTitle": "Cổ phần giai đoạn tiếp theo",
+  "formSubmit": "Lưu",
+  "formCancel": "Hủy bỏ",
+  "formBoostPrediction": "Dự đoán tăng",
+  "formCurrentStake": "Cổ phần của bạn",
+  "formTakeAStake": "Lấy cổ phần",
+  "formUnstakeTokens": "Mã thông báo không đặt cược",
+  "notTokensToStake": "Bạn không có mã thông báo để đặt cược"
+}

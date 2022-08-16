@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 
 import { TEXT_SECONDARY } from 'style-constants';
 
@@ -10,8 +10,6 @@ import achievementNotReached from 'images/achievement_not_reached.svg?external';
 import Icon from 'components/Icon';
 import Span from 'components/Span';
 import ProgressBar from './ProgressBar';
-
-import messages from './messages';
 
 import { uniqueRatingRelated } from './constants';
 import { italicFont } from '../../global-styles';
@@ -65,13 +63,10 @@ const UniqueAchievement = ({
   achievementURI,
   currentUser,
 }) => {
+  const { t } = useTranslation();
   const availiableCount = maxCount - factCount;
   const pointsToNext = lowerValue - currentValue;
   const getProgress = () => (currentValue / lowerValue) * 100;
-
-  const translations = translationMessages[locale]
-    ? translationMessages[locale]
-    : null;
 
   const [visible, changeVisibility] = useState(false);
   const contractAddress = process.env.PEERANHA_NFT;
@@ -113,16 +108,12 @@ const UniqueAchievement = ({
               progress={getProgress()}
               pointsToNext={pointsToNext}
               groupType={uniqueRatingRelated}
-              messageSingle={
-                translations[
-                  messages.progressBarPopover.ratingRelated.single.id
-                ]
-              }
-              messageMultiple={
-                translations[
-                  messages.progressBarPopover.ratingRelated.multiple.id
-                ]
-              }
+              messageSingle={t(
+                'achievements.progressBarPopover.ratingRelated.single',
+              )}
+              messageMultiple={t(
+                'achievements.progressBarPopover.ratingRelated.multiple',
+              )}
             />
           )}
       </ImageBlock>

@@ -27,9 +27,12 @@ import {
 const SendMessageForm = props => {
   const { t } = useTranslation();
   const { handleSubmit, change, sendMessageLoading, sendMessage } = props;
+  const sendMessageHandler = (...data) => {
+    sendMessage(...data, t);
+  };
 
   return (
-    <form onSubmit={handleSubmit(sendMessage)} autoComplete="off">
+    <form onSubmit={handleSubmit(sendMessageHandler)} autoComplete="off">
       <div>
         <Field
           name={NAME_FIELD}

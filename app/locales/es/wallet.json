@@ -1,0 +1,30 @@
+{
+  "title": "Billetera",
+  "description": "Billetera | Descripción",
+  "eosAccount": "Cuenta telos",
+  "currentPeriod": "Período actual en curso",
+  "periodStillInProgress":
+    "Este período aún está en curso. Ya es hora de aumentar tu reputación y ganar algunos tokens.",
+  "payoutPending": "Pago pendiente",
+  "weAreAnalyzing":
+    "Estamos analizando las actividades para este período. Verá más detalles el próximo período.",
+  "estimatedPayout": "Pago estimado",
+  "paidOut": "Pagado",
+  "rewarded": "Recompensado",
+  "week": "Período",
+  "getReward": "Obtener recompensa",
+  "received": "Recibido",
+  "thisIsRegistrationWeek":
+    "Este es el período de registro. Estamos configurando su billetera. La recompensa de este período se aplicará al próximo período.",
+  "registrationWeek": "Periodo de registro",
+  "yourWalletWasSuccessfullySet":
+    "Su billetera se configuró correctamente durante este período",
+  "getMoreWithBoost": "Obtenga más recompensas con Boost",
+  "stakedInCurrentPeriod": "Apostado en el período actual",
+  "stakedInNextPeriod": "Apostado en el próximo período",
+  "totalBalance": "Balance total",
+  "boostHelp": "Aprenda {whatABoostIs} y {howToStake} en las {FAQs}.",
+  "whatABoostIs": "que es un impulso",
+  "howToStake": "como pones una estaca",
+  "FAQs": "Preguntas frecuentes"
+}

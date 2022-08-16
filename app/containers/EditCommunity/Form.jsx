@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { injectIntl, intlShape } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form/immutable';
 
@@ -21,8 +21,6 @@ import TextInputField from 'components/FormFields/TextInputField';
 
 import { scrollToErrorField } from 'utils/animation';
 
-import messages from './messages';
-
 import {
   COMM_AVATAR_FIELD,
   COMM_NAME_FIELD,
@@ -31,20 +29,7 @@ import {
   EDIT_COMMUNITY_BUTTON,
   EDIT_COMMUNITY_FORM,
 } from './constants';
-import TypeForm from '../CreateCommunity/QuestionsTypeForm';
-import {
-  COMM_BANNER_FIELD,
-  FACEBOOK_LINK_FIELD,
-  FORM_TYPE,
-  HIGHLIGHT_COLOR_FIELD,
-  INSTAGRAM_LINK_FIELD,
-  COMMUNITY_TYPE,
-  MAIN_COLOR_FIELD,
-  VK_LINK_FIELD,
-  YOUTUBE_LINK_FIELD,
-  ABOUT_FIELD,
-} from '../CreateCommunity/constants';
-import CommunityTypeForm from '../CreateCommunity/CommunityTypeForm';
+import { COMMUNITY_TYPE } from '../CreateCommunity/constants';
 import BloggerModeForm from '../CreateCommunity/BloggerModeForm';
 
 const EditCommunityForm = ({
@@ -52,31 +37,18 @@ const EditCommunityForm = ({
   communityLoading,
   editCommunityDispatch,
   handleSubmit,
-  intl,
-  change,
   formValues,
   initialValues,
-  locale,
-  isModerator,
-  isBloggerMode,
 }) => {
+  const { t } = useTranslation();
   const editCommunity = useCallback(
     values => {
       const communityData = {
         avatar: values.get(COMM_AVATAR_FIELD),
         name: values.get(COMM_NAME_FIELD),
         description: values.get(COMM_SHORT_DESCRIPTION_FIELD),
-        // about: values.get(ABOUT_FIELD),
         website: values.get(COMM_OFFICIAL_SITE_FIELD),
-        // questionsType: parseInt(values.get(FORM_TYPE)),
         isBlogger: !!parseInt(values.get(COMMUNITY_TYPE)),
-        // banner: values.get(COMM_BANNER_FIELD),
-        // facebook: values.get(FACEBOOK_LINK_FIELD),
-        // instagram: values.get(INSTAGRAM_LINK_FIELD),
-        // youtube: values.get(YOUTUBE_LINK_FIELD),
-        // vk: values.get(VK_LINK_FIELD),
-        // main_color: values.get(MAIN_COLOR_FIELD),
-        // highlight_color: values.get(HIGHLIGHT_COLOR_FIELD),
       };
 
       editCommunityDispatch(communityId, communityData);
@@ -101,9 +73,9 @@ const EditCommunityForm = ({
           validate={[strLength3x20, required]}
           warn={[strLength3x20, required]}
           disabled={communityLoading}
-          label={intl.formatMessage(messages.communityTitle)}
+          label={t('createCommunity.communityTitle')}
           splitInHalf
-          tip={intl.formatMessage(messages.communityTitleTip)}
+          tip={t('createCommunity.communityTitleTip')}
         />
 
         <Field
@@ -112,9 +84,9 @@ const EditCommunityForm = ({
           validate={[strLength15x250, required]}
           warn={[strLength15x250, required]}
           disabled={communityLoading}
-          label={intl.formatMessage(messages.shortDescription)}
+          label={t('createCommunity.shortDescription')}
           splitInHalf
-          tip={intl.formatMessage(messages.shortDescriptionTip)}
+          tip={t('createCommunity.shortDescriptionTip')}
         />
 
         <Field
@@ -123,30 +95,16 @@ const EditCommunityForm = ({
           validate={[validateURL, strLength100Max]}
           warn={[validateURL]}
           disabled={communityLoading}
-          label={intl.formatMessage(messages.website)}
+          label={t('createCommunity.website')}
           placeholder="https://example.com"
           splitInHalf
-          tip={intl.formatMessage(messages.websiteTip)}
+          tip={t('createCommunity.websiteTip')}
         />
-
-        {/*{isModerator &&*/}
-        {/*  !isBloggerMode && (*/}
-        {/*    <TypeForm*/}
-        {/*      locale={locale}*/}
-        {/*      change={change}*/}
-        {/*      formValues={formValues}*/}
-        {/*      intl={intl}*/}
-        {/*    />*/}
-        {/*  )}*/}
-
-        {/*{isModerator &&*/}
-        {/*  !isBloggerMode && <CommunityTypeForm change={change} intl={intl} />}*/}
 
         {+formValues[COMMUNITY_TYPE] ? (
           <BloggerModeForm
             disabled={communityLoading}
             formValues={formValues}
-            intl={intl}
             initialValues={initialValues}
           />
         ) : null}
@@ -156,7 +114,7 @@ const EditCommunityForm = ({
           type="submit"
           disabled={communityLoading}
         >
-          {intl.formatMessage(messages.editCommunity)}
+          {t('common.editCommunityDesc.editCommunity')}
         </LargeButton>
       </FormBox>
     </ExtendedBase>
@@ -168,7 +126,6 @@ EditCommunityForm.propTypes = {
   communityLoading: PropTypes.bool.isRequired,
   editCommunityDispatch: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  intl: intlShape.isRequired,
 };
 
 const FormClone = reduxForm({
@@ -179,26 +136,15 @@ const FormClone = reduxForm({
   },
 })(EditCommunityForm);
 
-export default injectIntl(
-  connect((state, { community }) => ({
-    formValues: state.toJS()?.form[EDIT_COMMUNITY_FORM]?.values ?? {},
-    initialValues: community
-      ? {
-          [COMM_AVATAR_FIELD]: community.avatar,
-          [COMM_NAME_FIELD]: community.name,
-          [COMM_SHORT_DESCRIPTION_FIELD]: community.description,
-          // [ABOUT_FIELD]: community.about,
-          [COMM_OFFICIAL_SITE_FIELD]: community.website,
-          // [FORM_TYPE]: community.questionsType,
-          [COMMUNITY_TYPE]: community.isBlogger ? 1 : 0,
-          // [COMM_BANNER_FIELD]: community.banner,
-          // [FACEBOOK_LINK_FIELD]: community.socialLinks.facebook,
-          // [INSTAGRAM_LINK_FIELD]: community.socialLinks.instagram,
-          // [YOUTUBE_LINK_FIELD]: community.socialLinks.youtube,
-          // [VK_LINK_FIELD]: community.socialLinks.vk,
-          // [MAIN_COLOR_FIELD]: community.colors.main,
-          // [HIGHLIGHT_COLOR_FIELD]: community.colors.highlight,
-        }
-      : {},
-  }))(FormClone),
-);
+export default connect((state, { community }) => ({
+  formValues: state.toJS()?.form[EDIT_COMMUNITY_FORM]?.values ?? {},
+  initialValues: community
+    ? {
+        [COMM_AVATAR_FIELD]: community.avatar,
+        [COMM_NAME_FIELD]: community.name,
+        [COMM_SHORT_DESCRIPTION_FIELD]: community.description,
+        [COMM_OFFICIAL_SITE_FIELD]: community.website,
+        [COMMUNITY_TYPE]: community.isBlogger ? 1 : 0,
+      }
+    : {},
+}))(FormClone);

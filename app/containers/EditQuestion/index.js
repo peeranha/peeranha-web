@@ -2,7 +2,7 @@ import React, { useEffect, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 import { compose, bindActionCreators } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
@@ -31,10 +31,15 @@ import {
 import * as makeSelectEditQuestion from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
 
 import { getAskedQuestion, editQuestion } from './actions';
 import { EDIT_QUESTION_FORM, EDIT_QUESTION_BUTTON } from './constants';
+
+const TITLE = [
+  'common.EditExpertQ&A',
+  'common.EditDiscussion',
+  'common.EditTutorial',
+];
 
 const EditQuestion = ({
   match,
@@ -50,6 +55,7 @@ const EditQuestion = ({
   account,
   editQuestionError,
 }) => {
+  const { t } = useTranslation();
   const { questionid } = match.params;
   useEffect(
     () => {
@@ -69,10 +75,6 @@ const EditQuestion = ({
           content: val[FORM_CONTENT],
           communityId: val[FORM_COMMUNITY].id,
           tags: val[FORM_TAGS].map(tag => +tag.id.split('-')[1]),
-          // bounty: +val[FORM_BOUNTY],
-          // bountyFull: `${getFormattedAsset(+val[FORM_BOUNTY])} PEER`,
-          // bountyHours: +val[FORM_BOUNTY_HOURS],
-          // promote: +val[FORM_PROMOTE],
         },
         questionid,
       );
@@ -85,10 +87,9 @@ const EditQuestion = ({
     [balance],
   );
 
-  const titleMessage = useMemo(
-    () => translationMessages[locale][messages.title.id[(question?.postType)]],
-    [question?.postType],
-  );
+  const titleMessage = useMemo(() => t(TITLE[(question?.postType)]), [
+    question?.postType,
+  ]);
 
   const isFailed = editQuestionError !== null;
 
@@ -97,8 +98,7 @@ const EditQuestion = ({
       form: EDIT_QUESTION_FORM,
       formTitle: titleMessage,
       submitButtonId: EDIT_QUESTION_BUTTON,
-      submitButtonName:
-        translationMessages[locale][messages.submitButtonName.id],
+      submitButtonName: t('common.editQuestion.submitButtonName'),
       sendQuestion,
       questionLoading: editQuestionLoading,
       valueHasToBeLessThan: balance,
@@ -115,9 +115,8 @@ const EditQuestion = ({
 
   const [helmetTitle, helmetDescription] = useMemo(
     () => [
-      question?.title ?? translationMessages[locale][messages.title.id],
-      question?.content ??
-        translationMessages[locale][messages.title.description],
+      question?.title ?? t('common.editQuestion.title'),
+      question?.content ?? t('common.editQuestion.description'),
     ],
     [question],
   );

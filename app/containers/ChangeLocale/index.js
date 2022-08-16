@@ -1,52 +1,35 @@
-/**
- *
- * ChangeLocale
- *
- */
-
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import PropTypes from 'prop-types';
-import { createStructuredSelector } from 'reselect';
-import { connect } from 'react-redux';
-import { compose, bindActionCreators } from 'redux';
 
 import { TEXT_SECONDARY } from 'style-constants';
 
-import { appLocales } from 'i18n';
-import * as routes from 'routes-config';
-
-import createdHistory from 'createdHistory';
+import { languages, currentLocale } from 'app/i18n';
 
 import { setCookie } from 'utils/cookie';
 
 import { APP_LOCALE } from 'containers/LanguageProvider/constants';
-import { changeLocale } from 'containers/LanguageProvider/actions';
-import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import Span from 'components/Span';
 import Dropdown from 'components/Dropdown';
 
 import { Flag, Li } from './Styled';
 
-/* eslint global-require: 0 */
-export const ChangeLocale = ({ locale, changeLocaleDispatch, withTitle }) => {
-  const { t } = useTranslation();
+export const ChangeLocale = ({ withTitle }) => {
+  const { t, i18n } = useTranslation();
+  const [language, setLanguage] = useState(currentLocale);
 
-  function setLocale(newLocale) {
+  const setLocale = locale => {
     setCookie({
       name: APP_LOCALE,
-      value: newLocale,
+      value: locale,
       options: { neverExpires: true, defaultPath: true, allowSubdomains: true },
     });
 
-    const path = window.location.pathname + window.location.hash;
+    setLanguage(locale);
+    i18n.changeLanguage(locale);
+  };
 
-    createdHistory.push(routes.preloaderPage());
-    changeLocaleDispatch(newLocale);
-    setTimeout(() => createdHistory.push(path), 0);
-  }
-  if (process.env.MULTI_LANG === 'false') return null;
+  console.log('currentLocale', currentLocale);
 
   return (
     <Dropdown
@@ -59,21 +42,21 @@ export const ChangeLocale = ({ locale, changeLocaleDispatch, withTitle }) => {
             lineHeight="20"
             color={TEXT_SECONDARY}
           >
-            <Flag src={require(`images/${[locale]}_lang.png`)} alt="country" />
-            {withTitle && t(`common.${locale}`)}
+            <Flag src={require(`images/${['en']}_lang.png`)} alt="country" />
+            {withTitle && t(`common.${language}`)}
           </Span>
         </React.Fragment>
       }
       menu={
         <ul>
-          {appLocales.map(item => (
+          {Object.keys(languages).map(item => (
             <Li
               key={item}
               role="presentation"
               onClick={() => setLocale(item)}
-              isBold={item === locale}
+              isBold={item === currentLocale}
             >
-              <Flag src={require(`images/${item}_lang.png`)} alt="language" />
+              <Flag src={require(`images/${['en']}_lang.png`)} alt="language" />
               {t(`common.${item}`)}
             </Li>
           ))}
@@ -87,25 +70,4 @@ export const ChangeLocale = ({ locale, changeLocaleDispatch, withTitle }) => {
   );
 };
 
-ChangeLocale.propTypes = {
-  changeLocaleDispatch: PropTypes.func,
-  locale: PropTypes.string,
-  withTitle: PropTypes.bool,
-};
-
-const mapStateToProps = createStructuredSelector({
-  locale: makeSelectLocale(),
-});
-
-export function mapDispatchToProps(dispatch) {
-  return {
-    changeLocaleDispatch: bindActionCreators(changeLocale, dispatch),
-  };
-}
-
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
-
-export default compose(withConnect)(ChangeLocale);
+export default ChangeLocale;

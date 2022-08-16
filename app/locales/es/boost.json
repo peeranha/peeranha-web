@@ -1,0 +1,19 @@
+{
+  "title": "Impulso",
+  "description": "Impulso | Descripción",
+  "currentPeriod": "Período actual",
+  "nextPeriod": "Siguiente periodo",
+  "maximumStake": "Apuesta media",
+  "users": "Usuarios",
+  "yourStake": "Tu apuesta",
+  "yourBoost": "Tu impulso",
+  "yourPredictedBoost": "Tu impulso previsto",
+  "formTitle": "Apuesta del próximo período",
+  "formSubmit": "Ahorrar",
+  "formCancel": "Cancelar",
+  "formBoostPrediction": "Impulsar la predicción",
+  "formCurrentStake": "Tu apuesta",
+  "formTakeAStake": "Tomar una apuesta",
+  "formUnstakeTokens": "Dejar de apostar fichas",
+  "notTokensToStake": "No tienes fichas para apostar"
+}

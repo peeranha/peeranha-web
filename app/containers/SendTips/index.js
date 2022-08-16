@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose, bindActionCreators } from 'redux';
+import { useTranslation } from 'react-i18next';
 
 import { DAEMON } from 'utils/constants';
 import injectSaga from 'utils/injectSaga';
@@ -59,6 +60,7 @@ export const SendTips = ({
   answerId,
   isVerifyFbModal,
 }) => {
+  const { t } = useTranslation();
   const availableBalance = getAvailableBalance(profileInfo);
 
   return (
@@ -71,7 +73,7 @@ export const SendTips = ({
           <SendTipsForm
             locale={locale}
             sendTips={(...args) =>
-              sendTipsDispatch(...args, communityId, questionId, answerId)
+              sendTipsDispatch(...args, communityId, questionId, answerId, t)
             }
             sendFbVerificationEmail={(...args) =>
               sendFbVerificationEmailDispatch(

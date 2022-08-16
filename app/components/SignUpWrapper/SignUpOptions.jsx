@@ -120,12 +120,12 @@ const LeftMenu = ({ mainLogo }) => {
         )}
       </div>
 
-      <H3 className="mb-4">{t('sign-up.signUpOptions')}</H3>
+      <H3 className="mb-4">{t('signUp.signUpOptions')}</H3>
 
       <div className="mb-4">
-        <P>{t('sign-up.peeranhaIsNotTypical')}</P>
-        <P>{t('sign-up.ifYouLikeToSkip')}</P>
-        <P>{t('sign-up.weAreHappyToCover')}</P>
+        <P>{t('signUp.peeranhaIsNotTypical')}</P>
+        <P>{t('signUp.ifYouLikeToSkip')}</P>
+        <P>{t('signUp.weAreHappyToCover')}</P>
       </div>
     </>
   );
@@ -156,7 +156,7 @@ const RightMenuWithoutScatter = ({
         />
 
         <LoginLink>
-          {t('sign-up.doYouHaveAlreadyAccount')}{' '}
+          {t('signUp.doYouHaveAlreadyAccount')}{' '}
           <TransparentButton
             className="py-1"
             onClick={showLoginModal}

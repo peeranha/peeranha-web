@@ -16,7 +16,7 @@ import { IconMd } from 'components/Icon/IconWithSizes';
 
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
-export const Header = () => {
+export const Header = ({ headerDescriptor }) => {
   const { t } = useTranslation();
   const isSingleCommunityMode = !!isSingleCommunityWebsite();
   const nextRoute = isSingleCommunityMode ? routes.feed : routes.communities;
@@ -25,7 +25,7 @@ export const Header = () => {
     <Wrapper className="mb-to-sm-0 mb-from-sm-3">
       <H3>
         <MediumImageStyled src={createCommunityHeader} alt="Community icon" />
-        {t('createCommunity.newCommunity')}
+        {t(headerDescriptor || 'createCommunity.newCommunity')}
       </H3>
 
       <WrapperRightPanel className="right-panel">

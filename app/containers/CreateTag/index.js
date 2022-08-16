@@ -2,15 +2,13 @@ import React, { useMemo, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 import { compose, bindActionCreators } from 'redux';
 import { noAccess } from 'routes-config';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
-
-import { COMMUNITY_ADMIN_VALUE } from 'utils/constants';
 
 import Seo from 'components/Seo';
 import TipsBase from 'components/Base/TipsBase';
@@ -37,7 +35,6 @@ import {
 import * as selectors from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
 
 import { suggestTag, getForm } from './actions';
 
@@ -70,8 +67,8 @@ const CreateTag = ({
   permissions = [],
   getFormDispatch,
   isFormLoading,
-  isFormAvailable,
 }) => {
+  const { t } = useTranslation();
   useModeratorRole(noAccess);
 
   useEffect(() => {
@@ -114,8 +111,8 @@ const CreateTag = ({
   return (
     <div>
       <Seo
-        title={translationMessages[locale][messages.title.id]}
-        description={translationMessages[locale][messages.description.id]}
+        title={t('tags.title')}
+        description={t('tags.description')}
         language={locale}
         index={false}
       />
@@ -132,7 +129,6 @@ const CreateTag = ({
               )}
               tagFormLoading={createTagLoading}
               submitAction={createTag}
-              translations={translationMessages[locale]}
               getSuggestedTagsDispatch={() => {}}
             />
           </BaseSpecialOne>

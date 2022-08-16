@@ -1,15 +1,9 @@
-/**
- *
- * AskQuestion
- *
- */
-
 import React, { useEffect, useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose, bindActionCreators } from 'redux';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 import _debounce from 'lodash/debounce';
 
 import injectSaga from 'utils/injectSaga';
@@ -31,7 +25,6 @@ import { askQuestion, getExistingQuestion } from './actions';
 import * as askQuestionSelector from './selectors';
 import reducer, { existingQuestionReducer } from './reducer';
 import saga, { existingQuestionSaga } from './saga';
-import messages from './messages';
 
 import { POST_QUESTION_BUTTON, ASK_QUESTION_FORM } from './constants';
 import { getAvailableBalance } from '../../utils/profileManagement';
@@ -47,6 +40,7 @@ export const AskQuestion = ({
   profileInfo,
   questionError,
 }) => {
+  const { t } = useTranslation();
   const getQuestionsDispatchDebounced = _debounce(getQuestionsDispatch, 250);
 
   const [skipExistingQuestions, setSkipExistingQuestions] = useState(false);
@@ -68,8 +62,8 @@ export const AskQuestion = ({
       <AskQuestionPopup />
 
       <Seo
-        title={translationMessages[locale][messages.title.id]}
-        description={translationMessages[locale][messages.description.id]}
+        title={t('common.titleAskQuestion')}
+        description={t('common.descriptionAskQuestion')}
         language={locale}
         index={false}
       />
@@ -79,9 +73,9 @@ export const AskQuestion = ({
         valueHasToBeLessThan={availableBalance}
         maxPromotingHours={maxPromotingHours}
         form={ASK_QUESTION_FORM}
-        formTitle={translationMessages[locale][messages.title.id]}
+        formTitle={t('common.titleAskQuestion')}
         submitButtonId={POST_QUESTION_BUTTON}
-        submitButtonName={translationMessages[locale][messages.postQuestion.id]}
+        submitButtonName={t('common.postQuestion')}
         getQuestions={getQuestionsDispatchDebounced}
         sendQuestion={askQuestionDispatch}
         questionLoading={askQuestionLoading}

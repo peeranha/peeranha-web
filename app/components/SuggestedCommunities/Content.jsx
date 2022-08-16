@@ -126,7 +126,6 @@ const Content = ({
   suggestedCommunitiesLoading,
   isLastFetch,
   getSuggestedCommunities,
-  language,
 }) => {
   if (!suggestedCommunities || !suggestedCommunities.length) return null;
 
@@ -136,13 +135,7 @@ const Content = ({
       isLoading={suggestedCommunitiesLoading}
       isLastFetch={isLastFetch}
     >
-      <div>
-        {suggestedCommunities
-          .filter(
-            x => (language.sortBy ? x.language === language.sortBy : true),
-          )
-          .map(x => <Item key={x.id} {...x} />)}
-      </div>
+      <div>{suggestedCommunities.map(x => <Item key={x.id} {...x} />)}</div>
     </InfinityLoader>
   );
 };
@@ -152,7 +145,6 @@ Content.propTypes = {
   suggestedCommunitiesLoading: PropTypes.bool,
   isLastFetch: PropTypes.bool,
   getSuggestedCommunities: PropTypes.func,
-  language: PropTypes.object,
 };
 
 export default React.memo(Content);

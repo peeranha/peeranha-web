@@ -28,8 +28,6 @@ import FormBox from 'components/Form';
 import TipsBase from 'components/Base/TipsBase';
 import { IconMd } from 'components/Icon/IconWithSizes';
 
-import messages from './messages';
-
 import {
   FORM_TITLE,
   FORM_TYPE,
@@ -57,7 +55,6 @@ import {
 import createdHistory from '../../createdHistory';
 import * as routes from '../../routes-config';
 import DescriptionList from '../DescriptionList';
-import { translationMessages } from '../../i18n';
 
 const single = isSingleCommunityWebsite();
 
@@ -69,10 +66,18 @@ const SuggestTag = ({ redirectToCreateTagDispatch, formValues }) => {
     formValues,
   ]);
 
+  const onClick = ({ currentTarget: { id, communityid } }) => {
+    redirectToCreateTagDispatch({
+      t,
+      buttonId: id,
+      communityId: communityid,
+    });
+  };
+
   return (
     <div style={{ marginBottom: '20px' }}>
       <TransparentButton
-        onClick={redirectToCreateTagDispatch}
+        onClick={onClick}
         data-communityid={communityId}
         id="question-form-suggest-tag"
         type="button"
@@ -108,6 +113,7 @@ export const QuestionForm = ({
   profile,
   isFailed,
 }) => {
+  const { t } = useTranslation();
   const [isSelectedType, setIsSelectedType] = useState(false);
   const [isError, setIsError] = useState(false);
   const [submitPressed, setSubmitPressed] = useState(false);
@@ -166,7 +172,7 @@ export const QuestionForm = ({
   return (
     <Router history={history}>
       <Prompt
-        message={translationMessages[locale][messages.leaveWithoutChanges.id]}
+        message={t('common.leaveWithoutChanges')}
         when={isEdited && (!submitPressed || isFailed)}
       />
       <div>
@@ -202,8 +208,8 @@ export const QuestionForm = ({
                     <>
                       <DescriptionList
                         locale={locale}
-                        label={messages.generalQuestionDescriptionLabel.id}
-                        items={messages.generalQuestionDescriptionList.id}
+                        label="common.generalQuestionDescriptionLabel"
+                        items="common.generalQuestionDescriptionList"
                       />
                       <br />
                     </>
@@ -211,8 +217,8 @@ export const QuestionForm = ({
                     <>
                       <DescriptionList
                         locale={locale}
-                        label={messages.expertQuestionDescriptionLabel.id}
-                        items={messages.expertQuestionDescriptionList.id}
+                        label="common.expertQuestionDescriptionLabel"
+                        items="common.expertQuestionDescriptionList"
                       />
                       <br />
                     </>

@@ -1,6 +1,5 @@
 import { call, put, select, take, takeLatest } from 'redux-saga/effects';
 
-import { translationMessages } from 'i18n';
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
@@ -9,12 +8,9 @@ import {
   registerConfirmEmail,
   registerInit,
 } from 'utils/web_integration/src/wallet/register/register';
-import webIntegrationErrors from 'utils/web_integration/src/wallet/service-errors';
 import { WebIntegrationError } from 'utils/errors';
 
 import { successHandling } from 'containers/Toast/saga';
-
-import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import {
   EMAIL_FIELD as EMAIL_LOGIN_FIELD,
@@ -28,7 +24,6 @@ import {
 } from 'containers/Login/saga';
 
 import {
-  DISPLAY_NAME_FIELD,
   EMAIL_CHECKING,
   EMAIL_CHECKING_SUCCESS,
   EMAIL_VERIFICATION,
@@ -38,8 +33,6 @@ import {
   SHOW_WALLET_SIGNUP_FORM,
   SIGNUP_WITH_WALLET,
   SIGNUP_WITH_WALLET_SUCCESS,
-  USER_ALREADY_REGISTERED_ERROR,
-  USER_REJECTED_SIGNATURE_REQUEST_ERROR,
   ETHEREUM_WALLET_ADDRESS,
 } from './constants';
 
@@ -50,19 +43,15 @@ import {
   signUpViaEmailCompleteSuccess,
   showWalletSignUpFormErr,
   showWalletSignUpFormSuccess,
-  signUpWithWalletErr,
-  signUpWithWalletSuccess,
   verifyEmailErr,
   verifyEmailSuccess,
 } from './actions';
 
 import { selectEmail } from './selectors';
 
-import signupMessages from './messages';
 import { REDIRECT_TO_FEED } from '../App/constants';
 import { selectEthereum } from '../EthereumProvider/selectors';
 import { getProfileInfo } from '../../utils/profileManagement';
-import { makeSelectAccount } from '../AccountProvider/selectors';
 import { loginWithEmailSuccess } from '../Login/actions';
 
 const setEmailToStorage = email => {
@@ -81,16 +70,11 @@ const getCodeFromStorage = () =>
 
 export function* emailCheckingWorker({ email }) {
   try {
-    const locale = yield select(makeSelectLocale());
-    const translations = translationMessages[locale];
-
     setEmailToStorage(email);
     const response = yield call(registerInit, email);
 
     if (!response.OK) {
-      throw new WebIntegrationError(
-        translations[webIntegrationErrors[response.errorCode].id],
-      );
+      throw new WebIntegrationError();
     }
 
     yield put(checkEmailSuccess());
@@ -108,20 +92,16 @@ export function* verifyEmailWorker({
 }) {
   try {
     const email = receivedEmail || getEmailFromStorage();
-    const locale = yield select(makeSelectLocale());
-    const translations = translationMessages[locale];
 
     setCodeToStorage(verificationCode);
     const response = yield call(registerConfirmEmail, email, verificationCode);
 
     if (!response.body.success) {
-      throw new WebIntegrationError(translations[webIntegrationErrors['8'].id]);
+      throw new WebIntegrationError();
     }
 
     if (!response.OK) {
-      throw new WebIntegrationError(
-        translations[(webIntegrationErrors[response.errorCode]?.id)],
-      );
+      throw new WebIntegrationError();
     }
 
     yield put(verifyEmailSuccess());
@@ -145,8 +125,6 @@ export function* sendAnotherCodeSuccess() {
 
 export function* signUpComplete({ val }) {
   try {
-    const locale = yield select(makeSelectLocale());
-    const translations = translationMessages[locale];
     const email = getEmailFromStorage();
 
     const address = val[ETHEREUM_WALLET_ADDRESS];
@@ -167,9 +145,7 @@ export function* signUpComplete({ val }) {
     const response = yield call(registerComplete, props, profile);
 
     if (!response.OK) {
-      throw new WebIntegrationError(
-        translations[webIntegrationErrors[response.errorCode].id],
-      );
+      throw new WebIntegrationError();
     }
 
     if (response.OK) {
@@ -194,8 +170,6 @@ export function* signUpWithWalletWorker({ val, metaMask }) {}
 
 export function* showWalletSignUpFormWorker({ metaMask }) {
   try {
-    const locale = yield select(makeSelectLocale());
-    const translations = translationMessages[locale];
     const ethereumService = yield select(selectEthereum);
     let currentAccount;
 
@@ -214,9 +188,7 @@ export function* showWalletSignUpFormWorker({ metaMask }) {
       );
     } catch (err) {}
     if (profileInfo) {
-      throw new WebIntegrationError(
-        translations[signupMessages[USER_ALREADY_REGISTERED_ERROR].id],
-      );
+      throw new WebIntegrationError();
     }
     yield put(showWalletSignUpFormSuccess(currentAccount));
     yield call(createdHistory.push, routes.signup.displayName.name);

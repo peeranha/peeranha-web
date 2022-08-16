@@ -68,7 +68,7 @@ export const WarningMessage = ({
         )}
 
         {(err &&
-          t(err.id, {
+          t(err.id || err, {
             min: err.min,
             max: err.max,
           })) ||

@@ -1,0 +1,19 @@
+{
+  "title": "促进",
+  "description": "促进 | 描述",
+  "currentPeriod": "现时阶段",
+  "nextPeriod": "下一期",
+  "maximumStake": "平均赌注",
+  "users": "用户",
+  "yourStake": "你的股份",
+  "yourBoost": "你的助力",
+  "yourPredictedBoost": "您的预期提升",
+  "formTitle": "下一期股权",
+  "formSubmit": "节省",
+  "formCancel": "取消",
+  "formBoostPrediction": "提升预测",
+  "formCurrentStake": "你的股份",
+  "formTakeAStake": "入股",
+  "formUnstakeTokens": "取消抵押代币",
+  "notTokensToStake": "您没有可抵押的代币"
+}

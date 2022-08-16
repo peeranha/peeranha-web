@@ -95,7 +95,7 @@ const Footer = ({
   const { t } = useTranslation();
   const { metaMaskAction } = useMemo(
     () => ({
-      metaMaskAction: () => walletAction({ metaMask: true }),
+      metaMaskAction: () => walletAction({ metaMask: true, t }),
     }),
     [walletAction],
   );

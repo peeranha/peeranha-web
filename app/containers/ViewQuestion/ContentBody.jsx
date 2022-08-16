@@ -1,5 +1,6 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 
 import Base from 'components/Base';
 import TextBlock from 'components/FormFields/TextBlock';
@@ -8,7 +9,6 @@ import Comments from './Comments';
 import BestAnswerMarker from './BestAnswerMarker';
 
 import { ADD_COMMENT_FORM, POST_COMMENT_BUTTON } from './constants';
-import messages from './messages';
 
 export const ContentBody = ({
   content,
@@ -16,7 +16,6 @@ export const ContentBody = ({
   voteToDelete,
   voteToDeleteLoading,
   buttonParams,
-  translations,
   answerId,
   questionData,
   locale,
@@ -43,6 +42,7 @@ export const ContentBody = ({
   histories,
   isOfficialReply,
 }) => {
+  const { t } = useTranslation();
   const isOfficial = questionData.officialReply === answerId || isOfficialReply;
 
   return (
@@ -82,7 +82,7 @@ export const ContentBody = ({
         comments={comments}
         form={`${ADD_COMMENT_FORM}${answerId}`}
         submitButtonId={POST_COMMENT_BUTTON}
-        submitButtonName={translations[messages.postCommentButton.id]}
+        submitButtonName={t('post.postCommentButton')}
         sendCommentLoading={postCommentLoading}
         sendComment={postComment}
         checkAddCommentAvailable={checkAddCommentAvailable}

@@ -1,15 +1,13 @@
-import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { memo, useCallback, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form/immutable';
-import { intlShape } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import { requiredPostTypeSelection } from 'components/FormFields/validate';
 import { FORM_TYPE } from './constants';
-import messages from './messages';
 import QuestionTypeField from './QuestionTypeField';
 import DescriptionList from '../DescriptionList';
 
 const TypeForm = ({
-  intl,
   change,
   locale,
   questionLoading,
@@ -19,18 +17,19 @@ const TypeForm = ({
   isError,
   setIsError,
 }) => {
+  const { t } = useTranslation();
   const onChange = useCallback(val => change(FORM_TYPE, val[0]), []);
 
   const labelConditional = n => {
-    if (n === '1') return messages.generalQuestionDescriptionLabel.id;
-    if (n === '0') return messages.expertQuestionDescriptionLabel.id;
-    if (n === '2') return messages.tutorialQuestionDescriptionLabel.id;
+    if (n === '1') return 'common.generalQuestionDescriptionLabel';
+    if (n === '0') return 'common.expertQuestionDescriptionLabel';
+    if (n === '2') return 'common.tutorialQuestionDescriptionLabel';
   };
 
   const listConditional = n => {
-    if (n === '1') return messages.generalQuestionDescriptionList.id;
-    if (n === '0') return messages.expertQuestionDescriptionList.id;
-    if (n === '2') return messages.tutorialQuestionDescriptionList.id;
+    if (n === '1') return 'common.generalQuestionDescriptionList';
+    if (n === '0') return 'common.expertQuestionDescriptionList';
+    if (n === '2') return 'common.tutorialQuestionDescriptionList';
   };
 
   const [descriptionListLabel, descriptionListItems] = useMemo(
@@ -58,8 +57,8 @@ const TypeForm = ({
         component={QuestionTypeField}
         disabled={questionLoading}
         onChange={onChange}
-        label={intl.formatMessage(messages.questionType)}
-        tip={intl.formatMessage(messages.questionTypeTip)}
+        label={t('common.questionType')}
+        tip={t('common.questionTypeTip')}
         validate={requiredPostTypeSelection}
         splitInHalf
         error={isError}
@@ -80,7 +79,6 @@ TypeForm.propTypes = {
   change: PropTypes.func,
   questionLoading: PropTypes.bool,
   communities: PropTypes.array,
-  intl: intlShape.isRequired,
   locale: PropTypes.string,
   formValues: PropTypes.object,
 };

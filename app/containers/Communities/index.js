@@ -1,7 +1,7 @@
-import React, { memo, useState, useEffect, useMemo } from 'react';
+import React, { memo, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { createStructuredSelector } from 'reselect';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { compose, bindActionCreators } from 'redux';
 import * as routes from 'routes-config';
@@ -30,11 +30,8 @@ import {
 } from './selectors';
 
 import { getSuggestedCommunities } from './actions';
-import messages from './messages';
 import reducer from './reducer';
 import saga from './saga';
-
-import languages from './languagesOptions';
 
 import Header from './Header';
 
@@ -54,7 +51,7 @@ export const Communities = ({
   getSuggestedCommunitiesDispatch,
   profile,
 }) => {
-  const [language, setLanguage] = useState(languages.all);
+  const { t } = useTranslation();
 
   useEffect(() => {
     getSuggestedCommunitiesDispatch();
@@ -62,13 +59,10 @@ export const Communities = ({
 
   const keywords = useMemo(() => communities.map(x => x.name), [communities]);
 
-  const [displayLoadingIndicator, displayBanner] = useMemo(
+  const [displayLoadingIndicator] = useMemo(
     () => [
       (communitiesLoading && route === routes.communities()) ||
         (suggestedCommunitiesLoading &&
-          route === routes.suggestedCommunities()),
-      (!communitiesLoading && route === routes.communities()) ||
-        (!suggestedCommunitiesLoading &&
           route === routes.suggestedCommunities()),
     ],
     [communitiesLoading, route, suggestedCommunitiesLoading],
@@ -78,8 +72,8 @@ export const Communities = ({
     <div className="d-xl-flex">
       {process.env.ENV !== 'dev' && (
         <Seo
-          title={translationMessages[locale][messages.title.id]}
-          description={translationMessages[locale][messages.description.id]}
+          title={t('common.titleCommunities')}
+          description={t('common.descriptionCommunities')}
           language={locale}
           keywords={keywords}
         />
@@ -92,8 +86,6 @@ export const Communities = ({
           changeSorting={changeSorting}
           sorting={sorting}
           communitiesNumber={communities?.length ?? 0}
-          setLang={setLanguage}
-          language={language}
           profile={profile}
         />
 
@@ -105,7 +97,6 @@ export const Communities = ({
           communities={communities}
           sorting={sorting}
           locale={locale}
-          language={language}
           profile={profile}
         />
 

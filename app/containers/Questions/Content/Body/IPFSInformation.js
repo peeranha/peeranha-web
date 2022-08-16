@@ -10,7 +10,6 @@ import { getFormattedDate } from 'utils/datetime';
 import { MONTH_3LETTERS__DAY_YYYY_TIME } from 'utils/constants';
 import A from 'components/A';
 import Span from 'components/Span';
-import messages from 'containers/ViewQuestion/messages';
 
 const Label = styled.div`
   position: absolute;
@@ -55,7 +54,7 @@ const IPFSInformation = ({ locale, ipfsHash, histories }) => {
           {`${transactionHash.substring(0, 12)}...`}
         </A>
       ),
-      eventName: `${t(messages[eventEntity])} ${t(messages[eventName])}`,
+      eventName: `${t(`post.${eventEntity}`)} ${t(`post.${eventName}`)}`,
       timeStamp: getFormattedDate(
         timeStamp,
         locale,

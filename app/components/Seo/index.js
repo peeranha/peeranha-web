@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { appLocales } from 'app/i18-old';
+import { languages } from 'app/i18n';
 
 import {
   isSingleCommunityWebsite,
@@ -49,7 +49,7 @@ const Seo = ({
     <meta name="twitter:creator" content="@peeranhaio" />
     <meta name="twitter:domain" content={window.location.hostname} />
 
-    <meta httpEquiv="content-language" content={appLocales} />
+    <meta httpEquiv="content-language" content={Object.keys(languages)} />
     <meta property="article:section" content={description} />
     {keywords && <meta property="article:tag" content={keywords} />}
 

@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form/immutable';
-import { intlShape } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
 import {
   strLength15x100,
@@ -13,24 +13,25 @@ import TextInputField from 'components/FormFields/TextInputField';
 
 import { FORM_TITLE } from './constants';
 
-import messages from './messages';
+const TitleForm = ({ questionLoading }) => {
+  const { t } = useTranslation();
 
-const TitleForm = ({ questionLoading, intl }) => (
-  <Field
-    name={FORM_TITLE}
-    component={TextInputField}
-    disabled={questionLoading}
-    label={intl.formatMessage(messages.titleLabel)}
-    tip={intl.formatMessage(messages.titleTip)}
-    validate={[withoutDoubleSpace, strLength15x100, maxByteLength, required]}
-    warn={[strLength15x100, required]}
-    splitInHalf
-  />
-);
+  return (
+    <Field
+      name={FORM_TITLE}
+      component={TextInputField}
+      disabled={questionLoading}
+      label={t('common.titleLabel')}
+      tip={t('common.titleTip')}
+      validate={[withoutDoubleSpace, strLength15x100, maxByteLength, required]}
+      warn={[strLength15x100, required]}
+      splitInHalf
+    />
+  );
+};
 
 TitleForm.propTypes = {
   questionLoading: PropTypes.bool,
-  intl: intlShape.isRequired,
 };
 
 export default memo(TitleForm);

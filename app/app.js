@@ -1,14 +1,6 @@
-/**
- * app.js
- *
- * This is the entry file for the application, only setup and boilerplate
- * code.
- */
-
 // Importing Bootstrap and its dependencies
 import 'bootstrap/dist/css/bootstrap.min.css';
-import $ from 'jquery'; // eslint-disable-line no-unused-vars
-import Popper from 'popper.js'; // eslint-disable-line no-unused-vars
+import $ from 'jquery'; //
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 
 // Needed for redux-saga es6 generator support
@@ -26,7 +18,6 @@ import { I18nextProvider } from 'react-i18next';
 import App from 'containers/App';
 
 // Import Providers
-import LanguageProvider from 'containers/LanguageProvider';
 import DataCacheProvider from 'containers/DataCacheProvider';
 import AccountProvider from 'containers/AccountProvider';
 import FacebookProvider from './containers/FacebookProvider';
@@ -61,15 +52,13 @@ const render = () => {
       <Provider store={store}>
         <EthereumProvider>
           <AccountProvider>
-            <LanguageProvider>
-              <FacebookProvider>
-                <DataCacheProvider>
-                  <ConnectedRouter history={createdHistory}>
-                    <App />
-                  </ConnectedRouter>
-                </DataCacheProvider>
-              </FacebookProvider>
-            </LanguageProvider>
+            <FacebookProvider>
+              <DataCacheProvider>
+                <ConnectedRouter history={createdHistory}>
+                  <App />
+                </ConnectedRouter>
+              </DataCacheProvider>
+            </FacebookProvider>
           </AccountProvider>
         </EthereumProvider>
       </Provider>

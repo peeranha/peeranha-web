@@ -1,13 +1,7 @@
-/**
- *
- * Support
- *
- */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { translationMessages } from 'i18n';
+import { withTranslation } from 'react-i18next';
 import { createStructuredSelector } from 'reselect';
 import { compose, bindActionCreators } from 'redux';
 
@@ -26,19 +20,21 @@ import Seo from 'components/Seo';
 import ContactsSection from './Contacts';
 import SupportSection from './Support';
 
-import messages from './messages';
-
-/* eslint-disable react/prefer-stateless-function */
 export class Support extends React.PureComponent {
   render() {
-    const { locale, sendMessageDispatch, faq, sendMessageLoading } = this.props;
-    const translations = translationMessages[locale];
+    const {
+      locale,
+      sendMessageDispatch,
+      faq,
+      sendMessageLoading,
+      t,
+    } = this.props;
 
     return (
       <div>
         <Seo
-          title={translations[messages.title.id]}
-          description={translations[messages.description.id]}
+          title={t('common.supportDesc.title')}
+          description={t('common.supportDesc.description')}
           language={locale}
           index={false}
         />
@@ -83,6 +79,7 @@ const withReducer = injectReducer({ key: 'homepage', reducer });
 const withSaga = injectSaga({ key: 'homepage', saga });
 
 export default compose(
+  withTranslation,
   withReducer,
   withSaga,
   withConnect,

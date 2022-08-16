@@ -1,0 +1,18 @@
+{
+  "authUserHasMore": "授权用户有更多选择",
+  "staySignedIn": "保持登录",
+  "iForgotPassword": "我忘记密码了",
+  "scatterIsNotInstalled": "检查钱包和网络设置是否安装",
+  "scatterBrowserExtensionNotConfigured": "检查是否配置了钱包浏览器扩展",
+  "userIsNotRegistered": "用户未注册",
+  "userIsNotSelected": "未选择用户",
+  "fbAutologinError": "无法使用 Facebook 帐户自动登录",
+  "fbLoginError": "无法使用 Facebook 帐户登录",
+  "weAreHappyYouAreHere": "我们很高兴，你在这里",
+  "yourUsernameIsHow": "用户名是您在 Peeranha 上的知名度。",
+  "referralMessage": "这是你朋友给你的代码。",
+  "optionalReferralCode": "（可选的）",
+  "accountNotCreatedName": "帐户尚未创建",
+  "inviterIsNotRegisterYet": "邀请人尚未注册",
+  "iDontHaveAnAccount": "我没有账户。"
+}

@@ -75,9 +75,9 @@ const CurrencyField = ({
       value.name === WALLETS.SCATTER_SQRL_WOMBAT.name ||
       value.name === WALLETS.WOMBAT.name
     ) {
-      selectScatterAccount();
+      selectScatterAccount(t);
     }
-    if (value.name === WALLETS.KEYCAT.name) selectKeycatAccount();
+    if (value.name === WALLETS.KEYCAT.name) selectKeycatAccount(t);
   };
 
   const isCurrency = Object.values(CURRENCIES)

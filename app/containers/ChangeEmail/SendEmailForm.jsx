@@ -20,14 +20,14 @@ const EmailForm = ({ handleSubmit, sendOldEmail, sendOldEmailProcessing }) => {
   return (
     <div>
       <H4 className="text-center pb-3">
-        {t('common.change')} {t('sign-up.email')}
+        {t('common.change')} {t('signUp.email')}
       </H4>
 
       <form onSubmit={handleSubmit(sendOldEmail)}>
         <Field
           name={OLD_EMAIL_FIELD}
           disabled
-          label={t('sign-up.email')}
+          label={t('signUp.email')}
           component={TextInputField}
           validate={[validateEmail, required]}
           warn={[validateEmail, required]}

@@ -73,13 +73,13 @@ const LeftMenu = ({ faqQuestions, mainLogo }) => {
       </div>
 
       <H3 className="d-flex align-items-center mb-4">
-        {t('sign-up.almostDone')}
+        {t('signUp.almostDone')}
       </H3>
 
       <div className="mb-4">
-        <P>{t('sign-up.firstParagraphAlmostDone')}</P>
-        <P>{t('sign-up.secondParagraphAlmostDone')}</P>
-        <P>{t('sign-up.thirdParagraphAlmostDone')}</P>
+        <P>{t('signUp.firstParagraphAlmostDone')}</P>
+        <P>{t('signUp.secondParagraphAlmostDone')}</P>
+        <P>{t('signUp.thirdParagraphAlmostDone')}</P>
       </div>
 
       {faqQuestions && (

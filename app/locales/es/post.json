@@ -1,0 +1,76 @@
+{
+  "description": "Editar descripción de la respuesta",
+  "submitButtonName": "Ahorrar",
+  "title": "Editar respuesta",
+  "editAnswer": "Editar respuesta",
+  "lastEdited": "Última edición",
+  "voteToDelete": "Votar para borrar",
+  "notEnoughRating":
+    "Para completar esta acción, tu reputación debe ser al menos",
+  "cannotCompleteBecauseBlocked":
+    "No puede completar esta acción. Usted votó para eliminarlo antes",
+  "cannotCompleteBecauseVoted": "No puede completar esta acción. Votaste antes",
+  "notEnoughModPoints":
+    "Para completar esta acción, su calificación de puntos de moderación debe ser más de",
+  "youVoted": "Has completado esta acción antes",
+  "alreadyAnswered": "Ya respondiste esta pregunta",
+  "itemsMax": "El número de elementos se alcanza el máximo",
+  "noRootsToVote": "No puedes votar tus propias publicaciones y respuestas.",
+  "creatorCannot": "El creador no puede completar esta acción",
+  "notEnoughEnergy":
+    "Detectamos actividad sospechosa en su cuenta y bloqueamos temporalmente todos los accesos en el sitio web",
+  "questions": {
+    "title": "Página de preguntas",
+    "description": "Descripción de la pregunta"
+  },
+  "questionNotExist": "Esta pregunta no existe",
+  "deleteButton": "Borrar",
+  "editButton": "Editar",
+  "shareButton": "Share",
+  "shareTitle": "Comparte un enlace a esta pregunta",
+  "saveButton": "Ahorrar",
+  "commentButton": "Comentario",
+  "postCommentButton": "Publicar comentario",
+  "answers": "Respuestas",
+  "postAnswerButton": "Publicar respuesta",
+  "yourAnswer": "Tu respuesta",
+  "youHaveAnswers":
+    "No se puede eliminar ya que algunas de las preguntas han sido respondidas",
+  "answerIsCorrect":
+    "No se puede eliminar porque la respuesta está marcada como correcta",
+  "theBest": "El mejor",
+  "theBestAnswer": "Marcado como el mejor",
+  "markAsBest": "Marcar como el mejor",
+  "communityChoice": "Elección de la comunidad",
+  "moreComments": "Más comentarios",
+  "moreComment": "Más comentarios",
+  "addComment": "Agregar comentario",
+  "showMoreAnswers": "Mostrar más respuestas {valor}",
+  "areYouSure": "Estás seguro de que quieres eliminar el artículo?",
+  "markExpertQuestionAndGetEarn":
+    "Marque la mejor respuesta a esta pregunta y gane +2 puntos de reputación",
+  "markGeneralQuestionAndGetEarn":
+    "Marque la mejor respuesta a esta pregunta y gane +1 punto de reputación",
+  "tutorial": "Tutorial",
+  "changeQuestionType": "Cambiar tipo",
+  "officialAnswer": "Respuesta oficial",
+  "getBounty": "Obtener recompensa",
+  "bountyStatus": "Estado de la recompensa",
+  "bountyStatusExpiration": "La recompensa caducará: ",
+  "transactionHash": "Hash de transacción",
+  "eventName": "Nombre del evento",
+  "timeStamp": "Fecha y hora",
+  "post": "Correo",
+  "reply": "Respuesta",
+  "comment": "Comentario",
+  "posted": "al corriente",
+  "edited": "editado",
+  "deleted": "eliminado",
+  "RulesBlock_1":
+    "Aquí hay algunos consejos para que su respuesta sea útil y no sea eliminada por un moderador:",
+  "RulesBlock_2":
+    "1. Lea la publicación detenidamente para comprender el problema y proporcionar la mejor respuesta que pueda.",
+  "RulesBlock_3":
+    "2. Asegúrate de que tu respuesta responde a la pregunta formulada en una publicación y no es solo un comentario o agradecimiento.",
+  "RulesBlock_4": "3. Ser educado y respetuoso con los demás."
+}

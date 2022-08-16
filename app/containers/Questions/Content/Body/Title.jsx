@@ -1,7 +1,6 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
-
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 
 import A from 'components/A';
 import Span from 'components/Span';
@@ -12,7 +11,6 @@ import { APP_FONT } from 'style-constants';
 import { singleCommunityFonts } from 'utils/communityManagement';
 import styled from 'styled-components';
 import { getPostRoute } from 'routes-config';
-import messages from '../../messages';
 
 const Wrapper = styled.div`
   margin-right: 30px;
@@ -21,12 +19,13 @@ const Wrapper = styled.div`
 const fonts = singleCommunityFonts();
 
 const Title = ({ locale, title, id, questionBounty, postType }) => {
+  const { t } = useTranslation();
   const link = getPostRoute(postType, id);
 
   return (
     <Wrapper className="mb-1">
       <Bounty
-        bountyMessage={translationMessages[locale][messages.bountyPopover.id]}
+        bountyMessage={t('common.bountyPopover')}
         className="questionTitle"
         amount={questionBounty?.amount}
         locale={locale}

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose, bindActionCreators } from 'redux';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -13,8 +13,6 @@ import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectStat } from 'containers/DataCacheProvider/selectors';
 
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
-
-import messages from 'containers/Users/messages';
 
 import { getUsers } from 'containers/Users/actions';
 import reducer from 'containers/Users/reducer';
@@ -36,6 +34,7 @@ const Users = ({
   stat,
   getUsersDispatch,
 }) => {
+  const { t } = useTranslation();
   const getMoreUsers = useCallback(
     () => {
       getUsersDispatch({
@@ -77,8 +76,8 @@ const Users = ({
   return (
     <>
       <Seo
-        title={translationMessages[locale][messages.title.id]}
-        description={translationMessages[locale][messages.description.id]}
+        title={t('common.usersDesc.title')}
+        description={t('common.usersDesc.description')}
         language={locale}
       />
 

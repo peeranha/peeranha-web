@@ -2,7 +2,6 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
-import { translationMessages } from 'i18n';
 import createdHistory from 'createdHistory';
 
 import * as routes from 'routes-config';
@@ -25,8 +24,6 @@ import Span from 'components/Span';
 import P from 'components/P';
 import Grid from 'components/Grid';
 import InfoButton from 'components/Button/Outlined/InfoMedium';
-
-import messages from './messages';
 
 const Tag = styled.li`
   height: ${({ editTagModerator }) => (editTagModerator ? '180px' : '140px')};
@@ -134,7 +131,7 @@ const Content = ({
             >
               <Input
                 input={{ onChange: typeInput, value: text }}
-                placeholder={translationMessages[locale][messages.findTag.id]}
+                placeholder={t('tags.findTag')}
                 isSearchable
               />
             </Item>

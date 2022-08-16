@@ -1,9 +1,7 @@
-import { takeLatest, call, put, select } from 'redux-saga/effects';
-import { translationMessages } from 'i18n';
+import { takeLatest, call, put } from 'redux-saga/effects';
 
 import { sendMessage } from 'utils/homepageManagement';
 
-import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { EMAIL_CHECKING } from 'containers/SignUp/constants';
 import { emailCheckingWorker } from 'containers/SignUp/saga';
 
@@ -17,14 +15,9 @@ import {
 
 import { sendMessageSuccess, sendMessageErr } from './actions';
 
-import messages from './messages';
 import { addToast } from '../Toast/actions';
-import commonMessages from '../../common-messages';
 
 export function* sendMessageWorker({ val }) {
-  const locale = yield select(makeSelectLocale());
-  const msg = translationMessages[locale];
-
   try {
     const { reset, form } = val[2];
 
@@ -42,7 +35,7 @@ export function* sendMessageWorker({ val }) {
 
     const pageInfo = {
       url: window.location.href,
-      name: `${translationMessages[locale][messages.title.id]}, ${form}`,
+      name: `${val[3]('about.title')}, ${form}`,
     };
 
     yield call(sendMessage, formData, pageInfo);
@@ -52,7 +45,7 @@ export function* sendMessageWorker({ val }) {
     yield put(
       addToast({
         type: 'success',
-        text: msg[commonMessages.messageSendedSuccessfully.id],
+        text: 'common.messageSendedSuccessfully',
       }),
     );
 

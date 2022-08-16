@@ -1,0 +1,9 @@
+{
+  "title": "发生了一些错误...",
+  "description": "发生了一些错误... 描述",
+  "weAreSorry": "很抱歉，发生了意外错误。",
+  "accountDoesNotExist": "帐号不存在",
+  "cannotTransferToSelf": "不能转给自己",
+  "notEnoughCPU": "中央处理器不足",
+  "checkScatterConnection": "检查钱包连接"
+}

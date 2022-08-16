@@ -1,5 +1,5 @@
 import React from 'react';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -17,15 +17,13 @@ import AsideBox from 'components/Base/Aside';
 import Content from 'containers/Faq/Content';
 import Aside from 'containers/Faq/Aside';
 
-import messages from './messages';
-
 import Header from './Header';
 import { SECTION_ID } from './constants';
 import privacyPolicyEn from '../../privacy-policy/en.md';
 import privacyPolicyRu from '../../privacy-policy/ru.md';
 
 export const PrivacyPolicy = ({ locale }) => {
-  const translations = translationMessages[locale];
+  const { t } = useTranslation();
   const privacyPolicy = parseMD(
     locale === 'en' ? privacyPolicyEn : privacyPolicyRu,
   );
@@ -33,8 +31,8 @@ export const PrivacyPolicy = ({ locale }) => {
   return (
     <div className="d-flex justify-content-center">
       <Seo
-        title={translations[messages.title.id]}
-        description={translations[messages.description.id]}
+        title={t('common.privacyPolicyDesc.title')}
+        description={t('common.privacyPolicyDesc.description')}
         language={locale}
         index={false}
       />

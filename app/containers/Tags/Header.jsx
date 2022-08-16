@@ -95,6 +95,15 @@ export const Header = ({
     () => path === communityTagsRoute && !!tagsNumber,
     [path, communityTagsRoute, tagsNumber],
   );
+
+  const onClickNavigationButton = ({ currentTarget: { id, communityid } }) => {
+    goToCreateTagScreen({
+      t,
+      buttonId: id,
+      communityId: communityid,
+    });
+  };
+
   return (
     <div className="mb-to-sm-0 mb-from-sm-3">
       <Wrapper position="top">
@@ -115,7 +124,7 @@ export const Header = ({
           <WrapperRightPanel className="right-panel">
             <NavigationButton
               data-communityid={currentCommunity.id}
-              onClick={goToCreateTagScreen}
+              onClick={onClickNavigationButton}
               id={`${GO_TO_CREATE_TAG_SCREEN_BUTTON_ID}_header`}
               className="d-inline-flex align-items-center px-0 py-1"
               islink

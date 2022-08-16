@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { translationMessages } from 'i18n';
+import { useTranslation } from 'react-i18next';
 
 import singleCommunity from 'images/singleCommunity.svg?external';
 import { showPopover, closePopover } from 'utils/popover';
 
 import Icon from 'components/Icon';
-
-import messages from './messages';
 
 const IconSingle = styled(Icon)`
   margin-left: 8px;
@@ -33,9 +31,9 @@ const ButtonSingleMob = styled(ButtonSingle)`
   }
 `;
 
-const SingleCommunityIcon = ({ locale, id }) => {
-  const tooltipText =
-    translationMessages[locale][messages.singleCommunityTooltip.id];
+const SingleCommunityIcon = ({ id }) => {
+  const { t } = useTranslation();
+  const tooltipText = t('common.existingCommunities.singleCommunityTooltip');
 
   const fullId = `SingleCommunityIcon_${id}`;
   const idMobile = `${fullId}mob`;

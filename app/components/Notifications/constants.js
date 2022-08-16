@@ -7,8 +7,6 @@ import greenUpVoteIcon from 'images/greenFingerUpSingleQuestion.svg?external';
 import grayUpVoteIcon from 'images/grayFingerUpSingleQuestion.svg?external';
 import coinsIcon from 'images/coins.svg?external';
 
-import messages from './messages';
-
 export const ROW_HEIGHT = 40;
 export const VERTICAL_OFFSET = 5 * ROW_HEIGHT;
 export const NOTIFICATIONS_REQUEST_LIMIT = 50;

@@ -63,20 +63,19 @@ export function* saveProfileWorker(
 }
 
 // TODO: test
-export function* checkReadinessWorker({ buttonId }) {
+export function* checkReadinessWorker({ buttonId, t }) {
   yield call(isAuthorized);
 
   yield call(isValid, {
     buttonId: buttonId || EDIT_PROFILE_BUTTON_ID,
     minRating: MIN_RATING_TO_EDIT_PROFILE,
+    t,
   });
 }
 
-// TODO: test
-/* eslint no-empty: 0 */
-export function* redirectToEditProfilePageWorker({ buttonId, user }) {
+export function* redirectToEditProfilePageWorker({ buttonId, user, t }) {
   try {
-    yield call(checkReadinessWorker, { buttonId });
+    yield call(checkReadinessWorker, { buttonId, t });
     yield call(createdHistory.push, routes.profileEdit(user));
   } catch (err) {}
 }

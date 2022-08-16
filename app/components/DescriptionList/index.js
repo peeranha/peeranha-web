@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { translationMessages } from 'i18n';
 import { useTranslation } from 'react-i18next';
 
 import { BORDER_PRIMARY_LIGHT, TEXT_DARK } from 'style-constants';

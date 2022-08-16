@@ -1,0 +1,162 @@
+{
+  "questionAsked": {
+    "bronze": {
+      "title": "青铜 - 学习者",
+      "description": "问十个问题"
+    },
+    "silver": {
+      "title": "银 - 挖深",
+      "description": "问五十个问题"
+    },
+    "gold": {
+      "title": "黄金 - 我想知道一切!",
+      "description": "问一百个问题"
+    }
+  },
+  "answerGiven": {
+    "bronze": {
+      "title": "青铜 - 专家",
+      "description": "回答二十个问题"
+    },
+    "silver": {
+      "title": "银 - 匠",
+      "description": "回答一百个问题"
+    },
+    "gold": {
+      "title": "黄金 - 大师",
+      "description": "回答两百个问题"
+    }
+  },
+  "bestAnswer": {
+    "bronze": {
+      "title": "铜牌 - 真正的专业人士",
+      "description": "获得五分作为\"最好的\""
+    },
+    "silver": {
+      "title": "银 - 博学",
+      "description": "收到二十五分为\"最好的\""
+    },
+    "gold": {
+      "title": "黄金 - 人工智能",
+      "description": "獲得五十分作為\"最好的\""
+    }
+  },
+  "firstIn15": {
+    "bronze": {
+      "title": "青銅 - 西部最快的手",
+      "description": "在提出問題後的十五分鐘內發布五個不同問題的答案"
+    },
+    "silver": {
+      "title": "銀 - 金屬踏板",
+      "description": "在提出問題後十五分鐘內發布十個不同問題的答案"
+    },
+    "gold": {
+      "title": "金 - 閃電",
+      "description": "在提出問題後十五分鐘內發布十個不同問題的答案"
+    }
+  },
+  "firstAnswer": {
+    "bronze": {
+      "title": "青銅 - 快速幫助",
+      "description": "成为第一个发布十个不同问题答案的人"
+    },
+    "silver": {
+      "title": "银 - 我是第一个来的！",
+      "description": "成为第一个发布二十五个不同问题答案的人"
+    },
+    "gold": {
+      "title": "金牌 - 无可争议的冠军",
+      "description": "成为第一个发布五十个不同问题答案的人"
+    }
+  },
+  "welcomeStranger": {
+    "title": "欢迎，陌生人",
+    "description": "在Peeranha上成功注册"
+  },
+  "newbie": {
+    "title": "伟大旅程的开始",
+    "description": "达到\"新手\"状态"
+  },
+  "junior": {
+    "title": "别叫我少年!",
+    "description": "达到\"初级\"状态"
+  },
+  "resident": {
+    "title": "Peeranha是我的家",
+    "description": "获得\"居民\"身份"
+  },
+  "senior": {
+    "title": "我可以教你任何东西",
+    "description": "达到\"高级\"状态"
+  },
+  "hero": {
+    "title": "这个网站需要一个英雄",
+    "description": "达到\"英雄\"状态"
+  },
+  "superhero": {
+    "title": "活着的传奇",
+    "description": "达到\"超级英雄\"状态"
+  },
+  "foundingMember": {
+    "title": "创会会员",
+    "description": "成为在 Peeranha 成功注册的前一万名用户之一"
+  },
+  "activist": {
+    "title": "活动家",
+    "description": "成为前七百名获得\"新手\"身份的用户之一"
+  },
+  "researcher": {
+    "title": "研究员",
+    "description": "成为前五百名达到\"初级\"状态的用户之一"
+  },
+  "honorableResident": {
+    "title": "尊敬的居民",
+    "description": "成为前三百名获得\"居民\"身份的用户之一"
+  },
+  "theWisest": {
+    "title": "最聪明的",
+    "description": "成为前一百五十名获得“高级”身份的用户之一"
+  },
+  "modernHero": {
+    "title": "现代英雄",
+    "description": "成为第一批达到\"英雄\"地位的五十个用户之一"
+  },
+  "kingOfTheHill": {
+    "title": "山之王",
+    "description": "成为第一批达到\"超级英雄\"地位的十个用户之一"
+  },
+  "progressBarPopover": {
+    "ratingRelated": {
+      "single": "评级点离开解锁这一成就",
+      "multiple": "评级点离开解锁这一成就"
+    },
+    "questionAskedRelated": {
+      "single": "留下的问题来解锁这一成就",
+      "multiple": "解锁这一成就的问题"
+    },
+    "answerGivenRelated": {
+      "single": "回答左解锁这个成就",
+      "multiple": "解锁这一成就的答案"
+    },
+    "bestAnswerRelated": {
+      "single": "最好的答案留下来解锁这个成就",
+      "multiple": "解锁这一成就的最佳答案"
+    },
+    "firstAnswerIn15Related": {
+      "single": "在十五分钟内回答解锁这个成就",
+      "multiple": "答案在十五分钟内离开解锁这一成就"
+    },
+    "firstAnswerRelated": {
+      "single": "第一个答案留下来解锁这个成就",
+      "multiple": "第一个答案留下来解锁这一成就"
+    }
+  },
+  "separators": {
+    "ratingRelated": "评级",
+    "questionAskedRelated": "问题：",
+    "answerGivenRelated": "答案",
+    "bestAnswerRelated": "最佳答案",
+    "firstAnswerIn15Related": "十五分钟内回答",
+    "firstAnswerRelated": "第一个答案"
+  }
+}

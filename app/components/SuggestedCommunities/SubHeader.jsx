@@ -26,10 +26,4 @@ const SubHeader = () => {
   );
 };
 
-SubHeader.propTypes = {
-  setLang: PropTypes.func,
-  language: PropTypes.object,
-  languages: PropTypes.object,
-};
-
 export default SubHeader;

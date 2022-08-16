@@ -29,14 +29,14 @@ const FbVerificationCodeForm = ({
         <Field
           name={FB_VERIFICATION_CODE_FIELD}
           disabled={verifyEmailLoading}
-          label={t('sign-up.checkYourEmail')}
+          label={t('signUp.checkYourEmail')}
           component={TextInputField}
           validate={[required]}
           warn={[required]}
         />
 
         <Button disabled={verifyEmailLoading} className="w-100" type="submit">
-          {t('sign-up.continue')}
+          {t('signUp.continue')}
         </Button>
 
         <TransparentButton

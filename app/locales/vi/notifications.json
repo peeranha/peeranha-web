@@ -1,0 +1,19 @@
+{
+  "youHaveNoNewNotifications": "Bạn không có thông báo mới.",
+  "yourQuestionWasUpVoted": "Bài viết của bạn đã được nâng cấp",
+  "yourQuestionWasDownVoted": "Bài viết của bạn đã bị hạ thấp",
+  "yourQuestionUpVoteWasCanceled": "Ủng hộ cho bài viết của bạn đã bị hủy",
+  "yourQuestionDownVoteWasCanceled": "Phản đối bài đăng của bạn đã bị hủy",
+  "yourAnswerWasUpVoted": "Câu trả lời của bạn đã được nâng cấp",
+  "yourAnswerWasDownVoted": "Câu trả lời của bạn đã bị hạ thấp ",
+  "yourAnswerUpVoteWasCanceled": "Phiếu ủng hộ câu trả lời của bạn đã bị hủy",
+  "yourAnswerDownVoteWasCanceled":
+    "Phiếu phản đối câu trả lời của bạn đã bị hủy",
+  "yourAnswerWasMarkedAsTheBest":
+    "Câu trả lời của bạn được đánh dấu là tốt nhất",
+  "somebodyAnsweredYourQuestion": "Bài viết của bạn đã được trả lời",
+  "somebodyLeftACommentToYourQuestion": "Bài viết của bạn đã được bình luận",
+  "somebodyLeftACommentToYourAnswer": "Câu trả lời của bạn đã được bình luận",
+  "yourQuestionWasTipped": "Bài viết của bạn đã được lật {{quantity}}",
+  "yourAnswerWasTipped": "Câu trả lời của bạn đã được đưa ra {{quantity}}"
+}

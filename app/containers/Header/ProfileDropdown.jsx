@@ -8,7 +8,6 @@ import { BORDER_SECONDARY, TEXT_PRIMARY } from 'style-constants';
 import { NO_AVATAR } from 'utils/constants';
 
 import * as routes from 'routes-config';
-import messages from 'common-messages';
 import {
   singleCommunityColors,
   singleCommunityStyles,

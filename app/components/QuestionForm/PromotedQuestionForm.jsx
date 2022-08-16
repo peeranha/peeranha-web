@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form/immutable';
-import { intlShape } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 
 import arrows from 'images/arrows.svg?inline';
@@ -15,8 +15,6 @@ import NumberInputFieldShort from 'components/FormFields/NumberInputFieldShort';
 import { InputContainer } from 'components/FormFields/Wrapper';
 
 import { FORM_PROMOTE, PROMOTE_HOUR_COST } from './constants';
-
-import messages from './messages';
 
 const Wrapper = styled.div`
   ${InputContainer} {
@@ -42,8 +40,11 @@ const Wrapper = styled.div`
   }
 `;
 
-const PromotedQuestionForm = ({ questionLoading, intl, formValues }) => {
-  const result = formValues[FORM_PROMOTE] ? formValues[FORM_PROMOTE] * PROMOTE_HOUR_COST : 0;
+const PromotedQuestionForm = ({ questionLoading, formValues }) => {
+  const { t } = useTranslation();
+  const result = formValues[FORM_PROMOTE]
+    ? formValues[FORM_PROMOTE] * PROMOTE_HOUR_COST
+    : 0;
 
   return (
     <Wrapper>
@@ -51,10 +52,16 @@ const PromotedQuestionForm = ({ questionLoading, intl, formValues }) => {
         name={FORM_PROMOTE}
         component={NumberInputFieldShort}
         disabled={questionLoading}
-        label={intl.formatMessage(messages.promotedLabel)}
-        tip={intl.formatMessage(messages.promotedTip)}
-        validate={[valueHasToBePositiveInteger, valueHasToBeLessThanMaxPromotingHours]}
-        warn={[valueHasToBePositiveInteger, valueHasToBeLessThanMaxPromotingHours]}
+        label={t('common.promotedLabel')}
+        tip={t('common.promotedTip')}
+        validate={[
+          valueHasToBePositiveInteger,
+          valueHasToBeLessThanMaxPromotingHours,
+        ]}
+        warn={[
+          valueHasToBePositiveInteger,
+          valueHasToBeLessThanMaxPromotingHours,
+        ]}
         splitInHalf
         infoText={`hours x ${PROMOTE_HOUR_COST} PEER = ${result} PEER`}
         placeholder="0"
@@ -63,11 +70,10 @@ const PromotedQuestionForm = ({ questionLoading, intl, formValues }) => {
       />
     </Wrapper>
   );
-}
+};
 
 PromotedQuestionForm.propTypes = {
   questionLoading: PropTypes.bool,
-  intl: intlShape.isRequired,
   formValues: PropTypes.object,
 };
 

@@ -33,19 +33,20 @@ export function* suggestTagWorker({ communityId, tag, reset }) {
   }
 }
 
-export function* checkReadinessWorker({ buttonId, communityId }) {
+export function* checkReadinessWorker({ buttonId, communityId, t }) {
   yield call(isAuthorized);
 
   yield call(isValid, {
     buttonId: buttonId || TAGFORM_SUBMIT_BUTTON,
     communityId,
+    t,
   });
 }
 
 /* eslint no-empty: 0 */
-export function* redirectToCreateTagWorker({ buttonId, communityId }) {
+export function* redirectToCreateTagWorker({ buttonId, communityId, t }) {
   try {
-    yield call(checkReadinessWorker, { buttonId, communityId });
+    yield call(checkReadinessWorker, { buttonId, communityId, t });
 
     yield call(createdHistory.push, routes.tagsCreate(communityId));
   } catch (err) {}

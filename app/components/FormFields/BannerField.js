@@ -1,11 +1,7 @@
-/* eslint indent: 0, jsx-a11y/click-events-have-key-events: 0, jsx-a11y/no-static-element-interactions: 0 */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { FormattedMessage } from 'react-intl';
 import { useTranslation } from 'react-i18next';
-
-import messages from 'common-messages';
 
 import { TEXT_SECONDARY } from 'style-constants';
 

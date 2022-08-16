@@ -12,7 +12,6 @@ import SubHeaderWrapper, {
   SubHeaderWrapperRightPanel,
 } from 'components/Header/Complex';
 
-import languages from './languagesOptions';
 import { GO_TO_CREATE_COMMUNITY_SCREEN_BUTTON_ID } from './constants';
 import { getPermissions, hasGlobalModeratorRole } from '../../utils/properties';
 
@@ -22,8 +21,6 @@ const Header = ({
   changeSorting,
   sorting,
   communitiesNumber,
-  setLang,
-  language,
   profile,
 }) => {
   const { t } = useTranslation();
@@ -67,9 +64,6 @@ const Header = ({
         changeSorting={changeSorting}
         sorting={sorting}
         communitiesNumber={communitiesNumber}
-        setLang={setLang}
-        language={language}
-        languages={languages}
       />
     </div>
   );

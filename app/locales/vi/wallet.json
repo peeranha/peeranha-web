@@ -1,0 +1,30 @@
+{
+  "title": "Ví",
+  "description": "Ví | Sự miêu tả",
+  "eosAccount": "Tài khoản Telos",
+  "currentPeriod": "Giai đoạn hiện tại đang diễn ra",
+  "periodStillInProgress":
+    "Giai đoạn này vẫn đang được tiến hành. Đã đến lúc tăng danh tiếng của bạn và kiếm được một số token.",
+  "payoutPending": "Thanh toán đang chờ xử lý",
+  "weAreAnalyzing":
+    "Chúng tôi đang phân tích các hoạt động trong giai đoạn này. Bạn sẽ thấy thêm chi tiết trong giai đoạn tới.",
+  "estimatedPayout": "Khoản thanh toán ước tính",
+  "paidOut": "Đã thanh toán",
+  "rewarded": "Được thưởng",
+  "week": "Giai đoạn",
+  "getReward": "Nhận phần thưởng",
+  "received": "Nhận",
+  "thisIsRegistrationWeek":
+    "Đây là thời gian đăng ký. Chúng tôi đang thiết lập ví của bạn. Phần thưởng cho giai đoạn này sẽ được áp dụng cho giai đoạn tiếp theo.",
+  "registrationWeek": "Thời gian đăng ký",
+  "yourWalletWasSuccessfullySet":
+    "Ví của bạn đã được đặt thành công trong giai đoạn này",
+  "getMoreWithBoost": "Nhận nhiều phần thưởng hơn với Boost",
+  "stakedInCurrentPeriod": "Đã đặt cọc trong khoảng thời gian hiện tại",
+  "stakedInNextPeriod": "Đặt cọc trong kỳ tiếp theo",
+  "totalBalance": "Tổng số dư",
+  "boostHelp": "Học {whatABoostIs} và {howToStake} trong {FAQs}.",
+  "whatABoostIs": "Boost là gì",
+  "howToStake": "làm thế nào bạn đặt cổ phần",
+  "FAQs": "FAQs"
+}

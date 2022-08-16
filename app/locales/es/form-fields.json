@@ -1,0 +1,37 @@
+{
+  "requiredField": "No puede dejar este campo vacío",
+  "requiredAndNotZeroField": "No puede dejar 0 en este campo",
+  "requiredNonZeroInteger":
+    "Solo puede ingresar un número entero distinto de cero",
+  "wrongLength": "Deje al menos {min} char pero no más de {max}",
+  "wrongNumberRange": "Debe ser al menos {min} pero no más de {max}",
+  "wrongExactLength": "El valor debe tener {min} caracteres de largo",
+  "wrongLengthOfList": "Deje al menos {min} artículo pero no más de {max}",
+  "wrongLengthMin": "El valor debe tener al menos {{min}} caracteres",
+  "wrongLengthMax": "El valor no debe tener más de {{máx}} caracteres",
+  "fileSize": "El archivo es demasiado grande.",
+  "wrongEmail": "Email incorrecto",
+  "wrongURL": "Use un formato de URL válido http(s)://example.com",
+  "wrongBase58Format":
+    "Formato de datos incorrecto. Vuelva a revisar sus entradas.",
+  "itemAlreadyExists": "El elemento con ese nombre ya existe ",
+  "valueIsMore": "Este valor es más de lo que puede pagar",
+  "passwordsNotMatch": "Las contraseñas no coinciden",
+  "onlyLowerCaseLettersAndNumbersFromTo":
+    "El valor debe contener solo letras minúsculas y números de {{min}} a {{max}}",
+  "withoutDoubleSpace": "El valor no debe contener un doble espacio",
+  "wrongByteLength": "La longitud del byte de valor es demasiado larga",
+  "numbersFromTo": "El valor debe contener dígitos de {{min}} a {{max}}",
+  "onlyOneDotValue": "El valor debe contener solo un punto",
+  "telosNameLength": "El nombre de la cuenta de Telos debe tener 12 caracteres",
+  "telosCorrectSymbols":
+    "Solo se permiten letras de la a a la z y números del 1 al 5",
+  "notAbleChangeAfterCreation": "No podrás cambiarlo después de la creación",
+  "thisTelosNameIsAvailable": "Este nombre de cuenta de Telos está disponible",
+  "thisTelosNameIsntAvailable":
+    "Este nombre de cuenta de Telos no está disponible",
+  "atLeastOneLetter": "El nombre de Telos debe contener al menos una letra",
+  "exactFromAndToAccounts": "El emisor y el receptor no pueden ser el mismo",
+  "hasToBeMoreThanPrev": "No puede establecer un valor más bajo",
+  "valueIsNotPositiveInteger": "El valor no es un entero positivo"
+}

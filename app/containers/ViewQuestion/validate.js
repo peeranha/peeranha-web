@@ -1,5 +1,6 @@
 import { showPopover } from 'utils/popover';
 import { ApplicationError } from 'utils/errors';
+import { i18n } from 'app/i18n';
 
 import { getRatingByCommunity } from 'utils/profileManagement';
 import {
@@ -7,13 +8,11 @@ import {
   hasCommunityModeratorRole,
   hasGlobalModeratorRole,
 } from 'utils/properties';
-import messages from './messages';
 
 /* eslint prefer-destructuring: 0 */
 export const voteToDeleteValidator = (
   profileInfo,
   questionData,
-  translations,
   postButtonId,
   item,
 ) => {
@@ -48,18 +47,18 @@ export const voteToDeleteValidator = (
   }
 
   if (itemData.votingStatus?.isUpVoted || itemData.votingStatus?.isDownVoted) {
-    message = `${translations[messages.cannotCompleteBecauseVoted.id]}`;
+    message = i18n.t('post.cannotCompleteBecauseVoted');
   } else if (itemData.user === profileInfo.user) {
-    message = `${translations[messages.noRootsToVote.id]}`;
+    message = i18n.t('post.noRootsToVote');
   } else if (itemData.votingStatus?.isVotedToDelete) {
-    message = `${translations[messages.youVoted.id]}`;
+    message = i18n.t('post.youVoted');
   } else if (
     !hasGlobalModeratorRole(profileInfo.permissions) &&
     profileInfo.rating < MIN_RATING
   ) {
-    message = `${translations[messages.notEnoughRating.id]} ${MIN_RATING}`;
+    message = i18n.t('post.notEnoughRating');
   } else if (profileInfo.energy < minEnergy) {
-    message = translations[messages.notEnoughEnergy.id];
+    message = i18n.t('post.notEnoughEnergy');
   }
 
   if (message) {
@@ -72,7 +71,6 @@ export const postAnswerValidator = (
   profileInfo,
   questionData,
   postButtonId,
-  translations,
 ) => {
   const maxAnswersNumber = 200;
 
@@ -87,25 +85,23 @@ export const postAnswerValidator = (
   let message;
   const communityRating = getRatingByCommunity(profileInfo, communityId);
   if (questionData.answers.length === maxAnswersNumber) {
-    message = `${translations[messages.itemsMax.id]}`;
+    message = i18n.t('post.itemsMax');
   } else if (isAnswered) {
-    message = `${translations[messages.alreadyAnswered.id]}`;
+    message = i18n.t('post.alreadyAnswered');
   } else if (
     !hasGlobalModeratorRole(profileInfo.permissions) &&
     questionData.author.user === profileInfo.user &&
     communityRating < MIN_RATING_FOR_MY_QUESTION
   ) {
-    message = `${
-      translations[messages.notEnoughRating.id]
-    } ${MIN_RATING_FOR_MY_QUESTION}`;
+    message = `${i18n.t('post.notEnoughRating')} ${MIN_RATING_FOR_MY_QUESTION}`;
   } else if (
     !hasGlobalModeratorRole(profileInfo.permissions) &&
     questionData.author.user !== profileInfo.user &&
     communityRating < MIN_RATING_FOR_OTHER_QUESTIONS
   ) {
-    message = `${
-      translations[messages.notEnoughRating.id]
-    } ${MIN_RATING_FOR_OTHER_QUESTIONS}`;
+    message = `${i18n.t(
+      'post.notEnoughRating',
+    )} ${MIN_RATING_FOR_OTHER_QUESTIONS}`;
   }
 
   if (message) {
@@ -115,13 +111,11 @@ export const postAnswerValidator = (
 };
 
 // TODO: retest
-/* eslint eqeqeq: 0 */
 export const postCommentValidator = (
   profileInfo,
   questionData,
   postButtonId,
   answerId,
-  translations,
 ) => {
   const maxCommentsNumber = 200;
 
@@ -139,7 +133,7 @@ export const postCommentValidator = (
   let message;
 
   if (item.comments.length === maxCommentsNumber) {
-    message = `${translations[messages.itemsMax.id]}`;
+    message = i18n.t('post.itemsMax');
   } else if (
     !hasGlobalModeratorRole(profileInfo.permissions) &&
     !hasCommunityModeratorRole(profileInfo.permissions, communityId) &&
@@ -147,9 +141,7 @@ export const postCommentValidator = (
       questionData.author.user === profileInfo.user) &&
     getRatingByCommunity(profileInfo, communityId) < MIN_RATING_FOR_MY_ITEM
   ) {
-    message = `${
-      translations[messages.notEnoughRating.id]
-    } ${MIN_RATING_FOR_MY_ITEM}`;
+    message = `${i18n.t('post.notEnoughRating')} ${MIN_RATING_FOR_MY_ITEM}`;
   } else if (
     item.author.user !== profileInfo.user &&
     !hasGlobalModeratorRole(profileInfo.permissions) &&
@@ -157,11 +149,9 @@ export const postCommentValidator = (
     questionData.author.user !== profileInfo.user &&
     getRatingByCommunity(profileInfo, communityId) < MIN_RATING_FOR_OTHER_ITEMS
   ) {
-    message = `${
-      translations[messages.notEnoughRating.id]
-    } ${MIN_RATING_FOR_OTHER_ITEMS}`;
+    message = `${i18n.t('post.notEnoughRating')} ${MIN_RATING_FOR_OTHER_ITEMS}`;
   } else if (profileInfo.energy < MIN_ENERGY) {
-    message = translations[messages.notEnoughEnergy.id];
+    message = i18n.t('post.notEnoughEnergy');
   }
 
   if (message) {
@@ -174,7 +164,6 @@ export const markAsAcceptedValidator = (
   profileInfo,
   questionData,
   postButtonId,
-  translations,
 ) => {
   const MIN_RATING = 0;
   const MIN_ENERGY = 1;
@@ -182,14 +171,14 @@ export const markAsAcceptedValidator = (
   let message;
 
   if (profileInfo.user !== questionData.author.user) {
-    message = `${translations[messages.noRootsToVote.id]}`;
+    message = i18n.t('post.noRootsToVote');
   } else if (
     !hasGlobalModeratorRole(profileInfo.permissions) &&
     getRatingByCommunity(profileInfo, communityId) < MIN_RATING
   ) {
-    message = `${translations[messages.notEnoughRating.id]} ${MIN_RATING}`;
+    message = `${i18n.t('post.notEnoughRating')} ${MIN_RATING}`;
   } else if (profileInfo.energy < MIN_ENERGY) {
-    message = translations[messages.notEnoughEnergy.id];
+    message = i18n.t('post.notEnoughEnergy');
   }
 
   if (message) {
@@ -203,7 +192,6 @@ export const upVoteValidator = (
   questionData,
   postButtonId,
   answerId,
-  translations,
 ) => {
   const MIN_RATING_TO_UPVOTE = 35;
   const MIN_ENERGY = 1;
@@ -217,22 +205,20 @@ export const upVoteValidator = (
     (answerId === 0 && questionData.votingStatus?.isVotedToDelete) ||
     (isOwnItem[0] && isOwnItem[0].votingStatus?.isVotedToDelete)
   ) {
-    message = translations[messages.cannotCompleteBecauseBlocked.id];
+    message = i18n.t('post.cannotCompleteBecauseBlocked');
   } else if (
     (questionData.author.user === profileInfo.user && answerId === 0) ||
     (isOwnItem[0] && isOwnItem[0].author.user === profileInfo.user)
   ) {
-    message = `${translations[messages.noRootsToVote.id]}`;
+    message = i18n.t('post.noRootsToVote');
   } else if (
     getRatingByCommunity(profileInfo, communityId) < MIN_RATING_TO_UPVOTE &&
     !hasGlobalModeratorRole(profileInfo.permissions) &&
     !hasCommunityModeratorRole(profileInfo.permissions, communityId)
   ) {
-    message = `${
-      translations[messages.notEnoughRating.id]
-    } ${MIN_RATING_TO_UPVOTE}`;
+    message = `${i18n.t('post.notEnoughRating')} ${MIN_RATING_TO_UPVOTE}`;
   } else if (profileInfo.energy < MIN_ENERGY) {
-    message = translations[messages.notEnoughEnergy.id];
+    message = i18n.t('post.notEnoughEnergy');
   }
 
   if (message) {
@@ -246,7 +232,6 @@ export const downVoteValidator = (
   questionData,
   postButtonId,
   answerId,
-  translations,
 ) => {
   const MIN_RATING_TO_DOWNVOTE = 100;
   const MIN_ENERGY_TO_DOWNVOTE_QUESTION = 5;
@@ -267,23 +252,21 @@ export const downVoteValidator = (
       : questionData.answers.find(x => x.id === answerId);
 
   if (item.votingStatus?.isVotedToDelete) {
-    message = translations[messages.cannotCompleteBecauseBlocked.id];
+    message = i18n.t('post.cannotCompleteBecauseBlocked');
   } else if (item.author.user === profileInfo.user) {
-    message = `${translations[messages.noRootsToVote.id]}`;
+    message = i18n.t('post.noRootsToVote');
   } else if (
     getRatingByCommunity(profileInfo, communityId) < MIN_RATING_TO_DOWNVOTE &&
     !hasGlobalModeratorRole(profileInfo.permissions) &&
     !hasCommunityModeratorRole(profileInfo.permissions, communityId)
   ) {
-    message = `${
-      translations[messages.notEnoughRating.id]
-    } ${MIN_RATING_TO_DOWNVOTE}`;
+    message = `${i18n.t('post.notEnoughRating')} ${MIN_RATING_TO_DOWNVOTE}`;
   } else if (
     (item.votingStatus.isDownVoted &&
       profileInfo.energy < MIN_ENERGY_TO_CHANGE_DECISION) ||
     (!item.votingStatus.isDownVoted && profileInfo.energy < minEnergy)
   ) {
-    message = translations[messages.notEnoughEnergy.id];
+    message = i18n.t('post.notEnoughEnergy');
   }
 
   if (message) {
@@ -294,7 +277,6 @@ export const downVoteValidator = (
 
 export const deleteQuestionValidator = (
   postButtonId,
-  translations,
   profileInfo,
   questionData,
 ) => {
@@ -303,9 +285,9 @@ export const deleteQuestionValidator = (
   let message;
 
   if (questionData.votingStatus?.isUpVoted) {
-    message = `${translations[messages.cannotCompleteBecauseVoted.id]}`;
+    message = i18n.t('post.cannotCompleteBecauseVoted');
   } else if (profileInfo.energy < MIN_ENERGY) {
-    message = translations[messages.notEnoughEnergy.id];
+    message = i18n.t('post.notEnoughEnergy');
   }
 
   if (message) {
@@ -318,7 +300,6 @@ export const deleteAnswerValidator = (
   postButtonId,
   answerid,
   correctAnswerId,
-  translations,
   profileInfo,
   questionData,
 ) => {
@@ -330,11 +311,11 @@ export const deleteAnswerValidator = (
   const itemData = questionData.answers.filter(x => x.id === answerid)[0];
 
   if (itemData.votingStatus.isUpVoted && !isGlobalAdmin) {
-    message = `${translations[messages.cannotCompleteBecauseVoted.id]}`;
+    message = i18n.t('post.cannotCompleteBecauseVoted');
   } else if (answerid === correctAnswerId && !isGlobalAdmin) {
-    message = `${translations[messages.answerIsCorrect.id]}`;
+    message = i18n.t('post.answerIsCorrect');
   } else if (profileInfo.energy < MIN_ENERGY) {
-    message = translations[messages.notEnoughEnergy.id];
+    message = i18n.t('post.notEnoughEnergy');
   }
 
   if (message) {
@@ -346,7 +327,6 @@ export const deleteAnswerValidator = (
 export const deleteCommentValidator = (
   profileInfo,
   postButtonId,
-  translations,
   commentId,
   questionData,
 ) => {
@@ -356,9 +336,9 @@ export const deleteCommentValidator = (
   const itemData = questionData.comments.filter(x => x.id === commentId)[0];
 
   if (itemData?.votingStatus?.isUpVoted) {
-    message = `${translations[messages.cannotCompleteBecauseVoted.id]}`;
+    message = i18n.t('post.cannotCompleteBecauseVoted');
   } else if (profileInfo.energy < MIN_ENERGY) {
-    message = translations[messages.notEnoughEnergy.id];
+    message = i18n.t('post.notEnoughEnergy');
   }
 
   if (message) {
@@ -368,17 +348,13 @@ export const deleteCommentValidator = (
 };
 
 // TODO: test
-export const editCommentValidator = (
-  profileInfo,
-  postButtonId,
-  translations,
-) => {
+export const editCommentValidator = (profileInfo, postButtonId) => {
   const MIN_ENERGY = 1;
 
   let message;
 
   if (profileInfo.energy < MIN_ENERGY) {
-    message = translations[messages.notEnoughEnergy.id];
+    message = i18n.t('post.notEnoughEnergy');
   }
 
   if (message) {

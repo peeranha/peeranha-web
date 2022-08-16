@@ -1,0 +1,29 @@
+{
+  "title": "钱包",
+  "description": "钱包 | 描述",
+  "eosAccount": "Telos 帐户",
+  "currentPeriod": "本期进行中",
+  "periodStillInProgress":
+    "这一时期仍在进行中。 现在是提高您的声誉并获得一些代币的时候了。",
+  "payoutPending": "付款待处理",
+  "weAreAnalyzing":
+    "我们正在分析这一时期的活动。 您将在下一期看到更多详细信息。",
+  "estimatedPayout": "预计支出",
+  "paidOut": "支付",
+  "rewarded": "奖励",
+  "week": "时期",
+  "getReward": "得到奖励",
+  "received": "已收到",
+  "thisIsRegistrationWeek":
+    "这是注册期。 我们正在设置您的钱包。 本期奖励将应用于下一期。",
+  "registrationWeek": "报名时间",
+  "yourWalletWasSuccessfullySet": "在此期间您的钱包已成功设置",
+  "getMoreWithBoost": "通过 Boost 获得更多奖励",
+  "stakedInCurrentPeriod": "本期质押",
+  "stakedInNextPeriod": "押注下一期",
+  "totalBalance": "总余额",
+  "boostHelp": "学 {whatABoostIs} 和 {howToStake} 在 {FAQs}.",
+  "whatABoostIs": "什么是 Boost",
+  "howToStake": "你如何下注",
+  "FAQs": "FAQs"
+}

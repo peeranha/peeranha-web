@@ -32,7 +32,7 @@ const ChangePasswordForm = ({
   return (
     <div>
       <H4 className="text-center pb-3">
-        {t('common.change')} {t('sign-up.password')}
+        {t('common.change')} {t('signUp.password')}
       </H4>
 
       <form onSubmit={handleSubmit(changePassword)}>
@@ -67,7 +67,7 @@ const ChangePasswordForm = ({
         />
 
         <Button disabled={changePasswordProcessing} className="w-100">
-          {t('sign-up.continue')}
+          {t('signUp.continue')}
         </Button>
       </form>
     </div>

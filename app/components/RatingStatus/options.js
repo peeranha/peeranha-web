@@ -1,7 +1,5 @@
 import bannedSm from 'images/bannedSm.svg?external';
 import strangerSm from 'images/strangerSm.svg?external';
-import newbieSm from 'images/newbieSm.svg?external';
-import jrResidentSm from 'images/jrResidentSm.svg?external';
 import residentSm from 'images/residentSm.svg?external';
 import srResidentSm from 'images/srResidentSm.svg?external';
 import heroResidentSm from 'images/heroResidentSm.svg?external';
@@ -16,14 +14,12 @@ import srResidentLg from 'images/srResidentLg.svg?external';
 import heroResidentLg from 'images/heroResidentLg.svg?external';
 import legendaryResidentLg from 'images/legendaryResidentLg.svg?external';
 
-import messages from './messages';
-
 const options = {
   banned: {
     minRating: -99999999999999999999,
     maxRating: -1,
     maxEnergy: 0,
-    messageId: messages.banned.id,
+    messageId: 'common.ratingStatus.banned',
     icon: {
       sm: bannedSm,
       lg: bannedLg,
@@ -43,7 +39,7 @@ const options = {
     minRating: 0,
     maxRating: 99,
     maxEnergy: 50,
-    messageId: messages.stranger.id,
+    messageId: 'common.ratingStatus.stranger',
     icon: {
       sm: strangerSm,
       lg: strangerLg,
@@ -63,7 +59,7 @@ const options = {
     minRating: 100,
     maxRating: 499,
     maxEnergy: 100,
-    messageId: messages.newbie.id,
+    messageId: 'common.ratingStatus.newbie',
     icon: {
       sm: srResidentSm,
       lg: newbieLg,
@@ -83,7 +79,7 @@ const options = {
     minRating: 500,
     maxRating: 999,
     maxEnergy: 150,
-    messageId: messages.jrResident.id,
+    messageId: 'common.ratingStatus.jrResident',
     icon: {
       sm: heroResidentSm,
       lg: jrResidentLg,
@@ -103,7 +99,7 @@ const options = {
     minRating: 1000,
     maxRating: 2499,
     maxEnergy: 200,
-    messageId: messages.resident.id,
+    messageId: 'common.ratingStatus.resident',
     icon: {
       sm: residentSm,
       lg: residentLg,
@@ -123,7 +119,7 @@ const options = {
     minRating: 2500,
     maxRating: 4999,
     maxEnergy: 250,
-    messageId: messages.srResident.id,
+    messageId: 'common.ratingStatus.srResident',
     icon: {
       sm: srResidentSm,
       lg: srResidentLg,
@@ -143,7 +139,7 @@ const options = {
     minRating: 5000,
     maxRating: 9999,
     maxEnergy: 300,
-    messageId: messages.heroResident.id,
+    messageId: 'common.ratingStatus.heroResident',
     icon: {
       sm: heroResidentSm,
       lg: heroResidentLg,
@@ -163,7 +159,7 @@ const options = {
     minRating: 10000,
     maxRating: 10000000000000000000000,
     maxEnergy: 350,
-    messageId: messages.legResident.id,
+    messageId: 'common.ratingStatus.legResident',
     icon: {
       sm: legendaryResidentSm,
       lg: legendaryResidentLg,

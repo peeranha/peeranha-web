@@ -72,12 +72,12 @@ const LeftMenu = ({ mainLogo }) => {
       </div>
 
       <H3 className="d-flex align-items-center mb-4">
-        {t('sign-up.youNeedBlockchainAccount')}
+        {t('signUp.youNeedBlockchainAccount')}
       </H3>
 
       <div className="mb-4">
-        <P>{t('sign-up.theWayBlockchainAccountWorks')}</P>
-        <P>{t('sign-up.dontWorryAboutBlockchainAccount')}</P>
+        <P>{t('signUp.theWayBlockchainAccountWorks')}</P>
+        <P>{t('signUp.dontWorryAboutBlockchainAccount')}</P>
       </div>
     </>
   );

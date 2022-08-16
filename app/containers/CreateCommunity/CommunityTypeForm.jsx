@@ -1,16 +1,14 @@
 import React, { memo, useCallback } from 'react';
 import { Field } from 'redux-form/immutable';
 import PropTypes from 'prop-types';
-import { intlShape } from 'react-intl';
+import { useTranslation } from 'react-i18next';
 
 import { COMMUNITY_TYPE } from './constants';
-import messages from './messages';
 import CommunityTypeField from './CommunityTypeField';
 
-const CommunityTypeForm = ({ change, intl }) => {
-  const onChange = useCallback(val => {
-    return change(COMMUNITY_TYPE, val[0]);
-  }, []);
+const CommunityTypeForm = ({ change }) => {
+  const { t } = useTranslation();
+  const onChange = useCallback(val => change(COMMUNITY_TYPE, val[0]), []);
 
   return (
     <>
@@ -19,8 +17,8 @@ const CommunityTypeForm = ({ change, intl }) => {
         component={CommunityTypeField}
         disabled={false}
         onChange={onChange}
-        label={intl.formatMessage(messages.communityType)}
-        tip={intl.formatMessage(messages.communityTypeTip)}
+        label={t('createCommunity.communityType')}
+        tip={t('createCommunity.communityTypeTip')}
         splitInHalf
       />
 
@@ -31,7 +29,6 @@ const CommunityTypeForm = ({ change, intl }) => {
 
 CommunityTypeForm.propTypes = {
   change: PropTypes.func,
-  intl: intlShape.isRequired,
 };
 
 export default memo(CommunityTypeForm);

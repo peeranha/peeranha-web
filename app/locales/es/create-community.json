@@ -1,0 +1,59 @@
+{
+  "title": "Comunidad | Crear",
+  "description": "Descripción de CrearComunidad",
+  "website": "Sitio oficial",
+  "websiteTip": "Opcional",
+  "avatar": "Avatar",
+  "communityTitle": "Título",
+  "shortDescription": "Breve descripción",
+  "about": "Acerca de la comunidad",
+  "optional": "Opcional",
+  "whyWeNeedIt": "Por qué lo necesitamos?",
+  "newCommunity": "Nueva comunidad",
+  "createCommunity": "Crear comunidad",
+  "oneMoreTag": "Una etiqueta más",
+  "tags": "Etiquetas",
+  "tagsAreNeeded":
+    "Se necesitan etiquetas para hacer preguntas. Debe especificar {{min}}-{{max}} etiquetas principales.",
+  "tagTitle": "Etiqueta",
+  "tagDescription": "Descripción",
+  "communityTitleTip": "Nombre de la nueva comunidad",
+  "shortDescriptionTip":
+    "Breve descripción sobre la comunidad y su propósito..",
+  "whyWeNeedItTip":
+    "Esta información es visible para los usuarios que votan por nuevas comunidades.",
+  "tagTitleTip": "Nombre único de la etiqueta",
+  "tagDescriptionTip": "Descripción cuándo usar la etiqueta",
+  "imageWillBeTheFace": "La imagen será la cara de la comunidad.",
+  "specifyMemorableTitle": "Especifica un título memorable",
+  "communityDescriptionShouldBe":
+    "La descripción de la comunidad debe ser concisa y tener una descripción clara para sus usuarios",
+  "writeWhyDoWeeNeed":
+    "Describa cómo esta comunidad atraerá la atención de otros usuarios y recopilará votos",
+  "onlyTagsWithUniqueTitles":
+    "El formulario debe permitir solo etiquetas con nombres únicos",
+  "communityLanguage": "Idioma",
+  "communityLanguageTip":
+    "Las preguntas en la comunidad solo se permitirán en el idioma seleccionado",
+  "thatisgreat": "Eso es genial!",
+  "communityWillAppear":
+    "Tu comunidad aparecerá en la lista y otros usuarios podrán votar por ella. Se necesitan 100 votos para crear una comunidad.",
+  "goToList": "Ir a la lista",
+  "maxTagsNumberReached": "Se alcanzó el número máximo de etiquetas",
+  "questionsType": "Tipo de Preguntas",
+  "anyQuestionDescriptionLabel":
+    "Los usuarios podrán hacer preguntas generales y de expertos en esta comunidad",
+  "anyQuestionDescriptionList": [],
+  "facebook": "Facebook",
+  "instagram": "Instagram",
+  "youtube": "YouTube",
+  "vk": "VK",
+  "mainColor": "Color principal",
+  "highlightColor": "Resaltar color",
+  "communityType": "Tipo de comunidad",
+  "communityTypeTip": "Opcional",
+  "socialLinks": "Vínculos sociales",
+  "socialLinksTip": "Opcional",
+  "colors": "Colores",
+  "topBanner": "Bandera superior"
+}

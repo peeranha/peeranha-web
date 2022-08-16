@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useTranslation } from 'react-i18next';
 
 import TopCommunities from 'components/TopCommunities';
 
@@ -21,11 +22,23 @@ const ProfileViewForm = ({
   className,
   redirectToEditProfilePage,
 }) => {
+  const { t } = useTranslation();
   const path = window.location.pathname + window.location.hash;
   const isProfilePage =
     profile.id === account &&
     (path === routes.profileView(account) ||
       path === routes.userCommunities(account));
+
+  const onClickRedirectToEditProfilePage = ({
+    currentTarget: { id, user },
+  }) => {
+    redirectToEditProfilePage({
+      t,
+      buttonId: id,
+      user,
+    });
+  };
+
   return (
     <div className={className}>
       <MainUserInformation
@@ -33,14 +46,14 @@ const ProfileViewForm = ({
         userId={userId}
         account={account}
         locale={locale}
-        redirectToEditProfilePage={redirectToEditProfilePage}
+        redirectToEditProfilePage={onClickRedirectToEditProfilePage}
       />
 
       <AdditionalUserInformation
         profile={profile}
         userId={userId}
         account={account}
-        redirectToEditProfilePage={redirectToEditProfilePage}
+        redirectToEditProfilePage={onClickRedirectToEditProfilePage}
       />
 
       {(isProfilePage || profile.ratings?.length > 0) && (

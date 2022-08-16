@@ -1,5 +1,4 @@
 import { call, put, takeLatest, select } from 'redux-saga/effects';
-import { translationMessages } from 'i18n';
 import crypto from 'crypto';
 
 import createdHistory from 'createdHistory';
@@ -12,13 +11,11 @@ import {
   emptyProfile,
 } from 'utils/accountManagement';
 import { login } from 'utils/web_integration/src/wallet/login/login';
-import webIntegrationErrors from 'utils/web_integration/src/wallet/service-errors';
 import { WebIntegrationError } from 'utils/errors';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { setCookie } from 'utils/cookie';
 
 import { redirectToFeed } from 'containers/App/actions';
-import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import {
   getCurrentAccountWorker,
@@ -47,7 +44,6 @@ import {
 import {
   FINISH_REGISTRATION,
   LOGIN_WITH_EMAIL,
-  USER_IS_NOT_SELECTED,
   EMAIL_FIELD,
   PASSWORD_FIELD,
   REMEMBER_ME_FIELD,
@@ -58,11 +54,8 @@ import {
   FACEBOOK_LOGIN_DATA_RECEIVE,
   AUTOLOGIN_WITH_FACEBOOK,
   HANDLE_FB_LOGIN_ERROR,
-  FACEBOOK_LOGIN_ERROR,
-  FACEBOOK_AUTOLOGIN_ERROR,
 } from './constants';
 
-import messages from './messages';
 import { addToast } from '../Toast/actions';
 import { addLoginData, getCurrentAccount } from '../AccountProvider/actions';
 
@@ -92,8 +85,6 @@ function* continueLogin({ address }) {
 export function* loginWithEmailWorker({ val }) {
   try {
     const ethereumService = yield select(selectEthereum);
-    const locale = yield select(makeSelectLocale());
-    const translations = translationMessages[locale];
 
     const email = val[EMAIL_FIELD];
     const password = val[PASSWORD_FIELD];
@@ -108,9 +99,7 @@ export function* loginWithEmailWorker({ val }) {
     );
 
     if (!response.OK) {
-      throw new WebIntegrationError(
-        translations[webIntegrationErrors[response.errorCode].id],
-      );
+      throw new WebIntegrationError();
     }
 
     ethereumService.setSelectedAccount(response.body.address);
@@ -123,14 +112,12 @@ export function* loginWithEmailWorker({ val }) {
   }
 }
 
-export function* loginWithWalletWorker({ metaMask }) {
+export function* loginWithWalletWorker({ metaMask, t }) {
   try {
     const ethereumService = yield select(selectEthereum);
-    const locale = yield select(makeSelectLocale());
     const isNewPostCreationAfterLogin = yield select(
       selectIsNewPostCreationAfterLogin(),
     );
-    const translations = translationMessages[locale];
 
     let currentAccount;
     let metaMaskUserAddress = null;
@@ -139,9 +126,7 @@ export function* loginWithWalletWorker({ metaMask }) {
       metaMaskUserAddress = yield call(ethereumService.walletLogIn);
 
       if (!metaMaskUserAddress) {
-        throw new WebIntegrationError(
-          translations[messages[USER_IS_NOT_SELECTED].id],
-        );
+        throw new WebIntegrationError(t('login.userIsNotSelected'));
       }
 
       currentAccount = metaMaskUserAddress;
@@ -201,10 +186,8 @@ export function* sendReferralCode(
     }
     return true;
   }
-  const locale = yield select(makeSelectLocale());
-  const text = translationMessages[locale][messages.inviterIsNotRegisterYet.id];
-  yield put(addToast({ type: 'error', text }));
-  yield put(error(new Error(text)));
+  yield put(addToast({ type: 'error', text: '' }));
+  yield put(error(new Error()));
 
   return false;
 }
@@ -260,9 +243,6 @@ export function* facebookLoginButtonClickedWorker() {
 
 export function* loginWithFacebookWorker({ data }) {
   try {
-    const locale = yield select(makeSelectLocale());
-    const translations = translationMessages[locale];
-
     const facebookUserData = {
       id: data.id,
       name: data.name,
@@ -277,9 +257,7 @@ export function* loginWithFacebookWorker({ data }) {
     });
 
     if (response.errorCode) {
-      throw new WebIntegrationError(
-        translations[webIntegrationErrors[response.errorCode].id],
-      );
+      throw new WebIntegrationError();
     }
 
     const decryptedData = decryptObject(
@@ -292,9 +270,7 @@ export function* loginWithFacebookWorker({ data }) {
     );
 
     if (decryptedData.eosAccountName === ACCOUNT_NOT_CREATED_NAME) {
-      throw new WebIntegrationError(
-        translations[messages.accountNotCreatedName.id],
-      );
+      throw new WebIntegrationError();
     }
 
     yield call(continueLogin, decryptedData);
@@ -318,9 +294,6 @@ export function* loginWithFacebookWorker({ data }) {
 
 export function* facebookLoginCallbackWorker({ data, isLogin }) {
   try {
-    const locale = yield select(makeSelectLocale());
-    const translations = translationMessages[locale];
-
     if (isLogin && data.userID) {
       yield call(loginWithFacebookWorker, { data });
     } else if (data.userID) {
@@ -330,18 +303,14 @@ export function* facebookLoginCallbackWorker({ data, isLogin }) {
       });
 
       if (!response.OK) {
-        throw new WebIntegrationError(
-          translations[webIntegrationErrors[response.errorCode].id],
-        );
+        throw new WebIntegrationError();
       }
 
       yield loginWithFacebookWorker({ data });
 
       yield call(createdHistory.push, routes.questions());
     } else if (data.status === 'unknown') {
-      throw new WebIntegrationError(
-        translations[messages[USER_IS_NOT_SELECTED].id],
-      );
+      throw new WebIntegrationError();
     } else {
       throw new Error(JSON.stringify(data));
     }
@@ -357,20 +326,13 @@ export function* facebookLoginCallbackWorker({ data, isLogin }) {
 
 export function* fbLoginErrorCallbackWorker({ autoLogin }) {
   try {
-    const locale = yield select(makeSelectLocale());
-    const translations = translationMessages[locale];
-
     if (autoLogin) {
       yield put(getCurrentAccount());
-      throw new WebIntegrationError(
-        translations[messages[FACEBOOK_AUTOLOGIN_ERROR].id],
-      );
+      throw new WebIntegrationError();
     }
 
     yield put(setFacebookLoginProcessing(false));
-    throw new WebIntegrationError(
-      translations[messages[FACEBOOK_LOGIN_ERROR].id],
-    );
+    throw new WebIntegrationError();
   } catch (err) {
     yield put(facebookLoginErr(err));
   }
