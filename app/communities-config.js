@@ -16,6 +16,16 @@ const communitiesConfig = {
       src: FunctionlandLogo,
       styles: FunctionlandStyles,
     },
+    3: {
+      origin: 'https://polygon.peeranha.io',
+      src: PolygonLogo,
+      styles: PolygonStyles,
+    },
+    4: {
+      origin: 'https://filecoin.peeranha.io',
+      src: FileiconLogo,
+      styles: FilecoinStyles,
+    },
   },
   staging: {
     1: {
