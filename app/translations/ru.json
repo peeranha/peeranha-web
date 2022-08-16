@@ -1162,6 +1162,8 @@
   ],
   "app.containers.QuestionForm.tutorialQuestionDescriptionLabel":
     "Руководство это инструкция, которая может представлять из себя:",
+  "app.containers.QuestionForm.faqDescriptionLabel":
+    "В этом разделе представлены ответы на список типичных вопросов, которые пользователи могут задать в отношении определенного сообщества или темы.",
   "app.containers.QuestionForm.tutorialQuestionDescriptionList": [
     "Пошаговое решение проблемы;",
     "Техническое руководство;",
