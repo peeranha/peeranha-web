@@ -247,13 +247,14 @@ function questionsReducer(state = initialState, action) {
 
     case MARK_AS_ACCEPTED_SUCCESS:
       return state.set(
-        'questionsList',
-        Object.values(questionsList).map(
-          question =>
-            question.id === questionData.id
-              ? { ...question, bestReply: questionData.bestReply }
-              : question,
-        ),
+        'questions',
+        fromJS({
+          ...stateQuestions,
+          [questionData.id]: {
+            ...stateQuestions[questionData.id],
+            bestReply: questionData.bestReply,
+          },
+        }),
       );
 
     default:
