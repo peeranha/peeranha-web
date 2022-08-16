@@ -5,6 +5,7 @@ import {
   GET_QUESTIONS_SUCCESS,
   GET_QUESTIONS_ERROR,
 } from './constants';
+import { DELETE_QUESTION_SUCCESS } from '../ViewQuestion/constants';
 
 export const initialState = fromJS({
   number: 10,
@@ -15,11 +16,9 @@ export const initialState = fromJS({
 });
 
 function questionsOfUserReducer(state = initialState, action) {
-  const { type, getQuestionsError, questions, init } = action;
+  const { type, getQuestionsError, questions, init, questionData } = action;
 
-  const {
-    questions: stateQuestions,
-  } = state.toJS();
+  const { questions: stateQuestions } = state.toJS();
 
   const {
     questions: initialStateQuestions,
@@ -30,10 +29,7 @@ function questionsOfUserReducer(state = initialState, action) {
     case GET_QUESTIONS:
       return state
         .set('questionsLoading', true)
-        .set(
-          'questions',
-          init ? initialStateQuestions : stateQuestions,
-        );
+        .set('questions', init ? initialStateQuestions : stateQuestions);
     case GET_QUESTIONS_SUCCESS:
       return state
         .set('questionsLoading', false)
@@ -43,7 +39,11 @@ function questionsOfUserReducer(state = initialState, action) {
       return state
         .set('questionsLoading', false)
         .set('getQuestionsError', getQuestionsError);
-
+    case DELETE_QUESTION_SUCCESS:
+      return state.set(
+        'questions',
+        stateQuestions.filter(question => question.id !== questionData.id),
+      );
     default:
       return state;
   }
