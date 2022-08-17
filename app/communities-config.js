@@ -12,7 +12,7 @@ const communitiesConfig = {
       origin: 'https://meta.peeranha.io',
     },
     2: {
-      origin: 'https://fxland.peeranha.io',
+      origin: 'https://functionland.peeranha.io',
       src: FunctionlandLogo,
       styles: FunctionlandStyles,
     },
