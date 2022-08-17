@@ -145,10 +145,11 @@ const CreateCommunityForm = ({
         <Field
           disabled={createCommunityLoading}
           name={COMM_SHORT_DESCRIPTION_FIELD}
-          component={TextInputField}
+          component={TextareaField}
           label={translations[messages.shortDescription.id]}
           validate={[strLength15x250, required]}
           warn={[strLength15x250, required]}
+          placeholder={translations[messages.tagDescription.id]}
           tip={translations[messages.shortDescriptionTip.id]}
           splitInHalf
         />
