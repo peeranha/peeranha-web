@@ -102,6 +102,7 @@ export const getUsersQuestions = async (id, limit, offset) => {
       limit,
       offset,
     },
+    fetchPolicy: 'network-only',
   });
   return questions?.data.posts.map(question => ({ ...question }));
 };
