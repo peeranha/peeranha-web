@@ -15,7 +15,7 @@ export const initialState = fromJS({
 });
 
 function questionsOfUserReducer(state = initialState, action) {
-  const { type, getQuestionsError, questions, init, questionData } = action;
+  const { type, getQuestionsError, questions, init } = action;
 
   const { questions: stateQuestions } = state.toJS();
 
