@@ -21,7 +21,11 @@ const Feed = ({ match, account, loading }) => {
       <Questions
         parentPage={routes.feed()}
         match={match}
-        postsTypes={Object.values(POST_TYPE)}
+        postsTypes={[
+          POST_TYPE.generalPost,
+          POST_TYPE.expertPost,
+          POST_TYPE.tutorial,
+        ]}
       />
     );
   }
