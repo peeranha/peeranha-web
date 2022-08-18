@@ -12,9 +12,19 @@ const communitiesConfig = {
       origin: 'https://meta.peeranha.io',
     },
     2: {
-      origin: 'https://fxland.peeranha.io',
+      origin: 'https://functionland.peeranha.io',
       src: FunctionlandLogo,
       styles: FunctionlandStyles,
+    },
+    3: {
+      origin: 'https://polygon.peeranha.io',
+      src: PolygonLogo,
+      styles: PolygonStyles,
+    },
+    4: {
+      origin: 'https://filecoin.peeranha.io',
+      src: FileiconLogo,
+      styles: FilecoinStyles,
     },
   },
   staging: {
