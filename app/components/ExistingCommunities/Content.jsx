@@ -156,6 +156,7 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
                 </DescriptionBlock>
 
                 <InfoBlock className="flex-wrap flex-sm-nowrap">
+                  {/* PEER-442: temporarily hide number of users in Communities
                   <Info>
                     <SpanCenter>
                       {getFormattedNum2(x.followingUsers)}
@@ -163,7 +164,7 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
                     <P>
                       <FormattedMessage {...commonMessages.usersShort} />
                     </P>
-                  </Info>
+                  </Info>  */}
 
                   <Info>
                     <SpanCenter>{getFormattedNum2(x.postCount)}</SpanCenter>
