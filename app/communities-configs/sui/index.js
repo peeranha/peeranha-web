@@ -193,7 +193,7 @@ export const SuiStyles = {
   signUpPageLogo: SuiLogo,
   favicon,
   colors: {
-    mainBackground: '#F3F3F3',
+    mainBackground: 'rgb(230,239,254)',
     linkColor: 'rgb(111, 188, 240)',
     linkColorTransparent: 'rgb(111, 188, 240)',
     headerPrimary: 'rgb(111, 188, 240)',
@@ -208,6 +208,12 @@ export const SuiStyles = {
     btnColor: 'rgb(111, 188, 240)',
     tagColor: 'rgb(111, 188, 240)',
   },
+
+  cookieConsentPopupStyles: {
+    background: 'rgb(52, 82, 110)',
+    color: 'rgb(254, 254, 254)',
+  },
+
   headerHeight: 80,
   projectBorderRadius: '20px',
   domainName,
