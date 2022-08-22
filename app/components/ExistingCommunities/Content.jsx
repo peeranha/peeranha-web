@@ -13,6 +13,7 @@ import {
   getPermissions,
   hasCommunityModeratorRole,
   hasGlobalModeratorRole,
+  hasCommunityAdminRole,
 } from 'utils/properties';
 import { getFormattedNum2 } from 'utils/numbers';
 import { getDifferenceInDate } from 'utils/datetime';
@@ -156,15 +157,18 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
                 </DescriptionBlock>
 
                 <InfoBlock className="flex-wrap flex-sm-nowrap">
-                  {/* PEER-442: temporarily hide number of users in Communities
-                  <Info>
-                    <SpanCenter>
-                      {getFormattedNum2(x.followingUsers)}
-                    </SpanCenter>
-                    <P>
-                      <FormattedMessage {...commonMessages.usersShort} />
-                    </P>
-                  </Info>  */}
+                  {(communityEditingAllowed ||
+                    hasCommunityModeratorRole(getPermissions(profile), value) ||
+                    hasCommunityAdminRole(getPermissions(profile), value)) && (
+                    <Info>
+                      <SpanCenter>
+                        {getFormattedNum2(x.followingUsers)}
+                      </SpanCenter>
+                      <P>
+                        <FormattedMessage {...commonMessages.usersShort} />
+                      </P>
+                    </Info>
+                  )}
 
                   <Info>
                     <SpanCenter>{getFormattedNum2(x.postCount)}</SpanCenter>
