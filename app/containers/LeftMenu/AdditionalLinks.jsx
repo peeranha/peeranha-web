@@ -175,7 +175,9 @@ const AdditionalLinksComponent = ({ currClientHeight }) => {
         </>
       )}
 
-      {middleSize && basicCondition && <InfoLinksDropDown withTitle />}
+      {middleSize &&
+        basicCondition &&
+        process.env.ENV !== 'prod' && <InfoLinksDropDown withTitle />}
 
       {(fullSize ||
         ((smallSize || middleSize) && !basicCondition) ||
@@ -185,7 +187,7 @@ const AdditionalLinksComponent = ({ currClientHeight }) => {
         basicCondition && (
           <FlexibleDiv>
             <InfoLinksDropDown />
-            <ChangeLocale />
+            {process.env.ENV !== 'prod' && <ChangeLocale />}
           </FlexibleDiv>
         )}
 
