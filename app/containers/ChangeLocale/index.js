@@ -29,8 +29,6 @@ export const ChangeLocale = ({ withTitle }) => {
     i18n.changeLanguage(locale);
   };
 
-  console.log('currentLocale', currentLocale);
-
   return (
     <Dropdown
       className="mr-3"
@@ -42,7 +40,7 @@ export const ChangeLocale = ({ withTitle }) => {
             lineHeight="20"
             color={TEXT_SECONDARY}
           >
-            <Flag src={require(`images/${['en']}_lang.png`)} alt="country" />
+            <Flag src={require(`images/${language}_lang.png`)} alt="country" />
             {withTitle && t(`common.${language}`)}
           </Span>
         </React.Fragment>
@@ -56,7 +54,7 @@ export const ChangeLocale = ({ withTitle }) => {
               onClick={() => setLocale(item)}
               isBold={item === currentLocale}
             >
-              <Flag src={require(`images/${['en']}_lang.png`)} alt="language" />
+              <Flag src={require(`images/${item}_lang.png`)} alt="language" />
               {t(`common.${item}`)}
             </Li>
           ))}

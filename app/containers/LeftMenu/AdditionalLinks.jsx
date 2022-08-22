@@ -196,7 +196,7 @@ const AdditionalLinksComponent = ({ currClientHeight }) => {
           </div>
         )}
         <div className="mt-2">
-          {single && (
+          {Boolean(single) && (
             <a
               className="d-flex align-content-center"
               href={process.env.APP_LOCATION}

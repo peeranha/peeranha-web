@@ -27,14 +27,4 @@ export const currentLocale = i18next.language;
 
 export const { changeLanguage } = i18next;
 
-const addLocaleData = require('react-intl').addLocaleData; //eslint-disable-line
-const enLocaleData = require('react-intl/locale-data/en');
-const ruLocaleData = require('react-intl/locale-data/ru');
-
-const enTranslationMessages = require('./translations/en.json');
-const ruTranslationMessages = require('./translations/ru.json');
-
-addLocaleData(enLocaleData);
-addLocaleData(ruLocaleData);
-
 export const DEFAULT_LOCALE = 'en';
