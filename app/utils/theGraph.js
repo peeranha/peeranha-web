@@ -192,6 +192,7 @@ export const getPostsByCommunityId = async (
       skip,
       postTypes,
     },
+    fetchPolicy: 'network-only',
   });
 
   return posts?.data.posts.map(rawPost => {
