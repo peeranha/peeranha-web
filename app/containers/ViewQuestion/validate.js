@@ -306,13 +306,20 @@ export const deleteAnswerValidator = (
   const MIN_ENERGY = 2;
 
   const isGlobalAdmin = hasGlobalModeratorRole(getPermissions(profileInfo));
-
+  const isCommunityModerator = hasCommunityModeratorRole(
+    profileInfo.permissions,
+    questionData.communityId,
+  );
   let message;
   const itemData = questionData.answers.filter(x => x.id === answerid)[0];
 
   if (itemData.votingStatus.isUpVoted && !isGlobalAdmin) {
     message = i18n.t('post.cannotCompleteBecauseVoted');
-  } else if (answerid === correctAnswerId && !isGlobalAdmin) {
+  } else if (
+    answerid === correctAnswerId &&
+    !isGlobalAdmin &&
+    !isCommunityModerator
+  ) {
     message = i18n.t('post.answerIsCorrect');
   } else if (profileInfo.energy < MIN_ENERGY) {
     message = i18n.t('post.notEnoughEnergy');

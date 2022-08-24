@@ -192,10 +192,7 @@ export const Header = ({
       </PageContentHeader>
 
       {isModeratorModeSingleCommunity && (
-        <button
-          onClick={routeToEditCommunity}
-          className={`align-items-center d-inline-flex`}
-        >
+        <button onClick={routeToEditCommunity} className="df aic mt12">
           <IconMd icon={pencilIcon} />
           <Span className="ml-1" color={TEXT_PRIMARY}>
             {t('common.editCommunity')}

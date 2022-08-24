@@ -17,7 +17,7 @@ import NotificationIcon from 'containers/Header/WalletDropdown/NotificationIcon'
 
 import A from 'components/A';
 import Icon from 'components/Icon';
-import { REWARD_CLAIMING_ENABLED } from '../../../utils/constants';
+import { REWARD_CLAIMING_ENABLED } from 'utils/constants';
 
 const MobileLinksInWallet = ({
   profile,
@@ -69,15 +69,16 @@ const MobileLinksInWallet = ({
         <div className="pb-2">
           <A to={routes.userWallet(profile.user)}>
             {t('common.wallet')}
-            {isPositiveNumber(rewardsWeeksNumber) && (
-              <NotificationIcon
-                inline
-                isMobileVersion
-                number={rewardsWeeksNumber}
-                id="MobileLinksInWallet"
-                locale={locale}
-              />
-            )}
+            {REWARD_CLAIMING_ENABLED &&
+              isPositiveNumber(rewardsWeeksNumber) && (
+                <NotificationIcon
+                  inline
+                  isMobileVersion
+                  number={rewardsWeeksNumber}
+                  id="MobileLinksInWallet"
+                  locale={locale}
+                />
+              )}
           </A>
 
           {REWARD_CLAIMING_ENABLED && (

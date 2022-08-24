@@ -17,7 +17,7 @@ const userRedirect = where => id => `/users/${id}${where}`;
 const singleCommId = isSingleCommunityWebsite();
 const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
 
-export const home = () => `/about`;
+export const home = () => (singleCommId ? `/about` : `/`);
 
 export const notFound = () => `/404`;
 export const errorPage = () => `/error-occured`;
@@ -89,7 +89,9 @@ export const noAccess = () => `/no-access`;
 export const detailsHomePage = () => '/';
 
 export const feed = communityId =>
-  `/${communityId ? `feed/${communityId}` : ''}`;
+  !singleCommId
+    ? `/feed${communityId ? `/${communityId}` : ''}`
+    : `/${communityId ? `feed/${communityId}` : ''}`;
 
 export const communities = () => (!isBloggerMode ? `/communities` : `/`);
 

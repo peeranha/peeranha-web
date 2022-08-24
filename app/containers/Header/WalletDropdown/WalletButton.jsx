@@ -20,6 +20,7 @@ import {
   singleCommunityColors,
   singleCommunityStyles,
 } from 'utils/communityManagement';
+import { REWARD_CLAIMING_ENABLED } from 'utils/constants';
 
 import { IconLg } from 'components/Icon/IconWithSizes';
 import Icon from 'components/Icon';
@@ -133,7 +134,8 @@ const WalletButton = ({
           </Span>
         </span>
       </ButtonStyled>
-      {isMobileVersion &&
+      {REWARD_CLAIMING_ENABLED &&
+        isMobileVersion &&
         isPositiveNumber(number) && (
           <NotificationIcon
             isMobileVersion={isMobileVersion}

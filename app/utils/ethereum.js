@@ -4,7 +4,7 @@ import PeeranhaToken from '../../../peeranha-subgraph/abis/PeeranhaToken.json';
 import PeeranhaContent from '../../../peeranha-subgraph/abis/PeeranhaContent.json';
 import PeeranhaCommunity from '../../../peeranha-subgraph/abis/PeeranhaCommunity.json';
 
-import { WebIntegrationErrorByCode } from './errors';
+import { WebIntegrationError, WebIntegrationErrorByCode } from './errors';
 import {
   CONTRACT_TOKEN,
   CONTRACT_USER,
@@ -23,6 +23,7 @@ import {
   INVALID_ETHEREUM_PARAMETERS_ERROR_CODE,
   META_TRANSACTIONS_ALLOWED,
   METAMASK_ERROR_CODE,
+  RECAPTCHA_VERIFY_FAILED_CODE,
   REJECTED_SIGNATURE_REQUEST,
 } from './constants';
 
@@ -67,6 +68,7 @@ class EthereumService {
     this.transactionCompleted = data.transactionCompletedDispatch;
     this.transactionFailed = data.transactionFailedDispatch;
     this.waitForConfirm = data.waitForConfirmDispatch;
+    this.getRecaptchaToken = data.getRecaptchaToken;
     this.isTransactionInitialised = null;
     this.addToast = data.addToast;
     this.translation = data.t;
@@ -230,12 +232,14 @@ class EthereumService {
 
     const metaTransactionsAllowed = getCookie(META_TRANSACTIONS_ALLOWED);
     if (metaTransactionsAllowed) {
+      const token = await this.getRecaptchaToken();
       return await this.sendMetaTransaction(
         contract,
         actor,
         action,
         data,
         confirmations,
+        token,
       );
     }
     try {
@@ -293,6 +297,7 @@ class EthereumService {
     action,
     data,
     confirmations = 1,
+    token,
   ) => {
     try {
       await this.chainCheck();
@@ -352,7 +357,12 @@ class EthereumService {
         sigS: s,
         sigV: v,
         wait: false,
+        reCaptchaToken: token,
       });
+
+      if (response.errorCode) {
+        throw response;
+      }
 
       this.transactionInPending(response.body.transactionHash);
       const result = await this.provider.waitForTransaction(
@@ -363,8 +373,9 @@ class EthereumService {
       this.setTransactionInitialised(false);
       return result;
     } catch (err) {
+      const errorCode = err.code || err.errorCode;
       this.setTransactionInitialised(false);
-      switch (err.code) {
+      switch (errorCode) {
         case INVALID_ETHEREUM_PARAMETERS_ERROR_CODE:
           this.transactionFailed({
             error: new WebIntegrationErrorByCode(METAMASK_ERROR_CODE),
@@ -372,6 +383,12 @@ class EthereumService {
           });
           break;
         case REJECTED_SIGNATURE_REQUEST:
+          this.transactionFailed({
+            error: new WebIntegrationErrorByCode(err.code),
+            translation: this.translation,
+          });
+          break;
+        case RECAPTCHA_VERIFY_FAILED_CODE:
           this.transactionFailed({
             error: new WebIntegrationErrorByCode(err.code),
             translation: this.translation,

@@ -26,5 +26,7 @@
   "noStoredFacebookData": "There is no stored facebook user data in Peeranha",
   "privateKeyTypeIsNotSet": "The private key type is not set",
   "noFacebookAccountEmail":
-    "The Facebook account does not have an installed email or the email is not verified"
+    "The Facebook account does not have an installed email or the email is not verified",
+  "reCaptchaVerifyFailed":
+    "You have not passed the hidden check that you are not a robot"
 }

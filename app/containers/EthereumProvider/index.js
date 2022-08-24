@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { bindActionCreators, compose } from 'redux';
@@ -108,6 +108,44 @@ export const EthereumProvider = ({
   const connectedWallets = useWallets();
   const [web3Onboard, setWeb3Onboard] = useState(null);
 
+  // TODO: After updating react to 17v and above use lib for recaptcha (e.g. react-google-recaptcha-v3)
+  useEffect(() => {
+    const loadScriptByURL = (id, url, callback) => {
+      const isScriptExist = document.getElementById(id);
+
+      if (!isScriptExist) {
+        const script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = url;
+        script.id = id;
+        script.onload = () => {
+          if (callback) callback();
+        };
+        document.body.appendChild(script);
+      }
+
+      if (isScriptExist && callback) callback();
+    };
+
+    loadScriptByURL(
+      'recaptcha-key',
+      `https://www.google.com/recaptcha/api.js?render=${
+        process.env.RECAPTCHA_SITE_KEY
+      }`,
+      () => {
+        console.log('Script loaded!');
+      },
+    );
+  }, []);
+
+  const getRecaptchaToken = useCallback(
+    () =>
+      window.grecaptcha.execute(process.env.RECAPTCHA_SITE_KEY, {
+        action: 'homepage',
+      }),
+    [window.grecaptcha],
+  );
+
   useEffect(
     () => {
       if (ethereum) {
@@ -127,6 +165,7 @@ export const EthereumProvider = ({
     disconnect,
     setChain,
     connectedChain,
+    getRecaptchaToken,
     showModalDispatch,
     transactionInPendingDispatch,
     transactionCompletedDispatch,

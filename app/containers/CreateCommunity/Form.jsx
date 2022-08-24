@@ -133,6 +133,7 @@ const CreateCommunityForm = ({
           label={t('createCommunity.shortDescription')}
           validate={[strLength15x250, required]}
           warn={[strLength15x250, required]}
+          placeholder={t('createCommunity.tagDescription')}
           tip={t('createCommunity.shortDescriptionTip')}
           splitInHalf
         />

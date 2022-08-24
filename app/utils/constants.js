@@ -56,6 +56,8 @@ export const PROPERTY_FIRST_ANSWER = 13;
 export const REWARD_CLAIMING_ENABLED =
   process.env.REWARD_CLAIMING_ENABLED === 'true';
 
+export const INIT_RATING = 10;
+
 export const WEI_IN_ETH = String(10 ** 18);
 export const BOOST_MULTIPLIER = 5;
 export const BOOST_MODIFIER_HIGH = 5;
@@ -285,6 +287,7 @@ export const USER_NOT_SELECTED_ERROR_CODE = 1000003;
 export const CHAIN_ID_ERROR_CODE = 1000004;
 export const INVALID_ETHEREUM_PARAMETERS_ERROR_CODE = -32602;
 export const REJECTED_SIGNATURE_REQUEST = 4001;
+export const RECAPTCHA_VERIFY_FAILED_CODE = 600613;
 
 //session storage keys
 export const CHANGED_POSTS_KEY = 'changed-posts';

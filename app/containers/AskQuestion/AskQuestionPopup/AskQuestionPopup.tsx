@@ -61,11 +61,10 @@ const AskQuestionPopup: React.FC = (): JSX.Element => {
           </div>
           <div
             className="pa t0 l0 full-width full-height"
-            css={css`
-              z-index: 9;
-              opacity: 0.3;
-              background-color: black;
-            `}
+            css={css({
+              ...styles.modalOpen,
+              ...(enableAnimation && styles.modalClose),
+            })}
           />
         </div>
       )}

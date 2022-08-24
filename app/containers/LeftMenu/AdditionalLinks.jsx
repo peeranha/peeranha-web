@@ -12,7 +12,7 @@ import {
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
 import infoIcon from 'images/information.svg?external';
 
-import { TEXT_SECONDARY } from 'style-constants';
+import { TEXT_PRIMARY, TEXT_SECONDARY } from 'style-constants';
 
 import Icon from 'components/Icon';
 import Dropdown from 'components/Dropdown';
@@ -69,7 +69,6 @@ const Img = styled.img`
   width: ${({ alt }) => (alt === 'telos' ? 40 : 60)}px;
   height: 15px;
   margin-left: 1px;
-  filter: gray;
   filter: grayscale(100%);
 `;
 
@@ -89,6 +88,26 @@ const LiAdditionalStyles = css`
 
 const StyledIcon = styled(Icon)`
   margin-right: 10px !important;
+`;
+
+const ASimple = styled.a`
+  font-weight: 600;
+  color: ${TEXT_PRIMARY};
+  transition: opacity 0.3s ease-out;
+  padding: 0 !important;
+
+  :hover {
+    opacity: 0.8;
+  }
+`;
+
+const DivMention = styled.div`
+  margin-top: 5px;
+  line-height: 1.2;
+  font-size: 10px;
+  > span {
+    white-space: normal;
+  }
 `;
 
 const Link = ({ path, message, cssStyles }) => {
@@ -197,20 +216,47 @@ const AdditionalLinksComponent = ({ currClientHeight }) => {
             {t('common.copyrightPeeranha', { year: new Date().getFullYear() })}
           </div>
         )}
-        <div className="mt-2">
-          {Boolean(single) && (
-            <a
-              className="d-flex align-content-center"
-              href={process.env.APP_LOCATION}
-            >
-              <Trans
-                i18nKey="common.poweredBy"
-                values={{ year: new Date().getFullYear() }}
-                components={[<Img key="0" src={peeranhaLogo} alt="peeranha" />]}
-              />
-            </a>
-          )}
-        </div>
+
+        {!!single && (
+          <div className="mt-2">
+            {Boolean(single) && (
+              <a
+                className="d-flex align-content-center"
+                href={process.env.APP_LOCATION}
+              >
+                <Trans
+                  i18nKey="common.poweredBy"
+                  values={{ year: new Date().getFullYear() }}
+                  components={[
+                    <Img key="0" src={peeranhaLogo} alt="peeranha" />,
+                  ]}
+                />
+              </a>
+            )}
+          </div>
+        )}
+
+        <DivMention>
+          <Trans
+            i18nKey="common.reCaptchaMention"
+            values={{
+              privacyPolicy: t('common.privacyPolicy'),
+              termsOfService: t('common.termsOfService'),
+            }}
+            components={[
+              <ASimple
+                key="0"
+                href="https://policies.google.com/privacy"
+                target="_blank"
+              />,
+              <ASimple
+                key="1"
+                href="https://policies.google.com/terms"
+                target="_blank"
+              />,
+            ]}
+          />
+        </DivMention>
       </FooterStyled>
     </AdditionalLinks>
   );

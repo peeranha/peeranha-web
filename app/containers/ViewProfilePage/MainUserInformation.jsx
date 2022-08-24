@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
+import { css } from '@emotion/react';
 
-import { TEXT_DARK, TEXT_SECONDARY } from 'style-constants';
+import { TEXT_DARK, TEXT_SECONDARY, LINK_COLOR } from 'style-constants';
 import { LABEL_SIZE_LG } from 'components/Img/MediumImage';
 import { TEMPORARY_ACCOUNT_KEY } from 'utils/constants';
 import { getUserAvatar } from 'utils/profileManagement';
 
 import questionRoundedIcon from 'images/question2.svg?inline';
 import answerIcon from 'images/answer.svg?inline';
+import iconCopy from 'images/document-copy.svg?inline';
+import iconCopySelect from 'images/document-copy-select.svg?inline';
 
 import Base from 'components/Base';
 import A from 'components/A';
@@ -59,6 +62,11 @@ export const UlStyled = Ul.extend`
       word-break: break-word;
       white-space: pre-line;
       overflow-wrap: break-word;
+
+      button {
+        left: 75%;
+        top: 80%;
+      }
     }
 
     @media (max-width: 399px) {
@@ -66,7 +74,7 @@ export const UlStyled = Ul.extend`
     }
 
     > *:nth-child(1) {
-      font-size: 13px;
+      font-size: 14px;
       line-height: 25px;
       color: ${TEXT_SECONDARY};
     }
@@ -99,6 +107,10 @@ export const UlStyled = Ul.extend`
       span,
       div {
         font-size: 16px !important;
+      }
+      button {
+        left: 80%;
+        top: 80%;
       }
     }
 
@@ -168,6 +180,14 @@ const MainUserInformation = ({
     x => x.key === TEMPORARY_ACCOUNT_KEY && x.value,
   );
   const userPolygonScanAddress = process.env.BLOCKCHAIN_EXPLORERE_URL + userId;
+  const [copied, setCopied] = useState(false);
+
+  const copiedUserId = () => {
+    navigator.clipboard.writeText(userId);
+    setCopied(true);
+  };
+
+  const iconType = copied ? iconCopySelect : iconCopy;
 
   return (
     <Box position="middle">
@@ -248,8 +268,34 @@ const MainUserInformation = ({
                     href={userPolygonScanAddress}
                     target="_blank"
                   >
-                    <span>{userId}</span>
+                    <span
+                      id="copytext1"
+                      css={css`
+                        border-bottom: 1px solid;
+                        color: ${LINK_COLOR};
+                        font-weight: 400;
+                      `}
+                    >
+                      {userId}
+                    </span>
                   </A>
+                  <button
+                    css={css`
+                      color: #adaeae;
+                      position: absolute;
+                      left: 95%;
+                      margin-top: 23px;
+                    `}
+                    onClick={copiedUserId}
+                  >
+                    <img
+                      src={iconType}
+                      alt="copy"
+                      css={css`
+                        height: 20px;
+                      `}
+                    />
+                  </button>
                 </li>
               )}
 

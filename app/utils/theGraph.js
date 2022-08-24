@@ -89,6 +89,7 @@ export const getUserStats = async id => {
     variables: {
       id: dataToString(id).toLowerCase(),
     },
+    fetchPolicy: 'network-only',
   });
   return userStats?.data.user;
 };

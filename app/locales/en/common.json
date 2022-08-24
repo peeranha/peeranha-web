@@ -460,5 +460,7 @@
     "details": "Details",
     "reloadPage": "Reload page"
   },
-  "answerForm": "Your Answer"
+  "answerForm": "Your Answer",
+  "reCaptchaMention":
+    "This site is protected by reCAPTCHA and the Google <0>{{privacyPolicy}}</0> and <1>{{termsOfService}}</1> apply."
 }

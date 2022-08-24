@@ -5,4 +5,5 @@ export default {
   1000004: 'common.wrongChainId',
   3080002: 'common.notEnoughCPUOrRAM',
   4001: 'signUp.userRejectedSignatureRequest',
+  600613: 'webIntegration.reCaptchaVerifyFailed',
 };

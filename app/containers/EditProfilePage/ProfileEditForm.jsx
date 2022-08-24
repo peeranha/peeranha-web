@@ -29,6 +29,7 @@ import {
 import AboutForm from './AboutForm';
 
 import { EDIT_PROFILE_BUTTON_ID, PROFILE_EDIT_FORM } from './constants';
+import { getUserName } from '../../utils/user';
 
 export const ProfileEditForm = ({
   formValues,
@@ -129,7 +130,10 @@ FormClone = connect((state, props) => ({
   formValues: state.toJS().form[PROFILE_EDIT_FORM]?.values ?? {},
   initialValues: {
     ...(props?.profile?.profile || {}),
-    [DISPLAY_NAME_FIELD]: props?.profile?.displayName,
+    [DISPLAY_NAME_FIELD]: getUserName(
+      props?.profile?.displayName,
+      props?.profile?.id,
+    ),
     [AVATAR_FIELD]: props?.profile?.avatar,
   },
 }))(FormClone);

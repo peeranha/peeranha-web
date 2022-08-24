@@ -175,7 +175,7 @@ const View = ({
         : peeranhaLogo;
 
       return (
-        <LogoStyles to={routes.feed()}>
+        <LogoStyles to={single ? routes.feed() : routes.home()}>
           <img src={src} alt="logo" />
           {styles.logoText}
         </LogoStyles>

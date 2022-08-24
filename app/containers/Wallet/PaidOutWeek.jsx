@@ -78,9 +78,6 @@ const PaidOutWeek = ({
     <Container style={style}>
       <BaseRoundedLi className="align-items-center">
         <div>
-          <P fontSize="13" color={TEXT_SECONDARY}>
-            {t('wallet.paidOut')}
-          </P>
           <WeekNumber
             locale={locale}
             period={period}

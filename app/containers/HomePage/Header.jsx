@@ -8,7 +8,6 @@ import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
 import logo from 'images/Logo.svg?inline';
-import login from 'images/Login.svg?external';
 import closeIcon from 'images/close.svg?external';
 import headerNavigation from 'images/headerNavigation.svg?external';
 
@@ -18,9 +17,14 @@ import A from 'components/A';
 import { IconLm } from 'components/Icon/IconWithSizes';
 import Button from 'components/Button/Outlined/InfoLarge';
 
-import { HEADER_ID, SECOND_SCREEN, THIRD_SCREEN } from './constants';
+import {
+  HEADER_ID,
+  FIRST_SCREEN,
+  SECOND_SCREEN,
+  THIRD_SCREEN,
+} from './constants';
 
-const Header = ({ showLoginModal, account }) => {
+const Header = () => {
   const { t } = useTranslation();
   const [isToggled, setToggled] = useState(false);
 
@@ -35,7 +39,11 @@ const Header = ({ showLoginModal, account }) => {
         <div className="container">
           <div className="d-flex flex-lg-row flex-column justify-content-between">
             <div className="d-flex justify-content-between flex-grow-1 flex-lg-grow-0">
-              <A to={routes.feed()} className="d-flex logo">
+              <A
+                to={routes.home()}
+                onClick={() => toggle(FIRST_SCREEN)}
+                className="d-flex logo"
+              >
                 <img src={logo} alt="logo" />
               </A>
 
@@ -64,23 +72,12 @@ const Header = ({ showLoginModal, account }) => {
                 {t('about.rewards')}
               </button>
 
-              {!account && (
-                <React.Fragment>
-                  <button className="login" onClick={showLoginModal}>
-                    <IconLm className="mr-2" icon={login} />
-                    {t('about.login')}
-                  </button>
-                </React.Fragment>
-              )}
-
-              {account && (
-                <Button
-                  className="signup"
-                  onClick={() => createdHistory.push(routes.feed())}
-                >
-                  {t('about.goToSite')}
-                </Button>
-              )}
+              <Button
+                className="signup"
+                onClick={() => createdHistory.push(routes.feed())}
+              >
+                {t('about.goToSite')}
+              </Button>
             </div>
           </div>
         </div>
