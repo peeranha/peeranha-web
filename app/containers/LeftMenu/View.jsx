@@ -1,5 +1,13 @@
+import { css } from '@emotion/react';
+import { HEADER_HEIGHT } from 'containers/Header/constants';
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import {
+  BG_PRIMARY_BLANKET,
+  BG_PRIMARY_SPECIAL,
+  BORDER_PRIMARY_DARK,
+  SCROLLBAR_COLOR,
+} from 'style-constants';
 
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
@@ -23,6 +31,7 @@ const View = ({
   stakedInCurrentPeriod,
   stakedInNextPeriod,
   boost,
+  documentationMenu,
 }) => {
   const [currClientHeight, setClientHeight] = useState();
 
@@ -38,7 +47,29 @@ const View = ({
   }, []);
 
   return (
-    <ViewStyled id={LEFT_MENU_ID} single={single} isMenuVisible={isMenuVisible}>
+    <ViewStyled
+      id={LEFT_MENU_ID}
+      single={single}
+      isMenuVisible={isMenuVisible}
+      css={css`
+        height: calc(100vh - ${HEADER_HEIGHT + 30}px);
+        overflow-y: scroll;
+        overflow-x: hidden;
+
+        ::-webkit-scrollbar {
+          width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+          background: ${BG_PRIMARY_BLANKET};
+        }
+
+        ::-webkit-scrollbar-thumb {
+          background: ${SCROLLBAR_COLOR};
+          border-radius: 10px;
+        }
+      `}
+    >
       <MobileAutorizationButtons
         profile={profile}
         isMenuVisible={isMenuVisible}
@@ -58,7 +89,11 @@ const View = ({
 
       <MobileAdditionalLinks profile={profile} isMenuVisible={isMenuVisible} />
 
-      <MainLinks currClientHeight={currClientHeight} profile={profile} />
+      <MainLinks
+        currClientHeight={currClientHeight}
+        profile={profile}
+        documentationMenu={documentationMenu}
+      />
 
       <AdditionalLinks currClientHeight={currClientHeight} />
     </ViewStyled>

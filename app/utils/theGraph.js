@@ -6,8 +6,10 @@ import {
   allTagsQuery,
   answeredPostsQuery,
   communitiesQuery,
+  communityDocumentationQuery,
   communityQuery,
   currentPeriodQuery,
+  documentationMenuQuery,
   faqByCommQuery,
   historiesQuery,
   postQuery,
@@ -212,6 +214,27 @@ export const getFaqByCommunityId = async communityId => {
     const { replies, ...propsWithoutReplies } = rawPost;
     return { answers: replies, ...propsWithoutReplies };
   });
+};
+
+export const getCommunityDocumentation = async id => {
+  const post = await client.query({
+    query: gql(communityDocumentationQuery),
+    variables: {
+      id,
+    },
+  });
+
+  return post?.data.post;
+};
+
+export const getDocumentationMenu = async communityId => {
+  const documentation = await client.query({
+    query: gql(documentationMenuQuery),
+    variables: {
+      id: communityId,
+    },
+  });
+  return documentation?.data.communityDocumentation;
 };
 
 export const getQuestionFromGraph = async postId => {

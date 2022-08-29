@@ -82,8 +82,8 @@ const communitiesConfig = {
     // },
   },
   dev: {
-    3: {
-      origin: 'http://localhost:3100',
+    1: {
+      origin: 'http://localhost:3000',
     },
   },
 };

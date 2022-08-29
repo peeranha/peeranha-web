@@ -20,6 +20,7 @@ import NotificationIcon from 'containers/Header/WalletDropdown/NotificationIcon'
 import A from 'components/A';
 import Icon from 'components/Icon';
 import SendTokens from 'containers/SendTokens';
+import { DARK_SECONDARY } from 'style-constants';
 import { REWARD_CLAIMING_ENABLED } from 'utils/constants';
 
 const MobileLinksInWallet = ({
@@ -64,6 +65,7 @@ const MobileLinksInWallet = ({
           icon={arrowDownIcon}
           width="16"
           rotate={visibleWalletLinks}
+          fill={DARK_SECONDARY}
         />
       </button>
 

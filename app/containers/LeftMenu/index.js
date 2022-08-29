@@ -41,6 +41,7 @@ const LeftMenu = /* istanbul ignore next */ ({
   loginWithWalletDispatch,
   showLeftMenuDispatch,
   isGlobalAdmin,
+  documentationMenu,
 }) => {
   const showLoginModal = () => {
     loginWithWalletDispatch({ metaMask: true });
@@ -60,6 +61,7 @@ const LeftMenu = /* istanbul ignore next */ ({
         boost={boost}
         showLoginModal={showLoginModal}
         isGlobalAdmin={isGlobalAdmin}
+        documentationMenu={documentationMenu}
       />
 
       <After isMenuVisible={isMenuVisible} onClick={showLeftMenuDispatch}>

@@ -60,7 +60,7 @@ const FooterStyled = styled.footer`
     if (styles.withoutAdditionalLinks) return '0 0';
     if (currClientHeight < FULL_SIZE && !isMobile(window.navigator).any)
       return '10px 0 0';
-    return '30px 0';
+    return '30px 0 0 0';
   }};
 
   a {

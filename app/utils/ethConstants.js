@@ -395,6 +395,25 @@ export const faqByCommQuery = `
         }
       }`;
 
+export const communityDocumentationQuery = `
+      query (
+        $id: ID!
+      ) {
+         post (id: $id) {
+           ${post}
+         }
+      }`;
+
+export const documentationMenuQuery = `
+      query (
+        $id: ID!
+      ) {
+        communityDocumentation (id: $id) {
+            id
+            documentationJSON
+         }
+      }`;
+
 export const postsForSearchQuery = `
   query (
     $text: String,

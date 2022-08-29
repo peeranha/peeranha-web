@@ -11,6 +11,7 @@
  * the linting exception.
  */
 
+import Documentation from 'containers/Documentation';
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ReactGA from 'react-ga';
@@ -364,6 +365,11 @@ const App = ({
           <Route
             path={routes.questionEdit(':postType', ':questionid')}
             render={props => Wrapper(EditQuestion, props)}
+          />
+
+          <Route
+            path={routes.documentation(':communityId', ':sectionId')}
+            render={props => Wrapper(Documentation, props)}
           />
 
           <Route

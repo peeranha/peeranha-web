@@ -8,4 +8,9 @@ const selectIsMenuVisible = () =>
     substate.get('isMenuVisible'),
   );
 
-export { selectAppWrapperDomain, selectIsMenuVisible };
+const selectDocumentationMenu = () =>
+  createSelector(selectAppWrapperDomain, substate =>
+    substate.get('documentationMenu'),
+  );
+
+export { selectAppWrapperDomain, selectIsMenuVisible, selectDocumentationMenu };

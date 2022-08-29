@@ -140,6 +140,8 @@ export const referralPage = user => `/?${REFERRAL_CODE_URI}=${user}`;
 
 export const facebookDataDeletion = () => '/facebook-data-deletion';
 
+export const documentation = (communityId, sectionId) =>
+  `/documentation/${sectionId}`;
 export const redirectRoutesForSCM = [
   privacyPolicy(),
   termsAndConditions(),
