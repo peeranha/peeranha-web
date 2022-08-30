@@ -123,4 +123,3 @@ export default compose(
     }),
   ),
 )(Documentation);
-// .prettier-ignore

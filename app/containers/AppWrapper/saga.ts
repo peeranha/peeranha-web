@@ -19,7 +19,15 @@ export function* getDocumentationMenuWorker(props: {
       (documentation as CommunityDocumentation).documentationJSON,
     );
 
-    yield put(getDocumentationMenuSuccess(documentationMenu));
+    const pinnedPost = documentationMenu.pinnedPost;
+    pinnedPost.children = [];
+
+    yield put(
+      getDocumentationMenuSuccess([
+        pinnedPost,
+        ...documentationMenu.documentations,
+      ]),
+    );
   } catch (err) {
     yield put(getDocumentationMenuError(err));
   }

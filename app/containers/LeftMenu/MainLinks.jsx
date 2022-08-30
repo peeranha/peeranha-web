@@ -338,16 +338,17 @@ const MainLinks = ({ currClientHeight, profile, documentationMenu }) => {
             <div css={css(styles.menuSectionTitle)}>Documentation</div>
 
             <div>
-              {Boolean(documentationMenu) && (
-                <DocumentationMenu
-                  menu={documentationMenu}
-                  padding={DOCUMENTATION_PADDING}
-                  allMenu={documentationMenu}
-                  path={[]}
-                  activeNodes={activeNodes}
-                  setActiveNodes={setActiveNodes}
-                />
-              )}
+              {Boolean(documentationMenu) &&
+                documentationMenu.map(documentationSection => (
+                  <DocumentationMenu
+                    menu={documentationSection}
+                    padding={DOCUMENTATION_PADDING}
+                    allMenu={documentationMenu}
+                    path={[]}
+                    activeNodes={activeNodes}
+                    setActiveNodes={setActiveNodes}
+                  />
+                ))}
             </div>
           </div>
         </>
