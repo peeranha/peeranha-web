@@ -102,7 +102,6 @@ export const EthereumProvider = ({
   ethereum,
   addToast,
 }) => {
-  const { t } = useTranslation();
   const [{ wallet }, connect, disconnect] = useConnectWallet();
   const [{ connectedChain }, setChain] = useSetChain();
   const connectedWallets = useWallets();
@@ -172,7 +171,6 @@ export const EthereumProvider = ({
     transactionFailedDispatch,
     waitForConfirmDispatch,
     addToast,
-    t,
   };
 
   useEffect(() => {

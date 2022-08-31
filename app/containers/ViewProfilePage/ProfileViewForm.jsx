@@ -33,7 +33,6 @@ const ProfileViewForm = ({
     currentTarget: { id, user },
   }) => {
     redirectToEditProfilePage({
-      t,
       buttonId: id,
       user,
     });

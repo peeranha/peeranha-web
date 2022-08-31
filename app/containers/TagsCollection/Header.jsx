@@ -27,7 +27,6 @@ const Header = ({ openTagForm, profile }) => {
 
   const onClickOpenTagForm = ({ currentTarget: { id, communityid } }) => {
     openTagForm({
-      t,
       buttonId: id,
       communityId: communityid,
     });

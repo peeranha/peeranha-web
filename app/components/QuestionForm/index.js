@@ -68,7 +68,6 @@ const SuggestTag = ({ redirectToCreateTagDispatch, formValues }) => {
 
   const onClick = ({ currentTarget: { id, communityid } }) => {
     redirectToCreateTagDispatch({
-      t,
       buttonId: id,
       communityId: communityid,
     });

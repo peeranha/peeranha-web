@@ -45,10 +45,9 @@ export function setDefaultReducer() {
   };
 }
 
-export function redirectToEditProfilePage({ t, buttonId, user }) {
+export function redirectToEditProfilePage({ buttonId, user }) {
   return {
     type: REDIRECT_TO_EDIT_PROFILE_PAGE,
-    t,
     buttonId,
     user,
   };

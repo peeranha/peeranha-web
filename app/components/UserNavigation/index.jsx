@@ -86,7 +86,6 @@ const UserNavigation = ({
     currentTarget: { id, user },
   }) => {
     redirectToEditProfilePage({
-      t,
       buttonId: id,
       user,
     });

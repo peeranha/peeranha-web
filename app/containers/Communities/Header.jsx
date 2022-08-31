@@ -24,9 +24,10 @@ const Header = ({
   profile,
 }) => {
   const { t } = useTranslation();
-  const profileWithModeratorRights =
-    profile &&
-    useMemo(() => hasGlobalModeratorRole(getPermissions(profile)), [profile]);
+  const profileWithModeratorRights = useMemo(
+    () => profile && hasGlobalModeratorRole(getPermissions(profile)),
+    [profile],
+  );
 
   return (
     <div className="mb-to-sm-0 mb-from-sm-3">

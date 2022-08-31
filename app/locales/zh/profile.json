@@ -34,7 +34,7 @@
   "newPassword": "新密码",
   "confirmPassword": "确认密码",
   "youAnswered": "你回答了",
-  "seeMore": "查看所有{posts}和{answers}",
+  "seeMore": "查看所有<0>{{posts}}</0>和<1>{{answers}}</1>",
   "tipText": "为加密代币设置钱包以获取其他用户的提示。",
   "crypto": "加密货币",
   "account": "帐户",

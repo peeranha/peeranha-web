@@ -35,7 +35,7 @@
   "newPassword": "Nueva contraseña",
   "confirmPassword": "Confirmar contraseña",
   "youAnswered": "Tu respondiste",
-  "seeMore": "Ver todas las {publicaciones} y {respuestas}",
+  "seeMore": "Ver todas las <0>{{posts}}</0> y <1>{{answers}}</1>",
   "tipText":
     "Configure billeteras para tokens criptográficos para obtener consejos de otros usuarios.",
   "crypto": "Cripto",

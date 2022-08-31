@@ -15,10 +15,9 @@ import {
   GET_FORM_ERROR,
 } from './constants';
 
-export function redirectToCreateTag({ t, buttonId, communityId }) {
+export function redirectToCreateTag({ buttonId, communityId }) {
   return {
     type: REDIRECT_TO_CREATE_TAG,
-    t,
     buttonId,
     communityId,
   };

@@ -1,27 +1,28 @@
 import _get from 'lodash/get';
+import { t } from 'i18next';
 import { CURRENCIES } from 'wallet-config';
 
 // TODO: test
 const imageValidation = img =>
-  img && img.length > 2000000 ? 'formFields.fileSize' : undefined;
+  img && img.length > 2000000 ? t('formFields.fileSize') : undefined;
 
 const byteLength = val => encodeURI(val).split(/%..|./).length - 1;
 
 const maxByteLength = val =>
-  byteLength(val) > 256 ? 'formFields.wrongByteLength' : undefined;
+  byteLength(val) > 256 ? t('formFields.wrongByteLength') : undefined;
 
 // TODO: test
 const stringLength = (min, max) => value => {
   let val = value;
 
-  let msg = 'formFields.wrongLength';
+  let msg = t('formFields.wrongLength');
 
   if (value && value.toJS) {
     val = value.toJS();
   } else if (value && value.trim) {
     val = value.trim().replace(/  +/g, ' ');
   } else if (value && value.map) {
-    msg = 'formFields.wrongLengthOfList';
+    msg = t('formFields.wrongLengthOfList');
   }
 
   return val && (val.length > max || val.length < min)
@@ -39,7 +40,7 @@ const valueHasToBePositiveInteger = value => {
   const re = /^[0-9]+$/;
 
   return (value && !re.test(value)) || value === undefined
-    ? 'formFields.valueIsNotPositiveInteger'
+    ? t('formFields.valueIsNotPositiveInteger')
     : undefined;
 };
 
@@ -56,7 +57,7 @@ const stringLengthMax = max => value => {
 /* eslint no-useless-escape: 0 */
 const validateEmail = email => {
   const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return email && !re.test(email) ? 'formFields.wrongEmail' : undefined;
+  return email && !re.test(email) ? t('formFields.wrongEmail') : undefined;
 };
 
 const validateURL = url => {
@@ -65,7 +66,7 @@ const validateURL = url => {
   const hasDotSlashSeries = /(\.\.)|(\.\/)|(\/\/.*\/.*\.)|(\s)/g.test(url);
   const hasDoubleSlash = url && url.match(/\/\//g)?.length > 1;
   return url && (!isUrl || hasDotSlashSeries || hasDoubleSlash)
-    ? 'formFields.wrongURL'
+    ? t('formFields.wrongURL')
     : undefined;
 };
 
@@ -78,11 +79,11 @@ const required = value => {
     val = val.trim();
   }
 
-  return !val ? 'formFields.requiredField' : undefined;
+  return !val ? t('formFields.requiredField') : undefined;
 };
 
 const requiredPostTypeSelection = value =>
-  Number(value) >= 0 ? undefined : 'formFields.postTypeSelectionError';
+  Number(value) >= 0 ? undefined : t('formFields.postTypeSelectionError');
 
 const requiredAndNotZero = value => {
   let message;
@@ -95,9 +96,9 @@ const requiredAndNotZero = value => {
   }
 
   if (val === 0) {
-    message = 'formFields.requiredAndNotZeroField';
+    message = t('formFields.requiredAndNotZeroField');
   } else if (!val) {
-    message = 'formFields.requiredField';
+    message = t('formFields.requiredField');
   }
 
   return message;
@@ -105,17 +106,19 @@ const requiredAndNotZero = value => {
 
 const requiredForNumericalField = value =>
   value === '' || Number.isFinite(value) || Number(value) < 0
-    ? 'formFields.requiredField'
+    ? t('formFields.requiredField')
     : undefined;
 
 const requiredNonZeroInteger = value =>
   (value && value.trim() === '') || !Number.isInteger(Number(value))
-    ? 'formFields.requiredNonZeroInteger'
+    ? t('formFields.requiredNonZeroInteger')
     : undefined;
 
 const requiredForObjectField = value => {
   const val = value && value.toJS ? value.toJS() : value;
-  return !val || (val && !val.value) ? 'formFields.requiredField' : undefined;
+  return !val || (val && !val.value)
+    ? t('formFields.requiredField')
+    : undefined;
 };
 
 const valueHasNotBeInList = (...args) => {
@@ -123,7 +126,7 @@ const valueHasNotBeInList = (...args) => {
   const list = args[2].valueHasNotBeInListValidate;
 
   return list && list.includes(value.toLowerCase())
-    ? 'formFields.itemAlreadyExists'
+    ? t('formFields.itemAlreadyExists')
     : undefined;
 };
 
@@ -134,7 +137,7 @@ const valueHasNotBeInListMoreThanOneTime = (...args) => {
   return list &&
     list.filter(x => x && x.trim().toLowerCase() === value.trim().toLowerCase())
       .length > 1
-    ? 'formFields.itemAlreadyExists'
+    ? t('formFields.itemAlreadyExists')
     : undefined;
 };
 
@@ -147,7 +150,7 @@ const valueHasToBeLessThan = (...args) => {
   }
   const value = Number(args[0]);
   const comparedValue = Number(args[2].valueHasToBeLessThan);
-  return value > comparedValue ? 'formFields.valueIsMore' : undefined;
+  return value > comparedValue ? t('formFields.valueIsMore') : undefined;
 };
 
 const bountyCannotBeLessThenPrev = (...args) => {
@@ -156,7 +159,9 @@ const bountyCannotBeLessThenPrev = (...args) => {
   }
   const value = Number(args[0]);
   const comparedValue = Number(_get(args, [2, 'question', 'bounty']));
-  return value < comparedValue ? 'formFields.hasToBeMoreThanPrev' : undefined;
+  return value < comparedValue
+    ? t('formFields.hasToBeMoreThanPrev')
+    : undefined;
 };
 
 const hoursCannotBeLessThenPrev = (...args) => {
@@ -165,14 +170,16 @@ const hoursCannotBeLessThenPrev = (...args) => {
   }
   const value = Number(args[0]);
   const comparedValue = Number(_get(args, [2, 'question', 'bountyHours']));
-  return value < comparedValue ? 'formFields.hasToBeMoreThanPrev' : undefined;
+  return value < comparedValue
+    ? t('formFields.hasToBeMoreThanPrev')
+    : undefined;
 };
 
 const valueHasToBeLessThanMaxPromotingHours = (...args) => {
   const value = Number(args[0]);
   const comparedValue = Number(args[2].maxPromotingHours);
 
-  return value > comparedValue ? 'formFields.valueIsMore' : undefined;
+  return value > comparedValue ? t('formFields.valueIsMore') : undefined;
 };
 
 const comparePasswords = (...args) => {
@@ -180,15 +187,17 @@ const comparePasswords = (...args) => {
   const list = args[2].passwordList;
 
   return list.filter(x => x !== value)[0]
-    ? 'formFields.passwordsNotMatch'
+    ? t('formFields.passwordsNotMatch')
     : undefined;
 };
 
 const withoutDoubleSpace = str =>
-  str && str.includes('  ') ? 'formFields.withoutDoubleSpace' : undefined;
+  str && str.includes('  ') ? t('formFields.withoutDoubleSpace') : undefined;
 
 const atLeastOneLetter = str =>
-  !str || !/.*[a-z].*/i.test(str) ? 'formFields.atLeastOneLetter' : undefined;
+  !str || !/.*[a-z].*/i.test(str)
+    ? t('formFields.atLeastOneLetter')
+    : undefined;
 
 const strLength1x5 = stringLength(1, 5);
 const strLength1x1000 = stringLength(1, 1000);

@@ -98,7 +98,6 @@ export const Header = ({
 
   const onClickNavigationButton = ({ currentTarget: { id, communityid } }) => {
     goToCreateTagScreen({
-      t,
       buttonId: id,
       communityId: communityid,
     });

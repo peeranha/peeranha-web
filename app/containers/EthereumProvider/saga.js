@@ -40,7 +40,7 @@ export function* isAuthorized() {
   }
 }
 
-export function* isValid({ creator, buttonId, minRating = 0, communityId, t }) {
+export function* isValid({ creator, buttonId, minRating = 0, communityId }) {
   const profileInfo = yield select(makeSelectProfileInfo());
   const selectedAccount = yield select(makeSelectAccount());
 
@@ -49,7 +49,6 @@ export function* isValid({ creator, buttonId, minRating = 0, communityId, t }) {
     () =>
       validate({
         rating: getRatingByCommunity(profileInfo, communityId),
-        translations: t,
         actor: selectedAccount,
         creator,
         buttonId,

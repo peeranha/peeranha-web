@@ -35,7 +35,7 @@
   "newPassword": "Mật khẩu mới",
   "confirmPassword": "Xác nhận mật khẩu",
   "youAnswered": "Bạn đã trả lời",
-  "seeMore": "Xem tất cả {bài viết} và {câu trả lời}",
+  "seeMore": "Xem tất cả <0>{{posts}}</0> và <1>{{answers}}</1>",
   "tipText":
     "Thiết lập ví cho mã thông báo tiền điện tử để nhận mẹo từ những người dùng khác.",
   "crypto": "Crypto",

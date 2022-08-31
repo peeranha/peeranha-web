@@ -71,7 +71,6 @@ class EthereumService {
     this.getRecaptchaToken = data.getRecaptchaToken;
     this.isTransactionInitialised = null;
     this.addToast = data.addToast;
-    this.translation = data.t;
   }
 
   setTransactionInitialised = toggle => {
@@ -249,7 +248,7 @@ class EthereumService {
         [action](...data);
       this.transactionInPending(transaction.hash);
       const result = await transaction.wait(confirmations);
-      this.transactionCompleted(this.translation);
+      this.transactionCompleted();
       this.setTransactionInitialised(false);
       return result;
     } catch (err) {
@@ -257,21 +256,15 @@ class EthereumService {
 
       switch (err.code) {
         case INVALID_ETHEREUM_PARAMETERS_ERROR_CODE:
-          this.transactionFailed({
-            error: new WebIntegrationErrorByCode(METAMASK_ERROR_CODE),
-            translation: this.translation,
-          });
+          this.transactionFailed(
+            new WebIntegrationErrorByCode(METAMASK_ERROR_CODE),
+          );
           break;
         case REJECTED_SIGNATURE_REQUEST:
-          this.transactionFailed({
-            error: new WebIntegrationErrorByCode(err.code),
-            translation: this.translation,
-          });
+          this.transactionFailed(new WebIntegrationErrorByCode(err.code));
           break;
         default:
-          this.transactionFailed({
-            translation: this.translation,
-          });
+          this.transactionFailed();
           break;
       }
       throw new Error(err.message);
@@ -369,7 +362,7 @@ class EthereumService {
         response.body.transactionHash,
         confirmations,
       );
-      this.transactionCompleted(this.translation);
+      this.transactionCompleted();
       this.setTransactionInitialised(false);
       return result;
     } catch (err) {
@@ -377,27 +370,18 @@ class EthereumService {
       this.setTransactionInitialised(false);
       switch (errorCode) {
         case INVALID_ETHEREUM_PARAMETERS_ERROR_CODE:
-          this.transactionFailed({
-            error: new WebIntegrationErrorByCode(METAMASK_ERROR_CODE),
-            translation: this.translation,
-          });
+          this.transactionFailed(
+            new WebIntegrationErrorByCode(METAMASK_ERROR_CODE),
+          );
           break;
         case REJECTED_SIGNATURE_REQUEST:
-          this.transactionFailed({
-            error: new WebIntegrationErrorByCode(err.code),
-            translation: this.translation,
-          });
+          this.transactionFailed(new WebIntegrationErrorByCode(err.code));
           break;
         case RECAPTCHA_VERIFY_FAILED_CODE:
-          this.transactionFailed({
-            error: new WebIntegrationErrorByCode(err.code),
-            translation: this.translation,
-          });
+          this.transactionFailed(new WebIntegrationErrorByCode(err.code));
           break;
         default:
-          this.transactionFailed({
-            translation: this.translation,
-          });
+          this.transactionFailed();
           break;
       }
     }

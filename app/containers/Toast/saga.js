@@ -1,4 +1,5 @@
 import { takeEvery, put, select, call } from 'redux-saga/effects';
+import i18next from 'i18next';
 
 import {
   ApplicationError,
@@ -26,7 +27,7 @@ import {
   TRANSACTION_FAILED,
 } from '../EthereumProvider/constants';
 
-export function* errHandling({ error = {}, translation }) {
+export function* errHandling(error = {}) {
   try {
     const key = Object.keys(error).find(x => x.toLowerCase().match('err'));
     const errorValue = error[key];
@@ -35,9 +36,9 @@ export function* errHandling({ error = {}, translation }) {
       if (isNaN(errorValue?.message)) {
         const errObjWrapper = errorValue.message;
         const errorCode = JSON.parse(errObjWrapper).error.code;
-        throw translation(errorMessages[errorCode]);
+        throw i18next.t(errorMessages[errorCode]);
       } else {
-        throw translation(errorMessages[errorValue.message]);
+        throw i18next.t(errorMessages[errorValue.message]);
       }
     }
 
@@ -63,7 +64,7 @@ export function* errHandling({ error = {}, translation }) {
       }
 
       if (errorCode) {
-        throw translation(blockchainErrorMsgs[errorCode]);
+        throw i18next.t(blockchainErrorMsgs[errorCode]);
       }
     }
 
@@ -75,17 +76,17 @@ export function* errHandling({ error = {}, translation }) {
         text:
           typeof catchError === 'string'
             ? catchError
-            : translation('common.errorMessage'),
+            : i18next.t('common.errorMessage'),
       }),
     );
   }
 }
 
-export function* successHandling(translation) {
+export function* successHandling() {
   yield put(
     addToast({
       type: 'success',
-      text: translation('common.transactionCompleted'),
+      text: i18next.t('common.transactionCompleted'),
     }),
   );
 }
