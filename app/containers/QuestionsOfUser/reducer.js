@@ -5,7 +5,6 @@ import {
   GET_QUESTIONS_SUCCESS,
   GET_QUESTIONS_ERROR,
 } from './constants';
-import { MARK_AS_ACCEPTED_SUCCESS } from '../ViewQuestion/constants';
 
 export const initialState = fromJS({
   number: 10,
@@ -16,7 +15,7 @@ export const initialState = fromJS({
 });
 
 function questionsOfUserReducer(state = initialState, action) {
-  const { type, getQuestionsError, questions, init, questionData } = action;
+  const { type, getQuestionsError, questions, init } = action;
 
   const { questions: stateQuestions } = state.toJS();
 
@@ -39,16 +38,6 @@ function questionsOfUserReducer(state = initialState, action) {
       return state
         .set('questionsLoading', false)
         .set('getQuestionsError', getQuestionsError);
-    case MARK_AS_ACCEPTED_SUCCESS:
-      return state.set(
-        'questions',
-        stateQuestions.map(
-          question =>
-            question.id === questionData.id
-              ? { ...question, bestReply: questionData.bestReply }
-              : question,
-        ),
-      );
     default:
       return state;
   }
