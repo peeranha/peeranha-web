@@ -2,6 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import { css } from '@emotion/react';
 import commonMessages from 'common-messages';
 import { TEXT_SECONDARY } from 'style-constants';
 
@@ -24,7 +25,7 @@ import sortingOptions from './sortingOptions';
 const Button = ({ sorting, icon }) => (
   <Span className="d-inline-flex align-items-center mr-2 text-capitalize" bold>
     <img className="mr-2" src={icon} alt="icon" />
-    <FormattedMessage {...sorting.message} />
+    <FormattedMessage id={sorting.message.id} />
   </Span>
 );
 
@@ -36,7 +37,7 @@ const Menu = ({ changeSorting, sorting, options }) => (
         onClick={() => changeSorting(options[x])}
         isActive={sorting.message.id === options[x].message.id}
       >
-        <FormattedMessage {...options[x].message} />
+        <FormattedMessage id={options[x].message.id} />
       </CheckedItem>
     ))}
   </Ul>
@@ -55,7 +56,7 @@ export const SubHeader = ({
       <MediumImageStyled src={communitiesHeader} alt="communitiesHeader" />
 
       <span>
-        <FormattedMessage {...commonMessages.communities} />
+        <FormattedMessage id={commonMessages.communities.id} />
         <Span className="ml-2" color={TEXT_SECONDARY} fontSize="30" bold>
           {communitiesNumber}
         </Span>
@@ -88,6 +89,9 @@ export const SubHeader = ({
         }
         id="existing-communities-dropdown"
         isArrowed
+        css={css`
+          z-index: 10;
+        `}
       />
     </SubHeaderWrapperRightPanel>
   </SubHeaderWrapper>
