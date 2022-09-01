@@ -76,7 +76,7 @@ const communitiesConfig = {
       src: FunctionlandLogo,
       styles: FunctionlandStyles,
     },
-    8: {
+    10: {
       origin: `https://sui${process.env.COOKIE_DOMAIN}`,
       src: SuiLogo,
       styles: SuiStyles,
