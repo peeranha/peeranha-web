@@ -1,15 +1,15 @@
 import React from 'react';
 import { css } from 'styled-components';
 
-import FunctionlandLogo from './images/functionland-logo.svg?inline';
-import favicon from '!file-loader?name=[name].[ext]!./images/favicon-functionland.ico';
+import SuiLogo from './images/sui-logo.svg?inline';
+import favicon from '!file-loader?name=[name].[ext]!./images/favicon-sui.ico';
 
-const domainName = 'https://fx.land/';
+const domainName = 'https://sui.io/';
 
 const fontSet = 'Roboto-Regular, Arial, sans-serif';
 
 export const customSubHeaderConfig = {
-  design: 'functionland_style',
+  design: 'sui_style',
   styles: {
     bg: {
       header: '#FFFFFF',
@@ -185,29 +185,36 @@ export const customSubHeaderConfig = {
   ],
 };
 
-export const FunctionlandStyles = {
+export const SuiStyles = {
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: FunctionlandLogo,
+  signUpPageLogo: SuiLogo,
   favicon,
   colors: {
-    mainBackground: '#F3F3F3',
-    linkColor: 'rgb(9, 147, 147)',
-    linkColorTransparent: 'rgb(48, 103, 103)',
-    headerPrimary: 'rgb(9, 147, 147)',
-    commentOption: 'rgb(9, 147, 147)',
-    contentHeader: 'rgb(9, 147, 147)',
-    blockedInfoArea: 'rgb(48, 103, 103)',
+    mainBackground: 'rgb(230,239,254)',
+    linkColor: 'rgb(111, 188, 240)',
+    linkColorTransparent: 'rgb(111, 188, 240)',
+    headerPrimary: 'rgb(111, 188, 240)',
+    commentOption: 'rgb(111, 188, 240)',
+    contentHeader: 'rgb(111, 188, 240)',
+    blockedInfoArea: 'rgb(111, 188, 240)',
     transparentIconColor: 'rgb(209, 255, 255)',
-    loaderColor: 'rgb(9, 147, 147)',
-    votingIconColor: 'rgb(9, 147, 147)',
-    linkColorSecondary: 'rgb(9, 147, 147)',
-    walletButton: 'rgb(9, 147, 147)',
-    btnColor: 'rgb(9, 147, 147)',
-    tagColor: 'rgb(9, 147, 147)',
+    loaderColor: 'rgb(111, 188, 240)',
+    votingIconColor: 'rgb(111, 188, 240)',
+    linkColorSecondary: 'rgb(111, 188, 240)',
+    walletButton: 'rgb(111, 188, 240)',
+    btnColor: 'rgb(111, 188, 240)',
+    tagColor: 'rgb(111, 188, 240)',
   },
+
+  cookieConsentPopupStyles: {
+    background: 'rgb(52, 82, 110)',
+    color: 'rgb(254, 254, 254)',
+  },
+
   headerHeight: 80,
+  projectBorderRadius: '20px',
   domainName,
 };
