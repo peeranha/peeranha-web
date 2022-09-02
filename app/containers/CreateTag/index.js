@@ -54,7 +54,12 @@ import Header from './Header';
 
 import tagsReducer from '../Tags/reducer';
 import tagsSaga from '../Tags/saga';
-import { getAllRoles, hasGlobalModeratorRole } from '../../utils/properties';
+import {
+  getAllRoles,
+  getPermissions,
+  hasCommunityAdminRole,
+  hasGlobalModeratorRole,
+} from '../../utils/properties';
 
 import { useModeratorRole } from '../../hooks/useModeratorRole';
 
@@ -72,20 +77,17 @@ const CreateTag = ({
   isFormLoading,
   isFormAvailable,
 }) => {
-  const singleCommId = isSingleCommunityWebsite();
-
-  useModeratorRole(noAccess, singleCommId);
+  const commId = useMemo(() => single || +match.params.communityid, [match]);
+  useModeratorRole(noAccess, commId);
 
   useEffect(() => {
     getFormDispatch();
   }, []);
 
-  const commId = useMemo(() => single || +match.params.communityid, [match]);
-
   const createTag = useCallback(
     (...args) => {
       const values = args[0].toJS();
-
+      console.log('DAAAA CYKAAAA');
       suggestTagDispatch(
         +values[FORM_COMMUNITY].id,
         {
@@ -101,11 +103,14 @@ const CreateTag = ({
   const isGlobalAdmin = useMemo(() => hasGlobalModeratorRole(permissions), [
     permissions,
   ]);
+  const profileWithCommunityAdminRights = Boolean(commId)
+    ? hasCommunityAdminRole(permissions, commId)
+    : false;
   const roles = getAllRoles(permissions, communities.length);
 
   const rightCommunitiesIds = useMemo(
     () =>
-      isGlobalAdmin
+      isGlobalAdmin || profileWithCommunityAdminRights
         ? communities.map(x => x.id)
         : roles.map(role => role.communityid),
     [communities, roles],
