@@ -72,7 +72,9 @@ const CreateTag = ({
   isFormLoading,
   isFormAvailable,
 }) => {
-  useModeratorRole(noAccess);
+  const singleCommId = isSingleCommunityWebsite();
+
+  useModeratorRole(noAccess, singleCommId);
 
   useEffect(() => {
     getFormDispatch();

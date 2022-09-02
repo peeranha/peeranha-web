@@ -82,7 +82,7 @@ export const Header = ({
 
   const singleCommId = isSingleCommunityWebsite();
 
-  const profileWithCommunityAdminRights = !!singleCommId
+  const profileWithCommunityAdminRights = Boolean(singleCommId)
     ? hasCommunityAdminRole(getPermissions(profile), singleCommId)
     : false;
 
