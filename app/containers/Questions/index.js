@@ -234,36 +234,19 @@ export const Questions = ({
         />
       )}
       {questionsList.length > 0 && (
-        <InfinityLoader
-          loadNextPaginatedData={getNextQuestions}
-          isLoading={questionsLoading || topQuestionsLoading}
-          isLastFetch={lastFetched}
-        >
-          <Content
-            isFeed={isFeed}
-            questionsList={questionsList}
-            // promotedQuestionsList={
-            //   promotedQuestions[+questionFilterFromCookies ? 'top' : 'all']
-            // }
-            locale={locale}
-            communities={communities}
-            typeFilter={typeFilter}
-            createdFilter={createdFilter}
-            isModerator={isModerator}
-            profileInfo={profile}
-          />
-
-          {!!+questionFilterFromCookies &&
-            !displayLoader && (
-              <div className="d-flex justify-content-center mb-3">
-                <ShowMoreButton
-                  questionFilterFromCookies={questionFilterFromCookies}
-                >
-                  {translationMessages[locale][messages.showAllQuestions.id]}
-                </ShowMoreButton>
-              </div>
-            )}
-        </InfinityLoader>
+        <Content
+          isFeed={isFeed}
+          questionsList={questionsList}
+          // promotedQuestionsList={
+          //   promotedQuestions[+questionFilterFromCookies ? 'top' : 'all']
+          // }
+          locale={locale}
+          communities={communities}
+          typeFilter={typeFilter}
+          createdFilter={createdFilter}
+          isModerator={isModerator}
+          profileInfo={profile}
+        />
       )}
       {isTopCommunitiesDisplay && (
         <TopCommunities

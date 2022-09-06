@@ -59,8 +59,8 @@ const View = ({
       <MobileAdditionalLinks profile={profile} isMenuVisible={isMenuVisible} />
 
       <MainLinks currClientHeight={currClientHeight} profile={profile} />
-
-      <AdditionalLinks currClientHeight={currClientHeight} />
+      {/* Hide footer from left menu */}
+      {/* <AdditionalLinks currClientHeight={currClientHeight} /> */}
     </ViewStyled>
   );
 };
