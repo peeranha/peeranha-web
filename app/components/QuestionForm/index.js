@@ -58,7 +58,11 @@ import createdHistory from '../../createdHistory';
 import * as routes from '../../routes-config';
 import DescriptionList from '../DescriptionList';
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
-import { getPermissions, hasGlobalModeratorRole } from 'utils/properties';
+import {
+  getPermissions,
+  hasCommunityAdminRole,
+  hasGlobalModeratorRole,
+} from 'utils/properties';
 import { translationMessages } from '../../i18n';
 
 const single = isSingleCommunityWebsite();
@@ -153,6 +157,9 @@ export const QuestionForm = ({
 
   const profileWithModeratorRights =
     profile && hasGlobalModeratorRole(getPermissions(profile));
+
+  const isCommunityModerator =
+    Boolean(single) && hasCommunityAdminRole(getPermissions(profile), single);
 
   const handleSetClicked = () => setIsClickSubmit(true);
   const handleButtonClick = () => {
@@ -252,7 +259,7 @@ export const QuestionForm = ({
                 change={change}
               />
 
-              {profileWithModeratorRights && (
+              {(profileWithModeratorRights || isCommunityModerator) && (
                 <SuggestTag
                   formValues={formValues}
                   redirectToCreateTagDispatch={redirectToCreateTagDispatch}
