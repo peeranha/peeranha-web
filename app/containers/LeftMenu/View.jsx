@@ -123,12 +123,6 @@ const View = ({
         isEditDocumentation={isEditDocumentation}
         pinnedItemMenu={pinnedItemMenu}
       />
-
-      <AdditionalLinks
-        currClientHeight={currClientHeight}
-        changeLocale={changeLocale}
-        locale={locale}
-      />
     </ViewStyled>
   );
 };
