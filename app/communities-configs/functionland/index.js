@@ -207,6 +207,7 @@ export const FunctionlandStyles = {
     walletButton: 'rgb(9, 147, 147)',
     btnColor: 'rgb(9, 147, 147)',
     tagColor: 'rgb(9, 147, 147)',
+    textColor: 'rgb(9, 147, 147)',
   },
   headerHeight: 80,
   domainName,
