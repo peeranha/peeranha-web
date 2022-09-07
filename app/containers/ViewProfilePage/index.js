@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators, compose } from 'redux';
@@ -50,6 +50,16 @@ import saga from '../QuestionsWithAnswersOfUser/saga';
 import questionsWithAnswersOfUserReducer from '../QuestionsWithAnswersOfUser/reducer';
 import questionsOfUserReducer from '../QuestionsOfUser/reducer';
 import telegramAccountActionReducer from '../TelegramAccountAction/reducer';
+import { selectUserAchievements } from '../Achievements/selectors';
+import {
+  getAllAchievements,
+  getUserAchievements,
+  resetViewProfileAccount,
+  setViewProfileAccount,
+} from '../Achievements/actions';
+
+import achievementsSaga from '../Achievements/saga';
+import achievementsReducer from '../Achievements/reducer';
 
 const ViewProfilePage = ({
   match,
@@ -67,9 +77,23 @@ const ViewProfilePage = ({
   redirectToEditProfilePageDispatch,
   userTgData,
   stat,
+  userAchievements,
+  getAllAchievementsDispatch,
+  setViewProfileAccountDispatch,
+  resetViewProfileAccountDispatch,
 }) => {
   const path = window.location.pathname + window.location.hash;
   const userId = match.params.id;
+
+  useEffect(
+    () => {
+      setViewProfileAccountDispatch(userId);
+      getAllAchievementsDispatch();
+
+      return () => resetViewProfileAccountDispatch();
+    },
+    [userId],
+  );
 
   return (
     <Profile userId={userId} isLogin={account === userId}>
@@ -80,7 +104,7 @@ const ViewProfilePage = ({
         loginData={loginData}
         questionsLength={profile?.postCount ?? 0}
         questionsWithUserAnswersLength={profile?.answersGiven ?? 0}
-        userAchievementsLength={profile?.achievements?.length ?? null}
+        userAchievementsLength={userAchievements?.length ?? null}
         redirectToEditProfilePage={redirectToEditProfilePageDispatch}
       />
 
@@ -177,6 +201,7 @@ ViewProfilePage.propTypes = {
   redirectToEditProfilePageDispatch: PropTypes.func,
   userTgData: PropTypes.object,
   stat: PropTypes.object,
+  userAchievements: PropTypes.array,
 };
 
 const withConnect = connect(
@@ -194,35 +219,62 @@ const withConnect = connect(
     ownerKey: selectOwnerKey(),
     userTgData: selectGetUserTgData(),
     stat: selectStat(),
+    userAchievements: selectUserAchievements(),
   }),
   dispatch => ({
     redirectToEditProfilePageDispatch: bindActionCreators(
       redirectToEditProfilePage,
       dispatch,
     ),
+    getAllAchievementsDispatch: bindActionCreators(
+      getAllAchievements,
+      dispatch,
+    ),
+    getUserAchievementsDispatch: bindActionCreators(
+      getUserAchievements,
+      dispatch,
+    ),
+    setViewProfileAccountDispatch: bindActionCreators(
+      setViewProfileAccount,
+      dispatch,
+    ),
+    resetViewProfileAccountDispatch: bindActionCreators(
+      resetViewProfileAccount,
+      dispatch,
+    ),
   }),
 );
 
-const key = 'questionsOfUser';
 const withTelegramAccountActionReducer = injectReducer({
-  key,
+  key: 'questionsOfUser',
   reducer: telegramAccountActionReducer,
 });
 const withQuestionsWithAnswersReducer = injectReducer({
-  key,
+  key: 'questionsOfUser',
   reducer: questionsWithAnswersOfUserReducer,
 });
 const withQuestionsReducer = injectReducer({
-  key,
+  key: 'questionsOfUser',
   reducer: questionsOfUserReducer,
 });
 
-const withSaga = injectSaga({ key, saga, mode: DAEMON });
+const withAchievementsReducer = injectReducer({
+  key: 'userAchievements',
+  reducer: achievementsReducer,
+});
+const withAchievementsSaga = injectSaga({
+  key: 'userAchievements',
+  saga: achievementsSaga,
+});
+
+const withSaga = injectSaga({ key: 'questionsOfUser', saga, mode: DAEMON });
 
 export default compose(
   withQuestionsWithAnswersReducer,
   withQuestionsReducer,
   withTelegramAccountActionReducer,
+  withAchievementsReducer,
+  withAchievementsSaga,
   withSaga,
   withConnect,
 )(ViewProfilePage);

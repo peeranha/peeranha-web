@@ -38,7 +38,9 @@ const CookieConsentPopup: React.FC = (): JSX.Element => {
           ref={popup}
           className={cn('pf b0 full-width')}
           css={css({
-            ...styles.cookieConsent,
+            ...styles.popupOverlap,
+            ...(stylesCommunity.cookieConsentPopupStyles ||
+              styles.cookieConsent),
             ...(enableAnimation && styles.cookieConsentAnimation),
           })}
         >

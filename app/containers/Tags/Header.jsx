@@ -27,7 +27,11 @@ import A from 'components/A';
 
 import options from './options';
 import { GO_TO_CREATE_TAG_SCREEN_BUTTON_ID } from './constants';
-import { getPermissions, hasGlobalModeratorRole } from '../../utils/properties';
+import {
+  getPermissions,
+  hasCommunityAdminRole,
+  hasGlobalModeratorRole,
+} from '../../utils/properties';
 
 const tagsRoute = routes.tags();
 
@@ -86,6 +90,12 @@ export const Header = ({
     [profile],
   );
 
+  const singleCommId = isSingleCommunityWebsite();
+
+  const profileWithCommunityAdminRights = Boolean(singleCommId)
+    ? hasCommunityAdminRole(getPermissions(profile), singleCommId)
+    : false;
+
   const communityTagsRoute = useMemo(
     () => routes.communityTags(currentCommunity.id),
     [currentCommunity.id],
@@ -119,7 +129,7 @@ export const Header = ({
           )}
         </div>
 
-        {profileWithModeratorRights && (
+        {(profileWithModeratorRights || profileWithCommunityAdminRights) && (
           <WrapperRightPanel className="right-panel">
             <NavigationButton
               data-communityid={currentCommunity.id}
