@@ -207,7 +207,23 @@ export const FunctionlandStyles = {
     walletButton: 'rgb(9, 147, 147)',
     btnColor: 'rgb(9, 147, 147)',
     tagColor: 'rgb(9, 147, 147)',
+    textColor: 'rgb(9, 147, 147)',
+    textColorShadow: 'rgba(9, 147, 147, 0.4)',
+    localeArrowColor: 'rgb(9, 147, 147)',
   },
   headerHeight: 80,
   domainName,
+  dropDownIconStyles: css`
+    path {
+      stroke: rgb(9, 147, 147) !important;
+      stroke-width: 1.5px;
+      fill: none !important;
+    }
+    circle {
+      stroke: rgb(9, 147, 147);
+      stroke-width: 1.5px;
+      fill: none;
+    }
+  `,
+  communityBorderStyle: '2px solid rgb(9, 147, 147)',
 };

@@ -202,8 +202,8 @@ export const Header = ({
       />
       {isModeratorModeSingleCommunity && (
         <button onClick={routeToEditCommunity} className="df aic mt12">
-          <IconMd icon={pencilIcon} />
-          <Span className="ml-1" color={TEXT_PRIMARY}>
+          <IconMd icon={pencilIcon} color={colors.btnColor || TEXT_PRIMARY} />
+          <Span className="ml-1" color={colors.btnColor || TEXT_PRIMARY}>
             <FormattedMessage id={messages.editCommunity.id} />
           </Span>
         </button>

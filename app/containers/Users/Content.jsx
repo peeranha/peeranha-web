@@ -18,6 +18,7 @@ import { IconWithStatus } from 'components/RatingStatus';
 import MediumImage, { MediumImageWrapper } from 'components/Img/MediumImage';
 import TelegramUserLabel from 'components/Labels/TelegramUserLabel';
 import { getUserName } from 'utils/user';
+import { customRatingIconColors } from 'constants/customRating';
 
 const User = Base.extend`
   min-height: 84px;
@@ -88,6 +89,7 @@ const Content = ({
                           ).rating
                         : 0
                     }
+                    customRatingIconColors={customRatingIconColors}
                   />
                   <P fontSize="14" color={TEXT_SECONDARY}>
                     {getTimeFromDateToNow(x.creationTime, locale)}
