@@ -6,6 +6,7 @@ import { ApplicationError } from 'utils/errors';
 import {
   makeSelectProfileInfo,
   makeSelectAccount,
+  selectPermissions,
 } from 'containers/AccountProvider/selectors';
 
 import { loginWithWallet } from 'containers/Login/actions';
@@ -20,6 +21,7 @@ import { initEthereumSuccess, initEthereumError } from './actions';
 import { INIT_ETHEREUM, INIT_ETHEREUM_SUCCESS } from './constants';
 
 import validate from './validate';
+import { hasGlobalModeratorRole } from '../../utils/properties';
 
 export function* initEthereumWorker({ data }) {
   try {
@@ -43,6 +45,9 @@ export function* isAuthorized() {
 export function* isValid({ creator, buttonId, minRating = 0, communityId }) {
   const profileInfo = yield select(makeSelectProfileInfo());
   const selectedAccount = yield select(makeSelectAccount());
+  const permissions = yield select(selectPermissions());
+
+  const isGlobalAdmin = hasGlobalModeratorRole(permissions);
 
   yield call(
     isAvailableAction,
@@ -50,6 +55,7 @@ export function* isValid({ creator, buttonId, minRating = 0, communityId }) {
       validate({
         rating: getRatingByCommunity(profileInfo, communityId),
         actor: selectedAccount,
+        isGlobalAdmin,
         creator,
         buttonId,
         minRating,

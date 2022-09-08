@@ -137,8 +137,9 @@ const Menu = memo(
           <Logout>
             <IconLg
               className="mr-1"
-              fill={colors.linkColor}
               icon={logoutIcon}
+              color={colors.linkColor || TEXT_PRIMARY}
+              isColorImportant={true}
             />
             <Span color={colors.linkColor || TEXT_PRIMARY}>
               {t('common.logout')}

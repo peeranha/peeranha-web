@@ -19,6 +19,10 @@ import {
 import A from 'components/A';
 import Label from 'components/FormFields/Label';
 
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
+
 const Li = styled.li`
   ${A} {
     color: ${TEXT_PRIMARY};
@@ -46,7 +50,7 @@ const Ul = styled.ul`
       flex-basis: 5px;
       height: 5px;
       border-radius: 50%;
-      background: ${BG_PRIMARY};
+      background: ${colors.textColor || BG_PRIMARY};
       margin-right: 10px;
       display: inline-flex;
       position: relative;

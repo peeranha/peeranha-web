@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
+import { css } from '@emotion/react';
 import { TEXT_SECONDARY } from 'style-constants';
 
 import communitiesHeader from 'images/communitiesHeader.svg?inline';
@@ -78,6 +79,9 @@ export const SubHeader = ({ changeSorting, sorting, communitiesNumber }) => {
           }
           id="existing-communities-dropdown"
           isArrowed
+          css={css`
+            z-index: 10;
+          `}
         />
       </SubHeaderWrapperRightPanel>
     </SubHeaderWrapper>

@@ -77,8 +77,8 @@ const IconWithStatus = ({
 
   if (bannedUser) {
     // banned
-    color = strokeColor || PEER_ERROR_COLOR;
-    fill = bannedFill || PEER_ERROR_COLOR;
+    color = PEER_ERROR_COLOR;
+    fill = PEER_ERROR_COLOR;
   } else if (rating <= options.jrResident.maxRating) {
     // stranger - junior
     color = strokeColor || PEER_PRIMARY_COLOR;

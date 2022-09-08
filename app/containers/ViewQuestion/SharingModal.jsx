@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { css } from '@emotion/react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import {
@@ -30,6 +31,10 @@ import reddit from 'images/social-media-logos/logo-reddit-glyph-24.svg?external'
 
 import Input from 'components/Input';
 import { IconLg } from 'components/Icon/IconWithSizes';
+
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
 
 const DropdownModal = styled.div`
   position: absolute;
@@ -99,19 +104,31 @@ const SharingModal = ({ questionData }) => {
             title={questionData.content.title}
             via={APP_TWITTER_NICKNAME}
           >
-            <IconLg icon={twitter} />
+            <IconLg
+              fill={colors.linkColor || TEXT_PRIMARY}
+              icon={twitter}
+              isColorImportant={true}
+            />
           </TwitterShareButton>
           <TelegramShareButton
             url={window.location.href}
             title={questionData.content.title}
           >
-            <IconLg icon={telegram} />
+            <IconLg
+              fill={colors.linkColor || TEXT_PRIMARY}
+              icon={telegram}
+              isColorImportant={true}
+            />
           </TelegramShareButton>
           <RedditShareButton
             url={window.location.href}
             title={questionData.content.title}
           >
-            <IconLg icon={reddit} />
+            <IconLg
+              fill={colors.linkColor || TEXT_PRIMARY}
+              icon={reddit}
+              isColorImportant={true}
+            />
           </RedditShareButton>
         </div>
         <button
@@ -119,6 +136,9 @@ const SharingModal = ({ questionData }) => {
           data-key={window.location.href}
           onClick={writeToBuffer}
           className="copy-btn"
+          css={css`
+            color: ${`${colors.linkColor}!important` || TEXT_PRIMARY};
+          `}
         >
           {t('common.copy')}{' '}
         </button>

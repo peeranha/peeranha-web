@@ -1,19 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
+import { css } from '@emotion/react';
 import orderBy from 'lodash/orderBy';
 
 import { TEXT_PRIMARY } from 'style-constants';
 
 import * as routes from 'routes-config';
 
-import allCommunitiesIcon from 'images/createCommunity.svg?inline';
-
+import allCommunitiesIcon from 'images/createCommunity.svg?external';
+import Icon from 'components/Icon';
 import A, { ADefault } from 'components/A';
 import H4 from 'components/H4';
 import Span from 'components/Span';
 import Grid from 'components/Grid';
 import CommunityItemWithRating from './CommunityItemWithRating';
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
 
 const CommunitiesSectionWithRatings = ({
   profile,
@@ -59,8 +63,17 @@ const CommunitiesSectionWithRatings = ({
               to={allCommunitiesRoute}
               href={allCommunitiesRoute}
             >
-              <img className="mr-2" src={allCommunitiesIcon} alt="icon" />
-              <Span color={TEXT_PRIMARY}>{t('common.allCommunities')}</Span>
+              <Icon
+                className="mr-2"
+                icon={allCommunitiesIcon}
+                width="18"
+                css={css` circle {stroke: ${colors.btnColor ||
+                  TEXT_PRIMARY}}; path {fill: ${colors.btnColor ||
+                  TEXT_PRIMARY}};`}
+              />
+              <Span color={colors.btnColor || TEXT_PRIMARY}>
+                {t('common.allCommunities')}
+              </Span>
             </AllCommunitiesLink>
           </div>
         )}

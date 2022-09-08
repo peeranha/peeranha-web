@@ -2,10 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
-import { TEXT_SECONDARY } from 'style-constants';
+import { TEXT_SECONDARY, BORDER_PRIMARY } from 'style-constants';
 
 import { getFormattedNum2 } from 'utils/numbers';
-import { getSingleCommunityDetails } from 'utils/communityManagement';
+import {
+  getSingleCommunityDetails,
+  singleCommunityColors,
+} from 'utils/communityManagement';
 
 import usersHeaderFilter from 'images/communitiesHeaderFilter.svg?external';
 import usersHeader from 'images/usersHeader.svg?external';
@@ -22,6 +25,8 @@ import Wrapper, { WrapperRightPanel } from 'components/Header/Simple';
 
 import options from './options';
 
+const colors = singleCommunityColors();
+
 const Button = ({ sorting }) => {
   const { t } = useTranslation();
 
@@ -31,7 +36,12 @@ const Button = ({ sorting }) => {
       bold
     >
       <MediumIcon>
-        <IconMd className="mr-2" icon={usersHeaderFilter} />
+        <IconMd
+          className="mr-2"
+          icon={usersHeaderFilter}
+          color={colors.btnColor || BORDER_PRIMARY}
+          isColorImportant={true}
+        />
       </MediumIcon>
       {t(options[sorting].message)}
     </Span>
@@ -64,7 +74,12 @@ export const Header = ({ sorting, dropdownFilter, userCount }) => {
     <Wrapper className="mb-to-sm-0 mb-from-sm-3">
       <H3>
         <MediumIconStyled>
-          <Icon icon={usersHeader} width="38" />
+          <Icon
+            icon={usersHeader}
+            width="38"
+            color={colors.btnColor || BORDER_PRIMARY}
+            isColorImportant={true}
+          />
         </MediumIconStyled>
 
         <span>

@@ -17,6 +17,9 @@ import Span from '../Span';
 
 import Wrapper from '../Header/Simple';
 import H3 from '../H3';
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
 
 const Header = ({ formTitle, questionId }) => {
   const { t } = useTranslation();
@@ -25,7 +28,12 @@ const Header = ({ formTitle, questionId }) => {
     <Wrapper className="mb-to-sm-0 mb-from-sm-3">
       <H3>
         <MediumIconStyled>
-          <Icon icon={questionIcon} width="43" />
+          <Icon
+            icon={questionIcon}
+            width="43"
+            color={colors.btnColor || TEXT_PRIMARY}
+            isColorImportant={true}
+          />
         </MediumIconStyled>
         <span>{formTitle}</span>
       </H3>
@@ -37,10 +45,14 @@ const Header = ({ formTitle, questionId }) => {
               <IconMd
                 className="mr-1"
                 icon={closeIcon}
-                fill={TEXT_PRIMARY}
+                fill={colors.btnColor || TEXT_PRIMARY}
+                color={colors.btnColor || TEXT_PRIMARY}
                 isColorImportant={true}
               />
-              <Span color={TEXT_PRIMARY} className="button-label">
+              <Span
+                color={colors.btnColor || TEXT_PRIMARY}
+                className="button-label"
+              >
                 {t('common.close')}
               </Span>
             </button>

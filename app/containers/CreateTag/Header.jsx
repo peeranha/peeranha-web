@@ -16,6 +16,10 @@ import Icon from 'components/Icon';
 import { IconMd } from 'components/Icon/IconWithSizes';
 import { MediumIconStyled } from 'components/Icon/MediumIcon';
 
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
+
 export const Header = ({
   title,
   closeRedirectPage,
@@ -30,7 +34,7 @@ export const Header = ({
           <Icon
             icon={suggestTagIcon}
             width="43"
-            fill={BORDER_PRIMARY}
+            fill={colors.btnColor || BORDER_PRIMARY}
             isColorImportant
           />
         </MediumIconStyled>
@@ -43,10 +47,13 @@ export const Header = ({
             <IconMd
               className="mr-1"
               icon={closeIcon}
-              fill={BORDER_PRIMARY}
+              fill={colors.btnColor || BORDER_PRIMARY}
               isColorImportant
             />
-            <Span color={TEXT_PRIMARY} className="button-label">
+            <Span
+              color={colors.btnColor || TEXT_PRIMARY}
+              className="button-label"
+            >
               {t('common.close')}
             </Span>
           </button>

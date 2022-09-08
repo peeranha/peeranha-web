@@ -1,4 +1,5 @@
 import React from 'react';
+import { css } from '@emotion/react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -21,7 +22,9 @@ import Button from 'components/Button/Contained/InfoLarge';
 import A from 'components/A';
 import Span from 'components/Span';
 import { REWARD_CLAIMING_ENABLED } from '../../utils/constants';
+import { singleCommunityColors } from 'utils/communityManagement';
 
+const colors = singleCommunityColors();
 const GoToBoostPage = Button.extend`
   margin-top: 10px;
 
@@ -76,7 +79,7 @@ const FAQs = () => {
   );
 };
 
-const BoostBanner = ({ userId, locale }) => {
+const BoostBanner = ({ userId }) => {
   const { t } = useTranslation();
 
   return (
@@ -88,7 +91,15 @@ const BoostBanner = ({ userId, locale }) => {
           <div>
             <p>{t('wallet.getMoreWithBoost')}</p>
 
-            <p>
+            <p
+              css={css`
+                a {
+                  span {
+                    color: ${colors.linkColor || TEXT_PRIMARY};
+                  }
+                }
+              `}
+            >
               {t('wallet.boostHelp', {
                 whatABoostIs: WhatABoostIs(),
                 howToStake: HowToStake(),

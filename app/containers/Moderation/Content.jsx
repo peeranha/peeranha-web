@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { css } from '@emotion/react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 
@@ -17,17 +18,22 @@ import {
   BORDER_PRIMARY_LIGHT,
 } from 'style-constants';
 
-import plusIcon from 'images/Plus.svg?inline';
-import minusIcon from 'images/Minus.svg?inline';
+import plusIcon from 'images/Plus.svg?external';
+import minusIcon from 'images/Minus.svg?external';
 import okayGreen from 'images/okayGreen.svg?external';
 
+import { IconLg, IconSm } from 'components/Icon/IconWithSizes';
 import H4 from 'components/H4';
 import Span from 'components/Span';
-import { IconSm } from 'components/Icon/IconWithSizes';
+
 import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
 import BaseTransparent from 'components/Base/BaseTransparent';
 import Button from 'components/Button/Outlined/PrimaryLarge';
 import { permissions } from './messages';
+
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
 
 export const TextBlock = styled.div`
   display: ${x => (x.isOpened ? 'block' : 'none')};
@@ -114,7 +120,14 @@ const Permission = ({
   return (
     <PermissionBox key={permissionId} id={permissionId} isOpened={false}>
       <ImgWrapper>
-        <IconSm icon={ico} />
+        <IconSm
+          icon={ico}
+          css={css`
+            path {
+              stroke: ${colors.btnColor || '#25A745'};
+            }
+          `}
+        />
       </ImgWrapper>
 
       <PermissionBoxBody>
@@ -169,7 +182,15 @@ const Section = ({
           mobileFS="24"
         >
           <ImgWrapper>
-            <img src={isOpened ? minusIcon : plusIcon} alt="icon" />
+            <IconLg
+              icon={isOpened ? minusIcon : plusIcon}
+              css={css`
+                path {
+                  fill: ${colors.btnColor || TEXT_PRIMARY};
+                }
+              `}
+              width="29"
+            />
           </ImgWrapper>
           <span>{h2}</span>
         </H4>

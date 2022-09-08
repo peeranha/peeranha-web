@@ -2,9 +2,14 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import * as routes from 'routes-config';
-import { TEXT_SECONDARY, BORDER_PRIMARY } from 'style-constants';
+import { TEXT_SECONDARY, BORDER_PRIMARY, TEXT_PRIMARY } from 'style-constants';
 
-import { isSingleCommunityWebsite } from 'utils/communityManagement';
+import {
+  isSingleCommunityWebsite,
+  singleCommunityColors,
+} from 'utils/communityManagement';
+import { css } from '@emotion/react';
+import * as routes from 'routes-config';
 
 import icoTagIcon from 'images/icoTag.svg?external';
 import arrowLeft from 'images/arrowLeft.svg?inline';
@@ -35,6 +40,7 @@ import {
 
 const tagsRoute = routes.tags();
 
+const colors = singleCommunityColors();
 const single = isSingleCommunityWebsite();
 
 const Button = ({ sorting }) => {
@@ -46,7 +52,12 @@ const Button = ({ sorting }) => {
       bold
     >
       <MediumIcon>
-        <IconMd className="mr-2" icon={communitiesHeaderFilter} />
+        <IconMd
+          className="mr-2"
+          icon={communitiesHeaderFilter}
+          color={colors.btnColor || BORDER_PRIMARY}
+          isColorImportant={true}
+        />
       </MediumIcon>
       {t(options[sorting].message)}
     </Span>
@@ -92,7 +103,7 @@ export const Header = ({
 
   const singleCommId = isSingleCommunityWebsite();
 
-  const profileWithCommunityAdminRights = Boolean(singleCommId)
+  const profileWithCommunityAdminRights = singleCommId
     ? hasCommunityAdminRole(getPermissions(profile), singleCommId)
     : false;
 
@@ -142,8 +153,11 @@ export const Header = ({
                 <IconMd
                   className="d-none d-sm-inline-block"
                   icon={icoTagIcon}
-                  isColorImportant={true}
-                  fill={BORDER_PRIMARY}
+                  css={css`
+                    path {
+                      fill: ${colors.btnColor || TEXT_PRIMARY};
+                    }
+                  `}
                 />
               </MediumIcon>
 

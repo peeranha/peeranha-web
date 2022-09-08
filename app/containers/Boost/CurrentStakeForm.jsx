@@ -21,6 +21,9 @@ import { InputWrapper, InputProgressBar } from './Form';
 import { CURRENT_STAKE_FORM } from './constants';
 
 import { italicFont } from '../../global-styles';
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
 
 const STAKE_TAGS = [
   {
@@ -71,8 +74,8 @@ const TagsLabel = styled.span`
 
 const Tag = styled.button`
   margin-right: 10px;
-  color: ${TEXT_PRIMARY};
-  border-bottom: 1px dashed ${BORDER_PRIMARY};
+  color: ${colors.btnColor || TEXT_PRIMARY};
+  border-bottom: 1px dashed ${colors.btnColor || BORDER_PRIMARY};
 
   :hover {
     border-bottom-color: transparent;

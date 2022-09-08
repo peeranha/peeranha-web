@@ -2,10 +2,12 @@ import React, { memo, useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
+import { css } from '@emotion/react';
 import {
   BG_LIGHT,
   BORDER_SECONDARY,
   TEXT_SECONDARY_LIGHT,
+  TEXT_PRIMARY,
 } from 'style-constants';
 
 import * as routes from 'routes-config';
@@ -24,7 +26,7 @@ import {
 
 import LargeButton from 'components/Button/Contained/InfoLarge';
 import Icon from 'components/Icon';
-import { IconSm, IconLm } from 'components/Icon/IconWithSizes';
+import { IconSm, IconLm, IconLg } from 'components/Icon/IconWithSizes';
 
 import styled from 'styled-components';
 import { Wrapper, MainSubHeader } from './Wrapper';
@@ -36,7 +38,7 @@ import ButtonGroupForAuthorizedUser from './ButtonGroupForAuthorizedUser';
 import SearchForm from './SearchForm';
 
 import { HEADER_ID, LOADER_HEIGHT, SEARCH_FORM_ID } from './constants';
-import processIndicator from '../../images/progress-indicator.svg?inline';
+import processIndicator from '../../images/progress-indicator.svg?external';
 
 const single = isSingleCommunityWebsite();
 const styles = singleCommunityStyles();
@@ -82,8 +84,7 @@ const ProgressIndicator = styled.div`
       transform: translateY(0);
     }
   }
-  img {
-    margin-right: 10px;
+  svg {
     animation: rotation 1s infinite linear;
   }
 
@@ -117,29 +118,6 @@ const Button = LargeButton.extend`
   @media only screen and (max-width: 576px) {
     width: 36px !important;
     height: 36px !important;
-  }
-`;
-
-const HeaderContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const MenuLogo = styled.div`
-  display: flex;
-  align-items: center;
-
-  @media only screen and (max-width: 340px) {
-    margin-left: -20px;
-    transform: scale(0.85);
-  }
-`;
-
-const Buttons = Section.extend`
-  @media only screen and (max-width: 325px) {
-    margin-left: -30px;
-    transform: scale(0.8);
   }
 `;
 
@@ -188,8 +166,17 @@ const View = ({
     <Wrapper id={HEADER_ID} transactionInitialised={transactionInitialised}>
       {transactionInitialised && (
         <ProgressIndicator>
-          <div>
-            <img src={processIndicator} alt="icon" />
+          <div
+            css={css`
+              > span {
+                margin-left: 10px;
+              }
+            `}
+          >
+            <IconLg
+              icon={processIndicator}
+              css={css`path {fill:${colors.linkColor || TEXT_PRIMARY}}`}
+            />
             {isTransactionInPending ? (
               <>
                 {t('common.transactionInPending')}{' '}
@@ -198,6 +185,14 @@ const View = ({
                     transactionHash,
                   )}
                   target="_blank"
+                  css={css`
+                    margin: 0 5px;
+                    color: ${colors.linkColor || TEXT_PRIMARY};
+                    :hover {
+                      color: ${colors.linkColor || TEXT_PRIMARY};
+                      opacity: 0.5;
+                    }
+                  `}
                 >
                   {t('common.transaction')}
                 </a>{' '}
