@@ -28,7 +28,7 @@ const Count = styled.span`
   color: ${props =>
     props.size === 'lg'
       ? 'inherit'
-      : props.achievementsNumColor || PEER_PRIMARY_COLOR};
+      : props.isSingleNumColor || PEER_PRIMARY_COLOR};
 
   @media (max-width: 350px) {
     padding-top: 5px;
@@ -59,7 +59,6 @@ const AchievementsStatus = ({
   isProfilePage,
   count,
   size,
-  achievementsNumColor,
   achievIconStyles,
 }) => {
   if (typeof count === 'number')
@@ -72,7 +71,10 @@ const AchievementsStatus = ({
           size={size}
           specialStyles={achievIconStyles}
         />
-        <Count size={size} achievementsNumColor={achievementsNumColor}>
+        <Count
+          size={size}
+          isSingleNumColor={customRatingIconColors.strokeColor}
+        >
           {count}
         </Count>
       </StatusSpan>
@@ -83,7 +85,6 @@ const AchievementsStatus = ({
 AchievementsStatus.propTypes = {
   count: PropTypes.number,
   size: PropTypes.string,
-  achievementsNumColor: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   achievIconStyles: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]),
 };
 

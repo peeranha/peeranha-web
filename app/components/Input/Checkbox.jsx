@@ -15,6 +15,9 @@ import checkedIcon from 'images/okay.svg?inline';
 
 import Span from 'components/Span';
 import { DisableHandling, ErrorHandling } from './InputStyled';
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
 
 const Container = styled.div`
   width: ${({ width }) => width || 'auto'};
@@ -53,9 +56,9 @@ const Input = styled.input`
 
   :checked + span {
     background-image: url(${checkedIcon});
-    background-color: ${BG_PRIMARY_DARK};
+    background-color: ${colors.btnColor || BG_PRIMARY_DARK};
 
-    border: 1px solid ${BORDER_PRIMARY_DARK};
+    border: 1px solid ${colors.btnColor || BORDER_PRIMARY_DARK};
   }
 `;
 
