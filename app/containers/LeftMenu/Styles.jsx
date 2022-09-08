@@ -60,7 +60,6 @@ export const After = styled.div`
 export const ViewStyled = styled.nav`
   position: ${x => (x.isMenuVisible ? 'relative' : 'fixed')};
   width: inherit;
-  transition: 0.4s;
 
   > div {
     &.lightbg {

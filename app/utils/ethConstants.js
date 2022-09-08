@@ -14,6 +14,7 @@ export const UNFOLLOW_COMMUNITY = 'unfollowCommunity';
 export const CREATE_TAG = 'createTag';
 export const EDIT_TAG = 'updateTag';
 export const POST_QUESTION = 'createPost';
+export const UPDATE_DOCUMENTATION_TREE = 'updateDocumentationTree';
 export const CHANGE_POST_TYPE = 'changePostType';
 export const POST_ANSWER = 'createReply';
 export const EDIT_ANSWER = 'editReply';

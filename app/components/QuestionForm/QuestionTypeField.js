@@ -37,7 +37,7 @@ export const QUESTION_TYPES = {
     label: 'tutorial',
   },
   FAQ: {
-    value: POST_TYPE.faq,
+    value: POST_TYPE.documentation,
     label: 'faq',
   },
 };

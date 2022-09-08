@@ -4,6 +4,7 @@
  *
  */
 
+import { selectDocumentationMenu } from 'containers/AppWrapper/selectors';
 import React, { useEffect, useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -34,10 +35,11 @@ import saga, { existingQuestionSaga } from './saga';
 import messages from './messages';
 
 import { POST_QUESTION_BUTTON, ASK_QUESTION_FORM } from './constants';
-import { getAvailableBalance } from '../../utils/profileManagement';
+import { getAvailableBalance } from 'utils/profileManagement';
 import AskQuestionPopup from './AskQuestionPopup';
 
 export const AskQuestion = ({
+  match: { path },
   locale,
   askQuestionLoading,
   communities,
@@ -46,6 +48,7 @@ export const AskQuestion = ({
   existingQuestions,
   profileInfo,
   questionError,
+  documentationMenu,
 }) => {
   const getQuestionsDispatchDebounced = _debounce(getQuestionsDispatch, 250);
 
@@ -76,6 +79,7 @@ export const AskQuestion = ({
 
       <QuestionForm
         locale={locale}
+        path={path}
         valueHasToBeLessThan={availableBalance}
         maxPromotingHours={maxPromotingHours}
         form={ASK_QUESTION_FORM}
@@ -90,6 +94,7 @@ export const AskQuestion = ({
         doSkipExistingQuestions={skipExistingQuestions}
         skipExistingQuestions={() => setSkipExistingQuestions(true)}
         isFailed={isFailed}
+        documentationMenu={documentationMenu}
       />
     </div>
   );
@@ -114,6 +119,7 @@ const mapStateToProps = createStructuredSelector({
   existingQuestions: askQuestionSelector.selectExistingQuestions(),
   askQuestionLoading: askQuestionSelector.selectAskQuestionLoading(),
   questionError: askQuestionSelector.selectQuestionError(),
+  documentationMenu: selectDocumentationMenu(),
 });
 
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {

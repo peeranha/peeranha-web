@@ -35,6 +35,7 @@ import {
   POST_ANSWER,
   POST_COMMENT,
   POST_QUESTION,
+  UPDATE_DOCUMENTATION_TREE,
   UPVOTE_STATUS,
   VOTE_ITEM,
 } from './ethConstants';
@@ -220,6 +221,25 @@ export async function postQuestion(
     user,
     POST_QUESTION,
     [communityId, ipfsHash, postType, tags],
+    2, // wait for additional confirmation to avoid 404 error when redirect to newly created post
+  );
+}
+
+export async function updateDocumentationTree(
+  user,
+  communityId,
+  documentationJSON,
+  ethereumService,
+) {
+  const ipfsLink = await saveText(JSON.stringify(documentationJSON));
+  console.log(JSON.stringify(documentationJSON));
+  const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
+  console.log(ipfsHash);
+  return await ethereumService.sendTransaction(
+    CONTRACT_CONTENT,
+    user,
+    UPDATE_DOCUMENTATION_TREE,
+    [communityId, ipfsHash],
     2, // wait for additional confirmation to avoid 404 error when redirect to newly created post
   );
 }

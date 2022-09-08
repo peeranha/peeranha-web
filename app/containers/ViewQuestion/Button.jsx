@@ -19,7 +19,7 @@ export const SpanStyled = TransparentButton.extend`
 
   display: inline-flex;
   align-items: center;
-  margin-left: 30px;
+  //margin-left: 30px;
 
   > *:last-child {
     margin-left: 7px;

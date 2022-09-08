@@ -20,12 +20,22 @@ import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import Banner from 'components/AskQuestionBanner';
-import {
-  getPermissions,
-  hasCommunityModeratorRole,
-} from 'utils/properties';
 import { css } from '@emotion/react';
+
+import Base from 'components/Base/BaseRoundedNoPadding';
+import TextBlock from 'components/FormFields/TextBlock';
+import commonMessages from 'common-messages';
+import * as routes from 'routes-config';
+import { TEXT_PRIMARY } from 'style-constants';
+
+import faqPageHeader from 'images/faqPageHeader.svg?inline';
+import infoIcon from 'images/icon-information.svg?inline';
+import { FormattedMessage } from 'react-intl';
+import { MediumImageStyled } from 'components/Img/MediumImage';
+import H3 from 'components/H3';
+import Span from 'components/Span';
+import A from 'components/A';
+import Wrapper, { WrapperRightPanel } from 'components/Header/Simple';
 
 type User = {
   id: string;
@@ -54,55 +64,52 @@ type DocumentationProps = {
 
 export const Documentation: React.FC<DocumentationProps> = /* istanbul ignore next */ ({
    match,
-   locale,
-   profileInfo,
-   getFaqDispatch,
-   deleteQuestionDispatch,
-   redirectToEditQuestionPageDispatch,
    getDocumentationDispatch,
    documentation,
  }) => {
+  const single = isSingleCommunityWebsite();
+
   useEffect(() => {
     if (single) {
       getDocumentationDispatch(match.params.sectionId);
     }
   }, [match.params.sectionId]);
 
+  const documentationSection = documentation.find((documentationSection => documentationSection.id === match.params.sectionId));
   if (!documentation) {
     return null;
   }
 
-  const documentationSection = documentation.find((documentationSection => documentationSection.id === match.params.sectionId));
-
-  const single = isSingleCommunityWebsite();
-
-  const isCommunityModerator = single
-    ? hasCommunityModeratorRole(getPermissions(profileInfo), single)
-    : false;
-
-  return (
+  return documentationSection ? (
     // prettier-ignore
-    <div className='df jcc' css={css``}>
-      <div className='flex-grow-1'>
-        {/*<Header />*/}
-        {documentationSection?.content}
-        {/*<Content*/}
-        {/*  content={[]}*/}
-        {/*  route={routes.faq}*/}
-        {/*  getSectionCode={getSectionCode.bind(null, SECTION_ID)}*/}
-        {/*  getQuestionCode={getQuestionCode.bind(null, SECTION_ID)}*/}
-        {/*  isCommunityModerator={isCommunityModerator}*/}
-        {/*  editItem={*/}
-        {/*    isCommunityModerator*/}
-        {/*      ? [redirectToEditQuestionPageDispatch, routes.questionEdit]*/}
-        {/*      : [null, null]*/}
-        {/*  }*/}
-        {/*  deleteItem={isCommunityModerator ? deleteQuestionDispatch : null}*/}
-        {/*/>*/}
-        <Banner />
-      </div>
+    <div css={css`flex-grow: 1`}>
+      <Wrapper className="mb-to-sm-0 mb-from-sm-3">
+        <H3>
+          <MediumImageStyled src={faqPageHeader} alt="documentation-header" />
+
+          <span className="d-none d-md-inline-block">
+           {documentationSection?.title}
+          </span>
+
+        </H3>
+
+        <WrapperRightPanel className="right-panel">
+          <A to={routes.support()}>
+            <button>
+              <img className="mr-1" src={infoIcon} alt="x" />
+              <Span color={TEXT_PRIMARY} className="button-label">
+                <FormattedMessage {...commonMessages.support} />
+              </Span>
+            </button>
+          </A>
+        </WrapperRightPanel>
+      </Wrapper>
+
+      <Wrapper>
+          <TextBlock content={documentationSection?.content} />
+      </Wrapper>
     </div>
-  );
+  ) : null;
 };
 
 export default compose(

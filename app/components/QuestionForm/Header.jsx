@@ -33,7 +33,7 @@ const Header = ({ formTitle, questionId, intl, postType }) => (
       <div className="right-panel">
         <A
           to={
-            postType === POST_TYPE.faq
+            postType === POST_TYPE.documentation
               ? routes.faq()
               : routes.questionView(questionId)
           }

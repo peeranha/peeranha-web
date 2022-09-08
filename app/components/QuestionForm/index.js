@@ -40,11 +40,13 @@ import {
   FORM_PROMOTE,
   KEY_QUESTIONS_TYPE,
   POST_TYPE,
+  FORM_SUB_ARTICLE,
 } from './constants';
 
 import Header from './Header';
 import { QUESTION_TYPES } from './QuestionTypeField';
 import CommunityForm from './CommunityForm';
+import SubArticleForm from './SubArticleForm';
 import ExistingQuestions from './ExistingQuestions';
 import TypeForm from 'components/QuestionForm/TypeForm';
 import TitleForm from './TitleForm';
@@ -90,6 +92,7 @@ const SuggestTag = memo(({ redirectToCreateTagDispatch, formValues }) => {
 
 export const QuestionForm = ({
   locale,
+  path,
   sendQuestion,
   formTitle,
   questionLoading,
@@ -111,11 +114,14 @@ export const QuestionForm = ({
   disableCommForm,
   profile,
   isFailed,
+  documentationMenu,
 }) => {
   const [isSelectedType, setIsSelectedType] = useState(false);
   const [isError, setIsError] = useState(false);
   const [submitPressed, setSubmitPressed] = useState(false);
   const [isClickSubmit, setIsClickSubmit] = useState(false);
+
+  const isDocumentation = path.split('/')[1] === 'documentation';
   const postTitle = question?.title;
   const postContent = question?.content;
 
@@ -172,7 +178,11 @@ export const QuestionForm = ({
     formValues[FORM_TITLE] !== postTitle ||
     formValues[FORM_CONTENT] !== postContent;
 
-  const isFaq = question ? question.postType === POST_TYPE.faq : false;
+  const defaultDocumentationArticle = {
+    id: -1,
+    title: 'Documentation',
+  };
+
   return (
     <Router history={history}>
       <Prompt
@@ -197,6 +207,22 @@ export const QuestionForm = ({
                 disableCommForm={disableCommForm}
               />
 
+              {Boolean(!question && isDocumentation) && (
+                <SubArticleForm
+                  intl={intl}
+                  locale={locale}
+                  communities={communities}
+                  change={change}
+                  questionLoading={questionLoading}
+                  disableCommForm={disableCommForm}
+                  isDocumentation={isDocumentation}
+                  documentationMenu={[
+                    defaultDocumentationArticle,
+                    ...(documentationMenu ?? []),
+                  ]}
+                />
+              )}
+
               {!question &&
                 ((communityQuestionsType === ANY_TYPE && (
                   <TypeForm
@@ -210,6 +236,7 @@ export const QuestionForm = ({
                     hasSelectedType={isSelectedType}
                     setHasSelectedType={setIsSelectedType}
                     isCommunityModerator={isCommunityModerator}
+                    isDocumentation={isDocumentation}
                   />
                 )) ||
                   (communityQuestionsType === GENERAL_TYPE && (
@@ -254,8 +281,8 @@ export const QuestionForm = ({
                 formValues={formValues}
               />
 
-              {!isFaq &&
-                Number(formValues[FORM_TYPE]) !== POST_TYPE.faq && (
+              {!isDocumentation &&
+                Number(formValues[FORM_TYPE]) !== POST_TYPE.documentation && (
                   <>
                     <TagsForm
                       intl={intl}
@@ -344,7 +371,11 @@ const FormClone = reduxForm({
 export default memo(
   injectIntl(
     connect(
-      (state, { question, form: formName, communities }) => {
+      (
+        state,
+        { question, form: formName, communities, documentationMenu, path },
+      ) => {
+        const isDocumentation = path.split('/')[1] === 'documentation';
         const values = state.toJS().form[formName]?.values[FORM_COMMUNITY];
         const integerProperties = values?.integer_properties ?? [];
         const questionsType = integerProperties.find(
@@ -397,6 +428,11 @@ export default memo(
                       'id',
                     ),
                   },
+                  ...(isDocumentation
+                    ? {
+                        [FORM_TYPE]: POST_TYPE.documentation,
+                      }
+                    : {}),
                 }
               : {}),
           },

@@ -32,6 +32,8 @@ const View = ({
   stakedInNextPeriod,
   boost,
   documentationMenu,
+  redirectToEditQuestionPage,
+  redirectToPostDocumentationPage,
 }) => {
   const [currClientHeight, setClientHeight] = useState();
 
@@ -53,8 +55,13 @@ const View = ({
       isMenuVisible={isMenuVisible}
       css={css`
         height: calc(100vh - ${HEADER_HEIGHT + 30}px);
-        overflow-y: scroll;
-        overflow-x: hidden;
+        overflow: hidden;
+        padding-right: 6px;
+
+        :hover {
+          overflow-y: scroll;
+          padding-right: 0;
+        }
 
         ::-webkit-scrollbar {
           width: 6px;
@@ -65,8 +72,12 @@ const View = ({
         }
 
         ::-webkit-scrollbar-thumb {
-          background: ${SCROLLBAR_COLOR};
+          background: rgba(53, 74, 137, 0.25);
           border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+          background: rgba(53, 74, 137, 0.5);
         }
       `}
     >
@@ -93,6 +104,8 @@ const View = ({
         currClientHeight={currClientHeight}
         profile={profile}
         documentationMenu={documentationMenu}
+        redirectToEditQuestionPage={redirectToEditQuestionPage}
+        redirectToPostDocumentationPage={redirectToPostDocumentationPage}
       />
 
       <AdditionalLinks currClientHeight={currClientHeight} />

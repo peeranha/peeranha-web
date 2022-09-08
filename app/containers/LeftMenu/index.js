@@ -4,6 +4,8 @@
  *
  */
 
+import { redirectToAskQuestionPage } from 'containers/AskQuestion/actions';
+import { redirectToEditQuestionPage } from 'containers/EditQuestion/actions';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -42,6 +44,8 @@ const LeftMenu = /* istanbul ignore next */ ({
   showLeftMenuDispatch,
   isGlobalAdmin,
   documentationMenu,
+  redirectToEditQuestionPageDispatch,
+  redirectToPostDocumentationPageDispatch,
 }) => {
   const showLoginModal = () => {
     loginWithWalletDispatch({ metaMask: true });
@@ -62,6 +66,10 @@ const LeftMenu = /* istanbul ignore next */ ({
         showLoginModal={showLoginModal}
         isGlobalAdmin={isGlobalAdmin}
         documentationMenu={documentationMenu}
+        redirectToEditQuestionPage={redirectToEditQuestionPageDispatch}
+        redirectToPostDocumentationPage={
+          redirectToPostDocumentationPageDispatch
+        }
       />
 
       <After isMenuVisible={isMenuVisible} onClick={showLeftMenuDispatch}>
@@ -96,6 +104,14 @@ export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     loginWithWalletDispatch: bindActionCreators(loginWithWallet, dispatch),
     showLeftMenuDispatch: bindActionCreators(showLeftMenu, dispatch),
+    redirectToEditQuestionPageDispatch: bindActionCreators(
+      redirectToEditQuestionPage,
+      dispatch,
+    ),
+    redirectToPostDocumentationPageDispatch: bindActionCreators(
+      redirectToAskQuestionPage,
+      dispatch,
+    ),
   };
 }
 

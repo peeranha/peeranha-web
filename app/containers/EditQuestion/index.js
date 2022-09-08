@@ -95,6 +95,7 @@ const EditQuestion = ({
 
   const sendProps = useMemo(
     () => ({
+      path: match.url,
       form: EDIT_QUESTION_FORM,
       formTitle: titleMessage,
       submitButtonId: EDIT_QUESTION_BUTTON,

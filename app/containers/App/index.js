@@ -345,6 +345,11 @@ const App = ({
           />
 
           <Route
+            path={routes.documentationCreate()}
+            render={props => Wrapper(AskQuestion, props)}
+          />
+
+          <Route
             exact
             path={routes.questionView(':id')}
             render={props => Wrapper(ViewQuestion, props)}
@@ -368,7 +373,7 @@ const App = ({
           />
 
           <Route
-            path={routes.documentation(':communityId', ':sectionId')}
+            path={routes.documentation(':sectionId')}
             render={props => Wrapper(Documentation, props)}
           />
 

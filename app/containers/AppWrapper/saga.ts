@@ -21,10 +21,9 @@ export function* getDocumentationMenuWorker(props: {
 
     const pinnedPost = documentationMenu.pinnedPost;
     pinnedPost.children = [];
-
     yield put(
       getDocumentationMenuSuccess([
-        pinnedPost,
+        // pinnedPost,
         ...documentationMenu.documentations,
       ]),
     );

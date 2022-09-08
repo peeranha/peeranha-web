@@ -1,6 +1,8 @@
 /* eslint indent: 0 */
 import Icon from 'components/Icon';
+import { FORM_SUB_ARTICLE } from 'components/QuestionForm/constants';
 import arrowDownIcon from 'images/arrowDown.svg?external';
+import dotsIcon from 'images/dots.svg?external';
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -69,6 +71,14 @@ const A1 = A.extend`
   ${BasicLink};
 
   letter-spacing: 0 !important;
+
+  #dots-icon {
+    visibility: hidden;
+  }
+
+  :hover #dots-icon {
+    visibility: visible;
+  }
 
   ${({ route, name }) =>
     route === name
@@ -146,13 +156,108 @@ const Box = styled.div`
   }
 `;
 
+const DocumentationDropdown = ({
+  id,
+  redirectToEditQuestionPage,
+  redirectToPostDocumentationPage,
+}) => {
+  const [showDropdown, setShowDropdown] = useState(false);
+  return (
+    <div>
+      <div id={`dots-icon`}>
+        <Icon
+          className="mr-3 ml-2"
+          icon={dotsIcon}
+          isTransition={false}
+          width="20"
+          fill={PEER_PRIMARY_COLOR}
+          isColorImportant={true}
+          onClick={event => {
+            document.addEventListener(
+              'click',
+              function(event) {
+                const element = document.getElementById(`dropdown-menu-${id}`);
+                if (!element.contains(event.target)) setShowDropdown(false);
+              },
+              { once: true },
+            );
+            setShowDropdown(!showDropdown);
+            event.preventDefault();
+            event.stopPropagation();
+          }}
+        />
+      </div>
+      <div
+        id={`dropdown-menu-${id}`}
+        className="dropdownMenu"
+        css={css`
+          ${styles.dropdownMenu} left: 0px;
+          display: ${showDropdown ? 'block' : 'none'};
+        `}
+      >
+        <div
+          id={`redirect-to-create-documentation-${id}`}
+          css={css(styles.dropdownMenuItem)}
+          onClick={event => {
+            redirectToPostDocumentationPage(event, true);
+            setShowDropdown(false);
+            event.preventDefault();
+            event.stopPropagation();
+          }}
+        >
+          Add new article
+        </div>
+        <div
+          id={`redirect-to-create-sub-documentation-${id}`}
+          css={css(styles.dropdownMenuItem)}
+          onClick={event => {
+            redirectToPostDocumentationPage(event, true);
+            setShowDropdown(false);
+            event.preventDefault();
+            event.stopPropagation();
+          }}
+        >
+          Add a new sub-article
+        </div>
+        <div
+          id={`redirect-to-edit-documentation-${id}`}
+          css={css(styles.dropdownMenuItem)}
+          onClick={event => {
+            redirectToEditQuestionPage(
+              {
+                currentTarget: {
+                  id: `redirect-to-edit-documentation-${id}`,
+                  dataset: {
+                    link: `/documentation/${id}/edit`,
+                  },
+                },
+              },
+              true,
+            );
+            setShowDropdown(false);
+            event.preventDefault();
+            event.stopPropagation();
+          }}
+        >
+          Edit content
+        </div>
+        <div css={css(styles.dropdownMenuItem)}>Delete</div>
+      </div>
+    </div>
+  );
+};
+
 const DocumentationMenu = ({
   menu,
   padding,
   path,
   activeNodes,
   setActiveNodes,
+  redirectToEditQuestionPage,
+  redirectToPostDocumentationPage,
 }) => {
+  const [visibleSection, setVisibleSection] = useState(false);
+
   const { pathname } = window.location;
   const routeArray = pathname.split('/').filter(x => x);
   const pageRoute = routeArray[0];
@@ -168,13 +273,12 @@ const DocumentationMenu = ({
     },
     [pathname, menu.id],
   );
-  const [visibleSection, setVisibleSection] = useState(false);
 
   if (menu?.children.length) {
     return (
       <div css={css(styles.menuDocumentationItem)}>
         <A1
-          to={routes.documentation(1, menu.id)}
+          to={routes.documentation(menu.id)}
           name={menu.id}
           route={sectionRoute}
           className="df jcsb"
@@ -192,19 +296,27 @@ const DocumentationMenu = ({
           }}
         >
           <div>{menu.title}</div>
-          <Icon
-            className="mr-3 ml-2"
-            icon={arrowDownIcon}
-            width="16"
-            rotate={visibleSection}
-            fill={PEER_PRIMARY_COLOR}
-            isColorImportant={true}
-            onClick={event => {
-              setVisibleSection(!visibleSection);
-              event.preventDefault();
-              event.stopPropagation();
-            }}
-          />
+          <div className="df">
+            <DocumentationDropdown
+              id={menu.id}
+              redirectToEditQuestionPage={redirectToEditQuestionPage}
+              redirectToPostDocumentationPage={redirectToPostDocumentationPage}
+            />
+
+            <Icon
+              className="mr-3"
+              icon={arrowDownIcon}
+              width="16"
+              rotate={visibleSection}
+              fill={PEER_PRIMARY_COLOR}
+              isColorImportant={true}
+              onClick={event => {
+                setVisibleSection(!visibleSection);
+                event.preventDefault();
+                event.stopPropagation();
+              }}
+            />
+          </div>
         </A1>
         {visibleSection && (
           <div>
@@ -215,6 +327,10 @@ const DocumentationMenu = ({
                 path={[...path, menu.id]}
                 activeNodes={activeNodes}
                 setActiveNodes={setActiveNodes}
+                redirectToEditQuestionPage={redirectToEditQuestionPage}
+                redirectToPostDocumentationPage={
+                  redirectToPostDocumentationPage
+                }
               />
             ))}
           </div>
@@ -225,25 +341,41 @@ const DocumentationMenu = ({
     return (
       <div css={css(styles.menuDocumentationItem)}>
         <A1
-          to={routes.documentation(1, menu.id)}
+          to={routes.documentation(menu.id)}
           name={menu.id}
           route={sectionRoute}
+          className="df jcsb"
           css={css`
             padding-left: ${padding}px;
-            color: ${padding > DOCUMENTATION_PADDING
-              ? TEXT_SECONDARY
-              : TEXT_DARK};
+            font-weight: ${activeNodes.includes(menu.id) ? 'bold' : 'normal'};
+            color: ${padding > DOCUMENTATION_PADDING &&
+            !activeNodes.includes(menu.id)
+              ? '#7B7B7B'
+              : '#282828'};
             font-size: ${padding > DOCUMENTATION_PADDING ? '14px' : '16px'};
           `}
         >
-          {menu.title}
+          <div>{menu.title}</div>
+
+          <DocumentationDropdown
+            id={menu.id}
+            redirectToEditQuestionPage={redirectToEditQuestionPage}
+            redirectToPostDocumentationPage={redirectToPostDocumentationPage}
+          />
         </A1>
       </div>
     );
 };
 
-const MainLinks = ({ currClientHeight, profile, documentationMenu }) => {
+const MainLinks = ({
+  currClientHeight,
+  profile,
+  documentationMenu,
+  redirectToEditQuestionPage,
+  redirectToPostDocumentationPage,
+}) => {
   const [activeNodes, setActiveNodes] = useState([]);
+  const [showDropdown, setShowDropdown] = useState(false);
 
   const { pathname } = window.location;
   let route = pathname.split('/').filter(x => x)[0];
@@ -263,7 +395,13 @@ const MainLinks = ({ currClientHeight, profile, documentationMenu }) => {
     <Box currClientHeight={currClientHeight}>
       <div id="communitySection" className="pt12">
         {Boolean(singleCommId) && (
-          <div css={css(styles.menuSectionTitle)}>Community</div>
+          <div
+            css={css`
+              ${styles.menuSectionTitle};
+            `}
+          >
+            COMMUNITY
+          </div>
         )}
 
         {isBloggerMode && (
@@ -335,7 +473,54 @@ const MainLinks = ({ currClientHeight, profile, documentationMenu }) => {
           <div css={css(styles.divider)} />
 
           <div id="documentationSection" className="mt28">
-            <div css={css(styles.menuSectionTitle)}>Documentation</div>
+            <div className="df jcsb" css={css(styles.menuSectionTitle)}>
+              <FormattedMessage {...messages.documentation} />
+              {Boolean(isModeratorModeSingleCommunity) && (
+                <div
+                  css={css`
+                    #dots-icon {
+                      visibility: hidden;
+                    }
+                    :hover #dots-icon {
+                      visibility: visible;
+                    }
+                  `}
+                >
+                  <div id="dots-icon">
+                    <Icon
+                      className="mr-3 ml-2"
+                      icon={dotsIcon}
+                      width="20"
+                      fill={PEER_PRIMARY_COLOR}
+                      isColorImportant={true}
+                      onClick={event => {
+                        setShowDropdown(!showDropdown);
+                        event.preventDefault();
+                        event.stopPropagation();
+                      }}
+                    />
+                  </div>
+                  <div
+                    className="dropdownMenu"
+                    css={css`
+                      ${styles.dropdownMenu} left: 0px;
+                      display: ${showDropdown ? 'block' : 'none'};
+                    `}
+                  >
+                    <div
+                      css={css(styles.dropdownMenuItem)}
+                      onClick={event => {
+                        redirectToPostDocumentationPage(event, true);
+                        setShowDropdown(false);
+                      }}
+                    >
+                      Add new article
+                    </div>
+                    <div css={css(styles.dropdownMenuItem)}>Edit order</div>
+                  </div>
+                </div>
+              )}
+            </div>
 
             <div>
               {Boolean(documentationMenu) &&
@@ -347,6 +532,10 @@ const MainLinks = ({ currClientHeight, profile, documentationMenu }) => {
                     path={[]}
                     activeNodes={activeNodes}
                     setActiveNodes={setActiveNodes}
+                    redirectToEditQuestionPage={redirectToEditQuestionPage}
+                    redirectToPostDocumentationPage={
+                      redirectToPostDocumentationPage
+                    }
                   />
                 ))}
             </div>

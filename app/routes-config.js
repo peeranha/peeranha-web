@@ -84,6 +84,10 @@ export const answerEdit = (questionId, answerId) =>
 
 export const questionAsk = () => (!singleCommId ? `/questions/ask` : `/ask`);
 
+export const documentationCreate = () => `/documentation/create`;
+
+export const documentationEdit = id => `/documentation/${id}/edit`;
+
 export const noAccess = () => `/no-access`;
 
 export const detailsHomePage = () => '/';
@@ -140,8 +144,7 @@ export const referralPage = user => `/?${REFERRAL_CODE_URI}=${user}`;
 
 export const facebookDataDeletion = () => '/facebook-data-deletion';
 
-export const documentation = (communityId, sectionId) =>
-  `/documentation/${sectionId}`;
+export const documentation = sectionId => `/documentation/${sectionId}`;
 export const redirectRoutesForSCM = [
   privacyPolicy(),
   termsAndConditions(),
