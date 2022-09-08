@@ -1,5 +1,6 @@
 import React, { memo, useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
+import { css } from '@emotion/react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { reduxForm } from 'redux-form/immutable';
@@ -14,7 +15,10 @@ import { EDIT_QUESTION_FORM } from 'containers/EditQuestion/constants';
 import icoTag from 'images/icoTag.svg?external';
 
 import _uniqBy from 'lodash/uniqBy';
-import { isSingleCommunityWebsite } from 'utils/communityManagement';
+import {
+  isSingleCommunityWebsite,
+  singleCommunityColors,
+} from 'utils/communityManagement';
 import { scrollToErrorField } from 'utils/animation';
 
 import { redirectToCreateTag } from 'containers/CreateTag/actions';
@@ -62,7 +66,7 @@ import { getPermissions, hasGlobalModeratorRole } from 'utils/properties';
 import { translationMessages } from '../../i18n';
 
 const single = isSingleCommunityWebsite();
-
+const colors = singleCommunityColors();
 const history = createdHistory;
 
 const SuggestTag = memo(({ redirectToCreateTagDispatch, formValues }) => {
@@ -79,7 +83,15 @@ const SuggestTag = memo(({ redirectToCreateTagDispatch, formValues }) => {
         type="button"
         color={LINK_COLOR_SECONDARY}
       >
-        <IconMd className="mr-2" icon={icoTag} fill={BORDER_PRIMARY} />
+        <IconMd
+          className="mr-2"
+          icon={icoTag}
+          css={css`
+            path {
+              fill: ${colors.btnColor || BORDER_PRIMARY};
+            }
+          `}
+        />
         <FormattedMessage {...commonMessages.createTag} />
       </TransparentButton>
     </div>

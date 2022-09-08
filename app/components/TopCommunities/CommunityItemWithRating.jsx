@@ -64,11 +64,7 @@ const CommunityItemWithRating = ({
                 size="lg"
                 rating={rating}
                 isRankOff={false}
-                customRatingIconColors={
-                  community.name === 'Functionland'
-                    ? customRatingIconColors
-                    : ''
-                }
+                customRatingIconColors={customRatingIconColors}
               />
             </div>
           </div>

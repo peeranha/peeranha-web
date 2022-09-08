@@ -6,6 +6,9 @@ import { translationMessages } from 'i18n';
 import { FormattedMessage } from 'react-intl';
 
 import { BORDER_PRIMARY_LIGHT, TEXT_DARK } from 'style-constants';
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
 
 const Base = styled.div`
   span {
@@ -26,7 +29,7 @@ const Base = styled.div`
 
     li::before {
       content: '\\2022';
-      color: ${BORDER_PRIMARY_LIGHT};
+      color: ${colors.textColor || BORDER_PRIMARY_LIGHT};
       font-weight: bold;
       display: inline-block;
       width: 1em;
