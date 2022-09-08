@@ -73,6 +73,9 @@ const Img = styled.img`
   height: 15px;
   margin-left: 1px;
   filter: grayscale(100%);
+  :hover {
+    filter: grayscale(0);
+  }
 `;
 
 const FlexibleDiv = styled.div`

@@ -10,8 +10,8 @@ import { LABEL_SIZE_LG } from 'components/Img/MediumImage';
 import { TEMPORARY_ACCOUNT_KEY } from 'utils/constants';
 import { getUserAvatar } from 'utils/profileManagement';
 
-import questionRoundedIcon from 'images/question2.svg?inline';
-import answerIcon from 'images/answer.svg?inline';
+import questionRoundedIcon from 'images/question2.svg?external';
+import answerIcon from 'images/answer.svg?external';
 import iconCopy from 'images/document-copy.svg?inline';
 import iconCopySelect from 'images/document-copy-select.svg?inline';
 
@@ -21,6 +21,7 @@ import Ul from 'components/Ul';
 import Span from 'components/Span';
 import RatingStatus from 'components/RatingStatus';
 import AchievementsStatus from 'components/AchievementsStatus/index';
+import { IconLg } from 'components/Icon/IconWithSizes';
 
 import LargeImage from 'components/Img/LargeImage';
 import TelegramUserLabel from 'components/Labels/TelegramUserLabel';
@@ -31,6 +32,9 @@ import { customRatingIconColors } from 'constants/customRating';
 import ProfileSince from 'components/ProfileSince';
 import { getUserName } from 'utils/user';
 
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
 const InlineLoader = styled(LoadingIndicator)`
   margin: auto;
   margin-top: 5px;
@@ -91,6 +95,10 @@ export const UlStyled = Ul.extend`
       img {
         margin-right: 5px;
         height: 18px;
+      }
+
+      svg {
+        margin-right: 5px;
       }
     }
 
@@ -236,7 +244,18 @@ const MainUserInformation = ({
               <li>
                 <FormattedMessage id={commonMessages.posts.id} />
                 <span>
-                  <img src={questionRoundedIcon} alt="icon" />
+                  <IconLg
+                    icon={questionRoundedIcon}
+                    css={css`
+                      path {
+                        fill: ${LINK_COLOR};
+                      }
+                      ,
+                      circle {
+                        stroke: ${LINK_COLOR};
+                      }
+                    `}
+                  />
                   {profile.postCount}
                 </span>
               </li>
@@ -244,7 +263,14 @@ const MainUserInformation = ({
               <li>
                 <FormattedMessage id={commonMessages.answers.id} />
                 <span>
-                  <img src={answerIcon} alt="icon" />
+                  <IconLg
+                    icon={answerIcon}
+                    css={css`
+                      path {
+                        stroke: ${LINK_COLOR};
+                      }
+                    `}
+                  />
                   {profile.answersGiven}
                 </span>
               </li>
