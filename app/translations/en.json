@@ -803,7 +803,7 @@
   "app.containers.ViewQuestion.deleteButton": "Delete",
   "app.containers.ViewQuestion.editButton": "Edit",
   "app.containers.ViewQuestion.shareButton": "Share",
-  "app.containers.ViewQuestion.shareTitle": "Share a link to this question",
+  "app.containers.ViewQuestion.shareTitle": "Share a link to this post",
   "app.containers.ViewQuestion.saveButton": "Save",
   "app.containers.ViewQuestion.commentButton": "Comment",
   "app.containers.ViewQuestion.postCommentButton": "Post comment",
