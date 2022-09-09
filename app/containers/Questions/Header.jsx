@@ -185,6 +185,7 @@ export const Header = ({
           selectedCommunityId={communityIdFilter}
           communities={communities}
         />
+        {/* PEER-451: Hide Subscribe button from single community mode
         {!!displaySubscribeButton && (
           <PageContentHeaderRightPanel
             className={`right-panel m-0 ml-${single ? 3 : 4}`}
@@ -194,7 +195,7 @@ export const Header = ({
               followedCommunities={followedCommunities}
             />
           </PageContentHeaderRightPanel>
-        )}
+        )} */}
       </PageContentHeader>
       <QuestionFilter
         display={displayQuestionFilter}
