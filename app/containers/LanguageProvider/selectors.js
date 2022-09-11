@@ -1,8 +1,9 @@
-import { currentLocale } from 'app/i18n';
 import { createSelector } from 'reselect';
+import { initialState } from '../AppWrapper/reducer';
 
-const locale = () => currentLocale;
+export const selectLocale = state => state.get('appWrapper', initialState);
 
-const makeSelectLocale = () => createSelector(locale, () => currentLocale);
+const makeSelectLocale = () =>
+  createSelector(selectLocale, substate => substate.get('locale'));
 
 export { makeSelectLocale };

@@ -23,7 +23,7 @@
   "stakedInCurrentPeriod": "Staked in the current period",
   "stakedInNextPeriod": "Staked in next period",
   "totalBalance": "Total balance",
-  "boostHelp": "Learn {{whatABoostIs}} and {{howToStake}} in the {{FAQs}}.",
+  "boostHelp": "Learn <0></0> and <1></1> in the <2></2>.",
   "whatABoostIs": "what a Boost is",
   "howToStake": "how you place a stake",
   "FAQs": "FAQs"

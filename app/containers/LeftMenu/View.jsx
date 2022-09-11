@@ -23,6 +23,8 @@ const View = ({
   stakedInCurrentPeriod,
   stakedInNextPeriod,
   boost,
+  changeLocale,
+  locale,
 }) => {
   const [currClientHeight, setClientHeight] = useState();
 
@@ -60,7 +62,11 @@ const View = ({
 
       <MainLinks currClientHeight={currClientHeight} profile={profile} />
 
-      <AdditionalLinks currClientHeight={currClientHeight} />
+      <AdditionalLinks
+        currClientHeight={currClientHeight}
+        changeLocale={changeLocale}
+        locale={locale}
+      />
     </ViewStyled>
   );
 };
@@ -73,6 +79,8 @@ View.propTypes = {
   boost: PropTypes.object,
   isMenuVisible: PropTypes.bool,
   showLoginModal: PropTypes.func,
+  changeLocale: PropTypes.func,
+  locale: PropTypes.string,
 };
 
 export default View;

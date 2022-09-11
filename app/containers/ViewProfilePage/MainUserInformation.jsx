@@ -231,7 +231,8 @@ const MainUserInformation = ({
           <div className="d-flex align-items-center">
             <UlStyled>
               <li>
-                {t('profile.status')}
+                <span>{t('profile.status')}</span>
+
                 <RatingStatus
                   isProfilePage={true}
                   customRatingIconColors={customRatingIconColors}
@@ -241,7 +242,7 @@ const MainUserInformation = ({
               </li>
 
               <li>
-                {t('common.posts')}
+                <span>{t('common.posts')}</span>
                 <span>
                   <IconLg
                     icon={questionRoundedIcon}
@@ -260,7 +261,7 @@ const MainUserInformation = ({
               </li>
 
               <li>
-                {t('common.answers')}
+                <span>{t('common.answers')}</span>
                 <span>
                   <IconLg
                     icon={answerIcon}
@@ -275,7 +276,8 @@ const MainUserInformation = ({
               </li>
 
               <li>
-                {t('profile.achievements')}
+                <span>{t('profile.achievements')}</span>
+
                 {typeof profile.achievements === 'object' ? (
                   <AchievementsStatus
                     isProfilePage={true}
@@ -288,40 +290,40 @@ const MainUserInformation = ({
               </li>
               {!isTemporaryAccount && (
                 <li>
-                  {t('common.walletAddress')}
-                  <A
-                    to={{ pathname: userPolygonScanAddress }}
-                    href={userPolygonScanAddress}
-                    target="_blank"
-                  >
-                    <span
-                      id="copytext1"
-                      css={css`
-                        border-bottom: 1px solid;
-                        color: ${LINK_COLOR};
-                        font-weight: 400;
-                      `}
+                  <span>{t('common.walletAddress')}</span>
+                  <span>
+                    <A
+                      to={{ pathname: userPolygonScanAddress }}
+                      href={userPolygonScanAddress}
+                      target="_blank"
                     >
-                      {userId}
-                    </span>
-                  </A>
-                  <button
-                    css={css`
-                      color: #adaeae;
-                      position: absolute;
-                      left: 95%;
-                      margin-top: 23px;
-                    `}
-                    onClick={copiedUserId}
-                  >
-                    <img
-                      src={iconType}
-                      alt="copy"
+                      <span
+                        id="copytext1"
+                        css={css`
+                          border-bottom: 1px solid;
+                          color: ${LINK_COLOR};
+                          font-weight: 400;
+                        `}
+                      >
+                        {userId}
+                      </span>
+                    </A>
+                    <button
                       css={css`
-                        height: 20px;
+                        margin-left: 10px;
+                        color: #adaeae;
                       `}
-                    />
-                  </button>
+                      onClick={copiedUserId}
+                    >
+                      <img
+                        src={iconType}
+                        alt="copy"
+                        css={css`
+                          height: 20px;
+                        `}
+                      />
+                    </button>
+                  </span>
                 </li>
               )}
 

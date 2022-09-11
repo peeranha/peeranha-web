@@ -85,12 +85,12 @@ const UserNavigation = ({
     profile,
   ]);
 
-  const onClickRedirectToEditProfilePage = ({
-    currentTarget: { id, user },
+  const onClickRedirectToEditProfilePage = userId => ({
+    currentTarget: { id },
   }) => {
     redirectToEditProfilePage({
       buttonId: id,
-      user,
+      user: userId,
     });
   };
 
@@ -220,9 +220,8 @@ const UserNavigation = ({
                 ? 'd-inline-flex d-md-none'
                 : 'd-none'
             }
-            onClick={onClickRedirectToEditProfilePage}
+            onClick={onClickRedirectToEditProfilePage(userId)}
             id={`redireact-to-edit-${userId}-user-page-1`}
-            data-user={userId}
             islink
           >
             {t('common.edit')}
@@ -231,12 +230,11 @@ const UserNavigation = ({
 
         <div className="d-none d-md-block">
           <button
-            onClick={onClickRedirectToEditProfilePage}
+            onClick={onClickRedirectToEditProfilePage(userId)}
             className={`align-items-center ${
               isProfilePage ? 'd-inline-flex' : 'd-none'
             }`}
             id={`redireact-to-edit-${userId}-user-page-2`}
-            data-user={userId}
           >
             <IconMd icon={pencilIcon} color={colors.btnColor || TEXT_PRIMARY} />
             <Span className="ml-1" color={colors.btnColor || TEXT_PRIMARY}>

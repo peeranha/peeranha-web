@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { createStructuredSelector } from 'reselect';
 import { compose, bindActionCreators } from 'redux';
 
@@ -20,36 +20,28 @@ import Seo from 'components/Seo';
 import ContactsSection from './Contacts';
 import SupportSection from './Support';
 
-export class Support extends React.PureComponent {
-  render() {
-    const {
-      locale,
-      sendMessageDispatch,
-      faq,
-      sendMessageLoading,
-      t,
-    } = this.props;
+const Support = ({ locale, sendMessageDispatch, faq, sendMessageLoading }) => {
+  const { t } = useTranslation();
 
-    return (
-      <div>
-        <Seo
-          title={t('common.supportDesc.title')}
-          description={t('common.supportDesc.description')}
-          language={locale}
-          index={false}
-        />
+  return (
+    <div>
+      <Seo
+        title={t('common.supportDesc.title')}
+        description={t('common.supportDesc.description')}
+        language={locale}
+        index={false}
+      />
 
-        <ContactsSection locale={locale} />
-        <SupportSection
-          sendMessage={sendMessageDispatch}
-          faq={faq}
-          locale={locale}
-          sendMessageLoading={sendMessageLoading}
-        />
-      </div>
-    );
-  }
-}
+      <ContactsSection locale={locale} />
+      <SupportSection
+        sendMessage={sendMessageDispatch}
+        faq={faq}
+        locale={locale}
+        sendMessageLoading={sendMessageLoading}
+      />
+    </div>
+  );
+};
 
 Support.propTypes = {
   locale: PropTypes.string,
@@ -79,7 +71,6 @@ const withReducer = injectReducer({ key: 'homepage', reducer });
 const withSaga = injectSaga({ key: 'homepage', saga });
 
 export default compose(
-  withTranslation,
   withReducer,
   withSaga,
   withConnect,

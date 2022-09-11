@@ -23,10 +23,14 @@ import {
   makeSelectBoost,
   selectIsGlobalAdmin,
 } from 'containers/AccountProvider/selectors';
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
-import { loginWithWallet, showLoginModal } from 'containers/Login/actions';
+import { loginWithWallet } from 'containers/Login/actions';
+import {
+  changeLocale as changeLocaleDispatch,
+  showLeftMenu,
+} from 'containers/AppWrapper/actions';
 import { selectIsMenuVisible } from 'containers/AppWrapper/selectors';
-import { showLeftMenu } from 'containers/AppWrapper/actions';
 
 import View from './View';
 import { Aside, After } from './Styles';
@@ -41,6 +45,8 @@ const LeftMenu = /* istanbul ignore next */ ({
   loginWithWalletDispatch,
   showLeftMenuDispatch,
   isGlobalAdmin,
+  changeLocale,
+  locale,
 }) => {
   const showLoginModal = () => {
     loginWithWalletDispatch({ metaMask: true });
@@ -60,6 +66,8 @@ const LeftMenu = /* istanbul ignore next */ ({
         boost={boost}
         showLoginModal={showLoginModal}
         isGlobalAdmin={isGlobalAdmin}
+        changeLocale={changeLocale}
+        locale={locale}
       />
 
       <After isMenuVisible={isMenuVisible} onClick={showLeftMenuDispatch}>
@@ -78,6 +86,8 @@ LeftMenu.propTypes = {
   stakedInNextPeriod: PropTypes.number,
   boost: PropTypes.object,
   isMenuVisible: PropTypes.bool,
+  changeLocale: PropTypes.func,
+  locale: PropTypes.string,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -88,12 +98,14 @@ const mapStateToProps = createStructuredSelector({
   stakedInNextPeriod: makeSelectStakedInNextPeriod(),
   boost: makeSelectBoost(),
   isMenuVisible: selectIsMenuVisible(),
+  locale: makeSelectLocale(),
 });
 
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     loginWithWalletDispatch: bindActionCreators(loginWithWallet, dispatch),
     showLeftMenuDispatch: bindActionCreators(showLeftMenu, dispatch),
+    changeLocale: bindActionCreators(changeLocaleDispatch, dispatch),
   };
 }
 

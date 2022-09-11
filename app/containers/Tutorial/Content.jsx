@@ -131,6 +131,7 @@ const Section = ({
             <Button onClick={extendSection.bind(null, !isExtendedSection)}>
               {t(`common.${isExtendedSection ? 'showLess' : 'showMore'}`, {
                 value: `${questionsNumber}/${blocks.length}`,
+                interpolation: { escapeValue: false },
               })}
 
               <Icon

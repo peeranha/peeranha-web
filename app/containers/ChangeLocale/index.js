@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { TEXT_SECONDARY } from 'style-constants';
 
-import { languages, currentLocale } from 'app/i18n';
+import { languages } from 'app/i18n';
 
-import { setCookie } from 'utils/cookie';
+import { setCookie, getCookie } from 'utils/cookie';
 
 import { APP_LOCALE } from 'containers/LanguageProvider/constants';
 
@@ -14,19 +14,27 @@ import Dropdown from 'components/Dropdown';
 
 import { Flag, Li } from './Styled';
 
-export const ChangeLocale = ({ withTitle }) => {
+export const ChangeLocale = ({ withTitle, changeLocale, locale }) => {
   const { t, i18n } = useTranslation();
-  const [language, setLanguage] = useState(currentLocale);
 
-  const setLocale = locale => {
+  useEffect(() => {
+    const lang = getCookie(APP_LOCALE);
+
+    if (lang && lang !== 'en') {
+      changeLocale(lang);
+      i18n.changeLanguage(lang);
+    }
+  }, []);
+
+  const setLocale = newLocale => {
     setCookie({
       name: APP_LOCALE,
-      value: locale,
+      value: newLocale,
       options: { neverExpires: true, defaultPath: true, allowSubdomains: true },
     });
 
-    setLanguage(locale);
-    i18n.changeLanguage(locale);
+    changeLocale(newLocale);
+    i18n.changeLanguage(newLocale);
   };
 
   return (
@@ -40,8 +48,8 @@ export const ChangeLocale = ({ withTitle }) => {
             lineHeight="20"
             color={TEXT_SECONDARY}
           >
-            <Flag src={require(`images/${language}_lang.png`)} alt="country" />
-            {withTitle && t(`common.${language}`)}
+            <Flag src={require(`images/${locale}_lang.png`)} alt="country" />
+            {withTitle && t(`common.${locale}`)}
           </Span>
         </React.Fragment>
       }
@@ -52,7 +60,7 @@ export const ChangeLocale = ({ withTitle }) => {
               key={item}
               role="presentation"
               onClick={() => setLocale(item)}
-              isBold={item === currentLocale}
+              isBold={item === locale}
             >
               <Flag src={require(`images/${item}_lang.png`)} alt="language" />
               {t(`common.${item}`)}

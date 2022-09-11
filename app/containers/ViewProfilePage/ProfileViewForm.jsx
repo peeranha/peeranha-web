@@ -22,7 +22,6 @@ const ProfileViewForm = ({
   className,
   redirectToEditProfilePage,
 }) => {
-  const { t } = useTranslation();
   const path = window.location.pathname + window.location.hash;
   const isProfilePage =
     profile.id === account &&

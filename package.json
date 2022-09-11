@@ -166,6 +166,8 @@
     "hoist-non-react-statics": "2.5.5",
     "https-browserify": "^1.0.0",
     "i18next": "^21.8.14",
+    "i18next-browser-languagedetector": "^6.1.5",
+    "i18next-http-backend": "^1.4.1",
     "immutable": "3.8.2",
     "intl": "1.2.5",
     "invariant": "2.2.4",

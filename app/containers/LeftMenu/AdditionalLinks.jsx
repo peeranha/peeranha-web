@@ -129,7 +129,7 @@ const Link = ({ path, message, cssStyles }) => {
 
 Link.propTypes = {
   path: PropTypes.string,
-  message: PropTypes.object,
+  message: PropTypes.string,
   cssStyles: PropTypes.array,
 };
 
@@ -176,7 +176,11 @@ InfoLinksDropDown.propTypes = {
   withTitle: PropTypes.bool,
 };
 
-const AdditionalLinksComponent = ({ currClientHeight }) => {
+const AdditionalLinksComponent = ({
+  currClientHeight,
+  changeLocale,
+  locale,
+}) => {
   const { t } = useTranslation();
   const basicCondition =
     !styles.withoutAdditionalLinks && !isMobile(window.navigator).any;
@@ -203,13 +207,17 @@ const AdditionalLinksComponent = ({ currClientHeight }) => {
 
       {(fullSize ||
         ((smallSize || middleSize) && !basicCondition) ||
-        isMobile(window.navigator).any) && <ChangeLocale withTitle />}
+        isMobile(window.navigator).any) && (
+        <ChangeLocale withTitle changeLocale={changeLocale} locale={locale} />
+      )}
 
       {smallSize &&
         basicCondition && (
           <FlexibleDiv>
             <InfoLinksDropDown />
-            {process.env.ENV !== 'prod' && <ChangeLocale />}
+            {process.env.ENV !== 'prod' && (
+              <ChangeLocale changeLocale={changeLocale} locale={locale} />
+            )}
           </FlexibleDiv>
         )}
 

@@ -22,15 +22,14 @@ const Span = styled.span`
 
 export const ProfileSince = ({ creationTime, locale }) => {
   const { t } = useTranslation();
-  const profileSince = () => {
+  const profileSince = () =>
     getFormattedDate(creationTime, locale, MONTH_3LETTERS__DAY_YYYY);
-  };
 
   return (
-    <Div profileSince={profileSince} creationTime={creationTime}>
+    <Div profileSince={profileSince()} creationTime={creationTime}>
       {t('profile.memberSince')}
       <div>
-        <Span>{profileSince}</Span>
+        <Span>{profileSince()}</Span>
       </div>
     </Div>
   );

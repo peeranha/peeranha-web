@@ -1,7 +1,7 @@
 import React from 'react';
 import { css } from '@emotion/react';
 import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import * as routes from 'routes-config';
@@ -100,11 +100,15 @@ const BoostBanner = ({ userId }) => {
                 }
               `}
             >
-              {t('wallet.boostHelp', {
-                whatABoostIs: WhatABoostIs(),
-                howToStake: HowToStake(),
-                FAQs: FAQs(),
-              })}
+              <Trans
+                i18nKey="wallet.boostHelp"
+                values={{ whatABoostIs: t('wallet.whatABoostIs') }}
+                components={[
+                  <WhatABoostIs key="0" />,
+                  <HowToStake key="1" />,
+                  <FAQs key="2" />,
+                ]}
+              />
             </p>
 
             <GoToBoostPage to={routes.userBoost(userId)}>

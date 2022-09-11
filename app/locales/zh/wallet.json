@@ -22,7 +22,7 @@
   "stakedInCurrentPeriod": "本期质押",
   "stakedInNextPeriod": "押注下一期",
   "totalBalance": "总余额",
-  "boostHelp": "学 {whatABoostIs} 和 {howToStake} 在 {FAQs}.",
+  "boostHelp": "学 <0></0> 和 <1></1> 在 <2></2>.",
   "whatABoostIs": "什么是 Boost",
   "howToStake": "你如何下注",
   "FAQs": "FAQs"

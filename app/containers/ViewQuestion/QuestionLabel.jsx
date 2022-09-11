@@ -38,6 +38,7 @@ export const TypeContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  word-break: initial;
 
   color: ${({ color }) => color};
 

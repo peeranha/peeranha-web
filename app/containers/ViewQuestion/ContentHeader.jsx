@@ -226,7 +226,7 @@ const ContentHeader = props => {
               )}
             >
               <IconSm icon={changeTypeIcon} fill={BORDER_PRIMARY} />
-              {t('post.changeQuestionType')}
+              <span>{t('post.changeQuestionType')}</span>
             </Button>
           )}
 
@@ -244,7 +244,7 @@ const ContentHeader = props => {
               isVotedToDelete={true}
             >
               <IconSm icon={blockIcon} fill={BORDER_ATTENTION_LIGHT} />
-              {t('post.voteToDelete')}
+              <span>{t('post.voteToDelete')}</span>
             </Button>
           ) : null}
 
@@ -263,7 +263,7 @@ const ContentHeader = props => {
                   disabled={ids.includes(`${type}_delete_${answerId}`)}
                 >
                   <IconMd icon={deleteIcon} fill={BORDER_PRIMARY} />
-                  {t('post.deleteButton')}
+                  <span>{t('post.deleteButton')}</span>
                 </Button>
               )}
             />
@@ -277,7 +277,7 @@ const ContentHeader = props => {
                 onClick={() => setModalOpen(true)}
               >
                 <IconSm icon={shareIcon} />
-                {t('post.shareButton')}
+                <span>{t('post.shareButton')}</span>
               </Button>
 
               {isModalOpen && (
@@ -295,7 +295,7 @@ const ContentHeader = props => {
               onClick={() => setPopoverOpen(true)}
             >
               <IconMd icon={blockchainLogo} />
-              {t('common.source')}
+              <span>{t('common.source')}</span>
             </Button>
 
             {isPopoverOpen && (
@@ -318,7 +318,7 @@ const ContentHeader = props => {
             }-${commentId}`}
           >
             <IconMd icon={pencilIcon} />
-            {t('post.editButton')}
+            <span>{t('post.editButton')}</span>
           </Button>
         </ButtonContainer>
       </ItemInfo>

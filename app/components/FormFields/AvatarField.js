@@ -197,7 +197,7 @@ const InfoMessage = styled.div`
   opacity: 0.9;
 `;
 
-function AvatarField({ input, meta, disabled }) {
+const AvatarField = ({ input, meta, disabled }) => {
   const { t } = useTranslation();
   const [s, setS] = useState(false);
   const [y, setY] = useState(null);
@@ -288,7 +288,7 @@ function AvatarField({ input, meta, disabled }) {
       <WarningMessage {...meta} isSpecialPosition />
     </Div>
   );
-}
+};
 
 AvatarField.propTypes = {
   input: PropTypes.object,

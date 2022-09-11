@@ -9,7 +9,6 @@ import {
   singleCommunityColors,
 } from 'utils/communityManagement';
 import { css } from '@emotion/react';
-import * as routes from 'routes-config';
 
 import icoTagIcon from 'images/icoTag.svg?external';
 import arrowLeft from 'images/arrowLeft.svg?inline';

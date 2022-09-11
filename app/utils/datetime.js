@@ -5,6 +5,7 @@ import {
   differenceInMonths,
   differenceInYears,
 } from 'date-fns';
+import { localeRFC5646 } from 'app/i18n';
 
 import ru from 'date-fns/locale/ru/index.js';
 import en from 'date-fns/locale/en/index.js';
@@ -42,16 +43,36 @@ export const getTimeFromDateToNow = /* istanbul ignore next */ (
   return distanceInWordsToNow(dateInMills, localeObj);
 };
 
-export const getFormattedDate = /* istanbul ignore next */ (
-  date,
-  locale,
-  dateFormat,
-) => {
+const FormatDate = (function() {
+  let instance;
+  let locale;
+
+  function createIntl(newLocale) {
+    const intlObj = Intl.DateTimeFormat(localeRFC5646[newLocale]);
+    return intlObj;
+  }
+
+  return {
+    getFormat(newLocale) {
+      if (!instance || locale !== newLocale) {
+        instance = createIntl(newLocale);
+      }
+      return instance;
+    },
+  };
+})();
+
+export const getFormattedDate = (date, locale, dateFormat) => {
   const dateInMills = date * 1000;
   const localeObj = {
     locale: translations[locale],
   };
   const dateView = options[dateFormat || DD_MM_YYYY];
+
+  console.log(
+    'format(dateInMills, dateView, localeObj)',
+    format(dateInMills, dateView, localeObj),
+  );
 
   return format(dateInMills, dateView, localeObj);
 };
