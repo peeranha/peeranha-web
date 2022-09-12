@@ -184,6 +184,7 @@ const MainUserInformation = ({
   account,
   locale,
   redirectToEditProfilePage,
+  userAchievementsLength,
 }) => {
   const isTemporaryAccount = !!profile?.integer_properties?.find(
     x => x.key === TEMPORARY_ACCOUNT_KEY && x.value,
@@ -280,7 +281,7 @@ const MainUserInformation = ({
                 {typeof profile.achievements === 'object' ? (
                   <AchievementsStatus
                     isProfilePage={true}
-                    count={profile.achievements.length}
+                    count={userAchievementsLength}
                     size="lg"
                   />
                 ) : (
