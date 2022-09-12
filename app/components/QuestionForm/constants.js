@@ -7,6 +7,7 @@ export const FORM_BOUNTY = 'app/AskQuestion/FORM_BOUNTY';
 export const FORM_BOUNTY_DAYS = 'app/AskQuestion/FORM_BOUNTY_DAYS';
 export const FORM_BOUNTY_HOURS = 'app/AskQuestion/FORM_BOUNTY_HOURS';
 export const FORM_PROMOTE = 'app/AskQuestion/FORM_PROMOTE';
+export const FORM_MEDIA = 'app/AskQuestion/FORM_MEDIA';
 
 export const DEFAULT_DOT_RESTRICTION = 6;
 export const KEY_QUESTIONS_TYPE = 28;

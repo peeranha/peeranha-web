@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Field } from 'redux-form/immutable';
 import { intlShape, FormattedMessage } from 'react-intl';
@@ -9,42 +9,56 @@ import TextBlock from 'components/FormFields/TextBlock';
 import TextEditorField from 'components/FormFields/TextEditorField';
 
 import commonMessages from 'common-messages';
+import { TEXT_SECONDARY } from 'style-constants';
 import messages from './messages';
 
-import { TEXT_SECONDARY } from 'style-constants';
-import { FORM_CONTENT } from './constants';
+import { FORM_CONTENT, FORM_MEDIA } from './constants';
 
 import { PreviewWrapper } from '../AnswerForm';
 import Wrapper from '../FormFields/Wrapper';
+import MediaInputField from '../FormFields/MediaInputField';
 
-const ContentForm = ({ questionLoading, intl, formValues }) => (
-  <>
-    <Field
-      name={FORM_CONTENT}
-      component={TextEditorField}
-      disabled={questionLoading}
-      label={intl.formatMessage(messages.questionBodyLabel)}
-      validate={[strLength25x30000, required]}
-      warn={[strLength25x30000, required]}
-    />
+const ContentForm = ({ questionLoading, intl, formValues }) => {
+  const [mediaLinks, setMediaLinks] = useState([]);
+  return (
+    <>
+      <Field
+        name={FORM_CONTENT}
+        component={TextEditorField}
+        disabled={questionLoading}
+        label={intl.formatMessage(messages.questionBodyLabel)}
+        validate={[strLength25x30000, required]}
+        warn={[strLength25x30000, required]}
+        mediaLinks={mediaLinks}
+      />
 
-    <Wrapper
-      style={{ borderRadius: 0, boxShadow: 'none', paddingLeft: 0 }}
-      label={intl.formatMessage(messages.previewLabel)}
-      className="mt-3"
-    >
-      <PreviewWrapper>
-        {formValues[FORM_CONTENT] ? (
-          <TextBlock className="my-2" content={formValues[FORM_CONTENT]} />
-        ) : (
-          <Span color={TEXT_SECONDARY} fontSize="14" isItalic>
-            <FormattedMessage {...commonMessages.nothingToSeeYet} />
-          </Span>
-        )}
-      </PreviewWrapper>
-    </Wrapper>
-  </>
-);
+      <Field
+        name={FORM_MEDIA}
+        component={MediaInputField}
+        disabled={questionLoading}
+        label={intl.formatMessage(messages.media)}
+        mediaLinks={mediaLinks}
+        setMediaLinks={setMediaLinks}
+      />
+
+      <Wrapper
+        style={{ borderRadius: 0, boxShadow: 'none', paddingLeft: 0 }}
+        label={intl.formatMessage(messages.previewLabel)}
+        className="mt-3"
+      >
+        <PreviewWrapper>
+          {formValues[FORM_CONTENT] ? (
+            <TextBlock className="my-2" content={formValues[FORM_CONTENT]} />
+          ) : (
+            <Span color={TEXT_SECONDARY} fontSize="14" isItalic>
+              <FormattedMessage {...commonMessages.nothingToSeeYet} />
+            </Span>
+          )}
+        </PreviewWrapper>
+      </Wrapper>
+    </>
+  );
+};
 
 ContentForm.propTypes = {
   questionLoading: PropTypes.bool,

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
@@ -68,22 +68,32 @@ export const TextEditorField = ({
   meta,
   tip,
   splitInHalf,
-}) => (
-  <WrapperBlock
-    label={label}
-    tip={tip}
-    meta={meta}
-    splitInHalf={splitInHalf}
-    id={input.name}
-  >
-    <Div
-      disabled={disabled}
-      error={meta.touched && (meta.error || meta.warning)}
+  mediaLinks,
+}) => {
+  useEffect(
+    () => {
+      input.onChange(input.value + String(mediaLinks));
+    },
+    [mediaLinks],
+  );
+
+  return (
+    <WrapperBlock
+      label={label}
+      tip={tip}
+      meta={meta}
+      splitInHalf={splitInHalf}
+      id={input.name}
     >
-      <TextEditor {...input} disabled={disabled} />
-    </Div>
-  </WrapperBlock>
-);
+      <Div
+        disabled={disabled}
+        error={meta.touched && (meta.error || meta.warning)}
+      >
+        <TextEditor {...input} disabled={disabled} />
+      </Div>
+    </WrapperBlock>
+  );
+};
 
 TextEditorField.propTypes = {
   disabled: PropTypes.bool,

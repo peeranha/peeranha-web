@@ -79,6 +79,9 @@ export default css`
   .dg {
     display: grid;
   }
+  .clarity {
+    opacity: 0;
+  }
   .jcsb {
     justify-content: space-between;
   }
@@ -123,6 +126,9 @@ export default css`
   }
   .tl {
     text-align: left;
+  }
+  .fz12 {
+    font-size: 12px;
   }
   .fz14 {
     font-size: 14px;
