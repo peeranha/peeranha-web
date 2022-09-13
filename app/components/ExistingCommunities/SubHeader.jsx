@@ -90,7 +90,7 @@ export const SubHeader = ({
         id="existing-communities-dropdown"
         isArrowed
         css={css`
-          z-index: 10;
+          z-index: 9;
         `}
       />
     </SubHeaderWrapperRightPanel>
