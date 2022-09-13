@@ -2,10 +2,14 @@ export const styles = {
   filePreviewContainer: {
     width: '108px',
     height: '62px',
+    minWidth: '108px',
+    minHeight: '62px',
 
     '@media (min-width: 1024px)': {
       width: '126px',
       height: '72px',
+      minWidth: '126px',
+      minHeight: '72px',
     },
   },
 

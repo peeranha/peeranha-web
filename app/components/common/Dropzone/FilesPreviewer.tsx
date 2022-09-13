@@ -2,6 +2,7 @@ import React from 'react';
 
 import { Files } from './Dropzone';
 import FilePreviewer from './FilePreviewer';
+import ScrollContainer from '../../../containers/ScrollContainer';
 
 type FilesPreviewerProps = {
   files: Files;
@@ -14,24 +15,26 @@ const FilesPreviewer: React.FC<FilesPreviewerProps> = ({
   readAndUploadFile,
   removeFile,
 }): JSX.Element => (
-  <div className="df mb12">
-    {Object.keys(files).map(fileName => {
-      const fileData = files[fileName];
-      return (
-        <FilePreviewer
-          key={fileData.file.name}
-          file={fileData.file}
-          fileUrl={fileData.fileUrl}
-          isUploading={fileData.isUploading}
-          isUploaded={fileData.isUploaded}
-          isFailedUpload={fileData.isFailedUpload}
-          fileName={fileName}
-          readAndUploadFile={readAndUploadFile}
-          removeFile={removeFile}
-        />
-      );
-    })}
-  </div>
+  <ScrollContainer className="mb12">
+    <div className="df mb4">
+      {Object.keys(files).map(fileName => {
+        const fileData = files[fileName];
+        return (
+          <FilePreviewer
+            key={fileData.file.name}
+            file={fileData.file}
+            fileUrl={fileData.fileUrl}
+            isUploading={fileData.isUploading}
+            isUploaded={fileData.isUploaded}
+            isFailedUpload={fileData.isFailedUpload}
+            fileName={fileName}
+            readAndUploadFile={readAndUploadFile}
+            removeFile={removeFile}
+          />
+        );
+      })}
+    </div>
+  </ScrollContainer>
 );
 
 export default FilesPreviewer;
