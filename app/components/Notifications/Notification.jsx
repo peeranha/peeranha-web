@@ -34,6 +34,8 @@ import {
 import Span from '../Span';
 import { IconMd } from 'components/Icon/IconWithSizes';
 
+import useSocketConnection from '../../hooks/useWebsocketConnection/useSocketConnection';
+
 const single = isSingleCommunityWebsite();
 const styles = singleCommunityStyles();
 const colors = singleCommunityColors();
@@ -185,6 +187,8 @@ const Notification = ({
   paddingHorizontal,
   notificationsNumber,
 }) => {
+  useSocketConnection();
+
   const ref = useRef(null);
   const [width, setWidth] = useState(0);
 

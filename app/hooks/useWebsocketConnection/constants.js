@@ -1,0 +1,4 @@
+export const SOCKET_CONNECTION = 'app/Websocket/SOCKET_CONNECTION';
+export const SOCKET_CONNECTION_OPEN = 'app/Websocket/SOCKET_CONNECTION_OPEN';
+export const SOCKET_CONNECTION_CLOSED =
+  'app/Websocket/SOCKET_CONNECTION_CLOSED';

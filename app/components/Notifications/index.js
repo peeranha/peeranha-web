@@ -56,6 +56,7 @@ import WidthCentered, {
   LoaderContainer,
 } from '../LoadingIndicator/WidthCentered';
 import classnames from 'classnames';
+import useSocketConnection from '../../hooks/useWebsocketConnection/useSocketConnection';
 
 const Container = styled.div`
   ${Wrapper} {
@@ -108,6 +109,8 @@ const Notifications = ({
   markAsReadNotificationsAllDispatch,
   filterReadNotificationsDispatch,
 }) => {
+  useSocketConnection();
+
   const [scrollPosition, setScrollPosition] = useState(0);
   const [calculatedRanges, setCalculatedRanges] = useState({});
   const [containerWidth, setContainerWidth] = useState(0);
