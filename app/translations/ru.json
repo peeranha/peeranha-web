@@ -1125,7 +1125,7 @@
   "app.containers.QuestionForm.title": "Новый пост",
   "app.containers.QuestionForm.titleLabel": "Заголовок",
   "app.containers.QuestionForm.existingQuestionsLabel":
-    "Чтобы избежать дублирования, проверьте существующие вопросы.",
+    "Чтобы избежать дублирования, проверьте существующие посты.",
   "app.containers.QuestionForm.questionBodyLabel": "Содержание",
   "app.containers.QuestionForm.communityLabel": "Сообщество",
   "app.containers.QuestionForm.bountyLabel": "Бонусное вознаграждение",

@@ -1114,7 +1114,7 @@
   "app.containers.QuestionForm.title": "New post",
   "app.containers.QuestionForm.titleLabel": "Title",
   "app.containers.QuestionForm.existingQuestionsLabel":
-    "To avoid duplicates check existing questions.",
+    "To avoid duplicates check existing posts.",
   "app.containers.QuestionForm.questionBodyLabel": "Body",
   "app.containers.QuestionForm.communityLabel": "Community",
   "app.containers.QuestionForm.tagsLabel": "Tags",
