@@ -79,6 +79,7 @@ export function* postQuestionWorker({ val }) {
       selectedAccount,
       communityId,
     );
+
     if (postType === POST_TYPE.documentation) {
       const documentationTraversal = documentationArray => {
         return documentationArray.map(documentationSection => {
@@ -124,14 +125,11 @@ export function* postQuestionWorker({ val }) {
           },
         ];
       }
-      console.log(newMenu);
 
       const documentationJSON = {
         pinnedId: '',
         documentations: newMenu,
       };
-      console.log(documentationJSON);
-      console.log(JSON.stringify(documentationJSON));
 
       yield call(
         updateDocumentationTree,

@@ -51,6 +51,7 @@ const EditQuestion = ({
   editQuestionError,
 }) => {
   const { questionid } = match.params;
+  const isDocumentation = match.url.split('/')[1] === 'documentation';
   useEffect(
     () => {
       if (account) {
@@ -87,7 +88,10 @@ const EditQuestion = ({
   );
 
   const titleMessage = useMemo(
-    () => translationMessages[locale][messages.title.id[(question?.postType)]],
+    () =>
+      isDocumentation
+        ? 'Edit article'
+        : translationMessages[locale][messages.title.id[(question?.postType)]],
     [question?.postType],
   );
 
@@ -111,6 +115,7 @@ const EditQuestion = ({
       maxPromotingHours,
       profile,
       isFailed,
+      isDocumentation,
     }),
     [questionid, question, communities, editQuestionLoading, sendQuestion],
   );

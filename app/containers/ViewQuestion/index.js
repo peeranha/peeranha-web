@@ -332,7 +332,7 @@ const withConnect = connect(
       dispatch,
     ),
     deleteQuestionDispatch: bindActionCreators(
-      deleteQuestion.bind(null, questionId),
+      deleteQuestion.bind(null, questionId, false),
       dispatch,
     ),
     postCommentDispatch: bindActionCreators(

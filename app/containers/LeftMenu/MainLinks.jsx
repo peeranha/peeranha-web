@@ -1,6 +1,7 @@
 /* eslint indent: 0 */
 import Icon from 'components/Icon';
-import { FORM_SUB_ARTICLE } from 'components/QuestionForm/constants';
+import AreYouSure from 'containers/ViewQuestion/AreYouSure';
+import Button from 'containers/ViewQuestion/Button';
 import arrowDownIcon from 'images/arrowDown.svg?external';
 import dotsIcon from 'images/dots.svg?external';
 import React, { useEffect, useState } from 'react';
@@ -160,6 +161,8 @@ const DocumentationDropdown = ({
   id,
   redirectToEditQuestionPage,
   redirectToPostDocumentationPage,
+  deleteQuestion,
+  dropdownController,
 }) => {
   const [showDropdown, setShowDropdown] = useState(false);
   return (
@@ -181,6 +184,10 @@ const DocumentationDropdown = ({
               },
               { once: true },
             );
+            if (showDropdown === false) {
+              dropdownController[0](false);
+              dropdownController[1](() => setShowDropdown);
+            }
             setShowDropdown(!showDropdown);
             event.preventDefault();
             event.stopPropagation();
@@ -241,7 +248,18 @@ const DocumentationDropdown = ({
         >
           Edit content
         </div>
-        <div css={css(styles.dropdownMenuItem)}>Delete</div>
+        <AreYouSure
+          submitAction={deleteQuestion.bind(null, id, true)}
+          Button={({ onClick }) => (
+            <div
+              id={`delete-documentation-${id}`}
+              css={css(styles.dropdownMenuItem)}
+              onClick={onClick}
+            >
+              Delete
+            </div>
+          )}
+        />
       </div>
     </div>
   );
@@ -255,19 +273,24 @@ const DocumentationMenu = ({
   setActiveNodes,
   redirectToEditQuestionPage,
   redirectToPostDocumentationPage,
+  deleteQuestion,
+  dropdownController,
 }) => {
   const [visibleSection, setVisibleSection] = useState(false);
 
   const { pathname } = window.location;
   const routeArray = pathname.split('/').filter(x => x);
   const pageRoute = routeArray[0];
-  const sectionRoute = routeArray[routeArray.length - 1];
+  const sectionRoute = `${routeArray[0]}/${routeArray[1]}`;
   useEffect(
     () => {
-      if (menu.id === sectionRoute) {
+      if (`documentation/${menu.id}` === sectionRoute) {
         setActiveNodes([...path, menu.id]);
       }
-      if (pageRoute !== 'documentation') {
+      if (
+        pageRoute !== 'documentation' ||
+        `/${sectionRoute}` === routes.documentationCreate()
+      ) {
         setActiveNodes([]);
       }
     },
@@ -279,7 +302,7 @@ const DocumentationMenu = ({
       <div css={css(styles.menuDocumentationItem)}>
         <A1
           to={routes.documentation(menu.id)}
-          name={menu.id}
+          name={`documentation/${menu.id}`}
           route={sectionRoute}
           className="df jcsb"
           css={css`
@@ -301,6 +324,8 @@ const DocumentationMenu = ({
               id={menu.id}
               redirectToEditQuestionPage={redirectToEditQuestionPage}
               redirectToPostDocumentationPage={redirectToPostDocumentationPage}
+              deleteQuestion={deleteQuestion}
+              dropdownController={dropdownController}
             />
 
             <Icon
@@ -331,6 +356,8 @@ const DocumentationMenu = ({
                 redirectToPostDocumentationPage={
                   redirectToPostDocumentationPage
                 }
+                deleteQuestion={deleteQuestion}
+                dropdownController={dropdownController}
               />
             ))}
           </div>
@@ -342,7 +369,7 @@ const DocumentationMenu = ({
       <div css={css(styles.menuDocumentationItem)}>
         <A1
           to={routes.documentation(menu.id)}
-          name={menu.id}
+          name={`documentation/${menu.id}`}
           route={sectionRoute}
           className="df jcsb"
           css={css`
@@ -361,6 +388,8 @@ const DocumentationMenu = ({
             id={menu.id}
             redirectToEditQuestionPage={redirectToEditQuestionPage}
             redirectToPostDocumentationPage={redirectToPostDocumentationPage}
+            deleteQuestion={deleteQuestion}
+            dropdownController={dropdownController}
           />
         </A1>
       </div>
@@ -373,9 +402,13 @@ const MainLinks = ({
   documentationMenu,
   redirectToEditQuestionPage,
   redirectToPostDocumentationPage,
+  deleteQuestion,
 }) => {
   const [activeNodes, setActiveNodes] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [showOtherDropdown, changeFocusedDropdown] = useState(
+    () => setShowDropdown,
+  );
 
   const { pathname } = window.location;
   let route = pathname.split('/').filter(x => x)[0];
@@ -494,6 +527,21 @@ const MainLinks = ({
                       fill={PEER_PRIMARY_COLOR}
                       isColorImportant={true}
                       onClick={event => {
+                        document.addEventListener(
+                          'click',
+                          function(event) {
+                            const element = document.getElementById(
+                              `dropdown-menu`,
+                            );
+                            if (!element.contains(event.target))
+                              setShowDropdown(false);
+                          },
+                          { once: true },
+                        );
+                        if (showDropdown === false) {
+                          showOtherDropdown(false);
+                          changeFocusedDropdown(() => setShowDropdown);
+                        }
                         setShowDropdown(!showDropdown);
                         event.preventDefault();
                         event.stopPropagation();
@@ -502,6 +550,7 @@ const MainLinks = ({
                   </div>
                   <div
                     className="dropdownMenu"
+                    id="dropdown-menu"
                     css={css`
                       ${styles.dropdownMenu} left: 0px;
                       display: ${showDropdown ? 'block' : 'none'};
@@ -536,6 +585,11 @@ const MainLinks = ({
                     redirectToPostDocumentationPage={
                       redirectToPostDocumentationPage
                     }
+                    deleteQuestion={deleteQuestion}
+                    dropdownController={[
+                      showOtherDropdown,
+                      changeFocusedDropdown,
+                    ]}
                   />
                 ))}
             </div>

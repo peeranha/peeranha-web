@@ -34,7 +34,7 @@ const Header = ({ formTitle, questionId, intl, postType }) => (
         <A
           to={
             postType === POST_TYPE.documentation
-              ? routes.faq()
+              ? routes.documentation(questionId)
               : routes.questionView(questionId)
           }
         >

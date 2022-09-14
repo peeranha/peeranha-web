@@ -52,20 +52,16 @@ type User = {
 
 type DocumentationProps = {
   match: {params: {sectionId: number}};
-  locale: string;
-  profileInfo: User;
-  getFaqDispatch: Function;
-  deleteQuestionDispatch: Function;
-  redirectToEditQuestionPageDispatch: Function;
-  addModeratorDispatch: Function;
   getDocumentationDispatch: Function;
-  documentation: Array<{ id: number, content: string }> | undefined;
+  documentation: Array<{ id: number, content: string, isDeleted: boolean }> | undefined;
+  history: object;
 };
 
 export const Documentation: React.FC<DocumentationProps> = /* istanbul ignore next */ ({
    match,
    getDocumentationDispatch,
    documentation,
+                                                                                         history,
  }) => {
   const single = isSingleCommunityWebsite();
 
@@ -80,7 +76,11 @@ export const Documentation: React.FC<DocumentationProps> = /* istanbul ignore ne
     return null;
   }
 
-  return documentationSection ? (
+  if (documentationSection && documentationSection.isDeleted) {
+    history.push(routes.notFound());
+  }
+
+  return (documentationSection && !documentationSection.isDeleted) ? (
     // prettier-ignore
     <div css={css`flex-grow: 1`}>
       <Wrapper className="mb-to-sm-0 mb-from-sm-3">

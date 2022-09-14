@@ -23,6 +23,7 @@ import {
   CONTRACT_CONTENT,
   DELETE_ANSWER,
   DELETE_COMMENT,
+  DELETE_DOCUMENTATION_POST,
   DELETE_POST,
   DOWNVOTE_STATUS,
   EDIT_ANSWER,
@@ -225,6 +226,23 @@ export async function postQuestion(
   );
 }
 
+export async function deleteDocumentationPost(
+  user,
+  postId,
+  documentationJSON,
+  ethereumService,
+) {
+  const ipfsLink = await saveText(JSON.stringify(documentationJSON));
+  const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
+  return await ethereumService.sendTransaction(
+    CONTRACT_CONTENT,
+    user,
+    DELETE_DOCUMENTATION_POST,
+    [postId, ipfsHash],
+    2, // wait for additional confirmation to avoid 404 error when redirect to newly created post
+  );
+}
+
 export async function updateDocumentationTree(
   user,
   communityId,
@@ -232,9 +250,7 @@ export async function updateDocumentationTree(
   ethereumService,
 ) {
   const ipfsLink = await saveText(JSON.stringify(documentationJSON));
-  console.log(JSON.stringify(documentationJSON));
   const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
-  console.log(ipfsHash);
   return await ethereumService.sendTransaction(
     CONTRACT_CONTENT,
     user,

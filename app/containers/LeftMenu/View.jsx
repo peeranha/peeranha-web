@@ -34,6 +34,7 @@ const View = ({
   documentationMenu,
   redirectToEditQuestionPage,
   redirectToPostDocumentationPage,
+  deleteQuestion,
 }) => {
   const [currClientHeight, setClientHeight] = useState();
 
@@ -106,6 +107,7 @@ const View = ({
         documentationMenu={documentationMenu}
         redirectToEditQuestionPage={redirectToEditQuestionPage}
         redirectToPostDocumentationPage={redirectToPostDocumentationPage}
+        deleteQuestion={deleteQuestion}
       />
 
       <AdditionalLinks currClientHeight={currClientHeight} />

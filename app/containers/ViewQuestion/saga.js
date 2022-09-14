@@ -1,5 +1,7 @@
 /* eslint consistent-return: 0, array-callback-return: 0, eqeqeq: 0, no-param-reassign: 0, no-bitwise: 0, no-shadow: 0, func-names: 0 */
 
+import { FORM_SUB_ARTICLE } from 'components/QuestionForm/constants';
+import { selectDocumentationMenu } from 'containers/AppWrapper/selectors';
 import { getProfileInfo } from 'utils/profileManagement';
 import {
   all,
@@ -21,6 +23,7 @@ import {
   changeQuestionType,
   deleteAnswer,
   deleteComment,
+  deleteDocumentationPost,
   deleteQuestion,
   downVote,
   editComment,
@@ -30,6 +33,7 @@ import {
   markAsAccepted,
   postAnswer,
   postComment,
+  updateDocumentationTree,
   upVote,
   voteToDelete,
   votingStatus,
@@ -561,7 +565,11 @@ export function* deleteAnswerWorker({ questionId, answerId, buttonId }) {
   }
 }
 
-export function* deleteQuestionWorker({ questionId, buttonId }) {
+export function* deleteQuestionWorker({
+  questionId,
+  isDocumentation,
+  buttonId,
+}) {
   try {
     let { questionData, ethereumService, locale, profileInfo } = yield call(
       getParams,
@@ -588,12 +596,49 @@ export function* deleteQuestionWorker({ questionId, buttonId }) {
         communityID: questionData.communityId,
       },
     );
+    if (isDocumentation) {
+      const documentationMenu = yield select(selectDocumentationMenu());
+      const documentationTraversal = documentationArray => {
+        return documentationArray.reduce((acc, documentationSection) => {
+          if (String(documentationSection.id) !== String(questionId)) {
+            if (documentationSection.children.length) {
+              return acc.concat({
+                id: documentationSection.id,
+                children: documentationTraversal(documentationSection.children),
+              });
+            } else
+              return acc.concat({
+                id: documentationSection.id,
+                children: documentationSection.children,
+              });
+          } else {
+            return acc;
+          }
+        }, []);
+      };
+      let newMenu;
+
+      newMenu = documentationTraversal(documentationMenu);
+
+      const documentationJSON = {
+        pinnedId: '',
+        documentations: newMenu,
+      };
+
+      yield call(
+        deleteDocumentationPost,
+        profileInfo.user,
+        questionId,
+        documentationJSON,
+        ethereumService,
+      );
+    } else {
+      yield call(deleteQuestion, profileInfo.user, questionId, ethereumService);
+    }
     // if (questionBounty) {
     //   yield call(payBounty, profileInfo?.user, questionId, true, eosService);
     //   yield put(payBountySuccess(buttonId));
     // }
-
-    yield call(deleteQuestion, profileInfo.user, questionId, ethereumService);
 
     yield put(
       deleteQuestionSuccess({ ...questionData, isDeleted: true }, buttonId),

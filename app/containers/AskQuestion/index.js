@@ -65,7 +65,7 @@ export const AskQuestion = ({
     () => Math.floor(availableBalance / PROMOTE_HOUR_COST),
     [availableBalance],
   );
-
+  const isDocumentation = path.split('/')[1] === 'documentation';
   return (
     <div>
       <AskQuestionPopup />
@@ -83,7 +83,11 @@ export const AskQuestion = ({
         valueHasToBeLessThan={availableBalance}
         maxPromotingHours={maxPromotingHours}
         form={ASK_QUESTION_FORM}
-        formTitle={translationMessages[locale][messages.title.id]}
+        formTitle={
+          isDocumentation
+            ? 'New article'
+            : translationMessages[locale][messages.title.id]
+        }
         submitButtonId={POST_QUESTION_BUTTON}
         submitButtonName={translationMessages[locale][messages.postQuestion.id]}
         getQuestions={getQuestionsDispatchDebounced}
@@ -95,6 +99,7 @@ export const AskQuestion = ({
         skipExistingQuestions={() => setSkipExistingQuestions(true)}
         isFailed={isFailed}
         documentationMenu={documentationMenu}
+        isDocumentation={isDocumentation}
       />
     </div>
   );

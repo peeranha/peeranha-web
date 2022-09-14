@@ -24,6 +24,7 @@ import {
   usersPostsQuery,
   usersQuery,
   userStatsQuery,
+  usersByCommunityQuery,
 } from './ethConstants';
 
 const client = new ApolloClient({

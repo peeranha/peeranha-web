@@ -114,6 +114,7 @@ export const QuestionForm = ({
   disableCommForm,
   profile,
   isFailed,
+  isDocumentation,
   documentationMenu,
 }) => {
   const [isSelectedType, setIsSelectedType] = useState(false);
@@ -121,7 +122,6 @@ export const QuestionForm = ({
   const [submitPressed, setSubmitPressed] = useState(false);
   const [isClickSubmit, setIsClickSubmit] = useState(false);
 
-  const isDocumentation = path.split('/')[1] === 'documentation';
   const postTitle = question?.title;
   const postContent = question?.content;
 
@@ -195,6 +195,7 @@ export const QuestionForm = ({
           questionId={questionid}
           postType={question?.postType}
           intl={intl}
+          isDocumentation={isDocumentation}
         />
         <TipsBase>
           <BaseSpecialOne>
@@ -265,7 +266,8 @@ export const QuestionForm = ({
                 formValues[FORM_TITLE].length >= 3 &&
                 (getExistingQuestions(existingQuestions || []).length ?? 0) >
                   0 &&
-                !doSkipExistingQuestions && (
+                !doSkipExistingQuestions &&
+                !isDocumentation && (
                   <ExistingQuestions
                     questions={getExistingQuestions(existingQuestions)}
                     skip={skipExistingQuestions}

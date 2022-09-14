@@ -6,6 +6,11 @@
 
 import { redirectToAskQuestionPage } from 'containers/AskQuestion/actions';
 import { redirectToEditQuestionPage } from 'containers/EditQuestion/actions';
+import { deleteQuestion } from 'containers/ViewQuestion/actions';
+import reducer from 'containers/ViewQuestion/reducer';
+import saga from 'containers/ViewQuestion/saga';
+import injectSaga from 'utils/injectSaga';
+import injectReducer from 'utils/injectReducer';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -46,6 +51,7 @@ const LeftMenu = /* istanbul ignore next */ ({
   documentationMenu,
   redirectToEditQuestionPageDispatch,
   redirectToPostDocumentationPageDispatch,
+  deleteQuestionDispatch,
 }) => {
   const showLoginModal = () => {
     loginWithWalletDispatch({ metaMask: true });
@@ -70,6 +76,7 @@ const LeftMenu = /* istanbul ignore next */ ({
         redirectToPostDocumentationPage={
           redirectToPostDocumentationPageDispatch
         }
+        deleteQuestion={deleteQuestionDispatch}
       />
 
       <After isMenuVisible={isMenuVisible} onClick={showLeftMenuDispatch}>
@@ -100,6 +107,13 @@ const mapStateToProps = createStructuredSelector({
   isMenuVisible: selectIsMenuVisible(),
 });
 
+const withReducer = injectReducer({ key: 'viewQuestion', reducer });
+const withSaga = injectSaga({
+  key: 'viewQuestion',
+  saga,
+  disableEject: true,
+});
+
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     loginWithWalletDispatch: bindActionCreators(loginWithWallet, dispatch),
@@ -112,6 +126,7 @@ export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
       redirectToAskQuestionPage,
       dispatch,
     ),
+    deleteQuestionDispatch: bindActionCreators(deleteQuestion, dispatch),
   };
 }
 
@@ -120,4 +135,8 @@ const withConnect = connect(
   mapDispatchToProps,
 );
 
-export default compose(withConnect)(LeftMenu);
+export default compose(
+  withReducer,
+  withSaga,
+  withConnect,
+)(LeftMenu);
