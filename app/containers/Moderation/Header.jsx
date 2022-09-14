@@ -11,11 +11,11 @@ const Header = () => (
   <Wrapper className="mb-to-sm-0 mb-from-sm-3">
     <H3>
       <span className="d-none d-md-inline-block">
-        <FormattedMessage {...messages.title} />
+        <FormattedMessage id={messages.title.id} />
       </span>
 
       <span className="d-inline-block d-md-none">
-        <FormattedMessage {...commonMessages.moderationHeader} />
+        <FormattedMessage id={commonMessages.moderationHeader.id} />
       </span>
     </H3>
   </Wrapper>

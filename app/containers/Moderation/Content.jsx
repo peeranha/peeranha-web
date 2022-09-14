@@ -85,7 +85,7 @@ const ImgWrapper = styled.div`
 const PermissionBox = BaseTransparent.extend`
   display: flex;
   align-items: baseline;
-  padding: 15px 30px;
+  padding: 0 30px;
   background: ${x => (x.isOpened ? BG_SECONDARY_SPECIAL_4 : BG_TRANSPARENT)};
   border: 1px solid
     ${x => (x.isOpened ? BORDER_PRIMARY_LIGHT : BORDER_TRANSPARENT)};
@@ -93,10 +93,6 @@ const PermissionBox = BaseTransparent.extend`
   h5 span {
     color: ${x => (x.isOpened ? TEXT_PRIMARY : TEXT_DARK)};
     margin-bottom: 5px;
-  }
-
-  &:first-child {
-    padding-top: 15px;
   }
 
   &:last-child {
@@ -135,9 +131,6 @@ const Permission = ({
             <FormattedMessage id={messages.permissions[title].title.id} />
           </Span>
         </h5>
-        <Span fontSize="16" mobileFS="14">
-          <FormattedMessage id={messages.permissions[title].description.id} />
-        </Span>
       </PermissionBoxBody>
     </PermissionBox>
   );
@@ -145,6 +138,7 @@ const Permission = ({
 
 const Section = ({
   h2,
+  h3,
   blocks,
   sectionCode,
   route,
@@ -196,6 +190,14 @@ const Section = ({
       </BaseTransparent>
 
       <div className={isOpened ? 'd-block' : 'd-none'}>
+        <div
+          css={css`
+            padding: 30px 0 10px 44px;
+            font-size: 20px;
+          `}
+        >
+          {h3}
+        </div>
         <ul>
           {blocks.map(x => {
             return (

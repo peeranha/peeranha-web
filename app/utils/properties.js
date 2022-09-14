@@ -51,7 +51,12 @@ export const getModeratorPermissions = (
         h2: communityId
           ? communities.find(({ id }) => Number(id) === Number(communityId))
               ?.name || 'TestComm1'
-          : translations[messages.globalModerator.id],
+          : translations[messages.protocolAdministrator.id],
+        h3: !communityId
+          ? translations[messages.asProtocolAdministrator.id]
+          : role === COMMUNITY_ADMIN_ROLE
+            ? translations[messages.asCommunityAdministator.id]
+            : translations[messages.asCommunityModerator.id],
         sectionCode: index,
         communityId: communityId,
       };
