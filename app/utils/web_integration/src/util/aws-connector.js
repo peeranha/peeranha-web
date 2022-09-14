@@ -39,7 +39,7 @@ const NOTIFICATIONS_TIPS_SERVICE = 'notifications/tips';
 
 const SAVE_FILE_SERVICE = 'save-file';
 
-async function callService(service, props, isGet = false) {
+async function callService(service, props, isGet = false, abortSignal) {
   const url = new URL(process.env.WALLET_API_ENDPOINT + service);
 
   const auth = {};
@@ -55,6 +55,7 @@ async function callService(service, props, isGet = false) {
   }
 
   const rawResponse = await fetch(url, {
+    signal: abortSignal,
     method: isGet ? 'GET' : 'POST',
     headers: {
       Accept: 'application/json',

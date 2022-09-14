@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { css } from '@emotion/react';
 
 import PlusIcon from 'icons/Plus';
@@ -27,12 +27,20 @@ const Dropzone: React.FC<DropzoneProps> = ({
   maxImageFileSizeInBytes = 5 * 1000 * 1000,
 }): JSX.Element => {
   const [files, setFiles] = useState<Files>({});
+  const abortController = useRef(null);
 
-  const uploadImg = async (img: string) => {
+  const cancelRequest = () => {
+    abortController.current && abortController.current.abort();
+  };
+
+  const uploadImg = async (img: string, abortSignal: any) => {
     const data = img.replace(/^data:image\/\w+;base64,/, '');
     const buf = Buffer.from(data, 'base64');
 
-    const result = await saveDataIpfsS3({ content: buf, encoding: 'base64' });
+    const result = await saveDataIpfsS3(
+      { content: buf, encoding: 'base64' },
+      abortSignal,
+    );
 
     const imgUrl = getFileUrl(result.body.cid);
     return { imgUrl };
@@ -48,7 +56,9 @@ const Dropzone: React.FC<DropzoneProps> = ({
       },
     });
 
-    uploadImg(reader.result)
+    abortController.current = new AbortController();
+
+    uploadImg(reader.result, abortController.current.signal)
       .then(res => {
         setMediaLinks([`![](${res.imgUrl})`]);
         files[fileName] = {
@@ -135,6 +145,7 @@ const Dropzone: React.FC<DropzoneProps> = ({
         files={files}
         readAndUploadFile={readAndUploadFile}
         removeFile={removeFile}
+        cancelRequest={cancelRequest}
       />
       <p className="fz12" css={css(styles.restrictionsText)}>
         Image (jpeg, jpg, png, and gif image formats. Max file size 5Mb). Video

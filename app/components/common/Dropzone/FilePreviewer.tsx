@@ -20,6 +20,7 @@ type FilePreviewerProps = {
   fileName: string;
   readAndUploadFile: (file: File, fileName: string) => void;
   removeFile: (fileName: string) => void;
+  cancelRequest: () => void;
 };
 
 const FilePreviewer: React.FC<FilePreviewerProps> = ({
@@ -31,6 +32,7 @@ const FilePreviewer: React.FC<FilePreviewerProps> = ({
   fileName,
   readAndUploadFile,
   removeFile,
+  cancelRequest,
 }): JSX.Element => {
   const [isShown, setIsShown] = useState<boolean>(false);
 
@@ -63,6 +65,7 @@ const FilePreviewer: React.FC<FilePreviewerProps> = ({
             circleFill="rgba(118, 153, 255, 0.2)"
             fillOpacity="1"
             stroke="rgb(87, 111, 237)"
+            onClick={() => cancelRequest()}
           />
         )}
         {isUploaded && (

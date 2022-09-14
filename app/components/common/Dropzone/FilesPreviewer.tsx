@@ -8,12 +8,14 @@ type FilesPreviewerProps = {
   files: Files;
   readAndUploadFile: (file: File, fileName: string) => void;
   removeFile: (fileName: string) => void;
+  cancelRequest: () => void;
 };
 
 const FilesPreviewer: React.FC<FilesPreviewerProps> = ({
   files,
   readAndUploadFile,
   removeFile,
+  cancelRequest,
 }): JSX.Element => (
   <ScrollContainer className="mb12">
     <div className="df mb4">
@@ -30,6 +32,7 @@ const FilesPreviewer: React.FC<FilesPreviewerProps> = ({
             fileName={fileName}
             readAndUploadFile={readAndUploadFile}
             removeFile={removeFile}
+            cancelRequest={cancelRequest}
           />
         );
       })}
