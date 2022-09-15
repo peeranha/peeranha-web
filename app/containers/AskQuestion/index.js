@@ -39,7 +39,7 @@ import { getAvailableBalance } from 'utils/profileManagement';
 import AskQuestionPopup from './AskQuestionPopup';
 
 export const AskQuestion = ({
-  match: { path },
+  match: { path, url },
   locale,
   askQuestionLoading,
   communities,
@@ -65,7 +65,16 @@ export const AskQuestion = ({
     () => Math.floor(availableBalance / PROMOTE_HOUR_COST),
     [availableBalance],
   );
+  const urlArray = url.split('/');
+  let parentId = urlArray[2];
   const isDocumentation = path.split('/')[1] === 'documentation';
+
+  let formTitle;
+  if (isDocumentation) {
+    formTitle = !isNaN(parentId) ? 'New sub-article' : 'New article';
+  } else {
+    formTitle = translationMessages[locale][messages.title.id];
+  }
   return (
     <div>
       <AskQuestionPopup />
@@ -83,11 +92,7 @@ export const AskQuestion = ({
         valueHasToBeLessThan={availableBalance}
         maxPromotingHours={maxPromotingHours}
         form={ASK_QUESTION_FORM}
-        formTitle={
-          isDocumentation
-            ? 'New article'
-            : translationMessages[locale][messages.title.id]
-        }
+        formTitle={formTitle}
         submitButtonId={POST_QUESTION_BUTTON}
         submitButtonName={translationMessages[locale][messages.postQuestion.id]}
         getQuestions={getQuestionsDispatchDebounced}
@@ -100,6 +105,7 @@ export const AskQuestion = ({
         isFailed={isFailed}
         documentationMenu={documentationMenu}
         isDocumentation={isDocumentation}
+        parentId={parentId}
       />
     </div>
   );

@@ -116,6 +116,7 @@ export const QuestionForm = ({
   isFailed,
   isDocumentation,
   documentationMenu,
+  parentId,
 }) => {
   const [isSelectedType, setIsSelectedType] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -208,7 +209,7 @@ export const QuestionForm = ({
                 disableCommForm={disableCommForm}
               />
 
-              {Boolean(!question && isDocumentation) && (
+              {Boolean(!question && isDocumentation && isNaN(parentId)) && (
                 <SubArticleForm
                   intl={intl}
                   locale={locale}
@@ -260,7 +261,11 @@ export const QuestionForm = ({
                     </>
                   ))}
 
-              <TitleForm intl={intl} questionLoading={questionLoading} />
+              <TitleForm
+                intl={intl}
+                questionLoading={questionLoading}
+                isDocumentation={isDocumentation}
+              />
 
               {formValues[FORM_TITLE] &&
                 formValues[FORM_TITLE].length >= 3 &&
@@ -373,10 +378,7 @@ const FormClone = reduxForm({
 export default memo(
   injectIntl(
     connect(
-      (
-        state,
-        { question, form: formName, communities, documentationMenu, path },
-      ) => {
+      (state, { question, form: formName, communities, parentId, path }) => {
         const isDocumentation = path.split('/')[1] === 'documentation';
         const values = state.toJS().form[formName]?.values[FORM_COMMUNITY];
         const integerProperties = values?.integer_properties ?? [];
@@ -433,6 +435,9 @@ export default memo(
                   ...(isDocumentation
                     ? {
                         [FORM_TYPE]: POST_TYPE.documentation,
+                        [FORM_SUB_ARTICLE]: parentId
+                          ? { label: '', value: parentId }
+                          : undefined,
                       }
                     : {}),
                 }

@@ -37,7 +37,6 @@ export const Aside = styled.aside`
       : `
     width: ${LEFT_MENU_WIDTH}px;
     min-width: ${LEFT_MENU_WIDTH}px;
-    margin-top: 30px;
     margin-right: 17px;
   `};
 `;

@@ -30,16 +30,6 @@ const SubArticleForm: React.FC<SubArticleFormProps> = ({
   isDocumentation,
   documentationMenu,
 }) => {
-  const options = documentationMenu.reduce(
-    (acc: Array<any>, documentationSection) => {
-      return [
-        ...acc,
-        documentationSection,
-        ...(documentationSection.children || []),
-      ];
-    },
-    [],
-  );
   return (
     <Field
       className={!isDocumentation ? 'd-none' : ''}
@@ -47,9 +37,9 @@ const SubArticleForm: React.FC<SubArticleFormProps> = ({
       component={SubArticleField}
       locale={locale}
       label={intl.formatMessage(messages.rootLabel)}
-      options={options.map(doc => ({
-        label: doc.title,
-        value: Number(doc.id),
+      options={documentationMenu.map(documentationSection => ({
+        label: documentationSection.title,
+        value: Number(documentationSection.id),
       }))}
       validate={[requiredForObjectField]}
       warn={[requiredForObjectField]}

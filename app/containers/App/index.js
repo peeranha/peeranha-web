@@ -345,6 +345,11 @@ const App = ({
           />
 
           <Route
+            path={routes.documentationCreate(':parentId')}
+            render={props => Wrapper(AskQuestion, props)}
+          />
+
+          <Route
             path={routes.documentationCreate()}
             render={props => Wrapper(AskQuestion, props)}
           />

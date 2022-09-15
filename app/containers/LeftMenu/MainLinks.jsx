@@ -143,6 +143,7 @@ const A1 = A.extend`
 `;
 
 const Box = styled.div`
+  margin-top: 30px;
   margin-bottom: ${({ currClientHeight }) => {
     if (
       communityStyles.withoutAdditionalLinks ||
@@ -163,6 +164,7 @@ const DocumentationDropdown = ({
   redirectToPostDocumentationPage,
   deleteQuestion,
   dropdownController,
+  level,
 }) => {
   const [showDropdown, setShowDropdown] = useState(false);
   return (
@@ -202,30 +204,21 @@ const DocumentationDropdown = ({
           display: ${showDropdown ? 'block' : 'none'};
         `}
       >
-        <div
-          id={`redirect-to-create-documentation-${id}`}
-          css={css(styles.dropdownMenuItem)}
-          onClick={event => {
-            redirectToPostDocumentationPage(event, true);
-            setShowDropdown(false);
-            event.preventDefault();
-            event.stopPropagation();
-          }}
-        >
-          Add new article
-        </div>
-        <div
-          id={`redirect-to-create-sub-documentation-${id}`}
-          css={css(styles.dropdownMenuItem)}
-          onClick={event => {
-            redirectToPostDocumentationPage(event, true);
-            setShowDropdown(false);
-            event.preventDefault();
-            event.stopPropagation();
-          }}
-        >
-          Add a new sub-article
-        </div>
+        {Boolean(level < 3) && (
+          <div
+            id={`redirect-to-create-sub-documentation-${id}`}
+            css={css(styles.dropdownMenuItem)}
+            onClick={event => {
+              //
+              redirectToPostDocumentationPage(event, true, id);
+              setShowDropdown(false);
+              event.preventDefault();
+              event.stopPropagation();
+            }}
+          >
+            Add a new sub-article
+          </div>
+        )}
         <div
           id={`redirect-to-edit-documentation-${id}`}
           css={css(styles.dropdownMenuItem)}
@@ -266,6 +259,7 @@ const DocumentationDropdown = ({
 };
 
 const DocumentationMenu = ({
+  level,
   menu,
   padding,
   path,
@@ -275,6 +269,7 @@ const DocumentationMenu = ({
   redirectToPostDocumentationPage,
   deleteQuestion,
   dropdownController,
+  isModeratorModeSingleCommunity,
 }) => {
   const [visibleSection, setVisibleSection] = useState(false);
 
@@ -320,13 +315,18 @@ const DocumentationMenu = ({
         >
           <div>{menu.title}</div>
           <div className="df">
-            <DocumentationDropdown
-              id={menu.id}
-              redirectToEditQuestionPage={redirectToEditQuestionPage}
-              redirectToPostDocumentationPage={redirectToPostDocumentationPage}
-              deleteQuestion={deleteQuestion}
-              dropdownController={dropdownController}
-            />
+            {Boolean(isModeratorModeSingleCommunity) && (
+              <DocumentationDropdown
+                id={menu.id}
+                redirectToEditQuestionPage={redirectToEditQuestionPage}
+                redirectToPostDocumentationPage={
+                  redirectToPostDocumentationPage
+                }
+                deleteQuestion={deleteQuestion}
+                dropdownController={dropdownController}
+                level={level}
+              />
+            )}
 
             <Icon
               className="mr-3"
@@ -347,6 +347,7 @@ const DocumentationMenu = ({
           <div>
             {menu?.children.map(children => (
               <DocumentationMenu
+                level={level + 1}
                 menu={children}
                 padding={padding + DOCUMENTATION_PADDING}
                 path={[...path, menu.id]}
@@ -358,6 +359,7 @@ const DocumentationMenu = ({
                 }
                 deleteQuestion={deleteQuestion}
                 dropdownController={dropdownController}
+                isModeratorModeSingleCommunity={isModeratorModeSingleCommunity}
               />
             ))}
           </div>
@@ -384,13 +386,16 @@ const DocumentationMenu = ({
         >
           <div>{menu.title}</div>
 
-          <DocumentationDropdown
-            id={menu.id}
-            redirectToEditQuestionPage={redirectToEditQuestionPage}
-            redirectToPostDocumentationPage={redirectToPostDocumentationPage}
-            deleteQuestion={deleteQuestion}
-            dropdownController={dropdownController}
-          />
+          {Boolean(isModeratorModeSingleCommunity) && (
+            <DocumentationDropdown
+              id={menu.id}
+              redirectToEditQuestionPage={redirectToEditQuestionPage}
+              redirectToPostDocumentationPage={redirectToPostDocumentationPage}
+              deleteQuestion={deleteQuestion}
+              dropdownController={dropdownController}
+              level={level}
+            />
+          )}
         </A1>
       </div>
     );
@@ -575,6 +580,7 @@ const MainLinks = ({
               {Boolean(documentationMenu) &&
                 documentationMenu.map(documentationSection => (
                   <DocumentationMenu
+                    level={1}
                     menu={documentationSection}
                     padding={DOCUMENTATION_PADDING}
                     allMenu={documentationMenu}
@@ -590,6 +596,9 @@ const MainLinks = ({
                       showOtherDropdown,
                       changeFocusedDropdown,
                     ]}
+                    isModeratorModeSingleCommunity={
+                      isModeratorModeSingleCommunity
+                    }
                   />
                 ))}
             </div>
