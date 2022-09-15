@@ -329,11 +329,11 @@
   "app.containers.Faq.title": "FAQ",
   "app.containers.Faq.description": "FAQ: description",
   "app.containers.Faq.faq": "Frequently asked questions",
-
-  "app.containers.Moderation.title": "Moderator permissions",
   "app.common.protocolAdministrator": "Protocol Administrator permissions",
+  "app.common.communityModerator": "Community Moderator permissions",
+  "app.common.communityAdministrator": "Community Administrator permissions",
   "app.common.asProtocolAdministrator": "As a Protocol Administrator, you can:",
-  "app.common.asCommunityAdministator":
+  "app.common.asCommunityAdministrator":
     "As a Community Administrator, you can:",
   "app.common.asCommunityModerator": "As a Community Moderator, you can:",
 

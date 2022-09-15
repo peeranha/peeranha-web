@@ -98,7 +98,4 @@ export default defineMessages({
       },
     },
   },
-  title: {
-    id: 'app.containers.Moderation.title',
-  },
 });

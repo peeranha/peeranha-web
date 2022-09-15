@@ -330,12 +330,17 @@
   "app.containers.Faq.title": "ЧАВО",
   "app.containers.Faq.description": "ЧАВО: описание",
   "app.containers.Faq.faq": "Часто задаваемые вопросы",
+  "app.containers.Moderation.titleProtocolAdministrator":
+    "Права протокольного администратора",
+  "app.containers.Moderation.titleCommunityModerator":
+    "Права модератора сообщества",
+  "app.containers.Moderation.titleCommunityAdministrator":
+    "Права администратора сообщества",
 
-  "app.containers.Moderation.title": "Права модератора",
   "app.common.protocolAdministrator": "Права протокольного администратора",
   "app.common.asProtocolAdministrator":
     "Как администратор протокола вы можете:",
-  "app.common.asCommunityAdministator":
+  "app.common.asCommunityAdministrator":
     "Как администратор сообщества вы можете:",
   "app.common.asCommunityModerator": "Как модератор сообщества вы можете:",
 
