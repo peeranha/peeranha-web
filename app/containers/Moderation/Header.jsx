@@ -5,14 +5,10 @@ import commonMessages from 'common-messages';
 import H3 from 'components/H3';
 import Wrapper from 'components/Header/Simple';
 
-import messages from './messages';
-
-const Header = () => (
+const Header = ({ title }) => (
   <Wrapper className="mb-to-sm-0 mb-from-sm-3">
     <H3>
-      <span className="d-none d-md-inline-block">
-        <FormattedMessage id={messages.title.id} />
-      </span>
+      <span className="d-none d-md-inline-block">{title}</span>
 
       <span className="d-inline-block d-md-none">
         <FormattedMessage id={commonMessages.moderationHeader.id} />
