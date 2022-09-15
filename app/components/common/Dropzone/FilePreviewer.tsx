@@ -17,10 +17,15 @@ type FilePreviewerProps = {
   isUploading: boolean;
   isUploaded: boolean;
   isFailedUpload: boolean;
+  abortController: AbortController;
   fileName: string;
-  readAndUploadFile: (file: File, fileName: string) => void;
+  readAndUploadFile: (
+    file: File,
+    fileName: string,
+    abortController: AbortController,
+  ) => void;
   removeFile: (fileName: string) => void;
-  cancelRequest: () => void;
+  cancelUpload: (abortController: AbortController) => void;
 };
 
 const FilePreviewer: React.FC<FilePreviewerProps> = ({
@@ -29,10 +34,11 @@ const FilePreviewer: React.FC<FilePreviewerProps> = ({
   isUploading,
   isUploaded,
   isFailedUpload,
+  abortController,
   fileName,
   readAndUploadFile,
   removeFile,
-  cancelRequest,
+  cancelUpload,
 }): JSX.Element => {
   const [isShown, setIsShown] = useState<boolean>(false);
 
@@ -40,12 +46,21 @@ const FilePreviewer: React.FC<FilePreviewerProps> = ({
     navigator.clipboard.writeText(fileUrl);
   };
 
+  const cancelFileUpload = () => {
+    cancelUpload(abortController);
+  };
+  const uploadFileAgain = () =>
+    readAndUploadFile(file, fileName, abortController);
+  const deleteFile = () => removeFile(fileName);
+  const showCenterIcons = () => setIsShown(true);
+  const hideCenterIcons = () => setIsShown(false);
+
   return (
     <div
       className="mr12 pr df jcc aic cup"
       css={css(styles.filePreviewContainer)}
-      onMouseOver={() => setIsShown(true)}
-      onMouseLeave={() => setIsShown(false)}
+      onMouseOver={showCenterIcons}
+      onMouseLeave={hideCenterIcons}
     >
       <img
         src={URL.createObjectURL(file)}
@@ -65,7 +80,7 @@ const FilePreviewer: React.FC<FilePreviewerProps> = ({
             circleFill="rgba(118, 153, 255, 0.2)"
             fillOpacity="1"
             stroke="rgb(87, 111, 237)"
-            onClick={() => cancelRequest()}
+            onClick={cancelFileUpload}
           />
         )}
         {isUploaded && (
@@ -75,7 +90,7 @@ const FilePreviewer: React.FC<FilePreviewerProps> = ({
           <ReloadRoundedIcon
             fill="rgb(87, 111, 237)"
             stroke="rgb(87, 111, 237)"
-            onClick={() => readAndUploadFile(file, fileName)}
+            onClick={uploadFileAgain}
           />
         )}
       </div>
@@ -93,7 +108,7 @@ const FilePreviewer: React.FC<FilePreviewerProps> = ({
           !isFailedUpload && (
             <>
               <AreYouSure
-                submitAction={() => removeFile(fileName)}
+                submitAction={deleteFile}
                 Button={({ onClick }) => (
                   <span
                     className="mr16 df aic jcc"

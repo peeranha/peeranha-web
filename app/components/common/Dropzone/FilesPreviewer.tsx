@@ -6,16 +6,20 @@ import ScrollContainer from '../../../containers/ScrollContainer';
 
 type FilesPreviewerProps = {
   files: Files;
-  readAndUploadFile: (file: File, fileName: string) => void;
+  readAndUploadFile: (
+    file: File,
+    fileName: string,
+    abortController: AbortController,
+  ) => void;
   removeFile: (fileName: string) => void;
-  cancelRequest: () => void;
+  cancelUpload: (abortController: AbortController) => void;
 };
 
 const FilesPreviewer: React.FC<FilesPreviewerProps> = ({
   files,
   readAndUploadFile,
   removeFile,
-  cancelRequest,
+  cancelUpload,
 }): JSX.Element => (
   <ScrollContainer className="mb12">
     <div className="df mb4">
@@ -29,10 +33,11 @@ const FilesPreviewer: React.FC<FilesPreviewerProps> = ({
             isUploading={fileData.isUploading}
             isUploaded={fileData.isUploaded}
             isFailedUpload={fileData.isFailedUpload}
+            abortController={fileData.abortController}
             fileName={fileName}
             readAndUploadFile={readAndUploadFile}
             removeFile={removeFile}
-            cancelRequest={cancelRequest}
+            cancelUpload={cancelUpload}
           />
         );
       })}

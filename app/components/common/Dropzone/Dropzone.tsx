@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { css } from '@emotion/react';
 
 import PlusIcon from 'icons/Plus';
@@ -20,6 +20,7 @@ type SingleFile = {
   isUploading: boolean;
   isUploaded: boolean;
   isFailedUpload: boolean;
+  abortController: AbortController;
 };
 
 const Dropzone: React.FC<DropzoneProps> = ({
@@ -27,26 +28,37 @@ const Dropzone: React.FC<DropzoneProps> = ({
   maxImageFileSizeInBytes = 5 * 1000 * 1000,
 }): JSX.Element => {
   const [files, setFiles] = useState<Files>({});
-  const abortController = useRef(null);
 
-  const cancelRequest = () => {
-    abortController.current && abortController.current.abort();
+  const removeFile = (fileName: string) => {
+    delete files[fileName];
+    setFiles({ ...files });
   };
 
-  const uploadImg = async (img: string, abortSignal: any) => {
+  const cancelUpload = (abortController: AbortController) => {
+    abortController.abort();
+  };
+
+  const uploadImg = async (
+    img: string | ArrayBuffer | null,
+    signal: AbortSignal,
+  ) => {
     const data = img.replace(/^data:image\/\w+;base64,/, '');
     const buf = Buffer.from(data, 'base64');
 
     const result = await saveDataIpfsS3(
       { content: buf, encoding: 'base64' },
-      abortSignal,
+      signal,
     );
 
     const imgUrl = getFileUrl(result.body.cid);
     return { imgUrl };
   };
 
-  const uploadFile = (reader: FileReader, fileName: string) => {
+  const uploadFile = (
+    reader: FileReader,
+    fileName: string,
+    abortController: AbortController,
+  ) => {
     setFiles({
       ...files,
       [fileName]: {
@@ -56,9 +68,7 @@ const Dropzone: React.FC<DropzoneProps> = ({
       },
     });
 
-    abortController.current = new AbortController();
-
-    uploadImg(reader.result, abortController.current.signal)
+    uploadImg(reader.result, abortController.signal)
       .then(res => {
         setMediaLinks([`![](${res.imgUrl})`]);
         files[fileName] = {
@@ -71,23 +81,31 @@ const Dropzone: React.FC<DropzoneProps> = ({
           ...files,
         });
       })
-      .catch(() => {
-        setFiles({
-          ...files,
-          [fileName]: {
-            ...files[fileName],
-            isUploading: false,
-            isFailedUpload: true,
-          },
-        });
+      .catch(e => {
+        if (e.name === 'AbortError') {
+          removeFile(fileName);
+        } else {
+          setFiles({
+            ...files,
+            [fileName]: {
+              ...files[fileName],
+              isUploading: false,
+              isFailedUpload: true,
+            },
+          });
+        }
       });
   };
 
-  const readAndUploadFile = (file: File, fileName: string) => {
+  const readAndUploadFile = (
+    file: File,
+    fileName: string,
+    abortController: AbortController,
+  ) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = async () => {
-      uploadFile(reader, fileName);
+      uploadFile(reader, fileName, abortController);
     };
   };
 
@@ -96,25 +114,24 @@ const Dropzone: React.FC<DropzoneProps> = ({
     if (newFiles) {
       for (let i = 0; i < newFiles.length; i++) {
         if (newFiles[i].size < maxImageFileSizeInBytes) {
+          const abortController = new AbortController();
+
           files[newFiles[i].name] = {
             file: newFiles[i],
             fileUrl: '',
             isUploading: true,
             isUploaded: false,
             isFailedUpload: false,
+            abortController,
           };
           setFiles({
             ...files,
           });
-          readAndUploadFile(newFiles[i], newFiles[i].name);
+
+          readAndUploadFile(newFiles[i], newFiles[i].name, abortController);
         }
       }
     }
-  };
-
-  const removeFile = (fileName: string) => {
-    delete files[fileName];
-    setFiles({ ...files });
   };
 
   return (
@@ -145,7 +162,7 @@ const Dropzone: React.FC<DropzoneProps> = ({
         files={files}
         readAndUploadFile={readAndUploadFile}
         removeFile={removeFile}
-        cancelRequest={cancelRequest}
+        cancelUpload={cancelUpload}
       />
       <p className="fz12" css={css(styles.restrictionsText)}>
         Image (jpeg, jpg, png, and gif image formats. Max file size 5Mb). Video
