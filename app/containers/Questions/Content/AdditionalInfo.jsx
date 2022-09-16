@@ -70,8 +70,10 @@ const Div = Base.extend`
     width: auto;
 
     border-bottom: 1px solid ${BORDER_SECONDARY};
-    &:not(:last-child) {
-      border-right: 1px solid ${BORDER_SECONDARY};
+    border-right: 1px solid ${BORDER_SECONDARY};
+
+    :last-child {
+      border-right: none;
     }
   }
 

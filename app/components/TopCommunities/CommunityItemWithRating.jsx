@@ -13,6 +13,7 @@ import AStyled from './AStyled';
 import ADefaultStyled from './ADefaultStyled';
 import FrontSide from './FrontSide';
 import BackSide from './BackSide';
+import { customRatingIconColors } from 'constants/customRating';
 
 const CommunityItemWithRating = ({
   communities,
@@ -63,6 +64,7 @@ const CommunityItemWithRating = ({
                 size="lg"
                 rating={rating}
                 isRankOff={false}
+                customRatingIconColors={customRatingIconColors}
               />
             </div>
           </div>

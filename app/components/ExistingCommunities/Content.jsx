@@ -13,6 +13,7 @@ import {
   getPermissions,
   hasCommunityModeratorRole,
   hasGlobalModeratorRole,
+  hasCommunityAdminRole,
 } from 'utils/properties';
 import { getFormattedNum2 } from 'utils/numbers';
 import { getDifferenceInDate } from 'utils/datetime';
@@ -156,33 +157,37 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
                 </DescriptionBlock>
 
                 <InfoBlock className="flex-wrap flex-sm-nowrap">
-                  <Info>
-                    <SpanCenter>
-                      {getFormattedNum2(x.followingUsers)}
-                    </SpanCenter>
-                    <P>
-                      <FormattedMessage {...commonMessages.usersShort} />
-                    </P>
-                  </Info>
+                  {(communityEditingAllowed ||
+                    hasCommunityModeratorRole(getPermissions(profile), value) ||
+                    hasCommunityAdminRole(getPermissions(profile), value)) && (
+                    <Info>
+                      <SpanCenter>
+                        {getFormattedNum2(x.followingUsers)}
+                      </SpanCenter>
+                      <P>
+                        <FormattedMessage id={commonMessages.usersShort.id} />
+                      </P>
+                    </Info>
+                  )}
 
                   <Info>
                     <SpanCenter>{getFormattedNum2(x.postCount)}</SpanCenter>
                     <P>
-                      <FormattedMessage {...commonMessages.posts} />
+                      <FormattedMessage id={commonMessages.posts.id} />
                     </P>
                   </Info>
 
                   <Info>
                     <SpanCenter>{getFormattedNum2(x.replyCount)}</SpanCenter>
                     <P>
-                      <FormattedMessage {...commonMessages.answers} />
+                      <FormattedMessage id={commonMessages.answers.id} />
                     </P>
                   </Info>
 
                   <Info>
                     <SpanCenter>{getFormattedNum2(tags?.length)}</SpanCenter>
                     <A to={routes.communityTags(id)}>
-                      <FormattedMessage {...commonMessages.tags} />
+                      <FormattedMessage id={commonMessages.tags.id} />
                     </A>
                   </Info>
 
@@ -191,7 +196,7 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
                       {getDifferenceInDate(x.creationTime, locale)}
                     </SpanCenter>
                     <SpanCenter>
-                      <FormattedMessage {...commonMessages.age} />
+                      <FormattedMessage id={commonMessages.age.id} />
                     </SpanCenter>
                   </Info>
 
@@ -206,7 +211,7 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
                           createdHistory.push(routes.communitiesEdit(id))
                         }
                       >
-                        <FormattedMessage {...commonMessages.edit} />
+                        <FormattedMessage id={commonMessages.edit.id} />
                       </InfoButton>
                     )}
                     <FollowCommunityButton communityIdFilter={id} />

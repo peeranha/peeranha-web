@@ -106,6 +106,7 @@ export const getUsersQuestions = async (id, limit, offset) => {
       limit,
       offset,
     },
+    fetchPolicy: 'network-only',
   });
   return questions?.data.posts.map(question => ({ ...question }));
 };
@@ -195,6 +196,7 @@ export const getPostsByCommunityId = async (
       skip,
       postTypes,
     },
+    fetchPolicy: 'network-only',
   });
 
   return posts?.data.posts.map(rawPost => {

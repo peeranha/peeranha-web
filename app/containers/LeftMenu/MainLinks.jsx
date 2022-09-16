@@ -164,7 +164,7 @@ const MainLinks = ({
 
   const singleCommId = +isSingleCommunityWebsite();
   const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
-  const isModeratorModeSingleCommunity = !!singleCommId
+  const isModeratorModeSingleCommunity = Boolean(singleCommId)
     ? hasCommunityAdminRole(getPermissions(profile), singleCommId) ||
       hasCommunityModeratorRole(getPermissions(profile), singleCommId)
     : false;

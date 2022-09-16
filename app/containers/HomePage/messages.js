@@ -262,4 +262,7 @@ export default defineMessages({
   goToSite: {
     id: 'app.containers.HomePage.goToSite',
   },
+  goToApp: {
+    id: 'app.containers.HomePage.goToApp',
+  },
 });
