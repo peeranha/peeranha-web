@@ -3,7 +3,7 @@ import { getDocumentationError, getDocumentationSuccess } from './actions';
 import { GET_DOCUMENTATION } from './constants';
 
 import { getCommunityDocumentation } from 'utils/theGraph';
-import { selectDocumentation } from 'containers/Documentation/selectors';
+import { selectDocumentation } from 'containers/DocumentationPage/selectors';
 
 type DocumentationSection = {
   id: number;
@@ -27,6 +27,8 @@ export function* getDocumentationSectionWorker(props: {
     ) {
       yield put(getDocumentationSuccess());
     } else {
+      //Rewrite after documentation architecture change
+      //Will need to get content from ipfs
       const documentationSection = yield call(
         getCommunityDocumentation,
         props.section,

@@ -120,7 +120,7 @@ View.propTypes = {
   balance: PropTypes.number,
   stakedInCurrentPeriod: PropTypes.number,
   stakedInNextPeriod: PropTypes.number,
-  boost: PropTypes.object,
+  boost: PropTypes.number,
   isMenuVisible: PropTypes.bool,
   showLoginModal: PropTypes.func,
 };

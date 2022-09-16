@@ -7,12 +7,7 @@ import { FORM_SUB_ARTICLE } from './constants';
 
 import messages from './messages';
 import SubArticleField from 'components/FormFields/SubArticleField';
-
-export type DocumentationSection = {
-  id: string;
-  title: string;
-  children: Array<DocumentationSection>;
-};
+import { DocumentationSection } from 'containers/DocumentationPage/types';
 
 type SubArticleFormProps = {
   questionLoading: boolean;

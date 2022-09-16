@@ -9,7 +9,7 @@ import {
 } from 'utils/theGraph';
 import { GET_DOCUMENTATION_MENU } from 'containers/AppWrapper/constants';
 import { ASK_QUESTION_SUCCESS } from 'containers/AskQuestion/constants';
-import { DocumentationSection } from 'components/QuestionForm/SubArticleForm';
+import { DocumentationSection } from 'containers/DocumentationPage/types';
 
 type CommunityDocumentationMenu = {
   documentationJSON: string;
@@ -26,6 +26,8 @@ export function* getDocumentationMenuWorker(props: {
     const pinnedPost = documentationMenu.pinnedPost;
     pinnedPost.children = [];
 
+    //Documentation tree to ids array
+    //Remove after documentation architecture change
     const documentationTraversal = (
       documentationArray: Array<DocumentationSection>,
     ): any => {
@@ -41,9 +43,10 @@ export function* getDocumentationMenuWorker(props: {
       );
     };
 
-    //Documentation type questions not included in the menu
+    //DocumentationPage type questions not included in the menu
     //Remove after documentation architecture change
     const menuIds = documentationTraversal(documentationMenu.documentations);
+    // @ts-ignore
     const documentationNotIncluded: Array<{
       id: string;
       title: string;

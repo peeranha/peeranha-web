@@ -132,7 +132,7 @@ const EditQuestion = ({
   return (
     <div>
       <Seo
-        title={helmetTitle}
+        title={helmetTitle || ''}
         description={helmetDescription || ''}
         language={locale}
         index={false}

@@ -1,10 +1,6 @@
 /* eslint indent: 0 */
-import Icon from 'components/Icon';
-import AreYouSure from 'containers/ViewQuestion/AreYouSure';
-import Button from 'containers/ViewQuestion/Button';
-import arrowDownIcon from 'images/arrowDown.svg?external';
-import dotsIcon from 'images/dots.svg?external';
-import React, { useEffect, useState } from 'react';
+import Documentation from 'containers/LeftMenu/Documentation/Documentation';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
@@ -22,8 +18,6 @@ import {
   BORDER_PRIMARY,
   BORDER_DARK,
   ICON_TRASPARENT_BLUE,
-  PEER_PRIMARY_COLOR,
-  TEXT_SECONDARY,
 } from 'style-constants';
 import { styles } from 'containers/LeftMenu/MainLinks.styled';
 
@@ -64,11 +58,10 @@ import {
 const communityStyles = singleCommunityStyles();
 const colors = singleCommunityColors();
 const fonts = singleCommunityFonts();
-const DOCUMENTATION_PADDING = 15;
 
 const customColor = colors.linkColor || BORDER_PRIMARY;
 
-const A1 = A.extend`
+export const A1 = A.extend`
   ${BasicLink};
 
   letter-spacing: 0 !important;
@@ -158,253 +151,6 @@ const Box = styled.div`
   }
 `;
 
-const MAX_NESTING_LEVEL = 3;
-
-const DocumentationDropdown = ({
-  id,
-  redirectToEditQuestionPage,
-  redirectToPostDocumentationPage,
-  deleteQuestion,
-  dropdownController,
-  level,
-}) => {
-  const [showDropdown, setShowDropdown] = useState(false);
-  return (
-    <div>
-      <div id={`dots-icon`}>
-        <Icon
-          className="mr-3 ml-2"
-          icon={dotsIcon}
-          isTransition={false}
-          width="20"
-          fill={PEER_PRIMARY_COLOR}
-          isColorImportant={true}
-          onClick={event => {
-            document.addEventListener(
-              'click',
-              function(event) {
-                const element = document.getElementById(`dropdown-menu-${id}`);
-                if (!element.contains(event.target)) setShowDropdown(false);
-              },
-              { once: true },
-            );
-            if (showDropdown === false) {
-              dropdownController[0](false);
-              dropdownController[1](() => setShowDropdown);
-            }
-            setShowDropdown(!showDropdown);
-            event.preventDefault();
-            event.stopPropagation();
-          }}
-        />
-      </div>
-      <div
-        id={`dropdown-menu-${id}`}
-        className="dropdownMenu"
-        css={css`
-          ${styles.dropdownMenu} left: 0px;
-          display: ${showDropdown ? 'block' : 'none'};
-        `}
-      >
-        {Boolean(level < MAX_NESTING_LEVEL) && (
-          <div
-            id={`redirect-to-create-sub-documentation-${id}`}
-            css={css(styles.dropdownMenuItem)}
-            onClick={event => {
-              //
-              redirectToPostDocumentationPage(event, true, id);
-              setShowDropdown(false);
-              event.preventDefault();
-              event.stopPropagation();
-            }}
-          >
-            Add a new sub-article
-          </div>
-        )}
-        <div
-          id={`redirect-to-edit-documentation-${id}`}
-          css={css(styles.dropdownMenuItem)}
-          onClick={event => {
-            redirectToEditQuestionPage(
-              {
-                currentTarget: {
-                  id: `redirect-to-edit-documentation-${id}`,
-                  dataset: {
-                    link: `/documentation/${id}/edit`,
-                  },
-                },
-              },
-              true,
-            );
-            setShowDropdown(false);
-            event.preventDefault();
-            event.stopPropagation();
-          }}
-        >
-          Edit content
-        </div>
-        {level === MAX_NESTING_LEVEL && (
-          <AreYouSure
-            submitAction={deleteQuestion.bind(null, id, true)}
-            Button={({ onClick }) => (
-              <div
-                id={`delete-documentation-${id}`}
-                css={css(styles.dropdownMenuItem)}
-                onClick={onClick}
-              >
-                Delete
-              </div>
-            )}
-          />
-        )}
-      </div>
-    </div>
-  );
-};
-
-const DocumentationMenu = ({
-  level,
-  menu,
-  padding,
-  path,
-  activeNodes,
-  setActiveNodes,
-  redirectToEditQuestionPage,
-  redirectToPostDocumentationPage,
-  deleteQuestion,
-  dropdownController,
-  isModeratorModeSingleCommunity,
-}) => {
-  const [visibleSection, setVisibleSection] = useState(false);
-
-  const { pathname } = window.location;
-  const routeArray = pathname.split('/').filter(x => x);
-  const pageRoute = routeArray[0];
-  const sectionRoute = `${routeArray[0]}/${routeArray[1]}`;
-  useEffect(
-    () => {
-      if (`documentation/${menu.id}` === sectionRoute) {
-        setActiveNodes([...path, menu.id]);
-      }
-      if (
-        pageRoute !== 'documentation' ||
-        `/${sectionRoute}` === routes.documentationCreate()
-      ) {
-        setActiveNodes([]);
-      }
-    },
-    [pathname, menu.id],
-  );
-
-  if (menu?.children.length) {
-    return (
-      <div css={css(styles.menuDocumentationItem)}>
-        <A1
-          to={routes.documentation(menu.id)}
-          name={`documentation/${menu.id}`}
-          route={sectionRoute}
-          className="df jcsb"
-          css={css`
-            padding-left: ${padding}px;
-            font-weight: ${activeNodes.includes(menu.id) ? 'bold' : 'normal'};
-            color: ${padding > DOCUMENTATION_PADDING &&
-            !activeNodes.includes(menu.id)
-              ? '#7B7B7B'
-              : '#282828'};
-            font-size: ${padding > DOCUMENTATION_PADDING ? '14px' : '16px'};
-          `}
-          onClick={() => {
-            setVisibleSection(true);
-          }}
-        >
-          <div>{menu.title}</div>
-          <div className="df">
-            {Boolean(isModeratorModeSingleCommunity) && (
-              <DocumentationDropdown
-                id={menu.id}
-                redirectToEditQuestionPage={redirectToEditQuestionPage}
-                redirectToPostDocumentationPage={
-                  redirectToPostDocumentationPage
-                }
-                deleteQuestion={deleteQuestion}
-                dropdownController={dropdownController}
-                level={level}
-              />
-            )}
-
-            <Icon
-              className="mr-3"
-              icon={arrowDownIcon}
-              width="16"
-              rotate={visibleSection}
-              fill={PEER_PRIMARY_COLOR}
-              isColorImportant={true}
-              onClick={event => {
-                setVisibleSection(!visibleSection);
-                event.preventDefault();
-                event.stopPropagation();
-              }}
-            />
-          </div>
-        </A1>
-        {visibleSection && (
-          <div>
-            {menu?.children.map(children => (
-              <DocumentationMenu
-                level={level + 1}
-                menu={children}
-                padding={padding + DOCUMENTATION_PADDING}
-                path={[...path, menu.id]}
-                activeNodes={activeNodes}
-                setActiveNodes={setActiveNodes}
-                redirectToEditQuestionPage={redirectToEditQuestionPage}
-                redirectToPostDocumentationPage={
-                  redirectToPostDocumentationPage
-                }
-                deleteQuestion={deleteQuestion}
-                dropdownController={dropdownController}
-                isModeratorModeSingleCommunity={isModeratorModeSingleCommunity}
-              />
-            ))}
-          </div>
-        )}
-      </div>
-    );
-  } else
-    return (
-      <div css={css(styles.menuDocumentationItem)}>
-        <A1
-          to={routes.documentation(menu.id)}
-          name={`documentation/${menu.id}`}
-          route={sectionRoute}
-          className="df jcsb"
-          css={css`
-            padding-left: ${padding}px;
-            font-weight: ${activeNodes.includes(menu.id) ? 'bold' : 'normal'};
-            color: ${padding > DOCUMENTATION_PADDING &&
-            !activeNodes.includes(menu.id)
-              ? '#7B7B7B'
-              : '#282828'};
-            font-size: ${padding > DOCUMENTATION_PADDING ? '14px' : '16px'};
-          `}
-        >
-          <div>{menu.title}</div>
-
-          {Boolean(isModeratorModeSingleCommunity) && (
-            <DocumentationDropdown
-              id={menu.id}
-              redirectToEditQuestionPage={redirectToEditQuestionPage}
-              redirectToPostDocumentationPage={redirectToPostDocumentationPage}
-              deleteQuestion={deleteQuestion}
-              dropdownController={dropdownController}
-              level={level}
-            />
-          )}
-        </A1>
-      </div>
-    );
-};
-
 const MainLinks = ({
   currClientHeight,
   profile,
@@ -413,12 +159,6 @@ const MainLinks = ({
   redirectToPostDocumentationPage,
   deleteQuestion,
 }) => {
-  const [activeNodes, setActiveNodes] = useState([]);
-  const [showDropdown, setShowDropdown] = useState(false);
-  const [showOtherDropdown, changeFocusedDropdown] = useState(
-    () => setShowDropdown,
-  );
-
   const { pathname } = window.location;
   let route = pathname.split('/').filter(x => x)[0];
 
@@ -511,103 +251,13 @@ const MainLinks = ({
       </div>
 
       {Boolean(singleCommId) && (
-        <>
-          <div css={css(styles.divider)} />
-
-          <div id="documentationSection" className="mt28">
-            <div className="df jcsb" css={css(styles.menuSectionTitle)}>
-              <FormattedMessage {...messages.documentation} />
-              {Boolean(isModeratorModeSingleCommunity) && (
-                <div
-                  css={css`
-                    #dots-icon {
-                      visibility: hidden;
-                    }
-                    :hover #dots-icon {
-                      visibility: visible;
-                    }
-                  `}
-                >
-                  <div id="dots-icon">
-                    <Icon
-                      className="mr-3 ml-2"
-                      icon={dotsIcon}
-                      width="20"
-                      fill={PEER_PRIMARY_COLOR}
-                      isColorImportant={true}
-                      onClick={event => {
-                        document.addEventListener(
-                          'click',
-                          function(event) {
-                            const element = document.getElementById(
-                              `dropdown-menu`,
-                            );
-                            if (!element.contains(event.target))
-                              setShowDropdown(false);
-                          },
-                          { once: true },
-                        );
-                        if (showDropdown === false) {
-                          showOtherDropdown(false);
-                          changeFocusedDropdown(() => setShowDropdown);
-                        }
-                        setShowDropdown(!showDropdown);
-                        event.preventDefault();
-                        event.stopPropagation();
-                      }}
-                    />
-                  </div>
-                  <div
-                    className="dropdownMenu"
-                    id="dropdown-menu"
-                    css={css`
-                      ${styles.dropdownMenu} left: 0px;
-                      display: ${showDropdown ? 'block' : 'none'};
-                    `}
-                  >
-                    <div
-                      css={css(styles.dropdownMenuItem)}
-                      onClick={event => {
-                        redirectToPostDocumentationPage(event, true);
-                        setShowDropdown(false);
-                      }}
-                    >
-                      Add new article
-                    </div>
-                    <div css={css(styles.dropdownMenuItem)}>Edit order</div>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            <div>
-              {Boolean(documentationMenu) &&
-                documentationMenu.map(documentationSection => (
-                  <DocumentationMenu
-                    level={1}
-                    menu={documentationSection}
-                    padding={DOCUMENTATION_PADDING}
-                    allMenu={documentationMenu}
-                    path={[]}
-                    activeNodes={activeNodes}
-                    setActiveNodes={setActiveNodes}
-                    redirectToEditQuestionPage={redirectToEditQuestionPage}
-                    redirectToPostDocumentationPage={
-                      redirectToPostDocumentationPage
-                    }
-                    deleteQuestion={deleteQuestion}
-                    dropdownController={[
-                      showOtherDropdown,
-                      changeFocusedDropdown,
-                    ]}
-                    isModeratorModeSingleCommunity={
-                      isModeratorModeSingleCommunity
-                    }
-                  />
-                ))}
-            </div>
-          </div>
-        </>
+        <Documentation
+          documentationMenu={documentationMenu}
+          isModeratorModeSingleCommunity={isModeratorModeSingleCommunity}
+          redirectToPostDocumentationPage={redirectToPostDocumentationPage}
+          redirectToEditQuestionPage={redirectToEditQuestionPage}
+          deleteQuestion={deleteQuestion}
+        />
       )}
     </Box>
   );

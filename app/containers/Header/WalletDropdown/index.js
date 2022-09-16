@@ -127,7 +127,7 @@ Menu.propTypes = {
 WalletDropdown.propTypes = {
   user: PropTypes.string,
   balance: PropTypes.number,
-  boost: PropTypes.object,
+  boost: PropTypes.number,
   locale: PropTypes.string,
   getWeekStatDispatch: PropTypes.func,
   rewardsWeeksNumber: PropTypes.number,

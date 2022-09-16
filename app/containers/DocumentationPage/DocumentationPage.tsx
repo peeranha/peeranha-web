@@ -1,15 +1,11 @@
-/**
- *
- * Faq
- *
- */
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 import { redirectToEditQuestionPage } from 'containers/EditQuestion/actions';
-import { getDocumentation } from 'containers/Documentation/actions';
-import reducer from 'containers/Documentation/reducer';
-import saga from 'containers/Documentation/saga';
-import { selectDocumentation } from 'containers/Documentation/selectors';
+import { getDocumentation } from 'containers/DocumentationPage/actions';
+import reducer from 'containers/DocumentationPage/reducer';
+import saga from 'containers/DocumentationPage/saga';
+import { selectDocumentation } from 'containers/DocumentationPage/selectors';
 import React, { useEffect } from 'react';
+// @ts-ignore
 import { connect } from 'react-redux';
 import { AnyAction, bindActionCreators, compose, Dispatch } from 'redux';
 import { createStructuredSelector } from 'reselect';
@@ -22,46 +18,28 @@ import injectSaga from 'utils/injectSaga';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { css } from '@emotion/react';
 
-import Base from 'components/Base/BaseRoundedNoPadding';
 import TextBlock from 'components/FormFields/TextBlock';
-import commonMessages from 'common-messages';
 import * as routes from 'routes-config';
-import { TEXT_PRIMARY } from 'style-constants';
 
+// @ts-ignore
 import faqPageHeader from 'images/faqPageHeader.svg?inline';
-import infoIcon from 'images/icon-information.svg?inline';
-import { FormattedMessage } from 'react-intl';
 import { MediumImageStyled } from 'components/Img/MediumImage';
 import H3 from 'components/H3';
-import Span from 'components/Span';
-import A from 'components/A';
-import Wrapper, { WrapperRightPanel } from 'components/Header/Simple';
-
-type User = {
-  id: string;
-  avatar: string;
-  displayName: string;
-  ratings: Array<{ communityId: number; rating: number }>;
-  company: string;
-  position: string;
-  location: string;
-  about: string;
-  creationTime: number;
-  achievements: Array<{ id: number }>;
-};
+import Wrapper  from 'components/Header/Simple';
+import { DocumentationSection, OutputSelector } from 'containers/DocumentationPage/types';
 
 type DocumentationProps = {
-  match: {params: {sectionId: number}};
+  match: {params: {sectionId: string}};
   getDocumentationDispatch: Function;
-  documentation: Array<{ id: number, content: string, isDeleted: boolean }> | undefined;
-  history: object;
+  documentation: Array<DocumentationSection>;
+  history: { push: Function };
 };
 
-export const Documentation: React.FC<DocumentationProps> = /* istanbul ignore next */ ({
+export const DocumentationPage: React.FC<DocumentationProps> = /* istanbul ignore next */ ({
    match,
    getDocumentationDispatch,
    documentation,
-                                                                                         history,
+   history,
  }) => {
   const single = isSingleCommunityWebsite();
 
@@ -81,7 +59,6 @@ export const Documentation: React.FC<DocumentationProps> = /* istanbul ignore ne
   }
 
   return (documentationSection && !documentationSection.isDeleted) ? (
-    // prettier-ignore
     <div css={css`flex-grow: 1`}>
       <Wrapper className="mb-to-sm-0 mb-from-sm-3">
         <H3>
@@ -103,7 +80,7 @@ export default compose(
   injectReducer({ key: 'documentationReducer', reducer }),
   injectSaga({ key: 'documentationReducer', saga, mode: DAEMON }),
   connect(
-    createStructuredSelector({
+    createStructuredSelector<any, OutputSelector>({
       locale: makeSelectLocale(),
       profileInfo: makeSelectProfileInfo(),
       documentation: selectDocumentation(),
@@ -116,4 +93,5 @@ export default compose(
       ),
     }),
   ),
-)(Documentation);
+// @ts-ignore
+)(DocumentationPage);
