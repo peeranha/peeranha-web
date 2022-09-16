@@ -158,6 +158,8 @@ const Box = styled.div`
   }
 `;
 
+const MAX_NESTING_LEVEL = 3;
+
 const DocumentationDropdown = ({
   id,
   redirectToEditQuestionPage,
@@ -204,7 +206,7 @@ const DocumentationDropdown = ({
           display: ${showDropdown ? 'block' : 'none'};
         `}
       >
-        {Boolean(level < 3) && (
+        {Boolean(level < MAX_NESTING_LEVEL) && (
           <div
             id={`redirect-to-create-sub-documentation-${id}`}
             css={css(styles.dropdownMenuItem)}
@@ -241,18 +243,20 @@ const DocumentationDropdown = ({
         >
           Edit content
         </div>
-        <AreYouSure
-          submitAction={deleteQuestion.bind(null, id, true)}
-          Button={({ onClick }) => (
-            <div
-              id={`delete-documentation-${id}`}
-              css={css(styles.dropdownMenuItem)}
-              onClick={onClick}
-            >
-              Delete
-            </div>
-          )}
-        />
+        {level === MAX_NESTING_LEVEL && (
+          <AreYouSure
+            submitAction={deleteQuestion.bind(null, id, true)}
+            Button={({ onClick }) => (
+              <div
+                id={`delete-documentation-${id}`}
+                css={css(styles.dropdownMenuItem)}
+                onClick={onClick}
+              >
+                Delete
+              </div>
+            )}
+          />
+        )}
       </div>
     </div>
   );

@@ -86,23 +86,10 @@ export const Documentation: React.FC<DocumentationProps> = /* istanbul ignore ne
       <Wrapper className="mb-to-sm-0 mb-from-sm-3">
         <H3>
           <MediumImageStyled src={faqPageHeader} alt="documentation-header" />
-
           <span className="d-none d-md-inline-block">
            {documentationSection?.title}
           </span>
-
         </H3>
-
-        <WrapperRightPanel className="right-panel">
-          <A to={routes.support()}>
-            <button>
-              <img className="mr-1" src={infoIcon} alt="x" />
-              <Span color={TEXT_PRIMARY} className="button-label">
-                <FormattedMessage {...commonMessages.support} />
-              </Span>
-            </button>
-          </A>
-        </WrapperRightPanel>
       </Wrapper>
 
       <Wrapper>

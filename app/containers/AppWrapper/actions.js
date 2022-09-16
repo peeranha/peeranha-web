@@ -25,10 +25,14 @@ export function getDocumentationMenu(communityId) {
   };
 }
 
-export function getDocumentationMenuSuccess(documentationMenu) {
+export function getDocumentationMenuSuccess(
+  documentationMenu,
+  documentationNotIncluded,
+) {
   return {
     type: GET_DOCUMENTATION_MENU_SUCCESS,
     documentationMenu,
+    documentationNotIncluded,
   };
 }
 

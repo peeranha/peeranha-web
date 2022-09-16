@@ -406,6 +406,16 @@ export const communityDocumentationQuery = `
          }
       }`;
 
+export const communityDocumentationNotIncludedQuery = `
+      query (
+        $communityId: ID!,
+        $includedIds: [String],
+      ) {
+         posts (where: {postType: 3, communityId: $communityId, isDeleted: false, id_not_in: $includedIds}) {
+           ${post}
+         }
+      }`;
+
 export const documentationMenuQuery = `
       query (
         $id: ID!

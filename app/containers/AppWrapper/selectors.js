@@ -13,4 +13,14 @@ const selectDocumentationMenu = () =>
     substate.get('documentationMenu'),
   );
 
-export { selectAppWrapperDomain, selectIsMenuVisible, selectDocumentationMenu };
+const selectDocumentationNotIncluded = () =>
+  createSelector(selectAppWrapperDomain, substate =>
+    substate.get('documentationNotIncluded'),
+  );
+
+export {
+  selectAppWrapperDomain,
+  selectIsMenuVisible,
+  selectDocumentationMenu,
+  selectDocumentationNotIncluded,
+};

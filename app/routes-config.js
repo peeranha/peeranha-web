@@ -71,6 +71,9 @@ export const getPostRoute = (postType, id, answerId = null) => {
   if (postType === POST_TYPE.expertPost) {
     return expertPostView(id, answerId);
   }
+  if (postType === POST_TYPE.documentation) {
+    return documentation(id);
+  }
   return tutorialView(id);
 };
 

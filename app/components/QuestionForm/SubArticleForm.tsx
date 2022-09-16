@@ -8,7 +8,7 @@ import { FORM_SUB_ARTICLE } from './constants';
 import messages from './messages';
 import SubArticleField from 'components/FormFields/SubArticleField';
 
-type DocumentationSection = {
+export type DocumentationSection = {
   id: string;
   title: string;
   children: Array<DocumentationSection>;

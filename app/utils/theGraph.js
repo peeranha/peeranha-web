@@ -25,6 +25,7 @@ import {
   usersQuery,
   userStatsQuery,
   usersByCommunityQuery,
+  communityDocumentationNotIncludedQuery,
 } from './ethConstants';
 
 const client = new ApolloClient({
@@ -228,12 +229,27 @@ export const getCommunityDocumentation = async id => {
   return post?.data.post;
 };
 
+export const getCommunityDocumentationNotIncluded = async (
+  communityId,
+  includedIds,
+) => {
+  const post = await client.query({
+    query: gql(communityDocumentationNotIncludedQuery),
+    variables: {
+      communityId,
+      includedIds,
+    },
+  });
+  return post?.data.posts;
+};
+
 export const getDocumentationMenu = async communityId => {
   const documentation = await client.query({
     query: gql(documentationMenuQuery),
     variables: {
       id: communityId,
     },
+    fetchPolicy: 'network-only',
   });
   return documentation?.data.communityDocumentation;
 };

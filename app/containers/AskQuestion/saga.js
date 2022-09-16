@@ -89,6 +89,7 @@ export function* postQuestionWorker({ val }) {
           ) {
             documentationSection.children.push({
               id: id.toString(),
+              title: questionData.title,
               children: [],
             });
             return {

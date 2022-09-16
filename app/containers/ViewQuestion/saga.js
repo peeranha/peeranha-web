@@ -616,10 +616,8 @@ export function* deleteQuestionWorker({
           }
         }, []);
       };
-      let newMenu;
 
-      newMenu = documentationTraversal(documentationMenu);
-
+      const newMenu = documentationTraversal(documentationMenu);
       const documentationJSON = {
         pinnedId: '',
         documentations: newMenu,

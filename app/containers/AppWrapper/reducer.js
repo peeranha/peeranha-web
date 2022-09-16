@@ -10,11 +10,17 @@ import {
 export const initialState = fromJS({
   isMenuVisible: false,
   documentationMenu: null,
+  documentationNotIncluded: null,
   documentationMenuError: null,
 });
 
 function appWrapperReducer(state = initialState, action) {
-  const { type, documentationMenu, documentationMenuError } = action;
+  const {
+    type,
+    documentationMenu,
+    documentationNotIncluded,
+    documentationMenuError,
+  } = action;
 
   switch (type) {
     case SHOW_LEFT_MENU:
@@ -22,7 +28,9 @@ function appWrapperReducer(state = initialState, action) {
     case HIDE_LEFT_MENU:
       return state.set('isMenuVisible', false);
     case GET_DOCUMENTATION_MENU_SUCCESS:
-      return state.set('documentationMenu', documentationMenu);
+      return state
+        .set('documentationMenu', documentationMenu)
+        .set('documentationNotIncluded', documentationNotIncluded);
     case GET_DOCUMENTATION_MENU_ERROR:
       return state.set('documentationMenuError', documentationMenuError);
     default:
