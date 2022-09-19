@@ -44,7 +44,7 @@ async function callService(service, props, isGet = false) {
 
   const auth = {};
 
-  const authData = JSON.parse(getCookie(AUTOLOGIN_DATA) || undefined);
+  const authData = JSON.parse(getCookie(AUTOLOGIN_DATA) || null);
 
   if (authData?.authToken) {
     auth.Authorization = `${authData?.authToken}`;
