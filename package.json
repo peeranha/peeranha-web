@@ -24,12 +24,7 @@
     "build:prod": "cross-env NODE_ENV=production npm run build",
     "build:clean": "rimraf ./build",
     "build:dll": "node ./internals/scripts/dependencies.js",
-<<<<<<< HEAD
-    "start": "cross-env NODE_ENV=development node server",
-    "start:up": "cross-env NODE_ENV=development NODE_OPTIONS=--max-old-space-size=8192 node server",
-=======
     "start": "cross-env NODE_ENV=development NODE_OPTIONS=--max-old-space-size=8192 node server ",
->>>>>>> d6212732 (Changes for starting)
     "start:tunnel": "cross-env NODE_ENV=development ENABLE_TUNNEL=true node server",
     "start:production": "npm run test && npm run build:prod && npm run start:prod",
     "start:test": "cross-env NODE_ENV=test node server",
