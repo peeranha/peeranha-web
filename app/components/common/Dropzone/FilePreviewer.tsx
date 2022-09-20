@@ -64,11 +64,17 @@ const FilePreviewer: React.FC<FilePreviewerProps> = ({
       onMouseOver={showCenterIcons}
       onMouseLeave={hideCenterIcons}
     >
-      <img
-        src={URL.createObjectURL(file)}
-        alt={`file preview ${file.name}`}
-        className="full-width full-height"
-      />
+      {file.type === 'video/mp4' ? (
+        <video className="full-width full-height">
+          <source src={URL.createObjectURL(file)} type="video/mp4" />
+        </video>
+      ) : (
+        <img
+          src={URL.createObjectURL(file)}
+          alt={`file preview ${file.name}`}
+          className="full-width full-height"
+        />
+      )}
       <div
         className="pa full-width full-height t0 l0"
         css={css({
