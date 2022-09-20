@@ -2,11 +2,15 @@ import FileiconLogo from './communities-configs/filecoin/images/filecoin-logo.sv
 import PolygonLogo from './communities-configs/polygon/images/polygon-logo.svg?inline';
 import FunctionlandLogo from './communities-configs/functionland/images/functionland-logo.svg?inline';
 import SuiLogo from './communities-configs/sui/images/sui-logo.svg?inline';
+import HarmonyLogo from './communities-configs/harmony/images/harmony-logo.svg?inline';
+import KoiiLogo from './communities-configs/koii/images/koii-logo.svg?inline';
 
 import { PolygonStyles } from './communities-configs/polygon';
 import { FilecoinStyles } from './communities-configs/filecoin';
 import { FunctionlandStyles } from './communities-configs/functionland';
 import { SuiStyles } from './communities-configs/sui';
+import { HarmonyStyles } from './communities-configs/harmony';
+import { KoiiStyles } from './communities-configs/koii';
 
 const communitiesConfig = {
   prod: {
@@ -81,13 +85,25 @@ const communitiesConfig = {
       src: SuiLogo,
       styles: SuiStyles,
     },
+    12: {
+      origin: `https://koii${process.env.COOKIE_DOMAIN}`,
+      src: KoiiLogo,
+      styles: KoiiStyles,
+    },
+    13: {
+      origin: `https://harmony${process.env.COOKIE_DOMAIN}`,
+      src: HarmonyLogo,
+      styles: HarmonyStyles,
+    },
     6: {
       origin: 'https://testcommunity.net',
     },
   },
   dev: {
-    3: {
-      origin: 'http://localhost:3100',
+    5: {
+      origin: 'http://localhost:3000',
+      src: HarmonyLogo,
+      styles: HarmonyStyles,
     },
   },
 };

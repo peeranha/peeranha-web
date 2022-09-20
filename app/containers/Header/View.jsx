@@ -230,7 +230,7 @@ const View = ({
         </ProgressIndicator>
       )}
 
-      <MainSubHeader mainSubHeaderBgColor={styles.mainSubHeaderBgColor}>
+      <MainSubHeader mainSubHeaderBgColor={colors.mainSubHeaderBgColor}>
         <div className="container">
           <div className="d-flex align-items-center justify-content-between">
             <div className="d-flex align-items-center">
