@@ -100,10 +100,8 @@ const communitiesConfig = {
     },
   },
   dev: {
-    5: {
-      origin: 'http://localhost:3000',
-      src: HarmonyLogo,
-      styles: HarmonyStyles,
+    3: {
+      origin: 'http://localhost:3100',
     },
   },
 };
