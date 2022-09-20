@@ -157,8 +157,10 @@ const Dropzone: React.FC<DropzoneProps> = ({
         setFileUploadProgress(file.name, percentage);
       },
       onSuccess() {
+        const playbackId = upload.url.substr(upload.url.lastIndexOf('/') + 1);
+        const videoUrl = `<iframe src="https://lvpr.tv?v=${playbackId}"></iframe>`;
         setFileSuccessfulUploadStatus(file.name, upload.url);
-        setMediaLinks([`![](${upload.url})`]);
+        setMediaLinks([videoUrl]);
       },
     });
 
