@@ -224,6 +224,8 @@ export const MintStateLabsStyles = {
     btnColor: '#006cd0',
     tagColor: '#006cd0',
     localeArrowColor: '#F3F3F3',
+    textColor: '#006cd0',
+    textColorShadow: '#006cd0',
     commHeadElemColor: '#FFF',
     darkBlue: '#1a1c20',
   },
@@ -234,4 +236,17 @@ export const MintStateLabsStyles = {
   headerHeight: 80,
   projectBorderRadius: '5px',
   domainName,
+  communityBorderStyle: '2px solid rgb(0, 108, 208)',
+  dropDownIconStyles: css`
+    path {
+      stroke: rgb(0, 108, 208) !important;
+      stroke-width: 1.5px;
+      fill: none !important;
+    }
+    circle {
+      stroke: rgb(0, 108, 208);
+      stroke-width: 1.5px;
+      fill: none;
+    }
+  `,
 };

@@ -41,6 +41,7 @@ const CookieConsentPopup: React.FC = (): JSX.Element => {
             ...styles.popupOverlap,
             ...(stylesCommunity.cookieConsentPopupStyles ||
               styles.cookieConsent),
+            ...(enableAnimation && styles.cookieConsentAnimation),
           })}
         >
           <div className={cn('container')}>
