@@ -1,13 +1,21 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 // import {
 //   SOCKET_CONNECTION,
 //   SOCKET_CONNECTION_OPEN,
 //   SOCKET_CONNECTION_CLOSED,
-// } from './constants';
+// } from '../../redux/types';
+import {
+  SOCKET_CONNECTION,
+  SOCKET_CONNECTION_OPEN,
+  SOCKET_CONNECTION_CLOSED,
+} from './constants';
 
 const useSocketConnection = () => {
-  const SERVICE_URL = '7m8tklg966.execute-api.us-east-2.amazonaws.com/dev3';
+  const SERVICE_URL =
+    'wss://7m8tklg966.execute-api.us-east-2.amazonaws.com/dev3';
   const socket = useRef(WebSocket);
+  const dispatch = useDispatch();
   console.log(1);
   const [isConnected, setIsConnected] = useState(false);
   console.log(2);
@@ -45,19 +53,26 @@ const useSocketConnection = () => {
 
   // Event listener to when the socket opens
   const onSocketOpen = useCallback(() => {
-    console.log('onSocketOpen');
-    socket.current.send(
+    socket.current?.send(
       JSON.stringify({
         action: '$default',
       }),
     );
     setIsConnected(true);
+
+    dispatch({
+      type: SOCKET_CONNECTION,
+    });
   }, []);
 
   // Event listener to when the socket closes
   const onSocketClosed = useCallback(() => {
-    console.log('onSocketClosed');
     setIsConnected(false);
+
+    dispatch({
+      type: SOCKET_CONNECTION_CLOSED,
+      isConnected,
+    });
   }, []);
 
   // Event listener to when the socket sends a message

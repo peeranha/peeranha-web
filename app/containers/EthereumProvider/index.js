@@ -38,6 +38,7 @@ import {
   transactionInitialised,
 } from './actions';
 import communitiesConfig from '../../communities-config';
+import useSocketConnection from '../../hooks/useWebsocketConnection/useSocketConnection';
 
 const injected = injectedModule();
 const coinbase = coinbaseModule();
@@ -188,6 +189,10 @@ export const EthereumProvider = ({
       initEthereumDispatch(sendProps);
     }
   }, []);
+
+  // console.log(123);
+  // useSocketConnection();
+  // console.log(456);
 
   return (
     <div>{!initializing && ethereum ? children : <LoadingIndicator />}</div>

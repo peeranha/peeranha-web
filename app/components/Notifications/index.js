@@ -109,8 +109,6 @@ const Notifications = ({
   markAsReadNotificationsAllDispatch,
   filterReadNotificationsDispatch,
 }) => {
-  useSocketConnection();
-
   const [scrollPosition, setScrollPosition] = useState(0);
   const [calculatedRanges, setCalculatedRanges] = useState({});
   const [containerWidth, setContainerWidth] = useState(0);
