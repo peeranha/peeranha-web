@@ -154,11 +154,12 @@ const Menu = memo(
           <Logout>
             <IconLg
               className="mr-1"
-              fill={colors.linkColor}
               icon={logoutIcon}
+              color={colors.linkColor || TEXT_PRIMARY}
+              isColorImportant={true}
             />
             <Span color={colors.linkColor || TEXT_PRIMARY}>
-              <FormattedMessage {...messages.logout} />
+              <FormattedMessage id={messages.logout.id} />
             </Span>
           </Logout>
         </Ul>

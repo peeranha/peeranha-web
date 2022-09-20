@@ -728,6 +728,7 @@
   "app.containers.HomePage.yourEmailIsRegistred":
     "Website is under development but your email is registered. You will receive an email with the steps to continue your registration when the website is ready.",
   "app.containers.HomePage.goToSite": "Go to site",
+  "app.containers.HomePage.goToApp": "Go to app",
   "app.containers.HomePage.questionsTitle": "Trending",
 
   "app.containers.Notifications.youHaveNoNewNotifications":

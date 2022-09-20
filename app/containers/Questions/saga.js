@@ -160,10 +160,7 @@ export function* redirectWorker({ communityIdFilter, isFollowed }) {
   yield take(GET_USER_PROFILE_SUCCESS);
 
   if (window.location.pathname.includes(routes.feed())) {
-    yield call(
-      createdHistory.push,
-      routes.feed(!isFollowed ? communityIdFilter : ''),
-    );
+    yield call(createdHistory.push, routes.feed());
   }
 }
 

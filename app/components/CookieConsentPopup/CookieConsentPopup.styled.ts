@@ -2,6 +2,7 @@ export const styles = {
   popupOverlap: {
     zIndex: 999,
   },
+
   cookieConsent: {
     background: '#f0f8ff',
   },

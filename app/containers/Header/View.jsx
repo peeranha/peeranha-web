@@ -1,11 +1,12 @@
 import React, { memo, useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
-
+import { css } from '@emotion/react';
 import {
   BG_LIGHT,
   BORDER_SECONDARY,
   TEXT_SECONDARY_LIGHT,
+  TEXT_PRIMARY,
 } from 'style-constants';
 
 import * as routes from 'routes-config';
@@ -25,7 +26,7 @@ import {
 
 import LargeButton from 'components/Button/Contained/InfoLarge';
 import Icon from 'components/Icon';
-import { IconSm, IconLm } from 'components/Icon/IconWithSizes';
+import { IconSm, IconLm, IconLg } from 'components/Icon/IconWithSizes';
 
 import styled from 'styled-components';
 import { Wrapper, MainSubHeader } from './Wrapper';
@@ -37,7 +38,7 @@ import ButtonGroupForAuthorizedUser from './ButtonGroupForAuthorizedUser';
 import SearchForm from './SearchForm';
 
 import { HEADER_ID, LOADER_HEIGHT, SEARCH_FORM_ID } from './constants';
-import processIndicator from '../../images/progress-indicator.svg?inline';
+import processIndicator from '../../images/progress-indicator.svg?external';
 
 const single = isSingleCommunityWebsite();
 const styles = singleCommunityStyles();
@@ -83,8 +84,7 @@ const ProgressIndicator = styled.div`
       transform: translateY(0);
     }
   }
-  img {
-    margin-right: 10px;
+  svg {
     animation: rotation 1s infinite linear;
   }
 
@@ -176,7 +176,7 @@ const View = ({
         : peeranhaLogo;
 
       return (
-        <LogoStyles to={routes.feed()}>
+        <LogoStyles to={single ? routes.feed() : routes.home()}>
           <img src={src} alt="logo" />
           {styles.logoText}
         </LogoStyles>
@@ -189,8 +189,17 @@ const View = ({
     <Wrapper id={HEADER_ID} transactionInitialised={transactionInitialised}>
       {transactionInitialised && (
         <ProgressIndicator>
-          <div>
-            <img src={processIndicator} alt="icon" />
+          <div
+            css={css`
+              > span {
+                margin-left: 10px;
+              }
+            `}
+          >
+            <IconLg
+              icon={processIndicator}
+              css={css`path {fill:${colors.linkColor || TEXT_PRIMARY}}`}
+            />
             {isTransactionInPending ? (
               <FormattedMessage
                 id={messages.transactionInPending.id}
@@ -201,6 +210,13 @@ const View = ({
                         transactionHash,
                       )}
                       target="_blank"
+                      css={css`
+                        color: ${colors.linkColor || TEXT_PRIMARY};
+                        :hover {
+                          color: ${colors.linkColor || TEXT_PRIMARY};
+                          opacity: 0.5;
+                        }
+                      `}
                     >
                       <FormattedMessage id={messages.transaction.id} />
                     </a>

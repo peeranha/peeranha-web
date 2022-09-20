@@ -201,12 +201,9 @@ export const Header = ({
         questionFilterFromCookies={questionFilterFromCookies}
       />
       {isModeratorModeSingleCommunity && (
-        <button
-          onClick={routeToEditCommunity}
-          className={`align-items-center d-inline-flex`}
-        >
-          <IconMd icon={pencilIcon} />
-          <Span className="ml-1" color={TEXT_PRIMARY}>
+        <button onClick={routeToEditCommunity} className="df aic mt12">
+          <IconMd icon={pencilIcon} color={colors.btnColor || TEXT_PRIMARY} />
+          <Span className="ml-1" color={colors.btnColor || TEXT_PRIMARY}>
             <FormattedMessage id={messages.editCommunity.id} />
           </Span>
         </button>

@@ -22,6 +22,7 @@ import { trimRightZeros } from 'utils/numbers';
 import {
   isSingleCommunityWebsite,
   singleCommunityStyles,
+  singleCommunityColors,
 } from 'utils/communityManagement';
 
 import {
@@ -35,6 +36,7 @@ import { IconMd } from 'components/Icon/IconWithSizes';
 
 const single = isSingleCommunityWebsite();
 const styles = singleCommunityStyles();
+const colors = singleCommunityColors();
 
 const Container = styled.div`
   border-left: 3px solid transparent;
@@ -256,7 +258,7 @@ const Notification = ({
               isCommunityMod && tipNotification && styles.coinsIconStyles
             }
           />
-          <span>{data.title}</span>
+          <Span color={colors.btnColor || BORDER_PRIMARY}>{data.title}</Span>
         </NotificationLink>
       </div>
       <div className="d-flex align-items-center">
