@@ -18,6 +18,7 @@ type FilePreviewerProps = {
   isUploaded: boolean;
   isFailedUpload: boolean;
   abortController: AbortController;
+  uploadProgress: string | null;
   fileName: string;
   readAndUploadFile: (
     file: File,
@@ -35,6 +36,7 @@ const FilePreviewer: React.FC<FilePreviewerProps> = ({
   isUploaded,
   isFailedUpload,
   abortController,
+  uploadProgress,
   fileName,
   readAndUploadFile,
   removeFile,
@@ -98,7 +100,16 @@ const FilePreviewer: React.FC<FilePreviewerProps> = ({
         className="pa full-width full-height bd0 l0 df jcc aic"
         css={css(styles.centerIconsContainer)}
       >
-        {isUploading && <Spinner />}
+        {isUploading && (
+          <>
+            <Spinner />
+            {uploadProgress && (
+              <span className="pa fz10" css={css(styles.uploadProgress)}>
+                {uploadProgress}%
+              </span>
+            )}
+          </>
+        )}
         {isFailedUpload && (
           <span className="df aic jcc" css={css(styles.failedUploadIcon)}>
             <CloseIcon fill="rgb(247, 111, 96)" />

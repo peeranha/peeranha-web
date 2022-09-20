@@ -42,6 +42,11 @@ export const styles = {
     display: 'flex !important',
   },
 
+  uploadProgress: {
+    fontWeight: 600,
+    color: 'rgb(247 111 96)',
+  },
+
   leftCenterIcon: {
     '@media (min-width: 1024px)': {
       marginRight: '24px',

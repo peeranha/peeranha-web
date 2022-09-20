@@ -34,6 +34,7 @@ const FilesPreviewer: React.FC<FilesPreviewerProps> = ({
             isUploaded={fileData.isUploaded}
             isFailedUpload={fileData.isFailedUpload}
             abortController={fileData.abortController}
+            uploadProgress={fileData.uploadProgress}
             fileName={fileName}
             readAndUploadFile={readAndUploadFile}
             removeFile={removeFile}

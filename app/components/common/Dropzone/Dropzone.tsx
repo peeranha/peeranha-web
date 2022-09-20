@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import { css } from '@emotion/react';
+import * as tus from 'tus-js-client';
 
 import PlusIcon from 'icons/Plus';
 import { styles } from './Dropzone.styled';
 import FilesPreviewer from './FilesPreviewer';
 import { getFileUrl, saveDataIpfsS3 } from '../../../utils/ipfs';
+import { livepeerAPI } from '../../../services/livepeer-service';
 
 type DropzoneProps = {
   setMediaLinks: (links: string[]) => void;
   maxImageFileSizeInBytes?: number;
+  maxVideoFileSizeInBytes?: number;
 };
 export type Files = {
   [P: string]: SingleFile;
@@ -21,114 +24,173 @@ type SingleFile = {
   isUploaded: boolean;
   isFailedUpload: boolean;
   abortController: AbortController;
+  uploadProgress: string | null;
 };
 
 const Dropzone: React.FC<DropzoneProps> = ({
   setMediaLinks,
   maxImageFileSizeInBytes = 5 * 1000 * 1000,
+  maxVideoFileSizeInBytes = 1000 * 1000 * 1000,
 }): JSX.Element => {
   const [files, setFiles] = useState<Files>({});
 
-  const removeFile = (fileName: string) => {
+  const addNewFile = (file: File, abortController: AbortController): void => {
+    setFiles(state => ({
+      ...state,
+      [file.name]: {
+        file,
+        fileUrl: '',
+        isUploading: true,
+        isUploaded: false,
+        isFailedUpload: false,
+        abortController,
+        uploadProgress: null,
+      },
+    }));
+  };
+
+  const removeFile = (fileName: string): void => {
     delete files[fileName];
     setFiles({ ...files });
   };
 
-  const cancelUpload = (abortController: AbortController) => {
-    abortController.abort();
-  };
-
-  const uploadImg = async (
-    img: string | ArrayBuffer | null,
-    signal: AbortSignal,
-  ) => {
-    const data = img.replace(/^data:image\/\w+;base64,/, '');
-    const buf = Buffer.from(data, 'base64');
-
-    const result = await saveDataIpfsS3(
-      { content: buf, encoding: 'base64' },
-      signal,
-    );
-
-    const imgUrl = getFileUrl(result.body.cid);
-    return { imgUrl };
-  };
-
-  const uploadFile = (
-    reader: FileReader,
-    fileName: string,
-    abortController: AbortController,
-  ) => {
-    setFiles({
-      ...files,
+  const setFileUploadingStatus = (fileName: string): void => {
+    setFiles(state => ({
+      ...state,
       [fileName]: {
-        ...files[fileName],
+        ...state[fileName],
         isUploading: true,
         isFailedUpload: false,
       },
-    });
-
-    uploadImg(reader.result, abortController.signal)
-      .then(res => {
-        setMediaLinks([`![](${res.imgUrl})`]);
-        files[fileName] = {
-          ...files[fileName],
-          fileUrl: res.imgUrl,
-          isUploading: false,
-          isUploaded: true,
-        };
-        setFiles({
-          ...files,
-        });
-      })
-      .catch(e => {
-        if (e.name === 'AbortError') {
-          removeFile(fileName);
-        } else {
-          setFiles({
-            ...files,
-            [fileName]: {
-              ...files[fileName],
-              isUploading: false,
-              isFailedUpload: true,
-            },
-          });
-        }
-      });
+    }));
   };
 
-  const readAndUploadFile = (
-    file: File,
+  const setFileSuccessfulUploadStatus = (
+    fileName: string,
+    fileUrl: string,
+  ): void => {
+    setFiles(state => ({
+      ...state,
+      [fileName]: {
+        ...state[fileName],
+        fileUrl,
+        isUploading: false,
+        isUploaded: true,
+      },
+    }));
+  };
+
+  const setFileFailedUploadStatus = (fileName: string): void => {
+    setFiles(state => ({
+      ...state,
+      [fileName]: {
+        ...state[fileName],
+        isUploading: false,
+        isFailedUpload: true,
+      },
+    }));
+  };
+
+  const setFileUploadProgress = (
+    fileName: string,
+    uploadProgress: string,
+  ): void => {
+    setFiles(state => ({
+      ...state,
+      [fileName]: {
+        ...state[fileName],
+        uploadProgress,
+      },
+    }));
+  };
+
+  const cancelUpload = (abortController: AbortController): void => {
+    abortController.abort();
+  };
+
+  const uploadImage = async (
+    fileContent: string | ArrayBuffer | null,
     fileName: string,
     abortController: AbortController,
-  ) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = async () => {
-      uploadFile(reader, fileName, abortController);
-    };
+  ): Promise<void> => {
+    try {
+      if (typeof fileContent === 'string') {
+        setFileUploadingStatus(fileName);
+
+        const imageData = fileContent.replace(/^data:image\/\w+;base64,/, '');
+        const content = Buffer.from(imageData, 'base64');
+
+        const result = await saveDataIpfsS3(
+          { content, encoding: 'base64' },
+          abortController.signal,
+        );
+        const fileUrl = getFileUrl(result.body.cid);
+
+        setFileSuccessfulUploadStatus(fileName, fileUrl);
+        setMediaLinks([`![](${fileUrl})`]);
+      }
+    } catch (e) {
+      if (e.name === 'AbortError') {
+        removeFile(fileName);
+      } else {
+        setFileFailedUploadStatus(fileName);
+      }
+    }
+  };
+
+  const uploadVideo = async (file: File): Promise<void> => {
+    const response = await livepeerAPI.generateUrl(file.name);
+
+    const upload = new tus.Upload(file, {
+      endpoint: response.data.tusEndpoint, // URL from `tusEndpoint` field in the `/request-upload` response
+      metadata: {
+        filename: file.name,
+        filetype: 'video/mp4',
+      },
+      uploadSize: file.size,
+      onError(err) {
+        setFileFailedUploadStatus(file.name);
+      },
+
+      onProgress(bytesUploaded, bytesTotal) {
+        const percentage = ((bytesUploaded / bytesTotal) * 100).toFixed();
+        setFileUploadProgress(file.name, percentage);
+      },
+      onSuccess() {
+        setFileSuccessfulUploadStatus(file.name, upload.url);
+        setMediaLinks([`![](${upload.url})`]);
+      },
+    });
+
+    upload.start();
+  };
+
+  const readAndUploadFile = async (file: File) => {
+    const abortController = new AbortController();
+    addNewFile(file, abortController);
+
+    if (
+      file.type.split('/')[0] === 'image' &&
+      file.size < maxImageFileSizeInBytes
+    ) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = async () => {
+        await uploadImage(reader.result, file.name, abortController);
+      };
+    }
+
+    if (file.type === 'video/mp4') {
+      await uploadVideo(file);
+    }
   };
 
   const getNewFiles = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { files: newFiles } = e.target;
     if (newFiles) {
       for (let i = 0; i < newFiles.length; i++) {
-        if (newFiles[i].size < maxImageFileSizeInBytes) {
-          const abortController = new AbortController();
-
-          files[newFiles[i].name] = {
-            file: newFiles[i],
-            fileUrl: '',
-            isUploading: true,
-            isUploaded: false,
-            isFailedUpload: false,
-            abortController,
-          };
-          setFiles({
-            ...files,
-          });
-
-          readAndUploadFile(newFiles[i], newFiles[i].name, abortController);
+        if (newFiles[i].size < maxVideoFileSizeInBytes) {
+          readAndUploadFile(newFiles[i]);
         }
       }
     }

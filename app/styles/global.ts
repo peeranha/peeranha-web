@@ -127,6 +127,9 @@ export default css`
   .tl {
     text-align: left;
   }
+  .fz10 {
+    font-size: 10px;
+  }
   .fz12 {
     font-size: 12px;
   }
