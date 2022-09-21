@@ -11,6 +11,7 @@ import { TEXT_PRIMARY, TEXT_SECONDARY } from 'style-constants';
 
 import {
   getPermissions,
+  hasCommunityAdminRole,
   hasCommunityModeratorRole,
   hasGlobalModeratorRole,
   hasCommunityAdminRole,
@@ -203,6 +204,10 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
                   <Info>
                     {(communityEditingAllowed ||
                       hasCommunityModeratorRole(
+                        getPermissions(profile),
+                        value,
+                      ) ||
+                      hasCommunityAdminRole(
                         getPermissions(profile),
                         value,
                       )) && (
