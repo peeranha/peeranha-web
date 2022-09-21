@@ -217,7 +217,21 @@ export const HarmonyStyles = {
     borderColor: 'rgb(254, 254, 254)',
   },
 
+  dropDownIconStyles: css`
+    path {
+      stroke: rgb(36, 95, 226) !important;
+      stroke-width: 1.5px;
+      fill: none !important;
+    }
+    circle {
+      stroke: rgb(36, 95, 226);
+      stroke-width: 1.5px;
+      fill: none;
+    }
+  `,
+
   headerHeight: 80,
   projectBorderRadius: '5px',
   domainName,
+  communityBorderStyle: '2px solid rgb(36,95,226)',
 };
