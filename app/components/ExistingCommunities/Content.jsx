@@ -14,7 +14,6 @@ import {
   hasCommunityAdminRole,
   hasCommunityModeratorRole,
   hasGlobalModeratorRole,
-  hasCommunityAdminRole,
 } from 'utils/properties';
 import { getFormattedNum2 } from 'utils/numbers';
 import { getDifferenceInDate } from 'utils/datetime';
