@@ -784,6 +784,7 @@
   "app.containers.ViewQuestion.voteToDelete": "Проголосовать за удаление",
   "app.containers.ViewQuestion.notEnoughRating":
     "Чтобы выполнить это действие, Ваша репутация должна быть не меньше",
+  "app.containers.ViewQuestion.inThisCommunity": "в этом сообществе",
   "app.containers.ViewQuestion.cannotCompleteBecauseBlocked":
     "Вы не можете выполнить это действие, т.к. уже проголосовали за удаление",
   "app.containers.ViewQuestion.cannotCompleteBecauseVoted":

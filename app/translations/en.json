@@ -778,6 +778,7 @@
   "app.containers.ViewQuestion.voteToDelete": "Vote to delete",
   "app.containers.ViewQuestion.notEnoughRating":
     "To complete this action, your reputation has to be at least",
+  "app.containers.ViewQuestion.inThisCommunity": "in this community",
   "app.containers.ViewQuestion.cannotCompleteBecauseBlocked":
     "You can't complete this action. You voted to delete it earlier",
   "app.containers.ViewQuestion.cannotCompleteBecauseVoted":
