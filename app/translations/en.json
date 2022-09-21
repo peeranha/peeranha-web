@@ -778,6 +778,7 @@
   "app.containers.ViewQuestion.voteToDelete": "Vote to delete",
   "app.containers.ViewQuestion.notEnoughRating":
     "To complete this action, your reputation has to be at least",
+  "app.containers.ViewQuestion.inThisCommunity": "in this community",
   "app.containers.ViewQuestion.cannotCompleteBecauseBlocked":
     "You can't complete this action. You voted to delete it earlier",
   "app.containers.ViewQuestion.cannotCompleteBecauseVoted":
@@ -803,7 +804,7 @@
   "app.containers.ViewQuestion.deleteButton": "Delete",
   "app.containers.ViewQuestion.editButton": "Edit",
   "app.containers.ViewQuestion.shareButton": "Share",
-  "app.containers.ViewQuestion.shareTitle": "Share a link to this question",
+  "app.containers.ViewQuestion.shareTitle": "Share a link to this post",
   "app.containers.ViewQuestion.saveButton": "Save",
   "app.containers.ViewQuestion.commentButton": "Comment",
   "app.containers.ViewQuestion.postCommentButton": "Post comment",
@@ -1114,7 +1115,7 @@
   "app.containers.QuestionForm.title": "New post",
   "app.containers.QuestionForm.titleLabel": "Title",
   "app.containers.QuestionForm.existingQuestionsLabel":
-    "To avoid duplicates check existing questions.",
+    "To avoid duplicates check existing posts.",
   "app.containers.QuestionForm.questionBodyLabel": "Body",
   "app.containers.QuestionForm.communityLabel": "Community",
   "app.containers.QuestionForm.tagsLabel": "Tags",

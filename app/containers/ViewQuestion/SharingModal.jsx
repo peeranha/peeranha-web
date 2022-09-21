@@ -101,7 +101,7 @@ const SharingModal = ({ questionData, locale }) => {
     <DropdownModal>
       <p>
         <b>
-          <FormattedMessage {...messages.shareTitle} />
+          <FormattedMessage id={messages.shareTitle.id} />
         </b>
       </p>
       <Input input={{ value: window.location.href }} readOnly type="text" />

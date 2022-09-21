@@ -784,6 +784,7 @@
   "app.containers.ViewQuestion.voteToDelete": "Проголосовать за удаление",
   "app.containers.ViewQuestion.notEnoughRating":
     "Чтобы выполнить это действие, Ваша репутация должна быть не меньше",
+  "app.containers.ViewQuestion.inThisCommunity": "в этом сообществе",
   "app.containers.ViewQuestion.cannotCompleteBecauseBlocked":
     "Вы не можете выполнить это действие, т.к. уже проголосовали за удаление",
   "app.containers.ViewQuestion.cannotCompleteBecauseVoted":
@@ -807,7 +808,7 @@
   "app.containers.ViewQuestion.deleteButton": "Удалить",
   "app.containers.ViewQuestion.editButton": "Редактировать",
   "app.containers.ViewQuestion.shareButton": "Поделиться",
-  "app.containers.ViewQuestion.shareTitle": "Поделитесь ссылкой на этот вопрос",
+  "app.containers.ViewQuestion.shareTitle": "Поделитесь ссылкой на этот пост",
   "app.containers.ViewQuestion.saveButton": "Сохранить",
   "app.containers.ViewQuestion.commentButton": "Комментировать",
   "app.containers.ViewQuestion.postCommentButton": "Отправить",
@@ -1125,7 +1126,7 @@
   "app.containers.QuestionForm.title": "Новый пост",
   "app.containers.QuestionForm.titleLabel": "Заголовок",
   "app.containers.QuestionForm.existingQuestionsLabel":
-    "Чтобы избежать дублирования, проверьте существующие вопросы.",
+    "Чтобы избежать дублирования, проверьте существующие посты.",
   "app.containers.QuestionForm.questionBodyLabel": "Содержание",
   "app.containers.QuestionForm.communityLabel": "Сообщество",
   "app.containers.QuestionForm.bountyLabel": "Бонусное вознаграждение",

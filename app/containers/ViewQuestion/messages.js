@@ -58,6 +58,9 @@ export default defineMessages({
   notEnoughRating: {
     id: 'app.containers.ViewQuestion.notEnoughRating',
   },
+  inThisCommunity: {
+    id: 'app.containers.ViewQuestion.inThisCommunity',
+  },
   notEnoughModPoints: {
     id: 'app.containers.ViewQuestion.notEnoughModPoints',
   },
