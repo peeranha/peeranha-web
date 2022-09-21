@@ -280,9 +280,17 @@ const View = ({
                         : showLoginModalWithRedirectToAskQuestionPage
                     }
                   >
-                    <IconSm fill={BG_LIGHT} icon={addIcon} />
+                    <IconSm
+                      fill={colors.newPostButtonText || BG_LIGHT}
+                      icon={addIcon}
+                    />
 
-                    <span className="d-none d-lg-inline ml-2">
+                    <span
+                      className="d-none d-lg-inline ml-2"
+                      css={css`
+                        color: ${colors.newPostButtonText};
+                      `}
+                    >
                       <FormattedMessage id={messages.askQuestion.id} />
                     </span>
                   </Button>

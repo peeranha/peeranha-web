@@ -207,6 +207,7 @@ export const KoiiStyles = {
     walletButton: 'rgb(94,217,209)',
     btnColor: 'rgb(94,217,209)',
     tagColor: 'rgb(94,217,209)',
+    newPostButtonText: '#000000',
   },
 
   cookieConsentPopupStyles: {
