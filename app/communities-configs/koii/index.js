@@ -210,8 +210,9 @@ export const KoiiStyles = {
   },
 
   cookieConsentPopupStyles: {
-    background: 'rgb(26,31,83)',
+    background: 'rgb(135,159,225)',
     color: 'rgb(254, 254, 254)',
+    borderColor: 'rgb(254, 254, 254)',
   },
 
   headerHeight: 80,

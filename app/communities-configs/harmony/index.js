@@ -192,8 +192,9 @@ export const HarmonyStyles = {
   signUpPageLogo: HarmonyLogo,
   favicon,
   colors: {
-    mainSubHeaderBgColor: 'rgb(26,43,110)',
-    mainBackground: 'rgb(170,224,255)',
+    mainSubHeaderBgColor: 'rgba(2, 10, 45, .9)',
+    mainBackground: 'rgba(0, 85, 249, 0.08)',
+
     linkColor: 'rgb(36,95,226)',
     linkColorTransparent: 'rgb(36,95,226)',
     headerPrimary: 'rgb(36,95,226)',
@@ -211,11 +212,12 @@ export const HarmonyStyles = {
   },
 
   cookieConsentPopupStyles: {
-    background: 'rgb(26,31,83)',
+    background: '#4163a5',
     color: 'rgb(254, 254, 254)',
+    borderColor: 'rgb(254, 254, 254)',
   },
 
   headerHeight: 80,
-  projectBorderRadius: '24px',
+  projectBorderRadius: '5px',
   domainName,
 };
