@@ -20,6 +20,7 @@ const ProfileViewForm = ({
   locale,
   className,
   redirectToEditProfilePage,
+  userAchievementsLength,
 }) => {
   const path = window.location.pathname + window.location.hash;
   const isProfilePage =
@@ -34,6 +35,7 @@ const ProfileViewForm = ({
         account={account}
         locale={locale}
         redirectToEditProfilePage={redirectToEditProfilePage}
+        userAchievementsLength={userAchievementsLength}
       />
 
       <AdditionalUserInformation
