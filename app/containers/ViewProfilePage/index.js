@@ -180,6 +180,7 @@ const ViewProfilePage = ({
         questionsWithAnswersLoading={questionsWithAnswersLoading}
         locale={locale}
         redirectToEditProfilePage={redirectToEditProfilePageDispatch}
+        userAchievementsLength={userAchievements?.length ?? null}
       />
     </Profile>
   );
