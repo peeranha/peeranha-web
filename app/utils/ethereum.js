@@ -220,13 +220,9 @@ class EthereumService {
     const dataFromCookies = getCookie(META_TRANSACTIONS_ALLOWED);
     const balance = this.wallet?.accounts?.[0]?.balance?.[CURRENCY];
 
-    if (!dataFromCookies) {
-      if (Number(balance) === 0) {
-        this.showModalDispatch();
-        await this.waitForCloseModal();
-      }
-    } else if (Number(balance) > 0) {
-      deleteCookie(META_TRANSACTIONS_ALLOWED);
+    if (!dataFromCookies && Number(balance) >= 0) {
+      this.showModalDispatch();
+      await this.waitForCloseModal();
     }
 
     const metaTransactionsAllowed = getCookie(META_TRANSACTIONS_ALLOWED);
