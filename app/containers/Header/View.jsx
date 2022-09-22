@@ -279,6 +279,12 @@ const View = ({
                         ? redirectToAskQuestionPage
                         : showLoginModalWithRedirectToAskQuestionPage
                     }
+                    css={css`
+                      background: ${colors.btnHeaderColor};
+                      :hover {
+                        background: ${colors.btnHeaderHoverColor};
+                      }
+                    `}
                   >
                     <IconSm fill={BG_LIGHT} icon={addIcon} />
 

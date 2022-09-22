@@ -189,48 +189,53 @@ export const MintStateLabsStyles = {
   poweredByPeeranha: true,
   signUpPageLogo: MintStateLabsLogo,
   favicon,
-  fonts: {
-    h3LetterSpacing: '3px',
-    tagsLetterSpacing: '3px',
-    questionTitleLetterSpacing: '2px',
-    h3: 'Roboto-Regular, Arial, sans',
-    main: 'Roboto-Regular, Arial, sans',
-    questionItemTitle: 'Roboto-Regular, Arial, sans',
-    questionTitleFont: 'Roboto-Regular, Arial, sans',
-  },
-  fontFace: `@font-face {
-    font-family: 'Roboto-Regular';
-    src: 
-      url(${RobotoRegularEOT}?#iefix) format('embedded-opentype'),
-      url(${RobotoRegularWOFF}) format('woff'),
-      url(${RobotoRegularTTF}) format('truetype');
-    font-style: normal;
-  }`,
+  // Hided community fonts
+  // fonts: {
+  //   h3LetterSpacing: '3px',
+  //   tagsLetterSpacing: '3px',
+  //   questionTitleLetterSpacing: '2px',
+  //   h3: 'Roboto-Regular, Arial, sans',
+  //   main: 'Roboto-Regular, Arial, sans',
+  //   questionItemTitle: 'Roboto-Regular, Arial, sans',
+  //   questionTitleFont: 'Roboto-Regular, Arial, sans',
+  // },
+  // fontFace: `@font-face {
+  //   font-family: 'Roboto-Regular';
+  //   src:
+  //     url(${RobotoRegularEOT}?#iefix) format('embedded-opentype'),
+  //     url(${RobotoRegularWOFF}) format('woff'),
+  //     url(${RobotoRegularTTF}) format('truetype');
+  //   font-style: normal;
+  // }`,
 
   colors: {
-    mainSubHeaderBgColor: '#1a1c20',
-    mainBackground: '#f6f6f6',
-    linkColor: '#006cd0',
-    linkColorTransparent: '#006cd0',
-    headerPrimary: '#006cd0',
-    commentOption: '#006cd0',
-    contentHeader: '#006cd0',
-    blockedInfoArea: '#006cd0',
-    transparentIconColor: '#006cd0',
-    loaderColor: '#006cd0',
-    votingIconColor: '#006cd0',
-    linkColorSecondary: '#006cd0',
-    walletButton: '#006cd0',
-    btnColor: '#006cd0',
-    tagColor: '#006cd0',
+    mainSubHeaderBgColor: '#282828',
+    mainBackground: '#F5F5F5',
+    linkColor: '#53A6EC',
+    linkCoolieColor: '#5C23D4',
+    linkColorTransparent: '#53A6EC',
+    headerPrimary: '#53A6EC',
+    commentOption: '#53A6EC',
+    contentHeader: '#53A6EC',
+    blockedInfoArea: '#53A6EC',
+    transparentIconColor: '#FFFF',
+    loaderColor: '#53A6EC',
+    votingIconColor: '#53A6EC',
+    linkColorSecondary: '#53A6EC',
+    walletButton: '#53A6EC',
+    btnColor: '#53A6EC',
+    btnHoverColor: '#5C23D4',
+    btnHeaderColor: '#5C23D4',
+    btnHeaderHoverColor: '#53A6EC',
+    tagColor: '#53A6EC',
     localeArrowColor: '#F3F3F3',
-    textColor: '#006cd0',
-    textColorShadow: '#006cd0',
+    textColor: '#53A6EC',
+    textColorShadow: '#53A6EC',
     commHeadElemColor: '#FFF',
     darkBlue: '#1a1c20',
   },
   cookieConsentPopupStyles: {
-    background: '#1a1c20',
+    background: '#53A6EC',
     color: '#F3F3F3',
   },
   headerHeight: 80,
@@ -247,6 +252,14 @@ export const MintStateLabsStyles = {
       stroke: rgb(0, 108, 208);
       stroke-width: 1.5px;
       fill: none;
+    }
+  `,
+  headerLoginButtonStyles: css`
+    background: #53a6ec;
+    border: 2px solid #fff;
+    color: #fff;
+    :hover {
+      background: #5c23d4 !important;
     }
   `,
 };
