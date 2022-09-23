@@ -185,6 +185,7 @@ export const Header = ({
           selectedCommunityId={communityIdFilter}
           communities={communities}
         />
+        {/* PEER-451: Hide Subscribe button from single community mode
         {!!displaySubscribeButton && (
           <PageContentHeaderRightPanel
             className={`right-panel m-0 ml-${single ? 3 : 4}`}
@@ -194,19 +195,16 @@ export const Header = ({
               followedCommunities={followedCommunities}
             />
           </PageContentHeaderRightPanel>
-        )}
+        )} */}
       </PageContentHeader>
       <QuestionFilter
         display={displayQuestionFilter}
         questionFilterFromCookies={questionFilterFromCookies}
       />
       {isModeratorModeSingleCommunity && (
-        <button
-          onClick={routeToEditCommunity}
-          className={`align-items-center d-inline-flex`}
-        >
-          <IconMd icon={pencilIcon} />
-          <Span className="ml-1" color={TEXT_PRIMARY}>
+        <button onClick={routeToEditCommunity} className="df aic mt12">
+          <IconMd icon={pencilIcon} color={colors.btnColor || TEXT_PRIMARY} />
+          <Span className="ml-1" color={colors.btnColor || TEXT_PRIMARY}>
             <FormattedMessage id={messages.editCommunity.id} />
           </Span>
         </button>

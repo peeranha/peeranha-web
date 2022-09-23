@@ -5,6 +5,7 @@ import { getCookie } from '../utils/cookie';
 import {
   hasGlobalModeratorRole,
   hasCommunityModeratorRole,
+  hasCommunityAdminRole,
 } from '../utils/properties';
 
 import history from '../createdHistory';
@@ -19,7 +20,8 @@ export const useModeratorRole = (redirectPage, communityId = null) => {
     setModeratorRole(
       hasGlobalModeratorRole(permissions) ||
         (Boolean(communityId) &&
-          hasCommunityModeratorRole(permissions, Number(communityId))),
+          (hasCommunityModeratorRole(permissions, Number(communityId)) ||
+            hasCommunityAdminRole(permissions, Number(communityId)))),
     );
   }, []);
 

@@ -1,36 +1,33 @@
-import OntLogo from './communities-configs/ont/images/ont.svg?inline';
 import FileiconLogo from './communities-configs/filecoin/images/filecoin-logo.svg?inline';
-import TelosLogo from './communities-configs/telos/images/telos-logo-dark.svg?inline';
 import PolygonLogo from './communities-configs/polygon/images/polygon-logo.svg?inline';
-import KandaLogo from './communities-configs/kanda/images/kanda.jpg';
+import FunctionlandLogo from './communities-configs/functionland/images/functionland-logo.svg?inline';
+import SuiLogo from './communities-configs/sui/images/sui-logo.svg?inline';
 
-import { TelosStyles } from './communities-configs/telos';
 import { PolygonStyles } from './communities-configs/polygon';
-import { OntStyles } from './communities-configs/ont';
-import { KandaStyles } from './communities-configs/kanda';
-import { BloggerStyles } from './communities-configs/blogger';
 import { FilecoinStyles } from './communities-configs/filecoin';
+import { FunctionlandStyles } from './communities-configs/functionland';
+import { SuiStyles } from './communities-configs/sui';
 
 const communitiesConfig = {
   prod: {
     1: {
       origin: 'https://meta.peeranha.io',
     },
-    // 2: {
-    //   origin: 'https://faq.telos.net',
-    //   src: TelosLogo,
-    //   styles: TelosStyles,
-    // },
-    // 3: {
-    //   origin: 'https://ont.peeranha.io',
-    //   src: OntLogo,
-    //   styles: OntStyles,
-    // },
-    // 17: {
-    //   origin: 'https://kanda.peeranha.io',
-    //   src: KandaLogo,
-    //   styles: KandaStyles,
-    // },
+    2: {
+      origin: 'https://functionland.peeranha.io',
+      src: FunctionlandLogo,
+      styles: FunctionlandStyles,
+    },
+    3: {
+      origin: 'https://polygon.peeranha.io',
+      src: PolygonLogo,
+      styles: PolygonStyles,
+    },
+    4: {
+      origin: 'https://filecoin.peeranha.io',
+      src: FileiconLogo,
+      styles: FilecoinStyles,
+    },
   },
   staging: {
     1: {
@@ -45,6 +42,16 @@ const communitiesConfig = {
       origin: 'https://demo-filecoin.testpeeranha.io',
       src: FileiconLogo,
       styles: FilecoinStyles,
+    },
+    4: {
+      origin: 'https://demo-fxland.testpeeranha.io',
+      src: FunctionlandLogo,
+      styles: FunctionlandStyles,
+    },
+    5: {
+      origin: 'https://demo-sui.testpeeranha.io',
+      src: SuiLogo,
+      styles: SuiStyles,
     },
   },
   test: {
@@ -64,22 +71,19 @@ const communitiesConfig = {
     4: {
       origin: `https://community${process.env.COOKIE_DOMAIN}`,
     },
-    5: {
+    7: {
+      origin: `https://fxland${process.env.COOKIE_DOMAIN}`,
+      src: FunctionlandLogo,
+      styles: FunctionlandStyles,
+    },
+    10: {
+      origin: `https://sui${process.env.COOKIE_DOMAIN}`,
+      src: SuiLogo,
+      styles: SuiStyles,
+    },
+    6: {
       origin: 'https://testcommunity.net',
     },
-    // 5: {
-    //   origin: 'https://kanda.testpeeranha.io',
-    //   src: KandaLogo,
-    //   styles: KandaStyles,
-    // },
-    // 6: {
-    //   origin: 'https://bloggerdemo.testpeeranha.io',
-    //   styles: BloggerStyles,
-    // },
-    // 10: {
-    //   origin: 'https://ivan.testpeeranha.io',
-    //   styles: BloggerStyles,
-    // },
   },
   dev: {
     3: {
