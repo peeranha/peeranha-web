@@ -330,9 +330,13 @@
   "app.containers.Faq.title": "FAQ",
   "app.containers.Faq.description": "FAQ: description",
   "app.containers.Faq.faq": "Frequently asked questions",
-
-  "app.containers.Moderation.title": "Moderator permissions",
-  "app.common.globalModerator": "Global moderator",
+  "app.common.protocolAdministrator": "Protocol Administrator permissions",
+  "app.common.communityModerator": "Community Moderator permissions",
+  "app.common.communityAdministrator": "Community Administrator permissions",
+  "app.common.asProtocolAdministrator": "As a Protocol Administrator, you can:",
+  "app.common.asCommunityAdministrator":
+    "As a Community Administrator, you can:",
+  "app.common.asCommunityModerator": "As a Community Moderator, you can:",
 
   "app.common.verifyFacebookAccount": "Account verification",
   "app.common.facebookButton": "Facebook",
@@ -370,38 +374,46 @@
     "Congratulations! Data deletion is successfully completed!",
   "app.containers.DeleteFacebookData.confirmDeletion": "Confirm deletion",
 
-  "app.containers.Moderation.givePermissions": "Give permissions",
-  "app.containers.Moderation.givePermissionsDescription":
-    "Allows you to give and revoke community moderator permission.",
+  "app.containers.Moderation.permissionProtocolAdmin_1":
+    "Give and revoke Community Moderator and Community Administrator permissions for a single community",
+  "app.containers.Moderation.permissionProtocolAdmin_2":
+    "Create new communities",
+  "app.containers.Moderation.permissionProtocolAdmin_3":
+    "Edit any single community: change title, description, official site link, and avatar of the community",
+  "app.containers.Moderation.permissionProtocolAdmin_4":
+    "Freeze and unfreeze communities",
+  "app.containers.Moderation.permissionProtocolAdmin_5":
+    "Create and edit tags for any single community",
+  "app.containers.Moderation.permissionProtocolAdmin_6":
+    "Change post type in any single community",
+  "app.containers.Moderation.permissionProtocolAdmin_7":
+    "Upvote and downvote posts, answers and add comments in any single community if your reputation is below 35",
+  "app.containers.Moderation.permissionProtocolAdmin_8":
+    "Delete posts, answers, even those marked as the best, and comments in one click in any single community",
 
-  "app.containers.Moderation.permissionInfinite": "Infinite Impact",
-  "app.containers.Moderation.permissionInfiniteDescription":
-    "Allows you to delete posts, answers and comments in one click",
+  "app.containers.Moderation.permissionCommunityAdmin_1":
+    "Give and revoke Community Moderator and Community Administrator permissions in your community",
+  "app.containers.Moderation.permissionCommunityAdmin_2":
+    "Edit your community: change title, description, official site link, and avatar of the community",
+  "app.containers.Moderation.permissionCommunityAdmin_3":
+    "Create and edit tags in your community",
+  "app.containers.Moderation.permissionCommunityAdmin_4":
+    "Post an official answer in your community",
+  "app.containers.Moderation.permissionCommunityAdmin_5":
+    "Work with documentation in your community: add, edit, delete, and provide translations in supported languages for documentation articles",
 
-  "app.containers.Moderation.permissionIgnoreRating": "Ignore rating",
-  "app.containers.Moderation.permissionIgnoreRatingDescription":
-    "Allows you to perform actions that are rating restricted",
-
-  "app.containers.Moderation.permissionCreateCommunity": "Create community",
-  "app.containers.Moderation.permissionCreateCommunityDescription":
-    "Allows you to instantly create a community",
-
-  "app.containers.Moderation.permissionCreateTag": "Create tag",
-  "app.containers.Moderation.permissionCreateTagDescription":
-    "Allows you to instantly create a tag",
-
-  "app.containers.Moderation.permissionChangePostType": "Change post type",
-  "app.containers.Moderation.permissionChangePostTypeDescription":
-    "Allows you to change post type",
-
-  "app.containers.Moderation.permissionSelectTopQuestion":
-    "Select top question",
-  "app.containers.Moderation.permissionSelectTopQuestionDescription":
-    "Allows you to select a question that will be displayed on \"Top\" page",
-
-  "app.containers.Moderation.permissionOfficialAnswer": "Post official answer",
-  "app.containers.Moderation.permissionOfficialAnswerDescription":
-    "Allows you to post an official answer",
+  "app.containers.Moderation.permissionCommunityModerator_1":
+    "Ignore reputation in your community and perform actions that are reputation restricted like upvoting and downvoting posts, answers, and adding comments",
+  "app.containers.Moderation.permissionCommunityModerator_2":
+    "Delete posts, answers, even those marked as the best, and comments in your community",
+  "app.containers.Moderation.permissionCommunityModerator_3":
+    "Switch the post type from Expert to Discussion and from Discussion to Expert in your community",
+  "app.containers.Moderation.permissionCommunityModerator_4":
+    "Post an official answer in your community",
+  "app.containers.Moderation.permissionCommunityModerator_5":
+    "Work with documentation in your community: add, edit, and delete documentation articles",
+  "app.containers.Moderation.permissionCommunityModerator_6":
+    "Add translations for all kinds of posts in your community in supported languages",
 
   "app.containers.Tutorial.title": "Tutorial",
   "app.containers.Tutorial.description": "Tutorial: description",

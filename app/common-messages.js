@@ -54,8 +54,23 @@ export default defineMessages({
   moderation: {
     id: 'app.common.moderation',
   },
-  globalModerator: {
-    id: 'app.common.globalModerator',
+  protocolAdministrator: {
+    id: 'app.common.protocolAdministrator',
+  },
+  communityAdministrator: {
+    id: 'app.common.communityAdministrator',
+  },
+  communityModerator: {
+    id: 'app.common.communityModerator',
+  },
+  asProtocolAdministrator: {
+    id: 'app.common.asProtocolAdministrator',
+  },
+  asCommunityModerator: {
+    id: 'app.common.asCommunityModerator',
+  },
+  asCommunityAdministrator: {
+    id: 'app.common.asCommunityAdministrator',
   },
   achievementsNumber: {
     id: 'app.common.achievementsNumber',
