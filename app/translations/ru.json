@@ -563,6 +563,15 @@
   "app.containers.Communities.suggestInterestingComm":
     "Предложите сообщество, которое будет интересно Вам и другим людям, которые проголосуют за него.",
 
+  "app.containers.Communities.suggestCommunityBlock_1":
+    "Загляните на нашу страницу ",
+  "app.containers.Communities.suggestCommunityBlock_2":
+    "cервисной программы «White Glove» ",
+  "app.containers.Communities.suggestCommunityBlock_3":
+    "и создайте свое сообщество на Peeranha. ",
+  "app.containers.Communities.suggestCommunityBlock_4":
+    "Чтобы ваше сообщество заработало, свяжитесь с нами: ",
+  "app.containers.Communities.suggestCommunityBlock_5": "hello@peeranha.io.",
   "app.containers.CreateCommunity.title": "Сообщества | Создать",
   "app.containers.CreateCommunity.descriptionField": "Описание",
   "app.containers.CreateCommunity.website": "Официальный сайт",

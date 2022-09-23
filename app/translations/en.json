@@ -540,6 +540,14 @@
   "app.containers.Communities.tags": "Tags",
   "app.containers.Communities.voting": "Voting",
   "app.containers.Communities.suggestCommunity": "Create community",
+  "app.containers.Communities.suggestCommunityBlock_1": "Check out our ",
+  "app.containers.Communities.suggestCommunityBlock_2":
+    "White Glove Service Program ",
+  "app.containers.Communities.suggestCommunityBlock_3":
+    "and start your community on Peeranha. ",
+  "app.containers.Communities.suggestCommunityBlock_4":
+    "To get your community up and running, please reach out to us: ",
+  "app.containers.Communities.suggestCommunityBlock_5": "hello@peeranha.io.",
 
   "app.containers.CreateCommunity.title": "Community | Create",
   "app.containers.CreateCommunity.description":
