@@ -90,6 +90,7 @@
   "app.common.popularity": "Popularity",
   "app.common.moreVoting": "More voting",
   "app.common.reputation": "Reputation",
+  "app.common.reputationStatus": "Reputation and status",
   "app.common.en": "English",
   "app.common.ru": "Russian",
   "app.common.about": "About",
@@ -736,6 +737,7 @@
   "app.containers.HomePage.yourEmailIsRegistred":
     "Website is under development but your email is registered. You will receive an email with the steps to continue your registration when the website is ready.",
   "app.containers.HomePage.goToSite": "Go to site",
+  "app.containers.HomePage.goToApp": "Go to app",
   "app.containers.HomePage.questionsTitle": "Trending",
 
   "app.containers.Notifications.youHaveNoNewNotifications":
@@ -785,6 +787,7 @@
   "app.containers.ViewQuestion.voteToDelete": "Vote to delete",
   "app.containers.ViewQuestion.notEnoughRating":
     "To complete this action, your reputation has to be at least",
+  "app.containers.ViewQuestion.inThisCommunity": "in this community",
   "app.containers.ViewQuestion.cannotCompleteBecauseBlocked":
     "You can't complete this action. You voted to delete it earlier",
   "app.containers.ViewQuestion.cannotCompleteBecauseVoted":
@@ -810,7 +813,7 @@
   "app.containers.ViewQuestion.deleteButton": "Delete",
   "app.containers.ViewQuestion.editButton": "Edit",
   "app.containers.ViewQuestion.shareButton": "Share",
-  "app.containers.ViewQuestion.shareTitle": "Share a link to this question",
+  "app.containers.ViewQuestion.shareTitle": "Share a link to this post",
   "app.containers.ViewQuestion.saveButton": "Save",
   "app.containers.ViewQuestion.commentButton": "Comment",
   "app.containers.ViewQuestion.postCommentButton": "Post comment",
@@ -1092,11 +1095,15 @@
   "app.containers.AskQuestion.contentPopupBlock_7":
     "And the most important rule is to be polite and friendly to other users.",
   "app.containers.AskQuestion.contentPopupBlock_8": "Thank you!",
+  "app.containers.AskQuestion.errorMinReputation":
+    "To complete this action, your reputation has to be at least 0",
 
   "app.containers.ErrorPage.title": "Some error occured...",
   "app.containers.ErrorPage.description": "Some error occured... description",
   "app.containers.ErrorPage.weAreSorry":
     "We're sorry, unexpected error has occured.",
+  "app.containers.ErrorPage.weAreSorryIsDeleted":
+    "We're sorry, post was deleted.",
   "app.containers.ErrorPage.accountDoesNotExist": "Account does not exist",
   "app.containers.ErrorPage.cannotTransferToSelf":
     "Cannot transfer to yourself",
@@ -1121,7 +1128,7 @@
   "app.containers.QuestionForm.title": "New post",
   "app.containers.QuestionForm.titleLabel": "Title",
   "app.containers.QuestionForm.existingQuestionsLabel":
-    "To avoid duplicates check existing questions.",
+    "To avoid duplicates check existing posts.",
   "app.containers.QuestionForm.questionBodyLabel": "Body",
   "app.containers.QuestionForm.communityLabel": "Community",
   "app.containers.QuestionForm.tagsLabel": "Tags",

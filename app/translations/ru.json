@@ -90,6 +90,7 @@
   "app.common.popularity": "Популярность",
   "app.common.moreVoting": "Больше голосований",
   "app.common.reputation": "Репутация",
+  "app.common.reputationStatus": "Репутация и статус",
   "app.common.en": "Английский",
   "app.common.ru": "Русский",
   "app.common.about": "О нас",
@@ -745,6 +746,7 @@
   "app.containers.HomePage.yourEmailIsRegistred":
     "В настоящее время веб-сайт находится в разработке. Ваш email адрес был получен. Вы получите email с пошаговой инструкцией когда веб-сайт будет октрыт для пользователей.",
   "app.containers.HomePage.goToSite": "Перейти на сайт",
+  "app.containers.HomePage.goToApp": "Перейти к приложению",
   "app.containers.HomePage.questionsTitle": "Актуальные вопросы",
 
   "app.containers.Notifications.youHaveNoNewNotifications":
@@ -792,6 +794,7 @@
   "app.containers.ViewQuestion.voteToDelete": "Проголосовать за удаление",
   "app.containers.ViewQuestion.notEnoughRating":
     "Чтобы выполнить это действие, Ваша репутация должна быть не меньше",
+  "app.containers.ViewQuestion.inThisCommunity": "в этом сообществе",
   "app.containers.ViewQuestion.cannotCompleteBecauseBlocked":
     "Вы не можете выполнить это действие, т.к. уже проголосовали за удаление",
   "app.containers.ViewQuestion.cannotCompleteBecauseVoted":
@@ -815,7 +818,7 @@
   "app.containers.ViewQuestion.deleteButton": "Удалить",
   "app.containers.ViewQuestion.editButton": "Редактировать",
   "app.containers.ViewQuestion.shareButton": "Поделиться",
-  "app.containers.ViewQuestion.shareTitle": "Поделитесь ссылкой на этот вопрос",
+  "app.containers.ViewQuestion.shareTitle": "Поделитесь ссылкой на этот пост",
   "app.containers.ViewQuestion.saveButton": "Сохранить",
   "app.containers.ViewQuestion.commentButton": "Комментировать",
   "app.containers.ViewQuestion.postCommentButton": "Отправить",
@@ -1084,11 +1087,14 @@
   "app.containers.AskQuestion.contentPopupBlock_7":
     "И самое главное правило — будьте вежливы и уважительны к другим пользователям.",
   "app.containers.AskQuestion.contentPopupBlock_8": "Спасибо!",
-
+  "app.containers.AskQuestion.errorMinReputation":
+    "Для выполнения этого действия ваша репутация должна быть не ниже 0",
   "app.containers.ErrorPage.title": "Возникла ошибка...",
   "app.containers.ErrorPage.description": "Возникла ошибка... описание",
   "app.containers.ErrorPage.weAreSorry":
     "Извините, возникла неожиданная ошибка...",
+  "app.containers.ErrorPage.weAreSorryIsDeleted":
+    "Извините, пост был удалён.",
   "app.containers.ErrorPage.accountDoesNotExist": "Аккаунт не существует",
   "app.containers.ErrorPage.cannotTransferToSelf":
     "Нельзя отправлять самому себе",
@@ -1133,7 +1139,7 @@
   "app.containers.QuestionForm.title": "Новый пост",
   "app.containers.QuestionForm.titleLabel": "Заголовок",
   "app.containers.QuestionForm.existingQuestionsLabel":
-    "Чтобы избежать дублирования, проверьте существующие вопросы.",
+    "Чтобы избежать дублирования, проверьте существующие посты.",
   "app.containers.QuestionForm.questionBodyLabel": "Содержание",
   "app.containers.QuestionForm.communityLabel": "Сообщество",
   "app.containers.QuestionForm.bountyLabel": "Бонусное вознаграждение",

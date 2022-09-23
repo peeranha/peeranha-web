@@ -24,4 +24,7 @@ export default defineMessages({
   ifYouFeelSomething: {
     id: 'app.containers.NotFoundPage.ifYouFeelSomething',
   },
+  weAreSorryIsDeleted: {
+    id: 'app.containers.ErrorPage.weAreSorryIsDeleted',
+  },
 });

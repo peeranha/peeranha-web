@@ -8,6 +8,7 @@ export const SECOND_SCREEN = 'about';
 export const THIRD_SCREEN = 'rewards';
 export const FOURTH_SCREEN = 'faq';
 export const FIFTH_SCREEN = 'team';
+export const VIDEO_SCREEN = 'youtubeVideo';
 
 export const SEND_EMAIL_FORM_HEADER = 'HEADER';
 export const SEND_EMAIL_FORM_INTRODUCTION = 'INTRODUCTION';

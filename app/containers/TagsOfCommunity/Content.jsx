@@ -10,6 +10,7 @@ import * as routes from 'routes-config';
 
 import {
   getPermissions,
+  hasCommunityAdminRole,
   hasCommunityModeratorRole,
   hasGlobalModeratorRole,
 } from 'utils/properties';
@@ -112,12 +113,17 @@ const Content = ({
     [profileInfo],
   );
 
+  const isCommunityModerator =
+    Boolean(communityId) &&
+    hasCommunityAdminRole(getPermissions(profileInfo), communityId);
+
   const createTagPermission = useMemo(
     () => hasCommunityModeratorRole(getPermissions(profileInfo), communityId),
     [profileInfo, communityId],
   );
 
-  const editTagModerator = isGlobalAdmin || createTagPermission;
+  const editTagModerator =
+    isGlobalAdmin || isCommunityModerator || createTagPermission;
 
   return (
     <InfinityLoader

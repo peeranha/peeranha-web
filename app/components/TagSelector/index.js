@@ -11,6 +11,9 @@ import Dropdown from 'components/Dropdown/AllowedClickInside';
 import Wrapper from 'components/FormFields/Wrapper';
 import { Input } from 'components/Input/InputStyled';
 import { IconMd } from 'components/Icon/IconWithSizes';
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
 
 const TagsContainer = styled.ul`
   ${props => Input(props)};
@@ -29,10 +32,10 @@ const Tag = styled.li`
   align-items: center;
   justify-content: center;
   font-size: 14px;
-  color: ${TEXT_PRIMARY};
+  color: ${colors.tagColor || TEXT_PRIMARY};
   padding: 2px 8px;
   margin: 5px 10px 5px 0;
-  border: 1px solid ${BORDER_PRIMARY};
+  border: 1px solid ${colors.tagColor || BORDER_PRIMARY};
   border-radius: ${BORDER_RADIUS_S};
 `;
 
@@ -42,16 +45,15 @@ const ScrollDropdown = styled.div`
 `;
 
 const Base = styled.div`
-    margin-bottom: ${({ isOpen }) => (isOpen ? 120 : 0)}px;
-    @media only screen and (min-width: 769px) and (max-width: 991px) {
-      padding-bottom: ${({ isOpen }) => (isOpen ? 150 : 0)}px;
-    }
-    @media only screen and (min-width: 235px) and (max-width: 768px) {
-      padding-bottom: ${({ isOpen }) => (isOpen ? 130 : 0)}px;
-    }
-    @media only screen and (max-width: 234px) {
-      padding-bottom: ${({ isOpen }) => (isOpen ? 110 : 0)}px;
-    }
+  margin-bottom: ${({ isOpen }) => (isOpen ? 120 : 0)}px;
+  @media only screen and (min-width: 769px) and (max-width: 991px) {
+    padding-bottom: ${({ isOpen }) => (isOpen ? 150 : 0)}px;
+  }
+  @media only screen and (min-width: 235px) and (max-width: 768px) {
+    padding-bottom: ${({ isOpen }) => (isOpen ? 130 : 0)}px;
+  }
+  @media only screen and (max-width: 234px) {
+    padding-bottom: ${({ isOpen }) => (isOpen ? 110 : 0)}px;
   }
 `;
 
@@ -113,7 +115,11 @@ export const TagSelector = ({
                 <Tag key={valueLabel}>
                   <span>{valueLabel}</span>
                   <RemoveTagIcon type="button" onClick={e => onClick(e, id)}>
-                    <IconMd icon={closeIcon} fill={BORDER_PRIMARY} />
+                    <IconMd
+                      icon={closeIcon}
+                      fill={colors.tagColor || BORDER_PRIMARY}
+                      color={colors.tagColor || BORDER_PRIMARY}
+                    />
                   </RemoveTagIcon>
                 </Tag>
               ))}
