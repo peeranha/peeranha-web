@@ -276,6 +276,9 @@ export default defineMessages({
   reputation: {
     id: 'app.common.reputation',
   },
+  reputationStatus: {
+    id: 'app.common.reputationStatus',
+  },
   en: {
     id: 'app.common.en',
   },
