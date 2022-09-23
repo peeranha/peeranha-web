@@ -1082,6 +1082,8 @@
   "app.containers.ErrorPage.description": "Возникла ошибка... описание",
   "app.containers.ErrorPage.weAreSorry":
     "Извините, возникла неожиданная ошибка...",
+  "app.containers.ErrorPage.weAreSorryIsDeleted":
+    "Извините, пост был удалён.",
   "app.containers.ErrorPage.accountDoesNotExist": "Аккаунт не существует",
   "app.containers.ErrorPage.cannotTransferToSelf":
     "Нельзя отправлять самому себе",

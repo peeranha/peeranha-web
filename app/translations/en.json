@@ -1091,6 +1091,8 @@
   "app.containers.ErrorPage.description": "Some error occured... description",
   "app.containers.ErrorPage.weAreSorry":
     "We're sorry, unexpected error has occured.",
+  "app.containers.ErrorPage.weAreSorryIsDeleted":
+    "We're sorry, post was deleted.",
   "app.containers.ErrorPage.accountDoesNotExist": "Account does not exist",
   "app.containers.ErrorPage.cannotTransferToSelf":
     "Cannot transfer to yourself",
