@@ -202,10 +202,6 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
 
                   <Info>
                     {(communityEditingAllowed ||
-                      hasCommunityModeratorRole(
-                        getPermissions(profile),
-                        value,
-                      ) ||
                       hasCommunityAdminRole(
                         getPermissions(profile),
                         value,
