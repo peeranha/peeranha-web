@@ -68,13 +68,13 @@ export const TextEditorField = ({
   meta,
   tip,
   splitInHalf,
-  mediaLinks,
+  mediaLink,
 }) => {
   useEffect(
     () => {
-      input.onChange(input.value + String(mediaLinks));
+      input.onChange(input.value + mediaLink);
     },
-    [mediaLinks],
+    [mediaLink],
   );
 
   return (

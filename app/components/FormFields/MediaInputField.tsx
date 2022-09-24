@@ -10,7 +10,7 @@ type MediaInputFieldProps = {
   tip: string;
   splitInHalf: boolean;
   mediaLinks: string[];
-  setMediaLinks: (links: string[]) => void;
+  setMediaLink: (link: string) => void;
 };
 
 export const MediaInputField = ({
@@ -19,7 +19,7 @@ export const MediaInputField = ({
   meta,
   tip,
   splitInHalf,
-  setMediaLinks,
+  setMediaLink,
 }: MediaInputFieldProps) => (
   <Wrapper
     label={label}
@@ -28,7 +28,7 @@ export const MediaInputField = ({
     splitInHalf={splitInHalf}
     disabled={disabled}
   >
-    <Dropzone setMediaLinks={setMediaLinks} />
+    <Dropzone setMediaLink={setMediaLink} />
   </Wrapper>
 );
 

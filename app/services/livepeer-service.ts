@@ -12,4 +12,7 @@ export const livepeerAPI = {
   generateUrl(name: string) {
     return instance.post('asset/request-upload', JSON.stringify({ name }));
   },
+  getAssetInfo(id: string) {
+    return instance.get(`asset/${id}`);
+  },
 };

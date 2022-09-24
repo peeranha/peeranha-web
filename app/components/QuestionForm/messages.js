@@ -115,7 +115,10 @@ export default defineMessages({
   dragFiles: {
     id: 'app.containers.QuestionForm.dragFiles',
   },
-  clickToAttach: {
-    id: 'app.containers.QuestionForm.clickToAttach',
+  clickTo: {
+    id: 'app.containers.QuestionForm.clickTo',
+  },
+  attach: {
+    id: 'app.containers.QuestionForm.attach',
   },
 });

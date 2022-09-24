@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Upload } from 'tus-js-client';
 import { css } from '@emotion/react';
 import CloseRoundedIcon from 'icons/CloseRounded';
 import DeleteIcon from 'icons/Delete';
@@ -17,16 +18,19 @@ type FilePreviewerProps = {
   isUploading: boolean;
   isUploaded: boolean;
   isFailedUpload: boolean;
-  abortController: AbortController;
+  abortController?: AbortController | Upload;
   uploadProgress: string | null;
   fileName: string;
   readAndUploadFile: (
     file: File,
     fileName: string,
-    abortController: AbortController,
+    abortController?: AbortController | Upload,
   ) => void;
   removeFile: (fileName: string) => void;
-  cancelUpload: (abortController: AbortController) => void;
+  cancelUpload: (
+    fileName: string,
+    abortController?: AbortController | Upload,
+  ) => void;
 };
 
 const FilePreviewer: React.FC<FilePreviewerProps> = ({
@@ -49,7 +53,7 @@ const FilePreviewer: React.FC<FilePreviewerProps> = ({
   };
 
   const cancelFileUpload = () => {
-    cancelUpload(abortController);
+    cancelUpload(fileName, abortController);
   };
   const uploadFileAgain = () =>
     readAndUploadFile(file, fileName, abortController);
@@ -78,19 +82,22 @@ const FilePreviewer: React.FC<FilePreviewerProps> = ({
       <div
         className="pa full-width full-height t0 l0"
         css={css({
-          ...((isUploading || isFailedUpload) && styles.backgroundHover),
+          ...((isUploading || isFailedUpload) &&
+            styles.backgroundUploadingHover),
+          ...(isUploaded && styles.backgroundUploadedHover),
         })}
       />
       <div className="cup pa" css={css(styles.topRightIconWrapper)}>
-        {isUploading && (
-          <CloseRoundedIcon
-            fill="rgb(87, 111, 237)"
-            circleFill="rgba(118, 153, 255, 0.2)"
-            fillOpacity="1"
-            stroke="rgb(87, 111, 237)"
-            onClick={cancelFileUpload}
-          />
-        )}
+        {isUploading &&
+          uploadProgress !== '99' && (
+            <CloseRoundedIcon
+              fill="rgb(87, 111, 237)"
+              circleFill="rgba(118, 153, 255, 0.2)"
+              fillOpacity="1"
+              stroke="rgb(87, 111, 237)"
+              onClick={cancelFileUpload}
+            />
+          )}
         {isUploaded && (
           <VoteIcon fillOpacity="1" stroke="#FFF" fill="rgb(87, 111, 237)" />
         )}

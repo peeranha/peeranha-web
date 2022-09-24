@@ -13,8 +13,12 @@ export const styles = {
     },
   },
 
-  backgroundHover: {
+  backgroundUploadingHover: {
     backgroundColor: 'rgba(255, 255, 255, 0.85)',
+  },
+
+  backgroundUploadedHover: {
+    backgroundColor: 'rgba(0, 29, 86, 0.05)',
   },
 
   topRightIconWrapper: {

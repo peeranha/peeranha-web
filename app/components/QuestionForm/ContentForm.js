@@ -19,7 +19,7 @@ import Wrapper from '../FormFields/Wrapper';
 import MediaInputField from '../FormFields/MediaInputField';
 
 const ContentForm = ({ questionLoading, intl, formValues }) => {
-  const [mediaLinks, setMediaLinks] = useState([]);
+  const [mediaLink, setMediaLink] = useState('');
   return (
     <>
       <Field
@@ -29,7 +29,7 @@ const ContentForm = ({ questionLoading, intl, formValues }) => {
         label={intl.formatMessage(messages.questionBodyLabel)}
         validate={[strLength25x30000, required]}
         warn={[strLength25x30000, required]}
-        mediaLinks={mediaLinks}
+        mediaLink={mediaLink}
       />
 
       <Field
@@ -37,8 +37,8 @@ const ContentForm = ({ questionLoading, intl, formValues }) => {
         component={MediaInputField}
         disabled={questionLoading}
         label={intl.formatMessage(messages.media)}
-        mediaLinks={mediaLinks}
-        setMediaLinks={setMediaLinks}
+        mediaLink={mediaLink}
+        setMediaLink={setMediaLink}
       />
 
       <Wrapper

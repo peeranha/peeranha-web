@@ -1163,9 +1163,10 @@
     "You are about to leave the page without saving your changes. Are you sure want to continue?",
   "app.containers.QuestionForm.media": "Media",
   "app.containers.QuestionForm.mediaRestrictions":
-    "Image (jpeg, jpg, png, and gif image formats. Max file size 5Mb). Video (mp4 and aac. Max file size 1Gb)",
+    "Image (jpeg, jpg, png, and gif image formats. Max file size 5Mb). Video (mp4 files encoded H264 with aac audio. Max file size 1 Gb)",
   "app.containers.QuestionForm.dragFiles": "Drag files",
-  "app.containers.QuestionForm.clickToAttach": "Click to attach",
+  "app.containers.QuestionForm.clickTo": "Click to ",
+  "app.containers.QuestionForm.attach": "attach",
 
   "app.containers.AnswerForm.titleLabel": "Your Answer",
 

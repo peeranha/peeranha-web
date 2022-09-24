@@ -1,4 +1,5 @@
 import React from 'react';
+import { Upload } from 'tus-js-client';
 
 import { Files } from './Dropzone';
 import FilePreviewer from './FilePreviewer';
@@ -9,10 +10,13 @@ type FilesPreviewerProps = {
   readAndUploadFile: (
     file: File,
     fileName: string,
-    abortController: AbortController,
+    abortController?: AbortController | Upload,
   ) => void;
   removeFile: (fileName: string) => void;
-  cancelUpload: (abortController: AbortController) => void;
+  cancelUpload: (
+    fileName: string,
+    abortController?: AbortController | Upload,
+  ) => void;
 };
 
 const FilesPreviewer: React.FC<FilesPreviewerProps> = ({

@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 import { css } from '@emotion/react';
 import * as tus from 'tus-js-client';
+import { Upload } from 'tus-js-client';
 
+import { FormattedMessage } from 'react-intl';
 import PlusIcon from 'icons/Plus';
 import { styles } from './Dropzone.styled';
 import FilesPreviewer from './FilesPreviewer';
 import { getFileUrl, saveDataIpfsS3 } from '../../../utils/ipfs';
 import { livepeerAPI } from '../../../services/livepeer-service';
+import messages from '../../QuestionForm/messages';
 
 type DropzoneProps = {
-  setMediaLinks: (links: string[]) => void;
+  setMediaLink: (link: string) => void;
   maxImageFileSizeInBytes?: number;
   maxVideoFileSizeInBytes?: number;
 };
@@ -23,18 +26,18 @@ type SingleFile = {
   isUploading: boolean;
   isUploaded: boolean;
   isFailedUpload: boolean;
-  abortController: AbortController;
+  abortController?: AbortController | Upload;
   uploadProgress: string | null;
 };
 
 const Dropzone: React.FC<DropzoneProps> = ({
-  setMediaLinks,
+  setMediaLink,
   maxImageFileSizeInBytes = 5 * 1000 * 1000,
   maxVideoFileSizeInBytes = 1000 * 1000 * 1000,
 }): JSX.Element => {
   const [files, setFiles] = useState<Files>({});
 
-  const addNewFile = (file: File, abortController: AbortController): void => {
+  const addNewFile = (file: File): void => {
     setFiles(state => ({
       ...state,
       [file.name]: {
@@ -43,7 +46,6 @@ const Dropzone: React.FC<DropzoneProps> = ({
         isUploading: true,
         isUploaded: false,
         isFailedUpload: false,
-        abortController,
         uploadProgress: null,
       },
     }));
@@ -65,15 +67,11 @@ const Dropzone: React.FC<DropzoneProps> = ({
     }));
   };
 
-  const setFileSuccessfulUploadStatus = (
-    fileName: string,
-    fileUrl: string,
-  ): void => {
+  const setFileSuccessfulUploadStatus = (fileName: string): void => {
     setFiles(state => ({
       ...state,
       [fileName]: {
         ...state[fileName],
-        fileUrl,
         isUploading: false,
         isUploaded: true,
       },
@@ -104,8 +102,25 @@ const Dropzone: React.FC<DropzoneProps> = ({
     }));
   };
 
-  const cancelUpload = (abortController: AbortController): void => {
-    abortController.abort();
+  const setFileAbortController = (
+    fileName: string,
+    abortController: AbortController | Upload,
+  ): void => {
+    setFiles(state => ({
+      ...state,
+      [fileName]: {
+        ...state[fileName],
+        abortController,
+      },
+    }));
+  };
+
+  const cancelUpload = (
+    fileName: string,
+    abortController?: AbortController | Upload,
+  ): void => {
+    if (abortController) abortController.abort();
+    removeFile(fileName);
   };
 
   const uploadImage = async (
@@ -126,50 +141,65 @@ const Dropzone: React.FC<DropzoneProps> = ({
         );
         const fileUrl = getFileUrl(result.body.cid);
 
-        setFileSuccessfulUploadStatus(fileName, fileUrl);
-        setMediaLinks([`![](${fileUrl})`]);
+        setFileSuccessfulUploadStatus(fileName);
+        setMediaLink(`![](${fileUrl})`);
       }
     } catch (e) {
-      if (e.name === 'AbortError') {
-        removeFile(fileName);
-      } else {
+      if (e.name !== 'AbortError') {
         setFileFailedUploadStatus(fileName);
       }
     }
   };
 
   const uploadVideo = async (file: File): Promise<void> => {
-    const response = await livepeerAPI.generateUrl(file.name);
+    try {
+      const response = await livepeerAPI.generateUrl(file.name);
 
-    const upload = new tus.Upload(file, {
-      endpoint: response.data.tusEndpoint, // URL from `tusEndpoint` field in the `/request-upload` response
-      metadata: {
-        filename: file.name,
-        filetype: 'video/mp4',
-      },
-      uploadSize: file.size,
-      onError(err) {
-        setFileFailedUploadStatus(file.name);
-      },
+      const upload = new tus.Upload(file, {
+        endpoint: response.data.tusEndpoint, // URL from `tusEndpoint` field in the `/request-upload` response
+        metadata: {
+          filename: file.name,
+          filetype: 'video/mp4',
+        },
+        uploadSize: file.size,
+        onError() {
+          setFileFailedUploadStatus(file.name);
+        },
 
-      onProgress(bytesUploaded, bytesTotal) {
-        const percentage = ((bytesUploaded / bytesTotal) * 100).toFixed();
-        setFileUploadProgress(file.name, percentage);
-      },
-      onSuccess() {
-        const playbackId = upload.url.substr(upload.url.lastIndexOf('/') + 1);
-        const videoUrl = `<iframe src="https://lvpr.tv?v=${playbackId}"></iframe>`;
-        setFileSuccessfulUploadStatus(file.name, upload.url);
-        setMediaLinks([videoUrl]);
-      },
-    });
+        onProgress(bytesUploaded, bytesTotal) {
+          const percentage = ((bytesUploaded / bytesTotal) * 100).toFixed();
+          setFileUploadProgress(
+            file.name,
+            percentage === '100' ? '99' : percentage,
+          );
+        },
 
-    upload.start();
+        onSuccess() {
+          const { playbackId, id } = response.data.asset;
+
+          const getAssetInfoInterval = setInterval(async () => {
+            const assetInfo = await livepeerAPI.getAssetInfo(id);
+            if (assetInfo.data.status.phase !== ('processing' || 'waiting')) {
+              setFileUploadProgress(file.name, '100');
+              clearInterval(getAssetInfoInterval);
+              setFileSuccessfulUploadStatus(file.name);
+              setMediaLink(
+                `<br><iframe src="https://lvpr.tv?v=${playbackId}&autoplay=0" allowfullscreen style="min-width:50%;"></iframe><br>`,
+              );
+            }
+          }, 5000);
+        },
+      });
+
+      setFileAbortController(file.name, upload);
+      upload.start();
+    } catch (e) {
+      setFileFailedUploadStatus(file.name);
+    }
   };
 
   const readAndUploadFile = async (file: File) => {
-    const abortController = new AbortController();
-    addNewFile(file, abortController);
+    addNewFile(file);
 
     if (
       file.type.split('/')[0] === 'image' &&
@@ -178,6 +208,9 @@ const Dropzone: React.FC<DropzoneProps> = ({
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = async () => {
+        const abortController = new AbortController();
+        setFileAbortController(file.name, abortController);
+
         await uploadImage(reader.result, file.name, abortController);
       };
     }
@@ -206,10 +239,13 @@ const Dropzone: React.FC<DropzoneProps> = ({
         </span>
         <div className="df jcc fdc">
           <span className="fz14 mb4 dn" css={css(styles.dragText)}>
-            Drag files
+            <FormattedMessage id={messages.dragFiles.id} />
           </span>
           <span className="fz14" css={css(styles.attachText)}>
-            Click to <span>attach</span>
+            <FormattedMessage id={messages.clickTo.id} />
+            <span>
+              <FormattedMessage id={messages.attach.id} />
+            </span>
           </span>
         </div>
         <input
@@ -229,8 +265,7 @@ const Dropzone: React.FC<DropzoneProps> = ({
         cancelUpload={cancelUpload}
       />
       <p className="fz12" css={css(styles.restrictionsText)}>
-        Image (jpeg, jpg, png, and gif image formats. Max file size 5Mb). Video
-        (mp4 and aac. Max file size 1Gb)
+        <FormattedMessage id={messages.mediaRestrictions.id} />
       </p>
     </div>
   );
