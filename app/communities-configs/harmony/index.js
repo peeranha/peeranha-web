@@ -200,7 +200,7 @@ export const HarmonyStyles = {
     headerPrimary: 'rgb(36,95,226)',
     commentOption: 'rgb(36,95,226)',
     contentHeader: 'rgb(36,95,226)',
-    blockedInfoArea: 'rgb(36,95,226)',
+    blockedInfoArea: 'rgb(170,224,255)',
     transparentIconColor: 'rgb(170,224,255)',
     loaderColor: 'rgb(36,95,226)',
     votingIconColor: 'rgb(36,95,226)',
