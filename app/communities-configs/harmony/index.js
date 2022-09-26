@@ -201,7 +201,7 @@ export const HarmonyStyles = {
     commentOption: 'rgb(36,95,226)',
     contentHeader: 'rgb(36,95,226)',
     blockedInfoArea: 'rgb(36,95,226)',
-    transparentIconColor: 'rgb(209, 255, 255)',
+    transparentIconColor: 'rgb(170,224,255)',
     loaderColor: 'rgb(36,95,226)',
     votingIconColor: 'rgb(36,95,226)',
     linkColorSecondary: 'rgb(36,95,226)',
