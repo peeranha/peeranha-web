@@ -35,6 +35,7 @@ import {
   getPermissions,
   hasGlobalModeratorRole,
   hasCommunityModeratorRole,
+  hasProtocolAdminRole,
 } from 'utils/properties';
 
 import { POST_TYPE } from 'utils/constants';
@@ -92,11 +93,11 @@ export const Header = ({
   profile,
 }) => {
   const isFeed = parentPage === routes.feed();
-  const isModeratorModeSingleCommunity = single
+  const communityEditingAllowed = single
     ? hasGlobalModeratorRole(getPermissions(profile)) ||
-      hasCommunityModeratorRole(getPermissions(profile), single)
+      hasCommunityModeratorRole(getPermissions(profile), single) ||
+      hasProtocolAdminRole(getPermissions(profile))
     : false;
-  const isBloggerMode = hasGlobalModeratorRole(getPermissions(profile));
 
   let defaultAvatar = null;
   let defaultLabel = null;
@@ -201,7 +202,7 @@ export const Header = ({
         display={displayQuestionFilter}
         questionFilterFromCookies={questionFilterFromCookies}
       />
-      {isModeratorModeSingleCommunity && (
+      {communityEditingAllowed && (
         <button onClick={routeToEditCommunity} className="df aic mt12">
           <IconMd icon={pencilIcon} color={colors.btnColor || TEXT_PRIMARY} />
           <Span className="ml-1" color={colors.btnColor || TEXT_PRIMARY}>

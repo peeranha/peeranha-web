@@ -56,7 +56,6 @@ import tagsReducer from '../Tags/reducer';
 import tagsSaga from '../Tags/saga';
 import {
   getAllRoles,
-  getPermissions,
   hasCommunityAdminRole,
   hasGlobalModeratorRole,
 } from '../../utils/properties';
@@ -75,7 +74,6 @@ const CreateTag = ({
   permissions = [],
   getFormDispatch,
   isFormLoading,
-  isFormAvailable,
 }) => {
   const commId = useMemo(() => single || +match.params.communityid, [match]);
   useModeratorRole(noAccess, commId);
@@ -87,7 +85,6 @@ const CreateTag = ({
   const createTag = useCallback(
     (...args) => {
       const values = args[0].toJS();
-      console.log('DAAAA CYKAAAA');
       suggestTagDispatch(
         +values[FORM_COMMUNITY].id,
         {

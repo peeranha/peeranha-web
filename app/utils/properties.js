@@ -11,6 +11,7 @@ import {
   COMMUNITY_MODERATOR_ROLE,
   globalAdminPermissions,
   communityModeratorPermissions,
+  PROTOCOL_ADMIN_ROLE,
 } from './constants';
 import { BigNumber } from 'ethers';
 import { selectEthereum } from 'containers/EthereumProvider/selectors';
@@ -177,4 +178,19 @@ export const hasCommunityModeratorRole = (permissions = [], communityId) => {
     permission =>
       permission === getCommunityRole(COMMUNITY_MODERATOR_ROLE, communityId),
   ).length;
+};
+
+export const hasProtocolAdminRole = permissionsFromState => {
+  let permissions = permissionsFromState;
+
+  if (!permissions) {
+    permissions =
+      JSON.parse(getCookie('profileinfols') || '""')?.permissions || [];
+  }
+
+  return Boolean(
+    permissions.find(permission =>
+      BigNumber.from(permission).eq(PROTOCOL_ADMIN_ROLE),
+    ),
+  );
 };
