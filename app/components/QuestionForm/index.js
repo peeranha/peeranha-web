@@ -174,7 +174,7 @@ export const QuestionForm = ({
   const profileWithModeratorRights =
     profile && hasGlobalModeratorRole(getPermissions(profile));
 
-  const isCommunityModerator =
+  const isCommunityAdmin =
     Boolean(single) && hasCommunityAdminRole(getPermissions(profile), single);
 
   const handleSetClicked = () => setIsClickSubmit(true);
@@ -225,7 +225,9 @@ export const QuestionForm = ({
                     setIsError={setIsError}
                     hasSelectedType={isSelectedType}
                     setHasSelectedType={setIsSelectedType}
-                    isCommunityModerator={isCommunityModerator}
+                    isCommunityModerator={
+                      isCommunityModerator || isCommunityAdmin
+                    }
                   />
                 )) ||
                   (communityQuestionsType === GENERAL_TYPE && (
@@ -280,7 +282,9 @@ export const QuestionForm = ({
                   />
                 )}
 
-              {(profileWithModeratorRights || isCommunityModerator) && (
+              {(profileWithModeratorRights ||
+                isCommunityModerator ||
+                isCommunityAdmin) && (
                 <SuggestTag
                   formValues={formValues}
                   redirectToCreateTagDispatch={redirectToCreateTagDispatch}
