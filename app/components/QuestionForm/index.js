@@ -272,13 +272,13 @@ export const QuestionForm = ({
 
               {!isFaq &&
                 Number(formValues[FORM_TYPE]) !== POST_TYPE.faq && (
-                  <>
-                    <TagsForm
-                      intl={intl}
-                      questionLoading={questionLoading}
-                      formValues={formValues}
-                      change={change}
-                    />
+                  <TagsForm
+                    intl={intl}
+                    questionLoading={questionLoading}
+                    formValues={formValues}
+                    change={change}
+                  />
+                )}
 
               {(profileWithModeratorRights || isCommunityModerator) && (
                 <SuggestTag
@@ -286,21 +286,6 @@ export const QuestionForm = ({
                   redirectToCreateTagDispatch={redirectToCreateTagDispatch}
                 />
               )}
-
-              {/*<BountyForm*/}
-              {/*  intl={intl}*/}
-              {/*  questionLoading={questionLoading}*/}
-              {/*  formValues={formValues}*/}
-              {/*  change={change}*/}
-              {/*  dotRestriction={DEFAULT_DOT_RESTRICTION}*/}
-              {/*/>*/}
-
-              {/*<BountyDateForm*/}
-              {/*  intl={intl}*/}
-              {/*  questionLoading={questionLoading}*/}
-              {/*  formValues={formValues}*/}
-              {/*  change={change}*/}
-              {/*/>*/}
 
               <Button
                 disabled={questionLoading}
