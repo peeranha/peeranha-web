@@ -43,7 +43,7 @@ const IPFSInformation = ({ locale, ipfsHash, histories }) => {
 
   const hashString = getIpfsHashFromBytes32(ipfsHash);
   const polygonURL = process.env.BLOCKCHAIN_TRANSACTION_INFO_URL;
-  const ipfsURL = process.env.IPFS_NFT_URL;
+  const ipfsURL = process.env.IPFS_CDN_URL;
 
   const formattedData = histories?.map(
     ({ transactionHash, eventName, timeStamp, eventEntity }) => ({
