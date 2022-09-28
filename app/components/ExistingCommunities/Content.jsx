@@ -11,9 +11,9 @@ import { TEXT_PRIMARY, TEXT_SECONDARY } from 'style-constants';
 
 import {
   getPermissions,
+  hasCommunityAdminRole,
   hasCommunityModeratorRole,
   hasGlobalModeratorRole,
-  hasCommunityAdminRole,
 } from 'utils/properties';
 import { getFormattedNum2 } from 'utils/numbers';
 import { getDifferenceInDate } from 'utils/datetime';
@@ -203,6 +203,10 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
                   <Info>
                     {(communityEditingAllowed ||
                       hasCommunityModeratorRole(
+                        getPermissions(profile),
+                        value,
+                      ) ||
+                      hasCommunityAdminRole(
                         getPermissions(profile),
                         value,
                       )) && (

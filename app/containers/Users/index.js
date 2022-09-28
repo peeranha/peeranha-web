@@ -52,10 +52,10 @@ const Users = ({
   ]);
 
   const dropdownFilter = useCallback(
-    sortingAttribute => {
+    sorting => {
       getUsersDispatch({
         loadMore: false,
-        sortingAttribute,
+        sorting,
         reload: true,
         communityId: single || 0,
       });
