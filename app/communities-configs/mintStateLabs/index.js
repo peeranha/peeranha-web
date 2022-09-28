@@ -2,7 +2,7 @@ import React from 'react';
 import { css } from 'styled-components';
 
 import MintStateLabsLogo from './images/mintStateLabsIcon.svg?inline';
-import favicon from '!file-loader?name=[name].[ext]!./images/favicon-mintStateLabs.ico';
+import favicon from '!file-loader?name=[name].[ext]!./images/MSLLogo.ico';
 import RobotoRegularEOT from './fonts/Roboto-Regular.eot';
 import RobotoRegularWOFF from './fonts/Roboto-Regular.woff';
 import RobotoRegularTTF from './fonts/Roboto-Regular.ttf';

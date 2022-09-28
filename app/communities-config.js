@@ -1,16 +1,14 @@
 import FileiconLogo from './communities-configs/filecoin/images/filecoin-logo.svg?inline';
 import PolygonLogo from './communities-configs/polygon/images/polygon-logo.svg?inline';
 import FunctionlandLogo from './communities-configs/functionland/images/functionland-logo.svg?inline';
-import MintStateLabsLogo from './communities-configs/mintStateLabs/images/mintStateLabsIcon.svg?inline';
+import MintStateLabsLogo from './communities-configs/mintStateLabs/images/MSL-LogoMain.svg?inline';
 import SuiLogo from './communities-configs/sui/images/sui-logo.svg?inline';
-
 
 import { PolygonStyles } from './communities-configs/polygon';
 import { FilecoinStyles } from './communities-configs/filecoin';
 import { FunctionlandStyles } from './communities-configs/functionland';
 import { MintStateLabsStyles } from './communities-configs/mintStateLabs';
 import { SuiStyles } from './communities-configs/sui';
-
 
 const communitiesConfig = {
   prod: {
