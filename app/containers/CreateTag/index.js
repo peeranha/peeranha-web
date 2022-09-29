@@ -10,8 +10,6 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
-import { COMMUNITY_ADMIN_VALUE } from 'utils/constants';
-
 import Seo from 'components/Seo';
 import TipsBase from 'components/Base/TipsBase';
 import { BaseSpecialOne } from 'components/Base/BaseTransparent';
@@ -58,6 +56,7 @@ import {
   getAllRoles,
   hasCommunityAdminRole,
   hasGlobalModeratorRole,
+  hasProtocolAdminRole,
 } from '../../utils/properties';
 
 import { useModeratorRole } from '../../hooks/useModeratorRole';
@@ -97,9 +96,8 @@ const CreateTag = ({
     [suggestTagDispatch],
   );
 
-  const isGlobalAdmin = useMemo(() => hasGlobalModeratorRole(permissions), [
-    permissions,
-  ]);
+  const isGlobalAdmin =
+    hasGlobalModeratorRole(permissions) || hasProtocolAdminRole(permissions);
   const profileWithCommunityAdminRights = Boolean(commId)
     ? hasCommunityAdminRole(permissions, commId)
     : false;
