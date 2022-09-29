@@ -66,6 +66,7 @@ import {
   getPermissions,
   hasCommunityAdminRole,
   hasGlobalModeratorRole,
+  hasProtocolAdminRole,
 } from 'utils/properties';
 import { translationMessages } from '../../i18n';
 
@@ -167,11 +168,11 @@ export const QuestionForm = ({
     createdHistory.push(routes.search(formValues[FORM_TITLE]));
   };
 
-  const profileWithModeratorRights =
-    profile && hasGlobalModeratorRole(getPermissions(profile));
-
-  const isCommunityModerator =
-    Boolean(single) && hasCommunityAdminRole(getPermissions(profile), single);
+  const tagCreatingAllowed =
+    hasGlobalModeratorRole(getPermissions(profile)) ||
+    (Boolean(single) &&
+      hasCommunityAdminRole(getPermissions(profile), single)) ||
+    hasProtocolAdminRole(getPermissions(profile));
 
   const handleSetClicked = () => setIsClickSubmit(true);
   const handleButtonClick = () => {
@@ -271,7 +272,7 @@ export const QuestionForm = ({
                 change={change}
               />
 
-              {(profileWithModeratorRights || isCommunityModerator) && (
+              {tagCreatingAllowed && (
                 <SuggestTag
                   formValues={formValues}
                   redirectToCreateTagDispatch={redirectToCreateTagDispatch}
