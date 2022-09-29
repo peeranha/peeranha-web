@@ -21,10 +21,8 @@ import { deleteCookie, getCookie } from './cookie';
 import {
   CURRENCY,
   INVALID_ETHEREUM_PARAMETERS_ERROR_CODE,
-  INVALID_MIN_RATING_ERROR_CODE,
   META_TRANSACTIONS_ALLOWED,
   METAMASK_ERROR_CODE,
-  USER_MIN_RATING_ERROR_CODE,
   RECAPTCHA_VERIFY_FAILED_CODE,
   REJECTED_SIGNATURE_REQUEST,
 } from './constants';
@@ -260,11 +258,6 @@ class EthereumService {
         case INVALID_ETHEREUM_PARAMETERS_ERROR_CODE:
           this.transactionFailed(
             new WebIntegrationErrorByCode(METAMASK_ERROR_CODE),
-          );
-          break;
-        case INVALID_MIN_RATING_ERROR_CODE:
-          this.transactionFailed(
-            new WebIntegrationErrorByCode(USER_MIN_RATING_ERROR_CODE),
           );
           break;
         case REJECTED_SIGNATURE_REQUEST:
