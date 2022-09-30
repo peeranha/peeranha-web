@@ -76,6 +76,7 @@ const Warning = styled.div`
 
 const ButtonGroup = styled.div`
   ${Styles};
+  border: ${({ error }) => !error && 'none'};
   padding: 0;
   display: flex;
 
