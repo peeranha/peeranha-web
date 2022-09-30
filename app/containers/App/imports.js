@@ -43,6 +43,7 @@ const NoAccess = React.lazy(() => import('components/NoAccess'));
 const Home = React.lazy(() => import('containers/Home'));
 const Feed = React.lazy(() => import('components/Feed'));
 const Communities = React.lazy(() => import('components/ExistingCommunities'));
+const Subcommunities = React.lazy(() => import('components/Subcommunities'));
 const FullWidthPreloader = React.lazy(() =>
   import('components/LoadingIndicator/FullWidthPreloader'),
 );
@@ -79,6 +80,7 @@ export {
   Home,
   Feed,
   Communities,
+  Subcommunities,
   SuggestedCommunities,
   EmailEnteringForm,
   EmailVerificationForm,

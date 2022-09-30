@@ -11,7 +11,7 @@ import {
 
 import * as routes from 'routes-config';
 import createdHistory from 'createdHistory';
-
+import _isEmpty from 'lodash/isEmpty';
 import { selectEos } from 'containers/EosioProvider/selectors';
 
 import { getCookie, setCookie, deleteCookie } from 'utils/cookie';
@@ -24,7 +24,10 @@ import {
   getRandomQuestions,
 } from 'utils/questionsManagement';
 import { getQuestionBounty } from 'utils/walletManagement';
-import { isSingleCommunityWebsite } from 'utils/communityManagement';
+import {
+  isSingleCommunityWebsite,
+  singleSubcommunity,
+} from 'utils/communityManagement';
 
 import {
   ADD_TO_TOP_COMMUNITY_METHOD,
@@ -96,6 +99,7 @@ import { selectUsers } from '../DataCacheProvider/selectors';
 
 const feed = routes.feed();
 const single = isSingleCommunityWebsite();
+const hasSingleSubcommunity = singleSubcommunity();
 
 export function* getQuestionsWorker({
   limit,
@@ -111,16 +115,30 @@ export function* getQuestionsWorker({
 
     let questionsList = [];
 
+    const subcommunityList =
+      _isEmpty(hasSingleSubcommunity) && !single
+        ? []
+        : [...hasSingleSubcommunity, single];
     if (single) {
       communityIdFilter = single;
     }
-    if (communityIdFilter > 0) {
+    if (communityIdFilter > 0 && _isEmpty(hasSingleSubcommunity)) {
       questionsList = yield call(
         getPostsByCommunityId,
         limit,
         skip,
         postTypes,
         [communityIdFilter],
+      );
+    }
+
+    if (communityIdFilter > 0) {
+      questionsList = yield call(
+        getPostsByCommunityId,
+        limit,
+        skip,
+        postTypes,
+        subcommunityList,
       );
     }
 

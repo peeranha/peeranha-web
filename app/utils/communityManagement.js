@@ -46,6 +46,9 @@ export const singleCommunityColors = () =>
 export const singleCommunityFonts = () =>
   _get(singleCommunityStyles(), 'fonts', {});
 
+export const singleSubcommunity = () =>
+  _get(communitiesConfig, [isSingleCommunityWebsite(), 'subcommunity'], []);
+
 export const hasCommunitySingleWebsite = commId =>
   communitiesConfig[commId] ? communitiesConfig[commId].origin : false;
 

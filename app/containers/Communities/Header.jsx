@@ -21,9 +21,11 @@ import messages from './messages';
 import languages from './languagesOptions';
 import { GO_TO_CREATE_COMMUNITY_SCREEN_BUTTON_ID } from './constants';
 import { getPermissions, hasGlobalModeratorRole } from '../../utils/properties';
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
 const suggestedCommunitiesRoute = routes.suggestedCommunities();
 const communitiesRoute = routes.communities();
+const isSingle = isSingleCommunityWebsite();
 
 const Header = ({
   goToCreateCommunityScreen,
@@ -35,41 +37,43 @@ const Header = ({
   language,
   profile,
 }) => {
-  const path = window.location.pathname + window.location.hash;
+  const isComminity = window.location.pathname.slice(1) === 'communities';
+
   const profileWithModeratorRights =
     profile &&
     useMemo(() => hasGlobalModeratorRole(getPermissions(profile)), [profile]);
   return (
     <div className="mb-to-sm-0 mb-from-sm-3">
-      {profileWithModeratorRights && (
-        <SubHeaderWrapper position="top">
-          <SubHeaderWrapperRightPanel className="right-panel">
-            <TransparentButton
-              id={`${GO_TO_CREATE_COMMUNITY_SCREEN_BUTTON_ID}_header`}
-              onClick={goToCreateCommunityScreen}
-              className="d-flex align-items-center"
-            >
-              <span>
-                <img
-                  className="d-none d-sm-inline-block"
-                  src={createCommunityIcon}
-                  alt="icon"
-                />
+      {profileWithModeratorRights &&
+        !isSingle && (
+          <SubHeaderWrapper position="top">
+            <SubHeaderWrapperRightPanel className="right-panel">
+              <TransparentButton
+                id={`${GO_TO_CREATE_COMMUNITY_SCREEN_BUTTON_ID}_header`}
+                onClick={goToCreateCommunityScreen}
+                className="d-flex align-items-center"
+              >
+                <span>
+                  <img
+                    className="d-none d-sm-inline-block"
+                    src={createCommunityIcon}
+                    alt="icon"
+                  />
 
-                <IconSm
-                  className="d-inline-flex d-sm-none"
-                  fill={BORDER_PRIMARY}
-                  icon={addIcon}
-                />
-              </span>
+                  <IconSm
+                    className="d-inline-flex d-sm-none"
+                    fill={BORDER_PRIMARY}
+                    icon={addIcon}
+                  />
+                </span>
 
-              <span className="ml-1 button-label">
-                <FormattedMessage {...messages.suggestCommunity} />
-              </span>
-            </TransparentButton>
-          </SubHeaderWrapperRightPanel>
-        </SubHeaderWrapper>
-      )}
+                <span className="ml-1 button-label">
+                  <FormattedMessage {...messages.suggestCommunity} />
+                </span>
+              </TransparentButton>
+            </SubHeaderWrapperRightPanel>
+          </SubHeaderWrapper>
+        )}
 
       <SubHeader
         changeSorting={changeSorting}
@@ -78,6 +82,7 @@ const Header = ({
         setLang={setLang}
         language={language}
         languages={languages}
+        isCommunity={isComminity}
       />
     </div>
   );

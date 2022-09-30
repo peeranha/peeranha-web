@@ -17,6 +17,11 @@ import {
   selectCommunitiesLoading,
 } from 'containers/DataCacheProvider/selectors';
 
+import {
+  isSingleCommunityWebsite,
+  singleSubcommunity,
+} from 'utils/communityManagement';
+
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 import { redirectToCreateCommunity } from 'containers/CreateCommunity/actions';
 
@@ -35,7 +40,7 @@ import reducer from './reducer';
 import saga from './saga';
 
 import languages from './languagesOptions';
-
+import _isEmpty from 'lodash/isEmpty';
 import Header from './Header';
 import Banner from './Banner';
 
@@ -74,6 +79,15 @@ export const Communities = ({
     ],
     [communitiesLoading, route, suggestedCommunitiesLoading],
   );
+
+  const isSingle = isSingleCommunityWebsite();
+  const hasSingleSubcommunity = singleSubcommunity();
+
+  communities = isSingle
+    ? communities.filter(community =>
+        hasSingleSubcommunity.includes(community.id),
+      )
+    : communities;
 
   return (
     <div className="d-xl-flex">

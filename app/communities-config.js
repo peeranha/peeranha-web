@@ -67,6 +67,7 @@ const communitiesConfig = {
       origin: `https://filecoin${process.env.COOKIE_DOMAIN}`,
       src: FileiconLogo,
       styles: FilecoinStyles,
+      subcommunity: [14, 15],
     },
     4: {
       origin: `https://community${process.env.COOKIE_DOMAIN}`,
@@ -83,6 +84,16 @@ const communitiesConfig = {
     },
     6: {
       origin: 'https://testcommunity.net',
+    },
+    14: {
+      origin: `https://subcomm1-filecoin${process.env.COOKIE_DOMAIN}`,
+      src: FileiconLogo,
+      styles: FilecoinStyles,
+    },
+    15: {
+      origin: `https://subcomm2-filecoin${process.env.COOKIE_DOMAIN}`,
+      src: FileiconLogo,
+      styles: FilecoinStyles,
     },
   },
   dev: {

@@ -50,13 +50,20 @@ export const SubHeader = ({
   setLang,
   language,
   languages,
+  isCommunity,
 }) => (
   <SubHeaderWrapper position="bottom">
     <H3>
       <MediumImageStyled src={communitiesHeader} alt="communitiesHeader" />
 
       <span>
-        <FormattedMessage id={commonMessages.communities.id} />
+        <FormattedMessage
+          id={
+            isCommunity
+              ? commonMessages.communities.id
+              : commonMessages.subcommunities.id
+          }
+        />
         <Span className="ml-2" color={TEXT_SECONDARY} fontSize="30" bold>
           {communitiesNumber}
         </Span>

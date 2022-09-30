@@ -192,6 +192,13 @@ const MainLinks = ({ currClientHeight, profile }) => {
         </A1>
       )}
 
+      {!!singleCommId && (
+        <A1 to={routes.subcommunities()} name="subcommunities" route={route}>
+          <IconLg className="mr-2" icon={communitiesIcon} />
+          <FormattedMessage id={messages.subcommunities.id} />
+        </A1>
+      )}
+
       <A1
         to={!singleCommId ? routes.tags() : routes.communityTags(singleCommId)}
         name="tags"

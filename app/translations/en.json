@@ -35,6 +35,7 @@
   "app.common.wrongChainId": "Wrong Chain id",
   "app.common.add": "Add",
   "app.common.communities": "Communities",
+  "app.common.subcommunities": "Subcommunities",
   "app.common.allCommunities": "All communities",
   "app.common.tags": "Tags",
   "app.common.home": "Home",

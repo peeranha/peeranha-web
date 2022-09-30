@@ -105,8 +105,6 @@ const DescriptionText = P.extend`
 `;
 
 const Content = ({ communities, sorting, locale, language, profile }) => {
-  if (!communities || !communities.length) return null;
-
   const communityEditingAllowed = useMemo(
     () => hasGlobalModeratorRole(getPermissions(profile)),
     [profile],
@@ -157,58 +155,14 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
                       {/* <P className="d-none d-md-block" fontSize="14" lineHeight="18">
                   <FormattedMessage {...commonMessages[x.language]} />
                 </P> */}
-                    <DescriptionText fontSize="14" lineHeight="18">
-                      {description}
-                    </DescriptionText>
-                    {website && <OfficialSiteLink website={website} />}
-                  </div>
-                </DescriptionBlock>
+                      <DescriptionText fontSize="14" lineHeight="18">
+                        {description}
+                      </DescriptionText>
+                      {website && <OfficialSiteLink website={website} />}
+                    </div>
+                  </DescriptionBlock>
 
-                <InfoBlock className="flex-wrap flex-sm-nowrap">
-                  {(communityEditingAllowed ||
-                    hasCommunityModeratorRole(getPermissions(profile), value) ||
-                    hasCommunityAdminRole(getPermissions(profile), value)) && (
-                    <Info>
-                      <SpanCenter>
-                        {getFormattedNum2(x.followingUsers)}
-                      </SpanCenter>
-                      <P>
-                        <FormattedMessage id={commonMessages.usersShort.id} />
-                      </P>
-                    </Info>
-                  )}
-
-                  <Info>
-                    <SpanCenter>{getFormattedNum2(x.postCount)}</SpanCenter>
-                    <P>
-                      <FormattedMessage id={commonMessages.posts.id} />
-                    </P>
-                  </Info>
-
-                  <Info>
-                    <SpanCenter>{getFormattedNum2(x.replyCount)}</SpanCenter>
-                    <P>
-                      <FormattedMessage id={commonMessages.answers.id} />
-                    </P>
-                  </Info>
-
-                  <Info>
-                    <SpanCenter>{getFormattedNum2(tags?.length)}</SpanCenter>
-                    <A to={routes.communityTags(id)}>
-                      <FormattedMessage id={commonMessages.tags.id} />
-                    </A>
-                  </Info>
-
-                  <Info>
-                    <SpanCenter>
-                      {getDifferenceInDate(x.creationTime, locale)}
-                    </SpanCenter>
-                    <SpanCenter>
-                      <FormattedMessage id={commonMessages.age.id} />
-                    </SpanCenter>
-                  </Info>
-
-                  <Info>
+                  <InfoBlock className="flex-wrap flex-sm-nowrap">
                     {(communityEditingAllowed ||
                       hasCommunityModeratorRole(
                         getPermissions(profile),
@@ -218,22 +172,72 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
                         getPermissions(profile),
                         value,
                       )) && (
-                      <InfoButton
-                        onClick={() =>
-                          createdHistory.push(routes.communitiesEdit(id))
-                        }
-                      >
-                        <FormattedMessage id={commonMessages.edit.id} />
-                      </InfoButton>
+                      <Info>
+                        <SpanCenter>
+                          {getFormattedNum2(x.followingUsers)}
+                        </SpanCenter>
+                        <P>
+                          <FormattedMessage id={commonMessages.usersShort.id} />
+                        </P>
+                      </Info>
                     )}
-                    <FollowCommunityButton communityIdFilter={id} />
-                  </Info>
-                </InfoBlock>
-              </BaseSpecial>
-            );
-          },
-        )}
-    </Base>
+
+                    <Info>
+                      <SpanCenter>{getFormattedNum2(x.postCount)}</SpanCenter>
+                      <P>
+                        <FormattedMessage id={commonMessages.posts.id} />
+                      </P>
+                    </Info>
+
+                    <Info>
+                      <SpanCenter>{getFormattedNum2(x.replyCount)}</SpanCenter>
+                      <P>
+                        <FormattedMessage id={commonMessages.answers.id} />
+                      </P>
+                    </Info>
+
+                    <Info>
+                      <SpanCenter>{getFormattedNum2(tags?.length)}</SpanCenter>
+                      <A to={routes.communityTags(id)}>
+                        <FormattedMessage id={commonMessages.tags.id} />
+                      </A>
+                    </Info>
+
+                    <Info>
+                      <SpanCenter>
+                        {getDifferenceInDate(x.creationTime, locale)}
+                      </SpanCenter>
+                      <SpanCenter>
+                        <FormattedMessage id={commonMessages.age.id} />
+                      </SpanCenter>
+                    </Info>
+
+                    <Info>
+                      {(communityEditingAllowed ||
+                        hasCommunityModeratorRole(
+                          getPermissions(profile),
+                          value,
+                        ) ||
+                        hasCommunityAdminRole(
+                          getPermissions(profile),
+                          value,
+                        )) && (
+                        <InfoButton
+                          onClick={() =>
+                            createdHistory.push(routes.communitiesEdit(id))
+                          }
+                        >
+                          <FormattedMessage id={commonMessages.edit.id} />
+                        </InfoButton>
+                      )}
+                      <FollowCommunityButton communityIdFilter={id} />
+                    </Info>
+                  </InfoBlock>
+                </BaseSpecial>
+              );
+            },
+          )}
+      </Base>
       <Base>
         <div
           className="df aic fdc jcc"
@@ -272,7 +276,7 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
           </div>
         </div>
       </Base>
-   </>
+    </>
   );
 };
 

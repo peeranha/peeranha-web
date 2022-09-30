@@ -117,6 +117,9 @@ export default defineMessages({
   communities: {
     id: 'app.common.communities',
   },
+  subcommunities: {
+    id: 'app.common.subcommunities',
+  },
   allCommunities: {
     id: 'app.common.allCommunities',
   },

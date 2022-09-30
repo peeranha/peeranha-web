@@ -95,6 +95,8 @@ export const feed = communityId =>
 
 export const communities = () => (!isBloggerMode ? `/communities` : `/`);
 
+export const subcommunities = () => `/subcommunities`;
+
 export const tags = () => `/tags`;
 
 export const users = () => '/users';
