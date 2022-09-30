@@ -217,7 +217,7 @@ export const MintStateLabsStyles = {
     headerPrimary: '#53A6EC',
     commentOption: '#53A6EC',
     contentHeader: '#53A6EC',
-    blockedInfoArea: '#53A6EC',
+    blockedInfoArea: '#DAEEFF',
     transparentIconColor: '#FFFF',
     loaderColor: '#53A6EC',
     votingIconColor: '#53A6EC',
