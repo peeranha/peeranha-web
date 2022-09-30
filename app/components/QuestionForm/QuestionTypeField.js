@@ -76,9 +76,9 @@ const Warning = styled.div`
 
 const ButtonGroup = styled.div`
   ${Styles};
-  border: ${({ error }) => !error && 'none'};
-  padding: 0;
   display: flex;
+  padding: 0;
+  border: ${({ error }) => !error && 'none'};
 
   @media (max-width: 576px) {
     padding-left: 0 !important;
