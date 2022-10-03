@@ -232,7 +232,7 @@ export default defineMessages({
     id: 'app.common.close',
   },
   subscribers: {
-    id: 'app.common.users',
+    id: 'app.common.subscribers',
   },
   newest: {
     id: 'app.common.newest',

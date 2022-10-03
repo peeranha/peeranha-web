@@ -42,6 +42,7 @@
   "app.common.myFeed": "My feed",
   "app.common.users": "Users",
   "app.common.followers": "Followers",
+  "app.common.subscribers": "Subscribers",
   "app.common.usersShort": "Users",
   "app.common.faq": "FAQ",
   "app.common.moderationHeader": "Moderator permissions",

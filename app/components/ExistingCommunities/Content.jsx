@@ -179,7 +179,9 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
                           {getFormattedNum2(x.followingUsers)}
                         </SpanCenter>
                         <P>
-                          <FormattedMessage id={commonMessages.usersShort.id} />
+                          <FormattedMessage
+                            id={commonMessages.subscribers.id}
+                          />
                         </P>
                       </Info>
                     )}
