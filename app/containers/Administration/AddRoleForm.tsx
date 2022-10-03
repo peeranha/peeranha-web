@@ -18,28 +18,29 @@ import {
 import {
   ADD_MODERATOR_BUTTON_BUTTON,
   WALLET_ADDRESS_FIELD,
+  ROLE_FIELD,
 } from 'containers/Administration/constants';
 import messages from 'containers/Administration/messages';
 
 import { scrollToErrorField } from 'utils/animation';
 import { TEXT_DARK } from 'style-constants';
 
-type AddModeratorFormProps = {
+type AddRoleFormProps = {
   locale: string;
   single: number | undefined;
   handleSubmit: Function;
-  addModerator: Function;
+  addRole: Function;
   Button: typeof React.Component;
-  addModeratorLoading: boolean;
+  addRoleLoading: boolean;
 };
 
-const AddModeratorForm: React.FC<AddModeratorFormProps> = ({
+const AddRoleForm: React.FC<AddRoleFormProps> = ({
   locale,
   single,
   handleSubmit,
-  addModerator,
+  addRole,
   Button,
-  addModeratorLoading,
+  addRoleLoading,
 }): JSX.Element | null => {
   const [isOpened, open] = useState(false);
 
@@ -50,8 +51,17 @@ const AddModeratorForm: React.FC<AddModeratorFormProps> = ({
     open(false);
   };
 
-  const addModeratorMethod = (values: any) => {
-    addModerator(values.get(WALLET_ADDRESS_FIELD), single);
+  const rolesName = [
+    translationMessages[locale][messages.communityAdministrator.id],
+    translationMessages[locale][messages.communityModerator.id],
+  ];
+
+  const addRoleMethod = (values: any) => {
+    addRole(
+      values.get(WALLET_ADDRESS_FIELD),
+      Number(values.get(ROLE_FIELD)),
+      single,
+    );
     closeModal();
   };
 
@@ -74,13 +84,29 @@ const AddModeratorForm: React.FC<AddModeratorFormProps> = ({
             `}
             className="tc"
           >
-            <FormattedMessage id={messages.addModerator.id} />
+            <FormattedMessage id={messages.addRole.id} />
           </h5>
 
-          <form onSubmit={handleSubmit(addModeratorMethod)}>
+          <form onSubmit={handleSubmit(addRoleMethod)}>
+            <Field
+              name={ROLE_FIELD}
+              component="select"
+              className="form-control"
+              placeholder={translationMessages[locale][messages.chooseRole.id]}
+            >
+              <option value="" disabled>
+                {translationMessages[locale][messages.chooseRole.id]}
+              </option>
+              {rolesName.map((roleName, index) => (
+                <option key={roleName} value={index}>
+                  {roleName}
+                </option>
+              ))}
+            </Field>
+
             <Field
               name={WALLET_ADDRESS_FIELD}
-              disabled={addModeratorLoading}
+              disabled={addRoleLoading}
               component={TextInputField}
               placeholder={
                 translationMessages[locale][messages.walletAddress.id]
@@ -95,7 +121,7 @@ const AddModeratorForm: React.FC<AddModeratorFormProps> = ({
               </OutlinedButton>
 
               <ContainedButton
-                disabled={addModeratorLoading}
+                disabled={addRoleLoading}
                 type="submit"
                 id={ADD_MODERATOR_BUTTON_BUTTON}
               >
@@ -112,6 +138,6 @@ const AddModeratorForm: React.FC<AddModeratorFormProps> = ({
 const FormClone = reduxForm<any, any>({
   onSubmitFail: errors => scrollToErrorField(errors),
   form: 'answerForm',
-})(AddModeratorForm);
+})(AddRoleForm);
 
 export default React.memo(FormClone);

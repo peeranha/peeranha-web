@@ -31,6 +31,9 @@ export const GIVE_COMMUNITY_MODERATOR_PERMISSION =
   'giveCommunityModeratorPermission';
 export const REVOKE_COMMUNITY_MODERATOR_PERMISSION =
   'revokeCommunityModeratorPermission';
+export const GIVE_COMMUNITY_ADMIN_PERMISSION = 'giveCommunityAdminPermission';
+export const REVOKE_COMMUNITY_ADMIN_PERMISSION =
+  'revokeCommunityAdminPermission';
 
 //Query names
 export const GET_USER_BY_ADDRESS = 'getUserByAddress';

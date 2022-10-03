@@ -8,8 +8,11 @@ export default defineMessages({
   communityAdministrator: {
     id: 'app.containers.Administration.communityAdministrator',
   },
-  addModerator: {
-    id: 'app.containers.Administration.addModerator',
+  addRole: {
+    id: 'app.containers.Administration.addRole',
+  },
+  chooseRole: {
+    id: 'app.containers.Administration.chooseRole',
   },
   walletAddress: {
     id: 'app.common.walletAddress',

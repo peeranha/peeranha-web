@@ -3,8 +3,8 @@ export type OutputSelector = {
   profileInfo: User;
   moderators: Array<Moderator>;
   moderatorsLoading: boolean;
-  addModeratorLoading: boolean;
-  revokeModeratorLoading: boolean;
+  addRoleLoading: boolean;
+  revokeRoleLoading: boolean;
 };
 
 export type User = {

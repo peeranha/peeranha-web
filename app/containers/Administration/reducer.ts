@@ -1,21 +1,23 @@
 import { fromJS } from 'immutable';
 
 import {
-  ADD_MODERATOR,
-  ADD_MODERATOR_ERROR,
-  ADD_MODERATOR_SUCCESS,
+  ADD_ROLE,
+  ADD_ROLE_ERROR,
+  ADD_ROLE_SUCCESS,
   GET_MODERATORS,
   GET_MODERATORS_ERROR,
   GET_MODERATORS_SUCCESS,
-  REVOKE_MODERATOR,
-  REVOKE_MODERATOR_ERROR,
-  REVOKE_MODERATOR_SUCCESS,
+  REVOKE_ROLE,
+  REVOKE_ROLE_ERROR,
+  REVOKE_ROLE_SUCCESS,
 } from './constants';
 
 export const initialState = fromJS({
   moderatorsLoading: true,
-  addModeratorLoading: false,
-  revokeModeratorLoading: false,
+  addRoleLoading: false,
+  revokeRoleLoading: false,
+  addAdminLoading: false,
+  revokeAdminLoading: false,
   moderatorsList: [],
   moderatorsError: '',
 });
@@ -35,22 +37,22 @@ function moderationReducer(state = initialState, action: any) {
         .set('moderatorsLoading', false)
         .set('moderatorsError', moderatorsError);
 
-    case ADD_MODERATOR:
-      return state.set('addModeratorLoading', true);
-    case ADD_MODERATOR_SUCCESS:
-      return state.set('addModeratorLoading', false);
-    case ADD_MODERATOR_ERROR:
+    case ADD_ROLE:
+      return state.set('addRoleLoading', true);
+    case ADD_ROLE_SUCCESS:
+      return state.set('addRoleLoading', false);
+    case ADD_ROLE_ERROR:
       return state
-        .set('addModeratorLoading', false)
+        .set('addRoleLoading', false)
         .set('moderatorsError', moderatorsError);
 
-    case REVOKE_MODERATOR:
-      return state.set('revokeModeratorLoading', true);
-    case REVOKE_MODERATOR_SUCCESS:
-      return state.set('revokeModeratorLoading', false);
-    case REVOKE_MODERATOR_ERROR:
+    case REVOKE_ROLE:
+      return state.set('revokeRoleLoading', true);
+    case REVOKE_ROLE_SUCCESS:
+      return state.set('revokeRoleLoading', false);
+    case REVOKE_ROLE_ERROR:
       return state
-        .set('revokeModeratorLoading', false)
+        .set('revokeRoleLoading', false)
         .set('moderatorsError', moderatorsError);
     default:
       return state;

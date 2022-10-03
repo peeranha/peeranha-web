@@ -15,11 +15,13 @@ import messages from 'containers/Administration/messages';
 type AreYouSureProps = {
   Button: typeof React.Component;
   submitAction: Function;
+  roleName: string;
 };
 
 const AreYouSure: React.FC<AreYouSureProps> = ({
   submitAction,
   Button,
+  roleName,
 }): JSX.Element | null => {
   const [currentTarget, changeEventData] = useState(null);
   const [isOpened, open] = useState(false);
@@ -51,7 +53,12 @@ const AreYouSure: React.FC<AreYouSureProps> = ({
             `}
             className="tc pb12"
           >
-            <FormattedMessage id={messages.wantToRevoke.id} />
+            <FormattedMessage
+              id={messages.wantToRevoke.id}
+              values={{
+                role: roleName,
+              }}
+            />
           </h5>
 
           <div className="df aic">

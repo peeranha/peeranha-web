@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import Header from './Header';
-import { Content } from './Content';
 import { bindActionCreators, compose, Dispatch } from 'redux';
 import { DAEMON } from 'utils/constants';
 import injectReducer from 'utils/injectReducer';
@@ -14,22 +12,24 @@ import reducer from 'containers/Administration/reducer';
 import saga from 'containers/Administration/saga';
 
 import {
-  addModerator,
+  addRole,
   getModerators,
-  revokeModerator,
+  revokeRole,
 } from 'containers/Administration/actions';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import {
-  selectAddModeratorLoading,
+  selectAddRoleLoading,
   selectModeratorsList,
   selectModeratorsLoading,
-  selectRevokeModeratorLoading,
+  selectRevokeRoleLoading,
 } from 'containers/Administration/selectors';
 import {
   Moderator,
   OutputSelector,
   User,
 } from 'containers/Administration/types';
+import Header from './Header';
+import { Content } from './Content';
 
 type AdministrationProps = {
   locale: string;
@@ -37,10 +37,10 @@ type AdministrationProps = {
   moderators: Array<Moderator>;
   getModeratorsDispatch: Function;
   moderatorsLoading: boolean;
-  addModeratorDispatch: Function;
-  addModeratorLoading: boolean;
-  revokeModeratorDispatch: Function;
-  revokeModeratorLoading: boolean;
+  addRoleDispatch: Function;
+  addRoleLoading: boolean;
+  revokeRoleDispatch: Function;
+  revokeRoleLoading: boolean;
 };
 
 const Administration: React.FC<AdministrationProps> = ({
@@ -48,10 +48,10 @@ const Administration: React.FC<AdministrationProps> = ({
   moderators,
   getModeratorsDispatch,
   moderatorsLoading,
-  addModeratorDispatch,
-  addModeratorLoading,
-  revokeModeratorDispatch,
-  revokeModeratorLoading,
+  addRoleDispatch,
+  addRoleLoading,
+  revokeRoleDispatch,
+  revokeRoleLoading,
 }): JSX.Element => {
   const single = isSingleCommunityWebsite();
 
@@ -67,17 +67,17 @@ const Administration: React.FC<AdministrationProps> = ({
       <Header
         locale={locale}
         single={single}
-        addModerator={addModeratorDispatch}
-        addModeratorLoading={addModeratorLoading}
+        addRole={addRoleDispatch}
+        addRoleLoading={addRoleLoading}
       />
       <Content
         locale={locale}
         single={single}
         moderators={moderators}
         communityId={single}
-        revokeModerator={revokeModeratorDispatch}
+        revokeRole={revokeRoleDispatch}
         moderatorsLoading={moderatorsLoading}
-        revokeModeratorLoading={revokeModeratorLoading}
+        revokeRoleLoading={revokeRoleLoading}
       />
     </>
   );
@@ -92,13 +92,13 @@ export default compose(
       profileInfo: makeSelectProfileInfo(),
       moderators: selectModeratorsList,
       moderatorsLoading: selectModeratorsLoading,
-      addModeratorLoading: selectAddModeratorLoading,
-      revokeModeratorLoading: selectRevokeModeratorLoading,
+      addRoleLoading: selectAddRoleLoading,
+      revokeRoleLoading: selectRevokeRoleLoading,
     }),
     (dispatch: Dispatch) => ({
       getModeratorsDispatch: bindActionCreators(getModerators, dispatch),
-      addModeratorDispatch: bindActionCreators(addModerator, dispatch),
-      revokeModeratorDispatch: bindActionCreators(revokeModerator, dispatch),
+      addRoleDispatch: bindActionCreators(addRole, dispatch),
+      revokeRoleDispatch: bindActionCreators(revokeRole, dispatch),
     }),
   ),
 )(Administration);

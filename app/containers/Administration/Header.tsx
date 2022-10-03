@@ -11,7 +11,7 @@ import Icon from 'components/Icon';
 import H3 from 'components/H3';
 
 import { OPEN_ADD_MODERATOR_FORM_BUTTON } from 'containers/Administration/constants';
-import AddModeratorForm from 'containers/Administration/AddModeratorForm';
+import AddRoleForm from 'containers/Administration/AddRoleForm';
 import messages from 'containers/Administration/messages';
 
 import commonMessages from 'common-messages';
@@ -25,62 +25,60 @@ import addIcon from 'images/add.svg?external';
 type HeaderProps = {
   locale: string;
   single: number | undefined;
-  addModerator: Function;
-  addModeratorLoading: boolean;
+  addRole: Function;
+  addRoleLoading: boolean;
 };
 
 export const Header: React.FC<HeaderProps> = ({
   locale,
   single,
-  addModerator,
-  addModeratorLoading,
-}): JSX.Element | null => {
-  return (
-    <Wrapper className="mb-to-sm-0 mb-from-sm-3">
-      <H3>
-        <MediumIconStyled>
-          <Icon icon={usersHeader} width="38" />
-        </MediumIconStyled>
+  addRole,
+  addRoleLoading,
+}): JSX.Element | null => (
+  <Wrapper className="mb-to-sm-0 mb-from-sm-3">
+    <H3>
+      <MediumIconStyled>
+        <Icon icon={usersHeader} width="38" />
+      </MediumIconStyled>
 
-        <FormattedMessage id={commonMessages.administration.id} />
-      </H3>
-      <AddModeratorForm
-        locale={locale}
-        single={single}
-        addModerator={addModerator}
-        Button={({
-          onClick,
-        }: {
-          onClick: React.MouseEventHandler<HTMLButtonElement>;
-        }) => (
-          <LargeButton
-            id={OPEN_ADD_MODERATOR_FORM_BUTTON}
-            onClick={onClick}
-            css={css`
-              @media only screen and (max-width: 991px) {
-                padding: 0;
-                border-radius: 50%;
-                min-width: auto;
-                width: 40px;
-                height: 40px;
-              }
+      <FormattedMessage id={commonMessages.administration.id} />
+    </H3>
+    <AddRoleForm
+      locale={locale}
+      single={single}
+      addRole={addRole}
+      Button={({
+        onClick,
+      }: {
+        onClick: React.MouseEventHandler<HTMLButtonElement>;
+      }) => (
+        <LargeButton
+          id={OPEN_ADD_MODERATOR_FORM_BUTTON}
+          onClick={onClick}
+          css={css`
+            @media only screen and (max-width: 991px) {
+              padding: 0;
+              border-radius: 50%;
+              min-width: auto;
+              width: 40px;
+              height: 40px;
+            }
 
-              @media only screen and (max-width: 576px) {
-                width: 36px !important;
-                height: 36px !important;
-              }
-            `}
-          >
-            <IconSm fill={BG_LIGHT} icon={addIcon} />
-            <span className="d-none d-lg-inline ml-2">
-              <FormattedMessage id={messages.addModerator.id} />
-            </span>
-          </LargeButton>
-        )}
-        addModeratorLoading={addModeratorLoading}
-      />
-    </Wrapper>
-  );
-};
+            @media only screen and (max-width: 576px) {
+              width: 36px !important;
+              height: 36px !important;
+            }
+          `}
+        >
+          <IconSm fill={BG_LIGHT} icon={addIcon} />
+          <span className="d-none d-lg-inline ml-2">
+            <FormattedMessage id={messages.addRole.id} />
+          </span>
+        </LargeButton>
+      )}
+      addRoleLoading={addRoleLoading}
+    />
+  </Wrapper>
+);
 
 export default React.memo(Header);

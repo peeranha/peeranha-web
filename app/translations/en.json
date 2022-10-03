@@ -79,13 +79,13 @@
   "app.common.agree": "Upvote",
   "app.common.gotIt": "Got it!",
   "app.containers.Administration.communityModerator": "Community Moderator",
-  "app.containers.Administration.communityAdministrator":
-    "Community Administrator",
-  "app.containers.Administration.addModerator": "Add moderator",
+  "app.containers.Administration.communityAdministrator": "Community Admin",
+  "app.containers.Administration.addRole": "Add new role",
+  "app.containers.Administration.chooseRole": "Choose role",
   "app.containers.Administration.confirm": "Confirm",
   "app.containers.Administration.cancel": "Cancel",
   "app.containers.Administration.wantToRevoke":
-    "Are you sure you want to revoke this moderator?",
+    "Are you sure you want to revoke the user from being a {role}?",
   "app.containers.Administration.revoke": "Revoke",
   "app.common.agreeShort": "Upvote",
   "app.common.disagree": "Downvote",

@@ -1,19 +1,19 @@
 import { call, put, select, takeEvery } from 'redux-saga/effects';
 
 import {
-  ADD_MODERATOR,
-  ADD_MODERATOR_SUCCESS,
+  ADD_ROLE,
+  ADD_ROLE_SUCCESS,
   GET_MODERATORS,
-  REVOKE_MODERATOR,
-  REVOKE_MODERATOR_SUCCESS,
+  REVOKE_ROLE,
+  REVOKE_ROLE_SUCCESS,
 } from 'containers/Administration/constants';
 import {
-  addModeratorError,
-  addModeratorSuccess,
+  addRoleError,
+  addRoleSuccess,
   getModeratorsError,
   getModeratorsSuccess,
-  revokeModeratorError,
-  revokeModeratorSuccess,
+  revokeRoleError,
+  revokeRoleSuccess,
 } from 'containers/Administration/actions';
 
 import { getModerators } from 'utils/theGraph';
@@ -23,8 +23,8 @@ import {
   COMMUNITY_MODERATOR_ROLE,
 } from 'utils/constants';
 import {
-  giveCommunityModeratorPermission,
-  revokeCommunityModeratorPermission,
+  giveRolePermission,
+  revokeRolePermission,
 } from 'utils/accountManagement';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import { selectEthereum } from 'containers/EthereumProvider/selectors';
@@ -49,56 +49,59 @@ export function* getModeratorsWorker(props: {
   }
 }
 
-export function* addModeratorWorker(props: {
+export function* addRoleWorker(props: {
   userAddress: string;
+  role: number;
   communityId: number;
 }): Generator<{}> {
   try {
     const ethereumService = yield select(selectEthereum);
     const account = yield select(makeSelectAccount());
     yield call(
-      giveCommunityModeratorPermission,
+      giveRolePermission,
       account,
       props.userAddress,
+      props.role,
       props.communityId,
       ethereumService,
     );
-
-    yield put(addModeratorSuccess());
+    yield put(addRoleSuccess());
   } catch (err) {
-    yield put(addModeratorError(err));
+    yield put(addRoleError(err));
   }
 }
 
-export function* revokeModeratorWorker(props: {
+export function* revokeRoleWorker(props: {
   userAddress: string;
+  role: number;
   communityId: number;
 }): Generator<{}> {
   try {
     const ethereumService = yield select(selectEthereum);
     const account = yield select(makeSelectAccount());
     yield call(
-      revokeCommunityModeratorPermission,
+      revokeRolePermission,
       account,
       props.userAddress,
+      props.role,
       props.communityId,
       ethereumService,
     );
 
-    yield put(revokeModeratorSuccess());
+    yield put(revokeRoleSuccess());
   } catch (err) {
-    yield put(revokeModeratorError(err));
+    yield put(revokeRoleError(err));
   }
 }
 
 export default function*() {
   // @ts-ignore
   yield takeEvery(
-    [GET_MODERATORS, ADD_MODERATOR_SUCCESS, REVOKE_MODERATOR_SUCCESS],
+    [GET_MODERATORS, ADD_ROLE_SUCCESS, REVOKE_ROLE_SUCCESS],
     getModeratorsWorker,
   );
   // @ts-ignore
-  yield takeEvery(ADD_MODERATOR, addModeratorWorker);
+  yield takeEvery(ADD_ROLE, addRoleWorker);
   // @ts-ignore
-  yield takeEvery(REVOKE_MODERATOR, revokeModeratorWorker);
+  yield takeEvery(REVOKE_ROLE, revokeRoleWorker);
 }

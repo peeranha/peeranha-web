@@ -79,13 +79,13 @@
   "app.common.agree": "Согласен",
   "app.common.gotIt": "Понятно!",
   "app.containers.Administration.communityModerator": "Модератор комьюнити",
-  "app.containers.Administration.communityAdministrator":
-    "Фдминистратор комьюнити",
-  "app.containers.Administration.addModerator": "Назначить модератора",
+  "app.containers.Administration.communityAdministrator": "Админ комьюнити",
+  "app.containers.Administration.addRole": "Назначить новую роль",
+  "app.containers.Administration.chooseRole": "Выберите роль",
   "app.containers.Administration.confirm": "Подтвердить",
   "app.containers.Administration.cancel": "Отменить",
   "app.containers.Administration.wantToRevoke":
-    "Вы уверены, что хотите отозвать этого модератора?",
+    "Вы уверены, что хотите отозвать этого {role}?",
   "app.containers.Administration.revoke": "Отозвать",
   "app.common.agreeShort": "Согл.",
   "app.common.disagree": "Не согласен",
