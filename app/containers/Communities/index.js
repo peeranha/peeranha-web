@@ -61,7 +61,7 @@ export const Communities = ({
   profile,
 }) => {
   const [language, setLanguage] = useState(languages.all);
-
+  const arraySubcommynitiesId = [14, 15];
   useEffect(() => {
     getSuggestedCommunitiesDispatch();
   }, []);
@@ -87,7 +87,9 @@ export const Communities = ({
     ? communities.filter(community =>
         hasSingleSubcommunity.includes(community.id),
       )
-    : communities;
+    : communities.filter(
+        community => !arraySubcommynitiesId.includes(community.id),
+      );
 
   return (
     <div className="d-xl-flex">
