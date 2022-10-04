@@ -69,6 +69,7 @@ const EditQuestion = ({
           content: val[FORM_CONTENT],
           communityId: val[FORM_COMMUNITY].id,
           tags: val[FORM_TAGS].map(tag => +tag.id.split('-')[1]),
+          postType: question?.postType,
           // bounty: +val[FORM_BOUNTY],
           // bountyFull: `${getFormattedAsset(+val[FORM_BOUNTY])} PEER`,
           // bountyHours: +val[FORM_BOUNTY_HOURS],
@@ -77,7 +78,7 @@ const EditQuestion = ({
         questionid,
       );
     },
-    [questionid],
+    [questionid, question],
   );
 
   const maxPromotingHours = useMemo(

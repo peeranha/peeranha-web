@@ -43,29 +43,28 @@ import {
   FORM_BOUNTY_HOURS,
   FORM_PROMOTE,
   KEY_QUESTIONS_TYPE,
+  POST_TYPE,
 } from './constants';
 
 import Header from './Header';
 import { QUESTION_TYPES } from './QuestionTypeField';
 import CommunityForm from './CommunityForm';
 import ExistingQuestions from './ExistingQuestions';
-import TypeForm from './TypeForm';
+import TypeForm from 'components/QuestionForm/TypeForm';
 import TitleForm from './TitleForm';
 import ContentForm from './ContentForm';
 import TagsForm from './TagsForm';
 
-import {
-  ANY_TYPE,
-  GENERAL_TYPE,
-} from '../../containers/CreateCommunity/constants';
+import { ANY_TYPE, GENERAL_TYPE } from 'containers/CreateCommunity/constants';
 import createdHistory from '../../createdHistory';
 import * as routes from '../../routes-config';
-import DescriptionList from '../DescriptionList';
+import DescriptionList from 'components/DescriptionList';
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 import {
   getPermissions,
   hasCommunityAdminRole,
   hasGlobalModeratorRole,
+  hasCommunityModeratorRole,
 } from 'utils/properties';
 import { translationMessages } from '../../i18n';
 
@@ -133,11 +132,16 @@ export const QuestionForm = ({
   const postTitle = question?.title;
   const postContent = question?.content;
 
+  const communityId = single || formValues[FORM_COMMUNITY]?.id;
+  const isCommunityModerator = communityId
+    ? hasCommunityModeratorRole(getPermissions(profile), communityId)
+    : false;
+
   const handleSubmitWithType = () => {
     if (communityQuestionsType !== ANY_TYPE) {
       change(FORM_TYPE, communityQuestionsType);
     }
-    if (!isSelectedType && !isError && isClickSubmit) {
+    if (!question && !isSelectedType && !isError && isClickSubmit) {
       return setIsError(true);
     }
     return handleSubmit(sendQuestion);
@@ -170,7 +174,7 @@ export const QuestionForm = ({
   const profileWithModeratorRights =
     profile && hasGlobalModeratorRole(getPermissions(profile));
 
-  const isCommunityModerator =
+  const isCommunityAdmin =
     Boolean(single) && hasCommunityAdminRole(getPermissions(profile), single);
 
   const handleSetClicked = () => setIsClickSubmit(true);
@@ -184,6 +188,7 @@ export const QuestionForm = ({
     formValues[FORM_TITLE] !== postTitle ||
     formValues[FORM_CONTENT] !== postContent;
 
+  const isFaq = question ? question.postType === POST_TYPE.faq : false;
   return (
     <Router history={history}>
       <Prompt
@@ -220,6 +225,9 @@ export const QuestionForm = ({
                     setIsError={setIsError}
                     hasSelectedType={isSelectedType}
                     setHasSelectedType={setIsSelectedType}
+                    isCommunityModerator={
+                      isCommunityModerator || isCommunityAdmin
+                    }
                   />
                 )) ||
                   (communityQuestionsType === GENERAL_TYPE && (
@@ -264,34 +272,24 @@ export const QuestionForm = ({
                 formValues={formValues}
               />
 
-              <TagsForm
-                intl={intl}
-                questionLoading={questionLoading}
-                formValues={formValues}
-                change={change}
-              />
+              {!isFaq &&
+                Number(formValues[FORM_TYPE]) !== POST_TYPE.faq && (
+                  <TagsForm
+                    intl={intl}
+                    questionLoading={questionLoading}
+                    formValues={formValues}
+                    change={change}
+                  />
+                )}
 
-              {(profileWithModeratorRights || isCommunityModerator) && (
+              {(profileWithModeratorRights ||
+                isCommunityModerator ||
+                isCommunityAdmin) && (
                 <SuggestTag
                   formValues={formValues}
                   redirectToCreateTagDispatch={redirectToCreateTagDispatch}
                 />
               )}
-
-              {/*<BountyForm*/}
-              {/*  intl={intl}*/}
-              {/*  questionLoading={questionLoading}*/}
-              {/*  formValues={formValues}*/}
-              {/*  change={change}*/}
-              {/*  dotRestriction={DEFAULT_DOT_RESTRICTION}*/}
-              {/*/>*/}
-
-              {/*<BountyDateForm*/}
-              {/*  intl={intl}*/}
-              {/*  questionLoading={questionLoading}*/}
-              {/*  formValues={formValues}*/}
-              {/*  change={change}*/}
-              {/*/>*/}
 
               <Button
                 disabled={questionLoading}

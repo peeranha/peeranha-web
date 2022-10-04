@@ -90,6 +90,7 @@
   "app.common.popularity": "Популярность",
   "app.common.moreVoting": "Больше голосований",
   "app.common.reputation": "Репутация",
+  "app.common.reputationStatus": "Репутация и статус",
   "app.common.en": "Английский",
   "app.common.ru": "Русский",
   "app.common.about": "О нас",
@@ -330,9 +331,19 @@
   "app.containers.Faq.title": "ЧАВО",
   "app.containers.Faq.description": "ЧАВО: описание",
   "app.containers.Faq.faq": "Часто задаваемые вопросы",
+  "app.containers.Moderation.titleProtocolAdministrator":
+    "Права протокольного администратора",
+  "app.containers.Moderation.titleCommunityModerator":
+    "Права модератора сообщества",
+  "app.containers.Moderation.titleCommunityAdministrator":
+    "Права администратора сообщества",
 
-  "app.containers.Moderation.title": "Права модератора",
-  "app.common.globalModerator": "Глобальный модератор",
+  "app.common.protocolAdministrator": "Права протокольного администратора",
+  "app.common.asProtocolAdministrator":
+    "Как администратор протокола вы можете:",
+  "app.common.asCommunityAdministrator":
+    "Как администратор сообщества вы можете:",
+  "app.common.asCommunityModerator": "Как модератор сообщества вы можете:",
 
   "app.common.verifyFacebookAccount": "Проверка аккаунта",
   "app.common.facebookButton": "Фейсбук",
@@ -370,35 +381,46 @@
     "Поздравляем! Удаление данных успешно завершено!",
   "app.containers.DeleteFacebookData.confirmDeletion": "Подтвердить удаление",
 
-  "app.containers.Moderation.givePermissions": "Выдача разрешений",
-  "app.containers.Moderation.givePermissionsDescription":
-    "Позволяет выдавать и забирать разрешение модератора комьюнити..",
+  "app.containers.Moderation.permissionProtocolAdmin_1":
+    "Давать и отзывать права модератора и администратора сообщества для одного сообщества",
+  "app.containers.Moderation.permissionProtocolAdmin_2":
+    "Создавать новые сообщества",
+  "app.containers.Moderation.permissionProtocolAdmin_3":
+    "Редактировать любое отдельное сообщество: менять название, описание, ссылку на официальный сайт и аватар сообщества",
+  "app.containers.Moderation.permissionProtocolAdmin_4":
+    "Замораживать и размораживать сообщество",
+  "app.containers.Moderation.permissionProtocolAdmin_5":
+    "Создавать и редактировать теги для любого отдельного сообщества",
+  "app.containers.Moderation.permissionProtocolAdmin_6":
+    "Изменить тип сообщения в любом отдельном сообществе",
+  "app.containers.Moderation.permissionProtocolAdmin_7":
+    "Голосовать за и против сообщений, ответов и добавлять комментарии в любом отдельном сообществе, если ваша репутация ниже 35",
+  "app.containers.Moderation.permissionProtocolAdmin_8":
+    "Удалять посты, ответы, даже отмеченные как лучшие, и комментарии в один клик в любом отдельном сообществе",
 
-  "app.containers.Moderation.permissionInfinite": "Безграничное воздействие",
-  "app.containers.Moderation.permissionInfiniteDescription":
-    "Позволяет удалять вопросы, ответы и комментарии в один клик",
+  "app.containers.Moderation.permissionCommunityAdmin_1":
+    "Давать и отзывать права модератора и администратора сообщества в вашем сообществе",
+  "app.containers.Moderation.permissionCommunityAdmin_2":
+    "Отредактировать свое сообщество: изменять название, описание, ссылку на официальный сайт и аватар сообщества",
+  "app.containers.Moderation.permissionCommunityAdmin_3":
+    "Создавать и редактировать теги в своем сообществе",
+  "app.containers.Moderation.permissionCommunityAdmin_4":
+    "Разместить официальный ответ в своем сообществе",
+  "app.containers.Moderation.permissionCommunityAdmin_5":
+    "Работать с документацией в своем сообществе: добавлять, редактировать, удалять и предоставлять переводы на поддерживаемые языки для статей документации",
 
-  "app.containers.Moderation.permissionIgnoreRating": "Игнорирование рейтинга",
-  "app.containers.Moderation.permissionIgnoreRatingDescription":
-    "Позволяет выполнять действия с ограниченным рейтингом",
-
-  "app.containers.Moderation.permissionCreateCommunity": "Создание сообщества",
-  "app.containers.Moderation.permissionCreateCommunityDescription":
-    "Позволяет мгновенно создать сообщество",
-
-  "app.containers.Moderation.permissionCreateTag": "Создание тега",
-  "app.containers.Moderation.permissionCreateTagDescription":
-    "Позволяет мгновенно создать тег",
-
-  "app.containers.Moderation.permissionChangeQuestionType":
-    "Изменение типа вопроса",
-  "app.containers.Moderation.permissionChangeQuestionTypeDescription":
-    "Позволяет изменить тип вопроса",
-
-  "app.containers.Moderation.permissionSelectTopQuestion":
-    "Выбор «Top» вопроса",
-  "app.containers.Moderation.permissionSelectTopQuestionDescription":
-    "Позволяет выбрать вопрос, который будет отображаться на «Top» странице",
+  "app.containers.Moderation.permissionCommunityModerator_1":
+    "Игнорировать репутацию в вашем сообществе и выполнять действия, которые ограничены репутацией, такие как голосование за или против сообщений, ответов и добавления комментариев",
+  "app.containers.Moderation.permissionCommunityModerator_2":
+    "Удалять сообщения, ответы, даже те, которые отмечены как лучшие, и комментарии в вашем сообществе",
+  "app.containers.Moderation.permissionCommunityModerator_3":
+    "Переключать тип сообщения с «Эксперт» на «Обсуждение» и с «Обсуждение» на «Эксперт» в вашем сообществе",
+  "app.containers.Moderation.permissionCommunityModerator_4":
+    "Разместить официальный ответ в своем сообществе",
+  "app.containers.Moderation.permissionCommunityModerator_5":
+    "Работайть с документацией в своем сообществе: добавлять, редактировать и удалять статьи документации",
+  "app.containers.Moderation.permissionCommunityModerator_6":
+    "Добавлять переводы для всех видов сообщений в вашем сообществе на поддерживаемых языках",
 
   "app.containers.Moderation.permissionOfficialAnswer":
     "Публикация официального ответа",
@@ -541,6 +563,15 @@
   "app.containers.Communities.suggestInterestingComm":
     "Предложите сообщество, которое будет интересно Вам и другим людям, которые проголосуют за него.",
 
+  "app.containers.Communities.suggestCommunityBlock_1":
+    "Загляните на нашу страницу ",
+  "app.containers.Communities.suggestCommunityBlock_2":
+    "cервисной программы «White Glove» ",
+  "app.containers.Communities.suggestCommunityBlock_3":
+    "и создайте свое сообщество на Peeranha. ",
+  "app.containers.Communities.suggestCommunityBlock_4":
+    "Чтобы ваше сообщество заработало, свяжитесь с нами: ",
+  "app.containers.Communities.suggestCommunityBlock_5": "hello@peeranha.io.",
   "app.containers.CreateCommunity.title": "Сообщества | Создать",
   "app.containers.CreateCommunity.descriptionField": "Описание",
   "app.containers.CreateCommunity.website": "Официальный сайт",
@@ -779,6 +810,10 @@
     "Редактирование вопроса | Описание",
   "app.containers.EditQuestion.submitButtonName": "Сохранить",
   "app.containers.EditQuestion.title": "Редактировать вопрос",
+  "app.containers.EditDiscussion.title": "Редактировать обсуждение",
+  "app.containers.EditExpertQ&A.title": "Редактировать экспертный пост",
+  "app.containers.EditTutorial.title": "Редактировать туториал",
+  "app.containers.EditFaq.title": "Редактировать ЧАВО",
 
   "app.containers.ViewQuestion.lastEdited": "Последнее редактирование",
   "app.containers.ViewQuestion.voteToDelete": "Проголосовать за удаление",
@@ -1082,6 +1117,7 @@
   "app.containers.ErrorPage.description": "Возникла ошибка... описание",
   "app.containers.ErrorPage.weAreSorry":
     "Извините, возникла неожиданная ошибка...",
+  "app.containers.ErrorPage.weAreSorryIsDeleted": "Извините, пост был удалён.",
   "app.containers.ErrorPage.accountDoesNotExist": "Аккаунт не существует",
   "app.containers.ErrorPage.cannotTransferToSelf":
     "Нельзя отправлять самому себе",
@@ -1160,6 +1196,8 @@
   ],
   "app.containers.QuestionForm.tutorialQuestionDescriptionLabel":
     "Руководство это инструкция, которая может представлять из себя:",
+  "app.containers.QuestionForm.faqDescriptionLabel":
+    "В этом разделе представлены ответы на список типичных вопросов, которые пользователи могут задать в отношении определенного сообщества или темы.",
   "app.containers.QuestionForm.tutorialQuestionDescriptionList": [
     "Пошаговое решение проблемы;",
     "Техническое руководство;",
