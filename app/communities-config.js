@@ -32,6 +32,11 @@ const communitiesConfig = {
       src: FileiconLogo,
       styles: FilecoinStyles,
     },
+    6: {
+      origin: 'https://koii.peeranha.io',
+      src: KoiiLogo,
+      styles: KoiiStyles,
+    },
   },
   staging: {
     1: {
