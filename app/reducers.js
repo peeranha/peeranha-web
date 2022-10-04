@@ -14,7 +14,7 @@ import accountProviderReducer from 'containers/AccountProvider/reducer';
 import editProfileReducer from 'containers/EditProfilePage/reducer';
 import signUpReducer from 'containers/SignUp/reducer';
 import questionsReducer from 'containers/Questions/reducer';
-import documentationReducer from 'containers/DocumentationPage/reducer';
+import documentationReducer from 'pages/Documentation/reducer';
 import askQuestionReducer from 'containers/AskQuestion/reducer';
 import existingQuestionReducer from 'containers/AskQuestion/reducer';
 import viewQuestionReducer from 'containers/ViewQuestion/reducer';

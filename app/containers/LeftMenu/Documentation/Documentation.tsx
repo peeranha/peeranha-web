@@ -9,7 +9,7 @@ import React, { useState } from 'react';
 import dotsIcon from 'images/dots.svg?external';
 // @ts-ignore
 import { FormattedMessage } from 'react-intl';
-import { DocumentationSection } from 'containers/DocumentationPage/types';
+import { DocumentationSection } from 'pages/Documentation/types';
 
 type DocumentationMenuSectionProps = {
   documentationMenu: Array<DocumentationSection>;
@@ -110,7 +110,7 @@ const Documentation: React.FC<DocumentationMenuSectionProps> = ({
                 nestingLevel={1}
                 menu={documentationSection}
                 path={[]}
-                activeNodes={activeNodes}//Menu items to display nesting path
+                activeNodes={activeNodes}// Menu items to display nesting path
                 setActiveNodes={setActiveNodes}
                 redirectToEditQuestionPage={redirectToEditQuestionPage}
                 redirectToPostDocumentationPage={
@@ -120,7 +120,7 @@ const Documentation: React.FC<DocumentationMenuSectionProps> = ({
                 dropdownController={[
                   showOtherDropdown,
                   changeFocusedDropdown,
-                ]}//Functions to close previous dropdown
+                ]}// Functions to close previous dropdown
                 isModeratorModeSingleCommunity={
                   isModeratorModeSingleCommunity
                 }

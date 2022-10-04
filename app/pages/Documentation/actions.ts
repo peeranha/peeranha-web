@@ -2,7 +2,7 @@ import {
   GET_DOCUMENTATION,
   GET_DOCUMENTATION_ERROR,
   GET_DOCUMENTATION_SUCCESS,
-} from 'containers/DocumentationPage/constants';
+} from './constants';
 
 export function getDocumentation(section: number) {
   return {

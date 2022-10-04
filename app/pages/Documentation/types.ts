@@ -25,3 +25,7 @@ type User = {
   creationTime: number;
   achievements: Array<{ id: number }>;
 };
+
+export interface RouterDocumentetion {
+  sectionId: string;
+}

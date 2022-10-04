@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { initialState } from 'containers/DocumentationPage/reducer';
+import { initialState } from './reducer';
 
 export const selectFaqDomain = (state: {
   get: (arg0: string, arg1: any) => any;

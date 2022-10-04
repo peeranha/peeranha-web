@@ -199,6 +199,7 @@ module.exports = options => {
           __dirname,
           '../../app/style-constants.js',
         ),
+        pages: path.resolve(__dirname, '../../app/pages'),
       },
     },
     devtool: options.devtool,

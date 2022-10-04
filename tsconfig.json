@@ -27,7 +27,8 @@
       "themes/*": ["app/themes/*"],
       "routes-config": ["app/routes-config.js"],
       "common-messages": ["app/common-messages.js"],
-      "style-constants": ["app/style-constants.js"]
+      "style-constants": ["app/style-constants.js"],
+      "pages": ["app/pages/*"]
     }
   },
   "include": ["emotion.d.ts", "./app/**/*.ts", "./app/**/*.tsx"],

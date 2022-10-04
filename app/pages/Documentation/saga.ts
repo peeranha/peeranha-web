@@ -1,9 +1,9 @@
 import { takeLatest, call, put, select } from 'redux-saga/effects';
+import { getCommunityDocumentation } from 'utils/theGraph';
 import { getDocumentationError, getDocumentationSuccess } from './actions';
 import { GET_DOCUMENTATION } from './constants';
 
-import { getCommunityDocumentation } from 'utils/theGraph';
-import { selectDocumentation } from 'containers/DocumentationPage/selectors';
+import { selectDocumentation } from './selectors';
 
 type DocumentationSection = {
   id: number;
@@ -16,7 +16,7 @@ type DocumentationSection = {
 
 export function* getDocumentationSectionWorker(props: {
   section: number;
-}): Generator<{}> {
+}): Generator<any> {
   try {
     const documentationFromStore = yield select(selectDocumentation());
     if (
@@ -27,8 +27,8 @@ export function* getDocumentationSectionWorker(props: {
     ) {
       yield put(getDocumentationSuccess());
     } else {
-      //Rewrite after documentation architecture change
-      //Will need to get content from ipfs
+      // Rewrite after documentation architecture change
+      // Will need to get content from ipfs
       const documentationSection = yield call(
         getCommunityDocumentation,
         props.section,

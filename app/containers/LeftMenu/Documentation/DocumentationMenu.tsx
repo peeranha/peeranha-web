@@ -8,7 +8,7 @@ import { DOCUMENTATION_PADDING } from 'containers/LeftMenu/constants';
 import arrowDownIcon from 'images/arrowDown.svg?external';
 import Icon from 'components/Icon';
 import { A1 } from 'containers/LeftMenu/MainLinks';
-import { DocumentationSection } from 'containers/DocumentationPage/types';
+import { DocumentationSection } from 'pages/Documentation/types';
 
 type DocumentationMenuProps = {
   nestingLevel: number;
@@ -23,17 +23,17 @@ type DocumentationMenuProps = {
   isModeratorModeSingleCommunity: boolean;
 };
 
-//Recursion to the menu structure rendering
+// Recursion to the menu structure rendering
 const DocumentationMenu: React.FC<DocumentationMenuProps> = ({
  nestingLevel,
  menu,
  path,
- activeNodes,//Menu items to display nesting path
+ activeNodes,// Menu items to display nesting path
  setActiveNodes,
  redirectToEditQuestionPage,
  redirectToPostDocumentationPage,
  deleteQuestion,
- dropdownController,//Functions to close previous dropdown
+ dropdownController,// Functions to close previous dropdown
  isModeratorModeSingleCommunity,
 }) => {
   const [visibleSection, setVisibleSection] = useState(false);
@@ -58,7 +58,7 @@ const DocumentationMenu: React.FC<DocumentationMenuProps> = ({
   );
 
   if (menu?.children.length) {
-    //Documentation item with submenu
+    // Documentation item with submenu
     return (
       <div>
         <A1
@@ -95,7 +95,8 @@ const DocumentationMenu: React.FC<DocumentationMenuProps> = ({
                 level={nestingLevel}
               />
             )}
-            <div className='df jcc aic' css={css`width: 20px;`} onClick={event => {
+            <div
+className='df jcc aic' css={css`width: 20px;`} onClick={event => {
               setVisibleSection(!visibleSection);
               event.preventDefault();
               event.stopPropagation();
@@ -135,10 +136,7 @@ const DocumentationMenu: React.FC<DocumentationMenuProps> = ({
         )}
       </div>
     );
-  } else
-    //Documentation item without submenu
-    //Recursion termination condition
-    return (
+  } return (
       <div>
         <A1
           to={routes.documentation(menu.id)}
