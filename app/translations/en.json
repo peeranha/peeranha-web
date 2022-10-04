@@ -874,6 +874,8 @@
     "2. Make sure your answer replies the question asked in a post and isn't just a comment or gratitude.",
   "app.containers.ViewQuestion.RulesBlock_4":
     "3. Be polite and respectful to others.",
+  "app.containers.ViewQuestion.reputationBelowZero":
+    "This community does not allow replies from users with a reputation below 0",
   "app.components.FormFields.requiredField":
     "You cannot leave this field empty",
   "app.components.FormFields.requiredAndNotZeroField":
@@ -929,6 +931,8 @@
   "app.components.FormFields.hasToBeMoreThanPrev": "You cannot set lower value",
   "app.components.FormFields.valueIsNotPositiveInteger":
     "Value is not a positive integer",
+  "app.components.FormFields.requiredMinReputation":
+    "You cannot create a new post in this community as your reputation must be at least 0 in this community",
 
   "app.containers.TagsCollection.title": "Tags collection",
   "app.containers.TagsCollection.description": "Tags Description",

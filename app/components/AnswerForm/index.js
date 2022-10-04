@@ -57,16 +57,22 @@ export const AnswerForm = ({
   isOfficialRepresentative,
   isAnswered,
   account,
+  isMinusReputation,
 }) => (
   <FormBox onSubmit={handleSubmit(sendAnswer)}>
     {isAnswered && (
       <BlockedInfoArea>
-        <FormattedMessage {...messages.questionIsAnswered} />
+        <FormattedMessage id={messages.questionIsAnswered.id} />
       </BlockedInfoArea>
     )}
     {!account && (
       <BlockedInfoArea>
-        <FormattedMessage {...messages.logInToAnswer} />
+        <FormattedMessage id={messages.logInToAnswer.id} />
+      </BlockedInfoArea>
+    )}
+    {isMinusReputation && (
+      <BlockedInfoArea>
+        <FormattedMessage id={messages.reputationBelowZero.id} />
       </BlockedInfoArea>
     )}
     <Field
@@ -94,7 +100,7 @@ export const AnswerForm = ({
           <TextBlock className="my-2" content={textEditorValue} />
         ) : (
           <Span color={TEXT_SECONDARY} fontSize="14" isItalic>
-            <FormattedMessage {...messages.nothingToSeeYet} />
+            <FormattedMessage id={messages.nothingToSeeYet.id} />
           </Span>
         )}
       </PreviewWrapper>
