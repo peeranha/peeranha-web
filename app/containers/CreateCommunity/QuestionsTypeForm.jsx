@@ -3,7 +3,7 @@ import { ANY_TYPE, EXPERT_TYPE, FORM_TYPE, GENERAL_TYPE } from './constants';
 import messages from './messages';
 import { Field } from 'redux-form/immutable';
 import QuestionTypeField from './QuestionsTypeField';
-import DescriptionList from '../../components/DescriptionList';
+import DescriptionList from 'components/DescriptionList';
 import PropTypes from 'prop-types';
 import { intlShape } from 'react-intl';
 
