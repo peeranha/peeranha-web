@@ -206,8 +206,10 @@ export const KoiiStyles = {
     linkColorSecondary: 'rgb(94,217,209)',
     walletButton: 'rgb(94,217,209)',
     btnColor: 'rgb(94,217,209)',
-    tagColor: 'rgb(94,217,209)',
+    tagColor: 'rgb(42,192,167)',
     newPostButtonText: 'rgb(34,40,98)',
+    textColor: 'rgb(94,217,209)',
+    textColorShadow: 'rgb(42,192,167)',
   },
 
   cookieConsentPopupStyles: {
