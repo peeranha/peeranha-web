@@ -87,9 +87,9 @@ const TagsBlock = styled.div`
 
   :hover {
     ${SeeAllButton} {
+      display: block;
       position: absolute;
       right: 20px;
-      display: block;
     }
   }
 

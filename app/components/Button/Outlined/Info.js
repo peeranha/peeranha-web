@@ -14,7 +14,6 @@ export const hover = css`
     color: ${TEXT_LIGHT};
     background: ${BUTTON_COLOR};
     border-color: ${BUTTON_COLOR};
-    margin: 0;
   }
 `;
 
