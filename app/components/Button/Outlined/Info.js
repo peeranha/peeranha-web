@@ -2,7 +2,6 @@ import { css } from 'styled-components';
 
 import {
   BG_TRANSPARENT,
-  BG_LIGHT,
   BORDER_TRANSPARENT,
   TEXT_LIGHT,
   BUTTON_COLOR,
@@ -20,7 +19,7 @@ export const hover = css`
 `;
 
 const OutlinedButton = Button.extend`
-  background: ${BG_LIGHT};
+  background: ${BG_TRANSPARENT};
   border: 1px solid ${BUTTON_COLOR};
   color: ${BUTTON_COLOR};
 

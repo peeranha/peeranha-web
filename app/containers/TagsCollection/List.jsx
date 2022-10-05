@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import orderBy from 'lodash/orderBy';
-import { TEXT_SECONDARY } from 'style-constants';
+import { TEXT_SECONDARY, BG_LIGHT } from 'style-constants';
 import commonMessages from 'common-messages';
 import * as routes from 'routes-config';
 import A from 'components/A';
@@ -11,7 +11,7 @@ import P from 'components/P';
 import TagList from 'components/TagsList';
 import { BaseSpecial } from 'components/Base/BaseTransparent';
 import { MediumImageStyled } from 'components/Img/MediumImage';
-import SeeAllButton from 'components/Button/Outlined/InfoMedium';
+import Button from 'components/Button/Outlined/InfoMedium';
 import { DescriptionBlock, Base } from 'components/ExistingCommunities/Content';
 
 const TagListBox = styled.div`
@@ -57,6 +57,10 @@ const TagListBox = styled.div`
   @media only screen and (max-width: 768px) {
     flex-wrap: wrap;
   }
+`;
+
+const SeeAllButton = Button.extend`
+  background: ${BG_LIGHT};
 `;
 
 const TagsBlock = styled.div`
