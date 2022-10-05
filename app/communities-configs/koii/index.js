@@ -200,7 +200,7 @@ export const KoiiStyles = {
     commentOption: 'rgb(94,217,209)',
     contentHeader: 'rgb(94,217,209)',
     blockedInfoArea: 'rgb(209, 255, 255)',
-    transparentIconColor: 'rgb(209, 255, 255)',
+    transparentIconColor: 'rgb(117,211,211)',
     loaderColor: 'rgb(94,217,209)',
     votingIconColor: 'rgb(94,217,209)',
     linkColorSecondary: 'rgb(94,217,209)',
