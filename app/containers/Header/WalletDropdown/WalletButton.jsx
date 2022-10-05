@@ -118,7 +118,7 @@ const WalletButton = ({
             className="align-middle"
             fontSize="16"
             bold
-            color={(!isMobileVersion && styles.commHeadElemColor) || ''}
+            color={(!isMobileVersion && colors.commHeadElemColor) || ''}
           >
             {getFormattedNum4(Math.round(balance * 100) / 100)}
           </Span>
@@ -127,7 +127,7 @@ const WalletButton = ({
             fontSize="14"
             lineHeight="18"
             color={
-              (!isMobileVersion && styles.commHeadElemColor) || TEXT_SECONDARY
+              (!isMobileVersion && colors.commHeadElemColor) || TEXT_SECONDARY
             }
           >
             <FormattedMessage {...messages.peers} />

@@ -266,9 +266,10 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
               `}
             >
               <FormattedMessage id={messages.suggestCommunityBlock_1.id} />
-              <Link to={routes.home()}>
-                <FormattedMessage id={messages.suggestCommunityBlock_2.id} />
-              </Link>
+              {/* Hide link */}
+              {/* <Link to={routes.home()}> */}
+              <FormattedMessage id={messages.suggestCommunityBlock_2.id} />
+              {/* </Link> */}
               <FormattedMessage id={messages.suggestCommunityBlock_3.id} />
               <FormattedMessage id={messages.suggestCommunityBlock_4.id} />
               <a href="mailto:hello@peeranha.io">
