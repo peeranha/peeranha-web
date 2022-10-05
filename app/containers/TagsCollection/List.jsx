@@ -89,7 +89,8 @@ const TagsBlock = styled.div`
     ${SeeAllButton} {
       display: block;
       position: absolute;
-      right: 20px;
+      top: 30px;
+      right: 30px;
     }
   }
 
