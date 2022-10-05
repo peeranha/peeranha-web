@@ -2,11 +2,13 @@ import FileiconLogo from './communities-configs/filecoin/images/filecoin-logo.sv
 import PolygonLogo from './communities-configs/polygon/images/polygon-logo.svg?inline';
 import FunctionlandLogo from './communities-configs/functionland/images/functionland-logo.svg?inline';
 import SuiLogo from './communities-configs/sui/images/sui-logo.svg?inline';
+import FilebaseLogo from './communities-configs/filebase/images/filebaselogo.svg?inline';
 
 import { PolygonStyles } from './communities-configs/polygon';
 import { FilecoinStyles } from './communities-configs/filecoin';
 import { FunctionlandStyles } from './communities-configs/functionland';
 import { SuiStyles } from './communities-configs/sui';
+import { FilebaseStyles } from './communities-configs/filebase';
 
 const communitiesConfig = {
   prod: {
@@ -83,6 +85,11 @@ const communitiesConfig = {
     },
     6: {
       origin: 'https://testcommunity.net',
+    },
+    16: {
+      origin: `https://filebase${process.env.COOKIE_DOMAIN}`,
+      src: FilebaseLogo,
+      styles: FilebaseStyles,
     },
   },
   dev: {
