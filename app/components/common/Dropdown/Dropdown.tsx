@@ -46,6 +46,8 @@ type DropdownCommonProps = {
    * Class name for dropdown list
    */
   className?: string;
+  trigger?: JSX.Element;
+  isEqualWidth?: boolean;
 };
 
 type DropdownSingleProps = DropdownCommonProps & {
@@ -94,6 +96,8 @@ const Dropdown: React.FC<DropdownProps> = ({
   isInvalid = false,
   className,
   onSelect,
+  trigger,
+  isEqualWidth,
 }) => {
   const {
     items,
@@ -101,29 +105,25 @@ const Dropdown: React.FC<DropdownProps> = ({
   }: {
     items: MutableOption[];
     activeItems: MutableOption[];
-  } = useMemo(
-    () => {
-      const items = options.map(
-        option =>
-          Array.isArray(value)
-            ? {
-                ...option,
-                isActive: value.some(valueItem => valueItem === option.value),
-              }
-            : { ...option, isActive: option.value === value },,
-      );
+  } = useMemo(() => {
+    const items = options.map((option) =>
+      Array.isArray(value)
+        ? {
+            ...option,
+            isActive: value.some((valueItem) => valueItem === option.value),
+          }
+        : { ...option, isActive: option.value === value },
+    );
 
-      return { items, activeItems: items.filter(item => item.isActive) };
-    },
-    [value, options],
-  );
+    return { items, activeItems: items.filter((item) => item.isActive) };
+  }, [value, options]);
 
   const onOptionClick = ({ close, option }: OnOptionClickParams): void => {
     if (isDisabled) {
       return;
     }
     const isOptionActive = activeItems.some(
-      activeOption => activeOption.value === option.value,,
+      (activeOption) => activeOption.value === option.value,
     );
     if (!isMultiple) {
       close();
@@ -133,49 +133,68 @@ const Dropdown: React.FC<DropdownProps> = ({
       return;
     }
     const options = isOptionActive
-      ? activeItems.filter(activeOption => activeOption.value !== option.value)
+      ? activeItems.filter(
+          (activeOption) => activeOption.value !== option.value,
+        )
       : [...activeItems, option];
     if (onSelect) {
-      onSelect(options.map(option => option.value) as OptionValue &
-        OptionValue[]);
+      onSelect(
+        options.map((option) => option.value) as OptionValue & OptionValue[],
+      );
     }
   };
 
   return (
-    <Popover isEqualWidth offset={{ top: 5 }}>
+    <Popover
+      isEqualWidth={typeof isEqualWidth !== undefined ? isEqualWidth : true}
+      offset={{ top: 4 }}
+    >
       <Popover.Trigger>
-        {({ isOpen }: PopoverTriggerChildrenParams): JSX.Element => (
-          <button
-            className={cn('df aic cup on br10')}
-            css={css({
-              ...classes.root,
-              ...(isInvalid && classes.invalid)
-            })}
-            disabled={isDisabled}
-          >
-            {activeItems.length ? (
-              <DropdownLabel items={activeItems} isMultiple={isMultiple} />
-            ) : (
-              placeholder && (
-                <span className={cn(classes.placeholder, 'line-clamp-1')}>
-                  {placeholder}
-                </span>
-              )
-            )}
-            <ArrowDownIcon css={css({...classes.arrow, ...(isOpen && classes.open)})}/>
-          </button>
-        )}
+        {({ isOpen }: PopoverTriggerChildrenParams): JSX.Element =>
+          (trigger &&
+            React.cloneElement(trigger, {
+              isDisabled,
+              className: 'df aic cup on',
+            })) || (
+            <button
+              className={cn('df aic cup on br10')}
+              css={{
+                ...classes.root,
+                ...(isInvalid && classes.invalid),
+              }}
+              disabled={isDisabled}
+            >
+              {activeItems.length ? (
+                <DropdownLabel items={activeItems} isMultiple={isMultiple} />
+              ) : (
+                placeholder && (
+                  <span
+                    className={cn('line-clamp-1 dropdown-placeholder')}
+                    css={classes.placeholder}
+                  >
+                    {placeholder}
+                  </span>
+                )
+              )}
+
+              <ArrowDownIcon
+                className="dropdown-arrow"
+                css={css({ ...classes.arrow, ...(isOpen && classes.open) })}
+              />
+            </button>
+          )
+        }
       </Popover.Trigger>
-      <Popover.Content className={cn('p0 m0 ovh br10', classes.optionsWrap)}>
+      <Popover.Content
+        className={cn('p0 m0 ovh br10')}
+        cssProps={classes.optionsWrap}
+      >
         {({ close }: PopoverContentChildrenParams): JSX.Element => (
           <ul
-            className={cn(
-              className,
-              classes.options,
-              'scrollbar m0 lstn pt8 pr0 pb8 pl0',
-            )}
+            className={cn(className, 'scrollbar m0 lstn pt8 pr0 pb8 pl0')}
+            css={classes.options}
           >
-            {items.map(option => (
+            {items.map((option) => (
               <DropdownOption
                 key={option.value}
                 option={option}

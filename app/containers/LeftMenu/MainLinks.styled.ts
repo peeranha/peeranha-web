@@ -1,15 +1,22 @@
 export const styles = {
-  menuSectionTitle: {
+  menuItem: {
     fontFamily: 'Source Sans Pro, serif',
     fontStyle: 'normal',
     fontWeight: 400,
+  },
+
+  menuSectionTitle: {
     fontSize: '14px',
     lineHeight: '18px',
+    height: 30,
     span: {
       'text-transform': 'uppercase',
     },
     color: '#7B7B7B',
-    padding: '0 0 12px 15px',
+
+    '&:hover .dropdown-documentation': {
+      display: 'block',
+    },
   },
 
   divider: {

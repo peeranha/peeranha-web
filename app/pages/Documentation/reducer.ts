@@ -5,12 +5,14 @@ import {
   GET_DOCUMENTATION,
   GET_DOCUMENTATION_ERROR,
   GET_DOCUMENTATION_SUCCESS,
+  TOGGLE_EDIT_DOCUMENTATION,
 } from './constants';
 
 export const initialState = fromJS({
   documentationLoading: true,
   documentation: [],
   faqError: '',
+  isEdit: false,
 });
 
 function documentationReducer(
@@ -35,6 +37,8 @@ function documentationReducer(
       return state
         .set('documentationLoading', false)
         .set('documentationError', documentationError);
+    case TOGGLE_EDIT_DOCUMENTATION:
+      return state.set('isEdit', !state.get('isEdit'));
     default:
       return state;
   }

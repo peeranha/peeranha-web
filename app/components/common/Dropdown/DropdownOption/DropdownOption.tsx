@@ -1,7 +1,8 @@
 import React from 'react';
 import cn from 'classnames';
-import Check from 'citrus-ui/core/icons/Check';
-import useStyles from '../Dropdown.styled';
+import { css } from '@emotion/react';
+import FaqIcon from 'icons/Faq';
+import classes from '../Dropdown.styled';
 import { MutableOption } from '../Dropdown';
 
 type DropdownOptionProps = {
@@ -17,7 +18,6 @@ const DropdownOption: React.FC<DropdownOptionProps> = ({
   isMultiple,
   onClick,
 }) => {
-  const classes = useStyles();
   const clickHandler = (): void => {
     if (!option.isDisabled) {
       onClick();
@@ -25,9 +25,11 @@ const DropdownOption: React.FC<DropdownOptionProps> = ({
   };
   return (
     <li
-      className={cn('df aic cup pt0 pr16 pb0 pl16', classes.option, {
-        [classes.active]: option.isActive,
-        [classes.disabled]: option.isDisabled,
+      className="df aic cup pt0 pr16 pb0 pl16"
+      css={css({
+        ...classes.option,
+        ...(option.isActive && classes.active),
+        ...(option.isDisabled && classes.disabled),
       })}
       onClick={clickHandler}
     >
@@ -36,14 +38,16 @@ const DropdownOption: React.FC<DropdownOptionProps> = ({
         : option.render) || (
         <>
           {option.icon && (
-            <span className={cn('mr8', classes.icon)}>{option.icon}</span>
+            <span className={cn('mr8 dropdown-icon')} css={classes.icon}>
+              {option.icon}
+            </span>
           )}
           <span>{option.label}</span>
         </>
       )}
       {isMultiple && (
-        <span className={classes.multiple}>
-          <Check />
+        <span className="dropdown-multiple" css={classes.multiple}>
+          <FaqIcon />
         </span>
       )}
     </li>

@@ -1,4 +1,4 @@
-import { css, keyframes } from '@emotion/react';
+import { keyframes } from '@emotion/react';
 
 const popover = keyframes`
   from: {
@@ -9,9 +9,7 @@ const popover = keyframes`
   }
 `;
 
-export const root = css`
-  .root {
-    animation: ${popover} 0.15s ease-in;
-    will-change: top, left;
-  }
-`;
+export const root = {
+  animation: `${popover} 0.15s ease-in`,
+  'will-change': 'top, left',
+};

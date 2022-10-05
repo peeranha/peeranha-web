@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useLayoutEffect } from 'react'
-import cn from 'classnames'
-import { createPopper } from '@popperjs/core'
-import { PopoverContentProps } from '../types'
-import { root } from '../Popover.styled'
+import React, { useState, useEffect, useLayoutEffect } from 'react';
+import cn from 'classnames';
+import { css } from '@emotion/react';
+import { createPopper } from '@popperjs/core';
+import { PopoverContentProps } from '../types';
+import { root } from '../Popover.styled';
 
 const PopoverContent: React.FC<PopoverContentProps> = ({
   popoverRef,
@@ -14,17 +15,18 @@ const PopoverContent: React.FC<PopoverContentProps> = ({
   className,
   isEqualWidth,
   isTransition = true,
+  cssProps,
 }) => {
-  const [popoverWidth, setPopoverWidth] = useState<number | 'auto'>('auto')
+  const [popoverWidth, setPopoverWidth] = useState<number | 'auto'>('auto');
 
   useEffect(() => {
     if (isEqualWidth && triggerRef.current) {
-      setPopoverWidth(triggerRef.current.offsetWidth)
+      setPopoverWidth(triggerRef.current.offsetWidth);
     }
-  }, [isEqualWidth, triggerRef])
+  }, [isEqualWidth, triggerRef]);
 
   useLayoutEffect(() => {
-    let popper: any
+    let popper: any;
 
     if (triggerRef.current && popoverRef.current) {
       popper = createPopper(triggerRef.current, popoverRef.current, {
@@ -43,20 +45,20 @@ const PopoverContent: React.FC<PopoverContentProps> = ({
             },
           },
         ],
-      })
+      });
     }
 
     return (): void => {
       if (popper) {
-        popper.destroy()
+        popper.destroy();
       }
-    }
-  }, [triggerRef, popoverRef, offset, placement])
+    };
+  }, [triggerRef, popoverRef, offset, placement]);
 
   return (
     <div
       className={cn('pa', className)}
-      css={{...(isTransition && root)}}
+      css={{ ...(isTransition && root), ...cssProps }}
       style={{
         width: popoverWidth,
       }}
@@ -64,7 +66,7 @@ const PopoverContent: React.FC<PopoverContentProps> = ({
     >
       {children instanceof Function ? children({ close }) : children}
     </div>
-  )
-}
+  );
+};
 
-export default PopoverContent
+export default PopoverContent;

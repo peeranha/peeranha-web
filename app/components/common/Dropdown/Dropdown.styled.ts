@@ -3,7 +3,7 @@ const disabled = {
   '& *': {
     pointerEvents: 'none',
   },
-  '& $icon': {
+  '& .dropdown-icon': {
     opacity: 0.3,
   },
 };
@@ -13,37 +13,33 @@ const styles = {
     height: 40,
     padding: '11px 12px 11px 16px',
     backgroundColor: 'var(--color-white)',
-    border: '1px solid var(--color-gray-border)',
     fontSize: 14,
+    borderWidth: 0,
     '&:disabled': {
       ...disabled,
-      backgroundColor: 'var(--color-bg-disable)',
-      borderColor: 'var(--color-lite-gray-divider)',
-      '& $placeholder, & $label': {
-        color: 'var(--color-black-text-disable)',
+      backgroundColor: 'rgba(63, 78, 93, 0.02)',
+      borderColor: 'rgba(0, 0, 0, 0.06)',
+      '& .dropdown-placeholder, & .dropdown-label': {
+        color: 'rgba(0, 0, 0, 0.35)',
       },
-      '& $arrow': {
+      '& .dropdown-arrow': {
         opacity: 0.3,
       },
     },
     '&:not(:disabled):hover': {
-      borderColor: 'var(--color-gray-border-hover)',
-      boxShadow: '0 0 0 1px var(--color-gray-border-hover)',
-    },
-    '&:not(:disabled):focus': {
-      borderColor: 'var(--color-orange)',
-      boxShadow: '0 0 0 1px var(--color-orange)',
+      borderColor: 'rgba(0, 0, 0, 0.22))',
+      boxShadow: '0 0 0 1px rgba(0, 0, 0, 0.22)',
     },
   },
   icon: {
-    color: 'var(--color-gray-text)',
+    color: '#7B7B7B',
     width: 24,
     height: 24,
   },
   arrow: {
     padding: '0px 4px',
     marginLeft: 'auto',
-    color: 'var(--color-gray-text)',
+    color: '#7B7B7B',
     transition: 'transform 0.25s',
   },
   open: {
@@ -56,41 +52,39 @@ const styles = {
     },
   },
   placeholder: {
-    color: 'var(--color-gray-text)',
+    color: 'rgba(0, 0, 0, 0.54)',
   },
   label: {
-    color: 'var(--color-black-text)',
+    color: 'var(--color-black)',
   },
   optionsWrap: {
-    boxShadow: 'var(--shadow-8dp)',
+    boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.25)',
+    borderRadius: '5px',
   },
   options: {
     maxHeight: 190,
     overflowY: 'auto',
     backgroundColor: 'var(--color-white)',
-    color: 'var(--color-black-text)',
+    color: 'var(--color-black)',
     fontSize: 14,
   },
   option: {
     height: 40,
     '&:hover': {
-      backgroundColor: 'var(--color-bg-hover)',
+      backgroundColor: 'rgba(63, 78, 93, 0.05)',
     },
     '&:active': {
-      backgroundColor: 'var(--color-bg-pressed)',
+      backgroundColor: 'rgba(63, 78, 93, 0.16)',
     },
     transition: 'all .2s',
   },
   active: {
-    color: 'var(--color-orange)',
-    '& $multiple': {
-      color: 'var(--color-orange)',
-    },
+    '& .dropdown-multiple': {},
   },
   disabled: {
     ...disabled,
-    color: 'var(--color-black-text-disable)',
-    '& $multiple': {
+    color: 'rgba(0, 0, 0, 0.35)',
+    '& .dropdown-multiple': {
       opacity: 0.3,
     },
     '&:hover': {
@@ -100,7 +94,7 @@ const styles = {
   multiple: {
     width: 18,
     height: 18,
-    color: 'var(--color-icons)',
+    color: '#7B7B7B',
     marginLeft: 'auto',
   },
 };

@@ -6,14 +6,17 @@ export const selectFaqDomain = (state: {
 }) => state.get('documentationReducer', initialState);
 
 export const selectDocumentationLoading = () =>
-  createSelector(selectFaqDomain, substate =>
+  createSelector(selectFaqDomain, (substate) =>
     substate.get('documentationLoading'),
   );
 
 export const selectDocumentation = () =>
-  createSelector(selectFaqDomain, substate => substate.get('documentation'));
+  createSelector(selectFaqDomain, (substate) => substate.get('documentation'));
 
 export const selectFaqError = () =>
-  createSelector(selectFaqDomain, substate =>
+  createSelector(selectFaqDomain, (substate) =>
     substate.get('documentationError'),
   );
+
+export const selectIsEditDocumentation = () =>
+  createSelector(selectFaqDomain, (substate) => substate.get('isEdit'));

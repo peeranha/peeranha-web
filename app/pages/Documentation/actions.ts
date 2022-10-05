@@ -2,6 +2,7 @@ import {
   GET_DOCUMENTATION,
   GET_DOCUMENTATION_ERROR,
   GET_DOCUMENTATION_SUCCESS,
+  TOGGLE_EDIT_DOCUMENTATION,
 } from './constants';
 
 export function getDocumentation(section: number) {
@@ -22,5 +23,11 @@ export function getDocumentationError(documentationError: any) {
   return {
     type: GET_DOCUMENTATION_ERROR,
     documentationError,
+  };
+}
+
+export function toggleEditDocumentation() {
+  return {
+    type: TOGGLE_EDIT_DOCUMENTATION,
   };
 }

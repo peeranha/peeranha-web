@@ -1,175 +1,143 @@
 import React, { useEffect, useState } from 'react';
 import * as routes from 'routes-config';
-import { css } from '@emotion/react';
+import cn from 'classnames';
+import useTrigger from 'hooks/useTrigger';
 import { PEER_PRIMARY_COLOR } from 'style-constants';
-import DocumentationDropdown from './DocumentationDropdown'
-import { DOCUMENTATION_PADDING } from 'containers/LeftMenu/constants';
-// @ts-ignore
-import arrowDownIcon from 'images/arrowDown.svg?external';
-import Icon from 'components/Icon';
 import { A1 } from 'containers/LeftMenu/MainLinks';
 import { DocumentationSection } from 'pages/Documentation/types';
+import ArrowDownIcon from 'icons/ArrowDown';
+import Dropdown from 'common-components/Dropdown';
+import AddSubArticleIcon from 'icons/AddSubArticle';
+import EditIcon from 'icons/Edit';
+import DeleteIcon from 'icons/Delete';
+import AddCommentIcon from 'icons/AddComment';
 
 type DocumentationMenuProps = {
-  nestingLevel: number;
-  menu: DocumentationSection;
-  path: Array<string>;
-  activeNodes: Array<string>;
-  setActiveNodes: Function;
-  redirectToEditQuestionPage: Function;
-  redirectToPostDocumentationPage: Function;
-  deleteQuestion: Function;
-  dropdownController: Array<Function>;
+  item: DocumentationSection;
+  level: number;
   isModeratorModeSingleCommunity: boolean;
+  match: { params: { sectionId: string } };
 };
 
-// Recursion to the menu structure rendering
-const DocumentationMenu: React.FC<DocumentationMenuProps> = ({
- nestingLevel,
- menu,
- path,
- activeNodes,// Menu items to display nesting path
- setActiveNodes,
- redirectToEditQuestionPage,
- redirectToPostDocumentationPage,
- deleteQuestion,
- dropdownController,// Functions to close previous dropdown
- isModeratorModeSingleCommunity,
+const ItemMenu: React.FC<DocumentationMenuProps> = ({
+  item,
+  level = 0,
+  isModeratorModeSingleCommunity,
+  match,
 }) => {
-  const [visibleSection, setVisibleSection] = useState(false);
+  const [isOpen, open, close] = useTrigger(false);
 
-  const { pathname } = window.location;
-  const routeArray = pathname.split('/').filter(x => x);
-  const pageRoute = routeArray[0];
-  const sectionRoute = `${routeArray[0]}/${routeArray[1]}`;
-  useEffect(
-    () => {
-      if (`documentation/${menu.id}` === sectionRoute) {
-        setActiveNodes([...path, menu.id]);
-      }
-      if (
-        pageRoute !== 'documentation' ||
-        `/${sectionRoute}` === routes.documentationCreate()
-      ) {
-        setActiveNodes([]);
-      }
-    },
-    [pathname, menu.id],
-  );
-
-  if (menu?.children.length) {
-    // Documentation item with submenu
-    return (
-      <div>
+  return (
+    <>
+      <div
+        className={cn('df jcsb aic cup')}
+        css={{
+          padding: '7px 0',
+          ...(level === 0 && { padding: '12px 0' }),
+          paddingLeft: 15 + 16 * level,
+          ...(match.params.sectionId === item.id && {
+            background: 'rgba(53, 74, 137, 0.11)',
+            borderLeft: '3px solid #5065A5',
+            paddingLeft: 12 + 16 * level,
+            cursor: 'default',
+          }),
+          '&:hover .dropdown-documentation': {
+            visibility: 'visible',
+          },
+          '&:hover': {
+            background: 'rgba(53, 74, 137, 0.05)',
+          },
+          '&:hover a': {
+            color: '#576FED',
+          },
+        }}
+      >
         <A1
-          to={routes.documentation(menu.id)}
-          // @ts-ignore
-          name={`documentation/${menu.id}`}
-          route={sectionRoute}
-          className="df jcsb"
-          css={css`
-            line-height: 130%;
-            padding-left: ${DOCUMENTATION_PADDING * nestingLevel}px;
-            font-weight: ${activeNodes.includes(menu.id) ? 'bold' : 'normal'};
-            color: ${nestingLevel > 1 &&
-          !activeNodes.includes(menu.id)
-            ? '#7B7B7B'
-            : '#282828'};
-            font-size: ${nestingLevel > 1 ? '14px' : '16px'};
-          `}
-          onClick={() => {
-            setVisibleSection(true);
+          to={routes.documentation(item.id)}
+          name={`documentation/${item.id}`}
+          className={cn('p0')}
+          css={{
+            fontSize: 16,
+            lineHeight: '20px',
+            ...(level > 0 && {
+              fontSize: 14,
+              lineHeight: '18px',
+              color: '#7B7B7B',
+            }),
+            ...((isOpen || match.params.sectionId === item.id) && {
+              fontWeight: 700,
+              color: 'var(--color-black)',
+            }),
           }}
         >
-          <div>{menu.title}</div>
-          <div className="df">
-            {Boolean(isModeratorModeSingleCommunity) && (
-              <DocumentationDropdown
-                id={menu.id}
-                redirectToEditQuestionPage={redirectToEditQuestionPage}
-                redirectToPostDocumentationPage={
-                  redirectToPostDocumentationPage
-                }
-                deleteQuestion={deleteQuestion}
-                dropdownController={dropdownController}
-                level={nestingLevel}
-              />
-            )}
+          {item.title}
+        </A1>
+        <div className="df">
+          {Boolean(isModeratorModeSingleCommunity) && (
             <div
-className='df jcc aic' css={css`width: 20px;`} onClick={event => {
-              setVisibleSection(!visibleSection);
-              event.preventDefault();
-              event.stopPropagation();
-            }}>
-              <Icon
-                className="mr-3"
-                icon={arrowDownIcon}
-                width="16"
-                rotate={visibleSection}
-                fill={PEER_PRIMARY_COLOR}
-                isColorImportant={true}
+              className="dropdown-documentation ml4 mr4"
+              css={{
+                visibility: 'hidden',
+              }}
+            >
+              <Dropdown
+                trigger={<AddCommentIcon css={{ color: PEER_PRIMARY_COLOR }} />}
+                options={[
+                  {
+                    label: 'Edit a new sub-article',
+                    value: 1,
+                    icon: <AddSubArticleIcon />,
+                  },
+                  {
+                    label: 'Edit content',
+                    value: 2,
+                    icon: <EditIcon />,
+                  },
+                  {
+                    label: 'Delete',
+                    value: 3,
+                    icon: <DeleteIcon />,
+                  },
+                ]}
+                isMultiple={false}
+                isEqualWidth={false}
               />
             </div>
+          )}
 
-          </div>
-        </A1>
-        {visibleSection && (
-          <div>
-            {menu?.children.map(children => (
-              <DocumentationMenu
-                key={children.id}
-                nestingLevel={nestingLevel + 1}
-                menu={children}
-                path={[...path, menu.id]}
-                activeNodes={activeNodes}
-                setActiveNodes={setActiveNodes}
-                redirectToEditQuestionPage={redirectToEditQuestionPage}
-                redirectToPostDocumentationPage={
-                  redirectToPostDocumentationPage
-                }
-                deleteQuestion={deleteQuestion}
-                dropdownController={dropdownController}
-                isModeratorModeSingleCommunity={isModeratorModeSingleCommunity}
-              />
-            ))}
-          </div>
-        )}
-      </div>
-    );
-  } return (
-      <div>
-        <A1
-          to={routes.documentation(menu.id)}
-          // @ts-ignore
-          name={`documentation/${menu.id}`}
-          route={sectionRoute}
-          className="df jcsb"
-          css={css`
-            line-height: 130%;
-            padding-left: ${DOCUMENTATION_PADDING * nestingLevel}px;
-            font-weight: ${activeNodes.includes(menu.id) ? 'bold' : 'normal'};
-            color: ${nestingLevel > 1 &&
-          !activeNodes.includes(menu.id)
-            ? '#7B7B7B'
-            : '#282828'};
-            font-size: ${nestingLevel > 1 ? '14px' : '16px'};
-          `}
-        >
-          <div>{menu.title}</div>
-
-          {Boolean(isModeratorModeSingleCommunity) && (
-            <DocumentationDropdown
-              id={menu.id}
-              redirectToEditQuestionPage={redirectToEditQuestionPage}
-              redirectToPostDocumentationPage={redirectToPostDocumentationPage}
-              deleteQuestion={deleteQuestion}
-              dropdownController={dropdownController}
-              level={nestingLevel}
+          {item.children.length > 0 && (
+            <ArrowDownIcon
+              css={{
+                color: '#576FED',
+                width: 18,
+                height: 18,
+                transform: 'rotate(-90deg)',
+                transition: 'transform 0.25s',
+                marginLeft: 10,
+                ...(isOpen && { transform: 'rotate(0deg)' }),
+              }}
+              className="mr4 cup"
+              onClick={isOpen ? close : open}
             />
           )}
-        </A1>
+        </div>
       </div>
-    );
+
+      {item.children.length > 0 && isOpen && (
+        <div>
+          {item.children.map((itemMenu: any) => (
+            <ItemMenu
+              key={itemMenu.id}
+              item={itemMenu}
+              level={level + 1}
+              isModeratorModeSingleCommunity={isModeratorModeSingleCommunity}
+              match={match}
+            />
+          ))}
+        </div>
+      )}
+    </>
+  );
 };
 
-export default DocumentationMenu;
+export default ItemMenu;

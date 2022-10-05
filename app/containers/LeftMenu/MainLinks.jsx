@@ -155,16 +155,15 @@ const MainLinks = ({
   currClientHeight,
   profile,
   documentationMenu,
-  redirectToEditQuestionPage,
-  redirectToPostDocumentationPage,
-  deleteQuestion,
+  match,
+  toggleEditDocumentation,
 }) => {
   const { pathname } = window.location;
-  let route = pathname.split('/').filter(x => x)[0];
+  let route = pathname.split('/').filter((x) => x)[0];
 
   const singleCommId = +isSingleCommunityWebsite();
   const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
-  const isModeratorModeSingleCommunity = Boolean(singleCommId)
+  const isModeratorModeSingleCommunity = singleCommId
     ? hasCommunityAdminRole(getPermissions(profile), singleCommId) ||
       hasCommunityModeratorRole(getPermissions(profile), singleCommId)
     : false;
@@ -242,7 +241,7 @@ const MainLinks = ({
           </A1>
         )}
 
-        {!Boolean(singleCommId) && (
+        {!singleCommId && (
           <A1 to={routes.faq()} name="faq" route={route}>
             <IconLg className="mr-2" icon={faqIcon} fill={BORDER_PRIMARY} />
             <FormattedMessage id={messages.faq.id} />
@@ -254,9 +253,8 @@ const MainLinks = ({
         <Documentation
           documentationMenu={documentationMenu}
           isModeratorModeSingleCommunity={isModeratorModeSingleCommunity}
-          redirectToPostDocumentationPage={redirectToPostDocumentationPage}
-          redirectToEditQuestionPage={redirectToEditQuestionPage}
-          deleteQuestion={deleteQuestion}
+          toggleEditDocumentation={toggleEditDocumentation}
+          match={match}
         />
       )}
     </Box>

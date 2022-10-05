@@ -30,6 +30,7 @@ import {
   makeSelectBoost,
   selectIsGlobalAdmin,
 } from 'containers/AccountProvider/selectors';
+import { toggleEditDocumentation } from 'pages/Documentation/actions';
 
 import { loginWithWallet, showLoginModal } from 'containers/Login/actions';
 import { selectIsMenuVisible } from 'containers/AppWrapper/selectors';
@@ -52,6 +53,8 @@ const LeftMenu = /* istanbul ignore next */ ({
   redirectToEditQuestionPageDispatch,
   redirectToPostDocumentationPageDispatch,
   deleteQuestionDispatch,
+  match,
+  toggleEditDocumentationDispatch,
 }) => {
   const showLoginModal = () => {
     loginWithWalletDispatch({ metaMask: true });
@@ -77,6 +80,8 @@ const LeftMenu = /* istanbul ignore next */ ({
           redirectToPostDocumentationPageDispatch
         }
         deleteQuestion={deleteQuestionDispatch}
+        match={match}
+        toggleEditDocumentation={toggleEditDocumentationDispatch}
       />
 
       <After isMenuVisible={isMenuVisible} onClick={showLeftMenuDispatch}>
@@ -127,16 +132,13 @@ export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
       dispatch,
     ),
     deleteQuestionDispatch: bindActionCreators(deleteQuestion, dispatch),
+    toggleEditDocumentationDispatch: bindActionCreators(
+      toggleEditDocumentation,
+      dispatch,
+    ),
   };
 }
 
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
-export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
-)(LeftMenu);
+export default compose(withReducer, withSaga, withConnect)(LeftMenu);

@@ -34,16 +34,15 @@ import {
 import faqPageHeader from 'images/faqPageHeader.svg?inline';
 
 interface DocumentationProps extends RouteComponentProps<RouterDocumentetion> {
-  getDocumentationDispatch: (
-    id: string,
-  ) => { type: typeof GET_DOCUMENTATION; documentationSection: string };
+  getDocumentationDispatch: (id: string) => {
+    type: typeof GET_DOCUMENTATION;
+    documentationSection: string;
+  };
   documentation: Array<DocumentationSection>;
   history: History;
 }
 
-export const DocumentationPage: React.FC<
-  DocumentationProps
-> = ({
+export const DocumentationPage: React.FC<DocumentationProps> = ({
   match,
   getDocumentationDispatch,
   documentation,
@@ -51,27 +50,21 @@ export const DocumentationPage: React.FC<
 }) => {
   const single = isSingleCommunityWebsite();
 
-  useEffect(
-    () => {
-      if (single) {
-        getDocumentationDispatch(match.params.sectionId);
-      }
-    },
-    [match.params.sectionId, single, getDocumentationDispatch],
-  );
+  useEffect(() => {
+    if (single) {
+      getDocumentationDispatch(match.params.sectionId);
+    }
+  }, [match.params.sectionId, single, getDocumentationDispatch]);
 
   const documentationSection = documentation.find(
-    item => item.id === match.params.sectionId,
+    (item) => item.id === match.params.sectionId,
   );
 
-  useEffect(
-    () => {
-      if (documentationSection?.isDeleted) {
-        history.push(routes.notFound());
-      }
-    },
-    [documentationSection, history],
-  );
+  useEffect(() => {
+    if (documentationSection?.isDeleted) {
+      history.push(routes.notFound());
+    }
+  }, [documentationSection, history]);
 
   if (!documentation) {
     return null;
@@ -102,6 +95,7 @@ export const DocumentationPage: React.FC<
 export default compose(
   injectReducer({ key: 'documentationReducer', reducer }),
   injectSaga({ key: 'documentationReducer', saga, mode: DAEMON }),
+
   connect(
     createStructuredSelector<any, OutputSelector>({
       locale: makeSelectLocale(),

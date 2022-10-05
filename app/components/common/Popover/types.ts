@@ -82,6 +82,7 @@ export type PopoverContentProps = {
   children: React.ReactNode | React.FC<PopoverContentChildrenParams>;
   isTransition?: boolean;
   appendTo: 'viewport' | 'parent';
+  cssProps?: any;
 };
 
 export type PopoverContentRef = PopoverEventerChildrenProps['popoverRef'];

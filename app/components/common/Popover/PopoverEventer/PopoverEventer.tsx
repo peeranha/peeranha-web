@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react'
-import useTrigger from 'hooks/useTrigger'
-import { PopoverEventerProps } from '../types'
-import { eventListener } from './utils'
+import React, { useEffect, useRef, useState } from 'react';
+import useTrigger from 'hooks/useTrigger';
+import { PopoverEventerProps } from '../types';
+import { eventListener } from './utils';
 
 const PopoverEventer: React.FC<PopoverEventerProps> = ({
   event,
@@ -9,67 +9,67 @@ const PopoverEventer: React.FC<PopoverEventerProps> = ({
   children,
   isOpenPopover,
 }) => {
-  const [value, on, off] = useTrigger(false)
-  const [isOpen, setIsOpen] = useState(false)
-  const triggerRef = useRef<HTMLDivElement>(null)
-  const popoverRef = useRef<HTMLDivElement>(null)
+  const [value, on, off] = useTrigger(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const triggerRef = useRef<HTMLDivElement>(null);
+  const popoverRef = useRef<HTMLDivElement>(null);
   const close = (): void => {
     if (onClose) {
-      onClose()
+      onClose();
     }
-    off()
-  }
+    off();
+  };
 
   useEffect(() => {
-    let timeoutId
+    let timeoutId;
     if (value) {
       if (event === 'hover') {
         timeoutId = setTimeout(() => {
           if (value) {
-            setIsOpen(true)
+            setIsOpen(true);
           }
-        }, 300)
+        }, 300);
       } else {
-        setIsOpen(true)
+        setIsOpen(true);
       }
     } else {
-      setIsOpen(false)
+      setIsOpen(false);
     }
 
     return (): void => {
       if (timeoutId) {
-        clearTimeout(timeoutId)
+        clearTimeout(timeoutId);
       }
-    }
-  }, [value, event])
+    };
+  }, [value, event]);
 
   const clickHandler = (e: Event): void => {
-    const { target, type } = e
+    const { target, type } = e;
     if (
       type === 'touchmove' ||
       (value && !popoverRef.current?.contains(target as Node))
     ) {
-      close()
+      close();
     } else if (!value && triggerRef.current?.contains(target as Node)) {
-      on()
+      on();
     }
-  }
+  };
 
   const focusHandler = (event: Event): void | false => {
-    const { target } = event
+    const { target } = event;
 
     if (popoverRef.current?.contains(target as Node)) {
-      event.preventDefault()
+      event.preventDefault();
     } else if (target === document.activeElement) {
-      on()
+      on();
     } else if (value) {
-      close()
+      close();
     }
-  }
+  };
 
   const mouseHandler = ({ target, relatedTarget }: MouseEvent): void => {
     if (!value && triggerRef.current?.contains(target as Node)) {
-      on()
+      on();
     } else if (
       value &&
       (!(relatedTarget instanceof Node) ||
@@ -77,15 +77,15 @@ const PopoverEventer: React.FC<PopoverEventerProps> = ({
         (!popoverRef.current?.contains(relatedTarget) &&
           !triggerRef.current?.contains(relatedTarget)))
     ) {
-      close()
+      close();
     }
-  }
+  };
 
   useEffect(() => {
     if (isOpenPopover && !value) {
-      on()
+      on();
     }
-  }, [isOpenPopover])
+  }, [isOpenPopover]);
 
   useEffect(() => {
     if (event === 'hover') {
@@ -93,7 +93,7 @@ const PopoverEventer: React.FC<PopoverEventerProps> = ({
         targets: [triggerRef.current, popoverRef.current],
         events: ['mouseenter', 'mouseleave'],
         handler: mouseHandler,
-      })
+      });
     }
 
     if (event === 'focus') {
@@ -110,7 +110,7 @@ const PopoverEventer: React.FC<PopoverEventerProps> = ({
           'ontouchstart' in document.documentElement ? 'touchend' : 'mousedown',
         ],
         handler: focusHandler,
-      })
+      });
     }
 
     return eventListener({
@@ -121,15 +121,15 @@ const PopoverEventer: React.FC<PopoverEventerProps> = ({
           : ['mousedown']),
       ],
       handler: clickHandler,
-    })
-  }, [triggerRef.current, popoverRef.current, value, isOpen])
+    });
+  }, [triggerRef.current, popoverRef.current, value, isOpen]);
 
   return children({
     isOpen,
     triggerRef,
     popoverRef,
     close,
-  })
-}
+  });
+};
 
-export default PopoverEventer
+export default PopoverEventer;

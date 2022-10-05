@@ -22,6 +22,7 @@ import { LEFT_MENU_ID } from 'containers/LeftMenu/constants';
 import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
 import { showLeftMenu } from 'containers/AppWrapper/actions';
 import { selectIsMenuVisible } from 'containers/AppWrapper/selectors';
+import { selectIsEditDocumentation } from 'pages/Documentation/selectors';
 
 import {
   WHAT_IS_ENERGY,
@@ -52,7 +53,7 @@ export class Header extends React.PureComponent {
 
     window.addEventListener(
       'scroll',
-      event => {
+      (event) => {
         const st = window.pageYOffset || document.documentElement.scrollTop;
 
         const { scrollY } = event.currentTarget;
@@ -86,6 +87,7 @@ export class Header extends React.PureComponent {
       isTransactionInPending,
       transactionHash,
       transactionInitialised,
+      isEditDocumentation,
     } = this.props;
 
     if (isMenuVisible) return null;
@@ -106,6 +108,7 @@ export class Header extends React.PureComponent {
         isTransactionInPending={isTransactionInPending}
         transactionHash={transactionHash}
         transactionInitialised={transactionInitialised}
+        isEditDocumentation={isEditDocumentation}
       />
     );
   }
@@ -133,6 +136,7 @@ const mapStateToProps = createStructuredSelector({
   isTransactionInPending: selectTransactionInPending(),
   transactionHash: selectTransactionHash(),
   transactionInitialised: selectTransactionInitialised(),
+  isEditDocumentation: selectIsEditDocumentation(),
 });
 
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
@@ -147,9 +151,6 @@ export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   };
 }
 
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 export default compose(withConnect)(Header);

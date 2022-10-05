@@ -124,12 +124,9 @@ const App = ({
     }
   }, []);
 
-  useEffect(
-    () => {
-      window.goto = page => history.push(page);
-    },
-    [history],
-  );
+  useEffect(() => {
+    window.goto = (page) => history.push(page);
+  }, [history]);
 
   const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
 
@@ -157,65 +154,65 @@ const App = ({
           <Route
             exact
             path={routes.preloaderPage()}
-            render={props => Wrapper(FullWidthPreloader, props)}
+            render={(props) => Wrapper(FullWidthPreloader, props)}
           />
 
           {!!isBloggerMode && (
             <Route
               exact
               path={routes.detailsHomePage()}
-              render={props => Wrapper(Home, props)}
+              render={(props) => Wrapper(Home, props)}
             />
           )}
 
           <Route
             exact
             path={routes.feed()}
-            render={props => Wrapper(Feed, props)}
+            render={(props) => Wrapper(Feed, props)}
           />
 
           {!single && (
             <Route
               path={routes.feed(':communityid')}
-              render={props => Wrapper(Feed, props)}
+              render={(props) => Wrapper(Feed, props)}
             />
           )}
 
           <Route
             exact
             path={routes.profileView(':id')}
-            render={props => Wrapper(ViewProfilePage, props)}
+            render={(props) => Wrapper(ViewProfilePage, props)}
           />
 
           <Route
             path={routes.profileEdit(':id')}
-            render={props => Wrapper(EditProfilePage, props)}
+            render={(props) => Wrapper(EditProfilePage, props)}
           />
 
           {!single && (
             <Route
               exact
               path={routes.communities()}
-              render={props => Wrapper(Communities, props)}
+              render={(props) => Wrapper(Communities, props)}
             />
           )}
 
           {!single && (
             <Route
               path={routes.communitiesCreate()}
-              render={props => Wrapper(CreateCommunity, props)}
+              render={(props) => Wrapper(CreateCommunity, props)}
             />
           )}
 
           <Route
             path={routes.communitiesEdit(':communityId')}
-            render={props => Wrapper(EditCommunity, props)}
+            render={(props) => Wrapper(EditCommunity, props)}
           />
 
           {!single && (
             <Route
               path={routes.suggestedCommunities()}
-              render={props => Wrapper(SuggestedCommunities, props)}
+              render={(props) => Wrapper(SuggestedCommunities, props)}
             />
           )}
 
@@ -223,69 +220,69 @@ const App = ({
             <Route
               exact
               path={routes.tags()}
-              render={props => Wrapper(TagsCollection, props)}
+              render={(props) => Wrapper(TagsCollection, props)}
             />
           )}
 
           <Route
             exact
             path={routes.communityTags(':communityid')}
-            render={props => Wrapper(TagsOfCommunity, props)}
+            render={(props) => Wrapper(TagsOfCommunity, props)}
           />
 
           <Route
             path={routes.tagsCreate(':communityid')}
-            render={props => Wrapper(CreateTag, props)}
+            render={(props) => Wrapper(CreateTag, props)}
           />
 
           <Route
             path={routes.editTag(':communityId', ':tagid')}
-            render={props => Wrapper(EditTag, props)}
+            render={(props) => Wrapper(EditTag, props)}
           />
 
           <Route
             path={routes.suggestedTags(':communityid')}
-            render={props => Wrapper(SuggestedTags, props)}
+            render={(props) => Wrapper(SuggestedTags, props)}
           />
 
           <Route
             exact
             path={routes.faq()}
-            render={props => Wrapper(Faq, props)}
+            render={(props) => Wrapper(Faq, props)}
           />
 
           <Route
             exact
             path={routes.termsAndConditions()}
-            render={props => Wrapper(TermsOfService, props)}
+            render={(props) => Wrapper(TermsOfService, props)}
           />
 
           <Route
             path={routes.userWallet(':id')}
-            render={props => Wrapper(Wallet, props)}
+            render={(props) => Wrapper(Wallet, props)}
           />
 
           {REWARD_CLAIMING_ENABLED && (
             <Route
               path={routes.userBoost(':id')}
-              render={props => Wrapper(Boost, props)}
+              render={(props) => Wrapper(Boost, props)}
             />
           )}
 
           <Route
             path={routes.support()}
-            render={props => Wrapper(Support, props)}
+            render={(props) => Wrapper(Support, props)}
           />
 
           <Route
             path={routes.privacyPolicy()}
-            render={props => Wrapper(PrivacyPolicy, props)}
+            render={(props) => Wrapper(PrivacyPolicy, props)}
           />
 
           <Route
             exact
             path={routes.questions()}
-            render={props =>
+            render={(props) =>
               Wrapper(Questions, {
                 ...props,
                 postsTypes: [POST_TYPE.generalPost],
@@ -296,7 +293,7 @@ const App = ({
           <Route
             exact
             path={routes.expertPosts()}
-            render={props =>
+            render={(props) =>
               Wrapper(Questions, {
                 ...props,
                 postsTypes: [POST_TYPE.expertPost],
@@ -306,7 +303,7 @@ const App = ({
 
           <Route
             path={routes.questions(':communityid')}
-            render={props =>
+            render={(props) =>
               Wrapper(Questions, {
                 ...props,
                 postsTypes: [POST_TYPE.generalPost],
@@ -316,7 +313,7 @@ const App = ({
 
           <Route
             path={routes.expertPosts(':communityid')}
-            render={props =>
+            render={(props) =>
               Wrapper(Questions, {
                 ...props,
                 postsTypes: [POST_TYPE.expertPost],
@@ -327,93 +324,93 @@ const App = ({
           <Route
             exact
             path={routes.tutorials()}
-            render={props =>
+            render={(props) =>
               Wrapper(Questions, { ...props, postsTypes: [POST_TYPE.tutorial] })
             }
           />
 
           <Route
             path={routes.tutorials(':communityid')}
-            render={props =>
+            render={(props) =>
               Wrapper(Questions, { ...props, postsTypes: [POST_TYPE.tutorial] })
             }
           />
 
           <Route
             path={routes.questionAsk()}
-            render={props => Wrapper(AskQuestion, props)}
+            render={(props) => Wrapper(AskQuestion, props)}
           />
 
           <Route
             path={routes.documentationCreate(':parentId')}
-            render={props => Wrapper(AskQuestion, props)}
+            render={(props) => Wrapper(AskQuestion, props)}
           />
 
           <Route
             path={routes.documentationCreate()}
-            render={props => Wrapper(AskQuestion, props)}
+            render={(props) => Wrapper(AskQuestion, props)}
           />
 
           <Route
             exact
             path={routes.questionView(':id')}
-            render={props => Wrapper(ViewQuestion, props)}
+            render={(props) => Wrapper(ViewQuestion, props)}
           />
 
           <Route
             exact
             path={routes.expertPostView(':id')}
-            render={props => Wrapper(ViewQuestion, props)}
+            render={(props) => Wrapper(ViewQuestion, props)}
           />
 
           <Route
             exact
             path={routes.tutorialView(':id')}
-            render={props => Wrapper(ViewQuestion, props)}
+            render={(props) => Wrapper(ViewQuestion, props)}
           />
 
           <Route
             path={routes.questionEdit(':postType', ':questionid')}
-            render={props => Wrapper(EditQuestion, props)}
+            render={(props) => Wrapper(EditQuestion, props)}
           />
 
           <Route
             path={routes.documentation(':sectionId')}
-            render={props => Wrapper(Documentation, props)}
+            render={(props) => Wrapper(Documentation, props)}
           />
 
           <Route
             path={routes.answerEdit(':questionid', ':answerid')}
-            render={props => Wrapper(EditAnswer, props)}
+            render={(props) => Wrapper(EditAnswer, props)}
           />
 
           {(hasGlobalModeratorRole() || single) && (
             <Route
               exact
               path={routes.users()}
-              render={props => Wrapper(Users, props)}
+              render={(props) => Wrapper(Users, props)}
             />
           )}
 
           <Route
             path={routes.noAccess()}
-            render={props => Wrapper(NoAccess, props)}
+            render={(props) => Wrapper(NoAccess, props)}
           />
 
           <Route
             exact
             path={routes.search()}
-            render={props => Wrapper(Search, props)}
+            render={(props) => Wrapper(Search, props)}
           />
 
           <Route
             path={routes.search(':q')}
-            render={props => Wrapper(Search, props)}
+            render={(props) => Wrapper(Search, props)}
           />
 
           <Route
             path={routes.errorPage()}
-            render={props => Wrapper(ErrorPage, props)}
+            render={(props) => Wrapper(ErrorPage, props)}
           />
 
           <Route exact path={routes.facebookDataDeletion()}>
@@ -458,8 +455,9 @@ const App = ({
             </React.Suspense>
           </Route>
 
-          <Route render={props => Wrapper(NotFoundPage, props)} />
+          <Route render={(props) => Wrapper(NotFoundPage, props)} />
         </Switch>
+        <div id="portal-root" />
       </ThemeProvider>
     </ErrorBoundary>
   );
@@ -474,10 +472,7 @@ App.propTypes = {
 export default compose(
   withRouter,
   injectSaga({ key: 'app', saga, mode: DAEMON }),
-  connect(
-    null,
-    dispatch => ({
-      redirectToFeedDispatch: bindActionCreators(redirectToFeed, dispatch),
-    }),
-  ),
+  connect(null, (dispatch) => ({
+    redirectToFeedDispatch: bindActionCreators(redirectToFeed, dispatch),
+  })),
 )(App);
