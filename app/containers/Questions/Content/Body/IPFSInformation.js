@@ -53,7 +53,7 @@ const IPFSInformation = ({ locale, ipfsHash, histories }) => {
           to={{ pathname: polygonURL + transactionHash }}
           href={polygonURL + transactionHash}
         >
-          {transactionHash.substring(0, 12) + '...'}
+          {`${transactionHash.substring(0, 12)}...`}
         </A>
       ),
       eventName: `${translationMessages[locale][messages[eventEntity].id]} ${

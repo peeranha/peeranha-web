@@ -194,28 +194,27 @@ export const KoiiStyles = {
   colors: {
     mainSubHeaderBgColor: 'rgb(236,251,250)',
     mainBackground: 'rgb(245 245 245)',
-    linkColor: 'rgb(94,217,209)',
+    linkColor: 'rgb(8,121,128)',
     linkColorTransparent: 'rgb(94,217,209)',
-    headerPrimary: 'rgb(94,217,209)',
+    headerPrimary: 'rgb(190,240,237)',
     commentOption: 'rgb(94,217,209)',
     contentHeader: 'rgb(94,217,209)',
     blockedInfoArea: 'rgb(209, 255, 255)',
-    transparentIconColor: 'rgb(209, 255, 255)',
+    transparentIconColor: 'rgb(117,211,211)',
     loaderColor: 'rgb(94,217,209)',
     votingIconColor: 'rgb(94,217,209)',
     linkColorSecondary: 'rgb(94,217,209)',
     walletButton: 'rgb(94,217,209)',
     btnColor: 'rgb(94,217,209)',
-    tagColor: 'rgb(42,192,167)',
+    tagColor: 'rgb(8,121,128)',
     newPostButtonText: 'rgb(34,40,98)',
     textColor: 'rgb(94,217,209)',
     textColorShadow: 'rgb(42,192,167)',
   },
 
   cookieConsentPopupStyles: {
-    background: 'rgb(135,159,225)',
-    color: 'rgb(254, 254, 254)',
-    borderColor: 'rgb(254, 254, 254)',
+    background: 'rgb(53,53,112)',
+    color: 'rgb(255,199,143)',
   },
 
   dropDownIconStyles: css`
@@ -231,6 +230,10 @@ export const KoiiStyles = {
     }
   `,
 
+  headerLoginButtonStyles: css`
+    color: rgb(34, 40, 98);
+  `,
+  
   headerHeight: 80,
   projectBorderRadius: '24px',
   domainName,
