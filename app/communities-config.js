@@ -30,6 +30,11 @@ const communitiesConfig = {
       src: FileiconLogo,
       styles: FilecoinStyles,
     },
+    7: {
+      origin: 'https://filebase.peeranha.io',
+      src: FilebaseLogo,
+      styles: FilebaseStyles,
+    },
   },
   staging: {
     1: {

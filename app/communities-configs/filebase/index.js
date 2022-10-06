@@ -2,7 +2,7 @@ import React from 'react';
 import { css } from 'styled-components';
 
 import FilebaseLogo from './images/filebaselogo.svg?inline';
-import favicon from '!file-loader?name=[name].[ext]!./images/filebaselogo.ico';
+import favicon from '!file-loader?name=[name].[ext]!./images/filebase-p.ico';
 import RobotoRegularEOT from './fonts/Roboto-Regular.eot';
 import RobotoRegularWOFF from './fonts/Roboto-Regular.woff';
 import RobotoRegularTTF from './fonts/Roboto-Regular.ttf';
@@ -205,13 +205,13 @@ export const FilebaseStyles = {
   colors: {
     mainSubHeaderBgColor: '#FFFFF',
     mainBackground: '#F9FAFB',
-    linkColor: '#111827',
+    linkColor: '#FFA500',
     linkCoolieColor: '#FFA500',
     linkColorTransparent: '#FFA500',
-    headerPrimary: '#111827',
+    headerPrimary: '#FFA500',
     commentOption: '#111827',
     contentHeader: '#FFA500',
-    blockedInfoArea: '#FFA500',
+    blockedInfoArea: 'rgba(53,74,137,0.11)',
     transparentIconColor: '#FFF',
     loaderColor: '#111827',
     votingIconColor: '#111827',
@@ -235,7 +235,7 @@ export const FilebaseStyles = {
   headerHeight: 80,
   projectBorderRadius: '10px',
   domainName,
-  communityBorderStyle: '3px solid #FFA500',
+  communityBorderStyle: '2px solid #FFA500',
   dropDownIconStyles: css`
     path {
       stroke: #ffa500 !important;
