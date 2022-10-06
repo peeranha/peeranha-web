@@ -9,9 +9,10 @@ import * as routes from 'routes-config';
 import A from 'components/A';
 import P from 'components/P';
 import TagList from 'components/TagsList';
+import BlockShadow from 'components/BlockShadow';
 import { BaseSpecial } from 'components/Base/BaseTransparent';
 import { MediumImageStyled } from 'components/Img/MediumImage';
-import Button from 'components/Button/Outlined/InfoMedium';
+import SeeAllButton from 'components/Button/Outlined/InfoMedium';
 import { DescriptionBlock, Base } from 'components/ExistingCommunities/Content';
 
 const TagListBox = styled.div`
@@ -59,10 +60,6 @@ const TagListBox = styled.div`
   }
 `;
 
-const SeeAllButton = Button.extend`
-  background: ${BG_LIGHT};
-`;
-
 const TagsBlock = styled.div`
   display: flex;
   align-items: center;
@@ -88,9 +85,9 @@ const TagsBlock = styled.div`
   :hover {
     ${SeeAllButton} {
       display: block;
-      position: absolute;
-      top: 30px;
-      right: 30px;
+    }
+    ${TagListBox} ul {
+      margin-right: 0;
     }
   }
 
@@ -156,6 +153,7 @@ const List = ({ communities }) => {
                     communityId={x.id}
                     showPopularity
                   />
+                  <BlockShadow toSide="right" />
                 </TagListBox>
 
                 <SeeAllButton>
