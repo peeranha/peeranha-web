@@ -3,12 +3,16 @@ import PolygonLogo from './communities-configs/polygon/images/polygon-logo.svg?i
 import FunctionlandLogo from './communities-configs/functionland/images/functionland-logo.svg?inline';
 import SuiLogo from './communities-configs/sui/images/sui-logo.svg?inline';
 import FilebaseLogo from './communities-configs/filebase/images/filebaselogo.svg?inline';
+import HarmonyLogo from './communities-configs/harmony/images/harmony-logo.svg?inline';
+import KoiiLogo from './communities-configs/koii/images/koii-logo.svg?inline';
 
 import { PolygonStyles } from './communities-configs/polygon';
 import { FilecoinStyles } from './communities-configs/filecoin';
 import { FunctionlandStyles } from './communities-configs/functionland';
 import { SuiStyles } from './communities-configs/sui';
 import { FilebaseStyles } from './communities-configs/filebase';
+import { HarmonyStyles } from './communities-configs/harmony';
+import { KoiiStyles } from './communities-configs/koii';
 
 const communitiesConfig = {
   prod: {
@@ -29,6 +33,11 @@ const communitiesConfig = {
       origin: 'https://filecoin.peeranha.io',
       src: FileiconLogo,
       styles: FilecoinStyles,
+    },
+    6: {
+      origin: 'https://koii.peeranha.io',
+      src: KoiiLogo,
+      styles: KoiiStyles,
     },
     7: {
       origin: 'https://filebase.peeranha.io',
@@ -87,6 +96,16 @@ const communitiesConfig = {
       origin: `https://sui${process.env.COOKIE_DOMAIN}`,
       src: SuiLogo,
       styles: SuiStyles,
+    },
+    12: {
+      origin: `https://koii${process.env.COOKIE_DOMAIN}`,
+      src: KoiiLogo,
+      styles: KoiiStyles,
+    },
+    13: {
+      origin: `https://harmony${process.env.COOKIE_DOMAIN}`,
+      src: HarmonyLogo,
+      styles: HarmonyStyles,
     },
     6: {
       origin: 'https://testcommunity.net',

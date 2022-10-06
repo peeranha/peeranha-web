@@ -8,9 +8,7 @@ import {
   hasGlobalModeratorRole,
 } from 'utils/properties';
 import messages from './messages';
-import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
-const singleCommId = isSingleCommunityWebsite();
 /* eslint prefer-destructuring: 0 */
 export const voteToDeleteValidator = (
   profileInfo,
@@ -100,7 +98,7 @@ export const postAnswerValidator = (
     message = `${
       translations[messages.notEnoughRating.id]
     } ${MIN_RATING_FOR_MY_QUESTION} ${
-      singleCommId ? translations[messages.inThisCommunity.id] : ''
+      translations[messages.inThisCommunity.id]
     }`;
   } else if (
     !hasGlobalModeratorRole(profileInfo.permissions) &&
@@ -110,7 +108,7 @@ export const postAnswerValidator = (
     message = `${
       translations[messages.notEnoughRating.id]
     } ${MIN_RATING_FOR_OTHER_QUESTIONS} ${
-      singleCommId ? translations[messages.inThisCommunity.id] : ''
+      translations[messages.inThisCommunity.id]
     }`;
   }
 
@@ -155,9 +153,7 @@ export const postCommentValidator = (
   ) {
     message = `${
       translations[messages.notEnoughRating.id]
-    } ${MIN_RATING_FOR_MY_ITEM} ${
-      singleCommId ? translations[messages.inThisCommunity.id] : ''
-    }`;
+    } ${MIN_RATING_FOR_MY_ITEM} ${translations[messages.inThisCommunity.id]}`;
   } else if (
     item.author.user !== profileInfo.user &&
     !hasGlobalModeratorRole(profileInfo.permissions) &&
@@ -168,7 +164,7 @@ export const postCommentValidator = (
     message = `${
       translations[messages.notEnoughRating.id]
     } ${MIN_RATING_FOR_OTHER_ITEMS} ${
-      singleCommId ? translations[messages.inThisCommunity.id] : ''
+      translations[messages.inThisCommunity.id]
     }`;
   } else if (profileInfo.energy < MIN_ENERGY) {
     message = translations[messages.notEnoughEnergy.id];
@@ -198,7 +194,7 @@ export const markAsAcceptedValidator = (
     getRatingByCommunity(profileInfo, communityId) < MIN_RATING
   ) {
     message = `${translations[messages.notEnoughRating.id]} ${MIN_RATING} ${
-      singleCommId ? translations[messages.inThisCommunity.id] : ''
+      translations[messages.inThisCommunity.id]
     }`;
   } else if (profileInfo.energy < MIN_ENERGY) {
     message = translations[messages.notEnoughEnergy.id];
@@ -242,9 +238,7 @@ export const upVoteValidator = (
   ) {
     message = `${
       translations[messages.notEnoughRating.id]
-    } ${MIN_RATING_TO_UPVOTE} ${
-      singleCommId ? translations[messages.inThisCommunity.id] : ''
-    }`;
+    } ${MIN_RATING_TO_UPVOTE} ${translations[messages.inThisCommunity.id]}`;
   } else if (profileInfo.energy < MIN_ENERGY) {
     message = translations[messages.notEnoughEnergy.id];
   }
@@ -291,9 +285,7 @@ export const downVoteValidator = (
   ) {
     message = `${
       translations[messages.notEnoughRating.id]
-    } ${MIN_RATING_TO_DOWNVOTE} ${
-      singleCommId ? translations[messages.inThisCommunity.id] : ''
-    }`;
+    } ${MIN_RATING_TO_DOWNVOTE} ${translations[messages.inThisCommunity.id]}`;
   } else if (
     (item.votingStatus.isDownVoted &&
       profileInfo.energy < MIN_ENERGY_TO_CHANGE_DECISION) ||
