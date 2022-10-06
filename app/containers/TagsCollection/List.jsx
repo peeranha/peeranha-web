@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import orderBy from 'lodash/orderBy';
-import { TEXT_SECONDARY, BG_LIGHT } from 'style-constants';
+import { TEXT_SECONDARY } from 'style-constants';
 import commonMessages from 'common-messages';
 import * as routes from 'routes-config';
 import A from 'components/A';
