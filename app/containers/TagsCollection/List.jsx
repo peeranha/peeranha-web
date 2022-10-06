@@ -82,12 +82,14 @@ const TagsBlock = styled.div`
     }
   }
 
-  :hover {
-    ${SeeAllButton} {
-      display: block;
-    }
-    ${TagListBox} ul {
-      margin-right: 0;
+  @media only screen and (min-width: 769px) {
+    :hover {
+      ${SeeAllButton} {
+        display: block;
+      }
+      ${TagListBox} ul {
+        margin-right: 0;
+      }
     }
   }
 
