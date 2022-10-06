@@ -226,7 +226,6 @@ export const FilebaseStyles = {
     textColor: '#FFA500',
     textColorShadow: '#FFA500',
     commHeadElemColor: '#FFA500',
-    darkBlue: '#FFA500',
   },
   cookieConsentPopupStyles: {
     background: '#FFA500',
