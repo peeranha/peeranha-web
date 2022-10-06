@@ -66,7 +66,6 @@ const TagsBlock = styled.div`
   flex: 0 0 calc(100% - 300px - 15px);
   max-width: calc(100% - 300px - 15px);
   margin-top: 6px;
-  position: relative;
 
   @media only screen and (max-width: 768px) {
     flex: 0 0 100%;
