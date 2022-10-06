@@ -1,14 +1,18 @@
 import React from 'react';
 import { css } from 'styled-components';
 
-import favicon from './images/favicon-koii.svg?inline';
-import koiiLogo from 'communities-configs/koii/images/koii-logo.svg?inline';
-const domainName = 'https://www.koii.network/';
+import FilebaseLogo from './images/filebaselogo.svg?inline';
+import favicon from '!file-loader?name=[name].[ext]!./images/filebase-p.ico';
+import RobotoRegularEOT from './fonts/Roboto-Regular.eot';
+import RobotoRegularWOFF from './fonts/Roboto-Regular.woff';
+import RobotoRegularTTF from './fonts/Roboto-Regular.ttf';
+
+const domainName = 'https://filebase.com/';
 
 const fontSet = 'Roboto-Regular, Arial, sans-serif';
 
 export const customSubHeaderConfig = {
-  design: 'koii_style',
+  design: 'mintstatelabs_style',
   styles: {
     bg: {
       header: '#FFFFFF',
@@ -18,7 +22,7 @@ export const customSubHeaderConfig = {
       a: '#999999',
     },
     font: {
-      body: `${fontSet}`,
+      body: fontSet,
     },
     header: {
       background: '#FFFFFF',
@@ -42,7 +46,6 @@ export const customSubHeaderConfig = {
       border-radius: 3px !important;
       min-width: 100% !important;
       transform: translate(-50%, -5%) !important;
-
       animation: ani 0.3s both;
       @keyframes ani {
         0% {
@@ -54,7 +57,6 @@ export const customSubHeaderConfig = {
           transform: translate(-50%, -5%);
         }
       }
-
       ::before {
         content: '';
         width: 20px;
@@ -69,13 +71,11 @@ export const customSubHeaderConfig = {
         background: #ffffff;
         z-index: 9999;
       }
-
       @media only screen and (max-width: 991px) {
         a {
           padding: 0 0 0 30px !important;
         }
       }
-
       @media only screen and (min-width: 992px) {
         a {
           padding: 5px 0 !important;
@@ -85,31 +85,24 @@ export const customSubHeaderConfig = {
     `,
     subHeaderItem: css`
       position: relative;
-
       @media only screen and (min-width: 900px) {
         font-size: 14px;
       }
       @media only screen and (min-width: 1440px) {
         font-size: 15px;
       }
-
       font-weight: bold;
-
       > div {
         font-weight: normal;
       }
-
       padding: 10px 15px !important;
-
       @media only screen and (min-width: 992px) {
         padding: 0;
         margin-left: 30px;
-
         :first-child {
           margin-left: 0;
         }
       }
-
       margin: 0 !important;
     `,
     CustomSubHeader: css`
@@ -126,7 +119,6 @@ export const customSubHeaderConfig = {
     `,
     subHeaderLogoStyles: css`
       height: 40px;
-
       > img {
         height: 100%;
       }
@@ -184,58 +176,85 @@ export const customSubHeaderConfig = {
   ],
 };
 
-export const KoiiStyles = {
+export const FilebaseStyles = {
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: koiiLogo,
+  signUpPageLogo: FilebaseLogo,
   favicon,
+  // Hided community fonts
+  // fonts: {
+  //   h3LetterSpacing: '3px',
+  //   tagsLetterSpacing: '3px',
+  //   questionTitleLetterSpacing: '2px',
+  //   h3: 'Roboto-Regular, Arial, sans',
+  //   main: 'Roboto-Regular, Arial, sans',
+  //   questionItemTitle: 'Roboto-Regular, Arial, sans',
+  //   questionTitleFont: 'Roboto-Regular, Arial, sans',
+  // },
+  // fontFace: `@font-face {
+  //   font-family: 'Roboto-Regular';
+  //   src:
+  //     url(${RobotoRegularEOT}?#iefix) format('embedded-opentype'),
+  //     url(${RobotoRegularWOFF}) format('woff'),
+  //     url(${RobotoRegularTTF}) format('truetype');
+  //   font-style: normal;
+  // }`,
+
   colors: {
-    mainSubHeaderBgColor: 'rgb(236,251,250)',
-    mainBackground: 'rgb(245 245 245)',
-    linkColor: 'rgb(8,121,128)',
-    linkColorTransparent: 'rgb(94,217,209)',
-    headerPrimary: 'rgb(190,240,237)',
-    commentOption: 'rgb(94,217,209)',
-    contentHeader: 'rgb(94,217,209)',
-    blockedInfoArea: 'rgb(209, 255, 255)',
-    transparentIconColor: 'rgb(117,211,211)',
-    loaderColor: 'rgb(94,217,209)',
-    votingIconColor: 'rgb(94,217,209)',
-    linkColorSecondary: 'rgb(94,217,209)',
-    walletButton: 'rgb(94,217,209)',
-    btnColor: 'rgb(94,217,209)',
-    tagColor: 'rgb(8,121,128)',
-    newPostButtonText: 'rgb(34,40,98)',
-    textColor: 'rgb(94,217,209)',
-    textColorShadow: 'rgb(42,192,167)',
+    mainSubHeaderBgColor: '#FFFFF',
+    mainBackground: '#F9FAFB',
+    linkColor: '#FFA500',
+    linkCoolieColor: '#FFA500',
+    linkColorTransparent: '#FFA500',
+    headerPrimary: '#FFA500',
+    commentOption: '#111827',
+    contentHeader: '#FFA500',
+    blockedInfoArea: 'rgba(53,74,137,0.11)',
+    transparentIconColor: '#FFF',
+    loaderColor: '#111827',
+    votingIconColor: '#111827',
+    linkColorSecondary: '#111827',
+    walletButton: '#FFA500',
+    btnColor: '#FFA500',
+    btnHoverColor: '#FFA500',
+    btnHeaderColor: '#FFA500',
+    btnHeaderHoverColor: '#FFA500',
+    tagColor: '#FFA500',
+    localeArrowColor: '#111827',
+    textColor: '#FFA500',
+    textColorShadow: '#FFA500',
+    commHeadElemColor: '#FFA500',
   },
-
   cookieConsentPopupStyles: {
-    background: 'rgb(53,53,112)',
-    color: 'rgb(255,199,143)',
+    background: '#FFA500',
+    color: '#FFF',
   },
-
+  headerHeight: 80,
+  projectBorderRadius: '10px',
+  domainName,
+  communityBorderStyle: '2px solid #FFA500',
   dropDownIconStyles: css`
     path {
-      stroke: rgb(94, 217, 209) !important;
+      stroke: #ffa500 !important;
       stroke-width: 1.5px;
       fill: none !important;
     }
     circle {
-      stroke: rgb(94, 217, 209);
+      stroke: #ffa500;
       stroke-width: 1.5px;
       fill: none;
     }
   `,
-
   headerLoginButtonStyles: css`
-    color: rgb(34, 40, 98);
+    background: #fff;
+    border: 2px solid #ffa500;
+    color: #ffa500;
+    :hover {
+      background: #fff !important;
+      color: #ffa500 !important;
+      border: 2px solid #ffa500 !important;
+    }
   `,
-  
-  headerHeight: 80,
-  projectBorderRadius: '24px',
-  domainName,
-  communityBorderStyle: '2px solid rgb(94, 217, 209)',
 };

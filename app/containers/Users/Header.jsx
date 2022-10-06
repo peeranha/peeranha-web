@@ -64,7 +64,7 @@ export const Header = ({ sorting, dropdownFilter, userCount }) => {
           <Icon
             icon={usersHeader}
             width="38"
-            color={colors.btnColor || BORDER_PRIMARY}
+            color={colors.headerPrimary || BORDER_PRIMARY}
             isColorImportant={true}
           />
         </MediumIconStyled>
