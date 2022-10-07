@@ -1,10 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
+
 import styled from 'styled-components';
 
 import { translationMessages } from 'i18n';
-import { FormattedMessage } from 'react-intl';
-
 import { BORDER_PRIMARY_LIGHT, TEXT_DARK } from 'style-constants';
 import { singleCommunityColors } from 'utils/communityManagement';
 
@@ -38,23 +37,28 @@ const Base = styled.div`
   }
 `;
 
-export const DescriptionList = ({ label, items, locale }) => (
-  <Base>
-    <FormattedMessage id={label} />
-    <ul>
-      {translationMessages[locale][items].map(item => (
-        <li key={item}>
-          <span>{item}</span>
-        </li>
-      ))}
-    </ul>
-  </Base>
-);
+type DescriptionListProps = {
+  label: string;
+  items?: string;
+  locale: string;
+}
 
-DescriptionList.propTypes = {
-  label: PropTypes.string,
-  locale: PropTypes.string,
-  items: PropTypes.string,
+export const DescriptionList: React.FC<DescriptionListProps> = ({ label, items, locale }): JSX.Element | null => {
+  if (!items) {
+    return null;
+  }
+  return (
+    <Base>
+      <FormattedMessage id={label} />
+      <ul>
+        {translationMessages[locale][items]?.map((item: any) => (
+          <li key={item}>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </Base>
+  );
 };
 
-export default React.memo(DescriptionList);
+export default DescriptionList;

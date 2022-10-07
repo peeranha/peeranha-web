@@ -32,6 +32,7 @@ import {
 import {
   getPermissions,
   hasGlobalModeratorRole,
+  hasCommunityAdminRole,
   hasProtocolAdminRole,
 } from 'utils/properties';
 
@@ -92,7 +93,8 @@ export const Header = ({
   const isFeed = parentPage === routes.feed();
   const communityEditingAllowed = single
     ? hasGlobalModeratorRole(getPermissions(profile)) ||
-      hasProtocolAdminRole(getPermissions(profile))
+      hasProtocolAdminRole(getPermissions(profile)) ||
+      hasCommunityAdminRole(getPermissions(profile), single)
     : false;
 
   let defaultAvatar = null;

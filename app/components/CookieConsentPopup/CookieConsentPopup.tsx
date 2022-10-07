@@ -62,7 +62,7 @@ const CookieConsentPopup: React.FC = (): JSX.Element => {
               </div>
               <LargeOutlinedButton
                 onClick={acceptCookiePolicy}
-                customStyles={stylesCommunity.headerLoginButtonStyles}
+                customStyles={stylesCommunity.cookieConsentPopupStyles}
                 className="no-wrap"
               >
                 <FormattedMessage id={commonMessages.confirm.id} />

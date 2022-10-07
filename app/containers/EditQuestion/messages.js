@@ -12,6 +12,7 @@ export default defineMessages({
       'app.containers.EditExpertQ&A.title',
       'app.containers.EditDiscussion.title',
       'app.containers.EditTutorial.title',
+      'app.containers.EditFaq.title',
     ],
   },
   description: {

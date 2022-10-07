@@ -71,6 +71,7 @@ export const POST_TYPE = {
   expertPost: 0,
   generalPost: 1,
   tutorial: 2,
+  faq: 3,
 };
 
 export const META_TRANSACTIONS_ALLOWED = 'meta_tr_allowed';

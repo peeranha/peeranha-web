@@ -810,6 +810,10 @@
     "Редактирование вопроса | Описание",
   "app.containers.EditQuestion.submitButtonName": "Сохранить",
   "app.containers.EditQuestion.title": "Редактировать вопрос",
+  "app.containers.EditDiscussion.title": "Редактировать обсуждение",
+  "app.containers.EditExpertQ&A.title": "Редактировать экспертный пост",
+  "app.containers.EditTutorial.title": "Редактировать туториал",
+  "app.containers.EditFaq.title": "Редактировать ЧАВО",
 
   "app.containers.ViewQuestion.lastEdited": "Последнее редактирование",
   "app.containers.ViewQuestion.voteToDelete": "Проголосовать за удаление",
@@ -1114,8 +1118,7 @@
   "app.containers.ErrorPage.description": "Возникла ошибка... описание",
   "app.containers.ErrorPage.weAreSorry":
     "Извините, возникла неожиданная ошибка...",
-  "app.containers.ErrorPage.weAreSorryIsDeleted":
-    "Извините, пост был удалён.",
+  "app.containers.ErrorPage.weAreSorryIsDeleted": "Извините, пост был удалён.",
   "app.containers.ErrorPage.accountDoesNotExist": "Аккаунт не существует",
   "app.containers.ErrorPage.cannotTransferToSelf":
     "Нельзя отправлять самому себе",
@@ -1194,6 +1197,8 @@
   ],
   "app.containers.QuestionForm.tutorialQuestionDescriptionLabel":
     "Руководство это инструкция, которая может представлять из себя:",
+  "app.containers.QuestionForm.faqDescriptionLabel":
+    "В этом разделе представлены ответы на список типичных вопросов, которые пользователи могут задать в отношении определенного сообщества или темы.",
   "app.containers.QuestionForm.tutorialQuestionDescriptionList": [
     "Пошаговое решение проблемы;",
     "Техническое руководство;",
