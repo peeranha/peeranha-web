@@ -586,7 +586,7 @@ export function* deleteQuestionWorker({ questionId, buttonId }) {
         profileInfo.user,
       );
     }
-    console.log(questionData);
+
     yield call(
       isAvailableAction,
       () =>
