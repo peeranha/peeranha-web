@@ -566,6 +566,18 @@ export function* deleteQuestionWorker({ questionId, buttonId }) {
     let { questionData, ethereumService, locale, profileInfo } = yield call(
       getParams,
     );
+
+    function getRoute() {
+      switch (questionData.postType) {
+        case 0:
+          return routes.expertPosts();
+        case 1:
+          return routes.questions();
+        case 2:
+          return routes.tutorials();
+      }
+    }
+
     if (!questionData) {
       questionData = yield call(
         getQuestionById,
@@ -574,6 +586,7 @@ export function* deleteQuestionWorker({ questionId, buttonId }) {
         profileInfo.user,
       );
     }
+    console.log(questionData);
     yield call(
       isAvailableAction,
       () =>
@@ -599,7 +612,7 @@ export function* deleteQuestionWorker({ questionId, buttonId }) {
       deleteQuestionSuccess({ ...questionData, isDeleted: true }, buttonId),
     );
 
-    yield call(createdHistory.push, routes.questions());
+    yield call(createdHistory.push, getRoute());
   } catch (err) {
     yield put(deleteQuestionErr(err, buttonId));
   }
