@@ -113,7 +113,6 @@ const Content = ({
     hasGlobalModeratorRole(getPermissions(profileInfo)) ||
     (Boolean(communityId) &&
       hasCommunityAdminRole(getPermissions(profileInfo), communityId)) ||
-    hasCommunityModeratorRole(getPermissions(profileInfo), communityId) ||
     hasProtocolAdminRole(getPermissions(profileInfo));
 
   return (
