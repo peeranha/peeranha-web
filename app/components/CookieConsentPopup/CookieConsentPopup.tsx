@@ -37,7 +37,9 @@ const CookieConsentPopup: React.FC = (): JSX.Element => {
           ref={popup}
           className="pf b0 full-width"
           css={css({
-            ...styles.cookieConsent,
+            ...styles.popupOverlap,
+            ...(stylesCommunity.cookieConsentPopupStyles ||
+              styles.cookieConsent),
             ...(enableAnimation && styles.cookieConsentAnimation),
           })}
         >
@@ -59,7 +61,8 @@ const CookieConsentPopup: React.FC = (): JSX.Element => {
               </div>
               <LargeOutlinedButton
                 onClick={acceptCookiePolicy}
-                customStyles={stylesCommunity.headerLoginButtonStyles}
+                customStyles={stylesCommunity.cookieConsentPopupStyles}
+                className="no-wrap"
               >
                 <FormattedMessage id={commonMessages.confirm.id} />
               </LargeOutlinedButton>

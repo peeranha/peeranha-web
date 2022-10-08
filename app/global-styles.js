@@ -118,4 +118,6 @@ injectGlobal`
       margin-bottom: 10px !important;
     }
   }
+
+  .grecaptcha-badge {display: none;}
 `;

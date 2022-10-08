@@ -41,7 +41,12 @@ import { svgDraw } from 'components/Icon/IconStyled';
 
 import { FULL_SIZE } from 'containers/LeftMenu/constants';
 import { BasicLink } from 'containers/LeftMenu/Styles';
-import { hasGlobalModeratorRole } from 'utils/properties';
+import {
+  hasGlobalModeratorRole,
+  hasCommunityAdminRole,
+  hasCommunityModeratorRole,
+  getPermissions,
+} from 'utils/properties';
 
 const styles = singleCommunityStyles();
 const colors = singleCommunityColors();
@@ -135,6 +140,10 @@ const MainLinks = ({ currClientHeight, profile }) => {
   let route = pathname.split('/').filter(x => x)[0];
 
   const singleCommId = +isSingleCommunityWebsite();
+  const isModeratorModeSingleCommunity = Boolean(singleCommId)
+    ? hasCommunityAdminRole(getPermissions(profile), singleCommId) ||
+      hasCommunityModeratorRole(getPermissions(profile), singleCommId)
+    : false;
 
   if (!route) {
     route = 'feed';
@@ -180,20 +189,19 @@ const MainLinks = ({ currClientHeight, profile }) => {
         <FormattedMessage {...messages.tags} />
       </A1>
 
-      {hasGlobalModeratorRole() && (
+      {(hasGlobalModeratorRole() || isModeratorModeSingleCommunity) && (
         <A1 to={routes.users()} name="users" route={route}>
           <UsersIcon className="mr8" />
           <FormattedMessage {...messages.users} />
         </A1>
       )}
 
-      {!styles.withoutFAQ &&
-        !singleCommId && (
-          <A1 to={routes.faq()} name="faq" route={route}>
-            <FaqIcon className="mr8" />
-            <FormattedMessage {...messages.faq} />
-          </A1>
-        )}
+      {
+        <A1 to={routes.faq()} name="faq" route={route}>
+          <FaqIcon className="mr8" />
+          <FormattedMessage id={messages.faq.id} />
+        </A1>
+      }
     </Box>
   );
 };

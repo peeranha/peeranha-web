@@ -258,9 +258,13 @@ export const editQuestion = async (
 // };
 
 export async function deleteQuestion(user, questionId, ethereumService) {
-  await ethereumService.sendTransaction(CONTRACT_CONTENT, user, DELETE_POST, [
-    questionId,
-  ]);
+  await ethereumService.sendTransaction(
+    CONTRACT_CONTENT,
+    user,
+    DELETE_POST,
+    [questionId],
+    2,
+  );
 }
 
 export async function postAnswer(

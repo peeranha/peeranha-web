@@ -48,10 +48,20 @@ export const getModeratorPermissions = (
       permissions1[communityId] = {
         blocks: permissionsTypes,
         permission: [role],
+        role: !communityId
+          ? translations[messages.protocolAdministrator.id]
+          : role === COMMUNITY_ADMIN_ROLE
+            ? translations[messages.communityAdministrator.id]
+            : translations[messages.communityModerator.id],
         h2: communityId
           ? communities.find(({ id }) => Number(id) === Number(communityId))
               ?.name || 'TestComm1'
-          : translations[messages.globalModerator.id],
+          : translations[messages.protocolAdministrator.id],
+        h3: !communityId
+          ? translations[messages.asProtocolAdministrator.id]
+          : role === COMMUNITY_ADMIN_ROLE
+            ? translations[messages.asCommunityAdministrator.id]
+            : translations[messages.asCommunityModerator.id],
         sectionCode: index,
         communityId: communityId,
       };

@@ -7,12 +7,13 @@ import MediumImage from '../Img/MediumImage';
 import P from '../P';
 import Span from '../Span';
 import { TEXT_SECONDARY } from '../../style-constants';
-import messages from '../../common-messages';
+import messages from 'common-messages';
 import RatingStatus from '../RatingStatus';
 import AStyled from './AStyled';
 import ADefaultStyled from './ADefaultStyled';
 import FrontSide from './FrontSide';
 import BackSide from './BackSide';
+import { customRatingIconColors } from 'constants/customRating';
 
 const CommunityItemWithRating = ({
   communities,
@@ -55,7 +56,7 @@ const CommunityItemWithRating = ({
             <div>
               <div>
                 <Span className="mt-1" fontSize="14" color={TEXT_SECONDARY}>
-                  <FormattedMessage id={messages.reputation.id} />
+                  <FormattedMessage id={messages.reputationStatus.id} />
                 </Span>
               </div>
               <RatingStatus
@@ -63,6 +64,7 @@ const CommunityItemWithRating = ({
                 size="lg"
                 rating={rating}
                 isRankOff={false}
+                customRatingIconColors={customRatingIconColors}
               />
             </div>
           </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-
+import { css } from '@emotion/react';
 import * as routes from 'routes-config';
 import commonMessages from 'common-messages';
 import {
@@ -17,9 +17,14 @@ import A from 'components/A';
 import H3 from 'components/H3';
 import Span from 'components/Span';
 import Wrapper, { WrapperRightPanel } from 'components/Header/Simple';
-
+import { MediumIconStyled } from 'components/Icon/MediumIcon';
+import { IconMd } from 'components/Icon/IconWithSizes';
+import Icon from 'components/Icon';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
-import { css } from '@emotion/react';
+import { feed } from './../../routes-config';
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
 
 export const Header = ({ headerDescriptor }) => {
   const isSingleCommunityMode = !!isSingleCommunityWebsite();
@@ -40,15 +45,21 @@ export const Header = ({ headerDescriptor }) => {
         >
           <CommunitiesIcon stroke="#576FED" size={[30, 30]} />
         </div>
-        <FormattedMessage {...headerDescriptor} />
+        <FormattedMessage id={headerDescriptor.id} />
       </H3>
 
       <WrapperRightPanel className="right-panel">
         <A to={nextRoute()}>
           <button>
-            <CloseRoundedIcon fill={BORDER_PRIMARY} className="mr-1" />
-            <Span color={TEXT_PRIMARY} className="button-label">
-              <FormattedMessage {...commonMessages.close} />
+            <CloseRoundedIcon
+              fill={colors.btnColor || BORDER_PRIMARY}
+              className="mr-1"
+            />
+            <Span
+              color={colors.btnColor || TEXT_PRIMARY}
+              className="button-label"
+            >
+              <FormattedMessage id={commonMessages.close.id} />
             </Span>
           </button>
         </A>

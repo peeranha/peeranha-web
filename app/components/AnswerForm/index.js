@@ -9,7 +9,10 @@ import { Field, reduxForm } from 'redux-form/immutable';
 import messages from 'common-messages';
 
 import { scrollToErrorField } from 'utils/animation';
-import { hasCommunityModeratorRole } from 'utils/properties';
+import {
+  hasCommunityAdminRole,
+  hasCommunityModeratorRole,
+} from 'utils/properties';
 import { strLength15x30000, required } from 'components/FormFields/validate';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
@@ -139,10 +142,10 @@ export default React.memo(
       const locale = makeSelectLocale()(state);
       const translate = translationMessages[locale];
       const profileInfo = makeSelectProfileInfo()(state);
-      const isOfficialRepresentative = hasCommunityModeratorRole(
-        profileInfo?.permissions,
-        communityId || 0,
-      );
+      const isOfficialRepresentative =
+        hasCommunityModeratorRole(profileInfo?.permissions, communityId || 0) ||
+        (Boolean(communityId) &&
+          hasCommunityAdminRole(profileInfo?.permissions, communityId));
       const account = makeSelectAccount()(state);
 
       return {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
@@ -23,6 +23,8 @@ import FacebookIcon from 'icons/Facebook';
 import * as routes from 'routes-config';
 
 import Gradient from './Gradient';
+import { scrollToSection } from 'utils/animation';
+import { FIRST_SCREEN } from './constants';
 
 const Box = Gradient.extend`
   color: ${TEXT_DARK};
@@ -91,55 +93,64 @@ const MediaLink = ({ href, icon }) =>
     </a>
   ) : null;
 
-const Footer = ({ locale }) => (
-  <Box position="bottom">
-    <div className="container">
-      <div className="d-flex-column d-sm-flex justify-content-between align-items-center">
-        <div className="d-flex justify-content-between align-items-center logo">
-          <Link to={routes.feed()}>
-            <img src={logo} alt="logo" />
-          </Link>
-          <span className="d-none d-lg-inline year">© {Year}</span>
-          <div className="d-flex align-items-center">
-            <img width={87} height={55} src={partners} alt="Partners" />
+const Footer = ({ locale }) => {
+  const [isToggled, setToggled] = useState(false);
+
+  function toggle(screen) {
+    setToggled(!isToggled);
+    scrollToSection(typeof screen === 'string' ? `#${screen}` : ``);
+  }
+
+  return (
+    <Box position="bottom">
+      <div className="container">
+        <div className="d-flex-column d-sm-flex justify-content-between align-items-center">
+          <div className="d-flex justify-content-between align-items-center logo">
+            <Link to={routes.home()} onClick={() => toggle(FIRST_SCREEN)}>
+              <img src={logo} alt="logo" />
+            </Link>
+            <span className="d-none d-lg-inline year">© {Year}</span>
+            <div className="d-flex align-items-center">
+              <img width={87} height={55} src={partners} alt="Partners" />
+            </div>
           </div>
-        </div>
-        <div className="d-flex align-items-center justify-content-center media-section">
-          <div className="d-flex justify-content-center align-items-center icons">
-            <MediaLink
-              href={getLinks(locale).facebook}
-              icon={<FacebookIcon fill="rgb(87, 111, 237)" size={[22, 22]} />}
-            />
-            <MediaLink
-              href={getLinks(locale).twitter}
-              icon={<TwitterIcon fill="rgb(87, 111, 237)" size={[22, 22]} />}
-            />
-            <MediaLink
-              href={getLinks(locale).github}
-              icon={
-                <GithubSupportIcon fill="rgb(87, 111, 237)" size={[22, 22]} />
-              }
-            />
-            <MediaLink
-              href={getLinks(locale).medium}
-              icon={
-                <MediumSupportIcon fill="rgb(87, 111, 237)" size={[22, 20]} />
-              }
-            />
-            <MediaLink
-              href={getLinks(locale).linkedin}
-              icon={<LinkedinIcon fill="rgb(87, 111, 237)" size={[22, 22]} />}
-            />
-            <MediaLink
-              href={getLinks(locale).telegram}
-              icon={<TelegramIcon fill="rgb(87, 111, 237)" size={[22, 22]} />}
-            />
+          <div className="d-flex align-items-center justify-content-center media-section">
+            <div className="d-flex justify-content-center align-items-center icons">
+              <MediaLink
+                href={getLinks(locale).facebook}
+                icon={<FacebookIcon fill="rgb(87, 111, 237)" size={[22, 22]} />}
+              />
+              <MediaLink
+                href={getLinks(locale).twitter}
+                icon={<TwitterIcon fill="rgb(87, 111, 237)" size={[22, 22]} />}
+              />
+              <MediaLink
+                href={getLinks(locale).github}
+                icon={
+                  <GithubSupportIcon fill="rgb(87, 111, 237)" size={[22, 22]} />
+                }
+              />
+              <MediaLink
+                href={getLinks(locale).medium}
+                icon={
+                  <MediumSupportIcon fill="rgb(87, 111, 237)" size={[22, 20]} />
+                }
+              />
+              <MediaLink
+                href={getLinks(locale).linkedin}
+                icon={<LinkedinIcon fill="rgb(87, 111, 237)" size={[22, 22]} />}
+              />
+              <MediaLink
+                href={getLinks(locale).telegram}
+                icon={<TelegramIcon fill="rgb(87, 111, 237)" size={[22, 22]} />}
+              />
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </Box>
-);
+    </Box>
+  );
+};
 
 MediaLink.propTypes = {
   href: PropTypes.string,

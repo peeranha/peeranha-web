@@ -4,7 +4,10 @@ import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
-import { singleCommunityStyles } from 'utils/communityManagement';
+import {
+  singleCommunityStyles,
+  singleCommunityColors,
+} from 'utils/communityManagement';
 import { italicFont } from 'global-styles';
 import messages from 'common-messages';
 import { POST_TYPE } from './constants';
@@ -21,8 +24,9 @@ import { Wrapper } from 'components/FormFields/Wrapper';
 import { Styles } from 'components/Input/InputStyled';
 import B from 'components/Button';
 
+const colors = singleCommunityColors();
 const styles = singleCommunityStyles();
-
+const customShadow = `rgba(${BORDER_PRIMARY_RGB}, 0.4)`;
 export const QUESTION_TYPES = {
   GENERAL: {
     value: POST_TYPE.generalPost,
@@ -35,6 +39,10 @@ export const QUESTION_TYPES = {
   TUTORIAL: {
     value: POST_TYPE.tutorial,
     label: 'tutorial',
+  },
+  FAQ: {
+    value: POST_TYPE.faq,
+    label: 'faq',
   },
 };
 
@@ -104,12 +112,12 @@ const Button = B.extend`
   flex: 1;
   border: 1px solid ${BORDER_SECONDARY};
   border-color: ${({ type, value }) =>
-    +type === value && `rgb(${BORDER_PRIMARY_RGB})`};
+    +type === value && (colors.textColor || `rgb(${BORDER_PRIMARY_RGB})`)};
   box-shadow: ${({ type, value }) =>
-    +type === value && `0 0 0 3px rgba(${BORDER_PRIMARY_RGB}, 0.4)`};
+    +type === value && (colors.textColorShadow || `0 0 0 3px ${customShadow}`)};
 
   &:hover {
-    box-shadow: 0 0 0 3px rgba(${BORDER_PRIMARY_RGB}, 0.4);
+    box-shadow: 0 0 0 3px ${colors.textColorShadow || customShadow};
   }
 
   @media only screen and (max-width: 576px) {
@@ -128,6 +136,7 @@ const QuestionTypeField = ({
   splitInHalf,
   insideOfSection,
   error,
+  isCommunityModerator,
 }) => {
   const [type, setType] = useState();
 
@@ -137,6 +146,12 @@ const QuestionTypeField = ({
     input.onChange(value);
     setType(value);
   }
+
+  // Don't show FAQ post type unless user isn't community moderator
+  // const types = isCommunityModerator
+  //   ? Object.values(QUESTION_TYPES)
+  //   : Object.values(QUESTION_TYPES).slice(0, 3);
+  const types = Object.values(QUESTION_TYPES).slice(0, 3);
 
   return (
     <QuestionTypeContainer>
@@ -150,7 +165,7 @@ const QuestionTypeField = ({
         insideOfSection={insideOfSection}
       >
         <ButtonGroup error={error}>
-          {Object.values(QUESTION_TYPES).map(questionType => (
+          {types.map(questionType => (
             <Button
               type={type}
               onClick={chooseQuestionType}

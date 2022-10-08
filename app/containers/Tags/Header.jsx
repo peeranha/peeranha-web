@@ -1,17 +1,21 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import { css } from '@emotion/react';
 import * as routes from 'routes-config';
 import { TEXT_SECONDARY, BORDER_PRIMARY } from 'style-constants';
 
 import commonMessages from 'common-messages';
-import { isSingleCommunityWebsite } from 'utils/communityManagement';
+import {
+  isSingleCommunityWebsite,
+  singleCommunityColors,
+} from 'utils/communityManagement';
 
 import PlusIcon from 'icons/Plus';
 import TagsIcon from 'icons/Tags';
 import ArrowLeftThinIcon from 'icons/ArrowLeftThin';
 import FilterIcon from 'icons/Filter';
-
+import { TEXT_PRIMARY } from 'style-constants';
 import H3 from 'components/H3';
 import Dropdown from 'components/Dropdown';
 import Span from 'components/Span';
@@ -28,16 +32,21 @@ import A from 'components/A';
 import messages from './messages';
 import options from './options';
 import { GO_TO_CREATE_TAG_SCREEN_BUTTON_ID } from './constants';
-import { getPermissions, hasGlobalModeratorRole } from '../../utils/properties';
+import {
+  getPermissions,
+  hasCommunityAdminRole,
+  hasGlobalModeratorRole,
+} from '../../utils/properties';
 
 const tagsRoute = routes.tags();
 
+const colors = singleCommunityColors();
 const single = isSingleCommunityWebsite();
 
 const Button = ({ sorting }) => (
   <Span className="d-inline-flex align-items-center mr-2 text-capitalize" bold>
     <MediumIcon>
-      <FilterIcon className="mr-2" stroke="#576fed" />
+      <FilterIcon className="mr-2" stroke={colors.btnColor || BORDER_PRIMARY} />
     </MediumIcon>
     <FormattedMessage {...options[sorting].message} />
   </Span>
@@ -75,6 +84,12 @@ export const Header = ({
     [profile],
   );
 
+  const singleCommId = isSingleCommunityWebsite();
+
+  const profileWithCommunityAdminRights = Boolean(singleCommId)
+    ? hasCommunityAdminRole(getPermissions(profile), singleCommId)
+    : false;
+
   const communityTagsRoute = useMemo(
     () => routes.communityTags(currentCommunity.id),
     [currentCommunity.id],
@@ -92,14 +107,14 @@ export const Header = ({
               <NavigationButton className="pl-0" islink>
                 <ArrowLeftThinIcon fill="#576FED" />
                 <span className="d-none d-sm-inline ml-2">
-                  <FormattedMessage {...messages.backToList} />
+                  <FormattedMessage id={messages.backToList.id} />
                 </span>
               </NavigationButton>
             </A>
           )}
         </div>
 
-        {profileWithModeratorRights && (
+        {(profileWithModeratorRights || profileWithCommunityAdminRights) && (
           <WrapperRightPanel className="right-panel">
             <NavigationButton
               data-communityid={currentCommunity.id}
@@ -110,7 +125,7 @@ export const Header = ({
             >
               <MediumIcon>
                 <TagsIcon
-                  fill={BORDER_PRIMARY}
+                  fill={colors.btnColor || TEXT_PRIMARY}
                   size={[18, 18]}
                   className="d-none d-sm-inline-block"
                 />
@@ -119,7 +134,7 @@ export const Header = ({
               <PlusIcon fill={BORDER_PRIMARY} className="d-sm-none" />
 
               <span className="ml-1 button-label">
-                <FormattedMessage {...commonMessages.createTag} />
+                <FormattedMessage id={commonMessages.createTag.id} />
               </span>
             </NavigationButton>
           </WrapperRightPanel>
@@ -144,7 +159,7 @@ export const Header = ({
               bold
             >
               <span>{`${tagsNumber} `}</span>
-              <FormattedMessage {...commonMessages.tags} />
+              <FormattedMessage id={commonMessages.tags.id} />
             </Span>
           )}
         </H3>

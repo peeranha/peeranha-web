@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { css } from '@emotion/react';
 import { FormattedMessage } from 'react-intl';
 import orderBy from 'lodash/orderBy';
 
@@ -15,6 +16,9 @@ import H4 from 'components/H4';
 import Span from 'components/Span';
 import Grid from 'components/Grid';
 import CommunityItemWithRating from './CommunityItemWithRating';
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
 
 const CommunitiesSectionWithRatings = ({
   profile,
@@ -63,9 +67,9 @@ const CommunitiesSectionWithRatings = ({
               <CreateCommunityIcon
                 className="mr-2"
                 fill="#7699FF"
-                stroke="#576FED"
+                stroke={colors.btnColor || TEXT_PRIMARY}
               />
-              <Span color={TEXT_PRIMARY}>
+              <Span color={colors.btnColor || TEXT_PRIMARY}>
                 <FormattedMessage id={messages.allCommunities.id} />
               </Span>
             </AllCommunitiesLink>

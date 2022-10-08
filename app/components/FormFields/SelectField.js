@@ -21,8 +21,10 @@ import {
 
 import ArrowDownFillIcon from 'icons/ArrowDownFill';
 import Span from 'components/Span';
-
+import { singleCommunityColors } from 'utils/communityManagement';
 import Wrapper from './Wrapper';
+
+const colors = singleCommunityColors();
 
 export const Box = styled.div`
   padding: 0 25px;
@@ -36,7 +38,7 @@ export const Box = styled.div`
   background: ${x => (x.isActive ? BG_SECONDARY_LIGHT : BG_TRANSPARENT)};
 
   :hover {
-    border: 1px solid ${BORDER_PRIMARY};
+    border: 1px solid ${colors.textColor || BORDER_PRIMARY};
     background: none;
   }
 `;
@@ -114,11 +116,12 @@ export const Select2 = ({
         control: (base, state) => ({
           ...base,
           border: `1px solid ${(error && BORDER_WARNING_LIGHT) ||
-            (state.isFocused && BORDER_PRIMARY) ||
+            (state.isFocused && (colors.textColor || BORDER_PRIMARY)) ||
             BORDER_SECONDARY}`,
           boxShadow: `0 0 0 3px ${(error &&
             `rgba(${BORDER_WARNING_LIGHT_RGB}, 0.4)`) ||
-            (state.isFocused && `rgba(${BORDER_PRIMARY_RGB}, 0.4)`) ||
+            (state.isFocused &&
+              (colors.textColorShadow || `rgba(${BORDER_PRIMARY_RGB}, 0.4)`)) ||
             BORDER_TRANSPARENT}`,
           borderRadius: '3px',
           color: TEXT_DARK,

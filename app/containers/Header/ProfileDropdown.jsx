@@ -65,7 +65,7 @@ const B = ({ profileInfo, onClick, isMenuVisible, isMobileVersion }) => (
       profileInfo.avatar !== NO_AVATAR && (
         <MediumSpecialImage
           isBordered
-          customBorderStyle={!isMobileVersion && styles.communityBorderStyle}
+          customBorderStyle={!isMobileVersion && colors.communityBorderStyle}
           src={getUserAvatar(profileInfo.avatar)}
           alt="avatar"
         />
@@ -74,7 +74,7 @@ const B = ({ profileInfo, onClick, isMenuVisible, isMobileVersion }) => (
       className="d-flex flex-column justify-content-center"
       isMenuVisible={isMenuVisible}
     >
-      <Span bold color={(!isMobileVersion && styles.commHeadElemColor) || ''}>
+      <Span bold color={(!isMobileVersion && colors.commHeadElemColor) || ''}>
         {getUserName(profileInfo.displayName, profileInfo.loginData.account)}
       </Span>
     </Info>
@@ -138,9 +138,13 @@ const Menu = memo(
 
         <Ul>
           <Logout>
-            <LogOutIcon className="mr-1" stroke="#576FED" size={[24, 24]} />
+            <LogOutIcon
+              className="mr-1"
+              stroke={colors.linkColor || TEXT_PRIMARY}
+              size={[24, 24]}
+            />
             <Span color={colors.linkColor || TEXT_PRIMARY}>
-              <FormattedMessage {...messages.logout} />
+              <FormattedMessage id={messages.logout.id} />
             </Span>
           </Logout>
         </Ul>

@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { css } from '@emotion/react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import {
@@ -33,6 +34,10 @@ import Input from 'components/Input';
 
 import commonMessages from 'common-messages';
 import messages from './messages';
+
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
 
 const DropdownModal = styled.div`
   position: absolute;
@@ -95,7 +100,7 @@ const SharingModal = ({ questionData, locale }) => {
     <DropdownModal>
       <p>
         <b>
-          <FormattedMessage {...messages.shareTitle} />
+          <FormattedMessage id={messages.shareTitle.id} />
         </b>
       </p>
       <Input input={{ value: window.location.href }} readOnly type="text" />
@@ -106,19 +111,19 @@ const SharingModal = ({ questionData, locale }) => {
             title={questionData.content.title}
             via={APP_TWITTER_NICKNAME}
           >
-            <TwitterIcon fill="#576fed" />
+            <TwitterIcon fill={colors.linkColor || TEXT_PRIMARY} />
           </TwitterShareButton>
           <TelegramShareButton
             url={window.location.href}
             title={questionData.content.title}
           >
-            <TelegramIcon fill="#576fed" />
+            <TelegramIcon fill={colors.linkColor || TEXT_PRIMARY} />
           </TelegramShareButton>
           <RedditShareButton
             url={window.location.href}
             title={questionData.content.title}
           >
-            <RedditGlyphIcon fill="#576fed" />
+            <RedditGlyphIcon fill={colors.linkColor || TEXT_PRIMARY} />
           </RedditShareButton>
         </div>
         <button
@@ -126,8 +131,11 @@ const SharingModal = ({ questionData, locale }) => {
           data-key={window.location.href}
           onClick={writeToBuffer}
           className="copy-btn"
+          css={css`
+            color: ${colors.linkColor + '!important' || TEXT_PRIMARY};
+          `}
         >
-          <FormattedMessage {...commonMessages.copy} />{' '}
+          <FormattedMessage id={commonMessages.copy.id} />{' '}
         </button>
       </DropdownModalFooter>
     </DropdownModal>

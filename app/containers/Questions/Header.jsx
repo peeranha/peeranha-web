@@ -34,6 +34,7 @@ import {
   getPermissions,
   hasGlobalModeratorRole,
   hasCommunityModeratorRole,
+  hasCommunityAdminRole,
 } from 'utils/properties';
 
 import { POST_TYPE } from 'utils/constants';
@@ -93,6 +94,9 @@ export const Header = ({
   const isModeratorModeSingleCommunity = single
     ? hasGlobalModeratorRole(getPermissions(profile)) ||
       hasCommunityModeratorRole(getPermissions(profile), single)
+    : false;
+  const isCommunityAdminMode = single
+    ? hasCommunityAdminRole(getPermissions(profile), single)
     : false;
 
   let defaultLabel = null;
@@ -179,6 +183,7 @@ export const Header = ({
           selectedCommunityId={communityIdFilter}
           communities={communities}
         />
+        {/* PEER-451: Hide Subscribe button from single community mode
         {!!displaySubscribeButton && (
           <PageContentHeaderRightPanel
             className={`right-panel m-0 ml-${single ? 3 : 4}`}
@@ -188,19 +193,16 @@ export const Header = ({
               followedCommunities={followedCommunities}
             />
           </PageContentHeaderRightPanel>
-        )}
+        )} */}
       </PageContentHeader>
       <QuestionFilter
         display={displayQuestionFilter}
         questionFilterFromCookies={questionFilterFromCookies}
       />
-      {isModeratorModeSingleCommunity && (
-        <button
-          onClick={routeToEditCommunity}
-          className={`align-items-center d-inline-flex`}
-        >
-          <EditIcon stroke="#576fed" />
-          <Span className="ml-1" color={TEXT_PRIMARY}>
+      {(isModeratorModeSingleCommunity || isCommunityAdminMode) && (
+        <button onClick={routeToEditCommunity} className="df aic mt12">
+          <EditIcon stroke={colors.btnColor || TEXT_PRIMARY} />
+          <Span className="ml-1" color={colors.btnColor || TEXT_PRIMARY}>
             <FormattedMessage id={messages.editCommunity.id} />
           </Span>
         </button>

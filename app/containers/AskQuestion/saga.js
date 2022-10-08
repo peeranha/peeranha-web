@@ -14,6 +14,7 @@ import {
   FORM_COMMUNITY,
   FORM_TAGS,
   FORM_TYPE,
+  POST_TYPE,
 } from 'components/QuestionForm/constants';
 
 import { isAuthorized, isValid } from 'containers/EthereumProvider/saga';
@@ -39,9 +40,12 @@ export function* postQuestionWorker({ val }) {
     const ethereumService = yield select(selectEthereum);
     const selectedAccount = yield select(makeSelectAccount());
     // const promoteValue = +val[FORM_PROMOTE];
-    const tags = val[FORM_TAGS].map(tag => Number(tag.id.split('-')[1]));
-    const communityId = val[FORM_COMMUNITY].id;
     const postType = +val[FORM_TYPE];
+    const tags =
+      postType !== POST_TYPE.faq
+        ? val[FORM_TAGS].map(tag => Number(tag.id.split('-')[1]))
+        : [];
+    const communityId = val[FORM_COMMUNITY].id;
 
     const questionData = {
       title: val[FORM_TITLE],
@@ -89,7 +93,9 @@ export function* postQuestionWorker({ val }) {
 
     yield call(
       createdHistory.push,
-      routes.questionView(id, false, communityId),
+      postType === POST_TYPE.faq
+        ? routes.faq()
+        : routes.questionView(id, false, communityId),
     );
   } catch (err) {
     yield put(askQuestionError(err));

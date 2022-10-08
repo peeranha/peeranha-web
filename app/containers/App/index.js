@@ -318,7 +318,7 @@ const App = ({
             render={props => Wrapper(EditAnswer, props)}
           />
 
-          {hasGlobalModeratorRole() && (
+          {(hasGlobalModeratorRole() || single) && (
             <Route
               exact
               path={routes.users()}

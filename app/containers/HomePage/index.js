@@ -39,6 +39,7 @@ import About from './About';
 import Rewards from './Rewards';
 import Partners from './Partners';
 import FeedbackForm from './FeedbackForm';
+import VideoSection from './VideoSection';
 
 import {
   HEADER_ID,
@@ -174,6 +175,7 @@ export const HomePage = ({
         showLoginModal={() => loginWithWalletDispatch({ metaMask: true })}
       />
 
+      <VideoSection />
       <About translations={translations} />
 
       <Partners />

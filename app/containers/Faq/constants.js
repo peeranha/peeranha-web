@@ -72,3 +72,7 @@ export {
   WHEN_I_CAN_GET_MY_REWARD,
   WHAT_IS_PROMOTED_QUESTION,
 };
+
+export const GET_FAQ = 'app/FAQ/GET_FAQ';
+export const GET_FAQ_SUCCESS = 'app/FAQ/GET_FAQ_SUCCESS';
+export const GET_FAQ_ERROR = 'app/FAQ/GET_FAQ_ERROR';

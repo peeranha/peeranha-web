@@ -1,7 +1,13 @@
+import AreYouSure from 'containers/ViewQuestion/AreYouSure';
+import messages from 'containers/ViewQuestion/messages';
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
+
+import { css } from '@emotion/react';
+import cn from 'classnames';
+import { styles } from 'containers/Faq/Faq.styled';
 
 import createdHistory from 'createdHistory';
 
@@ -27,7 +33,7 @@ import Span from 'components/Span';
 import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
 import BaseTransparent from 'components/Base/BaseTransparent';
 import Button from 'components/Button/Outlined/PrimaryLarge';
-import cn from 'classnames';
+import IconButton from 'containers/ViewQuestion/Button';
 
 export const TextBlock = styled.div`
   display: ${({ isOpened }) => (isOpened ? 'block' : 'none')};
@@ -71,23 +77,6 @@ const SectionStyled = BaseRoundedNoPadding.extend`
   ${Button} {
     margin-left: 43px;
     margin-bottom: 10px;
-  }
-`;
-
-const ImgWrapper = styled.div`
-  margin-right: 18px;
-  width: 42px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-
-  :hover {
-    cursor: pointer;
-  }
-
-  @media only screen and (max-width: 576px) {
-    margin-right: 8px;
   }
 `;
 
@@ -137,13 +126,17 @@ const Question = ({
   return (
     <QuestionBox id={questionId} isOpened={isOpened}>
       {collapsedMenu && (
-        <ImgWrapper onClick={collapseQuestion}>
+        <div
+          className="aic jcc"
+          css={css(styles.collapseImage)}
+          onClick={collapseQuestion}
+        >
           <ArrowDownFillIcon
             className={isOpened && 'transform180'}
             size={[16, 12]}
             fill="#7B7B7B"
           />
-        </ImgWrapper>
+        </div>
       )}
       <QuestionBoxBody>
         {collapsedMenu && (
@@ -172,6 +165,10 @@ const Section = ({
   route,
   getSectionCode,
   getQuestionCode,
+  faqId,
+  isCommunityModerator,
+  editItem,
+  deleteItem,
   collapsedMenu,
 }) => {
   const [isOpened, collapse] = useState(false);
@@ -188,21 +185,49 @@ const Section = ({
 
   return (
     <SectionStyled isOpened={isOpened} id={sectionId}>
-      <BaseTransparent>
+      <BaseTransparent className={cn('df fdr jcsb')}>
         <H4
           className="d-flex align-items-center"
           onClick={collapseSection}
           mobileFS="24"
         >
-          <ImgWrapper>
+          <div css={css(styles.collapseImage)}>
             {isOpened ? (
               <MinusIcon fill="#7699ff" />
             ) : (
               <PlusCircleIcon fill="#7699ff" />
             )}
-          </ImgWrapper>
+          </div>
           <span>{h2}</span>
         </H4>
+
+        {isCommunityModerator && (
+          <div className="df aic" css={css(styles.buttonContainer)}>
+            <div id={`faq_delete_${faqId}`}>
+              <AreYouSure
+                submitAction={deleteItem.bind(null, faqId)}
+                Button={({ onClick }) => (
+                  <IconButton
+                    show={isCommunityModerator}
+                    id={`faq_delete_${faqId}`}
+                    onClick={onClick}
+                  >
+                    <FormattedMessage id={messages.deleteButton.id} />
+                  </IconButton>
+                )}
+              />
+            </div>
+
+            <IconButton
+              show={isCommunityModerator}
+              onClick={editItem[0]}
+              params={{ link: editItem[1]('faq', faqId) }}
+              id={`redirect-to-edit-item-0-${faqId}-0`}
+            >
+              <FormattedMessage id={messages.editButton.id} />
+            </IconButton>
+          </div>
+        )}
       </BaseTransparent>
 
       {isOpened && (
@@ -251,6 +276,9 @@ const Content = ({
   route,
   getSectionCode,
   getQuestionCode,
+  isCommunityModerator,
+  editItem,
+  deleteItem,
   collapsedMenu = true,
 }) => (
   <div className="mb-3">
@@ -260,9 +288,13 @@ const Content = ({
         h2={block.h2}
         blocks={block.blocks}
         sectionCode={block.sectionCode}
+        faqId={block.faqId}
         route={route}
         getSectionCode={getSectionCode}
         getQuestionCode={getQuestionCode}
+        isCommunityModerator={isCommunityModerator}
+        editItem={editItem}
+        deleteItem={deleteItem}
         collapsedMenu={collapsedMenu}
       />
     ))}

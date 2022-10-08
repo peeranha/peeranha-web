@@ -18,6 +18,7 @@ import LargeButton from 'components/Button/Contained/InfoLarge';
 import { ExtendedBase } from 'components/Base/AvatarBase';
 import AvatarField from 'components/FormFields/AvatarField';
 import TextInputField from 'components/FormFields/TextInputField';
+import TextareaField from 'components/FormFields/TextareaField';
 
 import { scrollToErrorField } from 'utils/animation';
 
@@ -78,7 +79,7 @@ const EditCommunityForm = ({
 
         <Field
           name={COMM_SHORT_DESCRIPTION_FIELD}
-          component={TextInputField}
+          component={TextareaField}
           validate={[strLength15x250, required]}
           warn={[strLength15x250, required]}
           disabled={communityLoading}

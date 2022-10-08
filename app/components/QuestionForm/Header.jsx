@@ -1,3 +1,4 @@
+import { POST_TYPE } from 'utils/constants';
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import * as routes from 'routes-config';
@@ -16,22 +17,37 @@ import Span from '../Span';
 
 import Wrapper from '../Header/Simple';
 import H3 from '../H3';
+import { singleCommunityColors } from 'utils/communityManagement';
 
-const Header = ({ formTitle, questionId, intl }) => (
+const colors = singleCommunityColors();
+
+const Header = ({ formTitle, questionId, intl, postType }) => (
   <Wrapper className="mb-to-sm-0 mb-from-sm-3">
     <H3>
       <MediumIconStyled>
-        <FeedQuestionIcon stroke="#576FED" />
+        <FeedQuestionIcon stroke={colors.btnColor || TEXT_PRIMARY} />
       </MediumIconStyled>
       <span>{formTitle}</span>
     </H3>
 
     {questionId && (
       <div className="right-panel">
-        <A to={routes.questionView(questionId)}>
+        <A
+          to={
+            postType === POST_TYPE.faq
+              ? routes.faq()
+              : routes.questionView(questionId)
+          }
+        >
           <button>
-            <CloseRoundedIcon fill={TEXT_PRIMARY} className="mr-1" />
-            <Span color={TEXT_PRIMARY} className="button-label">
+            <CloseRoundedIcon
+              fill={colors.btnColor || TEXT_PRIMARY}
+              className="mr-1"
+            />
+            <Span
+              color={colors.btnColor || TEXT_PRIMARY}
+              className="button-label"
+            >
               {intl.formatMessage(commonMessages.close)}
             </Span>
           </button>

@@ -20,6 +20,9 @@ import Span from 'components/Span';
 import Wrapper, { WrapperRightPanel } from 'components/Header/Simple';
 
 import messages from './messages';
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
 
 export const Header = ({
   title,
@@ -38,17 +41,23 @@ export const Header = ({
           height: 43px;
         `}
       >
-        <TagsIcon fill={BORDER_PRIMARY} size={[30, 30]} />
+        <TagsIcon fill={colors.btnColor || BORDER_PRIMARY} size={[30, 30]} />
       </div>
-      {title || <FormattedMessage {...messages.newTag} />}
+      {title || <FormattedMessage id={messages.newTag.id} />}
     </H3>
 
     <WrapperRightPanel className="right-panel">
       <A to={closeRedirectPage || routes.tags()} onClick={closeButtonAction}>
         <button>
-          <CloseRoundedIcon fill={BORDER_PRIMARY} className="mr-1" />
-          <Span color={TEXT_PRIMARY} className="button-label">
-            <FormattedMessage {...commonMessages.close} />
+          <CloseRoundedIcon
+            fill={colors.btnColor || BORDER_PRIMARY}
+            className="mr-1"
+          />
+          <Span
+            color={colors.btnColor || TEXT_PRIMARY}
+            className="button-label"
+          >
+            <FormattedMessage id={commonMessages.close.id} />
           </Span>
         </button>
       </A>

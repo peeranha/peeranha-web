@@ -17,6 +17,9 @@ import Wrapper from 'components/Header/Complex';
 import Span from 'components/Span/index';
 import A from 'components/A/index';
 import { getPermissions } from '../../utils/properties';
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
 
 const Ul = styled.ul`
   display: flex;
@@ -229,9 +232,9 @@ const UserNavigation = ({
             id={`redireact-to-edit-${userId}-user-page-2`}
             data-user={userId}
           >
-            <EditIcon stroke="#576fed" />
-            <Span className="ml-1" color={TEXT_PRIMARY}>
-              <FormattedMessage {...messages.edit} />
+            <EditIcon stroke={colors.btnColor || TEXT_PRIMARY} />
+            <Span className="ml-1" color={colors.btnColor || TEXT_PRIMARY}>
+              <FormattedMessage id={messages.edit.id} />
             </Span>
           </button>
 
@@ -243,9 +246,9 @@ const UserNavigation = ({
             }`}
             to={routes.profileView(account)}
           >
-            <CloseRoundedIcon fill={BORDER_PRIMARY} />
-            <Span className="ml-1" color={TEXT_PRIMARY}>
-              <FormattedMessage {...messages.close} />
+            <CloseRoundedIcon fill={colors.btnColor || BORDER_PRIMARY} />
+            <Span className="ml-1" color={colors.btnColor || TEXT_PRIMARY}>
+              <FormattedMessage id={messages.close.id} />
             </Span>
           </A>
         </div>

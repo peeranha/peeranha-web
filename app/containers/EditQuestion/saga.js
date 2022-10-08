@@ -34,7 +34,7 @@ import {
 import { selectEthereum } from '../EthereumProvider/selectors';
 import { makeSelectAccount } from '../AccountProvider/selectors';
 import { saveChangedItemIdToSessionStorage } from 'utils/sessionStorage';
-import { CHANGED_POSTS_KEY } from 'utils/constants';
+import { CHANGED_POSTS_KEY, POST_TYPE } from 'utils/constants';
 
 export function* getAskedQuestionWorker({ questionId }) {
   try {
@@ -196,7 +196,12 @@ export function* editQuestionWorker({ question, questionId }) {
     saveChangedItemIdToSessionStorage(CHANGED_POSTS_KEY, questionId);
 
     yield put(editQuestionSuccess(question));
-    yield call(createdHistory.push, routes.questionView(questionId));
+    yield call(
+      createdHistory.push,
+      Number(question.postType) === Number(POST_TYPE.faq)
+        ? routes.faq()
+        : routes.questionView(questionId),
+    );
   } catch (err) {
     yield put(editQuestionErr(err));
   }

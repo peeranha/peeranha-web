@@ -12,7 +12,7 @@ import {
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
 import InformationIcon from 'icons/Information';
 
-import { TEXT_SECONDARY } from 'style-constants';
+import { TEXT_PRIMARY, TEXT_SECONDARY } from 'style-constants';
 import messages from 'common-messages';
 
 import Dropdown from 'components/Dropdown';
@@ -69,8 +69,10 @@ const Img = styled.img`
   width: 60px;
   height: 15px;
   margin-left: 1px;
-  filter: gray;
   filter: grayscale(100%);
+  :hover {
+    filter: grayscale(0);
+  }
 `;
 
 const FlexibleDiv = styled.div`
@@ -85,6 +87,26 @@ const LinkAdditionalStyles = css`
 
 const LiAdditionalStyles = css`
   padding: 0 !important;
+`;
+
+const ASimple = styled.a`
+  font-weight: 600;
+  color: ${TEXT_PRIMARY};
+  transition: opacity 0.3s ease-out;
+  padding: 0 !important;
+
+  :hover {
+    opacity: 0.8;
+  }
+`;
+
+const DivMention = styled.div`
+  margin-top: 5px;
+  line-height: 1.2;
+  font-size: 10px;
+  > span {
+    white-space: normal;
+  }
 `;
 
 const Link = ({ path, message, cssStyles }) =>
@@ -181,15 +203,16 @@ export default React.memo(({ currClientHeight }) => {
         {!single && (
           <div>
             <FormattedMessage
-              {...messages.copyrightPeeranha}
+              id={messages.copyrightPeeranha.id}
               values={{ year: new Date().getFullYear() }}
             />
           </div>
         )}
-        <div className="mt-2">
-          {single ? (
+
+        {!!single && (
+          <div className="mt-2">
             <FormattedMessage
-              {...messages.poweredBy}
+              id={messages.poweredBy.id}
               values={{
                 year: new Date().getFullYear(),
                 image: <Img key="peeranha" src={peeranhaLogo} alt="peeranha" />,
@@ -204,8 +227,32 @@ export default React.memo(({ currClientHeight }) => {
                 </a>
               )}
             </FormattedMessage>
-          ) : null}
-        </div>
+          </div>
+        )}
+
+        <DivMention>
+          <FormattedMessage
+            id={messages.reCaptchaMention.id}
+            values={{
+              privacyPolicy: (
+                <ASimple
+                  href="https://policies.google.com/privacy"
+                  target="_blank"
+                >
+                  <FormattedMessage id={messages.privacyPolicy.id} />
+                </ASimple>
+              ),
+              termsOfService: (
+                <ASimple
+                  href="https://policies.google.com/terms"
+                  target="_blank"
+                >
+                  <FormattedMessage id={messages.termsOfService.id} />
+                </ASimple>
+              ),
+            }}
+          />
+        </DivMention>
       </FooterStyled>
     </AdditionalLinks>
   );

@@ -12,9 +12,9 @@ const userRedirect = where => id => `/users/${id}${where}`;
 
 const singleCommId = isSingleCommunityWebsite();
 
-export const home = () => `/about`;
+export const home = () => (singleCommId ? `/about` : `/`);
 
-export const notFound = () => `/404`;
+export const notFound = type => `/404?${type}`;
 export const errorPage = () => `/error-occured`;
 
 export const profileView = userRedirect('');
@@ -78,7 +78,9 @@ export const noAccess = () => `/no-access`;
 export const detailsHomePage = () => '/';
 
 export const feed = communityId =>
-  `/${communityId ? `feed/${communityId}` : ''}`;
+  !singleCommId
+    ? `/feed${communityId ? `/${communityId}` : ''}`
+    : `/${communityId ? `feed/${communityId}` : ''}`;
 
 export const communities = () => `/communities`;
 
@@ -118,7 +120,6 @@ export const editTag = (communityId, tagId) =>
 export const preloaderPage = () => '/preloader-page';
 
 export const redirectRoutesForSCM = [
-  faq(),
   privacyPolicy(),
   termsAndConditions(),
   support(),

@@ -19,6 +19,7 @@ import { trimRightZeros } from 'utils/numbers';
 import {
   isSingleCommunityWebsite,
   singleCommunityStyles,
+  singleCommunityColors,
 } from 'utils/communityManagement';
 
 import {
@@ -31,6 +32,7 @@ import Span from '../Span';
 
 const single = isSingleCommunityWebsite();
 const styles = singleCommunityStyles();
+const colors = singleCommunityColors();
 
 const Container = styled.div`
   border-left: 3px solid transparent;
@@ -244,7 +246,7 @@ const Notification = ({
       <div className="d-flex align-items-center justify-content-between">
         <NotificationLink isAnotherCommItem={isAnotherCommItem} href={href}>
           {NOTIFICATIONS_DATA[type].icon}
-          <span>{data.title}</span>
+          <Span color={colors.btnColor || BORDER_PRIMARY}>{data.title}</Span>
         </NotificationLink>
       </div>
       <div className="d-flex align-items-center">

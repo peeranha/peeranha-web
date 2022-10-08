@@ -8,6 +8,7 @@ import {
   PEER_PRIMARY_COLOR,
   PEER_PRIMARY_TRANSPARENT_COLOR,
 } from 'style-constants';
+import { customRatingIconColors } from '../../constants/customRating';
 
 const StatusSpan = styled.span`
   position: relative;
@@ -32,7 +33,7 @@ const Count = styled.span`
   color: ${props =>
     props.size === 'lg'
       ? 'inherit'
-      : props.achievementsNumColor || PEER_PRIMARY_COLOR};
+      : props.isSingleNumColor || PEER_PRIMARY_COLOR};
 
   @media (max-width: 350px) {
     padding-top: 5px;
@@ -40,12 +41,7 @@ const Count = styled.span`
   }
 `;
 
-const AchievementsStatus = ({
-  isProfilePage,
-  count,
-  size,
-  achievementsNumColor,
-}) => {
+const AchievementsStatus = ({ isProfilePage, count, size }) => {
   if (typeof count === 'number')
     return (
       <StatusSpan size={size} isProfilePage={isProfilePage}>
@@ -54,7 +50,10 @@ const AchievementsStatus = ({
           circleFill={PEER_PRIMARY_TRANSPARENT_COLOR}
           size={size === 'lg' ? [24, 24] : [14, 14]}
         />
-        <Count size={size} achievementsNumColor={achievementsNumColor}>
+        <Count
+          size={size}
+          isSingleNumColor={customRatingIconColors.strokeColor}
+        >
           {count}
         </Count>
       </StatusSpan>
@@ -65,7 +64,6 @@ const AchievementsStatus = ({
 AchievementsStatus.propTypes = {
   count: PropTypes.number,
   size: PropTypes.string,
-  achievementsNumColor: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   achievIconStyles: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]),
 };
 
