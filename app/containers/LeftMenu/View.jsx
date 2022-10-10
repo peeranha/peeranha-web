@@ -37,6 +37,7 @@ const View = ({
   deleteQuestion,
   match,
   toggleEditDocumentation,
+  isEditDocumentation,
 }) => {
   const [currClientHeight, setClientHeight] = useState();
 
@@ -112,6 +113,7 @@ const View = ({
         deleteQuestion={deleteQuestion}
         match={match}
         toggleEditDocumentation={toggleEditDocumentation}
+        isEditDocumentation={isEditDocumentation}
       />
 
       <AdditionalLinks currClientHeight={currClientHeight} />

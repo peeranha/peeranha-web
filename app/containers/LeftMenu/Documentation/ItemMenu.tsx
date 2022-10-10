@@ -14,9 +14,10 @@ import AddCommentIcon from 'icons/AddComment';
 
 type DocumentationMenuProps = {
   item: DocumentationSection;
-  level: number;
+  level?: number;
   isModeratorModeSingleCommunity: boolean;
   match: { params: { sectionId: string } };
+  isEditDocumentation: boolean;
 };
 
 const ItemMenu: React.FC<DocumentationMenuProps> = ({
@@ -24,6 +25,7 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
   level = 0,
   isModeratorModeSingleCommunity,
   match,
+  isEditDocumentation,
 }) => {
   const [isOpen, open, close] = useTrigger(false);
 
@@ -33,13 +35,14 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
         className={cn('df jcsb aic cup')}
         css={{
           padding: '7px 0',
+          ...(isEditDocumentation && { padding: '7px 16px' }),
           ...(level === 0 && { padding: '12px 0' }),
+          ...(level === 0 && isEditDocumentation && { padding: '12px 16px' }),
           paddingLeft: 15 + 16 * level,
           ...(match.params.sectionId === item.id && {
             background: 'rgba(53, 74, 137, 0.11)',
             borderLeft: '3px solid #5065A5',
             paddingLeft: 12 + 16 * level,
-            cursor: 'default',
           }),
           '&:hover .dropdown-documentation': {
             visibility: 'visible',
@@ -59,9 +62,8 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
           css={{
             fontSize: 16,
             lineHeight: '20px',
+            flexGrow: 1,
             ...(level > 0 && {
-              fontSize: 14,
-              lineHeight: '18px',
               color: '#7B7B7B',
             }),
             ...((isOpen || match.params.sectionId === item.id) && {
@@ -73,7 +75,7 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
           {item.title}
         </A1>
         <div className="df">
-          {Boolean(isModeratorModeSingleCommunity) && (
+          {isEditDocumentation && (
             <div
               className="dropdown-documentation ml4 mr4"
               css={{

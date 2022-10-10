@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { keyframes } from '@emotion/react';
 import Button from 'common-components/Button';
 import SaveIcon from 'icons/Save';
+import CloseRoundedIcon from 'icons/CloseRounded';
 
 const animationDocumentation = (screenWidth) =>
   keyframes({
@@ -38,7 +39,7 @@ const Header: React.FC<any> = () => {
 
   return (
     <div
-      className="df jcsb aic pl32 pr32"
+      className="df jcsb aic pl32 pr32 pt12 pb12"
       css={{
         height: 72,
         background: '#A5BCFF',
@@ -49,12 +50,38 @@ const Header: React.FC<any> = () => {
       }}
     >
       <div>Edit documentation</div>
-      <div>
-        <Button variant="secondary" icon={<SaveIcon className="icon" />}>
-          Button Secondary Icon
+      <div className="df aic">
+        <Button
+          variant="third"
+          icon={
+            <CloseRoundedIcon
+              className="icon"
+              css={{ width: 18, height: 18, fill: 'transparent' }}
+            />
+          }
+          className="mr16"
+        >
+          Close
         </Button>
-        <Button variant="secondary" icon={<SaveIcon className="icon" />}>
-          Button Secondary Icon
+        <Button
+          variant="secondary"
+          icon={
+            <SaveIcon
+              className="icon"
+              css={{
+                color: 'transparent',
+                stroke: '#F76F60',
+                width: 18,
+                height: 18,
+              }}
+            />
+          }
+          css={{
+            borderWidth: 0,
+            '&:hover .icon': { stroke: 'var(--color-white)' },
+          }}
+        >
+          Save changes
         </Button>
       </div>
     </div>

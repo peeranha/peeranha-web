@@ -39,24 +39,22 @@ const Box = ({
   documentationNotIncluded,
 }) => {
   const single = isSingleCommunityWebsite();
-  useEffect(
-    () => {
-      if (isMenuVisible) {
-        hideLeftMenuDispatch();
-      }
-    },
-    [location],
-  );
-  useEffect(
-    () => {
-      getDocumentationMenuDispatch(single);
-    },
-    [single],
-  );
+  useEffect(() => {
+    if (isMenuVisible) {
+      hideLeftMenuDispatch();
+    }
+  }, [location]);
+  useEffect(() => {
+    getDocumentationMenuDispatch(single);
+  }, [single]);
+
+  const documentation = documentationMenu
+    ? documentationMenu.concat(documentationNotIncluded ?? [])
+    : [];
 
   return (
     <>
-      <Header />
+      <Header documentationMenu={documentation} />
 
       <Main
         isMenuVisible={isMenuVisible}
@@ -64,14 +62,7 @@ const Box = ({
       >
         <div className={isMenuVisible ? '' : 'container container-mobile'}>
           <div className="d-flex">
-            <LeftMenu
-              {...props}
-              documentationMenu={
-                documentationMenu
-                  ? documentationMenu.concat(documentationNotIncluded ?? [])
-                  : []
-              }
-            />
+            <LeftMenu {...props} documentationMenu={documentation} />
 
             <WrapStyled className={isMenuVisible ? 'd-none' : ''}>
               <React.Suspense fallback={<Loader />}>
@@ -105,7 +96,7 @@ const WrapperConnection = compose(
       documentationMenu: selectDocumentationMenu(),
       documentationNotIncluded: selectDocumentationNotIncluded(),
     }),
-    dispatch => ({
+    (dispatch) => ({
       showLeftMenuDispatch: bindActionCreators(showLeftMenu, dispatch),
       getDocumentationMenuDispatch: bindActionCreators(
         getDocumentationMenu,

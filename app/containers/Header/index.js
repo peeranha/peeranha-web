@@ -88,7 +88,10 @@ export class Header extends React.PureComponent {
       transactionHash,
       transactionInitialised,
       isEditDocumentation,
+      documentationMenu,
     } = this.props;
+
+    console.log('this.props', this.props);
 
     if (isMenuVisible) return null;
 
@@ -109,6 +112,7 @@ export class Header extends React.PureComponent {
         transactionHash={transactionHash}
         transactionInitialised={transactionInitialised}
         isEditDocumentation={isEditDocumentation}
+        documentationMenu={documentationMenu}
       />
     );
   }

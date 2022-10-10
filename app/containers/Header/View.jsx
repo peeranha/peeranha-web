@@ -157,6 +157,7 @@ const View = ({
   transactionHash,
   transactionInitialised,
   isEditDocumentation,
+  documentationMenu,
 }) => {
   const [isSearchFormVisible, setSearchFormVisibility] = useState(false);
 
@@ -301,7 +302,9 @@ const View = ({
           </div>
         </div>
       </MainSubHeader>
-      {isEditDocumentation && <EditDocumentation />}
+      {isEditDocumentation && (
+        <EditDocumentation documentationMenu={documentationMenu} />
+      )}
     </Wrapper>
   );
 };

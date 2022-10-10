@@ -30,6 +30,8 @@ import {
   makeSelectBoost,
   selectIsGlobalAdmin,
 } from 'containers/AccountProvider/selectors';
+
+import { selectIsEditDocumentation } from 'pages/Documentation/selectors';
 import { toggleEditDocumentation } from 'pages/Documentation/actions';
 
 import { loginWithWallet, showLoginModal } from 'containers/Login/actions';
@@ -55,6 +57,7 @@ const LeftMenu = /* istanbul ignore next */ ({
   deleteQuestionDispatch,
   match,
   toggleEditDocumentationDispatch,
+  isEditDocumentation,
 }) => {
   const showLoginModal = () => {
     loginWithWalletDispatch({ metaMask: true });
@@ -82,6 +85,7 @@ const LeftMenu = /* istanbul ignore next */ ({
         deleteQuestion={deleteQuestionDispatch}
         match={match}
         toggleEditDocumentation={toggleEditDocumentationDispatch}
+        isEditDocumentation={isEditDocumentation}
       />
 
       <After isMenuVisible={isMenuVisible} onClick={showLeftMenuDispatch}>
@@ -110,6 +114,7 @@ const mapStateToProps = createStructuredSelector({
   stakedInNextPeriod: makeSelectStakedInNextPeriod(),
   boost: makeSelectBoost(),
   isMenuVisible: selectIsMenuVisible(),
+  isEditDocumentation: selectIsEditDocumentation(),
 });
 
 const withReducer = injectReducer({ key: 'viewQuestion', reducer });

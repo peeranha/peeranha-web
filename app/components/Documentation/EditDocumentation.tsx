@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom';
 import { keyframes } from '@emotion/react';
 import Header from './components/Header';
 
+import DocumentationMenu from 'containers/LeftMenu/Documentation/Documentation';
+import DocumentationForm from 'containers/Faq';
+
 const animationDocumentation = (screenWidth) =>
   keyframes({
     '0%': {
@@ -22,12 +25,9 @@ const animationDocumentation = (screenWidth) =>
     },
   });
 
-const EditDocumentation: React.FC<any> = () => {
-  console.log('sdfsdfsdf');
+const EditDocumentation: React.FC<any> = ({ documentationMenu }) => {
   const refOverlay = useRef<HTMLDivElement>(null);
   const [paddingLeft, setPaddingLeft] = useState<number>(86);
-
-  console.dir(paddingLeft);
 
   useEffect(() => {
     if (refOverlay?.current) {
@@ -66,11 +66,34 @@ const EditDocumentation: React.FC<any> = () => {
           )} 1s ease-in forwards`,
           width:
             refOverlay?.current &&
-            refOverlay?.current.clientWidth - paddingLeft,
+            refOverlay?.current.clientWidth - paddingLeft - 86,
           boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.1)',
         }}
       >
         <Header />
+        <section
+          className="dg"
+          css={{
+            height: '100%',
+            gridTemplateColumns: '262px 1fr 262px',
+            boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.1)',
+          }}
+        >
+          <div
+            css={{ background: '#FAFAFA', height: '100%', overflow: 'auto' }}
+          >
+            <DocumentationMenu
+              documentationMenu={documentationMenu}
+              isModeratorModeSingleCommunity
+              match={{ params: { sectionId: '' } }}
+              isEditDocumentation
+            />
+          </div>
+          <div>
+            <DocumentationForm />
+          </div>
+          <div css={{ background: '#FAFAFA', height: '100%' }}></div>
+        </section>
       </div>
     </>
   );

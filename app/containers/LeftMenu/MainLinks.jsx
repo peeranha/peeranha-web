@@ -157,6 +157,7 @@ const MainLinks = ({
   documentationMenu,
   match,
   toggleEditDocumentation,
+  isEditDocumentation,
 }) => {
   const { pathname } = window.location;
   let route = pathname.split('/').filter((x) => x)[0];
@@ -255,6 +256,7 @@ const MainLinks = ({
           isModeratorModeSingleCommunity={isModeratorModeSingleCommunity}
           toggleEditDocumentation={toggleEditDocumentation}
           match={match}
+          isEditDocumentation={isEditDocumentation}
         />
       )}
     </Box>

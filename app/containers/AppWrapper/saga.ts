@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from 'redux-saga/effects';
+import { call, put, takeLatest } from 'redux-saga/effects';
 import {
   getDocumentationMenuSuccess,
   getDocumentationMenuError,
@@ -17,36 +17,38 @@ type CommunityDocumentationMenu = {
 
 export function* getDocumentationMenuWorker(props: {
   communityId: number;
-}): Generator<{}> {
+}): Generator<any> {
   try {
     const documentation = yield call(getDocumentationMenu, props.communityId);
     const documentationMenu = JSON.parse(
       (documentation as CommunityDocumentationMenu).documentationJSON,
     );
-    const pinnedPost = documentationMenu.pinnedPost;
+
+    console.log('documentationMenu', documentationMenu);
+    const { pinnedPost } = documentationMenu;
     pinnedPost.children = [];
 
-    //Documentation tree to ids array
-    //Remove after documentation architecture change
+    // Documentation tree to ids array
+    // Remove after documentation architecture change
     const documentationTraversal = (
       documentationArray: Array<DocumentationSection>,
-    ): any => {
-      return documentationArray.reduce(
+    ): any =>
+      documentationArray.reduce(
         (acc: string | any[], documentationSection: DocumentationSection) => {
           if (documentationSection.children.length) {
             return acc
               .concat(documentationSection.id)
               .concat(documentationTraversal(documentationSection.children));
-          } else return acc.concat(documentationSection.id);
+          }
+          return acc.concat(documentationSection.id);
         },
         [],
       );
-    };
 
-    //DocumentationPage type questions not included in the menu
-    //Remove after documentation architecture change
+    // DocumentationPage type questions not included in the menu
+    // Remove after documentation architecture change
     const menuIds = documentationTraversal(documentationMenu.documentations);
-    // @ts-ignore
+
     const documentationNotIncluded: Array<{
       id: string;
       title: string;
@@ -61,7 +63,7 @@ export function* getDocumentationMenuWorker(props: {
           title: 'Draft',
           children: documentationNotIncluded
             .slice(1)
-            .map(documentationSection => ({
+            .map((documentationSection) => ({
               id: documentationSection.id,
               title: documentationSection.title,
               children: [],
@@ -80,9 +82,8 @@ export function* getDocumentationMenuWorker(props: {
   }
 }
 
-export default function*() {
-  // @ts-ignore
-  yield takeEvery(
+export default function* () {
+  yield takeLatest(
     [GET_DOCUMENTATION_MENU, ASK_QUESTION_SUCCESS],
     getDocumentationMenuWorker,
   );
