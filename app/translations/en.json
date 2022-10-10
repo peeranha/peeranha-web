@@ -389,6 +389,7 @@
     "ignore reputation in any community and perform actions that are reputation restricted like upvoting and downvoting posts, answers, and adding comments",
   "app.containers.Moderation.permissionProtocolAdmin_8":
     "delete posts, answers, even those marked as the best, and comments in any community",
+  "app.containers.Moderation.permissionProtocolAdmin_9": "post official answer",
 
   "app.containers.Moderation.permissionCommunityAdmin_1":
     "Give and revoke Community Moderator and Community Administrator permissions in your community",

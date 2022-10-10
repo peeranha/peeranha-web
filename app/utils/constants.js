@@ -110,6 +110,10 @@ export const globalAdminPermissions = {
     code: 8,
     title: 'permissionProtocolAdmin_8',
   },
+  PERMISSION_PROTOCOL_ADMIN_9: {
+    code: 9,
+    title: 'permissionProtocolAdmin_9',
+  },
 };
 export const communityAdminPermissions = {
   PERMISSION_COMMUNITY_ADMIN_1: {
