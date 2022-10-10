@@ -330,9 +330,11 @@
   "app.containers.Faq.title": "FAQ",
   "app.containers.Faq.description": "FAQ: description",
   "app.containers.Faq.faq": "Frequently asked questions",
+  "app.common.defaultAdministrator": "Default Admin permissions",
   "app.common.protocolAdministrator": "Protocol Admin permissions",
   "app.common.communityModerator": "Community Moderator permissions",
   "app.common.communityAdministrator": "Community Administrator permissions",
+  "app.common.asDefaultAdministrator": "As a Default Admin, you can:",
   "app.common.asProtocolAdministrator": "As a Protocol Admin, you can:",
   "app.common.asCommunityAdministrator":
     "As a Community Administrator, you can:",
