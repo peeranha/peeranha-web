@@ -95,16 +95,13 @@ const Achievements = ({
   resetViewProfileAccountDispatch,
   profile,
 }) => {
-  useEffect(
-    () => {
-      setViewProfileAccountDispatch(userId);
-      getAllAchievementsDispatch();
+  useEffect(() => {
+    setViewProfileAccountDispatch(userId);
+    getAllAchievementsDispatch();
 
-      // ComponentWillUnmount
-      return () => resetViewProfileAccountDispatch();
-    },
-    [userId],
-  );
+    // ComponentWillUnmount
+    return () => resetViewProfileAccountDispatch();
+  }, [userId]);
 
   return (
     <div>
@@ -218,41 +215,40 @@ const Achievements = ({
 
       {achievementsLoading && <LoadingIndicator />}
 
-      {!achievementsLoading &&
-        achievements.length > 0 && (
-          <UniqueAchievementsWrapper>
-            <UniqueAchievementsTitle>
-              <FormattedMessage id={commonMessage.limitedEdition.id} />
-            </UniqueAchievementsTitle>
+      {!achievementsLoading && achievements.length > 0 && (
+        <UniqueAchievementsWrapper>
+          <UniqueAchievementsTitle>
+            <FormattedMessage id={commonMessage.limitedEdition.id} />
+          </UniqueAchievementsTitle>
 
-            <UniqueAchievementsBlock>
-              {/* TODO revert for PROD */}
-              {achievements.map(
-                (achievement, index) =>
-                  achievement.name !== 'error IPFS2' && (
-                    <UniqueAchievement
-                      reached={userAchievements.some(
-                        achievementId =>
-                          Number(achievementId) === achievement.id,
-                      )}
-                      key={achievement.id}
-                      maxCount={achievement.maxCount}
-                      factCount={achievement.factCount}
-                      currentValue={profile?.highestRating?.rating}
-                      lowerValue={achievementsArr[index].lowerValue}
-                      name={achievement.name}
-                      description={achievement.description}
-                      image={achievement.image}
-                      id={achievement.id}
-                      achievementURI={achievement.achievementURI}
-                      locale={locale}
-                      currentUser={profile?.id === userId}
-                    />
-                  ),
-              )}
-            </UniqueAchievementsBlock>
-          </UniqueAchievementsWrapper>
-        )}
+          <UniqueAchievementsBlock>
+            {/* TODO revert for PROD */}
+            {achievements.map(
+              (achievement, index) =>
+                achievement.name !== 'error IPFS2' && (
+                  <UniqueAchievement
+                    reached={userAchievements.some(
+                      (achievementId) =>
+                        Number(achievementId) === achievement.id,
+                    )}
+                    key={achievement.id}
+                    maxCount={achievement.maxCount}
+                    factCount={achievement.factCount}
+                    currentValue={profile?.highestRating?.rating || null}
+                    lowerValue={achievementsArr[index].lowerValue}
+                    name={achievement.name}
+                    description={achievement.description}
+                    image={achievement.image}
+                    id={achievement.id}
+                    achievementURI={achievement.achievementURI}
+                    locale={locale}
+                    currentUser={profile?.id === userId}
+                  />
+                ),
+            )}
+          </UniqueAchievementsBlock>
+        </UniqueAchievementsWrapper>
+      )}
     </div>
   );
 };
@@ -289,7 +285,7 @@ const mapStateToProps = createStructuredSelector({
   profile: makeSelectProfileInfo(),
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   getAllAchievementsDispatch: bindActionCreators(getAllAchievements, dispatch),
   getUserAchievementsDispatch: bindActionCreators(
     getUserAchievements,
@@ -305,18 +301,9 @@ const mapDispatchToProps = dispatch => ({
   ),
 });
 
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 const withReducer = injectReducer({ key: 'userAchievements', reducer });
 const withSaga = injectSaga({ key: 'userAchievements', saga });
 
-export default memo(
-  compose(
-    withReducer,
-    withSaga,
-    withConnect,
-  )(Achievements),
-);
+export default memo(compose(withReducer, withSaga, withConnect)(Achievements));

@@ -35,6 +35,7 @@ import {
   getPermissions,
   hasGlobalModeratorRole,
   hasCommunityModeratorRole,
+  hasCommunityAdminRole,
 } from 'utils/properties';
 
 import { POST_TYPE } from 'utils/constants';
@@ -97,6 +98,9 @@ export const Header = ({
       hasCommunityModeratorRole(getPermissions(profile), single)
     : false;
   const isBloggerMode = hasGlobalModeratorRole(getPermissions(profile));
+  const isCommunityAdminMode = single
+    ? hasCommunityAdminRole(getPermissions(profile), single)
+    : false;
 
   let defaultAvatar = null;
   let defaultLabel = null;
@@ -159,10 +163,10 @@ export const Header = ({
 
   const displaySubscribeButton =
     !!single &&
-    (isFeed &&
-      window.location.pathname !== routes.questions() &&
-      window.location.pathname !== routes.expertPosts() &&
-      window.location.pathname !== routes.tutorials());
+    isFeed &&
+    window.location.pathname !== routes.questions() &&
+    window.location.pathname !== routes.expertPosts() &&
+    window.location.pathname !== routes.tutorials();
 
   const routeToEditCommunity = () => {
     createdHistory.push(routes.communitiesEdit(single));
@@ -177,7 +181,7 @@ export const Header = ({
         <CommunitySelector
           isArrowed
           Button={Button}
-          toggle={choice => {
+          toggle={(choice) => {
             createdHistory.push(routes[route](choice, false, false));
             setTypeFilter(choice);
           }}
@@ -185,6 +189,7 @@ export const Header = ({
           selectedCommunityId={communityIdFilter}
           communities={communities}
         />
+        {/* PEER-451: Hide Subscribe button from single community mode
         {!!displaySubscribeButton && (
           <PageContentHeaderRightPanel
             className={`right-panel m-0 ml-${single ? 3 : 4}`}
@@ -194,13 +199,13 @@ export const Header = ({
               followedCommunities={followedCommunities}
             />
           </PageContentHeaderRightPanel>
-        )}
+        )} */}
       </PageContentHeader>
       <QuestionFilter
         display={displayQuestionFilter}
         questionFilterFromCookies={questionFilterFromCookies}
       />
-      {isModeratorModeSingleCommunity && (
+      {(isModeratorModeSingleCommunity || isCommunityAdminMode) && (
         <button onClick={routeToEditCommunity} className="df aic mt12">
           <IconMd icon={pencilIcon} color={colors.btnColor || TEXT_PRIMARY} />
           <Span className="ml-1" color={colors.btnColor || TEXT_PRIMARY}>
@@ -226,7 +231,7 @@ Header.propTypes = {
 //
 export default injectIntl(
   React.memo(
-    connect(state => ({
+    connect((state) => ({
       topQuestionsInfoLoaded: selectTopQuestionsInfoLoaded()(state),
       topQuestions: selectQuestions(null, null, null, true)(state),
       communities: selectCommunities()(state),

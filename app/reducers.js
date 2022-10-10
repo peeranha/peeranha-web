@@ -78,7 +78,7 @@ export function routeReducer(state = routeInitialState, action) {
 /**
  * Creates the main reducer with the dynamically injected ones
  */
-export default injectedReducers =>
+export default (injectedReducers) =>
   combineReducers({
     route: routeReducer,
     language: languageProviderReducer,

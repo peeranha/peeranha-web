@@ -19,13 +19,10 @@ import { CONTRACT_USER, GET_USER_RATING, UPDATE_ACC } from './ethConstants';
 import { getUser, getUserPermissions, getUserStats } from './theGraph';
 import { isUserExists } from './accountManagement';
 
-export const getRatingByCommunity = (user, communityId) => {
-  return (
-    user?.ratings?.find(
-      ratingObj => ratingObj.communityId.toString() === communityId?.toString(),
-    )?.rating ?? 0
-  );
-};
+export const getRatingByCommunity = (user, communityId) =>
+  user?.ratings?.find(
+    (ratingObj) => ratingObj.communityId.toString() === communityId?.toString(),
+  )?.rating ?? 0;
 
 export function getUserAvatar(avatarHash, userId, account) {
   if (avatarHash && avatarHash !== NO_AVATAR) {
@@ -89,32 +86,30 @@ export async function getProfileInfo(
         communityIdForRating,
       ])) || INIT_RATING;
 
-    const foundRating = profileInfo.ratings.find(ratingData => {
-      return ratingData.communityId === communityIdForRating;
-    });
+    const foundRating = profileInfo.ratings.find(
+      (ratingData) => ratingData.communityId === communityIdForRating,
+    );
     if (!foundRating) {
-      //avoiding "Cannot assign to read only property" error
+      // avoiding "Cannot assign to read only property" error
       profileInfo.ratings = profileInfo.ratings.concat({
         communityId: communityIdForRating,
         rating: newRating,
       });
     } else {
-      //avoiding "Cannot assign to read only property" error
-      profileInfo.ratings = profileInfo.ratings.map(ratingData => {
-        return {
-          communityId: ratingData.communityId,
-          rating:
-            ratingData.communityId === communityIdForRating
-              ? newRating
-              : ratingData.rating,
-        };
-      });
+      // avoiding "Cannot assign to read only property" error
+      profileInfo.ratings = profileInfo.ratings.map((ratingData) => ({
+        communityId: ratingData.communityId,
+        rating:
+          ratingData.communityId === communityIdForRating
+            ? newRating
+            : ratingData.rating,
+      }));
     }
   }
 
   profileInfo.highestRating = profileInfo.ratings?.length
-    ? profileInfo.ratings?.reduce(
-        (max, current) => (max.rating > current.rating ? max : current),
+    ? profileInfo.ratings?.reduce((max, current) =>
+        max.rating > current.rating ? max : current,
       )
     : 0;
   profileInfo.user = user;
@@ -150,7 +145,7 @@ export async function saveProfile(ethereumService, user, profile) {
   ]);
 }
 
-export const getNotificationsInfo = async user => {
+export const getNotificationsInfo = async (user) => {
   const response = await callService(
     NOTIFICATIONS_INFO_SERVICE,
     { user },
@@ -165,7 +160,7 @@ export async function confirmTelegramAccount(eosService, user) {}
 
 export async function unlinkTelegramAccount(eosService, user) {}
 
-export const getAvailableBalance = profile => {
+export const getAvailableBalance = (profile) => {
   const stakedInCurrentPeriod = profile?.stakedInCurrentPeriod ?? 0;
   const stakedInNextPeriod = profile?.stakedInNextPeriod ?? 0;
   const balance = profile?.balance ?? 0;

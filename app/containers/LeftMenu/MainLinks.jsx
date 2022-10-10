@@ -186,13 +186,6 @@ const MainLinks = ({
           </div>
         )}
 
-        {isBloggerMode && (
-          <A1 to={routes.detailsHomePage()} name="home" route={route}>
-            <IconLg className="mr-2" icon={homeIcon} />
-            <FormattedMessage {...messages.home} />
-          </A1>
-        )}
-
         <A1 to={routes.feed()} name="feed" route={route}>
           <IconLg className="mr-2" icon={myFeedIcon} />
           <FormattedMessage
@@ -242,23 +235,23 @@ const MainLinks = ({
           </A1>
         )}
 
-        {!singleCommId && (
+        {
           <A1 to={routes.faq()} name="faq" route={route}>
             <IconLg className="mr-2" icon={faqIcon} fill={BORDER_PRIMARY} />
             <FormattedMessage id={messages.faq.id} />
           </A1>
+        }
+
+        {Boolean(singleCommId) && (
+          <Documentation
+            documentationMenu={documentationMenu}
+            isModeratorModeSingleCommunity={isModeratorModeSingleCommunity}
+            toggleEditDocumentation={toggleEditDocumentation}
+            match={match}
+            isEditDocumentation={isEditDocumentation}
+          />
         )}
       </div>
-
-      {Boolean(singleCommId) && (
-        <Documentation
-          documentationMenu={documentationMenu}
-          isModeratorModeSingleCommunity={isModeratorModeSingleCommunity}
-          toggleEditDocumentation={toggleEditDocumentation}
-          match={match}
-          isEditDocumentation={isEditDocumentation}
-        />
-      )}
     </Box>
   );
 };

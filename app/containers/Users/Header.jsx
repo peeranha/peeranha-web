@@ -42,7 +42,7 @@ const Button = ({ sorting }) => (
 
 const Menu = ({ sort, sorting }) => (
   <Ul>
-    {Object.keys(options).map(x => (
+    {Object.keys(options).map((x) => (
       <CheckedItem
         key={x}
         onClick={() => sort(options[x].orderDirection)}
@@ -64,7 +64,7 @@ export const Header = ({ sorting, dropdownFilter, userCount }) => {
           <Icon
             icon={usersHeader}
             width="38"
-            color={colors.btnColor || BORDER_PRIMARY}
+            color={colors.headerPrimary || BORDER_PRIMARY}
             isColorImportant={true}
           />
         </MediumIconStyled>

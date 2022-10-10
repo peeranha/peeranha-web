@@ -47,15 +47,12 @@ const TypeForm: React.FC<TypeFormProps> = ({
     [formValues[FORM_TYPE]],
   );
 
-  useEffect(
-    () => {
-      if (descriptionListLabel && descriptionListItems) {
-        setHasSelectedType(true);
-        setIsError(false);
-      }
-    },
-    [descriptionListLabel, descriptionListItems],
-  );
+  useEffect(() => {
+    if (descriptionListLabel && descriptionListItems) {
+      setHasSelectedType(true);
+      setIsError(false);
+    }
+  }, [descriptionListLabel, descriptionListItems]);
 
   return (
     <div className={isDocumentation ? 'd-none' : ''}>

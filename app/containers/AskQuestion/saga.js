@@ -52,7 +52,7 @@ export function* postQuestionWorker({ val }) {
     const postType = +val[FORM_TYPE];
     const tags =
       postType !== POST_TYPE.documentation
-        ? val[FORM_TAGS].map(tag => Number(tag.id.split('-')[1]))
+        ? val[FORM_TAGS].map((tag) => Number(tag.id.split('-')[1]))
         : [];
     const communityId = val[FORM_COMMUNITY].id;
 
@@ -81,8 +81,8 @@ export function* postQuestionWorker({ val }) {
     );
 
     if (postType === POST_TYPE.documentation) {
-      const documentationTraversal = documentationArray => {
-        return documentationArray.map(documentationSection => {
+      const documentationTraversal = (documentationArray) =>
+        documentationArray.map((documentationSection) => {
           if (
             String(documentationSection.id) ===
             String(val[FORM_SUB_ARTICLE].value)
@@ -96,20 +96,17 @@ export function* postQuestionWorker({ val }) {
               id: documentationSection.id,
               children: documentationSection.children,
             };
-          } else {
-            if (documentationSection.children.length) {
-              return {
-                id: documentationSection.id,
-                children: documentationTraversal(documentationSection.children),
-              };
-            } else
-              return {
-                id: documentationSection.id,
-                children: documentationSection.children,
-              };
+          } else if (documentationSection.children.length) {
+            return {
+              id: documentationSection.id,
+              children: documentationTraversal(documentationSection.children),
+            };
           }
+          return {
+            id: documentationSection.id,
+            children: documentationSection.children,
+          };
         });
-      };
       let newMenu;
 
       if (
@@ -212,6 +209,6 @@ export function* existingQuestionSaga() {
   yield takeLatest(GET_EXISTING_QUESTIONS, qetExistingQuestionsWorker);
 }
 
-export default function*() {
+export default function* () {
   yield takeLatest(ASK_QUESTION, postQuestionWorker);
 }

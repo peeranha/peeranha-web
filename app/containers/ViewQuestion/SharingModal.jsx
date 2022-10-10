@@ -89,7 +89,7 @@ const DropdownModalFooter = styled.footer`
 `;
 
 const SharingModal = ({ questionData, locale }) => {
-  const writeToBuffer = event => {
+  const writeToBuffer = (event) => {
     clipboard.writeText(event.currentTarget.dataset.key);
     showPopover(
       event.currentTarget.id,
@@ -101,7 +101,7 @@ const SharingModal = ({ questionData, locale }) => {
     <DropdownModal>
       <p>
         <b>
-          <FormattedMessage {...messages.shareTitle} />
+          <FormattedMessage id={messages.shareTitle.id} />
         </b>
       </p>
       <Input input={{ value: window.location.href }} readOnly type="text" />

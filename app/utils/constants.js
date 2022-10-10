@@ -75,58 +75,88 @@ export const META_TRANSACTIONS_ALLOWED = 'meta_tr_allowed';
 export const CURRENCY = 'MATIC';
 
 export const globalAdminPermissions = {
-  ADMIN_INFINITE_IMPACT: {
+  PERMISSION_PROTOCOL_ADMIN_1: {
     code: 1,
-    title: 'permissionInfinite',
+    title: 'permissionProtocolAdmin_1',
   },
-  ADMIN_IGNORE_RATING: {
+  PERMISSION_PROTOCOL_ADMIN_2: {
     code: 2,
-    title: 'permissionIgnoreRating',
+    title: 'permissionProtocolAdmin_2',
   },
-  ADMIN_CREATE_COMMUNITY: {
+  PERMISSION_PROTOCOL_ADMIN_3: {
     code: 3,
-    title: 'permissionCreateCommunity',
+    title: 'permissionProtocolAdmin_3',
   },
-  ADMIN_CREATE_TAG: {
+  PERMISSION_PROTOCOL_ADMIN_4: {
     code: 4,
-    title: 'permissionCreateTag',
+    title: 'permissionProtocolAdmin_4',
   },
-  ADMIN_POST_TYPE: {
+  PERMISSION_PROTOCOL_ADMIN_5: {
     code: 5,
-    title: 'permissionChangePostType',
+    title: 'permissionProtocolAdmin_5',
   },
-  ADMIN_OFFICIAL_ANSWER: {
+  PERMISSION_PROTOCOL_ADMIN_6: {
     code: 6,
-    title: 'permissionOfficialAnswer',
+    title: 'permissionProtocolAdmin_6',
+  },
+  PERMISSION_PROTOCOL_ADMIN_7: {
+    code: 7,
+    title: 'permissionProtocolAdmin_7',
+  },
+  PERMISSION_PROTOCOL_ADMIN_8: {
+    code: 8,
+    title: 'permissionProtocolAdmin_8',
   },
 };
 export const communityAdminPermissions = {
-  COMMUNITY_MODERATOR_INFINITE_IMPACT1: {
-    code: 8,
-    title: 'givePermissions',
+  PERMISSION_COMMUNITY_ADMIN_1: {
+    code: 9,
+    title: 'permissionCommunityAdmin_1',
   },
+  PERMISSION_COMMUNITY_ADMIN_2: {
+    code: 10,
+    title: 'permissionCommunityAdmin_2',
+  },
+  PERMISSION_COMMUNITY_ADMIN_3: {
+    code: 11,
+    title: 'permissionCommunityAdmin_3',
+  },
+  PERMISSION_COMMUNITY_ADMIN_4: {
+    code: 12,
+    title: 'permissionCommunityAdmin_4',
+  },
+  // PEER-491: temporally hide items;
+  // PERMISSION_COMMUNITY_ADMIN_5: {
+  //   code: 13,
+  //   title: 'permissionCommunityAdmin_5',
+  // },
 };
 export const communityModeratorPermissions = {
-  COMMUNITY_MODERATOR_INFINITE_IMPACT: {
-    code: 1,
-    title: 'permissionInfinite',
+  PERMISSION_COMMUNITY_MODERATOR_1: {
+    code: 14,
+    title: 'permissionCommunityModerator_1',
   },
-  COMMUNITY_MODERATOR_IGNORE_RATING: {
-    code: 2,
-    title: 'permissionIgnoreRating',
+  PERMISSION_COMMUNITY_MODERATOR_2: {
+    code: 15,
+    title: 'permissionCommunityModerator_2',
   },
-  COMMUNITY_MODERATOR_CREATE_TAG: {
-    code: 4,
-    title: 'permissionCreateTag',
+  PERMISSION_COMMUNITY_MODERATOR_3: {
+    code: 16,
+    title: 'permissionCommunityModerator_3',
   },
-  COMMUNITY_MODERATOR_POST_TYPE: {
-    code: 5,
-    title: 'permissionChangePostType',
+  PERMISSION_COMMUNITY_MODERATOR_4: {
+    code: 17,
+    title: 'permissionCommunityModerator_4',
   },
-  COMMUNITY_MODERATOR_OFFICIAL_ANSWER: {
-    code: 6,
-    title: 'permissionOfficialAnswer',
-  },
+  //   PEER-491: temporally hide items;
+  //   PERMISSION_COMMUNITY_MODERATOR_5: {
+  //     code: 18,
+  //     title: 'permissionCommunityModerator_5',
+  //   },
+  //   PERMISSION_COMMUNITY_MODERATOR_6: {
+  //     code: 19,
+  //     title: 'permissionCommunityModerator_6',
+  //   },
 };
 
 export const GET_QUESTIONS_FILTERED_BY_COMMUNITY_INDEX_POSITION = 2;
@@ -283,12 +313,14 @@ export const DELETE_ACCOUNT_TYPE = 'deleteAccount';
 export const DELETE_FB_DATA_TYPE = 'deleteFbData';
 
 export const METAMASK_ERROR_CODE = 1000001;
+export const USER_MIN_RATING_ERROR_CODE = 1000005;
 export const ETHEREUM_USER_ERROR_CODE = 1000002;
 export const USER_NOT_SELECTED_ERROR_CODE = 1000003;
 export const CHAIN_ID_ERROR_CODE = 1000004;
 export const INVALID_ETHEREUM_PARAMETERS_ERROR_CODE = -32602;
+export const INVALID_MIN_RATING_ERROR_CODE = -32603;
 export const REJECTED_SIGNATURE_REQUEST = 4001;
 export const RECAPTCHA_VERIFY_FAILED_CODE = 600613;
 
-//session storage keys
+// session storage keys
 export const CHANGED_POSTS_KEY = 'changed-posts';

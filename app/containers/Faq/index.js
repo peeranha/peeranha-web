@@ -9,7 +9,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { translationMessages } from 'i18n';
-import { bindActionCreators, compose } from 'redux';
+import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 
 import * as routes from 'routes-config';
@@ -22,11 +22,7 @@ import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import Seo from 'components/Seo';
 import AsideBox from 'components/Base/Aside';
 import Banner from 'components/AskQuestionBanner';
-import {
-  getPermissions,
-  hasCommunityModeratorRole,
-  hasGlobalModeratorRole,
-} from 'utils/properties';
+import { getPermissions, hasCommunityModeratorRole } from 'utils/properties';
 
 import messages from 'containers/Faq/messages';
 
@@ -46,12 +42,26 @@ export const Faq = /* istanbul ignore next */ ({
     ? hasCommunityModeratorRole(getPermissions(profileInfo), single)
     : false;
 
+  let faqList;
+
+  if (single) {
+    faqList = faqFromGraph.blocks ? faqFromGraph : { blocks: [] };
+  } else {
+    faqList = faq;
+  }
+
   if (!single) {
-    faq.blocks.splice(7, 3);
-    faq.blocks.splice(1, 1);
+    faqList.blocks.splice(7, 3);
+    faqList.blocks.splice(1, 1);
   }
   const translations = translationMessages[locale];
-  const keywords = faq.blocks.map(x => x.blocks.map(y => y.h3));
+  const keywords = faqList.blocks.map((x) => x.blocks.map((y) => y.h3));
+
+  useEffect(() => {
+    if (single) {
+      getFaqDispatch({ communityIdFilter: single });
+    }
+  }, []);
 
   return (
     <div className="d-flex justify-content-center">
@@ -65,7 +75,7 @@ export const Faq = /* istanbul ignore next */ ({
       <div className="flex-grow-1">
         <Header />
         <Content
-          content={faq}
+          content={faqList}
           route={routes.faq}
           getSectionCode={getSectionCode.bind(null, SECTION_ID)}
           getQuestionCode={getQuestionCode.bind(null, SECTION_ID)}
@@ -76,8 +86,8 @@ export const Faq = /* istanbul ignore next */ ({
 
       <AsideBox className="d-none d-xl-block">
         <Aside
-          content={faq}
-          route={x => routes.faq(getSectionCode(SECTION_ID, x))}
+          content={faqList}
+          route={(x) => routes.faq(getSectionCode(SECTION_ID, x))}
         />
       </AsideBox>
     </div>

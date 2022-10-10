@@ -43,7 +43,7 @@ export const Moderation = ({
   return (
     <div className="d-flex justify-content-center">
       <div className="flex-grow-1">
-        <Header />
+        <Header content={moderatorPermissions} />
         <Content
           content={moderatorPermissions}
           route={routes.moderation}
@@ -68,7 +68,4 @@ const mapStateToProps = createStructuredSelector({
   communities: selectCommunities(),
 });
 
-export default connect(
-  mapStateToProps,
-  null,
-)(Moderation);
+export default connect(mapStateToProps, null)(Moderation);

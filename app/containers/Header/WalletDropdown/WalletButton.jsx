@@ -67,7 +67,7 @@ const IconBG = MediumSpecialImage.extend`
   border: ${({ isMobileVersion }) =>
     (!isMobileVersion && styles.communityBorderStyle) ||
     `1px solid ${colors.walletButton || BORDER_PRIMARY}`};
-  color: ${x => x.color};
+  color: ${(x) => x.color};
 `.withComponent('span');
 
 const BoostIconWrapper = styled.span`
@@ -76,7 +76,7 @@ const BoostIconWrapper = styled.span`
   margin-left: -5px;
 `;
 
-const isPositiveNumber = number => Number.isFinite(number) && number > 0;
+const isPositiveNumber = (number) => Number.isFinite(number) && number > 0;
 
 const WalletButton = ({
   balance,
@@ -118,7 +118,7 @@ const WalletButton = ({
             className="align-middle"
             fontSize="16"
             bold
-            color={(!isMobileVersion && styles.commHeadElemColor) || ''}
+            color={(!isMobileVersion && colors.commHeadElemColor) || ''}
           >
             {getFormattedNum4(Math.round(balance * 100) / 100)}
           </Span>
@@ -127,7 +127,7 @@ const WalletButton = ({
             fontSize="14"
             lineHeight="18"
             color={
-              (!isMobileVersion && styles.commHeadElemColor) || TEXT_SECONDARY
+              (!isMobileVersion && colors.commHeadElemColor) || TEXT_SECONDARY
             }
           >
             <FormattedMessage {...messages.peers} />

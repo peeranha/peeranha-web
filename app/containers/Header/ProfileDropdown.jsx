@@ -46,8 +46,8 @@ const Info = styled.span`
 
   > span:nth-child(1) {
     display: flex;
-    align-items: ${x => (x.isMenuVisible ? 'stretch' : 'center')};
-    margin-right: ${x => (!x.isMenuVisible ? 7 : 'auto')}px;
+    align-items: ${(x) => (x.isMenuVisible ? 'stretch' : 'center')};
+    margin-right: ${(x) => (!x.isMenuVisible ? 7 : 'auto')}px;
   }
 `;
 
@@ -75,27 +75,26 @@ const B = ({ profileInfo, onClick, isMenuVisible, isMobileVersion }) => (
         />
       </NoAvatarBox>
     )}
-    {profileInfo.avatar &&
-      profileInfo.avatar !== NO_AVATAR && (
-        <MediumSpecialImage
-          isBordered
-          customBorderStyle={!isMobileVersion && styles.communityBorderStyle}
-          src={getUserAvatar(profileInfo.avatar)}
-          alt="avatar"
-        />
-      )}
+    {profileInfo.avatar && profileInfo.avatar !== NO_AVATAR && (
+      <MediumSpecialImage
+        isBordered
+        customBorderStyle={!isMobileVersion && colors.communityBorderStyle}
+        src={getUserAvatar(profileInfo.avatar)}
+        alt="avatar"
+      />
+    )}
     <Info
       className="d-flex flex-column justify-content-center"
       isMenuVisible={isMenuVisible}
     >
-      <Span bold color={(!isMobileVersion && styles.commHeadElemColor) || ''}>
+      <Span bold color={(!isMobileVersion && colors.commHeadElemColor) || ''}>
         {getUserName(profileInfo.displayName, profileInfo.loginData.account)}
       </Span>
     </Info>
   </span>
 );
 
-export const Button = connect(state => ({
+export const Button = connect((state) => ({
   isMenuVisible: selectIsMenuVisible()(state),
 }))(B);
 
@@ -104,9 +103,10 @@ const Menu = memo(
     const { user, loginData } = profileInfo;
     const isEmail = loginData.email;
 
-    const isModerator = useMemo(() => !!getPermissions(profileInfo)?.length, [
-      profileInfo,
-    ]);
+    const isModerator = useMemo(
+      () => !!getPermissions(profileInfo)?.length,
+      [profileInfo],
+    );
 
     return (
       <nav>

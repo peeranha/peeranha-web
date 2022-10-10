@@ -231,7 +231,7 @@ const View = ({
         </ProgressIndicator>
       )}
 
-      <MainSubHeader mainSubHeaderBgColor={styles.mainSubHeaderBgColor}>
+      <MainSubHeader mainSubHeaderBgColor={colors.mainSubHeaderBgColor}>
         <div className="container">
           <div className="d-flex align-items-center justify-content-between">
             <div className="d-flex align-items-center">
@@ -281,9 +281,17 @@ const View = ({
                         : showLoginModalWithRedirectToAskQuestionPage
                     }
                   >
-                    <IconSm fill={BG_LIGHT} icon={addIcon} />
+                    <IconSm
+                      fill={colors.newPostButtonText || BG_LIGHT}
+                      icon={addIcon}
+                    />
 
-                    <span className="d-none d-lg-inline ml-2">
+                    <span
+                      className="d-none d-lg-inline ml-2"
+                      css={css`
+                        color: ${colors.newPostButtonText};
+                      `}
+                    >
                       <FormattedMessage id={messages.askQuestion.id} />
                     </span>
                   </Button>

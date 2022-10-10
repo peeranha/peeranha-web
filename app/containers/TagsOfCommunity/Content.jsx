@@ -10,6 +10,7 @@ import * as routes from 'routes-config';
 
 import {
   getPermissions,
+  hasCommunityAdminRole,
   hasCommunityModeratorRole,
   hasGlobalModeratorRole,
 } from 'utils/properties';
@@ -45,8 +46,8 @@ const Item = styled.div`
   max-height: 110px;
   overflow: hidden;
   transition: 0.15s;
-  margin-right: ${x => (!x.isInputBox ? '-17px' : '0')};
-  padding: ${x => (!x.isInputBox ? '2px 32px 2px 15px' : '2px 15px')};
+  margin-right: ${(x) => (!x.isInputBox ? '-17px' : '0')};
+  padding: ${(x) => (!x.isInputBox ? '2px 32px 2px 15px' : '2px 15px')};
 
   input {
     background: none;
@@ -102,7 +103,7 @@ const Content = ({
   setEditTagData,
   profileInfo,
 }) => {
-  const showEditTagForm = tagId => {
+  const showEditTagForm = (tagId) => {
     setEditTagData(tagId, communityId);
     createdHistory.push(routes.editTag(communityId, tagId));
   };
@@ -112,12 +113,17 @@ const Content = ({
     [profileInfo],
   );
 
+  const isCommunityModerator =
+    Boolean(communityId) &&
+    hasCommunityAdminRole(getPermissions(profileInfo), communityId);
+
   const createTagPermission = useMemo(
     () => hasCommunityModeratorRole(getPermissions(profileInfo), communityId),
     [profileInfo, communityId],
   );
 
-  const editTagModerator = isGlobalAdmin || createTagPermission;
+  const editTagModerator =
+    isGlobalAdmin || isCommunityModerator || createTagPermission;
 
   return (
     <InfinityLoader
@@ -141,11 +147,11 @@ const Content = ({
           </li>
         ) : null}
 
-        {tags.map(x => (
+        {tags.map((x) => (
           <Tag key={x.id} editTagModerator={editTagModerator}>
             <Base>
               <Item
-                onMouseLeave={e => {
+                onMouseLeave={(e) => {
                   e.currentTarget.scrollTop = 0;
                 }}
               >

@@ -147,7 +147,7 @@ const QuestionTypeField = ({
     setType(value);
   }
 
-  //Don't show FAQ post type unless user isn't community moderator
+  // Don't show FAQ post type unless user isn't community moderator
   const types = isCommunityModerator
     ? Object.values(QUESTION_TYPES)
     : Object.values(QUESTION_TYPES).slice(0, 3);
@@ -164,7 +164,7 @@ const QuestionTypeField = ({
         insideOfSection={insideOfSection}
       >
         <ButtonGroup error={error}>
-          {types.map(questionType => (
+          {types.map((questionType) => (
             <Button
               type={type}
               onClick={chooseQuestionType}

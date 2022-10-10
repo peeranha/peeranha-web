@@ -31,7 +31,7 @@ const Button = ({ sorting, icon }) => (
 
 const Menu = ({ changeSorting, sorting, options }) => (
   <Ul>
-    {Object.keys(options).map(x => (
+    {Object.keys(options).map((x) => (
       <CheckedItem
         key={`${options[x].message.id}_${options[x].order}`}
         onClick={() => changeSorting(options[x])}
@@ -90,7 +90,7 @@ export const SubHeader = ({
         id="existing-communities-dropdown"
         isArrowed
         css={css`
-          z-index: 10;
+          z-index: 9;
         `}
       />
     </SubHeaderWrapperRightPanel>
