@@ -1,6 +1,7 @@
 import FileiconLogo from './communities-configs/filecoin/images/filecoin-logo.svg?inline';
 import PolygonLogo from './communities-configs/polygon/images/polygon-logo.svg?inline';
 import FunctionlandLogo from './communities-configs/functionland/images/functionland-logo.svg?inline';
+import MintStateLabsLogo from './communities-configs/mintStateLabs/images/MSL-LogoMain.svg?inline';
 import SuiLogo from './communities-configs/sui/images/sui-logo.svg?inline';
 import FilebaseLogo from './communities-configs/filebase/images/filebaselogo.svg?inline';
 import HarmonyLogo from './communities-configs/harmony/images/harmony-logo.svg?inline';
@@ -9,6 +10,7 @@ import KoiiLogo from './communities-configs/koii/images/koii-logo.svg?inline';
 import { PolygonStyles } from './communities-configs/polygon';
 import { FilecoinStyles } from './communities-configs/filecoin';
 import { FunctionlandStyles } from './communities-configs/functionland';
+import { MintStateLabsStyles } from './communities-configs/mintStateLabs';
 import { SuiStyles } from './communities-configs/sui';
 import { FilebaseStyles } from './communities-configs/filebase';
 import { HarmonyStyles } from './communities-configs/harmony';
@@ -65,6 +67,11 @@ const communitiesConfig = {
       styles: FunctionlandStyles,
     },
     5: {
+      origin: 'https://demo-mintstatelabs.peeranha.io',
+      src: MintStateLabsLogo,
+      styles: MintStateLabsStyles,
+    },
+    6: {
       origin: 'https://demo-sui.testpeeranha.io',
       src: SuiLogo,
       styles: SuiStyles,
@@ -91,6 +98,11 @@ const communitiesConfig = {
       origin: `https://fxland${process.env.COOKIE_DOMAIN}`,
       src: FunctionlandLogo,
       styles: FunctionlandStyles,
+    },
+    8: {
+      origin: `https://mintstatelabs${process.env.COOKIE_DOMAIN}`,
+      src: MintStateLabsLogo,
+      styles: MintStateLabsStyles,
     },
     10: {
       origin: `https://sui${process.env.COOKIE_DOMAIN}`,
