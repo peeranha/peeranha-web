@@ -525,6 +525,7 @@
 
   "app.containers.EditTag.title": "Изменить тег",
   "app.containers.EditTag.description": "Сохранить тег | Описание",
+  "app.containers.EditTag.button": "Сохранить",
 
   "app.containers.Tags.backToList": "Вернуться к списку",
 
