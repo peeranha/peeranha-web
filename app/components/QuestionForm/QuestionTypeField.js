@@ -40,6 +40,10 @@ export const QUESTION_TYPES = {
     value: POST_TYPE.tutorial,
     label: 'tutorial',
   },
+  FAQ: {
+    value: POST_TYPE.faq,
+    label: 'faq',
+  },
 };
 
 const QuestionTypeContainer = styled.div`
@@ -132,6 +136,7 @@ const QuestionTypeField = ({
   splitInHalf,
   insideOfSection,
   error,
+  isCommunityModerator,
 }) => {
   const [type, setType] = useState();
 
@@ -141,6 +146,12 @@ const QuestionTypeField = ({
     input.onChange(value);
     setType(value);
   }
+
+  // Don't show FAQ post type unless user isn't community moderator
+  // const types = isCommunityModerator
+  //   ? Object.values(QUESTION_TYPES)
+  //   : Object.values(QUESTION_TYPES).slice(0, 3);
+  const types = Object.values(QUESTION_TYPES).slice(0, 3);
 
   return (
     <QuestionTypeContainer>
@@ -154,7 +165,7 @@ const QuestionTypeField = ({
         insideOfSection={insideOfSection}
       >
         <ButtonGroup error={error}>
-          {Object.values(QUESTION_TYPES).map(questionType => (
+          {types.map(questionType => (
             <Button
               type={type}
               onClick={chooseQuestionType}

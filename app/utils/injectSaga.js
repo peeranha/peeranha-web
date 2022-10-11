@@ -14,6 +14,7 @@ import getInjectors from './sagaInjectors';
  *   - constants.DAEMON—starts the saga on component mount and never cancels it or starts again,
  *   - constants.ONCE_TILL_UNMOUNT—behaves like 'RESTART_ON_REMOUNT' but never runs it again.
  *
+ * @param disableEject
  */
 export default ({
   key,

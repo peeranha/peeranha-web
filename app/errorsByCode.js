@@ -13,6 +13,9 @@ export default defineMessages({
   1000004: {
     id: 'app.common.wrongChainId',
   },
+  1000005: {
+    id: 'app.containers.AskQuestion.errorMinReputation',
+  },
   3080002: {
     id: 'app.common.notEnoughCPUOrRAM',
   },

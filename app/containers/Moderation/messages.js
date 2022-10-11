@@ -2,72 +2,105 @@ import { defineMessages } from 'react-intl';
 
 export default defineMessages({
   permissions: {
-    givePermissions: {
+    permissionProtocolAdmin_1: {
       title: {
-        id: 'app.containers.Moderation.givePermissions',
-      },
-      description: {
-        id: 'app.containers.Moderation.givePermissionsDescription',
+        id: 'app.containers.Moderation.permissionProtocolAdmin_1',
       },
     },
-    permissionInfinite: {
+    permissionProtocolAdmin_2: {
       title: {
-        id: 'app.containers.Moderation.permissionInfinite',
-      },
-      description: {
-        id: 'app.containers.Moderation.permissionInfiniteDescription',
+        id: 'app.containers.Moderation.permissionProtocolAdmin_2',
       },
     },
-    permissionIgnoreRating: {
+    permissionProtocolAdmin_3: {
       title: {
-        id: 'app.containers.Moderation.permissionIgnoreRating',
-      },
-      description: {
-        id: 'app.containers.Moderation.permissionIgnoreRatingDescription',
+        id: 'app.containers.Moderation.permissionProtocolAdmin_3',
       },
     },
-    permissionCreateCommunity: {
+    permissionProtocolAdmin_4: {
       title: {
-        id: 'app.containers.Moderation.permissionCreateCommunity',
-      },
-      description: {
-        id: 'app.containers.Moderation.permissionCreateCommunityDescription',
+        id: 'app.containers.Moderation.permissionProtocolAdmin_4',
       },
     },
-    permissionCreateTag: {
+    permissionProtocolAdmin_5: {
       title: {
-        id: 'app.containers.Moderation.permissionCreateTag',
-      },
-      description: {
-        id: 'app.containers.Moderation.permissionCreateTagDescription',
+        id: 'app.containers.Moderation.permissionProtocolAdmin_5',
       },
     },
-    permissionChangePostType: {
+    permissionProtocolAdmin_6: {
       title: {
-        id: 'app.containers.Moderation.permissionChangePostType',
-      },
-      description: {
-        id: 'app.containers.Moderation.permissionChangePostTypeDescription',
+        id: 'app.containers.Moderation.permissionProtocolAdmin_6',
       },
     },
-    permissionSelectTopQuestion: {
+    permissionProtocolAdmin_7: {
       title: {
-        id: 'app.containers.Moderation.permissionSelectTopQuestion',
-      },
-      description: {
-        id: 'app.containers.Moderation.permissionSelectTopQuestionDescription',
+        id: 'app.containers.Moderation.permissionProtocolAdmin_7',
       },
     },
-    permissionOfficialAnswer: {
+    permissionProtocolAdmin_8: {
       title: {
-        id: 'app.containers.Moderation.permissionOfficialAnswer',
-      },
-      description: {
-        id: 'app.containers.Moderation.permissionOfficialAnswerDescription',
+        id: 'app.containers.Moderation.permissionProtocolAdmin_8',
       },
     },
-  },
-  title: {
-    id: 'app.containers.Moderation.title',
+    permissionProtocolAdmin_9: {
+      title: {
+        id: 'app.containers.Moderation.permissionProtocolAdmin_9',
+      },
+    },
+    permissionCommunityAdmin_1: {
+      title: {
+        id: 'app.containers.Moderation.permissionCommunityAdmin_1',
+      },
+    },
+    permissionCommunityAdmin_2: {
+      title: {
+        id: 'app.containers.Moderation.permissionCommunityAdmin_2',
+      },
+    },
+    permissionCommunityAdmin_3: {
+      title: {
+        id: 'app.containers.Moderation.permissionCommunityAdmin_3',
+      },
+    },
+    permissionCommunityAdmin_4: {
+      title: {
+        id: 'app.containers.Moderation.permissionCommunityAdmin_4',
+      },
+    },
+    permissionCommunityAdmin_5: {
+      title: {
+        id: 'app.containers.Moderation.permissionCommunityAdmin_5',
+      },
+    },
+    permissionCommunityModerator_1: {
+      title: {
+        id: 'app.containers.Moderation.permissionCommunityModerator_1',
+      },
+    },
+    permissionCommunityModerator_2: {
+      title: {
+        id: 'app.containers.Moderation.permissionCommunityModerator_2',
+      },
+    },
+    permissionCommunityModerator_3: {
+      title: {
+        id: 'app.containers.Moderation.permissionCommunityModerator_3',
+      },
+    },
+    permissionCommunityModerator_4: {
+      title: {
+        id: 'app.containers.Moderation.permissionCommunityModerator_4',
+      },
+    },
+    permissionCommunityModerator_5: {
+      title: {
+        id: 'app.containers.Moderation.permissionCommunityModerator_5',
+      },
+    },
+    permissionCommunityModerator_6: {
+      title: {
+        id: 'app.containers.Moderation.permissionCommunityModerator_6',
+      },
+    },
   },
 });

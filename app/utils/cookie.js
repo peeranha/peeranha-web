@@ -10,7 +10,7 @@ export const getCookie = name => {
       `(?:^|; )${name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1')}=([^;]*)`,
     ),
   );
-  return matches ? decodeURIComponent(matches[1]) : '';
+  return matches ? matches[1] : '';
 };
 
 export const setCookie = ({
@@ -23,9 +23,7 @@ export const setCookie = ({
     optionsCopy.expires = options.expires.toUTCString();
   }
 
-  const updatedCookie = `${encodeURIComponent(name)}=${encodeURIComponent(
-    value,
-  )}`;
+  const updatedCookie = `${name}=${value}`;
 
   document.cookie = Object.keys(optionsCopy).reduce((acc, optionKey) => {
     if (optionKey === 'neverExpires') {

@@ -19,7 +19,7 @@ const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
 
 export const home = () => (singleCommId ? `/about` : `/`);
 
-export const notFound = () => `/404`;
+export const notFound = type => `/404?${type}`;
 export const errorPage = () => `/error-occured`;
 
 export const profileView = userRedirect('');
@@ -143,7 +143,6 @@ export const referralPage = user => `/?${REFERRAL_CODE_URI}=${user}`;
 export const facebookDataDeletion = () => '/facebook-data-deletion';
 
 export const redirectRoutesForSCM = [
-  faq(),
   privacyPolicy(),
   termsAndConditions(),
   support(),

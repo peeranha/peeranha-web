@@ -102,7 +102,7 @@ const ViewProfilePage = ({
         account={account}
         profile={profile}
         loginData={loginData}
-        questionsLength={profile?.postCount ?? 0}
+        questionsLength={questions?.length ?? 0}
         questionsWithUserAnswersLength={profile?.answersGiven ?? 0}
         userAchievementsLength={userAchievements?.length ?? null}
         redirectToEditProfilePage={redirectToEditProfilePageDispatch}
@@ -180,6 +180,7 @@ const ViewProfilePage = ({
         questionsWithAnswersLoading={questionsWithAnswersLoading}
         locale={locale}
         redirectToEditProfilePage={redirectToEditProfilePageDispatch}
+        userAchievementsLength={userAchievements?.length ?? null}
       />
     </Profile>
   );
