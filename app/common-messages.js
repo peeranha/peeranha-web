@@ -54,6 +54,9 @@ export default defineMessages({
   moderation: {
     id: 'app.common.moderation',
   },
+  defaultAdministrator: {
+    id: 'app.common.defaultAdministrator',
+  },
   protocolAdministrator: {
     id: 'app.common.protocolAdministrator',
   },
@@ -62,6 +65,9 @@ export default defineMessages({
   },
   communityModerator: {
     id: 'app.common.communityModerator',
+  },
+  asDefaultAdministrator: {
+    id: 'app.common.asDefaultAdministrator',
   },
   asProtocolAdministrator: {
     id: 'app.common.asProtocolAdministrator',
