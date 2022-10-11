@@ -24,12 +24,9 @@ const animationDocumentation = (screenWidth) =>
     },
   });
 
-const Header: React.FC<any> = () => {
-  console.log('sdfsdfsdf');
+const Header: React.FC<any> = ({ toggleEditDocumentation }) => {
   const refOverlay = useRef<HTMLDivElement>(null);
   const [paddingLeft, setPaddingLeft] = useState<number>(86);
-
-  console.dir(paddingLeft);
 
   useEffect(() => {
     if (refOverlay?.current) {
@@ -60,6 +57,7 @@ const Header: React.FC<any> = () => {
             />
           }
           className="mr16"
+          onClick={toggleEditDocumentation}
         >
           Close
         </Button>

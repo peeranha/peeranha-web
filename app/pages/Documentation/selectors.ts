@@ -20,3 +20,6 @@ export const selectFaqError = () =>
 
 export const selectIsEditDocumentation = () =>
   createSelector(selectFaqDomain, (substate) => substate.get('isEdit'));
+
+export const selectEditArticleId = () =>
+  createSelector(selectFaqDomain, (substate) => substate.get('editArticleId'));

@@ -22,7 +22,11 @@ import { LEFT_MENU_ID } from 'containers/LeftMenu/constants';
 import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
 import { showLeftMenu } from 'containers/AppWrapper/actions';
 import { selectIsMenuVisible } from 'containers/AppWrapper/selectors';
-import { selectIsEditDocumentation } from 'pages/Documentation/selectors';
+import {
+  selectIsEditDocumentation,
+  selectEditArticleId,
+} from 'pages/Documentation/selectors';
+import { toggleEditDocumentation } from 'pages/Documentation/actions';
 
 import {
   WHAT_IS_ENERGY,
@@ -89,9 +93,9 @@ export class Header extends React.PureComponent {
       transactionInitialised,
       isEditDocumentation,
       documentationMenu,
+      toggleEditDocumentationDispatch,
+      editArticleId,
     } = this.props;
-
-    console.log('this.props', this.props);
 
     if (isMenuVisible) return null;
 
@@ -113,6 +117,8 @@ export class Header extends React.PureComponent {
         transactionInitialised={transactionInitialised}
         isEditDocumentation={isEditDocumentation}
         documentationMenu={documentationMenu}
+        toggleEditDocumentation={toggleEditDocumentationDispatch}
+        editArticleId={editArticleId}
       />
     );
   }
@@ -141,6 +147,7 @@ const mapStateToProps = createStructuredSelector({
   transactionHash: selectTransactionHash(),
   transactionInitialised: selectTransactionInitialised(),
   isEditDocumentation: selectIsEditDocumentation(),
+  editArticleId: selectEditArticleId(),
 });
 
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
@@ -150,6 +157,10 @@ export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
     showLeftMenuDispatch: bindActionCreators(showLeftMenu, dispatch),
     redirectToAskQuestionPageDispatch: bindActionCreators(
       redirectToAskQuestionPage,
+      dispatch,
+    ),
+    toggleEditDocumentationDispatch: bindActionCreators(
+      toggleEditDocumentation,
       dispatch,
     ),
   };

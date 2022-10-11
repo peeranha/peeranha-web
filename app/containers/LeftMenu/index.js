@@ -34,7 +34,7 @@ import {
 import { selectIsEditDocumentation } from 'pages/Documentation/selectors';
 import { toggleEditDocumentation } from 'pages/Documentation/actions';
 
-import { loginWithWallet, showLoginModal } from 'containers/Login/actions';
+import { loginWithWallet } from 'containers/Login/actions';
 import { selectIsMenuVisible } from 'containers/AppWrapper/selectors';
 import { showLeftMenu } from 'containers/AppWrapper/actions';
 
@@ -124,7 +124,7 @@ const withSaga = injectSaga({
   disableEject: true,
 });
 
-export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
+export function mapDispatchToProps(dispatch) {
   return {
     loginWithWalletDispatch: bindActionCreators(loginWithWallet, dispatch),
     showLeftMenuDispatch: bindActionCreators(showLeftMenu, dispatch),

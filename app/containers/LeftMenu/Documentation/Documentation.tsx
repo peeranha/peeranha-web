@@ -17,8 +17,11 @@ type DocumentationMenuSectionProps = {
   documentationMenu: Array<DocumentationSection>;
   isModeratorModeSingleCommunity: boolean;
   match: { params: { sectionId: string } };
-  toggleEditDocumentation?: () => void;
+  toggleEditDocumentation?: (id: string | null) => void;
   isEditDocumentation: boolean;
+  editArticleId?: string;
+  isMenu?: boolean;
+  setEditDocumentation?: (id: string | null) => void;
 };
 
 const EditDocumentation = [
@@ -48,10 +51,13 @@ const Documentation: React.FC<DocumentationMenuSectionProps> = ({
   match,
   toggleEditDocumentation,
   isEditDocumentation,
+  editArticleId = '',
+  isMenu = true,
+  setEditDocumentation,
 }) => {
-  const clickDocumentation = (value: number) => {
+  const clickDocumentation = (id: string | null) => (value: number) => {
     if (value === 1 && typeof toggleEditDocumentation === 'function') {
-      toggleEditDocumentation();
+      toggleEditDocumentation(id);
     }
   };
 
@@ -76,7 +82,7 @@ const Documentation: React.FC<DocumentationMenuSectionProps> = ({
               }
               isMultiple={false}
               isEqualWidth={false}
-              onSelect={clickDocumentation}
+              onSelect={clickDocumentation(match.params?.sectionId || '')}
             />
           </div>
         )}
@@ -89,6 +95,9 @@ const Documentation: React.FC<DocumentationMenuSectionProps> = ({
           isModeratorModeSingleCommunity={isModeratorModeSingleCommunity}
           match={match}
           isEditDocumentation={isEditDocumentation}
+          editArticleId={editArticleId}
+          isMenu={isMenu}
+          setEditDocumentation={setEditDocumentation}
         />
       ))}
     </>

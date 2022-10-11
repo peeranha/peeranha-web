@@ -1,10 +1,28 @@
 import React, { useRef, useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
+import { connect } from 'react-redux';
+import { AnyAction, bindActionCreators, compose, Dispatch } from 'redux';
+import { createStructuredSelector } from 'reselect';
+import { DAEMON } from 'utils/constants';
+import injectReducer from 'utils/injectReducer';
+import injectSaga from 'utils/injectSaga';
 import { keyframes } from '@emotion/react';
+import {
+  getDocumentation,
+  setEditDocumentation,
+} from 'pages/Documentation/actions';
+import reducer from 'pages/Documentation/reducer';
+import saga from 'pages/Documentation/saga';
+import {
+  DocumentationSection,
+  OutputSelector,
+  RouterDocumentetion,
+} from 'pages/Documentation/types';
+import { selectDocumentation } from 'pages/Documentation/selectors';
 import Header from './components/Header';
 
 import DocumentationMenu from 'containers/LeftMenu/Documentation/Documentation';
-import DocumentationForm from 'containers/Faq';
+import DocumentationForm from './components/DocumentationForm';
 
 const animationDocumentation = (screenWidth) =>
   keyframes({
@@ -25,7 +43,14 @@ const animationDocumentation = (screenWidth) =>
     },
   });
 
-const EditDocumentation: React.FC<any> = ({ documentationMenu }) => {
+const EditDocumentation: React.FC<any> = ({
+  documentationMenu,
+  toggleEditDocumentation,
+  editArticleId,
+  getDocumentationDispatch,
+  documentation,
+  setEditDocumentationDispatch,
+}) => {
   const refOverlay = useRef<HTMLDivElement>(null);
   const [paddingLeft, setPaddingLeft] = useState<number>(86);
 
@@ -35,6 +60,17 @@ const EditDocumentation: React.FC<any> = ({ documentationMenu }) => {
     }
   }, [refOverlay]);
 
+  useEffect(() => {
+    if (editArticleId !== '') {
+      getDocumentationDispatch(editArticleId);
+    }
+  }, [editArticleId]);
+
+  const documentationArticle = documentation.find(
+    (item) => item.id === editArticleId,
+  );
+
+  console.log('documentationSection', documentationArticle);
   return (
     <>
       {document.querySelector('header') &&
@@ -56,6 +92,7 @@ const EditDocumentation: React.FC<any> = ({ documentationMenu }) => {
         )}
       <div
         css={{
+          color: '#282828',
           position: 'fixed',
           top: 0,
           height: '100vh',
@@ -70,7 +107,7 @@ const EditDocumentation: React.FC<any> = ({ documentationMenu }) => {
           boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.1)',
         }}
       >
-        <Header />
+        <Header toggleEditDocumentation={toggleEditDocumentation} />
         <section
           className="dg"
           css={{
@@ -80,17 +117,28 @@ const EditDocumentation: React.FC<any> = ({ documentationMenu }) => {
           }}
         >
           <div
-            css={{ background: '#FAFAFA', height: '100%', overflow: 'auto' }}
+            css={{
+              background: '#FAFAFA',
+              height: 'calc(100% - 72px)',
+              overflow: 'auto',
+            }}
           >
             <DocumentationMenu
               documentationMenu={documentationMenu}
               isModeratorModeSingleCommunity
               match={{ params: { sectionId: '' } }}
               isEditDocumentation
+              editArticleId={editArticleId}
+              isMenu={false}
+              setEditDocumentation={setEditDocumentationDispatch}
             />
           </div>
-          <div>
-            <DocumentationForm />
+          <div css={{ overflow: 'auto' }}>
+            <DocumentationForm
+              editArticleId={editArticleId}
+              documentationMenu={documentationMenu}
+              documentationArticle={documentationArticle}
+            />
           </div>
           <div css={{ background: '#FAFAFA', height: '100%' }}></div>
         </section>
@@ -99,4 +147,20 @@ const EditDocumentation: React.FC<any> = ({ documentationMenu }) => {
   );
 };
 
-export default EditDocumentation;
+export default compose(
+  injectReducer({ key: 'documentationReducer', reducer }),
+  injectSaga({ key: 'documentationReducer', saga, mode: DAEMON }),
+
+  connect(
+    createStructuredSelector<any, OutputSelector>({
+      documentation: selectDocumentation(),
+    }),
+    (dispatch: Dispatch<AnyAction>) => ({
+      getDocumentationDispatch: bindActionCreators(getDocumentation, dispatch),
+      setEditDocumentationDispatch: bindActionCreators(
+        setEditDocumentation,
+        dispatch,
+      ),
+    }),
+  ),
+)(EditDocumentation);

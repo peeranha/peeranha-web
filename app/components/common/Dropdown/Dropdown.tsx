@@ -84,7 +84,6 @@ export type DropdownProps = DropdownSingleProps | DropdownMultipleProps;
 
 type OnOptionClickParams = {
   close: PopoverContentChildrenParams['close'];
-  option: MutableOption;
 };
 
 const Dropdown: React.FC<DropdownProps> = ({
@@ -118,31 +117,33 @@ const Dropdown: React.FC<DropdownProps> = ({
     return { items, activeItems: items.filter((item) => item.isActive) };
   }, [value, options]);
 
-  const onOptionClick = ({ close, option }: OnOptionClickParams): void => {
-    if (isDisabled) {
-      return;
-    }
-    const isOptionActive = activeItems.some(
-      (activeOption) => activeOption.value === option.value,
-    );
-    if (!isMultiple) {
-      close();
-      if (onSelect) {
-        onSelect(option.value as OptionValue & OptionValue[]);
+  const onOptionClick =
+    ({ close }: OnOptionClickParams) =>
+    (option: MutableOption) => {
+      if (isDisabled) {
+        return;
       }
-      return;
-    }
-    const options = isOptionActive
-      ? activeItems.filter(
-          (activeOption) => activeOption.value !== option.value,
-        )
-      : [...activeItems, option];
-    if (onSelect) {
-      onSelect(
-        options.map((option) => option.value) as OptionValue & OptionValue[],
+      const isOptionActive = activeItems.some(
+        (activeOption) => activeOption.value === option.value,
       );
-    }
-  };
+      if (!isMultiple) {
+        close();
+        if (onSelect) {
+          onSelect(option.value as OptionValue & OptionValue[]);
+        }
+        return;
+      }
+      const options = isOptionActive
+        ? activeItems.filter(
+            (activeOption) => activeOption.value !== option.value,
+          )
+        : [...activeItems, option];
+      if (onSelect) {
+        onSelect(
+          options.map((option) => option.value) as OptionValue & OptionValue[],
+        );
+      }
+    };
 
   return (
     <Popover
@@ -199,7 +200,7 @@ const Dropdown: React.FC<DropdownProps> = ({
                 key={option.value}
                 option={option}
                 isMultiple={isMultiple}
-                onClick={(): void => onOptionClick({ close, option })}
+                onClick={onOptionClick({ close })}
               />
             ))}
           </ul>

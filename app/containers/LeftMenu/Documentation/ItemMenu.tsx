@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import * as routes from 'routes-config';
+import React from 'react';
 import cn from 'classnames';
 import useTrigger from 'hooks/useTrigger';
 import { PEER_PRIMARY_COLOR } from 'style-constants';
-import { A1 } from 'containers/LeftMenu/MainLinks';
 import { DocumentationSection } from 'pages/Documentation/types';
 import ArrowDownIcon from 'icons/ArrowDown';
 import Dropdown from 'common-components/Dropdown';
@@ -11,13 +9,18 @@ import AddSubArticleIcon from 'icons/AddSubArticle';
 import EditIcon from 'icons/Edit';
 import DeleteIcon from 'icons/Delete';
 import AddCommentIcon from 'icons/AddComment';
+import Link from './Link';
+import Item from './Item';
 
 type DocumentationMenuProps = {
   item: DocumentationSection;
   level?: number;
   isModeratorModeSingleCommunity: boolean;
   match: { params: { sectionId: string } };
-  isEditDocumentation: boolean;
+  isEditDocumentation?: boolean;
+  editArticleId?: string;
+  isMenu?: boolean;
+  setEditDocumentation?: (id: string) => void;
 };
 
 const ItemMenu: React.FC<DocumentationMenuProps> = ({
@@ -26,6 +29,9 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
   isModeratorModeSingleCommunity,
   match,
   isEditDocumentation,
+  editArticleId,
+  isMenu = true,
+  setEditDocumentation,
 }) => {
   const [isOpen, open, close] = useTrigger(false);
 
@@ -39,7 +45,8 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
           ...(level === 0 && { padding: '12px 0' }),
           ...(level === 0 && isEditDocumentation && { padding: '12px 16px' }),
           paddingLeft: 15 + 16 * level,
-          ...(match.params.sectionId === item.id && {
+          ...((match.params.sectionId === item.id ||
+            editArticleId === item.id) && {
             background: 'rgba(53, 74, 137, 0.11)',
             borderLeft: '3px solid #5065A5',
             paddingLeft: 12 + 16 * level,
@@ -55,25 +62,25 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
           },
         }}
       >
-        <A1
-          to={routes.documentation(item.id)}
-          name={`documentation/${item.id}`}
-          className={cn('p0')}
-          css={{
-            fontSize: 16,
-            lineHeight: '20px',
-            flexGrow: 1,
-            ...(level > 0 && {
-              color: '#7B7B7B',
-            }),
-            ...((isOpen || match.params.sectionId === item.id) && {
-              fontWeight: 700,
-              color: 'var(--color-black)',
-            }),
-          }}
-        >
-          {item.title}
-        </A1>
+        {isMenu ? (
+          <Link
+            item={item}
+            isOpen={isOpen}
+            match={match}
+            editArticleId={editArticleId}
+            level={level}
+          />
+        ) : (
+          <Item
+            item={item}
+            isOpen={isOpen}
+            match={match}
+            editArticleId={editArticleId}
+            level={level}
+            setEditDocumentation={setEditDocumentation}
+          />
+        )}
+
         <div className="df">
           {isEditDocumentation && (
             <div
@@ -134,6 +141,7 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
               level={level + 1}
               isModeratorModeSingleCommunity={isModeratorModeSingleCommunity}
               match={match}
+              isMenu={isMenu}
             />
           ))}
         </div>
