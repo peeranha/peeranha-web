@@ -130,6 +130,13 @@ const App = ({
     [history],
   );
 
+  useEffect(() => {
+    const isVisitedSite = getCookie('isVisitedSite');
+    if (isVisitedSite && !single && pathname == '/') {
+      redirectToFeedDispatch();
+    }
+  }, []);
+
   const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
 
   return (
