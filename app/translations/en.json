@@ -43,6 +43,7 @@
   "app.common.users": "Users",
   "app.common.activeUsers": "Active Users",
   "app.common.followers": "Followers",
+  "app.common.subscribers": "Subscribers",
   "app.common.usersShort": "Users",
   "app.common.faq": "FAQ",
   "app.common.moderationHeader": "Moderator permissions",
