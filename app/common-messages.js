@@ -144,6 +144,9 @@ export default defineMessages({
   users: {
     id: 'app.common.users',
   },
+  activeUsers: {
+    id: 'app.common.activeUsers',
+  },
   followers: {
     id: 'app.common.followers',
   },
