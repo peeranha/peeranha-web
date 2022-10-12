@@ -21,6 +21,7 @@ import Label from 'components/FormFields/Label';
 
 import messages from './messages';
 import { singleCommunityColors } from 'utils/communityManagement';
+import { getLinks } from 'media-links';
 
 const colors = singleCommunityColors();
 
@@ -36,8 +37,7 @@ const Li = styled.li`
 
 const Ul = styled.ul`
   //border-bottom: 1px solid ${BORDER_SECONDARY};
-  padding-bottom: 30px;
-  margin-bottom: 25px;
+  padding-bottom: 10px;
 
   li {
     display: flex;
@@ -64,8 +64,15 @@ const Ul = styled.ul`
   }
 `;
 
+const P = styled.p`
+  margin-bottom: 20px;
+`;
+
+const Link = styled.a`
+  line-height: 24px;
+`;
+
 const messagesArray = [
-  messages.putReturnsBetweenParagraphs,
   messages.addForLineBreaks,
   messages.italicAndBold,
   messages.indentCode,
@@ -78,7 +85,9 @@ const Tips = ({ faqQuestions }) => (
     <Label className="mb-3">
       <FormattedMessage {...messages.tips} />:
     </Label>
-
+    <P>
+      <FormattedMessage id={messages.markdownIsSupported.id} />
+    </P>
     <Ul>
       {messagesArray.map(x => (
         <li key={x.id}>
@@ -86,11 +95,14 @@ const Tips = ({ faqQuestions }) => (
         </li>
       ))}
     </Ul>
-
     {/* TODO: PEER-285 Hide FAQ Questions
     {faqQuestions && (
       <ul>{faqQuestions.map(x => <Li key={x.props.children}>{x}</Li>)}</ul>
     )}*/}
+    <FormattedMessage id={messages.forMoreSyntax.id} />
+    <Link href={getLinks().markdownCheatSheet} target="_blank">
+      <FormattedMessage id={messages.markdownCheatSheet.id} />
+    </Link>
   </div>
 );
 

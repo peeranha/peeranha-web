@@ -1216,8 +1216,7 @@
   "app.containers.AnswerForm.titleLabel": "Ваш ответ",
 
   "app.components.TextEditor.tips": "Подсказки",
-  "app.components.TextEditor.putReturnsBetweenParagraphs":
-    "Жмите enter для абзаца",
+  "app.components.TextEditor.markdownIsSupported": "Поддерживает Markdown",
   "app.components.TextEditor.addForLineBreaks":
     "Для лайнбрейка поставьте 2 пробела в конце",
   "app.components.TextEditor.italicAndBold": "*курсив* или **жирный**",
@@ -1227,6 +1226,9 @@
     "квот размещением &gt; в начале строки",
   "app.components.TextEditor.toMakeLinks":
     "делать ссылки &lt;http://foo.com&gt;[foo](http://foo.com)&lt;a href=&quot;http://foo.com&quot;&gt;fo",
+  "app.components.TextEditor.forMoreSyntax":
+    "Больше о стилизации элементов можно посмотреть здесь ",
+  "app.components.TextEditor.markdownCheatSheet": "Markdown Cheat Sheet",
 
   "app.containers.Achievements.questionAsked.bronze.title": "Броза - Ученик",
   "app.containers.Achievements.questionAsked.bronze.description":

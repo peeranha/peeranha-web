@@ -4,8 +4,8 @@ export default defineMessages({
   tips: {
     id: 'app.components.TextEditor.tips',
   },
-  putReturnsBetweenParagraphs: {
-    id: 'app.components.TextEditor.putReturnsBetweenParagraphs',
+  markdownIsSupported: {
+    id: 'app.components.TextEditor.markdownIsSupported',
   },
   addForLineBreaks: {
     id: 'app.components.TextEditor.addForLineBreaks',
@@ -24,5 +24,11 @@ export default defineMessages({
   },
   toMakeLinks: {
     id: 'app.components.TextEditor.toMakeLinks',
+  },
+  forMoreSyntax: {
+    id: 'app.components.TextEditor.forMoreSyntax',
+  },
+  markdownCheatSheet: {
+    id: 'app.components.TextEditor.markdownCheatSheet',
   },
 });
