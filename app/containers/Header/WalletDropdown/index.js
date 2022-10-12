@@ -92,7 +92,7 @@ const WalletDropdown = ({
     },
     [account],
   );
-  // TODO: return if WalletDropdown will be needed
+  // TODO: return if WalletDropdown will be needed in production
   // REMOVE: remove if WalletDropdown will be needed
   return (
     <div className="d-none">
