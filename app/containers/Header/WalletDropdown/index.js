@@ -92,9 +92,12 @@ const WalletDropdown = ({
     },
     [account],
   );
-
+  // TODO: return if WalletDropdown will be needed
+  // REMOVE: remove if WalletDropdown will be needed
   return (
-    <div className="position-relative">
+    <div className="d-none">
+      {/* REMOVE: d-none - temporarily added class for production and staging environments */}
+      {/* className="position-relative"> // TODO: temporarily removed class */}
       <Dropdown
         id={`profile_id_${Math.random()}`}
         className="d-none d-md-flex mr-1 wallet-dropdown"
@@ -105,7 +108,6 @@ const WalletDropdown = ({
           <Menu user={user} number={number} locale={locale} boost={boost} />
         }
       />
-
       {REWARD_CLAIMING_ENABLED &&
         isPositiveNumber(number) && (
           <NotificationIcon
