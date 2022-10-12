@@ -37,7 +37,7 @@ const Li = styled.li`
 
 const Ul = styled.ul`
   //border-bottom: 1px solid ${BORDER_SECONDARY};
-  padding-bottom: 10px;
+  padding-bottom: 6px;
 
   li {
     display: flex;
@@ -57,6 +57,9 @@ const Ul = styled.ul`
       position: relative;
       top: 8px;
     }
+  /* :last-of-type {
+  margin-bottom: 5px;
+  } */
 
     span {
       flex: 1;
@@ -65,7 +68,7 @@ const Ul = styled.ul`
 `;
 
 const P = styled.p`
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 `;
 
 const Link = styled.a`
