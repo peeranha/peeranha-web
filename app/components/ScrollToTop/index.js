@@ -93,7 +93,7 @@ const ScrollToTop = () => {
 
   return (
     <Button visible={visible} onClick={clickHandler} gray>
-      <ArrowDownFillIcon size={[14, 14]} className="transform180" />
+      <ArrowDownFillIcon className="transform180" />
     </Button>
   );
 };

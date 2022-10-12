@@ -4,7 +4,6 @@ import IconComponent, { IconProps } from './IconComponent';
 const Globe: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
-    id="globe"
     fill="currentColor"
     viewBox="0 0 16 16"
     size={props.size || [16, 16]}
@@ -16,8 +15,6 @@ const Globe: React.FC<IconProps> = (props): JSX.Element => (
       ry="7"
       fill="none"
       stroke={props.stroke || '#282828'}
-      strokeLinecap="round"
-      strokeLinejoin="round"
     />
     <line
       x1="1.5"
@@ -26,8 +23,6 @@ const Globe: React.FC<IconProps> = (props): JSX.Element => (
       y2="8.5"
       fill="none"
       stroke={props.stroke || '#282828'}
-      strokeLinecap="round"
-      strokeLinejoin="round"
     />
     <circle
       cx="8.5"
@@ -35,8 +30,6 @@ const Globe: React.FC<IconProps> = (props): JSX.Element => (
       r="7"
       fill="none"
       stroke={props.stroke || '#282828'}
-      strokeLinecap="round"
-      strokeLinejoin="round"
     />
   </IconComponent>
 );

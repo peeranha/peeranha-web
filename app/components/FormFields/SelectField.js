@@ -93,11 +93,7 @@ export const Select2 = ({
       components={{
         Group,
         DropdownIndicator: () => (
-          <ArrowDownFillIcon
-            className="mr-1"
-            size={[16, 12]}
-            fill={TEXT_SECONDARY_LIGHT}
-          />
+          <ArrowDownFillIcon className="mr-1" fill={TEXT_SECONDARY_LIGHT} />
         ),
         IndicatorSeparator: null,
         Option: CustomOption || DefaultOption,

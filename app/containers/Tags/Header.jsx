@@ -1,9 +1,8 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import { css } from '@emotion/react';
 import * as routes from 'routes-config';
-import { TEXT_SECONDARY, BORDER_PRIMARY } from 'style-constants';
+import { TEXT_SECONDARY, BORDER_PRIMARY, TEXT_PRIMARY } from 'style-constants';
 
 import commonMessages from 'common-messages';
 import {
@@ -15,7 +14,7 @@ import PlusIcon from 'icons/Plus';
 import TagsIcon from 'icons/Tags';
 import ArrowLeftThinIcon from 'icons/ArrowLeftThin';
 import FilterIcon from 'icons/Filter';
-import { TEXT_PRIMARY } from 'style-constants';
+
 import H3 from 'components/H3';
 import Dropdown from 'components/Dropdown';
 import Span from 'components/Span';
@@ -86,7 +85,7 @@ export const Header = ({
 
   const singleCommId = isSingleCommunityWebsite();
 
-  const profileWithCommunityAdminRights = Boolean(singleCommId)
+  const profileWithCommunityAdminRights = singleCommId
     ? hasCommunityAdminRole(getPermissions(profile), singleCommId)
     : false;
 
@@ -123,13 +122,11 @@ export const Header = ({
               className="d-inline-flex align-items-center px-0 py-1"
               islink
             >
-              <MediumIcon>
-                <TagsIcon
-                  fill={colors.btnColor || TEXT_PRIMARY}
-                  size={[18, 18]}
-                  className="d-none d-sm-inline-block"
-                />
-              </MediumIcon>
+              <TagsIcon
+                fill={colors.btnColor || TEXT_PRIMARY}
+                size={[18, 18]}
+                className="d-none d-sm-inline-block"
+              />
 
               <PlusIcon fill={BORDER_PRIMARY} className="d-sm-none" />
 

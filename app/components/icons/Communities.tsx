@@ -4,20 +4,14 @@ import IconComponent, { IconProps } from './IconComponent';
 const Communities: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
-    id="communities"
     fill="currentColor"
     viewBox="0 0 24 24"
     size={props.size || [24, 24]}
   >
-    <g
-      transform="translate(3 3)"
-      stroke={props.stroke || '#282828'}
-      fill="none"
-      className="stroke"
-    >
-      <circle cx="9" cy="5" r="5.5" />
-      <circle cx="5" cy="12" r="5.5" />
-      <circle cx="13" cy="12" r="5.5" />
+    <g stroke={props.stroke || '#282828'} fill="none" className="stroke">
+      <circle cx="12" cy="8" r="5.5" />
+      <circle cx="8" cy="15" r="5.5" />
+      <circle cx="16" cy="15" r="5.5" />
     </g>
   </IconComponent>
 );

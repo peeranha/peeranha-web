@@ -25,7 +25,7 @@ const Wrapper = ({ children, questionid, answerid }) => (
     <Header className="mb-to-sm-0 mb-from-sm-3">
       <H3>
         <MediumIconStyled>
-          <FeedIcon size={[30, 30]} />
+          <FeedIcon size={[30, 30]} stroke={TEXT_PRIMARY} />
         </MediumIconStyled>
         <FormattedMessage {...messages.editAnswer} />
       </H3>

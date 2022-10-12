@@ -4,32 +4,28 @@ import IconComponent, { IconProps } from './IconComponent';
 const Hat: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
-    id="hat"
     fill="currentColor"
     viewBox="0 0 24 24"
     size={[24, 24]}
   >
-    <g strokeWidth="1" transform="translate(0.5, 0.5)" fill="none">
-      <line
-        className="stroke"
-        stroke={props.stroke || '#282828'}
-        x1="23"
-        y1="10"
-        x2="23"
-        y2="18"
-      />
-      <path
-        stroke={props.stroke || '#282828'}
-        d="M5,9.5V18c0,1.657,3.134,3,7,3
-	        s7-1.343,7-3V9.5"
-        className="stroke"
-      />
-      <polygon
-        stroke={props.stroke || '#282828'}
-        points="12,13 2,8 12,3 22,8"
-        className="stroke"
-      />
-    </g>
+    <path
+      d="M22.5 11.5V16.5"
+      stroke={props.stroke || '#282828'}
+      fill={props.fill || 'none'}
+      className="stroke"
+    />
+    <path
+      d="M5 10V18.5C5 20.157 8.134 21.5 12 21.5C15.866 21.5 19 20.157 19 18.5V10"
+      stroke={props.stroke || '#282828'}
+      fill={props.fill || 'none'}
+      className="stroke"
+    />
+    <path
+      d="M12 13.5L2 8.5L12 3.5L22 8.5L12 13.5Z"
+      stroke={props.stroke || '#282828'}
+      fill={props.fill || 'none'}
+      className="stroke"
+    />
   </IconComponent>
 );
 

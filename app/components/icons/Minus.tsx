@@ -4,7 +4,6 @@ import IconComponent, { IconProps } from './IconComponent';
 const Minus: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
-    id="minus"
     fill="currentColor"
     viewBox="0 0 29 29"
     size={[29, 29]}

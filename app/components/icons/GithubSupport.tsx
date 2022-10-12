@@ -4,7 +4,6 @@ import IconComponent, { IconProps } from './IconComponent';
 const GithubSupport: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
-    id="github-support."
     fill="currentColor"
     viewBox="0 0 32 32"
     size={props.size || [32, 32]}

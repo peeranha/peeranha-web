@@ -9,6 +9,7 @@ import {
   BORDER_SECONDARY,
   BORDER_PRIMARY,
   BORDER_ATTENTION_LIGHT,
+  TEXT_PRIMARY,
 } from 'style-constants';
 
 import EditIcon from 'icons/Edit';
@@ -273,7 +274,7 @@ const ContentHeader = props => {
                 disabled={isModalOpen}
                 onClick={() => setModalOpen(true)}
               >
-                <ShareIcon size={[14, 14]} />
+                <ShareIcon size={[14, 14]} stroke={TEXT_PRIMARY} />
                 <FormattedMessage {...messages.shareButton} />
               </Button>
 

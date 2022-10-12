@@ -119,7 +119,6 @@ const SubHeader = ({
                     <LockIcon
                       className="mr-2"
                       stroke={TEXT_PRIMARY}
-                      fill={TEXT_PRIMARY}
                       size={[11, 14]}
                     />
                     <span>{getFormattedNum3(stakedInCurrentPeriod)}</span>
@@ -133,7 +132,6 @@ const SubHeader = ({
                     <LockIcon
                       className="mr-2"
                       stroke={TEXT_PRIMARY}
-                      fill={TEXT_PRIMARY}
                       size={[11, 14]}
                     />
                     <span>{getFormattedNum3(stakedInNextPeriod)}</span>

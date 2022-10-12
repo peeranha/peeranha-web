@@ -4,7 +4,6 @@ import IconComponent, { IconProps } from './IconComponent';
 const Ipfs: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
-    id="ipfs"
     fill="currentColor"
     viewBox="0 0 169 196"
     size={props.size || [169, 196]}

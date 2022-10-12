@@ -94,7 +94,7 @@ const Permission = ({
   return (
     <PermissionBox key={permissionId} id={permissionId}>
       <ImgWrapper>
-        <CheckedIcon stroke={colors.btnColor || '#25A745'} size={[16, 18]} />
+        <CheckedIcon stroke={colors.btnColor || '#25A745'} />
       </ImgWrapper>
 
       <PermissionBoxBody>

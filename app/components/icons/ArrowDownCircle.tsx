@@ -4,7 +4,6 @@ import IconComponent, { IconProps } from './IconComponent';
 const ArrowDownCircle: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
-    id="arrow-down-fill"
     fill="currentColor"
     viewBox="0 0 64 64"
     size={props.size || [64, 64]}

@@ -10,30 +10,22 @@ const Achivements: React.FC<IconProps & AchievementsProps> = (
 ): JSX.Element => (
   <IconComponent
     {...props}
-    id="achievements"
     fill="currentColor"
-    viewBox="0 0 16 16"
-    size={props.size || [16, 16]}
+    viewBox="0 0 18 18"
+    size={props.size || [18, 18]}
   >
-    <circle
+    <path
+      d="M5 12V17L9 15L13 17V12"
       stroke={props.stroke || '#282828'}
-      strokeWidth="1.2px"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeMiterlimit="10"
-      cx="8"
-      cy="5"
-      r="4.5"
-      fill={props.circleFill || 'none'}
-    />
-    <polyline
-      stroke={props.stroke || '#282828'}
-      strokeWidth="1.2px"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeMiterlimit="10"
-      points="11.5,10.5 11.5,15.5 8,13.5 4.5,15.5 4.5,10.5 "
       fill="none"
+    />
+    <circle
+      cx="9"
+      cy="7"
+      r="6"
+      fill={props.circleFill || 'none'}
+      fillOpacity="0.2"
+      stroke={props.stroke || '#282828'}
     />
   </IconComponent>
 );

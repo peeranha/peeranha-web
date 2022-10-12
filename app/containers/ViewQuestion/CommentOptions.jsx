@@ -66,7 +66,6 @@ export const CommentOptions = ({
                 <FormattedMessage id={messages.moreComments.id} />
               )}
               <ArrowDownFillIcon
-                size={[9, 7]}
                 className={cn(`dib ml4 ${isAllCommentsView && 'transform180'}`)}
               />
             </Span>

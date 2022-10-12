@@ -4,7 +4,6 @@ import IconComponent, { IconProps } from './IconComponent';
 const Discussions: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
-    id="users"
     fill="currentColor"
     viewBox="0 0 24 24"
     size={[24, 24]}
@@ -21,7 +20,7 @@ const Discussions: React.FC<IconProps> = (props): JSX.Element => (
         fill="none"
       />
       <path
-        className="stroke"
+        className="stroke opacity fill"
         d="M17,2H3A2,2,0,0,0,1,4v8a2,2,0,0,0,2,2H5v5l7-5h5a2,2,0,0,0,2-2V4A2,2,0,0,0,17,2Z"
       />
     </g>

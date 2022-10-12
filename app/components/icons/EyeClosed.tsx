@@ -4,7 +4,6 @@ import IconComponent, { IconProps } from './IconComponent';
 const EyeClosed: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
-    id="eye-closed"
     fill={props.fill || 'currentColor'}
     viewBox="0 0 22 14"
     size={props.size || [22, 14]}

@@ -4,7 +4,6 @@ import IconComponent, { IconProps } from './IconComponent';
 const MediumSupport: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
-    id="medium-support"
     fill="currentColor"
     viewBox="0 0 26 22"
     size={props.size || [26, 22]}

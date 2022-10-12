@@ -58,7 +58,6 @@ const MobileLinksInWallet = ({
           isMobileVersion
         />
         <ArrowDownFillIcon
-          size={[17, 11]}
           fill="#7B7B7B"
           className={cn(`mr-3 ${visibleWalletLinks && 'transform180'}`)}
         />

@@ -4,7 +4,6 @@ import IconComponent, { IconProps } from './IconComponent';
 const EditSmall: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
-    id="edit-small"
     fill="currentColor"
     viewBox="0 0 13 13"
     size={props.size || [13, 13]}

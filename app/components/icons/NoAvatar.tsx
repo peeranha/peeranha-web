@@ -4,7 +4,6 @@ import IconComponent, { IconProps } from './IconComponent';
 const NoAvatar: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
-    id="upload"
     fill="currentColor"
     viewBox="0 0 48 48"
     size={[48, 48]}

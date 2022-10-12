@@ -4,7 +4,6 @@ import IconComponent, { IconProps } from './IconComponent';
 const Blockchain: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
-    id="blockchain"
     fill="currentColor"
     viewBox="0 0 32 32"
     size={props.size || [32, 32]}
@@ -31,7 +30,6 @@ const Blockchain: React.FC<IconProps> = (props): JSX.Element => (
         points="16 6.5 9 2.999 2 6.5 2 15 9 18.5 16 15 16 6.5"
         fill="none"
         stroke={props.stroke || '#282828'}
-        strokeLinecap="square"
         strokeWidth="1"
       />
 
@@ -56,7 +54,6 @@ const Blockchain: React.FC<IconProps> = (props): JSX.Element => (
         points="30 6.5 23 2.999 16 6.5 16 15 23 18.5 30 15 30 6.5"
         fill="none"
         stroke={props.stroke || '#282828'}
-        strokeLinecap="square"
         strokeWidth="1"
       />
 
@@ -81,7 +78,6 @@ const Blockchain: React.FC<IconProps> = (props): JSX.Element => (
         points="23 18.5 16 14.999 9 18.5 9 27 16 30.5 23 27 23 18.5"
         fill="none"
         stroke={props.stroke || '#282828'}
-        strokeLinecap="square"
         strokeWidth="1"
       />
     </g>

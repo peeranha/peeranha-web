@@ -125,14 +125,16 @@ export const Header = ({
   const typeIcon = postsTypes => {
     if (postsTypes.length === 1) {
       if (postsTypes[0] === POST_TYPE.tutorial) {
-        return <TutorialIcon stroke={TEXT_PRIMARY} />;
+        return (
+          <TutorialIcon stroke={TEXT_PRIMARY} fill="#A5BCFF" size={[26, 26]} />
+        );
       }
       if (postsTypes[0] === POST_TYPE.expertPost) {
         return <HatIcon stroke={TEXT_PRIMARY} />;
       }
       return <DiscussionsIcon />;
     }
-    return <FeedIcon />;
+    return <FeedIcon size={[30, 30]} />;
   };
 
   const displayQuestionFilter = useMemo(

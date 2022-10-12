@@ -117,10 +117,7 @@ const Question = ({
   return (
     <QuestionBox id={questionId} isOpened={isOpened}>
       <ImgWrapper>
-        <ArrowDownFillIcon
-          size={[9, 7]}
-          className={isOpened && 'transform180'}
-        />
+        <ArrowDownFillIcon className={isOpened && 'transform180'} />
       </ImgWrapper>
 
       <QuestionBoxBody>

@@ -7,7 +7,6 @@ import { LANDING_FONT, TEXT_PRIMARY, TEXT_LIGHT } from 'style-constants';
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
-import LoginIcon from 'icons/Login';
 import logo from 'images/Logo.svg?inline';
 import CloseIcon from 'icons/Close';
 import BurgerIcon from 'icons/Burger';

@@ -63,11 +63,7 @@ export const CommunityField = ({
               </>
             )}
             <Span>{communityLabel}</Span>
-            <ArrowDownFillIcon
-              size={[17, 11]}
-              fill="#7B7B7B"
-              className="mr-2"
-            />
+            <ArrowDownFillIcon fill="#7B7B7B" className="mr-2" />
           </Div>
         )}
       />

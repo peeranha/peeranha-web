@@ -4,7 +4,6 @@ import IconComponent, { IconProps } from './IconComponent';
 const Upload: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
-    id="upload"
     fill="currentColor"
     viewBox="0 0 48 59"
     size={props.size || [48, 59]}

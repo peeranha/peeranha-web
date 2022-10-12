@@ -32,11 +32,7 @@ export const Dropdown = ({
       {button}
 
       {isArrowed && (
-        <ArrowDownFillIcon
-          size={[14, 10]}
-          fill="#7B7B7B"
-          className="dropdown-arrow"
-        />
+        <ArrowDownFillIcon fill="#7B7B7B" className="dropdown-arrow" />
       )}
     </button>
 

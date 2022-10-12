@@ -4,7 +4,6 @@ import IconComponent, { IconProps } from './IconComponent';
 const HintArrow: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
-    id="hint-arrow"
     fill="currentColor"
     viewBox="0 0 4 38"
     size={[4, 38]}

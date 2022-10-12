@@ -4,43 +4,29 @@ import IconComponent, { IconProps } from './IconComponent';
 const Clock: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
-    id="clock"
     fill="currentColor"
-    viewBox="0 0 15 15"
-    size={[15, 15]}
+    viewBox="0 0 18 18"
+    size={[18, 18]}
   >
-    <g stroke={props.stroke || '#282828'}>
-      <g stroke="none" strokeWidth="1">
-        <g transform="translate(-27.000000, -277.000000)">
-          <g transform="translate(25.000000, 276.000000)">
-            <g transform="translate(2.000000, 1.000000)">
-              <g
-                fill={props.fill || '#282828'}
-                fillOpacity="0.2"
-                stroke={props.stroke || '#282828'}
-              >
-                <circle id="Oval" cx="7.5" cy="7.5" r="7" />
-              </g>
-              <rect
-                fill={props.fill || '#282828'}
-                x="6"
-                y="4"
-                width="1"
-                height="5"
-              />
-              <rect
-                fill={props.fill || '#282828'}
-                transform="translate(8.500000, 8.500000) rotate(90.000000) translate(-8.500000, -8.500000) "
-                x="8"
-                y="7"
-                width="1"
-                height="3"
-              />
-            </g>
-          </g>
-        </g>
-      </g>
+    <g>
+      <circle
+        cx="9"
+        cy="9"
+        r="7.5"
+        fill={props.fill || '#282828'}
+        fillOpacity="0.2"
+        stroke={props.stroke || '#282828'}
+      />
     </g>
+    <rect x="8" y="5" width="1" height="5" fill={props.fill || '#282828'} />
+    <rect
+      x="12"
+      y="9"
+      width="1"
+      height="3"
+      transform="rotate(90 12 9)"
+      fill={props.fill || '#282828'}
+    />
   </IconComponent>
 );
 

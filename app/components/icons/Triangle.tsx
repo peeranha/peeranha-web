@@ -4,7 +4,6 @@ import IconComponent, { IconProps } from './IconComponent';
 const Triangle: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
-    id="triangle"
     fill="currentColor"
     viewBox="0 0 41 22"
     size={[41, 22]}

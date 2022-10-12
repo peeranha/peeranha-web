@@ -99,7 +99,7 @@ const NotificationsDropdown = ({
       {unreadCount ? (
         <NotificationIcon stroke="#576fed" />
       ) : (
-        <DisabledNotificationIcon stroke="#576fed" />
+        <DisabledNotificationIcon stroke="#576fed" size={[21, 21]} />
       )}
       {visible && (
         <Menu

@@ -122,11 +122,7 @@ export const QuestionTitle = ({
         {!correctAnswerId && isItWrittenByMe && answers.length ? (
           <>
             <MarkAnswerNotification className="d-inline-flex">
-              <CheckedIcon
-                className="mr-2"
-                stroke={BG_SUCCESS}
-                size={[16, 18]}
-              />
+              <CheckedIcon className="mr-2" stroke={BG_SUCCESS} />
               <FormattedMessage
                 id={
                   messages[

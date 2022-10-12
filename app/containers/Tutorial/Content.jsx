@@ -140,7 +140,6 @@ const Section = ({
               />
               <ArrowDownFillIcon
                 className={cn(`ml-2 ${isExtendedSection && 'transform180'}`)}
-                size={[16, 12]}
                 fill="#7B7B7B"
               />
             </Button>

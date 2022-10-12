@@ -48,7 +48,6 @@ const Dropdown = ({ children, isOpen, target, toggle, isArrowed }) => (
         <>
           <Chevron isOpen={isOpen}>
             <ArrowDownFillIcon
-              size={[17, 11]}
               fill="#7B7B7B"
               className={isOpen && 'transform180'}
             />

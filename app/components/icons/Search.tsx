@@ -10,7 +10,6 @@ type SearchProps = {
 const Search: React.FC<IconProps & SearchProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
-    id="search"
     fill="currentColor"
     viewBox="0 0 43 43"
     size={[40, 40]}
