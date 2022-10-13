@@ -57,9 +57,6 @@ const Ul = styled.ul`
       position: relative;
       top: 8px;
     }
-  /* :last-of-type {
-  margin-bottom: 5px;
-  } */
 
     span {
       flex: 1;
