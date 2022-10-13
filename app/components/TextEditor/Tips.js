@@ -106,27 +106,24 @@ const Tips = ({ faqQuestions }) => (
     </P>
     <Ul>
       {messagesArray.map((x, i) => {
-        if (i === 1) {
-          return (
-            <li key={x.id}>
-              <p>
-                <Italic>
-                  <FormattedMessage id={messages.italic.id} />
-                </Italic>
-                <FormattedMessage id={messages.or.id} />
-                <Bold>
-                  <FormattedMessage id={messages.bold.id} />
-                </Bold>
-              </p>
-            </li>
-          );
-        }
-        return (
+        return i === 1 ? (
+          <li key={x.id}>
+            <p>
+              <Italic>
+                <FormattedMessage id={messages.italic.id} />
+              </Italic>
+              <FormattedMessage id={messages.or.id} />
+              <Bold>
+                <FormattedMessage id={messages.bold.id} />
+              </Bold>
+            </p>
+          </li>
+        ) : (
           <li key={x.id}>
             <FormattedMessage {...x} />{' '}
           </li>
         );
-      })}{' '}
+      })}
     </Ul>
     {/* TODO: PEER-285 Hide FAQ Questions
     {faqQuestions && (
