@@ -350,7 +350,7 @@ export default memo(
         )?.value;
 
         // disable community form on edit question page
-        const disableCommForm = formName === EDIT_QUESTION_FORM;
+        const disableCommForm = false;
 
         return {
           profile: makeSelectProfileInfo()(state),
