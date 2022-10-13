@@ -64,12 +64,28 @@ const Ul = styled.ul`
   }
 `;
 
+const Title = Label.extend`
+  font-size: 18px;
+`;
+
 const P = styled.p`
   margin-bottom: 10px;
 `;
 
 const Link = styled.a`
   line-height: 24px;
+`;
+
+const Italic = styled.span`
+  width: max-content;
+  font-style: italic;
+  margin-right: 5px;
+`;
+
+const Bold = styled.span`
+  width: max-content;
+  font-weight: 600;
+  margin-left: 5px;
 `;
 
 const messagesArray = [
@@ -82,18 +98,35 @@ const messagesArray = [
 
 const Tips = ({ faqQuestions }) => (
   <div>
-    <Label className="mb-3">
+    <Title className="mb-3">
       <FormattedMessage {...messages.tips} />:
-    </Label>
+    </Title>
     <P>
       <FormattedMessage id={messages.markdownIsSupported.id} />
     </P>
     <Ul>
-      {messagesArray.map(x => (
-        <li key={x.id}>
-          <FormattedMessage {...x} />{' '}
-        </li>
-      ))}
+      {messagesArray.map((x, i) => {
+        if (i === 1) {
+          return (
+            <li key={x.id}>
+              <p>
+                <Italic>
+                  <FormattedMessage id={messages.italic.id} />
+                </Italic>
+                or
+                <Bold>
+                  <FormattedMessage id={messages.bold.id} />
+                </Bold>
+              </p>
+            </li>
+          );
+        }
+        return (
+          <li key={x.id}>
+            <FormattedMessage {...x} />{' '}
+          </li>
+        );
+      })}{' '}
     </Ul>
     {/* TODO: PEER-285 Hide FAQ Questions
     {faqQuestions && (

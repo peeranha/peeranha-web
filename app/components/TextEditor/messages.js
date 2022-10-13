@@ -13,6 +13,12 @@ export default defineMessages({
   italicAndBold: {
     id: 'app.components.TextEditor.italicAndBold',
   },
+  italic: {
+    id: 'app.components.TextEditor.italic',
+  },
+  bold: {
+    id: 'app.components.TextEditor.bold',
+  },
   indentCode: {
     id: 'app.components.TextEditor.indentCode',
   },

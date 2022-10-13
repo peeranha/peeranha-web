@@ -1199,6 +1199,8 @@
   "app.components.TextEditor.addForLineBreaks":
     "for linebreak add 2 spaces at end",
   "app.components.TextEditor.italicAndBold": "_italic_ or **bold**",
+  "app.components.TextEditor.italic": "_italic_",
+  "app.components.TextEditor.bold": "**bold**",
   "app.components.TextEditor.indentCode": "indent code by 4 spaces",
   "app.components.TextEditor.backtipEscapes":
     "use backtick escapes for code blocks`like _so_`",
