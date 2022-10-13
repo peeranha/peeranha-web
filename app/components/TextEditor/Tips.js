@@ -113,7 +113,7 @@ const Tips = ({ faqQuestions }) => (
                 <Italic>
                   <FormattedMessage id={messages.italic.id} />
                 </Italic>
-                or
+                <FormattedMessage id={messages.or.id} />
                 <Bold>
                   <FormattedMessage id={messages.bold.id} />
                 </Bold>

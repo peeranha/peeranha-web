@@ -19,6 +19,9 @@ export default defineMessages({
   bold: {
     id: 'app.components.TextEditor.bold',
   },
+  or: {
+    id: 'app.components.TextEditor.or',
+  },
   indentCode: {
     id: 'app.components.TextEditor.indentCode',
   },
