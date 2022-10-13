@@ -79,13 +79,13 @@ const Link = styled.a`
 const Italic = styled.span`
   width: max-content;
   font-style: italic;
-  margin-right: 5px;
+  margin-right: 6px;
 `;
 
 const Bold = styled.span`
   width: max-content;
   font-weight: 600;
-  margin-left: 5px;
+  margin-left: 6px;
 `;
 
 const messagesArray = [
@@ -99,7 +99,7 @@ const messagesArray = [
 const Tips = ({ faqQuestions }) => (
   <div>
     <Title className="mb-3">
-      <FormattedMessage {...messages.tips} />:
+      <FormattedMessage id={messages.tips.id} />:
     </Title>
     <P>
       <FormattedMessage id={messages.markdownIsSupported.id} />
