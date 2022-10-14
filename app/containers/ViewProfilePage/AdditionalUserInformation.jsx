@@ -1,5 +1,6 @@
 /* eslint indent: 0 */
-import React from 'react';
+import React, { useMemo } from 'react';
+import { css } from '@emotion/react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
@@ -19,6 +20,8 @@ import {
 import messages from 'containers/Profile/messages';
 
 import { Box } from './MainUserInformation';
+import { getFormattedDate } from 'utils/datetime';
+import { MONTH_3LETTERS__DAY_YYYY } from 'utils/constants';
 
 const Blank = ({ profile, userId, account, redirectToEditProfilePage }) =>
   !profile[LOCATION_FIELD] &&
@@ -47,14 +50,22 @@ const Blank = ({ profile, userId, account, redirectToEditProfilePage }) =>
 
 const Row = ({ nameField, value, asHtml }) =>
   value ? (
-    <div className="d-flex align-items-start mb-2">
+    <div className="d-flex align-items-start ">
       <Span color={TEXT_SECONDARY} fontSize="14" lineHeight="24">
         <FormattedMessage id={messages[nameField].id} />
       </Span>
       {asHtml ? (
         <TextBlock content={value} />
       ) : (
-        <Span mobileFS="16" lineHeight="24" mobileLH="20">
+        <Span
+          css={css`
+            font-weight: 600;
+          `}
+          color={TEXT_SECONDARY}
+          mobileFS="16"
+          lineHeight="24"
+          mobileLH="20"
+        >
           {value}
         </Span>
       )}
@@ -66,41 +77,49 @@ const AdditionalUserInformation = ({
   userId,
   account,
   redirectToEditProfilePage,
-}) => (
-  <Box position="bottom">
-    {(!profile || !profile.profile) && <LoadingIndicator inline />}
+  locale,
+}) => {
+  const profileSince = useMemo(
+    () =>
+      getFormattedDate(profile?.creationTime, locale, MONTH_3LETTERS__DAY_YYYY),
+    [],
+  );
 
-    {profile &&
-      profile.profile && (
-        <>
-          <Row
-            nameField="locationLabel"
-            value={profile.profile[LOCATION_FIELD]}
-          />
-          <Row
-            nameField="companyLabel"
-            value={profile.profile[COMPANY_FIELD]}
-          />
-          <Row
-            nameField="positionLabel"
-            value={profile.profile[POSITION_FIELD]}
-          />
-          <Row
-            nameField="aboutLabel"
-            value={profile.profile[ABOUT_FIELD]}
-            asHtml
-          />
+  return (
+    <Box position="bottom">
+      {(!profile || !profile.profile) && <LoadingIndicator inline />}
 
-          <Blank
-            profile={profile.profile}
-            userId={userId}
-            account={account}
-            redirectToEditProfilePage={redirectToEditProfilePage}
-          />
-        </>
-      )}
-  </Box>
-);
+      {profile &&
+        profile.profile && (
+          <>
+            {!!profile?.creationTime && (
+              <Row nameField="memberSince" value={profileSince} />
+            )}
+            <Row
+              nameField="locationLabel"
+              value={profile.profile[LOCATION_FIELD]}
+            />
+            <Row
+              nameField="companyLabel"
+              value={profile.profile[COMPANY_FIELD]}
+            />
+            <Row
+              nameField="positionLabel"
+              value={profile.profile[POSITION_FIELD]}
+            />
+            <Row nameField="aboutLabel" value={profile.profile[ABOUT_FIELD]} />
+
+            <Blank
+              profile={profile.profile}
+              userId={userId}
+              account={account}
+              redirectToEditProfilePage={redirectToEditProfilePage}
+            />
+          </>
+        )}
+    </Box>
+  );
+};
 
 AdditionalUserInformation.propTypes = {
   profile: PropTypes.object,

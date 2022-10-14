@@ -140,7 +140,7 @@ const RatingStatus = ({
         customRatingIconColors={customRatingIconColors}
       />
       <Span
-        className={isRankOff ? 'd-none' : 'd-none d-lg-inline-block ml-1'}
+        className={isRankOff ? 'd-none' : 'd-none d-inline-block ml-1'}
         fontSize={size === 'lg' ? 16 : 14}
         color={size === 'lg' ? TEXT_DARK : TEXT_SECONDARY}
       >

@@ -5,7 +5,12 @@ import styled from 'styled-components';
 import { css } from '@emotion/react';
 
 import commonMessages from 'common-messages';
-import { TEXT_DARK, TEXT_SECONDARY, LINK_COLOR } from 'style-constants';
+import {
+  TEXT_DARK,
+  TEXT_SECONDARY,
+  LINK_COLOR,
+  BORDER_SECONDARY,
+} from 'style-constants';
 import { LABEL_SIZE_LG } from 'components/Img/MediumImage';
 import { TEMPORARY_ACCOUNT_KEY } from 'utils/constants';
 import { getUserAvatar } from 'utils/profileManagement';
@@ -44,7 +49,6 @@ export const UlStyled = Ul.extend`
   display: flex;
   border: none;
   padding: 0;
-  overflow-x: hidden;
   white-space: nowrap;
   flex-wrap: wrap;
 
@@ -66,15 +70,13 @@ export const UlStyled = Ul.extend`
     div {
       display: inline;
     }
+    span {
+      height: 20px;
+    }
     @media (max-width: 450px) {
       word-break: break-word;
       white-space: pre-line;
       overflow-wrap: break-word;
-
-      button {
-        left: 75%;
-        top: 80%;
-      }
     }
 
     @media (max-width: 399px) {
@@ -90,7 +92,7 @@ export const UlStyled = Ul.extend`
     > *:nth-child(2) {
       display: flex;
       align-items: center;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 600;
       color: ${TEXT_DARK};
 
@@ -105,7 +107,7 @@ export const UlStyled = Ul.extend`
     }
 
     @media only screen and (max-width: 1280px) {
-      padding: 10px 45px;
+      padding: 10px 15px;
     }
 
     @media only screen and (max-width: 768px) {
@@ -113,10 +115,6 @@ export const UlStyled = Ul.extend`
       span,
       div {
         font-size: 16px !important;
-      }
-      button {
-        left: 80%;
-        top: 80%;
       }
     }
 
@@ -160,7 +158,7 @@ export const Box = Base.extend`
     > *:nth-child(2) {
       flex: 0 0 calc(100% - 150px);
       max-width: calc(100% - 150px);
-      overflow: hidden;
+      overflow: auto;
 
       @media only screen and (max-width: 576px) {
         flex: 0 0 calc(100% - 90px);
@@ -200,7 +198,12 @@ const MainUserInformation = ({
 
   return (
     <Box position="middle" className="pb-0">
-      <div>
+      <div
+        css={css`
+          border-bottom: 1px solid ${BORDER_SECONDARY};
+          padding-bottom: 20px;
+        `}
+      >
         <div>
           <LargeImageButton
             onClick={redirectToEditProfilePage}
@@ -288,54 +291,49 @@ const MainUserInformation = ({
                 )}
               </li>
               {!isTemporaryAccount && (
-                <li className="pr">
+                <li
+                  css={css`
+                    flex-direction: row;
+                  `}
+                >
                   <FormattedMessage id={commonMessages.walletAddress.id} />
-                  <A
-                    to={{ pathname: userPolygonScanAddress }}
-                    href={userPolygonScanAddress}
-                    target="_blank"
-                  >
-                    <span
-                      id="copytext1"
-                      css={css`
-                        border-bottom: 1px solid;
-                        color: ${LINK_COLOR};
-                        font-weight: 400;
-                        font-size: 14px;
-                      `}
+                  <div>
+                    <A
+                      to={{ pathname: userPolygonScanAddress }}
+                      href={userPolygonScanAddress}
+                      target="_blank"
                     >
-                      {userId}
-                    </span>
-                  </A>
-                  <button
-                    id="share-link-copy"
-                    css={css`
-                      color: #adaeae;
-                      position: absolute;
-                      left: 95%;
-                      margin-top: 23px;
-                    `}
-                    onClick={writeToBuffer}
-                  >
-                    <img
-                      src={iconType}
-                      alt="copy"
+                      <span
+                        id="copytext1"
+                        css={css`
+                          border-bottom: 1px solid;
+                          color: ${LINK_COLOR};
+                          font-weight: 400;
+                          font-size: 14px;
+                        `}
+                      >
+                        {userId}
+                      </span>
+                    </A>
+                    <button
+                      id="share-link-copy"
                       css={css`
-                        height: 20px;
+                        color: #adaeae;
+                        padding-left: 10px;
                       `}
-                    />
-                  </button>
+                      onClick={writeToBuffer}
+                    >
+                      <img
+                        src={iconType}
+                        alt="copy"
+                        css={css`
+                          height: 20px;
+                        `}
+                      />
+                    </button>
+                  </div>
                 </li>
               )}
-
-              <li>
-                {!!profile?.creationTime && (
-                  <ProfileSince
-                    creationTime={profile?.creationTime}
-                    locale={locale}
-                  />
-                )}
-              </li>
             </UlStyled>
           </div>
         </div>
