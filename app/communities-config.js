@@ -6,6 +6,7 @@ import SuiLogo from './communities-configs/sui/images/sui-logo.svg?inline';
 import FilebaseLogo from './communities-configs/filebase/images/filebaselogo.svg?inline';
 import HarmonyLogo from './communities-configs/harmony/images/harmony-logo.svg?inline';
 import KoiiLogo from './communities-configs/koii/images/koii-logo.svg?inline';
+import CyberconnectLogo from './communities-configs/cyberconnect/images/CyberConnect_logo.svg?inline';
 
 import { PolygonStyles } from './communities-configs/polygon';
 import { FilecoinStyles } from './communities-configs/filecoin';
@@ -15,6 +16,7 @@ import { SuiStyles } from './communities-configs/sui';
 import { FilebaseStyles } from './communities-configs/filebase';
 import { HarmonyStyles } from './communities-configs/harmony';
 import { KoiiStyles } from './communities-configs/koii';
+import { CyberconnectStyles } from './communities-configs/cyberconnect';
 
 const communitiesConfig = {
   prod: {
@@ -126,6 +128,11 @@ const communitiesConfig = {
       origin: `https://filebase${process.env.COOKIE_DOMAIN}`,
       src: FilebaseLogo,
       styles: FilebaseStyles,
+    },
+    19: {
+      origin: `https://cyberconnect${process.env.COOKIE_DOMAIN}`,
+      src: CyberconnectLogo,
+      styles: CyberconnectStyles,
     },
   },
   dev: {
