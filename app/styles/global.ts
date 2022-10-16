@@ -193,8 +193,14 @@ export default css`
   .capitalize {
     text-transform: capitalize;
   }
+  .light {
+    font-weight: 400;
+  }
   .medium {
     font-weight: 500;
+  }
+  .bold {
+    font-weight: 700;
   }
   a {
     text-decoration: none;

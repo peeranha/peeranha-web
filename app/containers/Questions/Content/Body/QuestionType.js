@@ -8,17 +8,11 @@ import {
   TEXT_PREMIUM,
   BORDER_RADIUS_M,
   BG_PREMIUM_LIGHT,
-  PRIMARY_SPECIAL,
-  BORDER_PRIMARY_DARK,
-  APP_FONT,
   TEXT_DARK,
-  BORDER_PRIMARY,
-  ICON_TRASPARENT_BLUE,
   TEXT_PRIMARY,
   BG_TRANSPARENT,
   BORDER_TRANSPARENT,
   BORDER_DARK,
-  TUTORIAL_BACKLIGHT,
   TUTORIAL_ICON_COLOR,
 } from 'style-constants';
 
@@ -32,14 +26,7 @@ import generalIcon from 'images/comments-outline-24.svg?external';
 import tutorialIcon from 'images/tutorial.svg?external';
 
 import { IconLg } from '../../../../components/Icon/IconWithSizes';
-import A from '../../../../components/A';
-import { BasicLink } from '../../../LeftMenu/Styles';
 import { svgDraw } from '../../../../components/Icon/IconStyled';
-import {
-  singleCommunityColors,
-  singleCommunityFonts,
-  singleCommunityStyles,
-} from '../../../../utils/communityManagement';
 
 const LabelsWrapper = styled.div`
   display: inline-flex;
@@ -63,24 +50,6 @@ const PromotedLabel = styled.span`
   align-items: center;
   border-radius: ${BORDER_RADIUS_M};
 `;
-
-const opacity = ({ isExpert, isTutorial }) =>
-  isExpert
-    ? `.opacity {
-    fill: ${TEXT_PRIMARY} !important;
-  }`
-    : isTutorial
-      ? `.opacity {
-    fill: ${TUTORIAL_BACKLIGHT} !important;
-  }`
-      : `.opacity {
-     fill: none !important;
-   }`;
-
-// ${({ isExpert, isTutorial } ) => {
-//   console.log(isTutorial)
-//   return opacity({isExpert, isTutorial})
-// }};
 
 const Icon = styled(IconLg)`
   ${({ isTutorial, isExpert }) =>
@@ -133,7 +102,7 @@ const types = {
   },
 };
 
-const QuestionType = ({ locale, postType, isPromoted }) => {
+const QuestionType = ({ locale, postType, className, isPromoted = false }) => {
   const [visible, changeVisibility] = useState(false);
 
   const onMouseEnter = useCallback(() => changeVisibility(true), []);
@@ -142,7 +111,7 @@ const QuestionType = ({ locale, postType, isPromoted }) => {
   const type = types[postType];
 
   return (
-    <LabelsWrapper>
+    <LabelsWrapper className={className}>
       {type && (
         <LabelItem>
           <Container
@@ -183,6 +152,7 @@ QuestionType.propTypes = {
   postType: PropTypes.number,
   locale: PropTypes.string,
   isPromoted: PropTypes.bool,
+  className: PropTypes.string,
 };
 
 export default memo(QuestionType);

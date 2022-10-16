@@ -133,6 +133,7 @@
   "app.common.reCaptchaMention":
     "This site is protected by reCAPTCHA and the Google {privacyPolicy} and {termsOfService} apply.",
   "app.common.terms": "Operating Agreement",
+  "app.common.results": "Results",
   "app.common.noResults": "No results",
   "app.common.iAcceptPrivacyPolicy":
     "I accept {privacyPolicy}, {termsOfService}",

@@ -8,7 +8,7 @@ import { translationMessages } from 'i18n';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-
+import { css } from '@emotion/react';
 import commonMessages from 'common-messages';
 import searchIcon from 'images/searchIcon.svg?inline';
 
@@ -17,22 +17,19 @@ import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import H3 from 'components/H3';
 import Seo from 'components/Seo';
 import Header from 'components/Header/Simple';
-import Base from 'components/Base/BaseRounded';
 import { MediumImageStyled } from 'components/Img/MediumImage';
-import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 
 import reducer from './reducer';
 import saga from './saga';
 
 import { selectItems, selectGetResultsProcessing } from './selectors';
 import { getResults } from './actions';
-import Item from './Item';
 
 import messages from './messages';
-import Content from '../Questions/Content/Content';
 import { selectCommunities } from '../DataCacheProvider/selectors';
 import InfinityLoader from '../../components/InfinityLoader';
-import ShowMoreButton from '../Questions/Content/ShowMoreButton';
+import { TEXT_SECONDARY } from '../../style-constants';
+import SearchContent from './SearchContent';
 
 const Search = ({
   match,
@@ -66,6 +63,23 @@ const Search = ({
           <MediumImageStyled src={searchIcon} alt="search" />
           <FormattedMessage {...commonMessages.search} />
         </H3>
+        <div>
+          <span className="bold">
+            <FormattedMessage
+              id={commonMessages[items.length ? 'results' : 'noResults'].id}
+            />
+          </span>
+          {Boolean(items.length) && (
+            <span
+              className="fz14 ml8"
+              css={css`
+                color: ${TEXT_SECONDARY};
+              `}
+            >
+              {items.length}
+            </span>
+          )}
+        </div>
       </Header>
 
       {items.length > 0 && (
@@ -74,28 +88,13 @@ const Search = ({
           isLoading={getResultsProcessing}
           isLastFetch={false}
         >
-          <Content
-            questionsList={items}
-            // promotedQuestionsList={
-            //   promotedQuestions[+questionFilterFromCookies ? 'top' : 'all']
-            // }
+          <SearchContent
             locale={locale}
+            posts={items}
             communities={communities}
-            typeFilter={0}
-            createdFilter={0}
-            isModerator={false}
-            profileInfo={null}
-            isSearchPage
           />
         </InfinityLoader>
       )}
-
-      {/*  <div>*/}
-      {/*    {getResultsProcessing && <LoadingIndicator />}*/}
-      {/*    {!getResultsProcessing &&*/}
-      {/*      !items.length && <FormattedMessage {...commonMessages.noResults} />}*/}
-      {/*  </div>*/}
-      {/*</Base>*/}
     </div>
   );
 };
