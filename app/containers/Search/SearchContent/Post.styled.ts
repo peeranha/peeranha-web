@@ -1,11 +1,16 @@
 import {
+  APP_FONT,
   BG_SUCCESS_LIGHT,
   BG_TRANSPARENT,
   TEXT_DARK,
 } from '../../../style-constants';
-import { singleCommunityColors } from '../../../utils/communityManagement';
+import {
+  singleCommunityColors,
+  singleCommunityFonts,
+} from '../../../utils/communityManagement';
 
 const colors = singleCommunityColors();
+const fonts = singleCommunityFonts();
 
 export const styles = {
   post: {
@@ -17,6 +22,21 @@ export const styles = {
       outline: '3px solid rgb(165, 188, 255)',
       boxShadow: '0px 20px 20px rgba(24, 39, 79, 0.1)',
     },
+  },
+
+  title: {
+    lineHeight: '30px',
+    color: 'rgb(40,40,40)',
+    letterSpacing: fonts.questionTitleLetterSpacing,
+    fontFamily: fonts.questionTitleFont || APP_FONT,
+
+    ':hover': {
+      color: 'rgb(40,40,40)',
+    },
+  },
+
+  creationData: {
+    color: '#7B7B7B',
   },
 
   content: {
@@ -46,8 +66,26 @@ export const styles = {
     },
   },
 
+  communityAvatar: {
+    width: '24px',
+    height: '24px',
+  },
+
+  communityName: {
+    color: TEXT_DARK,
+    lineHeight: '18px',
+  },
+
   count: {
     color: colors.linkColor || TEXT_DARK,
+  },
+
+  tag: {
+    color: '#576FED',
+    lineHeight: '18px',
+    border: '1px solid #576FED',
+    borderRadius: '2px',
+    padding: '3px 9px',
   },
 
   bestReply: {

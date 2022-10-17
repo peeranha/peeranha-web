@@ -136,6 +136,9 @@ export default css`
   .fz18 {
     font-size: 18px;
   }
+  .fz24 {
+    font-size: 24px;
+  }
   .pr {
     position: relative;
   }
@@ -198,6 +201,9 @@ export default css`
   }
   .medium {
     font-weight: 500;
+  }
+  .semi-bold {
+    font-weight: 600;
   }
   .bold {
     font-weight: 700;
