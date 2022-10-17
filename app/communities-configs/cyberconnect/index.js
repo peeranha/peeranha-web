@@ -207,7 +207,7 @@ export const CyberconnectStyles = {
     mainBackground: '#F9FAFB',
     linkColor: '#65908a',
     linkCoolieColor: '#0DB48C', ///
-    linkColorTransparent: '#65908a',
+    linkColorTransparent: 'rgba(101, 144, 138, 0.6);',
     headerPrimary: '#65908a',
     commentOption: '#65908a',
     contentHeader: '#65908a',
@@ -224,11 +224,11 @@ export const CyberconnectStyles = {
     tagColor: '#65908a',
     localeArrowColor: '#65908a',
     textColor: '#65908a',
-    textColorShadow: '#65908a',
+    textColorShadow: 'rgba(101, 144, 138, 0.6);',
     commHeadElemColor: '#000',
   },
   cookieConsentPopupStyles: {
-    background: 'linear-gradient(90deg, #65908a, #000)',
+    background: 'linear-gradient(90deg,  #000, #65908a)',
     color: '#fff',
     borderColor: '#fff',
     button: {
