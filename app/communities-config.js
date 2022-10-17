@@ -6,6 +6,7 @@ import SuiLogo from './communities-configs/sui/images/sui-logo.svg?inline';
 import FilebaseLogo from './communities-configs/filebase/images/filebaselogo.svg?inline';
 import HarmonyLogo from './communities-configs/harmony/images/harmony-logo.svg?inline';
 import KoiiLogo from './communities-configs/koii/images/koii-logo.svg?inline';
+import CyberconnectLogo from './communities-configs/cyberconnect/images/CyberConnect_logo.svg?inline';
 import PolywrapLogo from './communities-configs/polywrap/images/polywrap-horizontal.svg?inline';
 import ValistLogo from './communities-configs/valist/images/valist.svg?inline';
 
@@ -17,6 +18,7 @@ import { SuiStyles } from './communities-configs/sui';
 import { FilebaseStyles } from './communities-configs/filebase';
 import { HarmonyStyles } from './communities-configs/harmony';
 import { KoiiStyles } from './communities-configs/koii';
+import { CyberconnectStyles } from './communities-configs/cyberconnect';
 import { PolywrapStyles } from './communities-configs/polywrap';
 import { ValistStyles } from './communities-configs/valist';
 
@@ -140,6 +142,11 @@ const communitiesConfig = {
       origin: `https://polywrap${process.env.COOKIE_DOMAIN}`,
       src: PolywrapLogo,
       styles: PolywrapStyles,
+    },
+    19: {
+      origin: `https://cyberconnect${process.env.COOKIE_DOMAIN}`,
+      src: CyberconnectLogo,
+      styles: CyberconnectStyles,
     },
   },
   dev: {
