@@ -149,6 +149,7 @@ export const Select2 = ({
           paddingBottom: 0,
           boxShadow: !menuIsOpen ? `0 0 3px ${BORDER_SECONDARY}` : `none`,
           borderRadius: '3px',
+          overflow: 'hidden',
         }),
       }}
     />
