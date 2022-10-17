@@ -18,9 +18,11 @@ type DocumentationMenuProps = {
   isModeratorModeSingleCommunity: boolean;
   match: { params: { sectionId: string } };
   isEditDocumentation?: boolean;
-  editArticleId?: string;
+  editArticle?: { id: string; parentId: string };
   isMenu?: boolean;
-  setEditDocumentation?: (id: string) => void;
+  setEditDocumentation?: (id: string, parentId: string) => void;
+  parentId: string;
+  viewArticle?: (id: string) => void;
 };
 
 const ItemMenu: React.FC<DocumentationMenuProps> = ({
@@ -29,11 +31,23 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
   isModeratorModeSingleCommunity,
   match,
   isEditDocumentation,
-  editArticleId,
+  editArticle,
   isMenu = true,
   setEditDocumentation,
+  parentId,
+  viewArticle,
 }) => {
   const [isOpen, open, close] = useTrigger(false);
+
+  const onSelect = (value: number) => {
+    if (value === 1 && typeof setEditDocumentation === 'function') {
+      setEditDocumentation('', item.id);
+    }
+
+    if (value === 2 && typeof setEditDocumentation === 'function') {
+      setEditDocumentation(item.id, parentId);
+    }
+  };
 
   return (
     <>
@@ -46,7 +60,7 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
           ...(level === 0 && isEditDocumentation && { padding: '12px 16px' }),
           paddingLeft: 15 + 16 * level,
           ...((match.params.sectionId === item.id ||
-            editArticleId === item.id) && {
+            editArticle?.id === item.id) && {
             background: 'rgba(53, 74, 137, 0.11)',
             borderLeft: '3px solid #5065A5',
             paddingLeft: 12 + 16 * level,
@@ -67,7 +81,7 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
             item={item}
             isOpen={isOpen}
             match={match}
-            editArticleId={editArticleId}
+            editArticleId={editArticle?.id}
             level={level}
           />
         ) : (
@@ -75,9 +89,9 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
             item={item}
             isOpen={isOpen}
             match={match}
-            editArticleId={editArticleId}
+            editArticleId={editArticle?.id}
             level={level}
-            setEditDocumentation={setEditDocumentation}
+            onClickArticle={viewArticle}
           />
         )}
 
@@ -93,7 +107,7 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
                 trigger={<AddCommentIcon css={{ color: PEER_PRIMARY_COLOR }} />}
                 options={[
                   {
-                    label: 'Edit a new sub-article',
+                    label: 'Add a new sub-article',
                     value: 1,
                     icon: <AddSubArticleIcon />,
                   },
@@ -110,6 +124,7 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
                 ]}
                 isMultiple={false}
                 isEqualWidth={false}
+                onSelect={onSelect}
               />
             </div>
           )}
@@ -142,6 +157,11 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
               isModeratorModeSingleCommunity={isModeratorModeSingleCommunity}
               match={match}
               isMenu={isMenu}
+              parentId={item.id}
+              isEditDocumentation={isEditDocumentation}
+              setEditDocumentation={setEditDocumentation}
+              viewArticle={viewArticle}
+              editArticle={editArticle}
             />
           ))}
         </div>

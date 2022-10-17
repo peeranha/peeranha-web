@@ -19,11 +19,7 @@ import LeftMenu from 'containers/LeftMenu';
 import Loader from 'components/LoadingIndicator/WidthCentered';
 
 import { Main, WrapStyled } from './Box';
-import {
-  selectDocumentationMenu,
-  selectDocumentationNotIncluded,
-  selectIsMenuVisible,
-} from './selectors';
+import { selectDocumentationMenu, selectIsMenuVisible } from './selectors';
 import { showLeftMenu, hideLeftMenu, getDocumentationMenu } from './actions';
 import { selectTransactionInitialised } from '../EthereumProvider/selectors';
 
@@ -36,7 +32,6 @@ const Box = ({
   transactionInitialised,
   getDocumentationMenuDispatch,
   documentationMenu,
-  documentationNotIncluded,
 }) => {
   const single = isSingleCommunityWebsite();
   useEffect(() => {
@@ -48,13 +43,9 @@ const Box = ({
     getDocumentationMenuDispatch(single);
   }, [single]);
 
-  const documentation = documentationMenu
-    ? documentationMenu.concat(documentationNotIncluded ?? [])
-    : [];
-
   return (
     <>
-      <Header documentationMenu={documentation} />
+      <Header />
 
       <Main
         isMenuVisible={isMenuVisible}
@@ -62,7 +53,7 @@ const Box = ({
       >
         <div className={isMenuVisible ? '' : 'container container-mobile'}>
           <div className="d-flex">
-            <LeftMenu {...props} documentationMenu={documentation} />
+            <LeftMenu {...props} documentationMenu={documentationMenu} />
 
             <WrapStyled className={isMenuVisible ? 'd-none' : ''}>
               <React.Suspense fallback={<Loader />}>
@@ -94,7 +85,6 @@ const WrapperConnection = compose(
       location: makeSelectLocation(),
       transactionInitialised: selectTransactionInitialised(),
       documentationMenu: selectDocumentationMenu(),
-      documentationNotIncluded: selectDocumentationNotIncluded(),
     }),
     (dispatch) => ({
       showLeftMenuDispatch: bindActionCreators(showLeftMenu, dispatch),

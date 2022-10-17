@@ -17,6 +17,7 @@ import * as routes from 'routes-config';
 import { MediumImageStyled } from 'components/Img/MediumImage';
 import H3 from 'components/H3';
 import Wrapper from 'components/Header/Simple';
+import ViewContent from 'components/Documentation/components/ViewContent';
 
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 import { redirectToEditQuestionPage } from 'containers/EditQuestion/actions';
@@ -76,18 +77,10 @@ export const DocumentationPage: React.FC<DocumentationProps> = ({
         flex-grow: 1;
       `}
     >
-      <Wrapper className="mb-to-sm-0 mb-from-sm-3">
-        <H3>
-          <MediumImageStyled src={faqPageHeader} alt="documentation-header" />
-          <span className="d-none d-md-inline-block">
-            {documentationSection?.title}
-          </span>
-        </H3>
-      </Wrapper>
-
-      <Wrapper>
-        <TextBlock content={documentationSection?.content} />
-      </Wrapper>
+      <ViewContent
+        faqPageHeader={faqPageHeader}
+        documentationSection={documentationSection}
+      />
     </div>
   ) : null;
 };

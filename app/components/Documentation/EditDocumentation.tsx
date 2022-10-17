@@ -6,10 +6,11 @@ import { createStructuredSelector } from 'reselect';
 import { DAEMON } from 'utils/constants';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
-import { keyframes } from '@emotion/react';
 import {
   getDocumentation,
   setEditDocumentation,
+  saveMenuDraft,
+  viewArticle,
 } from 'pages/Documentation/actions';
 import reducer from 'pages/Documentation/reducer';
 import saga from 'pages/Documentation/saga';
@@ -18,41 +19,39 @@ import {
   OutputSelector,
   RouterDocumentetion,
 } from 'pages/Documentation/types';
-import { selectDocumentation } from 'pages/Documentation/selectors';
+import {
+  selectDocumentation,
+  selectDocumentationMenuDraft,
+} from 'pages/Documentation/selectors';
+import { updateDocumentationMenuDraft } from 'containers/AppWrapper/actions';
+import { selectDocumentationMenu } from 'containers/AppWrapper/selectors';
 import Header from './components/Header';
 
 import DocumentationMenu from 'containers/LeftMenu/Documentation/Documentation';
 import DocumentationForm from './components/DocumentationForm';
-
-const animationDocumentation = (screenWidth) =>
-  keyframes({
-    '0%': {
-      left: '100%',
-    },
-    '80%': {
-      left: screenWidth + 50,
-    },
-    '90%': {
-      left: screenWidth + 100,
-    },
-    '95%': {
-      left: screenWidth + 75,
-    },
-    '100%': {
-      left: screenWidth + 86,
-    },
-  });
+import ViewContent from './components/ViewContent';
+import {
+  addArticle,
+  getSavedDrafts,
+  updateMenuDraft,
+  animationDocumentation,
+} from './helpers';
 
 const EditDocumentation: React.FC<any> = ({
   documentationMenu,
   toggleEditDocumentation,
-  editArticleId,
+  editArticle,
   getDocumentationDispatch,
   documentation,
   setEditDocumentationDispatch,
+  updateDocumentationMenuDraftDispatch,
+  saveMenuDraftDispatch,
+  documentationMenuDraft,
+  viewArticleDispatch,
 }) => {
   const refOverlay = useRef<HTMLDivElement>(null);
   const [paddingLeft, setPaddingLeft] = useState<number>(86);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
     if (refOverlay?.current) {
@@ -61,16 +60,49 @@ const EditDocumentation: React.FC<any> = ({
   }, [refOverlay]);
 
   useEffect(() => {
-    if (editArticleId !== '') {
-      getDocumentationDispatch(editArticleId);
+    if (editArticle.id !== '') {
+      getDocumentationDispatch(editArticle.id);
     }
-  }, [editArticleId]);
+  }, [editArticle.id]);
+
+  useEffect(() => {
+    if (editArticle.id !== '') {
+      getDocumentationDispatch(editArticle.id);
+    }
+  }, []);
+
+  useEffect(() => {
+    setIsLoading(true);
+
+    const drafts = getSavedDrafts();
+    let copyDocumentationMenu = [...documentationMenu];
+
+    drafts.forEach((draft) => {
+      if (draft.id === draft.prevId) {
+        copyDocumentationMenu = addArticle(copyDocumentationMenu, draft);
+      } else {
+        copyDocumentationMenu = updateMenuDraft(copyDocumentationMenu, draft);
+      }
+    });
+
+    saveMenuDraftDispatch(copyDocumentationMenu);
+
+    setIsLoading(false);
+  }, []);
+
+  console.log('documentation', documentationMenuDraft);
 
   const documentationArticle = documentation.find(
-    (item) => item.id === editArticleId,
+    (item) => item.id === editArticle.id,
   );
 
-  console.log('documentationSection', documentationArticle);
+  console.log('documentationSection', editArticle, documentationArticle);
+
+  const toggleEditDocumentationHandler = () => {
+    toggleEditDocumentation();
+    saveMenuDraftDispatch(documentationMenu);
+  };
+
   return (
     <>
       {document.querySelector('header') &&
@@ -107,12 +139,12 @@ const EditDocumentation: React.FC<any> = ({
           boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.1)',
         }}
       >
-        <Header toggleEditDocumentation={toggleEditDocumentation} />
+        <Header toggleEditDocumentation={toggleEditDocumentationHandler} />
         <section
           className="dg"
           css={{
             height: '100%',
-            gridTemplateColumns: '262px 1fr 262px',
+            gridTemplateColumns: '262px 1fr',
             boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.1)',
           }}
         >
@@ -124,23 +156,45 @@ const EditDocumentation: React.FC<any> = ({
             }}
           >
             <DocumentationMenu
-              documentationMenu={documentationMenu}
+              documentationMenu={documentationMenuDraft}
               isModeratorModeSingleCommunity
               match={{ params: { sectionId: '' } }}
               isEditDocumentation
-              editArticleId={editArticleId}
+              editArticle={editArticle}
               isMenu={false}
               setEditDocumentation={setEditDocumentationDispatch}
+              viewArticle={viewArticleDispatch}
             />
           </div>
           <div css={{ overflow: 'auto' }}>
-            <DocumentationForm
-              editArticleId={editArticleId}
-              documentationMenu={documentationMenu}
-              documentationArticle={documentationArticle}
-            />
+            {/* {!editArticle?.parentId && !editArticle?.id && (
+              <div
+                css={{
+                  padding: 24,
+                  fontSize: 20,
+                }}
+              >
+                {
+                  "There aren't any articles yet. Would you like to add your first one?"
+                }
+              </div>
+            )} */}
+            {!editArticle?.parentId && editArticle?.id && (
+              <ViewContent documentationSection={documentationArticle} />
+            )}
+            {editArticle?.parentId && !editArticle?.id && (
+              <DocumentationForm
+                documentationMenu={documentationMenuDraft}
+                documentationArticle={documentationArticle}
+                articleParentId={editArticle.parentId}
+                updateDocumentationMenuDraft={
+                  updateDocumentationMenuDraftDispatch
+                }
+                setEditDocumentation={setEditDocumentationDispatch}
+              />
+            )}
           </div>
-          <div css={{ background: '#FAFAFA', height: '100%' }}></div>
+          {/* <div css={{ background: '#FAFAFA', height: '100%' }}></div> */}
         </section>
       </div>
     </>
@@ -154,6 +208,8 @@ export default compose(
   connect(
     createStructuredSelector<any, OutputSelector>({
       documentation: selectDocumentation(),
+      documentationMenuDraft: selectDocumentationMenuDraft(),
+      documentationMenu: selectDocumentationMenu(),
     }),
     (dispatch: Dispatch<AnyAction>) => ({
       getDocumentationDispatch: bindActionCreators(getDocumentation, dispatch),
@@ -161,6 +217,12 @@ export default compose(
         setEditDocumentation,
         dispatch,
       ),
+      updateDocumentationMenuDraftDispatch: bindActionCreators(
+        updateDocumentationMenuDraft,
+        dispatch,
+      ),
+      saveMenuDraftDispatch: bindActionCreators(saveMenuDraft, dispatch),
+      viewArticleDispatch: bindActionCreators(viewArticle, dispatch),
     }),
   ),
 )(EditDocumentation);

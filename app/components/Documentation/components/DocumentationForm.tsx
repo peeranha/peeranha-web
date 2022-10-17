@@ -1,47 +1,69 @@
 import React, { useRef, useEffect, useState } from 'react';
-import ReactDOM from 'react-dom';
-import { keyframes } from '@emotion/react';
+import { v4 as uuidv4 } from 'uuid';
 import Dropdown from 'common-components/Dropdown';
 import Button from 'common-components/Button';
-import SaveIcon from 'icons/Save';
-import CloseRoundedIcon from 'icons/CloseRounded';
-import TextEditor, { TEXT_EDITOR_CLASSNAME } from 'components/TextEditor';
+import TextEditor from 'components/TextEditor';
 import DropdownTrigger from './DropdownTrigger';
 import TextBlock from 'components/FormFields/TextBlock';
-
-const updateMenu = (documentationMenu) =>
-  documentationMenu.map((item) => ({
-    label: item.title,
-    value: item.id,
-    items: updateMenu(item.children),
-  }));
+import { saveText, getText } from 'utils/ipfs';
+import {
+  saveDraft,
+  initMenu,
+  getSavedDraft,
+  addArticle,
+  getSavedDrafts,
+  updateMenuDraft,
+} from '../helpers';
 
 const DocumentationForm: React.FC<any> = ({
-  editArticleId,
   documentationMenu,
   documentationArticle,
+  articleParentId,
+  updateDocumentationMenuDraft,
+  setEditDocumentation,
 }) => {
   const [title, setTitle] = useState<string>('');
   const [bodyText, setBodyText] = useState<string>('');
   const [parentId, setParentId] = useState<string>('');
-
-  console.log('documentationArticle', documentationArticle);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
     if (
       typeof documentationArticle !== 'undefined' &&
       Object.keys(documentationArticle).length > 0
     ) {
-      setBodyText(documentationArticle.content);
-      setTitle(documentationArticle.title);
-      setParentId(documentationArticle.id);
+      setIsLoading(true);
+      const ipfsHash = getSavedDraft(documentationArticle.id);
+
+      setParentId(articleParentId);
+
+      if (ipfsHash !== '') {
+        getText(ipfsHash)
+          .then((data) => {
+            if (data) {
+              const { content, title } = JSON.parse(data);
+              setBodyText(content);
+              setTitle(title);
+            }
+          })
+          .finally(() => {
+            setIsLoading(false);
+          });
+      } else {
+        setBodyText(documentationArticle.content);
+        setTitle(documentationArticle.title);
+        setIsLoading(false);
+      }
+    } else {
+      setBodyText('');
+      setTitle('');
+      setParentId(articleParentId);
     }
-  }, [documentationArticle]);
+  }, [documentationArticle, articleParentId]);
 
-  const options = updateMenu(documentationMenu);
+  const options = initMenu(documentationMenu);
 
-  const onSelect = (value) => {
-    console.log('value', value);
+  const onSelect = (value: string) => {
     setParentId(value);
   };
 
@@ -53,6 +75,48 @@ const DocumentationForm: React.FC<any> = ({
 
   const onChangeBody = (value: string) => {
     setBodyText(value);
+  };
+
+  const onClickSaveDraft = () => {
+    setIsLoading(true);
+
+    saveText(JSON.stringify({ title, content: bodyText }))
+      .then((ipfsHash) => {
+        saveDraft(
+          ipfsHash,
+          documentationArticle?.id || ipfsHash,
+          parentId,
+          title,
+        );
+
+        if (documentationArticle?.id === '') {
+          updateDocumentationMenuDraft(
+            addArticle(documentationMenu, {
+              id: ipfsHash,
+              parentId,
+              title,
+            }),
+          );
+        }
+
+        if (documentationArticle?.id !== '') {
+          updateDocumentationMenuDraft(
+            updateMenuDraft(documentationMenu, {
+              id: ipfsHash,
+              parentId,
+              title,
+              prevId: documentationArticle?.id,
+            }),
+          );
+        }
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
+
+  const onClickCancel = () => {
+    setEditDocumentation(documentationArticle.id, '');
   };
 
   return (
@@ -77,7 +141,7 @@ const DocumentationForm: React.FC<any> = ({
               lineHeight: '20px',
             }}
           >
-            Documentation root
+            Sub-article of
           </div>
           <Dropdown
             trigger={
@@ -180,7 +244,12 @@ const DocumentationForm: React.FC<any> = ({
         </div>
       </div>
       <div className="df pt24">
-        <Button variant="secondary" className="mr16">
+        <Button
+          variant="secondary"
+          className="mr16"
+          onClick={onClickCancel}
+          disabled={isLoading}
+        >
           Cancel
         </Button>
         <Button
@@ -189,6 +258,8 @@ const DocumentationForm: React.FC<any> = ({
             borderWidth: 0,
             '&:hover .icon': { stroke: 'var(--color-white)' },
           }}
+          onClick={onClickSaveDraft}
+          disabled={isLoading}
         >
           Save to draft
         </Button>

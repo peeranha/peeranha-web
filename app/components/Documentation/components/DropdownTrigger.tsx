@@ -1,14 +1,24 @@
 import React from 'react';
 
-const DropdownTrigger: React.FC<any> = ({
-  value,
-  options,
-  placeholder,
-  items,
-}) => {
-  const option = options.find((item) => item.value === value);
+const updateOptions = (options) => {
+  const arrayOptions = [];
 
-  console.log('items', options, option, value, items);
+  options.forEach((item) => {
+    arrayOptions.push({
+      label: item.label,
+      value: item.value,
+    });
+
+    if (item.items.length > 0) {
+      arrayOptions.push(...updateOptions(item.items));
+    }
+  });
+
+  return arrayOptions;
+};
+
+const DropdownTrigger: React.FC<any> = ({ value, options, placeholder }) => {
+  const option = updateOptions(options).find((item) => item.value === value);
 
   return (
     <div

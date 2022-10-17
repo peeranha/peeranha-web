@@ -8,7 +8,7 @@ type ItemProps = {
   match: { params: { sectionId: string } };
   editArticleId?: string;
   isOpen: boolean;
-  setEditDocumentation: (id: string) => void;
+  onClickArticle?: (id: string) => void;
 };
 
 const Item: React.FC<ItemProps> = ({
@@ -17,10 +17,12 @@ const Item: React.FC<ItemProps> = ({
   match,
   editArticleId,
   level,
-  setEditDocumentation,
+  onClickArticle,
 }) => {
   const onClick = () => {
-    setEditDocumentation(item.id);
+    if (typeof onClickArticle === 'function') {
+      onClickArticle(item.id);
+    }
   };
 
   return (

@@ -21,5 +21,15 @@ export const selectFaqError = () =>
 export const selectIsEditDocumentation = () =>
   createSelector(selectFaqDomain, (substate) => substate.get('isEdit'));
 
-export const selectEditArticleId = () =>
-  createSelector(selectFaqDomain, (substate) => substate.get('editArticleId'));
+export const selectEditArticle = () =>
+  createSelector(selectFaqDomain, (substate) => substate.get('editArticle'));
+
+export const selectDocumentationMenuDraft = () =>
+  createSelector(selectFaqDomain, (substate) =>
+    substate.get('documentationMenuDraft'),
+  );
+
+export const selectActiveViewArticle = () =>
+  createSelector(selectFaqDomain, (substate) =>
+    substate.get('activeViewArticle'),
+  );

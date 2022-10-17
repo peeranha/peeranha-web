@@ -4,9 +4,14 @@ import {
   GET_DOCUMENTATION_SUCCESS,
   TOGGLE_EDIT_DOCUMENTATION,
   SET_EDIT_DOCUMENTATION,
+  SAVE_ARTICLE_TO_IPFS,
+  SAVE_ARTICLE_TO_IPFS_SUCCESS,
+  SAVE_ARTICLE_TO_IPFS_FAILED,
+  SAVE_MENU_DRAFT,
+  VIEW_ARTICLE,
 } from './constants';
 
-export function getDocumentation(section: number) {
+export function getDocumentation(section: string) {
   return {
     type: GET_DOCUMENTATION,
     section,
@@ -27,16 +32,50 @@ export function getDocumentationError(documentationError: any) {
   };
 }
 
-export function toggleEditDocumentation(id: string) {
+export function toggleEditDocumentation() {
   return {
     type: TOGGLE_EDIT_DOCUMENTATION,
-    id,
   };
 }
 
-export function setEditDocumentation(id: string) {
+export function setEditDocumentation(id: string, parentId: string) {
   return {
     type: SET_EDIT_DOCUMENTATION,
+    id,
+    parentId,
+  };
+}
+
+export function saveArticleToIpfs(data: { title: string; content: string }) {
+  return {
+    type: SAVE_ARTICLE_TO_IPFS,
+    data,
+  };
+}
+
+export function saveArticleToIpfsSuccess(ipfsHash: string) {
+  return {
+    type: SAVE_ARTICLE_TO_IPFS_SUCCESS,
+    ipfsHash,
+  };
+}
+
+export function saveArticleToIpfsFailed() {
+  return {
+    type: SAVE_ARTICLE_TO_IPFS_FAILED,
+  };
+}
+
+export function saveMenuDraft(menu: any) {
+  return {
+    type: SAVE_MENU_DRAFT,
+    menu,
+  };
+}
+
+export function viewArticle(id: string) {
+  return {
+    type: VIEW_ARTICLE,
     id,
   };
 }

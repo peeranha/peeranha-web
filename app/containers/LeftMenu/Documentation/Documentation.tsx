@@ -17,11 +17,12 @@ type DocumentationMenuSectionProps = {
   documentationMenu: Array<DocumentationSection>;
   isModeratorModeSingleCommunity: boolean;
   match: { params: { sectionId: string } };
-  toggleEditDocumentation?: (id: string | null) => void;
+  toggleEditDocumentation?: () => void;
   isEditDocumentation: boolean;
-  editArticleId?: string;
+  editArticle?: { id: string; parentId: string };
   isMenu?: boolean;
-  setEditDocumentation?: (id: string | null) => void;
+  setEditDocumentation?: (id: string | null, parentId: string | null) => void;
+  viewArticle?: (id: string) => void;
 };
 
 const EditDocumentation = [
@@ -38,12 +39,14 @@ const DropdownDocumentation = [
     value: 2,
     icon: <PlusIcon />,
   },
-  {
-    label: 'Edit order',
-    value: 3,
-    icon: <EditIcon />,
-  },
+  // {
+  //   label: 'Edit order',
+  //   value: 3,
+  //   icon: <EditIcon />,
+  // },
 ];
+
+const DOCUMENTATION_ID = '1';
 
 const Documentation: React.FC<DocumentationMenuSectionProps> = ({
   documentationMenu = [],
@@ -51,13 +54,17 @@ const Documentation: React.FC<DocumentationMenuSectionProps> = ({
   match,
   toggleEditDocumentation,
   isEditDocumentation,
-  editArticleId = '',
+  editArticle = { id: '', parentId: '' },
   isMenu = true,
   setEditDocumentation,
+  viewArticle,
 }) => {
-  const clickDocumentation = (id: string | null) => (value: number) => {
+  const clickDocumentation = () => (value: number) => {
     if (value === 1 && typeof toggleEditDocumentation === 'function') {
-      toggleEditDocumentation(id);
+      toggleEditDocumentation();
+    }
+    if (value === 2 && typeof setEditDocumentation === 'function') {
+      setEditDocumentation('', '1');
     }
   };
 
@@ -82,7 +89,7 @@ const Documentation: React.FC<DocumentationMenuSectionProps> = ({
               }
               isMultiple={false}
               isEqualWidth={false}
-              onSelect={clickDocumentation(match.params?.sectionId || '')}
+              onSelect={clickDocumentation()}
             />
           </div>
         )}
@@ -95,9 +102,11 @@ const Documentation: React.FC<DocumentationMenuSectionProps> = ({
           isModeratorModeSingleCommunity={isModeratorModeSingleCommunity}
           match={match}
           isEditDocumentation={isEditDocumentation}
-          editArticleId={editArticleId}
+          editArticle={editArticle}
           isMenu={isMenu}
           setEditDocumentation={setEditDocumentation}
+          parentId={DOCUMENTATION_ID}
+          viewArticle={viewArticle}
         />
       ))}
     </>

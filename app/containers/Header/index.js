@@ -24,7 +24,7 @@ import { showLeftMenu } from 'containers/AppWrapper/actions';
 import { selectIsMenuVisible } from 'containers/AppWrapper/selectors';
 import {
   selectIsEditDocumentation,
-  selectEditArticleId,
+  selectEditArticle,
 } from 'pages/Documentation/selectors';
 import { toggleEditDocumentation } from 'pages/Documentation/actions';
 
@@ -92,9 +92,8 @@ export class Header extends React.PureComponent {
       transactionHash,
       transactionInitialised,
       isEditDocumentation,
-      documentationMenu,
       toggleEditDocumentationDispatch,
-      editArticleId,
+      editArticle,
     } = this.props;
 
     if (isMenuVisible) return null;
@@ -116,9 +115,8 @@ export class Header extends React.PureComponent {
         transactionHash={transactionHash}
         transactionInitialised={transactionInitialised}
         isEditDocumentation={isEditDocumentation}
-        documentationMenu={documentationMenu}
         toggleEditDocumentation={toggleEditDocumentationDispatch}
-        editArticleId={editArticleId}
+        editArticle={editArticle}
       />
     );
   }
@@ -147,7 +145,7 @@ const mapStateToProps = createStructuredSelector({
   transactionHash: selectTransactionHash(),
   transactionInitialised: selectTransactionInitialised(),
   isEditDocumentation: selectIsEditDocumentation(),
-  editArticleId: selectEditArticleId(),
+  editArticle: selectEditArticle(),
 });
 
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
