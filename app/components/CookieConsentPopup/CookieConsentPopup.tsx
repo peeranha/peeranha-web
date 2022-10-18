@@ -5,12 +5,7 @@ import { css } from '@emotion/react';
 import cn from 'classnames';
 import useEventListener from 'hooks/useEventListener';
 import LargeOutlinedButton from '../Button/Outlined/InfoLarge';
-import {
-  singleCommunityStyles,
-  isSingleCommunityWebsite,
-  singleCommunityColors,
-} from '../../utils/communityManagement';
-import { TEXT_PRIMARY } from 'style-constants';
+import { singleCommunityStyles } from '../../utils/communityManagement';
 
 import commonMessages from '../../common-messages';
 import { styles } from './CookieConsentPopup.styled';
@@ -18,8 +13,6 @@ import { styles } from './CookieConsentPopup.styled';
 const cookie = require('../../images/cookie.svg?inline');
 
 const stylesCommunity = singleCommunityStyles();
-const single = isSingleCommunityWebsite();
-const colors = singleCommunityColors();
 
 const CookieConsentPopup: React.FC = (): JSX.Element => {
   const [enableAnimation, setEnableAnimation] = useState<boolean>(false);
@@ -62,12 +55,7 @@ const CookieConsentPopup: React.FC = (): JSX.Element => {
                 />
                 <p className={cn('pr20 pl10')} css={css(styles.text)}>
                   <FormattedMessage id={commonMessages.cookieConsent.id} />
-                  <Link
-                    css={css`
-                      color: ${single ? colors.linkCoolieColor : TEXT_PRIMARY};
-                    `}
-                    to="/privacy-policy"
-                  >
+                  <Link to="/privacy-policy">
                     <FormattedMessage id={commonMessages.moreInfo.id} />
                   </Link>
                 </p>

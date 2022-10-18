@@ -42,11 +42,6 @@ export default defineMessages({
         id: 'app.containers.Moderation.permissionProtocolAdmin_8',
       },
     },
-    permissionProtocolAdmin_9: {
-      title: {
-        id: 'app.containers.Moderation.permissionProtocolAdmin_9',
-      },
-    },
     permissionCommunityAdmin_1: {
       title: {
         id: 'app.containers.Moderation.permissionCommunityAdmin_1',

@@ -88,7 +88,7 @@ export const Form = ({
 
       <Button type="submit" disabled={tagFormLoading}>
         {isEditTagForm
-          ? translations[messages.saveTag.id]
+          ? translations[messages.editTag.id]
           : translations[messages.createTag.id]}
       </Button>
     </FormBox>
