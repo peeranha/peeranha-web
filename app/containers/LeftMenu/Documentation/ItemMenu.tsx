@@ -23,6 +23,7 @@ type DocumentationMenuProps = {
   setEditDocumentation?: (id: string, parentId: string) => void;
   parentId: string;
   viewArticle?: (id: string) => void;
+  setEditArticle?: (value: boolean) => void;
 };
 
 const ItemMenu: React.FC<DocumentationMenuProps> = ({
@@ -36,6 +37,7 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
   setEditDocumentation,
   parentId,
   viewArticle,
+  setEditArticle,
 }) => {
   const [isOpen, open, close] = useTrigger(false);
 
@@ -44,8 +46,13 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
       setEditDocumentation('', item.id);
     }
 
-    if (value === 2 && typeof setEditDocumentation === 'function') {
+    if (
+      value === 2 &&
+      typeof setEditDocumentation === 'function' &&
+      typeof setEditArticle === 'function'
+    ) {
       setEditDocumentation(item.id, parentId);
+      setEditArticle(true);
     }
   };
 
@@ -162,6 +169,7 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
               setEditDocumentation={setEditDocumentation}
               viewArticle={viewArticle}
               editArticle={editArticle}
+              setEditArticle={setEditArticle}
             />
           ))}
         </div>

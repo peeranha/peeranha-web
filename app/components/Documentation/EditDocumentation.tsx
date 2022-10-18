@@ -11,6 +11,9 @@ import {
   setEditDocumentation,
   saveMenuDraft,
   viewArticle,
+  updateDocumentationMenu,
+  updateDocumentationMenuDraft,
+  setEditArticle,
 } from 'pages/Documentation/actions';
 import reducer from 'pages/Documentation/reducer';
 import saga from 'pages/Documentation/saga';
@@ -22,14 +25,18 @@ import {
 import {
   selectDocumentation,
   selectDocumentationMenuDraft,
+  selectIsEditArticle,
+  selectDocumentationLoading,
 } from 'pages/Documentation/selectors';
-import { updateDocumentationMenuDraft } from 'containers/AppWrapper/actions';
 import { selectDocumentationMenu } from 'containers/AppWrapper/selectors';
 import Header from './components/Header';
 
 import DocumentationMenu from 'containers/LeftMenu/Documentation/Documentation';
 import DocumentationForm from './components/DocumentationForm';
 import ViewContent from './components/ViewContent';
+import Loader from 'components/LoadingIndicator/HeightWidthCentered';
+import Button from 'common-components/Button';
+import noQuestionsAllQuestionsPage from 'images/noQuestionsAllQuestionsPage.svg?inline';
 import {
   addArticle,
   getSavedDrafts,
@@ -48,10 +55,13 @@ const EditDocumentation: React.FC<any> = ({
   saveMenuDraftDispatch,
   documentationMenuDraft,
   viewArticleDispatch,
+  updateDocumentationMenuDispatch,
+  setEditArticleDispatch,
+  isEditArticle,
+  isArticleLoading,
 }) => {
   const refOverlay = useRef<HTMLDivElement>(null);
   const [paddingLeft, setPaddingLeft] = useState<number>(86);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
     if (refOverlay?.current) {
@@ -66,28 +76,9 @@ const EditDocumentation: React.FC<any> = ({
   }, [editArticle.id]);
 
   useEffect(() => {
-    if (editArticle.id !== '') {
-      getDocumentationDispatch(editArticle.id);
-    }
-  }, []);
-
-  useEffect(() => {
-    setIsLoading(true);
-
     const drafts = getSavedDrafts();
-    let copyDocumentationMenu = [...documentationMenu];
 
-    drafts.forEach((draft) => {
-      if (draft.id === draft.prevId) {
-        copyDocumentationMenu = addArticle(copyDocumentationMenu, draft);
-      } else {
-        copyDocumentationMenu = updateMenuDraft(copyDocumentationMenu, draft);
-      }
-    });
-
-    saveMenuDraftDispatch(copyDocumentationMenu);
-
-    setIsLoading(false);
+    saveMenuDraftDispatch(drafts);
   }, []);
 
   console.log('documentation', documentationMenuDraft);
@@ -96,12 +87,24 @@ const EditDocumentation: React.FC<any> = ({
     (item) => item.id === editArticle.id,
   );
 
-  console.log('documentationSection', editArticle, documentationArticle);
+  console.log('documentationMenuDraft', documentationMenuDraft);
 
   const toggleEditDocumentationHandler = () => {
     toggleEditDocumentation();
     saveMenuDraftDispatch(documentationMenu);
   };
+
+  const saveDocumentationMenu = () => {
+    updateDocumentationMenuDispatch(documentationMenu);
+    toggleEditDocumentation();
+  };
+
+  const onClickAddArticle = () => {
+    setEditDocumentation('', '');
+    setEditArticle(true);
+  };
+
+  console.log('editArticle', editArticle.id);
 
   return (
     <>
@@ -139,7 +142,10 @@ const EditDocumentation: React.FC<any> = ({
           boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.1)',
         }}
       >
-        <Header toggleEditDocumentation={toggleEditDocumentationHandler} />
+        <Header
+          toggleEditDocumentation={toggleEditDocumentationHandler}
+          saveDocumentationMenu={saveDocumentationMenu}
+        />
         <section
           className="dg"
           css={{
@@ -164,34 +170,58 @@ const EditDocumentation: React.FC<any> = ({
               isMenu={false}
               setEditDocumentation={setEditDocumentationDispatch}
               viewArticle={viewArticleDispatch}
+              setEditArticle={setEditArticleDispatch}
             />
           </div>
           <div css={{ overflow: 'auto' }}>
-            {/* {!editArticle?.parentId && !editArticle?.id && (
+            {(documentationMenuDraft.length === 0 || !isEditArticle) && (
               <div
                 css={{
                   padding: 24,
                   fontSize: 20,
                 }}
+                className="df aic jcc"
               >
-                {
-                  "There aren't any articles yet. Would you like to add your first one?"
-                }
+                <img src={noQuestionsAllQuestionsPage} className="mr24" />
+                <div>
+                  <div className="mb24">
+                    {
+                      "There aren't any articles yet. Would you like to add your first one?"
+                    }
+                  </div>
+                  <Button variant="primary" onClick={onClickAddArticle}>
+                    Add new article
+                  </Button>
+                </div>
               </div>
-            )} */}
-            {!editArticle?.parentId && editArticle?.id && (
-              <ViewContent documentationSection={documentationArticle} />
             )}
-            {editArticle?.parentId && !editArticle?.id && (
-              <DocumentationForm
-                documentationMenu={documentationMenuDraft}
-                documentationArticle={documentationArticle}
-                articleParentId={editArticle.parentId}
-                updateDocumentationMenuDraft={
-                  updateDocumentationMenuDraftDispatch
-                }
-                setEditDocumentation={setEditDocumentationDispatch}
-              />
+            {isArticleLoading ? (
+              <div
+                css={{
+                  '& > div': {
+                    height: 200,
+                    width: '100%',
+                  },
+                }}
+              >
+                <Loader />
+              </div>
+            ) : (
+              <>
+                {!isEditArticle && editArticle.id !== '' && (
+                  <ViewContent documentationSection={documentationArticle} />
+                )}
+                {isEditArticle && (
+                  <DocumentationForm
+                    documentationMenu={documentationMenuDraft}
+                    documentationArticle={documentationArticle}
+                    articleParentId={editArticle.parentId}
+                    updateDocumentationMenuDraft={saveMenuDraftDispatch}
+                    setEditDocumentation={setEditDocumentationDispatch}
+                    setEditArticle={setEditArticleDispatch}
+                  />
+                )}
+              </>
             )}
           </div>
           {/* <div css={{ background: '#FAFAFA', height: '100%' }}></div> */}
@@ -210,6 +240,8 @@ export default compose(
       documentation: selectDocumentation(),
       documentationMenuDraft: selectDocumentationMenuDraft(),
       documentationMenu: selectDocumentationMenu(),
+      isEditArticle: selectIsEditArticle(),
+      isArticleLoading: selectDocumentationLoading(),
     }),
     (dispatch: Dispatch<AnyAction>) => ({
       getDocumentationDispatch: bindActionCreators(getDocumentation, dispatch),
@@ -223,6 +255,11 @@ export default compose(
       ),
       saveMenuDraftDispatch: bindActionCreators(saveMenuDraft, dispatch),
       viewArticleDispatch: bindActionCreators(viewArticle, dispatch),
+      updateDocumentationMenuDispatch: bindActionCreators(
+        updateDocumentationMenu,
+        dispatch,
+      ),
+      setEditArticleDispatch: bindActionCreators(setEditArticle, dispatch),
     }),
   ),
 )(EditDocumentation);

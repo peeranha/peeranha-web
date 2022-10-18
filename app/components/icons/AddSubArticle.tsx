@@ -13,6 +13,7 @@ const AddSubArticle: React.FC<IconProps> = (props): JSX.Element => (
     <path
       d="M16.4822 9C16.3668 7.37866 15.6893 5.78984 14.4497 4.55025C11.7161 1.81658 7.28392 1.81658 4.55025 4.55025C1.81658 7.28392 1.81658 11.7161 4.55025 14.4497C5.78984 15.6893 7.37866 16.3668 9 16.4822"
       stroke="#576FED"
+      fill="transparent"
     />
     <g clipPath="url(#clip0_1156_1403)">
       <path

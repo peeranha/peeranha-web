@@ -235,14 +235,14 @@ const MainLinks = ({
           </A1>
         )}
 
-        {
+        {!singleCommId && (
           <A1 to={routes.faq()} name="faq" route={route}>
             <IconLg className="mr-2" icon={faqIcon} fill={BORDER_PRIMARY} />
             <FormattedMessage id={messages.faq.id} />
           </A1>
-        }
+        )}
 
-        {Boolean(singleCommId) && (
+        {Boolean(singleCommId) && isModeratorModeSingleCommunity && (
           <Documentation
             documentationMenu={documentationMenu}
             isModeratorModeSingleCommunity={isModeratorModeSingleCommunity}

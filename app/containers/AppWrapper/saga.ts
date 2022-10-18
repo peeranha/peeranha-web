@@ -3,13 +3,9 @@ import {
   getDocumentationMenuSuccess,
   getDocumentationMenuError,
 } from './actions';
-import {
-  getCommunityDocumentationNotIncluded,
-  getDocumentationMenu,
-} from 'utils/theGraph';
+import { getDocumentationMenu } from 'utils/theGraph';
 import { GET_DOCUMENTATION_MENU } from 'containers/AppWrapper/constants';
 import { ASK_QUESTION_SUCCESS } from 'containers/AskQuestion/constants';
-import { DocumentationSection } from 'containers/DocumentationPage/types';
 
 type CommunityDocumentationMenu = {
   documentationJSON: string;
@@ -37,58 +33,21 @@ export function* getDocumentationMenuWorker(props: {
     //   },
     // };
 
-    // Documentation tree to ids array
-    // Remove after documentation architecture change
-    // const documentationTraversal = (
-    //   documentationArray: Array<DocumentationSection>,
-    // ): any =>
-    //   documentationArray.reduce(
-    //     (acc: string | any[], documentationSection: DocumentationSection) => {
-    //       if (documentationSection.children.length) {
-    //         return acc
-    //           .concat(documentationSection.id)
-    //           .concat(documentationTraversal(documentationSection.children));
-    //       }
-    //       return acc.concat(documentationSection.id);
-    //     },
-    //     [],
-    //   );
+    const clearDocumentationMenu = documentationMenu.documentations.filter(
+      (item) => item.id !== '' && item.title !== '',
+    );
 
-    // DocumentationPage type questions not included in the menu
-    // Remove after documentation architecture change
-    // const menuIds = documentationTraversal(documentationMenu.documentations);
-
-    // const documentationNotIncluded: Array<{
-    //   id: string;
-    //   title: string;
-    // }> = yield call(
-    //   getCommunityDocumentationNotIncluded,
-    //   props.communityId,
-    //   menuIds,
-    // );
-    // const notIncludedObject = documentationNotIncluded.length
-    //   ? {
-    //       id: documentationNotIncluded[0].id,
-    //       title: 'Draft',
-    //       children: documentationNotIncluded
-    //         .slice(1)
-    //         .map((documentationSection) => ({
-    //           id: documentationSection.id,
-    //           title: documentationSection.title,
-    //           children: [],
-    //         })),
-    //     }
-    //   : undefined;
-
-    yield put(getDocumentationMenuSuccess(documentationMenu.documentations));
+    yield put(getDocumentationMenuSuccess(clearDocumentationMenu));
   } catch (err) {
     yield put(getDocumentationMenuError(err));
   }
 }
 
-export default function* () {
-  yield takeLatest(
-    [GET_DOCUMENTATION_MENU, ASK_QUESTION_SUCCESS],
-    getDocumentationMenuWorker,
-  );
+export default function* (): Generator<any> {
+  try {
+    yield takeLatest(
+      [GET_DOCUMENTATION_MENU, ASK_QUESTION_SUCCESS],
+      getDocumentationMenuWorker,
+    );
+  } catch (error) {}
 }

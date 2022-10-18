@@ -1,8 +1,18 @@
-import { takeLatest, call, put, select } from 'redux-saga/effects';
+import { takeLatest, takeEvery, call, put, select } from 'redux-saga/effects';
 import { getCommunityDocumentation } from 'utils/theGraph';
 import { saveText, getText } from 'utils/ipfs';
-import { getDocumentationError, getDocumentationSuccess } from './actions';
-import { GET_DOCUMENTATION, SAVE_ARTICLE_TO_IPFS } from './constants';
+
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
+import { makeSelectAccount } from 'containers/AccountProvider/selectors';
+import { selectEthereum } from 'containers/EthereumProvider/selectors';
+import { updateDocumentationTree } from 'utils/questionsManagement';
+import {
+  getDocumentationError,
+  getDocumentationSuccess,
+  updateDocumentationMenuSuccess,
+  updateDocumentationMenuFailed,
+} from './actions';
+import { GET_DOCUMENTATION, UPDATE_DOCUMENTATION_MENU } from './constants';
 
 import { selectDocumentation } from './selectors';
 
@@ -40,16 +50,43 @@ export function* getDocumentationSectionWorker({ section }): Generator<any> {
   }
 }
 
-export function* saveArticleToIpfsWorker({ title, content }): Generator<any> {
+export function* updateDocumentationWorker(documentationMenu): Generator<any> {
   try {
-    const ipfsHash = yield saveText(JSON.stringify(profile));
+    console.log('updateDocumentationWorker', documentationMenu);
+    const ethereumService = yield select(selectEthereum);
+    console.log('updateDocumentationWorker2', ethereumService);
+    const selectedAccount = yield select(makeSelectAccount());
+
+    console.log('updateDocumentationWorker3', selectedAccount);
+    const communityId = isSingleCommunityWebsite();
+
+    const documentationJSON = {
+      pinnedId: '',
+      documentations: documentationMenu,
+    };
+
+    console.log('documentationJSON', documentationJSON);
+
+    // const result = yield call(
+    //   updateDocumentationTree,
+    //   selectedAccount,
+    //   communityId,
+    //   documentationJSON,
+    //   ethereumService,
+    // );
+
+    console.log('result', result);
+
+    // updateDocumentationMenuSuccess();
   } catch (err) {
-    // yield put(getDocumentationError(err));
+    console.log('result err', err);
+    // updateDocumentationMenuFailed();
   }
 }
 
-export default function* () {
-  // @ts-ignore
-  yield takeLatest(GET_DOCUMENTATION, getDocumentationSectionWorker);
-  yield takeLatest(SAVE_ARTICLE_TO_IPFS, saveArticleToIpfsWorker);
+export default function* documentationWorker(): Generator<any> {
+  try {
+    yield takeLatest(GET_DOCUMENTATION, getDocumentationSectionWorker);
+    yield takeEvery(UPDATE_DOCUMENTATION_MENU, updateDocumentationWorker);
+  } catch (error) {}
 }

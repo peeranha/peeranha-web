@@ -4,7 +4,6 @@ import {
   GET_DOCUMENTATION_MENU,
   GET_DOCUMENTATION_MENU_SUCCESS,
   GET_DOCUMENTATION_MENU_ERROR,
-  UPDATE_DOCUMENTATION_MENU_DRAFT,
 } from './constants';
 
 export function showLeftMenu() {
@@ -41,12 +40,5 @@ export function getDocumentationMenuError(documentationMenuError) {
   return {
     type: GET_DOCUMENTATION_MENU_ERROR,
     documentationMenuError,
-  };
-}
-
-export function updateDocumentationMenuDraft(treeMenu) {
-  return {
-    type: UPDATE_DOCUMENTATION_MENU_DRAFT,
-    treeMenu,
   };
 }

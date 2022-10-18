@@ -21,11 +21,14 @@ const DocumentationForm: React.FC<any> = ({
   articleParentId,
   updateDocumentationMenuDraft,
   setEditDocumentation,
+  setEditArticle,
 }) => {
   const [title, setTitle] = useState<string>('');
   const [bodyText, setBodyText] = useState<string>('');
   const [parentId, setParentId] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  console.log('documentationArticle', documentationArticle);
 
   useEffect(() => {
     if (
@@ -33,27 +36,10 @@ const DocumentationForm: React.FC<any> = ({
       Object.keys(documentationArticle).length > 0
     ) {
       setIsLoading(true);
-      const ipfsHash = getSavedDraft(documentationArticle.id);
-
       setParentId(articleParentId);
-
-      if (ipfsHash !== '') {
-        getText(ipfsHash)
-          .then((data) => {
-            if (data) {
-              const { content, title } = JSON.parse(data);
-              setBodyText(content);
-              setTitle(title);
-            }
-          })
-          .finally(() => {
-            setIsLoading(false);
-          });
-      } else {
-        setBodyText(documentationArticle.content);
-        setTitle(documentationArticle.title);
-        setIsLoading(false);
-      }
+      setBodyText(documentationArticle.content);
+      setTitle(documentationArticle.title);
+      setIsLoading(false);
     } else {
       setBodyText('');
       setTitle('');
@@ -82,33 +68,45 @@ const DocumentationForm: React.FC<any> = ({
 
     saveText(JSON.stringify({ title, content: bodyText }))
       .then((ipfsHash) => {
-        saveDraft(
-          ipfsHash,
-          documentationArticle?.id || ipfsHash,
-          parentId,
-          title,
-        );
+        const isEdit =
+          typeof documentationArticle !== 'undefined' &&
+          documentationArticle.id !== '';
+        let updatedMenu;
 
-        if (documentationArticle?.id === '') {
-          updateDocumentationMenuDraft(
-            addArticle(documentationMenu, {
-              id: ipfsHash,
-              parentId,
-              title,
-            }),
-          );
+        // saveDraft({
+        //   id: ipfsHash,
+        //   prevId: documentationArticle?.id || ipfsHash,
+        //   parentId,
+        //   title,
+        //   isEdit,
+        // });
+
+        console.log('documentationArticle', documentationArticle);
+
+        if (!documentationArticle) {
+          console.log('addArticle');
+          updatedMenu = addArticle(documentationMenu, {
+            id: ipfsHash,
+            parentId,
+            title,
+          });
         }
 
-        if (documentationArticle?.id !== '') {
-          updateDocumentationMenuDraft(
-            updateMenuDraft(documentationMenu, {
-              id: ipfsHash,
-              parentId,
-              title,
-              prevId: documentationArticle?.id,
-            }),
-          );
+        if (isEdit) {
+          console.log('updateMenuDraft');
+          updatedMenu = updateMenuDraft(documentationMenu, {
+            id: ipfsHash,
+            parentId,
+            title,
+            prevId: documentationArticle?.id,
+          });
         }
+
+        saveDraft(updatedMenu);
+
+        updateDocumentationMenuDraft(updatedMenu);
+        setEditDocumentation({ id: ipfsHash, parentId: '' });
+        setEditArticle(false);
       })
       .finally(() => {
         setIsLoading(false);
@@ -117,6 +115,7 @@ const DocumentationForm: React.FC<any> = ({
 
   const onClickCancel = () => {
     setEditDocumentation(documentationArticle.id, '');
+    setEditArticle(false);
   };
 
   return (

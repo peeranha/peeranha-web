@@ -19,36 +19,8 @@ export const initMenu = (documentationMenu) => [
   },
 ];
 
-export const saveDraft = (
-  id: string,
-  prevId: string,
-  parentId: string,
-  title: string,
-): void => {
-  const localContent =
-    (localStorage.getItem(TEMP_SAVED_CONTENT) &&
-      JSON.parse(localStorage.getItem(TEMP_SAVED_CONTENT))) ||
-    [];
-
-  const prevSavedContent = localContent.find(
-    (item: { prevId: string }) => item.prevId === prevId,
-  );
-
-  if (!prevSavedContent) {
-    localStorage.setItem(
-      TEMP_SAVED_CONTENT,
-      JSON.stringify([...localContent, { prevId, id, parentId, title }]),
-    );
-  } else if (prevSavedContent.prevId === prevId) {
-    const clearLocalContent = localContent.filter(
-      (item: { prevId: string }) => item.prevId !== prevId,
-    );
-
-    localStorage.setItem(
-      TEMP_SAVED_CONTENT,
-      JSON.stringify([...clearLocalContent, { prevId, id, parentId, title }]),
-    );
-  }
+export const saveDraft = (menu): void => {
+  localStorage.setItem(TEMP_SAVED_CONTENT, JSON.stringify(menu));
 };
 
 export const getSavedDraft = (id: string) => {
@@ -73,6 +45,10 @@ export const getSavedDrafts = () => {
 
 export const addArticle = (documentationMenu = [], { id, parentId, title }) => {
   const newMenu = [];
+
+  if (documentationMenu.map((item) => item.id).includes(id)) {
+    return documentationMenu;
+  }
 
   if (parentId === '1') {
     return [...documentationMenu, { id, title, children: [] }];

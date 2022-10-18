@@ -3,7 +3,10 @@ import Button from 'common-components/Button';
 import SaveIcon from 'icons/Save';
 import CloseRoundedIcon from 'icons/CloseRounded';
 
-const Header: React.FC<any> = ({ toggleEditDocumentation }) => (
+const Header: React.FC<any> = ({
+  toggleEditDocumentation,
+  saveDocumentationMenu,
+}) => (
   <div
     className="df jcsb aic pl32 pr32 pt12 pb12"
     css={{
@@ -47,6 +50,7 @@ const Header: React.FC<any> = ({ toggleEditDocumentation }) => (
           borderWidth: 0,
           '&:hover .icon': { stroke: 'var(--color-white)' },
         }}
+        onClick={saveDocumentationMenu}
       >
         Save changes
       </Button>

@@ -11,6 +11,11 @@ import {
   SAVE_ARTICLE_TO_IPFS_FAILED,
   SAVE_MENU_DRAFT,
   VIEW_ARTICLE,
+  UPDATE_DOCUMENTATION_MENU,
+  UPDATE_DOCUMENTATION_MENU_SUCCESS,
+  UPDATE_DOCUMENTATION_MENU_FAILED,
+  UPDATE_DOCUMENTATION_MENU_DRAFT,
+  SET_EDIT_ARTICLE,
 } from './constants';
 
 export const initialState = fromJS({
@@ -19,6 +24,7 @@ export const initialState = fromJS({
   faqError: '',
   isEdit: false,
   editArticle: { id: '', parentId: '' },
+  isEditArticle: false,
   tempSavedContent: [],
   isLoading: false,
   documentationMenuDraft: [],
@@ -35,6 +41,7 @@ function documentationReducer(
     ipfsHash: string;
     parentId: string;
     menu: any;
+    isEditArticle: boolean;
   },
 ) {
   const {
@@ -45,6 +52,7 @@ function documentationReducer(
     parentId,
     ipfsHash,
     menu,
+    isEditArticle,
   } = action;
 
   switch (type) {
@@ -69,6 +77,8 @@ function documentationReducer(
       return state.set('editArticle', { id, parentId });
     case VIEW_ARTICLE:
       return state.set('editArticle', { id, parentId: '' });
+    case SET_EDIT_ARTICLE:
+      return state.set('isEditArticle', isEditArticle);
     case SAVE_ARTICLE_TO_IPFS:
       return state.set('isLoading', true);
     case SAVE_ARTICLE_TO_IPFS_SUCCESS:
@@ -77,6 +87,12 @@ function documentationReducer(
         .set('tempSavedContent', state.get('tempSavedContent').push(ipfsHash));
     case SAVE_MENU_DRAFT:
       return state.set('documentationMenuDraft', menu);
+    case UPDATE_DOCUMENTATION_MENU:
+      return state.set('documentationLoading', true);
+    case UPDATE_DOCUMENTATION_MENU_SUCCESS:
+      return state.set('documentationLoading', false);
+    case UPDATE_DOCUMENTATION_MENU_FAILED:
+      return state.set('documentationLoading', false);
     default:
       return state;
   }

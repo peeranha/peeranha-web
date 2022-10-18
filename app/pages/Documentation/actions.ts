@@ -9,6 +9,11 @@ import {
   SAVE_ARTICLE_TO_IPFS_FAILED,
   SAVE_MENU_DRAFT,
   VIEW_ARTICLE,
+  UPDATE_DOCUMENTATION_MENU,
+  UPDATE_DOCUMENTATION_MENU_SUCCESS,
+  UPDATE_DOCUMENTATION_MENU_FAILED,
+  UPDATE_DOCUMENTATION_MENU_DRAFT,
+  SET_EDIT_ARTICLE,
 } from './constants';
 
 export function getDocumentation(section: string) {
@@ -46,6 +51,13 @@ export function setEditDocumentation(id: string, parentId: string) {
   };
 }
 
+export function setEditArticle(isEditArticle: boolean) {
+  return {
+    type: SET_EDIT_ARTICLE,
+    isEditArticle,
+  };
+}
+
 export function saveArticleToIpfs(data: { title: string; content: string }) {
   return {
     type: SAVE_ARTICLE_TO_IPFS,
@@ -77,5 +89,31 @@ export function viewArticle(id: string) {
   return {
     type: VIEW_ARTICLE,
     id,
+  };
+}
+
+export function updateDocumentationMenu(menu: any) {
+  return {
+    type: UPDATE_DOCUMENTATION_MENU,
+    menu,
+  };
+}
+
+export function updateDocumentationMenuSuccess() {
+  return {
+    type: UPDATE_DOCUMENTATION_MENU_SUCCESS,
+  };
+}
+
+export function updateDocumentationMenuFailed() {
+  return {
+    type: UPDATE_DOCUMENTATION_MENU_FAILED,
+  };
+}
+
+export function updateDocumentationMenuDraft(menu: any) {
+  return {
+    type: UPDATE_DOCUMENTATION_MENU_DRAFT,
+    menu,
   };
 }

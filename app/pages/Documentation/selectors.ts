@@ -33,3 +33,6 @@ export const selectActiveViewArticle = () =>
   createSelector(selectFaqDomain, (substate) =>
     substate.get('activeViewArticle'),
   );
+
+export const selectIsEditArticle = () =>
+  createSelector(selectFaqDomain, (substate) => substate.get('isEditArticle'));

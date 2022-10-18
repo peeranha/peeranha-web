@@ -22,6 +22,7 @@ const Delete: React.FC<IconProps> = (props): JSX.Element => (
     <path
       d="M5.5 2.5C5.5 1.67157 6.17157 1 7 1H11C11.8284 1 12.5 1.67157 12.5 2.5V5H5.5V2.5Z"
       stroke="#576FED"
+      fill="transparent"
     />
   </IconComponent>
 );
