@@ -3,7 +3,7 @@ import {
   GET_DOCUMENTATION_ERROR,
   GET_DOCUMENTATION_SUCCESS,
   TOGGLE_EDIT_DOCUMENTATION,
-  SET_EDIT_DOCUMENTATION,
+  SET_VIEW_ARTICLE,
   SAVE_ARTICLE_TO_IPFS,
   SAVE_ARTICLE_TO_IPFS_SUCCESS,
   SAVE_ARTICLE_TO_IPFS_FAILED,
@@ -43,18 +43,27 @@ export function toggleEditDocumentation() {
   };
 }
 
-export function setEditDocumentation(id: string, parentId: string) {
+export function setViewArticle(id: string) {
   return {
-    type: SET_EDIT_DOCUMENTATION,
+    type: SET_VIEW_ARTICLE,
     id,
-    parentId,
   };
 }
 
-export function setEditArticle(isEditArticle: boolean) {
+export function setEditArticle({
+  isEditArticle,
+  id,
+  parentId,
+}: {
+  isEditArticle: boolean;
+  id: string;
+  parentId: string;
+}) {
   return {
     type: SET_EDIT_ARTICLE,
     isEditArticle,
+    id,
+    parentId,
   };
 }
 

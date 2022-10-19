@@ -158,7 +158,6 @@ const View = ({
   transactionInitialised,
   isEditDocumentation,
   toggleEditDocumentation,
-  editArticle,
 }) => {
   const [isSearchFormVisible, setSearchFormVisibility] = useState(false);
 
@@ -312,10 +311,7 @@ const View = ({
         </div>
       </MainSubHeader>
       {isEditDocumentation && (
-        <EditDocumentation
-          toggleEditDocumentation={toggleEditDocumentation}
-          editArticle={editArticle}
-        />
+        <EditDocumentation toggleEditDocumentation={toggleEditDocumentation} />
       )}
     </Wrapper>
   );

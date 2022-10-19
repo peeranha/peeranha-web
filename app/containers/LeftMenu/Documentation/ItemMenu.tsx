@@ -22,8 +22,12 @@ type DocumentationMenuProps = {
   isMenu?: boolean;
   setEditDocumentation?: (id: string, parentId: string) => void;
   parentId: string;
-  viewArticle?: (id: string) => void;
-  setEditArticle?: (value: boolean) => void;
+  setEditArticle?: (data: {
+    id: string;
+    parentId: string;
+    isEditArticle: boolean;
+  }) => void;
+  setViewArticle?: (id: string) => void;
 };
 
 const ItemMenu: React.FC<DocumentationMenuProps> = ({
@@ -34,25 +38,45 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
   isEditDocumentation,
   editArticle,
   isMenu = true,
-  setEditDocumentation,
   parentId,
-  viewArticle,
   setEditArticle,
+  setViewArticle,
 }) => {
   const [isOpen, open, close] = useTrigger(false);
 
   const onSelect = (value: number) => {
-    if (value === 1 && typeof setEditDocumentation === 'function') {
-      setEditDocumentation('', item.id);
+    if (value === 1 && typeof setEditArticle === 'function') {
+      setEditArticle({
+        id: '',
+        parentId: item.id,
+        isEditArticle: true,
+      });
     }
 
+    if (value === 2 && typeof setEditArticle === 'function') {
+      setEditArticle({
+        id: item.id,
+        parentId,
+        isEditArticle: true,
+      });
+    }
+
+    if (typeof setViewArticle === 'function') {
+      setViewArticle('');
+    }
+  };
+
+  const onClickArticle = () => {
     if (
-      value === 2 &&
-      typeof setEditDocumentation === 'function' &&
+      typeof setViewArticle === 'function' &&
       typeof setEditArticle === 'function'
     ) {
-      setEditDocumentation(item.id, parentId);
-      setEditArticle(true);
+      setViewArticle(item.id);
+      setEditArticle({
+        id: item.id,
+        parentId,
+        isEditArticle: false,
+      });
     }
   };
 
@@ -98,7 +122,7 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
             match={match}
             editArticleId={editArticle?.id}
             level={level}
-            onClickArticle={viewArticle}
+            onClickArticle={onClickArticle}
           />
         )}
 
@@ -166,8 +190,7 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
               isMenu={isMenu}
               parentId={item.id}
               isEditDocumentation={isEditDocumentation}
-              setEditDocumentation={setEditDocumentation}
-              viewArticle={viewArticle}
+              setViewArticle={setViewArticle}
               editArticle={editArticle}
               setEditArticle={setEditArticle}
             />

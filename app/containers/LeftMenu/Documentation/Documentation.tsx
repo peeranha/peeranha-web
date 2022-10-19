@@ -21,9 +21,12 @@ type DocumentationMenuSectionProps = {
   isEditDocumentation: boolean;
   editArticle?: { id: string; parentId: string };
   isMenu?: boolean;
-  setEditDocumentation?: (id: string | null, parentId: string | null) => void;
-  viewArticle?: (id: string) => void;
-  setEditArticle?: (value: boolean) => void;
+  setEditArticle?: (data: {
+    id: string;
+    parentId: string;
+    isEditArticle: boolean;
+  }) => void;
+  setViewArticle?: (id: string) => void;
 };
 
 const EditDocumentation = [
@@ -57,21 +60,19 @@ const Documentation: React.FC<DocumentationMenuSectionProps> = ({
   isEditDocumentation,
   editArticle = { id: '', parentId: '' },
   isMenu = true,
-  setEditDocumentation,
-  viewArticle,
   setEditArticle,
+  setViewArticle,
 }) => {
   const clickDocumentation = () => (value: number) => {
     if (value === 1 && typeof toggleEditDocumentation === 'function') {
       toggleEditDocumentation();
     }
-    if (
-      value === 2 &&
-      typeof setEditDocumentation === 'function' &&
-      typeof setEditArticle === 'function'
-    ) {
-      setEditDocumentation('', '1');
-      setEditArticle(true);
+    if (value === 2 && typeof setEditArticle === 'function') {
+      setEditArticle({
+        id: '',
+        parentId: '1',
+        isEditArticle: true,
+      });
     }
   };
 
@@ -111,10 +112,9 @@ const Documentation: React.FC<DocumentationMenuSectionProps> = ({
           isEditDocumentation={isEditDocumentation}
           editArticle={editArticle}
           isMenu={isMenu}
-          setEditDocumentation={setEditDocumentation}
           parentId={DOCUMENTATION_ID}
-          viewArticle={viewArticle}
           setEditArticle={setEditArticle}
+          setViewArticle={setViewArticle}
         />
       ))}
     </>

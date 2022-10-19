@@ -14,6 +14,7 @@ import {
   updateDocumentationMenu,
   updateDocumentationMenuDraft,
   setEditArticle,
+  setViewArticle,
 } from 'pages/Documentation/actions';
 import reducer from 'pages/Documentation/reducer';
 import saga from 'pages/Documentation/saga';
@@ -27,6 +28,8 @@ import {
   selectDocumentationMenuDraft,
   selectIsEditArticle,
   selectDocumentationLoading,
+  selectEditArticle,
+  selectViewArticle,
 } from 'pages/Documentation/selectors';
 import { selectDocumentationMenu } from 'containers/AppWrapper/selectors';
 import Header from './components/Header';
@@ -50,15 +53,15 @@ const EditDocumentation: React.FC<any> = ({
   editArticle,
   getDocumentationDispatch,
   documentation,
-  setEditDocumentationDispatch,
+  setEditArticleDispatch,
   updateDocumentationMenuDraftDispatch,
   saveMenuDraftDispatch,
   documentationMenuDraft,
   viewArticleDispatch,
   updateDocumentationMenuDispatch,
-  setEditArticleDispatch,
-  isEditArticle,
   isArticleLoading,
+  viewArticleId,
+  setViewArticleDispatch,
 }) => {
   const refOverlay = useRef<HTMLDivElement>(null);
   const [paddingLeft, setPaddingLeft] = useState<number>(86);
@@ -103,8 +106,6 @@ const EditDocumentation: React.FC<any> = ({
     setEditDocumentation('', '');
     setEditArticle(true);
   };
-
-  console.log('editArticle', editArticle.id);
 
   return (
     <>
@@ -168,13 +169,13 @@ const EditDocumentation: React.FC<any> = ({
               isEditDocumentation
               editArticle={editArticle}
               isMenu={false}
-              setEditDocumentation={setEditDocumentationDispatch}
-              viewArticle={viewArticleDispatch}
               setEditArticle={setEditArticleDispatch}
+              setViewArticle={setViewArticleDispatch}
             />
           </div>
           <div css={{ overflow: 'auto' }}>
-            {(documentationMenuDraft.length === 0 || !isEditArticle) && (
+            {(documentationMenuDraft.length === 0 ||
+              (viewArticleId === '' && !editArticle.isEditArticle)) && (
               <div
                 css={{
                   padding: 24,
@@ -208,16 +209,15 @@ const EditDocumentation: React.FC<any> = ({
               </div>
             ) : (
               <>
-                {!isEditArticle && editArticle.id !== '' && (
+                {!editArticle.isEditArticle && viewArticleId !== '' && (
                   <ViewContent documentationSection={documentationArticle} />
                 )}
-                {isEditArticle && (
+                {editArticle.isEditArticle && (
                   <DocumentationForm
                     documentationMenu={documentationMenuDraft}
                     documentationArticle={documentationArticle}
                     articleParentId={editArticle.parentId}
                     updateDocumentationMenuDraft={saveMenuDraftDispatch}
-                    setEditDocumentation={setEditDocumentationDispatch}
                     setEditArticle={setEditArticleDispatch}
                   />
                 )}
@@ -240,15 +240,13 @@ export default compose(
       documentation: selectDocumentation(),
       documentationMenuDraft: selectDocumentationMenuDraft(),
       documentationMenu: selectDocumentationMenu(),
-      isEditArticle: selectIsEditArticle(),
       isArticleLoading: selectDocumentationLoading(),
+      editArticle: selectEditArticle(),
+      viewArticleId: selectViewArticle(),
     }),
     (dispatch: Dispatch<AnyAction>) => ({
       getDocumentationDispatch: bindActionCreators(getDocumentation, dispatch),
-      setEditDocumentationDispatch: bindActionCreators(
-        setEditDocumentation,
-        dispatch,
-      ),
+      setEditArticleDispatch: bindActionCreators(setEditArticle, dispatch),
       updateDocumentationMenuDraftDispatch: bindActionCreators(
         updateDocumentationMenuDraft,
         dispatch,
@@ -259,7 +257,7 @@ export default compose(
         updateDocumentationMenu,
         dispatch,
       ),
-      setEditArticleDispatch: bindActionCreators(setEditArticle, dispatch),
+      setViewArticleDispatch: bindActionCreators(setViewArticle, dispatch),
     }),
   ),
 )(EditDocumentation);

@@ -5,7 +5,7 @@ import {
   GET_DOCUMENTATION_ERROR,
   GET_DOCUMENTATION_SUCCESS,
   TOGGLE_EDIT_DOCUMENTATION,
-  SET_EDIT_DOCUMENTATION,
+  SET_VIEW_ARTICLE,
   SAVE_ARTICLE_TO_IPFS,
   SAVE_ARTICLE_TO_IPFS_SUCCESS,
   SAVE_ARTICLE_TO_IPFS_FAILED,
@@ -19,12 +19,14 @@ import {
 } from './constants';
 
 export const initialState = fromJS({
-  documentationLoading: true,
+  documentationLoading: false,
   documentation: [],
   faqError: '',
   isEdit: false,
-  editArticle: { id: '', parentId: '' },
+  editArticleId: '',
+  editArticleParentId: '',
   isEditArticle: false,
+  viewArticleId: '',
   tempSavedContent: [],
   isLoading: false,
   documentationMenuDraft: [],
@@ -73,12 +75,13 @@ function documentationReducer(
         .set('documentationError', documentationError);
     case TOGGLE_EDIT_DOCUMENTATION:
       return state.set('isEdit', !state.get('isEdit'));
-    case SET_EDIT_DOCUMENTATION:
-      return state.set('editArticle', { id, parentId });
-    case VIEW_ARTICLE:
-      return state.set('editArticle', { id, parentId: '' });
+    case SET_VIEW_ARTICLE:
+      return state.set('viewArticleId', id);
     case SET_EDIT_ARTICLE:
-      return state.set('isEditArticle', isEditArticle);
+      return state
+        .set('editArticleId', id)
+        .set('editArticleParentId', parentId)
+        .set('isEditArticle', isEditArticle);
     case SAVE_ARTICLE_TO_IPFS:
       return state.set('isLoading', true);
     case SAVE_ARTICLE_TO_IPFS_SUCCESS:

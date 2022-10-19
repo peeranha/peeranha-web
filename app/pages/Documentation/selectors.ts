@@ -22,17 +22,16 @@ export const selectIsEditDocumentation = () =>
   createSelector(selectFaqDomain, (substate) => substate.get('isEdit'));
 
 export const selectEditArticle = () =>
-  createSelector(selectFaqDomain, (substate) => substate.get('editArticle'));
+  createSelector(selectFaqDomain, (substate) => ({
+    id: substate.get('editArticleId'),
+    parentId: substate.get('editArticleParentId'),
+    isEditArticle: substate.get('isEditArticle'),
+  }));
 
 export const selectDocumentationMenuDraft = () =>
   createSelector(selectFaqDomain, (substate) =>
     substate.get('documentationMenuDraft'),
   );
 
-export const selectActiveViewArticle = () =>
-  createSelector(selectFaqDomain, (substate) =>
-    substate.get('activeViewArticle'),
-  );
-
-export const selectIsEditArticle = () =>
-  createSelector(selectFaqDomain, (substate) => substate.get('isEditArticle'));
+export const selectViewArticle = () =>
+  createSelector(selectFaqDomain, (substate) => substate.get('viewArticleId'));

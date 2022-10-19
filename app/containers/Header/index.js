@@ -1,9 +1,3 @@
-/**
- *
- * Header
- *
- */
-
 import React from 'react';
 import $ from 'jquery';
 import PropTypes from 'prop-types';
@@ -22,10 +16,7 @@ import { LEFT_MENU_ID } from 'containers/LeftMenu/constants';
 import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
 import { showLeftMenu } from 'containers/AppWrapper/actions';
 import { selectIsMenuVisible } from 'containers/AppWrapper/selectors';
-import {
-  selectIsEditDocumentation,
-  selectEditArticle,
-} from 'pages/Documentation/selectors';
+import { selectIsEditDocumentation } from 'pages/Documentation/selectors';
 import { toggleEditDocumentation } from 'pages/Documentation/actions';
 
 import {
@@ -93,7 +84,6 @@ export class Header extends React.PureComponent {
       transactionInitialised,
       isEditDocumentation,
       toggleEditDocumentationDispatch,
-      editArticle,
     } = this.props;
 
     if (isMenuVisible) return null;
@@ -116,7 +106,6 @@ export class Header extends React.PureComponent {
         transactionInitialised={transactionInitialised}
         isEditDocumentation={isEditDocumentation}
         toggleEditDocumentation={toggleEditDocumentationDispatch}
-        editArticle={editArticle}
       />
     );
   }
@@ -145,7 +134,6 @@ const mapStateToProps = createStructuredSelector({
   transactionHash: selectTransactionHash(),
   transactionInitialised: selectTransactionInitialised(),
   isEditDocumentation: selectIsEditDocumentation(),
-  editArticle: selectEditArticle(),
 });
 
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {

@@ -34,6 +34,19 @@ const Header: React.FC<any> = ({
         Close
       </Button>
       <Button
+        variant="third"
+        icon={
+          <CloseRoundedIcon
+            className="icon"
+            css={{ width: 18, height: 18, fill: 'transparent' }}
+          />
+        }
+        className="mr16"
+        onClick={toggleEditDocumentation}
+      >
+        Discard drafts and close
+      </Button>
+      <Button
         variant="secondary"
         icon={
           <SaveIcon
