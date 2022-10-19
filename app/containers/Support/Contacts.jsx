@@ -39,7 +39,7 @@ const MediaItem = Base.extend`
   }
 
   &:last-of-type {
-    padding: 20px 15px;
+    padding: 20px 10px;
     img {
       height: 15px;
     }
