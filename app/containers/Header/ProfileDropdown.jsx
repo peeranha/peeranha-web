@@ -5,17 +5,16 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 
-import { BORDER_SECONDARY, TEXT_PRIMARY } from 'style-constants';
+import {
+  BORDER_SECONDARY,
+  TEXT_PRIMARY,
+  PEER_PRIMARY_TRANSPARENT_COLOR,
+} from 'style-constants';
 import { NO_AVATAR } from 'utils/constants';
 
 import * as routes from 'routes-config';
 import messages from 'common-messages';
-import {
-  singleCommunityColors,
-  singleCommunityStyles,
-} from 'utils/communityManagement';
-
-import logoutIcon from 'images/logout.svg?external';
+import { singleCommunityColors } from 'utils/communityManagement';
 
 import { getUserAvatar } from 'utils/profileManagement';
 import userBodyIconAvatar from 'images/user2.svg?external';
@@ -32,7 +31,16 @@ import { getUserName } from 'utils/user';
 import { selectIsMenuVisible } from '../AppWrapper/selectors';
 import { getPermissions } from '../../utils/properties';
 
-const styles = singleCommunityStyles();
+import AnswerWithAIcon from 'icons/AnswerWithA';
+import ProfileIcon from 'icons/Profile';
+import CommunitiesIcon from 'icons/Communities';
+import SettingsIcon from 'icons/Settings';
+import NotificationsIcon from 'icons/Notifications';
+import ModerationIcon from 'icons/Moderation';
+import NFTIcon from 'icons/NFT';
+import PostIcon from 'icons/Post';
+import LogOutIcon from 'icons/LogOut';
+
 const colors = singleCommunityColors();
 
 const StatusBox = styled.span`
@@ -102,7 +110,6 @@ export const Button = connect(state => ({
 const Menu = memo(
   ({ profileInfo, questionsLength, questionsWithUserAnswersLength }) => {
     const { user, loginData } = profileInfo;
-    const isEmail = loginData.email;
 
     const isModerator = useMemo(() => !!getPermissions(profileInfo)?.length, [
       profileInfo,
@@ -112,55 +119,92 @@ const Menu = memo(
       <nav>
         <Ul>
           <A to={routes.profileView(user)}>
-            <FormattedMessage {...messages.profile} />
+            <ProfileIcon
+              className="mr-2"
+              size={[18, 18]}
+              stroke={colors.linkColor || TEXT_PRIMARY}
+            />
+            <FormattedMessage id={messages.profile.id} />
           </A>
+
           <A to={routes.userCommunities(user)}>
-            <FormattedMessage {...messages.myCommunities} />
+            <CommunitiesIcon
+              className="mr-2"
+              size={[18, 18]}
+              stroke={colors.linkColor || TEXT_PRIMARY}
+            />
+            <FormattedMessage id={messages.myCommunities.id} />
           </A>
+
           <A
             to={routes.userQuestions(user)}
             disabled={!questionsLength}
             tabIndex={!questionsLength ? '-1' : undefined}
           >
-            <FormattedMessage {...messages.posts} />
+            <PostIcon
+              className="mr-2"
+              stroke={colors.linkColor || TEXT_PRIMARY}
+            />
+            <FormattedMessage id={messages.posts.id} />
           </A>
+
           <A
             to={routes.userAnswers(user)}
             disabled={!questionsWithUserAnswersLength}
             tabIndex={!questionsWithUserAnswersLength ? '-1' : undefined}
           >
-            <FormattedMessage {...messages.answers} />
+            <AnswerWithAIcon
+              className="mr-2"
+              stroke={colors.linkColor || TEXT_PRIMARY}
+            />
+            <FormattedMessage id={messages.answers.id} />
           </A>
-          <A
-            className={!isEmail ? 'd-none' : ''}
-            to={routes.userSettings(user)}
-          >
-            <FormattedMessage {...messages.settings} />
-          </A>
+
           <A to={routes.userNotifications(user)}>
-            <FormattedMessage {...messages.notifications} />
+            <NotificationsIcon
+              className="mr-2"
+              stroke={colors.linkColor || TEXT_PRIMARY}
+              fill={colors.linkColor || TEXT_PRIMARY}
+            />
+            <FormattedMessage id={messages.notifications.id} />
           </A>
+
           <A to={routes.userNFTs(user)}>
+            <NFTIcon
+              className="mr-2"
+              stroke={colors.linkColor || TEXT_PRIMARY}
+            />
             <FormattedMessage id={messages.NFTs.id} />
           </A>
+
           {isModerator && (
             <A to={routes.userModeration(user)}>
-              <FormattedMessage {...messages.moderation} />
+              <ModerationIcon
+                size={[18, 18]}
+                className="mr-2"
+                stroke={colors.linkColor || TEXT_PRIMARY}
+                fill={colors.linkColor || TEXT_PRIMARY}
+              />
+              <FormattedMessage id={messages.moderation.id} />
             </A>
           )}
+
+          <A to={routes.userSettings(user)}>
+            <SettingsIcon
+              className="mr-2"
+              stroke={colors.linkColor || TEXT_PRIMARY}
+            />
+            <FormattedMessage id={messages.settings.id} />
+          </A>
         </Ul>
 
         <Ul>
           <Logout>
-            <IconLg
-              className="mr-1"
-              icon={logoutIcon}
-              color={colors.linkColor || TEXT_PRIMARY}
-              isColorImportant={true}
+            <LogOutIcon
+              className="mr-2"
+              stroke={colors.linkColor || TEXT_PRIMARY}
             />
-            <Span color={colors.linkColor || TEXT_PRIMARY}>
-              <FormattedMessage id={messages.logout.id} />
-            </Span>
+            <FormattedMessage id={messages.logout.id} />
           </Logout>
         </Ul>
       </nav>

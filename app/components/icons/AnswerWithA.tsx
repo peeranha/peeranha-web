@@ -7,7 +7,7 @@ const AnswerWithA: React.FC<IconProps> = (props): JSX.Element => (
     id="answer-with-a"
     fill="curentColor"
     viewBox="0 0 18 18"
-    size={[18, 18]}
+    size={props.size || [18, 18]}
   >
     <g fill="none">
       <path

@@ -7,7 +7,7 @@ const Communities: React.FC<IconProps> = (props): JSX.Element => (
     id="communities"
     fill="curentColor"
     viewBox="0 0 24 24"
-    size={[24, 24]}
+    size={props.size}
   >
     <g
       transform="translate(3 3)"
