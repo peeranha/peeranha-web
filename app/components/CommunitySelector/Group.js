@@ -6,10 +6,11 @@ import { BORDER_SECONDARY } from 'style-constants';
 import CustomOption from './CustomOption';
 
 const Box = styled.div`
-  border-bottom: 1px solid ${BORDER_SECONDARY};
-
   &:first-child {
     border-top: 1px solid ${BORDER_SECONDARY};
+  }
+  &:last-child {
+    border-bottom: 1px solid ${BORDER_SECONDARY};
   }
 `;
 
