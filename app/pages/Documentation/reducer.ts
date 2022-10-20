@@ -1,22 +1,23 @@
 import { fromJS } from 'immutable';
 
 import {
-  GET_DOCUMENTATION,
-  GET_DOCUMENTATION_ERROR,
-  GET_DOCUMENTATION_SUCCESS,
+  GET_ARTICLE,
+  GET_ARTICLE_ERROR,
+  GET_ARTICLE_SUCCESS,
   TOGGLE_EDIT_DOCUMENTATION,
   SET_VIEW_ARTICLE,
-  SAVE_ARTICLE_TO_IPFS,
-  SAVE_ARTICLE_TO_IPFS_SUCCESS,
-  SAVE_ARTICLE_TO_IPFS_FAILED,
   SAVE_MENU_DRAFT,
-  VIEW_ARTICLE,
   UPDATE_DOCUMENTATION_MENU,
   UPDATE_DOCUMENTATION_MENU_SUCCESS,
   UPDATE_DOCUMENTATION_MENU_FAILED,
-  UPDATE_DOCUMENTATION_MENU_DRAFT,
   SET_EDIT_ARTICLE,
+  PINNED_ARTICLE,
 } from './constants';
+import {
+  PinnedArticleType,
+  DocumentationItemMenuType,
+  DocumentationArticle,
+} from './types';
 
 export const initialState = fromJS({
   documentationLoading: false,
@@ -27,10 +28,11 @@ export const initialState = fromJS({
   editArticleParentId: '',
   isEditArticle: false,
   viewArticleId: '',
-  tempSavedContent: [],
   isLoading: false,
   documentationMenuDraft: [],
   activeViewArticle: '',
+  pinnedArticleId: '',
+  pinnedArticleTitle: '',
 });
 
 function documentationReducer(
@@ -38,38 +40,38 @@ function documentationReducer(
   action: {
     type: string;
     documentationError: any;
-    documentationSection: any;
+    documentationArticle: DocumentationArticle;
     id: string;
-    ipfsHash: string;
     parentId: string;
-    menu: any;
+    menu: Array<DocumentationItemMenuType>;
     isEditArticle: boolean;
+    pinnedArticle: PinnedArticleType;
   },
 ) {
   const {
     type,
-    documentationSection,
+    documentationArticle,
     documentationError,
     id,
     parentId,
-    ipfsHash,
     menu,
     isEditArticle,
+    pinnedArticle,
   } = action;
 
   switch (type) {
-    case GET_DOCUMENTATION:
+    case GET_ARTICLE:
       return state.set('documentationLoading', true);
-    case GET_DOCUMENTATION_SUCCESS:
+    case GET_ARTICLE_SUCCESS:
       return state
         .set('documentationLoading', false)
         .set(
           'documentation',
-          documentationSection
-            ? state.get('documentation').push(documentationSection)
+          documentationArticle
+            ? state.get('documentation').push(documentationArticle)
             : state.get('documentation'),
         );
-    case GET_DOCUMENTATION_ERROR:
+    case GET_ARTICLE_ERROR:
       return state
         .set('documentationLoading', false)
         .set('documentationError', documentationError);
@@ -82,12 +84,6 @@ function documentationReducer(
         .set('editArticleId', id)
         .set('editArticleParentId', parentId)
         .set('isEditArticle', isEditArticle);
-    case SAVE_ARTICLE_TO_IPFS:
-      return state.set('isLoading', true);
-    case SAVE_ARTICLE_TO_IPFS_SUCCESS:
-      return state
-        .set('isLoading', false)
-        .set('tempSavedContent', state.get('tempSavedContent').push(ipfsHash));
     case SAVE_MENU_DRAFT:
       return state.set('documentationMenuDraft', menu);
     case UPDATE_DOCUMENTATION_MENU:
@@ -96,6 +92,10 @@ function documentationReducer(
       return state.set('documentationLoading', false);
     case UPDATE_DOCUMENTATION_MENU_FAILED:
       return state.set('documentationLoading', false);
+    case PINNED_ARTICLE:
+      return state
+        .set('pinnedArticleId', pinnedArticle.id)
+        .set('pinnedArticleTitle', pinnedArticle.title);
     default:
       return state;
   }

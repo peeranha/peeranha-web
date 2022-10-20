@@ -1,17 +1,20 @@
-import { getText } from 'utils/ipfs';
-
 import { keyframes } from '@emotion/react';
+import { DocumentationItemMenuType } from 'pages/Documentation/types';
 
 const TEMP_SAVED_CONTENT = 'tempSavedContent';
 
-export const updateMenu = (documentationMenu) =>
+export const updateMenu = (
+  documentationMenu: Array<DocumentationItemMenuType>,
+): Array<DocumentationItemMenuType> =>
   documentationMenu.map((item) => ({
     label: item.title,
     value: item.id,
     items: updateMenu(item.children),
   }));
 
-export const initMenu = (documentationMenu) => [
+export const initMenu = (
+  documentationMenu: Array<DocumentationItemMenuType>,
+) => [
   {
     label: 'Documentation',
     value: '1',
@@ -19,13 +22,15 @@ export const initMenu = (documentationMenu) => [
   },
 ];
 
-export const saveDraft = (menu): void => {
+export const saveDraft = (menu: Array<DocumentationItemMenuType>): void => {
   localStorage.setItem(TEMP_SAVED_CONTENT, JSON.stringify(menu));
 };
 
 export const getSavedDraft = (id: string) => {
   if (localStorage.getItem(TEMP_SAVED_CONTENT)) {
-    const drafts = JSON.parse(localStorage.getItem(TEMP_SAVED_CONTENT));
+    const drafts: Array<DocumentationItemMenuType> = JSON.parse(
+      localStorage.getItem(TEMP_SAVED_CONTENT),
+    );
 
     return drafts.find((item) => item.id === id)?.id || '';
   }
@@ -33,7 +38,7 @@ export const getSavedDraft = (id: string) => {
   return '';
 };
 
-export const getSavedDrafts = () => {
+export const getSavedDrafts = (): Array<DocumentationItemMenuType> => {
   if (localStorage.getItem(TEMP_SAVED_CONTENT)) {
     const drafts = JSON.parse(localStorage.getItem(TEMP_SAVED_CONTENT));
 
@@ -43,8 +48,15 @@ export const getSavedDrafts = () => {
   return [];
 };
 
-export const addArticle = (documentationMenu = [], { id, parentId, title }) => {
-  const newMenu = [];
+export const clearSavedDrafts = () => {
+  localStorage.removeItem(TEMP_SAVED_CONTENT);
+};
+
+export const addArticle = (
+  documentationMenu: Array<DocumentationItemMenuType> = [],
+  { id, parentId, title }: { id: string; parentId: string; title: string },
+) => {
+  const newMenu: Array<DocumentationItemMenuType> = [];
 
   if (documentationMenu.map((item) => item.id).includes(id)) {
     return documentationMenu;
@@ -68,9 +80,14 @@ export const addArticle = (documentationMenu = [], { id, parentId, title }) => {
 };
 
 export const updateMenuDraft = (
-  documentationMenu = [],
-  { id, prevId, parentId, title },
-) =>
+  documentationMenu: Array<DocumentationItemMenuType> = [],
+  {
+    id,
+    prevId,
+    parentId,
+    title,
+  }: { id: string; prevId: string; parentId: string; title: string },
+): Array<DocumentationItemMenuType> =>
   documentationMenu.map((item) => {
     if (item.id === prevId) {
       return {

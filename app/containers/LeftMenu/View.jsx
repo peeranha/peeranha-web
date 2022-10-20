@@ -38,6 +38,7 @@ const View = ({
   match,
   toggleEditDocumentation,
   isEditDocumentation,
+  pinnedItemMenu,
 }) => {
   const [currClientHeight, setClientHeight] = useState();
 
@@ -114,6 +115,7 @@ const View = ({
         match={match}
         toggleEditDocumentation={toggleEditDocumentation}
         isEditDocumentation={isEditDocumentation}
+        pinnedItemMenu={pinnedItemMenu}
       />
 
       <AdditionalLinks currClientHeight={currClientHeight} />

@@ -7,23 +7,31 @@ export type DocumentationSection = {
   content?: string;
 };
 
-export type OutputSelector = {
-  locale: string;
-  profileInfo: User;
-  documentation: Array<DocumentationSection>;
+export type PinnedArticleType = {
+  id: string;
+  title: string;
 };
 
-type User = {
+export type DocumentationItemMenuType = {
   id: string;
-  avatar: string;
-  displayName: string;
-  ratings: Array<{ communityId: number; rating: number }>;
-  company: string;
-  position: string;
-  location: string;
-  about: string;
-  creationTime: number;
-  achievements: Array<{ id: number }>;
+  title: string;
+  children: Array<DocumentationItemMenuType>;
+};
+
+export type DocumentationMenuType = {
+  pinnedPost: PinnedArticleType;
+  documentations: Array<DocumentationItemMenuType>;
+};
+
+export type DocumentationArticle = {
+  id: string;
+  title: string;
+  content: string;
+};
+
+export type OutputSelector = {
+  isArticleLoading: boolean;
+  documentation: Array<DocumentationSection>;
 };
 
 export interface RouterDocumentetion {

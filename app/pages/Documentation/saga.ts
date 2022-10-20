@@ -1,92 +1,90 @@
-import { takeLatest, takeEvery, call, put, select } from 'redux-saga/effects';
-import { getCommunityDocumentation } from 'utils/theGraph';
-import { saveText, getText } from 'utils/ipfs';
+import { takeEvery, call, put, select } from 'redux-saga/effects';
+import { getIpfsHashFromBytes32, getText } from 'utils/ipfs';
 
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import { selectEthereum } from 'containers/EthereumProvider/selectors';
+import { selectPinnedArticleDraft, selectDocumentation } from './selectors';
 import { updateDocumentationTree } from 'utils/questionsManagement';
 import {
-  getDocumentationError,
-  getDocumentationSuccess,
+  getArticleDocumentationError,
+  getArticleDocumentationSuccess,
   updateDocumentationMenuSuccess,
   updateDocumentationMenuFailed,
+  toggleEditDocumentation,
 } from './actions';
-import { GET_DOCUMENTATION, UPDATE_DOCUMENTATION_MENU } from './constants';
+import { getDocumentationMenu } from 'containers/AppWrapper/actions';
+import { GET_ARTICLE, UPDATE_DOCUMENTATION_MENU } from './constants';
+import { clearSavedDrafts } from 'components/Documentation/helpers';
+import { DocumentationArticle, DocumentationItemMenuType } from './types';
 
-import { selectDocumentation } from './selectors';
-
-type DocumentationSection = {
-  id: number;
-  postType: number;
-  communityId: number;
-  title: string;
-  content: string;
-  isDeleted: boolean;
-};
-
-export function* getDocumentationSectionWorker({ section }): Generator<any> {
+export function* getArticleDocumentationWorker({
+  articleId,
+}: {
+  articleId: string;
+}): Generator<any> {
   try {
     const documentationFromStore = yield select(selectDocumentation());
+    const ipfsHash = getIpfsHashFromBytes32(articleId);
     if (
-      (documentationFromStore as Array<DocumentationSection>).find(
-        (documentationSection: DocumentationSection) =>
-          documentationSection.id === section,
+      (documentationFromStore as Array<DocumentationArticle>).find(
+        (item) => item.id === articleId,
       )
     ) {
-      yield put(getDocumentationSuccess());
+      yield put(getArticleDocumentationSuccess());
     } else {
-      const documentationSection = yield call(getText, section);
+      const documentationArticle = yield call(getText, ipfsHash);
 
       yield put(
-        getDocumentationSuccess({
-          id: section,
-          ...JSON.parse(documentationSection),
+        getArticleDocumentationSuccess({
+          id: articleId,
+          ...JSON.parse(documentationArticle as string),
         }),
       );
     }
   } catch (err) {
-    yield put(getDocumentationError(err));
+    yield put(getArticleDocumentationError(err));
   }
 }
 
-export function* updateDocumentationWorker(documentationMenu): Generator<any> {
+export function* updateDocumentationWorker({
+  menu,
+}: {
+  menu: Array<DocumentationItemMenuType>;
+}): Generator<any> {
   try {
-    console.log('updateDocumentationWorker', documentationMenu);
+    const pinnedArticle = yield select(selectPinnedArticleDraft());
     const ethereumService = yield select(selectEthereum);
-    console.log('updateDocumentationWorker2', ethereumService);
     const selectedAccount = yield select(makeSelectAccount());
-
-    console.log('updateDocumentationWorker3', selectedAccount);
     const communityId = isSingleCommunityWebsite();
 
     const documentationJSON = {
-      pinnedId: '',
-      documentations: documentationMenu,
+      pinnedPost: pinnedArticle,
+      documentations: menu,
     };
 
-    console.log('documentationJSON', documentationJSON);
+    yield call(
+      updateDocumentationTree,
+      selectedAccount,
+      communityId,
+      documentationJSON,
+      ethereumService,
+    );
 
-    // const result = yield call(
-    //   updateDocumentationTree,
-    //   selectedAccount,
-    //   communityId,
-    //   documentationJSON,
-    //   ethereumService,
-    // );
-
-    console.log('result', result);
-
-    // updateDocumentationMenuSuccess();
+    yield put(updateDocumentationMenuSuccess());
+    clearSavedDrafts();
+    yield put(getDocumentationMenu(communityId));
   } catch (err) {
-    console.log('result err', err);
-    // updateDocumentationMenuFailed();
+    console.warn('updateDocumentationWorker', err);
+
+    yield put(updateDocumentationMenuFailed());
+    yield put(toggleEditDocumentation());
   }
 }
 
 export default function* documentationWorker(): Generator<any> {
   try {
-    yield takeLatest(GET_DOCUMENTATION, getDocumentationSectionWorker);
+    yield takeEvery(GET_ARTICLE, getArticleDocumentationWorker);
     yield takeEvery(UPDATE_DOCUMENTATION_MENU, updateDocumentationWorker);
   } catch (error) {}
 }

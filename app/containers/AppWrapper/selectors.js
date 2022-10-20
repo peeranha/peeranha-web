@@ -13,4 +13,15 @@ const selectDocumentationMenu = () =>
     substate.get('documentationMenu'),
   );
 
-export { selectAppWrapperDomain, selectIsMenuVisible, selectDocumentationMenu };
+const selectPinnedItemMenu = () =>
+  createSelector(selectAppWrapperDomain, (substate) => ({
+    id: substate.get('pinnedItemId'),
+    title: substate.get('pinnedItemTitle'),
+  }));
+
+export {
+  selectAppWrapperDomain,
+  selectIsMenuVisible,
+  selectDocumentationMenu,
+  selectPinnedItemMenu,
+};

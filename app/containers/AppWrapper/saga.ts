@@ -2,7 +2,9 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 import {
   getDocumentationMenuSuccess,
   getDocumentationMenuError,
+  setPinnedItemMenu,
 } from './actions';
+import { pinnedArticleMenuDraft } from 'pages/Documentation/actions';
 import { getDocumentationMenu } from 'utils/theGraph';
 import { GET_DOCUMENTATION_MENU } from 'containers/AppWrapper/constants';
 import { ASK_QUESTION_SUCCESS } from 'containers/AskQuestion/constants';
@@ -16,27 +18,23 @@ export function* getDocumentationMenuWorker(props: {
 }): Generator<any> {
   try {
     const documentation = yield call(getDocumentationMenu, props.communityId);
+
+    if (!documentation) {
+      yield put(setPinnedItemMenu({ id: '', title: '' }));
+      yield put(getDocumentationMenuSuccess([]));
+      return;
+    }
+
     const documentationMenu = JSON.parse(
       (documentation as CommunityDocumentationMenu).documentationJSON,
     );
-
-    // console.log('documentationMenu', documentationMenu);
-    // const { pinnedPost } = documentationMenu;
-    // pinnedPost.children = [];
-
-    // const documentationMenu = {
-    //   documentations: [],
-    //   pinnedPost: {
-    //     id: '',
-    //     title: '',
-    //     children: [],
-    //   },
-    // };
 
     const clearDocumentationMenu = documentationMenu.documentations.filter(
       (item) => item.id !== '' && item.title !== '',
     );
 
+    yield put(setPinnedItemMenu(documentationMenu.pinnedPost));
+    yield put(pinnedArticleMenuDraft(documentationMenu.pinnedPost));
     yield put(getDocumentationMenuSuccess(clearDocumentationMenu));
   } catch (err) {
     yield put(getDocumentationMenuError(err));

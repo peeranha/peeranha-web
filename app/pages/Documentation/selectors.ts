@@ -35,3 +35,9 @@ export const selectDocumentationMenuDraft = () =>
 
 export const selectViewArticle = () =>
   createSelector(selectFaqDomain, (substate) => substate.get('viewArticleId'));
+
+export const selectPinnedArticleDraft = () =>
+  createSelector(selectFaqDomain, (substate) => ({
+    id: substate.get('pinnedArticleId'),
+    title: substate.get('pinnedArticleTitle'),
+  }));

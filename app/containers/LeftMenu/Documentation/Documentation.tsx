@@ -10,8 +10,12 @@ import Dropdown from 'common-components/Dropdown';
 import AddCommentIcon from 'icons/AddComment';
 import EditIcon from 'icons/Edit';
 import PlusIcon from 'icons/Plus';
-
-import { DocumentationSection } from 'pages/Documentation/types';
+import { singleCommunityDocumentationPosition } from 'utils/communityManagement';
+import {
+  DocumentationSection,
+  PinnedArticleType,
+} from 'pages/Documentation/types';
+import { EditArticleType } from 'components/Documentation/types';
 
 type DocumentationMenuSectionProps = {
   documentationMenu: Array<DocumentationSection>;
@@ -21,14 +25,12 @@ type DocumentationMenuSectionProps = {
   isEditDocumentation: boolean;
   editArticle?: { id: string; parentId: string };
   isMenu?: boolean;
-  setEditArticle?: (data: {
-    id: string;
-    parentId: string;
-    isEditArticle: boolean;
-  }) => void;
+  setEditArticle?: (data: EditArticleType) => void;
   setViewArticle?: (id: string) => void;
+  pinnedArticleMenuDraft?: (data: PinnedArticleType) => void;
 };
 
+const documentationPosition = singleCommunityDocumentationPosition();
 const EditDocumentation = [
   {
     label: 'Edit Documentation',
@@ -62,6 +64,7 @@ const Documentation: React.FC<DocumentationMenuSectionProps> = ({
   isMenu = true,
   setEditArticle,
   setViewArticle,
+  pinnedArticleMenuDraft,
 }) => {
   const clickDocumentation = () => (value: number) => {
     if (value === 1 && typeof toggleEditDocumentation === 'function') {
@@ -77,8 +80,10 @@ const Documentation: React.FC<DocumentationMenuSectionProps> = ({
   };
 
   return (
-    <>
-      {!isEditDocumentation && <div css={css(styles.divider)} />}
+    <div>
+      {!isEditDocumentation && documentationPosition !== 'top' && (
+        <div css={css(styles.divider)} />
+      )}
       <div
         className="df jcsb mt28 pl15"
         css={{
@@ -115,9 +120,13 @@ const Documentation: React.FC<DocumentationMenuSectionProps> = ({
           parentId={DOCUMENTATION_ID}
           setEditArticle={setEditArticle}
           setViewArticle={setViewArticle}
+          pinnedArticleMenuDraft={pinnedArticleMenuDraft}
         />
       ))}
-    </>
+      {!isEditDocumentation && documentationPosition === 'top' && (
+        <div css={css(styles.divider)} />
+      )}
+    </div>
   );
 };
 

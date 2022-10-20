@@ -6,6 +6,7 @@ import CloseRoundedIcon from 'icons/CloseRounded';
 const Header: React.FC<any> = ({
   toggleEditDocumentation,
   saveDocumentationMenu,
+  discardDrafts,
 }) => (
   <div
     className="df jcsb aic pl32 pr32 pt12 pb12"
@@ -42,7 +43,7 @@ const Header: React.FC<any> = ({
           />
         }
         className="mr16"
-        onClick={toggleEditDocumentation}
+        onClick={discardDrafts}
       >
         Discard drafts and close
       </Button>

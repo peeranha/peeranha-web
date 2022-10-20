@@ -7,26 +7,19 @@ import { DAEMON } from 'utils/constants';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import {
-  getDocumentation,
-  setEditDocumentation,
+  getArticleDocumentation,
   saveMenuDraft,
-  viewArticle,
   updateDocumentationMenu,
-  updateDocumentationMenuDraft,
   setEditArticle,
   setViewArticle,
+  pinnedArticleMenuDraft,
 } from 'pages/Documentation/actions';
 import reducer from 'pages/Documentation/reducer';
 import saga from 'pages/Documentation/saga';
-import {
-  DocumentationSection,
-  OutputSelector,
-  RouterDocumentetion,
-} from 'pages/Documentation/types';
+import { OutputSelector } from 'pages/Documentation/types';
 import {
   selectDocumentation,
   selectDocumentationMenuDraft,
-  selectIsEditArticle,
   selectDocumentationLoading,
   selectEditArticle,
   selectViewArticle,
@@ -37,32 +30,32 @@ import Header from './components/Header';
 import DocumentationMenu from 'containers/LeftMenu/Documentation/Documentation';
 import DocumentationForm from './components/DocumentationForm';
 import ViewContent from './components/ViewContent';
-import Loader from 'components/LoadingIndicator/HeightWidthCentered';
-import Button from 'common-components/Button';
-import noQuestionsAllQuestionsPage from 'images/noQuestionsAllQuestionsPage.svg?inline';
+import LoaderDocumentation from './components/Loader';
+import Empty from './components/Empty';
 import {
-  addArticle,
   getSavedDrafts,
-  updateMenuDraft,
+  saveDraft,
   animationDocumentation,
+  clearSavedDrafts,
 } from './helpers';
+import { EditDocumentationProps } from './types';
+import { styled } from './EditDocumentation.styled';
 
-const EditDocumentation: React.FC<any> = ({
+const EditDocumentation: React.FC<EditDocumentationProps> = ({
   documentationMenu,
   toggleEditDocumentation,
   editArticle,
-  getDocumentationDispatch,
+  getArticleDocumentationDispatch,
   documentation,
   setEditArticleDispatch,
-  updateDocumentationMenuDraftDispatch,
   saveMenuDraftDispatch,
   documentationMenuDraft,
-  viewArticleDispatch,
   updateDocumentationMenuDispatch,
   isArticleLoading,
   viewArticleId,
   setViewArticleDispatch,
-}) => {
+  pinnedArticleMenuDraftDispatch,
+}): JSX.Element => {
   const refOverlay = useRef<HTMLDivElement>(null);
   const [paddingLeft, setPaddingLeft] = useState<number>(86);
 
@@ -73,95 +66,93 @@ const EditDocumentation: React.FC<any> = ({
   }, [refOverlay]);
 
   useEffect(() => {
-    if (editArticle.id !== '') {
-      getDocumentationDispatch(editArticle.id);
+    if (editArticle.id !== '' || viewArticleId !== '') {
+      getArticleDocumentationDispatch(editArticle.id || viewArticleId);
     }
-  }, [editArticle.id]);
+  }, [editArticle.isEditArticle, viewArticleId]);
 
   useEffect(() => {
     const drafts = getSavedDrafts();
 
-    saveMenuDraftDispatch(drafts);
+    if (drafts.length === 0) {
+      saveDraft(documentationMenu);
+      saveMenuDraftDispatch(documentationMenu);
+    } else {
+      saveMenuDraftDispatch(drafts);
+    }
+
+    if (documentationMenu.length > 0) {
+      setViewArticleDispatch(documentationMenu[0].id);
+    }
   }, []);
 
-  console.log('documentation', documentationMenuDraft);
-
-  const documentationArticle = documentation.find(
+  const editDocumentationArticle = documentation.find(
     (item) => item.id === editArticle.id,
   );
 
-  console.log('documentationMenuDraft', documentationMenuDraft);
+  const viewDocumentationArticle = documentation.find(
+    (item) => item.id === viewArticleId,
+  );
 
   const toggleEditDocumentationHandler = () => {
     toggleEditDocumentation();
-    saveMenuDraftDispatch(documentationMenu);
+    setEditArticle({
+      id: '',
+      parentId: '',
+      isEditArticle: false,
+    });
+    setViewArticleDispatch('');
   };
 
   const saveDocumentationMenu = () => {
-    updateDocumentationMenuDispatch(documentationMenu);
+    updateDocumentationMenuDispatch(documentationMenuDraft);
     toggleEditDocumentation();
   };
 
   const onClickAddArticle = () => {
-    setEditDocumentation('', '');
-    setEditArticle(true);
+    setEditArticle({
+      id: '',
+      parentId: '1',
+      isEditArticle: true,
+    });
+  };
+
+  const discardDrafts = () => {
+    toggleEditDocumentation();
+    clearSavedDrafts();
+    setEditArticle({
+      id: '',
+      parentId: '',
+      isEditArticle: false,
+    });
+    setViewArticleDispatch('');
   };
 
   return (
     <>
       {document.querySelector('header') &&
         ReactDOM.createPortal(
-          <div
-            ref={refOverlay}
-            css={{
-              position: 'fixed',
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              zIndex: 100,
-              height: '100vh',
-              background: 'rgba(0, 0, 0, 0.4)',
-            }}
-          />,
+          <div ref={refOverlay} css={styled.background} />,
           document.querySelector('header'),
         )}
       <div
         css={{
-          color: '#282828',
-          position: 'fixed',
-          top: 0,
-          height: '100vh',
-          zIndex: 101,
-          background: 'var(--color-white)',
+          ...styled.container,
           animation: `${animationDocumentation(
             paddingLeft,
           )} 1s ease-in forwards`,
           width:
             refOverlay?.current &&
             refOverlay?.current.clientWidth - paddingLeft - 86,
-          boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.1)',
         }}
       >
         <Header
           toggleEditDocumentation={toggleEditDocumentationHandler}
           saveDocumentationMenu={saveDocumentationMenu}
+          discardDrafts={discardDrafts}
         />
-        <section
-          className="dg"
-          css={{
-            height: '100%',
-            gridTemplateColumns: '262px 1fr',
-            boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.1)',
-          }}
-        >
-          <div
-            css={{
-              background: '#FAFAFA',
-              height: 'calc(100% - 72px)',
-              overflow: 'auto',
-            }}
-          >
+        <section className="dg" css={styled.main}>
+          <div css={styled.leftSection}>
             <DocumentationMenu
               documentationMenu={documentationMenuDraft}
               isModeratorModeSingleCommunity
@@ -171,60 +162,38 @@ const EditDocumentation: React.FC<any> = ({
               isMenu={false}
               setEditArticle={setEditArticleDispatch}
               setViewArticle={setViewArticleDispatch}
+              pinnedArticleMenuDraft={pinnedArticleMenuDraftDispatch}
             />
           </div>
-          <div css={{ overflow: 'auto' }}>
-            {(documentationMenuDraft.length === 0 ||
-              (viewArticleId === '' && !editArticle.isEditArticle)) && (
-              <div
-                css={{
-                  padding: 24,
-                  fontSize: 20,
-                }}
-                className="df aic jcc"
-              >
-                <img src={noQuestionsAllQuestionsPage} className="mr24" />
-                <div>
-                  <div className="mb24">
-                    {
-                      "There aren't any articles yet. Would you like to add your first one?"
-                    }
-                  </div>
-                  <Button variant="primary" onClick={onClickAddArticle}>
-                    Add new article
-                  </Button>
-                </div>
-              </div>
-            )}
+          <div css={styled.centerSection}>
+            {!editArticle.isEditArticle &&
+              (viewArticleId === '' || documentationMenuDraft.length === 0) && (
+                <Empty onClickAddArticle={onClickAddArticle} />
+              )}
             {isArticleLoading ? (
-              <div
-                css={{
-                  '& > div': {
-                    height: 200,
-                    width: '100%',
-                  },
-                }}
-              >
-                <Loader />
-              </div>
+              <LoaderDocumentation />
             ) : (
               <>
                 {!editArticle.isEditArticle && viewArticleId !== '' && (
-                  <ViewContent documentationSection={documentationArticle} />
+                  <ViewContent
+                    documentationArticle={viewDocumentationArticle}
+                    isEditDocumentation
+                  />
                 )}
                 {editArticle.isEditArticle && (
                   <DocumentationForm
                     documentationMenu={documentationMenuDraft}
-                    documentationArticle={documentationArticle}
+                    documentationArticle={editDocumentationArticle}
                     articleParentId={editArticle.parentId}
                     updateDocumentationMenuDraft={saveMenuDraftDispatch}
                     setEditArticle={setEditArticleDispatch}
+                    setViewArticle={setViewArticleDispatch}
                   />
                 )}
               </>
             )}
           </div>
-          {/* <div css={{ background: '#FAFAFA', height: '100%' }}></div> */}
+          {/* <div css={styled.rightSection}></div> */}
         </section>
       </div>
     </>
@@ -245,19 +214,21 @@ export default compose(
       viewArticleId: selectViewArticle(),
     }),
     (dispatch: Dispatch<AnyAction>) => ({
-      getDocumentationDispatch: bindActionCreators(getDocumentation, dispatch),
-      setEditArticleDispatch: bindActionCreators(setEditArticle, dispatch),
-      updateDocumentationMenuDraftDispatch: bindActionCreators(
-        updateDocumentationMenuDraft,
+      getArticleDocumentationDispatch: bindActionCreators(
+        getArticleDocumentation,
         dispatch,
       ),
+      setEditArticleDispatch: bindActionCreators(setEditArticle, dispatch),
       saveMenuDraftDispatch: bindActionCreators(saveMenuDraft, dispatch),
-      viewArticleDispatch: bindActionCreators(viewArticle, dispatch),
       updateDocumentationMenuDispatch: bindActionCreators(
         updateDocumentationMenu,
         dispatch,
       ),
       setViewArticleDispatch: bindActionCreators(setViewArticle, dispatch),
+      pinnedArticleMenuDraftDispatch: bindActionCreators(
+        pinnedArticleMenuDraft,
+        dispatch,
+      ),
     }),
   ),
 )(EditDocumentation);

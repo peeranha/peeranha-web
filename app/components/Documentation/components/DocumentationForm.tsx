@@ -1,34 +1,27 @@
-import React, { useRef, useEffect, useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import React, { useEffect, useState } from 'react';
 import Dropdown from 'common-components/Dropdown';
 import Button from 'common-components/Button';
 import TextEditor from 'components/TextEditor';
 import DropdownTrigger from './DropdownTrigger';
 import TextBlock from 'components/FormFields/TextBlock';
-import { saveText, getText } from 'utils/ipfs';
-import {
-  saveDraft,
-  initMenu,
-  getSavedDraft,
-  addArticle,
-  getSavedDrafts,
-  updateMenuDraft,
-} from '../helpers';
+import LoaderDocumentation from './Loader';
+import { saveText, getBytes32FromIpfsHash } from 'utils/ipfs';
+import { saveDraft, initMenu, addArticle, updateMenuDraft } from '../helpers';
+import { DocumentationFormProps } from '../types';
+import { DocumentationItemMenuType } from 'pages/Documentation/types';
 
-const DocumentationForm: React.FC<any> = ({
+const DocumentationForm: React.FC<DocumentationFormProps> = ({
   documentationMenu,
   documentationArticle,
   articleParentId,
   updateDocumentationMenuDraft,
-  setEditDocumentation,
+  setViewArticle,
   setEditArticle,
-}) => {
+}): JSX.Element => {
   const [title, setTitle] = useState<string>('');
   const [bodyText, setBodyText] = useState<string>('');
   const [parentId, setParentId] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  console.log('documentationArticle', documentationArticle);
 
   useEffect(() => {
     if (
@@ -68,34 +61,23 @@ const DocumentationForm: React.FC<any> = ({
 
     saveText(JSON.stringify({ title, content: bodyText }))
       .then((ipfsHash) => {
+        const ipfsHashBytes32 = getBytes32FromIpfsHash(ipfsHash);
         const isEdit =
           typeof documentationArticle !== 'undefined' &&
           documentationArticle.id !== '';
-        let updatedMenu;
-
-        // saveDraft({
-        //   id: ipfsHash,
-        //   prevId: documentationArticle?.id || ipfsHash,
-        //   parentId,
-        //   title,
-        //   isEdit,
-        // });
-
-        console.log('documentationArticle', documentationArticle);
+        let updatedMenu: Array<DocumentationItemMenuType>;
 
         if (!documentationArticle) {
-          console.log('addArticle');
           updatedMenu = addArticle(documentationMenu, {
-            id: ipfsHash,
+            id: ipfsHashBytes32,
             parentId,
             title,
           });
         }
 
         if (isEdit) {
-          console.log('updateMenuDraft');
           updatedMenu = updateMenuDraft(documentationMenu, {
-            id: ipfsHash,
+            id: ipfsHashBytes32,
             parentId,
             title,
             prevId: documentationArticle?.id,
@@ -105,8 +87,12 @@ const DocumentationForm: React.FC<any> = ({
         saveDraft(updatedMenu);
 
         updateDocumentationMenuDraft(updatedMenu);
-        setEditDocumentation({ id: ipfsHash, parentId: '' });
-        setEditArticle(false);
+        setEditArticle({
+          id: ipfsHashBytes32,
+          parentId: '',
+          isEditArticle: false,
+        });
+        setViewArticle(ipfsHashBytes32);
       })
       .finally(() => {
         setIsLoading(false);
@@ -114,11 +100,16 @@ const DocumentationForm: React.FC<any> = ({
   };
 
   const onClickCancel = () => {
-    setEditDocumentation(documentationArticle.id, '');
-    setEditArticle(false);
+    setEditArticle({
+      id: '',
+      parentId: '',
+      isEditArticle: false,
+    });
   };
 
-  return (
+  return isLoading ? (
+    <LoaderDocumentation />
+  ) : (
     <div className="p32">
       <div
         className="mb24"

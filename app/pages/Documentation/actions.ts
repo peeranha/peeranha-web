@@ -1,38 +1,42 @@
 import {
-  GET_DOCUMENTATION,
-  GET_DOCUMENTATION_ERROR,
-  GET_DOCUMENTATION_SUCCESS,
+  GET_ARTICLE,
+  GET_ARTICLE_ERROR,
+  GET_ARTICLE_SUCCESS,
   TOGGLE_EDIT_DOCUMENTATION,
   SET_VIEW_ARTICLE,
-  SAVE_ARTICLE_TO_IPFS,
-  SAVE_ARTICLE_TO_IPFS_SUCCESS,
-  SAVE_ARTICLE_TO_IPFS_FAILED,
   SAVE_MENU_DRAFT,
-  VIEW_ARTICLE,
   UPDATE_DOCUMENTATION_MENU,
   UPDATE_DOCUMENTATION_MENU_SUCCESS,
   UPDATE_DOCUMENTATION_MENU_FAILED,
   UPDATE_DOCUMENTATION_MENU_DRAFT,
   SET_EDIT_ARTICLE,
+  PINNED_ARTICLE,
 } from './constants';
+import {
+  PinnedArticleType,
+  DocumentationItemMenuType,
+  DocumentationArticle,
+} from './types';
 
-export function getDocumentation(section: string) {
+export function getArticleDocumentation(articleId: string) {
   return {
-    type: GET_DOCUMENTATION,
-    section,
+    type: GET_ARTICLE,
+    articleId,
   };
 }
 
-export function getDocumentationSuccess(documentationSection?: any) {
+export function getArticleDocumentationSuccess(
+  documentationArticle?: DocumentationArticle,
+) {
   return {
-    type: GET_DOCUMENTATION_SUCCESS,
-    documentationSection,
+    type: GET_ARTICLE_SUCCESS,
+    documentationArticle,
   };
 }
 
-export function getDocumentationError(documentationError: any) {
+export function getArticleDocumentationError(documentationError: any) {
   return {
-    type: GET_DOCUMENTATION_ERROR,
+    type: GET_ARTICLE_ERROR,
     documentationError,
   };
 }
@@ -67,41 +71,16 @@ export function setEditArticle({
   };
 }
 
-export function saveArticleToIpfs(data: { title: string; content: string }) {
-  return {
-    type: SAVE_ARTICLE_TO_IPFS,
-    data,
-  };
-}
-
-export function saveArticleToIpfsSuccess(ipfsHash: string) {
-  return {
-    type: SAVE_ARTICLE_TO_IPFS_SUCCESS,
-    ipfsHash,
-  };
-}
-
-export function saveArticleToIpfsFailed() {
-  return {
-    type: SAVE_ARTICLE_TO_IPFS_FAILED,
-  };
-}
-
-export function saveMenuDraft(menu: any) {
+export function saveMenuDraft(menu: Array<DocumentationItemMenuType>) {
   return {
     type: SAVE_MENU_DRAFT,
     menu,
   };
 }
 
-export function viewArticle(id: string) {
-  return {
-    type: VIEW_ARTICLE,
-    id,
-  };
-}
-
-export function updateDocumentationMenu(menu: any) {
+export function updateDocumentationMenu(
+  menu: Array<DocumentationItemMenuType>,
+) {
   return {
     type: UPDATE_DOCUMENTATION_MENU,
     menu,
@@ -120,9 +99,18 @@ export function updateDocumentationMenuFailed() {
   };
 }
 
-export function updateDocumentationMenuDraft(menu: any) {
+export function updateDocumentationMenuDraft(
+  menu: Array<DocumentationItemMenuType>,
+) {
   return {
     type: UPDATE_DOCUMENTATION_MENU_DRAFT,
     menu,
+  };
+}
+
+export function pinnedArticleMenuDraft(pinnedArticle: PinnedArticleType) {
+  return {
+    type: PINNED_ARTICLE,
+    pinnedArticle,
   };
 }

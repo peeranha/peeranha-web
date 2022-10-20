@@ -2,6 +2,7 @@ import React from 'react';
 import * as routes from 'routes-config';
 import cn from 'classnames';
 import { A1 } from 'containers/LeftMenu/MainLinks';
+import { getIpfsHashFromBytes32, getBytes32FromIpfsHash } from 'utils/ipfs';
 import { DocumentationSection } from 'pages/Documentation/types';
 
 type LinkProps = {
@@ -18,28 +19,33 @@ const Link: React.FC<LinkProps> = ({
   match,
   editArticleId,
   level,
-}) => (
-  <A1
-    to={routes.documentation(item.id)}
-    name={`documentation/${item.id}`}
-    className={cn('p0')}
-    css={{
-      fontSize: 16,
-      lineHeight: '20px',
-      flexGrow: 1,
-      ...(level > 0 && {
-        color: '#7B7B7B',
-      }),
-      ...((isOpen ||
-        match.params.sectionId === item.id ||
-        editArticleId === item.id) && {
-        fontWeight: 700,
-        color: 'var(--color-black)',
-      }),
-    }}
-  >
-    {item.title}
-  </A1>
-);
+}) => {
+  const ipfsHash = getIpfsHashFromBytes32(item.id);
+
+  return (
+    <A1
+      to={routes.documentation(ipfsHash)}
+      name={`documentation/${ipfsHash}`}
+      className={cn('p0')}
+      css={{
+        fontSize: 16,
+        lineHeight: '20px',
+        flexGrow: 1,
+        ...(level > 0 && {
+          color: '#7B7B7B',
+        }),
+        ...((isOpen ||
+          (match.params.sectionId &&
+            getBytes32FromIpfsHash(match.params.sectionId) === item.id) ||
+          editArticleId === item.id) && {
+          fontWeight: 700,
+          color: 'var(--color-black)',
+        }),
+      }}
+    >
+      {item.title}
+    </A1>
+  );
+};
 
 export default Link;

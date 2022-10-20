@@ -2,85 +2,65 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { AnyAction, bindActionCreators, compose, Dispatch } from 'redux';
 import { createStructuredSelector } from 'reselect';
-import { History } from 'history';
 import { RouteComponentProps } from 'react-router-dom';
 
-import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { DAEMON } from 'utils/constants';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
-import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { css } from '@emotion/react';
 
-import TextBlock from 'components/FormFields/TextBlock';
-import * as routes from 'routes-config';
-import { MediumImageStyled } from 'components/Img/MediumImage';
-import H3 from 'components/H3';
-import Wrapper from 'components/Header/Simple';
 import ViewContent from 'components/Documentation/components/ViewContent';
+import Loader from 'components/Documentation/components/Loader';
 
-import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 import { redirectToEditQuestionPage } from 'containers/EditQuestion/actions';
-import { getDocumentation } from './actions';
+import { getArticleDocumentation } from './actions';
 import reducer from './reducer';
 import saga from './saga';
-import { selectDocumentation } from './selectors';
-import { GET_DOCUMENTATION } from './constants';
+import { selectDocumentation, selectDocumentationLoading } from './selectors';
 import {
-  DocumentationSection,
+  DocumentationArticle,
   OutputSelector,
   RouterDocumentetion,
 } from './types';
-
-import faqPageHeader from 'images/faqPageHeader.svg?inline';
+import { getBytes32FromIpfsHash } from 'utils/ipfs';
 
 interface DocumentationProps extends RouteComponentProps<RouterDocumentetion> {
-  getDocumentationDispatch: (id: string) => {
-    type: typeof GET_DOCUMENTATION;
-    documentationSection: string;
-  };
-  documentation: Array<DocumentationSection>;
-  history: History;
+  getArticleDocumentationDispatch: (id: string) => void;
+  documentation: Array<DocumentationArticle>;
+  isArticleLoading: boolean;
 }
 
 export const DocumentationPage: React.FC<DocumentationProps> = ({
   match,
-  getDocumentationDispatch,
+  getArticleDocumentationDispatch,
   documentation,
-  history,
+  isArticleLoading,
 }) => {
-  const single = isSingleCommunityWebsite();
+  const ipfsHasgBytes32 = getBytes32FromIpfsHash(match.params.sectionId);
 
   useEffect(() => {
-    if (single) {
-      getDocumentationDispatch(match.params.sectionId);
-    }
-  }, [match.params.sectionId, single, getDocumentationDispatch]);
+    getArticleDocumentationDispatch(ipfsHasgBytes32);
+  }, [ipfsHasgBytes32, getArticleDocumentationDispatch]);
 
   const documentationSection = documentation.find(
-    (item) => item.id === match.params.sectionId,
+    (item) => item.id === ipfsHasgBytes32,
   );
-
-  useEffect(() => {
-    if (documentationSection?.isDeleted) {
-      history.push(routes.notFound());
-    }
-  }, [documentationSection, history]);
 
   if (!documentation) {
     return null;
   }
 
-  return documentationSection && !documentationSection.isDeleted ? (
+  return documentationSection?.id !== '' ? (
     <div
       css={css`
         flex-grow: 1;
       `}
     >
-      <ViewContent
-        faqPageHeader={faqPageHeader}
-        documentationSection={documentationSection}
-      />
+      {isArticleLoading ? (
+        <Loader />
+      ) : (
+        <ViewContent documentationArticle={documentationSection} />
+      )}
     </div>
   ) : null;
 };
@@ -91,12 +71,14 @@ export default compose(
 
   connect(
     createStructuredSelector<any, OutputSelector>({
-      locale: makeSelectLocale(),
-      profileInfo: makeSelectProfileInfo(),
       documentation: selectDocumentation(),
+      isArticleLoading: selectDocumentationLoading(),
     }),
     (dispatch: Dispatch<AnyAction>) => ({
-      getDocumentationDispatch: bindActionCreators(getDocumentation, dispatch),
+      getArticleDocumentationDispatch: bindActionCreators(
+        getArticleDocumentation,
+        dispatch,
+      ),
       redirectToEditQuestionPageDispatch: bindActionCreators(
         redirectToEditQuestionPage,
         dispatch,

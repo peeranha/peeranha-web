@@ -252,7 +252,6 @@ export async function updateDocumentationTree(
   const ipfsLink = await saveText(JSON.stringify(documentationJSON));
   const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
 
-  console.log('ipfsHash', ipfsHash);
   return await ethereumService.sendTransaction(
     CONTRACT_CONTENT,
     user,

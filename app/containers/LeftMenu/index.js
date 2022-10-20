@@ -35,13 +35,16 @@ import { selectIsEditDocumentation } from 'pages/Documentation/selectors';
 import { toggleEditDocumentation } from 'pages/Documentation/actions';
 
 import { loginWithWallet } from 'containers/Login/actions';
-import { selectIsMenuVisible } from 'containers/AppWrapper/selectors';
+import {
+  selectIsMenuVisible,
+  selectPinnedItemMenu,
+} from 'containers/AppWrapper/selectors';
 import { showLeftMenu } from 'containers/AppWrapper/actions';
 
 import View from './View';
 import { Aside, After } from './Styles';
 
-const LeftMenu = /* istanbul ignore next */ ({
+const LeftMenu = ({
   profile,
   isMenuVisible,
   balance,
@@ -58,6 +61,7 @@ const LeftMenu = /* istanbul ignore next */ ({
   match,
   toggleEditDocumentationDispatch,
   isEditDocumentation,
+  pinnedItemMenu,
 }) => {
   const showLoginModal = () => {
     loginWithWalletDispatch({ metaMask: true });
@@ -86,6 +90,7 @@ const LeftMenu = /* istanbul ignore next */ ({
         match={match}
         toggleEditDocumentation={toggleEditDocumentationDispatch}
         isEditDocumentation={isEditDocumentation}
+        pinnedItemMenu={pinnedItemMenu}
       />
 
       <After isMenuVisible={isMenuVisible} onClick={showLeftMenuDispatch}>
@@ -115,6 +120,7 @@ const mapStateToProps = createStructuredSelector({
   boost: makeSelectBoost(),
   isMenuVisible: selectIsMenuVisible(),
   isEditDocumentation: selectIsEditDocumentation(),
+  pinnedItemMenu: selectPinnedItemMenu(),
 });
 
 const withReducer = injectReducer({ key: 'viewQuestion', reducer });

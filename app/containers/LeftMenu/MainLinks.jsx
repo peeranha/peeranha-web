@@ -30,9 +30,9 @@ import {
   singleCommunityColors,
   singleCommunityFonts,
   getSingleCommunityDetails,
+  singleCommunityDocumentationPosition,
 } from 'utils/communityManagement';
 
-import homeIcon from 'images/house.svg?external';
 import myFeedIcon from 'images/myFeed.svg?external';
 import communitiesIcon from 'images/communities.svg?external';
 import tagsIcon from 'images/tags.svg?external';
@@ -54,6 +54,8 @@ import {
   hasCommunityModeratorRole,
   getPermissions,
 } from 'utils/properties';
+
+import { getIpfsHashFromBytes32 } from 'utils/ipfs';
 
 const communityStyles = singleCommunityStyles();
 const colors = singleCommunityColors();
@@ -151,6 +153,8 @@ const Box = styled.div`
   }
 `;
 
+const documentationPosition = singleCommunityDocumentationPosition();
+
 const MainLinks = ({
   currClientHeight,
   profile,
@@ -158,6 +162,7 @@ const MainLinks = ({
   match,
   toggleEditDocumentation,
   isEditDocumentation,
+  pinnedItemMenu,
 }) => {
   const { pathname } = window.location;
   let route = pathname.split('/').filter((x) => x)[0];
@@ -174,13 +179,60 @@ const MainLinks = ({
   }
 
   return (
-    <Box currClientHeight={currClientHeight}>
-      <div id="communitySection" className="pt12">
+    <Box
+      currClientHeight={currClientHeight}
+      className="df fdc"
+      css={{
+        ...(pinnedItemMenu.id !== '' && { marginTop: 0 }),
+      }}
+    >
+      {pinnedItemMenu.id !== '' && (
+        <div
+          css={{
+            background: '#A5BCFF',
+            borderRadius: '0px 0px 20px 20px',
+          }}
+        >
+          {(() => {
+            const ipfsHash = getIpfsHashFromBytes32(pinnedItemMenu.id);
+
+            return (
+              <A1
+                to={routes.documentation(ipfsHash)}
+                name={`documentation/${ipfsHash}`}
+                css={{
+                  padding: '8px 15px 12px',
+                  fontWeight: 600,
+                  fontSize: 16,
+                  lineHeight: '20px',
+                  color: 'var(--color-white)',
+                }}
+              >
+                <span>{pinnedItemMenu.title}</span>
+              </A1>
+            );
+          })()}
+        </div>
+      )}
+
+      <div
+        id="communitySection"
+        css={{
+          ...(documentationPosition === 'top' && {
+            order: 1,
+          }),
+          ...(pinnedItemMenu.id === '' && {
+            paddingTop: 12,
+          }),
+        }}
+      >
         {Boolean(singleCommId) && (
           <div
-            css={css`
-              ${styles.menuSectionTitle};
-            `}
+            className="df jcsb mt28 pl15"
+            css={{
+              ...styles.menuSectionTitle,
+              ...styles.menuItem,
+            }}
           >
             COMMUNITY
           </div>
@@ -241,8 +293,10 @@ const MainLinks = ({
             <FormattedMessage id={messages.faq.id} />
           </A1>
         )}
+      </div>
 
-        {Boolean(singleCommId) && isModeratorModeSingleCommunity && (
+      {Boolean(singleCommId) &&
+        (documentationMenu.length > 0 || isModeratorModeSingleCommunity) && (
           <Documentation
             documentationMenu={documentationMenu}
             isModeratorModeSingleCommunity={isModeratorModeSingleCommunity}
@@ -251,7 +305,6 @@ const MainLinks = ({
             isEditDocumentation={isEditDocumentation}
           />
         )}
-      </div>
     </Box>
   );
 };

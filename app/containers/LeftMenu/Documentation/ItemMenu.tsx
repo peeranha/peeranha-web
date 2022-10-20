@@ -8,9 +8,11 @@ import Dropdown from 'common-components/Dropdown';
 import AddSubArticleIcon from 'icons/AddSubArticle';
 import EditIcon from 'icons/Edit';
 import DeleteIcon from 'icons/Delete';
+import PinIcon from 'icons/Pin';
 import AddCommentIcon from 'icons/AddComment';
 import Link from './Link';
 import Item from './Item';
+import { getBytes32FromIpfsHash } from 'utils/ipfs';
 
 type DocumentationMenuProps = {
   item: DocumentationSection;
@@ -28,6 +30,7 @@ type DocumentationMenuProps = {
     isEditArticle: boolean;
   }) => void;
   setViewArticle?: (id: string) => void;
+  pinnedArticleMenuDraft?: (data: { id: string; title: string }) => void;
 };
 
 const ItemMenu: React.FC<DocumentationMenuProps> = ({
@@ -41,6 +44,7 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
   parentId,
   setEditArticle,
   setViewArticle,
+  pinnedArticleMenuDraft,
 }) => {
   const [isOpen, open, close] = useTrigger(false);
 
@@ -53,16 +57,24 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
       });
     }
 
-    if (value === 2 && typeof setEditArticle === 'function') {
+    if (
+      value === 2 &&
+      typeof setEditArticle === 'function' &&
+      typeof setViewArticle === 'function'
+    ) {
       setEditArticle({
         id: item.id,
         parentId,
         isEditArticle: true,
       });
+      setViewArticle(item.id);
     }
 
-    if (typeof setViewArticle === 'function') {
-      setViewArticle('');
+    if (value === 3 && typeof pinnedArticleMenuDraft === 'function') {
+      pinnedArticleMenuDraft({
+        id: item.id,
+        title: item.title,
+      });
     }
   };
 
@@ -90,7 +102,8 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
           ...(level === 0 && { padding: '12px 0' }),
           ...(level === 0 && isEditDocumentation && { padding: '12px 16px' }),
           paddingLeft: 15 + 16 * level,
-          ...((match.params.sectionId === item.id ||
+          ...(((match.params.sectionId &&
+            getBytes32FromIpfsHash(match.params.sectionId) === item.id) ||
             editArticle?.id === item.id) && {
             background: 'rgba(53, 74, 137, 0.11)',
             borderLeft: '3px solid #5065A5',
@@ -148,10 +161,17 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
                     icon: <EditIcon />,
                   },
                   {
-                    label: 'Delete',
+                    label: 'Pin',
                     value: 3,
-                    icon: <DeleteIcon />,
+                    icon: (
+                      <PinIcon css={{ fill: 'rgba(118, 153, 255, 0.2)' }} />
+                    ),
                   },
+                  // {
+                  //   label: 'Delete',
+                  //   value: 4,
+                  //   icon: <DeleteIcon />,
+                  // },
                 ]}
                 isMultiple={false}
                 isEqualWidth={false}
