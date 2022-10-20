@@ -61,12 +61,12 @@ export const AnswerForm = ({
   <FormBox onSubmit={handleSubmit(sendAnswer)}>
     {isAnswered && (
       <BlockedInfoArea>
-        <FormattedMessage {...messages.questionIsAnswered} />
+        <FormattedMessage id={messages.questionIsAnswered.id} />
       </BlockedInfoArea>
     )}
     {!account && (
       <BlockedInfoArea>
-        <FormattedMessage {...messages.logInToAnswer} />
+        <FormattedMessage id={messages.logInToAnswer.id} />
       </BlockedInfoArea>
     )}
     <Field
@@ -82,7 +82,7 @@ export const AnswerForm = ({
       <Field
         name={ANSWER_TYPE_FORM}
         component={Checkbox}
-        disabled={sendAnswerLoading}
+        disabled={sendAnswerLoading || isAnswered || !account}
         label={<span>{answerTypeLabel}</span>}
         previewLabel={previewLabel}
         width="90px"
@@ -94,7 +94,7 @@ export const AnswerForm = ({
           <TextBlock className="my-2" content={textEditorValue} />
         ) : (
           <Span color={TEXT_SECONDARY} fontSize="14" isItalic>
-            <FormattedMessage {...messages.nothingToSeeYet} />
+            <FormattedMessage id={messages.nothingToSeeYet.id} />
           </Span>
         )}
       </PreviewWrapper>
