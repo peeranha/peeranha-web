@@ -116,7 +116,7 @@ const QuestionLabels = styled.div`
   align-items: center;
 
   @media only screen and (max-width: 576px) {
-    top: 0;
+    top: 30px;
     right: 5px;
   }
 `;

@@ -1,20 +1,17 @@
 import {
-  APP_FONT,
   BG_SUCCESS_LIGHT,
   BG_TRANSPARENT,
   TEXT_DARK,
+  TEXT_SECONDARY,
+  BORDER_PRIMARY,
 } from '../../../style-constants';
-import {
-  singleCommunityColors,
-  singleCommunityFonts,
-} from '../../../utils/communityManagement';
+import { singleCommunityColors } from '../../../utils/communityManagement';
 
 const colors = singleCommunityColors();
-const fonts = singleCommunityFonts();
 
 export const styles = {
   post: {
-    background: '#fff',
+    background: 'rgb(255,255,255)',
     boxShadow: '0px 2px 4px rgba(7, 16, 64, 0.1)',
     borderRadius: '5px',
 
@@ -24,45 +21,57 @@ export const styles = {
     },
   },
 
-  title: {
-    lineHeight: '30px',
-    color: 'rgb(40,40,40)',
-    letterSpacing: fonts.questionTitleLetterSpacing,
-    fontFamily: fonts.questionTitleFont || APP_FONT,
-
-    ':hover': {
-      color: 'rgb(40,40,40)',
+  container: {
+    '@media only screen and (min-width: 1024px)': {
+      margin: '24px 32px',
     },
   },
 
-  creationData: {
-    color: '#7B7B7B',
+  title: {
+    color: TEXT_DARK,
+    lineHeight: '23px',
+
+    ':hover': {
+      color: TEXT_DARK,
+    },
+
+    '@media only screen and (min-width: 1024px)': {
+      fontSize: '24px',
+      lineHeight: '30px',
+      paddingLeft: '7px',
+    },
+  },
+
+  mainInfo: {
+    '@media only screen and (min-width: 1024px)': {
+      paddingLeft: '50px',
+    },
+  },
+
+  creationTime: {
+    lineHeight: '15px',
+    color: TEXT_SECONDARY,
+
+    '@media only screen and (min-width: 768px)': {
+      fontSize: '14px',
+      lineHeight: '18px',
+    },
   },
 
   content: {
-    resize: 'none',
-    color: '#7B7B7B',
-    lineHeight: '18px',
-    maxHeight: '90px',
-    textAlign: 'justify',
-    marginRight: '-1em',
-    paddingRight: '1em',
+    color: TEXT_SECONDARY,
+    lineHeight: '21px',
+    textOverflow: 'ellipsis',
+    display: '-webkit-box !important',
+    '-webkit-line-clamp': '5',
+    '-webkit-box-orient': 'vertical',
+    whiteSpace: 'normal',
+  },
 
-    ':before': {
-      content: '"..."',
-      position: 'absolute',
-      right: 0,
-      bottom: 0,
-    },
-
-    ':after': {
-      content: '""',
-      position: 'absolute',
-      right: 0,
-      width: '1em',
-      height: '1em',
-      marginTop: '0.2em',
-      background: '#fff',
+  tagsAndCommunity: {
+    '@media only screen and (min-width: 768px)': {
+      display: 'flex',
+      alignItems: 'center',
     },
   },
 
@@ -76,16 +85,31 @@ export const styles = {
     lineHeight: '18px',
   },
 
-  count: {
-    color: colors.linkColor || TEXT_DARK,
+  additionalInfo: {
+    '@media only screen and (min-width: 1024px)': {
+      marginBottom: '0px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      flexWrap: 'wrap',
+      paddingLeft: '50px',
+    },
   },
 
   tag: {
-    color: '#576FED',
+    color: BORDER_PRIMARY,
     lineHeight: '18px',
-    border: '1px solid #576FED',
+    border: `1px solid ${BORDER_PRIMARY}`,
     borderRadius: '2px',
     padding: '3px 9px',
+
+    '@media only screen and (min-width: 768px)': {
+      marginBottom: '0',
+    },
+  },
+
+  count: {
+    color: colors.linkColor || TEXT_DARK,
   },
 
   bestReply: {

@@ -58,18 +58,16 @@ const Search = ({
         index={false}
       />
 
-      <Header className="mb-to-sm-0 mb-from-sm-3">
+      <Header className="mb-to-sm-0 mb-from-sm-3 df jcsb aic">
         <H3>
           <MediumImageStyled src={searchIcon} alt="search" />
           <FormattedMessage {...commonMessages.search} />
         </H3>
-        <div>
-          <span className="bold">
-            <FormattedMessage
-              id={commonMessages[items.length ? 'results' : 'noResults'].id}
-            />
-          </span>
-          {Boolean(items.length) && (
+        {Boolean(items.length) && (
+          <div>
+            <span className="bold">
+              <FormattedMessage id={commonMessages.results.id} />
+            </span>
             <span
               className="fz14 ml8"
               css={css`
@@ -78,8 +76,8 @@ const Search = ({
             >
               {items.length}
             </span>
-          )}
-        </div>
+          </div>
+        )}
       </Header>
 
       {items.length > 0 && (

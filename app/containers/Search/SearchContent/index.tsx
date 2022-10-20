@@ -26,6 +26,7 @@ export type Community = {
 };
 export type Tag = {
   id: string;
+  name: string;
 };
 export type Author = {
   displayName: string;
