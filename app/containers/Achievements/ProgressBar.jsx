@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { TEXT_SECONDARY } from 'style-constants';
+import { TEXT_PRIMARY } from 'style-constants';
 import { showPopover } from 'utils/popover';
 import { singleCommunityColors } from 'utils/communityManagement';
 
@@ -24,7 +24,7 @@ const Progress = styled.span`
   left: 0;
   display: inline-block;
   height: 7px;
-  background-color: ${colors.textColor || TEXT_SECONDARY};
+  background-color: ${colors.textColor || TEXT_PRIMARY};
   border-radius: 7px;
 `;
 
