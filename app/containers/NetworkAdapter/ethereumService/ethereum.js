@@ -1,10 +1,10 @@
 import { Contract, ethers } from 'ethers';
-import PeeranhaUser from '../../../peeranha-subgraph/abis/PeeranhaUser.json';
-import PeeranhaToken from '../../../peeranha-subgraph/abis/PeeranhaToken.json';
-import PeeranhaContent from '../../../peeranha-subgraph/abis/PeeranhaContent.json';
-import PeeranhaCommunity from '../../../peeranha-subgraph/abis/PeeranhaCommunity.json';
+import PeeranhaUser from '../../../../../peeranha-subgraph/abis/PeeranhaUser.json';
+import PeeranhaToken from '../../../../../peeranha-subgraph/abis/PeeranhaToken.json';
+import PeeranhaContent from '../../../../../peeranha-subgraph/abis/PeeranhaContent.json';
+import PeeranhaCommunity from '../../../../../peeranha-subgraph/abis/PeeranhaCommunity.json';
 
-import { WebIntegrationError, WebIntegrationErrorByCode } from './errors';
+import { WebIntegrationError, WebIntegrationErrorByCode } from 'utils/errors';
 import {
   CONTRACT_TOKEN,
   CONTRACT_USER,
@@ -14,10 +14,10 @@ import {
   GET_COMMUNITY,
   GET_USER_BY_ADDRESS,
   SET_STAKE,
-} from './ethConstants';
+} from 'utils/ethConstants';
 
-import { getFileUrl, getIpfsHashFromBytes32, getText } from './ipfs';
-import { deleteCookie, getCookie } from './cookie';
+import { getFileUrl, getIpfsHashFromBytes32, getText } from 'utils/ipfs';
+import { deleteCookie, getCookie } from 'utils/cookie';
 import {
   CURRENCY,
   INVALID_ETHEREUM_PARAMETERS_ERROR_CODE,
@@ -27,13 +27,13 @@ import {
   USER_MIN_RATING_ERROR_CODE,
   RECAPTCHA_VERIFY_FAILED_CODE,
   REJECTED_SIGNATURE_REQUEST,
-} from './constants';
+} from 'utils/constants';
 
 const sigUtil = require('eth-sig-util');
 const {
   callService,
   BLOCKCHAIN_SEND_META_TRANSACTION,
-} = require('./web_integration/src/util/aws-connector');
+} = require('utils/web_integration/src/util/aws-connector');
 
 const CONTRACT_TO_ABI = {};
 CONTRACT_TO_ABI[CONTRACT_TOKEN] = PeeranhaToken;
