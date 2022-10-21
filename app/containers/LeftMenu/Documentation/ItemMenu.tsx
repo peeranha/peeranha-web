@@ -31,6 +31,7 @@ type DocumentationMenuProps = {
   }) => void;
   setViewArticle?: (id: string) => void;
   pinnedArticleMenuDraft?: (data: { id: string; title: string }) => void;
+  removeArticle?: (id: string) => void;
 };
 
 const ItemMenu: React.FC<DocumentationMenuProps> = ({
@@ -45,6 +46,7 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
   setEditArticle,
   setViewArticle,
   pinnedArticleMenuDraft,
+  removeArticle,
 }) => {
   const [isOpen, open, close] = useTrigger(false);
 
@@ -75,6 +77,10 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
         id: item.id,
         title: item.title,
       });
+    }
+
+    if (value === 4 && typeof removeArticle === 'function') {
+      removeArticle(item.id);
     }
   };
 
@@ -167,11 +173,11 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
                       <PinIcon css={{ fill: 'rgba(118, 153, 255, 0.2)' }} />
                     ),
                   },
-                  // {
-                  //   label: 'Delete',
-                  //   value: 4,
-                  //   icon: <DeleteIcon />,
-                  // },
+                  {
+                    label: 'Delete',
+                    value: 4,
+                    icon: <DeleteIcon />,
+                  },
                 ]}
                 isMultiple={false}
                 isEqualWidth={false}
@@ -213,6 +219,8 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
               setViewArticle={setViewArticle}
               editArticle={editArticle}
               setEditArticle={setEditArticle}
+              pinnedArticleMenuDraft={pinnedArticleMenuDraft}
+              removeArticle={removeArticle}
             />
           ))}
         </div>

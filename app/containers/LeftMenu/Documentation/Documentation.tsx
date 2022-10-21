@@ -28,6 +28,7 @@ type DocumentationMenuSectionProps = {
   setEditArticle?: (data: EditArticleType) => void;
   setViewArticle?: (id: string) => void;
   pinnedArticleMenuDraft?: (data: PinnedArticleType) => void;
+  removeArticle?: (id: string) => void;
 };
 
 const documentationPosition = singleCommunityDocumentationPosition();
@@ -65,6 +66,7 @@ const Documentation: React.FC<DocumentationMenuSectionProps> = ({
   setEditArticle,
   setViewArticle,
   pinnedArticleMenuDraft,
+  removeArticle,
 }) => {
   const clickDocumentation = () => (value: number) => {
     if (value === 1 && typeof toggleEditDocumentation === 'function') {
@@ -121,6 +123,7 @@ const Documentation: React.FC<DocumentationMenuSectionProps> = ({
           setEditArticle={setEditArticle}
           setViewArticle={setViewArticle}
           pinnedArticleMenuDraft={pinnedArticleMenuDraft}
+          removeArticle={removeArticle}
         />
       ))}
       {!isEditDocumentation && documentationPosition === 'top' && (

@@ -13,6 +13,7 @@ import {
   setEditArticle,
   setViewArticle,
   pinnedArticleMenuDraft,
+  removeArticle,
 } from 'pages/Documentation/actions';
 import reducer from 'pages/Documentation/reducer';
 import saga from 'pages/Documentation/saga';
@@ -55,6 +56,7 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
   viewArticleId,
   setViewArticleDispatch,
   pinnedArticleMenuDraftDispatch,
+  removeArticleDispatch,
 }): JSX.Element => {
   const refOverlay = useRef<HTMLDivElement>(null);
   const [paddingLeft, setPaddingLeft] = useState<number>(86);
@@ -163,6 +165,7 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
               setEditArticle={setEditArticleDispatch}
               setViewArticle={setViewArticleDispatch}
               pinnedArticleMenuDraft={pinnedArticleMenuDraftDispatch}
+              removeArticle={removeArticleDispatch}
             />
           </div>
           <div css={styled.centerSection}>
@@ -185,6 +188,9 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
                     documentationMenu={documentationMenuDraft}
                     documentationArticle={editDocumentationArticle}
                     articleParentId={editArticle.parentId}
+                    isEditArticle={
+                      editArticle.isEditArticle && editArticle.id !== ''
+                    }
                     updateDocumentationMenuDraft={saveMenuDraftDispatch}
                     setEditArticle={setEditArticleDispatch}
                     setViewArticle={setViewArticleDispatch}
@@ -229,6 +235,7 @@ export default compose(
         pinnedArticleMenuDraft,
         dispatch,
       ),
+      removeArticleDispatch: bindActionCreators(removeArticle, dispatch),
     }),
   ),
 )(EditDocumentation);

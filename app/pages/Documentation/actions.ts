@@ -11,6 +11,7 @@ import {
   UPDATE_DOCUMENTATION_MENU_DRAFT,
   SET_EDIT_ARTICLE,
   PINNED_ARTICLE,
+  REMOVE_ARTICLE,
 } from './constants';
 import {
   PinnedArticleType,
@@ -68,6 +69,13 @@ export function setEditArticle({
     isEditArticle,
     id,
     parentId,
+  };
+}
+
+export function removeArticle(id: string) {
+  return {
+    type: REMOVE_ARTICLE,
+    id,
   };
 }
 

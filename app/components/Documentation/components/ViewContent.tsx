@@ -1,9 +1,7 @@
 import React from 'react';
 import TextBlock from 'components/FormFields/TextBlock';
-import { MediumImageStyled } from 'components/Img/MediumImage';
 import H3 from 'components/H3';
 import Wrapper from 'components/Header/Simple';
-import faqPageHeader from 'images/faqPageHeader.svg?inline';
 import { DocumentationArticle } from 'pages/Documentation/types';
 
 const styled = {
@@ -32,9 +30,6 @@ const ViewContent: React.FC<ViewContentProps> = ({
       }}
     >
       <H3>
-        {!isEditDocumentation && (
-          <MediumImageStyled src={faqPageHeader} alt="documentation-header" />
-        )}
         <span className="d-none d-md-inline-block">
           {documentationArticle?.title}
         </span>

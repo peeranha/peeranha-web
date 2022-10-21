@@ -69,7 +69,11 @@ const styles = {
     fontSize: 14,
   },
   option: {
+    maxWidth: 350,
     height: 40,
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
     '&:hover': {
       backgroundColor: 'rgba(63, 78, 93, 0.05)',
     },
