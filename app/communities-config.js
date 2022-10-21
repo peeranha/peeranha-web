@@ -80,6 +80,8 @@ const communitiesConfig = {
   test: {
     1: {
       origin: `https://meta${process.env.COOKIE_DOMAIN}`,
+      src: MintStateLabsLogo,
+      styles: MintStateLabsStyles,
     },
     2: {
       origin: `https://polygon${process.env.COOKIE_DOMAIN}`,
