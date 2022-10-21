@@ -103,6 +103,24 @@ export const updateMenuDraft = (
     };
   });
 
+export const removeArticle = (
+  documentationMenu: Array<DocumentationItemMenuType>,
+  id: string,
+) => {
+  const cleanedMenu: Array<DocumentationItemMenuType> = [];
+
+  documentationMenu.forEach((item) => {
+    if (item.id !== id) {
+      cleanedMenu.push({
+        ...item,
+        children: removeArticle(item.children, id),
+      });
+    }
+  });
+
+  return cleanedMenu;
+};
+
 export const animationDocumentation = (screenWidth: number) =>
   keyframes({
     '0%': {

@@ -5,8 +5,14 @@ import TextEditor from 'components/TextEditor';
 import DropdownTrigger from './DropdownTrigger';
 import TextBlock from 'components/FormFields/TextBlock';
 import LoaderDocumentation from './Loader';
+import Validate from './Validate';
 import { saveText, getBytes32FromIpfsHash } from 'utils/ipfs';
 import { saveDraft, initMenu, addArticle, updateMenuDraft } from '../helpers';
+import {
+  strLength3x100,
+  required,
+  strLength25x30000,
+} from 'components/FormFields/validate';
 import { DocumentationFormProps } from '../types';
 import { DocumentationItemMenuType } from 'pages/Documentation/types';
 
@@ -17,11 +23,13 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
   updateDocumentationMenuDraft,
   setViewArticle,
   setEditArticle,
+  isEditArticle,
 }): JSX.Element => {
   const [title, setTitle] = useState<string>('');
   const [bodyText, setBodyText] = useState<string>('');
   const [parentId, setParentId] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isValidFields, setIsValidFields] = useState<boolean>(false);
 
   useEffect(() => {
     if (
@@ -57,6 +65,10 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
   };
 
   const onClickSaveDraft = () => {
+    if (!isValidFields) {
+      return;
+    }
+
     setIsLoading(true);
 
     saveText(JSON.stringify({ title, content: bodyText }))
@@ -146,6 +158,7 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
             isEqualWidth={false}
             value={parentId}
             onSelect={onSelect}
+            isDisabled={isEditArticle}
           />
         </div>
         <div>
@@ -159,26 +172,44 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
           >
             Title
           </div>
-          <input
-            type="text"
-            css={{
-              height: 40,
-              width: 328,
-              border: '1px solid #C2C6D8',
-              borderRadius: '3px',
-              padding: '10px 16px',
-              fontSize: 16,
-              lineHeight: '20px',
-              outline: 0,
-
-              '&:placeholder': {
-                color: '#7B7B7B',
-              },
-            }}
-            placeholder="Title"
-            onChange={onChangeTitle}
+          <Validate
+            validate={[strLength3x100, required]}
             value={title}
-          />
+            onChange={onChangeTitle}
+          >
+            {({ onChange, onBlur, isValid }) => {
+              setIsValidFields(isValid);
+
+              return (
+                <input
+                  type="text"
+                  css={{
+                    height: 40,
+                    width: 328,
+                    border: '1px solid #C2C6D8',
+                    borderRadius: '3px',
+                    padding: '10px 16px',
+                    fontSize: 16,
+                    lineHeight: '20px',
+                    outline: 0,
+
+                    '&:placeholder': {
+                      color: '#7B7B7B',
+                    },
+
+                    ...(!isValid && {
+                      border: '1px solid rgb(252,102,85)',
+                      boxShadow: '0 0 0 3px rgb(252 102 85 / 40%)',
+                    }),
+                  }}
+                  placeholder="Title"
+                  onChange={onChange}
+                  value={title}
+                  onBlur={onBlur}
+                />
+              );
+            }}
+          </Validate>
         </div>
         <div
           css={{
@@ -197,7 +228,36 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
           >
             Body
           </div>
-          <TextEditor locale="en" onChange={onChangeBody} value={bodyText} />
+          <Validate
+            validate={[strLength25x30000, required]}
+            value={bodyText}
+            onChange={onChangeBody}
+            position="bottom"
+          >
+            {({ onChange, onBlur, isValid }) => {
+              setIsValidFields(isValid);
+
+              return (
+                <div
+                  css={{
+                    ...(!isValid && {
+                      '& .component-text-editor': {
+                        border: '1px solid rgb(252,102,85)',
+                        boxShadow: '0 0 0 3px rgb(252 102 85 / 40%)',
+                      },
+                    }),
+                  }}
+                >
+                  <TextEditor
+                    locale="en"
+                    onChange={onChange}
+                    value={bodyText}
+                    onBlur={onBlur}
+                  />
+                </div>
+              );
+            }}
+          </Validate>
         </div>
         <div>
           <div
@@ -249,7 +309,7 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
             '&:hover .icon': { stroke: 'var(--color-white)' },
           }}
           onClick={onClickSaveDraft}
-          disabled={isLoading}
+          disabled={isLoading || !isValidFields}
         >
           Save to draft
         </Button>

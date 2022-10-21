@@ -73,6 +73,8 @@ const communitiesConfig = {
   test: {
     1: {
       origin: `https://meta${process.env.COOKIE_DOMAIN}`,
+      src: PolygonLogo,
+      styles: PolygonStyles,
     },
     2: {
       origin: `https://polygon${process.env.COOKIE_DOMAIN}`,

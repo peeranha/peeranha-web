@@ -12,12 +12,14 @@ import {
   UPDATE_DOCUMENTATION_MENU_FAILED,
   SET_EDIT_ARTICLE,
   PINNED_ARTICLE,
+  REMOVE_ARTICLE,
 } from './constants';
 import {
   PinnedArticleType,
   DocumentationItemMenuType,
   DocumentationArticle,
 } from './types';
+import { removeArticle } from 'components/Documentation/helpers';
 
 export const initialState = fromJS({
   documentationLoading: false,
@@ -84,6 +86,24 @@ function documentationReducer(
         .set('editArticleId', id)
         .set('editArticleParentId', parentId)
         .set('isEditArticle', isEditArticle);
+    case REMOVE_ARTICLE:
+      return state
+        .set(
+          'documentationMenuDraft',
+          removeArticle(state.get('documentationMenuDraft'), id),
+        )
+        .set(
+          'pinnedArticleId',
+          state.get('pinnedArticleId') === id
+            ? ''
+            : state.get('pinnedArticleId'),
+        )
+        .set(
+          'pinnedArticleTitle',
+          state.get('pinnedArticleId') === id
+            ? ''
+            : state.get('pinnedArticleTitle'),
+        );
     case SAVE_MENU_DRAFT:
       return state.set('documentationMenuDraft', menu);
     case UPDATE_DOCUMENTATION_MENU:

@@ -26,6 +26,7 @@ export type EditDocumentationProps = {
   viewArticleId: string;
   setViewArticleDispatch: (id: string) => void;
   pinnedArticleMenuDraftDispatch: (data: PinnedArticleType) => void;
+  removeArticleDispatch: (id: string) => void;
 };
 
 export type DocumentationFormProps = {
@@ -37,4 +38,5 @@ export type DocumentationFormProps = {
   ) => void;
   setViewArticle: (id: string) => void;
   setEditArticle: (data: EditArticleType) => void;
+  isEditArticle: boolean;
 };

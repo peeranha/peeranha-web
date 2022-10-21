@@ -17,7 +17,7 @@ export const initialState = fromJS({
 });
 
 function appWrapperReducer(state = initialState, action) {
-  const { type, documentationMenu, documentationMenuError, pinnedItem } =
+  const { type, documentationMenu, documentationMenuError, pinnedItem, id } =
     action;
 
   switch (type) {

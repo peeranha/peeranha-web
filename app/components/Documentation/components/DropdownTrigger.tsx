@@ -17,11 +17,17 @@ const updateOptions = (options) => {
   return arrayOptions;
 };
 
-const DropdownTrigger: React.FC<any> = ({ value, options, placeholder }) => {
+const DropdownTrigger: React.FC<any> = ({
+  value,
+  options,
+  placeholder,
+  isDisabled,
+}) => {
   const option = updateOptions(options).find((item) => item.value === value);
 
   return (
-    <div
+    <button
+      className="text-ellipsis"
       css={{
         height: 40,
         width: 328,
@@ -30,10 +36,18 @@ const DropdownTrigger: React.FC<any> = ({ value, options, placeholder }) => {
         padding: '10px 16px',
         fontSize: 16,
         lineHeight: '20px',
+        textAlign: 'left',
+        '&:disabled': {
+          cursor: 'not-allowed',
+          backgroundColor: 'rgba(63, 78, 93, 0.02)',
+          borderColor: 'rgba(0, 0, 0, 0.06)',
+          color: 'rgba(0, 0, 0, 0.35)',
+        },
       }}
+      disabled={isDisabled}
     >
       {option?.label || placeholder}
-    </div>
+    </button>
   );
 };
 
