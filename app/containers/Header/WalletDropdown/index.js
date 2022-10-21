@@ -92,12 +92,9 @@ const WalletDropdown = ({
     },
     [account],
   );
-  // TODO: return if WalletDropdown will be needed in production
-  // REMOVE: remove if WalletDropdown will be needed
+
   return (
-    <div className="d-none">
-      {/* REMOVE: d-none - temporarily added class for production and staging environments */}
-      {/* className="position-relative"> // TODO: temporarily removed class */}
+    <div className="pr">
       <Dropdown
         id={`profile_id_${Math.random()}`}
         className="d-none d-md-flex mr-1 wallet-dropdown"

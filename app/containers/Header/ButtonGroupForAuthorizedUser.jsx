@@ -19,11 +19,12 @@ const ButtonGroupForAuthorizedUser = ({
         energy={profileInfo.energy}
         faqQuestions={faqQuestions}
       />
-      <WalletDropdown
-        user={profileInfo.user}
-        balance={profileInfo.availableBalance}
-        boost={profileInfo.boost}
-      />
+      {/* TODO: return if Wallet will be needed in production */}
+      {/* <WalletDropdown */}
+      {/*  user={profileInfo.user} */}
+      {/*  balance={profileInfo.availableBalance} */}
+      {/*  boost={profileInfo.boost} */}
+      {/* /> */}
       <ProfileDropdown profileInfo={profileInfo} />
     </React.Fragment>
   );
