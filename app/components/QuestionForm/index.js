@@ -121,7 +121,6 @@ export const QuestionForm = ({
   doSkipExistingQuestions,
   skipExistingQuestions,
   communityQuestionsType,
-  disableCommForm,
   profile,
   isFailed,
 }) => {
@@ -211,7 +210,7 @@ export const QuestionForm = ({
                 communities={communities}
                 change={change}
                 questionLoading={questionLoading}
-                disableCommForm={disableCommForm}
+                disableCommForm={false}
               />
 
               {!question &&
@@ -330,7 +329,6 @@ QuestionForm.propTypes = {
   existingQuestions: PropTypes.array,
   doSkipExistingQuestions: PropTypes.bool,
   skipExistingQuestions: PropTypes.func,
-  disableCommForm: PropTypes.bool,
   profile: PropTypes.object,
   isFailed: PropTypes.bool,
 };
@@ -348,9 +346,6 @@ export default memo(
         const questionsType = integerProperties.find(
           prop => prop.key === KEY_QUESTIONS_TYPE,
         )?.value;
-
-        // disable community form on edit question page
-        const disableCommForm = false;
 
         return {
           profile: makeSelectProfileInfo()(state),
@@ -399,7 +394,6 @@ export default memo(
               : {}),
           },
           enableReinitialize: true,
-          disableCommForm,
         };
       },
       dispatch => ({
