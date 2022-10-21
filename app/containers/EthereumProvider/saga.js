@@ -2,9 +2,8 @@
 import { takeLatest, call, put, select } from 'redux-saga/effects';
 import { translationMessages } from 'i18n';
 
-import EthereumService from 'utils/ethereum';
+import EthereumService from 'containers/NetworkAdapter/ethereumService/ethereum';
 import { ApplicationError } from 'utils/errors';
-import { autoLogin } from 'utils/web_integration/src/wallet/login/login';
 
 import {
   makeSelectProfileInfo,
@@ -14,7 +13,6 @@ import {
 
 import { loginWithWallet } from 'containers/Login/actions';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { logout } from 'containers/Logout/actions';
 
 import {
   getCurrentAccountWorker,
@@ -26,9 +24,7 @@ import { getRatingByCommunity } from 'utils/profileManagement';
 import { initEthereumSuccess, initEthereumError } from './actions';
 import { INIT_ETHEREUM, INIT_ETHEREUM_SUCCESS } from './constants';
 
-import validate from './validate';
-import { getCookie } from '../../utils/cookie';
-import { AUTOLOGIN_DATA } from '../Login/constants';
+// import validate from 'app/containers/NetworkAdapter/validate';
 import { hasGlobalModeratorRole } from '../../utils/properties';
 
 export function* initEthereumWorker({ data }) {
@@ -58,22 +54,22 @@ export function* isValid({ creator, buttonId, minRating = 0, communityId }) {
 
   const isGlobalAdmin = hasGlobalModeratorRole(permissions);
 
-  yield call(
-    isAvailableAction,
-    () =>
-      validate({
-        rating: getRatingByCommunity(profileInfo, communityId),
-        translations: translationMessages[locale],
-        actor: selectedAccount,
-        isGlobalAdmin,
-        creator,
-        buttonId,
-        minRating,
-      }),
-    {
-      communityID: communityId,
-    },
-  );
+  // yield call(
+  //   isAvailableAction,
+  //   () =>
+  //     validate({
+  //       rating: getRatingByCommunity(profileInfo, communityId),
+  //       translations: translationMessages[locale],
+  //       actor: selectedAccount,
+  //       isGlobalAdmin,
+  //       creator,
+  //       buttonId,
+  //       minRating,
+  //     }),
+  //   {
+  //     communityID: communityId,
+  //   },
+  // );
 }
 
 export default function*() {

@@ -1,3 +1,4 @@
+import { selectNetworkAdapter } from 'containers/NetworkAdapter/selectors';
 import { all, call, put, select, take, takeLatest } from 'redux-saga/effects';
 
 import { getProfileInfo } from 'utils/profileManagement';
@@ -92,57 +93,41 @@ import {
 import {
   addLoginData,
   getCurrentAccountError,
-  getCurrentAccountProcessing,
   getCurrentAccountSuccess,
   updateAccErr,
   updateAccSuccess,
 } from './actions';
 import { makeSelectProfileInfo } from './selectors';
 import { makeSelectLocale } from '../LanguageProvider/selectors';
-import { translationMessages } from '../../i18n';
-import { selectEthereum } from '../EthereumProvider/selectors';
-import { hasGlobalModeratorRole } from '../../utils/properties';
-import { getNotificationsInfoWorker } from '../../components/Notifications/saga';
-import { getCurrentPeriod } from '../../utils/theGraph';
+import { translationMessages } from 'i18n';
+import { hasGlobalModeratorRole } from 'utils/properties';
+import { getNotificationsInfoWorker } from 'components/Notifications/saga';
+import { getCurrentPeriod } from 'utils/theGraph';
 
 const single = isSingleCommunityWebsite();
 
 /* eslint func-names: 0, consistent-return: 0 */
 export const getCurrentAccountWorker = function*(initAccount) {
   try {
-    const ethereumService = yield select(selectEthereum);
-
-    if (ethereumService.withMetaMask)
-      yield put(addLoginData({ loginWithMetaMask: true }));
-
-    // const globalBoostStat = yield call(getGlobalBoostStatistics, eosService);
+    const networkAdapter = yield select(selectNetworkAdapter);
 
     let account = yield typeof initAccount === 'string'
       ? initAccount
-      : call(ethereumService.getSelectedAccount);
+      : call(networkAdapter.getConnectedAccount);
 
     const previouslyConnectedWallet = getCookie('connectedWallet');
 
-    if (!window.localStorage.getItem('onboard.js:agreement')) {
-      window.localStorage.setItem(
-        'onboard.js:agreement',
-        getCookie('agreement'),
-      );
-    }
-
     if (!account && previouslyConnectedWallet) {
-      yield call(ethereumService.walletLogIn, previouslyConnectedWallet);
-      account = ethereumService.getSelectedAccount();
-    } else if (account?.email) {
-      account = account.account;
-      ethereumService.setSelectedAccount(account);
+      yield call(networkAdapter.connect, previouslyConnectedWallet);
+      account = networkAdapter.getConnectedAccount();
     }
 
     if (account && typeof account === 'object') {
       account = account.ethereumUserAddress;
     }
 
-    const isUserRegistered = yield call(isUserExists, account, ethereumService);
+    const isUserRegistered = false;
+    // yield call(isUserExists, account, networkAdapter);
 
     if (isUserRegistered === false) {
       yield put(getUserProfileSuccess(emptyProfile(account)));
@@ -158,10 +143,10 @@ export const getCurrentAccountWorker = function*(initAccount) {
       availableBalance,
       userCurrentBoost,
     ] = yield all([
-      call(getProfileInfo, account, ethereumService, true, true),
-      call(getBalance, ethereumService, account),
-      call(getAvailableBalance, ethereumService, account),
-      call(getUserBoost, ethereumService, account, currentPeriod.id),
+      call(getProfileInfo, account, networkAdapter, true, true),
+      call(getBalance, networkAdapter, account),
+      call(getAvailableBalance, networkAdapter, account),
+      call(getUserBoost, networkAdapter, account, currentPeriod.id),
     ]);
 
     if (profileInfo) {

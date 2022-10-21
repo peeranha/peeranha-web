@@ -1,3 +1,3 @@
-import { NetworkAdapter } from './NetworkAdapter';
+import NetworkAdapter from './NetworkAdapter';
 
 export default NetworkAdapter;

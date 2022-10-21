@@ -29,7 +29,6 @@ import {
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import {
   selectCommunities,
-  selectStat,
   selectUsers,
 } from 'containers/DataCacheProvider/selectors';
 import {
@@ -76,7 +75,6 @@ const ViewProfilePage = ({
   ownerKey,
   redirectToEditProfilePageDispatch,
   userTgData,
-  stat,
   userAchievements,
   getAllAchievementsDispatch,
   setViewProfileAccountDispatch,
@@ -159,7 +157,7 @@ const ViewProfilePage = ({
           profile={profile}
           loginData={loginData}
           isAvailable={account === profile?.user}
-          communitiesCount={stat.communitiesCount}
+          communitiesCount={communities.length}
         />
       )}
 
@@ -219,7 +217,6 @@ const withConnect = connect(
     activeKey: selectActiveKey(),
     ownerKey: selectOwnerKey(),
     userTgData: selectGetUserTgData(),
-    stat: selectStat(),
     userAchievements: selectUserAchievements(),
   }),
   dispatch => ({

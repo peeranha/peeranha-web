@@ -34,9 +34,6 @@ export const initialState = fromJS({
   users: {},
   usersLoading: false,
   getUserProfileError: null,
-  stat: {},
-  statLoading: false,
-  getStatError: null,
   faq: null,
   getFaqLoading: false,
   getFaqError: null,
@@ -57,8 +54,6 @@ function dataCacheProviderReducer(state = initialState, action) {
     getUserProfileError,
     profile,
     user,
-    stat,
-    getStatError,
     faq,
     getFaqError,
     tutorial,
@@ -68,13 +63,6 @@ function dataCacheProviderReducer(state = initialState, action) {
   } = action;
 
   switch (type) {
-    case GET_STAT:
-      return state.set('statLoading', true);
-    case GET_STAT_SUCCESS:
-      return state.set('statLoading', false).set('stat', fromJS(stat));
-    case GET_STAT_ERROR:
-      return state.set('statLoading', false).set('getStatError', getStatError);
-
     case GET_FAQ:
       return state.set('getFaqLoading', true);
     case GET_FAQ_SUCCESS:

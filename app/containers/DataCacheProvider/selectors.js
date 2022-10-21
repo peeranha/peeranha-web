@@ -56,9 +56,6 @@ const selectGetUserProfileError = () =>
     substate => substate.getUserProfileError,
   );
 
-const selectStat = () =>
-  createSelector(selectDataCacheProviderDomain, substate => substate.stat);
-
 const selectStatLoading = () =>
   createSelector(
     selectDataCacheProviderDomain,
@@ -201,7 +198,6 @@ export {
   selectUsers,
   selectUsersLoading,
   selectGetUserProfileError,
-  selectStat,
   selectStatLoading,
   selectStatError,
   selectFaq,

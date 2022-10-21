@@ -5,9 +5,9 @@
  */
 
 import {
-  INIT_ETHEREUM,
-  INIT_ETHEREUM_SUCCESS,
-  INIT_ETHEREUM_ERROR,
+  INIT_NETWORK_ADAPTER,
+  INIT_NETWORK_ADAPTER_SUCCESS,
+  INIT_NETWORK_ADAPTER_ERROR,
   SHOW_MODAL,
   HIDE_MODAL,
   TRANSACTION_COMPLETED,
@@ -16,23 +16,24 @@ import {
   TRANSACTION_INITIALISED,
 } from './constants';
 
-export function initEthereum(data) {
+export function initNetworkAdapter(network) {
+  console.log(network);
   return {
-    type: INIT_ETHEREUM,
-    data,
+    type: INIT_NETWORK_ADAPTER,
+    network,
   };
 }
 
-export function initEthereumSuccess(ethereum) {
+export function initNetworkAdapterSuccess(networkAdapter) {
   return {
-    type: INIT_ETHEREUM_SUCCESS,
-    ethereum,
+    type: INIT_NETWORK_ADAPTER_SUCCESS,
+    networkAdapter,
   };
 }
 
-export function initEthereumError(error) {
+export function initNetworkAdapterError(error) {
   return {
-    type: INIT_ETHEREUM_ERROR,
+    type: INIT_NETWORK_ADAPTER_ERROR,
     error,
   };
 }

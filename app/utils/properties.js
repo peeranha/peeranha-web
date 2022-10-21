@@ -25,6 +25,7 @@ export const getModeratorPermissions = (
   communities,
   translations,
 ) => {
+  console.log();
   const values = getAllRoles(globalModeratorProps, communitiesCount);
   const permissions1 = [];
   values.map(({ communityId = 0, role }, index) => {

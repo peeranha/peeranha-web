@@ -273,8 +273,8 @@ const formCommunityObjectWithTags = (rawCommunity, tags) => {
 };
 
 /* eslint no-param-reassign: 0 */
-export const getAllCommunities = async (ethereumService, count) => {
-  const communities = await getCommunities(count);
+export const getAllCommunities = async () => {
+  const communities = await getCommunities();
   const tags = await getAllTags();
   return communities.map(community => {
     return formCommunityObjectWithTags(

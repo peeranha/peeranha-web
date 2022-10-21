@@ -4,6 +4,7 @@
  *
  */
 
+import { NETWORKS } from 'containers/NetworkAdapter/constants';
 import {
   SHOW_LOGIN_MODAL,
   HIDE_LOGIN_MODAL,
@@ -50,14 +51,13 @@ export function showEmailPasswordForm(val) {
 }
 
 // Login with Wallet
-
 export function loginWithWallet(
-  { metaMask },
+  network = NETWORKS.sui,
   isNewPostCreationAfterLogin = false,
 ) {
   return {
     type: LOGIN_WITH_WALLET,
-    metaMask,
+    network,
     isNewPostCreationAfterLogin,
   };
 }

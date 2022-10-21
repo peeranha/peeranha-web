@@ -16,6 +16,8 @@ module.exports = {
     config.resolve.alias = {
       ...config.resolve.alias,
       components: path.join(__dirname, '../app/components'),
+      containers: path.join(__dirname, '../../app/containers'),
+      utils: path.join(__dirname, '../../app/utils'),
       'common-components': path.join(__dirname, '../app/components/common'),
       styles: path.join(__dirname, '../app/styles'),
       hooks: path.join(__dirname, '../app/hooks'),

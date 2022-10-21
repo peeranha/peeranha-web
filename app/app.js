@@ -7,6 +7,7 @@
 
 // Importing Bootstrap and its dependencies
 import 'bootstrap/dist/css/bootstrap.min.css';
+import NetworkAdapter from 'containers/NetworkAdapter/NetworkAdapter';
 import $ from 'jquery'; // eslint-disable-line no-unused-vars
 import Popper from 'popper.js'; // eslint-disable-line no-unused-vars
 import 'bootstrap/dist/js/bootstrap.bundle.min';
@@ -58,7 +59,7 @@ const MOUNT_NODE = document.getElementById('app');
 const render = messages => {
   ReactDOM.render(
     <Provider store={store}>
-      <EthereumProvider>
+      <NetworkAdapter>
         <AccountProvider>
           <LanguageProvider messages={messages}>
             <FacebookProvider>
@@ -70,7 +71,7 @@ const render = messages => {
             </FacebookProvider>
           </LanguageProvider>
         </AccountProvider>
-      </EthereumProvider>
+      </NetworkAdapter>
     </Provider>,
     MOUNT_NODE,
   );

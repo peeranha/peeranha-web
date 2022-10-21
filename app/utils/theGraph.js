@@ -125,12 +125,9 @@ export const getUsersAnsweredQuestions = async (id, limit, offset) => {
   return answeredPosts?.data.posts.map(question => ({ ...question }));
 };
 
-export const getCommunities = async count => {
+export const getCommunities = async () => {
   const communities = await client.query({
     query: gql(communitiesQuery),
-    variables: {
-      first: count,
-    },
   });
   return communities?.data.communities;
 };

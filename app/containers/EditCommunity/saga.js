@@ -1,5 +1,4 @@
 import { call, put, select, takeLatest } from 'redux-saga/effects';
-import _isEqual from 'lodash/isEqual';
 
 import { communities as communitiesRoute, feed } from 'routes-config';
 import createdHistory from 'createdHistory';
@@ -8,11 +7,7 @@ import { HASH_CHARS_LIMIT } from 'components/FormFields/AvatarField';
 
 import { getCommunitiesWithTagsSuccess } from 'containers/DataCacheProvider/actions';
 
-import {
-  selectCommunities,
-  selectStat,
-} from 'containers/DataCacheProvider/selectors';
-import { selectEos } from 'containers/EosioProvider/selectors';
+import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 
 import {
   editCommunity,
@@ -98,12 +93,7 @@ export function* editCommunityWorker({ communityId, communityData }) {
 
       if (community) {
         try {
-          const stat = yield select(selectStat());
-          const communities = yield call(
-            getAllCommunities,
-            ethereumService,
-            stat.communitiesCount,
-          );
+          const communities = yield call(getAllCommunities, ethereumService);
 
           yield put(getCommunitiesWithTagsSuccess(communities));
         } catch {}

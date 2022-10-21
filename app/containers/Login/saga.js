@@ -1,3 +1,5 @@
+import { initNetworkAdapterWorker } from 'containers/NetworkAdapter/saga';
+import { makeSelectNetworkAdapter } from 'containers/NetworkAdapter/selectors';
 import { call, put, takeLatest, select } from 'redux-saga/effects';
 import { translationMessages } from 'i18n';
 import crypto from 'crypto';
@@ -5,12 +7,6 @@ import crypto from 'crypto';
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
-import {
-  inviteUser,
-  isUserInSystem,
-  updateAcc,
-  emptyProfile,
-} from 'utils/accountManagement';
 import { login } from 'utils/web_integration/src/wallet/login/login';
 import webIntegrationErrors from 'utils/web_integration/src/wallet/service-errors';
 import { WebIntegrationError } from 'utils/errors';
@@ -70,8 +66,8 @@ import {
   callService,
   LOGIN_WITH_FACEBOOK_SERVICE,
   REGISTER_WITH_FACEBOOK_SERVICE,
-} from '../../utils/web_integration/src/util/aws-connector';
-import { decryptObject } from '../../utils/web_integration/src/util/cipher';
+} from 'utils/web_integration/src/util/aws-connector';
+import { decryptObject } from 'utils/web_integration/src/util/cipher';
 import { selectEthereum } from '../EthereumProvider/selectors';
 import { DISPLAY_NAME_FIELD } from '../Profile/constants';
 import { saveProfileWorker } from '../EditProfilePage/saga';
@@ -123,47 +119,30 @@ export function* loginWithEmailWorker({ val }) {
   }
 }
 
-export function* loginWithWalletWorker({ metaMask }) {
+export function* loginWithWalletWorker({ network }) {
   try {
-    const ethereumService = yield select(selectEthereum);
     const locale = yield select(makeSelectLocale());
     const isNewPostCreationAfterLogin = yield select(
       selectIsNewPostCreationAfterLogin(),
     );
     const translations = translationMessages[locale];
 
-    let currentAccount;
-    let metaMaskUserAddress = null;
+    // yield put(initNetworkAdapter(network));
+    yield call(initNetworkAdapterWorker, network);
+    const networkAdapter = yield select(makeSelectNetworkAdapter());
+    yield call(networkAdapter.connect);
+    const currentAccount = yield call(networkAdapter.getConnectedAccount);
 
-    if (metaMask) {
-      metaMaskUserAddress = yield call(ethereumService.walletLogIn);
+    const a = yield call(networkAdapter.getUserByAddress, currentAccount);
+    console.log(a);
 
-      if (!metaMaskUserAddress) {
-        throw new WebIntegrationError(
-          translations[messages[USER_IS_NOT_SELECTED].id],
-        );
-      }
-
-      currentAccount = metaMaskUserAddress;
+    if (!currentAccount) {
+      throw new WebIntegrationError(
+        translations[messages[USER_IS_NOT_SELECTED].id],
+      );
     }
 
     yield call(getCurrentAccountWorker, currentAccount);
-    let profileInfo = yield select(makeSelectProfileInfo());
-
-    if (!profileInfo) {
-      profileInfo = emptyProfile(currentAccount);
-    }
-
-    const connectedWalletLabel = ethereumService.connectedWallets[0].label;
-
-    setCookie({
-      name: 'connectedWallet',
-      value: connectedWalletLabel,
-    });
-    setCookie({
-      name: 'agreement',
-      value: window.localStorage.getItem('onboard.js:agreement'),
-    });
 
     if (isNewPostCreationAfterLogin) {
       const ev = { currentTarget: { id: 1 } };
@@ -172,41 +151,11 @@ export function* loginWithWalletWorker({ metaMask }) {
     }
 
     yield put(loginWithWalletSuccess());
-    yield call(updateAcc, profileInfo, ethereumService);
   } catch (err) {
     document.getElementsByTagName('body')[0].style.position = 'relative';
 
     yield put(loginWithWalletErr(err));
   }
-}
-
-export function* sendReferralCode(
-  accountName,
-  referralCode,
-  eosService,
-  error,
-) {
-  const info = yield call(getReferralInfo, accountName, eosService);
-  if (info) {
-    return true;
-  }
-  const isUserIn = yield call(isUserInSystem, referralCode, eosService);
-
-  if (isUserIn) {
-    try {
-      yield call(inviteUser, accountName, referralCode, eosService);
-    } catch (err) {
-      yield put(error(err));
-      return false;
-    }
-    return true;
-  }
-  const locale = yield select(makeSelectLocale());
-  const text = translationMessages[locale][messages.inviterIsNotRegisterYet.id];
-  yield put(addToast({ type: 'error', text }));
-  yield put(error(new Error(text)));
-
-  return false;
 }
 
 export function* finishRegistrationWorker({ val }) {

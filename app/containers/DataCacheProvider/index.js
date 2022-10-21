@@ -16,16 +16,21 @@ import { DAEMON } from 'utils/constants';
 import reducer from './reducer';
 import saga from './saga';
 
-import { getStat, getFaq, getTutorial } from './actions';
+import {
+  getStat,
+  getFaq,
+  getTutorial,
+  getCommunitiesWithTags,
+} from './actions';
 
 export const DataCacheProvider = ({
   children,
-  getStatDispatch,
+  getCommunitiesWithTagsDispatch,
   getFaqDispatch,
   getTutorialDispatch,
 }) => {
   useEffect(() => {
-    getStatDispatch();
+    getCommunitiesWithTagsDispatch();
     getFaqDispatch();
     getTutorialDispatch();
   });
@@ -34,7 +39,7 @@ export const DataCacheProvider = ({
 };
 
 DataCacheProvider.propTypes = {
-  getStatDispatch: PropTypes.func,
+  getCommunitiesWithTagsDispatch: PropTypes.func,
   getFaqDispatch: PropTypes.func,
   children: PropTypes.element,
 };
@@ -42,7 +47,10 @@ DataCacheProvider.propTypes = {
 const withConnect = connect(
   null,
   dispatch => ({
-    getStatDispatch: bindActionCreators(getStat, dispatch),
+    getCommunitiesWithTagsDispatch: bindActionCreators(
+      getCommunitiesWithTags,
+      dispatch,
+    ),
     getFaqDispatch: bindActionCreators(getFaq, dispatch),
     getTutorialDispatch: bindActionCreators(getTutorial, dispatch),
   }),

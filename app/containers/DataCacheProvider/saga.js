@@ -21,10 +21,7 @@ import {
 
 import { SIGNUP_WITH_WALLET_SUCCESS } from 'containers/SignUp/constants';
 
-import {
-  selectStat,
-  selectUsers,
-} from 'containers/DataCacheProvider/selectors';
+import { selectUsers } from 'containers/DataCacheProvider/selectors';
 
 import {
   getCommunitiesWithTags,
@@ -32,8 +29,6 @@ import {
   getCommunitiesWithTagsSuccess,
   getFaqErr,
   getFaqSuccess,
-  getStatErr,
-  getStatSuccess,
   getTutorialErr,
   getTutorialSuccess,
   getUserProfileErr,
@@ -52,9 +47,6 @@ import { getUserStats } from 'utils/theGraph';
 
 export function* getStatWorker() {
   try {
-    const ethereumService = yield select(selectEthereum);
-    const stat = yield call(getStat, ethereumService);
-
     yield put(getStatSuccess(stat));
     yield put(getCommunitiesWithTags());
   } catch (err) {
@@ -65,12 +57,7 @@ export function* getStatWorker() {
 export function* getCommunitiesWithTagsWorker() {
   try {
     const ethereumService = yield select(selectEthereum);
-    const stat = yield select(selectStat());
-    const communities = yield call(
-      getAllCommunities,
-      ethereumService,
-      stat.communitiesCount,
-    );
+    const communities = yield call(getAllCommunities, ethereumService);
 
     yield put(getCommunitiesWithTagsSuccess(communities));
   } catch (err) {

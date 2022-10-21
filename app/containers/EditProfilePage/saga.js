@@ -1,3 +1,4 @@
+import { selectNetworkAdapter } from 'containers/NetworkAdapter/selectors';
 import { call, put, takeLatest, select } from 'redux-saga/effects';
 
 import createdHistory from 'createdHistory';
@@ -19,9 +20,6 @@ import {
   EDIT_PROFILE_BUTTON_ID,
   MIN_RATING_TO_EDIT_PROFILE,
 } from './constants';
-import { setCookie } from '../../utils/cookie';
-import { PROFILE_INFO_LS } from '../Login/constants';
-import { selectEthereum } from '../EthereumProvider/selectors';
 
 // TODO: test
 /* eslint no-param-reassign: 0 */
@@ -30,7 +28,7 @@ export function* saveProfileWorker(
   isNavigateToProfile = true,
 ) {
   try {
-    const ethereumService = yield select(selectEthereum);
+    const networkAdapter = yield select(selectNetworkAdapter);
 
     // check that it is not hash
     if (
@@ -41,7 +39,7 @@ export function* saveProfileWorker(
       profile[AVATAR_FIELD] = imgHash;
     }
 
-    yield call(saveProfile, ethereumService, userKey, profile);
+    yield call(saveProfile, networkAdapter, userKey, profile);
 
     const fullProfileInfo = yield select(makeSelectProfileInfo());
     const updatedProfileInfo = {

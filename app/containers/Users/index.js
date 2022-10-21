@@ -10,7 +10,6 @@ import injectReducer from 'utils/injectReducer';
 
 import Seo from 'components/Seo';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
-import { selectStat } from 'containers/DataCacheProvider/selectors';
 
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
@@ -33,7 +32,6 @@ const Users = ({
   sorting,
   searchText,
   isLastFetch,
-  stat,
   getUsersDispatch,
 }) => {
   const getMoreUsers = useCallback(
@@ -45,11 +43,6 @@ const Users = ({
     },
     [getUsersDispatch],
   );
-
-  const userCount = useMemo(() => (single ? users.length : stat.usersCount), [
-    stat.usersCount,
-    users.length,
-  ]);
 
   const dropdownFilter = useCallback(
     sorting => {
@@ -83,7 +76,7 @@ const Users = ({
       />
 
       <View
-        userCount={userCount}
+        userCount={users.length} //TODO rewrite
         getMoreUsers={getMoreUsers}
         dropdownFilter={dropdownFilter}
         users={users}
@@ -119,7 +112,6 @@ export default compose(
       sorting: selectors.selectSorting(),
       searchText: selectors.selectSearchText(),
       isLastFetch: selectors.selectIsLastFetch(),
-      stat: selectStat(),
       isGlobalAdmin: selectIsGlobalAdmin(),
     }),
     dispatch => ({

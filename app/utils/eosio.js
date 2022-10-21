@@ -59,7 +59,7 @@ class EosioService {
   initScatter = async appName => {
     ScatterJS.plugins(new ScatterEOS());
 
-    const connected = await ScatterJS.scatter.connect(appName);
+    const connected = await ScatterJS.scatter.connect();
 
     if (!connected) throw new Error('No connection with Scatter');
   };

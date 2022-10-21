@@ -15,7 +15,12 @@ import {
   callService,
   NOTIFICATIONS_INFO_SERVICE,
 } from './web_integration/src/util/aws-connector';
-import { CONTRACT_USER, GET_USER_RATING, UPDATE_ACC } from './ethConstants';
+import {
+  CONTRACT_USER,
+  GET_USER_RATING,
+  REGISTER_ACC,
+  UPDATE_ACC,
+} from './ethConstants';
 import { getUser, getUserPermissions, getUserStats } from './theGraph';
 import { isUserExists } from './accountManagement';
 
@@ -137,12 +142,69 @@ export async function getProfileInfo(
   return profileInfo;
 }
 
-export async function saveProfile(ethereumService, user, profile) {
+// export async function saveProfile(ethereumService, user, profile) {
+//   const ipfsHash = await saveText(JSON.stringify(profile));
+// async function testSdk() {
+//   const LOOKUP_ADDR = '0xee0610cc2931603a04178d1e262ce3c1a74247b3'; // change this!
+//   console.debug("--- testSdk ---");
+//   console.debug("Looking up:", LOOKUP_ADDR);
+//
+//   const provider = new JsonRpcProvider('https://gateway.devnet.sui.io:443'); // DevNet
+//   // const provider = new JsonRpcProvider('http://127.0.0.1:5001'); // local network
+//   const objects = await provider.getObjectsOwnedByAddress(LOOKUP_ADDR);
+//
+//   console.debug("Found " + objects.length + " objects. First object:");
+//   console.log(objects[0]);
+// }
+
+// export const adapter = new SuiService();
+
+// export async function testWalletAdapter() {
+//
+//   console.debug("--- testWalletAdapter ---");
+//
+//
+//   await adapter.connect();
+//   if (!adapter.connected) {
+//     console.error("ERROR: Couldn't conect to wallet");
+//     return;
+//   }
+//   return adapter.account;
+// }
+
+// console.debug("Calling demo::nft_maker::create_nft()");
+// const PACKAGE_ID = '0x5cdb09ecf53a7392ead75a72825ec9456b03a8ef'; // change this!
+// const USER_OBJ = '0xb7e4aba457f51b6ec9fbaa07f24d1bfefa0f6793'; // change this!
+// if (adapter.account) {
+//   adapter.executeMoveCall({
+//     packageObjectId: PACKAGE_ID,
+//     module: 'userLib',
+//     function: 'createUser',
+//     typeArguments: [],
+//     arguments: [USER_OBJ, adapter.account.toString(), getBytes32FromIpfsHash(ipfsHash)],
+//     gasBudget: 30000,
+//   })
+//     .then(
+//       (result) => { console.log("SUCCESS! Result:\n-----\n", result) },
+//       (error) => { console.log(error) },
+//     );
+// }
+
+// const transactionData = getBytes32FromIpfsHash(ipfsHash);
+// await ethereumService.sendTransaction(CONTRACT_USER, user, UPDATE_ACC, [
+//   transactionData,
+// ]);
+// }
+
+export async function saveProfile(networkAdapter, user, profile) {
   const ipfsHash = await saveText(JSON.stringify(profile));
   const transactionData = getBytes32FromIpfsHash(ipfsHash);
-  await ethereumService.sendTransaction(CONTRACT_USER, user, UPDATE_ACC, [
-    transactionData,
-  ]);
+  await networkAdapter.sendTransaction({
+    libName: CONTRACT_USER,
+    actor: user,
+    action: REGISTER_ACC,
+    data: [transactionData],
+  });
 }
 
 export const getNotificationsInfo = async user => {

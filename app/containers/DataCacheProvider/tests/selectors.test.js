@@ -14,7 +14,6 @@ import {
   selectUsers,
   selectUsersLoading,
   selectGetUserProfileError,
-  selectStat,
   selectStatLoading,
   selectStatError,
   selectFaq,
@@ -82,11 +81,6 @@ describe('selectDataCacheProviderDomain', () => {
     expect(selectDataCacheProviderDomain(mockedState)).toEqual(
       globalState.toJS(),
     );
-  });
-
-  it('selectStat', () => {
-    const isSelectStat = selectStat();
-    expect(isSelectStat(mockedState)).toEqual(stat);
   });
 
   it('selectStatLoading', () => {

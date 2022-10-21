@@ -1,6 +1,6 @@
 //Contracts
 export const CONTRACT_TOKEN = 'contractToken';
-export const CONTRACT_USER = 'contractUser';
+export const CONTRACT_USER = 'userLib';
 export const CONTRACT_CONTENT = 'contractContent';
 export const CONTRACT_COMMUNITY = 'contractCommunity';
 
@@ -228,12 +228,8 @@ export const userStatsQuery = `
       }`;
 
 export const communitiesQuery = `
-      query(
-        $first: Int,
-      ) {
-        communities(
-         first: $first,
-        ) {
+      query {
+        communities {
           id
           name
           avatar

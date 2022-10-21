@@ -92,27 +92,6 @@ export function updateCachedUserAchievements(userForUpdate, updatedAchCount) {
   };
 }
 
-// Get stat
-export function getStat() {
-  return {
-    type: GET_STAT,
-  };
-}
-
-export function getStatSuccess(stat) {
-  return {
-    type: GET_STAT_SUCCESS,
-    stat,
-  };
-}
-
-export function getStatErr(getStatError) {
-  return {
-    type: GET_STAT_ERROR,
-    getStatError,
-  };
-}
-
 // Get FAQ
 export function getFaq() {
   return {
