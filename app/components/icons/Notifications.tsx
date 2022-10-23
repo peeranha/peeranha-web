@@ -5,7 +5,7 @@ const Notifications: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
     id="notifications"
-    fill="curentColor"
+    fill="currentColor"
     viewBox="0 0 18 18"
     size={props.size || [18, 18]}
   >
@@ -17,7 +17,7 @@ const Notifications: React.FC<IconProps> = (props): JSX.Element => (
         stroke={props.stroke || '#282828'}
       />
 
-      <mask fill="white">
+      <mask fill="#fff">
         <path d="M11 15C11 16.1041 10.1046 17 9 17C7.89545 17 7 16.1043 7 15" />
       </mask>
       <path

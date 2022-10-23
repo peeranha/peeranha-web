@@ -5,7 +5,7 @@ const Profile: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
     id="profile"
-    fill="curentColor"
+    fill="currentColor"
     viewBox="0 0 24 24"
     size={props.size}
   >
@@ -14,7 +14,7 @@ const Profile: React.FC<IconProps> = (props): JSX.Element => (
         cx="12"
         cy="7"
         r="5"
-        fill="white"
+        fill="#fff"
         stroke={props.stroke || '#282828'}
       />
       <ellipse

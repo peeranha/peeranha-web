@@ -5,7 +5,7 @@ const ArrowDown: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
     id="arrow-down"
-    fill="curentColor"
+    fill="currentColor"
     viewBox="0 0 14 9"
     size={[14, 9]}
   >

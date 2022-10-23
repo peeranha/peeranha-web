@@ -5,7 +5,7 @@ const CloseRounded: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
     id="close-rounded"
-    fill="curentColor"
+    fill="currentColor"
     viewBox="0 0 15 15"
     size={[15, 15]}
   >
