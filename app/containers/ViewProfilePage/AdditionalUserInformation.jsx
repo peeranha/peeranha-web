@@ -4,7 +4,7 @@ import { css } from '@emotion/react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
-import { LINK_COLOR, TEXT_SECONDARY } from 'style-constants';
+import { LINK_COLOR, TEXT_SECONDARY, BORDER_SECONDARY } from 'style-constants';
 
 import Span from 'components/Span';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
@@ -86,7 +86,15 @@ const AdditionalUserInformation = ({
   );
 
   return (
-    <Box position="bottom">
+    <Box
+      position="bottom"
+      css={css`
+        div:first-child {
+          border-top: 1px solid ${BORDER_SECONDARY};
+          padding-top: 20px;
+        }
+      `}
+    >
       {(!profile || !profile.profile) && <LoadingIndicator inline />}
 
       {profile &&

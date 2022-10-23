@@ -10,6 +10,7 @@ import {
   TEXT_SECONDARY,
   LINK_COLOR,
   BORDER_SECONDARY,
+  TEXT_PRIMARY,
 } from 'style-constants';
 import { LABEL_SIZE_LG } from 'components/Img/MediumImage';
 import { TEMPORARY_ACCOUNT_KEY } from 'utils/constants';
@@ -17,8 +18,8 @@ import { getUserAvatar } from 'utils/profileManagement';
 
 import questionRoundedIcon from 'images/question2.svg?external';
 import answerIcon from 'images/answer.svg?external';
-import iconCopy from 'images/document-copy.svg?inline';
-import iconCopySelect from 'images/document-copy-select.svg?inline';
+import pencilIcon from 'images/pencil.svg?external';
+import CopyTextIcon from 'icons/CopyText';
 import { translationMessages } from 'i18n';
 import Base from 'components/Base';
 import A from 'components/A';
@@ -26,7 +27,7 @@ import Ul from 'components/Ul';
 import Span from 'components/Span';
 import RatingStatus from 'components/RatingStatus';
 import AchievementsStatus from 'components/AchievementsStatus/index';
-import { IconLg } from 'components/Icon/IconWithSizes';
+import { IconLg, IconMd } from 'components/Icon/IconWithSizes';
 import { showPopover } from 'utils/popover';
 import LargeImage from 'components/Img/LargeImage';
 import TelegramUserLabel from 'components/Labels/TelegramUserLabel';
@@ -36,6 +37,7 @@ import messages from 'containers/Profile/messages';
 import { customRatingIconColors } from 'constants/customRating';
 import ProfileSince from 'components/ProfileSince';
 import { getUserName } from 'utils/user';
+import useMediaQuery from 'hooks/useMediaQuery';
 
 import { singleCommunityColors } from 'utils/communityManagement';
 
@@ -58,11 +60,6 @@ export const UlStyled = Ul.extend`
     white-space: nowrap;
     flex-wrap: wrap;
   }
-
-  li:last-child {
-    padding-right: 0;
-  }
-
   li {
     display: flex;
     flex-direction: column;
@@ -104,10 +101,13 @@ export const UlStyled = Ul.extend`
       svg {
         margin-right: 5px;
       }
+      span {
+        height: 18px;
+      }
     }
 
     @media only screen and (max-width: 1280px) {
-      padding: 10px 15px;
+      padding-right: 20px;
     }
 
     @media only screen and (max-width: 768px) {
@@ -118,15 +118,7 @@ export const UlStyled = Ul.extend`
       }
     }
 
-    @media only screen and (max-width: 640px) {
-      span {
-        font-size: 13px !important;
-      }
-    }
-
     @media only screen and (max-width: 500px) {
-      height: 70px;
-      padding: 10px 20px 5px 0;
       div {
         font-size: 13px !important;
       }
@@ -135,6 +127,9 @@ export const UlStyled = Ul.extend`
       display: block;
       width: 100%;
       padding: 10px 15px 5px 0;
+      span {
+        font-size: 12px !important;
+      }
     }
   }
 `;
@@ -148,21 +143,16 @@ export const Box = Base.extend`
       display: flex;
       justify-content: flex-start;
       align-items: start;
-      flex: 0 0 150px;
-
-      @media only screen and (max-width: 576px) {
-        flex: 0 0 90px;
-      }
+      flex: 1 1;
     }
 
     > *:nth-child(2) {
       flex: 0 0 calc(100% - 150px);
       max-width: calc(100% - 150px);
-      overflow: auto;
+      overflow: break-word;
 
       @media only screen and (max-width: 576px) {
-        flex: 0 0 calc(100% - 90px);
-        max-width: calc(100% - 90px);
+        max-width: calc(100% - 10px);
       }
     }
   }
@@ -194,17 +184,31 @@ const MainUserInformation = ({
     );
   };
 
-  const iconType = copied ? iconCopySelect : iconCopy;
-
+  const isDesktop = useMediaQuery('(min-width: 768px)');
   return (
     <Box position="middle" className="pb-0">
       <div
         css={css`
-          border-bottom: 1px solid ${BORDER_SECONDARY};
-          padding-bottom: 20px;
+          flex-direction: column;
+          @media (min-width: 768px) {
+            flex-direction: row;
+            background: rgba(165, 188, 255, 0.1);
+            border-radius: 170px;
+          }
         `}
       >
-        <div>
+        <div
+          css={css`
+            background: rgba(165, 188, 255, 0.1);
+            border-radius: 170px;
+            @media (min-width: 768px) {
+              background: none;
+            }
+            @media (min-width: 768px) and (max-width: 1220px) {
+              padding-top: 28px;
+            }
+          `}
+        >
           <LargeImageButton
             onClick={redirectToEditProfilePage}
             data-user={userId}
@@ -214,6 +218,10 @@ const MainUserInformation = ({
               src={getUserAvatar(profile.avatar, userId, account)}
               alt="avatar"
               isBordered
+              css={css`
+                border: 2px solid ${TEXT_PRIMARY};
+                padding: 2px;
+              `}
             />
             {isTemporaryAccount && (
               <TelegramUserLabel
@@ -223,18 +231,56 @@ const MainUserInformation = ({
               />
             )}
           </LargeImageButton>
+          <div
+            className={!isDesktop ? 'd-flex ais fdc' : 'd-none'}
+            css={css`
+              min-width: calc(100% - 5px);
+              padding: 0 80px 0 10px;
+            `}
+          >
+            <Span
+              fontSize="38"
+              lineHeight="47"
+              bold
+              css={css`font-size: 24px; @media (min-width: 577px){padding:20px 0;`}
+            >
+              {getUserName(profile?.displayName, userId)}
+            </Span>
+            <button
+              onClick={redirectToEditProfilePage}
+              className={
+                isDesktop ? 'd-none' : `align-items-center d-inline-flex`
+              }
+              id={`redireact-to-edit-${userId}-user-page-2`}
+              data-user={userId}
+            >
+              <IconMd
+                icon={pencilIcon}
+                color={colors.btnColor || TEXT_PRIMARY}
+              />
+              <Span className="ml-1" color={colors.btnColor || TEXT_PRIMARY}>
+                <FormattedMessage id={messages.editProfile.id} />
+              </Span>
+            </button>
+          </div>
         </div>
 
         <div>
-          <div className="d-flex align-items-center">
+          <div className={isDesktop ? 'd-flex align-items-center' : 'd-none'}>
             <Span fontSize="38" lineHeight="47" mobileFS="28" bold>
               {getUserName(profile?.displayName, userId)}
             </Span>
           </div>
-
           <div className="d-flex align-items-center">
             <UlStyled>
-              <li>
+              <li
+                css={css`
+                  flex: 1 1 60%;
+                  @media (min-width: 768px) {
+                    flex: 0 1;
+                  }
+                `}
+              >
                 <FormattedMessage id={messages.status.id} />
                 <RatingStatus
                   isProfilePage={true}
@@ -244,7 +290,14 @@ const MainUserInformation = ({
                 />
               </li>
 
-              <li>
+              <li
+                css={css`
+                  flex: 1 1 40%;
+                  @media (min-width: 768px) {
+                    flex: 0 1;
+                  }
+                `}
+              >
                 <FormattedMessage id={commonMessages.posts.id} />
                 <span>
                   <IconLg
@@ -263,7 +316,14 @@ const MainUserInformation = ({
                 </span>
               </li>
 
-              <li>
+              <li
+                css={css`
+                  flex: 1 1 60%;
+                  @media (min-width: 768px) {
+                    flex: 0 1;
+                  }
+                `}
+              >
                 <FormattedMessage id={commonMessages.answers.id} />
                 <span>
                   <IconLg
@@ -278,7 +338,14 @@ const MainUserInformation = ({
                 </span>
               </li>
 
-              <li>
+              <li
+                css={css`
+                  flex: 1 1 40%;
+                  @media (min-width: 768px) {
+                    flex: 0 1;
+                  }
+                `}
+              >
                 <FormattedMessage id={messages.achievements.id} />
                 {typeof profile.achievements === 'object' ? (
                   <AchievementsStatus
@@ -315,20 +382,12 @@ const MainUserInformation = ({
                         {userId}
                       </span>
                     </A>
-                    <button
-                      id="share-link-copy"
-                      css={css`
-                        color: #adaeae;
-                        padding-left: 10px;
-                      `}
-                      onClick={writeToBuffer}
-                    >
-                      <img
-                        src={iconType}
-                        alt="copy"
-                        css={css`
-                          height: 20px;
-                        `}
+                    <button id="share-link-copy" onClick={writeToBuffer}>
+                      <CopyTextIcon
+                        className="ml-2"
+                        stroke={colors.linkColor || TEXT_PRIMARY}
+                        fill={colors.linkColor || TEXT_PRIMARY}
+                        size={[18, 18]}
                       />
                     </button>
                   </div>
