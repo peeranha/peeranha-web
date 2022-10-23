@@ -25,7 +25,6 @@ import {
 import Wrapper from 'components/FormFields/Wrapper';
 import Span from 'components/Span';
 import Checkbox from 'components/Input/Checkbox';
-import TextBlock from 'components/FormFields/TextBlock';
 import TextEditorField from 'components/FormFields/TextEditorField';
 import Button from 'components/Button/Contained/InfoLarge';
 import FormBox from 'components/Form';
@@ -89,17 +88,6 @@ export const AnswerForm = ({
         width="90px"
       />
     )}
-    <Wrapper label={previewLabel} className="mt-3">
-      <PreviewWrapper>
-        {textEditorValue ? (
-          <TextBlock className="my-2" content={textEditorValue} />
-        ) : (
-          <Span color={TEXT_SECONDARY} fontSize="14" isItalic>
-            <FormattedMessage {...messages.nothingToSeeYet} />
-          </Span>
-        )}
-      </PreviewWrapper>
-    </Wrapper>
     <Button
       id={sendButtonId}
       disabled={sendAnswerLoading || isAnswered || !account}

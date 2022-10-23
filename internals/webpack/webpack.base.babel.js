@@ -154,7 +154,7 @@ module.exports = options => {
     plugins: options.plugins.concat([
       new webpack.DefinePlugin(envKeys),
       new webpack.ProvidePlugin({
-        process: 'process/browser',
+        process: 'process/browser.js',
         Buffer: ['buffer', 'Buffer'],
       }),
       new CopyWebpackPlugin([{ from: 'static' }]),
