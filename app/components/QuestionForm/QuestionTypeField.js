@@ -114,7 +114,8 @@ const Button = B.extend`
   border-color: ${({ type, value }) =>
     +type === value && (colors.textColor || `rgb(${BORDER_PRIMARY_RGB})`)};
   box-shadow: ${({ type, value }) =>
-    +type === value && (colors.textColorShadow || `0 0 0 3px ${customShadow}`)};
+    +type === value &&
+    (`0 0 0 3px ${colors.textColorShadow}` || `0 0 0 3px ${customShadow}`)};
 
   &:hover {
     box-shadow: 0 0 0 3px ${colors.textColorShadow || customShadow};
