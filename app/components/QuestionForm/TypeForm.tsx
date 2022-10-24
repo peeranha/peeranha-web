@@ -21,6 +21,7 @@ type TypeFormProps = {
   isError: boolean;
   setIsError: Function;
   isCommunityModerator: boolean;
+  postType: number;
 };
 
 const TypeForm: React.FC<TypeFormProps> = ({
@@ -34,6 +35,7 @@ const TypeForm: React.FC<TypeFormProps> = ({
   isError,
   setIsError,
   isCommunityModerator,
+  postType,
 }): JSX.Element | null => {
   const onChange = useCallback((val: any[]) => change(FORM_TYPE, val[0]), []);
 
@@ -68,6 +70,7 @@ const TypeForm: React.FC<TypeFormProps> = ({
         splitInHalf
         error={isError}
         isCommunityModerator={isCommunityModerator}
+        postType={postType}
       />
       {hasSelectedType && (
         <DescriptionList

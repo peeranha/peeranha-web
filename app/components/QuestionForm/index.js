@@ -214,40 +214,40 @@ export const QuestionForm = ({
                 disableCommForm={disableCommForm}
               />
 
-              {!question &&
-                ((communityQuestionsType === ANY_TYPE && (
-                  <TypeForm
-                    intl={intl}
-                    change={change}
-                    questionLoading={questionLoading}
-                    locale={locale}
-                    formValues={formValues}
-                    isError={isError}
-                    setIsError={setIsError}
-                    hasSelectedType={isSelectedType}
-                    setHasSelectedType={setIsSelectedType}
-                    isCommunityModerator={isCommunityModerator}
-                  />
-                )) ||
-                  (communityQuestionsType === GENERAL_TYPE && (
-                    <>
-                      <DescriptionList
-                        locale={locale}
-                        label={messages.generalQuestionDescriptionLabel.id}
-                        items={messages.generalQuestionDescriptionList.id}
-                      />
-                      <br />
-                    </>
-                  )) || (
-                    <>
-                      <DescriptionList
-                        locale={locale}
-                        label={messages.expertQuestionDescriptionLabel.id}
-                        items={messages.expertQuestionDescriptionList.id}
-                      />
-                      <br />
-                    </>
-                  ))}
+              {(communityQuestionsType === ANY_TYPE && (
+                <TypeForm
+                  intl={intl}
+                  change={change}
+                  questionLoading={questionLoading}
+                  locale={locale}
+                  formValues={formValues}
+                  isError={isError}
+                  setIsError={setIsError}
+                  hasSelectedType={isSelectedType}
+                  setHasSelectedType={setIsSelectedType}
+                  isCommunityModerator={isCommunityModerator}
+                  postType={question?.postType}
+                />
+              )) ||
+                (communityQuestionsType === GENERAL_TYPE && (
+                  <>
+                    <DescriptionList
+                      locale={locale}
+                      label={messages.generalQuestionDescriptionLabel.id}
+                      items={messages.generalQuestionDescriptionList.id}
+                    />
+                    <br />
+                  </>
+                )) || (
+                  <>
+                    <DescriptionList
+                      locale={locale}
+                      label={messages.expertQuestionDescriptionLabel.id}
+                      items={messages.expertQuestionDescriptionList.id}
+                    />
+                    <br />
+                  </>
+                )}
 
               <TitleForm intl={intl} questionLoading={questionLoading} />
 
