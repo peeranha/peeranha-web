@@ -183,6 +183,7 @@ export const customSubHeaderConfig = {
 };
 
 export const MintStateLabsStyles = {
+  documentationPosition: 'top',
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,

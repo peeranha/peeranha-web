@@ -66,7 +66,7 @@ const Header: React.FC<any> = ({
         }}
         onClick={saveDocumentationMenu}
       >
-        Save changes
+        Publish
       </Button>
     </div>
   </div>

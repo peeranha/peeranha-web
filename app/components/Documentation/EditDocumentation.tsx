@@ -98,7 +98,7 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
 
   const toggleEditDocumentationHandler = () => {
     toggleEditDocumentation();
-    setEditArticle({
+    setEditArticleDispatch({
       id: '',
       parentId: '',
       isEditArticle: false,
@@ -112,7 +112,7 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
   };
 
   const onClickAddArticle = () => {
-    setEditArticle({
+    setEditArticleDispatch({
       id: '',
       parentId: '1',
       isEditArticle: true,
@@ -122,7 +122,7 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
   const discardDrafts = () => {
     toggleEditDocumentation();
     clearSavedDrafts();
-    setEditArticle({
+    setEditArticleDispatch({
       id: '',
       parentId: '',
       isEditArticle: false,

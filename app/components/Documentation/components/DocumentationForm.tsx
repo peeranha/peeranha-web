@@ -29,7 +29,8 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
   const [bodyText, setBodyText] = useState<string>('');
   const [parentId, setParentId] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isValidFields, setIsValidFields] = useState<boolean>(false);
+  const [isValidTitle, setIsValidTitle] = useState<boolean>(false);
+  const [isValidContent, setIsValidContent] = useState<boolean>(false);
 
   useEffect(() => {
     if (
@@ -65,7 +66,7 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
   };
 
   const onClickSaveDraft = () => {
-    if (!isValidFields) {
+    if (!isValidTitle || !isValidContent) {
       return;
     }
 
@@ -77,7 +78,7 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
         const isEdit =
           typeof documentationArticle !== 'undefined' &&
           documentationArticle.id !== '';
-        let updatedMenu: Array<DocumentationItemMenuType>;
+        let updatedMenu: Array<DocumentationItemMenuType> = [];
 
         if (!documentationArticle) {
           updatedMenu = addArticle(documentationMenu, {
@@ -178,7 +179,9 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
             onChange={onChangeTitle}
           >
             {({ onChange, onBlur, isValid }) => {
-              setIsValidFields(isValid);
+              if (title !== '') {
+                setIsValidTitle(isValid);
+              }
 
               return (
                 <input
@@ -235,7 +238,9 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
             position="bottom"
           >
             {({ onChange, onBlur, isValid }) => {
-              setIsValidFields(isValid);
+              if (bodyText !== '') {
+                setIsValidContent(isValid);
+              }
 
               return (
                 <div
@@ -309,7 +314,7 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
             '&:hover .icon': { stroke: 'var(--color-white)' },
           }}
           onClick={onClickSaveDraft}
-          disabled={isLoading || !isValidFields}
+          disabled={isLoading || !isValidTitle || !isValidContent}
         >
           Save to draft
         </Button>
