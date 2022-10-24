@@ -29,10 +29,7 @@ import { INIT_ETHEREUM, INIT_ETHEREUM_SUCCESS } from './constants';
 import validate from './validate';
 import { getCookie } from '../../utils/cookie';
 import { AUTOLOGIN_DATA } from '../Login/constants';
-import {
-  hasGlobalModeratorRole,
-  hasProtocolAdminRole,
-} from '../../utils/properties';
+import { hasGlobalModeratorRole } from '../../utils/properties';
 
 export function* initEthereumWorker({ data }) {
   try {
@@ -59,8 +56,7 @@ export function* isValid({ creator, buttonId, minRating = 0, communityId }) {
   const selectedAccount = yield select(makeSelectAccount());
   const permissions = yield select(selectPermissions());
 
-  const isGlobalAdmin =
-    hasGlobalModeratorRole(permissions) || hasProtocolAdminRole(permissions);
+  const isGlobalAdmin = hasGlobalModeratorRole(permissions);
 
   yield call(
     isAvailableAction,

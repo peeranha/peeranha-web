@@ -1,26 +1,18 @@
 import FileiconLogo from './communities-configs/filecoin/images/filecoin-logo.svg?inline';
 import PolygonLogo from './communities-configs/polygon/images/polygon-logo.svg?inline';
 import FunctionlandLogo from './communities-configs/functionland/images/functionland-logo.svg?inline';
-import MintStateLabsLogo from './communities-configs/mintStateLabs/images/MSL-LogoMain.svg?inline';
 import SuiLogo from './communities-configs/sui/images/sui-logo.svg?inline';
 import FilebaseLogo from './communities-configs/filebase/images/filebaselogo.svg?inline';
 import HarmonyLogo from './communities-configs/harmony/images/harmony-logo.svg?inline';
 import KoiiLogo from './communities-configs/koii/images/koii-logo.svg?inline';
-import CyberconnectLogo from './communities-configs/cyberconnect/images/CyberConnect_logo.svg?inline';
-import PolywrapLogo from './communities-configs/polywrap/images/polywrap-horizontal.svg?inline';
-import ValistLogo from './communities-configs/valist/images/valist.svg?inline';
 
 import { PolygonStyles } from './communities-configs/polygon';
 import { FilecoinStyles } from './communities-configs/filecoin';
 import { FunctionlandStyles } from './communities-configs/functionland';
-import { MintStateLabsStyles } from './communities-configs/mintStateLabs';
 import { SuiStyles } from './communities-configs/sui';
 import { FilebaseStyles } from './communities-configs/filebase';
 import { HarmonyStyles } from './communities-configs/harmony';
 import { KoiiStyles } from './communities-configs/koii';
-import { CyberconnectStyles } from './communities-configs/cyberconnect';
-import { PolywrapStyles } from './communities-configs/polywrap';
-import { ValistStyles } from './communities-configs/valist';
 
 const communitiesConfig = {
   prod: {
@@ -73,11 +65,6 @@ const communitiesConfig = {
       styles: FunctionlandStyles,
     },
     5: {
-      origin: 'https://demo-mintstatelabs.peeranha.io',
-      src: MintStateLabsLogo,
-      styles: MintStateLabsStyles,
-    },
-    6: {
       origin: 'https://demo-sui.testpeeranha.io',
       src: SuiLogo,
       styles: SuiStyles,
@@ -105,11 +92,6 @@ const communitiesConfig = {
       src: FunctionlandLogo,
       styles: FunctionlandStyles,
     },
-    8: {
-      origin: `https://mintstatelabs${process.env.COOKIE_DOMAIN}`,
-      src: MintStateLabsLogo,
-      styles: MintStateLabsStyles,
-    },
     10: {
       origin: `https://sui${process.env.COOKIE_DOMAIN}`,
       src: SuiLogo,
@@ -132,21 +114,6 @@ const communitiesConfig = {
       origin: `https://filebase${process.env.COOKIE_DOMAIN}`,
       src: FilebaseLogo,
       styles: FilebaseStyles,
-    },
-    17: {
-      origin: `https://valist${process.env.COOKIE_DOMAIN}`,
-      src: ValistLogo,
-      styles: ValistStyles,
-    },
-    18: {
-      origin: `https://polywrap${process.env.COOKIE_DOMAIN}`,
-      src: PolywrapLogo,
-      styles: PolywrapStyles,
-    },
-    19: {
-      origin: `https://cyberconnect${process.env.COOKIE_DOMAIN}`,
-      src: CyberconnectLogo,
-      styles: CyberconnectStyles,
     },
   },
   dev: {

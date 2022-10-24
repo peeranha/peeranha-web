@@ -35,7 +35,6 @@ import {
   getPermissions,
   hasCommunityModeratorRole,
   hasGlobalModeratorRole,
-  hasProtocolAdminRole,
 } from '../../utils/properties';
 import blockchainLogo from 'images/blockchain-outline-32.svg?external';
 import IPFSInformation from 'containers/Questions/Content/Body/IPFSInformation';
@@ -166,8 +165,7 @@ const ContentHeader = props => {
       hasCommunityModeratorRole(
         getPermissions(profile),
         questionData.communityId,
-      ) ||
-      hasProtocolAdminRole(getPermissions(profile)),
+      ),
     [profile],
   );
   //todo remove integer_properties

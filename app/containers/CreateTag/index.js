@@ -10,6 +10,8 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
+import { COMMUNITY_ADMIN_VALUE } from 'utils/constants';
+
 import Seo from 'components/Seo';
 import TipsBase from 'components/Base/TipsBase';
 import { BaseSpecialOne } from 'components/Base/BaseTransparent';
@@ -54,9 +56,9 @@ import tagsReducer from '../Tags/reducer';
 import tagsSaga from '../Tags/saga';
 import {
   getAllRoles,
+  getPermissions,
   hasCommunityAdminRole,
   hasGlobalModeratorRole,
-  hasProtocolAdminRole,
 } from '../../utils/properties';
 
 import { useModeratorRole } from '../../hooks/useModeratorRole';
@@ -73,6 +75,7 @@ const CreateTag = ({
   permissions = [],
   getFormDispatch,
   isFormLoading,
+  isFormAvailable,
 }) => {
   const commId = useMemo(() => single || +match.params.communityid, [match]);
   useModeratorRole(noAccess, commId);
@@ -84,6 +87,7 @@ const CreateTag = ({
   const createTag = useCallback(
     (...args) => {
       const values = args[0].toJS();
+      console.log('DAAAA CYKAAAA');
       suggestTagDispatch(
         +values[FORM_COMMUNITY].id,
         {
@@ -96,8 +100,9 @@ const CreateTag = ({
     [suggestTagDispatch],
   );
 
-  const isGlobalAdmin =
-    hasGlobalModeratorRole(permissions) || hasProtocolAdminRole(permissions);
+  const isGlobalAdmin = useMemo(() => hasGlobalModeratorRole(permissions), [
+    permissions,
+  ]);
   const profileWithCommunityAdminRights = Boolean(commId)
     ? hasCommunityAdminRole(permissions, commId)
     : false;

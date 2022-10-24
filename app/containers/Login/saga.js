@@ -164,10 +164,6 @@ export function* loginWithWalletWorker({ metaMask }) {
       name: 'agreement',
       value: window.localStorage.getItem('onboard.js:agreement'),
     });
-    setCookie({
-      name: 'isVisitedSite',
-      value: true,
-    });
 
     if (isNewPostCreationAfterLogin) {
       const ev = { currentTarget: { id: 1 } };
