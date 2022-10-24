@@ -19,7 +19,6 @@ import {
   userPermissionsQuery,
   userQuery,
   usersAnswersQuery,
-  usersByCommunityQuery,
   usersPostsQuery,
   usersQuery,
   userStatsQuery,

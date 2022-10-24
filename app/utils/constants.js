@@ -34,9 +34,6 @@ export const MODERATOR_KEY = 48;
 export const MODERATOR_CREATE_COMMUNITY = 3;
 
 export const DEFAULT_ADMIN_ROLE = 0x00;
-export const PROTOCOL_ADMIN_ROLE = keccak256(
-  toUtf8Bytes('PROTOCOL_ADMIN_ROLE'),
-);
 export const COMMUNITY_ADMIN_ROLE = keccak256(
   toUtf8Bytes('COMMUNITY_ADMIN_ROLE'),
 );
@@ -109,10 +106,6 @@ export const globalAdminPermissions = {
   PERMISSION_PROTOCOL_ADMIN_8: {
     code: 8,
     title: 'permissionProtocolAdmin_8',
-  },
-  PERMISSION_PROTOCOL_ADMIN_9: {
-    code: 9,
-    title: 'permissionProtocolAdmin_9',
   },
 };
 export const communityAdminPermissions = {

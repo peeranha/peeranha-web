@@ -48,9 +48,6 @@ import editTagSaga from './saga';
 import { getEditTagForm, resetEditTagReducer, editTag } from './actions';
 import { selectEditTagFormLoading, selectEditTagProcessing } from './selectors';
 import { getExistingTags } from '../Tags/actions';
-import { isSingleCommunityWebsite } from '../../utils/communityManagement';
-
-const isSingleCommunityMode = isSingleCommunityWebsite();
 
 const EditTag = ({
   match,
@@ -69,16 +66,14 @@ const EditTag = ({
 }) => {
   let { communityId, tagId } = editTagData;
 
-  communityId = isSingleCommunityMode || match.params.communityId;
-
-  useModeratorRole(routes.noAccess, communityId);
-
   if (!Object.keys(editTagData).length) {
+    communityId = match.params.communityId;
     tagId = match.params.tagid;
     editTagData = { communityId: Number(communityId), tagId };
     setEditTagDataDispatch(tagId, communityId);
-  }
 
+    useModeratorRole(routes.noAccess, communityId);
+  }
   useEffect(
     () => {
       getExistingTagsDispatch({ communityId });

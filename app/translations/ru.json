@@ -40,9 +40,7 @@
   "app.common.home": "Главная",
   "app.common.feed": "Лента",
   "app.common.myFeed": "Моя лента",
-  "app.common.subscribers": "Подписчики",
   "app.common.users": "Пользователи",
-  "app.common.activeUsers": "Активные Пользователи",
   "app.common.followers": "Подписчики",
   "app.common.usersShort": "Польз.",
   "app.common.faq": "ЧАВО",
@@ -333,8 +331,6 @@
   "app.containers.Faq.title": "ЧАВО",
   "app.containers.Faq.description": "ЧАВО: описание",
   "app.containers.Faq.faq": "Часто задаваемые вопросы",
-  "app.containers.Moderation.titleDefaultAdministrator":
-    "Права дефолтного администратора",
   "app.containers.Moderation.titleProtocolAdministrator":
     "Права протокольного администратора",
   "app.containers.Moderation.titleCommunityModerator":
@@ -342,9 +338,7 @@
   "app.containers.Moderation.titleCommunityAdministrator":
     "Права администратора сообщества",
 
-  "app.common.defaultAdministrator": "Права дефолтного администратора",
   "app.common.protocolAdministrator": "Права протокольного администратора",
-  "app.common.asDefaultAdministrator": "Как дефолтный администратор вы можете:",
   "app.common.asProtocolAdministrator":
     "Как администратор протокола вы можете:",
   "app.common.asCommunityAdministrator":
@@ -403,8 +397,6 @@
     "Голосовать за и против сообщений, ответов и добавлять комментарии в любом отдельном сообществе, если ваша репутация ниже 35",
   "app.containers.Moderation.permissionProtocolAdmin_8":
     "Удалять посты, ответы, даже отмеченные как лучшие, и комментарии в один клик в любом отдельном сообществе",
-  "app.containers.Moderation.permissionProtocolAdmin_9":
-    "Давать официальные ответы",
 
   "app.containers.Moderation.permissionCommunityAdmin_1":
     "Давать и отзывать права модератора и администратора сообщества в вашем сообществе",
@@ -527,7 +519,6 @@
 
   "app.containers.EditTag.title": "Изменить тег",
   "app.containers.EditTag.description": "Сохранить тег | Описание",
-  "app.containers.EditTag.button": "Сохранить",
 
   "app.containers.Tags.backToList": "Вернуться к списку",
 

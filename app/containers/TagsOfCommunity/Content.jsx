@@ -13,7 +13,6 @@ import {
   hasCommunityAdminRole,
   hasCommunityModeratorRole,
   hasGlobalModeratorRole,
-  hasProtocolAdminRole,
 } from 'utils/properties';
 
 import { TEXT_SECONDARY } from 'style-constants';
@@ -109,11 +108,22 @@ const Content = ({
     createdHistory.push(routes.editTag(communityId, tagId));
   };
 
-  const tagEditingAllowed =
-    hasGlobalModeratorRole(getPermissions(profileInfo)) ||
-    (Boolean(communityId) &&
-      hasCommunityAdminRole(getPermissions(profileInfo), communityId)) ||
-    hasProtocolAdminRole(getPermissions(profileInfo));
+  const isGlobalAdmin = useMemo(
+    () => hasGlobalModeratorRole(getPermissions(profileInfo)),
+    [profileInfo],
+  );
+
+  const isCommunityModerator =
+    Boolean(communityId) &&
+    hasCommunityAdminRole(getPermissions(profileInfo), communityId);
+
+  const createTagPermission = useMemo(
+    () => hasCommunityModeratorRole(getPermissions(profileInfo), communityId),
+    [profileInfo, communityId],
+  );
+
+  const editTagModerator =
+    isGlobalAdmin || isCommunityModerator || createTagPermission;
 
   return (
     <InfinityLoader
@@ -138,7 +148,7 @@ const Content = ({
         ) : null}
 
         {tags.map(x => (
-          <Tag key={x.id} editTagModerator={tagEditingAllowed}>
+          <Tag key={x.id} editTagModerator={editTagModerator}>
             <Base>
               <Item
                 onMouseLeave={e => {
@@ -159,7 +169,7 @@ const Content = ({
 
                 <BlockShadow />
               </Item>
-              {tagEditingAllowed && (
+              {editTagModerator && (
                 <EditTagBtnContainer>
                   <InfoButton
                     className="ml-15"
