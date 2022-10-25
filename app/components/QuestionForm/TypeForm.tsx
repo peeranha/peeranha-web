@@ -21,7 +21,7 @@ type TypeFormProps = {
   isError: boolean;
   setIsError: Function;
   isCommunityModerator: boolean;
-  postType: number;
+  postType: number | undefined;
 };
 
 const TypeForm: React.FC<TypeFormProps> = ({
