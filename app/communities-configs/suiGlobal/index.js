@@ -1,18 +1,15 @@
 import React from 'react';
 import { css } from 'styled-components';
 
-import FilebaseLogo from './images/filebaselogo.svg?inline';
-import favicon from '!file-loader?name=[name].[ext]!./images/filebase-p.ico';
-import RobotoRegularEOT from './fonts/Roboto-Regular.eot';
-import RobotoRegularWOFF from './fonts/Roboto-Regular.woff';
-import RobotoRegularTTF from './fonts/Roboto-Regular.ttf';
+import SuiGlobalLogo from './images/suiGlobal.svg?inline';
+import favicon from '!file-loader?name=[name].[ext]!./images/favicon-suiGlobal.ico';
 
-const domainName = 'https://filebase.com/';
+const domainName = 'https://suiglobal.crew3.xyz/questboard';
 
 const fontSet = 'Roboto-Regular, Arial, sans-serif';
 
 export const customSubHeaderConfig = {
-  design: 'mintstatelabs_style',
+  design: 'suiGlobal_style',
   styles: {
     bg: {
       header: '#FFFFFF',
@@ -176,12 +173,12 @@ export const customSubHeaderConfig = {
   ],
 };
 
-export const FilebaseStyles = {
+export const SuiGlobalStyles = {
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: FilebaseLogo,
+  signUpPageLogo: SuiGlobalLogo,
   favicon,
   // Hided community fonts
   // fonts: {
@@ -203,58 +200,57 @@ export const FilebaseStyles = {
   // }`,
 
   colors: {
-    mainSubHeaderBgColor: '#FFFFF',
-    mainBackground: '#F9FAFB',
-    linkColor: '#FFA500',
-    linkCookieColor: '#FFA500',
-    linkColorTransparent: '#FFA500',
-    headerPrimary: '#FFA500',
-    commentOption: '#111827',
-    contentHeader: '#FFA500',
-    blockedInfoArea: 'rgba(53,74,137,0.11)',
-    transparentIconColor: '#FFF',
-    loaderColor: '#111827',
-    votingIconColor: '#111827',
-    linkColorSecondary: '#111827',
-    walletButton: '#FFA500',
-    btnColor: '#FFA500',
-    btnHoverColor: '#FFA500',
-    btnHeaderColor: '#FFA500',
-    btnHeaderHoverColor: '#FFA500',
-    tagColor: '#FFA500',
-    localeArrowColor: '#111827',
-    textColor: '#FFA500',
-    textColorShadow: '#FFA500',
-    commHeadElemColor: '#FFA500',
+    mainSubHeaderBgColor: '#2f3136',
+    mainBackground: '#F5F5F5',
+    linkColor: 'rgb(79,183,255)',
+    linkCookieColor: 'rgb(79,183,255)',
+    linkColorTransparent: 'rgb(79,183,255)',
+    headerPrimary: 'rgb(79,183,255)',
+    commentOption: 'rgb(79,183,255)',
+    contentHeader: 'rgb(79,183,255)',
+    blockedInfoArea: '#DAEEFF',
+    transparentIconColor: '#FFFF',
+    loaderColor: 'rgb(79,183,255)',
+    votingIconColor: 'rgb(79,183,255)',
+    linkColorSecondary: 'rgb(79,183,255)',
+    walletButton: 'rgb(79,183,255)',
+    btnColor: 'rgb(79,183,255)',
+    btnHoverColor: '#5C23D4',
+    btnHeaderColor: '#5C23D4',
+    btnHeaderHoverColor: 'rgb(79,183,255)',
+    tagColor: 'rgb(79,183,255)',
+    localeArrowColor: '#F3F3F3',
+    textColor: 'rgb(79,183,255)',
+    textColorShadow: 'rgb(79,183,255)',
+    commHeadElemColor: '#FFF',
+    darkBlue: '#1a1c20',
   },
   cookieConsentPopupStyles: {
-    background: '#FFA500',
-    color: '#FFF',
+    background: '#2f3136',
+    color: '#F3F3F3',
   },
   headerHeight: 80,
-  projectBorderRadius: '10px',
+  projectBorderRadius: '20px',
   domainName,
-  communityBorderStyle: '2px solid #FFA500',
+  communityBorderStyle: '2px solid rgb(0, 108, 208)',
   dropDownIconStyles: css`
     path {
-      stroke: #ffa500 !important;
+      stroke: rgb(79, 183, 255) !important;
       stroke-width: 1.5px;
       fill: none !important;
     }
     circle {
-      stroke: #ffa500;
+      stroke: rgb(79, 183, 255);
       stroke-width: 1.5px;
       fill: none;
     }
   `,
   headerLoginButtonStyles: css`
-    background: #fff;
-    border: 2px solid #ffa500;
-    color: #ffa500;
+    background: rgb(79, 183, 255);
+    border: 2px solid #fff;
+    color: #fff;
     :hover {
-      background: #fff !important;
-      color: #ffa500 !important;
-      border: 2px solid #ffa500 !important;
+      background: rgb(79, 183, 255) !important;
     }
   `,
 };

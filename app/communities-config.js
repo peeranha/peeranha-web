@@ -2,6 +2,7 @@ import FileiconLogo from './communities-configs/filecoin/images/filecoin-logo.sv
 import PolygonLogo from './communities-configs/polygon/images/polygon-logo.svg?inline';
 import FunctionlandLogo from './communities-configs/functionland/images/functionland-logo.svg?inline';
 import SuiLogo from './communities-configs/sui/images/sui-logo.svg?inline';
+import SuiGlobalLogo from './communities-configs/suiGlobal/images/suiGlobal.svg?inline';
 import FilebaseLogo from './communities-configs/filebase/images/filebaselogo.svg?inline';
 import HarmonyLogo from './communities-configs/harmony/images/harmony-logo.svg?inline';
 import KoiiLogo from './communities-configs/koii/images/koii-logo.svg?inline';
@@ -13,6 +14,7 @@ import { SuiStyles } from './communities-configs/sui';
 import { FilebaseStyles } from './communities-configs/filebase';
 import { HarmonyStyles } from './communities-configs/harmony';
 import { KoiiStyles } from './communities-configs/koii';
+import { SuiGlobalStyles } from './communities-configs/suiGlobal';
 
 const communitiesConfig = {
   prod: {
@@ -75,45 +77,9 @@ const communitiesConfig = {
       origin: `https://meta${process.env.COOKIE_DOMAIN}`,
     },
     2: {
-      origin: `https://polygon${process.env.COOKIE_DOMAIN}`,
-      src: PolygonLogo,
-      styles: PolygonStyles,
-    },
-    3: {
-      origin: `https://filecoin${process.env.COOKIE_DOMAIN}`,
-      src: FileiconLogo,
-      styles: FilecoinStyles,
-    },
-    4: {
-      origin: `https://community${process.env.COOKIE_DOMAIN}`,
-    },
-    7: {
-      origin: `https://fxland${process.env.COOKIE_DOMAIN}`,
-      src: FunctionlandLogo,
-      styles: FunctionlandStyles,
-    },
-    10: {
-      origin: `https://sui${process.env.COOKIE_DOMAIN}`,
-      src: SuiLogo,
-      styles: SuiStyles,
-    },
-    12: {
-      origin: `https://koii${process.env.COOKIE_DOMAIN}`,
-      src: KoiiLogo,
-      styles: KoiiStyles,
-    },
-    13: {
-      origin: `https://harmony${process.env.COOKIE_DOMAIN}`,
-      src: HarmonyLogo,
-      styles: HarmonyStyles,
-    },
-    6: {
-      origin: 'https://testcommunity.net',
-    },
-    16: {
-      origin: `https://filebase${process.env.COOKIE_DOMAIN}`,
-      src: FilebaseLogo,
-      styles: FilebaseStyles,
+      origin: `https://suiglobal${process.env.COOKIE_DOMAIN}`,
+      src: SuiGlobalLogo,
+      styles: SuiGlobalStyles,
     },
   },
   dev: {
