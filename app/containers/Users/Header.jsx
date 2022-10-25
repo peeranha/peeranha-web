@@ -21,10 +21,14 @@ import MediumIcon, { MediumIconStyled } from 'components/Icon/MediumIcon';
 import Icon from 'components/Icon';
 import { IconMd } from 'components/Icon/IconWithSizes';
 import Wrapper, { WrapperRightPanel } from 'components/Header/Simple';
-import { singleCommunityColors } from 'utils/communityManagement';
+import {
+  singleCommunityColors,
+  isSingleCommunityWebsite,
+} from 'utils/communityManagement';
 import options from './options';
 
 const colors = singleCommunityColors();
+const single = isSingleCommunityWebsite();
 
 const Button = ({ sorting }) => (
   <Span className="d-inline-flex align-items-center mr-2 text-capitalize" bold>
@@ -79,14 +83,16 @@ export const Header = ({ sorting, dropdownFilter, userCount }) => {
         </span>
       </H3>
 
-      <WrapperRightPanel className="right-panel">
-        <Dropdown
-          button={<Button sorting={sorting} />}
-          menu={<Menu sort={dropdownFilter} sorting={sorting} />}
-          id="users-dropdown"
-          isArrowed
-        />
-      </WrapperRightPanel>
+      {!single && (
+        <WrapperRightPanel className="right-panel">
+          <Dropdown
+            button={<Button sorting={sorting} />}
+            menu={<Menu sort={dropdownFilter} sorting={sorting} />}
+            id="users-dropdown"
+            isArrowed
+          />
+        </WrapperRightPanel>
+      )}
     </Wrapper>
   );
 };

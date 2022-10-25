@@ -43,7 +43,7 @@ export const Dropdown = ({
       aria-haspopup="true"
       aria-expanded="false"
       data-icon="arrow"
-      css={css`color: colors.localeArrowColor : "" `}
+      css={css`color: ${colors.localeArrowColor} : "" `}
     >
       {button}
 
