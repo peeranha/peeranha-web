@@ -206,7 +206,7 @@ export const ValistStyles = {
     mainSubHeaderBgColor: '#030111',
     mainBackground: '#F9FAFB',
     linkColor: '#5850EC',
-    linkCoolieColor: '#5850EC',
+    linkCookieColor: '#5850EC',
     linkColorTransparent: '#5850EC',
     headerPrimary: '#5850EC',
     commentOption: '#5850EC',

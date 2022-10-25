@@ -206,7 +206,7 @@ export const PolywrapStyles = {
     mainSubHeaderBgColor: '#1D2B45',
     mainBackground: '#F9FAFB',
     linkColor: '#4ED39F',
-    linkCoolieColor: '#FFC372',
+    linkCookieColor: '#FFC372',
     linkColorTransparent: '#4ED39F',
     headerPrimary: '#4ED39F',
     commentOption: '#4ED39F',
