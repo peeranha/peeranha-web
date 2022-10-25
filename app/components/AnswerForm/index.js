@@ -12,6 +12,7 @@ import { scrollToErrorField } from 'utils/animation';
 import {
   hasCommunityAdminRole,
   hasCommunityModeratorRole,
+  hasProtocolAdminRole,
 } from 'utils/properties';
 import { strLength15x30000, required } from 'components/FormFields/validate';
 
@@ -143,6 +144,7 @@ export default React.memo(
       const translate = translationMessages[locale];
       const profileInfo = makeSelectProfileInfo()(state);
       const isOfficialRepresentative =
+        hasProtocolAdminRole(profileInfo?.permissions) ||
         hasCommunityModeratorRole(profileInfo?.permissions, communityId || 0) ||
         (Boolean(communityId) &&
           hasCommunityAdminRole(profileInfo?.permissions, communityId));
