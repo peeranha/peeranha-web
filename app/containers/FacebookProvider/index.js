@@ -21,7 +21,6 @@ const FacebookProvider = ({
   children,
   autoLoginWithFacebookDispatch,
   handleFbLoginErrorDispatch,
-  getCurrentAccountDispatch,
 }) => {
   // this component provides facebook sdk init for auto login with facebook
   useEffect(() => {
@@ -31,8 +30,6 @@ const FacebookProvider = ({
       const onErrorCallBack = () => handleFbLoginErrorDispatch(true);
 
       onFacebookSdkInit(autoLoginWithFacebookDispatch, onErrorCallBack);
-    } else {
-      getCurrentAccountDispatch();
     }
   }, []);
 
