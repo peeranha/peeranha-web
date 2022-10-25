@@ -8,6 +8,7 @@ import commonMessages from 'common-messages';
 
 import { getFormattedNum2 } from 'utils/numbers';
 import { getSingleCommunityDetails } from 'utils/communityManagement';
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
 import usersHeaderFilter from 'images/communitiesHeaderFilter.svg?external';
 import usersHeader from 'images/usersHeader.svg?external';
@@ -60,6 +61,8 @@ const Menu = ({ sort, sorting }) => (
 
 export const Header = ({ sorting, dropdownFilter, userCount }) => {
   const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
+  const isSingleCommunityMode = Boolean(isSingleCommunityWebsite()) || false;
+  const usersCondition = isSingleCommunityMode ? 'activeUsers' : 'users';
 
   return (
     <Wrapper className="mb-to-sm-0 mb-from-sm-3">
@@ -75,7 +78,7 @@ export const Header = ({ sorting, dropdownFilter, userCount }) => {
 
         <span>
           <FormattedMessage
-            {...commonMessages[isBloggerMode ? 'followers' : 'users']}
+            {...commonMessages[isBloggerMode ? 'followers' : usersCondition]}
           />
           <Span className="ml-2" color={TEXT_SECONDARY} fontSize="30" bold>
             {getFormattedNum2(userCount)}

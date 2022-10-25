@@ -41,7 +41,9 @@
   "app.common.feed": "Feed",
   "app.common.myFeed": "My feed",
   "app.common.users": "Users",
+  "app.common.activeUsers": "Active Users",
   "app.common.followers": "Followers",
+  "app.common.subscribers": "Subscribers",
   "app.common.usersShort": "Users",
   "app.common.faq": "FAQ",
   "app.common.moderationHeader": "Moderator permissions",
@@ -504,6 +506,7 @@
 
   "app.containers.EditTag.title": "Edit tag",
   "app.containers.EditTag.description": "Save | Description",
+  "app.containers.EditTag.button": "Save",
 
   "app.containers.Tags.backToList": "Back to list",
   "app.containers.Tags.didntFindSuitableTag": "Did not find suitable tags?",

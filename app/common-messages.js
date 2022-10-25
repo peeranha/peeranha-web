@@ -144,6 +144,9 @@ export default defineMessages({
   users: {
     id: 'app.common.users',
   },
+  activeUsers: {
+    id: 'app.common.activeUsers',
+  },
   followers: {
     id: 'app.common.followers',
   },
@@ -238,7 +241,7 @@ export default defineMessages({
     id: 'app.common.close',
   },
   subscribers: {
-    id: 'app.common.users',
+    id: 'app.common.subscribers',
   },
   newest: {
     id: 'app.common.newest',
