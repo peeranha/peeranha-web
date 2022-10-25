@@ -330,10 +330,12 @@
   "app.containers.Faq.title": "FAQ",
   "app.containers.Faq.description": "FAQ: description",
   "app.containers.Faq.faq": "Frequently asked questions",
-  "app.common.protocolAdministrator": "Protocol Administrator permissions",
+  "app.common.defaultAdministrator": "Default Admin permissions",
+  "app.common.protocolAdministrator": "Protocol Admin permissions",
   "app.common.communityModerator": "Community Moderator permissions",
   "app.common.communityAdministrator": "Community Administrator permissions",
-  "app.common.asProtocolAdministrator": "As a Protocol Administrator, you can:",
+  "app.common.asDefaultAdministrator": "As a Default Admin, you can:",
+  "app.common.asProtocolAdministrator": "As a Protocol Admin, you can:",
   "app.common.asCommunityAdministrator":
     "As a Community Administrator, you can:",
   "app.common.asCommunityModerator": "As a Community Moderator, you can:",
@@ -375,21 +377,21 @@
   "app.containers.DeleteFacebookData.confirmDeletion": "Confirm deletion",
 
   "app.containers.Moderation.permissionProtocolAdmin_1":
-    "Give and revoke Community Moderator and Community Administrator permissions for a single community",
+    "give and revoke Community Moderator and Community Administrator permissions for any community",
   "app.containers.Moderation.permissionProtocolAdmin_2":
-    "Create new communities",
-  "app.containers.Moderation.permissionProtocolAdmin_3":
-    "Edit any single community: change title, description, official site link, and avatar of the community",
+    "create new communities",
+  "app.containers.Moderation.permissionProtocolAdmin_3": "edit any community",
   "app.containers.Moderation.permissionProtocolAdmin_4":
-    "Freeze and unfreeze communities",
+    "freeze and unfreeze communities",
   "app.containers.Moderation.permissionProtocolAdmin_5":
-    "Create and edit tags for any single community",
+    "create and edit tags for any community",
   "app.containers.Moderation.permissionProtocolAdmin_6":
-    "Change post type in any single community",
+    "change post type in any community",
   "app.containers.Moderation.permissionProtocolAdmin_7":
-    "Upvote and downvote posts, answers and add comments in any single community if your reputation is below 35",
+    "ignore reputation in any community and perform actions that are reputation restricted like upvoting and downvoting posts, answers, and adding comments",
   "app.containers.Moderation.permissionProtocolAdmin_8":
-    "Delete posts, answers, even those marked as the best, and comments in one click in any single community",
+    "delete posts, answers, even those marked as the best, and comments in any community",
+  "app.containers.Moderation.permissionProtocolAdmin_9": "post official answer",
 
   "app.containers.Moderation.permissionCommunityAdmin_1":
     "Give and revoke Community Moderator and Community Administrator permissions in your community",
