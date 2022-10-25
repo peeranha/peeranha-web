@@ -44,6 +44,7 @@ import {
   getPermissions,
   hasCommunityModeratorRole,
   hasGlobalModeratorRole,
+  hasProtocolAdminRole,
 } from 'utils/properties';
 
 const CommentManage = styled.div`
@@ -151,6 +152,7 @@ const CommentView = item => {
 
   const isModerator =
     hasGlobalModeratorRole(getPermissions(item.profileInfo)) ||
+    hasProtocolAdminRole(getPermissions(item.profileInfo)) ||
     hasCommunityModeratorRole(
       getPermissions(item.profileInfo),
       item.communityId,
