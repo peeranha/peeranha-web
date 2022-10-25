@@ -7,8 +7,11 @@ import { TEXT_SECONDARY, BORDER_PRIMARY } from 'style-constants';
 import commonMessages from 'common-messages';
 
 import { getFormattedNum2 } from 'utils/numbers';
-import { getSingleCommunityDetails } from 'utils/communityManagement';
-import { isSingleCommunityWebsite } from 'utils/communityManagement';
+import {
+  getSingleCommunityDetails,
+  isSingleCommunityWebsite,
+  singleCommunityColors,
+} from 'utils/communityManagement';
 
 import usersHeaderFilter from 'images/communitiesHeaderFilter.svg?external';
 import usersHeader from 'images/usersHeader.svg?external';
@@ -22,10 +25,7 @@ import MediumIcon, { MediumIconStyled } from 'components/Icon/MediumIcon';
 import Icon from 'components/Icon';
 import { IconMd } from 'components/Icon/IconWithSizes';
 import Wrapper, { WrapperRightPanel } from 'components/Header/Simple';
-import {
-  singleCommunityColors,
-  isSingleCommunityWebsite,
-} from 'utils/communityManagement';
+
 import options from './options';
 
 const colors = singleCommunityColors();
