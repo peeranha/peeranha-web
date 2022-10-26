@@ -110,13 +110,13 @@ const Button = B.extend`
   }
 
   flex: 1;
-  border: ${({ type, value }) =>
-    `${+type === value ? '2px' : '1px'} solid ${BORDER_SECONDARY}`};
+  border: 1px solid ${BORDER_SECONDARY};
   border-color: ${({ type, value }) =>
     +type === value && (colors.textColor || `rgb(${BORDER_PRIMARY_RGB})`)};
   box-shadow: ${({ type, value }) =>
-    +type === value &&
-    (`0 0 0 3px ${colors.textColorShadow}` || `0 0 0 3px ${customShadow}`)};
+    +type === value
+      ? `0 0 0 3px ${colors.textColorShadow || customShadow}`
+      : 'none'};
   &:hover {
     box-shadow: 0 0 0 3px ${colors.textColorShadow || customShadow};
   }
