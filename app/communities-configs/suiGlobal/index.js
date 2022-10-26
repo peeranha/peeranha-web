@@ -200,10 +200,10 @@ export const SuiGlobalStyles = {
   // }`,
 
   colors: {
-    mainSubHeaderBgColor: '#2f3136',
+    mainSubHeaderBgColor: 'rgb(255,255,255)',
     mainBackground: '#F5F5F5',
     linkColor: 'rgb(79,183,255)',
-    linkCookieColor: 'rgb(79,183,255)',
+    linkCookieColor: 'rgb(16, 53, 244)',
     linkColorTransparent: 'rgb(79,183,255)',
     headerPrimary: 'rgb(79,183,255)',
     commentOption: 'rgb(79,183,255)',
@@ -218,21 +218,33 @@ export const SuiGlobalStyles = {
     btnHoverColor: 'rgb(79,183,255)',
     btnHeaderColor: 'rgb(79,183,255)',
     btnHeaderHoverColor: 'rgb(79,183,255)',
-    tagColor: 'rgb(79,183,255)',
+    tagColor: 'rgb(43,151,224)',
     localeArrowColor: '#F3F3F3',
     textColor: 'rgb(79,183,255)',
     textColorShadow: 'rgb(79,183,255)',
-    commHeadElemColor: '#FFF',
+    commHeadElemColor: '#282828',
     darkBlue: '#1a1c20',
   },
   cookieConsentPopupStyles: {
-    background: '#2f3136',
+    background:
+      'linear-gradient(90deg, rgba(174, 222, 255, 0.99) 6.03%, rgba(11, 120, 195, 0.99) 71.4%)',
     color: '#F3F3F3',
+
+    button: {
+      color: 'rgb(255,255,255)',
+      borderColor: 'rgb(255,255,255)',
+
+      background: 'none',
+      ':hover': {
+        background: 'rgb(255,255,255)',
+        color: 'rgb(79,183,255)',
+      },
+    },
   },
   headerHeight: 80,
   projectBorderRadius: '20px',
   domainName,
-  communityBorderStyle: '2px solid rgb(0, 108, 208)',
+  communityBorderStyle: '2px solid rgb(79, 183, 255)',
   dropDownIconStyles: css`
     path {
       stroke: rgb(79, 183, 255) !important;
@@ -246,9 +258,8 @@ export const SuiGlobalStyles = {
     }
   `,
   headerLoginButtonStyles: css`
-    background: rgb(79, 183, 255);
-    border: 2px solid #fff;
-    color: #fff;
+    border: 2px solid rgb(79, 183, 255);
+    color: rgb(79, 183, 255);
     :hover {
       background: rgb(79, 183, 255) !important;
     }
