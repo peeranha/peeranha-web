@@ -17,7 +17,7 @@ import FormBox from 'components/Form';
 
 import {
   required,
-  strLength2x15,
+  strLength2x25,
   strLength20x1000,
   requiredForObjectField,
   valueHasNotBeInList,
@@ -70,8 +70,8 @@ export const Form = ({
         component={TextInputField}
         label={translations[messages.name.id]}
         tip={translations[messages.nameTip.id]}
-        validate={[strLength2x15, required, valueHasNotBeInList]}
-        warn={[strLength2x15, required, valueHasNotBeInList]}
+        validate={[strLength2x25, required, valueHasNotBeInList]}
+        warn={[strLength2x25, required, valueHasNotBeInList]}
         splitInHalf
       />
 
@@ -88,7 +88,7 @@ export const Form = ({
 
       <Button type="submit" disabled={tagFormLoading}>
         {isEditTagForm
-          ? translations[messages.editTag.id]
+          ? translations[messages.saveTag.id]
           : translations[messages.createTag.id]}
       </Button>
     </FormBox>
