@@ -4,7 +4,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
-import { css } from '@emotion/react';
 import isMobile from 'ismobilejs';
 
 import {
@@ -53,6 +52,7 @@ import {
   hasCommunityAdminRole,
   hasCommunityModeratorRole,
   getPermissions,
+  hasProtocolAdminRole,
 } from 'utils/properties';
 
 import { getIpfsHashFromBytes32 } from 'utils/ipfs';
@@ -165,10 +165,11 @@ const MainLinks = ({
   pinnedItemMenu,
 }) => {
   const { pathname } = window.location;
-  let route = pathname.split('/').filter((x) => x)[0];
+  let route = pathname.split('/').filter(x => x)[0];
 
   const singleCommId = +isSingleCommunityWebsite();
   const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
+  const isProtocolAdmin = hasProtocolAdminRole(getPermissions(profile));
   const isModeratorModeSingleCommunity = singleCommId
     ? hasCommunityAdminRole(getPermissions(profile), singleCommId) ||
       hasCommunityModeratorRole(getPermissions(profile), singleCommId)
@@ -278,7 +279,9 @@ const MainLinks = ({
           <FormattedMessage {...messages.tags} />
         </A1>
 
-        {(hasGlobalModeratorRole() || isModeratorModeSingleCommunity) && (
+        {(hasGlobalModeratorRole() ||
+          isModeratorModeSingleCommunity ||
+          isProtocolAdmin) && (
           <A1 to={routes.users()} name="users" route={route}>
             <IconLg className="mr-2" icon={usersIcon} />
             <FormattedMessage

@@ -48,7 +48,6 @@ import {
 } from './constants';
 
 import Header from './Header';
-import { QUESTION_TYPES } from './QuestionTypeField';
 import CommunityForm from './CommunityForm';
 import SubArticleForm from './SubArticleForm';
 import ExistingQuestions from './ExistingQuestions';
@@ -65,8 +64,9 @@ import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 import {
   getPermissions,
   hasCommunityAdminRole,
-  hasGlobalModeratorRole,
   hasCommunityModeratorRole,
+  hasGlobalModeratorRole,
+  hasProtocolAdminRole,
 } from 'utils/properties';
 import { translationMessages } from '../../i18n';
 
@@ -75,10 +75,9 @@ const colors = singleCommunityColors();
 const history = createdHistory;
 
 const SuggestTag = memo(({ redirectToCreateTagDispatch, formValues }) => {
-  const communityId = useMemo(
-    () => formValues?.[FORM_COMMUNITY]?.value ?? 0,
-    [formValues],
-  );
+  const communityId = useMemo(() => formValues?.[FORM_COMMUNITY]?.value ?? 0, [
+    formValues,
+  ]);
 
   return (
     <div style={{ marginBottom: '20px' }}>
@@ -142,7 +141,8 @@ export const QuestionForm = ({
 
   const communityId = single || formValues[FORM_COMMUNITY]?.id;
   const isCommunityModerator = communityId
-    ? hasCommunityModeratorRole(getPermissions(profile), communityId)
+    ? hasCommunityModeratorRole(getPermissions(profile), communityId) ||
+      hasCommunityAdminRole(getPermissions(profile), communityId)
     : false;
 
   const handleSubmitWithType = () => {
@@ -155,32 +155,35 @@ export const QuestionForm = ({
     return handleSubmit(sendQuestion);
   };
 
-  const getExistingQuestions = (questions) => {
+  const getExistingQuestions = questions => {
     if (single) {
       return questions.filter(
-        (question) => question.communityId === String(single),
+        question => question.communityId === String(single),
       );
     }
 
     return questions;
   };
 
-  useEffect(() => {
-    if (formValues[FORM_TITLE] && getQuestions) {
-      getQuestions(formValues[FORM_TITLE], true);
-    }
-  }, [formValues[FORM_TITLE]]);
+  useEffect(
+    () => {
+      if (formValues[FORM_TITLE] && getQuestions) {
+        getQuestions(formValues[FORM_TITLE], true);
+      }
+    },
+    [formValues[FORM_TITLE]],
+  );
 
-  const showMoreQuestions = (e) => {
+  const showMoreQuestions = e => {
     e.preventDefault();
     createdHistory.push(routes.search(formValues[FORM_TITLE]));
   };
 
-  const profileWithModeratorRights =
-    profile && hasGlobalModeratorRole(getPermissions(profile));
-
-  const isCommunityAdmin =
-    Boolean(single) && hasCommunityAdminRole(getPermissions(profile), single);
+  const tagCreatingAllowed =
+    hasGlobalModeratorRole(getPermissions(profile)) ||
+    (Boolean(single) &&
+      hasCommunityAdminRole(getPermissions(profile), single)) ||
+    hasProtocolAdminRole(getPermissions(profile));
 
   const handleSetClicked = () => setIsClickSubmit(true);
   const handleButtonClick = () => {
@@ -306,26 +309,20 @@ export const QuestionForm = ({
 
               {!isDocumentation &&
                 Number(formValues[FORM_TYPE]) !== POST_TYPE.documentation && (
-                  <>
-                    <TagsForm
-                      intl={intl}
-                      questionLoading={questionLoading}
-                      formValues={formValues}
-                      change={change}
-                    />
-
-                    {(profileWithModeratorRights ||
-                      isCommunityModerator ||
-                      isCommunityAdmin) && (
-                      <SuggestTag
-                        formValues={formValues}
-                        redirectToCreateTagDispatch={
-                          redirectToCreateTagDispatch
-                        }
-                      />
-                    )}
-                  </>
+                  <TagsForm
+                    intl={intl}
+                    questionLoading={questionLoading}
+                    formValues={formValues}
+                    change={change}
+                  />
                 )}
+
+              {tagCreatingAllowed && (
+                <SuggestTag
+                  formValues={formValues}
+                  redirectToCreateTagDispatch={redirectToCreateTagDispatch}
+                />
+              )}
 
               <Button
                 disabled={questionLoading}
@@ -375,7 +372,7 @@ QuestionForm.propTypes = {
 };
 
 const FormClone = reduxForm({
-  onSubmitFail: (errors) => scrollToErrorField(errors),
+  onSubmitFail: errors => scrollToErrorField(errors),
 })(QuestionForm);
 
 export default memo(
@@ -386,7 +383,7 @@ export default memo(
         const values = state.toJS().form[formName]?.values[FORM_COMMUNITY];
         const integerProperties = values?.integer_properties ?? [];
         const questionsType = integerProperties.find(
-          (prop) => prop.key === KEY_QUESTIONS_TYPE,
+          prop => prop.key === KEY_QUESTIONS_TYPE,
         )?.value;
 
         // disable community form on edit question page
@@ -431,7 +428,7 @@ export default memo(
                             ({ id }) => id === question?.community?.id,
                           )?.tags,
                         )
-                        .filter((x) => x),
+                        .filter(x => x),
                       'id',
                     ),
                   },
@@ -450,7 +447,7 @@ export default memo(
           disableCommForm,
         };
       },
-      (dispatch) => ({
+      dispatch => ({
         redirectToCreateTagDispatch: bindActionCreators(
           redirectToCreateTag,
           dispatch,
