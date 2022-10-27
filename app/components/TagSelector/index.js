@@ -139,6 +139,7 @@ export const TagSelector = ({
               autoFocus
               menuIsOpen
               isWrapped
+              disabledScrollbar
             />
           </ScrollDropdown>
         </Dropdown>

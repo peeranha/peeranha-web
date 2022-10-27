@@ -36,7 +36,6 @@ const SelectItem = ({ input, change, label, disabled, meta, items }) => (
           <Input
             {...input}
             type="text"
-            onChange={null}
             disabled={disabled}
             error={meta.touched && (meta.error || meta.warning)}
           />
