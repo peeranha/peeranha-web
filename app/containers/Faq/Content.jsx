@@ -3,7 +3,6 @@ import AreYouSure from 'containers/ViewQuestion/AreYouSure';
 import messages from 'containers/ViewQuestion/messages';
 import pencilIcon from 'images/pencil.svg?external';
 import deleteIcon from 'images/deleteIcon.svg?external';
-import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
