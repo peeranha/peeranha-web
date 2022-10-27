@@ -1,4 +1,5 @@
 import React from 'react';
+import { css } from '@emotion/react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
@@ -25,7 +26,9 @@ import A from 'components/A';
 import Span from 'components/Span';
 import { translationMessages } from '../../i18n';
 import { REWARD_CLAIMING_ENABLED } from '../../utils/constants';
+import { singleCommunityColors } from 'utils/communityManagement';
 
+const colors = singleCommunityColors();
 const GoToBoostPage = Button.extend`
   margin-top: 10px;
 
@@ -83,7 +86,15 @@ const BoostBanner = ({ userId, locale }) => (
             <FormattedMessage id={messages.getMoreWithBoost.id} />
           </p>
 
-          <p>
+          <p
+            css={css`
+              a {
+                span {
+                  color: ${colors.linkColor || TEXT_PRIMARY};
+                }
+              }
+            `}
+          >
             <FormattedMessage
               id={messages.boostHelp.id}
               values={{

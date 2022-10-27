@@ -65,7 +65,7 @@ const Activity = ({
                   fontSize="14"
                   color={tab !== 'posts' ? TEXT_SECONDARY : 'inherit'}
                 >
-                  {profile.postCount + profile.answersGiven}
+                  {(questions?.length || 0) + profile.answersGiven}
                 </Span>
               ),
             }}
@@ -87,7 +87,7 @@ const Activity = ({
                   fontSize="14"
                   color={tab !== 'quest' ? TEXT_SECONDARY : 'inherit'}
                 >
-                  {(profile.postCount >= 0 && profile.postCount) || 0}
+                  {questions?.length || 0}
                 </Span>
               ),
             }}

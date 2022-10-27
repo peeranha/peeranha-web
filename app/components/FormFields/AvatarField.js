@@ -27,11 +27,11 @@ import { AVATAR_FIELD } from 'containers/Profile/constants';
 
 import WarningMessage, { Div as WarningMessageDiv } from './WarningMessage';
 import { italicFont } from '../../global-styles';
-
+import { singleCommunityColors } from 'utils/communityManagement';
 // < 1000 chars - hash, >> 1000 - is base64 (new image)
 export const HASH_CHARS_LIMIT = 1000;
 const IMG_SIZE_LIMIT_B = 5 * 1024 * 1024;
-
+const colors = singleCommunityColors();
 const Div = styled.div`
   position: relative;
   width: 120px;
@@ -192,7 +192,7 @@ const InfoMessage = styled.div`
 
   font-size: 13px;
   line-height: 1.2;
-  color: ${TEXT_PRIMARY};
+  color: ${colors.textColor || TEXT_PRIMARY};
   text-align: center;
   font-style: ${italicFont};
 
@@ -286,7 +286,10 @@ function AvatarField({ input, meta, disabled }) {
           )}
       </div>
       <InfoMessage>
-        <FormattedMessage {...messages.profilesUsersInfo} />
+        <FormattedMessage
+          id={messages.profilesUsersInfo.id}
+          color={colors.btnColor}
+        />
       </InfoMessage>
       <WarningMessage {...meta} isSpecialPosition />
     </Div>

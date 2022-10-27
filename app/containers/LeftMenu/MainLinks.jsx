@@ -45,7 +45,13 @@ import generalIcon from 'images/comments-outline-24.svg?external';
 import tutorialIcon from 'images/tutorial.svg?external';
 import { FULL_SIZE } from 'containers/LeftMenu/constants';
 import { BasicLink } from 'containers/LeftMenu/Styles';
-import { hasGlobalModeratorRole } from 'utils/properties';
+import {
+  hasGlobalModeratorRole,
+  hasCommunityAdminRole,
+  hasCommunityModeratorRole,
+  getPermissions,
+  hasProtocolAdminRole,
+} from 'utils/properties';
 
 const styles = singleCommunityStyles();
 const colors = singleCommunityColors();
@@ -140,6 +146,11 @@ const MainLinks = ({ currClientHeight, profile }) => {
 
   const singleCommId = +isSingleCommunityWebsite();
   const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
+  const isProtocolAdmin = hasProtocolAdminRole(getPermissions(profile));
+  const isModeratorModeSingleCommunity = Boolean(singleCommId)
+    ? hasCommunityAdminRole(getPermissions(profile), singleCommId) ||
+      hasCommunityModeratorRole(getPermissions(profile), singleCommId)
+    : false;
 
   if (!route) {
     route = isBloggerMode ? 'home' : 'feed';
@@ -192,7 +203,9 @@ const MainLinks = ({ currClientHeight, profile }) => {
         <FormattedMessage {...messages.tags} />
       </A1>
 
-      {hasGlobalModeratorRole() && (
+      {(hasGlobalModeratorRole() ||
+        isModeratorModeSingleCommunity ||
+        isProtocolAdmin) && (
         <A1 to={routes.users()} name="users" route={route}>
           <IconLg className="mr-2" icon={usersIcon} />
           <FormattedMessage
@@ -201,13 +214,12 @@ const MainLinks = ({ currClientHeight, profile }) => {
         </A1>
       )}
 
-      {!styles.withoutFAQ &&
-        !singleCommId && (
-          <A1 to={routes.faq()} name="faq" route={route}>
-            <IconLg className="mr-2" icon={faqIcon} fill={BORDER_PRIMARY} />
-            <FormattedMessage {...messages.faq} />
-          </A1>
-        )}
+      {
+        <A1 to={routes.faq()} name="faq" route={route}>
+          <IconLg className="mr-2" icon={faqIcon} fill={BORDER_PRIMARY} />
+          <FormattedMessage id={messages.faq.id} />
+        </A1>
+      }
     </Box>
   );
 };
