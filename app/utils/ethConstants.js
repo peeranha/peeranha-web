@@ -260,7 +260,7 @@ export const usersPostsQuery = `
           orderDirection: desc,
           first: $limit,
           skip: $offset,
-          where: {isDeleted: false, author: $id},
+          where: {isDeleted: false, author: $id, postType_lt: 3},
         ) {
            ${post}
         }
@@ -377,6 +377,19 @@ export const postsByCommQuery = `
           first: $first,
           skip: $skip,
           where: { communityId_in: $communityIds, isDeleted: false, postType_in: $postTypes },
+        ) {
+           ${post}
+        }
+      }`;
+
+export const faqByCommQuery = `
+      query (
+        $communityId: Int,
+      ) {
+        posts (
+          orderBy: postTime,
+          orderDirection: desc,
+          where: { communityId: $communityId, isDeleted: false, postType: 3 },
         ) {
            ${post}
         }

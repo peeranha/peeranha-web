@@ -37,6 +37,7 @@ import {
   getPermissions,
   hasCommunityAdminRole,
   hasGlobalModeratorRole,
+  hasProtocolAdminRole,
 } from '../../utils/properties';
 
 const tagsRoute = routes.tags();
@@ -96,6 +97,11 @@ export const Header = ({
     ? hasCommunityAdminRole(getPermissions(profile), singleCommId)
     : false;
 
+  const tagCreatingAllowed =
+    profileWithModeratorRights ||
+    profileWithCommunityAdminRights ||
+    hasProtocolAdminRole(getPermissions(profile));
+
   const communityTagsRoute = useMemo(
     () => routes.communityTags(currentCommunity.id),
     [currentCommunity.id],
@@ -124,7 +130,7 @@ export const Header = ({
           )}
         </div>
 
-        {(profileWithModeratorRights || profileWithCommunityAdminRights) && (
+        {tagCreatingAllowed && (
           <WrapperRightPanel className="right-panel">
             <NavigationButton
               data-communityid={currentCommunity.id}

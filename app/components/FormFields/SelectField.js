@@ -81,6 +81,7 @@ export const Select2 = ({
   placeholder,
   error,
   isWrapped,
+  disabledScrollbar,
 }) => {
   const S = isAsync ? AsyncSelect : Select;
 
@@ -149,6 +150,7 @@ export const Select2 = ({
           paddingBottom: 0,
           boxShadow: !menuIsOpen ? `0 0 3px ${BORDER_SECONDARY}` : `none`,
           borderRadius: '3px',
+          overflow: disabledScrollbar ? 'hidden' : 'auto',
         }),
       }}
     />
@@ -193,6 +195,7 @@ Select2.propTypes = {
   Group: PropTypes.any,
   CustomOption: PropTypes.any,
   placeholder: PropTypes.string,
+  disabledScrollbar: PropTypes.bool,
 };
 
 SelectField.propTypes = {
