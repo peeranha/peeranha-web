@@ -216,3 +216,18 @@ export const hasProtocolAdminRole = permissionsFromState => {
     ),
   );
 };
+
+export const hasProtocolAdminRole = permissionsFromState => {
+  let permissions = permissionsFromState;
+
+  if (!permissions) {
+    permissions =
+      JSON.parse(getCookie('profileinfols') || '""')?.permissions || [];
+  }
+
+  return Boolean(
+    permissions.find(permission =>
+      BigNumber.from(permission).eq(PROTOCOL_ADMIN_ROLE),
+    ),
+  );
+};
