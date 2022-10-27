@@ -103,7 +103,7 @@ const Button = B.extend`
   }
 
   &:last-child {
-    border-left: none;
+    border-left: ${({ type, value }) => +type !== value && 'none'};
     border-top-right-radius: ${BORDER_RADIUS_M};
     border-bottom-right-radius: ${BORDER_RADIUS_M};
     border-radius: ${styles.buttonBorderRadius};
@@ -114,9 +114,9 @@ const Button = B.extend`
   border-color: ${({ type, value }) =>
     +type === value && (colors.textColor || `rgb(${BORDER_PRIMARY_RGB})`)};
   box-shadow: ${({ type, value }) =>
-    +type === value &&
-    (`0 0 0 3px ${colors.textColorShadow}` || `0 0 0 3px ${customShadow}`)};
-
+    +type === value
+      ? `0 0 0 3px ${colors.textColorShadow || customShadow}`
+      : 'none'};
   &:hover {
     box-shadow: 0 0 0 3px ${colors.textColorShadow || customShadow};
   }

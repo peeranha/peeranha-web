@@ -55,6 +55,21 @@ const communitiesConfig = {
       styles: FilebaseStyles,
     },
     8: {
+      origin: 'https://polywrap.peeranha.io',
+      src: PolywrapLogo,
+      styles: PolywrapStyles,
+    },
+    9: {
+      origin: 'https://cyberconnect.peeranha.io',
+      src: CyberconnectLogo,
+      styles: CyberconnectStyles,
+    },
+    10: {
+      origin: 'https://valist.peeranha.io',
+      src: ValistLogo,
+      styles: ValistStyles,
+    },
+    11: {
       origin: 'https://suiglobal.peeranha.io',
       src: SuiGlobalLogo,
       styles: SuiGlobalStyles,
