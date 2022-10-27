@@ -118,13 +118,13 @@ Notifications are not available in the first release. This functionality will be
 | Hero        | 5000 ... 9999       |
 | Superhero   | 10000               |
 
-### NFT
+### NFTs
 
 Among our users, we're distributing collectible NFTs for achieving a certain status among the first on the Peeranha protocol. These status NFTs are limited, and once they're all distributed among Peeranha users, we're not planning on making more.  
 To check how many more reputation points you need to achieve your next status:
 
 1. Visit your profile;
-1. Click on NFTs;
+1. Click NFTs;
 1. Check the progress bar below each status NFT;
 1. Continue to be active on Peeranha;
 1. Achieve a certain status and get your hands on a desirable NFT.
@@ -134,8 +134,8 @@ To check how many more reputation points you need to achieve your next status:
 
 The simple way to earn reputation points is to be helpful to a community and its members: ask relevant questions, provide quality answers, post tutorials, and be respectful to others.  
 
-- **You earn points when:**  
-
+**You earn points when:**  
+<br/>
                                                                         
 <div id='abcd' style="text-align: center; font-weight: bold;">Expert post type</div>     
               
@@ -166,8 +166,7 @@ The simple way to earn reputation points is to be helpful to a community and its
 Unfortunately there’s a chance that you may lose your reputation points. It depends on multiple factors: you provided an incomplete answer, the same question was asked many times, or maybe you broke the main rule to be respectful to others.	 
 
     
-- **You lose points when:**
-
+**You lose points when:**
 <div style="text-align: center; font-weight: bold;">All post type</div> 
                                                                          
 | Action or Event                                                                     | reputation points   |
@@ -188,12 +187,12 @@ Unfortunately there’s a chance that you may lose your reputation points. It de
 
 No worries if you lost some reputation points. There’s a way to improve the situation. 
 
-- **You get extra points when:** 
+**You get extra points when:**
 <div style="text-align: center; font-weight: bold;">Expert post type</div>
                                                                                               
 | Action or Event                                                                     | reputation points   |
 | ----------------------------------------------------------------------------------- | :-----------------: |
-| Answer a question within 15 min after the post was published.                       | 5                   |
+| Post answered within 15 min after the post was published.                           | 5                   |
 | Answer first to a post.                                                             | 5                   |
 | Fulfill these two conditions at one go.                                             | 10                  |
 
@@ -201,7 +200,7 @@ No worries if you lost some reputation points. There’s a way to improve the si
                                                                                       
 | Action or Event                                                                     | reputation points   |
 | ----------------------------------------------------------------------------------- | :-----------------: |
-| Answer a question within 15 min after the post was published.                       | 1                   |
+| Post answered within 15 min after the post was published.                           | 1                   |
 | Answer first to a post.                                                             | 1                   |
 | Fulfill these two conditions at one go.                                             | 2                   |
 
@@ -210,12 +209,12 @@ No worries if you lost some reputation points. There’s a way to improve the si
 
 | Action or Event                                   | Reputation points |
 | --------------------------------------------------| ----------------- |
-| Post question                                     | 0                 |
+| Create post                                       | 0                 |
 | Post answer                                       | 0                 |
-| Post a comment under one’s own question or answer | 0                 |
-| Post comment under question or comment            | 35                |
-| Upvote a question or answer                       | 35                |
-| Downvote a question or answer                     | 100               |
+| Post a comment under one’s own post or answer     | 0                 |
+| Post comment under post or comment                | 35                |
+| Upvote a post or answer                           | 35                |
+| Downvote a post or answer                         | 100               |
 
 ## Token
 
@@ -246,8 +245,8 @@ New tokens are created once per week. The maximum starting emission is 1 000 000
 Peeranha distributes PEER token rewards to its users in periods. The number of periods is not limited. 
 Each period is one week long. You can check the current period in your wallet.  
 Click the Wallet button > check current period in progress.
-![](../images/period_2.svg)
-![](../images/period_1.svg)  
+<img src='../images/period_2.svg' alt style="display:block; width: 200px; height: 120px; border:1px solid rgb(0 0 0 / 30%)">
+<img src='../images/period_1.svg' alt style="display:block; width: 200px; height: 120px; border:1px solid rgb(0 0 0 / 30%)">
 User reward in PEER tokens depends on the number of reputation points received during the particular period. The more active you are, the more tokens you get.
   
 _Note: Token is not launched as of now. We are working hard to speed up this process. The estimated reward will be available for you to claim after the token launch. Stay active on Peeranha. Thank you!_

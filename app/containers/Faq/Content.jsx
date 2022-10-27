@@ -69,7 +69,7 @@ export const TextBlock = styled.div`
       font-weight: bold;
     }
     ~ p {
-      margin-bottom: 40px;
+      margin-bottom: 20px;
     }
     img {
       vertical-align: middle;
