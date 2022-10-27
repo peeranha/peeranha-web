@@ -206,7 +206,7 @@ export const FilebaseStyles = {
     mainSubHeaderBgColor: '#FFFFF',
     mainBackground: '#F9FAFB',
     linkColor: '#FFA500',
-    linkCoolieColor: '#FFA500',
+    linkCookieColor: '#FFA500',
     linkColorTransparent: '#FFA500',
     headerPrimary: '#FFA500',
     commentOption: '#111827',

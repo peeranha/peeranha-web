@@ -206,7 +206,7 @@ export const CyberconnectStyles = {
     mainSubHeaderBgColor: '#fff',
     mainBackground: '#F9FAFB',
     linkColor: '#65908a',
-    linkCoolieColor: '#0DB48C', ///
+    linkCookieColor: '#0DB48C', ///
     linkColorTransparent: 'rgba(101, 144, 138, 0.6);',
     headerPrimary: '#65908a',
     commentOption: '#65908a',
