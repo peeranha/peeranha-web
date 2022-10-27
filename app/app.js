@@ -28,7 +28,6 @@ import App from 'containers/App';
 import LanguageProvider from 'containers/LanguageProvider';
 import DataCacheProvider from 'containers/DataCacheProvider';
 import AccountProvider from 'containers/AccountProvider';
-import FacebookProvider from './containers/FacebookProvider';
 
 // Load the favicon and the .htaccess file
 /* eslint-disable import/no-unresolved, import/extensions */
@@ -61,13 +60,11 @@ const render = messages => {
       <EthereumProvider>
         <AccountProvider>
           <LanguageProvider messages={messages}>
-            <FacebookProvider>
-              <DataCacheProvider>
-                <ConnectedRouter history={createdHistory}>
-                  <App />
-                </ConnectedRouter>
-              </DataCacheProvider>
-            </FacebookProvider>
+            <DataCacheProvider>
+              <ConnectedRouter history={createdHistory}>
+                <App />
+              </ConnectedRouter>
+            </DataCacheProvider>
           </LanguageProvider>
         </AccountProvider>
       </EthereumProvider>

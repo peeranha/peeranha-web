@@ -20,6 +20,8 @@ export const AccountProvider = ({
   getCurrentAccountDispatch,
 }) => {
   useEffect(() => {
+    getCurrentAccountDispatch();
+
     setInterval(() => {
       const diff = Date.now() - lastUpdate;
 
