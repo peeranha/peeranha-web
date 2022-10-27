@@ -54,6 +54,11 @@ const communitiesConfig = {
       src: FilebaseLogo,
       styles: FilebaseStyles,
     },
+    8: {
+      origin: 'https://suiglobal.peeranha.io',
+      src: SuiGlobalLogo,
+      styles: SuiGlobalStyles,
+    },
   },
   staging: {
     1: {
@@ -96,6 +101,65 @@ const communitiesConfig = {
       src: SuiGlobalLogo,
       styles: SuiGlobalStyles,
     },
+    // 1: {
+    //   origin: `https://meta${process.env.COOKIE_DOMAIN}`,
+    // },
+    // 2: {
+    //   origin: `https://polygon${process.env.COOKIE_DOMAIN}`,
+    //   src: PolygonLogo,
+    //   styles: PolygonStyles,
+    // },
+    // 3: {
+    //   origin: `https://filecoin${process.env.COOKIE_DOMAIN}`,
+    //   src: FileiconLogo,
+    //   styles: FilecoinStyles,
+    // },
+    // 4: {
+    //   origin: `https://community${process.env.COOKIE_DOMAIN}`,
+    // },
+    // 7: {
+    //   origin: `https://fxland${process.env.COOKIE_DOMAIN}`,
+    //   src: FunctionlandLogo,
+    //   styles: FunctionlandStyles,
+    // },
+    // 10: {
+    //   origin: `https://sui${process.env.COOKIE_DOMAIN}`,
+    //   src: SuiLogo,
+    //   styles: SuiStyles,
+    // },
+    // 12: {
+    //   origin: `https://koii${process.env.COOKIE_DOMAIN}`,
+    //   src: KoiiLogo,
+    //   styles: KoiiStyles,
+    // },
+    // 13: {
+    //   origin: `https://harmony${process.env.COOKIE_DOMAIN}`,
+    //   src: HarmonyLogo,
+    //   styles: HarmonyStyles,
+    // },
+    // 6: {
+    //   origin: 'https://testcommunity.net',
+    // },
+    // 16: {
+    //   origin: `https://filebase${process.env.COOKIE_DOMAIN}`,
+    //   src: FilebaseLogo,
+    //   styles: FilebaseStyles,
+    // },
+    // 17: {
+    //   origin: `https://valist${process.env.COOKIE_DOMAIN}`,
+    //   src: ValistLogo,
+    //   styles: ValistStyles,
+    // },
+    // 18: {
+    //   origin: `https://polywrap${process.env.COOKIE_DOMAIN}`,
+    //   src: PolywrapLogo,
+    //   styles: PolywrapStyles,
+    // },
+    // 19: {
+    //   origin: `https://cyberconnect${process.env.COOKIE_DOMAIN}`,
+    //   src: CyberconnectLogo,
+    //   styles: CyberconnectStyles,
+    // },
   },
   dev: {
     3: {
