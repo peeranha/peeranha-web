@@ -4,31 +4,31 @@
 
 ### What is Peeranha?
 
-Peeranha is a decentralized knowledge sharing protocol for Web3 that rewards users with crypto tokens (PEER) for their valuable contributions. Peeranha is built on a blockchain and it is owned by the community rather than by a single organization.
+Peeranha is a decentralized knowledge-sharing protocol for Web3 where communities truly own their knowledge and earned reputation. Peeranha is built on a blockchain and it is owned by the community rather than by a single organization.
 
-### How is Peeranha different from other question and answer websites?
+<!-- ### How is Peeranha different from other question and answer websites?
 
-Unlike other question and answer websites where an organization owns the website and all the data generated from users, Peeranha is owned by the community and rewards are distributed to community members for their contributions.
+Unlike other question and answer websites where an organization owns the website and all the data generated from users, Peeranha is owned by the community and rewards are distributed to community members for their contributions. -->
 
 ### How does it work?
 
 Peeranha is built using smart contracts on the Polygon blockchain. Large content is stored via distributed storage (IPFS) and only hashes of all documents are posted on the blockchain to save expensive blockchain storage. Reputation, privileges, moderation, rewards and all other rules are built into smart contracts and are visible to anyone.
 
-### Where do tokens for rewards come from?
+<!-- ### Where do tokens for rewards come from?
 
-Peeranha continually creates new tokens once a week until the total supply of tokens is reached. For a currency, this is known as inflation. Every week, newly created tokens are transferred to the reward pool. This weekly reward pool is distributed proportionally across users who contributed to the community during the week.
+Peeranha continually creates new tokens once a week until the total supply of tokens is reached. For a currency, this is known as inflation. Every week, newly created tokens are transferred to the reward pool. This weekly reward pool is distributed proportionally across users who contributed to the community during the week. -->
 
 ### What Blockchain is Peeranha built on?
 
 Peeranha is powered by Polygon blockchain. Polygon provides short confirmation times for transactions and does not require users to pay any transaction fees.
 
-### What is the cryptocurrency of Peeranha?
+<!-- ### What is the cryptocurrency of Peeranha?
 
 Peeranha uses its own crypto-token (or cryptocurrency) called PEER.
 
 ### How can I earn crypto tokens on Peeranha?
 
-All activities on the protocol that are considered valuable for the community are rewarded in PEER tokens. Contributions that earn tokens may include posting a detailed question, providing a helpful answer or acting as a moderator.
+All activities on the protocol that are considered valuable for the community are rewarded in PEER tokens. Contributions that earn tokens may include posting a detailed question, providing a helpful answer or acting as a moderator. -->
 
 ### Where can I learn more?
 
