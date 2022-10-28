@@ -75,9 +75,10 @@ const colors = singleCommunityColors();
 const history = createdHistory;
 
 const SuggestTag = memo(({ redirectToCreateTagDispatch, formValues }) => {
-  const communityId = useMemo(() => formValues?.[FORM_COMMUNITY]?.value ?? 0, [
-    formValues,
-  ]);
+  const communityId = useMemo(
+    () => formValues?.[FORM_COMMUNITY]?.value ?? 0,
+    [formValues],
+  );
 
   return (
     <div style={{ marginBottom: '20px' }}>
@@ -155,26 +156,23 @@ export const QuestionForm = ({
     return handleSubmit(sendQuestion);
   };
 
-  const getExistingQuestions = questions => {
+  const getExistingQuestions = (questions) => {
     if (single) {
       return questions.filter(
-        question => question.communityId === String(single),
+        (question) => question.communityId === String(single),
       );
     }
 
     return questions;
   };
 
-  useEffect(
-    () => {
-      if (formValues[FORM_TITLE] && getQuestions) {
-        getQuestions(formValues[FORM_TITLE], true);
-      }
-    },
-    [formValues[FORM_TITLE]],
-  );
+  useEffect(() => {
+    if (formValues[FORM_TITLE] && getQuestions) {
+      getQuestions(formValues[FORM_TITLE], true);
+    }
+  }, [formValues[FORM_TITLE]]);
 
-  const showMoreQuestions = e => {
+  const showMoreQuestions = (e) => {
     e.preventDefault();
     createdHistory.push(routes.search(formValues[FORM_TITLE]));
   };
@@ -254,9 +252,7 @@ export const QuestionForm = ({
                     setIsError={setIsError}
                     hasSelectedType={isSelectedType}
                     setHasSelectedType={setIsSelectedType}
-                    isCommunityModerator={
-                      isCommunityModerator || isCommunityAdmin
-                    }
+                    isCommunityModerator={isCommunityModerator}
                     isDocumentation={isDocumentation}
                   />
                 )) ||
@@ -372,7 +368,7 @@ QuestionForm.propTypes = {
 };
 
 const FormClone = reduxForm({
-  onSubmitFail: errors => scrollToErrorField(errors),
+  onSubmitFail: (errors) => scrollToErrorField(errors),
 })(QuestionForm);
 
 export default memo(
@@ -383,7 +379,7 @@ export default memo(
         const values = state.toJS().form[formName]?.values[FORM_COMMUNITY];
         const integerProperties = values?.integer_properties ?? [];
         const questionsType = integerProperties.find(
-          prop => prop.key === KEY_QUESTIONS_TYPE,
+          (prop) => prop.key === KEY_QUESTIONS_TYPE,
         )?.value;
 
         // disable community form on edit question page
@@ -428,7 +424,7 @@ export default memo(
                             ({ id }) => id === question?.community?.id,
                           )?.tags,
                         )
-                        .filter(x => x),
+                        .filter((x) => x),
                       'id',
                     ),
                   },
@@ -447,7 +443,7 @@ export default memo(
           disableCommForm,
         };
       },
-      dispatch => ({
+      (dispatch) => ({
         redirectToCreateTagDispatch: bindActionCreators(
           redirectToCreateTag,
           dispatch,
