@@ -34,6 +34,10 @@ const MenuContainer = styled.div`
     left: -60px;
   }
 
+  @media only screen and (max-width: 993px) {
+    left: -75px;
+  }
+
   @media only screen and (max-width: 767px) {
     left: -280px;
   }
