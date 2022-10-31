@@ -7,7 +7,11 @@ import { TEXT_SECONDARY, BORDER_PRIMARY } from 'style-constants';
 import commonMessages from 'common-messages';
 
 import { getFormattedNum2 } from 'utils/numbers';
-import { getSingleCommunityDetails } from 'utils/communityManagement';
+import {
+  getSingleCommunityDetails,
+  isSingleCommunityWebsite,
+  singleCommunityColors,
+} from 'utils/communityManagement';
 
 import usersHeaderFilter from 'images/communitiesHeaderFilter.svg?external';
 import usersHeader from 'images/usersHeader.svg?external';
@@ -21,10 +25,11 @@ import MediumIcon, { MediumIconStyled } from 'components/Icon/MediumIcon';
 import Icon from 'components/Icon';
 import { IconMd } from 'components/Icon/IconWithSizes';
 import Wrapper, { WrapperRightPanel } from 'components/Header/Simple';
-import { singleCommunityColors } from 'utils/communityManagement';
+
 import options from './options';
 
 const colors = singleCommunityColors();
+const single = isSingleCommunityWebsite();
 
 const Button = ({ sorting }) => (
   <Span className="d-inline-flex align-items-center mr-2 text-capitalize" bold>
@@ -56,6 +61,8 @@ const Menu = ({ sort, sorting }) => (
 
 export const Header = ({ sorting, dropdownFilter, userCount }) => {
   const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
+  const isSingleCommunityMode = Boolean(isSingleCommunityWebsite()) || false;
+  const usersCondition = isSingleCommunityMode ? 'activeUsers' : 'users';
 
   return (
     <Wrapper className="mb-to-sm-0 mb-from-sm-3">
@@ -71,7 +78,7 @@ export const Header = ({ sorting, dropdownFilter, userCount }) => {
 
         <span>
           <FormattedMessage
-            {...commonMessages[isBloggerMode ? 'followers' : 'users']}
+            {...commonMessages[isBloggerMode ? 'followers' : usersCondition]}
           />
           <Span className="ml-2" color={TEXT_SECONDARY} fontSize="30" bold>
             {getFormattedNum2(userCount)}
@@ -79,14 +86,16 @@ export const Header = ({ sorting, dropdownFilter, userCount }) => {
         </span>
       </H3>
 
-      <WrapperRightPanel className="right-panel">
-        <Dropdown
-          button={<Button sorting={sorting} />}
-          menu={<Menu sort={dropdownFilter} sorting={sorting} />}
-          id="users-dropdown"
-          isArrowed
-        />
-      </WrapperRightPanel>
+      {!single && (
+        <WrapperRightPanel className="right-panel">
+          <Dropdown
+            button={<Button sorting={sorting} />}
+            menu={<Menu sort={dropdownFilter} sorting={sorting} />}
+            id="users-dropdown"
+            isArrowed
+          />
+        </WrapperRightPanel>
+      )}
     </Wrapper>
   );
 };
