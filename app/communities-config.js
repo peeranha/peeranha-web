@@ -10,6 +10,7 @@ import KoiiLogo from './communities-configs/koii/images/koii-logo.svg?inline';
 import CyberconnectLogo from './communities-configs/cyberconnect/images/CyberConnect_logo.svg?inline';
 import PolywrapLogo from './communities-configs/polywrap/images/polywrap-horizontal.svg?inline';
 import ValistLogo from './communities-configs/valist/images/valist.svg?inline';
+import IndexerDAOLogo from './communities-configs/indexerDAO/images/indDao1.svg?inline';
 
 import { PolygonStyles } from './communities-configs/polygon';
 import { FilecoinStyles } from './communities-configs/filecoin';
@@ -23,6 +24,7 @@ import { CyberconnectStyles } from './communities-configs/cyberconnect';
 import { PolywrapStyles } from './communities-configs/polywrap';
 import { ValistStyles } from './communities-configs/valist';
 import { SuiGlobalStyles } from './communities-configs/suiGlobal';
+import { IndexerDAOStyles } from './communities-configs/indexerDAO';
 
 const communitiesConfig = {
   prod: {
@@ -115,6 +117,11 @@ const communitiesConfig = {
       origin: `https://suiglobal${process.env.COOKIE_DOMAIN}`,
       src: SuiGlobalLogo,
       styles: SuiGlobalStyles,
+    },
+    3: {
+      origin: `https://indexerdao${process.env.COOKIE_DOMAIN}`,
+      src: IndexerDAOLogo,
+      styles: IndexerDAOStyles,
     },
     // 1: {
     //   origin: `https://meta${process.env.COOKIE_DOMAIN}`,
