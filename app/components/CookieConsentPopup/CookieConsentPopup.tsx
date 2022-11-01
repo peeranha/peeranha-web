@@ -7,7 +7,6 @@ import useEventListener from 'hooks/useEventListener';
 import LargeOutlinedButton from '../Button/Outlined/InfoLarge';
 import {
   singleCommunityStyles,
-  isSingleCommunityWebsite,
   singleCommunityColors,
 } from '../../utils/communityManagement';
 import { TEXT_PRIMARY } from 'style-constants';
@@ -18,7 +17,6 @@ import { styles } from './CookieConsentPopup.styled';
 const cookie = require('../../images/cookie.svg?inline');
 
 const stylesCommunity = singleCommunityStyles();
-const single = isSingleCommunityWebsite();
 const colors = singleCommunityColors();
 
 const CookieConsentPopup: React.FC = (): JSX.Element => {
@@ -64,7 +62,7 @@ const CookieConsentPopup: React.FC = (): JSX.Element => {
                   <FormattedMessage id={commonMessages.cookieConsent.id} />
                   <Link
                     css={css`
-                      color: ${single ? colors.linkCoolieColor : TEXT_PRIMARY};
+                      color: ${colors.linkCookieColor || TEXT_PRIMARY};
                     `}
                     to="/privacy-policy"
                   >
