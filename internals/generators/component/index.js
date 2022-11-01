@@ -51,7 +51,7 @@ module.exports = {
     },
   ],
   actions: data => {
-    // Generate index.js and index.test.js
+    // Generate index.tsx and index.test.js
     let componentTemplate;
 
     switch (data.type) {
@@ -67,7 +67,7 @@ module.exports = {
     const actions = [
       {
         type: 'add',
-        path: '../../app/components/{{properCase name}}/index.js',
+        path: '../../app/components/{{properCase name}}/index.tsx',
         templateFile: componentTemplate,
         abortOnFail: true,
       },
@@ -83,8 +83,8 @@ module.exports = {
     if (data.wantMessages) {
       actions.push({
         type: 'add',
-        path: '../../app/components/{{properCase name}}/messages.js',
-        templateFile: './component/messages.js.hbs',
+        path: '../../app/components/{{properCase name}}/messages.ts',
+        templateFile: './component/messages.ts.hbs',
         abortOnFail: true,
       });
     }

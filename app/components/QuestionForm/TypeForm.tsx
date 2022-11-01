@@ -1,14 +1,29 @@
-import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { memo, useCallback, useEffect, useMemo } from 'react';
 import { Field } from 'redux-form/immutable';
-import { intlShape } from 'react-intl';
 import { requiredPostTypeSelection } from 'components/FormFields/validate';
 import { FORM_TYPE } from './constants';
 import messages from './messages';
 import QuestionTypeField from './QuestionTypeField';
-import DescriptionList from '../DescriptionList';
+import DescriptionList from 'components/DescriptionList';
+import {
+  labelConditional,
+  listConditional,
+} from 'components/QuestionForm/utils';
 
-const TypeForm = ({
+type TypeFormProps = {
+  intl: any;
+  change: Function;
+  locale: string;
+  questionLoading: boolean;
+  formValues?: any;
+  hasSelectedType: boolean;
+  setHasSelectedType: Function;
+  isError: boolean;
+  setIsError: Function;
+  isCommunityModerator: boolean;
+};
+
+const TypeForm: React.FC<TypeFormProps> = ({
   intl,
   change,
   locale,
@@ -18,20 +33,9 @@ const TypeForm = ({
   setHasSelectedType,
   isError,
   setIsError,
-}) => {
-  const onChange = useCallback(val => change(FORM_TYPE, val[0]), []);
-
-  const labelConditional = n => {
-    if (n === '1') return messages.generalQuestionDescriptionLabel.id;
-    if (n === '0') return messages.expertQuestionDescriptionLabel.id;
-    if (n === '2') return messages.tutorialQuestionDescriptionLabel.id;
-  };
-
-  const listConditional = n => {
-    if (n === '1') return messages.generalQuestionDescriptionList.id;
-    if (n === '0') return messages.expertQuestionDescriptionList.id;
-    if (n === '2') return messages.tutorialQuestionDescriptionList.id;
-  };
+  isCommunityModerator,
+}): JSX.Element | null => {
+  const onChange = useCallback((val: any[]) => change(FORM_TYPE, val[0]), []);
 
   const [descriptionListLabel, descriptionListItems] = useMemo(
     () => [
@@ -63,6 +67,7 @@ const TypeForm = ({
         validate={requiredPostTypeSelection}
         splitInHalf
         error={isError}
+        isCommunityModerator={isCommunityModerator}
       />
       {hasSelectedType && (
         <DescriptionList
@@ -74,15 +79,6 @@ const TypeForm = ({
       <br />
     </>
   );
-};
-
-TypeForm.propTypes = {
-  change: PropTypes.func,
-  questionLoading: PropTypes.bool,
-  communities: PropTypes.array,
-  intl: intlShape.isRequired,
-  locale: PropTypes.string,
-  formValues: PropTypes.object,
 };
 
 export default memo(TypeForm);

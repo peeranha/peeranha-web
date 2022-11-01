@@ -21,8 +21,10 @@ import { deleteCookie, getCookie } from './cookie';
 import {
   CURRENCY,
   INVALID_ETHEREUM_PARAMETERS_ERROR_CODE,
+  INVALID_MIN_RATING_ERROR_CODE,
   META_TRANSACTIONS_ALLOWED,
   METAMASK_ERROR_CODE,
+  USER_MIN_RATING_ERROR_CODE,
   RECAPTCHA_VERIFY_FAILED_CODE,
   REJECTED_SIGNATURE_REQUEST,
 } from './constants';
@@ -220,13 +222,9 @@ class EthereumService {
     const dataFromCookies = getCookie(META_TRANSACTIONS_ALLOWED);
     const balance = this.wallet?.accounts?.[0]?.balance?.[CURRENCY];
 
-    if (!dataFromCookies) {
-      if (Number(balance) === 0) {
-        this.showModalDispatch();
-        await this.waitForCloseModal();
-      }
-    } else if (Number(balance) > 0) {
-      deleteCookie(META_TRANSACTIONS_ALLOWED);
+    if (!dataFromCookies && Number(balance) >= 0) {
+      this.showModalDispatch();
+      await this.waitForCloseModal();
     }
 
     const metaTransactionsAllowed = getCookie(META_TRANSACTIONS_ALLOWED);
@@ -258,6 +256,11 @@ class EthereumService {
         case INVALID_ETHEREUM_PARAMETERS_ERROR_CODE:
           this.transactionFailed(
             new WebIntegrationErrorByCode(METAMASK_ERROR_CODE),
+          );
+          break;
+        case INVALID_MIN_RATING_ERROR_CODE:
+          this.transactionFailed(
+            new WebIntegrationErrorByCode(USER_MIN_RATING_ERROR_CODE),
           );
           break;
         case REJECTED_SIGNATURE_REQUEST:
