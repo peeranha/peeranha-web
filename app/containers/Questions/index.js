@@ -95,67 +95,55 @@ export const Questions = ({
     path === routes.expertPosts(':communityid');
   const isTopCommunitiesDisplay =
     isFeed && !single && questionsList.length === 0 && !questionsLoading;
-  const getInitQuestions = useCallback(
-    () => {
-      if (!questionFilter) {
-        getQuestionsDispatch(
-          initLoadedItems,
-          0,
-          postsTypes,
-          Number(params.communityid) || 0,
-          parentPage,
-          false,
-          true,
-        );
-      }
-    },
-    [
-      initLoadedItems,
-      params.communityid,
-      parentPage,
-      questionFilter,
-      postsTypes,
-    ],
-  );
+  const getInitQuestions = useCallback(() => {
+    if (!questionFilter) {
+      getQuestionsDispatch(
+        initLoadedItems,
+        0,
+        postsTypes,
+        Number(params.communityid) || 0,
+        parentPage,
+        false,
+        true,
+      );
+    }
+  }, [
+    initLoadedItems,
+    params.communityid,
+    parentPage,
+    questionFilter,
+    postsTypes,
+  ]);
 
-  const getNextQuestions = useCallback(
-    () => {
-      if (!questionFilter) {
-        getQuestionsDispatch(
-          nextLoadedItems,
-          loadedItems,
-          postsTypes,
-          Number(params.communityid) || 0,
-          parentPage,
-          true,
-        );
-      }
-    },
-    [
-      questionsList,
-      questionsList.length,
-      nextLoadedItems,
-      params.communityid,
-      parentPage,
-      questionFilter,
-      loadTopQuestionsDispatch,
-      postsTypes,
-    ],
-  );
+  const getNextQuestions = useCallback(() => {
+    if (!questionFilter) {
+      getQuestionsDispatch(
+        nextLoadedItems,
+        loadedItems,
+        postsTypes,
+        Number(params.communityid) || 0,
+        parentPage,
+        true,
+      );
+    }
+  }, [
+    questionsList,
+    questionsList.length,
+    nextLoadedItems,
+    params.communityid,
+    parentPage,
+    questionFilter,
+    loadTopQuestionsDispatch,
+    postsTypes,
+  ]);
 
-  useEffect(
-    () => {
-      getInitQuestions();
-    },
-    [typeFilter, createdFilter, postsTypes],
-  );
+  useEffect(() => {
+    getInitQuestions();
+  }, [typeFilter, createdFilter, postsTypes]);
 
-  useEffect(
-    () => {
-      setTypeFilterDispatch(params.communityid ? +params.communityid : 0);
-    },
-    [params.communityid],
-  );
+  useEffect(() => {
+    setTypeFilterDispatch(params.communityid ? +params.communityid : 0);
+  }, [params.communityid]);
 
   const display = useMemo(
     () => !(single && path === routes.questions(':communityid')),
@@ -231,6 +219,8 @@ export const Questions = ({
           isFeed={isFeed}
           followedCommunities={followedCommunities}
           redirectToAskQuestionPage={redirectToAskQuestionPageDispatch}
+          isEmpty={questionsList.length === 0}
+          isSingleCommunityMode={single}
         />
       )}
       {questionsList.length > 0 && (
@@ -253,16 +243,15 @@ export const Questions = ({
             profileInfo={profile}
           />
 
-          {!!+questionFilterFromCookies &&
-            !displayLoader && (
-              <div className="d-flex justify-content-center mb-3">
-                <ShowMoreButton
-                  questionFilterFromCookies={questionFilterFromCookies}
-                >
-                  {translationMessages[locale][messages.showAllQuestions.id]}
-                </ShowMoreButton>
-              </div>
-            )}
+          {!!+questionFilterFromCookies && !displayLoader && (
+            <div className="d-flex justify-content-center mb-3">
+              <ShowMoreButton
+                questionFilterFromCookies={questionFilterFromCookies}
+              >
+                {translationMessages[locale][messages.showAllQuestions.id]}
+              </ShowMoreButton>
+            </div>
+          )}
         </InfinityLoader>
       )}
       {isTopCommunitiesDisplay && (
@@ -336,7 +325,7 @@ export default compose(
         questionsSelector.isLastTopQuestionLoadedSelector,
       promotedQuestions: questionsSelector.selectPromotedQuestions(),
     }),
-    dispatch => ({
+    (dispatch) => ({
       setTypeFilterDispatch: bindActionCreators(setTypeFilter, dispatch),
       setCreatedFilterDispatch: bindActionCreators(setCreatedFilter, dispatch),
       getQuestionsDispatch: bindActionCreators(getQuestions, dispatch),
