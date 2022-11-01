@@ -228,18 +228,20 @@ class EthereumService {
     }
 
     const metaTransactionsAllowed = getCookie(META_TRANSACTIONS_ALLOWED);
-    if (metaTransactionsAllowed) {
-      const token = await this.getRecaptchaToken();
-      return await this.sendMetaTransaction(
-        contract,
-        actor,
-        action,
-        data,
-        confirmations,
-        token,
-      );
-    }
+
     try {
+      if (metaTransactionsAllowed) {
+        const token = await this.getRecaptchaToken();
+        return await this.sendMetaTransaction(
+          contract,
+          actor,
+          action,
+          data,
+          confirmations,
+          token,
+        );
+      }
+
       await this.chainCheck();
       const transaction = await this[contract]
         .connect(this.provider.getSigner(actor))
@@ -295,99 +297,78 @@ class EthereumService {
     confirmations = 1,
     token,
   ) => {
-    try {
-      await this.chainCheck();
-      const metaTxContract = this[contract];
-      const nonce = await metaTxContract.getNonce(actor);
-      const iface = new ethers.utils.Interface(CONTRACT_TO_ABI[contract]);
-      const functionSignature = iface.encodeFunctionData(action, data);
-      const message = {};
-      message.nonce = parseInt(nonce);
-      message.from = actor;
-      message.functionSignature = functionSignature;
+    await this.chainCheck();
+    const metaTxContract = this[contract];
+    const nonce = await metaTxContract.getNonce(actor);
+    const iface = new ethers.utils.Interface(CONTRACT_TO_ABI[contract]);
+    const functionSignature = iface.encodeFunctionData(action, data);
+    const message = {};
+    message.nonce = parseInt(nonce);
+    message.from = actor;
+    message.functionSignature = functionSignature;
 
-      const domainType = [
-        { name: 'name', type: 'string' },
-        { name: 'version', type: 'string' },
-        { name: 'verifyingContract', type: 'address' },
-        { name: 'salt', type: 'bytes32' },
-      ];
+    const domainType = [
+      { name: 'name', type: 'string' },
+      { name: 'version', type: 'string' },
+      { name: 'verifyingContract', type: 'address' },
+      { name: 'salt', type: 'bytes32' },
+    ];
 
-      const metaTransactionType = [
-        { name: 'nonce', type: 'uint256' },
-        { name: 'from', type: 'address' },
-        { name: 'functionSignature', type: 'bytes' },
-      ];
+    const metaTransactionType = [
+      { name: 'nonce', type: 'uint256' },
+      { name: 'from', type: 'address' },
+      { name: 'functionSignature', type: 'bytes' },
+    ];
 
-      const domainData = {
-        name: CONTRACT_TO_NAME[contract],
-        version: '1',
-        verifyingContract: metaTxContract.address,
-        salt: `0x${parseInt(process.env.CHAIN_ID, 10)
-          .toString(16)
-          .padStart(64, '0')}`,
-      };
+    const domainData = {
+      name: CONTRACT_TO_NAME[contract],
+      version: '1',
+      verifyingContract: metaTxContract.address,
+      salt: `0x${parseInt(process.env.CHAIN_ID, 10)
+        .toString(16)
+        .padStart(64, '0')}`,
+    };
 
-      const dataToSign = JSON.stringify({
-        types: {
-          EIP712Domain: domainType,
-          MetaTransaction: metaTransactionType,
-        },
-        domain: domainData,
-        primaryType: 'MetaTransaction',
-        message,
-      });
+    const dataToSign = JSON.stringify({
+      types: {
+        EIP712Domain: domainType,
+        MetaTransaction: metaTransactionType,
+      },
+      domain: domainData,
+      primaryType: 'MetaTransaction',
+      message,
+    });
 
-      const signature = await this.provider.send('eth_signTypedData_v4', [
-        actor,
-        dataToSign,
-      ]);
+    const signature = await this.provider.send('eth_signTypedData_v4', [
+      actor,
+      dataToSign,
+    ]);
 
-      const { r, s, v } = this.getSignatureParameters(signature);
+    const { r, s, v } = this.getSignatureParameters(signature);
 
-      const response = await callService(BLOCKCHAIN_SEND_META_TRANSACTION, {
-        contractAddress: metaTxContract.address,
-        userAddress: actor,
-        functionSignature,
-        sigR: r,
-        sigS: s,
-        sigV: v,
-        wait: false,
-        reCaptchaToken: token,
-      });
+    const response = await callService(BLOCKCHAIN_SEND_META_TRANSACTION, {
+      contractAddress: metaTxContract.address,
+      userAddress: actor,
+      functionSignature,
+      sigR: r,
+      sigS: s,
+      sigV: v,
+      wait: false,
+      reCaptchaToken: token,
+    });
 
-      if (response.errorCode) {
-        throw response;
-      }
-
-      this.transactionInPending(response.body.transactionHash);
-      const result = await this.provider.waitForTransaction(
-        response.body.transactionHash,
-        confirmations,
-      );
-      this.transactionCompleted();
-      this.setTransactionInitialised(false);
-      return result;
-    } catch (err) {
-      const errorCode = err.code || err.errorCode;
-      this.setTransactionInitialised(false);
-      switch (errorCode) {
-        case INVALID_ETHEREUM_PARAMETERS_ERROR_CODE:
-          this.transactionFailed(
-            new WebIntegrationErrorByCode(METAMASK_ERROR_CODE),
-          );
-          break;
-        case REJECTED_SIGNATURE_REQUEST:
-          this.transactionFailed(new WebIntegrationErrorByCode(errorCode));
-          break;
-        case RECAPTCHA_VERIFY_FAILED_CODE:
-          this.transactionFailed(new WebIntegrationErrorByCode(errorCode));
-          break;
-        default:
-          this.transactionFailed();
-          break;
-      }
+    if (response.errorCode) {
+      throw response;
     }
+
+    this.transactionInPending(response.body.transactionHash);
+    const result = await this.provider.waitForTransaction(
+      response.body.transactionHash,
+      confirmations,
+    );
+    this.transactionCompleted();
+    this.setTransactionInitialised(false);
+    return result;
   };
 
   getUserDataWithArgs = async (action, args) =>
