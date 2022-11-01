@@ -54,28 +54,20 @@ export const MetaTransactionAgreement = ({
   return (
     <ModalDialog closeModal={hideModal} show={showModal}>
       <H4 className="text-center pb-3">
-        <FormattedMessage {...messages.agreeWithMetaTransactions} />
+        <FormattedMessage id={messages.agreeWithMetaTransactions.id} />
       </H4>
 
       <div className="pb-4" style={{ textAlign: 'center' }}>
-        <FormattedMessage {...messages.youNeedMetaBecause} />
-      </div>
-
-      <div className="pb-4" style={{ textAlign: 'center' }}>
-        <FormattedMessage {...messages.dontWorry} />
-      </div>
-
-      <div className="pb-4" style={{ textAlign: 'center' }}>
-        <FormattedMessage {...messages.wouldYouLike} />
+        <FormattedMessage id={messages.wouldYouLike.id} />
       </div>
 
       <div className="d-flex align-items-center pb-3">
         <OutlinedButton className="mr-3" onClick={hideModal}>
-          <FormattedMessage {...messages.cansel} />
+          <FormattedMessage id={messages.cansel.id} />
         </OutlinedButton>
 
         <ContainedButton onClick={agreeWithMeta}>
-          <FormattedMessage {...messages.confirm} />
+          <FormattedMessage id={messages.confirm.id} />
         </ContainedButton>
       </div>
     </ModalDialog>
