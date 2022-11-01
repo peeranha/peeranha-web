@@ -154,7 +154,6 @@ const List = ({ communities }) => {
                     communityId={x.id}
                     showPopularity
                   />
-                  <BlockShadow toSide="right" />
                 </TagListBox>
 
                 <SeeAllButton>
