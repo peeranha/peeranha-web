@@ -31,11 +31,11 @@ const MenuContainer = styled.div`
   cursor: default;
 
   @media only screen and (max-width: 1520px) {
-    left: -63px;
+    left: -75px;
   }
 
   @media only screen and (max-width: 993px) {
-    left: -78px;
+    left: -90px;
   }
 
   @media only screen and (max-width: 767px) {
