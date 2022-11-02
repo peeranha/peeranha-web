@@ -43,7 +43,7 @@ export const B = Button.extend`
 
 const QuestionName = H3.extend`
   display: inline;
-  font-size: 34px;
+  font-size: 30px;
 `.withComponent('h3');
 
 const Div = styled.div`
@@ -95,20 +95,17 @@ export const QuestionTitle = ({
     [promote, account, questionAuthor],
   );
 
-  const promotedQuestionEndsTime = useMemo(
-    () => {
-      if (typeof promote === 'object') {
-        return getFormattedDate(
-          promote.endsTime,
-          locale,
-          MONTH_3LETTERS__DAY_YYYY_TIME,
-        );
-      }
+  const promotedQuestionEndsTime = useMemo(() => {
+    if (typeof promote === 'object') {
+      return getFormattedDate(
+        promote.endsTime,
+        locale,
+        MONTH_3LETTERS__DAY_YYYY_TIME,
+      );
+    }
 
-      return null;
-    },
-    [promote],
-  );
+    return null;
+  }, [promote]);
 
   const isItWrittenByMe = profileInfo ? user === profileInfo.user : false;
 
