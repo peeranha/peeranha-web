@@ -142,7 +142,7 @@ const Box = styled.div`
 
 const MainLinks = ({ currClientHeight, profile }) => {
   const { pathname } = window.location;
-  let route = pathname.split('/').filter(x => x)[0];
+  let route = pathname.split('/').filter((x) => x)[0];
 
   const singleCommId = +isSingleCommunityWebsite();
   const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
@@ -194,14 +194,12 @@ const MainLinks = ({ currClientHeight, profile }) => {
         </A1>
       )}
 
-      <A1
-        to={!singleCommId ? routes.tags() : routes.communityTags(singleCommId)}
-        name="tags"
-        route={route}
-      >
-        <IconLg className="mr-2" icon={tagsIcon} />
-        <FormattedMessage {...messages.tags} />
-      </A1>
+      {Boolean(singleCommId) && (
+        <A1 to={routes.communityTags(singleCommId)} name="tags" route={route}>
+          <IconLg className="mr-2" icon={tagsIcon} />
+          <FormattedMessage {...messages.tags} />
+        </A1>
+      )}
 
       {(hasGlobalModeratorRole() ||
         isModeratorModeSingleCommunity ||
