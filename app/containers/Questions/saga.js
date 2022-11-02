@@ -11,7 +11,7 @@ import {
 
 import * as routes from 'routes-config';
 import createdHistory from 'createdHistory';
-import _isEmpty from 'lodash/isEmpty';
+import isEmpty from 'lodash/isEmpty';
 import { selectEos } from 'containers/EosioProvider/selectors';
 
 import { getCookie, setCookie, deleteCookie } from 'utils/cookie';
@@ -116,13 +116,13 @@ export function* getQuestionsWorker({
     let questionsList = [];
 
     const subcommunityList =
-      _isEmpty(hasSingleSubcommunity) && !single
+      isEmpty(hasSingleSubcommunity) && !single
         ? []
         : [...hasSingleSubcommunity, single];
     if (single) {
       communityIdFilter = single;
     }
-    if (communityIdFilter > 0 && _isEmpty(hasSingleSubcommunity)) {
+    if (communityIdFilter > 0 && isEmpty(hasSingleSubcommunity)) {
       questionsList = yield call(
         getPostsByCommunityId,
         limit,

@@ -7,11 +7,17 @@ import SubHeader from '../ExistingCommunities/SubHeader';
 import sortingOptions from '../ExistingCommunities/sortingOptions';
 import Communities from 'containers/Communities';
 
+type TypeSortingOptions = {
+  message: { id: string };
+  order: string;
+  sortBy: string;
+};
+
 const Subcommunities: React.FC = (): JSX.Element => {
-  const [sorting, changeSorting] = useState<Object>(
+  const [sorting, changeSorting] = useState<TypeSortingOptions>(
     sortingOptions[Object.keys(sortingOptions)[0]],
   );
-  console.log(sorting, 'sorting');
+
   return (
     <>
       <Communities
