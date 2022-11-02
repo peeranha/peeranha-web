@@ -10,8 +10,10 @@ import * as routes from 'routes-config';
 
 import {
   getPermissions,
+  hasCommunityAdminRole,
   hasCommunityModeratorRole,
   hasGlobalModeratorRole,
+  hasProtocolAdminRole,
 } from 'utils/properties';
 
 import { TEXT_SECONDARY } from 'style-constants';
@@ -107,17 +109,11 @@ const Content = ({
     createdHistory.push(routes.editTag(communityId, tagId));
   };
 
-  const isGlobalAdmin = useMemo(
-    () => hasGlobalModeratorRole(getPermissions(profileInfo)),
-    [profileInfo],
-  );
-
-  const createTagPermission = useMemo(
-    () => hasCommunityModeratorRole(getPermissions(profileInfo), communityId),
-    [profileInfo, communityId],
-  );
-
-  const editTagModerator = isGlobalAdmin || createTagPermission;
+  const tagEditingAllowed =
+    hasGlobalModeratorRole(getPermissions(profileInfo)) ||
+    (Boolean(communityId) &&
+      hasCommunityAdminRole(getPermissions(profileInfo), communityId)) ||
+    hasProtocolAdminRole(getPermissions(profileInfo));
 
   return (
     <InfinityLoader
@@ -142,7 +138,7 @@ const Content = ({
         ) : null}
 
         {tags.map(x => (
-          <Tag key={x.id} editTagModerator={editTagModerator}>
+          <Tag key={x.id} editTagModerator={tagEditingAllowed}>
             <Base>
               <Item
                 onMouseLeave={e => {
@@ -163,7 +159,7 @@ const Content = ({
 
                 <BlockShadow />
               </Item>
-              {editTagModerator && (
+              {tagEditingAllowed && (
                 <EditTagBtnContainer>
                   <InfoButton
                     className="ml-15"

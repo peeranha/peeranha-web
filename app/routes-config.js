@@ -17,9 +17,9 @@ const userRedirect = where => id => `/users/${id}${where}`;
 const singleCommId = isSingleCommunityWebsite();
 const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
 
-export const home = () => `/about`;
+export const home = () => (singleCommId ? `/about` : `/`);
 
-export const notFound = () => `/404`;
+export const notFound = type => `/404?${type}`;
 export const errorPage = () => `/error-occured`;
 
 export const profileView = userRedirect('');
@@ -89,7 +89,9 @@ export const noAccess = () => `/no-access`;
 export const detailsHomePage = () => '/';
 
 export const feed = communityId =>
-  `/${communityId ? `feed/${communityId}` : ''}`;
+  !singleCommId
+    ? `/feed${communityId ? `/${communityId}` : ''}`
+    : `/${communityId ? `feed/${communityId}` : ''}`;
 
 export const communities = () => (!isBloggerMode ? `/communities` : `/`);
 
@@ -142,7 +144,6 @@ export const referralPage = user => `/?${REFERRAL_CODE_URI}=${user}`;
 export const facebookDataDeletion = () => '/facebook-data-deletion';
 
 export const redirectRoutesForSCM = [
-  faq(),
   privacyPolicy(),
   termsAndConditions(),
   support(),

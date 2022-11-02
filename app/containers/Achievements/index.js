@@ -238,7 +238,7 @@ const Achievements = ({
                       key={achievement.id}
                       maxCount={achievement.maxCount}
                       factCount={achievement.factCount}
-                      currentValue={profile?.highestRating?.rating}
+                      currentValue={profile?.highestRating?.rating || null}
                       lowerValue={achievementsArr[index].lowerValue}
                       name={achievement.name}
                       description={achievement.description}
@@ -246,7 +246,7 @@ const Achievements = ({
                       id={achievement.id}
                       achievementURI={achievement.achievementURI}
                       locale={locale}
-                      currentUser={profile.id === userId}
+                      currentUser={profile?.id === userId}
                     />
                   ),
               )}

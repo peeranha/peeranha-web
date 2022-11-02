@@ -16,12 +16,16 @@ import { MediumImageStyled } from 'components/Img/MediumImage';
 import TransparentButton from 'components/Button/Contained/Transparent';
 
 import { GO_TO_CREATE_TAG_SCREEN_BUTTON_ID } from 'containers/Tags/constants';
-import { getPermissions, hasGlobalModeratorRole } from '../../utils/properties';
+import {
+  getPermissions,
+  hasGlobalModeratorRole,
+  hasProtocolAdminRole,
+} from '../../utils/properties';
 
 const Header = ({ openTagForm, profile }) => {
-  const profileWithModeratorRights =
-    profile &&
-    useMemo(() => hasGlobalModeratorRole(getPermissions(profile)), [profile]);
+  const tagCreatingAllowed =
+    hasGlobalModeratorRole(getPermissions(profile)) ||
+    hasProtocolAdminRole(getPermissions(profile));
 
   return (
     <Wrapper className="mb-to-sm-0 mb-from-sm-3">
@@ -29,7 +33,7 @@ const Header = ({ openTagForm, profile }) => {
         <MediumImageStyled src={suggestTagIcon} alt="tags-collection" />
         <FormattedMessage {...messages.tags} />
       </H3>
-      {profileWithModeratorRights && (
+      {tagCreatingAllowed && (
         <WrapperRightPanel className="right-panel">
           <TransparentButton
             onClick={openTagForm}

@@ -26,6 +26,7 @@ import {
   UP_QUESTION_ERROR,
   UP_QUESTION_SUCCESS,
 } from './constants';
+import { MARK_AS_ACCEPTED_SUCCESS } from '../ViewQuestion/constants';
 
 export const initialState = fromJS({
   initLoadedItems: 50,
@@ -64,6 +65,7 @@ function questionsReducer(state = initialState, action) {
     lastIndex,
     isRemove,
     promotedQuestions = {},
+    questionData,
   } = action;
   const {
     topQuestionIds: stateTopQuestionIds,
@@ -242,6 +244,18 @@ function questionsReducer(state = initialState, action) {
         .set('topQuestionActionProcessing', false);
     case MOVE_QUESTION_ERROR:
       return state.set('topQuestionActionProcessing', false);
+
+    case MARK_AS_ACCEPTED_SUCCESS:
+      return state.set(
+        'questions',
+        fromJS({
+          ...stateQuestions,
+          [questionData.id]: {
+            ...stateQuestions[questionData.id],
+            bestReply: questionData.bestReply,
+          },
+        }),
+      );
 
     default:
       return state;

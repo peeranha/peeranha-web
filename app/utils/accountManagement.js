@@ -62,6 +62,8 @@ export async function revokeCommunityModeratorPermission(
 }
 
 export const isUserExists = async (userAddress, ethereumService) => {
+  if (!userAddress) throw new ApplicationError('No profile');
+
   return await ethereumService.getUserDataWithArgs(IS_USER_EXISTS, [
     userAddress,
   ]);

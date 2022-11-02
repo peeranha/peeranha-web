@@ -1,24 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
+import { css } from '@emotion/react';
 
 import commonMessages from 'common-messages';
-import { TEXT_DARK, TEXT_SECONDARY } from 'style-constants';
+import { TEXT_DARK, TEXT_SECONDARY, LINK_COLOR } from 'style-constants';
 import { LABEL_SIZE_LG } from 'components/Img/MediumImage';
 import { TEMPORARY_ACCOUNT_KEY } from 'utils/constants';
 import { getUserAvatar } from 'utils/profileManagement';
 
-import questionRoundedIcon from 'images/question2.svg?inline';
-import answerIcon from 'images/answer.svg?inline';
-
+import questionRoundedIcon from 'images/question2.svg?external';
+import answerIcon from 'images/answer.svg?external';
+import iconCopy from 'images/document-copy.svg?inline';
+import iconCopySelect from 'images/document-copy-select.svg?inline';
+import { translationMessages } from 'i18n';
 import Base from 'components/Base';
 import A from 'components/A';
 import Ul from 'components/Ul';
 import Span from 'components/Span';
 import RatingStatus from 'components/RatingStatus';
 import AchievementsStatus from 'components/AchievementsStatus/index';
-
+import { IconLg } from 'components/Icon/IconWithSizes';
+import { showPopover } from 'utils/popover';
 import LargeImage from 'components/Img/LargeImage';
 import TelegramUserLabel from 'components/Labels/TelegramUserLabel';
 import LoadingIndicator from 'components/LoadingIndicator';
@@ -28,6 +32,9 @@ import { customRatingIconColors } from 'constants/customRating';
 import ProfileSince from 'components/ProfileSince';
 import { getUserName } from 'utils/user';
 
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
 const InlineLoader = styled(LoadingIndicator)`
   margin: auto;
   margin-top: 5px;
@@ -56,11 +63,18 @@ export const UlStyled = Ul.extend`
     display: flex;
     flex-direction: column;
     padding: 15px 30px 15px 0;
-
+    div {
+      display: inline;
+    }
     @media (max-width: 450px) {
       word-break: break-word;
       white-space: pre-line;
       overflow-wrap: break-word;
+
+      button {
+        left: 75%;
+        top: 80%;
+      }
     }
 
     @media (max-width: 399px) {
@@ -68,7 +82,7 @@ export const UlStyled = Ul.extend`
     }
 
     > *:nth-child(1) {
-      font-size: 13px;
+      font-size: 14px;
       line-height: 25px;
       color: ${TEXT_SECONDARY};
     }
@@ -84,11 +98,9 @@ export const UlStyled = Ul.extend`
         margin-right: 5px;
         height: 18px;
       }
-    }
 
-    @media only screen and (max-width: 1354px) {
-      div {
-        display: inline;
+      svg {
+        margin-right: 5px;
       }
     }
 
@@ -101,6 +113,10 @@ export const UlStyled = Ul.extend`
       span,
       div {
         font-size: 16px !important;
+      }
+      button {
+        left: 80%;
+        top: 80%;
       }
     }
 
@@ -164,13 +180,26 @@ const MainUserInformation = ({
   account,
   locale,
   redirectToEditProfilePage,
+  userAchievementsLength,
 }) => {
   const isTemporaryAccount = !!profile?.integer_properties?.find(
     x => x.key === TEMPORARY_ACCOUNT_KEY && x.value,
   );
   const userPolygonScanAddress = process.env.BLOCKCHAIN_EXPLORERE_URL + userId;
+  const [copied, setCopied] = useState(false);
+  const writeToBuffer = event => {
+    navigator.clipboard.writeText(userId);
+    setCopied(true);
+    showPopover(
+      event.currentTarget.id,
+      translationMessages[locale][commonMessages.copied.id],
+    );
+  };
+
+  const iconType = copied ? iconCopySelect : iconCopy;
+
   return (
-    <Box position="middle">
+    <Box position="middle" className="pb-0">
       <div>
         <div>
           <LargeImageButton
@@ -203,7 +232,7 @@ const MainUserInformation = ({
           <div className="d-flex align-items-center">
             <UlStyled>
               <li>
-                <FormattedMessage {...messages.status} />
+                <FormattedMessage id={messages.status.id} />
                 <RatingStatus
                   isProfilePage={true}
                   customRatingIconColors={customRatingIconColors}
@@ -213,27 +242,45 @@ const MainUserInformation = ({
               </li>
 
               <li>
-                <FormattedMessage {...commonMessages.posts} />
+                <FormattedMessage id={commonMessages.posts.id} />
                 <span>
-                  <img src={questionRoundedIcon} alt="icon" />
+                  <IconLg
+                    icon={questionRoundedIcon}
+                    css={css`
+                      path {
+                        fill: ${LINK_COLOR};
+                      }
+                      ,
+                      circle {
+                        stroke: ${LINK_COLOR};
+                      }
+                    `}
+                  />
                   {profile.postCount}
                 </span>
               </li>
 
               <li>
-                <FormattedMessage {...commonMessages.answers} />
+                <FormattedMessage id={commonMessages.answers.id} />
                 <span>
-                  <img src={answerIcon} alt="icon" />
+                  <IconLg
+                    icon={answerIcon}
+                    css={css`
+                      path {
+                        stroke: ${LINK_COLOR};
+                      }
+                    `}
+                  />
                   {profile.answersGiven}
                 </span>
               </li>
 
               <li>
-                <FormattedMessage {...messages.achievements} />
+                <FormattedMessage id={messages.achievements.id} />
                 {typeof profile.achievements === 'object' ? (
                   <AchievementsStatus
                     isProfilePage={true}
-                    count={profile.achievements.length}
+                    count={userAchievementsLength}
                     size="lg"
                   />
                 ) : (
@@ -241,15 +288,43 @@ const MainUserInformation = ({
                 )}
               </li>
               {!isTemporaryAccount && (
-                <li>
-                  <FormattedMessage {...commonMessages.walletAddress} />
+                <li className="pr">
+                  <FormattedMessage id={commonMessages.walletAddress.id} />
                   <A
                     to={{ pathname: userPolygonScanAddress }}
                     href={userPolygonScanAddress}
                     target="_blank"
                   >
-                    <span>{userId}</span>
+                    <span
+                      id="copytext1"
+                      css={css`
+                        border-bottom: 1px solid;
+                        color: ${LINK_COLOR};
+                        font-weight: 400;
+                        font-size: 14px;
+                      `}
+                    >
+                      {userId}
+                    </span>
                   </A>
+                  <button
+                    id="share-link-copy"
+                    css={css`
+                      color: #adaeae;
+                      position: absolute;
+                      left: 95%;
+                      margin-top: 23px;
+                    `}
+                    onClick={writeToBuffer}
+                  >
+                    <img
+                      src={iconType}
+                      alt="copy"
+                      css={css`
+                        height: 20px;
+                      `}
+                    />
+                  </button>
                 </li>
               )}
 

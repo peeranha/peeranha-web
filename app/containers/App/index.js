@@ -91,6 +91,7 @@ import { redirectToFeed } from './actions';
 import {
   hasCommunityAdminRole,
   hasGlobalModeratorRole,
+  hasProtocolAdminRole,
 } from '../../utils/properties';
 import CookieConsentPopup from '../../components/CookieConsentPopup';
 
@@ -133,6 +134,13 @@ const App = ({
     },
     [history],
   );
+
+  useEffect(() => {
+    const isVisitedSite = getCookie('isVisitedSite');
+    if (isVisitedSite && !single && pathname == '/') {
+      redirectToFeedDispatch();
+    }
+  }, []);
 
   const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
 
@@ -378,7 +386,7 @@ const App = ({
             render={props => Wrapper(EditAnswer, props)}
           />
 
-          {hasGlobalModeratorRole() && (
+          {(hasGlobalModeratorRole() || hasProtocolAdminRole() || single) && (
             <Route
               exact
               path={routes.users()}

@@ -203,6 +203,7 @@ const atLeastOneLetter = str =>
 const strLength1x5 = stringLength(1, 5);
 const strLength1x1000 = stringLength(1, 1000);
 const strLength2x15 = stringLength(2, 15);
+const strLength2x25 = stringLength(2, 25);
 const strLength8x100 = stringLength(8, 100);
 const strLength254Max = stringLengthMax(254);
 const strLength100Max = stringLengthMax(100);
@@ -230,6 +231,7 @@ export {
   strLength1x5,
   strLength1x1000,
   strLength2x15,
+  strLength2x25,
   strLength8x100,
   strLength254Max,
   strLength100Max,

@@ -22,6 +22,7 @@ import {
   singleCommunityColors,
   singleCommunityStyles,
 } from 'utils/communityManagement';
+import { REWARD_CLAIMING_ENABLED } from 'utils/constants';
 
 import { IconLg } from 'components/Icon/IconWithSizes';
 import Icon from 'components/Icon';
@@ -117,7 +118,7 @@ const WalletButton = ({
             className="align-middle"
             fontSize="16"
             bold
-            color={(!isMobileVersion && styles.commHeadElemColor) || ''}
+            color={(!isMobileVersion && colors.commHeadElemColor) || ''}
           >
             {getFormattedNum4(Math.round(balance * 100) / 100)}
           </Span>
@@ -126,14 +127,15 @@ const WalletButton = ({
             fontSize="14"
             lineHeight="18"
             color={
-              (!isMobileVersion && styles.commHeadElemColor) || TEXT_SECONDARY
+              (!isMobileVersion && colors.commHeadElemColor) || TEXT_SECONDARY
             }
           >
             <FormattedMessage {...messages.peers} />
           </Span>
         </span>
       </ButtonStyled>
-      {isMobileVersion &&
+      {REWARD_CLAIMING_ENABLED &&
+        isMobileVersion &&
         isPositiveNumber(number) && (
           <NotificationIcon
             isMobileVersion={isMobileVersion}

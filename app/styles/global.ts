@@ -225,4 +225,9 @@ export default css`
   .text-block em {
     font-style: italic;
   }
+  .walletconnect-modal__close__wrapper {
+    top: 67px !important;
+    right: 20px !important;
+    border: solid 1px #000000;
+  }
 `;

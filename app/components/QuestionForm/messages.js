@@ -82,6 +82,9 @@ export default defineMessages({
   tutorialQuestionDescriptionLabel: {
     id: 'app.containers.QuestionForm.tutorialQuestionDescriptionLabel',
   },
+  faqDescriptionLabel: {
+    id: 'app.containers.QuestionForm.faqDescriptionLabel',
+  },
   generalQuestionDescriptionList: {
     id: 'app.containers.QuestionForm.generalQuestionDescriptionList',
   },
@@ -90,6 +93,9 @@ export default defineMessages({
   },
   tutorialQuestionDescriptionList: {
     id: 'app.containers.QuestionForm.tutorialQuestionDescriptionList',
+  },
+  faqDescriptionList: {
+    id: 'app.containers.QuestionForm.faqDescriptionList',
   },
   promotedLabel: {
     id: 'app.containers.QuestionForm.promotedLabel',
