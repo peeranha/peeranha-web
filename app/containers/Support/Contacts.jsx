@@ -62,10 +62,6 @@ const MediaList = styled.div`
   }
 `;
 
-// const EmailSpan = Span.extend`
-//   color: ${TEXT_PRIMARY};
-// `;
-
 const Contacts = ({ locale }) => (
   <div id={CONTACTS_ID}>
     <Wrapper className="mb-to-sm-0 mb-from-sm-3">
