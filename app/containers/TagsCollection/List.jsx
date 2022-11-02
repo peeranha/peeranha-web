@@ -8,8 +8,8 @@ import commonMessages from 'common-messages';
 import * as routes from 'routes-config';
 import A from 'components/A';
 import P from 'components/P';
-import BlockShadow from 'components/BlockShadow';
 import TagList from 'components/TagsList';
+import BlockShadow from 'components/BlockShadow';
 import { BaseSpecial } from 'components/Base/BaseTransparent';
 import { MediumImageStyled } from 'components/Img/MediumImage';
 import SeeAllButton from 'components/Button/Outlined/InfoMedium';
@@ -26,10 +26,33 @@ const TagListBox = styled.div`
     flex: 1;
     overflow: hidden;
     position: relative;
+    margin-right: 30px;
+
+    @media only screen and (max-width: 767px) {
+      flex-wrap: nowrap;
+      overflow: auto;
+      overflow-y: hidden;
+
+      ::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.1);
+        background-color: rgb(245, 245, 245);
+        border-radius: 10px;
+      }
+
+      ::-webkit-scrollbar {
+        height: 5px;
+        background-color: rgb(245, 245, 245);
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background-color: rgb(189, 189, 189);
+        border-radius: 10px;
+      }
+    }
   }
 
-  ul li {
-    margin-right: 30px;
+  li {
+    margin: 0 30px 10px 0;
   }
 
   @media only screen and (max-width: 768px) {
@@ -58,9 +81,14 @@ const TagsBlock = styled.div`
     }
   }
 
-  :hover {
-    ${SeeAllButton} {
-      display: block;
+  @media only screen and (min-width: 769px) {
+    :hover {
+      ${SeeAllButton} {
+        display: block;
+      }
+      ${TagListBox} ul {
+        margin-right: 0;
+      }
     }
   }
 
@@ -126,7 +154,6 @@ const List = ({ communities }) => {
                     communityId={x.id}
                     showPopularity
                   />
-                  <BlockShadow toSide="right" />
                 </TagListBox>
 
                 <SeeAllButton>

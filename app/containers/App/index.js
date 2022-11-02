@@ -88,7 +88,10 @@ import { getCookie, setCookie } from '../../utils/cookie';
 import { REFERRAL_CODE_URI } from './constants';
 import { AUTOLOGIN_DATA } from '../Login/constants';
 import { redirectToFeed } from './actions';
-import { hasGlobalModeratorRole } from '../../utils/properties';
+import {
+  hasGlobalModeratorRole,
+  hasProtocolAdminRole,
+} from '../../utils/properties';
 import CookieConsentPopup from '../../components/CookieConsentPopup';
 
 const single = isSingleCommunityWebsite();
@@ -130,6 +133,13 @@ const App = ({
     },
     [history],
   );
+
+  useEffect(() => {
+    const isVisitedSite = getCookie('isVisitedSite');
+    if (isVisitedSite && !single && pathname == '/') {
+      redirectToFeedDispatch();
+    }
+  }, []);
 
   const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
 
@@ -380,7 +390,7 @@ const App = ({
             render={props => Wrapper(EditAnswer, props)}
           />
 
-          {(hasGlobalModeratorRole() || single) && (
+          {(hasGlobalModeratorRole() || hasProtocolAdminRole() || single) && (
             <Route
               exact
               path={routes.users()}
