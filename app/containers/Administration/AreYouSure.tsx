@@ -13,14 +13,18 @@ import ModalDialog, { el, modalRoot } from 'components/ModalDialog';
 import messages from 'containers/Administration/messages';
 
 type AreYouSureProps = {
-  Button: typeof React.Component;
-  submitAction: Function;
+  Button: React.FC<{
+    onClick: (ev: { currentTarget: React.SetStateAction<null> }) => void;
+  }>;
+  submitAction: (
+    { currentTarget }: { currentTarget: null | HTMLInputElement },
+  ) => void;
 };
 
 const AreYouSure: React.FC<AreYouSureProps> = ({
   submitAction,
   Button,
-}): JSX.Element | null => {
+}): JSX.Element => {
   const [currentTarget, changeEventData] = useState(null);
   const [isOpened, open] = useState(false);
 
@@ -32,7 +36,7 @@ const AreYouSure: React.FC<AreYouSureProps> = ({
   };
 
   return (
-    <React.Fragment>
+    <>
       <Button
         onClick={(ev: { currentTarget: React.SetStateAction<null> }) => {
           open(true);
@@ -70,8 +74,8 @@ const AreYouSure: React.FC<AreYouSureProps> = ({
           </div>
         </ModalDialog>
       )}
-    </React.Fragment>
+    </>
   );
 };
 
-export default React.memo(AreYouSure);
+export default AreYouSure;

@@ -31,7 +31,7 @@ import { selectEthereum } from 'containers/EthereumProvider/selectors';
 
 export function* getModeratorsWorker(props: {
   communityId: number;
-}): Generator<{}> {
+}): Generator<any> {
   try {
     const moderatorRole = getCommunityRole(
       COMMUNITY_MODERATOR_ROLE,
@@ -52,7 +52,7 @@ export function* getModeratorsWorker(props: {
 export function* addModeratorWorker(props: {
   userAddress: string;
   communityId: number;
-}): Generator<{}> {
+}): Generator<any> {
   try {
     const ethereumService = yield select(selectEthereum);
     const account = yield select(makeSelectAccount());
@@ -73,7 +73,7 @@ export function* addModeratorWorker(props: {
 export function* revokeModeratorWorker(props: {
   userAddress: string;
   communityId: number;
-}): Generator<{}> {
+}): Generator<any> {
   try {
     const ethereumService = yield select(selectEthereum);
     const account = yield select(makeSelectAccount());

@@ -36,7 +36,7 @@ type ContentProps = {
   locale: string;
   single: number;
   moderators: Array<Moderator>;
-  revokeModerator: Function;
+  revokeModerator: (userAddress: string, communityId: number) => void;
   communityId: number;
   moderatorsLoading: boolean;
   revokeModeratorLoading: boolean;
@@ -48,22 +48,21 @@ export const Content: React.FC<ContentProps> = ({
   moderators,
   revokeModerator,
   communityId,
-  moderatorsLoading,
-  revokeModeratorLoading,
-}): JSX.Element | null => {
+}): JSX.Element => {
   const moderatorRole = getCommunityRole(COMMUNITY_MODERATOR_ROLE, communityId);
   const adminRole = getCommunityRole(COMMUNITY_ADMIN_ROLE, communityId);
+
+  const getRole = (moderator: { permission: string }) => {
+    if (moderator.permission === moderatorRole) {
+      return translationMessages[locale][messages.communityModerator.id];
+    } else if (moderator.permission === adminRole) {
+      return translationMessages[locale][messages.communityAdministrator.id];
+    }
+  };
+
   return (
     <BaseRoundedNoPadding className="fdc mb16">
       {moderators.map((moderator, index) => {
-        let role;
-        if (moderator.permission === moderatorRole) {
-          role = translationMessages[locale][messages.communityModerator.id];
-        } else if (moderator.permission === adminRole) {
-          role =
-            translationMessages[locale][messages.communityAdministrator.id];
-        }
-
         const baseSpecialProps = {
           last: moderators.length - 1 === index,
           first: !index,
@@ -80,7 +79,7 @@ export const Content: React.FC<ContentProps> = ({
           >
             <div css={css(styles.mainInfo)}>
               <MediumImage
-                {...{ isBordered: true }}
+                isBordered
                 className="flex-shrink-0 mr8"
                 src={getUserAvatar(moderator.user.avatar)}
                 alt="avatar"
@@ -101,7 +100,9 @@ export const Content: React.FC<ContentProps> = ({
               {moderator.user.id}
             </div>
 
-            <div className="mr16 tc text-ellipsis fz14">{role}</div>
+            <div className="mr16 tc text-ellipsis fz14">
+              {getRole(moderator)}
+            </div>
 
             <div
               css={css`

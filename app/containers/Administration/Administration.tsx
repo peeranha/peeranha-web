@@ -35,13 +35,15 @@ type AdministrationProps = {
   locale: string;
   profileInfo: User;
   moderators: Array<Moderator>;
-  getModeratorsDispatch: Function;
+  getModeratorsDispatch: (communityId: number) => void;
   moderatorsLoading: boolean;
-  addModeratorDispatch: Function;
+  addModeratorDispatch: (userAddress: string, communityId: number) => void;
   addModeratorLoading: boolean;
-  revokeModeratorDispatch: Function;
+  revokeModeratorDispatch: (userAddress: string, communityId: number) => void;
   revokeModeratorLoading: boolean;
 };
+
+const single = isSingleCommunityWebsite();
 
 const Administration: React.FC<AdministrationProps> = ({
   locale,
@@ -53,8 +55,6 @@ const Administration: React.FC<AdministrationProps> = ({
   revokeModeratorDispatch,
   revokeModeratorLoading,
 }): JSX.Element => {
-  const single = isSingleCommunityWebsite();
-
   useEffect(
     () => {
       getModeratorsDispatch(single);

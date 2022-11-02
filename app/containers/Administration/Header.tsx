@@ -24,8 +24,8 @@ import addIcon from 'images/add.svg?external';
 
 type HeaderProps = {
   locale: string;
-  single: number | undefined;
-  addModerator: Function;
+  single?: number;
+  addModerator: (userAddress: string, communityId: number) => void;
   addModeratorLoading: boolean;
 };
 
@@ -34,7 +34,7 @@ export const Header: React.FC<HeaderProps> = ({
   single,
   addModerator,
   addModeratorLoading,
-}): JSX.Element | null => {
+}): JSX.Element => {
   return (
     <Wrapper className="mb-to-sm-0 mb-from-sm-3">
       <H3>

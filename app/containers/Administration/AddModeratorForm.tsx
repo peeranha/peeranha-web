@@ -3,7 +3,7 @@ import { Field, reduxForm } from 'redux-form/immutable';
 import { FormattedMessage } from 'react-intl';
 // @ts-ignore
 import { translationMessages } from 'i18n';
-import React, { useState } from 'react';
+import React, { FormEventHandler, useState } from 'react';
 import { css } from '@emotion/react';
 
 import ContainedButton from 'components/Button/Contained/InfoLargeHeightStretching';
@@ -24,12 +24,16 @@ import messages from 'containers/Administration/messages';
 import { scrollToErrorField } from 'utils/animation';
 import { TEXT_DARK } from 'style-constants';
 
+type AddModeratorFunction = (userAddress: string, communityId?: number) => void;
+
 type AddModeratorFormProps = {
   locale: string;
-  single: number | undefined;
-  handleSubmit: Function;
-  addModerator: Function;
-  Button: typeof React.Component;
+  single?: number;
+  handleSubmit: (
+    addModerator: AddModeratorFunction,
+  ) => FormEventHandler<HTMLFormElement> | undefined;
+  addModerator: AddModeratorFunction;
+  Button: React.FC<{ onClick: () => void }>;
   addModeratorLoading: boolean;
 };
 
@@ -40,7 +44,7 @@ const AddModeratorForm: React.FC<AddModeratorFormProps> = ({
   addModerator,
   Button,
   addModeratorLoading,
-}): JSX.Element | null => {
+}): JSX.Element => {
   const [isOpened, open] = useState(false);
 
   const closeModal = () => {
@@ -56,7 +60,7 @@ const AddModeratorForm: React.FC<AddModeratorFormProps> = ({
   };
 
   return (
-    <React.Fragment>
+    <>
       <Button
         onClick={() => {
           open(true);
@@ -105,13 +109,11 @@ const AddModeratorForm: React.FC<AddModeratorFormProps> = ({
           </form>
         </ModalDialog>
       )}
-    </React.Fragment>
+    </>
   );
 };
 
-const FormClone = reduxForm<any, any>({
+export default reduxForm<any, any>({
   onSubmitFail: errors => scrollToErrorField(errors),
   form: 'answerForm',
 })(AddModeratorForm);
-
-export default React.memo(FormClone);

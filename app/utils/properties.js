@@ -191,7 +191,11 @@ export const hasCommunityAdminRole = (permissionsFromState, communityId) => {
 
   if (!permissions) {
     permissions =
-      JSON.parse(getCookie('profileinfols') || '""')?.permissions || [];
+      JSON.parse(
+        isValidJsonFromCookie(getCookie('profileinfols'), 'profileinfols')
+          ? getCookie('profileinfols')
+          : '""',
+      )?.permissions || [];
   }
 
   return !!permissions.filter(
