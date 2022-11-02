@@ -14,7 +14,10 @@ import { NO_AVATAR } from 'utils/constants';
 
 import * as routes from 'routes-config';
 import messages from 'common-messages';
-import { singleCommunityColors } from 'utils/communityManagement';
+import {
+  singleCommunityColors,
+  singleCommunityStyles,
+} from 'utils/communityManagement';
 
 import { getUserAvatar } from 'utils/profileManagement';
 import userBodyIconAvatar from 'images/user2.svg?external';
@@ -42,6 +45,7 @@ import PostIcon from 'icons/Post';
 import LogOutIcon from 'icons/LogOut';
 
 const colors = singleCommunityColors();
+const styles = singleCommunityStyles();
 
 const StatusBox = styled.span`
   display: inline-flex;
