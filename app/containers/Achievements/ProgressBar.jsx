@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-
+import { TEXT_SECONDARY } from 'style-constants';
 import { showPopover } from 'utils/popover';
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
 
 const Wrapper = styled.span`
   position: relative;
@@ -21,7 +24,7 @@ const Progress = styled.span`
   left: 0;
   display: inline-block;
   height: 7px;
-  background-color: var(--color-blue);
+  background-color: var(--color-blue) || ${TEXT_SECONDARY};
   border-radius: 7px;
 `;
 

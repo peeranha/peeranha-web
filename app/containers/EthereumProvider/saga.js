@@ -9,6 +9,7 @@ import { autoLogin } from 'utils/web_integration/src/wallet/login/login';
 import {
   makeSelectProfileInfo,
   makeSelectAccount,
+  selectPermissions,
 } from 'containers/AccountProvider/selectors';
 
 import { loginWithWallet } from 'containers/Login/actions';
@@ -28,6 +29,10 @@ import { INIT_ETHEREUM, INIT_ETHEREUM_SUCCESS } from './constants';
 import validate from './validate';
 import { getCookie } from '../../utils/cookie';
 import { AUTOLOGIN_DATA } from '../Login/constants';
+import {
+  hasGlobalModeratorRole,
+  hasProtocolAdminRole,
+} from '../../utils/properties';
 
 export function* initEthereumWorker({ data }) {
   try {
@@ -52,6 +57,10 @@ export function* isValid({ creator, buttonId, minRating = 0, communityId }) {
   const locale = yield select(makeSelectLocale());
   const profileInfo = yield select(makeSelectProfileInfo());
   const selectedAccount = yield select(makeSelectAccount());
+  const permissions = yield select(selectPermissions());
+
+  const isGlobalAdmin =
+    hasGlobalModeratorRole(permissions) || hasProtocolAdminRole(permissions);
 
   yield call(
     isAvailableAction,
@@ -60,6 +69,7 @@ export function* isValid({ creator, buttonId, minRating = 0, communityId }) {
         rating: getRatingByCommunity(profileInfo, communityId),
         translations: translationMessages[locale],
         actor: selectedAccount,
+        isGlobalAdmin,
         creator,
         buttonId,
         minRating,

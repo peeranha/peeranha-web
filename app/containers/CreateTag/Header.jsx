@@ -18,6 +18,9 @@ import { IconMd } from 'components/Icon/IconWithSizes';
 import { MediumIconStyled } from 'components/Icon/MediumIcon';
 
 import messages from './messages';
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
 
 export const Header = ({
   title,
@@ -30,11 +33,11 @@ export const Header = ({
         <Icon
           icon={suggestTagIcon}
           width="43"
-          fill={BORDER_PRIMARY}
+          fill={colors.btnColor || BORDER_PRIMARY}
           isColorImportant
         />
       </MediumIconStyled>
-      {title || <FormattedMessage {...messages.newTag} />}
+      {title || <FormattedMessage id={messages.newTag.id} />}
     </H3>
 
     <WrapperRightPanel className="right-panel">
@@ -43,11 +46,14 @@ export const Header = ({
           <IconMd
             className="mr-1"
             icon={closeIcon}
-            fill={BORDER_PRIMARY}
+            fill={colors.btnColor || BORDER_PRIMARY}
             isColorImportant
           />
-          <Span color={TEXT_PRIMARY} className="button-label">
-            <FormattedMessage {...commonMessages.close} />
+          <Span
+            color={colors.btnColor || TEXT_PRIMARY}
+            className="button-label"
+          >
+            <FormattedMessage id={commonMessages.close.id} />
           </Span>
         </button>
       </A>

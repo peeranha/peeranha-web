@@ -289,7 +289,7 @@ export const PolygonStyles = {
     }
   `,
   headerHeight: 80,
-  projectBorderRadius: '20px',
+  projectBorderRadius: '50px',
   customSubHeaderConfig,
   domainName,
 };

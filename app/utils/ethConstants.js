@@ -44,6 +44,7 @@ export const GET_AVAILABLE_BALANCE = 'availableBalanceOf';
 export const GET_BOOST = 'getBoost';
 export const GET_STAKE = 'getStake';
 export const GET_USER_STAKE = 'getUserStake';
+export const GET_USER_RATING = 'getUserRating';
 
 export const UPVOTE_STATUS = 1;
 export const DOWNVOTE_STATUS = -1;
@@ -259,7 +260,7 @@ export const usersPostsQuery = `
           orderDirection: desc,
           first: $limit,
           skip: $offset,
-          where: {isDeleted: false, author: $id},
+          where: {isDeleted: false, author: $id, postType_lt: 3},
         ) {
            ${post}
         }
@@ -376,6 +377,19 @@ export const postsByCommQuery = `
           first: $first,
           skip: $skip,
           where: { communityId_in: $communityIds, isDeleted: false, postType_in: $postTypes },
+        ) {
+           ${post}
+        }
+      }`;
+
+export const faqByCommQuery = `
+      query (
+        $communityId: Int,
+      ) {
+        posts (
+          orderBy: postTime,
+          orderDirection: desc,
+          where: { communityId: $communityId, isDeleted: false, postType: 3 },
         ) {
            ${post}
         }

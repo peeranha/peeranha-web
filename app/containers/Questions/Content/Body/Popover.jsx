@@ -25,6 +25,7 @@ const Base = styled.div`
   strong {
     display: inline-block;
     margin-bottom: 10px;
+    font-weight: 900;
   }
 
   > ul {

@@ -18,6 +18,9 @@ import Span from 'components/Span/index';
 import A from 'components/A/index';
 import { IconMd } from 'components/Icon/IconWithSizes';
 import { getPermissions } from '../../utils/properties';
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
 
 const Ul = styled.ul`
   display: flex;
@@ -230,9 +233,9 @@ const UserNavigation = ({
             id={`redireact-to-edit-${userId}-user-page-2`}
             data-user={userId}
           >
-            <IconMd icon={pencilIcon} />
-            <Span className="ml-1" color={TEXT_PRIMARY}>
-              <FormattedMessage {...messages.edit} />
+            <IconMd icon={pencilIcon} color={colors.btnColor || TEXT_PRIMARY} />
+            <Span className="ml-1" color={colors.btnColor || TEXT_PRIMARY}>
+              <FormattedMessage id={messages.edit.id} />
             </Span>
           </button>
 
@@ -244,9 +247,14 @@ const UserNavigation = ({
             }`}
             to={routes.profileView(account)}
           >
-            <IconMd icon={closeIcon} fill={BORDER_PRIMARY} isColorImportant />
-            <Span className="ml-1" color={TEXT_PRIMARY}>
-              <FormattedMessage {...messages.close} />
+            <IconMd
+              icon={closeIcon}
+              color={colors.btnColor || TEXT_PRIMARY}
+              fill={colors.btnColor || BORDER_PRIMARY}
+              isColorImportant
+            />
+            <Span className="ml-1" color={colors.btnColor || TEXT_PRIMARY}>
+              <FormattedMessage id={messages.close.id} />
             </Span>
           </A>
         </div>

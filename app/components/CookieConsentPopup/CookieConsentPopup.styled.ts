@@ -1,7 +1,10 @@
 export const styles = {
+  popupOverlap: {
+    zIndex: 999,
+  },
+
   cookieConsent: {
     background: 'var(--color-gray-light)',
-    zIndex: 999,
   },
 
   cookieImage: {
