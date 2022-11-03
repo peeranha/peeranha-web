@@ -66,7 +66,7 @@ const UniqueAchievement = ({
   currentUser,
 }) => {
   const availiableCount = maxCount - factCount;
-  const pointsToNext = lowerValue - currentValue;
+  const pointsToNext = lowerValue - (currentValue || 0);
   const getProgress = () => (currentValue / lowerValue) * 100;
 
   const translations = translationMessages[locale]
