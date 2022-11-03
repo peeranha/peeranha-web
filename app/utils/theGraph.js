@@ -61,10 +61,10 @@ export const getUsersByCommunity = async ({
       communityId,
     },
   });
-  return users?.data.userCommunityRatings.map(item => item.user);
+  return users?.data.userCommunityRatings.map((item) => item.user);
 };
 
-export const getUser = async id => {
+export const getUser = async (id) => {
   const user = await client.query({
     query: gql(userQuery),
     variables: {
@@ -74,17 +74,17 @@ export const getUser = async id => {
   return { ...user?.data?.user };
 };
 
-export const getUserPermissions = async id => {
+export const getUserPermissions = async (id) => {
   const userPermissions = await client.query({
     query: gql(userPermissionsQuery),
     variables: {
       id: dataToString(id).toLowerCase(),
     },
   });
-  return userPermissions?.data?.userPermissions?.map(p => p.permission);
+  return userPermissions?.data?.userPermissions?.map((p) => p.permission);
 };
 
-export const getUserStats = async id => {
+export const getUserStats = async (id) => {
   const userStats = await client.query({
     query: gql(userStatsQuery),
     variables: {
@@ -105,7 +105,7 @@ export const getUsersQuestions = async (id, limit, offset) => {
     },
     fetchPolicy: 'network-only',
   });
-  return questions?.data.posts.map(question => ({ ...question }));
+  return questions?.data.posts.map((question) => ({ ...question }));
 };
 
 export const getUsersAnsweredQuestions = async (id, limit, offset) => {
@@ -120,13 +120,13 @@ export const getUsersAnsweredQuestions = async (id, limit, offset) => {
   const answeredPosts = await client.query({
     query: gql(answeredPostsQuery),
     variables: {
-      ids: data.replies.map(reply => Number(reply.postId)),
+      ids: data.replies.map((reply) => Number(reply.postId)),
     },
   });
-  return answeredPosts?.data.posts.map(question => ({ ...question }));
+  return answeredPosts?.data.posts.map((question) => ({ ...question }));
 };
 
-export const getCommunities = async count => {
+export const getCommunities = async (count) => {
   const communities = await client.query({
     query: gql(communitiesQuery),
     variables: {
@@ -136,14 +136,17 @@ export const getCommunities = async count => {
   return communities?.data.communities;
 };
 
-export const getAllTags = async () => {
+export const getAllTags = async (skip) => {
   const tags = await client.query({
     query: gql(allTagsQuery),
+    variables: {
+      skip,
+    },
   });
   return tags?.data.tags;
 };
 
-export const getCommunityById = async id => {
+export const getCommunityById = async (id) => {
   const community = await client.query({
     query: gql(communityQuery),
     variables: {
@@ -153,7 +156,7 @@ export const getCommunityById = async id => {
   return community?.data.community;
 };
 
-export const getTags = async communityId => {
+export const getTags = async (communityId) => {
   const tags = await client.query({
     query: gql(tagsQuery),
     variables: {
@@ -196,14 +199,14 @@ export const getPostsByCommunityId = async (
     fetchPolicy: 'network-only',
   });
 
-  return posts?.data.posts.map(rawPost => {
+  return posts?.data.posts.map((rawPost) => {
     const post = { ...rawPost, answers: rawPost.replies };
     delete post.replies;
     return post;
   });
 };
 
-export const getFaqByCommunityId = async communityId => {
+export const getFaqByCommunityId = async (communityId) => {
   const posts = await client.query({
     query: gql(faqByCommQuery),
     variables: {
@@ -211,22 +214,24 @@ export const getFaqByCommunityId = async communityId => {
     },
   });
 
-  return posts?.data.posts.map(rawPost => {
+  return posts?.data.posts.map((rawPost) => {
     const { replies, ...propsWithoutReplies } = rawPost;
     return { answers: replies, ...propsWithoutReplies };
   });
 };
 
-export const getQuestionFromGraph = async postId => {
+export const getQuestionFromGraph = async (postId) => {
   const post = {
-    ...(await client.query({
-      query: gql(postQuery),
-      variables: {
-        postId,
-      },
-    })).data.post,
+    ...(
+      await client.query({
+        query: gql(postQuery),
+        variables: {
+          postId,
+        },
+      })
+    ).data.post,
   };
-  post.answers = post.replies.map(reply => ({
+  post.answers = post.replies.map((reply) => ({
     ...reply,
   }));
   delete post.replies;
@@ -252,13 +257,13 @@ export const postsForSearch = async (text, single) => {
     },
   });
   return posts?.data?.postSearch.filter(
-    post =>
+    (post) =>
       !post.isDeleted &&
       (single ? Number(post.communityId) === Number(single) : true),
   );
 };
 
-export const getAllAchievements = async userId => {
+export const getAllAchievements = async (userId) => {
   const response = await client.query({
     query: gql(allAchievementsQuery),
     variables: {
@@ -267,7 +272,7 @@ export const getAllAchievements = async userId => {
   });
   return {
     allAchievements: response?.data.achievements
-      .map(achievement => ({ ...achievement, id: Number(achievement.id) }))
+      .map((achievement) => ({ ...achievement, id: Number(achievement.id) }))
       .sort((x, y) => x.id - y.id),
     userAchievements: response?.data.user?.achievements || [],
   };
@@ -297,7 +302,7 @@ export const getCurrentPeriod = async () => {
   return response?.data?.periods?.[0];
 };
 
-export const historiesForPost = async postId => {
+export const historiesForPost = async (postId) => {
   const response = await client.query({
     query: gql(historiesQuery),
     variables: {

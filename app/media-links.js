@@ -7,6 +7,7 @@ const links = {
     medium: 'https://medium.com/peeranha',
     telegram: 'https://t.me/peeranhaio',
     email: 'mailto:hello@peeranha.io',
+    discord: 'https://discord.gg/jmrbqVnzMZ',
   },
   ru: {
     facebook: 'https://www.facebook.com/peeranha1/',
@@ -16,6 +17,7 @@ const links = {
     medium: 'https://medium.com/peeranha',
     telegram: 'https://t.me/peeranhaio',
     email: 'mailto:hello@peeranha.io',
+    discord: 'https://discord.gg/jmrbqVnzMZ',
   },
 };
 
