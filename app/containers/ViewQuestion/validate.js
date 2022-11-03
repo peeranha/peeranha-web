@@ -6,11 +6,10 @@ import {
   getPermissions,
   hasCommunityModeratorRole,
   hasGlobalModeratorRole,
+  hasProtocolAdminRole,
 } from 'utils/properties';
 import messages from './messages';
-import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
-const singleCommId = isSingleCommunityWebsite();
 /* eslint prefer-destructuring: 0 */
 export const voteToDeleteValidator = (
   profileInfo,
@@ -57,6 +56,7 @@ export const voteToDeleteValidator = (
     message = `${translations[messages.youVoted.id]}`;
   } else if (
     !hasGlobalModeratorRole(profileInfo.permissions) &&
+    !hasProtocolAdminRole(profileInfo.permissions) &&
     profileInfo.rating < MIN_RATING
   ) {
     message = `${translations[messages.notEnoughRating.id]} ${MIN_RATING}`;
@@ -94,23 +94,25 @@ export const postAnswerValidator = (
     message = `${translations[messages.alreadyAnswered.id]}`;
   } else if (
     !hasGlobalModeratorRole(profileInfo.permissions) &&
+    !hasProtocolAdminRole(profileInfo.permissions) &&
     questionData.author.user === profileInfo.user &&
     communityRating < MIN_RATING_FOR_MY_QUESTION
   ) {
     message = `${
       translations[messages.notEnoughRating.id]
     } ${MIN_RATING_FOR_MY_QUESTION} ${
-      singleCommId ? translations[messages.inThisCommunity.id] : ''
+      translations[messages.inThisCommunity.id]
     }`;
   } else if (
     !hasGlobalModeratorRole(profileInfo.permissions) &&
+    !hasProtocolAdminRole(profileInfo.permissions) &&
     questionData.author.user !== profileInfo.user &&
     communityRating < MIN_RATING_FOR_OTHER_QUESTIONS
   ) {
     message = `${
       translations[messages.notEnoughRating.id]
     } ${MIN_RATING_FOR_OTHER_QUESTIONS} ${
-      singleCommId ? translations[messages.inThisCommunity.id] : ''
+      translations[messages.inThisCommunity.id]
     }`;
   }
 
@@ -149,26 +151,26 @@ export const postCommentValidator = (
   } else if (
     !hasGlobalModeratorRole(profileInfo.permissions) &&
     !hasCommunityModeratorRole(profileInfo.permissions, communityId) &&
+    !hasProtocolAdminRole(profileInfo.permissions) &&
     (item.author.user === profileInfo.user ||
       questionData.author.user === profileInfo.user) &&
     getRatingByCommunity(profileInfo, communityId) < MIN_RATING_FOR_MY_ITEM
   ) {
     message = `${
       translations[messages.notEnoughRating.id]
-    } ${MIN_RATING_FOR_MY_ITEM} ${
-      singleCommId ? translations[messages.inThisCommunity.id] : ''
-    }`;
+    } ${MIN_RATING_FOR_MY_ITEM} ${translations[messages.inThisCommunity.id]}`;
   } else if (
     item.author.user !== profileInfo.user &&
     !hasGlobalModeratorRole(profileInfo.permissions) &&
     !hasCommunityModeratorRole(profileInfo.permissions, communityId) &&
+    !hasProtocolAdminRole(profileInfo.permissions) &&
     questionData.author.user !== profileInfo.user &&
     getRatingByCommunity(profileInfo, communityId) < MIN_RATING_FOR_OTHER_ITEMS
   ) {
     message = `${
       translations[messages.notEnoughRating.id]
     } ${MIN_RATING_FOR_OTHER_ITEMS} ${
-      singleCommId ? translations[messages.inThisCommunity.id] : ''
+      translations[messages.inThisCommunity.id]
     }`;
   } else if (profileInfo.energy < MIN_ENERGY) {
     message = translations[messages.notEnoughEnergy.id];
@@ -195,10 +197,11 @@ export const markAsAcceptedValidator = (
     message = `${translations[messages.noRootsToVote.id]}`;
   } else if (
     !hasGlobalModeratorRole(profileInfo.permissions) &&
+    !hasProtocolAdminRole(profileInfo.permissions) &&
     getRatingByCommunity(profileInfo, communityId) < MIN_RATING
   ) {
     message = `${translations[messages.notEnoughRating.id]} ${MIN_RATING} ${
-      singleCommId ? translations[messages.inThisCommunity.id] : ''
+      translations[messages.inThisCommunity.id]
     }`;
   } else if (profileInfo.energy < MIN_ENERGY) {
     message = translations[messages.notEnoughEnergy.id];
@@ -238,13 +241,12 @@ export const upVoteValidator = (
   } else if (
     getRatingByCommunity(profileInfo, communityId) < MIN_RATING_TO_UPVOTE &&
     !hasGlobalModeratorRole(profileInfo.permissions) &&
-    !hasCommunityModeratorRole(profileInfo.permissions, communityId)
+    !hasCommunityModeratorRole(profileInfo.permissions, communityId) &&
+    !hasProtocolAdminRole(profileInfo.permissions)
   ) {
     message = `${
       translations[messages.notEnoughRating.id]
-    } ${MIN_RATING_TO_UPVOTE} ${
-      singleCommId ? translations[messages.inThisCommunity.id] : ''
-    }`;
+    } ${MIN_RATING_TO_UPVOTE} ${translations[messages.inThisCommunity.id]}`;
   } else if (profileInfo.energy < MIN_ENERGY) {
     message = translations[messages.notEnoughEnergy.id];
   }
@@ -287,13 +289,12 @@ export const downVoteValidator = (
   } else if (
     getRatingByCommunity(profileInfo, communityId) < MIN_RATING_TO_DOWNVOTE &&
     !hasGlobalModeratorRole(profileInfo.permissions) &&
-    !hasCommunityModeratorRole(profileInfo.permissions, communityId)
+    !hasCommunityModeratorRole(profileInfo.permissions, communityId) &&
+    !hasProtocolAdminRole(profileInfo.permissions)
   ) {
     message = `${
       translations[messages.notEnoughRating.id]
-    } ${MIN_RATING_TO_DOWNVOTE} ${
-      singleCommId ? translations[messages.inThisCommunity.id] : ''
-    }`;
+    } ${MIN_RATING_TO_DOWNVOTE} ${translations[messages.inThisCommunity.id]}`;
   } else if (
     (item.votingStatus.isDownVoted &&
       profileInfo.energy < MIN_ENERGY_TO_CHANGE_DECISION) ||
@@ -340,7 +341,9 @@ export const deleteAnswerValidator = (
 ) => {
   const MIN_ENERGY = 2;
 
-  const isGlobalAdmin = hasGlobalModeratorRole(getPermissions(profileInfo));
+  const isGlobalAdmin =
+    hasGlobalModeratorRole(getPermissions(profileInfo)) ||
+    hasProtocolAdminRole(profileInfo.permissions);
   const isCommunityModerator = hasCommunityModeratorRole(
     profileInfo.permissions,
     questionData.communityId,

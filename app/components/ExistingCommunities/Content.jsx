@@ -1,5 +1,5 @@
 /* eslint no-unused-vars: 0 */
-import React, { useMemo } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { css } from '@emotion/react';
@@ -15,6 +15,7 @@ import {
   hasCommunityAdminRole,
   hasCommunityModeratorRole,
   hasGlobalModeratorRole,
+  hasProtocolAdminRole,
 } from 'utils/properties';
 import { getFormattedNum2 } from 'utils/numbers';
 import { getDifferenceInDate } from 'utils/datetime';
@@ -107,10 +108,9 @@ const DescriptionText = P.extend`
 const Content = ({ communities, sorting, locale, language, profile }) => {
   if (!communities || !communities.length) return null;
 
-  const communityEditingAllowed = useMemo(
-    () => hasGlobalModeratorRole(getPermissions(profile)),
-    [profile],
-  );
+  const communityEditingAllowed =
+    hasGlobalModeratorRole(getPermissions(profile)) ||
+    hasProtocolAdminRole(getPermissions(profile));
 
   return (
     <>
@@ -179,7 +179,9 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
                           {getFormattedNum2(x.followingUsers)}
                         </SpanCenter>
                         <P>
-                          <FormattedMessage id={commonMessages.usersShort.id} />
+                          <FormattedMessage
+                            id={commonMessages.subscribers.id}
+                          />
                         </P>
                       </Info>
                     )}
@@ -216,10 +218,6 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
 
                     <Info>
                       {(communityEditingAllowed ||
-                        hasCommunityModeratorRole(
-                          getPermissions(profile),
-                          value,
-                        ) ||
                         hasCommunityAdminRole(
                           getPermissions(profile),
                           value,
@@ -254,7 +252,7 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
           <div
             className="p12"
             css={css`
-              @media (min-width: 576) {
+              @media (min-width: 576px) {
                 align-items: flex-start;
               }
             `}
@@ -266,9 +264,10 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
               `}
             >
               <FormattedMessage id={messages.suggestCommunityBlock_1.id} />
-              <Link to={routes.home()}>
-                <FormattedMessage id={messages.suggestCommunityBlock_2.id} />
-              </Link>
+              {/* Hide link */}
+              {/* <Link to={routes.home()}> */}
+              <FormattedMessage id={messages.suggestCommunityBlock_2.id} />
+              {/* </Link> */}
               <FormattedMessage id={messages.suggestCommunityBlock_3.id} />
               <FormattedMessage id={messages.suggestCommunityBlock_4.id} />
               <a href="mailto:hello@peeranha.io">

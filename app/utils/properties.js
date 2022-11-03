@@ -11,12 +11,13 @@ import {
   COMMUNITY_MODERATOR_ROLE,
   globalAdminPermissions,
   communityModeratorPermissions,
+  PROTOCOL_ADMIN_ROLE,
 } from './constants';
 import { BigNumber } from 'ethers';
 import { selectEthereum } from 'containers/EthereumProvider/selectors';
-import { getCookie } from 'utils/cookie';
+import { getCookie, deleteCookie } from 'utils/cookie';
 
-//todo change to "findRole"
+// todo change to "findRole"
 const findAllPropertiesByKeys = (properties, keys, exact = false) => [];
 
 export const getModeratorPermissions = (
@@ -49,21 +50,27 @@ export const getModeratorPermissions = (
         blocks: permissionsTypes,
         permission: [role],
         role: !communityId
-          ? translations[messages.protocolAdministrator.id]
+          ? role === DEFAULT_ADMIN_ROLE
+            ? translations[messages.defaultAdministrator.id]
+            : translations[messages.protocolAdministrator.id]
           : role === COMMUNITY_ADMIN_ROLE
             ? translations[messages.communityAdministrator.id]
             : translations[messages.communityModerator.id],
         h2: communityId
           ? communities.find(({ id }) => Number(id) === Number(communityId))
               ?.name || 'TestComm1'
-          : translations[messages.protocolAdministrator.id],
+          : role === DEFAULT_ADMIN_ROLE
+            ? translations[messages.defaultAdministrator.id]
+            : translations[messages.protocolAdministrator.id],
         h3: !communityId
-          ? translations[messages.asProtocolAdministrator.id]
+          ? role === DEFAULT_ADMIN_ROLE
+            ? translations[messages.asDefaultAdministrator.id]
+            : translations[messages.asProtocolAdministrator.id]
           : role === COMMUNITY_ADMIN_ROLE
             ? translations[messages.asCommunityAdministrator.id]
             : translations[messages.asCommunityModerator.id],
         sectionCode: index,
-        communityId: communityId,
+        communityId,
       };
     }
   });
@@ -107,8 +114,16 @@ export const communityAdminInfiniteImpactPermission = (
     COMMUNITY_ADMIN_INFINITE_IMPACT,
   ]).filter(({ community }) => communityId === community).length;
 
-export const getPermissions = profile => {
-  return profile?.permissions ?? [];
+export const getPermissions = profile => profile?.permissions ?? [];
+
+export const isValidJsonFromCookie = (data, cookieName) => {
+  try {
+    JSON.parse(data, cookieName);
+    return true;
+  } catch (error) {
+    deleteCookie(cookieName);
+    return false;
+  }
 };
 
 export const hasGlobalModeratorRole = permissionsFromState => {
@@ -116,7 +131,11 @@ export const hasGlobalModeratorRole = permissionsFromState => {
 
   if (!permissions) {
     permissions =
-      JSON.parse(getCookie('profileinfols') || '""')?.permissions || [];
+      JSON.parse(
+        isValidJsonFromCookie(getCookie('profileinfols'), 'profileinfols')
+          ? getCookie('profileinfols')
+          : '""',
+      )?.permissions || [];
   }
 
   return Boolean(
@@ -126,11 +145,10 @@ export const hasGlobalModeratorRole = permissionsFromState => {
   );
 };
 
-export const getCommunityRole = (role, communityId) => {
-  return BigNumber.from(role)
+export const getCommunityRole = (role, communityId) =>
+  BigNumber.from(role)
     .add(BigNumber.from(communityId))
     .toHexString();
-};
 
 export const isTemporaryAccount = async account => {
   const ethereumService = await selectEthereum();
@@ -139,8 +157,11 @@ export const isTemporaryAccount = async account => {
 
 export const getAllRoles = (userRoles = [], communitiesCount) => {
   const communityRoles = [COMMUNITY_MODERATOR_ROLE, COMMUNITY_ADMIN_ROLE];
-  if (!!userRoles.find(role => BigNumber.from(role).eq(DEFAULT_ADMIN_ROLE))) {
-    return [{ DEFAULT_ADMIN_ROLE }];
+  if (userRoles.find(role => BigNumber.from(role).eq(DEFAULT_ADMIN_ROLE))) {
+    return [{ role: DEFAULT_ADMIN_ROLE }];
+  }
+  if (userRoles.find(role => BigNumber.from(role).eq(PROTOCOL_ADMIN_ROLE))) {
+    return [{ role: PROTOCOL_ADMIN_ROLE }];
   }
   return userRoles.map(userRole => {
     let communityId;
@@ -165,16 +186,33 @@ export const getAllRoles = (userRoles = [], communitiesCount) => {
   });
 };
 
-export const hasCommunityAdminRole = (permissions = [], communityId) => {
-  return !!permissions.filter(
+export const hasCommunityAdminRole = (permissions = [], communityId) =>
+  !!permissions.filter(
     permission =>
       permission === getCommunityRole(COMMUNITY_ADMIN_ROLE, communityId),
   ).length;
-};
 
-export const hasCommunityModeratorRole = (permissions = [], communityId) => {
-  return !!permissions.filter(
+export const hasCommunityModeratorRole = (permissions = [], communityId) =>
+  !!permissions.filter(
     permission =>
       permission === getCommunityRole(COMMUNITY_MODERATOR_ROLE, communityId),
   ).length;
+
+export const hasProtocolAdminRole = permissionsFromState => {
+  let permissions = permissionsFromState;
+
+  if (!permissions) {
+    permissions =
+      JSON.parse(
+        isValidJsonFromCookie(getCookie('profileinfols'), 'profileinfols')
+          ? getCookie('profileinfols')
+          : '""',
+      )?.permissions || [];
+  }
+
+  return Boolean(
+    permissions.find(permission =>
+      BigNumber.from(permission).eq(PROTOCOL_ADMIN_ROLE),
+    ),
+  );
 };

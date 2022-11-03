@@ -47,7 +47,6 @@ import {
 } from './constants';
 
 import Header from './Header';
-import { QUESTION_TYPES } from './QuestionTypeField';
 import CommunityForm from './CommunityForm';
 import ExistingQuestions from './ExistingQuestions';
 import TypeForm from 'components/QuestionForm/TypeForm';
@@ -63,8 +62,9 @@ import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
 import {
   getPermissions,
   hasCommunityAdminRole,
-  hasGlobalModeratorRole,
   hasCommunityModeratorRole,
+  hasGlobalModeratorRole,
+  hasProtocolAdminRole,
 } from 'utils/properties';
 import { translationMessages } from '../../i18n';
 
@@ -134,7 +134,8 @@ export const QuestionForm = ({
 
   const communityId = single || formValues[FORM_COMMUNITY]?.id;
   const isCommunityModerator = communityId
-    ? hasCommunityModeratorRole(getPermissions(profile), communityId)
+    ? hasCommunityModeratorRole(getPermissions(profile), communityId) ||
+      hasCommunityAdminRole(getPermissions(profile), communityId)
     : false;
 
   const handleSubmitWithType = () => {
@@ -171,11 +172,11 @@ export const QuestionForm = ({
     createdHistory.push(routes.search(formValues[FORM_TITLE]));
   };
 
-  const profileWithModeratorRights =
-    profile && hasGlobalModeratorRole(getPermissions(profile));
-
-  const isCommunityAdmin =
-    Boolean(single) && hasCommunityAdminRole(getPermissions(profile), single);
+  const tagCreatingAllowed =
+    hasGlobalModeratorRole(getPermissions(profile)) ||
+    (Boolean(single) &&
+      hasCommunityAdminRole(getPermissions(profile), single)) ||
+    hasProtocolAdminRole(getPermissions(profile));
 
   const handleSetClicked = () => setIsClickSubmit(true);
   const handleButtonClick = () => {
@@ -225,9 +226,7 @@ export const QuestionForm = ({
                     setIsError={setIsError}
                     hasSelectedType={isSelectedType}
                     setHasSelectedType={setIsSelectedType}
-                    isCommunityModerator={
-                      isCommunityModerator || isCommunityAdmin
-                    }
+                    isCommunityModerator={isCommunityModerator}
                   />
                 )) ||
                   (communityQuestionsType === GENERAL_TYPE && (
@@ -282,9 +281,7 @@ export const QuestionForm = ({
                   />
                 )}
 
-              {(profileWithModeratorRights ||
-                isCommunityModerator ||
-                isCommunityAdmin) && (
+              {tagCreatingAllowed && (
                 <SuggestTag
                   formValues={formValues}
                   redirectToCreateTagDispatch={redirectToCreateTagDispatch}

@@ -103,7 +103,7 @@ const Button = B.extend`
   }
 
   &:last-child {
-    border-left: none;
+    border-left: ${({ type, value }) => +type !== value && 'none'};
     border-top-right-radius: ${BORDER_RADIUS_M};
     border-bottom-right-radius: ${BORDER_RADIUS_M};
     border-radius: ${styles.buttonBorderRadius};
@@ -114,8 +114,9 @@ const Button = B.extend`
   border-color: ${({ type, value }) =>
     +type === value && (colors.textColor || `rgb(${BORDER_PRIMARY_RGB})`)};
   box-shadow: ${({ type, value }) =>
-    +type === value && (colors.textColorShadow || `0 0 0 3px ${customShadow}`)};
-
+    +type === value
+      ? `0 0 0 3px ${colors.textColorShadow || customShadow}`
+      : 'none'};
   &:hover {
     box-shadow: 0 0 0 3px ${colors.textColorShadow || customShadow};
   }
@@ -147,10 +148,11 @@ const QuestionTypeField = ({
     setType(value);
   }
 
-  //Don't show FAQ post type unless user isn't community moderator
-  const types = isCommunityModerator
-    ? Object.values(QUESTION_TYPES)
-    : Object.values(QUESTION_TYPES).slice(0, 3);
+  // Don't show FAQ post type unless user isn't community moderator
+  // const types = isCommunityModerator
+  //   ? Object.values(QUESTION_TYPES)
+  //   : Object.values(QUESTION_TYPES).slice(0, 3);
+  const types = Object.values(QUESTION_TYPES).slice(0, 3);
 
   return (
     <QuestionTypeContainer>
