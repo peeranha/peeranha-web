@@ -52,6 +52,7 @@ const CommunityItem = ({
 
           <div>
             <div className="d-flex mb-3">
+              {/* PEER-605: Hide users on the card in top communities
               <div className="d-flex flex-column flex-grow-1">
                 <Span fontSize="16" bold>
                   {getFormattedNum2(followingUsers)}
@@ -59,7 +60,7 @@ const CommunityItem = ({
                 <Span className="mt-1" fontSize="14" color={TEXT_SECONDARY}>
                   <FormattedMessage id={messages.users.id} />
                 </Span>
-              </div>
+              </div> */}
               <div className="d-flex flex-column flex-grow-1">
                 <Span fontSize="16" bold>
                   {getFormattedNum2(postCount)}

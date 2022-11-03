@@ -13,6 +13,7 @@ import {
   hasCommunityAdminRole,
   hasCommunityModeratorRole,
   hasGlobalModeratorRole,
+  hasProtocolAdminRole,
 } from 'utils/properties';
 
 import { TEXT_SECONDARY } from 'style-constants';
@@ -72,7 +73,7 @@ const Base = BaseRounded.extend`
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 100;
+    z-index: 2;
 
     ${Item} {
       max-height: 200px;
@@ -108,22 +109,11 @@ const Content = ({
     createdHistory.push(routes.editTag(communityId, tagId));
   };
 
-  const isGlobalAdmin = useMemo(
-    () => hasGlobalModeratorRole(getPermissions(profileInfo)),
-    [profileInfo],
-  );
-
-  const isCommunityModerator =
-    Boolean(communityId) &&
-    hasCommunityAdminRole(getPermissions(profileInfo), communityId);
-
-  const createTagPermission = useMemo(
-    () => hasCommunityModeratorRole(getPermissions(profileInfo), communityId),
-    [profileInfo, communityId],
-  );
-
-  const editTagModerator =
-    isGlobalAdmin || isCommunityModerator || createTagPermission;
+  const tagEditingAllowed =
+    hasGlobalModeratorRole(getPermissions(profileInfo)) ||
+    (Boolean(communityId) &&
+      hasCommunityAdminRole(getPermissions(profileInfo), communityId)) ||
+    hasProtocolAdminRole(getPermissions(profileInfo));
 
   return (
     <InfinityLoader
@@ -148,7 +138,7 @@ const Content = ({
         ) : null}
 
         {tags.map(x => (
-          <Tag key={x.id} editTagModerator={editTagModerator}>
+          <Tag key={x.id} editTagModerator={tagEditingAllowed}>
             <Base>
               <Item
                 onMouseLeave={e => {
@@ -169,7 +159,7 @@ const Content = ({
 
                 <BlockShadow />
               </Item>
-              {editTagModerator && (
+              {tagEditingAllowed && (
                 <EditTagBtnContainer>
                   <InfoButton
                     className="ml-15"

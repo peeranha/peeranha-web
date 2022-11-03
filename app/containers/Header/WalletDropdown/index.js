@@ -94,7 +94,7 @@ const WalletDropdown = ({
   );
 
   return (
-    <div className="position-relative">
+    <div className="pr">
       <Dropdown
         id={`profile_id_${Math.random()}`}
         className="d-none d-md-flex mr-1 wallet-dropdown"
@@ -105,7 +105,6 @@ const WalletDropdown = ({
           <Menu user={user} number={number} locale={locale} boost={boost} />
         }
       />
-
       {REWARD_CLAIMING_ENABLED &&
         isPositiveNumber(number) && (
           <NotificationIcon
