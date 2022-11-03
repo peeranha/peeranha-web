@@ -200,7 +200,7 @@ export const IndexerDAOStyles = {
   // }`,
 
   colors: {
-    mainSubHeaderBgColor: '#5362e8',
+    mainSubHeaderBgColor: '#2C001E',
     mainBackground: '#F5F5F5',
     linkColor: '#2c001e',
     linkCookieColor: '#5362e8',
@@ -216,53 +216,53 @@ export const IndexerDAOStyles = {
     walletButton: '#2c001e',
     btnColor: '#2c001e',
     btnHoverColor: '#2c001e',
-    btnHeaderColor: '#2c001e',
-    btnHeaderHoverColor: '#b5e853',
+    btnHeaderColor: '#5362E8',
+    btnHeaderHoverColor: '#2c001e',
     tagColor: '#2c001e',
-    localeArrowColor: '#b5e2c001e853',
+    localeArrowColor: '#5362E8',
     textColor: '#2c001e',
     textColorShadow: '#2c001e',
-    commHeadElemColor: '#2c001e',
+    commHeadElemColor: '#5362E8',
     darkBlue: '#1a1c20',
   },
   cookieConsentPopupStyles: {
-    background: '#2c001e',
+    background: 'linear-gradient(90deg, #2C001E, #6c3d60)',
     color: '#F3F3F3',
 
     button: {
-      color: 'rgb(255,255,255)',
-      borderColor: 'rgb(255,255,255)',
+      color: '#5362E8',
+      borderColor: '#5362E8',
 
       background: 'none',
       ':hover': {
-        background: '#b5e853',
-        color: '#2c001e',
+        background: '#5362E8',
+        color: '#fff',
       },
     },
   },
   headerHeight: 80,
   projectBorderRadius: '20px',
   domainName,
-  communityBorderStyle: '2px solid #2c001e',
+  communityBorderStyle: '2px solid #5362E8',
   dropDownIconStyles: css`
     path {
-      stroke: #2c001e !important;
+      stroke: #5362e8 !important;
       stroke-width: 1.5px;
       fill: none !important;
     }
     circle {
-      stroke: #2c001e;
+      stroke: #5362e8;
       stroke-width: 1.5px;
       fill: none;
     }
   `,
   headerLoginButtonStyles: css`
-    border: 2px solid #2c001e;
-    color: #fff;
+    border: 2px solid #5362e8;
+    color: #5362e8;
     :hover {
-      background: #b5e853 !important;
-      color: #2c001e !important;
-      border: 2px solid #2c001e !important;
+      background: #5362e8 !important;
+      color: #fff !important;
+      border: 2px solid #5362e8 !important;
     }
   `,
 };
