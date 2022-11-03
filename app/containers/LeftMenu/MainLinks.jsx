@@ -50,6 +50,7 @@ import {
   hasCommunityAdminRole,
   hasCommunityModeratorRole,
   getPermissions,
+  hasProtocolAdminRole,
 } from 'utils/properties';
 
 const styles = singleCommunityStyles();
@@ -145,6 +146,7 @@ const MainLinks = ({ currClientHeight, profile }) => {
 
   const singleCommId = +isSingleCommunityWebsite();
   const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
+  const isProtocolAdmin = hasProtocolAdminRole(getPermissions(profile));
   const isModeratorModeSingleCommunity = Boolean(singleCommId)
     ? hasCommunityAdminRole(getPermissions(profile), singleCommId) ||
       hasCommunityModeratorRole(getPermissions(profile), singleCommId)
@@ -201,7 +203,9 @@ const MainLinks = ({ currClientHeight, profile }) => {
         <FormattedMessage id={messages.tags.id} />
       </A1>
 
-      {(hasGlobalModeratorRole() || isModeratorModeSingleCommunity) && (
+      {(hasGlobalModeratorRole() ||
+        isModeratorModeSingleCommunity ||
+        isProtocolAdmin) && (
         <A1 to={routes.users()} name="users" route={route}>
           <IconLg className="mr-2" icon={usersIcon} />
           <FormattedMessage

@@ -233,7 +233,7 @@ export const KoiiStyles = {
   headerLoginButtonStyles: css`
     color: rgb(34, 40, 98);
   `,
-  
+
   headerHeight: 80,
   projectBorderRadius: '24px',
   domainName,

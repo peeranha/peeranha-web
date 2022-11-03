@@ -52,7 +52,7 @@ const Input = styled.input`
   width: calc(100% - 10px);
   height: 100%;
 
-  cursor: pointer;
+  cursor: ${x => (x.disabled ? 'default' : 'pointer')};
 
   :checked + span {
     background-image: url(${checkedIcon});

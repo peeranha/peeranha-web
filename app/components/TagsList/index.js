@@ -26,7 +26,8 @@ const Tag = Span.extend`
 `;
 
 const SpanCenter = Span.extend`
-  width: 100%;
+  width: 90%;
+  margin-top: 5px;
   text-align: center;
 `;
 
