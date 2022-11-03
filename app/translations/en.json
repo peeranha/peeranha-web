@@ -1212,6 +1212,7 @@
     "quote by placing > at start of line",
   "app.components.TextEditor.toMakeLinks":
     "to make links &lt;http://foo.com&gt;[foo](http://foo.com)&lt;a href=&quot;http://foo.com&quot;&gt;fo",
+  "app.components.TextEditor.enterText": "Please enter Markdown text",
 
   "app.containers.Achievements.questionAsked.bronze.title":
     "Bronze - The learner",
