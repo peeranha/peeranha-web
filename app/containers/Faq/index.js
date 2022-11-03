@@ -70,7 +70,7 @@ export const Faq = /* istanbul ignore next */ ({
   }
 
   if (!single) {
-    faqList.blocks.splice(7, 3);
+    faqList.blocks.splice(5, 5);
     faqList.blocks.splice(1, 1);
   }
   const translations = translationMessages[locale];
