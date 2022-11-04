@@ -10,7 +10,7 @@ import KoiiLogo from './communities-configs/koii/images/koii-logo.svg?inline';
 import CyberconnectLogo from './communities-configs/cyberconnect/images/CyberConnect_logo.svg?inline';
 import PolywrapLogo from './communities-configs/polywrap/images/polywrap-horizontal.svg?inline';
 import ValistLogo from './communities-configs/valist/images/valist.svg?inline';
-import IndexerDAOLogo from './communities-configs/indexerDAO/images/indDao1.svg?inline';
+import IndexerDAOLogo from './communities-configs/indexerDAO/images/svgviewerNew.jpg';
 
 import { PolygonStyles } from './communities-configs/polygon';
 import { FilecoinStyles } from './communities-configs/filecoin';
