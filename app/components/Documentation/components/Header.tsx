@@ -80,8 +80,9 @@ const Header: React.FC<any> = ({
         </Button>
       </div>
       {isOpen && (
-        <Popup size="atom" onClose={close} title="Close">
+        <Popup size="atom" onClose={close} title="Discard drafts">
           <p
+            className="tc"
             css={{
               lineHeight: '20px',
             }}
