@@ -45,21 +45,20 @@ export const BoostPrediction = styled.span`
   border-radius: 10px;
 `;
 
-const isPositiveNumber = number => Number.isFinite(number) && number > 0;
+const isPositiveNumber = (number) => Number.isFinite(number) && number > 0;
 
 const Menu = memo(({ user, number, locale, boost }) => (
   <Ul>
     <A to={routes.userWallet(user)}>
       <FormattedMessage id={messages.wallet.id} />
-      {REWARD_CLAIMING_ENABLED &&
-        isPositiveNumber(number) && (
-          <NotificationIcon
-            inline
-            number={number}
-            iconId="walletDropDownInline"
-            locale={locale}
-          />
-        )}
+      {REWARD_CLAIMING_ENABLED && isPositiveNumber(number) && (
+        <NotificationIcon
+          inline
+          number={number}
+          iconId="walletDropDownInline"
+          locale={locale}
+        />
+      )}
     </A>
 
     {REWARD_CLAIMING_ENABLED && (
@@ -84,17 +83,14 @@ const WalletDropdown = ({
   rewardsWeeksNumber: number,
   account,
 }) => {
-  useEffect(
-    () => {
-      if (account) {
-        getWeekStatDispatch();
-      }
-    },
-    [account],
-  );
+  useEffect(() => {
+    if (account) {
+      getWeekStatDispatch();
+    }
+  }, [account]);
 
   return (
-    <div className="position-relative">
+    <div className="pr">
       <Dropdown
         id={`profile_id_${Math.random()}`}
         className="d-none d-md-flex mr-1 wallet-dropdown"
@@ -105,16 +101,14 @@ const WalletDropdown = ({
           <Menu user={user} number={number} locale={locale} boost={boost} />
         }
       />
-
-      {REWARD_CLAIMING_ENABLED &&
-        isPositiveNumber(number) && (
-          <NotificationIcon
-            isMobileVersion={false}
-            number={number}
-            iconId="WalletDropDown_NotificationIcon"
-            locale={locale}
-          />
-        )}
+      {REWARD_CLAIMING_ENABLED && isPositiveNumber(number) && (
+        <NotificationIcon
+          isMobileVersion={false}
+          number={number}
+          iconId="WalletDropDown_NotificationIcon"
+          locale={locale}
+        />
+      )}
     </div>
   );
 };
@@ -150,7 +144,7 @@ export default memo(
         getWeekStatProcessing: selectGetWeekStatProcessing(),
         account: makeSelectAccount(),
       }),
-      dispatch => ({
+      (dispatch) => ({
         getWeekStatDispatch: bindActionCreators(getWeekStat, dispatch),
       }),
     ),

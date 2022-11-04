@@ -61,7 +61,7 @@ const PageContentHeaderRightPanel = styled.div`
   flex-shrink: 0;
 `;
 
-const customColor = colors.headerPrimary || BORDER_PRIMARY;
+const customColor = colors.linkColor || BORDER_PRIMARY;
 
 const StyledCustomIconButtonContainer = styled.div`
   .fill {
@@ -176,7 +176,7 @@ export const Header = ({
         <CommunitySelector
           isArrowed
           Button={Button}
-          toggle={choice => {
+          toggle={(choice) => {
             createdHistory.push(routes[route](choice, false, false));
             setTypeFilter(choice);
           }}
@@ -226,7 +226,7 @@ Header.propTypes = {
 //
 export default injectIntl(
   React.memo(
-    connect(state => ({
+    connect((state) => ({
       topQuestionsInfoLoaded: selectTopQuestionsInfoLoaded()(state),
       topQuestions: selectQuestions(null, null, null, true)(state),
       communities: selectCommunities()(state),
