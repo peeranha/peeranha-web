@@ -26,8 +26,6 @@ const Popup: React.FC<PopupProps> = ({
     });
   }, []);
 
-  console.log('size', classes[size]);
-
   return (
     <Portal>
       <div
@@ -51,15 +49,15 @@ const Popup: React.FC<PopupProps> = ({
           }}
           onClick={stopPropagation}
         >
-          {header && (
+          {header || (
             <div css={classes.header}>
-              {title && <h1 className="line-clamp-1">{title}</h1>}
+              {title && <h1 className="line-clamp-1 tc">{title}</h1>}
+              <div className={cn('pa cup df aic jcc')} css={classes.close}>
+                <CloseIcon onClick={onClose} />
+              </div>
             </div>
           )}
 
-          <div className={cn('pa cup df aic jcc')} css={classes.close}>
-            <CloseIcon onClick={onClose} />
-          </div>
           <div className={cn('pr scrollbar')} css={classes.container}>
             {children}
           </div>
