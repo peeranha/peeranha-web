@@ -1,5 +1,3 @@
-export type TypePopup = 'default' | 'advertising';
-
 export type PopupProps = {
   isTest?: boolean;
   isOpen?: boolean;
@@ -7,10 +5,6 @@ export type PopupProps = {
    * Popup size. Full by default.
    */
   size?: 'full' | 'big' | 'medium' | 'small' | 'tiny' | 'atom';
-  /**
-   * Popup type. Default for all excluding advertising popups.
-   */
-  type?: TypePopup;
   /**
    * Optional onClose handler.
    */
