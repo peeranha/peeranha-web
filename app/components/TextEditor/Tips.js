@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { css } from '@emotion/react';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
@@ -129,10 +130,16 @@ const Tips = ({ faqQuestions }) => (
     {faqQuestions && (
       <ul>{faqQuestions.map(x => <Li key={x.props.children}>{x}</Li>)}</ul>
     )}*/}
-    <FormattedMessage id={messages.forMoreSyntax.id} />
-    <Link href={getLinks().markdownCheatSheet} target="_blank">
-      <FormattedMessage id={messages.markdownCheatSheet.id} />
-    </Link>
+    <span
+      css={css`
+        line-height: 20px;
+      `}
+    >
+      <FormattedMessage id={messages.forMoreSyntax.id} />
+      <Link href={getLinks().markdownCheatSheet} target="_blank">
+        <FormattedMessage id={messages.markdownCheatSheet.id} />
+      </Link>
+    </span>
   </div>
 );
 
