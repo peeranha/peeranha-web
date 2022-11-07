@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { bindActionCreators, compose } from 'redux';
 import { translationMessages } from 'i18n';
+import isEmpty from 'lodash/isEmpty';
 
 import * as routes from 'routes-config';
 
@@ -89,31 +90,39 @@ export const Questions = ({
   postsTypes,
 }) => {
   const isFeed = window.location.pathname === routes.feed(params.communityid);
-
+  const isNotFollowedCommunities =
+    isEmpty(followedCommunities) || followedCommunities[0] === 0;
   const isExpert =
     path === routes.expertPosts() ||
     path === routes.expertPosts(':communityid');
   const isTopCommunitiesDisplay =
-    isFeed && !single && questionsList.length === 0 && !questionsLoading;
-  const getInitQuestions = useCallback(() => {
-    if (!questionFilter) {
-      getQuestionsDispatch(
-        initLoadedItems,
-        0,
-        postsTypes,
-        Number(params.communityid) || 0,
-        parentPage,
-        false,
-        true,
-      );
-    }
-  }, [
-    initLoadedItems,
-    params.communityid,
-    parentPage,
-    questionFilter,
-    postsTypes,
-  ]);
+    isFeed &&
+    !single &&
+    questionsList.length === 0 &&
+    !questionsLoading &&
+    isNotFollowedCommunities;
+  const getInitQuestions = useCallback(
+    () => {
+      if (!questionFilter) {
+        getQuestionsDispatch(
+          initLoadedItems,
+          0,
+          postsTypes,
+          Number(params.communityid) || 0,
+          parentPage,
+          false,
+          true,
+        );
+      }
+    },
+    [
+      initLoadedItems,
+      params.communityid,
+      parentPage,
+      questionFilter,
+      postsTypes,
+    ],
+  );
 
   const getNextQuestions = useCallback(() => {
     if (!questionFilter) {
