@@ -202,7 +202,7 @@ export const IndexerDAOStyles = {
   colors: {
     mainSubHeaderBgColor: '#2C001E',
     mainBackground: '#F5F5F5',
-    linkColor: '#2c001e',
+    linkColor: '#5362e8',
     linkCookieColor: '#5362e8',
     linkColorTransparent: '#2c001e',
     headerPrimary: '#2c001e',
