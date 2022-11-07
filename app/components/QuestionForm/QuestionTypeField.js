@@ -78,6 +78,8 @@ const ButtonGroup = styled.div`
   ${Styles};
   padding: 0;
   display: flex;
+  padding: 0;
+  border: ${({ error }) => !error && 'none'};
 
   @media (max-width: 576px) {
     padding-left: 0 !important;
