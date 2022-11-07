@@ -61,7 +61,7 @@ const PageContentHeaderRightPanel = styled.div`
   flex-shrink: 0;
 `;
 
-const customColor = colors.headerPrimary || BORDER_PRIMARY;
+const customColor = colors.linkColor || BORDER_PRIMARY;
 
 const StyledCustomIconButtonContainer = styled.div`
   .fill {
