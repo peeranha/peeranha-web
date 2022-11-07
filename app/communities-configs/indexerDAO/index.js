@@ -205,7 +205,7 @@ export const IndexerDAOStyles = {
     linkColor: '#5362e8',
     linkCookieColor: '#5362e8',
     linkColorTransparent: '#2c001e',
-    headerPrimary: '#2c001e',
+    headerPrimary: '#5362e8',
     commentOption: '#2c001e',
     contentHeader: '#2c001e',
     blockedInfoArea: '#b5e853',
