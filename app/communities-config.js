@@ -83,7 +83,7 @@ const communitiesConfig = {
     },
     2: {
       origin: 'https://demo-msl.testpeeranha.io',
-      src: MintStateLabs,
+      src: MintStateLabsLogo,
       styles: MintStateLabsStyles,
     },
     3: {
