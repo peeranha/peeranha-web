@@ -11,6 +11,7 @@ import Button from 'components/Button/Contained/InfoLarge';
 import noQuestionsAllQuestionsPage from 'images/noQuestionsAllQuestionsPage.svg?inline';
 
 import messages from './messages';
+import { isSingleCommunityWebsite } from '../../utils/communityManagement';
 
 export const AllQuestionsBanner = ({ redirectToAskQuestionPage }) => (
   <Wrapper>
@@ -35,8 +36,14 @@ export const Banner = ({
   isFeed,
   followedCommunities,
   redirectToAskQuestionPage,
+  isEmpty,
+  isSingleCommunityMode,
 }) =>
-  isFeed && followedCommunities && !followedCommunities[0] ? (
+  (!isSingleCommunityMode &&
+    isFeed &&
+    followedCommunities &&
+    !followedCommunities[0]) ||
+  (isSingleCommunityMode && !isEmpty) ? (
     <FeedBanner />
   ) : (
     <AllQuestionsBanner redirectToAskQuestionPage={redirectToAskQuestionPage} />
@@ -46,6 +53,8 @@ Banner.propTypes = {
   isFeed: PropTypes.bool,
   followedCommunities: PropTypes.array,
   redirectToAskQuestionPage: PropTypes.func,
+  isEmpty: PropTypes.bool,
+  isSingleCommunityMode: PropTypes.bool,
 };
 
 AllQuestionsBanner.propTypes = {

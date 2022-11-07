@@ -30,8 +30,12 @@ const MenuContainer = styled.div`
   white-space: nowrap;
   cursor: default;
 
-  @media only screen and (max-width: 992px) {
-    left: -20px;
+  @media only screen and (max-width: 1520px) {
+    left: -75px;
+  }
+
+  @media only screen and (max-width: 993px) {
+    left: -90px;
   }
 
   @media only screen and (max-width: 767px) {

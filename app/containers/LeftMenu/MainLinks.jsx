@@ -50,6 +50,7 @@ import {
   hasCommunityAdminRole,
   hasCommunityModeratorRole,
   getPermissions,
+  hasProtocolAdminRole,
 } from 'utils/properties';
 
 const styles = singleCommunityStyles();
@@ -145,6 +146,7 @@ const MainLinks = ({ currClientHeight, profile }) => {
 
   const singleCommId = +isSingleCommunityWebsite();
   const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
+  const isProtocolAdmin = hasProtocolAdminRole(getPermissions(profile));
   const isModeratorModeSingleCommunity = Boolean(singleCommId)
     ? hasCommunityAdminRole(getPermissions(profile), singleCommId) ||
       hasCommunityModeratorRole(getPermissions(profile), singleCommId)
@@ -192,16 +194,16 @@ const MainLinks = ({ currClientHeight, profile }) => {
         </A1>
       )}
 
-      <A1
-        to={!singleCommId ? routes.tags() : routes.communityTags(singleCommId)}
-        name="tags"
-        route={route}
-      >
-        <IconLg className="mr-2" icon={tagsIcon} />
-        <FormattedMessage {...messages.tags} />
-      </A1>
+      {Boolean(singleCommId) && (
+        <A1 to={routes.communityTags(singleCommId)} name="tags" route={route}>
+          <IconLg className="mr-2" icon={tagsIcon} />
+          <FormattedMessage {...messages.tags} />
+        </A1>
+      )}
 
-      {(hasGlobalModeratorRole() || isModeratorModeSingleCommunity) && (
+      {(hasGlobalModeratorRole() ||
+        isModeratorModeSingleCommunity ||
+        isProtocolAdmin) && (
         <A1 to={routes.users()} name="users" route={route}>
           <IconLg className="mr-2" icon={usersIcon} />
           <FormattedMessage

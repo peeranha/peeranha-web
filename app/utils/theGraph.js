@@ -19,6 +19,7 @@ import {
   userPermissionsQuery,
   userQuery,
   usersAnswersQuery,
+  usersByCommunityQuery,
   usersPostsQuery,
   usersQuery,
   userStatsQuery,
@@ -135,9 +136,12 @@ export const getCommunities = async count => {
   return communities?.data.communities;
 };
 
-export const getAllTags = async () => {
+export const getAllTags = async skip => {
   const tags = await client.query({
     query: gql(allTagsQuery),
+    variables: {
+      skip,
+    },
   });
   return tags?.data.tags;
 };

@@ -8,6 +8,7 @@ const links = {
     telegram: 'https://t.me/peeranhaio',
     email: 'mailto:hello@peeranha.io',
     markdownCheatSheet: 'https://www.markdownguide.org/cheat-sheet/',
+    discord: 'https://discord.gg/jmrbqVnzMZ',
   },
   ru: {
     facebook: 'https://www.facebook.com/peeranha1/',
@@ -18,6 +19,7 @@ const links = {
     telegram: 'https://t.me/peeranhaio',
     email: 'mailto:hello@peeranha.io',
     markdownCheatSheet: 'https://www.markdownguide.org/cheat-sheet/',
+    discord: 'https://discord.gg/jmrbqVnzMZ',
   },
 };
 

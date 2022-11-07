@@ -275,7 +275,16 @@ const formCommunityObjectWithTags = (rawCommunity, tags) => {
 /* eslint no-param-reassign: 0 */
 export const getAllCommunities = async (ethereumService, count) => {
   const communities = await getCommunities(count);
-  const tags = await getAllTags();
+  let tags = await getAllTags();
+
+  const tagsCount = communities.reduce((acc, community) => {
+    return acc + community.tagsCount;
+  }, 0);
+
+  while (tags.length < tagsCount && tagsCount < 500) {
+    tags = [...tags, ...(await getAllTags(tags.length))];
+  }
+
   return communities.map(community => {
     return formCommunityObjectWithTags(
       community,
