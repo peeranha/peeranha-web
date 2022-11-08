@@ -1,5 +1,5 @@
 import React from 'react';
-import { DocumentationSection } from 'pages/Documentation/types';
+import { DocumentationSection } from 'app/pages/Documentation/types';
 import { styles } from './Drafts.styled';
 import EditIcon from 'icons/Edit';
 import { EditArticleType } from 'components/Documentation/types';

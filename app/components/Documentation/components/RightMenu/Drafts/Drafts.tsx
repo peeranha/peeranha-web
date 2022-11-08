@@ -4,7 +4,7 @@ import messages from 'common-messages';
 import { styles } from './Drafts.styled';
 import DraftsItem from './DraftsItem';
 
-import { DocumentationSection } from 'pages/Documentation/types';
+import { DocumentationSection } from 'app/pages/Documentation/types';
 import { EditArticleType } from 'components/Documentation/types';
 
 type DraftsMenuSectionProps = {

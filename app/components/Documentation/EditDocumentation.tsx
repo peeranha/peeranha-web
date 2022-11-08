@@ -31,7 +31,7 @@ import { selectDocumentationMenu } from 'containers/AppWrapper/selectors';
 import Header from './components/Header';
 
 import DocumentationMenu from 'containers/LeftMenu/Documentation/Documentation';
-import DraftsMenu from 'containers/RightMenu/Documentation/Drafts';
+import DraftsMenu from './components/RightMenu/Drafts/Drafts';
 import DocumentationForm from './components/DocumentationForm';
 import ViewContent from './components/ViewContent';
 import LoaderDocumentation from './components/Loader';

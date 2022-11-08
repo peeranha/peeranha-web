@@ -1,5 +1,6 @@
 import { keyframes } from '@emotion/react';
 import { DocumentationItemMenuType } from 'pages/Documentation/types';
+import { DocumentationSection } from '../../pages/Documentation/types';
 
 const TEMP_SAVED_CONTENT = 'tempSavedContent';
 const DRAFTS_IDS = 'draftsIds';
@@ -157,3 +158,23 @@ export const animationDocumentation = (screenWidth: number) =>
       left: screenWidth + 86,
     },
   });
+
+export const isEditableChildItem = (
+  item: DocumentationSection,
+  editedItemId?: string,
+): boolean => {
+  if (item.children && editedItemId) {
+    const isFoundItem = item.children.find(
+      (child: DocumentationSection) => editedItemId === child.id,
+    );
+
+    if (isFoundItem) {
+      return true;
+    }
+
+    return item.children.some((childItem) =>
+      isEditableChildItem(childItem, editedItemId),
+    );
+  }
+  return false;
+};
