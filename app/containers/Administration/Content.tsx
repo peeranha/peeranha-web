@@ -42,6 +42,19 @@ type ContentProps = {
   revokeModeratorLoading: boolean;
 };
 
+const getRole = (
+  moderator: { permission: string },
+  moderatorRole: string,
+  adminRole: string,
+  locale: string,
+) => {
+  if (moderator.permission === moderatorRole) {
+    return translationMessages[locale][messages.communityModerator.id];
+  } else if (moderator.permission === adminRole) {
+    return translationMessages[locale][messages.communityAdministrator.id];
+  }
+};
+
 export const Content: React.FC<ContentProps> = ({
   locale,
   single,
@@ -51,14 +64,6 @@ export const Content: React.FC<ContentProps> = ({
 }): JSX.Element => {
   const moderatorRole = getCommunityRole(COMMUNITY_MODERATOR_ROLE, communityId);
   const adminRole = getCommunityRole(COMMUNITY_ADMIN_ROLE, communityId);
-
-  const getRole = (moderator: { permission: string }) => {
-    if (moderator.permission === moderatorRole) {
-      return translationMessages[locale][messages.communityModerator.id];
-    } else if (moderator.permission === adminRole) {
-      return translationMessages[locale][messages.communityAdministrator.id];
-    }
-  };
 
   return (
     <BaseRoundedNoPadding className="fdc mb16">
@@ -101,7 +106,7 @@ export const Content: React.FC<ContentProps> = ({
             </div>
 
             <div className="mr16 tc text-ellipsis fz14">
-              {getRole(moderator)}
+              {getRole(moderator, moderatorRole, adminRole, locale)}
             </div>
 
             <div
