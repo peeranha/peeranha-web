@@ -35,7 +35,7 @@ export class ErrorBoundary extends React.PureComponent {
     const { error, errorInfo } = this.state;
 
     if (error) {
-      return error.name !== 'ChunkLoadError' ? (
+      return error.name === 'ChunkLoadError' ? (
         <ChunkLoadError />
       ) : (
         <ErrorMessage error={error} errorInfo={errorInfo} />

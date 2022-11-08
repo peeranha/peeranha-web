@@ -88,7 +88,6 @@ export const Questions = ({
   isLastTopQuestionLoaded,
   postsTypes,
 }) => {
-  grt;
   const isFeed = window.location.pathname === routes.feed(params.communityid);
 
   const isExpert =
