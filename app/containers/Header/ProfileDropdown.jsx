@@ -112,42 +112,39 @@ const Menu = memo(
       <nav>
         <Ul>
           <A to={routes.profileView(user)}>
-            <FormattedMessage {...messages.profile} />
+            <FormattedMessage id={messages.profile.id} />
           </A>
           <A to={routes.userCommunities(user)}>
-            <FormattedMessage {...messages.myCommunities} />
+            <FormattedMessage id={messages.myCommunities.id} />
           </A>
           <A
             to={routes.userQuestions(user)}
             disabled={!questionsLength}
             tabIndex={!questionsLength ? '-1' : undefined}
           >
-            <FormattedMessage {...messages.posts} />
+            <FormattedMessage id={messages.posts.id} />
           </A>
           <A
             to={routes.userAnswers(user)}
             disabled={!questionsWithUserAnswersLength}
             tabIndex={!questionsWithUserAnswersLength ? '-1' : undefined}
           >
-            <FormattedMessage {...messages.answers} />
-          </A>
-          <A
-            className={!isEmail ? 'd-none' : ''}
-            to={routes.userSettings(user)}
-          >
-            <FormattedMessage {...messages.settings} />
+            <FormattedMessage id={messages.answers.id} />
           </A>
           <A to={routes.userNotifications(user)}>
-            <FormattedMessage {...messages.notifications} />
+            <FormattedMessage id={messages.notifications.id} />
           </A>
           <A to={routes.userNFTs(user)}>
             <FormattedMessage id={messages.NFTs.id} />
           </A>
           {isModerator && (
             <A to={routes.userModeration(user)}>
-              <FormattedMessage {...messages.moderation} />
+              <FormattedMessage id={messages.moderation.id} />
             </A>
           )}
+          <A to={routes.userSettings(user)}>
+            <FormattedMessage id={messages.settings.id} />
+          </A>
         </Ul>
 
         <Ul>

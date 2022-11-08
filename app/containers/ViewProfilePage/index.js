@@ -123,7 +123,7 @@ const ViewProfilePage = ({
       />
 
       <SettingsOfUser
-        className={path === routes.userSettings(userId) ? '' : 'd-none'}
+        className={path === routes.userSettings(userId) ? 'mb-4' : 'd-none'}
         userId={userId}
         locale={locale}
         activeKey={activeKey}

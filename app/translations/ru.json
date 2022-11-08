@@ -492,6 +492,16 @@
   "app.containers.Profile.referralText":
     "Поделитесь реферальной ссылкой или кодом с вашим другом и вы оба получите 100 PEER токенов после того, как ваш друг заработает 35 очков репутации.",
 
+  "app.containers.Profile.Settings.transactions": "Транзакции",
+  "app.containers.Profile.Settings.transactionsText_1":
+    "Пиранья может передавать ваши транзакции и покрывать комиссии за транзакции.",
+  "app.containers.Profile.Settings.transactionsText_2":
+    "Если у вас есть MATIC в вашем кошельке, вы можете оплатить комиссию за транзакцию самостоятельно.",
+  "app.containers.Profile.Settings.transactionsChange_1":
+    "Пиранья передает транзакции и покрывает комиссии за транзакции",
+  "app.containers.Profile.Settings.transactionsChange_2":
+    "У меня есть MATIC, и я хочу сам оплатить комиссию за транзакцию",
+
   "app.containers.SuggestedTags.title": "Предложенные теги",
   "app.containers.SuggestedTags.description": "Предложенные теги | Описание",
   "app.containers.SuggestedTags.noSuggestedTags": "Нет предложенных тегов",
