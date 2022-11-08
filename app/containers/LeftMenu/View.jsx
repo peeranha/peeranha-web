@@ -94,14 +94,15 @@ const View = ({
 
       <MobileLinksInProfile profile={profile} isMenuVisible={isMenuVisible} />
 
-      <MobileLinksInWallet
-        profile={profile}
-        isMenuVisible={isMenuVisible}
-        balance={balance}
-        stakedInCurrentPeriod={stakedInCurrentPeriod}
-        stakedInNextPeriod={stakedInNextPeriod}
-        boost={boost}
-      />
+      {/* TODO: return if WalletDropdown will be needed in production */}
+      {/* <MobileLinksInWallet */}
+      {/*  profile={profile} */}
+      {/*  isMenuVisible={isMenuVisible} */}
+      {/*  balance={balance} */}
+      {/*  stakedInCurrentPeriod={stakedInCurrentPeriod} */}
+      {/*  stakedInNextPeriod={stakedInNextPeriod} */}
+      {/*  boost={boost} */}
+      {/* /> */}
 
       <MobileAdditionalLinks profile={profile} isMenuVisible={isMenuVisible} />
 

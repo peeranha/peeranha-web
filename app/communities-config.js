@@ -77,12 +77,14 @@ const communitiesConfig = {
   },
   staging: {
     1: {
-      origin: 'https://demo-peeranha-meta.testpeeranha.io',
+      origin: 'https://demo-harmony.testpeeranha.io',
+      src: HarmonyLogo,
+      styles: HarmonyStyles,
     },
     2: {
-      origin: 'https://demo-polygon.testpeeranha.io',
-      src: PolygonLogo,
-      styles: PolygonStyles,
+      origin: 'https://demo-msl.testpeeranha.io',
+      src: MintStateLabsLogo,
+      styles: MintStateLabsStyles,
     },
     3: {
       origin: 'https://demo-filecoin.testpeeranha.io',

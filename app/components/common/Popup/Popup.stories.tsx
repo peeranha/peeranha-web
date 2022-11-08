@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Story, Meta } from '@storybook/react';
-import DeleteForeverIcon from 'citrus-ui/core/icons/DeleteForever';
-import Popup, { PopupProps } from './Popup';
+import DeleteIcon from 'icons/Delete';
+import Popup from './Popup';
+import { PopupProps } from './types';
 import Popover from '../Popover';
 
 export default {
@@ -14,7 +15,7 @@ export default {
   },
 } as Meta;
 
-export const Basic: Story<PopupProps> = args => {
+export const Basic: Story<PopupProps> = (args) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -174,7 +175,7 @@ export const Basic: Story<PopupProps> = args => {
   );
 };
 
-export const Sizes: Story<PopupProps> = args => {
+export const Sizes: Story<PopupProps> = (args) => {
   const SIZES = ['full', 'big', 'medium', 'small', 'tiny', 'atom'];
   const [activeSize, setSize] = useState<
     'full' | 'big' | 'medium' | 'small' | 'tiny' | 'atom'
@@ -183,7 +184,7 @@ export const Sizes: Story<PopupProps> = args => {
 
   return (
     <>
-      {SIZES.map(size => (
+      {SIZES.map((size) => (
         <div
           key={size}
           style={{
@@ -222,7 +223,7 @@ export const Sizes: Story<PopupProps> = args => {
             very long long long popup popup popup popup text
             <Popover>
               <Popover.Trigger>
-                <DeleteForeverIcon />
+                <DeleteIcon />
               </Popover.Trigger>
               <Popover.Content>
                 <div>
@@ -238,7 +239,7 @@ export const Sizes: Story<PopupProps> = args => {
   );
 };
 
-export const WithoutAnimation: Story<PopupProps> = args => {
+export const WithoutAnimation: Story<PopupProps> = (args) => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -255,56 +256,6 @@ export const WithoutAnimation: Story<PopupProps> = args => {
             is a very very long long long popup popup popup popup text This is a
             very very long long long popup popup popup popup text This is a very
             very long long long popup popup popup popup text
-          </p>
-        </Popup>
-      )}
-    </>
-  );
-};
-
-export const Advertising: Story<PopupProps> = args => {
-  const [open, setOpen] = useState(false);
-
-  return (
-    <>
-      <button onClick={() => setOpen(!open)}>Open popup</button>
-      {open && (
-        <Popup
-          title="This is a popup"
-          onClose={() => setOpen(false)}
-          type="advertising"
-        >
-          <p>
-            This is a very very long long long popup popup popup popup text This
-            is a very very long long long popup popup popup popup text This is a
-            very very long long long popup popup popup popup text This is a very
-            very long long long popup popup popup popup textThis is a very very
-            long long long This is a very very long long long This is a very
-            very long long long This is a very very long long long This is a
-            very very long long long popup popup popup popup textThis is a very
-            very long long long This is a very very long long long This is a
-            very very long long long popup popup popup popup textThis is a very
-            very long long long This is a very very long long long This is a
-            very very long long long This is a very very long long long This is
-            a very very long long long popup popup popup popup textThis is a
-            very very long long long This is a very very long long long This is
-            a very very long long long This is a very very long long long popup
-            popup popup popup textThis is a very very long long long This is a
-            very very long long long This is a very very long long long popup
-            popup popup popup textThis is a very very long long long This is a
-            very very long long long This is a very very long long long This is
-            a very very long long long This is a very very long long long popup
-            popup popup popup textThis is a very very long long long This is a
-            very very long long long This is a very very long long long This is
-            a very very long long long popup popup popup popup textThis is a
-            very very long long long This is a very very long long long This is
-            a very very long long long This is a very very long long long This
-            is a very very long long long This is a very very long long long
-            This is a very very long long long This is a very very long long
-            long This is a very very long long long This is a very very long
-            long long This is a very very long long long This is a very very
-            long long long This is a very very long long long This is a very
-            very long long long popup popup popup popup textp popup text
           </p>
         </Popup>
       )}
