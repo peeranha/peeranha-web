@@ -4,6 +4,7 @@
  *
  */
 
+import ChunkLoadError from 'containers/ChunkLoadError';
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -33,11 +34,13 @@ export class ErrorBoundary extends React.PureComponent {
   render() {
     const { error, errorInfo } = this.state;
 
-    return error || errorInfo ? (
-      <ErrorMessage error={error} errorInfo={errorInfo} />
-    ) : (
-      <div>{this.props.children}</div>
-    );
+    if (error) {
+      return error.name !== 'ChunkLoadError' ? (
+        <ChunkLoadError />
+      ) : (
+        <ErrorMessage error={error} errorInfo={errorInfo} />
+      );
+    } else return <div>{this.props.children}</div>;
   }
 }
 
