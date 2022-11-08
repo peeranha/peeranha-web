@@ -6,19 +6,11 @@ import { getLinks } from 'media-links';
 
 import chunkLoadErrorImage from 'images/ChunkLoadError.svg?inline';
 import { css } from '@emotion/react';
-import emailIcon from 'images/social_email.svg?inline';
-import twitterIcon from 'images/social_twitter.svg?inline';
-import discordIcon from 'images/social_discord.svg?inline';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
-import styled from '@emotion/styled';
-
-const Image = styled.img`
-  width: 24px;
-  height: 24px;
-`;
+import { SocialDiscord, SocialEmail, SocialTwitter } from 'icons/index';
 
 const ChunkLoadError = (locale: string) => (
   <div
@@ -90,15 +82,15 @@ const ChunkLoadError = (locale: string) => (
         `}
       >
         <a href={getLinks(locale).email}>
-          <Image src={emailIcon} alt="email" />
+          <SocialEmail className="icon" />
         </a>
 
         <a href={getLinks(locale).twitter} target="_blank">
-          <Image src={twitterIcon} alt="twitter" />
+          <SocialTwitter className="icon" />
         </a>
 
         <a href={getLinks(locale).discord} target="_blank">
-          <Image src={discordIcon} alt="discord" />
+          <SocialDiscord className="icon" />
         </a>
       </div>
     </div>
