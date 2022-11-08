@@ -14,6 +14,7 @@ import {
   setViewArticle,
   pinnedArticleMenuDraft,
   removeArticle,
+  saveDraftsIds,
 } from 'pages/Documentation/actions';
 import reducer from 'pages/Documentation/reducer';
 import saga from 'pages/Documentation/saga';
@@ -24,11 +25,13 @@ import {
   selectDocumentationLoading,
   selectEditArticle,
   selectViewArticle,
+  selectDraftsIds,
 } from 'pages/Documentation/selectors';
 import { selectDocumentationMenu } from 'containers/AppWrapper/selectors';
 import Header from './components/Header';
 
 import DocumentationMenu from 'containers/LeftMenu/Documentation/Documentation';
+import DraftsMenu from 'containers/RightMenu/Documentation/Drafts';
 import DocumentationForm from './components/DocumentationForm';
 import ViewContent from './components/ViewContent';
 import LoaderDocumentation from './components/Loader';
@@ -38,6 +41,7 @@ import {
   saveDraft,
   animationDocumentation,
   clearSavedDrafts,
+  getSavedDraftsIds,
 } from './helpers';
 import { EditDocumentationProps } from './types';
 import { styled } from './EditDocumentation.styled';
@@ -50,6 +54,7 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
   documentation,
   setEditArticleDispatch,
   saveMenuDraftDispatch,
+  saveDraftsIdsDispatch,
   documentationMenuDraft,
   updateDocumentationMenuDispatch,
   isArticleLoading,
@@ -57,6 +62,7 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
   setViewArticleDispatch,
   pinnedArticleMenuDraftDispatch,
   removeArticleDispatch,
+  draftsIds,
 }): JSX.Element => {
   const refOverlay = useRef<HTMLDivElement>(null);
   const [paddingLeft, setPaddingLeft] = useState<number>(86);
@@ -75,6 +81,7 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
 
   useEffect(() => {
     const drafts = getSavedDrafts();
+    const savedDraftsIds = getSavedDraftsIds();
 
     if (drafts.length === 0) {
       saveDraft(documentationMenu);
@@ -82,6 +89,8 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
     } else {
       saveMenuDraftDispatch(drafts);
     }
+
+    saveDraftsIdsDispatch(savedDraftsIds);
 
     if (documentationMenu.length > 0) {
       setViewArticleDispatch(documentationMenu[0].id);
@@ -194,12 +203,20 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
                     updateDocumentationMenuDraft={saveMenuDraftDispatch}
                     setEditArticle={setEditArticleDispatch}
                     setViewArticle={setViewArticleDispatch}
+                    updateDraftsIds={saveDraftsIdsDispatch}
                   />
                 )}
               </>
             )}
           </div>
-          {/* <div css={styled.rightSection}></div> */}
+          <div css={styled.rightSection}>
+            <DraftsMenu
+              draftsMenu={documentationMenuDraft}
+              setEditArticle={setEditArticleDispatch}
+              setViewArticle={setViewArticleDispatch}
+              draftsIds={draftsIds}
+            />
+          </div>
         </section>
       </div>
     </>
@@ -218,6 +235,7 @@ export default compose(
       isArticleLoading: selectDocumentationLoading(),
       editArticle: selectEditArticle(),
       viewArticleId: selectViewArticle(),
+      draftsIds: selectDraftsIds(),
     }),
     (dispatch: Dispatch<AnyAction>) => ({
       getArticleDocumentationDispatch: bindActionCreators(
@@ -226,6 +244,7 @@ export default compose(
       ),
       setEditArticleDispatch: bindActionCreators(setEditArticle, dispatch),
       saveMenuDraftDispatch: bindActionCreators(saveMenuDraft, dispatch),
+      saveDraftsIdsDispatch: bindActionCreators(saveDraftsIds, dispatch),
       updateDocumentationMenuDispatch: bindActionCreators(
         updateDocumentationMenu,
         dispatch,

@@ -7,6 +7,7 @@ import {
   TOGGLE_EDIT_DOCUMENTATION,
   SET_VIEW_ARTICLE,
   SAVE_MENU_DRAFT,
+  SAVE_DRAFTS_IDS,
   UPDATE_DOCUMENTATION_MENU,
   UPDATE_DOCUMENTATION_MENU_SUCCESS,
   UPDATE_DOCUMENTATION_MENU_FAILED,
@@ -35,6 +36,7 @@ export const initialState = fromJS({
   activeViewArticle: '',
   pinnedArticleId: '',
   pinnedArticleTitle: '',
+  draftsIds: [],
 });
 
 function documentationReducer(
@@ -48,6 +50,7 @@ function documentationReducer(
     menu: Array<DocumentationItemMenuType>;
     isEditArticle: boolean;
     pinnedArticle: PinnedArticleType;
+    draftsIds: Array<string>;
   },
 ) {
   const {
@@ -59,6 +62,7 @@ function documentationReducer(
     menu,
     isEditArticle,
     pinnedArticle,
+    draftsIds,
   } = action;
 
   switch (type) {
@@ -106,6 +110,8 @@ function documentationReducer(
         );
     case SAVE_MENU_DRAFT:
       return state.set('documentationMenuDraft', menu);
+    case SAVE_DRAFTS_IDS:
+      return state.set('draftsIds', draftsIds);
     case UPDATE_DOCUMENTATION_MENU:
       return state.set('documentationLoading', true);
     case UPDATE_DOCUMENTATION_MENU_SUCCESS:
