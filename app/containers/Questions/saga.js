@@ -148,8 +148,15 @@ export function* getQuestionsWorker({
       question.isGeneral = isGeneralQuestion(question);
     });
 
+    const clearQuestionsList = questionsList.filter(item => item.title);
+
     yield put(
-      getQuestionsSuccess(questionsList, next, toUpdateQuestions, undefined),
+      getQuestionsSuccess(
+        clearQuestionsList,
+        next,
+        toUpdateQuestions,
+        undefined,
+      ),
     );
   } catch (err) {
     yield put(getQuestionsError(err));
