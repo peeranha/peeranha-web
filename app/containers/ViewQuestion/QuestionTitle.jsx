@@ -43,6 +43,7 @@ export const B = Button.extend`
 
 const QuestionName = H3.extend`
   display: inline;
+  font-size: 30px;
 `.withComponent('h3');
 
 const Div = styled.div`

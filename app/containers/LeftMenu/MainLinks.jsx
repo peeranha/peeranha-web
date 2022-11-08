@@ -165,66 +165,56 @@ const MainLinks = ({ currClientHeight, profile }) => {
       {isBloggerMode && (
         <A1 to={routes.detailsHomePage()} name="home" route={route}>
           <IconLg className="mr-2" icon={homeIcon} />
-          <FormattedMessage {...messages.home} />
+          <FormattedMessage id={messages.home.id} />
         </A1>
       )}
-
       <A1 to={routes.feed()} name="feed" route={route}>
         <IconLg className="mr-2" icon={myFeedIcon} />
         <FormattedMessage
           id={messages[profile && !singleCommId ? 'myFeed' : 'feed'].id}
         />
       </A1>
-
       <A1 to={routes.questions()} name="questions" route={route}>
         <IconLg className="mr-2" icon={generalIcon} />
-        <FormattedMessage {...messages.discussions} />
+        <FormattedMessage id={messages.discussions.id} />
       </A1>
-
       <A1 to={routes.expertPosts()} name="experts" route={route}>
         <IconLg className="mr-2" icon={expertIcon} />
-        <FormattedMessage {...messages.expertPosts} />
+        <FormattedMessage id={messages.expertPosts.id} />
       </A1>
-
       <A1 to={routes.tutorials()} name="tutorials" route={route}>
         <IconLg className="mr-2" icon={tutorialIcon} fill={BORDER_PRIMARY} />
-        <FormattedMessage {...messages.tutorials} />
+        <FormattedMessage id={messages.tutorials.id} />
       </A1>
-
       {!singleCommId && (
         <A1 to={routes.communities()} name="communities" route={route}>
           <IconLg className="mr-2" icon={communitiesIcon} />
-          <FormattedMessage {...messages.communities} />
+          <FormattedMessage id={messages.communities.id} />
         </A1>
       )}
-
-      <A1
-        to={!singleCommId ? routes.tags() : routes.communityTags(singleCommId)}
-        name="tags"
-        route={route}
-      >
-        <IconLg className="mr-2" icon={tagsIcon} />
-        <FormattedMessage {...messages.tags} />
-      </A1>
-
+      {Boolean(singleCommId) && (
+        <A1 to={routes.communityTags(singleCommId)} name="tags" route={route}>
+          <IconLg className="mr-2" icon={tagsIcon} />
+          <FormattedMessage {...messages.tags} />
+        </A1>
+      )}
       {(hasGlobalModeratorRole() ||
         isModeratorModeSingleCommunity ||
         isProtocolAdmin) && (
         <A1 to={routes.users()} name="users" route={route}>
           <IconLg className="mr-2" icon={usersIcon} />
           <FormattedMessage
-            {...messages[isBloggerMode ? 'followers' : 'users']}
+            id={messages[isBloggerMode ? 'followers' : 'users'].id}
           />
         </A1>
       )}
-
-      {
+      {!singleCommId && (
         <A1 to={routes.faq()} name="faq" route={route}>
           <IconLg className="mr-2" icon={faqIcon} fill={BORDER_PRIMARY} />
           <FormattedMessage id={messages.faq.id} />
         </A1>
+      )}
       }
-
       {Boolean(singleCommId && hasCommunityOrProtocolAdminRole) && (
         <A1 to={routes.administration()} name="administration" route={route}>
           <IconLg className="mr-2" icon={usersIcon} fill={BORDER_PRIMARY} />

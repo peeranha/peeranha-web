@@ -261,6 +261,7 @@ export const communitiesQuery = `
           isFrozen
           creationTime
           postCount
+          tagsCount
           deletedPostCount
           followingUsers
           replyCount
@@ -319,8 +320,12 @@ export const answeredPostsQuery = `
       }`;
 
 export const allTagsQuery = `
-      query {
-        tags {
+      query (
+       $skip: Int,
+      ) {
+        tags (
+          skip: $skip,
+        ) {
           id
           communityId
           name

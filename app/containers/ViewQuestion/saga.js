@@ -155,6 +155,17 @@ import { getQuestionFromGraph } from '../../utils/theGraph';
 import { selectPostedAnswerIds } from '../AskQuestion/selectors';
 export const isGeneralQuestion = question => Boolean(question.postType === 1);
 
+const getPostsRoute = postType => {
+  switch (postType) {
+    case 0:
+      return routes.expertPosts();
+    case 1:
+      return routes.questions();
+    case 2:
+      return routes.tutorials();
+  }
+};
+
 export const getQuestionTypeValue = postType =>
   postType === POST_TYPE.generalPost
     ? POST_TYPE.expertPost
@@ -566,6 +577,7 @@ export function* deleteQuestionWorker({ questionId, buttonId }) {
     let { questionData, ethereumService, locale, profileInfo } = yield call(
       getParams,
     );
+
     if (!questionData) {
       questionData = yield call(
         getQuestionById,
@@ -574,6 +586,7 @@ export function* deleteQuestionWorker({ questionId, buttonId }) {
         profileInfo.user,
       );
     }
+
     yield call(
       isAvailableAction,
       () =>
@@ -599,7 +612,7 @@ export function* deleteQuestionWorker({ questionId, buttonId }) {
       deleteQuestionSuccess({ ...questionData, isDeleted: true }, buttonId),
     );
 
-    yield call(createdHistory.push, routes.questions());
+    yield call(createdHistory.push, getPostsRoute(questionData.postType));
   } catch (err) {
     yield put(deleteQuestionErr(err, buttonId));
   }
