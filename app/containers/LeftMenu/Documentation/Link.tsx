@@ -28,12 +28,14 @@ const Link: React.FC<LinkProps> = ({
       name={`documentation/${ipfsHash}`}
       className={cn('p0')}
       css={{
+        padding: '7px 0',
         fontSize: 16,
         lineHeight: '20px',
         flexGrow: 1,
         ...(level > 0 && {
           color: '#7B7B7B',
         }),
+        ...(level === 0 && { padding: '12px 0' }),
         ...((isOpen ||
           (match.params.sectionId &&
             getBytes32FromIpfsHash(match.params.sectionId) === item.id) ||

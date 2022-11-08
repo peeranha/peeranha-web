@@ -3,6 +3,7 @@ import Documentation from 'containers/LeftMenu/Documentation/Documentation';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import cn from 'classnames';
 import styled from 'styled-components';
 import isMobile from 'ismobilejs';
 
@@ -222,14 +223,13 @@ const MainLinks = ({
           ...(documentationPosition === 'top' && {
             order: 1,
           }),
-          ...(pinnedItemMenu.id === '' && {
-            paddingTop: 12,
-          }),
         }}
       >
         {Boolean(singleCommId) && (
           <div
-            className="df jcsb mt28 pl15"
+            className={cn('df jcsb pl15', {
+              mt28: pinnedItemMenu.id !== '' || documentationPosition === 'top',
+            })}
             css={{
               ...styles.menuSectionTitle,
               ...styles.menuItem,
@@ -307,7 +307,8 @@ const MainLinks = ({
             isModeratorModeSingleCommunity={isModeratorModeSingleCommunity}
             toggleEditDocumentation={toggleEditDocumentation}
             match={match}
-            isEditDocumentation={isEditDocumentation}
+            // isEditDocumentation={isEditDocumentation}
+            pinnedItemMenuId={pinnedItemMenu.id}
           />
         )}
     </Box>

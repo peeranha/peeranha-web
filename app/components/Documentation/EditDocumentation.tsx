@@ -25,7 +25,10 @@ import {
   selectEditArticle,
   selectViewArticle,
 } from 'pages/Documentation/selectors';
-import { selectDocumentationMenu } from 'containers/AppWrapper/selectors';
+import {
+  selectDocumentationMenu,
+  selectPinnedItemMenu,
+} from 'containers/AppWrapper/selectors';
 import Header from './components/Header';
 
 import DocumentationMenu from 'containers/LeftMenu/Documentation/Documentation';
@@ -57,6 +60,7 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
   setViewArticleDispatch,
   pinnedArticleMenuDraftDispatch,
   removeArticleDispatch,
+  pinnedItemMenu,
 }): JSX.Element => {
   const refOverlay = useRef<HTMLDivElement>(null);
   const [paddingLeft, setPaddingLeft] = useState<number>(86);
@@ -166,6 +170,7 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
               setViewArticle={setViewArticleDispatch}
               pinnedArticleMenuDraft={pinnedArticleMenuDraftDispatch}
               removeArticle={removeArticleDispatch}
+              pinnedItemMenuId={pinnedItemMenu.id}
             />
           </div>
           <div css={styled.centerSection}>
@@ -218,6 +223,7 @@ export default compose(
       isArticleLoading: selectDocumentationLoading(),
       editArticle: selectEditArticle(),
       viewArticleId: selectViewArticle(),
+      pinnedItemMenu: selectPinnedItemMenu(),
     }),
     (dispatch: Dispatch<AnyAction>) => ({
       getArticleDocumentationDispatch: bindActionCreators(

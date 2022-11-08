@@ -1,6 +1,7 @@
 import React from 'react';
 import { css } from '@emotion/react';
 import { FormattedMessage } from 'react-intl';
+import cn from 'classnames';
 import { styles } from 'containers/LeftMenu/MainLinks.styled';
 import messages from 'common-messages';
 import { PEER_PRIMARY_COLOR } from 'style-constants';
@@ -22,13 +23,14 @@ type DocumentationMenuSectionProps = {
   isModeratorModeSingleCommunity: boolean;
   match: { params: { sectionId: string } };
   toggleEditDocumentation?: () => void;
-  isEditDocumentation: boolean;
+  isEditDocumentation?: boolean;
   editArticle?: { id: string; parentId: string };
   isMenu?: boolean;
   setEditArticle?: (data: EditArticleType) => void;
   setViewArticle?: (id: string) => void;
   pinnedArticleMenuDraft?: (data: PinnedArticleType) => void;
   removeArticle?: (id: string) => void;
+  pinnedItemMenuId: string;
 };
 
 const documentationPosition = singleCommunityDocumentationPosition();
@@ -67,6 +69,7 @@ const Documentation: React.FC<DocumentationMenuSectionProps> = ({
   setViewArticle,
   pinnedArticleMenuDraft,
   removeArticle,
+  pinnedItemMenuId,
 }) => {
   const clickDocumentation = () => (value: number) => {
     if (value === 1 && typeof toggleEditDocumentation === 'function') {
@@ -87,7 +90,12 @@ const Documentation: React.FC<DocumentationMenuSectionProps> = ({
         <div css={css(styles.divider)} />
       )}
       <div
-        className="df jcsb mt28 pl15"
+        className={cn('df jcsb pl15', {
+          mt28:
+            (pinnedItemMenuId !== '' && documentationPosition === 'top') ||
+            documentationPosition !== 'top' ||
+            isEditDocumentation,
+        })}
         css={{
           ...styles.menuSectionTitle,
           ...styles.menuItem,
@@ -124,6 +132,7 @@ const Documentation: React.FC<DocumentationMenuSectionProps> = ({
           setViewArticle={setViewArticle}
           pinnedArticleMenuDraft={pinnedArticleMenuDraft}
           removeArticle={removeArticle}
+          pinnedItemMenuId={pinnedItemMenuId}
         />
       ))}
       {!isEditDocumentation && documentationPosition === 'top' && (

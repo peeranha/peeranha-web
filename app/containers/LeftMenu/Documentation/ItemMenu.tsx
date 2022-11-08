@@ -13,6 +13,7 @@ import AddCommentIcon from 'icons/AddComment';
 import Link from './Link';
 import Item from './Item';
 import { getBytes32FromIpfsHash } from 'utils/ipfs';
+import { singleCommunityColors } from 'utils/communityManagement';
 
 type DocumentationMenuProps = {
   item: DocumentationSection;
@@ -32,7 +33,10 @@ type DocumentationMenuProps = {
   setViewArticle?: (id: string) => void;
   pinnedArticleMenuDraft?: (data: { id: string; title: string }) => void;
   removeArticle?: (id: string) => void;
+  pinnedItemMenuId: string;
 };
+
+const colors = singleCommunityColors();
 
 const ItemMenu: React.FC<DocumentationMenuProps> = ({
   item,
@@ -47,6 +51,7 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
   setViewArticle,
   pinnedArticleMenuDraft,
   removeArticle,
+  pinnedItemMenuId,
 }) => {
   const [isOpen, open, close] = useTrigger(false);
 
@@ -74,8 +79,8 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
 
     if (value === 3 && typeof pinnedArticleMenuDraft === 'function') {
       pinnedArticleMenuDraft({
-        id: item.id,
-        title: item.title,
+        id: pinnedItemMenuId === item.id ? '' : item.id,
+        title: pinnedItemMenuId === item.id ? '' : item.title,
       });
     }
 
@@ -103,16 +108,14 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
       <div
         className={cn('df jcsb aic cup')}
         css={{
-          padding: '7px 0',
-          ...(isEditDocumentation && { padding: '7px 16px' }),
-          ...(level === 0 && { padding: '12px 0' }),
-          ...(level === 0 && isEditDocumentation && { padding: '12px 16px' }),
+          ...(isEditDocumentation && { padding: '0 16px' }),
+          ...(level === 0 && isEditDocumentation && { padding: '0 16px' }),
           paddingLeft: 15 + 16 * level,
           ...(((match.params.sectionId &&
             getBytes32FromIpfsHash(match.params.sectionId) === item.id) ||
             editArticle?.id === item.id) && {
             background: 'rgba(53, 74, 137, 0.11)',
-            borderLeft: '3px solid #5065A5',
+            borderLeft: `3px solid ${colors.linkColor || '#5065A5'}`,
             paddingLeft: 12 + 16 * level,
           }),
           '&:hover .dropdown-documentation': {
@@ -154,7 +157,11 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
               }}
             >
               <Dropdown
-                trigger={<AddCommentIcon css={{ color: PEER_PRIMARY_COLOR }} />}
+                trigger={
+                  <AddCommentIcon
+                    css={{ color: colors.linkColor || PEER_PRIMARY_COLOR }}
+                  />
+                }
                 options={[
                   {
                     label: 'Add a new sub-article',
@@ -167,7 +174,7 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
                     icon: <EditIcon />,
                   },
                   {
-                    label: 'Pin',
+                    label: pinnedItemMenuId === item.id ? 'Unpin' : 'Pin',
                     value: 3,
                     icon: (
                       <PinIcon css={{ fill: 'rgba(118, 153, 255, 0.2)' }} />
@@ -189,7 +196,7 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
           {item.children.length > 0 && (
             <ArrowDownIcon
               css={{
-                color: '#576FED',
+                color: colors.linkColor || '#576FED',
                 width: 18,
                 height: 18,
                 transform: 'rotate(-90deg)',
