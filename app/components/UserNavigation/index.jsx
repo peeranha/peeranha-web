@@ -19,7 +19,6 @@ import A from 'components/A/index';
 import { IconMd } from 'components/Icon/IconWithSizes';
 import { getPermissions } from '../../utils/properties';
 import { singleCommunityColors } from 'utils/communityManagement';
-import ProfileDropdown from 'containers/Header/ProfileDropdown';
 
 const colors = singleCommunityColors();
 
