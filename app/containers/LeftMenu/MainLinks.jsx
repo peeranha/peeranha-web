@@ -162,7 +162,6 @@ const MainLinks = ({
   documentationMenu,
   match,
   toggleEditDocumentation,
-  isEditDocumentation,
   pinnedItemMenu,
 }) => {
   const { pathname } = window.location;
@@ -217,6 +216,13 @@ const MainLinks = ({
         </div>
       )}
 
+      {isBloggerMode && (
+        <A1 to={routes.detailsHomePage()} name="home" route={route}>
+          <IconLg className="mr-2" icon={homeIcon} />
+          <FormattedMessage id={messages.home.id} />
+        </A1>
+      )}
+
       <div
         id="communitySection"
         css={{
@@ -238,13 +244,6 @@ const MainLinks = ({
             COMMUNITY
           </div>
         )}
-
-        <A1 to={routes.feed()} name="feed" route={route}>
-          <IconLg className="mr-2" icon={myFeedIcon} />
-          <FormattedMessage
-            id={messages[profile && !singleCommId ? 'myFeed' : 'feed'].id}
-          />
-        </A1>
 
         <A1 to={routes.questions()} name="questions" route={route}>
           <IconLg className="mr-2" icon={generalIcon} />
@@ -307,7 +306,6 @@ const MainLinks = ({
             isModeratorModeSingleCommunity={isModeratorModeSingleCommunity}
             toggleEditDocumentation={toggleEditDocumentation}
             match={match}
-            // isEditDocumentation={isEditDocumentation}
             pinnedItemMenuId={pinnedItemMenu.id}
           />
         )}
