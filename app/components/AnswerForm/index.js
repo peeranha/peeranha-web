@@ -129,7 +129,7 @@ AnswerForm.propTypes = {
 };
 
 const FormClone = reduxForm({
-  onSubmitFail: errors => scrollToErrorField(errors),
+  onSubmitFail: (errors) => scrollToErrorField(errors),
   form: 'answerForm',
 })(AnswerForm);
 

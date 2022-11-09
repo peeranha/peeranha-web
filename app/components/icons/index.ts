@@ -92,3 +92,6 @@ export { default as SingleCommunity } from './SingleCommunity';
 export { default as Telegram } from './Telegram';
 export { default as Twitter } from './Twitter';
 export { default as RedditGlyph } from './RedditGlyph';
+export { default as Pin } from './Pin';
+export { default as AddSubArticle } from './AddSubArticle';
+export { default as Save } from './Save';

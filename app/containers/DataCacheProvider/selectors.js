@@ -124,10 +124,10 @@ const selectGetFaqError = () =>
     substate => substate.getFaqError,
   );
 
-const selectGetFaqLoading = () =>
+const selectGetDocumentationLoading = () =>
   createSelector(
     selectDataCacheProviderDomain,
-    substate => substate.getFaqLoading,
+    substate => substate.getDocumentationLoading,
   );
 
 const selectTutorial = () =>
@@ -207,7 +207,7 @@ export {
   selectFaq,
   selectGetFaqError,
   selectFaqQuestions,
-  selectGetFaqLoading,
+  selectGetDocumentationLoading,
   selectTutorial,
   selectGetTutorialError,
   selectGetTutorialLoading,

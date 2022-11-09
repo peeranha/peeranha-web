@@ -46,6 +46,9 @@ export const singleCommunityColors = () =>
 export const singleCommunityFonts = () =>
   _get(singleCommunityStyles(), 'fonts', {});
 
+export const singleCommunityDocumentationPosition = () =>
+  _get(singleCommunityStyles(), 'documentationPosition', 'bottom');
+
 export const hasCommunitySingleWebsite = (commId) =>
   communitiesConfig[commId] ? communitiesConfig[commId].origin : false;
 

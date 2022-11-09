@@ -23,6 +23,7 @@ import {
   CONTRACT_CONTENT,
   DELETE_ANSWER,
   DELETE_COMMENT,
+  DELETE_DOCUMENTATION_POST,
   DELETE_POST,
   DOWNVOTE_STATUS,
   EDIT_ANSWER,
@@ -35,6 +36,7 @@ import {
   POST_ANSWER,
   POST_COMMENT,
   POST_QUESTION,
+  UPDATE_DOCUMENTATION_TREE,
   UPVOTE_STATUS,
   VOTE_ITEM,
 } from './ethConstants';
@@ -59,7 +61,7 @@ export class FetcherOfQuestionsForFollowedCommunities {
 
     this.communitiesMap = {};
 
-    communities.forEach(communityId => {
+    communities.forEach((communityId) => {
       const lowerBound = JSBI.leftShift(
         JSBI.BigInt(communityId),
         JSBI.BigInt(36),
@@ -80,10 +82,10 @@ export class FetcherOfQuestionsForFollowedCommunities {
     this.hasMore = true;
   }
 
-  getNextItems = /* istanbul ignore next */ async fetchCount => {
+  getNextItems = /* istanbul ignore next */ async (fetchCount) => {
     if (!this.hasMore) return [];
 
-    const fill_fetcher = async communityId => {
+    const fill_fetcher = async (communityId) => {
       if (
         !this.communitiesMap[communityId].more ||
         this.communitiesMap[communityId].items.length >= fetchCount
@@ -120,7 +122,7 @@ export class FetcherOfQuestionsForFollowedCommunities {
 
     const fill_fetcher_task = [];
 
-    this.communities.forEach(communityId => {
+    this.communities.forEach((communityId) => {
       fill_fetcher_task.push(fill_fetcher(communityId));
     });
 
@@ -128,7 +130,7 @@ export class FetcherOfQuestionsForFollowedCommunities {
 
     let availableItems = 0;
 
-    this.communities.forEach(communityId => {
+    this.communities.forEach((communityId) => {
       availableItems += this.communitiesMap[communityId].items.length;
     });
 
@@ -145,7 +147,7 @@ export class FetcherOfQuestionsForFollowedCommunities {
       let minId = minIdInitializer;
       let communityWithMinId;
 
-      this.communities.forEach(communityId => {
+      this.communities.forEach((communityId) => {
         if (this.communitiesMap[communityId].items.length) {
           const currId = JSBI.BigInt(
             this.communitiesMap[communityId].items[0].id,
@@ -221,6 +223,41 @@ export async function postQuestion(
     POST_QUESTION,
     [communityId, ipfsHash, postType, tags],
     2, // wait for additional confirmation to avoid 404 error when redirect to newly created post
+  );
+}
+
+export async function deleteDocumentationPost(
+  user,
+  postId,
+  documentationJSON,
+  ethereumService,
+) {
+  const ipfsLink = await saveText(JSON.stringify(documentationJSON));
+  const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
+  return await ethereumService.sendTransaction(
+    CONTRACT_CONTENT,
+    user,
+    DELETE_DOCUMENTATION_POST,
+    [postId, ipfsHash],
+    2, // wait for additional confirmation to avoid 404 error when redirect to newly created post
+  );
+}
+
+export async function updateDocumentationTree(
+  user,
+  communityId,
+  documentationJSON,
+  ethereumService,
+) {
+  const ipfsLink = await saveText(JSON.stringify(documentationJSON));
+  const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
+
+  return await ethereumService.sendTransaction(
+    CONTRACT_CONTENT,
+    user,
+    UPDATE_DOCUMENTATION_TREE,
+    [communityId, ipfsHash],
+    2,
   );
 }
 
@@ -422,7 +459,7 @@ export const getCreatedPostId = async (
 
   return bigNumberToNumber(
     events.filter(
-      event =>
+      (event) =>
         event.args.user.toLowerCase() === user.toLowerCase() &&
         Number(event.args.communityId) === Number(communityId),
     )[0].args.postId,
@@ -507,7 +544,7 @@ export const formQuestionObject = async (
   };
 };
 
-export const votingStatus = statusHistory => ({
+export const votingStatus = (statusHistory) => ({
   isUpVoted: statusHistory === UPVOTE_STATUS,
   isDownVoted: statusHistory === DOWNVOTE_STATUS,
   isVotedToDelete: false,
@@ -677,7 +714,7 @@ export const getRandomQuestions = (questions, amount) => {
       }
     } while (showingPromotedQuestionsIds.length < amount);
 
-    showingPromotedQuestionsIds.forEach(id => {
+    showingPromotedQuestionsIds.forEach((id) => {
       result.push(questions[id]);
     });
   } else {
@@ -688,11 +725,11 @@ export const getRandomQuestions = (questions, amount) => {
 };
 
 export const getQuestionTags = (question, tagList) =>
-  question.tags.map(tagId =>
-    tagList.find(tag => tag.id === `${question.communityId}-${tagId}`),
+  question.tags.map((tagId) =>
+    tagList.find((tag) => tag.id === `${question.communityId}-${tagId}`),
   );
 
-export const getHistoriesForPost = async postId => {
+export const getHistoriesForPost = async (postId) => {
   const histories = await historiesForPost(postId);
   return histories.map(
     ({

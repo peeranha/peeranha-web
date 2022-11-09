@@ -93,7 +93,7 @@ const IPFSInformation = ({ locale, ipfsHash, histories }) => {
           </thead>
 
           <tbody>
-            {formattedData.map(item => (
+            {formattedData.map((item) => (
               <tr key={item.transactionHash.props.children}>
                 {Object.keys(columns).map((column, index) => (
                   <td key={`${column}${index}`}>{item[column]}</td>

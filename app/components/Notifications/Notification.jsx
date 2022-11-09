@@ -193,39 +193,33 @@ const Notification = ({
     [ref, ref.current],
   );
 
-  const href = useMemo(
-    () => {
-      if (data.post_type === 0) {
-        return routes.expertPostView(data.question_id, data.answer_id);
-      }
-      if (data.post_type === 1) {
-        return routes.questionView(data.question_id, data.answer_id);
-      }
-      return routes.tutorialView(data.question_id, data.answer_id);
-    },
-    [data],
-  );
+  const href = useMemo(() => {
+    if (data.post_type === 0) {
+      return routes.expertPostView(data.question_id, data.answer_id);
+    }
+    if (data.post_type === 1) {
+      return routes.questionView(data.question_id, data.answer_id);
+    }
+    return routes.tutorialView(data.question_id, data.answer_id);
+  }, [data]);
 
-  const values = useMemo(
-    () => {
-      if (
-        ![
-          NOTIFICATIONS_TYPES.answerTipped,
-          NOTIFICATIONS_TYPES.questionTipped,
-        ].includes(type)
-      ) {
-        return {};
-      }
+  const values = useMemo(() => {
+    if (
+      ![
+        NOTIFICATIONS_TYPES.answerTipped,
+        NOTIFICATIONS_TYPES.questionTipped,
+      ].includes(type)
+    ) {
+      return {};
+    }
 
-      return {
-        quantity: data.quantity
-          .split(' ')
-          .map((x, i) => (i === 0 ? trimRightZeros(x) : x))
-          .join(' '),
-      };
-    },
-    [data],
-  );
+    return {
+      quantity: data.quantity
+        .split(' ')
+        .map((x, i) => (i === 0 ? trimRightZeros(x) : x))
+        .join(' '),
+    };
+  }, [data]);
 
   const isCommunityMod = Boolean(single) && Object.keys(styles).length > 0;
 

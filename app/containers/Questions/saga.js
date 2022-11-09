@@ -144,12 +144,19 @@ export function* getQuestionsWorker({
       );
     }
 
-    questionsList.forEach(question => {
+    questionsList.forEach((question) => {
       question.isGeneral = isGeneralQuestion(question);
     });
 
+    const clearQuestionsList = questionsList.filter((item) => item.title);
+
     yield put(
-      getQuestionsSuccess(questionsList, next, toUpdateQuestions, undefined),
+      getQuestionsSuccess(
+        clearQuestionsList,
+        next,
+        toUpdateQuestions,
+        undefined,
+      ),
     );
   } catch (err) {
     yield put(getQuestionsError(err));
@@ -214,7 +221,7 @@ function* downQuestionWorker({ id }) {}
 
 function* moveQuestionWorker({ id, position }) {}
 
-export default function*() {
+export default function* () {
   yield takeLatest(GET_QUESTIONS, getQuestionsWorker);
   yield takeLatest(FOLLOW_HANDLER_SUCCESS, redirectWorker);
   yield takeLatest(CHANGE_QUESTION_FILTER, changeQuestionFilterWorker);

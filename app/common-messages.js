@@ -39,6 +39,9 @@ export default defineMessages({
   expertPosts: {
     id: 'app.common.expertPosts',
   },
+  documentation: {
+    id: 'app.common.documentation',
+  },
   answers: {
     id: 'app.common.answers',
   },

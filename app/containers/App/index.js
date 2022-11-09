@@ -11,6 +11,7 @@
  * the linting exception.
  */
 
+import Documentation from 'pages/Documentation';
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ReactGA from 'react-ga';
@@ -354,6 +355,16 @@ const App = ({
           />
 
           <Route
+            path={routes.documentationCreate(':parentId')}
+            render={props => Wrapper(AskQuestion, props)}
+          />
+
+          <Route
+            path={routes.documentationCreate()}
+            render={props => Wrapper(AskQuestion, props)}
+          />
+
+          <Route
             exact
             path={routes.questionView(':id')}
             render={props => Wrapper(ViewQuestion, props)}
@@ -374,6 +385,11 @@ const App = ({
           <Route
             path={routes.questionEdit(':postType', ':questionid')}
             render={props => Wrapper(EditQuestion, props)}
+          />
+
+          <Route
+            path={routes.documentation(':sectionId')}
+            render={props => Wrapper(Documentation, props)}
           />
 
           <Route
@@ -454,6 +470,7 @@ const App = ({
 
           <Route render={props => Wrapper(NotFoundPage, props)} />
         </Switch>
+        <div id="portal-root" />
       </ThemeProvider>
     </ErrorBoundary>
   );
