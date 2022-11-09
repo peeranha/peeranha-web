@@ -8,9 +8,12 @@ import {
   singleCommunityStyles,
   singleCommunityColors,
 } from 'utils/communityManagement';
+import isEmpty from 'lodash/isEmpty';
 import { italicFont } from 'global-styles';
 import messages from 'common-messages';
 import { POST_TYPE } from './constants';
+import { showPopover } from 'utils/popover';
+import { translationMessages } from 'i18n';
 
 import {
   BORDER_SECONDARY,
@@ -31,18 +34,22 @@ export const QUESTION_TYPES = {
   GENERAL: {
     value: POST_TYPE.generalPost,
     label: 'general',
+    isDisabled: false,
   },
   EXPERT: {
     value: POST_TYPE.expertPost,
     label: 'expert',
+    isDisabled: false,
   },
   TUTORIAL: {
     value: POST_TYPE.tutorial,
     label: 'tutorial',
+    isDisabled: false,
   },
   FAQ: {
     value: POST_TYPE.faq,
     label: 'faq',
+    isDisabled: false,
   },
 };
 
@@ -137,22 +144,31 @@ const QuestionTypeField = ({
   splitInHalf,
   insideOfSection,
   error,
-  isCommunityModerator,
+  isHasRole,
+  postType,
+  postAnswers,
+  locale,
 }) => {
-  const [type, setType] = useState();
-
+  const [type, setType] = useState(postType);
+  const message = isHasRole
+    ? translationMessages[locale][messages.warningForAdmin.id]
+    : translationMessages[locale][messages.warningForUser.id];
   function chooseQuestionType({ currentTarget }) {
     const { value } = currentTarget;
     event.preventDefault();
     input.onChange(value);
     setType(value);
   }
-
+  function showMessage(e) {
+    e.preventDefault();
+    showPopover(e.currentTarget.id, message);
+  }
   // Don't show FAQ post type unless user isn't community moderator
   // const types = isCommunityModerator
   //   ? Object.values(QUESTION_TYPES)
   //   : Object.values(QUESTION_TYPES).slice(0, 3);
   const types = Object.values(QUESTION_TYPES).slice(0, 3);
+  types[2].isDisabled = !isEmpty(postAnswers) ? true : false;
 
   return (
     <QuestionTypeContainer>
@@ -166,16 +182,22 @@ const QuestionTypeField = ({
         insideOfSection={insideOfSection}
       >
         <ButtonGroup error={error}>
-          {types.map(questionType => (
+          {types.map((questionType, buttonId) => (
             <Button
+              id={buttonId}
               type={type}
               onClick={chooseQuestionType}
               value={questionType.value}
               currentValue={input.value}
               key={questionType.label}
-              disabled={disabled}
+              disabled={disabled || questionType.isDisabled}
+              onMouseOver={questionType.isDisabled && showMessage}
             >
-              <FormattedMessage {...messages[questionType.label]} />
+              <FormattedMessage
+                id={
+                  translationMessages[locale][messages[questionType.label].id]
+                }
+              />
             </Button>
           ))}
         </ButtonGroup>

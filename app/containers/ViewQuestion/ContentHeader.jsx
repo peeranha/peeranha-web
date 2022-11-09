@@ -137,6 +137,7 @@ const ContentHeader = props => {
     isChangeTypeAvailable,
     infiniteImpact,
     histories,
+    isPostContent,
   } = props;
 
   const ipfsHashValue =
@@ -332,7 +333,9 @@ const ContentHeader = props => {
           </DropdownBox>
 
           <Button
-            show={!!profile && isItWrittenByMe}
+            show={
+              (!!profile && isItWrittenByMe) || (isPostContent && isGlobalAdmin)
+            }
             onClick={editItem[0]}
             params={{ ...buttonParams, link: editItem[1] }}
             id={`redirect-to-edit-item-${answerId}-${

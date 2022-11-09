@@ -1196,6 +1196,10 @@
     "You need to select post type",
   "app.containers.QuestionForm.leaveWithoutChanges":
     "You are about to leave the page without saving your changes. Are you sure want to continue?",
+  "app.containers.QuestionForm.warningForAdmin":
+    "This post can’t be changed to Tutorial as it has replies. Please delete all replies from this post to proceed",
+  "app.containers.QuestionForm.warningForUser":
+    "This post can’t be changed to Tutorial as it has replies. Please contact support for assistance",
 
   "app.containers.AnswerForm.titleLabel": "Your Answer",
 

@@ -6,7 +6,7 @@ import { singleCommunityStyles } from 'utils/communityManagement';
 const styles = singleCommunityStyles();
 
 const Button = styled.button`
-  cursor: pointer;
+  cursor: ${x => (x.disabled ? 'not-allowed;' : 'pointer')};
   border-radius: ${styles.buttonBorderRadius || BORDER_RADIUS_M};
   text-align: center;
   transition: 0.5s;
@@ -16,7 +16,6 @@ const Button = styled.button`
   justify-content: center;
 
   position: relative;
-  pointer-events: ${x => (x.disabled ? 'none' : 'auto')};
   opacity: ${x => (x.disabled ? '0.5' : '1')};
 `;
 

@@ -75,6 +75,7 @@ export const TextEditorField = ({
     meta={meta}
     splitInHalf={splitInHalf}
     id={input.name}
+    disabled={disabled}
   >
     <Div
       disabled={disabled}

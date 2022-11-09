@@ -10,6 +10,43 @@ import {
   listConditional,
 } from 'components/QuestionForm/utils';
 
+type TypePostAnswers = {
+  author: string;
+  commentCount: number;
+  comments?: [
+    {
+      author: string;
+      id: number;
+      isDeleted: boolean;
+      postTime: number;
+      content: string;
+      ipfsHash: string;
+      propertyCount: number;
+      rating: number;
+      voitingStatus: {
+        isDownVoted: boolean;
+        isUpVoted: boolean;
+        isVotedToDelete: boolean;
+      };
+    }
+  ];
+  content: string;
+  id: number;
+  ipfsHash: string;
+  isDeleted: boolean;
+  isFirstReply: boolean;
+  isQuickReply: boolean;
+  parentReplyId: number;
+  postTime: number;
+  propertyCount: number;
+  rating: number;
+  voitingStatus: {
+    isDownVoted: boolean;
+    isUpVoted: boolean;
+    isVotedToDelete: boolean;
+  };
+};
+
 type TypeFormProps = {
   intl: any;
   change: Function;
@@ -21,6 +58,9 @@ type TypeFormProps = {
   isError: boolean;
   setIsError: Function;
   isCommunityModerator: boolean;
+  postType?: number;
+  postAnswers?: [TypePostAnswers];
+  isHasRole: boolean;
 };
 
 const TypeForm: React.FC<TypeFormProps> = ({
@@ -34,6 +74,9 @@ const TypeForm: React.FC<TypeFormProps> = ({
   isError,
   setIsError,
   isCommunityModerator,
+  postType,
+  postAnswers,
+  isHasRole,
 }): JSX.Element | null => {
   const onChange = useCallback((val: any[]) => change(FORM_TYPE, val[0]), []);
 
@@ -68,6 +111,10 @@ const TypeForm: React.FC<TypeFormProps> = ({
         splitInHalf
         error={isError}
         isCommunityModerator={isCommunityModerator}
+        postType={postType}
+        postAnswers={postAnswers}
+        locale={locale}
+        isHasRole={isHasRole}
       />
       {hasSelectedType && (
         <DescriptionList

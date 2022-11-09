@@ -45,6 +45,7 @@ export const Question = props => {
         whowasvoted: props.questionData.author.id,
       }}
       communities={props.communities}
+      isPostContent={true}
     />
   );
 };

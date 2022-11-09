@@ -630,4 +630,10 @@ export default defineMessages({
   rulesAskQuestionPopupBlock_8: {
     id: 'app.containers.AskQuestion.contentPopupBlock_8',
   },
+  warningForAdmin: {
+    id: 'app.containers.QuestionForm.warningForAdmin',
+  },
+  warningForUser: {
+    id: 'app.containers.QuestionForm.warningForUser',
+  },
 });

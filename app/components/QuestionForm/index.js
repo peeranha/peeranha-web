@@ -121,7 +121,6 @@ export const QuestionForm = ({
   doSkipExistingQuestions,
   skipExistingQuestions,
   communityQuestionsType,
-  disableCommForm,
   profile,
   isFailed,
 }) => {
@@ -178,6 +177,12 @@ export const QuestionForm = ({
       hasCommunityAdminRole(getPermissions(profile), single)) ||
     hasProtocolAdminRole(getPermissions(profile));
 
+  const isHasRole =
+    hasGlobalModeratorRole(getPermissions(profile)) ||
+    (Boolean(single) &&
+      hasCommunityModeratorRole(getPermissions(profile), single)) ||
+    hasProtocolAdminRole(getPermissions(profile));
+
   const handleSetClicked = () => setIsClickSubmit(true);
   const handleButtonClick = () => {
     handleSetClicked();
@@ -211,45 +216,51 @@ export const QuestionForm = ({
                 communities={communities}
                 change={change}
                 questionLoading={questionLoading}
-                disableCommForm={disableCommForm}
+                disableCommForm={false}
               />
 
-              {!question &&
-                ((communityQuestionsType === ANY_TYPE && (
-                  <TypeForm
-                    intl={intl}
-                    change={change}
-                    questionLoading={questionLoading}
-                    locale={locale}
-                    formValues={formValues}
-                    isError={isError}
-                    setIsError={setIsError}
-                    hasSelectedType={isSelectedType}
-                    setHasSelectedType={setIsSelectedType}
-                    isCommunityModerator={isCommunityModerator}
-                  />
-                )) ||
-                  (communityQuestionsType === GENERAL_TYPE && (
-                    <>
-                      <DescriptionList
-                        locale={locale}
-                        label={messages.generalQuestionDescriptionLabel.id}
-                        items={messages.generalQuestionDescriptionList.id}
-                      />
-                      <br />
-                    </>
-                  )) || (
-                    <>
-                      <DescriptionList
-                        locale={locale}
-                        label={messages.expertQuestionDescriptionLabel.id}
-                        items={messages.expertQuestionDescriptionList.id}
-                      />
-                      <br />
-                    </>
-                  ))}
+              {(communityQuestionsType === ANY_TYPE && (
+                <TypeForm
+                  intl={intl}
+                  change={change}
+                  questionLoading={questionLoading}
+                  locale={locale}
+                  formValues={formValues}
+                  isError={isError}
+                  setIsError={setIsError}
+                  hasSelectedType={isSelectedType}
+                  setHasSelectedType={setIsSelectedType}
+                  isCommunityModerator={isCommunityModerator}
+                  postType={question?.postType}
+                  postAnswers={question?.answers}
+                  isHasRole={isHasRole}
+                />
+              )) ||
+                (communityQuestionsType === GENERAL_TYPE && (
+                  <>
+                    <DescriptionList
+                      locale={locale}
+                      label={messages.generalQuestionDescriptionLabel.id}
+                      items={messages.generalQuestionDescriptionList.id}
+                    />
+                    <br />
+                  </>
+                )) || (
+                  <>
+                    <DescriptionList
+                      locale={locale}
+                      label={messages.expertQuestionDescriptionLabel.id}
+                      items={messages.expertQuestionDescriptionList.id}
+                    />
+                    <br />
+                  </>
+                )}
 
-              <TitleForm intl={intl} questionLoading={questionLoading} />
+              <TitleForm
+                intl={intl}
+                questionLoading={questionLoading}
+                isHasRole={isHasRole}
+              />
 
               {formValues[FORM_TITLE] &&
                 formValues[FORM_TITLE].length >= 3 &&
@@ -269,6 +280,7 @@ export const QuestionForm = ({
                 intl={intl}
                 questionLoading={questionLoading}
                 formValues={formValues}
+                isHasRole={isHasRole}
               />
 
               {!isFaq &&
@@ -330,7 +342,6 @@ QuestionForm.propTypes = {
   existingQuestions: PropTypes.array,
   doSkipExistingQuestions: PropTypes.bool,
   skipExistingQuestions: PropTypes.func,
-  disableCommForm: PropTypes.bool,
   profile: PropTypes.object,
   isFailed: PropTypes.bool,
 };
@@ -348,9 +359,6 @@ export default memo(
         const questionsType = integerProperties.find(
           prop => prop.key === KEY_QUESTIONS_TYPE,
         )?.value;
-
-        // disable community form on edit question page
-        const disableCommForm = formName === EDIT_QUESTION_FORM;
 
         return {
           profile: makeSelectProfileInfo()(state),
@@ -399,7 +407,6 @@ export default memo(
               : {}),
           },
           enableReinitialize: true,
-          disableCommForm,
         };
       },
       dispatch => ({
