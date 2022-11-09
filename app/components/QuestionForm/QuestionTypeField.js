@@ -41,7 +41,7 @@ export const QUESTION_TYPES = {
     label: 'tutorial',
   },
   FAQ: {
-    value: POST_TYPE.faq,
+    value: POST_TYPE.documentation,
     label: 'faq',
   },
 };
@@ -149,10 +149,9 @@ const QuestionTypeField = ({
   }
 
   // Don't show FAQ post type unless user isn't community moderator
-  // const types = isCommunityModerator
-  //   ? Object.values(QUESTION_TYPES)
-  //   : Object.values(QUESTION_TYPES).slice(0, 3);
-  const types = Object.values(QUESTION_TYPES).slice(0, 3);
+  const types = isCommunityModerator
+    ? Object.values(QUESTION_TYPES)
+    : Object.values(QUESTION_TYPES).slice(0, 3);
 
   return (
     <QuestionTypeContainer>
@@ -166,7 +165,7 @@ const QuestionTypeField = ({
         insideOfSection={insideOfSection}
       >
         <ButtonGroup error={error}>
-          {types.map(questionType => (
+          {types.map((questionType) => (
             <Button
               type={type}
               onClick={chooseQuestionType}
