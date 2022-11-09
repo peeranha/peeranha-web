@@ -9,6 +9,7 @@ import * as routes from 'routes-config';
 import A from 'components/A';
 import P from 'components/P';
 import TagList from 'components/TagsList';
+import BlockShadow from 'components/BlockShadow';
 import { BaseSpecial } from 'components/Base/BaseTransparent';
 import { MediumImageStyled } from 'components/Img/MediumImage';
 import SeeAllButton from 'components/Button/Outlined/InfoMedium';
@@ -80,9 +81,14 @@ const TagsBlock = styled.div`
     }
   }
 
-  :hover {
-    ${SeeAllButton} {
-      display: block;
+  @media only screen and (min-width: 769px) {
+    :hover {
+      ${SeeAllButton} {
+        display: block;
+      }
+      ${TagListBox} ul {
+        margin-right: 0;
+      }
     }
   }
 

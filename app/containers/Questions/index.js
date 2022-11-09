@@ -231,6 +231,8 @@ export const Questions = ({
           isFeed={isFeed}
           followedCommunities={followedCommunities}
           redirectToAskQuestionPage={redirectToAskQuestionPageDispatch}
+          isEmpty={questionsList.length === 0}
+          isSingleCommunityMode={single}
         />
       )}
       {questionsList.length > 0 && (

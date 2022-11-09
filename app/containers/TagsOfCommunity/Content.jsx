@@ -73,7 +73,7 @@ const Base = BaseRounded.extend`
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 100;
+    z-index: 2;
 
     ${Item} {
       max-height: 200px;

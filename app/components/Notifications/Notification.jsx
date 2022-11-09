@@ -195,10 +195,15 @@ const Notification = ({
   );
 
   const href = useMemo(
-    () =>
-      data.answer_id
-        ? routes.questionView(data.question_id, data.answer_id)
-        : routes.questionView(data.question_id),
+    () => {
+      if (data.post_type === 0) {
+        return routes.expertPostView(data.question_id, data.answer_id);
+      }
+      if (data.post_type === 1) {
+        return routes.questionView(data.question_id, data.answer_id);
+      }
+      return routes.tutorialView(data.question_id, data.answer_id);
+    },
     [data],
   );
 
