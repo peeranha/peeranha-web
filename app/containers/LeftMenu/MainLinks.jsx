@@ -33,6 +33,7 @@ import {
   singleCommunityDocumentationPosition,
 } from 'utils/communityManagement';
 
+import homeIcon from 'images/house.svg?external';
 import myFeedIcon from 'images/myFeed.svg?external';
 import communitiesIcon from 'images/communities.svg?external';
 import tagsIcon from 'images/tags.svg?external';
@@ -216,13 +217,6 @@ const MainLinks = ({
         </div>
       )}
 
-      {isBloggerMode && (
-        <A1 to={routes.detailsHomePage()} name="home" route={route}>
-          <IconLg className="mr-2" icon={homeIcon} />
-          <FormattedMessage id={messages.home.id} />
-        </A1>
-      )}
-
       <div
         id="communitySection"
         css={{
@@ -244,6 +238,20 @@ const MainLinks = ({
             COMMUNITY
           </div>
         )}
+
+        {isBloggerMode && (
+          <A1 to={routes.detailsHomePage()} name="home" route={route}>
+            <IconLg className="mr-2" icon={homeIcon} />
+            <FormattedMessage id={messages.home.id} />
+          </A1>
+        )}
+
+        <A1 to={routes.feed()} name="feed" route={route}>
+          <IconLg className="mr-2" icon={myFeedIcon} />
+          <FormattedMessage
+            id={messages[profile && !singleCommId ? 'myFeed' : 'feed'].id}
+          />
+        </A1>
 
         <A1 to={routes.questions()} name="questions" route={route}>
           <IconLg className="mr-2" icon={generalIcon} />
