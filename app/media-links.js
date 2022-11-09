@@ -21,4 +21,4 @@ const links = {
   },
 };
 
-export const getLinks = locale => links[locale] || links.en;
+export const getLinks = (locale) => links[locale] || links.en;

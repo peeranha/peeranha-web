@@ -80,10 +80,11 @@ export function getQuestionDataErr(getQuestionDataError) {
   };
 }
 
-export function deleteQuestion(questionId, ev) {
+export function deleteQuestion(questionId, isDocumentation, ev) {
   return {
     type: DELETE_QUESTION,
     questionId,
+    isDocumentation,
     buttonId: ev.currentTarget.id,
   };
 }

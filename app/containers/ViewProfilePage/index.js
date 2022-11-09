@@ -85,15 +85,12 @@ const ViewProfilePage = ({
   const path = window.location.pathname + window.location.hash;
   const userId = match.params.id;
 
-  useEffect(
-    () => {
-      setViewProfileAccountDispatch(userId);
-      getAllAchievementsDispatch();
+  useEffect(() => {
+    setViewProfileAccountDispatch(userId);
+    getAllAchievementsDispatch();
 
-      return () => resetViewProfileAccountDispatch();
-    },
-    [userId],
-  );
+    return () => resetViewProfileAccountDispatch();
+  }, [userId]);
 
   return (
     <Profile userId={userId} isLogin={account === userId}>
@@ -222,7 +219,7 @@ const withConnect = connect(
     stat: selectStat(),
     userAchievements: selectUserAchievements(),
   }),
-  dispatch => ({
+  (dispatch) => ({
     redirectToEditProfilePageDispatch: bindActionCreators(
       redirectToEditProfilePage,
       dispatch,

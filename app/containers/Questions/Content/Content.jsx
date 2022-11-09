@@ -161,15 +161,17 @@ const QI = ({
       isPromoted={isPromoted}
       isExpert={isExpert}
     >
-      <AdditionalInfo
-        correctAnswerId={bestReply}
-        answers={isSearchPage ? [] : answers}
-        rating={rating}
-        answersCount={replyCount}
-        officialAnswersCount={offAnswersCount}
-        isSearchPage={isSearchPage}
-        isTutorial={postType === POST_TYPE.tutorial}
-      />
+      {postType !== POST_TYPE.documentation && (
+        <AdditionalInfo
+          correctAnswerId={bestReply}
+          answers={isSearchPage ? [] : answers}
+          rating={rating}
+          answersCount={replyCount}
+          officialAnswersCount={offAnswersCount}
+          isSearchPage={isSearchPage}
+          isTutorial={postType === POST_TYPE.tutorial}
+        />
+      )}
       <Div>
         {displayTopQuestionMove && (
           <MoveSection

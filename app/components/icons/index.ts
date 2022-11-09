@@ -95,3 +95,6 @@ export { default as RedditGlyph } from './RedditGlyph';
 export { default as SocialEmail } from './SocialEmail';
 export { default as SocialTwitter } from './SocialTwitter';
 export { default as SocialDiscord } from './SocialDiscord';
+export { default as Pin } from './Pin';
+export { default as AddSubArticle } from './AddSubArticle';
+export { default as Save } from './Save';

@@ -4,6 +4,7 @@ import breakpoints from 'styles/breakpoints';
 export const base = css`
   line-height: 20px;
   transition: all 0.3s ease 0s;
+  borderradius: 2px;
 
   &:disabled {
     pointer-events: none;
@@ -46,15 +47,20 @@ export const variants = {
       fill: var(--color-white);
     }
   `,
+  third: css`
+    background: transparent;
+    color: var(--color-white);
+    fill: var(--color-white);
+    border: 1px solid var(--color-white);
+  `,
 };
 
 export const iconLeft = css`
   display: inline-flex;
 
   & svg {
-    width: 14px;
-    height: 14px;
+    width: 18px;
+    height: 18px;
     margin-right: 8px;
-    margin-top: 2px;
   }
 `;
