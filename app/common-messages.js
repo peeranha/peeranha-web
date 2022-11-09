@@ -633,4 +633,13 @@ export default defineMessages({
   rulesAskQuestionPopupBlock_8: {
     id: 'app.containers.AskQuestion.contentPopupBlock_8',
   },
+  weUpdatedTheApplication: {
+    id: 'app.containers.ChunkLoadError.weUpdatedTheApplication',
+  },
+  clearYourBrowser: {
+    id: 'app.containers.ChunkLoadError.clearYourBrowser',
+  },
+  holdDown: {
+    id: 'app.containers.ChunkLoadError.holdDown',
+  },
 });

@@ -1363,5 +1363,10 @@
   "app.containers.MetaTransactionAgreement.wouldYouLike":
     "Would you like us to relay your transactions and cover transaction fees?",
   "app.containers.MetaTransactionAgreement.confirm": "Yes",
-  "app.containers.MetaTransactionAgreement.cansel": "No"
+  "app.containers.MetaTransactionAgreement.cansel": "No",
+  "app.containers.ChunkLoadError.weUpdatedTheApplication":
+    "We’ve updated the application. ",
+  "app.containers.ChunkLoadError.clearYourBrowser":
+    "Clear your browser cache to restart it.  ",
+  "app.containers.ChunkLoadError.holdDown": "Hold down {ctrl} and press {f5}. "
 }
