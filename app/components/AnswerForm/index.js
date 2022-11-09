@@ -89,7 +89,7 @@ export const AnswerForm = ({
       <Field
         name={ANSWER_TYPE_FORM}
         component={Checkbox}
-        disabled={sendAnswerLoading}
+        disabled={sendAnswerLoading || isAnswered || !account}
         label={<span>{answerTypeLabel}</span>}
         previewLabel={previewLabel}
         width="90px"

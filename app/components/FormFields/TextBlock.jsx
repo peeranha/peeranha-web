@@ -23,8 +23,8 @@ const TextBlockStyled = styled.div`
   }
 
   p, li {
-    font-size: 20px;
-    line-height: 30px;
+    font-size: 16px;
+    line-height: 24px;
   }
 
   > *:not(:last-child) {
