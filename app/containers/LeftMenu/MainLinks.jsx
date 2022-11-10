@@ -214,7 +214,6 @@ const MainLinks = ({ currClientHeight, profile }) => {
           <FormattedMessage id={messages.faq.id} />
         </A1>
       )}
-      }
       {Boolean(singleCommId && hasCommunityOrProtocolAdminRole) && (
         <A1 to={routes.administration()} name="administration" route={route}>
           <IconLg className="mr-2" icon={usersIcon} fill={BORDER_PRIMARY} />
