@@ -142,7 +142,7 @@ const Box = styled.div`
 
 const MainLinks = ({ currClientHeight, profile }) => {
   const { pathname } = window.location;
-  let route = pathname.split('/').filter(x => x)[0];
+  let route = pathname.split('/').filter((x) => x)[0];
 
   const singleCommId = +isSingleCommunityWebsite();
   const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
@@ -158,7 +158,9 @@ const MainLinks = ({ currClientHeight, profile }) => {
 
   const hasCommunityOrProtocolAdminRole =
     singleCommId &&
-    (hasGlobalModeratorRole() || hasCommunityAdminRole(null, singleCommId));
+    (hasGlobalModeratorRole() ||
+      hasCommunityAdminRole(null, singleCommId) ||
+      isProtocolAdmin);
 
   return (
     <Box currClientHeight={currClientHeight}>
