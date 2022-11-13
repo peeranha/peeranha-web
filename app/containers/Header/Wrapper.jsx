@@ -10,7 +10,7 @@ import {
 export const Wrapper = styled.header`
   position: fixed;
   width: 100%;
-  height: ${x =>
+  height: ${(x) =>
     x.transactionInitialised ? HEADER_HEIGHT + LOADER_HEIGHT : HEADER_HEIGHT}px;
   background: ${BG_LIGHT};
   z-index: 10;
@@ -22,12 +22,12 @@ export const Wrapper = styled.header`
   &.sticky {
     transform: translate(
       0px,
-      -${x => (x.transactionInitialised ? HEADER_HEIGHT + LOADER_HEIGHT : HEADER_HEIGHT)}px
+      -${(x) => (x.transactionInitialised ? HEADER_HEIGHT + LOADER_HEIGHT : HEADER_HEIGHT)}px
     );
   }
 
   @media only screen and (max-width: 991px) {
-    height: ${x =>
+    height: ${(x) =>
       x.transactionInitialised
         ? MOBILE_HEADER_HEIGHT + LOADER_HEIGHT
         : MOBILE_HEADER_HEIGHT}px;
@@ -35,7 +35,7 @@ export const Wrapper = styled.header`
     &.sticky {
       transform: translate(
         0px,
-        -${x => (x.isTransactionInPending ? MOBILE_HEADER_HEIGHT + LOADER_HEIGHT : MOBILE_HEADER_HEIGHT)}px
+        -${(x) => (x.isTransactionInPending ? MOBILE_HEADER_HEIGHT + LOADER_HEIGHT : MOBILE_HEADER_HEIGHT)}px
       );
     }
   }
@@ -80,7 +80,7 @@ export const MainSubHeader = styled.div`
   align-items: center;
   box-shadow: 0 2px 4px 0 ${BORDER_SECONDARY};
   flex: 2;
-  background-color: ${props =>
+  background: ${(props) =>
     props.mainSubHeaderBgColor ? props.mainSubHeaderBgColor : ''};
 
   form {
