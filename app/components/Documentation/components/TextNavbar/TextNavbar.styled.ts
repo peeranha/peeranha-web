@@ -1,11 +1,14 @@
 import { singleCommunityColors } from 'utils/communityManagement';
+import { BORDER_RADIUS_L } from 'style-constants';
 
-const colors = singleCommunityColors();
+const communityColors = singleCommunityColors();
 
 export const styles = {
   wrapper: {
     background: 'rgb(250,250,250,1)',
     minWidth: '208px',
+    borderTopRightRadius: BORDER_RADIUS_L,
+    borderBottomRightRadius: BORDER_RADIUS_L,
 
     '@media (min-width: 720px)': {
       display: 'block',
@@ -30,7 +33,7 @@ export const styles = {
 
   navbarItemHover: {
     ':hover': {
-      color: colors.linkColor || '#F76F60',
+      color: communityColors.linkColor || 'rgb(247,111,96)',
     },
   },
 };
