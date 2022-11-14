@@ -146,9 +146,11 @@ export const hasGlobalModeratorRole = permissionsFromState => {
 };
 
 export const getCommunityRole = (role, communityId) =>
-  BigNumber.from(role)
-    .add(BigNumber.from(communityId))
-    .toHexString();
+  communityId
+    ? BigNumber.from(role)
+        .add(BigNumber.from(communityId))
+        .toHexString()
+    : [];
 
 export const isTemporaryAccount = async account => {
   const ethereumService = await selectEthereum();
