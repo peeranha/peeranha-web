@@ -3,6 +3,8 @@ import TextBlock from 'components/FormFields/TextBlock';
 import H3 from 'components/H3';
 import Wrapper from 'components/Header/Simple';
 import { DocumentationArticle } from 'pages/Documentation/types';
+import { extractStrings } from 'utils/url';
+import TextNavbar from './TextNavbar/TextNavbar';
 
 const styled = {
   border: 'none',
@@ -21,28 +23,39 @@ type ViewContentProps = {
 const ViewContent: React.FC<ViewContentProps> = ({
   documentationArticle,
   isEditDocumentation,
-}): JSX.Element => (
-  <>
-    <Wrapper
-      className="mb-to-sm-0 mb-from-sm-3"
-      css={{
-        ...(isEditDocumentation && styled),
-      }}
-    >
-      <H3>
-        <span className="d-none d-md-inline-block">
-          {documentationArticle?.title}
-        </span>
-      </H3>
-    </Wrapper>
-    <Wrapper
-      css={{
-        ...(isEditDocumentation && styled),
-      }}
-    >
-      <TextBlock content={documentationArticle?.content} />
-    </Wrapper>
-  </>
-);
+}): JSX.Element => {
+  const headers = extractStrings(['#', '\n'])(
+    documentationArticle?.content || '',
+  );
+
+  return (
+    <>
+      <Wrapper
+        className="mb-to-sm-0 mb-from-sm-3"
+        css={{
+          ...(isEditDocumentation && styled),
+        }}
+      >
+        <H3>
+          <span className="d-none d-md-inline-block">
+            {documentationArticle?.title}
+          </span>
+        </H3>
+      </Wrapper>
+      <div className="df">
+        <Wrapper
+          css={{
+            ...(isEditDocumentation && styled),
+          }}
+        >
+          <TextBlock content={documentationArticle?.content} />
+        </Wrapper>
+        {!isEditDocumentation && headers?.length > 1 && (
+          <TextNavbar headers={headers} />
+        )}
+      </div>
+    </>
+  );
+};
 
 export default ViewContent;
