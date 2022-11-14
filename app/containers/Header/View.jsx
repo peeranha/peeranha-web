@@ -1,6 +1,7 @@
 import React, { memo, useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
+import { translationMessages } from 'i18n';
 import { css } from '@emotion/react';
 import {
   BG_LIGHT,
@@ -37,8 +38,15 @@ import ButtonGroupForNotAuthorizedUser from './ButtonGroupForNotAuthorizedUser';
 import ButtonGroupForAuthorizedUser from './ButtonGroupForAuthorizedUser';
 import SearchForm from './SearchForm';
 
-import { HEADER_ID, LOADER_HEIGHT, SEARCH_FORM_ID } from './constants';
+import {
+  HEADER_ID,
+  LOADER_HEIGHT,
+  SEARCH_FORM_ID,
+  MIN_REPUTATION,
+} from './constants';
 import processIndicator from '../../images/progress-indicator.svg?external';
+import { getRatingByCommunity } from 'utils/profileManagement';
+import { showPopover } from 'utils/popover';
 
 const single = isSingleCommunityWebsite();
 const styles = singleCommunityStyles();
@@ -155,6 +163,7 @@ const View = ({
   isTransactionInPending,
   transactionHash,
   transactionInitialised,
+  locale,
 }) => {
   const [isSearchFormVisible, setSearchFormVisibility] = useState(false);
 
@@ -184,6 +193,21 @@ const View = ({
     },
     [isSearchFormVisible],
   );
+
+  const isMinusReputation =
+    getRatingByCommunity(profileInfo, single) < MIN_REPUTATION;
+
+  const showPopoverMinRating = e => {
+    e.preventDefault();
+    showPopover(
+      e.currentTarget.id,
+      translationMessages[locale][messages.reputationBelowZero.id],
+    );
+  };
+
+  const askQuestionHandler = e => {
+    isMinusReputation ? showPopoverMinRating(e) : redirectToAskQuestionPage(e);
+  };
 
   return (
     <Wrapper id={HEADER_ID} transactionInitialised={transactionInitialised}>
@@ -276,7 +300,7 @@ const View = ({
                     id="header-ask-question"
                     onClick={
                       profileInfo
-                        ? redirectToAskQuestionPage
+                        ? askQuestionHandler
                         : showLoginModalWithRedirectToAskQuestionPage
                     }
                     css={css`

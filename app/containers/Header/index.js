@@ -22,6 +22,7 @@ import { LEFT_MENU_ID } from 'containers/LeftMenu/constants';
 import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
 import { showLeftMenu } from 'containers/AppWrapper/actions';
 import { selectIsMenuVisible } from 'containers/AppWrapper/selectors';
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
 import {
   WHAT_IS_ENERGY,
@@ -86,6 +87,7 @@ export class Header extends React.PureComponent {
       isTransactionInPending,
       transactionHash,
       transactionInitialised,
+      locale,
     } = this.props;
 
     if (isMenuVisible) return null;
@@ -106,6 +108,7 @@ export class Header extends React.PureComponent {
         isTransactionInPending={isTransactionInPending}
         transactionHash={transactionHash}
         transactionInitialised={transactionInitialised}
+        locale={locale}
       />
     );
   }
@@ -133,6 +136,7 @@ const mapStateToProps = createStructuredSelector({
   isTransactionInPending: selectTransactionInPending(),
   transactionHash: selectTransactionHash(),
   transactionInitialised: selectTransactionInitialised(),
+  locale: makeSelectLocale(),
 });
 
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
