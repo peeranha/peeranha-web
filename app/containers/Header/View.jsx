@@ -24,6 +24,14 @@ import {
   singleCommunityStyles,
   singleCommunityColors,
 } from 'utils/communityManagement';
+import {
+  getPermissions,
+  hasCommunityModeratorRole,
+  hasGlobalModeratorRole,
+  hasProtocolAdminRole,
+} from 'utils/properties';
+import { getRatingByCommunity } from 'utils/profileManagement';
+import { showPopover } from 'utils/popover';
 
 import LargeButton from 'components/Button/Contained/InfoLarge';
 import Icon from 'components/Icon';
@@ -45,8 +53,6 @@ import {
   MIN_REPUTATION,
 } from './constants';
 import processIndicator from '../../images/progress-indicator.svg?external';
-import { getRatingByCommunity } from 'utils/profileManagement';
-import { showPopover } from 'utils/popover';
 
 const single = isSingleCommunityWebsite();
 const styles = singleCommunityStyles();
@@ -194,6 +200,11 @@ const View = ({
     [isSearchFormVisible],
   );
 
+  const isHasRole =
+    hasGlobalModeratorRole(getPermissions(profileInfo)) ||
+    hasProtocolAdminRole(getPermissions(profileInfo)) ||
+    hasCommunityModeratorRole(getPermissions(profileInfo), single);
+
   const isMinusReputation =
     getRatingByCommunity(profileInfo, single) < MIN_REPUTATION;
 
@@ -206,7 +217,9 @@ const View = ({
   };
 
   const askQuestionHandler = e => {
-    isMinusReputation ? showPopoverMinRating(e) : redirectToAskQuestionPage(e);
+    isMinusReputation && !isHasRole
+      ? showPopoverMinRating(e)
+      : redirectToAskQuestionPage(e);
   };
 
   return (
