@@ -218,7 +218,7 @@ export const IndexerDAOStyles = {
     btnHoverColor: '#2c001e',
     btnHeaderColor: '#5362E8',
     btnHeaderHoverColor: '#2c001e',
-    btnHeaderHoverBorder: '#fff',
+    btnHeaderHoverBorder: '2px solid #fff',
     tagColor: '#2c001e',
     localeArrowColor: '#5362E8',
     textColor: '#2c001e',
