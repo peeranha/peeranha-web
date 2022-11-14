@@ -76,6 +76,11 @@ const communitiesConfig = {
       src: SuiGlobalLogo,
       styles: SuiGlobalStyles,
     },
+    12: {
+      origin: 'https://mintstatelabs.peeranha.io',
+      src: MintStateLabsLogo,
+      styles: MintStateLabsStyles,
+    },
   },
   staging: {
     1: {
