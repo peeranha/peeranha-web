@@ -28,16 +28,21 @@ import {
 } from 'utils/accountManagement';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import { selectEthereum } from 'containers/EthereumProvider/selectors';
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
 export function* getModeratorsWorker(props: {
   communityId: number;
 }): Generator<any> {
   try {
+    const single = isSingleCommunityWebsite();
     const moderatorRole = getCommunityRole(
       COMMUNITY_MODERATOR_ROLE,
-      props.communityId,
+      props.communityId || single,
     );
-    const adminRole = getCommunityRole(COMMUNITY_ADMIN_ROLE, props.communityId);
+    const adminRole = getCommunityRole(
+      COMMUNITY_ADMIN_ROLE,
+      props.communityId || single,
+    );
     const moderators: any = yield call(getModerators, [
       moderatorRole,
       adminRole,
@@ -91,7 +96,7 @@ export function* revokeModeratorWorker(props: {
   }
 }
 
-export default function*() {
+export default function* () {
   // @ts-ignore
   yield takeEvery(
     [GET_MODERATORS, ADD_MODERATOR_SUCCESS, REVOKE_MODERATOR_SUCCESS],
