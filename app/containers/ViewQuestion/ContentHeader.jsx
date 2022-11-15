@@ -117,7 +117,7 @@ const DropdownBox = styled.div`
   position: relative;
 `;
 
-const ContentHeader = props => {
+const ContentHeader = (props) => {
   const {
     author,
     type,
@@ -142,14 +142,15 @@ const ContentHeader = props => {
   const ipfsHashValue =
     type === QUESTION_TYPE
       ? questionData.ipfsHash
-      : questionData.answers.find(answer => answer.id === answerId).ipfsHash;
+      : questionData.answers.find((answer) => answer.id === answerId).ipfsHash;
 
   const formattedHistories =
     type === QUESTION_TYPE
       ? histories
       : histories?.filter(
-          history => history.reply?.id === `${questionData.id}-${answerId}`,
+          (history) => history.reply?.id === `${questionData.id}-${answerId}`,
         );
+  const bestReplyId = questionData.bestReply;
 
   const [isModalOpen, setModalOpen] = useState(false);
   const refSharingModal = useRef(null);
@@ -184,8 +185,13 @@ const ContentHeader = props => {
     [profile, author],
   );
 
+  const isMarkedTheBest = useMemo(
+    () => (bestReplyId !== 0 ? bestReplyId === answerId : false),
+    [bestReplyId],
+  );
+
   const changeQuestionTypeWithRatingRestore = useCallback(
-    event => changeQuestionTypeDispatch(event),
+    (event) => changeQuestionTypeDispatch(event),
     [changeQuestionTypeDispatch],
   );
 
@@ -235,7 +241,7 @@ const ContentHeader = props => {
               )}
             >
               <IconSm icon={changeTypeIcon} fill={BORDER_PRIMARY} />
-              <FormattedMessage {...messages.changeQuestionType} />
+              <FormattedMessage id={messages.changeQuestionType.id} />
             </Button>
           )}
 
@@ -257,7 +263,9 @@ const ContentHeader = props => {
               show={
                 !profile ||
                 (!!profile &&
-                  (!isItWrittenByMe && !isGlobalAdmin && !infiniteImpact))
+                  !isItWrittenByMe &&
+                  !isGlobalAdmin &&
+                  !infiniteImpact)
               }
               id={`${type}_vote_to_delete_${answerId}`}
               params={buttonParams}
@@ -266,13 +274,15 @@ const ContentHeader = props => {
               isVotedToDelete={true}
             >
               <IconSm icon={blockIcon} fill={BORDER_ATTENTION_LIGHT} />
-              <FormattedMessage {...messages.voteToDelete} />
+              <FormattedMessage id={messages.voteToDelete.id} />
             </Button>
           ) : null}
 
           <div id={`${type}_delete_${answerId}`}>
             <AreYouSure
               submitAction={deleteAction}
+              isGlobalAdmin={isGlobalAdmin}
+              isMarkedTheBest={isMarkedTheBest}
               Button={({ onClick }) => (
                 <Button
                   show={
@@ -285,7 +295,7 @@ const ContentHeader = props => {
                   disabled={ids.includes(`${type}_delete_${answerId}`)}
                 >
                   <IconMd icon={deleteIcon} fill={BORDER_PRIMARY} />
-                  <FormattedMessage {...messages.deleteButton} />
+                  <FormattedMessage id={messages.deleteButton.id} />
                 </Button>
               )}
             />
@@ -299,7 +309,7 @@ const ContentHeader = props => {
                 onClick={() => setModalOpen(true)}
               >
                 <IconSm icon={shareIcon} />
-                <FormattedMessage {...messages.shareButton} />
+                <FormattedMessage id={messages.shareButton.id} />
               </Button>
 
               {isModalOpen && (
@@ -335,12 +345,10 @@ const ContentHeader = props => {
             show={!!profile && isItWrittenByMe}
             onClick={editItem[0]}
             params={{ ...buttonParams, link: editItem[1] }}
-            id={`redirect-to-edit-item-${answerId}-${
-              buttonParams.questionId
-            }-${commentId}`}
+            id={`redirect-to-edit-item-${answerId}-${buttonParams.questionId}-${commentId}`}
           >
             <IconMd icon={pencilIcon} />
-            <FormattedMessage {...messages.editButton} />
+            <FormattedMessage id={messages.editButton.id} />
           </Button>
         </ButtonContainer>
       </ItemInfo>
@@ -377,10 +385,10 @@ ContentHeader.propTypes = {
 
 export default React.memo(
   connect(
-    state => ({
+    (state) => ({
       profile: makeSelectProfileInfo()(state),
     }),
-    dispatch => ({
+    (dispatch) => ({
       changeQuestionTypeDispatch: bindActionCreators(
         changeQuestionType,
         dispatch,
