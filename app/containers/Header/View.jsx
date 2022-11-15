@@ -118,8 +118,8 @@ const ProgressIndicator = styled.div`
 `;
 
 const Button = LargeButton.extend`
-  background-color: ${x => x.bg};
-  border: ${x => (x.bg ? '1' : '0')}px solid ${BORDER_SECONDARY};
+  background-color: ${(x) => x.bg};
+  border: ${(x) => (x.bg ? '1' : '0')}px solid ${BORDER_SECONDARY};
 
   @media only screen and (max-width: 991px) {
     padding: 0;
@@ -173,42 +173,37 @@ const View = ({
 }) => {
   const [isSearchFormVisible, setSearchFormVisibility] = useState(false);
 
-  useEffect(
-    () => {
-      if (isSearchFormVisible && !single) {
-        document.getElementById(SEARCH_FORM_ID).focus();
-      }
-    },
-    [isSearchFormVisible],
-  );
+  useEffect(() => {
+    if (isSearchFormVisible && !single) {
+      document.getElementById(SEARCH_FORM_ID).focus();
+    }
+  }, [isSearchFormVisible]);
 
-  const Logo = useCallback(
-    () => {
-      if (isSearchFormVisible) return null;
+  const Logo = useCallback(() => {
+    if (isSearchFormVisible) return null;
 
-      const src = styles.withoutSubHeader
-        ? communitiesConfig[single].src
-        : peeranhaLogo;
+    const src = styles.withoutSubHeader
+      ? communitiesConfig[single].src
+      : peeranhaLogo;
 
-      return (
-        <LogoStyles to={single ? routes.feed() : routes.home()}>
-          <img src={src} alt="logo" />
-          {styles.logoText}
-        </LogoStyles>
-      );
-    },
-    [isSearchFormVisible],
-  );
+    return (
+      <LogoStyles to={single ? routes.feed() : routes.home()}>
+        <img src={src} alt="logo" />
+        {styles.logoText}
+      </LogoStyles>
+    );
+  }, [isSearchFormVisible]);
 
   const isHasRole =
     hasGlobalModeratorRole(getPermissions(profileInfo)) ||
-    hasProtocolAdminRole(getPermissions(profileInfo)) ||
-    hasCommunityModeratorRole(getPermissions(profileInfo), single);
+    (Boolean(single) &&
+      hasCommunityModeratorRole(getPermissions(profileInfo), single)) ||
+    hasProtocolAdminRole(getPermissions(profileInfo));
 
   const isMinusReputation =
     getRatingByCommunity(profileInfo, single) < MIN_REPUTATION;
 
-  const showPopoverMinRating = e => {
+  const showPopoverMinRating = (e) => {
     e.preventDefault();
     showPopover(
       e.currentTarget.id,
@@ -216,7 +211,7 @@ const View = ({
     );
   };
 
-  const askQuestionHandler = e => {
+  const askQuestionHandler = (e) => {
     isMinusReputation && !isHasRole
       ? showPopoverMinRating(e)
       : redirectToAskQuestionPage(e);
@@ -235,7 +230,11 @@ const View = ({
           >
             <IconLg
               icon={processIndicator}
-              css={css`path {fill:${colors.linkColor || TEXT_PRIMARY}}`}
+              css={css`
+                path {
+                  fill: ${colors.linkColor || TEXT_PRIMARY};
+                }
+              `}
             />
             {isTransactionInPending ? (
               <FormattedMessage
