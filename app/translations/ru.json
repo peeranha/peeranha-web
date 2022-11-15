@@ -694,8 +694,6 @@
   "app.containers.ViewQuestion.areYouSureMarkedTheBest_1": "Ваш ответ отмечен как лучший.",
   "app.containers.ViewQuestion.areYouSureMarkedTheBest_2": "Вы уверены, что хотите его удалить?",
   "app.containers.ViewQuestion.areYouSureMarkedTheBest_3": "Если Вы удалите свой ответ, Вы потеряете заработанные за него очки репутации.",
-  "app.containers.ViewQuestion.areYouSureMarkedTheBest_4": "Читать подробнее:",
-  "app.containers.ViewQuestion.areYouSureMarkedTheBest_5": "Как заработать или потерять очки репутации?",
   "app.containers.ViewQuestion.markExpertQuestionAndGetEarn": "Отметьте лучший ответ в своем вопросе и получите +2 очка рейтинга",
   "app.containers.ViewQuestion.markGeneralQuestionAndGetEarn": "Отметьте лучший ответ в своем вопросе и получите +1 очко рейтинга\"",
   "app.containers.ViewQuestion.generalQuestion": "Общий вопрос",

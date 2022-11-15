@@ -127,12 +127,6 @@ export default defineMessages({
   areYouSureMarkedTheBest_3: {
     id: 'app.containers.ViewQuestion.areYouSureMarkedTheBest_3',
   },
-  areYouSureMarkedTheBest_4: {
-    id: 'app.containers.ViewQuestion.areYouSureMarkedTheBest_4',
-  },
-  areYouSureMarkedTheBest_5: {
-    id: 'app.containers.ViewQuestion.areYouSureMarkedTheBest_5',
-  },
   markExpertQuestionAndGetEarn: {
     id: 'app.containers.ViewQuestion.markExpertQuestionAndGetEarn',
   },

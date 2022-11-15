@@ -24,14 +24,6 @@ const TheBestModalText = () => {
       <div>
         <FormattedMessage id={questionsMessages.areYouSureMarkedTheBest_3.id} />
       </div>
-      <div>
-        <FormattedMessage id={questionsMessages.areYouSureMarkedTheBest_4.id} />
-        <ADefault className="pl-1" href={routes.faq()} target="_blank">
-          <FormattedMessage
-            id={questionsMessages.areYouSureMarkedTheBest_5.id}
-          />
-        </ADefault>
-      </div>
     </>
   );
 };
