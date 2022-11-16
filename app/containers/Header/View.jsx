@@ -284,7 +284,7 @@ const View = ({
                       background: ${colors.btnHeaderColor};
                       :hover {
                         background: ${colors.btnHeaderHoverColor};
-                        border: 2px solid ${colors.btnHeaderHoverBorder};
+                        border: ${colors.btnHeaderHoverBorder};
                       }
                     `}
                   >
