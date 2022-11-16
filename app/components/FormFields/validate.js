@@ -139,7 +139,7 @@ const requiredMinReputation = (...args) => {
 
   const hasRole =
     hasGlobalModeratorRole(getPermissions(profile)) ||
-    hasCommunityModeratorRole(getPermissions(profile), id) ||
+    (id && hasCommunityModeratorRole(getPermissions(profile), id)) ||
     hasProtocolAdminRole(getPermissions(profile));
 
   const isMinusReputation = getRatingByCommunity(profile, id) < MIN_REPUTATION;
