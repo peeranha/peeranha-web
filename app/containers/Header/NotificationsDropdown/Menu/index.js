@@ -41,7 +41,7 @@ const MenuContainer = styled.div`
 
 const useDetectOutsideClick = (onClose, parentRef) => {
   const ref = useRef(null);
-  const handleClickOutside = e => {
+  const handleClickOutside = (e) => {
     if (
       ref.current &&
       !ref.current.contains(e.target) &&
@@ -69,7 +69,7 @@ const Menu = ({ notifications, onClose, parentRef, unreadCount }) => {
   return (
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events
     <div
-      onClick={e => {
+      onClick={(e) => {
         e.stopPropagation();
       }}
     >
