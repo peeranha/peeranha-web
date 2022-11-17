@@ -234,7 +234,7 @@ export const CyberconnectStyles = {
     button: {
       color: '#fff',
       background: '#0DB48C',
-      border: '3px solid #0DB48C',
+      border: '3px solid #fff',
       ':hover': {
         background: '#fff',
         color: '#000',
