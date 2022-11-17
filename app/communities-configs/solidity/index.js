@@ -200,62 +200,68 @@ export const SolidityStyles = {
   // }`,
 
   colors: {
-    mainSubHeaderBgColor: '#65AFFF',
+    mainSubHeaderBgColor: '#E5E5E5',
     mainBackground: '#F9FAFB',
-    linkColor: '#65AFFF',
-    linkCookieColor: '#65AFFF',
-    linkColorTransparent: '#65AFFF',
-    headerPrimary: '#65AFFF',
-    commentOption: '#65AFFF',
-    contentHeader: '#65AFFF',
-    blockedInfoArea: 'rgba(101, 144, 138,0.11)',
+    linkColor: 'rgba(0, 47, 167, 1)',
+    linkCookieColor: '#fff',
+    linkColorTransparent: 'rgba(0, 47, 167, 1)',
+    headerPrimary: 'rgba(0, 47, 167, 1)',
+    commentOption: 'rgba(0, 47, 167, 1)',
+    contentHeader: 'rgba(0, 47, 167, 1)',
+    blockedInfoArea: 'rgba(0, 47, 167,0.11)',
     transparentIconColor: '#fff',
-    loaderColor: '#65AFFF',
-    votingIconColor: '#65AFFF',
-    linkColorSecondary: '#65AFFF',
-    walletButton: '#65AFFF',
-    textColorShadow: '#65AFFF',
-    btnColor: '#65AFFF',
-    btnHoverColor: '#000',
-    btnHeaderColor: '#4e4a4a',
-    btnHeaderHoverColor: 'rgba(78,74,74,0.8)',
-    tagColor: '#65AFFF',
-    localeArrowColor: '#65AFFF',
-    textColor: '#65AFFF',
-    commHeadElemColor: '#4e4a4a',
+    loaderColor: 'rgba(0, 47, 167, 1)',
+    votingIconColor: 'rgba(0, 47, 167, 1)',
+    linkColorSecondary: 'rgba(0, 47, 167, 1)',
+    walletButton: 'rgba(0, 47, 167, 1)',
+    textColorShadow: 'rgba(0, 47, 167, 1)',
+    btnColor: 'rgba(0, 47, 167, 1)',
+    btnHoverColor: '#002FA7',
+    btnHeaderColor: '#002FA7',
+    btnHeaderHoverColor: 'rgba(0,47,167,0.8)',
+    tagColor: 'rgba(0, 47, 167, 1)',
+    localeArrowColor: 'rgba(0, 47, 167, 1)',
+    textColor: 'rgba(0, 47, 167, 1)',
+    commHeadElemColor: '#002FA7',
   },
   cookieConsentPopupStyles: {
-    background: '#4E4A4A',
-    color: '#fff',
+    background: 'rgba(0, 47, 167, 1)',
+    color: 'rgba(255, 255, 255, 0.85)',
     borderColor: '#fff',
     button: {
-      color: '#65AFFF',
-      border: '1px solid #65AFFF',
+      color: '#FFFFFF',
+      border: '1px solid #FFFFFF',
+
+      ':hover': {
+        color: '#002FA7',
+        backgroundColor: '#FFFFFF',
+        border: '1px solid #FFFFFF',
+      },
     },
   },
   headerHeight: 80,
-  projectBorderRadius: '15px',
+  projectBorderRadius: '5px',
   domainName,
-  communityBorderStyle: '1px solid #4e4a4a',
+  communityBorderStyle: '1px solid #002FA7',
   dropDownIconStyles: css`
     path {
-      stroke: #4e4a4a !important;
+      stroke: #002fa7 !important;
       stroke-width: 1.5px;
       fill: none !important;
     }
     circle {
-      stroke: #4e4a4a;
+      stroke: #002fa7;
       stroke-width: 1.5px;
       fill: none;
     }
   `,
   headerLoginButtonStyles: css`
-    border: 1px solid #4e4a4a;
-    color: #4e4a4a;
+    border: 1px solid #002fa7;
+    color: #002fa7;
     :hover {
-      background: #b2b2b2 !important;
+      background: #002fa7 !important;
       color: #fff !important;
-      border: 1px solid #b2b2b2 !important;
+      border: 1px solid #002fa7 !important;
     }
   `,
 };
