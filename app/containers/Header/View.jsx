@@ -282,9 +282,10 @@ const View = ({
                     }
                     css={css`
                       background: ${colors.btnHeaderColor};
+                      min-width: 130px;
                       :hover {
                         background: ${colors.btnHeaderHoverColor};
-                        border: 2px solid ${colors.btnHeaderHoverBorder};
+                        border: ${colors.btnHeaderHoverBorder};
                       }
                     `}
                   >
