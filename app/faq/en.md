@@ -108,7 +108,7 @@ Notifications are not available in the first release. This functionality will be
 
 ### What user statuses are available on Peeranha?
 
-| Status name | reputation points   |
+| Status name | Reputation points   |
 | ----------- | ------------------- |
 | Stranger    | 0 ... 99            |
 | Newbie      | 100 ... 499         |
@@ -140,7 +140,7 @@ The simple way to earn reputation points is to be helpful to a community and its
 <div id='abcd' style="text-align: center; font-weight: bold;">Expert post type</div>     
               
                                                              
-| Action or Event                                                                     | reputation points   |
+| Action or Event                                                                     | Reputation points   |
 | ----------------------------------------------------------------------------------- | :-----------------: |
 | **Expert post accepted as correct.** It means that your answer to a post was marked as ![](../images/theBest.svg), by the author of the post. You get reputation points.                                                      | 15                  | 
 | **Expert post upvoted.** It means that some of the users of a community upvoted your post. You get reputation points.                                                                               | 5                   |
@@ -150,7 +150,7 @@ The simple way to earn reputation points is to be helpful to a community and its
 
 <div style="text-align: center; font-weight: bold;">Discussion post type</div> 
 
-| Action or Event                                                                     | reputation points   |
+| Action or Event                                                                     | Reputation points   |
 | ----------------------------------------------------------------------------------- | :-----------------: |
 | **Discussion answer accepted as correct.** It means that your answer to a post was marked as ![](../images/theBest.svg) by the author of the post. You get reputation points.                                                      | 3                   |        
 | **Discussion post upvoted.** It means that some of the users of a community upvoted your post. You get reputation points.                                                                               | 1                   |    
@@ -159,7 +159,7 @@ The simple way to earn reputation points is to be helpful to a community and its
      
 <div style="text-align: center; font-weight: bold;">Tutorial post type</div> 
                                                                         
-| Action or Event                                                                     | reputation points   |
+| Action or Event                                                                     | Reputation points   |
 | ----------------------------------------------------------------------------------- | :-----------------: |
 | Tutorial upvoted. It means that some of the users found your tutorial helpful they upvoted it. You get reputation points.                                                                               | 5                   |
   
@@ -169,7 +169,7 @@ Unfortunately there’s a chance that you may lose your reputation points. It de
 **You lose points when:**
 <div style="text-align: center; font-weight: bold;">All post type</div> 
                                                                          
-| Action or Event                                                                     | reputation points   |
+| Action or Event                                                                     | Reputation points   |
 | ----------------------------------------------------------------------------------- | :-----------------: |
 | **Expert post downvoted.** It means that other users didn’t like the post for some reason, they downvoted it. The author of the post loses reputation points.                                                                    | -2                  |
 | **Expert answer downvoted.** It means that other users didn’t find the answer helpful and they downvoted it. The author of the answer loses reputation points.                                                                    | -2                  |  
@@ -190,7 +190,7 @@ No worries if you lost some reputation points. There’s a way to improve the si
 **You get extra points when:**
 <div style="text-align: center; font-weight: bold;">Expert post type</div>
                                                                                               
-| Action or Event                                                                     | reputation points   |
+| Action or Event                                                                     | Reputation points   |
 | ----------------------------------------------------------------------------------- | :-----------------: |
 | Post answered within 15 min after the post was published.                           | 5                   |
 | Answer first to a post.                                                             | 5                   |
@@ -198,7 +198,7 @@ No worries if you lost some reputation points. There’s a way to improve the si
 
 <div style="text-align: center; font-weight: bold;">Discussion post type</div>
                                                                                       
-| Action or Event                                                                     | reputation points   |
+| Action or Event                                                                     | Reputation points   |
 | ----------------------------------------------------------------------------------- | :-----------------: |
 | Post answered within 15 min after the post was published.                           | 1                   |
 | Answer first to a post.                                                             | 1                   |

@@ -52,7 +52,7 @@ const Input = styled.input`
   width: calc(100% - 10px);
   height: 100%;
 
-  cursor: ${x => (x.disabled ? 'default' : 'pointer')};
+  cursor: ${(x) => (x.disabled ? 'default' : 'pointer')};
 
   :checked + span {
     background-image: url(${checkedIcon});
@@ -68,7 +68,7 @@ export const Label = Span.extend`
   min-width: 110px;
   cursor: pointer;
   flex: 1;
-  opacity: ${x => (x.disabled ? '0.6' : '1')};
+  opacity: ${(x) => (x.disabled ? '0.6' : '1')};
 `.withComponent('label');
 
 /* eslint jsx-a11y/label-has-for: 0 */

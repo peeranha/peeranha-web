@@ -6,7 +6,7 @@ import {
   HEADER_AND_FOOTER_HEIGHT,
   MENU_HEIGHT,
   MENU_WIDTH,
-  ROW_HEIGHT,
+  ROW_HEIGHT_DROPDOWN,
 } from '../constants';
 import { BORDER_RADIUS_L } from 'style-constants';
 
@@ -23,19 +23,15 @@ const MenuContainer = styled.div`
   display: flex;
   position: absolute;
   flex-direction: column;
-  top: 60px;
-  left: 0;
+  top: 62px;
+  left: -290px;
   border-radius: ${BORDER_RADIUS_L};
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
   white-space: nowrap;
   cursor: default;
 
-  @media only screen and (max-width: 1520px) {
-    left: -75px;
-  }
-
   @media only screen and (max-width: 993px) {
-    left: -90px;
+    top: 49px;
   }
 
   @media only screen and (max-width: 767px) {
@@ -83,7 +79,7 @@ const Menu = ({ notifications, onClose, parentRef, unreadCount }) => {
           notifications={notifications}
           height={MENU_HEIGHT - HEADER_AND_FOOTER_HEIGHT}
           width={MENU_WIDTH}
-          rowHeight={ROW_HEIGHT}
+          rowHeight={ROW_HEIGHT_DROPDOWN}
         />
         <Footer empty={empty} onClose={onClose} />
       </MenuContainer>
