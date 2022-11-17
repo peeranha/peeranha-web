@@ -1,0 +1,26 @@
+<svg width="6800" height="1773.62" xmlns="http://www.w3.org/2000/svg" style="vector-effect: non-scaling-stroke;" stroke="null" data-name="Flat Logo">
+ <title style="vector-effect: non-scaling-stroke;" stroke="null">vyper-logo-flat</title>
+
+ <g stroke="null">
+  <title stroke="null">Layer 1</title>
+  <polyline stroke="null" id="svg_1" fill="#333" points="1024 886.81 768 1330.22 1024 1773.62 1280 1330.22 1024 886.81"/>
+  <polyline stroke="null" id="svg_2" fill="#666" points="1280 443.41 1024 886.81 1280 1330.22 1536 886.81 1280 443.41"/>
+  <polyline stroke="null" id="svg_3" fill="#666" points="768 443.41 512 886.81 768 1330.22 1024 886.81 768 443.41"/>
+  <polyline stroke="null" id="svg_4" fill="#8c8c8c" points="1536 0 1280 443.41 1536 886.81 1792 443.41 1536 0"/>
+  <polyline stroke="null" id="svg_5" fill="#8c8c8c" points="1152 221.7 896 221.7 768 443.41 1024 886.81 1280 443.41 1152 221.7"/>
+  <polyline stroke="null" id="svg_6" fill="#8c8c8c" points="512 0 256 443.41 512 886.81 768 443.41 512 0"/>
+  <polyline stroke="null" id="svg_7" fill="#b2b2b2" points="2048 0 1536 0 1792 443.4 2048 0"/>
+  <polyline stroke="null" id="svg_8" fill="#b2b2b2" points="512 0 0 0 256 443.4 512 0"/>
+  <text stroke="#000" 
+  font-style="normal" 
+  font-weight="100" 
+  transform="matrix(6.70025 0 0 6.70025 -10826.7 -4928.89)" 
+  xml:space="preserve" 
+  text-anchor="start" 
+  font-family: "Cabin"
+  font-size="250" 
+  id="svg_10" y="915.21851" x="1923.38893" 
+  stroke-width="0" 
+  fill="#8c8c8c">vyper</text>
+ </g>
+</svg>
