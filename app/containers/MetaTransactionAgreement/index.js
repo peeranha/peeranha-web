@@ -96,7 +96,7 @@ const withConnect = connect(
     showModal: makeSelectShowModal(),
     ethereum: makeSelectEthereum(),
   }),
-  dispatch => ({
+  (dispatch) => ({
     hideModalDispatch: bindActionCreators(hideModal, dispatch),
   }),
 );
