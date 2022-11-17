@@ -204,7 +204,7 @@ export const SolidityStyles = {
     mainBackground: '#F9FAFB',
     linkColor: '#65AFFF',
     linkCookieColor: '#65AFFF',
-    linkColorTransparent: 'rgba(101, 144, 138, 0.6);',
+    linkColorTransparent: '#65AFFF',
     headerPrimary: '#65AFFF',
     commentOption: '#65AFFF',
     contentHeader: '#65AFFF',
@@ -214,6 +214,7 @@ export const SolidityStyles = {
     votingIconColor: '#65AFFF',
     linkColorSecondary: '#65AFFF',
     walletButton: '#65AFFF',
+    textColorShadow: '#65AFFF',
     btnColor: '#65AFFF',
     btnHoverColor: '#000',
     btnHeaderColor: '#4e4a4a',
@@ -221,7 +222,7 @@ export const SolidityStyles = {
     tagColor: '#65AFFF',
     localeArrowColor: '#65AFFF',
     textColor: '#65AFFF',
-    commHeadElemColor: '#000',
+    commHeadElemColor: '#4e4a4a',
   },
   cookieConsentPopupStyles: {
     background: '#4E4A4A',
@@ -238,12 +239,12 @@ export const SolidityStyles = {
   communityBorderStyle: '1px solid #4e4a4a',
   dropDownIconStyles: css`
     path {
-      stroke: #65afff !important;
+      stroke: #4e4a4a !important;
       stroke-width: 1.5px;
       fill: none !important;
     }
     circle {
-      stroke: #65afff;
+      stroke: #4e4a4a;
       stroke-width: 1.5px;
       fill: none;
     }
