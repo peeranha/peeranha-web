@@ -41,7 +41,7 @@ export const QUESTION_TYPES = {
     label: 'tutorial',
   },
   FAQ: {
-    value: POST_TYPE.faq,
+    value: POST_TYPE.documentation,
     label: 'faq',
   },
 };
@@ -78,6 +78,8 @@ const ButtonGroup = styled.div`
   ${Styles};
   padding: 0;
   display: flex;
+  padding: 0;
+  border: ${({ error }) => !error && 'none'};
 
   @media (max-width: 576px) {
     padding-left: 0 !important;
@@ -148,10 +150,7 @@ const QuestionTypeField = ({
     setType(value);
   }
 
-  // Don't show FAQ post type unless user isn't community moderator
-  // const types = isCommunityModerator
-  //   ? Object.values(QUESTION_TYPES)
-  //   : Object.values(QUESTION_TYPES).slice(0, 3);
+  // Don't show FAQ post type;
   const types = Object.values(QUESTION_TYPES).slice(0, 3);
 
   return (
@@ -166,7 +165,7 @@ const QuestionTypeField = ({
         insideOfSection={insideOfSection}
       >
         <ButtonGroup error={error}>
-          {types.map(questionType => (
+          {types.map((questionType) => (
             <Button
               type={type}
               onClick={chooseQuestionType}

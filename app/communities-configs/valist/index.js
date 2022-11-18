@@ -212,7 +212,7 @@ export const ValistStyles = {
     commentOption: '#5850EC',
     contentHeader: '#5850EC',
     blockedInfoArea: 'rgba(255, 154, 158 ,0.11)',
-    transparentIconColor: '#fff', ////
+    transparentIconColor: '#fff',
     loaderColor: '#5850EC',
     votingIconColor: '#5850EC',
     linkColorSecondary: '#5850EC',

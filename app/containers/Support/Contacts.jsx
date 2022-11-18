@@ -24,7 +24,7 @@ import Wrapper from 'components/Header/Simple';
 import { CONTACTS_ID } from './constants';
 
 const MediaItem = Base.extend`
-  display: ${x => (x.href ? 'flex' : 'none')};
+  display: ${(x) => (x.href ? 'flex' : 'none')};
   flex-direction: column;
   flex-grow: 0;
   align-items: center;

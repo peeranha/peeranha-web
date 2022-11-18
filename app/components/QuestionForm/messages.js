@@ -28,6 +28,9 @@ export default defineMessages({
   communityLabel: {
     id: 'app.containers.QuestionForm.communityLabel',
   },
+  rootLabel: {
+    id: 'app.containers.QuestionForm.rootLabel',
+  },
   tagsLabel: {
     id: 'app.containers.QuestionForm.tagsLabel',
   },

@@ -18,14 +18,11 @@ const TopCommunitiesSection = ({ ref, single, communities }) => {
   );
   const AllCommunitiesLink = single ? ADefault : A;
 
-  useEffect(
-    () => {
-      if (single) {
-        setAllCommunitiesRoute(`${process.env.APP_LOCATION}/communities`);
-      }
-    },
-    [single],
-  );
+  useEffect(() => {
+    if (single) {
+      setAllCommunitiesRoute(`${process.env.APP_LOCATION}/communities`);
+    }
+  }, [single]);
 
   return (
     <div className="overflow-hidden" ref={ref}>
@@ -39,7 +36,7 @@ const TopCommunitiesSection = ({ ref, single, communities }) => {
       <Grid xl={5} lg={4} md={3} sm={2} xs={1}>
         {orderBy(communities, 'postCount', 'desc')
           .slice(0, 9)
-          .map(item => (
+          .map((item) => (
             <CommunityItem
               id={item.id}
               description={item.description}
