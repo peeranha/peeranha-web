@@ -23,7 +23,7 @@ import Span from 'components/Span';
 import { FormattedMessage } from 'react-intl';
 import commonMessages from 'common-messages';
 import messages from './messages';
-import { TEXT_SECONDARY } from 'style-constants';
+import { TEXT_SECONDARY, TEXT_DARK } from 'style-constants';
 
 /* eslint no-return-assign: "error" */
 class TextEditor extends React.PureComponent {
@@ -40,7 +40,10 @@ class TextEditor extends React.PureComponent {
         <MDEditor
           css={css`
             margin-bottom: 20px;
-            border-bottom: 2px solid black;
+            border-bottom: 2px solid ${TEXT_DARK};
+            textarea {
+              -webkit-text-fill-color: ${TEXT_DARK};
+            }
           `}
           disabled={this.props.disabled}
           height={400}
