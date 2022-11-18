@@ -282,10 +282,12 @@ const View = ({
                     }
                     css={css`
                       background: ${colors.btnHeaderColor};
-                      min-width: 130px;
                       :hover {
                         background: ${colors.btnHeaderHoverColor};
                         border: ${colors.btnHeaderHoverBorder};
+                      }
+                      @media only screen and (min-width: 992px) {
+                        min-width: 130px;
                       }
                     `}
                   >
