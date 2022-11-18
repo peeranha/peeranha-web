@@ -3,6 +3,7 @@ import { css } from 'styled-components';
 
 import AnkrLogo from './images/ankrBlueLogo.svg?inline';
 import AnkrSymbol from './images/ankrBlueSymbol.png';
+import favicon from '!file-loader?name=[name].[ext]!./images/favicon-ankr.ico';
 
 import RobotoRegularEOT from './fonts/Roboto-Regular.eot';
 import RobotoRegularWOFF from './fonts/Roboto-Regular.woff';
@@ -183,7 +184,7 @@ export const AnkrStyles = {
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
   signUpPageLogo: AnkrLogo,
-  AnkrSymbol,
+  favicon,
   // Hided community fonts
   // fonts: {
   //   h3LetterSpacing: '3px',
