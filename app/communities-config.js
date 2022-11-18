@@ -11,6 +11,7 @@ import CyberconnectLogo from './communities-configs/cyberconnect/images/CyberCon
 import PolywrapLogo from './communities-configs/polywrap/images/polywrap-horizontal.svg?inline';
 import ValistLogo from './communities-configs/valist/images/valist.svg?inline';
 import IndexerDAOLogo from './communities-configs/indexerDAO/images/svgviewerNew.jpg';
+import SolidityLogo from './communities-configs/solidity/images/solidity-logo.svg?inline';
 
 import { PolygonStyles } from './communities-configs/polygon';
 import { FilecoinStyles } from './communities-configs/filecoin';
@@ -25,6 +26,7 @@ import { PolywrapStyles } from './communities-configs/polywrap';
 import { ValistStyles } from './communities-configs/valist';
 import { SuiGlobalStyles } from './communities-configs/suiGlobal';
 import { IndexerDAOStyles } from './communities-configs/indexerDAO';
+import { SolidityStyles } from './communities-configs/solidity';
 
 const communitiesConfig = {
   prod: {
@@ -129,6 +131,11 @@ const communitiesConfig = {
       origin: `https://indexerdao${process.env.COOKIE_DOMAIN}`,
       src: IndexerDAOLogo,
       styles: IndexerDAOStyles,
+    },
+    5: {
+      origin: `https://solidity${process.env.COOKIE_DOMAIN}`,
+      src: SolidityLogo,
+      styles: SolidityStyles,
     },
     // 1: {
     //   origin: `https://meta${process.env.COOKIE_DOMAIN}`,
