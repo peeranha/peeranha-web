@@ -218,12 +218,13 @@ export const VyperStyles = {
     btnColor: '#2a80b9',
     btnHoverColor: '#FF9A9E',
     btnHeaderColor: '#2a80b9',
-    btnHeaderHoverColor: '#353131E7',
+    btnHeaderHoverColor: '#2A80B9D3',
     tagColor: '#353131',
     localeArrowColor: '#353131',
     textColor: '#2a80b9',
     textColorShadow: '#2a80b9',
-    commHeadElemColor: '#353131',
+    commHeadElemColor: '#2980B9',
+    newPostButtonText: '#3c3c3c',
   },
   cookieConsentPopupStyles: {
     background:
@@ -242,15 +243,15 @@ export const VyperStyles = {
   headerHeight: 80,
   projectBorderRadius: '4px',
   domainName,
-  communityBorderStyle: '2px solid #353131',
+  communityBorderStyle: '2px solid #2980B9',
   dropDownIconStyles: css`
     path {
-      stroke: #353131 !important;
+      stroke: #2980b9 !important;
       stroke-width: 1.5px;
       fill: none !important;
     }
     circle {
-      stroke: #353131;
+      stroke: #2980b9;
       stroke-width: 1.5px;
       fill: none;
     }
@@ -262,7 +263,7 @@ export const VyperStyles = {
     :hover {
       background: #353131 !important;
       color: #fff !important;
-      border: 2px solid #3c3c3c !important;
+      border: 2px solid #2a80b9 !important;
     }
   `,
 };
