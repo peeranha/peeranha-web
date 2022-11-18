@@ -7,11 +7,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import MDEditor from '@uiw/react-md-editor';
+import { css } from '@emotion/react';
 import MarkdownPreview from '@uiw/react-markdown-preview';
 import '@uiw/react-md-editor/markdown-editor.css';
 import '@uiw/react-markdown-preview/markdown.css';
 import { marked } from 'marked';
-import 'easymde/dist/easymde.min.css';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { translationMessages } from 'i18n';
@@ -38,6 +38,10 @@ class TextEditor extends React.PureComponent {
     return (
       <>
         <MDEditor
+          css={css`
+            margin-bottom: 20px;
+            border-bottom: 2px solid black;
+          `}
           disabled={this.props.disabled}
           height={400}
           locale={this.props.locale}
@@ -49,10 +53,33 @@ class TextEditor extends React.PureComponent {
           }}
           preview={'edit'}
         />
-        <Wrapper label={'Preview'} className="pl-2 pt-2">
+        <Wrapper
+          label={'Preview'}
+          className="pl-2 pt-2"
+          css={css`
+            h6 {
+              padding-bottom: 20px;
+            }
+          `}
+        >
           <PreviewWrapper>
             {this.props.value ? (
-              <MarkdownPreview source={this.props.value} />
+              <MarkdownPreview
+                source={this.props.value}
+                css={css`
+                  ol li {
+                    list-style-type: decimal;
+                  }
+                  ul li {
+                    list-style-type: disc;
+                  }
+                `}
+                rehypeRewrite={node => {
+                  if (node.tagName === 'input') {
+                    node.properties.disabled = false;
+                  }
+                }}
+              />
             ) : (
               <Span color={TEXT_SECONDARY} fontSize="14" isItalic>
                 <FormattedMessage id={commonMessages.nothingToSeeYet.id} />
