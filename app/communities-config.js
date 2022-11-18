@@ -11,6 +11,7 @@ import CyberconnectLogo from './communities-configs/cyberconnect/images/CyberCon
 import PolywrapLogo from './communities-configs/polywrap/images/polywrap-horizontal.svg?inline';
 import ValistLogo from './communities-configs/valist/images/valist.svg?inline';
 import IndexerDAOLogo from './communities-configs/indexerDAO/images/svgviewerNew.jpg';
+import AnkrLogo from './communities-configs/ankr/images/ankrBlueLogo.svg?inline';
 
 import { PolygonStyles } from './communities-configs/polygon';
 import { FilecoinStyles } from './communities-configs/filecoin';
@@ -25,6 +26,7 @@ import { PolywrapStyles } from './communities-configs/polywrap';
 import { ValistStyles } from './communities-configs/valist';
 import { SuiGlobalStyles } from './communities-configs/suiGlobal';
 import { IndexerDAOStyles } from './communities-configs/indexerDAO';
+import { AnkrStyles } from './communities-configs/ankr';
 
 const communitiesConfig = {
   prod: {
@@ -130,6 +132,11 @@ const communitiesConfig = {
       src: IndexerDAOLogo,
       styles: IndexerDAOStyles,
     },
+    4: {
+      origin: `https://ankr${process.env.COOKIE_DOMAIN}`,
+      src: AnkrLogo,
+      styles: AnkrStyles,
+    },
     // 1: {
     //   origin: `https://meta${process.env.COOKIE_DOMAIN}`,
     // },
@@ -193,8 +200,6 @@ const communitiesConfig = {
   dev: {
     1: {
       origin: 'http://localhost:31000',
-      src: PolygonLogo,
-      styles: PolygonStyles,
     },
   },
 };
