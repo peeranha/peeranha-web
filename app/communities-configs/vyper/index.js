@@ -180,7 +180,7 @@ export const VyperStyles = {
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
   signUpPageLogo: VyperLogo,
-  ValistLogo: VyperLogo,
+  VyperLogo,
   // Hided community fonts
   // fonts: {
   //   h3LetterSpacing: '3px',

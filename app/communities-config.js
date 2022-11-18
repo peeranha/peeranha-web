@@ -11,7 +11,7 @@ import CyberconnectLogo from './communities-configs/cyberconnect/images/CyberCon
 import PolywrapLogo from './communities-configs/polywrap/images/polywrap-horizontal.svg?inline';
 import ValistLogo from './communities-configs/valist/images/valist.svg?inline';
 import IndexerDAOLogo from './communities-configs/indexerDAO/images/svgviewerNew.jpg';
-import VyperLogo from './communities-configs/vyper/images/vyperLogoFlat1.svg?inline';
+import VyperLogo from './communities-configs/vyper/images/vyperLogo.svg?inline';
 
 import { PolygonStyles } from './communities-configs/polygon';
 import { FilecoinStyles } from './communities-configs/filecoin';
@@ -132,6 +132,11 @@ const communitiesConfig = {
       src: IndexerDAOLogo,
       styles: IndexerDAOStyles,
     },
+    6: {
+      origin: `https://vyper${process.env.COOKIE_DOMAIN}`,
+      src: VyperLogo,
+      styles: VyperStyles,
+    },
     // 1: {
     //   origin: `https://meta${process.env.COOKIE_DOMAIN}`,
     // },
@@ -193,10 +198,8 @@ const communitiesConfig = {
     // },
   },
   dev: {
-    2: {
-      origin: 'http://localhost:3000',
-      src: VyperLogo,
-      styles: VyperStyles,
+    1: {
+      origin: 'http://localhost:31000',
     },
   },
 };
