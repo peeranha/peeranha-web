@@ -47,7 +47,7 @@ const SelectItem = ({ input, change, label, disabled, meta, items }) => (
         <Ul>
           <li onClick={() => change([input.name], '')}>None</li>
 
-          {items.map(x => (
+          {items.map((x) => (
             <li onClick={() => change([input.name], x)} key={x}>
               {x}
             </li>

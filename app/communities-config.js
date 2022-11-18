@@ -11,6 +11,7 @@ import CyberconnectLogo from './communities-configs/cyberconnect/images/CyberCon
 import PolywrapLogo from './communities-configs/polywrap/images/polywrap-horizontal.svg?inline';
 import ValistLogo from './communities-configs/valist/images/valist.svg?inline';
 import IndexerDAOLogo from './communities-configs/indexerDAO/images/svgviewerNew.jpg';
+import SolidityLogo from './communities-configs/solidity/images/solidity-logo.svg?inline';
 
 import { PolygonStyles } from './communities-configs/polygon';
 import { FilecoinStyles } from './communities-configs/filecoin';
@@ -25,6 +26,7 @@ import { PolywrapStyles } from './communities-configs/polywrap';
 import { ValistStyles } from './communities-configs/valist';
 import { SuiGlobalStyles } from './communities-configs/suiGlobal';
 import { IndexerDAOStyles } from './communities-configs/indexerDAO';
+import { SolidityStyles } from './communities-configs/solidity';
 
 const communitiesConfig = {
   prod: {
@@ -76,15 +78,22 @@ const communitiesConfig = {
       src: SuiGlobalLogo,
       styles: SuiGlobalStyles,
     },
+    12: {
+      origin: 'https://mintstatelabs.peeranha.io',
+      src: MintStateLabsLogo,
+      styles: MintStateLabsStyles,
+    },
   },
   staging: {
     1: {
-      origin: 'https://demo-peeranha-meta.testpeeranha.io',
+      origin: 'https://demo-harmony.testpeeranha.io',
+      src: HarmonyLogo,
+      styles: HarmonyStyles,
     },
     2: {
-      origin: 'https://demo-polygon.testpeeranha.io',
-      src: PolygonLogo,
-      styles: PolygonStyles,
+      origin: 'https://demo-msl.testpeeranha.io',
+      src: MintStateLabsLogo,
+      styles: MintStateLabsStyles,
     },
     3: {
       origin: 'https://demo-filecoin.testpeeranha.io',
@@ -122,6 +131,11 @@ const communitiesConfig = {
       origin: `https://indexerdao${process.env.COOKIE_DOMAIN}`,
       src: IndexerDAOLogo,
       styles: IndexerDAOStyles,
+    },
+    5: {
+      origin: `https://solidity${process.env.COOKIE_DOMAIN}`,
+      src: SolidityLogo,
+      styles: SolidityStyles,
     },
     // 1: {
     //   origin: `https://meta${process.env.COOKIE_DOMAIN}`,
@@ -184,8 +198,10 @@ const communitiesConfig = {
     // },
   },
   dev: {
-    3: {
-      origin: 'http://localhost:3100',
+    1: {
+      origin: 'http://localhost:31000',
+      src: PolygonLogo,
+      styles: PolygonStyles,
     },
   },
 };
