@@ -132,7 +132,7 @@ const communitiesConfig = {
       src: IndexerDAOLogo,
       styles: IndexerDAOStyles,
     },
-    4: {
+    7: {
       origin: `https://ankr${process.env.COOKIE_DOMAIN}`,
       src: AnkrLogo,
       styles: AnkrStyles,
