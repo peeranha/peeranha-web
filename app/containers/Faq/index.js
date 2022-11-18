@@ -29,7 +29,7 @@ import Aside from './Aside';
 import { SECTION_ID } from './constants';
 
 export const Faq = /* istanbul ignore next */ ({ locale, faq }) => {
-  faq.blocks.splice(7, 3);
+  faq.blocks.splice(5, 5);
   faq.blocks.splice(1, 1);
   const faqForDemo = faq;
   const translations = translationMessages[locale];

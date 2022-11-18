@@ -79,6 +79,11 @@ const communitiesConfig = {
       styles: SuiGlobalStyles,
     },
     12: {
+      origin: 'https://mintstatelabs.peeranha.io',
+      src: MintStateLabsLogo,
+      styles: MintStateLabsStyles,
+    },
+    13: {
       origin: `https://aave${process.env.COOKIE_DOMAIN}`,
       src: AaveLogo,
       styles: AaveStyles,

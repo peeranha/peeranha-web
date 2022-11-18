@@ -101,8 +101,8 @@ export async function getProfileInfo(
         communityId: ratingData.communityId,
         rating:
           ratingData.communityId === communityIdForRating
-            ? newRating
-            : ratingData.rating,
+            ? ratingData.rating
+            : newRating,
       }));
     }
   }

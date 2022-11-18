@@ -197,6 +197,7 @@ export const HarmonyStyles = {
 
     linkColor: 'rgb(36,95,226)',
     linkColorTransparent: 'rgb(36,95,226)',
+    linkCookieColor: 'rgba(2, 10, 45, .9)',
     headerPrimary: 'rgb(36,95,226)',
     commentOption: 'rgb(36,95,226)',
     contentHeader: 'rgb(36,95,226)',
@@ -215,6 +216,12 @@ export const HarmonyStyles = {
     background: '#4163a5',
     color: 'rgb(254, 254, 254)',
     borderColor: 'rgb(254, 254, 254)',
+    button: {
+      ':hover': {
+        background: '#FFF',
+        color: '#4163a5',
+      },
+    },
   },
 
   dropDownIconStyles: css`
