@@ -86,9 +86,14 @@ const communitiesConfig = {
       styles: MintStateLabsStyles,
     },
     13: {
-      origin: `https://aave${process.env.COOKIE_DOMAIN}`,
+      origin: 'https://aave.peeranha.io',
       src: AaveLogo,
       styles: AaveStyles,
+    },
+    14: {
+      origin: 'https://solidity.peeranha.io',
+      src: SolidityLogo,
+      styles: SolidityStyles,
     },
   },
   staging: {
