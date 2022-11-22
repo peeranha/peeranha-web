@@ -207,7 +207,7 @@ export const VyperStyles = {
     mainBackground: '#6565651E',
     linkColor: '#2980B9',
     linkCookieColor: '#353131',
-    linkColorTransparent: '#353131',
+    linkColorTransparent: '#2980B9',
     headerPrimary: '#2980B9',
     commentOption: '#2980B9',
     contentHeader: '#2980B9',
