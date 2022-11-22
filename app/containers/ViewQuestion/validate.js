@@ -36,15 +36,15 @@ export const voteToDeleteValidator = (
     itemData = questionData;
     minEnergy = MIN_ENERGY_TO_DELETE_QUESTION;
   } else if (!item.answerId && item.commentId) {
-    itemData = questionData.comments.filter(x => x.id === item.commentId)[0];
+    itemData = questionData.comments.filter((x) => x.id === item.commentId)[0];
     minEnergy = MIN_ENERGY_TO_DELETE_COMMENT;
   } else if (item.answerId && !item.commentId) {
-    itemData = questionData.answers.filter(x => x.id === item.answerId)[0];
+    itemData = questionData.answers.filter((x) => x.id === item.answerId)[0];
     minEnergy = MIN_ENERGY_TO_DELETE_ANSWER;
   } else if (item.answerId && item.commentId) {
     itemData = questionData.answers
-      .filter(x => x.id === item.answerId)[0]
-      .comments.filter(y => y.id === item.commentId)[0];
+      .filter((x) => x.id === item.answerId)[0]
+      .comments.filter((y) => y.id === item.commentId)[0];
     minEnergy = MIN_ENERGY_TO_DELETE_COMMENT;
   }
 
@@ -83,7 +83,7 @@ export const postAnswerValidator = (
   const communityId = questionData.communityId;
 
   const isAnswered = !!questionData.answers.filter(
-    x => x.user === profileInfo.user,
+    (x) => x.user === profileInfo.user,
   ).length;
 
   let message;
@@ -141,7 +141,7 @@ export const postCommentValidator = (
   let item = questionData;
 
   if (answerId > 0) {
-    item = questionData.answers.find(x => x.id === answerId);
+    item = questionData.answers.find((x) => x.id === answerId);
   }
 
   let message;
@@ -224,7 +224,7 @@ export const upVoteValidator = (
   const MIN_ENERGY = 1;
   const communityId = questionData.communityId;
 
-  const isOwnItem = questionData.answers.filter(x => x.id === answerId);
+  const isOwnItem = questionData.answers.filter((x) => x.id === answerId);
 
   let message;
 
@@ -280,7 +280,7 @@ export const downVoteValidator = (
   const item =
     answerId === 0
       ? questionData
-      : questionData.answers.find(x => x.id === answerId);
+      : questionData.answers.find((x) => x.id === answerId);
 
   if (item.votingStatus?.isVotedToDelete) {
     message = translations[messages.cannotCompleteBecauseBlocked.id];
@@ -349,16 +349,10 @@ export const deleteAnswerValidator = (
     questionData.communityId,
   );
   let message;
-  const itemData = questionData.answers.filter(x => x.id === answerid)[0];
+  const itemData = questionData.answers.filter((x) => x.id === answerid)[0];
 
   if (itemData.votingStatus.isUpVoted && !isGlobalAdmin) {
     message = `${translations[messages.cannotCompleteBecauseVoted.id]}`;
-  } else if (
-    answerid === correctAnswerId &&
-    !isGlobalAdmin &&
-    !isCommunityModerator
-  ) {
-    message = `${translations[messages.answerIsCorrect.id]}`;
   } else if (profileInfo.energy < MIN_ENERGY) {
     message = translations[messages.notEnoughEnergy.id];
   }
@@ -379,7 +373,7 @@ export const deleteCommentValidator = (
   const MIN_ENERGY = 1;
 
   let message;
-  const itemData = questionData.comments.filter(x => x.id === commentId)[0];
+  const itemData = questionData.comments.filter((x) => x.id === commentId)[0];
 
   if (itemData?.votingStatus?.isUpVoted) {
     message = `${translations[messages.cannotCompleteBecauseVoted.id]}`;
