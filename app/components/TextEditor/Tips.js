@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { css } from '@emotion/react';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
@@ -21,6 +22,7 @@ import Label from 'components/FormFields/Label';
 
 import messages from './messages';
 import { singleCommunityColors } from 'utils/communityManagement';
+import { getLinks } from 'media-links';
 
 const colors = singleCommunityColors();
 
@@ -36,8 +38,7 @@ const Li = styled.li`
 
 const Ul = styled.ul`
   //border-bottom: 1px solid ${BORDER_SECONDARY};
-  padding-bottom: 30px;
-  margin-bottom: 25px;
+  padding-bottom: 6px;
 
   li {
     display: flex;
@@ -64,8 +65,31 @@ const Ul = styled.ul`
   }
 `;
 
+const Title = Label.extend`
+  font-size: 18px;
+`;
+
+const P = styled.p`
+  margin-bottom: 10px;
+`;
+
+const Link = styled.a`
+  line-height: 24px;
+`;
+
+const Italic = styled.span`
+  width: max-content;
+  font-style: italic;
+  margin-right: 6px;
+`;
+
+const Bold = styled.span`
+  width: max-content;
+  font-weight: 600;
+  margin-left: 6px;
+`;
+
 const messagesArray = [
-  messages.putReturnsBetweenParagraphs,
   messages.addForLineBreaks,
   messages.italicAndBold,
   messages.indentCode,
@@ -75,22 +99,47 @@ const messagesArray = [
 
 const Tips = ({ faqQuestions }) => (
   <div>
-    <Label className="mb-3">
-      <FormattedMessage {...messages.tips} />:
-    </Label>
-
+    <Title className="mb-3">
+      <FormattedMessage id={messages.tips.id} />:
+    </Title>
+    <P>
+      <FormattedMessage id={messages.markdownIsSupported.id} />
+    </P>
     <Ul>
-      {messagesArray.map(x => (
-        <li key={x.id}>
-          <FormattedMessage {...x} />{' '}
-        </li>
-      ))}
+      {messagesArray.map((x, i) => {
+        return i === 1 ? (
+          <li key={x.id}>
+            <p>
+              <Italic>
+                <FormattedMessage id={messages.italic.id} />
+              </Italic>
+              <FormattedMessage id={messages.or.id} />
+              <Bold>
+                <FormattedMessage id={messages.bold.id} />
+              </Bold>
+            </p>
+          </li>
+        ) : (
+          <li key={x.id}>
+            <FormattedMessage {...x} />{' '}
+          </li>
+        );
+      })}
     </Ul>
-
     {/* TODO: PEER-285 Hide FAQ Questions
     {faqQuestions && (
       <ul>{faqQuestions.map(x => <Li key={x.props.children}>{x}</Li>)}</ul>
     )}*/}
+    <span
+      css={css`
+        line-height: 20px;
+      `}
+    >
+      <FormattedMessage id={messages.forMoreSyntax.id} />
+      <Link href={getLinks().markdownCheatSheet} target="_blank">
+        <FormattedMessage id={messages.markdownCheatSheet.id} />
+      </Link>
+    </span>
   </div>
 );
 

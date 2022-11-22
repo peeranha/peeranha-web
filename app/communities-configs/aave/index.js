@@ -1,18 +1,18 @@
 import React from 'react';
 import { css } from 'styled-components';
 
-import CyberconnectLogo from './images/CyberConnect_logo.svg?inline';
-import favicon from '!file-loader?name=[name].[ext]!./images/logo.ico';
+import AaveLogo from './images/aaveLogoWhite.svg?inline';
+import AaveGhostGradient from './images/aaveGhostGradient.svg?inline';
+// import favicon from '!file-loader?name=[name].[ext]!./images/logo-vit.ico';
 import RobotoRegularEOT from './fonts/Roboto-Regular.eot';
 import RobotoRegularWOFF from './fonts/Roboto-Regular.woff';
 import RobotoRegularTTF from './fonts/Roboto-Regular.ttf';
-
-const domainName = 'https://polywrap.io/';
+const domainName = 'https://aave.io/';
 
 const fontSet = 'Roboto-Regular, Arial, sans-serif';
 
 export const customSubHeaderConfig = {
-  design: 'polywrap_style',
+  design: 'valist_style',
   styles: {
     bg: {
       header: '#FFFFFF',
@@ -176,13 +176,13 @@ export const customSubHeaderConfig = {
   ],
 };
 
-export const CyberconnectStyles = {
+export const AaveStyles = {
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: CyberconnectLogo,
-  favicon,
+  signUpPageLogo: AaveLogo,
+  AaveGhostGradient,
   // Hided community fonts
   // fonts: {
   //   h3LetterSpacing: '3px',
@@ -203,69 +203,69 @@ export const CyberconnectStyles = {
   // }`,
 
   colors: {
-    mainSubHeaderBgColor: '#fff',
-    mainBackground: '#F9FAFB',
-    linkColor: '#65908a',
-    linkCookieColor: '#0DB48C', ///
-    linkColorTransparent: 'rgba(101, 144, 138, 0.6);',
-    headerPrimary: '#65908a',
-    commentOption: '#65908a',
-    contentHeader: '#65908a',
-    blockedInfoArea: 'rgba(101, 144, 138,0.11)',
-    transparentIconColor: '#fff',
-    loaderColor: '#65908a',
-    votingIconColor: '#65908a',
-    linkColorSecondary: '#65908a',
-    walletButton: '#65908a',
-    btnColor: '#65908a',
-    btnHoverColor: '#000',
-    btnHeaderColor: '#000',
-    btnHeaderHoverColor: '#0DB48C',
-    tagColor: '#65908a',
-    localeArrowColor: '#65908a',
-    textColor: '#65908a',
-    textColorShadow: 'rgba(101, 144, 138, 0.6);',
-    commHeadElemColor: '#000',
+    mainSubHeaderBgColor:
+      'linear-gradient(90deg, rgba(59,182,197,1) 0%, rgba(58,32,115,1) 31%, rgba(179,84,159,1) 100%)',
+    mainBackground: 'rgba(27,32,48,0.02)',
+    linkColor: '#1b2030',
+    linkCookieColor: '#1b2030',
+    linkColorTransparent: '#1b2030',
+    headerPrimary: '#1b2030',
+    commentOption: '#1b2030',
+    contentHeader: '#1b2030',
+    blockedInfoArea: '#764A8931',
+    transparentIconColor: '#fff', ////
+    loaderColor: '#1b2030',
+    votingIconColor: '#1b2030',
+    linkColorSecondary: '#1b2030',
+    walletButton: '#1b2030',
+    btnColor: '#1b2030',
+    btnHoverColor: '#FF9A9E',
+    btnHeaderColor: '#1b2030',
+    btnHeaderHoverColor: 'rgba(27,32,48,0.56)',
+    tagColor: '#1b2030',
+    localeArrowColor: '#1b2030',
+    textColor: '#1b2030',
+    textColorShadow: '#1b2030',
+    commHeadElemColor: '#1b2030',
   },
   cookieConsentPopupStyles: {
-    background: 'linear-gradient(90deg,  #000, #65908a)',
+    background:
+      'linear-gradient(90deg, rgba(47,17,78,1) 0%, rgba(108,32,110,1) 32%, rgba(83,147,159,1) 75%, rgba(108,32,110,1) 99%)',
     color: '#fff',
     borderColor: '#fff',
     button: {
       color: '#fff',
-      background: '#0DB48C',
-      border: '3px solid #fff',
+      background: '#1b2030',
       ':hover': {
         background: '#fff',
-        color: '#000',
-        border: '3px solid #000',
+        color: '#1b2030',
       },
     },
   },
   headerHeight: 80,
-  projectBorderRadius: '0',
+  projectBorderRadius: '10px',
   domainName,
-  communityBorderStyle: '3px solid #65908a',
+  communityBorderStyle: '3px solid #1b2030',
   dropDownIconStyles: css`
     path {
-      stroke: #65908a !important;
+      stroke: #1b2030 !important;
       stroke-width: 1.5px;
       fill: none !important;
     }
     circle {
-      stroke: #65908a;
+      stroke: #1b2030;
       stroke-width: 1.5px;
       fill: none;
     }
   `,
   headerLoginButtonStyles: css`
     background: #fff;
-    border: 3px solid #000;
-    color: #000;
+    border: 2px solid #1b2030;
+    color: #1b2030;
     :hover {
-      background: #fff !important;
-      color: #0db48c !important;
-      border: 3px solid #0db48c !important;
+      background: #1b2030 !important;
+      color: #fff !important;
+      border: 2px solid #fff !important;
     }
   `,
 };

@@ -11,6 +11,8 @@ import CyberconnectLogo from './communities-configs/cyberconnect/images/CyberCon
 import PolywrapLogo from './communities-configs/polywrap/images/polywrap-horizontal.svg?inline';
 import ValistLogo from './communities-configs/valist/images/valist.svg?inline';
 import IndexerDAOLogo from './communities-configs/indexerDAO/images/svgviewerNew.jpg';
+import SolidityLogo from './communities-configs/solidity/images/solidity-logo.svg?inline';
+import AaveLogo from './communities-configs/aave/images/aaveLogoWhite.svg?inline';
 
 import { PolygonStyles } from './communities-configs/polygon';
 import { FilecoinStyles } from './communities-configs/filecoin';
@@ -25,6 +27,8 @@ import { PolywrapStyles } from './communities-configs/polywrap';
 import { ValistStyles } from './communities-configs/valist';
 import { SuiGlobalStyles } from './communities-configs/suiGlobal';
 import { IndexerDAOStyles } from './communities-configs/indexerDAO';
+import { SolidityStyles } from './communities-configs/solidity';
+import { AaveStyles } from './communities-configs/aave';
 
 const communitiesConfig = {
   prod: {
@@ -81,6 +85,16 @@ const communitiesConfig = {
       src: MintStateLabsLogo,
       styles: MintStateLabsStyles,
     },
+    13: {
+      origin: 'https://aave.peeranha.io',
+      src: AaveLogo,
+      styles: AaveStyles,
+    },
+    14: {
+      origin: 'https://solidity.peeranha.io',
+      src: SolidityLogo,
+      styles: SolidityStyles,
+    },
   },
   staging: {
     1: {
@@ -129,6 +143,16 @@ const communitiesConfig = {
       origin: `https://indexerdao${process.env.COOKIE_DOMAIN}`,
       src: IndexerDAOLogo,
       styles: IndexerDAOStyles,
+    },
+    4: {
+      origin: `https://aave${process.env.COOKIE_DOMAIN}`,
+      src: AaveLogo,
+      styles: AaveStyles,
+    },
+    5: {
+      origin: `https://solidity${process.env.COOKIE_DOMAIN}`,
+      src: SolidityLogo,
+      styles: SolidityStyles,
     },
     // 1: {
     //   origin: `https://meta${process.env.COOKIE_DOMAIN}`,
@@ -193,8 +217,8 @@ const communitiesConfig = {
   dev: {
     1: {
       origin: 'http://localhost:31000',
-      src: PolygonLogo,
-      styles: PolygonStyles,
+      src: AaveLogo,
+      styles: AaveStyles,
     },
   },
 };

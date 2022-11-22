@@ -1,18 +1,15 @@
 import React from 'react';
 import { css } from 'styled-components';
 
-import CyberconnectLogo from './images/CyberConnect_logo.svg?inline';
-import favicon from '!file-loader?name=[name].[ext]!./images/logo.ico';
-import RobotoRegularEOT from './fonts/Roboto-Regular.eot';
-import RobotoRegularWOFF from './fonts/Roboto-Regular.woff';
-import RobotoRegularTTF from './fonts/Roboto-Regular.ttf';
+import SolidityLogo from './images/solidity-logo.svg?inline';
+import favicon from './images/favicon-solidity.svg?inline';
 
-const domainName = 'https://polywrap.io/';
+const domainName = 'https://solidity.peeranha.io/';
 
 const fontSet = 'Roboto-Regular, Arial, sans-serif';
 
 export const customSubHeaderConfig = {
-  design: 'polywrap_style',
+  design: 'solidity_style',
   styles: {
     bg: {
       header: '#FFFFFF',
@@ -176,12 +173,12 @@ export const customSubHeaderConfig = {
   ],
 };
 
-export const CyberconnectStyles = {
+export const SolidityStyles = {
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: CyberconnectLogo,
+  signUpPageLogo: SolidityLogo,
   favicon,
   // Hided community fonts
   // fonts: {
@@ -203,69 +200,68 @@ export const CyberconnectStyles = {
   // }`,
 
   colors: {
-    mainSubHeaderBgColor: '#fff',
+    mainSubHeaderBgColor: '#E5E5E5',
     mainBackground: '#F9FAFB',
-    linkColor: '#65908a',
-    linkCookieColor: '#0DB48C', ///
-    linkColorTransparent: 'rgba(101, 144, 138, 0.6);',
-    headerPrimary: '#65908a',
-    commentOption: '#65908a',
-    contentHeader: '#65908a',
-    blockedInfoArea: 'rgba(101, 144, 138,0.11)',
+    linkColor: 'rgba(0, 47, 167, 1)',
+    linkCookieColor: '#fff',
+    linkColorTransparent: 'rgba(0, 47, 167, 1)',
+    headerPrimary: 'rgba(0, 47, 167, 1)',
+    commentOption: 'rgba(0, 47, 167, 1)',
+    contentHeader: 'rgba(0, 47, 167, 1)',
+    blockedInfoArea: 'rgba(0, 47, 167,0.11)',
     transparentIconColor: '#fff',
-    loaderColor: '#65908a',
-    votingIconColor: '#65908a',
-    linkColorSecondary: '#65908a',
-    walletButton: '#65908a',
-    btnColor: '#65908a',
-    btnHoverColor: '#000',
-    btnHeaderColor: '#000',
-    btnHeaderHoverColor: '#0DB48C',
-    tagColor: '#65908a',
-    localeArrowColor: '#65908a',
-    textColor: '#65908a',
-    textColorShadow: 'rgba(101, 144, 138, 0.6);',
-    commHeadElemColor: '#000',
+    loaderColor: 'rgba(0, 47, 167, 1)',
+    votingIconColor: 'rgba(0, 47, 167, 1)',
+    linkColorSecondary: 'rgba(0, 47, 167, 1)',
+    walletButton: 'rgba(0, 47, 167, 1)',
+    textColorShadow: 'rgba(0, 47, 167, 1)',
+    btnColor: 'rgba(0, 47, 167, 1)',
+    btnHoverColor: '#002FA7',
+    btnHeaderColor: '#002FA7',
+    btnHeaderHoverColor: 'rgba(0,47,167,0.8)',
+    tagColor: 'rgba(0, 47, 167, 1)',
+    localeArrowColor: 'rgba(0, 47, 167, 1)',
+    textColor: 'rgba(0, 47, 167, 1)',
+    commHeadElemColor: '#002FA7',
   },
   cookieConsentPopupStyles: {
-    background: 'linear-gradient(90deg,  #000, #65908a)',
-    color: '#fff',
+    background: 'rgba(0, 47, 167, 1)',
+    color: 'rgba(255, 255, 255, 0.85)',
     borderColor: '#fff',
     button: {
-      color: '#fff',
-      background: '#0DB48C',
-      border: '3px solid #fff',
+      color: '#FFFFFF',
+      border: '1px solid #FFFFFF',
+
       ':hover': {
-        background: '#fff',
-        color: '#000',
-        border: '3px solid #000',
+        color: '#002FA7',
+        backgroundColor: '#FFFFFF',
+        border: '1px solid #FFFFFF',
       },
     },
   },
   headerHeight: 80,
-  projectBorderRadius: '0',
+  projectBorderRadius: '5px',
   domainName,
-  communityBorderStyle: '3px solid #65908a',
+  communityBorderStyle: '1px solid #002FA7',
   dropDownIconStyles: css`
     path {
-      stroke: #65908a !important;
+      stroke: #002fa7 !important;
       stroke-width: 1.5px;
       fill: none !important;
     }
     circle {
-      stroke: #65908a;
+      stroke: #002fa7;
       stroke-width: 1.5px;
       fill: none;
     }
   `,
   headerLoginButtonStyles: css`
-    background: #fff;
-    border: 3px solid #000;
-    color: #000;
+    border: 1px solid #002fa7;
+    color: #002fa7;
     :hover {
-      background: #fff !important;
-      color: #0db48c !important;
-      border: 3px solid #0db48c !important;
+      background: #002fa7 !important;
+      color: #fff !important;
+      border: 1px solid #002fa7 !important;
     }
   `,
 };
