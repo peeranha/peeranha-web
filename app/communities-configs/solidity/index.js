@@ -1,15 +1,15 @@
 import React from 'react';
 import { css } from 'styled-components';
 
-import IndexerDAOLogo from './images/indDao1.svg?inline';
-import favicon from '!file-loader?name=[name].[ext]!./images/dao.ico';
+import SolidityLogo from './images/solidity-logo.svg?inline';
+import favicon from './images/favicon-solidity.svg?inline';
 
-const domainName = 'https://barracuda.io/indexerdao';
+const domainName = 'https://solidity.peeranha.io/';
 
 const fontSet = 'Roboto-Regular, Arial, sans-serif';
 
 export const customSubHeaderConfig = {
-  design: 'suiGlobal_style',
+  design: 'solidity_style',
   styles: {
     bg: {
       header: '#FFFFFF',
@@ -173,12 +173,12 @@ export const customSubHeaderConfig = {
   ],
 };
 
-export const IndexerDAOStyles = {
+export const SolidityStyles = {
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: IndexerDAOLogo,
+  signUpPageLogo: SolidityLogo,
   favicon,
   // Hided community fonts
   // fonts: {
@@ -200,70 +200,68 @@ export const IndexerDAOStyles = {
   // }`,
 
   colors: {
-    mainSubHeaderBgColor: '#2C001E',
-    mainBackground: '#F5F5F5',
-    linkColor: '#6c3d60',
-    linkCookieColor: '#5362e8',
-    linkColorTransparent: '#2c001e',
-    headerPrimary: '#6c3d60',
-    commentOption: '#2c001e',
-    contentHeader: '#2c001e',
-    blockedInfoArea: 'rgba(181, 232, 83, 0.4)',
-    transparentIconColor: '#FFFF',
-    loaderColor: '#2c001e',
-    votingIconColor: '#2c001e',
-    linkColorSecondary: '#2c001e',
-    walletButton: '#2c001e',
-    btnColor: '#2c001e',
-    btnHoverColor: '#2c001e',
-    btnHeaderColor: '#5362E8',
-    btnHeaderHoverColor: '#2c001e',
-    btnHeaderHoverBorder: '2px solid #fff',
-    tagColor: '#2c001e',
-    localeArrowColor: '#5362E8',
-    textColor: '#2c001e',
-    textColorShadow: '#2c001e',
-    commHeadElemColor: '#5362E8',
-    darkBlue: '#1a1c20',
+    mainSubHeaderBgColor: '#E5E5E5',
+    mainBackground: '#F9FAFB',
+    linkColor: 'rgba(0, 47, 167, 1)',
+    linkCookieColor: '#fff',
+    linkColorTransparent: 'rgba(0, 47, 167, 1)',
+    headerPrimary: 'rgba(0, 47, 167, 1)',
+    commentOption: 'rgba(0, 47, 167, 1)',
+    contentHeader: 'rgba(0, 47, 167, 1)',
+    blockedInfoArea: 'rgba(0, 47, 167,0.11)',
+    transparentIconColor: '#fff',
+    loaderColor: 'rgba(0, 47, 167, 1)',
+    votingIconColor: 'rgba(0, 47, 167, 1)',
+    linkColorSecondary: 'rgba(0, 47, 167, 1)',
+    walletButton: 'rgba(0, 47, 167, 1)',
+    textColorShadow: 'rgba(0, 47, 167, 1)',
+    btnColor: 'rgba(0, 47, 167, 1)',
+    btnHoverColor: '#002FA7',
+    btnHeaderColor: '#002FA7',
+    btnHeaderHoverColor: 'rgba(0,47,167,0.8)',
+    tagColor: 'rgba(0, 47, 167, 1)',
+    localeArrowColor: 'rgba(0, 47, 167, 1)',
+    textColor: 'rgba(0, 47, 167, 1)',
+    commHeadElemColor: '#002FA7',
   },
   cookieConsentPopupStyles: {
-    background: 'linear-gradient(90deg, #2C001E, #6c3d60)',
-    color: '#F3F3F3',
-
+    background: 'rgba(0, 47, 167, 1)',
+    color: 'rgba(255, 255, 255, 0.85)',
+    borderColor: '#fff',
     button: {
-      color: '#5362E8',
-      borderColor: '#5362E8',
+      color: '#FFFFFF',
+      border: '1px solid #FFFFFF',
 
-      background: 'none',
       ':hover': {
-        background: '#5362E8',
-        color: '#fff',
+        color: '#002FA7',
+        backgroundColor: '#FFFFFF',
+        border: '1px solid #FFFFFF',
       },
     },
   },
   headerHeight: 80,
-  projectBorderRadius: '20px',
+  projectBorderRadius: '5px',
   domainName,
-  communityBorderStyle: '2px solid #5362E8',
+  communityBorderStyle: '1px solid #002FA7',
   dropDownIconStyles: css`
     path {
-      stroke: #5362e8 !important;
+      stroke: #002fa7 !important;
       stroke-width: 1.5px;
       fill: none !important;
     }
     circle {
-      stroke: #5362e8;
+      stroke: #002fa7;
       stroke-width: 1.5px;
       fill: none;
     }
   `,
   headerLoginButtonStyles: css`
-    border: 2px solid #5362e8;
-    color: #5362e8;
+    border: 1px solid #002fa7;
+    color: #002fa7;
     :hover {
-      background: #5362e8 !important;
+      background: #002fa7 !important;
       color: #fff !important;
-      border: 2px solid #5362e8 !important;
+      border: 1px solid #002fa7 !important;
     }
   `,
 };

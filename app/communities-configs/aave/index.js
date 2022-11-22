@@ -1,15 +1,18 @@
 import React from 'react';
 import { css } from 'styled-components';
 
-import IndexerDAOLogo from './images/indDao1.svg?inline';
-import favicon from '!file-loader?name=[name].[ext]!./images/dao.ico';
-
-const domainName = 'https://barracuda.io/indexerdao';
+import AaveLogo from './images/aaveLogoWhite.svg?inline';
+import AaveGhostGradient from './images/aaveGhostGradient.svg?inline';
+import favicon from '!file-loader?name=[name].[ext]!./images/favicon-aave.ico';
+import RobotoRegularEOT from './fonts/Roboto-Regular.eot';
+import RobotoRegularWOFF from './fonts/Roboto-Regular.woff';
+import RobotoRegularTTF from './fonts/Roboto-Regular.ttf';
+const domainName = 'https://aave.io/';
 
 const fontSet = 'Roboto-Regular, Arial, sans-serif';
 
 export const customSubHeaderConfig = {
-  design: 'suiGlobal_style',
+  design: 'valist_style',
   styles: {
     bg: {
       header: '#FFFFFF',
@@ -173,12 +176,12 @@ export const customSubHeaderConfig = {
   ],
 };
 
-export const IndexerDAOStyles = {
+export const AaveStyles = {
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: IndexerDAOLogo,
+  signUpPageLogo: AaveLogo,
   favicon,
   // Hided community fonts
   // fonts: {
@@ -200,70 +203,69 @@ export const IndexerDAOStyles = {
   // }`,
 
   colors: {
-    mainSubHeaderBgColor: '#2C001E',
-    mainBackground: '#F5F5F5',
-    linkColor: '#6c3d60',
-    linkCookieColor: '#5362e8',
-    linkColorTransparent: '#2c001e',
-    headerPrimary: '#6c3d60',
-    commentOption: '#2c001e',
-    contentHeader: '#2c001e',
-    blockedInfoArea: 'rgba(181, 232, 83, 0.4)',
-    transparentIconColor: '#FFFF',
-    loaderColor: '#2c001e',
-    votingIconColor: '#2c001e',
-    linkColorSecondary: '#2c001e',
-    walletButton: '#2c001e',
-    btnColor: '#2c001e',
-    btnHoverColor: '#2c001e',
-    btnHeaderColor: '#5362E8',
-    btnHeaderHoverColor: '#2c001e',
-    btnHeaderHoverBorder: '2px solid #fff',
-    tagColor: '#2c001e',
-    localeArrowColor: '#5362E8',
-    textColor: '#2c001e',
-    textColorShadow: '#2c001e',
-    commHeadElemColor: '#5362E8',
-    darkBlue: '#1a1c20',
+    mainSubHeaderBgColor:
+      'linear-gradient(90deg, rgba(59,182,197,1) 0%, rgba(58,32,115,1) 31%, rgba(179,84,159,1) 100%)',
+    mainBackground: 'rgba(27,32,48,0.02)',
+    linkColor: '#1b2030',
+    linkCookieColor: '#1b2030',
+    linkColorTransparent: '#1b2030',
+    headerPrimary: '#1b2030',
+    commentOption: '#1b2030',
+    contentHeader: '#1b2030',
+    blockedInfoArea: '#764A8931',
+    transparentIconColor: '#fff', ////
+    loaderColor: '#1b2030',
+    votingIconColor: '#1b2030',
+    linkColorSecondary: '#1b2030',
+    walletButton: '#1b2030',
+    btnColor: '#1b2030',
+    btnHoverColor: '#FF9A9E',
+    btnHeaderColor: '#1b2030',
+    btnHeaderHoverColor: 'rgba(27,32,48,0.56)',
+    tagColor: '#1b2030',
+    localeArrowColor: '#1b2030',
+    textColor: '#1b2030',
+    textColorShadow: '#1b2030',
+    commHeadElemColor: '#1b2030',
   },
   cookieConsentPopupStyles: {
-    background: 'linear-gradient(90deg, #2C001E, #6c3d60)',
-    color: '#F3F3F3',
-
+    background:
+      'linear-gradient(90deg, rgba(47,17,78,1) 0%, rgba(108,32,110,1) 32%, rgba(83,147,159,1) 75%, rgba(108,32,110,1) 99%)',
+    color: '#fff',
+    borderColor: '#fff',
     button: {
-      color: '#5362E8',
-      borderColor: '#5362E8',
-
-      background: 'none',
+      color: '#fff',
+      background: '#1b2030',
       ':hover': {
-        background: '#5362E8',
-        color: '#fff',
+        background: '#fff',
+        color: '#1b2030',
       },
     },
   },
   headerHeight: 80,
-  projectBorderRadius: '20px',
+  projectBorderRadius: '10px',
   domainName,
-  communityBorderStyle: '2px solid #5362E8',
+  communityBorderStyle: '3px solid #1b2030',
   dropDownIconStyles: css`
     path {
-      stroke: #5362e8 !important;
+      stroke: #1b2030 !important;
       stroke-width: 1.5px;
       fill: none !important;
     }
     circle {
-      stroke: #5362e8;
+      stroke: #1b2030;
       stroke-width: 1.5px;
       fill: none;
     }
   `,
   headerLoginButtonStyles: css`
-    border: 2px solid #5362e8;
-    color: #5362e8;
+    background: #fff;
+    border: 2px solid #1b2030;
+    color: #1b2030;
     :hover {
-      background: #5362e8 !important;
+      background: #1b2030 !important;
       color: #fff !important;
-      border: 2px solid #5362e8 !important;
+      border: 2px solid #fff !important;
     }
   `,
 };
