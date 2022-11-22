@@ -23,19 +23,15 @@ const MenuContainer = styled.div`
   display: flex;
   position: absolute;
   flex-direction: column;
-  top: 60px;
-  left: 0;
+  top: 62px;
+  left: -290px;
   border-radius: ${BORDER_RADIUS_L};
   box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.3);
   white-space: nowrap;
   cursor: default;
 
-  @media only screen and (max-width: 1520px) {
-    left: -75px;
-  }
-
   @media only screen and (max-width: 993px) {
-    left: -90px;
+    top: 49px;
   }
 
   @media only screen and (max-width: 767px) {
