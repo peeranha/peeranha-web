@@ -13,23 +13,21 @@ import {
 type TypePostAnswers = {
   author: string;
   commentCount: number;
-  comments?: [
-    {
-      author: string;
-      id: number;
-      isDeleted: boolean;
-      postTime: number;
-      content: string;
-      ipfsHash: string;
-      propertyCount: number;
-      rating: number;
-      voitingStatus: {
-        isDownVoted: boolean;
-        isUpVoted: boolean;
-        isVotedToDelete: boolean;
-      };
-    }
-  ];
+  comments?: Array<{
+    author: string;
+    id: number;
+    isDeleted: boolean;
+    postTime: number;
+    content: string;
+    ipfsHash: string;
+    propertyCount: number;
+    rating: number;
+    voitingStatus: {
+      isDownVoted: boolean;
+      isUpVoted: boolean;
+      isVotedToDelete: boolean;
+    };
+  }>;
   content: string;
   id: number;
   ipfsHash: string;
@@ -59,7 +57,7 @@ type TypeFormProps = {
   setIsError: Function;
   isCommunityModerator: boolean;
   postType?: number;
-  postAnswers?: [TypePostAnswers];
+  postAnswers?: Array<TypePostAnswers>;
   isHasRole: boolean;
 };
 
