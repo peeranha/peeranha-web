@@ -183,6 +183,7 @@ export const customSubHeaderConfig = {
 };
 
 export const MintStateLabsStyles = {
+  documentationPosition: 'top',
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
@@ -212,7 +213,7 @@ export const MintStateLabsStyles = {
     mainSubHeaderBgColor: '#282828',
     mainBackground: '#F5F5F5',
     linkColor: '#53A6EC',
-    linkCoolieColor: '#5C23D4',
+    linkCookieColor: '#5C23D4',
     linkColorTransparent: '#53A6EC',
     headerPrimary: '#53A6EC',
     commentOption: '#53A6EC',

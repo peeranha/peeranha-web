@@ -1,5 +1,13 @@
+import { css } from '@emotion/react';
+import { HEADER_HEIGHT } from 'containers/Header/constants';
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import {
+  BG_PRIMARY_BLANKET,
+  BG_PRIMARY_SPECIAL,
+  BORDER_PRIMARY_DARK,
+  SCROLLBAR_COLOR,
+} from 'style-constants';
 
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
@@ -23,6 +31,14 @@ const View = ({
   stakedInCurrentPeriod,
   stakedInNextPeriod,
   boost,
+  documentationMenu,
+  redirectToEditQuestionPage,
+  redirectToPostDocumentationPage,
+  deleteQuestion,
+  match,
+  toggleEditDocumentation,
+  isEditDocumentation,
+  pinnedItemMenu,
 }) => {
   const [currClientHeight, setClientHeight] = useState();
 
@@ -38,7 +54,38 @@ const View = ({
   }, []);
 
   return (
-    <ViewStyled id={LEFT_MENU_ID} single={single} isMenuVisible={isMenuVisible}>
+    <ViewStyled
+      id={LEFT_MENU_ID}
+      single={single}
+      isMenuVisible={isMenuVisible}
+      css={css`
+        height: calc(100vh - ${HEADER_HEIGHT + 30}px);
+        overflow: hidden;
+        padding-right: 6px;
+
+        :hover {
+          overflow-y: scroll;
+          padding-right: 0;
+        }
+
+        ::-webkit-scrollbar {
+          width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+          background: ${BG_PRIMARY_BLANKET};
+        }
+
+        ::-webkit-scrollbar-thumb {
+          background: rgba(53, 74, 137, 0.25);
+          border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+          background: rgba(53, 74, 137, 0.5);
+        }
+      `}
+    >
       <MobileAutorizationButtons
         profile={profile}
         isMenuVisible={isMenuVisible}
@@ -47,18 +94,30 @@ const View = ({
 
       <MobileLinksInProfile profile={profile} isMenuVisible={isMenuVisible} />
 
-      <MobileLinksInWallet
-        profile={profile}
-        isMenuVisible={isMenuVisible}
-        balance={balance}
-        stakedInCurrentPeriod={stakedInCurrentPeriod}
-        stakedInNextPeriod={stakedInNextPeriod}
-        boost={boost}
-      />
+      {/* TODO: return if WalletDropdown will be needed in production */}
+      {/* <MobileLinksInWallet */}
+      {/*  profile={profile} */}
+      {/*  isMenuVisible={isMenuVisible} */}
+      {/*  balance={balance} */}
+      {/*  stakedInCurrentPeriod={stakedInCurrentPeriod} */}
+      {/*  stakedInNextPeriod={stakedInNextPeriod} */}
+      {/*  boost={boost} */}
+      {/* /> */}
 
       <MobileAdditionalLinks profile={profile} isMenuVisible={isMenuVisible} />
 
-      <MainLinks currClientHeight={currClientHeight} profile={profile} />
+      <MainLinks
+        currClientHeight={currClientHeight}
+        profile={profile}
+        documentationMenu={documentationMenu}
+        redirectToEditQuestionPage={redirectToEditQuestionPage}
+        redirectToPostDocumentationPage={redirectToPostDocumentationPage}
+        deleteQuestion={deleteQuestion}
+        match={match}
+        toggleEditDocumentation={toggleEditDocumentation}
+        isEditDocumentation={isEditDocumentation}
+        pinnedItemMenu={pinnedItemMenu}
+      />
 
       <AdditionalLinks currClientHeight={currClientHeight} />
     </ViewStyled>
@@ -70,7 +129,7 @@ View.propTypes = {
   balance: PropTypes.number,
   stakedInCurrentPeriod: PropTypes.number,
   stakedInNextPeriod: PropTypes.number,
-  boost: PropTypes.object,
+  boost: PropTypes.number,
   isMenuVisible: PropTypes.bool,
   showLoginModal: PropTypes.func,
 };

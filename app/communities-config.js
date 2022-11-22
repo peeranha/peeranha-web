@@ -3,9 +3,14 @@ import PolygonLogo from './communities-configs/polygon/images/polygon-logo.svg?i
 import FunctionlandLogo from './communities-configs/functionland/images/functionland-logo.svg?inline';
 import MintStateLabsLogo from './communities-configs/mintStateLabs/images/MSL-LogoMain.svg?inline';
 import SuiLogo from './communities-configs/sui/images/sui-logo.svg?inline';
+import SuiGlobalLogo from './communities-configs/suiGlobal/images/suiGlobal.svg?inline';
 import FilebaseLogo from './communities-configs/filebase/images/filebaselogo.svg?inline';
 import HarmonyLogo from './communities-configs/harmony/images/harmony-logo.svg?inline';
 import KoiiLogo from './communities-configs/koii/images/koii-logo.svg?inline';
+import CyberconnectLogo from './communities-configs/cyberconnect/images/CyberConnect_logo.svg?inline';
+import PolywrapLogo from './communities-configs/polywrap/images/polywrap-horizontal.svg?inline';
+import ValistLogo from './communities-configs/valist/images/valist.svg?inline';
+import IndexerDAOLogo from './communities-configs/indexerDAO/images/svgviewerNew.jpg';
 
 import { PolygonStyles } from './communities-configs/polygon';
 import { FilecoinStyles } from './communities-configs/filecoin';
@@ -15,6 +20,11 @@ import { SuiStyles } from './communities-configs/sui';
 import { FilebaseStyles } from './communities-configs/filebase';
 import { HarmonyStyles } from './communities-configs/harmony';
 import { KoiiStyles } from './communities-configs/koii';
+import { CyberconnectStyles } from './communities-configs/cyberconnect';
+import { PolywrapStyles } from './communities-configs/polywrap';
+import { ValistStyles } from './communities-configs/valist';
+import { SuiGlobalStyles } from './communities-configs/suiGlobal';
+import { IndexerDAOStyles } from './communities-configs/indexerDAO';
 
 const communitiesConfig = {
   prod: {
@@ -46,15 +56,42 @@ const communitiesConfig = {
       src: FilebaseLogo,
       styles: FilebaseStyles,
     },
+    8: {
+      origin: 'https://polywrap.peeranha.io',
+      src: PolywrapLogo,
+      styles: PolywrapStyles,
+    },
+    9: {
+      origin: 'https://cyberconnect.peeranha.io',
+      src: CyberconnectLogo,
+      styles: CyberconnectStyles,
+    },
+    10: {
+      origin: 'https://valist.peeranha.io',
+      src: ValistLogo,
+      styles: ValistStyles,
+    },
+    11: {
+      origin: 'https://suiglobal.peeranha.io',
+      src: SuiGlobalLogo,
+      styles: SuiGlobalStyles,
+    },
+    12: {
+      origin: 'https://mintstatelabs.peeranha.io',
+      src: MintStateLabsLogo,
+      styles: MintStateLabsStyles,
+    },
   },
   staging: {
     1: {
-      origin: 'https://demo-peeranha-meta.testpeeranha.io',
+      origin: 'https://demo-harmony.testpeeranha.io',
+      src: HarmonyLogo,
+      styles: HarmonyStyles,
     },
     2: {
-      origin: 'https://demo-polygon.testpeeranha.io',
-      src: PolygonLogo,
-      styles: PolygonStyles,
+      origin: 'https://demo-msl.testpeeranha.io',
+      src: MintStateLabsLogo,
+      styles: MintStateLabsStyles,
     },
     3: {
       origin: 'https://demo-filecoin.testpeeranha.io',
@@ -79,58 +116,85 @@ const communitiesConfig = {
   },
   test: {
     1: {
-      origin: `https://meta${process.env.COOKIE_DOMAIN}`,
-    },
-    2: {
-      origin: `https://polygon${process.env.COOKIE_DOMAIN}`,
-      src: PolygonLogo,
-      styles: PolygonStyles,
-    },
-    3: {
-      origin: `https://filecoin${process.env.COOKIE_DOMAIN}`,
-      src: FileiconLogo,
-      styles: FilecoinStyles,
-    },
-    4: {
-      origin: `https://community${process.env.COOKIE_DOMAIN}`,
-    },
-    7: {
-      origin: `https://fxland${process.env.COOKIE_DOMAIN}`,
-      src: FunctionlandLogo,
-      styles: FunctionlandStyles,
-    },
-    8: {
       origin: `https://mintstatelabs${process.env.COOKIE_DOMAIN}`,
       src: MintStateLabsLogo,
       styles: MintStateLabsStyles,
     },
-    10: {
-      origin: `https://sui${process.env.COOKIE_DOMAIN}`,
-      src: SuiLogo,
-      styles: SuiStyles,
+    2: {
+      origin: `https://suiglobal${process.env.COOKIE_DOMAIN}`,
+      src: SuiGlobalLogo,
+      styles: SuiGlobalStyles,
     },
-    12: {
-      origin: `https://koii${process.env.COOKIE_DOMAIN}`,
-      src: KoiiLogo,
-      styles: KoiiStyles,
+    3: {
+      origin: `https://indexerdao${process.env.COOKIE_DOMAIN}`,
+      src: IndexerDAOLogo,
+      styles: IndexerDAOStyles,
     },
-    13: {
-      origin: `https://harmony${process.env.COOKIE_DOMAIN}`,
-      src: HarmonyLogo,
-      styles: HarmonyStyles,
-    },
-    6: {
-      origin: 'https://testcommunity.net',
-    },
-    16: {
-      origin: `https://filebase${process.env.COOKIE_DOMAIN}`,
-      src: FilebaseLogo,
-      styles: FilebaseStyles,
-    },
+    // 1: {
+    //   origin: `https://meta${process.env.COOKIE_DOMAIN}`,
+    // },
+    // 2: {
+    //   origin: `https://polygon${process.env.COOKIE_DOMAIN}`,
+    //   src: PolygonLogo,
+    //   styles: PolygonStyles,
+    // },
+    // 3: {
+    //   origin: `https://filecoin${process.env.COOKIE_DOMAIN}`,
+    //   src: FileiconLogo,
+    //   styles: FilecoinStyles,
+    // },
+    // 4: {
+    //   origin: `https://community${process.env.COOKIE_DOMAIN}`,
+    // },
+    // 7: {
+    //   origin: `https://fxland${process.env.COOKIE_DOMAIN}`,
+    //   src: FunctionlandLogo,
+    //   styles: FunctionlandStyles,
+    // },
+    // 10: {
+    //   origin: `https://sui${process.env.COOKIE_DOMAIN}`,
+    //   src: SuiLogo,
+    //   styles: SuiStyles,
+    // },
+    // 12: {
+    //   origin: `https://koii${process.env.COOKIE_DOMAIN}`,
+    //   src: KoiiLogo,
+    //   styles: KoiiStyles,
+    // },
+    // 13: {
+    //   origin: `https://harmony${process.env.COOKIE_DOMAIN}`,
+    //   src: HarmonyLogo,
+    //   styles: HarmonyStyles,
+    // },
+    // 6: {
+    //   origin: 'https://testcommunity.net',
+    // },
+    // 16: {
+    //   origin: `https://filebase${process.env.COOKIE_DOMAIN}`,
+    //   src: FilebaseLogo,
+    //   styles: FilebaseStyles,
+    // },
+    // 17: {
+    //   origin: `https://valist${process.env.COOKIE_DOMAIN}`,
+    //   src: ValistLogo,
+    //   styles: ValistStyles,
+    // },
+    // 18: {
+    //   origin: `https://polywrap${process.env.COOKIE_DOMAIN}`,
+    //   src: PolywrapLogo,
+    //   styles: PolywrapStyles,
+    // },
+    // 19: {
+    //   origin: `https://cyberconnect${process.env.COOKIE_DOMAIN}`,
+    //   src: CyberconnectLogo,
+    //   styles: CyberconnectStyles,
+    // },
   },
   dev: {
-    3: {
-      origin: 'http://localhost:3100',
+    1: {
+      origin: 'http://localhost:31000',
+      src: PolygonLogo,
+      styles: PolygonStyles,
     },
   },
 };
