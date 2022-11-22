@@ -3,10 +3,10 @@ import { css } from '@emotion/react';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
-import bestAnswerIcon from '../../../images/bestAnswer.svg?inline';
-import answerIconEmptyInside from '../../../images/answerIconEmptyInside.svg?inline';
-import fingerUpAllQuestionsPage from '../../../images/fingerUpAllQuestionsPage.svg?inline';
-import fingerDownAllQuestionsPage from '../../../images/fingerDownAllQuestionsPage.svg?inline';
+import DisLikeIcon from 'icons/DisLike';
+import LikeIcon from 'icons/Like';
+import BestAnswerIcon from 'icons/BestAnswer';
+import AnswerIcon from 'icons/Answer';
 import { getFormattedNum, getFormattedNum2 } from '../../../utils/numbers';
 import { getPostRoute } from '../../../routes-config';
 import { styles } from './Post.styled';
@@ -36,7 +36,7 @@ type PostProps = {
   content: string;
   tags: Tag[];
   questionBounty: object;
-  author: Author | null | undefined;
+  author?: Author | null;
   communityId: number | string;
   bestReply: number;
   rating: number;
@@ -57,15 +57,13 @@ const Post: React.FC<PostProps> = ({
   rating,
   replyCount,
 }): JSX.Element => {
-  const answerIcon = bestReply ? bestAnswerIcon : answerIconEmptyInside;
-  const ratingIcon =
-    rating >= 0 ? fingerUpAllQuestionsPage : fingerDownAllQuestionsPage;
-
-  const community = getFollowedCommunities(communities, [+communityId])[0] || {
+  const community = getFollowedCommunities(communities, [
+    Number(communityId),
+  ])[0] || {
     tags: [],
   };
   const postTags = community.tags.filter((tag: Tag) =>
-    tags.includes(+tag.id.split('-')[1]),
+    tags.includes(Number(tag.id.split('-')[1])),
   );
   const postLink = getPostRoute(postType, id);
   const communityLink = () => {
@@ -141,7 +139,11 @@ const Post: React.FC<PostProps> = ({
                 className="mr24"
               >
                 <span className="df aic">
-                  <img src={answerIcon} alt="icon" className="mr8" />
+                  {bestReply ? (
+                    <BestAnswerIcon stroke="rgb(40, 167, 69)" className="mr8" />
+                  ) : (
+                    <AnswerIcon stroke="rgb(53, 74, 137)" className="mr8" />
+                  )}
                   <span css={css(styles.count)} className="fz16 light">
                     {getFormattedNum(replyCount)}
                   </span>
@@ -150,7 +152,11 @@ const Post: React.FC<PostProps> = ({
             )}
             <div>
               <span className="df aic">
-                <img src={ratingIcon} alt="icon" className="mr8" />
+                {rating >= 0 ? (
+                  <LikeIcon stroke="rgb(53, 74, 137)" className="mr8" />
+                ) : (
+                  <DisLikeIcon stroke="rgb(53, 74, 137)" className="mr8" />
+                )}
                 <span css={css(styles.count)} className="fz16 light">
                   {getFormattedNum2(rating)}
                 </span>
