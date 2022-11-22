@@ -1,10 +1,10 @@
-//Contracts
+// Contracts
 export const CONTRACT_TOKEN = 'contractToken';
 export const CONTRACT_USER = 'contractUser';
 export const CONTRACT_CONTENT = 'contractContent';
 export const CONTRACT_COMMUNITY = 'contractCommunity';
 
-//Transaction names
+// Transaction names
 export const REGISTER_ACC = 'createUser';
 export const UPDATE_ACC = 'updateUser';
 export const CREATE_COMMUNITY = 'createCommunity';
@@ -14,6 +14,8 @@ export const UNFOLLOW_COMMUNITY = 'unfollowCommunity';
 export const CREATE_TAG = 'createTag';
 export const EDIT_TAG = 'updateTag';
 export const POST_QUESTION = 'createPost';
+export const UPDATE_DOCUMENTATION_TREE = 'updateDocumentationTree';
+export const DELETE_DOCUMENTATION_POST = 'deleteDocumentationPost';
 export const CHANGE_POST_TYPE = 'changePostType';
 export const POST_ANSWER = 'createReply';
 export const EDIT_ANSWER = 'editReply';
@@ -28,7 +30,7 @@ export const VOTE_ITEM = 'voteItem';
 export const CLAIM_REWARD = 'claimReward';
 export const SET_STAKE = 'setStake';
 
-//Query names
+// Query names
 export const GET_USER_BY_ADDRESS = 'getUserByAddress';
 export const IS_USER_EXISTS = 'isUserExists';
 export const GET_USERS_COUNT = 'getUsersCount';
@@ -398,6 +400,35 @@ export const faqByCommQuery = `
         ) {
            ${post}
         }
+      }`;
+
+export const communityDocumentationQuery = `
+      query (
+        $id: ID!
+      ) {
+         post (id: $id) {
+           ${post}
+         }
+      }`;
+
+export const communityDocumentationNotIncludedQuery = `
+      query (
+        $communityId: ID!,
+        $includedIds: [String],
+      ) {
+         posts (where: {postType: 3, communityId: $communityId, isDeleted: false, id_not_in: $includedIds}) {
+           ${post}
+         }
+      }`;
+
+export const documentationMenuQuery = `
+      query (
+        $id: ID!
+      ) {
+        communityDocumentation (id: $id) {
+            id
+            documentationJSON
+         }
       }`;
 
 export const postsForSearchQuery = `

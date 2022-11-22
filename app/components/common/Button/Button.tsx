@@ -13,6 +13,7 @@ type ButtonProps = {
   type?: 'button' | 'submit';
   /** Icon for the button */
   icon?: typeof IconComponent;
+  css?: any;
 };
 
 const Button: React.FC<ButtonProps> = ({
@@ -23,6 +24,7 @@ const Button: React.FC<ButtonProps> = ({
   disabled = false,
   type = 'button',
   icon,
+  css = {},
 }): JSX.Element => {
   const theme = useTheme();
 
@@ -37,6 +39,7 @@ const Button: React.FC<ButtonProps> = ({
         },
         variants[variant],
         icon && iconLeft,
+        css && css,
       ]}
       onClick={onClick}
       disabled={disabled}

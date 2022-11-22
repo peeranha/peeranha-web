@@ -12,6 +12,7 @@ import { Button as ProfileButton } from 'containers/Header/ProfileDropdown';
 
 import Logout from 'containers/Logout';
 import PropTypes from 'prop-types';
+import { DARK_SECONDARY } from 'style-constants';
 import { getPermissions } from '../../utils/properties';
 
 const MobileLinksInProfile = ({ profile, isMenuVisible }) => {
@@ -38,6 +39,7 @@ const MobileLinksInProfile = ({ profile, isMenuVisible }) => {
           icon={arrowDownIcon}
           width="16"
           rotate={visibleProfileLinks}
+          fill={DARK_SECONDARY}
         />
       </button>
 

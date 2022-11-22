@@ -9,6 +9,7 @@
   "app.common.questions": "Questions",
   "app.common.discussions": "Discussions",
   "app.common.expertPosts": "Expert Q&A",
+  "app.common.documentation": "Documentation",
   "app.common.answers": "Answers",
   "app.common.posts": "Posts",
   "app.common.achievements": "Achievements",
@@ -907,6 +908,7 @@
   "app.containers.QuestionForm.existingQuestionsLabel": "To avoid duplicates check existing posts.",
   "app.containers.QuestionForm.questionBodyLabel": "Body",
   "app.containers.QuestionForm.communityLabel": "Community",
+  "app.containers.QuestionForm.rootLabel": "Sub-article of (parent article)",
   "app.containers.QuestionForm.tagsLabel": "Tags",
   "app.containers.QuestionForm.bountyLabel": "Bounty",
   "app.containers.QuestionForm.bountyDaysLabel": "Bounty Days",
@@ -1051,5 +1053,8 @@
   "app.containers.MetaTransactionAgreement.dontWorry": "Don’t worry! We’ve got you covered.",
   "app.containers.MetaTransactionAgreement.wouldYouLike": "Would you like us to relay your transactions and cover transaction fees?",
   "app.containers.MetaTransactionAgreement.confirm": "Yes",
-  "app.containers.MetaTransactionAgreement.cansel": "No"
+  "app.containers.MetaTransactionAgreement.cansel": "No",
+  "app.containers.ChunkLoadError.weUpdatedTheApplication": "We’ve updated the application. ",
+  "app.containers.ChunkLoadError.clearYourBrowser": "Clear your browser cache to restart it.  ",
+  "app.containers.ChunkLoadError.holdDown": "Hold down {ctrl} and press {f5}. "
 }
