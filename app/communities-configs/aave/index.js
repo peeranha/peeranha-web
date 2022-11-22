@@ -3,7 +3,7 @@ import { css } from 'styled-components';
 
 import AaveLogo from './images/aaveLogoWhite.svg?inline';
 import AaveGhostGradient from './images/aaveGhostGradient.svg?inline';
-// import favicon from '!file-loader?name=[name].[ext]!./images/logo-vit.ico';
+import favicon from '!file-loader?name=[name].[ext]!./images/favicon-aave.ico';
 import RobotoRegularEOT from './fonts/Roboto-Regular.eot';
 import RobotoRegularWOFF from './fonts/Roboto-Regular.woff';
 import RobotoRegularTTF from './fonts/Roboto-Regular.ttf';
@@ -182,7 +182,7 @@ export const AaveStyles = {
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
   signUpPageLogo: AaveLogo,
-  AaveGhostGradient,
+  favicon,
   // Hided community fonts
   // fonts: {
   //   h3LetterSpacing: '3px',
