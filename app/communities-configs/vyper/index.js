@@ -5,6 +5,8 @@ import VyperLogo from './images/vyperLogoFlat.svg?inline';
 
 import CabinRegularTTF from './fonts/Cabin-Regular.ttf';
 
+import favicon from '!file-loader?name=[name].[ext]!./images/vyper-favicon.ico';
+
 const domainName = 'https://valist.io/';
 
 const fontSet = 'Roboto-Regular, Arial, sans-serif';
@@ -180,7 +182,7 @@ export const VyperStyles = {
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
   signUpPageLogo: VyperLogo,
-  VyperLogo,
+  favicon,
   // Hided community fonts
   // fonts: {
   //   h3LetterSpacing: '3px',
