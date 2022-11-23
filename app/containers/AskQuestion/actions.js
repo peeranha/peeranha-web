@@ -14,10 +14,12 @@ import {
   GET_EXISTING_QUESTIONS_ERROR,
 } from './constants';
 
-export function redirectToAskQuestionPage(ev) {
+export function redirectToAskQuestionPage(ev, isDocumentation, parentId) {
   return {
     type: REDIRECT_TO_ASK_QUESTION_PAGE,
     buttonId: ev.currentTarget.id,
+    isDocumentation,
+    parentId,
   };
 }
 

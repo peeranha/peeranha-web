@@ -10,7 +10,7 @@ const colors = singleCommunityColors();
 const Wrapper = styled.span`
   position: relative;
   display: inline-block;
-  width: ${props => (props.width ? props.width : '100%')};
+  width: ${(props) => (props.width ? props.width : '100%')};
   height: 7px;
   background-color: rgb(194, 198, 216, 0.4);
   border-radius: 7px;
@@ -18,7 +18,7 @@ const Wrapper = styled.span`
 `;
 
 const Progress = styled.span`
-  width: ${props => (props.progress ? `${props.progress}%` : 0)};
+  width: ${(props) => (props.progress ? `${props.progress}%` : 0)};
   position: absolute;
   top: 0;
   left: 0;

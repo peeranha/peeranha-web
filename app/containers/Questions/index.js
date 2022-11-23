@@ -101,28 +101,25 @@ export const Questions = ({
     questionsList.length === 0 &&
     !questionsLoading &&
     isNotFollowedCommunities;
-  const getInitQuestions = useCallback(
-    () => {
-      if (!questionFilter) {
-        getQuestionsDispatch(
-          initLoadedItems,
-          0,
-          postsTypes,
-          Number(params.communityid) || 0,
-          parentPage,
-          false,
-          true,
-        );
-      }
-    },
-    [
-      initLoadedItems,
-      params.communityid,
-      parentPage,
-      questionFilter,
-      postsTypes,
-    ],
-  );
+  const getInitQuestions = useCallback(() => {
+    if (!questionFilter) {
+      getQuestionsDispatch(
+        initLoadedItems,
+        0,
+        postsTypes,
+        Number(params.communityid) || 0,
+        parentPage,
+        false,
+        true,
+      );
+    }
+  }, [
+    initLoadedItems,
+    params.communityid,
+    parentPage,
+    questionFilter,
+    postsTypes,
+  ]);
 
   const getNextQuestions = useCallback(() => {
     if (!questionFilter) {

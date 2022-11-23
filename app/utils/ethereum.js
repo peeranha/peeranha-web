@@ -75,11 +75,11 @@ class EthereumService {
     this.addToast = data.addToast;
   }
 
-  setTransactionInitialised = toggle => {
+  setTransactionInitialised = (toggle) => {
     this.isTransactionInitialised = toggle;
   };
 
-  setData = data => {
+  setData = (data) => {
     this.wallet = data.wallet;
     this.connectedWallets = data.connectedWallets;
     this.selectedAccount = this.wallet?.accounts[0].address.toLowerCase();
@@ -120,7 +120,7 @@ class EthereumService {
     }
   };
 
-  walletLogIn = async previouslyConnectedWallet => {
+  walletLogIn = async (previouslyConnectedWallet) => {
     try {
       document.getElementsByTagName('body')[0].style.position = 'fixed';
     } catch (err) {}
@@ -173,13 +173,13 @@ class EthereumService {
     this.selectedAccount = null;
   };
 
-  setSelectedAccount = account => {
+  setSelectedAccount = (account) => {
     this.selectedAccount = account?.toLowerCase();
   };
 
   getSelectedAccount = () => this.selectedAccount;
 
-  getProfile = async userAddress => {
+  getProfile = async (userAddress) => {
     const user = await this.getUserDataWithArgs(GET_USER_BY_ADDRESS, [
       userAddress,
     ]);
@@ -194,8 +194,8 @@ class EthereumService {
   };
 
   waitForCloseModal() {
-    return new Promise(resolve => {
-      this.stopWaiting = function() {
+    return new Promise((resolve) => {
+      this.stopWaiting = function () {
         resolve();
       };
     });
@@ -276,7 +276,7 @@ class EthereumService {
     }
   };
 
-  getSignatureParameters = signature => {
+  getSignatureParameters = (signature) => {
     const r = signature.slice(0, 66);
     const s = '0x'.concat(signature.slice(66, 130));
     let v = '0x'.concat(signature.slice(130, 132));
@@ -383,7 +383,7 @@ class EthereumService {
   getTokenDataWithArgs = async (action, args) =>
     await this.contractToken[action](...args);
 
-  getCommunityFromContract = async id => {
+  getCommunityFromContract = async (id) => {
     const rawCommunity = await this.getCommunityDataWithArgs(GET_COMMUNITY, [
       id,
     ]);
