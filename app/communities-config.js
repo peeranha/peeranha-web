@@ -223,9 +223,7 @@ const communitiesConfig = {
   },
   dev: {
     1: {
-      origin: 'http://localhost:3000',
-      src: VyperLogo,
-      styles: VyperStyles,
+      origin: 'http://localhost:31000',
     },
   },
 };
