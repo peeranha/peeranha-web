@@ -6,7 +6,7 @@ import {
   HEADER_AND_FOOTER_HEIGHT,
   MENU_HEIGHT,
   MENU_WIDTH,
-  ROW_HEIGHT,
+  ROW_HEIGHT_DROPDOWN,
 } from '../constants';
 import { BORDER_RADIUS_L } from 'style-constants';
 
@@ -83,7 +83,7 @@ const Menu = ({ notifications, onClose, parentRef, unreadCount }) => {
           notifications={notifications}
           height={MENU_HEIGHT - HEADER_AND_FOOTER_HEIGHT}
           width={MENU_WIDTH}
-          rowHeight={ROW_HEIGHT}
+          rowHeight={ROW_HEIGHT_DROPDOWN}
         />
         <Footer empty={empty} onClose={onClose} />
       </MenuContainer>

@@ -5,7 +5,7 @@ const UserNoPhoto: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
     id="user-no-photo"
-    fill="curentColor"
+    fill="currentColor"
     viewBox="0 0 21 21"
     size={[21, 21]}
   >

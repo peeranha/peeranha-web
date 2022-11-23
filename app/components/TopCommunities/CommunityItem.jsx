@@ -27,18 +27,15 @@ const CommunityItem = ({
   const [route, setRoute] = useState(() => routes.questions(id));
   const Link = single && id !== single ? ADefaultStyled : AStyled;
 
-  useEffect(
-    () => {
-      if (single && id !== single) {
-        setRoute(`${process.env.APP_LOCATION}${route}`);
-      }
+  useEffect(() => {
+    if (single && id !== single) {
+      setRoute(`${process.env.APP_LOCATION}${route}`);
+    }
 
-      if (single && id === single) {
-        setRoute(routes.questions());
-      }
-    },
-    [single, id],
-  );
+    if (single && id === single) {
+      setRoute(routes.questions());
+    }
+  }, [single, id]);
   return (
     <BaseRoundedNoPadding>
       <Link href={route} to={route}>

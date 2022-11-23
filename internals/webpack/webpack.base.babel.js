@@ -15,7 +15,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 // in the next major version of loader-utils.'
 process.noDeprecation = true;
 
-module.exports = options => {
+module.exports = (options) => {
   const baseEnvPath = path.resolve('.env');
   const testEnvPath = `${baseEnvPath}.test`;
   const stagingEnvPath = `${baseEnvPath}.staging`;
@@ -188,6 +188,18 @@ module.exports = options => {
         hooks: path.join(__dirname, '../../app/hooks'),
         icons: path.join(__dirname, '../../app/components/icons'),
         themes: path.join(__dirname, '../../app/themes'),
+        utils: path.join(__dirname, '../../app/utils'),
+        containers: path.join(__dirname, '../../app/containers'),
+        'routes-config': path.resolve(__dirname, '../../app/routes-config.js'),
+        'common-messages': path.resolve(
+          __dirname,
+          '../../app/common-messages.js',
+        ),
+        'style-constants': path.resolve(
+          __dirname,
+          '../../app/style-constants.js',
+        ),
+        pages: path.resolve(__dirname, '../../app/pages'),
       },
     },
     devtool: options.devtool,

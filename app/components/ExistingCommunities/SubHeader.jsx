@@ -31,7 +31,7 @@ const Button = ({ sorting, icon }) => (
 
 const Menu = ({ changeSorting, sorting, options }) => (
   <Ul>
-    {Object.keys(options).map(x => (
+    {Object.keys(options).map((x) => (
       <CheckedItem
         key={`${options[x].message.id}_${options[x].order}`}
         onClick={() => changeSorting(options[x])}
