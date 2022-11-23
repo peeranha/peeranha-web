@@ -704,6 +704,34 @@
   "app.containers.ViewQuestion.posted": "posted",
   "app.containers.ViewQuestion.edited": "edited",
   "app.containers.ViewQuestion.deleted": "deleted",
+  "app.containers.ViewQuestion.RulesBlock_1":
+    "Here are some tips to make your answer helpful and doesn't get deleted by a moderator:",
+  "app.containers.ViewQuestion.RulesBlock_2":
+    "1. Read the post carefully to understand the problem and provide the best reply you can.",
+  "app.containers.ViewQuestion.RulesBlock_3":
+    "2. Make sure your answer replies the question asked in a post and isn't just a comment or gratitude.",
+  "app.containers.ViewQuestion.RulesBlock_4":
+    "3. Be polite and respectful to others.",
+  "app.containers.ViewQuestion.reputationBelowZero":
+    "Your reputation in this community is negative, you are not allowed to post any replies.",
+  "app.components.FormFields.requiredField":
+    "You cannot leave this field empty",
+  "app.components.FormFields.requiredAndNotZeroField":
+    "You cannot leave 0 in this field",
+  "app.components.FormFields.requiredNonZeroInteger":
+    "You can only enter a non-zero integer",
+  "app.components.FormFields.wrongLength":
+    "Leave at least {min} char but no more than {max}",
+  "app.components.FormFields.wrongNumberRange":
+    "Should be at least {min} but no more than {max}",
+  "app.components.FormFields.wrongExactLength":
+    "Value must be {min} characters long",
+  "app.components.FormFields.wrongLengthOfList":
+    "Leave at least {min} item but no more than {max}",
+  "app.components.FormFields.wrongLengthMin":
+    "Value must be at least {min} characters",
+  "app.components.FormFields.wrongLengthMax":
+    "Value must be no longer than {max} characters",
   "app.containers.ViewQuestion.RulesBlock_1": "Here are some tips to make your answer helpful and doesn't get deleted by a moderator:",
   "app.containers.ViewQuestion.RulesBlock_2": "1. Read the post carefully to understand the problem and provide the best reply you can.",
   "app.containers.ViewQuestion.RulesBlock_3": "2. Make sure your answer replies the question asked in a post and isn't just a comment or gratitude.",
@@ -737,6 +765,10 @@
   "app.components.FormFields.atLeastOneLetter": "Telos name must contain at least one letter",
   "app.components.FormFields.exactFromAndToAccounts": "Sender and receiver cannot be the same",
   "app.components.FormFields.hasToBeMoreThanPrev": "You cannot set lower value",
+  "app.components.FormFields.valueIsNotPositiveInteger":
+    "Value is not a positive integer",
+  "app.components.FormFields.requiredMinReputation":
+    "Your reputation in this community is negative, you are not allowed to create a new post.",
   "app.components.FormFields.valueIsNotPositiveInteger": "Value is not a positive integer",
 
   "app.containers.TagsCollection.title": "Tags collection",
