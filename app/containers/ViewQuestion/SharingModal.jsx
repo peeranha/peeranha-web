@@ -89,7 +89,7 @@ const DropdownModalFooter = styled.footer`
 `;
 
 const SharingModal = ({ questionData, locale }) => {
-  const writeToBuffer = event => {
+  const writeToBuffer = (event) => {
     clipboard.writeText(event.currentTarget.dataset.key);
     showPopover(
       event.currentTarget.id,

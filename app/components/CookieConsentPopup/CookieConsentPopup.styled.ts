@@ -31,4 +31,24 @@ export const styles = {
   text: {
     lineHeight: '20px',
   },
+
+  inner: {
+    flexDirection: 'column',
+    '@media (min-width: 450px)': {
+      flexDirection: 'row',
+    },
+  },
+
+  acceptButton: {
+    marginTop: '20px',
+    marginRight: 0,
+    '@media (min-width: 450px)': {
+      marginRight: '10vw',
+      marginTop: 0,
+    },
+    '@media (min-width: 999px)': {
+      marginRight: '5vw',
+      marginTop: 0,
+    },
+  },
 };

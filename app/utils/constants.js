@@ -71,7 +71,7 @@ export const POST_TYPE = {
   expertPost: 0,
   generalPost: 1,
   tutorial: 2,
-  faq: 3,
+  documentation: 3,
 };
 
 export const META_TRANSACTIONS_ALLOWED = 'meta_tr_allowed';
@@ -329,5 +329,5 @@ export const INVALID_MIN_RATING_ERROR_CODE = -32603;
 export const REJECTED_SIGNATURE_REQUEST = 4001;
 export const RECAPTCHA_VERIFY_FAILED_CODE = 600613;
 
-//session storage keys
+// session storage keys
 export const CHANGED_POSTS_KEY = 'changed-posts';

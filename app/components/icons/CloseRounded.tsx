@@ -6,21 +6,26 @@ const CloseRounded: React.FC<IconProps> = (props): JSX.Element => (
     {...props}
     id="close-rounded"
     fill="curentColor"
-    viewBox="0 0 15 15"
-    size={[15, 15]}
+    viewBox="0 0 18 18"
+    size={[18, 18]}
   >
-    <circle
-      cx="7.5"
-      cy="7.5"
-      r="7"
-      fill="#FFF"
-      fillOpacity=".2"
-      stroke={props.stroke || '#282828'}
+    <circle cx="9" cy="9" r="7.5" stroke="white" />
+    <rect
+      x="12.017"
+      y="5.22876"
+      width="1.06667"
+      height="9.6"
+      transform="rotate(45 12.017 5.22876)"
+      fill="white"
     />
-    <g fill={props.fill || '#282828'}>
-      <path d="m10.328 3.964.708.708-6.364 6.364-.708-.708z" />
-      <path d="m11.036 10.328-.708.708-6.364-6.364.708-.708z" />
-    </g>
+    <rect
+      x="12.7712"
+      y="12.017"
+      width="1.06667"
+      height="9.6"
+      transform="rotate(135 12.7712 12.017)"
+      fill="white"
+    />
   </IconComponent>
 );
 

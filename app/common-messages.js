@@ -39,6 +39,9 @@ export default defineMessages({
   expertPosts: {
     id: 'app.common.expertPosts',
   },
+  documentation: {
+    id: 'app.common.documentation',
+  },
   answers: {
     id: 'app.common.answers',
   },
@@ -629,5 +632,14 @@ export default defineMessages({
   },
   rulesAskQuestionPopupBlock_8: {
     id: 'app.containers.AskQuestion.contentPopupBlock_8',
+  },
+  weUpdatedTheApplication: {
+    id: 'app.containers.ChunkLoadError.weUpdatedTheApplication',
+  },
+  clearYourBrowser: {
+    id: 'app.containers.ChunkLoadError.clearYourBrowser',
+  },
+  holdDown: {
+    id: 'app.containers.ChunkLoadError.holdDown',
   },
 });

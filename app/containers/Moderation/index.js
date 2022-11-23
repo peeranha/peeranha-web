@@ -68,7 +68,4 @@ const mapStateToProps = createStructuredSelector({
   communities: selectCommunities(),
 });
 
-export default connect(
-  mapStateToProps,
-  null,
-)(Moderation);
+export default connect(mapStateToProps, null)(Moderation);
