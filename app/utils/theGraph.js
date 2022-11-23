@@ -6,8 +6,10 @@ import {
   allTagsQuery,
   answeredPostsQuery,
   communitiesQuery,
+  communityDocumentationQuery,
   communityQuery,
   currentPeriodQuery,
+  documentationMenuQuery,
   faqByCommQuery,
   historiesQuery,
   postQuery,
@@ -23,6 +25,7 @@ import {
   usersPostsQuery,
   usersQuery,
   userStatsQuery,
+  communityDocumentationNotIncludedQuery,
   moderationQuery,
 } from './ethConstants';
 
@@ -230,6 +233,42 @@ export const getFaqByCommunityId = async (communityId) => {
     const { replies, ...propsWithoutReplies } = rawPost;
     return { answers: replies, ...propsWithoutReplies };
   });
+};
+
+export const getCommunityDocumentation = async (id) => {
+  const post = await client.query({
+    query: gql(communityDocumentationQuery),
+    variables: {
+      id,
+    },
+  });
+
+  return post?.data.post;
+};
+
+export const getCommunityDocumentationNotIncluded = async (
+  communityId,
+  includedIds,
+) => {
+  const post = await client.query({
+    query: gql(communityDocumentationNotIncludedQuery),
+    variables: {
+      communityId,
+      includedIds,
+    },
+  });
+  return post?.data.posts;
+};
+
+export const getDocumentationMenu = async (communityId) => {
+  const documentation = await client.query({
+    query: gql(documentationMenuQuery),
+    variables: {
+      id: communityId,
+    },
+    fetchPolicy: 'network-only',
+  });
+  return documentation?.data.communityDocumentation;
 };
 
 export const getQuestionFromGraph = async (postId) => {

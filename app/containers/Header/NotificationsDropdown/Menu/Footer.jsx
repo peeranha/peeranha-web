@@ -74,7 +74,7 @@ Footer.propTypes = {
 };
 
 export default memo(
-  connect(state => ({
+  connect((state) => ({
     profile: makeSelectProfileInfo()(state).user,
     locale: makeSelectLocale()(state),
   }))(Footer),

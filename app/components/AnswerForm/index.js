@@ -58,6 +58,8 @@ export const AnswerForm = ({
   isOfficialRepresentative,
   isAnswered,
   account,
+  isMinusReputation,
+  isHasRole,
 }) => (
   <FormBox onSubmit={handleSubmit(sendAnswer)}>
     {isAnswered && (
@@ -68,6 +70,11 @@ export const AnswerForm = ({
     {!account && (
       <BlockedInfoArea>
         <FormattedMessage id={messages.logInToAnswer.id} />
+      </BlockedInfoArea>
+    )}
+    {isMinusReputation && !isHasRole && (
+      <BlockedInfoArea>
+        <FormattedMessage id={messages.reputationBelowZero.id} />
       </BlockedInfoArea>
     )}
     <Field
@@ -129,7 +136,7 @@ AnswerForm.propTypes = {
 };
 
 const FormClone = reduxForm({
-  onSubmitFail: errors => scrollToErrorField(errors),
+  onSubmitFail: (errors) => scrollToErrorField(errors),
   form: 'answerForm',
 })(AnswerForm);
 

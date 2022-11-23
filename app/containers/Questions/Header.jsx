@@ -158,10 +158,10 @@ export const Header = ({
 
   const displaySubscribeButton =
     !!single &&
-    (isFeed &&
-      window.location.pathname !== routes.questions() &&
-      window.location.pathname !== routes.expertPosts() &&
-      window.location.pathname !== routes.tutorials());
+    isFeed &&
+    window.location.pathname !== routes.questions() &&
+    window.location.pathname !== routes.expertPosts() &&
+    window.location.pathname !== routes.tutorials();
 
   const routeToEditCommunity = () => {
     createdHistory.push(routes.communitiesEdit(single));
@@ -176,7 +176,7 @@ export const Header = ({
         <CommunitySelector
           isArrowed
           Button={Button}
-          toggle={choice => {
+          toggle={(choice) => {
             createdHistory.push(routes[route](choice, false, false));
             setTypeFilter(choice);
           }}
@@ -226,7 +226,7 @@ Header.propTypes = {
 //
 export default injectIntl(
   React.memo(
-    connect(state => ({
+    connect((state) => ({
       topQuestionsInfoLoaded: selectTopQuestionsInfoLoaded()(state),
       topQuestions: selectQuestions(null, null, null, true)(state),
       communities: selectCommunities()(state),

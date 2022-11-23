@@ -5,7 +5,7 @@ const UsersBig: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
     id="users-big"
-    fill="curentColor"
+    fill="currentColor"
     viewBox="0 0 43 43"
     size={[43, 43]}
   >

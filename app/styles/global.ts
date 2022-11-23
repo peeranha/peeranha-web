@@ -30,7 +30,7 @@ export default css`
 
   :root {
     ${Object.keys(colors).map(
-      key => `
+      (key) => `
       ${key}: ${(colors as any)[key]};
     `,
     )};
@@ -203,7 +203,7 @@ export default css`
     text-decoration: none;
   }
   .icon {
-    color: var(--color-background-icon);
+    color: var(--color-icon-background);
   }
   .text-ellipsis {
     overflow: hidden;
@@ -229,5 +229,8 @@ export default css`
     top: 67px !important;
     right: 20px !important;
     border: solid 1px #000000;
+  }
+  .pl15 {
+    padding-left: 15px;
   }
 `;

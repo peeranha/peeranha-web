@@ -9,7 +9,7 @@ import {
   REVOKE_COMMUNITY_MODERATOR_PERMISSION,
 } from './ethConstants';
 
-export const emptyProfile = account => ({
+export const emptyProfile = (account) => ({
   achievements: [],
   answersGiven: 0,
   avatar: undefined,
@@ -109,7 +109,7 @@ export const isUserInSystem = async (user, eosService) => {
 
 export const inviteUser = async (accountName, referralCode, eosService) => {};
 
-export const checkUserURL = user => {
+export const checkUserURL = (user) => {
   const path = document.location.pathname.split('/');
   const userInURL = path[1] === 'users' ? path[2] : undefined;
   return userInURL ? userInURL === user : true;
