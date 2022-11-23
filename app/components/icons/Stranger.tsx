@@ -5,7 +5,7 @@ const Stranger: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
     id="stranger"
-    fill="curentColor"
+    fill="currentColor"
     viewBox="0 0 9 9"
     size={[9, 9]}
   >
