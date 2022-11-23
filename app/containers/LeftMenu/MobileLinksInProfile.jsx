@@ -13,6 +13,7 @@ import { TEXT_PRIMARY, PEER_PRIMARY_TRANSPARENT_COLOR } from 'style-constants';
 
 import Logout from 'containers/Logout';
 import PropTypes from 'prop-types';
+import { DARK_SECONDARY } from 'style-constants';
 import { getPermissions } from '../../utils/properties';
 import { singleCommunityColors } from 'utils/communityManagement';
 
@@ -51,6 +52,7 @@ const MobileLinksInProfile = ({ profile, isMenuVisible }) => {
           icon={arrowDownIcon}
           width="16"
           rotate={visibleProfileLinks}
+          fill={DARK_SECONDARY}
         />
       </button>
 

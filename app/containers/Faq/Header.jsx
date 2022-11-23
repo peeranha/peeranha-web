@@ -14,7 +14,7 @@ import Span from 'components/Span';
 import A from 'components/A';
 import Wrapper, { WrapperRightPanel } from 'components/Header/Simple';
 
-import messages from 'containers/Faq/messages';
+import messages from './messages';
 
 const Header = () => (
   <Wrapper className="mb-to-sm-0 mb-from-sm-3">

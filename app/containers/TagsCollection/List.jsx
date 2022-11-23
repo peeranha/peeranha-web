@@ -9,6 +9,7 @@ import * as routes from 'routes-config';
 import A from 'components/A';
 import P from 'components/P';
 import TagList from 'components/TagsList';
+import BlockShadow from 'components/BlockShadow';
 import { BaseSpecial } from 'components/Base/BaseTransparent';
 import { MediumImageStyled } from 'components/Img/MediumImage';
 import SeeAllButton from 'components/Button/Outlined/InfoMedium';
@@ -80,9 +81,14 @@ const TagsBlock = styled.div`
     }
   }
 
-  :hover {
-    ${SeeAllButton} {
-      display: block;
+  @media only screen and (min-width: 769px) {
+    :hover {
+      ${SeeAllButton} {
+        display: block;
+      }
+      ${TagListBox} ul {
+        margin-right: 0;
+      }
     }
   }
 
@@ -105,14 +111,14 @@ export const NameHolder = P.extend`
 const List = ({ communities }) => {
   if (!communities || !communities.length) return null;
 
-  const communitiesWithLimitedTagNumber = communities.map(z => ({
+  const communitiesWithLimitedTagNumber = communities.map((z) => ({
     ...z,
     tags: z.tags.slice(0, 8),
   }));
 
   return (
     <Base>
-      {orderBy(communities, y => y.popularity, 'desc').map(x => {
+      {orderBy(communities, (y) => y.popularity, 'desc').map((x) => {
         return (
           <BaseSpecial key={x.id}>
             <A

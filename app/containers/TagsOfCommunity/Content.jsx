@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { FormattedMessage } from 'react-intl';
@@ -11,7 +11,6 @@ import * as routes from 'routes-config';
 import {
   getPermissions,
   hasCommunityAdminRole,
-  hasCommunityModeratorRole,
   hasGlobalModeratorRole,
   hasProtocolAdminRole,
 } from 'utils/properties';
@@ -47,8 +46,8 @@ const Item = styled.div`
   max-height: 110px;
   overflow: hidden;
   transition: 0.15s;
-  margin-right: ${x => (!x.isInputBox ? '-17px' : '0')};
-  padding: ${x => (!x.isInputBox ? '2px 32px 2px 15px' : '2px 15px')};
+  margin-right: ${(x) => (!x.isInputBox ? '-17px' : '0')};
+  padding: ${(x) => (!x.isInputBox ? '2px 32px 2px 15px' : '2px 15px')};
 
   input {
     background: none;
@@ -73,7 +72,7 @@ const Base = BaseRounded.extend`
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 100;
+    z-index: 2;
 
     ${Item} {
       max-height: 200px;
@@ -104,7 +103,7 @@ const Content = ({
   setEditTagData,
   profileInfo,
 }) => {
-  const showEditTagForm = tagId => {
+  const showEditTagForm = (tagId) => {
     setEditTagData(tagId, communityId);
     createdHistory.push(routes.editTag(communityId, tagId));
   };
@@ -137,11 +136,11 @@ const Content = ({
           </li>
         ) : null}
 
-        {tags.map(x => (
+        {tags.map((x) => (
           <Tag key={x.id} editTagModerator={tagEditingAllowed}>
             <Base>
               <Item
-                onMouseLeave={e => {
+                onMouseLeave={(e) => {
                   e.currentTarget.scrollTop = 0;
                 }}
               >

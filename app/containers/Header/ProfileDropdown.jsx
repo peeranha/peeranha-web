@@ -58,8 +58,8 @@ const Info = styled.span`
 
   > span:nth-child(1) {
     display: flex;
-    align-items: ${x => (x.isMenuVisible ? 'stretch' : 'center')};
-    margin-right: ${x => (!x.isMenuVisible ? 7 : 'auto')}px;
+    align-items: ${(x) => (x.isMenuVisible ? 'stretch' : 'center')};
+    margin-right: ${(x) => (!x.isMenuVisible ? 7 : 'auto')}px;
   }
 `;
 
@@ -87,15 +87,14 @@ const B = ({ profileInfo, onClick, isMenuVisible, isMobileVersion }) => (
         />
       </NoAvatarBox>
     )}
-    {profileInfo.avatar &&
-      profileInfo.avatar !== NO_AVATAR && (
-        <MediumSpecialImage
-          isBordered
-          customBorderStyle={!isMobileVersion && colors.communityBorderStyle}
-          src={getUserAvatar(profileInfo.avatar)}
-          alt="avatar"
-        />
-      )}
+    {profileInfo.avatar && profileInfo.avatar !== NO_AVATAR && (
+      <MediumSpecialImage
+        isBordered
+        customBorderStyle={!isMobileVersion && colors.communityBorderStyle}
+        src={getUserAvatar(profileInfo.avatar)}
+        alt="avatar"
+      />
+    )}
     <Info
       className="d-flex flex-column justify-content-center"
       isMenuVisible={isMenuVisible}
@@ -107,7 +106,7 @@ const B = ({ profileInfo, onClick, isMenuVisible, isMobileVersion }) => (
   </span>
 );
 
-export const Button = connect(state => ({
+export const Button = connect((state) => ({
   isMenuVisible: selectIsMenuVisible()(state),
 }))(B);
 
@@ -115,9 +114,10 @@ const Menu = memo(
   ({ profileInfo, questionsLength, questionsWithUserAnswersLength }) => {
     const { user, loginData } = profileInfo;
 
-    const isModerator = useMemo(() => !!getPermissions(profileInfo)?.length, [
-      profileInfo,
-    ]);
+    const isModerator = useMemo(
+      () => !!getPermissions(profileInfo)?.length,
+      [profileInfo],
+    );
 
     return (
       <nav>
