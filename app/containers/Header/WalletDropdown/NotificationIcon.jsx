@@ -45,8 +45,8 @@ const IconButtonInline = styled(IconButton)`
   top: 0;
   right: 0;
   margin-left: 5px;
-  padding: ${x => (x.isMobileVersion ? '0 !important' : '')};
-  border: ${x => (x.isMobileVersion ? '0 !important' : '')};
+  padding: ${(x) => (x.isMobileVersion ? '0 !important' : '')};
+  border: ${(x) => (x.isMobileVersion ? '0 !important' : '')};
 `;
 
 const IconNumber = Span.extend`
@@ -71,13 +71,13 @@ const NotificationIcon = ({
   const [opened, setOpened] = useState(false);
   const setOpenedFalse = () => setOpened(false);
 
-  const closeTooltipOnClick = e => {
+  const closeTooltipOnClick = (e) => {
     e.stopPropagation();
     closePopover();
     setOpenedFalse();
   };
 
-  const toggleTooltipOnClick = e => {
+  const toggleTooltipOnClick = (e) => {
     if (!opened) {
       setOpened(true);
       e.stopPropagation();
@@ -102,7 +102,7 @@ const NotificationIcon = ({
   if (isMobileVersion)
     return (
       <div tabIndex="0" onBlur={closeTooltipOnClick}>
-        <IconDivMob id={iconId} onClick={e => toggleTooltipOnClick(e)}>
+        <IconDivMob id={iconId} onClick={(e) => toggleTooltipOnClick(e)}>
           <IconNumber fontSize="13">{number}</IconNumber>
         </IconDivMob>
       </div>
@@ -111,7 +111,7 @@ const NotificationIcon = ({
   return (
     <IconButton
       id={iconId}
-      onClick={e => toggleTooltipOnClick(e)}
+      onClick={(e) => toggleTooltipOnClick(e)}
       onBlur={closeTooltipOnClick}
     >
       <IconNumber fontSize="13">{number}</IconNumber>

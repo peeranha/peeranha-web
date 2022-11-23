@@ -32,7 +32,7 @@ const styles = singleCommunityStyles();
 
 const Label = Button.extend`
   ${LabelStyles};
-  pointer-events: ${x => (x.inactive ? 'none' : 'auto')};
+  pointer-events: ${(x) => (x.inactive ? 'none' : 'auto')};
   overflow: hidden;
   height: 1%;
   min-height: 32px;
@@ -166,7 +166,7 @@ BestAnswerMarker.propTypes = {
 
 export default React.memo(
   connect(
-    state => ({
+    (state) => ({
       profileInfo: makeSelectProfileInfo()(state),
     }),
     null,

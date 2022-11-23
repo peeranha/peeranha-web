@@ -108,10 +108,9 @@ const CustomMobileSubHeader = ({
           />
         )}
       </button>
-      {visible &&
-        !isBloggerMode && (
-          <Links links={links} styles={styles} device="mobile" />
-        )}
+      {visible && !isBloggerMode && (
+        <Links links={links} styles={styles} device="mobile" />
+      )}
     </Div>
   );
 };

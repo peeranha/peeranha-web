@@ -125,7 +125,7 @@ const Links = ({ links, styles }) => (
         {subitems ? (
           <Subitems styles={styles.subitems}>
             <div>
-              {subitems.map(item => (
+              {subitems.map((item) => (
                 <LocalLink
                   styles={styles}
                   key={item.href}
@@ -165,7 +165,7 @@ const PolygonStyleTopNav = () => {
       <SubHeaderNav>
         {!!links && !!styles ? (
           <Links
-            links={links.filter(link => !link.isHighlighted)}
+            links={links.filter((link) => !link.isHighlighted)}
             styles={styles}
           />
         ) : null}
@@ -173,7 +173,7 @@ const PolygonStyleTopNav = () => {
       <SubHeaderNavButtons>
         {!!links && !!styles ? (
           <Links
-            links={links.filter(link => link.isHighlighted)}
+            links={links.filter((link) => link.isHighlighted)}
             styles={styles}
           />
         ) : null}

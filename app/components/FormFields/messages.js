@@ -98,6 +98,9 @@ export default defineMessages({
   valueIsNotPositiveInteger: {
     id: 'app.components.FormFields.valueIsNotPositiveInteger',
   },
+  wrongAddressFormat: {
+    id: 'app.components.FormFields.wrongAddressFormat',
+  },
   requiredMinReputation: {
     id: 'app.components.FormFields.requiredMinReputation',
   },

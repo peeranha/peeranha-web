@@ -159,6 +159,9 @@ export default defineMessages({
   faq: {
     id: 'app.common.faq',
   },
+  administration: {
+    id: 'app.common.administration',
+  },
   moderationHeader: {
     id: 'app.common.moderationHeader',
   },

@@ -180,6 +180,12 @@ const MainLinks = ({
     route = isBloggerMode ? 'home' : 'feed';
   }
 
+  const hasCommunityOrProtocolAdminRole =
+    singleCommId &&
+    (hasGlobalModeratorRole() ||
+      hasCommunityAdminRole(null, singleCommId) ||
+      isProtocolAdmin);
+
   return (
     <Box
       currClientHeight={currClientHeight}

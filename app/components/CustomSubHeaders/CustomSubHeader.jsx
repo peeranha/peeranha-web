@@ -376,18 +376,17 @@ export const Links = ({
   <div>
     {links.map(({ text, href, isHighlighted, subitems, target }) => (
       <React.Fragment key={text}>
-        {href &&
-          !subitems && (
-            <A
-              text={text}
-              href={href}
-              key={href}
-              styles={styles}
-              isHighlighted={isHighlighted}
-              target={target || '_blank'}
-              device={device}
-            />
-          )}
+        {href && !subitems && (
+          <A
+            text={text}
+            href={href}
+            key={href}
+            styles={styles}
+            isHighlighted={isHighlighted}
+            target={target || '_blank'}
+            device={device}
+          />
+        )}
         {subitems && (
           <B
             text={text}

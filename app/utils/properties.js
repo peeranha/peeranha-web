@@ -183,11 +183,23 @@ export const getAllRoles = (userRoles = [], communitiesCount) => {
   });
 };
 
-export const hasCommunityAdminRole = (permissions = [], communityId) =>
-  !!permissions.filter(
+export const hasCommunityAdminRole = (permissionsFromState, communityId) => {
+  let permissions = permissionsFromState;
+
+  if (!permissions) {
+    permissions =
+      JSON.parse(
+        isValidJsonFromCookie(getCookie('profileinfols'), 'profileinfols')
+          ? getCookie('profileinfols')
+          : '""',
+      )?.permissions || [];
+  }
+
+  return !!permissions.filter(
     (permission) =>
       permission === getCommunityRole(COMMUNITY_ADMIN_ROLE, communityId),
   ).length;
+};
 
 export const hasCommunityModeratorRole = (permissions = [], communityId) =>
   !!permissions.filter(
