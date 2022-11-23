@@ -23,14 +23,13 @@ import {
   hasProtocolAdminRole,
 } from 'utils/properties';
 
-export const ViewQuestionContainer = props => {
+export const ViewQuestionContainer = (props) => {
   const msg = translationMessages[props.locale];
 
   const { isAnswered } = props;
   const isTutorial = props.questionData.postType === POST_TYPE.tutorial;
   const isMinusReputation =
     getRatingByCommunity(props.profile, props.commId) < 0;
-
 
   const isHasRole =
     hasGlobalModeratorRole(getPermissions(props.profile)) ||

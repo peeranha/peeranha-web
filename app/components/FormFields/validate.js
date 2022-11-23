@@ -94,7 +94,6 @@ const required = (value) => {
   return !val ? messages.requiredField : undefined;
 };
 
-
 const requiredPostTypeSelection = (value) =>
   Number(value) >= 0 ? undefined : messages.postTypeSelectionError;
 

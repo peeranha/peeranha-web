@@ -15,7 +15,7 @@ import Wrapper from './Wrapper';
 const Div = styled.div`
   position: relative;
 
-  ${props => Input(props)};
+  ${(props) => Input(props)};
 
   img[alt='icon'] {
     position: absolute;
