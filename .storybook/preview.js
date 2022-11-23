@@ -10,6 +10,11 @@ import { theme as KandaTheme } from 'themes/kanda';
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
+  options: {
+    storySort: {
+      order: ['Docs', 'Themes'],
+    },
+  },
 };
 
 const themeObjects = {
