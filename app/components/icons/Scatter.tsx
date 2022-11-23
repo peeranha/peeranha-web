@@ -5,7 +5,7 @@ const Scatter: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
     id="scatter"
-    fill="curentColor"
+    fill="currentColor"
     viewBox="0 0 54 19"
     size={[54, 19]}
   >

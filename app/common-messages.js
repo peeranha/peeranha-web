@@ -306,6 +306,9 @@ export default defineMessages({
   reputationStatus: {
     id: 'app.common.reputationStatus',
   },
+  reputationBelowZero: {
+    id: 'app.containers.ViewQuestion.reputationBelowZero',
+  },
   en: {
     id: 'app.common.en',
   },

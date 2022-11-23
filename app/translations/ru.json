@@ -903,6 +903,8 @@
     "2. Убедитесь, что ваш ответ действительно отвечает на вопрос, а не является комментарием или благодарностью.",
   "app.containers.ViewQuestion.RulesBlock_4":
     "3. Будьте вежливы и уважительны друг к другу.",
+  "app.containers.ViewQuestion.reputationBelowZero":
+    "Ваша репутация в этом сообществе отрицательная, Вам не разрешено оставлять какие-либо ответы.",
   "app.components.FormFields.requiredField":
     "Вы не можете оставить это поле пустым",
   "app.components.FormFields.requiredAndNotZeroField":
@@ -960,6 +962,8 @@
     "Отправитель и получатель не могут быть одним и тем же",
   "app.components.FormFields.valueIsNotPositiveInteger":
     "Значение не является целым положительным числом",
+  "app.components.FormFields.requiredMinReputation":
+    "Ваша репутация в этом сообществе отрицательная, Вы не можете создавать новые сообщения.",
 
   "app.components.Footer.header": "Авторские права: Peeranha",
 
