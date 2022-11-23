@@ -51,24 +51,22 @@ const EditQuestion = ({
   editQuestionError,
 }) => {
   const { questionid } = match.params;
-  useEffect(
-    () => {
-      if (account) {
-        getAskedQuestionDispatch(questionid);
-      }
-    },
-    [questionid, getAskedQuestionDispatch, account],
-  );
+  const isDocumentation = match.url.split('/')[1] === 'documentation';
+  useEffect(() => {
+    if (account) {
+      getAskedQuestionDispatch(questionid);
+    }
+  }, [questionid, getAskedQuestionDispatch, account]);
 
   const sendQuestion = useCallback(
-    values => {
+    (values) => {
       const val = values.toJS();
       editQuestionDispatch(
         {
           title: val[FORM_TITLE],
           content: val[FORM_CONTENT],
           communityId: val[FORM_COMMUNITY].id,
-          tags: val[FORM_TAGS].map(tag => +tag.id.split('-')[1]),
+          tags: val[FORM_TAGS].map((tag) => +tag.id.split('-')[1]),
           postType: question?.postType,
           // bounty: +val[FORM_BOUNTY],
           // bountyFull: `${getFormattedAsset(+val[FORM_BOUNTY])} PEER`,
@@ -87,7 +85,10 @@ const EditQuestion = ({
   );
 
   const titleMessage = useMemo(
-    () => translationMessages[locale][messages.title.id[(question?.postType)]],
+    () =>
+      isDocumentation
+        ? 'Edit article'
+        : translationMessages[locale][messages.title.id[question?.postType]],
     [question?.postType],
   );
 
@@ -95,6 +96,7 @@ const EditQuestion = ({
 
   const sendProps = useMemo(
     () => ({
+      path: match.url,
       form: EDIT_QUESTION_FORM,
       formTitle: titleMessage,
       submitButtonId: EDIT_QUESTION_BUTTON,
@@ -110,6 +112,7 @@ const EditQuestion = ({
       maxPromotingHours,
       profile,
       isFailed,
+      isDocumentation,
     }),
     [questionid, question, communities, editQuestionLoading, sendQuestion],
   );
@@ -126,7 +129,7 @@ const EditQuestion = ({
   return (
     <div>
       <Seo
-        title={helmetTitle}
+        title={helmetTitle || ''}
         description={helmetDescription || ''}
         language={locale}
         index={false}
@@ -173,7 +176,7 @@ export default compose(
       editQuestionError: makeSelectEditQuestion.selectEditQuestionError(),
       profile: makeSelectProfileInfo(),
     }),
-    dispatch => ({
+    (dispatch) => ({
       getAskedQuestionDispatch: bindActionCreators(getAskedQuestion, dispatch),
       editQuestionDispatch: bindActionCreators(editQuestion, dispatch),
     }),

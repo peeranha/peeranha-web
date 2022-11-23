@@ -35,6 +35,7 @@ import { showPopover } from 'utils/popover';
 
 import LargeButton from 'components/Button/Contained/InfoLarge';
 import Icon from 'components/Icon';
+import EditDocumentation from 'components/Documentation';
 import { IconSm, IconLm, IconLg } from 'components/Icon/IconWithSizes';
 
 import styled from 'styled-components';
@@ -170,6 +171,8 @@ const View = ({
   transactionHash,
   transactionInitialised,
   locale,
+  isEditDocumentation,
+  toggleEditDocumentation,
 }) => {
   const [isSearchFormVisible, setSearchFormVisibility] = useState(false);
 
@@ -319,6 +322,7 @@ const View = ({
                       background: ${colors.btnHeaderColor};
                       :hover {
                         background: ${colors.btnHeaderHoverColor};
+                        border: 2px solid ${colors.btnHeaderHoverBorder};
                       }
                     `}
                   >
@@ -351,6 +355,9 @@ const View = ({
           </div>
         </div>
       </MainSubHeader>
+      {isEditDocumentation && (
+        <EditDocumentation toggleEditDocumentation={toggleEditDocumentation} />
+      )}
     </Wrapper>
   );
 };

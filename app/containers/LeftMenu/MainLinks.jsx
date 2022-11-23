@@ -1,8 +1,10 @@
 /* eslint indent: 0 */
+import Documentation from 'containers/LeftMenu/Documentation/Documentation';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import styled, { css } from 'styled-components';
+import cn from 'classnames';
+import styled from 'styled-components';
 import isMobile from 'ismobilejs';
 
 import {
@@ -17,6 +19,7 @@ import {
   BORDER_DARK,
   ICON_TRASPARENT_BLUE,
 } from 'style-constants';
+import { styles } from 'containers/LeftMenu/MainLinks.styled';
 
 import * as routes from 'routes-config';
 import messages from 'common-messages';
@@ -27,6 +30,7 @@ import {
   singleCommunityColors,
   singleCommunityFonts,
   getSingleCommunityDetails,
+  singleCommunityDocumentationPosition,
 } from 'utils/communityManagement';
 
 import homeIcon from 'images/house.svg?external';
@@ -53,20 +57,30 @@ import {
   hasProtocolAdminRole,
 } from 'utils/properties';
 
-const styles = singleCommunityStyles();
+import { getIpfsHashFromBytes32 } from 'utils/ipfs';
+
+const communityStyles = singleCommunityStyles();
 const colors = singleCommunityColors();
 const fonts = singleCommunityFonts();
 
 const customColor = colors.linkColor || BORDER_PRIMARY;
 
-const A1 = A.extend`
+export const A1 = A.extend`
   ${BasicLink};
 
   letter-spacing: 0 !important;
 
+  #dots-icon {
+    visibility: hidden;
+  }
+
+  :hover #dots-icon {
+    visibility: visible;
+  }
+
   ${({ route, name }) =>
     route === name
-      ? css`
+      ? `
           background-color: ${PRIMARY_SPECIAL};
           border-color: ${colors.linkColor || BORDER_PRIMARY_DARK};
           font-family: ${fonts.mainLinksSelected || APP_FONT};
@@ -96,7 +110,7 @@ const A1 = A.extend`
           }
           ${svgDraw({ color: colors.linkColor || TEXT_PRIMARY })};
         `
-      : css`
+      : `
           background-color: ${BG_TRANSPARENT};
           border-color: ${BORDER_TRANSPARENT};
           font-weight: normal;
@@ -126,9 +140,10 @@ const A1 = A.extend`
 `;
 
 const Box = styled.div`
+  margin-top: 30px;
   margin-bottom: ${({ currClientHeight }) => {
     if (
-      styles.withoutAdditionalLinks ||
+      communityStyles.withoutAdditionalLinks ||
       (currClientHeight < FULL_SIZE && !isMobile(window.navigator).any)
     )
       return '25px !important';
@@ -140,14 +155,23 @@ const Box = styled.div`
   }
 `;
 
-const MainLinks = ({ currClientHeight, profile }) => {
+const documentationPosition = singleCommunityDocumentationPosition();
+
+const MainLinks = ({
+  currClientHeight,
+  profile,
+  documentationMenu,
+  match,
+  toggleEditDocumentation,
+  pinnedItemMenu,
+}) => {
   const { pathname } = window.location;
   let route = pathname.split('/').filter((x) => x)[0];
 
   const singleCommId = +isSingleCommunityWebsite();
   const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
   const isProtocolAdmin = hasProtocolAdminRole(getPermissions(profile));
-  const isModeratorModeSingleCommunity = Boolean(singleCommId)
+  const isModeratorModeSingleCommunity = singleCommId
     ? hasCommunityAdminRole(getPermissions(profile), singleCommId) ||
       hasCommunityModeratorRole(getPermissions(profile), singleCommId)
     : false;
@@ -157,67 +181,142 @@ const MainLinks = ({ currClientHeight, profile }) => {
   }
 
   return (
-    <Box currClientHeight={currClientHeight}>
-      {isBloggerMode && (
-        <A1 to={routes.detailsHomePage()} name="home" route={route}>
-          <IconLg className="mr-2" icon={homeIcon} />
-          <FormattedMessage id={messages.home.id} />
-        </A1>
+    <Box
+      currClientHeight={currClientHeight}
+      className="df fdc"
+      css={{
+        ...(pinnedItemMenu.id !== '' && { marginTop: 0 }),
+      }}
+    >
+      {pinnedItemMenu.id !== '' && (
+        <div
+          css={{
+            background: '#A5BCFF',
+            borderRadius: '0px 0px 20px 20px',
+          }}
+        >
+          {(() => {
+            const ipfsHash = getIpfsHashFromBytes32(pinnedItemMenu.id);
+
+            return (
+              <A1
+                to={routes.documentation(ipfsHash)}
+                name={`documentation/${ipfsHash}`}
+                css={{
+                  padding: '8px 15px 12px',
+                  fontWeight: 600,
+                  fontSize: 16,
+                  lineHeight: '20px',
+                  color: 'var(--color-white)',
+                }}
+              >
+                <span>{pinnedItemMenu.title}</span>
+              </A1>
+            );
+          })()}
+        </div>
       )}
 
-      <A1 to={routes.feed()} name="feed" route={route}>
-        <IconLg className="mr-2" icon={myFeedIcon} />
-        <FormattedMessage
-          id={messages[profile && !singleCommId ? 'myFeed' : 'feed'].id}
-        />
-      </A1>
+      <div
+        id="communitySection"
+        css={{
+          ...(documentationPosition === 'top' && {
+            order: 1,
+          }),
+        }}
+      >
+        {Boolean(singleCommId) && (
+          <div
+            className={cn('df jcsb pl15', {
+              mt28: pinnedItemMenu.id !== '' || documentationPosition === 'top',
+            })}
+            css={{
+              ...styles.menuSectionTitle,
+              ...styles.menuItem,
+            }}
+          >
+            COMMUNITY
+          </div>
+        )}
 
-      <A1 to={routes.questions()} name="questions" route={route}>
-        <IconLg className="mr-2" icon={generalIcon} />
-        <FormattedMessage id={messages.discussions.id} />
-      </A1>
+        {isBloggerMode && (
+          <A1 to={routes.detailsHomePage()} name="home" route={route}>
+            <IconLg className="mr-2" icon={homeIcon} />
+            <FormattedMessage id={messages.home.id} />
+          </A1>
+        )}
 
-      <A1 to={routes.expertPosts()} name="experts" route={route}>
-        <IconLg className="mr-2" icon={expertIcon} />
-        <FormattedMessage id={messages.expertPosts.id} />
-      </A1>
-
-      <A1 to={routes.tutorials()} name="tutorials" route={route}>
-        <IconLg className="mr-2" icon={tutorialIcon} fill={BORDER_PRIMARY} />
-        <FormattedMessage id={messages.tutorials.id} />
-      </A1>
-
-      {!singleCommId && (
-        <A1 to={routes.communities()} name="communities" route={route}>
-          <IconLg className="mr-2" icon={communitiesIcon} />
-          <FormattedMessage id={messages.communities.id} />
-        </A1>
-      )}
-
-      {Boolean(singleCommId) && (
-        <A1 to={routes.communityTags(singleCommId)} name="tags" route={route}>
-          <IconLg className="mr-2" icon={tagsIcon} />
-          <FormattedMessage {...messages.tags} />
-        </A1>
-      )}
-
-      {(hasGlobalModeratorRole() ||
-        isModeratorModeSingleCommunity ||
-        isProtocolAdmin) && (
-        <A1 to={routes.users()} name="users" route={route}>
-          <IconLg className="mr-2" icon={usersIcon} />
+        <A1 to={routes.feed()} name="feed" route={route}>
+          <IconLg className="mr-2" icon={myFeedIcon} />
           <FormattedMessage
-            id={messages[isBloggerMode ? 'followers' : 'users'].id}
+            id={messages[profile && !singleCommId ? 'myFeed' : 'feed'].id}
           />
         </A1>
-      )}
 
-      {!singleCommId && (
-        <A1 to={routes.faq()} name="faq" route={route}>
-          <IconLg className="mr-2" icon={faqIcon} fill={BORDER_PRIMARY} />
-          <FormattedMessage id={messages.faq.id} />
+        <A1 to={routes.questions()} name="questions" route={route}>
+          <IconLg className="mr-2" icon={generalIcon} />
+          <FormattedMessage {...messages.discussions} />
         </A1>
-      )}
+
+        <A1 to={routes.expertPosts()} name="experts" route={route}>
+          <IconLg className="mr-2" icon={expertIcon} />
+          <FormattedMessage {...messages.expertPosts} />
+        </A1>
+
+        <A1 to={routes.tutorials()} name="tutorials" route={route}>
+          <IconLg className="mr-2" icon={tutorialIcon} fill={BORDER_PRIMARY} />
+          <FormattedMessage {...messages.tutorials} />
+        </A1>
+
+        {!singleCommId && (
+          <A1 to={routes.communities()} name="communities" route={route}>
+            <IconLg className="mr-2" icon={communitiesIcon} />
+            <FormattedMessage {...messages.communities} />
+          </A1>
+        )}
+
+        {Boolean(singleCommId) && (
+          <A1
+            to={
+              !singleCommId ? routes.tags() : routes.communityTags(singleCommId)
+            }
+            name="tags"
+            route={route}
+          >
+            <IconLg className="mr-2" icon={tagsIcon} />
+            <FormattedMessage {...messages.tags} />
+          </A1>
+        )}
+
+        {(hasGlobalModeratorRole() ||
+          isModeratorModeSingleCommunity ||
+          isProtocolAdmin) && (
+          <A1 to={routes.users()} name="users" route={route}>
+            <IconLg className="mr-2" icon={usersIcon} />
+            <FormattedMessage
+              {...messages[isBloggerMode ? 'followers' : 'users']}
+            />
+          </A1>
+        )}
+
+        {!singleCommId && (
+          <A1 to={routes.faq()} name="faq" route={route}>
+            <IconLg className="mr-2" icon={faqIcon} fill={BORDER_PRIMARY} />
+            <FormattedMessage id={messages.faq.id} />
+          </A1>
+        )}
+      </div>
+
+      {Boolean(singleCommId) &&
+        (documentationMenu.length > 0 || isModeratorModeSingleCommunity) && (
+          <Documentation
+            documentationMenu={documentationMenu}
+            isModeratorModeSingleCommunity={isModeratorModeSingleCommunity}
+            toggleEditDocumentation={toggleEditDocumentation}
+            match={match}
+            pinnedItemMenuId={pinnedItemMenu.id}
+          />
+        )}
     </Box>
   );
 };

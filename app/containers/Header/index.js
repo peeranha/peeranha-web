@@ -1,9 +1,3 @@
-/**
- *
- * Header
- *
- */
-
 import React from 'react';
 import $ from 'jquery';
 import PropTypes from 'prop-types';
@@ -23,6 +17,8 @@ import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
 import { showLeftMenu } from 'containers/AppWrapper/actions';
 import { selectIsMenuVisible } from 'containers/AppWrapper/selectors';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { selectIsEditDocumentation } from 'pages/Documentation/selectors';
+import { toggleEditDocumentation } from 'pages/Documentation/actions';
 
 import {
   WHAT_IS_ENERGY,
@@ -53,7 +49,7 @@ export class Header extends React.PureComponent {
 
     window.addEventListener(
       'scroll',
-      event => {
+      (event) => {
         const st = window.pageYOffset || document.documentElement.scrollTop;
 
         const { scrollY } = event.currentTarget;
@@ -88,6 +84,8 @@ export class Header extends React.PureComponent {
       transactionHash,
       transactionInitialised,
       locale,
+      isEditDocumentation,
+      toggleEditDocumentationDispatch,
     } = this.props;
 
     if (isMenuVisible) return null;
@@ -109,6 +107,8 @@ export class Header extends React.PureComponent {
         transactionHash={transactionHash}
         transactionInitialised={transactionInitialised}
         locale={locale}
+        isEditDocumentation={isEditDocumentation}
+        toggleEditDocumentation={toggleEditDocumentationDispatch}
       />
     );
   }
@@ -137,6 +137,7 @@ const mapStateToProps = createStructuredSelector({
   transactionHash: selectTransactionHash(),
   transactionInitialised: selectTransactionInitialised(),
   locale: makeSelectLocale(),
+  isEditDocumentation: selectIsEditDocumentation(),
 });
 
 export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
@@ -148,12 +149,13 @@ export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
       redirectToAskQuestionPage,
       dispatch,
     ),
+    toggleEditDocumentationDispatch: bindActionCreators(
+      toggleEditDocumentation,
+      dispatch,
+    ),
   };
 }
 
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 export default compose(withConnect)(Header);

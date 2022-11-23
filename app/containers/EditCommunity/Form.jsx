@@ -62,7 +62,7 @@ const EditCommunityForm = ({
   isBloggerMode,
 }) => {
   const editCommunity = useCallback(
-    values => {
+    (values) => {
       const communityData = {
         avatar: values.get(COMM_AVATAR_FIELD),
         name: values.get(COMM_NAME_FIELD),
@@ -175,7 +175,7 @@ EditCommunityForm.propTypes = {
 const FormClone = reduxForm({
   enableReinitialize: true,
   form: EDIT_COMMUNITY_FORM,
-  onSubmitFail: errors => {
+  onSubmitFail: (errors) => {
     scrollToErrorField(errors);
   },
 })(EditCommunityForm);

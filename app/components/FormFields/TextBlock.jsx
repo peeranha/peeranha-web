@@ -22,7 +22,8 @@ const TextBlockStyled = styled.div`
     max-width: 100%;
   }
 
-  p, li {
+  p,
+  li {
     font-size: 16px;
     line-height: 24px;
   }
@@ -63,13 +64,11 @@ const TextBlockStyled = styled.div`
     p::before {
       content: '«';
     }
-  
-     p::after {
+
+    p::after {
       content: '»';
     }
   }
-
-   
 `;
 
 export const TextBlock = ({ content, className }) => (

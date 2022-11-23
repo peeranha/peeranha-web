@@ -90,13 +90,13 @@ const AdditionalUserInformation = ({
             value={profile.profile[ABOUT_FIELD]}
             asHtml
           />
-
+          {/* PEER-597: Hide the text in the user profile that information is not available;
           <Blank
             profile={profile.profile}
             userId={userId}
             account={account}
             redirectToEditProfilePage={redirectToEditProfilePage}
-          />
+          /> */}
         </>
       )}
   </Box>
