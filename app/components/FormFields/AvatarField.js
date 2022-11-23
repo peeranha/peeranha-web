@@ -70,7 +70,7 @@ const Div = styled.div`
       z-index: 1;
 
       @media (min-width: 992px) {
-        background-color: #fff;
+        background-color: var(--color-white);
         bottom: -25%;
         height: 25%;
         opacity: 75%;

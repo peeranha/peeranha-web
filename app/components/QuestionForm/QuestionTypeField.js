@@ -64,7 +64,7 @@ const Warning = styled.div`
   margin-left: 205px;
   padding-top: 10px;
   font-style: ${italicFont};
-  color: grey;
+  color: var(--color-gray-dark);
   font-size: 14px;
   line-height: 18px;
 

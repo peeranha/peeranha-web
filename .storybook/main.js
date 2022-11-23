@@ -16,7 +16,7 @@ module.exports = {
   core: {
     builder: 'webpack5',
   },
-  webpackFinal: config => {
+  webpackFinal: (config) => {
     config.resolve.alias = {
       ...config.resolve.alias,
       components: path.join(__dirname, '../app/components'),

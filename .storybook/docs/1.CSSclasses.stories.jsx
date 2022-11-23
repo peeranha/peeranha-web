@@ -26,9 +26,9 @@ const sortArray = (firstString, secondString) =>
 
 const clearStyles = globalStyles.styles
   .split('.')
-  .map(item => item.replace(/\s{2,}/gi, ''))
+  .map((item) => item.replace(/\s{2,}/gi, ''))
   .slice(1)
-  .filter(item => !item.includes(':root') && !/\s.+{/gi.test(item))
+  .filter((item) => !item.includes(':root') && !/\s.+{/gi.test(item))
   .sort(sortArray);
 
 export const GlobalCSSStyles = () => (
@@ -61,7 +61,9 @@ export const GlobalCSSStyles = () => (
             .split('{')[1]
             .replace(/;}/gi, '')
             .split(';')
-            .map(content => <div>{content}</div>)}
+            .map((content) => (
+              <div>{content}</div>
+            ))}
         </div>
       </Fragment>
     ))}

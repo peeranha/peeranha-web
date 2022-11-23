@@ -52,6 +52,7 @@ const IconButtonInline = styled(IconButton)`
 const IconNumber = Span.extend`
   padding-left: 4px;
   padding-right: 4px;
+  color: var(--color-white);
 `;
 
 const NotificationIcon = ({
@@ -94,9 +95,7 @@ const NotificationIcon = ({
   if (inline)
     return (
       <IconButtonInline id={iconId} isMobileVersion={isMobileVersion}>
-        <IconNumber fontSize="13" color="white">
-          {number}
-        </IconNumber>
+        <IconNumber fontSize="13">{number}</IconNumber>
       </IconButtonInline>
     );
 
@@ -104,9 +103,7 @@ const NotificationIcon = ({
     return (
       <div tabIndex="0" onBlur={closeTooltipOnClick}>
         <IconDivMob id={iconId} onClick={e => toggleTooltipOnClick(e)}>
-          <IconNumber fontSize="13" color="white">
-            {number}
-          </IconNumber>
+          <IconNumber fontSize="13">{number}</IconNumber>
         </IconDivMob>
       </div>
     );
@@ -117,9 +114,7 @@ const NotificationIcon = ({
       onClick={e => toggleTooltipOnClick(e)}
       onBlur={closeTooltipOnClick}
     >
-      <IconNumber fontSize="13" color="white">
-        {number}
-      </IconNumber>
+      <IconNumber fontSize="13">{number}</IconNumber>
     </IconButton>
   );
 };

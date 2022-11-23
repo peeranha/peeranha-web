@@ -22,7 +22,7 @@ const themeObjects = {
   kanda: KandaTheme,
 };
 
-const chooseTheme = choice => {
+const chooseTheme = (choice) => {
   const _theme = themeObjects[choice.toLowerCase()];
 
   if (_theme) {

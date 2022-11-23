@@ -49,7 +49,7 @@ export const Icons = () => {
       </div>
       <div
         css={css`
-          background: #f1f1f1;
+          background: var(--color-gray-light);
           padding: 10px;
           margin-top: 10px;
         `}
@@ -59,7 +59,7 @@ export const Icons = () => {
       <div
         css={css`
           display: flex;
-          color: #282828;
+          color: var(--color-white);
           flex-wrap: wrap;
           padding-top: 10px;
           & span {
