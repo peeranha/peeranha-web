@@ -32,8 +32,8 @@ export const getModeratorPermissions = (
     const rawPermissionsTypes = !communityId
       ? globalAdminPermissions
       : role === COMMUNITY_ADMIN_ROLE
-        ? communityAdminPermissions
-        : communityModeratorPermissions;
+      ? communityAdminPermissions
+      : communityModeratorPermissions;
     const permissionsTypes = Object.entries(rawPermissionsTypes).map(
       ([key, permValue]) => ({
         permissionCode: rawPermissionsTypes[key].code,
@@ -41,9 +41,8 @@ export const getModeratorPermissions = (
       }),
     );
     if (permissions1[communityId]) {
-      permissions1[communityId].blocks = permissions1[
-        communityId
-      ].blocks.concat(permissionsTypes);
+      permissions1[communityId].blocks =
+        permissions1[communityId].blocks.concat(permissionsTypes);
       permissions1[communityId].permission.push(role);
     } else {
       permissions1[communityId] = {
@@ -54,21 +53,21 @@ export const getModeratorPermissions = (
             ? translations[messages.defaultAdministrator.id]
             : translations[messages.protocolAdministrator.id]
           : role === COMMUNITY_ADMIN_ROLE
-            ? translations[messages.communityAdministrator.id]
-            : translations[messages.communityModerator.id],
+          ? translations[messages.communityAdministrator.id]
+          : translations[messages.communityModerator.id],
         h2: communityId
           ? communities.find(({ id }) => Number(id) === Number(communityId))
               ?.name || 'TestComm1'
           : role === DEFAULT_ADMIN_ROLE
-            ? translations[messages.defaultAdministrator.id]
-            : translations[messages.protocolAdministrator.id],
+          ? translations[messages.defaultAdministrator.id]
+          : translations[messages.protocolAdministrator.id],
         h3: !communityId
           ? role === DEFAULT_ADMIN_ROLE
             ? translations[messages.asDefaultAdministrator.id]
             : translations[messages.asProtocolAdministrator.id]
           : role === COMMUNITY_ADMIN_ROLE
-            ? translations[messages.asCommunityAdministrator.id]
-            : translations[messages.asCommunityModerator.id],
+          ? translations[messages.asCommunityAdministrator.id]
+          : translations[messages.asCommunityModerator.id],
         sectionCode: index,
         communityId,
       };
@@ -87,8 +86,8 @@ export const isUserTopCommunityQuestionsModerator = (
 
 export const isAnswerOfficial = ({ isOfficialReply }) => !!isOfficialReply;
 
-export const officialAnswersCount = questionData =>
-  questionData.answers.filter(answer => isAnswerOfficial(answer)).length;
+export const officialAnswersCount = (questionData) =>
+  questionData.answers.filter((answer) => isAnswerOfficial(answer)).length;
 
 export const communityAdminOfficialAnswerPermission = (
   properties = [],
@@ -114,7 +113,7 @@ export const communityAdminInfiniteImpactPermission = (
     COMMUNITY_ADMIN_INFINITE_IMPACT,
   ]).filter(({ community }) => communityId === community).length;
 
-export const getPermissions = profile => profile?.permissions ?? [];
+export const getPermissions = (profile) => profile?.permissions ?? [];
 
 export const isValidJsonFromCookie = (data, cookieName) => {
   try {
@@ -126,7 +125,7 @@ export const isValidJsonFromCookie = (data, cookieName) => {
   }
 };
 
-export const hasGlobalModeratorRole = permissionsFromState => {
+export const hasGlobalModeratorRole = (permissionsFromState) => {
   let permissions = permissionsFromState;
 
   if (!permissions) {
@@ -139,34 +138,32 @@ export const hasGlobalModeratorRole = permissionsFromState => {
   }
 
   return Boolean(
-    permissions.find(permission =>
+    permissions.find((permission) =>
       BigNumber.from(permission).eq(DEFAULT_ADMIN_ROLE),
     ),
   );
 };
 
 export const getCommunityRole = (role, communityId) =>
-  BigNumber.from(role)
-    .add(BigNumber.from(communityId))
-    .toHexString();
+  BigNumber.from(role).add(BigNumber.from(communityId)).toHexString();
 
-export const isTemporaryAccount = async account => {
+export const isTemporaryAccount = async (account) => {
   const ethereumService = await selectEthereum();
   return ethereumService.getSelectedAccount() === account;
 };
 
 export const getAllRoles = (userRoles = [], communitiesCount) => {
   const communityRoles = [COMMUNITY_MODERATOR_ROLE, COMMUNITY_ADMIN_ROLE];
-  if (userRoles.find(role => BigNumber.from(role).eq(DEFAULT_ADMIN_ROLE))) {
+  if (userRoles.find((role) => BigNumber.from(role).eq(DEFAULT_ADMIN_ROLE))) {
     return [{ role: DEFAULT_ADMIN_ROLE }];
   }
-  if (userRoles.find(role => BigNumber.from(role).eq(PROTOCOL_ADMIN_ROLE))) {
+  if (userRoles.find((role) => BigNumber.from(role).eq(PROTOCOL_ADMIN_ROLE))) {
     return [{ role: PROTOCOL_ADMIN_ROLE }];
   }
-  return userRoles.map(userRole => {
+  return userRoles.map((userRole) => {
     let communityId;
     let role;
-    communityRoles.map(communityRole => {
+    communityRoles.map((communityRole) => {
       const id = BigNumber.from(userRole)
         .sub(BigNumber.from(communityRole))
         .toString();
@@ -188,17 +185,17 @@ export const getAllRoles = (userRoles = [], communitiesCount) => {
 
 export const hasCommunityAdminRole = (permissions = [], communityId) =>
   !!permissions.filter(
-    permission =>
+    (permission) =>
       permission === getCommunityRole(COMMUNITY_ADMIN_ROLE, communityId),
   ).length;
 
 export const hasCommunityModeratorRole = (permissions = [], communityId) =>
   !!permissions.filter(
-    permission =>
+    (permission) =>
       permission === getCommunityRole(COMMUNITY_MODERATOR_ROLE, communityId),
   ).length;
 
-export const hasProtocolAdminRole = permissionsFromState => {
+export const hasProtocolAdminRole = (permissionsFromState) => {
   let permissions = permissionsFromState;
 
   if (!permissions) {
@@ -211,7 +208,7 @@ export const hasProtocolAdminRole = permissionsFromState => {
   }
 
   return Boolean(
-    permissions.find(permission =>
+    permissions.find((permission) =>
       BigNumber.from(permission).eq(PROTOCOL_ADMIN_ROLE),
     ),
   );

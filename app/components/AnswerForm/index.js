@@ -59,6 +59,7 @@ export const AnswerForm = ({
   isAnswered,
   account,
   isMinusReputation,
+  isHasRole,
 }) => (
   <FormBox onSubmit={handleSubmit(sendAnswer)}>
     {isAnswered && (
@@ -71,11 +72,12 @@ export const AnswerForm = ({
         <FormattedMessage id={messages.logInToAnswer.id} />
       </BlockedInfoArea>
     )}
-    {isMinusReputation && (
-      <BlockedInfoArea>
-        <FormattedMessage id={messages.reputationBelowZero.id} />
-      </BlockedInfoArea>
-    )}
+    {isMinusReputation &&
+      !isHasRole && (
+        <BlockedInfoArea>
+          <FormattedMessage id={messages.reputationBelowZero.id} />
+        </BlockedInfoArea>
+      )}
     <Field
       name={TEXT_EDITOR_ANSWER_FORM}
       component={TextEditorField}

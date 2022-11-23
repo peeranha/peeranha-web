@@ -2,6 +2,13 @@ import _get from 'lodash/get';
 import { CURRENCIES } from 'wallet-config';
 import { getRatingByCommunity } from 'utils/profileManagement';
 import messages from './messages';
+import {
+  getPermissions,
+  hasCommunityAdminRole,
+  hasCommunityModeratorRole,
+  hasGlobalModeratorRole,
+  hasProtocolAdminRole,
+} from 'utils/properties';
 
 // TODO: test
 const imageValidation = (img) =>
@@ -87,6 +94,7 @@ const required = (value) => {
   return !val ? messages.requiredField : undefined;
 };
 
+
 const requiredPostTypeSelection = (value) =>
   Number(value) >= 0 ? undefined : messages.postTypeSelectionError;
 
@@ -128,8 +136,16 @@ const requiredMinReputation = (...args) => {
   const id = args[0].id;
   const profile = args[2].profile;
   const MIN_REPUTATION = 0;
+
+  const hasRole =
+    hasGlobalModeratorRole(getPermissions(profile)) ||
+    (id && hasCommunityModeratorRole(getPermissions(profile), id)) ||
+    hasProtocolAdminRole(getPermissions(profile));
+
   const isMinusReputation = getRatingByCommunity(profile, id) < MIN_REPUTATION;
-  return isMinusReputation ? messages.requiredMinReputation : undefined;
+  return isMinusReputation && !hasRole
+    ? messages.requiredMinReputation
+    : undefined;
 };
 
 const valueHasNotBeInList = (...args) => {
