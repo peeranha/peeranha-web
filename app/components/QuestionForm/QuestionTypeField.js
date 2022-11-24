@@ -119,7 +119,7 @@ const Button = B.extend`
     +type === value
       ? `0 0 0 3px ${colors.textColorShadow || customShadow}`
       : 'none'};
-  z-index: ${({ type, value }) => (+type === value ? 1 : 0)};
+  z-index: ${({ type, value }) => (Number(type) === value ? 1 : 0)};
   &:hover {
     box-shadow: 0 0 0 3px ${colors.textColorShadow || customShadow};
     z-index: 1;
