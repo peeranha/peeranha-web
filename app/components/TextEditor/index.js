@@ -55,6 +55,7 @@ class TextEditor extends React.PureComponent {
             placeholder: translationMessages[locale][messages.enterText.id],
           }}
           preview={'edit'}
+          data-color-mode={'light'}
         />
         <Wrapper
           label={'Preview'}
