@@ -31,7 +31,7 @@ class TextEditor extends React.PureComponent {
     this.props.onBlur(this.props.value);
   };
 
-  static getHtmlText = md => marked.parse(md);
+  static getHtmlText = (md) => marked.parse(md);
 
   render() {
     const { locale } = this.props;
@@ -69,6 +69,7 @@ class TextEditor extends React.PureComponent {
             {this.props.value ? (
               <MarkdownPreview
                 source={this.props.value}
+                warpperElement={{ 'data-color-mode': 'light' }}
                 css={css`
                   ol li {
                     list-style-type: decimal;
@@ -77,7 +78,7 @@ class TextEditor extends React.PureComponent {
                     list-style-type: disc;
                   }
                 `}
-                rehypeRewrite={node => {
+                rehypeRewrite={(node) => {
                   if (node.tagName === 'input') {
                     node.properties.disabled = false;
                   }
