@@ -97,6 +97,11 @@ const communitiesConfig = {
       src: SolidityLogo,
       styles: SolidityStyles,
     },
+    15: {
+      origin: `https://ankr.peeranha.io`,
+      src: AnkrLogo,
+      styles: AnkrStyles,
+    },
   },
   staging: {
     1: {
@@ -110,7 +115,7 @@ const communitiesConfig = {
       styles: MintStateLabsStyles,
     },
     3: {
-      origin: `https://ankr${process.env.COOKIE_DOMAIN}`,
+      origin: `https://demo-ankr.testpeeranha.io`,
       src: AnkrLogo,
       styles: AnkrStyles,
     },
