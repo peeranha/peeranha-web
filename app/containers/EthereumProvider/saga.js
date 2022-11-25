@@ -66,7 +66,7 @@ export function* isValid({ creator, buttonId, minRating = 0, communityId }) {
 
   const isGlobalAdmin =
     hasGlobalModeratorRole(permissions) || hasProtocolAdminRole(permissions);
-  const isCommunityAdmin = hasCommunityAdminRole(permissions, single);
+  const isCommunityAdmin = single && hasCommunityAdminRole(permissions, single);
 
   yield call(
     isAvailableAction,
