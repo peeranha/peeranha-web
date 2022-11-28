@@ -114,6 +114,6 @@ const AddModeratorForm: React.FC<AddModeratorFormProps> = ({
 };
 
 export default reduxForm<any, any>({
-  onSubmitFail: errors => scrollToErrorField(errors),
+  onSubmitFail: (errors) => scrollToErrorField(errors),
   form: 'answerForm',
 })(AddModeratorForm);

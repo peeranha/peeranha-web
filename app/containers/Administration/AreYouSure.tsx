@@ -16,9 +16,11 @@ type AreYouSureProps = {
   Button: React.FC<{
     onClick: (ev: { currentTarget: React.SetStateAction<null> }) => void;
   }>;
-  submitAction: (
-    { currentTarget }: { currentTarget: null | HTMLInputElement },
-  ) => void;
+  submitAction: ({
+    currentTarget,
+  }: {
+    currentTarget: null | HTMLInputElement;
+  }) => void;
 };
 
 const AreYouSure: React.FC<AreYouSureProps> = ({

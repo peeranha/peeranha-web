@@ -55,12 +55,9 @@ const Administration: React.FC<AdministrationProps> = ({
   revokeModeratorDispatch,
   revokeModeratorLoading,
 }): JSX.Element => {
-  useEffect(
-    () => {
-      getModeratorsDispatch(single);
-    },
-    [single],
-  );
+  useEffect(() => {
+    getModeratorsDispatch(single);
+  }, [single]);
 
   return (
     <>
