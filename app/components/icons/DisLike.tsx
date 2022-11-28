@@ -1,7 +1,7 @@
 import React from 'react';
 import IconComponent, { IconProps } from './IconComponent';
 
-const Dislike: React.FC<IconProps> = (props): JSX.Element => (
+const DisLike: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
     id="dislike"
@@ -16,4 +16,4 @@ const Dislike: React.FC<IconProps> = (props): JSX.Element => (
   </IconComponent>
 );
 
-export default Dislike;
+export default DisLike;
