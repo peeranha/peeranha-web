@@ -22,7 +22,7 @@ export const styled = {
 
   main: {
     height: '100%',
-    gridTemplateColumns: '262px 1fr',
+    gridTemplateColumns: '262px 1fr 262px',
     boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.1)',
   },
 
