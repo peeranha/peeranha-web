@@ -219,8 +219,9 @@ export const ForceStyles = {
     btnColor: '#251E67',
     btnHoverColor: '#251E67',
     btnHeaderColor: '#FFAF00',
+    btnHeaderHoverOpacity: '0.75',
     newPostButtonText: '#000',
-    btnHeaderHoverOpacity: '0,75',
+    btnHeaderHoverOpacity: '0.75',
     tagColor: '#251E67',
     localeArrowColor: '#251E67',
     textColor: '#251E67',
@@ -261,9 +262,9 @@ export const ForceStyles = {
     border: 2px solid #ffaf00;
     color: #000;
     :hover {
-      background: #fff !important;
+      background: #ffaf00 !important;
       color: #000 !important;
-      border: 2px solid #fff !important;
+      border: 2px solid #ffaf00 !important;
     }
   `,
 };

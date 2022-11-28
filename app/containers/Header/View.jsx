@@ -285,6 +285,7 @@ const View = ({
                       :hover {
                         background: ${colors.btnHeaderHoverColor};
                         border: ${colors.btnHeaderHoverBorder};
+                        opacity: ${colors.btnHeaderHoverOpacity};
                       }
                       @media only screen and (min-width: 992px) {
                         min-width: 130px;
