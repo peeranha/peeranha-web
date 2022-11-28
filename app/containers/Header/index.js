@@ -16,6 +16,7 @@ import { LEFT_MENU_ID } from 'containers/LeftMenu/constants';
 import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
 import { showLeftMenu } from 'containers/AppWrapper/actions';
 import { selectIsMenuVisible } from 'containers/AppWrapper/selectors';
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { selectIsEditDocumentation } from 'pages/Documentation/selectors';
 import { toggleEditDocumentation } from 'pages/Documentation/actions';
 
@@ -82,6 +83,7 @@ export class Header extends React.PureComponent {
       isTransactionInPending,
       transactionHash,
       transactionInitialised,
+      locale,
       isEditDocumentation,
       toggleEditDocumentationDispatch,
     } = this.props;
@@ -104,6 +106,7 @@ export class Header extends React.PureComponent {
         isTransactionInPending={isTransactionInPending}
         transactionHash={transactionHash}
         transactionInitialised={transactionInitialised}
+        locale={locale}
         isEditDocumentation={isEditDocumentation}
         toggleEditDocumentation={toggleEditDocumentationDispatch}
       />
@@ -133,6 +136,7 @@ const mapStateToProps = createStructuredSelector({
   isTransactionInPending: selectTransactionInPending(),
   transactionHash: selectTransactionHash(),
   transactionInitialised: selectTransactionInitialised(),
+  locale: makeSelectLocale(),
   isEditDocumentation: selectIsEditDocumentation(),
 });
 
