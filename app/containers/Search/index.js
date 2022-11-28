@@ -68,9 +68,10 @@ const Search = ({
         {Boolean(items.length) && (
           <div>
             <span
-              className="semi-bold"
+              className="semi-bold fz16"
               css={css`
                 color: ${TEXT_DARK};
+                font-family: 'Source Sans Pro', sans-serif;
               `}
             >
               <FormattedMessage id={commonMessages.results.id} />
