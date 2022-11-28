@@ -396,6 +396,7 @@ class EthereumService {
       avatar: communityInfo.avatar.imgUrl || getFileUrl(communityInfo.avatar),
       description: communityInfo.description,
       website: communityInfo.website,
+      communitySite: communityInfo?.communitySite,
       language: communityInfo.language,
       creationTime: rawCommunity.timeCreate,
       isFrozen: rawCommunity.isFrozen,

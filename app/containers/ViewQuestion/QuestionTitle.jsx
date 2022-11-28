@@ -95,20 +95,17 @@ export const QuestionTitle = ({
     [promote, account, questionAuthor],
   );
 
-  const promotedQuestionEndsTime = useMemo(
-    () => {
-      if (typeof promote === 'object') {
-        return getFormattedDate(
-          promote.endsTime,
-          locale,
-          MONTH_3LETTERS__DAY_YYYY_TIME,
-        );
-      }
+  const promotedQuestionEndsTime = useMemo(() => {
+    if (typeof promote === 'object') {
+      return getFormattedDate(
+        promote.endsTime,
+        locale,
+        MONTH_3LETTERS__DAY_YYYY_TIME,
+      );
+    }
 
-      return null;
-    },
-    [promote],
-  );
+    return null;
+  }, [promote]);
 
   const isItWrittenByMe = profileInfo ? user === profileInfo.user : false;
 

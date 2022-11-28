@@ -28,6 +28,7 @@ import {
   COMM_AVATAR_FIELD,
   COMM_NAME_FIELD,
   COMM_OFFICIAL_SITE_FIELD,
+  COMM_PEERANHA_SITE_FIELD,
   COMM_SHORT_DESCRIPTION_FIELD,
   EDIT_COMMUNITY_BUTTON,
   EDIT_COMMUNITY_FORM,
@@ -69,6 +70,7 @@ const EditCommunityForm = ({
         description: values.get(COMM_SHORT_DESCRIPTION_FIELD),
         // about: values.get(ABOUT_FIELD),
         website: values.get(COMM_OFFICIAL_SITE_FIELD),
+        communitySite: values.get(COMM_PEERANHA_SITE_FIELD),
         // questionsType: parseInt(values.get(FORM_TYPE)),
         isBlogger: !!parseInt(values.get(COMMUNITY_TYPE)),
         // banner: values.get(COMM_BANNER_FIELD),
@@ -128,6 +130,18 @@ const EditCommunityForm = ({
           placeholder="https://example.com"
           splitInHalf
           tip={intl.formatMessage(messages.websiteTip)}
+        />
+
+        <Field
+          disabled={communityLoading}
+          name={COMM_PEERANHA_SITE_FIELD}
+          component={TextInputField}
+          label={intl.formatMessage(messages.communityWebsite)}
+          validate={[strLength3x20, required]}
+          warn={[strLength3x20, required]}
+          placeholder="subDomainName"
+          tip={intl.formatMessage(messages.communityWebsiteTip)}
+          splitInHalf
         />
 
         {/*{isModerator &&*/}
@@ -190,6 +204,7 @@ export default injectIntl(
           [COMM_SHORT_DESCRIPTION_FIELD]: community.description,
           // [ABOUT_FIELD]: community.about,
           [COMM_OFFICIAL_SITE_FIELD]: community.website,
+          [COMM_PEERANHA_SITE_FIELD]: community.communitySite,
           // [FORM_TYPE]: community.questionsType,
           [COMMUNITY_TYPE]: community.isBlogger ? 1 : 0,
           // [COMM_BANNER_FIELD]: community.banner,
