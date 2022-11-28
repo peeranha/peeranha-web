@@ -45,14 +45,14 @@ const Box = Section.extend`
   background-position-x: 50%;
 
   .title {
-    color: #ffffff;
+    color: var(--color-white);
     text-align: center;
     line-height: 1.22;
     font-size: 2.8em;
   }
 
   .content-body {
-    color: #ffffff;
+    color: var(--color-white);
     text-align: center;
     padding-top: 50px;
     padding-bottom: 55px;

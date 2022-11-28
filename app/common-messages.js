@@ -159,6 +159,9 @@ export default defineMessages({
   faq: {
     id: 'app.common.faq',
   },
+  administration: {
+    id: 'app.common.administration',
+  },
   moderationHeader: {
     id: 'app.common.moderationHeader',
   },
@@ -305,6 +308,9 @@ export default defineMessages({
   },
   reputationStatus: {
     id: 'app.common.reputationStatus',
+  },
+  reputationBelowZero: {
+    id: 'app.containers.ViewQuestion.reputationBelowZero',
   },
   en: {
     id: 'app.common.en',

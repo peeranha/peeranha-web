@@ -5,7 +5,7 @@ const Upload: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
     id="upload"
-    fill="curentColor"
+    fill="currentColor"
     viewBox="0 0 48 59"
     size={[48, 59]}
   >
