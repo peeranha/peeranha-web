@@ -114,7 +114,7 @@ const Post: React.FC<PostProps> = ({
               </span>
             ))}
             {!single && (
-              <Link to={communityLink()} className="df aic mt4 full-height">
+              <Link to={communityLink()} className="df aic full-height">
                 {community.avatar && (
                   <img
                     src={community.avatar}

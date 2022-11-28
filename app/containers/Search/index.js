@@ -28,7 +28,7 @@ import { getResults } from './actions';
 import messages from './messages';
 import { selectCommunities } from '../DataCacheProvider/selectors';
 import InfinityLoader from '../../components/InfinityLoader';
-import { TEXT_SECONDARY } from '../../style-constants';
+import { TEXT_DARK, TEXT_SECONDARY } from '../../style-constants';
 import SearchContent from './SearchContent';
 
 const Search = ({
@@ -40,14 +40,11 @@ const Search = ({
   communities,
 }) => {
   const query = match.params.q;
-  useEffect(
-    () => {
-      if (query) {
-        getResultsDispatch(query);
-      }
-    },
-    [getResultsDispatch, query],
-  );
+  useEffect(() => {
+    if (query) {
+      getResultsDispatch(query);
+    }
+  }, [getResultsDispatch, query]);
 
   return (
     <div>
@@ -58,18 +55,28 @@ const Search = ({
         index={false}
       />
 
-      <Header className="mb-to-sm-0 mb-from-sm-3 df jcsb aic">
+      <Header
+        className="mb-to-sm-0 mb-from-sm-3 df jcsb aic"
+        css={css`
+          padding-top: 30px;
+        `}
+      >
         <H3>
           <MediumImageStyled src={searchIcon} alt="search" />
           <FormattedMessage {...commonMessages.search} />
         </H3>
         {Boolean(items.length) && (
           <div>
-            <span className="bold">
+            <span
+              className="semi-bold"
+              css={css`
+                color: ${TEXT_DARK};
+              `}
+            >
               <FormattedMessage id={commonMessages.results.id} />
             </span>
             <span
-              className="fz14 ml8"
+              className="fz16 ml8"
               css={css`
                 color: ${TEXT_SECONDARY};
               `}
@@ -115,7 +122,7 @@ export default compose(
       getResultsProcessing: selectGetResultsProcessing(),
       locale: makeSelectLocale(),
     }),
-    dispatch => ({
+    (dispatch) => ({
       getResultsDispatch: bindActionCreators(getResults, dispatch),
     }),
   ),
