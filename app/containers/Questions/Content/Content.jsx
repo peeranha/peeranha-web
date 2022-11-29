@@ -21,7 +21,7 @@ import MoveSection from './MoveSection';
 import Body from './Body';
 import Pagination from './Pagination';
 
-import { POST_TYPE } from '../../../utils/constants';
+import { POST_TYPE, AMOUNT_POSTS_PAGINATION } from '../../../utils/constants';
 import { EXPERT_BACKLIGHT, TUTORIAL_BACKLIGHT } from 'style-constants';
 import { isGeneralQuestion } from '../../ViewQuestion/saga';
 
@@ -243,7 +243,7 @@ export const Content = ({
     setPage,
     totalPages,
   } = usePagination({
-    contentPerPage: 20,
+    contentPerPage: AMOUNT_POSTS_PAGINATION,
     count: questionsList.length,
   });
 

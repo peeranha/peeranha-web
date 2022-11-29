@@ -118,9 +118,6 @@ const View = ({
         isEditDocumentation={isEditDocumentation}
         pinnedItemMenu={pinnedItemMenu}
       />
-
-      {/* Hide footer from left menu */}
-      {/* <AdditionalLinks currClientHeight={currClientHeight} /> */}
     </ViewStyled>
   );
 };

@@ -233,9 +233,6 @@ export const Questions = ({
         <Content
           isFeed={isFeed}
           questionsList={questionsList}
-          // promotedQuestionsList={
-          //   promotedQuestions[+questionFilterFromCookies ? 'top' : 'all']
-          // }
           locale={locale}
           communities={communities}
           typeFilter={typeFilter}

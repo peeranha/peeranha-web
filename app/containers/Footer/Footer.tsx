@@ -5,20 +5,23 @@ import A, { ADefault } from 'components/A';
 import { FormattedMessage } from 'react-intl';
 import messages from 'common-messages';
 
-import ChangeLocale from 'containers/ChangeLocale';
 import {
   INFO_LINKS,
   LINK_PRIVACY_POLICY,
   LINK_TERMS_OF_SERVICE,
 } from './constants';
 
-interface IProps {
+type FooterLinkType = {
   path: string;
-  message: string;
+  message: { id: string };
   cssStyles: string;
-}
+};
 
-const Link: React.FC = ({ path, message, cssStyles }: IProps): JSX.Element =>
+const Link: React.FC<FooterLinkType> = ({
+  path,
+  message,
+  cssStyles,
+}): JSX.Element =>
   document.location.origin === process.env.APP_LOCATION ? (
     <A to={path} css={cssStyles}>
       <FormattedMessage id={message.id} />
@@ -36,17 +39,15 @@ const Footer: React.FC = (): JSX.Element => {
         <div css={css(styles.border)} />
         <div className="df aic jcc " css={css(styles.infoBlock)}>
           <div className="df fz16" css={css(styles.content)}>
-            {INFO_LINKS.map(el => (
+            {INFO_LINKS.map((element) => (
               <Link
-                path={el.route}
-                key={el.route}
-                message={el.title}
+                path={element.route}
+                key={element.route}
+                message={element.title}
                 cssStyles={css(styles.infoLinks)}
               />
             ))}{' '}
           </div>
-          {/* Hide locale */}
-          {/* <div><ChangeLocale withTitle /></div> */}
         </div>
         <div className="df aic jcc fdc">
           <div css={css(styles.infoData)}>
