@@ -137,9 +137,9 @@ const EditCommunityForm = ({
           name={COMM_PEERANHA_SITE_FIELD}
           component={TextInputField}
           label={intl.formatMessage(messages.communityWebsite)}
-          validate={[strLength3x20, required]}
-          warn={[strLength3x20, required]}
-          placeholder="subDomainName"
+          validate={[strLength100Max]}
+          warn={[strLength100Max]}
+          placeholder="subdomain.peeranha.io"
           tip={intl.formatMessage(messages.communityWebsiteTip)}
           splitInHalf
         />

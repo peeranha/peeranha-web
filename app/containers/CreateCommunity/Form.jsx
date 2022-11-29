@@ -172,9 +172,9 @@ const CreateCommunityForm = ({
           name={COMM_PEERANHA_SITE_FIELD}
           component={TextInputField}
           label={translations[messages.communityWebsite.id]}
-          validate={[strLength3x20, required]}
-          warn={[strLength3x20, required]}
-          placeholder="subDomainName"
+          validate={[strLength100Max]}
+          warn={[strLength100Max]}
+          placeholder="subdomain.peeranha.io"
           tip={translations[messages.communityWebsiteTip.id]}
           splitInHalf
         />
