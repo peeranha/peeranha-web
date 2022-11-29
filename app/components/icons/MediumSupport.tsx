@@ -5,7 +5,7 @@ const MediumSupport: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
     id="medium-support"
-    fill="curentColor"
+    fill="currentColor"
     viewBox="0 0 26 22"
     size={[26, 22]}
   >

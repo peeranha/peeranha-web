@@ -12,8 +12,9 @@ import twitterIcon from 'images/twittersupport.svg?inline';
 import linkedinIcon from 'images/linkedinsupport.svg?inline';
 import githubIcon from 'images/guthubsupport.svg?inline';
 import facebookIcon from 'images/facebook.svg?inline';
-import calendarIcon from 'images/ico_email.svg?inline';
+import emailIcon from 'images/ico_email_new.svg?inline';
 import telegramIcon from 'images/telegramOfficialBlue.svg?inline';
+import discordIcon from 'images/discord-icon.svg?inline';
 
 import Span from 'components/Span';
 import H3 from 'components/H3';
@@ -23,7 +24,7 @@ import Wrapper from 'components/Header/Simple';
 import { CONTACTS_ID } from './constants';
 
 const MediaItem = Base.extend`
-  display: ${x => (x.href ? 'flex' : 'none')};
+  display: ${(x) => (x.href ? 'flex' : 'none')};
   flex-direction: column;
   flex-grow: 0;
   align-items: center;
@@ -32,17 +33,10 @@ const MediaItem = Base.extend`
   white-space: nowrap;
 
   img {
-    width: 25px;
-    height: 25px;
+    width: 24px;
+    height: 24px;
     object-fit: contain;
     margin-bottom: 5px;
-  }
-
-  &:last-of-type {
-    padding: 20px 15px;
-    img {
-      height: 15px;
-    }
   }
 
   @media only screen and (max-width: 379px) {
@@ -56,11 +50,11 @@ const MediaItem = Base.extend`
 
 const MediaList = styled.div`
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(7, 1fr);
   grid-gap: 15px;
 
   @media only screen and (max-width: 1279px) {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
 
   @media only screen and (max-width: 576px) {
@@ -68,15 +62,11 @@ const MediaList = styled.div`
   }
 `;
 
-const EmailSpan = Span.extend`
-  color: ${TEXT_PRIMARY};
-`;
-
 const Contacts = ({ locale }) => (
   <div id={CONTACTS_ID}>
     <Wrapper className="mb-to-sm-0 mb-from-sm-3">
       <H3>
-        <FormattedMessage {...commonMessages.contacts} />
+        <FormattedMessage id={commonMessages.contacts.id} />
       </H3>
     </Wrapper>
 
@@ -107,8 +97,13 @@ const Contacts = ({ locale }) => (
       </MediaItem>
 
       <MediaItem href={getLinks(locale).email}>
-        <img src={calendarIcon} alt="calendar" />
-        <EmailSpan>hello@peeranha.io</EmailSpan>
+        <img src={emailIcon} alt="email" />
+        <Span bold>E-mail</Span>
+      </MediaItem>
+
+      <MediaItem href={getLinks(locale).discord} target="_blank">
+        <img src={discordIcon} alt="discord" />
+        <Span bold>Discord</Span>
       </MediaItem>
     </MediaList>
   </div>

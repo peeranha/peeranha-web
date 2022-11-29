@@ -21,6 +21,7 @@ type TypeFormProps = {
   isError: boolean;
   setIsError: Function;
   isCommunityModerator: boolean;
+  isDocumentation: boolean;
 };
 
 const TypeForm: React.FC<TypeFormProps> = ({
@@ -34,6 +35,7 @@ const TypeForm: React.FC<TypeFormProps> = ({
   isError,
   setIsError,
   isCommunityModerator,
+  isDocumentation,
 }): JSX.Element | null => {
   const onChange = useCallback((val: any[]) => change(FORM_TYPE, val[0]), []);
 
@@ -45,18 +47,15 @@ const TypeForm: React.FC<TypeFormProps> = ({
     [formValues[FORM_TYPE]],
   );
 
-  useEffect(
-    () => {
-      if (descriptionListLabel && descriptionListItems) {
-        setHasSelectedType(true);
-        setIsError(false);
-      }
-    },
-    [descriptionListLabel, descriptionListItems],
-  );
+  useEffect(() => {
+    if (descriptionListLabel && descriptionListItems) {
+      setHasSelectedType(true);
+      setIsError(false);
+    }
+  }, [descriptionListLabel, descriptionListItems]);
 
   return (
-    <>
+    <div className={isDocumentation ? 'd-none' : ''}>
       <Field
         name={FORM_TYPE}
         component={QuestionTypeField}
@@ -77,7 +76,7 @@ const TypeForm: React.FC<TypeFormProps> = ({
         />
       )}
       <br />
-    </>
+    </div>
   );
 };
 

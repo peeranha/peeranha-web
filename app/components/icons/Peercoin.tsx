@@ -5,7 +5,7 @@ const Peercoin: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
     id="peercoin"
-    fill="curentColor"
+    fill="currentColor"
     viewBox="0 0 25 25"
     size={[25, 25]}
   >
