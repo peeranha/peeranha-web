@@ -9,7 +9,7 @@ import H3 from 'components/H3';
 
 import messages from 'containers/Administration/messages';
 
-import AddRoleForm from 'containers/Administration/AddModeratorForm';
+import AddRoleForm from 'containers/Administration/AddRoleForm';
 
 import commonMessages from 'common-messages';
 
