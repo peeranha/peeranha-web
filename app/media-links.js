@@ -7,6 +7,8 @@ const links = {
     medium: 'https://medium.com/peeranha',
     telegram: 'https://t.me/peeranhaio',
     email: 'mailto:hello@peeranha.io',
+    markdownCheatSheet: 'https://www.markdownguide.org/cheat-sheet/',
+    discord: 'https://discord.gg/jmrbqVnzMZ',
   },
   ru: {
     facebook: 'https://www.facebook.com/peeranha1/',
@@ -16,7 +18,9 @@ const links = {
     medium: 'https://medium.com/peeranha',
     telegram: 'https://t.me/peeranhaio',
     email: 'mailto:hello@peeranha.io',
+    markdownCheatSheet: 'https://www.markdownguide.org/cheat-sheet/',
+    discord: 'https://discord.gg/jmrbqVnzMZ',
   },
 };
 
-export const getLinks = locale => links[locale] || links.en;
+export const getLinks = (locale) => links[locale] || links.en;

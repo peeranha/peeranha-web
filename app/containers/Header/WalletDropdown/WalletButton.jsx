@@ -67,7 +67,7 @@ const IconBG = MediumSpecialImage.extend`
   border: ${({ isMobileVersion }) =>
     (!isMobileVersion && styles.communityBorderStyle) ||
     `1px solid ${colors.walletButton || BORDER_PRIMARY}`};
-  color: ${x => x.color};
+  color: ${(x) => x.color};
 `.withComponent('span');
 
 const BoostIconWrapper = styled.span`
@@ -76,7 +76,7 @@ const BoostIconWrapper = styled.span`
   margin-left: -5px;
 `;
 
-const isPositiveNumber = number => Number.isFinite(number) && number > 0;
+const isPositiveNumber = (number) => Number.isFinite(number) && number > 0;
 
 const WalletButton = ({
   balance,
