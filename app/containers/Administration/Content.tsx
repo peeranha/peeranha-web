@@ -6,6 +6,7 @@ import { css } from '@emotion/react';
 import React from 'react';
 
 import BaseRoundedNoPadding from 'components/Base/BaseRoundedNoPadding';
+import InfoButton from 'components/Button/Outlined/InfoMedium';
 import { BaseSpecial } from 'components/Base/BaseTransparent';
 import MediumImage from 'components/Img/MediumImage';
 import P from 'components/P';
@@ -34,6 +35,7 @@ import userBodyIconAvatar from 'images/user2.svg?external';
 // @ts-ignore
 import closeIcon from 'images/closeCircle.svg?external';
 import { BORDER_PRIMARY } from 'style-constants';
+
 import messages from 'containers/Administration/messages';
 
 const fonts = singleCommunityFonts();
@@ -42,20 +44,20 @@ const RemoveTagIcon = styled.button`
   padding: 0 0 0 10px;
 `;
 
-type ContentProps = {
-  locale: string;
-  single: number;
-  moderators: Array<Moderator>;
-  revokeRole: Function;
-  communityId: number;
-  moderatorsLoading: boolean;
-  revokeRoleLoading: boolean;
-};
-
 enum Roles {
   communityAdmin = 0,
   communityModerator = 1,
 }
+
+type ContentProps = {
+  locale: string;
+  single: number;
+  moderators: Array<Moderator>;
+  revokeRole: (userAddress: string, roles: Roles, communityId: number) => void;
+  communityId: number;
+  moderatorsLoading: boolean;
+  revokeRoleLoading: boolean;
+};
 
 export const Content: React.FC<ContentProps> = ({
   locale,
@@ -68,25 +70,25 @@ export const Content: React.FC<ContentProps> = ({
 }): JSX.Element | null => {
   const moderatorRole = getCommunityRole(COMMUNITY_MODERATOR_ROLE, communityId);
   const adminRole = getCommunityRole(COMMUNITY_ADMIN_ROLE, communityId);
-  console.log(moderators);
+
   const usersModerator = [
-    ...new Set(moderators.map(moderator => moderator.user)),
+    ...new Set(moderators.map((moderator) => moderator.user)),
   ];
-  const usersModeratorByRols = usersModerator.map(user => {
+  const usersModeratorByRols = usersModerator.map((user) => {
     const userRoles = [];
     const moderatorPermission = moderators.find(
-      moderator =>
+      (moderator) =>
         moderator.permission === moderatorRole && moderator.user.id === user.id,
     );
     const adminPermission = moderators.find(
-      moderator =>
+      (moderator) =>
         moderator.permission === adminRole && moderator.user.id === user.id,
     );
     if (moderatorPermission) userRoles.push(Roles.communityModerator);
     if (adminPermission) userRoles.push(Roles.communityAdmin);
     return { user, userRoles };
   });
-  console.log(123, usersModeratorByRols);
+
   return (
     <BaseRoundedNoPadding className="fdc mb16">
       {usersModeratorByRols.map((moderator, index) => {
@@ -106,7 +108,7 @@ export const Content: React.FC<ContentProps> = ({
           >
             <div css={css(styles.mainInfo)}>
               <MediumImage
-                {...{ isBordered: true }}
+                isBordered
                 className="flex-shrink-0 mr8"
                 src={getUserAvatar(moderator.user.avatar)}
                 alt="avatar"
@@ -128,7 +130,7 @@ export const Content: React.FC<ContentProps> = ({
             </div>
 
             <div className="mr16 tc fz14">
-              {moderator.userRoles.map(role => {
+              {moderator.userRoles.map((role) => {
                 let roleName;
                 if (role === Roles.communityModerator) {
                   roleName =

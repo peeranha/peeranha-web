@@ -1,6 +1,6 @@
 export const styles = {
   rulesConsent: {
-    background: '#f0f8ff',
+    background: 'var(--color-gray-light)',
     zIndex: 10,
     top: '61px',
     '@media (min-width: 992px)': {
@@ -14,7 +14,7 @@ export const styles = {
   },
 
   rulesConsentAnimation: {
-    animation: 'animationRulesPopup 3s forwards',
+    animation: 'animationRulesPopup 2s forwards',
 
     '@keyframes animationRulesPopup': {
       '0%': {
@@ -25,5 +25,15 @@ export const styles = {
         display: 'none',
       },
     },
+  },
+
+  modalOpen: {
+    zIndex: '9',
+    opacity: '0.3',
+    backgroundColor: 'black',
+  },
+
+  modalClose: {
+    display: 'none',
   },
 };

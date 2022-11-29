@@ -1,5 +1,6 @@
 import React, { memo, useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
+import { css } from '@emotion/react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { reduxForm } from 'redux-form/immutable';
@@ -14,7 +15,10 @@ import { EDIT_QUESTION_FORM } from 'containers/EditQuestion/constants';
 import icoTag from 'images/icoTag.svg?external';
 
 import _uniqBy from 'lodash/uniqBy';
-import { isSingleCommunityWebsite } from 'utils/communityManagement';
+import {
+  isSingleCommunityWebsite,
+  singleCommunityColors,
+} from 'utils/communityManagement';
 import { scrollToErrorField } from 'utils/animation';
 
 import { redirectToCreateTag } from 'containers/CreateTag/actions';
@@ -39,36 +43,42 @@ import {
   FORM_BOUNTY_HOURS,
   FORM_PROMOTE,
   KEY_QUESTIONS_TYPE,
+  POST_TYPE,
+  FORM_SUB_ARTICLE,
 } from './constants';
 
 import Header from './Header';
-import { QUESTION_TYPES } from './QuestionTypeField';
 import CommunityForm from './CommunityForm';
+import SubArticleForm from './SubArticleForm';
 import ExistingQuestions from './ExistingQuestions';
-import TypeForm from './TypeForm';
+import TypeForm from 'components/QuestionForm/TypeForm';
 import TitleForm from './TitleForm';
 import ContentForm from './ContentForm';
 import TagsForm from './TagsForm';
 
-import {
-  ANY_TYPE,
-  GENERAL_TYPE,
-} from '../../containers/CreateCommunity/constants';
+import { ANY_TYPE, GENERAL_TYPE } from 'containers/CreateCommunity/constants';
 import createdHistory from '../../createdHistory';
 import * as routes from '../../routes-config';
-import DescriptionList from '../DescriptionList';
+import DescriptionList from 'components/DescriptionList';
 import { makeSelectProfileInfo } from 'containers/AccountProvider/selectors';
-import { getPermissions, hasGlobalModeratorRole } from 'utils/properties';
+import {
+  getPermissions,
+  hasCommunityAdminRole,
+  hasCommunityModeratorRole,
+  hasGlobalModeratorRole,
+  hasProtocolAdminRole,
+} from 'utils/properties';
 import { translationMessages } from '../../i18n';
 
 const single = isSingleCommunityWebsite();
-
+const colors = singleCommunityColors();
 const history = createdHistory;
 
 const SuggestTag = memo(({ redirectToCreateTagDispatch, formValues }) => {
-  const communityId = useMemo(() => formValues?.[FORM_COMMUNITY]?.value ?? 0, [
-    formValues,
-  ]);
+  const communityId = useMemo(
+    () => formValues?.[FORM_COMMUNITY]?.value ?? 0,
+    [formValues],
+  );
 
   return (
     <div style={{ marginBottom: '20px' }}>
@@ -79,7 +89,15 @@ const SuggestTag = memo(({ redirectToCreateTagDispatch, formValues }) => {
         type="button"
         color={LINK_COLOR_SECONDARY}
       >
-        <IconMd className="mr-2" icon={icoTag} fill={BORDER_PRIMARY} />
+        <IconMd
+          className="mr-2"
+          icon={icoTag}
+          css={css`
+            path {
+              fill: ${colors.btnColor || BORDER_PRIMARY};
+            }
+          `}
+        />
         <FormattedMessage {...commonMessages.createTag} />
       </TransparentButton>
     </div>
@@ -88,6 +106,7 @@ const SuggestTag = memo(({ redirectToCreateTagDispatch, formValues }) => {
 
 export const QuestionForm = ({
   locale,
+  path,
   sendQuestion,
   formTitle,
   questionLoading,
@@ -109,50 +128,60 @@ export const QuestionForm = ({
   disableCommForm,
   profile,
   isFailed,
+  isDocumentation,
+  documentationMenu,
+  parentId,
 }) => {
   const [isSelectedType, setIsSelectedType] = useState(false);
   const [isError, setIsError] = useState(false);
   const [submitPressed, setSubmitPressed] = useState(false);
   const [isClickSubmit, setIsClickSubmit] = useState(false);
+
   const postTitle = question?.title;
   const postContent = question?.content;
+
+  const communityId = single || formValues[FORM_COMMUNITY]?.id;
+  const isCommunityModerator = communityId
+    ? hasCommunityModeratorRole(getPermissions(profile), communityId) ||
+      hasCommunityAdminRole(getPermissions(profile), communityId)
+    : false;
 
   const handleSubmitWithType = () => {
     if (communityQuestionsType !== ANY_TYPE) {
       change(FORM_TYPE, communityQuestionsType);
     }
-    if (!isSelectedType && !isError && isClickSubmit) {
+    if (!question && !isSelectedType && !isError && isClickSubmit) {
       return setIsError(true);
     }
     return handleSubmit(sendQuestion);
   };
 
-  const getExistingQuestions = questions => {
+  const getExistingQuestions = (questions) => {
     if (single) {
       return questions.filter(
-        question => question.communityId === String(single),
+        (question) => question.communityId === String(single),
       );
     }
 
     return questions;
   };
 
-  useEffect(
-    () => {
-      if (formValues[FORM_TITLE] && getQuestions) {
-        getQuestions(formValues[FORM_TITLE], true);
-      }
-    },
-    [formValues[FORM_TITLE]],
-  );
+  useEffect(() => {
+    if (formValues[FORM_TITLE] && getQuestions) {
+      getQuestions(formValues[FORM_TITLE], true);
+    }
+  }, [formValues[FORM_TITLE]]);
 
-  const showMoreQuestions = e => {
+  const showMoreQuestions = (e) => {
     e.preventDefault();
     createdHistory.push(routes.search(formValues[FORM_TITLE]));
   };
 
-  const profileWithModeratorRights =
-    profile && hasGlobalModeratorRole(getPermissions(profile));
+  const tagCreatingAllowed =
+    hasGlobalModeratorRole(getPermissions(profile)) ||
+    (Boolean(single) &&
+      hasCommunityAdminRole(getPermissions(profile), single)) ||
+    hasProtocolAdminRole(getPermissions(profile));
 
   const handleSetClicked = () => setIsClickSubmit(true);
   const handleButtonClick = () => {
@@ -164,6 +193,11 @@ export const QuestionForm = ({
   const isEdited =
     formValues[FORM_TITLE] !== postTitle ||
     formValues[FORM_CONTENT] !== postContent;
+
+  const defaultDocumentationArticle = {
+    id: -1,
+    title: 'Documentation',
+  };
 
   return (
     <Router history={history}>
@@ -177,6 +211,7 @@ export const QuestionForm = ({
           questionId={questionid}
           postType={question?.postType}
           intl={intl}
+          isDocumentation={isDocumentation}
         />
         <TipsBase>
           <BaseSpecialOne>
@@ -188,6 +223,22 @@ export const QuestionForm = ({
                 questionLoading={questionLoading}
                 disableCommForm={disableCommForm}
               />
+
+              {Boolean(!question && isDocumentation && isNaN(parentId)) && (
+                <SubArticleForm
+                  intl={intl}
+                  locale={locale}
+                  communities={communities}
+                  change={change}
+                  questionLoading={questionLoading}
+                  disableCommForm={disableCommForm}
+                  isDocumentation={isDocumentation}
+                  documentationMenu={[
+                    defaultDocumentationArticle,
+                    ...(documentationMenu ?? []),
+                  ]}
+                />
+              )}
 
               {!question &&
                 ((communityQuestionsType === ANY_TYPE && (
@@ -201,6 +252,8 @@ export const QuestionForm = ({
                     setIsError={setIsError}
                     hasSelectedType={isSelectedType}
                     setHasSelectedType={setIsSelectedType}
+                    isCommunityModerator={isCommunityModerator}
+                    isDocumentation={isDocumentation}
                   />
                 )) ||
                   (communityQuestionsType === GENERAL_TYPE && (
@@ -223,13 +276,18 @@ export const QuestionForm = ({
                     </>
                   ))}
 
-              <TitleForm intl={intl} questionLoading={questionLoading} />
+              <TitleForm
+                intl={intl}
+                questionLoading={questionLoading}
+                isDocumentation={isDocumentation}
+              />
 
               {formValues[FORM_TITLE] &&
                 formValues[FORM_TITLE].length >= 3 &&
                 (getExistingQuestions(existingQuestions || []).length ?? 0) >
                   0 &&
-                !doSkipExistingQuestions && (
+                !doSkipExistingQuestions &&
+                !isDocumentation && (
                   <ExistingQuestions
                     questions={getExistingQuestions(existingQuestions)}
                     skip={skipExistingQuestions}
@@ -245,34 +303,22 @@ export const QuestionForm = ({
                 formValues={formValues}
               />
 
-              <TagsForm
-                intl={intl}
-                questionLoading={questionLoading}
-                formValues={formValues}
-                change={change}
-              />
+              {!isDocumentation &&
+                Number(formValues[FORM_TYPE]) !== POST_TYPE.documentation && (
+                  <TagsForm
+                    intl={intl}
+                    questionLoading={questionLoading}
+                    formValues={formValues}
+                    change={change}
+                  />
+                )}
 
-              {profileWithModeratorRights && (
+              {tagCreatingAllowed && (
                 <SuggestTag
                   formValues={formValues}
                   redirectToCreateTagDispatch={redirectToCreateTagDispatch}
                 />
               )}
-
-              {/*<BountyForm*/}
-              {/*  intl={intl}*/}
-              {/*  questionLoading={questionLoading}*/}
-              {/*  formValues={formValues}*/}
-              {/*  change={change}*/}
-              {/*  dotRestriction={DEFAULT_DOT_RESTRICTION}*/}
-              {/*/>*/}
-
-              {/*<BountyDateForm*/}
-              {/*  intl={intl}*/}
-              {/*  questionLoading={questionLoading}*/}
-              {/*  formValues={formValues}*/}
-              {/*  change={change}*/}
-              {/*/>*/}
 
               <Button
                 disabled={questionLoading}
@@ -322,17 +368,18 @@ QuestionForm.propTypes = {
 };
 
 const FormClone = reduxForm({
-  onSubmitFail: errors => scrollToErrorField(errors),
+  onSubmitFail: (errors) => scrollToErrorField(errors),
 })(QuestionForm);
 
 export default memo(
   injectIntl(
     connect(
-      (state, { question, form: formName, communities }) => {
+      (state, { question, form: formName, communities, parentId, path }) => {
+        const isDocumentation = path.split('/')[1] === 'documentation';
         const values = state.toJS().form[formName]?.values[FORM_COMMUNITY];
         const integerProperties = values?.integer_properties ?? [];
         const questionsType = integerProperties.find(
-          prop => prop.key === KEY_QUESTIONS_TYPE,
+          (prop) => prop.key === KEY_QUESTIONS_TYPE,
         )?.value;
 
         // disable community form on edit question page
@@ -377,10 +424,18 @@ export default memo(
                             ({ id }) => id === question?.community?.id,
                           )?.tags,
                         )
-                        .filter(x => x),
+                        .filter((x) => x),
                       'id',
                     ),
                   },
+                  ...(isDocumentation
+                    ? {
+                        [FORM_TYPE]: POST_TYPE.documentation,
+                        [FORM_SUB_ARTICLE]: parentId
+                          ? { label: '', value: parentId }
+                          : undefined,
+                      }
+                    : {}),
                 }
               : {}),
           },
@@ -388,7 +443,7 @@ export default memo(
           disableCommForm,
         };
       },
-      dispatch => ({
+      (dispatch) => ({
         redirectToCreateTagDispatch: bindActionCreators(
           redirectToCreateTag,
           dispatch,

@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { css } from '@emotion/react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import {
@@ -34,6 +35,10 @@ import reddit from 'images/social-media-logos/logo-reddit-glyph-24.svg?external'
 
 import Input from 'components/Input';
 import { IconLg } from 'components/Icon/IconWithSizes';
+
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
 
 const DropdownModal = styled.div`
   position: absolute;
@@ -73,7 +78,7 @@ const DropdownModalFooter = styled.footer`
   .copy-btn {
     margin-right: 0;
 
-    color: #576fed;
+    color: var(--color-blue);
 
     cursor: pointer;
   }
@@ -84,7 +89,7 @@ const DropdownModalFooter = styled.footer`
 `;
 
 const SharingModal = ({ questionData, locale }) => {
-  const writeToBuffer = event => {
+  const writeToBuffer = (event) => {
     clipboard.writeText(event.currentTarget.dataset.key);
     showPopover(
       event.currentTarget.id,
@@ -96,7 +101,7 @@ const SharingModal = ({ questionData, locale }) => {
     <DropdownModal>
       <p>
         <b>
-          <FormattedMessage {...messages.shareTitle} />
+          <FormattedMessage id={messages.shareTitle.id} />
         </b>
       </p>
       <Input input={{ value: window.location.href }} readOnly type="text" />
@@ -107,19 +112,31 @@ const SharingModal = ({ questionData, locale }) => {
             title={questionData.content.title}
             via={APP_TWITTER_NICKNAME}
           >
-            <IconLg icon={twitter} />
+            <IconLg
+              fill={colors.linkColor || TEXT_PRIMARY}
+              icon={twitter}
+              isColorImportant={true}
+            />
           </TwitterShareButton>
           <TelegramShareButton
             url={window.location.href}
             title={questionData.content.title}
           >
-            <IconLg icon={telegram} />
+            <IconLg
+              fill={colors.linkColor || TEXT_PRIMARY}
+              icon={telegram}
+              isColorImportant={true}
+            />
           </TelegramShareButton>
           <RedditShareButton
             url={window.location.href}
             title={questionData.content.title}
           >
-            <IconLg icon={reddit} />
+            <IconLg
+              fill={colors.linkColor || TEXT_PRIMARY}
+              icon={reddit}
+              isColorImportant={true}
+            />
           </RedditShareButton>
         </div>
         <button
@@ -127,8 +144,11 @@ const SharingModal = ({ questionData, locale }) => {
           data-key={window.location.href}
           onClick={writeToBuffer}
           className="copy-btn"
+          css={css`
+            color: ${colors.linkColor + '!important' || TEXT_PRIMARY};
+          `}
         >
-          <FormattedMessage {...commonMessages.copy} />{' '}
+          <FormattedMessage id={commonMessages.copy.id} />{' '}
         </button>
       </DropdownModalFooter>
     </DropdownModal>

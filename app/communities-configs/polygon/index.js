@@ -227,6 +227,7 @@ export const customSubHeaderConfig = {
 };
 
 export const PolygonStyles = {
+  documentationPosition: 'top',
   withoutCopyright: true,
   withoutSubHeader: true,
   poweredByPeeranha: true,
@@ -289,7 +290,7 @@ export const PolygonStyles = {
     }
   `,
   headerHeight: 80,
-  projectBorderRadius: '20px',
+  projectBorderRadius: '50px',
   customSubHeaderConfig,
   domainName,
 };

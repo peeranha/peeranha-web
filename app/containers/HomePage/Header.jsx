@@ -18,7 +18,12 @@ import A from 'components/A';
 import { IconLm } from 'components/Icon/IconWithSizes';
 import Button from 'components/Button/Outlined/InfoLarge';
 
-import { HEADER_ID, SECOND_SCREEN, THIRD_SCREEN } from './constants';
+import {
+  HEADER_ID,
+  FIRST_SCREEN,
+  SECOND_SCREEN,
+  THIRD_SCREEN,
+} from './constants';
 
 import messages from './messages';
 
@@ -38,7 +43,11 @@ const Header = ({ showLoginModal, account }) => {
         <div className="container">
           <div className="d-flex flex-lg-row flex-column justify-content-between">
             <div className="d-flex justify-content-between flex-grow-1 flex-lg-grow-0">
-              <A to={routes.feed()} className="d-flex logo">
+              <A
+                to={routes.home()}
+                onClick={() => toggle(FIRST_SCREEN)}
+                className="d-flex logo"
+              >
                 <img src={logo} alt="logo" />
               </A>
 
@@ -60,30 +69,19 @@ const Header = ({ showLoginModal, account }) => {
               } d-lg-flex flex-column flex-lg-row navbar`}
             >
               <button onClick={() => toggle(SECOND_SCREEN)}>
-                <FormattedMessage {...messages.about} />
+                <FormattedMessage id={messages.about.id} />
               </button>
 
               <button onClick={() => toggle(THIRD_SCREEN)}>
-                <FormattedMessage {...messages.rewards} />
+                <FormattedMessage id={messages.rewards.id} />
               </button>
 
-              {!account && (
-                <React.Fragment>
-                  <button className="login" onClick={showLoginModal}>
-                    <IconLm className="mr-2" icon={login} />
-                    <FormattedMessage {...messages.login} />
-                  </button>
-                </React.Fragment>
-              )}
-
-              {account && (
-                <Button
-                  className="signup"
-                  onClick={() => createdHistory.push(routes.feed())}
-                >
-                  <FormattedMessage {...messages.goToSite} />
-                </Button>
-              )}
+              <Button
+                className="signup"
+                onClick={() => createdHistory.push(routes.feed())}
+              >
+                <FormattedMessage id={messages.goToApp.id} />
+              </Button>
             </div>
           </div>
         </div>
@@ -140,7 +138,7 @@ const Box = styled.div`
     padding: 11px 0;
     position: fixed;
     background-color: rgba(23, 35, 74, 1);
-    height: ${x => (x.isToggled ? `100vh` : `auto`)};
+    height: ${(x) => (x.isToggled ? `100vh` : `auto`)};
 
     .logo img {
       width: 180px;

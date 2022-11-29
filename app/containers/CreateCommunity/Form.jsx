@@ -93,9 +93,9 @@ const CreateCommunityForm = ({
     [profile],
   );
 
-  const removeTag = e => {
+  const removeTag = (e) => {
     const { key } = e.currentTarget.dataset;
-    const index = tags.findIndex(x => x === +key);
+    const index = tags.findIndex((x) => x === +key);
 
     // clear tag in redux-form
     change(`tags.${TAG_SECTION}_${key}`, null);
@@ -145,10 +145,11 @@ const CreateCommunityForm = ({
         <Field
           disabled={createCommunityLoading}
           name={COMM_SHORT_DESCRIPTION_FIELD}
-          component={TextInputField}
+          component={TextareaField}
           label={translations[messages.shortDescription.id]}
           validate={[strLength15x250, required]}
           warn={[strLength15x250, required]}
+          placeholder={translations[messages.tagDescription.id]}
           tip={translations[messages.shortDescriptionTip.id]}
           splitInHalf
         />
@@ -282,7 +283,7 @@ CreateCommunityForm.propTypes = {
 /* eslint import/no-mutable-exports: 0, consistent-return: 0 */
 const FormCloneRedux = reduxForm({
   form: FORM_NAME,
-  onSubmitFail: err => {
+  onSubmitFail: (err) => {
     const errors = {
       ...err,
       ...err.tags,
@@ -296,14 +297,14 @@ const FormCloneRedux = reduxForm({
 
 export default memo(
   injectIntl(
-    connect(state => {
+    connect((state) => {
       const form = state.toJS().form[FORM_NAME] || { values: {} };
 
       if (form.values && form.values.tags) {
         const { tags } = form.values;
         const tagNames = Object.keys(tags)
-          .filter(x => tags[x])
-          .map(x => tags[x][TAG_NAME_FIELD]);
+          .filter((x) => tags[x])
+          .map((x) => tags[x][TAG_NAME_FIELD]);
         return {
           valueHasNotBeInListValidate: tagNames,
           formValues: form?.values ?? {},

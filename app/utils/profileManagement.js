@@ -10,32 +10,19 @@ import {
   saveText,
 } from './ipfs';
 
-import {
-  ACCOUNT_TABLE,
-  ALL_ACCOUNTS_SCOPE,
-  ALL_TG_ACCOUNTS_SCOPE,
-  CONFIRM_TELEGRAM_ACCOUNT,
-  INF_LIMIT,
-  NO_AVATAR,
-  TG_ACCOUNT_TABLE,
-  UNLINK_TELEGRAM_ACCOUNT,
-} from './constants';
+import { INIT_RATING, NO_AVATAR } from './constants';
 import {
   callService,
   NOTIFICATIONS_INFO_SERVICE,
 } from './web_integration/src/util/aws-connector';
-import { CONTRACT_USER, UPDATE_ACC } from './ethConstants';
+import { CONTRACT_USER, GET_USER_RATING, UPDATE_ACC } from './ethConstants';
 import { getUser, getUserPermissions, getUserStats } from './theGraph';
-import { WebIntegrationError } from './errors';
 import { isUserExists } from './accountManagement';
 
-export const getRatingByCommunity = (user, communityId) => {
-  return (
-    user?.ratings?.find(
-      ratingObj => ratingObj.communityId.toString() === communityId?.toString(),
-    )?.rating ?? 0
-  );
-};
+export const getRatingByCommunity = (user, communityId) =>
+  user?.ratings?.find(
+    (ratingObj) => ratingObj.communityId.toString() === communityId?.toString(),
+  )?.rating ?? 0;
 
 export function getUserAvatar(avatarHash, userId, account) {
   if (avatarHash && avatarHash !== NO_AVATAR) {
@@ -69,6 +56,7 @@ export async function getProfileInfo(
   ethereumService,
   getExtendedProfile,
   isLogin,
+  communityIdForRating,
 ) {
   if (!user) return null;
   let profileInfo;
@@ -82,7 +70,7 @@ export async function getProfileInfo(
     profileInfo = await ethereumService.getProfile(user);
     profileInfo.permissions = await getUserPermissions(user);
     userStats = await getUserStats(user);
-    profileInfo.ratings = userStats?.ratings;
+    profileInfo.ratings = userStats?.ratings ?? [];
     if (!profileInfo.creationTime) {
       const profile = await getUser(user);
       profileInfo.creationTime = profile.creationTime;
@@ -91,9 +79,37 @@ export async function getProfileInfo(
     profileInfo = await getUser(user);
   }
 
+  if (communityIdForRating) {
+    const newRating =
+      (await ethereumService.getUserDataWithArgs(GET_USER_RATING, [
+        user,
+        communityIdForRating,
+      ])) || INIT_RATING;
+
+    const foundRating = profileInfo.ratings.find(
+      (ratingData) => ratingData.communityId === communityIdForRating,
+    );
+    if (!foundRating) {
+      // avoiding "Cannot assign to read only property" error
+      profileInfo.ratings = profileInfo.ratings.concat({
+        communityId: communityIdForRating,
+        rating: newRating,
+      });
+    } else {
+      // avoiding "Cannot assign to read only property" error
+      profileInfo.ratings = profileInfo.ratings.map((ratingData) => ({
+        communityId: ratingData.communityId,
+        rating:
+          ratingData.communityId === communityIdForRating
+            ? newRating
+            : ratingData.rating,
+      }));
+    }
+  }
+
   profileInfo.highestRating = profileInfo.ratings?.length
-    ? profileInfo.ratings?.reduce(
-        (max, current) => (max.rating > current.rating ? max : current),
+    ? profileInfo.ratings?.reduce((max, current) =>
+        max.rating > current.rating ? max : current,
       )
     : 0;
   profileInfo.user = user;
@@ -117,7 +133,7 @@ export async function getProfileInfo(
   profileInfo.postCount = profileInfo.postCount ?? userStats?.postCount ?? 0;
   profileInfo.answersGiven =
     profileInfo.replyCount ?? userStats?.replyCount ?? 0;
-  profileInfo.achievements = profileInfo.achievements ?? [];
+  profileInfo.achievements = userStats?.achievements ?? [];
   return profileInfo;
 }
 
@@ -129,7 +145,7 @@ export async function saveProfile(ethereumService, user, profile) {
   ]);
 }
 
-export const getNotificationsInfo = async user => {
+export const getNotificationsInfo = async (user) => {
   const response = await callService(
     NOTIFICATIONS_INFO_SERVICE,
     { user },
@@ -144,7 +160,7 @@ export async function confirmTelegramAccount(eosService, user) {}
 
 export async function unlinkTelegramAccount(eosService, user) {}
 
-export const getAvailableBalance = profile => {
+export const getAvailableBalance = (profile) => {
   const stakedInCurrentPeriod = profile?.stakedInCurrentPeriod ?? 0;
   const stakedInNextPeriod = profile?.stakedInNextPeriod ?? 0;
   const balance = profile?.balance ?? 0;

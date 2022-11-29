@@ -29,7 +29,7 @@ export const BasicLink = css`
 export const Aside = styled.aside`
   position: relative;
   z-index: 1;
-  ${x =>
+  ${(x) =>
     x.isMenuVisible
       ? `
     width: 100%;
@@ -37,14 +37,13 @@ export const Aside = styled.aside`
       : `
     width: ${LEFT_MENU_WIDTH}px;
     min-width: ${LEFT_MENU_WIDTH}px;
-    margin-top: 30px;
     margin-right: 17px;
   `};
 `;
 
 export const After = styled.div`
   position: relative;
-  display: ${x => (x.isMenuVisible ? 'flex' : 'none')};
+  display: ${(x) => (x.isMenuVisible ? 'flex' : 'none')};
   top: 0;
   right: 0;
   width: 50px;
@@ -58,14 +57,8 @@ export const After = styled.div`
 `;
 
 export const ViewStyled = styled.nav`
-  position: ${x => (x.isMenuVisible ? 'relative' : 'fixed')};
+  position: ${(x) => (x.isMenuVisible ? 'relative' : 'fixed')};
   width: inherit;
-  transition: 0.4s;
-
-  > div:nth-child(${({ single }) => (single ? 2 : 1)}) {
-    padding: ${x => (x.isMenuVisible ? '5px 10px' : '0 0 25px 0')};
-    margin-bottom: ${x => (x.isMenuVisible ? '0px' : '50px')};
-  }
 
   > div {
     &.lightbg {

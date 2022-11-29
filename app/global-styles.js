@@ -129,7 +129,7 @@ injectGlobal`
     width: fit-content;
     background: ${FACEBOOK_MAIN};
     border-radius: 3px;
-    color: white;
+    color: var(--color-white);
     font-size: 1rem;
     display: flex;
     justify-content: space-around;
@@ -141,4 +141,6 @@ injectGlobal`
       margin-right: 16px;
     }
   }
+
+  .grecaptcha-badge {display: none;}
 `;

@@ -15,6 +15,9 @@ import checkedIcon from 'images/okay.svg?inline';
 
 import Span from 'components/Span';
 import { DisableHandling, ErrorHandling } from './InputStyled';
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
 
 const Container = styled.div`
   width: ${({ width }) => width || 'auto'};
@@ -49,13 +52,13 @@ const Input = styled.input`
   width: calc(100% - 10px);
   height: 100%;
 
-  cursor: pointer;
+  cursor: ${(x) => (x.disabled ? 'default' : 'pointer')};
 
   :checked + span {
     background-image: url(${checkedIcon});
-    background-color: ${BG_PRIMARY_DARK};
+    background-color: ${colors.btnColor || BG_PRIMARY_DARK};
 
-    border: 1px solid ${BORDER_PRIMARY_DARK};
+    border: 1px solid ${colors.btnColor || BORDER_PRIMARY_DARK};
   }
 `;
 
@@ -65,7 +68,7 @@ export const Label = Span.extend`
   min-width: 110px;
   cursor: pointer;
   flex: 1;
-  opacity: ${x => (x.disabled ? '0.6' : '1')};
+  opacity: ${(x) => (x.disabled ? '0.6' : '1')};
 `.withComponent('label');
 
 /* eslint jsx-a11y/label-has-for: 0 */

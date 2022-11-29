@@ -1,11 +1,13 @@
 import React, { memo, useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
-
+import { translationMessages } from 'i18n';
+import { css } from '@emotion/react';
 import {
   BG_LIGHT,
   BORDER_SECONDARY,
   TEXT_SECONDARY_LIGHT,
+  TEXT_PRIMARY,
 } from 'style-constants';
 
 import * as routes from 'routes-config';
@@ -22,10 +24,19 @@ import {
   singleCommunityStyles,
   singleCommunityColors,
 } from 'utils/communityManagement';
+import {
+  getPermissions,
+  hasCommunityModeratorRole,
+  hasGlobalModeratorRole,
+  hasProtocolAdminRole,
+} from 'utils/properties';
+import { getRatingByCommunity } from 'utils/profileManagement';
+import { showPopover } from 'utils/popover';
 
 import LargeButton from 'components/Button/Contained/InfoLarge';
 import Icon from 'components/Icon';
-import { IconSm, IconLm } from 'components/Icon/IconWithSizes';
+import EditDocumentation from 'components/Documentation';
+import { IconSm, IconLm, IconLg } from 'components/Icon/IconWithSizes';
 
 import styled from 'styled-components';
 import { Wrapper, MainSubHeader } from './Wrapper';
@@ -36,8 +47,13 @@ import ButtonGroupForNotAuthorizedUser from './ButtonGroupForNotAuthorizedUser';
 import ButtonGroupForAuthorizedUser from './ButtonGroupForAuthorizedUser';
 import SearchForm from './SearchForm';
 
-import { HEADER_ID, LOADER_HEIGHT, SEARCH_FORM_ID } from './constants';
-import processIndicator from '../../images/progress-indicator.svg?inline';
+import {
+  HEADER_ID,
+  LOADER_HEIGHT,
+  SEARCH_FORM_ID,
+  MIN_REPUTATION,
+} from './constants';
+import processIndicator from '../../images/progress-indicator.svg?external';
 
 const single = isSingleCommunityWebsite();
 const styles = singleCommunityStyles();
@@ -83,8 +99,7 @@ const ProgressIndicator = styled.div`
       transform: translateY(0);
     }
   }
-  img {
-    margin-right: 10px;
+  svg {
     animation: rotation 1s infinite linear;
   }
 
@@ -104,8 +119,8 @@ const ProgressIndicator = styled.div`
 `;
 
 const Button = LargeButton.extend`
-  background-color: ${x => x.bg};
-  border: ${x => (x.bg ? '1' : '0')}px solid ${BORDER_SECONDARY};
+  background-color: ${(x) => x.bg};
+  border: ${(x) => (x.bg ? '1' : '0')}px solid ${BORDER_SECONDARY};
 
   @media only screen and (max-width: 991px) {
     padding: 0;
@@ -155,42 +170,75 @@ const View = ({
   isTransactionInPending,
   transactionHash,
   transactionInitialised,
+  locale,
+  isEditDocumentation,
+  toggleEditDocumentation,
 }) => {
   const [isSearchFormVisible, setSearchFormVisibility] = useState(false);
 
-  useEffect(
-    () => {
-      if (isSearchFormVisible && !single) {
-        document.getElementById(SEARCH_FORM_ID).focus();
-      }
-    },
-    [isSearchFormVisible],
-  );
+  useEffect(() => {
+    if (isSearchFormVisible && !single) {
+      document.getElementById(SEARCH_FORM_ID).focus();
+    }
+  }, [isSearchFormVisible]);
 
-  const Logo = useCallback(
-    () => {
-      if (isSearchFormVisible) return null;
+  const Logo = useCallback(() => {
+    if (isSearchFormVisible) return null;
 
-      const src = styles.withoutSubHeader
-        ? communitiesConfig[single].src
-        : peeranhaLogo;
+    const src = styles.withoutSubHeader
+      ? communitiesConfig[single].src
+      : peeranhaLogo;
 
-      return (
-        <LogoStyles to={routes.feed()}>
-          <img src={src} alt="logo" />
-          {styles.logoText}
-        </LogoStyles>
-      );
-    },
-    [isSearchFormVisible],
-  );
+    return (
+      <LogoStyles to={single ? routes.feed() : routes.home()}>
+        <img src={src} alt="logo" />
+        {styles.logoText}
+      </LogoStyles>
+    );
+  }, [isSearchFormVisible]);
+
+  const isHasRole =
+    hasGlobalModeratorRole(getPermissions(profileInfo)) ||
+    (Boolean(single) &&
+      hasCommunityModeratorRole(getPermissions(profileInfo), single)) ||
+    hasProtocolAdminRole(getPermissions(profileInfo));
+
+  const isMinusReputation =
+    getRatingByCommunity(profileInfo, single) < MIN_REPUTATION;
+
+  const showPopoverMinRating = (e) => {
+    e.preventDefault();
+    showPopover(
+      e.currentTarget.id,
+      translationMessages[locale][messages.reputationBelowZero.id],
+    );
+  };
+
+  const askQuestionHandler = (e) => {
+    isMinusReputation && !isHasRole
+      ? showPopoverMinRating(e)
+      : redirectToAskQuestionPage(e);
+  };
 
   return (
     <Wrapper id={HEADER_ID} transactionInitialised={transactionInitialised}>
       {transactionInitialised && (
         <ProgressIndicator>
-          <div>
-            <img src={processIndicator} alt="icon" />
+          <div
+            css={css`
+              > span {
+                margin-left: 10px;
+              }
+            `}
+          >
+            <IconLg
+              icon={processIndicator}
+              css={css`
+                path {
+                  fill: ${colors.linkColor || TEXT_PRIMARY};
+                }
+              `}
+            />
             {isTransactionInPending ? (
               <FormattedMessage
                 id={messages.transactionInPending.id}
@@ -201,6 +249,13 @@ const View = ({
                         transactionHash,
                       )}
                       target="_blank"
+                      css={css`
+                        color: ${colors.linkColor || TEXT_PRIMARY};
+                        :hover {
+                          color: ${colors.linkColor || TEXT_PRIMARY};
+                          opacity: 0.5;
+                        }
+                      `}
                     >
                       <FormattedMessage id={messages.transaction.id} />
                     </a>
@@ -214,7 +269,7 @@ const View = ({
         </ProgressIndicator>
       )}
 
-      <MainSubHeader mainSubHeaderBgColor={styles.mainSubHeaderBgColor}>
+      <MainSubHeader mainSubHeaderBgColor={colors.mainSubHeaderBgColor}>
         <div className="container">
           <div className="d-flex align-items-center justify-content-between">
             <div className="d-flex align-items-center">
@@ -260,13 +315,28 @@ const View = ({
                     id="header-ask-question"
                     onClick={
                       profileInfo
-                        ? redirectToAskQuestionPage
+                        ? askQuestionHandler
                         : showLoginModalWithRedirectToAskQuestionPage
                     }
+                    css={css`
+                      background: ${colors.btnHeaderColor};
+                      :hover {
+                        background: ${colors.btnHeaderHoverColor};
+                        border: 2px solid ${colors.btnHeaderHoverBorder};
+                      }
+                    `}
                   >
-                    <IconSm fill={BG_LIGHT} icon={addIcon} />
+                    <IconSm
+                      fill={colors.newPostButtonText || BG_LIGHT}
+                      icon={addIcon}
+                    />
 
-                    <span className="d-none d-lg-inline ml-2">
+                    <span
+                      className="d-none d-lg-inline ml-2"
+                      css={css`
+                        color: ${colors.newPostButtonText};
+                      `}
+                    >
                       <FormattedMessage id={messages.askQuestion.id} />
                     </span>
                   </Button>
@@ -285,6 +355,9 @@ const View = ({
           </div>
         </div>
       </MainSubHeader>
+      {isEditDocumentation && (
+        <EditDocumentation toggleEditDocumentation={toggleEditDocumentation} />
+      )}
     </Wrapper>
   );
 };

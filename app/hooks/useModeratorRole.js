@@ -5,6 +5,9 @@ import { getCookie } from '../utils/cookie';
 import {
   hasGlobalModeratorRole,
   hasCommunityModeratorRole,
+  hasCommunityAdminRole,
+  hasProtocolAdminRole,
+  isValidJsonFromCookie,
 } from '../utils/properties';
 
 import history from '../createdHistory';
@@ -14,12 +17,18 @@ export const useModeratorRole = (redirectPage, communityId = null) => {
 
   useEffect(() => {
     const permissions =
-      JSON.parse(getCookie('profileinfols') || '""')?.permissions || [];
+      JSON.parse(
+        isValidJsonFromCookie(getCookie('profileinfols'), 'profileinfols')
+          ? getCookie('profileinfols')
+          : '""',
+      )?.permissions || [];
 
     setModeratorRole(
-      hasGlobalModeratorRole(permissions) ||
+      hasProtocolAdminRole(permissions) ||
+        hasGlobalModeratorRole(permissions) ||
         (Boolean(communityId) &&
-          hasCommunityModeratorRole(permissions, Number(communityId))),
+          (hasCommunityModeratorRole(permissions, Number(communityId)) ||
+            hasCommunityAdminRole(permissions, Number(communityId)))),
     );
   }, []);
 

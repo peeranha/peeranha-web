@@ -22,7 +22,14 @@ export const initialState = fromJS({
   moderatorsError: '',
 });
 
-function moderationReducer(state = initialState, action: any) {
+function moderationReducer(
+  state = initialState,
+  action: {
+    type: string;
+    moderatorsList: Array<Moderator>;
+    moderatorsError: Error;
+  },
+) {
   const { type, moderatorsList = [], moderatorsError } = action;
 
   switch (type) {

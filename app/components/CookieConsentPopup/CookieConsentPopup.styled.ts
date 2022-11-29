@@ -1,7 +1,10 @@
 export const styles = {
-  cookieConsent: {
-    background: '#f0f8ff',
+  popupOverlap: {
     zIndex: 999,
+  },
+
+  cookieConsent: {
+    background: 'var(--color-gray-light)',
   },
 
   cookieImage: {
@@ -27,5 +30,25 @@ export const styles = {
 
   text: {
     lineHeight: '20px',
+  },
+
+  inner: {
+    flexDirection: 'column',
+    '@media (min-width: 450px)': {
+      flexDirection: 'row',
+    },
+  },
+
+  acceptButton: {
+    marginTop: '20px',
+    marginRight: 0,
+    '@media (min-width: 450px)': {
+      marginRight: '10vw',
+      marginTop: 0,
+    },
+    '@media (min-width: 999px)': {
+      marginRight: '5vw',
+      marginTop: 0,
+    },
   },
 };

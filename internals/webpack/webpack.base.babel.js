@@ -15,7 +15,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 // in the next major version of loader-utils.'
 process.noDeprecation = true;
 
-module.exports = options => {
+module.exports = (options) => {
   const baseEnvPath = path.resolve('.env');
   const testEnvPath = `${baseEnvPath}.test`;
   const stagingEnvPath = `${baseEnvPath}.staging`;
@@ -154,7 +154,7 @@ module.exports = options => {
     plugins: options.plugins.concat([
       new webpack.DefinePlugin(envKeys),
       new webpack.ProvidePlugin({
-        process: 'process/browser',
+        process: 'process/browser.js',
         Buffer: ['buffer', 'Buffer'],
       }),
       new CopyWebpackPlugin([{ from: 'static' }]),
@@ -199,6 +199,7 @@ module.exports = options => {
           __dirname,
           '../../app/style-constants.js',
         ),
+        pages: path.resolve(__dirname, '../../app/pages'),
       },
     },
     devtool: options.devtool,

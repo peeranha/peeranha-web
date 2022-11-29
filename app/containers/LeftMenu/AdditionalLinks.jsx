@@ -9,10 +9,12 @@ import {
   singleCommunityStyles,
 } from 'utils/communityManagement';
 
+import * as routes from 'routes-config';
+
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
 import infoIcon from 'images/information.svg?external';
 
-import { TEXT_SECONDARY } from 'style-constants';
+import { TEXT_PRIMARY, TEXT_SECONDARY } from 'style-constants';
 import messages from 'common-messages';
 
 import Icon from 'components/Icon';
@@ -58,7 +60,7 @@ const FooterStyled = styled.footer`
     if (styles.withoutAdditionalLinks) return '0 0';
     if (currClientHeight < FULL_SIZE && !isMobile(window.navigator).any)
       return '10px 0 0';
-    return '30px 0';
+    return '30px 0 0 0';
   }};
 
   a {
@@ -70,8 +72,10 @@ const Img = styled.img`
   width: ${({ alt }) => (alt === 'telos' ? 40 : 60)}px;
   height: 15px;
   margin-left: 1px;
-  filter: gray;
   filter: grayscale(100%);
+  :hover {
+    filter: grayscale(0);
+  }
 `;
 
 const FlexibleDiv = styled.div`
@@ -90,6 +94,26 @@ const LiAdditionalStyles = css`
 
 const StyledIcon = styled(Icon)`
   margin-right: 10px !important;
+`;
+
+const ASimple = styled.a`
+  font-weight: 600;
+  color: ${TEXT_PRIMARY};
+  transition: opacity 0.3s ease-out;
+  padding: 0 !important;
+
+  :hover {
+    opacity: 0.8;
+  }
+`;
+
+const DivMention = styled.div`
+  margin-top: 5px;
+  line-height: 1.2;
+  font-size: 10px;
+  > span {
+    white-space: normal;
+  }
 `;
 
 const Link = ({ path, message, cssStyles }) =>
@@ -127,7 +151,7 @@ const InfoLinksDropDown = ({ withTitle }) => (
     }
     menu={
       <ul>
-        {INFO_LINKS.map(el => (
+        {INFO_LINKS.map((el) => (
           <Li key={el.route} css={LiAdditionalStyles}>
             <Link
               key={el.title}
@@ -162,7 +186,7 @@ export default React.memo(({ currClientHeight }) => {
       {((!styles.withoutAdditionalLinks && currClientHeight > FULL_SIZE) ||
         (!styles.withoutAdditionalLinks && isMobile(window.navigator).any)) && (
         <>
-          {INFO_LINKS.map(el => (
+          {INFO_LINKS.map((el) => (
             <Link path={el.route} key={el.route} message={el.title} />
           ))}{' '}
         </>
@@ -174,27 +198,27 @@ export default React.memo(({ currClientHeight }) => {
         ((smallSize || middleSize) && !basicCondition) ||
         isMobile(window.navigator).any) && <ChangeLocale withTitle />}
 
-      {smallSize &&
-        basicCondition && (
-          <FlexibleDiv>
-            <InfoLinksDropDown />
-            <ChangeLocale />
-          </FlexibleDiv>
-        )}
+      {smallSize && basicCondition && (
+        <FlexibleDiv>
+          <InfoLinksDropDown />
+          <ChangeLocale />
+        </FlexibleDiv>
+      )}
 
       <FooterStyled currClientHeight={currClientHeight}>
         {!single && (
           <div>
             <FormattedMessage
-              {...messages.copyrightPeeranha}
+              id={messages.copyrightPeeranha.id}
               values={{ year: new Date().getFullYear() }}
             />
           </div>
         )}
-        <div className="mt-2">
-          {!!single ? (
+
+        {!!single && (
+          <div className="mt-2">
             <FormattedMessage
-              {...messages.poweredBy}
+              id={messages.poweredBy.id}
               values={{
                 year: new Date().getFullYear(),
                 image: <Img key="peeranha" src={peeranhaLogo} alt="peeranha" />,
@@ -209,8 +233,32 @@ export default React.memo(({ currClientHeight }) => {
                 </a>
               )}
             </FormattedMessage>
-          ) : null}
-        </div>
+          </div>
+        )}
+
+        <DivMention>
+          <FormattedMessage
+            id={messages.reCaptchaMention.id}
+            values={{
+              privacyPolicy: (
+                <ASimple
+                  href="https://policies.google.com/privacy"
+                  target="_blank"
+                >
+                  <FormattedMessage id={messages.privacyPolicy.id} />
+                </ASimple>
+              ),
+              termsOfService: (
+                <ASimple
+                  href="https://policies.google.com/terms"
+                  target="_blank"
+                >
+                  <FormattedMessage id={messages.termsOfService.id} />
+                </ASimple>
+              ),
+            }}
+          />
+        </DivMention>
       </FooterStyled>
     </AdditionalLinks>
   );

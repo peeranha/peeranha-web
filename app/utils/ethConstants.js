@@ -1,10 +1,10 @@
-//Contracts
+// Contracts
 export const CONTRACT_TOKEN = 'contractToken';
 export const CONTRACT_USER = 'contractUser';
 export const CONTRACT_CONTENT = 'contractContent';
 export const CONTRACT_COMMUNITY = 'contractCommunity';
 
-//Transaction names
+// Transaction names
 export const REGISTER_ACC = 'createUser';
 export const UPDATE_ACC = 'updateUser';
 export const CREATE_COMMUNITY = 'createCommunity';
@@ -14,6 +14,8 @@ export const UNFOLLOW_COMMUNITY = 'unfollowCommunity';
 export const CREATE_TAG = 'createTag';
 export const EDIT_TAG = 'updateTag';
 export const POST_QUESTION = 'createPost';
+export const UPDATE_DOCUMENTATION_TREE = 'updateDocumentationTree';
+export const DELETE_DOCUMENTATION_POST = 'deleteDocumentationPost';
 export const CHANGE_POST_TYPE = 'changePostType';
 export const POST_ANSWER = 'createReply';
 export const EDIT_ANSWER = 'editReply';
@@ -35,7 +37,7 @@ export const GIVE_COMMUNITY_ADMIN_PERMISSION = 'giveCommunityAdminPermission';
 export const REVOKE_COMMUNITY_ADMIN_PERMISSION =
   'revokeCommunityAdminPermission';
 
-//Query names
+// Query names
 export const GET_USER_BY_ADDRESS = 'getUserByAddress';
 export const IS_USER_EXISTS = 'isUserExists';
 export const GET_USERS_COUNT = 'getUsersCount';
@@ -51,6 +53,7 @@ export const GET_AVAILABLE_BALANCE = 'availableBalanceOf';
 export const GET_BOOST = 'getBoost';
 export const GET_STAKE = 'getStake';
 export const GET_USER_STAKE = 'getUserStake';
+export const GET_USER_RATING = 'getUserRating';
 
 export const UPVOTE_STATUS = 1;
 export const DOWNVOTE_STATUS = -1;
@@ -263,6 +266,7 @@ export const communitiesQuery = `
           isFrozen
           creationTime
           postCount
+          tagsCount
           deletedPostCount
           followingUsers
           replyCount
@@ -280,7 +284,7 @@ export const usersPostsQuery = `
           orderDirection: desc,
           first: $limit,
           skip: $offset,
-          where: {isDeleted: false, author: $id},
+          where: {isDeleted: false, author: $id, postType_lt: 3},
         ) {
            ${post}
         }
@@ -321,8 +325,12 @@ export const answeredPostsQuery = `
       }`;
 
 export const allTagsQuery = `
-      query {
-        tags {
+      query (
+       $skip: Int,
+      ) {
+        tags (
+          skip: $skip,
+        ) {
           id
           communityId
           name
@@ -400,6 +408,48 @@ export const postsByCommQuery = `
         ) {
            ${post}
         }
+      }`;
+
+export const faqByCommQuery = `
+      query (
+        $communityId: Int,
+      ) {
+        posts (
+          orderBy: postTime,
+          orderDirection: desc,
+          where: { communityId: $communityId, isDeleted: false, postType: 3 },
+        ) {
+           ${post}
+        }
+      }`;
+
+export const communityDocumentationQuery = `
+      query (
+        $id: ID!
+      ) {
+         post (id: $id) {
+           ${post}
+         }
+      }`;
+
+export const communityDocumentationNotIncludedQuery = `
+      query (
+        $communityId: ID!,
+        $includedIds: [String],
+      ) {
+         posts (where: {postType: 3, communityId: $communityId, isDeleted: false, id_not_in: $includedIds}) {
+           ${post}
+         }
+      }`;
+
+export const documentationMenuQuery = `
+      query (
+        $id: ID!
+      ) {
+        communityDocumentation (id: $id) {
+            id
+            documentationJSON
+         }
       }`;
 
 export const postsForSearchQuery = `

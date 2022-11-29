@@ -101,4 +101,7 @@ export default defineMessages({
   wrongAddressFormat: {
     id: 'app.components.FormFields.wrongAddressFormat',
   },
+  requiredMinReputation: {
+    id: 'app.components.FormFields.requiredMinReputation',
+  },
 });

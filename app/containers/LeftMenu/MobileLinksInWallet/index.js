@@ -20,7 +20,8 @@ import NotificationIcon from 'containers/Header/WalletDropdown/NotificationIcon'
 import A from 'components/A';
 import Icon from 'components/Icon';
 import SendTokens from 'containers/SendTokens';
-import { REWARD_CLAIMING_ENABLED } from '../../../utils/constants';
+import { DARK_SECONDARY } from 'style-constants';
+import { REWARD_CLAIMING_ENABLED } from 'utils/constants';
 
 const MobileLinksInWallet = ({
   profile,
@@ -34,7 +35,7 @@ const MobileLinksInWallet = ({
 }) => {
   const [visibleWalletLinks, setVisibilityWalletLinks] = useState(false);
 
-  const isPositiveNumber = number => Number.isFinite(number) && number > 0;
+  const isPositiveNumber = (number) => Number.isFinite(number) && number > 0;
 
   if (!profile || !isMenuVisible) {
     return null;
@@ -64,6 +65,7 @@ const MobileLinksInWallet = ({
           icon={arrowDownIcon}
           width="16"
           rotate={visibleWalletLinks}
+          fill={DARK_SECONDARY}
         />
       </button>
 
@@ -71,15 +73,16 @@ const MobileLinksInWallet = ({
         <div className="pb-2">
           <A to={routes.userWallet(profile.user)}>
             <FormattedMessage {...messages.wallet} />
-            {isPositiveNumber(rewardsWeeksNumber) && (
-              <NotificationIcon
-                inline
-                isMobileVersion
-                number={rewardsWeeksNumber}
-                id="MobileLinksInWallet"
-                locale={locale}
-              />
-            )}
+            {REWARD_CLAIMING_ENABLED &&
+              isPositiveNumber(rewardsWeeksNumber) && (
+                <NotificationIcon
+                  inline
+                  isMobileVersion
+                  number={rewardsWeeksNumber}
+                  id="MobileLinksInWallet"
+                  locale={locale}
+                />
+              )}
           </A>
 
           {REWARD_CLAIMING_ENABLED && (
@@ -103,7 +106,7 @@ MobileLinksInWallet.propTypes = {
   balance: PropTypes.number,
   stakedInCurrentPeriod: PropTypes.number,
   stakedInNextPeriod: PropTypes.number,
-  boost: PropTypes.object,
+  boost: PropTypes.number,
   profile: PropTypes.object,
   isMenuVisible: PropTypes.bool,
   rewardsWeeksNumber: PropTypes.number,

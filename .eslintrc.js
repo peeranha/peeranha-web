@@ -1,7 +1,3 @@
-/* eslint-disable-next-line */
-const fs = require('fs');
-
-const prettierOptions = JSON.parse(fs.readFileSync('./.prettierrc', 'utf8'));
 module.exports = {
   parser: '@typescript-eslint/parser',
   extends: [
@@ -28,7 +24,7 @@ module.exports = {
     es6: true,
   },
   parserOptions: {
-    ecmaVersion: 7,
+    ecmaVersion: 'latest',
     sourceType: 'module',
     ecmaFeatures: {
       modules: true,
@@ -50,7 +46,6 @@ module.exports = {
   },
   rules: {
     'linebreak-style': 0,
-    'prettier/prettier': ['error', prettierOptions],
     'arrow-body-style': [2, 'as-needed'],
     'class-methods-use-this': 0,
     'comma-dangle': [2, 'always-multiline'],
@@ -183,6 +178,7 @@ module.exports = {
         ['routes-config', './app/routes-config.js'],
         ['common-messages', './app/common-messages.js'],
         ['style-constants', './app/style-constants.js'],
+        ['pages', './app/pages'],
       ],
     },
   },

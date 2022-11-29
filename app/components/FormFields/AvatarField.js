@@ -27,11 +27,11 @@ import { AVATAR_FIELD } from 'containers/Profile/constants';
 
 import WarningMessage, { Div as WarningMessageDiv } from './WarningMessage';
 import { italicFont } from '../../global-styles';
-
+import { singleCommunityColors } from 'utils/communityManagement';
 // < 1000 chars - hash, >> 1000 - is base64 (new image)
 export const HASH_CHARS_LIMIT = 1000;
 const IMG_SIZE_LIMIT_B = 5 * 1024 * 1024;
-
+const colors = singleCommunityColors();
 const Div = styled.div`
   position: relative;
   width: 120px;
@@ -70,7 +70,7 @@ const Div = styled.div`
       z-index: 1;
 
       @media (min-width: 992px) {
-        background-color: #fff;
+        background-color: var(--color-white);
         bottom: -25%;
         height: 25%;
         opacity: 75%;
@@ -143,7 +143,7 @@ const Div = styled.div`
     }
 
     > *:nth-child(1) {
-      ${x =>
+      ${(x) =>
         x.s
           ? `
         position: fixed;
@@ -171,7 +171,7 @@ const Div = styled.div`
 
     > *:nth-child(2) {
       position: absolute;
-      z-index: ${x => (x.disabled ? 2 : 0)};
+      z-index: ${(x) => (x.disabled ? 2 : 0)};
       top: 0;
       left: 0;
       width: inherit;
@@ -192,7 +192,7 @@ const InfoMessage = styled.div`
 
   font-size: 13px;
   line-height: 1.2;
-  color: ${TEXT_PRIMARY};
+  color: ${colors.textColor || TEXT_PRIMARY};
   text-align: center;
   font-style: ${italicFont};
 
@@ -246,7 +246,7 @@ function AvatarField({ input, meta, disabled }) {
                   )
                 }
                 labelStyle={isFileTooLarge ? labelErrorStyle : {}}
-                onBeforeFileLoad={e => {
+                onBeforeFileLoad={(e) => {
                   if (e.target.files[0].size > IMG_SIZE_LIMIT_B) {
                     setIsFileTooLarge(true);
                     e.target.value = '';
@@ -275,18 +275,20 @@ function AvatarField({ input, meta, disabled }) {
           }
           alt="icon"
         />
-        {input.name === AVATAR_FIELD &&
-          input.value && (
-            <div className="remove-avatar-action-container">
-              <button
-                className="remove-avatar-action"
-                onClick={() => input.onChange(NO_AVATAR)}
-              />
-            </div>
-          )}
+        {input.name === AVATAR_FIELD && input.value && (
+          <div className="remove-avatar-action-container">
+            <button
+              className="remove-avatar-action"
+              onClick={() => input.onChange(NO_AVATAR)}
+            />
+          </div>
+        )}
       </div>
       <InfoMessage>
-        <FormattedMessage {...messages.profilesUsersInfo} />
+        <FormattedMessage
+          id={messages.profilesUsersInfo.id}
+          color={colors.btnColor}
+        />
       </InfoMessage>
       <WarningMessage {...meta} isSpecialPosition />
     </Div>

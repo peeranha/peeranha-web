@@ -1,27 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-
+import { TEXT_PRIMARY } from 'style-constants';
 import { showPopover } from 'utils/popover';
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
 
 const Wrapper = styled.span`
   position: relative;
   display: inline-block;
-  width: ${props => (props.width ? props.width : '100%')};
+  width: ${(props) => (props.width ? props.width : '100%')};
   height: 7px;
-  background-color: rgb(194, 198, 216, 0.4);
+  background-color: var(--color-gray-light);
   border-radius: 7px;
   overflow: hidden;
 `;
 
 const Progress = styled.span`
-  width: ${props => (props.progress ? `${props.progress}%` : 0)};
+  width: ${(props) => (props.progress ? `${props.progress}%` : 0)};
   position: absolute;
   top: 0;
   left: 0;
   display: inline-block;
   height: 7px;
-  background-color: rgb(87, 111, 237);
+  background-color: ${colors.textColor || TEXT_PRIMARY};
   border-radius: 7px;
 `;
 

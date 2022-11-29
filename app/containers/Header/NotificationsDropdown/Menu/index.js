@@ -6,7 +6,7 @@ import {
   HEADER_AND_FOOTER_HEIGHT,
   MENU_HEIGHT,
   MENU_WIDTH,
-  ROW_HEIGHT,
+  ROW_HEIGHT_DROPDOWN,
 } from '../constants';
 import { BORDER_RADIUS_L } from 'style-constants';
 
@@ -19,7 +19,7 @@ import Footer from './Footer';
 const MenuContainer = styled.div`
   width: ${MENU_WIDTH}px;
   height: ${MENU_HEIGHT}px;
-  background: #fff;
+  background: var(--color-white);
   display: flex;
   position: absolute;
   flex-direction: column;
@@ -30,8 +30,12 @@ const MenuContainer = styled.div`
   white-space: nowrap;
   cursor: default;
 
-  @media only screen and (max-width: 992px) {
-    left: -20px;
+  @media only screen and (max-width: 1520px) {
+    left: -75px;
+  }
+
+  @media only screen and (max-width: 993px) {
+    left: -90px;
   }
 
   @media only screen and (max-width: 767px) {
@@ -41,7 +45,7 @@ const MenuContainer = styled.div`
 
 const useDetectOutsideClick = (onClose, parentRef) => {
   const ref = useRef(null);
-  const handleClickOutside = e => {
+  const handleClickOutside = (e) => {
     if (
       ref.current &&
       !ref.current.contains(e.target) &&
@@ -69,7 +73,7 @@ const Menu = ({ notifications, onClose, parentRef, unreadCount }) => {
   return (
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events
     <div
-      onClick={e => {
+      onClick={(e) => {
         e.stopPropagation();
       }}
     >
@@ -79,7 +83,7 @@ const Menu = ({ notifications, onClose, parentRef, unreadCount }) => {
           notifications={notifications}
           height={MENU_HEIGHT - HEADER_AND_FOOTER_HEIGHT}
           width={MENU_WIDTH}
-          rowHeight={ROW_HEIGHT}
+          rowHeight={ROW_HEIGHT_DROPDOWN}
         />
         <Footer empty={empty} onClose={onClose} />
       </MenuContainer>

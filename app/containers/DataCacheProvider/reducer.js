@@ -38,7 +38,7 @@ export const initialState = fromJS({
   statLoading: false,
   getStatError: null,
   faq: null,
-  getFaqLoading: false,
+  getDocumentationLoading: false,
   getFaqError: null,
   tutorial: null,
   getTutorialLoading: false,
@@ -76,11 +76,15 @@ function dataCacheProviderReducer(state = initialState, action) {
       return state.set('statLoading', false).set('getStatError', getStatError);
 
     case GET_FAQ:
-      return state.set('getFaqLoading', true);
+      return state.set('getDocumentationLoading', true);
     case GET_FAQ_SUCCESS:
-      return state.set('getFaqLoading', false).set('faq', fromJS(faq));
+      return state
+        .set('getDocumentationLoading', false)
+        .set('faq', fromJS(faq));
     case GET_FAQ_ERROR:
-      return state.set('getFaqLoading', false).set('getFaqError', getFaqError);
+      return state
+        .set('getDocumentationLoading', false)
+        .set('getFaqError', getFaqError);
 
     case GET_TUTORIAL:
       return state.set('getTutorialLoading', true);

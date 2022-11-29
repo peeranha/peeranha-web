@@ -8,6 +8,7 @@ import {
   required,
   maxByteLength,
   withoutDoubleSpace,
+  strLength5x100,
 } from 'components/FormFields/validate';
 import TextInputField from 'components/FormFields/TextInputField';
 
@@ -15,18 +16,21 @@ import { FORM_TITLE } from './constants';
 
 import messages from './messages';
 
-const TitleForm = ({ questionLoading, intl }) => (
-  <Field
-    name={FORM_TITLE}
-    component={TextInputField}
-    disabled={questionLoading}
-    label={intl.formatMessage(messages.titleLabel)}
-    tip={intl.formatMessage(messages.titleTip)}
-    validate={[withoutDoubleSpace, strLength15x100, maxByteLength, required]}
-    warn={[strLength15x100, required]}
-    splitInHalf
-  />
-);
+const TitleForm = ({ questionLoading, intl, isDocumentation }) => {
+  const length = isDocumentation ? strLength5x100 : strLength15x100;
+  return (
+    <Field
+      name={FORM_TITLE}
+      component={TextInputField}
+      disabled={questionLoading}
+      label={intl.formatMessage(messages.titleLabel)}
+      tip={intl.formatMessage(messages.titleTip)}
+      validate={[withoutDoubleSpace, length, maxByteLength, required]}
+      warn={[length, required]}
+      splitInHalf
+    />
+  );
+};
 
 TitleForm.propTypes = {
   questionLoading: PropTypes.bool,

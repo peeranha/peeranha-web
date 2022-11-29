@@ -5,7 +5,10 @@ import { intlShape } from 'react-intl';
 
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
-import { requiredForObjectField } from 'components/FormFields/validate';
+import {
+  requiredForObjectField,
+  requiredMinReputation,
+} from 'components/FormFields/validate';
 import CommunityField from 'components/FormFields/CommunityField';
 
 import { FORM_COMMUNITY, FORM_TAGS } from './constants';
@@ -33,8 +36,8 @@ const CommunityForm = ({
       label={intl.formatMessage(messages.communityLabel)}
       tip={intl.formatMessage(messages.communityTip)}
       options={communities}
-      validate={[requiredForObjectField]}
-      warn={[requiredForObjectField]}
+      validate={[requiredForObjectField, requiredMinReputation]}
+      warn={[requiredForObjectField, requiredMinReputation]}
       splitInHalf
     />
   );

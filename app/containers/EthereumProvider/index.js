@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { bindActionCreators, compose } from 'redux';
@@ -106,25 +106,59 @@ export const EthereumProvider = ({
   const connectedWallets = useWallets();
   const [web3Onboard, setWeb3Onboard] = useState(null);
 
-  useEffect(
-    () => {
-      if (ethereum) {
-        ethereum.setData({
-          wallet,
-          connectedWallets,
-          web3Onboard,
-          connectedChain,
-        });
+  // TODO: After updating react to 17v and above use lib for recaptcha (e.g. react-google-recaptcha-v3)
+  useEffect(() => {
+    const loadScriptByURL = (id, url, callback) => {
+      const isScriptExist = document.getElementById(id);
+
+      if (!isScriptExist) {
+        const script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = url;
+        script.id = id;
+        script.onload = () => {
+          if (callback) callback();
+        };
+        document.body.appendChild(script);
       }
-    },
-    [wallet, connectedWallets, web3Onboard],
+
+      if (isScriptExist && callback) callback();
+    };
+
+    loadScriptByURL(
+      'recaptcha-key',
+      `https://www.google.com/recaptcha/api.js?render=${process.env.RECAPTCHA_SITE_KEY}`,
+      () => {
+        console.log('Script loaded!');
+      },
+    );
+  }, []);
+
+  const getRecaptchaToken = useCallback(
+    () =>
+      window.grecaptcha.execute(process.env.RECAPTCHA_SITE_KEY, {
+        action: 'homepage',
+      }),
+    [window.grecaptcha],
   );
+
+  useEffect(() => {
+    if (ethereum) {
+      ethereum.setData({
+        wallet,
+        connectedWallets,
+        web3Onboard,
+        connectedChain,
+      });
+    }
+  }, [wallet, connectedWallets, web3Onboard]);
 
   const sendProps = {
     connect,
     disconnect,
     setChain,
     connectedChain,
+    getRecaptchaToken,
     showModalDispatch,
     transactionInPendingDispatch,
     transactionCompletedDispatch,
@@ -138,7 +172,7 @@ export const EthereumProvider = ({
     const { pathname, hash } = window.location;
     const single = isSingleCommunityWebsite();
     if (single && pathname !== '/') {
-      if (redirectRoutesForSCM.find(route => route.startsWith(pathname))) {
+      if (redirectRoutesForSCM.find((route) => route.startsWith(pathname))) {
         const path =
           process.env.ENV === 'dev'
             ? `https://testpeeranha.io${pathname}${hash}`
@@ -167,7 +201,7 @@ const withConnect = connect(
     initializing: makeSelectInitializing(),
     ethereum: makeSelectEthereum(),
   }),
-  dispatch => ({
+  (dispatch) => ({
     initEthereumDispatch: bindActionCreators(initEthereum, dispatch),
     showModalDispatch: bindActionCreators(showModal, dispatch),
     transactionInPendingDispatch: bindActionCreators(
@@ -190,8 +224,4 @@ const withConnect = connect(
 const withReducer = injectReducer({ key: 'ethereumProvider', reducer });
 const withSaga = injectSaga({ key: 'ethereumProvider', saga, mode: DAEMON });
 
-export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
-)(EthereumProvider);
+export default compose(withReducer, withSaga, withConnect)(EthereumProvider);

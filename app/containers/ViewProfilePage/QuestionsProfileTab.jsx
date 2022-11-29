@@ -13,7 +13,7 @@ import {
 
 import { getTimeFromDateToNow } from 'utils/datetime';
 import commonMessages from 'common-messages';
-
+import communitiesConfig from 'communities-config';
 import {
   POST_TYPE_ANSWER,
   POST_TYPE_QUESTION,
@@ -128,7 +128,11 @@ const Note = ({
   const answerRouteId =
     elementType === POST_TYPE_ANSWER ? answerId.split('-')[1] : null;
 
-  const route = getPostRoute(postType, id, answerRouteId);
+  const route =
+    single && single !== communityId
+      ? communitiesConfig[communityId]?.origin +
+        getPostRoute(postType, id, answerRouteId)
+      : getPostRoute(postType, id, answerRouteId);
 
   return (
     <LinkStyled to={route} href={route}>
@@ -176,7 +180,7 @@ const QuestionsProfileTab = ({
 }) => (
   <div className={className}>
     <div>
-      {questions.map(item => (
+      {questions.map((item) => (
         <Note
           postType={item.postType}
           isMyAnswerAccepted={item.isMyAnswerAccepted}

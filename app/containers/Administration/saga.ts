@@ -53,7 +53,7 @@ export function* addRoleWorker(props: {
   userAddress: string;
   role: number;
   communityId: number;
-}): Generator<{}> {
+}): Generator<any> {
   try {
     const ethereumService = yield select(selectEthereum);
     const account = yield select(makeSelectAccount());
@@ -75,7 +75,7 @@ export function* revokeRoleWorker(props: {
   userAddress: string;
   role: number;
   communityId: number;
-}): Generator<{}> {
+}): Generator<any> {
   try {
     const ethereumService = yield select(selectEthereum);
     const account = yield select(makeSelectAccount());
@@ -94,7 +94,7 @@ export function* revokeRoleWorker(props: {
   }
 }
 
-export default function*() {
+export default function* () {
   // @ts-ignore
   yield takeEvery(
     [GET_MODERATORS, ADD_ROLE_SUCCESS, REVOKE_ROLE_SUCCESS],

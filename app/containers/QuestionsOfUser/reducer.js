@@ -17,23 +17,16 @@ export const initialState = fromJS({
 function questionsOfUserReducer(state = initialState, action) {
   const { type, getQuestionsError, questions, init } = action;
 
-  const {
-    questions: stateQuestions,
-  } = state.toJS();
+  const { questions: stateQuestions } = state.toJS();
 
-  const {
-    questions: initialStateQuestions,
-    number: initialStateNumber,
-  } = initialState.toJS();
+  const { questions: initialStateQuestions, number: initialStateNumber } =
+    initialState.toJS();
 
   switch (type) {
     case GET_QUESTIONS:
       return state
         .set('questionsLoading', true)
-        .set(
-          'questions',
-          init ? initialStateQuestions : stateQuestions,
-        );
+        .set('questions', init ? initialStateQuestions : stateQuestions);
     case GET_QUESTIONS_SUCCESS:
       return state
         .set('questionsLoading', false)
@@ -43,7 +36,6 @@ function questionsOfUserReducer(state = initialState, action) {
       return state
         .set('questionsLoading', false)
         .set('getQuestionsError', getQuestionsError);
-
     default:
       return state;
   }

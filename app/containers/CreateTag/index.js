@@ -10,8 +10,6 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
-import { COMMUNITY_ADMIN_VALUE } from 'utils/constants';
-
 import Seo from 'components/Seo';
 import TipsBase from 'components/Base/TipsBase';
 import { BaseSpecialOne } from 'components/Base/BaseTransparent';
@@ -54,7 +52,12 @@ import Header from './Header';
 
 import tagsReducer from '../Tags/reducer';
 import tagsSaga from '../Tags/saga';
-import { getAllRoles, hasGlobalModeratorRole } from '../../utils/properties';
+import {
+  getAllRoles,
+  hasCommunityAdminRole,
+  hasGlobalModeratorRole,
+  hasProtocolAdminRole,
+} from '../../utils/properties';
 
 import { useModeratorRole } from '../../hooks/useModeratorRole';
 
@@ -70,20 +73,17 @@ const CreateTag = ({
   permissions = [],
   getFormDispatch,
   isFormLoading,
-  isFormAvailable,
 }) => {
-  useModeratorRole(noAccess);
+  const commId = useMemo(() => single || +match.params.communityid, [match]);
+  useModeratorRole(noAccess, commId);
 
   useEffect(() => {
     getFormDispatch();
   }, []);
 
-  const commId = useMemo(() => single || +match.params.communityid, [match]);
-
   const createTag = useCallback(
     (...args) => {
       const values = args[0].toJS();
-
       suggestTagDispatch(
         +values[FORM_COMMUNITY].id,
         {
@@ -96,16 +96,18 @@ const CreateTag = ({
     [suggestTagDispatch],
   );
 
-  const isGlobalAdmin = useMemo(() => hasGlobalModeratorRole(permissions), [
-    permissions,
-  ]);
+  const isGlobalAdmin =
+    hasGlobalModeratorRole(permissions) || hasProtocolAdminRole(permissions);
+  const profileWithCommunityAdminRights = Boolean(commId)
+    ? hasCommunityAdminRole(permissions, commId)
+    : false;
   const roles = getAllRoles(permissions, communities.length);
 
   const rightCommunitiesIds = useMemo(
     () =>
-      isGlobalAdmin
-        ? communities.map(x => x.id)
-        : roles.map(role => role.communityid),
+      isGlobalAdmin || profileWithCommunityAdminRights
+        ? communities.map((x) => x.id)
+        : roles.map((role) => role.communityid),
     [communities, roles],
   );
 
@@ -127,7 +129,7 @@ const CreateTag = ({
           <BaseSpecialOne>
             <Form
               communityId={commId}
-              communities={communities.filter(x =>
+              communities={communities.filter((x) =>
                 rightCommunitiesIds.includes(x.id),
               )}
               tagFormLoading={createTagLoading}
@@ -179,7 +181,7 @@ export default compose(
       isFormAvailable: selectors.selectIsFormAvailable(),
       profile: makeSelectProfileInfo(),
     }),
-    dispatch => ({
+    (dispatch) => ({
       suggestTagDispatch: bindActionCreators(suggestTag, dispatch),
       getFormDispatch: bindActionCreators(getForm, dispatch),
     }),

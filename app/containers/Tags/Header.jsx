@@ -1,17 +1,21 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import { css } from '@emotion/react';
 import * as routes from 'routes-config';
 import { TEXT_SECONDARY, BORDER_PRIMARY } from 'style-constants';
 
 import commonMessages from 'common-messages';
-import { isSingleCommunityWebsite } from 'utils/communityManagement';
+import {
+  isSingleCommunityWebsite,
+  singleCommunityColors,
+} from 'utils/communityManagement';
 
 import icoTagIcon from 'images/icoTag.svg?external';
 import arrowLeft from 'images/arrowLeft.svg?inline';
 import addIcon from 'images/add.svg?external';
 import communitiesHeaderFilter from 'images/communitiesHeaderFilter.svg?external';
-
+import { TEXT_PRIMARY } from 'style-constants';
 import H3 from 'components/H3';
 import Dropdown from 'components/Dropdown';
 import Span from 'components/Span';
@@ -29,16 +33,27 @@ import A from 'components/A';
 import messages from './messages';
 import options from './options';
 import { GO_TO_CREATE_TAG_SCREEN_BUTTON_ID } from './constants';
-import { getPermissions, hasGlobalModeratorRole } from '../../utils/properties';
+import {
+  getPermissions,
+  hasCommunityAdminRole,
+  hasGlobalModeratorRole,
+  hasProtocolAdminRole,
+} from '../../utils/properties';
 
 const tagsRoute = routes.tags();
 
+const colors = singleCommunityColors();
 const single = isSingleCommunityWebsite();
 
 const Button = ({ sorting }) => (
   <Span className="d-inline-flex align-items-center mr-2 text-capitalize" bold>
     <MediumIcon>
-      <IconMd className="mr-2" icon={communitiesHeaderFilter} />
+      <IconMd
+        className="mr-2"
+        icon={communitiesHeaderFilter}
+        color={colors.btnColor || BORDER_PRIMARY}
+        isColorImportant={true}
+      />
     </MediumIcon>
     <FormattedMessage {...options[sorting].message} />
   </Span>
@@ -46,7 +61,7 @@ const Button = ({ sorting }) => (
 
 const Menu = ({ sortTags, sorting }) => (
   <Ul>
-    {Object.keys(options).map(x => (
+    {Object.keys(options).map((x) => (
       <CheckedItem
         key={x}
         data-key={x}
@@ -67,14 +82,26 @@ export const Header = ({
   tagsNumber,
   profile,
 }) => {
-  const path = useMemo(() => window.location.pathname + window.location.hash, [
-    window.location,
-  ]);
+  const path = useMemo(
+    () => window.location.pathname + window.location.hash,
+    [window.location],
+  );
 
   const profileWithModeratorRights = useMemo(
     () => (profile ? hasGlobalModeratorRole(getPermissions(profile)) : false),
     [profile],
   );
+
+  const singleCommId = isSingleCommunityWebsite();
+
+  const profileWithCommunityAdminRights = Boolean(singleCommId)
+    ? hasCommunityAdminRole(getPermissions(profile), singleCommId)
+    : false;
+
+  const tagCreatingAllowed =
+    profileWithModeratorRights ||
+    profileWithCommunityAdminRights ||
+    hasProtocolAdminRole(getPermissions(profile));
 
   const communityTagsRoute = useMemo(
     () => routes.communityTags(currentCommunity.id),
@@ -97,14 +124,14 @@ export const Header = ({
               <NavigationButton className="pl-0" islink>
                 <img src={arrowLeft} alt="x" />
                 <span className="d-none d-sm-inline ml-2">
-                  <FormattedMessage {...messages.backToList} />
+                  <FormattedMessage id={messages.backToList.id} />
                 </span>
               </NavigationButton>
             </A>
           )}
         </div>
 
-        {profileWithModeratorRights && (
+        {tagCreatingAllowed && (
           <WrapperRightPanel className="right-panel">
             <NavigationButton
               data-communityid={currentCommunity.id}
@@ -117,8 +144,11 @@ export const Header = ({
                 <IconMd
                   className="d-none d-sm-inline-block"
                   icon={icoTagIcon}
-                  isColorImportant={true}
-                  fill={BORDER_PRIMARY}
+                  css={css`
+                    path {
+                      fill: ${colors.btnColor || TEXT_PRIMARY};
+                    }
+                  `}
                 />
               </MediumIcon>
 
@@ -129,7 +159,7 @@ export const Header = ({
               />
 
               <span className="ml-1 button-label">
-                <FormattedMessage {...commonMessages.createTag} />
+                <FormattedMessage id={commonMessages.createTag.id} />
               </span>
             </NavigationButton>
           </WrapperRightPanel>
@@ -154,7 +184,7 @@ export const Header = ({
               bold
             >
               <span>{`${tagsNumber} `}</span>
-              <FormattedMessage {...commonMessages.tags} />
+              <FormattedMessage id={commonMessages.tags.id} />
             </Span>
           )}
         </H3>

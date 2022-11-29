@@ -103,13 +103,16 @@ export function* getTutorialWorker() {
 }
 
 /* eslint consistent-return: 0 */
-export function* getUserProfileWorker({ user, getFullProfile }) {
+export function* getUserProfileWorker({
+  user,
+  getFullProfile,
+  communityIdForRating,
+}) {
   try {
     const ethereumService = yield select(selectEthereum);
     const selectedAccount = yield call(ethereumService.getSelectedAccount);
     const isLogin = selectedAccount === user;
     const cachedUserInfo = yield select(selectUsers(user));
-    const userStats = yield getUserStats(user);
 
     // take userProfile from STORE
     if (cachedUserInfo && !getFullProfile && !isLogin) {
@@ -120,6 +123,7 @@ export function* getUserProfileWorker({ user, getFullProfile }) {
           USER_ACHIEVEMENTS_TABLE,
           user,
         );
+        const userStats = yield getUserStats(user);
 
         const updatedUserInfo = {
           ...cachedUserInfo,
@@ -138,6 +142,7 @@ export function* getUserProfileWorker({ user, getFullProfile }) {
       ethereumService,
       getFullProfile,
       isLogin,
+      communityIdForRating,
     );
 
     if (
@@ -146,18 +151,18 @@ export function* getUserProfileWorker({ user, getFullProfile }) {
         cachedUserInfo &&
         getHash(updatedUserInfo) !== getHash(cachedUserInfo))
     ) {
-      yield put(getUserProfileSuccess({ ...updatedUserInfo, ...userStats }));
+      yield put(getUserProfileSuccess({ ...updatedUserInfo }));
     }
 
     yield put(getUserProfileSuccess());
 
-    return yield { ...updatedUserInfo, ...userStats };
+    return yield { ...updatedUserInfo };
   } catch (err) {
     yield put(getUserProfileErr(err));
   }
 }
 
-export default function*() {
+export default function* () {
   yield takeLatest(GET_COMMUNITIES_WITH_TAGS, getCommunitiesWithTagsWorker);
   yield takeEvery(GET_USER_PROFILE, getUserProfileWorker);
   yield takeLatest(
