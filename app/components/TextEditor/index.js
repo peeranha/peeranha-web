@@ -55,6 +55,7 @@ class TextEditor extends React.PureComponent {
             placeholder: translationMessages[locale][messages.enterText.id],
           }}
           preview={'edit'}
+          data-color-mode={'light'}
         />
         <Wrapper
           label={'Preview'}
@@ -69,6 +70,7 @@ class TextEditor extends React.PureComponent {
             {this.props.value ? (
               <MarkdownPreview
                 source={this.props.value}
+                warpperElement={{ 'data-color-mode': 'light' }}
                 css={css`
                   ol li {
                     list-style-type: decimal;

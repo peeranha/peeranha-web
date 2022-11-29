@@ -238,6 +238,13 @@ export const MintStateLabsStyles = {
   cookieConsentPopupStyles: {
     background: '#53A6EC',
     color: '#F3F3F3',
+    borderColor: '#FFF',
+    button: {
+      ':hover': {
+        background: '#FFF',
+        color: '#53A6EC',
+      },
+    },
   },
   headerHeight: 80,
   projectBorderRadius: '5px',

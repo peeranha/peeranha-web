@@ -1,18 +1,20 @@
 import React from 'react';
 import { css } from 'styled-components';
 
-import CyberconnectLogo from './images/CyberConnect_logo.svg?inline';
-import favicon from '!file-loader?name=[name].[ext]!./images/logo.ico';
+import AnkrLogo from './images/ankrBlueLogo.svg?inline';
+import AnkrSymbol from './images/ankrBlueSymbol.png';
+import favicon from '!file-loader?name=[name].[ext]!./images/favicon-ankr.ico';
+
 import RobotoRegularEOT from './fonts/Roboto-Regular.eot';
 import RobotoRegularWOFF from './fonts/Roboto-Regular.woff';
 import RobotoRegularTTF from './fonts/Roboto-Regular.ttf';
 
-const domainName = 'https://polywrap.io/';
+const domainName = 'https://valist.io/';
 
 const fontSet = 'Roboto-Regular, Arial, sans-serif';
 
 export const customSubHeaderConfig = {
-  design: 'polywrap_style',
+  design: 'valist_style',
   styles: {
     bg: {
       header: '#FFFFFF',
@@ -176,12 +178,12 @@ export const customSubHeaderConfig = {
   ],
 };
 
-export const CyberconnectStyles = {
+export const AnkrStyles = {
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: CyberconnectLogo,
+  signUpPageLogo: AnkrLogo,
   favicon,
   // Hided community fonts
   // fonts: {
@@ -203,69 +205,68 @@ export const CyberconnectStyles = {
   // }`,
 
   colors: {
-    mainSubHeaderBgColor: '#fff',
-    mainBackground: '#F9FAFB',
-    linkColor: '#65908a',
-    linkCookieColor: '#0DB48C', ///
-    linkColorTransparent: 'rgba(101, 144, 138, 0.6);',
-    headerPrimary: '#65908a',
-    commentOption: '#65908a',
-    contentHeader: '#65908a',
-    blockedInfoArea: 'rgba(101, 144, 138,0.11)',
+    mainSubHeaderBgColor: '#FFFFFF',
+    mainBackground: '#F2F5FA',
+    linkColor: '#356DF3',
+    linkCookieColor: '#356DF3',
+    linkColorTransparent: '#356DF3',
+    headerPrimary: '#356DF3',
+    commentOption: '#356DF3',
+    contentHeader: '#356DF3',
+    blockedInfoArea: '#356EF30C',
     transparentIconColor: '#fff',
-    loaderColor: '#65908a',
-    votingIconColor: '#65908a',
-    linkColorSecondary: '#65908a',
-    walletButton: '#65908a',
-    btnColor: '#65908a',
-    btnHoverColor: '#000',
-    btnHeaderColor: '#000',
-    btnHeaderHoverColor: '#0DB48C',
-    tagColor: '#65908a',
-    localeArrowColor: '#65908a',
-    textColor: '#65908a',
-    textColorShadow: 'rgba(101, 144, 138, 0.6);',
-    commHeadElemColor: '#000',
+    loaderColor: '#356DF3',
+    votingIconColor: '#356DF3',
+    linkColorSecondary: '#356DF3',
+    walletButton: '#356DF3',
+    btnColor: '#356DF3',
+    btnHoverColor: '#FF9A9E',
+    btnHeaderColor: '#356DF3',
+    btnHeaderHoverColor: '#356EF3DA',
+    tagColor: '#356DF3',
+    localeArrowColor: '#356EF3DA',
+    textColor: '#356EF3DA',
+    textColorShadow: '#356DF3',
+    commHeadElemColor: '#356DF3',
   },
   cookieConsentPopupStyles: {
-    background: 'linear-gradient(90deg,  #000, #65908a)',
-    color: '#fff',
-    borderColor: '#fff',
+    background: '#FFFFFF',
+    color: '#2E343C',
+    borderColor: '#356DF3',
     button: {
       color: '#fff',
-      background: '#0DB48C',
-      border: '3px solid #fff',
+      background: '#356DF3',
       ':hover': {
-        background: '#fff',
-        color: '#000',
-        border: '3px solid #000',
+        borderColor: '#356DF3',
+        background: '#FFFFFF',
+        color: '#356DF3',
       },
     },
   },
   headerHeight: 80,
-  projectBorderRadius: '0',
+  projectBorderRadius: '30px',
   domainName,
-  communityBorderStyle: '3px solid #65908a',
+  communityBorderStyle: '3px solid #356DF3',
   dropDownIconStyles: css`
     path {
-      stroke: #65908a !important;
+      stroke: #356df3 !important;
       stroke-width: 1.5px;
       fill: none !important;
     }
     circle {
-      stroke: #65908a;
+      stroke: #356df3;
       stroke-width: 1.5px;
       fill: none;
     }
   `,
   headerLoginButtonStyles: css`
     background: #fff;
-    border: 3px solid #000;
-    color: #000;
+    border: 2px solid #356df3;
+    color: #356df3;
     :hover {
-      background: #fff !important;
-      color: #0db48c !important;
-      border: 3px solid #0db48c !important;
+      background: #356df3 !important;
+      color: #fff !important;
+      border: 2px solid #356df3 !important;
     }
   `,
 };
