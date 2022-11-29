@@ -35,11 +35,19 @@ type AdministrationProps = {
   locale: string;
   profileInfo: User;
   moderators: Array<Moderator>;
-  getModeratorsDispatch: Function;
+  getModeratorsDispatch: (communityId: number) => void;
   moderatorsLoading: boolean;
-  addRoleDispatch: Function;
+  addRoleDispatch: (
+    userAddress: string,
+    role: number,
+    communityId: number,
+  ) => void;
   addRoleLoading: boolean;
-  revokeRoleDispatch: Function;
+  revokeRoleDispatch: (
+    userAddress: string,
+    role: number,
+    communityId: number,
+  ) => void;
   revokeRoleLoading: boolean;
 };
 
@@ -55,12 +63,9 @@ const Administration: React.FC<AdministrationProps> = ({
 }): JSX.Element => {
   const single = isSingleCommunityWebsite();
 
-  useEffect(
-    () => {
-      getModeratorsDispatch(single);
-    },
-    [single],
-  );
+  useEffect(() => {
+    getModeratorsDispatch(single);
+  }, [single]);
 
   return (
     <>

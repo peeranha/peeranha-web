@@ -3,7 +3,7 @@ import { Field, reduxForm } from 'redux-form/immutable';
 import { FormattedMessage } from 'react-intl';
 // @ts-ignore
 import { translationMessages } from 'i18n';
-import React, { useState } from 'react';
+import React, { FormEventHandler, useState } from 'react';
 import { css } from '@emotion/react';
 
 import ContainedButton from 'components/Button/Contained/InfoLargeHeightStretching';
@@ -25,12 +25,20 @@ import messages from 'containers/Administration/messages';
 import { scrollToErrorField } from 'utils/animation';
 import { TEXT_DARK } from 'style-constants';
 
+type AddRoleFunction = (
+  userAddress: string,
+  role: number,
+  communityId?: number,
+) => void;
+
 type AddRoleFormProps = {
   locale: string;
-  single: number | undefined;
-  handleSubmit: Function;
-  addRole: Function;
-  Button: typeof React.Component;
+  single?: number;
+  handleSubmit: (
+    addRole: AddRoleFunction,
+  ) => FormEventHandler<HTMLFormElement> | undefined;
+  addRole: AddRoleFunction;
+  Button: React.FC<{ onClick: () => void }>;
   addRoleLoading: boolean;
 };
 
@@ -41,7 +49,7 @@ const AddRoleForm: React.FC<AddRoleFormProps> = ({
   addRole,
   Button,
   addRoleLoading,
-}): JSX.Element | null => {
+}): JSX.Element => {
   const [isOpened, open] = useState(false);
 
   const closeModal = () => {
@@ -66,7 +74,7 @@ const AddRoleForm: React.FC<AddRoleFormProps> = ({
   };
 
   return (
-    <React.Fragment>
+    <>
       <Button
         onClick={() => {
           open(true);
@@ -131,13 +139,11 @@ const AddRoleForm: React.FC<AddRoleFormProps> = ({
           </form>
         </ModalDialog>
       )}
-    </React.Fragment>
+    </>
   );
 };
 
-const FormClone = reduxForm<any, any>({
-  onSubmitFail: errors => scrollToErrorField(errors),
+export default reduxForm<any, any>({
+  onSubmitFail: (errors) => scrollToErrorField(errors),
   form: 'answerForm',
 })(AddRoleForm);
-
-export default React.memo(FormClone);
