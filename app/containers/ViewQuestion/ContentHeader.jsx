@@ -16,7 +16,6 @@ import pencilIcon from 'images/pencil.svg?external';
 import shareIcon from 'images/shareIcon.svg?external';
 import deleteIcon from 'images/deleteIcon.svg?external';
 import blockIcon from 'images/blockIcon.svg?external';
-import changeTypeIcon from 'images/change-type.svg?external';
 
 import { getRatingByCommunity, getUserAvatar } from 'utils/profileManagement';
 import { useOnClickOutside } from 'utils/click-listners';
@@ -41,7 +40,6 @@ import {
 import blockchainLogo from 'images/blockchain-outline-32.svg?external';
 import IPFSInformation from 'containers/Questions/Content/Body/IPFSInformation';
 import commonMessages from 'common-messages';
-import { POST_TYPE } from 'utils/constants';
 import { getUserName } from 'utils/user';
 
 const RatingBox = styled.div`
@@ -135,7 +133,6 @@ const ContentHeader = (props) => {
     giveBountyDispatch,
     questionData,
     profile,
-    isChangeTypeAvailable,
     infiniteImpact,
     histories,
   } = props;
@@ -223,36 +220,6 @@ const ContentHeader = (props) => {
           isTemporaryAccount={isTemporaryAccount}
         />
         <ButtonContainer>
-          {type === QUESTION_TYPE && (
-            <Button
-              id={`${type}_change_type_with_rating_restore_${answerId}`}
-              show={
-                (isGlobalAdmin || isChangeTypeAvailable) &&
-                questionData.postType !== POST_TYPE.tutorial
-              }
-              onClick={changeQuestionTypeWithRatingRestore}
-              disabled={ids.includes(
-                `${type}_change_type_with_rating_restore_${answerId}`,
-              )}
-            >
-              <IconSm icon={changeTypeIcon} fill={BORDER_PRIMARY} />
-              <FormattedMessage {...messages.changeQuestionType} />
-            </Button>
-          )}
-
-          {/* {type === QUESTION_TYPE && (
-            <Button
-              id={`${type}_give_bounty_${answerId}`}
-              show={
-                currentUserName && correctAnswerUserName === currentUserName
-              }
-              onClick={event => giveBountyDispatch(event)}
-              disabled={ids.includes(`${type}_give_bounty_${answerId}`)}
-            >
-              <IconSm icon={currencyPeer} fill={BORDER_PRIMARY} />
-              <FormattedMessage {...messages.getBounty} />
-            </Button>
-          )} */}
           {infiniteImpact ? (
             <Button
               show={
@@ -269,7 +236,7 @@ const ContentHeader = (props) => {
               isVotedToDelete={true}
             >
               <IconSm icon={blockIcon} fill={BORDER_ATTENTION_LIGHT} />
-              <FormattedMessage {...messages.voteToDelete} />
+              <FormattedMessage id={messages.voteToDelete.id} />
             </Button>
           ) : null}
 
@@ -288,7 +255,7 @@ const ContentHeader = (props) => {
                   disabled={ids.includes(`${type}_delete_${answerId}`)}
                 >
                   <IconMd icon={deleteIcon} fill={BORDER_PRIMARY} />
-                  <FormattedMessage {...messages.deleteButton} />
+                  <FormattedMessage id={messages.deleteButton.id} />
                 </Button>
               )}
             />
@@ -302,7 +269,7 @@ const ContentHeader = (props) => {
                 onClick={() => setModalOpen(true)}
               >
                 <IconSm icon={shareIcon} />
-                <FormattedMessage {...messages.shareButton} />
+                <FormattedMessage id={messages.shareButton.id} />
               </Button>
 
               {isModalOpen && (
@@ -341,7 +308,7 @@ const ContentHeader = (props) => {
             id={`redirect-to-edit-item-${answerId}-${buttonParams.questionId}-${commentId}`}
           >
             <IconMd icon={pencilIcon} />
-            <FormattedMessage {...messages.editButton} />
+            <FormattedMessage id={messages.editButton.id} />
           </Button>
         </ButtonContainer>
       </ItemInfo>
