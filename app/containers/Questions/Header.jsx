@@ -10,8 +10,6 @@ import messages from 'common-messages';
 
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 
-import FollowCommunityButton from 'containers/FollowCommunityButton/DefaultButton';
-
 import { MediumImageStyled } from 'components/Img/MediumImage';
 import CommunitySelector from 'components/CommunitySelector';
 import { MediumIconStyled } from 'components/Icon/MediumIcon';
@@ -34,7 +32,8 @@ import {
 import {
   getPermissions,
   hasGlobalModeratorRole,
-  hasCommunityModeratorRole,
+  hasCommunityAdminRole,
+  hasProtocolAdminRole,
 } from 'utils/properties';
 
 import { POST_TYPE } from 'utils/constants';
@@ -62,7 +61,7 @@ const PageContentHeaderRightPanel = styled.div`
   flex-shrink: 0;
 `;
 
-const customColor = colors.headerPrimary || BORDER_PRIMARY;
+const customColor = colors.linkColor || BORDER_PRIMARY;
 
 const StyledCustomIconButtonContainer = styled.div`
   .fill {
@@ -92,11 +91,11 @@ export const Header = ({
   profile,
 }) => {
   const isFeed = parentPage === routes.feed();
-  const isModeratorModeSingleCommunity = single
+  const communityEditingAllowed = single
     ? hasGlobalModeratorRole(getPermissions(profile)) ||
-      hasCommunityModeratorRole(getPermissions(profile), single)
+      hasProtocolAdminRole(getPermissions(profile)) ||
+      hasCommunityAdminRole(getPermissions(profile), single)
     : false;
-  const isBloggerMode = hasGlobalModeratorRole(getPermissions(profile));
 
   let defaultAvatar = null;
   let defaultLabel = null;
@@ -159,10 +158,10 @@ export const Header = ({
 
   const displaySubscribeButton =
     !!single &&
-    (isFeed &&
-      window.location.pathname !== routes.questions() &&
-      window.location.pathname !== routes.expertPosts() &&
-      window.location.pathname !== routes.tutorials());
+    isFeed &&
+    window.location.pathname !== routes.questions() &&
+    window.location.pathname !== routes.expertPosts() &&
+    window.location.pathname !== routes.tutorials();
 
   const routeToEditCommunity = () => {
     createdHistory.push(routes.communitiesEdit(single));
@@ -177,7 +176,7 @@ export const Header = ({
         <CommunitySelector
           isArrowed
           Button={Button}
-          toggle={choice => {
+          toggle={(choice) => {
             createdHistory.push(routes[route](choice, false, false));
             setTypeFilter(choice);
           }}
@@ -185,6 +184,7 @@ export const Header = ({
           selectedCommunityId={communityIdFilter}
           communities={communities}
         />
+        {/* PEER-451: Hide Subscribe button from single community mode
         {!!displaySubscribeButton && (
           <PageContentHeaderRightPanel
             className={`right-panel m-0 ml-${single ? 3 : 4}`}
@@ -194,16 +194,16 @@ export const Header = ({
               followedCommunities={followedCommunities}
             />
           </PageContentHeaderRightPanel>
-        )}
+        )} */}
       </PageContentHeader>
       <QuestionFilter
         display={displayQuestionFilter}
         questionFilterFromCookies={questionFilterFromCookies}
       />
-      {isModeratorModeSingleCommunity && (
+      {communityEditingAllowed && (
         <button onClick={routeToEditCommunity} className="df aic mt12">
-          <IconMd icon={pencilIcon} />
-          <Span className="ml-1" color={TEXT_PRIMARY}>
+          <IconMd icon={pencilIcon} color={colors.btnColor || TEXT_PRIMARY} />
+          <Span className="ml-1" color={colors.btnColor || TEXT_PRIMARY}>
             <FormattedMessage id={messages.editCommunity.id} />
           </Span>
         </button>
@@ -226,7 +226,7 @@ Header.propTypes = {
 //
 export default injectIntl(
   React.memo(
-    connect(state => ({
+    connect((state) => ({
       topQuestionsInfoLoaded: selectTopQuestionsInfoLoaded()(state),
       topQuestions: selectQuestions(null, null, null, true)(state),
       communities: selectCommunities()(state),

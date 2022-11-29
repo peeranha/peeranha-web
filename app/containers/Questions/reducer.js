@@ -26,6 +26,7 @@ import {
   UP_QUESTION_ERROR,
   UP_QUESTION_SUCCESS,
 } from './constants';
+import { MARK_AS_ACCEPTED_SUCCESS } from '../ViewQuestion/constants';
 
 export const initialState = fromJS({
   initLoadedItems: 50,
@@ -64,6 +65,7 @@ function questionsReducer(state = initialState, action) {
     lastIndex,
     isRemove,
     promotedQuestions = {},
+    questionData,
   } = action;
   const {
     topQuestionIds: stateTopQuestionIds,
@@ -76,7 +78,7 @@ function questionsReducer(state = initialState, action) {
     ({ id: questionId }) => questionId,
   );
 
-  const element = stateTopQuestionIds.find(questionId => questionId === id);
+  const element = stateTopQuestionIds.find((questionId) => questionId === id);
   const index = stateTopQuestionIds.indexOf(element);
   const tempObject = {};
   let temp = null;
@@ -130,9 +132,9 @@ function questionsReducer(state = initialState, action) {
           orderBy(
             [
               ...new Set(
-                mappedQuestionsList.concat(questionsList.map(x => x.id)),
+                mappedQuestionsList.concat(questionsList.map((x) => x.id)),
               ),
-            ].filter(questionId => !stateQuestions[questionId]?.isDeleted),
+            ].filter((questionId) => !stateQuestions[questionId]?.isDeleted),
             ['id'],
             ['asc'],
           ),
@@ -185,7 +187,7 @@ function questionsReducer(state = initialState, action) {
           'topQuestionIds',
           fromJS(
             isRemove
-              ? stateTopQuestionIds.filter(questionId => questionId !== id)
+              ? stateTopQuestionIds.filter((questionId) => questionId !== id)
               : [...stateTopQuestionIds, id],
           ),
         )
@@ -242,6 +244,18 @@ function questionsReducer(state = initialState, action) {
         .set('topQuestionActionProcessing', false);
     case MOVE_QUESTION_ERROR:
       return state.set('topQuestionActionProcessing', false);
+
+    case MARK_AS_ACCEPTED_SUCCESS:
+      return state.set(
+        'questions',
+        fromJS({
+          ...stateQuestions,
+          [questionData.id]: {
+            ...stateQuestions[questionData.id],
+            bestReply: questionData.bestReply,
+          },
+        }),
+      );
 
     default:
       return state;

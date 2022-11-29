@@ -4,227 +4,217 @@
 
 ### What is Peeranha?
 
-Peeranha is a decentralized question and answer website that rewards users with crypto tokens (PEER) for their valuable contributions. Peeranha is built on a blockchain and it is owned by the community rather than by a single organization.
+Peeranha is a decentralized knowledge-sharing protocol for Web3 where communities truly own their knowledge and earned reputation. Peeranha is built on a blockchain and it is owned by the community rather than by a single organization.
 
-### How is Peeranha different from other question and answer websites?
+<!-- ### How is Peeranha different from other question and answer websites?
 
-Unlike other question and answer websites where an organization owns the website and all the data generated from users, Peeranha is owned by the community and rewards are distributed to community members for their contributions.
+Unlike other question and answer websites where an organization owns the website and all the data generated from users, Peeranha is owned by the community and rewards are distributed to community members for their contributions. -->
 
 ### How does it work?
 
 Peeranha is built using smart contracts on the Polygon blockchain. Large content is stored via distributed storage (IPFS) and only hashes of all documents are posted on the blockchain to save expensive blockchain storage. Reputation, privileges, moderation, rewards and all other rules are built into smart contracts and are visible to anyone.
 
-### Where do tokens for rewards come from?
+<!-- ### Where do tokens for rewards come from?
 
-Peeranha continually creates new tokens once a week until the total supply of tokens is reached. For a currency, this is known as inflation. Every week, newly created tokens are transferred to the reward pool. This weekly reward pool is distributed proportionally across users who contributed to the community during the week.
+Peeranha continually creates new tokens once a week until the total supply of tokens is reached. For a currency, this is known as inflation. Every week, newly created tokens are transferred to the reward pool. This weekly reward pool is distributed proportionally across users who contributed to the community during the week. -->
 
 ### What Blockchain is Peeranha built on?
 
 Peeranha is powered by Polygon blockchain. Polygon provides short confirmation times for transactions and does not require users to pay any transaction fees.
 
-### What is the cryptocurrency of Peeranha?
+<!-- ### What is the cryptocurrency of Peeranha?
 
 Peeranha uses its own crypto-token (or cryptocurrency) called PEER.
 
 ### How can I earn crypto tokens on Peeranha?
 
-All activities on the website that are considered valuable for the community are rewarded in PEER tokens. Contributions that earn tokens may include posting a detailed question, providing a helpful answer or acting as a moderator.
+All activities on the protocol that are considered valuable for the community are rewarded in PEER tokens. Contributions that earn tokens may include posting a detailed question, providing a helpful answer or acting as a moderator. -->
 
 ### Where can I learn more?
 
-The best ways to learn more about us is to join our twitter, read our blog or send us an email to hello@peeranha.io. You can also post your questions on the Peeranha community on the website.
+The best ways to learn more about us is to join our [Twitter](https://twitter.com/peeranhaio), read our [blog](https://medium.com/peeranha) or send us an email to <hello@peeranha.io>.  You can also post your questions on the Peeranha community on the protocol.
 
 ## Account
-
-### Are my keys safe if I sign up with email?
-
-We believe that you should be the only one who has access to your private keys. Centralized servers are a single point of failure and a potential risk of mass hacks of user accounts.
-
-Peeranha will transport and store your privates keys only in encrypted format.
-
-If you create a new account, then your private keys are generated inside the application on your device.
-
-Two encrypted copies of your keys are sent to Peeranha’s API and saved in our database:
-
-- The first copy is encrypted using your password and used when you normally use the account;
-- The second copy is encrypted using your Master key and used to recover access to the account in case if you forget the password.
-
-**It is very important to save your Master Key in a safe place. We will not be able to restore access to your account if your Master Key is lost.**
-
-When accessing your account, encrypted keys are sent to the application and decrypted inside the application using your password or Master Key.
-
-### Can I sign up with email if I already have an account?
-
-Yes you can. You will need to provide at least your active key for your account. However, we will never transport or store your key unencrypted. The key will be encrypted using your password and Master Key in the application and only after it is encrypted it is sent to our API.
-
-### Can I delete my Peeranha account?
-
-You will be able to delete your Peeranha wallet account (keys store) at any time if you choose the option to sign up using your email address. However, it is not possible to delete your Telos account from the blockchain after it is created.
-
-### What is my Master Key?
-
-Your Master Key is required to restore access to your account if you forget your password.
-
-**It is very important to save Master Key in a safe place. We will not be able to restore access to your account if your Master Key is lost.**
-
-### What is a temporary account?
-
-Temporary account is a user profile that is created automatically on Peeranha, when a user asks or answers questions from Telegram messenger in case Telegram wasn’t linked to a Peeranha account before. This account displays the user's Telegram username on the website and works almost the same as a regular Peeranha account. User is not able to log in to this profile, perform any actions on Peeranha and receive any Tips from other users.
-
-To link the temporary account with the account on Peeranha User should enter the following command in the private chat with a Peeranha bot in Telegram: /linkaccount. Then enter the Telos account name related to the main account, which can be found on the Profile page on Peeranha. After that, the link request must be confirmed on the Settings page on Peeranha.
-
-After linking the accounts, all the gained rating points, questions, answers, and achievements will be added to the main profile. All the further questions and answers posted from the Telegram will be signed by the main profile name on Peeranha.
-
-### Can I log in via Facebook?
-
-Yes. Users can log into Peeranha using their Facebook account.
-
-Telos account is created for the users behind the science. Active and owner keys for the Telos account are managed by Peeranha services for such accounts. Users are able to export their private keys on the Setting page.
-
-Users can delete their Facebook login information, including private keys, from Peeranha services. Associated Telos account will continue to exist on the blockchain. **It is very important to export private keys before doing that**.
 
 ## Communities
 
 ### What is community?
 
-Communities are an area on the website dedicated to question and answers for a specific topic.
+Community is an area on the protocol dedicated to posts and answers for a specific topic.
 
 ### How are new communities and tags created?
 
-<!---Communities and tags are created by community voting.--->
+During the first year, the Peeranha team will be able to create communities. Contact support at <hello@peeranha.io>  if you’re interested in creating a community for your project.
 
-During the first year, the Peeranha team will be able to create communities without voting. Contact support at hello@peeranha.io if you’re interested in creating a community for your project.
+## Posts, Answers and Comments
 
-## Questions, Answers and Comments
+### What is a good post?
 
-### What is a good question?
+- Try to make posts that are relevant to the community where you ask them
+- Your post should require a solution or explanation, not state an opinion
+- Provide as much detail as possible
+- Provide code examples, if applicable
 
-1.  Try to ask questions that are relevant to the community where you ask it
-1.  Ask questions that requires a solution or explanation, not state an opinion
-1.  Provide as much detail as possible
-1.  Provide code examples, if applicable
+### What are the differences between Discussion and Expert Posts?
 
-### What are the differences between General and Expert Question?
 
-#### Criteria:
-
-General question:
-A question not requiring expertise or experience to answer that can be one of the following:
+#### Discussion post. 
+A post not requiring expertise or experience to answer can be one of the following:
 
 - Subjective opinion exchange;
 - Brainstorming;
 - Feedback or review request;
 - Answer is widely known.
 
-Expert question:
-A question that asks one of the following:
+#### Expert post. 
+A post that requires one of the following:
 
 - A solution to a problem that requires expert knowledge or experience;
 - Source of information or resources on a specific subject that is not easily found;
-- Ask for instruction or recipe;
+- Requires an instruction or recipe;
 - Explanation or clarification of the information that is complicated to comprehend.
 
-#### Rewards:
 
-General question:
-Rewards for Question Upvote is 1 point, Answer - 2 points.
+### Moderation
 
-Users can mark answer as the best to gain 1 extra point and reward an answerer with 3 points.
+If moderators decide that a wrong post type was chosen, they can change its type and the rewards will change according to the post type.
 
-Expert question:
-Reward for Question Upvote is 5 points, Answer - 10 points.
+### How should I format posts and answers?
 
-Users can mark answer as the best to gain 2 extra points and reward an answerer with 15 points.
-
-#### Moderation:
-
-If moderators decide that a wrong question type was chosen, they can change its type and the rewards will change according to the question type.
-
-### How should I format questions and answers?
-
-Questions and answers can be formatted using HTML editor or markdown syntax.
+Posts and answers can be formatted using HTML editor or markdown syntax.
 
 Markdown cheat-sheet can be found here: https://www.markdownguide.org/cheat-sheet/
 
-### Do I have to tag my question?
+### Do I have to tag my post?
 
-Yes, at least one tag is required for each question. You should select the tags that are most relevant to the question.
+Yes, at least one tag is required for each post. You should select the tags that are most relevant to the post.
 
-### How are questions, answers and comments moderated?
+### How are posts, answers, and comments moderated?
 
-Questions, answers and comments are moderated by the community through voting.
+For the first year, the Peeranha team will act as moderators (can delete posts, answers, and comments) but as the community matures, this function will be moved to other individuals in the community.
 
-For the first year, the Peeranha team will act as moderators (can delete questions, answers, and comments without voting) but as the community matures, this function will be moved to other individuals in the community.
+### How can posts, answers and comments be deleted?
 
-### How can questions, answers and comments be deleted?
+Users and moderators can delete posts, answers, and comments. This action can influence the reputation of a user. Read more 
+[How can I earn or lose reputation points?](#section_id_4_2)
 
-Users must vote to delete a question, answer or comment.
 
-A User’s weight in the voting depends on the user’s status.
 
-### Will I be notified if my question is deleted?
+### Will I be notified if my post is deleted?
 
-Notifications are not available in the first release. This functionality will be added in the future versions.
+Notifications are not available in the first release. This functionality will be added in future versions.
 
-## Status, Rating and Privileges
+## Status, Reputation and Privileges
 
 ### What user statuses are available on Peeranha?
 
-| Status Name | Rating points |
-| ----------- | ------------- |
-| Stranger    | 0 ... 99      |
-| Newbie      | 100 ... 499   |
-| Junior      | 500-999       |
-| Resident    | 1000 ... 2499 |
-| Senior      | 2500 ... 4999 |
-| Hero        | 5000 ... 9999 |
-| Superhero   | 10000         |
+| Status name | Reputation points   |
+| ----------- | ------------------- |
+| Stranger    | 0 ... 99            |
+| Newbie      | 100 ... 499         |
+| Junior      | 500-999             |
+| Resident    | 1000 ... 2499       |
+| Senior      | 2500 ... 4999       |
+| Hero        | 5000 ... 9999       |
+| Superhero   | 10000               |
 
-### How can I earn or lose rating points?
+### NFTs
 
-| Action or Event                               | Rating points |
-| --------------------------------------------- | ------------- |
-| Expert answer accepted as correct             | 15            |
-| General answer accepted as correct            | 3             |
-| Upvote question                               | 0             |
-| Downvote question                             | -1            |
-| Downvote answer                               | -1            |
-| Expert question upvoted                       | 5             |
-| General question upvoted                      | 1             |
-| Expert answer upvoted                         | 10            |
-| General answer upvoted                        | 2             |
-| Expert question downvoted                     | -2            |
-| General question downvoted                    | -1            |
-| Expert answer downvoted                       | -2            |
-| General answer downvoted                      | -1            |
-| Delete own question                           | -1            |
-| Delete own answer                             | -1            |
-| Delete own comment                            | 0             |
-| Accept answer as correct for Expert Question  | 2             |
-| Accept answer as correct for General Question | 1             |
-| Question deleted by moderation                | -2            |
-| Answer deleted by moderation                  | -2            |
-| Comment deleted by moderation                 | -1            |
-| Suggested tag created                         | 75            |
-| Suggested tag deleted                         | -50           |
-| Suggested community created                   | 200           |
-| Suggested community deleted                   | -150          |
+Among our users, we're distributing collectible NFTs for achieving a certain status among the first on the Peeranha protocol. These status NFTs are limited, and once they're all distributed among Peeranha users, we're not planning on making more.  
+To check how many more reputation points you need to achieve your next status:
 
-### What privileges are available to Peeranha users and what are ratings requirements?
+1. Visit your profile;
+1. Click NFTs;
+1. Check the progress bar below each status NFT;
+1. Continue to be active on Peeranha;
+1. Achieve a certain status and get your hands on a desirable NFT.
 
-| Action or Event                                 | Required rating |
-| ----------------------------------------------- | --------------- |
-| Post question                                   | 0               |
-| Post answer                                     | 0               |
-| Post comment under one’s own question or answer | 0               |
-| Post comment under question or comment          | 35              |
-| Upvote a question or answer                     | 35              |
-| Downvote a question or answer                   | 100             |
-| Vote to delete a question, comment, or answer   | 100             |
-| Suggest a tag                                   | 100             |
-| Suggest a community                             | 500             |
-| Vote for a new tag                              | 35              |
-| Vote for a new community                        | 100             |
+
+###  How can I earn or lose reputation points? <a name="abcd"></a>
+
+The simple way to earn reputation points is to be helpful to a community and its members: ask relevant questions, provide quality answers, post tutorials, and be respectful to others.  
+
+**You earn points when:**  
+<br/>
+                                                                        
+<div id='abcd' style="text-align: center; font-weight: bold;">Expert post type</div>     
+              
+                                                             
+| Action or Event                                                                     | Reputation points   |
+| ----------------------------------------------------------------------------------- | :-----------------: |
+| **Expert post accepted as correct.** It means that your answer to a post was marked as ![](../images/theBest.svg), by the author of the post. You get reputation points.                                                      | 15                  | 
+| **Expert post upvoted.** It means that some of the users of a community upvoted your post. You get reputation points.                                                                               | 5                   |
+| **Expert answer upvoted.** It means that  some of the users of a community found your answer helpful and upvoted it. You get reputation points.                                                                               | 10                  |                           
+| **Accept answer as correct for Expert post.** It means that the author of the post marked your answer as ![](../images/theBest.svg). The author of the post gets reputation points.                                            | 2                   |  
+                                 
+
+<div style="text-align: center; font-weight: bold;">Discussion post type</div> 
+
+| Action or Event                                                                     | Reputation points   |
+| ----------------------------------------------------------------------------------- | :-----------------: |
+| **Discussion answer accepted as correct.** It means that your answer to a post was marked as ![](../images/theBest.svg) by the author of the post. You get reputation points.                                                      | 3                   |        
+| **Discussion post upvoted.** It means that some of the users of a community upvoted your post. You get reputation points.                                                                               | 1                   |    
+| **Discussion answer upvoted.** It means that  some of the users of a community found your answer helpful and upvoted it. You get reputation points.                                                                               | 2                   |
+| **Accept answer as correct for Discussion post.** It means that the author of the post marked your answer as ![](../images/theBest.svg). The author of the post gets reputation points.                                            | 1                   |
+     
+<div style="text-align: center; font-weight: bold;">Tutorial post type</div> 
+                                                                        
+| Action or Event                                                                     | Reputation points   |
+| ----------------------------------------------------------------------------------- | :-----------------: |
+| Tutorial upvoted. It means that some of the users found your tutorial helpful they upvoted it. You get reputation points.                                                                               | 5                   |
+  
+Unfortunately there’s a chance that you may lose your reputation points. It depends on multiple factors: you provided an incomplete answer, the same question was asked many times, or maybe you broke the main rule to be respectful to others.	 
+
+    
+**You lose points when:**
+<div style="text-align: center; font-weight: bold;">All post type</div> 
+                                                                         
+| Action or Event                                                                     | Reputation points   |
+| ----------------------------------------------------------------------------------- | :-----------------: |
+| **Expert post downvoted.** It means that other users didn’t like the post for some reason, they downvoted it. The author of the post loses reputation points.                                                                    | -2                  |
+| **Expert answer downvoted.** It means that other users didn’t find the answer helpful and they downvoted it. The author of the answer loses reputation points.                                                                    | -2                  |  
+| **Discussion post downvoted.** It means that other users didn’t like the post for some reason, they downvoted it. The author of the post loses reputation points.                                                              | -1                  | 
+| **Discussion answer downvoted.** It means that other users didn’t find the answer helpful and they downvoted it. The author of the answer loses reputation points.                                                              | -1                  |
+| **Downvote post.** It means that other users didn’t like the post for some reason, they downvoted it. The users who downvoted the post lose reputation points.                                                                    | -1                  |
+| **Downvote answer.** It means that other users didn’t find the answer helpful, they downvoted it. The users who downvoted the answer lose reputation points.                                                                    | -1                  |
+| Delete own post.                                                                    | -1                  |
+| Delete own answer.                                                                  | -1                  |
+| Delete own comment.                                                                 |  0                  |
+| Moderator deletes your post or answer.                                              | -2                  |
+| Moderator deletes your comment.                                                     | -1                  |
+| **Tutorial downvoted.** It means that some users didn’t find the tutorial helpful, they downvoted it. The author of the tutorial loses reputation points. | -2 |
+| **Downvote tutorial.**  It means that other users didn’t find the tutorial helpful, they downvoted it. The users who downvoted the tutorial lose reputation points. | -2 |
+
+No worries if you lost some reputation points. There’s a way to improve the situation. 
+
+**You get extra points when:**
+<div style="text-align: center; font-weight: bold;">Expert post type</div>
+                                                                                              
+| Action or Event                                                                     | Reputation points   |
+| ----------------------------------------------------------------------------------- | :-----------------: |
+| Post answered within 15 min after the post was published.                           | 5                   |
+| Answer first to a post.                                                             | 5                   |
+| Fulfill these two conditions at one go.                                             | 10                  |
+
+<div style="text-align: center; font-weight: bold;">Discussion post type</div>
+                                                                                      
+| Action or Event                                                                     | Reputation points   |
+| ----------------------------------------------------------------------------------- | :-----------------: |
+| Post answered within 15 min after the post was published.                           | 1                   |
+| Answer first to a post.                                                             | 1                   |
+| Fulfill these two conditions at one go.                                             | 2                   |
+
+
+### What privileges are available to Peeranha users and what are reputation requirements?
+
+| Action or Event                                   | Reputation points |
+| --------------------------------------------------| ----------------- |
+| Create post                                       | 0                 |
+| Post answer                                       | 0                 |
+| Post a comment under one’s own post or answer     | 0                 |
+| Post comment under post or comment                | 35                |
+| Upvote a post or answer                           | 35                |
+| Downvote a post or answer                         | 100               |
 
 ## Token
 
@@ -246,15 +236,28 @@ The total supply of the PEER token is 1 000 000 000 PEER
 - 20% for founders and team rewards
 - 20% for funding
 
-### What is emission rate?
+### What is the emission rate?
 
 New tokens are created once per week. The maximum starting emission is 1 000 000 PEER per week (depends on user activity). The emission is reduced by 7% every 52 weeks.
+
+### Period
+
+Peeranha distributes PEER token rewards to its users in periods. The number of periods is not limited. 
+Each period is one week long. You can check the current period in your wallet.  
+Click the Wallet button > check current period in progress.
+<img src='../images/period_2.svg' alt style="display:block; width: 200px; height: 120px; border:1px solid rgb(0 0 0 / 30%)">
+<img src='../images/period_1.svg' alt style="display:block; width: 200px; height: 120px; border:1px solid rgb(0 0 0 / 30%)">
+User reward in PEER tokens depends on the number of reputation points received during the particular period. The more active you are, the more tokens you get.
+  
+_Note: Token is not launched as of now. We are working hard to speed up this process. The estimated reward will be available for you to claim after the token launch. Stay active on Peeranha. Thank you!_
 
 ## Rewards
 
 ### When are rewards paid out?
 
-Rewards are paid out weekly, starting from Peeranha’s launch date on June 23rd, 2022.
+![](../images/rulesFAQ.svg)
+
+Rewards are paid out weekly.
 
 To prevent abuse of the system, there is a safety period of one additional week before rewards are available for users.
 
@@ -354,3 +357,5 @@ At the same time, the original copies of Promoted questions will also be display
 ### Why can`t I promote my question?
 
 If an error message occurs when trying to Promote a question and the question is posted without the promotion, please try to enable pop-ups in the browser settings for this site. If it doesn't help, please contact our <a href="https://peeranha.io/support/#support_form" style="color: #576fed; font-style: italic;">support team</a>
+
+

@@ -1,8 +1,16 @@
+import injectReducer from 'utils/injectReducer';
+import injectSaga from 'utils/injectSaga';
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
+
+import reducer from './reducer';
+import saga from './saga';
+
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { bindActionCreators } from 'redux';
+import { bindActionCreators, compose } from 'redux';
+import { DAEMON } from 'utils/constants';
 
 import { makeSelectLocation } from 'containers/App/selectors';
 
@@ -12,12 +20,9 @@ import LeftMenu from 'containers/LeftMenu';
 import Loader from 'components/LoadingIndicator/WidthCentered';
 
 import { Main, WrapStyled } from './Box';
-import { selectIsMenuVisible } from './selectors';
-import { showLeftMenu, hideLeftMenu } from './actions';
-import {
-  selectTransactionInitialised,
-  selectTransactionInPending,
-} from '../EthereumProvider/selectors';
+import { selectDocumentationMenu, selectIsMenuVisible } from './selectors';
+import { showLeftMenu, hideLeftMenu, getDocumentationMenu } from './actions';
+import { selectTransactionInitialised } from '../EthereumProvider/selectors';
 
 const Box = ({
   isMenuVisible,
@@ -26,15 +31,18 @@ const Box = ({
   props,
   location,
   transactionInitialised,
+  getDocumentationMenuDispatch,
+  documentationMenu,
 }) => {
-  useEffect(
-    () => {
-      if (isMenuVisible) {
-        hideLeftMenuDispatch();
-      }
-    },
-    [location],
-  );
+  const single = isSingleCommunityWebsite();
+  useEffect(() => {
+    if (isMenuVisible) {
+      hideLeftMenuDispatch();
+    }
+  }, [location]);
+  useEffect(() => {
+    getDocumentationMenuDispatch(single);
+  }, [single]);
 
   return (
     <>
@@ -46,7 +54,7 @@ const Box = ({
       >
         <div className={isMenuVisible ? '' : 'container container-mobile'}>
           <div className="d-flex">
-            <LeftMenu {...props} />
+            <LeftMenu {...props} documentationMenu={documentationMenu} />
 
             <WrapStyled className={isMenuVisible ? 'd-none' : ''}>
               <React.Suspense fallback={<Loader />}>
@@ -71,16 +79,25 @@ Box.propTypes = {
   hideLeftMenuDispatch: PropTypes.func,
 };
 
-const WrapperConnection = connect(
-  createStructuredSelector({
-    isMenuVisible: selectIsMenuVisible(),
-    location: makeSelectLocation(),
-    transactionInitialised: selectTransactionInitialised(),
-  }),
-  dispatch => ({
-    showLeftMenuDispatch: bindActionCreators(showLeftMenu, dispatch),
-    hideLeftMenuDispatch: bindActionCreators(hideLeftMenu, dispatch),
-  }),
+const WrapperConnection = compose(
+  injectReducer({ key: 'appWrapper', reducer }),
+  injectSaga({ key: 'appWrapper', saga, mode: DAEMON }),
+  connect(
+    createStructuredSelector({
+      isMenuVisible: selectIsMenuVisible(),
+      location: makeSelectLocation(),
+      transactionInitialised: selectTransactionInitialised(),
+      documentationMenu: selectDocumentationMenu(),
+    }),
+    (dispatch) => ({
+      showLeftMenuDispatch: bindActionCreators(showLeftMenu, dispatch),
+      getDocumentationMenuDispatch: bindActionCreators(
+        getDocumentationMenu,
+        dispatch,
+      ),
+      hideLeftMenuDispatch: bindActionCreators(hideLeftMenu, dispatch),
+    }),
+  ),
 )(Box);
 
 export default (Comp, props) => <WrapperConnection Comp={Comp} props={props} />;

@@ -39,6 +39,9 @@ export default defineMessages({
   expertPosts: {
     id: 'app.common.expertPosts',
   },
+  documentation: {
+    id: 'app.common.documentation',
+  },
   answers: {
     id: 'app.common.answers',
   },
@@ -54,8 +57,29 @@ export default defineMessages({
   moderation: {
     id: 'app.common.moderation',
   },
-  globalModerator: {
-    id: 'app.common.globalModerator',
+  defaultAdministrator: {
+    id: 'app.common.defaultAdministrator',
+  },
+  protocolAdministrator: {
+    id: 'app.common.protocolAdministrator',
+  },
+  communityAdministrator: {
+    id: 'app.common.communityAdministrator',
+  },
+  communityModerator: {
+    id: 'app.common.communityModerator',
+  },
+  asDefaultAdministrator: {
+    id: 'app.common.asDefaultAdministrator',
+  },
+  asProtocolAdministrator: {
+    id: 'app.common.asProtocolAdministrator',
+  },
+  asCommunityModerator: {
+    id: 'app.common.asCommunityModerator',
+  },
+  asCommunityAdministrator: {
+    id: 'app.common.asCommunityAdministrator',
   },
   achievementsNumber: {
     id: 'app.common.achievementsNumber',
@@ -123,6 +147,9 @@ export default defineMessages({
   users: {
     id: 'app.common.users',
   },
+  activeUsers: {
+    id: 'app.common.activeUsers',
+  },
   followers: {
     id: 'app.common.followers',
   },
@@ -131,6 +158,9 @@ export default defineMessages({
   },
   faq: {
     id: 'app.common.faq',
+  },
+  administration: {
+    id: 'app.common.administration',
   },
   moderationHeader: {
     id: 'app.common.moderationHeader',
@@ -217,7 +247,7 @@ export default defineMessages({
     id: 'app.common.close',
   },
   subscribers: {
-    id: 'app.common.users',
+    id: 'app.common.subscribers',
   },
   newest: {
     id: 'app.common.newest',
@@ -275,6 +305,12 @@ export default defineMessages({
   },
   reputation: {
     id: 'app.common.reputation',
+  },
+  reputationStatus: {
+    id: 'app.common.reputationStatus',
+  },
+  reputationBelowZero: {
+    id: 'app.containers.ViewQuestion.reputationBelowZero',
   },
   en: {
     id: 'app.common.en',
@@ -602,5 +638,14 @@ export default defineMessages({
   },
   rulesAskQuestionPopupBlock_8: {
     id: 'app.containers.AskQuestion.contentPopupBlock_8',
+  },
+  weUpdatedTheApplication: {
+    id: 'app.containers.ChunkLoadError.weUpdatedTheApplication',
+  },
+  clearYourBrowser: {
+    id: 'app.containers.ChunkLoadError.clearYourBrowser',
+  },
+  holdDown: {
+    id: 'app.containers.ChunkLoadError.holdDown',
   },
 });

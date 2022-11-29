@@ -43,6 +43,13 @@ const Container = styled.div`
   }
 `;
 
+const SeeAllButton = () => (
+  <div style={{ color: TEXT_PRIMARY, marginLeft: '2px' }}>
+    <IconXm className="mr-2" icon={notificationsIcon} />
+    <FormattedMessage id={messages.seeAll.id} />
+  </div>
+);
+
 const Footer = ({ onClose, profile, empty }) => (
   <Container>
     <Link onClick={onClose} to={userNotifications(profile)}>
@@ -52,10 +59,7 @@ const Footer = ({ onClose, profile, empty }) => (
           <FormattedMessage {...messages.archive} />
         </>
       ) : (
-        <>
-          <IconXm className="mr-2" icon={notificationsIcon} />
-          <FormattedMessage {...messages.seeAll} />
-        </>
+        <SeeAllButton />
       )}
     </Link>
     {!empty && <MarkAllAsReadButton />}
@@ -70,7 +74,7 @@ Footer.propTypes = {
 };
 
 export default memo(
-  connect(state => ({
+  connect((state) => ({
     profile: makeSelectProfileInfo()(state).user,
     locale: makeSelectLocale()(state),
   }))(Footer),

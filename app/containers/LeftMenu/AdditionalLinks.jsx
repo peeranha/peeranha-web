@@ -60,7 +60,7 @@ const FooterStyled = styled.footer`
     if (styles.withoutAdditionalLinks) return '0 0';
     if (currClientHeight < FULL_SIZE && !isMobile(window.navigator).any)
       return '10px 0 0';
-    return '30px 0';
+    return '30px 0 0 0';
   }};
 
   a {
@@ -73,6 +73,9 @@ const Img = styled.img`
   height: 15px;
   margin-left: 1px;
   filter: grayscale(100%);
+  :hover {
+    filter: grayscale(0);
+  }
 `;
 
 const FlexibleDiv = styled.div`
@@ -148,7 +151,7 @@ const InfoLinksDropDown = ({ withTitle }) => (
     }
     menu={
       <ul>
-        {INFO_LINKS.map(el => (
+        {INFO_LINKS.map((el) => (
           <Li key={el.route} css={LiAdditionalStyles}>
             <Link
               key={el.title}
@@ -183,7 +186,7 @@ export default React.memo(({ currClientHeight }) => {
       {((!styles.withoutAdditionalLinks && currClientHeight > FULL_SIZE) ||
         (!styles.withoutAdditionalLinks && isMobile(window.navigator).any)) && (
         <>
-          {INFO_LINKS.map(el => (
+          {INFO_LINKS.map((el) => (
             <Link path={el.route} key={el.route} message={el.title} />
           ))}{' '}
         </>
@@ -195,13 +198,12 @@ export default React.memo(({ currClientHeight }) => {
         ((smallSize || middleSize) && !basicCondition) ||
         isMobile(window.navigator).any) && <ChangeLocale withTitle />}
 
-      {smallSize &&
-        basicCondition && (
-          <FlexibleDiv>
-            <InfoLinksDropDown />
-            <ChangeLocale />
-          </FlexibleDiv>
-        )}
+      {smallSize && basicCondition && (
+        <FlexibleDiv>
+          <InfoLinksDropDown />
+          <ChangeLocale />
+        </FlexibleDiv>
+      )}
 
       <FooterStyled currClientHeight={currClientHeight}>
         {!single && (

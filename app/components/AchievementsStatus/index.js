@@ -11,10 +11,10 @@ import { customRatingIconColors } from 'constants/customRating';
 const StatusSpan = styled.span`
   position: relative;
   display: flex;
-  font-size: ${props => (props.size === 'lg' ? '16px' : '14px')};
+  font-size: ${(props) => (props.size === 'lg' ? '16px' : '14px')};
   align-items: baseline;
   margin-right: 0.5rem;
-  padding-left: ${props => (props.size === 'lg' ? '22px' : '12px')};
+  padding-left: ${(props) => (props.size === 'lg' ? '22px' : '12px')};
 
   @media (max-width: 350px) {
     flex-direction: ${({ isProfilePage }) => !isProfilePage && 'column'};
@@ -25,10 +25,10 @@ const StatusSpan = styled.span`
 
 const Count = styled.span`
   margin-left: 0.25rem;
-  color: ${props =>
+  color: ${(props) =>
     props.size === 'lg'
       ? 'inherit'
-      : props.achievementsNumColor || PEER_PRIMARY_COLOR};
+      : props.isSingleNumColor || PEER_PRIMARY_COLOR};
 
   @media (max-width: 350px) {
     padding-top: 5px;
@@ -38,7 +38,7 @@ const Count = styled.span`
 
 const IconAbsolute = styled(Icon)`
   position: absolute;
-  top: ${props => (props.size === 'lg' ? '2px' : '3.4px')};
+  top: ${(props) => (props.size === 'lg' ? '2px' : '3.4px')};
   left: 0;
 
   @media (max-width: 350px) {
@@ -47,7 +47,7 @@ const IconAbsolute = styled(Icon)`
   }
 
   .achievement-inline * {
-    stroke-width: ${props => (props.size === 'lg' ? '0.7px' : '1px')};
+    stroke-width: ${(props) => (props.size === 'lg' ? '0.7px' : '1px')};
   }
 
   .stroke {
@@ -59,7 +59,6 @@ const AchievementsStatus = ({
   isProfilePage,
   count,
   size,
-  achievementsNumColor,
   achievIconStyles,
 }) => {
   if (typeof count === 'number')
@@ -72,7 +71,10 @@ const AchievementsStatus = ({
           size={size}
           specialStyles={achievIconStyles}
         />
-        <Count size={size} achievementsNumColor={achievementsNumColor}>
+        <Count
+          size={size}
+          isSingleNumColor={customRatingIconColors.strokeColor}
+        >
           {count}
         </Count>
       </StatusSpan>
@@ -83,7 +85,6 @@ const AchievementsStatus = ({
 AchievementsStatus.propTypes = {
   count: PropTypes.number,
   size: PropTypes.string,
-  achievementsNumColor: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
   achievIconStyles: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]),
 };
 

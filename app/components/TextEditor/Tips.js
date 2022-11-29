@@ -20,6 +20,9 @@ import A from 'components/A';
 import Label from 'components/FormFields/Label';
 
 import messages from './messages';
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
 
 const Li = styled.li`
   ${A} {
@@ -48,7 +51,7 @@ const Ul = styled.ul`
       flex-basis: 5px;
       height: 5px;
       border-radius: 50%;
-      background: ${BG_PRIMARY};
+      background: ${colors.textColor || BG_PRIMARY};
       margin-right: 10px;
       display: inline-flex;
       position: relative;
@@ -77,7 +80,7 @@ const Tips = ({ faqQuestions }) => (
     </Label>
 
     <Ul>
-      {messagesArray.map(x => (
+      {messagesArray.map((x) => (
         <li key={x.id}>
           <FormattedMessage {...x} />{' '}
         </li>
@@ -107,7 +110,4 @@ const mapStateToProps = createStructuredSelector({
 
 export { Li, Ul };
 
-export default connect(
-  mapStateToProps,
-  null,
-)(Tips);
+export default connect(mapStateToProps, null)(Tips);

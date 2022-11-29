@@ -18,6 +18,9 @@ import Span from 'components/Span/index';
 import A from 'components/A/index';
 import { IconMd } from 'components/Icon/IconWithSizes';
 import { getPermissions } from '../../utils/properties';
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
 
 const Ul = styled.ul`
   display: flex;
@@ -61,26 +64,24 @@ const UserNavigation = ({
   const path = window.location.pathname + window.location.hash;
   const ref = useRef(null);
 
-  useEffect(
-    () => {
-      if (
-        hashes.includes(window.location.hash) ||
-        path === routes.profileView(userId)
-      ) {
-        window.scrollTo(0, 0);
-      }
-    },
-    [window.location.hash],
-  );
+  useEffect(() => {
+    if (
+      hashes.includes(window.location.hash) ||
+      path === routes.profileView(userId)
+    ) {
+      window.scrollTo(0, 0);
+    }
+  }, [window.location.hash]);
 
   const isProfilePage =
     userId === account &&
     (path === routes.profileView(account) ||
       path === routes.userCommunities(account));
 
-  const isModerator = useMemo(() => !!getPermissions(profile)?.length, [
-    profile,
-  ]);
+  const isModerator = useMemo(
+    () => !!getPermissions(profile)?.length,
+    [profile],
+  );
 
   return (
     <Wrapper position="top" ref={ref}>
@@ -230,9 +231,9 @@ const UserNavigation = ({
             id={`redireact-to-edit-${userId}-user-page-2`}
             data-user={userId}
           >
-            <IconMd icon={pencilIcon} />
-            <Span className="ml-1" color={TEXT_PRIMARY}>
-              <FormattedMessage {...messages.edit} />
+            <IconMd icon={pencilIcon} color={colors.btnColor || TEXT_PRIMARY} />
+            <Span className="ml-1" color={colors.btnColor || TEXT_PRIMARY}>
+              <FormattedMessage id={messages.edit.id} />
             </Span>
           </button>
 
@@ -244,9 +245,14 @@ const UserNavigation = ({
             }`}
             to={routes.profileView(account)}
           >
-            <IconMd icon={closeIcon} fill={BORDER_PRIMARY} isColorImportant />
-            <Span className="ml-1" color={TEXT_PRIMARY}>
-              <FormattedMessage {...messages.close} />
+            <IconMd
+              icon={closeIcon}
+              color={colors.btnColor || TEXT_PRIMARY}
+              fill={colors.btnColor || BORDER_PRIMARY}
+              isColorImportant
+            />
+            <Span className="ml-1" color={colors.btnColor || TEXT_PRIMARY}>
+              <FormattedMessage id={messages.close.id} />
             </Span>
           </A>
         </div>

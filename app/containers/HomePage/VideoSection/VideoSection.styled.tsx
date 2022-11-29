@@ -18,10 +18,23 @@ export const styles = {
     },
   },
 
+  videoMobile: {
+    '@media (max-width: 992px)': {
+      position: 'relative',
+      width: '100%',
+      height: '0',
+      paddingBottom: '56.25%',
+    },
+  },
+
   videoIframe: {
-    width: '100vw',
-    height: '400px',
+    position: 'absolute',
+    top: '0',
+    left: '0',
+    width: '100%',
+    height: '100%',
     '@media (min-width: 992px)': {
+      position: 'static',
       width: '818px',
       height: '458px',
     },

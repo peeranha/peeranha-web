@@ -27,18 +27,15 @@ const CommunityItem = ({
   const [route, setRoute] = useState(() => routes.questions(id));
   const Link = single && id !== single ? ADefaultStyled : AStyled;
 
-  useEffect(
-    () => {
-      if (single && id !== single) {
-        setRoute(`${process.env.APP_LOCATION}${route}`);
-      }
+  useEffect(() => {
+    if (single && id !== single) {
+      setRoute(`${process.env.APP_LOCATION}${route}`);
+    }
 
-      if (single && id === single) {
-        setRoute(routes.questions());
-      }
-    },
-    [single, id],
-  );
+    if (single && id === single) {
+      setRoute(routes.questions());
+    }
+  }, [single, id]);
   return (
     <BaseRoundedNoPadding>
       <Link href={route} to={route}>
@@ -52,6 +49,7 @@ const CommunityItem = ({
 
           <div>
             <div className="d-flex mb-3">
+              {/* PEER-605: Hide users on the card in top communities
               <div className="d-flex flex-column flex-grow-1">
                 <Span fontSize="16" bold>
                   {getFormattedNum2(followingUsers)}
@@ -59,7 +57,7 @@ const CommunityItem = ({
                 <Span className="mt-1" fontSize="14" color={TEXT_SECONDARY}>
                   <FormattedMessage id={messages.users.id} />
                 </Span>
-              </div>
+              </div> */}
               <div className="d-flex flex-column flex-grow-1">
                 <Span fontSize="16" bold>
                   {getFormattedNum2(postCount)}

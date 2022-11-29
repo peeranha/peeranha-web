@@ -18,6 +18,7 @@ import { IconWithStatus } from 'components/RatingStatus';
 import MediumImage, { MediumImageWrapper } from 'components/Img/MediumImage';
 import TelegramUserLabel from 'components/Labels/TelegramUserLabel';
 import { getUserName } from 'utils/user';
+import { customRatingIconColors } from 'constants/customRating';
 
 const User = Base.extend`
   min-height: 84px;
@@ -55,7 +56,7 @@ const Content = ({
       isLastFetch={isLastFetch}
     >
       <Grid xl={5} lg={4} md={3} sm={2} xs={1}>
-        {users.map(x => {
+        {users.map((x) => {
           return (
             <A to={routes.profileView(x.id)} key={x.id}>
               <User>
@@ -67,7 +68,7 @@ const Content = ({
                     alt="avatar"
                   />
                   {!!x?.['integer_properties']?.find(
-                    item => item.key === TEMPORARY_ACCOUNT_KEY && item.value,
+                    (item) => item.key === TEMPORARY_ACCOUNT_KEY && item.value,
                   ) && (
                     <TelegramUserLabel
                       id={`temporary-account-${x.user}-label`}
@@ -82,12 +83,12 @@ const Content = ({
                     size="sm"
                     rating={
                       x?.['ratings']?.length
-                        ? x?.['ratings']?.reduce(
-                            (max, current) =>
-                              max.rating > current.rating ? max : current,
+                        ? x?.['ratings']?.reduce((max, current) =>
+                            max.rating > current.rating ? max : current,
                           ).rating
                         : 0
                     }
+                    customRatingIconColors={customRatingIconColors}
                   />
                   <P fontSize="14" color={TEXT_SECONDARY}>
                     {getTimeFromDateToNow(x.creationTime, locale)}

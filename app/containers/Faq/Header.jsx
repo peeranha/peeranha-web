@@ -12,7 +12,7 @@ import { MediumImageStyled } from 'components/Img/MediumImage';
 import H3 from 'components/H3';
 import Span from 'components/Span';
 import A from 'components/A';
-import Wrapper, {WrapperRightPanel} from 'components/Header/Simple';
+import Wrapper, { WrapperRightPanel } from 'components/Header/Simple';
 
 import messages from './messages';
 

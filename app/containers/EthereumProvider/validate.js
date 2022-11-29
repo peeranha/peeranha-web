@@ -10,12 +10,13 @@ export default ({
   creator,
   buttonId,
   minRating,
+  isGlobalAdmin,
 }) => {
   let message;
 
   if (actor && actor === creator) {
     message = `${translations[messages.creatorCannot.id]}`;
-  } else if (rating < minRating) {
+  } else if (rating < minRating && !isGlobalAdmin) {
     message = `${translations[messages.notEnoughRating.id]} ${minRating}`;
   }
 

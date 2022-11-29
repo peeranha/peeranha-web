@@ -1,48 +1,60 @@
+import { POST_TYPES } from 'containers/ViewQuestion/constants';
 import { takeLatest, call, put, select } from 'redux-saga/effects';
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
-import { postQuestion, getCreatedPostId } from 'utils/questionsManagement';
+import {
+  postQuestion,
+  getCreatedPostId,
+  updateDocumentationTree,
+} from 'utils/questionsManagement';
 
 import { getResults } from 'utils/custom-search';
 
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 
 import {
-  FORM_TITLE,
-  FORM_CONTENT,
   FORM_COMMUNITY,
+  FORM_CONTENT,
+  FORM_SUB_ARTICLE,
   FORM_TAGS,
+  FORM_TITLE,
   FORM_TYPE,
+  POST_TYPE,
 } from 'components/QuestionForm/constants';
 
+import { selectDocumentationMenu } from 'containers/AppWrapper/selectors';
 import { isAuthorized, isValid } from 'containers/EosioProvider/saga';
+import { selectEthereum } from '../EthereumProvider/selectors';
 
 import {
-  askQuestionSuccess,
   askQuestionError,
-  getExistingQuestionSuccess,
+  askQuestionSuccess,
   getExistingQuestionError,
+  getExistingQuestionSuccess,
 } from './actions';
 
 import {
   ASK_QUESTION,
-  POST_QUESTION_BUTTON,
-  MIN_RATING_TO_POST_QUESTION,
-  MIN_ENERGY_TO_POST_QUESTION,
   GET_EXISTING_QUESTIONS,
+  MIN_ENERGY_TO_POST_QUESTION,
+  MIN_RATING_TO_POST_QUESTION,
+  POST_QUESTION_BUTTON,
 } from './constants';
-import { selectEthereum } from '../EthereumProvider/selectors';
-import { selectCommunities } from '../DataCacheProvider/selectors';
 
 export function* postQuestionWorker({ val }) {
   try {
     const ethereumService = yield select(selectEthereum);
     const selectedAccount = yield select(makeSelectAccount());
+    const documentationMenu = yield select(selectDocumentationMenu());
+
     // const promoteValue = +val[FORM_PROMOTE];
-    const tags = val[FORM_TAGS].map(tag => Number(tag.id.split('-')[1]));
-    const communityId = val[FORM_COMMUNITY].id;
     const postType = +val[FORM_TYPE];
+    const tags =
+      postType !== POST_TYPE.documentation
+        ? val[FORM_TAGS].map((tag) => Number(tag.id.split('-')[1]))
+        : [];
+    const communityId = val[FORM_COMMUNITY].id;
 
     const questionData = {
       title: val[FORM_TITLE],
@@ -68,6 +80,64 @@ export function* postQuestionWorker({ val }) {
       communityId,
     );
 
+    if (postType === POST_TYPE.documentation) {
+      const documentationTraversal = (documentationArray) =>
+        documentationArray.map((documentationSection) => {
+          if (
+            String(documentationSection.id) ===
+            String(val[FORM_SUB_ARTICLE].value)
+          ) {
+            documentationSection.children.push({
+              id: id.toString(),
+              title: questionData.title,
+              children: [],
+            });
+            return {
+              id: documentationSection.id,
+              children: documentationSection.children,
+            };
+          } else if (documentationSection.children.length) {
+            return {
+              id: documentationSection.id,
+              children: documentationTraversal(documentationSection.children),
+            };
+          }
+          return {
+            id: documentationSection.id,
+            children: documentationSection.children,
+          };
+        });
+      let newMenu;
+
+      if (
+        documentationMenu?.length &&
+        Number(val[FORM_SUB_ARTICLE].value) !== -1
+      ) {
+        newMenu = documentationTraversal(documentationMenu);
+      } else {
+        newMenu = [
+          ...(documentationMenu || []),
+          {
+            id: id.toString(),
+            children: [],
+          },
+        ];
+      }
+
+      const documentationJSON = {
+        pinnedId: '',
+        documentations: newMenu,
+      };
+
+      yield call(
+        updateDocumentationTree,
+        selectedAccount,
+        communityId,
+        documentationJSON,
+        ethereumService,
+      );
+    }
+
     // if (val[FORM_BOUNTY] && Number(val[FORM_BOUNTY]) > 0) {
     //   const now = Math.round(new Date().valueOf() / 1000);
     //   const bountyTime = now + questionData.bountyHours * ONE_HOUR_IN_SECONDS;
@@ -90,7 +160,9 @@ export function* postQuestionWorker({ val }) {
 
     yield call(
       createdHistory.push,
-      routes.questionView(id, false, communityId),
+      postType === POST_TYPE.documentation
+        ? routes.documentation(id)
+        : routes.questionView(id, false, communityId),
     );
   } catch (err) {
     yield put(askQuestionError(err));
@@ -117,10 +189,19 @@ export function* checkReadinessWorker({ buttonId }) {
 }
 
 /* eslint no-empty: 0 */
-export function* redirectToAskQuestionPageWorker({ buttonId }) {
+export function* redirectToAskQuestionPageWorker({
+  buttonId,
+  isDocumentation,
+  parentId,
+}) {
   try {
     yield call(checkReadinessWorker, { buttonId });
-    yield call(createdHistory.push, routes.questionAsk());
+    yield call(
+      createdHistory.push,
+      isDocumentation
+        ? routes.documentationCreate(parentId)
+        : routes.questionAsk(),
+    );
   } catch (err) {}
 }
 
@@ -128,6 +209,6 @@ export function* existingQuestionSaga() {
   yield takeLatest(GET_EXISTING_QUESTIONS, qetExistingQuestionsWorker);
 }
 
-export default function*() {
+export default function* () {
   yield takeLatest(ASK_QUESTION, postQuestionWorker);
 }

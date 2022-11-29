@@ -46,9 +46,9 @@ const RaitingInfo = styled.span`
   }
 `;
 
-const getStatus = rating =>
+const getStatus = (rating) =>
   Object.keys(options).filter(
-    x => options[x].minRating <= rating && options[x].maxRating >= rating,
+    (x) => options[x].minRating <= rating && options[x].maxRating >= rating,
   )[0];
 
 const IconWithStatus = ({
@@ -61,13 +61,8 @@ const IconWithStatus = ({
 }) => {
   // ratingNumColor and customRatingIconColors are used for kanda community styling
 
-  const {
-    strokeColor,
-    bannedFill,
-    strangerFill,
-    residentFill,
-    superheroFill,
-  } = customRatingIconColors;
+  const { strokeColor, bannedFill, strangerFill, residentFill, superheroFill } =
+    customRatingIconColors;
   const full = options[getStatus(rating)];
 
   let color = TEXT_DARK;
@@ -77,8 +72,8 @@ const IconWithStatus = ({
 
   if (bannedUser) {
     // banned
-    color = strokeColor || PEER_ERROR_COLOR;
-    fill = bannedFill || PEER_ERROR_COLOR;
+    color = PEER_ERROR_COLOR;
+    fill = PEER_ERROR_COLOR;
   } else if (rating <= options.jrResident.maxRating) {
     // stranger - junior
     color = strokeColor || PEER_PRIMARY_COLOR;

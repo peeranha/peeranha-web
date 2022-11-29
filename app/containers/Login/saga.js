@@ -164,6 +164,10 @@ export function* loginWithWalletWorker({ metaMask }) {
       name: 'agreement',
       value: window.localStorage.getItem('onboard.js:agreement'),
     });
+    setCookie({
+      name: 'isVisitedSite',
+      value: true,
+    });
 
     if (isNewPostCreationAfterLogin) {
       const ev = { currentTarget: { id: 1 } };
@@ -376,7 +380,7 @@ export function* fbLoginErrorCallbackWorker({ autoLogin }) {
   }
 }
 
-export default function*() {
+export default function* () {
   yield takeLatest(LOGIN_WITH_EMAIL, loginWithEmailWorker);
   yield takeLatest(LOGIN_WITH_WALLET, loginWithWalletWorker);
   yield takeLatest(FINISH_REGISTRATION, finishRegistrationWorker);
