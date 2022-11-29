@@ -46,6 +46,9 @@ export const singleCommunityColors = () =>
 export const singleCommunityFonts = () =>
   _get(singleCommunityStyles(), 'fonts', {});
 
+export const singleCommunityDocumentationPosition = () =>
+  _get(singleCommunityStyles(), 'documentationPosition', 'bottom');
+
 export const hasCommunitySingleWebsite = (commId) =>
   communitiesConfig[commId] ? communitiesConfig[commId].origin : false;
 
@@ -120,8 +123,8 @@ export const setSingleCommunityDetailsInCookie = (community, id) => {
         vk,
       },
       colors: {
-        main: isBlogger ? main_color : '#576fed',
-        highlight: isBlogger ? highlight_color : '#fc6655',
+        main: isBlogger ? main_color : 'var(--color-blue)',
+        highlight: isBlogger ? highlight_color : 'var(--color-pink)',
       },
     }),
     options: {

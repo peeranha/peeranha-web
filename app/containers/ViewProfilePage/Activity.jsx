@@ -34,7 +34,7 @@ const Activity = ({
   // concat 2 mass and sort by postTime and slice
   const myPosts = _orderBy(
     questions.concat(questionsWithUserAnswers),
-    y => y.myPostTime,
+    (y) => y.myPostTime,
     ['desc'],
   ).slice(0, DEFAULT_NUMBER);
 
@@ -65,7 +65,7 @@ const Activity = ({
                   fontSize="14"
                   color={tab !== 'posts' ? TEXT_SECONDARY : 'inherit'}
                 >
-                  {(questions?.length || 0) + profile.answersGiven}
+                  {(profile.postCount || 0) + profile.answersGiven}
                 </Span>
               ),
             }}
@@ -87,7 +87,7 @@ const Activity = ({
                   fontSize="14"
                   color={tab !== 'quest' ? TEXT_SECONDARY : 'inherit'}
                 >
-                  {questions?.length || 0}
+                  {profile.postCount || 0}
                 </Span>
               ),
             }}

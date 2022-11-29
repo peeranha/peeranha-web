@@ -5,7 +5,7 @@ const Copy: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
     id="copy"
-    fill="curentColor"
+    fill="currentColor"
     viewBox="0 0 32 32"
     size={[32, 32]}
   >

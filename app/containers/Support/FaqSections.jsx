@@ -30,7 +30,7 @@ const Base = styled.div`
 `;
 
 const FaqSections = ({ faq }) => {
-  const faqBlocks = faq.blocks.slice(0, 7).filter((item, index) => index !== 1);
+  const faqBlocks = faq.blocks.slice(0, 5).filter((item, index) => index !== 1);
 
   return (
     <Base>

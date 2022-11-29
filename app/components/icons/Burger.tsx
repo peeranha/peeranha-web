@@ -5,7 +5,7 @@ const Burger: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
     id="burger"
-    fill="curentColor"
+    fill="currentColor"
     viewBox="0 0 22 17"
     size={[22, 17]}
   >

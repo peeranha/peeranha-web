@@ -169,7 +169,7 @@ export const KandaStyles = {
   fontFace: `
   @font-face {
     font-family: 'Roboto';
-    src: 
+    src:
       url(${RobotoRegularEOT}?#iefix) format('embedded-opentype'),
       url(${RobotoRegularWOFF}) format('woff'),
       url(${RobotoRegularTTF}) format('truetype');
@@ -187,7 +187,7 @@ export const KandaStyles = {
   }
   @font-face {
     font-family: 'Roboto';
-    src: 
+    src:
       url(${RobotoBoldEOT}?#iefix) format('embedded-opentype'),
       url(${RobotoBoldWOFF}) format('woff'),
       url(${RobotoBoldTTF}) format('truetype');

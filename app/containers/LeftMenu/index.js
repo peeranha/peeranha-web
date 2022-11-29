@@ -4,6 +4,13 @@
  *
  */
 
+import { redirectToAskQuestionPage } from 'containers/AskQuestion/actions';
+import { redirectToEditQuestionPage } from 'containers/EditQuestion/actions';
+import { deleteQuestion } from 'containers/ViewQuestion/actions';
+import reducer from 'containers/ViewQuestion/reducer';
+import saga from 'containers/ViewQuestion/saga';
+import injectSaga from 'utils/injectSaga';
+import injectReducer from 'utils/injectReducer';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -24,14 +31,20 @@ import {
   selectIsGlobalAdmin,
 } from 'containers/AccountProvider/selectors';
 
-import { loginWithWallet, showLoginModal } from 'containers/Login/actions';
-import { selectIsMenuVisible } from 'containers/AppWrapper/selectors';
+import { selectIsEditDocumentation } from 'pages/Documentation/selectors';
+import { toggleEditDocumentation } from 'pages/Documentation/actions';
+
+import { loginWithWallet } from 'containers/Login/actions';
+import {
+  selectIsMenuVisible,
+  selectPinnedItemMenu,
+} from 'containers/AppWrapper/selectors';
 import { showLeftMenu } from 'containers/AppWrapper/actions';
 
 import View from './View';
 import { Aside, After } from './Styles';
 
-const LeftMenu = /* istanbul ignore next */ ({
+const LeftMenu = ({
   profile,
   isMenuVisible,
   balance,
@@ -41,6 +54,14 @@ const LeftMenu = /* istanbul ignore next */ ({
   loginWithWalletDispatch,
   showLeftMenuDispatch,
   isGlobalAdmin,
+  documentationMenu,
+  redirectToEditQuestionPageDispatch,
+  redirectToPostDocumentationPageDispatch,
+  deleteQuestionDispatch,
+  match,
+  toggleEditDocumentationDispatch,
+  isEditDocumentation,
+  pinnedItemMenu,
 }) => {
   const showLoginModal = () => {
     loginWithWalletDispatch({ metaMask: true });
@@ -60,6 +81,16 @@ const LeftMenu = /* istanbul ignore next */ ({
         boost={boost}
         showLoginModal={showLoginModal}
         isGlobalAdmin={isGlobalAdmin}
+        documentationMenu={documentationMenu}
+        redirectToEditQuestionPage={redirectToEditQuestionPageDispatch}
+        redirectToPostDocumentationPage={
+          redirectToPostDocumentationPageDispatch
+        }
+        deleteQuestion={deleteQuestionDispatch}
+        match={match}
+        toggleEditDocumentation={toggleEditDocumentationDispatch}
+        isEditDocumentation={isEditDocumentation}
+        pinnedItemMenu={pinnedItemMenu}
       />
 
       <After isMenuVisible={isMenuVisible} onClick={showLeftMenuDispatch}>
@@ -76,7 +107,7 @@ LeftMenu.propTypes = {
   balance: PropTypes.number,
   stakedInCurrentPeriod: PropTypes.number,
   stakedInNextPeriod: PropTypes.number,
-  boost: PropTypes.object,
+  boost: PropTypes.number,
   isMenuVisible: PropTypes.bool,
 };
 
@@ -88,18 +119,37 @@ const mapStateToProps = createStructuredSelector({
   stakedInNextPeriod: makeSelectStakedInNextPeriod(),
   boost: makeSelectBoost(),
   isMenuVisible: selectIsMenuVisible(),
+  isEditDocumentation: selectIsEditDocumentation(),
+  pinnedItemMenu: selectPinnedItemMenu(),
 });
 
-export function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
+const withReducer = injectReducer({ key: 'viewQuestion', reducer });
+const withSaga = injectSaga({
+  key: 'viewQuestion',
+  saga,
+  disableEject: true,
+});
+
+export function mapDispatchToProps(dispatch) {
   return {
     loginWithWalletDispatch: bindActionCreators(loginWithWallet, dispatch),
     showLeftMenuDispatch: bindActionCreators(showLeftMenu, dispatch),
+    redirectToEditQuestionPageDispatch: bindActionCreators(
+      redirectToEditQuestionPage,
+      dispatch,
+    ),
+    redirectToPostDocumentationPageDispatch: bindActionCreators(
+      redirectToAskQuestionPage,
+      dispatch,
+    ),
+    deleteQuestionDispatch: bindActionCreators(deleteQuestion, dispatch),
+    toggleEditDocumentationDispatch: bindActionCreators(
+      toggleEditDocumentation,
+      dispatch,
+    ),
   };
 }
 
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
-export default compose(withConnect)(LeftMenu);
+export default compose(withReducer, withSaga, withConnect)(LeftMenu);

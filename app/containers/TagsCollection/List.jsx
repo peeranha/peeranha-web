@@ -111,14 +111,14 @@ export const NameHolder = P.extend`
 const List = ({ communities }) => {
   if (!communities || !communities.length) return null;
 
-  const communitiesWithLimitedTagNumber = communities.map(z => ({
+  const communitiesWithLimitedTagNumber = communities.map((z) => ({
     ...z,
     tags: z.tags.slice(0, 8),
   }));
 
   return (
     <Base>
-      {orderBy(communities, y => y.popularity, 'desc').map(x => {
+      {orderBy(communities, (y) => y.popularity, 'desc').map((x) => {
         return (
           <BaseSpecial key={x.id}>
             <A
