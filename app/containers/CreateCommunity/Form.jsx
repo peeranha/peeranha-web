@@ -47,6 +47,7 @@ import {
   COMM_NAME_FIELD,
   COMM_SHORT_DESCRIPTION_FIELD,
   COMM_MAIN_DESCRIPTION_FIELD,
+  COMM_PEERANHA_SITE_FIELD,
   COMM_OFFICIAL_SITE_FIELD,
   TAG_NAME_FIELD,
   TAG_DESCRIPTION_FIELD,
@@ -163,6 +164,18 @@ const CreateCommunityForm = ({
           warn={[validateURL]}
           placeholder="https://example.com"
           tip={translations[messages.websiteTip.id]}
+          splitInHalf
+        />
+
+        <Field
+          disabled={createCommunityLoading}
+          name={COMM_PEERANHA_SITE_FIELD}
+          component={TextInputField}
+          label={translations[messages.communityWebsite.id]}
+          validate={[strLength100Max]}
+          warn={[strLength100Max]}
+          placeholder="subdomain.peeranha.io"
+          tip={translations[messages.communityWebsiteTip.id]}
           splitInHalf
         />
 
