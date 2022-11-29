@@ -5,21 +5,21 @@ import prev from 'images/prev.svg?inline';
 import next from 'images/next.svg?inline';
 import useMediaQuery from '../../../../hooks/useMediaQuery';
 
-interface IProps {
+type PaginationProps = {
   page: number;
   totalPages: number;
   prevPage: () => void;
   nextPage: () => void;
-  setPage: () => void;
-}
+  setPage: (num: number) => void;
+};
 
-const Pagination: React.FC = ({
+const Pagination: React.FC<PaginationProps> = ({
   page,
   totalPages,
   prevPage,
   nextPage,
   setPage,
-}: IProps): JSX.Element => {
+}): JSX.Element => {
   const isDesktop450 = useMediaQuery('(min-width: 451px)');
   if (totalPages <= 1) {
     return '';
@@ -28,17 +28,17 @@ const Pagination: React.FC = ({
     return (
       <>
         <div className="df aic jcc">
-          {[...Array(totalPages).keys()].map((el, index) =>
+          {[...Array(totalPages).keys()].map((element, index) =>
             index <= 4 ? (
               <button
                 css={css({
                   ...styles.basicStyles,
-                  ...(page === el + 1 && styles.activeStyles),
+                  ...(page === element + 1 && styles.activeStyles),
                 })}
-                onClick={() => setPage(el + 1)}
-                key={el}
+                onClick={() => setPage(element + 1)}
+                key={element}
               >
-                {el + 1}
+                {element + 1}
               </button>
             ) : (
               ''
@@ -55,34 +55,34 @@ const Pagination: React.FC = ({
     return (
       <>
         <div className="df aic jcc">
-          {[...Array(totalPages).keys()].map((el, index) =>
+          {[...Array(totalPages).keys()].map((element, index) =>
             index < 4 ? (
               <button
                 css={css({
                   ...styles.basicStyles,
-                  ...(page === el + 1 && styles.activeStyles),
+                  ...(page === element + 1 && styles.activeStyles),
                 })}
-                onClick={() => setPage(el + 1)}
-                key={el}
+                onClick={() => setPage(element + 1)}
+                key={element}
               >
-                {el + 1}
+                {element + 1}
               </button>
             ) : (
               ''
             ),
           )}
           ...
-          {[...Array(totalPages).keys()].map((el, index) =>
+          {[...Array(totalPages).keys()].map((element, index) =>
             index == totalPages - 1 ? (
               <button
                 css={css({
                   ...styles.basicStyles,
-                  ...(page === el + 1 && styles.activeStyles),
+                  ...(page === element + 1 && styles.activeStyles),
                 })}
-                onClick={() => setPage(el + 1)}
-                key={el}
+                onClick={() => setPage(element + 1)}
+                key={element}
               >
-                {el + 1}
+                {element + 1}
               </button>
             ) : (
               ''
@@ -102,24 +102,24 @@ const Pagination: React.FC = ({
           <button onClick={prevPage} css={css(styles.basicStyles)}>
             <img src={prev} alt="prev" />
           </button>
-          {[...Array(totalPages).keys()].map((el, index) =>
+          {[...Array(totalPages).keys()].map((element, index) =>
             index == 0 ? (
               <button
                 css={css({
                   ...styles.basicStyles,
-                  ...(page === el + 1 && styles.activeStyles),
+                  ...(page === element + 1 && styles.activeStyles),
                 })}
-                onClick={() => setPage(el + 1)}
-                key={el}
+                onClick={() => setPage(element + 1)}
+                key={element}
               >
-                {el + 1}
+                {element + 1}
               </button>
             ) : (
               ''
             ),
           )}
           <p>...</p>
-          {[...Array(totalPages).keys()].map((el, index) =>
+          {[...Array(totalPages).keys()].map((element, index) =>
             index > 1 &&
             (index == page - 2 ||
               index == page - 1 ||
@@ -128,29 +128,29 @@ const Pagination: React.FC = ({
               <button
                 css={css({
                   ...styles.basicStyles,
-                  ...(page === el + 1 && styles.activeStyles),
+                  ...(page === element + 1 && styles.activeStyles),
                 })}
-                onClick={() => setPage(el + 1)}
-                key={el}
+                onClick={() => setPage(element + 1)}
+                key={element}
               >
-                {el + 1}
+                {element + 1}
               </button>
             ) : (
               ''
             ),
           )}
           <p>...</p>
-          {[...Array(totalPages).keys()].map((el, index) =>
+          {[...Array(totalPages).keys()].map((element, index) =>
             index == totalPages - 1 ? (
               <button
                 css={css({
                   ...styles.basicStyles,
-                  ...(page === el + 1 && styles.activeStyles),
+                  ...(page === element + 1 && styles.activeStyles),
                 })}
-                onClick={() => setPage(el + 1)}
-                key={el}
+                onClick={() => setPage(element + 1)}
+                key={element}
               >
-                {el + 1}
+                {element + 1}
               </button>
             ) : (
               ''
@@ -170,51 +170,51 @@ const Pagination: React.FC = ({
           <button onClick={prevPage} css={css(styles.basicStyles)}>
             <img src={prev} alt="prev" />
           </button>
-          {[...Array(totalPages).keys()].map((el, index) =>
+          {[...Array(totalPages).keys()].map((element, index) =>
             index == 0 ? (
               <button
                 css={css({
                   ...styles.basicStyles,
-                  ...(page === el + 1 && styles.activeStyles),
+                  ...(page === element + 1 && styles.activeStyles),
                 })}
-                onClick={() => setPage(el + 1)}
-                key={el}
+                onClick={() => setPage(element + 1)}
+                key={element}
               >
-                {el + 1}
+                {element + 1}
               </button>
             ) : (
               ''
             ),
           )}
           <p>...</p>
-          {[...Array(totalPages).keys()].map((el, index) =>
+          {[...Array(totalPages).keys()].map((element, index) =>
             index == page - 1 ? (
               <button
                 css={css({
                   ...styles.basicStyles,
-                  ...(page === el + 1 && styles.activeStyles),
+                  ...(page === element + 1 && styles.activeStyles),
                 })}
-                onClick={() => setPage(el + 1)}
-                key={el}
+                onClick={() => setPage(element + 1)}
+                key={element}
               >
-                {el + 1}
+                {element + 1}
               </button>
             ) : (
               ''
             ),
           )}
           <p>...</p>
-          {[...Array(totalPages).keys()].map((el, index) =>
+          {[...Array(totalPages).keys()].map((element, index) =>
             index == totalPages - 1 ? (
               <button
                 css={css({
                   ...styles.basicStyles,
-                  ...(page === el + 1 && styles.activeStyles),
+                  ...(page === element + 1 && styles.activeStyles),
                 })}
-                onClick={() => setPage(el + 1)}
-                key={el}
+                onClick={() => setPage(element + 1)}
+                key={element}
               >
-                {el + 1}
+                {element + 1}
               </button>
             ) : (
               ''
@@ -233,24 +233,24 @@ const Pagination: React.FC = ({
         <button onClick={prevPage} css={css(styles.basicStyles)}>
           <img src={prev} alt="prev" />
         </button>
-        {[...Array(totalPages).keys()].map((el, index) =>
+        {[...Array(totalPages).keys()].map((element, index) =>
           index == 0 ? (
             <button
               css={css({
                 ...styles.basicStyles,
-                ...(page === el + 1 && styles.activeStyles),
+                ...(page === element + 1 && styles.activeStyles),
               })}
-              onClick={() => setPage(el + 1)}
-              key={el}
+              onClick={() => setPage(element + 1)}
+              key={element}
             >
-              {el + 1}
+              {element + 1}
             </button>
           ) : (
             ''
           ),
         )}
         <p css={css(styles.span)}>...</p>
-        {[...Array(totalPages).keys()].map((el, index) =>
+        {[...Array(totalPages).keys()].map((element, index) =>
           index == totalPages - 1 ||
           index == totalPages - 2 ||
           index == totalPages - 3 ||
@@ -258,12 +258,12 @@ const Pagination: React.FC = ({
             <button
               css={css({
                 ...styles.basicStyles,
-                ...(page === el + 1 && styles.activeStyles),
+                ...(page === element + 1 && styles.activeStyles),
               })}
-              onClick={() => setPage(el + 1)}
-              key={el}
+              onClick={() => setPage(element + 1)}
+              key={element}
             >
-              {el + 1}
+              {element + 1}
             </button>
           ) : (
             ''

@@ -339,6 +339,9 @@ export const RECAPTCHA_VERIFY_FAILED_CODE = 600613;
 // session storage keys
 export const CHANGED_POSTS_KEY = 'changed-posts';
 
+// amount of posts pagination
+export const AMOUNT_POSTS_PAGINATION = 20;
+
 // position documentation
 export const POSITION_TOP = 'top';
 
