@@ -1,6 +1,11 @@
 import React from 'react';
 import { styles } from './Pagination.styled';
 import { css } from '@emotion/react';
+import {
+  ButtonPagination,
+  StepButtonPagination,
+  ContinueButtonPagination,
+} from './ButtonPagination';
 import prev from 'images/prev.svg?inline';
 import next from 'images/next.svg?inline';
 import useMediaQuery from '../../../../hooks/useMediaQuery';
@@ -30,23 +35,16 @@ const Pagination: React.FC<PaginationProps> = ({
         <div className="df aic jcc">
           {[...Array(totalPages).keys()].map((element, index) =>
             index <= 4 ? (
-              <button
-                css={css({
-                  ...styles.basicStyles,
-                  ...(page === element + 1 && styles.activeStyles),
-                })}
-                onClick={() => setPage(element + 1)}
-                key={element}
-              >
-                {element + 1}
-              </button>
+              <ButtonPagination
+                page={page}
+                element={element}
+                clickHandler={setPage}
+              />
             ) : (
               ''
             ),
           )}
-          <button onClick={nextPage} css={css(styles.basicStyles)}>
-            <img src={next} alt="next" />
-          </button>
+          <StepButtonPagination clickHandler={nextPage} src={next} alt="next" />
         </div>
       </>
     );
@@ -57,40 +55,28 @@ const Pagination: React.FC<PaginationProps> = ({
         <div className="df aic jcc">
           {[...Array(totalPages).keys()].map((element, index) =>
             index < 4 ? (
-              <button
-                css={css({
-                  ...styles.basicStyles,
-                  ...(page === element + 1 && styles.activeStyles),
-                })}
-                onClick={() => setPage(element + 1)}
-                key={element}
-              >
-                {element + 1}
-              </button>
+              <ButtonPagination
+                page={page}
+                element={element}
+                clickHandler={setPage}
+              />
             ) : (
               ''
             ),
           )}
-          ...
+          <ContinueButtonPagination />
           {[...Array(totalPages).keys()].map((element, index) =>
             index == totalPages - 1 ? (
-              <button
-                css={css({
-                  ...styles.basicStyles,
-                  ...(page === element + 1 && styles.activeStyles),
-                })}
-                onClick={() => setPage(element + 1)}
-                key={element}
-              >
-                {element + 1}
-              </button>
+              <ButtonPagination
+                page={page}
+                element={element}
+                clickHandler={setPage}
+              />
             ) : (
               ''
             ),
           )}
-          <button onClick={nextPage} css={css(styles.basicStyles)}>
-            <img src={next} alt="next" />
-          </button>
+          <StepButtonPagination clickHandler={nextPage} src={next} alt="next" />
         </div>
       </>
     );
@@ -99,66 +85,47 @@ const Pagination: React.FC<PaginationProps> = ({
     return (
       <>
         <div className="df aic jcc">
-          <button onClick={prevPage} css={css(styles.basicStyles)}>
-            <img src={prev} alt="prev" />
-          </button>
+          <StepButtonPagination clickHandler={prevPage} src={prev} alt="prev" />
           {[...Array(totalPages).keys()].map((element, index) =>
             index == 0 ? (
-              <button
-                css={css({
-                  ...styles.basicStyles,
-                  ...(page === element + 1 && styles.activeStyles),
-                })}
-                onClick={() => setPage(element + 1)}
-                key={element}
-              >
-                {element + 1}
-              </button>
+              <ButtonPagination
+                page={page}
+                element={element}
+                clickHandler={setPage}
+              />
             ) : (
               ''
             ),
           )}
-          <p>...</p>
+          <ContinueButtonPagination />
           {[...Array(totalPages).keys()].map((element, index) =>
             index > 1 &&
             (index == page - 2 ||
               index == page - 1 ||
               index == page ||
               index == page + 1) ? (
-              <button
-                css={css({
-                  ...styles.basicStyles,
-                  ...(page === element + 1 && styles.activeStyles),
-                })}
-                onClick={() => setPage(element + 1)}
-                key={element}
-              >
-                {element + 1}
-              </button>
+              <ButtonPagination
+                page={page}
+                element={element}
+                clickHandler={setPage}
+              />
             ) : (
               ''
             ),
           )}
-          <p>...</p>
+          <ContinueButtonPagination />
           {[...Array(totalPages).keys()].map((element, index) =>
             index == totalPages - 1 ? (
-              <button
-                css={css({
-                  ...styles.basicStyles,
-                  ...(page === element + 1 && styles.activeStyles),
-                })}
-                onClick={() => setPage(element + 1)}
-                key={element}
-              >
-                {element + 1}
-              </button>
+              <ButtonPagination
+                page={page}
+                element={element}
+                clickHandler={setPage}
+              />
             ) : (
               ''
             ),
           )}
-          <button onClick={nextPage} css={css(styles.basicStyles)}>
-            <img src={next} alt="next" />
-          </button>
+          <StepButtonPagination clickHandler={nextPage} src={next} alt="next" />
         </div>
       </>
     );
@@ -167,62 +134,43 @@ const Pagination: React.FC<PaginationProps> = ({
     return (
       <>
         <div className="df aic jcc">
-          <button onClick={prevPage} css={css(styles.basicStyles)}>
-            <img src={prev} alt="prev" />
-          </button>
+          <StepButtonPagination clickHandler={prevPage} src={prev} alt="prev" />
           {[...Array(totalPages).keys()].map((element, index) =>
             index == 0 ? (
-              <button
-                css={css({
-                  ...styles.basicStyles,
-                  ...(page === element + 1 && styles.activeStyles),
-                })}
-                onClick={() => setPage(element + 1)}
-                key={element}
-              >
-                {element + 1}
-              </button>
+              <ButtonPagination
+                page={page}
+                element={element}
+                clickHandler={setPage}
+              />
             ) : (
               ''
             ),
           )}
-          <p>...</p>
+          <ContinueButtonPagination />
           {[...Array(totalPages).keys()].map((element, index) =>
             index == page - 1 ? (
-              <button
-                css={css({
-                  ...styles.basicStyles,
-                  ...(page === element + 1 && styles.activeStyles),
-                })}
-                onClick={() => setPage(element + 1)}
-                key={element}
-              >
-                {element + 1}
-              </button>
+              <ButtonPagination
+                page={page}
+                element={element}
+                clickHandler={setPage}
+              />
             ) : (
               ''
             ),
           )}
-          <p>...</p>
+          <ContinueButtonPagination />
           {[...Array(totalPages).keys()].map((element, index) =>
             index == totalPages - 1 ? (
-              <button
-                css={css({
-                  ...styles.basicStyles,
-                  ...(page === element + 1 && styles.activeStyles),
-                })}
-                onClick={() => setPage(element + 1)}
-                key={element}
-              >
-                {element + 1}
-              </button>
+              <ButtonPagination
+                page={page}
+                element={element}
+                clickHandler={setPage}
+              />
             ) : (
               ''
             ),
           )}
-          <button onClick={nextPage} css={css(styles.basicStyles)}>
-            <img src={next} alt="next" />
-          </button>
+          <StepButtonPagination clickHandler={nextPage} src={next} alt="next" />
         </div>
       </>
     );
@@ -230,21 +178,14 @@ const Pagination: React.FC<PaginationProps> = ({
   return (
     <>
       <div className="df aic jcc">
-        <button onClick={prevPage} css={css(styles.basicStyles)}>
-          <img src={prev} alt="prev" />
-        </button>
+        <StepButtonPagination clickHandler={prevPage} src={prev} alt="prev" />
         {[...Array(totalPages).keys()].map((element, index) =>
           index == 0 ? (
-            <button
-              css={css({
-                ...styles.basicStyles,
-                ...(page === element + 1 && styles.activeStyles),
-              })}
-              onClick={() => setPage(element + 1)}
-              key={element}
-            >
-              {element + 1}
-            </button>
+            <ButtonPagination
+              page={page}
+              element={element}
+              clickHandler={setPage}
+            />
           ) : (
             ''
           ),
@@ -255,23 +196,16 @@ const Pagination: React.FC<PaginationProps> = ({
           index == totalPages - 2 ||
           index == totalPages - 3 ||
           index == totalPages - 4 ? (
-            <button
-              css={css({
-                ...styles.basicStyles,
-                ...(page === element + 1 && styles.activeStyles),
-              })}
-              onClick={() => setPage(element + 1)}
-              key={element}
-            >
-              {element + 1}
-            </button>
+            <ButtonPagination
+              page={page}
+              element={element}
+              clickHandler={setPage}
+            />
           ) : (
             ''
           ),
         )}
-        <button onClick={nextPage} css={css(styles.basicStyles)}>
-          <img src={next} alt="next" />
-        </button>
+        <StepButtonPagination clickHandler={nextPage} src={next} alt="next" />
       </div>
     </>
   );
