@@ -1,9 +1,8 @@
 import React from 'react';
-import { css } from '@emotion/react';
 
 import { FormattedMessage } from 'react-intl';
 import Button from 'components/common/Button';
-import PlusIcon from 'icons/Plus';
+import PlusWithoutCircle from 'icons/PlusWithoutCircle';
 import noSearchResults from 'images/noSearchResults.png';
 import { styled } from './Banner.styled';
 import messages from '../messages';
@@ -34,7 +33,9 @@ const Banner: React.FC<BannerProps> = ({
           <FormattedMessage id={messages.noSearchResults.id} />
         </p>
         <Button
-          icon={<PlusIcon fill={colors.newPostButtonText || BG_LIGHT} />}
+          icon={
+            <PlusWithoutCircle fill={colors.newPostButtonText || BG_LIGHT} />
+          }
           onClick={
             profileInfo
               ? redirectToAskQuestionPage
