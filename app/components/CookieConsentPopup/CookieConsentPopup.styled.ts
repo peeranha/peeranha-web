@@ -4,7 +4,7 @@ export const styles = {
   },
 
   cookieConsent: {
-    background: '#f0f8ff',
+    background: 'var(--color-gray-light)',
   },
 
   cookieImage: {

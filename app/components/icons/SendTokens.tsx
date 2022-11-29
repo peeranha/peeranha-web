@@ -5,7 +5,7 @@ const SendTokens: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
     id="send-tokens"
-    fill="curentColor"
+    fill="currentColor"
     viewBox="0 0 18 17"
     size={[18, 17]}
   >
