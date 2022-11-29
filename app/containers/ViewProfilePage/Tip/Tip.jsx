@@ -48,7 +48,7 @@ const Container = styled.div`
 
 const Base = styled.div`
   padding: 20px 30px;
-  background-color: white;
+  background-color: var(--color-white);
   border-radius: 5px;
   display: flex;
   flex-direction: column;
@@ -183,13 +183,13 @@ const asyncValidate = async (
   });
 
   const filtered = Object.keys(values).filter(
-    currency =>
+    (currency) =>
       values[currency] &&
       values[currency] !== account &&
       initialValues.get(currency) !== values[currency],
   );
 
-  const promises = filtered.map(async currency => {
+  const promises = filtered.map(async (currency) => {
     const isAvailable = await isTelosNameAvailable(
       eosService,
       values[currency],
@@ -205,7 +205,7 @@ const asyncValidate = async (
       (acc, cur) => ({ ...acc, ...cur }),
       {},
     ),
-    v => !!v,
+    (v) => !!v,
   );
 
   if (!_isEmpty(errors)) {
@@ -228,9 +228,9 @@ const Tip = ({
   isSaveCryptoAccountsProcessing,
   valid,
 }) => {
-  const saveAccounts = form =>
+  const saveAccounts = (form) =>
     saveCryptoAccountsDispatch({
-      cryptoAccounts: _pickBy(form.toJS(), value => !_isEmpty(value)),
+      cryptoAccounts: _pickBy(form.toJS(), (value) => !_isEmpty(value)),
       resetForm: reset,
       profile,
     });
@@ -254,7 +254,7 @@ const Tip = ({
               </HeadAccountColumn>
             </DivHeader>
             <DivBody>
-              {Object.keys(CURRENCIES).map(currency => {
+              {Object.keys(CURRENCIES).map((currency) => {
                 const { logo, name } = CURRENCIES[currency];
                 return (
                   <BodyRow key={currency}>
@@ -330,9 +330,8 @@ export default compose(
   }),
   connect(
     (state, { profile, account }) => {
-      const isSaveCryptoAccountsProcessing = selectIsSaveCryptoAccountsProcessing()(
-        state,
-      );
+      const isSaveCryptoAccountsProcessing =
+        selectIsSaveCryptoAccountsProcessing()(state);
       const form = state.get('form').toJS();
       const cryptoAccounts = _get(profile, ['profile', 'cryptoAccounts'], {});
 
@@ -358,7 +357,7 @@ export default compose(
         eosService: selectEos(state),
       };
     },
-    dispatch => ({
+    (dispatch) => ({
       saveCryptoAccountsDispatch: bindActionCreators(
         saveCryptoAccounts,
         dispatch,
@@ -369,7 +368,7 @@ export default compose(
     form: FORM_NAME,
     touchOnChange: true,
     asyncBlurFields: Object.keys(CURRENCIES).map(
-      currency => CURRENCIES[currency].name,
+      (currency) => CURRENCIES[currency].name,
     ),
     shouldAsyncValidate: ({ syncValidationPasses }) => syncValidationPasses,
     asyncValidate,

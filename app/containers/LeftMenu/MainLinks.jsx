@@ -180,6 +180,12 @@ const MainLinks = ({
     route = isBloggerMode ? 'home' : 'feed';
   }
 
+  const hasCommunityOrProtocolAdminRole =
+    singleCommId &&
+    (hasGlobalModeratorRole() ||
+      hasCommunityAdminRole(null, singleCommId) ||
+      isProtocolAdmin);
+
   return (
     <Box
       currClientHeight={currClientHeight}
@@ -303,6 +309,13 @@ const MainLinks = ({
           <A1 to={routes.faq()} name="faq" route={route}>
             <IconLg className="mr-2" icon={faqIcon} fill={BORDER_PRIMARY} />
             <FormattedMessage id={messages.faq.id} />
+          </A1>
+        )}
+
+        {Boolean(singleCommId && hasCommunityOrProtocolAdminRole) && (
+          <A1 to={routes.administration()} name="administration" route={route}>
+            <IconLg className="mr-2" icon={usersIcon} fill={BORDER_PRIMARY} />
+            <FormattedMessage id={messages.administration.id} />
           </A1>
         )}
       </div>
