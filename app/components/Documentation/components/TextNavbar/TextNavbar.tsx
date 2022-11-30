@@ -23,7 +23,7 @@ const TextNavbar: React.FC<TextNavbarProps> = ({ headers }): JSX.Element => (
           const link = `${header
             .replace(/[#.,?!@$%^&*()+=|/:;'"\\]/g, '')
             .trim()
-            .replace(/[" "" +"]/g, '-')}${sameHeadersCount}`;
+            .replace(/[" "" +"]/g, '-')}${sameHeadersCount}`.toLowerCase();
 
           const text = header.replace(/^#+/g, '');
 
