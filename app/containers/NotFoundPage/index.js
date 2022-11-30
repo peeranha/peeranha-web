@@ -156,7 +156,4 @@ const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
 });
 
-export default connect(
-  mapStateToProps,
-  null,
-)(NotFound);
+export default connect(mapStateToProps, null)(NotFound);

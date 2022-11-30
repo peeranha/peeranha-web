@@ -85,15 +85,12 @@ const ViewProfilePage = ({
   const path = window.location.pathname + window.location.hash;
   const userId = match.params.id;
 
-  useEffect(
-    () => {
-      setViewProfileAccountDispatch(userId);
-      getAllAchievementsDispatch();
+  useEffect(() => {
+    setViewProfileAccountDispatch(userId);
+    getAllAchievementsDispatch();
 
-      return () => resetViewProfileAccountDispatch();
-    },
-    [userId],
-  );
+    return () => resetViewProfileAccountDispatch();
+  }, [userId]);
 
   return (
     <Profile userId={userId} isLogin={account === userId}>
@@ -102,7 +99,7 @@ const ViewProfilePage = ({
         account={account}
         profile={profile}
         loginData={loginData}
-        questionsLength={questions?.length ?? 0}
+        questionsLength={profile?.postCount ?? 0}
         questionsWithUserAnswersLength={profile?.answersGiven ?? 0}
         userAchievementsLength={userAchievements?.length ?? null}
         redirectToEditProfilePage={redirectToEditProfilePageDispatch}
@@ -222,7 +219,7 @@ const withConnect = connect(
     stat: selectStat(),
     userAchievements: selectUserAchievements(),
   }),
-  dispatch => ({
+  (dispatch) => ({
     redirectToEditProfilePageDispatch: bindActionCreators(
       redirectToEditProfilePage,
       dispatch,

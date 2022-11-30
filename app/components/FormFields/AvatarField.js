@@ -70,7 +70,7 @@ const Div = styled.div`
       z-index: 1;
 
       @media (min-width: 992px) {
-        background-color: #fff;
+        background-color: var(--color-white);
         bottom: -25%;
         height: 25%;
         opacity: 75%;
@@ -143,7 +143,7 @@ const Div = styled.div`
     }
 
     > *:nth-child(1) {
-      ${x =>
+      ${(x) =>
         x.s
           ? `
         position: fixed;
@@ -171,7 +171,7 @@ const Div = styled.div`
 
     > *:nth-child(2) {
       position: absolute;
-      z-index: ${x => (x.disabled ? 2 : 0)};
+      z-index: ${(x) => (x.disabled ? 2 : 0)};
       top: 0;
       left: 0;
       width: inherit;
@@ -246,7 +246,7 @@ function AvatarField({ input, meta, disabled }) {
                   )
                 }
                 labelStyle={isFileTooLarge ? labelErrorStyle : {}}
-                onBeforeFileLoad={e => {
+                onBeforeFileLoad={(e) => {
                   if (e.target.files[0].size > IMG_SIZE_LIMIT_B) {
                     setIsFileTooLarge(true);
                     e.target.value = '';
@@ -275,15 +275,14 @@ function AvatarField({ input, meta, disabled }) {
           }
           alt="icon"
         />
-        {input.name === AVATAR_FIELD &&
-          input.value && (
-            <div className="remove-avatar-action-container">
-              <button
-                className="remove-avatar-action"
-                onClick={() => input.onChange(NO_AVATAR)}
-              />
-            </div>
-          )}
+        {input.name === AVATAR_FIELD && input.value && (
+          <div className="remove-avatar-action-container">
+            <button
+              className="remove-avatar-action"
+              onClick={() => input.onChange(NO_AVATAR)}
+            />
+          </div>
+        )}
       </div>
       <InfoMessage>
         <FormattedMessage

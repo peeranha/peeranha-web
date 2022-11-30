@@ -1,19 +1,15 @@
-import { saveText } from './ipfs';
-
-import {
-  ACCOUNT_TABLE,
-  ALL_ACCOUNTS_SCOPE,
-  NO_AVATAR,
-  UPDATE_ACC,
-  INVITE_USER,
-  KEY_LAST_RATING_UPDATE_TIME,
-} from './constants';
+import { ACCOUNT_TABLE, ALL_ACCOUNTS_SCOPE } from './constants';
 
 import { ApplicationError } from './errors';
 import { dateNowInSeconds } from './datetime';
-import { IS_USER_EXISTS } from './ethConstants';
+import {
+  CONTRACT_USER,
+  GIVE_COMMUNITY_MODERATOR_PERMISSION,
+  IS_USER_EXISTS,
+  REVOKE_COMMUNITY_MODERATOR_PERMISSION,
+} from './ethConstants';
 
-export const emptyProfile = account => ({
+export const emptyProfile = (account) => ({
   achievements: [],
   answersGiven: 0,
   avatar: undefined,
@@ -36,6 +32,34 @@ export const emptyProfile = account => ({
   stakedInNextPeriod: null,
   user: account,
 });
+
+export async function giveCommunityModeratorPermission(
+  user,
+  userToGive,
+  communityId,
+  ethereumService,
+) {
+  await ethereumService.sendTransaction(
+    CONTRACT_USER,
+    user,
+    GIVE_COMMUNITY_MODERATOR_PERMISSION,
+    [userToGive, communityId],
+  );
+}
+
+export async function revokeCommunityModeratorPermission(
+  user,
+  userToRevoke,
+  communityId,
+  ethereumService,
+) {
+  await ethereumService.sendTransaction(
+    CONTRACT_USER,
+    user,
+    REVOKE_COMMUNITY_MODERATOR_PERMISSION,
+    [userToRevoke, communityId],
+  );
+}
 
 export const isUserExists = async (userAddress, ethereumService) => {
   if (!userAddress) throw new ApplicationError('No profile');
@@ -85,7 +109,7 @@ export const isUserInSystem = async (user, eosService) => {
 
 export const inviteUser = async (accountName, referralCode, eosService) => {};
 
-export const checkUserURL = user => {
+export const checkUserURL = (user) => {
   const path = document.location.pathname.split('/');
   const userInURL = path[1] === 'users' ? path[2] : undefined;
   return userInURL ? userInURL === user : true;

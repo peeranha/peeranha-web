@@ -11,10 +11,10 @@ import { customRatingIconColors } from 'constants/customRating';
 const StatusSpan = styled.span`
   position: relative;
   display: flex;
-  font-size: ${props => (props.size === 'lg' ? '16px' : '14px')};
+  font-size: ${(props) => (props.size === 'lg' ? '16px' : '14px')};
   align-items: baseline;
   margin-right: 0.5rem;
-  padding-left: ${props => (props.size === 'lg' ? '22px' : '12px')};
+  padding-left: ${(props) => (props.size === 'lg' ? '22px' : '12px')};
 
   @media (max-width: 350px) {
     flex-direction: ${({ isProfilePage }) => !isProfilePage && 'column'};
@@ -24,8 +24,9 @@ const StatusSpan = styled.span`
 `;
 
 const Count = styled.span`
+  font-family: 'Source Sans Pro', sans-serif;
   margin-left: 0.25rem;
-  color: ${props =>
+  color: ${(props) =>
     props.size === 'lg'
       ? 'inherit'
       : props.isSingleNumColor || PEER_PRIMARY_COLOR};
@@ -38,7 +39,7 @@ const Count = styled.span`
 
 const IconAbsolute = styled(Icon)`
   position: absolute;
-  top: ${props => (props.size === 'lg' ? '2px' : '3.4px')};
+  top: ${(props) => (props.size === 'lg' ? '2px' : '3.4px')};
   left: 0;
 
   @media (max-width: 350px) {
@@ -47,7 +48,7 @@ const IconAbsolute = styled(Icon)`
   }
 
   .achievement-inline * {
-    stroke-width: ${props => (props.size === 'lg' ? '0.7px' : '1px')};
+    stroke-width: ${(props) => (props.size === 'lg' ? '0.7px' : '1px')};
   }
 
   .stroke {

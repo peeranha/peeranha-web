@@ -50,7 +50,10 @@ const CookieConsentPopup: React.FC = (): JSX.Element => {
           })}
         >
           <div className={cn('container')}>
-            <div className={cn('df aic jcsb pt24 pb24')}>
+            <div
+              className={cn('df aic jcsb pt24 pb24')}
+              css={css(styles.inner)}
+            >
               <div className={cn('df aic')}>
                 <img
                   src={cookie}
@@ -73,6 +76,7 @@ const CookieConsentPopup: React.FC = (): JSX.Element => {
               <LargeOutlinedButton
                 onClick={acceptCookiePolicy}
                 customStyles={stylesCommunity.cookieConsentPopupStyles}
+                css={css(styles.acceptButton)}
                 className="no-wrap"
               >
                 <FormattedMessage id={commonMessages.confirm.id} />

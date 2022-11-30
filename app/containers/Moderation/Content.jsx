@@ -147,7 +147,7 @@ const Section = ({
           {h3}
         </div>
         <ul>
-          {blocks.map(x => {
+          {blocks.map((x) => {
             return (
               <Permission
                 {...x}
@@ -172,7 +172,7 @@ const Content = ({
   communitiesCount,
 }) => (
   <div className="mb-3">
-    {content.map(x => (
+    {content.map((x) => (
       <Section
         {...x}
         key={x.h2}

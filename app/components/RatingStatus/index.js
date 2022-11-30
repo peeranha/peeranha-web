@@ -46,9 +46,9 @@ const RaitingInfo = styled.span`
   }
 `;
 
-const getStatus = rating =>
+const getStatus = (rating) =>
   Object.keys(options).filter(
-    x => options[x].minRating <= rating && options[x].maxRating >= rating,
+    (x) => options[x].minRating <= rating && options[x].maxRating >= rating,
   )[0];
 
 const IconWithStatus = ({
@@ -61,13 +61,8 @@ const IconWithStatus = ({
 }) => {
   // ratingNumColor and customRatingIconColors are used for kanda community styling
 
-  const {
-    strokeColor,
-    bannedFill,
-    strangerFill,
-    residentFill,
-    superheroFill,
-  } = customRatingIconColors;
+  const { strokeColor, bannedFill, strangerFill, residentFill, superheroFill } =
+    customRatingIconColors;
   const full = options[getStatus(rating)];
 
   let color = TEXT_DARK;
@@ -110,7 +105,7 @@ const IconWithStatus = ({
         fontSize={size === 'lg' ? 18 : 14}
         lineHeight={size === 'lg' ? 18 : 14}
         bold={size === 'lg'}
-        color={ratingNumColor || color}
+        color={size === 'lg' ? 'var(--color-black)' : color}
       >
         {getFormattedNum(rating)}
       </Span>

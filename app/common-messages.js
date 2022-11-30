@@ -39,6 +39,9 @@ export default defineMessages({
   expertPosts: {
     id: 'app.common.expertPosts',
   },
+  documentation: {
+    id: 'app.common.documentation',
+  },
   answers: {
     id: 'app.common.answers',
   },
@@ -155,6 +158,9 @@ export default defineMessages({
   },
   faq: {
     id: 'app.common.faq',
+  },
+  administration: {
+    id: 'app.common.administration',
   },
   moderationHeader: {
     id: 'app.common.moderationHeader',
@@ -302,6 +308,9 @@ export default defineMessages({
   },
   reputationStatus: {
     id: 'app.common.reputationStatus',
+  },
+  reputationBelowZero: {
+    id: 'app.containers.ViewQuestion.reputationBelowZero',
   },
   en: {
     id: 'app.common.en',
@@ -644,5 +653,14 @@ export default defineMessages({
   },
   transactionsChange_2: {
     id: 'app.containers.Profile.Settings.transactionsChange_2',
+  },
+  weUpdatedTheApplication: {
+    id: 'app.containers.ChunkLoadError.weUpdatedTheApplication',
+  },
+  clearYourBrowser: {
+    id: 'app.containers.ChunkLoadError.clearYourBrowser',
+  },
+  holdDown: {
+    id: 'app.containers.ChunkLoadError.holdDown',
   },
 });
