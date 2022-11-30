@@ -33,9 +33,6 @@ const Banner: React.FC<BannerProps> = ({
           <FormattedMessage id={messages.noSearchResults.id} />
         </p>
         <Button
-          icon={
-            <PlusWithoutCircle fill={colors.newPostButtonText || BG_LIGHT} />
-          }
           onClick={
             profileInfo
               ? redirectToAskQuestionPage
