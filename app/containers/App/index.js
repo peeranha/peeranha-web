@@ -15,14 +15,20 @@ import Documentation from 'pages/Documentation';
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ReactGA from 'react-ga';
+import { createStructuredSelector } from 'reselect';
 import { bindActionCreators, compose } from 'redux';
 import { connect } from 'react-redux';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import { Global, ThemeProvider } from '@emotion/react';
 import global from 'styles/global';
 import { theme } from 'themes/default';
+import {
+  selectDocumentationMenu,
+  selectPinnedItemMenu,
+} from 'containers/AppWrapper/selectors';
 
 import * as routes from 'routes-config';
+import isEmpty from 'lodash/isEmpty';
 
 import injectSaga from 'utils/injectSaga';
 import { DAEMON, POST_TYPE, REWARD_CLAIMING_ENABLED } from 'utils/constants';
@@ -31,7 +37,9 @@ import { closePopover as Popover } from 'utils/popover';
 import {
   isSingleCommunityWebsite,
   getSingleCommunityDetails,
+  singleCommunityDocumentationPosition,
 } from 'utils/communityManagement';
+import { getIpfsHashFromBytes32 } from 'utils/ipfs';
 
 import Loader from 'components/LoadingIndicator/HeightWidthCentered';
 import ErrorBoundary from 'components/ErrorBoundary';
@@ -85,9 +93,13 @@ import {
 } from './imports';
 import { getValueFromSearchString } from '../../utils/url';
 import { getCookie, setCookie } from '../../utils/cookie';
-import { REFERRAL_CODE_URI } from './constants';
+import { REFERRAL_CODE_URI, POSITION_TOP } from './constants';
 import { AUTOLOGIN_DATA } from '../Login/constants';
-import { redirectToFeed } from './actions';
+import {
+  redirectToFeed,
+  redirectToDocumentation,
+  redirectToPreload,
+} from './actions';
 import {
   hasGlobalModeratorRole,
   hasProtocolAdminRole,
@@ -95,12 +107,20 @@ import {
 import CookieConsentPopup from '../../components/CookieConsentPopup';
 
 const single = isSingleCommunityWebsite();
+const isPositionTop = singleCommunityDocumentationPosition() == POSITION_TOP;
 
 const App = ({
   location: { pathname, search },
   redirectToFeedDispatch,
+  redirectToDocumentationDispatch,
+  redirectToPreloadDispatch,
   history,
+  pinnedItemMenu,
+  documentationMenu,
 }) => {
+  const isPinnedPost = !isEmpty(pinnedItemMenu.id);
+  const pinnedPostId = pinnedItemMenu.id;
+
   if (process.env.NODE_ENV === 'production') {
     ReactGA.pageview(window.location.pathname);
   }
@@ -125,6 +145,9 @@ const App = ({
     if (loginData && !single && pathname !== '/') {
       redirectToFeedDispatch();
     }
+    if (single && isPositionTop && !isPinnedPost && pathname == '/') {
+      redirectToPreloadDispatch();
+    }
   }, []);
 
   useEffect(() => {
@@ -137,6 +160,16 @@ const App = ({
       redirectToFeedDispatch();
     }
   }, []);
+
+  useEffect(() => {
+    if (single && isPositionTop && pathname == '/preloader-page') {
+      const startDocumentationSectionId = documentationMenu[0]?.id;
+      const ipfsHash = isPinnedPost
+        ? getIpfsHashFromBytes32(pinnedPostId)
+        : getIpfsHashFromBytes32(startDocumentationSectionId);
+      redirectToDocumentationDispatch(ipfsHash);
+    }
+  }, [pinnedItemMenu]);
 
   const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
 
@@ -479,10 +512,20 @@ App.propTypes = {
   redirectToFeedDispatch: PropTypes.func,
 };
 
+const mapStateToProps = createStructuredSelector({
+  pinnedItemMenu: selectPinnedItemMenu(),
+  documentationMenu: selectDocumentationMenu(),
+});
+
 export default compose(
   withRouter,
   injectSaga({ key: 'app', saga, mode: DAEMON }),
-  connect(null, (dispatch) => ({
+  connect(mapStateToProps, (dispatch) => ({
     redirectToFeedDispatch: bindActionCreators(redirectToFeed, dispatch),
+    redirectToDocumentationDispatch: bindActionCreators(
+      redirectToDocumentation,
+      dispatch,
+    ),
+    redirectToPreloadDispatch: bindActionCreators(redirectToPreload, dispatch),
   })),
 )(App);
