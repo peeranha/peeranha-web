@@ -7,7 +7,7 @@ type PortalProps = {
   isFixedBody?: boolean;
 };
 
-const DEFAULT_Z_INDEX = 1000;
+const DEFAULT_Z_INDEX = 6;
 let portalAmount = DEFAULT_Z_INDEX;
 
 const Portal: React.FC<PortalProps> = ({
@@ -30,14 +30,14 @@ const Portal: React.FC<PortalProps> = ({
         node.classList.add('scroll-disabled');
       });
     }
-    portalAmount += 10;
+    portalAmount += 1;
     if (portalRef.current && portalRef.current.lastElementChild) {
       const lastElementChild = portalRef.current
         .lastElementChild as HTMLElement;
       lastElementChild.style.zIndex = String(portalAmount);
     }
     return (): void => {
-      portalAmount -= 10;
+      portalAmount -= 1;
       if (isFixedBody && portalAmount === DEFAULT_Z_INDEX) {
         document.querySelectorAll('body').forEach((node) => {
           node.classList.remove('scroll-disabled');

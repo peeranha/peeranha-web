@@ -4,10 +4,12 @@
  *
  */
 
+import { css } from '@emotion/react';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose, bindActionCreators } from 'redux';
+import { TEXT_PRIMARY } from 'style-constants';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -22,7 +24,15 @@ export const Logout = /* istanbul ignore next */ ({
   logoutDispatch,
   children,
 }) => (
-  <button className="d-flex align-items-center" onClick={logoutDispatch}>
+  <button
+    className="d-flex align-items-center full-width full-height"
+    css={css`
+      :hover {
+        color: ${TEXT_PRIMARY};
+      }
+    `}
+    onClick={logoutDispatch}
+  >
     {children}
   </button>
 );
@@ -38,16 +48,9 @@ function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   };
 }
 
-const withConnect = connect(
-  null,
-  mapDispatchToProps,
-);
+const withConnect = connect(null, mapDispatchToProps);
 
 const withReducer = injectReducer({ key: 'logout', reducer });
 const withSaga = injectSaga({ key: 'logout', saga, mode: DAEMON });
 
-export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
-)(Logout);
+export default compose(withReducer, withSaga, withConnect)(Logout);

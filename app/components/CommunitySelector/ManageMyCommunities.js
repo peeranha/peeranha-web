@@ -10,19 +10,13 @@ import A from 'components/A';
 
 import messages from 'common-messages';
 
-import { BoxStyled } from './CustomOption';
-
-const Box = BoxStyled.extend`
-  height: 44px;
-`.withComponent(A);
-
 const ManageMyCommunities = () => (
-  <Box to={routes.communities()}>
+  <A to={routes.communities()}>
     <Span color={TEXT_PRIMARY}>
       <img className="mr-2" src={arrowRightIcon} alt="icon" />
       <FormattedMessage {...messages.manageMyComm} />
     </Span>
-  </Box>
+  </A>
 );
 
 export default React.memo(ManageMyCommunities);

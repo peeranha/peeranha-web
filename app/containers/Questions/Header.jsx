@@ -1,9 +1,10 @@
+import Icon from 'components/Icon';
+import arrowDownIcon from 'images/arrowDown.svg?external';
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as routes from 'routes-config';
 import styled from 'styled-components';
-// import Dropdown from '../../components/Dropdown'; ToDo: switch feed page
 
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 import messages from 'common-messages';
@@ -28,6 +29,7 @@ import createdHistory from 'createdHistory';
 import {
   isSingleCommunityWebsite,
   singleCommunityColors,
+  singleCommunityStyles,
 } from 'utils/communityManagement';
 import {
   getPermissions,
@@ -39,6 +41,7 @@ import {
 import { POST_TYPE } from 'utils/constants';
 import {
   BORDER_PRIMARY,
+  DARK_SECONDARY,
   ICON_TRASPARENT_BLUE,
   TEXT_PRIMARY,
 } from 'style-constants';
@@ -49,6 +52,7 @@ import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 
 const single = isSingleCommunityWebsite();
 const colors = singleCommunityColors();
+const styles = singleCommunityStyles();
 
 const PageContentHeader = styled.div`
   @media only screen and (max-width: 576px) {
@@ -76,17 +80,21 @@ const StyledCustomIconButtonContainer = styled.div`
   }
 `;
 
+const ArrowDown = styled(Icon)`
+  path {
+    fill: ${colors.localeArrowColor || styles.commHeadElemColor || ''};
+  }
+`;
+
 export const Header = ({
   intl,
   communityIdFilter,
   communities,
-  followedCommunities,
   parentPage,
   setTypeFilter,
   topQuestions,
   topQuestionsInfoLoaded,
   questionFilterFromCookies,
-  isExpert,
   postsTypes,
   profile,
 }) => {
@@ -153,6 +161,14 @@ export const Header = ({
       )}
 
       <span>{communityLabel || defaultLabel}</span>
+
+      <ArrowDown
+        icon={arrowDownIcon}
+        width="15"
+        alt="data-icon"
+        className="dropdown-arrow ml-2"
+        fill={DARK_SECONDARY}
+      />
     </H3>
   );
 

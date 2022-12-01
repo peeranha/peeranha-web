@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import cn from 'classnames';
 import { css } from '@emotion/react';
 import ArrowDownIcon from 'icons/ArrowDown';
@@ -10,6 +10,7 @@ import {
 } from '../Popover/types';
 import DropdownLabel from './DropdownLabel';
 import DropdownOption from './DropdownOption';
+import Input from 'components/Input';
 
 export type OptionValue = string | number;
 
@@ -48,6 +49,15 @@ type DropdownCommonProps = {
   className?: string;
   trigger?: JSX.Element;
   isEqualWidth?: boolean;
+  /**
+   * Is dropdown has search field
+   */
+  isSearchable?: boolean;
+  /**
+   * Class name for dropdown button
+   */
+  triggerClassName?: string;
+  appendTo?: 'viewport' | 'parent' | undefined;
 };
 
 type DropdownSingleProps = DropdownCommonProps & {
@@ -93,10 +103,13 @@ const Dropdown: React.FC<DropdownProps> = ({
   isMultiple = false,
   isDisabled = false,
   isInvalid = false,
+  isSearchable = false,
   className,
+  triggerClassName,
   onSelect,
   trigger,
   isEqualWidth,
+  appendTo,
 }) => {
   const {
     items,
@@ -144,13 +157,15 @@ const Dropdown: React.FC<DropdownProps> = ({
         );
       }
     };
+  const [searchValue, setSearchValue] = useState();
 
   return (
     <Popover
       isEqualWidth={typeof isEqualWidth !== undefined ? isEqualWidth : true}
       offset={{ top: 4 }}
+      appendTo={appendTo}
     >
-      <Popover.Trigger>
+      <Popover.Trigger className={triggerClassName}>
         {({ isOpen }: PopoverTriggerChildrenParams): JSX.Element =>
           (trigger &&
             React.cloneElement(trigger, {
@@ -195,14 +210,41 @@ const Dropdown: React.FC<DropdownProps> = ({
             className={cn(className, 'scrollbar m0 lstn pt8 pr0 pb8 pl0')}
             css={classes.options}
           >
-            {items.map((option) => (
-              <DropdownOption
-                key={option.value}
-                option={option}
-                isMultiple={isMultiple}
-                onClick={onOptionClick({ close })}
-              />
-            ))}
+            {Boolean(isSearchable) && (
+              <div
+                css={css`
+                  padding: 5px;
+                `}
+              >
+                <Input
+                  input={{
+                    onChange: (event: {
+                      target: { value: React.SetStateAction<undefined> };
+                    }) => setSearchValue(event.target.value),
+                    // autoFocus: true
+                  }}
+                  placeholder={'search'}
+                  type={'text'}
+                />
+              </div>
+            )}
+
+            {items
+              .filter((option) =>
+                searchValue && typeof option.label === 'string'
+                  ? option.label
+                      .toLocaleLowerCase()
+                      .includes(searchValue.toLocaleLowerCase())
+                  : true,
+              )
+              .map((option) => (
+                <DropdownOption
+                  key={option.value}
+                  option={option}
+                  isMultiple={isMultiple}
+                  onClick={onOptionClick({ close })}
+                />
+              ))}
           </ul>
         )}
       </Popover.Content>

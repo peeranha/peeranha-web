@@ -1,179 +1,115 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { translationMessages } from 'i18n';
 import { connect } from 'react-redux';
-import styled from 'styled-components';
 import { createStructuredSelector } from 'reselect';
-
+import { FormattedMessage } from 'react-intl';
+import Communities from 'icons/Communities';
 import messages from 'common-messages';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectFollowedCommunities } from 'containers/AccountProvider/selectors';
+import { getFollowedCommunities } from 'utils/communityManagement';
 
-import {
-  getFollowedCommunities,
-  getUnfollowedCommunities,
-  isSingleCommunityWebsite,
-} from 'utils/communityManagement';
+import Dropdown from 'components/common/Dropdown';
 
-import Dropdown, { MenuStyled } from 'components/Dropdown/AllowedClickInside';
-import { Select2 } from 'components/FormFields/SelectField';
-
-import CustomOption from './CustomOption';
-import Group from './Group';
 import ManageMyCommunities from './ManageMyCommunities';
 
-const single = isSingleCommunityWebsite();
-
-const Wrapper = styled.div`
-  ${MenuStyled} {
-    box-shadow: none;
-  }
-`;
-
 const CommunitySelector = ({
-  input = {},
   Button,
-  isArrowed,
+  input = {},
   locale,
   communities = [],
   followedCommunities,
   showOnlyFollowed,
-  selectedCommunityId,
-  disabled,
   toggle,
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [value, setValue] = useState();
 
-  const [optionsNumber, options] = useMemo(
-    () => {
-      // To form options array I need to get 2 groups: communities where I AM and NOT
-      const followedFilteredCommunities = getFollowedCommunities(
-        communities,
-        followedCommunities || [],
-      );
+  useEffect(() => {
+    if (input.onChange) {
+      input.onChange(communities.find((comminity) => comminity.id === value));
+    }
+  }, [value]);
 
-      const unfollowedFilteredCommunities = getUnfollowedCommunities(
-        communities,
-        followedCommunities || [],
-      );
+  const options = useMemo(() => {
+    const followedFilteredCommunities = getFollowedCommunities(
+      communities,
+      followedCommunities || [],
+    );
+    let options = [];
 
-      let options = [];
+    // My feed page
+    if (followedCommunities && showOnlyFollowed) {
+      options = followedFilteredCommunities;
+    }
 
-      // My feed page
-      if (followedCommunities && showOnlyFollowed) {
-        options = [{ options: followedFilteredCommunities }];
-      }
+    // All questions page
+    if (!showOnlyFollowed) {
+      options = communities;
+    }
 
-      // All questions page
-      if (!showOnlyFollowed) {
-        options = [
-          { options: followedFilteredCommunities },
-          { options: unfollowedFilteredCommunities },
-        ];
-      }
+    options = options.map((community) => ({
+      label: community.label,
+      value: community.id,
+      icon: <img width={'24px'} src={community.avatar} alt={'avatar'} />,
+    }));
 
-      // Default option - All communities - if it is not from form field
-      if (!input.name) {
-        options = [
-          {
-            options: [
-              {
-                label: translationMessages[locale][messages.allCommunities.id],
-                value: 0,
-              },
-            ],
-          },
-          ...options,
-        ];
-      }
-
-      return [
-        followedCommunities && showOnlyFollowed
-          ? followedFilteredCommunities.length
-          : communities.length ?? null,
-        options,
+    // Default option - All communities - if it is not from form field
+    if (!input.name) {
+      options = [
+        {
+          label: translationMessages[locale][messages.allCommunities.id],
+          value: 0,
+          icon: <Communities />,
+        },
+        ...options,
       ];
-    },
-    [communities],
-  );
+    }
 
-  const toggleOpen = useCallback(
-    () => {
-      if (optionsNumber > 0 && !single && !disabled) {
-        setIsOpen(!isOpen);
-      }
-    },
-    [disabled, isOpen, optionsNumber],
-  );
+    options.push({
+      label: <FormattedMessage id={messages.manageMyComm.id} />,
+      value: options.length + 1,
+      render: <ManageMyCommunities />,
+    });
 
-  const onSelectChange = useCallback(
-    x => {
-      toggleOpen();
-      //
-      if (input.onChange) {
-        input.onChange(x);
-      }
+    return options;
+  }, [communities]);
 
-      // additional action
+  const onSelect = (value) => {
+    if (value !== options.length) {
+      setValue(value);
       if (toggle) {
-        toggle(x.value);
+        toggle(value);
       }
-    },
-    [toggleOpen, input, toggle],
-  );
-
-  const selectedValue = getFollowedCommunities(communities, [
-    selectedCommunityId,
-  ])[0];
-
-  const isItArrowed = useMemo(() => optionsNumber > 0 && !single && isArrowed, [
-    optionsNumber,
-    isArrowed,
-  ]);
+    }
+  };
 
   return (
     <Dropdown
-      isCommunitySelector
-      isArrowed={isItArrowed}
-      isOpen={isOpen}
-      toggle={toggleOpen}
-      target={
+      options={options}
+      value={value}
+      placeholder="Select a community from the list below"
+      onSelect={onSelect}
+      isSearchable
+      className="z-8"
+      triggerClassName="full-width"
+      trigger={
         <Button
-          communityAvatar={selectedValue?.avatar}
-          communityLabel={selectedValue?.name}
+          communityAvatar={
+            communities.find((comminity) => comminity.id === value)?.avatar
+          }
+          communityLabel={
+            communities.find((comminity) => comminity.id === value)?.name
+          }
+          placeholder={'Select a community from the list below'}
         />
       }
-    >
-      <Wrapper>
-        <Select2
-          input={{
-            ...input,
-            optionsNumber,
-            selectedValue,
-            onChange: onSelectChange,
-            onBlur: null,
-            value: null,
-          }}
-          options={options}
-          disabled={disabled}
-          Group={Group}
-          CustomOption={CustomOption}
-          autoFocus
-          menuIsOpen
-          isWrapped
-          placeholder={translationMessages[locale][messages.selectCommunity.id]}
-        />
-        <ManageMyCommunities />
-      </Wrapper>
-    </Dropdown>
+    />
   );
 };
 
 CommunitySelector.propTypes = {
-  Button: PropTypes.any,
-  toggle: PropTypes.func,
-  disabled: PropTypes.bool,
   input: PropTypes.object,
   isArrowed: PropTypes.bool,
   showOnlyFollowed: PropTypes.bool,
@@ -188,7 +124,4 @@ const mapStateToProps = createStructuredSelector({
   followedCommunities: makeSelectFollowedCommunities(),
 });
 
-export default connect(
-  mapStateToProps,
-  null,
-)(CommunitySelector);
+export default connect(mapStateToProps, null)(CommunitySelector);

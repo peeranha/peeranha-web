@@ -23,7 +23,10 @@ const DropdownLabel: React.FC<DropdownLabelProps> = ({
         css={classes.label}
       >
         {!isMultiple && items[0]?.icon && (
-          <span className={cn('df jcc aic dropdown-icon')} css={classes.icon}>
+          <span
+            className={cn('mr8 df jcc aic dropdown-icon')}
+            css={classes.icon}
+          >
             {items[0].icon}
           </span>
         )}

@@ -1,4 +1,6 @@
 /* eslint jsx-a11y/no-static-element-interactions: 0, jsx-a11y/click-events-have-key-events: 0 */
+import { css } from '@emotion/react';
+import arrowDownIcon from 'images/arrowDown.svg?external';
 import React, { memo, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -8,7 +10,7 @@ import { FormattedMessage } from 'react-intl';
 import {
   BORDER_SECONDARY,
   TEXT_PRIMARY,
-  PEER_PRIMARY_TRANSPARENT_COLOR,
+  DARK_SECONDARY,
 } from 'style-constants';
 import { NO_AVATAR } from 'utils/constants';
 
@@ -22,19 +24,17 @@ import {
 import { getUserAvatar } from 'utils/profileManagement';
 import userBodyIconAvatar from 'images/user2.svg?external';
 
-import Dropdown from 'components/Dropdown';
-import Ul from 'components/Ul/SpecialOne';
+// import Dropdown from 'components/Dropdown';
+import Dropdown from 'components/common/Dropdown';
 import Span from 'components/Span';
 import A from 'components/A';
 import { MediumSpecialImage } from 'components/Img/MediumImage';
-import { IconLg } from 'components/Icon/IconWithSizes';
 import Logout from 'containers/Logout';
 import Icon from 'components/Icon/index';
 import { getUserName } from 'utils/user';
 import { selectIsMenuVisible } from '../AppWrapper/selectors';
-import { getPermissions } from '../../utils/properties';
+import { getPermissions } from 'utils/properties';
 
-import AnswerWithAIcon from 'icons/AnswerWithA';
 import ProfileIcon from 'icons/Profile';
 import CommunitiesIcon from 'icons/Communities';
 import SettingsIcon from 'icons/Settings';
@@ -47,10 +47,10 @@ import LogOutIcon from 'icons/LogOut';
 const colors = singleCommunityColors();
 const styles = singleCommunityStyles();
 
-const StatusBox = styled.span`
-  display: inline-flex;
-  font-size: 14px;
-  margin-top: 2px;
+const ArrowDown = styled(Icon)`
+  path {
+    fill: ${colors.localeArrowColor || styles.commHeadElemColor || ''};
+  }
 `;
 
 const Info = styled.span`
@@ -76,7 +76,7 @@ const NoAvatarBox = styled.div`
 `;
 
 const B = ({ profileInfo, onClick, isMenuVisible, isMobileVersion }) => (
-  <span className="d-flex" onClick={onClick}>
+  <span className="df aic" onClick={onClick}>
     {(!profileInfo.avatar || profileInfo.avatar === NO_AVATAR) && (
       <NoAvatarBox isMobileVersion={isMobileVersion}>
         <Icon
@@ -103,6 +103,13 @@ const B = ({ profileInfo, onClick, isMenuVisible, isMobileVersion }) => (
         {getUserName(profileInfo.displayName, profileInfo.loginData.account)}
       </Span>
     </Info>
+    <ArrowDown
+      icon={arrowDownIcon}
+      width="10"
+      alt="data-icon"
+      className="dropdown-arrow "
+      fill={DARK_SECONDARY}
+    />
   </span>
 );
 
@@ -110,137 +117,138 @@ export const Button = connect((state) => ({
   isMenuVisible: selectIsMenuVisible()(state),
 }))(B);
 
-const Menu = memo(
-  ({ profileInfo, questionsLength, questionsWithUserAnswersLength }) => {
-    const { user, loginData } = profileInfo;
+const Link = A.extend`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+`;
 
-    const isModerator = useMemo(
-      () => !!getPermissions(profileInfo)?.length,
-      [profileInfo],
-    );
+const getOptions = (profileInfo) => {
+  const { user } = profileInfo;
 
-    return (
-      <nav>
-        <Ul>
-          <A to={routes.profileView(user)}>
-            <ProfileIcon
-              className="mr-2"
-              size={[18, 18]}
-              stroke={colors.linkColor || TEXT_PRIMARY}
-            />
-            <FormattedMessage id={messages.profile.id} />
-          </A>
+  const isModerator = useMemo(
+    () => !!getPermissions(profileInfo)?.length,
+    [profileInfo],
+  );
 
-          <A to={routes.userCommunities(user)}>
-            <CommunitiesIcon
-              className="mr-2"
-              size={[18, 18]}
-              stroke={colors.linkColor || TEXT_PRIMARY}
-            />
-            <FormattedMessage id={messages.myCommunities.id} />
-          </A>
-
-          <A
-            to={routes.userQuestions(user)}
-            disabled={!questionsLength}
-            tabIndex={!questionsLength ? '-1' : undefined}
-          >
-            <PostIcon
-              className="mr-2"
-              stroke={colors.linkColor || TEXT_PRIMARY}
-            />
-            <FormattedMessage id={messages.posts.id} />
-          </A>
-
-          <A
-            to={routes.userAnswers(user)}
-            disabled={!questionsWithUserAnswersLength}
-            tabIndex={!questionsWithUserAnswersLength ? '-1' : undefined}
-          >
-            <AnswerWithAIcon
-              className="mr-2"
-              stroke={colors.linkColor || TEXT_PRIMARY}
-            />
-            <FormattedMessage id={messages.answers.id} />
-          </A>
-
-          <A to={routes.userNotifications(user)}>
-            <NotificationsIcon
-              className="mr-2"
-              stroke={colors.linkColor || TEXT_PRIMARY}
-              fill={colors.linkColor || TEXT_PRIMARY}
-            />
-            <FormattedMessage id={messages.notifications.id} />
-          </A>
-
-          <A to={routes.userNFTs(user)}>
-            <NFTIcon
-              className="mr-2"
-              stroke={colors.linkColor || TEXT_PRIMARY}
-            />
-            <FormattedMessage id={messages.NFTs.id} />
-          </A>
-
-          {isModerator && (
-            <A to={routes.userModeration(user)}>
-              <ModerationIcon
-                size={[18, 18]}
-                className="mr-2"
-                stroke={colors.linkColor || TEXT_PRIMARY}
-                fill={colors.linkColor || TEXT_PRIMARY}
-              />
-              <FormattedMessage id={messages.moderation.id} />
-            </A>
-          )}
-
-          <A to={routes.userSettings(user)}>
-            <SettingsIcon
-              className="mr-2"
-              stroke={colors.linkColor || TEXT_PRIMARY}
-            />
-            <FormattedMessage id={messages.settings.id} />
-          </A>
-        </Ul>
-
-        <Ul>
-          <Logout>
-            <LogOutIcon
-              className="mr-2"
-              stroke={colors.linkColor || TEXT_PRIMARY}
-            />
-            <FormattedMessage id={messages.logout.id} />
-          </Logout>
-        </Ul>
-      </nav>
-    );
-  },
-);
+  return [
+    {
+      value: 1,
+      render: (
+        <Link to={routes.profileView(user)}>
+          <ProfileIcon
+            className="mr-2"
+            size={[18, 18]}
+            stroke={colors.linkColor || TEXT_PRIMARY}
+          />
+          <FormattedMessage id={messages.profile.id} />
+        </Link>
+      ),
+    },
+    {
+      value: 2,
+      render: (
+        <Link to={routes.userCommunities(user)}>
+          <CommunitiesIcon
+            className="mr-2"
+            size={[18, 18]}
+            stroke={colors.linkColor || TEXT_PRIMARY}
+          />
+          <FormattedMessage id={messages.myCommunities.id} />
+        </Link>
+      ),
+    },
+    {
+      value: 3,
+      render: (
+        <Link
+          to={routes.userQuestions(user)}
+          disabled={!profileInfo.postCount}
+          tabIndex={!profileInfo.postCount ? '-1' : undefined}
+        >
+          <PostIcon
+            className="mr-2"
+            stroke={colors.linkColor || TEXT_PRIMARY}
+          />
+          <FormattedMessage id={messages.posts.id} />
+        </Link>
+      ),
+    },
+    {
+      value: 4,
+      render: (
+        <Link to={routes.userNotifications(user)}>
+          <NotificationsIcon
+            className="mr-2"
+            stroke={colors.linkColor || TEXT_PRIMARY}
+            fill={colors.linkColor || TEXT_PRIMARY}
+          />
+          <FormattedMessage id={messages.notifications.id} />
+        </Link>
+      ),
+    },
+    {
+      value: 5,
+      render: (
+        <Link to={routes.userNFTs(user)}>
+          <NFTIcon className="mr-2" stroke={colors.linkColor || TEXT_PRIMARY} />
+          <FormattedMessage id={messages.NFTs.id} />
+        </Link>
+      ),
+    },
+    isModerator && {
+      value: 6,
+      render: (
+        <Link to={routes.userModeration(user)}>
+          <ModerationIcon
+            size={[18, 18]}
+            className="mr-2"
+            stroke={colors.linkColor || TEXT_PRIMARY}
+            fill={colors.linkColor || TEXT_PRIMARY}
+          />
+          <FormattedMessage id={messages.moderation.id} />
+        </Link>
+      ),
+    },
+    {
+      value: 7,
+      render: (
+        <Link to={routes.userSettings(user)}>
+          <SettingsIcon
+            className="mr-2"
+            stroke={colors.linkColor || TEXT_PRIMARY}
+          />
+          <FormattedMessage id={messages.settings.id} />
+        </Link>
+      ),
+    },
+    {
+      value: 8,
+      render: (
+        <Logout>
+          <LogOutIcon
+            className="mr-2"
+            stroke={colors.linkColor || TEXT_PRIMARY}
+          />
+          <FormattedMessage id={messages.logout.id} />
+        </Logout>
+      ),
+    },
+  ];
+};
 
 const ProfileDropdown = ({ profileInfo }) => (
   <Dropdown
-    isArrowed
-    className="d-none d-md-flex"
     id="profile_dropdown_id"
-    button={<Button profileInfo={profileInfo} />}
-    menu={
-      <Menu
-        profileInfo={profileInfo}
-        questionsLength={profileInfo.postCount}
-        questionsWithUserAnswersLength={profileInfo.answersGiven}
-      />
-    }
+    options={getOptions(profileInfo).filter((option) => !!option)}
+    trigger={<Button profileInfo={profileInfo} />}
+    appendTo="parent"
   />
 );
 
 ProfileDropdown.propTypes = {
   profileInfo: PropTypes.object,
-};
-
-Menu.propTypes = {
-  profileInfo: PropTypes.object,
-  questionsLength: PropTypes.number,
-  questionsWithUserAnswersLength: PropTypes.number,
-  loginWithScatter: PropTypes.bool,
 };
 
 B.propTypes = {
