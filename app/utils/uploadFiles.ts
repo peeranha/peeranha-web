@@ -1,7 +1,7 @@
 import * as tus from 'tus-js-client';
 import { getFileUrl, saveDataIpfsS3 } from 'utils/ipfs';
 import { Upload } from 'tus-js-client';
-import { livepeerAPI } from '../services/livepeer-service';
+import { livepeerAPI } from '../services/livepeer';
 
 export const uploadImagesToIpfs = async (
   file: File,
