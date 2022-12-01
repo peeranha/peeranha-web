@@ -11,8 +11,8 @@ import CyberconnectLogo from './communities-configs/cyberconnect/images/CyberCon
 import PolywrapLogo from './communities-configs/polywrap/images/polywrap-horizontal.svg?inline';
 import ValistLogo from './communities-configs/valist/images/valist.svg?inline';
 import IndexerDAOLogo from './communities-configs/indexerDAO/images/svgviewerNew.jpg';
-import AnkrLogo from './communities-configs/ankr/images/ankrBlueLogo.svg?inline';
 import SolidityLogo from './communities-configs/solidity/images/solidity-logo.svg?inline';
+import AnkrLogo from './communities-configs/ankr/images/ankrBlueLogo.svg?inline';
 import AaveLogo from './communities-configs/aave/images/aaveLogoWhite.svg?inline';
 import ForceLogo from './communities-configs/force/images/Group.svg?inline';
 
