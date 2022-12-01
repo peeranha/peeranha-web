@@ -5,7 +5,7 @@ const ChangeType: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
     id="change-type"
-    fill="curentColor"
+    fill="currentColor"
     viewBox="0 0 64 64"
     size={[64, 64]}
   >

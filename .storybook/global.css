@@ -7,7 +7,7 @@
 }
 
 body {
-  background: #fafafa !important;
+  background: var(--color-white) !important;
 }
 
 .sb-show-main.sb-main-padded {
@@ -19,8 +19,8 @@ body {
   word-break: break-word;
   font-size: 24px;
   padding: 20px;
-  background: rgb(234, 236, 244);
-  color: #282828;
+  background: var(--color-gray-special);
+  color: var(--color-black);
   font-family: 'Roboto';
   font-weight: 500;
 }

@@ -4,14 +4,23 @@ export default defineMessages({
   tips: {
     id: 'app.components.TextEditor.tips',
   },
-  putReturnsBetweenParagraphs: {
-    id: 'app.components.TextEditor.putReturnsBetweenParagraphs',
+  markdownIsSupported: {
+    id: 'app.components.TextEditor.markdownIsSupported',
   },
   addForLineBreaks: {
     id: 'app.components.TextEditor.addForLineBreaks',
   },
   italicAndBold: {
     id: 'app.components.TextEditor.italicAndBold',
+  },
+  italic: {
+    id: 'app.components.TextEditor.italic',
+  },
+  bold: {
+    id: 'app.components.TextEditor.bold',
+  },
+  or: {
+    id: 'app.components.TextEditor.or',
   },
   indentCode: {
     id: 'app.components.TextEditor.indentCode',
@@ -24,5 +33,14 @@ export default defineMessages({
   },
   toMakeLinks: {
     id: 'app.components.TextEditor.toMakeLinks',
+  },
+  enterText: {
+    id: 'app.components.TextEditor.enterText',
+  },
+  forMoreSyntax: {
+    id: 'app.components.TextEditor.forMoreSyntax',
+  },
+  markdownCheatSheet: {
+    id: 'app.components.TextEditor.markdownCheatSheet',
   },
 });
