@@ -25,7 +25,7 @@ const ViewContent: React.FC<ViewContentProps> = ({
   isEditDocumentation,
 }): JSX.Element => {
   const headers = extractStrings(['#', '\n'])(
-    documentationArticle?.content || '',
+    `${documentationArticle?.content}\n` || '',
   );
 
   return (
