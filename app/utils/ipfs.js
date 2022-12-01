@@ -78,8 +78,8 @@ async function saveDataTheGraph(buf) {
   return ipfsApiTheGraph().add(buf);
 }
 
-async function saveDataIpfsS3(file) {
-  return callService(SAVE_FILE_SERVICE, { file });
+export async function saveDataIpfsS3(file, signal) {
+  return callService(SAVE_FILE_SERVICE, { file }, false, signal);
 }
 
 export async function saveFile(file) {

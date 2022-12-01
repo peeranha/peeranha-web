@@ -1,5 +1,5 @@
 import { injectGlobal } from 'styled-components';
-import reset from 'reset-css';
+import reset from './reset-css';
 import {
   BG_PRIMARY_LIGHT,
   BG_LIGHT,

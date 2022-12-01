@@ -958,6 +958,10 @@
   "app.containers.QuestionForm.questionIsPromoting": "Этот вопрос продвигается до",
   "app.containers.QuestionForm.postTypeSelectionError": "Необходимо выбрать тип поста",
   "app.containers.QuestionForm.leaveWithoutChanges": "Вы собираетесь покинуть страницу, не сохранив изменений. Вы уверены, что хотите продолжить?",
+  "app.containers.QuestionForm.media": "Media",
+  "app.containers.QuestionForm.mediaRestrictions": "Image (jpeg, jpg, png, and gif image formats. Max file size 5Mb). Video (mp4 and aac. Max file size 1Gb)",
+  "app.containers.QuestionForm.dragFiles": "Drag files",
+  "app.containers.QuestionForm.clickToAttach": "Click to attach",
 
   "app.containers.AnswerForm.titleLabel": "Ваш ответ",
 

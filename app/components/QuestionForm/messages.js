@@ -115,4 +115,19 @@ export default defineMessages({
   leaveWithoutChanges: {
     id: 'app.containers.QuestionForm.leaveWithoutChanges',
   },
+  media: {
+    id: 'app.containers.QuestionForm.media',
+  },
+  mediaRestrictions: {
+    id: 'app.containers.QuestionForm.mediaRestrictions',
+  },
+  dragFiles: {
+    id: 'app.containers.QuestionForm.dragFiles',
+  },
+  clickTo: {
+    id: 'app.containers.QuestionForm.clickTo',
+  },
+  attach: {
+    id: 'app.containers.QuestionForm.attach',
+  },
 });

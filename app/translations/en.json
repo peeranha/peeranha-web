@@ -958,6 +958,11 @@
   "app.containers.QuestionForm.questionIsPromoting": "Promoted till",
   "app.containers.QuestionForm.postTypeSelectionError": "You need to select post type",
   "app.containers.QuestionForm.leaveWithoutChanges": "You are about to leave the page without saving your changes. Are you sure want to continue?",
+  "app.containers.QuestionForm.media": "Media",
+  "app.containers.QuestionForm.mediaRestrictions": "Image upload to IPFS (jpeg, jpg, png, and gif. Max file size 5Mb). Video upload to Livepeer (mp4 encoded H264 with aac audio. Max file size 1 Gb)",
+  "app.containers.QuestionForm.dragFiles": "Drag files",
+  "app.containers.QuestionForm.clickTo": "Click to ",
+  "app.containers.QuestionForm.attach": "attach",
 
   "app.containers.AnswerForm.titleLabel": "Your Answer",
 
