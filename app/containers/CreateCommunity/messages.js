@@ -19,6 +19,12 @@ export default defineMessages({
   websiteTip: {
     id: 'app.containers.CreateCommunity.websiteTip',
   },
+  communityWebsite: {
+    id: 'app.containers.CreateCommunity.communityWebsite',
+  },
+  communityWebsiteTip: {
+    id: 'app.containers.CreateCommunity.communityWebsiteTip',
+  },
   avatar: {
     id: 'app.containers.CreateCommunity.avatar',
   },

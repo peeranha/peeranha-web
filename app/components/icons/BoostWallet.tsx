@@ -5,7 +5,7 @@ const BoostWallet: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
     id="boost-wallet"
-    fill="curentColor"
+    fill="currentColor"
     viewBox="0 0 50 50"
     size={[50, 50]}
   >

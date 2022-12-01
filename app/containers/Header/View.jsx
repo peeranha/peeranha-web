@@ -1,6 +1,7 @@
 import React, { memo, useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
+import { translationMessages } from 'i18n';
 import { css } from '@emotion/react';
 import {
   BG_LIGHT,
@@ -23,6 +24,14 @@ import {
   singleCommunityStyles,
   singleCommunityColors,
 } from 'utils/communityManagement';
+import {
+  getPermissions,
+  hasCommunityModeratorRole,
+  hasGlobalModeratorRole,
+  hasProtocolAdminRole,
+} from 'utils/properties';
+import { getRatingByCommunity } from 'utils/profileManagement';
+import { showPopover } from 'utils/popover';
 
 import LargeButton from 'components/Button/Contained/InfoLarge';
 import Icon from 'components/Icon';
@@ -38,7 +47,12 @@ import ButtonGroupForNotAuthorizedUser from './ButtonGroupForNotAuthorizedUser';
 import ButtonGroupForAuthorizedUser from './ButtonGroupForAuthorizedUser';
 import SearchForm from './SearchForm';
 
-import { HEADER_ID, LOADER_HEIGHT, SEARCH_FORM_ID } from './constants';
+import {
+  HEADER_ID,
+  LOADER_HEIGHT,
+  SEARCH_FORM_ID,
+  MIN_REPUTATION,
+} from './constants';
 import processIndicator from '../../images/progress-indicator.svg?external';
 
 const single = isSingleCommunityWebsite();
@@ -156,6 +170,7 @@ const View = ({
   isTransactionInPending,
   transactionHash,
   transactionInitialised,
+  locale,
   isEditDocumentation,
   toggleEditDocumentation,
 }) => {
@@ -181,6 +196,29 @@ const View = ({
       </LogoStyles>
     );
   }, [isSearchFormVisible]);
+
+  const isHasRole =
+    hasGlobalModeratorRole(getPermissions(profileInfo)) ||
+    (Boolean(single) &&
+      hasCommunityModeratorRole(getPermissions(profileInfo), single)) ||
+    hasProtocolAdminRole(getPermissions(profileInfo));
+
+  const isMinusReputation =
+    getRatingByCommunity(profileInfo, single) < MIN_REPUTATION;
+
+  const showPopoverMinRating = (e) => {
+    e.preventDefault();
+    showPopover(
+      e.currentTarget.id,
+      translationMessages[locale][messages.reputationBelowZero.id],
+    );
+  };
+
+  const askQuestionHandler = (e) => {
+    isMinusReputation && !isHasRole
+      ? showPopoverMinRating(e)
+      : redirectToAskQuestionPage(e);
+  };
 
   return (
     <Wrapper id={HEADER_ID} transactionInitialised={transactionInitialised}>
@@ -277,7 +315,7 @@ const View = ({
                     id="header-ask-question"
                     onClick={
                       profileInfo
-                        ? redirectToAskQuestionPage
+                        ? askQuestionHandler
                         : showLoginModalWithRedirectToAskQuestionPage
                     }
                     css={css`
@@ -285,6 +323,10 @@ const View = ({
                       :hover {
                         background: ${colors.btnHeaderHoverColor};
                         border: ${colors.btnHeaderHoverBorder};
+                        opacity: ${colors.btnHeaderHoverOpacity};
+                      }
+                      @media only screen and (min-width: 992px) {
+                        min-width: 130px;
                       }
                     `}
                   >
