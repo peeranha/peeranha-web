@@ -171,11 +171,11 @@ const MainUserInformation = ({
   userAchievementsLength,
 }) => {
   const isTemporaryAccount = !!profile?.integer_properties?.find(
-    x => x.key === TEMPORARY_ACCOUNT_KEY && x.value,
+    (x) => x.key === TEMPORARY_ACCOUNT_KEY && x.value,
   );
   const userPolygonScanAddress = process.env.BLOCKCHAIN_EXPLORERE_URL + userId;
   const [copied, setCopied] = useState(false);
-  const writeToBuffer = event => {
+  const writeToBuffer = (event) => {
     navigator.clipboard.writeText(userId);
     setCopied(true);
     showPopover(

@@ -97,34 +97,34 @@ const AdditionalUserInformation = ({
     >
       {(!profile || !profile.profile) && <LoadingIndicator inline />}
 
-      {profile &&
-        profile.profile && (
-          <>
-            {!!profile?.creationTime && (
-              <Row nameField="memberSince" value={profileSince} />
-            )}
-            <Row
-              nameField="locationLabel"
-              value={profile.profile[LOCATION_FIELD]}
-            />
-            <Row
-              nameField="companyLabel"
-              value={profile.profile[COMPANY_FIELD]}
-            />
-            <Row
-              nameField="positionLabel"
-              value={profile.profile[POSITION_FIELD]}
-            />
-            <Row nameField="aboutLabel" value={profile.profile[ABOUT_FIELD]} />
+      {profile && profile.profile && (
+        <>
+          {!!profile?.creationTime && (
+            <Row nameField="memberSince" value={profileSince} />
+          )}
+          <Row
+            nameField="locationLabel"
+            value={profile.profile[LOCATION_FIELD]}
+          />
+          <Row
+            nameField="companyLabel"
+            value={profile.profile[COMPANY_FIELD]}
+          />
+          <Row
+            nameField="positionLabel"
+            value={profile.profile[POSITION_FIELD]}
+          />
+          <Row nameField="aboutLabel" value={profile.profile[ABOUT_FIELD]} />
 
+          {/* PEER-597: Hide the text in the user profile that information is not available;
             <Blank
               profile={profile.profile}
               userId={userId}
               account={account}
               redirectToEditProfilePage={redirectToEditProfilePage}
-            />
-          </>
-        )}
+            /> */}
+        </>
+      )}
     </Box>
   );
 };

@@ -106,10 +106,11 @@ export function* editQuestionWorker({ question, questionId }) {
     yield call(
       editQuestion,
       selectedAccount,
-      +questionId,
-      +question.communityId,
+      Number(questionId),
+      Number(question.communityId),
       questionData,
       question.tags,
+      Number(question.postType),
       ethereumService,
     );
 
@@ -198,8 +199,8 @@ export function* editQuestionWorker({ question, questionId }) {
     yield put(editQuestionSuccess(question));
     yield call(
       createdHistory.push,
-      Number(question.postType) === Number(POST_TYPE.faq)
-        ? routes.faq()
+      Number(question.postType) === Number(POST_TYPE.documentation)
+        ? routes.documentation(questionId)
         : routes.questionView(questionId),
     );
   } catch (err) {
@@ -227,7 +228,7 @@ export function* redirectToEditQuestionPageWorker({ buttonId, link }) {
   } catch (err) {}
 }
 
-export default function*() {
+export default function* () {
   yield takeLatest(GET_ASKED_QUESTION, getAskedQuestionWorker);
   yield takeLatest(EDIT_QUESTION, editQuestionWorker);
   yield takeLatest(EDIT_QUESTION_SUCCESS, updateQuestionList);
