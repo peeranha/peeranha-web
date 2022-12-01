@@ -100,9 +100,14 @@ const communitiesConfig = {
       styles: SolidityStyles,
     },
     15: {
-      origin: `https://ankr.peeranha.io`,
+      origin: 'https://ankr.peeranha.io',
       src: AnkrLogo,
       styles: AnkrStyles,
+    },
+    16: {
+      origin: 'https://force.peeranha.io',
+      src: ForceLogo,
+      styles: ForceStyles,
     },
   },
   staging: {
