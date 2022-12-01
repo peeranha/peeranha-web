@@ -14,6 +14,7 @@ import IndexerDAOLogo from './communities-configs/indexerDAO/images/svgviewerNew
 import AnkrLogo from './communities-configs/ankr/images/ankrBlueLogo.svg?inline';
 import SolidityLogo from './communities-configs/solidity/images/solidity-logo.svg?inline';
 import AaveLogo from './communities-configs/aave/images/aaveLogoWhite.svg?inline';
+import ForceLogo from './communities-configs/force/images/Group.svg?inline';
 
 import { PolygonStyles } from './communities-configs/polygon';
 import { FilecoinStyles } from './communities-configs/filecoin';
@@ -31,6 +32,7 @@ import { IndexerDAOStyles } from './communities-configs/indexerDAO';
 import { AnkrStyles } from './communities-configs/ankr';
 import { SolidityStyles } from './communities-configs/solidity';
 import { AaveStyles } from './communities-configs/aave';
+import { ForceStyles } from './communities-configs/force';
 
 const communitiesConfig = {
   prod: {
@@ -165,6 +167,11 @@ const communitiesConfig = {
       origin: `https://ankr${process.env.COOKIE_DOMAIN}`,
       src: AnkrLogo,
       styles: AnkrStyles,
+    },
+    8: {
+      origin: `https://force${process.env.COOKIE_DOMAIN}`,
+      src: ForceLogo,
+      styles: ForceStyles,
     },
     // 1: {
     //   origin: `https://meta${process.env.COOKIE_DOMAIN}`,
