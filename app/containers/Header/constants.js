@@ -16,3 +16,5 @@ export const MOBILE_HEADER_HEIGHT =
 export const LOADER_HEIGHT = 35;
 
 export const SEARCH_FORM_ID = 'q';
+
+export const MIN_REPUTATION = 0;

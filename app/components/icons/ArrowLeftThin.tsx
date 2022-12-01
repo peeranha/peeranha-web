@@ -5,7 +5,7 @@ const ArrowLeftThin: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
     id="arrow-left-thin"
-    fill="curentColor"
+    fill="currentColor"
     viewBox="0 0 17 12"
     size={[17, 12]}
   >

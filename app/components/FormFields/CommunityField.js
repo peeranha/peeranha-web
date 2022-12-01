@@ -15,7 +15,7 @@ import Wrapper from './Wrapper';
 const Div = styled.div`
   position: relative;
 
-  ${props => Input(props)};
+  ${(props) => Input(props)};
 
   img[alt='icon'] {
     position: absolute;
@@ -54,7 +54,7 @@ export const CommunityField = ({
         Button={({ communityAvatar, communityLabel }) => (
           <Div
             className="d-flex align-items-center"
-            error={meta.touched && (meta.error || meta.warning)}
+            error={meta.visited && (meta.error || meta.warning)}
             disabled={disabled}
           >
             {communityAvatar && (

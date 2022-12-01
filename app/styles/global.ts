@@ -94,6 +94,9 @@ export default css`
   .aic {
     align-items: center;
   }
+  .ais {
+    align-items: start;
+  }
   .aife {
     align-items: flex-end;
   }
@@ -200,7 +203,7 @@ export default css`
     text-decoration: none;
   }
   .icon {
-    color: var(--color-background-icon);
+    color: var(--color-icon-background);
   }
   .text-ellipsis {
     overflow: hidden;

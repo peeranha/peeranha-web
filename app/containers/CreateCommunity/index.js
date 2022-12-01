@@ -44,6 +44,7 @@ import {
   ABOUT_FIELD,
   COMM_MAIN_DESCRIPTION_FIELD,
   COMM_OFFICIAL_SITE_FIELD,
+  COMM_PEERANHA_SITE_FIELD,
   TAG_NAME_FIELD,
   LANGUAGE_FIELD,
   TAG_DESCRIPTION_FIELD,
@@ -92,8 +93,8 @@ export const CreateCommunity = ({
     const values = args[0].toJS();
 
     const tags = Object.keys(values.tags)
-      .filter(x => values.tags[x])
-      .map(x => ({
+      .filter((x) => values.tags[x])
+      .map((x) => ({
         name: values.tags[x][TAG_NAME_FIELD],
         description: values.tags[x][TAG_DESCRIPTION_FIELD],
       }));
@@ -106,6 +107,7 @@ export const CreateCommunity = ({
         : DEFAULT_LOCALE,
       description: values[COMM_SHORT_DESCRIPTION_FIELD],
       website: values[COMM_OFFICIAL_SITE_FIELD],
+      communitySite: values[COMM_PEERANHA_SITE_FIELD],
       tags,
     };
     createCommunityDispatch(community, reset);
@@ -170,7 +172,7 @@ const withConnect = connect(
     isFormAvailable: selectors.selectIsFormAvailable(),
     profile: makeSelectProfileInfo(),
   }),
-  dispatch => ({
+  (dispatch) => ({
     createCommunityDispatch: bindActionCreators(createCommunity, dispatch),
     setDefaultStoreDispatch: bindActionCreators(setDefaultStore, dispatch),
     getFormDispatch: bindActionCreators(getForm, dispatch),

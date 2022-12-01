@@ -5,7 +5,7 @@ const RiseUp: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
     id="rise-up"
-    fill="curentColor"
+    fill="currentColor"
     viewBox="0 0 13 13"
     size={[13, 13]}
   >
