@@ -5,7 +5,7 @@ const EyeClosed: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
     id="eye-closed"
-    fill="curentColor"
+    fill="currentColor"
     viewBox="0 0 22 14"
     size={[22, 14]}
   >
