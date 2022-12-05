@@ -14,6 +14,7 @@ import IndexerDAOLogo from './communities-configs/indexerDAO/images/svgviewerNew
 import SolidityLogo from './communities-configs/solidity/images/solidity-logo.svg?inline';
 import AnkrLogo from './communities-configs/ankr/images/ankrBlueLogo.svg?inline';
 import AaveLogo from './communities-configs/aave/images/aaveLogoWhite.svg?inline';
+import VyperLogo from './communities-configs/vyper/images/vyperLogo.svg?inline';
 import ForceLogo from './communities-configs/force/images/Group.svg?inline';
 
 import { PolygonStyles } from './communities-configs/polygon';
@@ -32,6 +33,7 @@ import { IndexerDAOStyles } from './communities-configs/indexerDAO';
 import { AnkrStyles } from './communities-configs/ankr';
 import { SolidityStyles } from './communities-configs/solidity';
 import { AaveStyles } from './communities-configs/aave';
+import { VyperStyles } from './communities-configs/vyper';
 import { ForceStyles } from './communities-configs/force';
 
 const communitiesConfig = {
@@ -109,6 +111,11 @@ const communitiesConfig = {
       src: ForceLogo,
       styles: ForceStyles,
     },
+    17: {
+      origin: 'https://vyper.peeranha.io',
+      src: VyperLogo,
+      styles: VyperStyles,
+    },
   },
   staging: {
     1: {
@@ -167,6 +174,11 @@ const communitiesConfig = {
       origin: `https://solidity${process.env.COOKIE_DOMAIN}`,
       src: SolidityLogo,
       styles: SolidityStyles,
+    },
+    6: {
+      origin: `https://vyper${process.env.COOKIE_DOMAIN}`,
+      src: VyperLogo,
+      styles: VyperStyles,
     },
     7: {
       origin: `https://ankr${process.env.COOKIE_DOMAIN}`,
