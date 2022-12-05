@@ -34,6 +34,9 @@ export default defineMessages({
   toMakeLinks: {
     id: 'app.components.TextEditor.toMakeLinks',
   },
+  enterText: {
+    id: 'app.components.TextEditor.enterText',
+  },
   forMoreSyntax: {
     id: 'app.components.TextEditor.forMoreSyntax',
   },

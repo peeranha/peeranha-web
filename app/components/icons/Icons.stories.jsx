@@ -22,7 +22,7 @@ export default {
 
 export const Colors = () => (
   <div>
-    {Object.keys(colors).map(varname => (
+    {Object.keys(colors).map((varname) => (
       <div className="df aic" style={{ margin: 10 }} key={varname}>
         <div style={{ background: colors[varname], width: 100, height: 50 }} />
         <div style={{ marginLeft: 10 }}>
@@ -44,12 +44,12 @@ export const Icons = () => {
           placeholder={'Search Icons'}
           value={search}
           type="search"
-          onChange={e => setSearch(e.target.value)}
+          onChange={(e) => setSearch(e.target.value)}
         />
       </div>
       <div
         css={css`
-          background: #f1f1f1;
+          background: var(--color-gray-light);
           padding: 10px;
           margin-top: 10px;
         `}
@@ -59,7 +59,7 @@ export const Icons = () => {
       <div
         css={css`
           display: flex;
-          color: #282828;
+          color: var(--color-white);
           flex-wrap: wrap;
           padding-top: 10px;
           & span {

@@ -1,7 +1,15 @@
+import { isAddress } from 'ethers/lib/utils';
 import _get from 'lodash/get';
 import { CURRENCIES } from 'wallet-config';
-
+import { getRatingByCommunity } from 'utils/profileManagement';
 import messages from './messages';
+import {
+  getPermissions,
+  hasCommunityAdminRole,
+  hasCommunityModeratorRole,
+  hasGlobalModeratorRole,
+  hasProtocolAdminRole,
+} from 'utils/properties';
 
 // TODO: test
 const imageValidation = (img) =>
@@ -124,6 +132,22 @@ const requiredForObjectField = (value) => {
   return !val || (val && !val.value) ? messages.requiredField : undefined;
 };
 
+const requiredMinReputation = (...args) => {
+  const id = args[0].id;
+  const profile = args[2].profile;
+  const MIN_REPUTATION = 0;
+
+  const hasRole =
+    hasGlobalModeratorRole(getPermissions(profile)) ||
+    (id && hasCommunityModeratorRole(getPermissions(profile), id)) ||
+    hasProtocolAdminRole(getPermissions(profile));
+
+  const isMinusReputation = getRatingByCommunity(profile, id) < MIN_REPUTATION;
+  return isMinusReputation && !hasRole
+    ? messages.requiredMinReputation
+    : undefined;
+};
+
 const valueHasNotBeInList = (...args) => {
   const value = args[0];
   const list = args[2].valueHasNotBeInListValidate;
@@ -182,6 +206,10 @@ const valueHasToBeLessThanMaxPromotingHours = (...args) => {
   return value > comparedValue ? messages.valueIsMore : undefined;
 };
 
+const stringHasToBeEthereumAddress = (value) => {
+  return !isAddress(value) ? messages.wrongAddressFormat : undefined;
+};
+
 const comparePasswords = (...args) => {
   const value = args[0];
   const list = args[2].passwordList;
@@ -227,6 +255,7 @@ export {
   requiredForNumericalField,
   requiredPostTypeSelection,
   requiredNonZeroInteger,
+  requiredMinReputation,
   strLength1x5,
   strLength1x1000,
   strLength2x15,
@@ -256,4 +285,5 @@ export {
   atLeastOneLetter,
   valueHasToBePositiveInteger,
   valueHasToBeLessThanMaxPromotingHours,
+  stringHasToBeEthereumAddress,
 };

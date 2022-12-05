@@ -105,6 +105,7 @@ const IconWithStatus = ({
         fontSize={size === 'lg' ? 18 : 14}
         lineHeight={size === 'lg' ? 18 : 14}
         bold={size === 'lg'}
+        color={size === 'lg' ? 'var(--color-black)' : color}
       >
         {getFormattedNum(rating)}
       </Span>

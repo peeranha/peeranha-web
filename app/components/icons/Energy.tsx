@@ -5,7 +5,7 @@ const Energy: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
     id="energy"
-    fill="curentColor"
+    fill="currentColor"
     viewBox="0 0 13 19"
     size={[13, 19]}
   >

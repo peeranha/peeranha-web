@@ -65,7 +65,11 @@ const CookieConsentPopup: React.FC = (): JSX.Element => {
                   <FormattedMessage id={commonMessages.cookieConsent.id} />
                   <Link
                     css={css`
+                      font-weight: 700;
                       color: ${colors.linkCookieColor || TEXT_PRIMARY};
+                      :hover {
+                        color: ${colors.linkCookieColor || TEXT_PRIMARY};
+                      }
                     `}
                     to="/privacy-policy"
                   >

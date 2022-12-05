@@ -12,8 +12,10 @@ import PolywrapLogo from './communities-configs/polywrap/images/polywrap-horizon
 import ValistLogo from './communities-configs/valist/images/valist.svg?inline';
 import IndexerDAOLogo from './communities-configs/indexerDAO/images/svgviewerNew.jpg';
 import SolidityLogo from './communities-configs/solidity/images/solidity-logo.svg?inline';
+import AnkrLogo from './communities-configs/ankr/images/ankrBlueLogo.svg?inline';
 import AaveLogo from './communities-configs/aave/images/aaveLogoWhite.svg?inline';
 import VyperLogo from './communities-configs/vyper/images/vyperLogo.svg?inline';
+import ForceLogo from './communities-configs/force/images/Group.svg?inline';
 
 import { PolygonStyles } from './communities-configs/polygon';
 import { FilecoinStyles } from './communities-configs/filecoin';
@@ -28,9 +30,11 @@ import { PolywrapStyles } from './communities-configs/polywrap';
 import { ValistStyles } from './communities-configs/valist';
 import { SuiGlobalStyles } from './communities-configs/suiGlobal';
 import { IndexerDAOStyles } from './communities-configs/indexerDAO';
+import { AnkrStyles } from './communities-configs/ankr';
 import { SolidityStyles } from './communities-configs/solidity';
 import { AaveStyles } from './communities-configs/aave';
 import { VyperStyles } from './communities-configs/vyper';
+import { ForceStyles } from './communities-configs/force';
 
 const communitiesConfig = {
   prod: {
@@ -97,6 +101,21 @@ const communitiesConfig = {
       src: SolidityLogo,
       styles: SolidityStyles,
     },
+    15: {
+      origin: 'https://ankr.peeranha.io',
+      src: AnkrLogo,
+      styles: AnkrStyles,
+    },
+    16: {
+      origin: 'https://force.peeranha.io',
+      src: ForceLogo,
+      styles: ForceStyles,
+    },
+    17: {
+      origin: 'https://vyper.peeranha.io',
+      src: VyperLogo,
+      styles: VyperStyles,
+    },
   },
   staging: {
     1: {
@@ -110,9 +129,9 @@ const communitiesConfig = {
       styles: MintStateLabsStyles,
     },
     3: {
-      origin: 'https://demo-filecoin.testpeeranha.io',
-      src: FileiconLogo,
-      styles: FilecoinStyles,
+      origin: `https://demo-ankr.testpeeranha.io`,
+      src: AnkrLogo,
+      styles: AnkrStyles,
     },
     4: {
       origin: 'https://demo-fxland.testpeeranha.io',
@@ -160,6 +179,16 @@ const communitiesConfig = {
       origin: `https://vyper${process.env.COOKIE_DOMAIN}`,
       src: VyperLogo,
       styles: VyperStyles,
+    },
+    7: {
+      origin: `https://ankr${process.env.COOKIE_DOMAIN}`,
+      src: AnkrLogo,
+      styles: AnkrStyles,
+    },
+    8: {
+      origin: `https://force${process.env.COOKIE_DOMAIN}`,
+      src: ForceLogo,
+      styles: ForceStyles,
     },
     // 1: {
     //   origin: `https://meta${process.env.COOKIE_DOMAIN}`,
@@ -223,7 +252,7 @@ const communitiesConfig = {
   },
   dev: {
     1: {
-      origin: 'http://localhost:31000',
+      origin: 'http://localhost:3000',
     },
   },
 };
