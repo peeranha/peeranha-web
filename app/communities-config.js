@@ -13,7 +13,7 @@ import ValistLogo from './communities-configs/valist/images/valist.svg?inline';
 import IndexerDAOLogo from './communities-configs/indexerDAO/images/svgviewerNew.jpg';
 import SolidityLogo from './communities-configs/solidity/images/solidity-logo.svg?inline';
 import AnkrLogo from './communities-configs/ankr/images/ankrBlueLogo.svg?inline';
-import AaveLogo from './communities-configs/aave/images/aaveLogoWhite.svg?inline';
+import AaveLogo from 'communities-configs/aave/images/AaveLogo.svg?inline';
 import VyperLogo from './communities-configs/vyper/images/vyperLogo.svg?inline';
 import ForceLogo from './communities-configs/force/images/Group.svg?inline';
 
@@ -252,7 +252,7 @@ const communitiesConfig = {
   },
   dev: {
     1: {
-      origin: 'http://localhost:3000',
+      origin: 'http://localhost:3100',
     },
   },
 };

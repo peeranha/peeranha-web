@@ -1,8 +1,7 @@
 import React from 'react';
 import { css } from 'styled-components';
 
-import AaveLogo from './images/aaveLogoWhite.svg?inline';
-import AaveGhostGradient from './images/aaveGhostGradient.svg?inline';
+import AaveLogo from 'communities-configs/aave/images/AaveLogo.svg?inline';
 import favicon from '!file-loader?name=[name].[ext]!./images/favicon-aave.ico';
 import RobotoRegularEOT from './fonts/Roboto-Regular.eot';
 import RobotoRegularWOFF from './fonts/Roboto-Regular.woff';
@@ -206,46 +205,47 @@ export const AaveStyles = {
     mainSubHeaderBgColor:
       'linear-gradient(90deg, rgba(59,182,197,1) 0%, rgba(58,32,115,1) 31%, rgba(179,84,159,1) 100%)',
     mainBackground: 'rgba(27,32,48,0.02)',
-    linkColor: '#1b2030',
-    linkCookieColor: '#1b2030',
+    linkColor: '#5071ab',
+    linkCookieColor: '#FFFFFF',
     linkColorTransparent: '#1b2030',
     headerPrimary: '#1b2030',
     commentOption: '#1b2030',
     contentHeader: '#1b2030',
     blockedInfoArea: '#764A8931',
-    transparentIconColor: '#fff', ////
+    transparentIconColor: '#fff',
     loaderColor: '#1b2030',
     votingIconColor: '#1b2030',
     linkColorSecondary: '#1b2030',
     walletButton: '#1b2030',
-    btnColor: '#1b2030',
+    btnColor: '#FFFFFF',
     btnHoverColor: '#FF9A9E',
-    btnHeaderColor: '#1b2030',
-    btnHeaderHoverColor: 'rgba(27,32,48,0.56)',
+    btnHeaderColor: '#FFFFFF',
+    btnHeaderHoverColor: 'rgba(255,255,255,0.9)',
     tagColor: '#1b2030',
     localeArrowColor: '#1b2030',
     textColor: '#1b2030',
     textColorShadow: '#1b2030',
     commHeadElemColor: '#1b2030',
+    newPostButtonText: '#3c3c3c',
   },
   cookieConsentPopupStyles: {
-    background:
-      'linear-gradient(90deg, rgba(47,17,78,1) 0%, rgba(108,32,110,1) 32%, rgba(83,147,159,1) 75%, rgba(108,32,110,1) 99%)',
-    color: '#fff',
-    borderColor: '#fff',
+    background: '#1b2030',
+    color: '#FFFFFF',
     button: {
       color: '#fff',
-      background: '#1b2030',
+      background: 'linear-gradient(90deg, #2FB9C5 0%, #7384B2 100%);',
       ':hover': {
-        background: '#fff',
-        color: '#1b2030',
+        borderColor: '#fff',
+        background:
+          'linear-gradient(90deg, rgba(47,185,197,0.9) 0%, rgba(115,132,178,0.9) 100%);',
+        color: '#FFFFFF',
       },
     },
   },
   headerHeight: 80,
   projectBorderRadius: '10px',
   domainName,
-  communityBorderStyle: '3px solid #1b2030',
+  communityBorderStyle: '2px solid #1b2030',
   dropDownIconStyles: css`
     path {
       stroke: #1b2030 !important;
@@ -259,11 +259,12 @@ export const AaveStyles = {
     }
   `,
   headerLoginButtonStyles: css`
-    background: #fff;
-    border: 2px solid #1b2030;
-    color: #1b2030;
+    background: rgba(255, 255, 255, 0);
+    border: 2px solid #fff;
+    color: #ffffff;
+
     :hover {
-      background: #1b2030 !important;
+      background: rgba(255, 255, 255, 0.1) !important;
       color: #fff !important;
       border: 2px solid #fff !important;
     }
