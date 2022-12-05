@@ -6,6 +6,7 @@ import '@uiw/react-markdown-preview/markdown.css';
 
 export const TextBlock = ({ content }) => (
   <MarkdownPreview
+    source={content}
     css={css`
       ol li {
         list-style-type: decimal;
@@ -14,7 +15,7 @@ export const TextBlock = ({ content }) => (
         list-style-type: disc;
       }
     `}
-    source={content}
+    warpperElement={{ 'data-color-mode': 'light' }}
     rehypeRewrite={(node) => {
       if (node.tagName === 'input') {
         node.properties.disabled = false;

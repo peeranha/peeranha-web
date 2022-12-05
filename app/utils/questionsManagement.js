@@ -267,6 +267,7 @@ export const editQuestion = async (
   communityId,
   questionData,
   tags,
+  postType,
   ethereumService,
 ) => {
   const ipfsLink = await saveText(JSON.stringify(questionData));
@@ -275,7 +276,7 @@ export const editQuestion = async (
     CONTRACT_CONTENT,
     user,
     EDIT_POST,
-    [postId, ipfsHash, tags],
+    [postId, ipfsHash, tags, communityId, postType],
   );
 };
 

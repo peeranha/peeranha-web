@@ -3,7 +3,6 @@ import Dropdown from 'common-components/Dropdown';
 import Button from 'common-components/Button';
 import TextEditor from 'components/TextEditor';
 import DropdownTrigger from './DropdownTrigger';
-import TextBlock from 'components/FormFields/TextBlock';
 import LoaderDocumentation from './Loader';
 import Validate from './Validate';
 import { saveText, getBytes32FromIpfsHash } from 'utils/ipfs';
@@ -272,39 +271,6 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
               );
             }}
           </Validate>
-        </div>
-        <div>
-          <div
-            className="mb12"
-            css={{
-              fontWeight: 700,
-              fontSize: 16,
-              lineHeight: '20px',
-            }}
-          >
-            Preview
-          </div>
-          <div
-            css={{
-              borderTop: '1px dashed #DCDCDC',
-              borderBottom: '1px dashed #DCDCDC',
-              padding: '11px 0',
-            }}
-          >
-            {bodyText !== '' ? (
-              <TextBlock className="my-2" content={bodyText} />
-            ) : (
-              <div
-                className="fz14"
-                css={{
-                  lineHeight: '18px',
-                  color: '#7B7B7B',
-                }}
-              >
-                Nothting to see yet
-              </div>
-            )}
-          </div>
         </div>
       </div>
       <div className="df pt24">
