@@ -14,7 +14,7 @@ import IndexerDAOLogo from './communities-configs/indexerDAO/images/svgviewerNew
 import SolidityLogo from './communities-configs/solidity/images/solidity-logo.svg?inline';
 import AnkrLogo from './communities-configs/ankr/images/ankrBlueLogo.svg?inline';
 import AaveLogo from './communities-configs/aave/images/aaveLogoWhite.svg?inline';
-import VyperLogo from './communities-configs/vyper/images/vyperLogo.svg?inline';
+import VyperLogo from './communities-configs/vyper/images/Vyperlogo.svg?inline';
 import ForceLogo from './communities-configs/force/images/Group.svg?inline';
 
 import { PolygonStyles } from './communities-configs/polygon';
