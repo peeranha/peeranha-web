@@ -206,7 +206,7 @@ export const AaveStyles = {
       'linear-gradient(90deg, rgba(59,182,197,1) 0%, rgba(58,32,115,1) 31%, rgba(179,84,159,1) 100%)',
     mainBackground: 'rgba(27,32,48,0.02)',
     linkColor: '#5071ab',
-    linkCookieColor: '#FFFFFF',
+    linkCookieColor: '#5071ab',
     linkColorTransparent: '#1b2030',
     headerPrimary: '#1b2030',
     commentOption: '#1b2030',
@@ -217,7 +217,7 @@ export const AaveStyles = {
     votingIconColor: '#1b2030',
     linkColorSecondary: '#1b2030',
     walletButton: '#1b2030',
-    btnColor: '#FFFFFF',
+    btnColor: '#5071ab',
     btnHoverColor: '#FF9A9E',
     btnHeaderColor: '#FFFFFF',
     btnHeaderHoverColor: 'rgba(255,255,255,0.9)',
@@ -243,7 +243,7 @@ export const AaveStyles = {
     },
   },
   headerHeight: 80,
-  projectBorderRadius: '10px',
+  projectBorderRadius: '5px',
   domainName,
   communityBorderStyle: '2px solid #1b2030',
   dropDownIconStyles: css`
@@ -264,9 +264,9 @@ export const AaveStyles = {
     color: #ffffff;
 
     :hover {
-      background: rgba(255, 255, 255, 0.1) !important;
-      color: #fff !important;
-      border: 2px solid #fff !important;
+      background: #fff !important;
+      color: #1b2030 !important;
+      border: 2px solid #fff; !important;
     }
   `,
 };
