@@ -46,6 +46,7 @@ const ViewContent: React.FC<ViewContentProps> = ({
         <Wrapper
           css={{
             ...(isEditDocumentation && styled),
+            minWidth: '0',
           }}
         >
           <TextBlock content={documentationArticle?.content} />
