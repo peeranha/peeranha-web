@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { AnyAction, bindActionCreators, compose, Dispatch } from 'redux';
 import { createStructuredSelector } from 'reselect';
+import SortableTree from 'react-sortable-tree';
 import { DAEMON } from 'utils/constants';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
@@ -14,6 +15,7 @@ import {
   setViewArticle,
   pinnedArticleMenuDraft,
   removeArticle,
+  editOrder,
 } from 'pages/Documentation/actions';
 import reducer from 'pages/Documentation/reducer';
 import saga from 'pages/Documentation/saga';
@@ -24,6 +26,7 @@ import {
   selectDocumentationLoading,
   selectEditArticle,
   selectViewArticle,
+  selectEditOrder,
 } from 'pages/Documentation/selectors';
 import {
   selectDocumentationMenu,
@@ -44,6 +47,7 @@ import {
 } from './helpers';
 import { EditDocumentationProps } from './types';
 import { styled } from './EditDocumentation.styled';
+// import 'react-sortable-tree/style.css';
 
 const EditDocumentation: React.FC<EditDocumentationProps> = ({
   documentationMenu,
@@ -61,9 +65,16 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
   pinnedArticleMenuDraftDispatch,
   removeArticleDispatch,
   pinnedItemMenu,
+  isEditOrder,
+  editOrderDispatch,
 }): JSX.Element => {
   const refOverlay = useRef<HTMLDivElement>(null);
   const [paddingLeft, setPaddingLeft] = useState<number>(86);
+  const [documentationEditOrder, setDocumentationEditOrder] = useState<any>(
+    documentationMenuDraft,
+  );
+
+  console.log('documentationEditOrder', isEditOrder, documentationEditOrder);
 
   useEffect(() => {
     if (refOverlay?.current) {
@@ -158,6 +169,44 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
           discardDrafts={discardDrafts}
         />
         <section className="dg" css={styled.main}>
+          {isEditOrder && (
+            <div
+              className="pa full-width full-height"
+              css={{
+                top: 72,
+                left: 0,
+                background: 'rgba(0, 0, 0, 0.4)',
+
+                '& .rst__row': {
+                  position: 'relative',
+                  height: 34,
+                },
+
+                '& .rst__moveHandle': {
+                  width: '100%',
+                  height: 34,
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                },
+              }}
+            >
+              <SortableTree
+                treeData={documentationEditOrder}
+                onChange={(treeData: any) =>
+                  setDocumentationEditOrder(treeData)
+                }
+                isVirtualized={false}
+                getNodeKey={({ node }) => node.id}
+                style={{
+                  backgroundColor: 'var(--color-white)',
+                  width: 262,
+                  height: '100%',
+                }}
+                rowHeight={34}
+              />
+            </div>
+          )}
           <div css={styled.leftSection}>
             <DocumentationMenu
               documentationMenu={documentationMenuDraft}
@@ -171,6 +220,7 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
               pinnedArticleMenuDraft={pinnedArticleMenuDraftDispatch}
               removeArticle={removeArticleDispatch}
               pinnedItemMenuId={pinnedItemMenu.id}
+              editOrder={editOrderDispatch}
             />
           </div>
           <div css={styled.centerSection}>
@@ -224,6 +274,7 @@ export default compose(
       editArticle: selectEditArticle(),
       viewArticleId: selectViewArticle(),
       pinnedItemMenu: selectPinnedItemMenu(),
+      isEditOrder: selectEditOrder(),
     }),
     (dispatch: Dispatch<AnyAction>) => ({
       getArticleDocumentationDispatch: bindActionCreators(
@@ -242,6 +293,7 @@ export default compose(
         dispatch,
       ),
       removeArticleDispatch: bindActionCreators(removeArticle, dispatch),
+      editOrderDispatch: bindActionCreators(editOrder, dispatch),
     }),
   ),
 )(EditDocumentation);

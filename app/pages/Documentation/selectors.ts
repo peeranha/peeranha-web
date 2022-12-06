@@ -41,3 +41,6 @@ export const selectPinnedArticleDraft = () =>
     id: substate.get('pinnedArticleId'),
     title: substate.get('pinnedArticleTitle'),
   }));
+
+export const selectEditOrder = () =>
+  createSelector(selectFaqDomain, (substate) => substate.get('isEditOrder'));

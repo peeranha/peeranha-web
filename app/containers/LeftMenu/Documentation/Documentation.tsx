@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { css } from '@emotion/react';
 import { FormattedMessage } from 'react-intl';
 import cn from 'classnames';
@@ -31,6 +31,7 @@ type DocumentationMenuSectionProps = {
   pinnedArticleMenuDraft?: (data: PinnedArticleType) => void;
   removeArticle?: (id: string) => void;
   pinnedItemMenuId: string;
+  editOrder?: () => void;
 };
 
 const documentationPosition = singleCommunityDocumentationPosition();
@@ -48,11 +49,11 @@ const DropdownDocumentation = [
     value: 2,
     icon: <PlusIcon />,
   },
-  // {
-  //   label: 'Edit order',
-  //   value: 3,
-  //   icon: <EditIcon />,
-  // },
+  {
+    label: 'Edit order',
+    value: 3,
+    icon: <EditIcon />,
+  },
 ];
 
 const DOCUMENTATION_ID = '1';
@@ -70,11 +71,15 @@ const Documentation: React.FC<DocumentationMenuSectionProps> = ({
   pinnedArticleMenuDraft,
   removeArticle,
   pinnedItemMenuId,
+  editOrder,
 }) => {
+  const [isEditOrder, setIsEditOrder] = useState<boolean>(false);
+
   const clickDocumentation = () => (value: number) => {
     if (value === 1 && typeof toggleEditDocumentation === 'function') {
       toggleEditDocumentation();
     }
+
     if (value === 2 && typeof setEditArticle === 'function') {
       setEditArticle({
         id: '',
@@ -82,10 +87,22 @@ const Documentation: React.FC<DocumentationMenuSectionProps> = ({
         isEditArticle: true,
       });
     }
+
+    if (value === 3 && typeof editOrder === 'function') {
+      editOrder();
+    }
   };
 
   return (
-    <div>
+    <div
+      css={{
+        ...(isEditOrder && {
+          background: 'var(--color-white)',
+          borderRadius: '5px',
+          paddingTop: 12,
+        }),
+      }}
+    >
       {!isEditDocumentation && documentationPosition !== 'top' && (
         <div css={css(styles.divider)} />
       )}
