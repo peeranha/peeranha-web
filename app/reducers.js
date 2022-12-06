@@ -20,7 +20,7 @@ import existingQuestionReducer from 'containers/AskQuestion/reducer';
 import viewQuestionReducer from 'containers/ViewQuestion/reducer';
 import editQuestionReducer from 'containers/EditQuestion/reducer';
 import editAnswerReducer from 'containers/EditAnswer/reducer';
-import homepageReducer from 'containers/HomePage/reducer';
+import homepageReducer from 'pages/HomePage/reducer';
 import dataCacheProviderReducer from 'containers/DataCacheProvider/reducer';
 import followCommunityButtonReducer from 'containers/FollowCommunityButton/reducer';
 import createCommunityReducer from 'containers/CreateCommunity/reducer';

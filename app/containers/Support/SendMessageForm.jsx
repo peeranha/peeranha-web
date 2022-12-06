@@ -21,14 +21,14 @@ import {
   strLength3x20,
 } from 'components/FormFields/validate';
 
-import homepageMessages from 'containers/HomePage/messages';
+import homepageMessages from 'components/HomePage/messages';
 
 import {
   EMAIL_FIELD,
   NAME_FIELD,
   SUBJECT_FIELD,
   MESSAGE_FIELD,
-} from 'containers/HomePage/constants';
+} from 'pages/HomePage/constants';
 
 /* eslint-disable-next-line */
 const SendMessageForm = ({

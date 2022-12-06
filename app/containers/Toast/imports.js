@@ -67,7 +67,7 @@ import {
 import {
   SEND_MESSAGE_SUCCESS,
   SEND_MESSAGE_ERROR,
-} from 'containers/HomePage/constants';
+} from 'pages/HomePage/constants';
 
 import {
   EMAIL_CHECKING_ERROR,

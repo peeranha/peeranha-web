@@ -204,7 +204,7 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
               </>
             )}
           </div>
-          {/* <div css={styled.rightSection}></div> */}
+          {/* <div css={styles.rightSection}></div> */}
         </section>
       </div>
     </>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ANIMATE_IMAGE } from '../HomePage/constants';
+import { ANIMATE_IMAGE } from 'pages/HomePage/constants';
 import messages from 'common-messages';
 import { FormattedMessage } from 'react-intl';
 import { getLinks } from 'media-links';
