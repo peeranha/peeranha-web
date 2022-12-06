@@ -192,14 +192,14 @@ const Menu = memo(
               <FormattedMessage id={messages.moderation.id} />
             </A>
           )}
-
+          {/* PEER-707: Hide settings tab;
           <A to={routes.userSettings(user)}>
             <SettingsIcon
               className="mr-2"
               stroke={colors.linkColor || TEXT_PRIMARY}
             />
             <FormattedMessage id={messages.settings.id} />
-          </A>
+          </A> */}
         </Ul>
 
         <Ul>
