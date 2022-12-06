@@ -204,38 +204,38 @@ export const VyperStyles = {
 
   colors: {
     mainSubHeaderBgColor: '#FAFAFD',
-    mainBackground: '#6565651E',
-    linkColor: '#3D4D3B',
+    mainBackground: '#EDEDEE',
+    linkColor: '#637761',
     linkCookieColor: '#D9B379',
-    linkColorTransparent: '#3D4D3B',
-    headerPrimary: '#3D4D3B',
-    commentOption: '#3D4D3B',
-    contentHeader: '#3D4D3B',
-    blockedInfoArea: '#35313113',
+    linkColorTransparent: '#637761',
+    headerPrimary: '#637761',
+    commentOption: '#637761',
+    contentHeader: '#637761',
+    blockedInfoArea: '#EDEDEE',
     transparentIconColor: '#fff',
-    loaderColor: '#3D4D3B',
-    votingIconColor: '#3D4D3B',
-    linkColorSecondary: '#3D4D3B',
-    walletButton: '#3D4D3B',
-    btnColor: '#3D4D3B',
-    btnHoverColor: '#3D4D3B',
-    btnHeaderColor: '#3D4D3B',
-    tagColor: '#3D4D3B',
-    localeArrowColor: '#3D4D3B',
-    textColor: '#3D4D3B',
-    textColorShadow: '#3D4D3B',
-    commHeadElemColor: '#3D4D3B',
+    loaderColor: '#637761',
+    votingIconColor: '#637761',
+    linkColorSecondary: '#637761',
+    walletButton: '#637761',
+    btnColor: '#637761',
+    btnHoverColor: '#637761',
+    btnHeaderColor: '#637761',
+    tagColor: '#637761',
+    localeArrowColor: '#637761',
+    textColor: '#637761',
+    textColorShadow: '#637761',
+    commHeadElemColor: '#637761',
     newPostButtonText: '#fff',
   },
   cookieConsentPopupStyles: {
-    background: 'linear-gradient(82.09deg, #3D4D3B 56.19%, #B4B7B4 147.29%);',
+    background: 'linear-gradient(82.09deg, #637761 56.19%, #B4B7B4 147.29%);',
     color: '#fff',
     borderColor: '#fff',
     button: {
-      color: '#3D4D3B',
+      color: '#637761',
       background: '#fff',
       ':hover': {
-        background: '#3D4D3B',
+        background: '#637761',
         color: '#fff',
         borderColor: '#fff',
       },
@@ -244,27 +244,26 @@ export const VyperStyles = {
   headerHeight: 80,
   projectBorderRadius: '3px',
   domainName,
-  communityBorderStyle: '2px solid #3D4D3B',
+  communityBorderStyle: '1px solid #637761',
   dropDownIconStyles: css`
     path {
-      stroke: #3d4d3b !important;
+      stroke: #637761 !important;
       stroke-width: 1.5px;
       fill: none !important;
     }
     circle {
-      stroke: #3d4d3b;
+      stroke: #637761;
       stroke-width: 1.5px;
       fill: none;
     }
   `,
   headerLoginButtonStyles: css`
     background: #fff;
-    border: 2px solid #3d4d3b;
-    color: #3d4d3b;
+    border: 1px solid #637761;
+    color: #637761;
     :hover {
-      background: #3d4d3b !important;
+      background: #637761 !important;
       color: #fff !important;
-      border: 2px solid #fff !important;
     }
   `,
 };
