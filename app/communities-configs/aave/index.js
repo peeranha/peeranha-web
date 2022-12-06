@@ -206,7 +206,7 @@ export const AaveStyles = {
       'linear-gradient(90deg, rgba(59,182,197,1) 0%, rgba(58,32,115,1) 31%, rgba(179,84,159,1) 100%)',
     mainBackground: 'rgba(27,32,48,0.02)',
     linkColor: '#5071ab',
-    linkCookieColor: '#5071ab',
+    linkCookieColor: '#A5599B',
     linkColorTransparent: '#1b2030',
     headerPrimary: '#1b2030',
     commentOption: '#1b2030',
