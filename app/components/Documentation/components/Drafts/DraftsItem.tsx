@@ -48,7 +48,7 @@ const DraftsItem: React.FC<DraftsItemProps> = ({
           }}
         >
           <div
-            className="ovh mr8"
+            className="ovh mr12"
             css={styles.draftItemTitle}
             title={item.title}
           >

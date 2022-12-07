@@ -117,11 +117,15 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
       isEditArticle: false,
     });
     setViewArticleDispatch('');
+    document.querySelector('body').classList.remove('scroll-disabled');
+    document.querySelector('body').style = '';
   };
 
   const saveDocumentationMenu = () => {
     updateDocumentationMenuDispatch(documentationMenuDraft);
     toggleEditDocumentation();
+    document.querySelector('body').classList.remove('scroll-disabled');
+    document.querySelector('body').style = '';
   };
 
   const onClickAddArticle = () => {
@@ -149,6 +153,7 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
         ReactDOM.createPortal(
           <div ref={refOverlay} css={styled.background} />,
           document.querySelector('header'),
+          document.querySelector('body').classList.add('scroll-disabled'),
         )}
       <div
         css={{

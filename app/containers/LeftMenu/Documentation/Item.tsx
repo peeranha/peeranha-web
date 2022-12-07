@@ -27,22 +27,27 @@ const Item: React.FC<ItemProps> = ({
 
   return (
     <div
-      className={cn('p0')}
+      className={cn('p0 ovh')}
       css={{
-        padding: '7px 0',
+        margin: '7px 0',
         fontSize: 16,
         lineHeight: '20px',
         flexGrow: 1,
         ...(level > 0 && {
           color: '#7B7B7B',
         }),
-        ...(level === 0 && { padding: '12px 0' }),
+        ...(level === 0 && { margin: '12px 0' }),
         ...((isOpen ||
           match.params.sectionId === item.id ||
           editArticleId === item.id) && {
           fontWeight: 700,
           color: 'var(--color-black)',
         }),
+        textOverflow: 'ellipsis',
+        display: '-webkit-box !important',
+        '-webkit-line-clamp': '2',
+        '-webkit-box-orient': 'vertical',
+        whiteSpace: 'normal',
       }}
       onClick={onClick}
     >
