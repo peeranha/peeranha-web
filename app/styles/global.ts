@@ -38,7 +38,7 @@ export default css`
 
   body,
   button {
-    font-family: 'Sourse Sans Pro', sans-serif;
+    font-family: 'Source Sans Pro', sans-serif;
     font-style: normal;
     font-weight: 400;
   }
