@@ -47,7 +47,13 @@ const DraftsItem: React.FC<DraftsItemProps> = ({
             ...styles.draftItemHover,
           }}
         >
-          <div>{item.title}</div>
+          <div
+            className="ovh mr8"
+            css={styles.draftItemTitle}
+            title={item.title}
+          >
+            {item.title}
+          </div>
           <EditIcon onClick={editDraft} />
         </div>
       )}

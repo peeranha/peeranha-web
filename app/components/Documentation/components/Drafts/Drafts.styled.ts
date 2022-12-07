@@ -20,4 +20,12 @@ export const styles = {
       color: '#576fed',
     },
   },
+
+  draftItemTitle: {
+    textOverflow: 'ellipsis',
+    display: '-webkit-box !important',
+    '-webkit-line-clamp': '2',
+    '-webkit-box-orient': 'vertical',
+    whiteSpace: 'normal',
+  },
 };

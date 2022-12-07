@@ -34,5 +34,9 @@ export const styled = {
 
   centerSection: { overflow: 'auto', height: 'calc(100% - 100px)' },
 
-  rightSection: { background: '#FAFAFA', height: '100%' },
+  rightSection: {
+    background: '#FAFAFA',
+    height: 'calc(100% - 72px)',
+    overflow: 'auto',
+  },
 };

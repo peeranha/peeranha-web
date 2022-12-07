@@ -16,7 +16,7 @@ export { default as Faq } from './Faq';
 export { default as BestAnswer } from './BestAnswer';
 export { default as Globe } from './Globe';
 export { default as Like } from './Like';
-export { default as Dislike } from './Dislike';
+export { default as DisLike } from './DisLike';
 export { default as Answer } from './Answer';
 export { default as AnswerWithA } from './AnswerWithA';
 export { default as Banned } from './Banned';
