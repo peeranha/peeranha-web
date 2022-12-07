@@ -27,6 +27,7 @@ const Item: React.FC<ItemProps> = ({
 
   return (
     <div
+      title={item.title}
       className={cn('p0 ovh')}
       css={{
         margin: '7px 0',
