@@ -260,13 +260,14 @@ export const AaveStyles = {
   `,
   headerLoginButtonStyles: css`
     background: rgba(255, 255, 255, 0);
-    border: 2px solid #fff;
-    color: #ffffff;
+    border: 2px solid #1b2030;
+    color: #1b2030;
 
     :hover {
-      background: #fff !important;
-      color: #1b2030 !important;
-      border: 2px solid #fff; !important;
+      background: rgba(27, 32, 48, 0.65) !important;
+      color: #FFF !important;
+      border: 2px solid #1b2030;
+    !important;
     }
   `,
 };
