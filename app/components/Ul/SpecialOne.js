@@ -1,6 +1,8 @@
 import { css } from 'styled-components';
 import { TEXT_PRIMARY } from 'style-constants';
 import Ul from './index';
+import { singleCommunityColors } from 'utils/communityManagement';
+const colors = singleCommunityColors();
 
 const S = css`
   padding: 12px 20px;
@@ -14,7 +16,7 @@ const S = css`
     align-items: center;
 
     :hover {
-      color: ${TEXT_PRIMARY};
+      color: ${colors.linkColor || TEXT_PRIMARY};
     }
   }
 `;

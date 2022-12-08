@@ -203,69 +203,67 @@ export const VyperStyles = {
   // }`,
 
   colors: {
-    mainSubHeaderBgColor: '#3c3c3c',
-    mainBackground: '#6565651E',
-    linkColor: '#2980B9',
-    linkCookieColor: '#353131',
-    linkColorTransparent: '#2980B9',
-    headerPrimary: '#2980B9',
-    commentOption: '#2980B9',
-    contentHeader: '#2980B9',
-    blockedInfoArea: '#35313113',
-    transparentIconColor: '#fff', ////
-    loaderColor: '#353131',
-    votingIconColor: '#353131',
-    linkColorSecondary: '#353131',
-    walletButton: '#353131',
-    btnColor: '#2a80b9',
-    btnHoverColor: '#FF9A9E',
-    btnHeaderColor: '#2a80b9',
-    btnHeaderHoverColor: '#2A80B9D3',
-    tagColor: '#353131',
-    localeArrowColor: '#353131',
-    textColor: '#2a80b9',
-    textColorShadow: '#2a80b9',
-    commHeadElemColor: '#2980B9',
-    newPostButtonText: '#3c3c3c',
+    mainSubHeaderBgColor: '#FAFAFD',
+    mainBackground: '#EDEDEE',
+    linkColor: '#637761',
+    linkCookieColor: '#D9B379',
+    linkColorTransparent: '#637761',
+    headerPrimary: '#637761',
+    commentOption: '#637761',
+    contentHeader: '#637761',
+    blockedInfoArea: '#EDEDEE',
+    transparentIconColor: '#fff',
+    loaderColor: '#637761',
+    votingIconColor: '#637761',
+    linkColorSecondary: '#637761',
+    walletButton: '#637761',
+    btnColor: '#637761',
+    btnHoverColor: '#637761',
+    btnHeaderColor: '#637761',
+    tagColor: '#637761',
+    localeArrowColor: '#637761',
+    textColor: '#637761',
+    textColorShadow: '#637761',
+    commHeadElemColor: '#637761',
+    newPostButtonText: '#fff',
   },
   cookieConsentPopupStyles: {
-    background:
-      'linear-gradient(90deg, rgba(53,49,49,1) 20%, rgba(39,107,152,1) 100%)',
+    background: 'linear-gradient(82.09deg, #637761 56.19%, #B4B7B4 147.29%);',
     color: '#fff',
-    borderColor: '#2980B9',
+    borderColor: '#fff',
     button: {
-      color: '#fff',
-      background: '#353131',
+      color: '#637761',
+      background: '#fff',
       ':hover': {
-        background: '#fff',
-        color: '#353131',
+        background: '#637761',
+        color: '#fff',
+        borderColor: '#fff',
       },
     },
   },
   headerHeight: 80,
-  projectBorderRadius: '4px',
+  projectBorderRadius: '3px',
   domainName,
-  communityBorderStyle: '2px solid #2980B9',
+  communityBorderStyle: '1px solid #637761',
   dropDownIconStyles: css`
     path {
-      stroke: #2980b9 !important;
+      stroke: #637761 !important;
       stroke-width: 1.5px;
       fill: none !important;
     }
     circle {
-      stroke: #2980b9;
+      stroke: #637761;
       stroke-width: 1.5px;
       fill: none;
     }
   `,
   headerLoginButtonStyles: css`
-    background: #3c3c3c;
-    border: 2px solid #2a80b9;
-    color: #2a80b9;
+    background: #fff;
+    border: 1px solid #637761;
+    color: #637761;
     :hover {
-      background: #353131 !important;
+      background: #637761 !important;
       color: #fff !important;
-      border: 2px solid #2a80b9 !important;
     }
   `,
 };
