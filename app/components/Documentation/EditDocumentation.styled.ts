@@ -32,11 +32,34 @@ export const styled = {
     overflow: 'auto',
   },
 
-  centerSection: { overflow: 'auto', height: 'calc(100% - 100px)' },
+  centerSection: { overflow: 'auto', height: 'calc(100% - 72px)' },
 
   rightSection: {
     background: '#FAFAFA',
     height: 'calc(100% - 72px)',
     overflow: 'auto',
+  },
+
+  scroll: {
+    paddingRight: '6px',
+    overflow: 'hidden',
+
+    ':hover': {
+      overflowY: 'scroll',
+      paddingRight: 0,
+    },
+
+    '::-webkit-scrollbar': {
+      width: '6px',
+    },
+
+    '::-webkit-scrollbar-thumb': {
+      background: 'rgba(53, 74, 137, 0.25)',
+      borderRadius: '10px',
+    },
+
+    '::-webkit-scrollbar-thumb:hover': {
+      background: 'rgba(53, 74, 137, 0.5)',
+    },
   },
 };

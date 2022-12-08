@@ -48,6 +48,7 @@ import {
 } from './helpers';
 import { EditDocumentationProps } from './types';
 import { styled } from './EditDocumentation.styled';
+import { styles } from 'components/Documentation/components/Drafts/Drafts.styled';
 
 const EditDocumentation: React.FC<EditDocumentationProps> = ({
   documentationMenu,
@@ -172,7 +173,12 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
           discardDrafts={discardDrafts}
         />
         <section className="dg" css={styled.main}>
-          <div css={styled.leftSection}>
+          <div
+            css={{
+              ...styled.leftSection,
+              ...styled.scroll,
+            }}
+          >
             <DocumentationMenu
               documentationMenu={documentationMenuDraft}
               isModeratorModeSingleCommunity
@@ -187,7 +193,12 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
               pinnedItemMenuId={pinnedItemMenu.id}
             />
           </div>
-          <div css={styled.centerSection}>
+          <div
+            css={{
+              ...styled.centerSection,
+              ...styled.scroll,
+            }}
+          >
             {!editArticle.isEditArticle &&
               (viewArticleId === '' || documentationMenuDraft.length === 0) && (
                 <Empty onClickAddArticle={onClickAddArticle} />
@@ -219,7 +230,12 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
               </>
             )}
           </div>
-          <div css={styled.rightSection}>
+          <div
+            css={{
+              ...styled.rightSection,
+              ...styled.scroll,
+            }}
+          >
             <DraftsMenu
               draftsMenu={documentationMenuDraft}
               setEditArticle={setEditArticleDispatch}
