@@ -23,6 +23,7 @@ injectGlobal`
 
   @import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800');
   @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i');
+  @import url('https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
   ${_get(styles, 'fontFace', '')}
 
   html,
