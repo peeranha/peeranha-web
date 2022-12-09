@@ -1,17 +1,17 @@
 import React from 'react';
 import { css } from 'styled-components';
 
-import AaveLogo from 'communities-configs/aave/images/AaveLogo.svg?inline';
-import favicon from '!file-loader?name=[name].[ext]!./images/favicon-aave.ico';
+import ForceLogo from './images/Group.svg?inline';
+import favicon from '!file-loader?name=[name].[ext]!./images/Vector.ico';
 import RobotoRegularEOT from './fonts/Roboto-Regular.eot';
 import RobotoRegularWOFF from './fonts/Roboto-Regular.woff';
 import RobotoRegularTTF from './fonts/Roboto-Regular.ttf';
-const domainName = 'https://aave.io/';
+const domainName = 'https://forcecommunity.io/';
 
 const fontSet = 'Roboto-Regular, Arial, sans-serif';
 
 export const customSubHeaderConfig = {
-  design: 'valist_style',
+  design: 'force_style',
   styles: {
     bg: {
       header: '#FFFFFF',
@@ -175,12 +175,12 @@ export const customSubHeaderConfig = {
   ],
 };
 
-export const AaveStyles = {
+export const ForceStyles = {
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: AaveLogo,
+  signUpPageLogo: ForceLogo,
   favicon,
   // Hided community fonts
   // fonts: {
@@ -202,72 +202,69 @@ export const AaveStyles = {
   // }`,
 
   colors: {
-    mainSubHeaderBgColor:
-      'linear-gradient(90deg, rgba(59,182,197,1) 0%, rgba(58,32,115,1) 31%, rgba(179,84,159,1) 100%)',
+    mainSubHeaderBgColor: '#FFF',
     mainBackground: 'rgba(27,32,48,0.02)',
-    linkColor: '#5071ab',
-    linkCookieColor: '#A5599B',
-    linkColorTransparent: '#1b2030',
-    headerPrimary: '#1b2030',
-    commentOption: '#1b2030',
-    contentHeader: '#1b2030',
-    blockedInfoArea: '#764A8931',
-    transparentIconColor: '#fff',
-    loaderColor: '#1b2030',
-    votingIconColor: '#1b2030',
-    linkColorSecondary: '#1b2030',
-    walletButton: '#1b2030',
-    btnColor: '#5071ab',
-    btnHoverColor: '#FF9A9E',
-    btnHeaderColor: '#FFFFFF',
-    btnHeaderHoverColor: 'rgba(255,255,255,0.9)',
-    tagColor: '#1b2030',
-    localeArrowColor: '#1b2030',
-    textColor: '#1b2030',
-    textColorShadow: '#1b2030',
-    commHeadElemColor: '#1b2030',
-    newPostButtonText: '#3c3c3c',
+    linkColor: '#251E67',
+    linkCookieColor: '#FFFF',
+    linkColorTransparent: '#251E67',
+    headerPrimary: '#251E67',
+    commentOption: '#251E67',
+    contentHeader: '#251E67',
+    blockedInfoArea: 'rgb(42 36 96 / 10%)',
+    transparentIconColor: '#FFF',
+    loaderColor: '#251E67',
+    votingIconColor: '#251E67',
+    linkColorSecondary: '#251E67',
+    walletButton: '#251E67',
+    btnColor: '#251E67',
+    btnHoverColor: '#251E67',
+    btnHeaderColor: '#FFAF00',
+    btnHeaderHoverOpacity: '0.75',
+    newPostButtonText: '#000',
+    btnHeaderHoverOpacity: '0.75',
+    tagColor: '#251E67',
+    localeArrowColor: '#251E67',
+    textColor: '#251E67',
+    textColorShadow: '#251E67',
+    commHeadElemColor: '#251E67',
   },
   cookieConsentPopupStyles: {
-    background: '#1b2030',
-    color: '#FFFFFF',
+    background: '#2A2460',
+    color: '#fff',
     button: {
-      color: '#fff',
-      background: 'linear-gradient(90deg, #2FB9C5 0%, #7384B2 100%);',
+      color: '#000',
+      background: '#FFAF00',
       ':hover': {
-        borderColor: '#fff',
-        background:
-          'linear-gradient(90deg, rgba(47,185,197,0.9) 0%, rgba(115,132,178,0.9) 100%);',
-        color: '#FFFFFF',
+        opacity: '0.75',
+        color: '#000',
+        background: '#FFAF00',
       },
     },
   },
   headerHeight: 80,
-  projectBorderRadius: '5px',
+  projectBorderRadius: '10px',
   domainName,
-  communityBorderStyle: '2px solid #1b2030',
+  communityBorderStyle: '1px solid #251E67',
   dropDownIconStyles: css`
     path {
-      stroke: #1b2030 !important;
+      stroke: #251e67 !important;
       stroke-width: 1.5px;
       fill: none !important;
     }
     circle {
-      stroke: #1b2030;
+      stroke: #251e67;
       stroke-width: 1.5px;
       fill: none;
     }
   `,
   headerLoginButtonStyles: css`
-    background: rgba(255, 255, 255, 0);
-    border: 2px solid #1b2030;
-    color: #1b2030;
-
+    background: #fff;
+    border: 2px solid #ffaf00;
+    color: #000;
     :hover {
-      background: rgba(27, 32, 48, 0.65) !important;
-      color: #FFF !important;
-      border: 2px solid #1b2030;
-    !important;
+      background: #ffaf00 !important;
+      color: #000 !important;
+      border: 2px solid #ffaf00 !important;
     }
   `,
 };

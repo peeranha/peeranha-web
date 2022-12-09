@@ -18,6 +18,7 @@ import addIcon from 'images/add.svg?external';
 import searchIcon from 'images/search.svg?external';
 import headerNavigationIcon from 'images/headerNavigation.svg?external';
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
+import peeranhaMetaLogo from 'images/PeeranhaMeta.svg?inline';
 
 import {
   isSingleCommunityWebsite,
@@ -185,9 +186,8 @@ const View = ({
   const Logo = useCallback(() => {
     if (isSearchFormVisible) return null;
 
-    const src = styles.withoutSubHeader
-      ? communitiesConfig[single].src
-      : peeranhaLogo;
+    const logo = single ? peeranhaMetaLogo : peeranhaLogo;
+    const src = styles.withoutSubHeader ? communitiesConfig[single].src : logo;
 
     return (
       <LogoStyles to={single ? routes.feed() : routes.home()}>
@@ -323,6 +323,7 @@ const View = ({
                       :hover {
                         background: ${colors.btnHeaderHoverColor};
                         border: ${colors.btnHeaderHoverBorder};
+                        opacity: ${colors.btnHeaderHoverOpacity};
                       }
                       @media only screen and (min-width: 992px) {
                         min-width: 130px;

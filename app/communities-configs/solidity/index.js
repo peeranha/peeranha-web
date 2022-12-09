@@ -200,41 +200,42 @@ export const SolidityStyles = {
   // }`,
 
   colors: {
-    mainSubHeaderBgColor: '#E5E5E5',
-    mainBackground: '#F9FAFB',
-    linkColor: 'rgba(0, 47, 167, 1)',
+    mainSubHeaderBgColor: '#FAFAFA',
+    mainBackground: '#EAECF4',
+    linkColor: 'rgba(25, 68, 176, 1)',
     linkCookieColor: '#fff',
-    linkColorTransparent: 'rgba(0, 47, 167, 1)',
-    headerPrimary: 'rgba(0, 47, 167, 1)',
-    commentOption: 'rgba(0, 47, 167, 1)',
-    contentHeader: 'rgba(0, 47, 167, 1)',
+    linkColorTransparent: 'rgba(25, 68, 176, 1)',
+    headerPrimary: 'rgba(25, 68, 176, 1)',
+    commentOption: 'rgba(25, 68, 176, 1)',
+    contentHeader: 'rgba(25, 68, 176, 1)',
     blockedInfoArea: 'rgba(0, 47, 167,0.11)',
     transparentIconColor: '#fff',
-    loaderColor: 'rgba(0, 47, 167, 1)',
-    votingIconColor: 'rgba(0, 47, 167, 1)',
-    linkColorSecondary: 'rgba(0, 47, 167, 1)',
-    walletButton: 'rgba(0, 47, 167, 1)',
-    textColorShadow: 'rgba(0, 47, 167, 1)',
-    btnColor: 'rgba(0, 47, 167, 1)',
-    btnHoverColor: '#002FA7',
-    btnHeaderColor: '#002FA7',
-    btnHeaderHoverColor: 'rgba(0,47,167,0.8)',
-    tagColor: 'rgba(0, 47, 167, 1)',
-    localeArrowColor: 'rgba(0, 47, 167, 1)',
-    textColor: 'rgba(0, 47, 167, 1)',
-    commHeadElemColor: '#002FA7',
+    loaderColor: 'rgba(25, 68, 176, 1)',
+    votingIconColor: 'rgba(25, 68, 176, 1)',
+    linkColorSecondary: 'rgba(25, 68, 176, 1)',
+    walletButton: 'rgba(25, 68, 176, 1)',
+    textColorShadow: 'rgba(25, 68, 176, 1)',
+    btnColor: 'rgba(25, 68, 176, 1)',
+    btnHoverColor: 'rgba(25, 68, 176, 1)',
+    btnHeaderColor: 'rgba(25, 68, 176, 1)',
+    btnHeaderHoverColor: 'rgba(25, 68, 176, 0.8)',
+    tagColor: 'rgba(25, 68, 176, 1)',
+    localeArrowColor: 'rgba(25, 68, 176, 1)',
+    textColor: 'rgba(25, 68, 176, 1)',
+    commHeadElemColor: 'rgba(25, 68, 176, 1)',
   },
   cookieConsentPopupStyles: {
-    background: 'rgba(0, 47, 167, 1)',
-    color: 'rgba(255, 255, 255, 0.85)',
+    background: 'linear-gradient(92.71deg, #0A37AA 32.07%, #6688E0 101.8%)',
+    color: 'rgba(255, 255, 255, 1)',
     borderColor: '#fff',
     button: {
-      color: '#FFFFFF',
+      background: '#fff',
+      color: 'rgba(25, 68, 176, 1)',
       border: '1px solid #FFFFFF',
 
       ':hover': {
-        color: '#002FA7',
-        backgroundColor: '#FFFFFF',
+        color: '#FFFFFF',
+        backgroundColor: 'rgba(25, 68, 176, 1)',
         border: '1px solid #FFFFFF',
       },
     },
@@ -242,26 +243,26 @@ export const SolidityStyles = {
   headerHeight: 80,
   projectBorderRadius: '5px',
   domainName,
-  communityBorderStyle: '1px solid #002FA7',
+  communityBorderStyle: '1px solid rgba(25, 68, 176, 1)',
   dropDownIconStyles: css`
     path {
-      stroke: #002fa7 !important;
+      stroke: rgba(25, 68, 176, 1) !important;
       stroke-width: 1.5px;
       fill: none !important;
     }
     circle {
-      stroke: #002fa7;
+      stroke: rgba(25, 68, 176, 1);
       stroke-width: 1.5px;
       fill: none;
     }
   `,
   headerLoginButtonStyles: css`
-    border: 1px solid #002fa7;
-    color: #002fa7;
+    border: 1px solid rgba(25, 68, 176, 1);
+    color: rgba(25, 68, 176, 1);
     :hover {
-      background: #002fa7 !important;
+      background: rgba(25, 68, 176, 1) !important;
       color: #fff !important;
-      border: 1px solid #002fa7 !important;
+      border: 1px solid rgba(25, 68, 176, 1) !important;
     }
   `,
 };
