@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { AnyAction, bindActionCreators, compose, Dispatch } from 'redux';
 import { createStructuredSelector } from 'reselect';
-import SortableTree from 'react-sortable-tree';
 import { DAEMON } from 'utils/constants';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
@@ -39,6 +38,7 @@ import DocumentationForm from './components/DocumentationForm';
 import ViewContent from './components/ViewContent';
 import LoaderDocumentation from './components/Loader';
 import Empty from './components/Empty';
+import EditOrder from './components/EditOrder/EditOrder';
 import {
   getSavedDrafts,
   saveDraft,
@@ -70,11 +70,6 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
 }): JSX.Element => {
   const refOverlay = useRef<HTMLDivElement>(null);
   const [paddingLeft, setPaddingLeft] = useState<number>(86);
-  const [documentationEditOrder, setDocumentationEditOrder] = useState<any>(
-    documentationMenuDraft,
-  );
-
-  console.log('documentationEditOrder', isEditOrder, documentationEditOrder);
 
   useEffect(() => {
     if (refOverlay?.current) {
@@ -170,42 +165,7 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
         />
         <section className="dg" css={styled.main}>
           {isEditOrder && (
-            <div
-              className="pa full-width full-height"
-              css={{
-                top: 72,
-                left: 0,
-                background: 'rgba(0, 0, 0, 0.4)',
-
-                '& .rst__row': {
-                  position: 'relative',
-                  height: 34,
-                },
-
-                '& .rst__moveHandle': {
-                  width: '100%',
-                  height: 34,
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                },
-              }}
-            >
-              <SortableTree
-                treeData={documentationEditOrder}
-                onChange={(treeData: any) =>
-                  setDocumentationEditOrder(treeData)
-                }
-                isVirtualized={false}
-                getNodeKey={({ node }) => node.id}
-                style={{
-                  backgroundColor: 'var(--color-white)',
-                  width: 262,
-                  height: '100%',
-                }}
-                rowHeight={34}
-              />
-            </div>
+            <EditOrder documentationMenuDraft={documentationMenuDraft} />
           )}
           <div css={styled.leftSection}>
             <DocumentationMenu
