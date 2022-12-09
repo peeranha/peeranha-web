@@ -131,6 +131,7 @@ export const getUsersAnsweredQuestions = async (id, limit, offset) => {
       limit,
       offset,
     },
+    fetchPolicy: 'network-only',
   });
   const answeredPosts = await client.query({
     query: gql(answeredPostsQuery),
@@ -279,6 +280,7 @@ export const getQuestionFromGraph = async (postId) => {
         variables: {
           postId,
         },
+        fetchPolicy: 'network-only',
       })
     ).data.post,
   };
