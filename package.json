@@ -164,7 +164,7 @@
     "eosjs20": "npm:eosjs@^20.0.0",
     "eth-sig-util": "^3.0.1",
     "ethers": "^5.4.4",
-    "express": "4.16.3",
+    "express": "4.17.3",
     "fontfaceobserver": "2.0.13",
     "fortmatic": "^2.2.1",
     "history": "4.7.2",
