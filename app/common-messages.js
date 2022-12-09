@@ -42,6 +42,9 @@ export default defineMessages({
   documentation: {
     id: 'app.common.documentation',
   },
+  drafts: {
+    id: 'app.common.drafts',
+  },
   answers: {
     id: 'app.common.answers',
   },

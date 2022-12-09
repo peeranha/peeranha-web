@@ -6,7 +6,13 @@ import DropdownTrigger from './DropdownTrigger';
 import LoaderDocumentation from './Loader';
 import Validate from './Validate';
 import { saveText, getBytes32FromIpfsHash } from 'utils/ipfs';
-import { saveDraft, initMenu, addArticle, updateMenuDraft } from '../helpers';
+import {
+  saveDraft,
+  initMenu,
+  addArticle,
+  updateMenuDraft,
+  saveDraftsIds,
+} from '../helpers';
 import {
   strLength3x100,
   required,
@@ -23,6 +29,7 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
   setViewArticle,
   setEditArticle,
   isEditArticle,
+  updateDraftsIds,
 }): JSX.Element => {
   const [title, setTitle] = useState<string>('');
   const [bodyText, setBodyText] = useState<string>('');
@@ -97,7 +104,9 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
         }
 
         saveDraft(updatedMenu);
+        const updatedDraftsIds = saveDraftsIds(ipfsHashBytes32);
 
+        updateDraftsIds(updatedDraftsIds);
         updateDocumentationMenuDraft(updatedMenu);
         setEditArticle({
           id: ipfsHashBytes32,
