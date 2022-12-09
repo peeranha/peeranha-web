@@ -14,6 +14,7 @@ export const TextBlock = ({ content }) => (
       ul li {
         list-style-type: disc;
       }
+      min-width: 0;
     `}
     warpperElement={{ 'data-color-mode': 'light' }}
     rehypeRewrite={(node) => {

@@ -148,6 +148,9 @@ export default css`
   .pf {
     position: fixed;
   }
+  .ps {
+    position: sticky;
+  }
   .l0 {
     left: 0;
   }
