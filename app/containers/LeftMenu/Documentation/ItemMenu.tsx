@@ -230,6 +230,7 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
               setEditArticle={setEditArticle}
               pinnedArticleMenuDraft={pinnedArticleMenuDraft}
               removeArticle={removeArticle}
+              pinnedItemMenuId={pinnedItemMenuId}
             />
           ))}
         </div>
