@@ -5,7 +5,7 @@ const Notification: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
     id="notification"
-    fill="curentColor"
+    fill="currentColor"
     viewBox="0 0 18 20"
     size={[18, 20]}
   >

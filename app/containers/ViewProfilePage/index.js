@@ -99,7 +99,7 @@ const ViewProfilePage = ({
         account={account}
         profile={profile}
         loginData={loginData}
-        questionsLength={questions?.length ?? 0}
+        questionsLength={profile?.postCount ?? 0}
         questionsWithUserAnswersLength={profile?.answersGiven ?? 0}
         userAchievementsLength={userAchievements?.length ?? null}
         redirectToEditProfilePage={redirectToEditProfilePageDispatch}
@@ -120,7 +120,7 @@ const ViewProfilePage = ({
       />
 
       <SettingsOfUser
-        className={path === routes.userSettings(userId) ? '' : 'd-none'}
+        className={path === routes.userSettings(userId) ? 'mb-4' : 'd-none'}
         userId={userId}
         locale={locale}
         activeKey={activeKey}

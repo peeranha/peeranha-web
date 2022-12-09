@@ -47,6 +47,7 @@ import {
   EditCommunity,
   HomePage,
   Faq,
+  Administration,
   Users,
   EditQuestion,
   EditProfilePage,
@@ -97,6 +98,7 @@ import {
   redirectToPreload,
 } from './actions';
 import {
+  hasCommunityAdminRole,
   hasGlobalModeratorRole,
   hasProtocolAdminRole,
 } from '../../utils/properties';
@@ -161,6 +163,12 @@ const App = ({
   }, [documentationMenu]);
 
   const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
+
+  const hasCommunityOrProtocolAdminRole =
+    single &&
+    (hasGlobalModeratorRole() ||
+      hasProtocolAdminRole() ||
+      hasCommunityAdminRole(null, single));
 
   return (
     <ErrorBoundary>
@@ -429,6 +437,14 @@ const App = ({
               exact
               path={routes.users()}
               render={(props) => Wrapper(Users, props)}
+            />
+          )}
+
+          {single && hasCommunityOrProtocolAdminRole && (
+            <Route
+              exact
+              path={routes.administration()}
+              render={(props) => Wrapper(Administration, props)}
             />
           )}
 

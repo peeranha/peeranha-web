@@ -206,7 +206,7 @@ export const FilebaseStyles = {
     mainSubHeaderBgColor: '#FFFFF',
     mainBackground: '#F9FAFB',
     linkColor: '#FFA500',
-    linkCookieColor: '#FFA500',
+    linkCookieColor: '#000',
     linkColorTransparent: '#FFA500',
     headerPrimary: '#FFA500',
     commentOption: '#111827',
@@ -230,6 +230,13 @@ export const FilebaseStyles = {
   cookieConsentPopupStyles: {
     background: '#FFA500',
     color: '#FFF',
+    borderColor: '#FFF',
+    button: {
+      ':hover': {
+        background: '#FFF',
+        color: '#FFA500',
+      },
+    },
   },
   headerHeight: 80,
   projectBorderRadius: '10px',

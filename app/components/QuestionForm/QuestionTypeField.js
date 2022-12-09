@@ -64,7 +64,7 @@ const Warning = styled.div`
   margin-left: 205px;
   padding-top: 10px;
   font-style: ${italicFont};
-  color: grey;
+  color: var(--color-gray-dark);
   font-size: 14px;
   line-height: 18px;
 
@@ -78,6 +78,8 @@ const ButtonGroup = styled.div`
   ${Styles};
   padding: 0;
   display: flex;
+  padding: 0;
+  border: ${({ error }) => !error && 'none'};
 
   @media (max-width: 576px) {
     padding-left: 0 !important;
@@ -103,7 +105,7 @@ const Button = B.extend`
   }
 
   &:last-child {
-    border-left: ${({ type, value }) => +type !== value && 'none'};
+    border-left: ${({ type, value }) => Number(type) !== value && 'none'};
     border-top-right-radius: ${BORDER_RADIUS_M};
     border-bottom-right-radius: ${BORDER_RADIUS_M};
     border-radius: ${styles.buttonBorderRadius};
@@ -112,13 +114,16 @@ const Button = B.extend`
   flex: 1;
   border: 1px solid ${BORDER_SECONDARY};
   border-color: ${({ type, value }) =>
-    +type === value && (colors.textColor || `rgb(${BORDER_PRIMARY_RGB})`)};
+    Number(type) === value &&
+    (colors.textColor || `rgb(${BORDER_PRIMARY_RGB})`)};
   box-shadow: ${({ type, value }) =>
-    +type === value
+    Number(type) === value
       ? `0 0 0 3px ${colors.textColorShadow || customShadow}`
       : 'none'};
+  z-index: ${({ type, value }) => (Number(type) === value ? 1 : 0)};
   &:hover {
     box-shadow: 0 0 0 3px ${colors.textColorShadow || customShadow};
+    z-index: 1;
   }
 
   @media only screen and (max-width: 576px) {
