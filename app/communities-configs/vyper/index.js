@@ -1,12 +1,13 @@
 import React from 'react';
 import { css } from 'styled-components';
 
-import AaveLogo from 'communities-configs/aave/images/AaveLogo.svg?inline';
-import favicon from '!file-loader?name=[name].[ext]!./images/favicon-aave.ico';
-import RobotoRegularEOT from './fonts/Roboto-Regular.eot';
-import RobotoRegularWOFF from './fonts/Roboto-Regular.woff';
-import RobotoRegularTTF from './fonts/Roboto-Regular.ttf';
-const domainName = 'https://aave.io/';
+import VyperLogo from './images/vyperLogoFlat.svg?inline';
+
+import CabinRegularTTF from './fonts/Cabin-Regular.ttf';
+
+import favicon from '!file-loader?name=[name].[ext]!./images/vyper-favicon.ico';
+
+const domainName = 'https://valist.io/';
 
 const fontSet = 'Roboto-Regular, Arial, sans-serif';
 
@@ -175,12 +176,12 @@ export const customSubHeaderConfig = {
   ],
 };
 
-export const AaveStyles = {
+export const VyperStyles = {
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: AaveLogo,
+  signUpPageLogo: VyperLogo,
   favicon,
   // Hided community fonts
   // fonts: {
@@ -202,72 +203,67 @@ export const AaveStyles = {
   // }`,
 
   colors: {
-    mainSubHeaderBgColor:
-      'linear-gradient(90deg, rgba(59,182,197,1) 0%, rgba(58,32,115,1) 31%, rgba(179,84,159,1) 100%)',
-    mainBackground: 'rgba(27,32,48,0.02)',
-    linkColor: '#5071ab',
-    linkCookieColor: '#A5599B',
-    linkColorTransparent: '#1b2030',
-    headerPrimary: '#1b2030',
-    commentOption: '#1b2030',
-    contentHeader: '#1b2030',
-    blockedInfoArea: '#764A8931',
+    mainSubHeaderBgColor: '#FAFAFD',
+    mainBackground: '#EDEDEE',
+    linkColor: '#637761',
+    linkCookieColor: '#D9B379',
+    linkColorTransparent: '#637761',
+    headerPrimary: '#637761',
+    commentOption: '#637761',
+    contentHeader: '#637761',
+    blockedInfoArea: '#EDEDEE',
     transparentIconColor: '#fff',
-    loaderColor: '#1b2030',
-    votingIconColor: '#1b2030',
-    linkColorSecondary: '#1b2030',
-    walletButton: '#1b2030',
-    btnColor: '#5071ab',
-    btnHoverColor: '#FF9A9E',
-    btnHeaderColor: '#FFFFFF',
-    btnHeaderHoverColor: 'rgba(255,255,255,0.9)',
-    tagColor: '#1b2030',
-    localeArrowColor: '#1b2030',
-    textColor: '#1b2030',
-    textColorShadow: '#1b2030',
-    commHeadElemColor: '#1b2030',
-    newPostButtonText: '#3c3c3c',
+    loaderColor: '#637761',
+    votingIconColor: '#637761',
+    linkColorSecondary: '#637761',
+    walletButton: '#637761',
+    btnColor: '#637761',
+    btnHoverColor: '#637761',
+    btnHeaderColor: '#637761',
+    tagColor: '#637761',
+    localeArrowColor: '#637761',
+    textColor: '#637761',
+    textColorShadow: '#637761',
+    commHeadElemColor: '#637761',
+    newPostButtonText: '#fff',
   },
   cookieConsentPopupStyles: {
-    background: '#1b2030',
-    color: '#FFFFFF',
+    background: 'linear-gradient(82.09deg, #637761 56.19%, #B4B7B4 147.29%);',
+    color: '#fff',
+    borderColor: '#fff',
     button: {
-      color: '#fff',
-      background: 'linear-gradient(90deg, #2FB9C5 0%, #7384B2 100%);',
+      color: '#637761',
+      background: '#fff',
       ':hover': {
+        background: '#637761',
+        color: '#fff',
         borderColor: '#fff',
-        background:
-          'linear-gradient(90deg, rgba(47,185,197,0.9) 0%, rgba(115,132,178,0.9) 100%);',
-        color: '#FFFFFF',
       },
     },
   },
   headerHeight: 80,
-  projectBorderRadius: '5px',
+  projectBorderRadius: '3px',
   domainName,
-  communityBorderStyle: '2px solid #1b2030',
+  communityBorderStyle: '1px solid #637761',
   dropDownIconStyles: css`
     path {
-      stroke: #1b2030 !important;
+      stroke: #637761 !important;
       stroke-width: 1.5px;
       fill: none !important;
     }
     circle {
-      stroke: #1b2030;
+      stroke: #637761;
       stroke-width: 1.5px;
       fill: none;
     }
   `,
   headerLoginButtonStyles: css`
-    background: rgba(255, 255, 255, 0);
-    border: 2px solid #1b2030;
-    color: #1b2030;
-
+    background: #fff;
+    border: 1px solid #637761;
+    color: #637761;
     :hover {
-      background: rgba(27, 32, 48, 0.65) !important;
-      color: #FFF !important;
-      border: 2px solid #1b2030;
-    !important;
+      background: #637761 !important;
+      color: #fff !important;
     }
   `,
 };
