@@ -22,10 +22,7 @@ import { Switch, Route, withRouter } from 'react-router-dom';
 import { Global, ThemeProvider } from '@emotion/react';
 import global from 'styles/global';
 import { theme } from 'themes/default';
-import {
-  selectDocumentationMenu,
-  selectPinnedItemMenu,
-} from 'containers/AppWrapper/selectors';
+import { selectDocumentationMenu } from 'containers/AppWrapper/selectors';
 
 import * as routes from 'routes-config';
 import isEmpty from 'lodash/isEmpty';
@@ -39,7 +36,6 @@ import {
   getSingleCommunityDetails,
   singleCommunityDocumentationPosition,
 } from 'utils/communityManagement';
-import { getIpfsHashFromBytes32 } from 'utils/ipfs';
 
 import Loader from 'components/LoadingIndicator/HeightWidthCentered';
 import ErrorBoundary from 'components/ErrorBoundary';
@@ -107,19 +103,17 @@ import {
 import CookieConsentPopup from '../../components/CookieConsentPopup';
 
 const single = isSingleCommunityWebsite();
-const isPositionTop = singleCommunityDocumentationPosition() == POSITION_TOP;
+const isDocumentationPositionTop =
+  singleCommunityDocumentationPosition() == POSITION_TOP;
 
 const App = ({
   location: { pathname, search },
   redirectToFeedDispatch,
   redirectToDocumentationDispatch,
-  redirectToPreloadDispatch,
   history,
-  pinnedItemMenu,
   documentationMenu,
 }) => {
-  const isPinnedPost = !isEmpty(pinnedItemMenu.id);
-  const pinnedPostId = pinnedItemMenu.id;
+  const hasDocumentation = !isEmpty(documentationMenu);
 
   if (process.env.NODE_ENV === 'production') {
     ReactGA.pageview(window.location.pathname);
@@ -145,9 +139,6 @@ const App = ({
     if (loginData && !single && pathname !== '/') {
       redirectToFeedDispatch();
     }
-    if (single && isPositionTop && !isPinnedPost && pathname == '/') {
-      redirectToPreloadDispatch();
-    }
   }, []);
 
   useEffect(() => {
@@ -162,14 +153,12 @@ const App = ({
   }, []);
 
   useEffect(() => {
-    if (single && isPositionTop && pathname == '/preloader-page') {
-      const startDocumentationSectionId = documentationMenu[0]?.id;
-      const ipfsHash = isPinnedPost
-        ? getIpfsHashFromBytes32(pinnedPostId)
-        : getIpfsHashFromBytes32(startDocumentationSectionId);
-      redirectToDocumentationDispatch(ipfsHash);
+    if (single && isDocumentationPositionTop && pathname == '/') {
+      hasDocumentation
+        ? redirectToDocumentationDispatch()
+        : redirectToFeedDispatch();
     }
-  }, [pinnedItemMenu]);
+  }, [documentationMenu]);
 
   const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
 
@@ -213,6 +202,14 @@ const App = ({
             path={routes.feed()}
             render={(props) => Wrapper(Feed, props)}
           />
+
+          {single && isDocumentationPositionTop && hasDocumentation && (
+            <Route
+              exact
+              path={routes.documentationStartPage()}
+              render={(props) => Wrapper(Documentation, props)}
+            />
+          )}
 
           {!single && (
             <Route
@@ -513,7 +510,6 @@ App.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  pinnedItemMenu: selectPinnedItemMenu(),
   documentationMenu: selectDocumentationMenu(),
 });
 

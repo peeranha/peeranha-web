@@ -331,3 +331,6 @@ export const RECAPTCHA_VERIFY_FAILED_CODE = 600613;
 
 // session storage keys
 export const CHANGED_POSTS_KEY = 'changed-posts';
+
+// position documentation
+export const POSITION_TOP = 'top';

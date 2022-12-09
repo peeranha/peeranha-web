@@ -10,12 +10,15 @@ import {
   getSingleCommunityDetails,
 } from 'utils/communityManagement';
 import { REFERRAL_CODE_URI } from './containers/App/constants';
-import { POST_TYPE } from './utils/constants';
+import { POST_TYPE, POSITION_TOP } from './utils/constants';
+import { singleCommunityDocumentationPosition } from 'utils/communityManagement';
 
 const userRedirect = (where) => (id) => `/users/${id}${where}`;
 
 const singleCommId = isSingleCommunityWebsite();
 const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
+const isDocumentationPositionTop =
+  singleCommunityDocumentationPosition() == POSITION_TOP;
 
 export const home = () => (singleCommId ? `/about` : `/`);
 
@@ -99,7 +102,13 @@ export const detailsHomePage = () => '/';
 export const feed = (communityId) =>
   !singleCommId
     ? `/feed${communityId ? `/${communityId}` : ''}`
-    : `/${communityId ? `feed/${communityId}` : ''}`;
+    : `/${
+        communityId
+          ? `feed/${communityId}`
+          : isDocumentationPositionTop
+          ? 'feed'
+          : ''
+      }`;
 
 export const communities = () => (!isBloggerMode ? `/communities` : `/`);
 
@@ -151,6 +160,7 @@ export const referralPage = (user) => `/?${REFERRAL_CODE_URI}=${user}`;
 export const facebookDataDeletion = () => '/facebook-data-deletion';
 
 export const documentation = (sectionId) => `/documentation/${sectionId}`;
+export const documentationStartPage = () => `/`;
 export const redirectRoutesForSCM = [
   privacyPolicy(),
   termsAndConditions(),

@@ -13,9 +13,8 @@ export function* redirectToFeedWorker() {
   yield call(createdHistory.push, routes.feed());
 }
 
-export function* redirectToDocumentationWorker(data) {
-  const ipfs = data.ipfs;
-  yield call(createdHistory.push, routes.documentation(ipfs));
+export function* redirectToDocumentationWorker() {
+  yield call(createdHistory.push, routes.documentationStartPage());
 }
 
 export function* redirectToPreloadWorker() {
