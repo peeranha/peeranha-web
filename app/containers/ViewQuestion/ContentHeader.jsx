@@ -78,6 +78,10 @@ const ButtonContainer = styled.div`
   display: flex;
   align-items: center;
 
+  > * {
+    margin: 0 10px;
+  }
+
   @media only screen and (max-width: 360px) {
     width: 40%;
     justify-content: space-between;
