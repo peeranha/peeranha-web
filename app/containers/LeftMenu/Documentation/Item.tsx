@@ -32,7 +32,8 @@ const Item: React.FC<ItemProps> = ({
     <>
       {pinnedItemMenuId == item.id && (
         <PinIcon
-          css={{ fill: 'rgba(118, 153, 255, 0.2)', marginRight: '10px' }}
+          stroke="#7B7B7B"
+          css={{ fill: 'rgba(123, 123, 123, 0.2)', marginRight: '10px' }}
         />
       )}
       <div

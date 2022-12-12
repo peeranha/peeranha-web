@@ -136,7 +136,6 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
             match={match}
             editArticleId={editArticle?.id}
             level={level}
-            pinnedItemMenuId={pinnedItemMenuId}
           />
         ) : (
           <Item

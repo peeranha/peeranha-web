@@ -39,6 +39,7 @@ import communitiesIcon from 'images/communities.svg?external';
 import tagsIcon from 'images/tags.svg?external';
 import usersIcon from 'images/users.svg?external';
 import faqIcon from 'images/faq.svg?external';
+import PinIcon from 'icons/Pin';
 
 import A from 'components/A';
 import { IconLg } from 'components/Icon/IconWithSizes';
@@ -216,7 +217,18 @@ const MainLinks = ({
                   color: 'var(--color-white)',
                 }}
               >
-                <span>{pinnedItemMenu.title}</span>
+                <span
+                  css={{
+                    borderRight: '1px solid rgba(255, 255, 255, 0.3)',
+                    paddingRight: '10px',
+                  }}
+                >
+                  {pinnedItemMenu.title}
+                </span>
+                <PinIcon
+                  stroke="#FFF"
+                  css={{ fill: '#A5BCFF', marginLeft: '10px' }}
+                />
               </A1>
             );
           })()}
