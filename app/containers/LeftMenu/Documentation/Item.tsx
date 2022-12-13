@@ -11,6 +11,7 @@ type ItemProps = {
   isOpen: boolean;
   onClickArticle?: (id: string) => void;
   pinnedItemMenuId?: string;
+  unpin: boolean;
 };
 
 const Item: React.FC<ItemProps> = ({
@@ -21,6 +22,7 @@ const Item: React.FC<ItemProps> = ({
   level,
   onClickArticle,
   pinnedItemMenuId,
+  unpin,
 }) => {
   const onClick = () => {
     if (typeof onClickArticle === 'function') {
@@ -30,7 +32,7 @@ const Item: React.FC<ItemProps> = ({
 
   return (
     <>
-      {pinnedItemMenuId == item.id && (
+      {(pinnedItemMenuId == item.id || unpin) && (
         <PinIcon
           stroke="#7B7B7B"
           css={{ fill: 'rgba(123, 123, 123, 0.2)', marginRight: '10px' }}
