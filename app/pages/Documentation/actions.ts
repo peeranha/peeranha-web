@@ -5,6 +5,7 @@ import {
   TOGGLE_EDIT_DOCUMENTATION,
   SET_VIEW_ARTICLE,
   SAVE_MENU_DRAFT,
+  SAVE_DRAFTS_IDS,
   UPDATE_DOCUMENTATION_MENU,
   UPDATE_DOCUMENTATION_MENU_SUCCESS,
   UPDATE_DOCUMENTATION_MENU_FAILED,
@@ -83,6 +84,13 @@ export function saveMenuDraft(menu: Array<DocumentationItemMenuType>) {
   return {
     type: SAVE_MENU_DRAFT,
     menu,
+  };
+}
+
+export function saveDraftsIds(draftsIds: Array<string>) {
+  return {
+    type: SAVE_DRAFTS_IDS,
+    draftsIds,
   };
 }
 
