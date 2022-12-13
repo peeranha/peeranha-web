@@ -18,6 +18,7 @@ export type EditDocumentationProps = {
   documentation: Array<DocumentationArticle>;
   setEditArticleDispatch: (data: EditArticleType) => void;
   saveMenuDraftDispatch: (data: Array<DocumentationItemMenuType>) => void;
+  saveDraftsIdsDispatch: (ids: Array<string>) => void;
   documentationMenuDraft: Array<DocumentationItemMenuType>;
   updateDocumentationMenuDispatch: (
     data: Array<DocumentationItemMenuType>,
@@ -28,6 +29,7 @@ export type EditDocumentationProps = {
   pinnedArticleMenuDraftDispatch: (data: PinnedArticleType) => void;
   removeArticleDispatch: (id: string) => void;
   pinnedItemMenu: PinnedArticleType;
+  draftsIds: Array<string>;
 };
 
 export type DocumentationFormProps = {
@@ -40,4 +42,5 @@ export type DocumentationFormProps = {
   setViewArticle: (id: string) => void;
   setEditArticle: (data: EditArticleType) => void;
   isEditArticle: boolean;
+  updateDraftsIds: (ids: Array<string>) => void;
 };

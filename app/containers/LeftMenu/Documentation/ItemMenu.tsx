@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import cn from 'classnames';
 import useTrigger from 'hooks/useTrigger';
 import { PEER_PRIMARY_COLOR } from 'style-constants';
@@ -17,6 +17,7 @@ import Link from './Link';
 import Item from './Item';
 import { getBytes32FromIpfsHash } from 'utils/ipfs';
 import { singleCommunityColors } from 'utils/communityManagement';
+import { isEditableChildItem } from 'components/Documentation/helpers';
 
 type DocumentationMenuProps = {
   item: DocumentationSection;
@@ -60,6 +61,13 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
 }) => {
   const [isOpen, open, close] = useTrigger(false);
   let route = window.location.pathname;
+
+  useEffect(() => {
+    const isEditableChildren = isEditableChildItem(item, editArticle?.id);
+    if (isEditableChildren) {
+      open();
+    }
+  }, [editArticle?.id, item.children]);
 
   const onSelect = (value: number) => {
     if (value === 1 && typeof setEditArticle === 'function') {
