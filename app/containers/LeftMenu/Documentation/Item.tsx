@@ -12,6 +12,7 @@ type ItemProps = {
   onClickArticle?: (id: string) => void;
   pinnedItemMenuId?: string;
   unpin: boolean;
+  pinned: string;
 };
 
 const Item: React.FC<ItemProps> = ({
@@ -21,8 +22,7 @@ const Item: React.FC<ItemProps> = ({
   editArticleId,
   level,
   onClickArticle,
-  pinnedItemMenuId,
-  unpin,
+  pinned,
 }) => {
   const onClick = () => {
     if (typeof onClickArticle === 'function') {
@@ -32,7 +32,7 @@ const Item: React.FC<ItemProps> = ({
 
   return (
     <>
-      {(pinnedItemMenuId == item.id || unpin) && (
+      {pinned === item.id && (
         <PinIcon
           stroke="#7B7B7B"
           css={{ fill: 'rgba(123, 123, 123, 0.2)', marginRight: '10px' }}

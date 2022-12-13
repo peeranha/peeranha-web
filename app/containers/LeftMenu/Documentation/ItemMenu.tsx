@@ -35,7 +35,8 @@ type DocumentationMenuProps = {
   pinnedArticleMenuDraft?: (data: { id: string; title: string }) => void;
   removeArticle?: (id: string) => void;
   pinnedItemMenuId: string;
-  unpin: boolean;
+  setPinned: () => void;
+  pinned: string;
 };
 
 const colors = singleCommunityColors();
@@ -54,9 +55,10 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
   pinnedArticleMenuDraft,
   removeArticle,
   pinnedItemMenuId,
+  setPinned,
+  pinned,
 }) => {
   const [isOpen, open, close] = useTrigger(false);
-  const [unpin, setUnpin] = useState(pinnedItemMenuId === item.id);
 
   useEffect(() => {
     const isEditableChildren = isEditableChildItem(item, editArticle?.id);
@@ -92,7 +94,7 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
         id: pinnedItemMenuId === item.id ? '' : item.id,
         title: pinnedItemMenuId === item.id ? '' : item.title,
       });
-      setUnpin(!unpin);
+      pinned == item.id ? setPinned('') : setPinned(item.id);
     }
 
     if (value === 4 && typeof removeArticle === 'function') {
@@ -157,7 +159,7 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
             level={level}
             onClickArticle={onClickArticle}
             pinnedItemMenuId={pinnedItemMenuId}
-            unpin={unpin}
+            pinned={pinned}
           />
         )}
 
@@ -187,8 +189,7 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
                     icon: <EditIcon />,
                   },
                   {
-                    label:
-                      pinnedItemMenuId === item.id || unpin ? 'Unpin' : 'Pin',
+                    label: pinned === item.id ? 'Unpin' : 'Pin',
                     value: 3,
                     icon: (
                       <PinIcon css={{ fill: 'rgba(118, 153, 255, 0.2)' }} />
@@ -243,7 +244,8 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
               pinnedArticleMenuDraft={pinnedArticleMenuDraft}
               removeArticle={removeArticle}
               pinnedItemMenuId={pinnedItemMenuId}
-              unpin={unpin}
+              setPinned={setPinned}
+              pinned={pinned}
             />
           ))}
         </div>
