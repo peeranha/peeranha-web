@@ -8,12 +8,14 @@ export const TextBlock = ({ content }) => (
   <MarkdownPreview
     source={content}
     css={css`
+      font-family: 'Source Sans Pro', sans-serif;
       ol li {
         list-style-type: decimal;
       }
       ul li {
         list-style-type: disc;
       }
+      min-width: 0;
     `}
     warpperElement={{ 'data-color-mode': 'light' }}
     rehypeRewrite={(node) => {
