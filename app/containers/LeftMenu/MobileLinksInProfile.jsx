@@ -140,11 +140,6 @@ const MobileLinksInProfile = ({ profile, isMenuVisible }) => {
             </A>
           )}
 
-          {/* PEER-722: Hide settings tab;
-          <A to={routes.userSettings(profile.user)}>
-            <FormattedMessage id={messages.settings.id} />
-          </A> */}
-
           <Logout>
             <LogOutIcon
               className="mr-2"
