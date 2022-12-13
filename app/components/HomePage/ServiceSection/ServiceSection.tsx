@@ -16,7 +16,7 @@ import { styles } from './ServiceSection.styled';
 import { pageStyles } from '../HomePage.styled';
 
 const ServiceSection: React.FC = (): JSX.Element => (
-  <section css={styles.container}>
+  <section css={styles.container} id="service">
     <div css={pageStyles.container}>
       <div className="df fdc aic" css={styles.wrapper}>
         <div className="df jcc aic bold fz28 tc" css={styles.title}>

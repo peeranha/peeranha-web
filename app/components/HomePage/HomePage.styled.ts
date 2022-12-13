@@ -1,6 +1,15 @@
 export const pageStyles = {
   homePage: {
+    scrollBehavior: 'smooth',
     background: 'rgb(250, 250, 250)',
+  },
+
+  sticky: {
+    height: '56px',
+
+    '@media (min-width: 1366px)': {
+      height: '95px',
+    },
   },
 
   container: {

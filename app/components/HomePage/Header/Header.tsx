@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import * as routes from 'routes-config';
 import createdHistory from 'createdHistory';
@@ -10,17 +11,36 @@ import messages from '../messages';
 import { pageStyles } from '../HomePage.styled';
 import { styles } from './Header.styled';
 
-const Header: React.FC = (): JSX.Element => (
-  <section css={pageStyles.container}>
-    <div className="df aic jcsb" css={styles.wrapper}>
-      <img src={logo} alt="Peeranha Logo" css={styles.logo} />
+const Header: React.FC<{ sticky: boolean }> = ({ sticky }): JSX.Element => (
+  <section className="ps t0" css={sticky && styles.headerSection}>
+    <div
+      className="df aic jcsb"
+      css={{ ...pageStyles.container, ...styles.wrapper }}
+    >
+      <Link to={routes.home()}>
+        <img src={logo} alt="Peeranha Logo" css={styles.logo} />
+      </Link>
       <div className="df aic">
-        <span css={styles.link}>
-          <FormattedMessage id={messages.about.id} />
-        </span>
-        <span css={styles.link}>
-          <FormattedMessage id={messages.rewards.id} />
-        </span>
+        <Link to="#about">
+          <span
+            css={styles.link}
+            onClick={() =>
+              setTimeout(() => createdHistory.push(routes.home()), 1000)
+            }
+          >
+            <FormattedMessage id={messages.about.id} />
+          </span>
+        </Link>
+        <Link to="#service">
+          <span
+            css={styles.link}
+            onClick={() =>
+              setTimeout(() => createdHistory.push(routes.home()), 1000)
+            }
+          >
+            <FormattedMessage id={messages.service.id} />
+          </span>
+        </Link>
         <button
           className="df jcc aic fz14"
           css={styles.button}

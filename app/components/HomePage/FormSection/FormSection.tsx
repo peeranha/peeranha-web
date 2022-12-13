@@ -10,8 +10,8 @@ const FormSection: React.FC<HomepageProps> = ({
   sendMessageLoading,
   sendMessageDispatch,
 }): JSX.Element => (
-  <section css={styles.container}>
-    <div css={pageStyles.container}>
+  <section css={pageStyles.container}>
+    <div css={styles.container}>
       <div className="df jcc" css={styles.image}>
         <img src={letterSmile} alt="" className="full-width" />
       </div>

@@ -7,8 +7,8 @@ export default defineMessages({
   about: {
     id: 'app.containers.HomePage.about',
   },
-  rewards: {
-    id: 'app.containers.HomePage.rewards',
+  service: {
+    id: 'app.containers.HomePage.service',
   },
   goToApp: {
     id: 'app.containers.HomePage.goToApp',

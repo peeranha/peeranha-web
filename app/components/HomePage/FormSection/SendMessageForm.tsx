@@ -12,10 +12,6 @@ import {
   strLength3x20,
 } from 'components/FormFields/validate';
 
-import FloatingLabelInput from '../../../containers/HomePage/FloatingLabelInput';
-import Button from '../../../containers/HomePage/ContainedButton';
-import SelectItem from '../../../containers/HomePage/SelectItem';
-
 import {
   EMAIL_FIELD,
   NAME_FIELD,
@@ -24,17 +20,17 @@ import {
 } from '../../../pages/HomePage/constants';
 
 import messages from '../messages';
+import FormField from './FormField';
+import { styles } from './FormSection.styled';
 
 type SendMessageForm = {
   handleSubmit: any;
-  change: () => void;
   sendMessage: () => void;
   sendMessageLoading: boolean;
 };
 
 const SendMessageForm: React.FC<SendMessageForm> = ({
   handleSubmit,
-  change,
   sendMessageLoading,
   sendMessage,
 }): JSX.Element => (
@@ -44,7 +40,7 @@ const SendMessageForm: React.FC<SendMessageForm> = ({
         name={NAME_FIELD}
         disabled={sendMessageLoading}
         label={<FormattedMessage id={messages.yourName.id} />}
-        component={FloatingLabelInput}
+        component={FormField}
         validate={[strLength3x20, required]}
         warn={[strLength3x20, required]}
       />
@@ -53,7 +49,7 @@ const SendMessageForm: React.FC<SendMessageForm> = ({
         name={EMAIL_FIELD}
         disabled={sendMessageLoading}
         label={<FormattedMessage id={messages.email.id} />}
-        component={FloatingLabelInput}
+        component={FormField}
         validate={[validateEmail, required, strLength254Max]}
         warn={[validateEmail, required, strLength254Max]}
       />
@@ -61,12 +57,10 @@ const SendMessageForm: React.FC<SendMessageForm> = ({
       <Field
         name={SUBJECT_FIELD}
         disabled={sendMessageLoading}
-        change={change}
-        items={['New post', 'Review', 'System error']}
         label={<FormattedMessage id={messages.subject.id} />}
-        component={SelectItem}
-        validate={[required]}
-        warn={[required]}
+        component={FormField}
+        validate={[strLength3x20, required]}
+        warn={[strLength3x20, required]}
       />
 
       <Field
@@ -74,17 +68,15 @@ const SendMessageForm: React.FC<SendMessageForm> = ({
         multiline
         disabled={sendMessageLoading}
         label={<FormattedMessage id={messages.message.id} />}
-        component={FloatingLabelInput}
+        component={FormField}
         validate={[strLength15x100, required]}
         warn={[strLength15x100, required]}
       />
     </div>
 
-    <div className="d-flex">
-      <Button>
-        <FormattedMessage id={messages.sendMessage.id} />
-      </Button>
-    </div>
+    <button className="full-width fz18 mt8" css={styles.button}>
+      <FormattedMessage id={messages.sendMessage.id} />
+    </button>
   </form>
 );
 

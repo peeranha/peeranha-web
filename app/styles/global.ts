@@ -38,7 +38,7 @@ export default css`
 
   body,
   button {
-    font-family: 'Sourse Sans Pro', sans-serif;
+    font-family: 'Source Sans Pro', sans-serif;
     font-style: normal;
     font-weight: 400;
   }
@@ -126,6 +126,9 @@ export default css`
   }
   .tl {
     text-align: left;
+  }
+  .fz12 {
+    font-size: 12px;
   }
   .fz14 {
     font-size: 14px;

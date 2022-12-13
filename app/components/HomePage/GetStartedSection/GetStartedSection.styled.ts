@@ -102,6 +102,11 @@ export const styles = {
     lineHeight: '25px',
     color: '#FFFFFF',
     marginBottom: '38px',
+    transition: '0.4s',
+
+    ':hover': {
+      opacity: 0.8,
+    },
 
     '@media (min-width: 768px)': {
       marginBottom: 0,

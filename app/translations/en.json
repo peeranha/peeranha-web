@@ -523,6 +523,7 @@
 
   "app.containers.HomePage.about": "About",
   "app.containers.HomePage.rewards": "Rewards",
+  "app.containers.HomePage.service": "Service",
   "app.containers.HomePage.goToApp": "Go to app",
   "app.containers.HomePage.moreThan": "More than a Q&A for Web3",
   "app.containers.HomePage.greatCommunity": "Great community starts with knowledge",

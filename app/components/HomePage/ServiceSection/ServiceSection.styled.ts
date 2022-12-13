@@ -157,6 +157,11 @@ export const styles = {
     borderRadius: '5px',
     lineHeight: '25px',
     color: 'rgb(255, 255, 255)',
+    transition: '0.4s',
+
+    ':hover': {
+      opacity: 0.8,
+    },
 
     '@media (min-width: 1366px)': {
       width: '256px',

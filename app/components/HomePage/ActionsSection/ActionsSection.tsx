@@ -1,6 +1,5 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { css } from '@emotion/react';
 import screen_1 from 'images/scr_1.jpg';
 import screen_2 from 'images/scr_2.jpg';
 import screen_3 from 'images/scr_3.jpg';
@@ -11,9 +10,9 @@ import { styles } from './ActionsSection.styled';
 import { pageStyles } from '../HomePage.styled';
 
 const ActionsSection: React.FC = (): JSX.Element => (
-  <section css={pageStyles.container}>
+  <section css={pageStyles.container} id="about">
     <div className="df fdc aic" css={styles.wrapper}>
-      <div css={css({ ...styles.action, ...styles.reverse })}>
+      <div css={{ ...styles.action, ...styles.reverse }}>
         <div css={styles.textBlock}>
           <h3 css={styles.header}>
             <FormattedMessage id={messages.focusBigPicture.id} />
@@ -35,7 +34,7 @@ const ActionsSection: React.FC = (): JSX.Element => (
         </div>
         <img src={screen_2} alt="new post creation" css={styles.image} />
       </div>
-      <div css={css({ ...styles.action, ...styles.reverse })}>
+      <div css={{ ...styles.action, ...styles.reverse }}>
         <div css={styles.textBlock}>
           <h3 css={styles.header}>
             <FormattedMessage id={messages.trackRoad.id} />

@@ -1,4 +1,15 @@
 export const styles = {
+  headerSection: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    width: '100%',
+    background: 'rgba(255,255,255,1)',
+    transition: '0.2s',
+    boxShadow: '0px 10px 40px rgba(24, 39, 79, 0.1)',
+    zIndex: 1000,
+  },
+
   wrapper: {
     padding: '14px 0',
 
@@ -24,6 +35,10 @@ export const styles = {
     fontSize: '16px',
     lineHeight: '20px',
     color: 'rgba(40, 40, 40, 1)',
+
+    ':hover': {
+      color: 'rgba(118,153,255,1)',
+    },
 
     '@media (min-width: 768px)': {
       display: 'inline',
