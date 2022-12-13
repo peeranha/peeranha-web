@@ -2,7 +2,10 @@ import React from 'react';
 import cn from 'classnames';
 import useTrigger from 'hooks/useTrigger';
 import { PEER_PRIMARY_COLOR } from 'style-constants';
-import { DocumentationSection } from 'pages/Documentation/types';
+import {
+  DocumentationSection,
+  DocumentationItemMenuType,
+} from 'pages/Documentation/types';
 import ArrowDownIcon from 'icons/ArrowDown';
 import Dropdown from 'common-components/Dropdown';
 import AddSubArticleIcon from 'icons/AddSubArticle';
@@ -34,6 +37,7 @@ type DocumentationMenuProps = {
   pinnedArticleMenuDraft?: (data: { id: string; title: string }) => void;
   removeArticle?: (id: string) => void;
   pinnedItemMenuId: string;
+  documentationMenu: Array<DocumentationItemMenuType>;
 };
 
 const colors = singleCommunityColors();
@@ -52,8 +56,10 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
   pinnedArticleMenuDraft,
   removeArticle,
   pinnedItemMenuId,
+  documentationMenu,
 }) => {
   const [isOpen, open, close] = useTrigger(false);
+  let route = window.location.pathname;
 
   const onSelect = (value: number) => {
     if (value === 1 && typeof setEditArticle === 'function') {
@@ -113,7 +119,11 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
           paddingLeft: 15 + 16 * level,
           ...(((match.params.sectionId &&
             getBytes32FromIpfsHash(match.params.sectionId) === item.id) ||
-            editArticle?.id === item.id) && {
+            editArticle?.id === item.id ||
+            (route == '/' &&
+              (item.id === pinnedItemMenuId ||
+                (!isEditDocumentation &&
+                  documentationMenu[0]?.id === item.id)))) && {
             background: 'rgba(53, 74, 137, 0.11)',
             borderLeft: `3px solid ${colors.linkColor || '#5065A5'}`,
             paddingLeft: 12 + 16 * level,
@@ -136,6 +146,8 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
             match={match}
             editArticleId={editArticle?.id}
             level={level}
+            pinnedItemMenuId={pinnedItemMenuId}
+            documentationMenu={documentationMenu}
           />
         ) : (
           <Item
@@ -228,6 +240,8 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
               setEditArticle={setEditArticle}
               pinnedArticleMenuDraft={pinnedArticleMenuDraft}
               removeArticle={removeArticle}
+              pinnedItemMenuId={pinnedItemMenuId}
+              documentationMenu={documentationMenu}
             />
           ))}
         </div>

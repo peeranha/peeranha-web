@@ -10,15 +10,12 @@ import {
   getSingleCommunityDetails,
 } from 'utils/communityManagement';
 import { REFERRAL_CODE_URI } from './containers/App/constants';
-import { POST_TYPE, POSITION_TOP } from './utils/constants';
-import { singleCommunityDocumentationPosition } from 'utils/communityManagement';
+import { POST_TYPE } from './utils/constants';
 
 const userRedirect = (where) => (id) => `/users/${id}${where}`;
 
 const singleCommId = isSingleCommunityWebsite();
 const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
-const isDocumentationPositionTop =
-  singleCommunityDocumentationPosition() == POSITION_TOP;
 
 export const home = () => (singleCommId ? `/about` : `/`);
 
@@ -102,13 +99,7 @@ export const detailsHomePage = () => '/';
 export const feed = (communityId) =>
   !singleCommId
     ? `/feed${communityId ? `/${communityId}` : ''}`
-    : `/${
-        communityId
-          ? `feed/${communityId}`
-          : isDocumentationPositionTop
-          ? 'feed'
-          : ''
-      }`;
+    : `/${communityId ? `feed/${communityId}` : 'feed'}`;
 
 export const communities = () => (!isBloggerMode ? `/communities` : `/`);
 

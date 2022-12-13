@@ -22,13 +22,20 @@ import { Switch, Route, withRouter } from 'react-router-dom';
 import { Global, ThemeProvider } from '@emotion/react';
 import global from 'styles/global';
 import { theme } from 'themes/default';
-import { selectDocumentationMenu } from 'containers/AppWrapper/selectors';
+import {
+  selectDocumentationMenu,
+  selectPinnedItemMenu,
+} from 'containers/AppWrapper/selectors';
 
 import * as routes from 'routes-config';
-import isEmpty from 'lodash/isEmpty';
 
 import injectSaga from 'utils/injectSaga';
-import { DAEMON, POST_TYPE, REWARD_CLAIMING_ENABLED } from 'utils/constants';
+import {
+  DAEMON,
+  POST_TYPE,
+  REWARD_CLAIMING_ENABLED,
+  POSITION_TOP,
+} from 'utils/constants';
 import { ScrollTo } from 'utils/animation';
 import { closePopover as Popover } from 'utils/popover';
 import {
@@ -90,7 +97,7 @@ import {
 } from './imports';
 import { getValueFromSearchString } from '../../utils/url';
 import { getCookie, setCookie } from '../../utils/cookie';
-import { REFERRAL_CODE_URI, POSITION_TOP } from './constants';
+import { REFERRAL_CODE_URI } from './constants';
 import { AUTOLOGIN_DATA } from '../Login/constants';
 import {
   redirectToFeed,
@@ -107,15 +114,15 @@ import CookieConsentPopup from '../../components/CookieConsentPopup';
 const single = isSingleCommunityWebsite();
 const isDocumentationPositionTop =
   singleCommunityDocumentationPosition() == POSITION_TOP;
-
 const App = ({
   location: { pathname, search },
   redirectToFeedDispatch,
   redirectToDocumentationDispatch,
   history,
   documentationMenu,
+  pinnedItemMenu,
 }) => {
-  const hasDocumentation = !isEmpty(documentationMenu);
+  const hasPinnedPost = pinnedItemMenu.id !== '';
 
   if (process.env.NODE_ENV === 'production') {
     ReactGA.pageview(window.location.pathname);
@@ -155,8 +162,8 @@ const App = ({
   }, []);
 
   useEffect(() => {
-    if (single && isDocumentationPositionTop && pathname == '/') {
-      hasDocumentation
+    if ((single && pathname == '/') || '/feed') {
+      hasPinnedPost || isDocumentationPositionTop
         ? redirectToDocumentationDispatch()
         : redirectToFeedDispatch();
     }
@@ -206,12 +213,11 @@ const App = ({
           )}
 
           <Route
-            exact
             path={routes.feed()}
             render={(props) => Wrapper(Feed, props)}
           />
 
-          {single && isDocumentationPositionTop && hasDocumentation && (
+          {single && (hasPinnedPost || isDocumentationPositionTop) && (
             <Route
               exact
               path={routes.documentationStartPage()}
@@ -527,6 +533,7 @@ App.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   documentationMenu: selectDocumentationMenu(),
+  pinnedItemMenu: selectPinnedItemMenu(),
 });
 
 export default compose(

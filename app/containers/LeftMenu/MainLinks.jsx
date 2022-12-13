@@ -177,7 +177,7 @@ const MainLinks = ({
     : false;
 
   if (!route) {
-    route = isBloggerMode ? 'home' : 'feed';
+    route = isBloggerMode ? 'home' : '/';
   }
 
   const hasCommunityOrProtocolAdminRole =
