@@ -61,7 +61,10 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
 }) => {
   const [isOpen, open, close] = useTrigger(false);
   let route = window.location.pathname;
-
+  const startDocumentionPostLight =
+    pinnedItemMenuId == ''
+      ? !isEditDocumentation && documentationMenu[0]?.id === item.id
+      : item.id === pinnedItemMenuId;
   useEffect(() => {
     const isEditableChildren = isEditableChildItem(item, editArticle?.id);
     if (isEditableChildren) {
@@ -128,10 +131,7 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
           ...(((match.params.sectionId &&
             getBytes32FromIpfsHash(match.params.sectionId) === item.id) ||
             editArticle?.id === item.id ||
-            (route == '/' &&
-              (item.id === pinnedItemMenuId ||
-                (!isEditDocumentation &&
-                  documentationMenu[0]?.id === item.id)))) && {
+            (route == '/' && startDocumentionPostLight)) && {
             background: 'rgba(53, 74, 137, 0.11)',
             borderLeft: `3px solid ${colors.linkColor || '#5065A5'}`,
             paddingLeft: 12 + 16 * level,
@@ -156,6 +156,7 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
             level={level}
             pinnedItemMenuId={pinnedItemMenuId}
             documentationMenu={documentationMenu}
+            startDocumentionPostLight={startDocumentionPostLight}
           />
         ) : (
           <Item

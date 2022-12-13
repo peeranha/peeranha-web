@@ -16,6 +16,7 @@ type LinkProps = {
   isOpen: boolean;
   pinnedItemMenuId: string;
   documentationMenu: Array<DocumentationItemMenuType>;
+  startDocumentionPostLight: boolean;
 };
 
 const Link: React.FC<LinkProps> = ({
@@ -26,6 +27,7 @@ const Link: React.FC<LinkProps> = ({
   level,
   pinnedItemMenuId,
   documentationMenu,
+  startDocumentionPostLight,
 }) => {
   const ipfsHash = getIpfsHashFromBytes32(item.id);
   const isPinnedPost = pinnedItemMenuId == item.id;
@@ -49,8 +51,7 @@ const Link: React.FC<LinkProps> = ({
           (match.params.sectionId &&
             getBytes32FromIpfsHash(match.params.sectionId) === item.id) ||
           editArticleId === item.id ||
-          (route == '/' &&
-            (isPinnedPost || documentationMenu[0]?.id === item.id))) && {
+          (route == '/' && startDocumentionPostLight)) && {
           fontWeight: 700,
           color: 'var(--color-black)',
         }),
