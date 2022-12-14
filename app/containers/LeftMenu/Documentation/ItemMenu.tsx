@@ -2,7 +2,10 @@ import React, { useEffect, useState } from 'react';
 import cn from 'classnames';
 import useTrigger from 'hooks/useTrigger';
 import { PEER_PRIMARY_COLOR } from 'style-constants';
-import { DocumentationSection } from 'pages/Documentation/types';
+import {
+  DocumentationSection,
+  DocumentationItemMenuType,
+} from 'pages/Documentation/types';
 import ArrowDownIcon from 'icons/ArrowDown';
 import Dropdown from 'common-components/Dropdown';
 import AddSubArticleIcon from 'icons/AddSubArticle';
@@ -37,6 +40,7 @@ type DocumentationMenuProps = {
   pinnedItemMenuId: string;
   setPinned: () => void;
   pinned: string;
+  documentationMenu: Array<DocumentationItemMenuType>;
 };
 
 const colors = singleCommunityColors();
@@ -57,9 +61,14 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
   pinnedItemMenuId,
   setPinned,
   pinned,
+  documentationMenu,
 }) => {
   const [isOpen, open, close] = useTrigger(false);
-
+  let route = window.location.pathname;
+  const startDocumentionPostLight =
+    pinnedItemMenuId == ''
+      ? !isEditDocumentation && documentationMenu[0]?.id === item.id
+      : item.id === pinnedItemMenuId;
   useEffect(() => {
     const isEditableChildren = isEditableChildItem(item, editArticle?.id);
     if (isEditableChildren) {
@@ -126,7 +135,8 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
           paddingLeft: 15 + 16 * level,
           ...(((match.params.sectionId &&
             getBytes32FromIpfsHash(match.params.sectionId) === item.id) ||
-            editArticle?.id === item.id) && {
+            editArticle?.id === item.id ||
+            (route == '/' && startDocumentionPostLight)) && {
             background: 'rgba(53, 74, 137, 0.11)',
             borderLeft: `3px solid ${colors.linkColor || '#5065A5'}`,
             paddingLeft: 12 + 16 * level,
@@ -149,6 +159,9 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
             match={match}
             editArticleId={editArticle?.id}
             level={level}
+            pinnedItemMenuId={pinnedItemMenuId}
+            documentationMenu={documentationMenu}
+            startDocumentionPostLight={startDocumentionPostLight}
           />
         ) : (
           <Item
@@ -246,6 +259,7 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
               pinnedItemMenuId={pinnedItemMenuId}
               setPinned={setPinned}
               pinned={pinned}
+              documentationMenu={documentationMenu}
             />
           ))}
         </div>

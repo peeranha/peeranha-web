@@ -147,6 +147,7 @@ const Documentation: React.FC<DocumentationMenuSectionProps> = ({
           pinnedItemMenuId={pinnedItemMenuId}
           setPinned={setPinned}
           pinned={pinned}
+          documentationMenu={documentationMenu}
         />
       ))}
       {!isEditDocumentation && documentationPosition === 'top' && (
