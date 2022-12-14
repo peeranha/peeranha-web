@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import cn from 'classnames';
 import useTrigger from 'hooks/useTrigger';
 import { PEER_PRIMARY_COLOR } from 'style-constants';
@@ -38,6 +38,8 @@ type DocumentationMenuProps = {
   pinnedArticleMenuDraft?: (data: { id: string; title: string }) => void;
   removeArticle?: (id: string) => void;
   pinnedItemMenuId: string;
+  setPinned: () => void;
+  pinned: string;
   documentationMenu: Array<DocumentationItemMenuType>;
 };
 
@@ -57,6 +59,8 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
   pinnedArticleMenuDraft,
   removeArticle,
   pinnedItemMenuId,
+  setPinned,
+  pinned,
   documentationMenu,
 }) => {
   const [isOpen, open, close] = useTrigger(false);
@@ -99,6 +103,7 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
         id: pinnedItemMenuId === item.id ? '' : item.id,
         title: pinnedItemMenuId === item.id ? '' : item.title,
       });
+      pinned == item.id ? setPinned('') : setPinned(item.id);
     }
 
     if (value === 4 && typeof removeArticle === 'function') {
@@ -166,6 +171,8 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
             editArticleId={editArticle?.id}
             level={level}
             onClickArticle={onClickArticle}
+            pinnedItemMenuId={pinnedItemMenuId}
+            pinned={pinned}
           />
         )}
 
@@ -195,7 +202,7 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
                     icon: <EditIcon />,
                   },
                   {
-                    label: pinnedItemMenuId === item.id ? 'Unpin' : 'Pin',
+                    label: pinned === item.id ? 'Unpin' : 'Pin',
                     value: 3,
                     icon: (
                       <PinIcon css={{ fill: 'rgba(118, 153, 255, 0.2)' }} />
@@ -250,6 +257,8 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
               pinnedArticleMenuDraft={pinnedArticleMenuDraft}
               removeArticle={removeArticle}
               pinnedItemMenuId={pinnedItemMenuId}
+              setPinned={setPinned}
+              pinned={pinned}
               documentationMenu={documentationMenu}
             />
           ))}
