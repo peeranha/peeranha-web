@@ -16,6 +16,7 @@ import AnkrLogo from './communities-configs/ankr/images/ankrBlueLogo.svg?inline'
 import VyperLogo from './communities-configs/vyper/images/Vyperlogo.svg?inline';
 import AaveLogo from 'communities-configs/aave/images/AaveLogo.svg?inline';
 import ForceLogo from './communities-configs/force/images/Group.svg?inline';
+import Mark3dLogo from './communities-configs/mark3d/images/Mark3dLogo.svg?inline';
 import MoveLogo from './communities-configs/move/images/MoveLogo.svg?inline';
 
 import { PolygonStyles } from './communities-configs/polygon';
@@ -36,6 +37,7 @@ import { SolidityStyles } from './communities-configs/solidity';
 import { AaveStyles } from './communities-configs/aave';
 import { VyperStyles } from './communities-configs/vyper';
 import { ForceStyles } from './communities-configs/force';
+import { Mark3dStyles } from './communities-configs/mark3d';
 import { MoveStyles } from './communities-configs/move';
 
 const communitiesConfig = {
@@ -191,6 +193,11 @@ const communitiesConfig = {
       origin: `https://force${process.env.COOKIE_DOMAIN}`,
       src: ForceLogo,
       styles: ForceStyles,
+    },
+    9: {
+      origin: `https://mark3d${process.env.COOKIE_DOMAIN}`,
+      src: Mark3dLogo,
+      styles: Mark3dStyles,
     },
     10: {
       origin: `https://move${process.env.COOKIE_DOMAIN}`,

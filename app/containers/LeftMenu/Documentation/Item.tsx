@@ -1,6 +1,7 @@
 import React from 'react';
 import cn from 'classnames';
 import { DocumentationSection } from 'pages/Documentation/types';
+import PinIcon from 'icons/Pin';
 
 type ItemProps = {
   item: DocumentationSection;
@@ -9,6 +10,9 @@ type ItemProps = {
   editArticleId?: string;
   isOpen: boolean;
   onClickArticle?: (id: string) => void;
+  pinnedItemMenuId?: string;
+  unpin: boolean;
+  pinned: string;
 };
 
 const Item: React.FC<ItemProps> = ({
@@ -18,6 +22,7 @@ const Item: React.FC<ItemProps> = ({
   editArticleId,
   level,
   onClickArticle,
+  pinned,
 }) => {
   const onClick = () => {
     if (typeof onClickArticle === 'function') {
@@ -26,34 +31,36 @@ const Item: React.FC<ItemProps> = ({
   };
 
   return (
-    <div
-      title={item.title}
-      className={cn('p0 ovh')}
-      css={{
-        margin: '7px 0',
-        fontSize: 16,
-        lineHeight: '20px',
-        flexGrow: 1,
-        ...(level > 0 && {
-          color: '#7B7B7B',
-        }),
-        ...(level === 0 && { margin: '12px 0' }),
-        ...((isOpen ||
-          match.params.sectionId === item.id ||
-          editArticleId === item.id) && {
-          fontWeight: 700,
-          color: 'var(--color-black)',
-        }),
-        textOverflow: 'ellipsis',
-        display: '-webkit-box !important',
-        '-webkit-line-clamp': '2',
-        '-webkit-box-orient': 'vertical',
-        whiteSpace: 'normal',
-      }}
-      onClick={onClick}
-    >
-      {item.title}
-    </div>
+    <>
+      {pinned === item.id && (
+        <PinIcon
+          stroke="#7B7B7B"
+          css={{ fill: 'rgba(123, 123, 123, 0.2)', marginRight: '10px' }}
+        />
+      )}
+      <div
+        className={cn('p0')}
+        css={{
+          padding: '7px 0',
+          fontSize: 16,
+          lineHeight: '20px',
+          flexGrow: 1,
+          ...(level > 0 && {
+            color: '#7B7B7B',
+          }),
+          ...(level === 0 && { padding: '12px 0' }),
+          ...((isOpen ||
+            match.params.sectionId === item.id ||
+            editArticleId === item.id) && {
+            fontWeight: 700,
+            color: 'var(--color-black)',
+          }),
+        }}
+        onClick={onClick}
+      >
+        {item.title}
+      </div>
+    </>
   );
 };
 

@@ -71,6 +71,7 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
 }): JSX.Element => {
   const refOverlay = useRef<HTMLDivElement>(null);
   const [paddingLeft, setPaddingLeft] = useState<number>(86);
+  const [pinned, setPinned] = useState<string>(pinnedItemMenu.id);
 
   useEffect(() => {
     if (refOverlay?.current) {
@@ -191,6 +192,8 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
               pinnedArticleMenuDraft={pinnedArticleMenuDraftDispatch}
               removeArticle={removeArticleDispatch}
               pinnedItemMenuId={pinnedItemMenu.id}
+              setPinned={setPinned}
+              pinned={pinned}
             />
           </div>
           <div
