@@ -32,6 +32,8 @@ export type DocumentationArticle = {
 export type OutputSelector = {
   isArticleLoading: boolean;
   documentation: Array<DocumentationSection>;
+  pinnedItemMenu: PinnedArticleType;
+  documentationMenu: Array<DocumentationItemMenuType>;
 };
 
 export interface RouterDocumentetion {

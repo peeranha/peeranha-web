@@ -99,7 +99,7 @@ export const detailsHomePage = () => '/';
 export const feed = (communityId) =>
   !singleCommId
     ? `/feed${communityId ? `/${communityId}` : ''}`
-    : `/${communityId ? `feed/${communityId}` : ''}`;
+    : `/${communityId ? `feed/${communityId}` : 'feed'}`;
 
 export const communities = () => (!isBloggerMode ? `/communities` : `/`);
 
@@ -152,6 +152,7 @@ export const referralPage = (user) => `/?${REFERRAL_CODE_URI}=${user}`;
 export const facebookDataDeletion = () => '/facebook-data-deletion';
 
 export const documentation = (sectionId) => `/documentation/${sectionId}`;
+export const documentationStartPage = () => `/`;
 export const redirectRoutesForSCM = [
   privacyPolicy(),
   termsAndConditions(),

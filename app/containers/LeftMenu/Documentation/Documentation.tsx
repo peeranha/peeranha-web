@@ -141,6 +141,7 @@ const Documentation: React.FC<DocumentationMenuSectionProps> = ({
           pinnedArticleMenuDraft={pinnedArticleMenuDraft}
           removeArticle={removeArticle}
           pinnedItemMenuId={pinnedItemMenuId}
+          documentationMenu={documentationMenu}
         />
       ))}
       {!isEditDocumentation && documentationPosition === 'top' && (
