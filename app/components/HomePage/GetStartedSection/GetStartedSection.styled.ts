@@ -1,4 +1,6 @@
 export const styles = {
+  backgroundImage: {},
+
   wrapper: {
     padding: '32px 0',
 

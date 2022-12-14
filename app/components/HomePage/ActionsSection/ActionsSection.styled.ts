@@ -1,4 +1,32 @@
+import bg from 'images/background_actions_figure.png';
+
 export const styles = {
+  backgroundImage: {
+    backgroundImage: `url(${bg})`,
+    backgroundPositionY: '255px',
+    backgroundSize: '150%',
+
+    '@media (min-width: 768px)': {
+      backgroundPositionY: '105px',
+      backgroundSize: '83%',
+    },
+
+    '@media (min-width: 1024px)': {
+      backgroundPositionY: '113px',
+      backgroundSize: '90% 97%',
+    },
+
+    '@media (min-width: 1366px)': {
+      backgroundPositionY: '167px',
+      backgroundSize: '86% 97%',
+    },
+
+    '@media (min-width: 1920px)': {
+      backgroundPositionY: '435px',
+      backgroundSize: '70% 91%',
+    },
+  },
+
   wrapper: {
     padding: '32px 0 48px',
 

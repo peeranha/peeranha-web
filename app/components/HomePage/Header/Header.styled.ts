@@ -22,6 +22,12 @@ export const styles = {
     },
   },
 
+  stickyWrapper: {
+    '@media (min-width: 1366px)': {
+      padding: '5px 0',
+    },
+  },
+
   logo: {
     width: '122px',
 
@@ -31,6 +37,7 @@ export const styles = {
   },
 
   link: {
+    cursor: 'pointer',
     display: 'none',
     fontSize: '16px',
     lineHeight: '20px',

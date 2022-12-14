@@ -1,4 +1,37 @@
+import bg from 'images/background_service_figure.png';
+
 export const styles = {
+  backgroundImage: {
+    backgroundImage: `url(${bg})`,
+    backgroundPositionY: '119px',
+    backgroundPositionX: '-701px',
+    backgroundSize: '490% 100%',
+
+    '@media (min-width: 768px)': {
+      backgroundPositionY: '7px',
+      backgroundPositionX: '-401px',
+      backgroundSize: '210% 100%',
+    },
+
+    '@media (min-width: 1024px)': {
+      backgroundPositionY: '70px',
+      backgroundPositionX: '-204px',
+      backgroundSize: '140% 90%',
+    },
+
+    '@media (min-width: 1366px)': {
+      backgroundPositionY: '50px',
+      backgroundPositionX: '-1px',
+      backgroundSize: '100% 92%',
+    },
+
+    '@media (min-width: 1920px)': {
+      backgroundPositionY: '4px',
+      backgroundPositionX: '0px',
+      backgroundSize: '101% 100%',
+    },
+  },
+
   container: {
     background:
       'radial-gradient(97.64% 49.44% at 26.39% 52.51%, #A5BCFF 0%, #7692F6 100%)',

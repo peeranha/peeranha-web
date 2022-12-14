@@ -5,10 +5,10 @@ export const pageStyles = {
   },
 
   sticky: {
-    height: '56px',
+    height: '48px',
 
     '@media (min-width: 1366px)': {
-      height: '95px',
+      height: '85px',
     },
   },
 
