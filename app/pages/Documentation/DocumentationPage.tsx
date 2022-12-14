@@ -18,9 +18,15 @@ import reducer from './reducer';
 import saga from './saga';
 import { selectDocumentation, selectDocumentationLoading } from './selectors';
 import {
+  selectDocumentationMenu,
+  selectPinnedItemMenu,
+} from 'containers/AppWrapper/selectors';
+import {
   DocumentationArticle,
   OutputSelector,
   RouterDocumentetion,
+  DocumentationItemMenuType,
+  PinnedArticleType,
 } from './types';
 import { getBytes32FromIpfsHash } from 'utils/ipfs';
 
@@ -28,6 +34,8 @@ interface DocumentationProps extends RouteComponentProps<RouterDocumentetion> {
   getArticleDocumentationDispatch: (id: string) => void;
   documentation: Array<DocumentationArticle>;
   isArticleLoading: boolean;
+  pinnedItemMenu: PinnedArticleType;
+  documentationMenu: Array<DocumentationItemMenuType>;
 }
 
 export const DocumentationPage: React.FC<DocumentationProps> = ({
@@ -35,8 +43,13 @@ export const DocumentationPage: React.FC<DocumentationProps> = ({
   getArticleDocumentationDispatch,
   documentation,
   isArticleLoading,
+  pinnedItemMenu,
+  documentationMenu,
 }) => {
-  const ipfsHasgBytes32 = getBytes32FromIpfsHash(match.params.sectionId);
+  const ipfsHash = pinnedItemMenu?.id || documentationMenu[0]?.id;
+  const ipfsHasgBytes32 = Boolean(match.params.sectionId)
+    ? getBytes32FromIpfsHash(match.params.sectionId)
+    : ipfsHash;
 
   useEffect(() => {
     getArticleDocumentationDispatch(ipfsHasgBytes32);
@@ -56,7 +69,7 @@ export const DocumentationPage: React.FC<DocumentationProps> = ({
         flex-grow: 1;
       `}
     >
-      {isArticleLoading ? (
+      {isArticleLoading || !documentationSection ? (
         <Loader />
       ) : (
         <ViewContent documentationArticle={documentationSection} />
@@ -73,6 +86,8 @@ export default compose(
     createStructuredSelector<any, OutputSelector>({
       documentation: selectDocumentation(),
       isArticleLoading: selectDocumentationLoading(),
+      pinnedItemMenu: selectPinnedItemMenu(),
+      documentationMenu: selectDocumentationMenu(),
     }),
     (dispatch: Dispatch<AnyAction>) => ({
       getArticleDocumentationDispatch: bindActionCreators(

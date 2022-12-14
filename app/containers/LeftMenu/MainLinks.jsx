@@ -39,6 +39,7 @@ import communitiesIcon from 'images/communities.svg?external';
 import tagsIcon from 'images/tags.svg?external';
 import usersIcon from 'images/users.svg?external';
 import faqIcon from 'images/faq.svg?external';
+import PinIcon from 'icons/Pin';
 
 import A from 'components/A';
 import { IconLg } from 'components/Icon/IconWithSizes';
@@ -47,7 +48,7 @@ import { svgDraw } from 'components/Icon/IconStyled';
 import expertIcon from 'images/hat-3-outline-24.svg?external';
 import generalIcon from 'images/comments-outline-24.svg?external';
 import tutorialIcon from 'images/tutorial.svg?external';
-import { FULL_SIZE } from 'containers/LeftMenu/constants';
+import { FULL_SIZE, PINNED_TITLE_LENGTH } from 'containers/LeftMenu/constants';
 import { BasicLink } from 'containers/LeftMenu/Styles';
 import {
   hasGlobalModeratorRole,
@@ -177,7 +178,7 @@ const MainLinks = ({
     : false;
 
   if (!route) {
-    route = isBloggerMode ? 'home' : 'feed';
+    route = isBloggerMode ? 'home' : '/';
   }
 
   const hasCommunityOrProtocolAdminRole =
@@ -185,6 +186,8 @@ const MainLinks = ({
     (hasGlobalModeratorRole() ||
       hasCommunityAdminRole(null, singleCommId) ||
       isProtocolAdmin);
+
+  const isShortPinnedTitle = pinnedItemMenu.title.length > PINNED_TITLE_LENGTH;
 
   return (
     <Box
@@ -208,6 +211,7 @@ const MainLinks = ({
               <A1
                 to={routes.documentation(ipfsHash)}
                 name={`documentation/${ipfsHash}`}
+                className="df jcsb aic"
                 css={{
                   padding: '8px 15px 12px',
                   fontWeight: 600,
@@ -216,7 +220,28 @@ const MainLinks = ({
                   color: 'var(--color-white)',
                 }}
               >
-                <span>{pinnedItemMenu.title}</span>
+                <span
+                  css={{
+                    borderRight: isShortPinnedTitle
+                      ? '1px solid rgba(255, 255, 255, 0.3)'
+                      : '',
+                    paddingRight: '10px',
+                  }}
+                >
+                  {pinnedItemMenu.title}
+                </span>
+                <span
+                  css={{
+                    borderLeft: !isShortPinnedTitle
+                      ? '1px solid rgba(255, 255, 255, 0.3)'
+                      : '',
+                  }}
+                >
+                  <PinIcon
+                    stroke="#FFF"
+                    css={{ fill: '#A5BCFF', marginLeft: '10px' }}
+                  />
+                </span>
               </A1>
             );
           })()}
