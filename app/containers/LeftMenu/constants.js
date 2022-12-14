@@ -17,3 +17,4 @@ export const SEMI_SIZE = 630;
 
 export const MAX_NESTING_LEVEL = 3;
 export const DOCUMENTATION_PADDING = 15;
+export const PINNED_TITLE_LENGTH = 20;
