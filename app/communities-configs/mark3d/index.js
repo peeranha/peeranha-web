@@ -203,7 +203,7 @@ export const Mark3dStyles = {
       'linear-gradient(90deg, #BBABF8 0%, #F6D4F5 65.04%, #CBC5F1 100%)',
     mainBackground: 'rgba(234, 236, 244, 1)',
     linkColor: 'rgba(135, 133, 244, 1)',
-    linkCookieColor: '#FFFF',
+    linkCookieColor: 'rgba(86, 79, 229, 1)',
     linkColorTransparent: 'rgba(135, 133, 244, 1)',
     headerPrimary: 'rgba(135, 133, 244, 1)',
     commentOption: 'rgba(135, 133, 244, 1)',
