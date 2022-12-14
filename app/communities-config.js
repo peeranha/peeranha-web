@@ -118,6 +118,11 @@ const communitiesConfig = {
       src: VyperLogo,
       styles: VyperStyles,
     },
+    18: {
+      origin: 'https://mark3d.peeranha.io',
+      src: Mark3dLogo,
+      styles: Mark3dStyles,
+    },
   },
   staging: {
     1: {
