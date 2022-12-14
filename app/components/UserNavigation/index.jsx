@@ -64,26 +64,24 @@ const UserNavigation = ({
   const path = window.location.pathname + window.location.hash;
   const ref = useRef(null);
 
-  useEffect(
-    () => {
-      if (
-        hashes.includes(window.location.hash) ||
-        path === routes.profileView(userId)
-      ) {
-        window.scrollTo(0, 0);
-      }
-    },
-    [window.location.hash],
-  );
+  useEffect(() => {
+    if (
+      hashes.includes(window.location.hash) ||
+      path === routes.profileView(userId)
+    ) {
+      window.scrollTo(0, 0);
+    }
+  }, [window.location.hash]);
 
   const isProfilePage =
     userId === account &&
     (path === routes.profileView(account) ||
       path === routes.userCommunities(account));
 
-  const isModerator = useMemo(() => !!getPermissions(profile)?.length, [
-    profile,
-  ]);
+  const isModerator = useMemo(
+    () => !!getPermissions(profile)?.length,
+    [profile],
+  );
 
   return (
     <Wrapper position="top" ref={ref}>
@@ -198,13 +196,13 @@ const UserNavigation = ({
               <FormattedMessage id={messages.moderation.id} />
             </NavigationLink>
           )}
-
+          {/* PEER-718: hide settings;
           <NavigationLink
             to={routes.userSettings(userId)}
             islink={path !== routes.userSettings(userId) ? 1 : 0}
           >
             <FormattedMessage id={messages.settings.id} />
-          </NavigationLink>
+          </NavigationLink> */}
 
           <NavigationButton
             className={

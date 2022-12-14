@@ -8,6 +8,7 @@ export const TextBlock = ({ content }) => (
   <MarkdownPreview
     source={content}
     css={css`
+      font-family: 'Source Sans Pro', sans-serif;
       ol li {
         list-style-type: decimal;
       }
