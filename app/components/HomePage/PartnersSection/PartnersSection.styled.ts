@@ -59,19 +59,6 @@ export const styles = {
     },
   },
 
-  slideTrack: {
-    animation: 'scroll 20s linear infinite',
-
-    '@keyframes scroll': {
-      '0%': {
-        transform: 'translateX(0)',
-      },
-      '100%': {
-        transform: 'translateX(-50%)',
-      },
-    },
-  },
-
   slide: {
     display: 'inline-block',
     height: '32px',
@@ -94,6 +81,50 @@ export const styles = {
     '@media (min-width: 1920px)': {
       height: '106px',
       padding: '0 60px',
+    },
+  },
+
+  titleAnimation: {
+    animation: 'animationTitle 1s forwards',
+
+    '@keyframes animationTitle': {
+      '0%': {
+        transform: 'translateY(60px)',
+        opacity: '0',
+      },
+      '100%': {
+        transform: 'translateY(0)',
+        opacity: '100%',
+      },
+    },
+  },
+
+  sliderAnimation: {
+    animation: 'animationSlider 1s forwards',
+
+    '@keyframes animationSlider': {
+      '0%': {
+        transform: 'translateY(80px)',
+        opacity: '0',
+      },
+      '100%': {
+        transform: 'translateY(0)',
+        opacity: '100%',
+      },
+    },
+  },
+
+  slideTrackAnimation: {
+    animation: 'scroll 20s linear infinite',
+    animationDelay: '1s',
+
+    '@keyframes scroll': {
+      '0%': {
+        transform: 'translateX(0)',
+      },
+      '100%': {
+        transform: 'translateX(-50%)',
+      },
     },
   },
 };
