@@ -146,6 +146,17 @@ export const styles = {
   arrowImage: {
     width: '54px',
 
+    animation: 'arrowImageAnimation 3s linear infinite',
+
+    '@keyframes arrowImageAnimation': {
+      '0%, 100%': {
+        transform: 'translateY(0)',
+      },
+      '50%': {
+        transform: 'translateY(20px)',
+      },
+    },
+
     '@media (min-width: 1366px)': {
       width: '82px',
     },
