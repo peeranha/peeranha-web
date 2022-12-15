@@ -1,4 +1,8 @@
 import bg from 'images/background_service_figure.png';
+import fish from 'images/fish.svg?inline';
+import rightBottomCoin from 'images/right-bottom-coin.svg?inline';
+import leftBottomCoin from 'images/left-bottom-coin.svg?inline';
+import topCoin from 'images/top-coin.svg?inline';
 
 export const styles = {
   backgroundImage: {
@@ -29,6 +33,110 @@ export const styles = {
       backgroundPositionY: '4px',
       backgroundPositionX: '0px',
       backgroundSize: '101% 100%',
+    },
+  },
+  fishImage: {
+    backgroundImage: `url(${fish})`,
+    backgroundPositionX: '100%',
+    backgroundPositionY: '57px',
+    backgroundSize: '40px',
+
+    '@media (min-width: 768px)': {
+      backgroundPositionX: '95%',
+      backgroundPositionY: '32px',
+      backgroundSize: '40px',
+    },
+
+    '@media (min-width: 1366px)': {
+      backgroundSize: '65px',
+    },
+
+    '@media (min-width: 1920px)': {
+      backgroundPositionY: '102px',
+    },
+  },
+
+  rightBottomCoinImage: {
+    backgroundImage: `url(${rightBottomCoin}) `,
+    backgroundSize: '65px',
+    backgroundPosition: '100% 105%',
+
+    '@media (min-width: 768px)': {
+      backgroundPosition: '85% 103%',
+    },
+
+    '@media (min-width: 1024px)': {
+      backgroundSize: '107px',
+    },
+
+    '@media (min-width: 1366px)': {
+      backgroundPosition: '92% 105%',
+    },
+
+    '@media (min-width: 1920px)': {
+      backgroundSize: '140px',
+      backgroundPosition: '90% 105%',
+    },
+  },
+  leftBottomCoinImage: {
+    backgroundImage: `url(${leftBottomCoin})`,
+    backgroundSize: '29px',
+    backgroundPosition: '-9px 95%',
+
+    '@media (min-width: 768px)': {
+      backgroundPosition: '-7px 11%',
+    },
+
+    '@media (min-width: 1024px)': {
+      backgroundSize: '48px',
+      backgroundPosition: '-12px 12%',
+    },
+
+    '@media (min-width: 1920px)': {
+      backgroundSize: '62px',
+      backgroundPosition: '-12px 18%',
+    },
+  },
+  rightTopCoinImage: {
+    transform: 'scaleX(-1)',
+    backgroundImage: `url(${topCoin})`,
+    backgroundSize: '29px',
+    backgroundPosition: '-13px 92%',
+
+    '@media (min-width: 768px)': {
+      backgroundPosition: '6% 86%',
+    },
+
+    '@media (min-width: 1024px)': {
+      backgroundPosition: '7% 84%',
+      backgroundSize: '48px',
+    },
+
+    '@media (min-width: 1366px)': {
+      backgroundPosition: '5% 78%',
+    },
+
+    '@media (min-width: 1920px)': {
+      backgroundPosition: '6% 79%',
+      backgroundSize: '62px',
+    },
+  },
+  leftTopCoinImage: {
+    backgroundImage: `url(${topCoin})`,
+    backgroundSize: '50px',
+    backgroundPosition: '-6px 88%',
+
+    '@media (min-width: 768px)': {
+      backgroundPosition: '7% 4%',
+    },
+
+    '@media (min-width: 1024px)': {
+      backgroundSize: '81px',
+    },
+
+    '@media (min-width: 1920px)': {
+      backgroundPosition: '7% 8%',
+      backgroundSize: '107px',
     },
   },
 
@@ -68,7 +176,7 @@ export const styles = {
     marginBottom: '40px',
     lineHeight: '100%',
     color: 'rgb(165, 188, 255)',
-    padding: '0 20px',
+    padding: '0 25px',
 
     '@media (min-width: 768px)': {
       width: '510px',
@@ -201,6 +309,170 @@ export const styles = {
       height: '56px',
       fontSize: '28px',
       lineHeight: '35px',
+    },
+  },
+
+  fishAnimation: {
+    animation: 'fishAnimation 1s forwards',
+    opacity: 0,
+
+    '@keyframes fishAnimation': {
+      '0%': {
+        transform: 'translateX(40px)',
+        opacity: '0',
+      },
+      '100%': {
+        transform: 'translateX(0)',
+        opacity: '100%',
+      },
+    },
+  },
+  rightBottomCoinAnimation: {
+    animation: 'rightBottomAnimation 1s forwards',
+    animationDelay: '0.2s',
+    opacity: 0,
+
+    '@keyframes rightBottomAnimation': {
+      '0%': {
+        transform: 'translateX(80px)',
+        opacity: '0',
+      },
+      '100%': {
+        transform: 'translateX(0)',
+        opacity: '100%',
+      },
+    },
+  },
+  leftTopCoinAnimation: {
+    animation: 'leftTopAnimation 1s forwards',
+    opacity: 0,
+
+    '@keyframes leftTopAnimation': {
+      '0%': {
+        transform: 'translateX(-80px)',
+        opacity: '0',
+      },
+      '100%': {
+        transform: 'translateX(0))',
+        opacity: '100%',
+      },
+    },
+  },
+  leftBottomCoinAnimation: {
+    animation: 'leftBottomAnimation 1s forwards',
+    animationDelay: '0.2s',
+    opacity: 0,
+
+    '@keyframes leftBottomAnimation': {
+      '0%': {
+        transform: 'translateX(-40px)',
+        opacity: '0',
+      },
+      '100%': {
+        transform: 'translateX(0))',
+        opacity: '100%',
+      },
+    },
+  },
+  rightTopCoinAnimation: {
+    animation: 'rightTopAnimation 1s forwards',
+    opacity: 0,
+
+    '@keyframes rightTopAnimation': {
+      '0%': {
+        transform: 'translateX(100%)',
+        opacity: '0',
+      },
+      '100%': {
+        transform: 'translateX(calc(100%-40px))',
+        opacity: '100%',
+      },
+    },
+  },
+  startButtonAnimation: {
+    animation: 'startButtonAnimation 1.2s forwards',
+    opacity: 0,
+
+    '@keyframes startButtonAnimation': {
+      '0%': {
+        transform: 'translateY(60px)',
+        opacity: '0',
+      },
+      '100%': {
+        transform: 'translateY(0)',
+        opacity: '100%',
+      },
+    },
+  },
+  iconAnimation: {
+    animation: 'iconAnimation 0.8s forwards',
+    opacity: 0,
+
+    '@keyframes iconAnimation': {
+      '0%': {
+        opacity: '0',
+      },
+      '100%': {
+        opacity: '100%',
+      },
+    },
+  },
+  titleAnimation: {
+    animation: 'contentTitleAnimation 1.2s forwards',
+    opacity: 0,
+
+    '@keyframes contentTitleAnimation': {
+      '0%': {
+        transform: 'translateY(60px)',
+        opacity: '0',
+      },
+      '100%': {
+        transform: 'translateY(0)',
+        opacity: '100%',
+      },
+    },
+  },
+  textAnimation: {
+    animation: 'contentTitleAnimation 1.2s forwards',
+    animationDelay: '0.4s',
+    opacity: 0,
+
+    '@keyframes contentTitleAnimation': {
+      '0%': {
+        transform: 'translateY(60px)',
+        opacity: '0',
+      },
+      '100%': {
+        transform: 'translateY(0)',
+        opacity: '100%',
+      },
+    },
+  },
+  headerAnimation: {
+    animation: 'contentTitleAnimation 1s forwards',
+    opacity: 0,
+
+    '@keyframes contentTitleAnimation': {
+      '0%': {
+        transform: 'translateY(40px)',
+        opacity: '0',
+        width: '96px',
+        color: 'transparent',
+      },
+      '30%': {
+        width: '96px',
+        transform: 'translateY(0) scaleX(96px)',
+        opacity: '100%',
+        color: 'transparent',
+      },
+      '80%': {
+        transform: 'scale(100%)',
+        opacity: '100%',
+        color: 'transparent',
+      },
+      '100%': {
+        opacity: '100%',
+      },
     },
   },
 };

@@ -198,4 +198,69 @@ export const styles = {
       minWidth: '994px',
     },
   },
+
+  titleAnimation: {
+    animation: 'animationTitle 1.2s forwards',
+    opacity: '0',
+
+    '@keyframes animationTitle': {
+      '0%': {
+        transform: 'translateY(60px)',
+        opacity: '0',
+      },
+      '100%': {
+        transform: 'translateY(0)',
+        opacity: '100%',
+      },
+    },
+  },
+
+  textAnimation: {
+    animation: 'animationText 1.2s forwards',
+    animationDelay: '0.4s',
+    opacity: 0,
+
+    '@keyframes animationText': {
+      '0%': {
+        transform: 'translateY(60px)',
+        opacity: '0',
+      },
+      '100%': {
+        transform: 'translateY(0)',
+        opacity: '100%',
+      },
+    },
+  },
+
+  imageAnimation: {
+    animation: 'animationImage 1s forwards',
+    opacity: '0',
+
+    '@keyframes animationImage': {
+      '0%': {
+        transform: 'translateX(-100px)',
+        opacity: '0',
+      },
+      '100%': {
+        transform: 'translateX(0)',
+        opacity: '100%',
+      },
+    },
+  },
+
+  evenImageAnimation: {
+    animation: 'evenAnimationImage 1s forwards',
+    opacity: '0',
+
+    '@keyframes evenAnimationImage': {
+      '0%': {
+        transform: 'translateX(100px)',
+        opacity: '0',
+      },
+      '100%': {
+        transform: 'translateX(0)',
+        opacity: '100%',
+      },
+    },
+  },
 };

@@ -86,7 +86,7 @@ export const styles = {
 
   titleAnimation: {
     animation: 'animationTitle 1s forwards',
-
+    opacity: '0',
     '@keyframes animationTitle': {
       '0%': {
         transform: 'translateY(60px)',
@@ -101,6 +101,7 @@ export const styles = {
 
   sliderAnimation: {
     animation: 'animationSlider 1s forwards',
+    opacity: '0',
 
     '@keyframes animationSlider': {
       '0%': {
@@ -115,7 +116,7 @@ export const styles = {
   },
 
   slideTrackAnimation: {
-    animation: 'scroll 20s linear infinite',
+    animation: 'scroll 50s linear infinite',
     animationDelay: '1s',
 
     '@keyframes scroll': {
