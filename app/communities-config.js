@@ -16,6 +16,7 @@ import AnkrLogo from './communities-configs/ankr/images/ankrBlueLogo.svg?inline'
 import VyperLogo from './communities-configs/vyper/images/Vyperlogo.svg?inline';
 import AaveLogo from 'communities-configs/aave/images/AaveLogo.svg?inline';
 import ForceLogo from './communities-configs/force/images/Group.svg?inline';
+import Mark3dLogo from './communities-configs/mark3d/images/Mark3dLogo.svg?inline';
 
 import { PolygonStyles } from './communities-configs/polygon';
 import { FilecoinStyles } from './communities-configs/filecoin';
@@ -35,6 +36,7 @@ import { SolidityStyles } from './communities-configs/solidity';
 import { AaveStyles } from './communities-configs/aave';
 import { VyperStyles } from './communities-configs/vyper';
 import { ForceStyles } from './communities-configs/force';
+import { Mark3dStyles } from './communities-configs/mark3d';
 
 const communitiesConfig = {
   prod: {
@@ -116,6 +118,11 @@ const communitiesConfig = {
       src: VyperLogo,
       styles: VyperStyles,
     },
+    18: {
+      origin: 'https://mark3d.peeranha.io',
+      src: Mark3dLogo,
+      styles: Mark3dStyles,
+    },
   },
   staging: {
     1: {
@@ -190,6 +197,11 @@ const communitiesConfig = {
       src: ForceLogo,
       styles: ForceStyles,
     },
+    9: {
+      origin: `https://mark3d${process.env.COOKIE_DOMAIN}`,
+      src: Mark3dLogo,
+      styles: Mark3dStyles,
+    },
     // 1: {
     //   origin: `https://meta${process.env.COOKIE_DOMAIN}`,
     // },
@@ -252,9 +264,7 @@ const communitiesConfig = {
   },
   dev: {
     1: {
-      origin: 'http://localhost:3000',
-      src: AaveLogo,
-      styles: AaveStyles,
+      origin: 'http://localhost:31000',
     },
   },
 };
