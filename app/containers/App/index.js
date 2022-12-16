@@ -162,7 +162,7 @@ const App = ({
   }, []);
 
   useEffect(() => {
-    if ((single && pathname == '/') || '/feed') {
+    if (single && (pathname == '/' || pathname == '/feed')) {
       hasPinnedPost || isDocumentationPositionTop
         ? redirectToDocumentationDispatch()
         : redirectToFeedDispatch();
