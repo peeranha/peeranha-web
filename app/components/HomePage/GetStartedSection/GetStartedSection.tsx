@@ -10,6 +10,7 @@ import messages from '../messages';
 
 import { styles } from './GetStartedSection.styled';
 import { pageStyles } from '../HomePage.styled';
+import { scrollToSection } from 'utils/animation';
 
 const GetStartedSection: React.FC = (): JSX.Element => (
   <section css={styles.backgroundImage}>
@@ -37,7 +38,13 @@ const GetStartedSection: React.FC = (): JSX.Element => (
             css={styles.manImage}
           />
         </div>
-        <img src={arrow} css={styles.arrowImage} alt="navigation arrow" />
+        <img
+          src={arrow}
+          className="cup"
+          css={styles.arrowImage}
+          onClick={() => scrollToSection(`#video`)}
+          alt="navigation arrow"
+        />
       </div>
     </div>
   </section>
