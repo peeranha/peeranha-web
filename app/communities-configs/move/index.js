@@ -222,7 +222,7 @@ export const MoveStyles = {
     tagColor: 'rgba(91, 82, 152, 1)',
     localeArrowColor: 'rgba(91, 82, 152, 1)',
     textColor: 'rgba(91, 82, 152, 1)',
-    textColorShadow: 'rgba(135, 133, 244, 1)',
+    textColorShadow: 'rgba(91, 82, 152, 1)',
     commHeadElemColor: 'rgba(19, 19, 45, 1)',
   },
   cookieConsentPopupStyles: {
