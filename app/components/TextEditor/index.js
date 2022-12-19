@@ -6,7 +6,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import MDEditor from '@uiw/react-md-editor';
+import MDEditor, { commands } from '@uiw/react-md-editor';
 import { css } from '@emotion/react';
 import MarkdownPreview from '@uiw/react-markdown-preview';
 import '@uiw/react-md-editor/markdown-editor.css';
@@ -41,6 +41,12 @@ class TextEditor extends React.PureComponent {
           css={css`
             margin-bottom: 20px;
             border-bottom: 2px solid ${TEXT_DARK};
+            ol li {
+              list-style-type: decimal;
+            }
+            ul li {
+              list-style-type: disc;
+            }
             textarea {
               -webkit-text-fill-color: ${TEXT_DARK};
             }
@@ -56,6 +62,13 @@ class TextEditor extends React.PureComponent {
           }}
           preview={'edit'}
           data-color-mode={'light'}
+          previewOptions={{
+            rehypeRewrite: (node) => {
+              if (node.tagName === 'input') {
+                node.properties.disabled = false;
+              }
+            },
+          }}
         />
         <Wrapper
           label={'Preview'}
