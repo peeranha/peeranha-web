@@ -6,7 +6,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import MDEditor, { commands } from '@uiw/react-md-editor';
+import MDEditor from '@uiw/react-md-editor';
 import { css } from '@emotion/react';
 import MarkdownPreview from '@uiw/react-markdown-preview';
 import '@uiw/react-md-editor/markdown-editor.css';
