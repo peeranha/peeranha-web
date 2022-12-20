@@ -2,11 +2,22 @@ import { useState } from 'react';
 import SortableTree from 'react-sortable-tree';
 import NodeRenderer from './NodeRenderer';
 import Button from 'common-components/Button';
+import { DocumentationItemMenuType } from 'pages/Documentation/types';
 
-const EditOrder = ({ documentationMenuDraft, editOrder, saveMenuDraft }) => {
-  const [documentationEditOrder, setDocumentationEditOrder] = useState<any>(
-    documentationMenuDraft,
-  );
+type EditOrderProps = {
+  documentationMenuDraft: Array<DocumentationItemMenuType>;
+  editOrder: () => void;
+  saveMenuDraft: (data: Array<DocumentationItemMenuType>) => void;
+};
+
+const EditOrder: React.FC<EditOrderProps> = ({
+  documentationMenuDraft,
+  editOrder,
+  saveMenuDraft,
+}): JSX.Element => {
+  const [documentationEditOrder, setDocumentationEditOrder] = useState<
+    Array<DocumentationItemMenuType>
+  >(documentationMenuDraft);
 
   const onClickSave = () => {
     saveMenuDraft(documentationEditOrder);

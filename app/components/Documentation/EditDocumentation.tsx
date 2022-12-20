@@ -51,7 +51,6 @@ import {
 } from './helpers';
 import { EditDocumentationProps } from './types';
 import { styled } from './EditDocumentation.styled';
-import { styles } from 'components/Documentation/components/Drafts/Drafts.styled';
 
 const EditDocumentation: React.FC<EditDocumentationProps> = ({
   documentationMenu,
