@@ -165,7 +165,11 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
         />
         <section className="dg" css={styled.main}>
           {isEditOrder && (
-            <EditOrder documentationMenuDraft={documentationMenuDraft} />
+            <EditOrder
+              documentationMenuDraft={documentationMenuDraft}
+              editOrder={editOrderDispatch}
+              saveMenuDraft={saveMenuDraftDispatch}
+            />
           )}
           <div css={styled.leftSection}>
             <DocumentationMenu

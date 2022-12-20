@@ -1,11 +1,17 @@
 import { useState } from 'react';
 import SortableTree from 'react-sortable-tree';
-import 'react-sortable-tree/style.css';
+import NodeRenderer from './NodeRenderer';
+import Button from 'common-components/Button';
 
-const EditOrder = ({ documentationMenuDraft }) => {
+const EditOrder = ({ documentationMenuDraft, editOrder, saveMenuDraft }) => {
   const [documentationEditOrder, setDocumentationEditOrder] = useState<any>(
     documentationMenuDraft,
   );
+
+  const onClickSave = () => {
+    saveMenuDraft(documentationEditOrder);
+    editOrder();
+  };
 
   return (
     <div
@@ -41,6 +47,11 @@ const EditOrder = ({ documentationMenuDraft }) => {
             border: 0,
             boxShadow: 'none',
           },
+
+          '& .rst__nodeContent': {
+            position: 'absolute',
+            width: 238,
+          },
         },
       }}
     >
@@ -56,6 +67,7 @@ const EditOrder = ({ documentationMenuDraft }) => {
           css={{
             borderBottom: '1px solid #D8D8D8',
             lineHeight: '18px',
+            marginBottom: 10,
           }}
         >
           <div
@@ -84,11 +96,34 @@ const EditOrder = ({ documentationMenuDraft }) => {
           getNodeKey={({ node }) => node.id}
           style={{
             width: 262,
-            height: '100%',
+            height: 'calc(100% - 200px)',
           }}
           rowHeight={34}
           className="edit-order-documentation"
+          nodeContentRenderer={NodeRenderer}
+          scaffoldBlockPxWidth={16}
+          maxDepth={3}
         />
+        <div
+          className="df jcsb p16"
+          css={{
+            borderTop: '1px solid #D8D8D8',
+          }}
+        >
+          <Button variant="secondary" className="mr16" onClick={editOrder}>
+            Cancel
+          </Button>
+          <Button
+            variant="primary"
+            css={{
+              borderWidth: 0,
+              '&:hover .icon': { stroke: 'var(--color-white)' },
+            }}
+            onClick={onClickSave}
+          >
+            Save
+          </Button>
+        </div>
       </div>
     </div>
   );

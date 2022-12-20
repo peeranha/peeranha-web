@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { isDescendant } from 'react-sortable-tree/tree-data-utils';
+import { isDescendant } from 'react-sortable-tree';
 import classnames from 'classnames';
-import './node-renderer-default.css';
+import ArrowDownIcon from 'icons/ArrowDown';
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
 
 class NodeRendererDefault extends Component {
   render() {
@@ -74,43 +77,32 @@ class NodeRendererDefault extends Component {
     }
 
     return (
-      <div style={{ height: '100%' }} {...otherProps}>
-        {toggleChildrenVisibility &&
-          node.children &&
-          (node.children.length > 0 || typeof node.children === 'function') && (
-            <div>
-              <button
-                type="button"
-                aria-label={node.expanded ? 'Collapse' : 'Expand'}
-                className={classnames(
-                  node.expanded ? 'rst__collapseButton' : 'rst__expandButton',
-                  rowDirectionClass,
-                )}
-                style={buttonStyle}
-                onClick={() =>
-                  toggleChildrenVisibility({
-                    node,
-                    path,
-                    treeIndex,
-                  })
-                }
-              />
+      <div
+        style={{ height: '100%' }}
+        className="df jcsb"
+        css={{
+          padding: '0 8px 0 0',
 
-              {node.expanded && !isDragging && (
-                <div
-                  style={{ width: scaffoldBlockPxWidth }}
-                  className={classnames('rst__lineChildren', rowDirectionClass)}
-                />
-              )}
-            </div>
-          )}
-
-        <div className={classnames('rst__rowWrapper', rowDirectionClass)}>
+          width: `calc(100% - ${(path.length - 1) * 16}px)`,
+        }}
+        {...otherProps}
+      >
+        <div
+          className={classnames('rst__rowWrapper', rowDirectionClass)}
+          css={{
+            width:
+              toggleChildrenVisibility &&
+              node.children &&
+              (node.children.length > 0 || typeof node.children === 'function')
+                ? 'calc(100% - 36px)'
+                : '100%',
+          }}
+        >
           {/* Set the row preview to be used during drag and drop */}
           {connectDragPreview(
             <div
               className={classnames(
-                'rst__row',
+                'rst__row df fdc jcc',
                 isLandingPadActive && 'rst__rowLandingPad',
                 isLandingPadActive && !canDrop && 'rst__rowCancelPad',
                 isSearchMatch && 'rst__rowSearchMatch',
@@ -135,9 +127,22 @@ class NodeRendererDefault extends Component {
                 <div className={classnames('rst__rowLabel', rowDirectionClass)}>
                   <span
                     className={classnames(
-                      'rst__rowTitle',
+                      'rst__rowTitle text-ellipsis db',
                       node.subtitle && 'rst__rowTitleWithSubtitle',
                     )}
+                    css={{
+                      fontSize: 14,
+                      lineHeight: '16px',
+                      color: '#282828',
+                      ...(path.length > 1 && {
+                        color: '#7B7B7B',
+                      }),
+                      ...(node.expanded &&
+                        node.children.length > 0 && {
+                          fontWeight: 700,
+                          color: '#282828',
+                        }),
+                    }}
                   >
                     {typeof nodeTitle === 'function'
                       ? nodeTitle({
@@ -175,6 +180,42 @@ class NodeRendererDefault extends Component {
             </div>,
           )}
         </div>
+
+        {toggleChildrenVisibility &&
+          node.children &&
+          (node.children.length > 0 || typeof node.children === 'function') && (
+            <div className="df aic">
+              <button
+                type="button"
+                aria-label={node.expanded ? 'Collapse' : 'Expand'}
+                className={classnames(
+                  node.expanded ? 'rst__collapseButton' : 'rst__expandButton',
+                  rowDirectionClass,
+                )}
+                style={buttonStyle}
+                onClick={() =>
+                  toggleChildrenVisibility({
+                    node,
+                    path,
+                    treeIndex,
+                  })
+                }
+              >
+                <ArrowDownIcon
+                  css={{
+                    color: colors.linkColor || '#576FED',
+                    width: 18,
+                    height: 18,
+                    transform: 'rotate(-90deg)',
+                    transition: 'transform 0.25s',
+                    marginLeft: 10,
+                    ...(node.expanded && { transform: 'rotate(0deg)' }),
+                  }}
+                  className="mr4 cup"
+                />
+              </button>
+            </div>
+          )}
       </div>
     );
   }

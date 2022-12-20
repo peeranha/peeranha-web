@@ -73,8 +73,6 @@ const Documentation: React.FC<DocumentationMenuSectionProps> = ({
   pinnedItemMenuId,
   editOrder,
 }) => {
-  const [isEditOrder, setIsEditOrder] = useState<boolean>(false);
-
   const clickDocumentation = () => (value: number) => {
     if (value === 1 && typeof toggleEditDocumentation === 'function') {
       toggleEditDocumentation();
@@ -94,15 +92,7 @@ const Documentation: React.FC<DocumentationMenuSectionProps> = ({
   };
 
   return (
-    <div
-      css={{
-        ...(isEditOrder && {
-          background: 'var(--color-white)',
-          borderRadius: '5px',
-          paddingTop: 12,
-        }),
-      }}
-    >
+    <div>
       {!isEditDocumentation && documentationPosition !== 'top' && (
         <div css={css(styles.divider)} />
       )}
