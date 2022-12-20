@@ -35,7 +35,7 @@ type DocumentationMenuSectionProps = {
   removeArticle?: (id: string) => void;
   pinnedItemMenuId: string;
   editOrder?: () => void;
-  setPinned: () => void;
+  setPinned: React.Dispatch<React.SetStateAction<string>>;
   pinned: string;
 };
 
