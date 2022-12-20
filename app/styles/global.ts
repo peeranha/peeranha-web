@@ -100,6 +100,9 @@ export default css`
   .aife {
     align-items: flex-end;
   }
+  .aifs {
+    align-items: flex-start;
+  }
   .fdc {
     flex-direction: column;
   }
@@ -129,6 +132,9 @@ export default css`
   }
   .tl {
     text-align: left;
+  }
+  .fz12 {
+    font-size: 12px;
   }
   .fz14 {
     font-size: 14px;

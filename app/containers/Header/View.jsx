@@ -221,54 +221,7 @@ const View = ({
   };
 
   return (
-    <Wrapper id={HEADER_ID} transactionInitialised={transactionInitialised}>
-      {transactionInitialised && (
-        <ProgressIndicator>
-          <div
-            css={css`
-              > span {
-                margin-left: 10px;
-              }
-            `}
-          >
-            <IconLg
-              icon={processIndicator}
-              css={css`
-                path {
-                  fill: ${colors.linkColor || TEXT_PRIMARY};
-                }
-              `}
-            />
-            {isTransactionInPending ? (
-              <FormattedMessage
-                id={messages.transactionInPending.id}
-                values={{
-                  transaction: (
-                    <a
-                      href={process.env.BLOCKCHAIN_TRANSACTION_INFO_URL.concat(
-                        transactionHash,
-                      )}
-                      target="_blank"
-                      css={css`
-                        color: ${colors.linkColor || TEXT_PRIMARY};
-                        :hover {
-                          color: ${colors.linkColor || TEXT_PRIMARY};
-                          opacity: 0.5;
-                        }
-                      `}
-                    >
-                      <FormattedMessage id={messages.transaction.id} />
-                    </a>
-                  ),
-                }}
-              />
-            ) : (
-              <FormattedMessage id={messages.waitingForConfirm.id} />
-            )}
-          </div>
-        </ProgressIndicator>
-      )}
-
+    <Wrapper id={HEADER_ID}>
       <MainSubHeader mainSubHeaderBgColor={colors.mainSubHeaderBgColor}>
         <div className="container">
           <div className="d-flex align-items-center justify-content-between">

@@ -600,6 +600,12 @@ export default defineMessages({
   gotIt: {
     id: 'app.common.gotIt',
   },
+  successful: {
+    id: 'app.common.successful',
+  },
+  failed: {
+    id: 'app.common.failed',
+  },
   messageSendedSuccessfully: {
     id: 'app.common.messageSendedSuccessfully',
   },

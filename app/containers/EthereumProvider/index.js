@@ -36,6 +36,7 @@ import {
   transactionFailed,
   transactionInPending,
   transactionInitialised,
+  setTransactionList,
 } from './actions';
 import communitiesConfig from '../../communities-config';
 
@@ -95,6 +96,7 @@ export const EthereumProvider = ({
   showModalDispatch,
   transactionInPendingDispatch,
   transactionCompletedDispatch,
+  setTransactionListDispatch,
   waitForConfirmDispatch,
   transactionFailedDispatch,
   initializing,
@@ -127,9 +129,7 @@ export const EthereumProvider = ({
 
     loadScriptByURL(
       'recaptcha-key',
-      `https://www.google.com/recaptcha/api.js?render=${
-        process.env.RECAPTCHA_SITE_KEY
-      }`,
+      `https://www.google.com/recaptcha/api.js?render=${process.env.RECAPTCHA_SITE_KEY}`,
       () => {
         console.log('Script loaded!');
       },
@@ -144,19 +144,16 @@ export const EthereumProvider = ({
     [window.grecaptcha],
   );
 
-  useEffect(
-    () => {
-      if (ethereum) {
-        ethereum.setData({
-          wallet,
-          connectedWallets,
-          web3Onboard,
-          connectedChain,
-        });
-      }
-    },
-    [wallet, connectedWallets, web3Onboard],
-  );
+  useEffect(() => {
+    if (ethereum) {
+      ethereum.setData({
+        wallet,
+        connectedWallets,
+        web3Onboard,
+        connectedChain,
+      });
+    }
+  }, [wallet, connectedWallets, web3Onboard]);
 
   const sendProps = {
     connect,
@@ -169,6 +166,7 @@ export const EthereumProvider = ({
     transactionCompletedDispatch,
     transactionFailedDispatch,
     waitForConfirmDispatch,
+    setTransactionListDispatch,
     addToast,
   };
 
@@ -177,7 +175,7 @@ export const EthereumProvider = ({
     const { pathname, hash } = window.location;
     const single = isSingleCommunityWebsite();
     if (single && pathname !== '/') {
-      if (redirectRoutesForSCM.find(route => route.startsWith(pathname))) {
+      if (redirectRoutesForSCM.find((route) => route.startsWith(pathname))) {
         const path =
           process.env.ENV === 'dev'
             ? `https://testpeeranha.io${pathname}${hash}`
@@ -206,7 +204,7 @@ const withConnect = connect(
     initializing: makeSelectInitializing(),
     ethereum: makeSelectEthereum(),
   }),
-  dispatch => ({
+  (dispatch) => ({
     initEthereumDispatch: bindActionCreators(initEthereum, dispatch),
     showModalDispatch: bindActionCreators(showModal, dispatch),
     transactionInPendingDispatch: bindActionCreators(
@@ -222,6 +220,10 @@ const withConnect = connect(
       transactionInitialised,
       dispatch,
     ),
+    setTransactionListDispatch: bindActionCreators(
+      setTransactionList,
+      dispatch,
+    ),
     addToast: bindActionCreators(addToast, dispatch),
   }),
 );
@@ -229,8 +231,4 @@ const withConnect = connect(
 const withReducer = injectReducer({ key: 'ethereumProvider', reducer });
 const withSaga = injectSaga({ key: 'ethereumProvider', saga, mode: DAEMON });
 
-export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
-)(EthereumProvider);
+export default compose(withReducer, withSaga, withConnect)(EthereumProvider);

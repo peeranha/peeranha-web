@@ -69,10 +69,14 @@ class EthereumService {
     this.transactionInPending = data.transactionInPendingDispatch;
     this.transactionCompleted = data.transactionCompletedDispatch;
     this.transactionFailed = data.transactionFailedDispatch;
+    this.setTransactionList = data.setTransactionListDispatch;
     this.waitForConfirm = data.waitForConfirmDispatch;
     this.getRecaptchaToken = data.getRecaptchaToken;
     this.isTransactionInitialised = null;
     this.addToast = data.addToast;
+
+    this.previousNonce = 0;
+    this.transactionList = [];
   }
 
   setTransactionInitialised = (toggle) => {
@@ -208,14 +212,6 @@ class EthereumService {
     data,
     confirmations = 1,
   ) => {
-    if (this.isTransactionInitialised) {
-      this.addToast({
-        type: 'info',
-        text: 'Wait for the end of the current transaction.',
-      });
-      throw new Error('Wait for the end of the current transaction.');
-    }
-
     this.setTransactionInitialised(true);
     this.waitForConfirm();
 
@@ -246,9 +242,29 @@ class EthereumService {
       const transaction = await this[contract]
         .connect(this.provider.getSigner(actor))
         [action](...data);
-      this.transactionInPending(transaction.hash);
+
+      this.transactionList.push({
+        action,
+        transactionHash: transaction.hash,
+      });
+
+      this.transactionInPending(transaction.hash, this.transactionList);
       const result = await transaction.wait(confirmations);
-      this.transactionCompleted();
+      this.transactionList.find(
+        (transactionFromList) =>
+          transactionFromList.transactionHash === transaction.hash,
+      ).result = result;
+      setTimeout(() => {
+        const index = this.transactionList
+          .map((transactionFromList) => transactionFromList.transactionHash)
+          .indexOf(transaction.hash);
+        if (index !== -1) {
+          this.transactionList.splice(index, 1);
+          this.setTransactionList(this.transactionList);
+        }
+      }, '30000');
+
+      this.transactionCompleted(this.transactionList);
       this.setTransactionInitialised(false);
       return result;
     } catch (err) {
@@ -299,7 +315,15 @@ class EthereumService {
   ) => {
     await this.chainCheck();
     const metaTxContract = this[contract];
-    const nonce = await metaTxContract.getNonce(actor);
+    let nonce = await metaTxContract.getNonce(actor); //упорядочивает
+
+    if (nonce.lte(this.previousNonce)) {
+      nonce = this.previousNonce.add(1);
+      this.previousNonce = nonce;
+    } else {
+      this.previousNonce = nonce;
+    }
+
     const iface = new ethers.utils.Interface(CONTRACT_TO_ABI[contract]);
     const functionSignature = iface.encodeFunctionData(action, data);
     const message = {};
@@ -357,16 +381,39 @@ class EthereumService {
       reCaptchaToken: token,
     });
 
+    this.transactionList.push({
+      action,
+      transactionHash: response.body.transactionHash,
+    });
+
     if (response.errorCode) {
       throw response;
     }
 
-    this.transactionInPending(response.body.transactionHash);
+    this.transactionInPending(
+      response.body.transactionHash,
+      this.transactionList,
+    );
     const result = await this.provider.waitForTransaction(
       response.body.transactionHash,
       confirmations,
     );
-    this.transactionCompleted();
+    this.transactionList.find(
+      (transactionFromList) =>
+        transactionFromList.transactionHash === response.body.transactionHash,
+    ).result = result;
+    setTimeout(() => {
+      const index = this.transactionList
+        .map((transactionFromList) => transactionFromList.transactionHash)
+        .indexOf(response.body.transactionHash);
+      console.log(index);
+      if (index !== -1) {
+        this.transactionList.splice(index, 1);
+        this.setTransactionList(this.transactionList);
+      }
+    }, '30000');
+
+    this.transactionCompleted(this.transactionList);
     this.setTransactionInitialised(false);
     return result;
   };
