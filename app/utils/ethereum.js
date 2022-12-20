@@ -406,7 +406,6 @@ class EthereumService {
       const index = this.transactionList
         .map((transactionFromList) => transactionFromList.transactionHash)
         .indexOf(response.body.transactionHash);
-      console.log(index);
       if (index !== -1) {
         this.transactionList.splice(index, 1);
         this.setTransactionList(this.transactionList);

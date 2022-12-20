@@ -69,8 +69,6 @@ const TransactionsList: React.FC<TransactionsListProps> = ({
     }
   }, [transactionInPending]);
 
-  console.log(window.innerWidth);
-
   return (
     <div id="transactions-status-block" css={styles.transactionsStatusBlock}>
       {opened && <div css={styles.blocker} />}
