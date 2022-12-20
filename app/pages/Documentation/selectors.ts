@@ -13,6 +13,9 @@ export const selectDocumentationLoading = () =>
 export const selectDocumentation = () =>
   createSelector(selectFaqDomain, (substate) => substate.get('documentation'));
 
+export const selectDraftsIds = () =>
+  createSelector(selectFaqDomain, (substate) => substate.get('draftsIds'));
+
 export const selectFaqError = () =>
   createSelector(selectFaqDomain, (substate) =>
     substate.get('documentationError'),

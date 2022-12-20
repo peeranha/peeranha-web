@@ -1,7 +1,11 @@
 import { keyframes } from '@emotion/react';
-import { DocumentationItemMenuType } from 'pages/Documentation/types';
+import {
+  DocumentationItemMenuType,
+  DocumentationSection,
+} from 'pages/Documentation/types';
 
 const TEMP_SAVED_CONTENT = 'tempSavedContent';
+const DRAFTS_IDS = 'draftsIds';
 
 export const updateMenu = (
   documentationMenu: Array<DocumentationItemMenuType>,
@@ -21,6 +25,22 @@ export const initMenu = (
     items: updateMenu(documentationMenu),
   },
 ];
+
+export const getSavedDraftsIds = (): Array<string> => {
+  if (localStorage.getItem(DRAFTS_IDS)) {
+    return JSON.parse(localStorage.getItem(DRAFTS_IDS));
+  }
+
+  return [];
+};
+
+export const saveDraftsIds = (draftId: string): Array<string> => {
+  const draftsIds = getSavedDraftsIds();
+
+  localStorage.setItem(DRAFTS_IDS, JSON.stringify([...draftsIds, draftId]));
+
+  return [...draftsIds, draftId];
+};
 
 export const saveDraft = (menu: Array<DocumentationItemMenuType>): void => {
   localStorage.setItem(TEMP_SAVED_CONTENT, JSON.stringify(menu));
@@ -50,6 +70,7 @@ export const getSavedDrafts = (): Array<DocumentationItemMenuType> => {
 
 export const clearSavedDrafts = () => {
   localStorage.removeItem(TEMP_SAVED_CONTENT);
+  localStorage.removeItem(DRAFTS_IDS);
 };
 
 export const addArticle = (
@@ -139,3 +160,23 @@ export const animationDocumentation = (screenWidth: number) =>
       left: screenWidth + 86,
     },
   });
+
+export const isEditableChildItem = (
+  item: DocumentationSection,
+  editedItemId?: string,
+): boolean => {
+  if (item.children && editedItemId) {
+    const isFoundItem = item.children.find(
+      (child: DocumentationSection) => editedItemId === child.id,
+    );
+
+    if (isFoundItem) {
+      return true;
+    }
+
+    return item.children.some((childItem) =>
+      isEditableChildItem(childItem, editedItemId),
+    );
+  }
+  return false;
+};
