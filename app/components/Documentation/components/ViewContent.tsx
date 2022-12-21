@@ -18,6 +18,8 @@ const styled = {
 type ViewContentProps = {
   documentationArticle: DocumentationArticle;
   isEditDocumentation?: boolean;
+  documentationMenu?: DocumentationItemMenuType;
+  locale: string;
 };
 
 const ViewContent: React.FC<ViewContentProps> = ({
@@ -27,7 +29,6 @@ const ViewContent: React.FC<ViewContentProps> = ({
   const headers = extractStrings(['#', '\n'])(
     `${documentationArticle?.content}\n` || '',
   );
-
   return (
     <>
       <Wrapper

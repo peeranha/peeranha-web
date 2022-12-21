@@ -80,6 +80,17 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
     }
   }, [editArticle?.id, item.children]);
 
+  useEffect(() => {
+    const isEditableChildren = isEditableChildItem(
+      item,
+      match?.params.sectionId &&
+        getBytes32FromIpfsHash(match?.params.sectionId),
+    );
+    if (isEditableChildren) {
+      open();
+    }
+  }, [match?.params.sectionId, item.children]);
+
   const onSelect = (value: number) => {
     if (value === 1 && typeof setEditArticle === 'function') {
       setEditArticle({

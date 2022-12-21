@@ -19,6 +19,8 @@ import { getArticleDocumentation } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 import { selectDocumentation, selectDocumentationLoading } from './selectors';
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { selectDocumentationMenu } from 'containers/AppWrapper/selectors';
 import {
   selectDocumentationMenu,
   selectPinnedItemMenu,
