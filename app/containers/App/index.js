@@ -213,6 +213,7 @@ const App = ({
           )}
 
           <Route
+            exact
             path={routes.feed()}
             render={(props) => Wrapper(Feed, props)}
           />
