@@ -6,7 +6,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import MDEditor from '@uiw/react-md-editor';
+import MDEditor, { commands } from '@uiw/react-md-editor';
 import { css } from '@emotion/react';
 import MarkdownPreview from '@uiw/react-markdown-preview';
 import '@uiw/react-md-editor/markdown-editor.css';
@@ -17,6 +17,8 @@ import { createStructuredSelector } from 'reselect';
 import { translationMessages } from 'i18n';
 
 import { makeSelectLocale } from '../../containers/LanguageProvider/selectors';
+import { selectIsEditDocumentation } from 'pages/Documentation/selectors';
+
 import { PreviewWrapper } from '../AnswerForm';
 import Wrapper from 'components/FormFields/Wrapper';
 import Span from 'components/Span';
@@ -34,7 +36,7 @@ class TextEditor extends React.PureComponent {
   static getHtmlText = (md) => marked.parse(md);
 
   render() {
-    const { locale } = this.props;
+    const { locale, isEditDocumentation } = this.props;
     return (
       <>
         <MDEditor
@@ -69,6 +71,12 @@ class TextEditor extends React.PureComponent {
               }
             },
           }}
+          extraCommands={[
+            commands.codeEdit,
+            commands.codeLive,
+            commands.codePreview,
+            !isEditDocumentation && commands.fullscreen,
+          ]}
         />
         <Wrapper
           label={'Preview'}
@@ -117,10 +125,12 @@ TextEditor.propTypes = {
   onBlur: PropTypes.func,
   value: PropTypes.string,
   locale: PropTypes.string,
+  isEditDocumentation: PropTypes.bool,
 };
 
 export default connect(
   createStructuredSelector({
     locale: makeSelectLocale(),
+    isEditDocumentation: selectIsEditDocumentation(),
   }),
 )(TextEditor);
