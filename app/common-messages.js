@@ -666,4 +666,10 @@ export default defineMessages({
   holdDown: {
     id: 'app.containers.ChunkLoadError.holdDown',
   },
+  documentationPrev: {
+    id: 'app.components.Documentation.prev',
+  },
+  documentationNext: {
+    id: 'app.components.Documentation.next',
+  },
 });

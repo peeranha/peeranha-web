@@ -17,10 +17,13 @@ import { getArticleDocumentation } from './actions';
 import reducer from './reducer';
 import saga from './saga';
 import { selectDocumentation, selectDocumentationLoading } from './selectors';
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { selectDocumentationMenu } from 'containers/AppWrapper/selectors';
 import {
   DocumentationArticle,
   OutputSelector,
   RouterDocumentetion,
+  DocumentationItemMenuType,
 } from './types';
 import { getBytes32FromIpfsHash } from 'utils/ipfs';
 
@@ -28,6 +31,8 @@ interface DocumentationProps extends RouteComponentProps<RouterDocumentetion> {
   getArticleDocumentationDispatch: (id: string) => void;
   documentation: Array<DocumentationArticle>;
   isArticleLoading: boolean;
+  documentationMenu: DocumentationItemMenuType;
+  locale: string;
 }
 
 export const DocumentationPage: React.FC<DocumentationProps> = ({
@@ -35,6 +40,8 @@ export const DocumentationPage: React.FC<DocumentationProps> = ({
   getArticleDocumentationDispatch,
   documentation,
   isArticleLoading,
+  documentationMenu,
+  locale,
 }) => {
   const ipfsHasgBytes32 = getBytes32FromIpfsHash(match.params.sectionId);
 
@@ -59,7 +66,11 @@ export const DocumentationPage: React.FC<DocumentationProps> = ({
       {isArticleLoading ? (
         <Loader />
       ) : (
-        <ViewContent documentationArticle={documentationSection} />
+        <ViewContent
+          documentationArticle={documentationSection}
+          documentationMenu={documentationMenu}
+          locale={locale}
+        />
       )}
     </div>
   ) : null;
@@ -73,6 +84,8 @@ export default compose(
     createStructuredSelector<any, OutputSelector>({
       documentation: selectDocumentation(),
       isArticleLoading: selectDocumentationLoading(),
+      documentationMenu: selectDocumentationMenu(),
+      locale: makeSelectLocale(),
     }),
     (dispatch: Dispatch<AnyAction>) => ({
       getArticleDocumentationDispatch: bindActionCreators(

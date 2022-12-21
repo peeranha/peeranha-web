@@ -388,6 +388,9 @@
   "app.components.RatingStatus.legResident": "Superhero",
   "app.components.RatingStatus.banned": "Banned",
 
+  "app.components.Documentation.prev": "Prev",
+  "app.components.Documentation.next": "Next",
+
   "app.containers.Profile.status": "Highest achieved status",
   "app.containers.Profile.risen": "Risen",
   "app.containers.Profile.memberSince": "Member since ",
