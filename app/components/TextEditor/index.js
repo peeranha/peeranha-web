@@ -24,6 +24,7 @@ import { FormattedMessage } from 'react-intl';
 import commonMessages from 'common-messages';
 import messages from './messages';
 import { TEXT_SECONDARY, TEXT_DARK } from 'style-constants';
+import { singleCommunityStyles } from 'utils/communityManagement';
 
 /* eslint no-return-assign: "error" */
 class TextEditor extends React.PureComponent {
@@ -35,14 +36,20 @@ class TextEditor extends React.PureComponent {
 
   render() {
     const { locale } = this.props;
+    const { projectBorderRadius } = singleCommunityStyles();
+
     return (
       <>
         <MDEditor
           css={css`
             margin-bottom: 20px;
             border-bottom: 2px solid ${TEXT_DARK};
+            border-radius: ${projectBorderRadius} ${projectBorderRadius} 0 0;
             textarea {
               -webkit-text-fill-color: ${TEXT_DARK};
+            }
+            .w-md-editor-toolbar {
+              border-radius: ${projectBorderRadius} ${projectBorderRadius} 0 0;
             }
           `}
           disabled={this.props.disabled}
