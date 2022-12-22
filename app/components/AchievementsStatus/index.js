@@ -24,6 +24,7 @@ const StatusSpan = styled.span`
 `;
 
 const Count = styled.span`
+  font-family: 'Source Sans Pro', sans-serif;
   margin-left: 0.25rem;
   color: ${(props) =>
     props.size === 'lg'

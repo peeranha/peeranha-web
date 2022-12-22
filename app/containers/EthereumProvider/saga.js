@@ -32,7 +32,12 @@ import { AUTOLOGIN_DATA } from '../Login/constants';
 import {
   hasGlobalModeratorRole,
   hasProtocolAdminRole,
-} from '../../utils/properties';
+  hasCommunityAdminRole,
+} from 'utils/properties';
+
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
+
+const single = isSingleCommunityWebsite();
 
 export function* initEthereumWorker({ data }) {
   try {
@@ -61,6 +66,7 @@ export function* isValid({ creator, buttonId, minRating = 0, communityId }) {
 
   const isGlobalAdmin =
     hasGlobalModeratorRole(permissions) || hasProtocolAdminRole(permissions);
+  const isCommunityAdmin = single && hasCommunityAdminRole(permissions, single);
 
   yield call(
     isAvailableAction,
@@ -70,6 +76,7 @@ export function* isValid({ creator, buttonId, minRating = 0, communityId }) {
         translations: translationMessages[locale],
         actor: selectedAccount,
         isGlobalAdmin,
+        isCommunityAdmin,
         creator,
         buttonId,
         minRating,

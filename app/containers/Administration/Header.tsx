@@ -18,6 +18,10 @@ import usersHeader from 'images/usersHeader.svg?external';
 // @ts-ignore
 import AddModeratorButton from 'containers/Administration/AddModeratorButton';
 
+import { singleCommunityColors } from 'utils/communityManagement';
+import { BORDER_PRIMARY } from 'style-constants';
+const colors = singleCommunityColors();
+
 type HeaderProps = {
   locale: string;
   single?: number;

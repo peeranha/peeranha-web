@@ -118,7 +118,7 @@ const MobileLinksInProfile = ({ profile, isMenuVisible }) => {
             />
             <FormattedMessage id={messages.NFTs.id} />
           </A>
-
+          {/* PEER-707: Hide settings tab;
           <A to={routes.userSettings(profile.user)}>
             <SettingsIcon
               className="mr-2"
@@ -126,7 +126,7 @@ const MobileLinksInProfile = ({ profile, isMenuVisible }) => {
               stroke={colors.linkColor || TEXT_PRIMARY}
             />
             <FormattedMessage id={messages.settings.id} />
-          </A>
+          </A> */}
 
           {isModerator && (
             <A to={routes.userModeration(profile.user)}>
@@ -139,6 +139,10 @@ const MobileLinksInProfile = ({ profile, isMenuVisible }) => {
               <FormattedMessage id={messages.moderation.id} />
             </A>
           )}
+
+          <A to={routes.userSettings(profile.user)}>
+            <FormattedMessage id={messages.settings.id} />
+          </A>
 
           <Logout>
             <LogOutIcon

@@ -284,7 +284,7 @@ export const usersPostsQuery = `
           orderDirection: desc,
           first: $limit,
           skip: $offset,
-          where: {isDeleted: false, author: $id, postType_lt: 3},
+          where: {isDeleted: false, author: $id, postType_lt: 3, title_not: ""},
         ) {
            ${post}
         }
@@ -318,7 +318,7 @@ export const answeredPostsQuery = `
           orderDirection: desc,
           first: $first,
           skip: $skip,
-          where: { id_in: $ids, isDeleted: false },
+          where: { id_in: $ids, isDeleted: false, title_not: ""},
         ) {
            ${post}
         }
@@ -386,7 +386,7 @@ export const postsQuery = `
           orderDirection: desc,
           first: $first,
           skip: $skip,
-          where: {isDeleted: false, postType_in: $postTypes},
+          where: {isDeleted: false, postType_in: $postTypes, title_not: ""},
         ) {
            ${post}
         }
@@ -404,7 +404,7 @@ export const postsByCommQuery = `
           orderDirection: desc,
           first: $first,
           skip: $skip,
-          where: { communityId_in: $communityIds, isDeleted: false, postType_in: $postTypes },
+          where: { communityId_in: $communityIds, isDeleted: false, postType_in: $postTypes, title_not: ""},
         ) {
            ${post}
         }
@@ -460,6 +460,7 @@ export const postsForSearchQuery = `
     postSearch (
       text: $text,
       first: $first,
+      where: {isDeleted: false, title_not: ""},
     ) {
         id
         ipfsHash
@@ -490,7 +491,7 @@ export const postQuery = `
       ) {
         post (
           id: $postId,
-          where: {isDeleted: false},
+          where: {isDeleted: false, title_not: ""},
         ) {
            ${post}
         }
