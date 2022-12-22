@@ -1,20 +1,14 @@
 import React from 'react';
 import { css } from 'styled-components';
 
-import AnkrLogo from './images/ankrBlueLogo.svg?inline';
-import AnkrSymbol from './images/ankrBlueSymbol.png';
-import favicon from '!file-loader?name=[name].[ext]!communities-configs/ankr/images/favicon-ankr.ico';
-
-import RobotoRegularEOT from './fonts/Roboto-Regular.eot';
-import RobotoRegularWOFF from './fonts/Roboto-Regular.woff';
-import RobotoRegularTTF from './fonts/Roboto-Regular.ttf';
-
-const domainName = 'https://valist.io/';
+import OrbisLogo from './images/Orbis-logo.svg?inline';
+import favicon from '!file-loader?name=[name].[ext]!./images/Orbis-logo.ico';
+const domainName = 'https://app.orbis.club/';
 
 const fontSet = 'Roboto-Regular, Arial, sans-serif';
 
 export const customSubHeaderConfig = {
-  design: 'valist_style',
+  design: 'orbis_style',
   styles: {
     bg: {
       header: '#FFFFFF',
@@ -178,12 +172,12 @@ export const customSubHeaderConfig = {
   ],
 };
 
-export const AnkrStyles = {
+export const OrbisStyles = {
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: AnkrLogo,
+  signUpPageLogo: OrbisLogo,
   favicon,
   // Hided community fonts
   // fonts: {
@@ -205,68 +199,73 @@ export const AnkrStyles = {
   // }`,
 
   colors: {
-    mainSubHeaderBgColor: '#FFFFFF',
-    mainBackground: '#F2F5FA',
-    linkColor: '#356DF3',
-    linkCookieColor: '#356DF3',
-    linkColorTransparent: '#356DF3',
-    headerPrimary: '#356DF3',
-    commentOption: '#356DF3',
-    contentHeader: '#356DF3',
-    blockedInfoArea: '#356EF30C',
-    transparentIconColor: '#fff',
-    loaderColor: '#356DF3',
-    votingIconColor: '#356DF3',
-    linkColorSecondary: '#356DF3',
-    walletButton: '#356DF3',
-    btnColor: '#356DF3',
-    btnHoverColor: '#FF9A9E',
-    btnHeaderColor: '#356DF3',
-    btnHeaderHoverColor: '#356EF3DA',
-    tagColor: '#356DF3',
-    localeArrowColor: '#356EF3DA',
-    textColor: '#356EF3DA',
-    textColorShadow: '#356DF3',
-    commHeadElemColor: '#356DF3',
+    mainSubHeaderBgColor: 'linear-gradient(90deg, #100D17 0%, #302763 100%)',
+    mainBackground: 'rgba(234, 236, 244, 1)',
+    linkColor: '#DE73DA',
+    linkCookieColor: '#DE73DA',
+    linkColorTransparent: '#DE73DA',
+    headerPrimary: '#DE73DA',
+    commentOption: '#DE73DA',
+    contentHeader: '#DE73DA',
+    blockedInfoArea: 'rgb(42 36 96 / 10%)',
+    transparentIconColor: '#FFF',
+    loaderColor: '#DE73DA',
+    votingIconColor: '#DE73DA',
+    linkColorSecondary: '#DE73DA',
+    walletButton: '#DE73DA',
+    btnColor: '#DE73DA',
+    btnHoverColor: '#DE73DA',
+    btnHeaderColor: 'linear-gradient( 135deg ,#f790bb 44.02%,#b971ee 90.66%)',
+    btnHeaderHoverOpacity: '0.75',
+    newPostButtonText: 'rgba(255, 255, 255, 1)',
+    tagColor: '#DE73DA',
+    localeArrowColor: '#DE73DA',
+    textColor: '#DE73DA',
+    textColorShadow: '#DE73DA',
+    commHeadElemColor: '#FFF',
   },
   cookieConsentPopupStyles: {
-    background: '#FFFFFF',
-    color: '#2E343C',
-    borderColor: '#356DF3',
+    background: '#302763',
+    color: '#fff',
     button: {
-      color: '#fff',
-      background: '#356DF3',
+      color: '#101016',
+      background: '#FFFFFF',
+      border: '1px solid #FFF',
       ':hover': {
-        borderColor: '#356DF3',
+        opacity: '0.75',
+        color: '#000',
         background: '#FFFFFF',
-        color: '#356DF3',
       },
     },
   },
   headerHeight: 80,
-  projectBorderRadius: '20px',
+  projectBorderRadius: '8px', ////
   domainName,
-  communityBorderStyle: '3px solid #356DF3',
+  fullyTransparent: '#302763',
+  communityBorderStyle: '2px solid #DE73DA',
   dropDownIconStyles: css`
     path {
-      stroke: #356df3 !important;
+      stroke: #de73da !important;
       stroke-width: 1.5px;
-      fill: none !important;
+      fill: #302763 !important;
     }
     circle {
-      stroke: #356df3;
+      stroke: #de73da;
       stroke-width: 1.5px;
-      fill: none;
+      fill: #302763;
     }
   `,
   headerLoginButtonStyles: css`
-    background: #fff;
-    border: 2px solid #356df3;
-    color: #356df3;
+    border: 1px solid #fff;
+    color: #fff;
     :hover {
-      background: #356df3 !important;
+      background: linear-gradient(
+        135deg,
+        #f790bb 44.02%,
+        #b971ee 90.66%
+      ) !important;
       color: #fff !important;
-      border: 2px solid #356df3 !important;
+      border: 1px solid linear-gradient(135deg, #f790bb 44.02%, #b971ee 90.66%) !important;
     }
   `,
 };
