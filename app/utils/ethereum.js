@@ -315,7 +315,7 @@ class EthereumService {
   ) => {
     await this.chainCheck();
     const metaTxContract = this[contract];
-    let nonce = await metaTxContract.getNonce(actor); //упорядочивает
+    let nonce = await metaTxContract.getNonce(actor); //orders the list of transactions
 
     if (nonce.lte(this.previousNonce)) {
       nonce = this.previousNonce.add(1);

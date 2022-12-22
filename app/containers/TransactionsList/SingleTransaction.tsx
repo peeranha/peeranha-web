@@ -27,13 +27,13 @@ export type Transaction = {
 
 type TransactionProps = {
   transaction: Transaction;
-  statusMessage: ReactNode;
+  status: string;
   StatusIcon: any;
 };
 
 export const SingleTransaction: React.FC<TransactionProps> = ({
   transaction,
-  statusMessage,
+  status,
   StatusIcon,
 }): JSX.Element => {
   return (
@@ -44,7 +44,9 @@ export const SingleTransaction: React.FC<TransactionProps> = ({
         <p className="fz14 mb8">
           <FormattedMessage id={messages[transaction.action].id} />
         </p>
-        <p className="fz12">{statusMessage}</p>
+        <p className="fz12">
+          <FormattedMessage id={status} />
+        </p>
       </div>
     </div>
   );

@@ -62,4 +62,16 @@ export const styles = {
       display: 'none',
     },
   },
+
+  transactionLoader: {
+    animation: 'rotation 2s infinite linear',
+    '@keyframes rotation': {
+      '0%': {
+        transform: 'rotate(0deg)',
+      },
+      '100%': {
+        transform: 'rotate(360deg)',
+      },
+    },
+  },
 };

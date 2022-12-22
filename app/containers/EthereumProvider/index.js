@@ -153,7 +153,7 @@ export const EthereumProvider = ({
         connectedChain,
       });
     }
-  }, [wallet, connectedWallets, web3Onboard]);
+  }, [wallet, connectedWallets, web3Onboard, ethereum]);
 
   const sendProps = {
     connect,

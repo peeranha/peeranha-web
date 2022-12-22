@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { DAEMON } from 'utils/constants';
@@ -23,12 +23,15 @@ import {
   selectTransactionList,
 } from 'containers/EthereumProvider/selectors';
 import commonMessages from 'common-messages';
-import { SingleTransaction } from 'containers/TransactionsList/SingleTransaction';
+import {
+  SingleTransaction,
+  Transaction,
+} from 'containers/TransactionsList/SingleTransaction';
 import messages from 'containers/TransactionsList/messages';
 import { styles } from 'containers/TransactionsList/TransactionList.styled';
 
 type TransactionsListProps = {
-  transactionList: Array<SingleTransaction>;
+  transactionList: Array<Transaction>;
   transactionInPending: boolean;
 };
 
@@ -37,17 +40,17 @@ const TransactionsList: React.FC<TransactionsListProps> = ({
   transactionInPending,
 }): JSX.Element => {
   const [opened, setOpened] = useState(false);
+  const timer = useRef();
+  const [right, setRight] = useState(-245);
+  const [width, setWidth] = useState(289);
 
   useEffect(() => {
-    const transactionsStatusBlock = document.getElementById(
-      'transactions-status-block',
-    );
     if (!transactionList.length && !transactionInPending) {
-      transactionsStatusBlock.style.right = '-289px';
+      setRight(-289);
       setOpened(false);
     } else {
       if (!opened) {
-        transactionsStatusBlock.style.right = '-245px';
+        setRight(-245);
       }
     }
   }, [transactionList, opened]);
@@ -61,33 +64,38 @@ const TransactionsList: React.FC<TransactionsListProps> = ({
 
   useEffect(() => {
     if (transactionList.length && transactionInPending && !opened) {
-      document.getElementById('status-button').style.width = '449px';
-      setTimeout(
-        () => (document.getElementById('status-button').style.width = '289px'),
-        '3000',
-      );
+      setWidth(449);
+      timer.current = setTimeout(() => setWidth(289), '3000');
+
+      return () => {
+        clearTimeout(timer.current);
+      };
     }
   }, [transactionInPending]);
 
+  const onStatusButtonClick = () => {
+    if (opened) {
+      setRight(-245);
+    } else {
+      setRight(0);
+    }
+    setOpened(!opened);
+  };
+
+  const statusIcon = () => {};
+
   return (
-    <div id="transactions-status-block" css={styles.transactionsStatusBlock}>
+    <div
+      id="transactions-status-block"
+      css={{ ...styles.transactionsStatusBlock, right }}
+    >
       {opened && <div css={styles.blocker} />}
 
       <div
         id="status-button"
         className="df fdr aic pl16 pa"
-        css={styles.statusButton}
-        onClick={() => {
-          const transactionsStatusBlock = document.getElementById(
-            'transactions-status-block',
-          );
-          if (opened) {
-            transactionsStatusBlock.style.right = '-245px';
-          } else {
-            transactionsStatusBlock.style.right = '0';
-          }
-          setOpened(!opened);
-        }}
+        css={{ ...styles.statusButton, width }}
+        onClick={onStatusButtonClick}
       >
         <TransactionStatus className="icon" />
         <div id="transactions-popup" className="df fdc ml12">
@@ -133,43 +141,18 @@ const TransactionsList: React.FC<TransactionsListProps> = ({
 
         {transactionsInProgress.map((transaction) => {
           const result = transaction.result?.status;
-          let status;
-          if (result) {
-            status =
-              result === 1 ? (
-                <FormattedMessage id={commonMessages.successful.id} />
-              ) : (
-                <FormattedMessage id={commonMessages.failed.id} />
-              );
-          } else {
-            status = <FormattedMessage id={commonMessages.inProgress.id} />;
-          }
-
+          const status = result
+            ? commonMessages.failed.id
+            : commonMessages.inProgress.id;
           return (
             <SingleTransaction
               transaction={transaction}
-              statusMessage={status}
+              status={status}
               StatusIcon={() =>
                 result ? (
-                  result === 1 ? (
-                    <SuccessfulTransaction />
-                  ) : (
-                    <FailedTransaction />
-                  )
+                  <FailedTransaction />
                 ) : (
-                  <TransactionLoader
-                    css={css`
-                      animation: rotation 2s infinite linear;
-                      @keyframes rotation {
-                        0% {
-                          transform: rotate(0deg);
-                        }
-                        100% {
-                          transform: rotate(360deg);
-                        }
-                      }
-                    `}
-                  />
+                  <TransactionLoader css={styles.transactionLoader} />
                 )
               }
             />
@@ -193,9 +176,7 @@ const TransactionsList: React.FC<TransactionsListProps> = ({
         {successfulTransactions.map((transaction) => (
           <SingleTransaction
             transaction={transaction}
-            statusMessage={
-              <FormattedMessage id={commonMessages.successful.id} />
-            }
+            status={commonMessages.successful.id}
             StatusIcon={() => <SuccessfulTransaction />}
           />
         ))}
