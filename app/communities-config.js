@@ -125,6 +125,11 @@ const communitiesConfig = {
       src: Mark3dLogo,
       styles: Mark3dStyles,
     },
+    19: {
+      origin: 'https://orbis.peeranha.io',
+      src: OrbisLogo,
+      styles: OrbisStyles,
+    },
   },
   staging: {
     1: {
