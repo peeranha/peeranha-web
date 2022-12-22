@@ -17,6 +17,7 @@ import VyperLogo from './communities-configs/vyper/images/Vyperlogo.svg?inline';
 import AaveLogo from 'communities-configs/aave/images/AaveLogo.svg?inline';
 import ForceLogo from './communities-configs/force/images/Group.svg?inline';
 import Mark3dLogo from './communities-configs/mark3d/images/Mark3dLogo.svg?inline';
+import OrbisLogo from './communities-configs/orbis/images/GroupLogo.svg?inline';
 
 import { PolygonStyles } from './communities-configs/polygon';
 import { FilecoinStyles } from './communities-configs/filecoin';
@@ -37,6 +38,7 @@ import { AaveStyles } from './communities-configs/aave';
 import { VyperStyles } from './communities-configs/vyper';
 import { ForceStyles } from './communities-configs/force';
 import { Mark3dStyles } from './communities-configs/mark3d';
+import { OrbisStyles } from './communities-configs/orbis';
 
 const communitiesConfig = {
   prod: {
@@ -201,6 +203,11 @@ const communitiesConfig = {
       origin: `https://mark3d${process.env.COOKIE_DOMAIN}`,
       src: Mark3dLogo,
       styles: Mark3dStyles,
+    },
+    11: {
+      origin: `https://orbis${process.env.COOKIE_DOMAIN}`,
+      src: OrbisLogo,
+      styles: OrbisStyles,
     },
     // 1: {
     //   origin: `https://meta${process.env.COOKIE_DOMAIN}`,
