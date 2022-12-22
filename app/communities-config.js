@@ -264,7 +264,9 @@ const communitiesConfig = {
   },
   dev: {
     1: {
-      origin: 'http://localhost:31000',
+      origin: 'http://localhost:3000',
+      src: AnkrLogo,
+      styles: AnkrStyles,
     },
   },
 };
