@@ -3,7 +3,7 @@ import { css } from 'styled-components';
 
 import AnkrLogo from './images/ankrBlueLogo.svg?inline';
 import AnkrSymbol from './images/ankrBlueSymbol.png';
-import favicon from '!file-loader?name=[name].[ext]!./images/favicon-ankr.ico';
+import favicon from '!file-loader?name=[name].[ext]!communities-configs/ankr/images/favicon-ankr.ico';
 
 import RobotoRegularEOT from './fonts/Roboto-Regular.eot';
 import RobotoRegularWOFF from './fonts/Roboto-Regular.woff';
@@ -244,7 +244,7 @@ export const AnkrStyles = {
     },
   },
   headerHeight: 80,
-  projectBorderRadius: '30px',
+  projectBorderRadius: '20px',
   domainName,
   communityBorderStyle: '3px solid #356DF3',
   dropDownIconStyles: css`
