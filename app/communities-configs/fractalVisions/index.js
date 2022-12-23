@@ -255,13 +255,22 @@ export const FractalVisionsStyles = {
       fill: #000;
     }
   `,
-  // headerLoginButtonStyles: css`
-  //   border: 1px solid #B800FF;
-  //   color: #fff;
-  //   :hover {
-  //     background: #B800FF !important;
-  //     color: #fff !important;
-  //     border: 1px solid #B800FF !important;
-  //   }
-  // `,
+  headerLoginButtonStyles: css`
+    border: 1px solid #b800ff;
+    color: #fff;
+    :hover {
+      background: #b800ff !important;
+      color: #fff !important;
+      border: 1px solid #b800ff !important;
+    }
+  `,
+  newPostPopupButtonStyles: css`
+    border: 1px solid #b800ff;
+    color: #b800ff;
+    :hover {
+      background: #b800ff !important;
+      color: #fff !important;
+      border: 1px solid #b800ff !important;
+    }
+  `,
 };
