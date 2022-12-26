@@ -13,7 +13,7 @@ const FormSection: React.FC<HomepageProps> = ({
   <section css={pageStyles.container}>
     <div css={styles.container}>
       <div className="df jcc" css={styles.image}>
-        <img src={letterSmile} alt="" className="full-width" />
+        <img src={letterSmile} alt="letter image" className="full-width" />
       </div>
       <div>
         <SendMessageForm

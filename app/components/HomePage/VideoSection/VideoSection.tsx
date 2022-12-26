@@ -14,6 +14,7 @@ const VideoSection: React.FC = (): JSX.Element => {
   return (
     <section className="pr df jcc" css={styles.background} id="video">
       <div
+        className="pr"
         css={{
           ...styles.videoImage,
           ...(startVideoAnimation && styles.videoImageAnimation),

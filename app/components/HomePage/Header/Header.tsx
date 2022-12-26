@@ -12,7 +12,7 @@ import { pageStyles } from '../HomePage.styled';
 import { styles } from './Header.styled';
 
 const Header: React.FC = (): JSX.Element => {
-  const [sticky, setSticky] = useState(false);
+  const [sticky, setSticky] = useState<boolean>(false);
 
   useEffect(() => {
     window.addEventListener('scroll', () => {
@@ -35,10 +35,18 @@ const Header: React.FC = (): JSX.Element => {
             <img src={logo} alt="Peeranha Logo" css={styles.logo} />
           </Link>
           <div className="df aic">
-            <span css={styles.link} onClick={() => scrollToSection(`#about`)}>
+            <span
+              className="cup dn fz16"
+              css={styles.link}
+              onClick={() => scrollToSection(`#about`)}
+            >
               <FormattedMessage id={messages.about.id} />
             </span>
-            <span css={styles.link} onClick={() => scrollToSection(`#service`)}>
+            <span
+              className="cup dn fz16"
+              css={styles.link}
+              onClick={() => scrollToSection(`#service`)}
+            >
               <FormattedMessage id={messages.service.id} />
             </span>
             <button

@@ -28,8 +28,10 @@ const logos = [
 ];
 
 const PartnersSection: React.FC = (): JSX.Element => {
-  const [startTitleAnimation, setStartTitleAnimation] = useState(false);
-  const [startSliderAnimation, setStartSliderAnimation] = useState(false);
+  const [startTitleAnimation, setStartTitleAnimation] =
+    useState<boolean>(false);
+  const [startSliderAnimation, setStartSliderAnimation] =
+    useState<boolean>(false);
 
   useEffect(() => {
     scrollTrigger('.partners-title', () => setStartTitleAnimation(true));

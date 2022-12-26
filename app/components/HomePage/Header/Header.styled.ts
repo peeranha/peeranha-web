@@ -37,11 +37,9 @@ export const styles = {
   },
 
   link: {
-    cursor: 'pointer',
-    display: 'none',
-    fontSize: '16px',
     lineHeight: '20px',
     color: 'rgba(40, 40, 40, 1)',
+    transition: '0.2s',
 
     ':hover': {
       color: 'rgba(118,153,255,1)',

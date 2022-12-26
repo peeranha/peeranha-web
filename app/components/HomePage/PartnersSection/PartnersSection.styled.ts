@@ -86,31 +86,31 @@ export const styles = {
 
   titleAnimation: {
     animation: 'animationTitle 1s forwards',
-    opacity: '0',
+    opacity: 0,
     '@keyframes animationTitle': {
       '0%': {
         transform: 'translateY(60px)',
-        opacity: '0',
+        opacity: 0,
       },
       '100%': {
         transform: 'translateY(0)',
-        opacity: '100%',
+        opacity: 1,
       },
     },
   },
 
   sliderAnimation: {
     animation: 'animationSlider 1s forwards',
-    opacity: '0',
+    opacity: 0,
 
     '@keyframes animationSlider': {
       '0%': {
         transform: 'translateY(80px)',
-        opacity: '0',
+        opacity: 0,
       },
       '100%': {
         transform: 'translateY(0)',
-        opacity: '100%',
+        opacity: 1,
       },
     },
   },

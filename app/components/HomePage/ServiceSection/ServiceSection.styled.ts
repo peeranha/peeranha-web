@@ -319,11 +319,11 @@ export const styles = {
     '@keyframes fishAnimation': {
       '0%': {
         transform: 'translateX(40px)',
-        opacity: '0',
+        opacity: 0,
       },
       '100%': {
         transform: 'translateX(0)',
-        opacity: '100%',
+        opacity: 1,
       },
     },
   },
@@ -335,11 +335,11 @@ export const styles = {
     '@keyframes rightBottomAnimation': {
       '0%': {
         transform: 'translateX(80px)',
-        opacity: '0',
+        opacity: 0,
       },
       '100%': {
         transform: 'translateX(0)',
-        opacity: '100%',
+        opacity: 1,
       },
     },
   },
@@ -350,11 +350,11 @@ export const styles = {
     '@keyframes leftTopAnimation': {
       '0%': {
         transform: 'translateX(-80px)',
-        opacity: '0',
+        opacity: 0,
       },
       '100%': {
         transform: 'translateX(0))',
-        opacity: '100%',
+        opacity: 1,
       },
     },
   },
@@ -366,11 +366,11 @@ export const styles = {
     '@keyframes leftBottomAnimation': {
       '0%': {
         transform: 'translateX(-40px)',
-        opacity: '0',
+        opacity: 0,
       },
       '100%': {
         transform: 'translateX(0))',
-        opacity: '100%',
+        opacity: 1,
       },
     },
   },
@@ -381,11 +381,11 @@ export const styles = {
     '@keyframes rightTopAnimation': {
       '0%': {
         transform: 'translateX(100%)',
-        opacity: '0',
+        opacity: 0,
       },
       '100%': {
         transform: 'translateX(calc(100%-40px))',
-        opacity: '100%',
+        opacity: 1,
       },
     },
   },
@@ -396,11 +396,11 @@ export const styles = {
     '@keyframes startButtonAnimation': {
       '0%': {
         transform: 'translateY(60px)',
-        opacity: '0',
+        opacity: 0,
       },
       '100%': {
         transform: 'translateY(0)',
-        opacity: '100%',
+        opacity: 1,
       },
     },
   },
@@ -410,10 +410,10 @@ export const styles = {
 
     '@keyframes iconAnimation': {
       '0%': {
-        opacity: '0',
+        opacity: 0,
       },
       '100%': {
-        opacity: '100%',
+        opacity: 1,
       },
     },
   },
@@ -424,11 +424,11 @@ export const styles = {
     '@keyframes contentTitleAnimation': {
       '0%': {
         transform: 'translateY(60px)',
-        opacity: '0',
+        opacity: 0,
       },
       '100%': {
         transform: 'translateY(0)',
-        opacity: '100%',
+        opacity: 1,
       },
     },
   },
@@ -440,11 +440,11 @@ export const styles = {
     '@keyframes contentTitleAnimation': {
       '0%': {
         transform: 'translateY(60px)',
-        opacity: '0',
+        opacity: 0,
       },
       '100%': {
         transform: 'translateY(0)',
-        opacity: '100%',
+        opacity: 1,
       },
     },
   },
@@ -455,23 +455,23 @@ export const styles = {
     '@keyframes contentTitleAnimation': {
       '0%': {
         transform: 'translateY(40px)',
-        opacity: '0',
+        opacity: 0,
         width: '96px',
         color: 'transparent',
       },
       '30%': {
         width: '96px',
         transform: 'translateY(0) scaleX(96px)',
-        opacity: '100%',
+        opacity: 1,
         color: 'transparent',
       },
       '80%': {
         transform: 'scale(100%)',
-        opacity: '100%',
+        opacity: 1,
         color: 'transparent',
       },
       '100%': {
-        opacity: '100%',
+        opacity: 1,
       },
     },
   },

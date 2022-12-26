@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FormEventHandler } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Field, reduxForm } from 'redux-form/immutable';
 
@@ -24,7 +24,9 @@ import FormField from './FormField';
 import { styles } from './FormSection.styled';
 
 type SendMessageForm = {
-  handleSubmit: any;
+  handleSubmit: (
+    sendMessage: () => void,
+  ) => FormEventHandler<HTMLFormElement> | undefined;
   sendMessage: () => void;
   sendMessageLoading: boolean;
 };

@@ -26,7 +26,6 @@ export const styles = {
   },
 
   videoImage: {
-    position: 'relative',
     background: `url(${videoImage})`,
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
@@ -199,9 +198,14 @@ export const styles = {
         transform: 'translateX(80px)',
         opacity: '0',
       },
+      '60%': {
+        opacity: 1,
+        transform: 'translateX(-30px)',
+      },
+      '80%': { transform: 'translateX(20px)', opacity: 1 },
       '100%': {
         transform: 'translateX(0)',
-        opacity: '100%',
+        opacity: 1,
       },
     },
   },
@@ -214,11 +218,11 @@ export const styles = {
     '@keyframes videoBackgroundLeftImageAnimation': {
       '0%': {
         transform: 'translateX(80px)',
-        opacity: '0',
+        opacity: 0,
       },
       '100%': {
         transform: 'translateX(0)',
-        opacity: '100%',
+        opacity: 1,
       },
     },
   },
@@ -231,11 +235,11 @@ export const styles = {
     '@keyframes videoBackgroundRightImageAnimation': {
       '0%': {
         transform: 'translateX(-80px)',
-        opacity: '0',
+        opacity: 0,
       },
       '100%': {
         transform: 'translateX(0)',
-        opacity: '100%',
+        opacity: 1,
       },
     },
   },
@@ -248,11 +252,15 @@ export const styles = {
     '@keyframes videoRightImageAnimation': {
       '0%': {
         transform: 'translateX(-80px)',
-        opacity: '0',
       },
+      '60%': {
+        opacity: 1,
+        transform: 'translateX(30px)',
+      },
+      '80%': { transform: 'translateX(-20px)', opacity: 1 },
       '100%': {
         transform: 'translateX(0)',
-        opacity: '100%',
+        opacity: 1,
       },
     },
   },
