@@ -64,8 +64,8 @@ const Info = styled.span`
 `;
 
 const NoAvatarBox = styled.div`
-  width: 47px;
-  height: 47px;
+  width: 40px;
+  height: 40px;
   border: ${({ isMobileVersion }) =>
     (!isMobileVersion && styles.communityBorderStyle) ||
     `1px solid ${BORDER_SECONDARY}`};
@@ -73,6 +73,11 @@ const NoAvatarBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media only screen and (min-width: 992px) {
+    width: 47px;
+    height: 47px;
+  }
 `;
 
 const B = ({ profileInfo, onClick, isMenuVisible, isMobileVersion }) => (
@@ -192,14 +197,14 @@ const Menu = memo(
               <FormattedMessage id={messages.moderation.id} />
             </A>
           )}
-
+          {/* PEER-707: Hide settings tab;
           <A to={routes.userSettings(user)}>
             <SettingsIcon
               className="mr-2"
               stroke={colors.linkColor || TEXT_PRIMARY}
             />
             <FormattedMessage id={messages.settings.id} />
-          </A>
+          </A> */}
         </Ul>
 
         <Ul>
