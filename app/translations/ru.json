@@ -219,6 +219,7 @@
   "app.containers.TermsOfService.description": "Условия обслуживания : описание",
   "app.containers.Search.title": "Поиск",
   "app.containers.Search.description": "Поиск: описание",
+  "app.containers.Search.noSearchResults": "Ничего не найдено. Попробуйте задать вопрос в нашем сообществе.",
   "app.containers.ChangeEmail.newEmail": "Новая почта",
   "app.containers.ChangeEmail.confirmNewEmail": "Подтвердите новую почту",
   "app.containers.ChangeEmail.emailsDoNotMatch": "Почты не совпадают",

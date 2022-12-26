@@ -225,6 +225,7 @@
   "app.containers.TermsOfService.description": "Terms of Service: description",
   "app.containers.Search.title": "Search",
   "app.containers.Search.description": "Search: description",
+  "app.containers.Search.noSearchResults": "We couldn't find any matching results. \n Try asking our community.",
   "app.containers.ChangeEmail.newEmail": "New email",
   "app.containers.ChangeEmail.confirmNewEmail": "Confirm new email",
   "app.containers.ChangeEmail.emailsDoNotMatch": "Emails do not match",

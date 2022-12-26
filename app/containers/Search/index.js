@@ -26,10 +26,15 @@ import { selectItems, selectGetResultsProcessing } from './selectors';
 import { getResults } from './actions';
 
 import messages from './messages';
+import Banner from './Banner/Banner';
+import Content from '../Questions/Content/Content';
 import { selectCommunities } from '../DataCacheProvider/selectors';
 import InfinityLoader from '../../components/InfinityLoader';
 import { TEXT_DARK, TEXT_SECONDARY } from '../../style-constants';
 import SearchContent from './SearchContent';
+import { redirectToAskQuestionPage } from '../AskQuestion/actions';
+import { loginWithWallet } from '../Login/actions';
+import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 
 const Search = ({
   match,
@@ -38,6 +43,9 @@ const Search = ({
   getResultsDispatch,
   getResultsProcessing,
   communities,
+  profileInfo,
+  redirectToAskQuestionPageDispatch,
+  loginWithWalletDispatch,
 }) => {
   const query = match.params.q;
   useEffect(() => {
@@ -88,7 +96,7 @@ const Search = ({
         )}
       </Header>
 
-      {items.length > 0 && (
+      {items.length > 0 ? (
         <InfinityLoader
           loadNextPaginatedData={false}
           isLoading={getResultsProcessing}
@@ -100,6 +108,14 @@ const Search = ({
             communities={communities}
           />
         </InfinityLoader>
+      ) : (
+        <Banner
+          profileInfo={profileInfo}
+          redirectToAskQuestionPage={redirectToAskQuestionPageDispatch}
+          showLoginModalWithRedirectToAskQuestionPage={() =>
+            loginWithWalletDispatch({ metaMask: true }, true)
+          }
+        />
       )}
     </div>
   );
@@ -111,6 +127,9 @@ Search.propTypes = {
   match: PropTypes.object,
   getResultsProcessing: PropTypes.bool,
   locale: PropTypes.string,
+  profileInfo: PropTypes.object,
+  redirectToAskQuestionPageDispatch: PropTypes.func,
+  loginWithWalletDispatch: PropTypes.func,
 };
 
 export default compose(
@@ -122,9 +141,15 @@ export default compose(
       communities: selectCommunities(),
       getResultsProcessing: selectGetResultsProcessing(),
       locale: makeSelectLocale(),
+      profileInfo: makeSelectProfileInfo(),
     }),
     (dispatch) => ({
       getResultsDispatch: bindActionCreators(getResults, dispatch),
+      loginWithWalletDispatch: bindActionCreators(loginWithWallet, dispatch),
+      redirectToAskQuestionPageDispatch: bindActionCreators(
+        redirectToAskQuestionPage,
+        dispatch,
+      ),
     }),
   ),
 )(Search);
