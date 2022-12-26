@@ -355,12 +355,6 @@ export const deleteAnswerValidator = (
 
   if (itemData.votingStatus.isUpVoted && !isGlobalAdmin) {
     message = `${translations[messages.cannotCompleteBecauseVoted.id]}`;
-  } else if (
-    answerid === correctAnswerId &&
-    !isGlobalAdmin &&
-    !isCommunityModerator
-  ) {
-    message = `${translations[messages.answerIsCorrect.id]}`;
   } else if (profileInfo.energy < MIN_ENERGY) {
     message = translations[messages.notEnoughEnergy.id];
   }

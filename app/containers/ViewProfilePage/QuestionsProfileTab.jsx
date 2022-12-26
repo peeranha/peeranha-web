@@ -174,7 +174,7 @@ const QuestionsProfileTab = ({
 }) => (
   <div className={className}>
     <div>
-      {questions.map(item => (
+      {questions.map((item) => (
         <Note
           postType={item.postType}
           isMyAnswerAccepted={item.isMyAnswerAccepted}

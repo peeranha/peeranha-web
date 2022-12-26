@@ -40,7 +40,7 @@ const SearchContent: React.FC<SearchContentProps> = ({
   communities,
 }): JSX.Element => (
   <div>
-    {posts.map(post => (
+    {posts.map((post) => (
       <Post
         key={post.id}
         id={post.id}

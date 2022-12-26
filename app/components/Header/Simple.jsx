@@ -36,7 +36,7 @@ const C2 = `
   }
 `;
 
-export const C3 = isColumnForSM => `
+export const C3 = (isColumnForSM) => `
   display: flex;
   align-items: center;
   justify-content: space-between;

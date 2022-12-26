@@ -57,8 +57,8 @@ const Icon = styled(IconLg)`
       color: isTutorial
         ? TUTORIAL_ICON_COLOR
         : isExpert
-          ? TEXT_PRIMARY
-          : TEXT_DARK,
+        ? TEXT_PRIMARY
+        : TEXT_DARK,
     })};
   background-color: ${BG_TRANSPARENT};
   border-color: ${BORDER_TRANSPARENT};
