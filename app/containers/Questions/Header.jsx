@@ -1,5 +1,6 @@
 import Icon from 'components/Icon';
-import arrowDownIcon from 'images/arrowDown.svg?external';
+import { ArrowDown } from 'components/icons';
+import useTrigger from 'hooks/useTrigger';
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -61,10 +62,6 @@ const PageContentHeader = styled.div`
   }
 `;
 
-const PageContentHeaderRightPanel = styled.div`
-  flex-shrink: 0;
-`;
-
 const customColor = colors.linkColor || BORDER_PRIMARY;
 
 const StyledCustomIconButtonContainer = styled.div`
@@ -77,12 +74,6 @@ const StyledCustomIconButtonContainer = styled.div`
 
   .semitransparent {
     fill: ${colors.transparentIconColor || ICON_TRASPARENT_BLUE};
-  }
-`;
-
-const ArrowDown = styled(Icon)`
-  path {
-    fill: ${colors.localeArrowColor || styles.commHeadElemColor || ''};
   }
 `;
 
@@ -144,33 +135,37 @@ export const Header = ({
   );
 
   /* eslint react/prop-types: 0 */
-  const Button = ({ communityAvatar, communityLabel }) => (
-    <H3>
-      {communityAvatar ? (
-        <MediumImageStyled src={communityAvatar} alt="communityAvatar" />
-      ) : (
-        <StyledCustomIconButtonContainer>
-          <MediumIconStyled>
-            <IconLg
-              icon={communityAvatar || defaultAvatar}
-              width={defaultAvatarWidth}
-              fill={BORDER_PRIMARY}
-            />
-          </MediumIconStyled>
-        </StyledCustomIconButtonContainer>
-      )}
+  const Button = ({ communityAvatar, communityLabel }) => {
+    const [isOpen, open, close] = useTrigger(false);
+    return (
+      <H3 onClick={isOpen ? close : open}>
+        {communityAvatar ? (
+          <MediumImageStyled src={communityAvatar} alt="communityAvatar" />
+        ) : (
+          <StyledCustomIconButtonContainer>
+            <MediumIconStyled>
+              <IconLg
+                icon={communityAvatar || defaultAvatar}
+                width={defaultAvatarWidth}
+                fill={BORDER_PRIMARY}
+              />
+            </MediumIconStyled>
+          </StyledCustomIconButtonContainer>
+        )}
 
-      <span>{communityLabel || defaultLabel}</span>
+        <span>{communityLabel || defaultLabel}</span>
 
-      <ArrowDown
-        icon={arrowDownIcon}
-        width="15"
-        alt="data-icon"
-        className="dropdown-arrow ml-2"
-        fill={DARK_SECONDARY}
-      />
-    </H3>
-  );
+        <ArrowDown
+          css={{
+            color: DARK_SECONDARY,
+            transition: 'transform 0.5s !important',
+            ...(isOpen && { transform: 'rotate(180deg)' }),
+          }}
+          className="ml-2"
+        />
+      </H3>
+    );
+  };
 
   const displaySubscribeButton =
     !!single &&

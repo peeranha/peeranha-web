@@ -39,6 +39,7 @@ export type PopoverProps = {
    */
   onClose?: () => void;
   isOpenPopover?: boolean;
+  zIndex?: string;
 };
 
 export type PopoverEventerChildrenProps = {

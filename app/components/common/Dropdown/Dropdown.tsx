@@ -11,6 +11,18 @@ import {
 import DropdownLabel from './DropdownLabel';
 import DropdownOption from './DropdownOption';
 import Input from 'components/Input';
+import styled from 'styled-components';
+import { TEXT_PRIMARY, TEXT_SECONDARY } from 'style-constants';
+import { Styles } from 'components/Input/InputStyled';
+
+import {
+  BG_LIGHT,
+  BORDER_PRIMARY_RGB,
+  BORDER_WARNING_LIGHT_RGB,
+} from 'style-constants';
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
 
 export type OptionValue = string | number;
 
@@ -57,7 +69,8 @@ type DropdownCommonProps = {
    * Class name for dropdown button
    */
   triggerClassName?: string;
-  appendTo?: 'viewport' | 'parent' | undefined;
+  appendTo?: 'viewport' | 'parent';
+  zIndex?: string;
 };
 
 type DropdownSingleProps = DropdownCommonProps & {
@@ -96,6 +109,18 @@ type OnOptionClickParams = {
   close: PopoverContentChildrenParams['close'];
 };
 
+const InputStyled = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+  transition: 0.5s;
+  flex: 1;
+
+  input {
+    ${Styles};
+  }
+`;
+
 const Dropdown: React.FC<DropdownProps> = ({
   options,
   value,
@@ -109,7 +134,8 @@ const Dropdown: React.FC<DropdownProps> = ({
   onSelect,
   trigger,
   isEqualWidth,
-  appendTo,
+  appendTo = 'viewport',
+  zIndex,
 }) => {
   const {
     items,
@@ -158,12 +184,21 @@ const Dropdown: React.FC<DropdownProps> = ({
       }
     };
   const [searchValue, setSearchValue] = useState();
+  const filterOptions = (options) =>
+    options.filter((option) =>
+      searchValue && typeof option.label === 'string'
+        ? option.label
+            .toLocaleLowerCase()
+            .includes(searchValue.toLocaleLowerCase())
+        : true,
+    );
 
   return (
     <Popover
       isEqualWidth={typeof isEqualWidth !== undefined ? isEqualWidth : true}
       offset={{ top: 4 }}
       appendTo={appendTo}
+      zIndex={zIndex}
     >
       <Popover.Trigger className={triggerClassName}>
         {({ isOpen }: PopoverTriggerChildrenParams): JSX.Element =>
@@ -210,41 +245,32 @@ const Dropdown: React.FC<DropdownProps> = ({
             className={cn(className, 'scrollbar m0 lstn pt8 pr0 pb8 pl0')}
             css={classes.options}
           >
-            {Boolean(isSearchable) && (
+            {isSearchable && (
               <div
                 css={css`
                   padding: 5px;
                 `}
               >
-                <Input
-                  input={{
-                    onChange: (event: {
+                <InputStyled>
+                  <input
+                    onChange={(event: {
                       target: { value: React.SetStateAction<undefined> };
-                    }) => setSearchValue(event.target.value),
-                    // autoFocus: true
-                  }}
-                  placeholder={'search'}
-                  type={'text'}
-                />
+                    }) => setSearchValue(event.target.value)}
+                    placeholder={'search'}
+                    type={'text'}
+                  />
+                </InputStyled>
               </div>
             )}
 
-            {items
-              .filter((option) =>
-                searchValue && typeof option.label === 'string'
-                  ? option.label
-                      .toLocaleLowerCase()
-                      .includes(searchValue.toLocaleLowerCase())
-                  : true,
-              )
-              .map((option) => (
-                <DropdownOption
-                  key={option.value}
-                  option={option}
-                  isMultiple={isMultiple}
-                  onClick={onOptionClick({ close })}
-                />
-              ))}
+            {filterOptions(items).map((option: MutableOption) => (
+              <DropdownOption
+                key={option.value}
+                option={option}
+                isMultiple={isMultiple}
+                onClick={onOptionClick({ close })}
+              />
+            ))}
           </ul>
         )}
       </Popover.Content>

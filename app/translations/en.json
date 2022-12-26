@@ -215,6 +215,7 @@
   "app.common.transactionCompleted": "Transaction completed successfully",
   "app.common.estimatedReward": "Estimated reward",
   "app.common.rewardsWillBeAvailable": "Oops, you can't claim your tokens right now. No worries, the estimated reward will be available for you to claim after the token launch. Our legal team is backing us to finalize the details of the token launch. Thank you!",
+  "app.common.selectCommunityFromTheList": "Select a community from the list below",
 
   "app.telegram.user": "Telegram user",
   "app.telegram.userLabelPopover": "This is a temporary account provided by Telegram Bot",

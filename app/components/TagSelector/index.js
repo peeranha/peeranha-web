@@ -1,42 +1,10 @@
+import DropdownTrigger from 'components/TagSelector/DropdownTrigger';
 import React, { useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import { TEXT_PRIMARY, BORDER_PRIMARY, BORDER_RADIUS_S } from 'style-constants';
-
-import closeIcon from 'images/closeCircle.svg?external';
-
 import Dropdown from 'components/common/Dropdown';
 import Wrapper from 'components/FormFields/Wrapper';
-import { Input } from 'components/Input/InputStyled';
-import { IconMd } from 'components/Icon/IconWithSizes';
-import { singleCommunityColors } from 'utils/communityManagement';
-
-const colors = singleCommunityColors();
-
-const TagsContainer = styled.ul`
-  ${(props) => Input(props)};
-
-  cursor: pointer;
-  height: auto !important;
-`;
-
-const RemoveTagIcon = styled.button`
-  display: inline-flex;
-  padding: 0 0 0 10px;
-`;
-
-const Tag = styled.li`
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  color: ${colors.tagColor || TEXT_PRIMARY};
-  padding: 2px 8px;
-  margin: 5px 10px 5px 0;
-  border: 1px solid ${colors.tagColor || BORDER_PRIMARY};
-  border-radius: ${BORDER_RADIUS_S};
-`;
 
 const Base = styled.div`
   margin-bottom: ${({ isOpen }) => (isOpen ? 120 : 0)}px;
@@ -62,10 +30,11 @@ export const TagSelector = ({
   options = [],
 }) => {
   const [value, filteredOptions] = useMemo(() => {
-    const v = (input?.value?.toJS ? input.value.toJS() : input?.value) || [];
+    const inputValue =
+      (input?.value?.toJS ? input.value.toJS() : input?.value) || [];
     // In menu show only which are NOT chosen
-    const fO = options?.filter((x) => !v.includes(x?.id));
-    return [v, fO];
+    const fO = options?.filter((option) => !inputValue.includes(option?.id));
+    return [inputValue, fO];
   }, [input, input.value]);
 
   const error = useMemo(
@@ -74,8 +43,8 @@ export const TagSelector = ({
   );
 
   const onChange = useCallback(
-    (x) => {
-      setTags([...value, ...x]);
+    (tagIds) => {
+      setTags([...value, ...tagIds]);
     },
     [setTags, value],
   );
@@ -88,6 +57,12 @@ export const TagSelector = ({
     [value, setTags],
   );
 
+  const formattedTags = filteredOptions.map((tag) => ({
+    ...tag,
+    label: tag.name,
+    value: tag.id,
+  }));
+
   return (
     <Base>
       <Wrapper
@@ -99,39 +74,20 @@ export const TagSelector = ({
         id={input.name}
       >
         <Dropdown
-          options={filteredOptions.map((tag) => ({
-            ...tag,
-            label: tag.name,
-            value: tag.id,
-          }))}
+          options={formattedTags}
           value={value}
           triggerClassName="full-width"
           isMultiple={true}
           isSearchable
           onSelect={onChange}
           trigger={
-            <div className="df aic">
-              <TagsContainer disabled={disabled} error={error}>
-                {value.map((id) => {
-                  const valueLabel = options.find((tag) => tag.id === id).label;
-                  return (
-                    <Tag key={valueLabel}>
-                      <span>{valueLabel}</span>
-                      <RemoveTagIcon
-                        type="button"
-                        onClick={(e) => onClick(e, id)}
-                      >
-                        <IconMd
-                          icon={closeIcon}
-                          fill={colors.tagColor || BORDER_PRIMARY}
-                          color={colors.tagColor || BORDER_PRIMARY}
-                        />
-                      </RemoveTagIcon>
-                    </Tag>
-                  );
-                })}
-              </TagsContainer>
-            </div>
+            <DropdownTrigger
+              value={value}
+              options={options}
+              onClick={onClick}
+              disabled={disabled}
+              error={error}
+            />
           }
         />
       </Wrapper>

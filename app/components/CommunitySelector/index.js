@@ -89,7 +89,9 @@ const CommunitySelector = ({
     <Dropdown
       options={options}
       value={value}
-      placeholder="Select a community from the list below"
+      placeholder={
+        translationMessages[locale][messages.selectCommunityFromTheList.id]
+      }
       onSelect={onSelect}
       isSearchable
       className="z-8"
@@ -102,9 +104,12 @@ const CommunitySelector = ({
           communityLabel={
             communities.find((comminity) => comminity.id === value)?.name
           }
-          placeholder={'Select a community from the list below'}
+          placeholder={
+            translationMessages[locale][messages.selectCommunityFromTheList.id]
+          }
         />
       }
+      zIndex={'6'}
     />
   );
 };

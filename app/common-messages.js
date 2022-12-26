@@ -600,6 +600,9 @@ export default defineMessages({
   gotIt: {
     id: 'app.common.gotIt',
   },
+  selectCommunityFromTheList: {
+    id: 'app.common.app.common.selectCommunityFromTheList',
+  },
   messageSendedSuccessfully: {
     id: 'app.common.messageSendedSuccessfully',
   },

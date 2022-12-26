@@ -21,6 +21,7 @@ const Popover: React.FC<PopoverProps> & {
   appendTo = 'viewport',
   onClose,
   isOpenPopover = false,
+  zIndex,
 }) => {
   let TriggerComponent;
   let ContentComponent;
@@ -61,6 +62,7 @@ const Popover: React.FC<PopoverProps> & {
                   ? triggerRef.current
                   : undefined
               }
+              zIndex={zIndex}
             >
               {React.cloneElement(ContentComponent, {
                 triggerRef,
