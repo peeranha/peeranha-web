@@ -32,12 +32,12 @@ const styles = singleCommunityStyles();
 
 const Label = Button.extend`
   ${LabelStyles};
-  pointer-events: ${x => (x.inactive ? 'none' : 'auto')};
+  pointer-events: ${(x) => (x.inactive ? 'none' : 'auto')};
   overflow: hidden;
   height: 1%;
   min-height: 32px;
   max-width: 300px;
-  color: ${({ color }) => color || 'white'};
+  color: ${({ color }) => color || 'var(--color-white)'};
   background: ${({ bg }) => bg || 'inherit'};
   ${({ border }) => `border: 1px solid ${border}` || ''};
 `;
@@ -166,7 +166,7 @@ BestAnswerMarker.propTypes = {
 
 export default React.memo(
   connect(
-    state => ({
+    (state) => ({
       profileInfo: makeSelectProfileInfo()(state),
     }),
     null,

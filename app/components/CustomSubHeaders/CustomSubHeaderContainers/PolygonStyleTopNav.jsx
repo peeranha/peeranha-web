@@ -14,7 +14,10 @@ import polygonZeloLogo from 'communities-configs/polygon/images/polygon-zero.svg
 import polygonMidenLogo from 'communities-configs/polygon/images/polygon-miden.svg?inline';
 import polygonHermezLogo from 'communities-configs/polygon/images/polygon-hermez.svg?inline';
 import polygonNightfallLogo from 'communities-configs/polygon/images/polygon-nightfall.svg?inline';
-import { LocalLink, Subitems } from 'components/CustomSubHeaders/CustomSubHeader';
+import {
+  LocalLink,
+  Subitems,
+} from 'components/CustomSubHeaders/CustomSubHeader';
 
 const logosSVG = {
   polygonPoS: polygonPoSLogo,
@@ -30,7 +33,6 @@ const Container = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
-}
 `;
 
 const SubHeaderNav = styled.div`
@@ -43,16 +45,18 @@ const SubHeaderNav = styled.div`
     > div {
       padding: 0px 1rem 0px 0px;
       opacity: 1;
-      a, span{
+      a,
+      span {
         line-height: 1.25;
         font-size: 0.9rem;
         letter-spacing: 0.4px;
       }
     }
     > div:hover {
-      a, span {
+      a,
+      span {
         opacity: 1;
-        color: #7b3fe4;
+        color: var(--color-violet);
       }
     }
   }
@@ -71,9 +75,9 @@ const SubHeaderNavButtons = styled.div`
     > div:hover {
       a {
         opacity: 1;
-        color: #ffffff;
-        border-color: rgba(100,51,185,1);
-        background-color: rgba(100,51,185,1) !important;
+        color: var(--color-white);
+        border-color: var(--color-violet);
+        background-color: var(--color-violet) !important;
       }
     }
   }
@@ -121,16 +125,18 @@ const Links = ({ links, styles }) => (
         {subitems ? (
           <Subitems styles={styles.subitems}>
             <div>
-              {subitems.map(item => (
+              {subitems.map((item) => (
                 <LocalLink
                   styles={styles}
                   key={item.href}
                   href={item.href}
                   target={item.target || '_blank'}
                 >
-                  <img src={logosSVG[item.logo]}/>
+                  <img src={logosSVG[item.logo]} />
                   <div>
-                    <h5>{item.text} <span>{item.mode}</span></h5>
+                    <h5>
+                      {item.text} <span>{item.mode}</span>
+                    </h5>
                     <p>{item.description}</p>
                   </div>
                 </LocalLink>
@@ -157,10 +163,20 @@ const PolygonStyleTopNav = () => {
         <img src={src} alt="logo" />
       </SubHeaderLogo>
       <SubHeaderNav>
-        {!!links && !!styles ? <Links links={links.filter(link=>!link.isHighlighted)} styles={styles} /> : null}
+        {!!links && !!styles ? (
+          <Links
+            links={links.filter((link) => !link.isHighlighted)}
+            styles={styles}
+          />
+        ) : null}
       </SubHeaderNav>
       <SubHeaderNavButtons>
-        {!!links && !!styles ? <Links links={links.filter(link=>link.isHighlighted)} styles={styles}/> : null}
+        {!!links && !!styles ? (
+          <Links
+            links={links.filter((link) => link.isHighlighted)}
+            styles={styles}
+          />
+        ) : null}
       </SubHeaderNavButtons>
     </Container>
   );

@@ -193,6 +193,7 @@ export const ViewQuestion = ({
     infiniteImpact,
     isAnswered,
     commId,
+    profile,
   };
 
   const helmetTitle =

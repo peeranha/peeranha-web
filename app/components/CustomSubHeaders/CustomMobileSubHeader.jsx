@@ -21,9 +21,11 @@ const Div = styled.div`
   width: 100%;
   height: ${({ visible }) => (visible ? 'auto' : '70px')};
 
-  color: ${({ styles }) => styles.color && styles.color.a ? styles.color.a : `#ffffff`};
+  color: ${({ styles }) =>
+    styles.color && styles.color.a ? styles.color.a : `var(--color-white)`};
 
-  background: ${({ styles }) => styles.bg.burgerHeader || styles.bg.header || `rgb(${'80, 101, 165'})`};
+  background: ${({ styles }) =>
+    styles.bg.burgerHeader || styles.bg.header || `var(-color-blue-dark)`};
 
   * {
     padding: 10px 0 10px 15px;
@@ -51,7 +53,8 @@ const Div = styled.div`
 
   > div {
     padding-top: 0;
-    font-family: ${({ styles }) => styles.font && styles.font.body ? styles.font.body : `inherit`};
+    font-family: ${({ styles }) =>
+      styles.font && styles.font.body ? styles.font.body : `inherit`};
     font-size: 15px;
     letter-spacing: 1px;
     display: flex;
@@ -60,15 +63,18 @@ const Div = styled.div`
   }
 
   a {
-    color: ${({ styles }) => styles.color && styles.color.a ? styles.color.a : `#ffffff`};
+    color: ${({ styles }) =>
+      styles.color && styles.color.a ? styles.color.a : `var(--color-white)`};
 
     :visited {
-      color: ${({ styles }) => styles.color && styles.color.a ? styles.color.a : `#ffffff`};
+      color: ${({ styles }) =>
+        styles.color && styles.color.a ? styles.color.a : `var(--color-white)`};
     }
   }
 
   span {
-    color: ${({ styles }) => styles.color && styles.color.a ? styles.color.a : `#ffffff`};
+    color: ${({ styles }) =>
+      styles.color && styles.color.a ? styles.color.a : `var(--color-white)`};
   }
 `;
 
@@ -102,7 +108,9 @@ const CustomMobileSubHeader = ({
           />
         )}
       </button>
-      {(visible && !isBloggerMode) && <Links links={links} styles={styles} device="mobile" />}
+      {visible && !isBloggerMode && (
+        <Links links={links} styles={styles} device="mobile" />
+      )}
     </Div>
   );
 };
@@ -120,6 +128,4 @@ const withConnect = connect(
   null,
 );
 
-export default compose(
-  withConnect,
-)(CustomMobileSubHeader);
+export default compose(withConnect)(CustomMobileSubHeader);

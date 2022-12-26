@@ -10,6 +10,11 @@ import { theme as KandaTheme } from 'themes/kanda';
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
+  options: {
+    storySort: {
+      order: ['Docs', 'Themes'],
+    },
+  },
 };
 
 const themeObjects = {
@@ -17,7 +22,7 @@ const themeObjects = {
   kanda: KandaTheme,
 };
 
-const chooseTheme = choice => {
+const chooseTheme = (choice) => {
   const _theme = themeObjects[choice.toLowerCase()];
 
   if (_theme) {

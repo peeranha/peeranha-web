@@ -69,7 +69,7 @@ const Introduction = ({ translations, showLoginModal, account }) => (
 );
 
 const Box = styled.div`
-  color: #ffffff !important;
+  color: var(--color-white) !important;
   z-index: 10;
   position: relative;
   text-align: center;
@@ -118,7 +118,7 @@ const Box = styled.div`
 
 const Icon = styled.span`
   position: relative;
-  color: #fff;
+  color: var(--color-white);
   font-size: 36px;
   cursor: pointer;
 

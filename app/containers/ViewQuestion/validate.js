@@ -94,6 +94,7 @@ export const postAnswerValidator = (
     message = `${translations[messages.alreadyAnswered.id]}`;
   } else if (
     !hasGlobalModeratorRole(profileInfo.permissions) &&
+    !hasCommunityModeratorRole(profileInfo.permissions, communityId) &&
     !hasProtocolAdminRole(profileInfo.permissions) &&
     questionData.author.user === profileInfo.user &&
     communityRating < MIN_RATING_FOR_MY_QUESTION
@@ -105,6 +106,7 @@ export const postAnswerValidator = (
     }`;
   } else if (
     !hasGlobalModeratorRole(profileInfo.permissions) &&
+    !hasCommunityModeratorRole(profileInfo.permissions, communityId) &&
     !hasProtocolAdminRole(profileInfo.permissions) &&
     questionData.author.user !== profileInfo.user &&
     communityRating < MIN_RATING_FOR_OTHER_QUESTIONS

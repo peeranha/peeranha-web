@@ -237,7 +237,7 @@ const Box = Section.extend`
     li {
       letter-spacing: -0.7px;
       font-size: 18px;
-      color: #282828;
+      color: var(--color-black);
 
       * {
         background: transparent;

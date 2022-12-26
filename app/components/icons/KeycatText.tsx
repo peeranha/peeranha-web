@@ -5,7 +5,7 @@ const KeycatText: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
     id="keycat-text"
-    fill="curentColor"
+    fill="currentColor"
     viewBox="0 0 174 51"
     size={[174, 51]}
   >

@@ -28,6 +28,12 @@ export default defineMessages({
   website: {
     id: 'app.containers.CreateCommunity.website',
   },
+  communityWebsite: {
+    id: 'app.containers.CreateCommunity.communityWebsite',
+  },
+  communityWebsiteTip: {
+    id: 'app.containers.CreateCommunity.communityWebsiteTip',
+  },
   websiteTip: {
     id: 'app.containers.CreateCommunity.websiteTip',
   },

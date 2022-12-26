@@ -15,22 +15,33 @@ import Documentation from 'pages/Documentation';
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ReactGA from 'react-ga';
+import { createStructuredSelector } from 'reselect';
 import { bindActionCreators, compose } from 'redux';
 import { connect } from 'react-redux';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import { Global, ThemeProvider } from '@emotion/react';
 import global from 'styles/global';
 import { theme } from 'themes/default';
+import {
+  selectDocumentationMenu,
+  selectPinnedItemMenu,
+} from 'containers/AppWrapper/selectors';
 
 import * as routes from 'routes-config';
 
 import injectSaga from 'utils/injectSaga';
-import { DAEMON, POST_TYPE, REWARD_CLAIMING_ENABLED } from 'utils/constants';
+import {
+  DAEMON,
+  POST_TYPE,
+  REWARD_CLAIMING_ENABLED,
+  POSITION_TOP,
+} from 'utils/constants';
 import { ScrollTo } from 'utils/animation';
 import { closePopover as Popover } from 'utils/popover';
 import {
   isSingleCommunityWebsite,
   getSingleCommunityDetails,
+  singleCommunityDocumentationPosition,
 } from 'utils/communityManagement';
 
 import Loader from 'components/LoadingIndicator/HeightWidthCentered';
@@ -43,6 +54,7 @@ import {
   EditCommunity,
   HomePage,
   Faq,
+  Administration,
   Users,
   EditQuestion,
   EditProfilePage,
@@ -87,20 +99,31 @@ import { getValueFromSearchString } from '../../utils/url';
 import { getCookie, setCookie } from '../../utils/cookie';
 import { REFERRAL_CODE_URI } from './constants';
 import { AUTOLOGIN_DATA } from '../Login/constants';
-import { redirectToFeed } from './actions';
 import {
+  redirectToFeed,
+  redirectToDocumentation,
+  redirectToPreload,
+} from './actions';
+import {
+  hasCommunityAdminRole,
   hasGlobalModeratorRole,
   hasProtocolAdminRole,
 } from '../../utils/properties';
 import CookieConsentPopup from '../../components/CookieConsentPopup';
 
 const single = isSingleCommunityWebsite();
-
+const isDocumentationPositionTop =
+  singleCommunityDocumentationPosition() == POSITION_TOP;
 const App = ({
   location: { pathname, search },
   redirectToFeedDispatch,
+  redirectToDocumentationDispatch,
   history,
+  documentationMenu,
+  pinnedItemMenu,
 }) => {
+  const hasPinnedPost = pinnedItemMenu.id !== '';
+
   if (process.env.NODE_ENV === 'production') {
     ReactGA.pageview(window.location.pathname);
   }
@@ -138,7 +161,21 @@ const App = ({
     }
   }, []);
 
+  useEffect(() => {
+    if (single && (pathname == '/' || pathname == '/feed')) {
+      hasPinnedPost || isDocumentationPositionTop
+        ? redirectToDocumentationDispatch()
+        : redirectToFeedDispatch();
+    }
+  }, [documentationMenu]);
+
   const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
+
+  const hasCommunityOrProtocolAdminRole =
+    single &&
+    (hasGlobalModeratorRole() ||
+      hasProtocolAdminRole() ||
+      hasCommunityAdminRole(null, single));
 
   return (
     <ErrorBoundary>
@@ -180,6 +217,14 @@ const App = ({
             path={routes.feed()}
             render={(props) => Wrapper(Feed, props)}
           />
+
+          {single && (hasPinnedPost || isDocumentationPositionTop) && (
+            <Route
+              exact
+              path={routes.documentationStartPage()}
+              render={(props) => Wrapper(Documentation, props)}
+            />
+          )}
 
           {!single && (
             <Route
@@ -402,6 +447,14 @@ const App = ({
             />
           )}
 
+          {single && hasCommunityOrProtocolAdminRole && (
+            <Route
+              exact
+              path={routes.administration()}
+              render={(props) => Wrapper(Administration, props)}
+            />
+          )}
+
           <Route
             path={routes.noAccess()}
             render={(props) => Wrapper(NoAccess, props)}
@@ -479,10 +532,20 @@ App.propTypes = {
   redirectToFeedDispatch: PropTypes.func,
 };
 
+const mapStateToProps = createStructuredSelector({
+  documentationMenu: selectDocumentationMenu(),
+  pinnedItemMenu: selectPinnedItemMenu(),
+});
+
 export default compose(
   withRouter,
   injectSaga({ key: 'app', saga, mode: DAEMON }),
-  connect(null, (dispatch) => ({
+  connect(mapStateToProps, (dispatch) => ({
     redirectToFeedDispatch: bindActionCreators(redirectToFeed, dispatch),
+    redirectToDocumentationDispatch: bindActionCreators(
+      redirectToDocumentation,
+      dispatch,
+    ),
+    redirectToPreloadDispatch: bindActionCreators(redirectToPreload, dispatch),
   })),
 )(App);

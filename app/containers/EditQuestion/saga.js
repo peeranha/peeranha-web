@@ -106,10 +106,11 @@ export function* editQuestionWorker({ question, questionId }) {
     yield call(
       editQuestion,
       selectedAccount,
-      +questionId,
-      +question.communityId,
+      Number(questionId),
+      Number(question.communityId),
       questionData,
       question.tags,
+      Number(question.postType),
       ethereumService,
     );
 

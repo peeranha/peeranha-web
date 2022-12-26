@@ -830,8 +830,14 @@ export function* postCommentWorker({
 
 export function* postAnswerWorker({ questionId, answer, official, reset }) {
   try {
-    const { questionData, ethereumService, profileInfo, locale, histories } =
-      yield call(getParams);
+    const {
+      questionData,
+      ethereumService,
+      profileInfo,
+      locale,
+      histories,
+      account,
+    } = yield call(getParams);
 
     yield call(isAuthorized);
 
@@ -911,6 +917,11 @@ export function* postAnswerWorker({ questionId, answer, official, reset }) {
 
     saveChangedItemIdToSessionStorage(CHANGED_POSTS_KEY, questionId);
 
+    const updatedQuestionData = yield call(getQuestionData, {
+      questionId,
+      user: account,
+    });
+    yield put(getQuestionDataSuccess(updatedQuestionData));
     yield put(postAnswerSuccess(questionData));
   } catch (err) {
     yield put(postAnswerErr(err));

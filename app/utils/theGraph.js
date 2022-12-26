@@ -26,6 +26,7 @@ import {
   usersQuery,
   userStatsQuery,
   communityDocumentationNotIncludedQuery,
+  moderationQuery,
 } from './ethConstants';
 
 const client = new ApolloClient({
@@ -49,6 +50,17 @@ export const getUsers = async ({
     },
   });
   return users?.data.users;
+};
+
+export const getModerators = async (roles) => {
+  const administrators = await client.query({
+    query: gql(moderationQuery),
+    variables: {
+      roles: roles,
+    },
+    fetchPolicy: 'network-only',
+  });
+  return [...administrators?.data.userPermissions];
 };
 
 export const getUsersByCommunity = async ({
@@ -119,6 +131,7 @@ export const getUsersAnsweredQuestions = async (id, limit, offset) => {
       limit,
       offset,
     },
+    fetchPolicy: 'network-only',
   });
   const answeredPosts = await client.query({
     query: gql(answeredPostsQuery),
@@ -267,6 +280,7 @@ export const getQuestionFromGraph = async (postId) => {
         variables: {
           postId,
         },
+        fetchPolicy: 'network-only',
       })
     ).data.post,
   };
