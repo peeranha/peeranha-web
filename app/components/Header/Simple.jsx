@@ -34,15 +34,6 @@ const C2 = `
       margin-right: 0 !important;
     }
   }
-
-  @media only screen and (max-width: 690px) {
-    flex-wrap: wrap;
-
-    > div:nth-child(2) {
-      width: 100%;
-      margin-top: 15px;
-    }
-  }
 `;
 
 export const C3 = isColumnForSM => `

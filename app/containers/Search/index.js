@@ -8,7 +8,7 @@ import { translationMessages } from 'i18n';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-
+import { css } from '@emotion/react';
 import commonMessages from 'common-messages';
 import searchIcon from 'images/searchIcon.svg?inline';
 
@@ -17,22 +17,19 @@ import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import H3 from 'components/H3';
 import Seo from 'components/Seo';
 import Header from 'components/Header/Simple';
-import Base from 'components/Base/BaseRounded';
 import { MediumImageStyled } from 'components/Img/MediumImage';
-import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 
 import reducer from './reducer';
 import saga from './saga';
 
 import { selectItems, selectGetResultsProcessing } from './selectors';
 import { getResults } from './actions';
-import Item from './Item';
 
 import messages from './messages';
-import Content from '../Questions/Content/Content';
 import { selectCommunities } from '../DataCacheProvider/selectors';
 import InfinityLoader from '../../components/InfinityLoader';
-import ShowMoreButton from '../Questions/Content/ShowMoreButton';
+import { TEXT_DARK, TEXT_SECONDARY } from '../../style-constants';
+import SearchContent from './SearchContent';
 
 const Search = ({
   match,
@@ -43,14 +40,11 @@ const Search = ({
   communities,
 }) => {
   const query = match.params.q;
-  useEffect(
-    () => {
-      if (query) {
-        getResultsDispatch(query);
-      }
-    },
-    [getResultsDispatch, query],
-  );
+  useEffect(() => {
+    if (query) {
+      getResultsDispatch(query);
+    }
+  }, [getResultsDispatch, query]);
 
   return (
     <div>
@@ -61,11 +55,37 @@ const Search = ({
         index={false}
       />
 
-      <Header className="mb-to-sm-0 mb-from-sm-3">
+      <Header
+        className="mb-to-sm-0 mb-from-sm-3 df jcsb aic"
+        css={css`
+          padding-top: 30px;
+        `}
+      >
         <H3>
           <MediumImageStyled src={searchIcon} alt="search" />
           <FormattedMessage {...commonMessages.search} />
         </H3>
+        {Boolean(items.length) && (
+          <div>
+            <span
+              className="semi-bold fz16"
+              css={css`
+                color: ${TEXT_DARK};
+                font-family: 'Source Sans Pro', sans-serif;
+              `}
+            >
+              <FormattedMessage id={commonMessages.results.id} />
+            </span>
+            <span
+              className="fz16 ml8"
+              css={css`
+                color: ${TEXT_SECONDARY};
+              `}
+            >
+              {items.length}
+            </span>
+          </div>
+        )}
       </Header>
 
       {items.length > 0 && (
@@ -74,28 +94,13 @@ const Search = ({
           isLoading={getResultsProcessing}
           isLastFetch={false}
         >
-          <Content
-            questionsList={items}
-            // promotedQuestionsList={
-            //   promotedQuestions[+questionFilterFromCookies ? 'top' : 'all']
-            // }
+          <SearchContent
             locale={locale}
+            posts={items}
             communities={communities}
-            typeFilter={0}
-            createdFilter={0}
-            isModerator={false}
-            profileInfo={null}
-            isSearchPage
           />
         </InfinityLoader>
       )}
-
-      {/*  <div>*/}
-      {/*    {getResultsProcessing && <LoadingIndicator />}*/}
-      {/*    {!getResultsProcessing &&*/}
-      {/*      !items.length && <FormattedMessage {...commonMessages.noResults} />}*/}
-      {/*  </div>*/}
-      {/*</Base>*/}
     </div>
   );
 };
@@ -118,7 +123,7 @@ export default compose(
       getResultsProcessing: selectGetResultsProcessing(),
       locale: makeSelectLocale(),
     }),
-    dispatch => ({
+    (dispatch) => ({
       getResultsDispatch: bindActionCreators(getResults, dispatch),
     }),
   ),
