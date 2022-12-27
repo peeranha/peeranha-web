@@ -18,7 +18,7 @@ import AaveLogo from 'communities-configs/aave/images/AaveLogo.svg?inline';
 import ForceLogo from './communities-configs/force/images/Group.svg?inline';
 import Mark3dLogo from './communities-configs/mark3d/images/Mark3dLogo.svg?inline';
 import OrbisLogo from './communities-configs/orbis/images/GroupLogo.svg?inline';
-import FractalVisionsLogo from './communities-configs/fractalVisions/images/Rectangle.svg?inline';
+import FractalVisionsLogo from './communities-configs/fractalVisions/images/Rectangle2.svg?inline';
 
 import { PolygonStyles } from './communities-configs/polygon';
 import { FilecoinStyles } from './communities-configs/filecoin';
