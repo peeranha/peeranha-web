@@ -1,8 +1,8 @@
-import React, { FormEventHandler } from 'react';
+import React, { FormEventHandler, useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Field, reduxForm } from 'redux-form/immutable';
 
-import { scrollToErrorField } from 'utils/animation';
+import { scrollToErrorField, scrollTrigger } from 'utils/animation';
 
 import {
   validateEmail,
@@ -35,52 +35,82 @@ const SendMessageForm: React.FC<SendMessageForm> = ({
   handleSubmit,
   sendMessageLoading,
   sendMessage,
-}): JSX.Element => (
-  <form onSubmit={handleSubmit(sendMessage)} autoComplete="off">
-    <div>
-      <Field
-        name={NAME_FIELD}
-        disabled={sendMessageLoading}
-        label={<FormattedMessage id={messages.yourName.id} />}
-        component={FormField}
-        validate={[strLength3x20, required]}
-        warn={[strLength3x20, required]}
-      />
+}): JSX.Element => {
+  const [startFormAnimation, setStartFormAnimation] = useState<boolean>(false);
 
-      <Field
-        name={EMAIL_FIELD}
-        disabled={sendMessageLoading}
-        label={<FormattedMessage id={messages.email.id} />}
-        component={FormField}
-        validate={[validateEmail, required, strLength254Max]}
-        warn={[validateEmail, required, strLength254Max]}
-      />
+  useEffect(() => {
+    scrollTrigger('.letter-form', () => setStartFormAnimation(true));
+  }, []);
 
-      <Field
-        name={SUBJECT_FIELD}
-        disabled={sendMessageLoading}
-        label={<FormattedMessage id={messages.subject.id} />}
-        component={FormField}
-        validate={[strLength3x20, required]}
-        warn={[strLength3x20, required]}
-      />
-
-      <Field
-        name={MESSAGE_FIELD}
-        multiline
-        disabled={sendMessageLoading}
-        label={<FormattedMessage id={messages.message.id} />}
-        component={FormField}
-        validate={[strLength15x100, required]}
-        warn={[strLength15x100, required]}
-      />
-    </div>
-
-    <button className="full-width fz18 mt8" css={styles.button}>
-      <FormattedMessage id={messages.sendMessage.id} />
-    </button>
-  </form>
-);
+  return (
+    <form onSubmit={handleSubmit(sendMessage)} autoComplete="off">
+      <div className="letter-form">
+        <div
+          className="op0"
+          css={{ ...(startFormAnimation && styles.firstFieldAnimation) }}
+        >
+          <Field
+            name={NAME_FIELD}
+            disabled={sendMessageLoading}
+            label={<FormattedMessage id={messages.yourName.id} />}
+            component={FormField}
+            validate={[strLength3x20, required]}
+            warn={[strLength3x20, required]}
+          />
+        </div>
+        <div
+          className="op0"
+          css={{ ...(startFormAnimation && styles.secondFieldAnimation) }}
+        >
+          <Field
+            name={EMAIL_FIELD}
+            disabled={sendMessageLoading}
+            label={<FormattedMessage id={messages.email.id} />}
+            component={FormField}
+            validate={[validateEmail, required, strLength254Max]}
+            warn={[validateEmail, required, strLength254Max]}
+          />
+        </div>
+        <div
+          className="op0"
+          css={{ ...(startFormAnimation && styles.thirdFieldAnimation) }}
+        >
+          <Field
+            name={SUBJECT_FIELD}
+            disabled={sendMessageLoading}
+            label={<FormattedMessage id={messages.subject.id} />}
+            component={FormField}
+            validate={[strLength3x20, required]}
+            warn={[strLength3x20, required]}
+          />
+        </div>
+        <div
+          className="op0"
+          css={{ ...(startFormAnimation && styles.fourthFieldAnimation) }}
+        >
+          <Field
+            name={MESSAGE_FIELD}
+            multiline
+            disabled={sendMessageLoading}
+            label={<FormattedMessage id={messages.message.id} />}
+            component={FormField}
+            validate={[strLength15x100, required]}
+            warn={[strLength15x100, required]}
+          />
+        </div>
+        <button
+          className="full-width fz18 mt8 op0"
+          css={{
+            ...styles.button,
+            ...(startFormAnimation && styles.buttonFieldAnimation),
+          }}
+        >
+          <FormattedMessage id={messages.sendMessage.id} />
+        </button>
+      </div>
+    </form>
+  );
+};
 
 export default reduxForm({
   onSubmitFail: (errors) => scrollToErrorField(errors),

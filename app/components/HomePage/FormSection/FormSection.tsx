@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { scrollTrigger } from 'utils/animation';
 import letterSmile from 'images/letter-smile.svg?inline';
 import { styles } from './FormSection.styled';
 import SendMessageForm from './SendMessageForm';
@@ -9,21 +10,36 @@ import { SEND_MESSAGE_FORM } from '../../../pages/HomePage/constants';
 const FormSection: React.FC<HomepageProps> = ({
   sendMessageLoading,
   sendMessageDispatch,
-}): JSX.Element => (
-  <section css={pageStyles.container}>
-    <div css={styles.container}>
-      <div className="df jcc" css={styles.image}>
-        <img src={letterSmile} alt="letter image" className="full-width" />
+}): JSX.Element => {
+  const [startLetterAnimation, setStartLetterAnimation] =
+    useState<boolean>(false);
+
+  useEffect(() => {
+    scrollTrigger('.letter-image', () => setStartLetterAnimation(true));
+  }, []);
+
+  return (
+    <section css={pageStyles.container}>
+      <div css={styles.container}>
+        <div
+          className="df jcc letter-image"
+          css={{
+            ...styles.image,
+            ...(startLetterAnimation && styles.letterAnimation),
+          }}
+        >
+          <img src={letterSmile} alt="letter image" className="full-width" />
+        </div>
+        <div>
+          <SendMessageForm
+            form={SEND_MESSAGE_FORM}
+            sendMessage={sendMessageDispatch}
+            sendMessageLoading={sendMessageLoading}
+          />
+        </div>
       </div>
-      <div>
-        <SendMessageForm
-          form={SEND_MESSAGE_FORM}
-          sendMessage={sendMessageDispatch}
-          sendMessageLoading={sendMessageLoading}
-        />
-      </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 export default FormSection;

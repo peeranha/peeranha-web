@@ -179,11 +179,11 @@ export const styles = {
     '@keyframes videoImageAnimation': {
       '0%': {
         transform: 'translateY(100px)',
-        opacity: '0',
+        opacity: 0,
       },
       '100%': {
         transform: 'translateY(0)',
-        opacity: '100%',
+        opacity: 1,
       },
     },
   },
@@ -196,7 +196,7 @@ export const styles = {
     '@keyframes videoLeftImageAnimation': {
       '0%': {
         transform: 'translateX(80px)',
-        opacity: '0',
+        opacity: 0,
       },
       '60%': {
         opacity: 1,

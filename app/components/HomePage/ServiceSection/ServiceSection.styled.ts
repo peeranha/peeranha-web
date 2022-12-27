@@ -298,6 +298,7 @@ export const styles = {
     borderRadius: '5px',
     lineHeight: '25px',
     color: 'rgb(255, 255, 255)',
+    zIndex: 99,
     transition: '0.4s',
 
     ':hover': {

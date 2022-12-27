@@ -187,6 +187,9 @@ export default css`
   .bd0 {
     border: none;
   }
+  .op0 {
+    opacity: 0;
+  }
   .no-wrap {
     white-space: nowrap;
   }

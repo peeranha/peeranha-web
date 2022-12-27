@@ -100,4 +100,95 @@ export const styles = {
       lineHeight: '35px',
     },
   },
+
+  letterAnimation: {
+    animation: 'letterImageAnimation 1s forwards',
+    opacity: 0,
+
+    '@keyframes letterImageAnimation': {
+      '0%': {
+        transform: 'translateX(-100px)',
+        opacity: 0,
+      },
+      '100%': {
+        transform: 'translateX(0)',
+        opacity: 1,
+      },
+    },
+  },
+
+  firstFieldAnimation: {
+    animation: 'firstFormFieldAnimation 1.2s forwards',
+
+    '@keyframes firstFormFieldAnimation': {
+      '0%': {
+        transform: 'translateY(40px)',
+        opacity: 0,
+      },
+      '100%': {
+        transform: 'translateY(0)',
+        opacity: 1,
+      },
+    },
+  },
+  secondFieldAnimation: {
+    animation: 'secondFormFieldAnimation1 1.2s forwards',
+    animationDelay: '0.2s',
+
+    '@keyframes secondFormFieldAnimation1': {
+      '0%': {
+        transform: 'translateY(40px)',
+        opacity: 0,
+      },
+      '100%': {
+        transform: 'translateY(0)',
+        opacity: 1,
+      },
+    },
+  },
+  thirdFieldAnimation: {
+    animation: 'thirdFormFieldAnimation 1.2s forwards',
+    animationDelay: '0.4s',
+
+    '@keyframes thirdFormFieldAnimation': {
+      '0%': {
+        transform: 'translateY(40px)',
+        opacity: 0,
+      },
+      '100%': {
+        transform: 'translateY(0)',
+        opacity: 1,
+      },
+    },
+  },
+  fourthFieldAnimation: {
+    animation: 'fourthFormFieldAnimation 1.2s forwards',
+    animationDelay: '0.6s',
+
+    '@keyframes fourthFormFieldAnimation': {
+      '0%': {
+        transform: 'translateY(40px)',
+        opacity: 0,
+      },
+      '100%': {
+        transform: 'translateY(0)',
+        opacity: 1,
+      },
+    },
+  },
+  buttonFieldAnimation: {
+    animation: 'buttonFormFieldAnimation 1.2s forwards',
+    animationDelay: '0.8s',
+
+    '@keyframes buttonFormFieldAnimation': {
+      '0%': {
+        transform: 'translateY(40px)',
+        opacity: 0,
+      },
+      '100%': {
+        transform: 'translateY(0)',
+        opacity: 1,
+      },
+    },
+  },
 };
