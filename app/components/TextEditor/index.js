@@ -99,6 +99,9 @@ class TextEditor extends React.PureComponent {
                   ul li {
                     list-style-type: disc;
                   }
+                  table {
+                    word-break: normal;
+                  }
                 `}
                 rehypeRewrite={(node) => {
                   if (node.tagName === 'input') {

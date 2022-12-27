@@ -15,6 +15,9 @@ export const TextBlock = ({ content }) => (
       ul li {
         list-style-type: disc;
       }
+      table {
+        word-break: normal;
+      }
       min-width: 0;
     `}
     warpperElement={{ 'data-color-mode': 'light' }}
