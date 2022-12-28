@@ -103,7 +103,7 @@ const UserNavigation = ({
                 : 0
             }
           >
-            <FormattedMessage {...messages.profile} />
+            <FormattedMessage id={messages.profile.id} />
           </NavigationLink>
 
           <NavigationLink
@@ -113,7 +113,7 @@ const UserNavigation = ({
             islink={path !== routes.userQuestions(userId) ? 1 : 0}
           >
             <FormattedMessage
-              {...messages.postsNumber}
+              id={messages.postsNumber.id}
               values={{
                 number: (
                   <Span
@@ -139,7 +139,7 @@ const UserNavigation = ({
             islink={path !== routes.userAnswers(userId) ? 1 : 0}
           >
             <FormattedMessage
-              {...messages.answersNumber}
+              id={messages.answersNumber.id}
               values={{
                 number: (
                   <Span
@@ -159,21 +159,11 @@ const UserNavigation = ({
           </NavigationLink>
 
           <NavigationLink
-            className={
-              userId !== account || loginData.email == undefined ? 'd-none' : ''
-            }
-            to={routes.userSettings(userId)}
-            islink={path !== routes.userSettings(userId) ? 1 : 0}
-          >
-            <FormattedMessage {...messages.settings} />
-          </NavigationLink>
-
-          <NavigationLink
             className={userId !== account ? 'd-none' : ''}
             to={routes.userNotifications(userId)}
             islink={path !== routes.userNotifications(userId) ? 1 : 0}
           >
-            <FormattedMessage {...messages.notifications} />
+            <FormattedMessage id={messages.notifications.id} />
           </NavigationLink>
 
           <NavigationLink
@@ -206,9 +196,23 @@ const UserNavigation = ({
               to={routes.userModeration(userId)}
               islink={path !== routes.userModeration(userId) ? 1 : 0}
             >
-              <FormattedMessage {...messages.moderation} />
+              <FormattedMessage id={messages.moderation.id} />
             </NavigationLink>
           )}
+          {/* PEER-718: hide settings;
+          <NavigationLink
+            to={routes.userSettings(userId)}
+            islink={path !== routes.userSettings(userId) ? 1 : 0}
+          >
+            <FormattedMessage id={messages.settings.id} />
+          </NavigationLink> */}
+
+          <NavigationLink
+            to={routes.userSettings(userId)}
+            islink={path !== routes.userSettings(userId) ? 1 : 0}
+          >
+            <FormattedMessage id={messages.settings.id} />
+          </NavigationLink>
 
           {isDesktop && (
             <NavigationButton

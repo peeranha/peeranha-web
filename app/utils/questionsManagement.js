@@ -331,12 +331,13 @@ export async function editAnswer(
 ) {
   const ipfsLink = await saveText(JSON.stringify(answerData));
   const ipfsHash = getBytes32FromIpfsHash(ipfsLink);
-  await ethereumService.sendTransaction(CONTRACT_CONTENT, user, EDIT_ANSWER, [
-    questionId,
-    answerId,
-    ipfsHash,
-    official,
-  ]);
+  await ethereumService.sendTransaction(
+    CONTRACT_CONTENT,
+    user,
+    EDIT_ANSWER,
+    [questionId, answerId, ipfsHash, official],
+    2,
+  );
 }
 
 export async function deleteAnswer(

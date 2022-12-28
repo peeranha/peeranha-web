@@ -5,6 +5,7 @@ import {
   TOGGLE_EDIT_DOCUMENTATION,
   SET_VIEW_ARTICLE,
   SAVE_MENU_DRAFT,
+  SAVE_DRAFTS_IDS,
   UPDATE_DOCUMENTATION_MENU,
   UPDATE_DOCUMENTATION_MENU_SUCCESS,
   UPDATE_DOCUMENTATION_MENU_FAILED,
@@ -12,6 +13,7 @@ import {
   SET_EDIT_ARTICLE,
   PINNED_ARTICLE,
   REMOVE_ARTICLE,
+  EDIT_ORDER,
 } from './constants';
 import {
   PinnedArticleType,
@@ -86,6 +88,13 @@ export function saveMenuDraft(menu: Array<DocumentationItemMenuType>) {
   };
 }
 
+export function saveDraftsIds(draftsIds: Array<string>) {
+  return {
+    type: SAVE_DRAFTS_IDS,
+    draftsIds,
+  };
+}
+
 export function updateDocumentationMenu(
   menu: Array<DocumentationItemMenuType>,
 ) {
@@ -120,5 +129,11 @@ export function pinnedArticleMenuDraft(pinnedArticle: PinnedArticleType) {
   return {
     type: PINNED_ARTICLE,
     pinnedArticle,
+  };
+}
+
+export function editOrder() {
+  return {
+    type: EDIT_ORDER,
   };
 }
