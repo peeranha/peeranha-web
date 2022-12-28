@@ -5,6 +5,7 @@ import { FormattedMessage } from 'react-intl';
 
 import * as routes from 'routes-config';
 import messages from 'common-messages';
+import message from 'containers/Profile/messages';
 import { TEXT_PRIMARY, TEXT_SECONDARY, BORDER_PRIMARY } from 'style-constants';
 
 import pencilIcon from 'images/pencil.svg?external';
@@ -19,6 +20,7 @@ import A from 'components/A/index';
 import { IconMd } from 'components/Icon/IconWithSizes';
 import { getPermissions } from '../../utils/properties';
 import { singleCommunityColors } from 'utils/communityManagement';
+import useMediaQuery from 'hooks/useMediaQuery';
 
 const colors = singleCommunityColors();
 
@@ -63,27 +65,26 @@ const UserNavigation = ({
 }) => {
   const path = window.location.pathname + window.location.hash;
   const ref = useRef(null);
+  const isDesktop = useMediaQuery('(min-width: 768px)');
 
-  useEffect(
-    () => {
-      if (
-        hashes.includes(window.location.hash) ||
-        path === routes.profileView(userId)
-      ) {
-        window.scrollTo(0, 0);
-      }
-    },
-    [window.location.hash],
-  );
+  useEffect(() => {
+    if (
+      hashes.includes(window.location.hash) ||
+      path === routes.profileView(userId)
+    ) {
+      window.scrollTo(0, 0);
+    }
+  }, [window.location.hash]);
 
   const isProfilePage =
     userId === account &&
     (path === routes.profileView(account) ||
       path === routes.userCommunities(account));
 
-  const isModerator = useMemo(() => !!getPermissions(profile)?.length, [
-    profile,
-  ]);
+  const isModerator = useMemo(
+    () => !!getPermissions(profile)?.length,
+    [profile],
+  );
 
   return (
     <Wrapper position="top" ref={ref}>
@@ -209,19 +210,21 @@ const UserNavigation = ({
             </NavigationLink>
           )}
 
-          <NavigationButton
-            className={
-              userId === account && path === routes.profileView(account)
-                ? 'd-inline-flex d-md-none'
-                : 'd-none'
-            }
-            onClick={redirectToEditProfilePage}
-            id={`redireact-to-edit-${userId}-user-page-1`}
-            data-user={userId}
-            islink
-          >
-            <FormattedMessage {...messages.edit} />
-          </NavigationButton>
+          {isDesktop && (
+            <NavigationButton
+              className={
+                userId === account && path === routes.profileView(account)
+                  ? 'd-inline-flex d-md-none'
+                  : 'd-none'
+              }
+              onClick={redirectToEditProfilePage}
+              id={`redireact-to-edit-${userId}-user-page-1`}
+              data-user={userId}
+              islink
+            >
+              <FormattedMessage id={messages.edit.id} />
+            </NavigationButton>
+          )}
         </Div>
 
         <div className="d-none d-md-block">
@@ -235,7 +238,7 @@ const UserNavigation = ({
           >
             <IconMd icon={pencilIcon} color={colors.btnColor || TEXT_PRIMARY} />
             <Span className="ml-1" color={colors.btnColor || TEXT_PRIMARY}>
-              <FormattedMessage id={messages.edit.id} />
+              <FormattedMessage id={message.editProfile.id} />
             </Span>
           </button>
 

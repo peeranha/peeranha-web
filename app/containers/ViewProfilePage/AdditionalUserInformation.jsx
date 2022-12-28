@@ -18,6 +18,7 @@ import {
 } from 'containers/Profile/constants';
 
 import messages from 'containers/Profile/messages';
+import useMediaQuery from 'hooks/useMediaQuery';
 
 import { Box } from './MainUserInformation';
 import { getFormattedDate } from 'utils/datetime';
@@ -48,29 +49,41 @@ const Blank = ({ profile, userId, account, redirectToEditProfilePage }) =>
     </p>
   );
 
-const Row = ({ nameField, value, asHtml }) =>
-  value ? (
-    <div className="d-flex align-items-start ">
-      <Span color={TEXT_SECONDARY} fontSize="14" lineHeight="24">
+const Row = ({ nameField, value, asHtml }) => {
+  const isDesktop = useMediaQuery('(min-width: 768px)');
+  return value ? (
+    <div
+      className="d-flex align-items-start"
+      css={css`
+        padding-bottom: 8px;
+      `}
+    >
+      <Span
+        color={TEXT_SECONDARY}
+        fontSize={isDesktop ? '16' : '14'}
+        lineHeight="20"
+        mobileLH="20"
+        mobileFS="14"
+      >
         <FormattedMessage id={messages[nameField].id} />
       </Span>
       {asHtml ? (
         <TextBlock content={value} />
       ) : (
         <Span
-          css={css`
-            font-weight: 600;
-          `}
+          bold
           color={TEXT_SECONDARY}
-          mobileFS="16"
-          lineHeight="24"
+          mobileFS="14"
+          lineHeight="20"
           mobileLH="20"
+          fontSize={isDesktop ? '16' : '14'}
         >
           {value}
         </Span>
       )}
     </div>
   ) : null;
+};
 
 const AdditionalUserInformation = ({
   profile,
@@ -91,7 +104,7 @@ const AdditionalUserInformation = ({
       css={css`
         div:first-child {
           border-top: 1px solid ${BORDER_SECONDARY};
-          padding-top: 20px;
+          padding: 20px 0 8px 0;
         }
       `}
     >

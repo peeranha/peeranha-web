@@ -16,8 +16,9 @@ import { LABEL_SIZE_LG } from 'components/Img/MediumImage';
 import { TEMPORARY_ACCOUNT_KEY } from 'utils/constants';
 import { getUserAvatar } from 'utils/profileManagement';
 
+import FaqIcon from 'icons/Faq';
 import questionRoundedIcon from 'images/question2.svg?external';
-import answerIcon from 'images/answer.svg?external';
+import AnswerWithAIcon from 'icons/AnswerWithA';
 import pencilIcon from 'images/pencil.svg?external';
 import CopyTextIcon from 'icons/CopyText';
 import { translationMessages } from 'i18n';
@@ -63,7 +64,7 @@ export const UlStyled = Ul.extend`
   li {
     display: flex;
     flex-direction: column;
-    padding: 15px 30px 15px 0;
+    padding-right: 25px;
     div {
       display: inline;
     }
@@ -83,6 +84,7 @@ export const UlStyled = Ul.extend`
     > *:nth-child(1) {
       font-size: 14px;
       line-height: 25px;
+      padding-bottom: 25px;
       color: ${TEXT_SECONDARY};
     }
 
@@ -112,8 +114,10 @@ export const UlStyled = Ul.extend`
 
     @media only screen and (max-width: 768px) {
       padding: 10px 25px 5px 0;
-      span,
-      div {
+      > *:nth-child(1) {
+        font-size: 14px !important;
+      }
+      a span {
         font-size: 16px !important;
       }
     }
@@ -127,9 +131,6 @@ export const UlStyled = Ul.extend`
       display: block;
       width: 100%;
       padding: 10px 15px 5px 0;
-      span {
-        font-size: 12px !important;
-      }
     }
   }
 `;
@@ -150,16 +151,18 @@ export const Box = Base.extend`
       flex: 0 0 calc(100% - 150px);
       max-width: calc(100% - 150px);
       overflow: break-word;
-
-      @media only screen and (max-width: 576px) {
-        max-width: calc(100% - 10px);
-      }
     }
   }
 `;
 
 const LargeImageButton = styled.button`
   position: relative;
+  img {
+    @media only screen and (max-width: 576px) {
+      width: 80px;
+      height: 80px;
+    }
+  }
 `;
 
 const MainUserInformation = ({
@@ -174,17 +177,20 @@ const MainUserInformation = ({
     (x) => x.key === TEMPORARY_ACCOUNT_KEY && x.value,
   );
   const userPolygonScanAddress = process.env.BLOCKCHAIN_EXPLORERE_URL + userId;
-  const [copied, setCopied] = useState(false);
+  const [copied, setCopied] = useState('');
+  const isDesktop = useMediaQuery('(min-width: 768px)');
+
   const writeToBuffer = (event) => {
     navigator.clipboard.writeText(userId);
-    setCopied(true);
-    showPopover(
-      event.currentTarget.id,
-      translationMessages[locale][commonMessages.copied.id],
-    );
+    setCopied(colors.btnColor || LINK_COLOR);
+    if (isDesktop) {
+      showPopover(
+        event.currentTarget.id,
+        translationMessages[locale][commonMessages.copied.id],
+      );
+    }
   };
 
-  const isDesktop = useMediaQuery('(min-width: 768px)');
   return (
     <Box position="middle" className="pb-0">
       <div
@@ -204,7 +210,7 @@ const MainUserInformation = ({
             @media (min-width: 768px) {
               background: none;
             }
-            @media (min-width: 768px) and (max-width: 1220px) {
+            @media (min-width: 768px) and (max-width: 1391px) {
               padding-top: 28px;
             }
           `}
@@ -239,10 +245,14 @@ const MainUserInformation = ({
             `}
           >
             <Span
-              fontSize="38"
+              fontSize="24"
               lineHeight="47"
               bold
-              css={css`font-size: 24px; @media (min-width: 577px){padding:20px 0;`}
+              css={css`
+                @media (min-width: 577px) {
+                  padding: 20px 0;
+                }
+              `}
             >
               {getUserName(profile?.displayName, userId)}
             </Span>
@@ -267,7 +277,15 @@ const MainUserInformation = ({
 
         <div>
           <div className={isDesktop ? 'd-flex align-items-center' : 'd-none'}>
-            <Span fontSize="38" lineHeight="47" mobileFS="28" bold>
+            <Span
+              fontSize="38"
+              lineHeight="47"
+              mobileFS="28"
+              bold
+              css={css`
+                padding-top: 12px;
+              `}
+            >
               {getUserName(profile?.displayName, userId)}
             </Span>
           </div>
@@ -287,6 +305,11 @@ const MainUserInformation = ({
                   customRatingIconColors={customRatingIconColors}
                   rating={profile.highestRating.rating}
                   size="lg"
+                  css={css`
+                    span:last-child {
+                      font-size: 18px;
+                    }
+                  `}
                 />
               </li>
 
@@ -300,17 +323,11 @@ const MainUserInformation = ({
               >
                 <FormattedMessage id={commonMessages.posts.id} />
                 <span>
-                  <IconLg
-                    icon={questionRoundedIcon}
-                    css={css`
-                      path {
-                        fill: ${LINK_COLOR};
-                      }
-                      ,
-                      circle {
-                        stroke: ${LINK_COLOR};
-                      }
-                    `}
+                  <FaqIcon
+                    className="mr-2"
+                    size={[18, 18]}
+                    stroke={colors.linkColor || TEXT_PRIMARY}
+                    fill={colors.linkColor || TEXT_PRIMARY}
                   />
                   {profile.postCount}
                 </span>
@@ -326,13 +343,10 @@ const MainUserInformation = ({
               >
                 <FormattedMessage id={commonMessages.answers.id} />
                 <span>
-                  <IconLg
-                    icon={answerIcon}
-                    css={css`
-                      path {
-                        stroke: ${LINK_COLOR};
-                      }
-                    `}
+                  <AnswerWithAIcon
+                    className="mr-2"
+                    size={[18, 18]}
+                    stroke={colors.linkColor || TEXT_PRIMARY}
                   />
                   {profile.answersGiven}
                 </span>
@@ -343,6 +357,12 @@ const MainUserInformation = ({
                   flex: 1 1 40%;
                   @media (min-width: 768px) {
                     flex: 0 1;
+                  }
+                  span:last-child {
+                    span:last-child {
+                      font-size: 18px;
+                      height: 20px;
+                    }
                   }
                 `}
               >
@@ -376,18 +396,24 @@ const MainUserInformation = ({
                           border-bottom: 1px solid;
                           color: ${LINK_COLOR};
                           font-weight: 400;
-                          font-size: 14px;
+                          font-size: 16px;
+                          line-height: 23px;
                         `}
                       >
                         {userId}
                       </span>
                     </A>
-                    <button id="share-link-copy" onClick={writeToBuffer}>
+                    <button
+                      css={css`
+                        margin-left: 10px;
+                      `}
+                      id="share-link-copy"
+                      onClick={writeToBuffer}
+                    >
                       <CopyTextIcon
-                        className="ml-2"
-                        stroke={colors.linkColor || TEXT_PRIMARY}
-                        fill={colors.linkColor || TEXT_PRIMARY}
-                        size={[18, 18]}
+                        className={colors.btnColor || LINK_COLOR}
+                        fill={copied}
+                        stroke={colors.btnColor || LINK_COLOR}
                       />
                     </button>
                   </div>
