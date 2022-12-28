@@ -27,7 +27,7 @@ const Pagination: React.FC<PaginationProps> = ({
 }): JSX.Element => {
   const isDesktop450 = useMediaQuery('(min-width: 451px)');
   if (totalPages <= 1) {
-    return '';
+    return null;
   }
   if (totalPages <= 5) {
     return (
@@ -40,9 +40,7 @@ const Pagination: React.FC<PaginationProps> = ({
                 element={element}
                 clickHandler={setPage}
               />
-            ) : (
-              ''
-            ),
+            ) : null,
           )}
           <StepButtonPagination clickHandler={nextPage} src={next} alt="next" />
         </div>
@@ -60,9 +58,7 @@ const Pagination: React.FC<PaginationProps> = ({
                 element={element}
                 clickHandler={setPage}
               />
-            ) : (
-              ''
-            ),
+            ) : null,
           )}
           <ContinueButtonPagination />
           {[...Array(totalPages).keys()].map((element, index) =>
@@ -72,9 +68,7 @@ const Pagination: React.FC<PaginationProps> = ({
                 element={element}
                 clickHandler={setPage}
               />
-            ) : (
-              ''
-            ),
+            ) : null,
           )}
           <StepButtonPagination clickHandler={nextPage} src={next} alt="next" />
         </div>
@@ -93,9 +87,7 @@ const Pagination: React.FC<PaginationProps> = ({
                 element={element}
                 clickHandler={setPage}
               />
-            ) : (
-              ''
-            ),
+            ) : null,
           )}
           <ContinueButtonPagination />
           {[...Array(totalPages).keys()].map((element, index) =>
@@ -109,9 +101,7 @@ const Pagination: React.FC<PaginationProps> = ({
                 element={element}
                 clickHandler={setPage}
               />
-            ) : (
-              ''
-            ),
+            ) : null,
           )}
           <ContinueButtonPagination />
           {[...Array(totalPages).keys()].map((element, index) =>
@@ -121,9 +111,7 @@ const Pagination: React.FC<PaginationProps> = ({
                 element={element}
                 clickHandler={setPage}
               />
-            ) : (
-              ''
-            ),
+            ) : null,
           )}
           <StepButtonPagination clickHandler={nextPage} src={next} alt="next" />
         </div>
@@ -142,9 +130,7 @@ const Pagination: React.FC<PaginationProps> = ({
                 element={element}
                 clickHandler={setPage}
               />
-            ) : (
-              ''
-            ),
+            ) : null,
           )}
           <ContinueButtonPagination />
           {[...Array(totalPages).keys()].map((element, index) =>
@@ -154,9 +140,7 @@ const Pagination: React.FC<PaginationProps> = ({
                 element={element}
                 clickHandler={setPage}
               />
-            ) : (
-              ''
-            ),
+            ) : null,
           )}
           <ContinueButtonPagination />
           {[...Array(totalPages).keys()].map((element, index) =>
@@ -166,9 +150,7 @@ const Pagination: React.FC<PaginationProps> = ({
                 element={element}
                 clickHandler={setPage}
               />
-            ) : (
-              ''
-            ),
+            ) : null,
           )}
           <StepButtonPagination clickHandler={nextPage} src={next} alt="next" />
         </div>
@@ -186,9 +168,7 @@ const Pagination: React.FC<PaginationProps> = ({
               element={element}
               clickHandler={setPage}
             />
-          ) : (
-            ''
-          ),
+          ) : null,
         )}
         <p css={css(styles.span)}>...</p>
         {[...Array(totalPages).keys()].map((element, index) =>
@@ -201,9 +181,7 @@ const Pagination: React.FC<PaginationProps> = ({
               element={element}
               clickHandler={setPage}
             />
-          ) : (
-            ''
-          ),
+          ) : null,
         )}
         <StepButtonPagination clickHandler={nextPage} src={next} alt="next" />
       </div>
