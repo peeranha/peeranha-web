@@ -29,7 +29,7 @@ import messages from './messages';
 import Banner from './Banner/Banner';
 import Content from '../Questions/Content/Content';
 import { selectCommunities } from '../DataCacheProvider/selectors';
-import InfinityLoader from '../../components/InfinityLoader';
+import Loader from 'components/LoadingIndicator/WidthCentered';
 import { TEXT_DARK, TEXT_SECONDARY } from '../../style-constants';
 import SearchContent from './SearchContent';
 import { redirectToAskQuestionPage } from '../AskQuestion/actions';
@@ -96,27 +96,22 @@ const Search = ({
         )}
       </Header>
 
-      {items.length > 0 ? (
-        <InfinityLoader
-          loadNextPaginatedData={false}
-          isLoading={getResultsProcessing}
-          isLastFetch={false}
-        >
+      {(getResultsProcessing && <Loader />) ||
+        (items.length > 0 ? (
           <SearchContent
             locale={locale}
             posts={items}
             communities={communities}
           />
-        </InfinityLoader>
-      ) : (
-        <Banner
-          profileInfo={profileInfo}
-          redirectToAskQuestionPage={redirectToAskQuestionPageDispatch}
-          showLoginModalWithRedirectToAskQuestionPage={() =>
-            loginWithWalletDispatch({ metaMask: true }, true)
-          }
-        />
-      )}
+        ) : (
+          <Banner
+            profileInfo={profileInfo}
+            redirectToAskQuestionPage={redirectToAskQuestionPageDispatch}
+            showLoginModalWithRedirectToAskQuestionPage={() =>
+              loginWithWalletDispatch({ metaMask: true }, true)
+            }
+          />
+        ))}
     </div>
   );
 };
