@@ -71,7 +71,7 @@ export const UlStyled = Ul.extend`
     span {
       height: 20px;
     }
-    @media (max-width: 450px) {
+    @media (max-width: 420px) {
       word-break: break-word;
       white-space: pre-line;
       overflow-wrap: break-word;
@@ -91,7 +91,7 @@ export const UlStyled = Ul.extend`
     > *:nth-child(2) {
       display: flex;
       align-items: center;
-      font-size: 16px;
+      font-size: 18px;
       font-weight: 600;
       color: ${TEXT_DARK};
 
@@ -108,8 +108,10 @@ export const UlStyled = Ul.extend`
       }
     }
 
-    @media only screen and (max-width: 1280px) {
+    ${
+      '' /* @media only screen and (max-width: 1280px) {
       padding-right: 20px;
+    } */
     }
 
     @media only screen and (max-width: 768px) {
@@ -143,13 +145,13 @@ export const Box = Base.extend`
     > *:nth-child(1) {
       display: flex;
       justify-content: flex-start;
-      align-items: start;
+      align-items: ${(props) => (props.isLogin ? 'center' : 'start')};
       flex: 1 1;
     }
 
     > *:nth-child(2) {
       flex: 0 0 calc(100% - 150px);
-      max-width: calc(100% - 150px);
+      max-width: calc(100% - 10px);
       overflow: break-word;
     }
   }
@@ -192,7 +194,7 @@ const MainUserInformation = ({
   };
 
   return (
-    <Box position="middle" className="pb-0">
+    <Box position="middle" className="pb-0" isLogin={userId !== account}>
       <div
         css={css`
           flex-direction: column;
@@ -210,8 +212,8 @@ const MainUserInformation = ({
             @media (min-width: 768px) {
               background: none;
             }
-            @media (min-width: 768px) and (max-width: 1391px) {
-              padding-top: 28px;
+            @media (min-width: 768px) and (max-width: 1308px) {
+              padding-top: 10px;
             }
           `}
         >
@@ -259,7 +261,9 @@ const MainUserInformation = ({
             <button
               onClick={redirectToEditProfilePage}
               className={
-                isDesktop ? 'd-none' : `align-items-center d-inline-flex`
+                isDesktop || userId !== account
+                  ? 'd-none'
+                  : `align-items-center d-inline-flex`
               }
               id={`redireact-to-edit-${userId}-user-page-2`}
               data-user={userId}
@@ -283,6 +287,9 @@ const MainUserInformation = ({
               mobileFS="28"
               bold
               css={css`
+                @media (min-width: 768px) and (max-width: 1308px) {
+                  padding-top: 0;
+                }
                 padding-top: 12px;
               `}
             >
