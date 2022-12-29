@@ -162,7 +162,7 @@ const App = ({
   }, []);
 
   useEffect(() => {
-    if ((single && pathname == '/') || '/feed') {
+    if (single && (pathname == '/' || pathname == '/feed')) {
       hasPinnedPost || isDocumentationPositionTop
         ? redirectToDocumentationDispatch()
         : redirectToFeedDispatch();
@@ -213,6 +213,7 @@ const App = ({
           )}
 
           <Route
+            exact
             path={routes.feed()}
             render={(props) => Wrapper(Feed, props)}
           />

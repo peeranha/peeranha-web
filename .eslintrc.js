@@ -45,7 +45,7 @@ module.exports = {
     },
   },
   rules: {
-    'linebreak-style': 'auto',
+    'linebreak-style': 0,
     'arrow-body-style': [2, 'as-needed'],
     'class-methods-use-this': 0,
     'comma-dangle': [2, 'always-multiline'],
@@ -153,6 +153,8 @@ module.exports = {
         'prefer-const': 'error',
         'prefer-rest-params': 'error',
         'prefer-spread': 'error',
+        'no-shadow': 'off',
+        '@typescript-eslint/no-shadow': 'error',
       },
     },
   ],

@@ -155,6 +155,7 @@ const ContentHeader = (props) => {
       : histories?.filter(
           (history) => history.reply?.id === `${questionData.id}-${answerId}`,
         );
+  const bestReplyId = questionData.bestReply;
 
   const [isModalOpen, setModalOpen] = useState(false);
   const refSharingModal = useRef(null);
@@ -187,6 +188,11 @@ const ContentHeader = (props) => {
   const isItWrittenByMe = useMemo(
     () => (profile ? author.user === profile.user : false),
     [profile, author],
+  );
+
+  const isMarkedTheBest = useMemo(
+    () => (bestReplyId !== 0 ? bestReplyId === answerId : false),
+    [bestReplyId],
   );
 
   const changeQuestionTypeWithRatingRestore = useCallback(
@@ -240,7 +246,7 @@ const ContentHeader = (props) => {
               )}
             >
               <IconSm icon={changeTypeIcon} fill={BORDER_PRIMARY} />
-              <FormattedMessage {...messages.changeQuestionType} />
+              <FormattedMessage id={messages.changeQuestionType.id} />
             </Button>
           )}
 
@@ -273,13 +279,15 @@ const ContentHeader = (props) => {
               isVotedToDelete={true}
             >
               <IconSm icon={blockIcon} fill={BORDER_ATTENTION_LIGHT} />
-              <FormattedMessage {...messages.voteToDelete} />
+              <FormattedMessage id={messages.voteToDelete.id} />
             </Button>
           ) : null}
 
           <div id={`${type}_delete_${answerId}`}>
             <AreYouSure
               submitAction={deleteAction}
+              isGlobalAdmin={isGlobalAdmin}
+              isMarkedTheBest={isMarkedTheBest}
               Button={({ onClick }) => (
                 <Button
                   show={
@@ -292,7 +300,7 @@ const ContentHeader = (props) => {
                   disabled={ids.includes(`${type}_delete_${answerId}`)}
                 >
                   <IconMd icon={deleteIcon} fill={BORDER_PRIMARY} />
-                  <FormattedMessage {...messages.deleteButton} />
+                  <FormattedMessage id={messages.deleteButton.id} />
                 </Button>
               )}
             />
@@ -306,7 +314,7 @@ const ContentHeader = (props) => {
                 onClick={() => setModalOpen(true)}
               >
                 <IconSm icon={shareIcon} />
-                <FormattedMessage {...messages.shareButton} />
+                <FormattedMessage id={messages.shareButton.id} />
               </Button>
 
               {isModalOpen && (
@@ -345,7 +353,7 @@ const ContentHeader = (props) => {
             id={`redirect-to-edit-item-${answerId}-${buttonParams.questionId}-${commentId}`}
           >
             <IconMd icon={pencilIcon} />
-            <FormattedMessage {...messages.editButton} />
+            <FormattedMessage id={messages.editButton.id} />
           </Button>
         </ButtonContainer>
       </ItemInfo>

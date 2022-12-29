@@ -57,109 +57,175 @@ export const DOWNVOTE_STATUS = -1;
 
 const editUserQuery = (query: string) =>
   query
-    .replace('ratings', 'userCommunityRating')
-    .replace('achievements { id }', 'userAchievement { achievementId }');
+    .replace('ratings', 'usercommunityrating')
+    .replace('achievements { id }', 'userachievement { achievementId }');
 
 const user = `
-    id
-    ratings {
-     communityId
-     rating
-    }
-    displayName
-    company
-    position
-    location
-    about
-    avatar
-    creationTime
-    achievements { id }
+  id
+  ratings {
+    communityId
+    rating
+  }
+  displayName
+  company
+  position
+  location
+  about
+  avatar
+  creationTime
+  achievements { id }
 `;
 
+const userMesh = editUserQuery(user);
+
 const comment = `
-    id
-    ipfsHash
-    author {
-      ${user}
-    }
-    rating
-    postTime
-    postId
-    parentReplyId
-    content
-    isDeleted
-    properties
+  id
+  ipfsHash
+  author {
+    ${user}
+  }
+  rating
+  postTime
+  postId
+  parentReplyId
+  content
+  isDeleted
+  properties
+`;
+
+const commentMesh = `
+  id
+  ipfsHash
+  user {
+    ${userMesh}
+  }
+  rating
+  postTime
+  postId
+  parentReplyId
+  content
+  isDeleted
 `;
 
 const reply = `
-    id
-    ipfsHash
-    author {
-      ${user}
-    }
-    rating
-    postTime
-    postId
-    parentReplyId
-    content
-    commentCount
-    isDeleted
-    isOfficialReply
-    isBestReply
-    isFirstReply
-    isQuickReply
-    properties
-    comments (
-      orderBy: postTime,
-      orderDirection: asc,
-      where: { isDeleted: false },
-    ) {
-      ${comment}
-    }
+  id
+  ipfsHash
+  author {
+    ${user}
+  }
+  rating
+  postTime
+  postId
+  parentReplyId
+  content
+  commentCount
+  isDeleted
+  isOfficialReply
+  isBestReply
+  isFirstReply
+  isQuickReply
+  properties
+  comments (
+    orderBy: postTime,
+    orderDirection: asc,
+    where: { isDeleted: false },
+  ) {
+    ${comment}
+  }
+`;
+
+const replyMesh = `
+  id
+  ipfsHash
+  user {
+    ${userMesh}
+  }
+  rating
+  postTime
+  postId
+  parentReplyId
+  content
+  commentCount
+  isDeleted
+  isOfficialReply
+  isBestReply
+  isFirstReply
+  isQuickReply
 `;
 
 const post = `
-    id
-    tags
-    ipfsHash
-    postType
-    author {
-      ${user}
-    }
-    rating
-    postTime
-    communityId
-    title
-    content
-    commentCount
-    replyCount
-    isDeleted
-    officialReply
-    bestReply
-    isFirstReply
-    isQuickReply
-    properties
-    replies (
-      orderBy: postTime,
-      orderDirection: desc,
-      where: { isDeleted: false },
-    ) {
-      ${reply}
-    }
-    comments (
-      orderBy: postTime,
-      orderDirection: asc,
-      where: { isDeleted: false },
-    ) {
-      ${comment}
-    }
+  id
+  tags
+  ipfsHash
+  postType
+  author {
+    ${user}
+  }
+  rating
+  postTime
+  communityId
+  title
+  content
+  commentCount
+  replyCount
+  isDeleted
+  officialReply
+  bestReply
+  properties
+  replies (
+    orderBy: postTime,
+    orderDirection: desc,
+    where: { isDeleted: false },
+  ) {
+    ${reply}
+  }
+  comments (
+    orderBy: postTime,
+    orderDirection: asc,
+    where: { isDeleted: false },
+  ) {
+    ${comment}
+  }
 `;
+
+const postMesh = `
+  id
+  posttag {
+    tagId
+  }
+  ipfsHash
+  postType
+  user {
+    ${userMesh}
+  }
+  rating
+  postTime
+  communityId
+  title
+  content
+  commentCount
+  replyCount
+  isDeleted
+  officialReply
+  bestReply
+  reply (
+    orderBy: { postTime: desc },
+    where: { isDeleted: "0" },
+  ) {
+    ${replyMesh}
+  }
+  comment (
+    orderBy: { postTime: asc },
+    where: { isDeleted: "0" },
+  ) {
+    ${commentMesh}
+  }`;
 
 const usersQuery = `
       query(
         $first: Int,
         $skip: Int,
-        $orderBy: BigInt,
+        $orderBy: String,
         $orderDirection: String,
       ) {
         users(
@@ -175,8 +241,7 @@ const usersQuery = `
       }`;
 
 const usersQueryMesh = (orderBy: string, orderDirection: string) =>
-  editUserQuery(
-    `query(
+  `query(
     $first: Int,
     $skip: Int
   ) {
@@ -185,12 +250,11 @@ const usersQueryMesh = (orderBy: string, orderDirection: string) =>
       offset: $skip,
       orderBy: { ${orderBy}: ${orderDirection} },
     ) {
-      ${user}
+      ${userMesh}
       postCount
       replyCount
     }
-  }`,
-  );
+  }`;
 
 const moderationQuery = `
   query(
@@ -207,27 +271,26 @@ const moderationQuery = `
 `;
 
 const moderationQueryMesh = (roles: string) =>
-  editUserQuery(`
-  query {
-    userPermission (where: { permission: (${roles}) }) {
+  `query {
+    userpermission (where: { permission: "(${roles})" }) {
       id
       user {
-        ${user}
+        ${userMesh}
       }
       permission
     }
   }
-`);
+`;
 
-export const usersByCommunityQuery = `
+const usersByCommunityQuery = `
       query(
-        $first: Int,
-        $skip: Int,
+        $limit: Int,
+        $offset: Int,
         $communityId: Int,
       ) {
         userCommunityRatings(
-          first: $first,
-          skip: $skip,
+          first: $limit,
+          skip: $offset,
           where: { communityId: $communityId }
         ) {
           user {
@@ -238,26 +301,26 @@ export const usersByCommunityQuery = `
         }
       }`;
 
-const usersByCommunityQueryMesh = editUserQuery(`
+const usersByCommunityQueryMesh = `
   query(
     $limit: Int,
     $offset: Int,
     $communityId: Int,
   ) {
-    userCommunityRating (
+    usercommunityrating (
       limit: $limit,
       offset: $offset,
       where: { communityId: $communityId }
     ) {
       user {
-        ${user}
+        ${userMesh}
         postCount
         replyCount
       }
     }
-  }`);
+  }`;
 
-export const userQuery = `
+const userQuery = `
       query(
         $id: ID!
       ) {
@@ -268,18 +331,18 @@ export const userQuery = `
         }
       }`;
 
-export const userQueryMesh = editUserQuery(`
+const userQueryMesh = `
       query(
         $id: String
       ) {
         user(where: { id: $id }) {
-          ${user}
+          ${userMesh}
           postCount
           replyCount
         }
-      }`);
+      }`;
 
-export const userPermissionsQuery = `
+const userPermissionsQuery = `
       query(
         $id: ID!,
       ) {
@@ -290,7 +353,18 @@ export const userPermissionsQuery = `
         }
       }`;
 
-export const userStatsQuery = `
+const userPermissionsQueryMesh = `
+  query(
+    $id: String
+  ) {
+    userpermission(
+      where: { userId: $id }
+    ) {
+      permission
+    }
+  }`;
+
+const userStatsQuery = `
       query(
         $id: ID!,
       ) {
@@ -299,9 +373,7 @@ export const userStatsQuery = `
         ) {
           postCount
           replyCount
-          achievements {
-            id
-          }
+          achievements { id }
           ratings {
            communityId
            rating
@@ -309,30 +381,51 @@ export const userStatsQuery = `
         }
       }`;
 
-export const communitiesQuery = `
+const userStatsQueryMesh = editUserQuery(
+  userStatsQuery
+    .replace('ID!', 'String')
+    .replace('id: $id', 'where: { id: $id }'),
+);
+
+const community = `
+  id
+  name
+  avatar
+  description
+  website
+  language
+  isFrozen
+  creationTime
+  postCount
+  tagsCount
+  deletedPostCount
+  followingUsers
+  replyCount
+`;
+
+const communitiesQuery = `
       query(
         $first: Int,
       ) {
         communities(
          first: $first,
         ) {
-          id
-          name
-          avatar
-          description
-          website
-          language
-          isFrozen
-          creationTime
-          postCount
-          tagsCount
-          deletedPostCount
-          followingUsers
-          replyCount
+          ${community}
         }
       }`;
 
-export const usersPostsQuery = `
+const communitiesQueryMesh = `
+      query(
+        $first: Int,
+      ) {
+        community (
+         limit: $first,
+        ) {
+          ${community}
+        }
+      }`;
+
+const usersPostsQuery = `
       query(
         $id: ID!,
         $limit: Int,
@@ -343,13 +436,29 @@ export const usersPostsQuery = `
           orderDirection: desc,
           first: $limit,
           skip: $offset,
-          where: {isDeleted: false, author: $id, postType_lt: 3},
+          where: {isDeleted: false, author: $id, postType_lt: 3, title_not: ""},
         ) {
            ${post}
         }
       }`;
 
-export const usersAnswersQuery = `
+const usersPostsQueryMesh = `
+      query(
+        $id: String,
+        $limit: Int,
+        $offset: Int,
+      ) {
+        post (
+          orderBy: { postTime: desc },
+          limit: $offset,
+          offset: $limit,
+          where: { isDeleted: "0", author: $id, postType: "<3" },
+        ) {
+           ${postMesh}
+        }
+      }`;
+
+const usersAnswersQuery = `
       query (
         $id: ID!,
         $limit: Int,
@@ -366,10 +475,24 @@ export const usersAnswersQuery = `
         }
       }`;
 
-export const answeredPostsQuery = `
+const usersAnswersQueryMesh = `
       query (
-        $first: Int,
-        $skip: Int,
+        $id: String,
+        $limit: Int,
+        $offset: Int,
+      ) {
+        reply (
+             orderBy: { postTime: desc },
+             where: { isDeleted: "0", author: $id },
+             limit: $limit,
+             offset: $offset,
+           ) {
+          postId
+        }
+      }`;
+
+const answeredPostsQuery = `
+      query (
         $ids: [Int],
       ) {
         posts (
@@ -377,13 +500,23 @@ export const answeredPostsQuery = `
           orderDirection: desc,
           first: $first,
           skip: $skip,
-          where: { id_in: $ids, isDeleted: false },
+          where: { id_in: $ids, isDeleted: false, title_not: ""},
         ) {
            ${post}
         }
       }`;
 
-export const allTagsQuery = `
+const answeredPostsQueryMesh = (ids: string) => `
+      query {
+        post (
+          orderBy: { postTime: desc },
+          where: { id: "(${ids})", isDeleted: "0" },
+        ) {
+           ${postMesh}
+        }
+      }`;
+
+const allTagsQuery = `
       query (
        $skip: Int,
       ) {
@@ -398,29 +531,22 @@ export const allTagsQuery = `
         }
       }`;
 
-export const communityQuery = `
+const allTagsQueryMesh = allTagsQuery.replace('tags', 'tag');
+
+const communityQuery = `
       query(
         $id: ID!,
       ) {
         community(
          id: $id,
         ) {
-          id
-          name
-          avatar
-          description
-          website
-          language
-          isFrozen
-          creationTime
-          postCount
-          deletedPostCount
-          followingUsers
-          replyCount
+          ${community}
         }
       }`;
 
-export const tagsQuery = `
+const communityQueryMesh = communityQuery.replace('ID!', 'Int');
+
+const tagsQuery = `
       query(
         $communityId: ID!,
       ) {
@@ -434,7 +560,9 @@ export const tagsQuery = `
         }
       }`;
 
-export const postsQuery = `
+const tagsQueryMesh = tagsQuery.replace('ID!', 'Int').replace('tags', 'tag');
+
+const postsQuery = `
       query (
         $first: Int,
         $skip: Int,
@@ -445,31 +573,61 @@ export const postsQuery = `
           orderDirection: desc,
           first: $first,
           skip: $skip,
-          where: {isDeleted: false, postType_in: $postTypes},
+          where: {isDeleted: false, postType_in: $postTypes, title_not: ""},
         ) {
            ${post}
         }
       }`;
 
-export const postsByCommQuery = `
+const postsQueryMesh = (postTypes: string) => `
+  query (
+    $first: Int,
+    $skip: Int
+  ) {
+    post (
+      orderBy: { postTime: desc },
+      limit: $first,
+      offset: $skip,
+      where: {isDeleted: "0", postType: "(${postTypes})" },
+    ) {
+      ${postMesh}
+    }
+  }`;
+
+const postsByCommQuery = `
       query (
-        $first: Int,
-        $skip: Int,
+        $limit: Int,
+        $offset: Int,
         $communityIds: [Int],
         $postTypes: [Int],
       ) {
         posts (
           orderBy: postTime,
           orderDirection: desc,
-          first: $first,
-          skip: $skip,
-          where: { communityId_in: $communityIds, isDeleted: false, postType_in: $postTypes },
+          first: $limit,
+          skip: $offset,
+          where: { communityId_in: $communityIds, isDeleted: false, postType_in: $postTypes, title_not: ""},
         ) {
            ${post}
         }
       }`;
 
-export const faqByCommQuery = `
+const postsByCommQueryMesh = (postTypes: string, communityIds: string) => `
+  query (
+    $limit: Int,
+    $offset: Int
+  ) {
+    post (
+      orderBy: { postTime: desc },
+      limit: $limit,
+      offset: $offset,
+      where: { communityId: "(${communityIds})", isDeleted: "0", postType: "(${postTypes})" },
+    ) {
+      ${postMesh}
+    }
+  }`;
+
+const faqByCommQuery = `
       query (
         $communityId: Int,
       ) {
@@ -482,7 +640,19 @@ export const faqByCommQuery = `
         }
       }`;
 
-export const communityDocumentationQuery = `
+const faqByCommQueryMesh = `
+      query (
+        $communityId: Int,
+      ) {
+        post (
+          orderBy: { postTime: desc },
+          where: { communityId: $communityId, isDeleted: "0", postType: "3" },
+        ) {
+           ${postMesh}
+        }
+      }`;
+
+const communityDocumentationQuery = `
       query (
         $id: ID!
       ) {
@@ -491,17 +661,16 @@ export const communityDocumentationQuery = `
          }
       }`;
 
-export const communityDocumentationNotIncludedQuery = `
+const communityDocumentationQueryMesh = `
       query (
-        $communityId: ID!,
-        $includedIds: [String],
+        $id: ID!
       ) {
-         posts (where: {postType: 3, communityId: $communityId, isDeleted: false, id_not_in: $includedIds}) {
-           ${post}
+         post (where: { id: $id }) {
+           ${postMesh}
          }
       }`;
 
-export const documentationMenuQuery = `
+const documentationMenuQuery = `
       query (
         $id: ID!
       ) {
@@ -511,7 +680,33 @@ export const documentationMenuQuery = `
          }
       }`;
 
-export const postsForSearchQuery = `
+const documentationMenuQueryMesh = `
+      query (
+        $id: Int
+      ) {
+        communitydocumentation (where: { id: $id }) {
+          id
+          documentationJSON
+         }
+      }`;
+
+const postForSearch = `
+  id
+  ipfsHash
+  postType
+  rating
+  postTime
+  communityId
+  title
+  content
+  commentCount
+  replyCount
+  isDeleted
+  officialReply
+  bestReply
+`;
+
+const postsForSearchQuery = `
   query (
     $text: String,
     $first: Int,
@@ -519,41 +714,58 @@ export const postsForSearchQuery = `
     postSearch (
       text: $text,
       first: $first,
+      where: {isDeleted: false, title_not: ""},
     ) {
-        id
-        ipfsHash
+        ${postForSearch}
         tags
-        postType
         author {
           ${user}
         }
-        rating
-        postTime
-        communityId
-        title
-        content
-        commentCount
-        replyCount
-        isDeleted
-        officialReply
-        bestReply
-        isFirstReply
-        isQuickReply
         properties
     }
   }`;
 
-export const postQuery = `
+const postsForSearchQueryMesh = (text: string) => `
+  query (
+    $first: Int,
+  ) {
+    post (
+      first: $first,
+      where: { postContent: "*${text}*", isDeleted: "0"},
+    ) {
+        ${postForSearch}
+        posttag {
+          tagId
+        }
+        user {
+          ${userMesh}
+        }
+    }
+  }`;
+
+const postQuery = `
       query (
         $postId: Int,
       ) {
         post (
           id: $postId,
-          where: {isDeleted: false},
+          where: {isDeleted: false, title_not: ""},
         ) {
            ${post}
         }
       }
+`;
+
+const postQueryMesh = `
+  query (
+    $postId: Int,
+  ) {
+    post (
+      where: { id: $postId, isDeleted: "0" },
+    ) {
+      ${postMesh}
+    }
+  }
 `;
 
 const achievement = `
@@ -588,7 +800,7 @@ const allAchievementsQueryMesh = `
       ${achievement}
     }
     user (where: { id: $userId }) {
-      userAchievement { achievementId }
+      userachievement { achievementId }
     }
   }`;
 
@@ -598,7 +810,7 @@ const period = `
   endPeriodTime
 `;
 
-export const rewardsQuery = `
+const rewardsQuery = `
   query (
     $userId: ID!,
     $periodsCount: Int
@@ -621,14 +833,13 @@ export const rewardsQuery = `
 `;
 
 const rewardsQueryMesh = (periodsCount: number) =>
-  editUserQuery(`
-  query (
+  `query (
     $userId: String
   ) {
     user (where: {id: $userId}) {
-      ${user}
+      ${userMesh}
     }
-    userRewards (where: {user: $userId, tokenToReward_not: 0}) {
+    userreward (where: {userId: $userId, tokenToReward: ">0"}) {
       id
       period {
         ${period}
@@ -636,13 +847,13 @@ const rewardsQueryMesh = (periodsCount: number) =>
       tokenToReward
       isPaid
     }
-    periods (orderBy: { endPeriodTime: desc }, first: ${periodsCount}) {
+    period (orderBy: { endPeriodTime: desc }, first: ${periodsCount}) {
       ${period}
     }
   }
-`);
+`;
 
-export const currentPeriodQuery = `
+const currentPeriodQuery = `
   query {
     periods (orderBy: endPeriodTime, orderDirection: desc, first: 1) {
       ${period}
@@ -691,7 +902,7 @@ const historiesQueryMesh = `
   query (
    $postId: String,
  ) {
-    histories (
+    history (
       orderBy: { timeStamp: asc },
       where: { postId: $postId }
     ) {
@@ -699,8 +910,8 @@ const historiesQueryMesh = `
     }
   }
 `
-  .replace('reply {', 'reply (where: { postId: $postId }) {')
-  .replace('comment {', 'comment (where: { postId: $postId }) {');
+  .replace('reply', 'reply (where: { postId: $postId })')
+  .replace('comment', 'comment (where: { postId: $postId })');
 
 enum QueryName {
   User,
@@ -714,7 +925,6 @@ enum QueryName {
   Post,
   PostsForSearch,
   DocumentationMenu,
-  CommunityDocumentationNotIncluded,
   CommunityDocumentation,
   FaqByComm,
   PostsByCommunity,
@@ -727,6 +937,7 @@ enum QueryName {
   UserStats,
   Communities,
   UserPosts,
+  UserAnswers,
 }
 
 enum GraphService {
@@ -734,9 +945,10 @@ enum GraphService {
   Mesh,
 }
 
+type functionType = (...params: any[]) => string;
 export const queries: {
-  [key in keyof typeof QueryName]: {
-    [key in keyof typeof GraphService]: string | Function;
+  [queryKey in keyof typeof QueryName]: {
+    [serviceKey in keyof typeof GraphService]: string | functionType;
   };
 } = {
   Users: {
@@ -769,70 +981,70 @@ export const queries: {
   },
   Rewards: {
     TheGraph: rewardsQuery,
-    Mesh: rewardsQueryMesh, //TODO: fix bigint issue
+    Mesh: rewardsQueryMesh,
   },
   Post: {
     TheGraph: postQuery,
-    Mesh: '',
+    Mesh: postQueryMesh,
   },
   PostsForSearch: {
     TheGraph: postsForSearchQuery,
-    Mesh: '',
+    Mesh: postsForSearchQueryMesh,
   },
   DocumentationMenu: {
     TheGraph: documentationMenuQuery,
-    Mesh: '',
-  },
-  CommunityDocumentationNotIncluded: {
-    TheGraph: communityDocumentationNotIncludedQuery,
-    Mesh: '',
+    Mesh: documentationMenuQueryMesh,
   },
   CommunityDocumentation: {
     TheGraph: communityDocumentationQuery,
-    Mesh: '',
+    Mesh: communityDocumentationQueryMesh,
   },
   FaqByComm: {
     TheGraph: faqByCommQuery,
-    Mesh: '',
+    Mesh: faqByCommQueryMesh,
   },
   PostsByCommunity: {
     TheGraph: postsByCommQuery,
-    Mesh: '',
+    Mesh: postsByCommQueryMesh,
   },
   Posts: {
     TheGraph: postsQuery,
-    Mesh: '',
+    Mesh: postsQueryMesh,
   },
   Tags: {
     TheGraph: tagsQuery,
-    Mesh: '',
+    Mesh: tagsQueryMesh,
   },
   Community: {
     TheGraph: communityQuery,
-    Mesh: '',
+    Mesh: communityQueryMesh,
   },
   AllTags: {
     TheGraph: allTagsQuery,
-    Mesh: '',
+    Mesh: allTagsQueryMesh,
   },
   AnsweredPosts: {
     TheGraph: answeredPostsQuery,
-    Mesh: '',
+    Mesh: answeredPostsQueryMesh,
   },
   UserPermissions: {
     TheGraph: userPermissionsQuery,
-    Mesh: '',
+    Mesh: userPermissionsQueryMesh,
   },
   UserStats: {
     TheGraph: userStatsQuery,
-    Mesh: '',
+    Mesh: userStatsQueryMesh,
   },
   Communities: {
     TheGraph: communitiesQuery,
-    Mesh: '',
+    Mesh: communitiesQueryMesh,
   },
   UserPosts: {
     TheGraph: usersPostsQuery,
-    Mesh: '',
+    Mesh: usersPostsQueryMesh,
+  },
+  UserAnswers: {
+    TheGraph: usersAnswersQuery,
+    Mesh: usersAnswersQueryMesh,
   },
 };
