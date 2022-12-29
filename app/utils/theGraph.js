@@ -1,378 +1,354 @@
 import { ApolloClient, gql, InMemoryCache } from '@apollo/client';
 import { dataToString } from 'utils/converters';
 import { isUserExists } from './accountManagement';
+import { queries } from './ethConstants';
 import {
-  allTagsQuery,
-  answeredPostsQuery,
-  communitiesQuery,
-  communityDocumentationQuery,
-  communityQuery,
-  documentationMenuQuery,
-  faqByCommQuery,
-  postQuery,
-  postsByCommQuery,
-  postsForSearchQuery,
-  postsQuery,
-  rewardsQuery,
-  tagsQuery,
-  userPermissionsQuery,
-  usersAnswersQuery,
-  usersPostsQuery,
-  userStatsQuery,
-  communityDocumentationNotIncludedQuery,
-  queries,
-} from './ethConstants';
-import { runQuery } from './runQuery';
+  executeMeshQuery,
+  getPostDataFromMesh,
+  getUserDataFromMesh,
+  renameRepliesToAnswers,
+} from './mesh';
 
 const client = new ApolloClient({
   uri: process.env.THE_GRAPH_QUERY_URL,
   cache: new InMemoryCache(),
 });
 
+const graphService = process.env.GRAPH_SERVICE;
+const isMeshService = graphService === 'Mesh';
+
+const executeQuery = async ({ query, variables }) => {
+  const result = isMeshService
+    ? await executeMeshQuery({ query, variables })
+    : await client.query({
+        query: gql(query),
+        variables,
+        fetchPolicy: 'network-only',
+      });
+
+  return result?.data;
+};
+
 export const getUsers = async ({
   limit = 50,
   skip,
-  sortingAttribute = 'creationTime',
+  orderBy = 'creationTime',
   sorting = 'desc',
 }) => {
-  if (process.env.GRAPH_SERVICE === 'Mesh') {
-    const query = queries.Users.Mesh(sortingAttribute, sorting);
+  const query = isMeshService
+    ? queries.Users.Mesh(orderBy, sorting)
+    : queries.Users.TheGraph;
 
-    const users = await runQuery({
-      query,
-      variables: {
-        first: limit,
-        skip,
-      },
-    });
-
-    return users?.data.user.map((item) => {
-      const ratings = item.userCommunityRating;
-      const achievements = item.userAchievement.map(({ achievementId }) => ({
-        id: achievementId,
-      }));
-      delete item.userAchievement;
-      delete item.userCommunityRating;
-      return {
-        ...item,
-        achievements,
-        ratings,
-      };
-    });
-  }
-
-  const users = await client.query({
-    query: gql(queries.Users.TheGraph),
+  const result = await executeQuery({
+    query,
     variables: {
       first: limit,
       skip,
-      orderBy: sortingAttribute,
+      orderBy,
       orderDirection: sorting,
     },
   });
-  return users?.data.users;
+
+  return isMeshService
+    ? result.user.map((item) => getUserDataFromMesh(item))
+    : result.users;
 };
 
 export const getModerators = async (roles) => {
-  if (process.env.GRAPH_SERVICE === 'Mesh') {
-    const administrators = await runQuery({
-      query: queries.Moderation.Mesh(dataToString(roles)),
-    });
-    return [...administrators?.data.userPermission];
-  }
+  const query = isMeshService
+    ? queries.Moderation.Mesh(dataToString(roles))
+    : queries.Moderation.TheGraph;
 
-  const administrators = await client.query({
-    query: gql(queries.Moderation.TheGraph),
+  const result = await executeQuery({
+    query,
     variables: {
-      roles: roles,
+      roles,
     },
-    fetchPolicy: 'network-only',
   });
-  return [...administrators?.data.userPermissions];
+
+  return isMeshService
+    ? [...result.userPermission]
+    : [...result.userPermissions];
 };
 
 export const getUsersByCommunity = async ({
   limit = 50,
-  skip,
+  skip: offset,
   communityId,
 }) => {
-  if (process.env.GRAPH_SERVICE === 'Mesh') {
-    const users = await runQuery({
-      query: queries.UsersByCommunity.Mesh,
-      variables: {
-        limit,
-        offset: skip,
-        communityId,
-      },
-    });
-    return users?.data.userCommunityRating.map((item) => item.user);
-  }
-
-  const users = await client.query({
-    query: gql(queries.UsersByCommunity.TheGraph),
+  const result = await executeQuery({
+    query: queries.UsersByCommunity[graphService],
     variables: {
-      first: limit,
-      skip,
+      limit,
+      offset,
       communityId,
     },
   });
-  return users?.data.userCommunityRatings.map((item) => item.user);
+
+  return isMeshService
+    ? result.userCommunityRating.map((item) =>
+        getUserDataFromMesh(item.user[0]),
+      )
+    : result.userCommunityRatings.map((item) => item.user);
 };
 
 export const getUser = async (id) => {
-  const userAddress = dataToString(id).toLowerCase();
-  if (process.env.GRAPH_SERVICE === 'Mesh') {
-    const user = {
-      ...(
-        await runQuery({
-          query: queries.User.Mesh,
-          variables: {
-            id: userAddress,
-          },
-        })
-      ).data?.user[0],
-    };
-    const ratings = user.userCommunityRating;
-    const achievements = user.userAchievement.map(({ achievementId }) => ({
-      id: achievementId,
-    }));
-    delete user.userAchievement;
-    delete user.userCommunityRating;
-    return {
-      ...user,
-      achievements,
-      ratings,
-    };
-  }
-
-  const user = await client.query({
-    query: gql(queries.User.TheGraph),
+  const result = await executeQuery({
+    query: queries.User[graphService],
     variables: {
-      id: userAddress,
+      id: dataToString(id).toLowerCase(),
     },
   });
-  return { ...user?.data?.user };
+
+  return isMeshService
+    ? getUserDataFromMesh(result.user[0])
+    : { ...result.user };
 };
 
 export const getUserPermissions = async (id) => {
-  const userPermissions = await client.query({
-    query: gql(userPermissionsQuery),
+  const result = await executeQuery({
+    query: queries.UserPermissions[graphService],
     variables: {
       id: dataToString(id).toLowerCase(),
     },
   });
-  return userPermissions?.data?.userPermissions?.map((p) => p.permission);
+  return isMeshService
+    ? result.userPermission?.map((p) => p.permission)
+    : result.userPermissions?.map((p) => p.permission);
 };
 
 export const getUserStats = async (id) => {
-  const userStats = await client.query({
-    query: gql(userStatsQuery),
+  const result = await executeQuery({
+    query: queries.UserStats[graphService],
     variables: {
       id: dataToString(id).toLowerCase(),
     },
-    fetchPolicy: 'network-only',
   });
-  return userStats?.data.user;
+  return isMeshService ? getUserDataFromMesh(result.user[0]) : result.user;
 };
 
 export const getUsersQuestions = async (id, limit, offset) => {
-  const questions = await client.query({
-    query: gql(usersPostsQuery),
+  const result = await executeQuery({
+    query: queries.UserPosts[graphService],
     variables: {
       id,
       limit,
       offset,
     },
-    fetchPolicy: 'network-only',
   });
-  return questions?.data.posts.map((question) => ({ ...question }));
+  return isMeshService
+    ? result?.post.map((post) => getPostDataFromMesh(post))
+    : result?.posts.map((post) => ({ ...post }));
 };
 
 export const getUsersAnsweredQuestions = async (id, limit, offset) => {
-  const { data } = await client.query({
-    query: gql(usersAnswersQuery),
+  const postIds = await executeQuery({
+    query: queries.UserAnswers[graphService],
     variables: {
       id,
       limit,
       offset,
     },
   });
-  const answeredPosts = await client.query({
-    query: gql(answeredPostsQuery),
+
+  const ids = isMeshService
+    ? postIds.reply.map((reply) => reply.postId)
+    : postIds.replies.map((reply) => Number(reply.postId));
+  const query = isMeshService
+    ? queries.AnsweredPosts.Mesh(dataToString(ids))
+    : queries.AnsweredPosts.TheGraph;
+
+  const answeredPosts = await executeQuery({
+    query,
     variables: {
-      ids: data.replies.map((reply) => Number(reply.postId)),
+      ids: dataToString(ids),
     },
   });
-  return answeredPosts?.data.posts.map((question) => ({ ...question }));
+  return isMeshService
+    ? answeredPosts?.post.map((post) => getPostDataFromMesh(post))
+    : answeredPosts?.posts.map((post) => ({ ...post }));
 };
 
 export const getCommunities = async (count) => {
-  const communities = await client.query({
-    query: gql(communitiesQuery),
+  const communities = await executeQuery({
+    query: queries.Communities[graphService],
     variables: {
       first: count,
     },
   });
-  return communities?.data.communities;
+  return isMeshService ? communities?.community : communities?.communities;
 };
 
 export const getAllTags = async (skip) => {
-  const tags = await client.query({
-    query: gql(allTagsQuery),
+  const result = await executeQuery({
+    query: queries.AllTags[graphService],
     variables: {
       skip,
     },
   });
-  return tags?.data.tags;
+  return isMeshService ? result?.tag : result?.tags;
 };
 
 export const getCommunityById = async (id) => {
-  const community = await client.query({
-    query: gql(communityQuery),
+  const community = await executeQuery({
+    query: queries.Community[graphService],
     variables: {
       id,
     },
   });
-  return community?.data.community;
+  return isMeshService ? community?.community[0] : community?.community;
 };
 
 export const getTags = async (communityId) => {
-  const tags = await client.query({
-    query: gql(tagsQuery),
+  const result = await executeQuery({
+    query: queries.Tags[graphService],
     variables: {
       communityId,
     },
   });
-  return tags?.data.tags;
+  return isMeshService ? result?.tag : result?.tags;
 };
 
 export const getPosts = async (limit, skip, postTypes) => {
-  const posts = await client.query({
-    query: gql(postsQuery),
+  const query = isMeshService
+    ? queries.Posts.Mesh(dataToString(postTypes))
+    : queries.Posts.TheGraph;
+
+  const result = await executeQuery({
+    query,
     variables: {
       first: limit,
       skip,
       postTypes,
     },
-    fetchPolicy: 'network-only',
   });
-  return posts?.data.posts.map(({ replies, ...rawPost }) => ({
-    ...rawPost,
-    answers: replies,
-  }));
+
+  return isMeshService
+    ? result.post.map((post) =>
+        renameRepliesToAnswers(getPostDataFromMesh(post)),
+      )
+    : result?.posts.map((post) => renameRepliesToAnswers(post));
 };
-//
+
 export const getPostsByCommunityId = async (
   limit,
-  skip,
+  offset,
   postTypes,
   communityIds,
 ) => {
-  const posts = await client.query({
-    query: gql(postsByCommQuery),
+  const query = isMeshService
+    ? queries.PostsByCommunity.Mesh(
+        dataToString(postTypes),
+        dataToString(communityIds),
+      )
+    : queries.PostsByCommunity.TheGraph;
+
+  const result = await executeQuery({
+    query,
     variables: {
       communityIds,
-      first: limit,
-      skip,
+      limit,
+      offset,
       postTypes,
     },
-    fetchPolicy: 'network-only',
   });
 
-  return posts?.data.posts.map((rawPost) => {
-    const post = { ...rawPost, answers: rawPost.replies };
-    delete post.replies;
-    return post;
-  });
+  return isMeshService
+    ? result?.post.map((rawPost) =>
+        renameRepliesToAnswers(getPostDataFromMesh(rawPost)),
+      )
+    : result?.posts.map((rawPost) => renameRepliesToAnswers(rawPost));
 };
 
 export const getFaqByCommunityId = async (communityId) => {
-  const posts = await client.query({
-    query: gql(faqByCommQuery),
+  const result = await executeQuery({
+    query: queries.FaqByComm[graphService],
     variables: {
       communityId,
     },
   });
 
-  return posts?.data.posts.map((rawPost) => {
-    const { replies, ...propsWithoutReplies } = rawPost;
-    return { answers: replies, ...propsWithoutReplies };
-  });
+  return isMeshService
+    ? result?.post.map((rawPost) =>
+        renameRepliesToAnswers(getPostDataFromMesh(rawPost)),
+      )
+    : result?.posts.map((rawPost) => renameRepliesToAnswers(rawPost));
 };
 
 export const getCommunityDocumentation = async (id) => {
-  const post = await client.query({
-    query: gql(communityDocumentationQuery),
+  const result = await executeQuery({
+    query: queries.CommunityDocumentation[graphService],
     variables: {
       id,
     },
   });
 
-  return post?.data.post;
-};
-
-export const getCommunityDocumentationNotIncluded = async (
-  communityId,
-  includedIds,
-) => {
-  const post = await client.query({
-    query: gql(communityDocumentationNotIncludedQuery),
-    variables: {
-      communityId,
-      includedIds,
-    },
-  });
-  return post?.data.posts;
+  return isMeshService ? getPostDataFromMesh(result?.post[0]) : result?.post;
 };
 
 export const getDocumentationMenu = async (communityId) => {
-  const documentation = await client.query({
-    query: gql(documentationMenuQuery),
+  const result = await executeQuery({
+    query: queries.DocumentationMenu[graphService],
     variables: {
       id: communityId,
     },
-    fetchPolicy: 'network-only',
   });
-  return documentation?.data.communityDocumentation;
+  return isMeshService
+    ? result?.communityDocumentation[0]
+    : result?.communityDocumentation;
 };
 
 export const getQuestionFromGraph = async (postId) => {
-  const post = {
-    ...(
-      await client.query({
-        query: gql(postQuery),
-        variables: {
-          postId,
-        },
-      })
-    ).data.post,
-  };
-  post.answers = post.replies.map((reply) => ({
-    ...reply,
-  }));
-  delete post.replies;
-  return post;
+  const result = await executeQuery({
+    query: queries.Post[graphService],
+    variables: {
+      postId,
+    },
+    fetchPolicy: 'network-only',
+  });
+
+  return isMeshService
+    ? renameRepliesToAnswers(getPostDataFromMesh(result.post[0]))
+    : renameRepliesToAnswers(result.post);
 };
-//
+
 export const postsForSearch = async (text, single) => {
-  const query = text
-    .replace(/\s+/g, ' ')
-    .trim()
-    .split(' ')
-    .reduce((textChar, word) => {
-      if (textChar.length === 0) {
-        return `${word}:*`;
-      }
-      return `${textChar} & ${word}:*`;
-    }, '');
-  const posts = await client.query({
-    query: gql(postsForSearchQuery),
+  const cleanedText = text.replace(/\s+/g, ' ').trim();
+  const query = isMeshService
+    ? cleanedText
+    : cleanedText.split(' ').reduce((textChar, word) => {
+        if (textChar.length === 0) {
+          return `${word}:*`;
+        }
+        return `${textChar} & ${word}:*`;
+      }, '');
+
+  const gqlQuery = isMeshService
+    ? queries.PostsForSearch.Mesh(query)
+    : queries.PostsForSearch.TheGraph;
+
+  const result = await executeQuery({
+    query: gqlQuery,
     variables: {
       text: query,
       first: 100,
     },
   });
-  return posts?.data?.postSearch.filter(
+
+  const posts = isMeshService
+    ? result?.post.map((item) => {
+        const post = { ...item };
+        const tags = item.postTag.map((postTag) => postTag.tagId);
+
+        delete post.postTag;
+        return {
+          ...post,
+          tags,
+          author: getUserDataFromMesh(item.user[0]),
+        };
+      })
+    : result?.postSearch;
+  return posts.filter(
     (post) =>
       !post.isDeleted &&
       (single ? Number(post.communityId) === Number(single) : true),
@@ -380,83 +356,68 @@ export const postsForSearch = async (text, single) => {
 };
 
 export const getAllAchievements = async (userId) => {
-  if (process.env.GRAPH_SERVICE === 'Mesh') {
-    const response = await runQuery({
-      query: queries.AllAchievements.Mesh,
-      variables: {
-        userId: userId.toLowerCase(),
-      },
-    });
-    return {
-      allAchievements: response?.data.achievement,
-      userAchievements:
-        response?.data.user[0].userAchievement.map(({ achievementId }) => ({
-          id: achievementId,
-        })) || [],
-    };
-  }
-
-  const response = await client.query({
-    query: gql(queries.allAchievements.TheGraph),
+  const response = await executeQuery({
+    query: queries.AllAchievements[graphService],
     variables: {
       userId: userId.toLowerCase(),
     },
   });
-  return {
-    allAchievements: response?.data.achievements
-      .map((achievement) => ({ ...achievement, id: Number(achievement.id) }))
-      .sort((x, y) => x.id - y.id),
-    userAchievements: response?.data.user?.achievements || [],
-  };
+
+  return isMeshService
+    ? {
+        allAchievements: response?.achievement,
+        userAchievements:
+          response?.user[0].userAchievement.map(({ achievementId }) => ({
+            id: achievementId,
+          })) || [],
+      }
+    : {
+        allAchievements: response?.achievements
+          .map((achievement) => ({
+            ...achievement,
+            id: Number(achievement.id),
+          }))
+          .sort((x, y) => x.id - y.id),
+        userAchievements: response?.user?.achievements || [],
+      };
 };
 
 export const getRewardStat = async (userId, ethereumService) => {
   const isOldUser = await isUserExists(userId, ethereumService);
-  const response = await client.query({
-    query: gql(rewardsQuery),
+  const periodsCount = isOldUser ? 2 : 1;
+
+  const query = isMeshService
+    ? queries.Rewards.Mesh(periodsCount)
+    : queries.Rewards.TheGraph;
+
+  const response = await executeQuery({
+    query,
     variables: {
       userId,
-      periodsCount: isOldUser ? 2 : 1,
+      periodsCount,
     },
-    fetchPolicy: 'network-only',
   });
-  return [
-    response?.data?.userRewards,
-    response?.data?.periods,
-    response?.data?.user,
-  ];
+  const rewards = isMeshService ? response?.userReward : response?.userRewards;
+  const periods = isMeshService ? response?.period : response?.periods;
+  const user = isMeshService
+    ? getUserDataFromMesh(response?.user[0])
+    : response?.user;
+  return [rewards, periods, user];
 };
 
 export const getCurrentPeriod = async () => {
-  if (process.env.GRAPH_SERVICE === 'Mesh') {
-    const response = await runQuery({
-      query: queries.CurrentPeriod.Mesh,
-    });
-    return response?.data.period[0];
-  }
-
-  const response = await client.query({
-    query: gql(queries.CurrentPeriod.TheGraph),
+  const response = await executeQuery({
+    query: queries.CurrentPeriod[graphService],
   });
-  return response?.data?.periods?.[0];
+  return isMeshService ? response?.period[0] : response?.periods?.[0];
 };
 
 export const historiesForPost = async (postId) => {
-  if (process.env.GRAPH_SERVICE === 'Mesh') {
-    const response = await runQuery({
-      query: queries.Histories.Mesh,
-      variables: {
-        postId,
-      },
-    });
-    return response?.data.history;
-  }
-
-  const response = await client.query({
-    query: gql(queries.Histories.TheGraph),
+  const response = await executeQuery({
+    query: queries.Histories[graphService],
     variables: {
       postId,
     },
   });
-  return response?.data?.histories;
+  return isMeshService ? response?.history : response?.histories;
 };

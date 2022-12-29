@@ -118,6 +118,15 @@ export default defineMessages({
   areYouSure: {
     id: 'app.containers.ViewQuestion.areYouSure',
   },
+  areYouSureMarkedTheBest_1: {
+    id: 'app.containers.ViewQuestion.areYouSureMarkedTheBest_1',
+  },
+  areYouSureMarkedTheBest_2: {
+    id: 'app.containers.ViewQuestion.areYouSureMarkedTheBest_2',
+  },
+  areYouSureMarkedTheBest_3: {
+    id: 'app.containers.ViewQuestion.areYouSureMarkedTheBest_3',
+  },
   markExpertQuestionAndGetEarn: {
     id: 'app.containers.ViewQuestion.markExpertQuestionAndGetEarn',
   },

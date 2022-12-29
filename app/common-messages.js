@@ -411,6 +411,9 @@ export default defineMessages({
   reCaptchaMention: {
     id: 'app.common.reCaptchaMention',
   },
+  results: {
+    id: 'app.common.results',
+  },
   noResults: {
     id: 'app.common.noResults',
   },

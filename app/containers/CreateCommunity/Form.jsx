@@ -19,7 +19,7 @@ import { getPermissions, hasGlobalModeratorRole } from 'utils/properties';
 
 import {
   required,
-  strLength2x15,
+  strLength2x25,
   strLength3x20,
   strLength20x1000,
   strLength15x250,
@@ -230,12 +230,12 @@ const CreateCommunityForm = ({
                   component={TextInputField}
                   placeholder={translations[messages.tagTitle.id]}
                   validate={[
-                    strLength2x15,
+                    strLength2x25,
                     required,
                     valueHasNotBeInListMoreThanOneTime,
                   ]}
                   warn={[
-                    strLength2x15,
+                    strLength2x25,
                     required,
                     valueHasNotBeInListMoreThanOneTime,
                   ]}
