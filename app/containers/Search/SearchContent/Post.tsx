@@ -75,7 +75,7 @@ const Post: React.FC<PostProps> = ({
     }
     return routes.questions(communityId);
   };
-  console.log(postTime);
+
   return (
     <div className="df mb8 border-box" css={css(styles.post)}>
       <div className="m16 full-width" css={css(styles.container)}>
