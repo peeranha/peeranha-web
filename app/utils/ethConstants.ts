@@ -55,6 +55,11 @@ export const GET_USER_RATING = 'getUserRating';
 export const UPVOTE_STATUS = 1;
 export const DOWNVOTE_STATUS = -1;
 
+const editUserQuery = (query: string) =>
+  query
+    .replace('ratings', 'userCommunityRating')
+    .replace('achievements { id }', 'userAchievement { achievementId }');
+
 const user = `
     id
     ratings {
@@ -68,9 +73,7 @@ const user = `
     about
     avatar
     creationTime
-    achievements {
-            id
-    }
+    achievements { id }
 `;
 
 const comment = `
@@ -152,7 +155,7 @@ const post = `
     }
 `;
 
-export const usersQuery = `
+const usersQuery = `
       query(
         $first: Int,
         $skip: Int,
@@ -171,7 +174,25 @@ export const usersQuery = `
         }
       }`;
 
-export const moderationQuery = `
+const usersQueryMesh = (orderBy: string, orderDirection: string) =>
+  editUserQuery(
+    `query(
+    $first: Int,
+    $skip: Int
+  ) {
+    user(
+      limit: $first,
+      offset: $skip,
+      orderBy: { ${orderBy}: ${orderDirection} },
+    ) {
+      ${user}
+      postCount
+      replyCount
+    }
+  }`,
+  );
+
+const moderationQuery = `
   query(
     $roles: [String],
   ) {
@@ -184,6 +205,19 @@ export const moderationQuery = `
     }
   }
 `;
+
+const moderationQueryMesh = (roles: string) =>
+  editUserQuery(`
+  query {
+    userPermission (where: { permission: (${roles}) }) {
+      id
+      user {
+        ${user}
+      }
+      permission
+    }
+  }
+`);
 
 export const usersByCommunityQuery = `
       query(
@@ -204,18 +238,46 @@ export const usersByCommunityQuery = `
         }
       }`;
 
+const usersByCommunityQueryMesh = editUserQuery(`
+  query(
+    $limit: Int,
+    $offset: Int,
+    $communityId: Int,
+  ) {
+    userCommunityRating (
+      limit: $limit,
+      offset: $offset,
+      where: { communityId: $communityId }
+    ) {
+      user {
+        ${user}
+        postCount
+        replyCount
+      }
+    }
+  }`);
+
 export const userQuery = `
       query(
-        $id: ID!,
+        $id: ID!
       ) {
-        user(
-          id: $id
-        ) {
+        user(id: $id) {
           ${user}
           postCount
           replyCount
         }
       }`;
+
+export const userQueryMesh = editUserQuery(`
+      query(
+        $id: String
+      ) {
+        user(where: { id: $id }) {
+          ${user}
+          postCount
+          replyCount
+        }
+      }`);
 
 export const userPermissionsQuery = `
       query(
@@ -494,27 +556,41 @@ export const postQuery = `
       }
 `;
 
-export const allAchievementsQuery = `
-       query (
-        $userId: ID!,
-       ) {
-        achievements {
-          id
-          factCount
-          maxCount
-          achievementURI
-          achievementsType
-          name
-          description
-          image
-          attributes
-        }
-        user (id: $userId) {
-          achievements {
-            id
-          }
-        }
-      }`;
+const achievement = `
+  id
+  factCount
+  maxCount
+  achievementURI
+  achievementsType
+  name
+  description
+  image
+  attributes
+`;
+
+const allAchievementsQuery = `
+  query (
+    $userId: ID!
+  ) {
+    achievements {
+      ${achievement}
+    }
+    user (id: $userId) {
+      achievements { id }
+    }
+  }`;
+
+const allAchievementsQueryMesh = `
+  query (
+    $userId: String
+  ) {
+    achievement (orderBy: { id: asc }) {
+      ${achievement}
+    }
+    user (where: { id: $userId }) {
+      userAchievement { achievementId }
+    }
+  }`;
 
 const period = `
   id
@@ -544,9 +620,39 @@ export const rewardsQuery = `
   }
 `;
 
+const rewardsQueryMesh = (periodsCount: number) =>
+  editUserQuery(`
+  query (
+    $userId: String
+  ) {
+    user (where: {id: $userId}) {
+      ${user}
+    }
+    userRewards (where: {user: $userId, tokenToReward_not: 0}) {
+      id
+      period {
+        ${period}
+      }
+      tokenToReward
+      isPaid
+    }
+    periods (orderBy: { endPeriodTime: desc }, first: ${periodsCount}) {
+      ${period}
+    }
+  }
+`);
+
 export const currentPeriodQuery = `
-  query  {
+  query {
     periods (orderBy: endPeriodTime, orderDirection: desc, first: 1) {
+      ${period}
+    }
+  }
+`;
+
+const currentPeriodQueryMesh = `
+  query {
+    period (orderBy: { endPeriodTime: desc }, limit: 1) {
       ${period}
     }
   }
@@ -555,28 +661,178 @@ export const currentPeriodQuery = `
 const history = `
   transactionHash
   post {
-    ${post}
+    id
   }
   reply {
-    ${reply}
+    id
   }
   comment {
-    ${comment}
+    id
   }
   eventEntity
   eventName
   timeStamp
 `;
 
-export const historiesQuery = `
+const historiesQuery = `
   query (
    $postId: ID!,
  ) {
     histories (
       orderBy: timeStamp,
-      where: {post: $postId,}
+      where: {post: $postId}
     ) {
       ${history}
     }
   }
 `;
+
+const historiesQueryMesh = `
+  query (
+   $postId: String,
+ ) {
+    histories (
+      orderBy: { timeStamp: asc },
+      where: { postId: $postId }
+    ) {
+      ${history}
+    }
+  }
+`
+  .replace('reply {', 'reply (where: { postId: $postId }) {')
+  .replace('comment {', 'comment (where: { postId: $postId }) {');
+
+enum QueryName {
+  User,
+  Users,
+  Moderation,
+  UsersByCommunity,
+  Histories,
+  CurrentPeriod,
+  Rewards,
+  AllAchievements,
+  Post,
+  PostsForSearch,
+  DocumentationMenu,
+  CommunityDocumentationNotIncluded,
+  CommunityDocumentation,
+  FaqByComm,
+  PostsByCommunity,
+  Posts,
+  Tags,
+  Community,
+  AllTags,
+  AnsweredPosts,
+  UserPermissions,
+  UserStats,
+  Communities,
+  UserPosts,
+}
+
+enum GraphService {
+  TheGraph,
+  Mesh,
+}
+
+export const queries: {
+  [key in keyof typeof QueryName]: {
+    [key in keyof typeof GraphService]: string | Function;
+  };
+} = {
+  Users: {
+    TheGraph: usersQuery,
+    Mesh: usersQueryMesh,
+  },
+  User: {
+    TheGraph: userQuery,
+    Mesh: userQueryMesh,
+  },
+  Histories: {
+    TheGraph: historiesQuery,
+    Mesh: historiesQueryMesh,
+  },
+  AllAchievements: {
+    TheGraph: allAchievementsQuery,
+    Mesh: allAchievementsQueryMesh,
+  },
+  CurrentPeriod: {
+    TheGraph: currentPeriodQuery,
+    Mesh: currentPeriodQueryMesh,
+  },
+  Moderation: {
+    TheGraph: moderationQuery,
+    Mesh: moderationQueryMesh,
+  },
+  UsersByCommunity: {
+    TheGraph: usersByCommunityQuery,
+    Mesh: usersByCommunityQueryMesh,
+  },
+  Rewards: {
+    TheGraph: rewardsQuery,
+    Mesh: rewardsQueryMesh, //TODO: fix bigint issue
+  },
+  Post: {
+    TheGraph: postQuery,
+    Mesh: '',
+  },
+  PostsForSearch: {
+    TheGraph: postsForSearchQuery,
+    Mesh: '',
+  },
+  DocumentationMenu: {
+    TheGraph: documentationMenuQuery,
+    Mesh: '',
+  },
+  CommunityDocumentationNotIncluded: {
+    TheGraph: communityDocumentationNotIncludedQuery,
+    Mesh: '',
+  },
+  CommunityDocumentation: {
+    TheGraph: communityDocumentationQuery,
+    Mesh: '',
+  },
+  FaqByComm: {
+    TheGraph: faqByCommQuery,
+    Mesh: '',
+  },
+  PostsByCommunity: {
+    TheGraph: postsByCommQuery,
+    Mesh: '',
+  },
+  Posts: {
+    TheGraph: postsQuery,
+    Mesh: '',
+  },
+  Tags: {
+    TheGraph: tagsQuery,
+    Mesh: '',
+  },
+  Community: {
+    TheGraph: communityQuery,
+    Mesh: '',
+  },
+  AllTags: {
+    TheGraph: allTagsQuery,
+    Mesh: '',
+  },
+  AnsweredPosts: {
+    TheGraph: answeredPostsQuery,
+    Mesh: '',
+  },
+  UserPermissions: {
+    TheGraph: userPermissionsQuery,
+    Mesh: '',
+  },
+  UserStats: {
+    TheGraph: userStatsQuery,
+    Mesh: '',
+  },
+  Communities: {
+    TheGraph: communitiesQuery,
+    Mesh: '',
+  },
+  UserPosts: {
+    TheGraph: usersPostsQuery,
+    Mesh: '',
+  },
+};

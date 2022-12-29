@@ -2,16 +2,13 @@ import { ApolloClient, gql, InMemoryCache } from '@apollo/client';
 import { dataToString } from 'utils/converters';
 import { isUserExists } from './accountManagement';
 import {
-  allAchievementsQuery,
   allTagsQuery,
   answeredPostsQuery,
   communitiesQuery,
   communityDocumentationQuery,
   communityQuery,
-  currentPeriodQuery,
   documentationMenuQuery,
   faqByCommQuery,
-  historiesQuery,
   postQuery,
   postsByCommQuery,
   postsForSearchQuery,
@@ -19,15 +16,13 @@ import {
   rewardsQuery,
   tagsQuery,
   userPermissionsQuery,
-  userQuery,
   usersAnswersQuery,
-  usersByCommunityQuery,
   usersPostsQuery,
-  usersQuery,
   userStatsQuery,
   communityDocumentationNotIncludedQuery,
-  moderationQuery,
+  queries,
 } from './ethConstants';
+import { runQuery } from './runQuery';
 
 const client = new ApolloClient({
   uri: process.env.THE_GRAPH_QUERY_URL,
@@ -40,8 +35,34 @@ export const getUsers = async ({
   sortingAttribute = 'creationTime',
   sorting = 'desc',
 }) => {
+  if (process.env.GRAPH_SERVICE === 'Mesh') {
+    const query = queries.Users.Mesh(sortingAttribute, sorting);
+
+    const users = await runQuery({
+      query,
+      variables: {
+        first: limit,
+        skip,
+      },
+    });
+
+    return users?.data.user.map((item) => {
+      const ratings = item.userCommunityRating;
+      const achievements = item.userAchievement.map(({ achievementId }) => ({
+        id: achievementId,
+      }));
+      delete item.userAchievement;
+      delete item.userCommunityRating;
+      return {
+        ...item,
+        achievements,
+        ratings,
+      };
+    });
+  }
+
   const users = await client.query({
-    query: gql(usersQuery),
+    query: gql(queries.Users.TheGraph),
     variables: {
       first: limit,
       skip,
@@ -53,8 +74,15 @@ export const getUsers = async ({
 };
 
 export const getModerators = async (roles) => {
+  if (process.env.GRAPH_SERVICE === 'Mesh') {
+    const administrators = await runQuery({
+      query: queries.Moderation.Mesh(dataToString(roles)),
+    });
+    return [...administrators?.data.userPermission];
+  }
+
   const administrators = await client.query({
-    query: gql(moderationQuery),
+    query: gql(queries.Moderation.TheGraph),
     variables: {
       roles: roles,
     },
@@ -68,8 +96,20 @@ export const getUsersByCommunity = async ({
   skip,
   communityId,
 }) => {
+  if (process.env.GRAPH_SERVICE === 'Mesh') {
+    const users = await runQuery({
+      query: queries.UsersByCommunity.Mesh,
+      variables: {
+        limit,
+        offset: skip,
+        communityId,
+      },
+    });
+    return users?.data.userCommunityRating.map((item) => item.user);
+  }
+
   const users = await client.query({
-    query: gql(usersByCommunityQuery),
+    query: gql(queries.UsersByCommunity.TheGraph),
     variables: {
       first: limit,
       skip,
@@ -80,10 +120,35 @@ export const getUsersByCommunity = async ({
 };
 
 export const getUser = async (id) => {
+  const userAddress = dataToString(id).toLowerCase();
+  if (process.env.GRAPH_SERVICE === 'Mesh') {
+    const user = {
+      ...(
+        await runQuery({
+          query: queries.User.Mesh,
+          variables: {
+            id: userAddress,
+          },
+        })
+      ).data?.user[0],
+    };
+    const ratings = user.userCommunityRating;
+    const achievements = user.userAchievement.map(({ achievementId }) => ({
+      id: achievementId,
+    }));
+    delete user.userAchievement;
+    delete user.userCommunityRating;
+    return {
+      ...user,
+      achievements,
+      ratings,
+    };
+  }
+
   const user = await client.query({
-    query: gql(userQuery),
+    query: gql(queries.User.TheGraph),
     variables: {
-      id: dataToString(id).toLowerCase(),
+      id: userAddress,
     },
   });
   return { ...user?.data?.user };
@@ -315,8 +380,24 @@ export const postsForSearch = async (text, single) => {
 };
 
 export const getAllAchievements = async (userId) => {
+  if (process.env.GRAPH_SERVICE === 'Mesh') {
+    const response = await runQuery({
+      query: queries.AllAchievements.Mesh,
+      variables: {
+        userId: userId.toLowerCase(),
+      },
+    });
+    return {
+      allAchievements: response?.data.achievement,
+      userAchievements:
+        response?.data.user[0].userAchievement.map(({ achievementId }) => ({
+          id: achievementId,
+        })) || [],
+    };
+  }
+
   const response = await client.query({
-    query: gql(allAchievementsQuery),
+    query: gql(queries.allAchievements.TheGraph),
     variables: {
       userId: userId.toLowerCase(),
     },
@@ -347,15 +428,32 @@ export const getRewardStat = async (userId, ethereumService) => {
 };
 
 export const getCurrentPeriod = async () => {
+  if (process.env.GRAPH_SERVICE === 'Mesh') {
+    const response = await runQuery({
+      query: queries.CurrentPeriod.Mesh,
+    });
+    return response?.data.period[0];
+  }
+
   const response = await client.query({
-    query: gql(currentPeriodQuery),
+    query: gql(queries.CurrentPeriod.TheGraph),
   });
   return response?.data?.periods?.[0];
 };
 
 export const historiesForPost = async (postId) => {
+  if (process.env.GRAPH_SERVICE === 'Mesh') {
+    const response = await runQuery({
+      query: queries.Histories.Mesh,
+      variables: {
+        postId,
+      },
+    });
+    return response?.data.history;
+  }
+
   const response = await client.query({
-    query: gql(historiesQuery),
+    query: gql(queries.Histories.TheGraph),
     variables: {
       postId,
     },

@@ -45,7 +45,7 @@ module.exports = {
     },
   },
   rules: {
-    'linebreak-style': 0,
+    'linebreak-style': 'auto',
     'arrow-body-style': [2, 'as-needed'],
     'class-methods-use-this': 0,
     'comma-dangle': [2, 'always-multiline'],
