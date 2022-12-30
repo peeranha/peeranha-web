@@ -1,4 +1,11 @@
-import { ACCOUNT_TABLE, ALL_ACCOUNTS_SCOPE } from './constants';
+import { getCommunityRole } from 'utils/properties';
+
+import {
+  ACCOUNT_TABLE,
+  ALL_ACCOUNTS_SCOPE,
+  COMMUNITY_ADMIN_ROLE,
+  COMMUNITY_MODERATOR_ROLE,
+} from './constants';
 
 import { ApplicationError } from './errors';
 import { dateNowInSeconds } from './datetime';
@@ -127,4 +134,29 @@ export const checkUserURL = (user) => {
   const path = document.location.pathname.split('/');
   const userInURL = path[1] === 'users' ? path[2] : undefined;
   return userInURL ? userInURL === user : true;
+};
+
+export const getUsersModeratorByRols = (
+  usersModerator,
+  communityId,
+  moderators,
+  Roles,
+) => {
+  const moderatorRole = getCommunityRole(COMMUNITY_MODERATOR_ROLE, communityId);
+  const adminRole = getCommunityRole(COMMUNITY_ADMIN_ROLE, communityId);
+  const UsersModeratorByRols = usersModerator.map((user) => {
+    const userRoles = [];
+    const moderatorPermission = moderators.find(
+      (moderator) =>
+        moderator.permission === moderatorRole && moderator.user.id === user.id,
+    );
+    const adminPermission = moderators.find(
+      (moderator) =>
+        moderator.permission === adminRole && moderator.user.id === user.id,
+    );
+    if (moderatorPermission) userRoles.push(Roles.communityModerator);
+    if (adminPermission) userRoles.push(Roles.communityAdmin);
+    return { user, userRoles };
+  });
+  return UsersModeratorByRols;
 };
