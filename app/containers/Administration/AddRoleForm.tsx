@@ -8,22 +8,23 @@ import { css } from '@emotion/react';
 
 import ContainedButton from 'components/Button/Contained/InfoLargeHeightStretching';
 import OutlinedButton from 'components/Button/Outlined/InfoLargeHeightStretching';
-import ModalDialog, { el, modalRoot } from 'components/ModalDialog';
 import TextInputField from 'components/FormFields/TextInputField';
 import {
   required,
   stringHasToBeEthereumAddress,
 } from 'components/FormFields/validate';
-
+import Popup from 'common-components/Popup';
+import Dropdown, { OptionValue } from 'common-components/Dropdown/Dropdown';
 import {
   ADD_MODERATOR_BUTTON_BUTTON,
   WALLET_ADDRESS_FIELD,
-  ROLE_FIELD,
 } from 'containers/Administration/constants';
 import messages from 'containers/Administration/messages';
 
 import { scrollToErrorField } from 'utils/animation';
 import { TEXT_DARK } from 'style-constants';
+
+import useTrigger from 'hooks/useTrigger';
 
 type AddRoleFunction = (
   userAddress: string,
@@ -50,39 +51,30 @@ const AddRoleForm: React.FC<AddRoleFormProps> = ({
   Button,
   addRoleLoading,
 }): JSX.Element => {
-  const [isOpened, open] = useState(false);
-
-  const closeModal = () => {
-    document.getElementsByTagName('body')[0].style.position = 'relative';
-    // @ts-ignore
-    modalRoot.removeChild(el);
-    open(false);
-  };
+  const [isOpen, open, close] = useTrigger(false);
+  const [role, setRole] = useState<OptionValue>();
 
   const rolesName = [
     translationMessages[locale][messages.communityAdministrator.id],
     translationMessages[locale][messages.communityModerator.id],
   ];
 
+  const RoleNamesList = rolesName.map((roleName, index) => ({
+    label: roleName,
+    value: index,
+  }));
+
   const addRoleMethod = (values: any) => {
-    addRole(
-      values.get(WALLET_ADDRESS_FIELD),
-      Number(values.get(ROLE_FIELD)),
-      single,
-    );
-    closeModal();
+    addRole(values.get(WALLET_ADDRESS_FIELD), Number(role), single);
+    close();
   };
 
   return (
     <>
-      <Button
-        onClick={() => {
-          open(true);
-        }}
-      />
+      <Button onClick={open} />
 
-      {isOpened && (
-        <ModalDialog closeModal={closeModal} show={isOpened}>
+      {isOpen && (
+        <Popup size="tiny" onClose={close}>
           <h5
             css={css`
               color: ${TEXT_DARK};
@@ -94,24 +86,26 @@ const AddRoleForm: React.FC<AddRoleFormProps> = ({
           >
             <FormattedMessage id={messages.addRole.id} />
           </h5>
+          <div
+            css={css`
+              span {
+                font-size: 16px;
+              }
+              button {
+                box-shadow: none !important;
+              }
+            `}
+          >
+            <Dropdown
+              options={RoleNamesList}
+              isMultiple={false}
+              value={role}
+              placeholder={translationMessages[locale][messages.chooseRole.id]}
+              onSelect={setRole}
+            />
+          </div>
 
           <form onSubmit={handleSubmit(addRoleMethod)}>
-            <Field
-              name={ROLE_FIELD}
-              component="select"
-              className="form-control"
-              placeholder={translationMessages[locale][messages.chooseRole.id]}
-            >
-              <option value="" disabled>
-                {translationMessages[locale][messages.chooseRole.id]}
-              </option>
-              {rolesName.map((roleName, index) => (
-                <option key={roleName} value={index}>
-                  {roleName}
-                </option>
-              ))}
-            </Field>
-
             <Field
               name={WALLET_ADDRESS_FIELD}
               disabled={addRoleLoading}
@@ -124,7 +118,7 @@ const AddRoleForm: React.FC<AddRoleFormProps> = ({
             />
 
             <div className="df aic">
-              <OutlinedButton className="mr12" onClick={closeModal}>
+              <OutlinedButton className="mr12" onClick={close}>
                 <FormattedMessage id={messages.cancel.id} />
               </OutlinedButton>
 
@@ -137,7 +131,7 @@ const AddRoleForm: React.FC<AddRoleFormProps> = ({
               </ContainedButton>
             </div>
           </form>
-        </ModalDialog>
+        </Popup>
       )}
     </>
   );
