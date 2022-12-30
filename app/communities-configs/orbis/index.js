@@ -268,4 +268,17 @@ export const OrbisStyles = {
       border: 1px solid linear-gradient(135deg, #f790bb 44.02%, #b971ee 90.66%) !important;
     }
   `,
+  newPostPopupButtonStyles: css`
+    border: 1px solid #de73da;
+    color: #de73da;
+    :hover {
+      background: linear-gradient(
+        135deg,
+        #f790bb 44.02%,
+        #b971ee 90.66%
+      ) !important;
+      color: #fff !important;
+      border: 1px solid linear-gradient(135deg, #f790bb 44.02%, #b971ee 90.66%) !important;
+    }
+  `,
 };
