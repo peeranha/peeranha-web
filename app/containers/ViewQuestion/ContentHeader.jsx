@@ -16,7 +16,6 @@ import pencilIcon from 'images/pencil.svg?external';
 import shareIcon from 'images/shareIcon.svg?external';
 import deleteIcon from 'images/deleteIcon.svg?external';
 import blockIcon from 'images/blockIcon.svg?external';
-import changeTypeIcon from 'images/change-type.svg?external';
 
 import { getRatingByCommunity, getUserAvatar } from 'utils/profileManagement';
 import { useOnClickOutside } from 'utils/click-listners';
@@ -41,7 +40,6 @@ import {
 import blockchainLogo from 'images/blockchain-outline-32.svg?external';
 import IPFSInformation from 'containers/Questions/Content/Body/IPFSInformation';
 import commonMessages from 'common-messages';
-import { POST_TYPE } from 'utils/constants';
 import { getUserName } from 'utils/user';
 
 const RatingBox = styled.div`
@@ -122,7 +120,7 @@ const DropdownBox = styled.div`
   position: relative;
 `;
 
-const ContentHeader = (props) => {
+const ContentHeader = props => {
   const {
     author,
     type,
@@ -139,7 +137,6 @@ const ContentHeader = (props) => {
     giveBountyDispatch,
     questionData,
     profile,
-    isChangeTypeAvailable,
     infiniteImpact,
     histories,
   } = props;
@@ -147,13 +144,13 @@ const ContentHeader = (props) => {
   const ipfsHashValue =
     type === QUESTION_TYPE
       ? questionData.ipfsHash
-      : questionData.answers.find((answer) => answer.id === answerId).ipfsHash;
+      : questionData.answers.find(answer => answer.id === answerId).ipfsHash;
 
   const formattedHistories =
     type === QUESTION_TYPE
       ? histories
       : histories?.filter(
-          (history) => history.reply?.id === `${questionData.id}-${answerId}`,
+          history => history.reply?.id === `${questionData.id}-${answerId}`,
         );
   const bestReplyId = questionData.bestReply;
 
@@ -196,7 +193,7 @@ const ContentHeader = (props) => {
   );
 
   const changeQuestionTypeWithRatingRestore = useCallback(
-    (event) => changeQuestionTypeDispatch(event),
+    event => changeQuestionTypeDispatch(event),
     [changeQuestionTypeDispatch],
   );
 
@@ -233,36 +230,6 @@ const ContentHeader = (props) => {
           isTemporaryAccount={isTemporaryAccount}
         />
         <ButtonContainer>
-          {type === QUESTION_TYPE && (
-            <Button
-              id={`${type}_change_type_with_rating_restore_${answerId}`}
-              show={
-                (isGlobalAdmin || isChangeTypeAvailable) &&
-                questionData.postType !== POST_TYPE.tutorial
-              }
-              onClick={changeQuestionTypeWithRatingRestore}
-              disabled={ids.includes(
-                `${type}_change_type_with_rating_restore_${answerId}`,
-              )}
-            >
-              <IconSm icon={changeTypeIcon} fill={BORDER_PRIMARY} />
-              <FormattedMessage id={messages.changeQuestionType.id} />
-            </Button>
-          )}
-
-          {/* {type === QUESTION_TYPE && (
-            <Button
-              id={`${type}_give_bounty_${answerId}`}
-              show={
-                currentUserName && correctAnswerUserName === currentUserName
-              }
-              onClick={event => giveBountyDispatch(event)}
-              disabled={ids.includes(`${type}_give_bounty_${answerId}`)}
-            >
-              <IconSm icon={currencyPeer} fill={BORDER_PRIMARY} />
-              <FormattedMessage {...messages.getBounty} />
-            </Button>
-          )} */}
           {infiniteImpact ? (
             <Button
               show={
@@ -350,7 +317,9 @@ const ContentHeader = (props) => {
             show={!!profile && isItWrittenByMe}
             onClick={editItem[0]}
             params={{ ...buttonParams, link: editItem[1] }}
-            id={`redirect-to-edit-item-${answerId}-${buttonParams.questionId}-${commentId}`}
+            id={`redirect-to-edit-item-${answerId}-${
+              buttonParams.questionId
+            }-${commentId}`}
           >
             <IconMd icon={pencilIcon} />
             <FormattedMessage id={messages.editButton.id} />
@@ -390,10 +359,10 @@ ContentHeader.propTypes = {
 
 export default React.memo(
   connect(
-    (state) => ({
+    state => ({
       profile: makeSelectProfileInfo()(state),
     }),
-    (dispatch) => ({
+    dispatch => ({
       changeQuestionTypeDispatch: bindActionCreators(
         changeQuestionType,
         dispatch,

@@ -143,8 +143,9 @@ const QuestionTypeField = ({
   insideOfSection,
   error,
   isCommunityModerator,
+  postType,
 }) => {
-  const [type, setType] = useState();
+  const [type, setType] = useState(postType);
 
   function chooseQuestionType({ currentTarget }) {
     const { value } = currentTarget;
@@ -168,7 +169,7 @@ const QuestionTypeField = ({
         insideOfSection={insideOfSection}
       >
         <ButtonGroup error={error}>
-          {types.map((questionType) => (
+          {types.map(questionType => (
             <Button
               type={type}
               onClick={chooseQuestionType}
