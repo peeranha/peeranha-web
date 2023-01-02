@@ -63,7 +63,7 @@ const Post: React.FC<PostProps> = ({
     tags: [],
   };
   const postTags = community.tags.filter((tag: Tag) =>
-    tags.includes(Number(tag.id.split('-')[1])),
+    tags?.includes(Number(tag.id.split('-')[1])),
   );
   const postLink = getPostRoute(postType, id);
   const communityLink = () => {
@@ -72,6 +72,9 @@ const Post: React.FC<PostProps> = ({
     }
     if (postType === POST_TYPE.expertPost) {
       return routes.expertPosts(communityId);
+    }
+    if (postType === POST_TYPE.documentation) {
+      return routes.feed(communityId);
     }
     return routes.questions(communityId);
   };
@@ -92,10 +95,16 @@ const Post: React.FC<PostProps> = ({
         </div>
 
         <div css={css(styles.mainInfo)}>
-          <span className="db mt8 fz12 light" css={css(styles.creationTime)}>
-            <FormattedMessage id={commonMessages.asked.id} />{' '}
-            {getFormattedDate(postTime, locale, MONTH_3LETTERS__DAY_YYYY_TIME)}
-          </span>
+          {postType !== POST_TYPE.documentation && (
+            <span className="db mt8 fz12 light" css={css(styles.creationTime)}>
+              <FormattedMessage id={commonMessages.asked.id} />{' '}
+              {getFormattedDate(
+                postTime,
+                locale,
+                MONTH_3LETTERS__DAY_YYYY_TIME,
+              )}
+            </span>
+          )}
 
           <p className="dib pr mt12 fz14 light ovh" css={css(styles.content)}>
             {content}
@@ -132,37 +141,42 @@ const Post: React.FC<PostProps> = ({
             )}
           </div>
 
-          <div className="mt12 df">
-            {postType !== POST_TYPE.tutorial && (
-              <div
-                css={css(styles[bestReply ? 'bestReply' : 'noBestReply'])}
-                className="mr24"
-              >
+          {postType !== POST_TYPE.documentation && (
+            <div className="mt12 df">
+              {postType !== POST_TYPE.tutorial && (
+                <div
+                  css={css(styles[bestReply ? 'bestReply' : 'noBestReply'])}
+                  className="mr24"
+                >
+                  <span className="df aic">
+                    {bestReply ? (
+                      <BestAnswerIcon
+                        stroke="rgb(40, 167, 69)"
+                        className="mr8"
+                      />
+                    ) : (
+                      <AnswerIcon stroke="rgb(53, 74, 137)" className="mr8" />
+                    )}
+                    <span css={css(styles.count)} className="fz16 light">
+                      {getFormattedNum(replyCount)}
+                    </span>
+                  </span>
+                </div>
+              )}
+              <div>
                 <span className="df aic">
-                  {bestReply ? (
-                    <BestAnswerIcon stroke="rgb(40, 167, 69)" className="mr8" />
+                  {rating >= 0 ? (
+                    <LikeIcon stroke="rgb(53, 74, 137)" className="mr8" />
                   ) : (
-                    <AnswerIcon stroke="rgb(53, 74, 137)" className="mr8" />
+                    <DisLikeIcon stroke="rgb(53, 74, 137)" className="mr8" />
                   )}
                   <span css={css(styles.count)} className="fz16 light">
-                    {getFormattedNum(replyCount)}
+                    {getFormattedNum2(rating)}
                   </span>
                 </span>
               </div>
-            )}
-            <div>
-              <span className="df aic">
-                {rating >= 0 ? (
-                  <LikeIcon stroke="rgb(53, 74, 137)" className="mr8" />
-                ) : (
-                  <DisLikeIcon stroke="rgb(53, 74, 137)" className="mr8" />
-                )}
-                <span css={css(styles.count)} className="fz16 light">
-                  {getFormattedNum2(rating)}
-                </span>
-              </span>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>

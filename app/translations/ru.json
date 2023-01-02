@@ -181,6 +181,8 @@
     "Technical setup;",
     "'How-to' guides."
   ],
+  "app.common.documentationPopoverTitle": "Documentation",
+  "app.common.documentationPopoverLabel": "Documentation article published by community officials.",
   "app.common.rightNow": "Прямо сейчас",
   "app.common.minutesAgo": "{minutes} минут назад",
   "app.common.hoursAgo": "{hours} часов назад",

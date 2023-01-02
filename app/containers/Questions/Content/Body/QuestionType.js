@@ -8,11 +8,7 @@ import {
   TEXT_PREMIUM,
   BORDER_RADIUS_M,
   BG_PREMIUM_LIGHT,
-  TEXT_DARK,
   TEXT_PRIMARY,
-  BG_TRANSPARENT,
-  BORDER_TRANSPARENT,
-  BORDER_DARK,
   TUTORIAL_ICON_COLOR,
 } from 'style-constants';
 
@@ -24,17 +20,12 @@ import { POST_TYPE } from '../../../../utils/constants';
 import expertIcon from 'images/hat-3-outline-24.svg?external';
 import generalIcon from 'images/comments-outline-24.svg?external';
 import tutorialIcon from 'images/tutorial.svg?external';
+import documentationIcon from 'images/documentation-icon.svg?external';
 
-import { IconLg } from '../../../../components/Icon/IconWithSizes';
+import { IconLabel } from '../../../../components/Icon/IconWithSizes';
 import { svgDraw } from '../../../../components/Icon/IconStyled';
 
-const LabelsWrapper = styled.div`
-  display: inline-flex;
-`;
-
 const LabelItem = styled.span`
-  margin-left: 5px;
-
   > div {
     position: inherit;
   }
@@ -51,24 +42,45 @@ const PromotedLabel = styled.span`
   border-radius: ${BORDER_RADIUS_M};
 `;
 
-const Icon = styled(IconLg)`
+const Icon = styled(IconLabel)`
   ${({ isTutorial, isExpert }) =>
     svgDraw({
       color: isTutorial
         ? TUTORIAL_ICON_COLOR
         : isExpert
         ? TEXT_PRIMARY
-        : TEXT_DARK,
+        : 'rgba(242, 163, 159, 1)',
     })};
-  background-color: ${BG_TRANSPARENT};
-  border-color: ${BORDER_TRANSPARENT};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 7px;
+  background-color: ${({ isTutorial, isExpert, isDocumentation }) =>
+    isExpert
+      ? 'rgba(173, 186, 255, 0.2)'
+      : isTutorial
+      ? 'rgba(150, 228, 169, 0.2)'
+      : isDocumentation
+      ? 'rgba(255, 228, 90, 0.2)'
+      : 'rgba(255, 174, 188, 0.2)'};
+  border-radius: 20px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: ${({ isTutorial, isExpert, isDocumentation }) =>
+    isExpert
+      ? 'rgba(151, 167, 245, 0.2)'
+      : isTutorial
+      ? 'rgba(135, 210, 151, 0.2)'
+      : isDocumentation
+      ? 'rgba(245, 190, 140, 0.2)'
+      : 'rgba(242, 163, 159, 0.2)'};
   font-weight: normal;
   .opacity {
     fill: none !important;
   }
   .fill {
     fill: ${({ isTutorial }) =>
-      isTutorial ? TUTORIAL_ICON_COLOR : BORDER_DARK};
+      isTutorial ? TUTORIAL_ICON_COLOR : 'BORDER_DARK'};
   }
   .semitransparent {
     fill: none;
@@ -96,6 +108,13 @@ const types = {
     icon: tutorialIcon,
     isTutorial: true,
   },
+  [POST_TYPE.documentation]: {
+    title: commonMessages.documentationPopoverTitle.id,
+    label: commonMessages.documentationPopoverLabel.id,
+    items: [],
+    icon: documentationIcon,
+    isDocumentation: true,
+  },
 };
 
 const QuestionType = ({ locale, postType, className, isPromoted = false }) => {
@@ -107,7 +126,7 @@ const QuestionType = ({ locale, postType, className, isPromoted = false }) => {
   const type = types[postType];
 
   return (
-    <LabelsWrapper className={className}>
+    <div className={className}>
       {type && (
         <LabelItem>
           <Container
@@ -126,6 +145,7 @@ const QuestionType = ({ locale, postType, className, isPromoted = false }) => {
             <Icon
               isExpert={type.isExpert}
               isTutorial={type.isTutorial}
+              isDocumentation={type.isDocumentation}
               className="mr-2"
               icon={type.icon}
             />
@@ -140,7 +160,7 @@ const QuestionType = ({ locale, postType, className, isPromoted = false }) => {
           </PromotedLabel>
         </LabelItem>
       )}
-    </LabelsWrapper>
+    </div>
   );
 };
 

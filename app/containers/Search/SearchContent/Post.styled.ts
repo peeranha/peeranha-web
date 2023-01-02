@@ -38,7 +38,7 @@ export const styles = {
     '@media only screen and (min-width: 1024px)': {
       fontSize: '24px',
       lineHeight: '30px',
-      paddingLeft: '7px',
+      paddingLeft: '3px',
     },
   },
 

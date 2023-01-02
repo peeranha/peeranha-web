@@ -486,6 +486,12 @@ export default defineMessages({
   tutorialPopoverList: {
     id: 'app.common.tutorialPopoverList',
   },
+  documentationPopoverTitle: {
+    id: 'app.common.documentationPopoverTitle',
+  },
+  documentationPopoverLabel: {
+    id: 'app.common.documentationPopoverLabel',
+  },
   chooseCrypto: {
     id: 'app.common.chooseCrypto',
   },

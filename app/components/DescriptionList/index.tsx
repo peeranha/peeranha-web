@@ -41,22 +41,28 @@ type DescriptionListProps = {
   label: string;
   items?: string;
   locale: string;
-}
+};
 
-export const DescriptionList: React.FC<DescriptionListProps> = ({ label, items, locale }): JSX.Element | null => {
+export const DescriptionList: React.FC<DescriptionListProps> = ({
+  label,
+  items,
+  locale,
+}): JSX.Element | null => {
   if (!items) {
     return null;
   }
   return (
     <Base>
       <FormattedMessage id={label} />
-      <ul>
-        {translationMessages[locale][items]?.map((item: any) => (
-          <li key={item}>
-            <span>{item}</span>
-          </li>
-        ))}
-      </ul>
+      {Boolean(items.length) && (
+        <ul>
+          {translationMessages[locale][items]?.map((item: any) => (
+            <li key={item}>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      )}
     </Base>
   );
 };

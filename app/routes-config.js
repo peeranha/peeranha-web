@@ -9,6 +9,7 @@ import {
   isSingleCommunityWebsite,
   getSingleCommunityDetails,
 } from 'utils/communityManagement';
+import { getIpfsHashFromBytes32 } from 'utils/ipfs';
 import { REFERRAL_CODE_URI } from './containers/App/constants';
 import { POST_TYPE } from './utils/constants';
 
@@ -72,7 +73,7 @@ export const getPostRoute = (postType, id, answerId = null) => {
     return expertPostView(id, answerId);
   }
   if (postType === POST_TYPE.documentation) {
-    return documentation(id);
+    return documentation(getIpfsHashFromBytes32(id));
   }
   return tutorialView(id);
 };
