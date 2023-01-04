@@ -86,7 +86,7 @@ export const styles = {
     transition: '0.4s',
 
     ':hover': {
-      opacity: 0.8,
+      background: 'rgba(247,111,96,0.8)',
     },
 
     '@media (min-width: 768px)': {

@@ -201,7 +201,6 @@ export const styles = {
 
   titleAnimation: {
     animation: 'animationTitle 1.2s forwards',
-    opacity: 0,
 
     '@keyframes animationTitle': {
       '0%': {
@@ -218,7 +217,6 @@ export const styles = {
   textAnimation: {
     animation: 'animationText 1.2s forwards',
     animationDelay: '0.4s',
-    opacity: 0,
 
     '@keyframes animationText': {
       '0%': {
@@ -234,7 +232,6 @@ export const styles = {
 
   imageAnimation: {
     animation: 'animationImage 1s forwards',
-    opacity: 0,
 
     '@keyframes animationImage': {
       '0%': {
@@ -250,7 +247,6 @@ export const styles = {
 
   evenImageAnimation: {
     animation: 'evenAnimationImage 1s forwards',
-    opacity: 0,
 
     '@keyframes evenAnimationImage': {
       '0%': {

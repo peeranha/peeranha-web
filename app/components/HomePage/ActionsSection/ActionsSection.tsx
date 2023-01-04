@@ -37,6 +37,7 @@ const ActionsSection: React.FC = (): JSX.Element => {
           >
             <div css={styles.textBlock}>
               <h3
+                className="op0"
                 css={{
                   ...styles.header,
                   ...(startFirstActionAnimation && styles.titleAnimation),
@@ -45,6 +46,7 @@ const ActionsSection: React.FC = (): JSX.Element => {
                 <FormattedMessage id={messages.focusBigPicture.id} />
               </h3>
               <span
+                className="op0"
                 css={{
                   ...styles.text,
                   ...(startFirstActionAnimation && styles.textAnimation),
@@ -56,6 +58,7 @@ const ActionsSection: React.FC = (): JSX.Element => {
             <img
               src={screen_1}
               alt="experts posts"
+              className="op0"
               css={{
                 ...styles.image,
                 ...(startFirstActionAnimation && styles.imageAnimation),
@@ -65,6 +68,7 @@ const ActionsSection: React.FC = (): JSX.Element => {
           <div className="second-action" css={styles.action}>
             <div css={styles.textBlock}>
               <h3
+                className="op0"
                 css={{
                   ...styles.header,
                   ...(startSecondActionAnimation && styles.titleAnimation),
@@ -73,6 +77,7 @@ const ActionsSection: React.FC = (): JSX.Element => {
                 <FormattedMessage id={messages.askAndAnswer.id} />
               </h3>
               <span
+                className="op0"
                 css={{
                   ...styles.text,
                   ...(startSecondActionAnimation && styles.textAnimation),
@@ -84,6 +89,7 @@ const ActionsSection: React.FC = (): JSX.Element => {
             <img
               src={screen_2}
               alt="new post creation"
+              className="op0"
               css={{
                 ...styles.image,
                 ...(startSecondActionAnimation && styles.evenImageAnimation),
@@ -96,6 +102,7 @@ const ActionsSection: React.FC = (): JSX.Element => {
           >
             <div css={styles.textBlock}>
               <h3
+                className="op0"
                 css={{
                   ...styles.header,
                   ...(startThirdActionAnimation && styles.titleAnimation),
@@ -104,6 +111,7 @@ const ActionsSection: React.FC = (): JSX.Element => {
                 <FormattedMessage id={messages.trackRoad.id} />
               </h3>
               <span
+                className="op0"
                 css={{
                   ...styles.text,
                   ...(startThirdActionAnimation && styles.textAnimation),
@@ -115,6 +123,7 @@ const ActionsSection: React.FC = (): JSX.Element => {
             <img
               src={screen_3}
               alt="profile"
+              className="op0"
               css={{
                 ...styles.image,
                 ...(startThirdActionAnimation && styles.imageAnimation),
@@ -124,6 +133,7 @@ const ActionsSection: React.FC = (): JSX.Element => {
           <div className="fourth-action" css={styles.action}>
             <div css={styles.textBlock}>
               <h3
+                className="op0"
                 css={{
                   ...styles.header,
                   ...(startFourthActionAnimation && styles.titleAnimation),
@@ -132,6 +142,7 @@ const ActionsSection: React.FC = (): JSX.Element => {
                 <FormattedMessage id={messages.makeItYours.id} />
               </h3>
               <span
+                className="op0"
                 css={{
                   ...styles.text,
                   ...(startFourthActionAnimation && styles.textAnimation),
@@ -143,6 +154,7 @@ const ActionsSection: React.FC = (): JSX.Element => {
             <img
               src={screen_4}
               alt="nfts"
+              className="op0"
               css={{
                 ...styles.image,
                 ...(startFourthActionAnimation && styles.evenImageAnimation),
