@@ -8,7 +8,7 @@ const RulesBlock: React.FC<{}> = (): JSX.Element => (
   <div
     className="full-width full-height p20 df"
     css={css`
-      background-color: #ffecd8;
+      background-color: var(--color-warning);
       border-radius: 10px;
     `}
   >

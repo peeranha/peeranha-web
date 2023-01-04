@@ -19,7 +19,7 @@ import { getPermissions, hasGlobalModeratorRole } from 'utils/properties';
 
 import {
   required,
-  strLength2x15,
+  strLength2x25,
   strLength3x20,
   strLength20x1000,
   strLength15x250,
@@ -47,6 +47,7 @@ import {
   COMM_NAME_FIELD,
   COMM_SHORT_DESCRIPTION_FIELD,
   COMM_MAIN_DESCRIPTION_FIELD,
+  COMM_PEERANHA_SITE_FIELD,
   COMM_OFFICIAL_SITE_FIELD,
   TAG_NAME_FIELD,
   TAG_DESCRIPTION_FIELD,
@@ -93,9 +94,9 @@ const CreateCommunityForm = ({
     [profile],
   );
 
-  const removeTag = e => {
+  const removeTag = (e) => {
     const { key } = e.currentTarget.dataset;
-    const index = tags.findIndex(x => x === +key);
+    const index = tags.findIndex((x) => x === +key);
 
     // clear tag in redux-form
     change(`tags.${TAG_SECTION}_${key}`, null);
@@ -166,6 +167,18 @@ const CreateCommunityForm = ({
           splitInHalf
         />
 
+        <Field
+          disabled={createCommunityLoading}
+          name={COMM_PEERANHA_SITE_FIELD}
+          component={TextInputField}
+          label={translations[messages.communityWebsite.id]}
+          validate={[strLength100Max]}
+          warn={[strLength100Max]}
+          placeholder="subdomain.peeranha.io"
+          tip={translations[messages.communityWebsiteTip.id]}
+          splitInHalf
+        />
+
         {/*{profileWithModeratorRights && (*/}
         {/*  <TypeForm*/}
         {/*    locale={locale}*/}
@@ -217,12 +230,12 @@ const CreateCommunityForm = ({
                   component={TextInputField}
                   placeholder={translations[messages.tagTitle.id]}
                   validate={[
-                    strLength2x15,
+                    strLength2x25,
                     required,
                     valueHasNotBeInListMoreThanOneTime,
                   ]}
                   warn={[
-                    strLength2x15,
+                    strLength2x25,
                     required,
                     valueHasNotBeInListMoreThanOneTime,
                   ]}
@@ -283,7 +296,7 @@ CreateCommunityForm.propTypes = {
 /* eslint import/no-mutable-exports: 0, consistent-return: 0 */
 const FormCloneRedux = reduxForm({
   form: FORM_NAME,
-  onSubmitFail: err => {
+  onSubmitFail: (err) => {
     const errors = {
       ...err,
       ...err.tags,
@@ -297,14 +310,14 @@ const FormCloneRedux = reduxForm({
 
 export default memo(
   injectIntl(
-    connect(state => {
+    connect((state) => {
       const form = state.toJS().form[FORM_NAME] || { values: {} };
 
       if (form.values && form.values.tags) {
         const { tags } = form.values;
         const tagNames = Object.keys(tags)
-          .filter(x => tags[x])
-          .map(x => tags[x][TAG_NAME_FIELD]);
+          .filter((x) => tags[x])
+          .map((x) => tags[x][TAG_NAME_FIELD]);
         return {
           valueHasNotBeInListValidate: tagNames,
           formValues: form?.values ?? {},

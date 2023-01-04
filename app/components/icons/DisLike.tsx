@@ -1,11 +1,11 @@
 import React from 'react';
 import IconComponent, { IconProps } from './IconComponent';
 
-const Dislike: React.FC<IconProps> = (props): JSX.Element => (
+const DisLike: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
     id="dislike"
-    fill="curentColor"
+    fill="currentColor"
     viewBox="0 0 18 18"
     size={[18, 18]}
   >
@@ -16,4 +16,4 @@ const Dislike: React.FC<IconProps> = (props): JSX.Element => (
   </IconComponent>
 );
 
-export default Dislike;
+export default DisLike;

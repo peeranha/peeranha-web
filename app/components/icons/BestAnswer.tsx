@@ -5,7 +5,7 @@ const BestAnswer: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
     id="best-answer"
-    fill="curentColor"
+    fill="currentColor"
     viewBox="0 0 19 20"
     size={[19, 20]}
   >

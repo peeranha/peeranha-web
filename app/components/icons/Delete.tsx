@@ -5,7 +5,7 @@ const Delete: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
     id="delete"
-    fill="curentColor"
+    fill="currentColor"
     viewBox="0 0 18 18"
     size={[18, 18]}
   >

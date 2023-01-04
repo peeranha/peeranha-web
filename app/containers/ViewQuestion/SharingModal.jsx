@@ -78,7 +78,7 @@ const DropdownModalFooter = styled.footer`
   .copy-btn {
     margin-right: 0;
 
-    color: #576fed;
+    color: var(--color-blue);
 
     cursor: pointer;
   }

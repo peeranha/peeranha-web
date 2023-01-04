@@ -5,7 +5,7 @@ const Ipfs: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
     id="ipfs"
-    fill="curentColor"
+    fill="currentColor"
     viewBox="0 0 169 196"
     size={[169, 196]}
   >

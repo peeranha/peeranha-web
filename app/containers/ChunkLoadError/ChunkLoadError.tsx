@@ -12,7 +12,7 @@ import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 import { SocialDiscord, SocialEmail, SocialTwitter } from 'icons/index';
 
-const ChunkLoadError = (locale: string) => (
+const ChunkLoadError: React.FC<{ locale: string }> = ({ locale }) => (
   <div
     css={css`
       display: flex;

@@ -94,6 +94,9 @@ export default css`
   .aic {
     align-items: center;
   }
+  .ais {
+    align-items: start;
+  }
   .aife {
     align-items: flex-end;
   }
@@ -160,6 +163,9 @@ export default css`
   .pf {
     position: fixed;
   }
+  .ps {
+    position: sticky;
+  }
   .l0 {
     left: 0;
   }
@@ -211,8 +217,14 @@ export default css`
   .capitalize {
     text-transform: capitalize;
   }
+  .light {
+    font-weight: 400;
+  }
   .medium {
     font-weight: 500;
+  }
+  .semi-bold {
+    font-weight: 600;
   }
   .bold {
     font-weight: 700;
@@ -221,7 +233,7 @@ export default css`
     text-decoration: none;
   }
   .icon {
-    color: var(--color-background-icon);
+    color: var(--color-icon-background);
   }
   .text-ellipsis {
     overflow: hidden;

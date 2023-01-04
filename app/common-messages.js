@@ -42,6 +42,9 @@ export default defineMessages({
   documentation: {
     id: 'app.common.documentation',
   },
+  drafts: {
+    id: 'app.common.drafts',
+  },
   answers: {
     id: 'app.common.answers',
   },
@@ -158,6 +161,9 @@ export default defineMessages({
   },
   faq: {
     id: 'app.common.faq',
+  },
+  administration: {
+    id: 'app.common.administration',
   },
   moderationHeader: {
     id: 'app.common.moderationHeader',
@@ -306,6 +312,9 @@ export default defineMessages({
   reputationStatus: {
     id: 'app.common.reputationStatus',
   },
+  reputationBelowZero: {
+    id: 'app.containers.ViewQuestion.reputationBelowZero',
+  },
   en: {
     id: 'app.common.en',
   },
@@ -401,6 +410,9 @@ export default defineMessages({
   },
   reCaptchaMention: {
     id: 'app.common.reCaptchaMention',
+  },
+  results: {
+    id: 'app.common.results',
   },
   noResults: {
     id: 'app.common.noResults',
@@ -632,6 +644,21 @@ export default defineMessages({
   },
   rulesAskQuestionPopupBlock_8: {
     id: 'app.containers.AskQuestion.contentPopupBlock_8',
+  },
+  transactions: {
+    id: 'app.containers.Profile.Settings.transactions',
+  },
+  transactionsText_1: {
+    id: 'app.containers.Profile.Settings.transactionsText_1',
+  },
+  transactionsText_2: {
+    id: 'app.containers.Profile.Settings.transactionsText_2',
+  },
+  transactionsChange_1: {
+    id: 'app.containers.Profile.Settings.transactionsChange_1',
+  },
+  transactionsChange_2: {
+    id: 'app.containers.Profile.Settings.transactionsChange_2',
   },
   weUpdatedTheApplication: {
     id: 'app.containers.ChunkLoadError.weUpdatedTheApplication',

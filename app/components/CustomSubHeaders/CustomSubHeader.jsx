@@ -16,16 +16,16 @@ const Div = styled.div`
   position: relative;
 
   color: ${({ styles }) =>
-    styles.color && styles.color.a ? styles.color.a : `#ffffff`};
+    styles.color && styles.color.a ? styles.color.a : `var(--color-white)`};
 
   ${({ bg }) =>
     bg ? `background-image: url('${bg}');` : ''} background-size: cover;
   background-position: center;
   background-color: ${({ styles }) =>
-    styles.bg.header || `rgb(${'80, 101, 165'})`};
+    styles.bg.header || `var(--color-blue-dark)`};
   border-bottom: ${({ bg }) => (bg ? 0 : 1)}px solid
     ${({ styles, bg }) =>
-      styles.bg.header === `#ffffff` ? `#c2c6d8` : styles.bg.header};
+      styles.bg.header === `var(--color-white)` ? `#c2c6d8` : styles.bg.header};
 
   ${({ styles }) =>
     styles.CustomSubHeader ? styles.CustomSubHeader : ``} > div > div {
@@ -37,17 +37,17 @@ const Div = styled.div`
 
   a {
     color: ${({ styles }) =>
-      styles.color && styles.color.a ? styles.color.a : `#ffffff`};
+      styles.color && styles.color.a ? styles.color.a : `var(--color-white)`};
 
     :visited {
       color: ${({ styles }) =>
-        styles.color && styles.color.a ? styles.color.a : `#ffffff`};
+        styles.color && styles.color.a ? styles.color.a : `var(--color-white)`};
     }
   }
 
   span {
     color: ${({ styles }) =>
-      styles.color && styles.color.a ? styles.color.a : `#ffffff`};
+      styles.color && styles.color.a ? styles.color.a : `var(--color-white)`};
   }
 
   @media only screen and (max-width: 991px) {
@@ -376,18 +376,17 @@ export const Links = ({
   <div>
     {links.map(({ text, href, isHighlighted, subitems, target }) => (
       <React.Fragment key={text}>
-        {href &&
-          !subitems && (
-            <A
-              text={text}
-              href={href}
-              key={href}
-              styles={styles}
-              isHighlighted={isHighlighted}
-              target={target || '_blank'}
-              device={device}
-            />
-          )}
+        {href && !subitems && (
+          <A
+            text={text}
+            href={href}
+            key={href}
+            styles={styles}
+            isHighlighted={isHighlighted}
+            target={target || '_blank'}
+            device={device}
+          />
+        )}
         {subitems && (
           <B
             text={text}

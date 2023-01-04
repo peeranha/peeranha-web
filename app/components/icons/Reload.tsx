@@ -5,7 +5,7 @@ const Reload: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
     id="reload"
-    fill="curentColor"
+    fill="currentColor"
     viewBox="0 0 20 20"
     size={[20, 20]}
   >

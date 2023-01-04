@@ -12,7 +12,7 @@ const Wrapper = styled.span`
   display: inline-block;
   width: ${(props) => (props.width ? props.width : '100%')};
   height: 7px;
-  background-color: rgb(194, 198, 216, 0.4);
+  background-color: var(--color-gray-light);
   border-radius: 7px;
   overflow: hidden;
 `;

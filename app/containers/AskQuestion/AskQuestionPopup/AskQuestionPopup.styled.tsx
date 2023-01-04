@@ -1,6 +1,6 @@
 export const styles = {
   rulesConsent: {
-    background: '#f0f8ff',
+    background: 'var(--color-gray-light)',
     zIndex: 10,
     top: '61px',
     '@media (min-width: 992px)': {

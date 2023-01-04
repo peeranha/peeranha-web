@@ -5,7 +5,7 @@ const Redident: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
     id="redident"
-    fill="curentColor"
+    fill="currentColor"
     viewBox="0 0 21 9"
     size={[21, 9]}
   >

@@ -5,7 +5,7 @@ const Loader: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
     id="loader"
-    fill="curentColor"
+    fill="currentColor"
     viewBox="0 0 24 24"
     size={[24, 24]}
   >
