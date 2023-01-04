@@ -199,7 +199,8 @@ export const FractalVisionsStyles = {
   // }`,
 
   colors: {
-    mainSubHeaderBgColor: '#000000',
+    mainSubHeaderBgColor:
+      'linear-gradient(117.73deg, #FFFFFF -12.53%, #A52565 56.31%, #6D00B3 123.73%);',
     mainBackground: 'rgba(234, 236, 244, 1)',
     linkColor: '#6D00B3',
     linkCookieColor: '#15EBFF',
@@ -215,9 +216,9 @@ export const FractalVisionsStyles = {
     walletButton: '#6D00B3',
     btnColor: '#B800FF',
     btnHoverColor: '#B800FF',
-    btnHeaderColor: '#B800FF',
+    btnHeaderColor: '#FFF',
     btnHeaderHoverOpacity: '0.75',
-    newPostButtonText: 'rgba(255, 255, 255, 1)',
+    newPostButtonText: '#531C67',
     tagColor: '#6D00B3',
     localeArrowColor: '#B800FF',
     textColor: '#6D00B3',
@@ -241,36 +242,36 @@ export const FractalVisionsStyles = {
   headerHeight: 80,
   projectBorderRadius: '5px',
   domainName,
-  fullyTransparent: '#000',
-  communityBorderStyle: '2px solid #B800FF',
+  fullyTransparent: '#FFF',
+  communityBorderStyle: '2px solid #6D00B3',
   dropDownIconStyles: css`
     path {
-      stroke: #b800ff !important;
+      stroke: #6d00b3 !important;
       stroke-width: 1.5px;
-      fill: #000 !important;
+      fill: #fff !important;
     }
     circle {
-      stroke: #b800ff;
+      stroke: #6d00b3;
       stroke-width: 1.5px;
-      fill: #000;
+      fill: #fff;
     }
   `,
   headerLoginButtonStyles: css`
-    border: 1px solid #b800ff;
+    border: 1px solid #531c67;
     color: #fff;
     :hover {
-      background: #b800ff !important;
-      color: #fff !important;
-      border: 1px solid #b800ff !important;
+      background: #fff !important;
+      color: #531c67 !important;
+      border: 1px solid #531c67 !important;
     }
   `,
   newPostPopupButtonStyles: css`
-    border: 1px solid #b800ff;
-    color: #b800ff;
+    border: 1px solid #6d00b3;
+    color: #6d00b3;
     :hover {
-      background: #b800ff !important;
+      background: #6d00b3 !important;
       color: #fff !important;
-      border: 1px solid #b800ff !important;
+      border: 1px solid #6d00b3 !important;
     }
   `,
 };
