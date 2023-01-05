@@ -13,7 +13,7 @@ const HomePage: React.FC<HomepageProps> = ({
   sendMessageLoading,
   sendMessageDispatch,
 }): JSX.Element => (
-  <div css={pageStyles.homePage}>
+  <div className="pr ovh" css={pageStyles.homePage}>
     <Header />
     <GetStartedSection />
     <ActionsSection />

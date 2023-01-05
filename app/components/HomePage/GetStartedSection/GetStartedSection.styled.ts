@@ -279,7 +279,7 @@ export const styles = {
   },
 
   firstCirclePosition: {
-    top: '43vh',
+    top: '412px',
     left: '23vw',
 
     '@media (min-width: 430px)': {
@@ -288,11 +288,12 @@ export const styles = {
 
     '@media (min-width: 530px)': {
       left: '30vw',
+      top: '413px',
     },
 
     '@media (min-width: 574px)': {
       left: '32vw',
-      top: '38vh',
+      top: '364px',
     },
 
     '@media (min-width: 650px)': {
@@ -301,22 +302,22 @@ export const styles = {
 
     '@media (min-width: 768px)': {
       left: '64vw',
-      top: '19vh',
+      top: '184px',
     },
 
     '@media (min-width: 1024px)': {
       left: '65vw',
-      top: '25vh',
+      top: '235px',
     },
 
     '@media (min-width: 1366px)': {
       left: '64vw',
-      top: '36vh',
+      top: '343px',
     },
 
     '@media (min-width: 1920px)': {
       left: '64vw',
-      top: '36vh',
+      top: '350px',
     },
   },
 
@@ -378,6 +379,10 @@ export const styles = {
 
     '@media (min-width: 1600px)': {
       left: '82vw',
+    },
+
+    '@media (min-width: 1800px)': {
+      left: '79vw',
     },
 
     '@media (min-width: 1920px)': {
