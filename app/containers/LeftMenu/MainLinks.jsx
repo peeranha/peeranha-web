@@ -17,7 +17,7 @@ import {
   APP_FONT,
   BORDER_PRIMARY,
   BORDER_DARK,
-  ICON_TRASPARENT_BLUE,
+  ICON_TRANSPARENT_BLUE,
 } from 'style-constants';
 import { styles } from 'containers/LeftMenu/MainLinks.styled';
 
@@ -95,7 +95,7 @@ export const A1 = A.extend`
             stroke: ${customColor};
           }
           .semitransparent {
-            fill: ${colors.transparentIconColor || ICON_TRASPARENT_BLUE};
+            fill: ${colors.transparentIconColor || ICON_TRANSPARENT_BLUE};
           }
           :hover {
             color: ${colors.linkColor || colors.mainLinks};

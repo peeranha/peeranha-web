@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import cn from 'classnames';
 import useTrigger from 'hooks/useTrigger';
-import { PEER_PRIMARY_COLOR } from 'style-constants';
+import { PEER_PRIMARY_COLOR, TEXT_PRIMARY } from 'style-constants';
 import {
   DocumentationSection,
   DocumentationItemMenuType,
@@ -194,24 +194,35 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
                   {
                     label: 'Add a new sub-article',
                     value: 1,
-                    icon: <AddSubArticleIcon />,
+                    icon: (
+                      <AddSubArticleIcon
+                        stroke={colors.linkColor || TEXT_PRIMARY}
+                      />
+                    ),
                   },
                   {
                     label: 'Edit content',
                     value: 2,
-                    icon: <EditIcon />,
+                    icon: (
+                      <EditIcon stroke={colors.linkColor || TEXT_PRIMARY} />
+                    ),
                   },
                   {
                     label: pinned === item.id ? 'Unpin' : 'Pin',
                     value: 3,
                     icon: (
-                      <PinIcon css={{ fill: 'rgba(118, 153, 255, 0.2)' }} />
+                      <PinIcon
+                        stroke={colors.linkColor || TEXT_PRIMARY}
+                        css={{ fill: 'rgba(118, 153, 255, 0.2)' }}
+                      />
                     ),
                   },
                   {
                     label: 'Delete',
                     value: 4,
-                    icon: <DeleteIcon />,
+                    icon: (
+                      <DeleteIcon stroke={colors.linkColor || TEXT_PRIMARY} />
+                    ),
                   },
                 ]}
                 isMultiple={false}

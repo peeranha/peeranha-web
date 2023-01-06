@@ -97,7 +97,7 @@ export const LINK_COLOR_SECONDARY = _get(
   'linkColorSecondary',
   linkColor,
 );
-export const ICON_TRASPARENT_BLUE = iconTransparentBlue;
+export const ICON_TRANSPARENT_BLUE = iconTransparentBlue;
 
 export const BORDER_LIGHT = white;
 export const BORDER_SECONDARY = secondarySpecial;

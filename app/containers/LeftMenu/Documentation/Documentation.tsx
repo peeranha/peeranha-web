@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import cn from 'classnames';
 import { styles } from 'containers/LeftMenu/MainLinks.styled';
 import messages from 'common-messages';
-import { PEER_PRIMARY_COLOR } from 'style-constants';
+import { PEER_PRIMARY_COLOR, TEXT_PRIMARY } from 'style-constants';
 import ItemMenu from './ItemMenu';
 
 import Dropdown from 'common-components/Dropdown';
@@ -45,7 +45,7 @@ const EditDocumentation = [
   {
     label: 'Edit Documentation',
     value: 1,
-    icon: <EditIcon />,
+    icon: <EditIcon stroke={colors.linkColor || TEXT_PRIMARY} />,
   },
 ];
 
@@ -53,12 +53,12 @@ const DropdownDocumentation = [
   {
     label: 'Add new article',
     value: 2,
-    icon: <PlusIcon />,
+    icon: <PlusIcon stroke={colors.linkColor || TEXT_PRIMARY} />,
   },
   {
     label: 'Edit order',
     value: 3,
-    icon: <EditIcon />,
+    icon: <EditIcon stroke={colors.linkColor || TEXT_PRIMARY} />,
   },
 ];
 

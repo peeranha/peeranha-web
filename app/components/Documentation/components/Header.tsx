@@ -4,6 +4,10 @@ import SaveIcon from 'icons/Save';
 import CloseRoundedIcon from 'icons/CloseRounded';
 import Popup from 'common-components/Popup';
 import useTrigger from 'hooks/useTrigger';
+import { ICON_TRANSPARENT_BLUE } from 'style-constants';
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
 
 const Header: React.FC<any> = ({
   toggleEditDocumentation,
@@ -22,7 +26,7 @@ const Header: React.FC<any> = ({
       className="df jcsb aic pl32 pr32 pt12 pb12"
       css={{
         height: 72,
-        background: '#A5BCFF',
+        background: colors.headerPrimary || ICON_TRANSPARENT_BLUE,
         color: 'var(--color-white)',
         fontWeight: 600,
         fontSize: 38,

@@ -39,7 +39,7 @@ import {
 import { POST_TYPE } from 'utils/constants';
 import {
   BORDER_PRIMARY,
-  ICON_TRASPARENT_BLUE,
+  ICON_TRANSPARENT_BLUE,
   TEXT_PRIMARY,
 } from 'style-constants';
 import QuestionFilter from './QuestionFilter';
@@ -72,7 +72,7 @@ const StyledCustomIconButtonContainer = styled.div`
   }
 
   .semitransparent {
-    fill: ${colors.transparentIconColor || ICON_TRASPARENT_BLUE};
+    fill: ${colors.transparentIconColor || ICON_TRANSPARENT_BLUE};
   }
 `;
 
