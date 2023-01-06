@@ -20,22 +20,26 @@ import MoveSection from './MoveSection';
 import Body from './Body';
 
 import { POST_TYPE } from '../../../utils/constants';
-import { EXPERT_BACKLIGHT, TUTORIAL_BACKLIGHT } from 'style-constants';
 import { isGeneralQuestion } from '../../ViewQuestion/saga';
 
 const Box = BaseNoPadding.extend`
-  box-shadow: ${({ isExpert, isTutorial }) =>
-    isExpert
-      ? `3px 3px 5px ${EXPERT_BACKLIGHT}`
-      : isTutorial
-      ? `3px 3px 5px ${TUTORIAL_BACKLIGHT}`
-      : null};
+  box-shadow: 0 2px 4px rgba(7, 16, 64, 0.1);
   display: flex;
   flex-wrap: nowrap;
   margin-bottom: 15px;
   flex-direction: row;
   position: relative;
   transition: none;
+
+  :hover {
+    box-shadow: 0 20px 20px rgba(24, 39, 79, 0.1);
+    outline: ${({ isExpert, isTutorial }) =>
+      isExpert
+        ? `3px solid rgba(165, 188, 255, 1)`
+        : isTutorial
+        ? `3px solid rgba(135, 210, 151, 1)`
+        : `3px solid rgba(242, 163, 159, 1)`};
+  }
 
   @media only screen and (max-width: 576px) {
     flex-direction: column;

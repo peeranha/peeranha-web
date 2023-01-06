@@ -79,8 +79,29 @@ const Post: React.FC<PostProps> = ({
     return routes.questions(communityId);
   };
 
+  const hoverColor = () => {
+    if (postType === POST_TYPE.tutorial) {
+      return 'rgba(135, 210, 151, 1)';
+    }
+    if (postType === POST_TYPE.expertPost) {
+      return 'rgba(165, 188, 255, 1)';
+    }
+    if (postType === POST_TYPE.documentation) {
+      return 'rgba(245, 190, 140, 1)';
+    }
+    return 'rgba(242, 163, 159, 1)';
+  };
+
   return (
-    <div className="df mb8 border-box" css={css(styles.post)}>
+    <div
+      className="df mb8 border-box"
+      css={css`
+        ${styles.post};
+        :hover {
+          outline: 3px solid ${hoverColor()};
+        }
+      `}
+    >
       <div className="m16 full-width" css={css(styles.container)}>
         <div className="df aic">
           <QuestionType postType={postType} locale={locale} className="mr4" />

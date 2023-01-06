@@ -16,7 +16,6 @@ export const styles = {
     borderRadius: '5px',
 
     ':hover': {
-      outline: '3px solid rgb(165, 188, 255)',
       boxShadow: '0px 20px 20px rgba(24, 39, 79, 0.1)',
     },
   },
