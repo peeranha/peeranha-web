@@ -621,6 +621,9 @@ export default defineMessages({
   viewQuestionRulesBlock_4: {
     id: 'app.containers.ViewQuestion.RulesBlock_4',
   },
+  rulesAskQuestionPopupBlock_0: {
+    id: 'app.containers.AskQuestion.contentPopupBlock_0',
+  },
   rulesAskQuestionPopupBlock_1: {
     id: 'app.containers.AskQuestion.contentPopupBlock_1',
   },

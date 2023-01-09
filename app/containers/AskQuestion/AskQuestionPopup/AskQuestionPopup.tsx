@@ -2,13 +2,18 @@ import React, { useRef, useState, RefObject } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { css } from '@emotion/react';
 import useEventListener from 'hooks/useEventListener';
-import LargeOutlinedButton from 'components/Button/Outlined/InfoLarge';
-import { singleCommunityStyles } from '../../../utils/communityManagement';
+import { singleCommunityColors } from 'utils/communityManagement';
 
 import commonMessages from '../../../common-messages';
 import { styles } from './AskQuestionPopup.styled';
+import LargeButton from 'components/Button/Contained/InfoLarge';
 
-const stylesCommunity = singleCommunityStyles();
+const colors = singleCommunityColors();
+
+const Button = LargeButton.extend`
+  min-width: 69px;
+  height: 30px;
+`;
 
 const AskQuestionPopup: React.FC = (): JSX.Element => {
   const [enableAnimation, setEnableAnimation] = useState<boolean>(false);
@@ -41,56 +46,80 @@ const AskQuestionPopup: React.FC = (): JSX.Element => {
             })}
           >
             <div className="container">
-              <div className="df fdc jcsb pt24 pb24 lh1-5">
-                <div className="pb20 tc">
+              <div1111 className="df fdc jcsb pt24 pb24 lh1-5">
+                <div>
+                  <FormattedMessage
+                    id={commonMessages.rulesAskQuestionPopupBlock_0.id}
+                  />
+                </div>
+                <div className="pb24">
                   <FormattedMessage
                     id={commonMessages.rulesAskQuestionPopupBlock_1.id}
                   />
                 </div>
-                <div>
-                  <FormattedMessage
-                    id={commonMessages.rulesAskQuestionPopupBlock_2.id}
-                  />
+
+                <div
+                  css={css`
+                    color: #7b7b7b;
+                  `}
+                >
+                  <div className="pb16">
+                    <FormattedMessage
+                      id={commonMessages.rulesAskQuestionPopupBlock_2.id}
+                    />
+                  </div>
+                  <ul className="pb16 ml4">
+                    <li>
+                      <FormattedMessage
+                        id={commonMessages.rulesAskQuestionPopupBlock_3.id}
+                      />
+                    </li>
+                    <li>
+                      <FormattedMessage
+                        id={commonMessages.rulesAskQuestionPopupBlock_4.id}
+                      />
+                    </li>
+                    <li>
+                      <FormattedMessage
+                        id={commonMessages.rulesAskQuestionPopupBlock_5.id}
+                      />
+                    </li>
+                    <li>
+                      <FormattedMessage
+                        id={commonMessages.rulesAskQuestionPopupBlock_6.id}
+                      />
+                    </li>
+                    <li>
+                      <FormattedMessage
+                        id={commonMessages.rulesAskQuestionPopupBlock_7.id}
+                      />
+                    </li>
+                  </ul>
+
+                  <div>
+                    <FormattedMessage
+                      id={commonMessages.rulesAskQuestionPopupBlock_8.id}
+                    />
+                  </div>
                 </div>
-                <div>
-                  <FormattedMessage
-                    id={commonMessages.rulesAskQuestionPopupBlock_3.id}
-                  />
-                </div>
-                <div>
-                  <FormattedMessage
-                    id={commonMessages.rulesAskQuestionPopupBlock_4.id}
-                  />
-                </div>
-                <div>
-                  <FormattedMessage
-                    id={commonMessages.rulesAskQuestionPopupBlock_5.id}
-                  />
-                </div>
-                <div>
-                  <FormattedMessage
-                    id={commonMessages.rulesAskQuestionPopupBlock_6.id}
-                  />
-                </div>
-                <div>
-                  <FormattedMessage
-                    id={commonMessages.rulesAskQuestionPopupBlock_7.id}
-                  />
-                </div>
-                <div className="p20 tc">
-                  <FormattedMessage
-                    id={commonMessages.rulesAskQuestionPopupBlock_8.id}
-                  />
-                </div>
-                <LargeOutlinedButton
+              </div1111>
+              <div css={css(styles.gotItButton)}>
+                <Button
                   onClick={acceptWithRules}
-                  customStyles={
-                    stylesCommunity.newPostPopupButtonStyles ||
-                    stylesCommunity.headerLoginButtonStyles
-                  }
+                  css={css`
+                    background: ${colors.btnHeaderColor};
+                    color: ${colors.newPostButtonText};
+                    border: 1px solid ${colors.newPostButtonText};
+                    :hover {
+                      background: ${colors.btnHeaderHoverColor};
+                      border: ${colors.btnHeaderHoverBorder};
+                      opacity: ${colors.btnHeaderHoverOpacity};
+                    }
+                  `}
+                  className="mb24"
                 >
                   <FormattedMessage id={commonMessages.gotIt.id} />
-                </LargeOutlinedButton>
+                </Button>
               </div>
             </div>
           </div>
