@@ -30,6 +30,8 @@ export type EditDocumentationProps = {
   removeArticleDispatch: (id: string) => void;
   pinnedItemMenu: PinnedArticleType;
   draftsIds: Array<string>;
+  isEditOrder: boolean;
+  editOrderDispatch: () => void;
 };
 
 export type DocumentationFormProps = {
