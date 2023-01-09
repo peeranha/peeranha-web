@@ -196,9 +196,7 @@ const communitiesConfig = {
   },
   dev: {
     1: {
-      origin: 'http://localhost:3000',
-      src: 'https://images.peeranha.io/communities/polygon/polygon-logo.svg',
-      styles: PolygonStyles,
+      origin: 'http://localhost:31000',
     },
   },
 };
