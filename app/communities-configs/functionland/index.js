@@ -1,9 +1,6 @@
 import React from 'react';
 import { css } from 'styled-components';
 
-import FunctionlandLogo from './images/functionland-logo.svg?inline';
-import favicon from '!file-loader?name=[name].[ext]!./images/favicon-functionland.ico';
-
 const domainName = 'https://fx.land/';
 
 const fontSet = 'Roboto-Regular, Arial, sans-serif';
@@ -190,8 +187,10 @@ export const FunctionlandStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: FunctionlandLogo,
-  favicon,
+  signUpPageLogo:
+    'https://images.peeranha.io/communities/functionland/functionland-logo.svg',
+  favicon:
+    'https://images.peeranha.io/communities/functionland/favicon-functionland.ico',
   colors: {
     mainBackground: '#F3F3F3',
     linkColor: 'rgb(9, 147, 147)',

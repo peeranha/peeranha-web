@@ -1,9 +1,6 @@
 import React from 'react';
 import { css } from 'styled-components';
 
-import IndexerDAOLogo from './images/indDao1.svg?inline';
-import favicon from '!file-loader?name=[name].[ext]!./images/dao.ico';
-
 const domainName = 'https://barracuda.io/indexerdao';
 
 const fontSet = 'Roboto-Regular, Arial, sans-serif';
@@ -178,26 +175,9 @@ export const IndexerDAOStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: IndexerDAOLogo,
-  favicon,
-  // Hided community fonts
-  // fonts: {
-  //   h3LetterSpacing: '3px',
-  //   tagsLetterSpacing: '3px',
-  //   questionTitleLetterSpacing: '2px',
-  //   h3: 'Roboto-Regular, Arial, sans',
-  //   main: 'Roboto-Regular, Arial, sans',
-  //   questionItemTitle: 'Roboto-Regular, Arial, sans',
-  //   questionTitleFont: 'Roboto-Regular, Arial, sans',
-  // },
-  // fontFace: `@font-face {
-  //   font-family: 'Roboto-Regular';
-  //   src:
-  //     url(${RobotoRegularEOT}?#iefix) format('embedded-opentype'),
-  //     url(${RobotoRegularWOFF}) format('woff'),
-  //     url(${RobotoRegularTTF}) format('truetype');
-  //   font-style: normal;
-  // }`,
+  signUpPageLogo:
+    'https://images.peeranha.io/communities/indexerDAO/indDao1.svg',
+  favicon: 'https://images.peeranha.io/communities/indexerDAO/dao.ico',
 
   colors: {
     mainSubHeaderBgColor: '#2C001E',

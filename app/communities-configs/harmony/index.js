@@ -1,8 +1,6 @@
 import React from 'react';
 import { css } from 'styled-components';
 
-import HarmonyLogo from './images/harmony-logo.svg?inline';
-import favicon from '!file-loader?name=[name].[ext]!./images/favicon-harmony.ico';
 const domainName = 'https://www.koii.network/';
 
 const fontSet = 'Roboto-Regular, Arial, sans-serif';
@@ -189,8 +187,9 @@ export const HarmonyStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: HarmonyLogo,
-  favicon,
+  signUpPageLogo:
+    'https://images.peeranha.io/communities/harmony/harmony-logo1.svg',
+  favicon: 'https://images.peeranha.io/communities/harmony/favicon-harmony.ico',
   colors: {
     mainSubHeaderBgColor: 'rgba(2, 10, 45, .9)',
     mainBackground: 'rgba(0, 85, 249, 0.08)',

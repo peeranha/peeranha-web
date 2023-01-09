@@ -1,8 +1,6 @@
 import React from 'react';
 import { css } from 'styled-components';
 
-import Mark3dLogo from './images/Mark3dLogo.svg?inline';
-import favicon from '!file-loader?name=[name].[ext]!./images/Mark3d.ico';
 const domainName = '';
 
 const fontSet = 'Roboto-Regular, Arial, sans-serif';
@@ -177,8 +175,9 @@ export const Mark3dStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: Mark3dLogo,
-  favicon,
+  signUpPageLogo:
+    'https://images.peeranha.io/communities/mark3d/Mark3dLogo.svg',
+  favicon: 'https://images.peeranha.io/communities/mark3d/Mark3d.ico',
   // Hided community fonts
   // fonts: {
   //   h3LetterSpacing: '3px',

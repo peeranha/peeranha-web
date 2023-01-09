@@ -1,12 +1,6 @@
 import React from 'react';
 import { css } from 'styled-components';
 
-import PolywrapLogo from './images/polywrap-horizontal.svg?inline';
-import favicon from '!file-loader?name=[name].[ext]!./images/logopoly.ico';
-import RobotoRegularEOT from './fonts/Roboto-Regular.eot';
-import RobotoRegularWOFF from './fonts/Roboto-Regular.woff';
-import RobotoRegularTTF from './fonts/Roboto-Regular.ttf';
-
 const domainName = 'https://polywrap.io/';
 
 const fontSet = 'Roboto-Regular, Arial, sans-serif';
@@ -181,8 +175,9 @@ export const PolywrapStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: PolywrapLogo,
-  favicon,
+  signUpPageLogo:
+    'https://images.peeranha.io/communities/polywrap/polywrap-horizontal.svg',
+  favicon: 'https://images.peeranha.io/communities/polywrap/logopoly.ico',
   // Hided community fonts
   // fonts: {
   //   h3LetterSpacing: '3px',

@@ -1,12 +1,6 @@
 import React from 'react';
 import { css } from 'styled-components';
 
-import ValistLogo from './images/valist.svg?inline';
-import favicon from '!file-loader?name=[name].[ext]!./images/logo-vit.ico';
-import RobotoRegularEOT from './fonts/Roboto-Regular.eot';
-import RobotoRegularWOFF from './fonts/Roboto-Regular.woff';
-import RobotoRegularTTF from './fonts/Roboto-Regular.ttf';
-
 const domainName = 'https://valist.io/';
 
 const fontSet = 'Roboto-Regular, Arial, sans-serif';
@@ -181,8 +175,8 @@ export const ValistStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: ValistLogo,
-  favicon,
+  signUpPageLogo: 'https://images.peeranha.io/communities/valist/valist.svg',
+  favicon: 'https://images.peeranha.io/communities/valist/logo-vit.ico',
   // Hided community fonts
   // fonts: {
   //   h3LetterSpacing: '3px',

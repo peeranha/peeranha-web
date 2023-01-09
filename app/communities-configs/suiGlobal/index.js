@@ -1,9 +1,6 @@
 import React from 'react';
 import { css } from 'styled-components';
 
-import SuiGlobalLogo from './images/suiGlobal.svg?inline';
-import favicon from '!file-loader?name=[name].[ext]!./images/favicon-suiGlobal.ico';
-
 const domainName = 'https://suiglobal.crew3.xyz/questboard';
 
 const fontSet = 'Roboto-Regular, Arial, sans-serif';
@@ -178,26 +175,10 @@ export const SuiGlobalStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: SuiGlobalLogo,
-  favicon,
-  // Hided community fonts
-  // fonts: {
-  //   h3LetterSpacing: '3px',
-  //   tagsLetterSpacing: '3px',
-  //   questionTitleLetterSpacing: '2px',
-  //   h3: 'Roboto-Regular, Arial, sans',
-  //   main: 'Roboto-Regular, Arial, sans',
-  //   questionItemTitle: 'Roboto-Regular, Arial, sans',
-  //   questionTitleFont: 'Roboto-Regular, Arial, sans',
-  // },
-  // fontFace: `@font-face {
-  //   font-family: 'Roboto-Regular';
-  //   src:
-  //     url(${RobotoRegularEOT}?#iefix) format('embedded-opentype'),
-  //     url(${RobotoRegularWOFF}) format('woff'),
-  //     url(${RobotoRegularTTF}) format('truetype');
-  //   font-style: normal;
-  // }`,
+  signUpPageLogo:
+    'https://images.peeranha.io/communities/suiGlobal/suiGlobal.svg',
+  favicon:
+    'https://images.peeranha.io/communities/suiGlobal/favicon-suiGlobal.ico',
 
   colors: {
     mainSubHeaderBgColor: 'rgb(255,255,255)',

@@ -1,14 +1,6 @@
 import React from 'react';
 import { css } from 'styled-components';
 
-import AnkrLogo from './images/ankrBlueLogo.svg?inline';
-import AnkrSymbol from './images/ankrBlueSymbol.png';
-import favicon from '!file-loader?name=[name].[ext]!communities-configs/ankr/images/favicon-ankr.ico';
-
-import RobotoRegularEOT from './fonts/Roboto-Regular.eot';
-import RobotoRegularWOFF from './fonts/Roboto-Regular.woff';
-import RobotoRegularTTF from './fonts/Roboto-Regular.ttf';
-
 const domainName = 'https://valist.io/';
 
 const fontSet = 'Roboto-Regular, Arial, sans-serif';
@@ -183,26 +175,9 @@ export const AnkrStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: AnkrLogo,
-  favicon,
-  // Hided community fonts
-  // fonts: {
-  //   h3LetterSpacing: '3px',
-  //   tagsLetterSpacing: '3px',
-  //   questionTitleLetterSpacing: '2px',
-  //   h3: 'Roboto-Regular, Arial, sans',
-  //   main: 'Roboto-Regular, Arial, sans',
-  //   questionItemTitle: 'Roboto-Regular, Arial, sans',
-  //   questionTitleFont: 'Roboto-Regular, Arial, sans',
-  // },
-  // fontFace: `@font-face {
-  //   font-family: 'Roboto-Regular';
-  //   src:
-  //     url(${RobotoRegularEOT}?#iefix) format('embedded-opentype'),
-  //     url(${RobotoRegularWOFF}) format('woff'),
-  //     url(${RobotoRegularTTF}) format('truetype');
-  //   font-style: normal;
-  // }`,
+  signUpPageLogo:
+    'https://images.peeranha.io/communities/ankr/ankrBlueLogo.svg',
+  favicon: 'https://images.peeranha.io/communities/ankr/favicon-ankr.ico',
 
   colors: {
     mainSubHeaderBgColor: '#FFFFFF',

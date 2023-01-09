@@ -1,12 +1,6 @@
 import React from 'react';
 import { css } from 'styled-components';
 
-import VyperLogo from './images/vyperLogoFlat.svg?inline';
-
-import CabinRegularTTF from './fonts/Cabin-Regular.ttf';
-
-import favicon from '!file-loader?name=[name].[ext]!./images/vyper-favicon.ico';
-
 const domainName = 'https://valist.io/';
 
 const fontSet = 'Roboto-Regular, Arial, sans-serif';
@@ -181,26 +175,9 @@ export const VyperStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: VyperLogo,
-  favicon,
-  // Hided community fonts
-  // fonts: {
-  //   h3LetterSpacing: '3px',
-  //   tagsLetterSpacing: '3px',
-  //   questionTitleLetterSpacing: '2px',
-  //   h3: 'Roboto-Regular, Arial, sans',
-  //   main: 'Roboto-Regular, Arial, sans',
-  //   questionItemTitle: 'Roboto-Regular, Arial, sans',
-  //   questionTitleFont: 'Roboto-Regular, Arial, sans',
-  // },
-  // fontFace: `@font-face {
-  //   font-family: 'Roboto-Regular';
-  //   src:
-  //     url(${RobotoRegularEOT}?#iefix) format('embedded-opentype'),
-  //     url(${RobotoRegularWOFF}) format('woff'),
-  //     url(${RobotoRegularTTF}) format('truetype');
-  //   font-style: normal;
-  // }`,
+  signUpPageLogo:
+    'https://images.peeranha.io/communities/vyper/vyperLogoFlat.svg',
+  favicon: 'https://images.peeranha.io/communities/vyper/vyper-favicon.ico',
 
   colors: {
     mainSubHeaderBgColor: '#FAFAFD',

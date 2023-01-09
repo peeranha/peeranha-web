@@ -1,9 +1,6 @@
 import React from 'react';
 import { css } from 'styled-components';
 
-import SolidityLogo from './images/solidity-logo.svg?inline';
-import favicon from './images/favicon-solidity.svg?inline';
-
 const domainName = 'https://solidity.peeranha.io/';
 
 const fontSet = 'Roboto-Regular, Arial, sans-serif';
@@ -178,26 +175,10 @@ export const SolidityStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: SolidityLogo,
-  favicon,
-  // Hided community fonts
-  // fonts: {
-  //   h3LetterSpacing: '3px',
-  //   tagsLetterSpacing: '3px',
-  //   questionTitleLetterSpacing: '2px',
-  //   h3: 'Roboto-Regular, Arial, sans',
-  //   main: 'Roboto-Regular, Arial, sans',
-  //   questionItemTitle: 'Roboto-Regular, Arial, sans',
-  //   questionTitleFont: 'Roboto-Regular, Arial, sans',
-  // },
-  // fontFace: `@font-face {
-  //   font-family: 'Roboto-Regular';
-  //   src:
-  //     url(${RobotoRegularEOT}?#iefix) format('embedded-opentype'),
-  //     url(${RobotoRegularWOFF}) format('woff'),
-  //     url(${RobotoRegularTTF}) format('truetype');
-  //   font-style: normal;
-  // }`,
+  signUpPageLogo:
+    'https://images.peeranha.io/communities/solidity/solidity-logo.svg',
+  favicon:
+    'https://images.peeranha.io/communities/solidity/favicon-solidity.svg',
 
   colors: {
     mainSubHeaderBgColor: '#FAFAFA',
