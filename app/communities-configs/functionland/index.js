@@ -3,7 +3,7 @@ import { css } from 'styled-components';
 
 const domainName = 'https://fx.land/';
 
-const fontSet = 'Roboto-Regular, Arial, sans-serif';
+const fonts = 'Roboto, sans-serif';
 
 export const customSubHeaderConfig = {
   design: 'functionland_style',
@@ -16,7 +16,7 @@ export const customSubHeaderConfig = {
       a: '#999999',
     },
     font: {
-      body: fontSet,
+      body: fonts,
     },
     header: {
       background: '#FFFFFF',
@@ -209,6 +209,14 @@ export const FunctionlandStyles = {
     textColor: 'rgb(9, 147, 147)',
     textColorShadow: 'rgba(9, 147, 147, 0.4)',
     localeArrowColor: 'rgb(9, 147, 147)',
+  },
+  fonts: {
+    h3: `${fonts}`,
+    main: `${fonts}`,
+    questionItemTitle: `${fonts}`,
+    questionTitleFont: `${fonts}`,
+    mainLinksSelected: `${fonts}`,
+    mainLinksNotSelected: `${fonts}`,
   },
   headerHeight: 80,
   domainName,

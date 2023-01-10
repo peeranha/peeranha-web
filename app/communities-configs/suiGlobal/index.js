@@ -3,7 +3,7 @@ import { css } from 'styled-components';
 
 const domainName = 'https://suiglobal.crew3.xyz/questboard';
 
-const fontSet = 'Roboto-Regular, Arial, sans-serif';
+const fonts = 'Roboto, sans-serif';
 
 export const customSubHeaderConfig = {
   design: 'suiGlobal_style',
@@ -16,7 +16,7 @@ export const customSubHeaderConfig = {
       a: '#999999',
     },
     font: {
-      body: fontSet,
+      body: fonts,
     },
     header: {
       background: '#FFFFFF',
@@ -205,6 +205,14 @@ export const SuiGlobalStyles = {
     textColorShadow: 'rgb(79,183,255)',
     commHeadElemColor: '#282828',
     darkBlue: '#1a1c20',
+  },
+  fonts: {
+    h3: `${fonts}`,
+    main: `${fonts}`,
+    questionItemTitle: `${fonts}`,
+    questionTitleFont: `${fonts}`,
+    mainLinksSelected: `${fonts}`,
+    mainLinksNotSelected: `${fonts}`,
   },
   cookieConsentPopupStyles: {
     background:

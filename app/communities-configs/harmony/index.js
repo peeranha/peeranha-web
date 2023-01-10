@@ -3,7 +3,7 @@ import { css } from 'styled-components';
 
 const domainName = 'https://www.koii.network/';
 
-const fontSet = 'Roboto-Regular, Arial, sans-serif';
+const fonts = 'Roboto, sans-serif';
 
 export const customSubHeaderConfig = {
   design: 'harmony_style',
@@ -16,7 +16,7 @@ export const customSubHeaderConfig = {
       a: '#999999',
     },
     font: {
-      body: `${fontSet}`,
+      body: `${fonts}`,
     },
     header: {
       background: '#FFFFFF',
@@ -209,6 +209,14 @@ export const HarmonyStyles = {
     walletButton: 'rgb(36,95,226)',
     btnColor: 'rgb(36,95,226)',
     tagColor: 'rgb(36,95,226)',
+  },
+  fonts: {
+    h3: `${fonts}`,
+    main: `${fonts}`,
+    questionItemTitle: `${fonts}`,
+    questionTitleFont: `${fonts}`,
+    mainLinksSelected: `${fonts}`,
+    mainLinksNotSelected: `${fonts}`,
   },
 
   cookieConsentPopupStyles: {

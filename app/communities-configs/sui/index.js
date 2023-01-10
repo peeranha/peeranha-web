@@ -3,7 +3,7 @@ import { css } from 'styled-components';
 
 const domainName = 'https://sui.io/';
 
-const fontSet = 'Roboto-Regular, Arial, sans-serif';
+const fonts = 'Roboto, sans-serif';
 
 export const customSubHeaderConfig = {
   design: 'sui_style',
@@ -16,7 +16,7 @@ export const customSubHeaderConfig = {
       a: '#999999',
     },
     font: {
-      body: fontSet,
+      body: fonts,
     },
     header: {
       background: '#FFFFFF',
@@ -204,6 +204,14 @@ export const SuiStyles = {
     walletButton: 'rgb(111, 188, 240)',
     btnColor: 'rgb(111, 188, 240)',
     tagColor: 'rgb(111, 188, 240)',
+  },
+  fonts: {
+    h3: `${fonts}`,
+    main: `${fonts}`,
+    questionItemTitle: `${fonts}`,
+    questionTitleFont: `${fonts}`,
+    mainLinksSelected: `${fonts}`,
+    mainLinksNotSelected: `${fonts}`,
   },
 
   cookieConsentPopupStyles: {

@@ -3,7 +3,7 @@ import { css } from 'styled-components';
 
 const domainName = 'https://barracuda.io/indexerdao';
 
-const fontSet = 'Roboto-Regular, Arial, sans-serif';
+const fonts = 'Roboto, sans-serif';
 
 export const customSubHeaderConfig = {
   design: 'suiGlobal_style',
@@ -16,7 +16,7 @@ export const customSubHeaderConfig = {
       a: '#999999',
     },
     font: {
-      body: fontSet,
+      body: fonts,
     },
     header: {
       background: '#FFFFFF',
@@ -205,6 +205,14 @@ export const IndexerDAOStyles = {
     textColorShadow: '#2c001e',
     commHeadElemColor: '#5362E8',
     darkBlue: '#1a1c20',
+  },
+  fonts: {
+    h3: `${fonts}`,
+    main: `${fonts}`,
+    questionItemTitle: `${fonts}`,
+    questionTitleFont: `${fonts}`,
+    mainLinksSelected: `${fonts}`,
+    mainLinksNotSelected: `${fonts}`,
   },
   cookieConsentPopupStyles: {
     background: 'linear-gradient(90deg, #2C001E, #6c3d60)',

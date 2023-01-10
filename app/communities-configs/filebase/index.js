@@ -3,7 +3,7 @@ import { css } from 'styled-components';
 
 const domainName = 'https://filebase.com/';
 
-const fontSet = 'Roboto-Regular, Arial, sans-serif';
+const fonts = 'Roboto, sans-serif';
 
 export const customSubHeaderConfig = {
   design: 'mintstatelabs_style',
@@ -16,7 +16,7 @@ export const customSubHeaderConfig = {
       a: '#999999',
     },
     font: {
-      body: fontSet,
+      body: fonts,
     },
     header: {
       background: '#FFFFFF',
@@ -178,6 +178,14 @@ export const FilebaseStyles = {
   signUpPageLogo:
     'https://images.peeranha.io/communities/filebase/filebaselogo.svg',
   favicon: 'https://images.peeranha.io/communities/filebase/filebase-p.ico',
+  fonts: {
+    h3: `${fonts}`,
+    main: `${fonts}`,
+    questionItemTitle: `${fonts}`,
+    questionTitleFont: `${fonts}`,
+    mainLinksSelected: `${fonts}`,
+    mainLinksNotSelected: `${fonts}`,
+  },
 
   colors: {
     mainSubHeaderBgColor: '#FFFFF',

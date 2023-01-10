@@ -3,7 +3,7 @@ import { css } from 'styled-components';
 
 const domainName = 'https://filecoin.io/';
 
-const fontSet = 'Roboto-Regular, Arial, sans-serif';
+const fonts = 'Roboto, sans-serif';
 
 export const customSubHeaderConfig = {
   design: 'filecoin_style',
@@ -16,7 +16,7 @@ export const customSubHeaderConfig = {
       a: '#999999',
     },
     font: {
-      body: fontSet,
+      body: fonts,
     },
     header: {
       background: '#FFFFFF',
@@ -207,6 +207,14 @@ export const FilecoinStyles = {
     walletButton: '#0090FF',
     btnColor: '#000000',
     tagColor: '#0090FF',
+  },
+  fonts: {
+    h3: `${fonts}`,
+    main: `${fonts}`,
+    questionItemTitle: `${fonts}`,
+    questionTitleFont: `${fonts}`,
+    mainLinksSelected: `${fonts}`,
+    mainLinksNotSelected: `${fonts}`,
   },
   headerHeight: 80,
   domainName,
