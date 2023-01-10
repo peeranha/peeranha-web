@@ -14,6 +14,7 @@ import {
   setViewArticle,
   pinnedArticleMenuDraft,
   removeArticle,
+  editOrder,
   saveDraftsIds,
 } from 'pages/Documentation/actions';
 import reducer from 'pages/Documentation/reducer';
@@ -25,6 +26,7 @@ import {
   selectDocumentationLoading,
   selectEditArticle,
   selectViewArticle,
+  selectEditOrder,
   selectDraftsIds,
 } from 'pages/Documentation/selectors';
 import {
@@ -39,6 +41,7 @@ import DocumentationForm from './components/DocumentationForm';
 import ViewContent from './components/ViewContent';
 import LoaderDocumentation from './components/Loader';
 import Empty from './components/Empty';
+import EditOrder from './components/EditOrder/EditOrder';
 import {
   getSavedDrafts,
   saveDraft,
@@ -48,7 +51,6 @@ import {
 } from './helpers';
 import { EditDocumentationProps } from './types';
 import { styled } from './EditDocumentation.styled';
-import { styles } from 'components/Documentation/components/Drafts/Drafts.styled';
 
 const EditDocumentation: React.FC<EditDocumentationProps> = ({
   documentationMenu,
@@ -67,6 +69,8 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
   pinnedArticleMenuDraftDispatch,
   removeArticleDispatch,
   pinnedItemMenu,
+  isEditOrder,
+  editOrderDispatch,
   draftsIds,
 }): JSX.Element => {
   const refOverlay = useRef<HTMLDivElement>(null);
@@ -174,6 +178,13 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
           discardDrafts={discardDrafts}
         />
         <section className="dg" css={styled.main}>
+          {isEditOrder && (
+            <EditOrder
+              documentationMenuDraft={documentationMenuDraft}
+              editOrder={editOrderDispatch}
+              saveMenuDraft={saveMenuDraftDispatch}
+            />
+          )}
           <div
             css={{
               ...styled.leftSection,
@@ -192,6 +203,7 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
               pinnedArticleMenuDraft={pinnedArticleMenuDraftDispatch}
               removeArticle={removeArticleDispatch}
               pinnedItemMenuId={pinnedItemMenu.id}
+              editOrder={editOrderDispatch}
               setPinned={setPinned}
               pinned={pinned}
             />
@@ -265,6 +277,7 @@ export default compose(
       editArticle: selectEditArticle(),
       viewArticleId: selectViewArticle(),
       pinnedItemMenu: selectPinnedItemMenu(),
+      isEditOrder: selectEditOrder(),
       draftsIds: selectDraftsIds(),
     }),
     (dispatch: Dispatch<AnyAction>) => ({
@@ -285,6 +298,7 @@ export default compose(
         dispatch,
       ),
       removeArticleDispatch: bindActionCreators(removeArticle, dispatch),
+      editOrderDispatch: bindActionCreators(editOrder, dispatch),
     }),
   ),
 )(EditDocumentation);

@@ -7,4 +7,10 @@ export default defineMessages({
   description: {
     id: 'app.containers.Search.description',
   },
+  noSearchResults: {
+    id: 'app.containers.Search.noSearchResults',
+  },
+  askQuestion: {
+    id: 'app.common.askQuestion',
+  },
 });
