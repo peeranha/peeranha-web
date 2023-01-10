@@ -18,7 +18,6 @@ import AaveLogo from 'communities-configs/aave/images/AaveLogo.svg?inline';
 import ForceLogo from './communities-configs/force/images/Group.svg?inline';
 import Mark3dLogo from './communities-configs/mark3d/images/Mark3dLogo.svg?inline';
 import OrbisLogo from './communities-configs/orbis/images/GroupLogo.svg?inline';
-import MoveLogo from './communities-configs/move/images/MoveLogo.svg?inline';
 
 import { PolygonStyles } from './communities-configs/polygon';
 import { FilecoinStyles } from './communities-configs/filecoin';
@@ -213,7 +212,7 @@ const communitiesConfig = {
     },
     10: {
       origin: `https://move${process.env.COOKIE_DOMAIN}`,
-      src: MoveLogo,
+      src: 'https://images.peeranha.io/communities/move/move-logo.svg',
       styles: MoveStyles,
     },
     11: {
@@ -283,7 +282,7 @@ const communitiesConfig = {
   },
   dev: {
     1: {
-      origin: 'http://localhost:3000',
+      origin: 'http://localhost:31000',
     },
   },
 };

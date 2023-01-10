@@ -1,8 +1,6 @@
 import React from 'react';
 import { css } from 'styled-components';
 
-import MoveLogo from './images/MoveLogo.svg?inline';
-import favicon from '!file-loader?name=[name].[ext]!./images/Move.ico';
 const domainName = '';
 
 const fontSet = 'Roboto-Regular, Arial, sans-serif';
@@ -177,90 +175,73 @@ export const MoveStyles = {
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: MoveLogo,
-  favicon,
-  // Hided community fonts
-  // fonts: {
-  //   h3LetterSpacing: '3px',
-  //   tagsLetterSpacing: '3px',
-  //   questionTitleLetterSpacing: '2px',
-  //   h3: 'Roboto-Regular, Arial, sans',
-  //   main: 'Roboto-Regular, Arial, sans',
-  //   questionItemTitle: 'Roboto-Regular, Arial, sans',
-  //   questionTitleFont: 'Roboto-Regular, Arial, sans',
-  // },
-  // fontFace: `@font-face {
-  //   font-family: 'Roboto-Regular';
-  //   src:
-  //     url(${RobotoRegularEOT}?#iefix) format('embedded-opentype'),
-  //     url(${RobotoRegularWOFF}) format('woff'),
-  //     url(${RobotoRegularTTF}) format('truetype');
-  //   font-style: normal;
-  // }`,
+  signUpPageLogo:
+    'https://images.peeranha.io/communities/move/move-logo-login.svg',
+  favicon: 'https://images.peeranha.io/communities/move/Move.ico',
 
   colors: {
     mainSubHeaderBgColor:
-      'linear-gradient(289.84deg, #F0DC95 19.65%, #8374F7 89.77%)',
+      'linear-gradient(103.54deg, #0A2342 -5.34%, #28405E 64.77%, #21B6F0 99.31%)',
     mainBackground: 'rgba(234, 236, 244, 1)',
-    linkColor: 'rgba(91, 82, 152, 1)',
-    linkCookieColor: 'rgba(252, 226, 132, 1)',
-    linkColorTransparent: 'rgba(91, 82, 152, 1)',
-    headerPrimary: 'rgba(91, 82, 152, 1)',
-    commentOption: 'rgba(91, 82, 152, 1)',
-    contentHeader: 'rgba(91, 82, 152, 1)',
-    blockedInfoArea: 'rgb(91, 82, 152, 0.1)',
+    linkColor: 'rgba(56, 78, 159, 1)',
+    linkCookieColor: 'rgba(34, 174, 230, 1)',
+    linkColorTransparent: 'rgba(56, 78, 159, 1)',
+    headerPrimary: 'rgba(56, 78, 159, 1)',
+    commentOption: 'rgba(56, 78, 159, 1)',
+    contentHeader: 'rgba(56, 78, 159, 1)',
+    blockedInfoArea: 'rgb(16, 40, 71, 0.1)',
     transparentIconColor: '#FFF',
-    loaderColor: 'rgba(91, 82, 152, 1)',
-    votingIconColor: 'rgba(91, 82, 152, 1)',
-    linkColorSecondary: 'rgba(91, 82, 152, 1)',
-    walletButton: 'rgba(91, 82, 152, 1)',
-    btnColor: 'rgba(91, 82, 152, 1)',
-    btnHoverColor: 'rgba(91, 82, 152, 1)',
-    btnHeaderColor: 'rgba(91, 82, 152, 1)',
+    loaderColor: 'rgba(56, 78, 159, 1)',
+    votingIconColor: 'rgba(56, 78, 159, 1)',
+    linkColorSecondary: 'rgba(56, 78, 159, 1)',
+    walletButton: 'rgba(56, 78, 159, 1)',
+    btnColor: 'rgba(56, 78, 159, 1)',
+    btnHoverColor: 'rgba(56, 78, 159, 1)',
+    btnHeaderColor: 'rgba(16, 40, 71, 1)',
     btnHeaderHoverOpacity: '0.75',
     newPostButtonText: 'rgba(255, 255, 255, 1)',
-    tagColor: 'rgba(91, 82, 152, 1)',
-    localeArrowColor: 'rgba(91, 82, 152, 1)',
-    textColor: 'rgba(91, 82, 152, 1)',
-    textColorShadow: 'rgba(91, 82, 152, 1)',
+    tagColor: 'rgba(56, 78, 159, 1)',
+    localeArrowColor: 'rgba(56, 78, 159, 1)',
+    textColor: 'rgba(56, 78, 159, 1)',
+    textColorShadow: 'rgba(56, 78, 159, 1)',
     commHeadElemColor: 'rgba(19, 19, 45, 1)',
   },
   cookieConsentPopupStyles: {
-    background: 'rgba(91, 82, 152, 1)',
+    background: 'linear-gradient(141.73deg, #384E9F -0.42%, #192D45 269.58%)',
     color: 'rgba(234, 236, 244, 1)',
     button: {
-      color: 'rgba(0, 0, 0, 1)',
-      background: 'rgba(252, 226, 132, 1)',
+      color: 'rgba(10, 35, 66, 1)',
+      background: 'rgba(255, 255, 255, 1)',
       ':hover': {
         opacity: '0.75',
-        color: 'rgba(0, 0, 0, 1)',
-        background: 'rgba(252, 226, 132, 1)',
+        color: 'rgba(10, 35, 66, 1)',
+        background: 'rgba(255, 255, 255, 1)',
       },
     },
   },
   headerHeight: 80,
   projectBorderRadius: '3px',
   domainName,
-  communityBorderStyle: '1px solid rgba(91, 82, 152, 1)',
+  communityBorderStyle: '1px solid rgba(16, 40, 71, 1)',
   dropDownIconStyles: css`
     path {
-      stroke: rgba(91, 82, 152, 1) !important;
+      stroke: rgba(16, 40, 71, 1) !important;
       stroke-width: 1.5px;
       fill: none !important;
     }
     circle {
-      stroke: rgba(91, 82, 152, 1);
+      stroke: rgba(16, 40, 71, 1);
       stroke-width: 1.5px;
       fill: none;
     }
   `,
   headerLoginButtonStyles: css`
-    border: 2px solid rgba(91, 82, 152, 1);
-    color: rgba(91, 82, 152, 1);
+    border: 2px solid rgba(16, 40, 71, 1);
+    color: rgba(255, 255, 255, 1);
     :hover {
-      background: rgba(91, 82, 152, 1);
+      background: rgba(16, 40, 71, 1) !important;
       color: rgba(255, 255, 255, 1);
-      border: 2px solid rgba(91, 82, 152, 1);
+      border: 2px solid rgba(16, 40, 71, 1) !important;
     }
   `,
 };
