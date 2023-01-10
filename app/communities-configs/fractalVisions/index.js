@@ -248,12 +248,12 @@ export const FractalVisionsStyles = {
     path {
       stroke: #6d00b3 !important;
       stroke-width: 1.5px;
-      fill: #fff !important;
+      fill: none !important;
     }
     circle {
       stroke: #6d00b3;
       stroke-width: 1.5px;
-      fill: #fff;
+      fill: none !important;
     }
   `,
   headerLoginButtonStyles: css`
