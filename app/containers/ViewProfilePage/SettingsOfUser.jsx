@@ -17,7 +17,6 @@ import Tip from './Tip/Tip';
 export const BaseStyled = Base.extend`
   > :nth-child(2) {
     margin: 30px 0;
-    padding: 0 30px;
   }
 
   table {
@@ -118,8 +117,10 @@ const SettingsOfUser = ({
   account,
   profile,
   tgData,
+  email,
+  isSubscribedEmail,
 }) => {
-  const writeToBuffer = event => {
+  const writeToBuffer = (event) => {
     clipboard.writeText(event.currentTarget.dataset.key);
     showPopover(
       event.currentTarget.id,
@@ -138,6 +139,8 @@ const SettingsOfUser = ({
         writeToBuffer={writeToBuffer}
         tgData={tgData}
         profile={profile}
+        email={email}
+        isSubscribedEmail={isSubscribedEmail}
       />
     </div>
   ) : (

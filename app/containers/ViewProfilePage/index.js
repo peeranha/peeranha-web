@@ -44,6 +44,10 @@ import { selectActiveKey } from 'containers/ShowActiveKey/selectors';
 import { selectOwnerKey } from 'containers/ShowOwnerKey/selectors';
 import { getUserName } from 'utils/user';
 import { selectGetUserTgData } from '../TelegramAccountAction/selectors';
+import {
+  selectEmail,
+  selectIsSubscribed,
+} from 'containers/ChangeEmail/selectors';
 
 import saga from '../QuestionsWithAnswersOfUser/saga';
 
@@ -57,8 +61,10 @@ import {
   resetViewProfileAccount,
   setViewProfileAccount,
 } from '../Achievements/actions';
+import { getEmailAddress } from '../ChangeEmail/actions';
 
 import achievementsSaga from '../Achievements/saga';
+import changeEmailSaga from '../ChangeEmail/saga';
 import achievementsReducer from '../Achievements/reducer';
 
 const ViewProfilePage = ({
@@ -81,6 +87,9 @@ const ViewProfilePage = ({
   getAllAchievementsDispatch,
   setViewProfileAccountDispatch,
   resetViewProfileAccountDispatch,
+  getEmailAddressDispatch,
+  email,
+  isSubscribedEmail,
 }) => {
   const path = window.location.pathname + window.location.hash;
   const userId = match.params.id;
@@ -91,6 +100,10 @@ const ViewProfilePage = ({
 
     return () => resetViewProfileAccountDispatch();
   }, [userId]);
+
+  useEffect(() => {
+    getEmailAddressDispatch(account);
+  }, [account]);
 
   return (
     <Profile userId={userId} isLogin={account === userId}>
@@ -131,6 +144,8 @@ const ViewProfilePage = ({
         user={profile?.user ?? null}
         isAvailable={profile && account === profile.user}
         tgData={userTgData}
+        email={email}
+        isSubscribedEmail={isSubscribedEmail}
       />
 
       {path === routes.userNotifications(userId) && (
@@ -218,6 +233,8 @@ const withConnect = connect(
     userTgData: selectGetUserTgData(),
     stat: selectStat(),
     userAchievements: selectUserAchievements(),
+    email: selectEmail(),
+    isSubscribedEmail: selectIsSubscribed(),
   }),
   (dispatch) => ({
     redirectToEditProfilePageDispatch: bindActionCreators(
@@ -240,6 +257,7 @@ const withConnect = connect(
       resetViewProfileAccount,
       dispatch,
     ),
+    getEmailAddressDispatch: bindActionCreators(getEmailAddress, dispatch),
   }),
 );
 
@@ -264,6 +282,10 @@ const withAchievementsSaga = injectSaga({
   key: 'userAchievements',
   saga: achievementsSaga,
 });
+const withChangeEmailSaga = injectSaga({
+  key: 'userEmail',
+  saga: changeEmailSaga,
+});
 
 const withSaga = injectSaga({ key: 'questionsOfUser', saga, mode: DAEMON });
 
@@ -274,5 +296,6 @@ export default compose(
   withAchievementsReducer,
   withAchievementsSaga,
   withSaga,
+  withChangeEmailSaga,
   withConnect,
 )(ViewProfilePage);

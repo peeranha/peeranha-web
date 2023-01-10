@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { css } from '@emotion/react';
 import { Field, reduxForm } from 'redux-form/immutable';
 import { FormattedMessage } from 'react-intl';
 import { translationMessages } from 'i18n';
 
 import commonMessages from 'common-messages';
+import messages from './messages';
 import { scrollToErrorField } from 'utils/animation';
 
 import letterImg from 'images/letter-smile.svg?inline';
@@ -26,18 +28,30 @@ const ConfirmEmailForm = ({
   confirmOldEmail,
   confirmOldEmailProcessing,
   sendAnotherCode,
+  closeModal,
+  emailAddress,
 }) => (
   <div>
     <H4 className="text-center pb-3">
-      <FormattedMessage {...commonMessages.change} />{' '}
-      <FormattedMessage {...signUpMessages.email} />
+      <FormattedMessage id={messages.confirmNewEmail.id} />
     </H4>
 
     <div className="text-center pb-3">
       <img src={letterImg} alt="check your email" />
-      <P className="text-center py-2">
-        <FormattedMessage {...signUpMessages.checkYourEmail} />
+      <P className="text-center py-2" css={{ color: 'var(--color-gray-dark)' }}>
+        <FormattedMessage id={messages.verificationCodeText.id} />
       </P>
+      <div className="semi-bold mb-3">{emailAddress}</div>
+      <TransparentButton
+        onClick={closeModal}
+        className="db mb-3"
+        css={{ margin: 'auto' }}
+      >
+        <FormattedMessage id={messages.changeEmail.id} />
+      </TransparentButton>
+      <div
+        css={{ height: '1px', background: '#C2C6D8', marginTop: '25px' }}
+      ></div>
     </div>
 
     <form onSubmit={handleSubmit(confirmOldEmail)}>
@@ -50,17 +64,21 @@ const ConfirmEmailForm = ({
         warn={required}
       />
 
+      <TransparentButton
+        className="mb-3"
+        onClick={sendAnotherCode}
+        type="button"
+      >
+        <FormattedMessage id={commonMessages.sendAnotherCode.id} />
+      </TransparentButton>
+
       <Button
         disabled={confirmOldEmailProcessing}
         className="w-100 mb-3"
         type="submit"
       >
-        <FormattedMessage {...commonMessages.submit} />
+        <FormattedMessage id={messages.verify.id} />
       </Button>
-
-      <TransparentButton onClick={sendAnotherCode} type="button">
-        <FormattedMessage {...commonMessages.sendAnotherCode} />
-      </TransparentButton>
     </form>
   </div>
 );
@@ -75,5 +93,5 @@ ConfirmEmailForm.propTypes = {
 
 export default reduxForm({
   form: CONFIRM_EMAIL_FORM,
-  onSubmitFail: errors => scrollToErrorField(errors),
+  onSubmitFail: (errors) => scrollToErrorField(errors),
 })(ConfirmEmailForm);

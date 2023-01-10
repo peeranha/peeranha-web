@@ -14,6 +14,10 @@ const {
   CHANGE_CREDENTIALS_GET_KEYS_SERVICE,
   CHANGE_PASSWORD_CONFIRM_SERVICE,
   DELETE_FACEBOOK_ACCOUNT_SERVICE,
+  GET_VERIFICATION_CODE,
+  GET_NOTIFICATION_SETTINGS,
+  SUBSCRIBE_LINK_EMAIL,
+  UPDATE_NOTIFICATION_SETTINGS,
 } = require('../../util/aws-connector');
 
 async function changeCredentialsInit(
@@ -127,6 +131,38 @@ async function changeCredentialsComplete(email, password, newPassword) {
   return response;
 }
 
+async function getVerificationCode(email) {
+  return await callService(GET_VERIFICATION_CODE, {
+    email,
+  });
+}
+
+async function getNotificationSettings(address) {
+  console.log(address, '4');
+  return await callService(
+    GET_NOTIFICATION_SETTINGS,
+    {
+      address,
+    },
+    true,
+  );
+}
+
+async function subscribeLinkEmail(email, address, code) {
+  return await callService(SUBSCRIBE_LINK_EMAIL, {
+    email,
+    address,
+    code,
+  });
+}
+
+async function updateNotificationSettings(address, isSubscribed = true) {
+  return await callService(UPDATE_NOTIFICATION_SETTINGS, {
+    address,
+    isSubscribed,
+  });
+}
+
 module.exports = {
   changeCredentialsInit,
   changeCredentialsConfirm,
@@ -134,4 +170,8 @@ module.exports = {
   changeCredentialsGetKeysByMK,
   changeCredentialsComplete,
   deleteFacebookAccService,
+  getVerificationCode,
+  getNotificationSettings,
+  subscribeLinkEmail,
+  updateNotificationSettings,
 };

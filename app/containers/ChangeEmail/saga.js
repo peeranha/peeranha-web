@@ -8,12 +8,19 @@ import {
   changeCredentialsConfirm,
   changeCredentialsComplete,
   changeCredentialsGetKeysByPwd,
+  getVerificationCode,
+  getNotificationSettings,
+  subscribeLinkEmail,
+  updateNotificationSettings,
 } from 'utils/web_integration/src/wallet/change-credentials/change-credentials';
 
 import { WebIntegrationError } from 'utils/errors';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
+import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import { successHandling } from 'containers/Toast/saga';
+import { addToast } from 'containers/Toast/actions';
+
 import { logout } from 'containers/Logout/actions';
 
 import { selectEmail, selectVerificationCode } from './selectors';
@@ -26,6 +33,7 @@ import {
   PASSWORD_FIELD,
   SEND_ANOTHER_CODE,
   SEND_OLD_EMAIL_SUCCESS,
+  GET_EMAIL_ADDRESS,
 } from './constants';
 
 import {
@@ -35,14 +43,16 @@ import {
   sendOldEmailErr,
   confirmOldEmailSuccess,
   confirmOldEmailErr,
+  getEmailAddress,
+  getEmailAddressSuccess,
 } from './actions';
 
-export function* sendOldEmailWorker({ resetForm, email }) {
+export function* sendOldEmailWorker({ email }) {
   try {
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
 
-    const response = yield call(changeCredentialsInit, email, false, locale);
+    const response = yield call(getVerificationCode, email);
 
     if (!response.OK) {
       throw new WebIntegrationError(
@@ -51,7 +61,6 @@ export function* sendOldEmailWorker({ resetForm, email }) {
     }
 
     yield put(sendOldEmailSuccess());
-    yield call(resetForm);
   } catch (err) {
     yield put(sendOldEmailErr(err));
   }
@@ -59,33 +68,34 @@ export function* sendOldEmailWorker({ resetForm, email }) {
 
 export function* sendAnotherCode() {
   const email = yield select(selectEmail());
-  yield call(sendOldEmailWorker, { email, resetForm: () => null });
+  yield call(sendOldEmailWorker, { email });
 }
 
 export function* sendAnotherCodeSuccess() {
-  yield take(SEND_OLD_EMAIL_SUCCESS);
   yield call(successHandling);
 }
 
-export function* confirmOldEmailWorker({ resetForm, verificationCode }) {
+export function* confirmOldEmailWorker({ resetForm, code }) {
   try {
     const email = yield select(selectEmail());
-
+    const address = yield select(makeSelectAccount());
     const locale = yield select(makeSelectLocale());
     const translations = translationMessages[locale];
 
-    const response = yield call(
-      changeCredentialsConfirm,
-      email,
-      verificationCode,
-    );
+    const response = yield call(subscribeLinkEmail, email, address, code);
 
     if (!response.OK) {
+      yield put(
+        addToast({
+          type: 'error',
+          text: response.errorMessage,
+        }),
+      );
       throw new WebIntegrationError(
         translations[webIntegrationErrors[response.errorCode].id],
       );
     }
-
+    yield call(updateNotificationSettings, address);
     yield put(confirmOldEmailSuccess());
     yield call(resetForm);
   } catch (err) {
@@ -151,10 +161,27 @@ export function* changeEmailWorker({ resetForm, values }) {
   }
 }
 
+export function* getEmailAddressWorker({ address }) {
+  try {
+    const response = yield call(getNotificationSettings, address);
+
+    if (!response.OK) {
+      throw new WebIntegrationError(
+        translations[webIntegrationErrors[response.errorCode].id],
+      );
+    }
+    const { email, isSubscribed } = response.body;
+    yield put(getEmailAddressSuccess(email, isSubscribed));
+  } catch (err) {
+    yield put(sendOldEmailErr(err));
+  }
+}
+
 export default function* defaultSaga() {
   yield takeLatest(SEND_ANOTHER_CODE, sendAnotherCode);
   yield takeLatest(SEND_ANOTHER_CODE, sendAnotherCodeSuccess);
   yield takeLatest(SEND_OLD_EMAIL, sendOldEmailWorker);
   yield takeLatest(CONFIRM_OLD_EMAIL, confirmOldEmailWorker);
   yield takeLatest(CHANGE_EMAIL, changeEmailWorker);
+  yield takeLatest(GET_EMAIL_ADDRESS, getEmailAddressWorker);
 }

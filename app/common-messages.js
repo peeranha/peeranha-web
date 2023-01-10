@@ -660,6 +660,15 @@ export default defineMessages({
   transactionsChange_2: {
     id: 'app.containers.Profile.Settings.transactionsChange_2',
   },
+  email: {
+    id: 'app.containers.Profile.Settings.Email',
+  },
+  emailNotifications: {
+    id: 'app.containers.Profile.Settings.EmailNotifications',
+  },
+  emailNotificationsText: {
+    id: 'app.containers.Profile.Settings.EmailNotificationsText',
+  },
   weUpdatedTheApplication: {
     id: 'app.containers.ChunkLoadError.weUpdatedTheApplication',
   },
