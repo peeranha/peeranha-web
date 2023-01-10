@@ -235,6 +235,15 @@ export const MoveStyles = {
       fill: none;
     }
   `,
+  newPostPopupButtonStyles: css`
+    border: 1px solid rgba(16, 40, 71, 1);
+    color: rgba(16, 40, 71, 1);
+    :hover {
+      background: rgba(16, 40, 71, 1) !important;
+      color: rgba(255, 255, 255, 1);
+      border: 1px solid rgba(16, 40, 71, 1) !important;
+    }
+  `,
   headerLoginButtonStyles: css`
     border: 2px solid rgba(16, 40, 71, 1);
     color: rgba(255, 255, 255, 1);
