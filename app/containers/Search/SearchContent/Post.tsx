@@ -62,6 +62,10 @@ const Post: React.FC<PostProps> = ({
   ])[0] || {
     tags: [],
   };
+
+  if (tags === null) {
+    tags = [];
+  }
   const postTags = community.tags.filter((tag: Tag) =>
     tags?.includes(Number(tag.id.split('-')[1])),
   );
