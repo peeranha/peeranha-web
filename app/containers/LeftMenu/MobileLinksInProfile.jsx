@@ -118,14 +118,13 @@ const MobileLinksInProfile = ({ profile, isMenuVisible }) => {
             />
             {t('common.NFTs')}
           </A>
-
           <A to={routes.userSettings(profile.user)}>
             <SettingsIcon
               className="mr-2"
               size={[24, 24]}
               stroke={colors.linkColor || TEXT_PRIMARY}
             />
-            {t('common.settings')}
+            <FormattedMessage id={messages.settings.id} />
           </A>
 
           {isModerator && (

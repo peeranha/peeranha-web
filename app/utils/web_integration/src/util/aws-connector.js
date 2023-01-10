@@ -41,6 +41,11 @@ const NOTIFICATIONS_TIPS_SERVICE = 'notifications/tips';
 
 const SAVE_FILE_SERVICE = 'save-file';
 
+const GET_VERIFICATION_CODE = '/subscription/get-verification-code';
+const SUBSCRIBE_LINK_EMAIL = '/subscription/link-email';
+const GET_NOTIFICATION_SETTINGS = '/subscription/get-notification-settings';
+const UPDATE_NOTIFICATION_SETTINGS = '/subscription/update-settings';
+
 async function callService(service, props, isGet = false, signal) {
   const url = new URL(process.env.WALLET_API_ENDPOINT + service);
 
@@ -117,4 +122,8 @@ module.exports = {
   BLOCKCHAIN_SEND_META_TRANSACTION,
   BLOCKCHAIN_SEND_DISPATCHER_TRANSACTION,
   SAVE_FILE_SERVICE,
+  GET_VERIFICATION_CODE,
+  GET_NOTIFICATION_SETTINGS,
+  SUBSCRIBE_LINK_EMAIL,
+  UPDATE_NOTIFICATION_SETTINGS,
 };

@@ -14,7 +14,6 @@ import AuthorizationData from './AuthorizationData';
 export const BaseStyled = Base.extend`
   > :nth-child(2) {
     margin: 30px 0;
-    padding: 0 30px;
   }
 
   table {
@@ -113,9 +112,10 @@ const SettingsOfUser = ({
   isAvailable,
   profile,
   tgData,
+  email,
+  isSubscribedEmail,
 }) => {
   const { t } = useTranslation();
-
   const writeToBuffer = (event) => {
     clipboard.writeText(event.currentTarget.dataset.key);
     showPopover(event.currentTarget.id, t('common.copied'));
@@ -123,7 +123,18 @@ const SettingsOfUser = ({
 
   return isAvailable ? (
     <div>
-      <AuthorizationData className={className} />
+      <AuthorizationData
+        locale={locale}
+        ownerKey={ownerKey}
+        loginData={loginData}
+        activeKey={activeKey}
+        className={className}
+        writeToBuffer={writeToBuffer}
+        tgData={tgData}
+        profile={profile}
+        email={email}
+        isSubscribedEmail={isSubscribedEmail}
+      />
     </div>
   ) : (
     <div className={className}>

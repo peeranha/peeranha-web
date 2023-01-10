@@ -19,6 +19,8 @@ import {
   OLD_EMAIL_FIELD,
   CODE_FIELD,
   SEND_ANOTHER_CODE,
+  GET_EMAIL_ADDRESS,
+  GET_EMAIL_ADDRESS_SUCCESS,
 } from './constants';
 
 export function sendAnotherCode() {
@@ -44,8 +46,7 @@ export function hideChangeEmailModal() {
 export function sendOldEmail(...args) {
   return {
     type: SEND_OLD_EMAIL,
-    email: args[0].toJS()[OLD_EMAIL_FIELD],
-    resetForm: args[2].reset,
+    email: args[2].emailAddress,
   };
 }
 
@@ -67,8 +68,7 @@ export function sendOldEmailErr(sendOldEmailError) {
 export function confirmOldEmail(...args) {
   return {
     type: CONFIRM_OLD_EMAIL,
-    verificationCode: args[0].toJS()[CODE_FIELD],
-    resetForm: args[2].reset,
+    code: args[0].toJS()[CODE_FIELD],
   };
 }
 
@@ -91,7 +91,6 @@ export function changeEmail(...args) {
   return {
     type: CHANGE_EMAIL,
     values: args[0].toJS(),
-    resetForm: args[2].reset,
   };
 }
 
@@ -105,5 +104,20 @@ export function changeEmailErr(changeEmailError) {
   return {
     type: CHANGE_EMAIL_ERROR,
     changeEmailError,
+  };
+}
+
+export function getEmailAddress(address) {
+  return {
+    type: GET_EMAIL_ADDRESS,
+    address,
+  };
+}
+
+export function getEmailAddressSuccess(email, isSubscribed) {
+  return {
+    type: GET_EMAIL_ADDRESS_SUCCESS,
+    email,
+    isSubscribed,
   };
 }

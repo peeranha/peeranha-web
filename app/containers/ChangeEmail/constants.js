@@ -24,6 +24,9 @@ export const SHOW_CHANGE_EMAIL_MODAL =
   'app/ChangeEmail/SHOW_CHANGE_EMAIL_MODAL';
 export const HIDE_CHANGE_EMAIL_MODAL =
   'app/ChangeEmail/HIDE_CHANGE_EMAIL_MODAL';
+export const GET_EMAIL_ADDRESS = 'app/ChangeEmail/GET_EMAIL_ADDRESS';
+export const GET_EMAIL_ADDRESS_SUCCESS =
+  'app/ChangeEmail/GET_EMAIL_ADDRESS_SUCCESS';
 
 // Forms
 export const OLD_EMAIL_FORM = 'app/ChangeEmail/OLD_EMAIL_FORM';

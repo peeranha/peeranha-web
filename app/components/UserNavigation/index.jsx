@@ -238,6 +238,28 @@ const UserNavigation = ({
               {t('common.edit')}
             </NavigationButton>
           )}
+
+          <NavigationLink
+            className={userId !== account ? 'd-none' : ''}
+            to={routes.userSettings(userId)}
+            islink={path !== routes.userSettings(userId) ? 1 : 0}
+          >
+            <FormattedMessage id={messages.settings.id} />
+          </NavigationLink>
+
+          <NavigationButton
+            className={
+              userId === account && path === routes.profileView(account)
+                ? 'd-inline-flex d-md-none'
+                : 'd-none'
+            }
+            onClick={redirectToEditProfilePage}
+            id={`redireact-to-edit-${userId}-user-page-1`}
+            data-user={userId}
+            islink
+          >
+            <FormattedMessage id={messages.edit.id} />
+          </NavigationButton>
         </Div>
 
         <div

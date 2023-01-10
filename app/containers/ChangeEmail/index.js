@@ -6,13 +6,16 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { css } from '@emotion/react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose, bindActionCreators } from 'redux';
+import { FormattedMessage } from 'react-intl';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { DAEMON } from 'utils/constants';
+import messages from './messages';
 
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import { makeSelectLoginData } from 'containers/AccountProvider/selectors';
@@ -61,6 +64,9 @@ export class ChangeEmail extends React.PureComponent {
       confirmOldEmailProcessing,
       sendAnotherCodeDispatch,
       loginData,
+      emailAddress,
+      email,
+      isSubscribedEmail,
     } = this.props;
 
     return (
@@ -72,6 +78,8 @@ export class ChangeEmail extends React.PureComponent {
               sendOldEmail={sendOldEmailDispatch}
               sendOldEmailProcessing={sendOldEmailProcessing}
               loginData={loginData}
+              closeModal={hideChangeEmailModalDispatch}
+              emailAddress={emailAddress}
             />
           )}
 
@@ -81,6 +89,8 @@ export class ChangeEmail extends React.PureComponent {
               confirmOldEmail={confirmOldEmailDispatch}
               confirmOldEmailProcessing={confirmOldEmailProcessing}
               sendAnotherCode={sendAnotherCodeDispatch}
+              closeModal={hideChangeEmailModalDispatch}
+              emailAddress={email}
             />
           )}
 
@@ -89,11 +99,24 @@ export class ChangeEmail extends React.PureComponent {
               locale={locale}
               changeEmail={changeEmailDispatch}
               changeEmailProcessing={changeEmailProcessing}
+              emailAddress={emailAddress}
             />
           )}
         </Modal>
 
-        <Button onClick={showChangeEmailModalDispatch} style={{paddingBottom: 2}}>{children}</Button>
+        <Button
+          onClick={showChangeEmailModalDispatch}
+          css={{
+            border: '1px solid #F76F60',
+            width: '86px',
+            height: '40px',
+            color: '#F76F60',
+          }}
+        >
+          <FormattedMessage
+            id={isSubscribedEmail ? messages.change.id : messages.confirm.id}
+          />
+        </Button>
       </React.Fragment>
     );
   }
@@ -124,6 +147,8 @@ const mapStateToProps = createStructuredSelector({
   changeEmailProcessing: selectors.selectChangeEmailProcessing(),
   sendOldEmailProcessing: selectors.selectSendOldEmailProcessing(),
   confirmOldEmailProcessing: selectors.selectConfirmOldEmailProcessing(),
+  email: selectors.selectEmail(),
+  isSubscribedEmail: selectors.selectIsSubscribed(),
 });
 
 function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
@@ -143,16 +168,9 @@ function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   };
 }
 
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 const withReducer = injectReducer({ key: 'showChangeEmail', reducer });
 const withSaga = injectSaga({ key: 'showChangeEmail', saga, mode: DAEMON });
 
-export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
-)(ChangeEmail);
+export default compose(withReducer, withSaga, withConnect)(ChangeEmail);
