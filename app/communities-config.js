@@ -133,6 +133,16 @@ const communitiesConfig = {
       src: OrbisLogo,
       styles: OrbisStyles,
     },
+    20: {
+      origin: 'https://fractalvisions.peeranha.io',
+      src: FractalVisionsLogo,
+      styles: FractalVisionsStyles,
+    },
+    21: {
+      origin: 'https://move.peeranha.io',
+      src: 'https://images.peeranha.io/communities/move/move-logo.svg',
+      styles: MoveStyles,
+    },
   },
   staging: {
     1: {
