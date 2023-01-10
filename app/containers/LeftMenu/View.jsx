@@ -126,8 +126,6 @@ const View = ({
         isEditDocumentation={isEditDocumentation}
         pinnedItemMenu={pinnedItemMenu}
       />
-
-      <AdditionalLinks currClientHeight={currClientHeight} />
     </ViewStyled>
   );
 };
