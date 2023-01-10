@@ -39,6 +39,7 @@ import { VyperStyles } from './communities-configs/vyper';
 import { ForceStyles } from './communities-configs/force';
 import { Mark3dStyles } from './communities-configs/mark3d';
 import { OrbisStyles } from './communities-configs/orbis';
+import { MoveStyles } from './communities-configs/move';
 
 const communitiesConfig = {
   prod: {
@@ -209,6 +210,11 @@ const communitiesConfig = {
       src: Mark3dLogo,
       styles: Mark3dStyles,
     },
+    10: {
+      origin: `https://move${process.env.COOKIE_DOMAIN}`,
+      src: 'https://images.peeranha.io/communities/move/move-logo.svg',
+      styles: MoveStyles,
+    },
     11: {
       origin: `https://orbis${process.env.COOKIE_DOMAIN}`,
       src: OrbisLogo,
@@ -276,7 +282,7 @@ const communitiesConfig = {
   },
   dev: {
     1: {
-      origin: 'http://localhost:3000',
+      origin: 'http://localhost:31000',
     },
   },
 };
