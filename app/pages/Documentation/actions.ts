@@ -13,6 +13,7 @@ import {
   SET_EDIT_ARTICLE,
   PINNED_ARTICLE,
   REMOVE_ARTICLE,
+  EDIT_ORDER,
 } from './constants';
 import {
   PinnedArticleType,
@@ -128,5 +129,11 @@ export function pinnedArticleMenuDraft(pinnedArticle: PinnedArticleType) {
   return {
     type: PINNED_ARTICLE,
     pinnedArticle,
+  };
+}
+
+export function editOrder() {
+  return {
+    type: EDIT_ORDER,
   };
 }

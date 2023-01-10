@@ -17,6 +17,7 @@ import VyperLogo from './communities-configs/vyper/images/Vyperlogo.svg?inline';
 import AaveLogo from 'communities-configs/aave/images/AaveLogo.svg?inline';
 import ForceLogo from './communities-configs/force/images/Group.svg?inline';
 import Mark3dLogo from './communities-configs/mark3d/images/Mark3dLogo.svg?inline';
+import OrbisLogo from './communities-configs/orbis/images/GroupLogo.svg?inline';
 import MoveLogo from './communities-configs/move/images/MoveLogo.svg?inline';
 
 import { PolygonStyles } from './communities-configs/polygon';
@@ -38,6 +39,7 @@ import { AaveStyles } from './communities-configs/aave';
 import { VyperStyles } from './communities-configs/vyper';
 import { ForceStyles } from './communities-configs/force';
 import { Mark3dStyles } from './communities-configs/mark3d';
+import { OrbisStyles } from './communities-configs/orbis';
 import { MoveStyles } from './communities-configs/move';
 
 const communitiesConfig = {
@@ -125,6 +127,11 @@ const communitiesConfig = {
       src: Mark3dLogo,
       styles: Mark3dStyles,
     },
+    19: {
+      origin: 'https://orbis.peeranha.io',
+      src: OrbisLogo,
+      styles: OrbisStyles,
+    },
   },
   staging: {
     1: {
@@ -209,6 +216,11 @@ const communitiesConfig = {
       src: MoveLogo,
       styles: MoveStyles,
     },
+    11: {
+      origin: `https://orbis${process.env.COOKIE_DOMAIN}`,
+      src: OrbisLogo,
+      styles: OrbisStyles,
+    },
     // 1: {
     //   origin: `https://meta${process.env.COOKIE_DOMAIN}`,
     // },
@@ -271,7 +283,7 @@ const communitiesConfig = {
   },
   dev: {
     1: {
-      origin: 'http://localhost:31000',
+      origin: 'http://localhost:3000',
     },
   },
 };
