@@ -1,4 +1,5 @@
 /* eslint indent: 0 */
+import AdditionalLinks from 'containers/LeftMenu/AdditionalLinks';
 import Documentation from 'containers/LeftMenu/Documentation/Documentation';
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -150,7 +151,7 @@ const Box = styled.div`
       return '25px !important';
     return '50px';
   }};
-  padding-bottom: 25px;
+  padding-bottom: 30px;
   @media only screen and (max-width: 576px) {
     padding: 10px 0 20px 0;
   }
@@ -356,6 +357,7 @@ const MainLinks = ({
             pinnedItemMenuId={pinnedItemMenu.id}
           />
         )}
+      <AdditionalLinks currClientHeight={currClientHeight} />
     </Box>
   );
 };
