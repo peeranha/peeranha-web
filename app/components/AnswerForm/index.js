@@ -5,7 +5,11 @@ import styled from 'styled-components';
 import { Field, reduxForm } from 'redux-form/immutable';
 
 import { scrollToErrorField } from 'utils/animation';
-import { hasCommunityModeratorRole } from 'utils/properties';
+import {
+  hasCommunityAdminRole,
+  hasCommunityModeratorRole,
+  hasProtocolAdminRole,
+} from 'utils/properties';
 import { strLength15x30000, required } from 'components/FormFields/validate';
 
 import {
@@ -14,16 +18,12 @@ import {
 } from 'containers/AccountProvider/selectors';
 import { useTranslation } from 'react-i18next';
 
-import Wrapper from 'components/FormFields/Wrapper';
-import Span from 'components/Span';
 import Checkbox from 'components/Input/Checkbox';
-import TextBlock from 'components/FormFields/TextBlock';
 import TextEditorField from 'components/FormFields/TextEditorField';
 import Button from 'components/Button/Contained/InfoLarge';
 import FormBox from 'components/Form';
 import BlockedInfoArea from 'components/BlockedInfoArea';
 
-import { TEXT_SECONDARY } from 'style-constants';
 import { ANSWER_TYPE_FORM, TEXT_EDITOR_ANSWER_FORM } from './constants';
 
 export const PreviewWrapper = styled.div`
@@ -49,6 +49,8 @@ export const AnswerForm = ({
   isOfficialRepresentative,
   isAnswered,
   account,
+  isMinusReputation,
+  isHasRole,
 }) => {
   const { t } = useTranslation();
 
@@ -59,6 +61,9 @@ export const AnswerForm = ({
       )}
       {!account && (
         <BlockedInfoArea>{t('common.logInToAnswer')}</BlockedInfoArea>
+      )}
+      {isMinusReputation && !isHasRole && (
+        <BlockedInfoArea>{t('common.reputationBelowZero')}</BlockedInfoArea>
       )}
       <Field
         name={TEXT_EDITOR_ANSWER_FORM}
@@ -73,23 +78,13 @@ export const AnswerForm = ({
         <Field
           name={ANSWER_TYPE_FORM}
           component={Checkbox}
-          disabled={sendAnswerLoading}
+          disabled={sendAnswerLoading || isAnswered || !account}
           label={<span>{t('common.official')}</span>}
           previewLabel={previewLabel}
           width="90px"
         />
       )}
-      <Wrapper label={previewLabel} className="mt-3">
-        <PreviewWrapper>
-          {textEditorValue ? (
-            <TextBlock className="my-2" content={textEditorValue} />
-          ) : (
-            <Span color={TEXT_SECONDARY} fontSize="14" isItalic>
-              {t('common.nothingToSeeYet')}
-            </Span>
-          )}
-        </PreviewWrapper>
-      </Wrapper>
+
       <Button
         id={sendButtonId}
         disabled={sendAnswerLoading || isAnswered || !account}
@@ -119,7 +114,7 @@ AnswerForm.propTypes = {
 };
 
 const FormClone = reduxForm({
-  onSubmitFail: errors => scrollToErrorField(errors),
+  onSubmitFail: (errors) => scrollToErrorField(errors),
   form: 'answerForm',
 })(AnswerForm);
 
@@ -131,10 +126,11 @@ export default React.memo(
     ) => {
       const form = state.toJS().form[formName] || { values: {} };
       const profileInfo = makeSelectProfileInfo()(state);
-      const isOfficialRepresentative = hasCommunityModeratorRole(
-        profileInfo?.permissions,
-        communityId || 0,
-      );
+      const isOfficialRepresentative =
+        hasProtocolAdminRole(profileInfo?.permissions) ||
+        hasCommunityModeratorRole(profileInfo?.permissions, communityId || 0) ||
+        (Boolean(communityId) &&
+          hasCommunityAdminRole(profileInfo?.permissions, communityId));
       const account = makeSelectAccount()(state);
 
       return {

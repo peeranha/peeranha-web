@@ -1,18 +1,26 @@
+import { isAddress } from 'ethers/lib/utils';
 import _get from 'lodash/get';
 import { t } from 'i18next';
 import { CURRENCIES } from 'wallet-config';
+import { getRatingByCommunity } from 'utils/profileManagement';
+import {
+  getPermissions,
+  hasCommunityModeratorRole,
+  hasGlobalModeratorRole,
+  hasProtocolAdminRole,
+} from 'utils/properties';
 
 // TODO: test
-const imageValidation = img =>
+const imageValidation = (img) =>
   img && img.length > 2000000 ? t('formFields.fileSize') : undefined;
 
-const byteLength = val => encodeURI(val).split(/%..|./).length - 1;
+const byteLength = (val) => encodeURI(val).split(/%..|./).length - 1;
 
-const maxByteLength = val =>
+const maxByteLength = (val) =>
   byteLength(val) > 256 ? t('formFields.wrongByteLength') : undefined;
 
 // TODO: test
-const stringLength = (min, max) => value => {
+const stringLength = (min, max) => (value) => {
   let val = value;
 
   let msg = t('formFields.wrongLength');
@@ -30,13 +38,13 @@ const stringLength = (min, max) => value => {
     : undefined;
 };
 
-const numberRange = (min, max) => value =>
+const numberRange = (min, max) => (value) =>
   value && (value > max || value < min)
     ? { id: 'formFields.wrongNumberRange', min, max }
     : undefined;
 
 // TODO: test
-const valueHasToBePositiveInteger = value => {
+const valueHasToBePositiveInteger = (value) => {
   const re = /^[0-9]+$/;
 
   return (value && !re.test(value)) || value === undefined
@@ -45,7 +53,7 @@ const valueHasToBePositiveInteger = value => {
 };
 
 // TODO: test
-const stringLengthMax = max => value => {
+const stringLengthMax = (max) => (value) => {
   const val =
     typeof value === 'string' ? value.trim().replace(/  +/g, ' ') : '';
 
@@ -55,13 +63,15 @@ const stringLengthMax = max => value => {
 };
 
 /* eslint no-useless-escape: 0 */
-const validateEmail = email => {
-  const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const validateEmail = (email) => {
+  const re =
+    /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return email && !re.test(email) ? t('formFields.wrongEmail') : undefined;
 };
 
-const validateURL = url => {
-  const re = /^(?:(?:https?):\/\/)(?:www\.|(?!www))([\da-z\-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
+const validateURL = (url) => {
+  const re =
+    /^(?:(?:https?):\/\/)(?:www\.|(?!www))([\da-z\-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
   const isUrl = re.test(url);
   const hasDotSlashSeries = /(\.\.)|(\.\/)|(\/\/.*\/.*\.)|(\s)/g.test(url);
   const hasDoubleSlash = url && url.match(/\/\//g)?.length > 1;
@@ -70,7 +80,7 @@ const validateURL = url => {
     : undefined;
 };
 
-const required = value => {
+const required = (value) => {
   let val = value;
 
   if (Number(value) >= 0) {
@@ -82,10 +92,10 @@ const required = value => {
   return !val ? t('formFields.requiredField') : undefined;
 };
 
-const requiredPostTypeSelection = value =>
+const requiredPostTypeSelection = (value) =>
   Number(value) >= 0 ? undefined : t('formFields.postTypeSelectionError');
 
-const requiredAndNotZero = value => {
+const requiredAndNotZero = (value) => {
   let message;
   let val = value;
 
@@ -104,20 +114,36 @@ const requiredAndNotZero = value => {
   return message;
 };
 
-const requiredForNumericalField = value =>
+const requiredForNumericalField = (value) =>
   value === '' || Number.isFinite(value) || Number(value) < 0
     ? t('formFields.requiredField')
     : undefined;
 
-const requiredNonZeroInteger = value =>
+const requiredNonZeroInteger = (value) =>
   (value && value.trim() === '') || !Number.isInteger(Number(value))
     ? t('formFields.requiredNonZeroInteger')
     : undefined;
 
-const requiredForObjectField = value => {
+const requiredForObjectField = (value) => {
   const val = value && value.toJS ? value.toJS() : value;
   return !val || (val && !val.value)
     ? t('formFields.requiredField')
+    : undefined;
+};
+
+const requiredMinReputation = (...args) => {
+  const { id } = args[0];
+  const { profile } = args[2];
+  const MIN_REPUTATION = 0;
+
+  const hasRole =
+    hasGlobalModeratorRole(getPermissions(profile)) ||
+    (id && hasCommunityModeratorRole(getPermissions(profile), id)) ||
+    hasProtocolAdminRole(getPermissions(profile));
+
+  const isMinusReputation = getRatingByCommunity(profile, id) < MIN_REPUTATION;
+  return isMinusReputation && !hasRole
+    ? t('formFields.requiredMinReputation')
     : undefined;
 };
 
@@ -135,8 +161,9 @@ const valueHasNotBeInListMoreThanOneTime = (...args) => {
   const list = args[2].valueHasNotBeInListValidate;
 
   return list &&
-    list.filter(x => x && x.trim().toLowerCase() === value.trim().toLowerCase())
-      .length > 1
+    list.filter(
+      (x) => x && x.trim().toLowerCase() === value.trim().toLowerCase(),
+    ).length > 1
     ? t('formFields.itemAlreadyExists')
     : undefined;
 };
@@ -182,19 +209,22 @@ const valueHasToBeLessThanMaxPromotingHours = (...args) => {
   return value > comparedValue ? t('formFields.valueIsMore') : undefined;
 };
 
+const stringHasToBeEthereumAddress = (value) =>
+  !isAddress(value) ? t('formFields.wrongAddressFormat') : undefined;
+
 const comparePasswords = (...args) => {
   const value = args[0];
   const list = args[2].passwordList;
 
-  return list.filter(x => x !== value)[0]
+  return list.filter((x) => x !== value)[0]
     ? t('formFields.passwordsNotMatch')
     : undefined;
 };
 
-const withoutDoubleSpace = str =>
+const withoutDoubleSpace = (str) =>
   str && str.includes('  ') ? t('formFields.withoutDoubleSpace') : undefined;
 
-const atLeastOneLetter = str =>
+const atLeastOneLetter = (str) =>
   !str || !/.*[a-z].*/i.test(str)
     ? t('formFields.atLeastOneLetter')
     : undefined;
@@ -202,11 +232,14 @@ const atLeastOneLetter = str =>
 const strLength1x5 = stringLength(1, 5);
 const strLength1x1000 = stringLength(1, 1000);
 const strLength2x15 = stringLength(2, 15);
+const strLength2x25 = stringLength(2, 25);
 const strLength8x100 = stringLength(8, 100);
 const strLength254Max = stringLengthMax(254);
 const strLength100Max = stringLengthMax(100);
 const strLength3x20 = stringLength(3, 20);
+const strLength3x100 = stringLength(3, 100);
 const strLength15x100 = stringLength(15, 100);
+const strLength5x100 = stringLength(5, 100);
 const strLength15x250 = stringLength(15, 250);
 const strLength20x1000 = stringLength(20, 1000);
 const strLength15x30000 = stringLength(15, 30000);
@@ -226,14 +259,18 @@ export {
   requiredForNumericalField,
   requiredPostTypeSelection,
   requiredNonZeroInteger,
+  requiredMinReputation,
   strLength1x5,
   strLength1x1000,
   strLength2x15,
+  strLength2x25,
   strLength8x100,
   strLength254Max,
   strLength100Max,
   strLength3x20,
+  strLength3x100,
   strLength15x100,
+  strLength5x100,
   strLength15x250,
   strLength20x1000,
   strLength15x30000,
@@ -252,4 +289,5 @@ export {
   atLeastOneLetter,
   valueHasToBePositiveInteger,
   valueHasToBeLessThanMaxPromotingHours,
+  stringHasToBeEthereumAddress,
 };

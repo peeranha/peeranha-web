@@ -16,7 +16,7 @@ const IconSingle = styled(Icon)`
 const ButtonSingle = styled.button`
   display: inline;
   position: relative;
-  z-index: 9;
+  z-index: 8;
 
   @media only screen and (max-width: 991px) {
     display: none;
@@ -66,7 +66,7 @@ const SingleCommunityIcon = ({ id }) => {
     }
   };
 
-  const iPadClick = e => {
+  const iPadClick = (e) => {
     if (iPad()) {
       toggleTooltipMobile(e, fullId);
     }
@@ -83,7 +83,7 @@ const SingleCommunityIcon = ({ id }) => {
         id={fullId}
         onMouseEnter={showTooltip}
         onMouseLeave={hideTooltip}
-        onClick={e => iPadClick(e)}
+        onClick={(e) => iPadClick(e)}
         onBlur={onBlur}
       >
         <IconSingle icon={singleCommunity} width="14" height="14" />
@@ -91,7 +91,7 @@ const SingleCommunityIcon = ({ id }) => {
       <ButtonSingleMob
         onBlur={onBlur}
         id={idMobile}
-        onClick={e => toggleTooltipMobile(e)}
+        onClick={(e) => toggleTooltipMobile(e)}
       >
         <IconSingle icon={singleCommunity} width="14" height="14" />
       </ButtonSingleMob>

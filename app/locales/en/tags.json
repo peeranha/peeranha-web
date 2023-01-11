@@ -8,17 +8,14 @@
   "descriptionField": "Description",
   "descriptionFieldTip": "Instructions on how to use tag",
   "newTag": "New tag",
-  "tagIsKeyword":
-    "A tag is used as a keyword or a label to categorize your question.",
-  "usingTheRightTags":
-    "Using the right tags makes it easier for other users to find your questions.",
+  "tagIsKeyword": "A tag is used as a keyword or a label to categorize your question.",
+  "usingTheRightTags": "Using the right tags makes it easier for other users to find your questions.",
   "titleEdit": "Edit tag",
   "descriptionSave": "Save | Description",
   "backToList": "Back to list",
   "didntFindSuitableTag": "Did not find suitable tags?",
   "youHaveAlreadyVoted": "You already voted",
-  "suggestTagWhichWillbeUseful":
-    "Suggest a tag, which will be useful to you and 100 other users who will vote for it.",
+  "suggestTagWhichWillbeUseful": "Suggest a tag, which will be useful to you and 100 other users who will vote for it.",
   "creatorCannotUpvoteOwnComm": "Creators cannot upvote their own tag",
   "descriptionTags": "Description of Tags",
   "suggestedTags": "Suggested tags",
@@ -33,5 +30,6 @@
     "noSuggestedTags": "There are no suggested tags",
     "topTagsInCommunity": "Top tags in community",
     "tagDescription": "Description"
-  }
+  },
+  "saveTag": "Save"
 }

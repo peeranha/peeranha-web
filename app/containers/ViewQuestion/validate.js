@@ -7,6 +7,7 @@ import {
   getPermissions,
   hasCommunityModeratorRole,
   hasGlobalModeratorRole,
+  hasProtocolAdminRole,
 } from 'utils/properties';
 
 /* eslint prefer-destructuring: 0 */
@@ -34,15 +35,15 @@ export const voteToDeleteValidator = (
     itemData = questionData;
     minEnergy = MIN_ENERGY_TO_DELETE_QUESTION;
   } else if (!item.answerId && item.commentId) {
-    itemData = questionData.comments.filter(x => x.id === item.commentId)[0];
+    itemData = questionData.comments.filter((x) => x.id === item.commentId)[0];
     minEnergy = MIN_ENERGY_TO_DELETE_COMMENT;
   } else if (item.answerId && !item.commentId) {
-    itemData = questionData.answers.filter(x => x.id === item.answerId)[0];
+    itemData = questionData.answers.filter((x) => x.id === item.answerId)[0];
     minEnergy = MIN_ENERGY_TO_DELETE_ANSWER;
   } else if (item.answerId && item.commentId) {
     itemData = questionData.answers
-      .filter(x => x.id === item.answerId)[0]
-      .comments.filter(y => y.id === item.commentId)[0];
+      .filter((x) => x.id === item.answerId)[0]
+      .comments.filter((y) => y.id === item.commentId)[0];
     minEnergy = MIN_ENERGY_TO_DELETE_COMMENT;
   }
 
@@ -54,6 +55,7 @@ export const voteToDeleteValidator = (
     message = t('post.youVoted');
   } else if (
     !hasGlobalModeratorRole(profileInfo.permissions) &&
+    !hasProtocolAdminRole(profileInfo.permissions) &&
     profileInfo.rating < MIN_RATING
   ) {
     message = t('post.notEnoughRating');
@@ -79,7 +81,7 @@ export const postAnswerValidator = (
   const communityId = questionData.communityId;
 
   const isAnswered = !!questionData.answers.filter(
-    x => x.user === profileInfo.user,
+    (x) => x.user === profileInfo.user,
   ).length;
 
   let message;
@@ -90,16 +92,24 @@ export const postAnswerValidator = (
     message = t('post.alreadyAnswered');
   } else if (
     !hasGlobalModeratorRole(profileInfo.permissions) &&
+    !hasCommunityModeratorRole(profileInfo.permissions, communityId) &&
+    !hasProtocolAdminRole(profileInfo.permissions) &&
     questionData.author.user === profileInfo.user &&
     communityRating < MIN_RATING_FOR_MY_QUESTION
   ) {
-    message = `${t('post.notEnoughRating')} ${MIN_RATING_FOR_MY_QUESTION}`;
+    message = `${t('post.notEnoughRating')} ${MIN_RATING_FOR_MY_QUESTION} ${t(
+      'post.inThisCommunity',
+    )}`;
   } else if (
     !hasGlobalModeratorRole(profileInfo.permissions) &&
+    !hasCommunityModeratorRole(profileInfo.permissions, communityId) &&
+    !hasProtocolAdminRole(profileInfo.permissions) &&
     questionData.author.user !== profileInfo.user &&
     communityRating < MIN_RATING_FOR_OTHER_QUESTIONS
   ) {
-    message = `${t('post.notEnoughRating')} ${MIN_RATING_FOR_OTHER_QUESTIONS}`;
+    message = `${t(
+      'post.notEnoughRating',
+    )} ${MIN_RATING_FOR_OTHER_QUESTIONS} ${t('post.inThisCommunity')}`;
   }
 
   if (message) {
@@ -125,7 +135,7 @@ export const postCommentValidator = (
   let item = questionData;
 
   if (answerId > 0) {
-    item = questionData.answers.find(x => x.id === answerId);
+    item = questionData.answers.find((x) => x.id === answerId);
   }
 
   let message;
@@ -135,19 +145,25 @@ export const postCommentValidator = (
   } else if (
     !hasGlobalModeratorRole(profileInfo.permissions) &&
     !hasCommunityModeratorRole(profileInfo.permissions, communityId) &&
+    !hasProtocolAdminRole(profileInfo.permissions) &&
     (item.author.user === profileInfo.user ||
       questionData.author.user === profileInfo.user) &&
     getRatingByCommunity(profileInfo, communityId) < MIN_RATING_FOR_MY_ITEM
   ) {
-    message = `${t('post.notEnoughRating')} ${MIN_RATING_FOR_MY_ITEM}`;
+    message = `${t('post.notEnoughRating')} ${MIN_RATING_FOR_MY_ITEM} ${t(
+      'post.inThisCommunity',
+    )}`;
   } else if (
     item.author.user !== profileInfo.user &&
     !hasGlobalModeratorRole(profileInfo.permissions) &&
     !hasCommunityModeratorRole(profileInfo.permissions, communityId) &&
+    !hasProtocolAdminRole(profileInfo.permissions) &&
     questionData.author.user !== profileInfo.user &&
     getRatingByCommunity(profileInfo, communityId) < MIN_RATING_FOR_OTHER_ITEMS
   ) {
-    message = `${t('post.notEnoughRating')} ${MIN_RATING_FOR_OTHER_ITEMS}`;
+    message = `${t('post.notEnoughRating')} ${MIN_RATING_FOR_OTHER_ITEMS} ${t(
+      'post.inThisCommunity',
+    )}`;
   } else if (profileInfo.energy < MIN_ENERGY) {
     message = t('post.notEnoughEnergy');
   }
@@ -172,9 +188,12 @@ export const markAsAcceptedValidator = (
     message = t('post.noRootsToVote');
   } else if (
     !hasGlobalModeratorRole(profileInfo.permissions) &&
+    !hasProtocolAdminRole(profileInfo.permissions) &&
     getRatingByCommunity(profileInfo, communityId) < MIN_RATING
   ) {
-    message = `${t('post.notEnoughRating')} ${MIN_RATING}`;
+    message = `${t('post.notEnoughRating')} ${MIN_RATING} ${t(
+      'post.inThisCommunity',
+    )}`;
   } else if (profileInfo.energy < MIN_ENERGY) {
     message = t('post.notEnoughEnergy');
   }
@@ -195,7 +214,7 @@ export const upVoteValidator = (
   const MIN_ENERGY = 1;
   const communityId = questionData.communityId;
 
-  const isOwnItem = questionData.answers.filter(x => x.id === answerId);
+  const isOwnItem = questionData.answers.filter((x) => x.id === answerId);
 
   let message;
 
@@ -212,9 +231,12 @@ export const upVoteValidator = (
   } else if (
     getRatingByCommunity(profileInfo, communityId) < MIN_RATING_TO_UPVOTE &&
     !hasGlobalModeratorRole(profileInfo.permissions) &&
-    !hasCommunityModeratorRole(profileInfo.permissions, communityId)
+    !hasCommunityModeratorRole(profileInfo.permissions, communityId) &&
+    !hasProtocolAdminRole(profileInfo.permissions)
   ) {
-    message = `${t('post.notEnoughRating')} ${MIN_RATING_TO_UPVOTE}`;
+    message = `${t('post.notEnoughRating')} ${MIN_RATING_TO_UPVOTE} ${t(
+      'post.inThisCommunity',
+    )}`;
   } else if (profileInfo.energy < MIN_ENERGY) {
     message = t('post.notEnoughEnergy');
   }
@@ -247,7 +269,7 @@ export const downVoteValidator = (
   const item =
     answerId === 0
       ? questionData
-      : questionData.answers.find(x => x.id === answerId);
+      : questionData.answers.find((x) => x.id === answerId);
 
   if (item.votingStatus?.isVotedToDelete) {
     message = t('post.cannotCompleteBecauseBlocked');
@@ -256,9 +278,12 @@ export const downVoteValidator = (
   } else if (
     getRatingByCommunity(profileInfo, communityId) < MIN_RATING_TO_DOWNVOTE &&
     !hasGlobalModeratorRole(profileInfo.permissions) &&
-    !hasCommunityModeratorRole(profileInfo.permissions, communityId)
+    !hasCommunityModeratorRole(profileInfo.permissions, communityId) &&
+    !hasProtocolAdminRole(profileInfo.permissions)
   ) {
-    message = `${t('post.notEnoughRating')} ${MIN_RATING_TO_DOWNVOTE}`;
+    message = `${t('post.notEnoughRating')} ${MIN_RATING_TO_DOWNVOTE} ${t(
+      'post.inThisCommunity',
+    )}`;
   } else if (
     (item.votingStatus.isDownVoted &&
       profileInfo.energy < MIN_ENERGY_TO_CHANGE_DECISION) ||
@@ -303,13 +328,15 @@ export const deleteAnswerValidator = (
 ) => {
   const MIN_ENERGY = 2;
 
-  const isGlobalAdmin = hasGlobalModeratorRole(getPermissions(profileInfo));
+  const isGlobalAdmin =
+    hasGlobalModeratorRole(getPermissions(profileInfo)) ||
+    hasProtocolAdminRole(profileInfo.permissions);
   const isCommunityModerator = hasCommunityModeratorRole(
     profileInfo.permissions,
     questionData.communityId,
   );
   let message;
-  const itemData = questionData.answers.filter(x => x.id === answerid)[0];
+  const itemData = questionData.answers.filter((x) => x.id === answerid)[0];
 
   if (itemData.votingStatus.isUpVoted && !isGlobalAdmin) {
     message = t('post.cannotCompleteBecauseVoted');
@@ -338,7 +365,7 @@ export const deleteCommentValidator = (
   const MIN_ENERGY = 1;
 
   let message;
-  const itemData = questionData.comments.filter(x => x.id === commentId)[0];
+  const itemData = questionData.comments.filter((x) => x.id === commentId)[0];
 
   if (itemData?.votingStatus?.isUpVoted) {
     message = t('post.cannotCompleteBecauseVoted');

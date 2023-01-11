@@ -9,12 +9,13 @@ export default ({
   buttonId,
   minRating,
   isGlobalAdmin,
+  isCommunityAdmin,
 }) => {
   let message;
 
   if (actor && actor === creator) {
     message = t('post.creatorCannot');
-  } else if (rating < minRating && !isGlobalAdmin) {
+  } else if (rating < minRating && !isGlobalAdmin && !isCommunityAdmin) {
     message = `${t('post.notEnoughRating')} ${minRating}`;
   }
 

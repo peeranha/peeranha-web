@@ -35,6 +35,7 @@ import {
   getPermissions,
   hasCommunityAdminRole,
   hasGlobalModeratorRole,
+  hasProtocolAdminRole,
 } from '../../utils/properties';
 
 const tagsRoute = routes.tags();
@@ -68,7 +69,7 @@ const Menu = ({ sortTags, sorting }) => {
 
   return (
     <Ul>
-      {Object.keys(options).map(item => (
+      {Object.keys(options).map((item) => (
         <CheckedItem
           key={item}
           data-key={item}
@@ -91,9 +92,10 @@ export const Header = ({
   profile,
 }) => {
   const { t } = useTranslation();
-  const path = useMemo(() => window.location.pathname + window.location.hash, [
-    window.location,
-  ]);
+  const path = useMemo(
+    () => window.location.pathname + window.location.hash,
+    [window.location],
+  );
 
   const profileWithModeratorRights = useMemo(
     () => (profile ? hasGlobalModeratorRole(getPermissions(profile)) : false),
@@ -105,6 +107,11 @@ export const Header = ({
   const profileWithCommunityAdminRights = singleCommId
     ? hasCommunityAdminRole(getPermissions(profile), singleCommId)
     : false;
+
+  const tagCreatingAllowed =
+    profileWithModeratorRights ||
+    profileWithCommunityAdminRights ||
+    hasProtocolAdminRole(getPermissions(profile));
 
   const communityTagsRoute = useMemo(
     () => routes.communityTags(currentCommunity.id),
@@ -139,7 +146,7 @@ export const Header = ({
           )}
         </div>
 
-        {(profileWithModeratorRights || profileWithCommunityAdminRights) && (
+        {tagCreatingAllowed && (
           <WrapperRightPanel className="right-panel">
             <NavigationButton
               data-communityid={currentCommunity.id}

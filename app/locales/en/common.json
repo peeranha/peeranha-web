@@ -2,8 +2,7 @@
   "peeranha": "Peeranha",
   "copyrightPeeranha": "©{{year}} Peeranha",
   "confirm": "Accept",
-  "cookieConsent":
-    "We use cookies to ensure you get the best experience on our website. ",
+  "cookieConsent": "We use cookies to ensure you get the best experience on our website. ",
   "moreInfo": "More info",
   "profile": "Profile",
   "myCommunities": "My communities",
@@ -150,8 +149,7 @@
   "sendTip": "Send tip",
   "receivedReward": "You received referral reward",
   "generalPopoverTitle": "Discussion",
-  "generalPopoverLabel":
-    "A topic not requiring expertise or experience to answer that can be one of the following:",
+  "generalPopoverLabel": "A topic not requiring expertise or experience to answer that can be one of the following:",
   "generalPopoverList": [
     "Subjective opinion exchange;",
     "Brainstorming;",
@@ -167,8 +165,7 @@
     "Ask for an instruction or a recipe."
   ],
   "tutorialPopoverTitle": "Tutorial",
-  "tutorialPopoverLabel":
-    "Tutorial is a manual instruction that can be one of the following:",
+  "tutorialPopoverLabel": "Tutorial is a manual instruction that can be one of the following:",
   "tutorialPopoverList": [
     "Step-by-step solution to a problem;",
     "Technical setup;",
@@ -180,8 +177,7 @@
   "yesterday": "Yesterday",
   "official": "Official",
   "profilesUsersInfo": "File size should not exceed 5Mb",
-  "communityBannerInfo":
-    "Use an image that’s at least 1360 x 120 pixels. File size should not exceed 1Mb",
+  "communityBannerInfo": "Use an image that’s at least 1360 x 120 pixels. File size should not exceed 1Mb",
   "fileSizeErrorMsg": "File size is more than 5Mb. Choose another one...",
   "bannerSizeErrorMsg": "File size is more than 1Mb. Choose another one...",
   "incorrectBannerResolutionMsg": "Image resolution must be 1360 x 120 pixels",
@@ -199,8 +195,7 @@
   "blogger": "Blogger",
   "cannotTransferToYourself": "Cannot transfer to yourself",
   "notEnoughCPUOrRAM": "Not enough CPU or RAM",
-  "metaMaskIsLocked":
-    "Please check Metamask connection and try to reload the page",
+  "metaMaskIsLocked": "Please check Metamask connection and try to reload the page",
   "ipfsHashValue": "IPFS",
   "source": "Source",
   "waitingForConfirm": "Confirm this transaction in your wallet...",
@@ -209,12 +204,10 @@
   "transaction": "transaction",
   "transactionCompleted": "Transaction completed successfully",
   "estimatedReward": "Estimated reward",
-  "rewardsWillBeAvailable":
-    "Oops, you can't claim your tokens right now. No worries, the estimated reward will be available for you to claim after the token launch. Our legal team is backing us to finalize the details of the token launch. Thank you!",
+  "rewardsWillBeAvailable": "Oops, you can't claim your tokens right now. No worries, the estimated reward will be available for you to claim after the token launch. Our legal team is backing us to finalize the details of the token launch. Thank you!",
   "help": "Help",
   "didntFindAnswer": "Didn’t find the answer?",
-  "freeFeelToAsk":
-    "Feel free to ask our team.  We will help to find the answer.",
+  "freeFeelToAsk": "Feel free to ask our team.  We will help to find the answer.",
   "voteForNewCommunities": "Vote for new communities",
   "globalModerator": "Global moderator",
   "verifyFacebookAccount": "Account verification",
@@ -223,18 +216,15 @@
   "title": "Questions",
   "noQuestions": "No questions",
   "youDontHaveFeedToRead": "You don't have any feed to read",
-  "subscribeToCommToKeep":
-    "Subscribe to communities to keep track of topics that you are interested in.",
+  "subscribeToCommToKeep": "Subscribe to communities to keep track of topics that you are interested in.",
   "noPostsYet": "No posts yet.",
-  "thisIsNewCommunity":
-    "This is the new community, you can be the first to create a post and it may become the most popular.",
+  "thisIsNewCommunity": "This is the new community, you can be the first to create a post and it may become the most popular.",
   "readMyFeed": "Read my feed",
   "goToCommunities": "Go to communities",
   "topQuestionPopover": "Top question of this community",
   "showAllQuestions": "Show all questions",
   "bountyPopover": "Bounty - extra PEER reward from author.",
-  "communityTip":
-    "Make sure that the post is relevant to the selected community",
+  "communityTip": "Make sure that the post is relevant to the selected community",
   "titleTip": "Short and descriptive title of the post",
   "tagsTip": "Tags that are relevant to the post",
   "newPost": "New post",
@@ -254,10 +244,8 @@
   "previewLabel": "Preview",
   "questionType": "Post Type",
   "questionTypeTip": "Optional",
-  "generalQuestionDescriptionLabel":
-    "A topic not requiring expertise or experience to answer that can be one of the following:",
-  "expertQuestionDescriptionLabel":
-    "A question that asks one of the following:",
+  "generalQuestionDescriptionLabel": "A topic not requiring expertise or experience to answer that can be one of the following:",
+  "expertQuestionDescriptionLabel": "A question that asks one of the following:",
   "generalQuestionDescriptionList": [
     "Subjective opinion exchange;",
     "Brainstorming;",
@@ -270,8 +258,7 @@
     "Explanation or clarification of the information that is complicated to comprehend;",
     "Ask for an instruction or a recipe."
   ],
-  "tutorialQuestionDescriptionLabel":
-    "Tutorial is a manual instruction that can be one of the following:",
+  "tutorialQuestionDescriptionLabel": "Tutorial is a manual instruction that can be one of the following:",
   "tutorialQuestionDescriptionList": [
     "Step-by-step solution to a problem;",
     "Technical setup;",
@@ -281,8 +268,7 @@
   "promotedTip": "Promote question",
   "questionIsPromoting": "Promoted till",
   "postTypeSelectionError": "You need to select post type",
-  "leaveWithoutChanges":
-    "You are about to leave the page without saving your changes. Are you sure want to continue?",
+  "leaveWithoutChanges": "You are about to leave the page without saving your changes. Are you sure want to continue?",
   "titleSuggestedCommunities": "Suggested communities",
   "descriptionSuggestedCommunities": "Suggested communities | Description",
   "votingForNewComm": "Vote for new community",
@@ -293,38 +279,29 @@
   "indentCode": "indent code by 4 spaces",
   "backtipEscapes": "use backtick escapes for code blocks`like _so_`",
   "quoteByPlacing": "quote by placing > at start of line",
-  "toMakeLinks":
-    "to make links &lt;http://foo.com&gt;[foo](http://foo.com)&lt;a href=&quot;http://foo.com&quot;&gt;fo",
+  "toMakeLinks": "to make links &lt;http://foo.com&gt;[foo](http://foo.com)&lt;a href=&quot;http://foo.com&quot;&gt;fo",
   "titleAskQuestion": "New post",
   "descriptionAskQuestion": "New post | Description",
   "postQuestion": "Post",
   "contentPopupBlock_1": "Hey there!",
-  "contentPopupBlock_2":
-    "Welcome to Peeranha. We're glad you're here and ready to make your first publication. There are just a few simple rules we all follow around here:",
-  "contentPopupBlock_3":
-    "1. Make sure your posts are related to a particular community.",
-  "contentPopupBlock_4":
-    "2. Do a bit of research to be sure the same post hasn't been published before.",
-  "contentPopupBlock_5":
-    "3. Answers have to actually answer the question, and not just be a comment.",
-  "contentPopupBlock_6":
-    "4. Be sure your answer provides valuable information and isn't just a repeat of what's already been said.",
-  "contentPopupBlock_7":
-    "And the most important rule is to be polite and friendly to other users.",
+  "contentPopupBlock_2": "Welcome to Peeranha. We're glad you're here and ready to make your first publication. There are just a few simple rules we all follow around here:",
+  "contentPopupBlock_3": "1. Make sure your posts are related to a particular community.",
+  "contentPopupBlock_4": "2. Do a bit of research to be sure the same post hasn't been published before.",
+  "contentPopupBlock_5": "3. Answers have to actually answer the question, and not just be a comment.",
+  "contentPopupBlock_6": "4. Be sure your answer provides valuable information and isn't just a repeat of what's already been said.",
+  "contentPopupBlock_7": "And the most important rule is to be polite and friendly to other users.",
   "contentPopupBlock_8": "Thank you!",
   "newEmail": "New email",
   "confirmNewEmail": "Confirm new email",
   "emailsDoNotMatch": "Emails do not match",
   "didntFindAnyInteresting": "Didn’t find anything interesting?",
-  "suggestInterestingComm":
-    "Suggest a community, which will be interesting to you and 100 other users who will vote for it.",
+  "suggestInterestingComm": "Suggest a community, which will be interesting to you and 100 other users who will vote for it.",
   "titleCommunities": "Communities",
   "descriptionCommunities": "Communities | Description",
   "suggestCommunity": "Create community",
   "deleteAccount": "Delete account",
   "areYouLeaving": "Are you leaving?",
-  "iUnderstand":
-    "I understand that this operation does not remove my account on Telos blockchain. Account is removed only from wallet service.",
+  "iUnderstand": "I understand that this operation does not remove my account on Telos blockchain. Account is removed only from wallet service.",
   "iHaveBackup": "I have back up for my Telos private keys.",
   "faqPage": {
     "title": "FAQ",
@@ -339,38 +316,30 @@
   },
   "metaTransaction": {
     "agreeWithMetaTransactions": "We’ve got you covered",
-    "youNeedMetaBecause":
-      "Your MATIC balance is 0. MATIC is required to pay transaction fees.  ",
+    "youNeedMetaBecause": "Your MATIC balance is 0. MATIC is required to pay transaction fees.  ",
     "dontWorry": "Don’t worry! We’ve got you covered.",
-    "wouldYouLike":
-      "Would you like us to relay your transactions and cover transaction fees?",
+    "wouldYouLike": "Would you like us to relay your transactions and cover transaction fees?",
     "confirm": "Yes",
     "cansel": "No"
   },
   "moderationPermitions": {
     "title": "Moderator permissions",
     "givePermissions": "Give permissions",
-    "givePermissionsDescription":
-      "Allows you to give and revoke community moderator permission.",
+    "givePermissionsDescription": "Allows you to give and revoke community moderator permission.",
     "permissionInfinite": "Infinite Impact",
-    "permissionInfiniteDescription":
-      "Allows you to delete posts, answers and comments in one click",
+    "permissionInfiniteDescription": "Allows you to delete posts, answers and comments in one click",
     "permissionIgnoreRating": "Ignore rating",
-    "permissionIgnoreRatingDescription":
-      "Allows you to perform actions that are rating restricted",
+    "permissionIgnoreRatingDescription": "Allows you to perform actions that are rating restricted",
     "permissionCreateCommunity": "Create community",
-    "permissionCreateCommunityDescription":
-      "Allows you to instantly create a community",
+    "permissionCreateCommunityDescription": "Allows you to instantly create a community",
     "permissionCreateTag": "Create tag",
     "permissionCreateTagDescription": "Allows you to instantly create a tag",
     "permissionChangePostType": "Change post type",
     "permissionChangePostTypeDescription": "Allows you to change post type",
     "permissionSelectTopQuestion": "Select top question",
-    "permissionSelectTopQuestionDescription":
-      "Allows you to select a question that will be displayed on \"Top\" page",
+    "permissionSelectTopQuestionDescription": "Allows you to select a question that will be displayed on \"Top\" page",
     "permissionOfficialAnswer": "Post official answer",
-    "permissionOfficialAnswerDescription":
-      "Allows you to post an official answer"
+    "permissionOfficialAnswerDescription": "Allows you to post an official answer"
   },
   "telegram": {
     "user": "Telegram user",
@@ -395,8 +364,7 @@
   "askQuestionBanner": {
     "help": "Help",
     "didntFindAnswer": "Didn’t find the answer?",
-    "freeFeelToAsk":
-      "Feel free to ask our team.  We will help to find the answer."
+    "freeFeelToAsk": "Feel free to ask our team.  We will help to find the answer."
   },
   "usersDesc": {
     "title": "Users",
@@ -424,8 +392,7 @@
     "title": "Support",
     "description": "Support | Description",
     "feelFreeToAsk": "Feel free to ask",
-    "alsoWeHighly":
-      "We highly appreciate your feedback, opinion, and suggestions for our platform. Please, send us a few lines or even better let us know if you have 15 minutes to chat."
+    "alsoWeHighly": "We highly appreciate your feedback, opinion, and suggestions for our platform. Please, send us a few lines or even better let us know if you have 15 minutes to chat."
   },
   "voteNewCommunity": {
     "youHaveAlreadyVoted": "You have already voted",
@@ -449,8 +416,7 @@
   "editExpertQ&A": "Edit Expert Q&A",
   "editTutorial": "Edit Tutorial",
   "footerHeader": "Copyright: Peeranha",
-  "youGotThisKey":
-    "You received this key with the authorization which was saved in a safe place. Try to find it.",
+  "youGotThisKey": "You received this key with the authorization which was saved in a safe place. Try to find it.",
   "noAccessError": "No access to complete this action!",
   "groupForAuthorizedUser": "Profile",
   "errorBoundary": {
@@ -461,6 +427,49 @@
     "reloadPage": "Reload page"
   },
   "answerForm": "Your Answer",
-  "reCaptchaMention":
-    "This site is protected by reCAPTCHA and the Google <0>{{privacyPolicy}}</0> and <1>{{termsOfService}}</1> apply."
+  "reCaptchaMention": "This site is protected by reCAPTCHA and the Google <0>{{privacyPolicy}}</0> and <1>{{termsOfService}}</1> apply.",
+  "errorMinReputation": "To complete this action, your reputation has to be at least 0",
+  "subscribers": "Subscribers",
+  "markdownIsSupported": "Markdown is supported:",
+  "forMoreSyntax": "For more syntax elements check ",
+  "markdownCheatSheet": "Markdown Cheat Sheet",
+  "reputationStatus": "Reputation and status",
+  "administration": "Administration",
+  "transactions": "Transactions",
+  "transactionsText_1": "Peeranha can relay your transactions and cover transaction fees.",
+  "transactionsText_2": "If you have MATIC in your wallet, you can cover the transaction fees youself.",
+  "transactionsChange_1": "Peeranha relay transactions and cover transaction fees",
+  "transactionsChange_2": "I have MATIC and I want to cover transaction fees myself",
+  "defaultAdministrator": "Default Admin permissions",
+  "protocolAdministrator": "Protocol Admin permissions",
+  "communityModerator": "Community Moderator permissions",
+  "communityAdministrator": "Community Administrator permissions",
+  "asDefaultAdministrator": "As a Default Admin, you can:",
+  "asProtocolAdministrator": "As a Protocol Admin, you can:",
+  "asCommunityAdministrator": "As a Community Administrator, you can:",
+  "asCommunityModerator": "As a Community Moderator, you can:",
+  "permissionProtocolAdmin_1": "give and revoke Community Moderator and Community Administrator permissions for any community",
+  "permissionProtocolAdmin_2": "create new communities",
+  "permissionProtocolAdmin_3": "edit any community",
+  "permissionProtocolAdmin_4": "freeze and unfreeze communities",
+  "permissionProtocolAdmin_5": "create and edit tags for any community",
+  "permissionProtocolAdmin_6": "change post type in any community",
+  "permissionProtocolAdmin_7": "ignore reputation in any community and perform actions that are reputation restricted like upvoting and downvoting posts, answers, and adding comments",
+  "permissionProtocolAdmin_8": "delete posts, answers, even those marked as the best, and comments in any community",
+  "permissionProtocolAdmin_9": "post official answer",
+  "permissionCommunityAdmin_1": "Give and revoke Community Moderator and Community Administrator permissions in your community",
+  "permissionCommunityAdmin_2": "Edit your community: change title, description, official site link, and avatar of the community",
+  "permissionCommunityAdmin_3": "Create and edit tags in your community",
+  "permissionCommunityAdmin_4": "Post an official answer in your community",
+  "permissionCommunityAdmin_5": "Work with documentation in your community: add, edit, delete, and provide translations in supported languages for documentation articles",
+  "permissionCommunityModerator_1": "Ignore reputation in your community and perform actions that are reputation restricted like upvoting and downvoting posts, answers, and adding comments",
+  "permissionCommunityModerator_2": "Delete posts, answers, even those marked as the best, and comments in your community",
+  "permissionCommunityModerator_3": "Switch the post type from Expert to Discussion and from Discussion to Expert in your community",
+  "permissionCommunityModerator_4": "Post an official answer in your community",
+  "permissionCommunityModerator_5": "Work with documentation in your community: add, edit, and delete documentation articles",
+  "permissionCommunityModerator_6": "Add translations for all kinds of posts in your community in supported languages",
+  "reputationBelowZero": "Your reputation in this community is negative, you are not allowed to post any replies.",
+  "documentation": "Documentation",
+  "drafts": "Drafts",
+  "enterText": "Please enter Markdown text"
 }

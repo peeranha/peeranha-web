@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 
@@ -15,22 +15,18 @@ import { MediumImageStyled } from 'components/Img/MediumImage';
 import TransparentButton from 'components/Button/Contained/Transparent';
 
 import { GO_TO_CREATE_TAG_SCREEN_BUTTON_ID } from 'containers/Tags/constants';
-import { getPermissions, hasGlobalModeratorRole } from '../../utils/properties';
+import {
+  getPermissions,
+  hasGlobalModeratorRole,
+  hasProtocolAdminRole,
+} from '../../utils/properties';
 
 const Header = ({ openTagForm, profile }) => {
   const { t } = useTranslation();
 
-  const profileWithModeratorRights = useMemo(
-    () => profile && hasGlobalModeratorRole(getPermissions(profile)),
-    [profile],
-  );
-
-  const onClickOpenTagForm = ({ currentTarget: { id, communityid } }) => {
-    openTagForm({
-      buttonId: id,
-      communityId: communityid,
-    });
-  };
+  const tagCreatingAllowed =
+    hasGlobalModeratorRole(getPermissions(profile)) ||
+    hasProtocolAdminRole(getPermissions(profile));
 
   return (
     <Wrapper className="mb-to-sm-0 mb-from-sm-3">
@@ -38,10 +34,10 @@ const Header = ({ openTagForm, profile }) => {
         <MediumImageStyled src={suggestTagIcon} alt="tags-collection" />
         {t('common.tags')}
       </H3>
-      {profileWithModeratorRights && (
+      {tagCreatingAllowed && (
         <WrapperRightPanel className="right-panel">
           <TransparentButton
-            onClick={onClickOpenTagForm}
+            onClick={openTagForm}
             data-communityid=""
             id={`${GO_TO_CREATE_TAG_SCREEN_BUTTON_ID}_tags_collection`}
           >

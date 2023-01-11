@@ -8,13 +8,15 @@ import {
   required,
   maxByteLength,
   withoutDoubleSpace,
+  strLength5x100,
 } from 'components/FormFields/validate';
 import TextInputField from 'components/FormFields/TextInputField';
 
 import { FORM_TITLE } from './constants';
 
-const TitleForm = ({ questionLoading }) => {
+const TitleForm = ({ questionLoading, isDocumentation }) => {
   const { t } = useTranslation();
+  const length = isDocumentation ? strLength5x100 : strLength15x100;
 
   return (
     <Field
@@ -23,8 +25,8 @@ const TitleForm = ({ questionLoading }) => {
       disabled={questionLoading}
       label={t('common.titleLabel')}
       tip={t('common.titleTip')}
-      validate={[withoutDoubleSpace, strLength15x100, maxByteLength, required]}
-      warn={[strLength15x100, required]}
+      validate={[withoutDoubleSpace, length, maxByteLength, required]}
+      warn={[length, required]}
       splitInHalf
     />
   );

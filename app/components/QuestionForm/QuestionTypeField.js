@@ -35,6 +35,10 @@ export const QUESTION_TYPES = {
     value: POST_TYPE.tutorial,
     label: 'common.tutorial',
   },
+  FAQ: {
+    value: POST_TYPE.documentation,
+    label: 'faq',
+  },
 };
 
 const QuestionTypeContainer = styled.div`
@@ -52,6 +56,8 @@ const ButtonGroup = styled.div`
   ${Styles};
   padding: 0;
   display: flex;
+  padding: 0;
+  border: ${({ error }) => !error && 'none'};
 
   @media (max-width: 576px) {
     padding-left: 0 !important;
@@ -67,7 +73,7 @@ const Button = B.extend`
   }
 
   &:last-child {
-    border-left: none;
+    border-left: ${({ type, value }) => Number(type) !== value && 'none'};
     border-top-right-radius: ${BORDER_RADIUS_M};
     border-bottom-right-radius: ${BORDER_RADIUS_M};
     border-radius: ${styles.buttonBorderRadius};
@@ -76,12 +82,16 @@ const Button = B.extend`
   flex: 1;
   border: 1px solid ${BORDER_SECONDARY};
   border-color: ${({ type, value }) =>
-    +type === value && (colors.textColor || `rgb(${BORDER_PRIMARY_RGB})`)};
+    Number(type) === value &&
+    (colors.textColor || `rgb(${BORDER_PRIMARY_RGB})`)};
   box-shadow: ${({ type, value }) =>
-    +type === value && (colors.textColorShadow || `0 0 0 3px ${customShadow}`)};
-
+    Number(type) === value
+      ? `0 0 0 3px ${colors.textColorShadow || customShadow}`
+      : 'none'};
+  z-index: ${({ type, value }) => (Number(type) === value ? 1 : 0)};
   &:hover {
     box-shadow: 0 0 0 3px ${colors.textColorShadow || customShadow};
+    z-index: 1;
   }
 
   @media only screen and (max-width: 576px) {
@@ -100,6 +110,7 @@ const QuestionTypeField = ({
   splitInHalf,
   insideOfSection,
   error,
+  isCommunityModerator,
 }) => {
   const { t } = useTranslation();
   const [type, setType] = useState();
@@ -110,6 +121,9 @@ const QuestionTypeField = ({
     input.onChange(value);
     setType(value);
   }
+
+  // Don't show FAQ post type;
+  const types = Object.values(QUESTION_TYPES).slice(0, 3);
 
   return (
     <QuestionTypeContainer>
@@ -123,7 +137,7 @@ const QuestionTypeField = ({
         insideOfSection={insideOfSection}
       >
         <ButtonGroup error={error}>
-          {Object.values(QUESTION_TYPES).map(questionType => (
+          {types.map((questionType) => (
             <Button
               type={type}
               onClick={chooseQuestionType}

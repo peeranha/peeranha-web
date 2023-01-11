@@ -19,7 +19,7 @@ import FormBox from 'components/Form';
 
 import {
   required,
-  strLength2x15,
+  strLength2x25,
   strLength20x1000,
   requiredForObjectField,
   valueHasNotBeInList,
@@ -41,7 +41,7 @@ export const Form = ({
   isEditTagForm,
 }) => {
   const { t } = useTranslation();
-  const onChange = value => {
+  const onChange = (value) => {
     if (value) {
       getSuggestedTagsDispatch({ communityId: value.id });
     }
@@ -69,8 +69,8 @@ export const Form = ({
         component={TextInputField}
         label={t('tags.name')}
         tip={t('tags.nameTip')}
-        validate={[strLength2x15, required, valueHasNotBeInList]}
-        warn={[strLength2x15, required, valueHasNotBeInList]}
+        validate={[strLength2x25, required, valueHasNotBeInList]}
+        warn={[strLength2x25, required, valueHasNotBeInList]}
         splitInHalf
       />
 
@@ -86,7 +86,7 @@ export const Form = ({
       />
 
       <Button type="submit" disabled={tagFormLoading}>
-        {isEditTagForm ? t('tags.titleEdit') : t('tags.createTag')}
+        {isEditTagForm ? t('tags.saveTag') : t('tags.createTag')}
       </Button>
     </FormBox>
   );
@@ -101,7 +101,7 @@ Form.propTypes = {
 
 let FormClone = reduxForm({
   form: FORM_NAME,
-  onSubmitFail: errors => scrollToErrorField(errors),
+  onSubmitFail: (errors) => scrollToErrorField(errors),
 })(Form);
 
 FormClone = connect(
@@ -110,18 +110,18 @@ FormClone = connect(
     if (isEditTagForm) {
       const { communityId, tagId } = editTagData;
       const existingTags = selectExistingTags()(state);
-      const selectedTag = existingTags.find(tag => tag.id === tagId);
+      const selectedTag = existingTags.find((tag) => tag.id === tagId);
 
       const selectedCommunity = communities.find(
-        comm => comm.id === communityId,
+        (comm) => comm.id === communityId,
       );
 
       return {
         valueHasNotBeInListValidate: existingTags
-          .filter(tag => tag.id !== tagId)
-          .map(x => x.name?.toLowerCase())
+          .filter((tag) => tag.id !== tagId)
+          .map((x) => x.name?.toLowerCase())
           .concat(
-            (state?.toJS()?.tags?.suggestedTags ?? []).map(x =>
+            (state?.toJS()?.tags?.suggestedTags ?? []).map((x) =>
               x.name?.toLowerCase(),
             ),
           ),
@@ -139,9 +139,9 @@ FormClone = connect(
       valueHasNotBeInListValidate: (
         state?.toJS()?.form?.[FORM_NAME]?.values?.[FORM_COMMUNITY]?.tags ?? []
       )
-        .map(x => x.name?.toLowerCase())
+        .map((x) => x.name?.toLowerCase())
         .concat(
-          (state?.toJS()?.tags?.suggestedTags ?? []).map(x =>
+          (state?.toJS()?.tags?.suggestedTags ?? []).map((x) =>
             x.name?.toLowerCase(),
           ),
         ),

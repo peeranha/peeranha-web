@@ -64,35 +64,33 @@ const UserNavigation = ({
   const path = window.location.pathname + window.location.hash;
   const ref = useRef(null);
 
-  useEffect(
-    () => {
-      if (
-        hashes.includes(window.location.hash) ||
-        path === routes.profileView(userId)
-      ) {
-        window.scrollTo(0, 0);
-      }
-    },
-    [window.location.hash],
-  );
+  useEffect(() => {
+    if (
+      hashes.includes(window.location.hash) ||
+      path === routes.profileView(userId)
+    ) {
+      window.scrollTo(0, 0);
+    }
+  }, [window.location.hash]);
 
   const isProfilePage =
     userId === account &&
     (path === routes.profileView(account) ||
       path === routes.userCommunities(account));
 
-  const isModerator = useMemo(() => !!getPermissions(profile)?.length, [
-    profile,
-  ]);
+  const isModerator = useMemo(
+    () => !!getPermissions(profile)?.length,
+    [profile],
+  );
 
-  const onClickRedirectToEditProfilePage = userId => ({
-    currentTarget: { id },
-  }) => {
-    redirectToEditProfilePage({
-      buttonId: id,
-      user: userId,
-    });
-  };
+  const onClickRedirectToEditProfilePage =
+    (userId) =>
+    ({ currentTarget: { id } }) => {
+      redirectToEditProfilePage({
+        buttonId: id,
+        user: userId,
+      });
+    };
 
   return (
     <Wrapper position="top" ref={ref}>
@@ -163,18 +161,6 @@ const UserNavigation = ({
           </NavigationLink>
 
           <NavigationLink
-            className={
-              userId !== account || loginData.email === undefined
-                ? 'd-none'
-                : ''
-            }
-            to={routes.userSettings(userId)}
-            islink={path !== routes.userSettings(userId) ? 1 : 0}
-          >
-            {t('common.settings')}
-          </NavigationLink>
-
-          <NavigationLink
             className={userId !== account ? 'd-none' : ''}
             to={routes.userNotifications(userId)}
             islink={path !== routes.userNotifications(userId) ? 1 : 0}
@@ -213,6 +199,20 @@ const UserNavigation = ({
               {t('common.moderation')}
             </NavigationLink>
           )}
+          {/* PEER-718: hide settings;
+          <NavigationLink
+            to={routes.userSettings(userId)}
+            islink={path !== routes.userSettings(userId) ? 1 : 0}
+          >
+            <FormattedMessage id={messages.settings.id} />
+          </NavigationLink> */}
+
+          <NavigationLink
+            to={routes.userSettings(userId)}
+            islink={path !== routes.userSettings(userId) ? 1 : 0}
+          >
+            {t('common.settings')}
+          </NavigationLink>
 
           <NavigationButton
             className={

@@ -31,8 +31,14 @@ export const Banner = ({
   isFeed,
   followedCommunities,
   redirectToAskQuestionPage,
+  isEmpty,
+  isSingleCommunityMode,
 }) =>
-  isFeed && followedCommunities && !followedCommunities[0] ? (
+  (!isSingleCommunityMode &&
+    isFeed &&
+    followedCommunities &&
+    !followedCommunities[0]) ||
+  (isSingleCommunityMode && !isEmpty) ? (
     <FeedBanner />
   ) : (
     <AllQuestionsBanner redirectToAskQuestionPage={redirectToAskQuestionPage} />
@@ -42,6 +48,8 @@ Banner.propTypes = {
   isFeed: PropTypes.bool,
   followedCommunities: PropTypes.array,
   redirectToAskQuestionPage: PropTypes.func,
+  isEmpty: PropTypes.bool,
+  isSingleCommunityMode: PropTypes.bool,
 };
 
 AllQuestionsBanner.propTypes = {

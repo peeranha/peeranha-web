@@ -7,6 +7,7 @@ import { TEXT_SECONDARY, BORDER_PRIMARY } from 'style-constants';
 import { getFormattedNum2 } from 'utils/numbers';
 import {
   getSingleCommunityDetails,
+  isSingleCommunityWebsite,
   singleCommunityColors,
 } from 'utils/communityManagement';
 
@@ -26,6 +27,7 @@ import Wrapper, { WrapperRightPanel } from 'components/Header/Simple';
 import options from './options';
 
 const colors = singleCommunityColors();
+const single = isSingleCommunityWebsite();
 
 const Button = ({ sorting }) => {
   const { t } = useTranslation();
@@ -53,7 +55,7 @@ const Menu = ({ sort, sorting }) => {
 
   return (
     <Ul>
-      {Object.keys(options).map(x => (
+      {Object.keys(options).map((x) => (
         <CheckedItem
           key={x}
           onClick={() => sort(options[x].orderDirection)}
@@ -69,6 +71,8 @@ const Menu = ({ sort, sorting }) => {
 export const Header = ({ sorting, dropdownFilter, userCount }) => {
   const { t } = useTranslation();
   const isBloggerMode = getSingleCommunityDetails()?.isBlogger || false;
+  const isSingleCommunityMode = Boolean(isSingleCommunityWebsite()) || false;
+  const usersCondition = isSingleCommunityMode ? 'activeUsers' : 'users';
 
   return (
     <Wrapper className="mb-to-sm-0 mb-from-sm-3">
@@ -77,27 +81,29 @@ export const Header = ({ sorting, dropdownFilter, userCount }) => {
           <Icon
             icon={usersHeader}
             width="38"
-            color={colors.btnColor || BORDER_PRIMARY}
+            color={colors.headerPrimary || BORDER_PRIMARY}
             isColorImportant={true}
           />
         </MediumIconStyled>
 
         <span>
-          {t(`common.${isBloggerMode ? 'followers' : 'users'}`)}
+          {t(`common.${isBloggerMode ? 'followers' : usersCondition}`)}
           <Span className="ml-2" color={TEXT_SECONDARY} fontSize="30" bold>
             {getFormattedNum2(userCount)}
           </Span>
         </span>
       </H3>
 
-      <WrapperRightPanel className="right-panel">
-        <Dropdown
-          button={<Button sorting={sorting} />}
-          menu={<Menu sort={dropdownFilter} sorting={sorting} />}
-          id="users-dropdown"
-          isArrowed
-        />
-      </WrapperRightPanel>
+      {!single && (
+        <WrapperRightPanel className="right-panel">
+          <Dropdown
+            button={<Button sorting={sorting} />}
+            menu={<Menu sort={dropdownFilter} sorting={sorting} />}
+            id="users-dropdown"
+            isArrowed
+          />
+        </WrapperRightPanel>
+      )}
     </Wrapper>
   );
 };

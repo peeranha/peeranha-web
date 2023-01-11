@@ -61,7 +61,7 @@ const Container = styled.div`
   ${({ small }) =>
     !small
       ? `
-    @media only screen and (min-width: 815px) and (max-width: 991px), only screen and (min-width: 1015px) {
+    @media only screen and (min-width: 834px) and (max-width: 991px), only screen and (min-width: 1051px) {
       display: grid;
       grid-template-columns: 1.35fr 1.45fr 0.55fr;
       grid-template-rows: ${({ height }) => height}px;
@@ -98,6 +98,7 @@ const Container = styled.div`
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 1fr 1fr;
   padding: 10px ${({ paddingHorizontal }) => paddingHorizontal / 2 || 0}px;
+  padding-bottom: 5px;
 
   > span:nth-child(1) {
     ${({ small }) =>
@@ -192,34 +193,33 @@ const Notification = ({
     [ref, ref.current],
   );
 
-  const href = useMemo(
-    () =>
-      data.answer_id
-        ? routes.questionView(data.question_id, data.answer_id)
-        : routes.questionView(data.question_id),
-    [data],
-  );
+  const href = useMemo(() => {
+    if (data.post_type === 0) {
+      return routes.expertPostView(data.question_id, data.answer_id);
+    }
+    if (data.post_type === 1) {
+      return routes.questionView(data.question_id, data.answer_id);
+    }
+    return routes.tutorialView(data.question_id, data.answer_id);
+  }, [data]);
 
-  const values = useMemo(
-    () => {
-      if (
-        ![
-          NOTIFICATIONS_TYPES.answerTipped,
-          NOTIFICATIONS_TYPES.questionTipped,
-        ].includes(type)
-      ) {
-        return {};
-      }
+  const values = useMemo(() => {
+    if (
+      ![
+        NOTIFICATIONS_TYPES.answerTipped,
+        NOTIFICATIONS_TYPES.questionTipped,
+      ].includes(type)
+    ) {
+      return {};
+    }
 
-      return {
-        quantity: data.quantity
-          .split(' ')
-          .map((x, i) => (i === 0 ? trimRightZeros(x) : x))
-          .join(' '),
-      };
-    },
-    [data],
-  );
+    return {
+      quantity: data.quantity
+        .split(' ')
+        .map((x, i) => (i === 0 ? trimRightZeros(x) : x))
+        .join(' '),
+    };
+  }, [data]);
 
   const isCommunityMod = Boolean(single) && Object.keys(styles).length > 0;
 
@@ -236,7 +236,6 @@ const Notification = ({
       width={width}
       small={small}
       innerRef={ref}
-      withoutBorder
       height={height}
       style={{ top }}
       last={index === notificationsNumber - 1}

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { DARK_SECONDARY } from 'style-constants';
 import styled from 'styled-components';
 import { css } from '@emotion/react';
 import {
@@ -43,7 +44,7 @@ export const Dropdown = ({
       aria-haspopup="true"
       aria-expanded="false"
       data-icon="arrow"
-      css={css`color: colors.localeArrowColor : "" `}
+      css={css`color: ${colors.localeArrowColor} : "" `}
     >
       {button}
 
@@ -53,6 +54,7 @@ export const Dropdown = ({
           width="10"
           alt="data-icon"
           className="dropdown-arrow"
+          fill={DARK_SECONDARY}
         />
       )}
     </button>

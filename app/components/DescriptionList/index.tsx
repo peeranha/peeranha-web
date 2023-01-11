@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+
 import styled from 'styled-components';
 
 import { useTranslation } from 'react-i18next';
@@ -37,14 +37,27 @@ const Base = styled.div`
   }
 `;
 
-export const DescriptionList = ({ label, items }) => {
+type DescriptionListProps = {
+  label: string;
+  items?: string;
+  locale: string;
+};
+
+export const DescriptionList: React.FC<DescriptionListProps> = ({
+  label,
+  items,
+}): JSX.Element | null => {
   const { t } = useTranslation();
+
+  if (!items) {
+    return null;
+  }
 
   return (
     <Base>
       {t(label)}
       <ul>
-        {t(items, { returnObjects: true }).map(item => (
+        {t(items, { returnObjects: true }).map((item) => (
           <li key={item}>
             <span>{t(item)}</span>
           </li>
@@ -54,10 +67,4 @@ export const DescriptionList = ({ label, items }) => {
   );
 };
 
-DescriptionList.propTypes = {
-  label: PropTypes.string,
-  locale: PropTypes.string,
-  items: PropTypes.string,
-};
-
-export default React.memo(DescriptionList);
+export default DescriptionList;

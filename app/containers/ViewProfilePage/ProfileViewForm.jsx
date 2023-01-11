@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useTranslation } from 'react-i18next';
 
 import TopCommunities from 'components/TopCommunities';
 
@@ -21,6 +20,7 @@ const ProfileViewForm = ({
   locale,
   className,
   redirectToEditProfilePage,
+  userAchievementsLength,
 }) => {
   const path = window.location.pathname + window.location.hash;
   const isProfilePage =
@@ -44,7 +44,8 @@ const ProfileViewForm = ({
         userId={userId}
         account={account}
         locale={locale}
-        redirectToEditProfilePage={onClickRedirectToEditProfilePage}
+        redirectToEditProfilePage={redirectToEditProfilePage}
+        userAchievementsLength={userAchievementsLength}
       />
 
       <AdditionalUserInformation

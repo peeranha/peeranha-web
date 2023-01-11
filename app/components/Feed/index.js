@@ -11,17 +11,22 @@ import {
 } from 'containers/AccountProvider/selectors';
 
 import WidthCentered from '../LoadingIndicator/WidthCentered';
-import { POST_TYPE } from '../../utils/constants';
+import { POST_TYPE } from 'utils/constants';
 
 const Feed = ({ match, account, loading }) => {
   if (loading) {
     return <WidthCentered />;
-  } else if (account) {
+  }
+  if (account) {
     return (
       <Questions
         parentPage={routes.feed()}
         match={match}
-        postsTypes={Object.values(POST_TYPE)}
+        postsTypes={[
+          POST_TYPE.generalPost,
+          POST_TYPE.expertPost,
+          POST_TYPE.tutorial,
+        ]}
       />
     );
   }
@@ -29,7 +34,11 @@ const Feed = ({ match, account, loading }) => {
     <Questions
       parentPage={routes.home()}
       match={match}
-      postsTypes={Object.values(POST_TYPE)}
+      postsTypes={[
+        POST_TYPE.generalPost,
+        POST_TYPE.expertPost,
+        POST_TYPE.tutorial,
+      ]}
     />
   );
 };
@@ -42,7 +51,7 @@ Feed.propTypes = {
 
 export default memo(
   compose(
-    connect(state => ({
+    connect((state) => ({
       account: makeSelectAccount()(state),
       loading: makeSelectAccountLoading()(state),
     })),

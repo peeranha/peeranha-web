@@ -6,12 +6,10 @@ const ArrowDown: React.FC<IconProps> = (props): JSX.Element => (
     {...props}
     id="arrow-down"
     fill="curentColor"
-    viewBox="0 0 14 9"
-    size={[14, 9]}
+    viewBox="0 0 24 24"
+    size={[24, 24]}
   >
-    <g stroke={props.stroke || '#282828'} fill="none">
-      <path d="M7 6.243 12.657.586 14.07 2 8.414 7.657 7 9.07-.071 2 1.343.586 7 6.243Z" />
-    </g>
+    <path d="M19.1421 9.41421L17.7279 8L12.0711 13.6569L6.41421 8L5 9.41421L12.0711 16.4853L19.1421 9.41421Z" />
   </IconComponent>
 );
 

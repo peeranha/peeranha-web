@@ -18,6 +18,7 @@ import LargeButton from 'components/Button/Contained/InfoLarge';
 import { ExtendedBase } from 'components/Base/AvatarBase';
 import AvatarField from 'components/FormFields/AvatarField';
 import TextInputField from 'components/FormFields/TextInputField';
+import TextareaField from 'components/FormFields/TextareaField';
 
 import { scrollToErrorField } from 'utils/animation';
 
@@ -25,6 +26,7 @@ import {
   COMM_AVATAR_FIELD,
   COMM_NAME_FIELD,
   COMM_OFFICIAL_SITE_FIELD,
+  COMM_PEERANHA_SITE_FIELD,
   COMM_SHORT_DESCRIPTION_FIELD,
   EDIT_COMMUNITY_BUTTON,
   EDIT_COMMUNITY_FORM,
@@ -42,12 +44,13 @@ const EditCommunityForm = ({
 }) => {
   const { t } = useTranslation();
   const editCommunity = useCallback(
-    values => {
+    (values) => {
       const communityData = {
         avatar: values.get(COMM_AVATAR_FIELD),
         name: values.get(COMM_NAME_FIELD),
         description: values.get(COMM_SHORT_DESCRIPTION_FIELD),
         website: values.get(COMM_OFFICIAL_SITE_FIELD),
+        communitySite: values.get(COMM_PEERANHA_SITE_FIELD),
         isBlogger: !!parseInt(values.get(COMMUNITY_TYPE)),
       };
 
@@ -80,7 +83,7 @@ const EditCommunityForm = ({
 
         <Field
           name={COMM_SHORT_DESCRIPTION_FIELD}
-          component={TextInputField}
+          component={TextareaField}
           validate={[strLength15x250, required]}
           warn={[strLength15x250, required]}
           disabled={communityLoading}
@@ -99,6 +102,18 @@ const EditCommunityForm = ({
           placeholder="https://example.com"
           splitInHalf
           tip={t('createCommunity.websiteTip')}
+        />
+
+        <Field
+          disabled={communityLoading}
+          name={COMM_PEERANHA_SITE_FIELD}
+          component={TextInputField}
+          label={t('createCommunity.communityWebsite')}
+          validate={[strLength100Max]}
+          warn={[strLength100Max]}
+          placeholder="subdomain.peeranha.io"
+          tip={t('createCommunity.communityWebsiteTip')}
+          splitInHalf
         />
 
         {+formValues[COMMUNITY_TYPE] ? (
@@ -131,7 +146,7 @@ EditCommunityForm.propTypes = {
 const FormClone = reduxForm({
   enableReinitialize: true,
   form: EDIT_COMMUNITY_FORM,
-  onSubmitFail: errors => {
+  onSubmitFail: (errors) => {
     scrollToErrorField(errors);
   },
 })(EditCommunityForm);
@@ -144,6 +159,7 @@ export default connect((state, { community }) => ({
         [COMM_NAME_FIELD]: community.name,
         [COMM_SHORT_DESCRIPTION_FIELD]: community.description,
         [COMM_OFFICIAL_SITE_FIELD]: community.website,
+        [COMM_PEERANHA_SITE_FIELD]: community.communitySite,
         [COMMUNITY_TYPE]: community.isBlogger ? 1 : 0,
       }
     : {},

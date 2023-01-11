@@ -24,20 +24,17 @@ const CommunityItemWithRating = ({
   const [route, setRoute] = useState(() => routes.questions(communityId));
   const Link = single && communityId !== single ? ADefaultStyled : AStyled;
 
-  useEffect(
-    () => {
-      if (single && communityId !== single) {
-        setRoute(`${process.env.APP_LOCATION}${route}`);
-      }
+  useEffect(() => {
+    if (single && communityId !== single) {
+      setRoute(`${process.env.APP_LOCATION}${route}`);
+    }
 
-      if (single && communityId === single) {
-        setRoute(routes.questions());
-      }
-    },
-    [single, communityId],
-  );
+    if (single && communityId === single) {
+      setRoute(routes.questions());
+    }
+  }, [single, communityId]);
 
-  const community = communities.find(item => item.id === communityId);
+  const community = communities.find((item) => item.id === communityId);
 
   return (
     <BaseRoundedNoPadding>
@@ -56,7 +53,7 @@ const CommunityItemWithRating = ({
             <div>
               <div>
                 <Span className="mt-1" fontSize="14" color={TEXT_SECONDARY}>
-                  {t('common.reputation')}
+                  {t('common.reputationStatus')}
                 </Span>
               </div>
               <RatingStatus

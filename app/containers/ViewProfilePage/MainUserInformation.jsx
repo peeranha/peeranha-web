@@ -13,7 +13,6 @@ import questionRoundedIcon from 'images/question2.svg?external';
 import answerIcon from 'images/answer.svg?external';
 import iconCopy from 'images/document-copy.svg?inline';
 import iconCopySelect from 'images/document-copy-select.svg?inline';
-
 import Base from 'components/Base';
 import A from 'components/A';
 import Ul from 'components/Ul';
@@ -21,7 +20,7 @@ import Span from 'components/Span';
 import RatingStatus from 'components/RatingStatus';
 import AchievementsStatus from 'components/AchievementsStatus/index';
 import { IconLg } from 'components/Icon/IconWithSizes';
-
+import { showPopover } from 'utils/popover';
 import LargeImage from 'components/Img/LargeImage';
 import TelegramUserLabel from 'components/Labels/TelegramUserLabel';
 import LoadingIndicator from 'components/LoadingIndicator';
@@ -30,9 +29,6 @@ import { customRatingIconColors } from 'constants/customRating';
 import ProfileSince from 'components/ProfileSince';
 import { getUserName } from 'utils/user';
 
-import { singleCommunityColors } from 'utils/communityManagement';
-
-const colors = singleCommunityColors();
 const InlineLoader = styled(LoadingIndicator)`
   margin: auto;
   margin-top: 5px;
@@ -61,7 +57,9 @@ export const UlStyled = Ul.extend`
     display: flex;
     flex-direction: column;
     padding: 15px 30px 15px 0;
-
+    div {
+      display: inline;
+    }
     @media (max-width: 450px) {
       word-break: break-word;
       white-space: pre-line;
@@ -97,12 +95,6 @@ export const UlStyled = Ul.extend`
 
       svg {
         margin-right: 5px;
-      }
-    }
-
-    @media only screen and (max-width: 1354px) {
-      div {
-        display: inline;
       }
     }
 
@@ -182,23 +174,24 @@ const MainUserInformation = ({
   account,
   locale,
   redirectToEditProfilePage,
+  userAchievementsLength,
 }) => {
   const { t } = useTranslation();
   const isTemporaryAccount = !!profile?.integer_properties?.find(
-    x => x.key === TEMPORARY_ACCOUNT_KEY && x.value,
+    (x) => x.key === TEMPORARY_ACCOUNT_KEY && x.value,
   );
   const userPolygonScanAddress = process.env.BLOCKCHAIN_EXPLORERE_URL + userId;
   const [copied, setCopied] = useState(false);
-
-  const copiedUserId = () => {
+  const writeToBuffer = (event) => {
     navigator.clipboard.writeText(userId);
     setCopied(true);
+    showPopover(event.currentTarget.id, t('common.copied'));
   };
 
   const iconType = copied ? iconCopySelect : iconCopy;
 
   return (
-    <Box position="middle">
+    <Box position="middle" className="pb-0">
       <div>
         <div>
           <LargeImageButton
@@ -281,7 +274,7 @@ const MainUserInformation = ({
                 {typeof profile.achievements === 'object' ? (
                   <AchievementsStatus
                     isProfilePage={true}
-                    count={profile.achievements.length}
+                    count={userAchievementsLength}
                     size="lg"
                   />
                 ) : (
@@ -289,7 +282,7 @@ const MainUserInformation = ({
                 )}
               </li>
               {!isTemporaryAccount && (
-                <li>
+                <li className="pr">
                   <span>{t('common.walletAddress')}</span>
                   <span>
                     <A
@@ -303,17 +296,21 @@ const MainUserInformation = ({
                           border-bottom: 1px solid;
                           color: ${LINK_COLOR};
                           font-weight: 400;
+                          font-size: 14px;
                         `}
                       >
                         {userId}
                       </span>
                     </A>
                     <button
+                      id="share-link-copy"
                       css={css`
-                        margin-left: 10px;
                         color: #adaeae;
+                        position: absolute;
+                        left: 95%;
+                        margin-top: 23px;
                       `}
-                      onClick={copiedUserId}
+                      onClick={writeToBuffer}
                     >
                       <img
                         src={iconType}

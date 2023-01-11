@@ -38,6 +38,7 @@ const premiumLight = _get(
 const purple = _get(colors, 'purple', 'rgba(39, 56, 104, 0.85)');
 const darkblue = _get(colors, 'darkBlue', '#5065A5');
 const transparent = 'rgba(0, 0, 0, 0)';
+const transparentDarkblue = 'rgba(53, 74, 137, 0.5)';
 const green = '#28A745';
 const lightgreen = '#ebffe7';
 const lightgreen2 = green;
@@ -148,3 +149,5 @@ export const TAG_COLOR = _get(colors, 'tagColor', blue);
 export const BORDER_RADIUS_S = _get(styles, 'projectBorderRadius', '2px');
 export const BORDER_RADIUS_M = _get(styles, 'projectBorderRadius', '3px');
 export const BORDER_RADIUS_L = _get(styles, 'projectBorderRadius', '5px');
+
+export const SCROLLBAR_COLOR = transparentDarkblue;

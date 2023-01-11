@@ -31,7 +31,7 @@ const Activity = ({
   const [tab, setTab] = useState('posts');
   const myPosts = _orderBy(
     questions.concat(questionsWithUserAnswers),
-    y => y.myPostTime,
+    (y) => y.myPostTime,
     ['desc'],
   ).slice(0, DEFAULT_NUMBER);
 
@@ -51,7 +51,7 @@ const Activity = ({
         >
           <Trans
             i18nKey="common.allActivitiesNumber"
-            values={{ number: profile.postCount + profile.answersGiven }}
+            values={{ number: (profile.postCount || 0) + profile.answersGiven }}
             components={[
               <Span
                 className="ml-1"
@@ -72,7 +72,7 @@ const Activity = ({
           <Trans
             i18nKey="common.postsNumber"
             values={{
-              number: (profile.postCount >= 0 && profile.postCount) || 0,
+              number: profile.postCount || 0,
             }}
             components={[
               <Span

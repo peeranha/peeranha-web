@@ -28,8 +28,8 @@ const Box = BaseNoPadding.extend`
     isExpert
       ? `3px 3px 5px ${EXPERT_BACKLIGHT}`
       : isTutorial
-        ? `3px 3px 5px ${TUTORIAL_BACKLIGHT}`
-        : null};
+      ? `3px 3px 5px ${TUTORIAL_BACKLIGHT}`
+      : null};
   display: flex;
   flex-wrap: nowrap;
   margin-bottom: 15px;
@@ -101,29 +101,23 @@ const QI = ({
     [isTopQuestion, isModerator, questionFilter, isPromoted, isHomePage],
   );
 
-  const upQuestionMethod = useCallback(
-    () => {
-      upQuestionDispatch(id);
-    },
-    [id],
-  );
+  const upQuestionMethod = useCallback(() => {
+    upQuestionDispatch(id);
+  }, [id]);
 
-  const downQuestionMethod = useCallback(
-    () => {
-      downQuestionDispatch(id);
-    },
-    [id],
-  );
+  const downQuestionMethod = useCallback(() => {
+    downQuestionDispatch(id);
+  }, [id]);
 
   const onDragStart = useCallback(
-    e => {
+    (e) => {
       e.dataTransfer.setData('id', id);
     },
     [index, id],
   );
 
   const onDrop = useCallback(
-    e => {
+    (e) => {
       e.preventDefault();
       const data = e.dataTransfer.getData('id');
 
@@ -137,7 +131,7 @@ const QI = ({
     [index, id],
   );
 
-  const onDragOver = useCallback(e => {
+  const onDragOver = useCallback((e) => {
     if (!isPromoted) {
       e.preventDefault();
     }
@@ -161,15 +155,17 @@ const QI = ({
       isPromoted={isPromoted}
       isExpert={isExpert}
     >
-      <AdditionalInfo
-        correctAnswerId={bestReply}
-        answers={isSearchPage ? [] : answers}
-        rating={rating}
-        answersCount={replyCount}
-        officialAnswersCount={offAnswersCount}
-        isSearchPage={isSearchPage}
-        isTutorial={postType === POST_TYPE.tutorial}
-      />
+      {postType !== POST_TYPE.documentation && (
+        <AdditionalInfo
+          correctAnswerId={bestReply}
+          answers={isSearchPage ? [] : answers}
+          rating={rating}
+          answersCount={replyCount}
+          officialAnswersCount={offAnswersCount}
+          isSearchPage={isSearchPage}
+          isTutorial={postType === POST_TYPE.tutorial}
+        />
+      )}
       <Div>
         {displayTopQuestionMove && (
           <MoveSection
@@ -217,7 +213,7 @@ const QuestionItem = connect(
     topQuestionActionProcessing: selectTopQuestionActionProcessing()(state),
     isTopQuestion: isQuestionTop(id)(state),
   }),
-  dispatch => ({
+  (dispatch) => ({
     upQuestionDispatch: bindActionCreators(upQuestion, dispatch),
     downQuestionDispatch: bindActionCreators(downQuestion, dispatch),
     moveQuestionDispatch: bindActionCreators(moveQuestion, dispatch),

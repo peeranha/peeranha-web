@@ -28,7 +28,7 @@ const styles = singleCommunityStyles();
 
 /* eslint no-nested-ternary: 0, indent: 0 */
 export const SpanStyled = Span.extend`
-  color: white;
+  color: var(--color-white);
   display: inline-flex;
   padding: 5px 8px;
   margin-right: 10px;

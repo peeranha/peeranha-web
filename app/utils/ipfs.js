@@ -57,7 +57,7 @@ export async function saveText(text) {
     try {
       parsedText = JSON.parse(text);
 
-      Object.keys(parsedText).forEach(x => {
+      Object.keys(parsedText).forEach((x) => {
         if (typeof parsedText[x] === 'string') {
           parsedText[x] = parsedText[x].trim();
         }
@@ -89,7 +89,7 @@ export async function saveFile(file) {
 }
 
 export async function getText(hash) {
-  const response = await fetch(getFileUrl(hash)).then(x => x.text());
+  const response = await fetch(getFileUrl(hash)).then((x) => x.text());
   return response;
 }
 
@@ -129,13 +129,10 @@ export function StringToHash(stringHash) {
   return res;
 }
 
-export const getBytes32FromIpfsHash = ipfsListing =>
-  `0x${bs58
-    .decode(ipfsListing)
-    .slice(2)
-    .toString('hex')}`;
+export const getBytes32FromIpfsHash = (ipfsListing) =>
+  `0x${bs58.decode(ipfsListing).slice(2).toString('hex')}`;
 
-export const getIpfsHashFromBytes32 = bytes32Hex => {
+export const getIpfsHashFromBytes32 = (bytes32Hex) => {
   const hashHex = `1220${bytes32Hex.slice(2)}`;
   const hashBytes = Buffer.from(hashHex, 'hex');
   return bs58.encode(hashBytes);
@@ -144,9 +141,9 @@ export const getIpfsHashFromBytes32 = bytes32Hex => {
 export function parseTableRows(v) {
   if (typeof v === 'object' && v !== null && !(v instanceof Date)) {
     if (v instanceof Array) {
-      v.forEach(v => parseTableRows(v));
+      v.forEach((v) => parseTableRows(v));
     } else {
-      Object.keys(v).forEach(key => {
+      Object.keys(v).forEach((key) => {
         if (key.startsWith('ipfs_')) {
           v[key] = HashToString(v[key]);
         } else {
@@ -160,9 +157,9 @@ export function parseTableRows(v) {
 export function createPushActionBody(v) {
   if (typeof v === 'object' && v !== null && !(v instanceof Date)) {
     if (v instanceof Array) {
-      v.forEach(v => createPushActionBody(v));
+      v.forEach((v) => createPushActionBody(v));
     } else {
-      Object.keys(v).forEach(key => {
+      Object.keys(v).forEach((key) => {
         if (key.startsWith('ipfs_')) {
           if (v[key] && typeof v[key] === 'string') {
             v[key] = StringToHash(v[key]);

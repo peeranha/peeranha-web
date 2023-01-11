@@ -42,6 +42,17 @@ const Container = styled.div`
   }
 `;
 
+const SeeAllButton = () => {
+  const { t } = useTranslation();
+
+  return (
+    <div style={{ color: TEXT_PRIMARY, marginLeft: '2px' }}>
+      <IconXm className="mr-2" icon={notificationsIcon} />
+      {t('common.seeAll')}
+    </div>
+  );
+};
+
 const Footer = ({ onClose, profile, empty }) => {
   const { t } = useTranslation();
 
@@ -54,10 +65,7 @@ const Footer = ({ onClose, profile, empty }) => {
             {t('common.archive')}
           </>
         ) : (
-          <>
-            <IconXm className="mr-2" icon={notificationsIcon} />
-            {t('common.seeAll')}
-          </>
+          <SeeAllButton />
         )}
       </Link>
       {!empty && <MarkAllAsReadButton />}
@@ -73,7 +81,7 @@ Footer.propTypes = {
 };
 
 export default memo(
-  connect(state => ({
+  connect((state) => ({
     profile: makeSelectProfileInfo()(state).user,
     locale: makeSelectLocale()(state),
   }))(Footer),

@@ -13,16 +13,18 @@ const ButtonGroupForAuthorizedUser = ({
 }) => (
   <React.Fragment>
     {!isSearchFormVisible && <NotificationsDropdown />}
-    <EnergyDropdown
-      rating={profileInfo.rating}
-      energy={profileInfo.energy}
-      faqQuestions={faqQuestions}
-    />
-    <WalletDropdown
-      user={profileInfo.user}
-      balance={profileInfo.availableBalance}
-      boost={profileInfo.boost}
-    />
+    {/* TODO: return if Energy will be needed in production  */}
+    {/* <EnergyDropdown */}
+    {/*  rating={profileInfo.rating} */}
+    {/*  energy={profileInfo.energy} */}
+    {/*  faqQuestions={faqQuestions} */}
+    {/* /> */}
+    {/* TODO: return if Wallet will be needed in production */}
+    {/* <WalletDropdown */}
+    {/*  user={profileInfo.user} */}
+    {/*  balance={profileInfo.availableBalance} */}
+    {/*  boost={profileInfo.boost} */}
+    {/* /> */}
     <ProfileDropdown profileInfo={profileInfo} />
   </React.Fragment>
 );

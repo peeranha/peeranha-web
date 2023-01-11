@@ -35,26 +35,23 @@ const Users = ({
   getUsersDispatch,
 }) => {
   const { t } = useTranslation();
-  const getMoreUsers = useCallback(
-    () => {
-      getUsersDispatch({
-        loadMore: true,
-        communityId: single || 0,
-      });
-    },
-    [getUsersDispatch],
-  );
+  const getMoreUsers = useCallback(() => {
+    getUsersDispatch({
+      loadMore: true,
+      communityId: single || 0,
+    });
+  }, [getUsersDispatch]);
 
-  const userCount = useMemo(() => (single ? users.length : stat.usersCount), [
-    stat.usersCount,
-    users.length,
-  ]);
+  const userCount = useMemo(
+    () => (single ? users.length : stat.usersCount),
+    [stat.usersCount, users.length],
+  );
 
   const dropdownFilter = useCallback(
-    sortingAttribute => {
+    (sorting) => {
       getUsersDispatch({
         loadMore: false,
-        sortingAttribute,
+        sorting,
         reload: true,
         communityId: single || 0,
       });
@@ -62,16 +59,13 @@ const Users = ({
     [getUsersDispatch],
   );
 
-  useEffect(
-    () => {
-      getUsersDispatch({
-        loadMore: false,
-        reload: true,
-        communityId: single || 0,
-      });
-    },
-    [getUsersDispatch],
-  );
+  useEffect(() => {
+    getUsersDispatch({
+      loadMore: false,
+      reload: true,
+      communityId: single || 0,
+    });
+  }, [getUsersDispatch]);
 
   return (
     <>
@@ -121,7 +115,7 @@ export default compose(
       stat: selectStat(),
       isGlobalAdmin: selectIsGlobalAdmin(),
     }),
-    dispatch => ({
+    (dispatch) => ({
       getUsersDispatch: bindActionCreators(getUsers, dispatch),
     }),
   ),

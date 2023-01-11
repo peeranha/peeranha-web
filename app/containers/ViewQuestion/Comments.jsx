@@ -29,6 +29,7 @@ import {
   getPermissions,
   hasCommunityModeratorRole,
   hasGlobalModeratorRole,
+  hasProtocolAdminRole,
 } from 'utils/properties';
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 import {
@@ -138,7 +139,7 @@ const CommentEdit = ({
   );
 };
 
-const CommentView = item => {
+const CommentView = (item) => {
   const { t } = useTranslation();
   const isItWrittenByMe = item.profileInfo
     ? item.author?.user === item.profileInfo.user
@@ -151,13 +152,14 @@ const CommentView = item => {
 
   const isModerator =
     hasGlobalModeratorRole(getPermissions(item.profileInfo)) ||
+    hasProtocolAdminRole(getPermissions(item.profileInfo)) ||
     hasCommunityModeratorRole(
       getPermissions(item.profileInfo),
       item.communityId,
     );
 
   const formattedHistories = item.histories?.filter(
-    history =>
+    (history) =>
       history.comment?.id === `${item.postId}-${item.answerId}-${item.id}`,
   );
 
@@ -251,7 +253,7 @@ const CommentView = item => {
   );
 };
 
-const Comment = item => {
+const Comment = (item) => {
   const [isView, toggleView] = useState(true);
 
   return (
@@ -265,7 +267,7 @@ const Comment = item => {
   );
 };
 
-const Comments = props => {
+const Comments = (props) => {
   const isPhone = window.screen.width <= 576;
   const DEFAULT_COMMENTS_NUMBER = isPhone ? 0 : 3;
   const [isAllCommentsView, changeCommentsView] = useState(false);
@@ -276,11 +278,9 @@ const Comments = props => {
     <div>
       {props.comments.length > 0 && (
         <CommentsStyled>
-          {props.comments
-            .slice(0, commentsNum)
-            .map(item => (
-              <Comment {...item} {...props} key={`${COMMENT_TYPE}${item.id}`} />
-            ))}
+          {props.comments.slice(0, commentsNum).map((item) => (
+            <Comment {...item} {...props} key={`${COMMENT_TYPE}${item.id}`} />
+          ))}
         </CommentsStyled>
       )}
 
@@ -326,7 +326,7 @@ CommentEdit.propTypes = {
 export { Comment, CommentEdit, CommentView, Comments };
 export default React.memo(
   connect(
-    state => ({
+    (state) => ({
       profileInfo: makeSelectProfileInfo()(state),
     }),
     null,

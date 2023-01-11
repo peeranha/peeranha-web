@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
@@ -33,21 +33,35 @@ import Button from 'components/Button/Outlined/PrimaryLarge';
 export const TextBlock = styled.div`
   display: ${({ isOpened }) => (isOpened ? 'block' : 'none')};
   margin-top: ${({ isOpened }) => (isOpened ? '15px' : '0px')};
-
   ${textBlockStyles};
 
   table {
+    width: 100%;
+    table-layout: fixed;
+    margin-bottom: 30px;
     th,
     td {
       min-width: 70px;
-
+      border: 1px solid;
       :first-child {
-        padding-left: 0;
+        padding-left: 10px;
+        line-height: 1.5;
       }
 
       :last-child {
         padding-right: 0;
+        vertical-align: middle;
       }
+    }
+    tr th {
+      text-align: center;
+      font-weight: bold;
+    }
+    ~ p {
+      margin-bottom: 20px;
+    }
+    img {
+      vertical-align: middle;
     }
   }
 
@@ -130,7 +144,7 @@ const Question = ({
 
   const collapseQuestion = () => {
     createdHistory.push(route());
-    collapse(prevIsOpen => !prevIsOpen);
+    collapse((prevIsOpen) => !prevIsOpen);
   };
 
   const questionId = getQuestionCode(sectionCode, questionCode);
@@ -179,10 +193,22 @@ const Section = ({
 
   const collapseSection = () => {
     createdHistory.push(route());
-    collapse(prevIsOpen => !prevIsOpen);
+    collapse((prevIsOpen) => !prevIsOpen);
   };
 
   const sectionId = getSectionCode(sectionCode);
+  const viewBlock = isOpened ? 'd-block' : 'd-none';
+  const sectionRef = useRef(null);
+  // will be fixed in PEER-380
+  // useEventListener({
+  //   event: 'hashchange',
+  //   handler: () => sectionRef.current.className = "d-block",
+  // });
+
+  window.addEventListener(
+    'hashchange',
+    () => (sectionRef.current.className = 'd-block'),
+  );
 
   return (
     <SectionStyled isOpened={isOpened} id={sectionId}>
@@ -199,44 +225,40 @@ const Section = ({
         </H4>
       </BaseTransparent>
 
-      {isOpened && (
-        <div className="d-block">
-          <ul>
-            {blocks
-              .slice(0, questionsNumber)
-              .map(block => (
-                <Question
-                  key={block.h3}
-                  h3={block.h3}
-                  content={block.content}
-                  questionCode={block.questionCode}
-                  sectionCode={sectionCode}
-                  route={route}
-                  getQuestionCode={getQuestionCode}
-                  collapsedMenu={collapsedMenu}
-                />
-              ))}
-          </ul>
+      <div className={viewBlock} ref={sectionRef}>
+        <ul>
+          {blocks.slice(0, questionsNumber).map((block) => (
+            <Question
+              key={block.h3}
+              h3={block.h3}
+              content={block.content}
+              questionCode={block.questionCode}
+              sectionCode={sectionCode}
+              route={route}
+              getQuestionCode={getQuestionCode}
+              collapsedMenu={collapsedMenu}
+            />
+          ))}
+        </ul>
 
-          {blocks.length > DEFAULT_QST_NUM && (
-            <BaseTransparent className="pt-1">
-              <Button onClick={extendSection.bind(null, !isExtendedSection)}>
-                {t(`common.${isExtendedSection ? 'showLess' : 'showMore'}`, {
-                  value: `${questionsNumber}/${blocks.length}`,
-                  interpolation: { escapeValue: false },
-                })}
-                <Icon
-                  className="ml-2"
-                  rotate={isExtendedSection}
-                  isTransition={false}
-                  icon={arrowIconNotFilled}
-                  width="8"
-                />
-              </Button>
-            </BaseTransparent>
-          )}
-        </div>
-      )}
+        {blocks.length > DEFAULT_QST_NUM && (
+          <BaseTransparent className="pt-1">
+            <Button onClick={extendSection.bind(null, !isExtendedSection)}>
+              {t(`common.${isExtendedSection ? 'showLess' : 'showMore'}`, {
+                value: `${questionsNumber}/${blocks.length}`,
+                interpolation: { escapeValue: false },
+              })}
+              <Icon
+                className="ml-2"
+                rotate={isExtendedSection}
+                isTransition={false}
+                icon={arrowIconNotFilled}
+                width="8"
+              />
+            </Button>
+          </BaseTransparent>
+        )}
+      </div>
     </SectionStyled>
   );
 };
@@ -248,8 +270,8 @@ const Content = ({
   getQuestionCode,
   collapsedMenu = true,
 }) => (
-  <div className="mb-3">
-    {content.blocks.map(block => (
+  <div className="mb-3 text-block">
+    {content.blocks.map((block) => (
       <Section
         key={block.h2}
         h2={block.h2}

@@ -13,8 +13,6 @@ import {
   singleCommunityStyles,
 } from 'utils/communityManagement';
 
-import logoutIcon from 'images/logout.svg?external';
-
 import { getUserAvatar } from 'utils/profileManagement';
 import userBodyIconAvatar from 'images/user2.svg?external';
 
@@ -23,29 +21,38 @@ import Ul from 'components/Ul/SpecialOne';
 import Span from 'components/Span';
 import A from 'components/A';
 import { MediumSpecialImage } from 'components/Img/MediumImage';
-import { IconLg } from 'components/Icon/IconWithSizes';
 import Logout from 'containers/Logout';
 import Icon from 'components/Icon/index';
 import { getUserName } from 'utils/user';
 import { selectIsMenuVisible } from '../AppWrapper/selectors';
 import { getPermissions } from '../../utils/properties';
 
-const styles = singleCommunityStyles();
+import AnswerWithAIcon from 'icons/AnswerWithA';
+import ProfileIcon from 'icons/Profile';
+import CommunitiesIcon from 'icons/Communities';
+import SettingsIcon from 'icons/Settings';
+import NotificationsIcon from 'icons/Notifications';
+import ModerationIcon from 'icons/Moderation';
+import NFTIcon from 'icons/NFT';
+import PostIcon from 'icons/Post';
+import LogOutIcon from 'icons/LogOut';
+
 const colors = singleCommunityColors();
+const styles = singleCommunityStyles();
 
 const Info = styled.span`
   padding: 0 10px;
 
   > span:nth-child(1) {
     display: flex;
-    align-items: ${x => (x.isMenuVisible ? 'stretch' : 'center')};
-    margin-right: ${x => (!x.isMenuVisible ? 7 : 'auto')}px;
+    align-items: ${(x) => (x.isMenuVisible ? 'stretch' : 'center')};
+    margin-right: ${(x) => (!x.isMenuVisible ? 7 : 'auto')}px;
   }
 `;
 
 const NoAvatarBox = styled.div`
-  width: 47px;
-  height: 47px;
+  width: 40px;
+  height: 40px;
   border: ${({ isMobileVersion }) =>
     (!isMobileVersion && styles.communityBorderStyle) ||
     `1px solid ${BORDER_SECONDARY}`};
@@ -53,6 +60,11 @@ const NoAvatarBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media only screen and (min-width: 992px) {
+    width: 47px;
+    height: 47px;
+  }
 `;
 
 const B = ({ profileInfo, onClick, isMenuVisible, isMobileVersion }) => (
@@ -67,89 +79,130 @@ const B = ({ profileInfo, onClick, isMenuVisible, isMobileVersion }) => (
         />
       </NoAvatarBox>
     )}
-    {profileInfo.avatar &&
-      profileInfo.avatar !== NO_AVATAR && (
-        <MediumSpecialImage
-          isBordered
-          customBorderStyle={!isMobileVersion && styles.communityBorderStyle}
-          src={getUserAvatar(profileInfo.avatar)}
-          alt="avatar"
-        />
-      )}
+    {profileInfo.avatar && profileInfo.avatar !== NO_AVATAR && (
+      <MediumSpecialImage
+        isBordered
+        customBorderStyle={!isMobileVersion && colors.communityBorderStyle}
+        src={getUserAvatar(profileInfo.avatar)}
+        alt="avatar"
+      />
+    )}
     <Info
       className="d-flex flex-column justify-content-center"
       isMenuVisible={isMenuVisible}
     >
-      <Span bold color={(!isMobileVersion && styles.commHeadElemColor) || ''}>
+      <Span bold color={(!isMobileVersion && colors.commHeadElemColor) || ''}>
         {getUserName(profileInfo.displayName, profileInfo.loginData.account)}
       </Span>
     </Info>
   </span>
 );
 
-export const Button = connect(state => ({
+export const Button = connect((state) => ({
   isMenuVisible: selectIsMenuVisible()(state),
 }))(B);
 
-const Menu = memo(
-  ({ profileInfo, questionsLength, questionsWithUserAnswersLength }) => {
-    const { t } = useTranslation();
-    const { user, loginData } = profileInfo;
-    const isEmail = loginData.email;
+const Menu = ({
+  profileInfo,
+  questionsLength,
+  questionsWithUserAnswersLength,
+}) => {
+  const { t } = useTranslation();
+  const { user, loginData } = profileInfo;
 
-    const isModerator = useMemo(() => !!getPermissions(profileInfo)?.length, [
-      profileInfo,
-    ]);
+  const isModerator = useMemo(
+    () => !!getPermissions(profileInfo)?.length,
+    [profileInfo],
+  );
 
-    return (
-      <nav>
-        <Ul>
-          <A to={routes.profileView(user)}>{t('common.profile')}</A>
-          <A to={routes.userCommunities(user)}>{t('common.myCommunities')}</A>
-          <A
-            to={routes.userQuestions(user)}
-            disabled={!questionsLength}
-            tabIndex={!questionsLength ? '-1' : undefined}
-          >
-            {t('common.posts')}
-          </A>
-          <A
-            to={routes.userAnswers(user)}
-            disabled={!questionsWithUserAnswersLength}
-            tabIndex={!questionsWithUserAnswersLength ? '-1' : undefined}
-          >
-            {t('common.answers')}
-          </A>
-          <A
-            className={!isEmail ? 'd-none' : ''}
-            to={routes.userSettings(user)}
-          >
-            {t('common.settings')}
-          </A>
-          <A to={routes.userNotifications(user)}>{t('common.notifications')}</A>
-          <A to={routes.userNFTs(user)}>{t('common.NFTs')}</A>
-          {isModerator && (
-            <A to={routes.userModeration(user)}>{t('common.moderation')}</A>
-          )}
-        </Ul>
+  return (
+    <nav>
+      <Ul>
+        <A to={routes.profileView(user)}>
+          <ProfileIcon
+            className="mr-2"
+            size={[18, 18]}
+            stroke={colors.linkColor || TEXT_PRIMARY}
+          />
+          {t('common.profile')}
+        </A>
+        <A to={routes.userCommunities(user)}>
+          <CommunitiesIcon
+            className="mr-2"
+            size={[18, 18]}
+            stroke={colors.linkColor || TEXT_PRIMARY}
+          />
+          {t('common.myCommunities')}
+        </A>
+        <A
+          to={routes.userQuestions(user)}
+          disabled={!questionsLength}
+          tabIndex={!questionsLength ? '-1' : undefined}
+        >
+          <PostIcon
+            className="mr-2"
+            stroke={colors.linkColor || TEXT_PRIMARY}
+          />
+          {t('common.posts')}
+        </A>
 
-        <Ul>
-          <Logout>
-            <IconLg
-              className="mr-1"
-              icon={logoutIcon}
-              color={colors.linkColor || TEXT_PRIMARY}
-              isColorImportant={true}
+        <A
+          to={routes.userAnswers(user)}
+          disabled={!questionsWithUserAnswersLength}
+          tabIndex={!questionsWithUserAnswersLength ? '-1' : undefined}
+        >
+          <AnswerWithAIcon
+            className="mr-2"
+            stroke={colors.linkColor || TEXT_PRIMARY}
+          />
+          {t('common.answers')}
+        </A>
+        <A to={routes.userNotifications(user)}>
+          <NotificationsIcon
+            className="mr-2"
+            stroke={colors.linkColor || TEXT_PRIMARY}
+            fill={colors.linkColor || TEXT_PRIMARY}
+          />
+          {t('common.notifications')}
+        </A>
+        <A to={routes.userNFTs(user)}>
+          <NFTIcon className="mr-2" stroke={colors.linkColor || TEXT_PRIMARY} />
+          {t('common.NFTs')}
+        </A>
+        {isModerator && (
+          <A to={routes.userModeration(user)}>
+            <ModerationIcon
+              size={[18, 18]}
+              className="mr-2"
+              stroke={colors.linkColor || TEXT_PRIMARY}
+              fill={colors.linkColor || TEXT_PRIMARY}
             />
-            <Span color={colors.linkColor || TEXT_PRIMARY}>
-              {t('common.logout')}
-            </Span>
-          </Logout>
-        </Ul>
-      </nav>
-    );
-  },
-);
+            {t('common.moderation')}
+          </A>
+        )}
+        {/* PEER-707: Hide settings tab;
+          <A to={routes.userSettings(user)}>
+            <SettingsIcon
+              className="mr-2"
+              stroke={colors.linkColor || TEXT_PRIMARY}
+            />
+            {t('common.settings')}
+          </A> */}
+      </Ul>
+
+      <Ul>
+        <Logout>
+          <LogOutIcon
+            className="mr-2"
+            stroke={colors.linkColor || TEXT_PRIMARY}
+          />
+
+          {t('common.logout')}
+        </Logout>
+      </Ul>
+    </nav>
+  );
+};
 
 const ProfileDropdown = ({ profileInfo }) => (
   <Dropdown

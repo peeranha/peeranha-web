@@ -6,8 +6,6 @@ import { useTranslation } from 'react-i18next';
 
 import createdHistory from 'createdHistory';
 
-import textBlockStyles from 'text-block-styles';
-
 import {
   BORDER_SECONDARY,
   BG_SECONDARY_SPECIAL_4,
@@ -35,27 +33,11 @@ import { singleCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
 
-export const TextBlock = styled.div`
-  display: ${x => (x.isOpened ? 'block' : 'none')};
-  margin-top: ${x => (x.isOpened ? '15px' : '0px')};
-
-  ${textBlockStyles};
-
-  > * {
-    margin-bottom: 5px;
-  }
-`;
-
 const SectionStyled = BaseRoundedNoPadding.extend`
   margin-bottom: 15px;
 
-  h4,
-  h5 {
-    cursor: pointer;
-  }
-
   > :not(:last-child) {
-    border-bottom: ${x => (x.isOpened ? '1' : '0')}px solid ${BORDER_SECONDARY};
+    border-bottom: 1px solid ${BORDER_SECONDARY};
   }
 
   ${Button} {
@@ -84,18 +66,13 @@ const ImgWrapper = styled.div`
 const PermissionBox = BaseTransparent.extend`
   display: flex;
   align-items: baseline;
-  padding: 15px 30px;
-  background: ${x => (x.isOpened ? BG_SECONDARY_SPECIAL_4 : BG_TRANSPARENT)};
-  border: 1px solid
-    ${x => (x.isOpened ? BORDER_PRIMARY_LIGHT : BORDER_TRANSPARENT)};
+  padding: 0 30px;
+  background: ${BG_TRANSPARENT};
+  border: 1px solid ${BORDER_TRANSPARENT};
 
   h5 span {
-    color: ${x => (x.isOpened ? TEXT_PRIMARY : TEXT_DARK)};
+    color: ${TEXT_DARK};
     margin-bottom: 5px;
-  }
-
-  &:first-child {
-    padding-top: 15px;
   }
 
   &:last-child {
@@ -118,7 +95,7 @@ const Permission = ({
   const ico = okayGreen;
 
   return (
-    <PermissionBox key={permissionId} id={permissionId} isOpened={false}>
+    <PermissionBox key={permissionId} id={permissionId}>
       <ImgWrapper>
         <IconSm
           icon={ico}
@@ -136,9 +113,6 @@ const Permission = ({
             {t(permissions[title].title)}
           </Span>
         </h5>
-        <Span fontSize="16" mobileFS="14">
-          {t(permissions[title].description)}
-        </Span>
       </PermissionBoxBody>
     </PermissionBox>
   );
@@ -146,6 +120,7 @@ const Permission = ({
 
 const Section = ({
   h2,
+  h3,
   blocks,
   sectionCode,
   route,
@@ -153,52 +128,27 @@ const Section = ({
   getPermissionCode,
   permission,
 }) => {
-  const { hash } = window.location;
-
-  const [isOpened, collapse] = useState(false);
-  const [isExtendedSection, extendSection] = useState(false);
-
-  const collapseSection = () => {
-    createdHistory.push(route());
-    collapse(!isOpened);
-  };
-
   const sectionId = getSectionCode(sectionCode);
 
-  if (hash.match(sectionId) && !isOpened) {
-    collapse(true);
-
-    if (!isExtendedSection) {
-      extendSection(true);
-    }
-  }
-
   return (
-    <SectionStyled isOpened={isOpened} id={sectionId}>
+    <SectionStyled id={sectionId}>
       <BaseTransparent>
-        <H4
-          className="d-flex align-items-center"
-          onClick={collapseSection}
-          mobileFS="24"
-        >
-          <ImgWrapper>
-            <IconLg
-              icon={isOpened ? minusIcon : plusIcon}
-              css={css`
-                path {
-                  fill: ${colors.btnColor || TEXT_PRIMARY};
-                }
-              `}
-              width="29"
-            />
-          </ImgWrapper>
+        <H4 className="d-flex align-items-center" mobileFS="24">
           <span>{h2}</span>
         </H4>
       </BaseTransparent>
 
-      <div className={isOpened ? 'd-block' : 'd-none'}>
+      <div className="d-block">
+        <div
+          css={css`
+            padding: 30px 0 10px 44px;
+            font-size: 20px;
+          `}
+        >
+          {h3}
+        </div>
         <ul>
-          {blocks.map(x => (
+          {blocks.map((x) => (
             <Permission
               {...x}
               key={getPermissionCode(sectionCode, x.permissionCode)}
@@ -221,7 +171,7 @@ const Content = ({
   communitiesCount,
 }) => (
   <div className="mb-3">
-    {content.map(x => (
+    {content.map((x) => (
       <Section
         {...x}
         key={x.h2}

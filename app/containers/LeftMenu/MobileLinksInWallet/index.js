@@ -17,6 +17,7 @@ import NotificationIcon from 'containers/Header/WalletDropdown/NotificationIcon'
 
 import A from 'components/A';
 import Icon from 'components/Icon';
+import { DARK_SECONDARY } from 'style-constants';
 import { REWARD_CLAIMING_ENABLED } from 'utils/constants';
 
 const MobileLinksInWallet = ({
@@ -32,7 +33,7 @@ const MobileLinksInWallet = ({
   const { t } = useTranslation();
   const [visibleWalletLinks, setVisibilityWalletLinks] = useState(false);
 
-  const isPositiveNumber = number => Number.isFinite(number) && number > 0;
+  const isPositiveNumber = (number) => Number.isFinite(number) && number > 0;
 
   if (!profile || !isMenuVisible) {
     return null;
@@ -62,6 +63,7 @@ const MobileLinksInWallet = ({
           icon={arrowDownIcon}
           width="16"
           rotate={visibleWalletLinks}
+          fill={DARK_SECONDARY}
         />
       </button>
 
@@ -97,7 +99,7 @@ MobileLinksInWallet.propTypes = {
   balance: PropTypes.number,
   stakedInCurrentPeriod: PropTypes.number,
   stakedInNextPeriod: PropTypes.number,
-  boost: PropTypes.object,
+  boost: PropTypes.number,
   profile: PropTypes.object,
   isMenuVisible: PropTypes.bool,
   rewardsWeeksNumber: PropTypes.number,

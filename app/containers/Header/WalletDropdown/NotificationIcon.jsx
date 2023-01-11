@@ -44,13 +44,14 @@ const IconButtonInline = styled(IconButton)`
   top: 0;
   right: 0;
   margin-left: 5px;
-  padding: ${x => (x.isMobileVersion ? '0 !important' : '')};
-  border: ${x => (x.isMobileVersion ? '0 !important' : '')};
+  padding: ${(x) => (x.isMobileVersion ? '0 !important' : '')};
+  border: ${(x) => (x.isMobileVersion ? '0 !important' : '')};
 `;
 
 const IconNumber = Span.extend`
   padding-left: 4px;
   padding-right: 4px;
+  color: var(--color-white);
 `;
 
 const NotificationIcon = ({ number, inline, isMobileVersion, iconId }) => {
@@ -63,13 +64,13 @@ const NotificationIcon = ({ number, inline, isMobileVersion, iconId }) => {
   const [opened, setOpened] = useState(false);
   const setOpenedFalse = () => setOpened(false);
 
-  const closeTooltipOnClick = e => {
+  const closeTooltipOnClick = (e) => {
     e.stopPropagation();
     closePopover();
     setOpenedFalse();
   };
 
-  const toggleTooltipOnClick = e => {
+  const toggleTooltipOnClick = (e) => {
     if (!opened) {
       setOpened(true);
       e.stopPropagation();
@@ -87,19 +88,15 @@ const NotificationIcon = ({ number, inline, isMobileVersion, iconId }) => {
   if (inline)
     return (
       <IconButtonInline id={iconId} isMobileVersion={isMobileVersion}>
-        <IconNumber fontSize="13" color="white">
-          {number}
-        </IconNumber>
+        <IconNumber fontSize="13">{number}</IconNumber>
       </IconButtonInline>
     );
 
   if (isMobileVersion)
     return (
       <div tabIndex="0" onBlur={closeTooltipOnClick}>
-        <IconDivMob id={iconId} onClick={e => toggleTooltipOnClick(e)}>
-          <IconNumber fontSize="13" color="white">
-            {number}
-          </IconNumber>
+        <IconDivMob id={iconId} onClick={(e) => toggleTooltipOnClick(e)}>
+          <IconNumber fontSize="13">{number}</IconNumber>
         </IconDivMob>
       </div>
     );
@@ -107,12 +104,10 @@ const NotificationIcon = ({ number, inline, isMobileVersion, iconId }) => {
   return (
     <IconButton
       id={iconId}
-      onClick={e => toggleTooltipOnClick(e)}
+      onClick={(e) => toggleTooltipOnClick(e)}
       onBlur={closeTooltipOnClick}
     >
-      <IconNumber fontSize="13" color="white">
-        {number}
-      </IconNumber>
+      <IconNumber fontSize="13">{number}</IconNumber>
     </IconButton>
   );
 };

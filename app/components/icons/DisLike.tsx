@@ -5,7 +5,7 @@ const DisLike: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
     id="dislike"
-    fill="curentColor"
+    fill="currentColor"
     viewBox="0 0 18 18"
     size={[18, 18]}
   >

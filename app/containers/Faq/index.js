@@ -22,10 +22,10 @@ import { SECTION_ID } from './constants';
 
 export const Faq = ({ locale, faq }) => {
   const { t } = useTranslation();
-  faq.blocks.splice(7, 3);
+  faq.blocks.splice(5, 5);
   faq.blocks.splice(1, 1);
   const faqForDemo = faq;
-  const keywords = faq.blocks.map(x => x.blocks.map(y => y.h3));
+  const keywords = faq.blocks.map((x) => x.blocks.map((y) => y.h3));
 
   return (
     <div className="d-flex justify-content-center">
@@ -50,7 +50,7 @@ export const Faq = ({ locale, faq }) => {
       <AsideBox className="d-none d-xl-block">
         <Aside
           content={faqForDemo}
-          route={x => routes.faq(getSectionCode(SECTION_ID, x))}
+          route={(x) => routes.faq(getSectionCode(SECTION_ID, x))}
         />
       </AsideBox>
     </div>
@@ -67,7 +67,4 @@ const mapStateToProps = createStructuredSelector({
   faq: selectFaq(),
 });
 
-export default connect(
-  mapStateToProps,
-  null,
-)(Faq);
+export default connect(mapStateToProps, null)(Faq);

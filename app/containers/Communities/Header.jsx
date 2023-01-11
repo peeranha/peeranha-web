@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { BORDER_PRIMARY } from 'style-constants';
@@ -13,7 +13,11 @@ import SubHeaderWrapper, {
 } from 'components/Header/Complex';
 
 import { GO_TO_CREATE_COMMUNITY_SCREEN_BUTTON_ID } from './constants';
-import { getPermissions, hasGlobalModeratorRole } from '../../utils/properties';
+import {
+  getPermissions,
+  hasGlobalModeratorRole,
+  hasProtocolAdminRole,
+} from '../../utils/properties';
 
 const Header = ({
   goToCreateCommunityScreen,
@@ -24,14 +28,14 @@ const Header = ({
   profile,
 }) => {
   const { t } = useTranslation();
-  const profileWithModeratorRights = useMemo(
-    () => profile && hasGlobalModeratorRole(getPermissions(profile)),
-    [profile],
-  );
+  const profileWithEditingRights =
+    profile &&
+    (hasProtocolAdminRole(getPermissions(profile)) ||
+      hasGlobalModeratorRole(getPermissions(profile)));
 
   return (
     <div className="mb-to-sm-0 mb-from-sm-3">
-      {profileWithModeratorRights && (
+      {profileWithEditingRights && (
         <SubHeaderWrapper position="top">
           <SubHeaderWrapperRightPanel className="right-panel">
             <TransparentButton

@@ -34,7 +34,7 @@ import {
 import { selectEthereum } from '../EthereumProvider/selectors';
 import { makeSelectAccount } from '../AccountProvider/selectors';
 import { saveChangedItemIdToSessionStorage } from 'utils/sessionStorage';
-import { CHANGED_POSTS_KEY } from 'utils/constants';
+import { CHANGED_POSTS_KEY, POST_TYPE } from 'utils/constants';
 
 export function* getAskedQuestionWorker({ questionId }) {
   try {
@@ -106,10 +106,11 @@ export function* editQuestionWorker({ question, questionId }) {
     yield call(
       editQuestion,
       selectedAccount,
-      +questionId,
-      +question.communityId,
+      Number(questionId),
+      Number(question.communityId),
       questionData,
       question.tags,
+      Number(question.postType),
       ethereumService,
     );
 
@@ -196,7 +197,12 @@ export function* editQuestionWorker({ question, questionId }) {
     saveChangedItemIdToSessionStorage(CHANGED_POSTS_KEY, questionId);
 
     yield put(editQuestionSuccess(question));
-    yield call(createdHistory.push, routes.questionView(questionId));
+    yield call(
+      createdHistory.push,
+      Number(question.postType) === Number(POST_TYPE.documentation)
+        ? routes.documentation(questionId)
+        : routes.questionView(questionId),
+    );
   } catch (err) {
     yield put(editQuestionErr(err));
   }
@@ -222,7 +228,7 @@ export function* redirectToEditQuestionPageWorker({ buttonId, link }) {
   } catch (err) {}
 }
 
-export default function*() {
+export default function* () {
   yield takeLatest(GET_ASKED_QUESTION, getAskedQuestionWorker);
   yield takeLatest(EDIT_QUESTION, editQuestionWorker);
   yield takeLatest(EDIT_QUESTION_SUCCESS, updateQuestionList);

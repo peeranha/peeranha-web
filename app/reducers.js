@@ -13,6 +13,7 @@ import accountProviderReducer from 'containers/AccountProvider/reducer';
 import editProfileReducer from 'containers/EditProfilePage/reducer';
 import signUpReducer from 'containers/SignUp/reducer';
 import questionsReducer from 'containers/Questions/reducer';
+import documentationReducer from 'pages/Documentation/reducer';
 import askQuestionReducer from 'containers/AskQuestion/reducer';
 import existingQuestionReducer from 'containers/AskQuestion/reducer';
 import viewQuestionReducer from 'containers/ViewQuestion/reducer';
@@ -76,7 +77,7 @@ export function routeReducer(state = routeInitialState, action) {
 /**
  * Creates the main reducer with the dynamically injected ones
  */
-export default injectedReducers =>
+export default (injectedReducers) =>
   combineReducers({
     route: routeReducer,
     signUp: signUpReducer,
@@ -87,6 +88,7 @@ export default injectedReducers =>
     account: accountProviderReducer,
     editProfileReducer,
     questionsReducer,
+    documentationReducer,
     askQuestionReducer,
     existingQuestionReducer,
     viewQuestion: viewQuestionReducer,

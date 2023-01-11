@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { css } from '@emotion/react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
@@ -20,6 +21,7 @@ import A from 'components/A';
 import Label from 'components/FormFields/Label';
 
 import { singleCommunityColors } from 'utils/communityManagement';
+import { getLinks } from 'media-links';
 
 const colors = singleCommunityColors();
 
@@ -35,8 +37,7 @@ const Li = styled.li`
 
 const Ul = styled.ul`
   //border-bottom: 1px solid ${BORDER_SECONDARY};
-  padding-bottom: 30px;
-  margin-bottom: 25px;
+  padding-bottom: 6px;
 
   li {
     display: flex;
@@ -63,6 +64,30 @@ const Ul = styled.ul`
   }
 `;
 
+const Title = Label.extend`
+  font-size: 18px;
+`;
+
+const P = styled.p`
+  margin-bottom: 10px;
+`;
+
+const Link = styled.a`
+  line-height: 24px;
+`;
+
+const Italic = styled.span`
+  width: max-content;
+  font-style: italic;
+  margin-right: 6px;
+`;
+
+const Bold = styled.span`
+  width: max-content;
+  font-weight: 600;
+  margin-left: 6px;
+`;
+
 const messagesArray = [
   'common.putReturnsBetweenParagraphs',
   'common.addForLineBreaks',
@@ -72,17 +97,39 @@ const messagesArray = [
   'common.quoteByPlacing',
 ];
 
-const Tips = () => {
+const Tips = ({ faqQuestions }) => {
   const { t } = useTranslation();
 
   return (
     <div>
-      <Label className="mb-3">
-        {t('common.tips')}
-        :
-      </Label>
+      <Title className="mb-3">{t('common.tips')}:</Title>
+      <P>{t('common.markdownIsSupported')}</P>
 
-      <Ul>{messagesArray.map(item => <li key={item}>{t(item)} </li>)}</Ul>
+      <Ul>
+        {messagesArray.map((item, index) =>
+          index === 1 ? (
+            <li key={item}>
+              <p>
+                <Italic>_italic_</Italic>
+                or
+                <Bold>**bold**</Bold>
+              </p>
+            </li>
+          ) : (
+            <li key={item}>{t(item)} </li>
+          ),
+        )}
+      </Ul>
+      <span
+        css={css`
+          line-height: 20px;
+        `}
+      >
+        {t('common.forMoreSyntax')}
+        <Link href={getLinks().markdownCheatSheet} target="_blank">
+          {t('common.markdownCheatSheet')}
+        </Link>
+      </span>
     </div>
   );
 };
@@ -103,7 +150,4 @@ const mapStateToProps = createStructuredSelector({
 
 export { Li, Ul };
 
-export default connect(
-  mapStateToProps,
-  null,
-)(Tips);
+export default connect(mapStateToProps, null)(Tips);

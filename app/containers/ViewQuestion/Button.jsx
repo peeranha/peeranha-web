@@ -10,7 +10,7 @@ const colors = singleCommunityColors();
 
 /* eslint no-nested-ternary: 0, indent: 0 */
 export const SpanStyled = TransparentButton.extend`
-  ${x =>
+  ${(x) =>
     svgDraw({
       color: x.isVotedToDelete
         ? TEXT_WARNING
@@ -19,7 +19,7 @@ export const SpanStyled = TransparentButton.extend`
 
   display: inline-flex;
   align-items: center;
-  margin-left: 30px;
+  //margin-left: 30px;
 
   > *:last-child {
     margin-left: 7px;
@@ -56,7 +56,7 @@ export const Button = ({
 }) => {
   const z = {};
 
-  Object.keys(params).forEach(x => {
+  Object.keys(params).forEach((x) => {
     z[`data-${x.toLowerCase()}`] = params[x];
   });
 

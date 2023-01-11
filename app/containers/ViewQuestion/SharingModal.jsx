@@ -74,7 +74,7 @@ const DropdownModalFooter = styled.footer`
   .copy-btn {
     margin-right: 0;
 
-    color: #576fed;
+    color: var(--color-blue);
 
     cursor: pointer;
   }
@@ -86,7 +86,7 @@ const DropdownModalFooter = styled.footer`
 
 const SharingModal = ({ questionData }) => {
   const { t } = useTranslation();
-  const writeToBuffer = event => {
+  const writeToBuffer = (event) => {
     clipboard.writeText(event.currentTarget.dataset.key);
     showPopover(event.currentTarget.id, t('common.copied'));
   };

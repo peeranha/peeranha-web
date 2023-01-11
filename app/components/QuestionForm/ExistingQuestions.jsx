@@ -19,7 +19,7 @@ const Link = styled.a`
 
 const Span = styled.span`
   font-weight: normal;
-  color: #007bff;
+  color: var(--color-blue);
 `;
 
 const Button = styled.p`
@@ -56,7 +56,7 @@ const getQuestionTitleWithoutCommunity = (str, communities) => {
 
 const ExistingQuestions = ({ questions, skip, show, communities }) => {
   const { t } = useTranslation();
-  const commNames = communities.map(comm => comm.name);
+  const commNames = communities.map((comm) => comm.name);
   const findQuestions = questions.slice(0, 4);
 
   return (
@@ -66,7 +66,7 @@ const ExistingQuestions = ({ questions, skip, show, communities }) => {
         <Span onClick={skip}>{t('common.skip')}</Span>
       </Label>
       <List>
-        {findQuestions.map(q => (
+        {findQuestions.map((q) => (
           <ListItem key={questionView(q.id)}>
             <a href={questionView(q.id)} target={'_blank'}>
               {getQuestionTitleWithoutCommunity(q.title, commNames)}

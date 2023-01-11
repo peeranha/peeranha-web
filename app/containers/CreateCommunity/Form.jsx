@@ -44,6 +44,7 @@ import {
   COMM_AVATAR_FIELD,
   COMM_NAME_FIELD,
   COMM_SHORT_DESCRIPTION_FIELD,
+  COMM_PEERANHA_SITE_FIELD,
   COMM_OFFICIAL_SITE_FIELD,
   TAG_NAME_FIELD,
   TAG_DESCRIPTION_FIELD,
@@ -80,9 +81,9 @@ const CreateCommunityForm = ({
   const { t } = useTranslation();
   const [tags, changeTags] = useState(DEFAULT_TAGS_ARRAY);
 
-  const removeTag = e => {
+  const removeTag = (e) => {
     const { key } = e.currentTarget.dataset;
-    const index = tags.findIndex(x => x === +key);
+    const index = tags.findIndex((x) => x === +key);
 
     // clear tag in redux-form
     change(`tags.${TAG_SECTION}_${key}`, null);
@@ -147,6 +148,18 @@ const CreateCommunityForm = ({
           warn={[validateURL]}
           placeholder="https://example.com"
           tip={t('createCommunity.websiteTip')}
+          splitInHalf
+        />
+
+        <Field
+          disabled={createCommunityLoading}
+          name={COMM_PEERANHA_SITE_FIELD}
+          component={TextInputField}
+          label={t('createCommunity.communityWebsite')}
+          validate={[strLength100Max]}
+          warn={[strLength100Max]}
+          placeholder="subdomain.peeranha.io"
+          tip={t('createCommunity.communityWebsiteTip')}
           splitInHalf
         />
 
@@ -253,7 +266,7 @@ CreateCommunityForm.propTypes = {
 
 const FormCloneRedux = reduxForm({
   form: FORM_NAME,
-  onSubmitFail: err => {
+  onSubmitFail: (err) => {
     const errors = {
       ...err,
       ...err.tags,
@@ -266,14 +279,14 @@ const FormCloneRedux = reduxForm({
 })(CreateCommunityForm);
 
 export default memo(
-  connect(state => {
+  connect((state) => {
     const form = state.toJS().form[FORM_NAME] || { values: {} };
 
     if (form.values && form.values.tags) {
       const { tags } = form.values;
       const tagNames = Object.keys(tags)
-        .filter(x => tags[x])
-        .map(x => tags[x][TAG_NAME_FIELD]);
+        .filter((x) => tags[x])
+        .map((x) => tags[x][TAG_NAME_FIELD]);
       return {
         valueHasNotBeInListValidate: tagNames,
         formValues: form?.values ?? {},

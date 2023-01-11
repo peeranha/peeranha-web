@@ -5,7 +5,7 @@ const Achivements: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
     id="achivements"
-    fill="curentColor"
+    fill="currentColor"
     viewBox="0 0 16 16"
     size={[16, 16]}
   >

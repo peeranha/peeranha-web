@@ -55,6 +55,7 @@ import {
   getAllRoles,
   hasCommunityAdminRole,
   hasGlobalModeratorRole,
+  hasProtocolAdminRole,
 } from '../../utils/properties';
 
 import { useModeratorRole } from '../../hooks/useModeratorRole';
@@ -96,9 +97,8 @@ const CreateTag = ({
     [suggestTagDispatch],
   );
 
-  const isGlobalAdmin = useMemo(() => hasGlobalModeratorRole(permissions), [
-    permissions,
-  ]);
+  const isGlobalAdmin =
+    hasGlobalModeratorRole(permissions) || hasProtocolAdminRole(permissions);
   const profileWithCommunityAdminRights = commId
     ? hasCommunityAdminRole(permissions, commId)
     : false;
@@ -107,8 +107,8 @@ const CreateTag = ({
   const rightCommunitiesIds = useMemo(
     () =>
       isGlobalAdmin || profileWithCommunityAdminRights
-        ? communities.map(x => x.id)
-        : roles.map(role => role.communityid),
+        ? communities.map((x) => x.id)
+        : roles.map((role) => role.communityid),
     [communities, roles],
   );
 
@@ -130,7 +130,7 @@ const CreateTag = ({
           <BaseSpecialOne>
             <Form
               communityId={commId}
-              communities={communities.filter(x =>
+              communities={communities.filter((x) =>
                 rightCommunitiesIds.includes(x.id),
               )}
               tagFormLoading={createTagLoading}
@@ -181,7 +181,7 @@ export default compose(
       isFormAvailable: selectors.selectIsFormAvailable(),
       profile: makeSelectProfileInfo(),
     }),
-    dispatch => ({
+    (dispatch) => ({
       suggestTagDispatch: bindActionCreators(suggestTag, dispatch),
       getFormDispatch: bindActionCreators(getForm, dispatch),
     }),

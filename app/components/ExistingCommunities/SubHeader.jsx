@@ -38,7 +38,7 @@ const Menu = ({ changeSorting, sorting, options }) => {
 
   return (
     <Ul>
-      {Object.keys(options).map(item => (
+      {Object.keys(options).map((item) => (
         <CheckedItem
           key={`${options[item].message.id}_${options[item].order}`}
           onClick={() => changeSorting(options[item])}
@@ -80,7 +80,7 @@ export const SubHeader = ({ changeSorting, sorting, communitiesNumber }) => {
           id="existing-communities-dropdown"
           isArrowed
           css={css`
-            z-index: 10;
+            z-index: 9;
           `}
         />
       </SubHeaderWrapperRightPanel>

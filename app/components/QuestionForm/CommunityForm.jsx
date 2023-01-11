@@ -5,7 +5,10 @@ import { useTranslation } from 'react-i18next';
 
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
-import { requiredForObjectField } from 'components/FormFields/validate';
+import {
+  requiredForObjectField,
+  requiredMinReputation,
+} from 'components/FormFields/validate';
 import CommunityField from 'components/FormFields/CommunityField';
 
 import { FORM_COMMUNITY, FORM_TAGS } from './constants';
@@ -31,8 +34,8 @@ const CommunityForm = ({
       label={t('common.communityLabel')}
       tip={t('common.communityTip')}
       options={communities}
-      validate={[requiredForObjectField]}
-      warn={[requiredForObjectField]}
+      validate={[requiredForObjectField, requiredMinReputation]}
+      warn={[requiredForObjectField, requiredMinReputation]}
       splitInHalf
     />
   );

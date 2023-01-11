@@ -13,6 +13,7 @@ export const COMM_SHORT_DESCRIPTION_FIELD =
   'app/EditCommunity/COMM_SHORT_DESCRIPTION_FIELD';
 export const COMM_OFFICIAL_SITE_FIELD =
   'app/EditCommunity/COMM_OFFICIAL_SITE_URL';
+export const COMM_PEERANHA_SITE_FIELD = `app/EditCommunity/COMM_PEERANHA_SITE_FIELD`;
 
 export const LANGUAGE_FIELD = 'app/EditCommunity/LANGUAGE_FIELD';
 

@@ -5,13 +5,18 @@ import { css } from '@emotion/react';
 import cn from 'classnames';
 import useEventListener from 'hooks/useEventListener';
 import LargeOutlinedButton from '../Button/Outlined/InfoLarge';
-import { singleCommunityStyles } from '../../utils/communityManagement';
+import {
+  singleCommunityStyles,
+  singleCommunityColors,
+} from '../../utils/communityManagement';
+import { TEXT_PRIMARY } from 'style-constants';
 
 import { styles } from './CookieConsentPopup.styled';
 
 const cookie = require('../../images/cookie.svg?inline');
 
 const stylesCommunity = singleCommunityStyles();
+const colors = singleCommunityColors();
 
 const CookieConsentPopup: React.FC = (): JSX.Element => {
   const { t } = useTranslation();
@@ -45,7 +50,10 @@ const CookieConsentPopup: React.FC = (): JSX.Element => {
           })}
         >
           <div className={cn('container')}>
-            <div className={cn('df aic jcsb pt24 pb24')}>
+            <div
+              className={cn('df aic jcsb pt24 pb24')}
+              css={css(styles.inner)}
+            >
               <div className={cn('df aic')}>
                 <img
                   src={cookie}
@@ -55,12 +63,24 @@ const CookieConsentPopup: React.FC = (): JSX.Element => {
                 />
                 <p className={cn('pr20 pl10')} css={css(styles.text)}>
                   {t('common.cookieConsent')}
-                  <Link to="/privacy-policy">{t('common.moreInfo')}</Link>
+                  <Link
+                    to="/privacy-policy"
+                    css={css`
+                      font-weight: 700;
+                      color: ${colors.linkCookieColor || TEXT_PRIMARY};
+                      :hover {
+                        color: ${colors.linkCookieColor || TEXT_PRIMARY};
+                      }
+                    `}
+                  >
+                    {t('common.moreInfo')}
+                  </Link>
                 </p>
               </div>
               <LargeOutlinedButton
                 onClick={acceptCookiePolicy}
-                customStyles={stylesCommunity.headerLoginButtonStyles}
+                customStyles={stylesCommunity.cookieConsentPopupStyles}
+                css={css(styles.acceptButton)}
                 className="no-wrap"
               >
                 {t('common.confirm')}

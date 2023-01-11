@@ -97,8 +97,8 @@ export const ViewQuestion = ({
       questionData.postType === POST_TYPE.generalPost
         ? 'questionView'
         : questionData.postType === POST_TYPE.expertPost
-          ? 'expertPostView'
-          : 'tutorialView';
+        ? 'expertPostView'
+        : 'tutorialView';
     if (match.url !== routes[route](match.params.id)) {
       history.push(routes[route](match.params.id));
     }
@@ -113,36 +113,27 @@ export const ViewQuestion = ({
     };
   }, []);
 
-  useEffect(
-    () => {
-      getQuestionDataDispatch(match.params.id);
-    },
-    [match.params.id, account],
-  );
+  useEffect(() => {
+    getQuestionDataDispatch(match.params.id);
+  }, [match.params.id, account]);
 
-  useEffect(
-    () => {
-      getHistoriesDispatch(match.params.id);
-    },
-    [match.params.id],
-  );
+  useEffect(() => {
+    getHistoriesDispatch(match.params.id);
+  }, [match.params.id]);
 
-  useEffect(
-    () => {
-      if (questionData) {
-        setTimeout(scrollToSection, 250);
-      }
+  useEffect(() => {
+    if (questionData) {
+      setTimeout(scrollToSection, 250);
+    }
 
-      if (questionData && !questionDataLoading) {
-        window.isRendered = true;
-      }
+    if (questionData && !questionDataLoading) {
+      window.isRendered = true;
+    }
 
-      if ((!questionDataLoading && !questionData) || questionData?.isDeleted) {
-        history.push(routes.notFound());
-      }
-    },
-    [questionData, questionDataLoading],
-  );
+    if ((!questionDataLoading && !questionData) || questionData?.isDeleted) {
+      history.push(routes.notFound('type=deleted'));
+    }
+  }, [questionData, questionDataLoading]);
 
   const [isChangeTypeAvailable, infiniteImpact] = useMemo(
     () => [
@@ -153,7 +144,7 @@ export const ViewQuestion = ({
   );
 
   const isAnswered = !!questionData?.answers.filter(
-    x => x.author.user === account,
+    (x) => x.author.user === account,
   ).length;
 
   const commId = questionData?.communityId ?? null;
@@ -194,6 +185,7 @@ export const ViewQuestion = ({
     infiniteImpact,
     isAnswered,
     commId,
+    profile,
   };
 
   const helmetTitle = questionData?.content.title || t('post.title');
@@ -210,13 +202,13 @@ export const ViewQuestion = ({
 
   const tagIds = questionData?.tags ?? [];
 
-  const community = communities.filter(x => x.id === commId)[0] || {
+  const community = communities.filter((x) => x.id === commId)[0] || {
     tags: [],
   };
 
-  const tags = community.tags.filter(x => tagIds.includes(x.id));
+  const tags = community.tags.filter((x) => tagIds.includes(x.id));
 
-  const keywords = [...tags.map(x => x.name), helmetTitle];
+  const keywords = [...tags.map((x) => x.name), helmetTitle];
 
   return (
     <>
@@ -231,9 +223,9 @@ export const ViewQuestion = ({
         />
       )}
 
-      {!questionDataLoading &&
-        !historiesLoading &&
-        questionData && <ViewQuestionContainer {...sendProps} />}
+      {!questionDataLoading && !historiesLoading && questionData && (
+        <ViewQuestionContainer {...sendProps} />
+      )}
 
       {(questionDataLoading || historiesLoading) && <LoadingIndicator />}
     </>
@@ -322,7 +314,7 @@ const withConnect = connect(
       dispatch,
     ),
     deleteQuestionDispatch: bindActionCreators(
-      deleteQuestion.bind(null, questionId),
+      deleteQuestion.bind(null, questionId, false),
       dispatch,
     ),
     postCommentDispatch: bindActionCreators(
@@ -379,8 +371,4 @@ const withSaga = injectSaga({
   disableEject: true,
 });
 
-export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
-)(ViewQuestion);
+export default compose(withReducer, withSaga, withConnect)(ViewQuestion);

@@ -1,125 +1,127 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { css } from '@emotion/react';
 import { useTranslation } from 'react-i18next';
 
 import H3 from 'components/H3';
-import InfoButton from 'components/Button/Outlined/InfoMedium';
-import styled from 'styled-components';
+import Span from 'components/Span';
 
-import {
-  CONFIRM_TG_ACCOUNT,
-  UNLINK_TG_ACCOUNT,
-} from '../TelegramAccountAction/constants';
+import { META_TRANSACTIONS_ALLOWED } from 'utils/constants';
+import { deleteCookie, setCookie, getCookie } from 'utils/cookie';
+import { TEXT_SECONDARY } from 'style-constants';
 
 import { BaseStyled } from './SettingsOfUser';
-import ChangeEmailButton from '../ChangeEmail';
-import DeleteAccountButton from '../DeleteAccount';
-import ChangePasswordButton from '../ChangePasswordByPrevious';
-import TelegramAccountAction from '../TelegramAccountAction';
-import * as routes from '../../routes-config';
-import A from '../../components/A';
-import { svgDraw } from '../../components/Icon/IconStyled';
-import { TEXT_PRIMARY } from '../../style-constants';
 
-const Link = styled(A)`
-  ${svgDraw({ color: TEXT_PRIMARY })};
-`;
-
-const AuthorizationData = ({ loginData, className, tgData, profile }) => {
+const AuthorizationData = ({
+  locale,
+  ownerKey,
+  loginData,
+  className,
+  activeKey,
+  writeToBuffer,
+  tgData,
+  profile,
+}) => {
   const { t } = useTranslation();
-  const { loginWithFacebook, loginWithScatter, loginWithKeycat } = loginData;
-  const isLoggedInWithWallet = loginWithScatter || loginWithKeycat;
+  const metaTransactionsAllowed = getCookie(META_TRANSACTIONS_ALLOWED);
 
-  const tgAccountName =
-    tgData?.temporaryAccountDisplayName ??
-    profile?.profile?.temporaryAccountDisplayName;
+  const [metaTransactions, setMetaTransactions] = React.useState(
+    metaTransactionsAllowed,
+  );
 
-  if (isLoggedInWithWallet && !tgData) return null;
+  const handleMetaTransactionsAllowed = () => {
+    setCookie({
+      name: META_TRANSACTIONS_ALLOWED,
+      value: true,
+      options: {
+        neverExpires: true,
+        defaultPath: true,
+        allowSubdomains: true,
+      },
+    });
+    setMetaTransactions(true);
+  };
 
+  const handleMetaTransactionsDisallowed = () => {
+    deleteCookie(META_TRANSACTIONS_ALLOWED);
+    setMetaTransactions(false);
+  };
   return (
-    <BaseStyled position="bottom" notRoundedStyle className={className}>
-      <H3>{t('profile.authorizationData')}</H3>
-
-      <div>
-        <table>
-          {!loginWithFacebook &&
-            !isLoggedInWithWallet && (
-              <thead>
-                <tr>
-                  <td>{t('signUp.email')}</td>
-                  <td>{loginData?.email ?? null}</td>
-                  <td>
-                    <ChangeEmailButton>{t('common.change')} </ChangeEmailButton>
-                  </td>
-                </tr>
-              </thead>
-            )}
-
-          <tbody>
-            {!loginWithFacebook &&
-              !isLoggedInWithWallet && (
-                <tr>
-                  <td>{t('signUp.password')}</td>
-                  <td>• • • • • • • • • • • • •</td>
-                  <td>
-                    <ChangePasswordButton>
-                      {t('common.change')}{' '}
-                    </ChangePasswordButton>
-                  </td>
-                </tr>
-              )}
-
-            {tgData && (
-              <>
-                <tr>
-                  {(!!tgAccountName && (
-                    <>
-                      <td>{t('signUp.tgAccountName')}</td>
-                      {(tgData.temporaryUser && (
-                        <Link to={routes.profileView(tgData.temporaryUser)}>
-                          {tgAccountName}
-                        </Link>
-                      )) || <td>{tgAccountName}</td>}
-                    </>
-                  )) || (
-                    <>
-                      <td>{t('signUp.tgAccountID')}</td>
-                      <td>{tgData.telegram_id}</td>
-                    </>
-                  )}
-
-                  <td>
-                    {!tgData.confirmed && (
-                      <TelegramAccountAction
-                        actionType={CONFIRM_TG_ACCOUNT}
-                        data={tgData}
-                        profile={profile}
-                      />
-                    )}
-
-                    <TelegramAccountAction
-                      actionType={UNLINK_TG_ACCOUNT}
-                      data={tgData}
-                      profile={profile}
-                    />
-                  </td>
-                </tr>
-              </>
-            )}
-          </tbody>
-        </table>
-
-        {!isLoggedInWithWallet && (
-          <DeleteAccountButton
-            render={({ onClick }) => (
-              <InfoButton onClick={onClick}>
-                {t('common.deleteAccount')}
-              </InfoButton>
-            )}
-          />
-        )}
-      </div>
-    </BaseStyled>
+    <>
+      <BaseStyled className={className} position="bottom">
+        <H3>{t('common.settings')}</H3>
+      </BaseStyled>
+      <BaseStyled position="top" notRoundedStyle className={className}>
+        <div>
+          <div>
+            <div className="mb-4">
+              <div className="mb-2">
+                <Span fontSize="18" bold>
+                  {t('common.transactions')}
+                </Span>
+              </div>
+              <div>
+                <div>
+                  <Span
+                    css={css`
+                      color: ${TEXT_SECONDARY};
+                    `}
+                    fontSize="14"
+                  >
+                    {t('common.transactionsText_1')}
+                  </Span>
+                </div>
+                <div>
+                  <Span
+                    css={css`
+                      color: ${TEXT_SECONDARY};
+                    `}
+                    fontSize="14"
+                  >
+                    {t('common.transactionsText_2')}
+                  </Span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="fz14">
+            <div
+              className="mb-2"
+              css={css`
+                font-weight: ${metaTransactions ? 'bold' : 'normal'};
+              `}
+            >
+              <label>
+                <input
+                  className="mr-2"
+                  type="radio"
+                  checked={metaTransactions}
+                  onChange={handleMetaTransactionsAllowed}
+                />
+                {t('common.transactionsChange_1')}
+              </label>
+            </div>
+            <div
+              css={css`
+                font-weight: ${!metaTransactions ? 'bold' : 'normal'};
+              `}
+            >
+              <label>
+                <input
+                  className="mr-2"
+                  type="radio"
+                  checked={!metaTransactions}
+                  onChange={handleMetaTransactionsDisallowed}
+                />
+                <span className="pr-2" bold>
+                  {t('common.transactionsChange_2')}
+                </span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </BaseStyled>
+    </>
   );
 };
 

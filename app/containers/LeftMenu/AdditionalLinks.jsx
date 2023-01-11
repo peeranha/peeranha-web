@@ -57,7 +57,7 @@ const FooterStyled = styled.footer`
     if (styles.withoutAdditionalLinks) return '0 0';
     if (currClientHeight < FULL_SIZE && !isMobile(window.navigator).any)
       return '10px 0 0';
-    return '30px 0';
+    return '30px 0 0 0';
   }};
 
   a {
@@ -154,7 +154,7 @@ const InfoLinksDropDown = ({ withTitle }) => {
       }
       menu={
         <ul>
-          {INFO_LINKS.map(el => (
+          {INFO_LINKS.map((el) => (
             <Li key={el.route} css={LiAdditionalStyles}>
               <Link
                 key={el.title}
@@ -195,15 +195,15 @@ const AdditionalLinksComponent = ({
       {((!styles.withoutAdditionalLinks && currClientHeight > FULL_SIZE) ||
         (!styles.withoutAdditionalLinks && isMobile(window.navigator).any)) && (
         <>
-          {INFO_LINKS.map(el => (
+          {INFO_LINKS.map((el) => (
             <Link path={el.route} key={el.route} message={el.title} />
           ))}{' '}
         </>
       )}
 
-      {middleSize &&
-        basicCondition &&
-        process.env.ENV !== 'prod' && <InfoLinksDropDown withTitle />}
+      {middleSize && basicCondition && process.env.ENV !== 'prod' && (
+        <InfoLinksDropDown withTitle />
+      )}
 
       {(fullSize ||
         ((smallSize || middleSize) && !basicCondition) ||
@@ -211,15 +211,14 @@ const AdditionalLinksComponent = ({
         <ChangeLocale withTitle changeLocale={changeLocale} locale={locale} />
       )}
 
-      {smallSize &&
-        basicCondition && (
-          <FlexibleDiv>
-            <InfoLinksDropDown />
-            {process.env.ENV !== 'prod' && (
-              <ChangeLocale changeLocale={changeLocale} locale={locale} />
-            )}
-          </FlexibleDiv>
-        )}
+      {smallSize && basicCondition && (
+        <FlexibleDiv>
+          <InfoLinksDropDown />
+          {process.env.ENV !== 'prod' && (
+            <ChangeLocale changeLocale={changeLocale} locale={locale} />
+          )}
+        </FlexibleDiv>
+      )}
 
       <FooterStyled currClientHeight={currClientHeight}>
         {!single && (

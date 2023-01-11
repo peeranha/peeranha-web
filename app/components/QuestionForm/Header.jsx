@@ -1,3 +1,4 @@
+import { POST_TYPE } from 'utils/constants';
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import * as routes from 'routes-config';
@@ -21,7 +22,7 @@ import { singleCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
 
-const Header = ({ formTitle, questionId }) => {
+const Header = ({ formTitle, questionId, postType }) => {
   const { t } = useTranslation();
 
   return (
@@ -40,7 +41,13 @@ const Header = ({ formTitle, questionId }) => {
 
       {questionId && (
         <div className="right-panel">
-          <A to={routes.questionView(questionId)}>
+          <A
+            to={
+              postType === POST_TYPE.documentation
+                ? routes.documentation(questionId)
+                : routes.questionView(questionId)
+            }
+          >
             <button>
               <IconMd
                 className="mr-1"

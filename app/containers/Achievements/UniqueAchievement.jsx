@@ -65,7 +65,7 @@ const UniqueAchievement = ({
 }) => {
   const { t } = useTranslation();
   const availiableCount = maxCount - factCount;
-  const pointsToNext = lowerValue - currentValue;
+  const pointsToNext = lowerValue - (currentValue || 0);
   const getProgress = () => (currentValue / lowerValue) * 100;
 
   const [visible, changeVisibility] = useState(false);
@@ -100,22 +100,21 @@ const UniqueAchievement = ({
         {!reached && (
           <Icon icon={achievementNotReached} width="160" height="148" />
         )}
-        {currentUser &&
-          !reached && (
-            <ProgressBar
-              achievementId={id}
-              width="60%"
-              progress={getProgress()}
-              pointsToNext={pointsToNext}
-              groupType={uniqueRatingRelated}
-              messageSingle={t(
-                'achievements.progressBarPopover.ratingRelated.single',
-              )}
-              messageMultiple={t(
-                'achievements.progressBarPopover.ratingRelated.multiple',
-              )}
-            />
-          )}
+        {currentUser && !reached && (
+          <ProgressBar
+            achievementId={id}
+            width="60%"
+            progress={getProgress()}
+            pointsToNext={pointsToNext}
+            groupType={uniqueRatingRelated}
+            messageSingle={t(
+              'achievements.progressBarPopover.ratingRelated.single',
+            )}
+            messageMultiple={t(
+              'achievements.progressBarPopover.ratingRelated.multiple',
+            )}
+          />
+        )}
       </ImageBlock>
       <div>
         <TitleBlock>

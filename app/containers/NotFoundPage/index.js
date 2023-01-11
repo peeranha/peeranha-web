@@ -8,7 +8,8 @@ import * as routes from 'routes-config';
 import { LINK_COLOR } from 'style-constants';
 
 import notFoundImage from 'images/404.svg?inline';
-
+import errorImage from 'images/oops.svg?inline';
+import history from 'createdHistory';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 
@@ -48,6 +49,9 @@ const NotFound = ({ locale }) => {
     };
   }, []);
 
+  const isUrlGetParameter =
+    new URLSearchParams(history.location.search).get('type') === 'deleted';
+
   return (
     <React.Fragment>
       <Seo
@@ -60,12 +64,19 @@ const NotFound = ({ locale }) => {
       <Box>
         <div>
           <Span fontSize="24" bold>
-            {t('notFound.weAreSorry')}
+            {t(
+              `notFound.${
+                isUrlGetParameter ? 'weAreSorryIsDeleted' : 'weAreSorry'
+              }`,
+            )}
           </Span>
         </div>
 
         <div>
-          <img src={notFoundImage} alt="404 page" />
+          <img
+            src={isUrlGetParameter ? errorImage : notFoundImage}
+            alt="404 page"
+          />
         </div>
 
         <div>
@@ -106,7 +117,4 @@ const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
 });
 
-export default connect(
-  mapStateToProps,
-  null,
-)(NotFound);
+export default connect(mapStateToProps, null)(NotFound);

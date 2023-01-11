@@ -3,14 +3,14 @@ export const DEFAULT_PATH = '/';
 export const TELOS_DOMAIN = '.telos.net';
 export const TEST_COMM_DOMAIN = 'testcommunity.net';
 
-export const getCookie = name => {
+export const getCookie = (name) => {
   const matches = document.cookie.match(
     new RegExp(
       // eslint-disable-next-line no-useless-escape
       `(?:^|; )${name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1')}=([^;]*)`,
     ),
   );
-  return matches ? decodeURIComponent(matches[1]) : '';
+  return matches ? matches[1] : '';
 };
 
 export const setCookie = ({
@@ -23,9 +23,7 @@ export const setCookie = ({
     optionsCopy.expires = options.expires.toUTCString();
   }
 
-  const updatedCookie = `${encodeURIComponent(name)}=${encodeURIComponent(
-    value,
-  )}`;
+  const updatedCookie = `${name}=${value}`;
 
   document.cookie = Object.keys(optionsCopy).reduce((acc, optionKey) => {
     if (optionKey === 'neverExpires') {
@@ -54,7 +52,7 @@ export const setCookie = ({
   }, updatedCookie);
 };
 
-export const deleteCookie = name =>
+export const deleteCookie = (name) =>
   setCookie({
     name,
     value: '',

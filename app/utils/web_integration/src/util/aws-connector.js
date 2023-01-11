@@ -58,7 +58,7 @@ async function callService(service, props, isGet = false) {
     method: isGet ? 'GET' : 'POST',
     headers: {
       Accept: 'application/json',
-      'Content-Type': 'application/json',
+      'Content-Type': isGet ? '' : 'application/json',
       ...auth,
     },
     ...(!isGet ? { body: JSON.stringify(props) } : {}),

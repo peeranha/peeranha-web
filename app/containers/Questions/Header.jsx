@@ -8,8 +8,6 @@ import { useTranslation } from 'react-i18next';
 
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 
-import FollowCommunityButton from 'containers/FollowCommunityButton/DefaultButton';
-
 import { MediumImageStyled } from 'components/Img/MediumImage';
 import CommunitySelector from 'components/CommunitySelector';
 import { MediumIconStyled } from 'components/Icon/MediumIcon';
@@ -32,7 +30,8 @@ import {
 import {
   getPermissions,
   hasGlobalModeratorRole,
-  hasCommunityModeratorRole,
+  hasCommunityAdminRole,
+  hasProtocolAdminRole,
 } from 'utils/properties';
 
 import { POST_TYPE } from 'utils/constants';
@@ -44,6 +43,7 @@ import {
 
 import { selectQuestions, selectTopQuestionsInfoLoaded } from './selectors';
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
+import QuestionFilter from './QuestionFilter';
 
 const single = isSingleCommunityWebsite();
 const colors = singleCommunityColors();
@@ -59,7 +59,7 @@ const PageContentHeaderRightPanel = styled.div`
   flex-shrink: 0;
 `;
 
-const customColor = colors.headerPrimary || BORDER_PRIMARY;
+const customColor = colors.linkColor || BORDER_PRIMARY;
 
 const StyledCustomIconButtonContainer = styled.div`
   .fill {
@@ -88,9 +88,10 @@ export const Header = ({
 }) => {
   const { t } = useTranslation();
   const isFeed = parentPage === routes.feed();
-  const isModeratorModeSingleCommunity = single
+  const communityEditingAllowed = single
     ? hasGlobalModeratorRole(getPermissions(profile)) ||
-      hasCommunityModeratorRole(getPermissions(profile), single)
+      hasProtocolAdminRole(getPermissions(profile)) ||
+      hasCommunityAdminRole(getPermissions(profile), single)
     : false;
 
   let defaultAvatar = null;
@@ -152,10 +153,10 @@ export const Header = ({
 
   const displaySubscribeButton =
     !!single &&
-    (isFeed &&
-      window.location.pathname !== routes.questions() &&
-      window.location.pathname !== routes.expertPosts() &&
-      window.location.pathname !== routes.tutorials());
+    isFeed &&
+    window.location.pathname !== routes.questions() &&
+    window.location.pathname !== routes.expertPosts() &&
+    window.location.pathname !== routes.tutorials();
 
   const routeToEditCommunity = () => {
     createdHistory.push(routes.communitiesEdit(single));
@@ -171,7 +172,7 @@ export const Header = ({
         <CommunitySelector
           isArrowed
           Button={Button}
-          toggle={choice => {
+          toggle={(choice) => {
             createdHistory.push(routes[route](choice, false, false));
             setTypeFilter(choice);
           }}
@@ -179,6 +180,7 @@ export const Header = ({
           selectedCommunityId={communityIdFilter}
           communities={communities}
         />
+        {/* PEER-451: Hide Subscribe button from single community mode
         {!!displaySubscribeButton && (
           <PageContentHeaderRightPanel
             className={`right-panel m-0 ml-${single ? 3 : 4}`}
@@ -188,10 +190,13 @@ export const Header = ({
               followedCommunities={followedCommunities}
             />
           </PageContentHeaderRightPanel>
-        )}
+        )} */}
       </PageContentHeader>
-
-      {isModeratorModeSingleCommunity && (
+      <QuestionFilter
+        display={displayQuestionFilter}
+        questionFilterFromCookies={questionFilterFromCookies}
+      />
+      {communityEditingAllowed && (
         <button onClick={routeToEditCommunity} className="df aic mt12">
           <IconMd icon={pencilIcon} color={colors.btnColor || TEXT_PRIMARY} />
           <Span className="ml-1" color={colors.btnColor || TEXT_PRIMARY}>
@@ -215,7 +220,7 @@ Header.propTypes = {
 };
 
 export default React.memo(
-  connect(state => ({
+  connect((state) => ({
     topQuestionsInfoLoaded: selectTopQuestionsInfoLoaded()(state),
     topQuestions: selectQuestions(null, null, null, true)(state),
     communities: selectCommunities()(state),

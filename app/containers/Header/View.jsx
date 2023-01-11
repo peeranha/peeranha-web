@@ -17,15 +17,25 @@ import addIcon from 'images/add.svg?external';
 import searchIcon from 'images/search.svg?external';
 import headerNavigationIcon from 'images/headerNavigation.svg?external';
 import peeranhaLogo from 'images/LogoBlack.svg?inline';
+import peeranhaMetaLogo from 'images/PeeranhaMeta.svg?inline';
 
 import {
   isSingleCommunityWebsite,
   singleCommunityStyles,
   singleCommunityColors,
 } from 'utils/communityManagement';
+import {
+  getPermissions,
+  hasCommunityModeratorRole,
+  hasGlobalModeratorRole,
+  hasProtocolAdminRole,
+} from 'utils/properties';
+import { getRatingByCommunity } from 'utils/profileManagement';
+import { showPopover } from 'utils/popover';
 
 import LargeButton from 'components/Button/Contained/InfoLarge';
 import Icon from 'components/Icon';
+import EditDocumentation from 'components/Documentation';
 import { IconSm, IconLm, IconLg } from 'components/Icon/IconWithSizes';
 
 import styled from 'styled-components';
@@ -37,7 +47,12 @@ import ButtonGroupForNotAuthorizedUser from './ButtonGroupForNotAuthorizedUser';
 import ButtonGroupForAuthorizedUser from './ButtonGroupForAuthorizedUser';
 import SearchForm from './SearchForm';
 
-import { HEADER_ID, LOADER_HEIGHT, SEARCH_FORM_ID } from './constants';
+import {
+  HEADER_ID,
+  LOADER_HEIGHT,
+  SEARCH_FORM_ID,
+  MIN_REPUTATION,
+} from './constants';
 import processIndicator from '../../images/progress-indicator.svg?external';
 
 const single = isSingleCommunityWebsite();
@@ -104,8 +119,8 @@ const ProgressIndicator = styled.div`
 `;
 
 const Button = LargeButton.extend`
-  background-color: ${x => x.bg};
-  border: ${x => (x.bg ? '1' : '0')}px solid ${BORDER_SECONDARY};
+  background-color: ${(x) => x.bg};
+  border: ${(x) => (x.bg ? '1' : '0')}px solid ${BORDER_SECONDARY};
 
   @media only screen and (max-width: 991px) {
     padding: 0;
@@ -131,36 +146,51 @@ const View = ({
   isTransactionInPending,
   transactionHash,
   transactionInitialised,
+  isEditDocumentation,
+  toggleEditDocumentation,
 }) => {
   const { t } = useTranslation();
   const [isSearchFormVisible, setSearchFormVisibility] = useState(false);
 
-  useEffect(
-    () => {
-      if (isSearchFormVisible && !single) {
-        document.getElementById(SEARCH_FORM_ID).focus();
-      }
-    },
-    [isSearchFormVisible],
-  );
+  useEffect(() => {
+    if (isSearchFormVisible && !single) {
+      document.getElementById(SEARCH_FORM_ID).focus();
+    }
+  }, [isSearchFormVisible]);
 
-  const Logo = useCallback(
-    () => {
-      if (isSearchFormVisible) return null;
+  const Logo = useCallback(() => {
+    if (isSearchFormVisible) return null;
 
-      const src = styles.withoutSubHeader
-        ? communitiesConfig[single].src
-        : peeranhaLogo;
+    const logo = single ? peeranhaMetaLogo : peeranhaLogo;
+    const src = styles.withoutSubHeader ? communitiesConfig[single].src : logo;
 
-      return (
-        <LogoStyles to={single ? routes.feed() : routes.home()}>
-          <img src={src} alt="logo" />
-          {styles.logoText}
-        </LogoStyles>
-      );
-    },
-    [isSearchFormVisible],
-  );
+    return (
+      <LogoStyles to={single ? routes.feed() : routes.home()}>
+        <img src={src} alt="logo" />
+        {styles.logoText}
+      </LogoStyles>
+    );
+  }, [isSearchFormVisible]);
+
+  const isHasRole =
+    hasGlobalModeratorRole(getPermissions(profileInfo)) ||
+    (Boolean(single) &&
+      hasCommunityModeratorRole(getPermissions(profileInfo), single)) ||
+    hasProtocolAdminRole(getPermissions(profileInfo));
+
+  const isMinusReputation =
+    getRatingByCommunity(profileInfo, single) < MIN_REPUTATION;
+
+  const showPopoverMinRating = (e) => {
+    e.preventDefault();
+    showPopover(e.currentTarget.id, t('post.reputationBelowZero'));
+  };
+
+  const askQuestionHandler = (e) => {
+    isMinusReputation && !isHasRole
+      ? showPopoverMinRating(e)
+      : redirectToAskQuestionPage(e);
+  };
 
   return (
     <Wrapper id={HEADER_ID} transactionInitialised={transactionInitialised}>
@@ -175,7 +205,11 @@ const View = ({
           >
             <IconLg
               icon={processIndicator}
-              css={css`path {fill:${colors.linkColor || TEXT_PRIMARY}}`}
+              css={css`
+                path {
+                  fill: ${colors.linkColor || TEXT_PRIMARY};
+                }
+              `}
             />
             {isTransactionInPending ? (
               <>
@@ -205,7 +239,7 @@ const View = ({
         </ProgressIndicator>
       )}
 
-      <MainSubHeader mainSubHeaderBgColor={styles.mainSubHeaderBgColor}>
+      <MainSubHeader mainSubHeaderBgColor={colors.mainSubHeaderBgColor}>
         <div className="container">
           <div className="d-flex align-items-center justify-content-between">
             <div className="d-flex align-items-center">
@@ -249,13 +283,32 @@ const View = ({
                     id="header-ask-question"
                     onClick={
                       profileInfo
-                        ? redirectToAskQuestionPage
+                        ? askQuestionHandler
                         : showLoginModalWithRedirectToAskQuestionPage
                     }
+                    css={css`
+                      background: ${colors.btnHeaderColor};
+                      :hover {
+                        background: ${colors.btnHeaderHoverColor};
+                        border: ${colors.btnHeaderHoverBorder};
+                        opacity: ${colors.btnHeaderHoverOpacity};
+                      }
+                      @media only screen and (min-width: 992px) {
+                        min-width: 130px;
+                      }
+                    `}
                   >
-                    <IconSm fill={BG_LIGHT} icon={addIcon} />
+                    <IconSm
+                      fill={colors.newPostButtonText || BG_LIGHT}
+                      icon={addIcon}
+                    />
 
-                    <span className="d-none d-lg-inline ml-2">
+                    <span
+                      className="d-none d-lg-inline ml-2"
+                      css={css`
+                        color: ${colors.newPostButtonText};
+                      `}
+                    >
                       {t('common.askQuestion')}
                     </span>
                   </Button>
@@ -274,6 +327,9 @@ const View = ({
           </div>
         </div>
       </MainSubHeader>
+      {isEditDocumentation && (
+        <EditDocumentation toggleEditDocumentation={toggleEditDocumentation} />
+      )}
     </Wrapper>
   );
 };

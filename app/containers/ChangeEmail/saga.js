@@ -1,7 +1,5 @@
-import { translationMessages } from 'i18n';
+import { t } from 'i18next';
 import { take, takeLatest, put, call, select } from 'redux-saga/effects';
-
-import webIntegrationErrors from 'utils/web_integration/src/wallet/service-errors';
 
 import {
   changeCredentialsInit,
@@ -40,14 +38,11 @@ import {
 export function* sendOldEmailWorker({ resetForm, email }) {
   try {
     const locale = yield select(makeSelectLocale());
-    const translations = translationMessages[locale];
 
     const response = yield call(changeCredentialsInit, email, false, locale);
 
     if (!response.OK) {
-      throw new WebIntegrationError(
-        translations[webIntegrationErrors[response.errorCode].id],
-      );
+      throw new WebIntegrationError(t(`webIntegration.${response.errorCode}`));
     }
 
     yield put(sendOldEmailSuccess());
@@ -71,9 +66,6 @@ export function* confirmOldEmailWorker({ resetForm, verificationCode }) {
   try {
     const email = yield select(selectEmail());
 
-    const locale = yield select(makeSelectLocale());
-    const translations = translationMessages[locale];
-
     const response = yield call(
       changeCredentialsConfirm,
       email,
@@ -81,9 +73,7 @@ export function* confirmOldEmailWorker({ resetForm, verificationCode }) {
     );
 
     if (!response.OK) {
-      throw new WebIntegrationError(
-        translations[webIntegrationErrors[response.errorCode].id],
-      );
+      throw new WebIntegrationError(t(`webIntegration.${response.errorCode}`));
     }
 
     yield put(confirmOldEmailSuccess());
@@ -98,9 +88,6 @@ export function* changeEmailWorker({ resetForm, values }) {
     const oldEmail = yield select(selectEmail());
     const verificationCode = yield select(selectVerificationCode());
 
-    const locale = yield select(makeSelectLocale());
-    const translations = translationMessages[locale];
-
     const newEmail = values[NEW_EMAIL_FIELD];
     const password = values[PASSWORD_FIELD];
 
@@ -113,11 +100,7 @@ export function* changeEmailWorker({ resetForm, values }) {
 
     if (!changeCredentialsGetKeysByPwdResponse.OK) {
       throw new WebIntegrationError(
-        translations[
-          webIntegrationErrors[
-            changeCredentialsGetKeysByPwdResponse.errorCode
-          ].id
-        ],
+        t(`webIntegration.${changeCredentialsGetKeysByPwdResponse.errorCode}`),
       );
     }
 
@@ -136,9 +119,7 @@ export function* changeEmailWorker({ resetForm, values }) {
 
     if (!changeCredentialsCompleteResponse.OK) {
       throw new WebIntegrationError(
-        translations[
-          webIntegrationErrors[changeCredentialsCompleteResponse.errorCode].id
-        ],
+        t(`webIntegration.${changeCredentialsCompleteResponse.errorCode}`),
       );
     }
 

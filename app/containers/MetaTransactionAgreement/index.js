@@ -56,16 +56,8 @@ export const MetaTransactionAgreement = ({
   return (
     <ModalDialog closeModal={hideModal} show={showModal}>
       <H4 className="text-center pb-3">
-        {t('common.metaTransaction.youDontHaveFeedToRead')}
+        {t('common.metaTransaction.agreeWithMetaTransactions')}
       </H4>
-
-      <div className="pb-4" style={{ textAlign: 'center' }}>
-        {t('common.metaTransaction.youNeedMetaBecause')}
-      </div>
-
-      <div className="pb-4" style={{ textAlign: 'center' }}>
-        {t('common.metaTransaction.dontWorry')}
-      </div>
 
       <div className="pb-4" style={{ textAlign: 'center' }}>
         {t('common.metaTransaction.wouldYouLike')}
@@ -106,7 +98,7 @@ const withConnect = connect(
     showModal: makeSelectShowModal(),
     ethereum: makeSelectEthereum(),
   }),
-  dispatch => ({
+  (dispatch) => ({
     hideModalDispatch: bindActionCreators(hideModal, dispatch),
   }),
 );

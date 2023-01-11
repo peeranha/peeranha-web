@@ -30,7 +30,7 @@ export default css`
 
   :root {
     ${Object.keys(colors).map(
-      key => `
+      (key) => `
       ${key}: ${(colors as any)[key]};
     `,
     )};
@@ -38,7 +38,7 @@ export default css`
 
   body,
   button {
-    font-family: 'Sourse Sans Pro', sans-serif;
+    font-family: 'Source Sans Pro', sans-serif;
     font-style: normal;
     font-weight: 400;
   }
@@ -94,11 +94,17 @@ export default css`
   .aic {
     align-items: center;
   }
+  .ais {
+    align-items: start;
+  }
   .aife {
     align-items: flex-end;
   }
   .fdc {
     flex-direction: column;
+  }
+  .fdr {
+    flex-direction: row;
   }
   .f1 {
     flex: 1;
@@ -141,6 +147,9 @@ export default css`
   }
   .pf {
     position: fixed;
+  }
+  .ps {
+    position: sticky;
   }
   .l0 {
     left: 0;
@@ -197,7 +206,7 @@ export default css`
     text-decoration: none;
   }
   .icon {
-    color: var(--color-background-icon);
+    color: var(--color-icon-background);
   }
   .text-ellipsis {
     overflow: hidden;
@@ -223,5 +232,8 @@ export default css`
     top: 67px !important;
     right: 20px !important;
     border: solid 1px #000000;
+  }
+  .pl15 {
+    padding-left: 15px;
   }
 `;

@@ -11,12 +11,28 @@ import RulesBlock from './RulesBlock';
 
 import { ADD_ANSWER_FORM, POST_ANSWER_BUTTON } from './constants';
 import { POST_TYPE } from '../../utils/constants';
+import { getRatingByCommunity } from 'utils/profileManagement';
 
-export const ViewQuestionContainer = props => {
+import {
+  getPermissions,
+  hasCommunityModeratorRole,
+  hasGlobalModeratorRole,
+  hasProtocolAdminRole,
+} from 'utils/properties';
+
+export const ViewQuestionContainer = (props) => {
   const { t } = useTranslation();
 
   const { isAnswered } = props;
   const isTutorial = props.questionData.postType === POST_TYPE.tutorial;
+  const isMinusReputation =
+    getRatingByCommunity(props.profile, props.commId) < 0;
+
+  const isHasRole =
+    hasGlobalModeratorRole(getPermissions(props.profile)) ||
+    hasProtocolAdminRole(getPermissions(props.profile)) ||
+    hasCommunityModeratorRole(getPermissions(props.profile), props.commId);
+
   return (
     <article>
       <Question {...props} />
@@ -40,6 +56,8 @@ export const ViewQuestionContainer = props => {
               properties={[]}
               questionView
               isAnswered={isAnswered}
+              isMinusReputation={isMinusReputation}
+              isHasRole={isHasRole}
             />
           </Base>
         </>

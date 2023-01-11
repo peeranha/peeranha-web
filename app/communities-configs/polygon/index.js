@@ -227,6 +227,7 @@ export const customSubHeaderConfig = {
 };
 
 export const PolygonStyles = {
+  documentationPosition: 'top',
   withoutCopyright: true,
   withoutSubHeader: true,
   poweredByPeeranha: true,

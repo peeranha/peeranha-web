@@ -18,12 +18,18 @@
     "jsxImportSource": "@emotion/react",
     "paths": {
       "components/*": ["app/components/*"],
+      "containers/*": ["app/containers/*"],
       "common-components/*": ["app/components/common*"],
       "styles/*": ["app/styles/*"],
       "hooks/*": ["app/hooks/*"],
+      "utils/*": ["app/utils/*"],
       "icons/*": ["app/components/icons/*"],
       "themes/*": ["app/themes/*"],
-      "app/*": ["app/*"]
+      "app/*": ["app/*"],
+      "routes-config": ["app/routes-config.js"],
+      "common-messages": ["app/common-messages.js"],
+      "style-constants": ["app/style-constants.js"],
+      "pages": ["app/pages/*"]
     }
   },
   "include": ["app"],

@@ -21,7 +21,15 @@ import { initEthereumSuccess, initEthereumError } from './actions';
 import { INIT_ETHEREUM, INIT_ETHEREUM_SUCCESS } from './constants';
 
 import validate from './validate';
-import { hasGlobalModeratorRole } from '../../utils/properties';
+import {
+  hasGlobalModeratorRole,
+  hasProtocolAdminRole,
+  hasCommunityAdminRole,
+} from 'utils/properties';
+
+import { isSingleCommunityWebsite } from 'utils/communityManagement';
+
+const single = isSingleCommunityWebsite();
 
 export function* initEthereumWorker({ data }) {
   try {
@@ -47,7 +55,9 @@ export function* isValid({ creator, buttonId, minRating = 0, communityId }) {
   const selectedAccount = yield select(makeSelectAccount());
   const permissions = yield select(selectPermissions());
 
-  const isGlobalAdmin = hasGlobalModeratorRole(permissions);
+  const isGlobalAdmin =
+    hasGlobalModeratorRole(permissions) || hasProtocolAdminRole(permissions);
+  const isCommunityAdmin = single && hasCommunityAdminRole(permissions, single);
 
   yield call(
     isAvailableAction,
@@ -56,6 +66,7 @@ export function* isValid({ creator, buttonId, minRating = 0, communityId }) {
         rating: getRatingByCommunity(profileInfo, communityId),
         actor: selectedAccount,
         isGlobalAdmin,
+        isCommunityAdmin,
         creator,
         buttonId,
         minRating,
@@ -66,7 +77,7 @@ export function* isValid({ creator, buttonId, minRating = 0, communityId }) {
   );
 }
 
-export default function*() {
+export default function* () {
   yield takeLatest(INIT_ETHEREUM, initEthereumWorker);
   yield takeLatest(INIT_ETHEREUM_SUCCESS, updateAccWorker);
 }

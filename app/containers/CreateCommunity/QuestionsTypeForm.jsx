@@ -8,33 +8,30 @@ import { ANY_TYPE, EXPERT_TYPE, FORM_TYPE, GENERAL_TYPE } from './constants';
 
 const QuestionsTypeForm = ({ change, locale, formValues }) => {
   const { t } = useTranslation();
-  const onChange = useCallback(val => change(FORM_TYPE, val[0]), []);
-  const [descriptionListLabel, descriptionListItems] = useMemo(
-    () => {
-      let label;
-      let items;
-      switch (+formValues[FORM_TYPE]) {
-        case ANY_TYPE:
-          label = 'createCommunity.anyQuestionDescriptionLabel';
-          items = 'createCommunity.anyQuestionDescriptionList';
-          break;
-        case GENERAL_TYPE:
-          label = 'common.generalQuestionDescriptionLabel';
-          items = 'common.generalQuestionDescriptionList';
-          break;
-        case EXPERT_TYPE:
-          label = 'common.expertQuestionDescriptionLabel';
-          items = 'common.expertQuestionDescriptionList';
-          break;
-        default:
-          label = 'createCommunity.anyQuestionDescriptionLabel';
-          items = 'createCommunity.anyQuestionDescriptionList';
-          break;
-      }
-      return [label, items];
-    },
-    [formValues],
-  );
+  const onChange = useCallback((val) => change(FORM_TYPE, val[0]), []);
+  const [descriptionListLabel, descriptionListItems] = useMemo(() => {
+    let label;
+    let items;
+    switch (+formValues[FORM_TYPE]) {
+      case ANY_TYPE:
+        label = 'createCommunity.anyQuestionDescriptionLabel';
+        items = 'createCommunity.anyQuestionDescriptionList';
+        break;
+      case GENERAL_TYPE:
+        label = 'common.generalQuestionDescriptionLabel';
+        items = 'common.generalQuestionDescriptionList';
+        break;
+      case EXPERT_TYPE:
+        label = 'common.expertQuestionDescriptionLabel';
+        items = 'common.expertQuestionDescriptionList';
+        break;
+      default:
+        label = 'createCommunity.anyQuestionDescriptionLabel';
+        items = 'createCommunity.anyQuestionDescriptionList';
+        break;
+    }
+    return [label, items];
+  }, [formValues]);
 
   return (
     <>

@@ -1,39 +1,62 @@
 export const permissions = {
-  givePermissions: {
-    title: 'common.moderationPermitions.givePermissions',
-    description: 'common.moderationPermitions.givePermissionsDescription',
+  permissionProtocolAdmin_1: {
+    title: 'common.permissionProtocolAdmin_1',
   },
-  permissionInfinite: {
-    title: 'common.moderationPermitions.permissionInfinite',
-    description: 'common.moderationPermitions.permissionInfiniteDescription',
+  permissionProtocolAdmin_2: {
+    title: 'common.permissionProtocolAdmin_2',
   },
-  permissionIgnoreRating: {
-    title: 'common.moderationPermitions.permissionIgnoreRating',
-    description:
-      'common.moderationPermitions.permissionIgnoreRatingDescription',
+  permissionProtocolAdmin_3: {
+    title: 'common.permissionProtocolAdmin_3',
   },
-  permissionCreateCommunity: {
-    title: 'common.moderationPermitions.permissionCreateCommunity',
-    description:
-      'common.moderationPermitions.permissionCreateCommunityDescription',
+  permissionProtocolAdmin_4: {
+    title: 'common.permissionProtocolAdmin_4',
   },
-  permissionCreateTag: {
-    title: 'common.moderationPermitions.permissionCreateTag',
-    description: 'common.moderationPermitions.permissionCreateTagDescription',
+  permissionProtocolAdmin_5: {
+    title: 'common.permissionProtocolAdmin_5',
   },
-  permissionChangePostType: {
-    title: 'common.moderationPermitions.permissionChangePostType',
-    description:
-      'common.moderationPermitions.permissionChangePostTypeDescription',
+  permissionProtocolAdmin_6: {
+    title: 'common.permissionProtocolAdmin_6',
   },
-  permissionSelectTopQuestion: {
-    title: 'common.moderationPermitions.permissionSelectTopQuestion',
-    description:
-      'common.moderationPermitions.permissionSelectTopQuestionDescription',
+  permissionProtocolAdmin_7: {
+    title: 'common.permissionProtocolAdmin_7',
   },
-  permissionOfficialAnswer: {
-    title: 'common.moderationPermitions.permissionOfficialAnswer',
-    description:
-      'common.moderationPermitions.permissionOfficialAnswerDescription',
+  permissionProtocolAdmin_8: {
+    title: 'common.permissionProtocolAdmin_8',
+  },
+  permissionProtocolAdmin_9: {
+    title: 'common.permissionProtocolAdmin_9',
+  },
+  permissionCommunityAdmin_1: {
+    title: 'common.permissionCommunityAdmin_1',
+  },
+  permissionCommunityAdmin_2: {
+    title: 'common.permissionCommunityAdmin_2',
+  },
+  permissionCommunityAdmin_3: {
+    title: 'common.permissionCommunityAdmin_3',
+  },
+  permissionCommunityAdmin_4: {
+    title: 'common.permissionCommunityAdmin_4',
+  },
+  permissionCommunityAdmin_5: {
+    title: 'common.permissionCommunityAdmin_5',
+  },
+  permissionCommunityModerator_1: {
+    title: 'common.permissionCommunityModerator_1',
+  },
+  permissionCommunityModerator_2: {
+    title: 'common.permissionCommunityModerator_2',
+  },
+  permissionCommunityModerator_3: {
+    title: 'common.permissionCommunityModerator_3',
+  },
+  permissionCommunityModerator_4: {
+    title: 'common.permissionCommunityModerator_4',
+  },
+  permissionCommunityModerator_5: {
+    title: 'common.permissionCommunityModerator_5',
+  },
+  permissionCommunityModerator_6: {
+    title: 'common.permissionCommunityModerator_6',
   },
 };

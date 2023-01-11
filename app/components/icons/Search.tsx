@@ -5,7 +5,7 @@ const Search: React.FC<IconProps> = (props): JSX.Element => (
   <IconComponent
     {...props}
     id="search"
-    fill="curentColor"
+    fill="currentColor"
     viewBox="0 0 43 43"
     size={[43, 43]}
   >
