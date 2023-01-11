@@ -16,13 +16,13 @@ import { FORM_TITLE } from './constants';
 
 import messages from './messages';
 
-const TitleForm = ({ questionLoading, intl, isDocumentation }) => {
+const TitleForm = ({ questionLoading, intl, isDocumentation, isHasRole }) => {
   const length = isDocumentation ? strLength5x100 : strLength15x100;
   return (
     <Field
       name={FORM_TITLE}
       component={TextInputField}
-      disabled={questionLoading}
+      disabled={questionLoading || isHasRole}
       label={intl.formatMessage(messages.titleLabel)}
       tip={intl.formatMessage(messages.titleTip)}
       validate={[withoutDoubleSpace, length, maxByteLength, required]}

@@ -10,6 +10,41 @@ import {
   listConditional,
 } from 'components/QuestionForm/utils';
 
+type TypePostAnswers = {
+  author: string;
+  commentCount: number;
+  comments?: Array<{
+    author: string;
+    id: number;
+    isDeleted: boolean;
+    postTime: number;
+    content: string;
+    ipfsHash: string;
+    propertyCount: number;
+    rating: number;
+    voitingStatus: {
+      isDownVoted: boolean;
+      isUpVoted: boolean;
+      isVotedToDelete: boolean;
+    };
+  }>;
+  content: string;
+  id: number;
+  ipfsHash: string;
+  isDeleted: boolean;
+  isFirstReply: boolean;
+  isQuickReply: boolean;
+  parentReplyId: number;
+  postTime: number;
+  propertyCount: number;
+  rating: number;
+  voitingStatus: {
+    isDownVoted: boolean;
+    isUpVoted: boolean;
+    isVotedToDelete: boolean;
+  };
+};
+
 type TypeFormProps = {
   intl: any;
   change: Function;
@@ -23,6 +58,8 @@ type TypeFormProps = {
   isCommunityModerator: boolean;
   postType?: number;
   isDocumentation: boolean;
+  postAnswers?: Array<TypePostAnswers>;
+  isHasRole: boolean;
 };
 
 const TypeForm: React.FC<TypeFormProps> = ({
@@ -38,26 +75,25 @@ const TypeForm: React.FC<TypeFormProps> = ({
   isCommunityModerator,
   postType,
   isDocumentation,
+  postAnswers,
+  isHasRole,
 }): JSX.Element | null => {
   const onChange = useCallback((val: any[]) => change(FORM_TYPE, val[0]), []);
 
   const [descriptionListLabel, descriptionListItems] = useMemo(
     () => [
-      labelConditional(formValues[FORM_TYPE]),
-      listConditional(formValues[FORM_TYPE]),
+      labelConditional(formValues[FORM_TYPE] || String(postType)),
+      listConditional(formValues[FORM_TYPE] || String(postType)),
     ],
     [formValues[FORM_TYPE]],
   );
 
-  useEffect(
-    () => {
-      if (descriptionListLabel && descriptionListItems) {
-        setHasSelectedType(true);
-        setIsError(false);
-      }
-    },
-    [descriptionListLabel, descriptionListItems],
-  );
+  useEffect(() => {
+    if ((descriptionListLabel && descriptionListItems) || postType) {
+      setHasSelectedType(true);
+      setIsError(false);
+    }
+  }, [descriptionListLabel, descriptionListItems]);
 
   return (
     <div className={isDocumentation ? 'd-none' : ''}>
@@ -68,11 +104,14 @@ const TypeForm: React.FC<TypeFormProps> = ({
         onChange={onChange}
         label={intl.formatMessage(messages.questionType)}
         tip={intl.formatMessage(messages.questionTypeTip)}
-        validate={requiredPostTypeSelection}
+        validate={!hasSelectedType && requiredPostTypeSelection}
         splitInHalf
         error={isError}
         isCommunityModerator={isCommunityModerator}
         postType={postType}
+        postAnswers={postAnswers}
+        locale={locale}
+        isHasRole={isHasRole}
       />
       {hasSelectedType && (
         <DescriptionList

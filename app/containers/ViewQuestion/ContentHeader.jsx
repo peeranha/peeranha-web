@@ -120,7 +120,7 @@ const DropdownBox = styled.div`
   position: relative;
 `;
 
-const ContentHeader = props => {
+const ContentHeader = (props) => {
   const {
     author,
     type,
@@ -139,18 +139,19 @@ const ContentHeader = props => {
     profile,
     infiniteImpact,
     histories,
+    isPostContent,
   } = props;
 
   const ipfsHashValue =
     type === QUESTION_TYPE
       ? questionData.ipfsHash
-      : questionData.answers.find(answer => answer.id === answerId).ipfsHash;
+      : questionData.answers.find((answer) => answer.id === answerId).ipfsHash;
 
   const formattedHistories =
     type === QUESTION_TYPE
       ? histories
       : histories?.filter(
-          history => history.reply?.id === `${questionData.id}-${answerId}`,
+          (history) => history.reply?.id === `${questionData.id}-${answerId}`,
         );
   const bestReplyId = questionData.bestReply;
 
@@ -193,7 +194,7 @@ const ContentHeader = props => {
   );
 
   const changeQuestionTypeWithRatingRestore = useCallback(
-    event => changeQuestionTypeDispatch(event),
+    (event) => changeQuestionTypeDispatch(event),
     [changeQuestionTypeDispatch],
   );
 
@@ -314,12 +315,12 @@ const ContentHeader = props => {
           </DropdownBox>
 
           <Button
-            show={!!profile && isItWrittenByMe}
+            show={
+              (!!profile && isItWrittenByMe) || (isPostContent && isGlobalAdmin)
+            }
             onClick={editItem[0]}
             params={{ ...buttonParams, link: editItem[1] }}
-            id={`redirect-to-edit-item-${answerId}-${
-              buttonParams.questionId
-            }-${commentId}`}
+            id={`redirect-to-edit-item-${answerId}-${buttonParams.questionId}-${commentId}`}
           >
             <IconMd icon={pencilIcon} />
             <FormattedMessage id={messages.editButton.id} />
@@ -359,10 +360,10 @@ ContentHeader.propTypes = {
 
 export default React.memo(
   connect(
-    state => ({
+    (state) => ({
       profile: makeSelectProfileInfo()(state),
     }),
-    dispatch => ({
+    (dispatch) => ({
       changeQuestionTypeDispatch: bindActionCreators(
         changeQuestionType,
         dispatch,

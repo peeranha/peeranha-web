@@ -669,4 +669,10 @@ export default defineMessages({
   holdDown: {
     id: 'app.containers.ChunkLoadError.holdDown',
   },
+  warningForAdmin: {
+    id: 'app.containers.QuestionForm.warningForAdmin',
+  },
+  warningForUser: {
+    id: 'app.containers.QuestionForm.warningForUser',
+  },
 });
