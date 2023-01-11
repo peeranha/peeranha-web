@@ -357,7 +357,6 @@ const MainLinks = ({
             pinnedItemMenuId={pinnedItemMenu.id}
           />
         )}
-      <AdditionalLinks currClientHeight={currClientHeight} />
     </Box>
   );
 };

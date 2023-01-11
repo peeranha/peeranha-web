@@ -62,12 +62,7 @@ const View = ({
       single={single}
       isMenuVisible={isMenuVisible}
       css={css`
-        height: calc(
-          100vh -
-            ${single
-              ? NAV_SCROLL_HEIGHT_SINGLE_COMMUNITY
-              : HEADER_HEIGHT + 30}px
-        );
+        height: calc(100vh - ${HEADER_HEIGHT}px);
         overflow: hidden;
         padding-right: 6px;
 
@@ -126,6 +121,8 @@ const View = ({
         isEditDocumentation={isEditDocumentation}
         pinnedItemMenu={pinnedItemMenu}
       />
+
+      <AdditionalLinks currClientHeight={currClientHeight} />
     </ViewStyled>
   );
 };
