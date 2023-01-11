@@ -66,5 +66,8 @@
   "inThisCommunity": "in this community",
   "areYouSureMarkedTheBest_1": "Your answer was marked as the best.",
   "areYouSureMarkedTheBest_2": "Are you sure you want to delete it?",
-  "areYouSureMarkedTheBest_3": "If you delete your answer, you will lose the reputation points earned from it."
+  "areYouSureMarkedTheBest_3": "If you delete your answer, you will lose the reputation points earned from it.",
+  "rootLabel": "Sub-article of (parent article)",
+  "faqDescriptionLabel": "This section provides answers to a list of typical questions that users might ask regarding a particular community or subject.",
+  "faqDescriptionList": []
 }

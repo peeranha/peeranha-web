@@ -43,7 +43,6 @@ import {
 
 import { selectQuestions, selectTopQuestionsInfoLoaded } from './selectors';
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
-import QuestionFilter from './QuestionFilter';
 
 const single = isSingleCommunityWebsite();
 const colors = singleCommunityColors();
@@ -53,10 +52,6 @@ const PageContentHeader = styled.div`
     justify-content: space-between;
     width: 100%;
   }
-`;
-
-const PageContentHeaderRightPanel = styled.div`
-  flex-shrink: 0;
 `;
 
 const customColor = colors.linkColor || BORDER_PRIMARY;
@@ -192,10 +187,7 @@ export const Header = ({
           </PageContentHeaderRightPanel>
         )} */}
       </PageContentHeader>
-      <QuestionFilter
-        display={displayQuestionFilter}
-        questionFilterFromCookies={questionFilterFromCookies}
-      />
+
       {communityEditingAllowed && (
         <button onClick={routeToEditCommunity} className="df aic mt12">
           <IconMd icon={pencilIcon} color={colors.btnColor || TEXT_PRIMARY} />

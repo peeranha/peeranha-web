@@ -40,7 +40,6 @@ const Base = styled.div`
 type DescriptionListProps = {
   label: string;
   items?: string;
-  locale: string;
 };
 
 export const DescriptionList: React.FC<DescriptionListProps> = ({

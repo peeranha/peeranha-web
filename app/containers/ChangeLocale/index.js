@@ -26,7 +26,7 @@ export const ChangeLocale = ({ withTitle, changeLocale, locale }) => {
     }
   }, []);
 
-  const setLocale = newLocale => {
+  const setLocale = (newLocale) => {
     setCookie({
       name: APP_LOCALE,
       value: newLocale,
@@ -36,6 +36,8 @@ export const ChangeLocale = ({ withTitle, changeLocale, locale }) => {
     changeLocale(newLocale);
     i18n.changeLanguage(newLocale);
   };
+
+  console.log('locale', locale);
 
   return (
     <Dropdown
@@ -55,7 +57,7 @@ export const ChangeLocale = ({ withTitle, changeLocale, locale }) => {
       }
       menu={
         <ul>
-          {Object.keys(languages).map(item => (
+          {Object.keys(languages).map((item) => (
             <Li
               key={item}
               role="presentation"

@@ -472,5 +472,6 @@
   "documentation": "Documentation",
   "drafts": "Drafts",
   "enterText": "Please enter Markdown text",
-  "results": "Results"
+  "results": "Results",
+  "noSearchResults": "We couldn't find any matching results. \n Try asking our community."
 }

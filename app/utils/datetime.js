@@ -43,7 +43,7 @@ export const getTimeFromDateToNow = /* istanbul ignore next */ (
   return distanceInWordsToNow(dateInMills, localeObj);
 };
 
-const FormatDate = (function() {
+const FormatDate = (function () {
   let instance;
   let locale;
 
@@ -69,15 +69,10 @@ export const getFormattedDate = (date, locale, dateFormat) => {
   };
   const dateView = options[dateFormat || DD_MM_YYYY];
 
-  console.log(
-    'format(dateInMills, dateView, localeObj)',
-    format(dateInMills, dateView, localeObj),
-  );
-
   return format(dateInMills, dateView, localeObj);
 };
 
-export const getDifferenceInDate = /* istanbul ignore next */ date => {
+export const getDifferenceInDate = /* istanbul ignore next */ (date) => {
   const dateInMills = date * 1000;
   const days = differenceInDays(Date.now(), dateInMills);
   const months = differenceInMonths(Date.now(), dateInMills);
