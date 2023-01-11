@@ -1,7 +1,6 @@
 import React, { useState, useRef, useMemo, useCallback } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as routes from 'routes-config';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
@@ -153,6 +152,7 @@ const ContentHeader = (props) => {
       : histories?.filter(
           (history) => history.reply?.id === `${questionData.id}-${answerId}`,
         );
+  const bestReplyId = questionData.bestReply;
 
   const [isModalOpen, setModalOpen] = useState(false);
   const refSharingModal = useRef(null);
@@ -179,6 +179,11 @@ const ContentHeader = (props) => {
   const isItWrittenByMe = useMemo(
     () => (profile ? author.user === profile.user : false),
     [profile, author],
+  );
+
+  const isMarkedTheBest = useMemo(
+    () => (bestReplyId !== 0 ? bestReplyId === answerId : false),
+    [bestReplyId],
   );
 
   const changeQuestionTypeWithRatingRestore = useCallback(
@@ -260,6 +265,8 @@ const ContentHeader = (props) => {
           <div id={`${type}_delete_${answerId}`}>
             <AreYouSure
               submitAction={deleteAction}
+              isGlobalAdmin={isGlobalAdmin}
+              isMarkedTheBest={isMarkedTheBest}
               Button={({ onClick }) => (
                 <Button
                   show={

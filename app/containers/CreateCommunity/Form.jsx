@@ -18,7 +18,7 @@ import { showPopover } from 'utils/popover';
 
 import {
   required,
-  strLength2x15,
+  strLength2x25,
   strLength3x20,
   strLength20x1000,
   strLength15x250,
@@ -202,12 +202,12 @@ const CreateCommunityForm = ({
                   component={TextInputField}
                   placeholder={t('createCommunity.tagTitle')}
                   validate={[
-                    strLength2x15,
+                    strLength2x25,
                     required,
                     valueHasNotBeInListMoreThanOneTime,
                   ]}
                   warn={[
-                    strLength2x15,
+                    strLength2x25,
                     required,
                     valueHasNotBeInListMoreThanOneTime,
                   ]}

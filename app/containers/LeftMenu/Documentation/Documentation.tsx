@@ -33,7 +33,8 @@ type DocumentationMenuSectionProps = {
   pinnedArticleMenuDraft?: (data: PinnedArticleType) => void;
   removeArticle?: (id: string) => void;
   pinnedItemMenuId: string;
-  setPinned: () => void;
+  editOrder?: () => void;
+  setPinned: React.Dispatch<React.SetStateAction<string>>;
   pinned: string;
 };
 
@@ -53,11 +54,11 @@ const DropdownDocumentation = [
     value: 2,
     icon: <PlusIcon />,
   },
-  // {
-  //   label: 'Edit order',
-  //   value: 3,
-  //   icon: <EditIcon />,
-  // },
+  {
+    label: 'Edit order',
+    value: 3,
+    icon: <EditIcon />,
+  },
 ];
 
 const DOCUMENTATION_ID = '1';
@@ -75,6 +76,7 @@ const Documentation: React.FC<DocumentationMenuSectionProps> = ({
   pinnedArticleMenuDraft,
   removeArticle,
   pinnedItemMenuId,
+  editOrder,
   setPinned,
   pinned,
 }) => {
@@ -83,12 +85,17 @@ const Documentation: React.FC<DocumentationMenuSectionProps> = ({
     if (value === 1 && typeof toggleEditDocumentation === 'function') {
       toggleEditDocumentation();
     }
+
     if (value === 2 && typeof setEditArticle === 'function') {
       setEditArticle({
         id: '',
         parentId: '1',
         isEditArticle: true,
       });
+    }
+
+    if (value === 3 && typeof editOrder === 'function') {
+      editOrder();
     }
   };
 

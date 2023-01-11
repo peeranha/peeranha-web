@@ -66,7 +66,7 @@ const AuthorizationData = ({
                     css={css`
                       color: ${TEXT_SECONDARY};
                     `}
-                    fontSize="14"
+                    fontSize="16"
                   >
                     {t('common.transactionsText_1')}
                   </Span>
@@ -76,7 +76,7 @@ const AuthorizationData = ({
                     css={css`
                       color: ${TEXT_SECONDARY};
                     `}
-                    fontSize="14"
+                    fontSize="16"
                   >
                     {t('common.transactionsText_2')}
                   </Span>
@@ -84,7 +84,7 @@ const AuthorizationData = ({
               </div>
             </div>
           </div>
-          <div className="fz14">
+          <div className="fz16">
             <div
               className="mb-2"
               css={css`

@@ -180,14 +180,14 @@ const Menu = ({
             {t('common.moderation')}
           </A>
         )}
-        {/* PEER-707: Hide settings tab;
-          <A to={routes.userSettings(user)}>
-            <SettingsIcon
-              className="mr-2"
-              stroke={colors.linkColor || TEXT_PRIMARY}
-            />
-            {t('common.settings')}
-          </A> */}
+
+        <A to={routes.userSettings(user)}>
+          <SettingsIcon
+            className="mr-2"
+            stroke={colors.linkColor || TEXT_PRIMARY}
+          />
+          {t('common.settings')}
+        </A>
       </Ul>
 
       <Ul>

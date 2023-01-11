@@ -56,8 +56,8 @@ const Icon = styled(IconLg)`
       color: isTutorial
         ? TUTORIAL_ICON_COLOR
         : isExpert
-          ? TEXT_PRIMARY
-          : TEXT_DARK,
+        ? TEXT_PRIMARY
+        : TEXT_DARK,
     })};
   background-color: ${BG_TRANSPARENT};
   border-color: ${BORDER_TRANSPARENT};
@@ -71,10 +71,6 @@ const Icon = styled(IconLg)`
   }
   .semitransparent {
     fill: none;
-  }
-
-  @media (max-width: 576px) {
-    margin-top: 40px;
   }
 `;
 
@@ -101,7 +97,7 @@ const types = {
   },
 };
 
-const QuestionType = ({ postType, isPromoted }) => {
+const QuestionType = ({ postType, className, isPromoted = false }) => {
   const { t } = useTranslation();
   const [visible, changeVisibility] = useState(false);
 
@@ -111,7 +107,7 @@ const QuestionType = ({ postType, isPromoted }) => {
   const type = types[postType];
 
   return (
-    <LabelsWrapper>
+    <LabelsWrapper className={className}>
       {type && (
         <LabelItem>
           <Container
@@ -148,6 +144,7 @@ const QuestionType = ({ postType, isPromoted }) => {
 QuestionType.propTypes = {
   postType: PropTypes.number,
   isPromoted: PropTypes.bool,
+  className: PropTypes.string,
 };
 
 export default memo(QuestionType);

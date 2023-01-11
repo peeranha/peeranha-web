@@ -7,7 +7,24 @@ import OutlinedButton from 'components/Button/Outlined/InfoLargeHeightStretching
 import ModalDialog, { el, modalRoot } from 'components/ModalDialog';
 import H4 from 'components/H4';
 
-const AreYouSure = ({ Button, submitAction }) => {
+const TheBestModalText = () => {
+  const { t } = useTranslation();
+
+  return (
+    <>
+      <div>{t('post.areYouSureMarkedTheBest_1')}</div>
+      <div>{t('post.areYouSureMarkedTheBest_2')}</div>
+      <div>{t('post.areYouSureMarkedTheBest_3')}</div>
+    </>
+  );
+};
+
+const AreYouSure = ({
+  Button,
+  submitAction,
+  isGlobalAdmin,
+  isMarkedTheBest,
+}) => {
   const { t } = useTranslation();
   const [currentTarget, changeEventData] = useState(null);
   const [isOpened, open] = useState(false);
@@ -22,7 +39,7 @@ const AreYouSure = ({ Button, submitAction }) => {
   return (
     <React.Fragment>
       <Button
-        onClick={ev => {
+        onClick={(ev) => {
           open(true);
           changeEventData(ev.currentTarget);
         }}
@@ -32,7 +49,13 @@ const AreYouSure = ({ Button, submitAction }) => {
         <ModalDialog closeModal={closeModal} show={isOpened}>
           <H4 className="text-center pb-3">{t('common.delete')}</H4>
 
-          <div className="pb-4">{t('post.areYouSure')}</div>
+          <div className="pb-4 text-center">
+            {isMarkedTheBest && !isGlobalAdmin ? (
+              <TheBestModalText />
+            ) : (
+              t('post.areYouSure')
+            )}
+          </div>
 
           <div className="d-flex align-items-center pb-3">
             <OutlinedButton className="mr-3" onClick={closeModal}>

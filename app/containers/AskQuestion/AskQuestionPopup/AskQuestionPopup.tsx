@@ -52,7 +52,10 @@ const AskQuestionPopup: React.FC = (): JSX.Element => {
                 <div className="p20 tc">{t('common.contentPopupBlock_8')}</div>
                 <LargeOutlinedButton
                   onClick={acceptWithRules}
-                  customStyles={stylesCommunity.headerLoginButtonStyles}
+                  customStyles={
+                    stylesCommunity.newPostPopupButtonStyles ||
+                    stylesCommunity.headerLoginButtonStyles
+                  }
                 >
                   {t('common.gotIt')}
                 </LargeOutlinedButton>

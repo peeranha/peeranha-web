@@ -14,6 +14,7 @@ import {
   SET_EDIT_ARTICLE,
   PINNED_ARTICLE,
   REMOVE_ARTICLE,
+  EDIT_ORDER,
 } from './constants';
 import {
   PinnedArticleType,
@@ -36,6 +37,7 @@ export const initialState = fromJS({
   activeViewArticle: '',
   pinnedArticleId: '',
   pinnedArticleTitle: '',
+  isEditOrder: false,
   draftsIds: [],
 });
 
@@ -122,6 +124,8 @@ function documentationReducer(
       return state
         .set('pinnedArticleId', pinnedArticle.id)
         .set('pinnedArticleTitle', pinnedArticle.title);
+    case EDIT_ORDER:
+      return state.set('isEditOrder', !state.get('isEditOrder'));
     default:
       return state;
   }

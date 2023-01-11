@@ -66,7 +66,6 @@ const CookieConsentPopup: React.FC = (): JSX.Element => {
                   <Link
                     to="/privacy-policy"
                     css={css`
-                      font-weight: 700;
                       color: ${colors.linkCookieColor || TEXT_PRIMARY};
                       :hover {
                         color: ${colors.linkCookieColor || TEXT_PRIMARY};

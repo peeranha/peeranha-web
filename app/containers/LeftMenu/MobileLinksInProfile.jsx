@@ -119,6 +119,15 @@ const MobileLinksInProfile = ({ profile, isMenuVisible }) => {
             {t('common.NFTs')}
           </A>
 
+          <A to={routes.userSettings(profile.user)}>
+            <SettingsIcon
+              className="mr-2"
+              size={[24, 24]}
+              stroke={colors.linkColor || TEXT_PRIMARY}
+            />
+            {t('common.settings')}
+          </A>
+
           {isModerator && (
             <A to={routes.userModeration(profile.user)}>
               <ModerationIcon
@@ -130,8 +139,6 @@ const MobileLinksInProfile = ({ profile, isMenuVisible }) => {
               {t('common.moderation')}
             </A>
           )}
-
-          <A to={routes.userSettings(profile.user)}>{t('common.settings')}</A>
 
           <Logout>
             <LogOutIcon

@@ -63,5 +63,8 @@
   "RulesBlock_3": "2. Make sure your answer replies the question asked in a post and isn't just a comment or gratitude.",
   "RulesBlock_4": "3. Be polite and respectful to others.",
   "reputationBelowZero": "Your reputation in this community is negative, you are not allowed to post any replies.",
-  "inThisCommunity": "in this community"
+  "inThisCommunity": "in this community",
+  "areYouSureMarkedTheBest_1": "Your answer was marked as the best.",
+  "areYouSureMarkedTheBest_2": "Are you sure you want to delete it?",
+  "areYouSureMarkedTheBest_3": "If you delete your answer, you will lose the reputation points earned from it."
 }

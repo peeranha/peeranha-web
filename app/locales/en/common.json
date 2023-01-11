@@ -471,5 +471,6 @@
   "reputationBelowZero": "Your reputation in this community is negative, you are not allowed to post any replies.",
   "documentation": "Documentation",
   "drafts": "Drafts",
-  "enterText": "Please enter Markdown text"
+  "enterText": "Please enter Markdown text",
+  "results": "Results"
 }

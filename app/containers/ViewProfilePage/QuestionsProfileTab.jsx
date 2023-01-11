@@ -89,12 +89,6 @@ const PostTypeIcon = ({ elementType, isMyAnswerAccepted }) => {
   return <Img src={icon} notRounded alt="icon" />;
 };
 
-const QuestionTypeHolder = styled.div`
-  @media (max-width: 576px) {
-    margin-top: -20px;
-  }
-`;
-
 const TitleHolder = Span.extend`
   @media (max-width: 576px) {
     min-width: 45px;
@@ -154,9 +148,9 @@ const Note = ({
         <TitleHolder fontSize="16" lineHeight="30" mobileFS="14" title={title}>
           {title}
         </TitleHolder>
-        <QuestionTypeHolder>
+        <div>
           <QuestionType locale={locale} postType={postType} />
-        </QuestionTypeHolder>
+        </div>
 
         <PostDate
           className="d-inline-block"
@@ -180,7 +174,7 @@ const QuestionsProfileTab = ({
 }) => (
   <div className={className}>
     <div>
-      {questions.map(item => (
+      {questions.map((item) => (
         <Note
           postType={item.postType}
           isMyAnswerAccepted={item.isMyAnswerAccepted}

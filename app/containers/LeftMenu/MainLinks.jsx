@@ -175,7 +175,8 @@ const MainLinks = ({
   const isProtocolAdmin = hasProtocolAdminRole(getPermissions(profile));
   const isModeratorModeSingleCommunity = singleCommId
     ? hasCommunityAdminRole(getPermissions(profile), singleCommId) ||
-      hasCommunityModeratorRole(getPermissions(profile), singleCommId)
+      hasCommunityModeratorRole(getPermissions(profile), singleCommId) ||
+      isProtocolAdmin
     : false;
 
   if (!route) {

@@ -331,21 +331,12 @@ export const deleteAnswerValidator = (
   const isGlobalAdmin =
     hasGlobalModeratorRole(getPermissions(profileInfo)) ||
     hasProtocolAdminRole(profileInfo.permissions);
-  const isCommunityModerator = hasCommunityModeratorRole(
-    profileInfo.permissions,
-    questionData.communityId,
-  );
+
   let message;
   const itemData = questionData.answers.filter((x) => x.id === answerid)[0];
 
   if (itemData.votingStatus.isUpVoted && !isGlobalAdmin) {
     message = t('post.cannotCompleteBecauseVoted');
-  } else if (
-    answerid === correctAnswerId &&
-    !isGlobalAdmin &&
-    !isCommunityModerator
-  ) {
-    message = t('post.answerIsCorrect');
   } else if (profileInfo.energy < MIN_ENERGY) {
     message = t('post.notEnoughEnergy');
   }

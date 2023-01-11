@@ -199,13 +199,14 @@ const UserNavigation = ({
               {t('common.moderation')}
             </NavigationLink>
           )}
-          {/* PEER-718: hide settings;
+
           <NavigationLink
+            className={userId !== account ? 'd-none' : ''}
             to={routes.userSettings(userId)}
             islink={path !== routes.userSettings(userId) ? 1 : 0}
           >
             <FormattedMessage id={messages.settings.id} />
-          </NavigationLink> */}
+          </NavigationLink>
 
           <NavigationLink
             to={routes.userSettings(userId)}

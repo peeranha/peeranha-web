@@ -38,8 +38,17 @@ import i18n from './i18n';
 // Import CSS reset and Global Styles
 import './global-styles';
 import EthereumProvider from './containers/EthereumProvider';
+import TagManager from 'react-gtm-module';
 
 window.$ = $;
+
+if (process.env.GTM_ID) {
+  const tagManagerArgs = {
+    gtmId: process.env.GTM_ID,
+  };
+
+  TagManager.initialize(tagManagerArgs);
+}
 
 // Create redux store with history
 const initialState = {};
@@ -79,12 +88,12 @@ if (module.hot) {
 
 // Chunked polyfill for browsers without Intl support
 if (!window.Intl) {
-  new Promise(resolve => {
+  new Promise((resolve) => {
     resolve(import('intl'));
   })
     .then(() => Promise.all([import('intl/locale-data/jsonp/en.js')]))
     .then(() => render())
-    .catch(err => {
+    .catch((err) => {
       throw err;
     });
 } else {
