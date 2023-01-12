@@ -25,27 +25,18 @@ export function* getArticleDocumentationWorker({
   articleId: string;
 }): Generator<any> {
   try {
-    const documentationFromStore = yield select(selectDocumentation());
-    if (
-      (documentationFromStore as Array<DocumentationArticle>).find(
-        (item) => item.id === articleId,
-      )
-    ) {
-      yield put(getArticleDocumentationSuccess());
-    } else {
-      const documentationArticleFromGraph = yield call(
-        getQuestionFromGraph,
-        articleId,
-      );
-      yield put(
-        getArticleDocumentationSuccess({
-          id: articleId,
-          title: (documentationArticleFromGraph as Post).title,
-          content: (documentationArticleFromGraph as Post).content,
-          lastmod: (documentationArticleFromGraph as Post).lastmod,
-        }),
-      );
-    }
+    const documentationArticleFromGraph = yield call(
+      getQuestionFromGraph,
+      articleId,
+    );
+    yield put(
+      getArticleDocumentationSuccess({
+        id: articleId,
+        title: (documentationArticleFromGraph as Post).title,
+        content: (documentationArticleFromGraph as Post).content,
+        lastmod: (documentationArticleFromGraph as Post).lastmod,
+      }),
+    );
   } catch (err) {
     yield put(getArticleDocumentationError(err));
   }
