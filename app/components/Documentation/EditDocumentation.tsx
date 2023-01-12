@@ -33,6 +33,7 @@ import {
   selectDocumentationMenu,
   selectPinnedItemMenu,
 } from 'containers/AppWrapper/selectors';
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import Header from './components/Header';
 
 import DocumentationMenu from 'containers/LeftMenu/Documentation/Documentation';
@@ -72,6 +73,7 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
   isEditOrder,
   editOrderDispatch,
   draftsIds,
+  locale,
 }): JSX.Element => {
   const refOverlay = useRef<HTMLDivElement>(null);
   const [paddingLeft, setPaddingLeft] = useState<number>(86);
@@ -226,6 +228,7 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
                   <ViewContent
                     documentationArticle={viewDocumentationArticle}
                     isEditDocumentation
+                    locale={locale}
                   />
                 )}
                 {editArticle.isEditArticle && (
@@ -279,6 +282,7 @@ export default compose(
       pinnedItemMenu: selectPinnedItemMenu(),
       isEditOrder: selectEditOrder(),
       draftsIds: selectDraftsIds(),
+      locale: makeSelectLocale(),
     }),
     (dispatch: Dispatch<AnyAction>) => ({
       getArticleDocumentationDispatch: bindActionCreators(

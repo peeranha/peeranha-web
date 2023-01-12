@@ -63,6 +63,7 @@
   "app.common.allQuestions": "All questions",
   "app.common.manageMyComm": "See all communities",
   "app.common.asked": "Asked",
+  "app.common.lastEdited": "Last edited on",
   "app.common.askedWhen": "Asked {when}",
   "app.common.answeredWhen": "Answered {when}",
   "app.common.somebodyAsked": "{account} asked",

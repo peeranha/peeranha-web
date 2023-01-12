@@ -32,6 +32,7 @@ export type EditDocumentationProps = {
   draftsIds: Array<string>;
   isEditOrder: boolean;
   editOrderDispatch: () => void;
+  locale: string;
 };
 
 export type DocumentationFormProps = {

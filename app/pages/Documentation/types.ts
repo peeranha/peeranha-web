@@ -27,6 +27,7 @@ export type DocumentationArticle = {
   id: string;
   title: string;
   content: string;
+  lastmod: string;
 };
 
 export type OutputSelector = {
@@ -34,6 +35,7 @@ export type OutputSelector = {
   documentation: Array<DocumentationSection>;
   pinnedItemMenu: PinnedArticleType;
   documentationMenu: Array<DocumentationItemMenuType>;
+  locale: string;
 };
 
 export interface RouterDocumentetion {

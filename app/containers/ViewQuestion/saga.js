@@ -202,7 +202,7 @@ export function* getQuestionData({
       }
     }
   } else {
-    question = yield call(getQuestionFromGraph, +questionId);
+    question = yield call(getQuestionFromGraph, questionId);
     question.commentCount = question.comments.length;
     question.communityId = Number(question.communityId);
 

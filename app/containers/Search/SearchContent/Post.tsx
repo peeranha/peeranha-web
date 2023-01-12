@@ -32,6 +32,7 @@ type PostProps = {
   communities: Community[];
   postType: number;
   title: string;
+  lastmod: string;
   postTime: string;
   content: string;
   tags: Tag[];
@@ -47,6 +48,7 @@ const Post: React.FC<PostProps> = ({
   id,
   locale,
   communities,
+  lastmod,
   postType,
   title,
   postTime,
@@ -92,9 +94,9 @@ const Post: React.FC<PostProps> = ({
         </div>
 
         <div css={css(styles.mainInfo)}>
-          <span className="db mt8 fz12 light" css={css(styles.creationTime)}>
-            <FormattedMessage id={commonMessages.asked.id} />{' '}
-            {getFormattedDate(postTime, locale, MONTH_3LETTERS__DAY_YYYY_TIME)}
+          <span className="db mt8 fz14 light" css={css(styles.creationTime)}>
+            <FormattedMessage id={commonMessages.lastEdited.id} />{' '}
+            {getFormattedDate(lastmod, locale, MONTH_3LETTERS__DAY_YYYY_TIME)}
           </span>
 
           <p className="dib pr mt12 fz14 light ovh" css={css(styles.content)}>

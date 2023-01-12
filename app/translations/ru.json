@@ -61,6 +61,7 @@
   "app.common.allQuestions": "Все вопросы",
   "app.common.manageMyComm": "Смотреть все сообщества",
   "app.common.asked": "Задано",
+  "app.common.lastEdited": "Последнее изменение",
   "app.common.askedWhen": "Задано {when}",
   "app.common.answeredWhen": "Отвечено {when}",
   "app.common.somebodyAsked": "{account} спрашивал",

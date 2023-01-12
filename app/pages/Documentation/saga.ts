@@ -1,11 +1,11 @@
 import { takeEvery, call, put, select } from 'redux-saga/effects';
 import { getIpfsHashFromBytes32, getText } from 'utils/ipfs';
-
+import { updateDocumentationTree } from 'utils/questionsManagement';
+import { getQuestionFromGraph } from 'utils/theGraph';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import { selectEthereum } from 'containers/EthereumProvider/selectors';
 import { selectPinnedArticleDraft, selectDocumentation } from './selectors';
-import { updateDocumentationTree } from 'utils/questionsManagement';
 import {
   getArticleDocumentationError,
   getArticleDocumentationSuccess,
@@ -17,6 +17,7 @@ import { getDocumentationMenu } from 'containers/AppWrapper/actions';
 import { GET_ARTICLE, UPDATE_DOCUMENTATION_MENU } from './constants';
 import { clearSavedDrafts } from 'components/Documentation/helpers';
 import { DocumentationArticle, DocumentationItemMenuType } from './types';
+import { Post } from 'containers/Search/SearchContent';
 
 export function* getArticleDocumentationWorker({
   articleId,
@@ -25,7 +26,6 @@ export function* getArticleDocumentationWorker({
 }): Generator<any> {
   try {
     const documentationFromStore = yield select(selectDocumentation());
-    const ipfsHash = getIpfsHashFromBytes32(articleId);
     if (
       (documentationFromStore as Array<DocumentationArticle>).find(
         (item) => item.id === articleId,
@@ -33,12 +33,16 @@ export function* getArticleDocumentationWorker({
     ) {
       yield put(getArticleDocumentationSuccess());
     } else {
-      const documentationArticle = yield call(getText, ipfsHash);
-
+      const documentationArticleFromGraph = yield call(
+        getQuestionFromGraph,
+        articleId,
+      );
       yield put(
         getArticleDocumentationSuccess({
           id: articleId,
-          ...JSON.parse(documentationArticle as string),
+          title: (documentationArticleFromGraph as Post).title,
+          content: (documentationArticleFromGraph as Post).content,
+          lastmod: (documentationArticleFromGraph as Post).lastmod,
         }),
       );
     }

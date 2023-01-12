@@ -21,6 +21,7 @@ import {
   selectDocumentationMenu,
   selectPinnedItemMenu,
 } from 'containers/AppWrapper/selectors';
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import {
   DocumentationArticle,
   OutputSelector,
@@ -36,6 +37,7 @@ interface DocumentationProps extends RouteComponentProps<RouterDocumentetion> {
   isArticleLoading: boolean;
   pinnedItemMenu: PinnedArticleType;
   documentationMenu: Array<DocumentationItemMenuType>;
+  locale: string;
 }
 
 export const DocumentationPage: React.FC<DocumentationProps> = ({
@@ -45,6 +47,7 @@ export const DocumentationPage: React.FC<DocumentationProps> = ({
   isArticleLoading,
   pinnedItemMenu,
   documentationMenu,
+  locale,
 }) => {
   const ipfsHash = pinnedItemMenu?.id || documentationMenu[0]?.id;
   const ipfsHasgBytes32 = Boolean(match.params.sectionId)
@@ -72,7 +75,10 @@ export const DocumentationPage: React.FC<DocumentationProps> = ({
       {isArticleLoading || !documentationSection ? (
         <Loader />
       ) : (
-        <ViewContent documentationArticle={documentationSection} />
+        <ViewContent
+          documentationArticle={documentationSection}
+          locale={locale}
+        />
       )}
     </div>
   ) : null;
@@ -88,6 +94,7 @@ export default compose(
       isArticleLoading: selectDocumentationLoading(),
       pinnedItemMenu: selectPinnedItemMenu(),
       documentationMenu: selectDocumentationMenu(),
+      locale: makeSelectLocale(),
     }),
     (dispatch: Dispatch<AnyAction>) => ({
       getArticleDocumentationDispatch: bindActionCreators(
