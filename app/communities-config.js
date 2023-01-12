@@ -18,6 +18,7 @@ import AaveLogo from 'communities-configs/aave/images/AaveLogo.svg?inline';
 import ForceLogo from './communities-configs/force/images/Group.svg?inline';
 import Mark3dLogo from './communities-configs/mark3d/images/Mark3dLogo.svg?inline';
 import OrbisLogo from './communities-configs/orbis/images/GroupLogo.svg?inline';
+import FractalVisionsLogo from './communities-configs/fractalVisions/images/Rectangle_123.svg?inline';
 
 import { PolygonStyles } from './communities-configs/polygon';
 import { FilecoinStyles } from './communities-configs/filecoin';
@@ -39,6 +40,8 @@ import { VyperStyles } from './communities-configs/vyper';
 import { ForceStyles } from './communities-configs/force';
 import { Mark3dStyles } from './communities-configs/mark3d';
 import { OrbisStyles } from './communities-configs/orbis';
+import { FractalVisionsStyles } from './communities-configs/fractalVisions';
+import { MoveStyles } from './communities-configs/move';
 
 const communitiesConfig = {
   prod: {
@@ -130,6 +133,16 @@ const communitiesConfig = {
       src: OrbisLogo,
       styles: OrbisStyles,
     },
+    20: {
+      origin: 'https://fractalvisions.peeranha.io',
+      src: FractalVisionsLogo,
+      styles: FractalVisionsStyles,
+    },
+    21: {
+      origin: 'https://move.peeranha.io',
+      src: 'https://images.peeranha.io/communities/move/move-logo.svg',
+      styles: MoveStyles,
+    },
   },
   staging: {
     1: {
@@ -209,10 +222,20 @@ const communitiesConfig = {
       src: Mark3dLogo,
       styles: Mark3dStyles,
     },
+    10: {
+      origin: `https://move${process.env.COOKIE_DOMAIN}`,
+      src: 'https://images.peeranha.io/communities/move/move-logo.svg',
+      styles: MoveStyles,
+    },
     11: {
       origin: `https://orbis${process.env.COOKIE_DOMAIN}`,
       src: OrbisLogo,
       styles: OrbisStyles,
+    },
+    12: {
+      origin: `https://fractalvisions${process.env.COOKIE_DOMAIN}`,
+      src: FractalVisionsLogo,
+      styles: FractalVisionsStyles,
     },
     // 1: {
     //   origin: `https://meta${process.env.COOKIE_DOMAIN}`,
@@ -276,7 +299,7 @@ const communitiesConfig = {
   },
   dev: {
     1: {
-      origin: 'http://localhost:3000',
+      origin: 'http://localhost:31000',
     },
   },
 };
