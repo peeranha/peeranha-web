@@ -210,7 +210,7 @@ const MainLinks = ({
 
             return (
               <A1
-                to={routes.documentation(ipfsHash)}
+                to={routes.documentation(ipfsHash, pinnedItemMenu.title)}
                 name={`documentation/${ipfsHash}`}
                 className="df jcsb aic"
                 css={{

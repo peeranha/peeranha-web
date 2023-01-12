@@ -69,7 +69,7 @@ const Post: React.FC<PostProps> = ({
   const postTags = community.tags.filter((tag: Tag) =>
     tags?.includes(Number(tag.id.split('-')[1])),
   );
-  const postLink = getPostRoute(postType, id);
+  const postLink = getPostRoute({ postType, id, title });
   const communityLink = () => {
     if (postType === POST_TYPE.tutorial) {
       return routes.tutorials(communityId);

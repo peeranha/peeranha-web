@@ -21,7 +21,7 @@ import { MediumIconStyled } from 'components/Icon/MediumIcon';
 
 import messages from './messages';
 
-const Wrapper = ({ children, questionid, answerid }) => (
+const Wrapper = ({ children, questionid, answerid, title }) => (
   <div>
     <Header className="mb-to-sm-0 mb-from-sm-3">
       <H3>
@@ -32,7 +32,7 @@ const Wrapper = ({ children, questionid, answerid }) => (
       </H3>
 
       <div className="right-panel">
-        <A to={routes.questionView(questionid, answerid)}>
+        <A to={routes.questionView(questionid, title, answerid)}>
           <button>
             <IconMd
               className="mr-1"
