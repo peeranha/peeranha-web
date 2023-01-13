@@ -285,7 +285,7 @@ const MainLinks = ({
           />
         </A1>
 
-        <A1 to={routes.questions()} name="questions" route={route}>
+        <A1 to={routes.questions()} name="discussions" route={route}>
           <IconLg className="mr-2" icon={generalIcon} />
           <FormattedMessage {...messages.discussions} />
         </A1>
