@@ -100,7 +100,7 @@ const DescriptionText = P.extend`
   }
 `;
 
-const Content = ({ communities, sorting, locale, language, profile }) => {
+const Content = ({ communities, sorting, locale, profile }) => {
   const { t } = useTranslation();
 
   const communityEditingAllowed =
@@ -112,113 +112,103 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
   return (
     <>
       <Base>
-        {orderBy(communities, (y) => y[sorting.sortBy], [sorting.order])
-          .filter((x) =>
-            language.sortBy ? x.language === language.sortBy : true,
-          )
-          .map(
-            (
-              { avatar, name, id, description, website, tags, ...x },
-              index,
-              arr,
-            ) => {
-              const value = id;
-              const origin = hasCommunitySingleWebsite(id);
+        {orderBy(communities, (y) => y[sorting.sortBy], [sorting.order]).map(
+          (
+            { avatar, name, id, description, website, tags, ...x },
+            index,
+            arr,
+          ) => {
+            const value = id;
+            const origin = hasCommunitySingleWebsite(id);
 
-              return (
-                <BaseSpecial
-                  last={arr.length - 1 === index}
-                  first={!index}
-                  className="d-flex align-items-start flex-column flex-md-row align-items-stretch align-items-md-start"
-                  key={value}
-                >
-                  <DescriptionBlock>
-                    <MediumImageStyled
-                      className="bg-transparent"
-                      src={avatar}
-                      alt={name}
-                    />
+            return (
+              <BaseSpecial
+                last={arr.length - 1 === index}
+                first={!index}
+                className="d-flex align-items-start flex-column flex-md-row align-items-stretch align-items-md-start"
+                key={value}
+              >
+                <DescriptionBlock>
+                  <MediumImageStyled
+                    className="bg-transparent"
+                    src={avatar}
+                    alt={name}
+                  />
 
-                    <div>
-                      <P fontSize="24" lineHeight="31" bold>
-                        <ADefault
-                          href={origin || routes.questions(id)}
-                          css={{ position: 'relative' }}
-                        >
-                          {name}
-                          {origin && (
-                            <SingleCommunityIcon locale={locale} id={id} />
-                          )}
-                        </ADefault>
-                      </P>
-                      <DescriptionText fontSize="14" lineHeight="18">
-                        {description}
-                      </DescriptionText>
-                      {website && <OfficialSiteLink website={website} />}
-                    </div>
-                  </DescriptionBlock>
+                  <div>
+                    <P fontSize="24" lineHeight="31" bold>
+                      <ADefault
+                        href={origin || routes.questions(id)}
+                        css={{ position: 'relative' }}
+                      >
+                        {name}
+                        {origin && (
+                          <SingleCommunityIcon locale={locale} id={id} />
+                        )}
+                      </ADefault>
+                    </P>
+                    <DescriptionText fontSize="14" lineHeight="18">
+                      {description}
+                    </DescriptionText>
+                    {website && <OfficialSiteLink website={website} />}
+                  </div>
+                </DescriptionBlock>
 
-                  <InfoBlock className="flex-wrap flex-sm-nowrap">
+                <InfoBlock className="flex-wrap flex-sm-nowrap">
+                  {(communityEditingAllowed ||
+                    hasCommunityModeratorRole(getPermissions(profile), value) ||
+                    hasCommunityAdminRole(getPermissions(profile), value)) && (
+                    <Info>
+                      <SpanCenter>
+                        {getFormattedNum2(x.followingUsers)}
+                      </SpanCenter>
+                      <P>{t('common.subscribers')}</P>
+                    </Info>
+                  )}
+
+                  <Info>
+                    <SpanCenter>{getFormattedNum2(x.postCount)}</SpanCenter>
+                    <P>{t('common.posts')}</P>
+                  </Info>
+
+                  <Info>
+                    <SpanCenter>{getFormattedNum2(x.replyCount)}</SpanCenter>
+                    <P>{t('common.answers')}</P>
+                  </Info>
+
+                  <Info>
+                    <SpanCenter>{getFormattedNum2(tags?.length)}</SpanCenter>
+                    <A to={routes.communityTags(id)}>{t('common.tags')}</A>
+                  </Info>
+
+                  <Info>
+                    <SpanCenter>
+                      {getDifferenceInDate(x.creationTime, locale)}
+                    </SpanCenter>
+                    <SpanCenter>{t('common.age')}</SpanCenter>
+                  </Info>
+
+                  <Info>
                     {(communityEditingAllowed ||
-                      hasCommunityModeratorRole(
-                        getPermissions(profile),
-                        value,
-                      ) ||
                       hasCommunityAdminRole(
                         getPermissions(profile),
                         value,
                       )) && (
-                      <Info>
-                        <SpanCenter>
-                          {getFormattedNum2(x.followingUsers)}
-                        </SpanCenter>
-                        <P>{t('common.subscribers')}</P>
-                      </Info>
+                      <InfoButton
+                        onClick={() =>
+                          createdHistory.push(routes.communitiesEdit(id))
+                        }
+                      >
+                        {t('common.edit')}
+                      </InfoButton>
                     )}
-
-                    <Info>
-                      <SpanCenter>{getFormattedNum2(x.postCount)}</SpanCenter>
-                      <P>{t('common.posts')}</P>
-                    </Info>
-
-                    <Info>
-                      <SpanCenter>{getFormattedNum2(x.replyCount)}</SpanCenter>
-                      <P>{t('common.answers')}</P>
-                    </Info>
-
-                    <Info>
-                      <SpanCenter>{getFormattedNum2(tags?.length)}</SpanCenter>
-                      <A to={routes.communityTags(id)}>{t('common.tags')}</A>
-                    </Info>
-
-                    <Info>
-                      <SpanCenter>
-                        {getDifferenceInDate(x.creationTime, locale)}
-                      </SpanCenter>
-                      <SpanCenter>{t('common.age')}</SpanCenter>
-                    </Info>
-
-                    <Info>
-                      {(communityEditingAllowed ||
-                        hasCommunityAdminRole(
-                          getPermissions(profile),
-                          value,
-                        )) && (
-                        <InfoButton
-                          onClick={() =>
-                            createdHistory.push(routes.communitiesEdit(id))
-                          }
-                        >
-                          {t('common.edit')}
-                        </InfoButton>
-                      )}
-                      <FollowCommunityButton communityIdFilter={id} />
-                    </Info>
-                  </InfoBlock>
-                </BaseSpecial>
-              );
-            },
-          )}
+                    <FollowCommunityButton communityIdFilter={id} />
+                  </Info>
+                </InfoBlock>
+              </BaseSpecial>
+            );
+          },
+        )}
       </Base>
       <Base>
         <div

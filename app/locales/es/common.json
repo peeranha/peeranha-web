@@ -2,8 +2,7 @@
   "peeranha": "Peeranha",
   "copyrightPeeranha": "©{{year}} Peeranha",
   "confirm": "Aceptar",
-  "cookieConsent":
-    "Usamos cookies para asegurar que obtengas la mejor experiencia en nuestro sitio web. ",
+  "cookieConsent": "Usamos cookies para asegurar que obtengas la mejor experiencia en nuestro sitio web. ",
   "moreInfo": "Más información",
   "profile": "Perfil",
   "myCommunities": "Mis comunidades",
@@ -13,10 +12,10 @@
   "answers": "Respuestas",
   "posts": "Publicaciones",
   "achievements": "Logros",
-  "postsNumber": "Logros <0>{{número}}</0>",
-  "answersNumber": "Respuestas <0>{{número}}</0>",
-  "allActivitiesNumber": "Todos {{número}}",
-  "achievementsNumber": "Logros {{número}}",
+  "postsNumber": "Logros <0>{{number}}</0>",
+  "answersNumber": "Respuestas <0>{{number}}</0>",
+  "allActivitiesNumber": "Todos {{number}}",
+  "achievementsNumber": "Logros {{number}}",
   "settings": "Ajustes",
   "notifications": "Notificaciones",
   "moderation": "Moderación",
@@ -53,7 +52,7 @@
   "you": "Tú",
   "upload": "Subir",
   "NFTs": "NFTs",
-  "NFTsNumber": "NFTs <0>{{número}}</0>",
+  "NFTsNumber": "NFTs <0>{{number}}</0>",
   "limitedEdition": "Edición limitada",
   "contractAddress": "Contrato",
   "allQuestions": "Todas las preguntas",
@@ -150,8 +149,7 @@
   "sendTip": "Envía propina",
   "receivedReward": "Recibiste una recompensa por recomendación",
   "generalPopoverTitle": "Discusión",
-  "generalPopoverLabel":
-    "Un tema que no requiere conocimientos ni experiencia para responder y que puede ser uno de los siguientes:",
+  "generalPopoverLabel": "Un tema que no requiere conocimientos ni experiencia para responder y que puede ser uno de los siguientes:",
   "generalPopoverList": [
     "Intercambio de opiniones subjetivas;",
     "Lluvia de ideas;",
@@ -159,8 +157,7 @@
     "La respuesta es muy conocida."
   ],
   "expertPopoverTitle": "Preguntas y respuestas de los expertos",
-  "expertPopoverLabel":
-    "Una pregunta que plantea una de las siguientes cuestiones:",
+  "expertPopoverLabel": "Una pregunta que plantea una de las siguientes cuestiones:",
   "expertPopoverList": [
     "Una solución a un problema que requiere conocimientos o experiencia de expertos;",
     "Fuente de información o recursos sobre un tema específico que no se encuentra fácilmente;",
@@ -168,8 +165,7 @@
     "Pedir una instrucción o una receta"
   ],
   "tutorialPopoverTitle": "Tutorial",
-  "tutorialPopoverLabel":
-    "La tutoría es una instrucción manual que puede ser una de las siguientes:",
+  "tutorialPopoverLabel": "La tutoría es una instrucción manual que puede ser una de las siguientes:",
   "tutorialPopoverList": [
     "Solución paso a paso de un problema;",
     "Configuración técnica;",
@@ -181,13 +177,10 @@
   "yesterday": "Yesterday",
   "official": "Ayer",
   "profilesUsersInfo": "El tamaño del archivo no debe superar los 5Mb",
-  "communityBannerInfo":
-    "Utilice una imagen de al menos 1360 x 120 píxeles. El tamaño del archivo no debe superar 1Mb",
+  "communityBannerInfo": "Utilice una imagen de al menos 1360 x 120 píxeles. El tamaño del archivo no debe superar 1Mb",
   "fileSizeErrorMsg": "El tamaño del archivo es superior a 5Mb. Elija otro...",
-  "bannerSizeErrorMsg":
-    "El tamaño del archivo es superior a 1Mb. Elija otro...",
-  "incorrectBannerResolutionMsg":
-    "La resolución de la imagen debe ser de 1360 x 120 píxeles",
+  "bannerSizeErrorMsg": "El tamaño del archivo es superior a 1Mb. Elija otro...",
+  "incorrectBannerResolutionMsg": "La resolución de la imagen debe ser de 1360 x 120 píxeles",
   "chooseFile": "Elija un archivo",
   "skip": "Saltar",
   "showMoreQuestions": "Mostrar más resultados",
@@ -202,8 +195,7 @@
   "blogger": "Blogger",
   "cannotTransferToYourself": "No puede transferirse a sí mismo",
   "notEnoughCPUOrRAM": "No hay suficiente CPU o RAM",
-  "metaMaskIsLocked":
-    "Por favor, compruebe la conexión de Metamask e intente recargar la página",
+  "metaMaskIsLocked": "Por favor, compruebe la conexión de Metamask e intente recargar la página",
   "ipfsHashValue": "IPFS",
   "source": "Fuente",
   "waitingForConfirm": "Confirma esta transacción en tu monedero...",
@@ -212,12 +204,10 @@
   "transaction": "transacción",
   "transactionCompleted": "Transacción completada con éxito",
   "estimatedReward": "Recompensa estimada",
-  "rewardsWillBeAvailable":
-    "Vaya, no puedes reclamar tus tokens en este momento. No se preocupe, la recompensa estimada estará disponible para que la reclame después del lanzamiento del token. Nuestro equipo legal nos respalda para finalizar los detalles del lanzamiento del token. Gracias!",
+  "rewardsWillBeAvailable": "Vaya, no puedes reclamar tus tokens en este momento. No se preocupe, la recompensa estimada estará disponible para que la reclame después del lanzamiento del token. Nuestro equipo legal nos respalda para finalizar los detalles del lanzamiento del token. Gracias!",
   "help": "Ayuda",
   "didntFindAnswer": "no encontre la respuesta?",
-  "freeFeelToAsk":
-    "No dude en preguntar a nuestro equipo. Ayudaremos a encontrar la respuesta.",
+  "freeFeelToAsk": "No dude en preguntar a nuestro equipo. Ayudaremos a encontrar la respuesta.",
   "voteForNewCommunities": "Vota por nuevas comunidades",
   "globalModerator": "Moderador global",
   "verifyFacebookAccount": "Verificación de la cuenta",
@@ -226,24 +216,20 @@
   "title": "Preguntas",
   "noQuestions": "Sin preguntas",
   "youDontHaveFeedToRead": "No tienes ningún feed para leer",
-  "subscribeToCommToKeep":
-    "Suscríbase a las comunidades para realizar un seguimiento de los temas que le interesan.",
+  "subscribeToCommToKeep": "Suscríbase a las comunidades para realizar un seguimiento de los temas que le interesan.",
   "noPostsYet": "Aún no hay publicaciones.",
-  "thisIsNewCommunity":
-    "Esta es la nueva comunidad, puedes ser el primero en crear una publicación y puede convertirse en la más popular.",
+  "thisIsNewCommunity": "Esta es la nueva comunidad, puedes ser el primero en crear una publicación y puede convertirse en la más popular.",
   "readMyFeed": "Leer mi feed",
   "goToCommunities": "Ir a las comunidades",
   "topQuestionPopover": "Pregunta principal de esta comunidad",
   "showAllQuestions": "Mostrar todas las preguntas",
   "bountyPopover": "Bounty - recompensa adicional PEER del autor.",
-  "communityTip":
-    "Asegúrate de que la publicación sea relevante para la comunidad seleccionada",
+  "communityTip": "Asegúrate de que la publicación sea relevante para la comunidad seleccionada",
   "titleTip": "Título corto y descriptivo de la publicación.",
   "tagsTip": "Etiquetas que son relevantes para la publicación",
   "newPost": "Nueva publicación",
   "titleLabel": "Título",
-  "existingQuestionsLabel":
-    "Para evitar duplicados verifique las preguntas existentes.",
+  "existingQuestionsLabel": "Para evitar duplicados verifique las preguntas existentes.",
   "questionBodyLabel": "Cuerpo",
   "communityLabel": "Comunidad",
   "tagsLabel": "Etiquetas",
@@ -258,10 +244,8 @@
   "previewLabel": "Avance",
   "questionType": "Tipo de mensaje",
   "questionTypeTip": "Opcional",
-  "generalQuestionDescriptionLabel":
-    "Un tema que no requiera conocimientos o experiencia para responder que puede ser uno de los siguientes:",
-  "expertQuestionDescriptionLabel":
-    "Una pregunta que hace uno de los siguientes:",
+  "generalQuestionDescriptionLabel": "Un tema que no requiera conocimientos o experiencia para responder que puede ser uno de los siguientes:",
+  "expertQuestionDescriptionLabel": "Una pregunta que hace uno de los siguientes:",
   "generalQuestionDescriptionList": [
     "Intercambio subjetivo de opiniones;",
     "Lluvia de ideas;",
@@ -274,8 +258,7 @@
     "Explicación o aclaración de la información que es complicada de comprender;",
     "Pide una instrucción o una receta."
   ],
-  "tutorialQuestionDescriptionLabel":
-    "El tutorial es una instrucción manual que puede ser una de las siguientes:",
+  "tutorialQuestionDescriptionLabel": "El tutorial es una instrucción manual que puede ser una de las siguientes:",
   "tutorialQuestionDescriptionList": [
     "Solución paso a paso a un problema;",
     "Configuración técnica;",
@@ -285,8 +268,7 @@
   "promotedTip": "Promover pregunta",
   "questionIsPromoting": "Promocionado hasta",
   "postTypeSelectionError": "Debe seleccionar el tipo de publicación",
-  "leaveWithoutChanges":
-    "Está a punto de salir de la página sin guardar los cambios. ¿Seguro que quieres continuar?",
+  "leaveWithoutChanges": "Está a punto de salir de la página sin guardar los cambios. ¿Seguro que quieres continuar?",
   "titleSuggestedCommunities": "Comunidades sugeridas",
   "descriptionSuggestedCommunities": "Comunidades sugeridas | Descripción",
   "votingForNewComm": "Vota por la nueva comunidad",
@@ -295,43 +277,32 @@
   "addForLineBreaks": "para salto de línea agregue 2 espacios al final",
   "italicAndBold": "_cursiva_ o **negrita**",
   "indentCode": "código de sangría por 4 espacios",
-  "backtipEscapes":
-    "use escapes de comillas invertidas para bloques de código como _so_`",
+  "backtipEscapes": "use escapes de comillas invertidas para bloques de código como _so_`",
   "quoteByPlacing": "cite colocando > al comienzo de la línea",
-  "toMakeLinks":
-    "para hacer enlaces &lt;http://foo.com&gt;[foo](http://foo.com)&lt;a href=&quot;http://foo.com&quot;&gt;fo",
+  "toMakeLinks": "para hacer enlaces &lt;http://foo.com&gt;[foo](http://foo.com)&lt;a href=&quot;http://foo.com&quot;&gt;fo",
   "titleAskQuestion": "Nueva publicación",
   "descriptionAskQuestion": "Nueva publicación | Descripción",
   "postQuestion": "Correo",
   "contentPopupBlock_1": "Hola!",
-  "contentPopupBlock_2":
-    "Bienvenido a Peeranha. Nos alegra que estés aquí y listo para hacer tu primera publicación. Hay algunas reglas simples que todos seguimos aquí:",
-  "contentPopupBlock_3":
-    "1. Asegúrate de que tus publicaciones estén relacionadas con una comunidad en particular.",
-  "contentPopupBlock_4":
-    "2. Investigue un poco para asegurarse de que la misma publicación no se haya publicado antes.",
-  "contentPopupBlock_5":
-    "3. Las respuestas tienen que responder realmente a la pregunta, y no ser solo un comentario.",
-  "contentPopupBlock_6":
-    "4. Asegúrese de que su respuesta proporcione información valiosa y no sea solo una repetición de lo que ya se ha dicho.",
-  "contentPopupBlock_7":
-    "Y la regla más importante es ser cortés y amigable con otros usuarios..",
+  "contentPopupBlock_2": "Bienvenido a Peeranha. Nos alegra que estés aquí y listo para hacer tu primera publicación. Hay algunas reglas simples que todos seguimos aquí:",
+  "contentPopupBlock_3": "1. Asegúrate de que tus publicaciones estén relacionadas con una comunidad en particular.",
+  "contentPopupBlock_4": "2. Investigue un poco para asegurarse de que la misma publicación no se haya publicado antes.",
+  "contentPopupBlock_5": "3. Las respuestas tienen que responder realmente a la pregunta, y no ser solo un comentario.",
+  "contentPopupBlock_6": "4. Asegúrese de que su respuesta proporcione información valiosa y no sea solo una repetición de lo que ya se ha dicho.",
+  "contentPopupBlock_7": "Y la regla más importante es ser cortés y amigable con otros usuarios..",
   "contentPopupBlock_8": "Gracias!",
   "newEmail": "Nuevo correo electrónico",
   "confirmNewEmail": "Confirme nuevo correo electrónico",
   "emailsDoNotMatch": "Los correos no coinciden",
   "didntFindAnyInteresting": "No encontraste nada interesante?",
-  "suggestInterestingComm":
-    "Sugiere una comunidad, que será interesante para ti y otros 100 usuarios que votarán por ella.",
+  "suggestInterestingComm": "Sugiere una comunidad, que será interesante para ti y otros 100 usuarios que votarán por ella.",
   "titleCommunities": "Comunidades",
   "descriptionCommunities": "Comunidades | Descripción",
   "suggestCommunity": "Crear comunidad",
   "deleteAccount": "Borrar cuenta",
   "areYouLeaving": "Te vas??",
-  "iUnderstand":
-    "Entiendo que esta operación no elimina mi cuenta en Telos blockchain. La cuenta se elimina solo del servicio de billetera.",
-  "iHaveBackup":
-    "Tengo una copia de seguridad de mis claves privadas de Telos.",
+  "iUnderstand": "Entiendo que esta operación no elimina mi cuenta en Telos blockchain. La cuenta se elimina solo del servicio de billetera.",
+  "iHaveBackup": "Tengo una copia de seguridad de mis claves privadas de Telos.",
   "faqPage": {
     "title": "PMF",
     "description": "PMF: Descripción",
@@ -345,45 +316,34 @@
   },
   "metaTransaction": {
     "agreeWithMetaTransactions": "Lo tenemos cubierto",
-    "youNeedMetaBecause":
-      "Su saldo MATIC es 0. Se requiere MATIC para pagar las tarifas de transacción.  ",
+    "youNeedMetaBecause": "Su saldo MATIC es 0. Se requiere MATIC para pagar las tarifas de transacción.  ",
     "dontWorry": "No te preocupes! Te tenemos cubierto.",
-    "wouldYouLike":
-      "Le gustaría que transmitamos sus transacciones y cubramos las tarifas de transacción?",
+    "wouldYouLike": "Le gustaría que transmitamos sus transacciones y cubramos las tarifas de transacción?",
     "confirm": "Sí",
     "cansel": "No"
   },
   "moderationPermitions": {
     "title": "Permisos de moderador",
     "givePermissions": "Dar permisos",
-    "givePermissionsDescription":
-      "Le permite dar y revocar el permiso de moderador de la comunidad.",
+    "givePermissionsDescription": "Le permite dar y revocar el permiso de moderador de la comunidad.",
     "permissionInfinite": "Impacto infinito",
-    "permissionInfiniteDescription":
-      "Le permite eliminar publicaciones, respuestas y comentarios con un solo clic",
+    "permissionInfiniteDescription": "Le permite eliminar publicaciones, respuestas y comentarios con un solo clic",
     "permissionIgnoreRating": "Ignore rating",
-    "permissionIgnoreRatingDescription":
-      "Le permite realizar acciones que están restringidas por calificación",
+    "permissionIgnoreRatingDescription": "Le permite realizar acciones que están restringidas por calificación",
     "permissionCreateCommunity": "Crear comunidad",
-    "permissionCreateCommunityDescription":
-      "Le permite crear instantáneamente una comunidad",
+    "permissionCreateCommunityDescription": "Le permite crear instantáneamente una comunidad",
     "permissionCreateTag": "Crear etiqueta",
-    "permissionCreateTagDescription":
-      "Le permite crear instantáneamente una etiqueta",
+    "permissionCreateTagDescription": "Le permite crear instantáneamente una etiqueta",
     "permissionChangePostType": "Cambiar tipo de publicación",
-    "permissionChangePostTypeDescription":
-      "Te permite cambiar el tipo de publicación.",
+    "permissionChangePostTypeDescription": "Te permite cambiar el tipo de publicación.",
     "permissionSelectTopQuestion": "Seleccione la pregunta principal",
-    "permissionSelectTopQuestionDescription":
-      "Le permite seleccionar una pregunta que se mostrará en la página \"Arriba\"",
+    "permissionSelectTopQuestionDescription": "Le permite seleccionar una pregunta que se mostrará en la página \"Arriba\"",
     "permissionOfficialAnswer": "Publicar respuesta oficial",
-    "permissionOfficialAnswerDescription":
-      "Le permite publicar una respuesta oficial"
+    "permissionOfficialAnswerDescription": "Le permite publicar una respuesta oficial"
   },
   "telegram": {
     "user": "Usuario de telegramas",
-    "userLabelPopover":
-      "Esta es una cuenta temporal proporcionada por Telegram Bot",
+    "userLabelPopover": "Esta es una cuenta temporal proporcionada por Telegram Bot",
     "confirm": "Confirmar",
     "unlink": "Desconectar"
   },
@@ -407,8 +367,7 @@
   "askQuestionBanner": {
     "help": "Ayuda",
     "didntFindAnswer": "No encontraste la respuesta?",
-    "freeFeelToAsk":
-      "No dude en preguntar a nuestro equipo. Ayudaremos a encontrar la respuesta."
+    "freeFeelToAsk": "No dude en preguntar a nuestro equipo. Ayudaremos a encontrar la respuesta."
   },
   "usersDesc": {
     "title": "Usuarios",
@@ -416,8 +375,7 @@
   },
   "existingCommunities": {
     "voteForNewCommunities": "Vota por nuevas comunidades",
-    "singleCommunityTooltip":
-      "Esta comunidad tiene un sitio web de preguntas y respuestas en otro dominio"
+    "singleCommunityTooltip": "Esta comunidad tiene un sitio web de preguntas y respuestas en otro dominio"
   },
   "ratingStatus": {
     "stranger": "Extraño",
@@ -437,17 +395,14 @@
     "title": "Apoyo",
     "description": "Apoyo | descripción",
     "feelFreeToAsk": "Siéntete libre de preguntar",
-    "alsoWeHighly":
-      "Apreciamos mucho sus comentarios, opiniones y sugerencias para nuestra plataforma. Por favor, envíenos unas líneas o, mejor aún, háganos saber si tiene 15 minutos para chatear."
+    "alsoWeHighly": "Apreciamos mucho sus comentarios, opiniones y sugerencias para nuestra plataforma. Por favor, envíenos unas líneas o, mejor aún, háganos saber si tiene 15 minutos para chatear."
   },
   "voteNewCommunity": {
     "youHaveAlreadyVoted": "Tú ya has votado",
-    "creatorCannotUpvoteOwnComm":
-      "Los creadores no pueden votar a su propia comunidad.",
+    "creatorCannotUpvoteOwnComm": "Los creadores no pueden votar a su propia comunidad.",
     "youCannotChange": "No puede cambiar su voto. Está seguro?"
   },
-  "creatorCannotUpvoteOwnTag":
-    "Los creadores no pueden votar su propia etiqueta",
+  "creatorCannotUpvoteOwnTag": "Los creadores no pueden votar su propia etiqueta",
   "editCommunityDesc": {
     "communityTitleTip": "Nombre de la comunidad",
     "description": "Descripción de editarComunidad",
@@ -464,8 +419,7 @@
   "editExpertQ&A": "Editar preguntas y respuestas de expertos",
   "editTutorial": "Editar Tutorial",
   "footerHeader": "Derechos de autor: Peeranha",
-  "youGotThisKey":
-    "Recibió esta clave con la autorización que se guardó en un lugar seguro. Intenta encontrarlo.",
+  "youGotThisKey": "Recibió esta clave con la autorización que se guardó en un lugar seguro. Intenta encontrarlo.",
   "noAccessError": "Sin acceso para completar esta acción!",
   "groupForAuthorizedUser": "Perfil",
   "errorBoundary": {

@@ -13,6 +13,7 @@ import {
   TEXT_SECONDARY,
   BORDER_WARNING_LIGHT,
   BORDER_PRIMARY_LIGHT,
+  BORDER_PRIMARY,
 } from 'style-constants';
 
 import { trimRightZeros } from 'utils/numbers';

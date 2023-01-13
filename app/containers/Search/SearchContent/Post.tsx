@@ -1,6 +1,7 @@
 import React from 'react';
 import { css } from '@emotion/react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import DisLikeIcon from 'icons/DisLike';
 import LikeIcon from 'icons/Like';
@@ -55,6 +56,7 @@ const Post: React.FC<PostProps> = ({
   rating,
   replyCount,
 }): JSX.Element => {
+  const { t } = useTranslation();
   const community = getFollowedCommunities(communities, [
     Number(communityId),
   ])[0] || {
