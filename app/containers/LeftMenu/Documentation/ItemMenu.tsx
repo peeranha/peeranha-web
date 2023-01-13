@@ -38,7 +38,7 @@ type DocumentationMenuProps = {
   pinnedArticleMenuDraft?: (data: { id: string; title: string }) => void;
   removeArticle?: (id: string) => void;
   pinnedItemMenuId: string;
-  setPinned: () => void;
+  setPinned: React.Dispatch<React.SetStateAction<string>>;
   pinned: string;
   documentationMenu: Array<DocumentationItemMenuType>;
 };
@@ -64,7 +64,7 @@ const ItemMenu: React.FC<DocumentationMenuProps> = ({
   documentationMenu,
 }) => {
   const [isOpen, open, close] = useTrigger(false);
-  let route = window.location.pathname;
+  const route = window.location.pathname;
   const startDocumentionPostLight =
     pinnedItemMenuId == ''
       ? !isEditDocumentation && documentationMenu[0]?.id === item.id

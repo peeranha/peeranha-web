@@ -1,5 +1,6 @@
 export { default as Share } from './Share';
 export { default as Plus } from './Plus';
+export { default as PlusWithoutCircle } from './PlusWithoutCircle';
 export { default as Notification } from './Notification';
 export { default as Energy } from './Energy';
 export { default as Peercoin } from './Peercoin';

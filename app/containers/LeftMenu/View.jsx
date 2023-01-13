@@ -11,7 +11,10 @@ import {
 
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 
-import { LEFT_MENU_ID } from 'containers/LeftMenu/constants';
+import {
+  LEFT_MENU_ID,
+  NAV_SCROLL_HEIGHT_SINGLE_COMMUNITY,
+} from 'containers/LeftMenu/constants';
 
 import AdditionalLinks from 'containers/LeftMenu/AdditionalLinks';
 import MobileLinksInWallet from 'containers/LeftMenu/MobileLinksInWallet';
@@ -59,7 +62,12 @@ const View = ({
       single={single}
       isMenuVisible={isMenuVisible}
       css={css`
-        height: calc(100vh - ${HEADER_HEIGHT + 30}px);
+        height: calc(
+          100vh -
+            ${single
+              ? NAV_SCROLL_HEIGHT_SINGLE_COMMUNITY
+              : HEADER_HEIGHT + 30}px
+        );
         overflow: hidden;
         padding-right: 6px;
 
