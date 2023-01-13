@@ -654,11 +654,17 @@ export default defineMessages({
   transactionsText_2: {
     id: 'app.containers.Profile.Settings.transactionsText_2',
   },
+  transactionsText_3: {
+    id: 'app.containers.Profile.Settings.transactionsText_3',
+  },
   transactionsChange_1: {
     id: 'app.containers.Profile.Settings.transactionsChange_1',
   },
   transactionsChange_2: {
     id: 'app.containers.Profile.Settings.transactionsChange_2',
+  },
+  transactionsChange_3: {
+    id: 'app.containers.Profile.Settings.transactionsChange_3',
   },
   weUpdatedTheApplication: {
     id: 'app.containers.ChunkLoadError.weUpdatedTheApplication',
