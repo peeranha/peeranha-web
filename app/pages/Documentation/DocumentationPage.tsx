@@ -8,9 +8,11 @@ import { DAEMON } from 'utils/constants';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import { css } from '@emotion/react';
+import { translationMessages } from 'i18n';
 
 import ViewContent from 'components/Documentation/components/ViewContent';
 import Loader from 'components/Documentation/components/Loader';
+import Seo from 'components/Seo';
 
 import { redirectToEditQuestionPage } from 'containers/EditQuestion/actions';
 import { getArticleDocumentation } from './actions';
@@ -21,6 +23,7 @@ import {
   selectDocumentationMenu,
   selectPinnedItemMenu,
 } from 'containers/AppWrapper/selectors';
+import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import {
   DocumentationArticle,
   OutputSelector,
@@ -30,12 +33,15 @@ import {
 } from './types';
 import { getBytes32FromIpfsHash } from 'utils/ipfs';
 
+import commonMessages from 'common-messages';
+
 interface DocumentationProps extends RouteComponentProps<RouterDocumentetion> {
   getArticleDocumentationDispatch: (id: string) => void;
   documentation: Array<DocumentationArticle>;
   isArticleLoading: boolean;
   pinnedItemMenu: PinnedArticleType;
   documentationMenu: Array<DocumentationItemMenuType>;
+  locale: string;
 }
 
 export const DocumentationPage: React.FC<DocumentationProps> = ({
@@ -45,6 +51,7 @@ export const DocumentationPage: React.FC<DocumentationProps> = ({
   isArticleLoading,
   pinnedItemMenu,
   documentationMenu,
+  locale,
 }) => {
   const ipfsHash = pinnedItemMenu?.id || documentationMenu[0]?.id;
   const ipfsHasgBytes32 = Boolean(match.params.sectionId)
@@ -64,17 +71,24 @@ export const DocumentationPage: React.FC<DocumentationProps> = ({
   }
 
   return documentationSection?.id !== '' ? (
-    <div
-      css={css`
-        flex-grow: 1;
-      `}
-    >
-      {isArticleLoading || !documentationSection ? (
-        <Loader />
-      ) : (
-        <ViewContent documentationArticle={documentationSection} />
-      )}
-    </div>
+    <>
+      <Seo
+        title={translationMessages[locale][commonMessages.documentation.id]}
+        description={translationMessages[locale][commonMessages.description.id]}
+        language={locale}
+      />
+      <div
+        css={css`
+          flex-grow: 1;
+        `}
+      >
+        {isArticleLoading || !documentationSection ? (
+          <Loader />
+        ) : (
+          <ViewContent documentationArticle={documentationSection} />
+        )}
+      </div>
+    </>
   ) : null;
 };
 
@@ -88,6 +102,7 @@ export default compose(
       isArticleLoading: selectDocumentationLoading(),
       pinnedItemMenu: selectPinnedItemMenu(),
       documentationMenu: selectDocumentationMenu(),
+      locale: makeSelectLocale(),
     }),
     (dispatch: Dispatch<AnyAction>) => ({
       getArticleDocumentationDispatch: bindActionCreators(
