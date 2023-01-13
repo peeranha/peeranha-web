@@ -19,7 +19,7 @@ export const errorPage = () => `/error-occured`;
 export const profileView = userRedirect('');
 export const profileEdit = (id) => `/users/edit/${id}`;
 
-export const userQuestions = userRedirect('#questions');
+export const userQuestions = userRedirect('#discussions');
 export const userCommunities = userRedirect('#communities');
 export const userAnswers = userRedirect('#answers');
 export const userSettings = userRedirect('#settings');
@@ -32,8 +32,8 @@ export const uniqueAnswerId = (answerId) => `ans${answerId}`;
 
 export const questions = (communityId) =>
   !communityId
-    ? `${!isBloggerMode ? '/questions' : '/questions'}`
-    : `/questions/community/${communityId}/`;
+    ? `${!isBloggerMode ? '/discussions' : '/discussions'}`
+    : `/discussions/community/${communityId}/`;
 
 export const expertPosts = (communityId) =>
   !communityId
@@ -49,8 +49,8 @@ export const questionView = (id, title, answerId) => {
   const updatedTitle = updateTitle(title);
 
   return answerId
-    ? `/questions/${id}/${updatedTitle}#${uniqueAnswerId(answerId)}`
-    : `/questions/${id}/${updatedTitle}`;
+    ? `/discussions/${id}/${updatedTitle}#${uniqueAnswerId(answerId)}`
+    : `/discussions/${id}/${updatedTitle}`;
 };
 
 export const expertPostView = (id, title, answerId) => {
@@ -87,10 +87,10 @@ export const questionEdit = (postType, questionId) =>
 
 export const answerEdit = (questionId, answerId) =>
   !singleCommId
-    ? `/questions/${questionId}/answers/${answerId}/edit`
+    ? `/discussions/${questionId}/answers/${answerId}/edit`
     : `/${questionId}/answers/${answerId}/edit`;
 
-export const questionAsk = () => (!singleCommId ? `/questions/ask` : `/ask`);
+export const questionAsk = () => (!singleCommId ? `/discussions/ask` : `/ask`);
 
 export const documentationCreate = (parentId) =>
   parentId ? `/documentation/${parentId}/create` : `/documentation/create`;
