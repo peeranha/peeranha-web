@@ -37,8 +37,6 @@ export const ChangeLocale = ({ withTitle, changeLocale, locale }) => {
     i18n.changeLanguage(newLocale);
   };
 
-  console.log('locale', locale);
-
   return (
     <Dropdown
       className="mr-3"
