@@ -42,7 +42,7 @@ const Menu = ({ changeSorting, sorting, options }) => {
         <CheckedItem
           key={`${options[item].message.id}_${options[item].order}`}
           onClick={() => changeSorting(options[item])}
-          isActive={sorting.message.id === options[item].message.id}
+          isActive={sorting.message === options[item].message}
         >
           {t(options[item].message)}
         </CheckedItem>
