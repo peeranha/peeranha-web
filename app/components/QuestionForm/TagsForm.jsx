@@ -11,14 +11,22 @@ import { FORM_COMMUNITY, FORM_TAGS } from './constants';
 
 import messages from './messages';
 
-const TagsForm = ({ questionLoading, intl, formValues, change }) => {
-  const setTags = useCallback(updatedTags => change(FORM_TAGS, updatedTags), [
-    change,
-  ]);
+const TagsForm = ({
+  questionLoading,
+  intl,
+  formValues,
+  change,
+  communityTags,
+}) => {
+  const setTags = useCallback(
+    (updatedTags) => change(FORM_TAGS, updatedTags),
+    [change],
+  );
 
-  const tagsOptions = useMemo(() => formValues?.[FORM_COMMUNITY]?.tags ?? [], [
-    formValues,
-  ]);
+  const tagsOptions = useMemo(
+    () => formValues?.[FORM_COMMUNITY]?.tags || communityTags || [],
+    [communityTags, formValues],
+  );
 
   const tagsDisabled = useMemo(
     () => questionLoading || !formValues?.[FORM_COMMUNITY]?.value,

@@ -42,7 +42,7 @@ export const Form = ({
   getSuggestedTagsDispatch,
   isEditTagForm,
 }) => {
-  const onChange = value => {
+  const onChange = (value) => {
     if (value) {
       getSuggestedTagsDispatch({ communityId: value.id });
     }
@@ -105,7 +105,7 @@ Form.propTypes = {
 
 let FormClone = reduxForm({
   form: FORM_NAME,
-  onSubmitFail: errors => scrollToErrorField(errors),
+  onSubmitFail: (errors) => scrollToErrorField(errors),
 })(Form);
 
 FormClone = connect(
@@ -114,18 +114,21 @@ FormClone = connect(
     if (isEditTagForm) {
       const { communityId, tagId } = editTagData;
       const existingTags = selectExistingTags()(state);
-      const selectedTag = existingTags.find(tag => tag.id === tagId);
+      const communityTags = Array.isArray(existingTags)
+        ? existingTags
+        : existingTags[communityId];
+      const selectedTag = communityTags.find((tag) => tag.id === tagId);
 
       const selectedCommunity = communities.find(
-        comm => comm.id === communityId,
+        (comm) => comm.id === communityId,
       );
 
       return {
-        valueHasNotBeInListValidate: existingTags
-          .filter(tag => tag.id !== tagId)
-          .map(x => x.name?.toLowerCase())
+        valueHasNotBeInListValidate: communityTags
+          .filter((tag) => tag.id !== tagId)
+          .map((x) => x.name?.toLowerCase())
           .concat(
-            (state?.toJS()?.tags?.suggestedTags ?? []).map(x =>
+            (state?.toJS()?.tags?.suggestedTags ?? []).map((x) =>
               x.name?.toLowerCase(),
             ),
           ),
@@ -143,9 +146,9 @@ FormClone = connect(
       valueHasNotBeInListValidate: (
         state?.toJS()?.form?.[FORM_NAME]?.values?.[FORM_COMMUNITY]?.tags ?? []
       )
-        .map(x => x.name?.toLowerCase())
+        .map((x) => x.name?.toLowerCase())
         .concat(
-          (state?.toJS()?.tags?.suggestedTags ?? []).map(x =>
+          (state?.toJS()?.tags?.suggestedTags ?? []).map((x) =>
             x.name?.toLowerCase(),
           ),
         ),

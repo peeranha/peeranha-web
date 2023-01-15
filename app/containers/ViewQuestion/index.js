@@ -8,11 +8,7 @@ import { translationMessages } from 'i18n';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { scrollToSection } from 'utils/animation';
-import {
-  communityAdminInfiniteImpactPermission,
-  getPermissions,
-  hasGlobalModeratorRole,
-} from 'utils/properties';
+import { getPermissions, hasGlobalModeratorRole } from 'utils/properties';
 
 import * as routes from 'routes-config';
 
@@ -53,7 +49,6 @@ import saga from './saga';
 
 import ViewQuestionContainer from './ViewQuestionContainer';
 import { POST_TYPE } from '../../utils/constants';
-import { selectHistoriesLoading } from './selectors';
 
 export const ViewQuestion = ({
   locale,
@@ -210,15 +205,10 @@ export const ViewQuestion = ({
     ? new Date(questionData.lastEditedDate * 1000)
     : ``;
 
-  const tagIds = questionData?.tags ?? [];
-
-  const community = communities.filter((x) => x.id === commId)[0] || {
-    tags: [],
-  };
-
-  const tags = community.tags.filter((x) => tagIds.includes(x.id));
-
-  const keywords = [...tags.map((x) => x.name), helmetTitle];
+  const keywords = [
+    ...(questionData?.tags?.map((tag) => tag.name) ?? []),
+    helmetTitle,
+  ];
 
   return (
     <>

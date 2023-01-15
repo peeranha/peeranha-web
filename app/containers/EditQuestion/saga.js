@@ -57,18 +57,15 @@ export function* getAskedQuestionWorker({ questionId }) {
     } else {
       question = cachedQuestion;
     }
-
     const { communityId } = question;
 
     if (communityId) {
-      question.community = yield call(
-        getCommunityWithTags,
-        ethereumService,
-        communityId,
-      );
-      question.tags = getQuestionTags(question, question.community.tags);
-    }
+      const [community, tags] = yield call(getCommunityWithTags, communityId);
 
+      question.community = community;
+
+      question.tags = getQuestionTags(question, tags[communityId]);
+    }
     // const promotedQuestions = yield call(
     //   getPromotedQuestions,
     //   eosService,

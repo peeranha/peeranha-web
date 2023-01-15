@@ -27,7 +27,7 @@ export function* suggestTagWorker({ communityId, tag, reset }) {
     yield call(createTag, ethereumService, selectedAccount, communityId, tag);
     yield put(suggestTagSuccess());
     yield call(reset);
-    yield call(createdHistory.push, routes.tags());
+    yield call(createdHistory.push, routes.communityTags(communityId));
   } catch (err) {
     yield put(suggestTagErr(err));
   }
@@ -67,7 +67,7 @@ export function* getFormWorker() {
   }
 }
 
-export default function*() {
+export default function* () {
   yield takeLatest(GET_FORM, getFormWorker);
   yield takeLatest(SUGGEST_TAG, suggestTagWorker);
 }

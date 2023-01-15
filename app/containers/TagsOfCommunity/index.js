@@ -11,7 +11,10 @@ import {
 } from 'utils/communityManagement';
 import injectReducer from 'utils/injectReducer';
 
-import { selectCommunities } from 'containers/DataCacheProvider/selectors';
+import {
+  selectCommunities,
+  selectTags,
+} from 'containers/DataCacheProvider/selectors';
 
 import {
   selectExistingTags,
@@ -34,6 +37,7 @@ import messages from './messages';
 
 import Content from './Content';
 import Aside from './Aside';
+import { getCommunityTags } from '../DataCacheProvider/actions';
 
 const single = isSingleCommunityWebsite();
 
@@ -49,11 +53,17 @@ export const TagsOfCommunity = ({
   getExistingTagsDispatch,
   setEditTagDataDispatch,
   profileInfo,
+  tags,
+  getCommunityTagsDispatch,
 }) => {
-  const communityId = useMemo(() => single || +match.params.communityid, [
-    match.params.communityid,
-    single,
-  ]);
+  const communityId = useMemo(
+    () => single || +match.params.communityid,
+    [match.params.communityid, single],
+  );
+
+  useEffect(() => {
+    getCommunityTagsDispatch(communityId);
+  }, [communityId, getCommunityTagsDispatch]);
 
   const currentCommunity = useMemo(
     () =>
@@ -61,7 +71,7 @@ export const TagsOfCommunity = ({
     [communityId, communities.length, emptyCommunity],
   );
   const typeInput = useCallback(
-    ev =>
+    (ev) =>
       getExistingTagsDispatch({
         communityId: currentCommunity.id,
         text: ev.target.value,
@@ -70,7 +80,7 @@ export const TagsOfCommunity = ({
   );
 
   const sortTags = useCallback(
-    ev =>
+    (ev) =>
       getExistingTagsDispatch({
         communityId: currentCommunity.id,
         sorting: ev.currentTarget.dataset.key,
@@ -87,19 +97,18 @@ export const TagsOfCommunity = ({
     [currentCommunity.id],
   );
 
-  const keywords = useMemo(() => currentCommunity.tags.map(x => x.name), [
-    currentCommunity.tags,
-  ]);
-
-  useEffect(
-    () => {
-      getExistingTagsDispatch({
-        loadMore: false,
-        communityId: currentCommunity.id,
-      });
-    },
-    [communityId, communities.length, currentCommunity],
+  const keywords = useMemo(
+    () => tags[currentCommunity.id]?.map((x) => x.name) || [],
+    [currentCommunity.id, tags],
   );
+
+  useEffect(() => {
+    getExistingTagsDispatch({
+      loadMore: false,
+      communityId: currentCommunity.id,
+    });
+  }, [communityId, communities.length, currentCommunity]);
+
   return (
     <div>
       <Seo
@@ -112,7 +121,7 @@ export const TagsOfCommunity = ({
       <Tags
         sortTags={sortTags}
         communityId={communityId}
-        tagsNumber={currentCommunity.tags.length}
+        tagsNumber={tags[communityId]?.length}
         currentCommunity={currentCommunity}
         Aside={<Aside suggestedTags={[]} communityId={communityId} />}
         Content={
@@ -152,11 +161,13 @@ TagsOfCommunity.propTypes = {
   match: PropTypes.object,
   setEditTagDataDispatch: PropTypes.func,
   profileInfo: PropTypes.object,
+  getCommunityTagsDispatch: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
   communities: selectCommunities(),
+  tags: selectTags(),
   existingTags: selectExistingTags(),
   existingTagsLoading: selectExistingTagsLoading(),
   isLastFetch: selectIsLastFetchForExistingTags(),
@@ -168,17 +179,12 @@ function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
   return {
     getExistingTagsDispatch: bindActionCreators(getExistingTags, dispatch),
     setEditTagDataDispatch: bindActionCreators(setEditTagData, dispatch),
+    getCommunityTagsDispatch: bindActionCreators(getCommunityTags, dispatch),
   };
 }
 
-const withConnect = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-);
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
 const withReducer = injectReducer({ key: 'tagsOfCommunity', reducer });
 
-export default compose(
-  withConnect,
-  withReducer,
-)(TagsOfCommunity);
+export default compose(withConnect, withReducer)(TagsOfCommunity);

@@ -49,6 +49,7 @@ import { getEditTagForm, resetEditTagReducer, editTag } from './actions';
 import { selectEditTagFormLoading, selectEditTagProcessing } from './selectors';
 import { getExistingTags } from '../Tags/actions';
 import { isSingleCommunityWebsite } from '../../utils/communityManagement';
+import { getCommunityTags } from '../DataCacheProvider/actions';
 
 const isSingleCommunityMode = isSingleCommunityWebsite();
 
@@ -66,10 +67,15 @@ const EditTag = ({
   faqQuestions,
   locale,
   getExistingTagsDispatch,
+  getCommunityTagsDispatch,
 }) => {
   let { communityId, tagId } = editTagData;
 
   communityId = isSingleCommunityMode || match.params.communityId;
+
+  useEffect(() => {
+    getCommunityTagsDispatch(communityId);
+  }, [communityId]);
 
   useModeratorRole(routes.noAccess, communityId);
 
@@ -79,12 +85,9 @@ const EditTag = ({
     setEditTagDataDispatch(tagId, communityId);
   }
 
-  useEffect(
-    () => {
-      getExistingTagsDispatch({ communityId });
-    },
-    [communities.length],
-  );
+  useEffect(() => {
+    getExistingTagsDispatch({ communityId });
+  }, [communities.length]);
 
   // component did mount
   useEffect(() => {
@@ -125,9 +128,7 @@ const EditTag = ({
       />
       <Header
         title={title}
-        closeRedirectPage={
-          communityId ? routes.communityTags(communityId) : routes.tags()
-        }
+        closeRedirectPage={routes.communityTags(communityId)}
         closeButtonAction={resetEditTagDataDispatch}
       />
       <TipsBase>
@@ -158,6 +159,7 @@ EditTag.propTypes = {
   editTagDispatch: PropTypes.func,
   locale: PropTypes.string,
   faqQuestions: PropTypes.array,
+  getCommunityTagsDispatch: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -183,6 +185,7 @@ function mapDispatchToProps(dispatch) /* istanbul ignore next */ {
     ),
     getExistingTagsDispatch: bindActionCreators(getExistingTags, dispatch),
     editTagDispatch: bindActionCreators(editTag, dispatch),
+    getCommunityTagsDispatch: bindActionCreators(getCommunityTags, dispatch),
   };
 }
 
@@ -192,8 +195,5 @@ export default compose(
     saga: editTagSaga,
     disableEject: true,
   }),
-  connect(
-    mapStateToProps,
-    mapDispatchToProps,
-  ),
+  connect(mapStateToProps, mapDispatchToProps),
 )(EditTag);

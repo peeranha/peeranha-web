@@ -33,7 +33,6 @@ import { MediumImageStyled } from 'components/Img/MediumImage';
 import { hasCommunitySingleWebsite } from '../../utils/communityManagement';
 import OfficialSiteLink from './OfficialSiteLink';
 import SingleCommunityIcon from './SingleCommunityIcon';
-import { Link } from 'react-router-dom';
 
 import img from 'images/image-communityPage.svg?inline';
 
@@ -115,13 +114,13 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
   return (
     <>
       <Base>
-        {orderBy(communities, y => y[sorting.sortBy], [sorting.order])
-          .filter(
-            x => (language.sortBy ? x.language === language.sortBy : true),
+        {orderBy(communities, (y) => y[sorting.sortBy], [sorting.order])
+          .filter((x) =>
+            language.sortBy ? x.language === language.sortBy : true,
           )
           .map(
             (
-              { avatar, name, id, description, website, tags, ...x },
+              { avatar, name, id, description, website, tagsCount, ...x },
               index,
               arr,
             ) => {
@@ -201,7 +200,7 @@ const Content = ({ communities, sorting, locale, language, profile }) => {
                     </Info>
 
                     <Info>
-                      <SpanCenter>{getFormattedNum2(tags?.length)}</SpanCenter>
+                      <SpanCenter>{getFormattedNum2(tagsCount)}</SpanCenter>
                       <A to={routes.communityTags(id)}>
                         <FormattedMessage id={commonMessages.tags.id} />
                       </A>

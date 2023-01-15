@@ -41,7 +41,10 @@ export const Header = ({
     </H3>
 
     <WrapperRightPanel className="right-panel">
-      <A to={closeRedirectPage || routes.tags()} onClick={closeButtonAction}>
+      <A
+        to={closeRedirectPage || routes.communities()}
+        onClick={closeButtonAction}
+      >
         <button>
           <IconMd
             className="mr-1"

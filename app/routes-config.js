@@ -103,8 +103,6 @@ export const feed = (communityId) =>
 
 export const communities = () => (!isBloggerMode ? `/communities` : `/`);
 
-export const tags = () => `/tags`;
-
 export const users = () => '/users';
 
 export const faq = (code) => `/faq${code ? `#${code}` : ``}`;

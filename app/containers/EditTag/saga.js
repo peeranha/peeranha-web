@@ -57,7 +57,7 @@ export function* editTagWorker({ tag, reset }) {
     const { communityId, tagId } = yield select(selectEditTagData());
 
     const tagsOfCommunity = yield select(selectExistingTags());
-    const editingTag = tagsOfCommunity.find(tg => tg.id === tagId);
+    const editingTag = tagsOfCommunity.find((tg) => tg.id === tagId);
 
     const tagIpfsHash = yield saveText(JSON.stringify(tag));
     const updatedTag = {
@@ -81,17 +81,14 @@ export function* editTagWorker({ tag, reset }) {
 
     yield call(reset);
 
-    yield call(
-      createdHistory.push,
-      communityId ? routes.communityTags(communityId) : routes.tags(),
-    );
+    yield call(createdHistory.push, routes.communityTags(communityId));
     yield put(editTagErr());
   } catch (err) {
     yield put(editTagErr(err));
   }
 }
 
-export default function*() {
+export default function* () {
   yield takeLatest(GET_EDIT_TAG_FORM, getEditTagFormWorker);
   yield takeLatest(EDIT_TAG, editTagWorker);
   yield takeLatest(GET_EXISTING_TAGS, getExistingTagsWorker);
