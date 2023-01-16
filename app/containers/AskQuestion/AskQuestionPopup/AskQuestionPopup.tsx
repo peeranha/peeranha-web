@@ -84,7 +84,10 @@ const AskQuestionPopup: React.FC = (): JSX.Element => {
                 </div>
                 <LargeOutlinedButton
                   onClick={acceptWithRules}
-                  customStyles={stylesCommunity.headerLoginButtonStyles}
+                  customStyles={
+                    stylesCommunity.newPostPopupButtonStyles ||
+                    stylesCommunity.headerLoginButtonStyles
+                  }
                 >
                   <FormattedMessage id={commonMessages.gotIt.id} />
                 </LargeOutlinedButton>

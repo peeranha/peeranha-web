@@ -8,7 +8,7 @@ import { translationMessages } from 'i18n';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-
+import { css } from '@emotion/react';
 import commonMessages from 'common-messages';
 import searchIcon from 'images/searchIcon.svg?inline';
 
@@ -17,22 +17,23 @@ import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
 import H3 from 'components/H3';
 import Seo from 'components/Seo';
 import Header from 'components/Header/Simple';
-import Base from 'components/Base/BaseRounded';
 import { MediumImageStyled } from 'components/Img/MediumImage';
-import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
 
 import reducer from './reducer';
 import saga from './saga';
 
 import { selectItems, selectGetResultsProcessing } from './selectors';
 import { getResults } from './actions';
-import Item from './Item';
 
 import messages from './messages';
-import Content from '../Questions/Content/Content';
+import Banner from './Banner/Banner';
 import { selectCommunities } from '../DataCacheProvider/selectors';
-import InfinityLoader from '../../components/InfinityLoader';
-import ShowMoreButton from '../Questions/Content/ShowMoreButton';
+import Loader from 'components/LoadingIndicator/WidthCentered';
+import { TEXT_DARK, TEXT_SECONDARY } from '../../style-constants';
+import SearchContent from './SearchContent';
+import { redirectToAskQuestionPage } from '../AskQuestion/actions';
+import { loginWithWallet } from '../Login/actions';
+import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 
 const Search = ({
   match,
@@ -41,16 +42,16 @@ const Search = ({
   getResultsDispatch,
   getResultsProcessing,
   communities,
+  profileInfo,
+  redirectToAskQuestionPageDispatch,
+  loginWithWalletDispatch,
 }) => {
   const query = match.params.q;
-  useEffect(
-    () => {
-      if (query) {
-        getResultsDispatch(query);
-      }
-    },
-    [getResultsDispatch, query],
-  );
+  useEffect(() => {
+    if (query) {
+      getResultsDispatch(query);
+    }
+  }, [getResultsDispatch, query]);
 
   return (
     <div>
@@ -61,41 +62,55 @@ const Search = ({
         index={false}
       />
 
-      <Header className="mb-to-sm-0 mb-from-sm-3">
+      <Header
+        className="mb-to-sm-0 mb-from-sm-3 df jcsb aic"
+        css={css`
+          padding-top: 30px;
+        `}
+      >
         <H3>
           <MediumImageStyled src={searchIcon} alt="search" />
           <FormattedMessage {...commonMessages.search} />
         </H3>
+        {Boolean(items.length) && (
+          <div>
+            <span
+              className="semi-bold fz16"
+              css={css`
+                color: ${TEXT_DARK};
+                font-family: 'Source Sans Pro', sans-serif;
+              `}
+            >
+              <FormattedMessage id={commonMessages.results.id} />
+            </span>
+            <span
+              className="fz16 ml8"
+              css={css`
+                color: ${TEXT_SECONDARY};
+              `}
+            >
+              {items.length}
+            </span>
+          </div>
+        )}
       </Header>
 
-      {items.length > 0 && (
-        <InfinityLoader
-          loadNextPaginatedData={false}
-          isLoading={getResultsProcessing}
-          isLastFetch={false}
-        >
-          <Content
-            questionsList={items}
-            // promotedQuestionsList={
-            //   promotedQuestions[+questionFilterFromCookies ? 'top' : 'all']
-            // }
+      {(getResultsProcessing && <Loader />) ||
+        (items.length > 0 ? (
+          <SearchContent
             locale={locale}
+            posts={items}
             communities={communities}
-            typeFilter={0}
-            createdFilter={0}
-            isModerator={false}
-            profileInfo={null}
-            isSearchPage
           />
-        </InfinityLoader>
-      )}
-
-      {/*  <div>*/}
-      {/*    {getResultsProcessing && <LoadingIndicator />}*/}
-      {/*    {!getResultsProcessing &&*/}
-      {/*      !items.length && <FormattedMessage {...commonMessages.noResults} />}*/}
-      {/*  </div>*/}
-      {/*</Base>*/}
+        ) : (
+          <Banner
+            profileInfo={profileInfo}
+            redirectToAskQuestionPage={redirectToAskQuestionPageDispatch}
+            showLoginModalWithRedirectToAskQuestionPage={() =>
+              loginWithWalletDispatch({ metaMask: true }, true)
+            }
+          />
+        ))}
     </div>
   );
 };
@@ -106,6 +121,9 @@ Search.propTypes = {
   match: PropTypes.object,
   getResultsProcessing: PropTypes.bool,
   locale: PropTypes.string,
+  profileInfo: PropTypes.object,
+  redirectToAskQuestionPageDispatch: PropTypes.func,
+  loginWithWalletDispatch: PropTypes.func,
 };
 
 export default compose(
@@ -117,9 +135,15 @@ export default compose(
       communities: selectCommunities(),
       getResultsProcessing: selectGetResultsProcessing(),
       locale: makeSelectLocale(),
+      profileInfo: makeSelectProfileInfo(),
     }),
-    dispatch => ({
+    (dispatch) => ({
       getResultsDispatch: bindActionCreators(getResults, dispatch),
+      loginWithWalletDispatch: bindActionCreators(loginWithWallet, dispatch),
+      redirectToAskQuestionPageDispatch: bindActionCreators(
+        redirectToAskQuestionPage,
+        dispatch,
+      ),
     }),
   ),
 )(Search);

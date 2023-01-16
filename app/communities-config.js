@@ -11,9 +11,14 @@ import CyberconnectLogo from './communities-configs/cyberconnect/images/CyberCon
 import PolywrapLogo from './communities-configs/polywrap/images/polywrap-horizontal.svg?inline';
 import ValistLogo from './communities-configs/valist/images/valist.svg?inline';
 import IndexerDAOLogo from './communities-configs/indexerDAO/images/svgviewerNew.jpg';
-import AnkrLogo from './communities-configs/ankr/images/ankrBlueLogo.svg?inline';
 import SolidityLogo from './communities-configs/solidity/images/solidity-logo.svg?inline';
-import AaveLogo from './communities-configs/aave/images/aaveLogoWhite.svg?inline';
+import AnkrLogo from './communities-configs/ankr/images/ankrBlueLogo.svg?inline';
+import VyperLogo from './communities-configs/vyper/images/Vyperlogo.svg?inline';
+import AaveLogo from 'communities-configs/aave/images/AaveLogo.svg?inline';
+import ForceLogo from './communities-configs/force/images/Group.svg?inline';
+import Mark3dLogo from './communities-configs/mark3d/images/Mark3dLogo.svg?inline';
+import OrbisLogo from './communities-configs/orbis/images/GroupLogo.svg?inline';
+import FractalVisionsLogo from './communities-configs/fractalVisions/images/Rectangle_123.svg?inline';
 
 import { PolygonStyles } from './communities-configs/polygon';
 import { FilecoinStyles } from './communities-configs/filecoin';
@@ -31,6 +36,12 @@ import { IndexerDAOStyles } from './communities-configs/indexerDAO';
 import { AnkrStyles } from './communities-configs/ankr';
 import { SolidityStyles } from './communities-configs/solidity';
 import { AaveStyles } from './communities-configs/aave';
+import { VyperStyles } from './communities-configs/vyper';
+import { ForceStyles } from './communities-configs/force';
+import { Mark3dStyles } from './communities-configs/mark3d';
+import { OrbisStyles } from './communities-configs/orbis';
+import { FractalVisionsStyles } from './communities-configs/fractalVisions';
+import { MoveStyles } from './communities-configs/move';
 
 const communitiesConfig = {
   prod: {
@@ -98,9 +109,39 @@ const communitiesConfig = {
       styles: SolidityStyles,
     },
     15: {
-      origin: `https://ankr.peeranha.io`,
+      origin: 'https://ankr.peeranha.io',
       src: AnkrLogo,
       styles: AnkrStyles,
+    },
+    16: {
+      origin: 'https://force.peeranha.io',
+      src: ForceLogo,
+      styles: ForceStyles,
+    },
+    17: {
+      origin: 'https://vyper.peeranha.io',
+      src: VyperLogo,
+      styles: VyperStyles,
+    },
+    18: {
+      origin: 'https://mark3d.peeranha.io',
+      src: Mark3dLogo,
+      styles: Mark3dStyles,
+    },
+    19: {
+      origin: 'https://orbis.peeranha.io',
+      src: OrbisLogo,
+      styles: OrbisStyles,
+    },
+    20: {
+      origin: 'https://fractalvisions.peeranha.io',
+      src: FractalVisionsLogo,
+      styles: FractalVisionsStyles,
+    },
+    21: {
+      origin: 'https://move.peeranha.io',
+      src: 'https://images.peeranha.io/communities/move/move-logo.svg',
+      styles: MoveStyles,
     },
   },
   staging: {
@@ -161,10 +202,40 @@ const communitiesConfig = {
       src: SolidityLogo,
       styles: SolidityStyles,
     },
+    6: {
+      origin: `https://vyper${process.env.COOKIE_DOMAIN}`,
+      src: VyperLogo,
+      styles: VyperStyles,
+    },
     7: {
       origin: `https://ankr${process.env.COOKIE_DOMAIN}`,
       src: AnkrLogo,
       styles: AnkrStyles,
+    },
+    8: {
+      origin: `https://force${process.env.COOKIE_DOMAIN}`,
+      src: ForceLogo,
+      styles: ForceStyles,
+    },
+    9: {
+      origin: `https://mark3d${process.env.COOKIE_DOMAIN}`,
+      src: Mark3dLogo,
+      styles: Mark3dStyles,
+    },
+    10: {
+      origin: `https://move${process.env.COOKIE_DOMAIN}`,
+      src: 'https://images.peeranha.io/communities/move/move-logo.svg',
+      styles: MoveStyles,
+    },
+    11: {
+      origin: `https://orbis${process.env.COOKIE_DOMAIN}`,
+      src: OrbisLogo,
+      styles: OrbisStyles,
+    },
+    12: {
+      origin: `https://fractalvisions${process.env.COOKIE_DOMAIN}`,
+      src: FractalVisionsLogo,
+      styles: FractalVisionsStyles,
     },
     // 1: {
     //   origin: `https://meta${process.env.COOKIE_DOMAIN}`,

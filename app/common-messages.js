@@ -42,6 +42,9 @@ export default defineMessages({
   documentation: {
     id: 'app.common.documentation',
   },
+  drafts: {
+    id: 'app.common.drafts',
+  },
   answers: {
     id: 'app.common.answers',
   },
@@ -407,6 +410,9 @@ export default defineMessages({
   },
   reCaptchaMention: {
     id: 'app.common.reCaptchaMention',
+  },
+  results: {
+    id: 'app.common.results',
   },
   noResults: {
     id: 'app.common.noResults',
