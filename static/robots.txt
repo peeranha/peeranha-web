@@ -1,9 +1,9 @@
 User-Agent: *
 Disallow: /users/
 Disallow: /users/*#
-Disallow: /questions/*/edit/
-Disallow: /questions/*/answers/*/edit/
-Disallow: /questions/ask/
+Disallow: /discussions/*/edit/
+Disallow: /discussions/*/answers/*/edit/
+Disallow: /discussions/ask/
 Disallow: /no-access/
 Disallow: /feed/
 Disallow: /communities/create/
