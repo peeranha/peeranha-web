@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 import Base from 'components/Base';
-import TextBlock from 'components/FormFields/TextBlock';
+import MarkdownPreviewBlock from 'components/TextEditor/MarkdownPreview';
 
 import Comments from './Comments';
 import BestAnswerMarker from './BestAnswerMarker';
@@ -65,7 +65,7 @@ export const ContentBody = ({
         author={author}
       />
 
-      <TextBlock content={content} />
+      <MarkdownPreviewBlock content={content} />
 
       <Comments
         postId={questionData.id}

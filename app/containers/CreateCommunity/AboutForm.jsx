@@ -10,7 +10,7 @@ import { TEXT_SECONDARY } from 'style-constants';
 
 import { PreviewWrapper } from 'components/AnswerForm';
 import Span from 'components/Span';
-import TextBlock from 'components/FormFields/TextBlock';
+import MarkdownPreviewBlock from 'components/TextEditor/MarkdownPreview';
 import Wrapper from 'components/FormFields/Wrapper';
 import TextEditorField from 'components/FormFields/TextEditorField';
 
@@ -35,7 +35,7 @@ const AboutForm = ({ formValues, intl, loading, name }) => (
     >
       <PreviewWrapper>
         {formValues[name] ? (
-          <TextBlock className="my-2" content={formValues[name]} />
+          <MarkdownPreviewBlock className="my-2" content={formValues[name]} />
         ) : (
           <Span color={TEXT_SECONDARY} fontSize="14" isItalic>
             <FormattedMessage {...commonMessages.nothingToSeeYet} />

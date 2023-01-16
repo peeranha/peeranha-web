@@ -7,7 +7,7 @@ import { LINK_COLOR, TEXT_SECONDARY } from 'style-constants';
 
 import Span from 'components/Span';
 import LoadingIndicator from 'components/LoadingIndicator/WidthCentered';
-import TextBlock from 'components/FormFields/TextBlock';
+import MarkdownPreviewBlock from 'components/TextEditor/MarkdownPreview';
 
 import {
   POSITION_FIELD,
@@ -52,7 +52,7 @@ const Row = ({ nameField, value, asHtml }) =>
         <FormattedMessage id={messages[nameField].id} />
       </Span>
       {asHtml ? (
-        <TextBlock content={value} />
+        <MarkdownPreviewBlock content={value} />
       ) : (
         <Span mobileFS="16" lineHeight="24" mobileLH="20">
           {value}
