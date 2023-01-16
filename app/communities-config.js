@@ -20,7 +20,6 @@ import { Mark3dStyles } from './communities-configs/mark3d';
 import { OrbisStyles } from './communities-configs/orbis';
 import { FractalVisionsStyles } from './communities-configs/fractalVisions';
 import { MoveStyles } from './communities-configs/move';
-import FractalVisionsLogo from './communities-configs/fractalVisions/images/Rectangle_123.svg?inline';
 
 const communitiesConfig = {
   prod: {
@@ -114,7 +113,7 @@ const communitiesConfig = {
     },
     20: {
       origin: 'https://fractalvisions.peeranha.io',
-      src: FractalVisionsLogo,
+      src: 'https://images.peeranha.io/communities/fractalVisions/Rectangle_123.svg',
       styles: FractalVisionsStyles,
     },
     21: {
@@ -213,7 +212,7 @@ const communitiesConfig = {
     },
     12: {
       origin: `https://fractalvisions${process.env.COOKIE_DOMAIN}`,
-      src: FractalVisionsLogo,
+      src: 'https://images.peeranha.io/communities/fractalVisions/Rectangle_123.svg',
       styles: FractalVisionsStyles,
     },
   },
