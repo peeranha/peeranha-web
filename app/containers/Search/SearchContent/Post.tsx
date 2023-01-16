@@ -63,11 +63,9 @@ const Post: React.FC<PostProps> = ({
     tags: [],
   };
 
-  if (tags === null) {
-    tags = [];
-  }
+  const tagsArray = tags === null ? [] : tags;
   const postTags = community.tags.filter((tag: Tag) =>
-    tags?.includes(Number(tag.id.split('-')[1])),
+    tagsArray?.includes(Number(tag.id.split('-')[1])),
   );
   const postLink = getPostRoute({ postType, id, title });
   const communityLink = () => {
