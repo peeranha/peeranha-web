@@ -37,12 +37,15 @@ import {
   hasCommunityModeratorRole,
   hasGlobalModeratorRole,
   hasProtocolAdminRole,
-} from '../../utils/properties';
+} from 'utils/properties';
 import blockchainLogo from 'images/blockchain-outline-32.svg?external';
 import IPFSInformation from 'containers/Questions/Content/Body/IPFSInformation';
 import commonMessages from 'common-messages';
 import { POST_TYPE } from 'utils/constants';
 import { getUserName } from 'utils/user';
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
 
 const RatingBox = styled.div`
   border-right: 1px solid ${BORDER_SECONDARY};
@@ -299,7 +302,10 @@ const ContentHeader = (props) => {
                   onClick={onClick}
                   disabled={ids.includes(`${type}_delete_${answerId}`)}
                 >
-                  <IconMd icon={deleteIcon} fill={BORDER_PRIMARY} />
+                  <IconMd
+                    icon={deleteIcon}
+                    fill={colors.contentHeader || BORDER_PRIMARY}
+                  />
                   <FormattedMessage id={messages.deleteButton.id} />
                 </Button>
               )}
