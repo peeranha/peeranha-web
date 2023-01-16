@@ -3,7 +3,7 @@ import { Upload } from 'tus-js-client';
 
 import { Files } from './Dropzone';
 import FilePreviewer from './FilePreviewer';
-import ScrollContainer from '../../../containers/ScrollContainer';
+import ScrollContainer from '../ScrollContainer';
 
 type FilesPreviewerProps = {
   files: Files;

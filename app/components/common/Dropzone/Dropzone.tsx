@@ -172,7 +172,7 @@ const Dropzone: React.FC<DropzoneProps> = ({
     if (!isCorrectFile && showToast) {
       showToast({
         type: 'error',
-        text: 'Incorrect file format!',
+        text: 'Invalid file format. Allowed formats: jpeg, jpg, png, gif, mp4.',
       });
     }
   };
