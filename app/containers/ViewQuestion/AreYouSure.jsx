@@ -3,30 +3,25 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import commonMessages from 'common-messages';
 
-import * as routes from 'routes-config';
-
 import ContainedButton from 'components/Button/Contained/InfoLargeHeightStretching';
 import OutlinedButton from 'components/Button/Outlined/InfoLargeHeightStretching';
 import ModalDialog, { el, modalRoot } from 'components/ModalDialog';
 import H4 from 'components/H4';
-import { ADefault } from 'components/A';
 
 import questionsMessages from './messages';
-const TheBestModalText = () => {
-  return (
-    <>
-      <div>
-        <FormattedMessage id={questionsMessages.areYouSureMarkedTheBest_1.id} />
-      </div>
-      <div>
-        <FormattedMessage id={questionsMessages.areYouSureMarkedTheBest_2.id} />
-      </div>
-      <div>
-        <FormattedMessage id={questionsMessages.areYouSureMarkedTheBest_3.id} />
-      </div>
-    </>
-  );
-};
+const TheBestModalText = () => (
+  <>
+    <div>
+      <FormattedMessage id={questionsMessages.areYouSureMarkedTheBest_1.id} />
+    </div>
+    <div>
+      <FormattedMessage id={questionsMessages.areYouSureMarkedTheBest_2.id} />
+    </div>
+    <div>
+      <FormattedMessage id={questionsMessages.areYouSureMarkedTheBest_3.id} />
+    </div>
+  </>
+);
 
 const AreYouSure = ({
   Button,
