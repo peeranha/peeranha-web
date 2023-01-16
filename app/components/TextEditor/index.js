@@ -37,7 +37,6 @@ class TextEditor extends React.PureComponent {
   static getHtmlText = (md) => marked.parse(md);
 
   render() {
-
     const { locale, isEditDocumentation } = this.props;
     const { projectBorderRadius } = singleCommunityStyles();
     return (

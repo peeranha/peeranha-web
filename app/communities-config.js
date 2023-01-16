@@ -18,6 +18,9 @@ import { VyperStyles } from './communities-configs/vyper';
 import { ForceStyles } from './communities-configs/force';
 import { Mark3dStyles } from './communities-configs/mark3d';
 import { OrbisStyles } from './communities-configs/orbis';
+import { FractalVisionsStyles } from './communities-configs/fractalVisions';
+import { MoveStyles } from './communities-configs/move';
+import FractalVisionsLogo from './communities-configs/fractalVisions/images/Rectangle_123.svg?inline';
 
 const communitiesConfig = {
   prod: {
@@ -109,6 +112,16 @@ const communitiesConfig = {
       src: 'https://images.peeranha.io/communities/orbis/GroupLogo.svg',
       styles: OrbisStyles,
     },
+    20: {
+      origin: 'https://fractalvisions.peeranha.io',
+      src: FractalVisionsLogo,
+      styles: FractalVisionsStyles,
+    },
+    21: {
+      origin: 'https://move.peeranha.io',
+      src: 'https://images.peeranha.io/communities/move/move-logo.svg',
+      styles: MoveStyles,
+    },
   },
   staging: {
     1: {
@@ -188,10 +201,20 @@ const communitiesConfig = {
       src: 'https://images.peeranha.io/communities/mark3d/Mark3dLogo.svg',
       styles: Mark3dStyles,
     },
+    10: {
+      origin: `https://move${process.env.COOKIE_DOMAIN}`,
+      src: 'https://images.peeranha.io/communities/move/move-logo.svg',
+      styles: MoveStyles,
+    },
     11: {
       origin: `https://orbis${process.env.COOKIE_DOMAIN}`,
       src: 'https://images.peeranha.io/communities/orbis/GroupLogo.svg',
       styles: OrbisStyles,
+    },
+    12: {
+      origin: `https://fractalvisions${process.env.COOKIE_DOMAIN}`,
+      src: FractalVisionsLogo,
+      styles: FractalVisionsStyles,
     },
   },
   dev: {
