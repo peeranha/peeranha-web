@@ -22,7 +22,7 @@ const colors = singleCommunityColors();
 
 const CommunitiesSectionWithRatings = ({
   profile,
-  ref,
+  refCommunitiesSection,
   single,
   communities,
 }) => {
@@ -31,16 +31,13 @@ const CommunitiesSectionWithRatings = ({
   );
   const AllCommunitiesLink = single ? ADefault : A;
 
-  useEffect(
-    () => {
-      if (single) {
-        setAllCommunitiesRoute(`${process.env.APP_LOCATION}/communities`);
-      }
-    },
-    [single],
-  );
+  useEffect(() => {
+    if (single) {
+      setAllCommunitiesRoute(`${process.env.APP_LOCATION}/communities`);
+    }
+  }, [single]);
   return (
-    <div className="overflow-hidden" ref={ref}>
+    <div className="overflow-hidden" ref={refCommunitiesSection}>
       <H4 isHeader>
         <FormattedMessage id={messages.communities.id} />
       </H4>
@@ -48,12 +45,13 @@ const CommunitiesSectionWithRatings = ({
       <Grid xl={5} lg={4} md={3} sm={2} xs={1}>
         {orderBy(profile.ratings, 'rating', 'desc')
           .slice(0, 9)
-          .map(item => (
+          .map((item) => (
             <CommunityItemWithRating
               communityId={item.communityId}
               rating={item.rating}
               single={single}
               communities={communities}
+              key={`${item.communityId}-community`}
             />
           ))}
 
@@ -68,9 +66,14 @@ const CommunitiesSectionWithRatings = ({
                 className="mr-2"
                 icon={allCommunitiesIcon}
                 width="18"
-                css={css` circle {stroke: ${colors.btnColor ||
-                  TEXT_PRIMARY}}; path {fill: ${colors.btnColor ||
-                  TEXT_PRIMARY}};`}
+                css={css`
+                  circle {
+                    stroke: ${colors.btnColor || TEXT_PRIMARY};
+                  }
+                  path {
+                    fill: ${colors.btnColor || TEXT_PRIMARY};
+                  }
+                `}
               />
               <Span color={colors.btnColor || TEXT_PRIMARY}>
                 <FormattedMessage id={messages.allCommunities.id} />
@@ -85,8 +88,8 @@ const CommunitiesSectionWithRatings = ({
 
 CommunitiesSectionWithRatings.propTypes = {
   profile: PropTypes.object,
-  ref: PropTypes.object,
-  single: PropTypes.bool,
+  refCommunitiesSection: PropTypes.object,
+  single: PropTypes.number,
   communities: PropTypes.array,
 };
 

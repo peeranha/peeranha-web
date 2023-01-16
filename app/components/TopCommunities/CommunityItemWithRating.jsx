@@ -86,7 +86,7 @@ const CommunityItemWithRating = ({
 
 CommunityItemWithRating.propTypes = {
   communities: PropTypes.array,
-  single: PropTypes.bool,
+  single: PropTypes.number,
   communityId: PropTypes.number,
   rating: PropTypes.number,
 };

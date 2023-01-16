@@ -15,7 +15,7 @@ const NFT: React.FC<IconProps> = (props): JSX.Element => (
         cy="7"
         r="6"
         fill={props.fill || '#fff'}
-        fill-opacity="0.2"
+        fillOpacity="0.2"
         stroke={props.stroke || '#282828'}
       />
     </g>

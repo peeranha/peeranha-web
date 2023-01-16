@@ -110,7 +110,7 @@ const AuthorizationData = ({
                 <input
                   className="mr-2"
                   type="radio"
-                  checked={metaTransactions}
+                  checked={!!metaTransactions}
                   onChange={handleMetaTransactionsAllowed}
                 />
                 <FormattedMessage id={commonMessages.transactionsChange_1.id} />

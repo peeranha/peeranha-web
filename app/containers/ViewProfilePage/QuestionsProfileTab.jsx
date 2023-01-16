@@ -186,7 +186,7 @@ const QuestionsProfileTab = ({
           answerId={item.answerId}
           elementType={item.elementType}
           communityId={item.communityId}
-          key={`${item.id}_profile_tab_${item.postType}`}
+          key={`${item.id}_profile_tab_${item.postType}${item.answerId}`}
           locale={locale}
           isMyPost={userId === item.author.id}
         />

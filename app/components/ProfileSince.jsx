@@ -38,9 +38,4 @@ export const ProfileSince = ({ creationTime, locale }) => {
   );
 };
 
-ProfileSince.propTypes = {
-  creationTime: PropTypes.number,
-  locale: PropTypes.string,
-};
-
 export default React.memo(injectIntl(ProfileSince));
