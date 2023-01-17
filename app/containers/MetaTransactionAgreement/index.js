@@ -18,9 +18,9 @@ import {
   TYPE_OF_TRANSACTIONS,
 } from 'utils/constants';
 import { setCookie, getCookie } from 'utils/cookie';
-import * as routes from 'routes-config';
 
-import ModalDialog from 'components/ModalDialog';
+import PopupForNotBalance from './PopupForNotBalance';
+import PopupForTorusWallet from './PopupForTorusWallet';
 
 import TransactionHandler from 'containers/ViewProfilePage/TransactionHandler';
 import { makeSelectLocale } from 'containers/LanguageProvider/selectors';
@@ -33,13 +33,9 @@ import {
   makeSelectEthereum,
   makeSelectShowModal,
 } from '../EthereumProvider/selectors';
-import { FormattedMessage } from 'react-intl';
-import H4 from 'components/H4';
+
 import Popup from 'common-components/Popup';
-import A from 'components/A';
-import OutlinedButton from 'components/Button/Outlined/InfoLargeHeightStretching';
-import ContainedButton from 'components/Button/Contained/InfoLargeHeightStretching';
-import messages from 'containers/MetaTransactionAgreement/messages';
+
 import { hideModal } from 'containers/EthereumProvider/actions';
 
 /* eslint-disable react/prefer-stateless-function */
@@ -90,61 +86,16 @@ export const MetaTransactionAgreement = ({
       {showModal && (
         <Popup size="small" onClose={hideModal}>
           {!isBalance && dataFromCookies && (
-            <>
-              <H4 className="text-center pb-3">
-                <FormattedMessage id={messages.agreeWithMetaTransactions.id} />
-              </H4>
-
-              <div className="pb-4" style={{ textAlign: 'center' }}>
-                <FormattedMessage id={messages.wouldYouLike.id} />
-              </div>
-
-              <div className="d-flex align-items-center pb-3">
-                <OutlinedButton className="mr-3" onClick={hideModal}>
-                  <FormattedMessage id={messages.cansel.id} />
-                </OutlinedButton>
-
-                <ContainedButton onClick={agreeWithMeta}>
-                  <FormattedMessage id={messages.confirm.id} />
-                </ContainedButton>
-              </div>
-            </>
+            <PopupForNotBalance
+              hideModal={hideModal}
+              agreeWithMeta={agreeWithMeta}
+            />
           )}
           {isTorusWallet && !dataFromCookies && (
-            <>
-              <div className="text-center pb-3" css={{ lineHeight: '18px' }}>
-                <FormattedMessage
-                  id={messages.agreeWithMetaTransactionsText.id}
-                />
-              </div>
-              <ContainedButton
-                className="w-100 mb-3"
-                onClick={agreeWithDispatcherTransactions}
-              >
-                <FormattedMessage id={messages.allow.id} />
-              </ContainedButton>
-              <div
-                className="text-center"
-                css={{
-                  lineHeight: '15px',
-                  fontSize: '14px',
-                  color: 'var(--color-gray-dark)',
-                }}
-              >
-                <FormattedMessage
-                  className="mb-3"
-                  id={messages.agreeWithMetaTransactionsSecondaryText.id}
-                />
-                <A
-                  to={routes.userSettings(account)}
-                  className="db mt-1"
-                  target="_blank"
-                  css={{ margin: '0 auto', color: 'var(--color-blue)' }}
-                >
-                  <FormattedMessage id={messages.options.id} />
-                </A>
-              </div>
-            </>
+            <PopupForTorusWallet
+              agreeWithDispatcherTransactions={agreeWithDispatcherTransactions}
+              account={account}
+            />
           )}
           {!isTorusWallet && !dataFromCookies && <TransactionHandler />}
         </Popup>
@@ -154,19 +105,11 @@ export const MetaTransactionAgreement = ({
 };
 
 MetaTransactionAgreement.propTypes = {
-  content: PropTypes.string,
+  account: PropTypes.string,
   showModal: PropTypes.bool,
-  hideLoginModalDispatch: PropTypes.func,
+  hideModalDispatch: PropTypes.func,
+  ethereum: PropTypes.object,
   locale: PropTypes.string,
-  email: PropTypes.string,
-  loginWithEmailProcessing: PropTypes.bool,
-  finishRegistrationProcessing: PropTypes.bool,
-  loginWithWalletProcessing: PropTypes.bool,
-  showEmailPasswordFormDispatch: PropTypes.func,
-  loginWithEmailDispatch: PropTypes.func,
-  loginWithWalletDispatch: PropTypes.func,
-  finishRegistrationDispatch: PropTypes.func,
-  showForgotPasswordModalDispatch: PropTypes.func,
 };
 
 const withConnect = connect(

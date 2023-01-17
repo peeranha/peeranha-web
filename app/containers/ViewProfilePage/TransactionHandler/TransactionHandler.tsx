@@ -14,8 +14,8 @@ import {
   ONE_MONTH,
   TYPE_OF_TRANSACTIONS,
 } from 'utils/constants';
-import { deleteCookie, setCookie, getCookie } from 'utils/cookie';
-import { styled } from './TransactionHandler.styled';
+import { setCookie, getCookie } from 'utils/cookie';
+import TransactionOption from './TransactionOption';
 
 const TransactionHandler: React.FC = (): JSX.Element => {
   const isTransactionsAllowed = getCookie(TYPE_OF_TRANSACTIONS);
@@ -81,75 +81,28 @@ const TransactionHandler: React.FC = (): JSX.Element => {
         </div>
       </div>
       <div className="fz14 pl-0">
-        <div className="mb-3">
-          <label className="df aic">
-            <input
-              className="mr-2 dn"
-              type="radio"
-              checked={transaction === DISPATCHER_TRANSACTIONS_ALLOWED}
-              onChange={handleDispatcherTransactionsAllowed}
-              css={styled.input}
-            />
-            <div className="df aic" css={styled.inputRadio}>
-              <div>
-                <div className="mb-1 bold pr" css={styled.recommended}>
-                  <FormattedMessage id={commonMessages.transactionsText_1.id} />
-                </div>
-                <div css={styled.secondaryColor}>
-                  <FormattedMessage
-                    id={commonMessages.transactionsChange_1.id}
-                  />
-                </div>
-              </div>
-            </div>
-          </label>
-        </div>
-        <div className="mb-3">
-          <label>
-            <input
-              className="mr-2 dn"
-              type="radio"
-              checked={transaction === META_TRANSACTIONS_ALLOWED}
-              onChange={handleMetaTransactionsAllowed}
-              css={styled.input}
-            />
-            <div className="df aic" css={styled.inputRadio}>
-              <div>
-                <div className="mb-1 bold">
-                  <FormattedMessage id={commonMessages.transactionsText_2.id} />
-                </div>
-                <div css={styled.secondaryColor}>
-                  <FormattedMessage
-                    id={commonMessages.transactionsChange_2.id}
-                  />
-                </div>
-              </div>
-            </div>
-          </label>
-        </div>
-        <div className="mb-2">
-          <label className="df aic">
-            <input
-              className="mr-2 dn"
-              type="radio"
-              checked={transaction === TRANSACTIONS_ALLOWED}
-              onChange={handleMetaTransactionsDisallowed}
-              css={styled.input}
-            />
-            <div className="df aic" css={styled.inputRadio}>
-              <div>
-                <div className="mb-1 bold">
-                  <FormattedMessage id={commonMessages.transactionsText_3.id} />
-                </div>
-                <div css={styled.secondaryColor}>
-                  <FormattedMessage
-                    id={commonMessages.transactionsChange_3.id}
-                  />
-                </div>
-              </div>
-            </div>
-          </label>
-        </div>
+        <TransactionOption
+          transaction={transaction}
+          transactionOption={DISPATCHER_TRANSACTIONS_ALLOWED}
+          transactionHandler={handleDispatcherTransactionsAllowed}
+          transactionTitle={commonMessages.transactionsText_1.id}
+          transactionSubtitle={commonMessages.transactionsChange_1.id}
+          Recommended
+        />
+        <TransactionOption
+          transaction={transaction}
+          transactionOption={META_TRANSACTIONS_ALLOWED}
+          transactionHandler={handleMetaTransactionsAllowed}
+          transactionTitle={commonMessages.transactionsText_2.id}
+          transactionSubtitle={commonMessages.transactionsChange_2.id}
+        />
+        <TransactionOption
+          transaction={transaction}
+          transactionOption={TRANSACTIONS_ALLOWED}
+          transactionHandler={handleMetaTransactionsDisallowed}
+          transactionTitle={commonMessages.transactionsText_3.id}
+          transactionSubtitle={commonMessages.transactionsChange_3.id}
+        />
       </div>
     </>
   );
