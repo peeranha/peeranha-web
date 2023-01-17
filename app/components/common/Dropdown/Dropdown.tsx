@@ -194,6 +194,7 @@ const Dropdown: React.FC<DropdownProps> = ({
           <ul
             className={cn(className, 'scrollbar m0 lstn pt8 pr0 pb8 pl0')}
             css={classes.options}
+            id={'dropdown-content'}
           >
             {items.map((option) => (
               <DropdownOption

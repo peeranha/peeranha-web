@@ -8,7 +8,6 @@ const colors = singleCommunityColors();
 
 const CheckedItem = Li.extend`
   font-weight: ${({ isActive }) => (isActive ? 'bold' : 'normal')};
-  border: 1px solid ${BORDER_TRANSPARENT};
 
   :before {
     content: '';
@@ -17,10 +16,6 @@ const CheckedItem = Li.extend`
     display: inline-block;
     width: 20px;
     height: 10px;
-  }
-
-  :hover {
-    border: 1px solid ${colors.textColor || BORDER_PRIMARY};
   }
 `;
 
