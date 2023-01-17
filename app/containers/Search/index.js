@@ -46,18 +46,6 @@ import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 const colors = singleCommunityColors();
 const customColor = colors.linkColor || BORDER_PRIMARY;
 
-const StyledCustomIconButtonContainer = styled.div`
-  .fill {
-    fill: ${customColor};
-  }
-  .stroke {
-    stroke: ${customColor};
-  }
-  .semitransparent {
-    fill: ${colors.transparentIconColor || ICON_TRASPARENT_BLUE};
-  }
-`;
-
 const Search = ({
   match,
   locale,
@@ -92,11 +80,23 @@ const Search = ({
         `}
       >
         <H3>
-          <StyledCustomIconButtonContainer>
+          <div
+            css={css`
+              .fill {
+                fill: ${customColor};
+              }
+              .stroke {
+                stroke: ${customColor};
+              }
+              .semitransparent {
+                fill: ${colors.transparentIconColor || ICON_TRASPARENT_BLUE};
+              }
+            `}
+          >
             <MediumIconStyled>
               <IconLg icon={searchIcon} width={38} fill={BORDER_PRIMARY} />
             </MediumIconStyled>
-          </StyledCustomIconButtonContainer>
+          </div>
           <FormattedMessage {...commonMessages.search} />
         </H3>
         {Boolean(items.length) && (
