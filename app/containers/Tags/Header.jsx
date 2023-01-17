@@ -1,9 +1,16 @@
-import React, { useMemo } from 'react';
+import Dropdown from 'components/common/Dropdown';
+import { ArrowDown } from 'components/icons';
+import useTrigger from 'hooks/useTrigger';
+import React, { useMemo, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { css } from '@emotion/react';
 import * as routes from 'routes-config';
-import { TEXT_SECONDARY, BORDER_PRIMARY } from 'style-constants';
+import {
+  TEXT_SECONDARY,
+  BORDER_PRIMARY,
+  DARK_SECONDARY,
+} from 'style-constants';
 
 import commonMessages from 'common-messages';
 import {
@@ -17,7 +24,6 @@ import addIcon from 'images/add.svg?external';
 import communitiesHeaderFilter from 'images/communitiesHeaderFilter.svg?external';
 import { TEXT_PRIMARY } from 'style-constants';
 import H3 from 'components/H3';
-import Dropdown from 'components/Dropdown';
 import Span from 'components/Span';
 import Ul from 'components/Ul';
 import MediumIcon from 'components/Icon/MediumIcon';
@@ -45,23 +51,57 @@ const tagsRoute = routes.tags();
 const colors = singleCommunityColors();
 const single = isSingleCommunityWebsite();
 
-const Button = ({ sorting }) => (
-  <Span className="d-inline-flex align-items-center mr-2 text-capitalize" bold>
-    <MediumIcon>
-      <IconMd
-        className="mr-2"
-        icon={communitiesHeaderFilter}
-        color={colors.btnColor || BORDER_PRIMARY}
-        isColorImportant={true}
-      />
-    </MediumIcon>
-    <FormattedMessage {...options[sorting].message} />
-  </Span>
-);
+const Button = (a) => {
+  const [isOpen, open, close] = useTrigger(false);
+  document.addEventListener('click', () => {
+    if (isOpen) {
+      close();
+    }
+  });
+  return (
+    <Span
+      className="d-inline-flex align-items-center mr-2 text-capitalize"
+      bold
+      onClick={(event) => {
+        event.stopPropagation();
+        isOpen ? close() : open();
+      }}
+    >
+      <MediumIcon>
+        <IconMd
+          className="mr-2"
+          icon={communitiesHeaderFilter}
+          color={colors.btnColor || BORDER_PRIMARY}
+          isColorImportant={true}
+        />
+      </MediumIcon>
+      <div
+        css={css`
+          display: none;
+          @media (min-width: 768px) {
+            display: inline;
+          }
+        `}
+      >
+        <FormattedMessage {...options[a.sorting].message} />
+
+        <ArrowDown
+          css={{
+            color: DARK_SECONDARY,
+            width: 18,
+            height: 18,
+            transition: 'transform 0.5s',
+            ...(isOpen && { transform: 'rotate(180deg)' }),
+          }}
+        />
+      </div>
+    </Span>
+  );
+};
 
 const Menu = ({ sortTags, sorting }) => (
-  <Ul>
-    {Object.keys(options).map(x => (
+  <Ul css={css}>
+    {Object.keys(options).map((x) => (
       <CheckedItem
         key={x}
         data-key={x}
@@ -82,9 +122,10 @@ export const Header = ({
   tagsNumber,
   profile,
 }) => {
-  const path = useMemo(() => window.location.pathname + window.location.hash, [
-    window.location,
-  ]);
+  const path = useMemo(
+    () => window.location.pathname + window.location.hash,
+    [window.location],
+  );
 
   const profileWithModeratorRights = useMemo(
     () => (profile ? hasGlobalModeratorRole(getPermissions(profile)) : false),
@@ -114,6 +155,23 @@ export const Header = ({
     () => path === communityTagsRoute && !!tagsNumber,
     [path, communityTagsRoute, tagsNumber],
   );
+
+  const sortingOptions = Object.keys(options).map((x, index) => ({
+    label: <FormattedMessage {...options[x].message} />,
+    value: index,
+    render: (
+      <CheckedItem
+        key={x}
+        data-key={x}
+        onClick={sortTags}
+        isActive={x === sorting}
+        css={css`padding-left: 0; !important;`}
+      >
+        <FormattedMessage {...options[x].message} />
+      </CheckedItem>
+    ),
+  }));
+
   return (
     <div className="mb-to-sm-0 mb-from-sm-3">
       <Wrapper position="top">
@@ -191,10 +249,10 @@ export const Header = ({
         {displaySortTagDropdown && (
           <WrapperRightPanel className="right-panel">
             <Dropdown
-              button={<Button sorting={sorting} />}
-              menu={<Menu sortTags={sortTags} sorting={sorting} />}
+              options={sortingOptions}
+              trigger={<Button sorting={sorting} />}
               id="tags-dropdown"
-              isArrowed
+              appendTo="parent"
             />
           </WrapperRightPanel>
         )}

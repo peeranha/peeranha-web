@@ -1,17 +1,18 @@
 /* eslint no-unused-vars: 0 */
+import Dropdown from 'components/common/Dropdown';
+import { ArrowDown } from 'components/icons';
+import useTrigger from 'hooks/useTrigger';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { css } from '@emotion/react';
 import commonMessages from 'common-messages';
-import { TEXT_SECONDARY } from 'style-constants';
+import { DARK_SECONDARY, TEXT_SECONDARY } from 'style-constants';
 
 import communitiesHeader from 'images/communitiesHeader.svg?inline';
 import communitiesHeaderFilter from 'images/communitiesHeaderFilter.svg?inline';
-import languageIcon from 'images/ico-languages.svg?inline';
 
 import H3 from 'components/H3';
-import Dropdown from 'components/Dropdown';
 import Span from 'components/Span';
 import Ul from 'components/Ul';
 import CheckedItem from 'components/Li/CheckedItem';
@@ -22,12 +23,47 @@ import SubHeaderWrapper, {
 
 import sortingOptions from './sortingOptions';
 
-const Button = ({ sorting, icon }) => (
-  <Span className="d-inline-flex align-items-center mr-2 text-capitalize" bold>
-    <img className="mr-2" src={icon} alt="icon" />
-    <FormattedMessage id={sorting.message.id} />
-  </Span>
-);
+const Button = ({ sorting, icon }) => {
+  const [isOpen, open, close] = useTrigger(false);
+  document.addEventListener('click', () => {
+    if (isOpen) {
+      close();
+    }
+  });
+  return (
+    <Span
+      className="d-inline-flex align-items-center mr-2 text-capitalize"
+      bold
+      onClick={(event) => {
+        event.stopPropagation();
+        isOpen ? close() : open();
+      }}
+    >
+      <img className="mr-2" src={icon} alt="icon" />
+
+      <div
+        css={css`
+          display: none;
+          @media (min-width: 768px) {
+            display: inline;
+          }
+        `}
+      >
+        <FormattedMessage id={sorting.message.id} />
+
+        <ArrowDown
+          css={{
+            color: DARK_SECONDARY,
+            width: 18,
+            height: 18,
+            transition: 'transform 0.5s',
+            ...(isOpen && { transform: 'rotate(180deg)' }),
+          }}
+        />
+      </div>
+    </Span>
+  );
+};
 
 const Menu = ({ changeSorting, sorting, options }) => (
   <Ul>
@@ -50,62 +86,50 @@ export const SubHeader = ({
   setLang,
   language,
   languages,
-}) => (
-  <SubHeaderWrapper position="bottom">
-    <H3>
-      <MediumImageStyled src={communitiesHeader} alt="communitiesHeader" />
+}) => {
+  const options = Object.keys(sortingOptions).map((x, index) => ({
+    label: <FormattedMessage {...sortingOptions[x].message} />,
+    value: index,
+    render: (
+      <CheckedItem
+        key={`${sortingOptions[x].message.id}_${sortingOptions[x].order}`}
+        onClick={() => changeSorting(sortingOptions[x])}
+        isActive={sorting.message.id === sortingOptions[x].message.id}
+        css={css`padding-left: 0; !important;`}
+      >
+        <FormattedMessage {...sortingOptions[x].message} />
+      </CheckedItem>
+    ),
+  }));
 
-      <span>
-        <FormattedMessage id={commonMessages.communities.id} />
-        <Span className="ml-2" color={TEXT_SECONDARY} fontSize="30" bold>
-          {communitiesNumber}
-        </Span>
-      </span>
-    </H3>
+  return (
+    <SubHeaderWrapper position="bottom">
+      <H3>
+        <MediumImageStyled src={communitiesHeader} alt="communitiesHeader" />
 
-    <SubHeaderWrapperRightPanel className="d-flex right-panel">
-      {/* <Dropdown
-        className="mr-3"
-        button={<Button sorting={language} icon={languageIcon} />}
-        menu={
-          <Menu
-            changeSorting={setLang}
-            sorting={language}
-            options={languages}
-          />
-        }
-        id="choose-language-dropdown"
-        isArrowed
-      /> */}
+        <span>
+          <FormattedMessage id={commonMessages.communities.id} />
+          <Span className="ml-2" color={TEXT_SECONDARY} fontSize="30" bold>
+            {communitiesNumber}
+          </Span>
+        </span>
+      </H3>
 
-      <Dropdown
-        button={<Button sorting={sorting} icon={communitiesHeaderFilter} />}
-        menu={
-          <Menu
-            changeSorting={changeSorting}
-            sorting={sorting}
-            options={sortingOptions}
-          />
-        }
-        id="existing-communities-dropdown"
-        isArrowed
-        css={css`
-          z-index: 9;
-        `}
-      />
-    </SubHeaderWrapperRightPanel>
-  </SubHeaderWrapper>
-);
+      <SubHeaderWrapperRightPanel className="d-flex right-panel">
+        <Dropdown
+          options={options}
+          trigger={<Button sorting={sorting} icon={communitiesHeaderFilter} />}
+          id="existing-communities-dropdown"
+          appendTo="parent"
+        />
+      </SubHeaderWrapperRightPanel>
+    </SubHeaderWrapper>
+  );
+};
 
 Button.propTypes = {
   sorting: PropTypes.object,
   icon: PropTypes.string,
-};
-
-Menu.propTypes = {
-  options: PropTypes.object,
-  sorting: PropTypes.object,
-  changeSorting: PropTypes.func,
 };
 
 SubHeader.propTypes = {
