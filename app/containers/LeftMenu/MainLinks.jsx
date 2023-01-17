@@ -1,6 +1,7 @@
 /* eslint indent: 0 */
-import AdditionalLinks from 'containers/LeftMenu/AdditionalLinks';
 import Documentation from 'containers/LeftMenu/Documentation/Documentation';
+import { Administration } from 'icons/index';
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -341,7 +342,7 @@ const MainLinks = ({
 
         {Boolean(singleCommId && hasCommunityOrProtocolAdminRole) && (
           <A1 to={routes.administration()} name="administration" route={route}>
-            <IconLg className="mr-2" icon={usersIcon} fill={BORDER_PRIMARY} />
+            <Administration className={'mr-2'} />
             <FormattedMessage id={messages.administration.id} />
           </A1>
         )}
