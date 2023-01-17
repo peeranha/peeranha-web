@@ -1,4 +1,7 @@
 import messages from 'common-messages';
+import { BigNumber } from 'ethers';
+import { selectEthereum } from 'containers/EthereumProvider/selectors';
+import { getCookie, deleteCookie } from 'utils/cookie';
 
 import {
   COMMUNITY_ADMIN_INFINITE_IMPACT,
@@ -12,10 +15,8 @@ import {
   globalAdminPermissions,
   communityModeratorPermissions,
   PROTOCOL_ADMIN_ROLE,
+  BOT_ADDRESS,
 } from './constants';
-import { BigNumber } from 'ethers';
-import { selectEthereum } from 'containers/EthereumProvider/selectors';
-import { getCookie, deleteCookie } from 'utils/cookie';
 
 // todo change to "findRole"
 const findAllPropertiesByKeys = (properties, keys, exact = false) => [];
@@ -146,6 +147,8 @@ export const hasGlobalModeratorRole = (permissionsFromState) => {
 
 export const getCommunityRole = (role, communityId) =>
   BigNumber.from(role).add(BigNumber.from(communityId)).toHexString();
+
+export const isBotAddress = (account) => account.id === BOT_ADDRESS;
 
 export const isTemporaryAccount = async (account) => {
   const ethereumService = await selectEthereum();

@@ -181,4 +181,7 @@ export default defineMessages({
   Delete: {
     id: 'app.containers.ViewQuestion.deleted',
   },
+  botAnswer: {
+    id: 'app.containers.ViewQuestion.botAnswer',
+  },
 });

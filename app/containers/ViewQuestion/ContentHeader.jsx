@@ -17,6 +17,11 @@ import shareIcon from 'images/shareIcon.svg?external';
 import deleteIcon from 'images/deleteIcon.svg?external';
 import blockIcon from 'images/blockIcon.svg?external';
 import changeTypeIcon from 'images/change-type.svg?external';
+import blockchainLogo from 'images/blockchain-outline-32.svg?external';
+import IPFSInformation from 'containers/Questions/Content/Body/IPFSInformation';
+import commonMessages from 'common-messages';
+import { POST_TYPE } from 'utils/constants';
+import { getUserName } from 'utils/user';
 
 import { getRatingByCommunity, getUserAvatar } from 'utils/profileManagement';
 import { useOnClickOutside } from 'utils/click-listners';
@@ -37,12 +42,9 @@ import {
   hasCommunityModeratorRole,
   hasGlobalModeratorRole,
   hasProtocolAdminRole,
+  isBotAddress,
 } from '../../utils/properties';
-import blockchainLogo from 'images/blockchain-outline-32.svg?external';
-import IPFSInformation from 'containers/Questions/Content/Body/IPFSInformation';
-import commonMessages from 'common-messages';
-import { POST_TYPE } from 'utils/constants';
-import { getUserName } from 'utils/user';
+import BotInfo from './BotInfo';
 
 const RatingBox = styled.div`
   border-right: 1px solid ${BORDER_SECONDARY};
@@ -176,8 +178,10 @@ const ContentHeader = (props) => {
       hasProtocolAdminRole(getPermissions(profile)),
     [profile],
   );
-  //todo remove integer_properties
-  const isTemporaryAccount = false;
+
+  const isBot = isBotAddress(author);
+
+  // todo remove integer_properties
   //   useMemo(
   //   () =>
   //     !!author?.['integer_properties'].find(
@@ -214,6 +218,9 @@ const ContentHeader = (props) => {
   } else {
     deleteAction = isGlobalAdmin || infiniteImpact ? deleteItem : null;
   }
+
+  console.log(author);
+
   return (
     <Box>
       <RatingBox>
@@ -221,17 +228,27 @@ const ContentHeader = (props) => {
       </RatingBox>
 
       <ItemInfo>
-        <UserInfo
-          avatar={getUserAvatar(author.avatar)}
-          name={getUserName(author.displayName, author.id)}
-          account={author.user}
-          rating={getRatingByCommunity(author, props.commId)}
-          type={type}
-          postTime={postTime}
-          locale={locale}
-          achievementsCount={author.achievements?.length}
-          isTemporaryAccount={isTemporaryAccount}
-        />
+        {isBot ? (
+          <BotInfo
+            postTime={postTime}
+            locale={locale}
+            messengerType={author.messengerType}
+          />
+        ) : (
+          <UserInfo
+            avatar={getUserAvatar(author.avatar)}
+            name={getUserName(author.displayName, author.id)}
+            account={author.user}
+            rating={getRatingByCommunity(author, props.commId)}
+            type={type}
+            postTime={postTime}
+            locale={locale}
+            achievementsCount={author.achievements?.length}
+            isBot={isBot}
+            handle={author.handle}
+            messengerType={author.messengerType}
+          />
+        )}
         <ButtonContainer>
           {type === QUESTION_TYPE && (
             <Button

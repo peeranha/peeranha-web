@@ -13,13 +13,14 @@ import messages from './messages';
 
 const DEFAULT_NUMBER = 10;
 
-export const AnswersList = props => {
+export const AnswersList = (props) => {
   const [allVisible, setAllVisible] = useState(false);
   const { answers } = props.questionData;
 
-  const changeVisibility = useCallback(() => setAllVisible(!allVisible), [
-    allVisible,
-  ]);
+  const changeVisibility = useCallback(
+    () => setAllVisible(!allVisible),
+    [allVisible],
+  );
 
   const visibleAnswers = useMemo(
     () => answers.slice(0, allVisible ? answers.length : DEFAULT_NUMBER),
@@ -42,6 +43,8 @@ export const AnswersList = props => {
           lastEditedDate,
           votingStatus,
           isOfficialReply,
+          handle,
+          messengerType,
         }) => (
           <Content
             {...props}
@@ -56,7 +59,11 @@ export const AnswersList = props => {
             questionFrom={props.questionData.author.user}
             isItWrittenByMe={isItWrittenByMe}
             history={history}
-            author={author}
+            author={{
+              ...author,
+              handle,
+              messengerType,
+            }}
             postTime={+postTime}
             lastEditedDate={lastEditedDate}
             votingStatus={votingStatus}

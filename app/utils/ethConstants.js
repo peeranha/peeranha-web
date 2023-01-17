@@ -44,6 +44,7 @@ export const GET_POST = 'getPost';
 export const GET_REPLY = 'getReply';
 export const GET_STATUS_HISTORY = 'getStatusHistory';
 export const GET_COMMENT = 'getComment';
+export const GET_ITEM_PROPERTY = 'getItemProperty';
 export const GET_USER_BALANCE = 'balanceOf';
 export const GET_AVERAGE_STAKE = 'getAverageStake';
 export const GET_AVAILABLE_BALANCE = 'availableBalanceOf';
@@ -106,6 +107,8 @@ const reply = `
     isFirstReply
     isQuickReply
     properties
+    handle
+    messengerType
     comments (
       orderBy: postTime,
       orderDirection: asc,

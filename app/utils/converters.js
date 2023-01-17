@@ -43,7 +43,7 @@ export const timeConverter = (timestamp, locale) => {
   return time;
 };
 
-export const bigNumberToNumber = bigNumber => {
+export const bigNumberToNumber = (bigNumber) => {
   if (bigNumber === undefined) {
     return 0;
   }
@@ -55,6 +55,21 @@ export const bigNumberToNumber = bigNumber => {
   return bigNumber.toNumber();
 };
 
-export const dataToString = data => {
-  return typeof data === 'string' ? data : String(data);
-};
+export const dataToString = (data) =>
+  typeof data === 'string' ? data : String(data);
+
+export function hexToRgb(hex) {
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result
+    ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16),
+      }
+    : null;
+}
+
+export function hexToRgbaString(hex, alpha) {
+  const color = hexToRgb(hex);
+  return `rgba(${color.r}, ${color.g}, ${color.b}, ${alpha})`;
+}

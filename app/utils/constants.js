@@ -301,6 +301,16 @@ export const APP_MAIN_NAME = 'Peeranha';
 // Temporary Account Data
 export const TEMPORARY_ACCOUNT_KEY = 15;
 
+// Messenger bot
+export const BOT_ADDRESS = '0x0000000000000000000000000000000000000001';
+
+export const MessengerTypes = {
+  Unknown: 0,
+  Telegram: 1,
+  Discord: 2,
+  Slack: 3,
+};
+
 // Bounty Status
 export const BOUNTY_STATUS_ACTIVE = 1;
 export const BOUNTY_STATUS_PAID = 2;

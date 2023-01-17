@@ -732,6 +732,7 @@
   "app.containers.ViewQuestion.created": "cоздан",
   "app.containers.ViewQuestion.edited": "изменен",
   "app.containers.ViewQuestion.deleted": "удален",
+  "app.containers.ViewQuestion.botAnswer": "Ответ через {bot}",
   "app.containers.ViewQuestion.RulesBlock_1": "Несколько советов, которые помогут сделать ваш ответ полезным и избежать дополнительного внимания модератора:",
   "app.containers.ViewQuestion.RulesBlock_2": "1. Внимательно прочитайте вопрос в посте и дайте как можно более подробный ответ.",
   "app.containers.ViewQuestion.RulesBlock_3": "2. Убедитесь, что ваш ответ действительно отвечает на вопрос, а не является комментарием или благодарностью.",
