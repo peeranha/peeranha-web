@@ -21,7 +21,11 @@ const Wrapper = styled.div`
 const fonts = singleCommunityFonts();
 
 const Title = ({ locale, title, id, questionBounty, postType }) => {
-  const link = getPostRoute(postType, id);
+  const link = getPostRoute({
+    postType,
+    id,
+    title,
+  });
 
   return (
     <Wrapper className="mb-1">

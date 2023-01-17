@@ -34,7 +34,7 @@ type PostProps = {
   title: string;
   postTime: string;
   content: string;
-  tags: Tag[];
+  tags: Array<number>;
   questionBounty: object;
   author?: Author | null;
   communityId: number | string;
@@ -62,10 +62,11 @@ const Post: React.FC<PostProps> = ({
   ])[0] || {
     tags: [],
   };
+
   const postTags = community.tags.filter((tag: Tag) =>
-    tags.includes(Number(tag.id.split('-')[1])),
+    tags?.includes(Number(tag.id.split('-')[1])),
   );
-  const postLink = getPostRoute(postType, id);
+  const postLink = getPostRoute({ postType, id, title });
   const communityLink = () => {
     if (postType === POST_TYPE.tutorial) {
       return routes.tutorials(communityId);
@@ -92,10 +93,16 @@ const Post: React.FC<PostProps> = ({
         </div>
 
         <div css={css(styles.mainInfo)}>
-          <span className="db mt8 fz12 light" css={css(styles.creationTime)}>
-            <FormattedMessage id={commonMessages.asked.id} />{' '}
-            {getFormattedDate(postTime, locale, MONTH_3LETTERS__DAY_YYYY_TIME)}
-          </span>
+          {postTime && (
+            <span className="db mt8 fz12 light" css={css(styles.creationTime)}>
+              <FormattedMessage id={commonMessages.asked.id} />{' '}
+              {getFormattedDate(
+                postTime,
+                locale,
+                MONTH_3LETTERS__DAY_YYYY_TIME,
+              )}
+            </span>
+          )}
 
           <p className="dib pr mt12 fz14 light ovh" css={css(styles.content)}>
             {content}

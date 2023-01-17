@@ -1,14 +1,14 @@
 import React from 'react';
 import { css } from 'styled-components';
 
-import OrbisLogo from './images/Orbis-logo.svg?inline';
-import favicon from '!file-loader?name=[name].[ext]!./images/Orbis-logo.ico';
-const domainName = 'https://app.orbis.club/';
+import FractalVisionsLogo from './images/Rectangle.svg?inline';
+import favicon from '!file-loader?name=[name].[ext]!./images/Fractal.ico';
+const domainName = 'https://guild.xyz/fractalvisions';
 
 const fontSet = 'Roboto-Regular, Arial, sans-serif';
 
 export const customSubHeaderConfig = {
-  design: 'orbis_style',
+  design: 'fractalVisions_styles',
   styles: {
     bg: {
       header: '#FFFFFF',
@@ -172,12 +172,12 @@ export const customSubHeaderConfig = {
   ],
 };
 
-export const OrbisStyles = {
+export const FractalVisionsStyles = {
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: OrbisLogo,
+  signUpPageLogo: FractalVisionsLogo,
   favicon,
   // Hided community fonts
   // fonts: {
@@ -199,86 +199,79 @@ export const OrbisStyles = {
   // }`,
 
   colors: {
-    mainSubHeaderBgColor: 'linear-gradient(90deg, #100D17 0%, #302763 100%)',
+    mainSubHeaderBgColor:
+      'linear-gradient(117.73deg, #FFFFFF -12.53%, #A52565 56.31%, #6D00B3 123.73%);',
     mainBackground: 'rgba(234, 236, 244, 1)',
-    linkColor: '#DE73DA',
-    linkCookieColor: '#DE73DA',
-    linkColorTransparent: '#DE73DA',
-    headerPrimary: '#DE73DA',
-    commentOption: '#DE73DA',
-    contentHeader: '#DE73DA',
+    linkColor: '#6D00B3',
+    linkCookieColor: '#15EBFF',
+    linkColorTransparent: '#6D00B3',
+    headerPrimary: '#6D00B3',
+    commentOption: '#6D00B3',
+    contentHeader: '#6D00B3',
     blockedInfoArea: 'rgb(42 36 96 / 10%)',
     transparentIconColor: '#FFF',
-    loaderColor: '#DE73DA',
-    votingIconColor: '#DE73DA',
-    linkColorSecondary: '#DE73DA',
-    walletButton: '#DE73DA',
-    btnColor: '#DE73DA',
-    btnHoverColor: '#DE73DA',
-    btnHeaderColor: 'linear-gradient( 135deg ,#f790bb 44.02%,#b971ee 90.66%)',
+    loaderColor: '#6D00B3',
+    votingIconColor: '#6D00B3',
+    linkColorSecondary: '#6D00B3',
+    walletButton: '#6D00B3',
+    btnColor: '#6D00B3',
+    btnHoverColor: '#6D00B3',
+    btnHeaderColor: '#FFF',
     btnHeaderHoverOpacity: '0.75',
-    newPostButtonText: 'rgba(255, 255, 255, 1)',
-    tagColor: '#DE73DA',
-    localeArrowColor: '#DE73DA',
-    textColor: '#DE73DA',
-    textColorShadow: '#DE73DA',
+    newPostButtonText: '#6D00B3',
+    tagColor: '#6D00B3',
+    localeArrowColor: '#6D00B3',
+    textColor: '#6D00B3',
+    textColorShadow: '#6D00B3',
     commHeadElemColor: '#FFF',
   },
   cookieConsentPopupStyles: {
-    background: '#302763',
+    background: '#6D00B3',
     color: '#fff',
     button: {
-      color: '#101016',
-      background: '#FFFFFF',
+      color: '#000',
+      background: '#FFF',
       border: '1px solid #FFF',
       ':hover': {
         opacity: '0.75',
         color: '#000',
-        background: '#FFFFFF',
+        background: '#FFF',
       },
     },
   },
   headerHeight: 80,
-  projectBorderRadius: '8px', ////
+  projectBorderRadius: '5px',
   domainName,
-  fullyTransparent: '#302763',
-  communityBorderStyle: '2px solid #DE73DA',
+  fullyTransparent: '#FFF',
+  communityBorderStyle: '2px solid #6D00B3',
   dropDownIconStyles: css`
     path {
-      stroke: #de73da !important;
+      stroke: #6d00b3 !important;
       stroke-width: 1.5px;
-      fill: #302763 !important;
+      fill: none !important;
     }
     circle {
-      stroke: #de73da;
+      stroke: #6d00b3;
       stroke-width: 1.5px;
-      fill: #302763;
+      fill: none !important;
     }
   `,
   headerLoginButtonStyles: css`
-    border: 1px solid #fff;
+    border: 1px solid #531c67;
     color: #fff;
     :hover {
-      background: linear-gradient(
-        135deg,
-        #f790bb 44.02%,
-        #b971ee 90.66%
-      ) !important;
-      color: #fff !important;
-      border: 1px solid linear-gradient(135deg, #f790bb 44.02%, #b971ee 90.66%) !important;
+      background: #fff !important;
+      color: #531c67 !important;
+      border: 1px solid #531c67 !important;
     }
   `,
   newPostPopupButtonStyles: css`
-    border: 1px solid #de73da;
-    color: #de73da;
+    border: 1px solid #6d00b3;
+    color: #6d00b3;
     :hover {
-      background: linear-gradient(
-        135deg,
-        #f790bb 44.02%,
-        #b971ee 90.66%
-      ) !important;
+      background: #6d00b3 !important;
       color: #fff !important;
-      border: 1px solid linear-gradient(135deg, #f790bb 44.02%, #b971ee 90.66%) !important;
+      border: 1px solid #6d00b3 !important;
     }
   `,
 };

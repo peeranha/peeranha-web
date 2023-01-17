@@ -1,14 +1,12 @@
 import React from 'react';
 import { css } from 'styled-components';
 
-import OrbisLogo from './images/Orbis-logo.svg?inline';
-import favicon from '!file-loader?name=[name].[ext]!./images/Orbis-logo.ico';
-const domainName = 'https://app.orbis.club/';
+const domainName = '';
 
 const fontSet = 'Roboto-Regular, Arial, sans-serif';
 
 export const customSubHeaderConfig = {
-  design: 'orbis_style',
+  design: 'mark3d_style',
   styles: {
     bg: {
       header: '#FFFFFF',
@@ -172,113 +170,87 @@ export const customSubHeaderConfig = {
   ],
 };
 
-export const OrbisStyles = {
+export const MoveStyles = {
   withoutCopyright: true,
   withoutSubHeader: true,
   withoutAdditionalLinks: true,
   poweredByPeeranha: true,
-  signUpPageLogo: OrbisLogo,
-  favicon,
-  // Hided community fonts
-  // fonts: {
-  //   h3LetterSpacing: '3px',
-  //   tagsLetterSpacing: '3px',
-  //   questionTitleLetterSpacing: '2px',
-  //   h3: 'Roboto-Regular, Arial, sans',
-  //   main: 'Roboto-Regular, Arial, sans',
-  //   questionItemTitle: 'Roboto-Regular, Arial, sans',
-  //   questionTitleFont: 'Roboto-Regular, Arial, sans',
-  // },
-  // fontFace: `@font-face {
-  //   font-family: 'Roboto-Regular';
-  //   src:
-  //     url(${RobotoRegularEOT}?#iefix) format('embedded-opentype'),
-  //     url(${RobotoRegularWOFF}) format('woff'),
-  //     url(${RobotoRegularTTF}) format('truetype');
-  //   font-style: normal;
-  // }`,
+  signUpPageLogo:
+    'https://images.peeranha.io/communities/move/move-logo-login.svg',
+  favicon: 'https://images.peeranha.io/communities/move/Move.ico',
 
   colors: {
-    mainSubHeaderBgColor: 'linear-gradient(90deg, #100D17 0%, #302763 100%)',
+    mainSubHeaderBgColor:
+      'linear-gradient(103.54deg, #0A2342 -5.34%, #28405E 64.77%, #21B6F0 99.31%)',
     mainBackground: 'rgba(234, 236, 244, 1)',
-    linkColor: '#DE73DA',
-    linkCookieColor: '#DE73DA',
-    linkColorTransparent: '#DE73DA',
-    headerPrimary: '#DE73DA',
-    commentOption: '#DE73DA',
-    contentHeader: '#DE73DA',
-    blockedInfoArea: 'rgb(42 36 96 / 10%)',
+    linkColor: 'rgba(56, 78, 159, 1)',
+    linkCookieColor: 'rgba(34, 174, 230, 1)',
+    linkColorTransparent: 'rgba(56, 78, 159, 1)',
+    headerPrimary: 'rgba(56, 78, 159, 1)',
+    commentOption: 'rgba(56, 78, 159, 1)',
+    contentHeader: 'rgba(56, 78, 159, 1)',
+    blockedInfoArea: 'rgb(16, 40, 71, 0.1)',
     transparentIconColor: '#FFF',
-    loaderColor: '#DE73DA',
-    votingIconColor: '#DE73DA',
-    linkColorSecondary: '#DE73DA',
-    walletButton: '#DE73DA',
-    btnColor: '#DE73DA',
-    btnHoverColor: '#DE73DA',
-    btnHeaderColor: 'linear-gradient( 135deg ,#f790bb 44.02%,#b971ee 90.66%)',
+    loaderColor: 'rgba(56, 78, 159, 1)',
+    votingIconColor: 'rgba(56, 78, 159, 1)',
+    linkColorSecondary: 'rgba(56, 78, 159, 1)',
+    walletButton: 'rgba(56, 78, 159, 1)',
+    btnColor: 'rgba(56, 78, 159, 1)',
+    btnHoverColor: 'rgba(56, 78, 159, 1)',
+    btnHeaderColor: 'rgba(16, 40, 71, 1)',
     btnHeaderHoverOpacity: '0.75',
     newPostButtonText: 'rgba(255, 255, 255, 1)',
-    tagColor: '#DE73DA',
-    localeArrowColor: '#DE73DA',
-    textColor: '#DE73DA',
-    textColorShadow: '#DE73DA',
-    commHeadElemColor: '#FFF',
+    tagColor: 'rgba(56, 78, 159, 1)',
+    localeArrowColor: 'rgba(56, 78, 159, 1)',
+    textColor: 'rgba(56, 78, 159, 1)',
+    textColorShadow: 'rgba(56, 78, 159, 1)',
+    commHeadElemColor: 'rgba(19, 19, 45, 1)',
   },
   cookieConsentPopupStyles: {
-    background: '#302763',
-    color: '#fff',
+    background: 'linear-gradient(141.73deg, #384E9F -0.42%, #192D45 269.58%)',
+    color: 'rgba(234, 236, 244, 1)',
     button: {
-      color: '#101016',
-      background: '#FFFFFF',
-      border: '1px solid #FFF',
+      color: 'rgba(10, 35, 66, 1)',
+      background: 'rgba(255, 255, 255, 1)',
       ':hover': {
         opacity: '0.75',
-        color: '#000',
-        background: '#FFFFFF',
+        color: 'rgba(10, 35, 66, 1)',
+        background: 'rgba(255, 255, 255, 1)',
       },
     },
   },
   headerHeight: 80,
-  projectBorderRadius: '8px', ////
+  projectBorderRadius: '3px',
   domainName,
-  fullyTransparent: '#302763',
-  communityBorderStyle: '2px solid #DE73DA',
+  communityBorderStyle: '1px solid rgba(16, 40, 71, 1)',
   dropDownIconStyles: css`
     path {
-      stroke: #de73da !important;
+      stroke: rgba(16, 40, 71, 1) !important;
       stroke-width: 1.5px;
-      fill: #302763 !important;
+      fill: none !important;
     }
     circle {
-      stroke: #de73da;
+      stroke: rgba(16, 40, 71, 1);
       stroke-width: 1.5px;
-      fill: #302763;
-    }
-  `,
-  headerLoginButtonStyles: css`
-    border: 1px solid #fff;
-    color: #fff;
-    :hover {
-      background: linear-gradient(
-        135deg,
-        #f790bb 44.02%,
-        #b971ee 90.66%
-      ) !important;
-      color: #fff !important;
-      border: 1px solid linear-gradient(135deg, #f790bb 44.02%, #b971ee 90.66%) !important;
+      fill: none;
     }
   `,
   newPostPopupButtonStyles: css`
-    border: 1px solid #de73da;
-    color: #de73da;
+    border: 1px solid rgba(16, 40, 71, 1);
+    color: rgba(16, 40, 71, 1);
     :hover {
-      background: linear-gradient(
-        135deg,
-        #f790bb 44.02%,
-        #b971ee 90.66%
-      ) !important;
-      color: #fff !important;
-      border: 1px solid linear-gradient(135deg, #f790bb 44.02%, #b971ee 90.66%) !important;
+      background: rgba(16, 40, 71, 1) !important;
+      color: rgba(255, 255, 255, 1);
+      border: 1px solid rgba(16, 40, 71, 1) !important;
+    }
+  `,
+  headerLoginButtonStyles: css`
+    border: 2px solid rgba(16, 40, 71, 1);
+    color: rgba(255, 255, 255, 1);
+    :hover {
+      background: rgba(16, 40, 71, 1) !important;
+      color: rgba(255, 255, 255, 1);
+      border: 2px solid rgba(16, 40, 71, 1) !important;
     }
   `,
 };
