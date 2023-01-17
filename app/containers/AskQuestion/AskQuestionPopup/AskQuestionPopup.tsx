@@ -10,11 +10,6 @@ import LargeButton from 'components/Button/Contained/InfoLarge';
 
 const colors = singleCommunityColors();
 
-const Button = LargeButton.extend`
-  min-width: 69px;
-  height: 30px;
-`;
-
 const AskQuestionPopup: React.FC = (): JSX.Element => {
   const [enableAnimation, setEnableAnimation] = useState<boolean>(false);
   const [IsAgreeRules, setIsAgreeRules] = useState<boolean>(() =>
@@ -46,7 +41,7 @@ const AskQuestionPopup: React.FC = (): JSX.Element => {
             })}
           >
             <div className="container">
-              <div1111 className="df fdc jcsb pt24 pb24 lh1-5">
+              <div className="df fdc jcsb pt24 pb24 lh1-5">
                 <div>
                   <FormattedMessage
                     id={commonMessages.rulesAskQuestionPopupBlock_0.id}
@@ -102,11 +97,13 @@ const AskQuestionPopup: React.FC = (): JSX.Element => {
                     />
                   </div>
                 </div>
-              </div1111>
+              </div>
               <div css={css(styles.gotItButton)}>
-                <Button
+                <LargeButton
                   onClick={acceptWithRules}
                   css={css`
+                    min-width: 69px;
+                    height: 30px;
                     background: ${colors.btnHeaderColor};
                     color: ${colors.newPostButtonText};
                     border: 1px solid ${colors.newPostButtonText};
@@ -119,7 +116,7 @@ const AskQuestionPopup: React.FC = (): JSX.Element => {
                   className="mb24"
                 >
                   <FormattedMessage id={commonMessages.gotIt.id} />
-                </Button>
+                </LargeButton>
               </div>
             </div>
           </div>
