@@ -237,9 +237,9 @@ class EthereumService {
     }
 
     const metaTransactionsAllowed =
-      dataFromCookies == META_TRANSACTIONS_ALLOWED;
-    const DispatcherTransactionsAllowed =
-      dataFromCookies == DISPATCHER_TRANSACTIONS_ALLOWED;
+      dataFromCookies === META_TRANSACTIONS_ALLOWED;
+    const dispatcherTransactionsAllowed =
+      dataFromCookies === DISPATCHER_TRANSACTIONS_ALLOWED;
     try {
       if (metaTransactionsAllowed) {
         const token = await this.getRecaptchaToken();
@@ -253,7 +253,7 @@ class EthereumService {
         );
       }
 
-      if (DispatcherTransactionsAllowed) {
+      if (dispatcherTransactionsAllowed) {
         const token = await this.getRecaptchaToken();
         return await this.sendDispatcherTransaction(
           contract,

@@ -22,7 +22,7 @@ const TransactionHandler: React.FC = (): JSX.Element => {
 
   const [transaction, setTransaction] = useState<string>(isTransactionsAllowed);
 
-  const isTorusWallet = getCookie(CONNECTED_WALLET) == TORUS_WALLET;
+  const isTorusWallet = getCookie(CONNECTED_WALLET) === TORUS_WALLET;
 
   useEffect(() => {
     if (!isTransactionsAllowed && isTorusWallet) {
@@ -86,7 +86,7 @@ const TransactionHandler: React.FC = (): JSX.Element => {
             <input
               className="mr-2 dn"
               type="radio"
-              checked={transaction == DISPATCHER_TRANSACTIONS_ALLOWED}
+              checked={transaction === DISPATCHER_TRANSACTIONS_ALLOWED}
               onChange={handleDispatcherTransactionsAllowed}
               css={styled.input}
             />
@@ -109,7 +109,7 @@ const TransactionHandler: React.FC = (): JSX.Element => {
             <input
               className="mr-2 dn"
               type="radio"
-              checked={transaction == META_TRANSACTIONS_ALLOWED}
+              checked={transaction === META_TRANSACTIONS_ALLOWED}
               onChange={handleMetaTransactionsAllowed}
               css={styled.input}
             />
@@ -132,7 +132,7 @@ const TransactionHandler: React.FC = (): JSX.Element => {
             <input
               className="mr-2 dn"
               type="radio"
-              checked={transaction == TRANSACTIONS_ALLOWED}
+              checked={transaction === TRANSACTIONS_ALLOWED}
               onChange={handleMetaTransactionsDisallowed}
               css={styled.input}
             />

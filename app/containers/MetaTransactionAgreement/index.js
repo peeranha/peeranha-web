@@ -50,7 +50,7 @@ export const MetaTransactionAgreement = ({
   account,
 }) => {
   const dataFromCookies = getCookie(TYPE_OF_TRANSACTIONS);
-  const isTorusWallet = getCookie(CONNECTED_WALLET) == TORUS_WALLET;
+  const isTorusWallet = getCookie(CONNECTED_WALLET) === TORUS_WALLET;
   const isBalance =
     Number(ethereum.wallet?.accounts?.[0]?.balance?.[CURRENCY]) > 0;
 
