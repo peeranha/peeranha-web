@@ -10,7 +10,7 @@ import { Router, Prompt } from 'react-router';
 import commonMessages from 'common-messages';
 import { BORDER_PRIMARY, LINK_COLOR_SECONDARY } from 'style-constants';
 
-import { EDIT_QUESTION_FORM } from 'containers/EditQuestion/constants';
+import { IS_EDIT_MODE } from './constants';
 
 import icoTag from 'images/icoTag.svg?external';
 
@@ -135,15 +135,18 @@ export const QuestionForm = ({
   const [isError, setIsError] = useState(false);
   const [submitPressed, setSubmitPressed] = useState(false);
   const [isClickSubmit, setIsClickSubmit] = useState(false);
-
+  const isEditMode = path.slice(-4) === IS_EDIT_MODE;
   const postTitle = question?.title;
   const postContent = question?.content;
 
   const communityId = single || formValues[FORM_COMMUNITY]?.id;
   const isCommunityModerator = communityId
-    ? hasCommunityModeratorRole(getPermissions(profile), communityId) ||
-      hasCommunityAdminRole(getPermissions(profile), communityId)
+    ? hasCommunityModeratorRole(getPermissions(profile), communityId)
     : false;
+
+  const isHasRoleGlobal =
+    hasGlobalModeratorRole(getPermissions(profile)) ||
+    hasProtocolAdminRole(getPermissions(profile));
 
   const handleSubmitWithType = () => {
     if (communityQuestionsType !== ANY_TYPE) {
@@ -180,12 +183,6 @@ export const QuestionForm = ({
     hasGlobalModeratorRole(getPermissions(profile)) ||
     (Boolean(single) &&
       hasCommunityAdminRole(getPermissions(profile), single)) ||
-    hasProtocolAdminRole(getPermissions(profile));
-
-  const isHasRole =
-    hasGlobalModeratorRole(getPermissions(profile)) ||
-    (Boolean(single) &&
-      hasCommunityModeratorRole(getPermissions(profile), single)) ||
     hasProtocolAdminRole(getPermissions(profile));
 
   const handleSetClicked = () => setIsClickSubmit(true);
@@ -227,6 +224,9 @@ export const QuestionForm = ({
                 change={change}
                 questionLoading={questionLoading}
                 disableCommForm={false}
+                isHasRoleGlobal={isHasRoleGlobal}
+                isCommunityModerator={isCommunityModerator}
+                isEditMode={isEditMode}
               />
 
               {Boolean(!question && isDocumentation && isNaN(parentId)) && (
@@ -259,7 +259,7 @@ export const QuestionForm = ({
                   isCommunityModerator={isCommunityModerator}
                   postType={question?.postType}
                   postAnswers={question?.answers}
-                  isHasRole={isHasRole}
+                  isHasRole={isHasRoleGlobal}
                   isDocumentation={isDocumentation}
                 />
               )) ||
@@ -287,7 +287,7 @@ export const QuestionForm = ({
                 intl={intl}
                 questionLoading={questionLoading}
                 isDocumentation={isDocumentation}
-                isHasRole={isHasRole}
+                isHasRole={isHasRoleGlobal}
               />
 
               {formValues[FORM_TITLE] &&
@@ -309,7 +309,7 @@ export const QuestionForm = ({
                 intl={intl}
                 questionLoading={questionLoading}
                 formValues={formValues}
-                isHasRole={isHasRole}
+                isHasRole={isHasRoleGlobal}
               />
 
               {!isDocumentation &&

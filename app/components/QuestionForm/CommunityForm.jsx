@@ -23,6 +23,9 @@ const CommunityForm = ({
   change,
   questionLoading,
   disableCommForm,
+  isHasRoleGlobal,
+  isCommunityModerator,
+  isEditMode,
 }) => {
   const onChange = useCallback(() => change(FORM_TAGS, ''), [change]);
 
@@ -39,6 +42,9 @@ const CommunityForm = ({
       validate={[requiredForObjectField, requiredMinReputation]}
       warn={[requiredForObjectField, requiredMinReputation]}
       splitInHalf
+      isHasRoleGlobal={isHasRoleGlobal}
+      isCommunityModerator={isCommunityModerator}
+      isEditMode={isEditMode}
     />
   );
 };

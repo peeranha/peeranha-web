@@ -1,5 +1,5 @@
 /* eslint indent: 0 */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -156,9 +156,16 @@ const QuestionTypeField = ({
   locale,
 }) => {
   const [type, setType] = useState(postType);
-  const message = isHasRole
-    ? translationMessages[locale][messages.warningForAdmin.id]
-    : translationMessages[locale][messages.warningForUser.id];
+
+  useEffect(() => {
+    if (postType) {
+      input.onChange(postType);
+    }
+  }, []);
+  const message =
+    isHasRole || isCommunityModerator
+      ? translationMessages[locale][messages.warningForAdmin.id]
+      : translationMessages[locale][messages.warningForUser.id];
 
   function chooseQuestionType({ currentTarget }) {
     const { value } = currentTarget;

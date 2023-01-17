@@ -13,6 +13,9 @@ export const DEFAULT_DOT_RESTRICTION = 6;
 export const KEY_QUESTIONS_TYPE = 28;
 export const PROMOTE_HOUR_COST = 2;
 
+export const IS_EDIT_MODE = 'edit';
+export const DEFAULT_COMMUNITY_ID = 6;
+
 export const POST_TYPE = {
   expertPost: 0,
   generalPost: 1,
