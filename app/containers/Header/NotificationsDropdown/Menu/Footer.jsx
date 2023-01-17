@@ -12,6 +12,7 @@ import {
   TEXT_PRIMARY,
   BORDER_PRIMARY,
 } from 'style-constants';
+import { singleCommunityColors } from 'utils/communityManagement';
 
 import MarkAllAsReadButton from 'components/Notifications/MarkAllAsReadButton';
 import { IconXm } from 'components/Icon/IconWithSizes';
@@ -22,6 +23,8 @@ import notificationsIcon from 'images/notificationsBlue.svg?external';
 import { makeSelectProfileInfo } from '../../../AccountProvider/selectors';
 import { makeSelectLocale } from '../../../LanguageProvider/selectors';
 import { DEFAULT_LOCALE } from '../../../../i18n';
+
+const colors = singleCommunityColors();
 
 const Container = styled.div`
   border-top: 1px solid ${BORDER_SECONDARY_LIGHT};
@@ -39,6 +42,7 @@ const Container = styled.div`
 
     span {
       line-height: 20px;
+      color: ${colors.contentHeader || TEXT_PRIMARY};
     }
   }
 `;
@@ -55,8 +59,13 @@ const Footer = ({ onClose, profile, empty }) => (
     <Link onClick={onClose} to={userNotifications(profile)}>
       {empty ? (
         <>
-          <IconXm className="mr-2" icon={clockIcon} fill={BORDER_PRIMARY} />
-          <FormattedMessage {...messages.archive} />
+          <IconXm
+            className="mr-2"
+            icon={clockIcon}
+            color={colors.contentHeader || BORDER_PRIMARY}
+            fill={colors.contentHeader || BORDER_PRIMARY}
+          />
+          <FormattedMessage id={messages.archive.id} />
         </>
       ) : (
         <SeeAllButton />

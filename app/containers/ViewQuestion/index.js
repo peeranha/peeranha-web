@@ -92,17 +92,28 @@ export const ViewQuestion = ({
   profile,
   history,
 }) => {
-  if (questionData) {
-    const route =
-      questionData.postType === POST_TYPE.generalPost
-        ? 'questionView'
-        : questionData.postType === POST_TYPE.expertPost
-        ? 'expertPostView'
-        : 'tutorialView';
-    if (match.url !== routes[route](match.params.id)) {
-      history.push(routes[route](match.params.id));
+  useEffect(() => {
+    if (questionData) {
+      const route =
+        questionData.postType === POST_TYPE.generalPost
+          ? 'questionView'
+          : questionData.postType === POST_TYPE.expertPost
+          ? 'expertPostView'
+          : 'tutorialView';
+      if (
+        match.url !==
+        routes[route](match.params.id, decodeURIComponent(match.params.title))
+      ) {
+        history.push(
+          routes[route](
+            match.params.id,
+            decodeURIComponent(match.params.title),
+          ),
+        );
+      }
     }
-  }
+  }, [questionData]);
+
   useEffect(() => {
     window.isRendered = false;
     resetStoreDispatch();

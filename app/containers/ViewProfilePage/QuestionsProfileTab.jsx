@@ -125,8 +125,8 @@ const Note = ({
   const route =
     single && single !== communityId
       ? communitiesConfig[communityId]?.origin +
-        getPostRoute(postType, id, answerRouteId)
-      : getPostRoute(postType, id, answerRouteId);
+        getPostRoute({ postType, id, answerId: answerRouteId, title })
+      : getPostRoute({ postType, id, answerId: answerRouteId, title });
 
   return (
     <LinkStyled to={route} href={route}>
