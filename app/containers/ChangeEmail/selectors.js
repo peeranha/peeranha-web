@@ -50,6 +50,12 @@ const selectConfirmOldEmailError = () =>
     (substate) => substate.confirmOldEmailError,
   );
 
+const selectGetEmailAddressError = () =>
+  createSelector(
+    selectChangeEmailDomain,
+    (substate) => substate.getEmailAddressError,
+  );
+
 const selectEmail = () =>
   createSelector(selectChangeEmailDomain, (substate) => substate.email);
 
@@ -75,4 +81,5 @@ export {
   selectEmail,
   selectVerificationCode,
   selectIsSubscribed,
+  selectGetEmailAddressError,
 };

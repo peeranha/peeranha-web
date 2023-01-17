@@ -45,6 +45,7 @@ import {
   confirmOldEmailErr,
   getEmailAddress,
   getEmailAddressSuccess,
+  getEmailAddressErr,
 } from './actions';
 
 export function* sendOldEmailWorker({ email }) {
@@ -173,7 +174,7 @@ export function* getEmailAddressWorker({ address }) {
     const { email, isSubscribed } = response.body;
     yield put(getEmailAddressSuccess(email, isSubscribed));
   } catch (err) {
-    yield put(sendOldEmailErr(err));
+    yield put(getEmailAddressErr(err));
   }
 }
 

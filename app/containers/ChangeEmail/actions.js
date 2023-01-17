@@ -21,6 +21,7 @@ import {
   SEND_ANOTHER_CODE,
   GET_EMAIL_ADDRESS,
   GET_EMAIL_ADDRESS_SUCCESS,
+  GET_EMAIL_ADDRESS_ERROR,
 } from './constants';
 
 export function sendAnotherCode() {
@@ -119,5 +120,12 @@ export function getEmailAddressSuccess(email, isSubscribed) {
     type: GET_EMAIL_ADDRESS_SUCCESS,
     email,
     isSubscribed,
+  };
+}
+
+export function getEmailAddressErr(getEmailAddressError) {
+  return {
+    type: GET_EMAIL_ADDRESS_ERROR,
+    getEmailAddressError,
   };
 }
