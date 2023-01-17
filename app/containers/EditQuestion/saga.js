@@ -200,8 +200,8 @@ export function* editQuestionWorker({ question, questionId }) {
     yield call(
       createdHistory.push,
       Number(question.postType) === Number(POST_TYPE.documentation)
-        ? routes.documentation(questionId)
-        : routes.questionView(questionId),
+        ? routes.documentation(questionId, question.title)
+        : routes.questionView(questionId, question.title),
     );
   } catch (err) {
     yield put(editQuestionErr(err));

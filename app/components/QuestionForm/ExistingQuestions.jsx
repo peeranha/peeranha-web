@@ -58,6 +58,7 @@ const getQuestionTitleWithoutCommunity = (str, communities) => {
 const ExistingQuestions = ({ questions, skip, show, intl, communities }) => {
   const commNames = communities.map((comm) => comm.name);
   const findQuestions = questions.slice(0, 4);
+
   return (
     <Container>
       <Label>
@@ -68,8 +69,8 @@ const ExistingQuestions = ({ questions, skip, show, intl, communities }) => {
       </Label>
       <List>
         {findQuestions.map((q) => (
-          <ListItem key={questionView(q.id)}>
-            <a href={questionView(q.id)} target={'_blank'}>
+          <ListItem key={questionView(q.id, q.title)}>
+            <a href={questionView(q.id, q.title)} target={'_blank'}>
               {getQuestionTitleWithoutCommunity(q.title, commNames)}
             </a>
           </ListItem>

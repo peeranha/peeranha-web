@@ -16,7 +16,7 @@ export type Post = {
   postType: number;
   rating: number;
   replyCount: number;
-  tags: Tag[];
+  tags: Array<number> | null;
   title: string;
   questionBounty: object;
 };
@@ -50,7 +50,7 @@ const SearchContent: React.FC<SearchContentProps> = ({
         title={post.title}
         postTime={post.postTime}
         content={post.content}
-        tags={post.tags}
+        tags={Array.isArray(post.tags) ? post.tags : []}
         questionBounty={post.questionBounty}
         author={post.author}
         communityId={post.communityId}
