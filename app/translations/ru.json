@@ -223,6 +223,7 @@
   "app.containers.ChangeEmail.newEmail": "Новая почта",
   "app.containers.ChangeEmail.confirmNewEmail": "Подтвердите новую почту",
   "app.containers.ChangeEmail.emailsDoNotMatch": "Почты не совпадают",
+  "app.containers.ChangeLocale.Title": "Выберите язык",
   "app.containers.DeleteAccount.deleteAccount": "Удалить аккаунт",
   "app.containers.DeleteAccount.areYouLeaving": "Вы уходите?",
   "app.containers.DeleteAccount.iUnderstand": "Я понимаю, что эта операция не удаляет мой аккаунт на Telos блокчейне. Аккаунт удаляется только из кошелька сервиса.",

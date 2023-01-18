@@ -197,7 +197,7 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
                   css={{
                     height: 40,
                     width: 328,
-                    border: '1px solid #C2C6D8',
+                    border: '1px solid var(--color-border-bottom)',
                     borderRadius: '3px',
                     padding: '10px 16px',
                     fontSize: 16,

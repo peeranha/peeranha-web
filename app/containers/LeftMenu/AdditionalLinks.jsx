@@ -193,17 +193,11 @@ export default React.memo(({ currClientHeight }) => {
       )}
 
       {middleSize && basicCondition && <InfoLinksDropDown withTitle />}
-
-      {(fullSize ||
-        ((smallSize || middleSize) && !basicCondition) ||
-        isMobile(window.navigator).any) && <ChangeLocale withTitle />}
-
-      {smallSize && basicCondition && (
-        <FlexibleDiv>
-          <InfoLinksDropDown />
-          <ChangeLocale />
-        </FlexibleDiv>
-      )}
+      <div
+        className="mb-3"
+        css={{ borderBottom: '1px solid var(--color-border-bottom)' }}
+      />
+      {(middleSize || smallSize) && <ChangeLocale />}
 
       <FooterStyled currClientHeight={currClientHeight}>
         {!single && (

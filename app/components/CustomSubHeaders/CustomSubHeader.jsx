@@ -25,7 +25,9 @@ const Div = styled.div`
     styles.bg.header || `var(--color-blue-dark)`};
   border-bottom: ${({ bg }) => (bg ? 0 : 1)}px solid
     ${({ styles, bg }) =>
-      styles.bg.header === `var(--color-white)` ? `#c2c6d8` : styles.bg.header};
+      styles.bg.header === `var(--color-white)`
+        ? `var(--color-border-bottom)`
+        : styles.bg.header};
 
   ${({ styles }) =>
     styles.CustomSubHeader ? styles.CustomSubHeader : ``} > div > div {

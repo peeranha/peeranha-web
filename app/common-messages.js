@@ -669,4 +669,7 @@ export default defineMessages({
   holdDown: {
     id: 'app.containers.ChunkLoadError.holdDown',
   },
+  changeLocaleTitle: {
+    id: 'app.containers.ChangeLocale.Title',
+  },
 });

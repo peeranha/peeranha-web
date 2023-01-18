@@ -6,6 +6,7 @@ export default {
   '--color-gray-light': '#EFEFEF',
   '--color-gray-special': '#F9F9F9',
   '--color-blue-premium': '#DFE3F2',
+  '--color-border-bottom': '#c2c6d8',
   '--color-blue-light-special': '#7699FF',
   '--color-blue-light': '#EDEFF6',
   '--color-blue': '#576FED',

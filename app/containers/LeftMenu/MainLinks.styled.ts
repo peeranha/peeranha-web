@@ -21,7 +21,7 @@ export const styles = {
 
   divider: {
     height: '1px',
-    background: '#C2C6D8',
+    background: 'var(--color-border-bottom)',
     marginTop: '28px',
   },
 
