@@ -463,7 +463,10 @@ export const postsForSearchQuery = `
     ) {
         id
         ipfsHash
-        tags
+        tags {
+          id
+          name
+        }
         postType
         author {
           ${user}
