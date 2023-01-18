@@ -56,8 +56,8 @@ export function* editTagWorker({ tag, reset }) {
     const selectedAccount = yield call(ethereumService.getSelectedAccount);
     const { communityId, tagId } = yield select(selectEditTagData());
 
-    const tagsOfCommunity = yield select(selectExistingTags());
-    const editingTag = tagsOfCommunity.find((tg) => tg.id === tagId);
+    const tags = yield select(selectExistingTags());
+    const editingTag = tags[communityId].find((tg) => tg.id === tagId);
 
     const tagIpfsHash = yield saveText(JSON.stringify(tag));
     const updatedTag = {
