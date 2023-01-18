@@ -5,7 +5,11 @@ import { getQuestionFromGraph } from 'utils/theGraph';
 import { isSingleCommunityWebsite } from 'utils/communityManagement';
 import { makeSelectAccount } from 'containers/AccountProvider/selectors';
 import { selectEthereum } from 'containers/EthereumProvider/selectors';
-import { selectPinnedArticleDraft, selectDocumentation } from './selectors';
+import {
+  selectPinnedArticleDraft,
+  selectDocumentation,
+  selectDraftsIds,
+} from './selectors';
 import {
   getArticleDocumentationError,
   getArticleDocumentationSuccess,
@@ -25,18 +29,43 @@ export function* getArticleDocumentationWorker({
   articleId: string;
 }): Generator<any> {
   try {
-    const documentationArticleFromGraph = yield call(
-      getQuestionFromGraph,
-      articleId,
-    );
-    yield put(
-      getArticleDocumentationSuccess({
-        id: articleId,
-        title: (documentationArticleFromGraph as Post).title,
-        content: (documentationArticleFromGraph as Post).content,
-        lastmod: (documentationArticleFromGraph as Post).lastmod,
-      }),
-    );
+    const documentationFromStore = yield select(selectDocumentation());
+    const ipfsHash = getIpfsHashFromBytes32(articleId);
+    if (
+      (documentationFromStore as Array<DocumentationArticle>).find(
+        (item) => item.id === articleId,
+      )
+    ) {
+      yield put(getArticleDocumentationSuccess());
+    } else {
+      const draftsIds = yield select(selectDraftsIds());
+      const editedPost = (
+        draftsIds as { draftId: string; lastmod: string }[]
+      ).find((item) => item.draftId === articleId);
+      if (editedPost) {
+        const documentationArticle = yield call(getText, ipfsHash);
+        yield put(
+          getArticleDocumentationSuccess({
+            id: articleId,
+            ...JSON.parse(documentationArticle as string),
+            lastmod: editedPost?.lastmod,
+          }),
+        );
+      } else {
+        const documentationArticleFromGraph = yield call(
+          getQuestionFromGraph,
+          articleId,
+        );
+        yield put(
+          getArticleDocumentationSuccess({
+            id: articleId,
+            title: (documentationArticleFromGraph as Post).title,
+            content: (documentationArticleFromGraph as Post).content,
+            lastmod: (documentationArticleFromGraph as Post)?.lastmod,
+          }),
+        );
+      }
+    }
   } catch (err) {
     yield put(getArticleDocumentationError(err));
   }

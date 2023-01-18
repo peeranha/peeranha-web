@@ -34,17 +34,19 @@ type ViewContentProps = {
   documentationArticle: DocumentationArticle;
   isEditDocumentation?: boolean;
   locale: string;
+  isEditPost?: boolean;
 };
 
 const ViewContent: React.FC<ViewContentProps> = ({
   documentationArticle,
   isEditDocumentation,
   locale,
+  isEditPost,
 }): JSX.Element => {
   const headers = extractStrings(['#', '\n'])(
     `${documentationArticle?.content}\n` || '',
   );
-
+  console.log(123, isEditDocumentation);
   return (
     <>
       <Wrapper
@@ -59,19 +61,26 @@ const ViewContent: React.FC<ViewContentProps> = ({
               {documentationArticle?.title}
             </span>
           </H3>
-          {documentationArticle?.lastmod && (
-            <span
-              className="d-none d-md-inline-block db mt8 fz14 light"
-              css={css(styled.creationTime)}
-            >
-              <FormattedMessage id={commonMessages.lastEdited.id} />{' '}
-              {getFormattedDate(
-                documentationArticle.lastmod,
-                locale,
-                MONTH_3LETTERS__DAY_YYYY_TIME,
-              )}
-            </span>
-          )}
+          {documentationArticle?.lastmod &&
+            (!isEditDocumentation || (isEditPost && isEditDocumentation)) && (
+              <span
+                className="d-none d-md-inline-block db mt8 fz14 light"
+                css={css(styled.creationTime)}
+              >
+                <FormattedMessage
+                  id={
+                    isEditDocumentation
+                      ? commonMessages.lastEdited.id
+                      : commonMessages.lastUpdated.id
+                  }
+                />{' '}
+                {getFormattedDate(
+                  documentationArticle.lastmod,
+                  locale,
+                  MONTH_3LETTERS__DAY_YYYY_TIME,
+                )}
+              </span>
+            )}
         </div>
       </Wrapper>
       <div className="df">

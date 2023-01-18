@@ -26,20 +26,30 @@ export const initMenu = (
   },
 ];
 
-export const getSavedDraftsIds = (): Array<string> => {
+export const getSavedDraftsIds = (): { draftId: string; lastmod: string }[] => {
   if (localStorage.getItem(DRAFTS_IDS)) {
-    return JSON.parse(localStorage.getItem(DRAFTS_IDS));
+    const draftIds = localStorage.getItem(DRAFTS_IDS);
+    if (draftIds) {
+      const draftIdsArray = JSON.parse(draftIds);
+      return draftIdsArray;
+    }
   }
 
   return [];
 };
 
-export const saveDraftsIds = (draftId: string): Array<string> => {
+export const saveDraftsIds = (
+  draftId: string,
+  lastmod: string,
+): { draftId: string; lastmod: string }[] => {
   const draftsIds = getSavedDraftsIds();
 
-  localStorage.setItem(DRAFTS_IDS, JSON.stringify([...draftsIds, draftId]));
+  localStorage.setItem(
+    DRAFTS_IDS,
+    JSON.stringify([...draftsIds, { draftId, lastmod }]),
+  );
 
-  return [...draftsIds, draftId];
+  return [...draftsIds, { draftId, lastmod }];
 };
 
 export const saveDraft = (menu: Array<DocumentationItemMenuType>): void => {

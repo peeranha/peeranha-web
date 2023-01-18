@@ -10,7 +10,7 @@ type DraftsItemProps = {
   parentId: string;
   setEditArticle?: (data: EditArticleType) => void;
   setViewArticle?: (id: string) => void;
-  draftsIds: Array<string>;
+  draftsIds: { draftId: string; lastmod: string }[];
 };
 
 const DraftsItem: React.FC<DraftsItemProps> = ({
@@ -35,7 +35,7 @@ const DraftsItem: React.FC<DraftsItemProps> = ({
     }
   };
 
-  const isDraft = draftsIds.find((id) => id === item.id);
+  const isDraft = draftsIds.find((draft) => draft.draftId === item.id);
 
   return (
     <>

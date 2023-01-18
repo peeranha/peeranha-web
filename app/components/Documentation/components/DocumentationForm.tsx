@@ -104,7 +104,10 @@ const DocumentationForm: React.FC<DocumentationFormProps> = ({
         }
 
         saveDraft(updatedMenu);
-        const updatedDraftsIds = saveDraftsIds(ipfsHashBytes32);
+        const updatedDraftsIds = saveDraftsIds(
+          ipfsHashBytes32,
+          (Date.now() / 1000).toString(),
+        );
 
         updateDraftsIds(updatedDraftsIds);
         updateDocumentationMenuDraft(updatedMenu);

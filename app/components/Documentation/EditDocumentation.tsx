@@ -117,6 +117,8 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
     (item) => item.id === viewArticleId,
   );
 
+  const isDraft = draftsIds.find((draft) => draft.draftId === viewArticleId);
+
   const toggleEditDocumentationHandler = () => {
     toggleEditDocumentation();
     setEditArticleDispatch({
@@ -229,6 +231,7 @@ const EditDocumentation: React.FC<EditDocumentationProps> = ({
                     documentationArticle={viewDocumentationArticle}
                     isEditDocumentation
                     locale={locale}
+                    isEditPost={!!isDraft}
                   />
                 )}
                 {editArticle.isEditArticle && (

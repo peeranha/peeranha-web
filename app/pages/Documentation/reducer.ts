@@ -52,7 +52,7 @@ function documentationReducer(
     menu: Array<DocumentationItemMenuType>;
     isEditArticle: boolean;
     pinnedArticle: PinnedArticleType;
-    draftsIds: Array<string>;
+    draftsIds: { draftId: string; lastmod: string }[];
   },
 ) {
   const {

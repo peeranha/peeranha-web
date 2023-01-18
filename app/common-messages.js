@@ -198,6 +198,9 @@ export default defineMessages({
   lastEdited: {
     id: 'app.common.lastEdited',
   },
+  lastUpdated: {
+    id: 'app.common.lastUpdated',
+  },
   askedWhen: {
     id: 'app.common.askedWhen',
   },

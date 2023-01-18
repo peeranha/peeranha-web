@@ -100,7 +100,7 @@ const Post: React.FC<PostProps> = ({
         <div css={css(styles.mainInfo)}>
           {lastmod && (
             <span className="db mt8 fz14 light" css={css(styles.creationTime)}>
-              <FormattedMessage id={commonMessages.lastEdited.id} />{' '}
+              <FormattedMessage id={commonMessages.lastUpdated.id} />{' '}
               {getFormattedDate(lastmod, locale, MONTH_3LETTERS__DAY_YYYY_TIME)}
             </span>
           )}
