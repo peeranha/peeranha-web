@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 import { TEXT_SECONDARY, PEER_PRIMARY_COLOR } from 'style-constants';
 import { FormattedMessage } from 'react-intl';
 
@@ -36,7 +36,7 @@ const MessengerData = {
   },
 };
 
-const Block = styled.div`
+const blockCss = css`
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -70,7 +70,7 @@ const Block = styled.div`
 
 const borderColor = hexToRgbaString(PEER_PRIMARY_COLOR, 0.4);
 
-const BotImg = styled.img`
+const botImgCss = css`
   padding: 1px;
 
   width: ${CELL * 1.75}px;
@@ -83,7 +83,7 @@ const BotImg = styled.img`
   display: inline-block;
 `;
 
-const MessengerImg = styled.img`
+const messengerImgCss = css`
   position: absolute;
   bottom: 0px;
   right: 0px;
@@ -97,14 +97,14 @@ const MessengerImg = styled.img`
   background: white;
 `;
 
-export const BotImageWrapper = styled.div`
+export const botImageWrapperCss = css`
   position: relative;
   width: ${CELL * 1.75}px;
   height: ${CELL * 1.75}px;
 `;
 
 export const BotBlock = ({ postTime, locale, messenger }) => (
-  <Block>
+  <div css={blockCss}>
     <span className={`d-flex align-items-center mr-2`}>
       <Span
         className="mr-2"
@@ -122,20 +122,19 @@ export const BotBlock = ({ postTime, locale, messenger }) => (
     <Span color={TEXT_SECONDARY} fontSize="14" lineHeight="18">
       {getFormattedDate(postTime, locale, MONTH_3LETTERS__DAY_YYYY_TIME)}
     </Span>
-  </Block>
+  </div>
 );
 
 export const BotInfo = ({ postTime, locale, messengerType }) => {
   const messenger =
     MessengerData[messengerType] ?? MessengerData[MessengerTypes.Unknown];
-  console.log('messengerType', messengerType);
-  console.log('Messenger', messenger);
+
   return (
     <div className="d-flex flex-shrink-0">
-      <BotImageWrapper className="mr-2">
-        <BotImg isBordered src={botLogo} alt="avatar" />
-        {messenger.icon && <MessengerImg src={messenger.icon} />}
-      </BotImageWrapper>
+      <div css={botImageWrapperCss} className="mr-2">
+        <img css={botImgCss} src={botLogo} alt="avatar" />
+        {messenger.icon && <img css={messengerImgCss} src={messenger.icon} />}
+      </div>
       <BotBlock postTime={postTime} locale={locale} messenger={messenger} />
     </div>
   );
