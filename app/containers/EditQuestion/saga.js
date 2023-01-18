@@ -4,11 +4,7 @@ import { call, put, select, takeLatest } from 'redux-saga/effects';
 import createdHistory from 'createdHistory';
 import * as routes from 'routes-config';
 
-import {
-  editQuestion,
-  getQuestionById,
-  getQuestionTags,
-} from 'utils/questionsManagement';
+import { editQuestion, getQuestionById } from 'utils/questionsManagement';
 import { getCommunityWithTags } from 'utils/communityManagement';
 
 import { isAuthorized, isValid } from 'containers/EosioProvider/saga';
@@ -42,9 +38,10 @@ export function* getAskedQuestionWorker({ questionId }) {
     const cachedQuestion = yield select(selectQuestionData());
     const account = yield select(makeSelectAccount());
     let question;
+    let questionFromContract;
 
     if (!cachedQuestion) {
-      const questionFromContract = yield call(
+      questionFromContract = yield call(
         getQuestionById,
         ethereumService,
         questionId,
@@ -64,7 +61,7 @@ export function* getAskedQuestionWorker({ questionId }) {
 
       question.community = community;
 
-      question.tags = getQuestionTags(question, tags[communityId]);
+      question.tags = questionFromContract.tags;
     }
     // const promotedQuestions = yield call(
     //   getPromotedQuestions,
