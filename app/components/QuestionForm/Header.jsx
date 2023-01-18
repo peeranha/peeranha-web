@@ -23,7 +23,7 @@ import { singleCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
 
-const Header = ({ formTitle, questionId, intl, postType }) => (
+const Header = ({ formTitle, postTitle, questionId, intl, postType }) => (
   <Wrapper className="mb-to-sm-0 mb-from-sm-3">
     <H3>
       <MediumIconStyled>
@@ -34,7 +34,7 @@ const Header = ({ formTitle, questionId, intl, postType }) => (
           isColorImportant={true}
         />
       </MediumIconStyled>
-      <span>{formTitle}</span>
+      <span>{formTitle || postTitle}</span>
     </H3>
 
     {questionId && (
@@ -43,7 +43,7 @@ const Header = ({ formTitle, questionId, intl, postType }) => (
           to={
             postType === POST_TYPE.documentation
               ? routes.documentation(questionId, formTitle)
-              : routes.questionView(questionId, formTitle)
+              : routes.questionView(questionId, formTitle ?? postTitle)
           }
         >
           <button>
