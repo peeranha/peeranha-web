@@ -14,8 +14,7 @@
   "itemsMax": "项目数量已达到最大值",
   "noRootsToVote": "您不能对自己的帖子和答案进行投票",
   "creatorCannot": "创建者无法完成此操作",
-  "notEnoughEnergy":
-    "我们在您的帐户中检测到可疑活动，并暂时锁定了网站上的所有访问权限",
+  "notEnoughEnergy": "我们在您的帐户中检测到可疑活动，并暂时锁定了网站上的所有访问权限",
   "questions": {
     "title": "问题页面",
     "description": "问题描述"
@@ -40,7 +39,7 @@
   "moreComments": "更多评论",
   "moreComment": "更多评论",
   "addComment": "添加评论",
-  "showMoreAnswers": "显示更多答案 {value}",
+  "showMoreAnswers": "显示更多答案 {{value}}",
   "areYouSure": "您确定要删除该项目吗？",
   "markExpertQuestionAndGetEarn": "标记此问题的最佳答案并获得两个声望点",
   "markGeneralQuestionAndGetEarn": "标记此问题的最佳答案并获得加一声望点",
@@ -61,7 +60,6 @@
   "deleted": "已删除",
   "RulesBlock_1": "以下是一些提示，可让您的回答有用且不会被版主删除：",
   "RulesBlock_2": "1.仔细阅读帖子以了解问题并提供最佳回复。",
-  "RulesBlock_3":
-    "2.确保您的回答回答了帖子中提出的问题，而不仅仅是评论或感谢。",
+  "RulesBlock_3": "2.确保您的回答回答了帖子中提出的问题，而不仅仅是评论或感谢。",
   "RulesBlock_4": "3. 对他人有礼貌和尊重。"
 }
