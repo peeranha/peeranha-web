@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import * as routes from 'routes-config';
 import { useTranslation } from 'react-i18next';
 import { TEXT_PRIMARY } from 'style-constants';
+import { singleCommunityColors } from 'utils/communityManagement';
 
 import myFeedIcon from 'images/myFeedHeader.svg?external';
 import closeIcon from 'images/closeCircle.svg?external';
@@ -18,7 +19,9 @@ import A from 'components/A';
 import { IconMd, IconLg } from 'components/Icon/IconWithSizes';
 import { MediumIconStyled } from 'components/Icon/MediumIcon';
 
-const Wrapper = ({ children, questionid, answerid }) => {
+const colors = singleCommunityColors();
+
+const Wrapper = ({ children, questionid, answerid, title }) => {
   const { t } = useTranslation();
 
   return (
@@ -26,21 +29,31 @@ const Wrapper = ({ children, questionid, answerid }) => {
       <Header className="mb-to-sm-0 mb-from-sm-3">
         <H3>
           <MediumIconStyled>
-            <IconLg icon={myFeedIcon} width="38" />
+            <IconLg
+              icon={myFeedIcon}
+              width="38"
+              color={colors.btnColor || TEXT_PRIMARY}
+              fill={colors.btnColor || TEXT_PRIMARY}
+              isColorImportant={true}
+            />
           </MediumIconStyled>
           {t('post.editAnswer')}
         </H3>
 
         <div className="right-panel">
-          <A to={routes.questionView(questionid, answerid)}>
+          <A to={routes.questionView(questionid, title, answerid)}>
             <button>
               <IconMd
                 className="mr-1"
                 icon={closeIcon}
-                fill={TEXT_PRIMARY}
+                fill={colors.btnColor || TEXT_PRIMARY}
+                color={colors.btnColor || TEXT_PRIMARY}
                 isColorImportant={true}
               />
-              <Span color={TEXT_PRIMARY} className="button-label">
+              <Span
+                color={colors.btnColor || TEXT_PRIMARY}
+                className="button-label"
+              >
                 {t('common.close')}
               </Span>
             </button>

@@ -67,8 +67,8 @@ const ExistingQuestions = ({ questions, skip, show, communities }) => {
       </Label>
       <List>
         {findQuestions.map((q) => (
-          <ListItem key={questionView(q.id)}>
-            <a href={questionView(q.id)} target={'_blank'}>
+          <ListItem key={questionView(q.id, q.title)}>
+            <a href={questionView(q.id, q.title)} target={'_blank'}>
               {getQuestionTitleWithoutCommunity(q.title, commNames)}
             </a>
           </ListItem>

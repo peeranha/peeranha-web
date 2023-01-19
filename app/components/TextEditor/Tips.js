@@ -6,7 +6,12 @@ import { useTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import { TEXT_PRIMARY, BG_PRIMARY, BORDER_SECONDARY } from 'style-constants';
+import {
+  TEXT_PRIMARY,
+  BG_PRIMARY,
+  BORDER_SECONDARY,
+  LINK_COLOR,
+} from 'style-constants';
 
 import { selectFaqQuestions } from 'containers/DataCacheProvider/selectors';
 
@@ -74,6 +79,9 @@ const P = styled.p`
 
 const Link = styled.a`
   line-height: 24px;
+  span {
+    color: ${colors.linkColor || LINK_COLOR};
+  }
 `;
 
 const Italic = styled.span`

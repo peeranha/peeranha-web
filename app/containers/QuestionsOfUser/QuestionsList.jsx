@@ -42,7 +42,8 @@ const RightBlock = Base.extend`
 
 export const Li = BaseRoundedNoPadding.extend`
   display: flex;
-  border: ${x => (x.bordered ? `1px solid ${BORDER_PRIMARY} !important` : '0')};
+  border: ${(x) =>
+    x.bordered ? `1px solid ${BORDER_PRIMARY} !important` : '0'};
   box-shadow: ${({ postType }) => {
     if (postType === POST_TYPE.expertPost) {
       return `3px 3px 5px ${EXPERT_BACKLIGHT}`;
@@ -137,7 +138,7 @@ const Question = ({
   const answerRouteId =
     elementType === POST_TYPE_ANSWER ? answerId.split('-')[1] : null;
 
-  const route = getPostRoute(postType, id, answerRouteId);
+  const route = getPostRoute({ postType, id, answerId: answerRouteId, title });
 
   return (
     <Li className="mb-3" postType={postType}>
@@ -173,7 +174,7 @@ const Question = ({
 const QuestionsList = ({ questions, locale, communities }) => (
   <div>
     <ul>
-      {questions.map(x => (
+      {questions.map((x) => (
         <Question
           myPostRating={x.myPostRating}
           title={x.title}

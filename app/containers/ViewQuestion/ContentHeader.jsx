@@ -41,6 +41,10 @@ import {
   hasProtocolAdminRole,
 } from '../../utils/properties';
 
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
+
 const RatingBox = styled.div`
   border-right: 1px solid ${BORDER_SECONDARY};
   flex-basis: 193px;
@@ -278,7 +282,10 @@ const ContentHeader = (props) => {
                   onClick={onClick}
                   disabled={ids.includes(`${type}_delete_${answerId}`)}
                 >
-                  <IconMd icon={deleteIcon} fill={BORDER_PRIMARY} />
+                  <IconMd
+                    icon={deleteIcon}
+                    fill={colors.contentHeader || BORDER_PRIMARY}
+                  />
                   <span>{t('post.deleteButton')}</span>
                 </Button>
               )}

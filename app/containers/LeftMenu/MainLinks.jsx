@@ -150,7 +150,7 @@ const Box = styled.div`
       return '25px !important';
     return '50px';
   }};
-  padding-bottom: 25px;
+  padding-bottom: 30px;
   @media only screen and (max-width: 576px) {
     padding: 10px 0 20px 0;
   }
@@ -211,7 +211,7 @@ const MainLinks = ({
 
             return (
               <A1
-                to={routes.documentation(ipfsHash)}
+                to={routes.documentation(ipfsHash, pinnedItemMenu.title)}
                 name={`documentation/${ipfsHash}`}
                 className="df jcsb aic"
                 css={{
@@ -284,7 +284,7 @@ const MainLinks = ({
           {t(`common.${profile && !singleCommId ? 'myFeed' : 'feed'}`)}
         </A1>
 
-        <A1 to={routes.questions()} name="questions" route={route}>
+        <A1 to={routes.questions()} name="discussions" route={route}>
           <IconLg className="mr-2" icon={generalIcon} />
           {t('common.discussions')}
         </A1>

@@ -11,8 +11,7 @@ import { getUserAvatar } from 'utils/profileManagement';
 
 import questionRoundedIcon from 'images/question2.svg?external';
 import answerIcon from 'images/answer.svg?external';
-import iconCopy from 'images/document-copy.svg?inline';
-import iconCopySelect from 'images/document-copy-select.svg?inline';
+import CopyTextIcon from 'icons/CopyText';
 import Base from 'components/Base';
 import A from 'components/A';
 import Ul from 'components/Ul';
@@ -29,6 +28,9 @@ import { customRatingIconColors } from 'constants/customRating';
 import ProfileSince from 'components/ProfileSince';
 import { getUserName } from 'utils/user';
 
+import { singleCommunityColors } from 'utils/communityManagement';
+
+const colors = singleCommunityColors();
 const InlineLoader = styled(LoadingIndicator)`
   margin: auto;
   margin-top: 5px;
@@ -181,14 +183,12 @@ const MainUserInformation = ({
     (x) => x.key === TEMPORARY_ACCOUNT_KEY && x.value,
   );
   const userPolygonScanAddress = process.env.BLOCKCHAIN_EXPLORERE_URL + userId;
-  const [copied, setCopied] = useState(false);
+  const [copied, setCopied] = useState('');
   const writeToBuffer = (event) => {
     navigator.clipboard.writeText(userId);
-    setCopied(true);
+    setCopied(colors.btnColor || LINK_COLOR);
     showPopover(event.currentTarget.id, t('common.copied'));
   };
-
-  const iconType = copied ? iconCopySelect : iconCopy;
 
   return (
     <Box position="middle" className="pb-0">
@@ -312,12 +312,10 @@ const MainUserInformation = ({
                       `}
                       onClick={writeToBuffer}
                     >
-                      <img
-                        src={iconType}
-                        alt="copy"
-                        css={css`
-                          height: 20px;
-                        `}
+                      <CopyTextIcon
+                        className={colors.btnColor || LINK_COLOR}
+                        fill={copied}
+                        stroke={colors.btnColor || LINK_COLOR}
                       />
                     </button>
                   </span>
