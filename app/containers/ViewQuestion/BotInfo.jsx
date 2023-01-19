@@ -85,16 +85,17 @@ const botImgCss = css`
 
 const messengerImgCss = css`
   position: absolute;
-  bottom: 0px;
-  right: 0px;
+  bottom: -2px;
+  right: -2px;
 
   width: ${CELL * 0.6125}px;
   height: ${CELL * 0.6125}px;
 
   border-radius: 50%;
-  border: 2px solid ${borderColor};
+  border: 1.5px solid ${borderColor};
 
   background: white;
+  box-sizing: content-box;
 `;
 
 export const botImageWrapperCss = css`
