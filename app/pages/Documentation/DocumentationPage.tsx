@@ -8,7 +8,6 @@ import { DAEMON } from 'utils/constants';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import { css } from '@emotion/react';
-import { translationMessages } from 'i18n';
 
 import ViewContent from 'components/Documentation/components/ViewContent';
 import Loader from 'components/Documentation/components/Loader';
@@ -33,8 +32,6 @@ import {
 } from './types';
 import { getBytes32FromIpfsHash } from 'utils/ipfs';
 
-import commonMessages from 'common-messages';
-
 interface DocumentationProps extends RouteComponentProps<RouterDocumentetion> {
   getArticleDocumentationDispatch: (id: string) => void;
   documentation: Array<DocumentationArticle>;
@@ -54,7 +51,7 @@ export const DocumentationPage: React.FC<DocumentationProps> = ({
   locale,
 }) => {
   const ipfsHash = pinnedItemMenu?.id || documentationMenu[0]?.id;
-  const ipfsHasgBytes32 = Boolean(match.params.sectionId)
+  const ipfsHasgBytes32 = match.params.sectionId
     ? getBytes32FromIpfsHash(match.params.sectionId)
     : ipfsHash;
 

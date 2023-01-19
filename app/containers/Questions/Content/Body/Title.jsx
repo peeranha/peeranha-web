@@ -20,7 +20,7 @@ const fonts = singleCommunityFonts();
 
 const Title = ({ locale, title, id, questionBounty, postType }) => {
   const { t } = useTranslation();
-  const link = getPostRoute(postType, id, title);
+  const link = getPostRoute({ postType, id, title });
 
   return (
     <Wrapper className="mb-1">
