@@ -208,6 +208,7 @@ export const QuestionForm = ({
       <div>
         <Header
           formTitle={formTitle}
+          postTitle={postTitle}
           questionId={questionid}
           postType={question?.postType}
           intl={intl}
