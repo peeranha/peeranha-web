@@ -43,7 +43,7 @@ const Header = ({ formTitle, postTitle, questionId, intl, postType }) => (
           to={
             postType === POST_TYPE.documentation
               ? routes.documentation(questionId, formTitle)
-              : routes.questionView(questionId, formTitle ?? postTitle)
+              : routes.questionView(questionId, postTitle)
           }
         >
           <button>
