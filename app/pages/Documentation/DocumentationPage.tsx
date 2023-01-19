@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { AnyAction, bindActionCreators, compose, Dispatch } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import { RouteComponentProps } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import { DAEMON } from 'utils/constants';
 import injectReducer from 'utils/injectReducer';
@@ -50,6 +51,7 @@ export const DocumentationPage: React.FC<DocumentationProps> = ({
   documentationMenu,
   locale,
 }) => {
+  const { t } = useTranslation();
   const ipfsHash = pinnedItemMenu?.id || documentationMenu[0]?.id;
   const ipfsHasgBytes32 = match.params.sectionId
     ? getBytes32FromIpfsHash(match.params.sectionId)
@@ -70,8 +72,8 @@ export const DocumentationPage: React.FC<DocumentationProps> = ({
   return documentationSection?.id !== '' ? (
     <>
       <Seo
-        title={translationMessages[locale][commonMessages.documentation.id]}
-        description={translationMessages[locale][commonMessages.description.id]}
+        title={t('common.documentation')}
+        description={t('common.description')}
         language={locale}
       />
       <div

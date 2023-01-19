@@ -93,7 +93,7 @@ const required = (value) => {
 };
 
 const requiredPostTypeSelection = (value) =>
-  Number(value) >= 0 ? undefined : 'formFields.postTypeSelectionError';
+  Number(value) >= 0 ? undefined : 'common.postTypeSelectionError';
 
 const requiredAndNotZero = (value) => {
   let message;

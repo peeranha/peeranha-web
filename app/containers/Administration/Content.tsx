@@ -52,7 +52,7 @@ export const Content: React.FC<ContentProps> = ({
   revokeModerator,
   communityId,
 }): JSX.Element => {
-  const { translate } = useTranslation();
+  const { t: translate } = useTranslation();
   const moderatorRole = getCommunityRole(COMMUNITY_MODERATOR_ROLE, communityId);
   const adminRole = getCommunityRole(COMMUNITY_ADMIN_ROLE, communityId);
 
