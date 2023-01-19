@@ -89,12 +89,6 @@ const PostTypeIcon = ({ elementType, isMyAnswerAccepted }) => {
   return <Img src={icon} notRounded alt="icon" />;
 };
 
-const QuestionTypeHolder = styled.div`
-  @media (max-width: 576px) {
-    margin-top: -20px;
-  }
-`;
-
 const TitleHolder = Span.extend`
   @media (max-width: 576px) {
     min-width: 45px;
@@ -131,8 +125,8 @@ const Note = ({
   const route =
     single && single !== communityId
       ? communitiesConfig[communityId]?.origin +
-        getPostRoute(postType, id, answerRouteId)
-      : getPostRoute(postType, id, answerRouteId);
+        getPostRoute({ postType, id, answerId: answerRouteId, title })
+      : getPostRoute({ postType, id, answerId: answerRouteId, title });
 
   return (
     <LinkStyled to={route} href={route}>
@@ -153,9 +147,9 @@ const Note = ({
         <TitleHolder fontSize="16" lineHeight="30" mobileFS="14" title={title}>
           {title}
         </TitleHolder>
-        <QuestionTypeHolder>
+        <div>
           <QuestionType locale={locale} postType={postType} />
-        </QuestionTypeHolder>
+        </div>
 
         <PostDate
           className="d-inline-block"
@@ -180,7 +174,7 @@ const QuestionsProfileTab = ({
 }) => (
   <div className={className}>
     <div>
-      {questions.map(item => (
+      {questions.map((item) => (
         <Note
           postType={item.postType}
           isMyAnswerAccepted={item.isMyAnswerAccepted}

@@ -64,8 +64,8 @@ const Info = styled.span`
 `;
 
 const NoAvatarBox = styled.div`
-  width: 47px;
-  height: 47px;
+  width: 40px;
+  height: 40px;
   border: ${({ isMobileVersion }) =>
     (!isMobileVersion && styles.communityBorderStyle) ||
     `1px solid ${BORDER_SECONDARY}`};
@@ -73,6 +73,11 @@ const NoAvatarBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media only screen and (min-width: 992px) {
+    width: 47px;
+    height: 47px;
+  }
 `;
 
 const B = ({ profileInfo, onClick, isMenuVisible, isMobileVersion }) => (

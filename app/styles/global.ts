@@ -38,7 +38,7 @@ export default css`
 
   body,
   button {
-    font-family: 'Sourse Sans Pro', sans-serif;
+    font-family: 'Source Sans Pro', sans-serif;
     font-style: normal;
     font-weight: 400;
   }
@@ -145,6 +145,9 @@ export default css`
   .fz18 {
     font-size: 18px;
   }
+  .fz24 {
+    font-size: 24px;
+  }
   .pr {
     position: relative;
   }
@@ -153,6 +156,9 @@ export default css`
   }
   .pf {
     position: fixed;
+  }
+  .ps {
+    position: sticky;
   }
   .l0 {
     left: 0;
@@ -202,8 +208,17 @@ export default css`
   .capitalize {
     text-transform: capitalize;
   }
+  .light {
+    font-weight: 400;
+  }
   .medium {
     font-weight: 500;
+  }
+  .semi-bold {
+    font-weight: 600;
+  }
+  .bold {
+    font-weight: 700;
   }
   a {
     text-decoration: none;

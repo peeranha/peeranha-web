@@ -12,13 +12,14 @@ import {
 } from '../../utils/constants';
 
 const Item = ({ title, id, content, postTime, locale }) => {
-  const link = `${process.env.APP_LOCATION}/questions/${id}`;
+  console.log('ItemItemItemItemItemItemItemItemItem');
+  const link = `${process.env.APP_LOCATION}/discussions/${id}`;
   const formattedDate = getFormattedDate(
     postTime,
     locale,
     MONTH_3LETTERS__DAY_YYYY_TIME,
   );
-  const snippetWithLocale = formattedDate + ' / ' + content;
+  const snippetWithLocale = `${formattedDate} / ${content}`;
   return (
     <li className="mb-3">
       <div>
