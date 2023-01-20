@@ -425,7 +425,7 @@ const App = ({
           />
 
           <Route
-            path={routes.questionEdit(':postType', ':questionid')}
+            path={routes.questionEdit(':postType', ':questionid', ':title')}
             render={(props) => Wrapper(EditQuestion, props)}
           />
 
