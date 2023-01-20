@@ -48,7 +48,7 @@ const torus = torusModule({
 const single = isSingleCommunityWebsite();
 const styles = singleCommunityStyles();
 
-const src = styles.withoutSubHeader ? communitiesConfig[single].src : logo;
+const src = styles.withoutSubHeader ? styles.signUpPageLogo : logo;
 
 const initWeb3Onboard = init({
   wallets: [torus, injected, walletConnect, coinbase],

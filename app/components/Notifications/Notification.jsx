@@ -196,12 +196,16 @@ const Notification = ({
 
   const href = useMemo(() => {
     if (data.post_type === 0) {
-      return routes.expertPostView(data.question_id, data.answer_id);
+      return routes.expertPostView(
+        data.question_id,
+        data.title,
+        data.answer_id,
+      );
     }
     if (data.post_type === 1) {
-      return routes.questionView(data.question_id, data.answer_id);
+      return routes.questionView(data.question_id, data.title, data.answer_id);
     }
-    return routes.tutorialView(data.question_id, data.answer_id);
+    return routes.tutorialView(data.question_id, data.title, data.answer_id);
   }, [data]);
 
   const values = useMemo(() => {

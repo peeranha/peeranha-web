@@ -63,7 +63,7 @@ export async function giveRolePermission(
     CONTRACT_USER,
     user,
     addRolePermissionEthConstants[role],
-    [userToGive, communityId],
+    [user, userToGive, communityId],
   );
 }
 
@@ -78,7 +78,7 @@ export async function revokeRolePermission(
     CONTRACT_USER,
     user,
     revokeRolePermissionEthConstants[role],
-    [userToRevoke, communityId],
+    [user, userToRevoke, communityId],
   );
 }
 

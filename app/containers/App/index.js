@@ -408,29 +408,29 @@ const App = ({
 
           <Route
             exact
-            path={routes.questionView(':id')}
+            path={routes.questionView(':id', ':title')}
             render={(props) => Wrapper(ViewQuestion, props)}
           />
 
           <Route
             exact
-            path={routes.expertPostView(':id')}
+            path={routes.expertPostView(':id', ':title')}
             render={(props) => Wrapper(ViewQuestion, props)}
           />
 
           <Route
             exact
-            path={routes.tutorialView(':id')}
+            path={routes.tutorialView(':id', ':title')}
             render={(props) => Wrapper(ViewQuestion, props)}
           />
 
           <Route
-            path={routes.questionEdit(':postType', ':questionid')}
+            path={routes.questionEdit(':postType', ':questionid', ':title')}
             render={(props) => Wrapper(EditQuestion, props)}
           />
 
           <Route
-            path={routes.documentation(':sectionId')}
+            path={routes.documentation(':sectionId', ':title')}
             render={(props) => Wrapper(Documentation, props)}
           />
 

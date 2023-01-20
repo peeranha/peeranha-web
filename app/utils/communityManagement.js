@@ -78,13 +78,13 @@ export const editCommunity = async (
       ...communityData,
     }),
   );
-
+  const user = selectedAccount;
   const ipfsHash = getBytes32FromIpfsHash(communityIpfsHash);
   await ethereumService.sendTransaction(
     CONTRACT_COMMUNITY,
-    selectedAccount,
+    user,
     EDIT_COMMUNITY,
-    [communityId, ipfsHash],
+    [user, communityId, ipfsHash],
   );
 };
 
@@ -238,7 +238,7 @@ export async function editTag(user, ethereumService, tag, tagId) {
     CONTRACT_COMMUNITY,
     user,
     EDIT_TAG,
-    [tag.communityId, tagId, ipfsHash],
+    [user, tag.communityId, tagId, ipfsHash],
   );
 }
 
@@ -321,7 +321,7 @@ export async function unfollowCommunity(
     CONTRACT_USER,
     account,
     UNFOLLOW_COMMUNITY,
-    [communityIdFilter],
+    [account, communityIdFilter],
   );
 }
 
@@ -334,7 +334,7 @@ export async function followCommunity(
     CONTRACT_USER,
     account,
     FOLLOW_COMMUNITY,
-    [communityIdFilter],
+    [account, communityIdFilter],
   );
 }
 
@@ -365,11 +365,12 @@ export async function createCommunity(
     }),
   );
   const ipfsHash = getBytes32FromIpfsHash(communityIpfsHash);
+  const user = selectedAccount;
   await ethereumService.sendTransaction(
     CONTRACT_COMMUNITY,
-    selectedAccount,
+    user,
     CREATE_COMMUNITY,
-    [ipfsHash, tags],
+    [user, ipfsHash, tags],
   );
 }
 
@@ -380,13 +381,12 @@ export async function createTag(
   tag,
 ) {
   const ipfsHash = getBytes32FromIpfsHash(await saveText(JSON.stringify(tag)));
-
-  await ethereumService.sendTransaction(
-    CONTRACT_COMMUNITY,
-    selectedAccount,
-    CREATE_TAG,
-    [communityId, ipfsHash],
-  );
+  const user = selectedAccount;
+  await ethereumService.sendTransaction(CONTRACT_COMMUNITY, user, CREATE_TAG, [
+    user,
+    communityId,
+    ipfsHash,
+  ]);
 }
 
 export async function upVoteToCreateCommunity(
