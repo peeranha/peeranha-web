@@ -15,8 +15,7 @@
   "backToList": "返回列表",
   "didntFindSuitableTag": "没有找到合适的标签？",
   "youHaveAlreadyVoted": "你已经投票了",
-  "suggestTagWhichWillbeUseful":
-    "建议一个标签，这将对您和其他 100 位投票的用户有用。",
+  "suggestTagWhichWillbeUseful": "建议一个标签，这将对您和其他 100 位投票的用户有用。",
   "creatorCannotUpvoteOwnComm": "创作者不能为自己的标签投票",
   "descriptionTags": "标签说明",
   "suggestedTags": "建议的标签",
@@ -31,5 +30,6 @@
     "noSuggestedTags": "没有建议的标签",
     "topTagsInCommunity": "社区中的热门标签",
     "tagDescription": "描述"
-  }
+  },
+  "saveTag": "救"
 }

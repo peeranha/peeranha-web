@@ -8,19 +8,15 @@
   "descriptionField": "Sự miêu tả",
   "descriptionFieldTip": "Hướng dẫn cách sử dụng thẻ",
   "newTag": "Thẻ mới",
-  "tagIsKeyword":
-    "Thẻ được sử dụng làm từ khóa hoặc nhãn để phân loại câu hỏi của bạn.",
-  "usingTheRightTags":
-    "Sử dụng các thẻ phù hợp giúp người dùng khác dễ dàng tìm thấy câu hỏi của bạn hơn.",
+  "tagIsKeyword": "Thẻ được sử dụng làm từ khóa hoặc nhãn để phân loại câu hỏi của bạn.",
+  "usingTheRightTags": "Sử dụng các thẻ phù hợp giúp người dùng khác dễ dàng tìm thấy câu hỏi của bạn hơn.",
   "titleEdit": "Chỉnh sửa thẻ",
   "descriptionSave": "Lưu | Sự miêu tả",
   "backToList": "Quay lại danh sách",
   "didntFindSuitableTag": "Không tìm thấy thẻ phù hợp?",
   "youHaveAlreadyVoted": "Bạn đã bình chọn",
-  "suggestTagWhichWillbeUseful":
-    "Đề xuất một thẻ, thẻ này sẽ hữu ích cho bạn và 100 người dùng khác, những người sẽ bỏ phiếu cho thẻ đó.",
-  "creatorCannotUpvoteOwnComm":
-    "Người sáng tạo không thể ủng hộ thẻ của riêng họ",
+  "suggestTagWhichWillbeUseful": "Đề xuất một thẻ, thẻ này sẽ hữu ích cho bạn và 100 người dùng khác, những người sẽ bỏ phiếu cho thẻ đó.",
+  "creatorCannotUpvoteOwnComm": "Người sáng tạo không thể ủng hộ thẻ của riêng họ",
   "descriptionTags": "Mô tả các thẻ",
   "suggestedTags": "Thẻ đề xuất",
   "createTag": "Tạo thẻ",
@@ -34,5 +30,6 @@
     "noSuggestedTags": "Không có thẻ đề xuất",
     "topTagsInCommunity": "Thẻ hàng đầu trong cộng đồng",
     "tagDescription": "Sự miêu tả"
-  }
+  },
+  "saveTag": "Tiết kiệm"
 }

@@ -64,7 +64,7 @@ const EditAnswer = ({
         values.get(ANSWER_TYPE_FORM),
         questionTitle,
       ),
-    [questionid, answerid, title, questionTitle],
+    [questionid, answerid, questionTitle],
   );
 
   const { properties, communityId, content, isOfficialReply } = useMemo(

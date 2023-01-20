@@ -8,19 +8,15 @@
   "descriptionField": "Descripción",
   "descriptionFieldTip": "Instrucciones sobre cómo usar la etiqueta",
   "newTag": "Nueva etiqueta",
-  "tagIsKeyword":
-    "Una etiqueta se usa como palabra clave o etiqueta para categorizar su pregunta.",
-  "usingTheRightTags":
-    "El uso de las etiquetas correctas facilita que otros usuarios encuentren sus preguntas.",
+  "tagIsKeyword": "Una etiqueta se usa como palabra clave o etiqueta para categorizar su pregunta.",
+  "usingTheRightTags": "El uso de las etiquetas correctas facilita que otros usuarios encuentren sus preguntas.",
   "titleEdit": "Editar etiqueta",
   "descriptionSave": "Ahorrar | Descripción",
   "backToList": "Volver a la lista",
   "didntFindSuitableTag": "No encontró etiquetas adecuadas?",
   "youHaveAlreadyVoted": "Ya votaste",
-  "suggestTagWhichWillbeUseful":
-    "Sugiere una etiqueta, que te será útil a ti y a otros 100 usuarios que votarán por ella.",
-  "creatorCannotUpvoteOwnComm":
-    "Los creadores no pueden votar su propia etiqueta.",
+  "suggestTagWhichWillbeUseful": "Sugiere una etiqueta, que te será útil a ti y a otros 100 usuarios que votarán por ella.",
+  "creatorCannotUpvoteOwnComm": "Los creadores no pueden votar su propia etiqueta.",
   "descriptionTags": "Descripción de Etiquetas",
   "suggestedTags": "Etiquetas sugeridas",
   "createTag": "Crear etiqueta",
@@ -34,5 +30,6 @@
     "noSuggestedTags": "No hay etiquetas sugeridas",
     "topTagsInCommunity": "Etiquetas principales en la comunidad",
     "tagDescription": "Descripción"
-  }
+  },
+  "saveTag": "Ahorrar"
 }
