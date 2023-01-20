@@ -58,10 +58,10 @@
   "allQuestions": "Todas las preguntas",
   "manageMyComm": "Ver todas las comunidades",
   "asked": "Preguntó",
-  "askedWhen": "Preguntó {{cuando}}",
-  "answeredWhen": "Contestada {{cuando}}",
-  "somebodyAsked": "{{cuenta}} preguntó",
-  "somebodyAnswered": "{{cuenta}} contestada",
+  "askedWhen": "Preguntó {{when}}",
+  "answeredWhen": "Contestada {{when}}",
+  "somebodyAsked": "{{account}} preguntó",
+  "somebodyAnswered": "{{account}} contestada",
   "youAnswered": "Tu respondiste",
   "youAsked": "Has publicado",
   "answered": "Contestada",
@@ -127,7 +127,7 @@
   "showMore": "Mostrar más {{valor}}",
   "showLess": "Muestra menos {{valor}}",
   "poweredBy": "©{{año}} Energizado por <0></0>",
-  "poweredByPeeranha": "Energizado por {{imagen}}",
+  "poweredByPeeranha": "Energizado por {{image}}",
   "terms": "Acuerdo de operación",
   "noResults": "No hay resultados",
   "iAcceptPrivacyPolicy": "Acepto ",
@@ -172,7 +172,7 @@
     "Guías prácticas"
   ],
   "rightNow": "Ahora mismo",
-  "minutesAgo": "{{minutos}} hace minutos",
+  "minutesAgo": "{{minutes}} hace minutos",
   "hoursAgo": "{{hours}} hace horas",
   "yesterday": "Yesterday",
   "official": "Ayer",
@@ -429,5 +429,6 @@
     "details": "Detalles",
     "reloadPage": "Recargar página"
   },
-  "answerForm": "Tu respuesta"
+  "answerForm": "Tu respuesta",
+  "results": "Resultados"
 }

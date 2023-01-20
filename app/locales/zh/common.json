@@ -173,8 +173,7 @@
   "yesterday": "昨天",
   "official": "官方的",
   "profilesUsersInfo": "文件大小不应超过 5Mb",
-  "communityBannerInfo":
-    "使用至少 1360 x 120 像素的图像。 文件大小不应超过 1Mb",
+  "communityBannerInfo": "使用至少 1360 x 120 像素的图像。 文件大小不应超过 1Mb",
   "fileSizeErrorMsg": "文件大小超过 5Mb。 选择另一个...",
   "bannerSizeErrorMsg": "文件大小超过 1Mb。 选择另一个...",
   "incorrectBannerResolutionMsg": "图像分辨率必须为 1360 x 120 像素",
@@ -201,8 +200,7 @@
   "transaction": "交易",
   "transactionCompleted": "交易成功完成",
   "estimatedReward": "估计奖励",
-  "rewardsWillBeAvailable":
-    "糟糕，您现在无法领取您的代币。 不用担心，预计奖励将在代币发布后供您领取。 我们的法律团队正在支持我们敲定代币发布的细节。 谢谢！",
+  "rewardsWillBeAvailable": "糟糕，您现在无法领取您的代币。 不用担心，预计奖励将在代币发布后供您领取。 我们的法律团队正在支持我们敲定代币发布的细节。 谢谢！",
   "help": "帮助",
   "didntFindAnswer": "没有找到答案？",
   "freeFeelToAsk": "随时询问我们的团队。 我们将帮助寻找答案。",
@@ -216,8 +214,7 @@
   "youDontHaveFeedToRead": "您没有任何供稿可供阅读",
   "subscribeToCommToKeep": "订阅社区以跟踪您感兴趣的主题。",
   "noPostsYet": "还没有帖子。",
-  "thisIsNewCommunity":
-    "这是新社区，你可以成为第一个创建帖子的人，它可能会成为最受欢迎的。",
+  "thisIsNewCommunity": "这是新社区，你可以成为第一个创建帖子的人，它可能会成为最受欢迎的。",
   "readMyFeed": "阅读我的提要",
   "goToCommunities": "去社区",
   "topQuestionPopover": "这个社区的热门问题",
@@ -243,8 +240,7 @@
   "previewLabel": "预习",
   "questionType": "帖子类型",
   "questionTypeTip": "可选的",
-  "generalQuestionDescriptionLabel":
-    "不需要专业知识或经验来回答的主题可以是以下之一：",
+  "generalQuestionDescriptionLabel": "不需要专业知识或经验来回答的主题可以是以下之一：",
   "expertQuestionDescriptionLabel": "提出以下问题之一的问题：",
   "generalQuestionDescriptionList": [
     "主观意见交流；",
@@ -279,34 +275,29 @@
   "indentCode": "代码缩进四个空格",
   "backtipEscapes": "对代码块使用反引号转义`like _so_`",
   "quoteByPlacing": "通过在行首放置 > 来引用",
-  "toMakeLinks":
-    "建立链接 &lt;http://foo.com&gt;[foo](http://foo.com)&lt;a href=&quot;http://foo.com&quot;&gt;fo",
+  "toMakeLinks": "建立链接 &lt;http://foo.com&gt;[foo](http://foo.com)&lt;a href=&quot;http://foo.com&quot;&gt;fo",
   "titleAskQuestion": "最新帖子",
   "descriptionAskQuestion": "最新帖子 | 描述",
   "postQuestion": "邮政",
   "contentPopupBlock_1": "嘿！",
-  "contentPopupBlock_2":
-    "欢迎来到 Peeranha。 我们很高兴您来到这里并准备好发表您的第一份出版物。 我们在这里都遵循一些简单的规则：",
+  "contentPopupBlock_2": "欢迎来到 Peeranha。 我们很高兴您来到这里并准备好发表您的第一份出版物。 我们在这里都遵循一些简单的规则：",
   "contentPopupBlock_3": "1。 确保您的帖子与特定社区相关。",
   "contentPopupBlock_4": "2。 做一些研究以确保以前没有发布过相同的帖子。",
   "contentPopupBlock_5": "3。 答案必须实际回答问题，而不仅仅是评论。",
-  "contentPopupBlock_6":
-    "4。 确保您的回答提供了有价值的信息，而不仅仅是重复已经说过的话。",
+  "contentPopupBlock_6": "4。 确保您的回答提供了有价值的信息，而不仅仅是重复已经说过的话。",
   "contentPopupBlock_7": "最重要的规则是对其他用户保持礼貌和友好。",
   "contentPopupBlock_8": "谢谢！",
   "newEmail": "新邮件",
   "confirmNewEmail": "确认新电子邮件",
   "emailsDoNotMatch": "电子邮件内容不符",
   "didntFindAnyInteresting": "没发现什么有趣的东西？",
-  "suggestInterestingComm":
-    "建议一个社区，这对你和其他数百名投票给它的用户来说会很有趣。",
+  "suggestInterestingComm": "建议一个社区，这对你和其他数百名投票给它的用户来说会很有趣。",
   "titleCommunities": "社区",
   "descriptionCommunities": "社区 | 描述",
   "suggestCommunity": "创建社区",
   "deleteAccount": "删除帐户",
   "areYouLeaving": "你要走了吗？",
-  "iUnderstand":
-    "我了解此操作不会删除我在 Telos 区块链上的帐户。 帐户仅从钱包服务中删除。",
+  "iUnderstand": "我了解此操作不会删除我在 Telos 区块链上的帐户。 帐户仅从钱包服务中删除。",
   "iHaveBackup": "我已经备份了我的 Telos 私钥。",
   "faqPage": {
     "title": "常见问题",
@@ -342,8 +333,7 @@
     "permissionChangePostType": "更改帖子类型",
     "permissionChangePostTypeDescription": "允许您更改帖子类型",
     "permissionSelectTopQuestion": "选择最热门的问题",
-    "permissionSelectTopQuestionDescription":
-      "允许您选择将显示在\"顶部\"页面上的问题",
+    "permissionSelectTopQuestionDescription": "允许您选择将显示在\"顶部\"页面上的问题",
     "permissionOfficialAnswer": "发布官方答案",
     "permissionOfficialAnswerDescription": "允许您发布官方答案"
   },
@@ -401,8 +391,7 @@
     "title": "支持",
     "description": "支持 | 描述",
     "feelFreeToAsk": "随意问",
-    "alsoWeHighly":
-      "我们非常感谢您对我们平台的反馈、意见和建议。 如果您有 十五 分钟的时间聊天，请给我们发送几行信息，或者更好地告诉我们。"
+    "alsoWeHighly": "我们非常感谢您对我们平台的反馈、意见和建议。 如果您有 十五 分钟的时间聊天，请给我们发送几行信息，或者更好地告诉我们。"
   },
   "voteNewCommunity": {
     "youHaveAlreadyVoted": "你已经投过票",
@@ -436,5 +425,6 @@
     "details": "细节",
     "reloadPage": "重新加载页面"
   },
-  "answerForm": "你的答案"
+  "answerForm": "你的答案",
+  "results": "结果"
 }

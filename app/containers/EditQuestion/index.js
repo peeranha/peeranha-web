@@ -36,9 +36,9 @@ import { getAskedQuestion, editQuestion } from './actions';
 import { EDIT_QUESTION_FORM, EDIT_QUESTION_BUTTON } from './constants';
 
 const TITLE = [
-  'common.EditExpertQ&A',
-  'common.EditDiscussion',
-  'common.EditTutorial',
+  'common.editExpertQ&A',
+  'common.editDiscussion',
+  'common.editTutorial',
 ];
 
 const EditQuestion = ({

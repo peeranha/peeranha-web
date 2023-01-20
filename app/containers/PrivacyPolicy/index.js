@@ -20,13 +20,10 @@ import Aside from 'containers/Faq/Aside';
 import Header from './Header';
 import { SECTION_ID } from './constants';
 import privacyPolicyEn from '../../privacy-policy/en.md';
-import privacyPolicyRu from '../../privacy-policy/ru.md';
 
 export const PrivacyPolicy = ({ locale }) => {
   const { t } = useTranslation();
-  const privacyPolicy = parseMD(
-    locale === 'en' ? privacyPolicyEn : privacyPolicyRu,
-  );
+  const privacyPolicy = parseMD(privacyPolicyEn);
 
   return (
     <div className="d-flex justify-content-center">
@@ -51,7 +48,7 @@ export const PrivacyPolicy = ({ locale }) => {
       <AsideBox className="d-none d-xl-block">
         <Aside
           content={privacyPolicy}
-          route={x => routes.privacyPolicy(getSectionCode(SECTION_ID, x))}
+          route={(x) => routes.privacyPolicy(getSectionCode(SECTION_ID, x))}
         />
       </AsideBox>
     </div>

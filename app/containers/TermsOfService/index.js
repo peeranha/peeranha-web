@@ -20,11 +20,10 @@ import Aside from 'containers/Faq/Aside';
 import Header from './Header';
 import { SECTION_ID } from './constants';
 import termsEn from '../../terms-of-service/en.md';
-import termsRu from '../../terms-of-service/ru.md';
 
 const TermsOfService = ({ locale }) => {
   const { t } = useTranslation();
-  const terms = parseMD(locale === 'en' ? termsEn : termsRu);
+  const terms = parseMD(termsEn);
 
   return (
     <div className="d-flex justify-content-center">
@@ -49,7 +48,9 @@ const TermsOfService = ({ locale }) => {
       <AsideBox className="d-none d-xl-block">
         <Aside
           content={terms}
-          route={x => routes.termsAndConditions(getSectionCode(SECTION_ID, x))}
+          route={(x) =>
+            routes.termsAndConditions(getSectionCode(SECTION_ID, x))
+          }
         />
       </AsideBox>
     </div>
@@ -64,9 +65,6 @@ const mapStateToProps = createStructuredSelector({
   locale: makeSelectLocale(),
 });
 
-const withConnect = connect(
-  mapStateToProps,
-  null,
-);
+const withConnect = connect(mapStateToProps, null);
 
 export default compose(withConnect)(TermsOfService);
