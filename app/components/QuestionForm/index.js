@@ -134,6 +134,7 @@ export const QuestionForm = ({
   isDocumentation,
   documentationMenu,
   parentId,
+  questionTitle,
 }) => {
   const { t } = useTranslation();
   const [isSelectedType, setIsSelectedType] = useState(false);
@@ -212,6 +213,7 @@ export const QuestionForm = ({
       <div>
         <Header
           formTitle={formTitle}
+          postTitle={questionTitle}
           questionId={questionid}
           postType={question?.postType}
           isDocumentation={isDocumentation}

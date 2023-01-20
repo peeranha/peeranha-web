@@ -22,7 +22,7 @@ import { singleCommunityColors } from 'utils/communityManagement';
 
 const colors = singleCommunityColors();
 
-const Header = ({ formTitle, questionId, postType }) => {
+const Header = ({ formTitle, postTitle, questionId, postType }) => {
   const { t } = useTranslation();
 
   return (
@@ -45,7 +45,7 @@ const Header = ({ formTitle, questionId, postType }) => {
             to={
               postType === POST_TYPE.documentation
                 ? routes.documentation(questionId, formTitle)
-                : routes.questionView(questionId, formTitle)
+                : routes.questionView(questionId, postTitle)
             }
           >
             <button>
