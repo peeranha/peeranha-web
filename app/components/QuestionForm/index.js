@@ -130,6 +130,7 @@ export const QuestionForm = ({
   documentationMenu,
   parentId,
   isEditForm,
+  questionTitle,
 }) => {
   const [isSelectedType, setIsSelectedType] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -211,6 +212,7 @@ export const QuestionForm = ({
       <div>
         <Header
           formTitle={formTitle}
+          postTitle={questionTitle}
           questionId={questionid}
           postType={question?.postType}
           intl={intl}

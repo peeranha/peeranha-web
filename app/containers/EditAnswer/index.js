@@ -31,8 +31,10 @@ import messages from './messages';
 import Wrapper from './Wrapper';
 
 import { editAnswer, getAnswer } from './actions';
+import { getQuestionData } from '../ViewQuestion/actions';
 import { EDIT_ANSWER_BUTTON, EDIT_ANSWER_FORM } from './constants';
 import NotFound from '../ErrorPage';
+import { selectQuestionTitle } from '../ViewQuestion/selectors';
 import { makeSelectProfileInfo } from '../AccountProvider/selectors';
 
 const EditAnswer = ({
@@ -46,26 +48,35 @@ const EditAnswer = ({
   editAnswerLoading,
   getAnswerDispatch,
   editAnswerDispatch,
+  getQuestionDataDispatch,
+  questionTitle,
 }) => {
-  useEffect(
-    () => {
-      getAnswerDispatch(+questionid, +answerid);
-    },
-    [questionid, answerid],
+  useEffect(() => {
+    getQuestionDataDispatch(questionid);
+    getAnswerDispatch(+questionid, +answerid);
+  }, [questionid, answerid]);
+
+  const msg = useMemo(() => translationMessages[locale], [locale]);
+  const [title, description] = useMemo(
+    () => [
+      answer?.content ?? msg[messages.title.id],
+      answer?.content ?? msg[messages.title.description],
+    ],
+    [answer],
   );
 
   const sendAnswer = useCallback(
-    values =>
+    (values) =>
       editAnswerDispatch(
         values.get(TEXT_EDITOR_ANSWER_FORM),
         +questionid,
         +answerid,
         values.get(ANSWER_TYPE_FORM),
+        questionTitle,
       ),
-    [questionid, answerid],
+    [questionid, answerid, title, questionTitle],
   );
 
-  const msg = useMemo(() => translationMessages[locale], [locale]);
   const { properties, communityId, content, isOfficialReply } = useMemo(
     () => answer || { properties: [] },
     [answer],
@@ -97,14 +108,6 @@ const EditAnswer = ({
     ],
   );
 
-  const [title, description] = useMemo(
-    () => [
-      answer?.content ?? msg[messages.title.id],
-      answer?.content ?? msg[messages.title.description],
-    ],
-    [answer],
-  );
-
   const available = useMemo(
     () => (!!profile && answer?.user === profile.user) || !answer?.user,
     [answer, profile, answer, editAnswerLoading],
@@ -122,7 +125,11 @@ const EditAnswer = ({
           />
 
           {!answerLoading && (
-            <Wrapper questionid={questionid} answerid={answerid}>
+            <Wrapper
+              questionid={questionid}
+              answerid={answerid}
+              title={questionTitle}
+            >
               <AnswerForm {...sendProps} />
             </Wrapper>
           )}
@@ -163,10 +170,12 @@ export default compose(
       answerLoading: selectAnswerLoading(),
       editAnswerLoading: selectEditAnswerLoading(),
       profile: makeSelectProfileInfo(),
+      questionTitle: selectQuestionTitle(),
     }),
-    dispatch => ({
+    (dispatch) => ({
       getAnswerDispatch: bindActionCreators(getAnswer, dispatch),
       editAnswerDispatch: bindActionCreators(editAnswer, dispatch),
+      getQuestionDataDispatch: bindActionCreators(getQuestionData, dispatch),
     }),
   ),
 )(EditAnswer);

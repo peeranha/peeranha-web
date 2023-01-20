@@ -1,16 +1,10 @@
-/**
- *
- * Edit routes attentively - not to crash App routing
- *
- */
-
-/* eslint camelcase: 0, prettier/prettier: 0 */
 import {
   isSingleCommunityWebsite,
   getSingleCommunityDetails,
 } from 'utils/communityManagement';
 import { REFERRAL_CODE_URI } from './containers/App/constants';
 import { POST_TYPE } from './utils/constants';
+import { updateTitle } from './utils/seo';
 
 const userRedirect = (where) => (id) => `/users/${id}${where}`;
 
@@ -25,7 +19,7 @@ export const errorPage = () => `/error-occured`;
 export const profileView = userRedirect('');
 export const profileEdit = (id) => `/users/edit/${id}`;
 
-export const userQuestions = userRedirect('#questions');
+export const userQuestions = userRedirect('#discussions');
 export const userCommunities = userRedirect('#communities');
 export const userAnswers = userRedirect('#answers');
 export const userSettings = userRedirect('#settings');
@@ -38,8 +32,8 @@ export const uniqueAnswerId = (answerId) => `ans${answerId}`;
 
 export const questions = (communityId) =>
   !communityId
-    ? `${!isBloggerMode ? '/questions' : '/questions'}`
-    : `/questions/community/${communityId}/`;
+    ? `${!isBloggerMode ? '/discussions' : '/discussions'}`
+    : `/discussions/community/${communityId}/`;
 
 export const expertPosts = (communityId) =>
   !communityId
@@ -51,41 +45,52 @@ export const tutorials = (communityId) =>
     ? `${!isBloggerMode ? '/tutorials' : '/experts'}`
     : `/tutorials/community/${communityId}/`;
 
-export const questionView = (id, answerId) =>
-  answerId
-    ? `/questions/${id}#${uniqueAnswerId(answerId)}`
-    : `/questions/${id}`;
+export const questionView = (id, title, answerId) => {
+  const updatedTitle = updateTitle(title);
 
-export const expertPostView = (id, answerId) =>
-  answerId ? `/experts/${id}#${uniqueAnswerId(answerId)}` : `/experts/${id}`;
-
-export const tutorialView = (id, answerId) =>
-  answerId
-    ? `/tutorials/${id}#${uniqueAnswerId(answerId)}`
-    : `/tutorials/${id}`;
-
-export const getPostRoute = (postType, id, answerId = null) => {
-  if (postType === POST_TYPE.generalPost) {
-    return questionView(id, answerId);
-  }
-  if (postType === POST_TYPE.expertPost) {
-    return expertPostView(id, answerId);
-  }
-  if (postType === POST_TYPE.documentation) {
-    return documentation(id);
-  }
-  return tutorialView(id);
+  return answerId
+    ? `/discussions/${id}/${updatedTitle}#${uniqueAnswerId(answerId)}`
+    : `/discussions/${id}/${updatedTitle}`;
 };
 
-export const questionEdit = (postType, questionId) =>
-  `/${postType}/${questionId}/edit`;
+export const expertPostView = (id, title, answerId) => {
+  const updatedTitle = updateTitle(title);
+
+  return answerId
+    ? `/experts/${id}/${updatedTitle}#${uniqueAnswerId(answerId)}`
+    : `/experts/${id}/${updatedTitle}`;
+};
+
+export const tutorialView = (id, title, answerId) => {
+  const updatedTitle = updateTitle(title);
+
+  return answerId
+    ? `/tutorials/${id}/${updatedTitle}#${uniqueAnswerId(answerId)}`
+    : `/tutorials/${id}/${updatedTitle}`;
+};
+
+export const getPostRoute = ({ postType, id, answerId = null, title }) => {
+  if (postType === POST_TYPE.generalPost) {
+    return questionView(id, title, answerId);
+  }
+  if (postType === POST_TYPE.expertPost) {
+    return expertPostView(id, title, answerId);
+  }
+  if (postType === POST_TYPE.documentation) {
+    return documentation(id, title);
+  }
+  return tutorialView(id, title);
+};
+
+export const questionEdit = (postType, questionId, title) =>
+  `/${postType}/${questionId}/${updateTitle(title)}/edit`;
 
 export const answerEdit = (questionId, answerId) =>
   !singleCommId
-    ? `/questions/${questionId}/answers/${answerId}/edit`
+    ? `/discussions/${questionId}/answers/${answerId}/edit`
     : `/${questionId}/answers/${answerId}/edit`;
 
-export const questionAsk = () => (!singleCommId ? `/questions/ask` : `/ask`);
+export const questionAsk = () => (!singleCommId ? `/discussions/ask` : `/ask`);
 
 export const documentationCreate = (parentId) =>
   parentId ? `/documentation/${parentId}/create` : `/documentation/create`;
@@ -151,7 +156,8 @@ export const referralPage = (user) => `/?${REFERRAL_CODE_URI}=${user}`;
 
 export const facebookDataDeletion = () => '/facebook-data-deletion';
 
-export const documentation = (sectionId) => `/documentation/${sectionId}`;
+export const documentation = (sectionId, title) =>
+  `/documentation/${sectionId}/${updateTitle(title)}`;
 export const documentationStartPage = () => `/`;
 export const redirectRoutesForSCM = [
   privacyPolicy(),

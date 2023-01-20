@@ -32,7 +32,7 @@ export const Question = (props) => {
       deleteItemLoading={props.deleteQuestionLoading}
       editItem={[
         props.redirectToEditQuestionPage,
-        routes.questionEdit(type, id),
+        routes.questionEdit(type, id, props.questionData.title),
       ]}
       saveComment={props.saveComment}
       deleteComment={props.deleteComment}

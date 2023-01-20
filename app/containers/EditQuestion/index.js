@@ -14,6 +14,7 @@ import {
   makeSelectBalance,
   makeSelectProfileInfo,
 } from 'containers/AccountProvider/selectors';
+import { selectQuestionTitle } from '../ViewQuestion/selectors';
 import { selectCommunities } from 'containers/DataCacheProvider/selectors';
 
 import QuestionForm from 'components/QuestionForm';
@@ -35,6 +36,7 @@ import saga from './saga';
 import messages from './messages';
 
 import { getAskedQuestion, editQuestion } from './actions';
+import { getQuestionData } from '../ViewQuestion/actions';
 import { EDIT_QUESTION_FORM, EDIT_QUESTION_BUTTON } from './constants';
 
 const EditQuestion = ({
@@ -50,11 +52,14 @@ const EditQuestion = ({
   profile,
   account,
   editQuestionError,
+  getQuestionDataDispatch,
+  questionTitle,
 }) => {
   const { questionid } = match.params;
   const isDocumentation = match.url.split('/')[1] === 'documentation';
   useEffect(() => {
     if (account) {
+      getQuestionDataDispatch(questionid);
       getAskedQuestionDispatch(questionid);
     }
   }, [questionid, getAskedQuestionDispatch, account]);
@@ -114,6 +119,7 @@ const EditQuestion = ({
       profile,
       isFailed,
       isDocumentation,
+      questionTitle,
     }),
     [questionid, question, communities, editQuestionLoading, sendQuestion],
   );
@@ -176,10 +182,12 @@ export default compose(
       editQuestionLoading: makeSelectEditQuestion.selectEditQuestionLoading(),
       editQuestionError: makeSelectEditQuestion.selectEditQuestionError(),
       profile: makeSelectProfileInfo(),
+      questionTitle: selectQuestionTitle(),
     }),
     (dispatch) => ({
       getAskedQuestionDispatch: bindActionCreators(getAskedQuestion, dispatch),
       editQuestionDispatch: bindActionCreators(editQuestion, dispatch),
+      getQuestionDataDispatch: bindActionCreators(getQuestionData, dispatch),
     }),
   ),
 )(EditQuestion);
