@@ -132,6 +132,7 @@ export const QuestionForm = ({
   isDocumentation,
   documentationMenu,
   parentId,
+  questionTitle,
   getCommunityTagsDispatch,
   cachedTags,
 }) => {
@@ -214,7 +215,7 @@ export const QuestionForm = ({
       <div>
         <Header
           formTitle={formTitle}
-          postTitle={postTitle}
+          postTitle={questionTitle}
           questionId={questionid}
           postType={question?.postType}
           intl={intl}
