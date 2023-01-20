@@ -32,15 +32,17 @@ export const CommunityField = ({
   disabled,
   className,
   options,
+  communityId,
   isHasRoleGlobal,
   isCommunityModerator,
-  isEditMode,
+  isEditForm,
+  isPostAuthor,
 }) => {
   if (input) {
     input.value = input.value.toJS ? input.value.toJS() : input.value;
   }
   const AllThingsWeb3Comm = options.filter(
-    (item) => item.id === DEFAULT_COMMUNITY_ID || item.id === input?.value?.id,
+    (item) => item.id === DEFAULT_COMMUNITY_ID || item.id === communityId,
   );
 
   return (
@@ -57,7 +59,10 @@ export const CommunityField = ({
         disabled={disabled}
         selectedCommunityId={input.value?.id ?? 0}
         communities={
-          isEditMode && isCommunityModerator && !isHasRoleGlobal
+          isEditForm &&
+          isCommunityModerator &&
+          !isHasRoleGlobal &&
+          !isPostAuthor
             ? AllThingsWeb3Comm
             : options
         }

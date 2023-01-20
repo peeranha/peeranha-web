@@ -10,8 +10,7 @@ import { Router, Prompt } from 'react-router';
 import commonMessages from 'common-messages';
 import { BORDER_PRIMARY, LINK_COLOR_SECONDARY } from 'style-constants';
 
-import { IS_EDIT_MODE } from './constants';
-
+import { EDIT_QUESTION_FORM } from 'containers/EditQuestion/constants';
 import icoTag from 'images/icoTag.svg?external';
 
 import _uniqBy from 'lodash/uniqBy';
@@ -130,16 +129,18 @@ export const QuestionForm = ({
   isDocumentation,
   documentationMenu,
   parentId,
+  isEditForm,
 }) => {
   const [isSelectedType, setIsSelectedType] = useState(false);
   const [isError, setIsError] = useState(false);
   const [submitPressed, setSubmitPressed] = useState(false);
   const [isClickSubmit, setIsClickSubmit] = useState(false);
-  const isEditMode = path.slice(-4) === IS_EDIT_MODE;
   const postTitle = question?.title;
   const postContent = question?.content;
+  const isPostAuthor = question?.author === profile?.user;
 
-  const communityId = single || formValues[FORM_COMMUNITY]?.id;
+  const communityId =
+    single || question?.communityId || formValues[FORM_COMMUNITY]?.id;
   const isCommunityModerator = communityId
     ? hasCommunityModeratorRole(getPermissions(profile), communityId)
     : false;
@@ -221,12 +222,14 @@ export const QuestionForm = ({
               <CommunityForm
                 intl={intl}
                 communities={communities}
+                communityId={communityId}
                 change={change}
                 questionLoading={questionLoading}
                 disableCommForm={false}
                 isHasRoleGlobal={isHasRoleGlobal}
                 isCommunityModerator={isCommunityModerator}
-                isEditMode={isEditMode}
+                isEditForm={isEditForm}
+                isPostAuthor={isPostAuthor}
               />
 
               {Boolean(!question && isDocumentation && isNaN(parentId)) && (
@@ -288,6 +291,8 @@ export const QuestionForm = ({
                 questionLoading={questionLoading}
                 isDocumentation={isDocumentation}
                 isHasRole={isHasRoleGlobal}
+                isEditForm={isEditForm}
+                isPostAuthor={isPostAuthor}
               />
 
               {formValues[FORM_TITLE] &&
@@ -310,6 +315,8 @@ export const QuestionForm = ({
                 questionLoading={questionLoading}
                 formValues={formValues}
                 isHasRole={isHasRoleGlobal}
+                isEditForm={isEditForm}
+                isPostAuthor={isPostAuthor}
               />
 
               {!isDocumentation &&
@@ -373,6 +380,7 @@ QuestionForm.propTypes = {
   skipExistingQuestions: PropTypes.func,
   profile: PropTypes.object,
   isFailed: PropTypes.bool,
+  isEditForm: PropTypes.bool,
 };
 
 const FormClone = reduxForm({
@@ -389,6 +397,7 @@ export default memo(
         const questionsType = integerProperties.find(
           (prop) => prop.key === KEY_QUESTIONS_TYPE,
         )?.value;
+        const isEditForm = formName === EDIT_QUESTION_FORM;
 
         return {
           profile: makeSelectProfileInfo()(state),
@@ -445,6 +454,7 @@ export default memo(
               : {}),
           },
           enableReinitialize: true,
+          isEditForm,
         };
       },
       (dispatch) => ({

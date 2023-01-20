@@ -16,12 +16,19 @@ import { FORM_CONTENT } from './constants';
 import { PreviewWrapper } from '../AnswerForm';
 import Wrapper from '../FormFields/Wrapper';
 
-const ContentForm = ({ questionLoading, intl, formValues, isHasRole }) => (
+const ContentForm = ({
+  questionLoading,
+  intl,
+  formValues,
+  isHasRole,
+  isEditForm,
+  isPostAuthor,
+}) => (
   <>
     <Field
       name={FORM_CONTENT}
       component={TextEditorField}
-      disabled={questionLoading || isHasRole}
+      disabled={questionLoading || (isHasRole && isEditForm && !isPostAuthor)}
       label={intl.formatMessage(messages.questionBodyLabel)}
       validate={[strLength25x30000, required]}
       warn={[strLength25x30000, required]}

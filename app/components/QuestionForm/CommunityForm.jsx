@@ -20,12 +20,14 @@ const single = isSingleCommunityWebsite();
 const CommunityForm = ({
   intl,
   communities,
+  communityId,
   change,
   questionLoading,
   disableCommForm,
   isHasRoleGlobal,
   isCommunityModerator,
-  isEditMode,
+  isEditForm,
+  isPostAuthor,
 }) => {
   const onChange = useCallback(() => change(FORM_TAGS, ''), [change]);
 
@@ -42,9 +44,11 @@ const CommunityForm = ({
       validate={[requiredForObjectField, requiredMinReputation]}
       warn={[requiredForObjectField, requiredMinReputation]}
       splitInHalf
+      communityId={communityId}
       isHasRoleGlobal={isHasRoleGlobal}
       isCommunityModerator={isCommunityModerator}
-      isEditMode={isEditMode}
+      isEditForm={isEditForm}
+      isPostAuthor={isPostAuthor}
     />
   );
 };

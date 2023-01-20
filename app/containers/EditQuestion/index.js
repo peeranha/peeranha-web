@@ -53,25 +53,22 @@ const EditQuestion = ({
 }) => {
   const { questionid } = match.params;
   const isDocumentation = match.url.split('/')[1] === 'documentation';
-  useEffect(
-    () => {
-      if (account) {
-        getAskedQuestionDispatch(questionid);
-      }
-    },
-    [questionid, getAskedQuestionDispatch, account],
-  );
+  useEffect(() => {
+    if (account) {
+      getAskedQuestionDispatch(questionid);
+    }
+  }, [questionid, getAskedQuestionDispatch, account]);
 
   const sendQuestion = useCallback(
-    values => {
+    (values) => {
       const val = values.toJS();
       editQuestionDispatch(
         {
           title: val[FORM_TITLE],
           content: val[FORM_CONTENT],
           communityId: val[FORM_COMMUNITY].id,
-          tags: val[FORM_TAGS].map(tag => +tag.id.split('-')[1]),
-          postType: Number(val[FORM_TYPE]),
+          tags: val[FORM_TAGS].map((tag) => +tag.id.split('-')[1]),
+          postType: Number(val[FORM_TYPE]) || question.postType,
           // bounty: +val[FORM_BOUNTY],
           // bountyFull: `${getFormattedAsset(+val[FORM_BOUNTY])} PEER`,
           // bountyHours: +val[FORM_BOUNTY_HOURS],
@@ -92,7 +89,7 @@ const EditQuestion = ({
     () =>
       isDocumentation
         ? 'Edit article'
-        : translationMessages[locale][messages.title.id[(question?.postType)]],
+        : translationMessages[locale][messages.title.id[question?.postType]],
     [question?.postType],
   );
 
@@ -180,7 +177,7 @@ export default compose(
       editQuestionError: makeSelectEditQuestion.selectEditQuestionError(),
       profile: makeSelectProfileInfo(),
     }),
-    dispatch => ({
+    (dispatch) => ({
       getAskedQuestionDispatch: bindActionCreators(getAskedQuestion, dispatch),
       editQuestionDispatch: bindActionCreators(editQuestion, dispatch),
     }),
