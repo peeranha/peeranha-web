@@ -124,7 +124,9 @@ const Tips = ({ faqQuestions }) => {
               </p>
             </li>
           ) : (
-            <li key={item}>{t(item)} </li>
+            <li key={item}>
+              <span>{t(item)}</span>
+            </li>
           ),
         )}
       </Ul>
