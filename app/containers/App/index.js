@@ -414,13 +414,31 @@ const App = ({
 
           <Route
             exact
+            path={'/discussions/:id'}
+            render={(props) => Wrapper(ViewQuestion, props)}
+          />
+
+          <Route
+            exact
             path={routes.expertPostView(':id', ':title')}
             render={(props) => Wrapper(ViewQuestion, props)}
           />
 
           <Route
             exact
+            path={'/experts/:id'}
+            render={(props) => Wrapper(ViewQuestion, props)}
+          />
+
+          <Route
+            exact
             path={routes.tutorialView(':id', ':title')}
+            render={(props) => Wrapper(ViewQuestion, props)}
+          />
+
+          <Route
+            exact
+            path={'/tutorials/:id'}
             render={(props) => Wrapper(ViewQuestion, props)}
           />
 
