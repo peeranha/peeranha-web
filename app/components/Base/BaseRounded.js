@@ -1,9 +1,4 @@
-import {
-  SECONDARY_SPECIAL_2,
-  BORDER_RADIUS_L,
-  EXPERT_BACKLIGHT,
-  TUTORIAL_BACKLIGHT,
-} from 'style-constants';
+import { SECONDARY_SPECIAL_2, BORDER_RADIUS_L } from 'style-constants';
 
 import Base from './index';
 
@@ -15,12 +10,14 @@ const BaseRounded = Base.extend`
 
   :hover {
     box-shadow: 0 5px 5px 0 ${SECONDARY_SPECIAL_2};
-    box-shadow: ${({ isExpert, isTutorial }) =>
+    box-shadow: ${({ isExpert, isTutorial, isDiscussion }) =>
       isExpert
-        ? `6px 6px 5px ${EXPERT_BACKLIGHT}`
+        ? `5px 5px 5px rgba(165, 188, 255, 0.6)`
         : isTutorial
-          ? `6px 6px 5px ${TUTORIAL_BACKLIGHT}`
-          : `0 5px 5px 0 ${SECONDARY_SPECIAL_2}`};
+        ? `5px 5px 5px rgba(135, 210, 151, 0.6)`
+        : isDiscussion
+        ? `5px 5px 5px rgba(242, 163, 159, 0.6)`
+        : `0 5px 5px 0 ${SECONDARY_SPECIAL_2}`};}
   }
 `;
 
