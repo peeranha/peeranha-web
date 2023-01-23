@@ -83,8 +83,8 @@ export const getPostRoute = ({ postType, id, answerId = null, title }) => {
   return tutorialView(id, title);
 };
 
-export const questionEdit = (postType, questionId) =>
-  `/${postType}/${questionId}/edit`;
+export const questionEdit = (postType, questionId, title) =>
+  `/${postType}/${questionId}/${updateTitle(title)}/edit`;
 
 export const answerEdit = (questionId, answerId) =>
   !singleCommId
