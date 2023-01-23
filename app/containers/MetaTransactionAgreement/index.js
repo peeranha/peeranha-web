@@ -10,7 +10,7 @@ import injectReducer from 'utils/injectReducer';
 import {
   DAEMON,
   CURRENCY,
-  META_TRANSACTIONS_ALLOWED,
+  TRANSACTIONS_ALLOWED,
   DISPATCHER_TRANSACTIONS_ALLOWED,
   TORUS_WALLET,
   CONNECTED_WALLET,
@@ -49,19 +49,7 @@ export const MetaTransactionAgreement = ({
   const isTorusWallet = getCookie(CONNECTED_WALLET) === TORUS_WALLET;
   const isBalance =
     Number(ethereum.wallet?.accounts?.[0]?.balance?.[CURRENCY]) > 0;
-
-  const agreeWithMeta = () => {
-    setCookie({
-      name: TYPE_OF_TRANSACTIONS,
-      value: META_TRANSACTIONS_ALLOWED,
-      options: {
-        neverExpires: true,
-        defaultPath: true,
-        allowSubdomains: true,
-      },
-    });
-    hideModal();
-  };
+  const isTransactionType = dataFromCookies === TRANSACTIONS_ALLOWED;
 
   const agreeWithDispatcherTransactions = () => {
     setCookie({
@@ -85,11 +73,8 @@ export const MetaTransactionAgreement = ({
     <>
       {showModal && (
         <Popup size="small" onClose={hideModal}>
-          {!isBalance && dataFromCookies && (
-            <PopupForNotBalance
-              hideModal={hideModal}
-              agreeWithMeta={agreeWithMeta}
-            />
+          {!isBalance && isTransactionType && (
+            <PopupForNotBalance hideModal={hideModal} />
           )}
           {isTorusWallet && !dataFromCookies && (
             <PopupForTorusWallet

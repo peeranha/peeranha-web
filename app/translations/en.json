@@ -1079,10 +1079,10 @@
   "app.containers.TelegramInfo.confirm": "Confirm",
   "app.containers.TelegramInfo.unlink": "Unlink",
 
-  "app.containers.MetaTransactionAgreement.agreeWithMetaTransactions": "We’ve got you covered",
+  "app.containers.MetaTransactionAgreement.agreeWithMetaTransactions": "You don't have enough MATIC to cover this transaction. It's likely to be declined because of insufficient funds. However, there are other ways to send transactions.",
   "app.containers.MetaTransactionAgreement.youNeedMetaBecause": "Your MATIC balance is 0. MATIC is required to pay transaction fees.  ",
   "app.containers.MetaTransactionAgreement.dontWorry": "Don’t worry! We’ve got you covered.",
-  "app.containers.MetaTransactionAgreement.wouldYouLike": "Would you like us to relay your transactions and cover transaction fees?",
+  "app.containers.MetaTransactionAgreement.wouldYouLike": "Would you like to see available options?",
   "app.containers.MetaTransactionAgreement.confirm": "Yes",
   "app.containers.MetaTransactionAgreement.cansel": "No",
   "app.containers.MetaTransactionAgreement.allow": "Allow",
